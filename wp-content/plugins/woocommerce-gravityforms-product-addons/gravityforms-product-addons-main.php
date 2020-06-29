@@ -192,8 +192,9 @@ class WC_GFPA_Main {
 			$gravity_form_data['disable_label_total']    = 'yes';
 
 			$product_form->get_form( $gravity_form_data );
+			echo '<div class="clear"></div>';
 		}
-		echo '<div class="clear"></div>';
+
 	}
 
 

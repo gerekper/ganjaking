@@ -418,10 +418,12 @@ class WC_Catalog_Restrictions_Category_Admin {
 
 	function cat_columns( $columns ) {
 		$new_columns                 = array();
-		$new_columns['cb']           = $columns['cb'];
-		$new_columns['restrictions'] = __( 'Restrictions', 'wc_catalog_restrictions' );
+		if ( isset( $columns['cb'] ) ) {
+			$new_columns['cb'] = $columns['cb'];
+			unset( $columns['cb'] );
+		}
 
-		unset( $columns['cb'] );
+		$new_columns['restrictions'] = __( 'Restrictions', 'wc_catalog_restrictions' );
 
 		return array_merge( $new_columns, $columns );
 	}

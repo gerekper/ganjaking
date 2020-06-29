@@ -1329,11 +1329,6 @@ class WC_Product_Mix_and_Match extends WC_Product {
 	 */
 	public function is_purchasable() {
 
-		$logger = wc_get_logger();
-
-		
-
-
 		$is_purchasable = true;
 		
 		// Products must exist of course
@@ -1353,16 +1348,7 @@ class WC_Product_Mix_and_Match extends WC_Product {
 		} elseif ( false === $this->has_available_children() ) {
 
 			$is_purchasable = false;
-			
-			wc_add_notice( 'container has no available children', 'error' );
 
-
-			$result = ! empty( 'woocommerce_mnm_get_children' ) && isset( $wp_filter['woocommerce_mnm_get_children'] ) ? $wp_filter['woocommerce_mnm_get_children'] : 'none';
-
-
-			$logger->alert( 'not purchasable '. current_action() . ' get available children count = ' . count( $this->get_children() ), array( 'source' => 'kathy' ) );
-
-			
 		}
 
 		/**

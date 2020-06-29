@@ -1,4 +1,10 @@
 *** Gravity Forms Product Add-Ons Changelog ***
+2020.06.25 - version 3.3.14
+    * Update:  WC and WP version compatibility tags.
+    * Fix:  Fix issue with email fields which require email confirmation on subscription renewal.
+    * Fix:  Short circuit get_item_data if subscription_initial_payment is present on the cart item because subscriptions stores the meta data and automatically adds it back in.
+                If we allow this to run, we end up with duplicate cart item meta data.
+
 2020.05.06 - version 3.3.12
     * Fix:  Make sure variation exists before attempting to get the price.
     * Update:  WC and WP version compatibility tags.

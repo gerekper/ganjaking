@@ -1,4 +1,7 @@
 *** Catalog Visibility Options Changelog ***
+2020.06.25 - version 3.2.10
+    * Update: Make sure that the cb column exists before trying to unset it.  Prevents warnings in the product category admin on some sites.
+
 2020.05.06 - version 3.2.9
     * Update:  Make sure locations returned for a product are in array format.
     * Update:  WP and WC version compatibility tags.

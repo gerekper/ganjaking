@@ -1,5 +1,9 @@
 *** WooCommerce Mix and Match Products Changelog***
 
+2020.06.25 - version 1.9.11
+* Fix: Delete accidental logging when container is not purchasable.
+
+
 2020.06.24 - version 1.9.10
 * Fix: Add parameter to wc_mnm_price_format() to return string without HTML. Resolves html in dropdown for All Products with Subscriptions (with bridge plugin).
 
