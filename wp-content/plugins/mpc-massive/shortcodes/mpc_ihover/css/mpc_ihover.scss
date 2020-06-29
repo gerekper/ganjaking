@@ -1,0 +1,25 @@
+/*----------------------------------------------------------------------------*\
+	IHOVER SHORTCODE
+\*----------------------------------------------------------------------------*/
+
+.mpc-ihover-wrapper .mpc-ihover-item {
+	@media screen and ( max-width: 480px ) {
+		margin-left: 0 !important;
+		margin-right: 0 !important;
+	}
+}
+
+/* K. request at Trello */
+.mpc-ihover-wrapper .ih-item.circle.effect17:hover .img:before {
+	box-shadow: inset 0 0 0 16px rgba(255,255,255,.6), 0 1px 2px rgba(0,0,0,.3) !important;
+	opacity: 0;
+}
+
+/* FrontEnd Editor */
+.vc_mpc_ihover.vc_element .vc_controls > .vc_controls-out-tl {
+	left: initial;
+	right: 0;
+}
+.vc_element.vc_mpc_ihover_item {
+	display: inline-block !important;
+}

@@ -1,0 +1,20 @@
+{
+  "name": "mailoptin",
+  "version": "1.0.0",
+  "description": "Best lead Generation, email list building & Newsletter WordPress Plugin.",
+  "main": "gulpfile.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "amdclean": "^2.7.0",
+    "gulp-clean-css": "^3.4.1",
+    "gulp-concat-css": "^2.3.0",
+    "gulp-requirejs-optimize": "^1.2.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "gulp": "gulp"
+  }
+}

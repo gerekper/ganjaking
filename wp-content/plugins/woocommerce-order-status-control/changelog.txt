@@ -1,0 +1,82 @@
+*** WooCommerce Order Status Control Changelog ***
+
+2020.05.04 - version 1.12.3
+ * Misc - Add support for WooCommerce 4.1
+
+2020.03.04 - version 1.12.2
+ * Misc - Add support for WooCommerce 4.0
+
+2020.01.02 - version 1.12.1
+ * Misc - Add support for WooCommerce 3.9
+ * Localization - Add Italian translation
+
+2019.10.21 - version 1.12.0
+ * Misc - Add support for WooCommerce 3.8
+
+2019.08.07 - version 1.11.0
+ * Misc - Add support for WooCommerce 3.7
+ * Misc - Remove support for WooCommerce 2.6
+ * Misc - Require PHP 5.6+
+
+2019.04.04 - version 1.10.1
+ * Misc - Add support for WooCommerce 3.6
+ * Misc - Require PHP 5.4+
+
+2019.01.09 - version 1.10.0
+ * Misc - Upgrade to Framework version 5.3.0
+ * Misc - Remove support for PHP 5.2
+
+2018.10.23 - version 1.9.2
+ * Misc - Add support for WooCommerce 3.5
+
+2018.05.23 - version 1.9.1
+ * Misc - Add support for WooCommerce 3.4
+
+2018.01.26 - version 1.9.0
+ * Misc - Add support for WooCommerce 3.3
+ * Misc - Remove support for WooCommerce 2.5
+ * Fix - Update settings field location in general options
+
+2017.03.28 - version 1.8.0
+ * Misc - Added support for WooCommerce 3.0
+ * Misc - Removed support for WooCommerce 2.4
+
+2017.01.11 - version 1.7.1
+ * Tweak - Skips auto-completing virtual orders if an order contains deleted or non-existent products
+ * Fix - PHP errors when trying to auto-complete virtual orders with deleted products
+
+2016.08.31 - version 1.7.0
+ * Feature - Setting 'Orders to Auto-Complete' to 'None' now ensures that no orders are automatically completed when payment is processed, circumventing WC core behaviour
+
+2016.06.02 - version 1.6.0
+ * Misc - Added support for WooCommerce 2.6
+ * Misc - Removed support for WooCommerce 2.3
+
+2016.01.14 - version 1.5.0
+ * Misc - Added support for WooCommerce 2.5
+ * Misc - Removed support for WooCommerce 2.2
+
+2015.07.28 - version 1.4.0
+ * Misc - WooCommerce 2.4 Compatibility
+
+2015.02.09 - version 1.3.0
+ * Misc - WooCommerce 2.3 Compatibility
+
+2014.11.25 - version 1.2.2
+ * Fix - Add WooThemes Updater keys to support license key registration and automatic updates
+
+2014.09.07 - version 1.2.1
+ * Misc - WooCommerce 2.2 Compatibility
+
+2014.03.24 - version 1.2.0
+ * Tweak - Now using SkyVerge Plugin Framework
+ * Misc - Now an official WooCommerce extension listed on WooThemes.com!
+
+2014.01.24 - version 1.1
+ * Misc - WooCommerce 2.1 Compatibility, removed WooCommerce 1.6.6 compatibility
+
+2013.06.03 - version 1.0.1
+ * Misc - WooCommerce 1.6.6 compatibility
+
+2013.05.08 - version 1.0
+ * Initial Release

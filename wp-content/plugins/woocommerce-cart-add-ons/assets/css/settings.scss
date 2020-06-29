@@ -1,0 +1,23 @@
+.widefat th, .widefat td  { overflow: inherit !important; }
+
+.priority-alignment {
+    text-align: center;
+    vertical-align: top;
+}
+
+.column-drag .dashicons {
+	color: #CCCCCC;
+	cursor: move;
+}
+
+.ui-sortable-placeholder {
+	background-color: #DDDDDD;
+}
+
+.column-remove-row a {
+	color: #a00;
+}
+
+.column-remove-row a:hover {
+	color: #dc3233;
+}

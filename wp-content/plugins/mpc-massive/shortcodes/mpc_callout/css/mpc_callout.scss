@@ -1,0 +1,266 @@
+/*----------------------------------------------------------------------------*\
+	CALLOUT SHORTCODE
+\*----------------------------------------------------------------------------*/
+.mpc-callout {
+	display: block;
+	position: relative;
+
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.mpc-callout__content {
+	overflow: hidden;
+
+	.mpc-callout__description {
+		padding: 0;
+	}
+}
+
+.mpc-callout__heading {
+	padding: 0;
+}
+
+.mpc-callout__icon-wrap {
+	display: block;
+
+	&:not(.mpc-icon--image) i {
+		width: 1.35em;
+		height: 1.35em;
+		line-height: 1.35em;
+		font-style: normal;
+	}
+
+	i {
+		display: block;
+		text-align: center;
+	}
+
+	img {
+		vertical-align: middle;
+	}
+}
+
+.mpc-callout__icon {
+	display: inline-block;
+	max-width: 100%; // Firefox
+}
+
+/* Style 1 */
+.mpc-callout--style_1 {
+	display: flex;
+	align-items: center;
+	width: 100%;
+
+	.mpc-callout__content {
+		flex: 1 1 auto;
+
+		p:first-child {
+			margin-top: 0 !important;
+		}
+
+		p:last-child {
+			margin-bottom: 0 !important;
+		}
+	}
+
+	.mpc-callout__button {
+		white-space: nowrap;
+		flex: 0 0 auto;
+
+		.mpc-button {
+			vertical-align: bottom;
+		}
+	}
+}
+
+/* Style 2 */
+.mpc-callout--style_2 {
+	text-align: center;
+}
+
+/* Style 3 */
+.mpc-callout--style_3 {
+	text-align: center;
+}
+
+/* Style 4 */
+.mpc-callout--style_4 {
+	display: table;
+	width: 100%;
+
+	.mpc-callout__icon-wrap {
+		display: table-cell;
+		vertical-align: middle;
+		//width: 1px;
+	}
+
+	.mpc-callout__content {
+		display: table-cell;
+		vertical-align: middle;
+		//width: 100%;
+
+		p:first-child {
+			margin-top: 0 !important;
+		}
+
+		p:last-child {
+			margin-bottom: 0 !important;
+		}
+	}
+
+	.mpc-callout__button {
+		display: table-cell;
+		vertical-align: middle;
+		white-space: nowrap;
+		//text-align: right;
+
+		.mpc-button {
+			vertical-align: bottom;
+		}
+	}
+}
+
+/* Style 5 */
+.mpc-callout--style_5 {
+	display: table;
+	width: 100%;
+
+	.mpc-callout__content {
+		display: table-cell;
+		width: 40%;
+		text-align: left;
+		vertical-align: middle;
+
+		p:first-child {
+			margin-top: 0 !important;
+		}
+
+		p:last-child {
+			margin-bottom: 0 !important;
+		}
+	}
+
+	.mpc-callout__icon-wrap {
+		display: table-cell;
+		width: 10%;
+		vertical-align: middle;
+		text-align: center;
+	}
+
+	.mpc-callout__button {
+		display: table-cell;
+		width: 40%;
+		text-align: right;
+		vertical-align: middle;
+
+		.mpc-button {
+			vertical-align: bottom;
+		}
+	}
+}
+
+/* Style 6 */
+.mpc-callout--style_6 {
+	text-align: center;
+}
+
+/* Style 7 */
+.mpc-callout--style_7 {
+	text-align: center;
+}
+
+/* Style 8 */
+.mpc-callout--style_8 {
+	.mpc-callout__icon-wrap {
+		float: left;
+	}
+}
+
+/* Style 9 */
+.mpc-callout--style_9 {
+	.mpc-callout__icon-wrap {
+		float: right;
+	}
+}
+
+@media screen and (max-width: 992px) {
+	.mpc-callout__heading,
+	.mpc-callout__description,
+	.mpc-callout__button,
+	.mpc-callout__icon-wrap {
+		text-align: center !important;
+	}
+
+	.mpc-callout__heading {
+		line-height: 1.25em !important;
+	}
+
+	.mpc-callout__heading,
+	.mpc-callout__description {
+		max-width: initial !important;
+	}
+
+	.mpc-callout--style_1,
+	.mpc-callout--style_4,
+	.mpc-callout--style_5,
+	.mpc-callout--style_8,
+	.mpc-callout--style_9 {
+		display: block;
+
+		.mpc-callout__icon-wrap,
+		.mpc-callout__content,
+		.mpc-callout__button {
+			display: block;
+			width: 100%;
+		}
+
+		.mpc-callout .mpc-button,
+		.mpc-callout__icon {
+			margin-left: 0 !important;
+			margin-right: 0 !important;
+		}
+		.mpc-callout__icon {
+			padding-left: 0 !important;
+			padding-right: 0 !important;
+		}
+	}
+
+	.mpc-callout .mpc-button,
+	.mpc-callout__icon-wrap,
+	.mpc-callout__heading,
+	.mpc-callout__description {
+		margin: .5em auto .5em !important;
+	}
+
+	.mpc-callout .mpc-divider-wrap .mpc-divider {
+		margin: .25em auto !important;
+	}
+
+	.mpc-callout--style_7 {
+		.mpc-callout__icon-wrap {
+			margin-top: 0 !important;
+		}
+	}
+
+	.mpc-callout--style_5 {
+		.mpc-callout__icon-wrap {
+			margin-top: 0 !important;
+		}
+		.mpc-callout__heading {
+			margin-bottom: 0 !important;
+		}
+	}
+}
+
+@media screen and (min-width: 992px) and (max-width: 1199px) {
+	.mpc-callout--style_1,
+	.mpc-callout--style_4,
+	.mpc-callout--style_5,
+	.mpc-callout--style_8,
+	.mpc-callout--style_9 {
+		.mpc-callout__icon-wrap {
+			max-width: 50%;
+		}
+	}
+}

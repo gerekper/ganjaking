@@ -1,0 +1,265 @@
+/**1.4.2 - 2020.06.12**/
+- Fixed: Error on Edge, Safari
+- Fixed: "Hide out of stock" option not working on cart/checkout page
+- Fixed: Conflict with WooCommerce Product Bundles
+- Fixed: Conflict with WooCommerce Product Add-on required fields
+- Fixed: Support class request
+- Updated: Discount bar can now be used without Upsells
+- Added: Option to always display discount bar when customers have not reached the minimum amount
+
+/**1.4.1 - 2019.12.27**/
+- Updated: Compatibility with WP 5.3 and WooCommerce 3.8
+- Added: Exclude categories to enable Upsell
+- Added: Exclude categories to display in Upsell
+- Added: Options to change title and action of button "Continue Shopping"
+- Added: Multilingual support(WPML and Polylang)
+
+/**1.4.0 - 2019.07.12**/
+- Fixed: Variations selection problem of Upsell
+- Fixed: Rearrange bundle items
+- Fixed: Conflict with Contact form 7
+- Fixed: Error on IE11
+- Fixed: Conflict with Yith Bundle
+- Optimize: Cache data to improve performance
+- Added: Exclude products that use upsell
+- Added: Options to select template for upsells/crosssell on mobile
+- Added: Options to hide crosssell if one item of bundle is out of stock
+- Added: Default categories for cross-sell bundle
+- Added: Able to rearrange upsell products display order
+- Updated: Add product link to product title and image
+- Updated: Use <span> instead of <h2> for product title in upsell popup for SEO purpose
+- Updated: Show image of add to cart variation instead of variable
+- Updated: Hide out of stock variation of bundle if "Hide out of stock items from the catalog" in WooCommerce settings is enabled
+
+/**1.3.9.2 - 2019.02.25**/
+- Fixed: Problem when turn on option Add to cart button with WooCommerce product bundle
+- Fixed: Warning with function scandir
+- Fixed: Variation error when using nice attributes feature of AliDropship Woo Plugin
+- Fixed: Cannot close discount bar message
+- Fixed: Overlay not close on archive page when adding products that do not have upsells to cart
+- Fixed: Conflict JS Product thumb of Flatsome
+- Fixed: Too many alert when no variation selected and add to cart button clicked
+- Fixed: Mobile CSS
+- Fixed: Add text add to cart to compatible with Facebook pixel
+- Updated: Able to get key in WooCommerce Boost Sales Settings
+
+/**1.3.9.1 - 2019.02.02**/
+- Fixed: Remove ajax add to cart for upsell/crosssell on checkout/cart page
+- Fixed: Remove queued add to cart messages
+
+/**1.3.9 - 2019.02.01**/
+- Optimize: Up-sells speed load in single product page.
+- Fixed: Up-sells everywhere
+- Fixed: Up-sells alert product variations
+- Fixed: Remove JS libraries in setting page backend
+- Fixed: Check update
+- Fixed: WP admin bar broken layout with discount bar
+- Fixed: Tab JS in backend
+- Fixed: Exclude products
+- Fixed: Cross-sell: remove products which are already in bundle
+- Updated: Class support
+- Updated: Remove slider for upsell/crosssell on mobile
+- Added: Slide for Cross-sells below add to cart button, above Description tabs
+- Added: Hide cross sell on Single product page
+- Added: Recently viewed products on upsells
+- Added: Hide products if added to cart on upsells
+- Added: Able to set product bundle name
+- Added: Set bundle discount rules
+- Added: Ajax add to cart for products on upsell/crosssell popup
+- Added: Sync cross-sell products from WooCommerce
+- Added: Use a bundle of other products
+
+/**1.3.8.5 - 2018.08.06**/
+- Fixed: Flex library
+- Fixed: List external products show on cross-sells page
+- Fixed: Show save price of cross-sells on mobile
+- Fixed: Ajax add to cart on cross-sells conflict with WooCommerce Side Cart
+- Fixed: Show next/prev flex slider on mobile
+- Fixed: Class add to cart button
+- Fixed: Show Overlay when Upsells empty
+- Compatible: Woo Floating Cart
+
+/**1.3.8.4 - 2018.07.19**/
+- Fixed: Load JS product variations
+- Fixed: Upsell page rule
+- Fixed: Show thank you page.
+
+/**1.3.8.3 - 2018.07.06**/
+- Fixed: Message thank you html
+- Fixed: Loading JS
+
+/**1.3.8.2 - 2018.06.23**/
+- Added: Category class
+- Updated: Check update
+- Fixed: Button on upsells
+- Fixed: Overlay Upsell
+- Fixed: CSS max width image size
+- Fixed: Scroll with discount bar without upsells
+- Fixed: CSS with font size
+
+/**1.3.8.1 - 2018.06.14**/
+- Fixed: CSS on mobile
+- Fixed: CSS Price
+- Fixed: Subcatgory with Ajax add to cart
+
+/**1.3.8 - 2018.06.13**/
+- Fixed: Remove esc_html with title
+- Fixed: Quantity field on upsell and cross sell
+- Fixed: Conflict CSS flex view port
+- Fixed: Auto detect RTL
+- Added: Hide product out of stock
+- Added: Go to cart page when product is added cart on upsells
+- Added: Get product from subcategory
+- Added: Override the same product of combo on cart
+
+/**1.3.7 - 2018.05.18**/
+- Fixed: Add notify when add product by ajax add to cart button
+- Fixed: Button flex on Mobile
+- Fixed: Add first cross-sell product
+- Fixed: Thumb and Title on upsells
+
+/**1.3.6.2 - 2018.05.12**/
+- Fixed: Hide Add to cart button on upsells, cross-sells
+
+/**1.3.6.1 - 2018.05.11**/
+- Fixed: No scroll with product that has not upsells
+- Fixed: Hide add to cart button when turn on ajax add to cart
+
+/**1.3.6 - 2018.05.11**/
+- Fixed: Show ajax add to cart button
+- Fixed: Update mini cart by add to cart ajax button
+- Fixed: Not scroll when show cross-sells
+- Fixed: Show alert with Variaton Id is Null
+- Added: Show Saved Type option
+- Added: Addons page
+
+/**1.3.5 - 2018.05.09**/
+- Fixed: CSS Upsells
+- Fixed: JS send after Add to cart
+- Fixed: Ajax Add to Cart
+- Fixed: Class Support
+- Fixed: Add to cart on Shop page(Flatsome theme)
+- Added: Removable parent product in Cross-sells
+
+/**1.3.4 - 2018.04.20**/
+- Fixed: Select width in upsells, cross-sells
+- Fixed: Products in cross-sells backend.
+- Fixed: Translate
+- Removed: Some hook in bundle.
+
+/**1.3.3 - 2018.04.11**/
+- Fixed: Removed bundle in cross-sells
+- Fixed: CSS element with box sizing
+- Fixed: Show bundle in checkout, cart page with Bundle below add to cart button
+
+/**1.3.2 - 2018.03.23**/
+- Fixed: CSS
+- Fixed: Removed other JS in Setting page
+- Fixed: Total tax on discount bar
+- Fixed: Max price of product variation
+- Fixed: JS Add to cart on archive page
+
+/**1.3.1 - 2018.03.02**/
+- Fixed: RTL Upsells template
+- Fixed: Data init
+- Fixed: Upsells with bundle
+- Fixed: Ajax URL
+- Fixed: Compatible with Flatsome theme
+- Fixed: Rename overlay class
+- Fixed: Add to cart template
+- Fixed: Field of variable product
+- Added: Custom CSS
+- Added: Custom Icon color
+
+/**1.3.0 - 2018.02.21**/
+- Fixed: Upsell template
+- Fixed: Ajax callback upsell
+- Added: Search products in upsells and cross-sells page
+- Added: Cross-sell on product single page
+- Added: The same bundle not show in cart page, check out page
+- Added: RTL support
+- Added: New Icon
+
+/**1.2.2 - 2017.11.30**/
+- Fixed: Responsive
+
+/**1.2.1 - 2017.11.25**/
+- Fixed: Remove class bounce
+- Fixed: Thank you page
+- Fixed: Default color
+- Fixed: Load items of manager cross-sells page backend
+
+/**1.2.0 - 2017.11.20**/
+- Fixed: Out of stock
+- Fixed: Button Ajax
+- Fixed: Button Color
+- Fixed: Price with tax
+- Added: More options
+- Rebuild: All options
+
+/**1.1.5 - 2017.10.16**/
+- Fixed: Get coupon in fields file.
+- Fixed: Remove view cart button on Upsells
+- Fixed: CSS of boost sales
+- Added: Coupon with multi currency
+
+/**1.1.4 – 2017.09.18 **/
+- Added: Option label related products in up-sells popup
+- Added: Variation on Cross-sells
+- Added: Auto update
+- Fixed: Discount process bar
+- Optimized: Get option
+
+/**1.1.3 – 2017.09.07 **/
+- Fixed: Responsive popup up-sell and cross-sell on mobile.
+- Fixed: Image product holder deprecated.
+- Added: Custom background and color for cross-sells popup
+
+/**1.1.2 – 2017.07.01**/
+- Fixed: Remove navigation popup of up-sells product when number of product is not enough to fit slide
+- Fixed: No product chosen in exclude product when select show upsell product according to category
+- Fixed: Conflict CSS Flex slider
+- Fixed: Reset query
+
+/**1.1.1 – 2017.06.14**/
+- Fixed: Ajax search Exclude product option in Upsell setting page
+- Fixed: List name product in cross-sell and up-sell
+
+/**1.1 – 2017.06.13**/
+- Updated: Add cross-sells product directly on cross sell page and automatic generate product Bundle
+- Added: More style for popup up-sells product
+- Fixed: Exactly cross-sells product price on cart page
+- Fixed: Remove deactive free version
+- Updated: Support link in setting page
+- Fixed: Item per row and max item per row on up-sells product.
+- Fixed: show product of category (up-sells product) in single product page.
+
+/**1.0.5– 2017.05.16**/
+- Fixed: Display ID for select up-sells product.
+- Fixed: Variable product on up-sells popup.
+- Updated: Cross-sells on checkout page.
+- Fixed: Variable products in cross-sells product.
+
+/**1.0.4 – 2017.05.08**/
+- Added: Cross-sells on cart page
+– Updated: More option for message purchased.
+- Fixed: Bundle in bundle
+
+/**1.0.3 - 2017.4.24 **/
+- Update: Select all products to add up-sells with 1 click.
+- Update: Choose  all products in category to show up-sells instead of chose each product up-sells.
+- Fixed: Deactivate free version when activate premium version.
+- Fixed: Cross-sells slider
+
+/**1.0.2 - 2017.4.15 **/
+- Fixed: Updated icon discount progress bar
+- Fixed: Image thumbnail up-sell
+- Fixed: Add up-sells admin page
+- Fixed: Responsive popup up sells product
+- Fixed: Pagination cross-sells admin page
+
+/**1.0.1 - 2017.4.7 **/
+- Fixed: Cross sell
+
+/**1.0.0 - 2017.4.5 **/
+~ The first released

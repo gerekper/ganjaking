@@ -1,0 +1,192 @@
+*** Bulk Stock Management Changelog ***
+
+2020-06-10 - version 2.2.28
+* Tweak - WC 4.2 compatibility.
+
+2020-05-12 - version 2.2.26
+* Fix - Backorder status bulk update not working.
+* Fix - PHP warning when doing a search.
+
+2020-04-29 - version 2.2.25
+* Tweak - WC 4.1 compatibility.
+
+2020-03-05 - version 2.2.24
+* Fix - Use correct HTML for updated notices.
+* Fix - Error when trying to update bulk stock items.
+
+2020-03-04 - version 2.2.23
+* Fix - Bump WC tested up to header.
+
+2020-03-04 - version 2.2.22
+* Tweak - WC tested up to 4.0.
+
+2020-02-18 - version 2.2.21
+* Tweak - Remove legacy code.
+
+2020-01-21 - version 2.2.20
+* Tweak - WC tested up to 3.9
+
+2019-11-04 - version 2.2.19
+* Tweak - WC tested up to 3.8
+
+2019-08-08 - version 2.2.18
+* Tweak  - WC tested up to 3.7
+
+2019-06-19 - version 2.2.17
+* Fix    - Stock Report doesn't work when SKU is missing.
+
+2019-04-16 - version 2.2.16
+* Tweak  - WC tested up to 3.6
+
+2018-10-29 - version 2.2.15
+* Fix    - SKUs aren't working with Search.
+
+2018-09-25 - version 2.2.14
+* Fix    - Pagination broken.
+* Fix    - Category filter fixed for products.
+* Update - WC 3.4 compatibility.
+
+2018-05-31 - version 2.2.13
+* Fix    - Filtering by category does not work any more.
+
+2018-05-21 - version 2.2.12
+* Fix    - Orphaned Variations showing in product list.
+* Update - WC 3.4 compatibility.
+
+2017-12-12 - version 2.2.11
+* Update - WC tested up to version.
+
+2017-10-16 - version 2.2.10
+* Remove - Category filter on All and Variations tab as they don't apply.
+
+2017-08-31 - version 2.2.9
+* Fix - Variations with deactivated stock management do not show in list of products not using stock management.
+
+2017-05-10 - version 2.2.8
+* Fix - Hyphens in title break Variation title in Stock Report.
+* Fix - Variations remain hidden when bulk stock management is used to update stock.
+
+2017-04-03 - version 2.2.7
+* Fix - Additional updates for WooCommerce 3.0 compatibility.
+
+2017-02-28 - version 2.2.6
+* Fix - Define constant to represent plugin version.
+
+2017-02-28 - version 2.2.5
+* Fix - Issue with quantity appearing as N/A.
+
+2017-02-22 - version 2.2.4
+* Fix - Update for WooCommerce 3.0 compatibility.
+
+2016-11-18 - version 2.2.3
+* Tweak - Variations ordering to follow product edit page.
+
+2016-08-03 - version 2.2.2
+* Fix - Variation quantity column is not sorting correctly.
+* Tweak - Update stock report Unit Cost header to Unit Retail Price to be more clear.
+
+2015-11-12 - version 2.2.1
+* Tweak - New wc_bulk_stock_after_process_action and wc_bulk_stock_before_process_action actions
+
+2015-10-29 - version 2.2.0
+* Refactored bulk action processing
+* Fix - Request URI too large
+
+2015-08-07 - version 2.1.2
+* Fix - After filtering on category, pagination would not work within the chosen category
+
+2015-07-23 - version 2.1.1
+* Fix - View stock report page was not properly showing variation data
+
+2015-07-19 - version 2.1.0
+* New - Added screen options to bulk product stock list
+
+2015-07-13 - version 2.0.1
+* Fix - error when bulk editing stock status
+* Fix - ID column is not sortable
+* Fix - Variations filter product category not displaying correctly
+* Fix - Variations filter only page count was not correct
+* New - Introduce wc_stock_management_list_per_page filter to control per page items
+
+2015-06-03 - version 2.0.0
+* Updated save and data structure to WC 2.3 standards.
+* Improved and cleaned up UI.
+* Refactored code base.
+
+2014-03-20 - version 1.9.3
+* Fix variations not showing stock status
+* Fix variations not updating stock status when quantity is updated
+
+2014-12-11 - version 1.9.2
+* Fix PHP notices on bulk edit page screen
+
+2014-07-10 - version 1.9.1
+* Trigger edit post action on save so other plugins know when an update has occured
+
+2014-06-30 - version 1.9.0
+* Filter menu capability with wc_bulk_stock_cap
+* Change manu capability to edit_others_products
+* Use wc_product_sku_enabled()
+* Dropped WC < 2.1 support
+* Refactored source
+* Renamed main file
+* Renamed textdomain
+
+2014-04-16 - version 1.8.6
+* Fix update of stock status for variable products
+* Change stock field placeholder when manage stock is off
+
+2014-02.23 - version 1.8.5
+* wc_bulk_stock_before_process_qty and wc_bulk_stock_after_process_qty hooks
+
+2014-01-16 - version 1.8.4
+* 2.1 compat
+
+2013-11-08 - version 1.8.3
+* Better handling when skus are disabled
+
+2013-06-17 - version 1.8.2
+* Stock report fix
+
+2013-03-08 - version 1.8.1
+* Fix capabilities
+
+2013-01-11 - version 1.8.0
+* WC 2.0 Compat
+
+2012-12-04 - version 1.7.2
+* New updater
+
+2012-09-19 - version 1.7.1
+* Fix any category filter
+
+2012-09-19 - version 1.7
+* Removed confusing N/A Labels
+* Sort by meta_value_num to fix quantity based sorting
+
+2012-09-19 - version 1.6.1
+* Filter by category
+
+2012-06-29 - version 1.6
+* Bulk edit backorder settings
+
+2012-06-29 - version 1.5
+* More ordering tweaks for the report itself - parents are shown with variations
+* Correctly show parent sku if variation sku is blank
+* Only show variation title when not nested under parent (on report)
+
+2012-06-29 - version 1.4.1
+* get_sku()
+* Change report ordering
+
+2012-06-29 - version 1.4
+* Show attributes in report
+
+2012-04-26 - version 1.3
+* Fix conflict with amazon s3 storage
+
+2012-04-17 - version 1.2
+* Display variation attributes in the list
+
+2012-03-29 - version 1.0
+* First Release

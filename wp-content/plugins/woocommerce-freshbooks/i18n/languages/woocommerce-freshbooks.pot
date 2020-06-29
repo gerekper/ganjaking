@@ -1,0 +1,448 @@
+# Copyright (C) 2020 SkyVerge
+# This file is distributed under the GNU General Public License v3.0.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce FreshBooks 3.14.1\n"
+"Report-Msgid-Bugs-To: "
+"https://woocommerce.com/my-account/marketplace-ticket-form/\n"
+"POT-Creation-Date: 2020-01-02 21:12:24+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: class-wc-freshbooks.php:272
+msgid "Missing API URL or Authentication Token"
+msgstr ""
+
+#: class-wc-freshbooks.php:277
+msgid "Incorrect API URL"
+msgstr ""
+
+#: class-wc-freshbooks.php:326
+msgid ""
+"Thanks for upgrading to the latest WooCommerce FreshBooks plugin! Please "
+"double-check your %1$sinvoice settings%2$s."
+msgstr ""
+
+#: class-wc-freshbooks.php:328
+msgid ""
+"Thanks for installing the WooCommerce FreshBooks plugin! To get started, "
+"please %1$sadd your FreshBooks API credentials%2$s. "
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce FreshBooks"
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-admin.php:92
+msgid "FreshBooks Client Details"
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-admin.php:95
+msgid "User ID"
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-admin.php:98
+msgid "The FreshBooks Client ID for the user. Only edit this if necessary."
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-admin.php:137
+msgid "Recreate FreshBooks Webhook"
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-admin.php:138
+msgid "Recreate webhook now"
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-admin.php:139
+msgid "This tool will recreate your FreshBooks webhook."
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-orders-admin.php:88
+msgid "FreshBooks Invoice Info"
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-orders-admin.php:104
+msgid "Freshbooks Invoice Status"
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-orders-admin.php:144
+msgid "Status"
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-orders-admin.php:148
+msgid "Number"
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-orders-admin.php:149
+msgid "View in FreshBooks"
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-orders-admin.php:156
+msgid "Create an invoice for this order to see invoice information."
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-orders-admin.php:197
+msgid "Invoice Status"
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-orders-admin.php:244
+#: includes/admin/class-wc-freshbooks-orders-admin.php:331
+#: includes/admin/class-wc-freshbooks-orders-admin.php:445
+msgid "Create & Send Invoice"
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-orders-admin.php:270
+msgid "Show all Invoice Statuses"
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-orders-admin.php:277
+msgid "Not Exported"
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-orders-admin.php:332
+#: includes/admin/class-wc-freshbooks-orders-admin.php:446
+msgid "Create Draft Invoice"
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-orders-admin.php:333
+#: includes/admin/class-wc-freshbooks-orders-admin.php:460
+msgid "Apply Invoice Payment"
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-orders-admin.php:334
+msgid "Update Invoice Status"
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-orders-admin.php:335
+#: includes/admin/class-wc-freshbooks-orders-admin.php:450
+msgid "Update Invoice from Order"
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-orders-admin.php:455
+msgid "Send Invoice"
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-products-admin.php:78
+#: includes/admin/class-wc-freshbooks-products-admin.php:134
+msgid "FreshBooks Item"
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-products-admin.php:82
+#: includes/admin/class-wc-freshbooks-products-admin.php:142
+#: includes/admin/class-wc-freshbooks-settings.php:442
+msgid "None"
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-products-admin.php:87
+#: includes/admin/class-wc-freshbooks-products-admin.php:135
+msgid "Choose which FreshBooks item to link to this product."
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-products-admin.php:149
+msgid "Set all other variations to this item"
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-settings.php:46
+msgid "FreshBooks"
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-settings.php:133
+msgid "API Settings"
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-settings.php:138
+msgid "API URL"
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-settings.php:139
+msgid "Enter the API URL shown on the FreshBooks API page."
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-settings.php:146
+msgid "Authentication Token"
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-settings.php:147
+msgid "Enter the Authentication token shown on the FreshBooks API page."
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-settings.php:154
+msgid "Debug Mode"
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-settings.php:155
+msgid ""
+"This logs API requests/responses to the WooCommerce log. Please only enable "
+"this if you are having issues."
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-settings.php:159
+msgid "Off"
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-settings.php:160
+msgid "Save to Log"
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-settings.php:170
+msgid "Invoice Settings"
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-settings.php:175
+msgid "Default Client"
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-settings.php:176
+msgid ""
+"Select a client to create all invoices under, or select \"none\" to create "
+"a new client for each customer."
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-settings.php:187
+msgid "Default Language"
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-settings.php:188
+msgid ""
+"Chose the default language used for invoices. This defaults to your site "
+"language."
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-settings.php:199
+msgid "Send Invoices By"
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-settings.php:200
+msgid ""
+"Select how to send invoices. If you select Snail Mail, you must have enough "
+"stamps in your FreshBooks account."
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-settings.php:203
+msgid "Email"
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-settings.php:204
+msgid "Snail Mail"
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-settings.php:212
+msgid "Use Order Number as Invoice Number"
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-settings.php:213
+msgid ""
+"Enable this to use the order number as the invoice number. Disable to allow "
+"FreshBooks to auto-generate the invoice number."
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-settings.php:221
+msgid "Invoice Number Prefix"
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-settings.php:222
+msgid "Enter a prefix for the invoice number or leave blank to not use a prefix."
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-settings.php:229
+msgid "Display Link in Recent Orders"
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-settings.php:230
+msgid ""
+"Enable this to display a \"View Invoice\" link for customers on the My "
+"Account page."
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-settings.php:240
+msgid "Invoice Workflow"
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-settings.php:245
+msgid "Automatically Create Invoices"
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-settings.php:246
+msgid ""
+"Enable this to automatically create invoices for new orders, otherwise "
+"invoices must be created manually."
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-settings.php:254
+msgid "Automatically Send Invoices"
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-settings.php:255
+msgid ""
+"Enable this to automatically send invoices after creation. Disable to leave "
+"created invoices as drafts."
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-settings.php:263
+msgid "Automatically Apply Payments"
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-settings.php:264
+msgid ""
+"Enable this to automatically apply invoice payments for orders that have "
+"received payment."
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-settings.php:272
+msgid "Payment Gateway Settings"
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-settings.php:284
+msgid "Send price inclusive of tax"
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-settings.php:285
+msgid ""
+"Enable to send prices inclusive of tax. Disable to send tax as a separate "
+"line."
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-settings.php:309
+msgid "Payment Type Settings"
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-settings.php:341
+msgid "WooCommerce Gateway"
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-settings.php:345
+msgid "FreshBooks Payment Type"
+msgstr ""
+
+#: includes/admin/class-wc-freshbooks-settings.php:366
+msgid "Gateway Enabled"
+msgstr ""
+
+#: includes/api/class-wc-freshbooks-api-request.php:269
+msgid "Product"
+msgstr ""
+
+#: includes/api/class-wc-freshbooks-api-request.php:288
+msgid "Cart Discount"
+msgstr ""
+
+#: includes/api/class-wc-freshbooks-api-request.php:288
+msgid "Product Discount"
+msgstr ""
+
+#: includes/api/class-wc-freshbooks-api-request.php:292
+#. translators: Placeholders: %1$s - coupon type, %2$s - coupon description
+msgid "%1$s - %2$s"
+msgstr ""
+
+#: includes/api/class-wc-freshbooks-api-request.php:303
+#: includes/api/class-wc-freshbooks-api-request.php:304
+msgid "Order Discount"
+msgstr ""
+
+#: includes/api/class-wc-freshbooks-api-request.php:314
+msgid "Fee"
+msgstr ""
+
+#: includes/api/class-wc-freshbooks-api-request.php:325
+msgid "Shipping"
+msgstr ""
+
+#: includes/api/class-wc-freshbooks-api-response.php:124
+msgid "N/A"
+msgstr ""
+
+#: includes/api/class-wc-freshbooks-api-response.php:145
+msgid "Created invoice ID is missing"
+msgstr ""
+
+#: includes/api/class-wc-freshbooks-api-response.php:239
+msgid "Created client ID is missing"
+msgstr ""
+
+#: includes/api/class-wc-freshbooks-api-response.php:315
+msgid "Created payment ID is missing"
+msgstr ""
+
+#: includes/api/class-wc-freshbooks-api-response.php:437
+msgid "Created webhook ID is missing"
+msgstr ""
+
+#: includes/class-wc-freshbooks-frontend.php:74
+msgid "View Invoice"
+msgstr ""
+
+#: includes/class-wc-freshbooks-handler.php:76
+msgid "You do not have sufficient permissions to access this page."
+msgstr ""
+
+#: includes/class-wc-freshbooks-handler.php:81
+msgid "You have taken too long, please go back and try again."
+msgstr ""
+
+#: includes/class-wc-freshbooks-order.php:124
+#. translators: Placeholders: %s - sending method
+msgid "FreshBooks invoice sent via %s."
+msgstr ""
+
+#: includes/class-wc-freshbooks-order.php:168
+msgid "FreshBooks invoice created."
+msgstr ""
+
+#: includes/class-wc-freshbooks-order.php:172
+msgid "FreshBooks draft invoice created."
+msgstr ""
+
+#: includes/class-wc-freshbooks-order.php:186
+#. translators: Placeholders: %s - error message
+msgid "Unable to create FreshBooks invoice (%s)."
+msgstr ""
+
+#: includes/class-wc-freshbooks-order.php:215
+msgid "FreshBooks invoice updated."
+msgstr ""
+
+#: includes/class-wc-freshbooks-order.php:223
+#. translators: Placeholders: %s - error message
+msgid "Unable to update FreshBooks invoice (%s)."
+msgstr ""
+
+#: includes/class-wc-freshbooks-order.php:316
+msgid "New FreshBooks client created."
+msgstr ""
+
+#: includes/class-wc-freshbooks-order.php:352
+msgid "FreshBooks payment applied."
+msgstr ""
+
+#: includes/class-wc-freshbooks-order.php:362
+#. translators: Placeholders: %s - error message
+msgid "FreshBooks payment could not be applied (%s)."
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.woocommerce.com/products/woocommerce-freshbooks/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"A full-featured FreshBooks integration for WooCommerce, automatically sync "
+"your orders with invoices and more!"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "SkyVerge"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://www.woocommerce.com"
+msgstr ""
+
+#: includes/api/class-wc-freshbooks-api-request.php:93
+msgctxt "hash before the order number"
+msgid "#"
+msgstr ""

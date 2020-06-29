@@ -1,0 +1,26 @@
+/*----------------------------------------------------------------------------*\
+	WC CAROUSEL PRODUCTS SHORTCODE
+\*----------------------------------------------------------------------------*/
+.mpc-wc-carousel-products { -webkit-box-sizing: border-box; box-sizing: border-box; }
+
+.mpc-wc-carousel-products.mpc-carousel--stretched .slick-list { overflow: visible; }
+
+.mpc-wc-carousel-products .slick-slide > div:last-child > .mpc-wc-product, .mpc-wc-carousel-products .slick-slide.mpc-wc-product { margin-bottom: 0 !important; }
+
+.mpc-wc-carousel-products .mpc-wc-product { display: inline-block; vertical-align: bottom; height: auto !important; max-width: 100% !important; overflow: hidden; }
+
+.mpc-wc-carousel-products:focus, .mpc-wc-carousel-products *:focus { outline: none; -webkit-outline: none; }
+
+.mpc-wc-carousel-products[data-slick-cols="1"] .mpc-wc-product { width: 100%; }
+
+.mpc-wc-carousel-products[data-slick-cols="2"] .mpc-wc-product { width: 50%; }
+
+.mpc-wc-carousel-products[data-slick-cols="3"] .mpc-wc-product { width: 33%; }
+
+.mpc-wc-carousel-products[data-slick-cols="3"] .mpc-wc-product:last-child { width: 34%; }
+
+.mpc-wc-carousel-products[data-slick-cols="4"] .mpc-wc-product { width: 25%; }
+
+.mpc-navigation--posts { text-align: right; width: 100%; margin: 1em 0; }
+
+.mpc-navigation--posts i { cursor: pointer; padding: .5em 1em; margin-left: 1px; background: #ccc; border-radius: 3px; }

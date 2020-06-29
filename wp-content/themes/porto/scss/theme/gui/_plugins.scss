@@ -1,0 +1,50 @@
+.menu-item {
+    &[class*="col-"] {
+        -ms-flex: none; flex: none;
+        width: auto;
+        max-width: none;
+        min-height: 0;
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+.wpcf7 .wpcf7-validation-errors,
+.wpcf7 .ajax-loader { display: none !important; background: none !important; }
+
+rs-module i[class^="fa-"], rs-module i[class*=" fa-"] { font-family: 'Font Awesome 5 Free'; font-weight: 900; }
+rs-module [class^="fa-"]:before, rs-module [class*=" fa-"]:before { font-family: inherit; font-weight: inherit; }
+
+.accordion-menu .arrow,
+#main-toggle-menu .menu-title .toggle,
+.mega-menu .narrow li.menu-item-has-children > a:before,
+.page-top ul.breadcrumb > li .delimiter,
+.widget_sidebar_menu .widget-title .toggle,
+.side-menu-slide .menu-item-has-children > a:after,
+.side-menu-slide .menu-item > .go-back:before,
+.pagination .prev:before,
+.page-links .previouspagelink:before,
+.pagination .next:before,
+.page-links .nextpostslink:before,
+ul.nav-list li a:before,
+ul[class^="wsp-"] li a:before,
+.tparrows.tparrows-carousel.tp-leftarrow:before,
+.tparrows.tparrows-carousel.tp-rightarrow:before,
+.share-links .share-email:before,
+.share-links .share-rss:before,
+.star-rating,
+.mejs-overlay-button:before,
+.comment-form-rating .stars span a:before {
+	font-family: 'Font Awesome 5 Free';
+	font-weight: 900;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.sidebar-menu li.menu-item > .arrow:before,
+.mejs-overlay-button:before,
+.mejs-controls .mejs-button button,
+.product-image .viewcart:before {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}

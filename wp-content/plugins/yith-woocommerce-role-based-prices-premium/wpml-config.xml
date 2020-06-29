@@ -1,0 +1,11 @@
+<wpml-config>
+    <admin-texts>
+        <key name="ywcrbp_message" />
+        <key name="ywcrbp_your_price_txt" />
+        <key name="ywcrbp_sale_price_txt" />
+        <key name="ywcrbp_regular_price_txt" />
+        <key name="ywcrbp_their_price_txt" />
+        <key name="ywcrbp_price_incl_suffix" />
+        <key name="ywcrbp_price_excl_suffix" />
+    </admin-texts>
+</wpml-config>

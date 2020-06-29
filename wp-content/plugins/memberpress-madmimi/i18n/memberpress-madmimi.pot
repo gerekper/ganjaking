@@ -1,0 +1,141 @@
+# Copyright (C) 2015 MemberPress Mad Mimi
+# This file is distributed under the same license as the MemberPress Mad Mimi package.
+msgid ""
+msgstr ""
+"Project-Id-Version: MemberPress Mad Mimi 1.0.2\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/memberpress-"
+"madmimi\n"
+"POT-Creation-Date: 2015-11-10 07:25:38+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: MpMadMimi.php:63
+msgid "Enable Mad Mimi"
+msgstr ""
+
+#: MpMadMimi.php:70
+msgid "Mad Mimi Username:"
+msgstr ""
+
+#: MpMadMimi.php:75
+msgid "This is typically your email address used to login to MadMimi.com"
+msgstr ""
+
+#: MpMadMimi.php:82
+msgid "Mad Mimi API Key:"
+msgstr ""
+
+#: MpMadMimi.php:89
+msgid "You can find your API key under your Account settings at MadMimi.com."
+msgstr ""
+
+#: MpMadMimi.php:97
+msgid "Mad Mimi List:"
+msgstr ""
+
+#: MpMadMimi.php:105
+msgid "Enable Opt-In Checkbox"
+msgstr ""
+
+#: MpMadMimi.php:109
+msgid ""
+"If checked, an opt-in checkbox will appear on all of your membership "
+"registration pages."
+msgstr ""
+
+#: MpMadMimi.php:114
+msgid "Signup Checkbox Label:"
+msgstr ""
+
+#: MpMadMimi.php:117
+msgid ""
+"This is the text that will display on the signup page next to your mailing "
+"list opt-in checkbox."
+msgstr ""
+
+#: MpMadMimi.php:165
+msgid "We Respect Your Privacy"
+msgstr ""
+
+#: MpMadMimi.php:246
+msgid "Mad Mimi list for this Membership"
+msgstr ""
+
+#: MpMadMimi.php:249
+msgid "Enable Membership Mad Mimi List"
+msgstr ""
+
+#: MpMadMimi.php:250
+msgid ""
+"If this is set the member will be added to this list when their payment is "
+"completed for this membership. If the member cancels or you refund their "
+"subscription, they will be removed from the list automatically. You must "
+"have your Mad Mimi Username & API key set in the Options before this will "
+"work."
+msgstr ""
+
+#: MpMadMimi.php:254
+msgid "Mad Mimi List: "
+msgstr ""
+
+#: MpMadMimi.php:276 MpMadMimi.php:298
+msgid "Hey yo, why you creepin'?"
+msgstr ""
+
+#: MpMadMimi.php:281 MpMadMimi.php:303
+msgid "No api key or username was sent"
+msgstr ""
+
+#: MpMadMimi.php:288
+msgid "API Key or Username incorrect"
+msgstr ""
+
+#: MpMadMimi.php:291
+msgid "All set!"
+msgstr ""
+
+#: MpMadMimi.php:440
+msgid "Sign Up for the %s Newsletter"
+msgstr ""
+
+#. #-#-#-#-#  memberpress-madmimi.pot (MemberPress Mad Mimi 1.0.2)  #-#-#-#-#
+#. Plugin Name of the plugin/theme
+#: main.php:35
+msgid "MemberPress Mad Mimi"
+msgstr ""
+
+#: main.php:36
+msgid "Mad Mimi Autoresponder Integration for MemberPress."
+msgstr ""
+
+#: script/i18n/pomo/sample/app.php:56
+msgid "Welcome %s!"
+msgstr ""
+
+#: script/i18n/pomo/sample/app.php:60
+msgid "A string with low priority!"
+msgstr ""
+
+#: script/i18n/pomo/sample/app.php:62
+msgid "Bye\n"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.memberpress.com/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Mad Mimi Autoresponder integration for MemberPress."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Caseproof, LLC"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://caseproof.com/"
+msgstr ""

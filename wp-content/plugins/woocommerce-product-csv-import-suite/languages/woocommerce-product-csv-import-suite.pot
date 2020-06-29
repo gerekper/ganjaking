@@ -1,0 +1,987 @@
+# Copyright (C) 2020 WooCommerce
+# This file is distributed under the GNU General Public License v3.0.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Product CSV Import Suite 1.10.34\n"
+"Report-Msgid-Bugs-To: "
+"https://wordpress.org/support/plugin/woocommerce-product-csv-import-suite\n"
+"POT-Creation-Date: 2020-06-05 22:57:18+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: node-wp-i18n 1.2.3\n"
+
+#: includes/views/export/html-export-products.php:23
+#: includes/views/export/html-export-variations.php:23
+msgid "0"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "WooCommerce"
+msgstr ""
+
+#: includes/class-wc-pcsvis-admin-screen.php:34
+msgid ""
+"CSV Import Suite requires the function <code>mb_detect_encoding</code> to "
+"import and export CSV files. Please ask your hosting provider to enable "
+"this function."
+msgstr ""
+
+#: includes/class-wc-pcsvis-admin-screen.php:42
+msgid "CSV Import Suite"
+msgstr ""
+
+#: includes/class-wc-pcsvis-ajax-handler.php:40
+msgid "Failed resize: %s is an invalid image ID."
+msgstr ""
+
+#: includes/class-wc-pcsvis-ajax-handler.php:43
+msgid "Your user account doesn't have permission to resize images"
+msgstr ""
+
+#: includes/class-wc-pcsvis-ajax-handler.php:48
+msgid "The originally uploaded image file cannot be found at %s"
+msgstr ""
+
+#: includes/class-wc-pcsvis-ajax-handler.php:57
+msgid "Unknown failure reason."
+msgstr ""
+
+#: includes/class-wc-pcsvis-ajax-handler.php:62
+msgid "&quot;%1$s&quot; (ID %2$s) was successfully resized in %3$s seconds."
+msgstr ""
+
+#: includes/class-wc-pcsvis-ajax-handler.php:69
+msgid "&quot;%1$s&quot; (ID %2$s) failed to resize. The error message was: %3$s"
+msgstr ""
+
+#: includes/class-wc-pcsvis-system-status-tools.php:22
+msgid "Delete Products"
+msgstr ""
+
+#: includes/class-wc-pcsvis-system-status-tools.php:23
+msgid "Delete ALL products"
+msgstr ""
+
+#: includes/class-wc-pcsvis-system-status-tools.php:24
+msgid "This tool will delete all products allowing you to start fresh."
+msgstr ""
+
+#: includes/class-wc-pcsvis-system-status-tools.php:28
+msgid "Delete Variations"
+msgstr ""
+
+#: includes/class-wc-pcsvis-system-status-tools.php:29
+msgid "Delete ALL variations"
+msgstr ""
+
+#: includes/class-wc-pcsvis-system-status-tools.php:30
+msgid "This tool will delete all variations allowing you to start fresh."
+msgstr ""
+
+#: includes/class-wc-pcsvis-system-status-tools.php:34
+msgid "Delete Orphans"
+msgstr ""
+
+#: includes/class-wc-pcsvis-system-status-tools.php:35
+msgid "Delete orphaned variations"
+msgstr ""
+
+#: includes/class-wc-pcsvis-system-status-tools.php:36
+msgid "This tool will delete variations which have no parent."
+msgstr ""
+
+#: includes/class-wc-pcsvis-system-status-tools.php:62
+msgid "%d Products Deleted"
+msgstr ""
+
+#: includes/class-wc-pcsvis-system-status-tools.php:84
+#: includes/class-wc-pcsvis-system-status-tools.php:99
+msgid "%d Variations Deleted"
+msgstr ""
+
+#: includes/importer/class-wc-csv-parser.php:209
+msgid "> Row %s - preparing for merge."
+msgstr ""
+
+#: includes/importer/class-wc-csv-parser.php:213
+msgid "> > Cannot merge without id or sku. Importing instead."
+msgstr ""
+
+#: includes/importer/class-wc-csv-parser.php:231
+msgid "> > Skipped. Cannot find product with sku %s."
+msgstr ""
+
+#: includes/importer/class-wc-csv-parser.php:232
+msgid "Skipped. Cannot find product with sku."
+msgstr ""
+
+#: includes/importer/class-wc-csv-parser.php:234
+msgid "> > Skipped. Cannot find product with sku %s. Importing instead."
+msgstr ""
+
+#: includes/importer/class-wc-csv-parser.php:238
+msgid "> > Found product with ID %s."
+msgstr ""
+
+#: includes/importer/class-wc-csv-parser.php:248
+msgid "> Row %s - preparing for import."
+msgstr ""
+
+#: includes/importer/class-wc-csv-parser.php:252
+msgid "> > Skipped. No post_title set for new product."
+msgstr ""
+
+#: includes/importer/class-wc-csv-parser.php:253
+msgid "No post_title set for new product."
+msgstr ""
+
+#: includes/importer/class-wc-csv-parser.php:515
+msgid "> > Skipping taxonomy \"%s\" - it does not exist."
+msgstr ""
+
+#: includes/importer/class-wc-csv-parser.php:524
+msgid "> > > Product type \"%s\" not allowed - using simple."
+msgstr ""
+
+#: includes/importer/class-wc-csv-parser.php:632
+#: includes/importer/class-wc-csv-parser.php:731
+msgid "> > Failed to import term %s %s"
+msgstr ""
+
+#: includes/importer/class-wc-csv-parser.php:682
+msgid "> > Attribute taxonomy \"%s\" does not exist. Adding it. Nicename: %s"
+msgstr ""
+
+#: includes/importer/class-wc-csv-parser.php:690
+msgid "> > Attribute taxonomy %s already exists in DB."
+msgstr ""
+
+#: includes/importer/class-wc-csv-parser.php:729
+msgid "> > Inserted Raw Term %s ID = %s"
+msgstr ""
+
+#: includes/importer/class-wc-csv-parser.php:735
+msgid "> > Raw Term %s ID = %s"
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product-import.php:98
+msgid "Error with handle_upload!"
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product-import.php:123
+msgid "Row"
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product-import.php:124
+#: includes/importer/views/html-import-options.php:95
+msgid "SKU"
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product-import.php:125
+msgid "Product"
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product-import.php:126
+msgid "Status Msg"
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product-import.php:218
+msgid "AJAX Error"
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product-import.php:321
+msgid ""
+"The resize request was abnormally terminated (ID %s). This is likely due to "
+"the image exceeding available memory or some other type of fatal error."
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product-import.php:326
+msgid "thumbnails regenerated"
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product-import.php:364
+msgid "Error finding uploaded file!"
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product-import.php:428
+msgid "Cleaning up..."
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product-import.php:433
+msgid "Clearing transients..."
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product-import.php:468
+msgid "Backfilling parents..."
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product-import.php:473
+msgid "Linking upsells..."
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product-import.php:481
+msgid "Linking crosssells..."
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product-import.php:490
+msgid "Syncing variations..."
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product-import.php:498
+msgid "Finished. Import complete."
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product-import.php:565
+msgid "Processing products."
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product-import.php:583
+msgid "Finished processing products."
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product-import.php:597
+msgid "Parsing products CSV."
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product-import.php:603
+msgid "Finished parsing products CSV."
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product-import.php:668
+#. translators: placeholder is upload error from WP
+msgid "Sorry, there has been an error: %s."
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product-import.php:686
+#. translators: placeholder is base directory (ABSPATH)
+msgid "Sorry, there has been an error: path file must exist inside %s."
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product-import.php:692
+#. translators: placeholder is file path
+msgid "Sorry, there has been an error: %s does not exist."
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product-import.php:699
+#. translators: placeholder is comma-separated of accepted mime-types for
+#. import (e.g. 'text/csv')
+msgid "File must have .csv extension with acceptable mime types (%s)"
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product-import.php:840
+msgid "Product already processed"
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product-import.php:841
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:65
+msgid "> Post ID already processed. Skipping."
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product-import.php:847
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:70
+msgid "Skipping auto-draft"
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product-import.php:848
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:71
+msgid "> Skipping auto-draft."
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product-import.php:856
+msgid "Product already exists"
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product-import.php:857
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:123
+msgid "> &#8220;%s&#8221; already exists."
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product-import.php:862
+msgid "Importing post ID conflicts with an existing post ID"
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product-import.php:863
+msgid "> &#8220;%s&#8221; ID already exists."
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product-import.php:871
+msgid "Post is not a product"
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product-import.php:872
+msgid "> &#8220;%s&#8221; is not a product."
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product-import.php:882
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:97
+msgid "> Merging post ID %s."
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product-import.php:951
+msgid "> Failed to update product %s"
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product-import.php:960
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:108
+msgid "> Merged post data: "
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product-import.php:985
+msgid "> Inserting %s"
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product-import.php:1007
+msgid "Failed to import product"
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product-import.php:1008
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:147
+msgid "Failed to import product &#8220;%s&#8221;"
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product-import.php:1017
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:151
+msgid "> Inserted - post ID is %s."
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product-import.php:1067
+msgid "> > Image exists - skipping %s"
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product-import.php:1093
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:220
+msgid "> > Importing image \"%s\""
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product-import.php:1107
+msgid "> > Imported image \"%s\""
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product-import.php:1121
+msgid "> > Error importing image \"%s\""
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product-import.php:1128
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:248
+msgid "> > Images set"
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product-import.php:1210
+msgid "> Finished merging post ID %s."
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product-import.php:1213
+msgid "> Finished importing post ID %s."
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product-import.php:1312
+#: includes/importer/class-wc-pcsvis-product-import.php:1336
+msgid "Invalid file type"
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product-import.php:1319
+msgid "Local image did not exist!"
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product-import.php:1349
+msgid "> > Inserted image attachment \"%s\""
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product-import.php:1414
+msgid "Zero size file downloaded"
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product-import.php:1472
+#: includes/views/html-admin-screen.php:4
+#: includes/views/import/html-import-products.php:7
+msgid "Import Products"
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product-import.php:1472
+#: includes/views/import/html-import-products.php:7
+msgid "Merge Products"
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:58
+msgid "No product variation parent set"
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:59
+msgid "> Skipping - no post parent set."
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:64
+msgid "Product variation already processed"
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:79
+msgid "Variation parent does not exist"
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:80
+msgid "> Variation parent does not exist! (#%d)"
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:86
+msgid "Post is not a product variation"
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:87
+msgid "> &#8220;%s&#8221; is not a product variation."
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:110
+msgid "> Failed to merge post data: "
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:122
+msgid "Variation already exists"
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:129
+msgid "> Inserting variation."
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:145
+msgid "Failed to import product variation"
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:155
+msgid "Variation #%s of %s"
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:214
+msgid "> > Old images processed"
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:298
+msgid "> Finished merging variation ID %s."
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:301
+msgid "> Finished importing variation ID %s."
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:351
+msgid "Parsing product variations CSV."
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:357
+msgid "Finished parsing product variations CSV."
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:370
+msgid "Import Product Variations"
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product_variation-import.php:370
+msgid "Merge Product Variations"
+msgstr ""
+
+#: includes/importer/views/html-import-greeting.php:2
+msgid ""
+"Hi there! Upload a CSV file containing product data to import the contents "
+"into your shop."
+msgstr ""
+
+#: includes/importer/views/html-import-greeting.php:3
+#: includes/importer/views/html-import-variation-greeting.php:3
+msgid "Choose a CSV (.csv) file to upload, then click Upload file and import."
+msgstr ""
+
+#: includes/importer/views/html-import-greeting.php:6
+#: includes/importer/views/html-import-variation-greeting.php:6
+msgid ""
+"Before you can upload your import file, you will need to fix the following "
+"error:"
+msgstr ""
+
+#: includes/importer/views/html-import-greeting.php:14
+#: includes/importer/views/html-import-variation-greeting.php:14
+msgid "Choose a file from your computer:"
+msgstr ""
+
+#: includes/importer/views/html-import-greeting.php:20
+#: includes/importer/views/html-import-variation-greeting.php:20
+msgid "Maximum size: %s"
+msgstr ""
+
+#: includes/importer/views/html-import-greeting.php:26
+#: includes/importer/views/html-import-variation-greeting.php:26
+msgid "OR enter path to file:"
+msgstr ""
+
+#: includes/importer/views/html-import-greeting.php:34
+#: includes/importer/views/html-import-variation-greeting.php:34
+msgid "Delimiter"
+msgstr ""
+
+#: includes/importer/views/html-import-greeting.php:38
+msgid "Merge empty cells"
+msgstr ""
+
+#: includes/importer/views/html-import-greeting.php:39
+msgid ""
+"Check this box to merge empty cells - otherwise (when merging) the empty "
+"cells will be ignored when importing things such as attributes."
+msgstr ""
+
+#: includes/importer/views/html-import-greeting.php:44
+#: includes/importer/views/html-import-variation-greeting.php:40
+msgid "Upload file and import"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:8
+msgid "Map Fields"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:9
+msgid "Here you can map your imported columns to product data fields."
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:14
+msgid "Map to"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:15
+msgid "Column Header"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:16
+msgid "Example Column Value"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:27
+msgid "Taxonomy: <strong>%s</strong>"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:32
+msgid "Custom Field: <strong>%s</strong>"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:37
+msgid "Product Attribute: <strong>%s</strong>"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:42
+msgid "Product Attribute Data: <strong>%s</strong>"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:47
+msgid "Product Attribute default value: <strong>%s</strong>"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:52
+msgid "Do not import"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:53
+msgid "Images/Gallery"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:54
+msgid "Custom Field with column name"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:55
+msgid "Taxonomies"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:63
+#: includes/views/export/html-export-products.php:39
+msgid "Attributes"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:71
+msgid "Map to parent (variations and grouped products)"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:72
+msgid "By ID"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:73
+msgid "By SKU"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:75
+msgid "Post data"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:91
+msgid "Product data"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:92
+#: includes/importer/views/html-import-options.php:93
+#: includes/importer/views/html-import-options.php:94
+msgid "Type"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:96
+#: includes/importer/views/html-import-options.php:97
+msgid "Visibility"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:98
+#: includes/importer/views/html-import-options.php:99
+#: includes/importer/views/html-import-options.php:100
+#: includes/importer/views/html-import-options.php:101
+msgid "Inventory"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:102
+#: includes/importer/views/html-import-options.php:103
+#: includes/importer/views/html-import-options.php:104
+#: includes/importer/views/html-import-options.php:105
+msgid "Price"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:106
+#: includes/importer/views/html-import-options.php:107
+#: includes/importer/views/html-import-options.php:108
+#: includes/importer/views/html-import-options.php:109
+msgid "Dimensions"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:110
+#: includes/importer/views/html-import-options.php:111
+msgid "Tax"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:112
+#: includes/importer/views/html-import-options.php:113
+#: includes/importer/views/html-import-options.php:114
+#: includes/importer/views/html-import-options.php:115
+msgid "Related Products"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:116
+#: includes/importer/views/html-import-options.php:117
+#: includes/importer/views/html-import-options.php:118
+#: includes/importer/views/html-import-options.php:119
+msgid "Downloads"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:116
+msgid "(WC 2.0.x)"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:117
+msgid "(WC 2.1+)"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:120
+#: includes/importer/views/html-import-options.php:121
+msgid "External"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:125
+msgid "Google Product Feed"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:126
+msgid "Exclude Product"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:127
+msgid "Availability"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:128
+msgid "Condition"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:129
+msgid "Brand"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:130
+msgid "Product Type"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:131
+msgid "Google Product Category"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:132
+msgid "Global Trade Item Number (GTIN)"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:133
+msgid "Manufacturer Part Number (MPN)"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:134
+msgid "Gender"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:135
+msgid "Age Group"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:136
+msgid "Color"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:137
+msgid "Size"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:138
+msgid "Size type"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:139
+msgid "Size system"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:140
+msgid "Material"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:141
+msgid "Pattern"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:142
+msgid "Delivery label"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:143
+msgid "adwords_grouping"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:144
+msgid "adwords_labels"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:145
+msgid "custom_label_0"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:146
+msgid "custom_label_1"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:147
+msgid "custom_label_2"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:148
+msgid "custom_label_3"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:149
+msgid "custom_label_4"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:150
+msgid "Promotion ID"
+msgstr ""
+
+#: includes/importer/views/html-import-options.php:166
+msgid "Submit"
+msgstr ""
+
+#: includes/importer/views/html-import-variation-greeting.php:2
+msgid ""
+"Hi there! Upload a CSV file containing product variation data to import the "
+"contents into your shop."
+msgstr ""
+
+#: includes/views/export/html-export-products.php:3
+msgid "Export Product CSV"
+msgstr ""
+
+#: includes/views/export/html-export-products.php:4
+msgid ""
+"Export your products using this tool. This exported CSV will be in an "
+"importable format."
+msgstr ""
+
+#: includes/views/export/html-export-products.php:5
+msgid "Click export to save your products to your computer."
+msgstr ""
+
+#: includes/views/export/html-export-products.php:12
+#: includes/views/export/html-export-variations.php:12
+msgid "Limit"
+msgstr ""
+
+#: includes/views/export/html-export-products.php:15
+#: includes/views/export/html-export-variations.php:15
+msgid "Unlimited"
+msgstr ""
+
+#: includes/views/export/html-export-products.php:20
+#: includes/views/export/html-export-variations.php:20
+msgid "Offset"
+msgstr ""
+
+#: includes/views/export/html-export-products.php:28
+#: includes/views/export/html-export-variations.php:36
+msgid "Columns"
+msgstr ""
+
+#: includes/views/export/html-export-products.php:31
+#: includes/views/export/html-export-variations.php:39
+msgid "All Columns"
+msgstr ""
+
+#: includes/views/export/html-export-products.php:36
+#: includes/views/export/html-export-variations.php:44
+msgid "Images (featured and gallery)"
+msgstr ""
+
+#: includes/views/export/html-export-products.php:37
+msgid "Downloadable file paths"
+msgstr ""
+
+#: includes/views/export/html-export-products.php:38
+#: includes/views/export/html-export-variations.php:45
+msgid "Taxonomies (cat/tags/shipping-class)"
+msgstr ""
+
+#: includes/views/export/html-export-products.php:40
+#: includes/views/export/html-export-variations.php:46
+msgid "Meta (custom fields)"
+msgstr ""
+
+#: includes/views/export/html-export-products.php:43
+msgid "Google Product Feed fields"
+msgstr ""
+
+#: includes/views/export/html-export-products.php:50
+#: includes/views/export/html-export-variations.php:53
+msgid "Include hidden meta data"
+msgstr ""
+
+#: includes/views/export/html-export-products.php:58
+#: includes/views/html-admin-screen.php:4
+msgid "Export Products"
+msgstr ""
+
+#: includes/views/export/html-export-variations.php:3
+msgid "Export Product Variations CSV"
+msgstr ""
+
+#: includes/views/export/html-export-variations.php:4
+msgid ""
+"Export your product variations using this tool. This exported CSV will be "
+"in an importable format."
+msgstr ""
+
+#: includes/views/export/html-export-variations.php:5
+msgid "Click export to save your products variations to your computer."
+msgstr ""
+
+#: includes/views/export/html-export-variations.php:28
+msgid "Limit to parent ID(s)"
+msgstr ""
+
+#: includes/views/export/html-export-variations.php:31
+msgid "N/A"
+msgstr ""
+
+#: includes/views/export/html-export-variations.php:31
+msgid "Comma separate IDs"
+msgstr ""
+
+#: includes/views/export/html-export-variations.php:61
+msgid "Export Variations"
+msgstr ""
+
+#: includes/views/html-getting-started.php:3
+msgid ""
+"<strong>Product CSV Import Suite</strong> &#8211; Before getting started "
+"prepare your CSV files"
+msgstr ""
+
+#: includes/views/html-getting-started.php:5
+msgid "Documentation"
+msgstr ""
+
+#: includes/views/html-getting-started.php:5
+msgid "Sample CSV"
+msgstr ""
+
+#: includes/views/import/html-import-products.php:3
+msgid "Import Product CSV"
+msgstr ""
+
+#: includes/views/import/html-import-products.php:4
+msgid ""
+"Import simple, grouped, external and variable products into WooCommerce "
+"using this tool."
+msgstr ""
+
+#: includes/views/import/html-import-products.php:5
+msgid ""
+"Upload a CSV from your computer. Click import to import your CSV as new "
+"products (existing products will be skipped), or click merge to merge "
+"products, ninja style. Importing requires the <code>post_title</code> "
+"column, whilst merging requires <code>sku</code> or <code>id</code>."
+msgstr ""
+
+#: includes/views/import/html-import-variations.php:3
+msgid "Import Product Variations CSV"
+msgstr ""
+
+#: includes/views/import/html-import-variations.php:4
+msgid "Import and add variations to your variable products using this tool."
+msgstr ""
+
+#: includes/views/import/html-import-variations.php:5
+msgid ""
+"Each row must be mapped to a variable product via a "
+"<code>post_parent</code> or <code>parent_sku</code> column in order to "
+"import successfully. Merging also requires a <code>sku</code> or "
+"<code>id</code> column."
+msgstr ""
+
+#: includes/views/import/html-import-variations.php:6
+msgid "Import Variations"
+msgstr ""
+
+#: includes/views/import/html-import-variations.php:6
+msgid "Merge Variations"
+msgstr ""
+
+#: woocommerce-product-csv-import-suite.php:34
+#. translators: %s WC download URL link.
+msgid ""
+"Product CSV Import Suite requires WooCommerce to be installed and active. "
+"You can download %s here."
+msgstr ""
+
+#: woocommerce-product-csv-import-suite.php:107
+msgid "Import <strong>products</strong> to your store via a csv file."
+msgstr ""
+
+#: woocommerce-product-csv-import-suite.php:108
+msgid "Import <strong>product variations</strong> to your store via a csv file."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce Product CSV Import Suite"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://woocommerce.com/products/product-csv-import-suite/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Import and export products and variations straight from WordPress admin. Go "
+"to WooCommerce > CSV Import Suite to get started. Supports post fields, "
+"product data, custom post types, taxonomies, and images."
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://woocommerce.com"
+msgstr ""

@@ -1,0 +1,18 @@
+.ywctm-inquiry-form-wrapper.has-toggle {
+	border: 1px solid #cccccc;
+	margin: 10px 0;
+}
+
+.ywctm-inquiry-form-wrapper.has-toggle .ywctm-toggle-button,
+.ywctm-inquiry-form-wrapper.has-toggle .ywctm-toggle-content {
+	padding: 10px 15px;
+}
+
+.ywctm-inquiry-form-wrapper.has-toggle .ywctm-toggle-content {
+	display: none;
+}
+
+.ywctm-inquiry-form-wrapper.has-toggle .ywctm-toggle-button {
+	font-weight: 700;
+	cursor: pointer;
+}

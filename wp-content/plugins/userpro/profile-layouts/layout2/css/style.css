@@ -1,0 +1,769 @@
+/*** CSS DOCUMENT ***/
+
+*{
+
+   padding:0;
+   margin:0;
+}
+a{
+    
+    color:#000000;
+}
+#main_section{
+
+   margin:0 auto;
+   width:100%;
+            
+}
+.upl-overlay{
+       background:#000000;    
+ }
+#upl-header-bg{
+    
+    background:url(../images/header_bg.jpg) 50% center;
+    height:auto;
+    min-height:320px;
+    opacity: 0.75;  
+}
+.bottom-stroke{
+    
+        border-bottom: 5px solid #3bb3ba;
+}
+.profilepic{
+    
+    width: auto;
+    height: auto;
+    position: absolute;
+    border-radius: 120px;
+    margin:0 12%;
+    margin-top: -10%;
+    border:7px solid white;
+    opacity: 1;
+    z-index: 2;
+    -webkit-box-shadow:2px 0px 5px #4a4a4a;
+}
+.clearfix:after{
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+}
+.upl-count-bg{
+    
+    background: #000000;
+    height:80px;
+    width: 100%;
+    position: absolute;
+    margin-top: -10%;
+    opacity: 0.8;
+    margin-left: 0.1%
+    
+}
+.upl-profilepic {
+    margin: 15% auto 0;
+    text-align: center;
+}
+.connect{
+    
+    color:white;
+    font-size: 16px;
+    padding-top: 1.0%;
+}
+.upl-number-conn{
+    
+    font-size:20px;
+}
+.follow-button{
+    
+    text-align: center;
+    padding-top:1%;
+}
+.profile-name h3 a {
+    
+    color:#188aff !important;
+    font-size: 20px !important;
+    box-shadow: none;
+}
+.h_line{
+    
+    width:20%;
+    height:2px;
+    background-color:#188aff;
+    
+}
+.h_line_title{
+    
+    width:20%;
+    height:2px;
+    margin-left: 31%;
+    background-color:#188aff;
+    
+}
+.social-profile{
+    
+    padding-top: 50px;
+    padding-left: 60px;
+}
+.social-form{
+    
+    margin-top: 30px;
+    padding: 25px 35px 15px 35px;
+    background: #f4f5f6;
+}
+.social-mediaic{
+     margin-top: 50px;
+    background: #fffff;
+    text-align: left;
+    
+}
+.text-social{
+    
+    font-size:18px;
+    color:#383838;
+}
+.form-horizontal .control-label{
+    text-align:left;
+}
+.form-control{
+    
+    border:none;
+    box-shadow: none;
+    background: none;
+    text-align: left;
+    font-weight: normal;
+    padding:6px 0;
+}
+.arrow-left {
+  width: 0; 
+  height: 0; 
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent; 
+  left:-9px;    
+  position:absolute;
+  border-right:10px solid #f4f5f6; 
+}
+.gallery-form{
+    
+    margin-top: 50px;
+    background: #fffff;
+    
+}
+.footer{
+    
+    background-color:#444444;
+    width:100%;
+    color:#ffffff;
+    height:20px;
+}
+/*********MEDIA QUERIES STARTS ***************/
+
+@media screen and (max-width:1024px){
+    
+    
+    
+    .profile-name{
+        
+        text-align: left;
+    }
+    .profilepic {
+        border: 7px solid white;
+        margin: 0 26%;
+        top: 11%;
+    }
+    .row.upl-count-bg {
+        margin-top: -10%;
+
+    }
+    .view-reviews {
+        text-align: left;
+    }
+    .connect{
+    
+        color:white;
+        font-size: 16px;
+        padding-top: 1.5%;
+        text-align: center;
+    }
+    .view-reviews{
+        
+        padding-top: 0%;
+    }
+    .social-mediaic{
+         margin-top: 50px;
+        background: #fffff;
+        text-align: left;
+    
+    }
+     .h_line {
+        background-color: #188aff;
+        height: 2px;
+        margin-left: 0%;
+        width: 20%;
+    }
+    .h_line_title {
+         margin-left: 0%;
+        
+    }
+    .social-profile {
+        text-align: left;
+        padding-left: 20px;
+    }
+    .follow-button{
+        
+        padding-top: 2%;
+    }
+    
+}
+@media screen and (max-width:980px){
+    .profilepic {
+        border: 7px solid white;
+        margin: -3% 43% 0;
+    }
+
+}
+@media screen and (max-width:800px){
+    .profilepic {
+        border: 7px solid white;
+        margin: 0 29%;
+        top: 11%;
+    }
+    .upl-profilepic {
+    margin: 35% auto 0;
+    text-align: center;
+}
+}
+@media screen and (max-width:768px){
+/*    .col-sm-6 .userpro-input {
+        padding: 0;
+    }*/
+    .profile-name{
+        
+        text-align: left;
+    }
+    .profilepic {
+        border: 7px solid white;
+        margin: 0 26%;
+        top: 11%;
+    }
+
+    .view-reviews {
+        text-align: left;
+    }
+    .connect{
+    
+        color:white;
+        font-size: 16px;
+        padding-top: 2%;
+        text-align: center;
+    }
+    .view-reviews{
+        
+        padding-top: 0%;
+    }
+    .social-mediaic{
+         margin-top: 50px;
+        background: #fffff;
+        text-align: left;
+    
+    }
+     .h_line {
+        background-color: #188aff;
+        height: 2px;
+        margin-left: 0%;
+        width: 20%;
+    }
+    .h_line_title {
+         margin-left: 0%;
+        
+    }
+    .social-profile {
+        text-align: left;
+        padding-left: 20px;
+    }
+    .follow-button{
+        
+        padding-top: 2%;
+    }
+    
+    
+}
+@media screen and (max-width:640px){
+    .col-sm-6 .userpro-input {
+        padding: 0 !important;
+    }
+    .upl-profilepic {
+        margin: 45% auto 0;
+        text-align: center;
+    }
+    .profile-name{
+        
+        text-align: center;
+    }
+    .profilepic {
+        border: 7px solid white;
+        margin: 0 20%;
+        top: 8%;
+    }
+    .view-reviews {
+        text-align: center;
+    }
+    .connect{
+    
+        color:white;
+        font-size: 14px;
+        padding-top: 2.5%;
+        text-align: center;
+    }
+    .view-reviews{
+        
+        padding-top: 4%;
+    }
+    .social-mediaic{
+         margin-top: 50px;
+        background: #fffff;
+        text-align: center;
+    
+    }
+     .h_line {
+        background-color: #188aff;
+        height: 2px;
+        margin-left: 40%;
+        width: 20%;
+    }
+    .h_line_title {
+         margin-left: 41%;
+        
+    }
+    
+     .social-profile {
+        
+        
+        text-align: center;
+    }
+}
+@media screen and (max-width:480px){
+    
+    .upl-profilepic {
+        margin: 45% auto 0;
+        text-align: center;
+    }
+    
+    .profile-name{
+        
+        text-align: center;
+    }
+    .profilepic {
+        border: 7px solid white;
+        margin: 0px 28%;
+        margin-top: 15%;
+    }
+    .view-reviews {
+        text-align: center;
+    }
+    .connect{
+    
+        color:white;
+        font-size: 14px;
+        padding-top: 2.5%;
+        text-align: center;
+    }
+    .view-reviews{
+        
+        padding-top: 4%;
+    }
+    .social-mediaic{
+         margin-top: 50px;
+        background: #fffff;
+        text-align: center;
+    
+    }
+     .h_line {
+        background-color: #188aff;
+        height: 2px;
+        margin-left: 40%;
+        width: 20%;
+    }
+    .h_line_title {
+         margin-left: 41%;
+        
+    }
+     .social-profile {
+        
+        
+        text-align: center;
+    }
+    .col-sm-6 .userpro-input {
+        padding: 0 !important;
+    }
+}
+@media screen and (max-width:414px){
+    .col-sm-6 .userpro-input {
+        padding: 0 !important;
+    }
+
+.upl-profilepic {
+    margin: 45% auto 0;
+    text-align: center;
+}
+    .profile-name{
+        
+        text-align: center;
+    }
+    .profilepic {
+        border: 7px solid white;
+        margin: 0px 28%;
+        margin-top: 15%;
+    }
+    .view-reviews {
+        text-align: center;
+    }
+    .connect{
+    
+        color:white;
+        font-size: 14px;
+        padding-top: 2.5%;
+        text-align: center;
+    }
+    .view-reviews{
+        
+        padding-top: 4%;
+    }
+    .social-mediaic{
+         margin-top: 50px;
+        background: #fffff;
+        text-align: center;
+    
+    }
+     .h_line {
+        background-color: #188aff;
+        height: 2px;
+        margin-left: 40%;
+        width: 20%;
+    }
+    .h_line_title {
+         margin-left: 41%;
+        
+    }
+     .social-profile {
+        
+        
+        text-align: center;
+    }
+}
+@media screen and (max-width:375px){
+    
+    .col-sm-6 .userpro-input {
+        padding: 0 !important;
+    }
+    .upl-profilepic {
+    margin: 45% auto 0;
+    text-align: center;
+}
+    .profile-name{
+        
+        text-align: center;
+    }
+    .profilepic {
+        border: 7px solid white;
+         margin: 0 27%;
+    }
+    .view-reviews {
+        text-align: center !important;
+    }
+    .connect{
+    
+        color:white;
+        font-size: 12px;
+        padding-top: 4.5%;
+        text-align: center;
+    }
+    .view-reviews{
+        
+        padding-top: 4%;
+    }
+    .social-mediaic{
+         margin-top: 50px;
+        background: #fffff;
+        text-align: center;
+    
+    }
+     .h_line {
+        background-color: #188aff;
+        height: 2px;
+        margin-left: 40%;
+        width: 20%;
+    }
+    .h_line_title {
+         margin-left: 41%;
+        
+    }
+}
+@media screen and (max-width:360px){
+    .col-sm-6 .userpro-input {
+        padding: 0 !important;
+    }
+    .upl-profilepic {
+    margin: 45% auto 0;
+    text-align: center;
+}
+    .profilepic {
+        border: 7px solid white;
+         margin: 0 27%;
+    }
+
+    
+    .connect{
+    
+        color:white;
+        font-size: 12px;
+        padding-top: 4.0%;
+        text-align: center;
+    }
+    .view-reviews{
+        
+        padding-top: 4%;
+    }
+    .social-mediaic{
+         margin-top: 50px;
+        background: #fffff;
+        text-align: center;
+    
+    }
+    .social-profile {
+        
+        
+        text-align: center;
+    }
+}
+@media screen and (max-width:320px){
+    .col-sm-6 .userpro-input {
+        padding: 0 !important;
+    }
+    .upl-profilepic {
+    margin: 45% auto 0;
+    text-align: center;
+}
+    .profilepic {
+        border: 7px solid white;
+         margin: 0 27%;
+    }
+/*    .row.upl-count-bg {
+        margin-top: -3%;
+        width: 84.1%;
+    }*/
+    .connect{
+    
+        color:white;
+        font-size: 12px;
+        padding-top: 4.0%;
+        text-align: center;
+    }
+    .view-reviews{
+        
+        padding-top: 4%;
+    }
+    .social-mediaic{
+         margin-top: 50px;
+        background: #fffff;
+        text-align: center;
+    
+    }
+    .social-profile {
+        
+        
+        text-align: center;
+    }
+/*    .row.upl-count-bg {
+        margin-top: -3%;
+        width: 84.1%;
+    }*/
+}
+.userpro-profile-icon.userpro-tip.col-sm-3 {
+    width: auto;
+    padding: 0;
+    text-decoration: none;
+    box-shadow: none;
+}
+.userpro-count-link {
+    box-shadow: none !important;
+    text-decoration: none;
+}
+.userpro-section.userpro-column.userpro-collapsible-1.userpro-collapsed-0,.media_actions_photos,.upm_display_name {
+    display: none;
+}
+#fb-post-data i {
+    color: #188aff;
+    padding-right: 3%;
+}
+.userpro-button.secondary.userpro-follow.notfollowing , .userpro-button.userpro-follow.following {
+    box-shadow: none;
+    display: block !important;
+}
+.upl_follow {
+    border: 1px solid gray;
+    border-radius: 5%;
+    padding: 4%;
+    text-align: center;
+    display: inline-block;
+}
+.row.upl-count-bg {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+.col-lg-offset-3 {
+    display: inline-block;
+    margin: 0 auto;
+    text-align: center;
+}
+a.userpro-count-link {
+    float: none;
+    border-right:none;
+}
+
+.col-lg-4.col-lg-offset-4.col-sm-4.col-xs-4.connect {
+    display: inline-block;
+    margin: 0 auto;
+    text-align: center;
+}
+.userpro-profile-img.img-circle {
+    display: inline-block !important;
+    margin: 0 auto !important;
+    text-align: center !important;
+}
+.userpro-count-link {
+    padding: 0 !important;
+}
+div.userpro-label-upl {
+/*    float: left;*/
+    margin: 0 0 4px;
+    position: relative;
+    z-index: 5;
+}
+.upl-right-button {
+    float: right;
+    margin: 3%;
+}
+.upl-right-button .up-edit.userpro-tip {
+    box-shadow: none;
+}
+a.userpro-profile-icon-upl {
+    border-radius: 999px;
+    cursor: pointer !important;
+    display: inline-block;
+    float: none !important;
+    font-size: 14px !important;
+    height: 26px !important;
+    line-height: 26px !important;
+    margin: 0 0 4px ;
+    opacity: 1 !important;
+    padding: 0;
+    text-align: center;
+    text-decoration: none !important;
+    width: 25%;
+    box-shadow: none;
+}
+a:hover{
+    box-shadow: none !important;
+    text-decoration: none;
+}
+.col-lg-4.col-xs-12.view-reviews > a {
+    box-shadow: none;
+}
+.userpro-profile-icon-upl.userpro-tip.col-sm-4.customize-unpreviewable {
+    padding: 1%;
+}
+.modified.avatar, .default.avatar{
+    border-radius: 100% !important;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+a{
+    box-shadow: none !important;
+    text-decoration: none !important;
+}
+.userpro-button.secondary.userpro-follow.notfollowing, .userpro-button.userpro-follow.following {
+    box-shadow: none;
+    display: inline-block !important;
+    font-size: 12px;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+.userpro-icon-share {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+.upl_follow {
+    padding: 0 5% !important;
+}
+.col-lg-4.col-sm-8.col-xs-12.profile-name h3 {
+    margin-top: 0 !important;
+}
+.userpro-icon-edit {
+    font-weight: bold;
+}
+.col-sm-6 .userpro-input {
+    padding-top: 7px;
+}
+.photos.col-xs-6.col-md-6 {
+    padding: 5%;
+}
+.upl_button_blue {
+    color: #fff !important;
+    background-color: #337ab7 !important;
+    border-color: #2e6da4 !important;
+    margin: 15px 15px 0 15px;
+}
+/************ Tipsy CSS *************/
+
+/* Tipsy */
+.tipsy { font-size: 11px; position: absolute; padding: 5px; z-index: 2000000; }
+.tipsy-inner {max-width: 200px; padding: 4px 10px; text-align: left; line-height: 16px !important; text-shadow: none }
+.tipsy-arrow { position: absolute; width: 0; height: 0; line-height: 0;}
+.tipsy-n .tipsy-arrow { top: 0px; left: 50%; margin-left: -5px; border-bottom-style: solid; border-top: none; border-left-color: transparent; border-right-color: transparent; }
+.tipsy-nw .tipsy-arrow { top: 0; left: 10px; border-bottom-style: solid; border-top: none; border-left-color: transparent; border-right-color: transparent;}
+.tipsy-ne .tipsy-arrow { top: 0; right: 10px; border-bottom-style: solid; border-top: none;  border-left-color: transparent; border-right-color: transparent;}
+.tipsy-s .tipsy-arrow { bottom: 0; left: 50%; margin-left: -5px; border-top-style: solid; border-bottom: none;  border-left-color: transparent; border-right-color: transparent; }
+.tipsy-sw .tipsy-arrow { bottom: 0; left: 10px; border-top-style: solid; border-bottom: none;  border-left-color: transparent; border-right-color: transparent; }
+.tipsy-se .tipsy-arrow { bottom: 0; right: 10px; border-top-style: solid; border-bottom: none; border-left-color: transparent; border-right-color: transparent; }
+.tipsy-e .tipsy-arrow { right: 0; top: 50%; margin-top: -5px; border-left-style: solid; border-right: none; border-top-color: transparent; border-bottom-color: transparent; }
+.tipsy-w .tipsy-arrow { left: 0; top: 50%; margin-top: -5px; border-right-style: solid; border-left: none; border-top-color: transparent; border-bottom-color: transparent; }
+
+.tipsy-inner { background-color: #333; color: #fff; }
+.tipsy-inner { border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; }
+
+.tipsy-arrow {border: 5px dashed #333; }
+
+.tipsy-arrow-n { border-bottom-color: #333; }
+.tipsy-arrow-s { border-top-color: #333; }
+.tipsy-arrow-e { border-left-color: #333; }
+.tipsy-arrow-w { border-right-color: #333; }
+
+.upl-badges {
+    margin: 0 auto;
+    text-align: center;
+}
+.upl-badges img{
+    display: inline-block;
+}
+.userpro-profile-badge-right{
+    margin:5px 0;
+}
+.userpro-conv-body {
+    font-size: 12px;
+    line-height: 20px;
+    margin: 10% 0 0;
+}
+.col-lg-4 .userpro-button.chat.userpro-init-chat {
+    display: none;
+}
+.col-sm-4 .userpro-button.secondary.userpro-show-chat.userpro-tip {
+    display: none !important;
+}
+.userpro-button.chat.userpro-broadcast-msg {
+    padding: 2%;
+}

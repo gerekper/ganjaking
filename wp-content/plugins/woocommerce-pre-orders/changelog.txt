@@ -1,0 +1,237 @@
+*** WooCommerce Pre-Orders Plugin ***
+
+2020-06-10 - version 1.5.26
+* Tweak - WC 4.2 compatibility.
+
+2020-04-30 - version 1.5.25
+* Tweak - Remove legacy code.
+* Tweak - WC 4.1 compatibility.
+
+2020-03-04 - version 1.5.24
+* Fix - Remove usage of deprecated filters.
+* Tweak - WC 4.0 compatibility.
+
+2020-02-04 - version 1.5.23
+* Fix - Use proper escape for attributes.
+* Fix - "Pre-Order Available" Action didn't send an email.
+
+2020-01-21 - version 1.5.22
+* Fix   - Rendering pre-order products in WooCommerce Gutenberg blocks.
+
+2020-01-14 - version 1.5.21
+* Tweak - Update pot files as part of the build process.
+* Fix   - Stock message not correct for variable products.
+* Update - WC 3.9 compatibility.
+
+2019-11-04 - version 1.5.20
+* Update - WC 3.8 compatibility.
+
+2019-10-23 - version 1.5.19
+* Tweak - Added currency symbol to Pre-Order Fee settings
+* Tweak - Added HTML span to pre-order text to make it easier to style
+
+2019-10-15 - version 1.5.18
+* Tweak - Added Settings link to the plugin activation card
+
+2019-08-08 - version 1.5.17
+* Update - WC 3.7 compatibility.
+
+2019-07-12 - version 1.5.16
+* Fix - Fix missing js assets.
+
+2019-07-10 - version 1.5.15
+* Fix - Errors in the build process with uglify.
+
+2019-07-02 - version 1.5.14
+* Fix - Downloadable products link not included in Pre-order Available email.
+
+2019-04-16 - version 1.5.13
+* Tweak  - WC Tested up to 3.6
+
+2019-02-25 - version 1.5.12
+* Fix    - Increase coupon usage for the pre-ordered status ( works for WC>=3.0 )
+
+2019-01-07 - version 1.5.11
+* Fix    - Preorders processed a few hours too early/ too late due to a bug in timezone calculations.
+
+2018-09-25 - version 1.5.10
+* Update - WC 3.5 compatibility.
+
+2018-05-23 - version 1.5.9
+* Fix    - Check for empty timezone_id before fallback to timezone, and Fallback to correct offset if no timezone was found.
+* Fix    - Countdown shortcode "format" parameter not working correctly.
+* Update - Privacy policy notification.
+* Update - WC 3.4 compatibility.
+
+2018-03-12 - version 1.5.8
+* Fix - When the Order is set to `completed` then the Pre-order should be in `completed` as well.
+* Fix - Pre-Orders uses UTC instead of Local Time for cron.
+* Fix - Rebuilt POT file.
+
+2018-01-24 - version 1.5.7
+* Fix - Cannot process payment of Completed Pre-Order if product is Out of Stock.
+* Fix - Pre-Orders with a payment token present are displaying the wrong message.
+* Fix - Variable product pre-orders not completing.
+
+2018-01-11 - version 1.5.6
+* Fix - Checking for zero cost order needs to account for floats.
+* Tweak - Change pre-order complete interval to 1h instead of 5min.
+
+2017-12-12 - version 1.5.5
+* Update - WC tested up to version.
+
+2017-10-16 - version 1.5.4
+* Fix - Issue where Shop Loop Product Message setting is not applied to product taxonomy page.
+* Fix - Stock is not reducing when a Pre Order is charge upon release and using Pay Later option.
+* Fix - Charge upon release date not shown on Thank You page.
+* Fix - Email site name token not correctly replaced.
+* Update - Email templates to include $email object as variable.
+
+2017-08-14 - version 1.5.3
+* Fix - Issue where updating non pre-order orders' status may throws an error.
+* Fix - Missing space between custom message and status transition message.
+* Fix - Issue where pre-order orders may not be processed when there's pre-order product without availability date/time.
+
+2017-06-28 - version 1.5.2
+* Fix - Prevent error if pre order becomes disabled before payment has been made.
+* Fix - Removed line item modification for WC3.0+ that could cause issues in some cases.
+
+2017-06-08 - version 1.5.1
+* Fix - Zero cost pre-orders were not processed correctly.
+* Fix - Using pay later, payment process does not go through.
+* Fix - In rare cases, orphaned order metas causing canceled/completed pre orders to still show active.
+
+2017-05-25 - version 1.5.0
+* Add - Staging/test disable automated pre order processing option.
+
+2017-05-17 - version 1.4.11
+* Fix - Additional updates for WC 3.0 compatibility.
+
+2017-04-18 - version 1.4.10
+* Fix - Error when attempting to perform some actions (e.g. Resend New Order Email) from Edit Order screen.
+* Fix - Error when cancelling a subscription.
+* Fix - Notices thrown by WC 3.0 where properties were accessed directly.
+
+2017-04-03 - version 1.4.9
+* Fix - Update for WC 3.0 compatibility.
+
+2016-12-02 - version 1.4.8
+* Fix - Prevent issues with order item meta.
+
+2016-11-12 - version 1.4.7
+* Fix   - Ensure page processing actions happens on pre order pages only.
+* Fix   - Using cash on delivery at checkout for pay upfront pre order did not change to pre order status.
+* Add   - Filter "wc_pre_orders_remove_unsupported_gateways" to remove unwanted gateways.
+* Tweak - Update all deprecated WooCommerce function calls.
+* Fix - Issue where cancel pre-order also cancel other pre-orders with the same pre-order product
+* Tweak - Added Pre-Orders menu in My Account page
+
+2016-08-26 - version 1.4.6
+* Fix - Clicking cancel on pre order list table did not have any effect.
+* Fix - Email template deprecated notices.
+* Fix - Invalid customer note link in the action admin section.
+* Fix - Taxes not refundable because line taxes are not showing up on the edit order screen.
+ 
+2015-12-09 - version 1.4.5
+* Fix - Textdomain path for translations
+* Fix - Unable to set a blank pre-order fee
+* Tweak - Display a message under all the "action" options if no products are configured for pre-orders
+* Tweak - Add a drop-down heading option
+* Tweak - Add required attribute on each fields of Pre Orders Action forms
+* Tweak - Make actions handling (from Manage and Actions tabs) code more readable
+
+2015-06-03 - version 1.4.4
+* Fix - Orders links in My Pre-Orders table
+* Fix - Completed pre-order items in My Pre-Orders table
+* Tweak - Improved the texts that show the product stock availability.
+
+2015-05-14 - version 1.4.3
+* Fix - Deprecated shortcodes wrapper function
+
+2015-04-21 - version 1.4.2
+* Fix - Potential XSS vulnerability
+* Fix - Strict standards warning
+* Fix - Change pre orders release date not triggering
+
+2015-02-16 - version 1.4.1
+* Fix - Fatal Error in admin settings
+
+2015-02-11 - version 1.4.0
+* New - Option to enable and disable the "Pay Later" payment gateway
+* New - wc_pre_orders_supported_product_types filter to declare support to Pre-orders
+* New - Show/hide the Pre-orders tab when support or not Pre-orders.
+* Fix - Pre-orders fees in WooCommerce 2.3
+
+2015-01-29 - version 1.3.3
+* Fix - Backwards compatibility
+
+2015-01-28 - version 1.3.2
+* Fix - WC 2.3 support
+
+2015-01-27 - version 1.3.1
+* New - WC 2.3 compatibility (chosen -> select2)
+
+2014-10-06 - version 1.3.0
+* New - Suport for WooCommerce Composite Products & WooCommerce Product Bundles
+* New - .pot file for custom translations
+* Fix - Emails actions in WooCommerce 2.1 and 2.2
+
+2014-09-04 - version 1.2.5
+* Fix - Support for WooCommerce 2.1 and 2.2
+
+2014-09-01 - version 1.2.4
+* New - Support for WooCommerce 2.2
+
+2014-05-22 - version 1.2.3
+* Fix - Fire actions and emails at earlier hook
+
+2014-05-20 - version 1.2.2
+* Fix - Check for existing term on both install and upgrade
+
+2014-05-16 - version 1.2.1
+* Fix - Activation function
+
+2014-05-14 - version 1.2
+* New - Initial integration with WooCommerce Bookings
+* New - The product Pre-Orders are canceled when the product is deleted
+* Fix - During the plugin installation the default options are saved
+* Fix - Are now displayed correctly the save/edit messages in Manage Pre-Orders page
+* Fix - Stopped the errors while saving the email settings
+* Fix - No longer caused errors in Manage Pre-Orders page when a product is deleted
+* Tweak - Improved the plugin log for WooCommerce 2.1
+
+2014-05-02 - version 1.1.4
+* Fix - saving issues
+
+2014-04-24 - version 1.1.3
+* Fix - Fixed fatal error upon pre order updates or sending out emails
+
+2014-04-10 - version 1.1.2
+* Fix - WooCommerce 2.1 support for change of add to cart button text for pre order products
+* Fix - Pay Page unsetting payment gateways incorrectly if order contains products that need to be paid upfront
+
+2014-02-11 - version 1.1.1
+* Fix - Make sure right gateways are loaded for not pre order product orders
+
+2014-02-06 - version 1.1
+* WooCommerce 2.1 compatibility
+* Requires WooCommerce 2.1 and WordPress 3.8 for full graphical compatibility
+
+2013-11-19 - version 1.0.5
+* Fix - Pre order products that didn't get any pre orders are now also automatically marked as available
+
+2013-10-24 - version 1.0.4
+* Fix - Manual made pre orders from admin panel are now correctly flagged as being a pre order
+
+2013-09-16 - version 1.0.3
+* Fix - Cancel pre-order button now has correct listener
+
+2013-06-21 - version 1.0.2
+* Fix - The availability date/time shown on the single product page and countdown timer is now properly adjusted for the site timezone
+* Fix - Remove deprecated nocache() function
+
+2013-04-25 - version 1.0.1
+* Fix - PHP 5.2 compatibility
+
+2013-04-11 - version 1.0
+* Initial Release

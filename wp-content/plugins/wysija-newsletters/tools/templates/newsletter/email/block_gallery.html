@@ -1,0 +1,19 @@
+<table class="wysija_block" width="100%" cellspacing="0" cellpadding="0" border="0" align="left">
+    <tr>
+    	<td class="wysija_gallery_container">
+	    	<table class="wysija_gallery_table {#alignment}" width="{#width}" cellspacing="0" cellpadding="0" border="0" align="{#alignment}">
+	    		<tr>
+		        {foreach name="#items" key="j" value="image"}
+		        	{if #image.url}
+			        	<td class="wysija_cell_container" width="{#image.cellWidth}" height="{#image.cellHeight}" valign="top">
+				        	<div align="center">
+				        		<a href="{#image.url}"><img src="{#image.src}" border="0" alt="{#image.alt}" style="width:{#image.width}px; height:{#image.height}px;" /></a>
+				        	</div>
+				        </td>
+					{/if}
+				{/foreach}
+				</tr>
+			</table>
+		</td>
+    </tr>
+</table>

@@ -1,0 +1,89 @@
+#{$wrap} {
+    &.mega-sticky {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 99998;
+        opacity: $sticky_menu_opacity;
+        max-width: 100%;
+        width: 100%;
+        margin: 0 auto;
+
+        @if $sticky_menu_expand == false {
+            background: transparent;
+
+            #{$menu} {
+                @include background($container_background_from, $container_background_to);
+
+                @if $container_background_from != $mobile_background_from {
+                    @include mobile {
+                        @include background($mobile_background_from, $mobile_background_to);
+                    }
+                }
+            }
+        }
+    }
+
+    &.mega-stuck {
+        @if $sticky_menu_height == on {
+            @include desktop {
+                #{$menu} > li.mega-menu-item > a.mega-menu-link {
+                    height: $sticky_menu_item_link_height;
+                    line-height: $sticky_menu_item_link_height;
+                }
+
+                #{$menu} > li.mega-menu-item > a.mega-menu-logo > img.mega-menu-logo {
+                    max-height: 90%;
+                    width: auto;
+                }
+            }
+        }
+
+        &.mega-hide {
+            transform: translateY(-100%);
+        }
+
+        transition: transform .25s ease-in-out;
+    }
+
+    @if $sticky_menu_height == on and $sticky_menu_transition == on {
+        @include desktop {
+            #{$menu} > li.mega-menu-item > a.mega-menu-link {
+                transition: height .25s ease-in-out, line-height .25s ease-in-out;
+            }
+            #{$menu} > li.mega-menu-item > a.mega-menu-logo > img.mega-menu-logo {
+                transition: all .25s ease-in-out;
+                max-height: 100%;
+                width: auto;
+            }
+        }
+    }
+
+}
+
+@include mobile {
+    #{$wrap}.mega-sticky #{$menu}:not([data-effect-mobile^="slide_"]) {
+        max-height: calc(100vh - #{$toggle_bar_height});
+        overflow: auto;
+    }
+    body.admin-bar #{$wrap}.mega-sticky #{$menu}:not([data-effect-mobile^="slide_"]) {
+        max-height: calc(100vh - #{$toggle_bar_height} - 42px);
+    }
+}
+
+#{$wrap} #{$menu} li.mega-menu-item.mega-show-when-sticky {
+    display: none;
+}
+#{$wrap}.mega-sticky #{$menu} li.mega-menu-item.mega-hide-when-sticky {
+    display: none;
+}
+#{$wrap}.mega-sticky #{$menu} li.mega-menu-item.mega-show-when-sticky {
+    display: inline-block;
+
+    @include mobile {
+        &.mega-hide-on-mobile {
+            display: none;
+        }
+    }
+}

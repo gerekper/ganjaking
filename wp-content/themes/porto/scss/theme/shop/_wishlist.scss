@@ -1,0 +1,111 @@
+
+.shop_table.wishlist_table {
+    margin-bottom: 15px;
+    tr td {
+        text-align: $left;
+
+        @media #{$screen-medium} {
+            text-align: center;
+        }
+    }
+}
+
+.woocommerce table.shop_table.wishlist_table {
+    thead {
+        th,
+        td {
+            border: none;
+            padding: 10px;
+        }
+    }
+    tbody,
+    tfoot {
+        th,
+        td {
+            padding: 10px;
+        }
+    }
+}
+
+.shop_table.wishlist_table,
+.woocommerce table.wishlist_table {
+    font-size: 100%;
+
+    .add_to_cart.button, .add_to_cart_read_more.button {
+        display: inline-block !important;
+    }
+
+    .yith-wcwl-add-to-wishlist {
+        display: none;
+    }
+
+    .wishlist-empty {
+        text-align: center;
+    }
+
+    .quickview {
+        margin-#{$left}: 10px;
+    }
+}
+
+.woocommerce #content table.shop_table.wishlist_table.cart a.remove {
+    &:hover {
+        background: transparent;
+    }
+}
+
+.blockUI {
+    background: #fff !important;
+    opacity: .5 !important;
+}
+
+.sidebar-content #yith-ajaxsearchform .btn {
+    color: #fff;
+    border-width: 1px;
+}
+
+.sidebar-content .autocomplete-suggestions {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.sidebar-content .autocomplete-suggestion {
+    padding-#{$left}: 8px;
+    padding-#{$right}: 8px;
+}
+
+.wishlist_table .add_to_cart.button,
+.wishlist_table .add_to_cart_read_more.button {
+    padding-top: 6px;
+    padding-bottom: 6px;
+    line-height: 22px;
+}
+
+.woocommerce .wishlist-title a.btn,
+.woocommerce .hidden-title-form a.btn,
+.woocommerce .hidden-title-form input[type="submit"] {
+    color: #fff;
+    vertical-align: middle
+}
+
+.woocommerce .wishlist-title h2 {
+    margin: 0 !important
+}
+
+#header .my-wishlist, #header .my-account {
+    display: inline-block;
+    padding: 0 .125rem;
+    font-size: 24px;
+    vertical-align: middle
+}
+
+#header .my-wishlist {
+    position: relative;
+    .wishlist-count {
+        #{$right}: -.25rem;
+    }
+}
+
+.wishlist_table tr td.product-thumbnail a {
+    max-width: none
+}

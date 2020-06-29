@@ -1,0 +1,198 @@
+.product_price_rule label{
+    margin: 0!important;
+    line-height: 26px;
+    font-weight: 700;
+}
+
+.product_price_rule .toolbar.toolbar-top{
+    margin: 0!important;
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #eee;
+    padding: 9px 12px!important;
+}
+
+.product_price_rule .expand-close{
+    float: right;
+    line-height: 28px;
+    margin-right: 2px;
+    color: #777;
+    font-size: 12px;
+    font-style: italic;
+}
+/*.product_price_list{
+    border-bottom: 1px solid #eee;
+}*/
+
+.product_price_rule .toolbar label{
+    width: 20%;
+}
+.woocommerce_price_rule{
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    margin: 0!important;
+    margin-bottom: 15px;
+}
+.woocommerce_price_rule:last-child{
+    border-bottom: none;
+}
+
+.woocommerce_price_rule h3{
+    margin: 0!important;
+    padding: .75em .75em .75em 1em!important;
+    font-size: 1em!important;
+    overflow: hidden;
+    zoom: 1;
+    cursor: move;
+}
+
+.woocommerce_price_rule h3 .handlediv, .woocommerce_price_rule h3 .remove_row_price{
+    visibility: hidden;
+}
+
+.woocommerce_price_rule h3:hover .handlediv, .woocommerce_price_rule h3:hover .remove_row_price{
+    visibility: visible;
+}
+.woocommerce_price_rule h3 .remove_row_price{
+    color: red;
+    font-weight: 400;
+    line-height: 26px;
+    text-decoration: none;
+    position: relative;
+    float: right;
+}
+.woocommerce_price_rule .handlediv:before{
+    content: "\f142"!important;
+    cursor: pointer;
+    display: inline-block;
+    font: 400 20px/1 Dashicons;
+    line-height: .5!important;
+    padding: 8px 10px;
+    position: relative;
+    right: 12px;
+    top: 0;
+}
+
+.woocommerce_price_rule.closed .handlediv:before{
+    content: "\f140"!important;
+}
+
+.woocommerce_price_rule table{
+    width: 100%;
+    position: relative;
+    background-color: #fdfdfd;
+    padding: 1em;
+    border-top: 1px solid #eee
+}
+
+.woocommerce_price_rule table td{
+    text-align: left;
+    padding: 0 6px 1em 0;
+    vertical-align: top;
+    border: 0;
+}
+
+.woocommerce_price_rule table td.rule_type_lbl label{
+
+    width:100%;
+
+}
+
+.woocommerce_price_rule table td.rule_type_lbl label .price_type_txt{
+    padding-left: 6%;
+}
+.woocommerce_price_rule table td .select2-container{
+    width: 80%!important;
+}
+.product_price_rule select.type_price_rule_select{
+    float: none;
+}
+
+.price_type_txt{
+    font-style: italic;
+}
+
+.product_price_rule .how_apply_product_rule p.form-field{
+    padding: 5px 20px 5px 13px!important;
+}
+
+.how_apply_product_rule span{
+    display: inline-block;
+    margin-right: 50px;
+}
+
+/**PRODUCT VARIATION*/
+
+.variation_price_rule .form-row  .type_price_rule_select{
+    width: 80%!important;
+}
+
+.variation_price_rule p.expand_close{
+
+    text-align: right;
+}
+.woocommerce-variation .variable_pricing .variation_price_rule {
+    padding-top: 10px;
+}
+.product_variation_price_list{
+    border-bottom: 1px solid #eee;
+}
+
+.woocommerce_variation_price_rule.open .woocommerce_variation_price_rule_data{
+    border-top:1px solid #eee;
+    padding-top: 10px;
+}
+
+.woocommerce_variation_price_rule p.form-row-header{
+    margin: 0;
+    padding:0;
+}
+
+.woocommerce_variation_price_rule p.form-row-header .header_variation_rule{
+    margin: 0!important;
+    font-size: 1em!important;
+    overflow: hidden;
+    zoom: 1;
+    cursor: move;
+    width: 100%;
+    display: block;
+    background: #fff;
+    border-top:1px solid #eee;
+    height: 60px;
+    line-height: 60px;
+}
+
+.woocommerce_variation_price_rule p .header_variation_rule .handlediv, .woocommerce_variation_price_rule p .header_variation_rule .variation_remove_row_price{
+    visibility: hidden;
+}
+
+.woocommerce_variation_price_rule p .header_variation_rule:hover .handlediv, .woocommerce_variation_price_rule p .header_variation_rule:hover .variation_remove_row_price{
+    visibility: visible;
+}
+.woocommerce_variation_price_rule p.form-row-header .header_variation_rule .variation_remove_row_price{
+    color: red;
+    font-weight: 400;
+    text-decoration: none;
+    position: relative;
+    float: right;
+    margin-right: 5px;
+}
+
+.woocommerce_variation_price_rule p .header_variation_rule .price_variation_rule_name{
+    margin-left: 5px;
+}
+
+.woocommerce_variation_price_rule p .header_variation_rule span.handlediv:before{
+    content: "\f142"!important;
+    cursor: pointer;
+    display: inline-block;
+    font: 400 20px/1 Dashicons;
+    line-height: 44px!important;
+    padding: 8px 10px;
+    position: relative;
+    right: 12px;
+    top: 0;
+}
+
+.woocommerce_variation_price_rule.closed p .header_variation_rule span.handlediv:before{
+    content: "\f140"!important;
+}

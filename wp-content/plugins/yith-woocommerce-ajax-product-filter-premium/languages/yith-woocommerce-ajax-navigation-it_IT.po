@@ -1,0 +1,757 @@
+# Translation of YITH WooCommerce Ajax Product Filter in Italian
+# This file is distributed under the same license as the YITH WooCommerce Ajax Product Filter package.
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH WooCommerce Ajax Product Filter\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
+"ajax-product-filter.premium\n"
+"POT-Creation-Date: 2020-06-01 08:33:42+00:00\n"
+"PO-Revision-Date: 2020-05-11 17:40:38+0000\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/2.3.1\n"
+
+#: includes/class.yith-wcan-admin-premium.php:59
+msgid "Settings"
+msgstr "Impostazioni"
+
+#: includes/class.yith-wcan-admin-premium.php:60 settings/seo-options.php:12
+msgid "SEO"
+msgstr "SEO"
+
+#: includes/class.yith-wcan-admin-premium.php:119
+msgid ""
+"Select whether you want to enable the \"Scroll up to top\" option on "
+"Desktop, Mobile, or on both of them"
+msgstr ""
+"Seleziona se vuoi attivare l'opzione Torna su per desktop, dispositivo "
+"mobile o per entrambi "
+
+#: includes/class.yith-wcan-admin-premium.php:123 settings/seo-options.php:38
+msgid "Disabled"
+msgstr "Disattivato"
+
+#: includes/class.yith-wcan-admin-premium.php:124
+msgid "Mobile"
+msgstr "Dispositivo mobile"
+
+#: includes/class.yith-wcan-admin-premium.php:125
+msgid "Desktop"
+msgstr "Desktop"
+
+#: includes/class.yith-wcan-admin-premium.php:126
+msgid "Mobile and Desktop"
+msgstr "Dispositivo mobile e desktop"
+
+#: includes/class.yith-wcan-admin-premium.php:132
+msgid "Widget Title Tag"
+msgstr "Tag titolo del widget"
+
+#: includes/class.yith-wcan-admin-premium.php:133
+msgid "Enter here the HTML tag for the widget title"
+msgstr "Inserisci qui il tag HTML per il titolo del widget"
+
+#: includes/class.yith-wcan-admin-premium.php:140
+msgid "Widget Wrapper Tag"
+msgstr "Tag wrapper del widget"
+
+#: includes/class.yith-wcan-admin-premium.php:141
+msgid "Enter here the HTML tag for the widget wrapper"
+msgstr "Inserisci qui il tag HTML per il wrapper del widget"
+
+#: includes/class.yith-wcan-admin-premium.php:148
+#: settings/frontend-options.php:65
+msgid "Order by"
+msgstr "Ordina per"
+
+#: includes/class.yith-wcan-admin-premium.php:149
+#: settings/frontend-options.php:66
+msgid "Sort by number of products contained or alphabetically"
+msgstr "Ordina per numero di prodotti contenuti o in ordine alfabetico"
+
+#: includes/class.yith-wcan-admin-premium.php:153
+msgid "Number of products"
+msgstr "Numero di prodotti"
+
+#: includes/class.yith-wcan-admin-premium.php:154
+#: settings/frontend-options.php:70
+msgid "Alphabetically"
+msgstr "Ordine alfabetico"
+
+#: includes/class.yith-wcan-admin-premium.php:155
+#: settings/frontend-options.php:71
+msgid "WooCommerce Default"
+msgstr "WooCommerce predefinito"
+
+#: includes/class.yith-wcan-admin-premium.php:161
+msgid "Filter style"
+msgstr "Stile filtro"
+
+#: includes/class.yith-wcan-admin-premium.php:162
+msgid "Select the filter style"
+msgstr "Seleziona lo stile del filtro"
+
+#: includes/class.yith-wcan-admin-premium.php:166
+msgid "\"x\" icon before activated filter"
+msgstr "\"x\" davanti al filtro attivato"
+
+#: includes/class.yith-wcan-admin-premium.php:167
+msgid "Checkboxes"
+msgstr "Checkbox"
+
+#: includes/class.yith-wcan-admin-premium.php:190
+msgid "Enable ajax shop pagination"
+msgstr "Abilita paginazione shop AJAX"
+
+#: includes/class.yith-wcan-admin-premium.php:191
+msgid "Enable AJAX WooCommerce pagination"
+msgstr "Abilita paginazione WooCommerce AJAX"
+
+#: includes/class.yith-wcan-admin-premium.php:198
+msgid "Shop Pagination Container Anchor"
+msgstr "Ancora contenitore paginazione shop"
+
+#: includes/class.yith-wcan-admin-premium.php:199
+msgid "Enter here the HTML tag for the shop pagination anchor"
+msgstr "Inserisci qui il tag HTML per l'ancora della paginazione shop"
+
+#: includes/class.yith-wcan-admin-premium.php:210
+msgid "Show current categories"
+msgstr "Mostra categorie correnti"
+
+#: includes/class.yith-wcan-admin-premium.php:211
+msgid ""
+"This option allows whether to show or hide the current category when you are "
+"on it. For example, if I am on “Jeans” category page, the \"Jeans\" filter "
+"is automatically hidden."
+msgstr ""
+"Questa opzione permette di mostrare o nascondere la categoria in cui ci si "
+"trova. Per esempio, se sei nella pagina della categoria \"Jeans\", il filtro "
+"\"Jeans\" sarà automaticamente nascosto."
+
+#: includes/class.yith-wcan-admin-premium.php:218
+msgid "Show \"All Categories\" link"
+msgstr "Mostra link a \"Tutte le categorie\""
+
+#: includes/class.yith-wcan-admin-premium.php:219
+msgid "Add a link \"See all categories\" after a filter is applied"
+msgstr ""
+"Aggiungi un link \"Visualizza tutte le categorie\" dopo aver applicato un "
+"filtro"
+
+#: includes/class.yith-wcan-admin-premium.php:226
+msgid "\"All Categories\" link text"
+msgstr "Testo del link \"Tutte le categorie\""
+
+#: includes/class.yith-wcan-admin-premium.php:227
+msgid "Enter here the text for the link \"See all categories\""
+msgstr "Inserisci qui il testo per il link \"Visualizza tutte le categorie\""
+
+#: includes/class.yith-wcan-admin-premium.php:230
+msgid "See all categories"
+msgstr "Visualizza tutte le categorie"
+
+#: includes/class.yith-wcan-admin-premium.php:238
+msgid "Show \"All Tags\" link"
+msgstr "Mostra link \"Tutti i tag\""
+
+#: includes/class.yith-wcan-admin-premium.php:239
+msgid "Add a link \"See all tags\" after a filter is applied"
+msgstr ""
+"Aggiungi un link \"Visualizza tutti i tag\" dopo aver applicato un filtro"
+
+#: includes/class.yith-wcan-admin-premium.php:246
+msgid "\"All Tags\" link text"
+msgstr "Testo link \"Tutti i tag\""
+
+#: includes/class.yith-wcan-admin-premium.php:247
+msgid "Text for \"See all tags\" link"
+msgstr "Testo per il link \"Visualizza tutti i tag\""
+
+#: includes/class.yith-wcan-admin-premium.php:250
+msgid "See all tags"
+msgstr "Visualizza tutti i tag"
+
+#: includes/class.yith-wcan-admin-premium.php:258
+msgid "Enable Hierarchical Management for Product Tags"
+msgstr "Abilita la gestione gerarchica dei tag prodotto"
+
+#: includes/class.yith-wcan-admin-premium.php:259
+msgid "Hack the standard WooCommerce non-hierarchical product tags"
+msgstr "Rendi i tag standard di WooCommerce non gerarchici"
+
+#: includes/class.yith-wcan-admin.php:126
+msgid "Front end"
+msgstr "Front end"
+
+#: includes/class.yith-wcan-admin.php:127 settings/custom-style-options.php:12
+msgid "Custom Style"
+msgstr "Stile personalizzato"
+
+#: includes/class.yith-wcan-admin.php:128
+msgid "Premium Version"
+msgstr "Versione Premium"
+
+#: includes/class.yith-wcan-admin.php:134
+#: includes/class.yith-wcan-admin.php:135
+msgid "Ajax Product Filter"
+msgstr "Ajax Product Filter"
+
+#: includes/class.yith-wcan-premium.php:119
+msgid "Parent tag"
+msgstr "Tag genitore"
+
+#: includes/functions.yith-wcan.php:88 includes/functions.yith-wcan.php:104
+#: includes/functions.yith-wcan.php:126
+msgid "Term"
+msgstr "Proprietà"
+
+#: includes/functions.yith-wcan.php:88
+#: widgets/class.yith-wcan-navigation-widget.php:886
+msgid "Color"
+msgstr "Colore"
+
+#: includes/functions.yith-wcan.php:126
+msgid "Labels"
+msgstr "Etichette "
+
+#: settings/custom-style-options.php:24
+msgid "Enter here your custom CSS rules:"
+msgstr "Inserisci qui le tue regole CSS:"
+
+#: settings/frontend-options.php:12
+msgid "Frontend Settings"
+msgstr "Impostazioni frontend"
+
+#: settings/frontend-options.php:33
+msgid "Product Container"
+msgstr "Contenitore Prodotti"
+
+#: settings/frontend-options.php:34
+msgid "Enter here the CSS class or id for the product container"
+msgstr "Inserisci qui la classe CSS o l'ID del contenitore prodotto"
+
+#: settings/frontend-options.php:41
+msgid "Shop Pagination Container"
+msgstr "Contenitore Paginazione Shop"
+
+#: settings/frontend-options.php:42
+msgid "Enter here the CSS class or id for the shop pagination container"
+msgstr ""
+"Inserisci qui la classe CSS o l'ID del contenitore della paginazione shop"
+
+#: settings/frontend-options.php:49
+msgid "Result Count Container"
+msgstr "Contenitore Conteggio Risultati"
+
+#: settings/frontend-options.php:50
+msgid "Enter here the CSS class or id for the results count container"
+msgstr "Inserisci qui la classe CSS o l'ID dei risultati del conteggio"
+
+#: settings/frontend-options.php:57
+msgid "Scroll up to top anchor"
+msgstr "Ancoraggio Torna su"
+
+#: settings/frontend-options.php:58
+msgid "Enter here the HTML tag for the scroll up to to top feature"
+msgstr "Inserisci qui il tag HTML per la funzionalità Torna su"
+
+#: settings/general-options.php:12
+msgid "General Settings"
+msgstr "Impostazioni Generali"
+
+#: settings/general-options.php:24
+msgid "Ajax Loader"
+msgstr "Loader Ajax"
+
+#: settings/general-options.php:25
+msgid "Customize the AJAX loader icon"
+msgstr "Personalizza l'icona di caricamento AJAX"
+
+#: settings/general-options.php:33
+msgid "Use AJAX WooCommerce price filter"
+msgstr "Utilizza il filtro prezzo di WooCommerce in AJAX"
+
+#: settings/general-options.php:41
+msgid "Use WooCommerce price filter with slider"
+msgstr "Utilizza il Filtro prezzi di WooCommerce con slider"
+
+#: settings/general-options.php:49
+msgid "Use WooCommerce price filter with ajax slider without \"Filter\" button"
+msgstr ""
+"Usa il filtro prezzi di WooCommerce con slider Ajax senza il pulsante "
+"\"Filtra\""
+
+#: settings/general-options.php:57
+msgid "Add dropdown effect to original WooCommerce Price Filter widget"
+msgstr ""
+"Aggiunge l'effetto dropdown al widget originale Filtro prezzi di WooCommerce"
+
+#: settings/general-options.php:65
+msgid ""
+"Select this option if you want to show the dropdown as opened or closed when "
+"the page is loaded"
+msgstr ""
+"Seleziona questa opzione se vuoi mostrare il menu a tendina aperto o chiuso "
+"al caricamento della pagina"
+
+#: settings/general-options.php:69
+#: widgets/class.yith-wcan-list-price-filter-widget.php:180
+#: widgets/class.yith-wcan-navigation-widget-premium.php:142
+#: widgets/class.yith-wcan-sort-by-widget.php:146
+#: widgets/class.yith-wcan-stock-on-sale-widget.php:176
+msgid "Opened"
+msgstr "Aperto"
+
+#: settings/general-options.php:70
+#: widgets/class.yith-wcan-list-price-filter-widget.php:181
+#: widgets/class.yith-wcan-navigation-widget-premium.php:143
+#: widgets/class.yith-wcan-sort-by-widget.php:147
+#: widgets/class.yith-wcan-stock-on-sale-widget.php:177
+msgid "Closed"
+msgstr "Chiuso"
+
+#: settings/seo-options.php:24
+msgid "Enable SEO option"
+msgstr "Abilita SEO"
+
+#: settings/seo-options.php:25
+msgid ""
+"Add \"robots\" meta tag in head tag of HTML page if filters have been "
+"activated."
+msgstr ""
+"Aggiungi il meta tag \"robot\" nel tag head della pagina HTML se sono stati "
+"attivati i filtri."
+
+#: settings/seo-options.php:32
+msgid "Meta tag options"
+msgstr "Opzioni meta tag"
+
+#: settings/seo-options.php:54
+msgid "Add rel=\"nofollow\" to filter url"
+msgstr "Aggiungi rel=\"nofollow\" all'URL del filtro"
+
+#: settings/seo-options.php:66
+msgid "Change browser URL"
+msgstr "Cambia l'URL del browser"
+
+#: settings/seo-options.php:67
+msgid ""
+"Enable this option if you want to update the URL after applying a filter."
+msgstr ""
+"Abilita questa opzione se vuoi aggiornare l'URL dopo aver applicato un "
+"filtro."
+
+#: widgets/class.yith-wcan-list-price-filter-widget.php:27
+msgid ""
+"Show a price filter widget with a list of preset price ranges that users can "
+"use to better narrow down the products"
+msgstr ""
+"Mostra un widget per filtrare il prezzo con un elenco di intervalli "
+"preimpostati che gli utenti possono usare per migliorare la loro ricerca dei "
+"prodotti"
+
+#: widgets/class.yith-wcan-list-price-filter-widget.php:29
+msgid "YITH Ajax Price List Filter"
+msgstr "YITH Ajax Price List Filter"
+
+#: widgets/class.yith-wcan-list-price-filter-widget.php:166
+#: widgets/class.yith-wcan-navigation-widget.php:895
+#: widgets/class.yith-wcan-reset-navigation-widget.php:126
+#: widgets/class.yith-wcan-sort-by-widget.php:132
+#: widgets/class.yith-wcan-stock-on-sale-widget.php:150
+msgid "Title"
+msgstr "Titolo"
+
+#: widgets/class.yith-wcan-list-price-filter-widget.php:172
+#: widgets/class.yith-wcan-navigation-widget-premium.php:134
+#: widgets/class.yith-wcan-sort-by-widget.php:138
+#: widgets/class.yith-wcan-stock-on-sale-widget.php:168
+msgid "Show widget dropdown"
+msgstr "Mostra il dropdown del widget"
+
+#: widgets/class.yith-wcan-list-price-filter-widget.php:187
+msgid "Price Range"
+msgstr "Intervallo Prezzo"
+
+#: widgets/class.yith-wcan-list-price-filter-widget.php:202
+msgid "Add new range"
+msgstr "Aggiungi nuovo intervallo"
+
+#: widgets/class.yith-wcan-navigation-widget-premium.php:50
+msgid "\"See all categories/tags\" link text"
+msgstr "Testo del link \"Mostra tutte le categorie/tag\""
+
+#: widgets/class.yith-wcan-navigation-widget-premium.php:54
+msgid "Leave it empty to use the default text available"
+msgstr "Lascia il campo vuoto per utilizzare il testo predefinito"
+
+#: widgets/class.yith-wcan-navigation-widget-premium.php:56
+msgid "here"
+msgstr "qui"
+
+#: widgets/class.yith-wcan-navigation-widget-premium.php:57
+msgid "current categories text"
+msgstr "testo categorie attive"
+
+#: widgets/class.yith-wcan-navigation-widget-premium.php:59
+msgid "current tags text"
+msgstr "testo tag attivi"
+
+#: widgets/class.yith-wcan-navigation-widget-premium.php:70
+msgid "No tags found."
+msgstr "Nessun tag trovato."
+
+#: widgets/class.yith-wcan-navigation-widget-premium.php:76
+msgid "Show Selected"
+msgstr "Mostra i selezionati"
+
+#: widgets/class.yith-wcan-navigation-widget-premium.php:77
+msgid "Hide Selected"
+msgstr "Nascondi i selezionati"
+
+#: widgets/class.yith-wcan-navigation-widget-premium.php:81
+msgid "Select all"
+msgstr "Seleziona tutto"
+
+#: widgets/class.yith-wcan-navigation-widget-premium.php:84
+msgid "Unselect all"
+msgstr "Deseleziona tutto"
+
+#: widgets/class.yith-wcan-navigation-widget-premium.php:92
+msgid "Tag name"
+msgstr "Nome tag"
+
+#: widgets/class.yith-wcan-navigation-widget-premium.php:93
+msgid "Count"
+msgstr "Conteggio"
+
+#: widgets/class.yith-wcan-navigation-widget-premium.php:122
+msgid "Square"
+msgstr "Quadrati"
+
+#: widgets/class.yith-wcan-navigation-widget-premium.php:123
+msgid "Round"
+msgstr "Rotondi"
+
+#: widgets/class.yith-wcan-navigation-widget-premium.php:128
+msgid "Hide product count"
+msgstr "Nascondi numero prodotti"
+
+#: widgets/class.yith-wcan-navigation-widget-premium.php:234
+msgid "See all"
+msgstr "Vedi tutti"
+
+#: widgets/class.yith-wcan-navigation-widget-premium.php:272
+msgid "Categories"
+msgstr "Categorie"
+
+#: widgets/class.yith-wcan-navigation-widget-premium.php:273
+msgid "BiColor"
+msgstr "BiColor"
+
+#: widgets/class.yith-wcan-navigation-widget-premium.php:274
+msgid "Tag"
+msgstr "Tag"
+
+#: widgets/class.yith-wcan-navigation-widget-premium.php:277
+msgid "Brand"
+msgstr "Brand"
+
+#: widgets/class.yith-wcan-navigation-widget.php:36
+msgid "Filter the list of products without reloading the page"
+msgstr "Filtra la lista dei prodotti senza dover ricaricare la pagina"
+
+#: widgets/class.yith-wcan-navigation-widget.php:155
+msgid "Filters:"
+msgstr "Filtri:"
+
+#: widgets/class.yith-wcan-navigation-widget.php:885
+msgid "List"
+msgstr "Lista"
+
+#: widgets/class.yith-wcan-navigation-widget.php:887
+msgid "Label"
+msgstr "Etichetta"
+
+#: widgets/class.yith-wcan-navigation-widget.php:888
+msgid "Dropdown"
+msgstr "Dropdown"
+
+#: widgets/class.yith-wcan-navigation-widget.php:901
+msgid "Type:"
+msgstr "Tipo:"
+
+#: widgets/class.yith-wcan-navigation-widget.php:912
+msgid "Query Type:"
+msgstr "Tipo Query:"
+
+#: widgets/class.yith-wcan-navigation-widget.php:914
+msgid "AND"
+msgstr "E"
+
+#: widgets/class.yith-wcan-navigation-widget.php:915
+msgid "OR"
+msgstr "O"
+
+#: widgets/class.yith-wcan-navigation-widget.php:921
+msgid "Attribute:"
+msgstr "Attributo:"
+
+#: widgets/class.yith-wcan-navigation-widget.php:928
+msgid "Display (default All):"
+msgstr "Mostra (default Tutti)"
+
+#: widgets/class.yith-wcan-navigation-widget.php:930
+msgid "All (no hierarchical)"
+msgstr "Tutti (non gerarchico)"
+
+#: widgets/class.yith-wcan-navigation-widget.php:931
+msgid "All (hierarchical)"
+msgstr "Tutti (gerarchico)"
+
+#: widgets/class.yith-wcan-navigation-widget.php:932
+msgid "Only Parent"
+msgstr "Solo Principali"
+
+#: widgets/class.yith-wcan-navigation-widget.php:939
+msgid "CSS custom class"
+msgstr "Classe CSS custom"
+
+#: widgets/class.yith-wcan-reset-navigation-widget-premium.php:43
+msgid "Use custom style for reset button"
+msgstr "Utilizza uno stile personalizzato per il pulsante di reset"
+
+#: widgets/class.yith-wcan-reset-navigation-widget-premium.php:51
+msgid "Background color"
+msgstr "Colore di sfondo"
+
+#: widgets/class.yith-wcan-reset-navigation-widget-premium.php:58
+msgid "Background color on hover"
+msgstr "Colore sfondo al passaggio del mouse"
+
+#: widgets/class.yith-wcan-reset-navigation-widget-premium.php:65
+msgid "Text color"
+msgstr "Colore del testo"
+
+#: widgets/class.yith-wcan-reset-navigation-widget-premium.php:72
+msgid "Text color on hover"
+msgstr "Colore testo al passaggio del mouse"
+
+#: widgets/class.yith-wcan-reset-navigation-widget-premium.php:79
+msgid "Border color"
+msgstr "Colore del bordo"
+
+#: widgets/class.yith-wcan-reset-navigation-widget-premium.php:86
+msgid "Border color on hover"
+msgstr "Colore bordo al passaggio del mouse"
+
+#: widgets/class.yith-wcan-reset-navigation-widget.php:25
+msgid "YITH Ajax Reset Filter"
+msgstr "YITH Ajax Reset Filter"
+
+#: widgets/class.yith-wcan-reset-navigation-widget.php:119
+msgid "Reset All Filters"
+msgstr "Resetta tutti i filtri"
+
+#: widgets/class.yith-wcan-reset-navigation-widget.php:132
+msgid "Button Label"
+msgstr "Etichetta Pulsante"
+
+#: widgets/class.yith-wcan-sort-by-widget.php:27
+msgid "Choose how to sort WooCommerce products"
+msgstr "Scegli l'ordinamento dei prodotti WooCommerce"
+
+#: widgets/class.yith-wcan-sort-by-widget.php:29
+msgid "YITH Ajax Sort By"
+msgstr "YITH Ajax Sort By"
+
+#: widgets/class.yith-wcan-stock-on-sale-widget.php:27
+msgid "Display on sale and in stock WooCommerce products"
+msgstr "Mostra i prodotti WooCommerce disponibili e in sconto"
+
+#: widgets/class.yith-wcan-stock-on-sale-widget.php:29
+msgid "YITH Ajax In Stock/On Sale Filters"
+msgstr "YITH Ajax In Stock/On Sale Filters"
+
+#: widgets/class.yith-wcan-stock-on-sale-widget.php:101
+msgid "Show only \"On Sale\" products"
+msgstr "Mostra solo prodotti \"In sconto\""
+
+#: widgets/class.yith-wcan-stock-on-sale-widget.php:102
+msgid "Show only \"In Stock\" products"
+msgstr "Mostra solo prodotti \"Disponibili\""
+
+#: widgets/class.yith-wcan-stock-on-sale-widget.php:156
+msgid "Show \"On Sale\" filter"
+msgstr "Mostra filtro \"In sconto\""
+
+#: widgets/class.yith-wcan-stock-on-sale-widget.php:162
+msgid "Show \"In Stock\" filter"
+msgstr "Mostra filtro \"Disponibili\""
+
+#. Description of the plugin/theme
+msgid ""
+"<code><strong>YITH WooCommerce AJAX Product Filter</strong></code> allows "
+"your users to find the product they are looking for as quickly as possible. "
+"Thanks to the plugin you will be able to set up one or more search filters "
+"for your WooCommerce products, improve the user experience and give the "
+"impression of being in a big and reliable store. <a href=\"https://yithemes."
+"com/\" target=\"_blank\">Get more plugins for your e-commerce shop on "
+"<strong>YITH</strong></a>"
+msgstr ""
+"<code><strong>YITH WooCommerce AJAX Product Filter</strong></code> permette "
+"ai tuoi utenti di trovare il più velocemente possibile il prodotto che "
+"stanno cercando. Grazie al plugin potrai impostare uno o più filtri di "
+"ricerca per i tuoi prodotti WooCommerce, migliorare la user experience e "
+"risultare uno store grande ed affidabile. <a href=\"https://yithemes.com/\" "
+"target=\"_blank\">Ottieni più plugin per il tuo e-commerce su <strong>YITH</"
+"strong></a>"
+
+#: includes/class.yith-wcan-admin-premium.php:118
+msgctxt "[Admin] Option name"
+msgid "Enable Scroll up to top"
+msgstr "Attiva Torna Su"
+
+#: includes/functions.yith-wcan.php:104
+msgctxt "For multicolor: I.E. white and red T-Shirt"
+msgid "Color 1"
+msgstr "Colore 1"
+
+#: includes/functions.yith-wcan.php:104
+msgctxt "For multicolor: I.E. white and red T-Shirt"
+msgid "Color 2"
+msgstr "Colore 2"
+
+#: init.php:49
+msgctxt "[Plugin Name]"
+msgid ""
+"YITH WooCommerce Ajax Product Filter is enabled but not effective. It "
+"requires WooCommerce in order to work."
+msgstr ""
+"YITH WooCommerce Ajax Product Filter è attivo, ma non operativo. Richiede "
+"WooCommerce  affinché possa funzionare correttamente."
+
+#: widgets/class.yith-wcan-reset-navigation-widget.php:23
+msgctxt "[Plugin Name]"
+msgid "Reset all filters set by YITH WooCommerce Ajax Product Filter"
+msgstr ""
+"Resetta tutti i filtri impostati da YITH WooCommerce Ajax Product Filter"
+
+#: settings/frontend-options.php:25
+msgctxt "Admin panel: option description"
+msgid "How To:"
+msgstr "Descrizione"
+
+#: settings/frontend-options.php:27
+msgctxt "Admin: Panel section description"
+msgid ""
+"If your theme is using WooCommerce standard templates, you don't need to "
+"change the following values.\n"
+"                                Otherwise, add the classes used in the "
+"templates of your theme.\n"
+"                                If you don't know how to do, please contact "
+"the developer of your theme to be correctly instructed."
+msgstr ""
+"Se il tuo tema utilizza i template standard di WooCommerce, non servirà "
+"modificare i seguenti valori.\n"
+"In caso contrario, aggiungi le classi utilizzate nei template del tuo tema.\n"
+"Se non sai come fare, contatta lo sviluppatore del tuo tema per ricevere "
+"informazioni corrette."
+
+#: settings/general-options.php:32
+msgctxt "Referer to original WooCommerce Price Filter Widget"
+msgid "Ajax WooCommerce Price Filter"
+msgstr "WooCommerce Price Filter in AJAX"
+
+#: settings/general-options.php:40
+msgctxt "Referer to original WooCommerce Price Filter Widget"
+msgid "WooCommerce Price Filter slider"
+msgstr "Slider WooCommerce Price Filter"
+
+#: settings/general-options.php:48
+msgctxt "Referer to original WooCommerce Price Filter Widget"
+msgid "Instant WooCommerce Price Filter slider"
+msgstr "Slider istantaneo WooCommerce Price Filter"
+
+#: settings/general-options.php:56
+msgctxt "Referer to original WooCommerce Price Filter Widget"
+msgid "Dropdown for WooCommerce Price Filter"
+msgstr "Dropdown per WooCommerce Price Filter"
+
+#: settings/general-options.php:64
+msgctxt "Referer to original WooCommerce Price Filter Widget"
+msgid "Open/Close for WooCommerce Price Filter"
+msgstr "Apri/Chiudi menu per WooCommerce Price Filter"
+
+#: templates/woocommerce/loop/list-price-filter.php:31
+msgctxt "Price filter option: price starts from"
+msgid "From"
+msgstr "Da"
+
+#: templates/woocommerce/loop/list-price-filter.php:31
+msgctxt "Price filter option: price ends to"
+msgid "To"
+msgstr "A"
+
+#: widgets/class.yith-wcan-list-price-filter-widget.php:150
+msgctxt "refer to: product price"
+msgid "Price Filter"
+msgstr "Filtro Prezzo"
+
+#: widgets/class.yith-wcan-list-price-filter-widget.php:178
+#: widgets/class.yith-wcan-navigation-widget-premium.php:140
+#: widgets/class.yith-wcan-sort-by-widget.php:144
+#: widgets/class.yith-wcan-stock-on-sale-widget.php:174
+msgctxt "Select this if you want to show the widget as open or closed"
+msgid "Dropdown style:"
+msgstr "Stile dropdown:"
+
+#: widgets/class.yith-wcan-navigation-widget-premium.php:74
+msgctxt "Admin: Section title"
+msgid "Tag List"
+msgstr "Elenco Tag"
+
+#: widgets/class.yith-wcan-navigation-widget-premium.php:86
+msgctxt "Admin: user note"
+msgid ""
+"Note: tags with no products assigned will not be showed in the front end"
+msgstr ""
+"Nota bene: i tag che non contengono prodotti non appariranno a frontend"
+
+#: widgets/class.yith-wcan-navigation-widget-premium.php:119
+msgctxt "Select if you want to show round color box or square color box"
+msgid "Color Style:"
+msgstr "Stile Colori:"
+
+#: widgets/class.yith-wcan-navigation-widget.php:39
+msgctxt "[Plugin Name] Admin: Widget Title"
+msgid "YITH Ajax Product Filter"
+msgstr "YITH Ajax Product Filter"
+
+#: widgets/class.yith-wcan-sort-by-widget.php:122
+msgctxt "Product sorting"
+msgid "Sort by"
+msgstr "Ordina per"
+
+#: widgets/class.yith-wcan-stock-on-sale-widget.php:138
+msgctxt "Product sorting"
+msgid "Stock/On sale"
+msgstr "Disponibili/In sconto"
+
+#~ msgid "https://yithemes.com/"
+#~ msgstr "https://yithemes.com/"
+
+#~ msgid "YITH"
+#~ msgstr "YITH "
+
+#~ msgid ""
+#~ "https://yithemes.com/themes/plugins/yith-woocommerce-ajax-product-filter/"
+#~ msgstr ""
+#~ "https://yithemes.com/themes/plugins/yith-woocommerce-ajax-product-filter/"
+
+#~ msgid "YITH WooCommerce Ajax Product Filter Premium"
+#~ msgstr "YITH WooCommerce Ajax Product Filter Premium"

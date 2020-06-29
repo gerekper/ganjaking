@@ -1,0 +1,20 @@
+This file contains a list of people who have made large contributions
+to the public version of Imagify.
+
+Developers:
+	Jonathan Buttigieg <jonathan@wp-rocket.me>
+	Geoffrey Crofte <geoffrey@wp-media.me>
+	Sébastien Decamme <sebastien@wp-media.me>
+	Julio Potier <julio@wp-media.me>
+	Caspar Hübinger <caspar@wp-rocket.me>
+	Remy Perona <remy@wp-rocket.me>
+	Grégory Viguier <gregory@wp-rocket.me>
+
+Interface Design:
+	Matthieu Bousendorfer <matthieu@wp-media.me>
+	Geoffrey Crofte <geoffrey@wp-media.me>
+
+Translation:
+	Alice Orrù (Italian & Spanish) <alice@wp-rocket.me>
+	Caspar Hübinger (German) <caspar@wp-rocket.me>
+	Lucy Beer (English) <lucy@wp-rocket.me>

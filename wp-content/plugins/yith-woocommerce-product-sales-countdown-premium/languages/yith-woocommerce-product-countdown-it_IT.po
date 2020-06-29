@@ -1,0 +1,823 @@
+# Translation of YITH WooCommerce Product Countdown in Italian
+# This file is distributed under the same license as the YITH WooCommerce Product Countdown package.
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH WooCommerce Product Countdown\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
+"product-sales-countdown.premium\n"
+"POT-Creation-Date: 2020-05-03 06:56:57+00:00\n"
+"PO-Revision-Date: 2020-04-29 16:24:13+0000\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/2.3.1\n"
+
+#: class.yith-wc-product-countdown.php:226
+msgid "General"
+msgstr "Generale"
+
+#: class.yith-wc-product-countdown.php:227
+msgid "Customization"
+msgstr "Personalizzazione"
+
+#: class.yith-wc-product-countdown.php:228
+msgid "Bulk Operations"
+msgstr "Azioni di massa"
+
+#: class.yith-wc-product-countdown.php:229
+msgid "Top/Bottom Countdown bar"
+msgstr "Barra conto alla rovescia superiore/inferiore"
+
+#: class.yith-wc-product-countdown.php:234
+#: class.yith-wc-product-countdown.php:493
+msgid "Product Countdown"
+msgstr "Conto alla rovescia"
+
+#: class.yith-wc-product-countdown.php:528
+msgid "Enable "
+msgstr "Attiva"
+
+#: class.yith-wc-product-countdown.php:529
+msgid "Enable YITH WooCommerce Product Countdown for this product"
+msgstr "Attiva YITH WooCommerce Product Countdown per questo prodotto"
+
+#: class.yith-wc-product-countdown.php:538
+msgid "General countdown"
+msgstr "Conto alla rovescia generale"
+
+#: class.yith-wc-product-countdown.php:539
+#: templates/admin/bulk-operations.php:387
+msgid ""
+"Set a general countdown for all the variations rather than for each single "
+"variation"
+msgstr ""
+"Imposta un conto alla rovescia generale per tutte le variazioni piuttosto "
+"che per ogni variazione singola "
+
+#: class.yith-wc-product-countdown.php:547
+msgid "Countdown Dates"
+msgstr "Date del conto alla rovescia"
+
+#: class.yith-wc-product-countdown.php:548
+#: templates/admin/bulk-operations.php:400
+msgid "From&hellip;"
+msgstr "Da&hellip;"
+
+#: class.yith-wc-product-countdown.php:549
+#: templates/admin/bulk-operations.php:401
+msgid "To&hellip;"
+msgstr "A&hellip;"
+
+#: class.yith-wc-product-countdown.php:550
+msgid "The sale will end at the beginning of the set date."
+msgstr "La vendita terminerà all'inizio della data impostata."
+
+#: class.yith-wc-product-countdown.php:557
+#: class.yith-wc-product-countdown.php:671
+#: templates/admin/bulk-operations.php:407
+msgid "Discounted products"
+msgstr "Prodotti scontati"
+
+#: class.yith-wc-product-countdown.php:560
+#: class.yith-wc-product-countdown.php:671
+#: templates/admin/bulk-operations.php:413
+msgid "The number of discounted products."
+msgstr "Il numero dei prodotti scontati."
+
+#: class.yith-wc-product-countdown.php:572
+#: class.yith-wc-product-countdown.php:676
+#: templates/admin/bulk-operations.php:420
+msgid "Already sold products"
+msgstr "Prodotti già venduti"
+
+#: class.yith-wc-product-countdown.php:575
+#: templates/admin/bulk-operations.php:426
+msgid "The number of already sold products."
+msgstr "Il numero dei prodotti già venduti."
+
+#: class.yith-wc-product-countdown.php:660
+msgid "Countdown start date"
+msgstr "Data inizio conto alla rovescia"
+
+#: class.yith-wc-product-countdown.php:665
+msgid "Countdown end date"
+msgstr "Data fine conto alla rovescia"
+
+#: class.yith-wc-product-countdown.php:676
+msgid "Already sold products."
+msgstr "Prodotti già venduti."
+
+#: class.yith-wc-product-countdown.php:873
+msgid "Countdown"
+msgstr "Conto alla rovescia"
+
+#: class.yith-wc-product-countdown.php:898
+msgid "Countdown not set"
+msgstr "Conto alla rovescia non impostato"
+
+#: class.yith-wc-product-countdown.php:912
+msgid "Countdown expired"
+msgstr "Conto alla rovescia scaduto"
+
+#: class.yith-wc-product-countdown.php:955
+#: class.yith-wc-product-countdown.php:957 templates/admin/custom-radio.php:134
+#: templates/admin/custom-radio.php:136 templates/frontend/category-bar.php:52
+#: templates/frontend/category-bar.php:55
+#: templates/frontend/single-product-bar.php:43
+msgid "%d/%d Sold"
+msgstr "Venduti %d/%d"
+
+#: includes/class-ywpc-shortcode.php:76
+msgid "Add YITH WooCommerce Product Countdown shortcode"
+msgstr "Aggiungi lo shortcode di YITH WooCommerce Product Countdown"
+
+#: includes/class-ywpc-shortcode.php:291
+msgid "Shortcode Style"
+msgstr "Stile shortcode"
+
+#: includes/class-ywpc-shortcode.php:293
+msgid "Multiple product"
+msgstr "Prodotto multiplo"
+
+#: includes/class-ywpc-shortcode.php:296
+msgid "Single product"
+msgstr "Prodotto singolo"
+
+#: includes/class-ywpc-shortcode.php:301 includes/class-ywpc-shortcode.php:323
+#: includes/class-ywpc-widget.php:172
+msgid "Products to show"
+msgstr "Prodotti da mostrare"
+
+#: includes/class-ywpc-shortcode.php:308 includes/class-ywpc-shortcode.php:330
+#: includes/class-ywpc-widget.php:154 templates/admin/bulk-operations.php:347
+#: templates/admin/custom-select.php:57
+msgid "Search for a product&hellip;"
+msgstr "Cerca un prodotto&hellip;"
+
+#: includes/class-ywpc-shortcode.php:346
+msgid "Insert"
+msgstr "Inserisci"
+
+#: includes/class-ywpc-shortcode.php:377
+msgid "You should select at least a product"
+msgstr "Dovresti selezionare almeno un prodotto "
+
+#: includes/class-ywpc-widget.php:37
+msgid "YITH WooCommerce Product Countdown"
+msgstr "YITH WooCommerce Product Countdown"
+
+#: includes/class-ywpc-widget.php:37
+msgid "Display a list of products with sale timer and/or sale bar"
+msgstr "Mostra una lista di prodotti con timer di vendita e/o barra di vendita"
+
+#: includes/class-ywpc-widget.php:135
+msgid "Our Exclusive Sale"
+msgstr "Nostra vendita esclusiva"
+
+#: includes/class-ywpc-widget.php:166
+msgid "Widget Title"
+msgstr "Titolo widget"
+
+#: init.php:25
+msgid ""
+"YITH WooCommerce Product Countdown is enabled but not effective. It requires "
+"WooCommerce in order to work."
+msgstr ""
+"YITH WooCommerce Product Countdown è attivo ma non operativo. Il suo "
+"funzionamento richiede WooCommerce."
+
+#: plugin-options/general-options.php:18
+msgid "General Settings"
+msgstr "Impostazioni generali"
+
+#: plugin-options/general-options.php:24
+msgid "Enable YITH WooCommerce Product Countdown"
+msgstr "Attiva YITH WooCommerce Product Countdown"
+
+#: plugin-options/general-options.php:31
+msgid "Select type"
+msgstr "Seleziona tipo "
+
+#: plugin-options/general-options.php:36
+msgid "Both timer and sale bar"
+msgstr "Sia timer che barra di vendita"
+
+#: plugin-options/general-options.php:37
+msgid "Timer only "
+msgstr "Solo timer"
+
+#: plugin-options/general-options.php:38
+msgid "Sale bar only"
+msgstr "Solo barra di vendita"
+
+#: plugin-options/general-options.php:42
+msgid "Select position"
+msgstr "Seleziona posizione"
+
+#: plugin-options/general-options.php:47
+msgid "Categories and product detail page"
+msgstr "Categorie e pagina dettaglio prodotto"
+
+#: plugin-options/general-options.php:48
+msgid "Categories only"
+msgstr "Solo categorie"
+
+#: plugin-options/general-options.php:49
+msgid "Product detail page only"
+msgstr "Solo pagina dettaglio prodotto"
+
+#: plugin-options/general-options.php:50
+msgid "Widget/Shortcode only"
+msgstr "Solo widget/shortcode"
+
+#: plugin-options/general-options.php:54
+msgid "Show timer before sale starts"
+msgstr "Mostra il timer prima che inizi la vendita"
+
+#: plugin-options/general-options.php:61
+msgid "Disable products before sale starts"
+msgstr "Disattiva i prodotti prima che inizi la vendita"
+
+#: plugin-options/general-options.php:68
+msgid "Behaviour on expiration or sold out"
+msgstr "Comportamento alla scadenza o con prodotto esaurito"
+
+#: plugin-options/general-options.php:73
+msgid "Hide countdown and/or sale bar"
+msgstr "Nascondi conto alla rovescia e/o barra di vendita"
+
+#: plugin-options/general-options.php:74
+msgid "Remove product from sale"
+msgstr "Elimina prodotto dalla vendita"
+
+#: plugin-options/general-options.php:75
+msgid "Leave the product unavailable"
+msgstr "Lascia il prodotto non disponibile"
+
+#: plugin-options/general-options.php:79
+msgid "Show sale summary"
+msgstr "Mostra riepilogo vendite"
+
+#: plugin-options/general-options.php:81
+msgid "Only if product is unavailable"
+msgstr "Solo se il prodotto non è disponibile"
+
+#: plugin-options/general-options.php:91
+msgid "Timer and sale bar position"
+msgstr "Posizione timer e barra di vendita"
+
+#: plugin-options/general-options.php:97
+msgid "Product Page"
+msgstr "Pagina prodotto"
+
+#: plugin-options/general-options.php:101
+msgid ""
+"The position where timer and sale bar are showed in product detail pages."
+msgstr ""
+"La posizione in cui mostrare timer e barra di vendita nelle pagine dettaglio "
+"prodotto."
+
+#: plugin-options/general-options.php:103
+#: plugin-options/general-options.php:118
+msgid "Before title"
+msgstr "Prima del titolo"
+
+#: plugin-options/general-options.php:104
+msgid "After price"
+msgstr "Dopo il prezzo"
+
+#: plugin-options/general-options.php:105
+msgid "Before \"Add to cart\""
+msgstr "Prima di \"Aggiungi al carrello\""
+
+#: plugin-options/general-options.php:106
+msgid "Before tabs"
+msgstr "Prima delle schede"
+
+#: plugin-options/general-options.php:107
+msgid "Between tabs and related products"
+msgstr "Tra le schede e i prodotti correlati"
+
+#: plugin-options/general-options.php:108
+msgid "After related products"
+msgstr "Dopo i prodotti correlati"
+
+#: plugin-options/general-options.php:112
+msgid "Category"
+msgstr "Categoria"
+
+#: plugin-options/general-options.php:116
+msgid "The position where timer and sale bar are showed in category pages."
+msgstr ""
+"La posizione in cui mostrare timer e barra di vendita nelle pagine categoria."
+
+#: plugin-options/general-options.php:119
+msgid "Before price"
+msgstr "Prima del prezzo"
+
+#: plugin-options/general-options.php:120
+msgid "Between price and \"Add to cart\""
+msgstr "Tra prezzo e \"Aggiungi al carrello\""
+
+#: plugin-options/general-options.php:121
+msgid "After \"Add to cart\""
+msgstr "Dopo \"Aggiungi al carrello\""
+
+#: plugin-options/general-options.php:130
+msgid "Shortcode settings"
+msgstr "Impostazioni shortcode"
+
+#: plugin-options/general-options.php:135
+#: plugin-options/general-options.php:186
+msgid "Product elements to show"
+msgstr "Elementi del prodotto da mostrare "
+
+#: plugin-options/general-options.php:137
+#: plugin-options/general-options.php:188 plugin-options/topbar-options.php:31
+msgid "Title"
+msgstr "Titolo"
+
+#: plugin-options/general-options.php:145
+#: plugin-options/general-options.php:196
+msgid "Rating"
+msgstr "Valutazione"
+
+#: plugin-options/general-options.php:153
+#: plugin-options/general-options.php:204
+msgid "Price"
+msgstr "Prezzo"
+
+#: plugin-options/general-options.php:161
+#: plugin-options/general-options.php:212
+msgid "Image"
+msgstr "Immagine"
+
+#: plugin-options/general-options.php:169
+#: plugin-options/general-options.php:220
+msgid "\"Add to cart\""
+msgstr "Aggiungi al carrello"
+
+#: plugin-options/general-options.php:180
+msgid "Widget settings"
+msgstr "Impostazioni widget"
+
+#: plugin-options/style-options.php:18
+msgid "Customization Settings"
+msgstr "Impostazioni personalizzazione"
+
+#: plugin-options/style-options.php:24
+msgid "Timer title"
+msgstr "Titolo timer"
+
+#: plugin-options/style-options.php:26 templates/admin/custom-radio.php:80
+#: templates/frontend/category-timer.php:32
+#: templates/frontend/single-product-timer.php:31
+msgid "Sale ends in"
+msgstr "La vendita termina tra"
+
+#: plugin-options/style-options.php:31
+msgid "Timer title before sale starts"
+msgstr "Titolo timer prima che inizi la vendita"
+
+#: plugin-options/style-options.php:33
+msgid "Countdown to upcoming sale"
+msgstr "Conto alla rovescia alla vendita imminente"
+
+#: plugin-options/style-options.php:38
+msgid "Sale bar title"
+msgstr "Titolo barra di vendita"
+
+#: plugin-options/style-options.php:40 templates/admin/custom-radio.php:124
+#: templates/frontend/category-bar.php:41
+#: templates/frontend/single-product-bar.php:35
+msgid "On sale"
+msgstr "In vendita"
+
+#: plugin-options/style-options.php:45
+msgid "Countdown and sale bar template"
+msgstr "Conto alla rovescia e template della barra di vendita"
+
+#: plugin-options/style-options.php:51 plugin-options/topbar-options.php:62
+msgid "Style 1"
+msgstr "Stile 1"
+
+#: plugin-options/style-options.php:52 plugin-options/topbar-options.php:63
+msgid "Style 2"
+msgstr "Stile 2"
+
+#: plugin-options/style-options.php:53
+msgid "Style 3"
+msgstr "Stile 3"
+
+#: plugin-options/style-options.php:58 plugin-options/topbar-options.php:67
+msgid "Color and font size"
+msgstr "Colore e dimensione font"
+
+#: plugin-options/style-options.php:64
+msgid "Use template default settings"
+msgstr "Usa le impostazioni predefinite del template"
+
+#: plugin-options/style-options.php:65 plugin-options/topbar-options.php:74
+msgid "Customize"
+msgstr "Personalizza"
+
+#: plugin-options/style-options.php:69 plugin-options/topbar-options.php:78
+msgid "Text font size"
+msgstr "Dimensione font del testo"
+
+#: plugin-options/style-options.php:71 plugin-options/topbar-options.php:80
+msgid "Set font size for message text. Min: 10 - Max: 55"
+msgstr ""
+"Imposta la dimensione del font per il testo del messaggio. Min: 10 - Max: 55"
+
+#: plugin-options/style-options.php:82 plugin-options/topbar-options.php:91
+msgid "Timer font size"
+msgstr "Dimensione font del timer"
+
+#: plugin-options/style-options.php:84
+msgid "Set font size for timer text. Min: 10 - Max: 55"
+msgstr ""
+"Imposta la dimensione del font per il testo del timer. Min: 10 - Max: 55"
+
+#: plugin-options/style-options.php:95
+msgid "Text font size (category page)"
+msgstr "Dimensione font del testo (pagina categoria)"
+
+#: plugin-options/style-options.php:97
+msgid "Set font size for message text. Min: 10 - Max: 20"
+msgstr ""
+"Imposta la dimensione del font per il testo del messaggio. Min: 10 - Max: 20"
+
+#: plugin-options/style-options.php:107
+msgid "Timer font size (category page)"
+msgstr "Dimensione font del timer (pagina categoria)"
+
+#: plugin-options/style-options.php:109 plugin-options/topbar-options.php:93
+msgid "Set font size for timer text. Min: 10 - Max: 35"
+msgstr ""
+"Imposta la dimensione del font per il testo del timer. Min: 10 - Max: 35"
+
+#: plugin-options/style-options.php:119 plugin-options/topbar-options.php:104
+msgid "Text color"
+msgstr "Colore del testo"
+
+#: plugin-options/style-options.php:124 plugin-options/topbar-options.php:109
+msgid "Set color for message text."
+msgstr "Imposta il colore per il testo del messaggio."
+
+#: plugin-options/style-options.php:127
+msgid "Border color"
+msgstr "Colore bordo"
+
+#: plugin-options/style-options.php:132
+msgid "Set color for box border."
+msgstr "Imposta il colore per il bordo della casella."
+
+#: plugin-options/style-options.php:135 plugin-options/topbar-options.php:120
+msgid "Background color"
+msgstr "Colore dello sfondo"
+
+#: plugin-options/style-options.php:140 plugin-options/topbar-options.php:125
+msgid "Set color for box background."
+msgstr "Imposta il colore per lo sfondo della casella."
+
+#: plugin-options/style-options.php:143 plugin-options/topbar-options.php:128
+msgid "Timer text color"
+msgstr "Colore testo del timer"
+
+#: plugin-options/style-options.php:148 plugin-options/topbar-options.php:133
+msgid "Set color for timer text."
+msgstr "Imposta il colore per il testo del timer."
+
+#: plugin-options/style-options.php:151 plugin-options/topbar-options.php:136
+msgid "Timer background color"
+msgstr "Colore sfondo del timer"
+
+#: plugin-options/style-options.php:156 plugin-options/topbar-options.php:141
+#: plugin-options/topbar-options.php:149
+msgid "Set color for timer background."
+msgstr "Imposta il colore per lo sfondo del timer."
+
+#: plugin-options/style-options.php:159
+msgid "Sale bar main color"
+msgstr "Colore principale della barra di vendita"
+
+#: plugin-options/style-options.php:164
+msgid "Set color for sale bar foreground."
+msgstr "Imposta il colore per il primo piano della barra di vendita."
+
+#: plugin-options/style-options.php:167
+msgid "Sale bar background color"
+msgstr "Colore sfondo della barra di vendita"
+
+#: plugin-options/style-options.php:172
+msgid "Set color for sale bar background."
+msgstr "Imposta il colore per lo sfondo della barra di vendita."
+
+#: plugin-options/topbar-options.php:18
+msgid "Top/Bottom Countdown Bar Settings"
+msgstr "Impostazioni barra conto alla rovescia superiore/inferiore"
+
+#: plugin-options/topbar-options.php:24
+msgid "Enable Top/Bottom Countdown Bar"
+msgstr "Attiva barra del conto alla rovescia superiore/inferiore"
+
+#: plugin-options/topbar-options.php:33
+#: templates/admin/custom-radio-topbar.php:80
+msgid "Click here for special offer!"
+msgstr "Fai clic qui per l'offerta speciale!"
+
+#: plugin-options/topbar-options.php:35
+msgid "The text displayed next to the timer"
+msgstr "Il testo mostrato accanto al timer"
+
+#: plugin-options/topbar-options.php:38
+msgid "Position"
+msgstr "Posizione"
+
+#: plugin-options/topbar-options.php:43
+msgid "Top of the page"
+msgstr "Parte superiore della pagina"
+
+#: plugin-options/topbar-options.php:44
+msgid "Bottom of the page"
+msgstr "Parte inferiore della pagina"
+
+#: plugin-options/topbar-options.php:48
+msgid "Selected product"
+msgstr "Prodotto selezionato"
+
+#: plugin-options/topbar-options.php:53
+msgid "The product to link in the bar"
+msgstr "Link del prodotto nella barra"
+
+#: plugin-options/topbar-options.php:56
+msgid "Bar template"
+msgstr "Template della barra"
+
+#: plugin-options/topbar-options.php:73
+msgid "Use template defaults"
+msgstr "Usa le impostazioni predefinite del template"
+
+#: plugin-options/topbar-options.php:112
+msgid "Label text color"
+msgstr "Colore testo etichetta"
+
+#: plugin-options/topbar-options.php:117
+msgid "Set color for label text."
+msgstr "Imposta il colore per il testo dell'etichetta."
+
+#: plugin-options/topbar-options.php:144
+msgid "Timer border color"
+msgstr "Colore bordo del timer"
+
+#: templates/admin/bulk-operations.php:36
+msgid "Assign to a selection of products"
+msgstr "Assegna a una selezione di prodotti"
+
+#: templates/admin/bulk-operations.php:37
+msgid "Assign to a category"
+msgstr "Assegna a una categoria"
+
+#: templates/admin/bulk-operations.php:38
+msgid "Assign to all recent products"
+msgstr "Assegna a tutti i prodotti recenti"
+
+#: templates/admin/bulk-operations.php:39
+msgid "Assign to all on sale products"
+msgstr "Assegna a tutti i prodotti in offerta"
+
+#: templates/admin/bulk-operations.php:40
+msgid "Assign to all featured products"
+msgstr "Assegna a tutti i prodotti in evidenza"
+
+#: templates/admin/bulk-operations.php:102
+msgid "You must select a category"
+msgstr "Devi selezionare una categoria"
+
+#: templates/admin/bulk-operations.php:123
+msgid "You must select at least one product"
+msgstr "Devi selezionare almeno un prodotto "
+
+#: templates/admin/bulk-operations.php:227
+msgid "%s product updated successfully"
+msgid_plural "%s products updated successfully"
+msgstr[0] "prodotto%s aggiornato con successo"
+msgstr[1] "prodotti%s aggiornati con successo"
+
+#: templates/admin/bulk-operations.php:283
+msgid "Days passed"
+msgstr "Giorni trascorsi"
+
+#: templates/admin/bulk-operations.php:289
+msgid "The number of days that have passed."
+msgstr "Il numero dei giorni trascorsi."
+
+#: templates/admin/bulk-operations.php:305
+msgid "Category to assign"
+msgstr "Categoria da assegnare"
+
+#: templates/admin/bulk-operations.php:315
+msgid "Search for a category&hellip;"
+msgstr "Cerca una categoria&hellip;"
+
+#: templates/admin/bulk-operations.php:337
+msgid "Products to assign"
+msgstr "Prodotti da assegnare"
+
+#: templates/admin/bulk-operations.php:367
+msgid "Enable"
+msgstr "Attiva"
+
+#: templates/admin/bulk-operations.php:373
+msgid "Enable YITH WooCommerce Product Countdown for selected products."
+msgstr "Attiva YITH WooCommerce Product Countdown per i prodotti selezionati."
+
+#: templates/admin/bulk-operations.php:381
+msgid "General Countdown"
+msgstr "Conto alla rovescia generale"
+
+#: templates/admin/bulk-operations.php:396
+msgid "Sale Dates"
+msgstr "Date vendita"
+
+#: templates/admin/bulk-operations.php:432
+msgid "Submit"
+msgstr "Invia"
+
+#: templates/admin/custom-radio-topbar.php:90
+#: templates/admin/custom-radio.php:90 templates/frontend/bar-timer.php:35
+#: templates/frontend/category-timer.php:43
+#: templates/frontend/single-product-timer.php:42
+msgid "Days"
+msgstr "Giorni"
+
+#: templates/admin/custom-radio-topbar.php:99
+#: templates/admin/custom-radio.php:99 templates/frontend/bar-timer.php:45
+#: templates/frontend/category-timer.php:53
+#: templates/frontend/single-product-timer.php:52
+msgid "Hours"
+msgstr "Ore"
+
+#: templates/admin/custom-radio-topbar.php:108
+#: templates/admin/custom-radio.php:108 templates/frontend/bar-timer.php:55
+#: templates/frontend/category-timer.php:63
+#: templates/frontend/single-product-timer.php:62
+msgid "Minutes"
+msgstr "Minuti"
+
+#: templates/admin/custom-radio-topbar.php:117
+#: templates/admin/custom-radio.php:117 templates/frontend/bar-timer.php:65
+#: templates/frontend/category-timer.php:73
+#: templates/frontend/single-product-timer.php:72
+msgid "Seconds"
+msgstr "Secondi"
+
+#: templates/frontend/bar-timer.php:24
+msgid "Click here for a special offer!"
+msgstr "Fai clic qui per un'offerta speciale!"
+
+#. Description of the plugin/theme
+msgid ""
+"<code><strong>YITH WooCommerce Product Countdown</strong></code> allows you "
+"to leverage on the urgency principle on your products, creating time-based "
+"offers that will be highlighted by a dynamic countdown. The perfect solution "
+"if you want to create tempting offers and automatically. <a href=\"https://"
+"yithemes.com/\" target=\"_blank\">Get more plugins for your e-commerce shop "
+"on <strong>YITH</strong></a>"
+msgstr ""
+
+#: class.yith-wc-product-countdown.php:661
+msgctxt "placeholder"
+msgid "From&hellip;"
+msgstr "Da&hellip;"
+
+#: class.yith-wc-product-countdown.php:666
+msgctxt "placeholder"
+msgid "To&hellip;"
+msgstr "A&hellip;"
+
+#: class.yith-wc-product-countdown.php:927
+msgctxt "Abbreviation for Days"
+msgid "d"
+msgid_plural "dd"
+msgstr[0] "g"
+msgstr[1] "gg"
+
+#: class.yith-wc-product-countdown.php:932
+msgctxt "Abbreviation for Hours"
+msgid "h"
+msgid_plural "hh"
+msgstr[0] "h"
+msgstr[1] "hh"
+
+#: class.yith-wc-product-countdown.php:937
+msgctxt "Abbreviation for Minutes"
+msgid "m"
+msgid_plural "mm"
+msgstr[0] "m"
+msgstr[1] "mm"
+
+#: class.yith-wc-product-countdown.php:942
+msgctxt "Abbreviation for Seconds"
+msgid "s"
+msgid_plural "ss"
+msgstr[0] "s"
+msgstr[1] "ss"
+
+#: includes/class-ywpc-shortcode.php:87
+msgctxt "enhanced select"
+msgid "One result is available, press enter to select it."
+msgstr "Un risultato disponibile, premi invio per selezionarlo."
+
+#: includes/class-ywpc-shortcode.php:88
+msgctxt "enhanced select"
+msgid "%qty% results are available, use up and down arrow keys to navigate."
+msgstr "%qty% risultati disponibili, usa le frecce su giù per navigare."
+
+#: includes/class-ywpc-shortcode.php:89
+msgctxt "enhanced select"
+msgid "No matches found"
+msgstr "Nessuna corrispondenza trovata"
+
+#: includes/class-ywpc-shortcode.php:90
+msgctxt "enhanced select"
+msgid "Loading failed"
+msgstr "Caricamento fallito"
+
+#: includes/class-ywpc-shortcode.php:91
+msgctxt "enhanced select"
+msgid "Please enter 1 or more characters"
+msgstr "Per favore inserisci 1 o più caratteri"
+
+#: includes/class-ywpc-shortcode.php:92
+msgctxt "enhanced select"
+msgid "Please enter %qty% or more characters"
+msgstr "Per favore inserisci %qty% o più caratteri"
+
+#: includes/class-ywpc-shortcode.php:93
+msgctxt "enhanced select"
+msgid "Please delete 1 character"
+msgstr "Per favore elimina 1 carattere"
+
+#: includes/class-ywpc-shortcode.php:94
+msgctxt "enhanced select"
+msgid "Please delete %qty% characters"
+msgstr "Per favore elimina %qty% caratteri"
+
+#: includes/class-ywpc-shortcode.php:95
+msgctxt "enhanced select"
+msgid "You can only select 1 item"
+msgstr "Puoi selezionare solo 1 elemento"
+
+#: includes/class-ywpc-shortcode.php:96
+msgctxt "enhanced select"
+msgid "You can only select %qty% items"
+msgstr "Puoi selezionare solo %qty% elementi"
+
+#: includes/class-ywpc-shortcode.php:97
+msgctxt "enhanced select"
+msgid "Loading more results&hellip;"
+msgstr "Caricamento di più risultati&hellip;"
+
+#: includes/class-ywpc-shortcode.php:98
+msgctxt "enhanced select"
+msgid "Searching&hellip;"
+msgstr "Ricerca&hellip;"
+
+#: includes/class-ywpc-shortcode.php:518
+msgctxt "[gutenberg]: block name"
+msgid "Product Countdown"
+msgstr "Conto alla rovescia"
+
+#: includes/class-ywpc-shortcode.php:519
+msgctxt "[gutenberg]: block description"
+msgid "Add the Product Countdown shortcode"
+msgstr "Aggiungi lo shortcode Product Countdown"
+
+#: includes/class-ywpc-shortcode.php:528
+msgctxt "[gutenberg]: block description"
+msgid "Select type"
+msgstr "Seleziona tipo "
+
+#: includes/class-ywpc-shortcode.php:537
+msgctxt "[gutenberg]: block description"
+msgid "Select product(s)"
+msgstr "Seleziona prodotti"
+
+#: includes/class-ywpc-shortcode.php:523
+msgctxt "[gutenberg]: keywords"
+msgid "Product Countdown"
+msgstr "Conto alla rovescia"
+
+#: includes/class-ywpc-shortcode.php:530
+msgctxt "[gutenberg]: inspector description"
+msgid "Single product counter"
+msgstr "Contatore prodotto singolo"
+
+#: includes/class-ywpc-shortcode.php:531
+msgctxt "[gutenberg]: inspector description"
+msgid "Multiple product counter"
+msgstr "Contatore prodotto multiplo"

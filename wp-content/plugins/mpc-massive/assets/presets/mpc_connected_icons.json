@@ -1,0 +1,201 @@
+{
+  "mpc_preset_13": {
+    "__name": "1 Thin Light Grey Vertical ",
+    "__image": "mpc_connected_icons\/1.jpg",
+    "layout": "vertical",
+    "lines_number": "1",
+    "lines_style": "solid",
+    "lines_color": "#efefef",
+    "lines_weight": "2"
+  },
+  "mpc_preset_17": {
+    "__name": "2 Thin Light Grey Dashed Vertical ",
+    "__image": "mpc_connected_icons\/2.jpg",
+    "layout": "vertical",
+    "lines_style": "dashed",
+    "lines_color": "#e0e0e0",
+    "animation_in_offset": "75"
+  },
+  "mpc_preset_20": {
+    "__name": "3 Thin Light Green Dotted Horizontal ",
+    "__image": "mpc_connected_icons\/3.jpg",
+    "lines_style": "dotted",
+    "lines_color": "rgba(142,194,152,0.5)",
+    "animation_in_offset": "75"
+  },
+  "mpc_preset_23": {
+    "__name": "4 Thicker Light Grey Dashed Horizontal ",
+    "__image": "mpc_connected_icons\/4.jpg",
+    "cols": "3",
+    "lines_target": "box",
+    "gap": "50",
+    "lines_style": "dashed",
+    "lines_color": "#e0e0e0",
+    "lines_weight": "3",
+    "animation_in_offset": "75"
+  },
+  "mpc_preset_26": {
+    "__name": "5 Thicker Light Grey Solid Horizontal ",
+    "__image": "mpc_connected_icons\/5.jpg",
+    "lines_color": "#efefef",
+    "lines_weight": "2",
+    "animation_in_offset": "75"
+  },
+  "mpc_preset_29": {
+    "__name": "6 Thicker Green Dotted Horizontal ",
+    "__image": "mpc_connected_icons\/6.jpg",
+    "lines_style": "dotted",
+    "lines_color": "#5dbd98",
+    "lines_weight": "2",
+    "animation_in_offset": "75"
+  },
+  "mpc_preset_30": {
+    "__name": "7 Thin Violet Solid Vertical ",
+    "__image": "mpc_connected_icons\/7.jpg",
+    "layout": "vertical",
+    "gap": "0",
+    "lines_color": "#a990e0",
+    "animation_in_offset": "75"
+  },
+  "mpc_preset_31": {
+    "__name": "8 Thicker Grey Solid Vertical ",
+    "__image": "mpc_connected_icons\/8.jpg",
+    "layout": "vertical",
+    "gap": "0",
+    "lines_color": "#efefef",
+    "lines_weight": "2",
+    "animation_in_offset": "75"
+  },
+  "mpc_preset_32": {
+    "__name": "9 Thick Dark Grey Solid Vertical ",
+    "__image": "mpc_connected_icons\/9.jpg",
+    "layout": "vertical",
+    "lines_target": "box",
+    "gap": "25",
+    "lines_color": "#e0e0e0",
+    "lines_weight": "15"
+  },
+  "mpc_preset_0": {
+    "__name": "10 Thick Dark Double Solid Vertical ",
+    "__image": "mpc_connected_icons\/10.jpg",
+    "layout": "vertical",
+    "lines_target": "box",
+    "lines_number": "2",
+    "lines_color": "#333333",
+    "lines_gap": "3",
+    "lines_weight": "8",
+    "animation_in_offset": "75"
+  },
+  "mpc_preset_1": {
+    "__name": "11 Uber Thick Solid Grey Horizontal",
+    "__image": "mpc_connected_icons\/11.jpg",
+    "cols": "3",
+    "lines_target": "box",
+    "lines_color": "#f2f2f2",
+    "lines_weight": "100"
+  },
+  "mpc_preset_2": {
+    "__name": "12 Tripple Yellow Solid Thick Horizontal",
+    "__image": "mpc_connected_icons\/12.jpg",
+    "cols": "3",
+    "lines_target": "box",
+    "lines_number": "3",
+    "lines_color": "#f8bf4d",
+    "lines_gap": "5",
+    "lines_weight": "5",
+    "animation_in_offset": "75"
+  },
+  "mpc_preset_3": {
+    "__name": "13 Double Light Grey Solid Thick Vertical",
+    "__image": "mpc_connected_icons\/13.jpg",
+    "layout": "vertical",
+    "lines_target": "box",
+    "gap": "25",
+    "lines_number": "2",
+    "lines_style": "dashed",
+    "lines_color": "#f8f7f5",
+    "lines_gap": "10",
+    "lines_weight": "20",
+    "animation_in_offset": "75"
+  },
+  "mpc_preset_4": {
+    "__name": "14 Orange Triple Dotted Think Vertical",
+    "__image": "mpc_connected_icons\/14.jpg",
+    "layout": "vertical",
+    "lines_target": "box",
+    "gap": "30",
+    "lines_number": "3",
+    "lines_style": "dotted",
+    "lines_color": "#f2c3a7",
+    "lines_gap": "5",
+    "lines_weight": "3",
+    "animation_in_offset": "75"
+  },
+  "mpc_preset_5": {
+    "__name": "15 Solid Grey Thick Vertical",
+    "__image": "mpc_connected_icons\/15.jpg",
+    "cols": "3",
+    "lines_target": "box",
+    "lines_color": "#efefef",
+    "lines_weight": "10",
+    "animation_in_offset": "75"
+  },
+  "mpc_preset_6": {
+    "__name": "16 Double Solid Light Grey Thin Vertical",
+    "__image": "mpc_connected_icons\/16.jpg",
+    "layout": "vertical",
+    "gap": "25",
+    "lines_number": "2",
+    "lines_color": "#eeeeee",
+    "lines_gap": "2",
+    "lines_weight": "2",
+    "animation_in_offset": "75"
+  },
+  "mpc_preset_7": {
+    "__name": "17 Solid Green Thick Vertical",
+    "__image": "mpc_connected_icons\/17.jpg",
+    "layout": "vertical",
+    "gap": "25",
+    "lines_color": "#88d482",
+    "lines_weight": "10",
+    "animation_in_offset": "75"
+  },
+  "mpc_preset_8": {
+    "__name": "18 Solid Turquoise Thick Vertical On The Side",
+    "__image": "mpc_connected_icons\/18.jpg",
+    "layout": "vertical",
+    "gap": "25",
+    "lines_color": "#92ced5",
+    "lines_weight": "7",
+    "animation_in_offset": "75"
+  },
+  "mpc_preset_9": {
+    "__name": "19 Solid Sandy Thick Vertical On The Side",
+    "__image": "mpc_connected_icons\/19.jpg",
+    "layout": "vertical",
+    "gap": "25",
+    "lines_color": "#e6bf73",
+    "lines_weight": "10",
+    "animation_in_offset": "75"
+  },
+  "mpc_preset_33": {
+    "__name": "Image Based Icon Slim Blue Frame",
+    "__image": "mpc_connected_icons\/image_based_icon_slim_blue_frame.jpg",
+    "cols": "3",
+    "lines_target": "box",
+    "gap": "60",
+    "lines_style": "dotted",
+    "lines_color": "rgba(134,180,206,0.49)",
+    "lines_weight": "5"
+  },
+  "mpc_preset_34": {
+    "__name": "Pin Sticky Notes Yellow Green Dotted",
+    "__image": "mpc_connected_icons\/pinned_sticky_notes_yellow_dotted.jpg",
+    "cols": "3",
+    "lines_target": "box",
+    "gap": "50",
+    "lines_style": "dotted",
+    "lines_color": "#fffae5",
+    "lines_weight": "5"
+  }
+}

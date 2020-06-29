@@ -1,0 +1,153 @@
+# Copyright (C) 2020 Caseproof, LLC
+# This file is distributed under the same license as the MemberPress MailChimp 3.0 plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: MemberPress MailChimp 3.0 1.2.1\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/memberpress-mailchimp-tags\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2020-01-13T10:46:36-06:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.4.0\n"
+"X-Domain: memberpress-mailchimp-tags\n"
+
+#. Plugin Name of the plugin
+#: main.php:34
+msgid "MemberPress MailChimp 3.0"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "http://www.memberpress.com/"
+msgstr ""
+
+#. Description of the plugin
+msgid "MailChimp Autoresponder integration for MemberPress. Uses only 1 List and segments your members by Merge Tags."
+msgstr ""
+
+#. Author of the plugin
+msgid "Caseproof, LLC"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "http://caseproof.com/"
+msgstr ""
+
+#: main.php:35
+msgid "MailChimp Autoresponder Integration for MemberPress."
+msgstr ""
+
+#: MpMailChimpTags.php:132
+#: MpMailChimpTags.php:152
+#: MpMailChimpTags.php:177
+msgid "Hey yo, why you creepin'?"
+msgstr ""
+
+#: MpMailChimpTags.php:137
+#: MpMailChimpTags.php:157
+#: MpMailChimpTags.php:182
+msgid "No apikey code was sent"
+msgstr ""
+
+#: MpMailChimpTags.php:143
+msgid "Everything's Chimpy!"
+msgstr ""
+
+#: MpMailChimpTags.php:146
+msgid "Something went wrong. Double check your input."
+msgstr ""
+
+#: MpMailChimpTags.php:171
+#: MpMailChimpTags.php:200
+msgid "An unknown error occured"
+msgstr ""
+
+#: MpMailChimpTags.php:185
+msgid "No listid present"
+msgstr ""
+
+#: MpMailChimpTags.php:431
+msgid "Sign Up for the %s Newsletter"
+msgstr ""
+
+#: views/membership.php:3
+msgid "MailChimp Merge Tag for this Membership"
+msgstr ""
+
+#: views/membership.php:6
+msgid "Enable MailChimp Merge Tag for this Membership"
+msgstr ""
+
+#: views/membership.php:7
+msgid "If this is set then anyone who is active will have this tag applied and set to \"active\" in your MailChimp list. If the user becomes inactive on this membership then the tag will be set to \"inactive\"."
+msgstr ""
+
+#: views/membership.php:7
+msgid "You can then create segments in your MailChimp list based on who is and who is not active for this membership level."
+msgstr ""
+
+#: views/membership.php:7
+msgid "Note: Changing the tag values here after some are applied to contact records in MailChimp, will prevent them from being removed later from those records if they become inactive."
+msgstr ""
+
+#: views/membership.php:11
+msgid "MailChimp Merge Tag: "
+msgstr ""
+
+#: views/opt-in.php:9
+msgid "We Respect Your Privacy"
+msgstr ""
+
+#: views/options.php:3
+msgid "Enable MailChimp 3.0"
+msgstr ""
+
+#: views/options.php:8
+msgid "MailChimp API Key:"
+msgstr ""
+
+#: views/options.php:15
+msgid "You can find your API key under your Account settings at mailchimp.com."
+msgstr ""
+
+#: views/options.php:22
+msgid "MailChimp List:"
+msgstr ""
+
+#: views/options.php:26
+msgid "This is the list you want associated with your members."
+msgstr ""
+
+#: views/options.php:32
+msgid "MailChimp Global Merge Tag:"
+msgstr ""
+
+#: views/options.php:36
+msgid "This merge tag will be set to a value of \"1\" for all MemberPress subscribers."
+msgstr ""
+
+#: views/options.php:43
+msgid "Enable Double Opt-In Email"
+msgstr ""
+
+#: views/options.php:46
+msgid "When enabled, the member must click a confirmation link in their email before they will be subscribed to your list. (Recommended)"
+msgstr ""
+
+#: views/options.php:53
+msgid "Enable Opt-In Checkbox"
+msgstr ""
+
+#: views/options.php:57
+msgid "If checked, an opt-in checkbox will appear on all of your membership registration forms. If the user does not opt-in, they will be added to your list with the Global Merge Tag value of 0 instead of 1."
+msgstr ""
+
+#: views/options.php:62
+msgid "Signup Checkbox Label:"
+msgstr ""
+
+#: views/options.php:67
+msgid "This is the text that will display on the signup form next to your mailing list opt-in checkbox."
+msgstr ""

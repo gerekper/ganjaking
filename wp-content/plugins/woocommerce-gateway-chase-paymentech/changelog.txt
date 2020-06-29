@@ -1,0 +1,177 @@
+*** WooCommerce Chase Paymentech Gateway Changelog ***
+
+2020.06.24 - version 1.14.7
+ * Tweak - Update Callback.html file to version 1.6.4.1
+
+2020.05.04 - version 1.14.6
+ * Misc - Add support for WooCommerce 4.1
+
+2020.03.10 - version 1.14.5
+ * Misc - Add support for WooCommerce 4.0
+
+2020.03.03 - version 1.14.4
+ * Fix - Do not send MIT elements for American Express cards
+
+2020.01.22 - version 1.14.3
+ * Tweak - Use the latest XML schema (PTI) version
+
+2020.01.02 - version 1.14.2
+ * Misc - Add support for WooCommerce 3.9
+
+2019.11.19 - version 1.14.1
+ * Fix - Do not reduce twice the stock level of a product when the order is held and payment is not completed
+
+2019.10.21 - version 1.14.0
+ * Misc - Add support for WooCommerce 3.8
+
+2019.09.18 - version 1.13.1
+ * Misc - Add an admin notice when a gateway is enabled but is not configured and is unable to take payments
+
+2019.08.12 - version 1.13.0
+ * Feature - Add support for the CIT/MIT Framework
+ * Misc - Add support for WooCommerce 3.7
+ * Misc - Remove support for WooCommerce 2.6
+ * Misc - Require PHP 5.6+
+
+2019.04.11 - version 1.12.0
+ * Misc - Add support for WooCommerce 3.6
+ * Misc - Require PHP 5.4+
+ * Dev - Namespace the SkyVerge Plugin Framework and move to the /vendor directory
+
+2018.10.19 - version 1.11.4
+ * Misc - Add support for WooCommerce 3.5
+
+2018.08.02 - version 1.11.3
+ * Fix - Use the filtered BIN value for profile delete requests
+
+2018.05.23 - version 1.11.2
+ * Tweak - Add payment details to the customer data export and remove it for erasure requests
+ * Tweak - Remove payment tokens for customer data erasure requests
+ * Misc - Introduce `wc_payment_gateway_chase_paymentech_request_expiry_date` filter
+ * Misc - Add support for WooCommerce 3.4
+
+2018.03.19 - version 1.11.1
+ * Tweak - Add support for Order Abstraction
+ * Tweak - Add support for failover testing during certification
+ * Misc - Introduce `wc_payment_gateway_chase_paymentech_request_bin` filter
+
+2018.01.23 - version 1.11.0
+ * Misc - Add support for WooCommerce 3.3
+ * Misc - Remove support for WooCommerce 2.5
+
+2017.07.12 - version 1.10.2
+ * Fix - Prevent an error on the admin settings page when run alongside other gateways
+ * Misc - Update SkyVerge plugin framework
+
+2017.04.26 - version 1.10.1
+ * Fix - Prevent some deprecated notices when processing subscriptions in WooCommerce 3.0+
+
+2017.03.28 - version 1.10.0
+ * Misc - Added support for WooCommerce 3.0
+ * Misc - Removed support for WooCommerce 2.4
+
+2016.11.10 - version 1.9.0
+ * Feature - Add support for refunds and voids from the WooCommerce admin
+ * Feature - Orders with only virtual items can now force a charge instead of authorization
+ * Feature - Allow customers to save new payment methods without a purchase
+ * Feature - You can now opt to show detailed decline messages to your customers, no more generic "an error occurred" messages
+ * Tweak - Block the payment form when processing to give customers feedback about what's happening and prevent additional clicks
+ * Tweak - Update Mastercard payment icon and add BIN2 series support
+ * Misc - Update SkyVerge plugin framework
+
+2016.09.22 - version 1.8.1
+ * Tweak - Format US +4 zip codes properly to avoid test case errors
+
+2016.08.10 - version 1.8.0
+ * Feature - A rewritten, more flexible certification mode to assist merchants through Chase certification process
+
+2016.07.20 - version 1.7.1
+ * Fix - Add a meaningful debug message for a rare IPN error
+ * Misc - Switch to new SHA-2 API test endpoints
+
+2016.06.02 - version 1.7.0
+ * Misc - Added support for WooCommerce 2.6
+ * Misc - Removed support for WooCommerce 2.3
+
+2016.05.03 - version 1.6.1
+ * Fix - Fixes the checkout flow when paying for a manually created subscription renewal order
+ * Fix - Fixes an issue where CSC could not be validated for saved payment methods
+
+2016.04.20 - version 1.6.0
+ * Feature - View saved payment methods for customers on the Edit User screen
+ * Feature - Customers are now prevented from deleting a payment method that's associated with an active subscription
+
+2016.01.14 - version 1.5.0
+ * Misc - Added support for WooCommerce 2.5
+ * Misc - Removed support for WooCommerce 2.2
+
+2015.10.30 - version 1.4.5
+  * Fix - Fix certification test mode Section C AVS zips
+  * Fix - CSC is no longer required for tokenized transactions
+  * Fix - Fix payment request parameter max lengths
+
+2015.10.19 - version 1.4.4
+ * Fix - Prevent a session ID mismatch in rare cases
+ * Fix - Fix order payment for zero-total test cases
+
+2015.09.25 - version 1.4.3
+ * Misc - Adds support for Visa, MasterCard PC2/PC3 certification tests
+
+2015.09.16 - version 1.4.2
+ * Misc - WooCommerce Subscriptions 2.0 Compatibility
+ * Misc - Update SkyVerge Payment Gateway Framework
+
+2015.08.20 - version 1.4.1
+ * Fix - Improve AVS sanitization
+
+2015.07.28 - version 1.4.0
+ * Misc - WooCommerce 2.4 Compatibility
+ * Misc - Update SkyVerge Plugin Framework
+
+2015.04.21 - version 1.3.2
+ * Fix - Escape all instances of add_query_arg and remove_query_arg to avoid a potential XSS attack
+
+2015.03.17 - version 1.3.1
+ * Misc - Orbital Gateway Certification Mode support for test cases version 1.5
+
+2015.02.09 - version 1.3.0
+ * Misc - WooCommerce 2.3 Compatibility
+
+2014.12.30 - version 1.2.4
+ * Fix - Certification mode Discover card tokenization tests
+
+2014.10.21 - version 1.2.3
+ * Fix - Fix failing subscription renewals in rare cases
+
+2014.09.30 - version 1.2.2
+ * Fix - Fix 'Uncaught exception' error when request fails
+
+2014.09.18 - version 1.2.1
+ * Tweak - WooCommerce 2.2 compatibility tweak
+
+2014.09.07 - version 1.2.0
+ * Tweak - Direct API (admin mark for capture and tokenization) settings are optional
+ * Misc - WooCommerce 2.2 Compatibility
+
+2014.08.27 - version 1.1.2
+ * Misc - Update Plugin Framework
+
+2014.08.20 - version 1.1.1
+ * Fix - Fixed an issue with some images not displaying properly
+
+2014.08.19 - version 1.1.0
+ * Feature - Orbital Gateway Certification Mode
+ * Tweak - Better support for held orders
+ * Misc - Update Plugin Framework
+
+2014.05.27 - version 1.0.3
+ * Payment Gateway Framework Update
+
+2014.04.25 - version 1.0.2
+ * Fix - Fix incorrect production URL endpoint
+
+2014.03.10 - version 1.0.1
+ * Fix - Fix incorrect order status and stock reduction when manually capturing charges in WooCommerce 2.1+
+
+2014.02.25 - version 1.0.0
+ * First Release

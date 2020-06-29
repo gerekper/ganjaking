@@ -1,0 +1,67 @@
+#pt_plus-view-shortcode .modal-backdrop.fade.in {
+    z-index: 1;
+}
+#pt_plus-view-shortcode .vc_modal-dialog.modal-dialog {
+    position: relative;
+    z-index: 11;
+}
+#pt_plus-view-shortcode .vc_modal-header {
+    background: #ff214f;
+}
+
+#pt_plus-view-shortcode .vc_modal-content {
+    border-color: #ff214f;
+}
+#pt_plus-view-shortcode{
+	z-index: 100000;
+}
+.controls_row .pt_plus-view-shortcode{
+	float: right;
+    margin-left: 1px;
+}
+.wpb_content_element > div.controls a.pt_plus-view-shortcode{
+	width:16px;
+}
+.wpb_vc_column > .controls_column .pt_plus-view-shortcode{
+	float: none;
+	width:16px;
+}
+.wpb_content_element > .vc_controls .pt_plus-view-shortcode,
+.wpb_vc_column > .vc_controls .pt_plus-view-shortcode{
+	float: none;
+	margin: 0;
+}
+.pt_plus-view-shortcode .icon-dark {
+    background: url("view-dark.png") no-repeat scroll transparent;
+    display: inline-block;
+    height: 18px;
+    width: 18px;
+
+}
+.pt_plus-view-shortcode .icon-light {
+    background: url("view-light.png") no-repeat scroll transparent;
+    display: inline-block;
+    height: 18px;
+    width: 18px;
+}
+.pt-copy-shortcode {
+    float: right;
+    display: inline-block;
+    cursor: pointer;
+    background: #7f2525;
+    color: #fff;
+    padding: 6px 15px;
+    margin-right: 32px;
+    margin-top: -4px;
+    box-shadow: 0px 0px 1px 0px #7f2525;
+}
+#pt_plus-view-shortcode-dialog-title {
+    color: #222;
+    font-weight: 500;
+    letter-spacing: 0px;
+}
+#pt_plus-view-shortcode textarea:focus {
+    outline: none;
+    box-shadow: none;
+    border-color: #ddd;
+}

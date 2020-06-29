@@ -1,0 +1,6 @@
+<wpml-config>
+    <custom-fields>
+        <custom-field action="copy">_per_product_shipping</custom-field>
+        <custom-field action="copy">_per_product_shipping_add_to_all</custom-field>
+    </custom-fields>
+</wpml-config>

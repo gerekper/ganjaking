@@ -1,0 +1,187 @@
+.widefat .column-exclude,
+.widefat .column-add_to_cart,
+.widefat .column-show_price {
+    width: 20%;
+    text-align: center;
+}
+
+.widefat .column-exclude mark,
+.widefat .column-add_to_cart mark,
+.widefat .column-show_price mark {
+    display: block;
+    text-indent: -9999px;
+    position: relative;
+    height: 1em;
+    width: 1em;
+    background: 0 0;
+    font-size: 1.4em;
+    margin: 0 auto;
+}
+
+.widefat .column-exclude mark.show:after,
+.widefat .column-exclude mark.hide:after,
+.widefat .column-add_to_cart mark.show:after,
+.widefat .column-add_to_cart mark.hide:after,
+.widefat .column-show_price mark.show:after,
+.widefat .column-show_price mark.hide:after {
+    font-family: WooCommerce;
+    speak: none;
+    font-weight: 400;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    text-indent: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.widefat .column-exclude mark.hide:after,
+.widefat .column-add_to_cart mark.hide:after,
+.widefat .column-show_price mark.hide:after {
+    content: "\e013";
+    color: #a00000;
+}
+
+.widefat .column-exclude mark.show:after,
+.widefat .column-add_to_cart mark.show:after,
+.widefat .column-show_price mark.show:after {
+    content: "\e015";
+    color: #2ea2cc;
+}
+
+.widefat .column-custom_url ul {
+    margin: 0;
+    list-style-type: disc;
+    padding: 0 0 0 20px;
+}
+
+/* === ICON MANAGER === */
+.ywctm-icon-option {
+    padding-top: 10px;
+}
+
+ul.ywctm-icon-list-wrapper li {
+    float: left;
+    width: 20px;
+    height: 20px;
+    font-size: 15px;
+    cursor: pointer;
+    padding: 3px;
+}
+
+ul.ywctm-icon-list-wrapper:after {
+    content: block;
+    content: '';
+    clear: both;
+    display: block;
+}
+
+.forminp-icon div.ywctm-icon-manager {
+    max-height: 200px;
+    overflow-y: scroll;
+    border: 1px solid #DFDFDF;
+    padding: 10px;
+    width: 530px;
+    margin-bottom: 0;
+}
+
+ul.ywctm-icon-list-wrapper li.ywctm-icon-none:before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    margin-top: 2px;
+}
+
+ul.ywctm-icon-list-wrapper li.active {
+    position: relative;
+}
+
+ul.ywctm-icon-list-wrapper li.active:before {
+    position: absolute;
+    border: 1px solid #CD5555;
+    display: block;
+    transform: scale(1.5);
+    -webkit-transform: scale(1.5);
+    -mox-transform: scale(1.5);
+    -ms-transform: scale(1.5);
+    -o-transform: scale(1.5);
+    padding: 3px;
+    background: #fff;
+    left: 0;
+    top: 0;
+    transition: transform 0.3s ease;
+    -webkit-transition: -webkit-transform 0.3s ease;
+    -moz-transition: -moz-transform 0.3s ease;
+    -ms-transition: -ms-transform 0.3s ease;
+    -o-transition: -o-transform 0.3s ease;
+}
+
+.forminp-icon .ywctm-icon-manager-text .ywctm-icon-preview {
+    height: 30px;
+    font-size: 25px;
+    margin-bottom: 15px;
+    border: 0;
+    display: block;
+    width: 100%;
+    margin-top: 0;
+}
+
+.forminp-icon .ywctm-icon-manager-text .ywctm-icon-text {
+    display: none;
+}
+
+.forminp-icon .upload_img_preview {
+    display: block;
+    margin-top: 10px;
+}
+
+.forminp-icon .upload_img_preview img {
+    max-width: 100px;
+    display: block;
+    margin-top: 5px;
+}
+
+.forminp-icon .upload_img_url {
+    width: 200px;
+}
+
+table.ywctm-languages-form-table {
+}
+
+table.ywctm-languages-form-table .main-column {
+    font-weight: bold;
+}
+
+table.ywctm-languages-form-table th {
+    padding: 9px 7px !important;
+}
+
+table.ywctm-languages-form-table td {
+    vertical-align: middle;
+    padding: 7px;
+    line-height: 2em;
+}
+
+table.ywctm-languages-form-table tr:nth-child(odd) td {
+    background: #f9f9f9;
+}
+
+/* Use the following CSS code if you want to use data attributes for inserting your icons */
+[data-font="FontAwesome"]:before {
+    font-family: 'FontAwesome';
+    content: attr(data-icon);
+    speak: none;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}

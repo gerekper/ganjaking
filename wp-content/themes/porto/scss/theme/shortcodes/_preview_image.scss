@@ -1,0 +1,21 @@
+/* Preview Image Lazy Loader */
+.porto-preview-image {
+	margin-bottom: #{$grid-gutter-space}px;
+	.lazy {
+		display: block;
+		background-position: top center;
+		background-size: 100%;
+		z-index: 2;
+
+		+ .fa-spin{
+			background: transparent none repeat scroll 0 0;
+			color: #ccc;
+			font-size: 25px;
+			left: 50%;
+			margin: -13px;
+			position: absolute;
+			top: 50%;
+			z-index: 1;
+		}
+	}
+}

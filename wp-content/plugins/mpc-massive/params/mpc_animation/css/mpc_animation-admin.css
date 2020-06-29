@@ -1,0 +1,50 @@
+/*----------------------------------------------------------------------------*\
+	MPC_ANIMATION PARAM
+\*----------------------------------------------------------------------------*/
+
+.mpc-vc-animation.wpb-select,
+#vc_ui-panel-edit-element .mpc-vc-animation + .select2-container {
+	display: inline-block;
+	width: 50%;
+	vertical-align: top;
+}
+
+.mpc-box {
+	display: inline-block;
+	width: 30%;
+	vertical-align: top;
+}
+.mpc-box .mpc-inner-box {
+	background: #72cde0;
+	color: #ffffff;
+	height: 35px;
+	line-height: 35px;
+	margin: 0 10px;
+	text-align: center;
+	border-radius: 3px;
+	padding: 0;
+}
+
+.wpb_el_type_mpc_animation .mpc-animation-replay.button {
+	background: #86d677;
+	margin: 0;
+	color: #ffffff;
+	display: inline-block;
+	padding: 0 15px;
+	margin-left: 10px;
+	height: 35px;
+	border: 0;
+	line-height: 35px;
+	text-decoration: none;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-ms-border-radius: 3px;
+	border-radius: 3px;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+.wpb_el_type_mpc_animation .mpc-animation-replay i {
+	height: 35px;
+	line-height: 35px;
+}
+.wpb_el_type_mpc_animation .mpc-animation-replay:hover { background: #71c262; }

@@ -1,0 +1,6 @@
+<wpml-config>
+	<admin-texts>
+		<key name="yith_wapo_settings_addtocartlabel" />
+		<key name="yith-wccl-add-to-cart-label" />
+	</admin-texts>
+</wpml-config>

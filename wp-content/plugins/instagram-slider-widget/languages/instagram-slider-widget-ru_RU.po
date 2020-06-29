@@ -1,0 +1,644 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Social Slider Widget\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-11-08 05:43+0000\n"
+"PO-Revision-Date: 2019-11-08 07:03+0000\n"
+"Last-Translator: admin <webtemyk@yandex.ru>\n"
+"Language-Team: Русский\n"
+"Language: ru_RU\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10 >= 2 && "
+"n%10<=4 &&(n%100<10||n%100 >= 20)? 1 : 2);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.3.1; wp-5.2.4"
+
+#: includes/class-wis_instagram_slider.php:283
+msgid " Turn on to save Instagram Images into WordPress media library."
+msgstr "Сохранять изображения в медиабиблиотеке Wordpress"
+
+#: includes/class-wis_instagram_slider.php:450
+msgid ""
+"* use this field only if the above option is set to <strong>Custom "
+"Link</strong>"
+msgstr ""
+"* используйте это поле только в том случае, если для параметра выше задано "
+"значение <strong>Произвольная ссылка</strong>"
+
+#: includes/class-wis_instagram_slider.php:94
+msgid ""
+"1. Drag Social Slider Widget here. 2. Fill in the fields and hit save. 3. "
+"Copy the shortocde generated at the bottom of the widget form and use it on "
+"posts or pages."
+msgstr ""
+"1. Перетащите Social Slider Widget сюда. 2. Заполните поля и нажмите "
+"Сохранить. 3. Скопируйте шорткод, созданный в нижней части формы виджета, и "
+"используйте его в постах или страницах."
+
+#: includes/class-wis_instagram_slider.php:394
+msgid "1000 milliseconds = 1 second"
+msgstr "1000 миллисекунд = 1 секунда"
+
+#: admin/views/tab-license.php:134
+#, php-format
+msgid ""
+"<a href=\"%s\" target=\"_blank\" rel=\"noopener\">Lean more</a> about the "
+"premium version and get the license key to activate it now!"
+msgstr ""
+"<a href=\"%s\" target=\"_blank\" rel=\"noopener\">Узнайте больше</a> о "
+"премиум версии и получите лицензионный ключ, чтобы активировать его сейчас!"
+
+#: includes/class-wis_instagram_slider.php:422
+msgid ""
+"<strong>Square - Cropped</strong> - option will show square cropped images "
+"in 640x640 pixels. <br/><strong>Original - No Crop</strong> - will display "
+"the original user uploaded image size."
+msgstr ""
+
+#: includes/class-wis_instagram_slider.php:42
+msgid "A widget that displays a slider with instagram images "
+msgstr "Виджет, который отображает слайдер с изображениями instagram"
+
+#: admin/pages/about.php:44
+msgid "About"
+msgstr "О плагине"
+
+#: admin/pages/about.php:43
+msgid "About Social Slider Widget"
+msgstr "Описание Social Slider Widget"
+
+#: includes/class-wis_instagram_slider.php:1552
+msgid "Account deleted successfully"
+msgstr ""
+
+#: includes/class-wis_instagram_slider.php:1131
+msgid ""
+"Account not found or for this account there are restrictions on Instagram by "
+"age"
+msgstr ""
+"Аккаунт не найден или для этого аккаунта действуют возрастные ограничения"
+
+#: includes/class-wis_instagram_slider.php:250
+msgid "Account:"
+msgstr "Аккаунт:"
+
+#: admin/views/tab-settings.php:51
+msgid "Action"
+msgstr "Действия"
+
+#: admin/views/tab-license.php:11
+#, php-format
+msgid "Activate %s"
+msgstr ""
+
+#: admin/views/tab-license.php:84
+msgid "active sites"
+msgstr ""
+
+#: admin/views/tab-settings.php:32 admin/views/tab-settings.php:36
+msgid "Add Account"
+msgstr "Добавить аккаунт"
+
+#: includes/class-wis_instagram_slider.php:267
+msgid "Add account in settings"
+msgstr "Добавить аккаунт в настройках"
+
+#: includes/class-wis-plugin.php:127
+msgid "Are you sure want to delete this account?"
+msgstr "Вы уверена, что хотите удалить этот аккаунт?"
+
+#: includes/class-wis_instagram_slider.php:441
+msgid "Attachment Page"
+msgstr ""
+
+#: admin/views/tab-about.php:149
+msgid "BENEFITS"
+msgstr ""
+
+#: includes/class-wis_instagram_slider.php:275
+msgid "Block Users"
+msgstr "Заблокированные пользователи"
+
+#: admin/views/tab-license.php:138
+#, php-format
+msgid ""
+"Can’t find your key? Go to <a href=\"%s\" target=\"_blank\" rel=\"noopener\">"
+"this page</a> and login using the e-mail address associated with your "
+"purchase."
+msgstr ""
+
+#: includes/class-wis_instagram_slider.php:400
+msgid "Caption"
+msgstr "Заголовок"
+
+#: includes/class-wis_instagram_slider.php:305
+msgid "Check for new images every:"
+msgstr "Проверять новые изображения каждые:"
+
+#: includes/class-wis_instagram_slider.php:293
+msgid "Count of images to show:"
+msgstr "Кол-во изображений для показа:"
+
+#. Author of the plugin
+msgid "creativemotion"
+msgstr "creativemotion"
+
+#: includes/class-wis_instagram_slider.php:442
+msgid "Custom Link"
+msgstr "Произвольная ссылка"
+
+#: includes/class-wis_instagram_slider.php:448
+msgid "Custom link:"
+msgstr "Произвольная ссылка:"
+
+#: includes/class-wis_instagram_slider.php:427
+msgid "Date - Ascending"
+msgstr "Дата - по возрастанию"
+
+#: includes/class-wis_instagram_slider.php:428
+msgid "Date - Descending"
+msgstr "Дата - по убыванию"
+
+#: admin/views/tab-license.php:105
+msgid "day(s)"
+msgstr ""
+
+#: admin/views/tab-settings.php:72
+msgid "Delete"
+msgstr ""
+
+#: admin/views/tab-license.php:31
+msgid "Delete Key"
+msgstr ""
+
+#: admin/views/tab-about.php:123
+msgid ""
+"Display Instagram feeds in widgets, posts, pages, or anywhere else using "
+"shortcodes."
+msgstr ""
+
+#: admin/views/tab-license.php:72
+msgid "domain"
+msgstr ""
+
+#: includes/class-wis_instagram_slider.php:384
+msgid "Dotted"
+msgstr ""
+
+#: includes/class-wis_instagram_slider.php:277
+msgid "Enter usernames separated by commas whose images you don't want to show"
+msgstr ""
+"Введите имена пользователей, разделенные запятыми, изображения которых вы не "
+"хотите показывать"
+
+#: admin/views/tab-license.php:94
+msgid "EXPIRED!"
+msgstr ""
+
+#: includes/class-wis_instagram_slider.php:389
+msgid "Fade"
+msgstr ""
+
+#: admin/views/tab-about.php:128
+msgid "FEATURES"
+msgstr ""
+
+#: admin/views/tab-about.php:200
+msgid "FEEDBACK AND SUPPORT"
+msgstr ""
+
+#: includes/class-wis_instagram_slider.php:420
+msgid "Full Size"
+msgstr ""
+
+#: admin/pages/settings.php:148
+msgid "General"
+msgstr ""
+
+#: includes/class-wis_instagram_slider.php:272
+msgid "Hashtag:"
+msgstr "Хэштэг:"
+
+#: admin/views/tab-license.php:120
+msgid "Have a key to activate the plugin? Paste it here:"
+msgstr ""
+
+#: admin/views/tab-license.php:118
+msgid "Have a key to activate the premium version? Paste it here:"
+msgstr ""
+
+#: includes/class-wis_instagram_slider.php:402
+msgid ""
+"Hold ctrl and click the fields you want to show/hide on your slider. Leave "
+"all unselected to hide them all. Default all selected."
+msgstr ""
+
+#: includes/class-wis_instagram_slider.php:307
+msgid "hours"
+msgstr "часов"
+
+#. Author URI of the plugin
+msgid "https://cm-wp.com/"
+msgstr ""
+
+#. URI of the plugin
+msgid "https://cm-wp.com/instagram-slider-widget"
+msgstr ""
+
+#: admin/views/tab-settings.php:47
+msgid "ID"
+msgstr ""
+
+#: admin/views/tab-settings.php:46
+msgid "Image"
+msgstr "Аватар"
+
+#: includes/class-wis_instagram_slider.php:415
+msgid "Image format"
+msgstr "Формат изображения"
+
+#: includes/class-wis_instagram_slider.php:440
+msgid "Image URL"
+msgstr "Ссылка на изображение"
+
+#: includes/class-wis_instagram_slider.php:354
+msgid "Image width:"
+msgstr "Ширина изображения:"
+
+#: admin/pages/settings.php:158
+msgid "Instagram account"
+msgstr ""
+
+#: includes/class-wis_instagram_slider.php:438
+msgid "Instagram Image"
+msgstr "Страница поста"
+
+#: admin/pages/settings.php:166
+msgid "Instagram password"
+msgstr ""
+
+#: includes/class-wis_instagram_slider.php:439
+msgid "Instagram Profile"
+msgstr "Страница Инстаграм"
+
+#: includes/class-wis_instagram_slider.php:1161
+msgid ""
+"Instagram requires authorization to view a user profile. Use autorized "
+"account in widget settings"
+msgstr ""
+
+#: admin/pages/license.php:90
+msgid "License"
+msgstr ""
+
+#: admin/ajax/check-license.php:39
+msgid ""
+"License key is empty or license key too long (license key is 32 characters "
+"long)"
+msgstr ""
+
+#: admin/pages/license.php:91
+msgid "License of Social Slider Widget"
+msgstr ""
+
+#: admin/ajax/check-license.php:27
+msgid "Licensing action not passed or this action is prohibited!"
+msgstr ""
+
+#: includes/class-wis_instagram_slider.php:436
+msgid "Link to"
+msgstr "Ссылка на:"
+
+#: includes/class-wis_instagram_slider.php:418
+msgid "Low - 320x320"
+msgstr ""
+
+#: includes/class-wis_instagram_slider.php:345
+msgid "max is 10 ( only for thumbnails template )"
+msgstr "максимум 10 (только для шаблона thumbnails)"
+
+#: includes/class-wis_instagram_slider.php:297
+msgid "Maximum 20 images in free version."
+msgstr "Максимум 20 изображений в бесплатной версии"
+
+#: includes/class-wis_instagram_slider.php:393
+msgid "milliseconds"
+msgstr "миллисекунд"
+
+#: admin/views/tab-settings.php:33
+#, php-format
+msgid "More accounts in <a href='%s'>PRO version</a>"
+msgstr "Больше аккаунтов в <a href='%s'>PRO версии</a>"
+
+#: includes/class-wis_instagram_slider.php:298
+#, php-format
+msgid "More in <a href='%s'>PRO version</a>"
+msgstr "Больше в <a href='%s'>PRO версии</a>"
+
+#: admin/views/tab-settings.php:49
+msgid "Name"
+msgstr "Имя"
+
+#: includes/class-wis_instagram_slider.php:1214
+msgid "No images found"
+msgstr ""
+
+#: includes/class-wis_instagram_slider.php:688
+msgid "No images found! <br> Try some other hashtag or username"
+msgstr ""
+
+#: includes/class-wis_instagram_slider.php:385
+msgid "No Navigation"
+msgstr ""
+
+#: includes/class-wis_instagram_slider.php:443
+msgid "None"
+msgstr ""
+
+#: includes/class-wis_instagram_slider.php:1100
+msgid "Nothing to search for"
+msgstr ""
+
+#: includes/class-wis_instagram_slider.php:343
+msgid "Number of Columns:"
+msgstr "Кол-во колонок:"
+
+#: includes/class-wis_instagram_slider.php:410
+msgid "Number of words in caption:"
+msgstr "Кол-во слов в тексте:"
+
+#: admin/views/tab-license.php:82
+msgid "of"
+msgstr ""
+
+#: includes/class-wis_instagram_slider.php:372
+msgid "Offset"
+msgstr ""
+
+#: includes/class-wis_instagram_slider.php:425
+msgid "Order by"
+msgstr "Сортировка"
+
+#: admin/pages/settings.php:168
+msgid "Password of your Instagram account"
+msgstr ""
+
+#: includes/class-wis_instagram_slider.php:376
+msgid "Pattern"
+msgstr ""
+
+#: includes/class-wis_instagram_slider.php:362
+msgid "pictures"
+msgstr "изображений"
+
+#: includes/class-wis_instagram_slider.php:360
+msgid "Pictures per slide:"
+msgstr "Изображений на слайд:"
+
+#: admin/views/tab-license.php:76
+msgid "plan"
+msgstr ""
+
+#: admin/views/tab-license.php:95
+msgid "please update the key"
+msgstr ""
+
+#: includes/class-wis_instagram_slider.php:429
+msgid "Popularity - Ascending"
+msgstr "Популярность - по возрастанию"
+
+#: includes/class-wis_instagram_slider.php:430
+msgid "Popularity - Descending"
+msgstr "Популярность - по убыванию"
+
+#: includes/class-wis_instagram_slider.php:383
+msgid "Prev & Next"
+msgstr ""
+
+#: admin/views/tab-about.php:163
+msgid "PRO VERSION"
+msgstr ""
+
+#: admin/views/tab-license.php:54
+msgid ""
+"Public License is a GPLv2 compatible license allowing you to change and use "
+"this version of the plugin for free. Please keep in mind this license covers "
+"only free edition of the plugin. Premium versions are distributed with other "
+"type of a license."
+msgstr ""
+
+#: includes/class-wis_instagram_slider.php:351
+#: includes/class-wis_instagram_slider.php:356
+msgid "px"
+msgstr ""
+
+#: includes/class-wis_instagram_slider.php:431
+msgid "Random"
+msgstr "Рандом"
+
+#: admin/views/tab-license.php:107
+msgid "remained"
+msgstr ""
+
+#: includes/class-wis_instagram_slider.php:279
+msgid "Save in Media Library: "
+msgstr "Сохранять в медиабиблиотеке:"
+
+#: includes/class-wis_instagram_slider.php:246
+msgid "Search Instagram for:"
+msgstr "Искать в Instagram по:"
+
+#: admin/pages/settings.php:108
+msgid "Settings"
+msgstr "Настройки"
+
+#: admin/pages/settings.php:107
+msgid "Settings of Social Slider Widget"
+msgstr "Настройки Social Slider Widget"
+
+#: includes/class-wis_instagram_slider.php:486
+msgid "Shortcode of this Widget:"
+msgstr "Шорткод виджета:"
+
+#: includes/class-wis_instagram_slider.php:311
+msgid "Show feed header:"
+msgstr "Отображать шапку:"
+
+#: includes/class-wis_instagram_slider.php:388
+msgid "Slide"
+msgstr ""
+
+#: includes/class-wis_instagram_slider.php:391
+msgid "Slide Speed:"
+msgstr ""
+
+#: includes/class-wis_instagram_slider.php:387
+msgid "Slider Animation:"
+msgstr ""
+
+#: includes/class-wis_instagram_slider.php:382
+msgid "Slider Navigation Controls:"
+msgstr ""
+
+#: includes/class-wis_instagram_slider.php:396
+msgid "Slider Text Description:"
+msgstr ""
+
+#: includes/class-wis_instagram_slider.php:40
+#: includes/class-wis_instagram_slider.php:204
+msgid "Social Slider"
+msgstr ""
+
+#: includes/class-wis_instagram_slider.php:92
+msgid "Social Slider - Shortcode Generator"
+msgstr ""
+
+#. Name of the plugin
+#: instaram_slider.php:26 admin/views/tab-about.php:122
+msgid "Social Slider Widget"
+msgstr ""
+
+#. Description of the plugin
+msgid ""
+"Social Slider Widget is a responsive slider widget that shows 12 latest "
+"images from a public Instagram user and up to 18 images from a hashtag."
+msgstr ""
+
+#: admin/pages/widgets.php:107 admin/pages/widgets.php:108
+msgid "Social Slider Widgets"
+msgstr ""
+
+#: includes/class-wis_instagram_slider.php:365
+msgid "Space between pictures:"
+msgstr "Расстояние между изображениями:"
+
+#: includes/class-wis_instagram_slider.php:419
+msgid "Standard - 640x640"
+msgstr ""
+
+#: admin/views/tab-license.php:126
+msgid "Submit Key"
+msgstr ""
+
+#: admin/ajax/check-license.php:55
+msgid "Subscription success cancelled"
+msgstr ""
+
+#: admin/views/tab-license.php:35
+msgid "Synchronization"
+msgstr ""
+
+#: includes/class-wis_instagram_slider.php:318
+msgid "Template"
+msgstr "Шаблон"
+
+#: admin/ajax/check-license.php:51
+msgid "The license has been updated"
+msgstr ""
+
+#: admin/ajax/check-license.php:47
+msgid "The license is deactivated"
+msgstr ""
+
+#: includes/class-wis_instagram_slider.php:1182
+msgid "There are no publications in this account yet"
+msgstr ""
+
+#: includes/class-wis_instagram_slider.php:417
+msgid "Thumbnail - 150x150"
+msgstr ""
+
+#: includes/class-wis_instagram_slider.php:399
+msgid "Time"
+msgstr ""
+
+#: includes/class-wis_instagram_slider.php:242
+msgid "Title:"
+msgstr "Заголовок:"
+
+#: admin/views/tab-settings.php:50
+msgid "Token"
+msgstr "Токен"
+
+#: admin/views/tab-license.php:22
+#, php-format
+msgid "Upgrade to Premium for $%s"
+msgstr ""
+
+#: includes/class-wis_instagram_slider.php:488
+msgid ""
+"Use this shortcode in any page or post to display images with this widget "
+"configuration!"
+msgstr ""
+"Используйте этот шорткод на любой странице или посте для отображения "
+"изображений с этой конфигурацией виджета."
+
+#: admin/views/tab-settings.php:48
+msgid "User"
+msgstr "Аккаунт"
+
+#: includes/class-wis_instagram_slider.php:398
+msgid "Username"
+msgstr ""
+
+#: admin/pages/settings.php:160
+msgid "Username of your Instagram account"
+msgstr ""
+
+#: includes/class-wis_instagram_slider.php:271
+msgid "Username:"
+msgstr "Имя аккаунта:"
+
+#: admin/views/tab-license.php:89
+msgid "version"
+msgstr ""
+
+#: includes/class-wis_instagram_slider.php:349
+msgid "Vertical space between item elements:"
+msgstr "Вертикальное расстояние между элементами:"
+
+#: admin/views/tab-about.php:209
+msgid "WHY DO YOU NEED IT?"
+msgstr ""
+
+#: admin/pages/widgets.php:109
+msgid "Widgets"
+msgstr "Виджеты"
+
+#: includes/class-wis_instagram_slider.php:272
+msgid "without # sign"
+msgstr "без #"
+
+#: admin/views/tab-settings.php:21
+msgid ""
+"Without authorization Instagram limits the number of requests, and after "
+"exceeding the limit asks to log in, so an error is displayed that no images "
+"were found."
+msgstr ""
+"Без авторизации Instagram ограничивает количество запросов, а после "
+"превышения лимита просит войти в систему, поэтому выводится сообщение, что "
+"изображения не найдены."
+
+#: admin/views/tab-license.php:58
+msgid ""
+"You use a paid subscription for the plugin updates. In case you don’t want "
+"to receive paid updates, please, click <a data-action=\"unsubscribe\" "
+"class=\"wis-control-btn\" href=\"#\">cancel subscription</a>"
+msgstr ""
+
+#: admin/views/tab-license.php:25
+#, php-format
+msgid "Your current license for %1$s:"
+msgstr ""
+
+#: admin/ajax/check-license.php:42
+msgid "Your license has been successfully activated"
+msgstr ""
+
+#: admin/views/tab-license.php:64
+msgid ""
+"Your license has expired, please extend the license to get updates and "
+"support."
+msgstr ""

@@ -1,0 +1,38 @@
+@font-face {
+	font-family: 'yith-wcmbs-membership';
+	src:url('fonts/yith-wcmbs-membership.eot?8ikk7a');
+	src:url('fonts/yith-wcmbs-membership.eot?8ikk7a#iefix') format('embedded-opentype'),
+		url('fonts/yith-wcmbs-membership.ttf?8ikk7a') format('truetype'),
+		url('fonts/yith-wcmbs-membership.woff?8ikk7a') format('woff'),
+		url('fonts/yith-wcmbs-membership.svg?8ikk7a#yith-wcmbs-membership') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+.yith-wcmbs-post-type-icon {
+	font-family: 'yith-wcmbs-membership';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.yith-wcmbs-post-type-icon-page:before {
+	content: "\e800";
+}
+.yith-wcmbs-post-type-icon-product:before {
+	content: "\e801";
+}
+.yith-wcmbs-post-type-icon-post:before {
+	content: "\e802";
+}
+.yith-wcmbs-post-type-icon-attachment:before {
+	content: "\e803";
+}
+

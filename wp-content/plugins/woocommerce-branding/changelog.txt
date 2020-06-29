@@ -1,0 +1,86 @@
+*** Branding Changelog ***
+
+2020-06-10 - version 1.0.26
+* Tweak - WC 4.2 compatibility.
+
+2020-04-29 - version 1.0.25
+* Tweak - WC 4.1 compatibility.
+
+2020-03-10 - version 1.0.24
+* Tweak - WC 4.0 compatibility.
+
+2020-02-18 - version 1.0.23
+* Tweak - Remove legacy code.
+
+2020-01-16 - version 1.0.22
+* Tweak - WC 3.9 compatibility.
+
+2019-11-04 - version 1.0.21
+* Tweak - WC 3.8 compatibility.
+
+2019-08-08 - version 1.0.20
+* Tweak - WC 3.7 compatibility.
+
+2019-04-16 - version 1.0.19
+* Tweak - WC 3.6 compatibility.
+
+2018-10-09 - version 1.0.18
+* Update - WC 3.5 compatibility.
+
+2018-05-21 - version 1.0.17
+* Update - WC 3.4 compatibility.
+
+2017-12-13 - version 1.0.16
+ * Tweak - Updates the headers to indicate WooCommerce 3.3 compatibility.
+
+2017-07-10 - version 1.0.15
+ * Fix - Remove the customisation of screen IDs, to avoid extension conflicts.
+ * Fix - Fixes the display of the settings tab.
+
+2014.09.03 - version 1.0.14
+* 2.2 Compatibility.
+
+2014.03.12 - version 1.0.13
+* i18n filtering only works when WPLANG is set. Gettext fallback.
+
+2014.03.12 - version 1.0.12
+* Improve performance - get rid of gettext
+
+2014.01.16 - version 1.0.11
+* WordPress 3.8 UI compatibility.
+
+2013.11.27 - version 1.0.10
+* Improve screen id declaration - fixes JS issues on some admin pages
+
+2013.09.25 - version 1.0.9
+* points rewards compat
+
+2013.09.20 - version 1.0.8
+* Fixes menu and shortcode icons.
+* Translate plugin names and descriptions.
+
+2013.01.02 - version 1.0.7
+* Improved compat with subscriptions
+
+2012.12.04 - version 1.0.6
+* New updater
+
+2012.08.08 - version 1.0.5
+* Updated icons for retina
+* Using hooks in 1.6.4 to load CSS and JS in admin. Requires 1.6.4.
+
+2012.08.08 - version 1.0.4
+* Change all textdomains
+
+2012.04.02 - version 1.0.3
+* Fix reports page when brand name contains spaces
+
+2012.04.02 - version 1.0.2
+* Change all text strings containing woocommerce
+
+2012.03.27 - version 1.0.1
+* Hide menu from any non-admin on standard WP and super admin on multisite
+* Replace tinymce button with custom icon
+
+2012.03.15 - version 1.0
+* First Release

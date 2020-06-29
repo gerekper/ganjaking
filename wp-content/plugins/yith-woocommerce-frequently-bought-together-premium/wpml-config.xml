@@ -1,0 +1,13 @@
+<wpml-config>
+<admin-texts>
+  <key name="yith-wfbt-form-title" />
+  <key name="yith-wfbt-total-single-label" />
+  <key name="yith-wfbt-total-double-label" />
+  <key name="yith-wfbt-total-three-label" />
+  <key name="yith-wfbt-total-multi-label" />
+  <key name="yith-wfbt-button-single-label" />
+  <key name="yith-wfbt-button-double-label" />
+  <key name="yith-wfbt-button-three-label" />
+  <key name="yith-wfbt-button-multi-label" />
+</admin-texts>
+</wpml-config>

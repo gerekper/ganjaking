@@ -1,0 +1,454 @@
+*** WooCommerce PDF Invoice Changelog ***
+2020.05.29 - version 4.6.7
+ * Fix 'WC_pdf_admin_functions' does not have a method 'restrict_manage_post_types'
+
+2020.05.25 - version 4.6.6
+ * Add option to "Attach a PDF Invoice to the email or include a download link?" to not send PDFs
+ * Filters to set user role
+ * - pdf_invoice_allowed_user_role_pdf_invoice_delete_invoices
+ * - pdf_invoice_allowed_user_role_pdf_invoice_past_orders
+ * - pdf_invoice_allowed_user_role_pdf_invoice_woocommerce_order_actions
+
+2020.04.20 - version 4.6.5
+ * PHP Notice:  Trying to access array offset on value of type bool
+ * Test for GD (prevent fatal errors)
+ * Set default options to prevent Undefined index in settings
+
+2020.03.30 - version 4.6.4
+ * Fixes for PHP 7.4
+
+2020.03.24 - version 4.6.3
+ * Fix paper size and orientation.
+ * Clean up template footer - remove unused fields.
+
+2020.03.20 - version 4.6.2
+ * Change get_invoice_payment_method_title to use order object
+ * Change barcode output, remove Barcode library
+ * Support for all barcode types in WooCommerce Order Barcodes.
+
+2020.03.13 - version 4.6.1
+ * New option to create invoices manually rather than automatically.
+ * Remove "Download invoice" from admin if creation method is manual and no invoice has been created
+ * Fix tmp check for shared hosting.
+ * Fix missing terms and conditions page contents.
+
+2020.02.24 - version 4.6.0
+ * "File Only" set as default option.
+ * New option to set alternative font for currency symbol.
+ * Kelvinch and Symbola fonts added.
+ * WC 4.0
+ * Update POT file.
+
+2020.02.05 - version 4.5.5
+ * Filter for isHtml5ParserEnabled
+ * Fix enable_subsetting always being true
+ * Fix for Completed Renewal emails created with bulk actions
+
+2020.01.27 - version 4.5.4
+ * Update order meta with '_invoice_created' date
+ * Fix possible missing invoice date
+ * Fix annual number reset
+ * Allow invoice creation for manual subscriptions and manual renewals
+
+
+2019.12.13 - version 4.5.3
+ * Download link or attachment option
+ * Fix email trigger fatal error when WC Admin plugin is active
+ * Fix incorrectly labeled pdf_registered_address 
+
+2019.11.28 - version 4.5.2
+ * Fix for non-sequential invoice numbers
+ * Merge fix for[[PDFORDERDISCOUNT]] not displaying coupons and discount
+
+2019.11.18 - version 4.5.1
+ * Fix Uncaught Error: Call to a member function trigger() on null
+ * Update transaltions
+
+2019.11.13 - version 4.5.0
+ * Move Cron tasks to Action Scheduler
+ * Make sure temporary PDFs and Zip files are deleted hourly.
+ * Filter for "$next_invoice"
+ * PDF invoice email for resending the invoice to a customer from order list or individual order
+ * Allow individual invoices to be deleted or created (requires debugging to be on and admin only)
+ * MOAR filters!
+ * Change the way the next invoice number is checked for.
+ * Begin cleaning up some methods.
+ * WooCommerce 3.8 
+ * Fix [[PDFORDERDISCOUNT]] not displaying coupons and discount
+
+2019.09.30 - version 4.4.5
+ * Improve Bulk Exporting, better error handling and logging
+ * ZipArchive enabled/version added to PDF Invoices debugging tab
+ * Make sure thank you page displays invoice link if invoice exists
+ * Add classes and counter to product lines and table header (see docs)
+
+2019.09.23 - version 4.4.4
+ * PHP 7.3 fixes
+ * Fix switched tool tips in settings
+
+2019.09.21 - version 4.4.3
+ * Filter the template file
+ * Fix wrong date for "Order date" if setting is "Use completed date"
+
+2019.01.25 - version 4.4.2
+ * Fix date formats localisation in bulk edits
+
+2019.01.25 - version 4.4.1
+ * Filter PDF tmp folder
+ * Filter to stop PDFs from being deleted from tmp folder
+ * Fix date formats localisation
+ 
+2018.11.12 - version 4.4.0
+ * Make sure SiteOrigin Page Builder can't mess with the terms and conditions
+ * Make sure zip files are deleted
+ * Make sure product lines are correct for orders with discounts
+ * Hash PDF Export zip file name
+ * pdf_invoice_no_pdf filter to allow for conditional PDF creation : https://gist.github.com/ChromeOrange/17c65ece5df7e7f032922c87b6f59a00
+
+2018.11.09 - version 4.3.4
+ * Update languages
+
+2018.11.07 - version 4.3.3
+ * WooCommerce 3.5
+ * Fix $$
+
+2018.10.22 - version 4.3.2
+ * Fix Fatal error: Call to a member function get_row() on null
+ * Fix line items if order is edited
+
+2018.10.17 - version 4.3.1
+ * General function tidy
+ * Rework dates
+
+2018.09.27 - version 4.3.0
+ * Drop down option to create invoices for selected orders
+ * Drop down option to update invoice meta, for example date formats - debug mode only.
+ * Add Date to invoice number column, includes filter to make adjustments as required.
+
+2018.09.20 - version 4.2.1
+ * Filter for barcodes
+
+2018.09.17 - version 4.2.0
+ * New metabox of PDF meta when debugging
+ * Help tab
+
+2018.08.14 - version 4.1.13
+ * check for other version of FPDF
+
+2018.08.06 - version 4.1.12
+ * Fix SQL error for subscription renewals.
+
+2018.08.02 - version 4.1.11
+ * 
+
+2018.06.21 - version 4.1.10
+ * WC 3.4 notice
+ * Set DOMPDF temp and log directories - fixes issues when tmp directory is not writable
+ * missing exit; on redirects.
+ * Fix tool tip css in settings
+ * Changes to htaccess to allow zip files.
+ * Add css class to order content table shop_table ordercontent
+
+2018.05.21 - Version 4.1.9
+ * Fix Using $this when not in object context
+ * non-static method should not be called statically
+
+2018.05.20 - Version 4.1.8
+ * Fix Using $this when not in object context
+
+2018.05.18 - version 4.1.7
+ * Add filter for item name (pdf_invoice_item_name) 
+ * Fix Add filter (pdf_invoice_order_status_array) so invoices can be created at non-standard order statues
+
+2018.05.10 - version 4.1.6
+ * Add shipping method tag to header of template 
+
+2018.04.19 - version 4.1.5
+ * Add filter to invoice_link_thanks
+ * Fix incorrect date for non-standard date formats
+ * Add filter (pdf_invoice_order_status_array) so invoices can be created at non-standard order statues
+
+2018.03.06 - version 4.1.4
+ * Fix Class 'WooCommercePDFInvoice\PhpEvaluator' not found
+ * Add filter so that Orders can be completed without generating an invoice eg free orders
+ * Add filter so that PDF is not attached to emails but invoice is still available
+
+2018.02.12 - version 4.1.3
+ * Version Bump
+
+2018.02.08 - version 4.1.2
+ * Make sure $order_id is included in all filters
+ * Fix for Fatal error: Uncaught Error: Using $this when not in object context
+ * Fix for Fatal error: Class 'Dompdf\Helpers' not found
+ * Add filter to $page_id for terms page
+ * Rename HTML5_Data and HTML5_Tokenizer Classes to avoid conflicts
+
+2018.01.11 - version 4.1.1
+ * Make sure other attachments are returned even if there is no PDF
+ * CSS fixes for WC 3.3
+ * Make sure the date format is correct
+
+2017.12.04 - version 4.1.0
+ * Support for WooCommerce Order Barcodes
+ * Fix missing invoice date for invoices created when the orders is completed
+ * Add backup for invoice meta - get_post_meta($order_id, '_invoice_meta', TRUE)
+ * Check for mbstring to prevent fatal errors.
+
+2017.11.29 - version 4.0.1
+ * Fix Uncaught Error: Call to a member function set_payment_method()
+
+2017.11.22 - version 4.0.0
+ * Add Invoice creation for manual subscription renewals.
+ * Additional filters for invoice content.
+ * Code tidy (move filename to it's own function).
+ * Add order note for invoice creation
+ * Use correct Invoice creation date and time - respect site time zone
+ * Fix "Doing it wrong PHP Notice:  status was called"
+ * Version 1 of PDF Export
+
+2017.10.17 - version 3.7.7
+ * Add Bookings meta
+ * Woo update headers
+ * WC tested up to headers
+ * Change default font to DejaVu Sans - more compatibility.
+ * Fix Completed/Order invoice date option
+ * Update CSV Export compatibility (WC 3.0 tweaks)
+
+2017.08.17 - version 3.7.6
+ * stripslashes from $pdflines (issue with Box Office)
+ * Rename DOMPDF classes to avoid conflicts
+
+2017.07.19 - version 3.7.5
+ * Fix PDF not being attached during order process
+
+2017.06.26 - version 3.7.4
+ * Fix Undefined Constant meta_output
+ * Fix meta output
+ * Improve meta layout
+
+2017.06.19 - version 3.7.3
+ * Prevents conflict with other plugins that use DOMPDF
+
+2017.05.25 - version 3.7.2
+ * Reword “invoice old orders” setting
+ * Clean up file name
+ * if {{invoicedate}} is used in filename and there is no invoice date use order date instead
+ * filter $user_id
+ * WooCommerce 3.1 support
+
+2017.05.02 - version 3.7.1
+ * Version number bump
+
+2017.04.26 - version 3.7.0
+ * Exit is not needed after return
+ * Better error handling
+ * Attach PDF to any available email
+ * Fix PDF not being attached to certain order statuses.
+
+2017.04.10 - version 3.6.0
+ * Option to delete all invoice numbers - USE WITH CAUTION!
+ * Make debug page translatable
+
+2017.01.02 - version 3.5.0
+ * WooCommerce 3.0.0 compatibility 
+
+2017.03.21 - version 3.4.2
+ * Correct spelling on settings page
+ * Add notice for missing PHP function iconv
+ * update debugging screen
+
+2017.03.16 - version 3.4.1
+ * Fix - Deprecated: Non-static method WC_send_pdf::send_test_pdf()
+
+2017.03.15 - version 3.4.0
+ * PHP 7 Updates - Update PDFMerger
+ * Fix fatal error “Using $this when not in object context”
+
+2016.11.16 - version 3.3.0
+ * Enhancement - Add option to reduce file size.
+ * Enhancement - Add all Sequential Order Numbers Pro order number modifiers, see docs.
+ * Enhancement - Template modifications to force logo width to 340px.
+
+2016.09.29 - version 3.2.5
+ * Maintenance - reduce file size
+
+2016.08.30 - version 3.2.4
+ * Fix - invoice not attaching for on-hold orders
+ * Maintenance - Version 4 support for Customer/Order CSV Export
+
+2016.07.06 - version 3.2.3
+ * Fix - Fatal error: Class 'WC_send_pdf’ when sending test
+
+2016.06.27 - version 3.2.2
+ * Fix - Use sequential order number
+ * Maintenance - Only load DOMPDF if necessary
+ * Maintenance - Update ‘My Account’ download for WC 2.6
+
+2016.05.11 - version 3.2.1
+ * Fix - double .pdf extension for standard downloads.
+
+2016.04.21 - version 3.2.0
+ * Enhancement - update DOMPDF to latest version.
+ * Enhancement - filter the file name.
+ * Enhancement - F and M to file name.
+ * Enhancement - Add upload logo button to settings.
+ * Enhancement - Allow remote logos
+ * Fix - allow {{year}} and {{YEAR}} in invoice name suffix
+ * Fix - check for WP Engine to avoid caching invoice numbers :/
+
+2016.02.15 - version 3.1.9
+ * Enhancement - invoice number padding
+ * Enhancement - Add support for Taxamo
+ * Fix - Remove first option in Invoice Creation Method dropdown
+
+2015.12.14 - versio 3.1.8
+ * fix - / in file names
+
+2015.11.23 - version 3.1.7
+ * Fix - get correct currency for line items
+ * Enhancement - Add Refunds to order total.
+
+2015.11.13 - version 3.1.5
+ * Enhancement - Add filter for item meta
+
+2015.11.05 - version 3.1.4
+ * Enhancement - add {{invoicedate}} variable to invoice number
+ * Fix - admin download link
+
+2015.10.11 - version 3.1.2
+ * Fix - Subs 2 functions
+ * Fix - settings field name
+
+2015.07.27 - version 3.1.1
+ * Fix - undefined index annual_restart
+ * Fix - undefined index pdf_creation
+ * WC 2.4 Support
+
+2015.05.24 - version 3.1.0
+ * Fix - download link not working for guests
+ * Fix - product lines when coupon is used
+ * Enhancement - option to force file downloads only
+ * Enhancement - option to reset invoice number to 1 each year.
+ * Enhancement - allow year in filename.
+
+2015.04.30 - version 3.0.3
+ * Subscriptions compatibility 
+
+2015.04.26 - version 3.0.2
+ * better temp file handling 
+ * add htaccess to temp folder
+ * Add support for Customer/Order CSV Export
+ * Fix price display when discounts are applied
+
+2015.03.25 - version 3.0.1
+ * version bump to avoid conflicts
+
+2015.02.15 - version 1.3.0
+ * Use get_order_item_totals instead of separate order total sections
+ * compatibility with fees API
+ * fix My Account URL check
+
+2015.01.15 - version 1.2.16
+ * Fixed strict standards on image method having same argument types as parent
+ * Fixed suppress buffer clean error if there are no buffer to clean
+ * Fixed is_active_plugin function being called out of admin init context causing error
+ * Fixed strict standards calling method from a non static context
+ 
+2014.05.24 - version 1.2.15
+ * move past orders check
+ * Update language file handling.
+
+2014.05.114 - version 1.2.14
+ * Fix Fatal error: Cannot redeclare mb_substr() 
+
+2014.04.21 - version 1.2.13
+ * Add support for Free Sequential Order Numbers
+
+2014.03.27 - version 1.2.12
+ * fix bugs created in previous version
+
+2014.03.24 - version 1.2.11
+ * Change tax labels to use stored order values
+ * Show all tax rates and labels, not just total 
+ * add all order discounts to discount section
+
+2014.03.10 - version 1.2.10
+ * bug fix for non stored company details
+ * Support for WPML
+ * Support for Currency Switcher
+ 
+2014.02.09 - version 1.2.9
+ * Store company details with order for future proofing.
+ * Check image URL for HTTP/HTTPS and match current URL.
+ * Fix for strict standards notices
+
+2014.01.22 - version 1.2.8
+ * WooCommerce 2.1
+ * New Admin font icons instead of images for WC 2.1.
+ * Add ‘Coupons Used’ to order total discount section if a coupon was used.
+ * Tweak for Safari .HTML
+
+2013.12.15 - version 1.2.7
+ * Remove unnecessary files
+ * Fix .HTML in Safari
+ * use date_i18n
+ * fix missed translation in meta box
+ * Stop using temp folder and start using wp-content/pdfinvoices/ where possible
+ * CRON task to empty folder once a day
+ * remove Order Note if $order->customer_note empty
+
+2013.11.13 - version 1.2.5
+ * Fix Fatal error: Cannot redeclare mb_substr()
+ * Additional warnings on main settings screen if font / temp directories are not writable
+
+2013.10.28 - version 1.2.4
+ * Fix language issues for some non-latin alphabets
+ * Add languages folder
+ * Remove PDF encryption, causes problems with fonts.
+ * Support for Google Fonts
+
+2013.10.18 - version 1.2.3
+ * Fix Changelog
+ * Fix templating bug that prevented order info being used when adding additional info
+ * Better Invoice creation logic
+ * Add pending to the list of invoice creation options
+ * Updated font library
+
+2013.09.30 - Version 1.2.2
+ * Add OnHold orders to the list that can have an invoice
+ * Compatibility with EU VAT Number Extension
+
+2013.09.27 - Version 1.2.1
+ * Interim version for a couple of customers
+
+2013.09.25 - Version 1.2.0
+ * Added debugging tab
+ * Fix generate invoices when order is marked processing
+ * Fix logic for when to generate invoices
+ * Fix - The pdf invoice numbers seem to go out of sequence with order numbers when an order fails
+ * Replace text-domain constant with 'text-domain' #doingitproperly
+ * Add additional page for terms and conditions etc using http://pdfmerger.codeplex.com/
+ * Send test email with small PDF attachment
+
+2013.09.12 - Version 1.1.3
+ * Fix adding additional content to invoice template
+
+2013.08.30 - Version 1.1.2
+ * Prevent copying from Invoice
+ * Fix for empty array of "other emails"
+
+2013.08.30 - Version 1.1.1
+ * Calculation bug fix (Thanks Dom)
+
+2013.08.29 - Version 1.1.0
+ * Bug fix for PHP bug 4144
+ * New features
+
+2013.08.03 - Version 1.0.2
+ * Invoice Date cleared if order not completed
+
+2013.07.11 - Version 1.0.1
+ * Template Update
+
+2013.07.11 - Version 1.0.0
+ * First Release

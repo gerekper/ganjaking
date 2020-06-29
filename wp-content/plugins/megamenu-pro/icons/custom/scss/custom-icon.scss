@@ -1,0 +1,127 @@
+#{$wrap} {
+
+    #{$menu} {
+
+        @if $transitions == 'on' {
+            a.mega-custom-icon.mega-menu-link:before {
+                transition: background 200ms linear;
+            }
+        }
+
+        @each $item in $custom_icons {
+            $id: nth($item, 1);
+            $custom_icon_url: nth($item, 2);
+            $custom_icon_width: nth($item, 3);
+            $custom_icon_height: nth($item, 4);
+            $custom_icon_2x_url: nth($item, 5);
+            $custom_icon_2x_width: nth($item, 6);
+            $custom_icon_2x_height: nth($item, 7);
+            $custom_icon_vertical_align: nth($item, 8);
+            $custom_icon_url_hover: nth($item, 9);
+            $custom_icon_2x_url_hover: nth($item, 10);
+            $custom_icon_width_mobile: nth($item, 11);
+            $custom_icon_height_mobile: nth($item, 12);
+
+            @if type-of($id) == number {
+
+                @include mobile {
+                    .mega-sub-menu li#mega-menu-item-#{$id}.mega-icon-top > a.mega-menu-link:before {
+                        width: 100%;
+                        min-width: $custom_icon_width_mobile;
+                        background-position-x: center;
+                    }
+                }
+
+                li#mega-menu-item-#{$id} {
+
+                    @if $custom_icon_url != 'false' {
+                        @include desktop {
+                            &.mega-icon-top > a.mega-menu-link:before {
+                                width: 100%;
+                                min-width: $custom_icon_width;
+                                background-position-x: center;
+                            }
+                        }
+
+                        > a.mega-menu-link:before {
+                            content: "";
+                            background-image: url($custom_icon_url);
+                            background-size: $custom_icon_width $custom_icon_height;
+                            background-repeat: no-repeat;
+                            width: $custom_icon_width;
+                            height: $custom_icon_height;
+                            line-height: $custom_icon_height;
+                            vertical-align: $custom_icon_vertical_align;
+
+                            @media (-webkit-min-device-pixel-ratio: 2) {
+                                background-image: url($custom_icon_2x_url);
+                            }
+
+                            @include mobile {
+                                background-size: $custom_icon_width_mobile $custom_icon_height_mobile;
+                                width: $custom_icon_width_mobile;
+                                height: $custom_icon_height_mobile;
+                                line-height: $custom_icon_height_mobile;
+                            }
+                        }
+                    }
+
+
+                    @if $custom_icon_url_hover != 'false' {
+
+                        @if $custom_icon_url == 'false' {
+                            @include desktop {
+                                &.mega-icon-top > a.mega-menu-link:hover:before {
+                                    width: 100%;
+                                    min-width: $custom_icon_width;
+                                    background-position-x: center;
+                                }
+                            }
+
+                            > a.mega-menu-link:hover:before {
+                                content: "";
+                                background-size: $custom_icon_width $custom_icon_height;
+                                background-repeat: no-repeat;
+                                width: $custom_icon_width;
+                                height: $custom_icon_height;
+                                line-height: $custom_icon_height;
+                                vertical-align: $custom_icon_vertical_align;
+
+                                @include mobile {
+                                    background-size: $custom_icon_width_mobile $custom_icon_height_mobile;
+                                    width: $custom_icon_width_mobile;
+                                    height: $custom_icon_height_mobile;
+                                    line-height: $custom_icon_height_mobile;
+                                }
+                            }
+                        }
+
+
+                        &.mega-toggle-on > a.mega-menu-link:before,
+                        > a.mega-menu-link:hover:before {
+                            background-image: url($custom_icon_url_hover);
+
+                            @media (-webkit-min-device-pixel-ratio: 2) {
+                                background-image: url($custom_icon_2x_url_hover);
+                            }
+                        }
+
+                        @if $menu_item_highlight_current == 'on' {
+                            &.mega-current-menu-item,
+                            &.mega-current-menu-ancestor,
+                            &.mega-current-page-ancestor {
+                                > a.mega-menu-link:before {
+                                    background-image: url($custom_icon_url_hover);
+
+                                    @media (-webkit-min-device-pixel-ratio: 2) {
+                                        background-image: url($custom_icon_2x_url_hover);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,38 @@
+{if #family}font-family:'{#family}';{/if}
+{if #size}font-size:{#size|format_font_size_value};{/if}
+{if #color}color:{#color|color};color:{#color|color} !important;{/if}
+{if #background}background-color:{#background|color};{/if}
+{if #underline == '1'}text-decoration:underline;{/if}{if #underline == '-1'}text-decoration:none;{/if}
+{if #text-decoration}text-decoration:{#text-decoration};{/if}
+{if #outline}outline:{#outline};{/if}
+{if #height}height:{#height}px;{/if}
+{if !#border}border:0;{/if}
+{if #border}border:{#border.size} {#border.style} {#border.color};{/if}
+{if #border-collapse}border-collapse: {#border-collapse};{/if}
+{if #mso-table-space}mso-table-lspace:{#mso-table-space}; mso-table-rspace:{#mso-table-space};{/if}
+{if #text-align}text-align:{#text-align};{/if}
+{if #font-weight}font-weight:{#font-weight};{/if}
+{if #line-height}mso-line-height-rule:exactly;-mso-line-height-rule:exactly;line-height:{#line-height|format_line_height};{/if}
+{if #line-height == '0'}line-height:0;{/if}
+{if #list-style-position}list-style-position:{#list-style-position};{/if}
+{if #list-style-type}list-style-type:{#list-style-type};{/if}
+{if #list-style}list-style:{#list-style};{/if}
+{if #display}display:{#display};{/if}
+{if #margin}margin:{#margin};{/if}
+{if #padding}padding:{#padding};{/if}
+{if #margin-top != ''}margin-top:{#margin-top};{/if}
+{if #margin-right != ''}margin-right:{#margin-right};{/if}
+{if #margin-bottom != ''}margin-bottom:{#margin-bottom};{/if}
+{if #margin-left != ''}margin-left:{#margin-left};{/if}
+{if #padding-top != ''}padding-top:{#padding-top};{/if}
+{if #padding-right != ''}padding-right:{#padding-right};{/if}
+{if #padding-bottom != ''}padding-bottom:{#padding-bottom};{/if}
+{if #padding-left != ''}padding-left:{#padding-left};{/if}
+{if #clear}clear:{#clear};{/if}
+{if #float}float:{#float};{/if}
+{if #vertical-align}vertical-align:{#vertical-align};{/if}
+{if #word-wrap}word-wrap:break-word;{/if}
+{if #interpolation}-ms-interpolation-mode:{#interpolation}{/if}
+{if #min-width}min-width:{#min-width};{/if}
+{if #max-width}max-width:{#max-width};{/if}
+{if #outlook_fix_tr}font-size:1px; mso-line-height-alt:0; mso-margin-top-alt:1px;{/if}

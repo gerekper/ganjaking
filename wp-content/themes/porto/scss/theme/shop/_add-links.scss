@@ -1,0 +1,159 @@
+
+.add-links .add_to_cart_read_more,
+.add-links .add_to_cart_button,
+.yith-wcwl-add-to-wishlist a,
+.yith-wcwl-add-to-wishlist span,
+.add-links-wrap .quickview, {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    font-size: inherit;
+    text-decoration: none;
+    text-align: center;
+    vertical-align: top;
+    @include transition($transition);
+
+    &:before {
+        display: inline-block;
+    }
+}
+
+.add-links {
+    .add_to_cart_button,
+    .add_to_cart_read_more {
+        background: transparent;
+        padding: 0 .625rem;
+        font-size: .75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        z-index: 1;
+        white-space: nowrap;
+        &:before {
+            content: "\f061";
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            margin-#{$right}: 5px;
+            position: relative;
+            float: $left;
+        }
+    }
+
+    .add_to_cart_button {
+        .product-type-simple &:before {
+            font-family: "Porto";
+            content: "\e8ba";
+            font-size: 1rem;
+            font-weight: 600;
+            font-size: .9375rem;
+        }
+        &.loading.viewcart-style-1:after {
+            opacity: .5;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            content: "";
+        }
+    }
+
+    .add_to_cart_button,
+    .add_to_cart_read_more,
+    .quickview {
+        height: 36px;
+        line-height: 34px;
+        min-width: 36px;
+        border: 1px solid transparent;
+    }
+}
+
+.yith-wcwl-add-to-wishlist {
+    margin-top: 0;
+    line-height: 1;
+    vertical-align: top;
+
+    > div {
+        @include transition($transition);
+    }
+
+    a,
+    span {
+        width: 36px;
+        height: 36px;
+        line-height: 34px;
+        padding: 0;
+        border: 1px solid #d8d8d6;
+        color: #302e2a;
+        text-indent: -9999em;
+        background: none;
+        border: 1px solid transparent;
+
+        &:before {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            text-indent: 0;
+            font-size: 1rem;
+            font-family: 'Porto';
+        }
+    }
+
+    .add_to_wishlist:before {
+        content: '\e889';
+    }
+
+    .yith-wcwl-wishlistaddedbrowse,
+    .yith-wcwl-wishlistexistsbrowse {
+        a:before {
+            content: '\e88a';
+        }
+    }
+
+    .feedback {
+        display: none !important;
+    }
+
+    + .clear {
+        display: none;
+    }
+
+    img.ajax-loading {
+        display: none !important
+    }
+}
+li.product-outimage_aq_onimage .add-links .quickview {
+    color: #fff;
+}
+.add-links .quickview {
+    position: relative;
+    width: 36px;
+    padding: 0;
+    border: 1px solid #d8d8d6;
+    background: transparent;
+    text-indent: -9999em;
+    text-transform: uppercase;
+    font-size: 13px;
+
+    &:before {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        text-indent: 0;
+        font-family: 'Font Awesome 5 Free';
+        font-size: 1.1em;
+        content: $fa-var-external-link-alt;
+        font-weight: 900;
+    }
+
+    &.loading:after {
+        opacity: .5;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        content: "";
+    }
+}

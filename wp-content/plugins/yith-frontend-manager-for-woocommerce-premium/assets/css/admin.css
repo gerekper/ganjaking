@@ -1,0 +1,52 @@
+#yith_wcfm_panel_sections .form-table {
+    width: 350px;
+}
+
+#yith_wcfm_panel_sections table.form-table th.yith-wcfm-double-checkbox,
+#yith_wcfm_panel_sections .form-table td.yith-wcfm-double-checkbox {
+    text-align: center;
+}
+
+.yith_wcfm_section_disabled table.form-table tr {
+    pointer-events: none;
+    opacity: 0.3;
+}
+
+.yith_wcfm_section_tooltip h2:after{
+    display: inline-block;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 12px;
+    padding: 2px 5px;
+    border-radius: 5px;
+    margin-left: 10px;
+    border-width:1px;
+    border-style: solid;
+    color: #f1f1f1;
+}
+
+.yith_wcfm_section_disabled h2:after {
+    background-color: #ff0000;
+    border-color: #ff0000;
+}
+
+.yith_wcfm_section_enabled h2:after {
+    background-color: #57ad03;
+    border-color: #57ad03;
+}
+
+.yith_wcfm_section_disabled_message {
+    margin-bottom: 25px;
+    font-size: 14px;
+}
+
+.yith-plugins_page_yith_wcfm_panel #tiptip_content {
+    padding: 5px;
+    max-width: 300px;
+}
+
+#yith-wcfm-flushed-message {
+    display: block;
+    margin: 5px 0;
+    color: red;
+}

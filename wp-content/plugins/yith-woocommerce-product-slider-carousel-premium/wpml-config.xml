@@ -1,0 +1,5 @@
+<wpml-config>
+    <custom-types>
+        <custom-type translate="1">yith_wcps_type</custom-type>
+    </custom-types>
+</wpml-config>

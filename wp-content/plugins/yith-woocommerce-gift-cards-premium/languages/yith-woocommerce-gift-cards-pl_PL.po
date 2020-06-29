@@ -1,0 +1,2176 @@
+# Translation of YITH WooCommerce Gift Cards in Polish
+# This file is distributed under the same license as the YITH WooCommerce Gift Cards package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2020-03-24 14:12:20+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: GlotPress/2.3.1\n"
+"Language: pl\n"
+"Project-Id-Version: YITH WooCommerce Gift Cards\n"
+
+#: templates/yith-gift-cards/physical-gift-card-details.php:34
+msgid "Enter recipient name"
+msgstr ""
+
+#: templates/yith-gift-cards/gift-card-presets.php:132
+msgid "Upload your custom image here, to make your gift card even more special!"
+msgstr ""
+
+#: templates/yith-gift-cards/gift-card-details.php:69
+#: templates/yith-gift-cards/physical-gift-card-details.php:29
+msgid "Enter your name"
+msgstr ""
+
+#: templates/yith-gift-cards/gift-card-details.php:46
+msgid "Enter the recipient's email address"
+msgstr ""
+
+#: templates/yith-gift-cards/gift-card-details.php:40
+msgid "Enter the recipient's name"
+msgstr ""
+
+#: templates/yith-gift-cards/gift-card-details.php:28
+msgid "Today"
+msgstr ""
+
+#: templates/support-attachments.php:43
+msgid "Use it!"
+msgstr ""
+
+#: templates/support-attachments.php:23
+msgid "Drop files or click here"
+msgstr ""
+
+#: templates/shortcodes/gift-card-check-balance-form.php:27
+msgid "Enter code"
+msgstr ""
+
+#: plugin-options/recipient_delivery-options.php:309
+msgid "Write the gift card PDF file name. You can use the placeholders [giftcardid] to include the gift card ID and [uniqid] to include a unique and random ID. It is recommended to add these placeholders to avoid duplicate file names."
+msgstr ""
+
+#: plugin-options/recipient_delivery-options.php:304
+msgid "PDF file name"
+msgstr ""
+
+#: plugin-options/recipient_delivery-options.php:152
+#: templates/yith-gift-cards/gift-card-details.php:74
+#: templates/yith-gift-cards/physical-gift-card-details.php:41
+msgid "Enter a message for the recipient"
+msgstr ""
+
+#: plugin-options/gift_this_product-options.php:104
+msgid "Description to show before button"
+msgstr ""
+
+#: plugin-options/gift_this_product-options.php:40
+msgid "Enable to show the \"Gift this product\" link also in shop pages."
+msgstr ""
+
+#: plugin-options/gift_this_product-options.php:36
+msgid "Show \"Gift this product\" option in shop page"
+msgstr ""
+
+#: plugin-options/gift_this_product-options.php:28
+msgid "Show \"Gift this product\" option in product pages"
+msgstr ""
+
+#: plugin-options/general-options.php:117
+msgid "If enabled, the sender will receive an email notifying the use of the gift card purchased by him."
+msgstr ""
+
+#: plugin-options/general-options.php:109
+msgid "If enabled, the sender will receive an email when the gift card has been delivered to recipient."
+msgstr ""
+
+#: plugin-options/general-options.php:105
+msgid "Notify the delivery of a gift card"
+msgstr ""
+
+#: plugin-options/general-options.php:100
+msgid "Create additional emails separating by a comma, to receive a BCC email with the gift card code."
+msgstr ""
+
+#: plugin-options/general-options.php:96
+msgid "BCC additional emails"
+msgstr ""
+
+#: plugin-options/general-options.php:76
+msgid "Notifications"
+msgstr ""
+
+#: lib/third-party/elementor/class-ywgc-user-table-widget.php:28
+msgid "YITH Gift Card User Table"
+msgstr ""
+
+#: lib/third-party/elementor/class-ywgc-redeem-widget.php:28
+msgid "YITH Gift Card Redeem Form"
+msgstr ""
+
+#: lib/third-party/elementor/class-ywgc-form-widget.php:64
+msgid "Your section title"
+msgstr ""
+
+#: lib/third-party/elementor/class-ywgc-form-widget.php:61
+msgid "Form Title"
+msgstr ""
+
+#: lib/third-party/elementor/class-ywgc-form-widget.php:28
+msgid "YITH Gift Card Product Form"
+msgstr ""
+
+#: lib/third-party/elementor/class-ywgc-check-balance-widget.php:64
+#: lib/third-party/elementor/class-ywgc-redeem-widget.php:64
+#: lib/third-party/elementor/class-ywgc-user-table-widget.php:64
+msgid "Write a description here"
+msgstr ""
+
+#: lib/third-party/elementor/class-ywgc-check-balance-widget.php:61
+#: lib/third-party/elementor/class-ywgc-redeem-widget.php:61
+#: lib/third-party/elementor/class-ywgc-user-table-widget.php:61
+msgid "Form description"
+msgstr ""
+
+#: lib/third-party/elementor/class-ywgc-check-balance-widget.php:53
+#: lib/third-party/elementor/class-ywgc-form-widget.php:53
+#: lib/third-party/elementor/class-ywgc-redeem-widget.php:53
+#: lib/third-party/elementor/class-ywgc-user-table-widget.php:53
+msgid "Content"
+msgstr ""
+
+#: lib/third-party/elementor/class-ywgc-check-balance-widget.php:28
+msgid "YITH Gift Card Check Balance Form"
+msgstr ""
+
+#: lib/emails/class-yith-ywgc-email-delivered-gift-card.php:46
+#: lib/emails/class-yith-ywgc-email-delivered-gift-card.php:86
+msgid "Your gift card has been delivered to <code>{recipient_email}</code>.<br>Thanks again for choosing our store!<br>We wish you all the best."
+msgstr ""
+
+#: lib/emails/class-yith-ywgc-email-delivered-gift-card.php:41
+msgid "[{site_title}] Your gift card has been delivered"
+msgstr ""
+
+#: lib/emails/class-yith-ywgc-email-delivered-gift-card.php:40
+msgid "Your gift card has been delivered"
+msgstr ""
+
+#: lib/emails/class-yith-ywgc-email-delivered-gift-card.php:37
+msgid "Customer notification - the gift card you have bought has been delivered"
+msgstr ""
+
+#: lib/emails/class-yith-ywgc-email-delivered-gift-card.php:34
+msgid "YITH Gift Cards - Delivered Gift Card Notification"
+msgstr ""
+
+#: lib/class-yith-ywgc-gift-cards-table.php:257
+msgid "Link copied!"
+msgstr ""
+
+#: lib/class-yith-ywgc-gift-cards-table.php:256
+msgid "Copy link"
+msgstr ""
+
+#: lib/class-yith-ywgc-frontend-premium.php:401
+msgid "Sending..."
+msgstr ""
+
+#: lib/class-yith-ywgc-frontend-premium.php:400
+msgid "Uploading... {percent}%"
+msgstr ""
+
+#: lib/class-yith-ywgc-frontend-premium.php:396
+msgid "File is too large. Max file size:"
+msgstr ""
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:563
+msgid "Pre-Printed"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://yithemes.com/"
+msgstr "https://yithemes.com/"
+
+#. Author of the plugin/theme
+msgid "YITH"
+msgstr "YITH"
+
+#. Description of the plugin/theme
+msgid "<code><strong>YITH WooCommerce Gift Card</strong></code> allows your users to purchase and give gift cards. In this way, you will increase the spread of your brand, your sales, and average spend, especially during the holidays. <a href=\"https://yithemes.com/\" target=\"_blank\">Get more plugins for your e-commerce shop on <strong>YITH</strong></a>."
+msgstr "<code><strong>YITH WooCommerce Gift Card</strong></code> umożliwia użytkownikom kupowanie i wręczanie kart podarunkowych. W ten sposób zwiększysz rozprzestrzenianie się swojej marki, sprzedaż i średnie wydatki, szczególnie podczas dni wolnych. <a href=\"https://yithemes.com/\" target=\"_blank\"> Uzyskaj więcej wtyczek do swojego sklepu e-commerce na <strong> YITH </strong> </a>."
+
+#. Plugin URI of the plugin/theme
+msgid "https://yithemes.com/themes/plugins/yith-woocommerce-gift-cards"
+msgstr "https://yithemes.com/themes/plugins/yith-woocommerce-gift-cards"
+
+#. Plugin Name of the plugin/theme
+msgid "YITH WooCommerce Gift Cards Premium"
+msgstr "YITH WooCommerce Gift Cards Premium"
+
+#: views/privacy/html-policy-content-has_access.php:4
+msgctxt "Privacy Policy Content"
+msgid "Sender name, recipient name, recipient email address, delivery date, message, amount and balance of the gift card you have purchased"
+msgstr "Nazwa nadawcy, nazwa odbiorcy, adres e-mail odbiorcy, data dostawy, wiadomość, kwota i saldo zakupionej karty podarunkowej"
+
+#: views/privacy/html-policy-content-has_access.php:1
+msgctxt "Privacy Policy Content"
+msgid "Members of our team have access to the information you provide us. For example, both Administrators and Shop Managers can access:"
+msgstr "Członkowie naszego zespołu mają dostęp do informacji, które nam przekazujesz. Na przykład zarówno Administratorzy, jak i Kierownicy sklepów mogą uzyskać dostęp do:"
+
+#: views/privacy/html-policy-content-collect_and_store.php:4
+msgctxt "Privacy Policy Content"
+msgid "Sender's name, recipient's name and email address:  we’ll use this to create gift card products"
+msgstr "Nazwa nadawcy, nazwa odbiorcy i adres e-mail: wykorzystujemy to do stworzenia produktów z kartami podarunkowymi"
+
+#: views/privacy/html-policy-content-collect_and_store.php:1
+msgctxt "Privacy Policy Content"
+msgid "While you visit our site, we collect information about you during the checkout process on our store. We’ll track:"
+msgstr "Podczas wizyty w naszym sklepie zbieramy informacje dotyczące Ciebie związane z realizacją transakcji w naszym sklepie. Będziemy śledzić:"
+
+#: templates/yith-gift-cards/ywgc-gift-card-template.php:193
+msgctxt "gift card expiration date"
+msgid "This gift card code will be valid until %s (%s)"
+msgstr "Ten kod karty podarunkowej będzie ważny do %s (%s)"
+
+#: templates/yith-gift-cards/ywgc-gift-card-template.php:186
+msgid "You can automatically apply the gift card in our shop by reading the QR code with your phone."
+msgstr "Możesz automatycznie zastosować kartę podarunkową w naszym sklepie, czytając kod QR za pomocą telefonu."
+
+#: templates/yith-gift-cards/ywgc-gift-card-template.php:156
+msgid "Gift card code:"
+msgstr "Kod karty podarunkowej:"
+
+#: templates/yith-gift-cards/ywgc-gift-card-template.php:104
+msgid "on"
+msgstr "na"
+
+#: templates/yith-gift-cards/ywgc-gift-card-template.php:63
+#: templates/yith-gift-cards/ywgc-gift-card-template.php:64
+#: templates/yith-gift-cards/ywgc-gift-card-template.php:69
+#: templates/yith-gift-cards/ywgc-gift-card-template.php:70
+msgid "Gift card image"
+msgstr "Obraz karty podarunkowej"
+
+#: templates/yith-gift-cards/ywgc-gift-card-template.php:35
+#: templates/yith-gift-cards/ywgc-gift-card-template.php:36
+#: templates/yith-gift-cards/ywgc-gift-card-template.php:86
+#: templates/yith-gift-cards/ywgc-gift-card-template.php:87
+msgid "The shop logo for the gift card"
+msgstr "Logo sklepu dla kart podarunkowych"
+
+#: templates/yith-gift-cards/gift-card-presets.php:119
+msgid "Choose"
+msgstr "Wybierz"
+
+#: templates/yith-gift-cards/gift-card-presets.php:74
+#: templates/yith-gift-cards/gift-card-presets.php:131
+msgid "Upload your image"
+msgstr "Prześlij swój obraz"
+
+#: templates/yith-gift-cards/gift-card-presets.php:43
+msgctxt "choose image"
+msgid "All"
+msgstr "Wszystkie"
+
+#: templates/yith-gift-cards/gift-card-presets.php:39
+msgid "Categories"
+msgstr "Kategorie"
+
+#: templates/yith-gift-cards/gift-card-details.php:55
+msgid "+ add another recipient"
+msgstr "+ dodaj kolejnego odbiorcę"
+
+#: templates/yith-gift-cards/gift-card-details.php:51
+msgid "If empty, will be sent to your email address"
+msgstr "Jeśli pusty, zostanie wysłany na Twój adres e-mail"
+
+#: templates/yith-gift-cards/gift-card-details.php:44
+msgid "Email: "
+msgstr "E-mail:"
+
+#: templates/yith-gift-cards/gift-card-details.php:33
+msgid "RECIPIENT INFO"
+msgstr "INFORMACJE O ODBIORCY"
+
+#: templates/yith-gift-cards/gift-card-design.php:146
+msgid "Upload your image >"
+msgstr "Prześlij swój obraz >"
+
+#: templates/yith-gift-cards/gift-card-design.php:146
+msgid "Suggested size (px): "
+msgstr "Sugerowany rozmiar (px):"
+
+#: templates/yith-gift-cards/gift-card-design.php:146
+msgid "Or "
+msgstr "lub"
+
+#: templates/single-product/form-preview.php:32
+#: templates/yith-gift-cards/ywgc-gift-card-template.php:134
+msgid "To: "
+msgstr "Do:"
+
+#: templates/single-product/form-preview.php:28
+#: templates/yith-gift-cards/ywgc-gift-card-template.php:130
+msgid "From: "
+msgstr "Od:"
+
+#: plugin-options/gift_this_product-options.php:107
+msgid "Do you feel this product is perfect for a friend or a loved one? You can buy a gift card for this item!"
+msgstr "Uważsz, że ten produkt jest idealny dla przyjaciela lub bliskiej Ci osoby? Możesz kupić kartę podarunkową dla tego produktu!"
+
+#: templates/single-product/add-to-cart/gift-card.php:46
+#: templates/single-product/add-to-cart/gift-this-product-form.php:23
+msgid "This product cannot be purchased"
+msgstr "Ten produkt nie może zostać kupiony"
+
+#: templates/shortcodes/redeem-gift-card-form.php:44
+msgid "ENTER AMOUNT"
+msgstr "WPISZ WARTOŚĆ"
+
+#: templates/shortcodes/redeem-gift-card-form.php:43
+msgid "Used amount: "
+msgstr "Użyta wartość:"
+
+#: templates/shortcodes/redeem-gift-card-form.php:31
+msgid "The gift card balance is not enough to cover this order amount."
+msgstr "Saldo karty podarunkowej nie jest wystarczające aby pokryć wartość zamówienia."
+
+#: templates/shortcodes/redeem-gift-card-form.php:26
+msgid "New gift card balance: "
+msgstr "Nowe saldo karty podarunkowej"
+
+#: templates/shortcodes/redeem-gift-card-form.php:25
+msgid "The gift card has been redeemed successfully."
+msgstr "Karta podarunkowa została pomyślnie zrealizowana."
+
+#: templates/shortcodes/gift-card-check-balance-form.php:28
+#: templates/shortcodes/redeem-gift-card-form.php:45
+msgid "Submit"
+msgstr "Wyślij"
+
+#: templates/shortcodes/redeem-gift-card-form.php:42
+msgid "ENTER CODE"
+msgstr "WPISZ KOD"
+
+#: templates/shortcodes/gift-card-check-balance-form.php:26
+#: templates/shortcodes/redeem-gift-card-form.php:41
+msgid "Gift Card code: "
+msgstr "Kod karty podarunkowej:"
+
+#: templates/shortcodes/gift-card-check-balance-form.php:14
+#: templates/shortcodes/redeem-gift-card-form.php:32
+msgid "Gift card balance: "
+msgstr "Saldo karty podarunkowej:"
+
+#: templates/myaccount/my-giftcards.php:157
+#: templates/shortcodes/user-gift-card-table.php:130
+msgid "Apply this gift card"
+msgstr "Użyj tej karty podarunkowej"
+
+#: templates/myaccount/my-giftcards.php:137
+msgid "Order %s"
+msgstr "Zamówienie %s"
+
+#: templates/myaccount/my-giftcards.php:125
+#: templates/shortcodes/user-gift-card-table.php:113
+msgctxt "gift card expiration date"
+msgid "Expires on: %s (%s)"
+msgstr "Wygasa dnia: %s (%s)"
+
+#: templates/myaccount/my-giftcards.php:81
+msgid "Add new"
+msgstr "Dodaj nowy"
+
+#: templates/myaccount/my-giftcards.php:80
+#: templates/shortcodes/user-gift-card-table.php:69
+msgid "My Gift Cards"
+msgstr "Moje karty podarunkowe"
+
+#: templates/myaccount/my-giftcards.php:74
+msgid "Add it"
+msgstr "Dodaj"
+
+#: templates/myaccount/my-giftcards.php:73
+msgid "Your gift card code here ..."
+msgstr "Twój kod karty upominkowej tutaj ..."
+
+#: templates/myaccount/my-giftcards.php:72
+msgid "Link a gift card to your account "
+msgstr "Połącz kartę podarunkową ze swoim kontem"
+
+#: templates/myaccount/my-giftcards.php:64
+msgid "The gift card code %s is now linked to your account."
+msgstr "Kod karty podarunkowej %s jest już powiązany z Twoim kontem."
+
+#: templates/myaccount/my-giftcards.php:58
+#: templates/shortcodes/gift-card-check-balance-form.php:18
+#: templates/shortcodes/redeem-gift-card-form.php:18
+msgid "The code added is not associated to any existing gift card."
+msgstr "Dodany kod nie jest powiązany z żadną istniejącą kartą podarunkową."
+
+#: templates/myaccount/my-giftcards.php:18
+#: templates/shortcodes/user-gift-card-table.php:31
+msgid "Auto Apply"
+msgstr "Użyj automatycznie"
+
+#: templates/myaccount/my-giftcards.php:17
+#: templates/shortcodes/user-gift-card-table.php:30
+msgid "Status"
+msgstr "Status"
+
+#: templates/myaccount/my-giftcards.php:16
+msgid "Usage"
+msgstr "Używane"
+
+#: templates/myaccount/my-giftcards.php:14
+#: templates/shortcodes/user-gift-card-table.php:28
+msgid "Code"
+msgstr "Kod"
+
+#: templates/emails/product-suggestion.php:37
+msgid "Maybe you can use the gift card for this item:"
+msgstr "Może możesz użyć karty podarunkowej dla tego przedmiotu:"
+
+#: templates/checkout/form-gift-cards.php:68
+msgctxt "Apply gift card"
+msgid "Gift card code"
+msgstr "Kod karty podarunkowej"
+
+#: templates/checkout/form-gift-cards.php:63
+msgid "Apply the gift card code in the following field"
+msgstr "Zastosuj kod karty podarunkowej w wyznaczonym polu"
+
+#: templates/checkout/form-gift-cards.php:52
+msgctxt "Apply gift card"
+msgid "In order to apply the gift card, the total amount in the cart has to be at least"
+msgstr "Aby zastosować kartę podarunkową, całkowita kwota w koszyku musi wynosić co najmniej"
+
+#: plugin-options/recipient_delivery-options.php:301
+msgid "If enabled, a PDF with the gift card will be attached to the WooCommerce order processing or order completed emails."
+msgstr "Jeśli ta opcja jest włączona, plik PDF z kartą podarunkową zostanie dołączony do e-maila potwierdzającego rozpoczęcie realizacji lub zrealizowanie zamówienia"
+
+#: plugin-options/recipient_delivery-options.php:296
+msgid "Attach PDF"
+msgstr "Załącz plik PDF"
+
+#: plugin-options/recipient_delivery-options.php:293
+msgid "If enabled, the gift card template will show a QR code with the gift card code, so if customers read the code with their phone, they will be redirected to the Shop page and the gift card will be automatically applied to the cart."
+msgstr "Jeśli ta opcja jest włączona, szablon karty podarunkowej wyświetli kod QR z kodem karty podarunkowej, więc jeśli klienci odczytają kod za pomocą telefonu, zostaną przekierowani na stronę Sklepu, a karta podarunkowa zostanie automatycznie zastosowana do koszyka."
+
+#: plugin-options/recipient_delivery-options.php:288
+msgid "Show QR code"
+msgstr "Pokaż kod QR"
+
+#: plugin-options/recipient_delivery-options.php:285
+msgid "If enabled, the gift card expiration date will show up in the gift card template, if available."
+msgstr "Jeśli ta opcja jest włączona, data ważności karty upominkowej pojawi się w szablonie karty upominkowej, jeśli jest dostępna."
+
+#: plugin-options/recipient_delivery-options.php:280
+msgid "Show the gift card’s expiration date"
+msgstr "Pokaż datę wygaśnięcia karty podarunkowej"
+
+#: plugin-options/recipient_delivery-options.php:272
+msgid "You can automatically apply the gift card code by simply reading the QR code with your phone."
+msgstr "Możesz automatycznie zastosować kod karty upominkowej, po prostu czytając kod QR za pomocą telefonu."
+
+#: plugin-options/recipient_delivery-options.php:268
+msgid "Custom text in the PDF"
+msgstr "Własny tekst w pliku PDF"
+
+#: plugin-options/recipient_delivery-options.php:260
+#: templates/yith-gift-cards/ywgc-gift-card-template.php:180
+msgid "To use this gift card, you can either enter the code in the gift card field on the cart page or click on the following link to automatically get the discount."
+msgstr "Aby skorzystać z tej karty podarunkowej, możesz wprowadzić kod w polu karty podarunkowej na stronie koszyka lub kliknąć poniższy link, aby automatycznie uzyskać zniżkę."
+
+#: plugin-options/recipient_delivery-options.php:256
+msgid "Custom text in the email"
+msgstr "Własny tekst w wiadomości email"
+
+#: plugin-options/recipient_delivery-options.php:253
+msgid "This text will be displayed in the gift card email with the instructions about how to redeem the gift card. Leave this field empty if you do not want to display any message."
+msgstr "Ten tekst zostanie wyświetlony w wiadomości e-mail z kartą podarunkową z instrukcjami dotyczącymi wykorzystania karty podarunkowej. Pozostaw to pole puste, jeśli nie chcesz wyświetlać żadnych wiadomości."
+
+#: plugin-options/recipient_delivery-options.php:248
+msgid "Enter a custom text in the email template"
+msgstr "Wpisz własny tekst w szablonie email"
+
+#: plugin-options/recipient_delivery-options.php:240
+msgid "If enabled, the gift card code will be automatically applied when the user clicks on the button."
+msgstr "Jeśli ta opcja jest włączona, kod karty podarunkowej zostanie automatycznie zastosowany, gdy użytkownik kliknie przycisk."
+
+#: plugin-options/recipient_delivery-options.php:236
+msgid "Auto-apply the Gift Card code"
+msgstr "Auto-uzupełnienie kodu karty podarunkowej"
+
+#: plugin-options/recipient_delivery-options.php:232
+msgid "Select the page where the recipient will be redirected after clicking on the discount button."
+msgstr "Wybierz stronę, na którą odbiorca zostanie przekierowany po kliknięciu przycisku rabatu."
+
+#: plugin-options/recipient_delivery-options.php:226
+msgid "Button redirect to"
+msgstr "Przycisk przekierowuje do"
+
+#: plugin-options/recipient_delivery-options.php:219
+#: templates/emails/automatic-discount.php:12
+#: templates/emails/automatic-discount.php:18
+msgid "Apply your gift card code"
+msgstr "Użyj kodu karty podarunkowej"
+
+#: plugin-options/recipient_delivery-options.php:216
+msgid "Button label"
+msgstr "Nazwa przycisku"
+
+#: plugin-options/recipient_delivery-options.php:211
+msgid "If enabled, the gift card dispatch email will contain a link to redirect your user to your site in one click."
+msgstr "Jeśli ta opcja jest włączona, wiadomość e-mail z wysyłką karty podarunkowej będzie zawierać link do przekierowania użytkownika do witryny za pomocą jednego kliknięcia."
+
+#: plugin-options/recipient_delivery-options.php:207
+msgid "Show a button in the gift card email"
+msgstr "Pokarz przycisk w wiadomości email z kartą podarunkową"
+
+#: plugin-options/recipient_delivery-options.php:204
+msgid "WooCommerce emails settings"
+msgstr "WooCommerce ustawienia e-mail"
+
+#: plugin-options/recipient_delivery-options.php:204
+msgid "You can manage and edit the YITH Gift Card emails in the "
+msgstr "Możesz zarządzać i edytować wiadomości e-mail z YITH Gift Card w"
+
+#: plugin-options/recipient_delivery-options.php:202
+msgid "Email options & customization"
+msgstr "Opcje i dopasowanie E-mail"
+
+#: plugin-options/recipient_delivery-options.php:185
+msgid "Ask sender's and recipient's name"
+msgstr "Zapytaj wysyłającego o imię odbiorcy"
+
+#: plugin-options/recipient_delivery-options.php:178
+msgid "Allow customers to add a printed message to the gift card"
+msgstr "Pozwól klientom na dodanie wiadomości do karty podarunkowej"
+
+#: plugin-options/recipient_delivery-options.php:174
+msgid "Recipient & Delivery settings for physical Gift Cards delivered at home"
+msgstr "Ustawienia odbiorcy i dostawy fizycznych kart podarunkowych dostarczanych w domu"
+
+#: plugin-options/recipient_delivery-options.php:150
+msgid "Enter a placeholder for the sender's message field."
+msgstr "Wpisz tekst dla wiadomości w polu nadawcy"
+
+#: plugin-options/recipient_delivery-options.php:146
+msgid "Placeholder for Message textarea"
+msgstr "Miejsce na wiadomość"
+
+#: plugin-options/recipient_delivery-options.php:131
+#: templates/yith-gift-cards/gift-card-details.php:63
+#: templates/yith-gift-cards/physical-gift-card-details.php:23
+msgid "YOUR INFO"
+msgstr "TWOJE INFORMACJE"
+
+#: plugin-options/recipient_delivery-options.php:129
+msgid "Enter a title for the section with sender's info."
+msgstr "Wpisz tytuł sekcji z danymi nadawcy."
+
+#: plugin-options/recipient_delivery-options.php:125
+msgid "Title for “Sender's info” section"
+msgstr "Nazwa dla sekcji \"Informacje o nadawcy\""
+
+#: plugin-options/recipient_delivery-options.php:118
+msgid "Ask sender's name"
+msgstr "Zapytaj o imię wysyłającego"
+
+#: plugin-options/recipient_delivery-options.php:114
+msgid "If enabled, customers can set multiple recipients: one gift card for each of them will be generated."
+msgstr "Jeśli zaznaczone, klient może wpisać wielu odbiorców: dla każdego odbiorcy zostanie wygenerowana jedna karta podarunkowa."
+
+#: plugin-options/recipient_delivery-options.php:110
+msgid "Enable multiple recipients for virtual gift cards"
+msgstr "Włącz wielu odbiorców dla wirtualnych kart podarunkowych"
+
+#: plugin-options/recipient_delivery-options.php:106
+msgid "If enabled, the recipient's name and email fields will be mandatory."
+msgstr "Jeśli ta opcja jest włączona, nazwa odbiorcy i pola e-mail będą obowiązkowe."
+
+#: plugin-options/recipient_delivery-options.php:102
+msgid "Make recipient's info mandatory"
+msgstr "Ustaw informacje o odbiorcy jako obowiązkowe"
+
+#: plugin-options/recipient_delivery-options.php:99
+msgid "RECIPIENT'S INFO"
+msgstr "INFORMACJE O ODBIORCACH"
+
+#: plugin-options/recipient_delivery-options.php:97
+msgid "Enter a title for the section with the recipient's info."
+msgstr "Wpisz tytuł sekcji z danymi odbiorcy."
+
+#: plugin-options/recipient_delivery-options.php:93
+msgid "Title for the “Recipient info” section"
+msgstr "Nazwa dla sekcji \"Informacje o odbiorcy\""
+
+#: plugin-options/recipient_delivery-options.php:84
+msgid "Select the time when the gift card will be sent. It is a 24h format, where the minimum time is 00:00 and the maximum is 24:00."
+msgstr "Wybierz czas, kiedy karta podarunkowa zostanie wysłana. Jest to format 24-godzinny, w którym minimalny czas to 00:00, a maksymalny to 24:00."
+
+#: plugin-options/recipient_delivery-options.php:80
+msgid "Choose a default delivery time for gift cards"
+msgstr "Wybierz domyślny czas dostarczenia karty podarunkowej"
+
+#: plugin-options/recipient_delivery-options.php:76
+msgid "Allow your customers to choose a delivery date for the virtual gift card (option not available for physical gift cards delivered at home)."
+msgstr "Pozwól twoim klientom na wybranie daty dostawy dla wirtualnych kart podarunkowych (opcja nie dostępna dla kart fizycznych dostarczanych do domu)."
+
+#: plugin-options/recipient_delivery-options.php:72
+msgid "Allow the user to choose the delivery date"
+msgstr "Pozwól użytkownikowo na wybranie daty dostawy "
+
+#: plugin-options/recipient_delivery-options.php:36
+#: templates/yith-gift-cards/gift-card-details.php:21
+msgid "Delivery info"
+msgstr "Informacje o dostarczeniu"
+
+#: plugin-options/recipient_delivery-options.php:34
+msgid "Enter a title for the delivery info area on your gift card page. This area will include recipient and sender's info, date of delivery and so on."
+msgstr "Wpisz tytuł obszaru informacji o dostawie na stronie karty upominkowej. Obszar ten będzie zawierał informacje o odbiorcy i nadawcy, datę dostawy i inne."
+
+#: plugin-options/recipient_delivery-options.php:30
+msgid "Title for “Delivery info” section"
+msgstr "Nazwa dla sekcji \"Informacje o dostawie\""
+
+#: plugin-options/recipient_delivery-options.php:26
+msgid "Recipient & Delivery settings for virtual gift cards"
+msgstr "Ustawienia odbiorcy i dostawy dla wirtualnych kart podarunkowych"
+
+#: plugin-options/gift_this_product-options.php:225
+msgid "Automatically apply the gift voucher code to the cart, without the user having to enter it manually."
+msgstr "Automatycznie użyj kodu karty podarunkowej w koszyku, bez wpisywania go przez klienta ręcznie"
+
+#: plugin-options/gift_this_product-options.php:221
+msgid "Automatically apply the gift card code to cart"
+msgstr "Automatycznie użyj kodu karty podarunkowej w koszyku"
+
+#: plugin-options/gift_this_product-options.php:213
+msgid "Add the recommended product to the recipient's cart"
+msgstr "Dodaj rekomendowany produkt do koszyka odbiorcy"
+
+#: plugin-options/gift_this_product-options.php:209
+msgid "Automatically add the suggested product to the cart"
+msgstr "Automatycznie dodaj sugerowany produkt do koszyka"
+
+#: plugin-options/gift_this_product-options.php:198
+msgid "Set the page you want the user to be redirected to when the button in the gift card email is clicked on."
+msgstr "Ustaw stronę, na którą ma być przekierowywany użytkownik po kliknięciu przycisku w wiadomości e-mail z kartą podarunkową."
+
+#: plugin-options/gift_this_product-options.php:188
+msgid "Another page"
+msgstr "Inna strona"
+
+#: plugin-options/gift_this_product-options.php:187
+msgid "Product page"
+msgstr "Strona produktu"
+
+#: plugin-options/gift_this_product-options.php:182
+msgid "Button redirect the user to"
+msgstr "Przycisk przekierowuje użytkownika do "
+
+#: plugin-options/gift_this_product-options.php:175
+msgid "Go to the product"
+msgstr "Idź do produktu"
+
+#: plugin-options/gift_this_product-options.php:172
+msgid "Enter a text for the button displayed in the email sent to the gift card recipient."
+msgstr "Wpisz tekst dla przycisku który pojawi się w e-mailu wysłanego do odbiorcy karty podarunkowej"
+
+#: plugin-options/gift_this_product-options.php:171
+msgid "Button text"
+msgstr "Tekst przycisku"
+
+#: plugin-options/gift_this_product-options.php:166
+msgid "Gift this product email options"
+msgstr "Podaruj ten produkt opcje email"
+
+#: plugin-options/gift_this_product-options.php:125
+msgid "Label colors"
+msgstr "Kolory etykiet"
+
+#: plugin-options/gift_this_product-options.php:115
+msgid "Enter a custom text"
+msgstr "Wpisz własny tekst"
+
+#: plugin-options/gift_this_product-options.php:94
+msgid "Button"
+msgstr "Przycisk"
+
+#: plugin-options/gift_this_product-options.php:93
+msgid "Only text"
+msgstr "Tylko tekst"
+
+#: plugin-options/gift_this_product-options.php:88
+msgid "Label style"
+msgstr "Styl etykiety"
+
+#: plugin-options/gift_this_product-options.php:52
+msgid "Enable a gift card icon in the Gift this product title."
+msgstr "Włącz ikonę karty podarunkowej w tytule \"Podaruj Ten Produkt\""
+
+#: plugin-options/gift_this_product-options.php:48
+msgid "Gift this product icon"
+msgstr "Podaruj ten produkt ikona"
+
+#: plugin-options/gift_this_product-options.php:32
+msgid "Enable to allow users to buy a gift card of the same amount of the product. This feature appears on the product page. The product will be recommended in the recipient email that includes the gift card code."
+msgstr "Włącz, aby umożliwić użytkownikom zakup karty podarunkowej o tej samej wartości produktu. Ta funkcja pojawia się na stronie produktu. Produkt zostanie polecony w e-mailu odbiorcy, który zawiera kod karty upominkowej."
+
+#: plugin-options/gift_this_product-options.php:24
+msgid "Product page options"
+msgstr "Opinie na stronie produtku"
+
+#: plugin-options/general-options.php:202
+msgid "When an order containing a gift card is refunded"
+msgstr "Gdy zamówienie zawierające kartę podarunkową jest zwracane"
+
+#: plugin-options/general-options.php:197
+#: plugin-options/general-options.php:210
+msgid "Dismiss the gift cards"
+msgstr "Odwołaj kartę podarunkową"
+
+#: plugin-options/general-options.php:196
+#: plugin-options/general-options.php:209
+msgid "Disable the gift cards"
+msgstr "Wyłącz karty podarunkowe"
+
+#: plugin-options/general-options.php:195
+#: plugin-options/general-options.php:208
+msgid "Do nothing"
+msgstr "Nic nie rób"
+
+#: plugin-options/general-options.php:189
+msgid "When an order containing a gift card is cancelled"
+msgstr "Gdy zamówienie zawierające kartę podarunkową zostanie anulowane"
+
+#: plugin-options/general-options.php:185
+msgid "Gift card orders settings"
+msgstr "Ustawienia zamówień karty podarunkowej"
+
+#: plugin-options/general-options.php:167
+msgid "Set a default expiration for gift cards in months. If the value is zero, your gift cards will never expire."
+msgstr "Ustaw domyślny termin ważności kart podarunkowych w miesiącach. Jeśli wartość wynosi zero, Twoje karty podarunkowe nigdy nie wygasną."
+
+#: plugin-options/general-options.php:166
+msgid "Gift card expiration date"
+msgstr "Data wygaśnięcia karty podarunkowej"
+
+#: plugin-options/general-options.php:153
+msgid "Set a minimum value for the custom amount of your gift cards. Leave empty if you don't want to set a minimum amount."
+msgstr "Ustaw minimalną wartość niestandardowej kwoty kart podarunkowych. Pozostaw puste, jeśli nie chcesz ustawić minimalnej kwoty."
+
+#: plugin-options/general-options.php:147
+msgid "If enabled, customers can enter a custom amount when buying a gift card."
+msgstr "Jeśli zaznaczone, klient może wpisać własną wartość karty podarunkowej przy zakupie."
+
+#: plugin-options/general-options.php:143
+msgid "Enable/disable custom amount"
+msgstr "Włącz/wyłącz własną wartość"
+
+#: plugin-options/general-options.php:140
+#: templates/single-product/add-to-cart/gift-card-amount-selection.php:14
+msgid "Set an amount"
+msgstr "Ustaw wartość"
+
+#: plugin-options/general-options.php:138
+msgid "Enter a title for the 'Set an amount' area on your gift card page. This area will include the preset gift card amounts and the custom amount if enabled."
+msgstr "Wpisz tytuł pola „Ustaw kwotę” na stronie karty upominkowej. Obszar ten obejmie wstępnie ustawione kwoty kart podarunkowych i kwotę niestandardową, jeśli jest włączona."
+
+#: plugin-options/general-options.php:134
+msgid "Title for “Set an amount” section"
+msgstr "Nazwa dla sekcji \"Określ wartość\""
+
+#: plugin-options/general-options.php:131
+msgid "These options will be applied to all your gift card products, but in the gift card product edit page you can override them if you want different values for specific gift cards."
+msgstr "Opcje te zostaną zastosowane do wszystkich produktów z kartami podarunkowymi, ale na stronie edycji produktu z kartami podarunkowymi możesz je zastąpić, jeśli chcesz mieć inne wartości dla określonych kart podarunkowych."
+
+#: plugin-options/general-options.php:129
+msgid "Global settings"
+msgstr "Ustawienia globalne"
+
+#: plugin-options/general-options.php:69
+msgid "If enabled, the user with role Shop Manager will be able to manage the plugin settings panel."
+msgstr "Jeśli zaznaczone, to użytkownik z rolą Menadżera sklepu może zarządzać ustawieniami panelu plugina."
+
+#: plugin-options/general-options.php:65
+msgid "Enable Shop Managers"
+msgstr "Włącz Medadżera Sklepu"
+
+#: plugin-options/general-options.php:113
+msgid "Notify the use of a gift card"
+msgstr "Powiadom o użyciu karty podarunkowej"
+
+#: plugin-options/general-options.php:92
+msgid "If enabled, the customer (the gift card sender) will receive a BCC email with the gift card code."
+msgstr "Jeśli zaznaczone, klient (nadawca karty podarunkowej) otrzyma BCC email z kartą podarunkową."
+
+#: plugin-options/general-options.php:88
+msgid "Gift card sender notification"
+msgstr "Powiadomienie nadawcy karty podarunkowej"
+
+#: plugin-options/general-options.php:84
+msgid "If enabled, admin will receive a BCC email with the gift card code."
+msgstr "Jeśli zaznaczone, admin otrzyma BCC emaila z kodem karty podarunkowej"
+
+#: plugin-options/general-options.php:80
+msgid "Gift card admin notification"
+msgstr "Karta podarunkowa powiadomienie administratora"
+
+#: plugin-options/general-options.php:61
+msgid "If enabled, the use of gift cards codes to purchase a gift card product is not allowed."
+msgstr "Jeśli zaznaczone, to użycie karty podarunkowej, do zakupu karty podarunkowej będzie niedozwolone."
+
+#: plugin-options/general-options.php:57
+msgid "Prevent the use of a gift card to purchase another gift card"
+msgstr "Zapobiegaj użyciu karty podarunkowej do zakupu innej karty podarunkowej"
+
+#: plugin-options/general-options.php:46
+msgid "Choose the pattern of new gift cards. If you set ***-*** your cards will have a code like: 1ME-D28."
+msgstr "Wybierz wzór kodu nowych kart podarunkowych. Jeśli ustawisz *** - ***, twoje karty będą miały kod taki jak: 1ME-D28."
+
+#: plugin-options/general-options.php:45
+msgid "Gift card code pattern"
+msgstr "Wzór kodu karty podarunkowej"
+
+#: plugin-options/general-options.php:40
+msgid "Enable this option if you want to create gift cards without any code."
+msgstr "Włącz tę opcję jeśli chcesz stworzyć kartę podarunkową bez kodu"
+
+#: plugin-options/general-options.php:36
+msgid "Disable code generation"
+msgstr "Wyłącz generowanie kodów"
+
+#: plugin-options/general-options.php:32
+msgid "Choose the date format for the gift card expiry date, date of delivery and so on."
+msgstr "Wybierz format daty dla karty podarunkowej dotyczący wygaśnięcia, daty dostawy i innych.  "
+
+#: plugin-options/general-options.php:27
+msgid "Date format"
+msgstr "Format daty"
+
+#: plugin-options/general-options.php:23
+msgid "General settings"
+msgstr "Główne ustawienia"
+
+#: plugin-options/design-options.php:261
+msgid "Select the plugin main color."
+msgstr "Wybierz główny kolor pluginu"
+
+#: plugin-options/design-options.php:260
+msgid "Plugin main color"
+msgstr "Główny kolor pluginu"
+
+#: plugin-options/design-options.php:256
+msgid "Plugin design options"
+msgstr "Opcje wyglądu wtyczki"
+
+#: plugin-options/design-options.php:210
+msgid "Set up a maximum size (in MB) for the custom images uploaded by customers. Enter 0 if you don't want to set any limit."
+msgstr "Ustaw maksymalny rozmiar (w MB) niestandardowych obrazów przesyłanych przez klientów. Wpisz 0, jeśli nie chcesz ustawiać żadnego limitu."
+
+#: plugin-options/design-options.php:206
+msgid "Set a max size in MB for custom images (required)"
+msgstr "Ustaw maksymalny rozmiar własnych obrazów w MB (wymagane)"
+
+#: plugin-options/design-options.php:196
+msgid "Enter a recommended size for the uploaded image that fits your gift card layout."
+msgstr "Wpisz rekomendowany rozmiar do wczytania obrazu który będzie pasował do wyglądu Twojej karty podarunkowej"
+
+#: plugin-options/design-options.php:192
+msgid "Enter a recommended image size (in pixels) for custom images"
+msgstr "Wpisz rekomendowany rozmiar obrazu (w pikselach) dla indywidualnego obrazu"
+
+#: plugin-options/design-options.php:187
+msgid "Enable if the customer can upload a custom image/photo for the gift card."
+msgstr "Włącz jeśli klient może załadować własny obraz lub zdjęcie na kartę podarunkową"
+
+#: plugin-options/design-options.php:183
+msgid "Custom Image upload"
+msgstr "Wgraj własny obraz"
+
+#: plugin-options/design-options.php:172
+msgid "Enable if you want to show a title below every image in the gallery."
+msgstr "Włącz jeśli chcesz pokazać nazwę poniżej każdego obrazu w galerii"
+
+#: plugin-options/design-options.php:171
+msgid "Show image title"
+msgstr "Pokarz tytuł obrazka"
+
+#: plugin-options/design-options.php:162
+#: templates/yith-gift-cards/gift-card-design.php:121
+msgid "VIEW ALL"
+msgstr "ZOBACZ WSZYSTKO"
+
+#: plugin-options/design-options.php:158
+msgid "Text for \"View all\" button"
+msgstr "Tekst dla przycisku \"Zobacz wszystko \""
+
+#: plugin-options/design-options.php:145
+msgid "Set how many gift card images to show on the gift card page. Other designs will be shown when the customer clicks on \"View all\" button."
+msgstr "Ustaw liczbę obrazów kart upominkowych, które mają być wyświetlane na stronie karty upominkowej. Inne projekty zostaną wyświetlone, gdy klient kliknie przycisk „Wyświetl wszystko”."
+
+#: plugin-options/design-options.php:144
+msgid "How many images to show"
+msgstr "Ile obrazów pokazać"
+
+#: plugin-options/design-options.php:139
+msgid "Set your template categories"
+msgstr "Ustaw Twoje szablony kategorii"
+
+#: plugin-options/design-options.php:139
+msgid "Set your gallery categories."
+msgstr "Ustaw Twoje kategorie galerii"
+
+#: plugin-options/design-options.php:139
+msgid "Allow users to pick the gift card image from those available in the gallery. Note: images that can be used by customers have to be uploaded through the Media gallery. To make the search easier, you can group images into categories (e.g. Christmas, Easter, Birthday, etc.) through this link: "
+msgstr "Pozwól użytkownikom wybrać obraz karty upominkowej spośród dostępnych w galerii. Uwaga: obrazy, z których mogą korzystać klienci, muszą zostać przesłane za pośrednictwem galerii multimediów. Aby ułatwić wyszukiwanie, możesz grupować zdjęcia w kategorie (np. Boże Narodzenie, Wielkanoc, Urodziny itp.) Za pomocą tego linku:"
+
+#: plugin-options/design-options.php:135
+msgid "Enable the gallery"
+msgstr "Włącz galerię"
+
+#: plugin-options/design-options.php:132
+#: templates/yith-gift-cards/gift-card-design.php:54
+msgid "Choose your image"
+msgstr "Wybierz swój obraz"
+
+#: plugin-options/design-options.php:130
+msgid " Enter a title for the 'Choose your image' area on your gift card page."
+msgstr "Wpisz nazwę dla pola 'Wybierz swój obraz' na stronie karty podarunkowej"
+
+#: plugin-options/design-options.php:126
+msgid "Title for “Choose your image” section"
+msgstr "Nazwa dla sekcji \"Wybierz swój obraz\""
+
+#: plugin-options/design-options.php:123
+msgid "Upload a image that will be used by default for all your gift cards. You can, however, override it when you create a new gift card product and leave empty if you don't want to apply a default image."
+msgstr "Prześlij obraz, który będzie domyślnie używany dla wszystkich kart upominkowych. Możesz go jednak zastąpić podczas tworzenia nowego produktu z kartą upominkową i pozostawić puste, jeśli nie chcesz zastosować domyślnego obrazu."
+
+#: plugin-options/design-options.php:119
+msgid "Default gift card image"
+msgstr "Domyślny obraz karty podarunkowej"
+
+#: plugin-options/design-options.php:115
+msgid "Gift card design options"
+msgstr "opcje wyglądu karty podarunkowej"
+
+#: plugin-options/design-options.php:76
+msgid "Add your shop logo before the gift card image"
+msgstr "Dodaj logo sklepu przed obrazem karty podarunkowej"
+
+#: plugin-options/design-options.php:66 plugin-options/design-options.php:94
+msgid "Right"
+msgstr "Prawy"
+
+#: plugin-options/design-options.php:65 plugin-options/design-options.php:93
+msgid "Center"
+msgstr "Środek"
+
+#: plugin-options/design-options.php:64 plugin-options/design-options.php:92
+msgid "Left"
+msgstr "Lewy"
+
+#: plugin-options/design-options.php:59 plugin-options/design-options.php:87
+msgid "Logo alignment"
+msgstr "Wyrównanie Logo"
+
+#: plugin-options/design-options.php:48
+msgid "Add your shop logo after the gift card image"
+msgstr "Dodaj logo sklepu po obrazie karty podarunkowej"
+
+#: plugin-options/design-options.php:39
+msgid "Upload the logo you want to show in the gift card sent to customers."
+msgstr "Prześlij logo które chcesz pokazać podczas wysyłania kart podarunkowych do klientów"
+
+#: plugin-options/design-options.php:35
+msgid "Upload your shop logo"
+msgstr "Prześlij logo sklepu"
+
+#: plugin-options/design-options.php:31
+msgid "Set if you want the shop logo to show up on the gift card template sent to the customers. We suggest you keep it disabled if your gift card template image contains your shop logo."
+msgstr "Ustaw, jeśli chcesz, aby logo sklepu wyświetlało się na szablonie karty podarunkowej wysyłanej do klientów. Zalecamy wyłączenie tej opcji, jeśli obraz szablonu karty podarunkowej zawiera logo sklepu."
+
+#: plugin-options/design-options.php:27
+msgid "Add your shop logo on gift cards"
+msgstr "Dodaj logo sklepu na kartę podarunkową"
+
+#: plugin-options/design-options.php:23
+msgid "Shop logo options"
+msgstr "Opcje logo sklepu"
+
+#: plugin-options/cart_checkout-options.php:245
+msgid "Colors of Apply gift card button"
+msgstr "Kolor przycisku Zastosuj Kartę Podarunkową"
+
+#: plugin-options/cart_checkout-options.php:242
+#: templates/checkout/form-gift-cards.php:75
+msgid "Apply Gift Card"
+msgstr "Użyj karty podarunkowej"
+
+#: plugin-options/cart_checkout-options.php:238
+msgid "Text of Apply gift card button"
+msgstr "Tekst dla przycisku \"Zastosuj kartę podarunkową\""
+
+#: plugin-options/cart_checkout-options.php:231
+#: plugin-options/cart_checkout-options.php:266
+#: plugin-options/gift_this_product-options.php:146
+msgid "hover text color"
+msgstr "kolor tekstu po najechaniu"
+
+#: plugin-options/cart_checkout-options.php:226
+#: plugin-options/cart_checkout-options.php:261
+#: plugin-options/gift_this_product-options.php:141
+msgid "default text color"
+msgstr "domyślny kolor tekstu"
+
+#: plugin-options/cart_checkout-options.php:221
+#: plugin-options/cart_checkout-options.php:256
+#: plugin-options/gift_this_product-options.php:136
+msgid "hover color"
+msgstr "kolor najechania"
+
+#: plugin-options/cart_checkout-options.php:216
+#: plugin-options/cart_checkout-options.php:251
+#: plugin-options/gift_this_product-options.php:131
+msgid "default color"
+msgstr "domyślny kolor"
+
+#: plugin-options/cart_checkout-options.php:210
+msgid "Colors of apply gift card section"
+msgstr "Kolor sekcji zastosuj kartę podarunkową"
+
+#: plugin-options/cart_checkout-options.php:206
+msgid "Apply the gift card code in the following box"
+msgstr "Zastosuj kod karty podarunkowej w wyznaczonym polu"
+
+#: plugin-options/cart_checkout-options.php:202
+msgid "Enter a text for the gift card form"
+msgstr "Wpisz tekst w formularzu karty podarunkowej"
+
+#: plugin-options/cart_checkout-options.php:197
+msgid "Visible form"
+msgstr "Widoczna forma"
+
+#: plugin-options/cart_checkout-options.php:196
+msgid "Hidden form"
+msgstr "Ukryty formularz"
+
+#: plugin-options/cart_checkout-options.php:191
+msgid "Apply gift card layout"
+msgstr "Zastosowany wzór katy podarunkowej"
+
+#: plugin-options/cart_checkout-options.php:187
+msgid "Show a gift-card icon in the text before the gift card form."
+msgstr "Pokaż ikonę karty podarunkowej w tekście przed formularzem karty podarunkowej"
+
+#: plugin-options/cart_checkout-options.php:183
+msgid "Enable icon before text"
+msgstr "Włącz ikonę przed tekstem"
+
+#: plugin-options/cart_checkout-options.php:180
+#: templates/checkout/form-gift-cards.php:33
+msgid "Use it here!"
+msgstr "Użyj tutaj!"
+
+#: plugin-options/cart_checkout-options.php:176
+msgid "Enter here the text of the link that opens the gift card form"
+msgstr "Wpisz tutaj tekst łącza otwierającego formularz karty upominkowej"
+
+#: plugin-options/cart_checkout-options.php:173
+#: templates/checkout/form-gift-cards.php:33
+msgid "Got a gift card from a loved one?"
+msgstr "Masz kartę podarunkową? Możesz jej tutaj użyć"
+
+#: plugin-options/cart_checkout-options.php:169
+msgid "Enter a text before the gift card form"
+msgstr "Wpisz tekst przed formularzem karty podarunkowej"
+
+#: plugin-options/cart_checkout-options.php:165
+msgid "Apply gift card section design"
+msgstr "Wygląd pola zastosuj kartę podarunkową"
+
+#: plugin-options/cart_checkout-options.php:147
+msgid "after checkout form"
+msgstr "po formularzu podsumowania"
+
+#: plugin-options/cart_checkout-options.php:146
+msgid "before checkout form"
+msgstr "przed formularzem zamówienia"
+
+#: plugin-options/cart_checkout-options.php:136
+msgid "If enabled, customers can apply the gift card code on the Checkout page."
+msgstr "Jeśli zaznaczone, klient może użyć kodu karty podarunkowej na stronie podsumowania zamówienia."
+
+#: plugin-options/cart_checkout-options.php:132
+msgid "Apply gift card on Checkout page"
+msgstr "Zastosuj kartę podarunkową na stronie podsumowania zamówienia"
+
+#: plugin-options/cart_checkout-options.php:128
+msgid "Checkout page options"
+msgstr "Opcje strony podsumowania"
+
+#: plugin-options/cart_checkout-options.php:109
+msgid "after cart"
+msgstr "po koszyku"
+
+#: plugin-options/cart_checkout-options.php:108
+msgid "before cart"
+msgstr "przed koszykiem"
+
+#: plugin-options/cart_checkout-options.php:102
+#: plugin-options/cart_checkout-options.php:140
+msgid "Apply gift card position"
+msgstr "Pozycja pola zastosuj kartę podarunkową"
+
+#: plugin-options/cart_checkout-options.php:98
+msgid "If enabled, customers can apply the gift card code on the Cart page."
+msgstr "Jeśli zaznaczone, klient może użyć kodu karty podarunkowej na stronie koszyka"
+
+#: plugin-options/cart_checkout-options.php:94
+msgid "Apply gift card on Cart page"
+msgstr "Zastosuj kartę podarunkową na stronie koszyka"
+
+#: plugin-options/cart_checkout-options.php:85
+msgid "Enter here the cart minimum amount to allow using gift card codes."
+msgstr "Wpisz tutaj minimalną wartość koszyka która umożliwi wykorzystanie kodu karty podarunkowej."
+
+#: plugin-options/cart_checkout-options.php:84
+msgid "Set cart minimum amount"
+msgstr "Ustaw minimalną wartość koszyka"
+
+#: plugin-options/cart_checkout-options.php:77
+msgid "If enabled, customers can only use the gift card code if the cart minimum amount requirement is fulfilled."
+msgstr "Jeśli zaznaczone, klient może użyć kodu karty podarunkowej jeśli koszyk posiada minimalną wymaganą wartość."
+
+#: plugin-options/cart_checkout-options.php:76
+msgid "Minimum amount in cart"
+msgstr "Minimalna wartość koszyka"
+
+#: plugin-options/cart_checkout-options.php:69
+msgid "If enabled, when a gift card is added to the cart, the gift card info will be displayed."
+msgstr "Jeśli ta opcja jest włączona, po dodaniu karty upominkowej do koszyka zostaną wyświetlone informacje o karcie upominkowej."
+
+#: plugin-options/cart_checkout-options.php:68
+msgid "Show gift card info in the cart"
+msgstr "Pokaż informacje o karcie podarunkowej w koszyku"
+
+#: plugin-options/cart_checkout-options.php:63
+msgid "Cart page options"
+msgstr "Opcje strony koszyka"
+
+#: plugin-options/cart_checkout-options.php:44
+msgid "Enter a text for the 'Have a coupon?' label"
+msgstr "Wpisz tekst pola 'Czy posiadasz kupon?'"
+
+#: plugin-options/cart_checkout-options.php:36
+msgid "Enter a text for the 'Apply coupon' button"
+msgstr "Wpisz tekst przycisku 'Zastosuj kupon'"
+
+#: plugin-options/cart_checkout-options.php:32
+msgid "Let customers apply the gift card code in the standard WooCommerce coupon fields"
+msgstr "Pozwól klientom zastosować kod karty upominkowej w standardowych polach kuponów WooCommerce"
+
+#: plugin-options/cart_checkout-options.php:28
+msgid "Allow gift card codes in WooCommerce coupon fields"
+msgstr "Pozwól na zastosowanie kart podarunkowych w polu KUPONU w WooCommerce"
+
+#: plugin-options/cart_checkout-options.php:24
+msgid "Coupon fields settings"
+msgstr "Ustawienia pola kuponu"
+
+#: lib/emails/class-yith-ywgc-email-send-gift-card.php:150
+msgid "a friend"
+msgstr " przyjaciela"
+
+#: lib/emails/class-yith-ywgc-email-send-gift-card.php:46
+#: lib/emails/class-yith-ywgc-email-send-gift-card.php:157
+msgid "Hi {recipient_name}, you have received this gift card from {sender}, use it on our online shop."
+msgstr "Witaj {recipient_name}, właśnie otrzymałeś/aś kartę prezentową od {sender}, możesz użyć jej w naszym sklepie internetowym."
+
+#: lib/emails/class-yith-ywgc-email-send-gift-card.php:40
+msgid "[{site_title}] You have received a gift card"
+msgstr "[{site_title}] Właśnie odebrałeś/aś kartę podarunkową"
+
+#: lib/emails/class-yith-ywgc-email-send-gift-card.php:39
+msgid "Your gift card"
+msgstr "Twoja karta podarunkowa."
+
+#: lib/emails/class-yith-ywgc-email-send-gift-card.php:36
+msgid "Send the digital gift card to the email address selected during the purchase"
+msgstr "Wyślij cyfrową kartę upominkową na adres e-mail wybrany podczas zakupu"
+
+#: lib/emails/class-yith-ywgc-email-send-gift-card.php:33
+msgid "YITH Gift Cards - Dispatch of the code"
+msgstr "YITH Gift Cards - Wysyłanie kodu"
+
+#: lib/emails/class-yith-ywgc-email-delivered-gift-card.php:156
+#: lib/emails/class-yith-ywgc-email-notify-customer.php:160
+#: lib/emails/class-yith-ywgc-email-send-gift-card.php:246
+msgid "Introductive message"
+msgstr "Wiadomość wprowadzająca"
+
+#: lib/emails/class-yith-ywgc-email-delivered-gift-card.php:149
+#: lib/emails/class-yith-ywgc-email-notify-customer.php:153
+#: lib/emails/class-yith-ywgc-email-send-gift-card.php:239
+msgid "Email Heading"
+msgstr "Nagłówek E-mail"
+
+#: lib/emails/class-yith-ywgc-email-delivered-gift-card.php:144
+#: lib/emails/class-yith-ywgc-email-delivered-gift-card.php:151
+#: lib/emails/class-yith-ywgc-email-delivered-gift-card.php:158
+#: lib/emails/class-yith-ywgc-email-notify-customer.php:148
+#: lib/emails/class-yith-ywgc-email-notify-customer.php:155
+#: lib/emails/class-yith-ywgc-email-notify-customer.php:162
+#: lib/emails/class-yith-ywgc-email-send-gift-card.php:234
+#: lib/emails/class-yith-ywgc-email-send-gift-card.php:241
+#: lib/emails/class-yith-ywgc-email-send-gift-card.php:248
+msgid "Defaults to <code>%s</code>"
+msgstr "Domyślnie do <code>%s</code>"
+
+#: lib/emails/class-yith-ywgc-email-delivered-gift-card.php:142
+#: lib/emails/class-yith-ywgc-email-notify-customer.php:146
+#: lib/emails/class-yith-ywgc-email-send-gift-card.php:232
+msgid "Subject"
+msgstr "Temat"
+
+#: lib/emails/class-yith-ywgc-email-delivered-gift-card.php:138
+#: lib/emails/class-yith-ywgc-email-notify-customer.php:142
+#: lib/emails/class-yith-ywgc-email-send-gift-card.php:228
+msgid "Enable this email notification"
+msgstr "Włącz powiadomienia email"
+
+#: lib/emails/class-yith-ywgc-email-notify-customer.php:46
+#: lib/emails/class-yith-ywgc-email-notify-customer.php:86
+msgid "The gift card you have sent to <code>{recipient_email}</code> has been used in our shop."
+msgstr "Karta podarunkowa, na którą wysłałeś <code>{recipient_email}</code> została użyta w naszym sklepie."
+
+#: lib/emails/class-yith-ywgc-email-notify-customer.php:41
+msgid "[{site_title}] Your gift card has been used"
+msgstr "[{site_title}] Twoja karta podarunkowa została już użyta"
+
+#: lib/emails/class-yith-ywgc-email-notify-customer.php:40
+msgid "I have appreciated your gift"
+msgstr "Doceniam Twój prezent"
+
+#: lib/emails/class-yith-ywgc-email-notify-customer.php:37
+msgid "Customer notification - the gift card you have bought has been used"
+msgstr "Powiadomienie klienta - karta podarunkowa którą kupiłeś została użyta"
+
+#: lib/emails/class-yith-ywgc-email-notify-customer.php:34
+msgid "YITH Gift Cards - Notification"
+msgstr "YITH Gift Cards - Powiadomienia"
+
+#: lib/class.yith-woocommerce-gift-cards-privacy.php:599
+msgid "Gift Card"
+msgstr "Karta podarunkowa"
+
+#: lib/class.yith-woocommerce-gift-cards-privacy.php:431
+msgctxt "GDPR privacy"
+msgid "Gift cards sent"
+msgstr "Karta podarunkowa wysłana"
+
+#: lib/class.yith-woocommerce-gift-cards-privacy.php:383
+msgctxt "GDPR privacy"
+msgid "YITH gift cards sent"
+msgstr "YITH gift cards wysyłanie"
+
+#: lib/class.yith-woocommerce-gift-cards-privacy.php:355
+msgctxt "GDPR privacy"
+msgid "Gift cards received"
+msgstr "Karta podarunkowa odebrana"
+
+#: lib/class.yith-woocommerce-gift-cards-privacy.php:302
+msgctxt "GDPR privacy"
+msgid "YITH gift cards received"
+msgstr "YITH gift cards odebrano"
+
+#. translators: %d: Comment ID
+#: lib/class.yith-woocommerce-gift-cards-privacy.php:166
+#: lib/class.yith-woocommerce-gift-cards-privacy.php:241
+msgid "Gift card %d contains personal data but could not be anonymized."
+msgstr "Karta podarunkowa %d zawiera dane personalne ale nie może być anonimowa"
+
+#: lib/class.yith-woocommerce-gift-cards-privacy.php:145
+#: lib/class.yith-woocommerce-gift-cards-privacy.php:218
+#: lib/class.yith-woocommerce-gift-cards-privacy.php:558
+msgctxt "GDPR privacy"
+msgid "Anonymous"
+msgstr "Anonimowy"
+
+#: lib/class.yith-woocommerce-gift-cards-privacy.php:96
+msgctxt "GDPR privacy"
+msgid "YITH gift cards received and sent"
+msgstr "YITH gift cards odbieranie i wysyłanie"
+
+#: lib/class.yith-woocommerce-gift-cards-privacy.php:28
+msgctxt "Privacy Policy Content"
+msgid "YITH Gift Cards for WooCommerce premium"
+msgstr "YITH Gift Cards dla WooCommerce premium"
+
+#: lib/class-ywgc-plugin-fw-loader.php:209
+msgid "In the YITH Plugins tab you can find YITH WooCommerce Gift Cards options.<br> From this menu you can access all the settings of your active YITH plugins."
+msgstr "Na karcie Wtyczki YITH można znaleźć opcje kart podarunkowych YITH WooCommerce. <br> Z tego menu można uzyskać dostęp do wszystkich ustawień aktywnych wtyczek YITH."
+
+#: lib/class-ywgc-plugin-fw-loader.php:208
+msgid "YITH WooCommerce Gift Cards"
+msgstr "YITH WooCommerce Gift Cards"
+
+#: lib/class-ywgc-plugin-fw-loader.php:200
+msgid "YITH WooCommerce Gift Cards is available in an outstanding premium version with many new options, discover it now."
+msgstr "YITH WooCommerce Gift Cards jest dostępny w wyjątkowej wersji premium z wieloma nowymi opcjami, odkryj go teraz."
+
+#: lib/class-ywgc-plugin-fw-loader.php:140
+#: lib/class-ywgc-plugin-fw-loader.php:201
+msgid "Premium version"
+msgstr "Wersja Premium"
+
+#: lib/class-ywgc-plugin-fw-loader.php:136
+msgid "Cart & checkout"
+msgstr "Koszyk & potwierdzenie"
+
+#: lib/class-ywgc-plugin-fw-loader.php:135
+msgid "Recipient & delivery"
+msgstr "Odbiorca i dostawa"
+
+#: lib/class-ywgc-plugin-fw-loader.php:133
+msgid "Image categories"
+msgstr "Kategorie obrazów"
+
+#: lib/class-ywgc-plugin-fw-loader.php:132
+msgid "Style"
+msgstr "Styl"
+
+#: lib/class-ywgc-plugin-fw-loader.php:130
+msgid "Dashboard"
+msgstr "Kokpit"
+
+#: lib/class-yith-ywgc-gift-cards-table.php:359
+msgid "Physical product"
+msgstr "Fizyczna"
+
+#: lib/class-yith-ywgc-gift-cards-table.php:352
+msgid "This card is dismissed."
+msgstr "Karta została odrzucona"
+
+#: lib/class-yith-ywgc-gift-cards-table.php:336
+msgid "Send now"
+msgstr "Wyślij teraz"
+
+#: lib/class-yith-ywgc-gift-cards-table.php:312
+msgid "Download pdf"
+msgstr "Pobierz pdf"
+
+#: lib/class-yith-ywgc-gift-cards-table.php:228
+msgid "Unlimited"
+msgstr "Nielimitowany"
+
+#: lib/class-yith-ywgc-gift-cards-table.php:209
+#: templates/myaccount/my-giftcards.php:142
+msgid "The code has not been used yet"
+msgstr "Ten kod nie został jeszcze użyty"
+
+#: lib/class-yith-ywgc-gift-cards-table.php:189
+msgid "Created manually"
+msgstr "Stworzona ręcznie"
+
+#: lib/class-yith-ywgc-gift-cards-table.php:162
+msgctxt "Order number by X"
+msgid "%s by %s"
+msgstr "%s przez %s"
+
+#: lib/class-yith-ywgc-gift-cards-table.php:158
+msgid "Guest"
+msgstr "Gość"
+
+#: lib/class-yith-ywgc-gift-cards-table.php:118
+#: lib/emails/class-yith-ywgc-email-delivered-gift-card.php:136
+#: lib/emails/class-yith-ywgc-email-notify-customer.php:140
+#: lib/emails/class-yith-ywgc-email-send-gift-card.php:226
+msgid "Enable/Disable"
+msgstr "Włączone/Wyłączone"
+
+#: lib/class-yith-ywgc-gift-cards-table.php:117
+msgid "Direct link"
+msgstr "Link bezpośredni"
+
+#: lib/class-yith-ywgc-gift-cards-table.php:116
+msgid "Notes"
+msgstr "Notatki"
+
+#: lib/class-yith-ywgc-gift-cards-table.php:114
+msgid "Information"
+msgstr "Informacje"
+
+#: lib/class-yith-ywgc-gift-cards-table.php:112
+msgid "Orders"
+msgstr "Zamówienia"
+
+#: lib/class-yith-ywgc-gift-cards-table.php:111
+#: templates/myaccount/my-giftcards.php:15
+#: templates/shortcodes/user-gift-card-table.php:29
+msgid "Balance"
+msgstr "Saldo"
+
+#: lib/class-yith-ywgc-gift-cards-table.php:110
+msgid "Order"
+msgstr "Zamówienie"
+
+#: lib/class-yith-ywgc-gift-card-premium.php:514
+msgid "No longer valid, replaced by another code"
+msgstr "Już nieważny, zastąpiony innym kodem"
+
+#: lib/class-yith-ywgc-gift-card-premium.php:511
+msgid "Valid"
+msgstr "Ważna"
+
+#: lib/class-yith-ywgc-gift-card-premium.php:508
+msgid "The gift card has been disabled"
+msgstr "Karta podarunkowa została wyłączona"
+
+#: lib/class-yith-ywgc-gift-card-premium.php:233
+msgid "Gift card code successfully removed."
+msgstr "Kod karty podarunkowej poprawnie usunięty"
+
+#: lib/class-yith-ywgc-gift-card-premium.php:230
+msgid "Gift card code successfully applied."
+msgstr "Kod karty podarunkowej poprawnie dodany."
+
+#: lib/class-yith-ywgc-gift-card-premium.php:208
+#: lib/class-yith-ywgc-gift-card-premium.php:237
+msgid "Gift card codes cannot be used to purchase other gift cards"
+msgstr "Kod karty podarunkowej nie może zostać użyty do zakupu innych kart podarunkowych"
+
+#: lib/class-yith-ywgc-gift-card-premium.php:205
+msgid "Sorry, it seems that the gift card code %s is invalid - it has been removed from your cart."
+msgstr "Niestety wygląda na to, że kod karty podarunkowej %s jest nieprawidłowy - został usunięty z koszyka."
+
+#: lib/class-yith-ywgc-gift-card-premium.php:202
+msgid "Sorry, the gift card code %s is no longer valid!"
+msgstr "Niestety, kod karty podarunkowej %s nie jest dłużej ważny"
+
+#: lib/class-yith-ywgc-gift-card-premium.php:199
+msgid "Sorry, the gift card code %s is currently disabled and cannot be used."
+msgstr "Niestety, kod karty podarunkowej %s jest obecnie niedostępny i nie może zostać użyty"
+
+#: lib/class-yith-ywgc-gift-card-premium.php:196
+msgid "Sorry, the gift card code %s is expired and cannot be used."
+msgstr "Niestety, kod karty podarunkowej %s wygasł i nie może zostać ponownie użyty"
+
+#: lib/class-yith-ywgc-gift-card-premium.php:193
+msgid "The gift card code %s has already been applied!"
+msgstr "Ten kod karty podarunkowej %s jest już w użyciu!"
+
+#: lib/class-yith-ywgc-gift-card-premium.php:190
+msgid "Sorry, it seems that the gift card code \"%s\" is not yours and cannot be used for this order."
+msgstr "Niestety wygląda na to, że kod karty podarunkowej „%s” nie jest Twój i nie można go użyć w tym zamówieniu."
+
+#: lib/class-yith-ywgc-gift-card-premium.php:187
+msgid "The gift card code %s does not exist!"
+msgstr "Ten kod karty podarunkowej %s nie istnieje!"
+
+#: lib/class-yith-ywgc-frontend-premium.php:1167
+msgid "It is not possible to add a gift card code when the cart contains a gift card product"
+msgstr "Nie jest możliwe dodać kod karty podarunkowej jeżeli koszyk zawiera kartę podarunkową"
+
+#: lib/class-yith-ywgc-frontend-premium.php:1111
+msgid "Click here to enter your code"
+msgstr "Naciśni tutaj by wpisać swój kod"
+
+#: lib/class-yith-ywgc-frontend-premium.php:1109
+#: plugin-options/cart_checkout-options.php:49
+msgid "Have a coupon?"
+msgstr "Posiadasz kupon?"
+
+#: lib/class-yith-ywgc-frontend-premium.php:1099
+#: plugin-options/cart_checkout-options.php:41
+msgid "Apply coupon"
+msgstr "Zastosuj kupon"
+
+#: lib/class-yith-ywgc-frontend-premium.php:1006
+#: lib/class-yith-ywgc-gift-cards-table.php:386
+msgid "Delivery date: %s"
+msgstr "Data dostarczenia: %s"
+
+#: lib/class-yith-ywgc-frontend-premium.php:1002
+#: lib/class-yith-ywgc-gift-cards-table.php:379
+msgid "Recipient: %s"
+msgstr "Odbiorca: %s"
+
+#: lib/class-yith-ywgc-frontend-premium.php:997
+#: lib/class-yith-ywgc-gift-cards-table.php:374
+msgid "Failed"
+msgstr "Błąd"
+
+#: lib/class-yith-ywgc-frontend-premium.php:994
+#: lib/class-yith-ywgc-gift-cards-table.php:371
+msgid "Not yet sent"
+msgstr "Jeszcze nie wysłane"
+
+#: lib/class-yith-ywgc-frontend-premium.php:991
+#: lib/class-yith-ywgc-gift-cards-table.php:368
+msgid "Scheduled"
+msgstr "Zawieszone"
+
+#: lib/class-yith-ywgc-frontend-premium.php:988
+#: lib/class-yith-ywgc-gift-cards-table.php:365
+msgid "Sent on %s"
+msgstr "Wysłano dalej  %s"
+
+#: lib/class-yith-ywgc-frontend-premium.php:811
+#: templates/support-attachments.php:42
+msgid "Cancel"
+msgstr "Anuluj"
+
+#: lib/class-yith-ywgc-frontend-premium.php:809
+msgid "Apply"
+msgstr "Zastosuj"
+
+#: lib/class-yith-ywgc-frontend-premium.php:777
+msgid "Edit"
+msgstr "Edytuj"
+
+#: lib/class-yith-ywgc-frontend-premium.php:769
+#: lib/class-yith-ywgc-frontend-premium.php:795
+msgid "Recipient: "
+msgstr "Odbiorca"
+
+#: lib/class-yith-ywgc-frontend-premium.php:764
+#: lib/class-yith-ywgc-frontend-premium.php:788
+msgid "Sender: "
+msgstr "Nadawca:"
+
+#: lib/class-yith-ywgc-frontend-premium.php:762
+#: lib/class-yith-ywgc-frontend-premium.php:781
+msgid "Gift card details"
+msgstr "Szczegóły karty podarunkowej"
+
+#: lib/class-yith-ywgc-frontend-premium.php:759
+msgid "See card details"
+msgstr "Zobacz szczegóły karty"
+
+#: lib/class-yith-ywgc-frontend-premium.php:342
+msgid "Buy gift card"
+msgstr "Kup kartę podarunkową"
+
+#: lib/class-yith-ywgc-frontend-premium.php:340
+msgid "E-mail: "
+msgstr "E-mail:"
+
+#: lib/class-yith-ywgc-frontend-premium.php:339
+#: templates/yith-gift-cards/gift-card-details.php:39
+#: templates/yith-gift-cards/gift-card-details.php:67
+#: templates/yith-gift-cards/physical-gift-card-details.php:27
+msgid "Name: "
+msgstr "Imię:"
+
+#: lib/class-yith-ywgc-frontend-premium.php:338
+msgid "ENTER ADDITIONAL RECIPIENT'S EMAIL ADDRESS"
+msgstr "WPISZ DODATKOWY ADRES E-MAIL ODBIORCY"
+
+#: lib/class-yith-ywgc-frontend-premium.php:337
+msgid "ENTER ADDITIONAL RECIPIENT'S NAME"
+msgstr "WPISZ DODATKOWE IMIĘ NADAWCY"
+
+#: lib/class-yith-ywgc-frontend-premium.php:335
+msgid "Please enter a valid email address"
+msgstr "Proszę podać poprawny adres e-mail"
+
+#: lib/class-yith-ywgc-frontend-premium.php:330
+msgid "Please use only digits and the decimal separator '%1$s'. Valid examples are '123', '123%1$s9 and '123%1$s99'."
+msgstr "Proszę używać tylko cyfr i separatora dziesiętnego '%1$s'. Poprawny przykład to '123', '123%1$s9 i '123%1$s99'."
+
+#: lib/class-yith-ywgc-frontend-premium.php:317
+msgid "Please enter a valid delivery date"
+msgstr "Proszę podać poprawną datę dostarczenia"
+
+#: lib/class-yith-ywgc-frontend-premium.php:316
+msgid "<b>Note</b>: You added more than one recipient, so <i class='ywgc-darkred-text'>you will buy %number_gift_cards% gift cards</i> and each recipient will receive a different gift card."
+msgstr "<b>Uwaga</b>:Dodałeś/aś więcej niż jednego odbiorcę, więc <i class='ywgc-darkred-text'> musisz kupić %number_gift_cards% kart podarunkowych </i> tak by każdy odbiorca otrzymał własną kartę podarunkową"
+
+#: lib/class-yith-ywgc-frontend-premium.php:315
+msgid "<b>Attention</b>: the <b>suggested minimum</b> size of the image is 490x195"
+msgstr "<b>Uwaga</b>: <b>Sugerowany minimalny</b> rozmiar obrazu wynosi 490x195"
+
+#: lib/class-yith-ywgc-frontend-premium.php:313
+msgid "The size fo the uploaded file exceeds the maximum allowed"
+msgstr "Rozmiar przesłanego pliku przekracza maksymalnie dozwolony "
+
+#: lib/class-yith-ywgc-frontend-premium.php:312
+msgid "File format is not valid, select a jpg, jpeg, png, gif or bmp file"
+msgstr "Format pliku jest błędny, użyj jpg, jpeg, png, gif albo bmp"
+
+#: lib/class-yith-ywgc-frontend-premium.php:283
+msgid "The minimum amount is"
+msgstr "Minimalna wartość to"
+
+#: lib/class-yith-ywgc-frontend-premium.php:235
+msgid "Enter amount"
+msgstr "Wpisz wartość"
+
+#: lib/class-yith-ywgc-cart-checkout.php:1344
+msgid "You can't purchase a physical product and a digital gift card with the same order"
+msgstr "Nie można kupić fizycznego produktu oraz cyforwej karty podarunkowej w tym samym zamówieniu"
+
+#: lib/class-yith-ywgc-cart-checkout.php:1235
+msgid "Email address not valid, please check the following: "
+msgstr "Adres email jest nie poprawny, proszę sprawdź następujący:"
+
+#: lib/class-yith-ywgc-cart-checkout.php:1224
+msgid "The recipient(s) email address is mandatory"
+msgstr "Adres e-mail odbiorcy (-ów) jest obowiązkowy"
+
+#: lib/class-yith-ywgc-cart-checkout.php:1211
+msgid "Add a valid email address for the recipient"
+msgstr "Dodaj poprawny adres email odbiorcy"
+
+#: lib/class-yith-ywgc-cart-checkout.php:1197
+msgid "An error occurred while adding the product to the cart."
+msgstr "Wystąpił błąd podczas dodawania produktu do koszyka"
+
+#: lib/class-yith-ywgc-cart-checkout.php:981
+msgid "The gift card has invalid amount"
+msgstr ""
+
+#: lib/class-yith-ywgc-cart-checkout.php:940
+#: templates/yith-gift-cards/gift-card-details.php:27
+msgid "Delivery date: "
+msgstr "Data dostarczenia:"
+
+#: lib/class-yith-ywgc-cart-checkout.php:931
+#: lib/class-yith-ywgc-frontend-premium.php:774
+#: lib/class-yith-ywgc-frontend-premium.php:802
+#: templates/yith-gift-cards/gift-card-details.php:73
+#: templates/yith-gift-cards/physical-gift-card-details.php:40
+msgid "Message: "
+msgstr "Wiadomość:"
+
+#: lib/class-yith-ywgc-cart-checkout.php:927
+msgid "Your name: "
+msgstr "Twoje imię:"
+
+#: lib/class-yith-ywgc-cart-checkout.php:923
+msgid "Recipient's email: "
+msgstr "Email odbiorców:"
+
+#: lib/class-yith-ywgc-cart-checkout.php:920
+msgid "Your billing email address"
+msgstr "Twój adres email dla rozliczeń"
+
+#: lib/class-yith-ywgc-cart-checkout.php:914
+#: templates/yith-gift-cards/physical-gift-card-details.php:32
+msgid "Recipient's name: "
+msgstr "Imiona odbiorców:"
+
+#: lib/class-yith-ywgc-cart-checkout.php:847
+msgid "Order paid with gift cards for a total amount of %s."
+msgstr "Zamów płatne za pomocą kart podarunkowych na łączną kwotę %s"
+
+#: lib/class-yith-ywgc-cart-checkout.php:552
+msgid "[Remove]"
+msgstr "[Usuń]"
+
+#: lib/class-yith-ywgc-cart-checkout.php:548
+msgid "Gift card:"
+msgstr "Karta podarunkowa:"
+
+#: lib/class-yith-ywgc-cart-checkout.php:527
+msgid "Gift cards:"
+msgstr "Karty podarunkowe:"
+
+#: lib/class-yith-ywgc-cart-checkout.php:481
+msgid "as a Gift Card"
+msgstr "jako karta podarunkowa"
+
+#: lib/class-yith-ywgc-backend.php:701
+msgid "You haven't configured any gift card yet"
+msgstr "Jeszcze nie skonfigurowano żadnej karty podarunkowej"
+
+#: lib/class-yith-ywgc-backend.php:664
+msgid "Add"
+msgstr "Dodaj"
+
+#: lib/class-yith-ywgc-backend.php:660
+msgid "Gift card amount"
+msgstr "Wartość karty podarunkowej"
+
+#: lib/class-yith-ywgc-backend.php:634
+msgid "Enabled"
+msgstr "Włączone"
+
+#: lib/class-yith-ywgc-backend.php:631
+msgid "Default"
+msgstr "Domyślne"
+
+#: lib/class-yith-ywgc-backend.php:627
+msgid "Manual amount mode"
+msgstr "Tryb kwoty własnej"
+
+#: lib/class-yith-ywgc-backend.php:610
+msgid "Set an optional minimum custom amount for this gift card."
+msgstr "Ustaw minimalną własną wartość dla karty podarunkowej"
+
+#: lib/class-yith-ywgc-backend.php:609
+msgid "Enter a minimum amount"
+msgstr "Wpisz minimalną wartość"
+
+#: lib/class-yith-ywgc-backend.php:608 plugin-options/general-options.php:152
+msgid "Minimum custom amount"
+msgstr "Minimalna własna wartość karty podarunkowej"
+
+#: lib/class-yith-ywgc-backend.php:596
+msgid "Set an expiration date for this gift card."
+msgstr "Ustaw datę wygaśnięcia dla tej karty podarunkowej"
+
+#: lib/class-yith-ywgc-backend.php:575
+msgid "Enter a text  to describe your discount."
+msgstr "Wpisz tekst opisujący zniżkę"
+
+#: lib/class-yith-ywgc-backend.php:573 lib/class-yith-ywgc-backend.php:574
+msgid "Sale discount text"
+msgstr "Rabat tekst"
+
+#: lib/class-yith-ywgc-backend.php:559
+msgid "Set an optional discount for this gift card."
+msgstr "Ustaw opcjonalny rabat dla tej karty podarunkowej"
+
+#: lib/class-yith-ywgc-backend.php:558
+msgid "Enter a discount percentage"
+msgstr "Wpisz rabat procentowy"
+
+#: lib/class-yith-ywgc-backend.php:557
+msgid "Sale discount (%)"
+msgstr "Rabat procentowy (%)"
+
+#: lib/class-yith-ywgc-backend.php:362
+#: templates/yith-gift-cards/ywgc-gift-card-template.php:102
+msgid "Gift card"
+msgstr "Karta podarunkowa"
+
+#: lib/class-yith-ywgc-backend.php:329
+msgid "Done"
+msgstr "Zrobione"
+
+#: lib/class-yith-ywgc-backend.php:328
+msgid "Manage the Media library"
+msgstr "Zarządzaj Biblioteką mediów"
+
+#: lib/class-yith-ywgc-backend.php:305
+msgid "Unset gift card image category"
+msgstr "Odznacz kategorię obrazu karty podarunkowej"
+
+#: lib/class-yith-ywgc-backend.php:304
+msgid "Set gift card image category"
+msgstr "Ustaw kategorię obrazów karty podarunkowej"
+
+#: lib/class-yith-ywgc-backend.php:279
+msgid "Choose Image"
+msgstr "Wybierz obraz"
+
+#: lib/class-yith-ywgc-backend.php:198
+msgid "Enter the pre-printed code: "
+msgstr "Wpisz wcześniej przygotowany kod:"
+
+#: lib/class-yith-ywgc-backend.php:190
+#: lib/class-yith-ywgc-frontend-premium.php:982
+msgid "Gift card code: "
+msgstr "Kod karty podarunkowej:"
+
+#: lib/class-yith-ywgc-backend.php:166
+msgid "purchased as a Gift Card"
+msgstr "Zakupione jako Karta podarunkowa"
+
+#: lib/class-yith-ywgc-backend-premium.php:990
+msgid "Upload/manage images in the WordPress Media Library and include them in the existing gift card categories."
+msgstr "Przesyłaj / zarządzaj obrazami w Bibliotece multimediów WordPress i dołączaj je do istniejących kategorii kart podarunkowych."
+
+#: lib/class-yith-ywgc-backend-premium.php:989
+msgid "Manage media"
+msgstr "Zarządzaj mediami"
+
+#: lib/class-yith-ywgc-backend-premium.php:987
+msgid "Manage the gift card images through the WordPress Media Library"
+msgstr "Zarządzaj obrazami kart upominkowych za pomocą Biblioteki multimediów WordPress"
+
+#: lib/class-yith-ywgc-backend-premium.php:962
+msgid "Enable WPML integration"
+msgstr "Włącz integrację z WPML"
+
+#: lib/class-yith-ywgc-backend-premium.php:957
+msgid "WPML Currency Switcher integration"
+msgstr "Integracja WPML Currency Switcher"
+
+#: lib/class-yith-ywgc-backend-premium.php:931
+msgid "Enable Aelia integration"
+msgstr "Włącz integrację z Aelia"
+
+#: lib/class-yith-ywgc-backend-premium.php:926
+msgid "Aelia Currency Switcher integration"
+msgstr "Integracja z Aelia Currency Switcher"
+
+#: lib/class-yith-ywgc-backend-premium.php:904
+msgid "Transfer \"Store Credit / Gift Certificate\" coupons. This action cannot be undone"
+msgstr "Przenieś kupony „Store Credit / Gift Certificate”. Ta akcja nie może zostać cofnięta"
+
+#: lib/class-yith-ywgc-backend-premium.php:900
+msgid "Transfer WooCommerce Smart Coupons to YITH Gift Cards "
+msgstr "Przenieś WooCommerce Smart Coupons do YITH Gift Cards"
+
+#: lib/class-yith-ywgc-backend-premium.php:897
+msgid "WooCommerce Smart Coupons integration"
+msgstr "Integracja WooCommerce Smart Coupons"
+
+#: lib/class-yith-ywgc-backend-premium.php:685
+msgid "Postdated"
+msgstr "Data postu"
+
+#: lib/class-yith-ywgc-backend-premium.php:679
+msgid "Version"
+msgstr "Wersja"
+
+#: lib/class-yith-ywgc-backend-premium.php:676
+msgid "Subtotal tax"
+msgstr "Podsumowanie podatku"
+
+#: lib/class-yith-ywgc-backend-premium.php:673
+msgid "Subtotal"
+msgstr "Podsumowanie"
+
+#: lib/class-yith-ywgc-backend-premium.php:670
+msgid "Design"
+msgstr "Wygląd"
+
+#: lib/class-yith-ywgc-backend-premium.php:667
+msgid "Design type"
+msgstr "Typ wyglądu"
+
+#: lib/class-yith-ywgc-backend-premium.php:652
+msgid "Amount"
+msgstr "Wartość"
+
+#: lib/class-yith-ywgc-backend-premium.php:649
+msgid "Present variation ID"
+msgstr "ID wariantu produktu (Prezentu)"
+
+#: lib/class-yith-ywgc-backend-premium.php:646
+msgid "Present product ID"
+msgstr "ID produktu (Prezentu)"
+
+#: lib/class-yith-ywgc-backend-premium.php:643
+msgid "Product as a present"
+msgstr "Produkt jako prezent"
+
+#: lib/class-yith-ywgc-backend-premium.php:640
+msgid "Product ID"
+msgstr "ID produktu"
+
+#: lib/class-yith-ywgc-backend-premium.php:587
+msgid "Used"
+msgstr "Użyta"
+
+#: lib/class-yith-ywgc-backend-premium.php:585
+msgid "Active"
+msgstr "Aktywne"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1358
+msgid "This code is already applied"
+msgstr "Ten kod jest już zastosowany"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1345
+msgid "It is not possible to add any gift card if the cart contains a subscription-based product"
+msgstr "Nie można dodać żadnej karty podarunkowej, jeśli koszyk zawiera produkt objęty subskrypcją"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1049
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1050
+#: lib/class-yith-woocommerce-gift-cards.php:245
+#: lib/class-yith-woocommerce-gift-cards.php:246
+#: lib/class-yith-ywgc-frontend-premium.php:196
+msgid "Gift Cards"
+msgstr "Karty podarunkowe"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1047
+msgid "No gift cards found in Trash."
+msgstr "Nie znaleziono kart podarunkowych w koszu"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1046
+#: templates/myaccount/my-giftcards.php:182
+#: templates/shortcodes/user-gift-card-table.php:155
+msgid "No gift cards found."
+msgstr "Nie znaleziono kart podarunkowych"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1045
+msgid "Parent gift cards:"
+msgstr "Rodzic karty podarunkowej:"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1044
+msgid "Search gift cards"
+msgstr "Szukaj kart podarunkowych"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1043
+msgid "All gift cards"
+msgstr "Wszystkie karty podarunkowe"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1042
+msgid "View Gift Card"
+msgstr "Zobacz Karty Podarunkowe"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1041
+msgid "Edit Gift Card"
+msgstr "Edytuj kartę podarunkową"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1040
+msgid "New Gift Card"
+msgstr "Nowa karta podarunkowa"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1039
+msgid "Create Gift Card Code"
+msgstr "Stwórz kod karty podarunkowej"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1038
+msgctxt "admin menu item"
+msgid "Create Code"
+msgstr "Wygeneruj kod"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1037
+msgctxt "add new on admin bar"
+msgid "Gift Card"
+msgstr "Karta podarunkowa"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1036
+msgctxt "admin menu"
+msgid "Gift Cards"
+msgstr "Karty podarunkowe"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1035
+msgctxt "post type singular name"
+msgid "Gift Card"
+msgstr "Karta podarunkowa"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1034
+msgctxt "post type general name"
+msgid "All Gift Cards"
+msgstr "Karty podarunkowe"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1012
+msgid "Enter your notes here. This will only be visible to the admin."
+msgstr "Wpisz swoje notatki tutaj. Będą one widoczne tylko dla administratora"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1011
+msgid "Internal notes"
+msgstr "Własne notatki"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:992
+#: lib/class-yith-woocommerce-gift-cards-premium.php:999
+msgid "The date when the digital gift card will expire."
+msgstr "Data wygaśnięcia cyfrowej karty podarunkowej."
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:991
+#: lib/class-yith-woocommerce-gift-cards-premium.php:998
+#: lib/class-yith-ywgc-backend.php:594
+#: lib/class-yith-ywgc-gift-cards-table.php:113
+msgid "Expiration date"
+msgstr "Data wygaśnięcia"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:972
+#: lib/class-yith-woocommerce-gift-cards-premium.php:979
+msgid "The date when the digital gift card will be sent to the recipient."
+msgstr "Data, kiedy cyfrowa karta podarunkowa zostanie wysłana do odbiorcy."
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:971
+#: lib/class-yith-woocommerce-gift-cards-premium.php:978
+#: lib/class-yith-ywgc-backend-premium.php:682
+msgid "Delivery date"
+msgstr "Data dostarczenia"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:960
+msgid "The message attached to the gift card."
+msgstr "Wiadomość dołączona do karty podarunkowej"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:959
+#: lib/class-yith-ywgc-backend-premium.php:664
+msgid "Message"
+msgstr "Wiadomość"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:949
+msgid "The name of the digital gift card recipient."
+msgstr "Imię odbiorcy cyfrowej karty podarunkowej"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:948
+#: lib/class-yith-ywgc-backend-premium.php:661
+msgid "Recipient's name"
+msgstr "Imiona odbiorców"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:938
+msgid "The email address of the digital gift card recipient."
+msgstr "Adres e-mail odbiorcy cyfrowej karty podarunkowej."
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:937
+msgid "Recipient's email"
+msgstr "Email odbiorców"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:926
+msgid "The name of the digital gift card sender, if any."
+msgstr "Imię nadawcy karty podarunkowej, jeśli jest."
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:925
+#: lib/class-yith-ywgc-backend-premium.php:658
+msgid "Sender's name"
+msgstr "Imię nadawcy"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:919
+msgid "Check if the gift card will be sent via email. Leave it unchecked to make this work as a physical product."
+msgstr "Zaznacz jeśli karta podarunkowa ma zostać wysłana przez e-mail. Pozostaw nie zaznaczone jeżeli ma działać jako produkt fizyczny."
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:918
+#: lib/class-yith-ywgc-backend-premium.php:655
+msgid "Digital"
+msgstr "Cyfrowe"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:912
+msgid "The current amount available for the customer."
+msgstr "Obecna wartość dostępna dla klienta"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:911
+msgid "Current balance"
+msgstr "Obecne saldo"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:905
+msgid "The amount purchased by the customer."
+msgstr "Kwota zakupiona przez klienta."
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:904
+msgid "Purchased amount"
+msgstr "Zakupiona wartość"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:899
+#: lib/class-ywgc-plugin-fw-loader.php:131
+msgid "General"
+msgstr "Ustawienia"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:893
+msgid "Gift card detail"
+msgstr "Szczegóły karty podarunkowej"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:671
+msgid "An error occurred, you cannot use the plugin"
+msgstr "Wystąpił błąd, nie możesz użyć tego pluginu"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:642
+msgid "This product has been automatically created by the plugin YITH Gift Cards.You must not edit it, or the plugin could not work properly. The main functionality of this product is to be used for the feature \"Gift this product\""
+msgstr "Ten produkt został automatycznie stworzony przez plugin YITH Gift Cards. Nie możesz go edytować, ponieważ wtyczka może przestać działać poprawnie. Główną funkcjonalność tego produktu należy wykorzystać w funkcji „Podaruj ten produkt”"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:640
+#: lib/class-yith-woocommerce-gift-cards-premium.php:774
+#: lib/class-ywgc-plugin-fw-loader.php:134
+#: plugin-options/gift_this_product-options.php:118
+#: templates/single-product/add-to-cart/give-product-as-present.php:33
+#: templates/single-product/add-to-cart/give-product-as-present.php:36
+#: templates/single-product/add-to-cart/give-product-as-present.php:43
+#: templates/single-product/add-to-cart/give-product-as-present.php:47
+msgid "Gift this product"
+msgstr "Podaruj ten produkt"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:552
+msgid "Code not valid"
+msgstr "Kod jest nie poprawny"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:541
+msgid "Dismissed"
+msgstr "Odwołano"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:530
+#: lib/class-yith-ywgc-backend.php:637
+msgid "Disabled"
+msgstr "Wyłączono"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:507
+msgid "Select this category in your gift card product if you want to display all the images categories in your gift card gallery"
+msgstr "Wybierz tę kategorię w produkcie z kartą podarunkową, jeśli chcesz wyświetlić wszystkie kategorie obrazów w galerii kart podarunkowych"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:504
+msgid "All"
+msgstr "Wszystko"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:498
+msgid "Select this category in your gift card product if you do not want to display images in your gift card gallery"
+msgstr "Wybierz tę kategorię w produkcie z kartą podarunkową, jeśli nie chcesz wyświetlać obrazów w galerii kart podarunkowych"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:495
+msgid "None"
+msgstr "Nic"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:477
+msgid "New image category name"
+msgstr "Nowa nazwa kategorii obrazów"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:476
+msgid "Add new image category"
+msgstr "Dodaj nową kategorię obrazów"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:475
+msgid "Update gift card image category"
+msgstr "Zaktualizuj kategorię obrazu karty upominkowej"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:474
+msgid "Edit image category"
+msgstr "Edytuj kategorię obrazów"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:473
+msgid "Parent image category:"
+msgstr "Rodzic kategorii obrazów:"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:472
+msgid "Parent image category"
+msgstr "Rodzic kategorii obrazów"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:471
+msgid "All image categories"
+msgstr "Wszystkie kategorie obrazów"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:470
+msgid "Search image categories"
+msgstr "Szukaj kategorii obrazów"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:469
+#: lib/class-yith-woocommerce-gift-cards-premium.php:478
+msgid "Gift card image category"
+msgstr "Kategoria obrazu karty podarunkowej "
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:468
+msgid "Gift card image categories"
+msgstr "Kategoria obrazu karty podarunkowej"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:423
+msgid "Check this option if you want to disable the option \"gift this product\" on this product."
+msgstr "Zaznacz tę opcję jeśli chccesz wyłączyć opcję \"podaruj ten produkt\" na tym produkcie"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:422
+msgid "Disable gift this product"
+msgstr "Wyłącz Podaruj ten produkt"
+
+#: lib/class-yith-wc-product-gift-card.php:251
+msgid "Read more"
+msgstr "Czytaj więcej"
+
+#: lib/class-yith-wc-product-gift-card.php:251
+msgid "Select amount"
+msgstr "Wybierz wartość"
+
+#: lib/class-yith-wc-product-gift-card.php:192
+#: lib/third-party/class-ywgc-dynamic-pricing.php:95
+msgctxt "Price range: from-to"
+msgid "%1$s&ndash;%2$s"
+msgstr "%1$s&ndash;%2$s"
+
+#: init.php:44
+msgid "YITH WooCommerce Gift Cards is enabled but not effective. It requires WooCommerce in order to work."
+msgstr "YITH WooCommerce Gift Cards jest włączony, ale nieskuteczny. Do działania wymaga WooCommerce."
+
+#: functions.php:189
+msgid "This title is already used. Please choose another one"
+msgstr "Ta nazwa jest już w użyciu. Proszę wybrać inną"

@@ -1,0 +1,639 @@
+# Translation of YITH WooCommerce Customize My Account Page in German
+# This file is distributed under the same license as the YITH WooCommerce Customize My Account Page package.
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH WooCommerce Customize My Account Page\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
+"customize-myaccount-page\n"
+"POT-Creation-Date: 2020-06-01 10:43:54+00:00\n"
+"PO-Revision-Date: 2020-03-27 16:52:35+0000\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/2.3.1\n"
+
+#: includes/class.yith-wcmap-admin.php:132 templates/admin/endpoint-item.php:55
+#: templates/admin/group-item.php:35 templates/admin/link-item.php:38
+msgid "Show"
+msgstr "Zeigen"
+
+#: includes/class.yith-wcmap-admin.php:133 templates/admin/endpoint-item.php:55
+#: templates/admin/group-item.php:35 templates/admin/link-item.php:38
+msgid "Hide"
+msgstr "Verbergen"
+
+#: includes/class.yith-wcmap-admin.php:137
+msgid "Are you sure that you want to delete this endpoint?"
+msgstr "Sind Sie sicher, dass Sie diesen Endpunkt löschen wollen?"
+
+#: includes/class.yith-wcmap-admin.php:176
+msgid "Settings"
+msgstr "Einstellungen"
+
+#: includes/class.yith-wcmap-admin.php:177
+msgid "Security"
+msgstr ""
+
+#: includes/class.yith-wcmap-admin.php:178
+msgid "Endpoints"
+msgstr "Endpunkte"
+
+#: includes/class.yith-wcmap-admin.php:459
+msgid ""
+"An error has occurred or this endpoint field already exists. Please try "
+"again."
+msgstr ""
+"Es ist entweder ein Fehler aufgetreten oder dieses Feld ist bereits für "
+"einen Endpunkt vorhanden. Bitte versuchen Sie es erneut."
+
+#: includes/class.yith-wcmap-frontend.php:378
+msgid "Quote #%s"
+msgstr "Offerte #%s"
+
+#: includes/class.yith-wcmap-frontend.php:664
+msgid "There are no available downloads yet."
+msgstr "Es gibt noch keine Downloads."
+
+#: includes/class.yith-wcmap-frontend.php:720
+msgid "Invalid order."
+msgstr "Ungültige Bestellung."
+
+#: includes/class.yith-wcmap-frontend.php:720
+msgid "My Account"
+msgstr "Mein Account"
+
+#: includes/class.yith-wcmap-frontend.php:756
+msgid "There are no orders yet."
+msgstr "Es sind noch keine Bestellungen verfügbar."
+
+#: includes/class.yith-wcmap-items.php:121
+msgid "Dashboard"
+msgstr "Profil"
+
+#: includes/class.yith-wcmap-items.php:122
+msgid "My Orders"
+msgstr "Meine Bestellungen"
+
+#: includes/class.yith-wcmap-items.php:123
+msgid "My Downloads"
+msgstr "Meine Downloads"
+
+#: includes/class.yith-wcmap-items.php:124
+msgid "Edit Address"
+msgstr "Adresse bearbeiten"
+
+#: includes/class.yith-wcmap-items.php:125
+msgid "Payment Methods"
+msgstr "Zahlungsarten"
+
+#: includes/class.yith-wcmap-items.php:126
+msgid "Edit Account"
+msgstr "Account bearbeiten"
+
+#: includes/class.yith-wcmap-items.php:127
+#: templates/ywcmap-myaccount-menu.php:37
+msgid "Logout"
+msgstr "Abmelden"
+
+#: includes/class.yith-wcmap-security.php:170
+msgid "ReCaptcha validation error. Please try again."
+msgstr ""
+
+#: includes/class.yith-wcmap-security.php:198
+msgid "Email domain is not valid! Please use a different one and try again."
+msgstr ""
+
+#: includes/class.yith-wcmap-security.php:407
+msgid "Click here to resend email."
+msgstr ""
+
+#: includes/class.yith-wcmap-security.php:426
+msgid ""
+"You have to confirm your account. Please, click on the link in the "
+"verification email. %s"
+msgstr ""
+
+#: includes/class.yith-wcmap-security.php:431
+msgid "An account is already registered with this email. %s"
+msgstr ""
+
+#: includes/class.yith-wcmap-security.php:434
+msgid "Login is not permitted! %s"
+msgstr ""
+
+#: includes/class.yith-wcmap-security.php:437
+msgid "Checkout is not permitted! %s"
+msgstr ""
+
+#: includes/class.yith-wcmap-security.php:440
+msgid "Thanks your account is now confirmed!"
+msgstr ""
+
+#: includes/class.yith-wcmap-security.php:443
+msgid ""
+"A confirmation email has been sent to your email address. Please click on "
+"the confirmation link in the email to complete your account activation."
+msgstr ""
+
+#: includes/class.yith-wcmap.php:82 includes/class.yith-wcmap.php:91
+msgid "Cheatin&#8217; huh?"
+msgstr ""
+
+#: includes/class.yith-wcmap.php:410 plugin-options/general-options.php:21
+msgid "Custom Avatar"
+msgstr "Benutzerdefiniertes Profilbild"
+
+#: includes/class.yith-wcmap.php:450
+msgid "Removed customer avatar"
+msgstr ""
+
+#: includes/email/class.yith-wcmap-verify-account.php:50
+msgid "YITH Customize My Account Verify Account"
+msgstr ""
+
+#: includes/email/class.yith-wcmap-verify-account.php:54
+msgid "{blogname}"
+msgstr ""
+
+#: includes/email/class.yith-wcmap-verify-account.php:55
+msgid "You need to verify your account email."
+msgstr ""
+
+#: init.php:45
+msgid ""
+"YITH WooCommerce Customize My Account Page is enabled but not effective. It "
+"requires WooCommerce in order to work."
+msgstr ""
+"YITH WooCommerce Customize My Account Page ist aktiviert aber nicht wirksam. "
+"Es braucht WooCommerce, um zu arbeiten."
+
+#: plugin-options/endpoints-options.php:14
+msgid "Endpoint Options"
+msgstr "Endpunkt Optionen"
+
+#: plugin-options/endpoints-options.php:21 templates/admin/items-list.php:20
+msgid "Manage Endpoints"
+msgstr "Verwalten der Endpunkte"
+
+#: plugin-options/general-options.php:14
+msgid "General Options"
+msgstr "Allgemeine Option"
+
+#: plugin-options/general-options.php:22
+msgid "Let users upload a custom avatar as their profile picture."
+msgstr ""
+"Lassen Sie Benutzer einen benutzerdefinierten Avatar als ihr Profilbild "
+"hochladen."
+
+#: plugin-options/general-options.php:30
+msgid "Menu style"
+msgstr "Menü-Stil"
+
+#: plugin-options/general-options.php:35
+msgid "Choose the style for the \"My Account\" menu"
+msgstr "Wählen Sie den Stil für das Menü \"Mein Konto\""
+
+#: plugin-options/general-options.php:37
+msgid "Sidebar"
+msgstr "Seitenleiste"
+
+#: plugin-options/general-options.php:38
+msgid "Tab"
+msgstr "Registerkarte"
+
+#: plugin-options/general-options.php:43
+msgid "Sidebar position"
+msgstr "Seitenleisteposition"
+
+#: plugin-options/general-options.php:44
+msgid ""
+"Choose the position of the menu in \"My Account\" page (only for sidebar "
+"style)"
+msgstr ""
+"Wählen Sie die Position des Menüs auf der Seite \"Mein Konto\"-Seite (nur "
+"für Seitenleiste)"
+
+#: plugin-options/general-options.php:48
+msgid "Left"
+msgstr "Links"
+
+#: plugin-options/general-options.php:49
+msgid "Right"
+msgstr "Rechts"
+
+#: plugin-options/general-options.php:56
+msgid "Default endpoint"
+msgstr "Standard Endpunkt"
+
+#: plugin-options/general-options.php:57
+msgid "Choose the default endpoint for \"My account\" page"
+msgstr "Wählen Sie den Standard Endpunkt für die Seite \"Mein Konto\""
+
+#: plugin-options/general-options.php:71
+msgid "Style Options"
+msgstr "Styling Optionen"
+
+#: plugin-options/general-options.php:78
+msgid "Menu item color"
+msgstr "Farbe Menü-Eintrag"
+
+#: plugin-options/general-options.php:83
+msgid "Choose a color for menu items."
+msgstr "Wählen Sie eine Farbe für die Menü-Einträge."
+
+#: plugin-options/general-options.php:87
+msgid "Menu item color on hover"
+msgstr ""
+"Farbe Menü-Eintrag bei Hover (wenn der Mauszeiger auf dem Eintrag steht)"
+
+#: plugin-options/general-options.php:92
+msgid "Choose colour of menu items on mouse hover."
+msgstr ""
+"Wählen Sie eine Farbe für die Menü-Einträge bei Hover (wenn der Mauszeiger "
+"auf dem Eintrag steht)"
+
+#: plugin-options/general-options.php:96
+msgid "Logout color"
+msgstr "Farbe Abmelden"
+
+#: plugin-options/general-options.php:101
+msgid "Choose the color of the Logout text."
+msgstr "Abmelden Textfarbe."
+
+#: plugin-options/general-options.php:105
+msgid "Logout color on hover"
+msgstr "Logout Farbe hover"
+
+#: plugin-options/general-options.php:110
+msgid "Choose the color of the Logout text on mouse hover."
+msgstr ""
+"Wählen Sie die Farbe des Textes beim einem Hover der Maus beim Abmelden."
+
+#: plugin-options/general-options.php:114
+msgid "Logout background color"
+msgstr "Abmelden Hintergrundfarbe"
+
+#: plugin-options/general-options.php:119
+msgid "Choose the color of the Logout background."
+msgstr "Wählen Sie die Farbe des Hintergrunds beim Abmelden."
+
+#: plugin-options/general-options.php:123
+msgid "Logout background color on hover"
+msgstr "Abmelden Hintergrundfarbe Mouseover"
+
+#: plugin-options/general-options.php:128
+msgid "Choose the color of the Logout background on mouse hover."
+msgstr ""
+"Wählen Sie die Farbe des Hintergrunds beim einem Hover der Maus beim "
+"Abmelden."
+
+#: plugin-options/plugins-endpoints.php:15
+#: plugin-options/plugins-endpoints.php:180
+msgid "My Wishlist"
+msgstr "Meine Wunschliste"
+
+#: plugin-options/plugins-endpoints.php:25
+msgid "One click checkout"
+msgstr "Express Kasse"
+
+#: plugin-options/plugins-endpoints.php:35
+msgid "My Quotes"
+msgstr "Meine Gebote"
+
+#: plugin-options/plugins-endpoints.php:45
+msgid "My Waiting List"
+msgstr "Meine Warteliste"
+
+#: plugin-options/plugins-endpoints.php:53
+msgid "Membership Plans:"
+msgstr "Mitgliedschaftstarife:"
+
+#: plugin-options/plugins-endpoints.php:60
+msgid "Membership Plans"
+msgstr "Mitgliedschafts-Pläne"
+
+#: plugin-options/plugins-endpoints.php:70
+msgid "My Subscriptions"
+msgstr "Verwalte Meine Abonnements"
+
+#: plugin-options/plugins-endpoints.php:81
+msgid "My Membership"
+msgstr "Meine Mitgliedschaft"
+
+#: plugin-options/plugins-endpoints.php:92
+msgid "My Subscription"
+msgstr "Meine Mitgliedschaft"
+
+#: plugin-options/plugins-endpoints.php:104
+msgid "Make a Deposit"
+msgstr "Einzahlung vornehmen"
+
+#: plugin-options/plugins-endpoints.php:113
+msgid "Income/Expenditure History"
+msgstr "Einnahmen/Ausgaben"
+
+#: plugin-options/plugins-endpoints.php:135
+msgid "Gift Cards"
+msgstr ""
+
+#: plugin-options/plugins-endpoints.php:147
+msgid "Payouts"
+msgstr ""
+
+#: plugin-options/plugins-endpoints.php:158
+msgid "Stripe Connect"
+msgstr ""
+
+#: plugin-options/plugins-endpoints.php:169
+msgid "My Coupons"
+msgstr ""
+
+#: plugin-options/plugins-endpoints.php:191
+msgid "API Keys"
+msgstr ""
+
+#: plugin-options/plugins-endpoints.php:199
+msgid "API Downloads"
+msgstr ""
+
+#: plugin-options/plugins-endpoints.php:210
+msgid "Refund Requests"
+msgstr ""
+
+#: plugin-options/plugins-endpoints.php:221
+msgid "Bookings"
+msgstr ""
+
+#: plugin-options/security-options.php:14
+msgid "Security Options"
+msgstr ""
+
+#: plugin-options/security-options.php:21
+msgid "Enable reCaptcha"
+msgstr ""
+
+#: plugin-options/security-options.php:22
+msgid "Add reCaptcha (v2) verification to register form."
+msgstr ""
+
+#: plugin-options/security-options.php:30
+msgid "reCaptcha public key"
+msgstr ""
+
+#: plugin-options/security-options.php:38
+msgid "reCaptcha private key"
+msgstr ""
+
+#: plugin-options/security-options.php:46
+msgid "Enable account email verification"
+msgstr ""
+
+#: plugin-options/security-options.php:47
+msgid ""
+"After registration process send an email with a verification link to the "
+"customer."
+msgstr ""
+
+#: plugin-options/security-options.php:55
+msgid "Customer without verified account"
+msgstr ""
+
+#: plugin-options/security-options.php:56
+msgid "Choose the restriction for customer without email verified."
+msgstr ""
+
+#: plugin-options/security-options.php:60
+msgid "Block login"
+msgstr ""
+
+#: plugin-options/security-options.php:61
+msgid "Block purchase"
+msgstr ""
+
+#: plugin-options/security-options.php:68
+msgid "Block email domains"
+msgstr ""
+
+#: plugin-options/security-options.php:69
+msgid ""
+"Add a list of email domains (comma separated) you want to block. Customer "
+"with one of those email domain cannot be register into your site."
+msgstr ""
+
+#: templates/admin/endpoint-item.php:38
+msgid "Endpoint"
+msgstr "Endpunkt"
+
+#: templates/admin/endpoint-item.php:47 templates/admin/link-item.php:30
+msgid "sub item"
+msgstr "sub item"
+
+#: templates/admin/endpoint-item.php:59 templates/admin/group-item.php:37
+#: templates/admin/link-item.php:41
+msgid "Remove"
+msgstr "Entfernen"
+
+#: templates/admin/endpoint-item.php:70
+msgid "Endpoint slug"
+msgstr "Endpunkt Slug"
+
+#: templates/admin/endpoint-item.php:72
+msgid ""
+"Text appended to your page URLs to manage new contents in account pages. It "
+"must be unique for every page."
+msgstr ""
+"Text der an Ihre Seiten-URLs angehängt wird, um neue Inhalte auf den "
+"Kontoseiten zu verwalten. Muss für jede Seite unterschiedlich sein."
+
+#: templates/admin/endpoint-item.php:87
+msgid "Endpoint label"
+msgstr "Endpunkt Beschriftung"
+
+#: templates/admin/endpoint-item.php:89 templates/admin/group-item.php:46
+msgid "Menu item for this endpoint in \"My Account\"."
+msgstr "Menü-Eintrag für diesen Endpunkt in \"Mein Konto“."
+
+#: templates/admin/endpoint-item.php:104
+msgid "Endpoint icon"
+msgstr "Endpunkt Icon"
+
+#: templates/admin/endpoint-item.php:106
+msgid "Endpoint icon for \"My Account\" menu option"
+msgstr "Endpunkt Symbol für die Menü Option \"Mein Konto“."
+
+#: templates/admin/endpoint-item.php:114 templates/admin/group-item.php:61
+#: templates/admin/link-item.php:89
+msgid "No icon"
+msgstr "Kein Symbol"
+
+#: templates/admin/endpoint-item.php:126
+msgid "Endpoint class"
+msgstr ""
+
+#: templates/admin/endpoint-item.php:128
+msgid "Add additional classes to endpoint container."
+msgstr ""
+
+#: templates/admin/endpoint-item.php:142 templates/admin/group-item.php:81
+#: templates/admin/link-item.php:116
+msgid "User roles"
+msgstr "Benutzerrollen"
+
+#: templates/admin/endpoint-item.php:144 templates/admin/group-item.php:83
+#: templates/admin/link-item.php:118
+msgid "Restrict endpoint visibility to the following user role(s)."
+msgstr "Schränken Sie die Sichtbarkeit auf folgende Benutzerrollen ein."
+
+#: templates/admin/endpoint-item.php:169
+msgid "Membership plans"
+msgstr ""
+
+#: templates/admin/endpoint-item.php:171
+msgid ""
+"Restrict endpoint visibility to users who are purchased following membership "
+"plan(s)"
+msgstr ""
+
+#: templates/admin/endpoint-item.php:193
+msgid "Endpoint custom content"
+msgstr "Endpunkt Inhalt anpassen"
+
+#: templates/admin/endpoint-item.php:195
+msgid "Custom endpoint content. Leave it black to use default content."
+msgstr ""
+"Angepasster Inhalt des Endpunkts. Leer lassen und Standard zu verwenden."
+
+#: templates/admin/group-item.php:21
+msgid "Group"
+msgstr "Gruppe"
+
+#: templates/admin/group-item.php:45
+msgid "Group label"
+msgstr "Gruppenbezeichnung"
+
+#: templates/admin/group-item.php:56
+msgid "Group icon"
+msgstr ""
+
+#: templates/admin/group-item.php:57
+msgid "Group icon for \"My Account\" menu option"
+msgstr ""
+
+#: templates/admin/group-item.php:71
+msgid "Group class"
+msgstr ""
+
+#: templates/admin/group-item.php:72
+msgid "Add additional classes to group container."
+msgstr ""
+
+#: templates/admin/group-item.php:99
+msgid "Show open"
+msgstr "Offen anzeigen"
+
+#: templates/admin/group-item.php:100
+msgid ""
+"Show the group open by default. (Please note: this option is valid only for "
+"\"Sidebar\" style)"
+msgstr ""
+"Die Gruppe standardmässig geöffnet angezeigen. (Bitte beachten Sie: diese "
+"Option gilt nur für Seitenleisten)"
+
+#: templates/admin/items-list.php:23
+msgid "Add group"
+msgstr ""
+
+#: templates/admin/items-list.php:25
+msgid "Add endpoint"
+msgstr ""
+
+#: templates/admin/items-list.php:27
+msgid "Add link"
+msgstr ""
+
+#: templates/admin/link-item.php:21
+msgid "Link"
+msgstr ""
+
+#: templates/admin/link-item.php:51
+msgid "Link url"
+msgstr ""
+
+#: templates/admin/link-item.php:53
+msgid "The url of the menu item."
+msgstr ""
+
+#: templates/admin/link-item.php:66
+msgid "Link label"
+msgstr ""
+
+#: templates/admin/link-item.php:67
+msgid "Menu label for this link in \"My Account\"."
+msgstr ""
+
+#: templates/admin/link-item.php:80
+msgid "Link icon"
+msgstr ""
+
+#: templates/admin/link-item.php:82
+msgid "Link icon for \"My Account\" menu option"
+msgstr ""
+
+#: templates/admin/link-item.php:102
+msgid "Link class"
+msgstr ""
+
+#: templates/admin/link-item.php:104
+msgid "Add additional classes to link container."
+msgstr ""
+
+#: templates/admin/link-item.php:138
+msgid "Open link in a new tab?"
+msgstr ""
+
+#. translators: %s Customer first name
+#: templates/email/customer-verify-account.php:21
+#: templates/email/plain/customer-verify-account.php:19
+msgid "Hi %s,"
+msgstr ""
+
+#. translators: %1$s: Site title, %2$s: Username, %3$s: My account link
+#: templates/email/customer-verify-account.php:23
+#: templates/email/plain/customer-verify-account.php:21
+msgid ""
+"Thanks for creating an account on %1$s. To complete registration process you "
+"need to verify your account email by clicking this link: %2$s"
+msgstr ""
+
+#: templates/email/customer-verify-account.php:25
+#: templates/email/plain/customer-verify-account.php:23
+msgid "We look forward to seeing you soon."
+msgstr ""
+
+#: templates/ywcmap-myaccount-avatar-form.php:16
+msgid "Upload your avatar"
+msgstr "Uploade dein Profilbild"
+
+#: templates/ywcmap-myaccount-avatar-form.php:24
+msgid "Upload"
+msgstr "Upload"
+
+#: templates/ywcmap-myaccount-avatar-form.php:32
+msgid "Reset to default"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"The <code><strong>YITH WooCommerce Customize My Account Page</strong></code> "
+"lets you customize the layout of the \"My Account\" page, adds new endpoints "
+"and manage its content easily. <a href=\"https://yithemes.com/\" target="
+"\"_blank\">Get more plugins for your e-commerce shop on <strong>YITH</"
+"strong></a>."
+msgstr ""
+
+#: templates/admin/items-list.php:54
+msgctxt "Label for new endpoint title"
+msgid "Name"
+msgstr "Name"

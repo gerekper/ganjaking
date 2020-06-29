@@ -1,0 +1,22 @@
+<wpml-config>
+	<admin-texts>
+		<key name="wc_tab_manager_default_layout">
+
+			<key name="core_tab_description">
+				<key name="title" />
+				<key name="heading" />
+			</key>
+
+			<key name="core_tab_additional_information">
+				<key name="title" />
+				<key name="heading" />
+			</key>
+
+			<key name="core_tab_reviews">
+				<key name="title" />
+				<key name="heading" />
+			</key>
+
+		</key>
+	</admin-texts>
+</wpml-config>

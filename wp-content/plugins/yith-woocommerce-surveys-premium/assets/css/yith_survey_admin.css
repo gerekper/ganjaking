@@ -1,0 +1,228 @@
+
+#_yith_survey_answer-container{
+    margin: 0;
+    padding:0;
+}
+
+.mce-ico.mce-i-surveys_shortcode{
+    font: normal 20px/1 'dashicons';
+    vertical-align: top;
+    speak: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #777;
+    line-height: 20px;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    text-shadow: none;
+    margin: 0;
+    padding: 0;
+}
+.mce-ico.mce-i-surveys_shortcode:before{
+    content: "\f481";
+}
+/*sortable list style */
+
+ul.suverys_answers{
+
+    width      : 600px;
+    background : #fff;
+    cursor     : move;
+
+}
+
+ul.suverys_answers li.surveys_answer{
+    width      : 100%;
+    padding    : 10px;
+    box-sizing : border-box;
+    border     : 1px solid #ccc;
+    margin     : 0 0 5px 0;
+    background : #eee;
+    overflow   : hidden;
+    height: 52px;
+    line-height: 30px;
+}
+
+
+#_yith_survey_answer-container ul.suverys_answers li.surveys_answer span.survey_answer_label{
+
+    padding-left: 20px;
+    padding-right: 100px;
+    font-weight: bold;
+}
+
+#_yith_survey_answer-container ul.suverys_answers li.surveys_answer span.survey_answer_label label{
+    margin: 0;
+    width: auto;
+    padding-left: 25px;
+    line-height: inherit;
+
+}
+
+#_yith_survey_answer-container ul.suverys_answers li.surveys_answer .yith_survey_answer{
+    width:200px!important;
+}
+
+ul.suverys_answers li.surveys_answer span.survey_handle:before{
+    content: "\e032";
+    font-family: WooCommerce;
+    text-align: center;
+    line-height: 30px;
+    color: #ccc;
+    display: block;
+    width: 17px;
+    float: left;
+}
+
+ul.suverys_answers li.surveys_answer .remove_answer{
+    float: right;
+    margin-right: 20px;
+}
+
+.surveys_error{
+
+    width : 600px;
+    border: 1px solid;
+    font-size: 13px;
+    height: 52px;
+    line-height: 52px;
+    border-color: #aa2400;
+    background: #ffe9e5;
+    margin-bottom: 20px;
+}
+
+.surveys_error .surveys_icon.dashicons.dashicons-no{
+
+    line-height: 52px;
+    color: #aa2400;
+    font-size: 28px;
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+div#_yith_survey_products_chosen {
+    width: 45%  !important;
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 13px;
+    zoom: 1;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+
+#_yith_survey_products_chosen ul.chosen-choices li.search-field input[type="text"] {
+    margin: 1px 0;
+    padding: 5px;
+    outline: 0;
+    border: 0 !important;
+    background: transparent !important;
+    box-shadow: none;
+    color: #666;
+    font-size: 100%;
+    font-family: sans-serif;
+    line-height: normal;
+    border-radius: 0;
+    height: 27px!important;
+    width:100% !important;
+}
+#_yith_survey_products_chosen ul.chosen-choices{
+    border: 1px solid #ddd;
+    -webkit-box-shadow: inset 0 1px 2px rgba( 0, 0, 0, 0.07 );
+    box-shadow: inset 0 1px 2px rgba( 0, 0, 0, 0.07 );
+    background-color: #fff;
+    color: #32373c;
+    outline: none;
+    -webkit-transition: 0.05s border-color ease-in-out;
+    transition: 0.05s border-color ease-in-out;
+
+}
+
+.survey_report_show_details{
+    display: none;
+}
+.survey_report_show_details.show_details{
+    display: block;
+}
+
+/**SURVEY ORDER METABOX*/
+
+ul.suverys_answers{
+
+    font-size: 100%;
+}
+ul.survey_answer_contents li.survey_name{
+
+    font-weight: bold;
+    padding-left: 20px;
+}
+ul.survey_answer_contents li.survey_name:before {
+    font-family: WooCommerce;
+    position: absolute;
+    left: 10px;
+    text-align: center;
+    vertical-align: top;
+    line-height: 18px;
+    font-size: 14px;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    content: '\e018';
+}
+ul.survey_answer_contents li.answer_name{
+
+    padding-left: 20px;
+    font-size: 90%;
+}
+
+.widefat .column-tot_order{
+    width: 20%;
+
+}
+
+.widefat .column-tot_order mark{
+    display: block;
+    text-indent: -9999px;
+    position: relative;
+    height: 1em;
+    width: 1em;
+    background: 0 0;
+    font-size: 1.4em;
+    margin: 0;
+    text-align: left;
+}
+
+.widefat .column-tot_order mark.hide:after{
+    font-family: WooCommerce;
+    speak: none;
+    font-weight: 400;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    text-indent: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.widefat .column-tot_order mark.hide:after{
+    content: "\e013";
+    color: #a00000;
+}
+
+.exportation-survey-settings{
+    position: relative;
+    min-width: 255px;
+    border: 1px solid #e5e5e5;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+    background: #fff;
+    padding: 5px 20px;
+}

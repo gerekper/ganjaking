@@ -1,0 +1,105 @@
+/*----------------------------------------------------------------------------*\
+	MPC_LIST PARAM
+\*----------------------------------------------------------------------------*/
+
+.vc_wrapper-param-type-mpc_list {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.vc_wrapper-param-type-mpc_list *,
+.vc_wrapper-param-type-mpc_list *:before,
+.vc_wrapper-param-type-mpc_list *:after {
+	-webkit-box-sizing: inherit;
+	-moz-box-sizing: inherit;
+	box-sizing: inherit;
+}
+
+.mpc-vc-list {
+	margin-top: -10px;
+}
+
+.mpc-vc-list .mpc-list-option {
+	display: none !important;
+}
+
+.mpc-vc-list .mpc-list-single {
+	display: inline-block;
+	padding: 3px 8px;
+	margin-right: 7px;
+	margin-top: 10px;
+	border: 1px solid #eeeeee;
+	border-radius: 3px;
+	background: #f7f7f7;
+	color: #999999;
+
+	-webkit-transition: all .25s;
+	-moz-transition: all .25s;
+	transition: all .25s;
+}
+.mpc-vc-list .mpc-list-single:hover {
+	border-color: #75cdde;
+	background: #ffffff;
+	color: #555555;
+}
+.mpc-vc-list .mpc-list-option:checked + .mpc-list-single {
+	border-color: #88d482;
+	background: #ffffff;
+	color: #555555;
+}
+
+.mpc-vc-list-order {
+	border: 1px dashed #ccc;
+	padding: 0 7px;
+	margin: 15px 0 10px 0;
+	width: 250px;
+	border-radius: 5px;
+	background: #f7f7f7;
+}
+.mpc-vc-list-order.mpc-empty {
+	border: none;
+}
+
+.mpc-vc-list-order .mpc-list-item {
+	padding: 5px 8px;
+	border: 1px dashed #cccccc;
+	background: #ffffff;
+	border-radius: 3px;
+	margin: 7px 0;
+	cursor: ns-resize;
+
+	-webkit-transition: all .25s;
+	-moz-transition: all .25s;
+	transition: all .25s;
+}
+.mpc-vc-list-order .mpc-list-item:after {
+	content: '\00a0';
+}
+.mpc-vc-list-order .mpc-list-item.ui-sortable-helper {
+	-webkit-transition: none;
+	-moz-transition: none;
+	transition: none;
+}
+.mpc-vc-list-order .mpc-list-item:hover {
+	border: 1px solid #aaaaaa;
+}
+.mpc-vc-list-order .mpc-list-item.mpc-placeholder {
+	background: #fff5dd;
+	border-color: #ecd08d;
+}
+
+.mpc-vc-list-order .mpc-list-item i {
+	height: auto;
+	color: #dddddd;
+	font-size: 16px;
+	line-height: 18px;
+	margin: 0 4px 0 -2px;
+
+	-webkit-transition: all .25s;
+	-moz-transition: all .25s;
+	transition: all .25s;
+}
+.mpc-vc-list-order .mpc-list-item:hover i {
+	color: #aaaaaa;
+}

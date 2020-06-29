@@ -1,0 +1,1110 @@
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Project-Id-Version: Slider Revolution Weather Add-on\n"
+"POT-Creation-Date: 2017-06-30 10:43+0200\n"
+"PO-Revision-Date: 2017-06-30 11:44+0200\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.2\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: revslider-weather-addon.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"Last-Translator: \n"
+"Language: de_DE\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: admin/class-revslider-weather-addon-admin.php:175
+msgid "Weather - Title"
+msgstr "Wetter - Titel"
+
+#: admin/class-revslider-weather-addon-admin.php:177
+msgid "Weather - Temp"
+msgstr "Wetter - Temperatur"
+
+#: admin/class-revslider-weather-addon-admin.php:179
+msgid "Weather - Code"
+msgstr "Wetter - Code"
+
+#: admin/class-revslider-weather-addon-admin.php:181
+msgid "Weather - TodayCode"
+msgstr "Wetter - Code Heute"
+
+#: admin/class-revslider-weather-addon-admin.php:183
+msgid "Weather - Currently"
+msgstr "Wetter - Aktuell"
+
+#: admin/class-revslider-weather-addon-admin.php:185
+msgid "Weather - High"
+msgstr "Wetter - Höchst"
+
+#: admin/class-revslider-weather-addon-admin.php:187
+msgid "Weather - Low"
+msgstr "Wetter - Niedrigst"
+
+#: admin/class-revslider-weather-addon-admin.php:189
+msgid "Weather - Text"
+msgstr "Wetter - Text"
+
+#: admin/class-revslider-weather-addon-admin.php:191
+msgid "Weather - Humidity"
+msgstr "Wetter - Luftfeuchtigkeit"
+
+#: admin/class-revslider-weather-addon-admin.php:193
+msgid "Weather - Pressure"
+msgstr "Wetter - Luftdruck"
+
+#: admin/class-revslider-weather-addon-admin.php:195
+msgid "Weather - Rising"
+msgstr "Wetter - Steigend"
+
+#: admin/class-revslider-weather-addon-admin.php:197
+msgid "Weather - Visibility"
+msgstr "Wetter - Sicht"
+
+#: admin/class-revslider-weather-addon-admin.php:199
+msgid "Weather - Sunrise"
+msgstr "Wetter - Sonnenaufgang"
+
+#: admin/class-revslider-weather-addon-admin.php:201
+msgid "Weather - Sunset"
+msgstr "Wetter - Sonnenuntergang"
+
+#: admin/class-revslider-weather-addon-admin.php:203
+msgid "Weather - City"
+msgstr "Wetter - Stadt"
+
+#: admin/class-revslider-weather-addon-admin.php:205
+msgid "Weather - Country"
+msgstr "Wetter - Land"
+
+#: admin/class-revslider-weather-addon-admin.php:207
+msgid "Weather - Region"
+msgstr "Wetter - Region"
+
+#: admin/class-revslider-weather-addon-admin.php:209
+msgid "Weather - Updated"
+msgstr "Wetter - Aktualisiert"
+
+#: admin/class-revslider-weather-addon-admin.php:211
+msgid "Weather - Link"
+msgstr "Wetter - Link"
+
+#: admin/class-revslider-weather-addon-admin.php:213
+msgid "Weather - Heatindex"
+msgstr "Wetter - Hitzeindex"
+
+#: admin/class-revslider-weather-addon-admin.php:215
+msgid "Weather - Thumbnail"
+msgstr "Wetter - Thumbnail"
+
+#: admin/class-revslider-weather-addon-admin.php:217
+msgid "Weather - Image"
+msgstr "Wetter - Bild"
+
+#: admin/class-revslider-weather-addon-admin.php:219
+msgid "Weather - Icon"
+msgstr "Wetter - Icon"
+
+#: admin/class-revslider-weather-addon-admin.php:221
+msgid "Weather - Units Temp"
+msgstr "Wetter - Einheit Temp"
+
+#: admin/class-revslider-weather-addon-admin.php:223
+msgid "Weather - Units Distance"
+msgstr "Wetter - Einheit Entfernung"
+
+#: admin/class-revslider-weather-addon-admin.php:225
+msgid "Weather - Units Pressure"
+msgstr "Wetter - Einheit Luftdruck"
+
+#: admin/class-revslider-weather-addon-admin.php:227
+msgid "Weather - Units Speed"
+msgstr "Wetter - Einheit Geschwindigkeit"
+
+#: admin/class-revslider-weather-addon-admin.php:229
+msgid "Weather - Wind Chill"
+msgstr "Wetter - Windschauer"
+
+#: admin/class-revslider-weather-addon-admin.php:231
+msgid "Weather - Wind Direction"
+msgstr "Wetter - Wind Richtung"
+
+#: admin/class-revslider-weather-addon-admin.php:233
+msgid "Weather - Wind Speed"
+msgstr "Wetter - Wind Geschwindigkeit"
+
+#: admin/class-revslider-weather-addon-admin.php:235
+msgid "Weather - Alt Temp"
+msgstr "Wetter - Alternativ Temperatur"
+
+#: admin/class-revslider-weather-addon-admin.php:237
+msgid "Weather - Alt High"
+msgstr "Wetter - Alternativ Höchst"
+
+#: admin/class-revslider-weather-addon-admin.php:239
+msgid "Weather - Alt Low"
+msgstr "Wetter - Alternativ Niedrigst"
+
+#: admin/class-revslider-weather-addon-admin.php:241
+msgid "Weather - Alt Unit"
+msgstr "Wetter - Alternativ Temp Einheit"
+
+#: admin/class-revslider-weather-addon-admin.php:243
+msgid "Weather - Description"
+msgstr "Wetter - Beschreibung"
+
+#: admin/class-revslider-weather-addon-admin.php:246
+msgid "Weather - ForeCast Date x Days from now (x:1-9)"
+msgstr "Wetter - Vorhersage Datum x Tage von jetzt aus (x:1-9)"
+
+#: admin/class-revslider-weather-addon-admin.php:248
+msgid "Weather - ForeCast Day x Day"
+msgstr "Wetter - Vorhersage Tag x Tagesname"
+
+#: admin/class-revslider-weather-addon-admin.php:250
+msgid "Weather - ForeCast Day x Code"
+msgstr "Wetter - Vorhersage Tag x Code"
+
+#: admin/class-revslider-weather-addon-admin.php:252
+msgid "Weather - ForeCast Day x High"
+msgstr "Wetter - Vorhersage Tag x Höchst"
+
+#: admin/class-revslider-weather-addon-admin.php:254
+msgid "Weather - ForeCast Day x Low"
+msgstr "Wetter - Vorhersage Tag x Niedrigst"
+
+#: admin/class-revslider-weather-addon-admin.php:256
+msgid "Weather - ForeCast Day x Alt High"
+msgstr "Wetter - Vorhersage Tag x Alternativ Höchst"
+
+#: admin/class-revslider-weather-addon-admin.php:258
+msgid "Weather - ForeCast Day x Alt Low"
+msgstr "Wetter - Vorhersage Tag x Alternativ Niedrigst"
+
+#: admin/class-revslider-weather-addon-admin.php:260
+msgid "Weather - ForeCast Day x Thumbnail"
+msgstr "Wetter - Vorhersage Tag x Thumbnail"
+
+#: admin/class-revslider-weather-addon-admin.php:262
+msgid "Weather - ForeCast Day x Image"
+msgstr "Wetter - Vorhersage Tag x Bild"
+
+#: admin/class-revslider-weather-addon-admin.php:264
+msgid "Weather - ForeCast Day x Text"
+msgstr "Wetter - Vorhersage Tag x Text"
+
+#: admin/partials/revslider-weather-addon-slide-options-display.php:33
+#: admin/partials/revslider-weather-addon-slide-options-display.php:35
+msgid "Location definition type, free text or the concrete WOEID"
+msgstr "Location typ, freier Text oder konkrete WOEID"
+
+#: admin/partials/revslider-weather-addon-slide-options-display.php:36
+#: admin/partials/revslider-weather-addon-slider-options-display.php:33
+msgid "City/Location Name"
+msgstr "Stadt Name"
+
+#: admin/partials/revslider-weather-addon-slide-options-display.php:37
+#: admin/partials/revslider-weather-addon-slider-options-display.php:34
+msgid "WOEID"
+msgstr "WOEID"
+
+#: admin/partials/revslider-weather-addon-slide-options-display.php:46
+#: admin/partials/revslider-weather-addon-slide-options-display.php:52
+#: admin/partials/revslider-weather-addon-slider-options-display.php:47
+msgid "Location: City name"
+msgstr "Location: Stadt Name"
+
+#: admin/partials/revslider-weather-addon-slide-options-display.php:63
+#: admin/partials/revslider-weather-addon-slide-options-display.php:69
+#: admin/partials/revslider-weather-addon-slider-options-display.php:64
+msgid "Yahoo! Where on Earth ID - WOEID"
+msgstr "Yahoo! Where on Earth ID - WOEID"
+
+#: admin/partials/revslider-weather-addon-slide-options-display.php:78
+#: admin/partials/revslider-weather-addon-slide-options-display.php:80
+#: admin/partials/revslider-weather-addon-slider-options-display.php:75
+msgid "Fahrenheit or Celsius (°F or °C)"
+msgstr "Fahrenheit oder Celsius (°F oder °C)"
+
+#: admin/partials/revslider-weather-addon-slide-options-display.php:81
+#: admin/partials/revslider-weather-addon-slider-options-display.php:76
+msgid "°F"
+msgstr "°F"
+
+#: admin/partials/revslider-weather-addon-slide-options-display.php:82
+#: admin/partials/revslider-weather-addon-slider-options-display.php:77
+msgid "°C"
+msgstr "°C"
+
+#: admin/partials/revslider-weather-addon-slide-options-display.php:89
+#: admin/partials/revslider-weather-addon-slide-options-display.php:95
+#: admin/partials/revslider-weather-addon-slider-options-display.php:84
+#: admin/partials/revslider-weather-addon-slider-options-display.php:90
+msgid "Refresh rate in minutes (refreshs also with every start)"
+msgstr "Refresh rate in Minuten (Refresh wird auch bei jedem Start ausgeführt)"
+
+#: admin/partials/revslider-weather-addon-slider-options-display.php:17
+msgid "Enable/Disable Weather Info for this Slider<br><br>"
+msgstr "An/Aus Wetter Info für diesen Slider<br><br>"
+
+#: admin/partials/revslider-weather-addon-slider-options-display.php:17
+msgid "Enable Weather"
+msgstr "Anschalten Wetter"
+
+#: admin/partials/revslider-weather-addon-slider-options-display.php:24
+msgid "Enable/Disable Weather Iconset (30kB)<br><br>"
+msgstr "An/Aus Wetter Iconset (30kb)<br><br>"
+
+#: admin/partials/revslider-weather-addon-slider-options-display.php:24
+msgid "Enable Iconset"
+msgstr "Anschalten Iconset"
+
+#: admin/partials/revslider-weather-addon-slider-options-display.php:30
+msgid "Location&nbsp;Type"
+msgstr "Location&nbsp;Typ"
+
+#: admin/partials/revslider-weather-addon-slider-options-display.php:41
+msgid "City"
+msgstr "Stadt"
+
+#: admin/partials/revslider-weather-addon-slider-options-display.php:73
+msgid "Units"
+msgstr "Einheiten"
+
+#: includes/class-revslider-weather-addon-yahoo.php:48
+msgid "AM Clouds/PM Sun"
+msgstr "vormittags bewölkt/nachmittags sonnig"
+
+#: includes/class-revslider-weather-addon-yahoo.php:51
+msgid "AM Drizzle"
+msgstr "vormittags Nieselregen"
+
+#: includes/class-revslider-weather-addon-yahoo.php:54
+msgid "AM Drizzle/Wind"
+msgstr "vorm. Nieselregen/Wind"
+
+#: includes/class-revslider-weather-addon-yahoo.php:57
+msgid "AM Fog/PM Clouds"
+msgstr "vormittags Nebel/nachmittags bewölkt"
+
+#: includes/class-revslider-weather-addon-yahoo.php:60
+msgid "AM Fog/PM Sun"
+msgstr "vormittags Nebel, nachmittags sonnig"
+
+#: includes/class-revslider-weather-addon-yahoo.php:63
+msgid "AM Ice"
+msgstr "vorm. Eis"
+
+#: includes/class-revslider-weather-addon-yahoo.php:66
+msgid "AM Light Rain"
+msgstr "vormittags leichter Regen"
+
+#: includes/class-revslider-weather-addon-yahoo.php:69
+msgid "AM Light Rain/Wind"
+msgstr "vorm. leichter Regen/Wind"
+
+#: includes/class-revslider-weather-addon-yahoo.php:72
+msgid "AM Light Snow"
+msgstr "vormittags leichter Schneefall"
+
+#: includes/class-revslider-weather-addon-yahoo.php:75
+msgid "AM Rain"
+msgstr "vormittags Regen"
+
+#: includes/class-revslider-weather-addon-yahoo.php:78
+msgid "AM Rain/Snow Showers"
+msgstr "vorm. Regen-/Schneeschauer"
+
+#: includes/class-revslider-weather-addon-yahoo.php:81
+msgid "AM Rain/Snow"
+msgstr "vormittags Regen/Schnee"
+
+#: includes/class-revslider-weather-addon-yahoo.php:84
+msgid "AM Rain/Snow/Wind"
+msgstr "vorm. Regen/Schnee/Wind"
+
+#: includes/class-revslider-weather-addon-yahoo.php:87
+msgid "AM Rain/Wind"
+msgstr "vorm. Regen/Wind"
+
+#: includes/class-revslider-weather-addon-yahoo.php:90
+msgid "AM Showers"
+msgstr "vormittags Schauer"
+
+#: includes/class-revslider-weather-addon-yahoo.php:93
+msgid "AM Showers/Wind"
+msgstr "vormittags Schauer/Wind"
+
+#: includes/class-revslider-weather-addon-yahoo.php:96
+msgid "AM Snow Showers"
+msgstr "vormittags Schneeschauer"
+
+#: includes/class-revslider-weather-addon-yahoo.php:99
+msgid "AM Snow"
+msgstr "vormittags Schnee"
+
+#: includes/class-revslider-weather-addon-yahoo.php:102
+msgid "AM Thundershowers"
+msgstr "vorm. Gewitterschauer"
+
+#: includes/class-revslider-weather-addon-yahoo.php:105
+msgid "Blowing Snow"
+msgstr "Schneetreiben"
+
+#: includes/class-revslider-weather-addon-yahoo.php:108
+msgid "Clear"
+msgstr "Klar"
+
+#: includes/class-revslider-weather-addon-yahoo.php:111
+msgid "Clear/Windy"
+msgstr "Klar/Windig"
+
+#: includes/class-revslider-weather-addon-yahoo.php:114
+msgid "Clouds Early/Clearing Late"
+msgstr "früh Wolken/später klar"
+
+#: includes/class-revslider-weather-addon-yahoo.php:117
+msgid "Cloudy"
+msgstr "Bewölkt"
+
+#: includes/class-revslider-weather-addon-yahoo.php:120
+msgid "Cloudy/Wind"
+msgstr "Bewölkt/Wind"
+
+#: includes/class-revslider-weather-addon-yahoo.php:123
+msgid "Cloudy/Windy"
+msgstr "Wolkig/Windig"
+
+#: includes/class-revslider-weather-addon-yahoo.php:126
+msgid "Drifting Snow"
+msgstr "Schneetreiben"
+
+#: includes/class-revslider-weather-addon-yahoo.php:129
+msgid "Drifting Snow/Windy"
+msgstr "Schneetreiben/Windig"
+
+#: includes/class-revslider-weather-addon-yahoo.php:132
+msgid "Drizzle Early"
+msgstr "früh Nieselregen"
+
+#: includes/class-revslider-weather-addon-yahoo.php:135
+msgid "Drizzle Late"
+msgstr "später Nieselregen"
+
+#: includes/class-revslider-weather-addon-yahoo.php:138
+msgid "Drizzle"
+msgstr "Nieselregen"
+
+#: includes/class-revslider-weather-addon-yahoo.php:141
+msgid "Drizzle/Fog"
+msgstr "Nieselregen/Nebel"
+
+#: includes/class-revslider-weather-addon-yahoo.php:144
+msgid "Drizzle/Wind"
+msgstr "Nieselregen/Wind"
+
+#: includes/class-revslider-weather-addon-yahoo.php:147
+msgid "Drizzle/Windy"
+msgstr "Nieselregen/Windig"
+
+#: includes/class-revslider-weather-addon-yahoo.php:150
+msgid "Fair"
+msgstr "Heiter"
+
+#: includes/class-revslider-weather-addon-yahoo.php:153
+msgid "Fair/Windy"
+msgstr "Heiter/Windig"
+
+#: includes/class-revslider-weather-addon-yahoo.php:156
+msgid "Few Showers"
+msgstr "vereinzelte Schauer"
+
+#: includes/class-revslider-weather-addon-yahoo.php:159
+msgid "Few Showers/Wind"
+msgstr "vereinzelte Schauer/Wind"
+
+#: includes/class-revslider-weather-addon-yahoo.php:162
+msgid "Few Snow Showers"
+msgstr "vereinzelt Schneeschauer"
+
+#: includes/class-revslider-weather-addon-yahoo.php:165
+msgid "Fog Early/Clouds Late"
+msgstr "Nebel früh / Wolken spät"
+
+#: includes/class-revslider-weather-addon-yahoo.php:168
+#, fuzzy
+msgid "Fog Late"
+msgstr "Nebel spät"
+
+#: includes/class-revslider-weather-addon-yahoo.php:171
+msgid "Fog"
+msgstr "Nebel"
+
+#: includes/class-revslider-weather-addon-yahoo.php:174
+#, fuzzy
+msgid "Fog/Windy"
+msgstr "Nebel / Windig"
+
+#: includes/class-revslider-weather-addon-yahoo.php:177
+#, fuzzy
+msgid "Foggy"
+msgstr "Neblig"
+
+#: includes/class-revslider-weather-addon-yahoo.php:180
+#, fuzzy
+msgid "Freezing Drizzle"
+msgstr "gefrierende Nässe"
+
+#: includes/class-revslider-weather-addon-yahoo.php:183
+#, fuzzy
+msgid "Freezing Drizzle/Windy"
+msgstr "Einfrieren Nieselregen / Windig"
+
+#: includes/class-revslider-weather-addon-yahoo.php:186
+msgid "Freezing Rain"
+msgstr "Überfrierender Regen"
+
+#: includes/class-revslider-weather-addon-yahoo.php:189
+#, fuzzy
+msgid "Haze"
+msgstr "Trübung"
+
+#: includes/class-revslider-weather-addon-yahoo.php:192
+#, fuzzy
+msgid "Heavy Drizzle"
+msgstr "starker Nieselregen"
+
+#: includes/class-revslider-weather-addon-yahoo.php:195
+#, fuzzy
+msgid "Heavy Rain Shower"
+msgstr "Starke Regenschauer"
+
+#: includes/class-revslider-weather-addon-yahoo.php:198
+#, fuzzy
+msgid "Heavy Rain"
+msgstr "Starker Regen"
+
+#: includes/class-revslider-weather-addon-yahoo.php:201
+#, fuzzy
+msgid "Heavy Rain/Wind"
+msgstr "Starker Regen / Wind"
+
+#: includes/class-revslider-weather-addon-yahoo.php:204
+#, fuzzy
+msgid "Heavy Rain/Windy"
+msgstr "Starker Regen / Windig"
+
+#: includes/class-revslider-weather-addon-yahoo.php:207
+msgid "Heavy Snow Shower"
+msgstr "Starke Schneeschauer"
+
+#: includes/class-revslider-weather-addon-yahoo.php:210
+#, fuzzy
+msgid "Heavy Snow"
+msgstr "Starker Schneefall"
+
+#: includes/class-revslider-weather-addon-yahoo.php:213
+#, fuzzy
+msgid "Heavy Snow/Wind"
+msgstr "Schwerer Schnee / Wind"
+
+#: includes/class-revslider-weather-addon-yahoo.php:216
+#, fuzzy
+msgid "Heavy Thunderstorm"
+msgstr "Unwetter"
+
+#: includes/class-revslider-weather-addon-yahoo.php:219
+#, fuzzy
+msgid "Heavy Thunderstorm/Windy"
+msgstr "Starkes Gewitter / Windig"
+
+#: includes/class-revslider-weather-addon-yahoo.php:222
+msgid "Ice Crystals"
+msgstr "Eis Kristalle"
+
+#: includes/class-revslider-weather-addon-yahoo.php:225
+msgid "Ice Late"
+msgstr "Spät Eis"
+
+#: includes/class-revslider-weather-addon-yahoo.php:228
+#, fuzzy
+msgid "Isolated T-storms"
+msgstr "Isolierte T-Stürme"
+
+#: includes/class-revslider-weather-addon-yahoo.php:231
+msgid "Isolated Thunderstorms"
+msgstr "Einzelne Gewitter"
+
+#: includes/class-revslider-weather-addon-yahoo.php:234
+msgid "Light Drizzle"
+msgstr "Leichter Sprühregen"
+
+#: includes/class-revslider-weather-addon-yahoo.php:237
+msgid "Light Freezing Drizzle"
+msgstr "Leichter Eis-Nieselregen"
+
+#: includes/class-revslider-weather-addon-yahoo.php:240
+msgid "Light Freezing Rain"
+msgstr "Leichter Eisregen"
+
+#: includes/class-revslider-weather-addon-yahoo.php:243
+msgid "Light Freezing Rain/Fog"
+msgstr "Leichter überfrierender Regen/Nebel"
+
+#: includes/class-revslider-weather-addon-yahoo.php:246
+msgid "Light Rain Early"
+msgstr "Früh Leichter Regen"
+
+#: includes/class-revslider-weather-addon-yahoo.php:249
+#, fuzzy
+msgid "Light Rain"
+msgstr "vormittags leichter Regen"
+
+#: includes/class-revslider-weather-addon-yahoo.php:252
+#, fuzzy
+msgid "Light Rain Late"
+msgstr "Leichter Regen"
+
+#: includes/class-revslider-weather-addon-yahoo.php:255
+#, fuzzy
+msgid "Light Rain Shower"
+msgstr "Leichter Regenschauer"
+
+#: includes/class-revslider-weather-addon-yahoo.php:258
+#, fuzzy
+msgid "Light Rain Shower/Fog"
+msgstr "Leichter Regenschauer"
+
+#: includes/class-revslider-weather-addon-yahoo.php:261
+#, fuzzy
+msgid "Light Rain Shower/Windy"
+msgstr "Leichte Regenschauer / Windig"
+
+#: includes/class-revslider-weather-addon-yahoo.php:264
+#, fuzzy
+msgid "Light Rain with Thunder"
+msgstr "Leichter Regen mit Donner"
+
+#: includes/class-revslider-weather-addon-yahoo.php:267
+#, fuzzy
+msgid "Light Rain/Fog"
+msgstr "Leichter Regen / Nebel"
+
+#: includes/class-revslider-weather-addon-yahoo.php:270
+#, fuzzy
+msgid "Light Rain/Freezing Rain"
+msgstr "Leichter Regen / Einfrierender Regen"
+
+#: includes/class-revslider-weather-addon-yahoo.php:273
+#, fuzzy
+msgid "Light Rain/Wind Early"
+msgstr "Leichter Regen / Wind früh"
+
+#: includes/class-revslider-weather-addon-yahoo.php:276
+#, fuzzy
+msgid "Light Rain/Wind Late"
+msgstr "Leichter Regen / Wind Spät"
+
+#: includes/class-revslider-weather-addon-yahoo.php:279
+#, fuzzy
+msgid "Light Rain/Wind"
+msgstr "vorm. leichter Regen/Wind"
+
+#: includes/class-revslider-weather-addon-yahoo.php:282
+#, fuzzy
+msgid "Light Rain/Windy"
+msgstr "Leichter Regen / Windig"
+
+#: includes/class-revslider-weather-addon-yahoo.php:285
+#, fuzzy
+msgid "Light Sleet"
+msgstr "Leichter Graupel"
+
+#: includes/class-revslider-weather-addon-yahoo.php:288
+msgid "Light Snow Early"
+msgstr "Leichter Schnee früh"
+
+#: includes/class-revslider-weather-addon-yahoo.php:291
+msgid "Light Snow Grains"
+msgstr "Leichter Schneefall, Graupelwetter"
+
+#: includes/class-revslider-weather-addon-yahoo.php:294
+msgid "Light Snow Late"
+msgstr "Leichter Schneefall spät"
+
+#: includes/class-revslider-weather-addon-yahoo.php:297
+#, fuzzy
+msgid "Light Snow Shower"
+msgstr "leichte Schneeschauer"
+
+#: includes/class-revslider-weather-addon-yahoo.php:300
+msgid "Light Snow Shower/Fog"
+msgstr "leichte Schneeschauer/Nebel"
+
+#: includes/class-revslider-weather-addon-yahoo.php:303
+msgid "Light Snow with Thunder"
+msgstr "Leichter Schnee mit Donner"
+
+#: includes/class-revslider-weather-addon-yahoo.php:306
+#, fuzzy
+msgid "Light Snow"
+msgstr "vormittags leichter Schneefall"
+
+#: includes/class-revslider-weather-addon-yahoo.php:309
+msgid "Light Snow/Fog"
+msgstr "Leichter Schneefall, Nebel"
+
+#: includes/class-revslider-weather-addon-yahoo.php:312
+msgid "Light Snow/Freezing Rain"
+msgstr "Leichter Schneefall, Eisregen"
+
+#: includes/class-revslider-weather-addon-yahoo.php:315
+msgid "Light Snow/Wind"
+msgstr "Leicht Schnee / Wind"
+
+#: includes/class-revslider-weather-addon-yahoo.php:318
+msgid "Light Snow/Windy"
+msgstr "Leicht Schnee / Windig"
+
+#: includes/class-revslider-weather-addon-yahoo.php:321
+msgid "Light Snow/Windy/Fog"
+msgstr "Leicht Schnee / Windig / Nebel"
+
+#: includes/class-revslider-weather-addon-yahoo.php:324
+#, fuzzy
+msgid "Mist"
+msgstr "Nebel"
+
+#: includes/class-revslider-weather-addon-yahoo.php:327
+msgid "Mostly Clear"
+msgstr "Meist klar"
+
+#: includes/class-revslider-weather-addon-yahoo.php:330
+#, fuzzy
+msgid "Mostly Cloudy"
+msgstr "meist bewölkt"
+
+#: includes/class-revslider-weather-addon-yahoo.php:333
+#, fuzzy
+msgid "Mostly Cloudy/Wind"
+msgstr "meist bewölkt"
+
+#: includes/class-revslider-weather-addon-yahoo.php:336
+#, fuzzy
+msgid "Mostly Sunny"
+msgstr "Bewölkung"
+
+#: includes/class-revslider-weather-addon-yahoo.php:339
+#, fuzzy
+msgid "Partial Fog"
+msgstr "Teilschleier"
+
+#: includes/class-revslider-weather-addon-yahoo.php:342
+#, fuzzy
+msgid "Partly Cloudy"
+msgstr "Zeitweise wolkig"
+
+#: includes/class-revslider-weather-addon-yahoo.php:345
+#, fuzzy
+msgid "Partly Cloudy/Wind"
+msgstr "Zeitweise wolkig"
+
+#: includes/class-revslider-weather-addon-yahoo.php:348
+#, fuzzy
+msgid "Patches of Fog"
+msgstr "Patches von Nebel"
+
+#: includes/class-revslider-weather-addon-yahoo.php:351
+#, fuzzy
+msgid "Patches of Fog/Windy"
+msgstr "Patches von Nebel / Windig"
+
+#: includes/class-revslider-weather-addon-yahoo.php:354
+msgid "PM Drizzle"
+msgstr "Nachmittags Nieselregen"
+
+#: includes/class-revslider-weather-addon-yahoo.php:357
+msgid "PM Fog"
+msgstr "Nachmittags Nebel"
+
+#: includes/class-revslider-weather-addon-yahoo.php:360
+msgid "PM Light Snow"
+msgstr "Nachmittags Leichter Schneefall"
+
+#: includes/class-revslider-weather-addon-yahoo.php:363
+msgid "PM Light Rain"
+msgstr "Nachmittags Leichter Regen"
+
+#: includes/class-revslider-weather-addon-yahoo.php:366
+msgid "PM Light Rain/Wind"
+msgstr "Nachmittags Licht Regen / Wind"
+
+#: includes/class-revslider-weather-addon-yahoo.php:369
+msgid "PM Light Snow/Wind"
+msgstr "Nachmittags Leichter Schnee / Wind"
+
+#: includes/class-revslider-weather-addon-yahoo.php:372
+msgid "PM Rain"
+msgstr "Nachmittags Regen"
+
+#: includes/class-revslider-weather-addon-yahoo.php:375
+msgid "PM Rain/Snow Showers"
+msgstr "Nachmittags Regen / Schneeschauer"
+
+#: includes/class-revslider-weather-addon-yahoo.php:378
+msgid "PM Rain/Snow"
+msgstr "Nachmittags Regen / Schnee"
+
+#: includes/class-revslider-weather-addon-yahoo.php:381
+msgid "PM Rain/Wind"
+msgstr "Nachmittags Regen / Wind"
+
+#: includes/class-revslider-weather-addon-yahoo.php:384
+msgid "PM Showers"
+msgstr "PM Regenschauer"
+
+#: includes/class-revslider-weather-addon-yahoo.php:387
+msgid "PM Showers/Wind"
+msgstr "Nachmittags Schauer / Wind"
+
+#: includes/class-revslider-weather-addon-yahoo.php:390
+msgid "PM Snow Showers"
+msgstr "Nachmittags Schnee"
+
+#: includes/class-revslider-weather-addon-yahoo.php:393
+msgid "PM Snow Showers/Wind"
+msgstr "Nachmittags Schneeschauer / Wind"
+
+#: includes/class-revslider-weather-addon-yahoo.php:396
+msgid "PM Snow"
+msgstr "Nachmittags Schnee"
+
+#: includes/class-revslider-weather-addon-yahoo.php:399
+msgid "PM T-storms"
+msgstr "Nachmittags T-Stürme"
+
+#: includes/class-revslider-weather-addon-yahoo.php:402
+msgid "PM Thundershowers"
+msgstr "Nachmittags Gewitter"
+
+#: includes/class-revslider-weather-addon-yahoo.php:405
+msgid "PM Thunderstorms"
+msgstr "Nachmittags Gewitter"
+
+#: includes/class-revslider-weather-addon-yahoo.php:408
+msgid "Rain and Snow"
+msgstr "Regen/Schnee"
+
+#: includes/class-revslider-weather-addon-yahoo.php:411
+#, fuzzy
+msgid "Rain and Snow/Windy"
+msgstr "Regen und Schnee / Windig"
+
+#: includes/class-revslider-weather-addon-yahoo.php:414
+#, fuzzy
+msgid "Rain/Snow Showers/Wind"
+msgstr "Regen / Schneeschauer / Wind"
+
+#: includes/class-revslider-weather-addon-yahoo.php:417
+#, fuzzy
+msgid "Rain Early"
+msgstr "Regen früh"
+
+#: includes/class-revslider-weather-addon-yahoo.php:420
+#, fuzzy
+msgid "Rain Late"
+msgstr "Regen spät"
+
+#: includes/class-revslider-weather-addon-yahoo.php:423
+#, fuzzy
+msgid "Rain Shower"
+msgstr "Regenschauer"
+
+#: includes/class-revslider-weather-addon-yahoo.php:426
+msgid "Rain Shower/Windy"
+msgstr "Regenschauer / Windig"
+
+#: includes/class-revslider-weather-addon-yahoo.php:429
+msgid "Rain to Snow"
+msgstr "Regen bis Schnee"
+
+#: includes/class-revslider-weather-addon-yahoo.php:432
+msgid "Rain"
+msgstr "Regen"
+
+#: includes/class-revslider-weather-addon-yahoo.php:435
+#, fuzzy
+msgid "Rain/Snow Early"
+msgstr "Regen / Schnee früh"
+
+#: includes/class-revslider-weather-addon-yahoo.php:438
+#, fuzzy
+msgid "Rain/Snow Late"
+msgstr "Regen / Schnee spät"
+
+#: includes/class-revslider-weather-addon-yahoo.php:441
+#, fuzzy
+msgid "Rain/Snow Showers Early"
+msgstr "Regen / Schneeschauer früh"
+
+#: includes/class-revslider-weather-addon-yahoo.php:444
+msgid "Rain/Snow Showers Late"
+msgstr "Regen / Schneeschauer spät"
+
+#: includes/class-revslider-weather-addon-yahoo.php:447
+msgid "Rain/Snow Showers"
+msgstr "Regen-/Schneeschauer"
+
+#: includes/class-revslider-weather-addon-yahoo.php:450
+msgid "Rain/Snow"
+msgstr "Regen/Schnee"
+
+#: includes/class-revslider-weather-addon-yahoo.php:453
+msgid "Rain/Snow/Wind"
+msgstr "Regen/Schnee/Wind"
+
+#: includes/class-revslider-weather-addon-yahoo.php:456
+#, fuzzy
+msgid "Rain/Thunder"
+msgstr "Regen / Donner"
+
+#: includes/class-revslider-weather-addon-yahoo.php:459
+#, fuzzy
+msgid "Rain/Wind Early"
+msgstr "Regen / Wind früh"
+
+#: includes/class-revslider-weather-addon-yahoo.php:462
+#, fuzzy
+msgid "Rain/Wind Late"
+msgstr "Regen / Wind spät"
+
+#: includes/class-revslider-weather-addon-yahoo.php:465
+msgid "Rain/Wind"
+msgstr "Regen/Wind"
+
+#: includes/class-revslider-weather-addon-yahoo.php:468
+#, fuzzy
+msgid "Rain/Windy"
+msgstr "Regen / Windig"
+
+#: includes/class-revslider-weather-addon-yahoo.php:471
+#, fuzzy
+msgid "Scattered Showers"
+msgstr "Vereinzelte Regenschauer"
+
+#: includes/class-revslider-weather-addon-yahoo.php:474
+msgid "Scattered Showers/Wind"
+msgstr "Vereinzelte Schauer / Wind"
+
+#: includes/class-revslider-weather-addon-yahoo.php:477
+#, fuzzy
+msgid "Scattered Snow Showers"
+msgstr "vereinzelte Schneeschauer"
+
+#: includes/class-revslider-weather-addon-yahoo.php:480
+msgid "Scattered Snow Showers/Wind"
+msgstr "Vereinzelte Schneeschauer / Wind"
+
+#: includes/class-revslider-weather-addon-yahoo.php:483
+msgid "Scattered T-storms"
+msgstr "Vereinzelte T-Stürme"
+
+#: includes/class-revslider-weather-addon-yahoo.php:486
+#, fuzzy
+msgid "Scattered Thunderstorms"
+msgstr "vereinzelte Gewitter"
+
+#: includes/class-revslider-weather-addon-yahoo.php:489
+#, fuzzy
+msgid "Shallow Fog"
+msgstr "Flacher Nebel"
+
+#: includes/class-revslider-weather-addon-yahoo.php:492
+msgid "Showers"
+msgstr "Schauer"
+
+#: includes/class-revslider-weather-addon-yahoo.php:495
+msgid "Showers Early"
+msgstr "Schauer früh"
+
+#: includes/class-revslider-weather-addon-yahoo.php:498
+msgid "Showers Late"
+msgstr "Schauer spät"
+
+#: includes/class-revslider-weather-addon-yahoo.php:501
+msgid "Showers in the Vicinity"
+msgstr "Schauer in der Nähe"
+
+#: includes/class-revslider-weather-addon-yahoo.php:504
+msgid "Showers/Wind"
+msgstr "Schauer/Wind"
+
+#: includes/class-revslider-weather-addon-yahoo.php:507
+#, fuzzy
+msgid "Sleet and Freezing Rain"
+msgstr "Sleet and Freezing Rain"
+
+#: includes/class-revslider-weather-addon-yahoo.php:510
+#, fuzzy
+msgid "Sleet/Windy"
+msgstr "Sleet / Windy"
+
+#: includes/class-revslider-weather-addon-yahoo.php:513
+#, fuzzy
+msgid "Snow Grains"
+msgstr "Graupel"
+
+#: includes/class-revslider-weather-addon-yahoo.php:516
+#, fuzzy
+msgid "Snow Late"
+msgstr "Schnee spät"
+
+#: includes/class-revslider-weather-addon-yahoo.php:519
+#, fuzzy
+msgid "Snow Shower"
+msgstr "Schneeschauer"
+
+#: includes/class-revslider-weather-addon-yahoo.php:522
+#, fuzzy
+msgid "Snow Showers Early"
+msgstr "Schneeschauer früh"
+
+#: includes/class-revslider-weather-addon-yahoo.php:525
+#, fuzzy
+msgid "Snow Showers Late"
+msgstr "Schnee"
+
+#: includes/class-revslider-weather-addon-yahoo.php:528
+#, fuzzy
+msgid "Snow Showers"
+msgstr "vormittags Schneeschauer"
+
+#: includes/class-revslider-weather-addon-yahoo.php:531
+#, fuzzy
+msgid "Snow Showers/Wind"
+msgstr "Schneeschauer / Wind"
+
+#: includes/class-revslider-weather-addon-yahoo.php:534
+msgid "Snow to Rain"
+msgstr "Schnee bis Regen"
+
+#: includes/class-revslider-weather-addon-yahoo.php:537
+msgid "Snow"
+msgstr "Schnee"
+
+#: includes/class-revslider-weather-addon-yahoo.php:540
+#, fuzzy
+msgid "Snow/Wind"
+msgstr "Schnee / Wind"
+
+#: includes/class-revslider-weather-addon-yahoo.php:543
+#, fuzzy
+msgid "Snow/Windy"
+msgstr "Schnee / Windig"
+
+#: includes/class-revslider-weather-addon-yahoo.php:546
+msgid "Squalls"
+msgstr "Böen"
+
+#: includes/class-revslider-weather-addon-yahoo.php:549
+#, fuzzy
+msgid "Sunny"
+msgstr "Sonnig"
+
+#: includes/class-revslider-weather-addon-yahoo.php:552
+#, fuzzy
+msgid "Sunny/Wind"
+msgstr "Sonnig / wind"
+
+#: includes/class-revslider-weather-addon-yahoo.php:555
+#, fuzzy
+msgid "Sunny/Windy"
+msgstr "Sonnig / windig"
+
+#: includes/class-revslider-weather-addon-yahoo.php:558
+msgid "T-showers"
+msgstr "T-Schauer"
+
+#: includes/class-revslider-weather-addon-yahoo.php:561
+#, fuzzy
+msgid "Thunder in the Vicinity"
+msgstr "Donner in der Nähe"
+
+#: includes/class-revslider-weather-addon-yahoo.php:564
+#, fuzzy
+msgid "Thunder"
+msgstr "Donner"
+
+#: includes/class-revslider-weather-addon-yahoo.php:567
+msgid "Thundershowers Early"
+msgstr "Gewitterregen früh"
+
+#: includes/class-revslider-weather-addon-yahoo.php:570
+msgid "Thundershowers"
+msgstr "Gewitterschauer"
+
+#: includes/class-revslider-weather-addon-yahoo.php:573
+#, fuzzy
+msgid "Thunderstorm"
+msgstr "Gewitter"
+
+#: includes/class-revslider-weather-addon-yahoo.php:576
+#, fuzzy
+msgid "Thunderstorm/Windy"
+msgstr "Gewitter / Windig"
+
+#: includes/class-revslider-weather-addon-yahoo.php:579
+#, fuzzy
+msgid "Thunderstorms Early"
+msgstr "Gewitter früh"
+
+#: includes/class-revslider-weather-addon-yahoo.php:582
+#, fuzzy
+msgid "Thunderstorms Late"
+msgstr "Gewitter spät"
+
+#: includes/class-revslider-weather-addon-yahoo.php:585
+#, fuzzy
+msgid "Thunderstorms"
+msgstr "Gewitter"
+
+#: includes/class-revslider-weather-addon-yahoo.php:588
+#, fuzzy
+msgid "Unknown Precipitation"
+msgstr "Unbekannter Niederschlag"
+
+#: includes/class-revslider-weather-addon-yahoo.php:591
+#, fuzzy
+msgid "Unknown"
+msgstr "Unbekannt"
+
+#: includes/class-revslider-weather-addon-yahoo.php:594
+msgid "Wintry Mix"
+msgstr "Winter Mix"
+
+#. Plugin Name of the plugin/theme
+msgid "Slider Revolution Weather Add-on"
+msgstr "Slider Revolution Wetter Add-on"
+
+#. Plugin URI of the plugin/theme
+msgid "https://revolution.themepunch.com"
+msgstr "https://revolution.themepunch.com"
+
+#. Description of the plugin/theme
+msgid "Every where you go... always take the weather with you!"
+msgstr "Every where you go… always take the weather with you!"
+
+#. Author of the plugin/theme
+#, fuzzy
+msgid "ThemePunch"
+msgstr "ThemePunch"
+
+#. Author URI of the plugin/theme
+msgid "https://www.themepunch.com"
+msgstr "https://www.themepunch.com"

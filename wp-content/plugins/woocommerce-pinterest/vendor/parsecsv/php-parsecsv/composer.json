@@ -1,0 +1,51 @@
+{
+    "name": "parsecsv/php-parsecsv",
+    "description": "CSV data parser for PHP",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jim Myhrberg",
+            "email": "contact@jimeh.me"
+        },
+        {
+            "name": "William Knauss",
+            "email": "will.knauss@gmail.com"
+        },
+        {
+            "name": "Susann Sgorzaly",
+            "homepage": "https://github.com/susgo"
+        },
+        {
+            "name": "Christian Bläul",
+            "homepage": "https://github.com/Fonata"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "ParseCsv\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ParseCsv\\tests\\": "tests"
+        }
+    },
+    "require": {
+        "php": ">=5.5"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.1.*"
+    },
+    "suggest": {
+        "illuminate/support": "Fluent array interface for map functions"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    },
+    "support": {
+        "issues": "https://github.com/parsecsv/parsecsv-for-php/issues",
+        "source": "https://github.com/parsecsv/parsecsv-for-php"
+    }
+}

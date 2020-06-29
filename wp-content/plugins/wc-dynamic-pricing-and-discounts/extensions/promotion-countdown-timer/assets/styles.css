@@ -1,0 +1,46 @@
+/**
+ * WooCommerce Dynamic Pricing & Discounts - Promotion - Countdown Timer - Styles
+ */
+
+.rp_wcdpd_promotion_countdown_timer {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    padding: 20px 10px 15px 10px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    font-family: sans-serif;
+    text-align: center;
+}
+.rp_wcdpd_promotion_countdown_timer_label {
+    margin-bottom: 0.25em;
+    font-weight: 700;
+}
+.rp_wcdpd_promotion_countdown_timer_value {
+    display: inline-block;
+    font-weight: 100;
+}
+
+.rp_wcdpd_promotion_countdown_timer_days,
+.rp_wcdpd_promotion_countdown_timer_hours,
+.rp_wcdpd_promotion_countdown_timer_minutes,
+.rp_wcdpd_promotion_countdown_timer_seconds {
+    display: inline-block;
+    padding: 5px;
+}
+
+.rp_wcdpd_promotion_countdown_timer_days_value,
+.rp_wcdpd_promotion_countdown_timer_hours_value,
+.rp_wcdpd_promotion_countdown_timer_minutes_value,
+.rp_wcdpd_promotion_countdown_timer_seconds_value {
+    padding: 0 12px;
+    display: inline-block;
+    font-size: 2em;
+}
+
+
+.rp_wcdpd_promotion_countdown_timer_days_label,
+.rp_wcdpd_promotion_countdown_timer_hours_label,
+.rp_wcdpd_promotion_countdown_timer_minutes_label,
+.rp_wcdpd_promotion_countdown_timer_seconds_label {
+    display: block;
+    font-size: 0.8em;
+}

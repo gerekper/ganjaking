@@ -1,0 +1,101 @@
+/*********************
+ * Ribbon
+ *********************/
+.label-wrap.wapl-ribbon2 {
+	top: 0;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	overflow: hidden;
+}
+
+.wapl-ribbon2 {
+
+	.product-label {
+		position: absolute;
+		width: 10px;
+		color: #FFF;
+		text-align: center;
+		padding: 10px 10px 0 10px;
+		transform-origin: top;
+		height: auto;
+		word-break: break-all;
+		top: 0;
+		box-sizing: content-box;
+
+		&:after {
+			content: "";
+			position: absolute;
+			bottom: -15px;
+			border-color: #e74c3c;
+			border-bottom-color: rgba(0, 0, 0, 0) !important;
+			border-left-color: rgba(0, 0, 0, 0) !important;
+			border-right-color: rgba(0, 0, 0, 0) !important;
+			border-width: 15px 15px 0 15px;
+			border-style: solid;
+			left: 0;
+		}
+	}
+	.wapl-label-text {
+
+	}
+
+	// Aligns
+	&.wapl-alignleft .product-label {
+		float: left;
+		left: 10px;
+	}
+	&.wapl-alignright .product-label {
+		float: right;
+		right: 10px;
+	}
+	&.wapl-aligncenter .product-label {
+		margin: 0 auto;
+		display: block;
+		position: relative;
+	}
+
+	.product-label {
+		line-height: 0.7em;
+		writing-mode: vertical-lr;
+		text-orientation: upright;
+	}
+}
+
+
+
+/* Ribbon colors */
+.wapl-ribbon2 .label-red {
+	background-color: #e74c3c;
+	&.product-label:after { border-top-color: #e74c3c; }
+}
+.wapl-ribbon2 .label-blue {
+	background-color: #3498db;
+	&.product-label:after { border-top-color: #3498db; }
+}
+.wapl-ribbon2 .label-green {
+	background-color: #39A539;
+	&.product-label:after { border-top-color: #39A539; }
+}
+.wapl-ribbon2 .label-yellow {
+	background-color: #ffe312;
+	color: #444;
+	&.product-label:after { border-top-color: #ffe312; }
+}
+.wapl-ribbon2 .label-orange {
+	background-color: #ffA608;
+	&.product-label:after { border-top-color: #ffA608; }
+}
+.wapl-ribbon2 .label-gray {
+	background-color: #999;
+	&.product-label:after { border-top-color: #999; }
+}
+.wapl-ribbon2 .label-black {
+	background-color: #444;
+	&.product-label:after { border-top-color: #444; }
+}
+.wapl-ribbon2 .label-white {
+	background-color: white;
+	color: #444;
+	&.product-label:after { border-top-color: white; }
+}

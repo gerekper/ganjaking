@@ -1,0 +1,16 @@
+{
+    "name": "yith/yith-woocommerce-wishlist",
+    "type": "wordpress-plugin",
+    "description": "YITH WooCommerce Wishlist gives your users the possibility to create, fill, manage and share their wishlists allowing you to analyze their interests and needs to improve your marketing strategies.",
+    "keywords": [
+        "wishlist",
+        "woocommerce",
+        "products",
+        "e-commerce",
+        "shop",
+        "ecommerce",
+        "yith"
+    ],
+    "homepage": "https://yithemes.com/themes/plugins/yith-woocommerce-wishlist/",
+    "license": "GPL-3.0"
+}

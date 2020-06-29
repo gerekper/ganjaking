@@ -1,0 +1,560 @@
+# <!=Copyright (C) 2018 WooCommerce
+# This file is distributed under the same license as the WooCommerce Help Scout package.=!>
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Help Scout 1.3.10\n"
+"Report-Msgid-Bugs-To: https://docs.woocommerce.com\n"
+"POT-Creation-Date: 2018-09-11 22:44:06+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2018-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: includes/class-wc-help-scout-ajax.php:56
+#: includes/class-wc-help-scout-ajax.php:151
+#: includes/class-wc-help-scout-ajax.php:211
+msgid "There was an error in the request, please reload this page and try again."
+msgstr ""
+
+#: includes/class-wc-help-scout-ajax.php:67
+msgid "Subject is a required field."
+msgstr ""
+
+#: includes/class-wc-help-scout-ajax.php:78
+msgid "Description is a required field."
+msgstr ""
+
+#: includes/class-wc-help-scout-ajax.php:93
+msgid "Invalid order ID."
+msgstr ""
+
+#: includes/class-wc-help-scout-ajax.php:99 templates/shortcodes/form.php:13
+msgid "Order"
+msgstr ""
+
+#: includes/class-wc-help-scout-ajax.php:160
+msgid "\\a\\t"
+msgstr ""
+
+#: includes/class-wc-help-scout-ajax.php:183
+msgid "This conversation has no comments yet"
+msgstr ""
+
+#: includes/class-wc-help-scout-ajax.php:221
+msgid "Message is a required field."
+msgstr ""
+
+#: includes/class-wc-help-scout-ajax.php:233
+msgid "Reply sent successfully!"
+msgstr ""
+
+#: includes/class-wc-help-scout-ajax.php:238
+msgid "Failed to send the response, please try again or contact us for help."
+msgstr ""
+
+#: includes/class-wc-help-scout-api.php:106
+msgid "Invalid customer"
+msgstr ""
+
+#: includes/class-wc-help-scout-api.php:445
+msgid "Invalid customer ID"
+msgstr ""
+
+#: includes/class-wc-help-scout-api.php:449
+msgid "You have only read permission"
+msgstr ""
+
+#: includes/class-wc-help-scout-api.php:453
+msgid "You do not have permission to read this customer"
+msgstr ""
+
+#: includes/class-wc-help-scout-integration.php:27
+#: includes/class-wc-help-scout-integration.php:970
+#: includes/class-wc-help-scout-privacy.php:12
+msgid "Help Scout"
+msgstr ""
+
+#: includes/class-wc-help-scout-integration.php:28
+msgid "Help Scout is a scalable customer support, no help desk headaches."
+msgstr ""
+
+#: includes/class-wc-help-scout-integration.php:94
+#: includes/class-wc-help-scout-integration.php:970
+msgid "Conversation created successfully."
+msgstr ""
+
+#: includes/class-wc-help-scout-integration.php:95
+#: includes/class-wc-help-scout-integration.php:968
+msgid "View conversation."
+msgstr ""
+
+#: includes/class-wc-help-scout-integration.php:98
+#: includes/class-wc-help-scout-integration.php:963
+msgid "Failed to create the conversation, please try again."
+msgstr ""
+
+#: includes/class-wc-help-scout-integration.php:126
+#: includes/class-wc-help-scout-integration.php:145
+msgid "Please, wait a few moments, sending your request..."
+msgstr ""
+
+#: includes/class-wc-help-scout-integration.php:127
+#: includes/class-wc-help-scout-integration.php:146
+msgid "Thank you for your contact, we will respond as soon as possible."
+msgstr ""
+
+#: includes/class-wc-help-scout-integration.php:130
+#: includes/class-wc-help-scout-integration.php:149
+msgid "There was an error in the request, please try again or contact us for assistance."
+msgstr ""
+
+#: includes/class-wc-help-scout-integration.php:131
+msgid "Please, wait a few moments, retrieving the conversation data..."
+msgstr ""
+
+#: includes/class-wc-help-scout-integration.php:132
+#: templates/myaccount/conversations.php:54
+msgid "Reply"
+msgstr ""
+
+#: includes/class-wc-help-scout-integration.php:133
+msgid "Reply to"
+msgstr ""
+
+#: includes/class-wc-help-scout-integration.php:134
+msgid "Message"
+msgstr ""
+
+#: includes/class-wc-help-scout-integration.php:135
+#: templates/order/create-conversation.php:28 templates/shortcodes/form.php:47
+msgid "Send"
+msgstr ""
+
+#: includes/class-wc-help-scout-integration.php:161
+msgid "Enable Logging %s"
+msgstr ""
+
+#: includes/class-wc-help-scout-integration.php:162
+msgid "Log Help Scout events, such as API requests."
+msgstr ""
+
+#: includes/class-wc-help-scout-integration.php:165
+#: includes/class-wc-help-scout-integration.php:167
+msgid "View Log"
+msgstr ""
+
+#: includes/class-wc-help-scout-integration.php:172
+msgid "API Key"
+msgstr ""
+
+#: includes/class-wc-help-scout-integration.php:174
+msgid "Enter your Help Scout API Key. Find this in \"User Profile\" dropdown (top right corner) > Authentication > API Keys."
+msgstr ""
+
+#: includes/class-wc-help-scout-integration.php:179
+msgid "Mailbox ID"
+msgstr ""
+
+#: includes/class-wc-help-scout-integration.php:181
+msgid "Enter with your Help Scout Mailbox ID. Find this in your Help Scout Mailbox > Mailbox Settings > Edit Mailbox, example: <code>https://secure.helpscout.net/settings/mailbox/ID-HERE/</code>."
+msgstr ""
+
+#: includes/class-wc-help-scout-integration.php:186
+msgid "Assigned To (optional)"
+msgstr ""
+
+#: includes/class-wc-help-scout-integration.php:188
+msgid "Enter the user ID responsible for conversations. Find this in the \"Your Profile\" page URL, example: <code>https://secure.helpscout.net/users/profile/USER-ID-HERE/</code>."
+msgstr ""
+
+#: includes/class-wc-help-scout-integration.php:193
+msgid "Conversation CC (optional)"
+msgstr ""
+
+#: includes/class-wc-help-scout-integration.php:195
+msgid "Enter a list of users emails that will receive copies of the all conversations, separate each email address with a comma."
+msgstr ""
+
+#: includes/class-wc-help-scout-integration.php:200
+msgid "Conversation BCC (optional)"
+msgstr ""
+
+#: includes/class-wc-help-scout-integration.php:202
+msgid "Enter a list of users emails that will receive hidden copies of the all conversations, separate each email address with a comma."
+msgstr ""
+
+#: includes/class-wc-help-scout-integration.php:207
+msgid "Testing"
+msgstr ""
+
+#: includes/class-wc-help-scout-integration.php:212
+msgid "Debug Log"
+msgstr ""
+
+#: includes/class-wc-help-scout-integration.php:504
+msgid "Active"
+msgstr ""
+
+#: includes/class-wc-help-scout-integration.php:505
+msgid "Pending"
+msgstr ""
+
+#: includes/class-wc-help-scout-integration.php:506
+msgid "Closed"
+msgstr ""
+
+#: includes/class-wc-help-scout-integration.php:507
+msgid "Spam"
+msgstr ""
+
+#: includes/class-wc-help-scout-integration.php:747
+msgid "Order data:"
+msgstr ""
+
+#: includes/class-wc-help-scout-integration.php:753
+msgid "Order number: %s"
+msgstr ""
+
+#: includes/class-wc-help-scout-integration.php:756
+msgid "Order date: %s"
+msgstr ""
+
+#: includes/class-wc-help-scout-integration.php:872
+msgid "Comment in %s at %s"
+msgstr ""
+
+#: includes/class-wc-help-scout-integration.php:930
+msgid "Actions"
+msgstr ""
+
+#: includes/class-wc-help-scout-integration.php:945
+msgid "Create a Conversation"
+msgstr ""
+
+#: includes/class-wc-help-scout-integration.php:963
+#: includes/class-wc-help-scout-integration.php:973
+#: includes/class-wc-help-scout-integration.php:976
+msgid "Help Scout Error"
+msgstr ""
+
+#: includes/class-wc-help-scout-integration.php:973
+msgid "This comment has not a valid email address."
+msgstr ""
+
+#: includes/class-wc-help-scout-integration.php:976
+msgid "This review/comment is empty, needs some content to create the conversation!"
+msgstr ""
+
+#: includes/class-wc-help-scout-integration.php:988
+msgid "%1$sWooCommerce Help Scout is almost ready.%2$s To get started, %3$sconnect your Help Scout account%4$s and specify a Mailbox ID."
+msgstr ""
+
+#: includes/class-wc-help-scout-integration.php:1017
+msgid "Report an issue"
+msgstr ""
+
+#: includes/class-wc-help-scout-my-account.php:65
+msgid "Get Help"
+msgstr ""
+
+#: includes/class-wc-help-scout-my-account.php:162
+msgid "Support Conversations"
+msgstr ""
+
+#: includes/class-wc-help-scout-my-account.php:212
+#: templates/myaccount/conversations.php:8
+msgid "My Support Conversations"
+msgstr ""
+
+#: includes/class-wc-help-scout-privacy.php:14
+#: includes/class-wc-help-scout-privacy.php:16
+msgid "WooCommerce Help Scout Customer Data"
+msgstr ""
+
+#: includes/class-wc-help-scout-privacy.php:24
+msgid "By using this extension, you may be storing personal data or sharing data with an external service. <a href=\"%s\" target=\"_blank\">Learn more about how this works, including what you may want to include in your privacy policy.</a>"
+msgstr ""
+
+#: includes/class-wc-help-scout-privacy.php:41
+msgid "Customer Data"
+msgstr ""
+
+#: includes/class-wc-help-scout-privacy.php:45
+msgid "Help Scout customer id"
+msgstr ""
+
+#: includes/class-wc-help-scout-privacy.php:72
+msgid "Help Scout Personal Data erased."
+msgstr ""
+
+#: includes/class-wc-help-scout-shortcodes.php:54
+msgctxt "date and time"
+msgid "%1$s at %2$s"
+msgstr ""
+
+#: includes/class-wc-help-scout-shortcodes.php:56
+msgid "Order #%s - %s"
+msgstr ""
+
+#: includes/views/html-admin-order-create-conversation.php:11
+msgid "Start a conversation with your customer to discuss an issue."
+msgstr ""
+
+#: includes/views/html-admin-order-create-conversation.php:16
+#: templates/myaccount/conversations.php:17
+#: templates/order/create-conversation.php:15 templates/shortcodes/form.php:35
+msgid "Subject"
+msgstr ""
+
+#: includes/views/html-admin-order-create-conversation.php:16
+#: includes/views/html-admin-order-create-conversation.php:21
+msgid "(required)"
+msgstr ""
+
+#: includes/views/html-admin-order-create-conversation.php:21
+#: templates/order/create-conversation.php:20 templates/shortcodes/form.php:40
+msgid "Description"
+msgstr ""
+
+#: includes/views/html-admin-order-create-conversation.php:28
+msgid "Start Conversation"
+msgstr ""
+
+#: node_modules/grunt-checktextdomain/test/expected/incorrect-domain-autocorrect.php:3
+#: node_modules/grunt-checktextdomain/test/expected/incorrect-domain-autocorrect.php:5
+#: node_modules/grunt-checktextdomain/test/expected/incorrect-domain-autocorrect.php:9
+#: node_modules/grunt-checktextdomain/test/expected/incorrect-domain-autocorrect.php:10
+#: node_modules/grunt-checktextdomain/test/expected/incorrect-domain-autocorrect.php:14
+#: node_modules/grunt-checktextdomain/test/expected/incorrect-domain-autocorrect.php:15
+#: node_modules/grunt-checktextdomain/test/expected/variable-domain-autocorrect.php:4
+#: node_modules/grunt-checktextdomain/test/expected/variable-domain-autocorrect.php:6
+#: node_modules/grunt-checktextdomain/test/expected/variable-domain-autocorrect.php:10
+#: node_modules/grunt-checktextdomain/test/expected/variable-domain-autocorrect.php:11
+#: node_modules/grunt-checktextdomain/test/expected/variable-domain-autocorrect.php:15
+#: node_modules/grunt-checktextdomain/test/expected/variable-domain-autocorrect.php:16
+#: node_modules/grunt-checktextdomain/test/fixtures/correct-domain.php:3
+#: node_modules/grunt-checktextdomain/test/fixtures/correct-domain.php:5
+#: node_modules/grunt-checktextdomain/test/fixtures/correct-domain.php:9
+#: node_modules/grunt-checktextdomain/test/fixtures/correct-domain.php:10
+#: node_modules/grunt-checktextdomain/test/fixtures/correct-domain.php:14
+#: node_modules/grunt-checktextdomain/test/fixtures/correct-domain.php:15
+#: node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain-autocorrect.php:3
+#: node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain-autocorrect.php:5
+#: node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain-autocorrect.php:9
+#: node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain-autocorrect.php:10
+#: node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain-autocorrect.php:14
+#: node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain-autocorrect.php:15
+#: node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain.php:3
+#: node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain.php:5
+#: node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain.php:9
+#: node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain.php:10
+#: node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain.php:14
+#: node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain.php:15
+#: node_modules/grunt-checktextdomain/test/fixtures/missing-domain.php:3
+#: node_modules/grunt-checktextdomain/test/fixtures/missing-domain.php:5
+#: node_modules/grunt-checktextdomain/test/fixtures/missing-domain.php:9
+#: node_modules/grunt-checktextdomain/test/fixtures/missing-domain.php:10
+#: node_modules/grunt-checktextdomain/test/fixtures/missing-domain.php:14
+#: node_modules/grunt-checktextdomain/test/fixtures/missing-domain.php:15
+#: node_modules/grunt-checktextdomain/test/fixtures/variable-domain-autocorrect.php:4
+#: node_modules/grunt-checktextdomain/test/fixtures/variable-domain-autocorrect.php:6
+#: node_modules/grunt-checktextdomain/test/fixtures/variable-domain-autocorrect.php:10
+#: node_modules/grunt-checktextdomain/test/fixtures/variable-domain-autocorrect.php:11
+#: node_modules/grunt-checktextdomain/test/fixtures/variable-domain-autocorrect.php:15
+#: node_modules/grunt-checktextdomain/test/fixtures/variable-domain-autocorrect.php:16
+msgid "Hello World"
+msgstr ""
+
+#: node_modules/grunt-checktextdomain/test/expected/incorrect-domain-autocorrect.php:4
+#: node_modules/grunt-checktextdomain/test/expected/incorrect-domain-autocorrect.php:6
+#: node_modules/grunt-checktextdomain/test/expected/incorrect-domain-autocorrect.php:11
+#: node_modules/grunt-checktextdomain/test/expected/incorrect-domain-autocorrect.php:16
+#: node_modules/grunt-checktextdomain/test/expected/variable-domain-autocorrect.php:5
+#: node_modules/grunt-checktextdomain/test/expected/variable-domain-autocorrect.php:7
+#: node_modules/grunt-checktextdomain/test/expected/variable-domain-autocorrect.php:12
+#: node_modules/grunt-checktextdomain/test/expected/variable-domain-autocorrect.php:17
+#: node_modules/grunt-checktextdomain/test/fixtures/correct-domain.php:4
+#: node_modules/grunt-checktextdomain/test/fixtures/correct-domain.php:6
+#: node_modules/grunt-checktextdomain/test/fixtures/correct-domain.php:11
+#: node_modules/grunt-checktextdomain/test/fixtures/correct-domain.php:16
+#: node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain-autocorrect.php:4
+#: node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain-autocorrect.php:6
+#: node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain-autocorrect.php:11
+#: node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain-autocorrect.php:16
+#: node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain.php:4
+#: node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain.php:6
+#: node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain.php:11
+#: node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain.php:16
+#: node_modules/grunt-checktextdomain/test/fixtures/missing-domain.php:4
+#: node_modules/grunt-checktextdomain/test/fixtures/missing-domain.php:6
+#: node_modules/grunt-checktextdomain/test/fixtures/missing-domain.php:11
+#: node_modules/grunt-checktextdomain/test/fixtures/missing-domain.php:16
+#: node_modules/grunt-checktextdomain/test/fixtures/variable-domain-autocorrect.php:5
+#: node_modules/grunt-checktextdomain/test/fixtures/variable-domain-autocorrect.php:7
+#: node_modules/grunt-checktextdomain/test/fixtures/variable-domain-autocorrect.php:12
+#: node_modules/grunt-checktextdomain/test/fixtures/variable-domain-autocorrect.php:17
+msgctxt "verb"
+msgid "Post"
+msgstr ""
+
+#: node_modules/grunt-checktextdomain/test/expected/incorrect-domain-autocorrect.php:20
+#: node_modules/grunt-checktextdomain/test/expected/incorrect-domain-autocorrect.php:24
+#: node_modules/grunt-checktextdomain/test/expected/variable-domain-autocorrect.php:21
+#: node_modules/grunt-checktextdomain/test/expected/variable-domain-autocorrect.php:25
+#: node_modules/grunt-checktextdomain/test/fixtures/correct-domain.php:20
+#: node_modules/grunt-checktextdomain/test/fixtures/correct-domain.php:24
+#: node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain-autocorrect.php:20
+#: node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain-autocorrect.php:24
+#: node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain.php:20
+#: node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain.php:24
+#: node_modules/grunt-checktextdomain/test/fixtures/missing-domain.php:20
+#: node_modules/grunt-checktextdomain/test/fixtures/missing-domain.php:24
+#: node_modules/grunt-checktextdomain/test/fixtures/plurals.php:3
+#: node_modules/grunt-checktextdomain/test/fixtures/plurals.php:8
+#: node_modules/grunt-checktextdomain/test/fixtures/plurals.php:15
+#: node_modules/grunt-checktextdomain/test/fixtures/variable-domain-autocorrect.php:21
+#: node_modules/grunt-checktextdomain/test/fixtures/variable-domain-autocorrect.php:25
+msgid "%d apple"
+msgid_plural "%d apples"
+msgstr[0] ""
+msgstr[1] ""
+
+#: node_modules/grunt-checktextdomain/test/expected/incorrect-domain-autocorrect.php:21
+#: node_modules/grunt-checktextdomain/test/expected/incorrect-domain-autocorrect.php:25
+#: node_modules/grunt-checktextdomain/test/expected/variable-domain-autocorrect.php:22
+#: node_modules/grunt-checktextdomain/test/expected/variable-domain-autocorrect.php:26
+#: node_modules/grunt-checktextdomain/test/fixtures/correct-domain.php:21
+#: node_modules/grunt-checktextdomain/test/fixtures/correct-domain.php:25
+#: node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain-autocorrect.php:21
+#: node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain-autocorrect.php:25
+#: node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain.php:21
+#: node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain.php:25
+#: node_modules/grunt-checktextdomain/test/fixtures/missing-domain.php:25
+#: node_modules/grunt-checktextdomain/test/fixtures/plurals.php:4
+#: node_modules/grunt-checktextdomain/test/fixtures/plurals.php:9
+#: node_modules/grunt-checktextdomain/test/fixtures/plurals.php:16
+#: node_modules/grunt-checktextdomain/test/fixtures/variable-domain-autocorrect.php:22
+#: node_modules/grunt-checktextdomain/test/fixtures/variable-domain-autocorrect.php:26
+msgctxt "noun, job positions"
+msgid "%d post"
+msgid_plural "%d posts"
+msgstr[0] ""
+msgstr[1] ""
+
+#: node_modules/grunt-wp-i18n/test/fixtures/basic-theme/exclude/file.php:3
+#: node_modules/grunt-wp-i18n/test/fixtures/plugin-include/plugin-include.php:6
+msgid "Exclude"
+msgstr ""
+
+#: node_modules/grunt-wp-i18n/test/fixtures/plugin-include/include/file.php:2
+msgid "Include"
+msgstr ""
+
+#: node_modules/grunt-wp-i18n/test/fixtures/text-domains/add-domain.php:2
+#: node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-all-domains.php:2
+#: node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-all-domains.php:3
+#: node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-all-domains.php:4
+#: node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-domains.php:2
+#: node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-domains.php:3
+msgid "String"
+msgstr ""
+
+#: node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-all-domains.php:6
+#: node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-all-domains.php:7
+#: node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-all-domains.php:8
+msgctxt "a string"
+msgid "String"
+msgstr ""
+
+#: node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-all-domains.php:9
+#: node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-all-domains.php:10
+#: node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-all-domains.php:11
+msgid "1 Star"
+msgid_plural "%s Stars"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: A single line translators comment.
+
+#: node_modules/grunt-wp-i18n/test/fixtures/translator-comments/translator-comments.php:7
+msgid "A"
+msgstr ""
+
+#. translators: A multiline translators comment.
+
+#: node_modules/grunt-wp-i18n/test/fixtures/translator-comments/translator-comments.php:15
+msgid "B"
+msgstr ""
+
+#: templates/myaccount/conversations.php:16
+msgid "Number"
+msgstr ""
+
+#: templates/myaccount/conversations.php:18
+msgid "Date"
+msgstr ""
+
+#: templates/myaccount/conversations.php:19
+msgid "Status"
+msgstr ""
+
+#: templates/myaccount/conversations.php:54
+msgid "View"
+msgstr ""
+
+#: templates/myaccount/conversations.php:62
+msgid "Previous"
+msgstr ""
+
+#: templates/myaccount/conversations.php:66
+msgid "Next"
+msgstr ""
+
+#: templates/myaccount/conversations.php:73
+msgid "You have no support conversations."
+msgstr ""
+
+#: templates/order/create-conversation.php:7
+msgid "Need Help?"
+msgstr ""
+
+#: templates/order/create-conversation.php:9
+msgid "Do you have a query about your order, or need a hand with getting your products set up? If so, please fill in the form below."
+msgstr ""
+
+#: templates/shortcodes/form.php:22
+msgid "Your Name"
+msgstr ""
+
+#: templates/shortcodes/form.php:27
+msgid "Your Email"
+msgstr ""
+
+#: woocommerce-help-scout.php:162
+msgid "WooCommerce Help Scout depends on the last version of %s to work!"
+msgstr ""
+
+#: woocommerce-help-scout.php:162
+msgid "WooCommerce"
+msgstr ""
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce Help Scout"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://woocommerce.com/products/woocommerce-help-scout/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "A Help Scout integration plugin for WooCommerce."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "WooCommerce"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://woocommerce.com"
+msgstr ""

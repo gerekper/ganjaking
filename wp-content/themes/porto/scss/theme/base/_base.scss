@@ -1,0 +1,56 @@
+html {
+    direction: $dir;
+    overflow-x: hidden;
+    box-shadow: none !important;
+    font-size: 16px;
+}
+
+body {
+    margin: 0;
+}
+
+.clear {
+    float: none;
+    clear: both;
+}
+
+.f-left, .pull-left {
+    float: $left;
+}
+.f-right, .pull-right {
+    float: $right;
+}
+.f-none {
+    float: none;
+}
+.hide, .sticky-header .d-sticky-header-none {
+    display: none !important;
+}
+
+.row:before, .row:after {
+    display: none;
+}
+
+.row-align-items-center .row {
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+/* Responsive */
+@media (max-width: 575px) {
+    body {
+        font-size: 13px;
+    }
+}
+
+a.nolink {
+    pointer-events: none;
+}
+
+[data-plugin-sticky] {
+    z-index: 8;
+}
+
+.z-index-1 {
+    z-index: 1;
+}

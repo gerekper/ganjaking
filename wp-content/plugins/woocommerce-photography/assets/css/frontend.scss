@@ -1,0 +1,133 @@
+@mixin clearfix {
+	&:after {
+		content: " ";
+		display: table;
+		clear: both;
+	}
+}
+
+.woocommerce,
+.woocommerce-page {
+
+	ul.products {
+		li.product-type-photography {
+			width: 48%;
+
+			&.last {
+				float: right;
+			}
+
+			.photography-image {
+				float: left;
+				width: 35%;
+
+				img {
+					width: 100%;
+					height: auto;
+				}
+			}
+
+			.photography-content {
+				width: 60%;
+				float: right;
+			}
+
+			.photography-sku,
+			.photography-quantity {
+				margin-bottom: 1em;
+			}
+
+			.photography-quantity {
+				@include clearfix();
+
+				.quantity {
+					margin: 0;
+				}
+			}
+		}
+	}
+
+	.photography-products {
+		.tools {
+			@include clearfix();
+			margin: 1em 0 1.618em;
+			padding: 1em 0;
+			border: 1px solid rgba(0,0,0,0.1);
+			border-width: 1px 0;
+
+			.button {
+				float: right;
+				max-width: 48%;
+			}
+
+			.global-quantity {
+				display: none;
+				width: 48%;
+				float: left;
+
+				.quantity {
+					display: inline-block;
+				}
+			}
+		}
+	}
+
+	.legacy-quantity {
+		.quantity {
+			input::-webkit-outer-spin-button,
+			input::-webkit-inner-spin-button {
+				display: none;
+			}
+		}
+	}
+
+	.photography-products-list {
+		@include clearfix();
+	}
+
+	.shop_table.my-account-collections {
+		img {
+			height: auto;
+			max-width: 60px;
+		}
+
+		.wc-actions {
+			text-align: right;
+		}
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.woocommerce,
+	.woocommerce-page {
+		ul.products {
+			li.product-type-photography {
+				width: 100%;
+
+				.photography-image {
+					float: left;
+					width: 35%;
+
+					img {
+						width: 100%;
+						height: auto;
+					}
+				}
+
+				.photography-content {
+				}
+			}
+		}
+
+		.shop_table.my-account-collections {
+			.wc-actions {
+				text-align: left !important;
+			}
+
+			td.cover-img:before,
+			td.wc-actions:before {
+				display: none !important;
+			}
+		}
+	}
+}

@@ -1,0 +1,147 @@
+/*
+ * Layout
+ */
+
+[v-cloak]{
+	display: none !important;
+}
+
+body, html {
+  margin:0px;
+  padding:0px;
+  height: 100%;
+}
+
+#seed-cspv5-customizer{
+  background:#fff;
+  position:fixed;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+  z-index:99999;
+  height: 100%;
+  overflow:hidden;
+}
+
+#seed-cspv5-sidebar-wrapper small {
+  font-size: 11px;
+}
+
+#seed-cspv5-customizer-wrapper{
+  height: 100%;
+}
+
+#seed-cspv5-sidebar-wrapper {
+  background-color: #fff;
+  z-index: 200;
+  left: 0px;
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  right: auto;
+  width:350px;
+  overflow-y: auto;
+  box-shadow: 5px 0px 8px rgba(0,0,0,0.2);
+ }
+
+#seed-cspv5-sidebar-actions{
+   background:#ccc;
+   padding:10px;
+ }
+
+#seed-cspv5-sidebar-form{
+  padding:10px;
+}
+
+ #seed-cspv5-preview-wrapper{
+  padding-left: 350px;
+  height: 100%;
+ }
+
+
+#seed-cspv5-preview {
+  overflow-y: scroll;
+  float: right;
+  height:100%;
+  width:100%
+ }
+
+ #seed-cspv5-ajax-status{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+  margin: auto;
+  display: none;
+  text-align:center;
+  padding-top:100px;
+}
+
+/*
+ * Errors
+ */
+
+.seed-cspv5-is-danger{
+  color: #F44336;
+}
+
+.input.seed-cspv5-is-danger{
+  border: 1px solid #F44336;
+}
+
+/*
+ * Image Preview
+ */
+ .img-preview{
+  position:relative;
+ }
+
+ .img-preview i{
+  vertical-align: top;
+ }
+
+ .img-preview img{
+    width:200px;
+    border:1px dotted rgba(70, 70, 70, 0.8);
+    padding:5px;
+    margin-top:10px;
+ }
+
+ /*
+  * Field Styles
+  */
+
+  .seed-cspv5-form-field label{
+    font-size:11px;
+    font-weight: bold;
+  }
+
+  .seed-cspv5-form-field{
+    margin-bottom:10px;
+  }
+
+  .sortable-ghost{
+    background:yellow;
+  }
+ 
+
+  #dragbar{
+    background-color: #ccc;
+    height: 100%;
+    width: 3px;
+    cursor: col-resize;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  .help{
+    display: block;
+    font-size:11px;
+  }
+  
+  
+

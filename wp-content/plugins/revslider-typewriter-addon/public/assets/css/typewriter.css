@@ -1,0 +1,18 @@
+rs-layer[data-typewriter]:after {
+	
+	position: absolute;
+	
+}
+
+rs-layer[data-typewriter-blinking]:after {
+	
+	position: static;
+	
+}
+
+@keyframes tp-typewriter {
+	
+	from {visibility: visible}
+	to {visibility: hidden}
+	
+}

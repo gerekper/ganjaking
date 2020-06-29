@@ -1,0 +1,154 @@
+# Copyright (C) 2020 WooCommerce
+# This file is distributed under the GPL v3.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Sales Report Email 1.1.14\n"
+"Report-Msgid-Bugs-To: "
+"https://wordpress.org/support/plugin/woocommerce-sales-report-email\n"
+"POT-Creation-Date: 2020-06-11 13:21:51+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: node-wp-i18n 1.2.3\n"
+
+#: classes/class-wc-sre-sales-report-email.php:20
+#: classes/class-wc-sre-settings.php:36
+msgid "Sales Reports"
+msgstr ""
+
+#: classes/class-wc-sre-sales-report-email.php:21
+msgid ""
+"The Sales Report Emails plugin extends WooCommerce by emailing you a daily, "
+"weekly or monthly sales report."
+msgstr ""
+
+#: classes/class-wc-sre-sales-report-email.php:53
+msgid "Sales Report of {site_title}"
+msgstr ""
+
+#: classes/class-wc-sre-sales-report-email.php:54
+msgid "Your {interval} report of {site_title}"
+msgstr ""
+
+#: classes/class-wc-sre-sales-report-email.php:263
+msgid "Enable/Disable"
+msgstr ""
+
+#: classes/class-wc-sre-sales-report-email.php:265
+msgid "Enable this email notification"
+msgstr ""
+
+#: classes/class-wc-sre-sales-report-email.php:269
+msgid "Recipients"
+msgstr ""
+
+#: classes/class-wc-sre-sales-report-email.php:271
+msgid "The email addresses reports are sent to, separated by commas."
+msgstr ""
+
+#: classes/class-wc-sre-sales-report-email.php:275
+msgid "Interval"
+msgstr ""
+
+#: classes/class-wc-sre-sales-report-email.php:278
+msgid "Daily"
+msgstr ""
+
+#: classes/class-wc-sre-sales-report-email.php:279
+msgid "Weekly"
+msgstr ""
+
+#: classes/class-wc-sre-sales-report-email.php:280
+msgid "Monthly"
+msgstr ""
+
+#: classes/class-wc-sre-sales-report-email.php:282
+msgid "The frequency of which reports should be sent."
+msgstr ""
+
+#: classes/class-wc-sre-sales-report-email.php:287
+msgid "Send Email At"
+msgstr ""
+
+#: classes/class-wc-sre-sales-report-email.php:289
+msgid ""
+"Choose the time of day to send out the sales report (based on the interval "
+"above)."
+msgstr ""
+
+#: classes/class-wc-sre-sales-report-email.php:295
+msgid "Email type"
+msgstr ""
+
+#: classes/class-wc-sre-sales-report-email.php:297
+msgid "Choose which format of email to send."
+msgstr ""
+
+#: classes/class-wc-sre-sales-report-email.php:301
+msgid "Plain text"
+msgstr ""
+
+#: classes/class-wc-sre-sales-report-email.php:302
+msgid "HTML"
+msgstr ""
+
+#: classes/class-wc-sre-sales-report-email.php:303
+msgid "Multipart"
+msgstr ""
+
+#: classes/rows/class-wc-sre-row-active-subscribers.php:18
+msgid "Active Subscribers"
+msgstr ""
+
+#: classes/rows/class-wc-sre-row-top-sellers.php:18
+msgid "Top Sellers"
+msgstr ""
+
+#: classes/rows/class-wc-sre-row-total-items.php:18
+msgid "Total Items"
+msgstr ""
+
+#: classes/rows/class-wc-sre-row-total-orders.php:18
+msgid "Total Orders"
+msgstr ""
+
+#: classes/rows/class-wc-sre-row-total-sales.php:18
+msgid "Sales in this period"
+msgstr ""
+
+#: classes/rows/class-wc-sre-row-total-sign-ups.php:18
+msgid "Total Sign Ups"
+msgstr ""
+
+#: templates/plain/sales-report.php:13 templates/sales-report.php:16
+msgid "Hi there. Please find your %s sales report below."
+msgstr ""
+
+#: woocommerce-sales-report-email.php:211
+msgid ""
+"Please install and activate %sWooCommerce%s for WooCommerce Sales Report "
+"Email to work!"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce Sales Report Email"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://www.woocommerce.com/products/woocommerce-sales-report-email/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Daily Sales Report Email"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "WooCommerce"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://www.woocommerce.com/"
+msgstr ""

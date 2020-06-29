@@ -1,0 +1,1071 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Coupon Referral Program 1.5.0\n"
+"POT-Creation-Date: 2020-04-10 18:27+0530\n"
+"PO-Revision-Date: 2020-04-10 18:28+0530\n"
+"Last-Translator: \n"
+"Language-Team: MakeWebBetter\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.6\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: _e;__;esc_html_e;esc_html__;esc_attr_e\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: admin/class-coupon-referral-program-admin.php:123
+#: admin/class-coupon-referral-program-admin.php:835
+msgid "Referrals"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:153
+msgid "General referrals "
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:159
+#: admin/class-coupon-referral-program-admin.php:584
+#: admin/class-coupon-referral-program-admin.php:624
+msgid "Enable/Disable "
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:160
+msgid "Enable/Disable coupon referral program "
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:166
+msgid "Enable discount coupon on referral purchase."
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:167
+msgid ""
+"Enable this setting for allow customer to get coupon on referral purchase "
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:173
+msgid "Referral key length"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:182
+msgid ""
+"Set the length for referral key. The minimum & maximum length a referral key "
+"can have are 7 & 10."
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:185
+msgid "Max. no. for referral orders"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:191
+msgid ""
+"Set the Maximum number of orders to get the discount on referral orders."
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:195
+msgid "Pop-up image"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:199
+msgid "Select the background image for your popup"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:200
+msgid "Upload"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:200
+msgid "Reset"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:203
+msgid "Set days to remember referrals"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:209
+msgid "After entred days referrals will not be treated as referred user."
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:218
+msgid "Coupon amount calculation on referral purchase"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:220
+msgid ""
+"The following options will be used for calculation of the referral purchase "
+"coupon amount."
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:221
+msgid "For Example:-"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:222
+msgid "1- If you select "
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:222
+msgid " “Referral purchase discount amount type” = Percentage"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:222
+msgid ""
+" and “Referral Purchase Discount” = 20. Now, the Referred customer has place "
+"order of amount $200 then a referral coupon amount will be 40(200*20%) up to "
+"“Referral purchase discount amount upto” value."
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:222
+msgid "2- If you select "
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:222
+msgid "“Referral purchase discount amount type” = Fixed"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:223
+msgid ""
+" and “Referral Purchase Discount” = 20. Then, no matter of order total, it "
+"will be 20.\n"
+"\t\t\t\t\t\tFor the coupon type(Fixed/Percentage) visit "
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:226
+msgid " Coupon configuration"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:226
+msgid " section."
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:230
+msgid "Referral purchase discount amount type"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:237
+#: admin/class-coupon-referral-program-admin.php:476
+#: admin/class-coupon-referral-program-admin.php:490
+#: admin/class-coupon-referral-program-admin.php:503
+msgid "Fixed"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:238
+#: admin/class-coupon-referral-program-admin.php:477
+#: admin/class-coupon-referral-program-admin.php:491
+#: admin/class-coupon-referral-program-admin.php:504
+msgid "Percentage"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:240
+msgid "Referral coupon amount will be calculate on the referral order total"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:241
+msgid ""
+"If you select the “Percentage” option then \"Referral purchase coupon amount"
+"\" will be calculated on the order total purchased by referred customers "
+"otherwise fixed amount coupon will be calculated. "
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:244
+msgid "Referral purchase discount amount upto"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:250
+msgid ""
+"Enter the maximum coupon amount limit when referral discount amount type is "
+"percentage,set 0 if you do not want to set limit."
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:251
+msgid ""
+"Set the max referral coupon value (max coupon amount) you want to provide to "
+"your customers when the referral customer purchase from your store."
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:251
+msgid ""
+"Note- If you don’t want to use “Referral discount amount upto” functionality "
+"then for this you have to set “Referral discount amount upto ” to 0."
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:254
+msgid "Referral purchase discount"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:260
+msgid ""
+"Enter the discount value you want to give your customers, who have referred "
+"other users on your site."
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:272
+#: admin/class-coupon-referral-program-admin.php:775
+msgid "Social sharing"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:277
+#: admin/class-coupon-referral-program-admin.php:278
+msgid "Enable/Disable social sharing"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:285
+msgid "Facebook"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:292
+msgid "Twitter"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:299
+msgid "Email"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:312
+#: admin/class-coupon-referral-program-admin.php:778
+msgid "Display configuration"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:317
+#: emails/class-coupon-referral-program-emails.php:125
+#: emails/class-coupon-referral-program-order-emails.php:125
+#: emails/class-coupon-referral-program-refree-discount-emails.php:125
+msgid "Enable/Disable"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:318
+msgid "Enable/Disable popup button"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:325
+msgid "Enable/Disable animation"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:326
+msgid "Enable this checkbox if you want animation over the referral button"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:333
+msgid "Button text"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:335
+msgid "Referral program"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:338
+msgid "Enter the text you want to display on the button."
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:342
+msgid "Button color"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:346
+msgid "Select the color you want to have on the button and on the popup"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:351
+msgid "Custom css"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:355
+msgid "Enter the css you want to apply on the button"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:359
+msgid "Select Position"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:363
+msgid "Use this shortcode [crp_popup_button] to display pop-up button."
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:364
+msgid ""
+"Select whether you want to display the Referral Button left, right, or want "
+"to use a shortcode.  If you select the shortcode [crp_popup_button] then the "
+"referral button will work only on the page you use this code. Note- If you "
+"select shortcode then Select Pages will not work plus you can’t change the "
+"position of the Button."
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:366
+msgid "Right Bottom"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:367
+msgid "Left Bottom"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:368
+msgid "Top Left"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:369
+msgid "Top Right"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:370
+msgid "shortcode"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:375
+msgid "Select pages"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:379
+msgid ""
+"Select the page where you want to display the button, leave blank if you "
+"want to display on all the pages."
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:383
+msgid "Use this shortcode for the referral link"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:385
+msgid ""
+"You can use the given shortcode anywhere you want, it will display the "
+"referral link of your customers"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:398
+#: admin/class-coupon-referral-program-admin.php:776
+msgid "Sign up discount"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:403
+#: admin/class-coupon-referral-program-admin.php:438
+msgid "Enable/Disable discount"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:404
+msgid "Enable/Disable discount coupon on sign up"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:405
+msgid "Enable this settings to give discount coupon for new user signup."
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:411
+msgid "Select users"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:416
+msgid "All users"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:417
+msgid "Only referred users"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:421
+msgid "Enter discount"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:424
+msgid "The value you enter will be set as discount coupon amount."
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:433
+#: admin/class-coupon-referral-program-admin.php:439
+msgid "Referral signup discount for referee"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:443
+msgid ""
+"By using this setting you can give the discount coupon for refree when "
+"referrrd user signup using referral link."
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:446
+msgid "Enter discount for refree"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:449
+msgid "The value you enter will be set as discount coupon amount for refree."
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:465
+msgid "Common coupon settings for both referral & sign up"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:470
+msgid "Referral Purchase Coupon type"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:479
+msgid "Select the type for your referral purchase discount coupon for refree."
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:480
+msgid "The referee will get the selected coupon type on the referral purchase."
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:484
+msgid "Signup Coupon type"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:493
+msgid ""
+"Select the type for your signup discount coupon which you want to offer for "
+"your customers."
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:494
+msgid "The customer will get the selected coupon type on the signup."
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:497
+msgid "Referral Coupon type"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:506
+msgid ""
+"Select the type for your signup discount coupon for refree when refferd user "
+"signup using refferd link."
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:507
+msgid "The referee will get the selected coupon type on the referral signup."
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:511
+msgid "Individual use of coupon"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:512
+msgid "Permit separate use of coupons"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:516
+msgid ""
+"Enable this checkbox if the coupon can’t be used in conjunction with other "
+"coupons"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:520
+msgid "Free shipping"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:521
+msgid "Permit free shipping on coupons"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:525
+msgid ""
+"Enable this checkbox, if the coupon permits free shipping to customers. "
+"Note: A free shipping method must be enabled in your shipping zone and must "
+"be set to “require a valid free shipping coupon\"."
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:528
+msgid "Enter coupon length"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:538
+msgid ""
+"Set the coupon length excluding the prefix.\n"
+"\t\t\t\t(The minimum length you can set is 5)"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:545
+msgid "Coupon expire after days"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:551
+msgid ""
+"Enter the days after which the coupon will get expire. Set the value to “1” "
+"if the coupon will expire in one-day And set the value to “0” if the coupon "
+"has no fix expiry date."
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:555
+msgid "No of time coupon can be use"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:560
+msgid "How many times the coupon can be used before it gets expired."
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:564
+msgid "Add prefix on coupon"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:569
+msgid "If you desire to add a prefix to your coupon, you can add here."
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:580
+msgid "Settings for the Points & Rewards"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:585
+msgid "Enable/Disable points instead of coupon"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:591
+msgid "Enter bonus points for  the reffral signup "
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:597
+msgid "Enter points for  reffral purchase"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:603
+msgid "Enter Referral signup points for referee"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:620
+msgid "Settings for the Woocommerce Subscriptions"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:625
+msgid ""
+"Enable/Disable coupon for the subscribers on their next recurring payment."
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:631
+msgid "Apply coupons"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:636
+msgid "All coupons"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:637
+msgid "Allow customer to choose"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:639
+msgid ""
+"Select the “All Coupons” option to employ all coupons or “Single Coupon” to "
+"employ a single coupon for the next recurring payment of the subscription."
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:650
+msgid "Connect with us and explore more about coupon referral program"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:653
+msgid "Documentation"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:654
+msgid "Contact us"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:656
+msgid "Chat now"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:774
+msgid "General referrals"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:777
+msgid "Coupon configuration"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:779
+msgid "Reports"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:784
+msgid "Points & Rewards"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:788
+msgid "Woocommerce subscriptions"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:793
+msgid "Help and support"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:838
+msgid "Users"
+msgstr ""
+
+#: admin/class-coupon-referral-program-admin.php:869
+msgid "CRP Reports"
+msgstr ""
+
+#: admin/partials/coupon-referral-program-admin-display-report.php:35
+msgid "User Name"
+msgstr ""
+
+#: admin/partials/coupon-referral-program-admin-display-report.php:36
+msgid "User Email"
+msgstr ""
+
+#: admin/partials/coupon-referral-program-admin-display-report.php:37
+#: admin/partials/coupon-referral-program-admin-display-report.php:240
+#: public/partials/coupon-referral-program-public-display.php:49
+msgid "Referred Users"
+msgstr ""
+
+#: admin/partials/coupon-referral-program-admin-display-report.php:38
+#: public/partials/coupon-referral-program-public-display.php:22
+msgid "Total Utilization"
+msgstr ""
+
+#: admin/partials/coupon-referral-program-admin-display-report.php:39
+msgid "No. Of Coupons"
+msgstr ""
+
+#: admin/partials/coupon-referral-program-admin-display-report.php:57
+msgid "View Details"
+msgstr ""
+
+#: admin/partials/coupon-referral-program-admin-display-report.php:236
+#: public/partials/coupon-referral-program-public-display.php:45
+msgid "Coupon "
+msgstr ""
+
+#: admin/partials/coupon-referral-program-admin-display-report.php:237
+#: public/partials/coupon-referral-program-public-display.php:46
+msgid "Coupon Created"
+msgstr ""
+
+#: admin/partials/coupon-referral-program-admin-display-report.php:238
+#: public/partials/coupon-referral-program-public-display.php:47
+msgid "Expiry Date"
+msgstr ""
+
+#: admin/partials/coupon-referral-program-admin-display-report.php:239
+#: public/partials/coupon-referral-program-public-display.php:48
+msgid "Event"
+msgstr ""
+
+#: admin/partials/coupon-referral-program-admin-display-report.php:262
+#: admin/partials/coupon-referral-program-admin-display-report.php:289
+#: admin/partials/coupon-referral-program-admin-display-report.php:316
+#: modal/referral_program_notify.php:44
+#: public/partials/coupon-referral-program-public-display.php:71
+#: public/partials/coupon-referral-program-public-display.php:97
+#: public/partials/coupon-referral-program-public-display.php:124
+msgid "Copy"
+msgstr ""
+
+#: admin/partials/coupon-referral-program-admin-display-report.php:263
+#: admin/partials/coupon-referral-program-admin-display-report.php:290
+#: admin/partials/coupon-referral-program-admin-display-report.php:317
+#: modal/referral_program_notify.php:45
+#: public/partials/coupon-referral-program-public-display.php:72
+#: public/partials/coupon-referral-program-public-display.php:98
+#: public/partials/coupon-referral-program-public-display.php:125
+msgid "Copied"
+msgstr ""
+
+#: admin/partials/coupon-referral-program-admin-display-report.php:270
+#: admin/partials/coupon-referral-program-admin-display-report.php:296
+#: admin/partials/coupon-referral-program-admin-display-report.php:323
+#: public/partials/coupon-referral-program-public-display.php:79
+#: public/partials/coupon-referral-program-public-display.php:105
+#: public/partials/coupon-referral-program-public-display.php:132
+msgid "Never"
+msgstr ""
+
+#: admin/partials/coupon-referral-program-admin-display-report.php:271
+#: public/partials/coupon-referral-program-public-display.php:80
+msgid "Signup Coupon"
+msgstr ""
+
+#: admin/partials/coupon-referral-program-admin-display-report.php:297
+#: public/partials/coupon-referral-program-public-display.php:106
+msgid "Referral Signup"
+msgstr ""
+
+#: admin/partials/coupon-referral-program-admin-display-report.php:298
+#: admin/partials/coupon-referral-program-admin-display-report.php:325
+#: public/partials/coupon-referral-program-public-display.php:107
+#: public/partials/coupon-referral-program-public-display.php:134
+msgid "User has been deleted"
+msgstr ""
+
+#: admin/partials/coupon-referral-program-admin-display-report.php:324
+#: public/partials/coupon-referral-program-public-display.php:133
+msgid "Referral Purchase"
+msgstr ""
+
+#: admin/partials/coupon-referral-program-admin-display-report.php:332
+msgid "No Coupons Or No Referred Users Yet"
+msgstr ""
+
+#: admin/partials/coupon-referral-program-admin-display-report.php:340
+msgid "Go Back"
+msgstr ""
+
+#: admin/partials/coupon-referral-program-admin-display-report.php:352
+msgid "Search Users"
+msgstr ""
+
+#: coupon-referral-program.php:94
+msgid "Welcome to Coupon Referral Program –"
+msgstr ""
+
+#: coupon-referral-program.php:94
+msgid " To get started, enable the plugin on the"
+msgstr ""
+
+#: coupon-referral-program.php:94
+msgid "settings page"
+msgstr ""
+
+#: coupon-referral-program.php:95
+msgid "Go to Settings"
+msgstr ""
+
+#: coupon-referral-program.php:139
+msgid "Settings"
+msgstr ""
+
+#: coupon-referral-program.php:155
+msgid "Signup Yourself and Get Discount Coupon of "
+msgstr ""
+
+#: coupon-referral-program.php:276
+msgid ""
+"WooCommerce is not activated, Please activate WooCommerce first to activate "
+"Coupon Referral Program."
+msgstr ""
+
+#: emails/class-coupon-referral-program-emails.php:15
+msgid "Sign up discount coupon"
+msgstr ""
+
+#: emails/class-coupon-referral-program-emails.php:17
+msgid ""
+"This coupon is sent to those customers who create their account on your site "
+"via a referred user."
+msgstr ""
+
+#: emails/class-coupon-referral-program-emails.php:39
+msgid "Signup Discount Coupon {site_title}"
+msgstr ""
+
+#: emails/class-coupon-referral-program-emails.php:49
+msgid "Thank You for your Registration"
+msgstr ""
+
+#: emails/class-coupon-referral-program-emails.php:127
+#: emails/class-coupon-referral-program-order-emails.php:127
+#: emails/class-coupon-referral-program-refree-discount-emails.php:127
+msgid "Enable this email notification"
+msgstr ""
+
+#: emails/class-coupon-referral-program-emails.php:131
+#: emails/class-coupon-referral-program-order-emails.php:131
+#: emails/class-coupon-referral-program-refree-discount-emails.php:131
+msgid "Subject"
+msgstr ""
+
+#: emails/class-coupon-referral-program-emails.php:135
+#: emails/class-coupon-referral-program-emails.php:144
+#: emails/class-coupon-referral-program-order-emails.php:135
+#: emails/class-coupon-referral-program-order-emails.php:144
+#: emails/class-coupon-referral-program-refree-discount-emails.php:135
+#: emails/class-coupon-referral-program-refree-discount-emails.php:144
+#, php-format
+msgid "Available placeholders: %s"
+msgstr ""
+
+#: emails/class-coupon-referral-program-emails.php:140
+#: emails/class-coupon-referral-program-order-emails.php:140
+#: emails/class-coupon-referral-program-refree-discount-emails.php:140
+msgid "Email heading"
+msgstr ""
+
+#: emails/class-coupon-referral-program-emails.php:149
+#: emails/class-coupon-referral-program-order-emails.php:149
+#: emails/class-coupon-referral-program-refree-discount-emails.php:149
+msgid "Email type"
+msgstr ""
+
+#: emails/class-coupon-referral-program-emails.php:151
+#: emails/class-coupon-referral-program-order-emails.php:151
+#: emails/class-coupon-referral-program-refree-discount-emails.php:151
+msgid "Choose which format of email to send."
+msgstr ""
+
+#: emails/class-coupon-referral-program-order-emails.php:15
+msgid "Order discount coupon"
+msgstr ""
+
+#: emails/class-coupon-referral-program-order-emails.php:17
+msgid ""
+"This email will be sent to those customers through which another user "
+"visited & made a purchase on your site."
+msgstr ""
+
+#: emails/class-coupon-referral-program-order-emails.php:39
+msgid "Referral Order Discount Coupon Email {site_title}"
+msgstr ""
+
+#: emails/class-coupon-referral-program-order-emails.php:49
+msgid "Grab Referral Discount."
+msgstr ""
+
+#: emails/class-coupon-referral-program-refree-discount-emails.php:15
+msgid "Signup discount for referee"
+msgstr ""
+
+#: emails/class-coupon-referral-program-refree-discount-emails.php:17
+msgid ""
+"This coupon is sent to refree who share the referal link to other and then "
+"refferd user signup using this link ."
+msgstr ""
+
+#: emails/class-coupon-referral-program-refree-discount-emails.php:39
+msgid "Refree Signup Discount Coupon {site_title}"
+msgstr ""
+
+#: emails/class-coupon-referral-program-refree-discount-emails.php:49
+msgid "Congratulation! You have received discount coupon on referral signup"
+msgstr ""
+
+#: emails/templates/crp_email_refree_template.php:21
+#: emails/templates/plain/crp_email_refree_template.php:17
+msgid ""
+"Congratulation! You have received discount coupon, Below is your Coupon "
+"Details. "
+msgstr ""
+
+#: emails/templates/crp_email_refree_template.php:58
+#: emails/templates/crp_email_template.php:58
+#: emails/templates/crp_order_email_template.php:62
+#: emails/templates/plain/crp_email_refree_template.php:54
+#: emails/templates/plain/crp_email_template.php:54
+#: emails/templates/plain/crp_order_email_template.php:54
+msgid "Exp Date:"
+msgstr ""
+
+#: emails/templates/crp_email_template.php:21
+#: emails/templates/plain/crp_email_template.php:17
+msgid "Thanks for creating an account, Below is your Coupon Details. "
+msgstr ""
+
+#: emails/templates/crp_order_email_template.php:25
+#: emails/templates/plain/crp_order_email_template.php:17
+msgid "Congratulation! You have unlocked a discount."
+msgstr ""
+
+#: modal/apply_coupon_on_subscriptions.php:16
+msgid "Available Coupon"
+msgstr ""
+
+#: modal/apply_coupon_on_subscriptions.php:24
+#: modal/referral_program_notify.php:136
+msgid "Close"
+msgstr ""
+
+#: modal/referral_program_notify.php:23
+msgid "Invite & Earn"
+msgstr ""
+
+#: modal/referral_program_notify.php:36
+#: public/class-coupon-referral-program-public.php:1295
+msgid "Referral Link: "
+msgstr ""
+
+#: modal/referral_program_notify.php:55
+msgid "Steps to Earn More"
+msgstr ""
+
+#: modal/referral_program_notify.php:64
+msgid "1. Copy & Share Your Link"
+msgstr ""
+
+#: modal/referral_program_notify.php:65
+msgid "2. Your friends can register via your link"
+msgstr ""
+
+#: modal/referral_program_notify.php:69
+msgid "3. You will get the fixed discount coupon of  "
+msgstr ""
+
+#: modal/referral_program_notify.php:69
+msgid " on the referral purchase."
+msgstr ""
+
+#: modal/referral_program_notify.php:73
+msgid "3. You will get the fixed discount coupon, "
+msgstr ""
+
+#: modal/referral_program_notify.php:73 modal/referral_program_notify.php:83
+msgid " of the referral order"
+msgstr ""
+
+#: modal/referral_program_notify.php:78
+msgid "3. You will get "
+msgstr ""
+
+#: modal/referral_program_notify.php:78
+msgid " coupon on the referral order purchase."
+msgstr ""
+
+#: modal/referral_program_notify.php:83
+msgid "3. You will get percentage coupon, "
+msgstr ""
+
+#: modal/referral_program_notify.php:87 modal/referral_program_notify.php:103
+msgid "4. Your friend will also get a "
+msgstr ""
+
+#: modal/referral_program_notify.php:87
+msgid " discount coupon in return on Signup"
+msgstr ""
+
+#: modal/referral_program_notify.php:91
+msgid "5. You will also get a "
+msgstr ""
+
+#: modal/referral_program_notify.php:91 modal/referral_program_notify.php:96
+msgid " discount coupon on referral signup"
+msgstr ""
+
+#: modal/referral_program_notify.php:96
+msgid "4. You will also get a "
+msgstr ""
+
+#: modal/referral_program_notify.php:101
+msgid "3. You will get the "
+msgstr ""
+
+#: modal/referral_program_notify.php:101 modal/referral_program_notify.php:103
+#: modal/referral_program_notify.php:105
+msgid "points"
+msgstr ""
+
+#: modal/referral_program_notify.php:101
+msgid " on the referral order."
+msgstr ""
+
+#: modal/referral_program_notify.php:103
+msgid " bonus in return on Signup"
+msgstr ""
+
+#: modal/referral_program_notify.php:105
+msgid "5. You will also get the "
+msgstr ""
+
+#: modal/referral_program_notify.php:105
+msgid " on referral signup"
+msgstr ""
+
+#: modal/referral_program_notify.php:126
+msgid "Signup to start sharing your link"
+msgstr ""
+
+#: modal/referral_program_notify.php:129
+msgid "Signup"
+msgstr ""
+
+#: public/class-coupon-referral-program-public.php:144
+msgid "Showing page _PAGE_ of _PAGES_"
+msgstr ""
+
+#: public/class-coupon-referral-program-public.php:145
+msgid "No records available"
+msgstr ""
+
+#: public/class-coupon-referral-program-public.php:146
+msgid "Nothing found"
+msgstr ""
+
+#: public/class-coupon-referral-program-public.php:147
+msgid "Display _MENU_ Entries"
+msgstr ""
+
+#: public/class-coupon-referral-program-public.php:148
+msgid "(filtered from _MAX_ total records)"
+msgstr ""
+
+#: public/class-coupon-referral-program-public.php:149
+msgid "Search"
+msgstr ""
+
+#: public/class-coupon-referral-program-public.php:150
+msgid "Previous"
+msgstr ""
+
+#: public/class-coupon-referral-program-public.php:151
+msgid "Next"
+msgstr ""
+
+#: public/class-coupon-referral-program-public.php:154
+#: public/class-coupon-referral-program-public.php:156
+#: public/class-coupon-referral-program-public.php:1719
+#: public/class-coupon-referral-program-public.php:1729
+msgid "Apply"
+msgstr ""
+
+#: public/class-coupon-referral-program-public.php:155
+#: public/class-coupon-referral-program-public.php:1724
+msgid "Remove"
+msgstr ""
+
+#: public/class-coupon-referral-program-public.php:431
+#: public/class-coupon-referral-program-public.php:536
+#: public/class-coupon-referral-program-public.php:1049
+msgid "No Expiry"
+msgstr ""
+
+#: public/class-coupon-referral-program-public.php:872
+msgid "Discount Coupon on Signup"
+msgstr ""
+
+#: public/class-coupon-referral-program-public.php:961
+msgid "Tweet"
+msgstr ""
+
+#: public/class-coupon-referral-program-public.php:971
+msgid "Share"
+msgstr ""
+
+#: public/class-coupon-referral-program-public.php:1231
+#: public/class-coupon-referral-program-public.php:1234
+msgid " upto "
+msgstr ""
+
+#: public/class-coupon-referral-program-public.php:1294
+msgid "Refer your friends and you’ll earn discounts on their purchases"
+msgstr ""
+
+#: public/class-coupon-referral-program-public.php:1410
+#, php-format
+msgid "%s earned for refrral-order-purchase "
+msgstr ""
+
+#: public/class-coupon-referral-program-public.php:1411
+#, php-format
+msgid "%s earned for reffral acount signup"
+msgstr ""
+
+#: public/class-coupon-referral-program-public.php:1412
+#, php-format
+msgid "%s earned for referral signup points for referee"
+msgstr ""
+
+#: public/class-coupon-referral-program-public.php:1433
+msgid "Referral coupons"
+msgstr ""
+
+#: public/class-coupon-referral-program-public.php:1687
+msgid "No available Coupons"
+msgstr ""
+
+#: public/class-coupon-referral-program-public.php:1708
+msgid "No-Expiry"
+msgstr ""
+
+#: public/partials/coupon-referral-program-public-display.php:29
+msgid "Total Referred Users"
+msgstr ""
+
+#: public/partials/coupon-referral-program-public-display.php:36
+msgid "Total Coupons"
+msgstr ""

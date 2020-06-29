@@ -1,0 +1,46 @@
+.yith_wc_gift_card_blank_brightness {
+    background: rgba(255, 255, 255, 0.7);
+    position: absolute;
+    height: 70%;
+    width: 96%;
+    z-index: 1;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    padding: 10px 0 10px 0;
+    top: -1px;
+    left: -1px;
+}
+
+.yith_wc_gift_card_blank_brightness_hidden{
+    display: none;
+}
+
+.yith-plugin-fw span.yith_wc_gift_card_admin_menu_additional_description{
+    display: block;
+    font-size: 12px;
+    color: #777;
+    font-style: italic;
+    clear: both;
+    height: 0;
+}
+
+.yith-plugin-fw span.yith_wc_gift_card_admin_menu_additional_description_margin_top{
+    margin-top: -18px;
+}
+
+.yith-plugin-fw span.yith_wc_gift_card_admin_menu_additional_description_margin_higher_top{
+    margin-top: -26px;
+}
+
+#ywgc_gift_this_product_email_button{
+    display: none;
+}
+
+.yith_wc_gift_card_admin_menu_red_note{
+    color: red;
+}
+
+.ywgc-disabled-option{
+    display: none;
+}

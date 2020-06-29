@@ -1,0 +1,207 @@
+/*#####################
+ DIALOG BOX
+######################*/
+body.yith-plugins_page_ywccp_panel .ui-dialog-titlebar {
+    border: none;
+    background: #fff;
+    border-bottom: 1px solid #f0f0f0;
+    border-radius: 0;
+}
+
+#ywccp_field_add_edit_form table,
+#ywccp_field_add_edit_form table input[type="text"]{
+    width: 100%;
+}
+body.yith-plugins_page_ywccp_panel .ui-dialog-titlebar-close:before {
+    display: none;
+}
+
+#ywccp_checkout_fields {
+    table-layout: fixed;
+}
+/*##########################
+EDIT ORDER PAGE
+###########################*/
+#order_data .order_data_column .edit_address .form-field {
+    width: 46%;
+    margin: 8px 2%;
+    float: none;
+    display: inline-block;
+    vertical-align: bottom;
+}
+#order_data .order_data_column .edit_address .form-field._billing_company_field,
+#order_data .order_data_column .edit_address .form-field.form-field-wide,
+#order_data .order_data_column .edit_address .form-field._transaction_id_field {
+    width: 96%;
+}
+#order_data .order_data_column .edit_address .form-field input[type="checkbox"] {
+    width: auto;
+}
+
+.field_condition_input_name {
+    max-width: 250px!important;
+}
+
+#ywccp-submenu {
+    margin: 20px 0;
+}
+#ywccp-submenu:after,
+#ywccp-submenu:before {
+    content: '';
+    clear: both;
+    display: table;
+}
+#ywccp-add-field {
+    margin: 20px 0;
+    padding: 20px;
+    background-color: #ebebeb;
+    display: inline-block;
+    border: 1px solid #e0e0e0;
+}
+#ywccp-add-field h4 {
+    margin: 0 0 10px;
+    text-transform: uppercase;
+}
+#ywccp-add-field label {
+    display: block;
+    margin-bottom: 10px;
+}
+#ywccp-add-field input[type="text"] {
+    width: 300px;
+}
+#ywccp_checkout_fields_form {
+    margin-bottom: 30px;
+}
+#ywccp_checkout_fields_form input[type="submit"].button-primary {
+    margin-top: 30px;
+}
+#ywccp_checkout_fields .ui-sortable-handle {
+    cursor: grab;
+}
+#ywccp_checkout_fields .td_field_action {
+    text-align: center;
+}
+#ywccp_checkout_fields tr.disabled-row td:not( .td_field_action ) {
+    opacity: 0.3;
+}
+#ywccp_checkout_fields tr.disabled-row .td_field_action .edit_field {
+    display: none;
+}
+#ywccp_checkout_fields tr:not( .is_custom ) .td_field_action .remove_field {
+    display: none;
+}
+#ywccp-add-field input.required,
+#ywccp-add-field input.field-exists {
+    border: 1px solid rgba( 253, 76, 76, 1 );
+    -webkit-box-shadow: 2px 1px 10px 1px rgba( 253, 76, 76, 0.5 );
+    -moz-box-shadow: 2px 1px 10px 1px rgba( 253, 76, 76, 0.5 );
+    box-shadow: 2px 1px 10px 1px rgba( 253, 76, 76, 0.5 );
+}
+
+#ywccp_checkout_fields .td_field_action button {
+    margin: 5px;
+}
+
+#ywccp_panel_general input.colorpick {
+    width: 6em;
+}
+
+#ywccp_field_add_edit_form table.wrap-conditions{
+    margin-top: 30px;
+}
+
+#ywccp_field_add_edit_form table.wrap-conditions .ywccp-tooltip {
+    position: absolute;
+    width: 250px;
+    bottom: 30px;
+    background-color: rgba(0,0,0,0.8);
+    z-index: 100;
+    left: 50%;
+    margin-left: -125px;
+    color: #fff;
+    padding: 15px;
+    text-align: left;
+    opacity: 0;
+    -webkit-transition: all 1s; /* Safari prior 6.1 */
+    transition: all 1s;
+    pointer-events: none;
+}
+
+#ywccp_field_add_edit_form table.wrap-conditions .required .ywccp-tooltip{
+    left: auto;
+    right: -50px;
+}
+
+#ywccp_field_add_edit_form table.wrap-conditions th:hover .ywccp-tooltip{
+    opacity: 1;
+}
+
+#ywccp_field_add_edit_form table.wrap-conditions th {
+    position: relative;
+}
+
+#ywccp_field_add_edit_form table.wrap-conditions .ywccp-tooltip ul {list-style-type: square;padding-left: 15px;}
+
+#ywccp_field_add_edit_form table.wrap-conditions th{
+    vertical-align: top;
+}
+
+#ywccp_field_add_edit_form table.wrap-conditions .wrap-plus-remove{
+    width: 60px;
+}
+
+#ywccp_field_add_edit_form table.wrap-conditions button{
+    display: inline-block;
+    float: left;
+    border: none;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    opacity: 0.5;
+    margin-right: 10px;
+}
+
+#ywccp_field_add_edit_form table.wrap-conditions button:focus {outline:0;}
+
+#ywccp_field_add_edit_form table.wrap-conditions button.add-new{
+    background: url(../images/add_row.png)
+}
+
+#ywccp_field_add_edit_form table.wrap-conditions button.remove{
+    background: url(../images/remove_row.png)
+}
+
+#ywccp_field_add_edit_form .condition-field.disabled{
+    background: grey;
+    pointer-events: none;
+}
+
+#ywccp_field_add_edit_form label[for=field_required] small{
+    display: block;
+    font-size: 10px;
+}
+
+#ywccp_field_add_edit_form td.condition-required{
+    text-align: center;
+}
+
+#ywccp_field_add_edit_form td.condition-required input {
+    height: 27px;
+    width: 27px;
+}
+
+#ywccp_field_add_edit_form td.condition-required input:before {width: 30px!important;}
+
+
+
+/** RESPONSIVE **/
+
+@media( max-width: 768px ) {
+    #ywccp_checkout_fields td:not(.is_responsive),
+    #ywccp_checkout_fields th:not(.is_responsive) {
+        display: none;
+    }
+    #ywccp_checkout_fields th.actions {
+        text-align: center;
+    }
+}

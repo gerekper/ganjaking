@@ -1,0 +1,57 @@
+/*----------------------------------------------------------------------------*\
+	DIVIDER SHORTCODE
+\*----------------------------------------------------------------------------*/
+.mpc-divider {
+	position: relative;
+	display: table;
+	width: 100%;
+
+	&.mpc-align--left {
+		margin-left: 0 !important;
+		margin-right: auto !important;
+	}
+	&.mpc-align--center {
+		margin-left: auto !important;
+		margin-right: auto !important;
+	}
+	&.mpc-align--right {
+		margin-left: auto !important;
+		margin-right: 0 !important;
+	}
+}
+
+.mpc-divider__line {
+	display: table-cell;
+	width: 50%;
+	vertical-align: middle;
+
+	.mpc-disable--left &.mpc-side--left {
+		display: none;
+	}
+	.mpc-disable--right &.mpc-side--right {
+		display: none;
+	}
+
+	> span {
+		border-color: transparent;
+		display: block;
+
+		&:first-child {
+			margin-top: 0 !important;
+		}
+	}
+}
+
+.mpc-divider__separator {
+	display: table-cell;
+}
+
+.mpc-divider .mpc-divider__content {
+	display: block;
+	padding: 0 10px;
+	white-space: nowrap;
+
+	img {
+		max-width: none;
+	}
+}

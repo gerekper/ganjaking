@@ -1,0 +1,10 @@
+<wpml-config>
+	<admin-texts>
+        <key name="woocommerce_pdf_invoice_settings">
+			<key name="pdf_company_name" />
+			<key name="pdf_company_details" />
+			<key name="pdf_registered_name" />
+			<key name="pdf_registered_address" />
+		</key>
+	</admin-texts>
+</wpml-config>

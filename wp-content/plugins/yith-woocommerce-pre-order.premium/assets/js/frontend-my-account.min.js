@@ -1,0 +1,1 @@
+!function(a){a(document).ready(function(a){a("div.preorder-my-account").each(function(){var b=parseInt(a(this).data("time")),c=new Date(0);c.setUTCSeconds(b);var d=c.toLocaleTimeString();d=d.slice(0,-3),a(this).find(".preorder-date").text(c.toLocaleDateString()),a(this).find(".preorder-time").text(d)})})}(jQuery);

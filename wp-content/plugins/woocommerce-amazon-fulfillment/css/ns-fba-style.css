@@ -1,0 +1,201 @@
+.widefat .column-order_status mark.on-hold:after, 
+.widefat .column-order_status mark.pending:after,
+.widefat .column-order_status mark.completed:after, 
+.widefat .column-order_status mark.cancelled:after, 
+.widefat .column-order_status mark.processing:after {
+	font-size: 2em;
+ }
+ 
+/* Processing Ellipsis */
+.widefat .column-order_status mark.processing:after {
+	color: #2529d7;
+}
+
+/* On-Hold Dash */
+.widefat .column-order_status mark.on-hold:after {
+	color: #555555;
+}
+
+/* Cancelled X */
+.widefat .column-order_status mark.cancelled:after {
+	color: #d72525;
+}
+
+/* Completed Checkmark */
+.widefat .column-order_status mark.completed:after {
+	color: #32d725;
+}
+
+/* Custom sent-to-fba Arrow Circle */
+.widefat .column-order_status mark.sent-to-fba:after {
+	font-family: WooCommerce;
+	speak: none;
+	font-weight: 400;
+	font-variant: normal;
+	font-size: 2em;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	margin: 0;
+	text-indent: 0;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	color: #3333ff;
+	content: "\e008";
+}
+
+/* Custom part-to-fba Exclamation Circle */
+.widefat .column-order_status mark.part-to-fba:after {
+	font-family: WooCommerce;
+	speak: none;
+	font-weight: 400;
+	font-variant: normal;
+	font-size: 2em;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	margin: 0;
+	text-indent: 0;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	color: #ff8800;
+	content: "\e033";
+}
+
+/* Custom fail-to-fba Exclamation Circle */
+.widefat .column-order_status mark.fail-to-fba:after {
+	font-family: WooCommerce;
+	speak: none;
+	font-weight: 400;
+	font-variant: normal;
+	font-size: 2em;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	margin: 0;
+	text-indent: 0;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	color: #aa0000;
+	content: "\e016";
+}
+
+/** settings **/
+	
+.form-table th {
+	padding: 15px 5px;
+}
+
+.form-table td {
+	padding: 0px 5px;
+} 
+
+/** custom column and fba status per product switch on/off **/
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 71px;
+  height: 34px;
+}
+
+.switch input {display:none;}
+
+.slider {
+  min-width: 19px;
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-color: #1f7db1;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 37px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2a9bd9;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+.slider.round {
+  border-radius: 5px;
+}
+
+.slider.round:before {
+  border-radius: 3px;
+}
+
+.slider .switch-on {
+  color: #fff;
+  text-shadow: #1f7db1 0 1px 0;
+}
+
+.switch span {
+  display: inline-block;
+  float: left;
+  text-align: center;
+  font-size: 13px;
+  line-height: 22px;
+  padding: 5px 8px;
+  min-width: 15px;
+}
+
+/* Ajax messages */
+
+input + span.ns-fba-error-label {
+	color: #dd2900;
+    font-size: 13px;
+    padding: 0 1em;
+}
+
+input + span.ns-fba-success-label {
+	color: #00990c;
+    font-size: 13px;
+    padding: 0 1em;
+}
+
+input + span.ns-fba-error-label u,
+input + span.ns-fba-success-label u {
+	cursor: pointer;
+}
+
+input[type=submit][name^=ns_fba] + .spinner {
+	float: none;
+	margin-top: -6px;
+}

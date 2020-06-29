@@ -1,0 +1,535 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH Deals for WooCommerce\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/init\n"
+"POT-Creation-Date: 2019-12-11 10:34:04+00:00\n"
+"PO-Revision-Date: 2020-03-07 16:24+0100\n"
+"Last-Translator: \n"
+"Language-Team: YITH <plugins@yithemes.com>\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.3\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e;_n:1,2;__ngettext:1,2;"
+"__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;"
+"_nx_noop:4c,1,2\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=n!=1;\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: plugin-fw\n"
+
+#: includes/class.yith-wcdls-admin.php:132
+msgid "Settings"
+msgstr "Impostazioni"
+
+#: includes/class.yith-wcdls-admin.php:133
+#: includes/class.yith-wcdls-offer.php:93
+#: includes/class.yith-wcdls-offer.php:94
+#: includes/class.yith-wcdls-offer.php:111
+#: includes/table-list/class.yith-wcdls-list.php:30
+#: templates/admin/wcdls-deals-tab.php:15
+msgid "Deals"
+msgstr "Offerte"
+
+#: includes/class.yith-wcdls-admin.php:138
+msgid "Premium Version"
+msgstr "Versione premium"
+
+#: includes/class.yith-wcdls-admin.php:204
+msgid "Plugin documentation"
+msgstr "Documentazione plugin"
+
+#: includes/class.yith-wcdls-admin.php:208
+msgid "Help Center"
+msgstr "Centro assistenza"
+
+#: includes/class.yith-wcdls-admin.php:212
+msgid "Support platform"
+msgstr "Piattaforma di assistenza"
+
+#: includes/class.yith-wcdls-admin.php:216
+msgid "Changelog"
+msgstr "Changelog"
+
+#: includes/class.yith-wcdls-admin.php:216
+msgid "current version"
+msgstr "versione corrente"
+
+#: includes/class.yith-wcdls-deals-shortcode.php:55
+msgid "Accept offer"
+msgstr "Accetta l'offerta"
+
+#: includes/class.yith-wcdls-deals-shortcode.php:70
+msgid "Decline offer"
+msgstr "Rifiuta l'offerta"
+
+#: includes/class.yith-wcdls-offer.php:95
+#: includes/class.yith-wcdls-offer.php:96
+msgid "Add new offer"
+msgstr "Aggiungi nuova offerta"
+
+#: includes/class.yith-wcdls-offer.php:97
+#: includes/table-list/class.yith-wcdls-list.php:251
+msgid "Edit"
+msgstr "Modifica"
+
+#: includes/class.yith-wcdls-offer.php:98
+msgid "Edit Offer"
+msgstr "Modifica offerta"
+
+#: includes/class.yith-wcdls-offer.php:99
+msgid "New Offer"
+msgstr "Nuova offerta"
+
+#: includes/class.yith-wcdls-offer.php:100
+#: includes/class.yith-wcdls-offer.php:101
+msgid "View Offer"
+msgstr "Vedi offerta"
+
+#: includes/class.yith-wcdls-offer.php:102
+msgid "Search Offers"
+msgstr "Cerca offerte"
+
+#: includes/class.yith-wcdls-offer.php:103
+msgid "No Offers found"
+msgstr "Nessuna offerta trovata"
+
+#: includes/class.yith-wcdls-offer.php:104
+msgid "No Offers found in trash"
+msgstr "Nessuna offerta trovata nel cestino"
+
+#: includes/class.yith-wcdls-offer.php:105
+msgid "Parent Offers"
+msgstr "Offerte genitore"
+
+#: includes/class.yith-wcdls-offer.php:106
+msgctxt "Admin menu name"
+msgid "YITH Offers"
+msgstr "YITH Offers"
+
+#: includes/class.yith-wcdls-offer.php:107
+msgid "All YITH Offers"
+msgstr "Tutte le offerte YITH"
+
+#: includes/class.yith-wcdls-offer.php:113
+msgid "This is where deals are stored."
+msgstr "Qui vengono salvate le offerte."
+
+#: includes/class.yith-wcdls-offer.php:140
+msgid "Offer settings"
+msgstr "Impostazioni offerte"
+
+#: includes/class.yith-wcdls-offer.php:196
+msgid "Back to Deals list"
+msgstr "Torna all'elenco di tutte le offerte"
+
+#: includes/functions.yith-wcdls-premium.php:5
+msgid "Restriction by:"
+msgstr "Limita a:"
+
+#: includes/functions.yith-wcdls-premium.php:6
+msgid "Category"
+msgstr "Categoria"
+
+#: includes/functions.yith-wcdls-premium.php:7
+msgid "Tag"
+msgstr "Tag"
+
+#: includes/functions.yith-wcdls-premium.php:8
+msgid "Product"
+msgstr "Prodotto"
+
+#: includes/functions.yith-wcdls-premium.php:9
+msgid "Cart total"
+msgstr "Totale carrello"
+
+#: includes/functions.yith-wcdls-premium.php:10
+msgid "Geolocalization"
+msgstr "Geolocalizzazione"
+
+#: includes/functions.yith-wcdls-premium.php:11
+msgid "Role"
+msgstr "Ruolo"
+
+#: includes/functions.yith-wcdls-premium.php:12
+msgid "User"
+msgstr "Utente"
+
+#: includes/functions.yith-wcdls-premium.php:82
+msgid "None"
+msgstr "Nessuno"
+
+#: includes/functions.yith-wcdls-premium.php:86
+msgid "Product discount"
+msgstr "Sconto prodotto"
+
+#: includes/functions.yith-wcdls-premium.php:88
+msgid "Fixed product discount"
+msgstr "Sconto di importo fisso"
+
+#: includes/functions.yith-wcdls-premium.php:89
+msgid "Percentage product discount"
+msgstr "Sconto percentuale"
+
+#: includes/functions.yith-wcdls-premium.php:90
+msgid "Fixed product price"
+msgstr "Prezzo fisso"
+
+#: includes/functions.yith-wcdls-premium.php:100
+msgid "Forever"
+msgstr "Per sempre"
+
+#: includes/functions.yith-wcdls-premium.php:101
+msgid "Only this time"
+msgstr "Solo questa volta"
+
+#: includes/functions.yith-wcdls-premium.php:109
+msgid "In line with page content"
+msgstr "In linea con il contenuto della pagina"
+
+#: includes/functions.yith-wcdls-premium.php:110
+msgid "Popup"
+msgstr "Popup"
+
+#: includes/functions.yith-wcdls-premium.php:111
+msgid "Popover"
+msgstr "Popover"
+
+#: includes/functions.yith-wcdls.php:6
+msgid "Type of restriction:"
+msgstr "Tipo di limitazione:"
+
+#: includes/functions.yith-wcdls.php:7
+msgid "Include at least one of"
+msgstr "Includi almeno uno di"
+
+#: includes/functions.yith-wcdls.php:8
+msgid "Include all"
+msgstr "Includi tutti"
+
+#: includes/functions.yith-wcdls.php:9
+msgid "Does not contain"
+msgstr "Non contiene"
+
+#: includes/functions.yith-wcdls.php:18
+msgid "Less than"
+msgstr "Minore di"
+
+#: includes/functions.yith-wcdls.php:19
+msgid "Less than or equal to"
+msgstr "Minore di o uguale a"
+
+#: includes/functions.yith-wcdls.php:20
+msgid "Equal to"
+msgstr "Uguale a"
+
+#: includes/functions.yith-wcdls.php:21
+msgid "Greater than or equal to"
+msgstr "Maggiore di o uguale a"
+
+#: includes/functions.yith-wcdls.php:22
+msgid "Greater than"
+msgstr "Maggiore di"
+
+#: includes/table-list/class.yith-wcdls-list.php:29
+msgid "Deal"
+msgstr "Offerta"
+
+#: includes/table-list/class.yith-wcdls-list.php:42
+msgid "Offer name"
+msgstr "Nome offerta"
+
+#: includes/table-list/class.yith-wcdls-list.php:43
+msgid "Status"
+msgstr "Stato"
+
+#: includes/table-list/class.yith-wcdls-list.php:58
+msgid "All"
+msgstr "Tutte"
+
+#: includes/table-list/class.yith-wcdls-list.php:59
+msgid "Published"
+msgstr "Pubblicate"
+
+#: includes/table-list/class.yith-wcdls-list.php:60
+msgid "Trash"
+msgstr "Cestino"
+
+#: includes/table-list/class.yith-wcdls-list.php:155
+msgid "Disabled"
+msgstr "Disabilita"
+
+#: includes/table-list/class.yith-wcdls-list.php:157
+msgid "Enabled"
+msgstr "Abilita"
+
+#: includes/table-list/class.yith-wcdls-list.php:210
+msgid "Delete permanently"
+msgstr "Elimina definitivamente"
+
+#: includes/table-list/class.yith-wcdls-list.php:214
+#: templates/admin/metabox/wcdls-conditions-row.php:256
+msgid "Delete"
+msgstr "Elimina"
+
+#. translators: %s: post title
+#: includes/table-list/class.yith-wcdls-list.php:250
+msgid "Edit %s"
+msgstr "Modifica %s"
+
+#. translators: %s: post title
+#: includes/table-list/class.yith-wcdls-list.php:261
+msgid "Restore %s from the Trash"
+msgstr "Ripristina %s dal cestino"
+
+#: includes/table-list/class.yith-wcdls-list.php:262
+msgid "Restore"
+msgstr "Ripristina"
+
+#. translators: %s: post title
+#: includes/table-list/class.yith-wcdls-list.php:269
+msgid "Move %s to the Trash"
+msgstr "Sposta %s nel cestino"
+
+#: includes/table-list/class.yith-wcdls-list.php:270
+msgctxt "verb"
+msgid "Trash"
+msgstr "Cestina"
+
+#. translators: %s: post title
+#: includes/table-list/class.yith-wcdls-list.php:278
+msgid "Delete %s permanently"
+msgstr "Elimina %s definitivamente"
+
+#: includes/table-list/class.yith-wcdls-list.php:279
+msgid "Delete Permanently"
+msgstr "Elimina definitivamente"
+
+#: includes/tinymce/tinymce-plugin-langs.php:14
+msgid "Accept Offer button"
+msgstr "Pulsante Accetta offerta"
+
+#: includes/tinymce/tinymce-plugin-langs.php:15
+msgid "Decline Offer button"
+msgstr "Pulsante Rifiuta offerta"
+
+#: init.php:36
+msgctxt "Alert Message: WooCommerce requires"
+msgid ""
+"YITH Deals for WooCommerce is enabled but not effective. It requires "
+"WooCommerce in order to work."
+msgstr ""
+"YITH Deals for WooCommerce è abilitato ma non in funzione. Devi aver "
+"installato WooCommerce perché questo possa funzionare correttamente."
+
+#: plugin-options/settings-options.php:24
+msgctxt "Panel: page title"
+msgid "General settings"
+msgstr "Impostazioni generali"
+
+#: plugin-options/settings-options.php:30
+msgctxt "Admin option: Popup Size"
+msgid "Popup Size"
+msgstr "Dimensione popup"
+
+#: plugin-options/settings-options.php:36
+msgctxt "Admin option description: Set popup size."
+msgid "Set popup size."
+msgstr "Imposta le dimensioni del popup."
+
+#: templates/admin/metabox/wcdls-conditions-row.php:9
+msgid "- Add product options"
+msgstr "- Aggiungi opzioni prodotto"
+
+#: templates/admin/metabox/wcdls-conditions-row.php:55
+#: templates/admin/metabox/wcdls-template-offer.php:117
+#: templates/admin/metabox/wcdls-template-offer.php:164
+msgid "Search for a product&hellip;"
+msgstr "Cerca un prodotto&hellip;"
+
+#: templates/admin/metabox/wcdls-conditions-row.php:116
+msgid "Search for a category&hellip;"
+msgstr "Cerca una categoria&hellip;"
+
+#: templates/admin/metabox/wcdls-conditions-row.php:155
+msgid "Search for a tag&hellip;"
+msgstr "Cerca un tag&hellip;"
+
+#: templates/admin/metabox/wcdls-conditions-row.php:239
+msgid "Search for a user&hellip;"
+msgstr "Cerca un utente&hellip;"
+
+#: templates/admin/metabox/wcdls-template-offer.php:29
+msgid "Disable:"
+msgstr "Disabilita:"
+
+#: templates/admin/metabox/wcdls-template-offer.php:33
+msgid "Check this option if you want to disable this offer"
+msgstr "Seleziona quest'opzione per disabilitare quest'offerta"
+
+#: templates/admin/metabox/wcdls-template-offer.php:40
+msgid "When will your offer be displayed?"
+msgstr "Quando mostrare la tua offerta?"
+
+#: templates/admin/metabox/wcdls-template-offer.php:42
+msgid "Use these rules to decide when your offer is going to be displayed"
+msgstr "Usa queste regole per stabilire quando mostrare la tua offerta"
+
+#: templates/admin/metabox/wcdls-template-offer.php:45
+msgid "+ Add new condition"
+msgstr "+ Aggiungi nuova condizione"
+
+#: templates/admin/metabox/wcdls-template-offer.php:67
+msgid "What to do if the offer is accepted"
+msgstr "Cosa fare se l'offerta viene accettata"
+
+#: templates/admin/metabox/wcdls-template-offer.php:72
+msgid "Remove product(s)"
+msgstr "Rimuovi prodotti"
+
+#: templates/admin/metabox/wcdls-template-offer.php:80
+msgid ""
+"Do\n"
+"                                    nothing"
+msgstr "Non fare nulla"
+
+#: templates/admin/metabox/wcdls-template-offer.php:88
+msgid "Remove all products from the cart"
+msgstr "Rimuovi tutti i prodotti dal carrello"
+
+#: templates/admin/metabox/wcdls-template-offer.php:95
+msgid "Remove these products from the cart"
+msgstr "Rimuovi questi prodotti dal carrello"
+
+#: templates/admin/metabox/wcdls-template-offer.php:138
+msgid "Add product(s)"
+msgstr "Aggiungi prodotti"
+
+#: templates/admin/metabox/wcdls-template-offer.php:142
+msgid "Add these products to the cart"
+msgstr "Aggiungi questi prodotti al carrello"
+
+#: templates/admin/metabox/wcdls-template-offer.php:181
+msgid "Type of discount"
+msgstr "Tipo di sconto"
+
+#: templates/admin/metabox/wcdls-template-offer.php:201
+msgid "What to do if the offer is not accepted"
+msgstr "Cosa fare se l'offerta non viene accettata"
+
+#: templates/admin/metabox/wcdls-template-offer.php:206
+msgid "Repeat offer?"
+msgstr "Ripetere l'offerta?"
+
+#: templates/admin/metabox/wcdls-template-offer.php:213
+msgid "Hide offer: "
+msgstr "Nascondi l'offerta: "
+
+#: templates/admin/metabox/wcdls-template-offer.php:227
+msgid "Show another offer: "
+msgstr "Mostra un'altra offerta: "
+
+#: templates/admin/metabox/wcdls-template-offer.php:236
+msgid ""
+"You didn't create any other offer. Please create another offer to use this "
+"option"
+msgstr ""
+"Non hai creato nessun'altra offerta. Creane una per poter utilizzare "
+"quest'opzione"
+
+#: templates/admin/metabox/wcdls-template-offer.php:259
+msgid "Layout"
+msgstr "Layout"
+
+#: templates/admin/metabox/wcdls-template-offer.php:264
+msgid "Select layout"
+msgstr "Seleziona layout"
+
+#: templates/admin/metabox/wcdls-template-offer.php:279
+msgid "Choose the offer's layout that will be seen by your customer"
+msgstr "Scegli quale layout mostrare ai tuoi clienti per questa offerta"
+
+#: templates/admin/metabox/wcdls-template-offer.php:287
+msgid "Time-based offer"
+msgstr "Offerta a tempo"
+
+#: templates/admin/metabox/wcdls-template-offer.php:292
+msgid "Select the offer availability dates"
+msgstr "Seleziona le date di inizio e fine offerta"
+
+#: templates/admin/metabox/wcdls-template-offer.php:296
+msgid "From: "
+msgstr "Da: "
+
+#: templates/admin/metabox/wcdls-template-offer.php:301
+msgid "To: "
+msgstr "A: "
+
+#: templates/admin/metabox/wcdls-template-offer.php:316
+msgid "Automatic deal:"
+msgstr "Offerta automatica:"
+
+#: templates/admin/metabox/wcdls-template-offer.php:320
+msgid "Check this option if you want to apply the deal without accept it"
+msgstr "Seleziona questa opzione per applicare l'offerta senza accettarla"
+
+#: templates/admin/wcdls-deals-tab.php:15
+msgid "Add new"
+msgstr "Aggiungi nuovo"
+
+#: templates/frontend/yith-deals-popup.php:13
+msgid "Close"
+msgstr "Chiudi"
+
+#. Plugin Name of the plugin/theme
+msgid "YITH Deals for WooCommerce Premium"
+msgstr "YITH Deals for WooCommerce Premium"
+
+#. Plugin URI of the plugin/theme
+msgid "https://yithemes.com/themes/plugins/yith-woocommerce-deals/"
+msgstr "https://yithemes.com/themes/plugins/yith-woocommerce-deals/"
+
+#. Description of the plugin/theme
+msgid ""
+"<code><strong>YITH Deals for WooCommerce</strong></code> allows increasing "
+"the number of orders in your store through upsell promotions at the "
+"checkout. For example, you can offer all users buying a specific product to "
+"extend the product warranty at a small additional price. You can also create "
+"ad hoc rules to better manage your offers. <a href=\"https://yithemes.com/\" "
+"target=\"_blank\">Get more plugins for your e-commerce shop on <strong>YITH</"
+"strong></a>"
+msgstr ""
+"<code><strong>YITH Deals for WooCommerce</strong></code> permette di "
+"aumentare il numero degli ordini nel tuo store tramite promozioni upsell "
+"durante il checkout. Puoi ad esempio offrire a tutti gli utenti che "
+"acquistano un prodotto specifico l'estensione della garanzia per un piccolo "
+"prezzo aggiuntivo. Puoi anche creare regole ad hoc per gestire al meglio le "
+"tue offerte. <a href=\"https://yithemes.com/\" target=\"_blank\">Ottieni "
+"altri plugin per il tuo e-commerce su <strong>YITH</strong></a>"
+
+#. Author of the plugin/theme
+msgid "YITH"
+msgstr "YITH"
+
+#. Author URI of the plugin/theme
+msgid "http://yithemes.com/"
+msgstr "http://yithemes.com/"
+
+#~ msgid "Price"
+#~ msgstr "Prezzo"
+
+#~ msgctxt "plugin name in admin page title"
+#~ msgid "Deals"
+#~ msgstr "Deals"
+
+#~ msgctxt "plugin name in admin WP menu"
+#~ msgid "Deals"
+#~ msgstr "Deals"
+
+#~ msgid "Only right now"
+#~ msgstr "Solo adesso"
+
+#~ msgid "Apply type of offer"
+#~ msgstr "Applica il tipo di offerta"

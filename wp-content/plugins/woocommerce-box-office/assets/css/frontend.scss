@@ -1,0 +1,67 @@
+form.edit-ticket p.error label:first-child {
+	color: red;
+}
+
+.purchased-tickets dd.description {
+	font-style: italic;
+	font-size: 80%;
+}
+
+.wc-item-meta li ul {
+	li:after, li:before {
+		display: none;
+	}
+}
+
+#ticket-edit-content-barcode {
+	display: none;
+}
+
+#ticket-print-content {
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	min-height: 100%;
+	background: #FFF;
+	#ticket-print-content-barcode {
+		text-align: center;
+		a {
+			text-decoration: none;
+		}
+		img {
+			border: 0;
+			box-shadow: none;
+			border-radius: 0;
+		}
+	}
+}
+
+#ticket-scan-form {
+	text-align: center;
+	select, .chosen-container {
+		text-align: left;
+	}
+	input#scan-code {
+		margin: 0 10px;
+	}
+}
+#ticket-scan-loader {
+	text-align: center;
+	line-height: 70px;
+	font-style: italic;
+	display: none;
+}
+#ticket-scan-result {
+	margin-top: 20px;
+	h3.checked_in {
+		text-align: center;
+		&.yes {
+			color: green;
+		}
+		&.no {
+			color: red;
+		}
+	}
+}

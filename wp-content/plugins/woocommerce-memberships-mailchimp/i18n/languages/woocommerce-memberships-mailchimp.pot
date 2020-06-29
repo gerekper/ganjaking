@@ -1,0 +1,398 @@
+# Copyright (C) 2020 SkyVerge
+# This file is distributed under the GNU General Public License v3.0.
+msgid ""
+msgstr ""
+"Project-Id-Version: MailChimp for WooCommerce Memberships 1.2.4\n"
+"Report-Msgid-Bugs-To: "
+"https://woocommerce.com/my-account/marketplace-ticket-form/\n"
+"POT-Creation-Date: 2020-06-11 16:44:43+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: src/AJAX.php:175
+msgid "Could not sync this member."
+msgstr ""
+
+#: src/AJAX.php:211
+msgid "No members to sync."
+msgstr ""
+
+#: src/API.php:560
+#. translators: Placeholder: $1$s - merge tag text, $2$s - plan name, %3$s -
+#. error message text
+msgid ""
+"An error occurred with MailChimp while trying to set a merge tag %1$s for "
+"the plan %2$s: \"%3$s\""
+msgstr ""
+
+#: src/Admin/Membership_Plans.php:88
+#. translators: Placeholders: %1$s - opening <a> link tag, %2$s - closing </a>
+#. link tag
+msgid ""
+"A merge field appears to be set for this plan in MailChimp Sync, but the "
+"corresponding merge tag could not be found. Perhaps it has been deleted? "
+"Please check %1$sMailChimp for WooCommerce Memberships settings%2$s and "
+"assign a new merge field to this plan."
+msgstr ""
+
+#: src/Admin/Membership_Plans.php:102
+msgid "MailChimp Merge Field"
+msgstr ""
+
+#: src/Admin/Membership_Plans.php:109
+msgid "Not found!"
+msgstr ""
+
+#: src/Admin/Membership_Plans.php:114
+msgid ""
+"The merge field tag can be used to segment members of this plan in "
+"MailChimp."
+msgstr ""
+
+#: src/Admin/Membership_Plans.php:119
+msgid ""
+"Merge field tags in MailChimp Sync must be unique alphanumeric words of "
+"maximum 10 characters, in uppercase and without spaces."
+msgstr ""
+
+#: src/Admin/Membership_Plans.php:142 src/Admin/Settings.php:428
+msgid "Merge Tag"
+msgstr ""
+
+#: src/Admin/Settings.php:121 src/Admin/Settings.php:164
+msgid "MailChimp Sync"
+msgstr ""
+
+#: src/Admin/Settings.php:170
+msgid "MailChimp API Key"
+msgstr ""
+
+#: src/Admin/Settings.php:171
+msgid "Enter your MailChimp API Key."
+msgstr ""
+
+#: src/Admin/Settings.php:179
+msgid "Enable Debug Mode"
+msgstr ""
+
+#: src/Admin/Settings.php:182
+msgid ""
+"Enable this to log communication with MailChimp. As a best practice, only "
+"enable this if prompted by support."
+msgstr ""
+
+#: src/Admin/Settings.php:201
+msgid "Members Sign Up"
+msgstr ""
+
+#: src/Admin/Settings.php:204
+#. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
+msgid ""
+"%1$sSee the plugin documentation%2$s for more details on whether opt in is "
+"required."
+msgstr ""
+
+#: src/Admin/Settings.php:207
+msgid ""
+"Choose whether to sign members up automatically or have them opt in "
+"manually."
+msgstr ""
+
+#: src/Admin/Settings.php:210
+msgid "Subscribe members automatically"
+msgstr ""
+
+#: src/Admin/Settings.php:211
+msgid "Members must subscribe at checkout or from the Members Area"
+msgstr ""
+
+#: src/Admin/Settings.php:218
+msgid "Members Sign Up Prompt Text"
+msgstr ""
+
+#: src/Admin/Settings.php:219
+msgid ""
+"Text to be displayed to a member when subscribing to the audience. HTML and "
+"shortcodes are allowed."
+msgstr ""
+
+#: src/Admin/Settings.php:222 src/Lifecycle.php:91
+msgid ""
+"You are not subscribed to the members email list. Would you like to "
+"subscribe now?"
+msgstr ""
+
+#: src/Admin/Settings.php:227
+msgid "Members Sign Up Button Text"
+msgstr ""
+
+#: src/Admin/Settings.php:228
+msgid "Text used for the button to subscribe the member to the audience."
+msgstr ""
+
+#: src/Admin/Settings.php:231 src/Lifecycle.php:92
+msgid "Add me!"
+msgstr ""
+
+#: src/Admin/Settings.php:240
+msgid "Select audience"
+msgstr ""
+
+#: src/Admin/Settings.php:241
+msgid "Select the MailChimp audience to use."
+msgstr ""
+
+#: src/Admin/Settings.php:375
+msgid "Interest Categories"
+msgstr ""
+
+#: src/Admin/Settings.php:378
+msgid "Add all members to the following interest groups:"
+msgstr ""
+
+#: src/Admin/Settings.php:414
+msgid "Merge Fields"
+msgstr ""
+
+#: src/Admin/Settings.php:417
+msgid "Merge tags will help you segment your members across your audience."
+msgstr ""
+
+#: src/Admin/Settings.php:424
+msgid "Plan or Status"
+msgstr ""
+
+#: src/Admin/Settings.php:425
+msgid "The membership entity to associate a merge field to"
+msgstr ""
+
+#: src/Admin/Settings.php:429
+msgid "Associate a merge field from MailChimp to the corresponding plan"
+msgstr ""
+
+#: src/Admin/Settings.php:467
+#. translators: Placeholders: %1$s - opening <a> link tag, %2$s - closing </a>
+#. link tag
+msgid ""
+"Once merge fields have been assigned to membership plans and members "
+"started syncing, changing or deleting fields may result in unintended "
+"consequences. %1$sRead the documentation%2$s for more information."
+msgstr ""
+
+#: src/Admin/Settings.php:479
+msgid "Deleted Memberships"
+msgstr ""
+
+#: src/Admin/Settings.php:483
+msgid ""
+"When a User Membership is deleted, you can choose to keep, unsubscribe or "
+"remove the corresponding member from the list."
+msgstr ""
+
+#: src/Admin/Settings.php:484
+msgid ""
+"If a user is still member of other plans, they will not be deleted and "
+"their status will depend on the status of the remaining user memberships. "
+"If you choose to keep a member, their merge fields will be cleared."
+msgstr ""
+
+#: src/Admin/Settings.php:493
+msgid "Unsubscribe"
+msgstr ""
+
+#: src/Admin/Settings.php:503
+msgid "Remove"
+msgstr ""
+
+#: src/Admin/Settings.php:513 src/Admin/Settings.php:534
+msgid "Keep"
+msgstr ""
+
+#: src/Admin/Settings.php:520
+msgid "Deleted Plans Merge Fields"
+msgstr ""
+
+#: src/Admin/Settings.php:524
+msgid ""
+"When a Membership Plan is deleted, you can choose to delete its matched "
+"merge field from MailChimp or keep it."
+msgstr ""
+
+#: src/Admin/Settings.php:525
+msgid ""
+"Note that this may delete also a merge field created in MailChimp or used "
+"elsewhere, if currently linked to that plan."
+msgstr ""
+
+#: src/Admin/Settings.php:544
+msgid "Delete"
+msgstr ""
+
+#: src/Admin/Settings.php:553
+msgid "Sync Members"
+msgstr ""
+
+#: src/Admin/Settings.php:559 src/Admin.php:214
+msgid "Sync Now"
+msgstr ""
+
+#: src/Admin/Settings.php:563 src/Admin/User_Memberships.php:274
+#: src/Admin.php:300
+msgid "Syncing..."
+msgstr ""
+
+#: src/Admin/Settings.php:565
+msgid ""
+"This will sync existing members with your MailChimp list as configured "
+"above. This is most useful with initial set up, or if you've updated your "
+"settings above to re-sync your list."
+msgstr ""
+
+#: src/Admin/User_Memberships.php:89 src/Admin/User_Memberships.php:112
+#: src/Admin/User_Memberships.php:113 src/Admin/User_Memberships.php:271
+msgid "Sync to MailChimp"
+msgstr ""
+
+#: src/Admin/User_Memberships.php:192
+msgid "Processed %d user membership to sync to MailChimp."
+msgid_plural "Processed %d user memberships to sync to MailChimp."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Admin/User_Memberships.php:195
+msgid "%d member successfully synced."
+msgid_plural "%d members successfully synced."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Admin/User_Memberships.php:200
+msgid "and"
+msgstr ""
+
+#: src/Admin/User_Memberships.php:201
+msgid "an error occurred"
+msgstr ""
+
+#: src/Admin/User_Memberships.php:220
+msgid "membership %s not found"
+msgid_plural "memberships %s not found"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Admin/User_Memberships.php:227
+msgid "Could not sync %d member: %s."
+msgid_plural "Could not sync %d members: %s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Admin/User_Memberships.php:271
+msgid "Synchronizes this member with the matched MailChimp list"
+msgstr ""
+
+#: src/Admin/User_Memberships.php:275
+msgid "Done!"
+msgstr ""
+
+#: src/Admin/User_Memberships.php:284
+#. translators: Placeholder: %s - date or string
+msgid "Last Synced: %s"
+msgstr ""
+
+#: src/Admin/User_Memberships.php:284
+msgid "Not synced yet"
+msgstr ""
+
+#: src/Admin/User_Memberships.php:300
+msgid ""
+"MailChimp: This member has not given consent to subscribe to the MailChimp "
+"audience."
+msgstr ""
+
+#: src/Admin/User_Memberships.php:302
+msgid ""
+"MailChimp: This member has not given consent yet to subscribe to the "
+"MailChimp audience."
+msgstr ""
+
+#: src/Admin.php:210
+#. translators: Placeholders: %1$s - opening HTML <a> link tag, %2$s - plugin
+#. name, %3$s - closing HTML </a> link tag, %4$s - "Sync Now" button name
+msgid ""
+"%1$s has been upgraded! Please visit the %2$ssettings page%3$s and click on "
+"the %4$s button to complete the upgrade."
+msgstr ""
+
+#: src/Admin.php:225
+#. translators: Placeholders: %1$s - opening <a> link tag, %2$s - closing </a>
+#. link tag
+msgid ""
+"It looks like you have no membership plan published in your Memberships "
+"setup. MailChimp Sync requires at least one plan to work. %1$sAdd a "
+"Membership Plan%2$s."
+msgstr ""
+
+#: src/Admin.php:235
+msgid ""
+"It looks like you do not have any MailChimp audience available. MailChimp "
+"for WooCommerce Memberships needs at least one audience to work."
+msgstr ""
+
+#: src/Admin.php:298
+msgid "Oops! Something went wrong. Please try again."
+msgstr ""
+
+#: src/Admin.php:299
+msgid "Member data synced."
+msgstr ""
+
+#: src/Background_Sync.php:93
+msgid "Job data key \"%s\" not set"
+msgstr ""
+
+#: src/Background_Sync.php:97
+msgid "Job data key \"%s\" is not an array"
+msgstr ""
+
+#: src/MailChimp_List.php:305
+msgid "Active Status"
+msgstr ""
+
+#: src/Plugin.php:457
+#. translators: the %s placeholders are meant for pairs of opening <a> and
+#. closing </a> link tags
+msgid ""
+"Thanks for installing MailChimp for WooCommerce Memberships! To get "
+"started, take a minute to %1$sread the documentation%2$s."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "MailChimp for WooCommerce Memberships"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://www.woocommerce.com/products/mailchimp-woocommerce-memberships/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Sync your member lists to MailChimp for improved email segmentation"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "SkyVerge"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://www.woocommerce.com/"
+msgstr ""
+
+#: src/MailChimp_Lists.php:230
+msgctxt ""
+"The default merge tag to be used to segment active members: this should be "
+"an uppercase alphanumeric string of maximum 10 characters without spaces or "
+"dashes."
+msgid "ISACTIVE"
+msgstr ""

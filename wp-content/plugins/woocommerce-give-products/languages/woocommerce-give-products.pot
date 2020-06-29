@@ -1,0 +1,207 @@
+# Copyright (C) 2020 WooCommerce
+# This file is distributed under the GNU General Public License v3.0.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Give Products 1.1.9\n"
+"Report-Msgid-Bugs-To: "
+"https://wordpress.org/support/plugin/woocommerce-give-products\n"
+"POT-Creation-Date: 2020-06-11 14:10:40+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: node-wp-i18n 1.2.3\n"
+
+#: includes/class-wc-give-products-privacy.php:12
+#: woocommerce-give-products.php:152 woocommerce-give-products.php:173
+msgid "Give Products"
+msgstr ""
+
+#: includes/class-wc-give-products-privacy.php:20
+msgid ""
+"By using this extension, you may be storing personal data or sharing data "
+"with an external service. <a href=\"%s\" target=\"_blank\">Learn more about "
+"how this works, including what you may want to include in your privacy "
+"policy.</a>"
+msgstr ""
+
+#: includes/emails/class-wc-given-order.php:24
+msgid "Given order"
+msgstr ""
+
+#: includes/emails/class-wc-given-order.php:25
+msgid "Given order emails are sent when an order is given to a user."
+msgstr ""
+
+#: includes/emails/class-wc-given-order.php:27
+msgid "Gifted Order"
+msgstr ""
+
+#: includes/emails/class-wc-given-order.php:28
+msgid "[{site_title}] Gifted order ({order_number}) - {order_date}"
+msgstr ""
+
+#: includes/emails/class-wc-given-order.php:122
+msgid "Enable/Disable"
+msgstr ""
+
+#: includes/emails/class-wc-given-order.php:124
+msgid "Enable this email notification"
+msgstr ""
+
+#: includes/emails/class-wc-given-order.php:128
+msgid "Subject"
+msgstr ""
+
+#: includes/emails/class-wc-given-order.php:130
+msgid ""
+"This controls the email subject line. Leave blank to use the default "
+"subject: <code>%s</code>."
+msgstr ""
+
+#: includes/emails/class-wc-given-order.php:135
+msgid "Email Heading"
+msgstr ""
+
+#: includes/emails/class-wc-given-order.php:137
+msgid ""
+"This controls the main heading contained within the email notification. "
+"Leave blank to use the default heading: <code>%s</code>."
+msgstr ""
+
+#: includes/emails/class-wc-given-order.php:142
+msgid "Email type"
+msgstr ""
+
+#: includes/emails/class-wc-given-order.php:144
+msgid "Choose which format of email to send."
+msgstr ""
+
+#: includes/emails/class-wc-given-order.php:148
+msgid "Plain text"
+msgstr ""
+
+#: includes/emails/class-wc-given-order.php:149
+msgid "HTML"
+msgstr ""
+
+#: includes/emails/class-wc-given-order.php:150
+msgid "Multipart"
+msgstr ""
+
+#: templates/emails/given-order.php:20
+#: templates/emails/plain/given-order.php:14
+msgid "You've been gifted this order:"
+msgstr ""
+
+#: templates/emails/given-order.php:24
+msgid "Order:"
+msgstr ""
+
+#: templates/emails/given-order.php:29
+msgid "Product"
+msgstr ""
+
+#: templates/emails/given-order.php:30
+msgid "Quantity"
+msgstr ""
+
+#: templates/emails/given-order.php:31
+msgid "Price"
+msgstr ""
+
+#: templates/emails/given-order.php:74
+msgid "Customer details"
+msgstr ""
+
+#: templates/emails/given-order.php:77
+#: templates/emails/plain/given-order.php:57
+msgid "Email:"
+msgstr ""
+
+#: templates/emails/given-order.php:80
+#: templates/emails/plain/given-order.php:62
+msgid "Tel:"
+msgstr ""
+
+#: templates/emails/plain/given-order.php:21
+#. translators: 1: order number
+msgid "Order number: %s"
+msgstr ""
+
+#: templates/emails/plain/given-order.php:26
+#. translators: 1: order date
+msgid "Order date: %s"
+msgstr ""
+
+#: templates/emails/plain/given-order.php:54
+msgid "Your details"
+msgstr ""
+
+#: woocommerce-give-products.php:174
+msgid ""
+"<b>Select a user</b> by typing their display name, email address or user ID "
+"here:"
+msgstr ""
+
+#: woocommerce-give-products.php:179 woocommerce-give-products.php:192
+msgid "Search for a user"
+msgstr ""
+
+#: woocommerce-give-products.php:196
+msgid ""
+"<b>Select products</b> by typing in their names, variation details or IDs "
+"here (you can select as many products as you like):"
+msgstr ""
+
+#: woocommerce-give-products.php:200 woocommerce-give-products.php:217
+msgid "Search for a product&hellip;"
+msgstr ""
+
+#: woocommerce-give-products.php:223
+msgid "Give product(s)"
+msgstr ""
+
+#: woocommerce-give-products.php:418
+msgid "This order was gifted."
+msgstr ""
+
+#: woocommerce-give-products.php:484
+#. translators: 1: display name 2: order url 3: order id
+msgid "Product(s) given to %1$s in <a href=\"%2$s\">order %3$s</a>."
+msgstr ""
+
+#: woocommerce-give-products.php:489
+msgid "Make sure you select both a user to receive the gift and a product to give."
+msgstr ""
+
+#: woocommerce-give-products.php:493
+msgid "Processing error - please try again."
+msgstr ""
+
+#: woocommerce-give-products.php:513
+#. translators: 1: blog info name
+msgid "The products in this order were given to you by %s."
+msgstr ""
+
+#: woocommerce-give-products.php:534
+msgid "This order was given free of charge"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce Give Products"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Allow shop owners to freely gift products to users."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "WooCommerce"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://woocommerce.com/"
+msgstr ""

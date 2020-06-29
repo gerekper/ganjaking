@@ -1,0 +1,16 @@
+<wpml-config>
+    <admin-texts>
+        <key name="yith_wpv_vendor_tab_text_text"/>
+        <key name="yith_wpv_shipping_tab_text_text"/>
+        <key name="yith_wpv_report_abuse_link_text"/>
+        <key name="yith_vat_label"/>
+        <key name="woocommerce_new_order_to_vendor_settings">
+            <key name="heading"/>
+            <key name="subject"/>
+        </key>
+    </admin-texts>
+    <custom-term-fields>
+        <custom-term-field action="translate" style="textarea" label="Shipping Policy">shipping_policy</custom-term-field>
+        <custom-term-field action="translate" style="textarea" label="Refund Policy">shipping_refund_policy</custom-term-field>
+    </custom-term-fields>
+</wpml-config>

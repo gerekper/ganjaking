@@ -1,0 +1,1 @@
+jQuery(function(e){e(document).on("submit","#image-data-form",function(){var n=e("#url").val(),a=e("#alt").val();return(""===n||"http://"===n||"https://"===n)&&(n=null),null!==n&&(n=encodeURI(n).replace(/[!'()*]/g,escape)),""!==a&&(a=encodeURIComponent(a).replace(/[!'()*]/g,escape)),window.parent.WysijaPopup.success({url:n,alt:a}),!1})});

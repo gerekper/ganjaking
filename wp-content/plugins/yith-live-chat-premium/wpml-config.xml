@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<wpml-config>
+    <admin-texts>
+        <key name="yit_live_chat_options">
+            <key name="text-chat-title"/>
+            <key name="text-welcome"/>
+            <key name="text-start-chat"/>
+            <key name="text-close"/>
+            <key name="text-offline"/>
+            <key name="text-busy"/>
+            <key name="offline-message-body"/>
+            <key name="transcript-message-body"/>
+            <key name="offline-gdpr-checkbox-label"/>
+            <key name="offline-gdpr-checkbox-desc"/>
+            <key name="chat-gdpr-checkbox-label"/>
+            <key name="chat-gdpr-checkbox-desc"/>
+        </key>
+    </admin-texts>
+</wpml-config>

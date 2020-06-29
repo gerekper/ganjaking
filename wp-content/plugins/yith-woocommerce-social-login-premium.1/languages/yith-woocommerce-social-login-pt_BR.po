@@ -1,0 +1,681 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: YIT WooCommerce Social Login\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/init\n"
+"POT-Creation-Date: 2018-10-23 12:35:12+00:00\n"
+"PO-Revision-Date: 2018-10-24 10:09+0200\n"
+"Last-Translator: cleber <admin@ssys.com.br>\n"
+"Language-Team: Yithemes <plugins@yithemes.com>\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Generator: Poedit 2.2\n"
+"X-Poedit-KeywordsList: _:1;gettext:1;dgettext:2;ngettext:1,2;dngettext:2,3;"
+"__:1;_e:1;_c:1;_n:1,2;_n_noop:1,2;_nc:1,2;__ngettext:1,2;__ngettext_noop:1,2;"
+"_x:1,2c;_ex:1,2c;_nx:1,2,4c;_nx_noop:1,2,3c;_n_js:1,2;_nx_js:1,2,3c;"
+"esc_attr__:1;esc_html__:1;esc_attr_e:1;esc_html_e:1;esc_attr_x:1,2c;"
+"esc_html_x:1,2c;comments_number_link:2,3;t:1;st:1;trans:1;transChoice:1,2\n"
+"X-Poedit-Basepath: .\n"
+"X-Loco-Target-Locale: pt_BR\n"
+"X-Poedit-SearchPath-0: ..\n"
+"X-Poedit-SearchPathExcluded-0: ../plugin-fw\n"
+
+#: includes/class-yith-social-login-admin-premium.php:115
+#: templates/admin/social_network_table.php:11
+#: templates/admin/users/social-connect-profile.php:11
+#: templates/myaccount/social-connections.php:13
+msgid "Social Connections"
+msgstr "Conexões sociais"
+
+#: includes/class-yith-social-login-admin-premium.php:198
+msgid "Connections"
+msgstr "Conexões"
+
+#: includes/class-yith-social-login-admin-premium.php:246
+msgid "Facebook"
+msgstr "Facebook"
+
+#: includes/class-yith-social-login-admin-premium.php:247
+msgid "Twitter"
+msgstr "Twitter"
+
+#: includes/class-yith-social-login-admin-premium.php:248
+msgid "Google"
+msgstr "Google"
+
+#: includes/class-yith-social-login-admin-premium.php:249
+msgid "LinkedIn"
+msgstr "LinkedIn"
+
+#: includes/class-yith-social-login-admin-premium.php:250
+msgid "Yahoo"
+msgstr "Yahoo"
+
+#: includes/class-yith-social-login-admin-premium.php:251
+msgid "Foursquare"
+msgstr "Foursquare"
+
+#: includes/class-yith-social-login-admin-premium.php:252
+#: plugin-options/paypal-options.php:71
+msgid "Live"
+msgstr "Live"
+
+#: includes/class-yith-social-login-admin-premium.php:253
+msgid "Instagram"
+msgstr "Instagram"
+
+#: includes/class-yith-social-login-admin-premium.php:254
+msgid "PayPal"
+msgstr "PayPal"
+
+#: includes/class-yith-social-login-admin-premium.php:255
+msgid "Tumblr"
+msgstr "Tumblr"
+
+#: includes/class-yith-social-login-admin-premium.php:256
+msgid "Vkontakte"
+msgstr "Vkontakte"
+
+#: includes/class-yith-social-login-admin-premium.php:257
+msgid "GitHub"
+msgstr "GitHub"
+
+#: includes/class-yith-social-login-admin-premium.php:321
+#: includes/class-yith-social-login-admin.php:140
+#: templates/admin/social_network_table.php:36
+msgid "Settings"
+msgstr "Configurações"
+
+#: includes/class-yith-social-login-admin.php:144
+msgid "Premium Version"
+msgstr "Versão Premium"
+
+#: includes/class-yith-social-login-admin.php:151
+#: includes/class-yith-social-login-admin.php:152
+#, fuzzy
+#| msgid "Social Login"
+msgctxt "Plugin name. Do not translate"
+msgid "Social Login"
+msgstr "Login utilizando rede social"
+
+#: includes/class-yith-social-login-premium.php:148
+#: templates/myaccount/social-connections.php:33
+msgid "Unlink"
+msgstr "Remover link"
+
+#: includes/class-yith-social-login-premium.php:291
+#: plugin-options/settings-options.php:62
+msgid "Login with:"
+msgstr "Fazer login com:"
+
+#: includes/class-yith-social-login.php:256
+msgid "Add your email address"
+msgstr "Adicionar seu endereço de e-mail"
+
+#: includes/class-yith-social-login.php:262
+msgid "Your email address is not valid!"
+msgstr "Seu endereço de e-mail não é válido!"
+
+#: includes/class-yith-social-login.php:268
+msgid "This email already exists"
+msgstr "Este endereço de e-mail já existe"
+
+#: includes/class-yith-social-login.php:274
+msgid "Username is not valid!"
+msgstr "Nome de usuário inválido!"
+
+#: includes/class-yith-social-login.php:557
+msgid "Unspecified error."
+msgstr "Erro desconhecido."
+
+#: includes/class-yith-social-login.php:560
+msgid "Hybriauth configuration error."
+msgstr "Erro de configuração do Hybriauth."
+
+#: includes/class-yith-social-login.php:563
+msgid "Provider not properly configured."
+msgstr "O provedor não está configurado corretamente."
+
+#: includes/class-yith-social-login.php:566
+msgid "Unknown or disabled provider."
+msgstr "Provedor desabilitado ou desconhecido."
+
+#: includes/class-yith-social-login.php:569
+msgid "Missing provider application credentials."
+msgstr "Estão faltando as credenciais da aplicação do provedor."
+
+#: includes/class-yith-social-login.php:572
+msgid ""
+"Authentification failed. The user has canceled the authentication or the "
+"provider refused the connection."
+msgstr ""
+"A autenticação falhou. O usuário cancelou a autenticação ou o provedor "
+"recusou a conexão."
+
+#: includes/class-yith-social-login.php:575
+msgid ""
+"Request of user profile failed. Probably the user is not connected to the "
+"provider and a new authentication is necessary."
+msgstr ""
+"A solicitação do perfil do usuário falhou. Provavelmente o usuário não está "
+"conectado ao provedor e uma nova autenticação é necessária."
+
+#: includes/class-yith-social-login.php:578
+msgid "User not connected to the provider."
+msgstr "Usuário não conectado ao provedor."
+
+#: includes/class-yith-social-login.php:581
+msgid "Provider does not support this feature."
+msgstr "O provedor não suporta este recurso."
+
+#: init.php:56
+msgid ""
+"YITH Woocommerce Social Login is enabled but not effective. It requires "
+"WooCommerce in order to work."
+msgstr ""
+"O YITH Woocommerce Social Login está habilitado mas não está ativo. Ele "
+"precisa do WooCommerce para funcionar."
+
+#: plugin-options/facebook-options.php:31
+msgid "Facebook settings"
+msgstr "Configurações do Facebook"
+
+#: plugin-options/facebook-options.php:39
+msgid "Enable Facebook Login"
+msgstr "Habilitar o Login via Facebook"
+
+#: plugin-options/facebook-options.php:47
+msgid "Facebook App ID"
+msgstr "ID do App do Facebook"
+
+#: plugin-options/facebook-options.php:55
+msgid "Facebook Secret"
+msgstr "Senha do Facebook"
+
+#: plugin-options/facebook-options.php:63
+msgid "Facebook Icon"
+msgstr "Ícone do Facebook"
+
+#: plugin-options/foursquare-options.php:27
+msgid "Foursquare settings"
+msgstr "Configurações do Foursquare"
+
+#: plugin-options/foursquare-options.php:34
+msgid "Enable Foursquare Login"
+msgstr "Habilitar Login via Foursquare"
+
+#: plugin-options/foursquare-options.php:42
+msgid "Foursquare Client ID"
+msgstr "ID do Cliente do Foursquare"
+
+#: plugin-options/foursquare-options.php:50
+msgid "Foursquare Client Secret"
+msgstr "Senha do Cliente do Foursquare"
+
+#: plugin-options/foursquare-options.php:58
+msgid "Foursquare Icon"
+msgstr "Ícone do Foursquare"
+
+#: plugin-options/github-options.php:26
+msgid "GitHub settings"
+msgstr "Configurações do GitHub"
+
+#: plugin-options/github-options.php:33
+msgid "Enable GitHub Login"
+msgstr "Habilitar Login via GitHub"
+
+#: plugin-options/github-options.php:41
+msgid "GitHub Client ID"
+msgstr "ID do Cliente do GitHub"
+
+#: plugin-options/github-options.php:49
+msgid "GitHub Client Secret"
+msgstr "Senha do Cliente do GitHub"
+
+#: plugin-options/github-options.php:57
+msgid "GitHub Icon"
+msgstr "Ícone do GitHub"
+
+#: plugin-options/google-options.php:26
+msgid "Google settings"
+msgstr "Configurações do Google"
+
+#: plugin-options/google-options.php:33
+msgid "Enable Google Login"
+msgstr "Habilitar Login via Google"
+
+#: plugin-options/google-options.php:41
+msgid "Google ID"
+msgstr "ID do Google"
+
+#: plugin-options/google-options.php:49
+msgid "Google secret"
+msgstr "Senha do Google"
+
+#: plugin-options/google-options.php:57
+msgid "Google Icon"
+msgstr "Ícone do Google"
+
+#: plugin-options/instagram-options.php:26
+msgid "Instagram settings"
+msgstr "Configurações do Instagram"
+
+#: plugin-options/instagram-options.php:33
+msgid "Enable Instagram Login"
+msgstr "Habilitar Login via Instagram"
+
+#: plugin-options/instagram-options.php:41
+msgid "Instagram Client ID"
+msgstr "ID do Cliente do Instagram"
+
+#: plugin-options/instagram-options.php:49
+msgid "Instagram Client Secret"
+msgstr "Senha do Cliente do Instagram"
+
+#: plugin-options/instagram-options.php:57
+msgid "Instagram Icon"
+msgstr "Ícone do Instagram"
+
+#: plugin-options/linkedin-options.php:26
+msgid "LinkedIn settings"
+msgstr "Configurações do LinkedIn"
+
+#: plugin-options/linkedin-options.php:33
+msgid "Enable LinkedIn Login"
+msgstr "Habilitar Login via LinkedIn"
+
+#: plugin-options/linkedin-options.php:41
+msgid "LinkedIn Api Key"
+msgstr "Chave Api do LinkedIn"
+
+#: plugin-options/linkedin-options.php:49
+msgid "LinkedIn secret"
+msgstr "Senha do LinkedIn"
+
+#: plugin-options/linkedin-options.php:57
+msgid "LinkedIn Icon"
+msgstr "Ícone do LinkedIn"
+
+#: plugin-options/live-options.php:26
+msgid "Live settings"
+msgstr "Configurações do Live"
+
+#: plugin-options/live-options.php:33
+msgid "Enable Live Login"
+msgstr "Habilitar Login via Live"
+
+#: plugin-options/live-options.php:41
+msgid "Live Consumer Key"
+msgstr "Chave de Consumo do Live"
+
+#: plugin-options/live-options.php:49
+msgid "Live Consumer Secret"
+msgstr "Senha de Consumo do Live"
+
+#: plugin-options/live-options.php:57
+msgid "Live Icon"
+msgstr "Ícone do Live"
+
+#: plugin-options/paypal-options.php:26
+msgid "Paypal settings"
+msgstr "Configurações do Paypal"
+
+#: plugin-options/paypal-options.php:33
+msgid "Enable Paypal Login"
+msgstr "Habilitar Login via Paypal"
+
+#: plugin-options/paypal-options.php:41
+msgid "Paypal Key"
+msgstr "Chave do Paypal"
+
+#: plugin-options/paypal-options.php:49
+msgid "Paypal Secret"
+msgstr "Senha do Paypal"
+
+#: plugin-options/paypal-options.php:57
+msgid "Paypal Icon"
+msgstr "Ícone do Paypal"
+
+#: plugin-options/paypal-options.php:65
+msgid "Environment"
+msgstr ""
+
+#: plugin-options/paypal-options.php:70
+msgid "Sandbox"
+msgstr "Sandbox"
+
+#: plugin-options/settings-options.php:26
+msgid "General settings"
+msgstr "Configurações gerais"
+
+#: plugin-options/settings-options.php:34
+msgid "After login, redirect user to:"
+msgstr "Após o login, redirecionar o usuário para:"
+
+#: plugin-options/settings-options.php:39
+msgid "Auto - Take user back to the page he/she was in"
+msgstr "Automático - Levar o usuário de volta para a página que ele/ela estava"
+
+#: plugin-options/settings-options.php:40
+msgid "Cart Page"
+msgstr "Página do Carrinho"
+
+#: plugin-options/settings-options.php:41
+#: plugin-options/settings-options.php:115
+msgid "Checkout"
+msgstr "Página de Pagamento"
+
+#: plugin-options/settings-options.php:42
+msgid "My Account"
+msgstr "Minha Conta"
+
+#: plugin-options/settings-options.php:43
+msgid "Shop"
+msgstr "Loja"
+
+#: plugin-options/settings-options.php:44
+msgid "Custom URL (add below)"
+msgstr "URL Customizada (adicionar abaixo)"
+
+#: plugin-options/settings-options.php:51
+msgid "Custom URL redirect"
+msgstr "URL Customizada de redirecionamento"
+
+#: plugin-options/settings-options.php:52
+msgid "Paste the URL of the page for redirect"
+msgstr "Cole a URL da página para redirecionamento"
+
+#: plugin-options/settings-options.php:59
+msgid "Label"
+msgstr "Identificação"
+
+#: plugin-options/settings-options.php:60
+msgid "Edit content of the label displayed above social login buttons"
+msgstr ""
+"Editar o conteúdo da identificação exibida acima dos botões de login "
+"utilizando redes sociais"
+
+#: plugin-options/settings-options.php:67
+msgid "Description in checkout page"
+msgstr "Descrição na página de pagamento"
+
+#: plugin-options/settings-options.php:68
+msgid "Edit content of the description in checkout page"
+msgstr "Editar o conteúdo da descrição na página de pagamento"
+
+#: plugin-options/settings-options.php:70
+msgid "Social Sign In"
+msgstr "Login com Rede Social"
+
+#: plugin-options/settings-options.php:75
+msgid "List of Social Networks"
+msgstr "Lista de Redes Sociais"
+
+#: plugin-options/settings-options.php:76
+msgid "Drag and Drop content for sort social login buttons"
+msgstr ""
+"Arraste e Solte o conteúdo para a ordenação dos botões das redes sociais"
+
+#: plugin-options/settings-options.php:82
+msgid "Callback Url"
+msgstr ""
+
+#: plugin-options/settings-options.php:83
+msgid ""
+"Choose if the url of callback is the root of domain or the url of the "
+"library, if you change all social callback urls must be changed"
+msgstr ""
+
+#: plugin-options/settings-options.php:94
+msgid "Enable Log"
+msgstr "Habilitar Log"
+
+#: plugin-options/settings-options.php:95
+#, fuzzy
+#| msgid "If enabled, you can view log details in "
+msgid "If enabled, you can view log details in %s logs/log.txt"
+msgstr "Se habilitado, você pode ver os detalhes do log em"
+
+#: plugin-options/settings-options.php:108
+msgid "Show login buttons in:"
+msgstr "Mostrar os botões de login em:"
+
+#: plugin-options/settings-options.php:122
+msgid "My Account Login Form"
+msgstr "Formulário de Login Minha Conta"
+
+#: plugin-options/settings-options.php:129
+msgid "My Account Registration Form"
+msgstr "Formulário de Registro Minha Conta"
+
+#: plugin-options/settings-options.php:136
+msgid "Show before post comments"
+msgstr "Mostrar antes de enviar comentários"
+
+#: plugin-options/settings-options.php:143
+msgid "Show after comment form"
+msgstr "Mostrar após formulário de comentário"
+
+#: plugin-options/settings-options.php:150
+msgid "WordPress Login"
+msgstr "Login do Wordpress"
+
+#: plugin-options/settings-options.php:162
+msgid "My Account Options:"
+msgstr "Opções da Minha Conta:"
+
+#: plugin-options/settings-options.php:169
+msgid "Show Social Connection list in My Account:"
+msgstr "Mostrar lista de Conexões de Redes Sociais na Minha Conta:"
+
+#: plugin-options/settings-options.php:174
+msgid "None"
+msgstr "Nenhuma"
+
+#: plugin-options/settings-options.php:175
+msgid "Before Recent Orders"
+msgstr "Antes dos Pedidos Recentes"
+
+#: plugin-options/settings-options.php:176
+msgid "At the end of page"
+msgstr "No final da página"
+
+#: plugin-options/tumblr-options.php:26
+msgid "Tumblr settings"
+msgstr "Configurações do Tumblr"
+
+#: plugin-options/tumblr-options.php:33
+msgid "Enable Tumblr Login"
+msgstr "Habilitar Login via Tumblr"
+
+#: plugin-options/tumblr-options.php:41
+msgid "Tumblr Consumer Key"
+msgstr "Chave de Consumo do Tumblr"
+
+#: plugin-options/tumblr-options.php:49
+msgid "Tumblr Secret Key"
+msgstr "Senha da Chave do Tumblr"
+
+#: plugin-options/tumblr-options.php:57
+msgid "Tumblr Icon"
+msgstr "Ícone do Tumblr"
+
+#: plugin-options/twitter-options.php:27
+msgid "Twitter settings"
+msgstr "Configurações do Twitter"
+
+#: plugin-options/twitter-options.php:34
+msgid "Enable Twitter Login"
+msgstr "Habilitar Login via Twitter"
+
+#: plugin-options/twitter-options.php:42
+msgid "Twitter Key"
+msgstr "Chave do Twitter"
+
+#: plugin-options/twitter-options.php:50
+msgid "Twitter Secret"
+msgstr "Senha do Twitter"
+
+#: plugin-options/twitter-options.php:58
+msgid "Twitter Icon"
+msgstr "Ícone do Twitter"
+
+#: plugin-options/vkontakte-options.php:26
+msgid "Vkontakte settings"
+msgstr "Configurações do Vkontakte"
+
+#: plugin-options/vkontakte-options.php:32
+msgid "Enable Vkontakte Login"
+msgstr "Habilitar Login via Vkontakte"
+
+#: plugin-options/vkontakte-options.php:40
+msgid "Vkontakte App ID"
+msgstr "ID da App do Vkontakte"
+
+#: plugin-options/vkontakte-options.php:48
+msgid "Vkontakte Secret"
+msgstr "Senha do Vkontakte"
+
+#: plugin-options/vkontakte-options.php:56
+msgid "Vkontakte Icon"
+msgstr "Ícone do Vkontakte"
+
+#: plugin-options/yahoo-options.php:26
+msgid "Yahoo settings"
+msgstr "Configurações do Yahoo"
+
+#: plugin-options/yahoo-options.php:33
+msgid "Enable Yahoo Login"
+msgstr "Habilitar Login via Yahoo"
+
+#: plugin-options/yahoo-options.php:41
+msgid "Yahoo Consumer Key"
+msgstr "Chave de Consumo do Yahoo"
+
+#: plugin-options/yahoo-options.php:49
+msgid "Yahoo Consumer Secret"
+msgstr "Senha de Consumo do Yahoo"
+
+#: plugin-options/yahoo-options.php:57
+msgid "Yahoo Icon"
+msgstr "Ícone do Yahoo"
+
+#: templates/admin/social_network_table.php:24
+msgid "Enabled"
+msgstr "Habilitado"
+
+#: templates/admin/social_network_table.php:24
+msgid "Disabled"
+msgstr "Desabilitado"
+
+#: templates/admin/social_network_table.php:44
+msgid ""
+"Drag and drop the above listed icons for social networks to set their "
+"display order."
+msgstr ""
+"Arraste e solte os ícones de redes sociais listados acima para definir a "
+"ordem de exibição."
+
+#: templates/myaccount/social-connections.php:15
+msgid "also"
+msgstr "também"
+
+#: templates/myaccount/social-connections.php:23 templates/request-info.php:199
+msgid "Username"
+msgstr "Nome de usuário"
+
+#: templates/myaccount/social-connections.php:42
+msgid "You can %s login with:"
+msgstr "Você pode %s fazer login com:"
+
+#: templates/request-info.php:187
+msgid "Please, fill in the form below with your information to continue"
+msgstr ""
+"Por favor, preencha o formulário abaixo com suas informações para continuar"
+
+#: templates/request-info.php:205
+msgid "Email"
+msgstr "E-mail"
+
+#: templates/request-info.php:211
+msgid "Continue to Login"
+msgstr "Continuar para o Login"
+
+#: templates/request-info.php:219
+msgid "Back to %s"
+msgstr "Voltar para %s"
+
+#: templates/social-buttons-checkout.php:14
+msgid "Click here to login"
+msgstr "Clicar aqui para fazer o login"
+
+#: widgets/class.yith-ywsl-widget.php:33
+msgid "Show social login"
+msgstr "Fazer login com rede social"
+
+#: widgets/class.yith-ywsl-widget.php:35
+msgid "YITH WooCommerce Social Login"
+msgstr "YITH WooCommerce Social Login"
+
+#: widgets/class.yith-ywsl-widget.php:107
+msgid "Social Login"
+msgstr "Login utilizando rede social"
+
+#: widgets/class.yith-ywsl-widget.php:108
+msgid "Login width:"
+msgstr "Largura do login:"
+
+#: widgets/class.yith-ywsl-widget.php:114
+msgid "Title:"
+msgstr "Título:"
+
+#: widgets/class.yith-ywsl-widget.php:119
+msgid "Description:"
+msgstr "Descrição:"
+
+#: widgets/class.yith-ywsl-widget.php:124
+msgid "Redirect To (optional):"
+msgstr "Redirecionar Para (opcional):"
+
+#. Plugin Name of the plugin/theme
+#, fuzzy
+#| msgid "YITH WooCommerce Social Login"
+msgid "YITH WooCommerce Social Login Premium"
+msgstr "YITH WooCommerce Social Login"
+
+#. Plugin URI of the plugin/theme
+msgid "https://yithemes.com/themes/plugins/yith-woocommerce-social-login/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"<code><strong>YITH WooCommerce Social Login</strong></code> allows your "
+"users and customers to register and log into your store using one of their "
+"favourite social networks, like Facebook, Google, Twitter etc. Perfect for "
+"speeding up the login process on your e-commerce shop. <a href=\"https://"
+"yithemes.com/\" target=\"_blank\">Get more plugins for your e-commerce shop "
+"on <strong>YITH</strong></a>."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "YITH"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://yithemes.com/"
+msgstr ""
+
+#~ msgid "<strong>Callback URL</strong>: "
+#~ msgstr "URL de Retorno:"
+
+#~ msgid "Plugin Documentation"
+#~ msgstr "Documentação do Plugin"
+
+#~ msgid "Paypal"
+#~ msgstr "PayPal"
+
+#~ msgid "Enviroment"
+#~ msgstr "Ambiente"

@@ -1,0 +1,59 @@
+/* hotspots rtl css */
+.ult-tooltipster-default {
+    max-width: 300px;
+    text-align: center;
+    right: auto;
+}
+
+.ult_info_list_container .smile_icon_list.right li .icon_list_icon {
+    float: right;
+    position: relative
+}
+
+.ult_info_list_container .smile_icon_list.right li .icon_list_connector {
+    right: .5em;
+}
+.ult_info_list_container .smile_icon_list li .icon_list_icon {
+    float: left;
+}
+.ult_info_list_container .smile_icon_list.top li .icon_list_icon {
+    float: none;
+}
+.ult_info_list_container .smile_icon_list.left li .icon_list_connector {
+    left: .5em;
+}
+/* RTL CSS for timeline element*/
+.smile-icon-timeline-wrap.csstime .timeline-wrapper .timeline-block.timeline-post-right {
+    float:left !important;
+}
+.smile-icon-timeline-wrap.jstime .timeline-wrapper .timeline-block.timeline-post-left {
+    right :0px !important;
+}
+.smile-icon-timeline-wrap.jstime .timeline-wrapper .timeline-block.timeline-post-right {
+    left :0px !important;
+}
+
+.ult-ih-item.ult-ih-circle.ult-ih-effect18.ult-ih-bottom_to_top:hover .ult-ih-image-block,
+.ult-ih-item.ult-ih-square.ult-ih-effect18.ult-ih-bottom_to_top:hover .ult-ih-image-block {
+-webkit-transform: rotate3d(1, 0, 0, 180deg) !important;
+-ms-transform: rotate3d(1, 0, 0, 180deg) !important;
+transform: rotate3d(1, 0, 0, 180deg)!important
+}
+.ult-ih-item.ult-ih-circle.ult-ih-effect18.ult-ih-top_to_bottom:hover .ult-ih-image-block,
+.ult-ih-item.ult-ih-square.ult-ih-effect18.ult-ih-top_to_bottom:hover .ult-ih-image-block {
+-webkit-transform: rotate3d(1, 0, 0, -180deg) !important;
+-ms-transform: rotate3d(1, 0, 0, -180deg) !important;
+transform: rotate3d(1, 0, 0, -180deg) !important
+}
+.ult-ih-item.ult-ih-circle.ult-ih-effect18.ult-ih-left_to_right:hover .ult-ih-image-block,
+.ult-ih-item.ult-ih-square.ult-ih-effect18.ult-ih-left_to_right:hover .ult-ih-image-block {
+-webkit-transform: rotate3d(0, -1, 0, 180deg);
+-ms-transform: rotate3d(0, -1, 0, 180deg);
+transform: rotate3d(0, -1, 0, 180deg)
+}
+.ult-ih-item.ult-ih-circle.ult-ih-effect18.ult-ih-right_to_left:hover .ult-ih-image-block,
+.ult-ih-item.ult-ih-square.ult-ih-effect18.ult-ih-right_to_left:hover .ult-ih-image-block {
+-webkit-transform: rotate3d(0, -1, 0, -180deg);
+-ms-transform: rotate3d(0, -1, 0, -180deg);
+transform: rotate3d(0, -1, 0, -180deg)
+}

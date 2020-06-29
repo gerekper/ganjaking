@@ -1,0 +1,66 @@
+/*Cross-sells*/
+.wbs-crosssells-price, .woocommerce-boost-sales .wbs-content-crossell, .gift-button.wbs-icon-font:before {
+	text-align: right;
+}
+
+.gift-button.wbs-icon-font:before {
+	text-indent: 38px;
+}
+
+.gift-button.gift_right.wbs-icon-font:before {
+	text-indent: 87px;
+}
+
+.wbs-content-inner-crs .wbs-crosssells-button-atc .quantity {
+	float: right !important;
+	margin-right: 0 !important;
+	margin-left: 0.5em !important;
+}
+
+/*Upsells*/
+.woocommerce-boost-sales .wbs-breadcrum .wbs-product {
+	float: right;
+	border-right: 0;
+	border-left: 1px solid #cdd;
+}
+
+.woocommerce-boost-sales .wbs-breadcrum .wbs-header-right {
+	float: left;
+}
+
+.woocommerce-boost-sales .wbs-content, .woocommerce-boost-sales .wbs-breadcrum p.wbs-notify_added.wbs-title_style2 {
+	text-align: right;
+}
+
+.woocommerce-boost-sales .wbs-breadcrum .wbs-p-price {
+	float: right;
+}
+
+.woocommerce-boost-sales .wbs-upsell-template-1 .wbs-breadcrum {
+
+}
+
+.woocommerce-boost-sales .wbs-upsell-template-1 .wbs-breadcrum .wbs-product {
+	border: 0;
+	float: none;
+}
+
+.woocommerce-boost-sales .wbs-upsell-template-1 .wbs-breadcrum .wbs-p-price {
+	float: left;
+	padding: 0 10px 0 0;
+}
+
+.woocommerce-boost-sales .wbs-upsell-template-1 .wbs-breadcrum .wbs-p-price:before {
+	left: auto;
+	right: 0;
+}
+
+/*Discount Bar*/
+.vi-wbs-progress-container .vi-wbs-progress .vi-wbs-progress-bar {
+	float: right;
+}
+
+.vi-wbs-topbar .vi-wbs-current-progress {
+	padding-left: 33px !important;
+	padding-right: 53px !important;
+}

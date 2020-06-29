@@ -1,0 +1,69 @@
+.eicon-layerslider,
+.eicon-layerslider:before,
+.eicon-layerslider:after {
+	display: block;
+	width: 1em;
+	height: 1em;
+	padding: 0 !important;
+	border-style: solid;
+	border-color: inherit;
+	border-radius: .15em;
+	box-sizing: border-box;
+}
+
+.elementor-widget .eicon-layerslider {
+	border-color: #c2cbd2;
+}
+
+.eicon-layerslider {
+	position: relative;
+	left: 50%;
+	border-width: .5em;
+	opacity: 0.8;
+	transform: translate(-50%, -25%) scale(.8, .4) rotate(45deg);
+}
+.eicon-layerslider:before,
+.eicon-layerslider:after {
+	content: '';
+	position: absolute;
+	border-width: 0 .333em .333em 0;
+	left: -.05em;
+	top: -.05em;
+}
+.eicon-layerslider:after {
+	left: .4em;
+	top: .4em;
+}
+
+.eicon-layerslider.elementor-widget-empty-icon {
+	margin: 10px 0;
+}
+
+.ls-editor-loading .kmw-modal-content {
+	background: url( ../img/ls-logo-grayscale.png) center center no-repeat;
+	background-size: auto 15%;
+}
+
+.ls-editor-modal {
+	top: 0;
+	left: 0;
+	transform: none;
+}
+
+.ls-editor-modal .kmw-modal-close {
+	background: white;
+}
+
+.ls-editor-modal iframe {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+}
+
+.ls-firstslide .elementor-control-input-wrapper {
+	max-width: none;
+	width: 135px;
+}
+.ls-firstslide .elementor-control-unit-2 {
+	width: 100%;
+}

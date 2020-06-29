@@ -1,0 +1,274 @@
+
+.woocommerce-cart {
+	.shipping_calculator {
+		h2 {
+			margin-top: 0;
+			a {
+				cursor: default;
+				text-decoration: none;
+			}
+		}
+	}
+
+	.shipping-form-wrap .shipping-calculator-form {
+		display: block !important;
+		height: auto !important;
+	}
+
+	.shipping-calculator-form {
+		margin-top: 10px;
+	}
+}
+
+.shop_table {
+	.product-thumbnail {
+		img {
+			max-width: 90px;
+			height: auto;
+		}
+	}
+
+	dl.variation {
+		dt {
+			padding: 8px 0 0;
+		}
+		dd {
+			padding: 0;
+
+			p {
+				margin: 0;
+			}
+		}
+	}
+}
+
+.cross-sells {
+	margin-top: 20px;
+	margin-bottom: 20px;
+
+	.slider-wrapper {
+		.products {
+			.product {
+				h3,
+				.rating-wrap {
+					font-size: 0.9em;
+				}
+
+				.price {
+					font-size: 1em;
+				}
+			}
+		}
+	}
+}
+
+.shop_table.responsive.cart-total,
+.shop_table.shop_table_responsive.cart-total {
+	tbody {
+		tr:first-child {
+			th,
+			td {
+				border-top-width: 0;
+			}
+		}
+	}
+	th {
+		width: 25%;
+	}
+	@media #{$screen-medium} {
+		th,
+		td {
+			width: 100%;
+			text-align: $left;
+		}
+	}
+}
+
+#shipping_method {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.wc-proceed-to-checkout {
+	margin-bottom: 20px;
+	margin-bottom: 20px;
+	text-align: $right;
+}
+
+.cart_totals,
+.review-order.shop_table {
+	h2 {
+		margin-top: 0;
+	}
+
+	.order-total {
+		.amount {
+			//font-size: 1.1em;
+			font-size: 17px;
+			color:#000;
+		}
+	}
+}
+
+/* Cart V2 */
+.cart-v2 {
+	.heading-primary{
+		font-size: 20px;
+		line-height: 27px;
+		margin: 0 0 20px;
+		display: -ms-flexbox;
+		display: flex;
+		-ms-flex-pack: between;
+		justify-content: space-between;
+		-ms-flex-align: center;
+		align-items: center;
+	}
+	.proceed-to-checkout {
+		letter-spacing: normal;
+	}
+	.card-title {
+		margin-top: 0px !important;
+		margin-bottom: 0px !important;
+		line-height: 40px;
+	}
+	.coupon {
+		margin-top: 0px !important;
+		margin-bottom: 0px !important;
+		label {
+			display: block !important;
+		}
+	}
+	.shipping-calculator-form {
+		display: block !important;
+	}
+	.card.card-default {
+		.card-body {
+			padding: 15px 15px 7px;
+			border-top: none;
+			border-radius: 0 0 6.99px 6.99px;
+			background-color: #fbfbfb;
+			tbody {
+				tr {
+					border-bottom: 1px solid #dcdcdc;
+					&:last-child {
+						border-bottom: none;
+					}
+					th {
+						padding: 10px;
+						line-height: 1.4;
+						font-size: 15px;
+						font-weight: 300;
+						text-align: #{$left} !important;
+					}
+					td {
+						padding: 10px;
+						line-height: 1.4;
+						font-size: 15px;
+						font-weight: 300;
+						text-align: #{$left} !important;
+						&:last-child {
+							color: #000;
+							text-align: #{$right} !important;
+							font-weight: 600;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+.checkout-v2 {
+	.checkout_coupon {
+		display: block !important;
+	}
+}
+.card.card-default {
+	.card-header.arrow {
+		a {
+			position: relative;
+			padding-#{$right}: 40px;
+			font-size: 13px;
+			font-weight: 700;
+			letter-spacing: 0 !important;
+			&:before {
+				border: none;
+				color: #222529;
+				font-family: 'porto';
+				content: "\e81b";
+				width: 26px;
+				height: 26px;
+				display: block;
+				position: absolute;
+				#{$right}: 15px;
+				top: 50%;
+				margin-top: -13px;
+				color: #222529;
+				text-align: center;
+				line-height: 26px;
+				font-size: 17px;
+				background-color: transparent;
+			}
+		}
+		a.collapsed {
+			&:before {
+				content: "\e81c";
+			}
+		}
+	}
+}
+
+.card.card-default {
+	.card-header.arrow {
+		a {
+			&:hover {
+				&:before {
+					background-color: transparent;
+					border-color: transparent;
+					color: #222529;
+				}
+			}
+		}
+	}
+}
+
+/* Shop Table */
+.shop_table.cart {
+	thead {
+		th {
+			color: #777777;
+		}
+	}
+}
+td.product-price {
+	font-weight: 400 !important;
+}
+td.product-subtotal {
+	font-weight: 400 !important;
+}
+td.product-total {
+	font-weight: 400 !important;
+}
+td.order-total {
+	font-weight: 400 !important;
+}
+tr.cart-subtotal {
+	font-weight: 400 !important;
+}
+
+.cart_totals_toggle .card-header a {
+	display: block;
+	padding: 10px 20px;
+	text-decoration: none;
+}
+
+.cart_totals_toggle .card-header {
+	padding: 0;
+	border-bottom: none;
+}
+
+.cart_totals_toggle .card:not(:first-child) {
+	margin-top: 5px;
+}
+
+.wc-proceed-to-checkout .btn { margin-bottom: 10px; }

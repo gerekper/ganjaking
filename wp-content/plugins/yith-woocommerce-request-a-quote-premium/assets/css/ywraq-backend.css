@@ -1,0 +1,368 @@
+.widefat .column-hide_add_to_quote {
+    width: 20%;
+    text-align: center;
+}
+
+.widefat .column-hide_add_to_quote mark {
+    display: block;
+    text-indent: -9999px;
+    position: relative;
+    height: 1em;
+    width: 1em;
+    background: 0 0;
+    font-size: 1.4em;
+    margin: 0 auto;
+}
+
+.widefat .column-hide_add_to_quote mark.show:after,
+.widefat .column-hide_add_to_quote mark.hide:after {
+    font-family: WooCommerce;
+    speak: none;
+    font-weight: 400;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    text-indent: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.widefat .column-hide_add_to_quote mark.hide:after {
+    content: "\e013";
+    color: #a00000;
+}
+
+.widefat .column-hide_add_to_quote mark.show:after {
+    content: "\e015";
+    color: #2ea2cc;
+}
+
+.widefat mark.ywraq-new.tips:after {
+    color: #999;
+}
+
+.widefat mark.ywraq-pending.tips:after {
+    color: #ffba00;
+}
+
+.widefat mark.ywraq-accepted.tips:after {
+    color: #56bb0f;
+}
+
+
+.widefat mark.ywraq-expired.tips:after {
+    color: #C8C8C8;
+}
+
+.widefat mark.ywraq-pending.tips:after,
+.widefat mark.ywraq-rejected.tips:after,
+.widefat mark.ywraq-expired.tips:after,
+.widefat mark.ywraq-accepted.tips:after,
+.widefat mark.ywraq-new.tips:after {
+    content: "\e603";
+    font-family: WooCommerce;
+    font-weight: 400;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    text-indent: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+#poststuff h3 span {
+    font-weight: 400;
+}
+
+#yith-ywraq-metabox-order h2 {
+    padding: 12px 24px;
+}
+
+#yith-ywraq-metabox-order h3 {
+    font-size: 1em;
+    margin: 0 10px !important;
+}
+
+tr.sub-option {
+    background: rgba(244, 244, 244, 0.43);
+}
+
+#yith-ywraq-metabox-order .inside {
+    padding: 0 24px 12px;
+}
+
+#yith-ywraq-metabox-order .metaboxes-tab div.tabs-panel {
+    padding: 0 12px;
+}
+
+#yith-ywraq-metabox-order input {
+    min-height: 28px;
+}
+
+#yith-ywraq-metabox-order .metaboxes-tab label {
+    color: #555;
+    line-height: 1.4em;
+}
+
+#yith-ywraq-metabox-order .metaboxes-tab span.desc.inline {
+    display: block;
+    line-height: normal;
+}
+
+#ywraq_pdf_file-container .desc.inline {
+    display: inline-block !important;
+}
+
+#yith-ywraq-metabox-order .tabs-panel {
+    border: 0;
+}
+
+.the-metabox.datepicker.clearfix {
+    box-shadow: none !important;
+    position: relative !important;
+}
+
+
+.yith-plugins_page_yith_woocommerce_request_a_quote .forminp-checkbox div,
+.yith-plugins_page_yith_woocommerce_request_a_quote .forminp-checkbox span.description {
+    display: inline-block !important;
+    width: auto !important;
+}
+
+.yith-plugins_page_yith_woocommerce_request_a_quote .yith-plugin-fw-radio__row {
+    margin-bottom: 10px;
+}
+
+.woocommerce.yith-plugins_page_yith_woocommerce_request_a_quote .yith-plugin-fw table.form-table input[type=number] {
+    width: 60px;
+}
+
+
+table.excluded_categories td,
+table.excluded_categories th,
+table.excluded_products td,
+table.excluded_products th {
+    vertical-align: middle;
+}
+
+table.excluded_categories .column-image,
+table.excluded_products .column-image {
+    width: 52px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+table.excluded_categories .column-image img,
+table.excluded_products .column-image img {
+    margin: 0;
+    width: auto;
+    height: auto;
+    max-width: 40px;
+    max-height: 40px;
+}
+
+table.excluded_categories .column-slug,
+table.excluded_categories .column-name {
+    width: 25%;
+}
+
+table.excluded_categories .column-count {
+    width: 74px;
+}
+
+table.excluded_categories .column-actions,
+table.excluded_products .column-actions {
+    width: 100px;
+}
+
+table.excluded_products .column-stock .in-stock {
+    color: #42af2c;
+}
+
+table.excluded_products .column-stock .out-of-stock {
+    color: #db1b1b;
+}
+
+#yith-add-exclusion-cat,
+#yith-add-exclusion-prod {
+    margin: 20px 0 0;
+    padding: 20px;
+    background-color: #ebebeb;
+    display: inline-block;
+    border: 1px solid #e0e0e0;
+}
+
+#yith-add-exclusion-prod label,
+#yith-add-exclusion-cat label {
+    margin: 0 0 10px;
+    text-transform: uppercase;
+    font-size: 13px;
+    font-weight: 700;
+    display: block;
+}
+
+div#ywraq-submenu {
+    padding: 20px 0 50px 0;
+    display: block;
+}
+
+/* DEFAULT FORM */
+#ywraq-add-field {
+    margin: 20px 0;
+    padding: 20px;
+    background-color: #ebebeb;
+    display: inline-block;
+    border: 1px solid #e0e0e0;
+}
+
+#ywraq-add-field h4 {
+    margin: 0 0 10px;
+    text-transform: uppercase;
+}
+
+#ywraq-add-field label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+#ywraq-add-field input[type="text"] {
+    width: 300px;
+    height: 30px;
+}
+
+#ywraq_form_fields_form {
+    margin-bottom: 30px;
+}
+
+#ywraq_form_fields_form input[type="submit"].button-primary {
+    margin-top: 30px;
+}
+
+#ywraq_form_fields .td_field_action {
+    text-align: center;
+}
+
+#ywraq_form_fields tr.disabled-row td:not( .td_field_action ) {
+    opacity: 0.3;
+}
+
+#ywraq_form_fields tr.disabled-row .td_field_action .edit_field {
+    display: none;
+}
+
+#ywraq_form_fields tr:not( .is_custom ) .td_field_action .remove_field {
+    display: none;
+}
+
+#ywraq-add-field input.required,
+#ywraq-add-field input.field-exists {
+    border: 1px solid rgba(253, 76, 76, 1);
+    -webkit-box-shadow: 2px 1px 10px 1px rgba(253, 76, 76, 0.5);
+    -moz-box-shadow: 2px 1px 10px 1px rgba(253, 76, 76, 0.5);
+    box-shadow: 2px 1px 10px 1px rgba(253, 76, 76, 0.5);
+}
+
+
+div#ywraq_field_add_edit_form input[type="text"], div#ywraq_field_add_edit_form select {
+    width: 100%;
+    padding: 5px 5px;
+}
+
+.ywraq-form-link {
+    margin-left: 240px;
+
+}
+
+#ywraq_field_add_edit_form td.label {
+    width: 100px;
+}
+
+#ywraq_field_add_edit_form td {
+    padding: 5px;
+}
+
+#ywraq_field_add_edit_form .ui-dialog-titlebar.ui-widget-header.ui-corner-all.ui-helper-clearfix.ui-draggable-handle {
+    border-radius: 0;
+    border: 0;
+}
+
+#ywraq_field_add_edit_form textarea {
+    width: 100%;
+}
+
+#ywraq_field_add_edit_form small {
+    color: #72777c;
+    font-style: italic;
+}
+
+#ywraq_field_add_edit_form button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-icon-only.ui-dialog-titlebar-close {
+    margin-top: 6px;
+}
+
+#ywraq_field_add_edit_form select, #ywraq_field_add_edit_form input[type="text"] {
+    background: none;
+    box-shadow: none;
+}
+
+.yith-plugins_page_yith_woocommerce_request_a_quote span.ui-button-icon-primary.ui-icon.ui-icon-closethick {
+    display: none !important;
+}
+
+#ywraq_form_fields td.ui-sortable-handle:before {
+    content: '\f333';
+    font-family: Dashicons;
+    text-align: center;
+    line-height: 1;
+    color: #999;
+    display: block;
+    width: 17px;
+    height: 100%;
+    margin: 4px 0 0 0;
+}
+
+.ywraq-form-wrapper {
+    background: #fff;
+    box-sizing: border-box;
+}
+
+.ywraq-edit-form-content {
+    padding: 20px;
+    clear: both;
+    padding-bottom: 50px;
+}
+
+#ywraq_form_fields {
+    margin: 20px 0;
+}
+
+#ywraq_form_fields_form select {
+    min-height: 30px;
+    border-radius: 3px;
+    background: #FFF url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M5%206l5%205%205-5%202%201-7%207-7-7%202-1z%22%20fill%3D%22%23555%22%2F%3E%3C%2Fsvg%3E') no-repeat right 5px top 55%;
+    background-size: 16px 16px;
+}
+
+.yith-plugins_page_yith_woocommerce_request_a_quote button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-icon-only.ui-dialog-titlebar-close:before {
+    font-family: 'yith-icon';
+    content: '\e906';
+    font-size: 13px;
+}
+
+.yith-plugins_page_yith_woocommerce_request_a_quote .ui-dialog-buttonpane .ui-button {
+    box-shadow: none;
+    background: #007694;
+    color: #fff;
+    border: 0;
+}

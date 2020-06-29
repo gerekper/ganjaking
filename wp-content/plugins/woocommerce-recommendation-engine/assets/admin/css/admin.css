@@ -1,0 +1,34 @@
+
+tr:hover {
+	//background-color: ghostwhite;
+}
+
+.column-views, .column-orders {
+	width:80px;
+}
+
+.column-actions {
+	width: 49px;
+}
+
+.recommendations-list span.label {
+	display:inline-block;
+	width:150px;
+}
+
+.updating {
+	background-color: #F6F6BC;
+}
+
+.wc-recommender-highlight {
+    background-color: #fff;
+    -webkit-transition: background-color 1000ms linear;
+    -moz-transition: background-color 1000ms linear;
+    -o-transition: background-color 1000ms linear;
+    -ms-transition: background-color 1000ms linear;
+    transition: background-color 1000ms linear;
+}
+
+#blockMessage {
+    display:none;
+}

@@ -1,0 +1,202 @@
+/**
+ * Frontend style
+ *
+ */
+
+table.wbs-wcpb-product-bundled-items {
+	margin: 10px 0;
+}
+
+table.wbs-wcpb-product-bundled-items tr {
+	margin: 5px;
+	border: 1px solid #ccc;
+}
+
+td.wbs-wcpb-product-bundled-item-image {
+	width: 80px;
+	padding: 0;
+	vertical-align: top;
+}
+
+td.wbs-wcpb-product-bundled-item-image img {
+	width: 80px;
+}
+
+td.wbs-wcpb-product-bundled-item-data {
+	padding: 0 0 0 10px !important;
+	position: relative;
+}
+
+td.wbs-wcpb-product-bundled-item-data p {
+	margin-bottom: 5px;
+}
+
+div.wbs-wcpb-product-bundled-item-instock, div.wbs-wcpb-product-bundled-item-outofstock {
+	background: #00f;
+	padding: 0px 40px 0 10px;
+	font-weight: 600;
+	background: rgba(200, 200, 200, 0.6);
+	margin-bottom: 10px;
+	float: right;
+	font-size: 13px;
+}
+
+div.wbs-wcpb-product-bundled-item-instock {
+	color: green;
+}
+
+div.wbs-wcpb-product-bundled-item-outofstock {
+	color: red;
+}
+
+tr.wbs-wcpb-child-of-bundle-table-item {
+	height: 30px;
+}
+
+.woocommerce tr.wbs-wcpb-child-of-bundle-table-item td.product-name a {
+	font-size: 12px;
+	padding-left: 15px;
+	text-decoration: none;
+	box-shadow: none;
+	font-weight: 300;
+}
+
+tr.wbs-wcpb-child-of-bundle-table-item dl.variation dt, tr.wbs-wcpb-child-of-bundle-table-item dl.variation dd {
+	margin: 0 !important;
+	font-size: 11px;
+	padding: 0 !important;
+	line-height: 1.4;
+}
+
+input.wbs-wcpb-bundled-quantity {
+	width: 60px;
+}
+
+.wbs-wcpb-product-bundled-item-image .price {
+	text-align: center;
+}
+
+.wbs-wcpb-product-bundled-item-image .price del, .wbs-wcpb-product-bundled-item-image .price ins {
+	display: block;
+	background: #f1f1f1;
+	line-height: 1.4;
+}
+
+.wbs-wcpb-product-bundled-item-image .price del {
+	font-size: 12px !important;
+	opacity: 1 !important;
+	text-align: center !important;
+}
+
+.wbs-wcpb-product-bundled-item-image .price del span.amount {
+	font-size: 12px !important;
+	opacity: 1 !important;
+	text-align: center !important;
+}
+
+.wbs-wcpb-product-bundled-item-image .price ins {
+	font-weight: bold;
+	color: #008000;
+	line-height: 1.7;
+	text-align: center !important;
+}
+
+td.wbs-wcpb-product-bundled-item-data table.variations, td.wbs-wcpb-product-bundled-item-data table.variations tr {
+	border: 0px none;
+}
+
+/*
+	W I D G E T
+*/
+
+.wbs_wcpb_bundle_widget {
+	background: #FFFFFF !important;
+	border: 2px solid #f1f1f1;
+	padding: 20px 30px !important;
+}
+
+.wbs_wcpb_bundle_widget  {
+	font: 700 17px "Open Sans", Helvetica, sans-serif !important;
+	text-transform: uppercase;
+	color: #777 !important;
+}
+
+ul.wbs_wcpb_bundle_list_widget {
+	list-style: none !important;
+	padding: 0;
+}
+
+ul.wbs_wcpb_bundle_list_widget > li {
+	min-height: 65px;
+	padding-bottom: 20px;
+}
+
+ul.wbs_wcpb_bundle_list_widget li img {
+	float: right;
+	margin-left: 4px;
+	width: 45px;
+	height: auto;
+	box-shadow: none;
+}
+
+ul.wbs_wcpb_bundle_list_widget li a {
+	display: block;
+	font-weight: 700;
+}
+
+div.wbs-wcbm-widget-bundle-container {
+	overflow: auto;
+	display: block;
+	margin-bottom: 10px;
+	padding-top: 20px;
+	border-top: 1px solid #eaeaea;
+}
+
+div.wbs-wcbm-widget-bundle-container a {
+	font: 600 16px "Open Sans", Helvetica, sans-serif !important;
+	text-transform: uppercase;
+	text-decoration: none;
+	color: #cf1a00;
+}
+
+.wbs-wcbm-widget-bundle-price del {
+	font: 300 14px "Open Sans", Helvetica, sans-serif !important;
+	color: #777777;
+}
+
+.wbs-wcbm-widget-bundle-price ins {
+	font: 700 15px "Open Sans", Helvetica, sans-serif !important;
+	background: transparent;
+	font-weight: 800;
+}
+
+.wbs-wcbm-widget-bundle-price > span.amount {
+	font: 700 15px "Open Sans", Helvetica, sans-serif !important;
+	background: transparent;
+	font-weight: 800;
+}
+
+ul.wbs-wcbm-widget-bundled-items {
+	margin: 0 !important;
+	padding: 0 !important;
+	list-style: none !important;
+}
+
+ul.wbs-wcbm-widget-bundled-items li {
+	min-height: auto;
+	height: 25px;
+}
+
+ul.wbs-wcbm-widget-bundled-items li a {
+	font: 600 13px "Open Sans", Helvetica, sans-serif !important;
+	text-decoration: none;
+	color: #777777;
+}
+
+ul.wbs-wcbm-widget-bundled-items li img {
+	float: right;
+	margin-left: 4px;
+	width: 18px;
+	height: auto;
+	box-shadow: none;
+}

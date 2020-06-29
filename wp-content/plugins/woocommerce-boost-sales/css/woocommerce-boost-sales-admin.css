@@ -1,0 +1,63 @@
+.wrap.woocommerce-boost-sales #message.woocommerce-boost-sales-message {
+    position: relative;
+}
+
+.wrap.woocommerce-boost-sales #message.woocommerce-boost-sales-message .notice-dismiss {
+    padding: 10px 15px 10px 21px;
+}
+
+.wrap.woocommerce-boost-sales #message.woocommerce-boost-sales-message .notice-dismiss::before {
+    position: absolute;
+    top: 9px;
+    left: 0;
+    -webkit-transition: all .1s ease-in-out;
+    transition: all .1s ease-in-out;
+}
+
+tr.wbs_exclude_product {
+    background-color: #fff;
+}
+
+tr.wbs_exclude_product .vi-ui.multiple.search.dropdown > input.search {
+    width: 100%;
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 27px;
+    font-size: 13px;
+}
+
+.vi-ui.tabular.menu .item a {
+    text-decoration: none;
+    color: #212121;
+}
+
+.wbs-field-title {
+    text-transform: uppercase;
+    font-weight: 300;
+    text-align: center;
+    background: #FF8A65;
+    padding: 10px;
+    color: #fff;
+}
+
+.select2-search__field {
+    width: 100% !important;
+}
+
+table.wp-list-table td.column-up-sells > span.select2.select2-container {
+    max-width: 100% !important;
+    width: 100% !important;
+}
+
+.wbs-crosssell-price-rule-container tr th,
+.wbs-crosssell-price-rule-container tr td {
+    text-align: center;
+}
+
+.wbs-crosssell-price-rule-container tr:first-child {
+    background: rgba(1, 1, 1, .6);
+}
+
+.wbs-crosssell-price-rule-container tr:first-child th {
+    color: #ffffff;
+}

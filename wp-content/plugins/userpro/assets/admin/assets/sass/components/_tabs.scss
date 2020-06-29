@@ -1,0 +1,29 @@
+.userpro-admin{
+  .nav-tab{
+    $this : &;
+    background: nth($primary-color,1);
+    color:$base_font_color;
+    font-weight: 500;
+    border:none;
+    margin:1px;
+    @include transition(0.25s);
+
+    &:hover{
+      background: nth($primary-color,3);
+      @include transition(0.25s);
+
+    }
+
+    &:first-child{
+      border-top-left-radius: 5px;
+      margin-left:0;
+    }
+    &:last-child{
+      border-top-right-radius: 5px;
+    }
+      &-active{
+        background: nth($primary-color, 3);
+      }
+  }
+
+}

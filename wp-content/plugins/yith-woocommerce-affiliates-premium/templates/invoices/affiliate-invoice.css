@@ -1,0 +1,63 @@
+body{
+    font-family: sans-serif;
+}
+
+.invoice-container .invoice-heading,
+.invoice-container .invoice-date,
+.invoice-container .invoice-addresses,
+.invoice-content,
+.invoice-totals{
+    margin-bottom: 45px;
+}
+
+.invoice-container .invoice-heading h1,
+.invoice-container .invoice-heading h2{
+    text-align: center;
+    font-weight: 700;
+    margin: 0;
+    padding: 0;
+}
+
+.invoice-container .invoice-heading h2{
+    text-transform: uppercase;
+    margin-bottom: 15px;
+}
+
+.invoice-container .invoice-addresses table.addresses,
+.invoice-container .invoice-addresses table.addresses tr,
+.invoice-container .invoice-addresses table.addresses tr td{
+    border: none;
+}
+
+.invoice-container .invoice-addresses table.addresses td{
+    text-align: center;
+    width: 50%;
+}
+
+.invoice-container .invoice-addresses table.addresses td h3{
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.invoice-totals table.totals,
+.invoice-totals table.totals tr,
+.invoice-totals table.totals tr td{
+    border: none;
+}
+
+.invoice-totals table.totals tr td{
+    padding: 15px 5px;
+}
+
+.invoice-totals table.totals tr td.total-description{
+    text-align: right;
+}
+
+.invoice-totals table.totals tr td.total{
+    font-weight: 700;
+}
+
+.invoice-totals table.totals tr.grand-total td.total-description{
+    text-transform: uppercase;
+    font-weight: 700;
+}

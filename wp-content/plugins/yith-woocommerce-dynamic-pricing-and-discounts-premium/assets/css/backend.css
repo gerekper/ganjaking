@@ -1,0 +1,452 @@
+/*
+ * @package YITH WooCommerce Dynamic Pricing and Discounts Premium
+ * @since   1.0.0
+ * @author  YITH
+ */
+#wrap.plugin-option tr {
+    border-bottom: 0;
+}
+
+#wrap.plugin-option .form-table tr,
+#wrap.plugin-option .form-table td {
+    padding: 10px;
+}
+
+.yith-plugins_page_yith_woocommerce_dynamic_pricing_and_discounts #wrap.plugin-option .yit_options .option {
+    padding-right: 10px;
+    width: auto;
+}
+
+#yit_ywdpd_options_pricing-rules-container #wrap.plugin-option .yit_options input[type="text"] {
+    width: 100%;
+}
+
+div#yit_ywdpd_options_price_format-container .option {
+    min-width: 500px;
+}
+
+#wrap.plugin-option .error-input-section {
+    font-style: italic;
+    color: #ca0f0f;
+    margin-left: 10px;
+    font-size: 13px;
+}
+
+.ywdpd-sections-group {
+    margin: 20px 0;
+}
+
+.ywdpd-sections-group .ywdpd-section {
+    border: 1px solid #dcdcdc;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+    margin-bottom: 10px;
+}
+
+.ywdpd-sections-group .ywdpd-section .ywdpd-section-head {
+    padding: 10px 70px 10px 40px;
+    cursor: pointer;
+    position: relative;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.ywdpd-sections-group .ywdpd-section .ywdpd-section-head:before {
+    content: '';
+    width: 35px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: url('../images/arrow.png') no-repeat center;
+    opacity: 0.6;
+}
+
+.ywdpd-sections-group .ywdpd-section.open .ywdpd-section-head:before {
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    opacity: 1;
+}
+
+.ywdpd-sections-group .ywdpd-section .ywdpd-section-head .ywdpd-remove {
+    position: absolute;
+    width: 35px;
+    right: 28px;
+    top: 0;
+    bottom: 0;
+    background: url('../images/remove.png') no-repeat center;
+    opacity: 0.6;
+}
+
+.ywdpd-sections-group .ywdpd-section .ywdpd-section-head .ywdpd-clone {
+    /* float: right; */
+    position: absolute;
+    width: 12px;
+    height: 20px;
+    display: block;
+    right: 70px;
+    top: 10px;
+    bottom: 0;
+}
+
+.ywdpd-sections-group .ywdpd-section .ywdpd-section-head .ywdpd-remove:hover {
+    opacity: 1;
+}
+
+.ywdpd-sections-group .ywdpd-section .ywdpd-section-head .ywdpd-active {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    left: 10px;
+    top: 9px;
+    bottom: 0;
+    background: url('../images/onoff.png') no-repeat top center;
+    opacity: 0.6;
+}
+
+.ywdpd-sections-group .ywdpd-section .ywdpd-section-head .ywdpd-active.activated {
+    background-position: bottom center;
+}
+
+.ywdpd-sections-group .ywdpd-section .section-body {
+    padding: 0 10px 10px;
+    display: none;
+}
+
+.ywdpd-sections-group .ywdpd-section .section-body table {
+    width: 100%;
+}
+
+.ywdpd-sections-group .ywdpd-section input[type="text"] {
+    display: block;
+    width: 100%;
+}
+
+.ywdpd-sections-group .ywdpd-section .desc-inline {
+    font-size: 12px;
+    font-style: italic;
+}
+
+.ywdpd-sections-group .ywdpd-section img.yith-ywdpd-loader-preview {
+    max-width: 100%;
+    display: block;
+    margin: 10px 0;
+}
+
+.ywdpd-section .chosen-container {
+    width: 100% !important;
+}
+
+.ywdpd-section .chosen-container-multi .chosen-choices {
+    padding: 5px;
+    border-color: #ddd;
+}
+
+#wrap.plugin-option .ywdpd-section .discount-rules td,
+#wrap.plugin-option .ywdpd-section .special-offers-rules td,
+#wrap.plugin-option .ywdpd-section .cart-discount-amount td {
+    padding: 5px 10px 5px 0;
+}
+
+table.discount-rules .remove-row {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    margin: 2px;
+    cursor: pointer;
+    color: #000;
+}
+
+table.discount-rules .remove-row.hide-remove {
+    display: none;
+}
+
+table.discount-rules .add-row {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    margin: 2px;
+    cursor: pointer;
+}
+
+input#yit_ywdpd_options_price_format {
+    min-width: 500px;
+}
+
+.ui-timepicker-div .ui-widget-header {
+    margin-bottom: 8px;
+}
+
+.ui-timepicker-div dl {
+    text-align: left;
+}
+
+.ui-timepicker-div dl dt {
+    float: left;
+    clear: left;
+    padding: 0 0 0 5px;
+    font-size: 12px;
+}
+
+.ui-timepicker-div dl dd {
+    margin: 0 10px 10px 40%;
+}
+
+.ui-timepicker-div td {
+    font-size: 90%;
+}
+
+.ui-tpicker-grid-label {
+    background: none;
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+.ui-timepicker-div .ui_tpicker_unit_hide {
+    display: none;
+}
+
+.ui-timepicker-div .ui_tpicker_time .ui_tpicker_time_input {
+    background: none;
+    color: inherit;
+    border: none;
+    outline: none;
+    border-bottom: solid 1px #555;
+    width: 95%;
+    font-size: 12px
+}
+
+.ui-timepicker-div .ui_tpicker_time .ui_tpicker_time_input:focus {
+    border-bottom-color: #aaa;
+}
+
+.ui-timepicker-rtl {
+    direction: rtl;
+}
+
+.ui-timepicker-rtl dl {
+    text-align: right;
+    padding: 0 5px 0 0;
+}
+
+.ui-timepicker-rtl dl dt {
+    float: right;
+    clear: right;
+}
+
+.ui-timepicker-rtl dl dd {
+    margin: 0 40% 10px 10px;
+}
+
+/* Shortened version style */
+.ui-timepicker-div.ui-timepicker-oneLine {
+    padding-right: 2px;
+}
+
+.ui-timepicker-div.ui-timepicker-oneLine .ui_tpicker_time,
+.ui-timepicker-div.ui-timepicker-oneLine dt {
+    display: none;
+}
+
+.ui-timepicker-div.ui-timepicker-oneLine .ui_tpicker_time_label {
+    display: block;
+    padding-top: 2px;
+}
+
+.ui-timepicker-div.ui-timepicker-oneLine dl {
+    text-align: right;
+}
+
+.ui-timepicker-div.ui-timepicker-oneLine dl dd,
+.ui-timepicker-div.ui-timepicker-oneLine dl dd > div {
+    display: inline-block;
+    margin: 0;
+}
+
+.ui-timepicker-div.ui-timepicker-oneLine dl dd.ui_tpicker_minute:before,
+.ui-timepicker-div.ui-timepicker-oneLine dl dd.ui_tpicker_second:before {
+    content: ':';
+    display: inline-block;
+}
+
+.ui-timepicker-div.ui-timepicker-oneLine dl dd.ui_tpicker_millisec:before,
+.ui-timepicker-div.ui-timepicker-oneLine dl dd.ui_tpicker_microsec:before {
+    content: '.';
+    display: inline-block;
+}
+
+.ui-timepicker-div.ui-timepicker-oneLine .ui_tpicker_unit_hide,
+.ui-timepicker-div.ui-timepicker-oneLine .ui_tpicker_unit_hide:before {
+    display: none;
+}
+
+button.ui-datepicker-close.ui-state-default.ui-priority-primary.ui-corner-all,
+button.ui-datepicker-current.ui-state-default.ui-priority-secondary.ui-corner-all {
+    font-size: 12px;
+}
+
+#ywdpd_pricing_discount input[type="text"] {
+    padding: 5px;
+}
+
+.metaboxes-tab table.discount-rules input[type="text"], .metaboxes-tab table.discount-rules select,
+.metaboxes-tab table.special-offers-rules input[type="text"], .metaboxes-tab table.special-offers-rules select {
+    width: 100%;
+}
+
+.metaboxes-tab table.discount-rules .select2 input[type="text"] {
+    width: 100%;
+    padding: 0px;
+}
+
+.widefat .column-status .ywdpd-discount-status {
+    display: block;
+    text-indent: -9999px;
+    position: relative;
+    height: 1em;
+    width: 1em;
+    background: 0 0;
+    font-size: 1.4em;
+}
+
+
+.ywdpd-discount-status.active:after,
+.ywdpd-discount-status.deactive:after {
+    font-family: WooCommerce;
+    font-weight: 400;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    text-indent: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.ywdpd-discount-status.deactive:after {
+    content: "\e013";
+    color: #a00000;
+}
+
+.ywdpd-discount-status.active:after {
+    content: "\e015";
+    color: #44CC2E;
+}
+
+a.ywpdp_subtitle_link {
+    text-decoration: none;
+    padding: 8px;
+    padding-left: 0;
+    display: block;
+}
+
+a.ywpdp_subtitle_link:focus {
+    box-shadow: none;
+}
+
+
+.ywdpd_submit_box #major-publishing-actions {
+    border-top: 0;
+    background: #fff;
+}
+
+#ywdpd-action-discount table.discount-rules td {
+    width: 50%;
+}
+
+#ywdpd-action-discount table.discount-rules {
+    width: 80%;
+}
+
+#ywdpd-action-discount table.discount-rules td table {
+    width: 100%;
+}
+
+#ywdpd-action-discount table.discount-rules ul.chosen-choices {
+    min-height: 29px;
+}
+
+
+.metaboxes-tab table.cart-discount-amount td input,
+.metaboxes-tab table.cart-discount-amount td select {
+    width: 100% !important;
+    min-height: 29px;
+}
+
+#ywdpd_cart_discount .select2-container--default.select2-container--focus .select2-selection--multiple,
+#ywdpd_pricing_discount .select2-container--default.select2-container--focus .select2-selection--multiple {
+    border-color: #7e8993;
+}
+
+#ywdpd-action-discount div#publishing-action {
+    float: left;
+    width: 100%;
+}
+
+tr.ywdpd-select-wrapper table {
+    width: 100%;
+}
+
+.cart_discount, .cart_discount_type {
+    display: none;
+}
+
+
+table.wp-list-table tr.type-ywdpd_discount .column-handle {
+    display: table-cell;
+    text-align: -webkit-right;
+}
+
+#ywdpd_pricing_discount .select2-container--default .select2-selection--multiple .select2-selection__choice__remove:after,
+#ywdpd_pricing_discount .woocommerce .yith-plugin-ui .select2-container--default .select2-selection--multiple .select2-selection__choice__remove:after,
+#ywdpd_cart_discount .select2-container--default .select2-selection--multiple .select2-selection__choice__remove:after {
+    display: none;
+}
+
+
+.the-metabox.gift_items_in_cart #_n_items_in_cart-container .yith-plugin-fw-select-field-wrapper {
+    display: inline-block;
+    width: 290px;
+    margin-right: 10px;
+
+}
+
+.the-metabox.gift_items_in_cart #_n_items_in_cart-container .yith-plugin-fw-select-field-wrapper span.select2.select2-container {
+    width: 100% !important;
+    height: 32px;
+}
+
+
+.the-metabox.gift_items_in_cart #_n_items_in_cart-container .yith-plugin-fw-number-field-wrapper {
+    width: 100px;
+    display: inline-block;
+}
+
+#ywdpd_pricing_discount .select2-container .select2-search--inline .select2-search__field {
+    margin-top: 0;
+    width: 100% !important;
+}
+
+.yith-plugin-ui .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+    text-indent: 0;
+}
+
+.cart-discount-amount {
+    width: 66%;
+}
+
+.special-offers-rules .select2,
+.cart-discount-amount .select2,
+.discount-rules .select2 {
+    width: 100% !important;
+}

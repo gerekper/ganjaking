@@ -1,0 +1,274 @@
+*** Checkout Field Editor Changelog ***
+
+2020-06-05 - version 1.5.34
+* Tweak - WC 4.2 compatibility.
+
+2020-05-12 - version 1.5.33
+* Fix - Allow placeholder override for multiple select field.
+
+2020-04-29 - version 1.5.32
+* Tweak - WC 4.1 compatibility.
+
+2020-04-08 - version 1.5.31
+* Fix - Datepicker fields don't work on the My Account page.
+
+2020-02-27 - version 1.5.30
+* Fix - Not able to add || to denote placeholder.
+* Tweak - Remove legacy code.
+* Tweak - WC tested up to 4.0
+
+2020-02-12 - version 1.5.29
+* Fix - Prevent text domain changes in build script.
+
+2020-02-04 - version 1.5.28
+* Fix - Use proper escaping for attributes.
+
+2020-01-15 - version 1.5.27
+* Fix - Add missing tooltip on shipping/billing address placeholders.
+* Fix - Sanitize special characters in page slug
+
+2019-11-05 - version 1.5.26
+* Fix   - Update WC header.
+
+2019-11-05 - version 1.5.25
+* Tweak - WC tested up to 3.8
+
+2019-10-15 - version 1.5.24
+* Tweak - Group checkout fields in appropriate places on order details page
+and emails.
+
+2019-08-09 - version 1.5.23
+* Fix - Missing dist folder causing JS errors and unable to add fields.
+
+2019-08-08 - version 1.5.22
+* Tweak - WC tested up to 3.7
+
+2019-06-10 - version 1.5.21
+* Fix - Fields not honoring position ordering part 2.
+
+2019-06-06 - version 1.5.20
+* Fix - Revert previous change (Fields not honoring position ordering).
+
+2019-06-05 - version 1.5.19
+* Fix - Fields not honoring position ordering.
+
+2019-04-16 - version 1.5.18
+* Tweak - WC tested up to 3.6
+
+2019-02-25 - version 1.5.17
+* Fix - Datepicker causing mobile keyboards to be launched
+
+2019-01-07 - version 1.5.16
+* Fix - Added fields duplicated on order details screen
+* Fix - Displays `yes` instead of `1` for checkbox fields on order details screen and emails
+
+2018-11-06 - version 1.5.15
+* Fix - Preserve field order for empty priority.
+
+2018-10-10 - version 1.5.14
+* Update - WC tested up to 3.5
+
+2018-05-24 - version 1.5.13
+* Fix - The shipping address field label not showing.
+* Update - WC tested up to 3.4
+* Add - GDPR policy
+
+2018-03-01 - version 1.5.12
+* Fix - Certain checkout fields (radio, multiselect, datepicker, and header) not being sorted correctly.
+
+2018-02-02 - version 1.5.11
+* Fix - Issues with cart and checkout js not loading
+
+2018-01-31 - version 1.5.10
+* Fix    - Billing address label was not showing.
+* Fix    - Checkout fields in Billing area don't go in correct order.
+* Fix    - Hook in earlier on billing/shipping fields so that 3rd party plugins can still make modifications.
+
+2017-12-12 - version 1.5.9
+* Update - WC tested up to version.
+
+2017-11-17 - version 1.5.8
+* Fix - Disable overriding of shipping_address_1/billing_address_1 fields label and placeholder.
+* Fix - Add Phone as a valid validation rule so that it doesn't get removed.
+
+2017-10-18 - version 1.5.7
+* Fix - Custom fields not showing on Thank you page since WC 3.2.
+* Fix - Restricted field name causing unexpected errors on checkout.
+
+2017-07-02 - version 1.5.6
+* Fix - Do not allow to set billing country not required.
+* Fix - Checkout fields not honoring order/priority since WC 3.0.
+* Fix - Unwanted placeholder value showing on select field types.
+* Remove - Clear row option as WC 3.0 no longer needs this.
+* New - Added the new Woo plugin header, for WooCommerce 3.1 compatibility.
+
+2017-05-08 - version 1.5.5
+* Fix - Additional updates for WooCommerce 3.0 compatibility.
+
+2017-04-03 - version 1.5.4
+* Fix - Update for WooCommerce 3.0 compatibility.
+
+2017-02-22 - version 1.5.3
+* Misc - Only include custom field types when using a custom Customer / Order CSV Export order export format
+
+2017-01-06 - version 1.5.2
+* Fix - Remove option/placeholder field for checkbox as it is not needed.
+* Fix - Ensure field data is added to order XML exports.
+* Fix - Custom fields not showing up in PIP invoice.
+* Misc - Improves support with Customer / Order XML Export version 2.0+.
+
+2016-08-29 - version 1.5.1
+* Tweak - Add support for Print Invoices Packing Lists.
+* Tweak - Add custom fields to the admin order screen.
+* Fix - Improves compatibility with Customer / Order CSV Export 4.0+ (account for custom formats).
+* Fix - Don't hide Additional Information header if comments disabled and more than one additional fields.
+* Fix - Validate required checkbox field.
+
+2016-08-12 - version 1.5.0
+* Fix - Stripslashes before we sanitize to prevent escaping over and over.
+* Fix - Remove additional information header when order comments are disabled.
+* Fix - Improves compatibility with Customer / Order CSV Export 4.0+.
+* Fix - Update main plugin's file to match plugin's slug.
+* Fix - Update domain's slug to match plugin's slug.
+* Tweak - Added Japanese translation.
+* Tweak - Added Portuguese (Brazil) translation.
+* Tweak - Added Italian translation.
+* Tweak - Added German translation.
+
+2015-12-03 - version 1.4.10
+* Fix - Label inputs have been made larger to make it easier to enter labels for all your fields.
+
+2015-11-09 - version 1.4.9
+* Add - Public method for getting all checkout fields for better extensibility.
+
+2015-11-03 - version 1.4.8
+* Fix - Unexpected token error in checkout when a required field is added to shipping tab.
+
+2015-10-07 - version 1.4.7
+* Fix - Add jQuery tiptip as a dependency when script loads to prevent edge case it does not load.
+
+2015-09-29 - version 1.4.6
+* Feature - Add support for Customer/Order XML Export Suite
+
+2015-08-16 - version 1.4.5
+* Fix - Field saving
+
+2015-08-05 - version 1.4.4
+* Fix - Checkbox field validation value is not displaying after saving
+
+2015-07-20 - version 1.4.3
+* Fix - Undefined shiptobilling posted item causing notice in WC 2.4
+* Fix - Undefined custom posted item causing notice in WC 2.4
+
+2015-05-18 - version 1.4.2
+* Fix - Additional fields order notes not ordered correctly
+
+2015-04-21 - version 1.4.1
+* Fix - Potential XSS with add_query_arg/remove_query_arg.
+* Fix - Removed chosen to prevent conflicts.
+* Fix - Additonal fields error.
+
+2015-04-13 - version 1.4.0
+* Add - option to enable/disable order comments in additional fields
+
+2015-04-04 - version 1.3.1
+* Fix - Deprecated add error function
+* Fix - Undefined placeholder notices
+* Tweak - Prevent double validating an email field
+
+2015-03-03 - version 1.3.0
+* Fix - Allow blank placeholder value for selects. Requires WC 2.3.6
+* Tweak - Datepicker, show -100, +1 years.
+* Tweak - Prevent editing of locale-defined field labels and placeholders. Translations should be used instead.
+
+2015-01-29 - version 1.2.11
+* Fix - Backwards compatibility
+
+2015-01-28 - version 1.2.10
+* Fix - WC 2.3 support
+
+2015-01-27 - version 1.2.9
+* New - WC 2.3 compatibility (chosen -> select2)
+
+2014-12-31 - version 1.2.8
+* Include custom fields in CSV export to email
+
+2014-11-28 - version 1.2.7
+* Enqueue woocommerce_chosen_styles
+
+2014-11-14 - version 1.2.6
+* Fix custom field display in sent emails.
+
+2014-10-10 - version 1.2.5
+* Add support for Customer/Order CSV Export
+
+2014-07-10 - version 1.2.4
+* Add chosen to all fields
+
+2014-06-02 - version 1.2.3
+* Keep postcode field properties so it works when not required.
+
+2014-05-07 - version 1.2.2
+* Fix display options
+
+2014-04-22 - version 1.2.1
+* Fix display of validation rules
+
+2014-04-22 - version 1.2.0
+* Fix display_options saving
+
+2014-04-17 - version 1.1.9
+* Fix wc_display_custom_fields_view_order to prevent listing data multiple times
+
+2014-03-28 - version 1.1.8
+* Add option to display fields in emails or on order detail pages
+
+2014-02-07 - version 1.1.7
+* Datepicker change month/year
+
+2014-02-07 - version 1.1.6
+* Made "Select some options" translatable
+
+2014-01-20 - version 1.1.5
+* 2.1 compat
+
+2013-10-31 - version 1.1.4
+* Check new name to prevent dupe rows
+* Prevent using reserved names
+
+2013-10-21 - version 1.1.3
+* Fix for foreign characters in name field
+
+2013-10-21 - version 1.1.2
+* Fix initial 'checked' status of radio inputs
+
+2013-09-27 - version 1.1.1
+* Fix JS error
+
+2013-09-23 - version 1.1.0
+* Add 'heading' field type
+
+2013-08-01 - version 1.0.6
+* Fix to allow state fields to be disabled.
+
+2013-07-22 - version 1.0.5
+* Fix to prevent state always being required.
+
+2013-06-17 - version 1.0.4
+* Use date_format from WP
+
+2013-05-23 - version 1.0.3
+* Multiselect - send value, not key
+* Selects - Make key = value
+
+2013-05-16 - version 1.0.2
+* Fix screen id when translated
+* stripslashes on labels
+* Allow html in labels
+
+2013-05-07 - version 1.0.1
+* Sanitize option names fully
+* Fix radio input validation
+
+2013-03-01 - version 1.0.0
+* First Release

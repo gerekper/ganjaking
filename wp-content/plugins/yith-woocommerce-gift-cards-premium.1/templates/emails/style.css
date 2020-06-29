@@ -1,0 +1,175 @@
+/* Put your CSS here */
+
+h2,
+.center-email,
+.ywgc-footer {
+    margin: 0 auto;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.ywgc-product-image {
+    float: right;
+}
+
+.ywgc-product-image-td{
+    width: 50%;
+}
+
+.ywgc-suggested-text {
+    padding: 0 20px;
+    font-weight: 500;
+    font-size: 16px;
+    color: #484848;
+    text-align: left;
+    margin-bottom: 20px;
+    opacity: 0.8;
+}
+
+.ywgc-product-description {
+    float: left;
+    width: 60%;
+}
+
+.ywgc-product-title {
+    display: block;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #484848;
+    margin-bottom: 10px;
+    opacity: 0.8;
+}
+
+.ywgc-product-link {
+    display: inline-block;
+    padding: 8px 15px;
+    background-color: #afafaf;
+    border-radius: 5px;
+    color: white;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+div.ywgc-gift-card-content input,
+div.ywgc-gift-card-content textarea,
+div.ywgc-gift-card-content button {
+    display: none;
+}
+
+div.ywgc-gift-card-content fieldset {
+    border: none;
+}
+
+img.ywgc-logo-shop-image {
+    max-width: 50px;
+}
+
+.ywgc-logo-style2 {
+    text-align: center;
+}
+
+.ywgc-add-cart-discount {
+    text-align: justify;
+    margin: 3em;
+
+}
+
+.ywgc-add-cart-discount a {
+    text-decoration: none;
+}
+
+.ywgc-discount-link {
+    color: white;
+    font-weight: 700;
+    text-decoration: none;
+    background-color: #557da1;
+    display: inline-block;
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-transform: uppercase;
+    font-size: 13px;
+}
+
+.ywgc-discount-message {
+    display: block;
+    margin-bottom: 25px;
+    text-align: justify;
+}
+
+.ywgc-product-suggested {
+    background-color: #f0f0f0;
+}
+
+.ywgc-discount-link-section {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.ywgc-generated-code {
+    font-weight: bold;
+    display: block;
+    font-size: 18px;
+}
+
+.ywgc-expiration-message{
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+
+/**Email template styles (similar than pdf) */
+.ywgc-table-template{
+    padding: 1em;
+    border: 3px solid #f4f4f4;
+    width: 100%;
+}
+
+.ywgc-main-image-td{
+    text-align: center;
+}
+
+.ywgc-main-image{
+    width: 520px;
+}
+
+.ywgc-table-td-space{
+    height: 20px;
+}
+
+.ywgc-logo-shop-image{
+    max-width: 520px;
+    max-height: 200px;
+}
+
+.ywgc-card-amount{
+    width: 100px;
+    text-align: right;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.ywgc-card-product-name{
+    text-align: left;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.ywgc-card-code-title{
+    font-weight: bold;
+    font-size: 18px;
+    text-align: left;
+}
+
+.ywgc-card-code{
+    font-weight: bold;
+    color: grey;
+    font-size: 18px;
+    text-align: left;
+}
+
+.ywgc-message-text{
+    text-align: left;
+    font-weight: bold
+}

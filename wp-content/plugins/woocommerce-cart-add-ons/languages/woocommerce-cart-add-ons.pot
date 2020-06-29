@@ -1,0 +1,262 @@
+# Copyright (C) 2020 WooCommerce
+# This file is distributed under the same license as the WooCommerce Cart Add-Ons package.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Cart Add-Ons 1.5.29\n"
+"Report-Msgid-Bugs-To: "
+"https://wordpress.org/support/plugin/woocommerce-cart-add-ons\n"
+"POT-Creation-Date: 2020-06-10 11:43:35+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: node-wp-i18n 1.2.3\n"
+
+#: add-to-cart.php:17
+msgid "Read More"
+msgstr ""
+
+#: add-to-cart.php:34
+msgid "Add to Cart"
+msgstr ""
+
+#: settings.php:25 woocommerce-cart-add-ons.php:107
+msgid "Cart Add-Ons"
+msgstr ""
+
+#: settings.php:28
+msgid "Settings updated"
+msgstr ""
+
+#: settings.php:36
+msgid "Display Title"
+msgstr ""
+
+#: settings.php:42
+msgid ""
+"The title text displayed above the add-ons, both on the cart page, and "
+"using the shortcode."
+msgstr ""
+
+#: settings.php:48
+msgid "Maximum number of upsells to show in the cart."
+msgstr ""
+
+#: settings.php:57
+msgid "Default Add-Ons"
+msgstr ""
+
+#: settings.php:79 settings.php:90 settings.php:170 settings.php:181
+#: settings.php:285 settings.php:296
+msgid "Search for a product&hellip;"
+msgstr ""
+
+#: settings.php:110
+msgid ""
+"These products will be displayed on the cart page if there are no matching "
+"products and/or categories in the shopping cart from the settings below."
+msgstr ""
+
+#: settings.php:117
+msgid "Category Matches"
+msgstr ""
+
+#: settings.php:119
+msgid ""
+"If a product in the shopping cart matches a category defined below, the "
+"cart upsells will display the matching products to show. Set the priority "
+"order to define which category upsells should be shown when items in the "
+"shopping cart match multiple categories. Categories with the highest "
+"priority will be the upsells that are displayed when there are multiple "
+"category matches in the cart."
+msgstr ""
+
+#: settings.php:126 settings.php:223
+msgid "Priority"
+msgstr ""
+
+#: settings.php:127
+msgid "Category"
+msgstr ""
+
+#: settings.php:128 settings.php:225
+msgid "Product Add-Ons"
+msgstr ""
+
+#: settings.php:202 settings.php:317 settings.php:357 settings.php:392
+msgid "Remove Row"
+msgstr ""
+
+#: settings.php:212
+msgid "+ Add Category"
+msgstr ""
+
+#: settings.php:214
+msgid "Product Matches"
+msgstr ""
+
+#: settings.php:216
+msgid ""
+"If a product in the shopping cart matches one of the products defined "
+"below, the cart upsells will display the matching products below to show. "
+"Set the priority to define which product upsells should be shown when items "
+"in the shopping cart are all defined. Products with the highest priority "
+"will be the upsells that are displayed when there are multiple products in "
+"the cart."
+msgstr ""
+
+#: settings.php:224
+msgid "Product"
+msgstr ""
+
+#: settings.php:262 settings.php:381
+msgid "include variations"
+msgstr ""
+
+#: settings.php:327
+msgid "+ Add Product"
+msgstr ""
+
+#: settings.php:331
+msgid "Update Settings"
+msgstr ""
+
+#: settings.php:351 settings.php:353 settings.php:375 settings.php:377
+#: settings.php:386 settings.php:388 woocommerce-cart-add-ons.php:166
+msgid "Search for a product &hellip;"
+msgstr ""
+
+#: settings.php:401
+msgid "No add-ons defined"
+msgstr ""
+
+#: widget.php:14
+msgid "Display available add-ons"
+msgstr ""
+
+#: widget.php:79
+msgid "Available Add-ons"
+msgstr ""
+
+#: widget.php:102
+msgid "Title:"
+msgstr ""
+
+#: widget.php:106
+msgid "Max. Products to Show:"
+msgstr ""
+
+#: widget.php:110
+msgid "Display Mode:"
+msgstr ""
+
+#: widget.php:112
+msgid "Product Thumbnails"
+msgstr ""
+
+#: widget.php:113
+msgid "Product Thumbnails with Title"
+msgstr ""
+
+#: widget.php:114
+msgid "Product Thumbnails with Title and Price"
+msgstr ""
+
+#: widget.php:115
+msgid "Product Titles"
+msgstr ""
+
+#: widget.php:116
+msgid "Product Titles with Price"
+msgstr ""
+
+#: widget.php:121
+msgid "Add to Cart button:"
+msgstr ""
+
+#: widget.php:123
+msgid "No"
+msgstr ""
+
+#: widget.php:124
+msgid "Yes"
+msgstr ""
+
+#: woocommerce-cart-add-ons.php:81
+msgid "Product Add-ons"
+msgstr ""
+
+#: woocommerce-cart-add-ons.php:121
+msgid "Use shortcodes on any page or post"
+msgstr ""
+
+#: woocommerce-cart-add-ons.php:122
+msgid "Will use your theme's template"
+msgstr ""
+
+#: woocommerce-cart-add-ons.php:122
+msgid "Shows the product image along with the product name"
+msgstr ""
+
+#: woocommerce-cart-add-ons.php:122
+msgid "Will display product images with name and price"
+msgstr ""
+
+#: woocommerce-cart-add-ons.php:123
+msgid "Use directly in your theme"
+msgstr ""
+
+#: woocommerce-cart-add-ons.php:124
+msgid "%s is the maximum number of add-ons to display."
+msgstr ""
+
+#: woocommerce-cart-add-ons.php:124
+msgid ""
+"%s can be one of the following: 'loop', 'images', 'images_name', "
+"'images_name_price', 'names', 'names_price'"
+msgstr ""
+
+#: woocommerce-cart-add-ons.php:130
+msgid "Using Cart Add-ons"
+msgstr ""
+
+#: woocommerce-cart-add-ons.php:165
+msgid "All categories have been used"
+msgstr ""
+
+#: woocommerce-cart-add-ons.php:650
+msgid "%s%s"
+msgstr ""
+
+#: woocommerce-cart-add-ons.php:710
+#. translators: %s: WooCommerce link
+msgid "WooCommerce Cart Add-ons requires %s to be installed and active."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce Cart Add-Ons"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://woocommerce.com/products/cart-add-ons/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Adds the ability to define and display any product or variation based upon "
+"the products added to the cart by the user. Use widgets to display these "
+"recommendations in the sidebar, use <strong>&lt;?php if "
+"(function_exists('sfn_display_cart_addons')) sfn_display_cart_addons(); "
+"?&gt;</strong> to show these recommendation anywhere in your theme, or "
+"select [display-addons] shortcode."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "WooCommerce"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://woocommerce.com/"
+msgstr ""

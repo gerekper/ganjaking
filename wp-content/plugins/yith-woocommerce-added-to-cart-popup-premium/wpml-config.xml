@@ -1,0 +1,9 @@
+<wpml-config>
+<admin-texts>
+  <key name="yith-wacp-popup-message" />
+  <key name="yith-wacp-text-go-cart" />
+  <key name="yith-wacp-text-continue-shopping" />
+  <key name="yith-wacp-text-go-checkout" />
+  <key name="yith-wacp-related-title" />
+</admin-texts>
+</wpml-config>

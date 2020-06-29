@@ -1,0 +1,187 @@
+# Copyright (C) 2014 WooCommerce Order Barcodes
+# This file is distributed under the same license as the WooCommerce Order Barcodes package.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Order Barcodes 1.0\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/woocommerce-order-barcodes\n"
+"POT-Creation-Date: 2014-05-27 13:41:29+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2014-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: includes/class-woocommerce-order-barcodes-settings.php:85
+msgid "Code 39"
+msgstr ""
+
+#: includes/class-woocommerce-order-barcodes-settings.php:86
+msgid "Code 93"
+msgstr ""
+
+#: includes/class-woocommerce-order-barcodes-settings.php:87
+msgid "Code 128"
+msgstr ""
+
+#: includes/class-woocommerce-order-barcodes-settings.php:88
+msgid "Data Matrix"
+msgstr ""
+
+#: includes/class-woocommerce-order-barcodes-settings.php:89
+msgid "QR Code"
+msgstr ""
+
+#: includes/class-woocommerce-order-barcodes-settings.php:94
+msgid "Order Barcodes"
+msgstr ""
+
+#: includes/class-woocommerce-order-barcodes-settings.php:97
+msgid "Barcode Type"
+msgstr ""
+
+#: includes/class-woocommerce-order-barcodes-settings.php:98
+msgid "This is the type of barcode that will be generated for your orders - changing this will only affect future orders."
+msgstr ""
+
+#: includes/class-woocommerce-order-barcodes-settings.php:129
+msgid "Barcode Colours"
+msgstr ""
+
+#: includes/class-woocommerce-order-barcodes-settings.php:141
+msgid "Foreground"
+msgstr ""
+
+#: includes/class-woocommerce-order-barcodes-settings.php:141
+msgid "Barcode image and text colour"
+msgstr ""
+
+#: includes/class-woocommerce-order-barcodes-settings.php:142
+msgid "Background"
+msgstr ""
+
+#: includes/class-woocommerce-order-barcodes-settings.php:142
+msgid "Barcode background colour"
+msgstr ""
+
+#: includes/class-woocommerce-order-barcodes-settings.php:205
+msgid "Settings"
+msgstr ""
+
+#: includes/class-woocommerce-order-barcodes-settings.php:231
+#: includes/class-woocommerce-order-barcodes-settings.php:240
+#: includes/class-woocommerce-order-barcodes.php:852
+#: includes/class-woocommerce-order-barcodes.php:861
+msgid "Cheatin&#8217; huh?"
+msgstr ""
+
+#: includes/class-woocommerce-order-barcodes.php:209
+msgid "Barcode generated successfully: %s"
+msgstr ""
+
+#: includes/class-woocommerce-order-barcodes.php:407
+msgid "Order Barcode"
+msgstr ""
+
+#: includes/class-woocommerce-order-barcodes.php:462
+msgid "Barcode"
+msgstr ""
+
+#: includes/class-woocommerce-order-barcodes.php:552
+msgid "Select action"
+msgstr ""
+
+#: includes/class-woocommerce-order-barcodes.php:553
+msgid "Look up"
+msgstr ""
+
+#: includes/class-woocommerce-order-barcodes.php:554
+msgid "Complete order"
+msgstr ""
+
+#: includes/class-woocommerce-order-barcodes.php:555
+msgid "Check in"
+msgstr ""
+
+#: includes/class-woocommerce-order-barcodes.php:556
+msgid "Check out"
+msgstr ""
+
+#: includes/class-woocommerce-order-barcodes.php:559
+msgid "Scan or enter barcode"
+msgstr ""
+
+#: includes/class-woocommerce-order-barcodes.php:561
+msgid "Go"
+msgstr ""
+
+#: includes/class-woocommerce-order-barcodes.php:566
+msgid "Processing barcode..."
+msgstr ""
+
+#: includes/class-woocommerce-order-barcodes.php:588
+#: includes/class-woocommerce-order-barcodes.php:594
+#: includes/class-woocommerce-order-barcodes.php:614
+msgid "Permission denied"
+msgstr ""
+
+#: includes/class-woocommerce-order-barcodes.php:601
+msgid "Invalid barcode"
+msgstr ""
+
+#: includes/class-woocommerce-order-barcodes.php:608
+msgid "Invalid order ID"
+msgstr ""
+
+#: includes/class-woocommerce-order-barcodes.php:623
+msgid "Order marked as complete"
+msgstr ""
+
+#: includes/class-woocommerce-order-barcodes.php:629
+msgid "Customer has checked in"
+msgstr ""
+
+#: includes/class-woocommerce-order-barcodes.php:634
+msgid "Customer has checked out"
+msgstr ""
+
+#: includes/class-woocommerce-order-barcodes.php:650
+#: includes/class-woocommerce-order-barcodes.php:729
+msgid "Checked in"
+msgstr ""
+
+#: includes/class-woocommerce-order-barcodes.php:650
+#: includes/class-woocommerce-order-barcodes.php:730
+msgid "Checked out"
+msgstr ""
+
+#: includes/class-woocommerce-order-barcodes.php:727
+msgid "Check in status:"
+msgstr ""
+
+#: includes/class-woocommerce-order-barcodes.php:729
+msgid "yes"
+msgstr ""
+
+#: includes/class-woocommerce-order-barcodes.php:730
+msgid "no"
+msgstr ""
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce Order Barcodes"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.hughlashbrooke.com/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Generates unique barcodes for your orders - perfect for e-tickets, packing slips and variety of other uses."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Hugh Lashbrooke"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://www.hughlashbrooke.com/"
+msgstr ""

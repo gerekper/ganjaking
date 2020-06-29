@@ -1,0 +1,39 @@
+
+/*
+ *	Shipping Product Tab
+ */
+
+/*.cart-collaterals #yith_wcps_info_cart { display: none; }*/
+.cart-collaterals.show_yith_wcps_info_cart #yith_wcps_info_cart { display: block; }
+
+/*
+ *	Frontend Manager Compatibility
+ */
+
+#yith_wcfm-main-content .yith_product_shipping_costs_table {
+	max-width: 1200px !important;
+}
+
+#yith_wcfm-main-content .yith_product_shipping_costs_table table td {
+    padding: 10px 5px !important;
+}
+
+#yith_wcfm-main-content .yith_product_shipping_costs_table table input,
+#yith_wcfm-main-content .yith_product_shipping_costs_table table select {
+    height: 35px !important;
+    min-height: auto !important;
+    font-size: 12px !important;
+    margin: 0 !important;
+}
+
+#yith_wcfm-main-content .yith_product_shipping_costs_table table span,
+#yith_wcfm-main-content .yith_product_shipping_costs_table table .select2-selection,
+#yith_wcfm-main-content .yith_product_shipping_costs_table table .select2-selection ul {
+    min-height: auto !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+#yith_wcfm-main-content .yith_product_shipping_costs_table a.remove {
+	text-indent: 0 !important;
+}

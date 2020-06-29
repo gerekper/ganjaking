@@ -1,0 +1,232 @@
+# Copyright (C) 2020 YITH WooCommerce Ajax Search
+# This file is distributed under the same license as the YITH WooCommerce Ajax Search package.
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH WooCommerce Ajax Search 1.7.6\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/init\n"
+"POT-Creation-Date: 2020-03-20 07:22:19+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: class.yith-wcas-admin.php:123
+msgid "Settings"
+msgstr ""
+
+#: class.yith-wcas-admin.php:124
+msgid "Premium Version"
+msgstr ""
+
+#. #-#-#-#-#  yith-woocommerce-ajax-search.pot (YITH WooCommerce Ajax Search 1.7.6)  #-#-#-#-#
+#. Plugin Name of the plugin/theme
+#: class.yith-wcas-admin.php:131
+#: compatibility/elementor/class.yith-wcas-search-form-elementor.php:40
+#: compatibility/elementor/class.yith-wcas-search-form-elementor.php:77
+msgid "YITH WooCommerce Ajax Search"
+msgstr ""
+
+#: class.yith-wcas-admin.php:132
+msgid "Ajax Search"
+msgstr ""
+
+#: class.yith-wcas.php:203
+msgid "No results"
+msgstr ""
+
+#: compatibility/elementor/class.yith-wcas-search-form-elementor.php:87
+msgid ""
+"This widget inherits the style from the settings of YITH WooCommerce Ajax "
+"Search plugin that you can edit"
+msgstr ""
+
+#: compatibility/elementor/class.yith-wcas-search-form-elementor.php:89
+msgid "here"
+msgstr ""
+
+#: init.php:52
+msgid ""
+"You can't activate the free version of YITH WooCommerce Ajax Search while "
+"you are using the premium one."
+msgstr ""
+
+#: init.php:121
+msgid ""
+"YITH WooCommerce Ajax Search is enabled but not effective. It requires "
+"WooCommerce in order to work."
+msgstr ""
+
+#: plugin-options/gutenberg/blocks.php:17
+msgctxt "[gutenberg]: block name"
+msgid "Ajax Search"
+msgstr ""
+
+#: plugin-options/gutenberg/blocks.php:18
+msgctxt "[gutenberg]: block description"
+msgid "Show Ajax Search Form"
+msgstr ""
+
+#: plugin-options/gutenberg/blocks.php:22
+msgctxt "[gutenberg]: keywords"
+msgid "Ajax Search"
+msgstr ""
+
+#: plugin-options/gutenberg/blocks.php:23
+msgctxt "[gutenberg]: keywords"
+msgid "Search"
+msgstr ""
+
+#: plugin-options/settings-options.php:21
+msgid "General settings"
+msgstr ""
+
+#: plugin-options/settings-options.php:30
+msgid "Search input label"
+msgstr ""
+
+#: plugin-options/settings-options.php:32
+#: plugin-options/settings-options.php:40
+msgid "Label for Search input field."
+msgstr ""
+
+#: plugin-options/settings-options.php:34
+msgid "Search for products"
+msgstr ""
+
+#: plugin-options/settings-options.php:38
+msgid "Search submit label"
+msgstr ""
+
+#: plugin-options/settings-options.php:42
+msgid "Search"
+msgstr ""
+
+#: plugin-options/settings-options.php:46
+msgid "Minimum number of characters"
+msgstr ""
+
+#: plugin-options/settings-options.php:47
+msgid "Minimum number of characters required to trigger autosuggest."
+msgstr ""
+
+#: plugin-options/settings-options.php:60
+msgid "Maximum number of results"
+msgstr ""
+
+#: plugin-options/settings-options.php:61
+msgid "Maximum number of results showed within the autosuggest box."
+msgstr ""
+
+#: plugin-options/settings-options.php:74
+msgid "Enable transients to cache autocomplete results"
+msgstr ""
+
+#: plugin-options/settings-options.php:75
+msgid "Save the results of a query in a transient"
+msgstr ""
+
+#: plugin-options/settings-options.php:84
+msgid "Set the duration of transient"
+msgstr ""
+
+#: plugin-options/settings-options.php:85
+msgid "(hours)"
+msgstr ""
+
+#: templates/admin/premium.php:256 templates/admin/premium.php:304
+msgid ""
+"Upgrade to the %1$spremium version%2$s%3$s of %1$sYITH WooCommerce Ajax "
+"Search%2$s to benefit from all features!"
+msgstr ""
+
+#: templates/admin/premium.php:258 templates/admin/premium.php:306
+msgid "%1$sUPGRADE%2$s %3$sto the premium version%2$s"
+msgstr ""
+
+#: templates/admin/premium.php:264
+msgid "Premium Features"
+msgstr ""
+
+#: templates/admin/premium.php:266
+msgid "HOW TO CUSTOMIZE THE RESULTS OF THE AUTOCOMPLETE"
+msgstr ""
+
+#: templates/admin/premium.php:268
+msgid "RESULTS OF THE AUTOCOMPLETE"
+msgstr ""
+
+#: templates/admin/premium.php:273
+msgid "Show %1$sthe image%2$s of the product (left or right aligned)"
+msgstr ""
+
+#: templates/admin/premium.php:274
+msgid "Enable the %1$sprice visualization%2$s"
+msgstr ""
+
+#: templates/admin/premium.php:275
+msgid "Show the %1$sproduct description%2$s"
+msgstr ""
+
+#: templates/admin/premium.php:276
+msgid "Tell to the client if the product is %1$son discount or is featured%2$s"
+msgstr ""
+
+#: templates/admin/premium.php:284
+msgid "HOW TO CUSTOMIZE THE SEARCH OPTIONS"
+msgstr ""
+
+#: templates/admin/premium.php:288
+msgid "%1$sExtend the research%2$s in the excerpt and in the content"
+msgstr ""
+
+#: templates/admin/premium.php:289
+msgid "%1$sActivate%2$s the category search"
+msgstr ""
+
+#: templates/admin/premium.php:290
+msgid "Configure the %1$stag%2$s search"
+msgstr ""
+
+#: templates/admin/premium.php:291
+msgid "Search a product with an %1$sID%2$s"
+msgstr ""
+
+#: templates/yith-woocommerce-ajax-search.php:19
+msgid "Search for:"
+msgstr ""
+
+#: widgets/class.yith-wcas-ajax-search.php:29
+msgid "An Ajax Search box for products only."
+msgstr ""
+
+#: widgets/class.yith-wcas-ajax-search.php:31
+msgid "YITH WooCommerce Ajax Product Search"
+msgstr ""
+
+#: widgets/class.yith-wcas-ajax-search.php:94
+msgid "Title:"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://yithemes.com/themes/plugins/yith-woocommerce-ajax-search/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"<code><strong>YITH WooCommerce Ajax Search</strong></code> is the plugin "
+"that allows you to search for a specific product by inserting a few "
+"characters. Thanks to <strong>Ajax Search</strong>, users can quickly find "
+"the contents they are interested in without wasting time among site pages. "
+"<a href=\"https://yithemes.com/\" target=\"_blank\">Get more plugins for "
+"your e-commerce shop on <strong>YITH</strong></a>."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "YITH"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://yithemes.com/"
+msgstr ""

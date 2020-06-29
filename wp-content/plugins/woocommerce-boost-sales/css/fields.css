@@ -1,0 +1,59 @@
+.vi-ui.form .iris-picker {
+	z-index: 100;
+	display: none;
+	position: absolute;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.vi-ui.form .iris-picker .ui-slider {
+	border: 0 !important;
+	margin: 0 !important;
+	width: auto !important;
+	height: auto !important;
+	background: none transparent !important;
+}
+
+.vi-ui.form .iris-picker .ui-slider .ui-slider-handle {
+	margin-bottom: 0 !important;
+}
+
+.vi-ui.form input[name='_woocommerce_boost_sales[text_color_discount]']{
+	background: #4f5154;
+}
+
+.vi-ui.form input[name='_woocommerce_boost_sales[process_color]']{
+	background: #d1e0d3;
+}
+
+.vi-ui.form input[name='_woocommerce_boost_sales[process_background_color]']{
+	background: #5189bb;
+}
+
+.vi-ui.form input[name='_woocommerce_boost_sales[btn_checkout_color]']{
+	background: #ffffff;
+}
+
+.vi-ui.form input[name='_woocommerce_boost_sales[btn_checkout_bg_color]']{
+	background-color: #5189bb;
+}
+
+.vi-ui.form .wbs_template_upsell .vi-ui.toggle{
+	float: left;
+	width: 200px;
+	margin-right: 20px;
+	text-align: center;
+}
+
+.vi-ui.form .wbs_template_upsell .vi-ui.toggle img{
+	width: 100%;
+}
+
+.vi-ui.form .search.wbs_exclude_product input.select2-search__field{
+	width: 100% !important;
+}
+
+.vi-ui.action.input input[type="file"] {
+	display: none;
+}

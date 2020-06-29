@@ -1,0 +1,135 @@
+/* Grid */
+.col-1-5, .col-sm-1-5, .col-md-1-5, .col-lg-1-5, .col-xl-1-5, .col-2-5, .col-sm-2-5, .col-md-2-5, .col-lg-2-5, .col-xl-2-5, .col-3-5, .col-sm-3-5, .col-md-3-5, .col-lg-3-5, .col-xl-3-5, .col-4-5, .col-sm-4-5, .col-md-4-5, .col-lg-4-5, .col-xl-4-5 {
+    position: relative;
+    min-height: 1px;
+    width: 100%;
+}
+
+.col-1-5 {
+    -ms-flex: 0 0 20%;
+    flex: 0 0 20%;
+    width: 20%;
+}
+
+.col-2-5 {
+    -ms-flex: 0 0 40%;
+    flex: 0 0 40%;
+    width: 40%;
+}
+
+.col-3-5 {
+    -ms-flex: 0 0 60%;
+    flex: 0 0 60%;
+    width: 60%;
+}
+
+.col-4-5 {
+    -ms-flex: 0 0 80%;
+    flex: 0 0 80%;
+    width: 80%;
+}
+
+@media (min-width: 576px) {
+    .col-sm-1-5 {
+        -ms-flex: 0 0 20%;
+        flex: 0 0 20%;
+        width: 20%;
+    }
+
+    .col-sm-2-5 {
+        -ms-flex: 0 0 40%;
+        flex: 0 0 40%;
+        width: 40%;
+    }
+
+    .col-sm-3-5 {
+        -ms-flex: 0 0 60%;
+        flex: 0 0 60%;
+        width: 60%;
+    }
+
+    .col-sm-4-5 {
+        -ms-flex: 0 0 80%;
+        flex: 0 0 80%;
+        width: 80%;
+    }
+}
+
+@media (min-width: 768px) {
+    .col-md-1-5 {
+        -ms-flex: 0 0 20%;
+        flex: 0 0 20%;
+        width: 20%;
+    }
+
+    .col-md-2-5 {
+        -ms-flex: 0 0 40%;
+        flex: 0 0 40%;
+        width: 40%;
+    }
+
+    .col-md-3-5 {
+        -ms-flex: 0 0 60%;
+        flex: 0 0 60%;
+        width: 60%;
+    }
+
+    .col-md-4-5 {
+        -ms-flex: 0 0 80%;
+        flex: 0 0 80%;
+        width: 80%;
+    }
+}
+
+@media (min-width: 992px) {
+    .col-lg-1-5 {
+        -ms-flex: 0 0 20%;
+        flex: 0 0 20%;
+        width: 20%;
+    }
+
+    .col-lg-2-5 {
+        -ms-flex: 0 0 40%;
+        flex: 0 0 40%;
+        width: 40%;
+    }
+
+    .col-lg-3-5 {
+        -ms-flex: 0 0 60%;
+        flex: 0 0 60%;
+        width: 60%;
+    }
+
+    .col-lg-4-5 {
+        -ms-flex: 0 0 80%;
+        flex: 0 0 80%;
+        width: 80%;
+    }
+}
+
+.grid-creative {
+    .portfolio-item,
+    .thumb-info {
+        &,
+        .thumb-info-wrapper,
+        .post-image {
+            height: 100%;
+        }
+    }
+    .thumb-info img,
+    li.product-col .product-image img {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+        padding: 0;
+    }
+    > article.post {
+        width: 100%;
+    }
+}
+
+.grid-col-sizer {
+    width: 1.6666%;
+    height: 0;
+    flex: 0 0 1.6666%
+}

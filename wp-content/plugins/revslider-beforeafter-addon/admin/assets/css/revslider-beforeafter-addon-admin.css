@@ -1,0 +1,119 @@
+/* 
+ * @author    ThemePunch <info@themepunch.com>
+ * @link      http://www.themepunch.com/
+ * @copyright 2017 ThemePunch
+*/
+
+.triggerEvent.beforeafter_iconpicker {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    display: inline-block;
+    border: 2px solid #3f444a;
+    color: rgb(119, 124, 128);
+    text-align: center;
+    vertical-align: middle;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.triggerEvent.beforeafter_iconpicker i {  color: rgb(119, 124, 128); }
+.triggerEvent.beforeafter_iconpicker:hover i {  color: #b7bbc0; }
+
+.triggerEvent.beforeafter_iconpicker:hover { border-color: #b7bbc0;; color: #b7bbc0;}
+
+.beaf_aftericon, 
+.beaf_beforeicon { position: absolute; right:57px; top:0px; font-size:15px !important; width: 40px; text-align: center; background: #202224; height:35px;}
+
+.layerlist_element_innerwrap:hover .beaf_aftericon,
+.layerlist_element_innerwrap:hover .beaf_beforeicon,
+.tllayerlist_element.layerlist_element.checked .beaf_aftericon,
+.tllayerlist_element.layerlist_element.checked .beaf_beforeicon { background: #0d0d0e; }
+.beaf_aftericon { transform:scaleX(-1); right: 65px; }
+.beaf_notvisibleicon { display: none !important; }
+.beaf_aftericon:before { content: "A";   position: absolute;font-size: 10px;top: 0px;left: 5px; font-family: Arial; font-weight: 600;}
+.beaf_beforeicon:before { content: "B";   position: absolute;font-size: 10px;top: 0px;left: 5px; font-family: Arial; font-weight: 600}
+
+
+#beforeafter_iconselector_wrap {
+	z-index: 1000;
+	position: relative;
+}
+
+#rs_iconselector.beforeaftericonpicker { width: 280px; height: 280px; position: absolute; top: 0px; left: 0px; z-index:1005;}
+
+#rs_iconselector.beforeaftericonpicker .font_icon_subcontainer { display: none; }
+#rs_iconselector.beforeaftericonpicker #font_icon_subcontainer_FontAwesome { display: block; }
+
+#slide_after_bg_image_path {     
+    /* visibility: hidden; */
+    height: 29px !important;
+    width: 10px !important;
+    /* opacity: 0; */
+    padding: 0;
+    margin: 0;
+    font-size: 0px;
+    float: left;
+    line-height: 29px;
+    background: transparent;
+    border: none;
+    outline: none;
+    box-shadow: none;
+  }
+
+.collapsed #beaf_before_after_sourcewrap { display: none; }
+#after_selected_slide_source { margin-right: 5px; text-transform: capitalize; display: inline-block }
+.slotwrapper_cur .defaultimgAfter { width: 100%;height: 100%;position: absolute;top:0px;left:0px; }
+
+/* THE TOOLBAR TOP NEEDS SOME MODIFICATION */
+.beforeafter_selector { display: inline-block }
+
+.toolbar_rightoriented #beforeafter_selector_wrap .tool_dd_wrap { margin-left: 0px; }
+
+.toolbar_listelement.beaf_toolbar_element.selected {
+    background: #006dd2 !important;
+}
+
+.beforeafter-disabled .beaf_sbgs_btn, 
+.beforeafter-disabled #beforeafter_selector_wrap, 
+.beforeafter-disabled .beaf_aftericon, 
+.beforeafter-disabled .beaf_beforeicon,
+.beforeafter-disabled #gst_layer_revslider-beforeafter-addon,
+.beforeafter-disabled #form_layer_revslider-beforeafter-addon {
+	display: none !important;
+}
+
+
+@media only screen and (max-width : 1442px) {
+
+    .toolbar_selector_icons .selected_placeholder,
+    .help_wrap, .quick_style_wrap,
+    #undo_redo_wrap { width: 40px !important; }
+    #right_top_toolbar_wrap .highlight_arrow {  left:20px;}
+    #quick_style_trigger,
+    .toolbar_btn { padding: 0px 0px; }
+    .toolbar_btn i.toptoolbaricon.material-icons, .toolbar_selector_icons .toptoolbaricon.material-icons { font-size: 17px; }
+
+    .toolbar_rightoriented .tool_dd_wrap { margin-left: -89px; }
+    .toolbar_rightoriented #toolkit_selector_wrap .tool_dd_wrap { margin-left: -49px }
+
+    .toolbar_rightoriented #main_screenselector .tool_dd_wrap { margin-left: -129px !important;}
+    .toolbar_rightoriented #beforeafter_selector_wrap .tool_dd_wrap { margin-left: -5px; }
+}
+
+@media only screen and (max-width : 1325px) {
+
+    .toolbar_selector_icons .selected_placeholder,
+    .help_wrap, .quick_style_wrap,
+    #undo_redo_wrap { width: 30px !important; }
+    #right_top_toolbar_wrap .highlight_arrow {  left:15px;}
+    #quick_style_trigger,
+    .toolbar_btn { padding: 0px 0px; }
+    .toolbar_btn i.toptoolbaricon.material-icons, .toolbar_selector_icons .toptoolbaricon.material-icons { font-size: 17px; }
+
+    .toolbar_rightoriented .tool_dd_wrap { margin-left: -129px; }
+    .toolbar_rightoriented #toolkit_selector_wrap .tool_dd_wrap { margin-left: -99px }
+
+    .toolbar_rightoriented #main_screenselector .tool_dd_wrap { margin-left: -159px !important; }
+}

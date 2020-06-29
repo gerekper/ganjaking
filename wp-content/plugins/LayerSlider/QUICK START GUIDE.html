@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<meta charset="utf-8">
+	<meta content="width=device-width, initial-scale=1" name="viewport">
+	<title>LayerSlider - Quick Start Guide</title>
+
+	<style>
+
+		*, *::before, *::after {
+			box-sizing: border-box;
+			margin: 0;
+			padding: 0;
+			outline: 0;
+			font-weight: 400;
+			text-decoration: none;
+			line-height: 1.25;
+		}
+
+		html {
+			font-size: 10px;
+			-webkit-text-size-adjust: 100%;
+			-ms-text-size-adjust: 100%;
+			-ms-overflow-style: scrollbar;
+			-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+		}
+
+		body {
+			margin: 0;
+			line-height: 1.25;
+			text-align: left;
+			background-color: white;
+			font-size: 20px;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+			color: #111;
+			background: #f0eff5;
+			padding: 1em;
+			perspective: 50em;
+		}
+
+		[tabindex="-1"]:focus {
+			outline: 0 !important;
+		}
+
+		h1, h2, h3, h4, h5 {
+			line-height: 1;
+		}
+
+		#ls-logo {
+			width: 6em;
+			height: auto;
+			margin-bottom: 1rem;
+			transition: transform 0.3s ease-in-out;
+		}
+
+		#ls-logo:hover {
+			transform: scale(1.1);
+		}
+
+		header {
+			text-align: center;
+			padding: 1em 0 2.5em 0;
+		}
+
+		h1 {
+			line-height: 1;
+			font-size: 2em;
+		}
+
+		h3 {
+			padding-top: 0.5em;
+			font-size: 1.2em;
+			color: #555;
+			text-transform: uppercase;
+		}
+
+		.container {
+			max-width: 50em;
+			margin: 0 auto;
+		}
+
+		.card {
+			display: block;
+			color: #111;
+			margin-bottom: 2em;
+			min-height: 100%;
+			background: white;
+			border-radius: 0.3em;
+		}
+
+		.col .card {
+			margin: 0;
+		}
+
+		.card-header {
+			height: 8em;
+			position: relative;
+			border-top-left-radius: 0.3em;
+			border-top-right-radius: 0.3em;
+		}
+
+		.card-header svg {
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%,-50%);
+			height: auto;
+		}
+
+		.card-body {
+			padding: 1.5em;
+		}
+
+		h2 {
+			font-size: 1.15em;
+			margin-bottom: 0.75em;
+		}
+
+		p {
+			font-size: 0.9em;
+			color: #777;
+		}
+
+		.row {
+			display: flex;
+			width: 100%;
+			margin-bottom: 1em;
+			justify-content: space-between;
+		}
+
+		.col {
+			flex: 1;
+			margin-bottom: 1em;
+		}
+
+		.col-2 {
+			max-width: calc( 50% - 1em );
+		}
+
+		.col-3 {
+			max-width: calc( 33.33% - 1em );
+		}
+
+		.button {
+			white-space: nowrap;
+			border-radius: 0.3em;
+			color: white;
+			text-align: center;
+			padding: 0.75em 0;
+			line-height: 0.8;
+			display: block;
+		}
+
+		.button svg {
+			display: inline-block;
+			height: 1em;
+			margin-right: 0.2em;
+		}
+
+		.button svg,
+		.button span {
+			vertical-align: middle;
+		}
+
+		.button {
+			background: #9f9ca9;
+		}
+
+		.card-header {
+			background: #c1bfcc;
+		}
+
+		.button, .card {
+			transition: all 0.3s ease-out;
+		}
+
+		.card-header {
+			transition: all 0.5s ease-out;
+		}
+
+		.button:hover,
+		.card:hover .card-header {
+			background: #d8344e;
+		}
+
+		.button:hover, .card:hover {
+			transform: scale(1.05);
+			z-index: 10;
+		}
+
+		.documentation .card-header svg {
+			width: 4em;
+		}
+
+		.developer .card-header svg {
+			width: 3em;
+		}
+
+		.help .card-header svg {
+			width: 3em;
+		}
+
+		.legal .card-header svg {
+			width: 4em;
+		}
+
+		.card:hover {
+			box-shadow: 0 1em 3em rgba(0,0,0,.15);
+		}
+
+		@media all and (max-height: 1199px) {
+
+			body {
+				font-size: 19px;
+			}
+		}
+
+		@media all and (max-height: 1099px) {
+
+			body {
+				font-size: 18px;
+			}
+		}
+
+		@media all and (max-height: 999px) {
+
+			body {
+				font-size: 17px;
+			}
+		}
+
+		@media all and (max-width: 749px) {
+
+			body {
+				font-size: 18px;
+			}
+		}
+
+		@media all and (max-width: 679px) {
+
+			body {
+				font-size: 16px;
+			}
+		}
+
+		@media all and (max-width: 609px) {
+
+			body {
+				font-size: 14px;
+			}
+		}
+
+		@media all and (max-width: 529px) {
+
+			.row {
+				display: block;
+				margin-bottom: 2em;
+			}
+			.col {
+				max-width: 100% !important;
+			}
+		}
+
+	</style>
+
+</head>
+
+<body>
+
+	<header>
+
+		<a target="_blank" href="https://layerslider.kreaturamedia.com/">
+
+			<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" id="ls-logo">
+
+				<defs>
+					<linearGradient id="HexaGrad" x1="0%" x2="0%" y1="100%" y2="0%">
+						<stop offset="75%" stop-color="rgb(255,255,255)" stop-opacity="1" />
+						<stop offset="95%" stop-color="rgb(221,221,221)" stop-opacity="1" />
+					</linearGradient>
+
+					<linearGradient id="PSgrad_0" x1="0%" x2="0%" y1="100%" y2="0%">
+						<stop offset="0%" stop-color="rgb(255,63,95)" stop-opacity="1" />
+						<stop offset="100%" stop-color="rgb(224,0,53)" stop-opacity="1" />
+					</linearGradient>
+
+					<linearGradient id="PSgrad_1" x1="0%" x2="0%" y1="100%" y2="0%">
+						<stop offset="0%" stop-color="rgb(217,54,80)" stop-opacity="1" />
+						<stop offset="100%" stop-color="rgb(191,0,45)" stop-opacity="1" />
+					</linearGradient>
+
+					<linearGradient id="PSgrad_2" x1="0%" x2="0%" y1="100%" y2="0%">
+						<stop offset="0%" stop-color="rgb(178,44,66)" stop-opacity="1" />
+						<stop offset="100%" stop-color="rgb(156,0,37)" stop-opacity="1" />
+					</linearGradient>
+
+					<path id="hexagon" d="M473.91,353.15a81.06,81.06,0,0,1-40.52,70.19L281.87,510.82a81.09,81.09,0,0,1-81.05,0L49.31,423.34A81.06,81.06,0,0,1,8.79,353.15V178.2A81.06,81.06,0,0,1,49.31,108L200.82,20.53a81.09,81.09,0,0,1,81.05,0L433.39,108a81.06,81.06,0,0,1,40.52,70.19v175"/>
+					<path id="layer" d="M192.126,3.093 L355.961,97.852 C362.424,101.590 362.424,107.651 355.961,111.389 L192.126,206.148 C185.663,209.886 175.185,209.886 168.722,206.148 L4.887,111.389 C-1.576,107.651 -1.576,101.590 4.887,97.852 L168.722,3.093 C175.185,-0.645 185.663,-0.645 192.126,3.093 Z"/>
+
+					<filter filterunits="userSpaceOnUse" id="shadow12502400" primitiveunits="userSpaceOnUse">
+						<feflood/>
+						<fecomposite in2="SourceAlpha" operator="out"/>
+						<fegaussianblur stddeviation="0"/>
+						<feoffset dx="24" dy="0" result="afterOffset"/>
+						<feflood flood-color="#f3f3f3" flood-opacity="1"/>
+						<fecomposite in2="afterOffset" operator="in"/>
+						<femorphology operator="dilate" radius="0"/>
+						<fecomposite in2="SourceAlpha" operator="in"/>
+					</filter>
+					<filter filterunits="userSpaceOnUse" id="shadow15421167" primitiveunits="userSpaceOnUse">
+						<feflood/>
+						<fecomposite in2="SourceAlpha" operator="out"/>
+						<fegaussianblur stddeviation="0"/>
+						<feoffset dx="-24" dy="0" result="afterOffset"/>
+						<feflood flood-color="#f3f3f3" flood-opacity="1"/>
+						<fecomposite in2="afterOffset" operator="in"/>
+						<femorphology operator="dilate" radius="0"/>
+						<fecomposite in2="SourceAlpha" operator="in"/>
+					</filter>
+					<filter filterunits="userSpaceOnUse" id="shadow15928331" primitiveunits="userSpaceOnUse">
+						<feflood/>
+						<fecomposite in2="SourceAlpha" operator="out"/>
+						<fegaussianblur stddeviation="0"/>
+						<feoffset dx="0" dy="-24" result="afterOffset"/>
+						<feflood flood-color="#dddddd" flood-opacity="1"/>
+						<fecomposite in2="afterOffset" operator="in"/>
+						<femorphology operator="dilate" radius="0"/>
+						<fecomposite in2="SourceAlpha" operator="in"/>
+					</filter>
+					<filter filterunits="userSpaceOnUse" id="shadow1635810" primitiveunits="userSpaceOnUse">
+						<feflood/>
+						<fecomposite in2="SourceAlpha" operator="out"/>
+						<fegaussianblur stddeviation="0"/>
+						<feoffset dx="0" dy="24" result="afterOffset"/>
+						<feflood flood-color="#f7f7f7" flood-opacity="1"/>
+						<fecomposite in2="afterOffset" operator="in"/>
+						<femorphology operator="dilate" radius="0"/>
+						<fecomposite in2="SourceAlpha" operator="in"/>
+					</filter>
+				</defs>
+
+				 <g transform="translate(16 -9.68)">
+					<use xlink:href="#hexagon" fill-rule="evenodd"  fill="url(#HexaGrad)" />
+					<use xlink:href="#hexagon" fill-opacity="1" fill="white" filter="url(#shadow12502400)"/>
+					<use xlink:href="#hexagon" fill-opacity="1" fill="white" filter="url(#shadow15421167)"/>
+					<use xlink:href="#hexagon" fill-opacity="1" fill="white" filter="url(#shadow15928331)"/>
+					<use xlink:href="#hexagon" fill-opacity="1" fill="white" filter="url(#shadow1635810)"/>
+				 </g>
+
+				<use xlink:href="#layer" fill-rule="evenodd"  fill="url(#PSgrad_2)" transform="translate(75.1 220)"/>
+				<use xlink:href="#layer" fill-rule="evenodd"  fill="url(#PSgrad_1)" transform="translate(75.1 153)"/>
+				<use xlink:href="#layer" fill-rule="evenodd"  fill="url(#PSgrad_0)" transform="translate(75.1 82.7)"/>
+
+			</svg>
+		</a>
+
+		<h1>
+			LayerSlider
+		</h1>
+
+		<h3>
+			Quick Start Guide
+		</h3>
+
+	</header>
+
+	<div class="container">
+
+		<div class="row">
+			<div class="col col-3">
+
+				<a target="_blank" class="button" href="https://layerslider.kreaturamedia.com/documentation/#installation" style="">
+					<svg fill="white" viewbox="0 0 512 512">
+						<path d="M496.659,312.107l-47.061-36.8c0.597-5.675,1.109-12.309,1.109-19.328c0-7.019-0.491-13.653-1.109-19.328l47.104-36.821
+			c8.747-6.912,11.136-19.179,5.568-29.397L453.331,85.76c-5.227-9.557-16.683-14.464-28.309-10.176l-55.531,22.293
+			c-10.645-7.68-21.803-14.165-33.344-19.349l-8.448-58.901C326.312,8.448,316.584,0,305.086,0h-98.133
+			c-11.499,0-21.205,8.448-22.571,19.456l-8.469,59.115c-11.179,5.035-22.165,11.435-33.28,19.349l-55.68-22.357
+			C76.52,71.531,64.04,76.053,58.856,85.568L9.854,170.347c-5.781,9.771-3.392,22.464,5.547,29.547l47.061,36.8
+			c-0.747,7.189-1.109,13.44-1.109,19.307s0.363,12.117,1.109,19.328l-47.104,36.821c-8.747,6.933-11.115,19.2-5.547,29.397
+			l48.939,84.672c5.227,9.536,16.576,14.485,28.309,10.176l55.531-22.293c10.624,7.659,21.781,14.144,33.323,19.349l8.448,58.88
+			C185.747,503.552,195.454,512,206.974,512h98.133c11.499,0,21.227-8.448,22.592-19.456l8.469-59.093
+			c11.179-5.056,22.144-11.435,33.28-19.371l55.68,22.357c2.688,1.045,5.483,1.579,8.363,1.579c8.277,0,15.893-4.523,19.733-11.563
+			l49.152-85.12C507.838,331.349,505.448,319.083,496.659,312.107z M256.019,341.333c-47.061,0-85.333-38.272-85.333-85.333
+			s38.272-85.333,85.333-85.333s85.333,38.272,85.333,85.333S303.08,341.333,256.019,341.333z">
+						</path>
+					</svg>
+					<span>Installation</span>
+				</a>
+
+			</div>
+			<div class="col col-3">
+
+				<a target="_blank" class="button" href="https://layerslider.kreaturamedia.com/documentation/#activation">
+					<svg fill="white" viewbox="0 0 512 512">
+						<path d="M463.748,48.251c-64.336-64.336-169.013-64.335-233.349,0.001c-43.945,43.945-59.209,108.706-40.181,167.461
+			L4.396,401.536c-2.813,2.813-4.395,6.621-4.395,10.606V497c0,8.291,6.709,15,15,15h84.858c3.984,0,7.793-1.582,10.605-4.395
+			l21.211-21.226c3.237-3.237,4.819-7.778,4.292-12.334l-2.637-22.793l31.582-2.974c7.178-0.674,12.847-6.343,13.521-13.521
+			l2.974-31.582l22.793,2.651c4.233,0.571,8.496-0.85,11.704-3.691c3.193-2.856,5.024-6.929,5.024-11.206V363h27.422
+			c3.984,0,7.793-1.582,10.605-4.395l38.467-37.958c58.74,19.043,122.381,4.929,166.326-39.046
+			C528.084,217.266,528.084,112.587,463.748,48.251z M421.313,154.321c-17.549,17.549-46.084,17.549-63.633,0
+			s-17.549-46.084,0-63.633s46.084-17.549,63.633,0S438.861,136.772,421.313,154.321z">
+						</path>
+					</svg>
+					<span>Product Activation</span>
+				</a>
+
+			</div>
+			<div class="col col-3">
+
+				<a target="_blank" class="button" href="https://layerslider.kreaturamedia.com/documentation/#troubleshooting">
+					<svg fill="white" viewbox="0 0 512 512">
+						<path d="M410.684,308.268c-10.24,0-17.92,2.56-25.6,2.56l-74.24-74.24l61.44-61.44l79.36-28.16l58.88-94.72
+			c2.56-5.12,2.56-12.8,0-15.36l-30.72-30.72c-5.12-5.12-12.8-5.12-17.92-2.56l-97.28,56.32l-30.72,81.92l-61.44,61.44l-69.12-74.24
+			c0-7.68,2.56-15.36,2.56-25.6c0-66.56-64-115.2-128-99.84l38.4,38.4c20.48,20.48,20.48,51.2,0,71.68
+			c-20.48,20.48-51.2,20.48-71.68,0l-40.96-35.84c-20.48,74.24,48.64,145.92,125.44,122.88l74.24,74.24l-30.72,30.72
+			c-17.92-5.12-35.84,0-48.64,12.8l-104.96,104.96c-20.48,20.48-23.04,51.2-5.12,71.68c20.48,23.04,53.76,23.04,74.24,2.56
+			l107.52-107.52c12.8-12.8,17.92-33.28,12.8-48.64l30.72-30.72l74.24,74.24c-2.56,7.68-2.56,17.92-2.56,25.6
+			c0,66.56,64,115.2,128,99.84l-38.4-38.4c-20.48-20.48-20.48-51.2,0-71.68c20.48-20.48,51.2-20.48,71.68,0l38.4,38.4
+			C528.444,372.268,477.244,308.268,410.684,308.268z">
+						</path>
+					</svg>
+					<span>Troubleshooting</span>
+				</a>
+
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col col-2">
+
+				<a target="_blank" class="card documentation" href="https://layerslider.kreaturamedia.com/documentation/" style="text-decoration:none;">
+					<div class="card-header">
+						<svg fill="white" style="max-height:90px;" viewbox="0 0 296.999 296.999">
+							<path d="M45.432,35.049c-0.008,0-0.017,0-0.025,0c-2.809,0-5.451,1.095-7.446,3.085c-2.017,2.012-3.128,4.691-3.128,7.543
+			v159.365c0,5.844,4.773,10.61,10.641,10.625c24.738,0.059,66.184,5.215,94.776,35.136V84.023c0-1.981-0.506-3.842-1.461-5.382
+			C115.322,40.849,70.226,35.107,45.432,35.049z">
+							</path>
+							<path d="M262.167,205.042V45.676c0-2.852-1.111-5.531-3.128-7.543c-1.995-1.99-4.639-3.085-7.445-3.085c-0.009,0-0.018,0-0.026,0
+			c-24.793,0.059-69.889,5.801-93.357,43.593c-0.955,1.54-1.46,3.401-1.46,5.382v166.779
+			c28.592-29.921,70.038-35.077,94.776-35.136C257.394,215.651,262.167,210.885,262.167,205.042z">
+							</path>
+							<path d="M286.373,71.801h-7.706v133.241c0,14.921-12.157,27.088-27.101,27.125c-20.983,0.05-55.581,4.153-80.084,27.344
+			c42.378-10.376,87.052-3.631,112.512,2.171c3.179,0.724,6.464-0.024,9.011-2.054c2.538-2.025,3.994-5.052,3.994-8.301V82.427
+			C297,76.568,292.232,71.801,286.373,71.801z">
+							</path>
+							<path d="M18.332,205.042V71.801h-7.706C4.768,71.801,0,76.568,0,82.427v168.897c0,3.25,1.456,6.276,3.994,8.301
+			c2.545,2.029,5.827,2.78,9.011,2.054c25.46-5.803,70.135-12.547,112.511-2.171c-24.502-23.19-59.1-27.292-80.083-27.342
+			C30.49,232.13,18.332,219.963,18.332,205.042z">
+							</path>
+						</svg>
+					</div>
+					<div class="card-body">
+						<h2>
+							End-User Documentation
+						</h2>
+						<p>
+							The standard documentation that covers every aspect of using LayerSlider. It’s highly recommended for everyone.
+						</p>
+					</div>
+				</a>
+
+			</div>
+			<div class="col col-2">
+
+				<a target="_blank" class="card developer" href="https://layerslider.kreaturamedia.com/developers/" style="text-decoration:none;">
+					<div class="card-header">
+						<svg fill="white" style="max-height:90px;" viewbox="0 0 512 512">
+							<path d="m512 121v-75c0-24.813-20.187-45-45-45h-422c-24.813 0-45 20.187-45 45v75zm-166-60h90c8.284 0 15 6.716 15 15s-6.716 15-15 15h-90c-8.284 0-15-6.716-15-15s6.716-15 15-15zm-150 0c8.284 0 15 6.716 15 15s-6.716 15-15 15-15-6.716-15-15 6.716-15 15-15zm-60 0c8.284 0 15 6.716 15 15s-6.716 15-15 15-15-6.716-15-15 6.716-15 15-15zm-60 0c8.284 0 15 6.716 15 15s-6.716 15-15 15-15-6.716-15-15 6.716-15 15-15z">
+							</path>
+							<path d="m0 151v315c0 24.813 20.187 45 45 45h422c24.813 0 45-20.187 45-45v-315zm175.37 213.287c6.47 5.175 7.518 14.614 2.343 21.083-5.174 6.468-14.615 7.518-21.083 2.342l-75-60c-7.499-5.997-7.504-17.424 0-23.426l75-60c6.466-5.175 15.907-4.127 21.083 2.342 5.175 6.469 4.127 15.909-2.343 21.083l-60.358 48.289zm139.417-147.378-90 210c-3.263 7.613-12.079 11.143-19.696 7.878-7.614-3.263-11.142-12.082-7.878-19.696l90-210c3.264-7.614 12.082-11.141 19.696-7.878s11.142 12.081 7.878 19.696zm115.583 110.804-75 60c-6.458 5.168-15.9 4.136-21.083-2.342-5.175-6.469-4.127-15.909 2.343-21.083l60.358-48.288-60.358-48.287c-6.47-5.175-7.518-14.614-2.343-21.083 5.174-6.469 14.614-7.518 21.083-2.342l75 60c7.499 5.997 7.504 17.423 0 23.425z">
+							</path>
+						</svg>
+					</div>
+					<div class="card-body">
+						<h2>
+							Developer Documentation
+						</h2>
+						<p>
+							FOR DEVELOPERS ONLY. This one is all about WordPress-specific plugin APIs and theme-integration guides for in-stock usage.
+						</p>
+					</div>
+				</a>
+
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col col-2">
+
+				<a target="_blank" class="card help" href="https://layerslider.kreaturamedia.com/help/" style="text-decoration:none;">
+					<div class="card-header">
+						<svg fill="white" style="max-height:90px;" viewbox="0 0 512 512">
+							<path d="M491.451,414.859c-5.945-8.562-11.986-17.29-16.189-26.548C499.203,348.798,512,303.384,512,256
+			c0-47.24-12.716-92.523-36.516-131.952c4.186-9.284,10.186-18.034,16.09-26.617c8.295-12.058,16.131-23.448,19.16-36.311
+			c3.845-16.325-1.077-31.506-14.629-45.12C482.523,2.355,467.368-2.6,451.048,1.28c-12.832,3.051-24.178,10.929-36.189,19.27
+			c-8.562,5.945-17.29,11.986-26.548,16.189C348.798,12.796,303.384,0,256,0c-47.24,0-92.523,12.716-131.952,36.516
+			c-9.284-4.186-18.034-10.186-26.617-16.09C85.373,12.131,73.983,4.295,61.12,1.266C44.795-2.579,29.614,2.343,16,15.895
+			C2.355,29.477-2.6,44.632,1.279,60.952C4.33,73.784,12.208,85.13,20.549,97.141c5.945,8.562,11.986,17.29,16.189,26.548
+			C12.797,163.202,0,208.616,0,256c0,47.24,12.716,92.523,36.516,131.952c-4.186,9.284-10.186,18.034-16.09,26.617
+			c-8.295,12.058-16.131,23.448-19.16,36.311c-3.845,16.325,1.077,31.506,14.629,45.12c13.582,13.645,28.737,18.6,45.057,14.72
+			c12.832-3.051,24.178-10.929,36.189-19.27c8.562-5.945,17.29-11.986,26.548-16.189C163.202,499.204,208.616,512,256,512
+			c47.24,0,92.523-12.716,131.952-36.516c9.284,4.186,18.034,10.186,26.617,16.09c12.058,8.295,23.448,16.131,36.311,19.16
+			c16.325,3.845,31.506-1.077,45.12-14.629c13.645-13.582,18.6-28.737,14.72-45.057C507.67,438.216,499.792,426.871,491.451,414.859
+			z M37.164,37.157c11.744-11.689,18.684-8.924,43.265,7.985c4.99,3.433,10.345,7.098,16.083,10.591
+			C89.04,61.707,81.845,68.117,74.981,74.98c-6.78,6.78-13.116,13.883-19.028,21.256c-3.547-5.785-7.274-11.181-10.762-16.205
+			C28.265,55.654,25.492,48.776,37.164,37.157z M80.031,466.809c-24.377,16.926-31.255,19.699-42.874,8.027
+			c-11.689-11.744-8.924-18.684,7.985-43.265c3.433-4.99,7.098-10.345,10.591-16.083c5.974,7.472,12.384,14.667,19.247,21.53
+			c6.78,6.78,13.883,13.116,21.257,19.028C90.451,459.594,85.055,463.321,80.031,466.809z M121.838,271H30.51
+			c-0.327-4.96-0.51-9.959-0.51-15c0-5.041,0.183-10.04,0.51-15h91.328c-0.547,4.927-0.838,9.93-0.838,15
+			C121,261.07,121.291,266.073,121.838,271z M241,30.51c4.96-0.327,9.959-0.51,15-0.51c5.041,0,10.04,0.183,15,0.51v91.328
+			c-4.927-0.547-9.93-0.838-15-0.838c-5.07,0-10.073,0.291-15,0.838V30.51z M271,481.49c-4.96,0.327-9.959,0.51-15,0.51
+			c-5.041,0-10.04-0.183-15-0.51v-91.328c4.927,0.547,9.93,0.838,15,0.838c5.07,0,10.073-0.291,15-0.838V481.49z M256,361
+			c-57.897,0-105-47.103-105-105s47.103-105,105-105c57.897,0,105,47.103,105,105S313.897,361,256,361z M431.969,45.191
+			c24.377-16.926,31.255-19.699,42.874-8.027c11.689,11.744,8.924,18.684-7.985,43.265c-3.433,4.99-7.098,10.345-10.591,16.083
+			c-5.974-7.472-12.384-14.667-19.247-21.53c-6.78-6.78-13.883-13.116-21.257-19.028C421.549,52.406,426.945,48.679,431.969,45.191z
+			M390.162,271c0.547-4.927,0.838-9.93,0.838-15c0-5.07-0.291-10.073-0.838-15h91.328c0.327,4.96,0.51,9.959,0.51,15
+			c0,5.041-0.183,10.04-0.51,15H390.162z M474.836,474.843c-11.744,11.689-18.684,8.924-43.265-7.985
+			c-4.99-3.433-10.345-7.098-16.083-10.592c7.472-5.974,14.667-12.384,21.531-19.247c6.78-6.78,13.116-13.883,19.028-21.257
+			c3.547,5.786,7.273,11.182,10.762,16.207C483.735,456.346,486.509,463.224,474.836,474.843z">
+							</path>
+						</svg>
+					</div>
+					<div class="card-body">
+						<h2>
+							Help
+						</h2>
+						<p>
+							A collection of all help resources. This is the place to start if you have questions or need assistance.
+						</p>
+					</div>
+				</a>
+
+			</div>
+			<div class="col col-2">
+
+				<a target="_blank" class="card legal" href="https://layerslider.kreaturamedia.com/legal/" style="text-decoration:none;">
+					<div class="card-header">
+						<svg fill="white" style="max-height:90px;" viewbox="0 0 297 297">
+							<path d="M291.419,57.627L150.78,15.006c-1.49-0.452-3.068-0.451-4.56,0L5.581,57.627C0.403,59.197,0,63.781,0,65.149
+			c0,1.367,0.403,5.952,5.581,7.521l68.331,20.708l71.893-29.716c3.613-1.486,7.744,0.232,9.233,3.843
+			c1.489,3.611-0.232,7.744-3.843,9.233l-56.003,23.09l51.028,15.464h-0.001c1.494,0.452,3.071,0.452,4.561,0L291.42,72.67
+			c5.177-1.569,5.58-6.154,5.58-7.521C297,63.781,296.598,59.196,291.419,57.627z">
+							</path>
+							<path d="M70.372,107.083L42.379,98.6v53.955c0,2.403,1.22,4.642,3.24,5.943c8.371,5.397,16.635,9.971,24.753,13.826V107.083z">
+							</path>
+							<path d="M148.499,129.774c-2.147,0-4.293-0.316-6.38-0.948h-0.001L84.515,111.37v67.019c23.395,8.975,45.302,12.19,64.668,12.19
+			c15.721,0,29.769-2.115,41.578-4.978c37.042-8.978,60.16-26.71,61.126-27.46c1.724-1.34,2.734-3.402,2.734-5.585V98.6
+			l-99.74,30.226C152.793,129.458,150.646,129.774,148.499,129.774z">
+							</path>
+							<path d="M70.371,209.97L70.371,209.97c2.229-0.728,4.604-1.127,7.072-1.127s4.843,0.399,7.071,1.127v-31.582
+			c-4.658-1.787-9.375-3.799-14.143-6.063V209.97z">
+							</path>
+							<path d="M64.731,231.658c0,7.009,5.703,12.712,12.713,12.712c7.01,0,12.713-5.702,12.713-12.712
+			c0-7.01-5.703-12.713-12.713-12.713C70.434,218.945,64.731,224.648,64.731,231.658z">
+							</path>
+							<path d="M96.926,243.519c-4.011,6.564-11.243,10.954-19.482,10.954c-8.239,0-15.471-4.39-19.482-10.954l-9.835,29.506
+			c-0.719,2.157-0.357,4.527,0.972,6.371s3.464,2.937,5.737,2.937h45.218c2.273,0,4.408-1.093,5.737-2.937
+			c1.329-1.844,1.691-4.214,0.972-6.371L96.926,243.519z">
+							</path>
+						</svg>
+					</div>
+					<div class="card-body">
+						<h2>
+							Legal
+						</h2>
+						<p>
+							Review our Licence Terms, Terms of Use, Privacy Policy and similar legal documents.
+						</p>
+					</div>
+				</a>
+
+			</div>
+		</div>
+
+	</div>
+
+</body>
+</html>

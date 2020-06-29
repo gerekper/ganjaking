@@ -1,0 +1,22 @@
+<wpml-config>
+    <admin-texts>
+        <key name="ywcds_button_text" />
+        <key name="ywcds_message_for_donation" />
+        <key name="ywcds_message_right_donation" />
+        <key name="ywcds_message_donation_already" />
+        <key name="ywcds_message_empty_donation" />
+        <key name="ywcds_message_invalid_donation" />
+        <key name="ywcds_message_min_donation" />
+        <key name="ywcds_message_max_donation" />
+        <key name="ywcds_message_obligatory_donation" />
+        <key name="ywcds_widget_text_day" />
+        <key name="ywcds_widget_text_year" />
+        <key name="ywcds_widget_text_week" />
+        <key name="ywcds_widget_text_month" />
+        <key name="ywcds_widget_text_last_month" />
+        <key name="ywcds_widget_text_always" />
+        <key name="ywcds_mail_subject" />
+        <key name="ywcds_mail_content" />
+        <key name="ywcds_text_extra_field" />
+    </admin-texts>
+</wpml-config>

@@ -1,0 +1,37 @@
+/**
+ * Menu
+ *
+ * @author Leanza Francesco
+ * @version 1.0.0
+ */
+
+ul.yith-wcmbs-menu {
+    position : relative;
+}
+
+ul.yith-wcmbs-menu::before {
+    content       : ' ';
+    width         : 100%;
+    border-bottom : 1px solid #aaa;
+    position      : absolute;
+    bottom        : 0;
+    z-index       : 9;
+
+}
+
+ul.yith-wcmbs-menu li {
+    padding       : 10px 20px;
+    border        : 1px solid #aaa;
+    margin        : 0 10px 0 0;
+    display       : inline-block;
+    font-size     : 16px;
+    border-bottom : none;
+    background    : #ddd;
+    cursor        : pointer;
+}
+
+ul.yith-wcmbs-menu li.yith-wcmbs-menu-active {
+    background : #f1f1f1;
+    z-index    : 10;
+    position   : relative;
+}

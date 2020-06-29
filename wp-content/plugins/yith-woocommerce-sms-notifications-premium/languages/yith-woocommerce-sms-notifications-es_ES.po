@@ -1,0 +1,917 @@
+# Translation of YITH WooCommerce SMS Notifications in Spanish (Spain)
+# This file is distributed under the same license as the YITH WooCommerce SMS Notifications package.
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH WooCommerce SMS Notifications\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
+"sms-notifications.premium\n"
+"POT-Creation-Date: 2020-05-27 08:32:42+00:00\n"
+"PO-Revision-Date: 2020-04-27 21:16:54+0000\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/2.3.1\n"
+
+#: class-yith-wc-sms-notifications.php:264
+msgid "Message sent successfully!"
+msgstr "¡Mensaje enviado con éxito!"
+
+#: class-yith-wc-sms-notifications.php:265
+msgid "Please select the type of message you want to send."
+msgstr "Por favor, selecciona el tipo de mensaje que quieres enviar."
+
+#: class-yith-wc-sms-notifications.php:266
+msgid "Your message is blank!"
+msgstr "¡Tu mensaje está en blanco!"
+
+#: class-yith-wc-sms-notifications.php:267
+msgid "Please enter a valid phone number."
+msgstr "Por favor, introduce un número de teléfono válido."
+
+#: class-yith-wc-sms-notifications.php:268 includes/class-ywsn-metabox.php:151
+#: templates/admin/class-ywsn-sms-send.php:56
+msgid "Sending..."
+msgstr "Enviando..."
+
+#: class-yith-wc-sms-notifications.php:269
+msgid ""
+"The client did not requested sms notifications. Do you really want to send "
+"it?"
+msgstr ""
+"El cliente no ha pedido notificaciones SMS. ¿Estás seguro de que quieres "
+"enviárselas?"
+
+#: class-yith-wc-sms-notifications.php:288
+msgid ""
+"To use this plugin, you should first select and configure an SMS service "
+"provider"
+msgstr ""
+"Para usar ese plugin, primero deberías seleccionar y configurar un proveedor "
+"de servicios SMS"
+
+#: includes/class-ywsn-ajax.php:83
+msgid "Delete note"
+msgstr "Borrar nota"
+
+#: includes/class-ywsn-ajax.php:96
+msgid "An error has occurred while sending the message"
+msgstr "Ha ocurrido un error durante el envío del mensaje"
+
+#: includes/class-ywsn-messages.php:219
+msgid "Sent"
+msgstr "Enviado"
+
+#. translators: %s SMS sending date
+#: includes/class-ywsn-messages.php:256
+msgid "SMS text message sent on %s"
+msgstr "Mensaje sms enviado el %s"
+
+#: includes/class-ywsn-messages.php:259
+msgid "Status"
+msgstr "Estado"
+
+#: includes/class-ywsn-messages.php:261
+msgid "Content"
+msgstr "Contenido"
+
+#: includes/class-ywsn-metabox.php:115
+msgid "No SMS can be sent for this Booking."
+msgstr ""
+
+#: includes/class-ywsn-metabox.php:135 includes/class-ywsn-metabox.php:137
+msgid "Get order notifications via SMS."
+msgstr "Recibe notificaciones del pedido a través de SMS."
+
+#: includes/class-ywsn-metabox.php:144
+msgid "Text customer:"
+msgstr "Texto cliente:"
+
+#: includes/class-ywsn-metabox.php:146
+#: templates/admin/class-ywsn-sms-send.php:51
+msgid "Remaining characters"
+msgstr "Caracteres restantes"
+
+#: includes/class-ywsn-metabox.php:149
+msgid "Send"
+msgstr "Enviar"
+
+#: includes/class-ywsn-multivendor.php:118
+msgid "Settings"
+msgstr "Ajustes"
+
+#: includes/functions-ywsn.php:261
+msgid "Website name"
+msgstr "Nombre del sitio web"
+
+#: includes/functions-ywsn.php:262
+msgid "Order number"
+msgstr "Número de pedido"
+
+#: includes/functions-ywsn.php:263
+msgid "Order total"
+msgstr "Pedido total"
+
+#: includes/functions-ywsn.php:264 plugin-options/general-options.php:105
+#: plugin-options/general-options.php:253
+#: plugin-options/vendor/vendor-options.php:26
+msgid "Order status"
+msgstr "Estado del pedido"
+
+#: includes/functions-ywsn.php:265
+msgid "Billing name"
+msgstr "Nombre de la factura"
+
+#: includes/functions-ywsn.php:266
+msgid "Billing first name"
+msgstr ""
+
+#: includes/functions-ywsn.php:267
+msgid "Billing last name"
+msgstr ""
+
+#: includes/functions-ywsn.php:268
+msgid "Shipping name"
+msgstr "Nombre del envío"
+
+#: includes/functions-ywsn.php:269
+msgid "Shipping first name"
+msgstr ""
+
+#: includes/functions-ywsn.php:270
+msgid "Shipping last name"
+msgstr ""
+
+#: includes/functions-ywsn.php:271
+msgid "Shipping method"
+msgstr "Método de envío"
+
+#: includes/functions-ywsn.php:272
+msgid "Additional Notes"
+msgstr "Notas Adicionales"
+
+#: includes/functions-ywsn.php:273
+msgid "Order Date"
+msgstr "Fecha de pedido"
+
+#: includes/functions-ywsn.php:278
+msgid "Tracking Number"
+msgstr "Número de seguimiento"
+
+#: includes/functions-ywsn.php:279
+msgid "Carrier name"
+msgstr "Nombre del transportista"
+
+#: includes/functions-ywsn.php:280
+msgid "Shipping date"
+msgstr "Fecha de envío"
+
+#: includes/functions-ywsn.php:281
+msgid "Tracking url"
+msgstr "URL de seguimiento"
+
+#: includes/functions-ywsn.php:286
+msgid "Booking ID"
+msgstr ""
+
+#: includes/functions-ywsn.php:287
+msgid "Booking Status"
+msgstr ""
+
+#: includes/functions-ywsn.php:288
+msgid "Booking Details URL"
+msgstr ""
+
+#: includes/services/class-ywsn-agile-telecom.php:104
+#: includes/services/class-ywsn-bulk-sms-sa.php:92
+#: includes/services/class-ywsn-bulk-sms.php:105
+#: includes/services/class-ywsn-bulksms-maroc.php:90
+#: includes/services/class-ywsn-burst-sms.php:97
+#: includes/services/class-ywsn-clicksend.php:103
+#: includes/services/class-ywsn-crystalwebtechs.php:107
+#: includes/services/class-ywsn-green-text.php:105
+#: includes/services/class-ywsn-intellisms.php:108
+#: includes/services/class-ywsn-jazz.php:100
+#: includes/services/class-ywsn-mnotify.php:82
+#: includes/services/class-ywsn-mobily-ws.php:100
+#: includes/services/class-ywsn-msg91.php:96
+#: includes/services/class-ywsn-netpowers.php:91
+#: includes/services/class-ywsn-nexmo.php:99
+#: includes/services/class-ywsn-sabeq-alarabia.php:102
+#: includes/services/class-ywsn-sms-country.php:103
+#: includes/services/class-ywsn-sms-gateway-hub.php:107
+#: includes/services/class-ywsn-sms-office.php:89
+#: includes/services/class-ywsn-smsapi.php:92
+#: includes/services/class-ywsn-smsbroadcast.php:110
+#: includes/services/class-ywsn-smscyber.php:103
+#: includes/services/class-ywsn-smshosting.php:100
+#: includes/services/class-ywsn-thaibulksms.php:96
+#: includes/services/class-ywsn-trend-mens.php:93
+#: includes/services/class-ywsn-twilio.php:107
+#: includes/services/class-ywsn-uaedes.php:103
+#: includes/services/class-ywsn-unifonic.php:101
+msgid "No answer"
+msgstr "Sin respuesta"
+
+#. translators: %s error message
+#: includes/services/class-ywsn-agile-telecom.php:111
+#: includes/services/class-ywsn-bulk-sms-sa.php:99
+#: includes/services/class-ywsn-bulksms-maroc.php:97
+#: includes/services/class-ywsn-clicksend.php:110
+#: includes/services/class-ywsn-clockwork.php:88
+#: includes/services/class-ywsn-crystalwebtechs.php:114
+#: includes/services/class-ywsn-green-text.php:112
+#: includes/services/class-ywsn-intellisms.php:115
+#: includes/services/class-ywsn-jazz.php:105
+#: includes/services/class-ywsn-messagebird.php:89
+#: includes/services/class-ywsn-messagebird.php:93
+#: includes/services/class-ywsn-mnotify.php:89
+#: includes/services/class-ywsn-mobily-ws.php:105
+#: includes/services/class-ywsn-msg91.php:101
+#: includes/services/class-ywsn-netpowers.php:96
+#: includes/services/class-ywsn-nexmo.php:106
+#: includes/services/class-ywsn-sabeq-alarabia.php:109
+#: includes/services/class-ywsn-sms-country.php:108
+#: includes/services/class-ywsn-sms-gateway-hub.php:114
+#: includes/services/class-ywsn-smsapi.php:99
+#: includes/services/class-ywsn-smsbroadcast.php:115
+#: includes/services/class-ywsn-smscyber.php:108
+#: includes/services/class-ywsn-smshosting.php:106
+#: includes/services/class-ywsn-trend-mens.php:99
+#: includes/services/class-ywsn-uaedes.php:108
+msgid "An error has occurred: %s"
+msgstr "Ha ocurrido un error: %s"
+
+#. translators: %1$s error status, %2$s error detail
+#. translators: %1$s error code, %2$s error message
+#. translators: %1$s error code, %2$s error message
+#. translators: %1$s error code, %2$s error message
+#. translators: %1$s error status, %2$s error message
+#. translators: %1$s error code, %2$s error message
+#: includes/services/class-ywsn-bulk-sms.php:112
+#: includes/services/class-ywsn-burst-sms.php:104
+#: includes/services/class-ywsn-clockwork.php:84
+#: includes/services/class-ywsn-sms-office.php:96
+#: includes/services/class-ywsn-thaibulksms.php:103
+#: includes/services/class-ywsn-unifonic.php:108
+msgid "An error has occurred: %1$s %2$s"
+msgstr ""
+
+#: includes/services/class-ywsn-trend-mens.php:102
+#: includes/services/class-ywsn-twilio.php:116
+msgid "No answer code"
+msgstr "Sin código de respuesta"
+
+#: includes/services/class-ywsn-twilio.php:113
+msgid "An error has occurred while sending the sms"
+msgstr "Ha ocurrido un error durante el envío del sms"
+
+#: init.php:25
+msgid ""
+"YITH WooCommerce SMS Notifications is enabled but not effective. It requires "
+"WooCommerce in order to work."
+msgstr ""
+"YITH WooCommerce SMS Notifications está habilitado pero no es efectivo. "
+"Requiere WooCommerce para funcionar."
+
+#: plugin-options/debug-options.php:18
+msgid "SMS Debug"
+msgstr "Depuración SMS"
+
+#: plugin-options/debug-options.php:22
+msgid "Debug Log"
+msgstr "Registro de depuración"
+
+#: plugin-options/general-options.php:24
+msgid "View Logs"
+msgstr "Ver sesiones"
+
+#: plugin-options/general-options.php:49
+msgid "View Log File"
+msgstr "Ver archivo de acceso"
+
+#: plugin-options/general-options.php:55 plugin-options/general-options.php:296
+msgid "None"
+msgstr "Ninguno"
+
+#: plugin-options/general-options.php:65
+msgid "SMS Service settings"
+msgstr "Ajustes del servicio SMS"
+
+#: plugin-options/general-options.php:71
+msgid "SMS service enabled"
+msgstr "Servicio SMS habilitado"
+
+#: plugin-options/general-options.php:86
+msgid ""
+"Let the vendors choose which order statuses they want to be informed about "
+"via an SMS text."
+msgstr ""
+"Permite a los vendedores elegir de qué estados de pedido quieren ser "
+"informados vía SMS."
+
+#: plugin-options/general-options.php:93
+msgid "Save messages sent to vendors in main order notes"
+msgstr ""
+"Guardar los mensajes enviados a los vendedores en las notas de pedido "
+"principal"
+
+#: plugin-options/general-options.php:100
+msgid ""
+"Vendors will receive SMS notifications for the following changes to the "
+"order status."
+msgstr ""
+"Los vendedores recibirán notificaciones de SMS para los siguientes cambios "
+"en el estado del pedido."
+
+#: plugin-options/general-options.php:111
+#: plugin-options/general-options.php:134
+#: plugin-options/vendor/vendor-options.php:32
+#: plugin-options/vendor/vendor-options.php:51
+msgid "Receive SMS"
+msgstr "Recibir SMS"
+
+#: plugin-options/general-options.php:112
+#: plugin-options/general-options.php:135
+#: plugin-options/general-options.php:161
+#: plugin-options/general-options.php:166
+#: plugin-options/general-options.php:260
+#: plugin-options/general-options.php:265
+#: plugin-options/vendor/vendor-options.php:33
+#: plugin-options/vendor/vendor-options.php:52
+msgid "Select/deselect all elements"
+msgstr "Seleccionar/Deseleccionar todos los elementos"
+
+#: plugin-options/general-options.php:123
+msgid ""
+"Vendors will receive SMS notifications for the following changes to the "
+"booking status."
+msgstr ""
+
+#: plugin-options/general-options.php:128
+#: plugin-options/general-options.php:154
+#: plugin-options/vendor/vendor-options.php:45
+msgid "Booking status"
+msgstr ""
+
+#: plugin-options/general-options.php:149
+#: plugin-options/vendor/vendor-options.php:40
+msgid "SMS notifications for the following booking status changes"
+msgstr ""
+
+#: plugin-options/general-options.php:160
+#: plugin-options/general-options.php:259
+msgid "Customer"
+msgstr "Cliente"
+
+#: plugin-options/general-options.php:165
+#: plugin-options/general-options.php:264
+msgid "Admin"
+msgstr "Admin"
+
+#: plugin-options/general-options.php:176
+#: plugin-options/vendor/vendor-options.php:64
+msgid "Sending settings"
+msgstr "Ajustes de envío"
+
+#: plugin-options/general-options.php:180
+msgid "Sender telephone number"
+msgstr "Número de teléfono del remitente"
+
+#: plugin-options/general-options.php:184
+msgid "Enter the telephone number that should appear as sender"
+msgstr "Introduce el número de teléfono que debería aparecer como remitente"
+
+#: plugin-options/general-options.php:194
+msgid "Alphanumeric Sender ID"
+msgstr "ID Alfanumérica del remitente"
+
+#: plugin-options/general-options.php:198
+msgid ""
+"Alphanumeric sender identifier: enter the text that should appear as sender "
+"(this option might not work correctly in some countries, check your country "
+"with your SMS service provider you have selected)"
+msgstr ""
+
+#: plugin-options/general-options.php:202
+#: plugin-options/vendor/vendor-options.php:68
+msgid "Admin phone"
+msgstr "Teléfono admin"
+
+#: plugin-options/general-options.php:207
+#: plugin-options/vendor/vendor-options.php:73
+msgid ""
+"Enter here the phone numbers of the admins who will be notified via SMS. "
+"Include country calling codes. You can also specify more than one phone "
+"number. Type the number and press Enter to add a new one."
+msgstr ""
+
+#: plugin-options/general-options.php:208
+#: plugin-options/vendor/vendor-options.php:74
+msgid "Type a phone number&hellip;"
+msgstr "Escribir un número de teléfono&hellip;"
+
+#: plugin-options/general-options.php:211
+msgid "Send SMS notifications to customers"
+msgstr "Enviar notificaciones SMS a los clientes"
+
+#: plugin-options/general-options.php:216
+msgid "All customers"
+msgstr "Todos los clientes"
+
+#: plugin-options/general-options.php:217
+msgid "Only customers who ask for it in checkout"
+msgstr "Sólo clientes que lo soliciten en la página de pago"
+
+#: plugin-options/general-options.php:223
+msgid "Selected"
+msgstr "Seleccionado"
+
+#: plugin-options/general-options.php:228
+msgid "Show checkbox selected by default"
+msgstr "Mostrar casilla marcada por defecto"
+
+#: plugin-options/general-options.php:236
+msgid "Checkbox text"
+msgstr "Texto de la casilla"
+
+#: plugin-options/general-options.php:240
+msgid "I want to be notified about any changes in the order via SMS"
+msgstr ""
+"Quiero que se me notifique cualquier cambio en el pedido a través de SMS"
+
+#: plugin-options/general-options.php:248
+#: plugin-options/vendor/vendor-options.php:21
+msgid "SMS notifications for the following order status changes"
+msgstr "Notificaciones SMS para los siguientes cambios en el estado del pedido"
+
+#: plugin-options/general-options.php:284
+msgid "URL shortening settings"
+msgstr "Ajustes de acortamiento de URL"
+
+#: plugin-options/general-options.php:288
+msgid "URL shortening service"
+msgstr "Servicio de acortamiento de URL"
+
+#: plugin-options/general-options.php:297
+msgid "bitly"
+msgstr "bitly"
+
+#: plugin-options/general-options.php:303
+msgid "Bitly Access Token"
+msgstr "Acceso Token de Bitly"
+
+#: plugin-options/general-options.php:321
+msgid "Charsets & SMS Length"
+msgstr "Conjuntos y longitud de SMS"
+
+#: plugin-options/general-options.php:325
+msgid "Available Charsets"
+msgstr "Conjunto"
+
+#: plugin-options/general-options.php:326
+msgid ""
+"Select extended charsets if you need them. Please note that the default SMS "
+"length will be reduced to 70 characters"
+msgstr ""
+"Seleccionar conjunto de caracteres extendido si los necesitas. Por favor, "
+"ten en cuenta que la longitud por defecto del SMS será reducida a 70 "
+"caracteres"
+
+#: plugin-options/general-options.php:333
+msgid "CJK - Chinese Japanese Korean"
+msgstr "CJK. Chino Japonés Koreano"
+
+#: plugin-options/general-options.php:334
+msgid "Greek"
+msgstr "Griego"
+
+#: plugin-options/general-options.php:335
+msgid "Cyrillic"
+msgstr "Cirílico"
+
+#: plugin-options/general-options.php:336
+msgid "Armenian"
+msgstr "Armenio"
+
+#: plugin-options/general-options.php:337
+msgid "Hebrew"
+msgstr "Hebreo"
+
+#: plugin-options/general-options.php:338
+msgid "Arabic"
+msgstr "Arabe"
+
+#: plugin-options/general-options.php:339
+msgid "Hangul"
+msgstr "Hangul"
+
+#: plugin-options/general-options.php:340
+msgid "Thai"
+msgstr "Tailandés"
+
+#: plugin-options/general-options.php:341
+msgid "Latin Extended"
+msgstr "Latin extendido"
+
+#: plugin-options/general-options.php:346
+msgid "Enable SMS length modification"
+msgstr "Activar la modificación de longitud de SMS"
+
+#: plugin-options/general-options.php:353
+msgid "SMS Length"
+msgstr "Longitud de SMS"
+
+#: plugin-options/general-options.php:357
+msgid "Enter the maximum SMS length."
+msgstr "Introduce la longitud máxima del SMS"
+
+#: plugin-options/messages-options.php:15
+msgid ""
+"In this page you can configure all SMS text messages that customers will "
+"receive when any changes to the status of their order is applied."
+msgstr ""
+"En esta página puedes configurar todos los mensajes de texto SMS que los "
+"clientes recibirán cuando se aplique cualquier cambio al estado de su pedido."
+
+#: plugin-options/messages-options.php:16
+msgid "Allowed placeholders"
+msgstr "Marcadores de posición permitidos"
+
+#: plugin-options/messages-options.php:17
+msgid ""
+"When you add placeholders, keep in mind that there's a 160 characters limit "
+"for each message."
+msgstr ""
+"Cuando añadas marcadores de posición, ten en cuenta que hay un límite de 160 "
+"caracteres para cada mensaje."
+
+#: plugin-options/messages-options.php:23
+msgid "SMS Messages"
+msgstr ""
+
+#: plugin-options/messages-options.php:29
+msgid "Test message"
+msgstr "Mensaje de prueba"
+
+#: plugin-options/messages-options.php:40
+msgid "Order Status SMS"
+msgstr ""
+
+#: plugin-options/messages-options.php:45
+#: plugin-options/messages-options.php:87
+msgid "Text message for admin(s)"
+msgstr "Mensaje de texto para admin(s)"
+
+#: plugin-options/messages-options.php:46
+msgid ""
+"This is the text message that admin(s) will receive any time the order "
+"status is changed"
+msgstr ""
+"Este es el mensaje que los admin(s) recibirán cada vez que haya cambios en "
+"el estado de su pedido"
+
+#: plugin-options/messages-options.php:50
+msgid "{site_title}: Order #{order_id} switched to {order_status}."
+msgstr "{site_title}: Pedido #{order_id} marcado como {order_status}."
+
+#: plugin-options/messages-options.php:54
+#: plugin-options/messages-options.php:96
+msgid "Default customer SMS"
+msgstr "SMS cliente predeterminado"
+
+#: plugin-options/messages-options.php:55
+msgid ""
+"This is the default message that customers receive each time the status of "
+"the order changes and if no other message is specified"
+msgstr ""
+"Este es el mensaje que los clientes reciben cada vez que el estado del "
+"pedido cambia, si no se especifica ningún otro mensaje"
+
+#: plugin-options/messages-options.php:59
+msgid "Your order #{order_id} on {site_title} is now {order_status}."
+msgstr "Tu pedido #{order_id} en {site_title} está ahora {order_status}."
+
+#. translators: %s status name
+#: plugin-options/messages-options.php:71
+msgid "Your order #{order_id} on {site_title} is now %s."
+msgstr "Tu pedido #{order_id} en {site_title} está ahora %s."
+
+#: plugin-options/messages-options.php:82
+msgid "Booking Status SMS"
+msgstr ""
+
+#: plugin-options/messages-options.php:88
+msgid ""
+"This is the text message that admin(s) will receive every time the booking "
+"status changes"
+msgstr ""
+
+#: plugin-options/messages-options.php:92
+msgid "{site_title}: Booking #{booking_id} switched to {booking_status}."
+msgstr ""
+
+#: plugin-options/messages-options.php:97
+msgid ""
+"This is the default message that customers receive each time the status of "
+"the booking changes and if no other message is specified"
+msgstr ""
+
+#: plugin-options/messages-options.php:101
+msgid "Your booking #{booking_id} on {site_title} is now {booking_status}."
+msgstr ""
+
+#. translators: %s status name
+#: plugin-options/messages-options.php:113
+msgid "Your booking #{booking_id} on {site_title} is now %s."
+msgstr ""
+
+#. translators: %1$s operator name, %2$s gateway url
+#: plugin-options/providers.php:17
+msgid "Create your %1$s account on %2$s"
+msgstr ""
+
+#. translators: %s operator name
+#: plugin-options/providers.php:34
+msgid "%s settings"
+msgstr "Ajustes de %s"
+
+#. translators: %s operator name
+#: plugin-options/providers.php:51
+msgid "%s Username"
+msgstr "Nombre de usuario de %s"
+
+#. translators: %s operator name
+#: plugin-options/providers.php:68
+msgid "%s Password"
+msgstr "Contraseña de %s"
+
+#. translators: %s operator name
+#: plugin-options/providers.php:85
+msgid "%s Sender"
+msgstr "%s Sender"
+
+#. translators: %s operator name
+#: plugin-options/providers.php:102
+msgid "%s API Key"
+msgstr "Clave API de %s"
+
+#. translators: %s operator name
+#: plugin-options/providers.php:119
+msgid "%s API Secret"
+msgstr "API secreta de %s"
+
+#: plugin-options/providers.php:361
+msgid "Crystalwebtechs Sender Channel Type"
+msgstr "Tipo de canal del remitente de Crystalwebtechs"
+
+#: plugin-options/providers.php:368 plugin-options/providers.php:903
+msgid "Transactional"
+msgstr "Transaccional"
+
+#: plugin-options/providers.php:369 plugin-options/providers.php:902
+msgid "Promotional"
+msgstr "Promocional"
+
+#: plugin-options/providers.php:373
+msgid "Crystalwebtechs Route ID"
+msgstr "ID de ruta de Crystalwebtechs"
+
+#: plugin-options/providers.php:475
+msgid "Jazz CMS Portal Mask"
+msgstr "Máscara de Jazz CMS Portal"
+
+#: plugin-options/providers.php:676
+msgid "Twilio Account SID"
+msgstr "Cuenta SID de Twilio"
+
+#: plugin-options/providers.php:683
+msgid "Twilio Auth Token"
+msgstr "Token de Autenticación de Twilio"
+
+#: plugin-options/providers.php:745
+msgid "SMSAPI Token"
+msgstr ""
+
+#: plugin-options/providers.php:813
+msgid "Smshosting AuthKey"
+msgstr "Smshosting AuthKey"
+
+#: plugin-options/providers.php:820
+msgid "Smshosting AuthSecret"
+msgstr "Smshosting AuthSecret"
+
+#: plugin-options/providers.php:895
+msgid "SMS Gateway Hub Channel Type"
+msgstr "Tipo de canal de SMS Gateway Hub"
+
+#: plugin-options/providers.php:1006
+msgid "ThaiBulkSMS SMS Type"
+msgstr "Tipo de SMS de ThaiBulkSMS"
+
+#: plugin-options/providers.php:1013
+msgid "Standard"
+msgstr "Estándar"
+
+#: plugin-options/providers.php:1014
+msgid "Premium"
+msgstr "Premium"
+
+#: templates/admin/class-ywsn-sms-send.php:23
+msgid "Choose message"
+msgstr "Elegir mensaje"
+
+#: templates/admin/class-ywsn-sms-send.php:24
+msgid "Type message"
+msgstr "Escribir mensaje"
+
+#: templates/admin/class-ywsn-sms-send.php:25
+msgid "Admin message"
+msgstr "Mensaje admin"
+
+#: templates/admin/class-ywsn-sms-send.php:26
+msgid "Default message"
+msgstr "Mensaje por defecto"
+
+#: templates/admin/class-ywsn-sms-send.php:31
+msgid "Booking: Admin message"
+msgstr ""
+
+#: templates/admin/class-ywsn-sms-send.php:32
+msgid "Booking: Default message"
+msgstr ""
+
+#: templates/admin/class-ywsn-sms-send.php:34
+msgid "Booking"
+msgstr ""
+
+#: templates/admin/class-ywsn-sms-send.php:47
+msgid "Type a phone number to send a test SMS text message"
+msgstr "Escribe un número de teléfono para enviar un mensaje de texto SMS"
+
+#: templates/admin/class-ywsn-sms-send.php:54
+msgid "Send Test SMS"
+msgstr "Enviar mensaje de prueba"
+
+#. Description of the plugin/theme
+msgid ""
+"<code><strong>YITH WooCommerce SMS Notifications</strong></code> allows you "
+"to be always updated about the orders submitted in your store even if you're "
+"not in front of your computer. The plugin sends SMS texts to your and/or "
+"your customer's phone number automatically every time there's a new order or "
+"change in the order status. <a href=\"https://yithemes.com/\" target=\"_blank"
+"\">Get more plugins for your e-commerce shop on <strong>YITH</strong></a>"
+msgstr ""
+"<code><strong>YITH WooCommerce SMS Notifications</strong></code> te permite "
+"estar siempre actualizado sobre pedidos realizados en tu tienda incluso si "
+"no estás en frente de tu ordenador. El plugin envía mensajes de texto SMS a "
+"tu teléfono y/ó al de tu cliente automáticamente cada vez que un nuevo "
+"pedido es realizado o cuando un pedido cambia de estado. <a href=\"https://"
+"yithemes.com/\" target=\"_blank\">Obtén más plugins para tu comercio "
+"electrónico en <strong>YITH</strong></a>"
+
+#: class-yith-wc-sms-notifications.php:160
+msgctxt "general settings tab name"
+msgid "General Settings"
+msgstr "Ajustes Generales"
+
+#: class-yith-wc-sms-notifications.php:161
+msgctxt "sms settings tab name"
+msgid "SMS Settings"
+msgstr "Ajustes SMS"
+
+#: class-yith-wc-sms-notifications.php:165
+msgctxt "debug tab name"
+msgid "Debug"
+msgstr "Depuración"
+
+#: class-yith-wc-sms-notifications.php:171
+#: includes/class-ywsn-multivendor.php:124
+msgctxt "plugin name in admin page title"
+msgid "SMS Notifications"
+msgstr "SMS Notifications"
+
+#: includes/class-ywsn-metabox.php:58 includes/class-ywsn-metabox.php:76
+#: includes/class-ywsn-metabox.php:191
+msgctxt "metabox title"
+msgid "SMS notifications"
+msgstr "SMS notifications"
+
+#: includes/class-ywsn-multivendor.php:125
+msgctxt "plugin name in admin WP menu"
+msgid "SMS Notifications"
+msgstr "SMS Notifications"
+
+#: includes/class-ywsn-privacy.php:18
+msgctxt "Privacy Policy Content"
+msgid "YITH WooCommerce SMS Notifications"
+msgstr "YITH WooCommerce SMS Notifications"
+
+#: includes/class-ywsn-privacy.php:30
+msgctxt "Privacy Policy Content"
+msgid ""
+"During the checkout, customers can accept to receive SMS texts with "
+"information about the status of their orders."
+msgstr ""
+"Durante el proceso de pago, los clientes pueden aceptar recibir mensajes de "
+"texto con información sobre el estado de sus pedidos."
+
+#: includes/class-ywsn-privacy.php:31
+msgctxt "Privacy Policy Content"
+msgid ""
+"If they accept, they will be sent an SMS text every time the order status "
+"has changed (if set by the admin)."
+msgstr ""
+
+#: includes/class-ywsn-privacy.php:32
+msgctxt "Privacy Policy Content"
+msgid ""
+"The admin will also be able to send texts during the management of the order."
+msgstr ""
+"El administrador también podrá enviar textos durante la gestión del pedido."
+
+#: includes/class-ywsn-privacy.php:33
+msgctxt "Privacy Policy Content"
+msgid ""
+"Note: the telephone number used is the one entered by the customer in the "
+"order details. Therefore it is subject to WooCommerce plugin Privacy Policy."
+msgstr ""
+"Ten en cuenta: el número de teléfono utilizado es el que ingresó el cliente "
+"en los detalles del pedido. Por lo tanto, está sujeto a la Política de "
+"privacidad del plugin de WooCommerce."
+
+#: includes/functions-ywsn.php:219
+msgctxt "test placeholder for Order ID"
+msgid "OrderID"
+msgstr ""
+
+#: includes/functions-ywsn.php:220
+msgctxt "test placeholder for Order Total"
+msgid "Total"
+msgstr ""
+
+#: includes/functions-ywsn.php:221
+msgctxt "test placeholder for Order Status"
+msgid "Status"
+msgstr ""
+
+#: includes/functions-ywsn.php:222
+msgctxt "test placeholder for Billing Name"
+msgid "Billing name"
+msgstr ""
+
+#: includes/functions-ywsn.php:223
+msgctxt "test placeholder for Billing First Name"
+msgid "Billing first name"
+msgstr ""
+
+#: includes/functions-ywsn.php:224
+msgctxt "test placeholder for Billing Last Name"
+msgid "Billing last name"
+msgstr ""
+
+#: includes/functions-ywsn.php:225
+msgctxt "test placeholder for Shipping Name"
+msgid "Shipping name"
+msgstr ""
+
+#: includes/functions-ywsn.php:226
+msgctxt "test placeholder for Shipping Name"
+msgid "Shipping first name"
+msgstr ""
+
+#: includes/functions-ywsn.php:227
+msgctxt "test placeholder for Shipping Name"
+msgid "Shipping last name"
+msgstr ""
+
+#: includes/functions-ywsn.php:228
+msgctxt "test placeholder for Shipping Method"
+msgid "Shipping method"
+msgstr ""
+
+#: includes/functions-ywsn.php:229
+msgctxt "test placeholder for Additional Notes"
+msgid "Additional Notes"
+msgstr ""
+
+#: includes/functions-ywsn.php:230
+msgctxt "test placeholder for Order Date"
+msgid "Order Date"
+msgstr ""
+
+#: includes/functions-ywsn.php:234
+msgctxt "test placeholder for Booking ID"
+msgid "Booking ID"
+msgstr ""
+
+#: includes/functions-ywsn.php:235
+msgctxt "test placeholder for Booking Status"
+msgid "Booking Status"
+msgstr ""
+
+#: includes/functions-ywsn.php:236
+msgctxt "test placeholder for Booking Details URL"
+msgid "Booking Details URL"
+msgstr ""

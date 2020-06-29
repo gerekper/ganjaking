@@ -1,0 +1,60 @@
+@if ($elementor_pro_active == true) {
+	.elementor-sticky__spacer #{$wrap} #{$menu},
+	.elementor-sticky__spacer #{$wrap} #{$menu} .mega-sub-menu {
+	   visibility: inherit !important;
+	}
+}
+
+@if ($wp_theme == twentytwelve and $location == 'primary') {
+    body.mega-menu-primary button.menu-toggle {
+        display: none;
+    }
+}
+
+@if ($wp_theme == generatepress and $location == 'primary') {
+    body.mega-menu-primary button.menu-toggle {
+        display: none;
+    }
+}
+
+@if ($wp_theme == astra and $location == 'primary') {
+	body.mega-menu-primary.ast-header-break-point .ast-mobile-menu-buttons {
+		display: none;
+	}
+
+	@include desktop {
+		#{$wrap} #{$menu} .ast-masthead-custom-menu-items {
+			display: inline-block;
+			margin: 0 $menu_item_spacing 0 0;
+		}
+	}
+}
+
+@if ($wp_theme == oceanwp) {
+	html[class$="-off-canvas-open"] #top-bar-wrap,
+	html[class$="-off-canvas-open"] #site-header {
+		z-index: 1;
+	}
+
+	@if ($location == main_menu) {
+		@include desktop {
+			#{$wrap} #{$menu} .woo-menu-icon,
+			#{$wrap} #{$menu} .search-toggle-li {
+				display: inline-block;
+				margin: 0 $menu_item_spacing 0 0;
+
+				> a {
+		            line-height: $menu_item_link_height;
+		            height: $menu_item_link_height;
+		            padding: $menu_item_link_padding_top $menu_item_link_padding_right $menu_item_link_padding_bottom $menu_item_link_padding_left;
+				}
+			}
+		}
+	}
+}
+
+@if ($wp_theme == enfold) {
+	html[class$="-off-canvas-open"] #header_meta {
+		z-index: 1;
+	}
+}

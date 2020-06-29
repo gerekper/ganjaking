@@ -1,0 +1,130 @@
+.delete_receiver {
+    
+    text-indent: -9999px;
+    position: relative;
+    height: 28px;
+    width: 1em;
+    font-size: 16px;
+    margin-left: 5px;
+}
+
+.delete_receiver:before {
+    font-family: Dashicons;
+    speak: none;
+    font-weight: 400;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 28px;
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    text-indent: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    content: "\f158";
+    color: #999;
+}
+
+.delete_receiver:hover:before{
+    color:#a00;
+}
+
+
+
+.yith_receiver_user_id, .yith_receiver_email{
+    width: 30%!important;
+    height: 28px;
+    margin-left: 10px;
+}
+
+
+.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-icon-only.ui-dialog-titlebar-close:before {
+	content:'';
+}
+
+#yith_product_receiver_list .yith_receiver_commission, #yith_product_receiver_list .yith_receiver_split_after  {
+
+    width: 11%;
+    margin-left: 10px;
+}
+
+
+#yith_product_receiver_list .delete_receiver {
+	display: block;
+	float:left;
+}
+
+#yith_product_receiver_list .yith_receiver_user_id{
+    width: 20%!important;
+    max-width: 30%!important;
+
+}
+
+
+
+#yith_product_receiver_list .description {
+    display: inline-block;
+    width: 44%;
+}
+
+#yith_product_receiver_list .yith_receiver_email{
+
+    width: 20% !important;
+}
+
+#yith_product_receiver_list span.select2{
+    width:200px!important;
+    margin-right: 10px;
+    margin-left: -60px;
+}
+
+/*PANEL OPTION*/
+
+#yith_receiver_list {
+	padding:20px;
+}
+
+#yith_receiver_list .select2-container.select2-allowclear .select2-choice .select2-chosen {
+	
+	height:28px;
+}
+#yith_receiver_list .yith_receiver_user_id{
+	display:inline-block!important;
+	margin-left:10px;
+}
+
+#yith_receiver_list .yith_receiver_commission {
+width:100px!important;
+margin-left:10px;	
+}
+
+#yith_receiver_list .delete_receiver {
+	display: inline-block;
+	
+}
+
+#yith_receiver_list .form-field {
+	border-bottom: 1px solid #eee;
+	padding-top:15px;
+	padding-bottom:15px;
+	line-height:25px;
+}
+
+#yith_receiver_list .form-field:first-child{
+	border-top:0;
+}
+
+.button.tips.pay_secondary_receiver {
+    display: block;
+    text-indent: -9999px;
+    position: relative;
+    padding: 0!important;
+    height: 28px!important;
+    width: 26px!important;
+    background: #f7f7f7 url("../images/paypal_receiver_icon.png") no-repeat;
+    background-size: 18px 20px;
+    background-position: center center;
+}

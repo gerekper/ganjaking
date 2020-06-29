@@ -1,0 +1,7 @@
+<wpml-config>
+    <admin-texts>
+        <key name="yith_wcpo_default_add_to_cart_label"/>
+        <key name="yith_wcpo_default_availability_date_label"/>
+        <key name="yith_wcpo_no_date_label"/>
+    </admin-texts>
+</wpml-config>

@@ -1,0 +1,169 @@
+*** Currency Converter Changelog ***
+
+2020-06-10 - version 1.6.21
+* Tweak - WC 4.2 compatibility.
+
+2020-04-29 - version 1.6.20
+* Tweak - WC 4.1 compatibility.
+
+2020-04-08 - version 1.6.19
+* Fix - After disabling Geolocation the plugin still uses the customer's location to determine currency.
+
+2020-02-27 - version 1.6.18
+* Tweak - Remove legacy code.
+* Tweak - WC tested up to 4.0.
+
+2020-01-13 - version 1.6.17
+* Tweak - WC tested up to 3.9.
+
+2019-11-04 - version 1.6.16
+* Tweak - WC tested up to 3.8.
+
+2019-09-03 - version 1.6.15
+* Tweak - Add form label for accessibility.
+
+2019-08-06 - version 1.6.14
+* Tweak - WC tested up to 3.7.
+
+2019-04-16 - version 1.6.13
+* Tweak  - WC 3.6 compatibility.
+
+2018-09-25 - version 1.6.12
+* Update - WC 3.5 compatibility.
+
+2018-09-10 - version 1.6.11
+* Fix - 'Cannot modify header information' issue.
+
+2018-06-20 - version 1.6.10
+* Fix - Widget settings can't be toggled in Customizer.
+
+2018-05-22 - version 1.6.9
+* Update - Privacy policy notification.
+* Update - WC 3.4 compatibility.
+
+2018-01-26 - version 1.6.8
+* Fix   - Currency not persistent across different pages.
+
+2018-01-11 - version 1.6.7
+* Tweak - Avoid using inline JS and separate it to a file.
+* Tweak - Add trigger to allow recalculation of currency on the front-end.
+
+2017-12-14 - version 1.6.6
+* Update - WC tested up to version.
+
+2017-03-27 - version 1.6.5
+* Fix - Auto currency detection not getting set.
+
+2017-03-13 - version 1.6.4
+* Fix - Converted Order Total is not stored in order when currency is autodetected.
+* Fix - Header already sent error.
+* Fix - Compatibility with Bookings when form updates currency did not update. Needs Bookings 1.10.0 to work.
+
+2016-07-01 - version 1.6.3
+* Tweak - Zero replace now uses the WooCommerce settings to determine the number of decimal points.
+* Fix   - Stores with "." and "," switched display incorrect pricing.
+
+2016-01-21 - version 1.6.2
+* Tweak - Extend option to disable location detection (added in 1.6) to the shortcode.
+
+2016-01-19 - version 1.6.1
+* Fix - Fix error with older PHP versions.
+
+2016-01-18 - version 1.6.0
+* Feature - New option to disable location detection/defaulting to user's location for currency.
+
+2015-12-17 - version 1.5.1
+* Fix - If you add a custom currency though WC's filters, it will now work with the currency converter.
+* Fix - Make sure currency_position defaults to WC's defaults settings if the user doesn't specify one.
+* Update money.js to version 0.2.
+
+2015-10-28 - version 1.5.0
+* Feature - The position of the currency symbol can now be controlled.
+
+2015-08-10 - version 1.4.1
+* Currency now defaults to the currency of the user based on location.
+* Fix widget notices.
+
+2015-06-02 - version 1.4.0
+* Added Shortcode to output the widget - woocommerce_currency_converter
+* Code cleanup and review.
+* Always prepend store currency.
+* Add option to show dropdown instead of buttons.
+
+2015-04-13 - version 1.3.2
+* Tweak - account for rates returning errors
+
+2014-09-15 - version 1.3.1
+* Fix for INR
+
+2013-10-29 - version 1.3.0
+* Option to show symbols instead of codes in the widget
+
+2013-10-16 - version 1.2.12
+* Added current currency to currency_converter_switch trigger
+
+2013-08-05 - version 1.2.11
+* Refresh after fragments are loaded
+
+2013-08-05 - version 1.2.10
+* Fix RMB -> CNY
+
+2013-07-22 - version 1.2.9
+* Fix price slider errors
+
+2013-06-06 - version 1.2.8
+* removed stray var dump
+
+2013-06-06 - version 1.2.7
+* Compat with addons
+
+2013-06-06 - version 1.2.6
+* Backwards compat fix for get_woocommerce_currencies
+
+2013-05-07 - version 1.2.5
+* Respect thousands separator.
+
+2013-05-03 - version 1.2.4
+* Changed incorrect admin labels.
+
+2013-04-29 - version 1.2.3
+* Moved JS to file
+
+2013-04-25 - version 1.2.2
+* Check options are set on save
+
+2013-04-22 - version 1.2.1
+* Trailing zeros options
+
+2013-04-19 - version 1.2.0
+* Support for currency symbols and formatting
+
+2013-03-12 - version 1.1.6
+* Base country marked active when in use
+
+2013-02-08 - version 1.1.5
+* Support different decimal/thousand separators
+
+2012-12-04 - version 1.1.4
+* new updater
+
+2012-10-17 - version 1.1.3
+* Price slider fix
+
+2012-10-02 - version 1.1.2
+* Updated to work with shipping select boxes
+
+2012-07-21 - version 1.1.1
+* Updated to latest openexchangerates API (fix)
+
+2012-07-20 - version 1.1
+* Updated to latest openexchangerates API
+
+2012-03-11 - version 1.0.2
+* Option to disable reset
+
+2012-02-16 - version 1.0.1
+* Price slider convert
+
+2012-02-14 - version 1.0
+* First release

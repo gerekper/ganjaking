@@ -1,0 +1,14 @@
+.clear-link {
+background-color: transparent;
+text-decoration: none;
+margin: 0;
+padding: 0;
+border: none;
+color: #a00;
+font-size: 13px;
+cursor: pointer;
+}
+
+.woocommerce table.form-table select {
+  height: auto;
+}

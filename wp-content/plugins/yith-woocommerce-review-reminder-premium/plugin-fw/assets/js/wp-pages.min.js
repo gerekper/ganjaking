@@ -1,0 +1,1 @@
+jQuery(function(a){var p=a(".yith-plugin-fw-wp-page-wrapper"),e=a("div.updated, div.error, div.notice");a(".yith-plugin-fw-wp-page-wrapper .woo-nav-tab-wrapper").removeClass("woo-nav-tab-wrapper").addClass("yith-nav-tab-wrapper"),e.addClass("inline"),p.length&&p.prepend(e)});

@@ -1,0 +1,9 @@
+{if ! $background_color}{set var="$background_color" value="$styles.header.background"}{/if}
+<table class="wysija_header" width="100%" cellspacing="0" cellpadding="0" border="0" align="center">
+    <tr>
+        <td class="wysija_header_container"{if #image} height="1" align="{#image.alignment}" style="font-size:1px;line-height:1%;mso-line-height-rule:exactly;"{/if}>
+            {if #image.url}<a class="wysija_image_link" href="{#image.url}" style="height:{#image.height}px;width:{#image.width}px;">{/if}
+            <img class="image_fix" width="{#image.width}" height="{#image.height}" src="{#image.src}" border="0" alt="{#image.alt|url_decode|htmlentities}" style="width:{#image.width}px; height:{#image.height}px;" />{if #image.url}</a>{/if}
+        </td>
+    </tr>
+</table>

@@ -1,0 +1,59 @@
+.wc-box-office-ticket-form {
+	margin: 3.5em 0;
+
+	.wc-box-office-ticket-fields {
+
+		.wc-box-office-ticket-fields-title {
+			border-bottom: 1px solid rgba(0,0,0,.1);
+
+			a {
+				display: block;
+				position: relative;
+				text-decoration: none;
+
+				&:after {
+					content: "\f139";
+					font-family: Dashicons;
+					position: absolute;
+					top: 20%;
+					right: 0;
+					height: 1em;
+					width: 1em;
+					line-height: 1;
+					margin-left: -.5em;
+				}
+			}
+		}
+
+		.wc-box-office-ticket-fields-body {
+			display: none;
+
+			label {
+				.required {
+					color: red;
+				}
+			}
+		}
+
+		&.active {
+			background-color: inherit;
+
+			.wc-box-office-ticket-fields-title {
+				a {
+					&:after {
+						content: "\f140";
+					}
+				}
+			}
+			.wc-box-office-ticket-fields-body {
+				display: block;
+			}
+		}
+	}
+}
+
+.wp-admin {
+	.wc-box-office-ticket-form {
+		margin-top: 0;
+	}
+}

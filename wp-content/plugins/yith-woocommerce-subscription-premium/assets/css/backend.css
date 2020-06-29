@@ -1,0 +1,137 @@
+.yit-plugins_page_yith_woocommerce_subscription #poststuff #post-body.columns-2 {margin-right: 30px;}
+.ywsbs_subscription_variation_products .form-row input[type=text].variable_ywsbs_price_is_per, .ywsbs_subscription_variation_products .form-row input[type=text].variable_ywsbs_trial_per{float: left;width: 40%;}
+.ywsbs_subscription_variation_products select{margin-left: 3px;float: left;width: 40%;}
+
+#subscription-data{padding: 23px 9px 12px;}
+#subscription-data h2 {margin: 0;font-size: 21px;line-height: 1.2;text-shadow: 1px 1px 1px #fff;padding: 0;}
+#subscription-data h2, #subscription-data p.subscription_number {font-family: HelveticaNeue-Light, "Helvetica Neue Light", "Helvetica Neue", sans-serif;font-weight: 400}
+#subscription-data h4 {color: #333;margin: 1.33em 0 0}
+#subscription-data p {color: #777}
+#subscription-data p.subscription_number {margin: 0;line-height: 1.6em;font-size: 16px}
+#subscription-data .subscription_data_column_container {clear: both}
+#subscription-data .subscription_data_column {width: 32%;padding: 0 2% 0 0;float: left}
+#subscription-data .subscription_data_column:last-child {padding-right: 0}
+#subscription-data .subscription_data_column p {padding: 0!important}
+#subscription-data .subscription_data_column .address strong {display: block}
+#subscription-data .subscription_data_column .form-field {float: left;width: 48%;padding: 0;margin: 9px 0 0}
+#subscription-data .subscription_data_column .form-field label {display: block;padding: 0 0 3px;font-weight: 700;}
+#subscription-data .subscription_data_column .form-field input, #subscription-data .subscription_data_column .form-field select, #subscription-data .subscription_data_column .form-field textarea {width: 100%}
+#subscription-data .subscription_data_column .form-field .select2-container {width: 100%!important}
+#subscription-data .subscription_data_column .form-field .date-picker {width: 50%}
+#subscription-data .subscription_data_column .form-field .hour, #subscription-data .subscription_data_column .form-field .minute {width: 2.5em}
+#subscription-data .subscription_data_column .form-field small {display: block;margin: 5px 0 0;color: #999}
+#subscription-data .subscription_data_column .form-field.last {float: right}
+#subscription-data .subscription_data_column .form-field-wide {width: 100%;clear: both}
+#subscription-data .subscription_data_column .form-field-wide .wc-customer-search, #subscription-data .subscription_data_column .form-field-wide .wc-enhanced-select, #subscription-data .subscription_data_column .form-field-wide input, #subscription-data .subscription_data_column .form-field-wide select, #subscription-data .subscription_data_column .form-field-wide textarea {width: 100%}
+#subscription-data .subscription_data_column p.none_set {color: #999}
+#subscription-data .subscription_data_column ._billing_address_1_field, #subscription-data .subscription_data_column ._billing_city_field, #subscription-data .subscription_data_column ._billing_country_field, #subscription-data .subscription_data_column ._billing_email_field, #subscription-data .subscription_data_column ._billing_first_name_field, #subscription-data .subscription_data_column ._shipping_address_1_field, #subscription-data .subscription_data_column ._shipping_city_field, #subscription-data .subscription_data_column ._shipping_country_field, #subscription-data .subscription_data_column ._shipping_first_name_field {float: left}
+#subscription-data .subscription_data_column ._billing_address_2_field, #subscription-data .subscription_data_column ._billing_last_name_field, #subscription-data .subscription_data_column ._billing_phone_field, #subscription-data .subscription_data_column ._billing_postcode_field, #subscription-data .subscription_data_column ._billing_state_field, #subscription-data .subscription_data_column ._shipping_address_2_field, #subscription-data .subscription_data_column ._shipping_last_name_field, #subscription-data .subscription_data_column ._shipping_postcode_field, #subscription-data .subscription_data_column ._shipping_state_field, #subscription-data .subscription_data_column .wc-customer-user label a {float: right}
+#subscription-data .subscription_data_column ._billing_company_field, #subscription-data .subscription_data_column ._shipping_company_field, #subscription-data .subscription_data_column ._transaction_id_field {clear: both;width: 100%}
+#subscription-data .subscription_data_column ._billing_email_field {clear: left}
+#subscription-data .subscription_data_column div.edit_address {display: none;zoom: 1;padding-right: 1px}
+#subscription-data .subscription_data_column>h3 span{display: block;}
+#subscription-data .subscription_data_column .billing-same-as-shipping,
+#subscription-data .subscription_data_column .load_customer_billing,
+#subscription-data .subscription_data_column .load_customer_shipping{margin-right: .3em;font-size: 13px;}
+#subscription-data .subscription_data_column a.edit_address {width: 14px;height: 0;padding: 14px 0 0;margin: 0 0 0 6px;overflow: hidden;position: relative;color: #999;border: 0;float: right}
+#subscription-data .subscription_data_column .billing-same-as-shipping:focus, #subscription-data .subscription_data_column .billing-same-as-shipping:hover, #subscription-data .subscription_data_column .load_customer_billing:focus, #subscription-data .subscription_data_column .load_customer_billing:hover, #subscription-data .subscription_data_column .load_customer_shipping:focus, #subscription-data .subscription_data_column .load_customer_shipping:hover, #subscription-data .subscription_data_column a.edit_address:focus, #subscription-data .subscription_data_column a.edit_address:hover {color: #000}
+#subscription-data .subscription_data_column .billing-same-as-shipping:after, #subscription-data .subscription_data_column .load_customer_billing:after, #subscription-data .subscription_data_column .load_customer_shipping:after, #subscription-data .subscription_data_column a.edit_address:after {font-family: WooCommerce;position: absolute;top: 0;left: 0;text-align: center;vertical-align: top;line-height: 14px;font-size: 14px;font-weight: 400;-webkit-font-smoothing: antialiased}
+#subscription-data .subscription_data_column a.edit_address:after {content: "\e603"}
+#subscription-data h2 span.status, .status.column-status .status{border-radius: 3px;padding: 3px;background-color: #ccc;color: #fff;text-shadow: none;font-size: 14px;}
+.status.column-status .status{font-size: 12px;}
+#subscription-data h2 span.status.acË
+#subscription-data h2 span.status.pË
+#subscription-data h2 span.status.trial, .status.column-status .status.trial, .status.column-status .status.info{background-color:#408AC7;}
+#subscription-data h2 span.status.suspended, .status.column-status .status.suspended{background-color: #c73878;}
+#subscription-data h2 span.status.cancelled, .status.column-status .status.cancelled, .status.column-status .status.error{background-color: #c70509;}
+#subscription-data h2 span.status.overdue, .status.column-status .status.overdue{background-color: #3d8931;}
+.subscription_actions_footer{display: block;border-top: 1px solid #eee;margin-top: 10px;padding-top: 10px;}
+div#ywsbs-info-subscription {margin-top: -20px;}
+.ywsbs_subscription_items_list{width: 100%;}
+.ywsbs_subscription_items_list th{text-align: left;}
+.widefat mark.pending-renewal.tips:after{color: #ffba00;}
+.widefat mark.pending-renewal.tips:after{content: "\e031";font-family: WooCommerce;font-weight: 400;font-variant: normal;text-transform: none;line-height: 1;-webkit-font-smoothing: antialiased;margin: 0;text-indent: 0;position: absolute;top: 0;left: 0;width: 100%;height: 100%;text-align: center;}
+.ywsbs_subscription_variation_products label {display: block;}
+.ywsbs_subscription_items_list strong.wc-item-meta-label {display: block;float: left;margin-right: 5px;}
+.ywsbs_subscription_items_list td{vertical-align: top;}
+ul.order_notes {padding: 2px 0 0}
+ul.order_notes li .note_content {padding: 10px;background: #efefef;position: relative}
+ul.order_notes li .note_content p {margin: 0;padding: 0;word-wrap: break-word}
+ul.order_notes li p.meta {padding: 10px;color: #999;margin: 0;font-size: 11px}
+ul.order_notes li p.meta .exact-date {border-bottom: 1px dotted #999}
+ul.order_notes li a.delete_note {color: #a00}
+ul.order_notes li .note_content::after {content: '';display: block;position: absolute;bottom: -10px;left: 20px;width: 0;height: 0;border-width: 10px 10px 0 0;border-style: solid;border-color: #efefef transparent}
+ul.order_notes li.customer-note .note_content {background: #a7cedc}
+ul.order_notes li.customer-note .note_content::after {border-color: #a7cedc transparent}
+ul.order_notes li.system-note .note_content {background: #d7cad2}
+ul.order_notes li.system-note .note_content::after {border-color: #d7cad2 transparent}
+label.ywsbs_schedule_label {width: 150px;display: inline-block;}
+
+.ywsbs_input_fields {margin-bottom: 8px;}
+.ywsbs_input_fields input{  width:200px; }
+
+.ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
+.ui-timepicker-div dl { text-align: left; }
+.ui-timepicker-div dl dt { float: left; clear:left; padding: 0 0 0 5px; }
+.ui-timepicker-div dl dd { margin: 0 10px 10px 40%; }
+.ui-timepicker-div td { font-size: 90%; }
+.ui-tpicker-grid-label { background: none; border: none; margin: 0; padding: 0; }
+.ui-timepicker-div .ui_tpicker_unit_hide{ display: none; }
+
+.ui-timepicker-div .ui_tpicker_time .ui_tpicker_time_input { background: none; color: inherit; border: none; outline: none; border-bottom: solid 1px #555; width: 95%; }
+.ui-timepicker-div .ui_tpicker_time .ui_tpicker_time_input:focus { border-bottom-color: #aaa; }
+
+.ui-timepicker-rtl{ direction: rtl; }
+.ui-timepicker-rtl dl { text-align: right; padding: 0 5px 0 0; }
+.ui-timepicker-rtl dl dt{ float: right; clear: right; }
+.ui-timepicker-rtl dl dd { margin: 0 40% 10px 10px; }
+
+/* Shortened version style */
+.ui-timepicker-div.ui-timepicker-oneLine { padding-right: 2px; }
+.ui-timepicker-div.ui-timepicker-oneLine .ui_tpicker_time,
+.ui-timepicker-div.ui-timepicker-oneLine dt { display: none; }
+.ui-timepicker-div.ui-timepicker-oneLine .ui_tpicker_time_label { display: block; padding-top: 2px; }
+.ui-timepicker-div.ui-timepicker-oneLine dl { text-align: right; }
+.ui-timepicker-div.ui-timepicker-oneLine dl dd,
+.ui-timepicker-div.ui-timepicker-oneLine dl dd > div { display:inline-block; margin:0; }
+.ui-timepicker-div.ui-timepicker-oneLine dl dd.ui_tpicker_minute:before,
+.ui-timepicker-div.ui-timepicker-oneLine dl dd.ui_tpicker_second:before { content:':'; display:inline-block; }
+.ui-timepicker-div.ui-timepicker-oneLine dl dd.ui_tpicker_millisec:before,
+.ui-timepicker-div.ui-timepicker-oneLine dl dd.ui_tpicker_microsec:before { content:'.'; display:inline-block; }
+.ui-timepicker-div.ui-timepicker-oneLine .ui_tpicker_unit_hide,
+.ui-timepicker-div.ui-timepicker-oneLine .ui_tpicker_unit_hide:before{ display: none; }
+
+#yith_woocommerce_subscription_privacy .description.inline{  font-style: normal;}
+#subscription-data h2 span.status.active,
+.status.column-status .status.active,
+.status.column-status .status.success{
+    background-color:#40C749;
+}
+#subscription-data h2 span.status.pending,
+.status.column-status .status.pending{
+    background-color:#FD8210;
+}
+#subscription-data h2 span.status.trial,
+.status.column-status .status.trial,
+.status.column-status .status.info{
+    background-color:#408AC7;
+}
+#subscription-data h2 span.status.suspended,
+.status.column-status .status.suspended{
+    background-color: #c73878;
+}
+#subscription-data h2 span.status.cancelled,
+.status.column-status .status.cancelled,
+.status.column-status .status.error{
+    background-color: #c70509;
+}
+#subscription-data h2 span.status.overdue,
+.status.column-status .status.overdue{
+    background-color: #3d8931;
+}
+
+.post-type-ywsbs_subscription .page-title-action {
+    display: none;
+}
+#poststuff  #ywsbs-product-subscription .inside {  padding: 0; margin: 0; }
+.ywsbs_input_fields input { border: 1px solid #ddd;}

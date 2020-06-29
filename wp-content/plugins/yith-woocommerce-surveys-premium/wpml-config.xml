@@ -1,0 +1,8 @@
+<wpml-config>
+    <custom-types>
+        <custom-type translate="1">yith_wc_surveys</custom-type>
+    </custom-types>
+    <admin-texts>
+        <key name="ywcsur_thanks_message" />
+    </admin-texts>
+</wpml-config>

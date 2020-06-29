@@ -1,0 +1,1537 @@
+# Translation of YITH WooCommerce Popup in Spanish (Spain)
+# This file is distributed under the same license as the YITH WooCommerce Popup package.
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH WooCommerce Popup\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
+"popup.premium\n"
+"POT-Creation-Date: 2020-05-20 13:55:27+00:00\n"
+"PO-Revision-Date: 2020-04-23 07:04:55+0000\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/2.3.1\n"
+
+#: includes/class-yith-popup-admin.php:256
+msgid "Popups"
+msgstr ""
+
+#: includes/class-yith-popup-admin.php:257
+msgid "Settings"
+msgstr "Ajustes"
+
+#: includes/class-yith-popup-admin.php:261
+msgid "Premium Version"
+msgstr "Versión premian"
+
+#: includes/class-yith-popup-newsletter.php:62
+msgid "Custom Form"
+msgstr "Formulario personalizado"
+
+#: includes/class-yith-popup.php:92
+msgid "Theme 1"
+msgstr "Tema 1"
+
+#: includes/class-yith-popup.php:93
+msgid "Theme 2"
+msgstr "Tema 2"
+
+#: includes/class-yith-popup.php:94
+msgid "Theme 3"
+msgstr "Tema 3"
+
+#: includes/class-yith-popup.php:95
+msgid "Theme 4"
+msgstr "Tema 4"
+
+#: includes/class-yith-popup.php:96
+msgid "Theme 5"
+msgstr "Tema 5"
+
+#: includes/class-yith-popup.php:97
+msgid "Theme 6"
+msgstr "Tema 6"
+
+#: includes/class-yith-popup.php:110
+#: plugin-options/metabox/ypop_cpt_metabox.php:47
+msgid "Popup"
+msgstr "Ventana emergente"
+
+#: includes/class-yith-popup.php:111
+msgid "Parent Item:"
+msgstr "Artículo superior:"
+
+#: includes/class-yith-popup.php:112
+msgid "All Popups"
+msgstr "Todas las ventanas emergentes"
+
+#: includes/class-yith-popup.php:113
+msgid "View Popup"
+msgstr "Ver ventana emergente"
+
+#: includes/class-yith-popup.php:114 includes/class-yith-popup.php:115
+msgid "Add New Popup"
+msgstr "Añadir nueva ventana emergente"
+
+#: includes/class-yith-popup.php:116
+msgid "Edit Popup"
+msgstr "Editar ventana emergente"
+
+#: includes/class-yith-popup.php:117
+msgid "Update Popup"
+msgstr "Actualizar ventana emergente"
+
+#: includes/class-yith-popup.php:118
+msgid "Search Popup"
+msgstr "Buscar ventana emergente"
+
+#: includes/class-yith-popup.php:119
+msgid "Not found"
+msgstr "No encontrado"
+
+#: includes/class-yith-popup.php:120
+msgid "Not found in Trash"
+msgstr "No encontrado en la papelera"
+
+#: includes/class-yith-popup.php:123
+msgid "yith_popup"
+msgstr "yith_popup"
+
+#: includes/class-yith-popup.php:124
+msgid "Yith Popup Description"
+msgstr "Descripción de YITH Popup"
+
+#: includes/class-yith-popup.php:279
+msgid "Title"
+msgstr "Título"
+
+#: includes/class-yith-popup.php:280
+#: plugin-options/metabox/ypop_cpt_metabox.php:42
+#: plugin-options/metabox/ypop_template.php:21
+#: plugin-options/metabox/ypop_template.php:26
+msgid "Template"
+msgstr "Diseño"
+
+#: includes/class-yith-popup.php:281
+msgid "Content Type"
+msgstr "Tipo de contenido"
+
+#: includes/class-yith-popup.php:282
+msgid "Active"
+msgstr "Activo"
+
+#: includes/class.yith-popup-privacy-dpa.php:35
+msgid ""
+"We'll also use cookies to store what the user chooses about keeping the "
+"popup showing or not."
+msgstr ""
+"También usamos cookies para recopilar lo que el usuario elige sobre mantener "
+"el popup mostrándose o no."
+
+#: includes/class.yith-popup-privacy-dpa.php:36
+msgid ""
+"Note: you may want to further detail your cookie policy, and link to that "
+"section from here."
+msgstr ""
+"Nota: puedes añadir detalles adicionales a tu política de cookies, y enlazar "
+"con esa sección desde aquí."
+
+#: includes/functions.yith-popup.php:109 includes/functions.yith-popup.php:139
+msgid "Plugin not activated or not installed"
+msgstr "Plugin no activado o no instalado"
+
+#: includes/functions.yith-popup.php:119 includes/functions.yith-popup.php:155
+msgid "No contact form found"
+msgstr "No se encontró formulario de contacto"
+
+#: includes/functions.yith-popup.php:171
+msgid "All categories"
+msgstr "Todas las categorías"
+
+#: includes/functions.yith-popup.php:229
+msgid "privacy policy"
+msgstr "política de privacidad"
+
+#: includes/newsletter-integration/MadMimi.php:69
+msgid "Mad Mimi"
+msgstr "Mad Mimi"
+
+#: includes/newsletter-integration/MadMimi.php:125
+#: includes/newsletter-integration/Mailchimp.php:117
+msgid "Refreshing..."
+msgstr "Refrescando..."
+
+#: includes/newsletter-integration/MadMimi.php:169
+#: includes/newsletter-integration/Mailchimp.php:140
+#: includes/newsletter-integration/Wysija.php:105
+msgid "Select a list"
+msgstr "Selecciona una lista"
+
+#: includes/newsletter-integration/MadMimi.php:185
+msgid "Mad Mimi Username"
+msgstr "Nombre de usuario de Mad Mimi"
+
+#: includes/newsletter-integration/MadMimi.php:186
+msgid "The Mad Mimi username you use to log in"
+msgstr "El nombre de usuario de Mad Mimi que usas para acceder"
+
+#: includes/newsletter-integration/MadMimi.php:195
+msgid "Mad Mimi API Key"
+msgstr "Clave de API de Mad Mimi"
+
+#: includes/newsletter-integration/MadMimi.php:196
+msgid ""
+"The Mad Mimi API Key, used to connect WordPress to Mailchimp service. If you "
+"need help to create a valid API Key, refer to this <a href=\"http://help."
+"madmimi.com/where-can-i-find-my-api-key/\">tutorial</a>"
+msgstr ""
+
+#: includes/newsletter-integration/MadMimi.php:205
+msgid "Mad Mimi List"
+msgstr "Lista de Mad Mimi"
+
+#: includes/newsletter-integration/MadMimi.php:206
+msgid ""
+"A valid Mad Mimi list name. You may need to save your configuration before "
+"displaying the correct contents. If the list is not up to date, click the "
+"Refresh button"
+msgstr ""
+"Un nombre válido de lista de Mad Mimi. Es posible que debas guardar tu "
+"configuración antes de mostrar los contenidos correctos. Si la lista no está "
+"actualizada, haz clic en el botón Refrescar"
+
+#: includes/newsletter-integration/MadMimi.php:210
+#: includes/newsletter-integration/Mailchimp.php:170
+msgid "Refresh"
+msgstr "Refrescar"
+
+#: includes/newsletter-integration/MadMimi.php:218
+#: includes/newsletter-integration/Mailchimp.php:188
+#: includes/newsletter-integration/Wysija.php:128
+#: plugin-options/metabox/ypop_metabox.php:1582
+msgid "Email field label"
+msgstr "Etiqueta de campo de correo electrónico"
+
+#: includes/newsletter-integration/MadMimi.php:219
+#: includes/newsletter-integration/Mailchimp.php:189
+#: includes/newsletter-integration/Wysija.php:129
+msgid "The label for the Email field"
+msgstr "La etiqueta para el campo de correo electrónico"
+
+#: includes/newsletter-integration/MadMimi.php:228
+#: includes/newsletter-integration/Mailchimp.php:198
+#: plugin-options/metabox/ypop_metabox.php:1604
+msgid "Add Privacy Policy"
+msgstr "Añadir política de privacidad"
+
+#: includes/newsletter-integration/MadMimi.php:239
+#: includes/newsletter-integration/Mailchimp.php:209
+#: plugin-options/metabox/ypop_metabox.php:1624
+msgid "Privacy Policy Label"
+msgstr "Etiqueta de política de privacidad"
+
+#: includes/newsletter-integration/MadMimi.php:242
+#: includes/newsletter-integration/Mailchimp.php:212
+#: plugin-options/metabox/ypop_metabox.php:1627
+msgid "I have read and agree to the website terms and conditions."
+msgstr "He leído y acepto los términos y condiciones del sitio web."
+
+#: includes/newsletter-integration/MadMimi.php:250
+#: includes/newsletter-integration/Mailchimp.php:220
+#: plugin-options/metabox/ypop_metabox.php:1635
+msgid "Privacy Policy Description"
+msgstr "Descripción de política de privacidad"
+
+#: includes/newsletter-integration/MadMimi.php:251
+#: includes/newsletter-integration/Mailchimp.php:221
+#: plugin-options/metabox/ypop_metabox.php:1636
+msgid ""
+"You can use the shortcode [privacy_policy] (from WordPress 4.9.6) to add the "
+"link to privacy policy page"
+msgstr ""
+"Puedes usar el shortcode [privacy_policy] (de WordPress 4.9.6) para añadir "
+"el enlace a la página de política de privacidad"
+
+#: includes/newsletter-integration/MadMimi.php:253
+#: includes/newsletter-integration/Mailchimp.php:223
+#: plugin-options/metabox/ypop_metabox.php:1638
+msgid ""
+"Your personal data will be used to process your request, support your "
+"experience throughout this website, and for other purposes described in our "
+"[privacy_policy]."
+msgstr ""
+"Tus datos personales serán usados para procesar tu solicitud, apoyar tu "
+"experiencia a través de este sitio y para otros propósitos descritos en "
+"nuestra [privacy_policy]."
+
+#: includes/newsletter-integration/MadMimi.php:260
+#: includes/newsletter-integration/Mailchimp.php:230
+#: includes/newsletter-integration/Wysija.php:138
+#: plugin-options/metabox/ypop_metabox.php:1646
+msgid "Submit button label"
+msgstr "Etiqueta de botón Enviar"
+
+#: includes/newsletter-integration/MadMimi.php:261
+#: includes/newsletter-integration/Mailchimp.php:231
+#: includes/newsletter-integration/Wysija.php:139
+#: plugin-options/metabox/ypop_metabox.php:1647
+msgid "This field is not always used. It depends on the style of the form."
+msgstr "Esta campo no siempre se usa. Depende del estilo del formulario."
+
+#: includes/newsletter-integration/MadMimi.php:409
+#: includes/newsletter-integration/Mailchimp.php:465
+#: includes/newsletter-integration/Wysija.php:204
+msgid "<span class=\"success\">Email successfully registered</span>"
+msgstr ""
+
+#: includes/newsletter-integration/MadMimi.php:412
+#: includes/newsletter-integration/Mailchimp.php:469
+#: includes/newsletter-integration/Wysija.php:207
+msgid "<span class=\"error\">Ops! Something went wrong</span>"
+msgstr ""
+
+#: includes/newsletter-integration/MadMimi.php:416
+#: includes/newsletter-integration/Mailchimp.php:473
+#: includes/newsletter-integration/Wysija.php:211
+msgid ""
+"<span class=\"notice\">Ops! You have to use a valid email address</span>"
+msgstr ""
+
+#: includes/newsletter-integration/Mailchimp.php:155
+msgid "Mailchimp API Key"
+msgstr "Clave API de Mailchimp"
+
+#: includes/newsletter-integration/Mailchimp.php:156
+msgid ""
+"The Mailchimp API Key, used to connect WordPress to the Mailchimp service. "
+"If you need help to create a valid API Key, refer to this <a href=\"http://"
+"kb.mailchimp.com/article/where-can-i-find-my-api-key\">tutorial</a>"
+msgstr ""
+
+#: includes/newsletter-integration/Mailchimp.php:165
+msgid "Mailchimp List"
+msgstr "Lista de Mailchimp"
+
+#: includes/newsletter-integration/Mailchimp.php:166
+msgid ""
+"A valid Mailchimp list name. You may need to save your configuration before "
+"displaying the correct contents. If the list is not up to date, click the "
+"Refresh button"
+msgstr ""
+"Un nombre válido de lista de Mailchimp. Es posible que debas guardar tu "
+"configuración antes de mostrar los contenidos correctos. Si la lista no está "
+"actualizada, haz clic en el botón Refrescar"
+
+#: includes/newsletter-integration/Mailchimp.php:178
+msgid "Double Opt-in"
+msgstr "Opción doble"
+
+#: includes/newsletter-integration/Mailchimp.php:179
+msgid ""
+"When you check this option, MailChimp will send a confirmation email before "
+"adding the user to the list"
+msgstr ""
+"Cuando marcas esta opción, MailChimp mandará un correo electrónico de "
+"confirmación antes de añadir al usuario a la lista"
+
+#: includes/newsletter-integration/Mailchimp.php:233
+#: plugin-options/metabox/ypop_metabox.php:1649
+msgid "Add Me"
+msgstr "Añadirme"
+
+#: includes/newsletter-integration/Mailchimp.php:259
+msgid "Mailchimp"
+msgstr "Mailchimp"
+
+#: includes/newsletter-integration/Mailchimp.php:429
+msgid "Something went wrong:"
+msgstr "Algo ha salido mal:"
+
+#: includes/newsletter-integration/Mailchimp.php:436
+msgid "Mailchimp server error"
+msgstr "Error de servidor de Mailchimp"
+
+#: includes/newsletter-integration/Mailchimp.php:438
+msgid "Mailchimp user related error"
+msgstr "Error relacionado con el usuario de Mailchimp"
+
+#: includes/newsletter-integration/Mailchimp.php:440
+msgid "Mailchimp user related error (action)"
+msgstr "Error relacionado con el usuario de Mailchimp (acción)"
+
+#: includes/newsletter-integration/Mailchimp.php:442
+msgid "Mailchimp list related error"
+msgstr "Error relacionado con la lista de MailChimp"
+
+#: includes/newsletter-integration/Mailchimp.php:444
+msgid "Mailchimp list related error (basic action)"
+msgstr "Error relacionado con la lista de MailChimp (acción básica)"
+
+#: includes/newsletter-integration/Mailchimp.php:446
+msgid "Mailchimp list related error (import)"
+msgstr "Error relacionado con la lista de MailChimp (importar)"
+
+#: includes/newsletter-integration/Mailchimp.php:448
+msgid "Mailchimp list related error (email)"
+msgstr "Error relacionado con la lista de MailChimp (correo electrónico)"
+
+#: includes/newsletter-integration/Mailchimp.php:450
+msgid "Mailchimp list related error (merge)"
+msgstr "Error relacionado con la lista de MailChimp (fusionar)"
+
+#: includes/newsletter-integration/Mailchimp.php:452
+msgid "Mailchimp list related error (interest group)"
+msgstr "Error relacionado con la lista de MailChimp (grupo de interés)"
+
+#: includes/newsletter-integration/Mailchimp.php:454
+msgid "Mailchimp general error"
+msgstr "Error general de MailChimp"
+
+#: includes/newsletter-integration/Wysija.php:85
+msgid "Wysija"
+msgstr "Wysija"
+
+#: includes/newsletter-integration/Wysija.php:117
+msgid "Wysija List"
+msgstr "Lista de Wysija"
+
+#: includes/newsletter-integration/Wysija.php:118
+msgid "A valid Wysija list name."
+msgstr "Un nombre válido para la lista de Wysija."
+
+#: plugin-options/metabox/ypop_cpt_metabox.php:31
+msgid "Global setting options"
+msgstr "Opciones de ajustes globales"
+
+#: plugin-options/metabox/ypop_cpt_metabox.php:32
+msgid "Disable"
+msgstr "Desactivar"
+
+#: plugin-options/metabox/ypop_cpt_metabox.php:36
+msgid "YITH WooCommerce Popup "
+msgstr "YITH WooCommerce Popup "
+
+#: plugin-options/metabox/ypop_metabox.php:16
+msgid "Select a form type"
+msgstr "Seleccionar tipo de formulario"
+
+#: plugin-options/metabox/ypop_metabox.php:20
+#: plugin-options/metabox/ypop_metabox.php:54
+msgid "YIT Contact Form"
+msgstr "YIT Contact Form"
+
+#: plugin-options/metabox/ypop_metabox.php:24
+msgid "Contact Form 7"
+msgstr "Contact Form 7"
+
+#: plugin-options/metabox/ypop_metabox.php:31
+msgid "Request form"
+msgstr "Formulario de solicitud"
+
+#: plugin-options/metabox/ypop_metabox.php:32
+msgid ""
+"Choose one. You can also add forms from YIT Contact Form or Contact Form 7 "
+"that must be installed and activated."
+msgstr ""
+"Elige uno. También puedes añadir formularios desde YIT Contact Form o "
+"Contact Form 7 debe estar instalado y activado."
+
+#: plugin-options/metabox/ypop_metabox.php:40
+msgid "Contact form 7"
+msgstr "Contact form 7"
+
+#: plugin-options/metabox/ypop_metabox.php:41
+#: plugin-options/metabox/ypop_metabox.php:55
+msgid "Choose the form to display"
+msgstr "Elige el formulario a mostrar"
+
+#: plugin-options/metabox/ypop_metabox.php:70
+msgid ""
+"To use this feature, YIT Contact Form or Contact Form 7 must be installed "
+"and activated."
+msgstr ""
+"Para usar esta carcterística, YIT Contact Form o Contact Form 7 debe estar "
+"instalado y activado."
+
+#: plugin-options/metabox/ypop_metabox.php:75
+msgid "Text"
+msgstr "Texto"
+
+#: plugin-options/metabox/ypop_metabox.php:76
+#: plugin-options/metabox/ypop_metabox.php:1510
+msgid "Newsletter"
+msgstr "Noticias"
+
+#: plugin-options/metabox/ypop_metabox.php:77
+#: plugin-options/metabox/ypop_metabox.php:1672
+msgid "Form"
+msgstr "Formulario"
+
+#: plugin-options/metabox/ypop_metabox.php:78
+#: plugin-options/metabox/ypop_metabox.php:1679
+msgid "Social network"
+msgstr "Red social"
+
+#: plugin-options/metabox/ypop_metabox.php:82
+#: plugin-options/metabox/ypop_metabox.php:1795
+msgid "WooCommerce"
+msgstr "WooCommerce"
+
+#: plugin-options/metabox/ypop_metabox.php:87
+msgid "Popup Settings"
+msgstr "Ajustes de ventana emergente"
+
+#: plugin-options/metabox/ypop_metabox.php:96
+#: plugin-options/metabox/ypop_metabox.php:134
+msgid "Content"
+msgstr "Contenido"
+
+#: plugin-options/metabox/ypop_metabox.php:105
+msgid "Enable popup"
+msgstr "Activar ventana emergente"
+
+#: plugin-options/metabox/ypop_metabox.php:112
+msgid "Content type"
+msgstr "Tipo de contenido "
+
+#: plugin-options/metabox/ypop_metabox.php:113
+msgid "Select the type of the content"
+msgstr "Selecciona el tipo de contenido"
+
+#: plugin-options/metabox/ypop_metabox.php:124
+#: plugin-options/metabox/ypop_metabox.php:262
+msgid "Header"
+msgstr "Encabezado"
+
+#: plugin-options/metabox/ypop_metabox.php:126
+#: plugin-options/metabox/ypop_metabox.php:161
+#: plugin-options/metabox/ypop_metabox.php:206
+#: plugin-options/metabox/ypop_metabox.php:240
+#: plugin-options/metabox/ypop_metabox.php:264
+msgid "Add the header content of the popup"
+msgstr "Añadir el contenido del encabezado de la ventana emergente"
+
+#: plugin-options/metabox/ypop_metabox.php:127
+msgid "SIGN UP TO OUR NEWSLETTER AND SAVE 25% OFF FOR YOUR NEXT PURCHASE"
+msgstr ""
+"SUSCRIBETE A NUESTRO BOLETÍN Y AHORRA UN 25% DE DESCUENTO EN TU PRÓXIMA "
+"COMPRA"
+
+#: plugin-options/metabox/ypop_metabox.php:136
+msgid "Add the content of the popup"
+msgstr "Añadir el contenido de la ventana emergente"
+
+#: plugin-options/metabox/ypop_metabox.php:145
+#: plugin-options/metabox/ypop_metabox.php:190
+#: plugin-options/metabox/ypop_metabox.php:224
+#: plugin-options/metabox/ypop_metabox.php:248
+#: plugin-options/metabox/ypop_metabox.php:292
+#: plugin-options/metabox/ypop_metabox.php:326
+msgid "Footer content"
+msgstr "Contenido del pie de página"
+
+#: plugin-options/metabox/ypop_metabox.php:147
+#: plugin-options/metabox/ypop_metabox.php:192
+msgid "Add the footer of the popup"
+msgstr "Añadir el pie de página a la ventana emergente"
+
+#: plugin-options/metabox/ypop_metabox.php:159
+#: plugin-options/metabox/ypop_metabox.php:238
+msgid "Header content"
+msgstr "Contenido del encabezado"
+
+#: plugin-options/metabox/ypop_metabox.php:170
+#: plugin-options/metabox/ypop_metabox.php:272
+#: plugin-options/metabox/ypop_metabox.php:306
+msgid "Left content"
+msgstr "Contenido izquierdo"
+
+#: plugin-options/metabox/ypop_metabox.php:172
+#: plugin-options/metabox/ypop_metabox.php:274
+#: plugin-options/metabox/ypop_metabox.php:308
+msgid "Add the left content of the popup"
+msgstr "Añadir el contenido izquierdo a la ventana emergente"
+
+#: plugin-options/metabox/ypop_metabox.php:180
+#: plugin-options/metabox/ypop_metabox.php:214
+#: plugin-options/metabox/ypop_metabox.php:282
+#: plugin-options/metabox/ypop_metabox.php:316
+msgid "Right content"
+msgstr "Contenido derecho"
+
+#: plugin-options/metabox/ypop_metabox.php:182
+#: plugin-options/metabox/ypop_metabox.php:216
+#: plugin-options/metabox/ypop_metabox.php:284
+#: plugin-options/metabox/ypop_metabox.php:318
+msgid "Add the right content of the popup"
+msgstr "Añadir el contenido derecho a la ventana emergente"
+
+#: plugin-options/metabox/ypop_metabox.php:204
+msgid "Header title"
+msgstr "Título del encabezado"
+
+#: plugin-options/metabox/ypop_metabox.php:226
+#: plugin-options/metabox/ypop_metabox.php:250
+#: plugin-options/metabox/ypop_metabox.php:294
+#: plugin-options/metabox/ypop_metabox.php:328
+msgid "Add the footer content of the popup"
+msgstr "Añadir el contenido de pie de página a la ventana emergente"
+
+#: plugin-options/metabox/ypop_metabox.php:265
+msgid "GREAT DISCOUNT ON MAKEUP!"
+msgstr "¡GRAN DESCUENTO EN MAQUILLAJE!"
+
+#: plugin-options/metabox/ypop_metabox.php:285
+msgid ""
+"<strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam "
+"placerat commodo quam, vel malesuada metus.</strong> Suspendisse suscipit "
+"laoreet ante, ut posuere purus ultrices vitae. Etiam eget felis a diam "
+"tristique lacinia sed id lorem. Morbi sed quam ac odio ultricies condimentum "
+"non sit amet urna. "
+msgstr ""
+"<strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam "
+"placerat commodo quam, vel malesuada metus.</strong> Suspendisse suscipit "
+"laoreet ante, ut posuere purus ultrices vitae. Etiam eget felis a diam "
+"tristique lacinia sed id lorem. Morbi sed quam ac odio ultricies condimentum "
+"non sit amet urna. "
+
+#: plugin-options/metabox/ypop_metabox.php:342
+msgid "Layout"
+msgstr "Diseño"
+
+#: plugin-options/metabox/ypop_metabox.php:352
+#: plugin-options/metabox/ypop_metabox.php:502
+#: plugin-options/metabox/ypop_metabox.php:700
+#: plugin-options/metabox/ypop_metabox.php:846
+#: plugin-options/metabox/ypop_metabox.php:992
+#: plugin-options/metabox/ypop_metabox.php:1159
+msgid "Width"
+msgstr "Ancho"
+
+#: plugin-options/metabox/ypop_metabox.php:354
+#: plugin-options/metabox/ypop_metabox.php:504
+#: plugin-options/metabox/ypop_metabox.php:702
+#: plugin-options/metabox/ypop_metabox.php:848
+#: plugin-options/metabox/ypop_metabox.php:994
+#: plugin-options/metabox/ypop_metabox.php:1161
+msgid "Select the width of the popup."
+msgstr "Selecciona el ancho de la ventana emergente"
+
+#: plugin-options/metabox/ypop_metabox.php:364
+#: plugin-options/metabox/ypop_metabox.php:514
+#: plugin-options/metabox/ypop_metabox.php:712
+#: plugin-options/metabox/ypop_metabox.php:858
+#: plugin-options/metabox/ypop_metabox.php:1004
+#: plugin-options/metabox/ypop_metabox.php:1171
+msgid "Height"
+msgstr "Altura"
+
+#: plugin-options/metabox/ypop_metabox.php:366
+#: plugin-options/metabox/ypop_metabox.php:367
+#: plugin-options/metabox/ypop_metabox.php:516
+#: plugin-options/metabox/ypop_metabox.php:714
+#: plugin-options/metabox/ypop_metabox.php:860
+#: plugin-options/metabox/ypop_metabox.php:1006
+#: plugin-options/metabox/ypop_metabox.php:1173
+msgid "Select the height of the popup. Leave 0 to set it automatically"
+msgstr ""
+"Selecciona la altura de l ventana emergente. Deja 0 para establecerla "
+"automáticamente"
+
+#: plugin-options/metabox/ypop_metabox.php:378
+#: plugin-options/metabox/ypop_metabox.php:526
+#: plugin-options/metabox/ypop_metabox.php:734
+#: plugin-options/metabox/ypop_metabox.php:880
+#: plugin-options/metabox/ypop_metabox.php:1016
+msgid "Background color"
+msgstr "Color de fondo"
+
+#: plugin-options/metabox/ypop_metabox.php:379
+#: plugin-options/metabox/ypop_metabox.php:527
+#: plugin-options/metabox/ypop_metabox.php:735
+#: plugin-options/metabox/ypop_metabox.php:881
+#: plugin-options/metabox/ypop_metabox.php:1017
+msgid "Select the background color of the popup"
+msgstr "Selecciona el color de fondo de la ventana emergente"
+
+#: plugin-options/metabox/ypop_metabox.php:388
+#: plugin-options/metabox/ypop_metabox.php:566
+#: plugin-options/metabox/ypop_metabox.php:1067
+msgid "Header background image"
+msgstr "Imagen de fondo del encabezado"
+
+#: plugin-options/metabox/ypop_metabox.php:389
+#: plugin-options/metabox/ypop_metabox.php:567
+#: plugin-options/metabox/ypop_metabox.php:871
+#: plugin-options/metabox/ypop_metabox.php:1068
+msgid "Select the background image for the header"
+msgstr "Selecciona la imagen de fondo para el encabezado"
+
+#: plugin-options/metabox/ypop_metabox.php:398
+#: plugin-options/metabox/ypop_metabox.php:586
+msgid "Header height"
+msgstr "Altura del encabezado"
+
+#: plugin-options/metabox/ypop_metabox.php:400
+msgid "Select the height of the header popup"
+msgstr "Selecciona la altura del encabezado de la ventana emergente"
+
+#: plugin-options/metabox/ypop_metabox.php:410
+#: plugin-options/metabox/ypop_metabox.php:598
+msgid "Header color"
+msgstr "Color del encabezado"
+
+#: plugin-options/metabox/ypop_metabox.php:413
+#: plugin-options/metabox/ypop_metabox.php:579
+#: plugin-options/metabox/ypop_metabox.php:601
+#: plugin-options/metabox/ypop_metabox.php:1060
+#: plugin-options/metabox/ypop_metabox.php:1080
+msgid "Select the color of the header"
+msgstr "Selecciona el color del encabezado"
+
+#: plugin-options/metabox/ypop_metabox.php:420
+#: plugin-options/metabox/ypop_metabox.php:618
+msgid "Footer background color"
+msgstr "Color de fondo del pie de página"
+
+#: plugin-options/metabox/ypop_metabox.php:421
+#: plugin-options/metabox/ypop_metabox.php:619
+msgid "Select the background color of the footer"
+msgstr "Selecciona el color de fondo del pie de página"
+
+#: plugin-options/metabox/ypop_metabox.php:430
+msgid "Position of the field title in newsletter content type"
+msgstr "Posición del título del campo en el tipo de contenido del boletín"
+
+#: plugin-options/metabox/ypop_metabox.php:431
+#: plugin-options/metabox/ypop_metabox.php:629
+msgid "Select the position of the label "
+msgstr "Selecciona la posición de la etiqueta "
+
+#: plugin-options/metabox/ypop_metabox.php:436
+#: plugin-options/metabox/ypop_metabox.php:634
+#: plugin-options/metabox/ypop_metabox.php:780
+#: plugin-options/metabox/ypop_metabox.php:926
+#: plugin-options/metabox/ypop_metabox.php:1094
+#: plugin-options/metabox/ypop_metabox.php:1272
+msgid "Label"
+msgstr "Etiqueta"
+
+#: plugin-options/metabox/ypop_metabox.php:437
+#: plugin-options/metabox/ypop_metabox.php:635
+#: plugin-options/metabox/ypop_metabox.php:781
+#: plugin-options/metabox/ypop_metabox.php:927
+#: plugin-options/metabox/ypop_metabox.php:1095
+#: plugin-options/metabox/ypop_metabox.php:1273
+#: templates/misc/woocommerce.php:92
+msgid "Placeholder"
+msgstr "Marcador de posición"
+
+#: plugin-options/metabox/ypop_metabox.php:445
+#: plugin-options/metabox/ypop_metabox.php:643
+#: plugin-options/metabox/ypop_metabox.php:789
+#: plugin-options/metabox/ypop_metabox.php:935
+#: plugin-options/metabox/ypop_metabox.php:1103
+#: plugin-options/metabox/ypop_metabox.php:1282
+msgid "Background color for submit button"
+msgstr "Color de fondo para botón de enviar"
+
+#: plugin-options/metabox/ypop_metabox.php:446
+#: plugin-options/metabox/ypop_metabox.php:644
+#: plugin-options/metabox/ypop_metabox.php:790
+#: plugin-options/metabox/ypop_metabox.php:936
+#: plugin-options/metabox/ypop_metabox.php:1104
+#: plugin-options/metabox/ypop_metabox.php:1283
+msgid "Select the background color for submit button"
+msgstr "Selecciona el color de fondo para el botón de enviar"
+
+#: plugin-options/metabox/ypop_metabox.php:455
+#: plugin-options/metabox/ypop_metabox.php:653
+#: plugin-options/metabox/ypop_metabox.php:799
+#: plugin-options/metabox/ypop_metabox.php:1113
+#: plugin-options/metabox/ypop_metabox.php:1292
+msgid "Background color on hover for submit button"
+msgstr "Color de fondo al pasar el ratón sobre el botón enviar"
+
+#: plugin-options/metabox/ypop_metabox.php:456
+#: plugin-options/metabox/ypop_metabox.php:654
+#: plugin-options/metabox/ypop_metabox.php:800
+#: plugin-options/metabox/ypop_metabox.php:946
+#: plugin-options/metabox/ypop_metabox.php:1114
+#: plugin-options/metabox/ypop_metabox.php:1293
+msgid "Select the background color on hover for submit button"
+msgstr "Seleccionar color de fondo al pasar el ratón sobre el botón de enviar"
+
+#: plugin-options/metabox/ypop_metabox.php:465
+#: plugin-options/metabox/ypop_metabox.php:663
+#: plugin-options/metabox/ypop_metabox.php:809
+#: plugin-options/metabox/ypop_metabox.php:955
+#: plugin-options/metabox/ypop_metabox.php:1123
+#: plugin-options/metabox/ypop_metabox.php:1302
+msgid "Color for submit button"
+msgstr "Color para botón de enviar"
+
+#: plugin-options/metabox/ypop_metabox.php:466
+#: plugin-options/metabox/ypop_metabox.php:664
+#: plugin-options/metabox/ypop_metabox.php:810
+#: plugin-options/metabox/ypop_metabox.php:956
+#: plugin-options/metabox/ypop_metabox.php:1124
+#: plugin-options/metabox/ypop_metabox.php:1303
+msgid "Select the text color for submit button"
+msgstr "Seleccionar el color de texto para el botón enviar"
+
+#: plugin-options/metabox/ypop_metabox.php:536
+msgid "Content background color"
+msgstr "Color de fondo del contenido"
+
+#: plugin-options/metabox/ypop_metabox.php:537
+msgid "Select the background color of the content"
+msgstr "Selecciona el color de fondo del contenido"
+
+#: plugin-options/metabox/ypop_metabox.php:546
+#: plugin-options/metabox/ypop_metabox.php:744
+#: plugin-options/metabox/ypop_metabox.php:890
+#: plugin-options/metabox/ypop_metabox.php:1037
+msgid "Content link color"
+msgstr "Color del enlace del contenido"
+
+#: plugin-options/metabox/ypop_metabox.php:547
+#: plugin-options/metabox/ypop_metabox.php:745
+#: plugin-options/metabox/ypop_metabox.php:1038
+msgid "Select the color for links"
+msgstr "Selecciona el color para los enlaces"
+
+#: plugin-options/metabox/ypop_metabox.php:556
+#: plugin-options/metabox/ypop_metabox.php:754
+#: plugin-options/metabox/ypop_metabox.php:900
+#: plugin-options/metabox/ypop_metabox.php:1047
+msgid "Content link hover color"
+msgstr "Color al pasar el ratón por sobre el enlace de contenido"
+
+#: plugin-options/metabox/ypop_metabox.php:557
+msgid "Select the color on hover for the link"
+msgstr "Selecciona el color al pasar el ratón sobre el enlace"
+
+#: plugin-options/metabox/ypop_metabox.php:576
+#: plugin-options/metabox/ypop_metabox.php:1077
+msgid "Header background color"
+msgstr "Color de fondo del encabezado"
+
+#: plugin-options/metabox/ypop_metabox.php:588
+msgid "Select the height of the header"
+msgstr "Selecciona la altura del encabezado"
+
+#: plugin-options/metabox/ypop_metabox.php:608
+msgid "Header border color"
+msgstr "Color de borde del encabezado"
+
+#: plugin-options/metabox/ypop_metabox.php:611
+msgid "Select the border color of the header"
+msgstr "Selecciona el color de borde del encabezado"
+
+#: plugin-options/metabox/ypop_metabox.php:628
+#: plugin-options/metabox/ypop_metabox.php:774
+#: plugin-options/metabox/ypop_metabox.php:920
+#: plugin-options/metabox/ypop_metabox.php:1088
+#: plugin-options/metabox/ypop_metabox.php:1266
+msgid "Position of the field title in newsletter"
+msgstr "Posición del título del campo en el boletín"
+
+#: plugin-options/metabox/ypop_metabox.php:724
+#: plugin-options/metabox/ypop_metabox.php:870
+msgid "Background image"
+msgstr "Imagen de fondo"
+
+#: plugin-options/metabox/ypop_metabox.php:725
+msgid "Select the background image"
+msgstr "Selecciona la imagen de fondo"
+
+#: plugin-options/metabox/ypop_metabox.php:755
+#: plugin-options/metabox/ypop_metabox.php:1048
+msgid "Select the color on hover for the links"
+msgstr "Selecciona el color al pasar el ratón sobre los enlaces"
+
+#: plugin-options/metabox/ypop_metabox.php:764
+#: plugin-options/metabox/ypop_metabox.php:910
+#: plugin-options/metabox/ypop_metabox.php:1057
+msgid "Text color"
+msgstr "Color de texto"
+
+#: plugin-options/metabox/ypop_metabox.php:767
+#: plugin-options/metabox/ypop_metabox.php:913
+msgid "Select the color of the text"
+msgstr "Seleccionar el color del texto"
+
+#: plugin-options/metabox/ypop_metabox.php:775
+#: plugin-options/metabox/ypop_metabox.php:921
+#: plugin-options/metabox/ypop_metabox.php:1089
+msgid "Select the position of the label"
+msgstr "Seleccionar la posición de la etiqueta"
+
+#: plugin-options/metabox/ypop_metabox.php:891
+msgid "Select the color for the links"
+msgstr "Selecciona el color para los enlaces"
+
+#: plugin-options/metabox/ypop_metabox.php:901
+msgid "Select the color on hover for links"
+msgstr "Selecciona el color al pasar el ratón sobre los enlaces"
+
+#: plugin-options/metabox/ypop_metabox.php:945
+msgid "Background color on hoverfor submit button"
+msgstr "Color de fondo al pasar el ratón sobre el botón enviar"
+
+#: plugin-options/metabox/ypop_metabox.php:1026
+msgid "Border color"
+msgstr "Color de borde"
+
+#: plugin-options/metabox/ypop_metabox.php:1029
+msgid "Select the color of borders"
+msgstr "Seleccionar el color de los bordes"
+
+#: plugin-options/metabox/ypop_metabox.php:1184
+msgid "Background color on the left"
+msgstr "Color de fondo a la izquierda"
+
+#: plugin-options/metabox/ypop_metabox.php:1185
+msgid "Select the background color of the left side"
+msgstr "Seleccionar color de fondo para el lado izquierdo"
+
+#: plugin-options/metabox/ypop_metabox.php:1194
+msgid "Content link color on the left side"
+msgstr "Color del enlace de contenido en el lado izquierdo"
+
+#: plugin-options/metabox/ypop_metabox.php:1195
+msgid "Select the color for the link on the left side"
+msgstr "Seleccionar el color para el enlace en el lado izquierdo"
+
+#: plugin-options/metabox/ypop_metabox.php:1204
+msgid "Content link hover color on the left side "
+msgstr "Color al pasar el ratón sobre el enlace en el lado izquierdo"
+
+#: plugin-options/metabox/ypop_metabox.php:1205
+msgid "Select the color for the link on hover on the left side"
+msgstr ""
+"Seleccionar el color al pasar el ratón sobre el enlace para el lado izquierdo"
+
+#: plugin-options/metabox/ypop_metabox.php:1214
+msgid "Text color on the left side"
+msgstr "Color de texto en el lado izquierdo"
+
+#: plugin-options/metabox/ypop_metabox.php:1217
+msgid "Select the color of the text on the left side"
+msgstr "Seleccionar el color de texto en el lado izquierdo"
+
+#: plugin-options/metabox/ypop_metabox.php:1225
+msgid "Background color on the right"
+msgstr "Color de fondo a la derecha"
+
+#: plugin-options/metabox/ypop_metabox.php:1226
+msgid "Select the background color on the right side"
+msgstr "Seleccionar el color de fondo en el lado derecho"
+
+#: plugin-options/metabox/ypop_metabox.php:1235
+msgid "Content link color on the right side"
+msgstr "Color del enlace de contenido en el lado derecho"
+
+#: plugin-options/metabox/ypop_metabox.php:1236
+msgid "Select the color for the link on the right side"
+msgstr "Seleccionar el color para el enlace en el lado derecho"
+
+#: plugin-options/metabox/ypop_metabox.php:1245
+msgid "Content link hover color on the right side"
+msgstr ""
+"Color al pasar el ratón sobre del enlace de contenido en el lado derecho"
+
+#: plugin-options/metabox/ypop_metabox.php:1246
+msgid "Select the color for the link on hover on the right side"
+msgstr ""
+"Seleccionar el color al pasar el ratón sobre el enlace en el lado derecho"
+
+#: plugin-options/metabox/ypop_metabox.php:1255
+msgid "Text color on the right side"
+msgstr "Color de texto en el lado derecho"
+
+#: plugin-options/metabox/ypop_metabox.php:1258
+msgid "Select the color of the text on the right side"
+msgstr "Seleccionar el color del texto en el lado derecho"
+
+#: plugin-options/metabox/ypop_metabox.php:1267
+msgid "Select the position of the title"
+msgstr "Seleccionar la posición del título"
+
+#: plugin-options/metabox/ypop_metabox.php:1313
+msgid "Icon for submit button"
+msgstr "Icono para botón de enviar"
+
+#: plugin-options/metabox/ypop_metabox.php:1314
+msgid "Set your icon"
+msgstr "Establece tu icono"
+
+#: plugin-options/metabox/ypop_metabox.php:1323
+msgid "Background color for \"Hide\" text area"
+msgstr "Color de fondo para el área de texto de ‘’Ocultar’’"
+
+#: plugin-options/metabox/ypop_metabox.php:1324
+msgid "Select the background color for \"Hide\" text area"
+msgstr "Seleccionar el color de fondo para el are de texto de ‘’Ocultar’’"
+
+#: plugin-options/metabox/ypop_metabox.php:1329
+msgid "Text color for \"Hide\" text"
+msgstr "Color de texto para el texto ‘’Ocultar’’"
+
+#: plugin-options/metabox/ypop_metabox.php:1330
+msgid "Select the text color for \"Hide\" text"
+msgstr "Seleccionar el color de texto para el texto ‘’Ocultar’’"
+
+#: plugin-options/metabox/ypop_metabox.php:1340
+msgid "Display Settings"
+msgstr "Ajustes de visualización"
+
+#: plugin-options/metabox/ypop_metabox.php:1345
+msgid "Position"
+msgstr "Posición"
+
+#: plugin-options/metabox/ypop_metabox.php:1350
+msgid "Center"
+msgstr "Centro"
+
+#: plugin-options/metabox/ypop_metabox.php:1351
+msgid "Left Top"
+msgstr "Parte superior izquierda"
+
+#: plugin-options/metabox/ypop_metabox.php:1352
+msgid "Left Bottom"
+msgstr "Parte inferior izquierda"
+
+#: plugin-options/metabox/ypop_metabox.php:1353
+msgid "Right Top"
+msgstr "Parte superior derecha"
+
+#: plugin-options/metabox/ypop_metabox.php:1354
+msgid "Right Bottom"
+msgstr "Parte inferior izquierda"
+
+#: plugin-options/metabox/ypop_metabox.php:1362
+msgid "Overlay opacity"
+msgstr "Opacidad de superposición"
+
+#: plugin-options/metabox/ypop_metabox.php:1371
+msgid "Overlay color"
+msgstr "Color de superposición"
+
+#: plugin-options/metabox/ypop_metabox.php:1380
+msgid "Choose when displaying the popup"
+msgstr "Elegir cuando mostrar la ventana emergente"
+
+#: plugin-options/metabox/ypop_metabox.php:1385
+msgid "As soon as the page has been loaded"
+msgstr "Tan pronto como haya cargado la página"
+
+#: plugin-options/metabox/ypop_metabox.php:1386
+msgid ""
+"When mouse leaves the browser viewport (Not available on mobile devices)"
+msgstr ""
+"Cuando el ratón sale de la ventana del navegador (No disponible en "
+"dispositivos móviles)"
+
+#: plugin-options/metabox/ypop_metabox.php:1387
+msgid "When users try to leave the page."
+msgstr "Cuando los usuarios intentan abandonar la página."
+
+#: plugin-options/metabox/ypop_metabox.php:1388
+msgid "When users click an external link"
+msgstr "Cuando los usuarios hacen clic en un enlace externo"
+
+#: plugin-options/metabox/ypop_metabox.php:1389
+msgid "When users click an link with #yithpopup in url"
+msgstr "Cuando los usuarios hacen clic en un enlace con #yithpopup en la url"
+
+#: plugin-options/metabox/ypop_metabox.php:1395
+msgid "Delay time before the popup appears"
+msgstr "Tiempo de espera antes de que la ventana emergente aparezca"
+
+#: plugin-options/metabox/ypop_metabox.php:1396
+msgid "in seconds"
+msgstr "en segundos"
+
+#: plugin-options/metabox/ypop_metabox.php:1407
+msgid "Closing button"
+msgstr "Botón de cierre"
+
+#: plugin-options/metabox/ypop_metabox.php:1412
+msgid "Closing button icon"
+msgstr "Icono de botón de cierre"
+
+#: plugin-options/metabox/ypop_metabox.php:1413
+msgid "Select the icon for closing button"
+msgstr "Seleccionar el icono para el botón de cierre"
+
+#: plugin-options/metabox/ypop_metabox.php:1417
+msgid "Closing button 1"
+msgstr "Botón de cierre 1"
+
+#: plugin-options/metabox/ypop_metabox.php:1418
+msgid "Closing button 2"
+msgstr "Botón de cierre 2"
+
+#: plugin-options/metabox/ypop_metabox.php:1419
+msgid "Closing button 3"
+msgstr "Botón de cierre 3"
+
+#: plugin-options/metabox/ypop_metabox.php:1420
+msgid "Closing button 4"
+msgstr "Botón de cierre 4"
+
+#: plugin-options/metabox/ypop_metabox.php:1421
+msgid "Custom image"
+msgstr "Imagen personalizada"
+
+#: plugin-options/metabox/ypop_metabox.php:1464
+msgid "Closing button custom icon"
+msgstr "Icono personalizado de botón de cierre"
+
+#: plugin-options/metabox/ypop_metabox.php:1465
+msgid "Upload the icon for closing button"
+msgstr "Subir el icono para el botón de cierre"
+
+#: plugin-options/metabox/ypop_metabox.php:1475
+msgid "Closing button background color"
+msgstr "Color de fondo para el botón de cierre"
+
+#: plugin-options/metabox/ypop_metabox.php:1476
+msgid "Select the background color of the closing button"
+msgstr "Seleccionar el color de fondo para el botón de cierre"
+
+#: plugin-options/metabox/ypop_metabox.php:1485
+msgid "Customization"
+msgstr "Personalización"
+
+#: plugin-options/metabox/ypop_metabox.php:1490
+msgid "CSS"
+msgstr "CSS"
+
+#: plugin-options/metabox/ypop_metabox.php:1499
+msgid "JavaScript"
+msgstr "JavaScript"
+
+#: plugin-options/metabox/ypop_metabox.php:1513
+msgid "Form integration preset"
+msgstr "Preestablecimiento de integración de formulario"
+
+#: plugin-options/metabox/ypop_metabox.php:1514
+msgid ""
+"Select what kind of newsletter service you want to use, or set a custom form."
+msgstr ""
+"Selecciona el tipo de servicio de boletín que quieres utilizar o establece "
+"un formulario personalizado."
+
+#: plugin-options/metabox/ypop_metabox.php:1522
+msgid "Form action"
+msgstr "Acción de formulario"
+
+#: plugin-options/metabox/ypop_metabox.php:1523
+msgid "The attribute \"action\" of the form."
+msgstr "La ‘’acción’’ de atributo del formulario."
+
+#: plugin-options/metabox/ypop_metabox.php:1533
+msgid "Request method"
+msgstr "Método de solicitud"
+
+#: plugin-options/metabox/ypop_metabox.php:1534
+msgid "The attribute \"method\" of the form."
+msgstr "El ‘’método’’ del atributo del formulario."
+
+#: plugin-options/metabox/ypop_metabox.php:1538
+msgid "POST"
+msgstr "PUBLICACIÓN"
+
+#: plugin-options/metabox/ypop_metabox.php:1539
+msgid "GET"
+msgstr "OBTENER"
+
+#: plugin-options/metabox/ypop_metabox.php:1549
+msgid "Show name field"
+msgstr "Mostrar campo del nombre"
+
+#: plugin-options/metabox/ypop_metabox.php:1550
+msgid "Show the \"Name\" field in the newsletter"
+msgstr "Mostrar el campo del ‘’Nombre’’ en el boletín"
+
+#: plugin-options/metabox/ypop_metabox.php:1560
+msgid "Name field label"
+msgstr "Etiqueta de campo del nombre"
+
+#: plugin-options/metabox/ypop_metabox.php:1561
+msgid "The label for \"Name\" field"
+msgstr "La etiqueta para el campo del ‘’Nombre’’"
+
+#: plugin-options/metabox/ypop_metabox.php:1571
+msgid "\"Name\" attribute of the Name field"
+msgstr "Atributo del ‘’Nombre’’ del campo Nombre"
+
+#: plugin-options/metabox/ypop_metabox.php:1572
+msgid "The \"Name\" attribute of the Name field."
+msgstr "El atributo del ‘’Nombre’’ del campo Nombre"
+
+#: plugin-options/metabox/ypop_metabox.php:1583
+msgid "The label for the \"Email\" field"
+msgstr "La etiqueta para el campo ‘’Correo electrónico’’"
+
+#: plugin-options/metabox/ypop_metabox.php:1593
+msgid "\"Name\" attribute for Email field"
+msgstr "Atributo ‘’Nombre’’ para el campo Correo electrónico"
+
+#: plugin-options/metabox/ypop_metabox.php:1594
+msgid "The attribute \"Name\" of the email address field."
+msgstr ""
+"El ‘’Nombre’’ del atributo del campo de dirección de correo electrónico"
+
+#: plugin-options/metabox/ypop_metabox.php:1614
+msgid "\"Name\" attribute of the Privacy field"
+msgstr "Atributo ‘’Nombre’’ del campo de Privacidad"
+
+#: plugin-options/metabox/ypop_metabox.php:1615
+msgid "The \"Name\" attribute of the Privacy field."
+msgstr "El atributo ‘’Nombre’’ del campo de Privacidad."
+
+#: plugin-options/metabox/ypop_metabox.php:1657
+msgid "Hidden fields"
+msgstr "Campos ocultos"
+
+#: plugin-options/metabox/ypop_metabox.php:1658
+msgid ""
+"Type here all hidden field names and values in a serial way. Example: "
+"name1=value1&name2=value2."
+msgstr ""
+"Escribe aquí todos los nombres de campos ocultos y valores de manera serial. "
+"Ejemplo: nombre1=valor1&nombre2=valor2."
+
+#: plugin-options/metabox/ypop_metabox.php:1682
+msgid "Show social network sharing as icon"
+msgstr "Mostrar compartir en redes sociales como icono"
+
+#: plugin-options/metabox/ypop_metabox.php:1683
+msgid "Select this option to show social networks as icon, and not as text"
+msgstr ""
+"Selecciona esta opción para mostrar las redes sociales como icono y no como "
+"texto"
+
+#: plugin-options/metabox/ypop_metabox.php:1688
+msgid "Show Facebook button"
+msgstr "Mostrar botón de Facebook"
+
+#: plugin-options/metabox/ypop_metabox.php:1694
+msgid "Facebook like URL"
+msgstr "URL de Facebook like"
+
+#: plugin-options/metabox/ypop_metabox.php:1695
+msgid "Add the url for Facebook like, leave empty to link to current page"
+msgstr ""
+"Añadir la URL de Facebook like, dejar vacío para enlazar a la página actual"
+
+#: plugin-options/metabox/ypop_metabox.php:1708
+msgid "Show Twitter"
+msgstr "Mostrar Twitter"
+
+#: plugin-options/metabox/ypop_metabox.php:1714
+msgid "Twitter URL"
+msgstr "URL de Twitter"
+
+#: plugin-options/metabox/ypop_metabox.php:1715
+msgid "Add the URL for Twitter, leave empty to link to current page"
+msgstr "Añadir la URL de Twitter, dejar vacío para enlazar a la página actual"
+
+#: plugin-options/metabox/ypop_metabox.php:1728
+msgid "Show Google+ Button"
+msgstr "Mostrar botón de Google+"
+
+#: plugin-options/metabox/ypop_metabox.php:1734
+msgid "Google+ URL"
+msgstr "URL de Google+"
+
+#: plugin-options/metabox/ypop_metabox.php:1735
+msgid "Add the URL for Google+, leave empty to link to current page"
+msgstr "Añadir la URL de Google+, dejar vacío para enlazar a la página actual"
+
+#: plugin-options/metabox/ypop_metabox.php:1749
+msgid "Show LinkedIn Button"
+msgstr "Mostrar botón de LinkedIn"
+
+#: plugin-options/metabox/ypop_metabox.php:1755
+msgid "LinkedIn URL"
+msgstr "URL de LinkedIn"
+
+#: plugin-options/metabox/ypop_metabox.php:1756
+msgid "Add the URL for LinkedIn, leave empty to link to current page"
+msgstr "Añadir la URL de LinkedIn, dejar vacío para enlazar a la página actual"
+
+#: plugin-options/metabox/ypop_metabox.php:1771
+msgid "Show Pinterest Button"
+msgstr "Mostrar botón de Pinterest"
+
+#: plugin-options/metabox/ypop_metabox.php:1777
+msgid "Pinterest URL"
+msgstr "URL de Pinterest"
+
+#: plugin-options/metabox/ypop_metabox.php:1778
+msgid "Add the URL for Pinterest, leave empty to link to current page"
+msgstr ""
+"Añadir la URL de Pinterest, dejar vacío para enlazar a la página actual"
+
+#: plugin-options/metabox/ypop_metabox.php:1800
+msgid "Choose a random product to show from"
+msgstr "Escoge un producto aleatorio para mostrar desde"
+
+#: plugin-options/metabox/ypop_metabox.php:1805
+msgid "A products list"
+msgstr "Una lista de productos"
+
+#: plugin-options/metabox/ypop_metabox.php:1806
+msgid "Categories"
+msgstr "Categorías"
+
+#: plugin-options/metabox/ypop_metabox.php:1807
+msgid "Discounted items"
+msgstr "Artículos en descuento"
+
+#: plugin-options/metabox/ypop_metabox.php:1808
+msgid "Featured items"
+msgstr "Artículos destacados"
+
+#: plugin-options/metabox/ypop_metabox.php:1812
+msgid "Select products"
+msgstr "Seleccionar productos"
+
+#: plugin-options/metabox/ypop_metabox.php:1826
+msgid "Select categories"
+msgstr "Seleccionar categorías"
+
+#: plugin-options/metabox/ypop_metabox.php:1840
+msgid "Show name of product"
+msgstr "Mostrar nombre del producto"
+
+#: plugin-options/metabox/ypop_metabox.php:1848
+msgid "Show thumbnail of product"
+msgstr "Mostrar miniatura del producto"
+
+#: plugin-options/metabox/ypop_metabox.php:1855
+msgid "Show price of product"
+msgstr "Mostrar precio de producto"
+
+#: plugin-options/metabox/ypop_metabox.php:1862
+msgid "Show Add to Cart"
+msgstr "Mostrar Añadir al carrito"
+
+#: plugin-options/metabox/ypop_metabox.php:1868
+msgid "Redirect user"
+msgstr "Redireccionar usuario"
+
+#: plugin-options/metabox/ypop_metabox.php:1873
+#: templates/metaboxes/types/iconlist.php:54
+msgid "None"
+msgstr "Ninguno"
+
+#: plugin-options/metabox/ypop_metabox.php:1874
+msgid "Home"
+msgstr "Inicio"
+
+#: plugin-options/metabox/ypop_metabox.php:1875
+msgid "Current Page"
+msgstr "Página actual"
+
+#: plugin-options/metabox/ypop_metabox.php:1876
+msgid "Product Page"
+msgstr "Página de producto"
+
+#: plugin-options/metabox/ypop_metabox.php:1883
+msgid "\"Add to cart\" Label"
+msgstr "Etiqueta de ‘’Añadir al carrito’’"
+
+#: plugin-options/metabox/ypop_metabox.php:1886
+msgid "Add to cart"
+msgstr "Añadir al carrito"
+
+#: plugin-options/metabox/ypop_metabox.php:1891
+msgid "Show summary"
+msgstr "Mostrar resumen"
+
+#: plugin-options/metabox/ypop_template.php:15
+msgid "Popup Template"
+msgstr "Plantilla de ventana emergente"
+
+#: plugin-options/settings-options.php:5
+msgid ""
+"Attention: You should create a new popup to set this option. <a href=\"%s"
+"\">Create a new popup</a>"
+msgstr ""
+
+#: plugin-options/settings-options.php:7
+msgid "Select the popup that you want to show as default"
+msgstr "Selecciona la ventana emergente que quieres mostrar por defecto"
+
+#: plugin-options/settings-options.php:17
+msgid "General Settings"
+msgstr "Ajustes generales"
+
+#: plugin-options/settings-options.php:31
+msgid "Enable Popup"
+msgstr "Activar ventana emergente"
+
+#: plugin-options/settings-options.php:39
+msgid "Enable Popup in Mobile Device"
+msgstr "Activar ventana emergente en teléfono móvil"
+
+#: plugin-options/settings-options.php:46
+msgid "Show on all pages"
+msgstr "Mostrar en todas las páginas"
+
+#: plugin-options/settings-options.php:47
+msgid "Enable newsletter popup in all pages."
+msgstr "Activar la ventana emergente del boletín en todas las páginas."
+
+#: plugin-options/settings-options.php:54
+msgid "Select where you want to show the popup"
+msgstr "Selecciona donde quieres mostrar la ventana emergente"
+
+#: plugin-options/settings-options.php:55
+msgid "Select in which pages you want to show the popup. "
+msgstr "Selecciona en qué páginas quieres mostrar la ventana emergente. "
+
+#: plugin-options/settings-options.php:69
+msgid "Cookie Variable"
+msgstr "Variable de cookie"
+
+#: plugin-options/settings-options.php:70
+msgid ""
+"Set the name for the cookie generated after closing the link of the popup. "
+"In this way, as soon as you'll change this value, all your visitors will see "
+"the link again even if they have disabled it. Don't abuse of this function!"
+msgstr ""
+"Establece el nombre para el cookie generado después de cerrar el enlace de "
+"la ventana emergente. De esta manera, tan pronto como cambies este valor, "
+"todos tus visitantes verán el enlace de nuevo incluso si lo han deshabitado. "
+"¡No abuses de esta función!"
+
+#: plugin-options/settings-options.php:73
+msgid "yithpopup"
+msgstr "yithpopup"
+
+#: plugin-options/settings-options.php:78
+msgid "Hide policy"
+msgstr "Ocultar política"
+
+#: plugin-options/settings-options.php:79
+msgid ""
+"Select when popup should be hidden. By default, it will be hidden only when "
+"the hiding checkbox is flagged) "
+msgstr ""
+"Seleccionar cuando la ventana emergente debe estar oculta. (Por defecto "
+"estará oculta cuando la casilla de ocultar este marcada)"
+
+#: plugin-options/settings-options.php:83
+msgid "Hide when the \"Hiding checkbox\" is flagged"
+msgstr "Ocultar cuando la ‘’casilla de ocultar’’ está marcada"
+
+#: plugin-options/settings-options.php:84
+msgid "Show only once per session"
+msgstr "Mostrar solo una vez por sesión"
+
+#: plugin-options/settings-options.php:90
+msgid "How many days should the popup be hidden for?"
+msgstr "¿Por cuántos días debe estar oculta la ventana emergente?"
+
+#: plugin-options/settings-options.php:91
+msgid "Set how many days have to pass before showing again the lightbox"
+msgstr ""
+"Establece cuantos días tienes que pasar antes de mostrar de nuevo la mesa de "
+"luz"
+
+#: plugin-options/settings-options.php:103
+msgid "Hiding text"
+msgstr "Ocultando texto"
+
+#: plugin-options/settings-options.php:104
+msgid ""
+"The title displayed next to the checkbox that lets users hide the popup "
+"forever. You can also use HTML code"
+msgstr ""
+"El título mostrado al lado de la casilla que permite a los usuarios ocultar "
+"la ventana emergente permanentemente. También puedes usar el código HTML"
+
+#: plugin-options/settings-options.php:107
+msgid "Do not show it anymore."
+msgstr "No mostrarlo más"
+
+#: plugin-options/settings-options.php:111
+msgid "Select the default popup"
+msgstr "Selecciona la ventana emergente por defecto"
+
+#: plugin-options/settings-options.php:112
+msgid "Attention: You should create a new popup to set this option"
+msgstr ""
+"Atención: Debes crear una nueva ventana emergente para establecer esta opción"
+
+#: templates/metaboxes/types/iconlist.php:52
+msgid "Theme Icon"
+msgstr "Icono del tema"
+
+#: templates/metaboxes/types/iconlist.php:53
+msgid "Custom Icon"
+msgstr "Icono personalizado"
+
+#. Description of the plugin/theme
+msgid ""
+"<code><strong>YITH WooCommerce Popup</strong></code> allows creating and "
+"handling elegant popup windows in your online store. You have full control "
+"over the settings and the graphical layout and you'll be able to show them "
+"to your users based on specific actions they might carry out, like leaving "
+"the page (exit intent), loading the page or after following an external link "
+"and so on. <a href=\"https://yithemes.com/\" target=\"_blank\">Get more "
+"plugins for your e-commerce shop on <strong>YITH</strong></a>."
+msgstr ""
+"<code><strong>YITH WooCommerce Popup</strong></code> te permite crear y "
+"gestionar ventanas emergentes en tu tienda en línea. Tienes control total de "
+"los ajustes y la plantilla gráfica y podrás mostrarlas a los usuarios en "
+"base a acciones específicas, como abandonar la página (intento de salida), "
+"carga de la página o tras seguir un enlace externo, etc. <a href=\"https://"
+"yithemes.com/\" target=\"_blank\">Obtén más plugins para tu comercio "
+"electrónico en <strong>YITH</strong></a>."
+
+#: includes/class-yith-popup-admin.php:267
+msgctxt "Plugin name. Do not translate."
+msgid "YITH WooCommerce Popup"
+msgstr ""
+
+#: includes/class-yith-popup-admin.php:268
+msgctxt "Plugin name. Do not translate."
+msgid "Popup"
+msgstr ""
+
+#: includes/class-yith-popup.php:108
+msgctxt "Post Type General Name"
+msgid "Yith Popup"
+msgstr "Yith Popup"
+
+#: includes/class-yith-popup.php:109
+msgctxt "Post Type Singular Name"
+msgid "Yith Popup"
+msgstr "Yith Popup"
+
+#: includes/class.yith-popup-privacy-dpa.php:19
+msgctxt "Privacy Policy Content"
+msgid "YITH WooCommerce Popup Premium"
+msgstr "YITH WooCommerce Popup Premium"
+
+#~ msgid "https://yithemes.com/"
+#~ msgstr "https://yithemes.com/"
+
+#~ msgid "YITH"
+#~ msgstr "YITH"
+
+#~ msgid "https://yithemes.com/themes/plugins/yith-woocommerce-popup"
+#~ msgstr "https://yithemes.com/themes/plugins/yith-woocommerce-popup"
+
+#~ msgid "YITH WooCommerce Popup Premium"
+#~ msgstr "YITH WooCommerce Popup Premium"

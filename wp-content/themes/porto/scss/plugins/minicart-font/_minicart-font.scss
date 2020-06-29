@@ -1,0 +1,30 @@
+
+$minicart-font-path: "../fonts/minicart-font" !default;
+$minicart-version: "1.0" !default;
+
+@font-face {
+    font-family: "minicart-font";
+    src: url('#{$minicart-font-path}/minicart-font.eot?v=#{$minicart-version}');
+    src: url('#{$minicart-font-path}/minicart-font.eot?#iefix&v=#{$minicart-version}') format('embedded-opentype'),
+    url('#{$minicart-font-path}/minicart-font.woff?v=#{$minicart-version}') format('woff'),
+    url('#{$minicart-font-path}/minicart-font.ttf?v=#{$minicart-version}') format('truetype'),
+    url('#{$minicart-font-path}/minicart-font.svg?v=#{$minicart-version}#minicart-font') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.minicart-icon:before {
+    font-family: "minicart-font" !important;
+    font-style: normal !important;
+    font-weight: normal !important;
+    font-variant: normal !important;
+    text-transform: none !important;
+    speak: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.minicart-icon:before {
+    content: "\e800";
+}

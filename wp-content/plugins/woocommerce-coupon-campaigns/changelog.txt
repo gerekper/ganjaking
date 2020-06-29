@@ -1,0 +1,66 @@
+*** WC Coupon Campaigns ***
+
+2020-06-10 - version 1.1.12
+* Tweak - WC 4.2 compatibility.
+
+2020-04-29 - version 1.1.11
+* Fix - Update build script.
+* Tweak - WC 4.1 compatibility.
+
+2020-02-27 - version 1.1.10
+* Tweak - Remove legacy code.
+* Tweak - WC tested up to 4.0.
+
+2020-01-13 - version 1.1.9
+* Tweak - WC tested up to 3.9.
+
+2019-11-04 - version 1.1.8
+* Tweak - WC tested up to 3.8.
+
+2019-08-06 - version 1.1.7
+* Tweak - WC tested up to 3.7.
+
+2019-04-16 - version 1.1.6
+* Tweak - WC 3.6 compatibility.
+
+2018-09-25 - version 1.1.5
+* Update - WC 3.5 compatibility.
+
+2018-09-06 - version 1.1.4
+* Fix - Exclude coupon notes on Gutenberg Latest Comments block.
+* Fix - Incorrect data handling and usage summation.
+
+2018-06-15 - version 1.1.3
+* Update - Correct changelog format.
+
+2018-05-23 - version 1.1.2
+* Update - Privacy policy notification.
+* Update - Export/erasure hooks added.
+* Update - WC 3.4 compatibility.
+
+2017-12-13 - version 1.1.1
+ * Tweak - Adjusts the headers for WooCommerce 3.3 compatibility.
+
+2017-11-23 - version 1.1.0
+ * New - Adds a "View Reports" link to the coupon campaigns list in WP Admin.
+
+2017-05-10 - version 1.0.5
+* Fix - Allow save usage data when order status change in frontend.
+
+2017-04-03 - version 1.0.4
+* Fix - Update for WC 3.0 compatibility.
+
+2016-10-03 - version 1.0.3
+* Tweak - Exclude campaign notes on wp-admin/edit-comments.php.
+
+2015-12-02 - version 1.0.2
+* Fix - In reports total revenue was not calculated properly
+* Fix - Undefined index in the coupon list
+* Fix - Wrong textdomain names
+* Fix - In reports amounts in the main chart was not formatted with 2 decimals
+
+2015-03-24 - version 1.0.1
+* Fixed reports not being displayed (chosen lib issue)
+
+2014-09-15 - version 1.0
+* First Release

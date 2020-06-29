@@ -1,0 +1,509 @@
+# Copyright (C) 2019 YITH WooCommerce Watermark Premium
+# This file is distributed under the same license as the YITH WooCommerce Watermark Premium package.
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH WooCommerce Watermark Premium 1.2.0\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/init\n"
+"POT-Creation-Date: 2019-04-04 14:14:36+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2019-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: includes/classes/class.yith-woocommerce-watermark-premium.php:210
+msgid "Settings"
+msgstr ""
+
+#: includes/classes/class.yith-woocommerce-watermark-premium.php:211
+#: plugin-options/watermark-list-options.php:12
+msgid "Active Watermark"
+msgstr ""
+
+#: includes/classes/class.yith-woocommerce-watermark-premium.php:217
+#: includes/classes/class.yith-woocommerce-watermark-premium.php:1288
+#: includes/classes/class.yith-woocommerce-watermark-premium.php:1315
+msgid "Watermark"
+msgstr ""
+
+#: includes/classes/class.yith-woocommerce-watermark-premium.php:253
+msgid "The watermark has been applied to"
+msgstr ""
+
+#: includes/classes/class.yith-woocommerce-watermark-premium.php:254
+msgid "Product"
+msgstr ""
+
+#: includes/classes/class.yith-woocommerce-watermark-premium.php:255
+msgid "on"
+msgstr ""
+
+#: includes/classes/class.yith-woocommerce-watermark-premium.php:256
+msgid "Products"
+msgstr ""
+
+#: includes/classes/class.yith-woocommerce-watermark-premium.php:257
+msgid "Completed"
+msgstr ""
+
+#: includes/classes/class.yith-woocommerce-watermark-premium.php:258
+msgid "Attach id "
+msgstr ""
+
+#: includes/classes/class.yith-woocommerce-watermark-premium.php:259
+msgid "Images will be restored, are you sure? "
+msgstr ""
+
+#: includes/classes/class.yith-woocommerce-watermark-premium.php:260
+msgid "Image has been deleted"
+msgstr ""
+
+#: includes/classes/class.yith-woocommerce-watermark-premium.php:261
+msgid "Images have been deleted"
+msgstr ""
+
+#: includes/classes/class.yith-woocommerce-watermark-premium.php:262
+msgid "Image has not been deleted"
+msgstr ""
+
+#: includes/classes/class.yith-woocommerce-watermark-premium.php:263
+msgid "Images have not been deleted"
+msgstr ""
+
+#: includes/classes/class.yith-woocommerce-watermark-premium.php:269
+msgid "TOP LEFT"
+msgstr ""
+
+#: includes/classes/class.yith-woocommerce-watermark-premium.php:270
+msgid "TOP CENTER"
+msgstr ""
+
+#: includes/classes/class.yith-woocommerce-watermark-premium.php:271
+msgid "TOP RIGHT"
+msgstr ""
+
+#: includes/classes/class.yith-woocommerce-watermark-premium.php:272
+msgid "LEFT CENTER"
+msgstr ""
+
+#: includes/classes/class.yith-woocommerce-watermark-premium.php:273
+msgid "CENTER"
+msgstr ""
+
+#: includes/classes/class.yith-woocommerce-watermark-premium.php:274
+msgid "RIGHT CENTER"
+msgstr ""
+
+#: includes/classes/class.yith-woocommerce-watermark-premium.php:275
+msgid "BOTTOM LEFT"
+msgstr ""
+
+#: includes/classes/class.yith-woocommerce-watermark-premium.php:276
+msgid "BOTTOM CENTER"
+msgstr ""
+
+#: includes/classes/class.yith-woocommerce-watermark-premium.php:277
+msgid "BOTTOM RIGHT"
+msgstr ""
+
+#: includes/classes/class.yith-woocommerce-watermark-premium.php:280
+msgid "Do you want to delete this watermark ?"
+msgstr ""
+
+#: includes/classes/class.yith-woocommerce-watermark-premium.php:351
+msgid "Watermark Created"
+msgstr ""
+
+#: includes/classes/class.yith-woocommerce-watermark-premium.php:352
+msgid "Empty Path"
+msgstr ""
+
+#: includes/classes/class.yith-woocommerce-watermark-premium.php:353
+msgid "Error when saving resize image"
+msgstr ""
+
+#: includes/classes/class.yith-woocommerce-watermark-premium.php:354
+msgid "Can't load the image editor"
+msgstr ""
+
+#: includes/classes/class.yith-woocommerce-watermark-premium.php:355
+msgid "Error when creating watermark"
+msgstr ""
+
+#: includes/classes/class.yith-woocommerce-watermark-premium.php:356
+msgid "Image size doesn't exist"
+msgstr ""
+
+#: includes/classes/class.yith-woocommerce-watermark-premium.php:1196
+msgid "No preview is available for this watermark"
+msgstr ""
+
+#: includes/classes/class.yith-woocommerce-watermark-premium.php:1257
+#: templates/admin/apply-single-watermark.php:4
+msgid "Apply Watermark"
+msgstr ""
+
+#: includes/classes/class.yith-woocommerce-watermark-premium.php:1289
+msgid "Add custom watermark for this product"
+msgstr ""
+
+#: includes/functions.yith-wc-watermark.php:277
+msgid "WooCommerce Single"
+msgstr ""
+
+#: includes/functions.yith-wc-watermark.php:278
+msgid "WooCommerce Thumbnail Catalog"
+msgstr ""
+
+#: includes/functions.yith-wc-watermark.php:279
+msgid "WooCommerce Gallery Thumbnail"
+msgstr ""
+
+#: includes/functions.yith-wc-watermark.php:280
+msgid "Full Size (visible in modal)"
+msgstr ""
+
+#: includes/functions.yith-wc-watermark.php:301
+msgid "Shop Magnifier"
+msgstr ""
+
+#: init.php:47
+msgid ""
+"YITH WooCommerce Watermark Premium is enabled but not effective. It requires "
+"WooCommerce in order to work."
+msgstr ""
+
+#: plugin-options/general-settings-options.php:11
+msgid "General Settings"
+msgstr ""
+
+#: plugin-options/general-settings-options.php:27
+msgid "Jpeg Quality"
+msgstr ""
+
+#: plugin-options/watermark-list-options.php:18
+msgid "Add New Watermark"
+msgstr ""
+
+#: templates/admin/custom-button.php:15
+msgid "Generate a complete backup"
+msgstr ""
+
+#: templates/admin/custom-button.php:17
+msgid "Backup"
+msgstr ""
+
+#: templates/admin/watermark-apply.php:10
+msgid "Apply all watermarks"
+msgstr ""
+
+#: templates/admin/watermark-apply.php:13
+msgid "Apply All Watermarks"
+msgstr ""
+
+#: templates/admin/watermark-apply.php:14
+msgid "Apply all watermarks created to all your product images"
+msgstr ""
+
+#: templates/admin/watermark-apply.php:18
+#: templates/admin/watermark-apply.php:21
+msgid "Reset"
+msgstr ""
+
+#: templates/admin/watermark-apply.php:22
+msgid ""
+"Delete all product images with watermark (once completed, you have to "
+"deactivate the plugin and regenerate image thumbnails)."
+msgstr ""
+
+#: templates/admin/watermark-apply.php:44
+msgid "Show Log"
+msgstr ""
+
+#: templates/admin/watermark-apply.php:45
+msgid "Hide Log"
+msgstr ""
+
+#: templates/admin/watermark-insert-new.php:13
+#: templates/metaboxes/product_watermark.php:14
+msgid "Add Watermark"
+msgstr ""
+
+#: templates/metaboxes/product_watermark.php:15
+msgid "Add"
+msgstr ""
+
+#: templates/metaboxes/single-product-watermark-template.php:37
+#: templates/single-watermark-template.php:41
+msgid "( in pt )"
+msgstr ""
+
+#: templates/metaboxes/single-product-watermark-template.php:37
+#: templates/single-watermark-template.php:41
+msgid "( in px )"
+msgstr ""
+
+#: templates/metaboxes/single-product-watermark-template.php:44
+#: templates/single-watermark-template.php:50
+msgid "Remove"
+msgstr ""
+
+#: templates/metaboxes/single-product-watermark-template.php:46
+#: templates/single-watermark-template.php:52
+msgid "Expand"
+msgstr ""
+
+#: templates/metaboxes/single-product-watermark-template.php:47
+#: templates/single-watermark-template.php:53
+msgid "Collapse"
+msgstr ""
+
+#: templates/metaboxes/single-product-watermark-template.php:52
+msgid "Create Watermark"
+msgstr ""
+
+#: templates/metaboxes/single-product-watermark-template.php:55
+msgid "Starting from a text"
+msgstr ""
+
+#: templates/metaboxes/single-product-watermark-template.php:56
+msgid "Starting from an image"
+msgstr ""
+
+#: templates/metaboxes/single-product-watermark-template.php:62
+msgid "Text"
+msgstr ""
+
+#: templates/metaboxes/single-product-watermark-template.php:66
+msgid "Write a text"
+msgstr ""
+
+#: templates/metaboxes/single-product-watermark-template.php:69
+msgid "Font Type"
+msgstr ""
+
+#: templates/metaboxes/single-product-watermark-template.php:85
+msgid "Font Size"
+msgstr ""
+
+#: templates/metaboxes/single-product-watermark-template.php:92
+msgid "Font Color"
+msgstr ""
+
+#: templates/metaboxes/single-product-watermark-template.php:99
+msgid "Background Color"
+msgstr ""
+
+#: templates/metaboxes/single-product-watermark-template.php:106
+msgid "Opacity"
+msgstr ""
+
+#: templates/metaboxes/single-product-watermark-template.php:111
+msgid ""
+"Set background opacity, set to 0 for complete transparency, or to\n"
+"  100 for complete opacity"
+msgstr ""
+
+#: templates/metaboxes/single-product-watermark-template.php:115
+msgid "Box Width"
+msgstr ""
+
+#: templates/metaboxes/single-product-watermark-template.php:119
+msgid ""
+"Set the width of the box by percentage compared to the selected \"Shop Size"
+"\" option"
+msgstr ""
+
+#: templates/metaboxes/single-product-watermark-template.php:122
+msgid "Box Height"
+msgstr ""
+
+#: templates/metaboxes/single-product-watermark-template.php:126
+msgid ""
+"Set the height of the box by percentage compared to the selected \"Shop Size"
+"\" option"
+msgstr ""
+
+#: templates/metaboxes/single-product-watermark-template.php:129
+#: templates/single-watermark-template.php:150
+msgid "Rotate text to"
+msgstr ""
+
+#: templates/metaboxes/single-product-watermark-template.php:133
+#: templates/single-watermark-template.php:155
+msgid "Specify an angle between 0 and 360° to rotate your text"
+msgstr ""
+
+#: templates/metaboxes/single-product-watermark-template.php:136
+#: templates/single-watermark-template.php:161
+msgid "Line Height"
+msgstr ""
+
+#: templates/metaboxes/single-product-watermark-template.php:140
+#: templates/single-watermark-template.php:166
+msgid "Set -1 to set it equal to the height of the watermark"
+msgstr ""
+
+#: templates/metaboxes/single-product-watermark-template.php:146
+#: templates/metaboxes/single-product-watermark-template.php:150
+#: templates/metaboxes/single-product-watermark-template.php:151
+#: templates/single-watermark-template.php:201
+#: templates/single-watermark-template.php:202
+msgid "Select Watermark"
+msgstr ""
+
+#: templates/metaboxes/single-product-watermark-template.php:158
+msgid "Repeat image"
+msgstr ""
+
+#: templates/metaboxes/single-product-watermark-template.php:162
+#: templates/single-watermark-template.php:218
+msgid "If enabled, the watermark is replicated on the whole image"
+msgstr ""
+
+#: templates/metaboxes/single-product-watermark-template.php:167
+#: templates/single-watermark-template.php:225
+msgid "Margin X"
+msgstr ""
+
+#: templates/metaboxes/single-product-watermark-template.php:173
+#: templates/single-watermark-template.php:230
+msgid "Margin Y"
+msgstr ""
+
+#: templates/metaboxes/single-product-watermark-template.php:181
+#: templates/single-watermark-template.php:243
+msgid "Shop Size"
+msgstr ""
+
+#: templates/metaboxes/single-product-watermark-template.php:191
+msgid "Select the images you want to apply the watermark on"
+msgstr ""
+
+#: templates/metaboxes/single-product-watermark-template.php:197
+#: templates/single-watermark-template.php:284
+msgid "Watermark Position"
+msgstr ""
+
+#: templates/metaboxes/single-product-watermark-template.php:219
+#: templates/single-watermark-template.php:311
+#: templates/watermark-preview.php:13
+msgid "Preview"
+msgstr ""
+
+#: templates/single-watermark-template.php:62
+msgid "Create Watermark from"
+msgstr ""
+
+#: templates/single-watermark-template.php:66
+msgid "Select an option"
+msgstr ""
+
+#: templates/single-watermark-template.php:67
+msgid "From Text"
+msgstr ""
+
+#: templates/single-watermark-template.php:68
+msgid "From Image"
+msgstr ""
+
+#: templates/single-watermark-template.php:81
+msgid "Watermark Text"
+msgstr ""
+
+#: templates/single-watermark-template.php:90
+msgid "Watermark Font"
+msgstr ""
+
+#: templates/single-watermark-template.php:107
+msgid "Watermark Font Color"
+msgstr ""
+
+#: templates/single-watermark-template.php:117
+msgid "Watermark Font Size "
+msgstr ""
+
+#: templates/single-watermark-template.php:128
+msgid "Box Width ( % ) "
+msgstr ""
+
+#: templates/single-watermark-template.php:133
+msgid "Set the width of the box in percent compared to the shop size"
+msgstr ""
+
+#: templates/single-watermark-template.php:139
+msgid "Box Height ( % ) "
+msgstr ""
+
+#: templates/single-watermark-template.php:145
+msgid "Set the height of the box in percent compared to the shop size"
+msgstr ""
+
+#: templates/single-watermark-template.php:170
+msgid "Watermark Background Color"
+msgstr ""
+
+#: templates/single-watermark-template.php:179
+msgid "Watermark Opacity"
+msgstr ""
+
+#: templates/single-watermark-template.php:184
+msgid ""
+"Set background opacity, set to 0 for complete transparency, or set to 100 "
+"for complete opacity"
+msgstr ""
+
+#: templates/single-watermark-template.php:194
+msgid "Watermark Image"
+msgstr ""
+
+#: templates/single-watermark-template.php:212
+msgid "Repeat Image"
+msgstr ""
+
+#: templates/single-watermark-template.php:223
+msgid "Watermark Margin"
+msgstr ""
+
+#: templates/single-watermark-template.php:254
+msgid "Select the images to which you want to apply the watermark"
+msgstr ""
+
+#: templates/single-watermark-template.php:260
+msgid "Product Categories"
+msgstr ""
+
+#: templates/single-watermark-template.php:273
+msgid "Search for product categories"
+msgstr ""
+
+#: templates/single-watermark-template.php:279
+msgid ""
+"Select the categories to which you want to apply the watermark, leave empty "
+"to select all"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "YITH WooCommerce Watermark Premium"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://yithemes.com/themes/plugins/yith-woocommerce-watermark/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"<strong><code>YITH WooCommerce Watermark Premium</code></strong> allows you "
+"to set a watermark in your product image. You can create several watermarks "
+"and apply them also to your product pages. <a href =\"https://yithemes.com"
+"\">Get more plugins for your e-commerce shop on <strong>YITH</strong></a>"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "YITH"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://yithemes.com/"
+msgstr ""

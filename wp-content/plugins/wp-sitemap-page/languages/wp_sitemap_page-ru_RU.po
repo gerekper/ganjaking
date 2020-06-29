@@ -1,0 +1,368 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: wp_sitemap_page\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-07-12 17:28+0100\n"
+"PO-Revision-Date: 2015-07-12 17:28+0100\n"
+"Last-Translator: Tony Archambeau <contact@tonyarchambeau.com>\n"
+"Language-Team: \n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;gettext;gettext_noop;_;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-SearchPath-0: /home/tony/websites/www-dev/public/wp_plugins/wp-"
+"sitemap-page/plugin_1_5_4_next\n"
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:33
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/wp-sitemap-page.php:145
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/wp-sitemap-page.php:146
+msgid "WP Sitemap Page"
+msgstr "WP Sitemap Page"
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:40
+msgid "Help us"
+msgstr "Помогите нам"
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:41
+msgid ""
+"This plugin is freely developped and distrubed to the WordPress community. "
+"Plenty of hours were necessary to develop this project."
+msgstr ""
+"Этот плагин был разработан нашей командой и является свободно "
+"распространяемым для поклоников Wordpress. На его создание и продвижение у "
+"нашей команды ушло много времени и сил."
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:42
+msgid ""
+"If you like this plugin, feel free to rate it 5 stars on the WordPress.org "
+"website or to donate."
+msgstr ""
+"Если вам понравился этот плагин, поставьте пять звезд в рейтинге на сайте "
+"WordPress.org или поддержите проект рублем."
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:43
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:434
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/wp-sitemap-page.php:182
+msgid "Donate"
+msgstr "Donate (денежная поддержка сайта)"
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:47
+msgid "Traditionnal sitemap"
+msgstr "Стандартная карта сайта"
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:48
+msgid ""
+"To display a traditional sitemap, just use [wp_sitemap_page] on any page or "
+"post."
+msgstr ""
+"Для отображения стандартной карты сайта вставьте [wp_sitemap_page] в любую "
+"страницу или запись."
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:52
+msgid "Display only some content"
+msgstr "Отображать только определенный контент"
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:53
+msgid "Display only some kind of content using the following shortcodes."
+msgstr ""
+"Для отображения какого-либо определенного контента в карте сайта, "
+"используйте один из следующих шорткодов"
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:95
+msgid "General settings"
+msgstr "Основные настройки"
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:104
+msgid "Add a nofollow attribute to the links."
+msgstr "Добавить тег nofollow к ссылкам"
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:106
+msgid ""
+"Please be advice to avoid this feature as it may hurt your SEO (Search "
+"Engine Optimization), if you don't know what it is."
+msgstr ""
+"Будьте внимательны при использовании этих настройки. они могут ухудшить вашу "
+"SEO-оптимизацию. Если вы не знаете что это, лучше не включайте"
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:112
+msgid "Customize the way to display the posts"
+msgstr "Выберите способ отображения записей"
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:115
+msgid "Please choose how you want to display the posts on the sitemap."
+msgstr ""
+"Пожалуйста, выберите как отображать записи в карте сайта. Используйте "
+"следующие значения."
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:117
+#, php-format
+msgid "%1$s: title of the post."
+msgstr "%1$s : Название поста."
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:118
+#, php-format
+msgid "%1$s: URL of the post."
+msgstr "%1$s : URL-адрес поста."
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:119
+#, php-format
+msgid "%1$s: The year of the post, four digits, for example 2004."
+msgstr "%1$s : Год написания статьи, четыре цифры, например 2013."
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:120
+#, php-format
+msgid "%1$s: Month of the year, for example 05."
+msgstr "%1$s : Месяц, например 05."
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:121
+#, php-format
+msgid "%1$s: Day of the month, for example 28."
+msgstr "%1$s : День, например 28."
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:122
+#, php-format
+msgid "%1$s: Hour of the day, for example 15."
+msgstr "%1$s : Час, например 15."
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:123
+#, php-format
+msgid "%1$s: Minute of the hour, for example 43."
+msgstr "%1$s : Минута, например 43."
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:124
+#, php-format
+msgid "%1$s: Second of the minute, for example 33."
+msgstr "%1$s : Секунда, например 33."
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:125
+#, php-format
+msgid "%1$s: The unique ID # of the post, for example 423."
+msgstr "%1$s : Уникальный ID # записи, например 423."
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:126
+#, php-format
+msgid ""
+"%1$s: Category name. Nested sub-categories appear as nested directories in "
+"the URI."
+msgstr ""
+"%1$s : Название раздела. Вложенные подразделы сайта отображаются как "
+"вложенные каталоги в URI."
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:134
+msgid "How to display the posts"
+msgstr "Как отображать записи"
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:157
+#, php-format
+msgid "Initial way to display the content: %1$s"
+msgstr "Изначальный вариант отображения контента: %1$s"
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:162
+msgid "Displayed multiple times"
+msgstr "Записи в нескольких рубриках"
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:172
+msgid "Displayed in each category if posts are in multiples categories."
+msgstr "Отображать записи во всех рубриках, в которые она включена"
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:184
+msgid "Exclude from traditional sitemap"
+msgstr "Исключить стандартную карту сайта"
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:192
+msgid "Exclude pages"
+msgstr "Исключенные страницы"
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:203
+msgid ""
+"Just add the IDs, separated by a comma, of the pages you want to exclude."
+msgstr ""
+"Просто добавьте ID страниц или записей (через запятую), которые вы хотите "
+"исключить из карты сайта."
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:208
+msgid "Exclude Custom Post Type"
+msgstr "Исключить следующие виды записей"
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:223
+msgid "Page"
+msgstr "Страница"
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:231
+msgid "Post"
+msgstr "Запись"
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:239
+msgid "Archive"
+msgstr "Архив"
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:247
+msgid "Author"
+msgstr "Автор"
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:275
+msgid "Exclude taxonomies"
+msgstr "Исключить таксономии"
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:307
+msgid "Password protected"
+msgstr "Защищенные паролем"
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:319
+msgid "Exclude content protected by password"
+msgstr "Исключить контент защищенные паролем"
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:332
+msgid "Display the plugin link"
+msgstr "Показывать ссылку на плагин (поддержка проекта)"
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:341
+msgid "Display the plugin name with a link at the bottom of the sitemap."
+msgstr "Отображать имя плагина с ссылкой на него в нижней части карты сайта."
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:356
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/wp-sitemap-page.php:360
+msgid "How to use"
+msgstr "Как этим пользоваться"
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:359
+msgid ""
+"You can use any of the following shortcodes in the content of your pages (or "
+"posts) to display a dynamic sitemap."
+msgstr ""
+"Вы можете использовать любой из предложенных шорткодов в контенте ваших "
+"записей (или страниц) для отображения динамической карты сайта."
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:362
+msgid "To display a traditionnal sitemap"
+msgstr "Отображение стандартной карты сайта"
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:363
+msgid "To display the pages"
+msgstr "Показывать страницы"
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:364
+#, php-format
+msgid "To display the pages sorted by menu order. Possible values are: %1$s."
+msgstr ""
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:365
+msgid "To display the posts by category"
+msgstr "Показывать записи из рубрик"
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:366
+#, php-format
+msgid ""
+"To display the posts by category. Categories sorted by number of posts. "
+"Possible values are: %1$s"
+msgstr ""
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:367
+msgid "To display the categories"
+msgstr "Показывать рубрики"
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:368
+#, php-format
+msgid ""
+"To display the categories sorted by number of posts. Possible values are: "
+"%1$s"
+msgstr ""
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:369
+msgid "To display the tags"
+msgstr "Показывать тэги"
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:370
+msgid "To display the archives"
+msgstr "Показывать архивы"
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:371
+msgid "To display the authors"
+msgstr "Показывать авторов"
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:372
+#, php-format
+msgid ""
+"To display the authors, sorted by number of posts by author. Possible values "
+"are: %1$s."
+msgstr ""
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:380
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:393
+#, php-format
+msgid "To display the %1$s"
+msgstr "Показывать %1$s"
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:395
+msgid "To display a traditionnal sitemap without the title"
+msgstr "Для отображения старой карты сайта без заголовка"
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:396
+msgid "Display only the private page (do not works with other kind of content)"
+msgstr ""
+"Показывать только скрытые страницы (не будет работать с другими видами "
+"контента"
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:420
+msgid "About"
+msgstr "О плагине"
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:432
+#, php-format
+msgid "Developed by <a href=\"%1$s\">Tony Archambeau</a>."
+msgstr "Разработал <a href=\"%1$s\">Tony Archambeau</a>."
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:433
+msgid "Rate the plugin on Wordpress.org"
+msgstr "Оцените этот плагин на Wordpress.org"
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/settings.php:439
+#, php-format
+msgid "Translated in Russian by <a href=\"%1$s\">skesov.ru</a>."
+msgstr "Перевел на русский: <a href=\"%1$s\">skesov.ru</a>."
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/wp-sitemap-page.php:181
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/wp-sitemap-page.php:359
+msgid "Settings"
+msgstr "Настройки"
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/wp-sitemap-page.php:441
+msgid "Powered by \"WP Sitemap Page\""
+msgstr "Реализовано на  \"WP Sitemap Page\""
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/wp-sitemap-page.php:608
+msgid "Pages"
+msgstr "Страницы"
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/wp-sitemap-page.php:652
+msgid "Posts by category"
+msgstr "Статьи по разделам"
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/wp-sitemap-page.php:693
+msgid "Categories"
+msgstr "Рубрики"
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/wp-sitemap-page.php:733
+msgid "Tags"
+msgstr "Тэги"
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/wp-sitemap-page.php:774
+msgid "Archives"
+msgstr "Архивы"
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/wp-sitemap-page.php:818
+msgid "Authors"
+msgstr "Авторы"
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/wp-sitemap-page.php:1082
+#, php-format
+msgid "Category: %1$s"
+msgstr "Рубрики: %1$s"
+
+#: /home/tony/websites/www-dev/public/wp_plugins/wp-sitemap-page/plugin_1_5_4_next/wp-sitemap-page.php:1162
+#, php-format
+msgid "<a href=\"{permalink}\"%1$s>{title}</a> ({monthnum}/{day}/{year})"
+msgstr "<a href=\"{permalink}\"%1$s>{title}</a>"

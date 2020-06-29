@@ -1,0 +1,746 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Cart Notices v1.0.4\n"
+"Report-Msgid-Bugs-To: https://woocommerce.com/my-account/marketplace-ticket-"
+"form/\n"
+"POT-Creation-Date: 2014-06-15 22:41:23+00:00\n"
+"PO-Revision-Date: 2012-12-04 19:53:54+0000\n"
+"Last-Translator: Christian Münch <muenchchristian@gmx.de>\n"
+"Language-Team: Christian Münch <muenchchristian@gmx.de>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-Language: \n"
+"X-Poedit-Country: \n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
+"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
+"X-Poedit-Basepath: \n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Textdomain-Support: yes\n"
+
+# @ wc_cart_notices
+#: includes/admin/class-wc-cart-notices-admin.php:99
+msgid "You must choose a Notice Type"
+msgstr "Wählen Sie einen Cart-Notice-Typ"
+
+# @ wc_cart_notices
+#: includes/admin/class-wc-cart-notices-admin.php:105
+msgid "You must provide a Notice Name"
+msgstr "Vergeben Sie einen Namen für den Cart Notice"
+
+# @ wc_cart_notices
+#: includes/admin/class-wc-cart-notices-admin.php:116
+msgid "That name is already in use"
+msgstr "Dieser Name ist bereits vergeben"
+
+# @ wc_cart_notices
+#: includes/admin/class-wc-cart-notices-admin.php:121
+#, fuzzy
+msgid "Target amount must be positive number, or empty"
+msgstr "Der Schwellwert muss eine positive Zahl sein, oder frei bleiben"
+
+# @ wc_cart_notices
+#: includes/admin/class-wc-cart-notices-admin.php:126
+msgid "Threshold amount must be positive number, or empty"
+msgstr "Der Schwellwert muss eine positive Zahl sein, oder frei bleiben"
+
+# @ wc_cart_notices
+#: includes/admin/class-wc-cart-notices-admin.php:131
+msgid "Deadline hour must be in 24-hour format, between 1 to 24"
+msgstr ""
+"Die Deadline muss im 24-Stunden-Format sein: ganze Zahl, zwischen 1 und 24"
+
+# @ wc_cart_notices
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce Cart Notices"
+msgstr "WooCommerce Cart Notices"
+
+# @ wc_cart_notices
+#: includes/admin/class-wc-cart-notices-admin.php:345
+#: includes/admin/class-wc-cart-notices-admin.php:489
+#: includes/admin/views/admin-options.php:60
+#: includes/admin/views/admin-options.php:77
+msgid "Cart Notices"
+msgstr "Cart Notices"
+
+# @ wc_cart_notices
+#: includes/admin/class-wc-cart-notices-admin.php:409
+msgid "You do not have sufficient permissions to access this page."
+msgstr ""
+"Du Voochlkopp! Du hast nä genüschnd Zugriffsrechte, um die Seite anzuzeischn!"
+
+# @ wc_cart_notices
+#: includes/admin/class-wc-cart-notices-admin.php:492
+#, fuzzy
+msgid "Delete data"
+msgstr "Löschen"
+
+#: includes/admin/class-wc-cart-notices-admin.php:493
+msgid "Delete all Cart Notices data on uninstall"
+msgstr ""
+
+# @ wc_cart_notices
+#: includes/admin/views/admin-options.php:63
+msgid "New Notice"
+msgstr "Neue Cart Notice"
+
+# @ wc_cart_notices
+#: includes/admin/views/admin-options.php:70
+#, fuzzy
+msgid "Cart Notice"
+msgstr "Cart Notices"
+
+# @ wc_cart_notices
+#: includes/admin/views/admin-options.php:84
+#: includes/admin/views/admin-options.php:216
+#: includes/admin/views/admin-options.php:329
+msgid "Name"
+msgstr "Name"
+
+# @ wc_cart_notices
+#: includes/admin/views/admin-options.php:87
+#: includes/admin/views/admin-options.php:219
+#: includes/admin/views/admin-options.php:290
+msgid "Type"
+msgstr "Typ"
+
+# @ wc_cart_notices
+#: includes/admin/views/admin-options.php:90
+#: includes/admin/views/admin-options.php:222
+msgid "Message"
+msgstr "Hinweis"
+
+# @ wc_cart_notices
+#: includes/admin/views/admin-options.php:93
+#: includes/admin/views/admin-options.php:225
+#: includes/admin/views/admin-options.php:389
+msgid "Call to Action"
+msgstr "Call-to-Action"
+
+# @ wc_cart_notices
+#: includes/admin/views/admin-options.php:96
+#: includes/admin/views/admin-options.php:228
+#: includes/admin/views/admin-options.php:403
+msgid "Call to Action URL"
+msgstr "Call-to-Action-URL"
+
+# @ wc_cart_notices
+#: includes/admin/views/admin-options.php:99
+#: includes/admin/views/admin-options.php:231
+msgid "Other"
+msgstr "Andere"
+
+# @ wc_cart_notices
+#: includes/admin/views/admin-options.php:109
+msgid "No notices configured"
+msgstr "Keine Cart Notices konfiguriert"
+
+# @ wc_cart_notices
+#: includes/admin/views/admin-options.php:126
+msgid "Edit"
+msgstr "Bearbeiten"
+
+# @ wc_cart_notices
+#: includes/admin/views/admin-options.php:132
+msgid "Disable"
+msgstr "Deaktivieren"
+
+# @ wc_cart_notices
+#: includes/admin/views/admin-options.php:132
+msgid "Enable"
+msgstr "Aktivieren"
+
+# @ wc_cart_notices
+#: includes/admin/views/admin-options.php:138
+msgid "Delete"
+msgstr "Löschen"
+
+# @ wc_cart_notices
+#. translators: %s - formatted amount quantity
+#: includes/admin/views/admin-options.php:163
+#, fuzzy
+msgid "Target amount: %s"
+msgstr "Schwellwert: %s"
+
+# @ wc_cart_notices
+#. translators: %s - formatted amount quantity
+#: includes/admin/views/admin-options.php:165
+msgid "Threshold amount: %s"
+msgstr "Schwellwert: %s"
+
+# @ wc_cart_notices
+#: includes/admin/views/admin-options.php:171
+msgid "Deadline Hour: %s"
+msgstr "Stunde der Deadline: %s"
+
+# @ wc_cart_notices
+#: includes/admin/views/admin-options.php:172
+msgid "Active Days: %s"
+msgstr "Aktive Tage: %s"
+
+# @ wc_cart_notices
+#. translators: %s - website
+#: includes/admin/views/admin-options.php:179
+msgid "Referring Site: %s"
+msgstr "Herkunftsseite: %s"
+
+# @ wc_cart_notices
+#: includes/admin/views/admin-options.php:185
+msgid "Products: %s"
+msgstr "Produkte: %s"
+
+# @ wc_cart_notices
+#: includes/admin/views/admin-options.php:188
+#, fuzzy
+msgid "Minimum quantity: %s"
+msgstr "Mindestwert Warenkorb: %s"
+
+#: includes/admin/views/admin-options.php:192
+msgid "Maximum quantity: %s"
+msgstr ""
+
+# @ wc_cart_notices
+#: includes/admin/views/admin-options.php:198
+msgid "Categories: %s"
+msgstr "Kategorien: %s"
+
+#: includes/admin/views/admin-options.php:240
+msgid "Shortcode Reference"
+msgstr ""
+
+# @ wc_cart_notices
+#: includes/admin/views/admin-options.php:242
+msgid ""
+"In addition to the default placement on the cart/checkout pages, you can "
+"embed one or all of the notices anywhere on the site with the following "
+"shortcodes:"
+msgstr ""
+"Zusätzlich zum Standard-Platz im Warenkorb bzw. der Kassen-Seite, können "
+"einer oder alle Cart Notices an beliebigen Orten auf der Seite platziert "
+"werden, indem man die folgenden Shortcodes benutzt:"
+
+# @ wc_cart_notices
+#. translators: %s - shortcode snippet
+#: includes/admin/views/admin-options.php:247
+msgid "%s will embed all notices"
+msgstr "%s wird alle Cart Notices einfügen"
+
+# @ wc_cart_notices
+#. translators: %s - shortcode snippet
+#: includes/admin/views/admin-options.php:250
+msgid "%s will embed just the notice named XXX"
+msgstr "%s wird alle Cart Notices mit dem Namen XXX einfügen"
+
+# @ wc_cart_notices
+#. translators: %s - shortcode snippet
+#: includes/admin/views/admin-options.php:253
+msgid "%s will embed just the minimum amount notices"
+msgstr "%s wird nur Mindestwert-Cart-Notices einfügen"
+
+# @ wc_cart_notices
+#. translators: %s - shortcode snippet
+#: includes/admin/views/admin-options.php:256
+msgid "%s will embed just the deadline notices"
+msgstr "%s wird nur Deadline-Cart-Notices einfügen"
+
+# @ wc_cart_notices
+#. translators: %s - shortcode snippet
+#: includes/admin/views/admin-options.php:259
+msgid "%s will embed just the referer notices"
+msgstr "%s wird nur Referal-Cart-Notices einfügen"
+
+# @ wc_cart_notices
+#. translators: %s - shortcode snippet
+#: includes/admin/views/admin-options.php:262
+msgid "%s will embed just the products in cart notices"
+msgstr "%s wird nur die Produkte in den Cart Notice einfügen"
+
+# @ wc_cart_notices
+#. translators: %s - shortcode snippet
+#: includes/admin/views/admin-options.php:265
+msgid "%s will embed just the categories in cart notices"
+msgstr "%s wird nur die Kategorien in die Cart Notices einfügen"
+
+# @ wc_cart_notices
+#: includes/admin/views/admin-options.php:272
+msgid "Create a New Cart Notice"
+msgstr "Cart Notice neu erstellen"
+
+# @ wc_cart_notices
+#: includes/admin/views/admin-options.php:272
+#: includes/admin/views/admin-options.php:797
+msgid "Update Cart Notice"
+msgstr "Cart Notice updaten"
+
+# @ wc_cart_notices
+#: includes/admin/views/admin-options.php:296
+msgid "Choose One"
+msgstr "Auswählen"
+
+# @ wc_cart_notices
+#: includes/admin/views/admin-options.php:309
+#, fuzzy
+msgid ""
+"This notice will appear on the cart/checkout pages only when the order total "
+"is less than the Target Amount, and/or is greater than or equal to the "
+"Threshold Amount and is convenient for encouraging customers to increase "
+"their order to qualify for free shipping."
+msgstr ""
+"Dieser Cart Notice wird im Warenkorb bzw. an der Kasse angezeigt, wenn der "
+"Gesamtwert im Warenkorb geringer ist, als der Warenkorb-Mindestwert, und/"
+"oder größer oder gleich dem Warenkorb-Schwellwert. Dies bietet z.B. eine "
+"bequeme Möglichkeit den Kunden zu ermuntern, den Einkauf fortzusetzen um in "
+"den Genuss von versandkostenfeier Lieferung zu kommen."
+
+# @ wc_cart_notices
+#: includes/admin/views/admin-options.php:312
+msgid ""
+"This notice will appear on the cart/checkout pages only on the Active Days, "
+"and up to the Deadline Hour, based on your WordPress timezone."
+msgstr ""
+"Dieser Cart Notice wird im Warenkorb bzw. an der Kasse angezeigt, an Tage an "
+"denen der Hinweis aktiv ist, und nur bis zur Deadline. Zeit basiert auf der "
+"Wordpress-Zeitzone."
+
+# @ wc_cart_notices
+#: includes/admin/views/admin-options.php:315
+msgid ""
+"This notice will appear on the cart/checkout pages only when the customer "
+"originated from the configured site."
+msgstr ""
+"Dieser Cart Notice wird im Warenkorb bzw. an der Kasse angezeigt, wenn der "
+"Kunde ursprünglich von der eingestellten Seite kommt."
+
+# @ wc_cart_notices
+#: includes/admin/views/admin-options.php:318
+msgid ""
+"This notice will appear on the cart/checkout pages when any of the "
+"configured products appear within the cart."
+msgstr ""
+"Dieser Cart Notice wird im Warenkorb bzw. an der Kasse angezeigt, wenn eines "
+"der eingestellten Produkte im Warenkorb liegt."
+
+# @ wc_cart_notices
+#: includes/admin/views/admin-options.php:321
+msgid ""
+"This notice will appear on the cart/checkout pages when any of the cart "
+"products belong to any of the categories configured below."
+msgstr ""
+"Dieser Cart Notice wird im Warenkorb bzw. an der Kasse angezeigt, wenn ein "
+"Produkt aus einer der eingestellten Kategorien stammt."
+
+#: includes/admin/views/admin-options.php:335
+msgid ""
+"Provide a name so you can easily recognize this notice within the admin."
+msgstr ""
+
+# @ wc_cart_notices
+#: includes/admin/views/admin-options.php:343
+msgid "Enabled"
+msgstr "Aktiviert"
+
+# @ wc_cart_notices
+#: includes/admin/views/admin-options.php:354
+msgid "Notice Message"
+msgstr "Cart-Notice-Hinweis"
+
+# @ wc_cart_notices
+#: includes/admin/views/admin-options.php:358
+msgid "Depending on the notice type you may use the following variables:"
+msgstr ""
+"Abhängig vom Typ der Cart Notice können folgende Variablen verwendet werden:"
+
+# @ wc_cart_notices
+#: includes/admin/views/admin-options.php:363
+msgid ""
+"With type 'Minimum Amount' this is the amount required to meet the minimum "
+"order amount."
+msgstr ""
+"Mit dem Typ \\\"Mindestwert Warenkorb\\\" ist dies der Betrag, der benötigt "
+"wird, um den Mindestbestellwert zu erreichen."
+
+# @ wc_cart_notices
+#: includes/admin/views/admin-options.php:364
+msgid ""
+"With type 'Deadline' this is the amount of time remaining, ie '1 hour 15 "
+"minutes' or '25 minutes', etc."
+msgstr ""
+"Mit dem Typ \\\"Deadline\\\", ist dies die verbleibende Zeit; z.B. \\\"1 "
+"Stunde und 15 Minuten\\\" oder \\\"25 Minuten\\\", etc."
+
+# @ wc_cart_notices
+#: includes/admin/views/admin-options.php:365
+msgid ""
+"With type 'Products in Cart' or 'Categories in Cart' these are the matching "
+"product names."
+msgstr ""
+"Mit dem Typ \\\"Produkte im Warenkorb\\\" oder \\\"Kategorien im Warenkorb\\"
+"\", sind dies die Produktnamen zum Abgleichen."
+
+# @ wc_cart_notices
+#: includes/admin/views/admin-options.php:366
+#, fuzzy
+msgid "With type 'Products in Cart' this is the product quantity."
+msgstr ""
+"Mit dem Typ \\\"Produkte im Warenkorb\\\" oder \\\"Kategorien im Warenkorb\\"
+"\", sind dies die Produktnamen zum Abgleichen."
+
+#: includes/admin/views/admin-options.php:367
+msgid ""
+"With type 'Products in Cart' and 'Maximum Quantity for Notice' configured "
+"this is the product quantity less than the maximum."
+msgstr ""
+
+#: includes/admin/views/admin-options.php:368
+msgid ""
+"With type 'Products in Cart' and 'Minimum Quantity for Notice' configured "
+"this is the product quantity over the minimum."
+msgstr ""
+
+# @ wc_cart_notices
+#: includes/admin/views/admin-options.php:369
+msgid "With type 'Categories in Cart' these are the matching category names."
+msgstr ""
+"Mit dem Typ \\\"Kategorien im Warenkorb\\\", sind dies die Kategorienamen "
+"zum Abgleichen."
+
+# @ wc_cart_notices
+#: includes/admin/views/admin-options.php:395
+msgid "Optional call to action button text, rendered next to the cart notice"
+msgstr ""
+"Optionaler Call-to-Action-Button-Text, welcher nebem dem Cart Notice "
+"erscheint."
+
+# @ wc_cart_notices
+#: includes/admin/views/admin-options.php:409
+msgid ""
+"Optional call to action url, this is where the user will go upon clicking "
+"the Call to Action button"
+msgstr ""
+"Optionale Call-to-Action-URL. Hierhin wird der Kunde gelangen, wenn er auf "
+"den Call-to-Action-Button klickt."
+
+# @ wc_cart_notices
+#: includes/admin/views/admin-options.php:417
+#, fuzzy
+msgid "Target Amount"
+msgstr "Schwellwert Warenkorb"
+
+#. translators: Placeholders: %1$s - <strong>, %2$s - </strong>, %3$s - <a>,
+#. %4$s - </a>
+#: includes/admin/views/admin-options.php:424
+msgid ""
+"Optional target amount for the notice; the cart total must be %1$sless than"
+"%2$s this amount for the notice to be displayed. If not set, and the "
+"%3$sFree Shipping shipment method%4$s is enabled, the \"Minimum order amount"
+"\" from the shipping method will be used."
+msgstr ""
+
+# @ wc_cart_notices
+#: includes/admin/views/admin-options.php:436
+msgid "Threshold Amount"
+msgstr "Schwellwert Warenkorb"
+
+# @ wc_cart_notices
+#. translators: Placeholders: %1$s - <strong>, %2$s - </strong>
+#: includes/admin/views/admin-options.php:443
+#, fuzzy
+msgid ""
+"Optional threshold amount to activate the notice. If set, the cart must "
+"contain %1$sat least%2$s this total amount for the notice to be displayed."
+msgstr ""
+"Optionaler SChwellwert um den Cart Notice zu aktivieren. Wenn gesetzt, muss "
+"der Warenkorb <em>mindestens</em> diesen Gesamtwert haben, dass die Cart "
+"Notice angezeigt wird."
+
+# @ wc_cart_notices
+#: includes/admin/views/admin-options.php:453
+msgid "Deadline Hour"
+msgstr "Stunde der Deadline"
+
+# @ wc_cart_notices
+#: includes/admin/views/admin-options.php:459
+msgid "Deadline hour in 24-hour format, this can be 1 to 24."
+msgstr "Stunde der Deadline im 24-Stunden-Format: ganze Zahlen von 1 bis 24."
+
+# @ wc_cart_notices
+#: includes/admin/views/admin-options.php:468
+msgid "Active Days"
+msgstr "Aktive Tage"
+
+# @ wc_cart_notices
+#: includes/admin/views/admin-options.php:486
+msgid "Select the days on which you want this notice to be active."
+msgstr "Hier die Tage auswählen, an denen der Cart Notice aktiv sein soll."
+
+# @ wc_cart_notices
+#: includes/admin/views/admin-options.php:494
+msgid "Referring Site"
+msgstr "Herkunfts-Seite"
+
+# @ wc_cart_notices
+#: includes/admin/views/admin-options.php:500
+msgid ""
+"When the visitor originates from this server, they will be shown the referer "
+"cart notice. Example: www.google.com."
+msgstr ""
+"Wenn der Kunde von dieser Seite aus den Shop betritt, wird die Referal-Cart-"
+"Notice angezeigt. Beispiel: www.google.de."
+
+#: includes/admin/views/admin-options.php:508
+msgid "\"Show Notice\" Products"
+msgstr ""
+
+# @ wc_cart_notices
+#: includes/admin/views/admin-options.php:521
+#: includes/admin/views/admin-options.php:539
+#: includes/admin/views/admin-options.php:601
+#: includes/admin/views/admin-options.php:619
+msgid "Search for a product&hellip;"
+msgstr "Suche nach Produkten&hellip;"
+
+#: includes/admin/views/admin-options.php:552
+msgid "Show the notice if any selected product is in the cart."
+msgstr ""
+
+#: includes/admin/views/admin-options.php:560
+msgid "Minimum Quantity for Notice"
+msgstr ""
+
+#: includes/admin/views/admin-options.php:566
+msgid ""
+"Optional minimum product quantity required to activate the notice.  If set, "
+"the quantity of the products selected above must be greater than or equal to "
+"this amount."
+msgstr ""
+
+#: includes/admin/views/admin-options.php:574
+msgid "Maximum Quantity for Notice"
+msgstr ""
+
+#: includes/admin/views/admin-options.php:580
+msgid ""
+"Optional maximum product quantity allowed to activate the notice.  If set, "
+"the quantity of the products selected above must be less than or equal to "
+"this amount."
+msgstr ""
+
+#: includes/admin/views/admin-options.php:588
+msgid "\"Hide Notice\" Products"
+msgstr ""
+
+#: includes/admin/views/admin-options.php:632
+msgid "Hide the notice if any selected product is in the cart."
+msgstr ""
+
+#: includes/admin/views/admin-options.php:640
+msgid "Shipping Countries"
+msgstr ""
+
+#: includes/admin/views/admin-options.php:649
+msgid "Choose Countries&hellip;"
+msgstr ""
+
+#: includes/admin/views/admin-options.php:656
+msgid ""
+"Optional list of countries used to trigger the message when the shipping "
+"country is available and matches one of the countries selected here."
+msgstr ""
+
+# @ wc_cart_notices
+#: includes/admin/views/admin-options.php:664
+#, fuzzy
+msgid "\"Show\" Categories"
+msgstr "Kategorien"
+
+# @ wc_cart_notices
+#: includes/admin/views/admin-options.php:678
+#: includes/admin/views/admin-options.php:697
+#: includes/admin/views/admin-options.php:733
+#: includes/admin/views/admin-options.php:752
+#, fuzzy
+msgid "Search for a category&hellip;"
+msgstr "Suche nach Kategorien&hellip;"
+
+#: includes/admin/views/admin-options.php:711
+msgid "Show the notice if any selected category is in the cart."
+msgstr ""
+
+# @ wc_cart_notices
+#: includes/admin/views/admin-options.php:719
+#, fuzzy
+msgid "\"Hide\" Categories"
+msgstr "Kategorien"
+
+#: includes/admin/views/admin-options.php:766
+msgid "Hide the notice if any selected category is in the cart."
+msgstr ""
+
+# @ wc_cart_notices
+#: includes/admin/views/admin-options.php:791
+msgid "Create Cart Notice"
+msgstr "Cart Notice erstellen"
+
+#: includes/admin/views/admin-options.php:828
+msgid "Cannot render this example notice without shipping zone."
+msgstr ""
+
+# @ wc_cart_notices
+#: includes/admin/views/admin-options.php:846
+msgid "Example Notice"
+msgstr "Beispiel Cart Notice"
+
+# @ wc_cart_notices
+#. translators: %s - Formatted minimum order amount
+#: includes/admin/views/admin-options.php:858
+#, fuzzy
+msgid ""
+"With the current configuration your cart notice will display when the order "
+"total is less than %s and will resemble:"
+msgstr ""
+"Mit der derzeitigen Konfiguration, wird der Cart Notice angezeigt, wenn die "
+"Gesamtsumme der Bestellung <strong>unter %s</strong> liegt und wird "
+"folgendermaßen lauten:"
+
+# @ wc_cart_notices
+#. translators: %s - Formatted amount
+#: includes/admin/views/admin-options.php:866
+#, fuzzy
+msgid ""
+"With the current configuration your cart notice will display when the order "
+"total is greater than or equal to %s and will resemble:"
+msgstr ""
+"Mit der derzeitigen Konfiguration wird die Cart Notice angezeigt, wenn die "
+"Gesamtsumme der Bestellung <strong>größer oder gleich %s</strong> ist und "
+"wird folgendermaßen lauten:"
+
+# @ wc_cart_notices
+#. translators: Placeholders: %1$s Threshold order amount, %2$s Target amount
+#: includes/admin/views/admin-options.php:874
+#, fuzzy
+msgid ""
+"With the current configuration your cart notice will display when the order "
+"total is between %1$s and %2$s and will resemble:"
+msgstr ""
+"Mit der derzeitigen Konfiguration, wird der Cart Notice angezeigt, wenn die "
+"Gesamtsumme der Bestellung <strong>unter %s</strong> liegt und wird "
+"folgendermaßen lauten:"
+
+# @ wc_cart_notices
+#: includes/admin/views/admin-options.php:883
+msgid "With the current configuration your cart notice will resemble: "
+msgstr ""
+"Mit der derzeitigen Konfiguration wird die Cart Notice folgendermaßen lauten:"
+
+# @ wc_cart_notices
+#: includes/admin/views/admin-options.php:893
+msgid "No notice"
+msgstr "Keine Cart Notice vorhanden"
+
+# @ wc_cart_notices
+#: includes/admin/views/admin-options.php:906
+msgid ""
+"Add <strong>{amount_under}</strong> to your cart in order to receive free "
+"shipping!"
+msgstr ""
+"Fügen Sie <strong>{amount_under}</strong> zu Ihrer Bestellung hinzu, um "
+"versandkostenfreie Lieferung zu erhalten!"
+
+# @ wc_cart_notices
+#: includes/admin/views/admin-options.php:907
+msgid ""
+"Order within the next <strong>{time}</strong> and your order ships today!"
+msgstr ""
+"Bestellen Sie innerhalb der nächsten <strong>{time}</strong> und die Sendung "
+"verlässt noch heute unser Haus!"
+
+# @ wc_cart_notices
+#: woocommerce-cart-notices.php:499
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] "%d Stunde"
+msgstr[1] "%d Stunden"
+
+# @ wc_cart_notices
+#: woocommerce-cart-notices.php:502
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] "%d Minute"
+msgstr[1] "%d Minuten"
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.woocommerce.com/products/cart-notices/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Add dynamic notices above the cart and checkout to help increase your sales!"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "SkyVerge"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://www.woocommerce.com"
+msgstr ""
+
+#: includes/admin/views/admin-options.php:171
+msgctxt "No deadline hour"
+msgid "none"
+msgstr ""
+
+#: includes/admin/views/admin-options.php:172
+msgctxt "No active days"
+msgid "none"
+msgstr ""
+
+#: includes/admin/views/admin-options.php:179
+msgctxt "No referring site"
+msgid "none"
+msgstr ""
+
+#: includes/admin/views/admin-options.php:185
+msgctxt "No products"
+msgid "none"
+msgstr ""
+
+#: includes/admin/views/admin-options.php:198
+msgctxt "No categories"
+msgid "none"
+msgstr ""
+
+# @ wc_cart_notices
+#~ msgid "Minimum Order Amount"
+#~ msgstr "Mindeswert Warenkorb"
+
+# @ wc_cart_notices
+#~ msgid "Products"
+#~ msgstr "Produkte"
+
+# @ wc_cart_notices
+#~ msgid ""
+#~ "With the current configuration your cart notice will display when the "
+#~ "order total is between <strong>%s</strong> and <strong>%s</strong> and "
+#~ "will resemble:"
+#~ msgstr ""
+#~ "Mit der derzeitigen Konfiguration wird die Cart Notice angezeigt, wenn "
+#~ "die Gesamtsumme der Bestellung <strong>zwischen %s und %s</strong>liegt "
+#~ "und wird folgendermaßen lauten:"
+
+# @ wc_cart_notices
+#~ msgid "Minimum order amount must be positive number, or empty"
+#~ msgstr ""
+#~ "Mindestwert Warenkorb muss eine positive Zahl sein, oder frei bleiben"
+
+# @ wc_cart_notices
+#~ msgid "Configure"
+#~ msgstr "Konfigurieren"
+
+# @ wc_cart_notices
+#~ msgid "Cart Notice result"
+#~ msgstr "Resultat der Cart Notice"

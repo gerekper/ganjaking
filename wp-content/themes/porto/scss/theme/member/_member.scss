@@ -1,0 +1,143 @@
+/* Member */
+
+article {
+    &.member {
+        h2 a,
+        h4 a {
+            text-decoration: none;
+        }
+    }
+}
+
+.member-overview {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.member-image {
+    position: relative;
+    &.single {
+        margin-bottom: 30px;
+    }
+}
+
+.member-slideshow {
+    text-align: center;
+}
+.member-title {
+    margin-bottom: -10px;
+    a {
+        display: inline-block;
+    }
+    i {
+        font-size: 2.5em;
+    }
+}
+
+.member-role {
+    font-weight: 700;
+    font-size: 1em;
+    text-transform: uppercase;
+}
+
+.member-share-links.share-links {
+    a {
+        border-radius: 50px;
+    }
+}
+
+/* Member Item */
+.member-item {
+    &.member-item-3 {
+        .thumb-info-wrapper {
+            margin: 0;
+        }
+        .thumb-info-caption {
+            display: block;
+            padding: 0;
+            @include transition(all .3s);
+        }
+        .thumb-info-caption-title {
+            position: relative;
+            display: block;
+            padding: 30px 15px 28px;
+        }
+        .thumb-info-caption-text {
+            padding: 0 15px 28px;
+            margin: 0;
+            margin-top: -15px;
+        }
+        .thumb-info-social-icons {
+            padding-left: 13px;
+            padding-right: 13px;
+        }
+        .view-more {
+            position: absolute;
+            #{$right}: 15px;
+            top: 50%;
+            font-size: 1.9em;
+            transform: translateY(-50%);
+        }
+    }
+    &.member-item-4 {
+        .thumb-info-wrapper {
+            margin: 0;
+            border-radius: 0;
+        }
+        .thumb-info {
+            border: none;
+            &, img {
+                border-radius: 0;
+            }
+        }
+        h4, p {
+            text-transform: uppercase;
+        }
+        h4 {
+            font-size: 1.2em;
+            font-weight: 700;
+        }
+        p {
+            font-size: .9em;
+        }
+    }
+    .thumb-info {
+        &, .thumb-info-wrapper {
+            border-radius: 0;
+        }
+    }
+}
+
+/* Related Members, Products */
+.related-members,
+.single-member .related.products {
+    margin-top: 35px;
+}
+
+.member-carousel {
+    .member-slide {
+        @include clearfix();
+    }
+    .member-item {
+        margin-bottom: 20px;
+        @media #{$screen-medium} {
+            border: none;
+            padding: 0;
+        }
+    }
+    &.owl-carousel .owl-dots {
+        margin-top: 0;
+    }
+}
+
+/* Member Modal */
+.member-modal,
+.member-ajax-modal {
+    .mfp-arrow {
+        display: none;
+    }
+}
+
+.member-filter.nav-list {
+    display: block;
+}

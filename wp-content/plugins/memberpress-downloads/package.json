@@ -1,0 +1,33 @@
+{
+  "name": "memberpress-downloads",
+  "version": "1.0.4",
+  "description": "Downloads Management features for MemberPress.",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "build": "wp-scripts build",
+    "start": "wp-scripts start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/caseproof/memberpress-downloads.git"
+  },
+  "keywords": [],
+  "author": "Caseproof, LLC",
+  "license": "GPLv2",
+  "devDependencies": {
+    "@wordpress/scripts": "^3.2.1",
+    "classnames": "^2.2.6",
+    "css-loader": "^2.1.1",
+    "node-sass": "^4.12.0",
+    "postcss-loader": "^3.0.0",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1"
+  },
+  "bugs": {
+    "url": "https://github.com/caseproof/memberpress-downloads/issues"
+  },
+  "homepage": "https://github.com/caseproof/memberpress-downloads#readme"
+}

@@ -1,0 +1,156 @@
+.woo-pinterest-orange {
+	color: #ca4a1f
+}
+
+.woo-pinterest-red {
+	color: #882717;
+}
+
+th.manage-column.column-image.column-primary {
+	text-align: center;
+}
+
+/*Pins table*/
+@media (min-width: 747px) {
+	th.manage-column.column-image.column-primary {
+		width: 15%;
+	}
+}
+
+@media (min-width: 1024px) {
+	th.manage-column.column-image.column-primary {
+		width: 15%;
+	}
+}
+
+@media (min-width: 1420px) {
+	th.manage-column.column-image.column-primary {
+		width: 5%;
+	}
+}
+
+.pin-status {
+	padding: 5px 10px;
+	text-transform: capitalize;
+	border-radius: 3px;
+	display: inline-block;
+}
+
+.pinterest-image-size-labels {
+	min-width: 5em;
+	vertical-align: baseline;
+}
+
+#pinterest_image_size-field input.pinterest-image-size-inputs[type=number] {
+	width: 65px;
+}
+
+.pin-status--ready {
+	background: #c8d7e1;
+	color: #2e4453;
+}
+
+.pin-status--processing {
+	background: #c6e1c6;
+	color: #5b841b;
+}
+
+.pin-status--failed {
+	background: #eba3a3;
+	color: #761919;
+}
+
+#woocommerce-pinterest-catalog-updating-frequency-days {
+	max-width: 100px;
+}
+.pin-status--wait::after {
+	content: " \f469";
+}
+
+.woocommerce-pinterest-board-select-container:only-of-type .woocommerce-pinterest-remove-board-select{
+	display: none;
+}
+
+h3.wc-settings-sub-title{
+	background: #fff;
+	margin-bottom: 0;
+	padding: 10px 20px;
+	border: 1px solid #e5e5e5;
+	cursor: pointer;
+}
+
+h3.wc-settings-sub-title:before{
+	font-family: "dashicons";
+	content: "\f142";
+	float: right;
+}
+
+h3.wc-settings-sub-title.closed:before{
+	display: inline-block;
+	-webkit-transform: rotate(180deg);
+	-moz-transform: rotate(180deg);
+	-o-transform: rotate(180deg);
+	-ms-transform: rotate(180deg);
+	transform: rotate(180deg);
+}
+
+table.form-table{
+	border: 1px solid #e5e5e5;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+	background: #fff;
+	display: block;
+}
+
+table.form-table th.titledesc{
+	padding: 20px;
+}
+
+h3.wc-settings-sub-title.closed + table.form-table{
+	display:none;
+}
+.woocommerce-pinterest-settings-list-table .woocommerce-pinterest-list-table-save{
+	max-width: 33%;
+	float: left;
+}
+
+.woocommerce-pinterest-settings-list-table .woocommerce-pinterest-table-saved-message{
+	float: left;
+	margin-left: 20px;
+	color: #1c7430;
+	display: none;
+}
+
+
+.woocommerce-pinterest-saved-message{
+	float: right;
+	color: #1c7430;
+}
+
+#woocommerce_pinterest_pinterest_catalog_section + .form-table th[scope="row"],
+#woocommerce_pinterest_pinterest_boards_section + .form-table .titledesc {
+	display: none;
+}
+
+#woocommerce-pinterest-category-board-table .tablenav  {
+	display: none;
+}
+
+#woocommerce-pinterest-google-catalog-table .woocommerce-pinterest-google-category-select{
+	width: 100%;
+}
+
+#woocommerce-pinterest-google-catalog-table .woocommerce-pinterest-google-category-select:not(:last-of-type){
+	margin-bottom: 10px;
+}
+
+#woocommerce-pinterest-google-catalog-table .wp-list-table th,
+#woocommerce-pinterest-category-board-table .wp-list-table th{
+	padding: 20px 10px 20px;
+}
+
+#woocommerce-pinterest-category-board-table .woocommerce-pinterest-board-select-container {
+	margin-bottom: 10px;
+}
+#woocommerce-pinterest-category-board-table {}
+#woocommerce-pinterest-category-board-table {}
+

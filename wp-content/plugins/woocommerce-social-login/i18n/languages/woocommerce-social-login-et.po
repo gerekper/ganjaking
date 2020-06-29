@@ -1,0 +1,1120 @@
+# Copyright (C) 2015 WooThemes / SkyVerge
+# This file is distributed under the GNU General Public License v3.0.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Social Login 1.5.0\n"
+"Report-Msgid-Bugs-To: https://woocommerce.com/my-account/marketplace-ticket-"
+"form/\n"
+"POT-Creation-Date: 2018-06-05 04:24:43+00:00\n"
+"PO-Revision-Date: 2017-05-16 17:04+0300\n"
+"Last-Translator: Illimar Tambek\n"
+"Language-Team: \n"
+"Language: et\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: includes/abstract-wc-social-login-provider.php:123
+msgid "Enable/Disable"
+msgstr "Luba/Keela"
+
+#. translators: Placeholders: %s - social login provider name/title, eg:
+#. Facebook, Amazon, etc.
+#: includes/abstract-wc-social-login-provider.php:126
+msgid "Enable %s"
+msgstr "Luba %s"
+
+#: includes/abstract-wc-social-login-provider.php:134
+msgid "Your app ID"
+msgstr "Sinu aplikatsiooni ID"
+
+#. translators: Client (app) secret for a Social Login provider, used for
+#. identifying and authenticating the app (in our case, the WooCommerce store).
+#: includes/abstract-wc-social-login-provider.php:141
+msgid "Client Secret"
+msgstr "Kliendi saladus"
+
+#: includes/abstract-wc-social-login-provider.php:143
+msgid "Your app secret"
+msgstr "Sinu aplikatsiooni saladus"
+
+#: includes/abstract-wc-social-login-provider.php:149
+msgid "Login Button Text"
+msgstr "Sisselogimisnupu tekst"
+
+#: includes/abstract-wc-social-login-provider.php:151
+msgid "Controls the text displayed on the login button."
+msgstr "Määrab, millist teksti sisselogimise nupul näidatakse."
+
+#: includes/abstract-wc-social-login-provider.php:159
+msgid "Controls the text displayed on the link account button."
+msgstr "Määrab, millist teksti kontode linkimise nupul näidatakse."
+
+#: includes/abstract-wc-social-login-provider.php:317
+msgid "Oops, you took too long, please try again."
+msgstr "Ups, sul läks pisut liiga kaua aega. Palun proovi uuesti."
+
+#. translators: WooCommerce customers report tab title
+#: includes/admin/class-wc-social-login-admin.php:88
+msgid "Social Registration"
+msgstr "Sotsiaalmeedia kontod"
+
+#: includes/admin/class-wc-social-login-admin.php:187
+msgid "Connected Social Profiles"
+msgstr "Seotud sotsiaalmeedia profiilid"
+
+#: includes/admin/class-wc-social-login-admin.php:190
+#: includes/admin/class-wc-social-login-admin.php:216
+msgid "Social Profiles"
+msgstr "Profiilid"
+
+#: includes/admin/class-wc-social-login-settings.php:45
+msgid "Social Login"
+msgstr "Social Login"
+
+#: includes/admin/class-wc-social-login-settings.php:60
+#: includes/admin/class-wc-social-login-settings.php:97
+#: includes/admin/class-wc-social-login-settings.php:251
+msgid "Settings"
+msgstr "Seaded"
+
+#: includes/admin/class-wc-social-login-settings.php:84
+msgid "Checkout"
+msgstr "Kassas"
+
+#: includes/admin/class-wc-social-login-settings.php:85
+msgid "My Account"
+msgstr "Minu Konto lehel"
+
+#: includes/admin/class-wc-social-login-settings.php:86
+msgid "Checkout Notice"
+msgstr "Teavitusena kassas"
+
+#: includes/admin/class-wc-social-login-settings.php:91
+msgid "Product Reviews Pro Login"
+msgstr ""
+
+#: includes/admin/class-wc-social-login-settings.php:102
+msgid "Display Social Login buttons on:"
+msgstr "Näita sisselogimisnuppe:"
+
+#: includes/admin/class-wc-social-login-settings.php:103
+msgid "Control where Social Login buttons are displayed."
+msgstr "Määra, kus peaks sotsiaalvõrgustike sisselogimisnuppe näitama."
+
+#: includes/admin/class-wc-social-login-settings.php:115
+msgid "Display \"Link Your Account\" button on Thank You page"
+msgstr "Näita \"Seo oma kontoga\" nuppu Aitäh lehel"
+
+#: includes/admin/class-wc-social-login-settings.php:116
+msgid ""
+"Enable to allow customers to link their social account on the Thank You page "
+"for faster login & checkout next time they purchase."
+msgstr ""
+"Luba klientidel peale tellimuse vormistamist aitäh-lehel oma konto siduda "
+"mõne sotsiaalvõrgustikuga, et edaspidi saaksid nad selle kaudu kiiremini "
+"sisse logida ja oste teha."
+
+#: includes/admin/class-wc-social-login-settings.php:123
+#, fuzzy
+msgid "Checkout Social Login Display Text"
+msgstr "Sotsiaalvõrgustikuga sisselogimise tekst"
+
+#: includes/admin/class-wc-social-login-settings.php:124
+#, fuzzy
+msgid ""
+"This option controls the text on the checkout page for the frontend section "
+"where the login providers are shown."
+msgstr ""
+"See valik määrab teksti, mida poes näidatakse koos erinevate "
+"sisselogimisvõimalustega."
+
+#: includes/admin/class-wc-social-login-settings.php:126
+#: woocommerce-social-login.php:965
+msgid "For faster checkout, login or register using your social account."
+msgstr ""
+"Kiiremaks maksmiseks logi sisse või registreeru oma sotsiaalvõrgustiku konto "
+"abil."
+
+#: includes/admin/class-wc-social-login-settings.php:132
+#, fuzzy
+msgid "Non-Checkout Social Login Display Text"
+msgstr "Sotsiaalvõrgustikuga sisselogimise tekst"
+
+#: includes/admin/class-wc-social-login-settings.php:133
+#, fuzzy
+msgid ""
+"This option controls the text on the non-checkout pages where the login "
+"provider buttons are shown."
+msgstr ""
+"See valik määrab teksti, mida poes näidatakse koos erinevate "
+"sisselogimisvõimalustega."
+
+#: includes/admin/class-wc-social-login-settings.php:135
+#: woocommerce-social-login.php:966 woocommerce-social-login.php:1089
+msgid "Use a social account for faster login or easy registration."
+msgstr ""
+
+#: includes/admin/class-wc-social-login-settings.php:141
+msgid "Force SSL for all providers"
+msgstr "Nõua kõikidelt teenusepakkujatelt SSL-ühendust"
+
+#: includes/admin/class-wc-social-login-settings.php:142
+msgid ""
+"Enable to force SSL (HTTPS) on callback URLs for all providers (an SSL "
+"Certificate is required)."
+msgstr ""
+"Lülita see valik sisse, et nõuda kõikide teenusepakkujate puhul "
+"tagasipöördumisaadressi jaoks SSL (HTTPS) ühendust (selleks on vajalik SSL "
+"sertifikaat)."
+
+#: includes/admin/class-wc-social-login-settings.php:155
+msgid "Callback URL format"
+msgstr "Tagasipöördumisaadressi vorming"
+
+#: includes/admin/class-wc-social-login-settings.php:156
+msgid ""
+"Set the authentication callback URL format. Legacy format is deprecated and "
+"support for it will be removed in a future version. IMPORTANT: set the "
+"format to Default only after you've updated the callback URLs for each "
+"provider."
+msgstr ""
+"Määra tagasipöördumisaadressi vorming. Vanakooli vormingut me enam kasutada "
+"ei soovita ja tugi sellele eemaldatakse tulevikus. OLULINE: palun määra "
+"vorminguks Vaikimis ainult pärast seda, kui oled iga teenusepakkuja juures "
+"tagasipöördumiseaadressi uuendanud."
+
+#: includes/admin/class-wc-social-login-settings.php:161
+msgid "Default (Recommended)"
+msgstr "Vaikimisi (soovituslik)"
+
+#: includes/admin/class-wc-social-login-settings.php:162
+msgid "Legacy"
+msgstr "Vanakool"
+
+#: includes/admin/class-wc-social-login-settings.php:220
+msgid "Providers"
+msgstr "Teenusepakkujad"
+
+#: includes/admin/class-wc-social-login-settings.php:225
+#: includes/admin/views/html-report-social-login.php:10
+#: templates/myaccount/social-profiles.php:56
+#: templates/myaccount/social-profiles.php:68
+msgid "Provider"
+msgstr "Teenusepakkuja"
+
+#: includes/admin/class-wc-social-login-settings.php:226
+msgid "Status"
+msgstr "Staatus"
+
+#. translators: Whether a social login provider is enabled or not
+#: includes/admin/class-wc-social-login-settings.php:243
+msgid "Enabled"
+msgstr "Sisse lülitatud"
+
+#: includes/admin/class-wc-social-login-settings.php:261
+msgid "Drag and drop the above providers to control their display order."
+msgstr "Lohista ülalolevad teenusepakkujad sobivasse järjekorda."
+
+#. translators: The number of registrations for a provider
+#: includes/admin/views/html-report-social-login.php:11
+msgid "Registrations"
+msgstr "Registreerumised"
+
+#. translators: Number of linked accounts for a provider. A number will be
+#. prepended to this string. Example: 5 linked accounts
+#: includes/admin/views/html-report-social-login.php:61
+msgid "linked accounts"
+msgstr "seotud kontot"
+
+#: includes/class-wc-social-login-hybridauth.php:138
+#: includes/frontend/class-wc-social-login-frontend.php:81
+msgid "Provider Authentication error"
+msgstr "Teenusepakkuja autentimisviga"
+
+#: includes/class-wc-social-login-hybridauth.php:282
+msgid "Please enter your email address to complete your registration"
+msgstr "Registreerumiseks sisesta palun oma e-posti aadress"
+
+#. translators: %s - a URL
+#: includes/class-wc-social-login-hybridauth.php:285
+msgid ""
+"Please enter your email address to complete your registration and continue "
+"to %s"
+msgstr ""
+"Sisesta palun oma e-posti aadress, et registreeruda ja jätkata aadressil %s"
+
+#: includes/class-wc-social-login-hybridauth.php:346
+msgid "No provider class found for %s"
+msgstr "Teenusepakkuja klassi %s ei leitud"
+
+#: includes/class-wc-social-login-hybridauth.php:355
+msgid "%s returned an invalid user identifier."
+msgstr "%s tagastas vigase kasutaja ID."
+
+#: includes/class-wc-social-login-hybridauth.php:407
+msgid ""
+"Oops, it looks like you may already have an account&hellip; please log in to "
+"link your profile."
+msgstr ""
+"Ups, tundub, et sul võib juba konto olemas olla&hellip; palun logi sisse, et "
+"see oma sotsiaalmeedia kontoga siduda."
+
+#: includes/class-wc-social-login-hybridauth.php:527
+msgid "User"
+msgstr ""
+
+#: includes/class-wc-social-login-hybridauth.php:545
+msgid "ERROR"
+msgstr "VIGA"
+
+#: includes/class-wc-social-login-hybridauth.php:545
+msgid ""
+"Couldn&#8217;t register you&hellip; please contact us if you continue to "
+"have problems."
+msgstr ""
+"Ei suutnud sind registreerida&hellip; kui tõrkeid esineb veel, võta palun "
+"meiega ühendust."
+
+#: includes/frontend/class-wc-social-login-frontend.php:224
+msgid ""
+"Save time next time you checkout by linking your account to your favorite "
+"social network. No need to remember another username and password."
+msgstr ""
+"Järgmine kord hoia aega kokku - seo oma konto enda lemmik-sotsiaalvõrgustiku "
+"kontoga. Pole tarvis jälle ühte kasutajanime ja parooli meeles pidada."
+
+#: includes/frontend/class-wc-social-login-frontend.php:295
+msgid "Click here to login"
+msgstr "SIsselogimiseks kliki siia"
+
+#: includes/integrations/class-wc-social-login-integrations-memberships.php:119
+#, fuzzy
+msgid "Social Login Buttons"
+msgstr "Sotsiaalvõrgustike kontod"
+
+#: includes/integrations/class-wc-social-login-integrations-memberships.php:120
+msgid "Add Social Login buttons to restriction messages for logged out users"
+msgstr ""
+
+#: includes/providers/class-wc-social-login-provider-amazon.php:44
+msgid "Amazon"
+msgstr "Amazon"
+
+#. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
+#: includes/providers/class-wc-social-login-provider-amazon.php:68
+msgid "Need help setting up and configuring Amazon? %1$sRead the docs%2$s"
+msgstr ""
+"Vajad abi Amazoni seadistamisel? %1$sLoe dokumentatsiooni (inglise "
+"keeles)%2$s"
+
+#. translators: Placeholder: %s - a url
+#: includes/providers/class-wc-social-login-provider-amazon.php:73
+msgid "The allowed return URL is %s"
+msgstr "Lubatud tagasipöördumisaadress (allowed return URL) on %s"
+
+#: includes/providers/class-wc-social-login-provider-amazon.php:77
+msgid "(Please update your Amazon app to use this URL)"
+msgstr "(Palun uuenda oma Amazoni aplikatsiooni, et ta kasutaks seda aadressi)"
+
+#. translators: Placeholder: %s - a url
+#: includes/providers/class-wc-social-login-provider-amazon.php:80
+msgid "The legacy allowed return URL is %s"
+msgstr "Vanakooli lubatud tagasipöördumisaadress (allowed return URL) on %s"
+
+#: includes/providers/class-wc-social-login-provider-amazon.php:124
+msgid "Log in with Amazon"
+msgstr "Logi sisse Amazoniga"
+
+#: includes/providers/class-wc-social-login-provider-amazon.php:136
+msgid "Link your account to Amazon"
+msgstr "Seo oma konto Amazoniga"
+
+#: includes/providers/class-wc-social-login-provider-amazon.php:148
+msgid "Your Amazon account is now linked to your account."
+msgstr "Sinu Amazoni profiil on nüüd sinu kontoga seotud."
+
+#: includes/providers/class-wc-social-login-provider-amazon.php:149
+msgid "Amazon was successfully unlinked from your account."
+msgstr "Amazoni profiil seoti edukalt sinu kontost lahti."
+
+#: includes/providers/class-wc-social-login-provider-amazon.php:150
+msgid "This Amazon account is already linked to another user account."
+msgstr "See Amazoni profiil on juba ühe teise kasutaja kontoga seotud."
+
+#: includes/providers/class-wc-social-login-provider-amazon.php:151
+msgid ""
+"A user account using the same email address as this Amazon account already "
+"exists."
+msgstr ""
+"Selle Amazoni profiili e-posti aadressiga on üks teine kasutajakonto juba "
+"olemas."
+
+#: includes/providers/class-wc-social-login-provider-disqus.php:44
+msgid "Disqus"
+msgstr "Disqus"
+
+#. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
+#: includes/providers/class-wc-social-login-provider-disqus.php:66
+msgid "Need help setting up and configuring Disqus? %1$sRead the docs%2$s"
+msgstr ""
+"Vajad abi Disqusi seadistamisel? %1$sLoe dokumentatsiooni (inglise "
+"keeles)%2$s"
+
+#. translators: Placeholder: %s - a url
+#: includes/providers/class-wc-social-login-provider-disqus.php:71
+#: includes/providers/class-wc-social-login-provider-twitter.php:74
+msgid "The callback URL is %s"
+msgstr "Tagasipöördumise URL (callback URL) on %s"
+
+#: includes/providers/class-wc-social-login-provider-disqus.php:75
+#: includes/providers/class-wc-social-login-provider-twitter.php:78
+msgid "(Please update your Twitter app to use this URL)"
+msgstr ""
+"(Palun uuenda oma Twitteri aplikatsiooni, et ta kasutaks seda aadressi)"
+
+#. translators: Placeholder: %s - a url
+#: includes/providers/class-wc-social-login-provider-disqus.php:78
+#: includes/providers/class-wc-social-login-provider-twitter.php:81
+msgid "The legacy callback URL is %s"
+msgstr "Vanakooli tagasipöördumise URL (callback URL) on %s"
+
+#: includes/providers/class-wc-social-login-provider-disqus.php:124
+msgid "API Key"
+msgstr "API võti"
+
+#: includes/providers/class-wc-social-login-provider-disqus.php:125
+msgid "API Secret"
+msgstr "API saladus"
+
+#: includes/providers/class-wc-social-login-provider-disqus.php:137
+msgid "Log in with Disqus"
+msgstr "Logi sisse Disqusiga"
+
+#: includes/providers/class-wc-social-login-provider-disqus.php:149
+msgid "Link your account to Disqus"
+msgstr "Seo oma konto Disqusiga"
+
+#: includes/providers/class-wc-social-login-provider-disqus.php:161
+msgid "Your Disqus account is now linked to your account."
+msgstr "Sinu Disqusi profiil on nüüd sinu kontoga seotud."
+
+#: includes/providers/class-wc-social-login-provider-disqus.php:162
+msgid "Disqus was successfully unlinked from your account."
+msgstr "Disqusi profiil seoti edukalt sinu kontost lahti."
+
+#: includes/providers/class-wc-social-login-provider-disqus.php:163
+msgid "This Disqus account is already linked to another user account."
+msgstr "See Disqusi profiil on juba ühe teise kasutaja kontoga seotud."
+
+#: includes/providers/class-wc-social-login-provider-disqus.php:164
+msgid ""
+"A user account using the same email address as this Disqus account already "
+"exists."
+msgstr ""
+"Selle Disqusi profiili e-posti aadressiga on üks teine kasutajakonto juba "
+"olemas."
+
+#: includes/providers/class-wc-social-login-provider-facebook.php:44
+msgid "Facebook"
+msgstr "Facebook"
+
+#. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
+#. translators: Placeholders: %1$s - opening HTML <a> tag, %2$s - closing HTML
+#. </a> tag
+#: includes/providers/class-wc-social-login-provider-facebook.php:49
+#: includes/providers/class-wc-social-login-provider-facebook.php:65
+msgid "Need help setting up and configuring Facebook? %1$sRead the docs%2$s"
+msgstr ""
+"Vajad abi Facebooki seadistamisel? %1$sLoe dokumentatsiooni (inglise "
+"keeles)%2$s"
+
+#. translators: Placeholder: %s - a url
+#: includes/providers/class-wc-social-login-provider-facebook.php:68
+#, fuzzy
+msgid "The redirect URI is %s"
+msgstr "Aplikatsiooni ümbersuunamise URL (App redirect URL) on %s"
+
+#: includes/providers/class-wc-social-login-provider-facebook.php:114
+msgid "App ID"
+msgstr "Aplikatsiooni ID"
+
+#: includes/providers/class-wc-social-login-provider-facebook.php:115
+msgid "App Secret"
+msgstr "Aplikatsiooni saladus"
+
+#: includes/providers/class-wc-social-login-provider-facebook.php:118
+msgid "Redirect URI"
+msgstr ""
+
+#. translators: Placeholders: %1$s - <strong> tag, %2$s - </strong> tag
+#: includes/providers/class-wc-social-login-provider-facebook.php:123
+msgid ""
+"I certify that I have added this site to my app's list of %1$sValid OAuth "
+"redirect URIs%2$s"
+msgstr ""
+
+#. translators: Placeholders: %s - OAuth redirect URI, wrapped in <code> tags
+#: includes/providers/class-wc-social-login-provider-facebook.php:128
+#, fuzzy
+msgid "Your redirect URI is %s"
+msgstr "Aplikatsiooni ümbersuunamise URL (App redirect URL) on %s"
+
+#: includes/providers/class-wc-social-login-provider-facebook.php:143
+msgid "Log in with Facebook"
+msgstr "Logi sisse Facebookiga"
+
+#: includes/providers/class-wc-social-login-provider-facebook.php:155
+msgid "Link your account to Facebook"
+msgstr "Seo oma konto Facebookiga"
+
+#: includes/providers/class-wc-social-login-provider-facebook.php:180
+msgid "Your Facebook account is now linked to your account."
+msgstr "Sinu Facebooki profiil on nüüd sinu kontoga seotud."
+
+#: includes/providers/class-wc-social-login-provider-facebook.php:181
+msgid "Facebook was successfully unlinked from your account."
+msgstr "Facebooki profiil seoti edukalt sinu kontost lahti."
+
+#: includes/providers/class-wc-social-login-provider-facebook.php:182
+msgid "This Facebook account is already linked to another user account."
+msgstr "See Facebooki profiil on juba ühe teise kasutaja kontoga seotud."
+
+#: includes/providers/class-wc-social-login-provider-facebook.php:183
+msgid ""
+"A user account using the same email address as this Facebook account already "
+"exists."
+msgstr ""
+"Selle Facebooki profiili e-posti aadressiga on üks teine kasutajakonto juba "
+"olemas."
+
+#: includes/providers/class-wc-social-login-provider-google.php:44
+msgid "Google"
+msgstr "Google"
+
+#. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
+#: includes/providers/class-wc-social-login-provider-google.php:64
+msgid "Need help setting up and configuring Google? %1$sRead the docs%2$s"
+msgstr ""
+"Vajad abi Google'i seadistamisel? %1$sLoe dokumentatsiooni (inglise "
+"keeles)%2$s"
+
+#. translators: Placeholder: %s - a url
+#: includes/providers/class-wc-social-login-provider-google.php:69
+msgid "The Authorized Redirect URI is %s"
+msgstr "Autoriseeritud ümbersuunamise aadress (Authorized Redirect URI) on %s"
+
+#: includes/providers/class-wc-social-login-provider-google.php:73
+msgid "(Please update your Google app to use this URL)"
+msgstr ""
+"(Palun uuenda oma Google’i aplikatsiooni, et ta kasutaks seda aadressi)"
+
+#. translators: Placeholder: %s - a url
+#: includes/providers/class-wc-social-login-provider-google.php:76
+msgid "The legacy Authorized Redirect URI is %s"
+msgstr ""
+"Vanakooli autoriseeritud ümbersuunamise aadress (Authorized Redirect URI) on "
+"%s"
+
+#: includes/providers/class-wc-social-login-provider-google.php:123
+msgid "Log in with Google"
+msgstr "Logi sisse Google'ga"
+
+#: includes/providers/class-wc-social-login-provider-google.php:135
+msgid "Link your account to Google"
+msgstr "Seo oma konto Google'ga"
+
+#: includes/providers/class-wc-social-login-provider-google.php:147
+msgid "Your Google account is now linked to your account."
+msgstr "Sinu Google'i profiil on nüüd sinu kontoga seotud."
+
+#: includes/providers/class-wc-social-login-provider-google.php:148
+msgid "Google was successfully unlinked from your account."
+msgstr "Google'i profiil seoti edukalt sinu kontost lahti."
+
+#: includes/providers/class-wc-social-login-provider-google.php:149
+msgid "This Google account is already linked to another user account."
+msgstr "See Google'i profiil on juba ühe teise kasutaja kontoga seotud."
+
+#: includes/providers/class-wc-social-login-provider-google.php:150
+msgid ""
+"A user account using the same email address as this Google account already "
+"exists."
+msgstr ""
+"Selle Google'i profiili e-posti aadressiga on üks teine kasutajakonto juba "
+"olemas."
+
+#: includes/providers/class-wc-social-login-provider-instagram.php:44
+msgid "Instagram"
+msgstr "Instagram"
+
+#. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
+#: includes/providers/class-wc-social-login-provider-instagram.php:64
+msgid "Need help setting up and configuring Instagram? %1$sRead the docs%2$s"
+msgstr ""
+"Vajad abi Instagrami seadistamisel? %1$sLoe dokumentatsiooni (inglise "
+"keeles)%2$s"
+
+#. translators: Placeholder: %s - a url
+#: includes/providers/class-wc-social-login-provider-instagram.php:69
+msgid "The OAuth redirect_uri is %s"
+msgstr "OAuth ümbersuunamise aadress (redirect_uri) on %s"
+
+#: includes/providers/class-wc-social-login-provider-instagram.php:73
+msgid "(Please update your Instagram app to use this URL)"
+msgstr ""
+"(Palun uuenda oma Instagrami aplikatsiooni, et ta kasutaks seda aadressi)"
+
+#. translators: Placeholder: %s - a url
+#: includes/providers/class-wc-social-login-provider-instagram.php:76
+msgid "The legacy OAuth redirect_uri is %s"
+msgstr "Vanakooli OAuth ümbersuunamise aadress (redirect_uri) on %s"
+
+#: includes/providers/class-wc-social-login-provider-instagram.php:119
+msgid "Log in with Instagram"
+msgstr "Logi sisse Instagramiga"
+
+#: includes/providers/class-wc-social-login-provider-instagram.php:131
+msgid "Link your account to Instagram"
+msgstr "Seo oma konto Instagramiga"
+
+#: includes/providers/class-wc-social-login-provider-instagram.php:143
+msgid "Your Instagram account is now linked to your account."
+msgstr "Sinu Instagrami profiil on nüüd sinu kontoga seotud."
+
+#: includes/providers/class-wc-social-login-provider-instagram.php:144
+msgid "Instagram was successfully unlinked from your account."
+msgstr "Instagrami profiil seoti edukalt sinu kontost lahti."
+
+#: includes/providers/class-wc-social-login-provider-instagram.php:145
+msgid "This Instagram account is already linked to another user account."
+msgstr "See Instagrami profiil on juba ühe teise kasutaja kontoga seotud."
+
+#: includes/providers/class-wc-social-login-provider-instagram.php:146
+msgid ""
+"A user account using the same email address as this Instagram account "
+"already exists."
+msgstr ""
+"Selle Instagrami profiili e-posti aadressiga on üks teine kasutajakonto juba "
+"olemas."
+
+#: includes/providers/class-wc-social-login-provider-linkedin.php:44
+msgid "LinkedIn"
+msgstr "LinkedIn"
+
+#. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
+#: includes/providers/class-wc-social-login-provider-linkedin.php:64
+msgid "Need help setting up and configuring LinkedIn? %1$sRead the docs%2$s"
+msgstr ""
+"Vajad abi LinkedIni seadistamisel? %1$sLoe dokumentatsiooni (inglise "
+"keeles)%2$s"
+
+#. translators: Placeholder: %s - a url
+#: includes/providers/class-wc-social-login-provider-linkedin.php:69
+msgid "The OAuth 2.0 Redirect URL is %s"
+msgstr "OAuth 2.0 ümbersuunamise aadress (Redirect URL) on %s"
+
+#: includes/providers/class-wc-social-login-provider-linkedin.php:73
+msgid "(Please update your LinkedIn app to use this URL)"
+msgstr ""
+"(Palun uuenda oma LinkedIni aplikatsiooni, et ta kasutaks seda aadressi)"
+
+#. translators: Placeholder: %s - a url
+#: includes/providers/class-wc-social-login-provider-linkedin.php:76
+msgid "The legacy OAuth 2.0 Redirect URL is %s"
+msgstr "OVanakooli Auth 2.0 ümbersuunamise aadress (Redirect URL) on %s"
+
+#: includes/providers/class-wc-social-login-provider-linkedin.php:120
+msgid "Log in with LinkedIn"
+msgstr "Logi sisse LinkedIniga"
+
+#: includes/providers/class-wc-social-login-provider-linkedin.php:132
+msgid "Link your account to LinkedIn"
+msgstr "Seo oma konto LinkedIniga"
+
+#: includes/providers/class-wc-social-login-provider-linkedin.php:144
+msgid "Your LinkedIn account is now linked to your account."
+msgstr "Sinu LinkedIni profiil on nüüd sinu kontoga seotud."
+
+#: includes/providers/class-wc-social-login-provider-linkedin.php:145
+msgid "LinkedIn was successfully unlinked from your account."
+msgstr "LinkedIni profiil seoti edukalt sinu kontost lahti."
+
+#: includes/providers/class-wc-social-login-provider-linkedin.php:146
+msgid "This LinkedIn account is already linked to another user account."
+msgstr "See LinkedIni profiil on juba ühe teise kasutaja kontoga seotud."
+
+#: includes/providers/class-wc-social-login-provider-linkedin.php:147
+msgid ""
+"A user account using the same email address as this LinkedIn account already "
+"exists."
+msgstr ""
+"Selle LinkedIni profiili e-posti aadressiga on üks teine kasutajakonto juba "
+"olemas."
+
+#: includes/providers/class-wc-social-login-provider-paypal.php:44
+msgid "PayPal"
+msgstr "PayPal"
+
+#. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
+#: includes/providers/class-wc-social-login-provider-paypal.php:64
+msgid "Need help setting up and configuring PayPal? %1$sRead the docs%2$s"
+msgstr ""
+"Vajad abi PayPali seadistamisel? %1$sLoe dokumentatsiooni (inglise "
+"keeles)%2$s"
+
+#. translators: Placeholder: %s - a url
+#: includes/providers/class-wc-social-login-provider-paypal.php:69
+msgid "The App redirect URL is %s"
+msgstr "Aplikatsiooni ümbersuunamise URL (App redirect URL) on %s"
+
+#: includes/providers/class-wc-social-login-provider-paypal.php:73
+msgid "(Please update your PayPal App to use this URL)"
+msgstr "(Palun uuenda oma PayPali aplikatsiooni, et ta kasutaks seda aadressi)"
+
+#. translators: Placeholder: %s - a url
+#: includes/providers/class-wc-social-login-provider-paypal.php:76
+msgid "The legacy App redirect URL is %s"
+msgstr "Vanakooli aplikatsiooni ümbersuunamise URL (App redirect URL) on %s"
+
+#. translators: https:www.skyverge.com/for-translators-environments/
+#: includes/providers/class-wc-social-login-provider-paypal.php:128
+msgid "Environment"
+msgstr "Keskkond"
+
+#: includes/providers/class-wc-social-login-provider-paypal.php:130
+msgid "Select which environment to process logins under."
+msgstr "Vali, millises keskkonnas soovida sisselogimise teostada."
+
+#. translators: Live (Production) environment -
+#. https:www.skyverge.com/for-translators-environments/
+#: includes/providers/class-wc-social-login-provider-paypal.php:133
+msgid "Live"
+msgstr "Töö/Avalik"
+
+#. translators: Placeholders: Sandbox (Test) environment -
+#. https:www.skyverge.com/for-translators-environments/
+#: includes/providers/class-wc-social-login-provider-paypal.php:135
+msgid "Sandbox"
+msgstr "Liivakast/Test"
+
+#: includes/providers/class-wc-social-login-provider-paypal.php:140
+msgid "Secret"
+msgstr "Saladus"
+
+#: includes/providers/class-wc-social-login-provider-paypal.php:152
+msgid "Log in with PayPal"
+msgstr "Logi sisse PayPaliga"
+
+#: includes/providers/class-wc-social-login-provider-paypal.php:164
+msgid "Link your account to PayPal"
+msgstr "Seo oma konto PayPaliga"
+
+#: includes/providers/class-wc-social-login-provider-paypal.php:176
+msgid "Your PayPal account is now linked to your account."
+msgstr "Sinu PayPali profiil on nüüd sinu kontoga seotud."
+
+#: includes/providers/class-wc-social-login-provider-paypal.php:177
+msgid "PayPal was successfully unlinked from your account."
+msgstr "PayPali profiil seoti edukalt sinu kontost lahti."
+
+#: includes/providers/class-wc-social-login-provider-paypal.php:178
+msgid "This PayPal account is already linked to another user account."
+msgstr "See PayPali profiil on juba ühe teise kasutaja kontoga seotud."
+
+#: includes/providers/class-wc-social-login-provider-paypal.php:179
+msgid ""
+"A user account using the same email address as this PayPal account already "
+"exists."
+msgstr ""
+"Selle PayPali profiili e-posti aadressiga on üks teine kasutajakonto juba "
+"olemas."
+
+#: includes/providers/class-wc-social-login-provider-twitter.php:44
+msgid "Twitter"
+msgstr "Twitter"
+
+#. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
+#: includes/providers/class-wc-social-login-provider-twitter.php:69
+msgid "Need help setting up and configuring Twitter? %1$sRead the docs%2$s"
+msgstr ""
+"Vajad abi Twitteri seadistamisel? %1$sLoe dokumentatsiooni (inglise "
+"keeles)%2$s"
+
+#: includes/providers/class-wc-social-login-provider-twitter.php:127
+msgid "Consumer Key"
+msgstr "Tarbija võti"
+
+#: includes/providers/class-wc-social-login-provider-twitter.php:128
+msgid "Consumer Secret"
+msgstr "Tarbija saladus"
+
+#: includes/providers/class-wc-social-login-provider-twitter.php:140
+msgid "Log in with Twitter"
+msgstr "Logi sisse Twitteriga"
+
+#: includes/providers/class-wc-social-login-provider-twitter.php:152
+msgid "Link your account to Twitter"
+msgstr "Seo oma konto Twitteriga"
+
+#: includes/providers/class-wc-social-login-provider-twitter.php:192
+msgid "Your Twitter account is now linked to your account."
+msgstr "Sinu Twitteri profiil on nüüd sinu kontoga seotud."
+
+#: includes/providers/class-wc-social-login-provider-twitter.php:193
+msgid "Twitter was successfully unlinked from your account."
+msgstr "Twitteri profiil seoti edukalt sinu kontost lahti."
+
+#: includes/providers/class-wc-social-login-provider-twitter.php:194
+msgid "This Twitter account is already linked to another user account."
+msgstr "See Twitteri profiil on juba ühe teise kasutaja kontoga seotud."
+
+#: includes/providers/class-wc-social-login-provider-twitter.php:195
+msgid ""
+"A user account using the same email address as this Twitter account already "
+"exists."
+msgstr ""
+"Selle Twitteri profiili e-posti aadressiga on üks teine kasutajakonto juba "
+"olemas."
+
+#: includes/providers/class-wc-social-login-provider-vkontakte.php:46
+msgid "VK"
+msgstr "VK"
+
+#. translators: Placeholders: %1$s - opening HTML <a> tag, %2$s - closing HTML
+#. </a> tag
+#: includes/providers/class-wc-social-login-provider-vkontakte.php:64
+msgid "Need help setting up and configuring VK? %1$sRead the docs%2$s"
+msgstr ""
+"Vajad abi VK seadistamisel? %1$sLoe dokumentatsiooni (inglise keeles)%2$s"
+
+#: includes/providers/class-wc-social-login-provider-vkontakte.php:107
+msgid "Application ID"
+msgstr "Aplikatsiooni ID"
+
+#: includes/providers/class-wc-social-login-provider-vkontakte.php:108
+msgid "Secure Key"
+msgstr "Turvaline võti"
+
+#: includes/providers/class-wc-social-login-provider-vkontakte.php:120
+msgid "Log in with VK"
+msgstr "Logi sisse VK-ga"
+
+#: includes/providers/class-wc-social-login-provider-vkontakte.php:132
+msgid "Link your account to VK"
+msgstr "Seo oma konto VK-ga"
+
+#: includes/providers/class-wc-social-login-provider-vkontakte.php:144
+msgid "Your VK account is now linked to your account."
+msgstr "Sinu VK profiil on nüüd sinu kontoga seotud."
+
+#: includes/providers/class-wc-social-login-provider-vkontakte.php:145
+msgid "VK was successfully unlinked from your account."
+msgstr "VK profiil seoti edukalt sinu kontost lahti."
+
+#: includes/providers/class-wc-social-login-provider-vkontakte.php:146
+msgid "This VK account is already linked to another user account."
+msgstr "See VK profiil on juba ühe teise kasutaja kontoga seotud."
+
+#: includes/providers/class-wc-social-login-provider-vkontakte.php:147
+msgid ""
+"A user account using the same email address as this VK account already "
+"exists."
+msgstr ""
+"Selle VK profiili e-posti aadressiga on üks teine kasutajakonto juba olemas."
+
+#: includes/providers/class-wc-social-login-provider-yahoo.php:44
+msgid "Yahoo"
+msgstr "Yahoo"
+
+#. translators: Placeholders: %1$s - opening HTML <a> tag, %2$s - closing HTML
+#. </a> tag
+#: includes/providers/class-wc-social-login-provider-yahoo.php:62
+msgid "Need help setting up and configuring Yahoo? %1$sRead the docs%2$s"
+msgstr ""
+"Vajad abi Yahoo seadistamisel? %1$sLoe dokumentatsiooni (inglise keeles)%2$s"
+
+#: includes/providers/class-wc-social-login-provider-yahoo.php:102
+msgid "Log in with Yahoo"
+msgstr "Logi sisse Yahooga"
+
+#: includes/providers/class-wc-social-login-provider-yahoo.php:114
+msgid "Link your account to Yahoo"
+msgstr "Seo oma konto Yahooga"
+
+#: includes/providers/class-wc-social-login-provider-yahoo.php:126
+msgid "Your Yahoo account is now linked to your account."
+msgstr "Sinu Yahoo profiil on nüüd sinu kontoga seotud."
+
+#: includes/providers/class-wc-social-login-provider-yahoo.php:127
+msgid "Yahoo was successfully unlinked from your account."
+msgstr "Yahoo profiil seoti edukalt sinu kontost lahti."
+
+#: includes/providers/class-wc-social-login-provider-yahoo.php:128
+msgid "This Yahoo account is already linked to another user account."
+msgstr "See Yahoo profiil on juba ühe teise kasutaja kontoga seotud."
+
+#: includes/providers/class-wc-social-login-provider-yahoo.php:129
+msgid ""
+"A user account using the same email address as this Yahoo account already "
+"exists."
+msgstr ""
+"Selle Yahoo profiili e-posti aadressiga on üks teine kasutajakonto juba "
+"olemas."
+
+#: includes/widgets/class-wc-social-login-widget.php:44
+msgid "Display social login buttons."
+msgstr "Näita sisselogimisnuppe."
+
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce Social Login"
+msgstr "WooCommerce Social Login"
+
+#: includes/widgets/class-wc-social-login-widget.php:120
+msgid "Title"
+msgstr "Pealkiri"
+
+#: includes/widgets/class-wc-social-login-widget.php:124
+msgid "Return URL"
+msgstr "Tagasipöördumise aadress (URL)"
+
+#: templates/myaccount/social-profiles.php:39
+msgid "Social Login Accounts"
+msgstr "Sotsiaalvõrgustike kontod"
+
+#. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
+#: templates/myaccount/social-profiles.php:47
+msgid "%1$sAdd more...%2$s"
+msgstr "%1$sLisa veel...%2$s"
+
+#: templates/myaccount/social-profiles.php:51
+msgid "Your account is connected to the following social login providers."
+msgstr "Sinu konto on seotud järgmiste sisselogimisteenuse pakkujatega."
+
+#: templates/myaccount/social-profiles.php:57
+#: templates/myaccount/social-profiles.php:71
+msgid "Account"
+msgstr "Konto"
+
+#: templates/myaccount/social-profiles.php:58
+#: templates/myaccount/social-profiles.php:81
+msgid "Last login"
+msgstr "Viimati sisse logitud"
+
+#. translators: Placeholders: %1$s - date, %2$s - time
+#: templates/myaccount/social-profiles.php:85
+msgid "%1$s @ %2$s"
+msgstr "%1$s kell %2$s"
+
+#: templates/myaccount/social-profiles.php:88
+msgid "Never"
+msgstr "Mitte kunagi"
+
+#. translators: This is an action: unlink account from a social profile
+#: templates/myaccount/social-profiles.php:93
+msgid "Unlink"
+msgstr "Seo lahti"
+
+#. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
+#: templates/myaccount/social-profiles.php:106
+msgid "You have no social login profiles connected. %1$sConnect one now%2$s"
+msgstr ""
+"Su konto ei ole ühegi sotsiaalvõrgustiku profiiliga ühendatud. %1$sÜhenda "
+"ühega kohe%2$s"
+
+#: templates/myaccount/social-profiles.php:114
+msgid "You can link your account to the following providers:"
+msgstr "Saad oma konto siduda järgmiste teenusepakkujatega:"
+
+#. translators: Placeholders: %1$s - opening HTML <a> tag, %2$s - closing HTML
+#. </a> tag
+#: woocommerce-social-login.php:591
+msgid ""
+"Thanks for installing Social Login! Before you get started, please take a "
+"moment to %1$sread through the documentation%2$s."
+msgstr ""
+"Aitäh, et paigaldasid Social Logini! Enne kui alustad, palun võta hetk, et "
+"%1$slugeda dokumentatsiooni%2$s."
+
+#. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag, %3$s - <a> tag,
+#. %4$s - </a> tag
+#: woocommerce-social-login.php:609
+msgid ""
+"WooCommerce Social Login: Facebook now requires your site's full OAuth "
+"Redirect URI to be configured for your app. Please head over to the "
+"%1$sFacebook settings%2$s to get your Redirect URI, and read more about "
+"%3$sconfiguring your app &raquo;%4$s"
+msgstr ""
+
+#: woocommerce-social-login.php:667
+msgid ""
+"Oops, looks like iThemes Security is set to Filter Long URLs. This is likely "
+"to cause a conflict with Social Login -- please disable that setting for "
+"optimal functionality."
+msgstr ""
+"Ups, tundub et iThemes Security on seadistatud filtreerima pikki aadresse "
+"(Filter Long URLs). See võib tõenäoliselt põhjustada konflikte Social Login "
+"pluginaga — optimaalseks tööks lülita palun see see seadistus välja."
+
+#. translators: %1$s, %3$s - opening <a> tag, %2$s, %4$s - closing </a> tag
+#: woocommerce-social-login.php:679
+msgid ""
+"Please update callback URLs for each Social Login provider, then switch "
+"callback URLs to the Default format in the %1$sSocial Login settings%2$s. "
+"You can %3$slearn more from the plugin documentation%4$s."
+msgstr ""
+"Palun uuenda iga sotsiaalmeedia kaudu sisselogimise teenusepakkuja "
+"tagasipöördumisaadressi, seejärel lülita tagasipöördumisaadressid %1$sSocial "
+"Login seadetes%2$s üle uuele (Vaikimisi) vormingule. Rohkem infot %3$sleiad "
+"plugina dokumentatsioonist%4$s."
+
+#. translators: Placeholders: %1$s - WooCommerce Social Login plugin name, %2$s
+#. - opening <a> HTML link tag, %3$s - closing </a> HTML link tag, %4$s cookie
+#. name wrapped in <code> HTML tags
+#: woocommerce-social-login.php:690
+msgid ""
+"If you are experiencing issues with customers linking a social account using "
+"%1$s, please %2$sfollow the guidelines here%3$s, as your host should fix "
+"your site's caching rules to exclude %4$s cookies from caching. If you're "
+"not seeing any issues with %1$s, please disregard this notice."
+msgstr ""
+
+#: woocommerce-social-login.php:787
+#, fuzzy
+msgid "Removed customer Social Login data"
+msgstr "WooCommerce Social Login"
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.woocommerce.com/products/woocommerce-social-login/"
+msgstr "http://www.woocommerce.com/products/woocommerce-social-login/"
+
+#. Description of the plugin/theme
+msgid ""
+"One-click registration and login via social networks like Facebook, Google, "
+"Twitter and Amazon"
+msgstr ""
+"Ühe klikiga registreerumine ja sisse logimine sotsiaalvõrgustike nagu "
+"Facebook, Google, Twitter ja Amazon kaudu."
+
+#. Author of the plugin/theme
+msgid "SkyVerge"
+msgstr "SkyVerge"
+
+#. Author URI of the plugin/theme
+msgid "http://www.woocommerce.com"
+msgstr "http://www.woocommerce.com"
+
+#. translators: Client (app) ID for a Social Login provider, used for
+#. identifying and authenticating the app (in our case, the WooCommerce store).
+#. This is NOT a WooCommerce customer ID
+#: includes/abstract-wc-social-login-provider.php:132
+msgctxt "Social Login provider app identifier"
+msgid "Client ID"
+msgstr "Kliendi ID"
+
+#: includes/abstract-wc-social-login-provider.php:157
+msgctxt "noun"
+msgid "Link Button Text"
+msgstr "Sidumise nupu tekst"
+
+#: woocommerce-social-login.php:641
+msgctxt "Requires SSL"
+msgid ""
+"WooCommerce Social Login: %s requires SSL for authentication, please force "
+"WooCommerce over SSL."
+msgstr ""
+"WooCommerce Social Login: %s vajab SSL-ühendust, palun sunni WooCommerce'i "
+"kasutama SSL-ühendust."
+
+#~ msgid "Dismiss"
+#~ msgstr "Loobu"
+
+#~ msgid ""
+#~ "The following plugins are inactive because they require a newer version "
+#~ "to function properly:"
+#~ msgstr ""
+#~ "Järgnevad pluginad ei ole hetkel aktiivsed, kuna nad vajavad toimimiseks "
+#~ "uuemat versiooni:"
+
+#~ msgid ""
+#~ "The following plugin is inactive because it requires a newer version to "
+#~ "function properly:"
+#~ msgstr ""
+#~ "Järgnev plugin ei ole hetkel aktiivne, kuna vajab toimimiseks uuemat "
+#~ "versiooni:"
+
+#~ msgid "Please %1$supdate%2$s"
+#~ msgstr "Palun %1$suuenda%2$s"
+
+#~ msgid ""
+#~ "The following plugins are inactive because they require a newer version "
+#~ "of WooCommerce:"
+#~ msgstr ""
+#~ "Järgnevad pluginad ei ole hetkel aktiivsed, kuna nad vajavad toimimiseks "
+#~ "uuemat WooCommerce’i versiooni:"
+
+#~ msgid ""
+#~ "The following plugin is inactive because it requires a newer version of "
+#~ "WooCommerce:"
+#~ msgstr ""
+#~ "Järgnev plugin ei ole hetkel aktiivne, kuna vajab toimimiseks uuemat "
+#~ "WooCommerce’i versiooni:"
+
+#~ msgid "%1$s requires WooCommerce %2$s or newer"
+#~ msgstr "%1$s vajab WooCommerce’i versiooni %2$s või uuemat"
+
+#~ msgid "Please %1$supdate WooCommerce%2$s"
+#~ msgstr "Palun %1$suuenda WooCommerce’i%2$s"
+
+#~ msgid "You cannot clone instances of %s."
+#~ msgstr "%s instantse ei ole võimalik kloonida."
+
+#~ msgid "You cannot unserialize instances of %s."
+#~ msgstr "%s instantse ei ole võimalik deserialiseerida."
+
+#~ msgid ""
+#~ "%1$s requires the %2$s PHP extension to function. Contact your host or "
+#~ "server administrator to configure and install the missing extension."
+#~ msgid_plural ""
+#~ "%1$s requires the following PHP extensions to function: %2$s. Contact "
+#~ "your host or server administrator to configure and install the missing "
+#~ "extensions."
+#~ msgstr[0] ""
+#~ "%1$s vajab toimimiseks PHP laiendust %2$s. Võta palun ühendust oma "
+#~ "veebimajutusteenuse pakkuja või serveri halduriga ning palun neil "
+#~ "puuduolev laiendus paigaldada või seadistada."
+#~ msgstr[1] ""
+#~ "%1$s vajab toimimiseks järgmisi PHP laiendusi: %2$s. Võta palun ühendust "
+#~ "oma veebimajutusteenuse pakkuja või serveri halduriga ning palun neil "
+#~ "puuduolevad laiendused paigaldada või seadistada."
+
+#~ msgid ""
+#~ "%1$s requires the %2$s PHP function to exist.  Contact your host or "
+#~ "server administrator to configure and install the missing function."
+#~ msgid_plural ""
+#~ "%1$s requires the following PHP functions to exist: %2$s.  Contact your "
+#~ "host or server administrator to configure and install the missing "
+#~ "functions."
+#~ msgstr[0] ""
+#~ "%1$s vajab toimimiseks PHP funkstiooni %2$s. Võta palun ühendust oma "
+#~ "veebimajutusteenuse pakkuja või serveri halduriga ning palun neil "
+#~ "puuduolev funktsioon paigaldada või seadistada."
+#~ msgstr[1] ""
+#~ "%1$s vajab toimimiseks järgnevaid PHP funkstioone: %2$s. Võta palun "
+#~ "ühendust oma veebimajutusteenuse pakkuja või serveri halduriga ning palun "
+#~ "neil puuduolevad funktsioonid paigaldada või seadistada."
+
+#~ msgid "Docs"
+#~ msgstr "Dokumentatsioon"
+
+#~ msgid "Configure"
+#~ msgstr "Seadista"
+
+#~ msgid "WooThemes / SkyVerge"
+#~ msgstr "WooThemes / SkyVerge"
+
+#~ msgctxt "noun"
+#~ msgid "Support"
+#~ msgstr "Tugi"

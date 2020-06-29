@@ -1,0 +1,234 @@
+*** WooCommerce Min/Max Quantities Changelog ***
+
+2020-06-10 - version 2.4.18
+* Tweak - WC 4.2 compatibility.
+
+2020-05-12 - version 2.4.17
+* Fix - Prevent multiple notices from showing up.
+* Fix - Group by setting not resetting correctly between variations.
+
+2020-04-29 - version 2.4.16
+* Tweak - WC 4.1 compatibility.
+
+2020-03-04 - version 2.4.15
+* Add   - Package.json and POT file build script.
+* Fix   - Update language POT file.
+* Tweak - Improve plugin description.
+* Tweak - Remove legacy code.
+* Tweak - WC 4.0 compatibility.
+
+2020-02-04 - version 2.4.14
+* Fix - Use proper escape for attributes.
+
+2020-01-13 - version 2.4.13
+* Add - Cart link to the error message when quantity or order value matches or exceeds whats already in cart.
+* Tweak - WC 3.9 compatibility.
+
+2019-11-04 - version 2.4.12
+* Tweak - WC 3.8 compatibility.
+
+2019-10-03 - version 2.4.11
+* Add - Add wc_min_max_cart_quantity_do_not_count filter to skip counting a line item in the cart.
+
+2019-08-12 - version 2.4.10
+* Tweak - Fixed minor issues.
+
+2019-08-12 - version 2.4.9
+* Tweak - Copyright year and fixed minor issues.
+
+2019-08-08 - version 2.4.8
+* Tweak - WC 3.7 compatibility.
+
+2019-07-02 - version 2.4.7
+* Fix   - Erroneous logic for excluded category products.
+
+2019-04-15 - version 2.4.6
+* Tweak - WC 3.6 compatibility.
+
+2018-10-10 - version 2.4.5
+* Update - WC 3.5 compatibility.
+
+2018-08-22 - version 2.4.4
+* Fix - Allow combination setting not working correctly on cart page.
+* Add - Translation POT file.
+* Fix - Restrict quantity admin settings to whole numbers to avoid confusion.
+
+2018-05-28 - version 2.4.3
+* Fix - Group of quantity not working in cart for variable product.
+* Fix - Min price field being cleared when paired with Measurement Price Calculator.
+
+2018-05-21 - version 2.4.2
+* Update - WC 3.4 compatibility.
+
+2017-12-12 - version 2.4.1
+* Update - WC tested up to version.
+
+2017-12-11 - version 2.4.0
+* Fix - When groups value set to 1 the value is ignored.
+* Feature - Add setting "Allow Combination" for variable products to consider all variations as part of the rule.
+* Remove - Composite compatibility check as they're now compatible.
+
+2017-06-28 - version 2.3.18
+* Fix - Issue when global level rules not applying correctly to items adding to cart.
+* Fix - Issue with product level exclusion not overriding global rule settings.
+* Fix - Cart level maximum order qty rules were not applying correctly.
+* Add - Woo plugin header.
+
+2017-06-15 - version 2.3.17
+* Fix - Add to cart message showing successful when not.
+
+2017-04-03 - version 2.3.16
+* Fix - Update for WooCommerce 3.0 compatibility.
+
+2016-12-16 - version 2.3.15
+* Fix - Quantity duplication issue on compat with Multiple Shipping Addresses.
+* Fix - Variations pagination prompting for save changes when nothing has changed.
+
+2016-08-10 - version 2.3.14
+* Fix - Group of setting for variation resets to 1 after choosing variation.
+
+2016-04-11 - version 2.3.13
+* Fix - issue where category-level rule not enforced if product amount exceeds rule minimum amount
+
+2016-03-21 - version 2.3.12
+* Fix - issue where group of setting does not match minimum when back order is allowed.
+
+2016-03-02 - version 2.3.11
+* Fix - Variation product on cart level, is not validating minimum quantity when general minimum quantity is set.
+
+2016-01-27 - version 2.3.10
+* Fix - Show correct stock statuses when minimum quantity is greater than actual stock.
+
+2015-11-03 - version 2.3.9
+* Fix - Variation level category exclude option not working.
+* New - Compatibility with Composite Products plugin to disable min/max logic when product is of type composite.
+
+2015-10-06 - version 2.3.8
+* Fix - Min/Max Rules checkbox behavior for variations.
+* Tweak - Improved languages load.
+
+2015-07-28 - version 2.3.7
+* Fix - General setting fields accepted non numeric values when shouldn't
+
+2015-04-13 - version 2.3.6
+* Fix - Change when totals are calculated for items.
+
+2015-04-13 - version 2.3.5
+* Fix - add to cart validation for minimum quantity
+* Fix - input_value for grouped products.
+
+2015-03-18 - version 2.3.4
+* Fix - cart exclude did not account for variations
+* Fix - Set minimum step to group of if minimum quantity is not set
+
+2015-03-10 - version 2.3.3
+* Removed object re-assignment during manage stock check as it is not needed at that level
+
+2015-03-02 - version 2.3.2
+* Check WC_VERSION constant is defined before calling
+* Added tooltip for settings within variation level
+* Fix - Simple product was not correctly adding group of when both min and max value are not equally disivible
+* Make variation product aware of product level settings and override when necessary
+* Fix - cart not aware of qty settings for variations
+* Fix - add to cart rule check using string compare instead of int
+* Fix - Cart validation rules
+* Simple refactor
+* Updated Textdomain name
+
+2015-02-20 - version 2.3.1
+* Fix - typos on variation meta names
+* Fix - Max qty was not working on simple product
+
+2015-02-03 - version 2.3.0
+* Sanitized user inputs from settings
+* Properly apply min max rules to variations
+* WooCommerce 2.3 compatibility
+
+2014-04-08 - version 2.2.8
+* Prevent total counts stacking when the same ID is in the cart twice
+
+2014-02-25 - version 2.2.7
+* Correctly total cart when variations have different prices
+
+2014-02-04 - version 2.2.6
+* Fix_value shouldn't apply to cart page
+
+2014-02-04 - version 2.2.5
+* Don't set min for variable products with rules at product level only.
+
+2014-01-28 - version 2.2.4
+* Filters for values when checking cart items
+
+2014-01-16 - version 2.2.3
+* 2.1 compatibility
+
+2013-09-04 - version 2.2.2
+* Add currency to notices
+
+2013-08-23 - version 2.2.1
+* Fix available_variation rules
+
+2013-08-12 - version 2.2.0
+* If min qty is divisible by group of, allow step attribute
+
+2013-05-29 - version 2.1.4
+* Legacy fix
+
+2013-05-23 - version 2.1.3
+* Fix variation rules.
+
+2013-05-13 - version 2.1.2
+* Prevent notices
+
+2013-04-29 - version 2.1.1
+* No min quantity for variations, as you don't know what else is in the cart.
+
+2013-03-30 - version 2.1.0
+* Group of.. per category.
+
+2013-03-28 - version 2.0.4
+* Fixed step attribute for groupof. Set value to 0.
+* Disabled step on cart page, so corrections can be made.
+
+2013-03-22 - version 2.0.3
+* Min quantity used for ajax add to cart buttons
+
+2012-12-22 - version 2.0.2
+* Ensure the modified price is used for cart items
+
+2012-12-22 - version 2.0.1
+* Fix for variation prices
+
+2012-12-04 - version 2.0.0
+* Fixed order rules to work with variations
+* "Group of" option - lets you sell items in groups of X
+* Define min/max options per variation
+* WC 2.0 compatibility
+
+2012-12-04 - version 1.2.2
+* New updater
+
+2012-09-10 - version 1.2.1
+* Rule fixes
+
+2012-09-10 - version 1.2
+* Per-product options to exclude items from cart rules.
+
+2012-03-20 - version 1.1.1
+* use subtotal instead of cart contents total (to include tax)
+
+2012-02-23 - version 1.1
+* Class name change
+* Options for setting a min/max order VALUE
+* data-min/max for quantity selectors (WC 1.4.5 + only)
+* Prevent add to cart if limit is breached
+
+2012-01-26 - version 1.0.2
+* WC 1.4 Compatibility
+* Added Woo Updater
+
+2011-11-15 - version 1.0.1
+* Changed textdomain
+
+2011-11-09 - version 1.0
+* First Release

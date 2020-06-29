@@ -1,0 +1,36 @@
+/* SINGLE PRODUCT */
+
+.yith-wcdp-deposit-shipping {
+    display: none;
+    padding-left: 20px;
+}
+
+.yith-wcdp-deposit-shipping.forced {
+    padding-left: 0;
+}
+
+.yith-wcdp-shipping-form {
+    font-size: 0.8em;
+    font-weight: 700;
+}
+
+.yith-wcdp-shipping-form label {
+    font-weight: 400;
+}
+
+.yith-wcdp-shipping-form table {
+    border: none;
+}
+
+.yith-wcdp-shipping-form table th,
+.yith-wcdp-shipping-form table td{
+    border: none;
+}
+
+.yith-wcdp-shipping-form table th{
+    padding-left: 0;
+}
+
+.yith-wcdp-shipping-form table td{
+    padding-right: 0;
+}

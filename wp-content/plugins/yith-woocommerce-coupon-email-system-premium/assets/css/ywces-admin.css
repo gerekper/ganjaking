@@ -1,0 +1,173 @@
+.yith-wc-textarea {
+    resize: vertical !important;
+    width: 100% !important;
+    min-height: 200px !important;
+}
+
+.ywces-text {
+    width: 100% !important;
+}
+
+.ywces-coupon select, .ywces-coupon input[type=text], .ywces-coupon input[type=number] {
+    width: 100% !important;
+}
+
+.ywces-test-email {
+    width: 50% !important;
+}
+
+tr.ywces-collapse {
+    cursor: pointer;
+}
+
+.ywces-collapse td {
+    padding: 10px 10px 10px 20px;
+    font-size: small;
+    font-style: italic;
+    line-height: 20px;
+}
+
+.ywces-collapse .ywces-collapse-sign {
+    position: relative;
+    float: right;
+    height: 20px;
+    width: 20px;
+    border: 1px solid #444444;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    box-sizing: content-box;
+    font: normal 20px/1 dashicons;
+    speak: none;
+    -webkit-font-smoothing: antialiased;
+}
+
+.ywces-collapse .ywces-collapse-sign:after {
+    content: "\f343";
+
+}
+
+.ywces-collapse.expand .ywces-collapse-sign:after {
+    content: "\f347";
+}
+
+.ywces-collapse .ywces-collapse-expanded,
+.ywces-collapse .ywces-collapse-collapsed {
+    display: block;
+    float: right;
+    font-size: 14px;
+    line-height: 20px;
+    margin: 0 5px 0 0;
+    font-style: italic;
+}
+
+.ywces-collapse .ywces-collapse-collapsed {
+    display: none;
+}
+
+.ywces-collapse.expand .ywces-collapse-expanded {
+    display: none;
+}
+
+.ywces-collapse.expand .ywces-collapse-collapsed {
+    display: block;
+}
+
+.form-table td .ywces-coupon {
+    border: 1px solid #cccccc;
+    padding: 0 15px;
+}
+
+.form-table td .ywces-coupon p {
+    margin-top: 13px;
+    margin-bottom: 13px;
+    font-size: 13px;
+}
+
+.form-table td .ywces-coupon p.checkboxes label {
+    display: inline-block;
+    padding: 4px 1em 2px 0;
+}
+
+.ywces-mailskin {
+    width: 300px;
+    height: auto;
+    display: block;
+    clear: both;
+    margin: 20px 10px 0 0;
+    border: 1px solid #ddd;
+    padding: 6px;
+    border-radius: 6px;
+}
+
+.ywces-mailskin img {
+    max-width: 300px;
+    max-height: 300px;
+}
+
+.ywces-send-result,
+.ywces-clear-result {
+    font-size: 13px;
+    font-weight: normal;
+    padding: 6px 12px 6px 40px;
+    background-color: #f7f7f7;
+    background-color: rgba(0, 0, 0, 0.03);
+    display: none;
+}
+
+.ywces-send-result {
+    margin: 5px 0 0 0;
+}
+
+.ywces-send-result:before,
+.ywces-clear-result:before {
+    color: #d54e21;
+    display: inline-block;
+    font: normal 20px/1 'dashicons';
+    speak: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    vertical-align: top;
+    margin: 0 10px 0 -30px;
+}
+
+.ywces-send-result.send-success:before,
+.ywces-clear-result.clear-success:before {
+    color: #79ba49;
+    content: '\f147';
+}
+
+.ywces-send-result.send-fail:before,
+.ywces-clear-result.clear-fail:before {
+    color: #ba0a11;
+    content: '\f158';
+}
+
+.ywces-send-result.send-progress:before,
+.ywces-clear-result.clear-progress:before {
+    content: '\f463';
+    -webkit-animation: rotation 2s infinite linear;
+    animation: rotation 2s infinite linear;
+}
+
+@-webkit-keyframes rotation {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(359deg);
+        transform: rotate(359deg);
+    }
+}
+
+@keyframes rotation {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(359deg);
+        transform: rotate(359deg);
+    }
+}

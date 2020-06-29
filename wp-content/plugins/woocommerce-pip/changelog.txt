@@ -1,0 +1,384 @@
+*** WooCommerce Print Invoices/Packing Lists Changelog ***
+
+2020.06.04 - version 3.8.6
+ * Fix - Fix fatal error when printing pick list grouped by category containing order(s) with deleted product(s)
+
+2020.06.02 - version 3.8.5
+ * Fix - Adjust the order action buttons UI so that label translations with long text doesn't break CSS
+
+2020.05.04 - version 3.8.4
+ * Misc - Add support for WooCommerce 4.1
+
+2020.03.09 - version 3.8.3
+ * Misc - Add support for WooCommerce 4.0
+
+2020.02.20 - version 3.8.2
+ * Fix - Display refunded items correctly when bulk printing documents for multiple orders
+ * Fix - Use bulk actions filter to add order bulk actions, if available
+
+2020.01.02 - version 3.8.1
+ * Misc - Add support for WooCommerce 3.9
+
+2019.11.05 - version 3.8.0
+ * Feature - Add settings to let merchants remove optional column fields from documents
+ * Misc - Add support for WooCommerce 3.8
+
+2019.09.04 - version 3.7.1
+ * Tweak - Use modals instead of admin notices for order actions UI
+ * Fix - Improve compatibility with WooCommerce Admin
+ * Misc - Updated Italian translation
+
+2019.08.12 - version 3.7.0
+ * Localization - Add German translation, thanks to Andreas Broicher https://tangosummer.com
+ * Misc - Add support for WooCommerce 3.7
+ * Misc - Remove support for WooCommerce 2.6
+ * Misc - Require PHP 5.6+
+
+2019.06.19 - version 3.6.7
+ * Tweak - Clean outdated print options from abandoned prints on upgrade, deactivation and activation
+
+2019.06.07 - version 3.6.6
+ * Fix - Ensure the correct data types are passed to the `wc_pip_[type]_hide_virtual_item` filter
+
+2019.06.05 - version 3.6.5
+ * Fix - When orders have refunds, display the correct quantity for the same items in Pick Lists
+ * Fix - Keep listing deleted products in Pick Lists and Packing Lists (behavior can be toggled via filter hook)
+ * Fix - When grouping items by category in pick lists, ensure that items belonging to categories whose names do not match their slugs, are not accidentally grouped as "Uncategorized"
+ * Fix - Prevent WooCommerce from sending duplicated emails while updating an order from admin and clicking on the update button with an email order action selected, instead of using the order action button
+
+2019.04.30 - version 3.6.4
+ * Fix - Ensure item names display for deleted products
+
+2019.04.03 - version 3.6.3
+ * Fix - Ensure the order actions popup panel displays the order number instead of the order ID in the header
+ * Misc - Add support for WooCommerce 3.6
+ * Misc - Require PHP 5.4+
+
+2019.01.30 - version 3.6.2
+ * Tweak - Ensure that an item listed in a document is hyperlinked to its product page even when out of stock, if the user viewing the document is a shop manager
+ * Fix - Fix category hierarchy on packing lists when categories exist with the same name
+ * Dev - Remove SkyVerge Framework methods from template files for better backwards compatibility
+
+2018.10.25 - version 3.6.1
+ * Misc - Add support for WooCommerce 3.5
+ * Misc - Add support for WooCommerce Product Add-Ons 3.0
+
+2018.07.25 - version 3.6.0
+ * Fix - Ensure default settings are correctly set in new plugin installs
+ * Fix - Correctly align the company VAT number when center or right aligned
+ * Misc - Dropped support for PHP 5.2: PHP 5.3 is now the minimum required version
+ * Dev - Add filter to toggle whether showing the chosen shipping method in invoice documents
+ * Dev - Add new filter to help customizing the output of pick lists table rows
+
+2018.05.23 - version 3.5.2
+ * Misc - Add support for WooCommerce 3.4
+
+2018.05.03 - version 3.5.1
+ * Fix - Prevent duplicate order numbers from being displayed in the header on fresh installs
+
+2018.03.28 - version 3.5.0
+ * Feature - Add support for EU invoice requirements and a company VAT number field in customizer
+ * Tweak - Allow sending emails manually from order actions even if they are disabled in email settings
+ * Tweak - Use a WordPress pointer to handle the order actions popup panel instead of a tooltip
+ * Fix - Ensure refunded amounts of items in order are correct when prices displayed in invoices are tax inclusive
+ * Fix - Prevent more third party scripts and styles from accidentally loading in customizer views
+
+2018.01.23 - version 3.4.0
+ * Tweak - Display the invoice number in order preview
+ * Fix - If an order has many items that require more than one page to print, some browsers may have placed the table footer on each page, rather than just at the end
+ * Dev - Added filter to toggle the document table footer between 'tfoot' and 'tbody' (now default)
+ * Misc - Add support for WooCommerce 3.3
+ * Misc - Remove support for WooCommerce 2.5
+
+2017.11.15 - version 3.3.5
+ * Fix - Pick lists could show incorrect item weight if items are present in more than one order
+ * Fix - Refunded totals were incorrectly rounded to nearest integer on invoices
+ * Fix - Improve plugin performance by reducing excessive queries introduced by WooCommerce 3.0+ in admin order edit screens
+ * Dev - The filter `wc_pip_sort_order_items` has been deprecated in favor of `wc_pip_sort_order_item_rows`
+
+2017.09.26 - version 3.3.4
+ * Fix - Address a capability issue within the order edit screen, where admin users who can manage WooCommerce but don't have the `edit_shop_orders` capability cannot use properly the Print Invoice/Packing List action
+ * Fix - When printing a Pick list and "Groups items by category for selected orders" is selected, the items sort order could be incorrect
+
+2017.08.30 - version 3.3.3
+ * Fix - Address a display issue with some attributes whose values might have been shown as dashed slugs rather than text in the item details
+ * Fix - Templates have been updated to address an issue with MS Outlook clients where the table footer was in reversed order
+ * Fix - When using "Groups items by category for selected orders" in Pick Lists, if there are similar product variations, the pick list would combine variations into attributes rather than breaking them out in different rows
+ * Fix - Ensure configured subject for email is used instead of defaults
+
+2017.06.28 - version 3.3.2
+ * Misc - Added support for WooCommerce 3.1
+
+2017.05.30 - version 3.3.1
+ * Fix - Invoices could be missing line items due to a change in v3.3.0
+ * Fix - Ensure correct item quantities are calculated on Pick List documents ordered by category if orders contain refunds
+ * Fix - Ensure refunded quantity is shown correctly on invoices when using WooCommerce 3.0+
+ * Fix - Variations will inherit product weight in packing lists with WooCommerce 3.0+
+
+2017.05.23 - version 3.3.0
+ * Feature - Added a new template for Pick Lists to group items by category for selected orders instead of by order
+ * Fix - Ensure invoice emails are triggered for orders processed with gateways that use "on hold" status
+
+2017.05.02 - version 3.2.2
+ * Fix - Ensure invoice & packing list dates use the site timezone
+
+2017.04.26 - version 3.2.1
+ * Fix - Packing lists containing variable products may have not displayed the right category when grouping products in the document table
+
+2017.03.28 - version 3.2.0
+ * Localization - Added Dutch translation provided by Lucas Johnston (me@lucasjohnston.nl) - https://lucasjohnston.nl
+ * Localization - Updated Italian translation files
+ * Fix - Do not show the total shipping costs in the invoice header, to avoid value duplication and possible mismatch with the same information in the order table footer, when some tax configuration is used
+ * Fix - Ensure styles & scripts are loaded where needed when "WooCommerce" string is translated
+ * Fix - Hardened bulk printing methods for hosting environments that implement object cache overrides without transients support
+ * Fix - Refunded totals could be incorrect on invoices or packing lists
+ * Misc - Added support for WooCommerce 3.0
+ * Misc - Removed support for WooCommerce 2.4
+ * Misc - Removed support for WooCommerce Subscriptions versions older than 2.0.0
+
+2016.12.20 - version 3.1.7
+ * Fix - When product names have been filtered to contain HTML elements, strip all HTML tags before displaying the names on a document
+ * Misc - Added filter to help some third party plugins like Product Bundles to avoid grouping some products into categories in packing lists or prevent altering their sort order
+
+2016.11.16 - version 3.1.6
+ * Tweak - Ensure customer invoice emails are sent for renewal orders generated by Subscriptions
+ * Fix - Fix errors when generating invoices and packing lists for orders with deleted products
+
+2016.09.29 - version 3.1.5
+ * Tweak - Include support for popular plugins using VAT numbers
+ * Tweak - Printed PDFs no longer include clickable View Order links
+ * Fix - Fix issues with bulk printing in older versions of Internet Explorer
+
+2016.08.02 - version 3.1.4
+ * Localization - Added Italian translation: ciao!
+ * Fix - Custom product categories slugs might have caused wrong alphabetical sorting in Packing Lists
+
+2016.07.12 - version 3.1.3
+ * Fix - The "View Invoice" button added on the order received page should be shown only to logged in customers
+ * Misc - Make the order item sku in documents tables filterable
+
+2016.06.22 - version 3.1.2
+ * Fix - Allow product categories breadcrumb in Packing List to link categories deeper than last 2 levels
+ * Misc - Toggle the display of purchase notes for order items via filter hook
+
+2016.06.07 - version 3.1.1
+ * Tweak - Trigger emails also for orders manually sent to complete and make order status change actions triggers filterable
+ * Tweak - Improved alphabetical sorting of category groups in packing lists
+ * Fix - Fix a possible concurrency issue where two or more orders placed exactly at the same time could have resulted having the same invoice numbers
+ * Fix - Make sure the 'wc_pip_customers_can_view_invoices' filter always works
+ * Misc - Make the "View Invoice" button in front end order summary filterable
+ * Misc - Grouping by category in packing lists can now be disabled via filter
+ * Misc - Improved compatibility with Product Bundles
+ * Misc - Ensure that the PHP DOM extension is installed as it's required by the plugin
+
+2016.06.02 - version 3.1.0
+ * Misc - Added support for WooCommerce 2.6
+ * Misc - Removed support for WooCommerce 2.3
+
+2016.05.18 - version 3.0.9
+ * Fix - Do not display the View Invoice button to guest customers upon reviewing order after checkout
+ * Misc - Make the order item meta data under product names in document tables directly filterable
+
+2016.05.04 - version 3.0.8
+ * Misc - Added the wc_pip_order_item_name filter for document product titles
+
+2016.04.22 - version 3.0.7
+ * Fix - Fix span of table footer for order totals in documents
+
+2016.04.21 - version 3.0.6
+ * Fix - Update framework to avoid a PHP error in installations running old PHP versions
+
+2016.04.20 - version 3.0.5
+ * Tweak - Added settings options to enable display of terms and conditions (or return policy) and footer information also on Packing Lists
+ * Tweak - It is now possible to disallow customers to view invoices from front end via filter hook
+ * Tweak - Allow filtering user roles besides Admin or Shop Manager to handle documents in admin
+ * Fix - Prompt for log in if a user is logged out and attempts to print an invoice from front end
+ * Fix - WooCommerce Subscriptions: do not display document order actions in a subscription edit screen dropdown
+ * Misc - Improved compatibility with plugins that erroneously force the admin bar to appear in print windows
+ * Misc - Added new filters to edit the documents headings
+ * Misc - Added filter to tweak order items sorting in document tables
+
+2016.03.30 - version 3.0.4
+ * Fix - Send email order actions will not work when save or update order button is pressed
+ * Fix - Fix a PHP warning on the settings page
+ * Fix - Product Categories breadcrumbs in Packing Lists could have shown an error in some labels
+ * Fix - You can now override templates in your theme :)
+
+2016.03.23 - version 3.0.3
+ * Localization - Added Japanese translation provided by Shohei Tanaka (info@artws.info)
+ * Tweak - The header, footer, and terms and conditions can now be shown on the packing and pick lists with less code :)
+ * Fix - Customer users with low privileges were prevented to see their invoices from 'My Account' page
+ * Misc - Added a filter to not generate automatically an invoice number for paid orders (emails must be disabled)
+
+2016.03.18 - version 3.0.2
+ * Tweak - Sorting order for document line items can now be customized via a filter. You can sort by SKU, price, weight, etc. :)
+ * Fix - Ensure the `wc_pip_shipping_method` filter only runs once
+ * Fix - Improve appearance of customer addresses and shipping method columns in template
+ * Fix - Fixes an error in sorting items in orders table in older versions of PHP < 5.4
+
+2016.03.16 - version 3.0.1
+ * Fix - Solves "Warning: Cannot modify header information - headers already sent" error on some installations
+
+2016.03.16 - version 3.0.0
+ * Feature - Use the WordPress customizer to tweak template appearance and content
+ * Feature - Set colors and default font sizes and many new template settings
+ * Feature - New bulk action to output a Shop Manager Pick List with items necessary to process many orders
+ * Feature - Email packing lists to multiple recipients defined by admin or shop manager
+ * Tweak - Moved settings in a tab among others in WooCommerce settings page
+ * Tweak - Upload a larger logo but limit its width in the template to improve image quality on retina displays and deliver a finer print quality on paper
+ * Tweak - Set optional invoice number minimum number of digits to add leading zeros to invoice number count
+ * Tweak - Include invoice number in the invoice email subject
+ * Tweak - Option to hide virtual items from Packing Lists
+ * Misc - Complete rewrite to improve the plugin's stability, flexibility, and performance
+ * Misc - New templates
+ * Misc - Uses SkyVerge Plugin Framework
+ * Misc - Many new filters and actions added to help you customize your invoices and packing lists
+
+2016.02.09 - version 2.7.1
+ * Fix - Subtotal and product price display when taxes are displayed including tax
+ * Tweak - Adjust the order totals display to better match order details frontend views
+
+2016.01.14 - version 2.7.0
+ * Fix - Invoice prices could be incorrect when discounts are used and prices during cart and checkout setting include tax
+ * Misc - Added support for WooCommerce 2.5
+ * Misc - Removed support for WooCommerce 2.2
+
+2015.10.06 - version 2.6.1
+ * Misc - WooCommerce Subscriptions 2.0 Compatibility
+
+2015.07.28 - version 2.6.0
+ * Misc - WooCommerce 2.4 Compatibility
+
+2015.02.09 - version 2.5.0
+ * Misc - WooCommerce 2.3 Compatibility
+
+2014.09.07 - version 2.4.4
+ * Misc - WooCommerce 2.2 Compatibility
+
+2014.05.28 - version 2.4.3
+ * Fix - Compatibility with subscriptions: new invoice number generated for renewal orders
+
+2014.04.25 - version 2.4.2
+ * Fix - Fix invalid HTML in body template, props Kirk
+
+2014.03.15 - version 2.4.1
+ * Fix - Fix fatal error when printing invoices for orders that have multiple shipping addresses
+ * Fix - Fix potential javascript error when uploading an invoice logo
+
+2014.01.20 - version 2.4
+ * Fix - Tweaked priority of translation action
+ * WooCommerce 2.1 Compatibility
+
+2013.12.13 - version 2.3.2
+ * Fix - Incompatibility with certain plugins which caused the WordPress Admin bar to be displayed across the top of the Invoice/Packing Lists
+
+2013.11.09 - version 2.3.1
+ * Fix - Gracefully handle order items for deleted products/variations
+ * Fix - Gracefully handle product variation order items for orders added through the admin
+ * Tweak - Individual tax items are shown on invoice instead of only showing the total tax. Tax all the things!
+ * Tweak - The total weight for line items is now properly displayed
+ * Localization - Improved localization capability/compatibility
+
+2013.09.10 - version 2.3
+ * Changed action buttons to use icons
+ * Added functionality to resend invoice manually
+
+2013.05.23 - version 2.2.11
+ * Added support for Ship to Multiple Addresses plugin
+
+2013.05.23 - version 2.2.10
+ * Fixed shipping not hidden when shipping is disabled
+
+2013.05.23 - version 2.2.9
+ * Fixed order number repeat bug in bulk printing
+
+2013.04.27 - version 2.2.8
+ * Added order fees to output
+
+2013.03.03 - version 2.2.7
+ * Fixed problem in loading custom templates
+ * Fixed two notice bugs
+
+2013.02.16 - version 2.2.6
+ * Better layout/styling for product variations.
+ * Added hooks for manual order completion from on-hold and failed statuses.
+ * Added empty folder for translations.
+
+2013.02.15 - version 2.2.5
+ * Removed unfinished weight calculation code that was in last release.
+
+2013.02.08 - version 2.2.4
+ * Fix for extra blank page in IE. This time fix actually works :)
+
+2013.01.21 - version 2.2.3
+ * Fix for extra blank page in IE
+
+2013.01.09 - version 2.2.2
+ * Another small updater fix
+
+2013.01.09 - version 2.2.1
+ * Fixed updater code
+
+2013.01.08 - version 2.2
+ * Refactorings and general code improvements
+
+2012.10.28 - version 2.1
+ * Media upload implementation uses WP 3.5 media handling.
+ * Fixed plugin script loading only to needed admin pages.
+ * Tested with WooCommerce 1.6.6 and WooCommerce 2.0.
+
+2012.12.04 - version 2.0.1
+* New updater
+
+2012.10.20 - version 2.0
+ * Major rewrite of the template system to support bulk printing.
+
+2012.09.16 - version 1.3.6
+ * Fix for issue with email background color with Gmail.
+
+2012.08.30 - version 1.3.5
+ * Fixed order item meta
+
+2012.07.11 - version 1.3.4
+ * Fixed unescaping fields
+
+2012.06.25 - version 1.3.3
+ * Added support for shipment tracking extension
+ * Change payment_method to payment_method_title
+
+2012.06.07 - version 1.3.2
+ * Fix template directory check
+
+2012.05.26 - version 1.3.1
+ * Fix invoice number display
+
+2012.05.26 - version 1.3
+ * This version only works with WooCommerce 1.5.3 or newer
+ * Support for WC_Order::get_order_number()
+
+2012.04.22 - version 1.2
+ * Added customer order notes to the print
+ * Implemented invoice emailing functionality
+ * Added support for VAT number
+
+2012.03.14 - version 1.1.2
+ * Added jQuery to script dependencies
+ * Changed view permission to manage_woocommerce_orders
+
+2012.03.14 - version 1.1.1
+ * Changed permission check to manage_woocommerce
+
+2012.03.14 - version 1.1
+ * Added contiguous invoice numbering
+ * Added invoice numbering reset functionality
+ * Added prefix and suffix for invoice numbering
+ * Added custom logo functionality
+ * Added support for custom template
+ * Fixed textdomain issues
+ * Improved the built-in template
+
+2012.03.08 - version 1.0.1
+ * Fixed issue where same order was showing up in print
+
+2012.02.28 - version 1.0
+ * First release

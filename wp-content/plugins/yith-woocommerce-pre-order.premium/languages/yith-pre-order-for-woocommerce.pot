@@ -1,0 +1,881 @@
+# Copyright (C) 2020 YITH Pre-Order for WooCommerce Premium
+# This file is distributed under the same license as the YITH Pre-Order for WooCommerce Premium package.
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH Pre-Order for WooCommerce Premium 1.5.12\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/init\n"
+"POT-Creation-Date: 2020-05-21 11:55:50+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: includes/class.yith-pre-order-admin-premium.php:199
+#: includes/class.yith-pre-order-admin-premium.php:445
+#: includes/class.yith-pre-order-edit-product-page-premium.php:113
+msgid "Pre-Order"
+msgstr ""
+
+#: includes/class.yith-pre-order-admin-premium.php:239
+msgid "No date set"
+msgstr ""
+
+#: includes/class.yith-pre-order-admin-premium.php:263
+msgid "This Pre-Order product has no release date."
+msgstr ""
+
+#: includes/class.yith-pre-order-admin-premium.php:265
+msgid "The Pre-Order end date has passed."
+msgstr ""
+
+#: includes/class.yith-pre-order-admin-premium.php:267
+msgid "The Pre-Order expires in a week or less."
+msgstr ""
+
+#: includes/class.yith-pre-order-admin-premium.php:269
+msgid "Pre-Order end date."
+msgstr ""
+
+#: includes/class.yith-pre-order-admin-premium.php:279
+msgid "The release date for all Pre-Order products have passed."
+msgstr ""
+
+#: includes/class.yith-pre-order-admin-premium.php:302
+msgid "One or more variations"
+msgstr ""
+
+#: includes/class.yith-pre-order-admin-premium.php:315
+msgid "No date"
+msgstr ""
+
+#: includes/class.yith-pre-order-admin-premium.php:324
+msgctxt "Admin option: Automatic purchasable Pre-order products"
+msgid "Remove Pre-Order status when the release date passes"
+msgstr ""
+
+#: includes/class.yith-pre-order-admin-premium.php:327
+msgctxt ""
+"Admin option description: Automatic\n"
+"\t\t\t\tpurchasable Pre-order products"
+msgid "By enabling this option, the Pre-Order status is removed as soon as the Pre-Order date is passed. If not checked, you will have to remove the Pre-Order status first."
+msgstr ""
+
+#: includes/class.yith-pre-order-admin-premium.php:333
+msgid "Automatic Pre-Order status"
+msgstr ""
+
+#: includes/class.yith-pre-order-admin-premium.php:335
+msgid "By enabling this option, products currently out of stock automatically acquire the Pre-Order status and the admin receives an email. When products are in stock again, they will automatically lose the Pre-Order status. If this option is enabled, changing the Pre-Order status manually will be disabled."
+msgstr ""
+
+#: includes/class.yith-pre-order-admin-premium.php:340
+msgid "Allow sales of out of stock products"
+msgstr ""
+
+#: includes/class.yith-pre-order-admin-premium.php:342
+msgid "By enabling this option, Pre-Order products with no stock can be purchased. (Requires WooCommerce 3.0 or higher)"
+msgstr ""
+
+#: includes/class.yith-pre-order-admin-premium.php:348
+msgctxt "Admin option: automatic date formatting"
+msgid "Automatic date formatting"
+msgstr ""
+
+#: includes/class.yith-pre-order-admin-premium.php:350
+msgid "Check this option in order to display automatic date format and timezone in the frontend based on user location."
+msgstr ""
+
+#: includes/class.yith-pre-order-admin-premium.php:356
+msgctxt "Admin option"
+msgid "Prevent mixing products in cart"
+msgstr ""
+
+#: includes/class.yith-pre-order-admin-premium.php:358
+msgid "If you enable this option, the cart cannot contain Pre-Order products and regular products at the same time."
+msgstr ""
+
+#: includes/class.yith-pre-order-admin-premium.php:363
+msgctxt "Admin option"
+msgid "Prevent adding more than one Pre-Order product to the cart"
+msgstr ""
+
+#: includes/class.yith-pre-order-admin-premium.php:365
+msgid "If you enable this option, the cart cannot contain more than one Pre-Order product."
+msgstr ""
+
+#: includes/class.yith-pre-order-admin-premium.php:370
+msgid "Show Regular price crossed out"
+msgstr ""
+
+#: includes/class.yith-pre-order-admin-premium.php:372
+msgid "Whether to show the Regular price (crossed out) next to the Pre-Order price or Pre-Order price only. If this option is enabled, the Pre-Order price will replace the Sale price, if available. (Requires WooCommerce 3.0 or higher)"
+msgstr ""
+
+#: includes/class.yith-pre-order-admin-premium.php:377
+msgid "Pre-Order price for guest users"
+msgstr ""
+
+#: includes/class.yith-pre-order-admin-premium.php:379
+msgid "Select what guest users can see"
+msgstr ""
+
+#: includes/class.yith-pre-order-admin-premium.php:381
+msgid "Show Pre-Order price"
+msgstr ""
+
+#: includes/class.yith-pre-order-admin-premium.php:382
+msgid "Show Regular price"
+msgstr ""
+
+#: includes/class.yith-pre-order-admin-premium.php:383
+msgid "Hide price"
+msgstr ""
+
+#: includes/class.yith-pre-order-admin-premium.php:389
+msgctxt "Admin option: customize Add to Cart label"
+msgid "Default availability date text"
+msgstr ""
+
+#: includes/class.yith-pre-order-admin-premium.php:391
+msgctxt ""
+"Admin option description: customize\n"
+"\t\t\t\tavailability date label"
+msgid ""
+"Use {availability_date} and {availability_time} to show when to remove the Pre-Order status. By leaving it\n"
+"\t\t\t\tblank, it will look like this: 'Available on: {availability_date} at {availability_time}'."
+msgstr ""
+
+#: includes/class.yith-pre-order-admin-premium.php:395
+msgctxt "Default message for availability date"
+msgid "Available on: {availability_date} at {availability_time}"
+msgstr ""
+
+#: includes/class.yith-pre-order-admin-premium.php:398
+msgctxt "Admin option: customize Add to Cart label"
+msgid "No date message"
+msgstr ""
+
+#: includes/class.yith-pre-order-admin-premium.php:400
+msgctxt "Admin option description: Default no date message"
+msgid "Default message to be shown when no date is set on a Pre-Order product."
+msgstr ""
+
+#: includes/class.yith-pre-order-admin-premium.php:402
+msgctxt "Default message when no date is set"
+msgid "Coming soon..."
+msgstr ""
+
+#: includes/class.yith-pre-order-admin-premium.php:405
+msgctxt "Admin option: customize color"
+msgid "Color on shop page"
+msgstr ""
+
+#: includes/class.yith-pre-order-admin-premium.php:407
+msgid "Change the color of the 'availability date' and 'no date' messages on the shop page."
+msgstr ""
+
+#: includes/class.yith-pre-order-admin-premium.php:413
+msgctxt "Admin option: customize color"
+msgid "Color on single product page"
+msgstr ""
+
+#: includes/class.yith-pre-order-admin-premium.php:415
+msgid "Change the color of the 'availability date' and 'no date' messages on the single product page."
+msgstr ""
+
+#: includes/class.yith-pre-order-admin-premium.php:420
+msgctxt "Admin option: customize color"
+msgid "Color on cart page"
+msgstr ""
+
+#: includes/class.yith-pre-order-admin-premium.php:422
+msgid "Change the color of the 'availability date' and 'no date' messages on the cart page."
+msgstr ""
+
+#: includes/class.yith-pre-order-admin-premium.php:427
+msgctxt "Admin option: countdown label"
+msgid "Label for countdown"
+msgstr ""
+
+#: includes/class.yith-pre-order-admin-premium.php:429
+msgid "The label which will be showed next to the countdown timer. YITH WooCommerce Product Countdown is required"
+msgstr ""
+
+#: includes/class.yith-pre-order-admin-premium.php:431
+msgid "Available in"
+msgstr ""
+
+#: includes/class.yith-pre-order-admin-premium.php:434
+msgctxt "Admin option: variable products label"
+msgid "Label for variable products"
+msgstr ""
+
+#: includes/class.yith-pre-order-admin-premium.php:436
+msgid "The label which will be showed when all variations of a variable product are Pre-Order."
+msgstr ""
+
+#: includes/class.yith-pre-order-admin-premium.php:441
+msgid "Variable products label content"
+msgstr ""
+
+#: includes/class.yith-pre-order-admin-premium.php:448
+msgid "Variable products label color"
+msgstr ""
+
+#: includes/class.yith-pre-order-admin-premium.php:464
+msgctxt "Panel: Notification title"
+msgid "Notifications"
+msgstr ""
+
+#: includes/class.yith-pre-order-admin-premium.php:471
+msgctxt "Admin option: Enable purchasable pre-order products"
+msgid "Notification before Pre-Order release date"
+msgstr ""
+
+#: includes/class.yith-pre-order-admin-premium.php:474
+msgctxt "Admin option description: Enable notification"
+msgid "Check this option to receive a notification when a Pre-Order product date is going to pass."
+msgstr ""
+
+#: includes/class.yith-pre-order-admin-premium.php:480
+msgctxt "Admin option: customize Add to Cart label"
+msgid "Number of days"
+msgstr ""
+
+#: includes/class.yith-pre-order-admin-premium.php:482
+msgctxt ""
+"Admin\n"
+"\t\t\t\t\toption\n"
+"\t\t\t\t\tdescription: Number of days"
+msgid "Get a notification up to certain number of days before the product release date."
+msgstr ""
+
+#: includes/class.yith-pre-order-admin-premium.php:494
+msgctxt "Admin option: Enable purchasable pre order products"
+msgid "Notification for product availability"
+msgstr ""
+
+#: includes/class.yith-pre-order-admin-premium.php:497
+msgctxt ""
+"Admin option\n"
+"\t\t\t\t\tdescription: Enable notification"
+msgid "Check this option to notify users who purchased a Pre-Order product when it goes on sale."
+msgstr ""
+
+#: includes/class.yith-pre-order-admin.php:130
+msgid "Settings"
+msgstr ""
+
+#: includes/class.yith-pre-order-admin.php:133
+msgid "Premium Version"
+msgstr ""
+
+#: includes/class.yith-pre-order-admin.php:211
+msgid "Plugin documentation"
+msgstr ""
+
+#: includes/class.yith-pre-order-admin.php:215
+msgid "Help Center"
+msgstr ""
+
+#: includes/class.yith-pre-order-admin.php:222
+msgid "Discover the premium version"
+msgstr ""
+
+#: includes/class.yith-pre-order-admin.php:227
+msgid "Free Vs Premium"
+msgstr ""
+
+#: includes/class.yith-pre-order-admin.php:232
+msgid "Premium live demo"
+msgstr ""
+
+#: includes/class.yith-pre-order-admin.php:237
+msgid "WordPress support forum"
+msgstr ""
+
+#: includes/class.yith-pre-order-admin.php:242
+#: includes/class.yith-pre-order-admin.php:254
+msgid "Changelog"
+msgstr ""
+
+#: includes/class.yith-pre-order-admin.php:242
+#: includes/class.yith-pre-order-admin.php:254
+msgid "current version"
+msgstr ""
+
+#: includes/class.yith-pre-order-admin.php:249
+msgid "Support platform"
+msgstr ""
+
+#: includes/class.yith-pre-order-admin.php:301
+msgid "Pre-Ordered"
+msgstr ""
+
+#: includes/class.yith-pre-order-edit-product-page-premium.php:63
+#: includes/class.yith-pre-order-edit-product-page.php:61
+msgid "Set the Pre-Order status for this product."
+msgstr ""
+
+#: includes/class.yith-pre-order-edit-product-page-premium.php:66
+#: includes/class.yith-pre-order-edit-product-page-premium.php:92
+msgid "The \"Automatic Pre-Order status\" option is activated. Uncheck this option to manually edit the \"Pre-Order\" status."
+msgstr ""
+
+#: includes/class.yith-pre-order-edit-product-page-premium.php:71
+#: includes/class.yith-pre-order-edit-product-page.php:60
+msgctxt "Set the product as a Pre-Order product."
+msgid "Pre-Order"
+msgstr ""
+
+#: includes/class.yith-pre-order-edit-product-page-premium.php:89
+#: includes/class.yith-pre-order-edit-product-page.php:87
+msgctxt "Set the variation to Pre-Order status."
+msgid "Pre-Order"
+msgstr ""
+
+#: includes/class.yith-pre-order-edit-product-page-premium.php:94
+#: includes/class.yith-pre-order-edit-product-page.php:88
+msgid "Enable this option to set this variation to the Pre-Order status."
+msgstr ""
+
+#: includes/class.yith-pre-order-edit-product-page-premium.php:298
+#: includes/class.yith-pre-order-edit-product-page-premium.php:556
+msgid "For sale date"
+msgstr ""
+
+#: includes/class.yith-pre-order-edit-product-page-premium.php:313
+#: includes/class.yith-pre-order-edit-product-page-premium.php:576
+msgctxt "placeholder"
+msgid "Date&hellip;"
+msgstr ""
+
+#: includes/class.yith-pre-order-edit-product-page-premium.php:314
+msgid ""
+"Set the date when the product will be for sale. \n"
+"\t\t\t\t\t\tThe Timezone used is the WordPress local Timezone. Settings -> General -> Timezone."
+msgstr ""
+
+#: includes/class.yith-pre-order-edit-product-page-premium.php:322
+#: includes/class.yith-pre-order-edit-product-page-premium.php:588
+msgid "Pre-Order label"
+msgstr ""
+
+#: includes/class.yith-pre-order-edit-product-page-premium.php:324
+msgid "Set a custom label to announce the pre order product status. For example: Pre Order Now!. Leaving it blank, it will show the default label (Pre Order)."
+msgstr ""
+
+#: includes/class.yith-pre-order-edit-product-page-premium.php:326
+#: includes/class.yith-pre-order-edit-product-page-premium.php:594
+#: includes/class.yith-pre-order-frontend.php:76
+msgid "Pre-Order Now"
+msgstr ""
+
+#: includes/class.yith-pre-order-edit-product-page-premium.php:331
+#: includes/class.yith-pre-order-edit-product-page-premium.php:600
+msgid "Availability date label"
+msgstr ""
+
+#: includes/class.yith-pre-order-edit-product-page-premium.php:333
+#: includes/class.yith-pre-order-edit-product-page-premium.php:601
+msgid "Use {availability_date} and {availability_time} to show when to remove the Pre-Order status."
+msgstr ""
+
+#: includes/class.yith-pre-order-edit-product-page-premium.php:335
+#: includes/class.yith-pre-order-edit-product-page-premium.php:605
+msgid "Available on: {availability_date} at {availability_time}"
+msgstr ""
+
+#: includes/class.yith-pre-order-edit-product-page-premium.php:343
+#: includes/class.yith-pre-order-edit-product-page-premium.php:616
+msgid "Price adjustment"
+msgstr ""
+
+#: includes/class.yith-pre-order-edit-product-page-premium.php:355
+#: includes/class.yith-pre-order-edit-product-page-premium.php:631
+msgid "Set the price manually"
+msgstr ""
+
+#: includes/class.yith-pre-order-edit-product-page-premium.php:366
+#: includes/class.yith-pre-order-edit-product-page-premium.php:643
+msgid "Discount the selling price"
+msgstr ""
+
+#: includes/class.yith-pre-order-edit-product-page-premium.php:377
+#: includes/class.yith-pre-order-edit-product-page-premium.php:654
+msgid "Mark-up the selling price"
+msgstr ""
+
+#: includes/class.yith-pre-order-edit-product-page-premium.php:381
+msgid "Choose if the price will edited during the pre-sale period"
+msgstr ""
+
+#: includes/class.yith-pre-order-edit-product-page-premium.php:389
+#: includes/class.yith-pre-order-edit-product-page-premium.php:666
+msgid "Pre-Order price"
+msgstr ""
+
+#: includes/class.yith-pre-order-edit-product-page-premium.php:392
+#: includes/class.yith-pre-order-edit-product-page-premium.php:667
+msgid ""
+"Set a fixed price for the Pre-Order product. \n"
+"\t\t\t\t\t\tLeaving it blank, the regular price will be shown."
+msgstr ""
+
+#: includes/class.yith-pre-order-edit-product-page-premium.php:403
+#: includes/class.yith-pre-order-edit-product-page-premium.php:682
+msgid "Adjustment type"
+msgstr ""
+
+#: includes/class.yith-pre-order-edit-product-page-premium.php:415
+#: includes/class.yith-pre-order-edit-product-page-premium.php:697
+msgid "Set a fixed amount to apply to the selling price"
+msgstr ""
+
+#: includes/class.yith-pre-order-edit-product-page-premium.php:426
+#: includes/class.yith-pre-order-edit-product-page-premium.php:709
+msgid "Set a percentage to apply to the selling price"
+msgstr ""
+
+#: includes/class.yith-pre-order-edit-product-page-premium.php:430
+#: includes/class.yith-pre-order-edit-product-page-premium.php:683
+msgid "Choose the type of adjustment to apply to the selling price"
+msgstr ""
+
+#: includes/class.yith-pre-order-edit-product-page-premium.php:438
+#: includes/class.yith-pre-order-edit-product-page-premium.php:720
+msgid "Price adjustment amount"
+msgstr ""
+
+#: includes/class.yith-pre-order-edit-product-page-premium.php:441
+#: includes/class.yith-pre-order-edit-product-page-premium.php:721
+msgid ""
+"Set the quantity to apply (Fixed or percentage). \n"
+"\t\t\t\t\t\tType numbers only. No signs ('%', '+', '-', etc.)."
+msgstr ""
+
+#: includes/class.yith-pre-order-edit-product-page-premium.php:567
+msgid ""
+"Set the date when the product will be for sale. \n"
+"\t\t\t\t\t\t\tThe Timezone used is the WordPress local Timezone. Settings -> General -> Timezone."
+msgstr ""
+
+#: includes/class.yith-pre-order-edit-product-page-premium.php:589
+msgid ""
+"Set a custom label to announce the pre order product status. \n"
+"\t\t\t\t\t\tFor example: Pre Order Now!. Leaving it blank, it will show the default label (Pre Order)."
+msgstr ""
+
+#: includes/class.yith-pre-order-edit-product-page-premium.php:617
+msgid "Choose if the price will be edited during the pre-sale period"
+msgstr ""
+
+#: includes/class.yith-pre-order-edit-product-page-premium.php:809
+msgid "Set the Pre-Order status"
+msgstr ""
+
+#: includes/class.yith-pre-order-edit-product-page-premium.php:810
+msgid "Remove the Pre-Order status"
+msgstr ""
+
+#: includes/class.yith-pre-order-frontend-premium.php:103
+msgid "Available on: %s at %s"
+msgstr ""
+
+#: includes/class.yith-pre-order-frontend-premium.php:834
+msgid "Add to cart"
+msgstr ""
+
+#: includes/class.yith-pre-order-frontend-premium.php:842
+msgid "Sorry, it's not possible to mix Regular Products and Pre-Order Products in the same cart"
+msgstr ""
+
+#: includes/class.yith-pre-order-frontend-premium.php:848
+msgid "Sorry, it's not possible to add more than one Pre-Order product to the cart"
+msgstr ""
+
+#: includes/class.yith-pre-order-frontend.php:104
+#: includes/class.yith-pre-order-my-account-premium.php:51
+#: includes/class.yith-pre-order-my-account.php:109
+msgid "Pre-Order product"
+msgstr ""
+
+#: includes/class.yith-pre-order-frontend.php:133
+msgid "Pre-Order Now!"
+msgstr ""
+
+#: includes/class.yith-pre-order-frontend.php:159
+msgid "Item %s was Pre-Ordered"
+msgstr ""
+
+#: includes/class.yith-pre-order-my-account-premium.php:52
+msgid "Release date: "
+msgstr ""
+
+#: includes/class.yith-pre-order-my-account-premium.php:60
+#: includes/class.yith-pre-order-my-account-premium.php:110
+msgid "at"
+msgstr ""
+
+#: includes/class.yith-pre-order-my-account-premium.php:79
+#: includes/class.yith-pre-order-my-account-premium.php:116
+msgid "N/A"
+msgstr ""
+
+#: includes/class.yith-pre-order-my-account-premium.php:89
+#: templates/woocommerce/frontend/my-account-my-pre-orders.php:12
+msgid "Product"
+msgstr ""
+
+#: includes/class.yith-pre-order-my-account-premium.php:90
+#: includes/elementor/class.yith-pre-order-products-elementor-widget.php:86
+#: templates/woocommerce/frontend/my-account-my-pre-orders.php:13
+msgid "Order"
+msgstr ""
+
+#: includes/class.yith-pre-order-my-account-premium.php:91
+#: templates/woocommerce/frontend/my-account-my-pre-orders.php:14
+msgid "Price"
+msgstr ""
+
+#: includes/class.yith-pre-order-my-account-premium.php:92
+msgid "Release date"
+msgstr ""
+
+#: includes/class.yith-pre-order-my-account.php:54
+#: includes/class.yith-pre-order-my-account.php:173
+#: includes/class.yith-pre-order-my-account.php:194
+msgid "My Pre-Orders"
+msgstr ""
+
+#: includes/class.yith-pre-order-my-account.php:90
+msgid "My Pre-order List"
+msgstr ""
+
+#: includes/class.yith-pre-order-my-account.php:100
+msgid "Has Pre-Orders"
+msgstr ""
+
+#: includes/elementor/class.yith-pre-order-availability-date-elementor-widget.php:14
+#: includes/elementor/class.yith-pre-order-availability-date-elementor-widget.php:33
+msgid "YITH Pre-Order - Availability Date"
+msgstr ""
+
+#: includes/elementor/class.yith-pre-order-availability-date-elementor-widget.php:41
+msgid "Enter the Pre-Order product ID for displaying its availability date."
+msgstr ""
+
+#: includes/elementor/class.yith-pre-order-availability-date-elementor-widget.php:48
+msgid "Pre-Order product ID"
+msgstr ""
+
+#: includes/elementor/class.yith-pre-order-availability-date-elementor-widget.php:51
+msgid "ID"
+msgstr ""
+
+#: includes/elementor/class.yith-pre-order-products-elementor-widget.php:14
+#: includes/elementor/class.yith-pre-order-products-elementor-widget.php:33
+msgid "YITH Pre-Order - Show Pre-Order Products"
+msgstr ""
+
+#: includes/elementor/class.yith-pre-order-products-elementor-widget.php:41
+msgid "This widget shows the current Pre-Order products."
+msgstr ""
+
+#: includes/elementor/class.yith-pre-order-products-elementor-widget.php:49
+msgid "Number of columns"
+msgstr ""
+
+#: includes/elementor/class.yith-pre-order-products-elementor-widget.php:52
+#: includes/elementor/class.yith-pre-order-products-elementor-widget.php:99
+msgid "Enter a number"
+msgstr ""
+
+#: includes/elementor/class.yith-pre-order-products-elementor-widget.php:57
+msgid "No order"
+msgstr ""
+
+#: includes/elementor/class.yith-pre-order-products-elementor-widget.php:58
+msgid "Product ID"
+msgstr ""
+
+#: includes/elementor/class.yith-pre-order-products-elementor-widget.php:59
+msgid "Author"
+msgstr ""
+
+#: includes/elementor/class.yith-pre-order-products-elementor-widget.php:60
+msgid "Post title"
+msgstr ""
+
+#: includes/elementor/class.yith-pre-order-products-elementor-widget.php:61
+msgid "Post name (post slug)"
+msgstr ""
+
+#: includes/elementor/class.yith-pre-order-products-elementor-widget.php:62
+msgid "Date"
+msgstr ""
+
+#: includes/elementor/class.yith-pre-order-products-elementor-widget.php:63
+msgid "Last modified date"
+msgstr ""
+
+#: includes/elementor/class.yith-pre-order-products-elementor-widget.php:64
+msgid "Random order"
+msgstr ""
+
+#: includes/elementor/class.yith-pre-order-products-elementor-widget.php:65
+msgid "Number of comments"
+msgstr ""
+
+#: includes/elementor/class.yith-pre-order-products-elementor-widget.php:71
+msgid "Order by:"
+msgstr ""
+
+#: includes/elementor/class.yith-pre-order-products-elementor-widget.php:79
+msgid "Ascending"
+msgstr ""
+
+#: includes/elementor/class.yith-pre-order-products-elementor-widget.php:80
+msgid "Descending"
+msgstr ""
+
+#: includes/elementor/class.yith-pre-order-products-elementor-widget.php:96
+msgid "Posts per page"
+msgstr ""
+
+#: includes/elementor/class.yith-pre-order-products-elementor-widget.php:106
+msgid "Show variable products"
+msgstr ""
+
+#: includes/emails/class.yith-pre-order-date-end-email.php:38
+msgid "YITH Pre-Order: Pre-order date is about to pass"
+msgstr ""
+
+#: includes/emails/class.yith-pre-order-date-end-email.php:39
+msgid "The administrator will receive an email before the Pre-order date passes."
+msgstr ""
+
+#: includes/emails/class.yith-pre-order-date-end-email.php:40
+msgid "Pre-Order products are going to end!"
+msgstr ""
+
+#: includes/emails/class.yith-pre-order-date-end-email.php:41
+msgid "Pre-Order products are going to end"
+msgstr ""
+
+#: includes/emails/class.yith-pre-order-date-end-email.php:42
+#: includes/emails/class.yith-pre-order-date-end-email.php:58
+msgid "Hi Admin, these Pre-Order products are about to expire:"
+msgstr ""
+
+#: includes/emails/class.yith-pre-order-date-end-email.php:81
+#: includes/emails/class.yith-pre-order-for-sale-date-changed-email.php:110
+#: includes/emails/class.yith-pre-order-is-for-sale-email.php:96
+#: includes/emails/class.yith-pre-order-out-of-stock-email.php:87
+msgid "Enable/Disable"
+msgstr ""
+
+#: includes/emails/class.yith-pre-order-date-end-email.php:83
+#: includes/emails/class.yith-pre-order-for-sale-date-changed-email.php:112
+#: includes/emails/class.yith-pre-order-is-for-sale-email.php:98
+#: includes/emails/class.yith-pre-order-out-of-stock-email.php:89
+msgid "Enable this email notification"
+msgstr ""
+
+#: includes/emails/class.yith-pre-order-date-end-email.php:87
+#: includes/emails/class.yith-pre-order-out-of-stock-email.php:93
+msgid "Recipient(s)"
+msgstr ""
+
+#: includes/emails/class.yith-pre-order-date-end-email.php:89
+#: includes/emails/class.yith-pre-order-out-of-stock-email.php:95
+msgid "Enter recipients (comma separated) for this email. Defaults to %s."
+msgstr ""
+
+#: includes/emails/class.yith-pre-order-date-end-email.php:95
+#: includes/emails/class.yith-pre-order-for-sale-date-changed-email.php:116
+#: includes/emails/class.yith-pre-order-is-for-sale-email.php:102
+#: includes/emails/class.yith-pre-order-out-of-stock-email.php:101
+msgid "Subject"
+msgstr ""
+
+#: includes/emails/class.yith-pre-order-date-end-email.php:97
+#: includes/emails/class.yith-pre-order-for-sale-date-changed-email.php:118
+#: includes/emails/class.yith-pre-order-is-for-sale-email.php:104
+#: includes/emails/class.yith-pre-order-out-of-stock-email.php:103
+msgid "This controls the email subject line. Leave blank to use the default subject: <code>%s</code>."
+msgstr ""
+
+#: includes/emails/class.yith-pre-order-date-end-email.php:103
+#: includes/emails/class.yith-pre-order-for-sale-date-changed-email.php:124
+#: includes/emails/class.yith-pre-order-is-for-sale-email.php:110
+#: includes/emails/class.yith-pre-order-out-of-stock-email.php:109
+msgid "Email Heading"
+msgstr ""
+
+#: includes/emails/class.yith-pre-order-date-end-email.php:105
+#: includes/emails/class.yith-pre-order-for-sale-date-changed-email.php:126
+#: includes/emails/class.yith-pre-order-is-for-sale-email.php:112
+#: includes/emails/class.yith-pre-order-out-of-stock-email.php:111
+msgid "This controls the main heading included in the email notification. Leave blank to use the default heading: <code>%s</code>."
+msgstr ""
+
+#: includes/emails/class.yith-pre-order-date-end-email.php:111
+#: includes/emails/class.yith-pre-order-for-sale-date-changed-email.php:132
+#: includes/emails/class.yith-pre-order-is-for-sale-email.php:118
+#: includes/emails/class.yith-pre-order-out-of-stock-email.php:117
+msgid "Email Body"
+msgstr ""
+
+#: includes/emails/class.yith-pre-order-date-end-email.php:113
+#: includes/emails/class.yith-pre-order-for-sale-date-changed-email.php:134
+#: includes/emails/class.yith-pre-order-is-for-sale-email.php:120
+#: includes/emails/class.yith-pre-order-out-of-stock-email.php:119
+msgid "Defaults to <code>%s</code>"
+msgstr ""
+
+#: includes/emails/class.yith-pre-order-for-sale-date-changed-email.php:39
+msgid "YITH Pre-Order: For sale date has changed"
+msgstr ""
+
+#: includes/emails/class.yith-pre-order-for-sale-date-changed-email.php:40
+msgid "If the administrator changes the \"for sale\" date, the user will receive an email"
+msgstr ""
+
+#: includes/emails/class.yith-pre-order-for-sale-date-changed-email.php:41
+#: includes/emails/class.yith-pre-order-for-sale-date-changed-email.php:42
+msgid "Your Pre-Order product has a new release date!"
+msgstr ""
+
+#: includes/emails/class.yith-pre-order-for-sale-date-changed-email.php:43
+msgid "Hi {customer_name}, we would like to inform you that the release date of the product {product_name} you purchased in Pre-Order, has changed from {previous_sale_date} ({offset_name}) to {new_sale_date} ({offset_name})"
+msgstr ""
+
+#: includes/emails/class.yith-pre-order-for-sale-date-changed-email.php:87
+msgid "Hi {customer_name}, we would like to inform you that the release date of the product {product_name} you purchased in Pre-Order, has changed from {previous_sale_date} to {new_sale_date} ({offset_name})"
+msgstr ""
+
+#: includes/emails/class.yith-pre-order-is-for-sale-email.php:38
+msgid "YITH Pre-Order: Pre-order is now for sale"
+msgstr ""
+
+#: includes/emails/class.yith-pre-order-is-for-sale-email.php:39
+msgid "The user who purchased some Pre-Order product will receive an email when the product will be for sale."
+msgstr ""
+
+#: includes/emails/class.yith-pre-order-is-for-sale-email.php:40
+#: includes/emails/class.yith-pre-order-is-for-sale-email.php:41
+msgid "A Pre-Order product is for sale now!"
+msgstr ""
+
+#: includes/emails/class.yith-pre-order-is-for-sale-email.php:42
+#: includes/emails/class.yith-pre-order-is-for-sale-email.php:73
+msgid "Hi {customer_name}, the product {product_name} you purchased in Pre-Order is now available. Your order {order_number} is currently in process."
+msgstr ""
+
+#: includes/emails/class.yith-pre-order-out-of-stock-email.php:38
+msgid "YITH Pre-Order: Out-of-Stock products turn into Pre-Order automatically"
+msgstr ""
+
+#: includes/emails/class.yith-pre-order-out-of-stock-email.php:39
+msgid "The administrator will receive an email when a product is out-of-stock and turned into Pre-Order."
+msgstr ""
+
+#: includes/emails/class.yith-pre-order-out-of-stock-email.php:40
+#: includes/emails/class.yith-pre-order-out-of-stock-email.php:41
+msgid "A product turned into Pre-Order"
+msgstr ""
+
+#: includes/emails/class.yith-pre-order-out-of-stock-email.php:42
+#: includes/emails/class.yith-pre-order-out-of-stock-email.php:64
+msgid "Hi admin! We would like to inform you that the product {product_name} is now \"Out-of-Stock\" and turned into a Pre-Order product."
+msgstr ""
+
+#: init.php:102
+msgid "YITH Pre Order for WooCommerce is enabled but not effective. It requires WooCommerce in order to work."
+msgstr ""
+
+#: plugin-options/settings-options.php:21
+msgctxt "Panel: page title"
+msgid "General settings"
+msgstr ""
+
+#: plugin-options/settings-options.php:28
+msgctxt "Admin option: Enable plugin"
+msgid "Enable Pre-Order on Frontend"
+msgstr ""
+
+#: plugin-options/settings-options.php:30
+msgctxt "Admin option description: Enable plugin"
+msgid "Uncheck this option to disable all Pre-Order features on Frontend"
+msgstr ""
+
+#: plugin-options/settings-options.php:42
+msgid "Remove selected order statuses from Pre-Ordered view:"
+msgstr ""
+
+#: plugin-options/settings-options.php:43
+msgid "Completed"
+msgstr ""
+
+#: plugin-options/settings-options.php:51
+msgid "Cancelled"
+msgstr ""
+
+#: plugin-options/settings-options.php:59
+msgid "Refunded"
+msgstr ""
+
+#: plugin-options/settings-options.php:67
+msgid "Failed"
+msgstr ""
+
+#: plugin-options/settings-options.php:93
+msgctxt "Panel: page title"
+msgid "Label settings"
+msgstr ""
+
+#: plugin-options/settings-options.php:100
+msgctxt "Admin option: customize Add to Cart label"
+msgid "Default Add to Cart text"
+msgstr ""
+
+#: plugin-options/settings-options.php:102
+msgctxt "Admin option description: customize Add to Cart label"
+msgid "This text will be replaced on 'Add to Cart' button. By leaving it blank, it will be 'Pre-Order Now'."
+msgstr ""
+
+#: plugin-options/settings-options.php:104
+msgctxt "Default label for add to cart button(Pre-Order Now)"
+msgid "Pre-Order Now"
+msgstr ""
+
+#: templates/emails/pre-order-is-for-sale.php:41
+msgid "Download link:"
+msgstr ""
+
+#: templates/woocommerce/frontend/my-account-my-pre-orders.php:54
+msgctxt "hash before order number"
+msgid "#"
+msgstr ""
+#. Plugin Name of the plugin/theme
+msgid "YITH Pre-Order for WooCommerce Premium"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://yithemes.com/themes/plugins/yith-woocommerce-pre-order"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Thanks to <code><strong>YITH Pre-Order for WooCommerce Premium</strong></code> you can improve right away the sales of unavailable items, offering your customers the chance to purchase the products and receive them only after they are officially on sale. <a href=\"https://yithemes.com/\" target=\"_blank\">Get more plugins for your e-commerce on <strong>YITH</strong></a>."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "YITH"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://yithemes.com/"
+msgstr ""

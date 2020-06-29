@@ -1,0 +1,75 @@
+<wpml-config>
+    <admin-texts>
+        <key name="porto_settings">
+            <key name="welcome-msg" />
+            <key name="header-copyright" />
+            <key name="header-tooltip" />
+            <key name="menu-sidebar-title" />
+            <key name="menu-title" />
+            <key name="breadcrumbs-prefix"/>
+            <key name="footer-ribbon" />
+            <key name="footer-tooltip" />
+            <key name="hot-label" />
+            <key name="blog-title" />
+            <key name="portfolio-slug-name" />
+            <key name="portfolio-name" />
+            <key name="portfolio-singular-name" />
+            <key name="portfolio-cat-slug-name" />
+            <key name="portfolio-skill-slug-name" />
+            <key name="portfolio-title" />
+            <key name="portfolio-sub-title" />
+            <key name="portfolio-archive-readmore-label" />
+            <key name="member-slug-name" />
+            <key name="member-title" />
+            <key name="member-sub-title" />
+            <key name="member-name" />
+            <key name="member-singular-name" />
+            <key name="member-cat-slug-name" />
+            <key name="member-archive-readmore-label" />
+            <key name="faq-slug-name" />
+            <key name="faq-name" />
+            <key name="faq-singular-name" />
+            <key name="faq-cat-slug-name" />
+            <key name="faq-title" />
+            <key name="faq-sub-title" />
+            <key name="product-tab-title" />
+            <key name="product-quickview-label" />
+            <key name="product-hot-label" />
+            <key name="product-sale-label" />
+            <key name="catalog-readmore-label" />
+            <key name="header-contact-info" />
+            <key name="footer-copyright" />
+            <key name="footer-payments-image-alt" />
+            <key name="menu-block" />
+			<key name="event-slug-name" />
+            <key name="event-name" />
+            <key name="event-singular-name" />
+            <key name="event-title" />
+            <key name="event-sub-title" />
+			<key name="search-placeholder" />
+			<key name="woo-pre-order-label" />
+			<key name="woo-pre-order-msg-date" />
+			<key name="woo-pre-order-msg-nodate" />
+        </key>
+    </admin-texts>
+    <custom-fields>
+        <custom-field action="translate">page_sub_title</custom-field>
+        <custom-field action="translate">member_firstname</custom-field>
+        <custom-field action="translate">member_lastname</custom-field>
+        <custom-field action="translate">member_role</custom-field>
+        <custom-field action="translate">member_overview</custom-field>
+        <custom-field action="translate">portfolio_info</custom-field>
+        <custom-field action="translate">portfolio_link</custom-field>
+        <custom-field action="translate">portfolio_location</custom-field>
+        <custom-field action="translate">portfolio_client</custom-field>
+        <custom-field action="translate">portfolio_client_link</custom-field>
+        <custom-field action="translate">portfolio_author_quote</custom-field>
+        <custom-field action="translate">portfolio_author_name</custom-field>
+        <custom-field action="translate">portfolio_author_image</custom-field>
+        <custom-field action="translate">portfolio_author_role</custom-field>
+        <custom-field action="translate">custom_tab_title1</custom-field>
+        <custom-field action="translate">custom_tab_title2</custom-field>
+        <custom-field action="translate">custom_tab_content1</custom-field>
+        <custom-field action="translate">custom_tab_content2</custom-field>
+    </custom-fields>
+</wpml-config>

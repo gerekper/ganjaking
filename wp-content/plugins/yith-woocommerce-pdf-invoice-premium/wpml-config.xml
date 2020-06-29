@@ -1,0 +1,15 @@
+<wpml-config>
+    <admin-texts>
+        <key name="ywpi_company_name"/>
+        <key name="ywpi_company_details"/>
+        <key name="ywpi_invoice_notes"/>
+        <key name="ywpi_invoice_footer"/>
+        <key name="ywpi_pro_forma_notes"/>
+        <key name="ywpi_pro_forma_footer"/>
+        <key name="ywpi_packing_slip_notes"/>
+        <key name="ywpi_packing_slip_footer"/>
+        <key name="ywpi_credit_note_notes"/>
+        <key name="ywpi_credit_note_footer"/>
+        <key name="ywpi_credit_note_refund_text"/>
+    </admin-texts>
+</wpml-config>

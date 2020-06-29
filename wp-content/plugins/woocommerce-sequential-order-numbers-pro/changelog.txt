@@ -1,0 +1,172 @@
+*** WooCommerce Sequential Order Numbers Pro Changelog ***
+
+2020.05.04 - version 1.15.3
+ * Misc - Add support for WooCommerce 4.1
+
+2020.03.04 - version 1.15.2
+ * Misc - Add support for WooCommerce 4.0
+
+2020.01.02 - version 1.15.1
+ * Misc - Add support for WooCommerce 3.9
+
+2019.11.05 - version 1.15.0
+ * Misc - Add support for WooCommerce 3.8
+
+2019.10.03 - version 1.14.1
+ * Fix - Fix order number filter in WooCommerce Admin Downloads Analytics
+
+2019.08.08 - version 1.14.0
+ * Misc - Add support for WooCommerce 3.7
+ * Misc - Remove support for WooCommerce 2.6
+ * Misc - Require PHP 5.6+
+
+2019.07.30 - version 1.13.2
+ * Fix - When filtering results by order number in WooCommerce Admin Downloads Analytics, search should handle sequential order numbers properly
+
+2019.04.03 - version 1.13.1
+ * Misc - Add support for WooCommerce 3.6
+ * Misc - Require PHP 5.4+
+
+2019.02.28 - version 1.13.0
+ * Fix - Return correct order numbers in WooCommerce REST API responses for v3 and v2
+ * Misc - Drop support for PHP v5.2: PHP v5.3 is now the minimum supported version
+ * Misc - Update SkyVerge plugin framework to version 5.3
+ * Misc - Change the plugin main file to woocommerce-sequential-order-numbers-pro.php to match container directory
+
+2018.11.14 - version 1.12.2
+ * Fix - Show leading zeros when {N} and {S} placeholders are used in sample order number preview
+ * Misc - Add support for WooCommerce 3.5
+
+2018.05.23 - version 1.12.1
+ * Misc - Add support for WooCommerce 3.4
+
+2018.01.23 - version 1.12.0
+ * Misc - Add support for WooCommerce 3.3
+ * Misc - Remove support for WooCommerce 2.5
+
+2017.08.23 - version 1.11.3
+ * Fix - Ensure order tracking forms work with WC 3.1+ when order number contain non-numeric characters
+
+2017.05.17 - version 1.11.2
+ * Fix - Address an uncommon occurrence where an Order without an ID in WooCommerce 3.0+ could have caused a PHP error in some order tracking functionality
+ * Misc - Remove support for WooCommerce Subscriptions versions below 2.0.0
+ * Localization - Added Italian translation
+
+2017.04.26 - version 1.11.1
+ * Tweak - Add support for HyperDB to avoid 0 order numbers
+ * Fix - Update REST API v1 / v2 support for generating order numbers
+ * Fix - Ensure `_order_number` meta is set in performance mode
+
+2017.03.28 - version 1.11.0
+ * Misc - Added support for WooCommerce 3.0
+ * Misc - Removed support for WooCommerce 2.4
+
+2016.11.30 - version 1.10.1
+ * Tweak - Allow lowercase placeholder text for prefix and suffix fields
+
+2016.06.02 - version 1.10.0
+ * Misc - Added support for WooCommerce 2.6
+ * Misc - Removed support for WooCommerce 2.3
+
+2016.01.14 - version 1.9.0
+ * Misc - Added support for WooCommerce 2.5
+ * Misc - Removed support for WooCommerce 2.2
+
+2015.10.07 - version 1.8.1
+ * Misc - WooCommerce Subscriptions 2.0 Compatibility
+
+2015.07.28 - version 1.8.0
+ * Tweak - Accept {yy} as an Order Number Prefix placeholder
+ * Misc - WooCommerce 2.4 Compatibility
+
+2015.07.20 - version 1.7.1
+ * Tweak - Add WooCommerce Deposits support
+
+2015.02.09 - version 1.7.0
+ * Feature - Performance mode for large datasets
+ * Fix - Ensure sequential order numbers are set when an order is created via the REST API
+ * Misc - WooCommerce 2.3 Compatibility
+
+2014.10.06 - version 1.6.5
+ * Fix - Prevent a notice when an order is not found using the [woocommerce_order_tracking] shortcode
+
+2014.09.18 - version 1.6.4
+ * Tweak - WooCommerce 2.2 compatibility tweak
+
+2014.09.07 - version 1.6.3
+ * Misc - WooCommerce 2.2 Compatibility
+
+2014.03.10 - version 1.6.2
+ * Fix - Non-free admin created orders are assigned a correct order number
+
+2014.02.10 - version 1.6.1
+ * Fix - Fixed admin settings page error message handling for pre WC 2.1
+
+2014.01.20 - version 1.6
+ * Misc - Uses SkyVerge Plugin Framework
+ * Misc - WooCommerce 2.1 Compatibility
+
+2013.12.13 - version 1.5.7
+ * Fix - Compatibility with PayPal Express
+
+2013.10.18 - version 1.5.6
+ * Fix - Sequential order number used in order action emails dispatched prior to saving order
+
+2013.09.06 - version 1.5.5
+ * Tweak - Explicit order number length setting removed for UI simplicity, padding is set with zeroes in order number start setting
+ * Tweak - Default parameter for set_sequential_order_number() to improve the sequential order number creation API
+
+2013.07.29 - version 1.5.4
+ * Fix - Order number correctly shown in subscriptions manual payment reminder email
+
+2013.06.28 - version 1.5.3
+ * Fix - Non-free orders created from the admin are assigned non-free order numbers
+ * Fix - Caching issue with certain host configurations resulting in empty formatted order number meta being persisted
+
+2013.05.31 - version 1.5.2
+ * Tweak - Free order number prefix applies to any order with a total of zero, including those with sale or coupon items
+
+2013.05.17 - version 1.5.1
+ * Fix - Fixed bug with upgrade path from free Sequential Order Numbers plugin
+
+2013.02.26 - version 1.5
+ * Feature - Customer/Order CSV Export Suite support
+ * Feature - WC Subscriptions support: unique order numbers generated for subscription payments
+ * Feature - Hash before order number can be disabled
+ * Feature - Order number search support for Pre-Orders plugin
+ * Fix - Improved upgrade path from free Sequential Order Numbers plugin
+ * Tweak - renamed plugin global variable
+
+2013.02.07 - version 1.4.0.1
+ * Fix - Install process orders pulled in blocks of 500
+
+2013.02.06 - version 1.4
+ * Feature - Hours, minutes, seconds allowed in prefix/postfix formats
+ * Fix - Improved install process for stores with lots of order records
+
+2013.01.21 - version 1.3
+ * Feature - Order numbers can start from 0
+ * Feature - Order number can be padded with leading 0's
+ * Feature - Free product orders can be excluded from order number sequence
+
+2012.12.17 - version 1.2.3
+ * Fix - Order numbers not assigned to draft orders
+ * Fix - WP 3.5 compatibility (prepare)
+ * WC 2.0 compatibility
+
+2012.12.14 - version 1.2.2
+ * Fix - WP 3.5 compatibility (prepare)
+
+2012.12.04 - version 1.2.1
+ * New updater
+
+2012.06.25 - version 1.2
+ * Feature - Adds the ability to set the current day, month and year in the order number format
+ * Tweak - Improved error handling for the 'order number start' setting when a higher order number already exists
+ * Tweak - Allow translating of # in order numbers
+
+2012.06.04 - version 1.1
+ * Updated wooincludes folder
+
+2012.05.21 - version 1.0
+ * Initial release

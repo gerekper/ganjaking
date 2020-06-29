@@ -1,0 +1,191 @@
+/**
+ * Admin style
+ *
+ * @author Leanza Francesco
+ * @version 1.0.0
+ */
+
+.yith-wcpb-bundled-prod-selector {
+    padding : 5px;
+}
+
+.yith_bundled_items_options a::before {
+    font-family : Dashicons !important;
+    content     : '\f180' !important;
+}
+
+.yith_bundled_options_options a::before {
+    font-family : Dashicons !important;
+    content     : '\f480' !important;
+}
+
+.yith-wcpb-bundled-prod-toolbar-wrapper {
+    float : right;
+}
+
+.yith-wcpb-bundled-item-data {
+    background-color : #fdfdfd;
+    border-top       : 1px solid #eee;
+}
+
+.yith-wcpb-bundled-item-data-content {
+
+}
+
+.column-order_items tr.yith-wcpb-admin-bundled-item td.qty {
+    padding-left  : 10px !important;
+    padding-right : 0 !important;
+    font-size     : 10px !important;
+}
+
+.column-order_items tr.yith-wcpb-admin-bundled-item td.name {
+    font-size : 10px !important;
+}
+
+.woocommerce_order_items_wrapper table.woocommerce_order_items tr.yith-wcpb-admin-bundled-item {
+    background : #f6f6f6;
+}
+
+.woocommerce_order_items_wrapper table.woocommerce_order_items tr.yith-wcpb-admin-bundled-item td.name {
+    padding-left : 30px;
+}
+
+textarea.yith-wcpb-bp {
+    min-height : 150px;
+}
+
+span.product-type.yith_bundle:before {
+    content     : "\f480" !important;
+    font-family : "dashicons" !important;
+    font-size   : 20px !important;
+}
+
+.yith-wcbep-edit-product-btn {
+    margin-right   : 7px;
+    vertical-align : middle;
+}
+
+.yith-wcpb-bundled-items-info {
+    display        : inline-block;
+    background     : #ddd;
+    border-radius  : 3px;
+    font-size      : 11px;
+    margin-left    : 5px;
+    min-width      : 20px;
+    min-height     : 20px;
+    padding        : 1px 10px;
+    box-sizing     : border-box;
+    text-transform : uppercase;
+}
+
+.yith-wcpb-bundled-items-info.not-purchasable {
+    background : #bf0035;
+    color      : #fff;
+}
+
+.yith-wcpb-bundled-items-info.debug {
+    text-transform : none;
+    background     : #5d6273;
+    color          : #f3f9ff;
+}
+
+/**
+    Select Product Box
+ */
+.yith-wcpb-select-product-box__products__table .column-image,
+.yith-wcpb-select-product-box__products__table .column-type,
+.yith-wcpb-select-product-box__products__table .column-action {
+    width      : 50px;
+    text-align : center;
+}
+
+.yith-wcpb-select-product-box__products__table .column-price {
+    width : 100px;
+}
+
+.yith-wcpb-select-product-box__products__table .column-image img {
+    width  : 40px;
+    height : auto;
+}
+
+.yith-wcpb-select-product-box__filter {
+    margin-bottom : 10px;
+}
+
+input[type=text].yith-wcpb-select-product-box__filter__search {
+    width          : 100%;
+    max-width      : 400px;
+    border-radius  : 2px;
+    color          : #333;
+    font-weight    : 300;
+    font-size      : 15px;
+    padding        : 7px 14px;
+    box-shadow     : 0 2px 8px rgba(100, 100, 100, 0.2);
+    vertical-align : top;
+    display        : block;
+    margin         : 0 auto 10px auto;
+}
+
+.yith-wcpb-product-added {
+    display : none;
+    color   : #0197af;
+}
+
+.yith-wcpb-select-product-box__products__pagination {
+    text-align : center;
+    margin-top : 10px;
+    color      : #555;
+}
+
+.yith-wcpb-select-product-box__products__pagination span {
+    margin      : 0 5px;
+    font-weight : 600;
+}
+
+.yith-wcpb-select-product-box__products__pagination span.first,
+.yith-wcpb-select-product-box__products__pagination span.prev,
+.yith-wcpb-select-product-box__products__pagination span.next,
+.yith-wcpb-select-product-box__products__pagination span.last {
+    padding        : 4px 10px;
+    border         : 1px solid;
+    display        : inline-block;
+    font-size      : 11px;
+    text-transform : uppercase;
+    cursor         : pointer;
+}
+
+.yith-wcpb-select-product-box__products__pagination span.disabled {
+    opacity : 0.3;
+    cursor  : not-allowed;
+}
+
+.yith-wcpb-add-product {
+    padding        : 4px 10px;
+    display        : inline-block;
+    font-size      : 11px;
+    text-transform : uppercase;
+    cursor         : pointer;
+    background     : #0197af;
+    color          : #fff;
+    font-weight    : 600;
+}
+
+.yith-wcpb-add-product:hover {
+    background : #01b6cf;
+}
+
+.yith-wcpb-select-product-box__products__table .product-info span.product-single-info {
+    padding        : 0 10px;
+    background     : #747684;
+    color          : #fff;
+    margin         : 3px 3px 0 0;
+    text-transform : uppercase;
+    font-size      : 10px;
+    font-weight    : 600;
+    border-radius  : 3px;
+    display        : inline-block;
+}
+
+.yith-wcpb-select-product-box__products__table .product-info span.product-single-info.out-of-stock {
+    background : #b50032;
+}

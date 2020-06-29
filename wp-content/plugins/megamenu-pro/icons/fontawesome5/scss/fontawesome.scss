@@ -1,0 +1,27 @@
+#{$wrap} #{$menu} li.mega-menu-item > a[class^='fab']:before {
+	font-family: 'Font Awesome 5 Brands';
+	font-weight: 400;
+}
+
+#{$wrap} #{$menu} li.mega-menu-item > a[class^='far']:before {
+	font-family: 'Font Awesome 5 Free';
+	font-weight: 400;
+}
+
+#{$wrap} #{$menu} li.mega-menu-item > a[class^='fas']:before {
+	font-family: 'Font Awesome 5 Free';
+	font-weight: 900;
+}
+
+#{$wrap} #{$menu} li.mega-menu-item > a[class^='fas'],
+#{$wrap} #{$menu} li.mega-menu-item > a[class^='fab'],
+#{$wrap} #{$menu} li.mega-menu-item > a[class^='far'] {
+  -webkit-font-smoothing: inherit;
+}
+
+#{$wrap} #{$menu} li.mega-menu-item.mega-icon-left > a[class^='fas']:before,
+#{$wrap} #{$menu} li.mega-menu-item.mega-icon-left > a[class^='fab']:before,
+#{$wrap} #{$menu} li.mega-menu-item.mega-icon-left > a[class^='far']:before {
+	width: 1.25em;
+	text-align: center;
+}

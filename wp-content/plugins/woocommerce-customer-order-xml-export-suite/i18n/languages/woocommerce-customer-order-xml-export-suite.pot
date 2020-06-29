@@ -1,0 +1,1522 @@
+# Copyright (C) 2019 SkyVerge
+# This file is distributed under the GNU General Public License v3.0.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Customer/Order XML Export Suite 2.6.3\n"
+"Report-Msgid-Bugs-To: "
+"https://woocommerce.com/my-account/marketplace-ticket-form/\n"
+"POT-Creation-Date: 2019-12-11 18:47:22+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2019-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-custom-format-builder.php:57
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:59
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:1275
+#: includes/admin/class-wc-customer-order-xml-export-suite-list-table.php:167
+msgid "Orders"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-custom-format-builder.php:58
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:60
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:1276
+#: includes/admin/class-wc-customer-order-xml-export-suite-list-table.php:171
+msgid "Customers"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-custom-format-builder.php:59
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:64
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:1382
+#: includes/admin/class-wc-customer-order-xml-export-suite-list-table.php:175
+msgid "Coupons"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-custom-format-builder.php:86
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-custom-format-builder.php:129
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-custom-format-builder.php:176
+msgid "Format Options"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-custom-format-builder.php:92
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-custom-format-builder.php:135
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-custom-format-builder.php:182
+msgid "Indent output"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-custom-format-builder.php:93
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-custom-format-builder.php:136
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-custom-format-builder.php:183
+msgid "Enable to indent (pretty-print) XML output"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-custom-format-builder.php:101
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-custom-format-builder.php:144
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-custom-format-builder.php:191
+msgid "Include all meta"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-custom-format-builder.php:102
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-custom-format-builder.php:145
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-custom-format-builder.php:192
+msgid "Enable to include all meta in the export"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-custom-format-builder.php:111
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-custom-format-builder.php:154
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-custom-format-builder.php:201
+msgid "Field Mapping"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-custom-format-builder.php:291
+msgid "Tag name"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-custom-format-builder.php:292
+msgid "Data source"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-custom-format-builder.php:348
+msgid "Select a value"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-custom-format-builder.php:350
+msgid "Meta field..."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-custom-format-builder.php:351
+msgid "Static value..."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-custom-format-builder.php:355
+msgid "Meta key:"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-custom-format-builder.php:360
+msgid "Value:"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-custom-format-builder.php:388
+msgid ""
+"There are no mapped fields. Click the Add Tag button below to start mapping "
+"fields."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-custom-format-builder.php:395
+msgid "Add tag"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-custom-format-builder.php:396
+msgid "Remove selected tag(s)"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-custom-format-builder.php:397
+msgid "Load tag mapping"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-custom-format-builder.php:476
+msgid "Save"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-custom-format-builder.php:497
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:809
+msgid "Action failed. Please refresh the page and retry."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-custom-format-builder.php:502
+msgid "Your custom format settings have been saved."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:128
+msgid "Disabled"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:131
+msgid "None"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:132
+msgid "FTP with Implicit SSL"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:133
+msgid "FTP with Explicit TLS/SSL"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:134
+msgid "SFTP (FTP over SSH)"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:147
+#. translators: Placeholders: %s - date
+msgid "The next export is scheduled on %s"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:149
+msgid "The export is not scheduled."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:158
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:451
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:680
+msgid "Export Format"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:164
+#: includes/admin/views/html-system-status-table.php:42
+msgid "Order Export Format"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:165
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:458
+msgid "Default is a new format for v2.0, legacy is prior to version 2"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:168
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:461
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:690
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:238
+#: includes/admin/views/html-export-modals.php:128
+msgid "Default"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:169
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:462
+#: includes/admin/views/html-export-modals.php:129
+msgid "Legacy"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:170
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:463
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:691
+msgid "Custom"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:177
+msgid "Order Export Filename"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:178
+msgid ""
+"The filename for exported orders. Merge variables: %%timestamp%%, "
+"%%order_ids%%"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:186
+msgid "Add Order Notes"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:187
+msgid "Enable to add a note to exported orders."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:194
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:479
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:707
+msgid "Batch Processing"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:195
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:480
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:708
+msgid "Use batch processing for manual exports."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:196
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:481
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:709
+msgid ""
+"Only enable this setting when notified that your site does not support "
+"background processing."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:204
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:489
+msgid "Automated Export Settings"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:210
+#: includes/admin/views/html-system-status-table.php:56
+msgid "Automatically Export Orders"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:211
+msgid ""
+"Enable this to automatically export orders via the method & schedule "
+"selected."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:217
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:502
+#. translators: PLaceholders: %1$s - <a> tag, %2$s - </a> tag
+msgid ""
+"Local exports are generated, then saved to the %1$sExport List%2$s for 14 "
+"days."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:222
+msgid "Trigger Automatic Export"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:223
+msgid ""
+"Choose whether to auto-export orders on a schedule or immediately when "
+"they're paid for."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:226
+msgid "on scheduled intervals"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:227
+msgid "immediately as orders are paid"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:235
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:507
+#: includes/admin/views/html-system-status-table.php:70
+#: includes/admin/views/html-system-status-table.php:134
+msgid "Export Start Time"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:236
+msgid "Any new orders will start exporting at this time."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:238
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:510
+#. translators: Placeholders: %s - time
+msgid "Local time is %s."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:247
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:519
+msgid "Export Interval (in minutes)*"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:248
+msgid "Any new orders will be exported on this schedule."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:249
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:521
+msgid "Required in order to schedule the automatic export."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:258
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:1290
+#: includes/admin/views/html-system-status-table.php:98
+msgid "Order Statuses"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:259
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:1291
+msgid "Orders with these statuses will be included in the export."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:266
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:1298
+msgid "Leave blank to export orders with any status."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:272
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:1304
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:1349
+#: includes/admin/views/html-system-status-table.php:104
+msgid "Product Categories"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:273
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:1305
+msgid "Orders with products in these categories will be included in the export."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:280
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:1312
+msgid "Leave blank to export orders with products in any category."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:286
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:1318
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:1363
+#: includes/admin/views/html-system-status-table.php:110
+msgid "Products"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:287
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:1319
+msgid "Orders with these products will be included in the export."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:295
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:1327
+msgid "Leave blank to export orders with any products."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:303
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:532
+msgid "FTP Settings"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:309
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:538
+msgid "Server Address"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:310
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:539
+msgid "The address of the remote FTP server to upload to."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:318
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:547
+msgid "Username"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:319
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:548
+msgid "The username for the remote FTP server."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:327
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:556
+msgid "Password"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:328
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:557
+msgid "The password for the remote FTP server."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:336
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:565
+msgid "Port"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:337
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:566
+msgid "The port for the remote FTP server."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:347
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:576
+msgid "Initial Path"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:348
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:577
+msgid ""
+"The initial path for the remote FTP server with trailing slash, but "
+"excluding leading slash."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:356
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:585
+msgid "Security"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:357
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:586
+msgid "Select the security type for the remote FTP server."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:366
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:595
+msgid "Passive Mode"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:367
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:596
+msgid ""
+"Enable passive mode if you are having issues connecting to FTP, especially "
+"if you see \"PORT command successful\" in the error log."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:375
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:604
+msgid "Test FTP"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:386
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:615
+msgid "HTTP POST Settings"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:392
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:621
+msgid "HTTP POST URL"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:393
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:622
+msgid "Enter the URL to POST the exported XML to."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:401
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:630
+msgid "Test HTTP POST"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:412
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:641
+msgid "Email Settings"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:418
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:647
+msgid "Recipient(s)"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:420
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:649
+#. translators: Placeholders: %s - email address
+msgid ""
+"Enter recipients (comma separated) the exported XML should be emailed to. "
+"Defaults to %s."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:428
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:657
+msgid "Email Subject"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:429
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:658
+msgid "Enter the email subject."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:431
+#. translators: Placeholders: %s - blog name
+msgid "[%s] Order XML Export"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:438
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:667
+msgid "Test Email"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:457
+#: includes/admin/views/html-system-status-table.php:48
+msgid "Customer Export Format"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:470
+msgid "Customer Export Filename"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:471
+msgid "The filename for exported customers. Merge variables: %%timestamp%%"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:495
+#: includes/admin/views/html-system-status-table.php:120
+msgid "Automatically Export Customers"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:496
+msgid ""
+"Enable this to automatically export customers via the method & schedule "
+"selected."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:508
+msgid "Any new customers will start exporting at this time."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:520
+msgid "Any new customers will be exported on this schedule."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:660
+#. translators: Placeholders: %s - blog name
+msgid "[%s] Customer XML Export"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:686
+msgid "Coupon Export Format"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:687
+msgid "The format to use when exporting coupons."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:698
+msgid "Coupon Export Filename"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:699
+msgid "The filename for exported coupons. Merge variables: %%timestamp%%"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:753
+msgid "Please save your settings before testing"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:788
+msgid "Save settings"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin-settings.php:847
+msgid "Your settings have been saved."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:221
+msgid "Export Started"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:222
+msgid "Export Completed"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:223
+#: includes/class-wc-customer-order-xml-export-suite-ajax.php:65
+#: includes/class-wc-customer-order-xml-export-suite-ajax.php:114
+#: includes/class-wc-customer-order-xml-export-suite-ajax.php:146
+msgid "Export Failed"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:224
+msgid "Export Resumed"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:225
+msgid "Export Transfer Failed"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:226
+msgid "Export Not Found"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:227
+#: includes/class-wc-customer-order-xml-export-suite-ajax.php:102
+msgid "Nothing to Export"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:228
+msgid "Unexpected Error"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:229
+msgid ""
+"Something unexpected happened while exporting. Your export may or may have "
+"not completed. Please check the %1$sExport List%2$s and your site error log "
+"for possible clues as to what may have happened."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:230
+msgid "Load mapping"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:231
+msgid "Done"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:232
+msgid "Load"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:233
+msgid "Close"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:234
+#: includes/admin/class-wc-customer-order-xml-export-suite-list-table.php:275
+msgid "Cancel"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:235
+msgid "Are you sure you want to delete this export?"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:236
+msgid "Are you sure you want to cancel this export?"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:237
+msgid "Are you sure you want to send/upload this file?"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:279
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:280
+msgid "XML Export"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:381
+#. translators: Placeholders: %1$s - exported file name, %2$s - opening <a>
+#. tag, %3$s - closing </a> tag
+msgid ""
+"Exported file %1$s is ready! You can download the exported file from the "
+"%2$sExport List%3$s."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:421
+#. translators: This phrase is always preceeded by an error message, such as
+#. "Exporting file failed". Thus, the details in this phrase refer to details
+#. about the error. Placeholders: %1$s - opening <a> tag, %2$s - closing </a>
+#. tag
+msgid "Additional details may be found in the XML Export Suite %1$slogs%2$s."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:430
+#. translators: Placeholders: %1$s - opening <a> tag, %2$s - closing </a> tag
+msgid "Looks like automatic exports are failing."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:438
+#. translators: Placeholders: %s - file name
+msgid "Automatically exporting file %s failed."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:443
+#. translators: Placeholders: %s - file name
+msgid "Exporting file %s failed."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:456
+#. translators: Placeholders: %1$s - export method, such as "via Email", %2$s -
+#. opening <a> tag, %3$s - closing </a> tag
+msgid ""
+"Looks like automatic exports are working, but the transfers %1$s are "
+"failing. Exported files are available under %2$sExport List%3$s."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:465
+#. translators: Placeholders: %1$s - file name, %2$s - export method, such as
+#. "via Email"
+msgid "File %1$s was automatically exported, but the transfer %2$s failed."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:470
+#. translators: Placeholders: %1$s - file name, %2$s - export method, such as
+#. "via Email"
+msgid "File %1$s was exported, but the transfer %2$s failed."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:474
+#: includes/class-wc-customer-order-xml-export-suite-background-export.php:149
+#. translators: %1$s - opening <a> tag, %2$s- closing </a> tag
+#. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
+msgid "Exported file is available under %1$sExport List%2$s."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:549
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:627
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:1266
+msgid "Export"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:550
+msgid "Export List"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:551
+msgid "Settings"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:552
+msgid "Custom Formats"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:718
+msgid "%d exported file deleted."
+msgid_plural "%d exported files deleted."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:743
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:767
+#: includes/admin/class-wc-customer-order-xml-export-suite-list-table.php:79
+msgid "Export Status"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:746
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:770
+msgid "XML Export Status"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:803
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:827
+msgid "Exported"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:803
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:827
+msgid "Not Exported"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:850
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:870
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:983
+msgid "Download to XML"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:878
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:992
+#. translators: Placeholders: %s - via [method], full example: Export to XML
+#. via Email
+msgid "Export to XML %s"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:898
+msgid "Not Exported to XML"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:899
+msgid "Exported to XML"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:904
+msgid "Show all orders"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:981
+msgid "Mark exported to XML"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:982
+msgid "Mark not exported to XML"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:1099
+msgid "%d customer marked as exported to XML"
+msgid_plural "%d customers marked as exported to XML"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:1103
+msgid "%d order marked as exported to XML"
+msgid_plural "%d orders marked as exported to XML"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:1122
+msgid "%d customer marked as not exported to XML"
+msgid_plural "%d customers marked as not exported to XML"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:1126
+msgid "%d order marked as not exported to XML"
+msgid_plural "%d orders marked as not exported to XML"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:1272
+msgid "Export Type"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:1284
+msgid "Export Options"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:1333
+msgid "Start Date"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:1334
+msgid ""
+"Start date of customers or orders to include in the exported file, in the "
+"format <code>YYYY-MM-DD.</code>"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:1340
+msgid "End Date"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:1341
+msgid ""
+"End date of customers or orders to include in the exported file, in the "
+"format <code>YYYY-MM-DD.</code>"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:1350
+msgid "Coupons that apply to these categories will be included in the export."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:1357
+msgid "Leave blank to export coupons that apply to any category."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:1364
+msgid "Coupons that apply to these products will be included in the export."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:1372
+msgid "Leave blank to export coupons that apply to any products."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:1388
+msgid "Subscriptions Options"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:1394
+msgid "Export Subscriptions Orders Only"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:1395
+msgid "Export subscription orders"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:1402
+msgid "Export renewal orders"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:1485
+msgid "Export cancelled."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:1489
+msgid "Exported file deleted."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:1531
+#. translators: Placeholders: %s - file name
+msgid "Could not transfer file %s - no auto export method configured."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:1543
+#. translators: Placeholders: %1$s - file name, %2$3 - transfer method, such as
+#. "via Email"
+msgid "File %1$s transferred %2$s."
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-admin.php:1548
+#. translators: Placeholders: %1$s - file name, %2$3 - transfer method, such as
+#. "via Email", %3$s - error message
+msgid "Could not transfer %1$s %2$s: %3$s"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-list-table.php:60
+msgid "Queued"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-list-table.php:61
+msgid "Processing"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-list-table.php:62
+msgid "Completed"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-list-table.php:63
+msgid "Failed"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-list-table.php:64
+msgid "Paused"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-list-table.php:80
+msgid "Transfer Status"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-list-table.php:81
+msgid "Type"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-list-table.php:82
+msgid "Invocation"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-list-table.php:83
+msgid "File name"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-list-table.php:84
+msgid "Date"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-list-table.php:85
+msgid "Actions"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-list-table.php:142
+msgid "N/A"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-list-table.php:154
+msgid "Auto"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-list-table.php:154
+msgid "Manual"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-list-table.php:216
+msgid "Download"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-list-table.php:235
+#. translators: Placeholders: %s - via [method], full example: Send via Email
+msgid "Send %s"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-list-table.php:251
+msgid "View"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-list-table.php:259
+msgid "Resume"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-list-table.php:275
+#: includes/admin/class-wc-customer-order-xml-export-suite-list-table.php:368
+msgid "Delete"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-list-table.php:316
+msgid "Select export"
+msgstr ""
+
+#: includes/admin/class-wc-customer-order-xml-export-suite-list-table.php:353
+msgid ""
+"Exported files will appear here. Files are stored for 14 days after the "
+"export."
+msgstr ""
+
+#: includes/admin/views/html-export-modals.php:44
+msgid "Close modal panel"
+msgstr ""
+
+#: includes/admin/views/html-export-modals.php:74
+msgid "Your data is being exported now."
+msgstr ""
+
+#: includes/admin/views/html-export-modals.php:76
+msgid " When the export is complete, the download will start automatically."
+msgstr ""
+
+#: includes/admin/views/html-export-modals.php:82
+msgid ""
+" Do not navigate away from this page or use the back button until the "
+"export is complete."
+msgstr ""
+
+#: includes/admin/views/html-export-modals.php:89
+#. translators: Placeholders: %1$s - opening <a> tag, %2$s - closing </a> tag
+msgid ""
+"When completed, the exported file will also be available under %1$sExport "
+"List%2$s for the next 14 days."
+msgstr ""
+
+#: includes/admin/views/html-export-modals.php:94
+#. translators: Placeholders: %1$s - opening <a> tag, %2$s - closing </a> tag
+msgid " You can safely leave this screen and return to the Export List later."
+msgstr ""
+
+#: includes/admin/views/html-export-modals.php:103
+msgid "Your export is ready!"
+msgstr ""
+
+#: includes/admin/views/html-export-modals.php:107
+#. translators: Placeholders: %1$s - opening <a> tag, %2$s - closing </a> tag
+msgid "%1$sClick here%2$s if your download does not start automatically. "
+msgstr ""
+
+#: includes/admin/views/html-export-modals.php:112
+#. translators: Placeholders: %1$s - opening <a> tag, %2$s - closing </a> tag
+msgid ""
+"The exported file will be available under %1$sExport List%2$s for the next "
+"14 days."
+msgstr ""
+
+#: includes/admin/views/html-export-modals.php:144
+msgid "Existing formats"
+msgstr ""
+
+#: includes/admin/views/html-export-modals.php:149
+msgid "JSON snippet"
+msgstr ""
+
+#: includes/admin/views/html-export-modals.php:152
+msgid "Insert or copy & paste format configuration here"
+msgstr ""
+
+#: includes/admin/views/html-system-status-table.php:37
+msgid "Customer/Order XML Export Suite"
+msgstr ""
+
+#: includes/admin/views/html-system-status-table.php:43
+msgid "The selected order export format."
+msgstr ""
+
+#: includes/admin/views/html-system-status-table.php:49
+msgid "The selected customer export format."
+msgstr ""
+
+#: includes/admin/views/html-system-status-table.php:57
+#: includes/admin/views/html-system-status-table.php:121
+msgid "The automatic export method if enabled."
+msgstr ""
+
+#: includes/admin/views/html-system-status-table.php:64
+#: includes/admin/views/html-system-status-table.php:128
+msgid "Export Trigger"
+msgstr ""
+
+#: includes/admin/views/html-system-status-table.php:65
+#: includes/admin/views/html-system-status-table.php:129
+msgid "The automatic export trigger."
+msgstr ""
+
+#: includes/admin/views/html-system-status-table.php:71
+#: includes/admin/views/html-system-status-table.php:135
+msgid "The automatic export start time."
+msgstr ""
+
+#: includes/admin/views/html-system-status-table.php:76
+#: includes/admin/views/html-system-status-table.php:140
+msgid "Export Interval (minutes)"
+msgstr ""
+
+#: includes/admin/views/html-system-status-table.php:77
+#: includes/admin/views/html-system-status-table.php:83
+#: includes/admin/views/html-system-status-table.php:141
+#: includes/admin/views/html-system-status-table.php:147
+msgid "The automatic export start interval in minutes."
+msgstr ""
+
+#: includes/admin/views/html-system-status-table.php:82
+#: includes/admin/views/html-system-status-table.php:146
+msgid "Next Export"
+msgstr ""
+
+#: includes/admin/views/html-system-status-table.php:88
+#: includes/admin/views/html-system-status-table.php:152
+#. translators: Placeholders: %s - date & time
+msgid "Scheduled on %s"
+msgstr ""
+
+#: includes/admin/views/html-system-status-table.php:90
+#: includes/admin/views/html-system-status-table.php:154
+msgid "Not scheduled"
+msgstr ""
+
+#: includes/admin/views/html-system-status-table.php:99
+msgid "The order statuses to be included in the automatic export."
+msgstr ""
+
+#: includes/admin/views/html-system-status-table.php:105
+msgid "The product categories to be included in the automatic export."
+msgstr ""
+
+#: includes/admin/views/html-system-status-table.php:111
+msgid "The products to be included in the automatic export."
+msgstr ""
+
+#: includes/class-wc-customer-order-xml-export-suite-ajax.php:66
+msgid "Missing export type, method or query."
+msgstr ""
+
+#: includes/class-wc-customer-order-xml-export-suite-ajax.php:89
+msgid "No orders found to export"
+msgstr ""
+
+#: includes/class-wc-customer-order-xml-export-suite-ajax.php:93
+msgid "No customers found to export"
+msgstr ""
+
+#: includes/class-wc-customer-order-xml-export-suite-ajax.php:97
+msgid "No coupons found to export"
+msgstr ""
+
+#: includes/class-wc-customer-order-xml-export-suite-ajax.php:115
+msgid "Auto export method not configured."
+msgstr ""
+
+#: includes/class-wc-customer-order-xml-export-suite-ajax.php:143
+msgid "Export Failed: %s"
+msgstr ""
+
+#: includes/class-wc-customer-order-xml-export-suite-background-export.php:122
+msgid "Additional details may be found in the XML Export %1$slogs%2$s."
+msgstr ""
+
+#: includes/class-wc-customer-order-xml-export-suite-background-export.php:127
+msgid "No export found with id %s. It may have been cancelled during export."
+msgstr ""
+
+#: includes/class-wc-customer-order-xml-export-suite-background-export.php:131
+msgid "Unfortunately, your export failed."
+msgstr ""
+
+#: includes/class-wc-customer-order-xml-export-suite-background-export.php:141
+#. translators: Placeholders: %s - a transfer method name such as Email or FTP
+msgid "Export completed successfully, but the transfer %s failed."
+msgstr ""
+
+#: includes/class-wc-customer-order-xml-export-suite-background-export.php:145
+msgid "Export completed successfully, but the transfer failed."
+msgstr ""
+
+#: includes/class-wc-customer-order-xml-export-suite-cron.php:121
+msgid "Every minute"
+msgid_plural "Every %d minutes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-wc-customer-order-xml-export-suite-cron.php:235
+#. translators: Placeholders: %s - error message
+msgid "Scheduled orders export failed: %s"
+msgstr ""
+
+#: includes/class-wc-customer-order-xml-export-suite-cron.php:300
+#. translators: Placeholders: %s - error message
+msgid "Scheduled customers export failed: %s"
+msgstr ""
+
+#: includes/class-wc-customer-order-xml-export-suite-cron.php:443
+#. translators: Placeholders: %s - error message
+msgid "Automatic order export failed: %s"
+msgstr ""
+
+#: includes/class-wc-customer-order-xml-export-suite-download-handler.php:63
+msgid "You do not have the proper permissions to download this file."
+msgstr ""
+
+#: includes/class-wc-customer-order-xml-export-suite-download-handler.php:69
+#: includes/class-wc-customer-order-xml-export-suite-download-handler.php:121
+msgid "Export not found"
+msgstr ""
+
+#: includes/class-wc-customer-order-xml-export-suite-download-handler.php:114
+msgid "You do not have the proper permissions to view this file."
+msgstr ""
+
+#: includes/class-wc-customer-order-xml-export-suite-export.php:105
+msgid "Unable to find or create export job"
+msgstr ""
+
+#: includes/class-wc-customer-order-xml-export-suite-handler.php:114
+#: includes/class-wc-customer-order-xml-export-suite-handler.php:525
+#. translators: Placeholders: %s - export method
+msgid "Invalid Export Method: %s"
+msgstr ""
+
+#: includes/class-wc-customer-order-xml-export-suite-handler.php:122
+msgid "Test was successful!"
+msgstr ""
+
+#: includes/class-wc-customer-order-xml-export-suite-handler.php:124
+msgid "Test failed!"
+msgstr ""
+
+#: includes/class-wc-customer-order-xml-export-suite-handler.php:133
+msgid "Test failed: %s"
+msgstr ""
+
+#: includes/class-wc-customer-order-xml-export-suite-handler.php:269
+msgid "Order exported to XML and successfully downloaded."
+msgstr ""
+
+#: includes/class-wc-customer-order-xml-export-suite-handler.php:273
+msgid "Order exported to XML and successfully uploaded to server."
+msgstr ""
+
+#: includes/class-wc-customer-order-xml-export-suite-handler.php:277
+msgid "Order exported to XML and successfully POSTed to remote server."
+msgstr ""
+
+#: includes/class-wc-customer-order-xml-export-suite-handler.php:281
+msgid "Order exported to XML and successfully emailed."
+msgstr ""
+
+#: includes/class-wc-customer-order-xml-export-suite-handler.php:285
+msgid "Order exported to XML."
+msgstr ""
+
+#: includes/class-wc-customer-order-xml-export-suite-handler.php:480
+msgid ""
+"This method has been deprecated. Use "
+"wc_customer_order_xml_export_suite_get_export() instead."
+msgstr ""
+
+#: includes/class-wc-customer-order-xml-export-suite-handler.php:517
+#. translators: Placeholders: %s - export ID
+msgid "Could not find export: %s"
+msgstr ""
+
+#: includes/class-wc-customer-order-xml-export-suite-handler.php:548
+msgid "Error performing export: %s"
+msgstr ""
+
+#: includes/class-wc-customer-order-xml-export-suite-handler.php:604
+#: includes/class-wc-customer-order-xml-export-suite-handler.php:620
+msgid "This method has been deprecated."
+msgstr ""
+
+#: includes/class-wc-customer-order-xml-export-suite-handler.php:814
+#. translators: Placeholders: %s - error message
+msgid "Failed to transfer exported file: %s"
+msgstr ""
+
+#: includes/class-wc-customer-order-xml-export-suite-methods.php:187
+#. translators: Placeholders: %s - date
+msgid "Order Export for %s"
+msgstr ""
+
+#: includes/class-wc-customer-order-xml-export-suite-methods.php:192
+#. translators: Placeholders: %s - date
+msgid "Customer Export for %s"
+msgstr ""
+
+#: includes/class-wc-customer-order-xml-export-suite-methods.php:197
+#. translators: Placeholders: %s - date
+msgid "Coupon Export for %s"
+msgstr ""
+
+#: includes/class-wc-customer-order-xml-export-suite-methods.php:202
+#. translators: Placeholders: %s - date
+msgid "Export for %s"
+msgstr ""
+
+#: includes/class-wc-customer-order-xml-export-suite-methods.php:259
+msgid "locally"
+msgstr ""
+
+#: includes/class-wc-customer-order-xml-export-suite-methods.php:260
+msgid "via FTP"
+msgstr ""
+
+#: includes/class-wc-customer-order-xml-export-suite-methods.php:261
+msgid "via HTTP POST"
+msgstr ""
+
+#: includes/class-wc-customer-order-xml-export-suite-methods.php:262
+msgid "via Email"
+msgstr ""
+
+#: includes/class-wc-customer-order-xml-export-suite-methods.php:279
+#. translators: Placeholders: %s - export method name, example: "via Email"
+msgid "via %s"
+msgstr ""
+
+#: includes/class-wc-customer-order-xml-export-suite-unified-installer.php:276
+#. translators: Placeholders: %1$s - <strong> tag, %2$s - </strong> tag, %3$s -
+#. plugin name
+msgid ""
+"Hey there, %1$syour action is needed%2$s: %3$s has been replaced by the "
+"unified Customer/Order/Coupon Export plugin, which now supports exporting "
+"in both CSV and XML."
+msgstr ""
+
+#: includes/class-wc-customer-order-xml-export-suite-unified-installer.php:291
+msgid ""
+"%1$sClick here to install and activate the new plugin%2$s. Your settings "
+"and automated exports will be migrated automatically."
+msgstr ""
+
+#: includes/class-wc-customer-order-xml-export-suite-unified-installer.php:300
+#. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
+msgid "%1$sConnect your store%2$s to WooCommerce.com to download the new plugin."
+msgstr ""
+
+#: includes/class-wc-customer-order-xml-export-suite-unified-installer.php:308
+#. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
+msgid ""
+"If you'd like to learn more about the updated plugin, please %1$sread more "
+"here%2$s."
+msgstr ""
+
+#: includes/data-stores/database/class-wc-customer-order-xml-export-suite-data-store-database.php:229
+msgid "Unable to locate a legacy mysql connection in this WordPress install"
+msgstr ""
+
+#: includes/data-stores/database/class-wc-customer-order-xml-export-suite-database-stream-iterator.php:67
+msgid "Unable to find export for iteration"
+msgstr ""
+
+#: includes/export-methods/class-wc-customer-order-xml-export-suite-method-email.php:87
+#: includes/export-methods/class-wc-customer-order-xml-export-suite-method-http-post.php:73
+#: includes/export-methods/ftp/class-wc-customer-order-xml-export-suite-method-ftp-implicit-ssl.php:119
+#: includes/export-methods/ftp/class-wc-customer-order-xml-export-suite-method-ftp.php:117
+#: includes/export-methods/ftp/class-wc-customer-order-xml-export-suite-method-sftp.php:103
+msgid "Unable to find export for transfer"
+msgstr ""
+
+#: includes/export-methods/class-wc-customer-order-xml-export-suite-method-email.php:134
+msgid "Mail Error: %s"
+msgstr ""
+
+#: includes/export-methods/ftp/abstract-wc-customer-order-xml-export-suite-method-file-transfer.php:111
+msgid "FTP Username is blank."
+msgstr ""
+
+#: includes/export-methods/ftp/abstract-wc-customer-order-xml-export-suite-method-file-transfer.php:119
+msgid "FTP Server is blank."
+msgstr ""
+
+#: includes/export-methods/ftp/abstract-wc-customer-order-xml-export-suite-method-file-transfer.php:125
+msgid "FTP Port is blank."
+msgstr ""
+
+#: includes/export-methods/ftp/class-wc-customer-order-xml-export-suite-method-ftp-implicit-ssl.php:63
+msgid "Could not initialize cURL."
+msgstr ""
+
+#: includes/export-methods/ftp/class-wc-customer-order-xml-export-suite-method-ftp-implicit-ssl.php:101
+#. translators: Placeholders: %s - option name
+msgid "Could not set cURL option: %s"
+msgstr ""
+
+#: includes/export-methods/ftp/class-wc-customer-order-xml-export-suite-method-ftp-implicit-ssl.php:138
+#. translators: Placeholders: %s - name of file to be uploaded
+msgid "Could not set cURL file name: %s"
+msgstr ""
+
+#: includes/export-methods/ftp/class-wc-customer-order-xml-export-suite-method-ftp-implicit-ssl.php:145
+#. translators: Placeholders: %s - file path
+msgid "Could not open %s for reading."
+msgstr ""
+
+#: includes/export-methods/ftp/class-wc-customer-order-xml-export-suite-method-ftp-implicit-ssl.php:152
+#. translators: Placeholders: %s - name of file to be updloaded
+msgid "Could not load file %s"
+msgstr ""
+
+#: includes/export-methods/ftp/class-wc-customer-order-xml-export-suite-method-ftp-implicit-ssl.php:159
+#. translators: Placeholders: %1$s - cURL error number, %2$s - cURL error
+#. message
+msgid "Could not upload file. cURL Error: [%1$s] - %2$s"
+msgstr ""
+
+#: includes/export-methods/ftp/class-wc-customer-order-xml-export-suite-method-ftp.php:72
+#. translators: Placeholders: %1$s - server address, %2$s - server port.
+msgid ""
+"Could not connect via FTP to %1$s on port %2$s, check server address and "
+"port."
+msgstr ""
+
+#: includes/export-methods/ftp/class-wc-customer-order-xml-export-suite-method-ftp.php:79
+#. translators: Placeholders: %s - username
+msgid ""
+"Could not authenticate via FTP with username %s and password. Check "
+"username and password."
+msgstr ""
+
+#: includes/export-methods/ftp/class-wc-customer-order-xml-export-suite-method-ftp.php:88
+msgid "Could not set passive mode"
+msgstr ""
+
+#: includes/export-methods/ftp/class-wc-customer-order-xml-export-suite-method-ftp.php:99
+#. translators: Placeholders: %s - directory path
+msgid "Could not change directory to %s - check path exists."
+msgstr ""
+
+#: includes/export-methods/ftp/class-wc-customer-order-xml-export-suite-method-ftp.php:136
+#. translators: Placeholders: %s - file path
+msgid "Could not open file %s for reading."
+msgstr ""
+
+#: includes/export-methods/ftp/class-wc-customer-order-xml-export-suite-method-ftp.php:143
+#. translators: Placeholders: %s - file name
+msgid "Could not upload file: %s - check permissions."
+msgstr ""
+
+#: includes/export-methods/ftp/class-wc-customer-order-xml-export-suite-method-ftp.php:175
+#. translators: Placeholders: %s - error message
+msgid "FTP error: %s"
+msgstr ""
+
+#: includes/export-methods/ftp/class-wc-customer-order-xml-export-suite-method-sftp.php:60
+msgid "SSH2 Extension is not installed, cannot connect via SFTP."
+msgstr ""
+
+#: includes/export-methods/ftp/class-wc-customer-order-xml-export-suite-method-sftp.php:70
+#. translators: Placeholders: %1$s - server address, %2$s - server port.
+msgid ""
+"Could not connect via SSH to %1$s on port %2$s, check server address and "
+"port."
+msgstr ""
+
+#: includes/export-methods/ftp/class-wc-customer-order-xml-export-suite-method-sftp.php:77
+#. translators: Placeholders: %s - username
+msgid ""
+"Could not authenticate via SSH with username %s and password. Check "
+"username and password."
+msgstr ""
+
+#: includes/export-methods/ftp/class-wc-customer-order-xml-export-suite-method-sftp.php:86
+msgid "Could not setup SFTP link"
+msgstr ""
+
+#: includes/export-methods/ftp/class-wc-customer-order-xml-export-suite-method-sftp.php:134
+#. translators: Placeholders: %s - file name
+msgid "Could not open remote file: %s."
+msgstr ""
+
+#: includes/export-methods/ftp/class-wc-customer-order-xml-export-suite-method-sftp.php:172
+#. translators: Placeholders: %s - error message
+msgid "SFTP error: %s"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce Customer/Order XML Export Suite"
+msgstr ""
+
+#: woocommerce-customer-order-xml-export-suite.php:475
+#. translators: Placeholders: %1$s - <strong>; %2$s - </strong>; %3$s, %5$s -
+#. <a> tags; %4$s - </a> tag
+msgid ""
+"%1$sAutomated Exports%2$s are currently unavailable because your site does "
+"not support background processing. To use automated exports, please ask "
+"your hosting company to ensure your server has %3$sloopback connections%4$s "
+"enabled, or switch to a %5$srecommended hosting provider%4$s."
+msgstr ""
+
+#: woocommerce-customer-order-xml-export-suite.php:488
+#. translators: Placeholders: %1$s - <strong>; %2$s - </strong>
+msgid ""
+"In the meantime, you can process manual exports by enabling the %1$sBatch "
+"Processing%2$s setting."
+msgstr ""
+
+#: woocommerce-customer-order-xml-export-suite.php:505
+#. translators: Placeholders: %1$s - <strong>; %2$s - </strong>; %3$s, %5$s -
+#. <a> tags; %4$s - </a> tag
+msgid ""
+"%1$sAutomated Exports%2$s are currently unavailable because batch "
+"processing is enabled. To use automated exports, please disable batch "
+"processing and ensure your server has %3$sloopback connections%4$s enabled."
+msgstr ""
+
+#: woocommerce-customer-order-xml-export-suite.php:524
+#. translators: Placeholders: %1$s - <a> tag; %2$s - </a> tag
+msgid ""
+"Heads up! Your exports may consume more memory and take longer than usual "
+"unless mysqli is installed and enabled on your site. %1$sLearn More%2$s"
+msgstr ""
+
+#: woocommerce-customer-order-xml-export-suite.php:577
+msgid ""
+"Oops! It looks like an error occurred while installing the new plugin: "
+"%1$s. We recommend heading over to your %2$sWooCommerce.com account%3$s to "
+"download and install it manually."
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.woocommerce.com/products/customerorder-xml-export-suite/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Easily download customers & orders in XML format and automatically export "
+"FTP or HTTP POST on a recurring schedule"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "SkyVerge"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://www.woocommerce.com"
+msgstr ""
+
+#: includes/class-wc-customer-order-xml-export-suite-generator.php:1109
+#: includes/class-wc-customer-order-xml-export-suite-generator.php:1123
+#. translators: Placeholders: %1$s - first name; %2$s - last name / surname
+msgctxt "full name"
+msgid "%1$s %2$s"
+msgstr ""

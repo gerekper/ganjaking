@@ -1,0 +1,82 @@
+.yith-plugin-fw-yith-multiple-field-field-wrapper .option-element label,
+.yith-multiple-field .option-element label {
+	font-size: 11px;
+	font-weight: 600;
+}
+
+.ywctm-inline-selects .option-element {
+	height: 100%;
+	display: inline-flex;
+	align-items: center;
+	padding: 0 10px 0 0;
+	vertical-align: top;
+}
+
+.ywctm-inline-selects .option-element.hidden {
+	padding: 0;
+}
+
+.ywctm-inline-selects .option-element > span {
+	display: flex;
+	min-height: 38px;
+	align-items: center;
+}
+
+.woocommerce table.form-table .ywctm-inline-selects .option-element > .yith-plugin-fw-select-field-wrapper > .select2 {
+	width: 220px !important;
+	min-width: 220px !important;
+}
+
+.ywctm-multiple-numbers {
+	display: grid;
+	grid-template-columns: 90px 90px 90px 90px;
+	grid-gap: 20px;
+}
+
+.ywctm-multiple-numbers .option-element {
+	width: 90px;
+	display: inline-block;
+}
+
+.ywctm-multiple-languages .option-element {
+	display: block;
+}
+
+.ywctm-multiple-mixed {
+	display: grid;
+	grid-template-columns: 90px 90px;
+	grid-gap: 20px;
+}
+
+.ywctm-multiple-mixed .option-element {
+	width: 90px;
+	display: inline-block;
+}
+
+.ywctm-multiple-mixed .option-element > .yith-plugin-fw-select-field-wrapper > .select2 {
+	width: 90px !important;
+	min-width: 90px !important;
+	height: 38px !important;
+}
+
+.ywctm-multiple-sliders .option-element {
+	display: grid;
+	grid-template-columns: 10ch 400px;
+	grid-gap: 2%;
+}
+
+.ywctm-multiple-sliders .option-element label {
+	padding-top: 9px;
+}
+
+@media screen and (min-width: 1280px) {
+	.yith-colorpicker-group {
+		display: grid;
+		grid-template-columns: fit-content(48%) fit-content(48%);
+		grid-gap: 4%;
+	}
+
+	.yith-colorpicker-group .colorpicker {
+		width: auto !important;
+	}
+}

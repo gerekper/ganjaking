@@ -1,0 +1,498 @@
+*** Product CSV Import Suite Changelog ***
+
+2020-06-05 - version 1.10.34
+* Tweak - WC 4.2 compatibility.
+
+2020-04-30 - version 1.10.33
+* Tweak - Remove legacy code.
+* Fix   - Fix slug creation for child taxonomies.
+* Tweak - WC 4.1 compatibility.
+
+2020-03-04 - version 1.10.32
+* Tweak - WC tested up to 4.0.
+
+2020-01-14 - version 1.10.31
+* Tweak - WC 3.9 compatibility
+
+2019-11-04 - version 1.10.30
+* Tweak - WC 3.8 compatibility
+
+2019-10-08 - version 1.10.29
+* Fix - Escaped quotes in JSON response during import.
+
+2019-09-26 - version 1.10.28
+* Fix - When importing/merging many items, too many scheduled actions get created causing performance issue.
+
+2019-08-28 - version 1.10.27
+* Fix - Fails in deployment due to malformed changelog.
+
+2019-08-28 - version 1.10.26
+* Tweak - Support for accommodation bookings.
+
+2019-08-21 - version 1.10.25
+* Fix - Update product lookup tables after import of product variations.
+
+2019-08-08 - version 1.10.24
+* Tweak - WC 3.7 compatibility
+
+2019-06-19 - version 1.10.23
+* Fix - Update product lookup tables after import.
+
+2019-04-16 - version 1.10.22
+* Tweak - WC 3.6 compatibility
+
+2019-01-07 - version 1.10.21
+* Fix - Visibility taxonomies not updated when importing product stock.
+
+2018-09-25 - version 1.10.20
+* Update - WC 3.5 compatibility.
+
+2018-08-02 - version 1.10.19
+* Fix - Merging a changed `Featured` column does not seem to work.
+
+2018-05-21 - version 1.10.18
+* Update - WC 3.4 compatibility.
+
+2017-12-13 - version 1.10.17
+* Fix - Missing header for gpf:bing_category in exported csv.
+* Update - WC tested up to version.
+
+2017-08-24 - version 1.10.16
+* Fix - In rare occassion importing variations with uppercase attributes causes corrupted variations.
+* Fix - When importing product, price was set to zero when no price column or empty value was given.
+* Fix - When merging product and don't merge empty cells, price was still being overridden.
+
+2017-06-27 - version 1.10.15
+* Fix - WC30 product visibility not setting during import/merge.
+* Fix - Prevent exporting pass the set limit.
+* Add - WC Groups compatibility.
+* Add - Google Product Feeds - Bing Category.
+
+2017-04-11 - version 1.10.14
+* Fix - Compatibility with WC 3.0.
+
+2017-04-03 - version 1.10.13
+* Tweak - Updated all deprecated WooCommerce API calls.
+* Fix - Variation description is stripped of the HTML when merging.
+* Fix - Product regular price is not set when CSV contains 0 as value.
+* Fix - Security - Limit export action to users with manage_woocommerce capability.
+* Fix - Security - Added validations of path file in importer.
+
+2016-10-04 - version 1.10.12
+* Fix - When exporting variations, duplicates can occur due to change in mysql 5.6+.
+
+2016-09-06 - version 1.10.11
+* Add - Google Product Feed variations import/merge support.
+* Add - Exclude Product field to import/export.
+* Fix - Date time format incorrectly saved for scheduling sales date.
+* Fix - Always showing sales price regardless of sales schedule.
+
+2016-03-29 - version 1.10.10
+* Tweak - Added support for custom labels with Google Product Feed
+* Tweak - Added more info to exported CSV filenames, e.g. product-export-yyyy_mm_dd_hh_mm_ss.csv and product-variations-export-yyyy_mm_dd_hh_mm_ss.csv for product variations
+
+2016-03-22 - version 1.10.9
+* Tweak - Add GPF Delivery Label in the import/export
+* Fix - Add missing POT file for localization support
+
+2015-02-19 - version 1.10.8
+* Tweak - Add variation description support
+* Fix - Incorrect encoding detection
+
+2015-11-18 - version 1.10.7
+* Fix - When variable subscription product is exported, the value of tax:product_type is "Variable Subscription"
+
+2015-11-09 - version 1.10.6
+* Fix - If a SKU/ID doesn't exist, but is included during a variation merge, it will now be imported.
+
+2015-11-04 - version 1.10.5
+* Fix - menu_order will now update correctly if you merge in products with a menu_order of 0.
+* Fix - The variation importer now catches duplicate SKUs/IDs when importing (just like the product importer).
+
+2015-10-07 - version 1.10.4
+* Tweak - Improved process.
+* Tweak - Import 20 per run.
+* Tweak - Allow menu_order to be set per variation.
+* Fix - Fix price sync.
+
+2015-09-10 - version 1.10.3
+* Tweak - Use WPDB to set and query post meta for performance.
+
+2015-08-25 - version 1.10.2
+* Tweak - Clear parent transients after import.
+* Fix - Fixed issue with merging brands
+
+2015-07-03 - version 1.10.1
+* Fix - Attach a grouped product to a parent if the parent exists
+
+2015-06-24 - version 1.10.0
+* Tweak - Update text domains.
+* Tweak - Update main file name.
+* Tweak - Added stock_status to variation export.
+* Tweak - Improve error messages.
+
+2015-04-13 - version 1.9.20
+* Fix - Remove ob_clean on export to prevent malformed CSV.
+
+2015-04-13 - version 1.9.19
+* Fix - Remove chosen.
+* Fix - Add total_sales once only.
+* Fix - Handle scheduled sales logic.
+
+2015-02-17 - version 1.9.18
+* Fix - Post title merge.
+
+2015-02-02 - version 1.9.17
+* Fix - JS notice.
+
+2015-01-28 - version 1.9.16
+* Fix - Notices.
+* Fix - Fix ampersand terms import.
+* Fix - Only allow variations to be private or published.
+* Fix - When not merging, prevent import if post ID is provided and conflicts.
+* Tweak - Support composites, bookings, photography and bundles.
+
+2014-12-11 - version 1.9.15
+* Fix - Ensure total_sales is set for new products.
+
+2014-12-09 - version 1.9.14
+* Fix merge when only declaring attribute_data and not attributes.
+
+2014-11-18 - version 1.9.12
+* Clear attribute table transients after import.
+* Correctly import 0 value attributes.
+
+2014-09-08 - version 1.9.11
+* When parsing attributes, only send them to the importer if inside the CSV.
+
+2014-08-01 - version 1.9.10
+* Export non-visible attributes, or attributes lacking is_visible data.
+
+2014-06-09 - version 1.9.9
+* Fix possible notice when exporting images.
+
+2014-06-09 - version 1.9.8
+* fixed undefined property on variation export
+
+2014-06-06 - version 1.9.7
+* When exporting images, get _product_image_gallery rather than attachments
+
+2014-05-21 - version 1.9.6
+* Fix 2.1 file_paths import (2.1 uses downloadable_files).
+
+2014-05-15 - version 1.9.5
+* Show notice when mb_detect_encoding is not present
+
+2014-03-31 - version 1.9.4
+* Sync variable prices after import
+
+2014-02-06 - version 1.9.3
+* Merge empty excerpt/post content if merge empty cells is enabled.
+
+2014-01-29 - version 1.9.2
+* Fix class exists check
+
+2014-01-28 - version 1.9.1
+* variations were missing tax_class
+* export cross sell IDS with pipes
+* Fix variation importing
+
+2014-01-14 - version 1.9.0
+* Code refactoring
+* Added 2.1 support
+* Dropped < 2.0 support
+* Import crosssells and upsells by sku (crosssell_skus upsell_skus columns)
+* Check post name when seeing if a post exists
+* Export children of multiple posts for variation export
+* Option to merge empty rows, for example, if you want to wipe some attributes
+
+2013-11-18 - version 1.8.3
+* GPF Adwords grouping filter and Adwords labels
+
+2013-10-29 - version 1.8.2
+* Remove menu_order order for exporting variations - breaks export
+* Escape preview column
+
+2013-10-29 - version 1.8.1
+* Prevent gzip
+* Return errors in fetch_remote_file
+
+2013-10-22 - version 1.8.0
+* Check for 404 on image fetch
+* Removed url_remap code - unused
+* Moved thumbnail regeneration to the end of import to reduce risk of failed imports
+
+2013-10-14 - version 1.7.4
+* Better slug generation for nested categories.
+
+2013-10-12 - version 1.7.3
+* Trim filenames when importing images
+
+2013-10-10 - version 1.7.2
+* Image naming tweaks
+
+2013-10-10 - version 1.7.1
+* Fix gallery import
+
+2013-10-06 - version 1.7.0
+* include_hidden_meta option added to variation export
+* Improved category import logix
+* Fixed notices
+* Tools added to system status to delete products and variations
+
+2013-10-04 - version 1.6.5
+* Added merging check to post type check
+
+2013-09-26 - version 1.6.4
+* Check post type on inport
+* Extra debug
+* Fix post status changes
+
+2013-09-26 - version 1.6.3
+* Set _product_image_gallery
+* Allow images to imported from wp-content/uploads/product_images
+
+2013-09-14 - version 1.6.2
+* Fix term hierarchy where there are multiple terms with the same name
+
+2013-09-10 - version 1.6.1
+* Added support for subscription/variable subscription product types
+
+2013-08-19 - version 1.6.0
+* Ability to export variations for a specific product by ID
+* Fixed support for non-comma delimiters
+* Export foreign term names in editable format
+
+2013-08-07 - version 1.5.0
+* Fix b/w compat for variation prices
+* Merge image logic error
+* Fire ajax requests one after the other to prevent duplicates e.g. categories
+* Automatically convert attribute terms for variations to slug format
+
+2013-08-05 - version 1.4.1
+* Fix parent import/backfill parents when parent ID is 0
+
+2013-07-30 - version 1.4.0
+* Export hidden fields option
+* Export serialised data in json format + import it back.
+
+2013-07-11 - version 1.3.11
+* Only export Google Product Feed fields if selected.
+
+2013-07-10 - version 1.3.10
+* Allow import of 0 values.
+
+2013-07-08 - version 1.3.9
+* Add slashes to fix Windows file paths.
+
+2013-06-21 - version 1.3.8
+* Export improvements (reduction in memory usage)
+
+2013-06-19 - version 1.3.7
+* Remove file exists check for IIS users
+
+2013-06-07 - version 1.3.6
+* Prevent final rows from being duplicated
+
+2013-06-07 - version 1.3.5
+* Supress wpdb errors
+* Fix importing < 10 rows
+* When importing variations, clear parent price to trigger recalc
+
+2013-06-03 - version 1.3.4
+* Fix sanitization of file name
+
+2013-06-03 - version 1.3.3
+* Fixed mapping field values
+
+2013-05-29 - version 1.3.2
+* Improved mapping option labelling
+* Fixed merge when post_title is not available
+* Fixed mapping
+
+2013-05-28 - version 1.3.1
+* Post_parent tweak to support 0
+* Filters for developers
+
+2013-05-20 - version 1.3.0
+* Ajax to prevent timeouts and memory outage
+* New import progress interface
+
+2013-05-10 - version 1.2.6
+* post_author merge/import fix.
+
+2013-05-03 - version 1.2.5
+* Export/import post author
+
+2013-05-03 - version 1.2.4
+* Export term hierarchy
+
+2013-04-30 - version 1.2.3
+* Fix attribute position
+* Fix handle_upload
+
+2013-03-25 - version 1.2.2
+* Fix _file_paths
+
+2013-03-19 - version 1.2.1
+* Alt attribute set for uploaded images.
+* Fallback for _regular_price and variations
+
+2013-03-08 - version 1.2.0
+* Fix variation prices upon import
+
+2013-01-11 - version 1.1.9
+* Fix for when attribute_data is parsed before attribute
+
+2013-01-11 - version 1.1.8
+* WC 2.0 variations export compat
+
+2013-01-07 - version 1.1.7
+* Fixed some notices
+
+2012-12-30 - version 1.1.6
+* Fixed CUSTOM attribute export
+
+2012-12-16 - version 1.1.5
+* Fix parent sku export
+
+2012-12-16 - version 1.1.4
+* Don't set publish status automatically on merge.
+* Only update if postdata size > 1
+* Cleaned up error messages for variation import failure.
+* Export parent_sku
+
+2012-12-13 - version 1.1.3
+* Fix attribute export
+* 3.5 fixes
+
+2012-12-05 - version 1.1.2
+* Support exporting yoast SEO fields
+
+2012-12-04 - version 1.1.1
+* New updater
+
+2012-11-21 - version 1.1.0
+* Fix URLs to images with spaces
+* Consistant columns during export (based on Jason Judge's patch)
+* Support relative stock updates during merge, e.g. (+)10, (-)2
+* Ensure post_status is lowercase and valid.
+
+2012-11-07 - version 1.0.31
+* When importing variations, allow blank columns (to support 'all' attributes)
+
+2012-10-11 - version 1.0.30
+* Allow https image import
+
+2012-10-11 - version 1.0.29
+* product_exists() check should check SKU and title independently
+
+2012-10-11 - version 1.0.28
+* Add timestamp to logs
+
+2012-10-05 - version 1.0.27
+* Parent notices fix
+
+2012-10-03 - version 1.0.26
+* Fix for multiple category import
+
+2012-09-29 - version 1.0.25
+* Don't set defaults on merge
+
+2012-09-17 - version 1.0.24
+* Search sku in pending and future posts
+* Optimisations
+* Support 1.7 file_paths
+
+2012-09-12 - version 1.0.23
+* Fixed attribute/type import
+
+2012-09-11 - version 1.0.22
+* Maintain case for text based attributes
+* Change taxonomy term logic to insert terms more accurately
+
+2012-08-28 - version 1.0.21
+* Fixed merge bug
+
+2012-08-28 - version 1.0.20
+* When importing Images (merge) skip existing images based on basename and URL
+* ini_set( 'auto_detect_line_endings', true ); to support other line endings such as windows
+
+2012-07-25 - version 1.0.19
+* When checking SKU, look at drafts and private products too
+* Export and import default_attributes for variable products
+
+2012-07-25 - version 1.0.18
+* Fix variation import err return
+* Wipe out min_variation_price so they are regenerated after import
+
+2012-06-28 - version 1.0.17
+* New variation column parent_sku - as an alternative to defining post IDs
+
+2012-06-28 - version 1.0.16
+* backfill_attachment_urls tweak
+* removed potentially slow post_exists function
+* Use product title for image titles
+* Support importing a CSV that is on the server
+
+2012-06-20 - version 1.0.15
+* Added more filename detection for image URLS
+
+2012-06-07 - version 1.0.14
+* Fixed parser
+* gpf product_type
+
+2012-05-26 - version 1.0.12
+* Improved memory handling during parse
+
+2012-05-26 - version 1.0.11
+* Improved memory handling during import
+* Option to choose delimiter
+
+2012-05-26 - version 1.0.10
+* Mapping fix for product type
+* Mapping fix for GPF data
+* Fix for merging variable
+
+2012-05-25 - version 1.0.9
+* Strtotime for sale price dates
+* Added sale price dates to export
+* Export Google Product Feed Data
+
+2012-05-24 - version 1.0.8
+* Support comment_status column
+* Support post_name (slug) column
+* Merging will import if a sku/post ID is not defined or not found.
+* If a product attribute does not exist, add it!
+
+2012-05-21 - version 1.0.7
+* Reverted _regular_price change and fixed _price parsing
+
+2012-05-20 - version 1.0.6
+* Wrap all columns with quotes
+* price should be regular_price for variations
+* Local upload tweaks
+
+2012-05-20 - version 1.0.5
+* Missing format_data_from_csv function in class
+
+2012-05-19 - version 1.0.4
+* Fix variation import after mapping
+* Format dates to mysql format
+* Only encode utf-8 if csv is not utf
+
+2012-05-18 - version 1.0.3
+* Fix for empty property error
+
+2012-05-16 - version 1.0.2
+* Moved ID column to prevent excel #failing (SYLK)
+* Removed post_title requirement for variations
+* wp_upload_dir fix
+* exists check takes sku into consideration
+
+2012-05-14 - version 1.0.1
+* Detect and set locale
+* Product type check fix
+
+2012-05-10 - version 1.0
+* First release

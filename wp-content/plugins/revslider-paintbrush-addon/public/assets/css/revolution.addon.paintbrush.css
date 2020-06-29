@@ -1,0 +1,41 @@
+/* 
+ * @author    ThemePunch <info@themepunch.com>
+ * @link      http://www.themepunch.com/
+ * @copyright 2018 ThemePunch
+*/
+
+.revaddonpaintbrush {
+	
+	position: absolute;
+	top: 0;
+	left: 0;
+	
+}
+
+.revaddonpaintbrush.swapping {
+	
+	opacity: 0;
+	transition: opacity 0.5s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+	
+}
+
+rs-carousel-wrap .revaddon-paintbrush {
+	
+	cursor: auto;
+	
+}
+
+rs-slide[data-revaddonpaintbrushedges] rs-sbg {
+	
+	transform-origin: center center !important;
+	
+}
+
+rs-slide[data-revaddonpaintbrushedges] .revaddonpaintbrush {
+	
+	left: 50%;
+	top: 50%;
+	transform-origin: center center;
+	transform: translate(-50%, -50%);
+	
+}

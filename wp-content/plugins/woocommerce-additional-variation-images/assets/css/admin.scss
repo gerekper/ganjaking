@@ -1,0 +1,56 @@
+#variable_product_options .woocommerce_variation p.upload_image ul.wc-additional-variations-images-list .sortable-placeholder {
+	border:2px dashed #ccc;
+	width:48px;
+	height:48px;
+}
+
+#variable_product_options .woocommerce_variation p.upload_image .wc-additional-variations-images-tip {
+	text-decoration:none;
+	font-weight:normal;
+}
+
+#variable_product_options .woocommerce_variation p.upload_image ul.wc-additional-variations-images-list::after {
+	content:" ";display:block;height:0;clear:both;visibility:hidden;
+}
+
+#variable_product_options .woocommerce_variation p.upload_image ul.wc-additional-variations-images-list li {
+	float:left;
+	margin:2px;
+}
+
+#variable_product_options .woocommerce_variation p.upload_image a.wc-additional-variations-images-thumb img {
+	width:100%;
+	height:auto;
+}
+
+#variable_product_options .woocommerce_variation p.upload_image a.wc-additional-variations-images-thumb {
+	position:relative;
+	display:block;
+	width:48px;
+	height:48px;
+}
+
+#variable_product_options .woocommerce_variation p.upload_image a.wc-additional-variations-images-thumb::before {
+	content: "\f335";
+	font-family: 'Dashicons';
+	display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	text-align: center;
+	line-height: 48px;
+	font-size: 48px;
+	font-weight: 400;
+	-webkit-font-smoothing: antialiased;
+}
+
+#variable_product_options .woocommerce_variation p.upload_image a.wc-additional-variations-images-thumb:hover::before {
+	display:block;
+}
+
+#variable_product_options .woocommerce_variation .wc-additional-variation-images-title {
+	clear:left;
+	padding-top:20px;
+}

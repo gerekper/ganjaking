@@ -1,0 +1,2624 @@
+# Copyright (C) 2020 YITH WooCommerce Gift Cards Premium
+# This file is distributed under the same license as the YITH WooCommerce Gift Cards Premium package.
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH WooCommerce Gift Cards Premium 3.0.9\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/init\n"
+"POT-Creation-Date: 2020-05-07 11:23:52+00:00\n"
+"PO-Revision-Date: 2020-05-07 12:24+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.1.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: functions.php:189
+msgid "This title is already used. Please choose another one"
+msgstr "Αυτός ο τίτλος χρησιμοποιείται ήδη. Επιλέξτε κάποιον άλλο"
+
+#: init.php:44
+msgid ""
+"YITH WooCommerce Gift Cards is enabled but not effective. It requires "
+"WooCommerce in order to work."
+msgstr ""
+"To YITH WooCommerce Gift Cards είναι ενεργοποιημένο αλλά αναποτελεσματικό. "
+"Για σωστή λειτουργία, απαιτείται WooCommerce."
+
+#: lib/class-yith-wc-product-gift-card.php:192
+#: lib/third-party/class-ywgc-dynamic-pricing.php:95
+msgctxt "Price range: from-to"
+msgid "%1$s&ndash;%2$s"
+msgstr "%1$s&ndash;%2$s"
+
+#: lib/class-yith-wc-product-gift-card.php:251
+msgid "Select amount"
+msgstr "Επιλέξτε ποσό"
+
+#: lib/class-yith-wc-product-gift-card.php:251
+msgid "Read more"
+msgstr "Διαβάστε περισσότερα"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:423
+msgid "Disable gift this product"
+msgstr "Απενεργοποίηση της επιλογής “κάντε δώρο το προϊόν”"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:424
+msgid ""
+"Check this option if you want to disable the option \"gift this product\" on "
+"this product."
+msgstr ""
+"Κάντε κλικ εάν θέλετε να απενεργοποιήσετε την επιλογή “κάντε δώρο το προϊόν” "
+"για αυτό το προϊόν."
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:469
+msgid "Gift card image categories"
+msgstr "Κατηγορίες εικόνων δωροκάρτας"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:470
+#: lib/class-yith-woocommerce-gift-cards-premium.php:479
+msgid "Gift card image category"
+msgstr "Κατηγορία εικόνων δωροκάρτας"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:471
+msgid "Search image categories"
+msgstr "Αναζήτηση κατηγοριών εικόνων"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:472
+msgid "All image categories"
+msgstr "Όλες οι κατηγορίες εικόνων"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:473
+msgid "Parent image category"
+msgstr "Γονική κατηγορία εικόνων"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:474
+msgid "Parent image category:"
+msgstr "Γονική κατηγορία εικόνων:"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:475
+msgid "Edit image category"
+msgstr "Επεξεργασία κατηγορίας εικόνων"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:476
+msgid "Update gift card image category"
+msgstr "Ενημέρωση κατηγορίας εικόνων δωροκάρτας"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:477
+msgid "Add new image category"
+msgstr "Προσθήκη νέας κατηγορίας εικόνας"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:478
+msgid "New image category name"
+msgstr "Όνομα νέας κατηγορίας εικόνας"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:498
+msgid "None"
+msgstr "Κανένα"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:501
+msgid ""
+"Select this category in your gift card product if you do not want to display "
+"images in your gift card gallery"
+msgstr ""
+"Επιλέξτε αυτή την κατηγορία στο προϊόν δωροκάρτας σας αν δεν θέλετε να "
+"εμφανίζονται εικόνες στη συλλογή δωροκάρτας"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:510
+msgid "All"
+msgstr "Όλα"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:513
+msgid ""
+"Select this category in your gift card product if you want to display all "
+"the images categories in your gift card gallery"
+msgstr ""
+"Επιλέξτε αυτή την κατηγορία στο προϊόν δωροκάρτας σας αν θέλετε να "
+"εμφανίζονται όλες οι κατηγορίες εικόνων στη γκαλερί δωροκάρτας σας"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:537
+#: lib/class-yith-ywgc-backend.php:637
+msgid "Disabled"
+msgstr "Απενεργοποιημένο"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:548
+msgid "Dismissed"
+msgstr "Απορρίφθηκε"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:559
+msgid "Code not valid"
+msgstr "Κωδικός μη έγκυρος"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:570
+msgid "Pre-Printed"
+msgstr "Προ-Τυπωμένο"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:647
+#: lib/class-yith-woocommerce-gift-cards-premium.php:781
+#: lib/class-ywgc-plugin-fw-loader.php:134
+#: plugin-options/gift_this_product-options.php:118
+#: templates/single-product/add-to-cart/give-product-as-present.php:33
+#: templates/single-product/add-to-cart/give-product-as-present.php:36
+#: templates/single-product/add-to-cart/give-product-as-present.php:43
+#: templates/single-product/add-to-cart/give-product-as-present.php:47
+msgid "Gift this product"
+msgstr "Κάντε δώρο το προϊόν"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:649
+msgid ""
+"This product has been automatically created by the plugin YITH Gift Cards."
+"You must not edit it, or the plugin could not work properly. The main "
+"functionality of this product is to be used for the feature \"Gift this "
+"product\""
+msgstr ""
+"Αυτό το προϊόν έχει δημιουργηθεί αυτόματα από το πρόσθετο YITH Gift Cards. "
+"Για την σωστή λειτουργία του προσθέτου, μην επεξεργαστείτε το προϊόν. Η "
+"κύρια λειτουργικότητά του είναι να χρησιμοποιείται για το χαρακτηριστικό "
+"“Κάντε δώρο το προϊόν”"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:678
+msgid "An error occurred, you cannot use the plugin"
+msgstr "Παρουσιάστηκε σφάλμα, δεν μπορείτε να χρησιμοποιήσετε το πρόσθετο"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:900
+msgid "Gift card detail"
+msgstr "Στοιχεία δωροκάρτας"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:906
+#: lib/class-ywgc-plugin-fw-loader.php:131
+msgid "General"
+msgstr "Γενικά"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:911
+msgid "Purchased amount"
+msgstr "Αγορασμένο ποσό"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:912
+msgid "The amount purchased by the customer."
+msgstr "Το ποσό που αγοράστηκε από τον πελάτη."
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:918
+msgid "Current balance"
+msgstr "Τρέχον υπόλοιπο"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:919
+msgid "The current amount available for the customer."
+msgstr "Το τρέχον διαθέσιμο ποσό για τον πελάτη."
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:925
+#: lib/class-yith-ywgc-backend-premium.php:672
+msgid "Digital"
+msgstr "Ψηφιακό"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:926
+msgid ""
+"Check if the gift card will be sent via email. Leave it unchecked to make "
+"this work as a physical product."
+msgstr ""
+"Κάντε κλικ αν θέλετε η δωροκάρτα να στέλνεται μέσω email. Μην κάνετε κλικ αν "
+"θέλετε να λειτουργήσει ως φυσικό προϊόν."
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:932
+#: lib/class-yith-ywgc-backend-premium.php:675
+msgid "Sender's name"
+msgstr "Όνομα αποστολέα"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:933
+msgid "The name of the digital gift card sender, if any."
+msgstr "Το όνομα του αποστολέα ψηφιακής δωροκάρτας, αν υπάρχει."
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:944
+msgid "Recipient's email"
+msgstr "Email παραλήπτη"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:945
+msgid "The email address of the digital gift card recipient."
+msgstr "Η διεύθυνση email του παραλήπτη ψηφιακής δωροκάρτας."
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:955
+#: lib/class-yith-ywgc-backend-premium.php:678
+msgid "Recipient's name"
+msgstr "Όνομα παραλήπτη"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:956
+msgid "The name of the digital gift card recipient."
+msgstr "Το όνομα του παραλήπτη ψηφιακής δωροκάρτας."
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:966
+#: lib/class-yith-ywgc-backend-premium.php:681
+msgid "Message"
+msgstr "Μήνυμα"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:967
+msgid "The message attached to the gift card."
+msgstr "Το συνημμένο μήνυμα της δωροκάρτας."
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:978
+#: lib/class-yith-woocommerce-gift-cards-premium.php:985
+#: lib/class-yith-ywgc-backend-premium.php:699
+msgid "Delivery date"
+msgstr "Ημερομηνία παράδοσης"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:979
+#: lib/class-yith-woocommerce-gift-cards-premium.php:986
+msgid "The date when the digital gift card will be sent to the recipient."
+msgstr "Η ημερομηνία που η ψηφιακή δωροκάρτα θα σταλεί στον παραλήπτη."
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:998
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1005
+#: lib/class-yith-ywgc-backend.php:594
+#: lib/class-yith-ywgc-gift-cards-table.php:113
+msgid "Expiration date"
+msgstr "Ημερομηνία λήξης"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:999
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1006
+msgid "The date when the digital gift card will expire."
+msgstr "Η ημερομηνία που η ψηφιακή δωροκάρτα θα λήξει."
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1018
+msgid "Internal notes"
+msgstr "Εσωτερικές σημειώσεις"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1019
+msgid "Enter your notes here. This will only be visible to the admin."
+msgstr ""
+"Εισάγετε τις σημειώσεις σας εδώ. Θα είναι ορατό μόνο για τον διαχειριστή."
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1041
+msgctxt "post type general name"
+msgid "All Gift Cards"
+msgstr "Όλες οι Δωροκάρτες"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1042
+msgctxt "post type singular name"
+msgid "Gift Card"
+msgstr "Δωροκάρτα"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1043
+msgctxt "admin menu"
+msgid "Gift Cards"
+msgstr "Δωροκάρτες"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1044
+msgctxt "add new on admin bar"
+msgid "Gift Card"
+msgstr "Δωροκάρτα"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1045
+msgctxt "admin menu item"
+msgid "Create Code"
+msgstr "Δημιουργία Κωδικού"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1046
+msgid "Create Gift Card Code"
+msgstr "Δημιουργία Κωδικού Δωροκάρτας"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1047
+msgid "New Gift Card"
+msgstr "Νέα Δωροκάρτα"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1048
+msgid "Edit Gift Card"
+msgstr "Επεξεργασία Δωροκάρτας"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1049
+msgid "View Gift Card"
+msgstr "Εμφάνιση Δωροκάρτας"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1050
+msgid "All gift cards"
+msgstr "Όλες οι δωροκάρτες"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1051
+msgid "Search gift cards"
+msgstr "Αναζήτηση δωροκαρτών"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1052
+msgid "Parent gift cards:"
+msgstr "Γονικές δωροκάρτες:"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1053
+#: templates/myaccount/my-giftcards.php:182
+#: templates/shortcodes/user-gift-card-table.php:155
+msgid "No gift cards found."
+msgstr "Δεν βρέθηκαν δωροκάρτες."
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1054
+msgid "No gift cards found in Trash."
+msgstr "Δεν βρέθηκαν δωροκάρτες στον Κάδο Ανακύκλωσης."
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1056
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1057
+#: lib/class-yith-woocommerce-gift-cards.php:245
+#: lib/class-yith-woocommerce-gift-cards.php:246
+#: lib/class-yith-ywgc-frontend-premium.php:194
+msgid "Gift Cards"
+msgstr "Δωροκάρτες"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1352
+msgid ""
+"It is not possible to add any gift card if the cart contains a subscription-"
+"based product"
+msgstr ""
+"Δεν είναι δυνατή η προσθήκη δωροκάρτας αν το καλάθι περιέχει προϊόν βάσει "
+"συνδρομής"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1365
+msgid "This code is already applied"
+msgstr "Ο κωδικός έχει ήδη εφαρμοστεί"
+
+#: lib/class-yith-ywgc-backend-premium.php:593
+msgid "Active"
+msgstr "Ενεργός"
+
+#: lib/class-yith-ywgc-backend-premium.php:595
+msgid "Used"
+msgstr "Έχει ήδη χρησιμοποιηθεί"
+
+#: lib/class-yith-ywgc-backend-premium.php:657
+msgid "Product ID"
+msgstr "ID Προϊόντος"
+
+#: lib/class-yith-ywgc-backend-premium.php:660
+msgid "Product as a present"
+msgstr "Προϊόν ως δώρο"
+
+#: lib/class-yith-ywgc-backend-premium.php:663
+msgid "Present product ID"
+msgstr "ID Προϊόντος ως δώρο"
+
+#: lib/class-yith-ywgc-backend-premium.php:666
+msgid "Present variation ID"
+msgstr "ID παραλλαγής δώρου"
+
+#: lib/class-yith-ywgc-backend-premium.php:669
+msgid "Amount"
+msgstr "Ποσό"
+
+#: lib/class-yith-ywgc-backend-premium.php:684
+msgid "Design type"
+msgstr "Τύπος σχεδίου"
+
+#: lib/class-yith-ywgc-backend-premium.php:687
+msgid "Design"
+msgstr "Σχέδιο"
+
+#: lib/class-yith-ywgc-backend-premium.php:690
+msgid "Subtotal"
+msgstr "Υποσύνολο"
+
+#: lib/class-yith-ywgc-backend-premium.php:693
+msgid "Subtotal tax"
+msgstr "Φόρος υποσυνόλου"
+
+#: lib/class-yith-ywgc-backend-premium.php:696
+msgid "Version"
+msgstr "Έκδοση"
+
+#: lib/class-yith-ywgc-backend-premium.php:702
+msgid "Postdated"
+msgstr "Μεταχρονολογημένη"
+
+#: lib/class-yith-ywgc-backend-premium.php:914
+msgid "WooCommerce Smart Coupons integration"
+msgstr "Διασύνδεση WooCommerce Smart Coupons"
+
+#: lib/class-yith-ywgc-backend-premium.php:917
+msgid "Transfer WooCommerce Smart Coupons to YITH Gift Cards "
+msgstr "Μεταφορά WooCommerce Smart Coupons στο YITH Gift Cards "
+
+#: lib/class-yith-ywgc-backend-premium.php:921
+msgid ""
+"Transfer \"Store Credit / Gift Certificate\" coupons. This action cannot be "
+"undone"
+msgstr ""
+"Μεταφορά κουπονιών “Πίστωση Καταστήματος / Πιστοποιητικό Δώρου”. Αυτή η "
+"ενέργεια δεν μπορεί να αναιρεθεί"
+
+#: lib/class-yith-ywgc-backend-premium.php:943
+msgid "Aelia Currency Switcher integration"
+msgstr "Διασύνδεση Aelia Currency Switcher"
+
+#: lib/class-yith-ywgc-backend-premium.php:948
+msgid "Enable Aelia integration"
+msgstr "Ενεργοποίηση διασύνδεσης Aelia"
+
+#: lib/class-yith-ywgc-backend-premium.php:974
+msgid "WPML Currency Switcher integration"
+msgstr "Διασύνδεση WPML Currency Switcher"
+
+#: lib/class-yith-ywgc-backend-premium.php:979
+msgid "Enable WPML integration"
+msgstr "Ενεργοποίηση διασύνδεσης WPML"
+
+#: lib/class-yith-ywgc-backend-premium.php:1004
+msgid "Manage the gift card images through the WordPress Media Library"
+msgstr ""
+"Διαχείριση των εικόνων δωροκάρτας μέσω της Βιβλιοθήκης Πολυμέσων WordPress"
+
+#: lib/class-yith-ywgc-backend-premium.php:1006
+msgid "Manage media"
+msgstr "Διαχείριση πολυμέσων"
+
+#: lib/class-yith-ywgc-backend-premium.php:1007
+msgid ""
+"Upload/manage images in the WordPress Media Library and include them in the "
+"existing gift card categories."
+msgstr ""
+"Ανέβασμα/διαχείριση εικόνων στην Βιβλιοθήκη Πολυμέσων WordPress και "
+"περιλαμβάνετε τες στις ήδη υπάρχουσες κατηγορίες δωροκάρτας."
+
+#: lib/class-yith-ywgc-backend.php:166
+msgid "purchased as a Gift Card"
+msgstr "αγοράστηκε ως Δωροκάρτα"
+
+#: lib/class-yith-ywgc-backend.php:190
+#: lib/class-yith-ywgc-frontend-premium.php:975
+msgid "Gift card code: "
+msgstr "Κωδικός δωροκάρτας: "
+
+#: lib/class-yith-ywgc-backend.php:198
+msgid "Enter the pre-printed code: "
+msgstr "Εισάγετε τον προ-τυπωμένο κωδικό: "
+
+#: lib/class-yith-ywgc-backend.php:279
+msgid "Choose Image"
+msgstr "Επιλέξτε Εικόνα"
+
+#: lib/class-yith-ywgc-backend.php:304
+msgid "Set gift card image category"
+msgstr "Ορίστε κατηγορία εικόνων δωροκάρτας"
+
+#: lib/class-yith-ywgc-backend.php:305
+msgid "Unset gift card image category"
+msgstr "Απορρύθμιση κατηγορίας εικόνων δωροκάρτας"
+
+#: lib/class-yith-ywgc-backend.php:328
+msgid "Manage the Media library"
+msgstr "Διαχείριση της Βιβλιοθήκης πολυμέσων"
+
+#: lib/class-yith-ywgc-backend.php:329
+msgid "Done"
+msgstr "Έτοιμο"
+
+#: lib/class-yith-ywgc-backend.php:362
+#: templates/yith-gift-cards/ywgc-gift-card-template.php:102
+msgid "Gift card"
+msgstr "Δωροκάρτα"
+
+#: lib/class-yith-ywgc-backend.php:557
+msgid "Sale discount (%)"
+msgstr "Έκπτωση προσφοράς (%)"
+
+#: lib/class-yith-ywgc-backend.php:558
+msgid "Enter a discount percentage"
+msgstr "Ορίστε ποσοστό έκπτωσης"
+
+#: lib/class-yith-ywgc-backend.php:559
+msgid "Set an optional discount for this gift card."
+msgstr "Ορίστε μια προαιρετική έκπτωση για αυτή τη δωροκάρτα."
+
+#: lib/class-yith-ywgc-backend.php:573 lib/class-yith-ywgc-backend.php:574
+msgid "Sale discount text"
+msgstr "Κείμενο έκπτωσης προσφοράς"
+
+#: lib/class-yith-ywgc-backend.php:575
+msgid "Enter a text  to describe your discount."
+msgstr "Εισάγετε ένα κείμενο  για να περιγράψετε την έκπτωση."
+
+#: lib/class-yith-ywgc-backend.php:596
+msgid "Set an expiration date for this gift card."
+msgstr "Ορίστε ημερομηνία λήξης για αυτή τη δωροκάρτα."
+
+#: lib/class-yith-ywgc-backend.php:608 plugin-options/general-options.php:153
+msgid "Minimum custom amount"
+msgstr "Ελάχιστο προσαρμοσμένο ποσό"
+
+#: lib/class-yith-ywgc-backend.php:609
+msgid "Enter a minimum amount"
+msgstr "Ορίστε ελάχιστο ποσό"
+
+#: lib/class-yith-ywgc-backend.php:610
+msgid "Set an optional minimum custom amount for this gift card."
+msgstr "Ορίστε ένα προαιρετικό ελάχιστο προσαρμοσμένο ποσό για την δωροκάρτα."
+
+#: lib/class-yith-ywgc-backend.php:627
+msgid "Manual amount mode"
+msgstr "Λειτουργία χειροκίνητου ποσού"
+
+#: lib/class-yith-ywgc-backend.php:631
+msgid "Default"
+msgstr "Προεπιλεγμένο"
+
+#: lib/class-yith-ywgc-backend.php:634
+msgid "Enabled"
+msgstr "Ενεργοποιημένο"
+
+#: lib/class-yith-ywgc-backend.php:660
+msgid "Gift card amount"
+msgstr "Ποσό δωροκάρτας"
+
+#: lib/class-yith-ywgc-backend.php:664
+msgid "Add"
+msgstr "Προσθήκη"
+
+#: lib/class-yith-ywgc-backend.php:701
+msgid "You haven't configured any gift card yet"
+msgstr "Δεν έχετε ρυθμίσει καμία δωροκάρτα ακόμη"
+
+#: lib/class-yith-ywgc-cart-checkout.php:503
+msgid "as a Gift Card"
+msgstr "ως Δωροκάρτα"
+
+#: lib/class-yith-ywgc-cart-checkout.php:549
+msgid "Gift cards:"
+msgstr "Δωροκάρτες:"
+
+#: lib/class-yith-ywgc-cart-checkout.php:570
+msgid "Gift card:"
+msgstr "Δωροκάρτα:"
+
+#: lib/class-yith-ywgc-cart-checkout.php:574
+msgid "[Remove]"
+msgstr "[Αφαίρεση]"
+
+#: lib/class-yith-ywgc-cart-checkout.php:873
+msgid "Order paid with gift cards for a total amount of %s."
+msgstr "Η παραγγελία πληρώθηκε με δωροκάρτα για το συνολικό ποσό των %s."
+
+#: lib/class-yith-ywgc-cart-checkout.php:1009
+#: templates/yith-gift-cards/physical-gift-card-details.php:32
+msgid "Recipient's name: "
+msgstr "Όνομα παραλήπτη: "
+
+#: lib/class-yith-ywgc-cart-checkout.php:1015
+msgid "Your billing email address"
+msgstr "Διεύθυνση email χρέωσης"
+
+#: lib/class-yith-ywgc-cart-checkout.php:1018
+msgid "Recipient's email: "
+msgstr "Email παραλήπτη: "
+
+#: lib/class-yith-ywgc-cart-checkout.php:1022
+msgid "Your name: "
+msgstr "Το όνομα σας: "
+
+#: lib/class-yith-ywgc-cart-checkout.php:1026
+#: lib/class-yith-ywgc-frontend-premium.php:767
+#: lib/class-yith-ywgc-frontend-premium.php:795
+#: templates/yith-gift-cards/gift-card-details.php:73
+#: templates/yith-gift-cards/physical-gift-card-details.php:40
+msgid "Message: "
+msgstr "Μήνυμα: "
+
+#: lib/class-yith-ywgc-cart-checkout.php:1035
+#: templates/yith-gift-cards/gift-card-details.php:27
+msgid "Delivery date: "
+msgstr "Ημερομηνία παράδοσης: "
+
+#: lib/class-yith-ywgc-cart-checkout.php:1076
+msgid "The gift card has invalid amount"
+msgstr "Η δωροκάρτα περιέχει μη έγκυρο ποσό"
+
+#: lib/class-yith-ywgc-cart-checkout.php:1303
+msgid "An error occurred while adding the product to the cart."
+msgstr "Παρουσιάστηκε σφάλμα κατα την προσθήκη του προϊόντος στο καλάθι."
+
+#: lib/class-yith-ywgc-cart-checkout.php:1317
+msgid "Add a valid email address for the recipient"
+msgstr "Προσθέστε μια έγκυρη διεύθυνση email για τον παραλήπτη"
+
+#: lib/class-yith-ywgc-cart-checkout.php:1330
+msgid "The recipient(s) email address is mandatory"
+msgstr "Η διεύθυνση email του παραλήπτη(ων) είναι υποχρεωτική"
+
+#: lib/class-yith-ywgc-cart-checkout.php:1341
+msgid "Email address not valid, please check the following: "
+msgstr "Μη έγκυρη διεύθυνση email, παρακαλώ ελέγξτε τα εξής: "
+
+#: lib/class-yith-ywgc-cart-checkout.php:1450
+msgid ""
+"You can't purchase a physical product and a digital gift card with the same "
+"order"
+msgstr ""
+"Δεν μπορείτε να αγοράσετε ένα φυσικό προϊόν και μια ψηφιακή δωροκάρτα με την "
+"ίδια παραγγελία"
+
+#: lib/class-yith-ywgc-frontend-premium.php:233
+msgid "Enter amount"
+msgstr "Εισάγετε ποσό"
+
+#: lib/class-yith-ywgc-frontend-premium.php:281
+msgid "The minimum amount is"
+msgstr "Το ελάχιστο ποσό είναι"
+
+#: lib/class-yith-ywgc-frontend-premium.php:310
+msgid "File format is not valid, select a jpg, jpeg, png, gif or bmp file"
+msgstr "Μη έγκυρη μορφή αρχείου, επιλέξτε αρχείο jpg, jpeg, png, gif ή bmp"
+
+#: lib/class-yith-ywgc-frontend-premium.php:311
+msgid "The size fo the uploaded file exceeds the maximum allowed"
+msgstr "Το μέγεθος του ανεβασμένου αρχείου ξεπερνά το μέγιστο επιτρεπόμενο"
+
+#: lib/class-yith-ywgc-frontend-premium.php:313
+msgid ""
+"<b>Attention</b>: the <b>suggested minimum</b> size of the image is 490x195"
+msgstr ""
+"<b>Προσοχή</b>: το <b>προτεινόμενο ελάχιστο</b> μέγεθος της εικόνας είναι "
+"490x195"
+
+#: lib/class-yith-ywgc-frontend-premium.php:314
+msgid ""
+"<b>Note</b>: You added more than one recipient, so <i class='ywgc-darkred-"
+"text'>you will buy %number_gift_cards% gift cards</i> and each recipient "
+"will receive a different gift card."
+msgstr ""
+"<b>Σημείωση</b>: Προσθέσατε περισσότερους από έναν παραλήπτες, επομένως <i "
+"class=‘ywgc-darkred-text’>θα αγοράσετε %number_gift_cards% δωροκάρτες</i> "
+"και κάθε παραλήπτης θα λάβει μια ξεχωριστή δωροκάρτα."
+
+#: lib/class-yith-ywgc-frontend-premium.php:315
+msgid "Please enter a valid delivery date"
+msgstr "Παρακαλώ εισάγετε έγκυρη ημερομηνία παράδοσης"
+
+#: lib/class-yith-ywgc-frontend-premium.php:328
+msgid ""
+"Please use only digits and the decimal separator '%1$s'. Valid examples are "
+"'123', '123%1$s9 and '123%1$s99'."
+msgstr ""
+"Παρακαλώ χρησιμοποιείστε μόνο ψηφία και τον διαχωριστή δεκαδικών ’%1$s’. "
+"Έγκυρα παραδείγματα είναι ‘123’, ‘123%1$s9 και ‘123%1$s99’."
+
+#: lib/class-yith-ywgc-frontend-premium.php:333
+msgid "Please enter a valid email address"
+msgstr "Παρακαλώ εισάγετε μια έγκυρη διεύθυνση email"
+
+#: lib/class-yith-ywgc-frontend-premium.php:335
+msgid "ENTER ADDITIONAL RECIPIENT'S NAME"
+msgstr "ΕΙΣΑΓΕΤΕ ΕΠΙΠΛΕΟΝ ΟΝΟΜΑ ΠΑΡΑΛΗΠΤΗ"
+
+#: lib/class-yith-ywgc-frontend-premium.php:336
+msgid "ENTER ADDITIONAL RECIPIENT'S EMAIL ADDRESS"
+msgstr "ΕΙΣΑΓΕΤΕ ΕΠΙΠΛΕΟΝ EMAIL ΠΑΡΑΛΗΠΤΗ"
+
+#: lib/class-yith-ywgc-frontend-premium.php:337
+#: templates/yith-gift-cards/gift-card-details.php:39
+#: templates/yith-gift-cards/gift-card-details.php:67
+#: templates/yith-gift-cards/physical-gift-card-details.php:27
+msgid "Name: "
+msgstr "Όνομα: "
+
+#: lib/class-yith-ywgc-frontend-premium.php:338
+msgid "E-mail: "
+msgstr "E-mail: "
+
+#: lib/class-yith-ywgc-frontend-premium.php:340
+msgid "Buy gift card"
+msgstr "Αγορά δωροκάρτας"
+
+#: lib/class-yith-ywgc-frontend-premium.php:394
+msgid "File is too large. Max file size:"
+msgstr "Το αρχείο είναι πολύ μεγάλο. Μέγιστο μέγεθος αρχείου:"
+
+#: lib/class-yith-ywgc-frontend-premium.php:398
+msgid "Uploading... {percent}%"
+msgstr "Μεταφόρτωση… {percent}%"
+
+#: lib/class-yith-ywgc-frontend-premium.php:399
+msgid "Sending..."
+msgstr "Αποστολή…"
+
+#: lib/class-yith-ywgc-frontend-premium.php:752
+msgid "See card details"
+msgstr "Προβολή στοιχείων κάρτας"
+
+#: lib/class-yith-ywgc-frontend-premium.php:755
+#: lib/class-yith-ywgc-frontend-premium.php:774
+msgid "Gift card details"
+msgstr "Στοιχεία δωροκάρτας"
+
+#: lib/class-yith-ywgc-frontend-premium.php:757
+#: lib/class-yith-ywgc-frontend-premium.php:781
+msgid "Sender: "
+msgstr "Αποστολέας: "
+
+#: lib/class-yith-ywgc-frontend-premium.php:762
+#: lib/class-yith-ywgc-frontend-premium.php:788
+msgid "Recipient: "
+msgstr "Παραλήπτης: "
+
+#: lib/class-yith-ywgc-frontend-premium.php:770
+msgid "Edit"
+msgstr "Επεξεργασία"
+
+#: lib/class-yith-ywgc-frontend-premium.php:802
+msgid "Apply"
+msgstr "Εφαρμογή"
+
+#: lib/class-yith-ywgc-frontend-premium.php:804
+#: templates/support-attachments.php:42
+msgid "Cancel"
+msgstr "Ακύρωση"
+
+#: lib/class-yith-ywgc-frontend-premium.php:981
+#: lib/class-yith-ywgc-gift-cards-table.php:365
+msgid "Sent on %s"
+msgstr "Εστάλη στις %s"
+
+#: lib/class-yith-ywgc-frontend-premium.php:984
+#: lib/class-yith-ywgc-gift-cards-table.php:368
+msgid "Scheduled"
+msgstr "Προγραμματισμένο"
+
+#: lib/class-yith-ywgc-frontend-premium.php:987
+#: lib/class-yith-ywgc-gift-cards-table.php:371
+msgid "Not yet sent"
+msgstr "Δεν έχει σταλεί ακόμη"
+
+#: lib/class-yith-ywgc-frontend-premium.php:990
+#: lib/class-yith-ywgc-gift-cards-table.php:374
+msgid "Failed"
+msgstr "Απέτυχε"
+
+#: lib/class-yith-ywgc-frontend-premium.php:995
+#: lib/class-yith-ywgc-gift-cards-table.php:379
+msgid "Recipient: %s"
+msgstr "Παραλήπτης: %s"
+
+#: lib/class-yith-ywgc-frontend-premium.php:999
+#: lib/class-yith-ywgc-gift-cards-table.php:386
+msgid "Delivery date: %s"
+msgstr "Ημερομηνία παράδοσης: %s"
+
+#: lib/class-yith-ywgc-frontend-premium.php:1092
+#: plugin-options/cart_checkout-options.php:41
+msgid "Apply coupon"
+msgstr "Εφαρμογή κουπονιού"
+
+#: lib/class-yith-ywgc-frontend-premium.php:1102
+#: plugin-options/cart_checkout-options.php:50
+msgid "Have a coupon?"
+msgstr "Έχετε κουπόνι;"
+
+#: lib/class-yith-ywgc-frontend-premium.php:1104
+msgid "Click here to enter your code"
+msgstr "Κάντε κλικ εδώ για να εισάγετε τον κωδικό σας"
+
+#: lib/class-yith-ywgc-frontend-premium.php:1160
+msgid ""
+"It is not possible to add a gift card code when the cart contains a gift "
+"card product"
+msgstr ""
+"Δεν είναι δυνατή η προσθήκη κωδικού δωροκάρτας αν το καλάθι περιέχει προϊόν "
+"δωροκάρτας"
+
+#: lib/class-yith-ywgc-gift-card-premium.php:187
+msgid "The gift card code %s does not exist!"
+msgstr "Ο κωδικός δωροκάρτας %s δεν υπάρχει!"
+
+#: lib/class-yith-ywgc-gift-card-premium.php:190
+msgid ""
+"Sorry, it seems that the gift card code \"%s\" is not yours and cannot be "
+"used for this order."
+msgstr ""
+"Λυπούμαστε, φαίνεται ότι ο κωδικός δωροκάρτας “%s” δεν είναι δικός σας και "
+"δεν μπορεί να χρησιμοποιηθεί για αυτή την παραγγελία."
+
+#: lib/class-yith-ywgc-gift-card-premium.php:193
+msgid "The gift card code %s has already been applied!"
+msgstr "Ο κωδικός δωροκάρτας %s έχει ήδη εφαρμοστεί!"
+
+#: lib/class-yith-ywgc-gift-card-premium.php:196
+msgid "Sorry, the gift card code %s is expired and cannot be used."
+msgstr ""
+"Λυπούμαστε, ο κωδικός δωροκάρτας %s έχει λήξει και δεν μπορεί να "
+"χρησιμοποιηθεί."
+
+#: lib/class-yith-ywgc-gift-card-premium.php:199
+msgid "Sorry, the gift card code %s is currently disabled and cannot be used."
+msgstr ""
+"Λυπούμαστε, ο κωδικός δωροκάρτας %s έχει απενεργοποιηθεί και δεν μπορεί να "
+"χρησιμοποιηθεί."
+
+#: lib/class-yith-ywgc-gift-card-premium.php:202
+msgid "Sorry, the gift card code %s is no longer valid!"
+msgstr "Λυπούμαστε, ο κωδικός δωροκάρτας %s δεν είναι πλέον έγκυρος!"
+
+#: lib/class-yith-ywgc-gift-card-premium.php:205
+msgid ""
+"Sorry, it seems that the gift card code %s is invalid - it has been removed "
+"from your cart."
+msgstr ""
+"Λυπούμαστε, φαίνεται ότι ο κωδικός δωροκάρτας %s δεν είναι έγκυρος - έχει "
+"αφαιρεθεί από το καλάθι σας."
+
+#: lib/class-yith-ywgc-gift-card-premium.php:208
+#: lib/class-yith-ywgc-gift-card-premium.php:237
+msgid "Gift card codes cannot be used to purchase other gift cards"
+msgstr ""
+"Οι κωδικοί δωροκάρτας δεν μπορούν να χρησιμοποιηθούν για την αγορά άλλων "
+"δωροκαρτών"
+
+#: lib/class-yith-ywgc-gift-card-premium.php:230
+msgid "Gift card code successfully applied."
+msgstr "Ο κωδικός δωροκάρτας εφαρμόστηκε με επιτυχία."
+
+#: lib/class-yith-ywgc-gift-card-premium.php:233
+msgid "Gift card code successfully removed."
+msgstr "Ο κωδικός δωροκάρτας αφαιρέθηκε με επιτυχία."
+
+#: lib/class-yith-ywgc-gift-card-premium.php:508
+msgid "The gift card has been disabled"
+msgstr "Η δωροκάρτα έχει απενεργοποιηθεί"
+
+#: lib/class-yith-ywgc-gift-card-premium.php:511
+msgid "Valid"
+msgstr "Έγκυρος"
+
+#: lib/class-yith-ywgc-gift-card-premium.php:514
+msgid "No longer valid, replaced by another code"
+msgstr "Δεν είναι πλέον έγκυρος, αντικαταστάθηκε από άλλο κωδικό"
+
+#: lib/class-yith-ywgc-gift-cards-table.php:110
+msgid "Order"
+msgstr "Παραγγελία"
+
+#: lib/class-yith-ywgc-gift-cards-table.php:111
+#: templates/myaccount/my-giftcards.php:15
+#: templates/shortcodes/user-gift-card-table.php:29
+msgid "Balance"
+msgstr "Υπόλοιπο"
+
+#: lib/class-yith-ywgc-gift-cards-table.php:112
+msgid "Orders"
+msgstr "Παραγγελίες"
+
+#: lib/class-yith-ywgc-gift-cards-table.php:114
+msgid "Information"
+msgstr "Πληροφορίες"
+
+#: lib/class-yith-ywgc-gift-cards-table.php:116
+msgid "Notes"
+msgstr "Σημειώσεις"
+
+#: lib/class-yith-ywgc-gift-cards-table.php:117
+msgid "Direct link"
+msgstr "Απευθείας σύνδεσμος"
+
+#: lib/class-yith-ywgc-gift-cards-table.php:118
+#: lib/emails/class-yith-ywgc-email-delivered-gift-card.php:136
+#: lib/emails/class-yith-ywgc-email-notify-customer.php:140
+#: lib/emails/class-yith-ywgc-email-send-gift-card.php:226
+msgid "Enable/Disable"
+msgstr "Ενεργοποίηση/Απενεργοποίηση"
+
+#: lib/class-yith-ywgc-gift-cards-table.php:158
+msgid "Guest"
+msgstr "Επισκέπτης"
+
+#: lib/class-yith-ywgc-gift-cards-table.php:162
+msgctxt "Order number by X"
+msgid "%s by %s"
+msgstr "%s από %s"
+
+#: lib/class-yith-ywgc-gift-cards-table.php:189
+msgid "Created manually"
+msgstr "Δημιουργήθηκε χειροκίνητα"
+
+#: lib/class-yith-ywgc-gift-cards-table.php:209
+#: templates/myaccount/my-giftcards.php:142
+msgid "The code has not been used yet"
+msgstr "Ο κωδικός δεν έχει χρησιμοποιηθεί ακόμη"
+
+#: lib/class-yith-ywgc-gift-cards-table.php:228
+msgid "Unlimited"
+msgstr "Απεριόριστο"
+
+#: lib/class-yith-ywgc-gift-cards-table.php:256
+msgid "Copy link"
+msgstr "Αντιγραφή συνδέσμου"
+
+#: lib/class-yith-ywgc-gift-cards-table.php:257
+msgid "Link copied!"
+msgstr "Ο σύνδεσμος αντιγράφηκε!"
+
+#: lib/class-yith-ywgc-gift-cards-table.php:312
+msgid "Download pdf"
+msgstr "Κατέβασμα pdf"
+
+#: lib/class-yith-ywgc-gift-cards-table.php:336
+msgid "Send now"
+msgstr "Άμεση αποστολή"
+
+#: lib/class-yith-ywgc-gift-cards-table.php:352
+msgid "This card is dismissed."
+msgstr "Η κάρτα απορρίφθηκε."
+
+#: lib/class-yith-ywgc-gift-cards-table.php:359
+msgid "Physical product"
+msgstr "Φυσικό προϊόν"
+
+#: lib/class-ywgc-plugin-fw-loader.php:130
+msgid "Dashboard"
+msgstr "Πίνακας Ελέγχου"
+
+#: lib/class-ywgc-plugin-fw-loader.php:132
+msgid "Style"
+msgstr "Στυλ"
+
+#: lib/class-ywgc-plugin-fw-loader.php:133
+msgid "Image categories"
+msgstr "Κατηγορίες εικόνων"
+
+#: lib/class-ywgc-plugin-fw-loader.php:135
+msgid "Recipient & delivery"
+msgstr "Παραλήπτης & παράδοση"
+
+#: lib/class-ywgc-plugin-fw-loader.php:136
+msgid "Cart & checkout"
+msgstr "Καλάθι & ταμείο"
+
+#: lib/class-ywgc-plugin-fw-loader.php:140
+#: lib/class-ywgc-plugin-fw-loader.php:201
+msgid "Premium version"
+msgstr "Premium έκδοση"
+
+#: lib/class-ywgc-plugin-fw-loader.php:200
+msgid ""
+"YITH WooCommerce Gift Cards is available in an outstanding premium version "
+"with many new options, discover it now."
+msgstr ""
+"Το YITH WooCommerce Gift Cards είναι διαθέσιμο σε μια εξαιρετική premium "
+"έκδοση με πολλές νέες επιλογές, ανακαλύψτε το τώρα."
+
+#: lib/class-ywgc-plugin-fw-loader.php:208
+msgid "YITH WooCommerce Gift Cards"
+msgstr "YITH WooCommerce Gift Cards"
+
+#: lib/class-ywgc-plugin-fw-loader.php:209
+msgid ""
+"In the YITH Plugins tab you can find YITH WooCommerce Gift Cards options."
+"<br> From this menu you can access all the settings of your active YITH "
+"plugins."
+msgstr ""
+"Μπορείτε να βρείτε τις επιλογές του YITH WooCommerce Gift Cards μέσω της "
+"καρτέλας YITH Plugins.<br> Από αυτό το μενού μπορείτε να έχετε πρόσβαση σε "
+"όλες τις ρυθμίσεις των ενεργών YITH προσθέτων σας."
+
+#: lib/class.yith-woocommerce-gift-cards-privacy.php:28
+msgctxt "Privacy Policy Content"
+msgid "YITH Gift Cards for WooCommerce premium"
+msgstr "YITH Gift Cards for WooCommerce premium"
+
+#: lib/class.yith-woocommerce-gift-cards-privacy.php:96
+msgctxt "GDPR privacy"
+msgid "YITH gift cards received and sent"
+msgstr "Οι δωροκάρτες YITH που έχουν ληφθεί και σταλεί"
+
+#: lib/class.yith-woocommerce-gift-cards-privacy.php:145
+#: lib/class.yith-woocommerce-gift-cards-privacy.php:218
+#: lib/class.yith-woocommerce-gift-cards-privacy.php:558
+msgctxt "GDPR privacy"
+msgid "Anonymous"
+msgstr "Ανώνυμο"
+
+#. translators: %d: Comment ID
+#: lib/class.yith-woocommerce-gift-cards-privacy.php:166
+#: lib/class.yith-woocommerce-gift-cards-privacy.php:241
+msgid "Gift card %d contains personal data but could not be anonymized."
+msgstr ""
+"Η δωροκάρτα %d περιέχει προσωπικά δεδομένα αλλά δεν μπορεί να καταστεί "
+"ανώνυμη."
+
+#: lib/class.yith-woocommerce-gift-cards-privacy.php:302
+msgctxt "GDPR privacy"
+msgid "YITH gift cards received"
+msgstr "Η δωροκάρτες YITH που έχουν ληφθεί"
+
+#: lib/class.yith-woocommerce-gift-cards-privacy.php:355
+msgctxt "GDPR privacy"
+msgid "Gift cards received"
+msgstr "Οι δωροκάρτες που έχουν ληφθεί"
+
+#: lib/class.yith-woocommerce-gift-cards-privacy.php:383
+msgctxt "GDPR privacy"
+msgid "YITH gift cards sent"
+msgstr "Οι δωροκάρτες YITH που έχουν σταλεί"
+
+#: lib/class.yith-woocommerce-gift-cards-privacy.php:431
+msgctxt "GDPR privacy"
+msgid "Gift cards sent"
+msgstr "Οι δωροκάρτες που έχουν σταλεί"
+
+#: lib/class.yith-woocommerce-gift-cards-privacy.php:599
+msgid "Gift Card"
+msgstr "Δωροκάρτα"
+
+#: lib/emails/class-yith-ywgc-email-delivered-gift-card.php:34
+msgid "YITH Gift Cards - Delivered Gift Card Notification"
+msgstr "YITH Gift Cards - Παραδομένη Ειδοποίηση Δωροκάρτας"
+
+#: lib/emails/class-yith-ywgc-email-delivered-gift-card.php:37
+msgid ""
+"Customer notification - the gift card you have bought has been delivered"
+msgstr "Ειδοποίηση πελάτη - η δωροκάρτα που αγοράσατε έχει παραδοθεί"
+
+#: lib/emails/class-yith-ywgc-email-delivered-gift-card.php:40
+msgid "Your gift card has been delivered"
+msgstr "Η δωροκάρτα σας έχει παραδοθεί"
+
+#: lib/emails/class-yith-ywgc-email-delivered-gift-card.php:41
+msgid "[{site_title}] Your gift card has been delivered"
+msgstr "[{site_title}] Η δωροκάρτα σας έχει παραδοθεί"
+
+#: lib/emails/class-yith-ywgc-email-delivered-gift-card.php:46
+#: lib/emails/class-yith-ywgc-email-delivered-gift-card.php:86
+msgid ""
+"Your gift card has been delivered to <code>{recipient_email}</code>."
+"<br>Thanks again for choosing our store!<br>We wish you all the best."
+msgstr ""
+"Η δωροκάρτα σας έχει παραδοθεί στο <code>{recipient_email}</code>."
+"<br>Ευχαριστούμε που επιλέξατε το κατάστημά μας!<br>Καλή συνέχεια."
+
+#: lib/emails/class-yith-ywgc-email-delivered-gift-card.php:138
+#: lib/emails/class-yith-ywgc-email-notify-customer.php:142
+#: lib/emails/class-yith-ywgc-email-send-gift-card.php:228
+msgid "Enable this email notification"
+msgstr "Ενεργοποιείστε αυτή την ειδοποίηση email"
+
+#: lib/emails/class-yith-ywgc-email-delivered-gift-card.php:142
+#: lib/emails/class-yith-ywgc-email-notify-customer.php:146
+#: lib/emails/class-yith-ywgc-email-send-gift-card.php:232
+msgid "Subject"
+msgstr "Θέμα"
+
+#: lib/emails/class-yith-ywgc-email-delivered-gift-card.php:144
+#: lib/emails/class-yith-ywgc-email-delivered-gift-card.php:151
+#: lib/emails/class-yith-ywgc-email-delivered-gift-card.php:158
+#: lib/emails/class-yith-ywgc-email-notify-customer.php:148
+#: lib/emails/class-yith-ywgc-email-notify-customer.php:155
+#: lib/emails/class-yith-ywgc-email-notify-customer.php:162
+#: lib/emails/class-yith-ywgc-email-send-gift-card.php:234
+#: lib/emails/class-yith-ywgc-email-send-gift-card.php:241
+#: lib/emails/class-yith-ywgc-email-send-gift-card.php:248
+msgid "Defaults to <code>%s</code>"
+msgstr "Προεπιλεγμένα στο <code>%s</code>"
+
+#: lib/emails/class-yith-ywgc-email-delivered-gift-card.php:149
+#: lib/emails/class-yith-ywgc-email-notify-customer.php:153
+#: lib/emails/class-yith-ywgc-email-send-gift-card.php:239
+msgid "Email Heading"
+msgstr "Επικεφαλίδα Email"
+
+#: lib/emails/class-yith-ywgc-email-delivered-gift-card.php:156
+#: lib/emails/class-yith-ywgc-email-notify-customer.php:160
+#: lib/emails/class-yith-ywgc-email-send-gift-card.php:246
+msgid "Introductive message"
+msgstr "Εισαγωγικό μήνυμα"
+
+#: lib/emails/class-yith-ywgc-email-notify-customer.php:34
+msgid "YITH Gift Cards - Notification"
+msgstr "YITH Gift Cards - Ειδοποίηση"
+
+#: lib/emails/class-yith-ywgc-email-notify-customer.php:37
+msgid "Customer notification - the gift card you have bought has been used"
+msgstr "Ειδοποίηση πελάτη - η δωροκάρτα που αγοράσατε έχει χρησιμοποιηθεί"
+
+#: lib/emails/class-yith-ywgc-email-notify-customer.php:40
+msgid "I have appreciated your gift"
+msgstr "Εκτιμώ το δώρο σας"
+
+#: lib/emails/class-yith-ywgc-email-notify-customer.php:41
+msgid "[{site_title}] Your gift card has been used"
+msgstr "[{site_title}] Η δωροκάρτα σας έχει χρησιμοποιηθεί"
+
+#: lib/emails/class-yith-ywgc-email-notify-customer.php:46
+#: lib/emails/class-yith-ywgc-email-notify-customer.php:86
+msgid ""
+"The gift card you have sent to <code>{recipient_email}</code> has been used "
+"in our shop."
+msgstr ""
+"Η δωροκάρτα που στείλατε στο <code>{recipient_email}</code> έχει "
+"χρησιμοποιηθεί στο κατάστημά μας."
+
+#: lib/emails/class-yith-ywgc-email-send-gift-card.php:33
+msgid "YITH Gift Cards - Dispatch of the code"
+msgstr "YITH Gift Cards - Αποστολή κωδικού"
+
+#: lib/emails/class-yith-ywgc-email-send-gift-card.php:36
+msgid ""
+"Send the digital gift card to the email address selected during the purchase"
+msgstr ""
+"Αποστολή της ψηφιακής δωροκάρτας στην διεύθυνση email που επιλέχθηκε κατα "
+"την διάρκεια της αγοράς"
+
+#: lib/emails/class-yith-ywgc-email-send-gift-card.php:39
+msgid "Your gift card"
+msgstr "Η δωροκάρτα σας"
+
+#: lib/emails/class-yith-ywgc-email-send-gift-card.php:40
+msgid "[{site_title}] You have received a gift card"
+msgstr "[{site_title}] Έχετε λάβει μια δωροκάρτα"
+
+#: lib/emails/class-yith-ywgc-email-send-gift-card.php:46
+#: lib/emails/class-yith-ywgc-email-send-gift-card.php:157
+msgid ""
+"Hi {recipient_name}, you have received this gift card from {sender}, use it "
+"on our online shop."
+msgstr ""
+"Γεια σας {recipient_name}, έχετε λάβει αυτή τη δωροκάρτα από τον {sender}, "
+"χρησιμοποιήστε την στο ηλεκτρονικό μας κατάστημα."
+
+#: lib/emails/class-yith-ywgc-email-send-gift-card.php:150
+msgid "a friend"
+msgstr "ένας φίλος"
+
+#: lib/third-party/elementor/class-ywgc-check-balance-widget.php:28
+msgid "YITH Gift Card Check Balance Form"
+msgstr "Φόρμα Ελέγχου Υπολοίπου Δωροκάρτας YITH"
+
+#: lib/third-party/elementor/class-ywgc-check-balance-widget.php:53
+#: lib/third-party/elementor/class-ywgc-form-widget.php:53
+#: lib/third-party/elementor/class-ywgc-redeem-widget.php:53
+#: lib/third-party/elementor/class-ywgc-user-table-widget.php:53
+msgid "Content"
+msgstr "Περιεχόμενο"
+
+#: lib/third-party/elementor/class-ywgc-check-balance-widget.php:61
+#: lib/third-party/elementor/class-ywgc-redeem-widget.php:61
+#: lib/third-party/elementor/class-ywgc-user-table-widget.php:61
+msgid "Form description"
+msgstr "Περιγραφή φόρμας"
+
+#: lib/third-party/elementor/class-ywgc-check-balance-widget.php:64
+#: lib/third-party/elementor/class-ywgc-redeem-widget.php:64
+#: lib/third-party/elementor/class-ywgc-user-table-widget.php:64
+msgid "Write a description here"
+msgstr "Πληκτρολογήστε μια περιγραφή εδώ"
+
+#: lib/third-party/elementor/class-ywgc-form-widget.php:28
+msgid "YITH Gift Card Product Form"
+msgstr "Φόρμα Προϊόντος Δωροκάρτας YITH"
+
+#: lib/third-party/elementor/class-ywgc-form-widget.php:61
+msgid "Form Title"
+msgstr "Τίτλος Φόρμας"
+
+#: lib/third-party/elementor/class-ywgc-form-widget.php:64
+msgid "Your section title"
+msgstr "Ο τίτλος ενότητάς σας"
+
+#: lib/third-party/elementor/class-ywgc-redeem-widget.php:28
+msgid "YITH Gift Card Redeem Form"
+msgstr "Φόρμα Εξαργύρωσης Δωροκάρτας YITH"
+
+#: lib/third-party/elementor/class-ywgc-user-table-widget.php:28
+msgid "YITH Gift Card User Table"
+msgstr "Πίνακας Χρήστη Δωροκάρτας YITH"
+
+#: plugin-options/cart_checkout-options.php:24
+msgid "Coupon fields settings"
+msgstr "Ρυθμίσεις πεδίων κουπονιού"
+
+#: plugin-options/cart_checkout-options.php:28
+msgid "Allow gift card codes in WooCommerce coupon fields"
+msgstr "Επιτρέψτε κωδικούς δωροκάρτας μέσω των πεδίων κουπονιού WooCommerce"
+
+#: plugin-options/cart_checkout-options.php:32
+msgid ""
+"Let customers apply the gift card code in the standard WooCommerce coupon "
+"fields"
+msgstr ""
+"Επιτρέψτε στους πελάτες να εφαρμόζουν τον κωδικό δωροκάρτας μέσω των βασικών "
+"πεδίων κουπονιού WooCommerce"
+
+#: plugin-options/cart_checkout-options.php:36
+msgid "Enter a text for the 'Apply coupon' button"
+msgstr "Εισάγετε ένα κείμενο για το κουμπί ‘Εφαρμογή κουπονιού’"
+
+#: plugin-options/cart_checkout-options.php:40
+#: plugin-options/cart_checkout-options.php:48
+#, fuzzy
+#| msgid "Enter a text for the 'Apply coupon' button"
+msgid "write the apply coupon button text"
+msgstr "Εισάγετε ένα κείμενο για το κουμπί ‘Εφαρμογή κουπονιού’"
+
+#: plugin-options/cart_checkout-options.php:44
+msgid "Enter a text for the 'Have a coupon?' label"
+msgstr "Εισάγετε ένα κείμενο για την επιγραφή ‘Έχετε κουπόνι;’"
+
+#: plugin-options/cart_checkout-options.php:64
+msgid "Cart page options"
+msgstr "Επιλογές σελίδας καλαθιού"
+
+#: plugin-options/cart_checkout-options.php:69
+msgid "Show gift card info in the cart"
+msgstr "Εμφάνιση στοιχείων δωροκάρτας στο καλάθι"
+
+#: plugin-options/cart_checkout-options.php:70
+msgid ""
+"If enabled, when a gift card is added to the cart, the gift card info will "
+"be displayed."
+msgstr ""
+"Αν ενεργοποιηθεί, τα στοιχεία δωροκάρτας θα εμφανίζονται, όταν μια δωροκάρτα "
+"προστίθεται στο καλάθι."
+
+#: plugin-options/cart_checkout-options.php:77
+msgid "Minimum amount in cart"
+msgstr "Ελάχιστο ποσό στο καλάθι"
+
+#: plugin-options/cart_checkout-options.php:78
+msgid ""
+"If enabled, customers can only use the gift card code if the cart minimum "
+"amount requirement is fulfilled."
+msgstr ""
+"Αν ενεργοποιηθεί, οι πελάτες θα μπορούν να χρησιμοποιούν τον κωδικό "
+"δωροκάρτας μόνο αν καλύπτεται το προαπαιτούμενο ελάχιστο ποσό καλαθιού."
+
+#: plugin-options/cart_checkout-options.php:85
+msgid "Set cart minimum amount"
+msgstr "Ορίστε ελάχιστο ποσό καλαθιού"
+
+#: plugin-options/cart_checkout-options.php:86
+msgid "Enter here the cart minimum amount to allow using gift card codes."
+msgstr ""
+"Εισάγετε εδώ το ελάχιστο ποσό καλαθιού υπό το οποίο θα μπορούν να "
+"χρησιμοποιούνται κωδικοί δωροκάρτας."
+
+#: plugin-options/cart_checkout-options.php:95
+msgid "Apply gift card on Cart page"
+msgstr "Εφαρμογή δωροκάρτας στην σελίδα Καλαθιού"
+
+#: plugin-options/cart_checkout-options.php:99
+msgid "If enabled, customers can apply the gift card code on the Cart page."
+msgstr ""
+"Αν ενεργοποιηθεί, οι πελάτες θα μπορούν να εφαρμόζουν τον κωδικό δωροκάρτας "
+"στην σελίδα Καλαθιού."
+
+#: plugin-options/cart_checkout-options.php:103
+#: plugin-options/cart_checkout-options.php:141
+msgid "Apply gift card position"
+msgstr "Εφαρμογή θέσης δωροκάρτας"
+
+#: plugin-options/cart_checkout-options.php:109
+msgid "before cart"
+msgstr "πριν το καλάθι"
+
+#: plugin-options/cart_checkout-options.php:110
+msgid "after cart"
+msgstr "μετά το καλάθι"
+
+#: plugin-options/cart_checkout-options.php:129
+msgid "Checkout page options"
+msgstr "Επιλογές σελίδας ταμείου"
+
+#: plugin-options/cart_checkout-options.php:133
+msgid "Apply gift card on Checkout page"
+msgstr "Εφαρμογή δωροκάρτας στην σελίδα Ταμείου"
+
+#: plugin-options/cart_checkout-options.php:137
+msgid ""
+"If enabled, customers can apply the gift card code on the Checkout page."
+msgstr ""
+"Αν ενεργοποιηθεί, οι πελάτες θα μπορούν να εφαρμόζουν τον κωδικό δωροκάρτας "
+"στην σελίδα Ταμείου."
+
+#: plugin-options/cart_checkout-options.php:147
+msgid "before checkout form"
+msgstr "πριν την φόρμα ταμείου"
+
+#: plugin-options/cart_checkout-options.php:148
+msgid "after checkout form"
+msgstr "μετά την φόρμα ταμείου"
+
+#: plugin-options/cart_checkout-options.php:166
+msgid "Apply gift card section design"
+msgstr "Εφαρμογή σχεδίου ενότητας δωροκάρτας"
+
+#: plugin-options/cart_checkout-options.php:170
+msgid "Enter a text before the gift card form"
+msgstr "Εισάγετε ένα κείμενο πριν την φόρμα δωροκάρτας"
+
+#: plugin-options/cart_checkout-options.php:174
+#: templates/checkout/form-gift-cards.php:33
+msgid "Got a gift card from a loved one?"
+msgstr "Λάβατε μια δωροκάρτα από κάποιο αγαπημένο πρόσωπο;"
+
+#: plugin-options/cart_checkout-options.php:177
+msgid "Enter here the text of the link that opens the gift card form"
+msgstr "Εισάγετε εδώ το κείμενο του συνδέσμου που ανοίγει την φόρμα δωροκάρτας"
+
+#: plugin-options/cart_checkout-options.php:181
+#: templates/checkout/form-gift-cards.php:33
+msgid "Use it here!"
+msgstr "Χρησιμοποιείστε το εδώ!"
+
+#: plugin-options/cart_checkout-options.php:184
+msgid "Enable icon before text"
+msgstr "Ενεργοποίηση εικονιδίου πριν από κείμενο"
+
+#: plugin-options/cart_checkout-options.php:188
+msgid "Show a gift-card icon in the text before the gift card form."
+msgstr "Εμφάνιση εικονιδίου δωροκάρτας στο κείμενο πριν την φόρμα δωροκάρτας."
+
+#: plugin-options/cart_checkout-options.php:192
+msgid "Apply gift card layout"
+msgstr "Εφαρμογή διάταξης δωροκάρτας"
+
+#: plugin-options/cart_checkout-options.php:197
+msgid "Hidden form"
+msgstr "Κρυμμένη φόρμα"
+
+#: plugin-options/cart_checkout-options.php:198
+msgid "Visible form"
+msgstr "Ορατή φόρμα"
+
+#: plugin-options/cart_checkout-options.php:203
+msgid "Enter a text for the gift card form"
+msgstr "Εισάγετε ένα κείμενο για την φόρμα δωροκάρτας"
+
+#: plugin-options/cart_checkout-options.php:207
+msgid "Apply the gift card code in the following box"
+msgstr "Εφαρμόστε τον κωδικό δωροκάρτας στο ακόλουθο κουτί"
+
+#: plugin-options/cart_checkout-options.php:211
+msgid "Colors of apply gift card section"
+msgstr "Χρώματα ενότητας εφαρμογής δωροκάρτας"
+
+#: plugin-options/cart_checkout-options.php:217
+#: plugin-options/cart_checkout-options.php:252
+#: plugin-options/gift_this_product-options.php:131
+msgid "default color"
+msgstr "προεπιλεγμένο χρώμα"
+
+#: plugin-options/cart_checkout-options.php:222
+#: plugin-options/cart_checkout-options.php:257
+#: plugin-options/gift_this_product-options.php:136
+msgid "hover color"
+msgstr "χρώμα αιώρησης"
+
+#: plugin-options/cart_checkout-options.php:227
+#: plugin-options/cart_checkout-options.php:262
+#: plugin-options/gift_this_product-options.php:141
+msgid "default text color"
+msgstr "προεπιλεγμένο χρώμα κειμένου"
+
+#: plugin-options/cart_checkout-options.php:232
+#: plugin-options/cart_checkout-options.php:267
+#: plugin-options/gift_this_product-options.php:146
+msgid "hover text color"
+msgstr "χρώμα κειμένου αιώρησης"
+
+#: plugin-options/cart_checkout-options.php:239
+msgid "Text of Apply gift card button"
+msgstr "Κείμενο για κουμπί Εφαρμογής δωροκάρτας"
+
+#: plugin-options/cart_checkout-options.php:243
+#: templates/checkout/form-gift-cards.php:75
+msgid "Apply Gift Card"
+msgstr "Εφαρμογή Δωροκάρτας"
+
+#: plugin-options/cart_checkout-options.php:246
+msgid "Colors of Apply gift card button"
+msgstr "Χρώματα για κουμπί Εφαρμογής δωροκάρτας"
+
+#: plugin-options/design-options.php:23
+msgid "Shop logo options"
+msgstr "Επιλογές λογότυπου καταστήματος"
+
+#: plugin-options/design-options.php:27
+msgid "Add your shop logo on gift cards"
+msgstr "Προσθέστε το λογότυπο του καταστήματός σας σε δωροκάρτες"
+
+#: plugin-options/design-options.php:31
+msgid ""
+"Set if you want the shop logo to show up on the gift card template sent to "
+"the customers. We suggest you keep it disabled if your gift card template "
+"image contains your shop logo."
+msgstr ""
+"Ορίστε εάν θέλετε το λογότυπο του καταστήματος να εμφανίζεται στο πρότυπο "
+"δωροκάρτας που αποστέλλεται στους πελάτες. Προτείνουμε να το κρατήσετε "
+"απενεργοποιημένο αν η εικόνα προτύπου δωροκάρτας σας περιέχει το λογότυπο "
+"του καταστήματος."
+
+#: plugin-options/design-options.php:35
+msgid "Upload your shop logo"
+msgstr "Ανέβασμα λογότυπου καταστήματος"
+
+#: plugin-options/design-options.php:39
+msgid "Upload the logo you want to show in the gift card sent to customers."
+msgstr ""
+"Ανεβάστε το λογότυπο που θέλετε να εμφανίζεται στην δωροκάρτα που "
+"αποστέλλεται στους πελάτες."
+
+#: plugin-options/design-options.php:48
+msgid "Add your shop logo after the gift card image"
+msgstr "Προσθέστε το λογότυπο του καταστήματός σας μετά την εικόνα δωροκάρτας"
+
+#: plugin-options/design-options.php:59 plugin-options/design-options.php:87
+msgid "Logo alignment"
+msgstr "Στοίχιση λογότυπου"
+
+#: plugin-options/design-options.php:64 plugin-options/design-options.php:92
+msgid "Left"
+msgstr "Αριστερά"
+
+#: plugin-options/design-options.php:65 plugin-options/design-options.php:93
+msgid "Center"
+msgstr "Κέντρο"
+
+#: plugin-options/design-options.php:66 plugin-options/design-options.php:94
+msgid "Right"
+msgstr "Δεξιά"
+
+#: plugin-options/design-options.php:76
+msgid "Add your shop logo before the gift card image"
+msgstr "Προσθέστε το λογότυπο του καταστήματός σας πριν την εικόνα δωροκάρτας"
+
+#: plugin-options/design-options.php:115
+msgid "Gift card design options"
+msgstr "Επιλογές σχεδίου δωροκάρτας"
+
+#: plugin-options/design-options.php:119
+msgid "Default gift card image"
+msgstr "Προεπιλεγμένη εικόνα δωροκάρτας"
+
+#: plugin-options/design-options.php:123
+msgid ""
+"Upload a image that will be used by default for all your gift cards. You "
+"can, however, override it when you create a new gift card product and leave "
+"empty if you don't want to apply a default image."
+msgstr ""
+"Ανεβάστε μια εικόνα που θα χρησιμοποιείται προεπιλεγμένα για όλες τις "
+"δωροκάρτες σας. Μπορείτε, ωστόσο, να την παρακάμψετε κατα την δημιουργία "
+"νέου προϊόντος δωροκάρτας και να διατηρήσετε κενό αν δεν θέλετε να "
+"εφαρμόσετε μια προεπιλεγμένη εικόνα."
+
+#: plugin-options/design-options.php:126
+msgid "Title for “Choose your image” section"
+msgstr "Τίτλος ενότητας “Επιλογή εικόνας”"
+
+#: plugin-options/design-options.php:130
+msgid " Enter a title for the 'Choose your image' area on your gift card page."
+msgstr ""
+" Εισάγετε έναν τίτλο για την περιοχή ‘Επιλογή εικόνας’ στην σελίδα "
+"δωροκάρτας σας."
+
+#: plugin-options/design-options.php:131
+msgid "write the choose image area title"
+msgstr ""
+
+#: plugin-options/design-options.php:133
+#: templates/yith-gift-cards/gift-card-design.php:54
+msgid "Choose your image"
+msgstr "Επιλογή εικόνας"
+
+#: plugin-options/design-options.php:136
+msgid "Enable the gallery"
+msgstr "Ενεργοποίηση συλλογής"
+
+#: plugin-options/design-options.php:140
+msgid ""
+"Allow users to pick the gift card image from those available in the gallery. "
+"Note: images that can be used by customers have to be uploaded through the "
+"Media gallery. To make the search easier, you can group images into "
+"categories (e.g. Christmas, Easter, Birthday, etc.) through this link: "
+msgstr ""
+"Επιτρέψτε στους χρήστες να επιλέγουν την εικόνα δωροκάρτας από τις "
+"διαθέσιμες της συλλογής. Σημείωση: οι εικόνες που μπορούν να χρησιμοποιηθούν "
+"από τους πελάτες πρέπει να ανεβαίνουν μέσω της Βιβλιοθήκης πολυμέσων. Για "
+"ευκολότερη αναζήτηση, μπορείτε να κάνετε ομαδοποίηση των εικόνων σε "
+"κατηγορίες (πχ. Χριστούγεννα, Πάσχα, Γενέθλια, κλπ.) μέσω του συνδέσμου: "
+
+#: plugin-options/design-options.php:140
+msgid "Set your gallery categories."
+msgstr "Ορίστε τις κατηγορίες συλλογής σας."
+
+#: plugin-options/design-options.php:140
+msgid "Set your template categories"
+msgstr "Ορίστε τις κατηγορίες προτύπου σας"
+
+#: plugin-options/design-options.php:145
+msgid "How many images to show"
+msgstr "Αριθμός εικόνων προς εμφάνιση"
+
+#: plugin-options/design-options.php:146
+msgid ""
+"Set how many gift card images to show on the gift card page. Other designs "
+"will be shown when the customer clicks on \"View all\" button."
+msgstr ""
+"Ορίστε πόσες εικόνες δωροκάρτας να εμφανίζονται στη σελίδα δωροκάρτας. Τα "
+"υπόλοιπα σχέδια θα εμφανίζονται όταν οι πελάτες κάνουν κλικ στο κουμπί "
+"“Προβολή όλων”."
+
+#: plugin-options/design-options.php:159
+msgid "Text for \"View all\" button"
+msgstr "Κείμενο για κουμπί “Προβολή όλων”"
+
+#: plugin-options/design-options.php:162
+msgid "write the viev all button text"
+msgstr ""
+
+#: plugin-options/design-options.php:163
+#: templates/yith-gift-cards/gift-card-design.php:121
+msgid "VIEW ALL"
+msgstr "ΠΡΟΒΟΛΗ ΟΛΩΝ"
+
+#: plugin-options/design-options.php:172
+msgid "Show image title"
+msgstr "Εμφάνιση τίτλου εικόνας"
+
+#: plugin-options/design-options.php:173
+msgid "Enable if you want to show a title below every image in the gallery."
+msgstr ""
+"Ενεργοποιείστε αν θέλετε να εμφανίζεται ένας τίτλος κάτω από κάθε εικόνα της "
+"συλλογής."
+
+#: plugin-options/design-options.php:184
+msgid "Custom Image upload"
+msgstr "Ανέβασμα προσαρμοσμένης εικόνας"
+
+#: plugin-options/design-options.php:188
+msgid ""
+"Enable if the customer can upload a custom image/photo for the gift card."
+msgstr ""
+"Ενεργοποιείστε για να μπορεί ο πελάτης να ανεβάσει μια προσαρμοσμένη εικόνα/"
+"φωτογραφία για την δωροκάρτα."
+
+#: plugin-options/design-options.php:193
+msgid "Enter a recommended image size (in pixels) for custom images"
+msgstr ""
+"Εισάγετε ένα προτεινόμενο μέγεθος εικόνας (σε pixels) για τις προσαρμοσμένες "
+"εικόνες"
+
+#: plugin-options/design-options.php:197
+msgid ""
+"Enter a recommended size for the uploaded image that fits your gift card "
+"layout."
+msgstr ""
+"Εισάγετε ένα προτεινόμενο μέγεθος για την ανεβασμένη εικόνα που να χωράει "
+"στη διάταξη δωροκάρτας σας."
+
+#: plugin-options/design-options.php:199
+msgid "write the suggest image size in pixels"
+msgstr ""
+
+#: plugin-options/design-options.php:207
+msgid "Set a max size in MB for custom images (required)"
+msgstr ""
+"Ορίστε μέγιστο μέγεθος σε MB για τις προσαρμοσμένες εικόνες (απαραίτητο)"
+
+#: plugin-options/design-options.php:211
+msgid ""
+"Set up a maximum size (in MB) for the custom images uploaded by customers. "
+"Enter 0 if you don't want to set any limit."
+msgstr ""
+"Δημιουργήστε ένα μέγιστο μέγεθος (σε MB) για τις προσαρμοσμένες εικόνες που "
+"ανεβάζουν οι πελάτες. Εισάγετε 0 αν δεν θέλετε να ορίσετε κανένα όριο."
+
+#: plugin-options/design-options.php:257
+msgid "Plugin design options"
+msgstr "Επιλογές σχεδίου προσθέτου"
+
+#: plugin-options/design-options.php:261
+msgid "Plugin main color"
+msgstr "Βασικό χρώμα προσθέτου"
+
+#: plugin-options/design-options.php:262
+msgid "Select the plugin main color."
+msgstr "Επιλέξτε το βασικό χρώμα προσθέτου."
+
+#: plugin-options/general-options.php:23
+msgid "General settings"
+msgstr "Γενικές ρυθμίσεις"
+
+#: plugin-options/general-options.php:27
+msgid "Date format"
+msgstr "Μορφή ημερομηνίας"
+
+#: plugin-options/general-options.php:32
+msgid ""
+"Choose the date format for the gift card expiry date, date of delivery and "
+"so on."
+msgstr ""
+"Επιλέξτε την μορφή ημερομηνίας για την ημερομηνία λήξης δωροκάρτας, "
+"ημερομηνία παράδοσης και ούτω καθεξής."
+
+#: plugin-options/general-options.php:36
+msgid "Disable code generation"
+msgstr "Απενεργοποίηση δημιουργίας κωδικού"
+
+#: plugin-options/general-options.php:40
+msgid "Enable this option if you want to create gift cards without any code."
+msgstr "Ενεργοποιείστε αν θέλετε να δημιουργείτε δωροκάρτες χωρίς κωδικούς."
+
+#: plugin-options/general-options.php:45
+msgid "Gift card code pattern"
+msgstr "Σχέδιο κωδικού δωροκάρτας"
+
+#: plugin-options/general-options.php:46
+msgid ""
+"Choose the pattern of new gift cards. If you set ***-*** your cards will "
+"have a code like: 1ME-D28."
+msgstr ""
+"Επιλέξτε το σχέδιο νέων δωροκαρτών. Αν ορίσετε ***-*** οι κάρτες σας θα "
+"έχουν έναν κωδικό όπως: 1ME-D28."
+
+#: plugin-options/general-options.php:57
+msgid "Prevent the use of a gift card to purchase another gift card"
+msgstr "Αποτρέψτε την χρήση μια δωροκάρτας για την αγορά άλλης δωροκάρτας"
+
+#: plugin-options/general-options.php:61
+msgid ""
+"If enabled, the use of gift cards codes to purchase a gift card product is "
+"not allowed."
+msgstr ""
+"Αν ενεργοποιηθεί, η χρήση κωδικών δωροκάρτας για την αγορά ενός προϊόντος "
+"δωροκάρτας δεν θα επιτρέπεται."
+
+#: plugin-options/general-options.php:65
+msgid "Enable Shop Managers"
+msgstr "Ενεργοποίηση Διαχειριστών Καταστήματος"
+
+#: plugin-options/general-options.php:69
+msgid ""
+"If enabled, the user with role Shop Manager will be able to manage the "
+"plugin settings panel."
+msgstr ""
+"Αν ενεργοποιηθεί, ο χρήστης με τον ρόλο Διαχειριστή Καταστήματος θα μπορεί "
+"να διαχειριστεί το πάνελ ρυθμίσεων του προσθέτου."
+
+#: plugin-options/general-options.php:76
+msgid "Notifications"
+msgstr "Ειδοποιήσεις"
+
+#: plugin-options/general-options.php:80
+msgid "Gift card admin notification"
+msgstr "Ειδοποίηση διαχειριστή δωροκάρτας"
+
+#: plugin-options/general-options.php:84
+msgid "If enabled, admin will receive a BCC email with the gift card code."
+msgstr ""
+"Αν ενεργοποιηθεί, ο διαχειριστής θα λάβει ένα email BCC με τον κωδικό "
+"δωροκάρτας."
+
+#: plugin-options/general-options.php:88
+msgid "Gift card sender notification"
+msgstr "Ειδοποίηση αποστολέα δωροκάρτας"
+
+#: plugin-options/general-options.php:92
+msgid ""
+"If enabled, the customer (the gift card sender) will receive a BCC email "
+"with the gift card code."
+msgstr ""
+"Αν ενεργοποιηθεί, ο πελάτης (αποστολέας δωροκάρτας) θα λαμβάνει ένα email "
+"BCC με τον κωδικό δωροκάρτας."
+
+#: plugin-options/general-options.php:96
+msgid "BCC additional emails"
+msgstr "Επιπλέον email BCC"
+
+#: plugin-options/general-options.php:100
+msgid ""
+"Create additional emails separating by a comma, to receive a BCC email with "
+"the gift card code."
+msgstr ""
+"Δημιουργήστε επιπλέον email διαχωρίζοντας με κόμμα, για να λαμβάνετε ένα "
+"email BCC με τον κωδικό δωροκάρτας."
+
+#: plugin-options/general-options.php:102
+msgid "Write the additional emails here, separated by comma"
+msgstr ""
+
+#: plugin-options/general-options.php:105
+msgid "Notify the delivery of a gift card"
+msgstr "Ειδοποιήστε για την παράδοση δωροκάρτας"
+
+#: plugin-options/general-options.php:109
+msgid ""
+"If enabled, the sender will receive an email when the gift card has been "
+"delivered to recipient."
+msgstr ""
+"Αν ενεργοποιηθεί, ο αποστολέας θα λαμβάνει ένα email όταν η δωροκάρτα "
+"παραδοθεί στον παραλήπτη."
+
+#: plugin-options/general-options.php:113
+msgid "Notify the use of a gift card"
+msgstr "Ειδοποιήστε για την χρήση δωροκάρτας"
+
+#: plugin-options/general-options.php:117
+msgid ""
+"If enabled, the sender will receive an email notifying the use of the gift "
+"card purchased by him."
+msgstr ""
+"Αν ενεργοποιηθεί, ο αποστολέας θα λαμβάνει ένα email με την ειδοποίηση της "
+"χρήσης της δωροκάρτας που αγόρασε."
+
+#: plugin-options/general-options.php:129
+msgid "Global settings"
+msgstr "Γενικές ρυθμίσεις"
+
+#: plugin-options/general-options.php:131
+msgid ""
+"These options will be applied to all your gift card products, but in the "
+"gift card product edit page you can override them if you want different "
+"values for specific gift cards."
+msgstr ""
+"Αυτές οι επιλογές θα εφαρμόζονται σε όλα τα προϊόντα δωροκάρτας σας, αλλά "
+"στην σελίδα επεξεργασίας προϊόντος δωροκάρτας θα μπορείτε να τις παρακάμψετε "
+"αν θέλετε να θέσετε άλλες αξίες για συγκεκριμένες δωροκάρτες."
+
+#: plugin-options/general-options.php:134
+msgid "Title for “Set an amount” section"
+msgstr "Τίτλος ενότητας “Ορίστε ένα ποσό”"
+
+#: plugin-options/general-options.php:138
+msgid ""
+"Enter a title for the 'Set an amount' area on your gift card page. This area "
+"will include the preset gift card amounts and the custom amount if enabled."
+msgstr ""
+"Εισάγετε έναν τίτλο για την περιοχή ‘Ορίστε ένα ποσό’ της σελίδας δωροκάρτας "
+"σας. Αυτή η περιοχή θα περιέχει τα προρυθμισμένα ποσά δωροκάρτας και το "
+"προσαρμοσμένο ποσό αν ενεργοποιηθεί."
+
+#: plugin-options/general-options.php:139
+msgid "write the set an amount area title"
+msgstr ""
+
+#: plugin-options/general-options.php:141
+#: templates/single-product/add-to-cart/gift-card-amount-selection.php:14
+msgid "Set an amount"
+msgstr "Ορίστε ένα ποσό"
+
+#: plugin-options/general-options.php:144
+msgid "Enable/disable custom amount"
+msgstr "Ενεργοποίηση/απενεργοποίηση προσαρμοσμένου ποσού"
+
+#: plugin-options/general-options.php:148
+msgid ""
+"If enabled, customers can enter a custom amount when buying a gift card."
+msgstr ""
+"Αν ενεργοποιηθεί, οι πελάτες θα μπορούν να εισάγουν ένα προσαρμοσμένο ποσό "
+"κατα την αγορά μια δωροκάρτας."
+
+#: plugin-options/general-options.php:154
+msgid ""
+"Set a minimum value for the custom amount of your gift cards. Leave empty if "
+"you don't want to set a minimum amount."
+msgstr ""
+"Ορίστε ένα ελάχιστο ποσό για το προσαρμοσμένο ποσό των δωροκαρτών σας. "
+"Αφήστε το κενό αν δεν θέλετε να ορίσετε ελάχιστο ποσό."
+
+#: plugin-options/general-options.php:158
+#, fuzzy
+#| msgid "Enter a minimum amount"
+msgid "write a minimal amount"
+msgstr "Ορίστε ελάχιστο ποσό"
+
+#: plugin-options/general-options.php:167
+msgid "Gift card expiration date"
+msgstr "Ημερομηνία λήξης δωροκάρτας"
+
+#: plugin-options/general-options.php:168
+msgid ""
+"Set a default expiration for gift cards in months. If the value is zero, "
+"your gift cards will never expire."
+msgstr ""
+"Ορίστε μια προκαθορισμένη λήξη δωροκαρτών σε μήνες. Αν η αξία είναι μηδέν, "
+"οι δωροκάρτες σας δεν θα λήγουν ποτέ."
+
+#: plugin-options/general-options.php:172
+#, fuzzy
+#| msgid "Gift card expiration date"
+msgid "write expiration date in months"
+msgstr "Ημερομηνία λήξης δωροκάρτας"
+
+#: plugin-options/general-options.php:187
+msgid "Gift card orders settings"
+msgstr "Ρυθμίσεις παραγγελιών δωροκάρτας"
+
+#: plugin-options/general-options.php:191
+msgid "When an order containing a gift card is cancelled"
+msgstr "Όταν μια παραγγελία που περιέχει δωροκάρτα ακυρώνεται"
+
+#: plugin-options/general-options.php:197
+#: plugin-options/general-options.php:210
+msgid "Do nothing"
+msgstr "Να μην γίνεται τίποτα"
+
+#: plugin-options/general-options.php:198
+#: plugin-options/general-options.php:211
+msgid "Disable the gift cards"
+msgstr "Απενεργοποίηση δωροκαρτών"
+
+#: plugin-options/general-options.php:199
+#: plugin-options/general-options.php:212
+msgid "Dismiss the gift cards"
+msgstr "Απόρριψη δωροκαρτών"
+
+#: plugin-options/general-options.php:204
+msgid "When an order containing a gift card is refunded"
+msgstr "Όταν μια παραγγελία που περιέχει δωροκάρτα επιστρέφεται"
+
+#: plugin-options/gift_this_product-options.php:24
+msgid "Product page options"
+msgstr "Επιλογές σελίδας προϊόντος"
+
+#: plugin-options/gift_this_product-options.php:28
+msgid "Show \"Gift this product\" option in product pages"
+msgstr "Εμφάνιση επιλογής “Κάντε δώρο το προϊόν” στις σελίδες προϊόντος"
+
+#: plugin-options/gift_this_product-options.php:32
+msgid ""
+"Enable to allow users to buy a gift card of the same amount of the product. "
+"This feature appears on the product page. The product will be recommended in "
+"the recipient email that includes the gift card code."
+msgstr ""
+"Ενεργοποιείστε να επιτρέπεται στους χρήστες να αγοράζουν δωροκάρτα ίδιου "
+"ποσού του προϊόντος. Αυτό το χαρακτηριστικό εμφανίζεται στη σελίδα "
+"προϊόντος. Το προϊόν θα προτείνεται στο email παραλήπτη που περιέχει τον "
+"κωδικό δωροκάρτας."
+
+#: plugin-options/gift_this_product-options.php:36
+msgid "Show \"Gift this product\" option in shop page"
+msgstr "Εμφάνιση επιλογής “Κάντε δώρο το προϊόν” στη σελίδα καταστήματος"
+
+#: plugin-options/gift_this_product-options.php:40
+msgid "Enable to show the \"Gift this product\" link also in shop pages."
+msgstr ""
+"Ενεργοποιείστε να εμφανίζεται ο σύνδεσμος “Κάντε δώρο το προϊόν” και στις "
+"σελίδες καταστήματος."
+
+#: plugin-options/gift_this_product-options.php:48
+msgid "Gift this product icon"
+msgstr "Εικονίδιο για κάντε δώρο το προϊόν"
+
+#: plugin-options/gift_this_product-options.php:52
+msgid "Enable a gift card icon in the Gift this product title."
+msgstr ""
+"Ενεργοποιείστε ένα εικονίδιο δωροκάρτας μέσα στον τίτλο Κάντε δώρο το προϊόν."
+
+#: plugin-options/gift_this_product-options.php:88
+msgid "Label style"
+msgstr "Στυλ επιγραφής"
+
+#: plugin-options/gift_this_product-options.php:93
+msgid "Only text"
+msgstr "Μόνο κείμενο"
+
+#: plugin-options/gift_this_product-options.php:94
+msgid "Button"
+msgstr "Κουμπί"
+
+#: plugin-options/gift_this_product-options.php:104
+msgid "Description to show before button"
+msgstr "Περιγραφή προς εμφάνιση πριν το κουμπί"
+
+#: plugin-options/gift_this_product-options.php:107
+msgid ""
+"Do you feel this product is perfect for a friend or a loved one? You can buy "
+"a gift card for this item!"
+msgstr ""
+"Νιώθετε ότι αυτό το προϊόν ταιριάζει απόλυτα σε ένα φίλο ή αγαπημένο "
+"πρόσωπο; Μπορείτε να αγοράσετε μια δωροκάρτα για αυτό το αντικείμενο!"
+
+#: plugin-options/gift_this_product-options.php:115
+msgid "Enter a custom text"
+msgstr "Εισάγετε ένα προσαρμοσμένο κείμενο"
+
+#: plugin-options/gift_this_product-options.php:125
+msgid "Label colors"
+msgstr "Χρώματα επιγραφής"
+
+#: plugin-options/gift_this_product-options.php:166
+msgid "Gift this product email options"
+msgstr "Επιλογές email Κάντε δώρο το προϊόν"
+
+#: plugin-options/gift_this_product-options.php:171
+msgid "Button text"
+msgstr "Κείμενο κουμπιού"
+
+#: plugin-options/gift_this_product-options.php:172
+msgid ""
+"Enter a text for the button displayed in the email sent to the gift card "
+"recipient."
+msgstr ""
+"Εισάγετε ένα κείμενο για το κουμπί που εμφανίζεται στο email που "
+"αποστέλλεται στον παραλήπτη δωροκάρτας."
+
+#: plugin-options/gift_this_product-options.php:175
+msgid "Go to the product"
+msgstr "Μετάβαση στο προϊόν"
+
+#: plugin-options/gift_this_product-options.php:182
+msgid "Button redirect the user to"
+msgstr "Κουμπί ανακατεύθυνσης χρήστη σε"
+
+#: plugin-options/gift_this_product-options.php:187
+msgid "Product page"
+msgstr "Σελίδα προϊόντος"
+
+#: plugin-options/gift_this_product-options.php:188
+msgid "Another page"
+msgstr "Άλλη σελίδα"
+
+#: plugin-options/gift_this_product-options.php:198
+msgid ""
+"Set the page you want the user to be redirected to when the button in the "
+"gift card email is clicked on."
+msgstr ""
+"Ορίστε την σελίδα που θέλετε να ανακατευθύνεται ο χρήστης όταν το κουμπί στο "
+"email δωροκάρτας επιλέγεται."
+
+#: plugin-options/gift_this_product-options.php:209
+msgid "Automatically add the suggested product to the cart"
+msgstr "Προσθέστε αυτόματα το προτεινόμενο προϊόν στο καλάθι"
+
+#: plugin-options/gift_this_product-options.php:213
+msgid "Add the recommended product to the recipient's cart"
+msgstr "Προσθέστε το προτεινόμενο προϊόν στο καλάθι του παραλήπτη"
+
+#: plugin-options/gift_this_product-options.php:221
+msgid "Automatically apply the gift card code to cart"
+msgstr "Εφαρμόστε αυτόματα τον κωδικό δωροκάρτας στο καλάθι"
+
+#: plugin-options/gift_this_product-options.php:225
+msgid ""
+"Automatically apply the gift voucher code to the cart, without the user "
+"having to enter it manually."
+msgstr ""
+"Εφαρμόστε αυτόματα τον κωδικό κουπονιού στο καλάθι, χωρίς να χρειάζεται να "
+"το προσθέσει ο χρήστης χειροκίνητα."
+
+#: plugin-options/recipient_delivery-options.php:26
+msgid "Recipient & Delivery settings for virtual gift cards"
+msgstr "Ρυθμίσεις Παραλήπτη & Παράδοσης για εικονικές δωροκάρτες"
+
+#: plugin-options/recipient_delivery-options.php:30
+msgid "Title for “Delivery info” section"
+msgstr "Τίτλος ενότητας “Στοιχεία παράδοσης”"
+
+#: plugin-options/recipient_delivery-options.php:34
+msgid ""
+"Enter a title for the delivery info area on your gift card page. This area "
+"will include recipient and sender's info, date of delivery and so on."
+msgstr ""
+"Εισάγετε ένα τίτλο για την περιοχή στοιχείων παράδοσης της σελίδας "
+"δωροκάρτας σας. Αυτή η περιοχή θα περιέχει στοιχεία παραλήπτη και αποστολέα, "
+"ημερομηνία παράδοσης και ούτω καθεξής."
+
+#: plugin-options/recipient_delivery-options.php:35
+msgid "write the delivery info title"
+msgstr ""
+
+#: plugin-options/recipient_delivery-options.php:36
+#: templates/yith-gift-cards/gift-card-details.php:21
+msgid "Delivery info"
+msgstr "Στοιχεία παράδοσης"
+
+#: plugin-options/recipient_delivery-options.php:72
+msgid "Allow the user to choose the delivery date"
+msgstr "Επιτρέψτε στον χρήστη να επιλέξει την ημερομηνία παράδοσης"
+
+#: plugin-options/recipient_delivery-options.php:76
+msgid ""
+"Allow your customers to choose a delivery date for the virtual gift card "
+"(option not available for physical gift cards delivered at home)."
+msgstr ""
+"Επιτρέψτε στους πελάτες σας να επιλέξουν μια ημερομηνία παράδοσης για την "
+"εικονική δωροκάρτα (η επιλογή δεν είναι διαθέσιμη για τις φυσικές δωροκάρτες "
+"που παραδίδονται κατ’ οίκον)."
+
+#: plugin-options/recipient_delivery-options.php:80
+msgid "Choose a default delivery time for gift cards"
+msgstr "Επιλέξτε μια προεπιλεγμένη ώρα παράδοσης για τις δωροκάρτες"
+
+#: plugin-options/recipient_delivery-options.php:84
+msgid ""
+"Select the time when the gift card will be sent. It is a 24h format, where "
+"the minimum time is 00:00 and the maximum is 24:00."
+msgstr ""
+"Επιλέξτε την ώρα που θα σταλεί η δωροκάρτα. Η μορφή είναι 24ωρη, όπου η "
+"ελάχιστη ώρα είναι 00:00 και η μέγιστη 24:00."
+
+#: plugin-options/recipient_delivery-options.php:93
+msgid "Title for the “Recipient info” section"
+msgstr "Τίτλος ενότητας “Στοιχεία παραλήπτη”"
+
+#: plugin-options/recipient_delivery-options.php:97
+msgid "Enter a title for the section with the recipient's info."
+msgstr "Εισάγετε ένα τίτλο για την ενότητα με τα στοιχεία παραλήπτη."
+
+#: plugin-options/recipient_delivery-options.php:98
+msgid "write the recipient info title"
+msgstr ""
+
+#: plugin-options/recipient_delivery-options.php:99
+msgid "RECIPIENT'S INFO"
+msgstr "ΣΤΟΙΧΕΙΑ ΠΑΡΑΛΗΠΤΗ"
+
+#: plugin-options/recipient_delivery-options.php:102
+msgid "Make recipient's info mandatory"
+msgstr "Ορίστε τα στοιχεία παραλήπτη ως απαραίτητα"
+
+#: plugin-options/recipient_delivery-options.php:106
+msgid "If enabled, the recipient's name and email fields will be mandatory."
+msgstr ""
+"Αν ενεργοποιηθεί, το όνομα και πεδία email του παραλήπτη θα γίνουν "
+"απαραίτητα."
+
+#: plugin-options/recipient_delivery-options.php:110
+msgid "Enable multiple recipients for virtual gift cards"
+msgstr "Ενεργοποίηση πολλαπλών παραληπτών για εικονικές δωροκάρτες"
+
+#: plugin-options/recipient_delivery-options.php:114
+msgid ""
+"If enabled, customers can set multiple recipients: one gift card for each of "
+"them will be generated."
+msgstr ""
+"Αν ενεργοποιηθεί, οι πελάτες θα μπορούν να ορίσουν πολλαπλούς παραλήπτες: θα "
+"δημιουργηθεί μια δωροκάρτα για τον καθένα."
+
+#: plugin-options/recipient_delivery-options.php:118
+msgid "Ask sender's name"
+msgstr "Ζητήστε όνομα αποστολέα"
+
+#: plugin-options/recipient_delivery-options.php:125
+msgid "Title for “Sender's info” section"
+msgstr "Τίτλος ενότητας “Στοιχεία αποστολέα”"
+
+#: plugin-options/recipient_delivery-options.php:129
+msgid "Enter a title for the section with sender's info."
+msgstr "Εισάγετε ένα τίτλο για την ενότητα με τα στοιχεία αποστολέα."
+
+#: plugin-options/recipient_delivery-options.php:130
+msgid "write the sender info title"
+msgstr ""
+
+#: plugin-options/recipient_delivery-options.php:131
+#: templates/yith-gift-cards/gift-card-details.php:63
+#: templates/yith-gift-cards/physical-gift-card-details.php:23
+msgid "YOUR INFO"
+msgstr "ΤΑ ΣΤΟΙΧΕΙΑ ΣΑΣ"
+
+#: plugin-options/recipient_delivery-options.php:146
+msgid "Placeholder for Message textarea"
+msgstr "Κείμενο υποκατάστασης για Περιοχή κειμένου μηνύματος"
+
+#: plugin-options/recipient_delivery-options.php:150
+msgid "Enter a placeholder for the sender's message field."
+msgstr "Εισάγετε κείμενο υποκατάστασης για το πεδίο μηνύματος αποστολέα."
+
+#: plugin-options/recipient_delivery-options.php:151
+msgid "write a placeholder for the sender message field"
+msgstr ""
+
+#: plugin-options/recipient_delivery-options.php:152
+#: templates/yith-gift-cards/gift-card-details.php:74
+#: templates/yith-gift-cards/physical-gift-card-details.php:41
+msgid "Enter a message for the recipient"
+msgstr "Εισάγετε ένα μήνυμα για τον παραλήπτη"
+
+#: plugin-options/recipient_delivery-options.php:174
+msgid "Recipient & Delivery settings for physical Gift Cards delivered at home"
+msgstr ""
+"Ρυθμίσεις Παραλήπτη & Παράδοσης για φυσικές Δωροκάρτες που παραδίδονται κατ’ "
+"οίκον"
+
+#: plugin-options/recipient_delivery-options.php:178
+msgid "Allow customers to add a printed message to the gift card"
+msgstr ""
+"Επιτρέψτε στους πελάτες να προσθέσουν ένα τυπωμένο μήνυμα στην δωροκάρτα"
+
+#: plugin-options/recipient_delivery-options.php:185
+msgid "Ask sender's and recipient's name"
+msgstr "Ζητήστε όνομα αποστολέα και παραλήπτη"
+
+#: plugin-options/recipient_delivery-options.php:202
+msgid "Email options & customization"
+msgstr "Επιλογές email & προσαρμογή"
+
+#: plugin-options/recipient_delivery-options.php:204
+msgid "You can manage and edit the YITH Gift Card emails in the "
+msgstr ""
+"Μπορείτε να διαχειριστείτε και επεξεργαστείτε τα email Δωροκάρτας YITH στις "
+
+#: plugin-options/recipient_delivery-options.php:204
+msgid "WooCommerce emails settings"
+msgstr "Ρυθμίσεις email WooCommerce"
+
+#: plugin-options/recipient_delivery-options.php:207
+msgid "Show a button in the gift card email"
+msgstr "Εμφάνιση κουμπιού στο email δωροκάρτας"
+
+#: plugin-options/recipient_delivery-options.php:211
+msgid ""
+"If enabled, the gift card dispatch email will contain a link to redirect "
+"your user to your site in one click."
+msgstr ""
+"Αν ενεργοποιηθεί, το email αποστολής δωροκάρτας θα περιέχει ένα σύνδεσμο "
+"ανακατεύθυνσης χρήστη στον ιστότοπό σας με ένα κλικ."
+
+#: plugin-options/recipient_delivery-options.php:216
+msgid "Button label"
+msgstr "Επιγραφή κουμπιού"
+
+#: plugin-options/recipient_delivery-options.php:219
+#: templates/emails/automatic-discount.php:12
+#: templates/emails/automatic-discount.php:18
+msgid "Apply your gift card code"
+msgstr "Εφαρμογή κωδικού δωροκάρτας"
+
+#: plugin-options/recipient_delivery-options.php:226
+msgid "Button redirect to"
+msgstr "Κουμπί ανακατεύθυνσης σε"
+
+#: plugin-options/recipient_delivery-options.php:232
+msgid ""
+"Select the page where the recipient will be redirected after clicking on the "
+"discount button."
+msgstr ""
+"Επιλέξτε την σελίδα όπου θα ανακατευθύνεται ο χρήστης όταν επιλέγει το "
+"κουμπί έκπτωσης."
+
+#: plugin-options/recipient_delivery-options.php:236
+msgid "Auto-apply the Gift Card code"
+msgstr "Αυτόματη εφαρμογή κωδικού Δωροκάρτας"
+
+#: plugin-options/recipient_delivery-options.php:240
+msgid ""
+"If enabled, the gift card code will be automatically applied when the user "
+"clicks on the button."
+msgstr ""
+"Αν ενεργοποιηθεί, ο κωδικός δωροκάρτας θα εφαρμόζεται αυτόματα όταν ο "
+"χρήστης επιλέγει το κουμπί."
+
+#: plugin-options/recipient_delivery-options.php:248
+msgid "Enter a custom text in the email template"
+msgstr "Εισάγετε ένα προσαρμοσμένο κείμενο στο πρότυπο email"
+
+#: plugin-options/recipient_delivery-options.php:253
+msgid ""
+"This text will be displayed in the gift card email with the instructions "
+"about how to redeem the gift card. Leave this field empty if you do not want "
+"to display any message."
+msgstr ""
+"Αυτό το κείμενο θα εμφανίζεται στο email δωροκάρτας μαζί με τις οδηγίες "
+"εξαργύρωσης δωροκάρτας. Αφήστε το πεδίο κενό αν δεν θέλετε να εμφανίζετε "
+"κάποιο μήνυμα."
+
+#: plugin-options/recipient_delivery-options.php:256
+msgid "Custom text in the email"
+msgstr "Προσαρμοσμένο κείμενο στο email"
+
+#: plugin-options/recipient_delivery-options.php:260
+#: templates/yith-gift-cards/ywgc-gift-card-template.php:180
+msgid ""
+"To use this gift card, you can either enter the code in the gift card field "
+"on the cart page or click on the following link to automatically get the "
+"discount."
+msgstr ""
+"Για να χρησιμοποιήσετε την δωροκάρτα, μπορείτε ή να εισάγετε τον κωδικό στο "
+"πεδίο δωροκάρτας στη σελίδα καλαθιού, είτε να επιλέξετε τον ακόλουθο "
+"σύνδεσμο για να αποκτήσετε αυτόματα την έκπτωση."
+
+#: plugin-options/recipient_delivery-options.php:261
+msgid "write a message with the instructions to show in the gift card email"
+msgstr ""
+
+#: plugin-options/recipient_delivery-options.php:268
+msgid "Custom text in the PDF"
+msgstr "Προσαρμοσμένο κείμενο στο PDF"
+
+#: plugin-options/recipient_delivery-options.php:272
+msgid ""
+"You can automatically apply the gift card code by simply reading the QR code "
+"with your phone."
+msgstr ""
+"Μπορείτε να εφαρμόσετε τον κωδικό δωροκάρτας αυτόματα διαβάζοντας τον κωδικό "
+"QR με το κινητό σας."
+
+#: plugin-options/recipient_delivery-options.php:273
+msgid "write a message with the instructions to show in the gift card PDF"
+msgstr ""
+
+#: plugin-options/recipient_delivery-options.php:280
+msgid "Show the gift card price in the email"
+msgstr "Εμφάνιση της τιμής δωροκάρτας στο email"
+
+#: plugin-options/recipient_delivery-options.php:285
+msgid "If enabled, the gift card price will show up in the gift card template."
+msgstr ""
+"Αν ενεργοποιηθεί, η τιμή δωροκάρτας θα εμφανίζεται στο πρότυπο δωροκάρτας."
+
+#: plugin-options/recipient_delivery-options.php:288
+msgid "Show the gift card’s expiration date"
+msgstr "Εμφάνιση ημερομηνίας λήξης δωροκάρτας"
+
+#: plugin-options/recipient_delivery-options.php:293
+msgid ""
+"If enabled, the gift card expiration date will show up in the gift card "
+"template, if available."
+msgstr ""
+"Αν ενεργοποιηθεί, η ημερομηνία λήξης δωροκάρτας θα εμφανίζεται στο πρότυπο "
+"δωροκάρτας, αν αυτό είναι διαθέσιμο."
+
+#: plugin-options/recipient_delivery-options.php:296
+msgid "Show QR code"
+msgstr "Εμφάνιση κωδικού QR"
+
+#: plugin-options/recipient_delivery-options.php:301
+msgid ""
+"If enabled, the gift card template will show a QR code with the gift card "
+"code, so if customers read the code with their phone, they will be "
+"redirected to the Shop page and the gift card will be automatically applied "
+"to the cart."
+msgstr ""
+"Αν ενεργοποιηθεί, το πρότυπο δωροκάρτας θα εμφανίσει έναν κωδικό QR με τον "
+"κωδικό δωροκάρτας, έτσι ώστε αν οι πελάτες διαβάσουν τον κωδικό με το κινητό "
+"τους, θα ανακατευθυνθούν στη σελίδα Καταστήματος και η δωροκάρτα θα "
+"εφαρμοστεί αυτόματα στο καλάθι."
+
+#: plugin-options/recipient_delivery-options.php:304
+msgid "Attach PDF"
+msgstr "Επισύναψη PDF"
+
+#: plugin-options/recipient_delivery-options.php:309
+msgid ""
+"If enabled, a PDF with the gift card will be attached to the WooCommerce "
+"order processing or order completed emails."
+msgstr ""
+"Αν ενεργοποιηθεί, θα επισυνάπτεται ένα PDF με την δωροκάρτα στα email "
+"επεξεργασίας παραγγελίας ή ολοκλήρωσης παραγγελίας του WooCommerce."
+
+#: plugin-options/recipient_delivery-options.php:312
+msgid "PDF file name"
+msgstr "Όνομα αρχείου PDF"
+
+#: plugin-options/recipient_delivery-options.php:317
+msgid ""
+"Write the gift card PDF file name. You can use the placeholders [giftcardid] "
+"to include the gift card ID and [uniqid] to include a unique and random ID. "
+"It is recommended to add these placeholders to avoid duplicate file names."
+msgstr ""
+"Πληκτρολογήστε το όνομα αρχείου PDF της δωροκάρτας. Μπορείτε να "
+"χρησιμοποιήσετε το κείμενο υποκατάστασης [giftcardid] για να περιλαμβάνεται "
+"το ID δωροκάρτας και [uniqid] για να περιλαμβάνεται ένα μοναδικό και τυχαίο "
+"ID. Η προσθήκη των κειμένων υποκατάστασης συνιστάται προς αποφυγή "
+"δημιουργίας αντιγράφου των ονομάτων αρχείων."
+
+#: templates/checkout/form-gift-cards.php:52
+msgctxt "Apply gift card"
+msgid ""
+"In order to apply the gift card, the total amount in the cart has to be at "
+"least"
+msgstr ""
+"Για εφαρμογή δωροκάρτας, το συνολικό ποσό στο καλάθι πρέπει να είναι "
+"τουλάχιστον"
+
+#: templates/checkout/form-gift-cards.php:63
+msgid "Apply the gift card code in the following field"
+msgstr "Εφαρμογή κωδικού δωροκάρτας στο ακόλουθο πεδίο"
+
+#: templates/checkout/form-gift-cards.php:68
+msgctxt "Apply gift card"
+msgid "Gift card code"
+msgstr "Κωδικός δωροκάρτας"
+
+#: templates/emails/product-suggestion.php:37
+msgid "Maybe you can use the gift card for this item:"
+msgstr ""
+"Ίσως να μπορείτε να χρησιμοποιήσετε την δωροκάρτα για αυτό το αντικείμενο:"
+
+#: templates/myaccount/my-giftcards.php:14
+#: templates/shortcodes/user-gift-card-table.php:28
+msgid "Code"
+msgstr "Κωδικός"
+
+#: templates/myaccount/my-giftcards.php:16
+msgid "Usage"
+msgstr "Χρήση"
+
+#: templates/myaccount/my-giftcards.php:17
+#: templates/shortcodes/user-gift-card-table.php:30
+msgid "Status"
+msgstr "Κατάσταση"
+
+#: templates/myaccount/my-giftcards.php:18
+#: templates/shortcodes/user-gift-card-table.php:31
+msgid "Auto Apply"
+msgstr "Αυτόματη Εφαρμογή"
+
+#: templates/myaccount/my-giftcards.php:58
+#: templates/shortcodes/gift-card-check-balance-form.php:18
+#: templates/shortcodes/redeem-gift-card-form.php:18
+msgid "The code added is not associated to any existing gift card."
+msgstr ""
+"Ο κωδικός που προστέθηκε δεν είναι συνδεδεμένος με καμία υπάρχουσα δωροκάρτα."
+
+#: templates/myaccount/my-giftcards.php:64
+msgid "The gift card code %s is now linked to your account."
+msgstr ""
+"Ο κωδικός δωροκάρτας %s είναι πλέον συνδεδεμένος με τον λογαριασμό σας."
+
+#: templates/myaccount/my-giftcards.php:72
+msgid "Link a gift card to your account "
+msgstr "Συνδέστε μια δωροκάρτα με τον λογαριασμό σας "
+
+#: templates/myaccount/my-giftcards.php:73
+msgid "Your gift card code here ..."
+msgstr "Ο κωδικός δωροκάρτας σας εδώ …"
+
+#: templates/myaccount/my-giftcards.php:74
+msgid "Add it"
+msgstr "Προσθήκη"
+
+#: templates/myaccount/my-giftcards.php:80
+#: templates/shortcodes/user-gift-card-table.php:69
+msgid "My Gift Cards"
+msgstr "Οι Δωροκάρτες Μου"
+
+#: templates/myaccount/my-giftcards.php:81
+msgid "Add new"
+msgstr "Προσθήκη νέας"
+
+#: templates/myaccount/my-giftcards.php:125
+#: templates/shortcodes/user-gift-card-table.php:113
+msgctxt "gift card expiration date"
+msgid "Expires on: %s (%s)"
+msgstr "Λήγει στις: %s (%s)"
+
+#: templates/myaccount/my-giftcards.php:137
+msgid "Order %s"
+msgstr "Παραγγελία %s"
+
+#: templates/myaccount/my-giftcards.php:157
+#: templates/shortcodes/user-gift-card-table.php:130
+msgid "Apply this gift card"
+msgstr "Εφαρμογή αυτής της δωροκάρτας"
+
+#: templates/shortcodes/gift-card-check-balance-form.php:14
+#: templates/shortcodes/redeem-gift-card-form.php:32
+msgid "Gift card balance: "
+msgstr "Υπόλοιπο δωροκάρτας: "
+
+#: templates/shortcodes/gift-card-check-balance-form.php:26
+#: templates/shortcodes/redeem-gift-card-form.php:41
+msgid "Gift Card code: "
+msgstr "Κωδικός δωροκάρτας: "
+
+#: templates/shortcodes/gift-card-check-balance-form.php:27
+msgid "Enter code"
+msgstr "Εισαγωγή κωδικού"
+
+#: templates/shortcodes/gift-card-check-balance-form.php:28
+#: templates/shortcodes/redeem-gift-card-form.php:45
+msgid "Submit"
+msgstr "Υποβολή"
+
+#: templates/shortcodes/redeem-gift-card-form.php:25
+msgid "The gift card has been redeemed successfully."
+msgstr "Η δωροκάρτα εξαργυρώθηκε με επιτυχία."
+
+#: templates/shortcodes/redeem-gift-card-form.php:26
+msgid "New gift card balance: "
+msgstr "Νέο υπόλοιπο δωροκάρτας: "
+
+#: templates/shortcodes/redeem-gift-card-form.php:31
+msgid "The gift card balance is not enough to cover this order amount."
+msgstr ""
+"Το υπόλοιπο δωροκάρτας δεν είναι αρκετό για να καλύψει το ποσό παραγγελίας."
+
+#: templates/shortcodes/redeem-gift-card-form.php:42
+msgid "ENTER CODE"
+msgstr "ΕΙΣΑΓΩΓΗ ΚΩΔΙΚΟΥ"
+
+#: templates/shortcodes/redeem-gift-card-form.php:43
+msgid "Used amount: "
+msgstr "Ποσό που έχει χρησιμοποιηθεί: "
+
+#: templates/shortcodes/redeem-gift-card-form.php:44
+msgid "ENTER AMOUNT"
+msgstr "ΕΙΣΑΓΩΓΗ ΠΟΣΟΥ"
+
+#: templates/single-product/add-to-cart/gift-card.php:46
+#: templates/single-product/add-to-cart/gift-this-product-form.php:23
+msgid "This product cannot be purchased"
+msgstr "Δεν είναι δυνατή η αγορά του προϊόντος"
+
+#: templates/single-product/form-preview.php:28
+#: templates/yith-gift-cards/ywgc-gift-card-template.php:130
+msgid "From: "
+msgstr "Από: "
+
+#: templates/single-product/form-preview.php:32
+#: templates/yith-gift-cards/ywgc-gift-card-template.php:134
+msgid "To: "
+msgstr "Σε: "
+
+#: templates/support-attachments.php:23
+msgid "Drop files or click here"
+msgstr "Απόθεση αρχείων ή κάντε κλικ εδώ"
+
+#: templates/support-attachments.php:43
+msgid "Use it!"
+msgstr "Χρησιμοποιήστε το!"
+
+#: templates/yith-gift-cards/gift-card-design.php:146
+msgid "Or "
+msgstr "Ή "
+
+#: templates/yith-gift-cards/gift-card-design.php:146
+msgid "Suggested size (px): "
+msgstr "Προτεινόμενο μέγεθος (px): "
+
+#: templates/yith-gift-cards/gift-card-design.php:146
+msgid "Upload your image >"
+msgstr "Ανέβασμα εικόνας >"
+
+#: templates/yith-gift-cards/gift-card-details.php:28
+msgid "Today"
+msgstr "Σήμερα"
+
+#: templates/yith-gift-cards/gift-card-details.php:33
+msgid "RECIPIENT INFO"
+msgstr "ΣΤΟΙΧΕΙΑ ΠΑΡΑΛΗΠΤΗ"
+
+#: templates/yith-gift-cards/gift-card-details.php:40
+msgid "Enter the recipient's name"
+msgstr "Εισάγετε το όνομα παραλήπτη"
+
+#: templates/yith-gift-cards/gift-card-details.php:44
+msgid "Email: "
+msgstr "Email: "
+
+#: templates/yith-gift-cards/gift-card-details.php:46
+msgid "Enter the recipient's email address"
+msgstr "Εισάγετε την διεύθυνση email παραλήπτη"
+
+#: templates/yith-gift-cards/gift-card-details.php:51
+msgid "If empty, will be sent to your email address"
+msgstr "Αν μείνει κενό, θα αποσταλεί στην διεύθυνση email σας"
+
+#: templates/yith-gift-cards/gift-card-details.php:55
+msgid "+ add another recipient"
+msgstr "+ προσθήκη επιπλέον παραλήπτη"
+
+#: templates/yith-gift-cards/gift-card-details.php:69
+#: templates/yith-gift-cards/physical-gift-card-details.php:29
+msgid "Enter your name"
+msgstr "Εισάγετε το όνομά σας"
+
+#: templates/yith-gift-cards/gift-card-presets.php:39
+msgid "Categories"
+msgstr "Κατηγορίες"
+
+#: templates/yith-gift-cards/gift-card-presets.php:43
+msgctxt "choose image"
+msgid "All"
+msgstr "Όλες"
+
+#: templates/yith-gift-cards/gift-card-presets.php:74
+#: templates/yith-gift-cards/gift-card-presets.php:131
+msgid "Upload your image"
+msgstr "Ανέβασμα εικόνας"
+
+#: templates/yith-gift-cards/gift-card-presets.php:119
+msgid "Choose"
+msgstr "Επιλογή"
+
+#: templates/yith-gift-cards/gift-card-presets.php:132
+msgid ""
+"Upload your custom image here, to make your gift card even more special!"
+msgstr ""
+"Ανεβάστε την προσαρμοσμένη εικόνα σας εδώ, για να κάνετε την δωροκάρτα σας "
+"ακόμη πιο ιδιαίτερη!"
+
+#: templates/yith-gift-cards/physical-gift-card-details.php:34
+msgid "Enter recipient name"
+msgstr "Εισάγετε το όνομα παραλήπτη"
+
+#: templates/yith-gift-cards/ywgc-gift-card-template.php:35
+#: templates/yith-gift-cards/ywgc-gift-card-template.php:36
+#: templates/yith-gift-cards/ywgc-gift-card-template.php:86
+#: templates/yith-gift-cards/ywgc-gift-card-template.php:87
+msgid "The shop logo for the gift card"
+msgstr "Το λογότυπο καταστήματος για την δωροκάρτα"
+
+#: templates/yith-gift-cards/ywgc-gift-card-template.php:63
+#: templates/yith-gift-cards/ywgc-gift-card-template.php:64
+#: templates/yith-gift-cards/ywgc-gift-card-template.php:69
+#: templates/yith-gift-cards/ywgc-gift-card-template.php:70
+msgid "Gift card image"
+msgstr "Εικόνα δωροκάρτας"
+
+#: templates/yith-gift-cards/ywgc-gift-card-template.php:104
+msgid "on"
+msgstr "σε"
+
+#: templates/yith-gift-cards/ywgc-gift-card-template.php:156
+msgid "Gift card code:"
+msgstr "Κωδικός δωροκάρτας:"
+
+#: templates/yith-gift-cards/ywgc-gift-card-template.php:186
+msgid ""
+"You can automatically apply the gift card in our shop by reading the QR code "
+"with your phone."
+msgstr ""
+"Μπορείτε να εφαρμόσετε την δωροκάρτα αυτόματα στο κατάστημά μας, διαβάζοντας "
+"τον κωδικό QR με το κινητό σας."
+
+#: templates/yith-gift-cards/ywgc-gift-card-template.php:193
+msgctxt "gift card expiration date"
+msgid "This gift card code will be valid until %s (%s)"
+msgstr "Ο κωδικός δωροκάρτας θα είναι έγκυρος έως %s (%s)"
+
+#: views/privacy/html-policy-content-collect_and_store.php:1
+msgctxt "Privacy Policy Content"
+msgid ""
+"While you visit our site, we collect information about you during the "
+"checkout process on our store. We’ll track:"
+msgstr ""
+"Κατα την επίσκεψή σας στον ιστότοπό μας, συγκεντρώνουμε πληροφορίες για εσάς "
+"κατα την διαδικασία ταμείου στο κατάστημά μας. Θα παρακολουθήσουμε:"
+
+#: views/privacy/html-policy-content-collect_and_store.php:4
+msgctxt "Privacy Policy Content"
+msgid ""
+"Sender's name, recipient's name and email address:  we’ll use this to create "
+"gift card products"
+msgstr ""
+"Όνομα αποστολέα, όνομα παραλήπτη και διεύθυνση email:  θα χρησιμοποιούμε "
+"αυτά τα στοιχεία για την δημιουργία προϊόντων δωροκάρτας"
+
+#: views/privacy/html-policy-content-has_access.php:1
+msgctxt "Privacy Policy Content"
+msgid ""
+"Members of our team have access to the information you provide us. For "
+"example, both Administrators and Shop Managers can access:"
+msgstr ""
+"Μέλη της ομάδας μας έχουν πρόσβαση στις πληροφορίες που μας παραχωρείτε. Για "
+"παράδειγμα, “Διαχειριστές” και “Διαχειριστές καταστήματος” έχουν πρόσβαση:"
+
+#: views/privacy/html-policy-content-has_access.php:4
+msgctxt "Privacy Policy Content"
+msgid ""
+"Sender name, recipient name, recipient email address, delivery date, "
+"message, amount and balance of the gift card you have purchased"
+msgstr ""
+"Όνομα αποστολέα, όνομα παραλήπτη, διεύθυνση email παραλήπτη, ημερομηνία "
+"παράδοσης, μήνυμα, ποσό και υπόλοιπο της δωροκάρτας που έχετε αγοράσει"
+
+#. Plugin Name of the plugin/theme
+msgid "YITH WooCommerce Gift Cards Premium"
+msgstr "YITH WooCommerce Gift Cards Premium"
+
+#. Plugin URI of the plugin/theme
+msgid "https://yithemes.com/themes/plugins/yith-woocommerce-gift-cards"
+msgstr "https://yithemes.com/themes/plugins/yith-woocommerce-gift-cards"
+
+#. Description of the plugin/theme
+msgid ""
+"<code><strong>YITH WooCommerce Gift Card</strong></code> allows your users "
+"to purchase and give gift cards. In this way, you will increase the spread "
+"of your brand, your sales, and average spend, especially during the "
+"holidays. <a href=\"https://yithemes.com/\" target=\"_blank\">Get more "
+"plugins for your e-commerce shop on <strong>YITH</strong></a>."
+msgstr ""
+"Το <code><strong>YITH WooCommerce Gift Card</strong></code> επιτρέπει στους "
+"χρήστες σας να αγοράσουν και χαρίσουν δωροκάρτες. Έτσι, θα αυξήσετε την "
+"ανάπτυξη της μάρκας σας, τις πωλήσεις σας, και τον μέσο όρο δαπάνης, κυρίως "
+"κατα την διάρκεια των διακοπών. <a href=“https://yithemes.com/“ "
+"target=“_blank”>Βρείτε περισσότερα πρόσθετα για το ηλεκτρονικό σας κατάστημα "
+"στο <strong>YITH</strong></a>."
+
+#. Author of the plugin/theme
+msgid "YITH"
+msgstr "YITH"
+
+#. Author URI of the plugin/theme
+msgid "https://yithemes.com/"
+msgstr "https://yithemes.com/"

@@ -1,0 +1,11 @@
+<wpml-config>
+    <admin-texts>
+        <key name="yith_wcmc_subscription_checkbox_label" />
+        <key name="yith_wcmc_shortcode_title" />
+        <key name="yith_wcmc_shortcode_privacy_label" />
+        <key name="yith_wcmc_shortcode_submit_button_label" />
+        <key name="yith_wcmc_widget_title" />
+        <key name="yith_wcmc_widget_submit_button_label" />
+        <key name="yith_wcmc_shortcode_success_message" />
+    </admin-texts>
+</wpml-config>

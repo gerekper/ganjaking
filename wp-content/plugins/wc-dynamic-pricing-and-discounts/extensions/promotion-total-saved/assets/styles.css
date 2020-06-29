@@ -1,0 +1,23 @@
+/**
+ * WooCommerce Dynamic Pricing & Discounts - Promotion - Total Saved - Styles
+ */
+
+.rp_wcdpd_promotion_total_saved_label {
+    
+}
+.rp_wcdpd_promotion_total_saved_amount {
+    font-weight: 700;
+}
+
+.rp_wcdpd_promotion_total_saved_div {
+    
+}
+.rp_wcdpd_promotion_total_saved_div_label {
+    float: left;
+}
+.rp_wcdpd_promotion_total_saved_div_amount {
+    float: right;
+}
+.rp_wcdpd_promotion_total_saved_div .rp_wcdpd_promotion_total_saved_label {
+    font-weight: 700;
+}

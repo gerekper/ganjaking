@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>{{slider-title}}</title>
+
+	<style>body, html { margin: 0; padding: 0; }</style>
+
+	<!-- LayerSlider CSS -->
+	<link rel="stylesheet" href="../../layerslider/css/layerslider.css">
+	{{google-fonts}}
+	{{icon-fonts}}
+	<!-- External libraries: jQuery -->
+	<script src="../../layerslider/js/jquery.js"></script>
+
+	<!-- LayerSlider script files -->
+	<script src="../../layerslider/js/layerslider.utils.js"></script>
+	<script src="../../layerslider/js/layerslider.transitions.js"></script>
+	<script src="../../layerslider/js/layerslider.kreaturamedia.jquery.js"></script>
+	{{layerslider-plugins}}
+</head>
+<body>
+
+	<!-- Slider HTML markup -->
+	{{slider-markup}}
+
+
+	<!-- Initializing the slider -->
+	<script type="text/javascript">
+
+		$(document).ready(function() {
+
+			{{slider-api}}
+			$('#slider').layerSlider({
+				{{slider-props}}
+			});
+		});
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,190 @@
+*** WooCommerce Freshbooks Changelog ***
+
+2020.01.02 - version 3.14.1
+ * Misc - Add support for WooCommerce 3.9
+
+2019.10.21 - version 3.14.0
+ * Misc - Add support for WooCommerce 3.8
+
+2019.08.12 - version 3.13.0
+ * Misc - Add support for WooCommerce 3.7
+ * Misc - Remove support for WooCommerce 2.6
+ * Misc - Require PHP 5.6+
+
+2019.04.03 - version 3.12.1
+ * Misc - Add support for WooCommerce 3.6
+ * Misc - Require PHP 5.4+
+
+2019.02.12 - version 3.12.0
+ * Misc - Drop support for PHP v5.2: PHP v5.3 is now the minimum supported version
+ * Misc - Update the SkyVerge Plugin Framework to version 5.3
+
+2018.11.29 - version 3.11.4
+ * Tweak - Add setting to send line items inclusive of tax
+
+2018.10.16 - version 3.11.3
+ * Misc - Add support for WooCommerce 3.5
+
+2018.05.23 - version 3.11.2
+ * Misc - Add support for WooCommerce 3.4
+
+2018.02.07 - version 3.11.1
+ * Ensure order table action icons are displayed correctly in WooCommerce 3.3+
+
+2018.01.23 - version 3.11.0
+ * Tweak - Add Freshbooks invoice status to order preview modal
+ * Misc - Add support for WooCommerce 3.3
+ * Misc - Remove support for WooCommerce 2.5
+
+2017.08.01 - version 3.10.1
+ * Misc - Added support for WooCommerce 3.1
+
+2017.03.28 - version 3.10.0
+ * Fix - Ensure styles & scripts are loaded where needed when "WooCommerce" string is translated
+ * Fix - When product prices include tax, use un-rounded unit costs to avoid price disparities between FreshBooks and WooCommerce
+ * Misc - Added support for WooCommerce 3.0
+ * Misc - Removed support for WooCommerce 2.4
+ * Misc - Removed support for WooCommerce Subscriptions versions older than v2.0.0
+
+2016.08.31 - version 3.9.2
+ * Fix - On some mobile devices the orders table view in the orders edit screen might result broken by the Freshbooks invoice status column
+
+2016.07.27 - version 3.9.1
+ * Misc - WordPress 4.6 compatibility
+
+2016.06.02 - version 3.9.0
+ * Misc - Added support for WooCommerce 2.6
+ * Misc - Removed support for WooCommerce 2.3
+
+2016.05.03 - version 3.8.0
+ * Feature - Attach Taxamo VAT Number to Freshbooks clients
+ * Feature - Customers can now link to the Freshbooks invoice from the WooCommerce My Orders section
+
+2016.01.14 - version 3.7.0
+ * Misc - Added support for WooCommerce 2.5
+ * Misc - Removed support for WooCommerce 2.2
+
+2015.12.11 - version 3.6.0
+ * Feature - You can now select which FreshBooks payment types should be used for order payment methods
+
+2015.10.06 - version 3.5.1
+ * Tweak - Auto-create invoices (when enabled) for the COD gateway
+ * Misc - WooCommerce Subscriptions 2.0 Compatibility
+
+2015.07.28 - version 3.5.0
+ * Misc - WooCommerce 2.4 Compatibility
+
+2015.06.16 - version 3.4.0
+ * Feature - WooCommerce Bookings compatibility
+ * Tweak - Added support for custom product types
+
+2015.04.29 - version 3.3.3
+ * Tweak - Introduce the `wc_freshbooks_payment_type` filter
+
+2015.03.26 - version 3.3.2
+ * Tweak - Attach Chosen.js to form fields only if Select2 is not available
+
+2015.02.24 - version 3.3.1
+ * Fix - Ensure the FreshBooks Item can be saved for all product types
+ * Fix - Ability to set the FreshBooks Item back to "None"
+ * Fix - Ensure variation meta is properly saved in WooCommerce 2.3
+
+2015.02.09 - version 3.3.0
+ * Tweak - Notify user if required `xmlwriter` PHP extension is missing
+ * Misc - WooCommerce 2.3 Compatibility
+
+2014.11.11 - version 3.2.4
+ * Tweak - Added 'Not Exported' option to invoice status filter
+ * Fix - Fix an issue with attribute display on the Freshbooks invoice
+
+2014.10.21 - version 3.2.3
+ * Fix - Fix "Wrong parameters for Exception" error
+ * Misc - Update plugin framework
+
+2014.09.10 - version 3.2.2
+ * Fix - Fix error when bulk updating invoice status for orders that have no associated invoice
+ * Fix - Fix error during upgrade to WooCommerce 2.2
+
+2014.09.09 - version 3.2.1
+ * Fix - Load all invoice items if more than 100 exist
+ * Tweak - Invoices can updated from an order in bulk
+
+2014.09.07 - version 3.2.0
+ * Feature - You can now update invoices from an order after they have been created in FreshBooks
+ * Fix - Fix issue with order search when plugin is active
+ * Misc - WooCommerce 2.2 Compatibility
+
+2014.08.19 - version 3.1.1
+ * Fix - Include order discounts for manually created orders
+ * Fix - Only lookup clients when creating invoices if the order has a valid billing email
+
+2014.07.14 - version 3.1
+ * Feature - You can now manually update invoices using the bulk order action
+ * Fix - Fix issue with updating invoice status when an invoice is paid in FreshBooks
+ * Fix - Fix issue with sending automatically sending new invoices for new orders
+
+2014.06.04 - version 3.0.1
+ * Fix - Fix missing coupon line items
+
+2014.05.27 - version 3.0
+ * Feature - Easily view invoice status & number for each order
+ * Feature - You can now control whether an invoice is sent immediately or created as a draft on a per-order basis
+ * Feature - Quickly browse to the associated invoice in Freshbooks for an order when viewing in the Edit Order screen
+ * Feature - Set a default language for your invoices
+ * Feature - Taxes are now included as line items with Tax Codes used as item names for improved reporting
+ * Feature - Invoices and payments are automatically synced between FreshBooks and WooCommerce
+ * Feature - Link your products to FreshBooks items for improved reporting
+ * Misc - Complete rewrite to improve stability and performance
+ * Misc - Uses SkyVerge Plugin Framework
+ * Misc - WooCommerce 2.1 is now required
+ * Misc - Many new filters and actions added to help you customize the integration
+ * Localization - Text domain changed from `wc_freshbooks` to `woocommerce-freshbooks`
+
+2014.04.25 - version 2.1.3
+ * Tweak - Line item attributes are now included in invoice item descriptions
+ * Fix - Fix issue when creating payments under a generic client
+
+2014.02.24 - version 2.1.2
+ * Fix - Fix issue when creating invoices under a generic client
+
+2014.02.10 - version 2.1.1
+ * Tweak - Invoices are created using the same currency as your site
+ * Tweak - Clients / Invoices are now automatically created when changing an order status from on-hold/failed to processing/completed
+
+2014.01.20 - version 2.1
+ * Misc - WooCommerce 2.1 Compatibility
+
+2013.12.13 - version 2.0.4
+ * Tweak - Coupons are now included as invoice line items
+ * Fix - Ampersands in company names are now properly encoded
+
+2013.11.09 - version 2.0.3
+ * Tweak - Order Fees are now included as invoice line items
+ * Tweak - Shipping and tax are only included in the created invoice if they exist on the order
+ * Tweak - Subscription renewal orders now create a new invoice and automatically apply the payment
+
+2013.09.27 - version 2.0.2
+ * Feature - You can now create a client & invoice from an order using the order actions drop-down
+
+2013.08.23 - version 2.0.1
+ * Tweak - Rebrand to SkyVerge
+
+2013.02.28 - version 2.0.0
+ * Updated PHP API library
+ * Manual payments action added for WC 2.0+ sites
+ * WC_Order instead of woocommerce_order
+ * Code cleanup
+ * Generic client option added
+ * Descriptions added to settings
+ * Removed create invoice option, made no sense...
+ * Use order number as invoice number.
+
+2012.12.04 - version 1.0.2
+ * New updater
+
+2012.03.07 - version 1.0.1
+ * Added taxes to invoice
+ * If invoice prefix if left blank invoice will autoincrement based on last Freshbooks invoice created.
+
+2012.03.01 - version 1.0
+ * First release

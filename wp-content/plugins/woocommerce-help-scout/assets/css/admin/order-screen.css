@@ -1,0 +1,18 @@
+#help-scout-conversation label {
+	display: block;
+	font-weight: bold;
+}
+
+#help-scout-conversation .required {
+	font-size: 0.85em;
+	font-weight: normal;
+}
+
+#help-scout-conversation input[type="text"] {
+	width: 100%;
+}
+
+#help-scout-conversation textarea {
+	width: 100%;
+	max-width: 100%;
+}

@@ -1,0 +1,320 @@
+/**
+ * General admin style
+ *
+ * @author  Your Inspiration Themes
+ * @package YITH WooCommerce Mailchimp
+ * @version 1.0.0
+ */
+
+/* === INTEGRATION STATUS === */
+.yith_wcmc_integration_status .account-banner,
+.yith_wcmc_store_integration_status .store-banner{
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 30px;
+    position: relative;
+}
+
+.yith_wcmc_integration_status .account-banner:after,
+.yith_wcmc_store_integration_status .store-banner:after{
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.yith_wcmc_integration_status .account-banner .account-avatar,
+.yith_wcmc_store_integration_status .store-banner .store-details{
+    text-align: center;
+    width: 20%;
+    float: left;
+    border-right: 1px solid #eee;
+    box-sizing: border-box;
+}
+
+.yith_wcmc_store_integration_status .store-banner .store-details{
+    width: 80%;
+    text-align: left;
+}
+
+.yith_wcmc_store_integration_status .store-banner .store-details .label{
+    min-width: 80px;
+    display: inline-block;
+}
+
+.yith_wcmc_store_integration_status .store-banner .store-details .address{
+    display: inline-block;
+    vertical-align: top;
+}
+
+.yith_wcmc_integration_status .account-banner .account-avatar .account-thumb{
+    border: 5px solid #eee;
+    display: inline-block;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 10px;
+    height: 96px;
+    width: 96px;
+}
+
+.yith_wcmc_integration_status .account-banner .account-avatar .account-name{
+    font-weight: 700;
+}
+
+.yith_wcmc_integration_status .account-banner .account-details,
+.yith_wcmc_store_integration_status .store-banner .store-deactivate{
+    float: right;
+    width: 80%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.yith_wcmc_store_integration_status .store-banner .store-deactivate{
+    width: 20%;
+    text-align: center;
+    padding: 70px 0;
+}
+
+.yith_wcmc_integration_status .account-banner .account-details p{
+    margin-bottom: 10px;
+}
+
+.yith_wcmc_integration_status .account-banner .account-details p .label{
+    margin-right: 10px;
+}
+
+.yith_wcmc_integration_status mark,
+.yith_wcmc_store_integration_status mark{
+    display: inline-block;
+    text-indent: -9999px;
+    position: relative;
+    height: 1em;
+    width: 1em;
+    background: 0 0;
+    font-size: 1.4em;
+    margin: 0 auto;
+    vertical-align: middle;
+}
+
+.yith_wcmc_integration_status mark.cancelled:after, .yith_wcmc_integration_status mark.completed:after,
+.yith_wcmc_store_integration_status mark.cancelled:after, .yith_wcmc_store_integration_status mark.completed:after{
+    font-family: WooCommerce;
+    font-weight: 400;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    text-indent: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.yith_wcmc_integration_status mark.completed:after,
+.yith_wcmc_store_integration_status mark.completed:after{
+    content: "\e015";
+    color: #73a724;
+}
+
+.yith_wcmc_integration_status mark.cancelled:after,
+.yith_wcmc_store_integration_status mark.cancelled:after{
+    content: "\e013";
+    color: #a00;
+}
+
+/* === DASHBOARD WIDGET === */
+#yith_wcmc_dashboard_widget .inside:after{
+    content: '';
+    display: block;
+    clear: both;
+}
+
+#yith_wcmc_dashboard_widget .yith_wcmc_integration_status .account-banner{
+    padding: 20px;
+}
+
+#yith_wcmc_dashboard_widget .yith_wcmc_integration_status .account-banner .account-avatar{
+    width: 25%;
+    border: none;
+}
+
+#yith_wcmc_dashboard_widget .yith_wcmc_integration_status .account-banner .account-avatar img{
+    max-width: 100%;
+    height: auto;
+}
+
+#yith_wcmc_dashboard_widget .yith_wcmc_integration_status .account-banner .account-avatar .account-thumb{
+    width: 66px;
+    height: 66px;
+}
+
+#yith_wcmc_dashboard_widget .yith_wcmc_integration_status .account-banner .account-details{
+    width: 75%;
+    padding: 10px;
+}
+
+#yith_wcmc_dashboard_widget .yith_wcmc_integration_status .account-banner .account-details p:first-child{
+    margin-top: 0;
+}
+
+#yith_wcmc_dashboard_widget .list-stat-container{
+    position: relative;
+}
+
+#yith_wcmc_dashboard_widget .carousel_controls{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    z-index: 10;
+}
+
+#yith_wcmc_dashboard_widget .carousel_controls a{
+    display: inline-block;
+    text-indent: -9999px;
+    position: relative;
+    width: 1.4em;
+    height: 1.4em;
+}
+
+#yith_wcmc_dashboard_widget .carousel_controls a:before{
+    font-family: WooCommerce;
+    font-weight: 400;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    text-indent: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    color: #ebebeb;
+    font-size: 1.4em;
+    background: #fff;
+    border-radius: 50%;
+}
+
+#yith_wcmc_dashboard_widget .carousel_controls a:focus,
+#yith_wcmc_dashboard_widget .carousel_controls a:active{
+    box-shadow: none!important;
+    -webkit-box-shadow: none!important;
+    -moz-box-shadow: none!important;
+}
+
+#yith_wcmc_dashboard_widget .carousel_controls a:hover:before{
+    color: #aaa;
+}
+
+#yith_wcmc_dashboard_widget .carousel_controls a.prev:before{
+    content: '\e00b';
+}
+
+#yith_wcmc_dashboard_widget .carousel_controls a.next:before{
+    content: '\e008';
+}
+
+#yith_wcmc_dashboard_widget .yith_wcmc_list_stats{
+    border: 1px solid #ebebeb;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+#yith_wcmc_dashboard_widget .yith_wcmc_list_stats .list-stat{
+    padding: 10px;
+}
+
+#yith_wcmc_dashboard_widget .yith_wcmc_list_stats .list-stat h3 {
+    padding: 5px 0;
+    border-bottom: 1px solid #ebebeb;
+    margin-bottom: 10px;
+}
+
+#yith_wcmc_dashboard_widget .yith_wcmc_list_stats .list-stat table {
+    width: 100%;
+}
+
+#yith_wcmc_dashboard_widget .yith_wcmc_list_stats .list-stat th,
+#yith_wcmc_dashboard_widget .yith_wcmc_list_stats .list-stat td {
+    border-bottom: 1px dashed #ebebeb;
+    padding-bottom: 5px;
+}
+
+#yith_wcmc_dashboard_widget .yith_wcmc_list_stats .list-stat tr:last-child th,
+#yith_wcmc_dashboard_widget .yith_wcmc_list_stats .list-stat tr:last-child td{
+    border: none;
+}
+
+#yith_wcmc_dashboard_widget .yith_wcmc_list_stats .list-stat table th {
+    text-align: left;
+}
+
+#yith_wcmc_dashboard_widget .refresh-list-stats{
+    margin-top: 10px;
+    float: right;
+}
+
+#yith_wcmc_dashboard_widget .refresh-list-stats:before{
+    font-family: WooCommerce;
+    font-weight: 400;
+    content: '\e031';
+    vertical-align: middle;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+/* === LIST UPDATER === */
+
+a.ajax-mailchimp-updater-list,
+a.ajax-mailchimp-updater-group,
+a.ajax-mailchimp-updater-field,
+a.update-fields{
+    vertical-align: middle!important;
+    margin: 0 5px!important;
+}
+
+.select2-container.chosen_select,
+.select2-container.select2-container-multi{
+    display: inline-block!important;
+}
+
+#yith_wcmc_panel_shortcode .select2-container,
+#yith_wcmc_panel_widget .select2-container{
+    float: left;
+}
+
+#yith_wcmc_panel_export input[type="submit"]:not(.visible){
+    display: none;
+}
+
+/* === PANEL WIDGET === */
+#yith_wcmc_panel_shortcode .forminp-textarea p,
+#yith_wcmc_panel_widget .forminp-textarea p{
+    font-size: 13px;
+    font-style: italic;
+
+    margin-bottom: 15px;
+}
+
+/* === ORDER METABOX === */
+#yith_wcmc_user_preferences span.option-label {
+    font-weight: 600;
+}
+
+#yith_wcmc_user_preferences p.option {
+    margin: 5px 0;
+}
+
+#yith_wcmc_user_preferences p.description {
+    margin-bottom: 16px;
+}
+
+#yith_wcmc_user_preferences .mailchimp-personal-data {
+    border-top: 1px solid #ebebeb;
+    margin-top: 20px;
+}

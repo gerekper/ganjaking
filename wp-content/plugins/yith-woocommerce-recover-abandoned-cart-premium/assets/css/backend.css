@@ -1,0 +1,135 @@
+#yith-ywrac-table-list{
+    width:100%;
+}
+
+#yith-ywrac-table-list thead th{
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+#yith-ywrac-table-list thead{
+    margin-bottom: 10px;
+}
+#yith-ywrac-table-list img{
+    max-width: 50px;
+    height: auto;
+}
+
+
+#yith-ywrac-table-list td{
+    text-align: center;
+    padding: 5px;
+}
+
+#yith-ywrac-table-list td.product-name,
+#yith-ywrac-table-list td.product-name a{
+    width: 100%;
+    text-align: left;
+    display: block;
+}
+span.abandoned{
+    background-color: red;
+    padding: 3px 10px;
+    color: white;
+    text-transform: uppercase;
+}
+span.opened{
+    background-color: green;
+    padding: 3px 10px;
+    color: white;
+    text-transform: uppercase;
+}
+
+.yith-ywrac-info-cart td,
+.yith-ywrac-info-cart th{
+    text-align: left;
+}
+
+.the-metabox.simple-text .label{
+    width: 200px;
+    font-weight: bolder;
+    display: inline-block;
+}
+
+.yit-plugins_page_yith_woocommerce_recover_abandoned_cart #poststuff #post-body.columns-2{
+    margin-right: 0px;
+}
+
+
+.widefat .column-status .ywrac-email-status{
+    display: block;
+    text-indent: -9999px;
+    position: relative;
+    height: 1em;
+    width: 1em;
+    background: 0 0;
+    font-size: 1.4em;
+}
+
+
+.widefat .column-status .ywrac-email-status.active:after,
+.widefat .column-status .ywrac-email-status.deactive:after{
+    font-family: WooCommerce;
+    font-weight: 400;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    text-indent: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.widefat .column-status .ywrac-email-status.deactive:after{
+    content: "\e013";
+    color: #a00000;
+}
+
+.widefat .column-status .ywrac-email-status.active:after{
+    content: "\e015";
+    color: #44CC2E;
+}
+.ywrac-reports{
+    width: 80%;
+    background-color: #fff;
+    text-align: left;
+    margin-bottom: 20px;
+}
+.ywrac-reports th{
+    border-right: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+.ywrac-reports td{
+    border-bottom: 1px solid #eee;
+}
+
+/* tinymce */
+i.mce-i-ywrac-icon {
+    background-image: url(../images/yithemes-icon.png) ;
+    width: 16px;
+    height: 16px;
+    vertical-align: top;
+    speak: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin-left: -2px;
+    padding-right: 2px
+}
+
+#_ywrac_email_to_send-container input{
+    width: 100%;
+}
+
+.yith-ywrac-info-cart .ywrac_send_email{
+    margin-top: 10px;
+}
+.ywrac-history-table{
+    width: 100%;
+}
+.ywrac-history-table td{
+    border-bottom: 1px solid #eee;
+}

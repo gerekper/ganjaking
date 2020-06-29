@@ -1,0 +1,283 @@
+ul.reports-stats li {
+    float: left;
+    width: 170px;
+    font-size: 11px;
+    padding: 5px 0;
+    margin: 0 10px;
+    min-height: 45px;
+    background: #fff;
+    box-shadow: 0 1px 1px rgba(0,0,0,.04);
+    border: 1px solid #e5e5e5;
+}
+ul.reports-stats li.auto-width {
+    width: auto;
+    padding: 5px 10px;
+    line-height: normal;
+}
+ul.reports-stats li span.dashicons {
+    float: left;
+    display: block;
+    width: 30px;
+    font-size: 30px;
+    margin: 5px 10px 5px 0;
+}
+ul.reports-stats li strong {
+    display: inline-block;
+    font-size: 15px;
+    margin-top: 10px;
+}
+ul.reports-stats li strong span.meta {
+    font-weight: normal;
+    font-size: 12px;
+}
+
+h2.nav-tab-wrapper{
+    margin: 25px 0;
+}
+
+div.chart_container {
+    background: #fff;
+    padding: 10px;
+    box-shadow: 0 1px 1px rgba(0,0,0,.04);
+    border: 1px solid #e5e5e5;
+}
+div.chart_container h3 {
+    text-align: center;
+    color: #d0d0d0;
+}
+
+div.gauge {
+    width: 170px;
+    height: 75px;
+}
+
+#fue_user_report .col-left {
+    float: left;
+}
+
+#fue_user_report .col-right {
+    float: right;
+}
+
+@media only screen and (min-width: 769px) {
+    #fue_user_report .col-left {
+        width: 70%;
+    }
+    #fue_user_report .col-right {
+        width: 29%;
+        margin-top: 52px;
+    }
+}
+@media only screen and (max-width: 860px) {
+    #fue_user_report .col-left {
+        width: 70%;
+    }
+    #fue_user_report .col-right {
+        width: 29%;
+        margin-top: 52px;
+    }
+}
+@media only screen and (min-width: 980px) {
+    #col-left {
+        width: 70%;
+    }
+    #col-right {
+        width: 29%;
+        margin-top: 52px;
+    }
+}
+@media only screen and (max-width: 868px) {
+    #fue_user_report .col-left, #fue_user_report .col-right {
+        width: 100%;
+    }
+
+    .add-reminder a.button {
+        display: inline !important;
+        float: right;
+        margin: 0 !important;
+    }
+}
+
+#fue_user_report .postbox h3 {
+    font-size: 14px;
+    line-height: 1.4;
+    margin: 0;
+    padding: 8px 12px;
+    border-bottom: 1px solid #eee;
+}
+
+#fue_user_report .postbox .separated {
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+}
+
+#fue_user_report .col-right div.clear {
+    height: 1px;
+}
+
+#fue_user_report .col-right .datepicker {
+    width: 100px !important;
+}
+
+#schedule_email_error {
+    color: #FF0000;
+}
+
+#schedule_email_success {
+    display: none;
+    color: #003300;
+}
+
+/** Emails **/
+#fue_customer_followups select.full {
+    width: 100%;
+}
+
+#fue_user_report #send_again_value {
+    width: 50px;
+}
+
+#fue_user_report p.send-again-p {
+    line-height: 3em;
+}
+
+#fue_user_report span.send-again {
+    vertical-align: middle;
+}
+
+/** Reminders **/
+#fue_user_report #fue_customer_reminders .inside {
+    margin: 0;
+    padding: 0;
+}
+
+#fue_user_report .postbox .add-reminder {
+    border-top: 1px solid #eee;
+    padding: 10px 10px 0;
+}
+
+.add-reminder h4 {
+    margin-top: 5px !important;
+}
+
+.add-reminder a.set_date_reminder {
+    display: block;
+    float: right;
+    margin: 10px 0 10px 0
+}
+
+ul.customer-reminders {
+    padding: 2px 0 0;
+}
+
+ul.customer-reminders li {
+    padding: 0 10px;
+}
+
+ul.customer-reminders li .reminder-content::after {
+    border-color: #efefef transparent;
+    border-style: solid;
+    border-width: 10px 10px 0 0;
+    bottom: -10px;
+    content: "";
+    display: block;
+    height: 0;
+    left: 20px;
+    position: absolute;
+    width: 0;
+}
+ul.customer-reminders li .reminder-content {
+    background: #efefef none repeat scroll 0 0;
+    padding: 1px 10px;
+    position: relative;
+}
+
+ul.customer-reminders li p.meta {
+    color: #999;
+    font-size: 11px;
+    margin: 0;
+    padding: 10px;
+}
+
+ul.customer-reminders li a.delete_reminder {
+    color: #a00;
+}
+
+#fue_user_report textarea#reminder_note {
+    height: 50px;
+    width: 100%;
+}
+
+#fue_user_report #fue_customer_reminders .button.right {
+    float: right;
+}
+
+#fue_user_report #reminder_interval_days {
+    width: 50px;
+}
+
+#fue_user_report #reminder_date {
+    width: 100px;
+}
+
+/** Customer Notes **/
+#fue_user_report #fue_customer_notes .inside {
+    margin: 0;
+    padding: 0;
+}
+
+#fue_user_report .postbox .add-note {
+    border-top: 1px solid #eee;
+    padding: 10px 10px 0;
+}
+
+.add-note h4 {
+    margin-top: 5px !important;
+}
+
+ul.customer-notes {
+    padding: 2px 0 0;
+}
+
+ul.customer-notes li {
+    padding: 0 10px;
+}
+
+ul.customer-notes li .note-content::after {
+    border-color: #efefef transparent;
+    border-style: solid;
+    border-width: 10px 10px 0 0;
+    bottom: -10px;
+    content: "";
+    display: block;
+    height: 0;
+    left: 20px;
+    position: absolute;
+    width: 0;
+}
+ul.customer-notes li .note-content {
+    background: #efefef none repeat scroll 0 0;
+    padding: 1px 10px;
+    position: relative;
+}
+
+ul.customer-notes li p.meta {
+    color: #999;
+    font-size: 11px;
+    margin: 0;
+    padding: 10px;
+}
+
+ul.customer-notes li a.delete_note {
+    color: #a00;
+}
+
+.add-note #add_customer_note {
+    height: 50px;
+    width: 100%;
+}
+
+th.column-toggle {
+    width: 30px;
+    text-align: right;
+}

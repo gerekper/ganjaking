@@ -1,0 +1,143 @@
+{
+  "about_agency": {
+    "name": "About Agency",
+    "type": "page"
+  },
+  "about_agency_2": {
+    "name": "About Agency 2",
+    "type": "page"
+  },
+  "about_company": {
+    "name": "About Company",
+    "type": "page"
+  },
+  "about_grid": {
+    "name": "About Grid",
+    "type": "page"
+  },
+  "about_me_dark": {
+    "name": "About Me - Dark",
+    "type": "page"
+  },
+  "about_me_light": {
+    "name": "About Me - Light",
+    "type": "page"
+  },
+  "about_us": {
+    "name": "About Us",
+    "type": "page"
+  },
+  "apricot_fashion": {
+    "name": "Apricot Fashion",
+    "type": "home"
+  },
+  "avocado_studio": {
+    "name": "Avocado Studio",
+    "type": "home"
+  },
+  "babaco_corporate": {
+    "name": "Babaco Corporate",
+    "type": "home"
+  },
+  "banana_construction": {
+    "name": "Banana Construction",
+    "type": "home"
+  },
+  "client": {
+    "name": "Client",
+    "type": "page"
+  },
+  "coconut_coffee": {
+    "name": "Coconut Coffee",
+    "type": "home"
+  },
+  "duku_hospital": {
+    "name": "Duku Hospital",
+    "type": "home"
+  },
+  "faq": {
+    "name": "FAQ",
+    "type": "page"
+  },
+  "fig_photography": {
+    "name": "Fig Photography",
+    "type": "home"
+  },
+  "full_page_sections": {
+    "name": "Full Page Sections",
+    "type": "page"
+  },
+  "grid_full_width": {
+    "name": "Grid Full Width",
+    "type": "page"
+  },
+  "grid_pinterest": {
+    "name": "Grid Pinterest",
+    "type": "page"
+  },
+  "grid_posts": {
+    "name": "Grid Posts",
+    "type": "page"
+  },
+  "huito_fashion": {
+    "name": "Huito Fashion",
+    "type": "home"
+  },
+  "ilama_creative": {
+    "name": "Ilama Creative",
+    "type": "home"
+  },
+  "kiwi_vector_studio": {
+    "name": "Kiwi Vector Studio",
+    "type": "home"
+  },
+  "mulberry_blog": {
+    "name": "Mulberry Blog",
+    "type": "home"
+  },
+  "nectarine_furniture": {
+    "name": "Nectarine Furniture",
+    "type": "home"
+  },
+  "our_process_1": {
+    "name": "Our Process 1",
+    "type": "page"
+  },
+  "our_process_2": {
+    "name": "Our Process 2",
+    "type": "page"
+  },
+  "papaya_studio": {
+    "name": "Papaya Studio",
+    "type": "home"
+  },
+  "pineapple_restaurant": {
+    "name": "Pineapple Restaurant",
+    "type": "home"
+  },
+  "purple_sport": {
+    "name": "Purple Sport",
+    "type": "home"
+  },
+  "services": {
+    "name": "Services",
+    "type": "page"
+  },
+  "split_screen": {
+    "name": "Split Screen",
+    "type": "page"
+  },
+  "vanilla_wedding": {
+    "name": "Vanilla Wedding",
+    "type": "home"
+  },
+  "wildberry_product": {
+    "name": "Wildberry Product",
+    "type": "home"
+  },
+  "yew_hosting": {
+    "name": "Yew Hosting",
+    "type": "home"
+  }
+}
+

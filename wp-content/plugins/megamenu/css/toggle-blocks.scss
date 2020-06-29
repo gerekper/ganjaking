@@ -1,0 +1,197 @@
+#{$wrap} .mega-menu-toggle {
+    @each $item in $menu_toggle_blocks {
+        $id: nth($item, 1);
+        $align: nth($item, 2);
+        $closed_text: nth($item, 3);
+        $open_text: nth($item, 4);
+        $closed_icon: nth($item, 5);
+        $open_icon: nth($item, 6);
+        $text_color: nth($item, 7);
+        $icon_color: nth($item, 8);
+        $icon_position: nth($item, 9);
+        $text_size: nth($item, 10);
+        $icon_size: nth($item, 11);
+
+        @if type-of($id) == number {
+
+            .mega-toggle-block-#{$id} {
+                cursor: pointer;
+                
+                @if $icon_position == before {
+                    &:before {
+                        content: $closed_icon;
+                        font-family: 'dashicons';
+                        font-size: $icon_size;
+                        color: $icon_color;
+                        margin: 0 5px 0 0;
+                    }
+                } @else {
+                    &:after {
+                        content: $closed_icon;
+                        font-family: 'dashicons';
+                        font-size: $icon_size;
+                        color: $icon_color;
+                        margin: 0 0 0 5px;
+                    }
+                }
+
+                .mega-toggle-label {
+                    color: $text_color;
+                    font-size: $text_size;
+
+                    .mega-toggle-label-open {
+                        display: none;
+                    }
+                    
+                    .mega-toggle-label-closed {
+                        display: inline;
+                    }
+                }
+            }
+
+            &.mega-menu-open {
+
+                .mega-toggle-block-#{$id} {
+                    @if $icon_position == before {
+                        &:before {
+                            content: $open_icon;
+                        }
+                    } @else {
+                        &:after {
+                            content: $open_icon;
+                        }
+                    }
+
+                    .mega-toggle-label-open {
+                        display: inline;
+                    }
+                    .mega-toggle-label-closed {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+
+    @each $item in $spacer_toggle_blocks {
+
+        $id: nth($item, 1);
+        $align: nth($item, 2);
+        $width: nth($item, 3);
+
+        @if type-of($id) == number {
+
+            .mega-toggle-block-#{$id} {
+                width: $width;
+                margin: 0;
+            }
+
+        }
+
+    }
+
+    @each $item in $menu_toggle_animated_blocks {
+
+        $id: nth($item, 1);
+        $scale: nth($item, 2);
+        $color: nth($item, 3);
+
+        @if type-of($id) == number {
+
+            .mega-toggle-block-#{$id} {
+                cursor: pointer;
+
+                /*! 
+                * Hamburgers 
+                * @description Tasty CSS-animated hamburgers 
+                * @author Jonathan Suh @jonsuh 
+                * @site https://jonsuh.com/hamburgers 
+                * @link https://github.com/jonsuh/hamburgers 
+                */
+                .mega-toggle-animated {
+                    padding: 0;
+                    display: -webkit-box;
+                    display: -ms-flexbox;
+                    display: -webkit-flex;
+                    display: flex;
+                    cursor: pointer;
+                    transition-property: opacity, filter;
+                    transition-duration: 0.15s;
+                    transition-timing-function: linear;
+                    font: inherit;
+                    color: inherit;
+                    text-transform: none;
+                    background-color: transparent;
+                    border: 0;
+                    margin: 0;
+                    overflow: visible;
+                    transform: scale($scale);
+                    align-self: center;
+                    outline: 0;
+                    background: none;
+                }
+                .mega-toggle-animated-box {
+                    width: 40px;
+                    height: 24px;
+                    display: inline-block;
+                    position: relative;
+                    outline: 0;
+                }
+                .mega-toggle-animated-inner {
+                    display: block;
+                    top: 50%;
+                    margin-top: -2px;
+                }
+                .mega-toggle-animated-inner, 
+                .mega-toggle-animated-inner::before, 
+                .mega-toggle-animated-inner::after {
+                    width: 40px;
+                    height: 4px;
+                    background-color: $color;
+                    border-radius: 4px;
+                    position: absolute;
+                    transition-property: transform;
+                    transition-duration: 0.15s;
+                    transition-timing-function: ease;
+                }
+                .mega-toggle-animated-inner::before, 
+                .mega-toggle-animated-inner::after {
+                    content: "";
+                    display: block;
+                }
+                .mega-toggle-animated-inner::before {
+                    top: -10px;
+                }
+                .mega-toggle-animated-inner::after {
+                    bottom: -10px;
+                }
+                .mega-toggle-animated-slider .mega-toggle-animated-inner {
+                    top: 2px;
+                }
+                .mega-toggle-animated-slider .mega-toggle-animated-inner::before {
+                    top: 10px;
+                    transition-property: transform, opacity;
+                    transition-timing-function: ease;
+                    transition-duration: 0.15s;
+                }
+                .mega-toggle-animated-slider .mega-toggle-animated-inner::after {
+                    top: 20px;
+                }
+
+            }
+
+            &.mega-menu-open .mega-toggle-block-#{$id} {
+                .mega-toggle-animated-slider .mega-toggle-animated-inner {
+                    transform: translate3d(0, 10px, 0) rotate(45deg);
+                }
+                .mega-toggle-animated-slider .mega-toggle-animated-inner::before {
+                    transform: rotate(-45deg) translate3d(-5.71429px, -6px, 0);
+                    opacity: 0;
+                }
+                .mega-toggle-animated-slider .mega-toggle-animated-inner::after {
+                    transform: translate3d(0, -20px, 0) rotate(-90deg);
+                }
+            }
+        }
+    }
+}

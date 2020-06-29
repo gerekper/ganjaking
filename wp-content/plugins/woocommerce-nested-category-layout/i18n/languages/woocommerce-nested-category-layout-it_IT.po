@@ -1,0 +1,71 @@
+# Copyright (C) 2019 SkyVerge
+# This file is distributed under the GNU General Public License v3.0.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Nested Category Layout 1.12.0-dev.1\n"
+"Report-Msgid-Bugs-To: https://woocommerce.com/my-account/marketplace-ticket-"
+"form/\n"
+"POT-Creation-Date: 2019-10-21 19:57:53+00:00\n"
+"PO-Revision-Date: 2019-12-26 11:51+0800\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: it_IT\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2.4\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: class-wc-nested-category-layout.php:379
+msgid "Catalog Pages by Category"
+msgstr "Pagine del catalogo per categoria"
+
+#: class-wc-nested-category-layout.php:381
+msgid ""
+"The following options determine which catalog pages will display nested "
+"subcategories and products."
+msgstr ""
+"Le seguenti opzioni determinano quali pagine del catalogo mostrano "
+"sottocategorie annidate e prodotti."
+
+#: class-wc-nested-category-layout.php:386
+msgid "Products per Subcategory"
+msgstr "Prodotti per sottocategoria"
+
+#: class-wc-nested-category-layout.php:387
+msgid "The number of products to display per subcategory"
+msgstr "Il numero di prodotti da mostrare per sottocategoria"
+
+#: class-wc-nested-category-layout.php:396
+msgid "Show products/subcategories"
+msgstr "Mostra prodotti/sottocategorie"
+
+#: class-wc-nested-category-layout.php:397
+msgid "Shop Page"
+msgstr "Pagina del negozio"
+
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce Nested Category Layout"
+msgstr "WooCommerce Nested Category Layout"
+
+#: templates/loop/nested-category.php:111
+msgid "See more"
+msgstr "Mostra di più"
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.woocommerce.com/products/woocommerce-nested-category-layout/"
+msgstr ""
+"https://www.woocommerce.com/products/woocommerce-nested-category-layout/"
+
+#. Description of the plugin/theme
+msgid "WooCommerce Nested Category Catalog Page Layout"
+msgstr ""
+"Gestisci layout di pagina per categorie annidate del catalogo WooCommerce"
+
+#. Author of the plugin/theme
+msgid "SkyVerge"
+msgstr "SkyVerge"
+
+#. Author URI of the plugin/theme
+msgid "http://www.woocommerce.com"
+msgstr "https://www.woocommerce.com"

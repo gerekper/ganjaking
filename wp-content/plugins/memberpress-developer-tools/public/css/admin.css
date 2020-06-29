@@ -1,0 +1,84 @@
+.mpdt_spacer {
+  height:25px;
+}
+
+#mpdt_ops_form {
+ /* background:#ddd; */
+  padding:10px 0;
+}
+
+.mpdt_ops_row {
+  background:#ddd;
+  padding:10px;
+  margin-bottom:15px;
+  border:1px solid #bbb;
+}
+
+.mpdt_ops_row input[type="text"] {
+  /* width:450px; */
+  border:1px solid #bbb;
+}
+
+.mpdt_description {
+  font-style: italic;
+  font-size: 12px;
+  color: #888;
+  padding-top: 5px;
+  padding-bottom: 10px;
+}
+
+.mpdt_advanced_box {
+  display: none;
+}
+
+pre.mpdt_code_display {
+  white-space: pre-wrap !important;
+  white-space: -moz-pre-wrap !important;
+  white-space: -pre-wrap !important;
+  white-space: -o-pre-wrap !important;
+  word-wrap: break-all !important;
+}
+
+.mpdt_route_input_type {
+  color: #888;
+}
+
+.mpdt_rolling,
+.mpdt_test_webhook_error,
+.mpdt_test_webhook_message {
+  display: none;
+}
+
+.mpdt_test_webhook_error,
+.mpdt_test_webhook_message {
+  margin-left: 5px;
+  font-weight: bold;
+}
+
+.mpdt_test_webhook_error {
+  color: red;
+}
+
+.mpdt_test_webhook_message {
+  color: limegreen;
+}
+
+.mpdt_rolling svg {
+  width: 24px;
+  height: 24px;
+  line-height: 28px;
+  padding: 0;
+  margin: 2px 0 0 10px;
+}
+
+.mpdt_select, .mpdt_rolling, .mpdt_select_wrap {
+  vertical-align: top !important;
+}
+
+i.mpdt-clipboard:hover {
+  cursor: copy;
+}
+
+i.mpdt-regenerate:hover {
+  cursor: pointer;
+}

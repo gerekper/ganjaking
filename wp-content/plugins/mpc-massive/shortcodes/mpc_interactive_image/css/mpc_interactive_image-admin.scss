@@ -1,0 +1,35 @@
+/*----------------------------------------------------------------------------*\
+	INTERACTIVE IMAGE SHORTCODE - Panel
+\*----------------------------------------------------------------------------*/
+.mpc-coords__preview {
+	display: inline-block;
+	position: relative;
+	margin-top: 1em;
+
+	&.mpc-loaded {
+		border: 1px dashed #cccccc;
+	}
+
+	.mpc-coords {
+		&__point {
+			-webkit-box-sizing: content-box;
+    		box-sizing: content-box;
+		}
+	}
+
+	img {
+		display: block;
+	}
+}
+.mpc-coords__image {
+	max-width: 100%;
+	height: auto;
+	display: block;
+}
+
+.vc_ui-panel[data-vc-shortcode="mpc_interactive_image"] {
+	.wpb_el_type_mpc_divider .mpc-vc-button.mpc-preview {
+		margin-top: 1em;
+		margin-left: 0;
+	}
+}

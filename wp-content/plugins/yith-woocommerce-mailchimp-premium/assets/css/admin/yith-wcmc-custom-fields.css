@@ -1,0 +1,91 @@
+/**
+ * Custom fields admin style
+ *
+ * @author  Your Inspiration Themes
+ * @package YITH WooCommerce Mailchimp
+ * @version 1.0.0
+ */
+
+.fields-cointainer{
+    padding: 20px;
+    background: #fff;
+}
+
+.fields-cointainer .fields-header span,
+.fields-cointainer .fields-header a{
+    display: inline-block;
+}
+
+.fields-cointainer .fields-header span{
+    margin-left: 15px;
+    vertical-align: middle;
+}
+
+.fields-content .fields-item{
+    margin-top: 20px;
+    position: relative;
+}
+
+.fields-content .fields-item.draggable:before{
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    opacity: 0.2;
+    width: 16px;
+    height: 16px;
+    background: url('../../images/move.png');
+    transition: 0.3s all;
+}
+
+.fields-content .fields-item.draggable:hover:before{
+    opacity: 1;
+}
+
+.fields-content .fields-item a.remove-button{
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    vertical-align: middle;
+    text-indent: -999999px;
+    overflow: hidden;
+    opacity: 0.6;
+    background: url( '../../images/remove.png' ) no-repeat center center;
+}
+
+.fields-content .fields-item a.remove-button:hover{
+    opacity: 1;
+}
+
+.fields-content .fields-item .field-row{
+    padding: 15px;
+    border: 1px solid #ebebeb;
+    background: #fafafa;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.fields-content .fields-item.unremovable .field-row{
+    padding-right: 48px;
+}
+
+.fields-content .fields-item .field-column{
+    display: inline-block;
+    margin-right: 15px;
+    vertical-align: middle;
+}
+
+.fields-content .fields-item .field-column label{
+    margin-bottom: 10px;
+    display: block;
+}
+
+.fields-content .fields-item .field-column select,
+.fields-content .fields-item .field-column input{
+    display: block;
+    vertical-align: middle;
+}
+
+.fields-content .fields-item a{
+    vertical-align: bottom;
+}

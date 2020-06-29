@@ -1,0 +1,30 @@
+/***************************************************
+ * REVOLUTION 6.0.0 SLICEY ADDON
+ * @version: 2.0 (31.08.2018)
+ * @author ThemePunch
+***************************************************/
+
+.tp-slicey {
+	
+	background: rgba(50, 50, 50, 0.5);
+	opacity: 0.5;
+	
+}
+
+.tp-slicey:after {
+	
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -14px 0 0 -26px;
+	font-family: "FontAwesome";
+	content: "\f248";
+    color: #fff !important;
+	opacity: 0.25;
+    font-size: 40px;
+	line-height: 40px;
+	
+}
+
+.add_layer[data-subtype="slicey"] {display: none}
+.slicey-addon-active .add_layer[data-subtype="slicey"] {display: block}

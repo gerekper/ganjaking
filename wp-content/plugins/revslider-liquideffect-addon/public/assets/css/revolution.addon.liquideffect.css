@@ -1,0 +1,34 @@
+/**
+ * @author    ThemePunch <info@themepunch.com>
+ * @link      http://www.themepunch.com/
+ * @copyright 2018 ThemePunch
+ */
+
+rs-module rs-slide[data-liquideffect] > img,
+rs-slide[data-liquideffect] rs-sbg,
+rs-slide[data-liquideffect] .slot {
+	
+	display: none !important;
+	
+}
+
+rs-slide[data-liquideffect] rs-sbg-wrap canvas {
+	
+	position: absolute;
+	display: block;
+	
+}
+
+rs-slide.liquid-force-visible,
+rs-slide.liquid-force-visible rs-sbg-wrap {
+	
+	visibility: visible !important;
+	opacity: 1 !important;
+	
+}
+
+rs-slide.liquid-force-visible {
+	
+	z-index: 99 !important;
+	
+}

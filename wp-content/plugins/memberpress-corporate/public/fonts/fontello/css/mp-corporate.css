@@ -1,0 +1,68 @@
+@font-face {
+  font-family: 'mp-corporate';
+  src: url('../font/mp-corporate.eot?89743835');
+  src: url('../font/mp-corporate.eot?89743835#iefix') format('embedded-opentype'),
+       url('../font/mp-corporate.woff2?89743835') format('woff2'),
+       url('../font/mp-corporate.woff?89743835') format('woff'),
+       url('../font/mp-corporate.ttf?89743835') format('truetype'),
+       url('../font/mp-corporate.svg?89743835#mp-corporate') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+/* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
+/* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
+/*
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: 'mp-corporate';
+    src: url('../font/mp-corporate.svg?89743835#mp-corporate') format('svg');
+  }
+}
+*/
+
+ [class^="mpca-icon-"]:before, [class*=" mpca-icon-"]:before {
+  font-family: "mp-corporate";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+
+  /* Font smoothing. That was taken from TWBS */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+}
+
+.mpca-icon-clipboard:before { content: '\e800'; } /* '' */
+.mpca-icon-cancel-circled:before { content: '\e801'; } /* '' */
+.mpca-icon-ok:before { content: '\e802'; } /* '' */
+.mpca-icon-ok-circled:before { content: '\e803'; } /* '' */
+.mpca-icon-plus-circled:before { content: '\e804'; } /* '' */
+.mpca-icon-minus-circled:before { content: '\e805'; } /* '' */
+.mpca-icon-info-circled:before { content: '\e806'; } /* '' */
+.mpca-icon-flow-tree:before { content: '\e807'; } /* '' */
+.mpca-icon-smile:before { content: '\f118'; } /* '' */
+.mpca-icon-share-1:before { content: '\f1e0'; } /* '' */
+.mpca-icon-spread:before { content: '\f527'; } /* '' */

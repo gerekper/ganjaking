@@ -1,0 +1,1 @@
+                			<gtin>{gtin}</gtin>

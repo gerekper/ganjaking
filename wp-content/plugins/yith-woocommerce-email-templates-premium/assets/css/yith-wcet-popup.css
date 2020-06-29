@@ -1,0 +1,171 @@
+.yith-wcet-overlay {
+    background : #000;
+    opacity    : 0.8;
+    z-index    : 99998;
+    position   : fixed;
+    width      : 100%;
+    height     : 100%;
+    top        : 0;
+    left       : 0;
+}
+
+.yith-wcet-popup {
+    display    : none;
+    position   : absolute;
+    width      : 50%;
+    padding    : 35px;
+    box-sizing : border-box;
+    box-shadow : 0px 4px 28px 2px rgba(0, 0, 0, 0.7);
+    background : #fff;
+    border     : 1px solid #ccc;
+    z-index    : 99999;
+    overflow   : hidden;
+    transition : all .3s ease-in-out;
+    left       : 50% !important;
+    top        : 50% !important;
+    transform  : translateX(-50%) translateY(-50%);
+}
+
+.yith-wcet-popup img.alignleft {
+    margin-left : 0 !important;
+}
+
+.yith-wcet-popup img.alignright {
+    margin-right : 0 !important;
+}
+
+.yith-wcet-popup .yith-wcet-product-table-wrapper {
+    padding : 0;
+}
+
+.yith-wcet-popup h2 {
+    margin-top : 0;
+}
+
+.yith-wcet-popup-ajax-container {
+    overflow-y : auto;
+    height     : 100%;
+}
+
+span.yith-wcet-popup-close {
+    cursor      : pointer;
+    position    : absolute;
+    top         : 0;
+    right       : 0;
+    z-index     : 99999;
+    font-size   : 30px;
+    width       : 40px;
+    height      : 40px;
+    line-height : 40px;
+    color       : #ccc;
+}
+
+.yith-wcet-popup-loader {
+    position  : absolute;
+    top       : calc(50% - 10px);
+    left      : calc(50% - 10px);
+    width     : 20px;
+    height    : 20px;
+    font-size : 20px;
+    color     : #666;
+    animation : yith_wcet_spin 2s linear infinite;
+}
+
+@-moz-keyframes yith_wcet_spin {
+    100% {
+        -moz-transform : rotate(360deg);
+    }
+}
+
+@-webkit-keyframes yith_wcet_spin {
+    100% {
+        -webkit-transform : rotate(360deg);
+    }
+}
+
+@keyframes yith_wcet_spin {
+    100% {
+        -webkit-transform : rotate(360deg);
+        transform         : rotate(360deg);
+    }
+}
+
+/**
+ *  Responsive Controls
+ */
+.yith-wcet-popup .responsive-controls-wrapper {
+    position   : absolute;
+    bottom     : 0;
+    left       : 50%;
+    transform  : translateX(-50%);
+    background : #f1f1f1;
+}
+
+.yith-wcet-popup .responsive-controls-wrapper button {
+    cursor        : pointer;
+    background    : transparent;
+    border        : none;
+    height        : 34px;
+    padding       : 0 3px;
+    box-shadow    : none;
+    border-top    : 1px solid transparent;
+    border-bottom : 4px solid transparent;
+    transition    : .15s color ease-in-out, .15s background-color ease-in-out, .15s border-color ease-in-out;
+    color         : #656a6f;
+    outline       : none !important;
+}
+
+.yith-wcet-popup .responsive-controls-wrapper button:before {
+    display                : inline-block;
+    -webkit-font-smoothing : antialiased;
+    font                   : normal 20px/30px "dashicons";
+    vertical-align         : top;
+    margin                 : 0;
+    padding                : 2px 8px;
+}
+
+.yith-wcet-popup .responsive-controls-wrapper button:hover,
+.yith-wcet-popup .responsive-controls-wrapper button:focus,
+.yith-wcet-popup .responsive-controls-wrapper button.active {
+    background          : #fff;
+    color               : #191e23;
+    border-bottom-color : #191e23;
+}
+
+.yith-wcet-popup .responsive-controls-wrapper button:hover {
+    color               : #0073aa;
+    border-bottom-color : #0073aa;
+}
+
+.yith-wcet-popup .responsive-controls-wrapper .preview-desktop:before {
+    content : "\f472";
+}
+
+.yith-wcet-popup .responsive-controls-wrapper .preview-tablet:before {
+    content : "\f471";
+}
+
+.yith-wcet-popup .responsive-controls-wrapper .preview-mobile:before {
+    content : "\f470";
+}
+
+/*
+    RESPONSIVE for MOBILE
+*/
+
+@media only screen and (max-width : 768px) {
+    .yith-wcet-popup {
+        left        : 2% !important;
+        width       : 96% !important;
+        padding     : 5px;
+        padding-top : 35px;
+    }
+}
+
+.yith-wcet-popup.preview-tablet {
+    width : 790px !important; /* 720 + 70 px */
+}
+
+.yith-wcet-popup.preview-mobile {
+    width : 390px !important; /* 320 + 70 px */
+}

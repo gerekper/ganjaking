@@ -1,0 +1,874 @@
+.product-type-gift-card .price {
+    display: none;
+}
+
+.product-type-gift-card .product_meta {
+    display: none;
+}
+
+.product-type-gift-card .woocommerce-product-gallery__wrapper {
+    box-shadow: 0 0 19px -12px gray;
+}
+
+.product-type-gift-card .woocommerce-product-gallery__image {
+    padding: 1em;
+}
+
+.ywgc-preview {
+    max-width: 500px;
+    margin: 0 auto;
+    margin-bottom: 15px;
+    border: 5px solid #F7F4F4;
+    padding: 5px;
+}
+
+.ywgc-manual-amount.ywgc-hidden {
+    display: none;
+}
+
+.gift-card-content-editor {
+    width: 100%;
+}
+
+.gift-card-content-editor.step-content h5 {
+    margin-top: 3em;
+}
+
+.gift-card-too-small {
+    background-color: #ffe326;
+    padding: 10px;
+    color: #3d3939;
+    margin-bottom: 5px;
+}
+
+.ywgc-logo-shop img.ywgc-logo-shop-image {
+    max-width: 100%;
+    max-height: 100px;
+}
+
+a.add-recipient,
+a.ywgc-remove-recipient {
+    display: block;
+}
+
+a.ywgc-remove-recipient {
+    color: red;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.ywgc-single-recipient a.ywgc-remove-recipient {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    display: inline-block;
+}
+
+.ywgc-additional-recipient {
+    position: relative;
+    margin-top: 35px;
+}
+
+.ywgc-additional-recipient label {
+    margin-bottom: 15px;
+}
+
+.gift-card-content-editor.step-content label {
+    display: inline-block;
+    margin-top: 11px;
+    font-weight: 400;
+}
+
+.gift-card-content-editor.step-content input {
+    font-size: 14px;
+}
+
+.gift-card-content-editor.step-content input::placeholder {
+    font-size: 12px;
+}
+
+.gift-card-content-editor.step-content textarea {
+    font-size: 14px;
+}
+
+.gift-card-content-editor.step-content textarea::placeholder {
+    font-size: 12px;
+}
+
+.gift-card-content-editor.step-content a {
+    font-size: 14px;
+}
+
+.gift-card-content-editor.step-content a::placeholder {
+    font-size: 12px;
+}
+
+.ywgc-sender-name {
+    margin-bottom: 15px;
+}
+
+.gift-card-content-editor.step-appearance .ywgc-design-list {
+    width: 100%;
+    display: flex;
+}
+
+.gift-card-content-editor.step-appearance .ywgc-design-list ul {
+    margin: 0 -5px;
+    padding: 0;
+    list-style: none;
+    font-size: 0;
+}
+
+.gift-card-content-editor.step-appearance .ywgc-design-list ul:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.gift-card-content-editor.step-appearance .ywgc-design-list ul li {
+    padding: 5px;
+    display: inline-block;
+}
+
+.ywgc-custom-design-link {
+    margin-top: 10px;
+}
+
+.ywgc-hidden {
+    display: none;
+}
+
+
+/** Gift card editor */
+
+.gift-card-content-editor {
+    overflow: hidden;
+}
+
+
+/** Editing gift card content on order page */
+
+.ywgc-gift-card-content .ywgc-show {
+    display: inline-block !important;
+}
+
+.ywgc-gift-card-content .ywgc-hide {
+    display: none !important;
+}
+
+.ywgc-gift-card-content .ywgc-edit-value.apply {
+    background-color: #7caf00;
+    color: white;
+}
+
+.ywgc-gift-card-content .ywgc-edit-value.apply:hover {
+    background-color: #5b8000;
+}
+
+.ywgc-gift-card-content.ywgc-edit-value .ywgc-show-value {
+    display: none;
+}
+
+.ywgc-gift-card-content.ywgc-edit-value .ywgc-edit-value {
+    display: inline-block;
+}
+
+.ywgc-gift-card-content fieldset {
+    border: none;
+}
+
+.ywgc-main-image {
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+    display: block;
+}
+
+.ywgc-single-recipient {
+    /*margin-bottom: 2em;*/
+    position: relative;
+}
+
+.ywgc-recipient {
+    max-width: 85%;
+    display: inline-block;
+}
+
+.ywgc-single-recipient a.hide-if-alone {
+    visibility: hidden;
+}
+
+.ywgc-single-recipient .ywgc-recipient-name {
+    margin-bottom: 15px;
+}
+
+#ywgc-cancel-gift-card {
+    display: none;
+    margin-bottom: 10px;
+}
+
+button#give-as-present {
+    display: block !important;
+    margin: 3em auto 0 auto !important;
+}
+
+#give-as-present > span:before {
+    font-size: inherit;
+    line-height: inherit;
+    margin-left: 5px;
+}
+
+button#ywgc-cancel-gift-card {
+    display: block !important;
+    margin: 3em auto 0 auto !important;
+}
+
+.ywgc-picture-error,
+.ywgc-filling-error {
+    color: red;
+    font-size: 12px;
+}
+
+.ywgc-gift-card-content a.edit-details {
+    font-size: 10px;
+    text-decoration: none;
+}
+
+.ywgc-gift-card-edit-details fieldset,
+.ywgc-gift-card-details fieldset {
+    padding: 5px 0;
+    margin: 0;
+}
+
+.ywgc-gift-card-content label {
+    display: inline-block;
+}
+
+a.ywgc-view-order.button {
+    margin-bottom: 5px;
+}
+
+.ywgc-top-header {
+    max-width: 50%;
+    margin: 0 auto;
+    margin-bottom: 5px;
+}
+
+
+/* Modal gift card design selection */
+
+ul.ywgc-template-categories {
+    float: left;
+    list-style: none;
+    padding-top: 15px;
+    font-weight: 600;
+}
+
+.ywgc-template-categories a {
+    color: inherit;
+}
+
+ul.ywgc-template-categories li.ywgc-template-item {
+    margin-top: 5px;
+    font-size: 0.875rem;
+}
+
+ul.ywgc-template-categories li a {
+    text-decoration: none;
+}
+
+.ywgc-design-list-modal {
+    padding: 25px 0 25px 45px;
+    float: right;
+    width: 70%;
+    font-size: 0;
+}
+
+div#ywgc-choose-design:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.ywgc-custom-upload-container-modal {
+    float: right;
+    width: 70%;
+    padding: 30px;
+    text-align: center;
+}
+
+.ywgc-design-list-menu {
+    width: 30%;
+    height: 100%;
+    float: left;
+    position: fixed;
+    background-color: #F2F2F2;
+    padding-top: 35px;
+    top: 0px;
+}
+
+.ywgc-design-categories-title {
+    padding-left: 40px;
+    font-size: 1.5rem;
+    margin-top: 0;
+}
+
+a.ywgc-category-selected {
+    font-weight: bold;
+}
+
+.gift-cards-list button {
+    border-radius: unset;
+    background-color: white;
+    color: #404040;
+}
+
+.gift-cards-list button.ywgc-predefined-amount-button.selected_button {
+    color: white;
+}
+
+.ywgc-amount-buttons {
+    margin-bottom: 1em;
+}
+
+.ywgc-preset-image {
+    position: relative;
+    border: 2px solid lightgray;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.ywgc-design-list-modal .ywgc-preset-image span.choose-design {
+    position: absolute;
+    z-index: 12;
+    top: 0;
+    bottom: 0;
+    margin-top: auto;
+    margin-bottom: auto;
+    height: fit-content;
+    color: #ffffff;
+    font-size: 0.875rem;
+    text-align: center;
+    display: inline-block;
+    vertical-align: middle;
+    width: auto;
+    border: 2px solid;
+    margin: auto 30px;
+    left: 0;
+    right: 0;
+    font-weight: 600;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: all ease 0.2s;
+    text-transform: uppercase;
+}
+
+.ywgc-design-list-modal .ywgc-preset-image:before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #9e9e9e;
+    pointer-events: none;
+    opacity: 0;
+    transition: all ease 0.2s;
+}
+
+.ywgc-design-list-modal .ywgc-preset-image:hover:before {
+    opacity: 0.8;
+}
+
+.ywgc-design-list-modal .ywgc-preset-image:hover span.choose-design {
+    opacity: 1;
+    visibility: visible;
+}
+
+.ywgc-preset-image.selected_image_parent:after {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    border-radius: 50%;
+    background-color: transparent;
+    top: -5px;
+    right: -5px;
+    background-image: url("../images/default-picture.png");
+    background-size: 10px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.ywgc-preset-image img {
+    display: block;
+}
+
+.ywgc-choose-design-preview {
+    margin-bottom: 30px;
+}
+
+.ywgc-preset-image:not(.ywgc-default-product-image) {
+    border: 2px solid #d3d3d3;
+}
+
+.ywgc-choose-image.ywgc-choose-template {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    border: unset;
+    border-radius: unset;
+    line-height: unset;
+    overflow: hidden;
+    padding: unset;
+}
+
+.ywgc-design-item {
+    display: inline-block;
+    /*margin: 0 15px 15px 0;
+    width: 180px;*/
+    width: 33%;
+    margin: 0;
+    padding: 0 15px 15px 0;
+}
+
+.ywgc-design-item button {
+    margin: 0 auto;
+    margin-top: 20px;
+    display: block;
+}
+
+#ywgc-choose-design-modal .pp_close {
+    z-index: 999;
+}
+
+#ywgc-choose-design-modal:before {
+    clear: both;
+    content: '';
+    display: block;
+}
+
+#ywgc-choose-design-modal {
+    clear: both;
+}
+
+a.ywgc-choose-image-modal.ywgc-custom-picture-modal {
+    display: block;
+}
+
+a.ywgc-choose-image-modal.ywgc-custom-picture-modal img {
+    display: block;
+    max-width: 170px;
+    margin: 0 auto;
+}
+
+.gift-card-content-editor.step-appearance,
+.gift-card-content-editor.step-content {
+    margin-bottom: 20px;
+}
+
+.gift-card-content-editor.step-content input {
+    float: right;
+    width: 70%;
+}
+
+.gift-card-content-editor.step-content textarea {
+    float: right;
+    width: 70%;
+}
+
+.add-recipient {
+    float: right;
+    margin-top: 5px;
+}
+
+.pp_content {
+    height: 60% !important;
+    overflow: hidden;
+}
+
+.ywgc-manual-amount-error {
+    font-size: smaller;
+    color: red;
+}
+
+.ywgc-manual-amount {
+    color: #404040;
+    width: 7em !important;
+    height: 2.6em;
+    text-align: center;
+}
+
+.ywgc-manual-amount::placeholder {
+    font-size: 12px;
+}
+
+.ywgc-bad-email-format {
+    font-size: 10px;
+    display: block;
+    color: red;
+}
+
+.ywgc-discount-html {
+    font-size: smaller;
+}
+
+.ywgc-multi-recipients {
+    margin: 10px 0;
+}
+
+.ywgc-preset-title {
+    display: block;
+    text-align: center;
+}
+
+.ywgc_have_code {
+    margin: 40px 0 40px 0;
+}
+
+.ywgc_enter_code {
+    padding: 20px;
+    margin: 2em 0;
+    text-align: left;
+}
+
+.ywgc_enter_code>div {
+    margin: 0 -14px;
+}
+
+.ywgc_enter_code>div:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.ywgc_enter_code p {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.ywgc_enter_code .form-row {
+    padding: 0 15px;
+    margin: 0 0 6px;
+    float: left;
+    width: 50%;
+}
+
+
+/** Hide on Flatsome Quick View */
+
+.product-quick-view-container .ywgc-template-design,
+.product-quick-view-container #give-as-present {
+    display: none;
+}
+
+.yith_wc_gift_card_blank_brightness {
+    background: rgba(255, 255, 255, 0.7);
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    padding: 10px 0 10px 0;
+    top: -1px;
+    left: -1px;
+}
+
+
+/** Move the calendar icon to the right in the product page */
+
+.ywgc-postdated {
+    position: relative;
+}
+
+.ywgc-postdated .dashicons-calendar-alt {
+    position: absolute;
+    right: 0;
+    margin-top: 5px;
+}
+
+a.give-as-present {
+    cursor: pointer;
+}
+
+.gift-this-product-main-container {
+    margin-top: 4em;
+}
+
+.ywgc-add-gift-product-to-cart {
+    display: block !important;
+    margin: 3em auto 0 auto !important;
+}
+
+.gift_card_template_button {
+    margin-top: 5em;
+}
+
+.gift-cards_form>h3 {
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+.ywgc-form-preview-separator {
+    width: 40px;
+    height: 7px;
+    margin-top: 10px;
+}
+
+.ywgc-currency-symbol {
+    margin-left: -106px;
+    font-size: 16px;
+    font-weight: 600;
+    font-style: normal;
+}
+
+.ywgc-on-sale-text {
+    font-size: x-large;
+    font-weight: 500;
+}
+
+.ywgc-form-preview-amount {
+    float: right;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.ywgc-form-preview-title {
+    font-weight: 600;
+}
+
+.ywgc-form-preview-title-containe {
+    margin-top: 15px;
+}
+
+.ywgc-main-form-preview-container {
+    height: auto;
+    min-height: 20em;
+    padding: 1em 1em 1em 1em;
+    box-shadow: 0 10px 19px -12px;
+}
+
+.ywgc-form-preview-from {
+    font-weight: bold;
+}
+
+.ywgc-form-preview-to {
+    font-weight: bold;
+}
+
+
+/*
+Delivery date datepicker styles
+*/
+
+.ui-datepicker .ui-datepicker-header {
+    background: unset;
+    border: unset;
+}
+
+.ui-datepicker a.ui-state-active,
+.ui-datepicker a.ui-state-hover {
+    color: white;
+}
+
+.ui-datepicker a.ui-state-default {
+    background: white;
+}
+
+.ui-datepicker-prev span {
+    background-image: unset !important;
+}
+
+.ui-datepicker-next span {
+    background-image: unset !important;
+}
+
+.ui-datepicker-prev:before {
+    content: "<" !important;
+}
+
+.ui-datepicker-next:before {
+    content: ">" !important;
+}
+
+.ui-datepicker .ui-datepicker-prev {
+    left: 15px;
+    top: 6px;
+}
+
+.ui-datepicker .ui-datepicker-next {
+    right: 15px;
+    top: 6px;
+}
+
+.ui-datepicker .ui-datepicker-prev,
+.ui-datepicker .ui-datepicker-next {
+    width: unset;
+}
+
+
+/*
+Shortcodes styles
+*/
+
+.form-check-gift-card-balance label {
+    font-weight: 600;
+}
+
+.form-check-gift-card-balance input::placeholder {
+    font-size: 12px;
+}
+
+.form-check-gift-card-balance {
+    text-align: center;
+}
+
+.form-check-gift-card-balance button {
+    margin-left: 25px;
+}
+
+.form-redeem-gift-card label {
+    font-weight: 600;
+}
+
+.form-redeem-gift-card input::placeholder {
+    font-size: 12px;
+}
+
+.form-redeem-gift-card {
+    text-align: center;
+}
+
+.form-redeem-gift-card button {
+    margin-left: 25px;
+}
+
+label.ywgc-used-amount-label {
+    margin-left: 25px;
+}
+
+.cart_item .product-name div {
+    font-size: 13px;
+}
+
+.ywgc-upload-section-modal {
+    margin-top: 20px;
+}
+
+.ywgc-upload-section-modal p {
+    font-size: 0.875rem;
+}
+
+.ywgc-upload-section-modal p:before {
+    content: '';
+    display: block;
+    width: 50%;
+    height: 0px;
+    border-top: 1px solid #9E9E9E;
+    margin-bottom: 15px;
+}
+
+.product-type-gift-card .elementor-shortcode .gift-cards_form.cart {
+    display: block !important;
+}
+
+
+
+/**********************
+Responsive
+****************/
+
+@media screen and ( max-width: 768px) {
+    ul.ywgc-template-categories li.ywgc-template-item,
+    ul.ywgc-template-categories li.ywgc-upload-section-modal p {
+        margin-top: 5px;
+    }
+    .ywgc-design-categories-title {
+        padding-left: 40px;
+        font-size: 1rem;
+    }
+}
+
+@media screen and ( max-width: 600px) {
+    .ywgc-design-list-menu {
+        float: none;
+        width: 100%;
+        padding: 0 15px;
+        position: static;
+        height: auto;
+        background: transparent;
+    }
+    .yith-ywgc-popup-content-wrapper {
+        margin-top: 0;
+    }
+    .ywgc-design-categories-title {
+        padding: 20px 0 0;
+    }
+    ul.ywgc-template-categories {
+        padding: 0;
+        float: none;
+    }
+    ul.ywgc-template-categories li.ywgc-template-item {
+        display: inline-block;
+        margin-right: 30px;
+    }
+    .ywgc-upload-section-modal {
+        margin-top: 15px;
+    }
+    .ywgc-design-list-modal {
+        float: none;
+        width: 100%;
+        padding: 15px 0 15px 15px;
+    }
+}
+
+@media screen and ( max-width: 480px) {
+    .ywgc-design-item {
+        width: 50%;
+    }
+}
+
+.ywgc-red-border{
+    border: 1px solid red !important;
+}
+
+.ywgc-multi-recipients span{
+    font-size: 14px;
+}
+
+.ywgc-empty-recipient-note{
+    font-size: 11px;
+    float: right;
+    width: 100%;
+    text-align: right;
+    font-weight: 300;
+    padding-top: 5px;
+}
+
+.ywgc-darkred-text{
+    color: darkred;
+}
+
+
+.ywgc-remove-number-input{
+    -moz-appearance:textfield;
+}
+
+.ywgc-remove-number-input::-webkit-outer-spin-button,
+.ywgc-remove-number-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.dashicons-arrow-down-alt2{
+    font-size: 16px;
+}

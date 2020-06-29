@@ -1,0 +1,16 @@
+/*----------------------------------------------------------------------------*\
+	TEXTBLOCK SHORTCODE
+\*----------------------------------------------------------------------------*/
+.mpc-textblock { display: block; }
+
+.mpc-textblock.mpc-inline { display: inline-block; }
+
+.mpc-textblock h1, .mpc-textblock h2, .mpc-textblock h3, .mpc-textblock h4, .mpc-textblock h5, .mpc-textblock h6, .mpc-textblock a, .mpc-textblock span, .mpc-textblock div { font: inherit; text-align: inherit; color: inherit; }
+
+.mpc-textblock p:first-child { margin-top: 0; }
+
+.mpc-textblock p:last-child { margin-bottom: 0; }
+
+.mpc-textblock:hover + .mpc-tooltip.mpc-trigger--hover.mpc-inited { visibility: visible; opacity: 1 !important; }
+
+.mpc-textblock img { max-width: 100%; height: auto; }

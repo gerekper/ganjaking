@@ -1,0 +1,1175 @@
+@import url(https://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700);
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Rye|Work+Sans');
+
+.mo-action-icon {
+    line-height: 1.5;
+    font-size: 18px;
+}
+
+.mo-action-icon.hellip {
+    font-size: 16px;
+    font-weight: 900;
+    vertical-align: top;
+    line-height: 1.2;
+}
+
+#mailoptin_affiliate_url_row:target {
+    background-color: #e5eecc;
+    border: 2px solid #d4d4d4;
+    padding: 5px 10px
+}
+
+.wp_csa_view .wp-list-table .mo-optin-type-state {
+    display: none;
+}
+
+.wp_csa_view .wp-list-table tr:hover .mo-optin-type-state {
+    display: inline-block;
+}
+
+.mailoptin-data-listing .add-new-h2, .mailoptin-data-listing .add-new-h2:hover,
+.mailoptin-log-listing .add-new-h2, .mailoptin-log-listing .add-new-h2:hover {
+    background: #0085ba;
+    border-color: #0073aa #006799 #006799;
+    box-shadow: 0 1px 0 #006799;
+    color: #fff;
+    text-decoration: none;
+    text-shadow: 0 -1px 1px #006799, 1px 0 1px #006799, 0 1px 1px #006799, -1px 0 1px #006799;
+}
+
+.mo-banner {
+    position: absolute;
+    left: 10%;
+    display: block;
+    margin: 10px 5px 20px;
+    width: 600px;
+    height: 60px;
+    border: 1px solid #8a1;
+    font: 400 30px/60px Rye;
+    text-align: center;
+    color: #451;
+    background: #9b2;
+    border-radius: 4px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, .15) inset, 0 6px 10px rgba(0, 0, 0, .15)
+}
+
+.customize-mo-custom-content-block {
+    margin: 0 -12px;
+    border-bottom: 1px solid #ddd;
+    background: #fff;
+    padding: 10px;
+}
+
+.customize-control-textarea textarea {
+    height: auto !important;
+}
+
+.mo-pro {
+    margin: 0 0 5px;
+}
+
+.mo-pro a {
+    background: #D54E21;
+    color: #FFF;
+    text-transform: uppercase;
+    font-size: 11px;
+    padding: 3px 5px;
+    font-weight: bold;
+    text-decoration: none;
+    margin: 0 0 5px;
+}
+
+.mo-banner::after, .mo-banner::before {
+    content: '';
+    position: absolute;
+    left: -70px;
+    top: 24px;
+    display: block;
+    width: 40px;
+    height: 0;
+    border: 30px solid #9b2;
+    border-right: 20px solid #791;
+    border-bottom-color: #94b81e;
+    border-left-color: transparent;
+    transform: rotate(-5deg)
+}
+
+.mo-banner::after {
+    left: auto;
+    right: -70px;
+    border-left: 20px solid #791;
+    border-right: 30px solid transparent;
+    transform: rotate(5deg)
+}
+
+.mo-premium-flag {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 90px;
+    height: 81px;
+    background-image: url(../../images/premium-theme.png);
+    background-size: 90px 81px;
+    transform: rotate(70deg)
+}
+
+.mailoptin-optin-theme a {
+    text-decoration: none;
+}
+
+/* hide ajax_nonce hidden field containing nonce. musn't be displayed */
+tr#ajax_nonce_row {
+    display: none
+}
+
+#mailoptin-sub-bar .mailoptin-clear {
+    clear: both;
+}
+
+#mailoptin-sub-bar .mailoptin-clear:after {
+    clear: both;
+    content: '.';
+    display: block;
+    height: 0;
+    line-height: 0;
+    overflow: auto;
+    visibility: hidden;
+    zoom: 1;
+}
+
+#mailoptin-sub-bar .mailoptin-new-toolbar {
+    min-height: 30px;
+    padding: 10px;
+    background: #fff;
+    margin-bottom: 20px;
+    border: 1px solid #dedede;
+    -webkit-box-shadow: 0 1px 1px -1px rgba(0, 0, 0, .1);
+    box-shadow: 0 1px 1px -1px rgba(0, 0, 0, .1);
+    box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+}
+
+#mailoptin-sub-bar .mailoptin-new-toolbar h4 {
+    color: #222;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 8px 0 0;
+    padding: 0;
+    float: left;
+}
+
+#mailoptin-sub-bar .mailoptin-new-toolbar ul {
+    float: right;
+    list-style: none;
+    padding: 0;
+    margin: 6px 0 0;
+}
+
+#mailoptin-sub-bar .mailoptin-new-toolbar ul li {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    float: left;
+}
+
+#mailoptin-sub-bar .mailoptin-new-toolbar ul li a {
+    color: #098fe2;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 1px;
+    padding: 17px 15px 17px;
+    outline: none !important;
+}
+
+#mailoptin-sub-bar .mailoptin-new-toolbar ul li a:hover,
+#mailoptin-sub-bar .mailoptin-new-toolbar ul li a.mailoptin-type-active {
+    color: #fff;
+    background: #098fe2;
+}
+
+.mailoptin-btn-red {
+    color: #fff !important;
+    background-color: #d9534f !important;
+    border-color: #d9534f !important;
+}
+
+.mailoptin-btn-blue {
+    color: #fff !important;
+    background-color: #3276b1 !important;
+    border-color: #3276b1 !important;
+}
+
+.mailoptin-optin-clear, .mailoptin-template-clear {
+    clear: both;
+}
+
+.mailoptin-optin-clear:after, .mailoptin-template-clear:after {
+    clear: both;
+    content: '.';
+    display: block;
+    height: 0;
+    line-height: 0;
+    overflow: auto;
+    visibility: hidden;
+    zoom: 1;
+}
+
+.mailoptin-new-toolbar .mo-dash-spinner {
+    visibility: hidden;
+    float: none;
+    margin-right: 0;
+    margin-left: 0;
+    margin-top: -3px;
+}
+
+.mailoptin-optin {
+    margin: 15px 0 20px;
+}
+
+.mailoptin-error {
+    color: #ff0000;
+    font-size: 13px;
+    font-weight: 600;
+    vertical-align: middle;
+    display: inline-block;
+    margin-top: -3px;
+}
+
+.mailoptin-input-error {
+    border-color: #ff0000 !important;
+    -webkit-box-shadow: 0 0 2px rgba(255, 0, 0, .8) !important;
+    box-shadow: 0 0 2px rgba(255, 0, 0, .8) !important;
+}
+
+.mailoptin-optin-new-list {
+    height: 38px;
+    padding: 10px;
+    background: #fff;
+    margin-bottom: 20px;
+    border: 1px solid #dedede;
+    -webkit-box-shadow: 0 1px 1px -1px rgba(0, 0, 0, .1);
+    box-shadow: 0 1px 1px -1px rgba(0, 0, 0, .1);
+    box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+}
+
+.mailoptin-optin-new-list h4 {
+    color: #222;
+    font-size: 18px;
+    font-weight: 600;
+    text-shadow: 0 1px rgba(255, 255, 255, .25);
+    margin: 2px 0 0;
+    padding: 0;
+}
+
+.mailoptin-optin-new-list strong {
+    font-size: 16px;
+    vertical-align: middle;
+}
+
+.mailoptin-optin-new-list input, .mailoptin-optin-new-list select {
+    position: relative;
+    top: 1px;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 16px;
+    font-weight: 300;
+    width: 350px;
+    height: 32px;
+}
+
+.mailoptin-optin-new .mailoptin-optin-new-toolbar {
+    height: 38px;
+    padding: 10px;
+    background: #fff;
+    margin-bottom: 20px;
+    border: 1px solid #dedede;
+    -webkit-box-shadow: 0 1px 1px -1px rgba(0, 0, 0, .1);
+    box-shadow: 0 1px 1px -1px rgba(0, 0, 0, .1);
+}
+
+.mailoptin-optin-new .mailoptin-optin-new-toolbar h4 {
+    color: #222;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 8px 0 0;
+    padding: 0;
+    float: left;
+}
+
+.mailoptin-optin-new .mailoptin-optin-new-toolbar h4 i {
+    font-size: 18px;
+    color: #222;
+    margin-left: 5px;
+    opacity: 0;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: alpha(opacity=0);
+    -moz-opacity: 0;
+    -khtml-opacity: 0;
+}
+
+.mailoptin-optin-new .mailoptin-optin-new-toolbar ul {
+    float: right;
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0;
+}
+
+.mailoptin-optin-new .mailoptin-optin-new-toolbar ul li {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    float: left;
+}
+
+.mailoptin-optin-new .mailoptin-optin-new-toolbar ul li a:hover,
+.mailoptin-optin-new .mailoptin-optin-new-toolbar ul li a.mailoptin-optin-type-active {
+    color: #fff;
+    background: #e35950;
+}
+
+.mailoptin-optin-theme, .mailoptin-email-template {
+    cursor: pointer;
+    float: left;
+    margin: 0 4% 4% 0;
+    position: relative;
+    width: 30.66666666667%;
+    border: 1px solid #dedede;
+    -webkit-box-shadow: 0 1px 1px -1px rgba(0, 0, 0, .1);
+    box-shadow: 0 1px 1px -1px rgba(0, 0, 0, .1);
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.mailoptin-optin-theme:nth-child(3n), .mailoptin-email-template:nth-child(3n) {
+    margin-right: 0;
+}
+
+.mailoptin-optin-theme.mailoptin-last-theme, .mailoptin-email-template.mailoptin-last-theme {
+    margin-right: 0;
+}
+
+.mailoptin-optin-theme-screenshot, .mailoptin-email-template-screenshot {
+    display: block;
+    overflow: hidden;
+    position: relative;
+    -webkit-transition: opacity .2s ease-in-out;
+    transition: opacity .2s ease-in-out;
+}
+
+.mailoptin-optin-theme-screenshot:after, .mailoptin-email-template-screenshot:after {
+    content: '';
+    display: block;
+    padding-top: 66.66666%;
+}
+
+.mailoptin-email-template-screenshot img, .mailoptin-optin-theme-screenshot img {
+    height: auto;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    -webkit-transform: translateZ(0);
+    -webkit-transition: opacity .2s ease-in-out;
+    transition: opacity .2s ease-in-out;
+}
+
+.mailoptin-optin-theme-screenshot img {
+    height: 100%;
+}
+
+.mailoptin-optin-theme .mailoptin-optin-theme-name, .mailoptin-email-template .mailoptin-email-template-name {
+    font-size: 15px;
+    font-weight: 600;
+    height: 18px;
+    margin: 0;
+    padding: 15px;
+    -webkit-box-shadow: inset 0 1px 0 rgba(0, 0, 0, .1);
+    box-shadow: inset 0 1px 0 rgba(0, 0, 0, .1);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    background: #fff;
+    background: rgba(255, 255, 255, .65);
+}
+
+.mailoptin-optin-theme .mailoptin-optin-theme-actions, .mailoptin-email-template .mailoptin-email-template-actions {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 38px;
+    padding: 9px 10px 0;
+    background: rgba(244, 244, 244, .7);
+    border-left: 1px solid rgba(0, 0, 0, .05);
+}
+
+.mo_remove_repeatable {
+    margin: 8px 0 0;
+    cursor: pointer;
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    text-indent: -9999px;
+    overflow: hidden;
+}
+
+.mo_remove_repeatable:active, .mo_remove_repeatable:hover {
+    background-position: -10px 0 !important
+}
+
+.mo_add_repeatable_button {
+    display: inline !important;
+}
+
+.mo-spinner {
+    vertical-align: middle;
+}
+
+tr.mo-test-mode {
+    background-color: #fcfce0 !important;
+}
+
+.mo-test-mode-title {
+    color: #d9534f;
+    font-size: 13px;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.mo_circle_green {
+    background: green;
+    border-radius: 100%;
+    height: 2px;
+    margin: 10px auto;
+    padding: 5px;
+    width: 2px;
+}
+
+.mo_circle_red {
+    background: red;
+    border-radius: 100%;
+    height: 2px;
+    margin: 10px auto;
+    padding: 5px;
+    width: 2px;
+}
+
+.mailoptin-data-listing table.wp-list-table.widefat {
+    text-align: center;
+}
+
+.mailoptin-data-listing th.manage-column {
+    text-align: center;
+}
+
+.mailoptin-data-listing td.name.column-name {
+    text-align: left;
+}
+
+/* remove alternative styling from optin form listing. */
+table.optin_forms.striped > tbody > :nth-child(odd),
+table.email_campaigns.striped > tbody > :nth-child(odd) {
+    background-color: #fff;
+}
+
+table.optin_forms th, table.optin_forms td,
+table.email_campaigns th, table.email_campaigns td {
+    border-bottom: 1px solid #eee;
+}
+
+/* split test styling */
+tr.mo-is-split-test .check-column input[type="checkbox"],
+tr.mo-is-split-test .column-name strong a,
+tr.mo-is-split-test .column-name .row-actions {
+    margin-left: 2em;
+}
+
+tr.mo-is-split-test .column-name strong a,
+tr.mo-is-split-test .column-name .row-actions {
+    margin-left: 1em;
+}
+
+table.optin_forms .mo-has-split-test-variant {
+    margin-left: 10px;
+    display: inline;
+    padding: 2px 4px;
+    text-decoration: none;
+    border: 1px solid #0073aa;
+    border-radius: 2px;
+    background: #0073aa;
+    text-shadow: none;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: normal;
+    color: #f7f7f7;
+    outline: 0;
+}
+
+table.optin_forms .mo-split-test-action-button {
+
+    padding: 3px 7px;
+    color: #fff;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    margin-left: 7px;
+    display: inline-block;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+table.optin_forms a.mo-split-test-action-button:hover {
+    color: #fff !important;
+}
+
+table.optin_forms .mo-split-test-pause-start {
+    background-color: #95c551;
+}
+
+table.optin_forms .mo-split-test-end-select-winner,
+table.optin_forms .mo-split-test-action-paused {
+    background: #f45a4a;
+}
+
+table.optin_forms .mo-split-test-add-variant {
+    background: #939aaa;
+    float: left;
+}
+
+table.optin_forms tr.mo-split-test-actions {
+    background-color: #f9f9f9;
+}
+
+a.mo-split-test-upgrade {
+    color: #e35950;
+}
+
+/* optin wp listing column re-arrangement*/
+table.optin_forms th#actions {
+    width: 20% !important;
+}
+
+table.optin_forms th#name {
+    width: 24%;
+}
+
+table.optin_forms th#uuid {
+    width: 15%;
+}
+
+form.mo-inline {
+    display: inline;
+}
+
+.mo-error-box a {
+    text-decoration: underline;
+}
+
+.mo-error-box {
+    width: 100%;
+    height: 100%;
+    line-height: 1.5;
+    color: #1d0005;
+    max-width: 500px;
+    max-height: 500px;
+    margin: 10px 0;
+    padding: 100px 10px;
+    background-color: #FFF;
+    text-align: center;
+    font-size: 20px;
+    border: 1px solid #dedede;
+    -webkit-box-shadow: 0 1px 1px -1px rgba(0, 0, 0, .1);
+    box-shadow: 0 1px 1px -1px rgba(0, 0, 0, .1);
+}
+
+/* button style. inspired by https://codepen.io/Angelfire/pen/opdDt. fork @ https://codepen.io/collizo4sky/pen/RgGpqK*/
+.moBtncontainer {
+    font-family: 'Josefin Slab', serif;
+    font-size: 18px;
+    line-height: 24px;
+    padding-top: 1em;
+    margin: 1em auto;
+}
+
+.mobutton {
+    display: block;
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    padding: 0;
+    margin: 20px auto;
+    font-weight: 600;
+    text-align: center;
+    line-height: 50px;
+    color: #FFF;
+    border-radius: 5px;
+    transition: all 0.2s;
+    text-decoration: none;
+}
+
+.mobtnGreen {
+    background: #068451;
+}
+
+.mobtnPurple {
+    background: #A74982;
+}
+
+/* 3D */
+.mobtnGreen.mobtnPush {
+    box-shadow: 0px 5px 0px 0px #007144;
+}
+
+.mobtnPurple.mobtnPush {
+    box-shadow: 0px 5px 0px 0px #6D184B;
+}
+
+.mobtnPush:hover {
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+.mobtnPush:active, .mobtnPush:focus, .mobtnPush:hover {
+    color: #fff;
+}
+
+.mobtnGreen.mobtnPush:hover {
+    box-shadow: 0px 0px 0px 0px #007144;
+}
+
+.mobtnPurple.mobtnPush:hover {
+    box-shadow: 0px 0px 0px 0px #6D184B;
+}
+
+.mobtnUpgrade {
+    margin: 0 auto;
+    padding: 0;
+}
+
+.mailoptin-settings-wrap {
+    display: flex;
+    border: 1px solid #c8d7e1;
+}
+
+.mailoptin-settings-wrap .dashicons {
+    padding-top: 2px;
+    margin-right: 5px;
+}
+
+.mailoptin-settings-wrap h2.nav-tab-wrapper {
+    flex: 1;
+    border-bottom: none;
+    padding: 0;
+    background: #f7f8fa;
+    border-right: 1px solid #c8d7e1;
+}
+
+.mailoptin-settings-wrap h2.nav-tab-wrapper a {
+    float: none;
+    display: block;
+    margin: 0;
+    border: none;
+    padding: 15px;
+    background: #f7f8fa;
+    font-weight: 500;
+    border-bottom: 1px solid #c8d7e1;
+}
+
+.mailoptin-settings-wrap h2.nav-tab-wrapper a.nav-tab-active {
+    background: #fff !important;
+    border-right: 1px solid #c8d7e1;
+    width: 99%;
+    color: #2e4453;
+}
+
+.mailoptin-settings-wrap .metabox-holder {
+    flex: 3;
+    padding-left: 3%;
+    padding-right: 10px;
+    background: #fff;
+}
+
+.metabox-holder.mailoptin-tab-settings textarea {
+    width: 25em;
+}
+
+.mailoptin-settings-wrap .mailoptin-tab-settings .postbox {
+    border: none;
+    box-shadow: none;
+}
+
+.mailoptin-settings-wrap .metabox-holder h3.hndle {
+    padding: 12px;
+    cursor: default;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    display: flex;
+}
+
+.mailoptin-settings-wrap .metabox-holder h3.hndle span:first-child {
+    flex: 1 0 0;
+}
+
+.mailoptin-settings-wrap .postbox:first-child h3.hndle {
+    border-top: none !important;
+}
+
+.mo-field-header {
+    background: #0085ba;
+    color: #fff;
+    font-weight: bold;
+    padding: 10px;
+    font-size: 14px;
+    margin: 0 -12px;
+}
+
+/* optin popover action block */
+.mo-popover-content ul, .mo-popover-content li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.mo-popover-content li a {
+    display: block;
+    border-bottom: 1px dashed #eaeaea;
+    padding: 7px 0;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.mo-popover-content li a:focus {
+    box-shadow: none;
+    color: #d9534f;
+}
+
+.mo-popover-content li:first-child a {
+    padding-top: 0;
+}
+
+.mo-popover-content li:last-child a {
+    padding-bottom: 0;
+    border: 0 none;
+}
+
+/* modal styling */
+.mo-modal {
+    min-width: 400px;
+}
+
+.mo-modal .mo-header {
+    background: #3b94d1;
+    padding: 12px 20px;
+}
+
+.mo-modal .mo-header h2 {
+    color: #fff;
+    margin: 0;
+    padding: 9px 0 4px 10px;
+}
+
+.mo-modal .mo-content {
+    background: #fff;
+    padding: 10px 20px;
+}
+
+.mo-modal .mo-description {
+    color: #999;
+}
+
+.mo-modal .mo-content label {
+    font-weight: bold;
+    display: block;
+    font-size: 15px;
+    margin: 5px 0;
+}
+
+.mo-modal .mo-content input[type="text"],
+.mo-modal .mo-content textarea {
+    min-width: 350px;
+    padding: 10px;
+    width: 100%;
+}
+
+.mo-modal .mo-content input[type="text"] {
+    padding: 5px;
+}
+
+.mo-modal .mo-content input[type=submit] {
+    height: auto;
+    padding: 3px 10px;
+    min-width: 100px;
+}
+
+/* css for end and select winner split test modal */
+.mo-end-test-clearfix::before, .mo-end-test-clearfix::after {
+    clear: both;
+    float: none;
+    display: table;
+}
+
+.mo-end-test-clearfix::after {
+    content: " ";
+}
+
+.mo-end-test-modal {
+    font-family: inherit;
+    font-weight: 600;
+    text-transform: uppercase;
+
+    box-sizing: border-box;
+}
+
+.mo-end-test-modal .mo-end-test-conversion-rate .mo-end-test-centered h2 {
+    font-weight: 900;
+    font-size: 25px;
+    margin-bottom: 20px;
+}
+
+.mo-end-test-modal .mo-end-test-content-optin-name {
+    width: 50%;
+    float: left;
+    position: relative;
+    text-align: center;
+    word-break: break-all;
+}
+
+.mo-end-test-modal .mo-end-test-centered {
+    text-align: center;
+}
+
+.mo-end-test-modal .mo-end-test-th-header {
+    font-size: 16px;
+    font-weight: bold;
+    color: black;
+    text-transform: uppercase;
+}
+
+.mo-end-test-modal .mo-end-test-tbody {
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.mo-end-test-modal .mo-end-test-tbody:hover {
+    background: #f2f3f7;
+    cursor: pointer;
+}
+
+.mo-end-test-modal .mo-end-test-content-conversion {
+    text-align: center;
+}
+
+.mo-end-test-modal .mo-end-test-conversion-rate {
+    margin: 0 auto;
+    padding: 10px;
+    background: white;
+    border-radius: 5px;
+    min-width: 500px;
+    position: relative;
+}
+
+.mo-end-test-modal .mo-end-test-first-section {
+    padding: 15px 0;
+    border-bottom: 2px solid #ececec;
+}
+
+.mo-end-test-modal .mo-end-test-btn-converted {
+    padding: 10px 25px;
+    border-radius: 6px;
+    border: 0;
+    margin-top: 20px;
+    background: #188dfc;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 800;
+    font-family: inherit;
+}
+
+.mo-end-test-modal .mo-end-test-cancel-button {
+    margin: 20px 0 10px;
+}
+
+.mo-end-test-modal .mo-end-test-cancel-button a {
+    text-decoration: none;
+}
+
+.mo-end-test-modal .mo-end-test-converted-rate {
+    color: #77d1fb;
+}
+
+.mo-end-test-modal .mo-end-test-preloader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    opacity: 1;
+    background: #fff;
+    display: none;
+}
+
+.mo-end-test-modal .mo-end-test-warning-note {
+    text-transform: none;
+    font-weight: normal;
+    color: red;
+    font-size: 14px;
+    padding-top: 5px;
+}
+
+.mo-end-test-modal .mo-end-test-spinner {
+    left: 50%;
+    top: 50%;
+    position: absolute;
+}
+
+.mo-settings-page-disabled img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.mo-upgrade-plan {
+    background: rgba(255, 255, 255, 0.5);
+    padding: 50px 50px;
+    position: absolute;
+    right: 0;
+    z-index: 100;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.mo-text-center {
+    max-width: 600px;
+    margin: auto;
+    text-align: center;
+}
+
+.mo-settings-page-disabled img {
+    -webkit-filter: blur(4px);
+    -moz-filter: blur(4px);
+    -o-filter: blur(4px);
+    -ms-filter: blur(4px);
+    filter: blur(4px);
+}
+
+.mo-settings-page-disabled {
+    position: relative;
+}
+
+.mo-upgrade-plan .mo-lock-icon {
+    width: 128px;
+    height: 128px;
+    background: url(../../images/lockicon.png);
+    margin: 0 auto
+}
+
+.mo-upgrade-plan h1 {
+    font-weight: bold
+}
+
+#adminmenu a[href="admin.php?page=mailoptin-premium-upgrade"] {
+    color: #ffa506 !important;
+}
+
+.mailoptin-admin #mailoptin-sub-bar + .mailoptin-settings-wrap {
+    border-top: 0;
+}
+
+/* stylish header */
+.mo-admin-banner {
+    background-color: #098fe2;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    overflow: hidden;
+    position: relative;
+    top: 0;
+    width: 100%;
+    padding: 15px;
+}
+
+.mailoptin-admin .wrap {
+    padding-left: 20px;
+    margin: 0 20px 0 2px;
+}
+
+.wp-admin.mailoptin-admin #wpcontent {
+    padding: 0;
+}
+
+.mailoptin-admin #wpbody #wpbody-content .wrap h2.wp-csa-heading {
+    background-color: #fff;
+    padding: 15px 20px;
+    font-size: 2em;
+    margin: 0 -20px 20px;
+}
+
+.mailoptin-admin .mo-admin-banner__logo img {
+    width: 200px;
+    height: auto;
+    float: left;
+    margin-top: 5px;
+}
+
+.mo-admin-banner__helplinks {
+    float: right;
+    padding: 20px;
+}
+
+.mo-admin-banner__helplinks a {
+    color: #ffffffe3;
+    text-decoration: none;
+    padding-right: 15px;
+}
+
+.mailoptin-admin div#screen-meta-links {
+    position: absolute;
+    right: 0;
+    z-index: 9;
+}
+
+.admin-color-fresh #adminmenu .wp-submenu a:after {
+    background: #666;
+}
+
+.admin-color-light #adminmenu .wp-submenu a:after {
+    background: #ddd;
+}
+
+.admin-color-blue #adminmenu .wp-submenu a:after {
+    background: #85c7e0;
+}
+
+.admin-color-coffee #adminmenu .wp-submenu a:after {
+    background: #7f7068;
+}
+
+.admin-color-ectoplasm #adminmenu .wp-submenu a:after {
+    background: #755a9d;
+}
+
+.admin-color-midnight #adminmenu .wp-submenu a:after {
+    background: #555865;
+}
+
+.admin-color-ocean #adminmenu .wp-submenu a:after {
+    background: #739dac;
+}
+
+.admin-color-sunrise #adminmenu .wp-submenu a:after {
+    background: #e14c46;
+}
+
+#adminmenu .wp-submenu a[href$="page=mailoptin-integrations"],
+#adminmenu .wp-submenu a[href$="page=mailoptin-emails"] {
+    position: relative;
+    margin-bottom: 10px
+}
+
+#adminmenu .wp-submenu a[href$="page=mailoptin-integrations"]:after,
+#adminmenu .wp-submenu a[href$="page=mailoptin-emails"]:after {
+    position: absolute;
+    content: "";
+    display: block;
+    width: 30px;
+    height: 1px;
+    bottom: -5px;
+}
+
+
+/* add new email */
+.mo-design-gateway {
+    width: 100%;
+    max-width: 700px;
+}
+
+.mo-half-meta-inner .mo-half-meta h2 {
+    font-size: 24px !important;
+}
+
+.drag-and-drop-btn {
+    font-family: 'Open Sans', sans-serif;
+}
+
+.responsive-image img {
+    width: 100%;
+    height: auto;
+}
+
+.mo-hald-first {
+    float: left;
+    width: 50%;
+    text-align: center;
+    padding: 20px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    text-decoration: none;
+    color: #555;
+}
+
+.mo-hald-first a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.mo-hald-first a:focus {
+    box-shadow: none;
+}
+
+.mo-builder-select-active {
+    border: 2px solid #098fe2;
+}
+
+.drag-and-drop-btn {
+    position: absolute;
+    right: 0;
+}
+
+.mo-half-meta-inner {
+    background: #fff;
+    padding: 30px 20px;
+    position: relative;
+    cursor: pointer;
+}
+
+.mo-half-first-thumb.responsive-image img {
+    width: 70px;
+    height: 70px;
+    padding: 20px;
+}
+
+.mo-half-first-thumb.responsive-image {
+    text-align: center;
+}
+
+.mo-builder-create-btn {
+    background: #098fe2;
+    padding: 20px;
+    width: 100%;
+    border: 0;
+    font-weight: 400;
+    text-transform: uppercase;
+    color: #fff;
+    font-family: 'Work Sans', sans-serif;;
+    font-size: 20px;
+    border-bottom: 3px solid #2980b9;
+    cursor: pointer;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.mo-half-meta p {
+    font-size: 17px;
+    line-height: 1.5;
+    margin-top: 20px;
+}
+
+.mo-builder-create-btn:focus {
+    border-bottom: 2px solid #2980b9;
+}

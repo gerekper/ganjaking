@@ -1,0 +1,487 @@
+/** Google Fonts **/
+
+ul.mega-font-selector {
+	height: 200px;
+	overflow-y: auto;
+	border: 1px solid #ccc;
+	padding: 10px;
+}
+ul.mega-font-selector li {
+	clear: both;
+}
+
+/** Font Awesome **/
+
+#cboxContent .menu_icon .fa label:before,
+#cboxContent .menu_icon .fab label:before,
+#cboxContent .menu_icon .far label:before,
+#cboxContent .menu_icon .fas label:before {
+	font-size: 24px;
+	text-align: center;
+}
+
+#cboxContent .menu_icon .fa {
+	font-family: 'FontAwesome';
+}
+
+#cboxContent .menu_icon .fab {
+	font-family: 'Font Awesome 5 Brands';
+	font-weight: 400;
+}
+
+#cboxContent .menu_icon .far {
+	font-family: 'Font Awesome 5 Free';
+	font-weight: 400;
+}
+
+#cboxContent .menu_icon .fas {
+	font-family: 'Font Awesome 5 Free';
+	font-weight: 900;
+}
+
+/** Genericons **/
+
+#cboxContent .menu_icon .icon_selector .genericon label:before {
+	font-size: 24px;
+	text-align: center;
+}
+.nav-menus-php #cboxContent .menu_icon .icon_selector > div.notice {
+	float: none;
+	width: 100%;
+	height: auto;
+	padding: 10px;
+	margin:  0 0 20px 0;
+	box-sizing: border-box;
+}
+body[class*='_page_maxmegamenu_'] .toggle_icon_dropdown .select2-results li:first-child {
+	float: left;
+}
+body[class*='_page_maxmegamenu_'] .toggle_icon_dropdown .select2-results li:first-child i {
+	display: block;
+}
+body[class*='_page_maxmegamenu_'] .toggle_icon_dropdown .select2-results-dept-1 .select2-result-label {
+	padding: 5px !important;
+}
+body[class*='_page_maxmegamenu_'] .toggle_icon_dropdown .select2-results ul.select2-result-sub {
+	padding: 10px;
+}
+body[class*='_page_maxmegamenu_'] .toggle_icon_dropdown.select2-drop.select2-drop-active {
+	border: 1px solid #aaa;
+	box-shadow: none;
+	width: 500px !important;
+}
+body[class*='_page_maxmegamenu_'] .select2-choice > .select2-chosen i {
+	font-style: normal;
+}
+body[class*='_page_maxmegamenu_'] .icon_block .block-title span:before {
+    font-family: dashicons;
+}
+body[class*='_page_maxmegamenu_'] .select2-choice > .select2-chosen i[class^='fa-'],
+body[class*='_page_maxmegamenu_'] .select2-result-label i[class^='fa-'],
+body[class*='_page_maxmegamenu_'] .icon_block .block-title span[class^='fa']:before {
+    font-family: FontAwesome;
+}
+
+body[class*='_page_maxmegamenu_'] .select2-choice > .select2-chosen i[class^='fab-'],
+body[class*='_page_maxmegamenu_'] .select2-result-label i[class^='fab'],
+body[class*='_page_maxmegamenu_'] .icon_block .block-title span[class^='fab']:before {
+	font-family: 'Font Awesome 5 Brands';
+	font-weight: 400;
+}
+
+body[class*='_page_maxmegamenu_'] .select2-choice > .select2-chosen i[class^='far-'],
+body[class*='_page_maxmegamenu_'] .select2-result-label i[class^='far'],
+body[class*='_page_maxmegamenu_'] .icon_block .block-title span[class^='far']:before {
+	font-family: 'Font Awesome 5 Free';
+	font-weight: 400;
+}
+
+body[class*='_page_maxmegamenu_'] .select2-choice > .select2-chosen i[class^='fas-'],
+body[class*='_page_maxmegamenu_'] .select2-result-label i[class^='fas'],
+body[class*='_page_maxmegamenu_'] .icon_block .block-title span[class^='fas']:before {
+	font-family: 'Font Awesome 5 Free';
+	font-weight: 900;
+}
+body[class*='_page_maxmegamenu_'] .icon_block .block-title span {
+    font-size: 20px;
+}
+body[class*='_page_maxmegamenu_'] .icon_block .block-title span[class^='fa'] {
+	font-size: 16px;
+}
+body[class*='_page_maxmegamenu_'] .icon_block .block-title span:before {
+    content: attr(rel);
+}
+
+.select_2_toggle_block_icon_dropdown {
+	float: right;
+}
+.block-settings .select2-chosen i {
+    vertical-align: middle;
+    margin: 3px 3px 0 0;
+}
+/** Custom Icons **/
+
+#cboxContent #mm_icon {
+	display: block;
+	margin-bottom: 10px;
+	max-width: 100px;
+	max-height: 100px;
+}
+
+#cboxContent .mm_tab_custom table {
+	float: left;
+}
+
+#cboxContent .menu_icon img[src=""] {
+   display: none;
+}
+
+#cboxContent #mm_choose_icon,
+#cboxContent #mm_change_icon,
+#cboxContent #mm_remove_icon {
+	cursor: pointer;
+	margin-right: 20px;
+	float: left;
+}
+
+#cboxContent input.mm_icon_width,
+#cboxContent input.mm_icon_height {
+	margin-right: 0;
+}
+
+#cboxContent .mm_tab_custom p.submit {
+	float: left;
+}
+
+/** Style Overrides **/
+
+
+#cboxContent .mm-picker-container .sp-replacer {
+	margin: 0;
+	float: left;
+}
+
+#cboxContent .mm-picker-container .sp-replacer .sp-preview {
+	border: 0;
+	height: 26px;
+	width: 26px;
+	margin: 0;
+}
+#cboxContent .mm-picker-container input.mm_colorpicker {
+	float: left;
+	border: 0;
+	height: 23px;
+	box-shadow: 0 0 0;
+	margin: 0;
+}
+
+#cboxContent .mm-picker-container {
+	border-radius: 3px;
+	box-shadow: 0 1px 0 rgba(0,0,0,.08);
+	border: 1px solid #ccc;
+	font-size: 0.9em;
+	margin-right: 20px;
+	float: left;
+}
+
+#cboxContent .mm-picker-container div.chosen-color {
+	background: #f7f7f7;
+	-webkit-border-radius: 0 2px 2px 0;
+	border-radius: 0 2px 2px 0;
+	border-left: 1px solid #ccc;
+	color: #555;
+	font-size: 11px;
+	line-height: 26px;
+	padding: 0 6px;
+	text-align: center;
+	-webkit-box-shadow: inset 0 1px 0 #fff;
+	box-shadow: inset 0 1px 0 #fff;
+	float: left;
+	cursor: default;
+}
+
+#cboxContent .mm_content.styling .mega-name {
+	width: 40%;
+}
+#cboxContent .mm_content.styling .mega-enable {
+	width: 1%;
+}
+
+#cboxContent .mm_content.styling td.mega-enable:after {
+	display: none;
+}
+#cboxContent .mm_content.styling .mega-enabled td:after {
+	display: none;
+}
+#cboxContent .mm_content.styling table {
+	border-collapse: collapse;
+}
+#cboxContent .mm_content.styling td {
+	position: relative;
+	padding: 10px;
+	border-bottom: 5px solid white;
+	vertical-align: middle;
+}
+#cboxContent .mm_content.styling td:after {
+	background: #eeeeee;
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	content: "";
+	opacity: 0.5;
+}
+#cboxContent p.tab-description {
+	margin: 20px 0;
+	border-bottom: 1px solid #efefef;
+	padding-bottom: 20px;
+	opacity: 0.7;
+	font-style: italic;
+}
+
+.mmm_image_selector {
+	position: relative;
+}
+
+
+.megamenu_outer_wrap .megamenu_right .menu_settings .mmm_image_selector {
+	float: right;
+	width: 50%;
+}
+.megamenu_outer_wrap .megamenu_right .menu_settings .mmm_image_selector img {
+	max-width: 100%;
+}
+.megamenu_outer_wrap .megamenu_right .menu_settings .mmm_image_selector .dashicons-trash {
+	left: 123px;
+}
+.megamenu_outer_wrap .megamenu_right .menu_settings .mmm_image_selector .dashicons-edit {
+    left: 90px;
+}
+.mmm_image_selector .dashicons-edit,
+.mmm_image_selector .dashicons-trash {
+	background: white;
+	display: block;
+	padding: 1px;
+	border: 2px solid #2EA2CC;
+	color: #2EA2CC;
+	cursor: pointer;
+}
+
+.mmm_image_selector.has_image .dashicons-edit {
+	display: inline-block;
+}
+
+
+.mmm_image_selector .dashicons-trash {
+	display: none;
+}
+.mmm_image_selector.has_image .dashicons-trash {
+	display: inline-block;
+	margin: 0 5px;
+}
+
+#cboxContent .mmm_image_selector img {
+	background-color: #FEFEFE;
+	background-image: -webkit-linear-gradient(45deg, #CBCBCB 25%, transparent 25%, transparent 75%, #CBCBCB 75%, #CBCBCB), -webkit-linear-gradient(45deg, #CBCBCB 25%, transparent 25%, transparent 75%, #CBCBCB 75%, #CBCBCB);
+	background-image: -moz-linear-gradient(45deg, #CBCBCB 25%, transparent 25%, transparent 75%, #CBCBCB 75%, #CBCBCB), -moz-linear-gradient(45deg, #CBCBCB 25%, transparent 25%, transparent 75%, #CBCBCB 75%, #CBCBCB);
+	background-image: -o-linear-gradient(45deg, #CBCBCB 25%, transparent 25%, transparent 75%, #CBCBCB 75%, #CBCBCB), -o-linear-gradient(45deg, #CBCBCB 25%, transparent 25%, transparent 75%, #CBCBCB 75%, #CBCBCB);
+	background-image: -ms-linear-gradient(45deg, #CBCBCB 25%, transparent 25%, transparent 75%, #CBCBCB 75%, #CBCBCB), -ms-linear-gradient(45deg, #CBCBCB 25%, transparent 25%, transparent 75%, #CBCBCB 75%, #CBCBCB);
+	background-image: linear-gradient(45deg, #CBCBCB 25%, transparent 25%, transparent 75%, #CBCBCB 75%, #CBCBCB), linear-gradient(45deg, #CBCBCB 25%, transparent 25%, transparent 75%, #CBCBCB 75%, #CBCBCB);
+	-webkit-background-size:20px 20px;
+	-moz-background-size:20px 20px;
+	background-size:20px 20px;
+	background-position:0 0, 10px 10px;
+	max-width: 150px;
+}
+/** Replacements **/
+
+
+#cboxContent .replacements .mega-value .mega-description {
+	font-family: monospace;
+}
+
+#cboxContent .replacements .CodeMirror {
+	height: 150px;
+	border: 1px solid #aaa;
+}
+
+#cboxContent .replacements tr {
+	background: transparent;
+}
+#cboxContent .mega-desc-with-input {
+	width: 150px;
+	float: left;
+}
+.nav-menus-php #cboxContent table td.mega-value .mega-desc-with-input input[type=number] {
+	margin-right: 0;
+}
+#cboxContent .mega-desc-with-input .mega-short-desc {
+	width: 150px;
+	float: left;
+	font-size: 0.8em;
+    text-transform: uppercase;
+    color: #aaa;
+    display: block;
+    margin: 0 0 2px 1px;
+}
+#cboxContent .mega-desc-with-input .mega-after {
+	height: 28px;
+    border: 1px solid #ddd;
+    border-left: 0;
+    line-height: 26px;
+    display: inline-block;
+    box-sizing: border-box;
+    margin-top: 1px;
+    background: #eee;
+    font-size: 0.9em;
+    padding: 0 5px 0 4px;
+    -webkit-box-shadow: inset 0 1px 2px rgba( 0, 0, 0, 0.07 );
+    box-shadow: inset 0 1px 2px rgba( 0, 0, 0, 0.07 );
+    color: #32373c;
+    outline: none;
+    margin: 0;
+}
+#cboxContent .replacements table label {
+    font-size: 0.9em;
+    float: left;
+    margin-right: 10px;
+}
+#cboxContent .replacements table label span.mega-short-desc {
+	font-size: 0.8em;
+	text-transform: uppercase;
+	color: #aaa;
+	display: block;
+	margin: 0 0 2px 1px;
+}
+#cboxContent .replacements table input.mm_logo_url {
+	width: 200px;
+}
+#cboxContent table td.mega-value input[type=number].mm_logo_width,
+#cboxContent table td.mega-value input[type=number].mm_logo_height {
+	margin-right: 5px;
+}
+#cboxContent table tr.logo_tip td.mega-value {
+    font-style: italic;
+}
+
+/** Sticky **/
+
+.mega-value .mega-after {
+    vertical-align: inherit;
+    font-size: 0.9em;
+    opacity: 0.8;
+    margin-left: 3px;
+}
+
+.licence_warning,
+.licence_info {
+    display: inline-block;
+    width: 90%;
+    padding: 0 11px;
+    font-size: 14px;
+    text-align: left;
+    background-color: #fff;
+    border-left: 4px solid #ffba00;
+    background: #f1f1f1;
+}
+.licence_info {
+    border-left: 4px solid #0074a2;
+    margin: 40px 0;
+}
+.licence_warning p,
+.licence_info p {
+	line-height: 19px;
+	font-size: 0.9em;
+}
+.licence_warning code {
+	font-size: 0.9em;
+}
+
+
+.megamenu_outer_wrap .megamenu_right .menu_settings table .toggle-bar-designer .mega-blocks .block .block-title .fa {
+    width: 20px;
+    height: 20px;
+    text-align: center;
+}
+
+.mmm_tooltip {
+	cursor: help;
+	color: #9ea3a8;
+	font-size: 16px;
+}
+.mega_menu_meta_box div table tr input[type=number] {
+    max-width: 50px;
+    font-size: 0.9em;
+    margin-right: 0;
+}
+.mega_menu_meta_box div table tr span.mega-after {
+    height: 28px;
+    border: 1px solid #ddd;
+    border-left: 0;
+    line-height: 26px;
+    display: inline-block;
+    float: right;
+    box-sizing: border-box;
+    margin-top: 1px;
+    background: #eee;
+    font-size: 0.9em;
+    padding: 0 5px 0 4px;
+    -webkit-box-shadow: inset 0 1px 2px rgba( 0, 0, 0, 0.07 );
+    box-shadow: inset 0 1px 2px rgba( 0, 0, 0, 0.07 );
+    color: #32373c;
+    outline: none;
+}
+.mega_menu_meta_box div table {
+	margin-bottom: 0;
+}
+.mega_menu_meta_box div table.sticky_settings {
+	margin-bottom: 4px;
+}
+.mega_menu_meta_box div table.sticky_settings td:nth-child(2) {
+	min-width: 0px;
+}
+
+.mmm_sticky_warning_lightbox #cboxContent {
+	box-sizing: border-box;
+	padding: 0 10px;
+}
+
+.mmm_sticky_warning_lightbox #cboxLoadedContent {
+	box-sizing: border-box;
+	width: auto !important;
+}
+
+.nav-menus-php #cboxContent .mm_content.mega_menu #megamenu-tabbed {
+	display: none;
+	margin-top: 20px;
+}
+.nav-menus-php #cboxContent .mm_content.mega_menu #megamenu-tabbed p {
+	font-style: italic;
+}
+.nav-menus-php #cboxContent .mm_content.mega_menu[data-type='tabbed'] #megamenu-tabbed {
+	display: block;
+}
+
+body.toplevel_page_maxmegamenu .megamenu_right .menu_settings table table.mega-inner-table {
+	width: auto;
+}
+body.toplevel_page_maxmegamenu .megamenu_right .menu_settings table table.mega-inner-table td {
+	padding: 0;
+	padding-top: 0;
+	padding-right: 7px;
+	padding-bottom: 3px;
+}
+.nav-menus-php #cboxContent .mm_tab_container .mm_tab.styling:before {
+	content: "\f540"; 
+}
+.nav-menus-php #cboxContent .mm_tab_container .mm_tab.roles:before {
+	content: "\f110"; 
+}
+.nav-menus-php #cboxContent .mm_tab_container .mm_tab.badge:before {
+	content: "\f484"; 
+}
+#cboxContent .badge table td.mega-value input[type=text] {
+	width: 200px;
+}

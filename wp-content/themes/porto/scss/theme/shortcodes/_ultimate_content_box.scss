@@ -1,0 +1,19 @@
+/* Content Box */
+.porto-ultimate-content-box-anchor,
+.porto-ultimate-content-box-anchor:active,
+.porto-ultimate-content-box-anchor:focus,
+.porto-ultimate-content-box-anchor:hover,
+.porto-ultimate-content-box-anchor:visited {
+	text-decoration: none;
+	line-height: inherit;
+	outline: 0
+}
+.porto-ultimate-content-box.has-content-pos {
+	display: -ms-flexbox; display: flex;
+	-ms-flex-direction: column; flex-direction: column;
+}
+.porto-ultimate-content-box:after {
+	content:'';
+	display:block;
+	clear:both;
+}

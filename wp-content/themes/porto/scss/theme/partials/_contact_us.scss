@@ -1,0 +1,54 @@
+
+input,
+textarea,
+select {
+    &.wpcf7-not-valid {
+        border-color: #a94442;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, .075) inset;
+    }
+}
+span.wpcf7-not-valid-tip {
+    color: #c10000;
+    margin-top: 3px;
+    padding: 0;
+    font-size: .9em;
+}
+
+div.wpcf7-response-output {
+    padding: 15px;
+    margin: 0 0 20px;
+    border: 1px solid transparent;
+    h4 {
+        margin-top: 0;
+        color: inherit;
+    }
+    .alert-link {
+        font-weight: 700;
+    }
+    > p,
+    > ul {
+        margin-bottom: 0;
+    }
+    > p + p {
+        margin-top: 5px;
+    }
+}
+div.wpcf7-validation-ok {
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+    color: #3c763d;
+}
+div.wpcf7-validation-errors {
+    background-color: #fcf8e3;
+    border-color: #faebcc;
+    color: #8a6d3b;
+}
+
+span.wpcf7-list-item {
+    margin-#{$left}: 0;
+    margin-#{$right}: 1em;
+}
+
+.wpcf7-captchac {
+    margin-top: 5px;
+}

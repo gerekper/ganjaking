@@ -1,0 +1,173 @@
+
+.woocommerce-account {
+    .woocommerce {
+        @include clearfix();
+    }
+
+    .woocommerce-MyAccount-navigation {
+        float: $left;
+        width: 23%;
+        padding: 0 0 30px;
+        @media #{$screen-normal} {
+            float: none;
+            width: 100%;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            li {
+                margin: 0;
+                padding: 0;
+                display: block;
+                position: relative;
+                a {
+                    @include transition (background 0.1s);
+                    padding: side-values(8px 0 8px 20px);
+                    display: block;
+                    color: #666;
+                    font-size: 0.9em;
+                    text-decoration: none;
+                    &:before {
+                        content: "";
+                        display: inline-block;
+                        width: 0;
+                        height: 4px;
+                        border-top: 4px solid transparent;
+                        border-bottom: 4px solid transparent;
+                        position: absolute;
+                        top: 15px;
+                        #{$left}: 10px;
+                    }
+                    &:hover {
+                        text-decoration: none;
+                    }
+                }
+                &.is-active > a {
+                    font-weight: bold;
+                }
+                ul {
+                    list-style: none;
+                    margin: side-values(0 0 0 25px);
+                    padding: 0;
+                }
+//                &:last-child {
+//                    a {
+//                        border-bottom: none;
+//                    }
+//                }
+            }
+        }
+    }
+
+    .woocommerce-MyAccount-content {
+        float: $right;
+        width: 75%;
+        padding: 0;
+        @media #{$screen-normal} {
+            float: none;
+            width: 100%;
+        }
+    }
+
+    ol.commentlist.notes {
+        li.note {
+
+            p.meta {
+                font-weight: 700;
+                margin-bottom: 0;
+            }
+
+            .description {
+                p:last-child {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+    ul.digital-downloads {
+        margin-#{$left}: 0;
+        padding-#{$left}: 0;
+
+        li {
+            list-style: none;
+            margin-#{$left}: 0;
+            padding-#{$left}: 0;
+
+            .count {
+                float: $right;
+            }
+        }
+    }
+}
+
+.address {
+    .featured-box {
+        text-align: $left;
+    }
+}
+
+#rememberme,
+.back-login {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.woocommerce-password-strength {
+    text-align: center;
+    font-weight: 600;
+    padding: 3px 0px 3px 0px;
+    color: #333;
+    line-height: 1.2;
+
+    &.strong {
+        background-color: #c1e1b9;
+        border-color: #83c373;
+    }
+
+    &.short {
+        background-color: #f1adad;
+        border-color: #e35b5b;
+    }
+
+    &.bad {
+        background-color: #fbc5a9;
+        border-color: #f78b53;
+    }
+
+    &.good {
+        background-color: #ffe399;
+        border-color: #ffc733;
+    }
+}
+
+.woocommerce-password-hint {
+    margin: 1em 0 0 0;
+    display: block;
+}
+
+.order-info {
+    mark {
+        background: transparent;
+        padding: 0;
+    }
+}
+
+.featured-box.porto-user-box {
+    border: 1px solid #ececec;
+    background: #fff;
+    border-top: 4px solid #08c;
+    box-shadow: 0 2px 3px rgba(0,0,0,.08);
+
+    .box-content {
+        border-top: none;
+        padding: 35px 25px;
+        a { line-height: 33px; }
+
+        @media (min-width: 768px) {
+            .content {
+                min-height: 260px;
+            }
+        }
+    }
+}

@@ -1,0 +1,130 @@
+# Copyright (C) 2020
+# This file is distributed under the same license as the  package.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: "
+"https://wordpress.org/support/plugin/woocommerce-currency-converter-widget\n"
+"POT-Creation-Date: 2020-06-11 15:08:24+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: node-wp-i18n 1.2.3\n"
+
+#: includes/class-wc-currency-converter.php:47
+msgid "Open Exchange Rate API"
+msgstr ""
+
+#: includes/class-wc-currency-converter.php:53
+msgid "App Key"
+msgstr ""
+
+#: includes/class-wc-currency-converter.php:55
+#. translators: %s: Open Exchange signup link
+msgid ""
+"(optional) If you have an <a href=\"%s\">Open Exchange Rate API app ID</a>, "
+"enter it here."
+msgstr ""
+
+#: includes/class-wc-currency-converter.php:121
+msgid "WooCommerce Currency Converter: Incorrect key entered!"
+msgstr ""
+
+#: includes/class-wc-currency-converter.php:229
+#: includes/class-wc-currency-converter.php:243
+msgid "Reset"
+msgstr ""
+
+#: includes/class-wc-currency-converter.php:381
+msgid "Original price:"
+msgstr ""
+
+#: includes/currency-converter-widget.php:29
+#: includes/woocommerce-currency-converter-privacy.php:12
+msgid "WooCommerce Currency Converter"
+msgstr ""
+
+#: includes/currency-converter-widget.php:31
+msgid "Allow users to choose a currency for prices to be displayed in."
+msgstr ""
+
+#: includes/currency-converter-widget.php:130
+msgid "Title:"
+msgstr ""
+
+#: includes/currency-converter-widget.php:131
+msgid "Currency converter"
+msgstr ""
+
+#: includes/currency-converter-widget.php:134
+msgid "Currency codes:"
+msgstr ""
+
+#: includes/currency-converter-widget.php:134
+msgid "1 per line"
+msgstr ""
+
+#: includes/currency-converter-widget.php:136
+msgid ""
+"Use * to control how the amounts and currency symbols are displayed. "
+"Example: SEK* becomes 999kr. USD * becomes 999 $. If you omit * and just "
+"provide the currency (USD, EUR), WooCommerce's default currency position "
+"will be used."
+msgstr ""
+
+#: includes/currency-converter-widget.php:139
+msgid "Currency Display Mode:"
+msgstr ""
+
+#: includes/currency-converter-widget.php:141
+msgid "Buttons"
+msgstr ""
+
+#: includes/currency-converter-widget.php:142
+msgid "Select Box"
+msgstr ""
+
+#: includes/currency-converter-widget.php:146
+msgid "Widget message:"
+msgstr ""
+
+#: includes/currency-converter-widget.php:147
+msgid ""
+"Currency conversions are estimated and should be used for informational "
+"purposes only."
+msgstr ""
+
+#: includes/currency-converter-widget.php:150
+msgid "Show currency symbols in widget:"
+msgstr ""
+
+#: includes/currency-converter-widget.php:154
+msgid "Show reset link:"
+msgstr ""
+
+#: includes/currency-converter-widget.php:158
+msgid "Disable location detection:"
+msgstr ""
+
+#: includes/currency-converter-widget.php:160
+msgid ""
+"The currency converter widget will default to the currency for a user's "
+"currenct location. Check this box to disable location detection and default "
+"to the store's currency."
+msgstr ""
+
+#: includes/woocommerce-currency-converter-privacy.php:20
+msgid ""
+"By using this extension, you may be storing personal data or sharing data "
+"with an external service. <a href=\"%s\" target=\"_blank\">Learn more about "
+"how this works, including what you may want to include in your privacy "
+"policy.</a>"
+msgstr ""
+
+#: woocommerce-currency-converter.php:55
+#. translators: %s: WooCommerce link
+msgid "WooCommerce Currency Converter requires %s to be installed and active."
+msgstr ""

@@ -1,0 +1,155 @@
+*** Shipping Per Product Changelog ***
+
+2020-06-10 - version 2.3.10
+* Tweak - WC 4.2 compatibility.
+
+2020-04-29 - version 2.3.9
+* Fix   - Make sure item cost filters are applied only once.
+
+2020-03-17 - version 2.3.8
+* Tweak - Remove legacy code.
+* Fix   - Allow percentage in handling fees.
+
+2020-03-04 - version 2.3.7
+* Tweak - WC tested up to 4.0.
+
+2020-02-04 - version 2.3.6
+* Fix - Use proper escape for attributes.
+
+2020-01-13 - version 2.3.5
+* Tweak - WC 3.9 compatibility.
+
+2019-11-04 - version 2.3.4
+* Fix - Export of rates to CSV
+* Tweak - WC 3.8 compatibility.
+
+2019-09-25 - version 2.3.3
+* Fix   - Per product shipping rules order is not saved for variations after updating a product.
+* Add - Support for local pickup shipping method.
+
+2019-08-28 - version 2.3.2
+* Tweak - Add an option to override product import rules.
+
+2019-08-08 - version 2.3.1
+* Fix - Undefined constant "enabled" error when saving a product.
+* Tweak - WC 3.7 compatibility.
+
+2019-06-03 - version 2.3.0
+* Add - Use shipping zones and instances to allow greater flexibility. Any existing configurations will use the legacy shipping method based on 2.2.14.
+* Add - Split Per Product Shipping products into separate packages from other products.
+* Add - Filter woocommerce_per_product_shipping_ship_via to allow per product shipping to use other (possibly free) shipping methods.
+
+2019-04-16 - version 2.2.16
+* Tweak - WC 3.6 compatibility.
+* Fix   - Updating rates defined on a product won't work
+
+2018-09-25 - version 2.2.15
+* Update - WC 3.5 compatibility.
+
+2018-08-02 - version 2.2.14
+* Fix   - Using asterisks (what appears as an empty row) causes the row to be removed.
+
+2018-05-23 - version 2.2.13
+* Update - Privacy policy notification.
+* Update - WC 3.4 compatibility.
+* Tweak  - Allow row multi-selection with Control/Command key.
+
+2018-03-14 - version 2.2.12
+* Fix - State Tax not applied to per product shipping fee.
+
+2017-12-14 - version 2.2.11
+* Update - WC tested up to version.
+
+2017-06-29 - version 2.2.10
+* Fix - Issue where importing CSV failed because of infinite loop.
+
+2017-06-26 - version 2.2.9
+* Tweak - Update deprecated function calls.
+* Update - Change plugin's main file name to woocommerce-shipping-per-product.
+* Tweak - Added settings link in plugin action.
+* Fix - PHP 7.1 Warning on arithmetic with invalid strings.
+* Fix - PHP notice of invalid argument supplied for foreach() when saving variation with empty custom rates.
+* Fix - Issue where duplicating a variable product doesn't copy the rates.
+
+2016-06-21 - version 2.2.8
+* Fix - Remove standalone method if it is not enabled.
+
+2016-05-23 - version 2.2.7
+* Fix - WC 2.6 strict standards method parameter type
+
+2016-01-06 - version 2.2.6
+* Fix - When country, state or postcode is entered with asterisk, no rates will return
+
+2015-12-11 - version 2.2.5
+* Fix - Undefine new_key variable in variations setting page
+
+2015-07-14 - version 2.2.4
+* Fix - Improve save methods + 2.4 compatibility.
+
+2015-06-24 - version 2.2.2
+* Fix - Prevent rules from deleting when per product shipping is disabled
+* Fix - Enable per product checkbox was deselecting itself after save
+* Remove - Authorship information in main plugin file
+
+2015-06-04 - version 2.2.1
+* Improve variation checkbox saving.
+* Fix focus on mobile.
+
+2015-03-16 - version 2.2.0
+* Refactor.
+* Fix variation JS.
+
+2015-01-28 - version 2.1.0
+* Added links to docs.
+* Added language files.
+* Tweaked styling.
+
+2014-06-30 - version 2.0.6
+* Correctly compare zero cost in standalone method.
+
+2014-05-07 - version 2.0.5
+* hide per product variation shipping option when product is virtual.
+
+2014-03-11 - version 2.0.4
+* woocommerce_per_product_shipping_skip_free_method filter.
+
+2014-02-24 - version 2.0.3
+* For standalone, NO default and nothing found = abort.
+
+2014-02-23 - version 2.0.2
+* WPML compat.
+
+2014-02-13 - version 2.0.1
+* Fix notice on save.
+
+2013-10-06 - version 2.0.0
+* Complete overhaul of per-product shipping.
+* Add per-product rates for specific country, state and postal codes.
+* Define per-line and per-item costs.
+* Add costs to other shipping methods *or*
+* Can be used as its own standalone shipping method (optionally).
+* Compatible with variations.
+* Import and Export rates via CSV files.
+
+2012-06-19 - version 1.0.6
+* Fix write panel display.
+* Woo updater.
+
+2012-04-15 - version 1.0.5
+* Save hook for WC 1.5.4
+
+2012-02-01 - version 1.0.4
+* Use correct shipping name on the frontend
+
+2012-02-01 - version 1.0.3
+* Using WC 1.4 Class names
+
+2012-01-26 - version 1.0.2
+* WC 1.4 Compatibility
+* Added Woo Updater
+
+2011-11-15 - version 1.0.1
+* Changed textdomain
+
+2011-09-27 - version 1.0
+* First Release

@@ -1,0 +1,612 @@
+/***********************
+// General
+***********************/
+
+.alert {
+	padding: 20px;
+	color: #FFF;
+	margin: 15px 0;
+}
+
+.alert-success {
+	background-color: #4CAF50;
+}
+
+.alert-danger {
+	background-color: #F44336;
+}
+
+.gdpr-clear {
+	display: block;
+	float: none;
+	clear: both;
+}
+
+.wordpress-gdpr-privacy-settings-table  {
+  width: 100%;
+}
+
+.wordpress-gdpr-privacy-settings-table td, .wordpress-gdpr-privacy-settings-table th {
+  padding: 10px;
+}
+
+.wordpress-gdpr-privacy-settings-table th {
+  border-bottom: 1px solid #333;
+}
+
+.gdpr-buddypress-checkbox-container {
+	display: block;
+	width: 100%;
+	float: none;
+	clear: both;
+}
+
+/***********************
+// Privacy Center
+***********************/
+.wordpress-gdpr-privacy-center, .wordpress-gdpr-privacy-center * {
+    box-sizing: border-box;
+}
+
+.wordpress-gdpr-privacy-center-item {
+	text-align: center;
+	width: 31%;
+	display: block;
+	border: 1px solid #eaeaea;
+	padding: 20px;
+	float: left;
+	margin-bottom: 20px;
+	margin-right: 3%;
+	height: 250px;
+}
+
+.wordpress-gdpr-privacy-center-item-last {
+  margin-right: 0;
+}
+
+h2.wordpress-gdpr-privacy-center-item-headline {
+  font-size: 24px !important;
+  margin-bottom: 10px !important;
+    line-height: 30px !important;
+    margin-top: 10px !important;
+}
+
+.wordpress-gdpr-privacy-center-item .fa, .wordpress-gdpr-privacy-center-item .fas, .wordpress-gdpr-privacy-center-item .fal, .wordpress-gdpr-privacy-center-item .far {
+  font-size: 32px;
+  margin-bottom: 15px;
+}
+
+.wordpress-gdpr-privacy-center-item-action {
+  background: #333;
+  color: #FFF;
+  display: inline-block;
+  padding: 5px 15px;
+  border-radius: 5px;
+}
+
+@media (max-width: 768px) {
+  .wordpress-gdpr-privacy-center-item {
+  width: 100%;
+  float: none;
+  }
+}
+
+/***********************
+// GDPR Forms
+***********************/
+
+.wordpress-gdpr-form label {
+  display: block;
+}
+.wordpress-gdpr-form input[type="text"], .wordpress-gdpr-form input[type="email"],
+.wordpress-gdpr-form input, .wordpress-gdpr-form textarea {
+	border: 1px solid #000;
+	padding: 15px;
+	width: 100%;
+	background: transparent;
+}
+
+.wordpress-gdpr-form input[type="checkbox"] {
+  width: auto;
+}
+
+.wordpress-gdpr-back-link {
+  margin: 0 0 20px;
+  display: block;
+}
+
+.wordpress-gdpr-form .form-group {
+	margin-bottom: 20px;
+}
+
+.wordpress-gdpr-btn-form {
+  margin-bottom: 40px;
+}
+
+/***********************
+// GDPR Forms
+***********************/
+
+
+/***********************
+// Cookie Popup
+***********************/
+
+.wordpress-gdpr-popup {
+  position: fixed;
+  font-size: 13px;
+  line-height: 17px;
+  z-index: 999999999;
+}
+
+.wordpress-gdpr-popup-container {
+  display: none;
+  padding: 20px;
+}
+
+.wordpress-gdpr-popup p {
+  margin: 0;
+}
+
+.wordpress-gdpr-popup-full-width {
+  width: 100%;
+  text-align: center;
+}
+
+.wordpress-gdpr-popup-top {
+  top: 0;
+}
+
+.wordpress-gdpr-popup-bottom {
+  bottom: 0;
+}  
+
+.wordpress-gdpr-popup-full-width {
+  width: 100%;
+  text-align: center;
+}
+
+.wordpress-gdpr-popup-privacy-center, .wordpress-gdpr-popup-read-more, .wordpress-gdpr-popup-privacy-settings-text {
+    display: block;
+    float: none;
+    clear: both;
+}
+
+.wordpress-gdpr-popup-agree, .wordpress-gdpr-popup-decline {
+    padding: 8px 15px;
+    text-decoration: none !important;
+    text-transform: uppercase;
+    display: inline-block;
+    margin-bottom: 10px;
+    color: #FFFFFF;
+    padding: 10px 20px;
+}
+
+a.wordpress-gdpr-popup-agree:hover, a.wordpress-gdpr-popup-decline:hover, a.wordpress-gdpr-popup-agree:active, a.wordpress-gdpr-popup-decline:active {
+	color: #FFFFFF;
+}
+
+.wordpress-gdpr-popup-agree {
+    background: #FF5722;
+    float: left;
+}
+
+.wordpress-gdpr-popup-decline {
+    background: #9E9E9E;
+    float: right;
+}
+
+.wordpress-gdpr-popup-full-width .wordpress-gdpr-popup-agree, .wordpress-gdpr-popup-full-width .wordpress-gdpr-popup-decline{
+	float: none;
+}
+
+.wordpress-gdpr-popup-actions {
+    margin-top: 20px;
+}
+
+.wordpress-gdpr-popup-actions-links a {
+    display: inline;
+}
+
+.wordpress-gdpr-popup-overlay .wordpress-gdpr-popup-container {
+	position: fixed;
+	z-index: 99999;
+	width: 90%;
+	max-width: 500px;
+	height: auto;
+	margin: auto;
+	padding: 35px;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	-webkit-transform: translate(-50%, -50%);
+}
+
+.wordpress-gdpr-popup-overlay-backdrop {
+  z-index: 9999;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0,0,0,0.7);
+  display: none;
+}
+
+.wordpress-gdpr-popup-actions a, .wordpress-gdpr-popup-actions a:hover, .wordpress-gdpr-popup-actions a:active {
+  font-weight: bold;
+  margin-right: 5px;
+  text-decoration: underline;
+}
+
+.wordpress-gdpr-popup-small {
+  width: 400px;
+  margin-right: 15px;
+  right: 0;
+  bottom: 20px;
+}
+
+.wordpress-gdpr-popup-small .wordpress-gdpr-popup-agree {
+  display: block;
+}
+
+.wordpress-gdpr-popup-close {
+	position: absolute;
+	top: -12.5px;
+	right: -12.5px;
+	display: block;
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	border-radius: 50%;
+}
+
+.wordpress-gdpr-popup-full-width .wordpress-gdpr-popup-close {
+  top: 10px;
+  right: 10px;
+}
+
+/***********************
+// Privacy Settings Trigger
+***********************/
+
+.wordpress-gdpr-privacy-settings-trigger-container {
+	width: auto;
+	position: fixed;
+	bottom: 1%;
+	height: 60px;
+	width: 60px;
+	text-align: center;
+	line-height: 60px;
+	border-radius: 50%;
+	z-index: 99;
+}
+
+.wordpress-gdpr-privacy-settings-trigger-bottom-right {
+	right: 1%;
+}
+
+.wordpress-gdpr-privacy-settings-trigger-bottom-left {
+	left: 1%;
+}
+
+/***********************
+// Privacy Settings Modal
+***********************/
+
+.wordpress-gdpr-privacy-settings-popup-container, .wordpress-gdpr-privacy-settings-popup-container * {
+    box-sizing: border-box;
+}
+
+.wordpress-gdpr-popup-privacy-settings-modal {
+	position: absolute;
+	top: -40px;
+	right: 10px;
+	border-radius: 10px 10px 0 0;
+	width: 400px;
+}
+
+.wordpress-gdpr-privacy-settings-popup-message {
+    background-color: #4CAF50;
+    color: #FFF;
+    padding: 5px 10px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 11px;
+    display: none;
+}
+
+.wordpress-gdpr-popup-privacy-settings-modal-bottom {
+  bottom: 0;
+  z-index: 9999;
+  position: fixed;
+  top: auto;
+}
+
+.wordpress-gdpr-popup-small .wordpress-gdpr-popup-privacy-settings-modal {
+	/*top: -40px;*/
+	right: 0px;
+}
+
+.wordpress-gdpr-popup-privacy-settings-modal {
+  cursor: pointer;
+}
+
+.wordpress-gdpr-popup-privacy-settings-title {
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	border-bottom: 1px solid #FFF;
+}
+
+@media (max-width: 768px) {
+
+  	.wordpress-gdpr-popup, .wordpress-gdpr-popup-privacy-settings-modal {
+		width: 100%;
+  	}
+
+  	.wordpress-gdpr-popup-small {
+		margin-right: 0;
+		width: 100%;
+  	}
+
+  	.wordpress-gdpr-popup-privacy-settings-modal {
+		right: 0;
+  	}
+}
+
+@media (max-width: 1000px) and (max-height: 500px) {
+
+	.wordpress-gdpr-privacy-settings-popup {
+  		max-height: 100%;
+    	overflow-x: auto;
+    }
+}
+
+.wordpress-gdpr-privacy-settings-popup {
+	position: fixed;
+	z-index: 99999;
+	width: 90%;
+	max-width: 660px;
+	height: auto;
+	margin: auto;
+	padding: 15px;
+	left: 50%;
+	top: 50%;
+	font-size: 11px;
+	transform: translate(-50%, -50%);
+	-webkit-transform: translate(-50%, -50%);
+	display: none;
+}
+
+.wordpress-gdpr-privacy-settings-popup-backdrop {
+  z-index: 9999;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0,0,0,0.7);
+  display: none;
+}
+
+.wordpress-gdpr-privacy-settings-popup-logo {
+  width: 25%;
+  float: left;
+}
+
+.wordpress-gdpr-privacy-settings-popup-logo img {
+	width: 100px;
+	text-align: center;
+	margin: 0 auto;
+	display: block;
+	max-width: 100%;
+}
+
+.wordpress-gdpr-privacy-settings-popup-info {
+	float: left;  
+	width: 70%;
+	padding-left: 5%;
+}
+
+.wordpress-gdpr-privacy-settings-popup-title {
+	font-size: 20px;
+	font-weight: bold;
+	margin-bottom: 10px;
+	line-height: 22px;
+}
+
+p.wordpress-gdpr-privacy-settings-popup-description {
+  margin: 0;
+}
+
+.wordpress-gdpr-privacy-settings-popup-header {
+  border-bottom: 1px solid #eaeaea;
+  padding: 20px 0; 
+}
+
+.wordpress-gdpr-privacy-settings-popup-service-categories {
+  width: 25%;
+  float: left;
+}
+
+.wordpress-gdpr-privacy-settings-popup-services {
+	float: left;  
+	width: 75%;
+	padding-left: 5%;
+	padding-right: 5%;
+	padding-top: 10px;
+	max-height: 300px;
+	overflow-y: auto;
+}
+
+input[type="checkbox"].gdpr-service-switch {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  float: right;
+  -o-appearance: none;
+  position: relative;
+  height: 20px;
+  width: 40px;
+  border-radius: 10px;
+  box-shadow: inset -20px 0px 0px 1px rgba(192, 192, 192, 0.5);
+  background-color: white;
+  border: 1px solid rgba(192, 192, 192, 1);
+  outline: none;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+input[type="checkbox"].gdpr-service-switch:checked {
+    box-shadow: inset 20px 0px 0px 0px rgba(76, 175, 80, 0.9);
+    border: 1px solid #4CAF50;
+}
+
+input[type="checkbox"].gdpr-service-switch:disabled {
+    box-shadow: inset 20px 0 0 0 rgba(76,175,80,.6);
+}
+
+input[type="checkbox"].gdpr-service-switch::-ms-check {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)"; /* IE 8 */
+  filter: alpha(opacity=0); /* IE 5-7 */
+  opacity: 0;
+}
+
+input[type="checkbox"].gdpr-service-switch:before, input[type="checkbox"].gdpr-service-switch:after {
+	display: none;
+}
+
+.wordpress-gdpr-privacy-settings-popup-services-container {
+  border: 1px solid #f7f7f7;
+}
+
+.wordpress-gdpr-popup-privacy-settings-services-content-title {
+  font-weight: bold;
+  float:left;
+}
+
+.wordpress-gdpr-popup-privacy-settings-services-content-title-box {
+  margin-bottom: 10px;
+}
+
+.wordpress-gdpr-popup-privacy-settings-services-content-cookies {
+  padding-left: 20px;
+}
+
+.wordpress-gdpr-popup-privacy-settings-services-content-cookies li {
+  list-style-type: disc;
+}
+
+.wordpress-gdpr-privacy-settings-popup-services-container a {
+	color: #333333;
+	display: block;
+}
+
+a.wordpress-gdpr-popup-privacy-settings-service-category {
+  font-size: 12px;
+  font-weight: bold;
+  padding: 10px;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.wordpress-gdpr-privacy-settings-popup-service-categories {
+	background: #f7f7f7;
+	height: 300px;
+	border-right: 1px solid #eaeaea;
+}
+
+.wordpress-gdpr-popup-privacy-settings-services-content hr {
+	border: solid #e8e8e8;
+	border-width: 1px 0 0;
+	clear: both;
+	margin: 10px 0;
+	height: 0;
+}
+
+.wordpress-gdpr-popup-privacy-settings-services-content-description {
+  display: none;
+}
+
+.wordpress-gdpr-privacy-settings-popup-close {
+	position: absolute;
+	top: -12.5px;
+	right: -12.5px;
+	display: block;
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	border-radius: 50%;
+}
+
+a.wordpress-gdpr-popup-privacy-settings-service-category:hover, a.wordpress-gdpr-popup-privacy-settings-service-category:active {
+  background-color: #fafafa;
+}
+
+.wordpress-gdpr-privacy-settings-popup-services-buttons {
+	margin-top: 10px;
+	font-size: 13px;
+}
+
+.wordpress-gdpr-privacy-settings-popup-services-buttons .btn {
+	padding: 10px 20px;
+    color: #ffffff;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.wordpress-gdpr-privacy-settings-popup-services-decline-all {
+	float: left;
+	background-color: #F44336;
+}
+
+.wordpress-gdpr-privacy-settings-popup-services-accept-all {
+	float: right;
+	background-color: #4CAF50;
+
+}
+
+@media (max-width: 768px) {
+	.wordpress-gdpr-privacy-settings-popup-service-categories {
+		width: 100%;
+		height: auto;
+	}
+
+	a.wordpress-gdpr-popup-privacy-settings-service-category {
+		padding: 2px 10px;
+	}
+
+	.wordpress-gdpr-privacy-settings-popup-services {
+		width: 100%;
+	}
+
+	.wordpress-gdpr-privacy-settings-popup-description {
+		display: none;
+	}
+
+	.wordpress-gdpr-privacy-settings-popup-logo {
+	    width: 10%;
+	}
+
+	.wordpress-gdpr-privacy-settings-popup-services-buttons .btn {
+		font-size: 10px;
+		padding: 10px;
+	}
+
+	.wordpress-gdpr-popup-privacy-settings-service-category-description {
+		display: none;
+	}
+
+	.wordpress-gdpr-popup-privacy-settings-services-content hr {
+		margin: 5px 0;
+	}
+
+	.wordpress-gdpr-popup-privacy-settings-services-content-title-box {
+		margin-bottom: 0;
+	}
+
+	.wordpress-gdpr-privacy-settings-popup-header {
+		padding: 5px 0;
+	}
+}

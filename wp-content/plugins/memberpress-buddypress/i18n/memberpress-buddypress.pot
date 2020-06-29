@@ -1,0 +1,139 @@
+# Copyright (C) 2019 MemberPress + BuddyPress Integration
+# This file is distributed under the same license as the MemberPress + BuddyPress Integration package.
+msgid ""
+msgstr ""
+"Project-Id-Version: MemberPress + BuddyPress Integration 1.1.2\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/memberpress-buddypress\n"
+"POT-Creation-Date: 2019-05-21 23:07:21+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2019-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: MpBuddyPress.php:80
+msgid "BuddyPress"
+msgstr ""
+
+#: MpBuddyPress.php:96
+msgid "BuddyPress Integration"
+msgstr ""
+
+#: MpBuddyPress.php:99
+msgid "Enable BuddyPress Integration"
+msgstr ""
+
+#: MpBuddyPress.php:105
+msgid "BuddyPress Integration is activated. For further integration options - enable BuddyPress Groups."
+msgstr ""
+
+#: MpBuddyPress.php:109
+msgid "Default Free Membership"
+msgstr ""
+
+#: MpBuddyPress.php:112
+msgid "None"
+msgstr ""
+
+#: MpBuddyPress.php:118
+msgid "If the user signs up via BuddyPress's signup page, then no payment can be collected. Therefore the member will get lifetime free access to the default Membership you choose here. If you need to charge your users, then we recommend that you disable signups via BuddyPress and instead force the users to signup via MemberPress instead."
+msgstr ""
+
+#: MpBuddyPress.php:125 MpBuddyPress.php:177
+msgid "Default Group(s) for ALL Members"
+msgstr ""
+
+#: MpBuddyPress.php:133 MpBuddyPress.php:185
+msgid "Hold the Control Key (Command Key on the Mac) in order to select or deselect multiple groups."
+msgstr ""
+
+#: MpBuddyPress.php:133
+msgid "Select a default BuddyPress Group(s) that every member should be added to when signing up. Please note, ALL members are added to this group whether they're active and paid or not. Please see the per-Membership Groups if you want to add/remove members to/from Groups automatically based on their status."
+msgstr ""
+
+#: MpBuddyPress.php:169
+msgid "BuddyPress Groups for this Membership"
+msgstr ""
+
+#: MpBuddyPress.php:172
+msgid "Enable BuddyPress Groups"
+msgstr ""
+
+#: MpBuddyPress.php:173
+msgid "If enabled, and Groups are selected - members will be added to and removed from these groups based on their subscription status to this membership level. These Groups should be unique to this Membership and should also be different from the default Group set in the MemberPress Options for BuddyPress settings."
+msgstr ""
+
+#: MpBuddyPress.php:361
+msgctxt "ui"
+msgid "Membership"
+msgstr ""
+
+#: MpBuddyPress.php:374
+msgctxt "ui"
+msgid "Info"
+msgstr ""
+
+#: MpBuddyPress.php:389
+msgctxt "ui"
+msgid "Subscriptions"
+msgstr ""
+
+#: MpBuddyPress.php:404
+msgctxt "ui"
+msgid "Payments"
+msgstr ""
+
+#: MpBuddyPress.php:430
+msgctxt "ui"
+msgid "Membership Info"
+msgstr ""
+
+#: MpBuddyPress.php:471
+msgctxt "ui"
+msgid "Membership Subscriptions"
+msgstr ""
+
+#: MpBuddyPress.php:513
+msgctxt "ui"
+msgid "Membership Payments"
+msgstr ""
+
+#: main.php:35
+msgid "MemberPress + BuddyPress"
+msgstr ""
+
+#: main.php:36
+msgid "BuddyPress Integration for MemberPress."
+msgstr ""
+
+#: script/i18n/pomo/sample/app.php:56
+msgid "Welcome %s!"
+msgstr ""
+
+#: script/i18n/pomo/sample/app.php:60
+msgid "A string with low priority!"
+msgstr ""
+
+#: script/i18n/pomo/sample/app.php:62
+msgid "Bye\n"
+msgstr ""
+#. Plugin Name of the plugin/theme
+msgid "MemberPress + BuddyPress Integration"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.memberpress.com/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Integrates MemberPress with BuddyPress"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Caseproof, LLC"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://caseproof.com/"
+msgstr ""

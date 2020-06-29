@@ -1,0 +1,17 @@
+#mo-optin-add-split.fancybox-content,
+.mo-end-test-modal.fancybox-content {
+    padding: 0;
+}
+
+#mo-optin-add-split .fancybox-button {
+    color :#fff;
+}
+
+.mailoptin-admin .fancybox-slide--iframe .fancybox-content {
+    max-width  : 800px !important;
+    width: 100%;
+}
+
+.mailoptin-admin .fancybox-toolbar {
+    top: 35px !important;
+}

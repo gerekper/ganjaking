@@ -1,0 +1,84 @@
+
+.yith-wcgpf-create-feed {
+    padding: 0 80px !important;
+}
+td.yith-wcgpf-td {
+    width: 20% !important;
+}
+.yith-wcgpf-templates {
+    width: 100%;
+}
+.yith_wcgpf_template_table_thead > tr > th {
+    text-align: center;
+}
+/*Google product feed information*/
+
+.yith-wcgpf-product-feed-information{
+    margin: .4em 0;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.yith-wcgpf-product-feed-information label {
+    width: 20%;
+    float: left;
+}
+
+.yith-wcgpf-general-tab-options-google-text {
+    width: 350px;
+}
+
+.yith-wcgpf-select {
+    width: 350px;
+}
+
+/*Google General feed fields*/
+.yith-wcgpf-general-tab-options-google-select {
+    width: 350px !important;
+}
+.yith-wcgpf-general-tab-options-google-text {
+    width: 400px !important;
+}
+.yith-wcgpf-information {
+    width: 350px !important;
+}
+
+div a.yih-wcgpf-view {
+    margin-right: 10px !important;
+}
+
+div.yith-wcact-filter-and-conditions {
+    padding-bottom: 25px;
+}
+
+/* ------------- GOOGLE CUSTOM FIELDS TAB -------------- */
+
+#yith-wcgpf-custom-fields-tab-wrapper {
+    padding    : 20px;
+    margin     : 15px 0;
+    background : #fff;
+    box-shadow : 1px 1px 1px 0px #ddd;
+}
+
+.yith-wcgpf-custom-field-wrap {
+    width          : 600px;
+    max-width      : 100%;
+    vertical-align : middle;
+    margin-bottom  : 7px;
+}
+
+.yith-wcgpf-custom-field-wrap input.yith-wcgpf-custom-field {
+    width         : 50%;
+    height        : 40px;
+    border-radius : 4px;
+}
+
+.yith-wcgpf-custom-field-wrap input.button {
+    height: 40px;
+    border-radius: 4px;
+}
+
+
+#yith-wcgpf-template-table {
+    width: 100%;
+}

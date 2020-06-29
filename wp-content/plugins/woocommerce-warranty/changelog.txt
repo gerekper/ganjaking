@@ -1,0 +1,352 @@
+*** Warranty Requests Changelog ***
+
+2020-06-16 - version 1.9.15
+* Fix - Option for 'No Warranty' in manual orders was missing.
+
+2020-06-10 - version 1.9.14
+* Tweak - WC 4.2 compatibility.
+
+2020-04-30 - version 1.9.13
+* Tweak - WC 4.1 compatibility.
+
+2020-04-21 - version 1.9.12
+* Fix - Fix bulk variations actions.
+
+2020-03-31 - version 1.9.11
+* Fix - Form builder not functioning properly.
+
+2020-03-30 - version 1.9.10
+* Tweak - Remove legacy code.
+
+2020-03-04 - version 1.9.9
+* Fix - Too few arguments passed to woocommerce_order_item_display_meta_value.
+* Fix - Fix display of warranties on My account > Request warranty.
+* Tweak - WC 4.0 compatibility.
+
+2020-01-31 - version 1.9.8
+* Tweak - Include all translatable strings in POT file.
+* Fix - Use proper escape for attributes.
+* Fix - Wrong text domain used.
+
+2019-11-04 - version 1.9.7
+* Tweak - WC tested up to 3.9
+
+2019-11-04 - version 1.9.6
+* Tweak - WC tested up to 3.8
+
+2019-10-30 - version 1.9.5
+* Fix - Redirect loops for non-logged in users.
+
+2019-10-30 - version 1.9.4
+* Fix - Using Request Warranty URL created from an order in My Account can be accessed by anyone.
+
+2019-10-16 - version 1.9.3
+* Add - Polish shipping providers
+* Add - Romanian shipping providers
+
+2019-08-28 - version 1.9.2
+* Fix   - Plugin can cause order items to be associated with the wrong order.
+
+2019-08-08 - version 1.9.1
+* Tweak - WC tested up to 3.7
+
+2019-07-02 - version 1.9.0
+* Tweak - Warranties are only possible for completed orders. Order status Settings are removed.
+
+2019-05-08 - version 1.8.15
+* Fix - Fatal error on shortcode template.
+
+2019-04-16 - version 1.8.14
+* Tweak - WC tested up to 3.6
+
+2018-10-10 - version 1.8.13
+* Fix - Warranty notes show up in comments
+* Fix - Do not add order item meta for the no_warranty type.
+* Update - WC tested up to 3.4
+
+2018-05-23 - version 1.8.12
+* Fix - Non-default warranty not applied to variants.
+* Fix - User field not shown for Customer recipient in Notification Email setting.
+* Fix - Issue with refunding from RMA screen.
+* Fix - The warranty info should be hidden for variations that have no warranty set.
+* Update - WC tested up to 3.4
+* Add - GDPR policy
+
+2018-02-16 - version 1.8.11
+* Fix - PHP syntax error.
+
+2018-02-15 - version 1.8.10
+* Fix - Administrators not being added to permissions dropdown.
+* Fix - Remove Warranty Order Status option (it only works for completed orders based on logic).
+* Fix - Warranty start date is not set on order.
+* Fix - Lifetime warranty is not compared correctly.
+* Fix - Fix fatal error on "Print" button on admin area.
+* Fix - Display issue with default warranties not showing as being available.
+* Tweak - Add to cart button redirects to product page if there's warranty as an add-on
+
+2017-12-13 - version 1.8.9
+* Update - Tested up to WC 3.3 header.
+
+2017-11-30 - version 1.8.8
+* Fix - Warning notice on stripslashes.
+* Tweak - Updates to the warranty request form.
+
+2017-06-01 - version 1.8.7
+* Fix - Deprecated notice in upcoming WooCommerce 3.1.
+* Fix - PHP notices on non array variable.
+* Fix - Defined variable causing wrong behavior when moving order to processing.
+
+2017-04-03 - version 1.8.6
+ * Fix - Update for WooCommerce 3.0 compatibility.
+ * Fix - Fatal error on product title when searching for a user to create a new warranty request.
+ * Fix - Page selection on Warranties > Manage Warranties for Products per Page
+ * Fix - Issue with warranty label not appearing on variable products.
+ * Tweak: Update all deprecated WooCommerce API calls
+ * Bug fix: Fixed email variables not getting loaded into the proper tables
+ * Bug fix: Fixed tooltip display loading
+
+2016-09-19 - version 1.8.5
+ * Bug fix: Replace Citylink with Interlink couriers (UK)
+ * Bug fix: Fixed a few typos
+ * Bug fix: Updated list of shipping providers
+
+2016-09-10 - version 1.8.4
+ * Bug fix: Fixed issue where RMA Code start was not getting applied
+ * Bug fix: Use  WC_Order::get_order_number() method to get the order number for display to support sequential order numbers
+ * Bug fix: Renamed the checkbox column class to prevent conflicts with bootstrap themes
+ * Feature: Added the ability to select the recipients of admin notification emails
+
+2016-08-20 - version 1.8.3
+ * Bug fix: Fixed a few warnings that could appear in certain scenarios
+ * Bug fix: Convert all date fields to date_i18n support
+ * Bug fix: Convert warranty durations to representative singular or plural forms when necessary
+
+2016-07-28 - version 1.8.2
+ * Bug fix: Show the shipping tracking fields in the request form if the Request Tracking Code is enabled
+
+2016-07-15 - version 1.8.1
+ * Bug fix: Fixed fatal error on data update
+
+2016-06-30 - version 1.8
+ * Bug fix: Added the ability to set dropdowns as required
+ * Bug fix: Make additional strings translatable
+ * Bug fix: Added the ability to search for guest orders using their email address or name
+ * Bug fix: Fixed error generated when a created order contains no line items
+ * Bug fix: Fixed the display of products in the Reports table
+ * Bug fix: Fixed the return button on WooCommerce Order list view
+ * Bug fix: Fixed warning in templates/list.php
+ * Bug fix: Fixed updater error in class-warranty-admin.php
+ * Feature: Allow admin and customers to select multiple items for a return
+ * Feature: Added ability/link to initiate a return directly from within an order in admin
+ * Feature: Added a new default status of "Reviewing"
+ * Feature: Make all default statuses translatable strings
+ * Feature: Added sorting to the status column on the RMA Requests page
+ * Added: WooCommerce 2.6 support
+
+2016-03-03 - version 1.7.4
+ * Bug fix: Fixed emails and data not sending to guest customers
+ * Feature: Added ability to post notes to requests
+ * Improvement: Enhanced the form validation and required fields notifications
+
+2016-02-23 - version 1.7.3
+ * Bug fix: Renamed the product field to avoid product error 404 in some odd occurrences
+ * Bug fix: Fixed fatal error when a warranty has no linked orders causing issues with printed RMA
+ * Bug fix: Form builder fields are not saving when a required 'file upload' field is left empty
+
+2016-01-01 - version 1.7.2
+ * Improvement: Store the Warranty_Cart instance in the superglobal
+ * Bug fix: Some emails would be sent to the customer twice only if the exact email was created for admin
+
+2015-11-12 - version 1.7.1
+ * Bug fix: Fixed new and existing set emails getting cleared when saving a new email
+ * Bug fix: Fixed issue where permissions were not being set on install
+ * Bug fix: Fixed error caused by the use of the WC_Product::get_type() method
+
+2015-10-26 - version 1.7
+ * Improvement: Added option to reset warranty statuses
+ * Improvement: Updated the warranty management UI
+ * Improvement: Made all 'shortcode-*' templates overwritable by placing copy in active them
+ * Feature: Restructed and rewrote the entire warranty list view and added more inline saving
+ * Feature: Added ability to allow refund and credit requests by the customer in the warranty request
+ * Feature: Added ability to refund and credit a customer directly from the warranty view
+ * Feature: Added warranty details, and common functions into the WooCommerce Orders view
+ * Bug fix: Scan all order items instead of just the first item with warranty found
+ * Bug fix: Fixed warnings and errors when warranty statuses get reset
+ * Bug fix: Fixed checkbox not getting unchecked when changes are made to product warranties
+ * Bug fix: Fixed refunds to only refund line items instead of entire order
+ * Bug fix: Fixed notifications email list
+ * Bug fix: Fixed Request tracking code emails to ensure they are delivered
+ * Bug fix: Fixed display data in the warranty form builder
+
+2015-09-03 - version 1.6.8
+ * Bug fix: Saving default warranties on product details
+
+2015-08-28 - version 1.6.7
+ * Bug fix: Saving admin settings in WooCommerce 2.4
+
+2015-08-19 - version 1.6.6
+ * Bug fix: Added additional translatable strings
+ * Bug fix: Translation issue with Warranty Add-Ons dropdown selections
+
+2015-07-28 - version 1.6.5
+ * Improvement: Added ability to define statuses/changes that generate order notes
+ * Bug fix: Added ability for JS strings to be translatable
+ * Improvement: Added ability to show different button text when return/RMA status changes
+ * Improvement: Added base defined language file
+ * Feature: Ability to print warranty forms from RMA Management
+
+2015-07-17 - version 1.6.4
+ * Improvement: Added support for WooCommerce Vendors to manage their own product warranty requests
+ * Improvement: Added text domain to plugin info block
+
+2015-07-02 - version 1.6.3
+ * Bug fix: Support currency symbol and trailing decimals in prices
+ * Bug fix: Better support for product variations
+ * Bug fix: Bulk editing resulting in a blank screen after saving
+
+2015-06-09 - version 1.6.2
+ * Bug fix: Statuses will display to allow sorting on main warranty list
+ * Bug fix: Text field on warranty form should honor required/not-required
+
+2015-05-05 - version 1.6.1
+ * Celebration: Cinco de Mayo
+ * Bug fix: Warranty statuses not being displayed - sometimes with an error
+
+2015-04-30 - version 1.6
+ * Improvement: Ability to define a sitewide warranty and apply it to products
+ * Improvement: Rebuilt administration panel
+ * Improvement: Redesigned warranty management panel
+ * Improvement: Search functionality improved
+ * Bug fix: Various bug fixes and improvements
+
+2015-04-21 - version 1.5.4
+ * Bug fix: Potential XSS with add_query_arg
+
+2015-04-01 - version 1.5.3
+ * Bug fix: Warranties reverting to defaults after upgrade
+ * Improvement: Enhanced code behind form views for variable products
+
+2015-02-09 - version 1.5.2
+ * Bug fix: Removed extraneous quotes
+ * Improvement: Added ability for shortcode-return-form.php to be overridden
+ * Bug fix: Ensure all variables are populating emails
+ * Improvement: Display of long warranty reasons in warranty table
+
+2015-01-27 - version 1.5.1
+ * WooCommerce 2.3 compatibility
+ * Bug fix: Warranty shortcode form data not stored to warranty views in admin
+ * Cleanup: Removed unused files
+
+2015-01-05 - version 1.5
+ * Feature: Added shipment tracking providers and links
+ * Bug fix: Improvement to handling of variable products
+
+2014-12-11 - version 1.4.5
+ * Bug fix: Show the actual total vs the subtotal
+
+2014-12-02 - version 1.4.4
+ * Bug fix: Fixed the admin table listing of warranties in progress
+ * Bug fix: Fixed the customer name and email
+ * Bug fix: Fixed return form issues
+
+2014-10-23 - version 1.4.3
+ * Bug fix: Always show prices inclusive of tax as set by WooCommerce settings
+ * Feature: Add a setting to disable showing the Tracking Code entry to customers
+
+2014-10-19 - version 1.4.2
+ * Bug fix: Minor text changes
+
+2014-10-14 - version 1.4.1
+ * Bug fix: Warranty label fixes on checkout, cart and order confirmation
+
+2014-10-09 - version 1.4
+ * Feature: Integrated refunding of warrantied products
+
+2014-10-08 - version 1.3
+ * Feature: Add ability to show or hide warranty button in my account page
+ * Feature: Ability for admin to upload a shipping label for the customer to use for returns
+ * Improvement: Updated reports to show completed warranties or purchases that still have active warranties
+ * Improvement: Add YY as an alias to YYYY in RMA number format
+ * Bug fix: Warranty labels were not captured in the user account
+ * Bug fix: Fixed some WooCommerce 2.2 incompatibilities
+ * Bug fix: Various cleanup and general fixes
+ * Bug fix: Warranty length hidden in manage view when Lifetime is selected
+
+2014-09-12 - version 1.2.1
+ * Bug fix: When deleting a product, warranty record is no longer impacted or errors
+ * Bug fix: Variation support tweak
+
+2014-09-06 - version 1.2
+ * WooCommerce 2.2 compatibility
+
+2014-08-27 - version 1.1.9
+ * Bug fix: Custom labels for Warranty add-ons appear on fronted
+ * Bug fix: Customer initiated return now storing correct data from form
+ * Additional minor bug fixes
+
+2014-08-19 - version 1.1.8
+ * Bug fix: Missing text domains
+ * Bug fix: Tweaked email send functions to improve reliability
+ * Bug fix: Frontend now honors custom warranty labels
+ * Bug fix: Changed content ID to avoid theme clashing
+
+2014-05-20 - version 1.1.7
+ * Bug fix: Removed the static email variables and replaced with new dynamic ones based on the custom warranty form builder
+
+2014-04-17 - version 1.1.6
+ * Bug fix: Added select option to settings for selecting/defining warranty page
+ * Bug fix: Manage warranty page updated to show active product warranties based upon product type instead of all
+ * Bug fix: Added safety checks to ensure refunded items couldn't have request warranty button even when it is allowed
+
+2014-04-11 - version 1.1.5
+ * Bug fix: Prevent multiple warranty pages from getting automatically created
+
+2014-04-10 - version 1.1.4
+ * Bug fix: Ensure that the warranty request page actually exists
+
+2014-03-21 - version 1.1.3
+ * Bug fix: Use variation ID if available on order item meta
+ * Bug fix: Fixed default number of entries to show on the bulk edit table
+ * Bug fix: Fixed display of multiple selected values in the Requests table
+ * Bug fix: Fixed delete action of add-on warranty for variables
+
+2014-03-05 - version 1.1.2
+ * Enhancement: Added support for returning variation stock
+ * Cleanup: Minor tweaks to the warranty form
+
+2014-02-08 - version 1.1.1
+ * Bug fix: Fixed issue with add-to-cart and variations
+ * Enhancements: Added pagination and sorting to bulk warranty editor
+
+2014-02-05 - version 1.1.0
+ * Enhancement: WooCommerce 2.1 support
+ * Enhancement: Bulk product warranty editor
+ * Enhancement: Ability to assign specific user roles different statuses to manage workflow and jobs
+ * Enhancement: Custom request form builder - create your own custom forms
+
+2013-11-10 - version 1.0.6
+ * Bug fix: CSV Import support missing meta details
+
+2013-10-29 - version 1.0.5
+ * Enhancement: Added {warranty_question} variable for email templates
+ * Bug fix: Fixed display of warranty request notes in the admin
+ * Enhancement: Support for CSV Import Suite - warranty_type, warranty, warranty_duration, warranty_unit, warranty_label
+ * Bug fix: Remove duplicate order number search
+
+2013-09-30 - version 1.0.4
+ * Bug fix: Button customizations weren't loading in frontend
+ * Enhancement: Ability to delete warranty requests/RMA from admin
+ * Bug fix: Ensure that warranties are only started at correct status
+ * Bug fix: Add support for matching ID of warranty request to orders using sequential order number extension
+
+2013-09-17 - version 1.0.3
+ * Setting: Define on what statuses you want to display the warranty button to purchasers
+
+2013-09-10 - version 1.0.2
+ * Improvement: Hide individual product warranties on bundle purchases - show the bundles warranty only
+
+2013-08-08 - version 1.0.1
+ * Feature: Return item to stock from warranty interface
+
+2013-07-25 - version 1.0.0
+ * First release

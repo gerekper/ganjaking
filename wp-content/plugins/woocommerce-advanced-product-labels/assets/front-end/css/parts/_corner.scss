@@ -1,0 +1,88 @@
+/*********************
+ * Corner
+ *********************/
+.label-wrap.wapl-corner {
+	top: 0;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	overflow: hidden;
+}
+.wapl-corner .product-label {
+	overflow: hidden;
+	white-space: nowrap;
+	position: absolute;
+	left: -66px;
+	top: -27px;
+	color: #FFF;
+	text-align: center;
+	padding: 3px;
+	height: 60px;
+	width: 200px;
+	transform-origin: bottom center;
+	-webkit-transform: rotate(-45deg);
+	-moz-transform: rotate(-45deg);
+	-ms-transform: rotate(-45deg);
+	-o-transform: rotate(-45deg);
+	transform: rotate(-45deg);
+}
+.wapl-corner .label-product[href]:hover,
+.wapl-corner .label-product[href]:focus {
+	color: #FFF;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+/* Ribbon align */
+.wapl-corner.wapl-alignright .product-label {
+	float: right;
+	left: initial;
+	right: -66px;
+	top: -30px;
+	height: 60px;
+	width: 200px;
+	-webkit-transform: rotate(45deg);
+	-moz-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	-o-transform: rotate(45deg);
+	transform: rotate(45deg);
+}
+.wapl-corner .wapl-label-text {
+	position: absolute;
+	width: 100%;
+	display: block;
+	bottom: 5px;
+}
+.label-wrap.wapl-corner.wapl-alignleft .product-label {
+	float: left;
+	left: -66px;
+	top: -27px;
+}
+
+/* Ribbon colors */
+.wapl-corner .label-red {
+	background-color: #e74c3c;
+}
+.wapl-corner .label-blue {
+	background-color: #3498db;
+}
+.wapl-corner .label-green {
+	background-color: #39A539;
+}
+.wapl-corner .label-yellow {
+	background-color: #ffe312;
+	color: #444;
+}
+.wapl-corner .label-orange {
+	background-color: #ffA608;
+}
+.wapl-corner .label-gray {
+	background-color: #999;
+}
+.wapl-corner .label-black {
+	background-color: #444;
+}
+.wapl-corner .label-white {
+	background-color: white;
+	color: #444;
+}

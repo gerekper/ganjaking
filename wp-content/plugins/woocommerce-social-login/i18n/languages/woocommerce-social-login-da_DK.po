@@ -1,0 +1,1043 @@
+# Copyright (C) 2014 SkyVerge
+# This file is distributed under the GNU General Public License v3.0.
+# Translators:
+# Martin Hansen, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Social Login 1.5.0\n"
+"Report-Msgid-Bugs-To: https://woocommerce.com/my-account/marketplace-ticket-"
+"form/\n"
+"POT-Creation-Date: 2018-06-05 04:24:43+00:00\n"
+"PO-Revision-Date: 2015-07-29 21:19+0200\n"
+"Last-Translator: Illimar Tambek\n"
+"Language-Team: Danish (Denmark) (http://www.transifex.com/projects/p/"
+"woocommerce-social-login/language/da_DK/)\n"
+"Language: da_DK\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.7.3\n"
+
+#: includes/abstract-wc-social-login-provider.php:123
+msgid "Enable/Disable"
+msgstr "Aktivere/Deaktivere"
+
+#. translators: Placeholders: %s - social login provider name/title, eg:
+#. Facebook, Amazon, etc.
+#: includes/abstract-wc-social-login-provider.php:126
+msgid "Enable %s"
+msgstr "Aktivere %s"
+
+#: includes/abstract-wc-social-login-provider.php:134
+msgid "Your app ID"
+msgstr "Din app ID"
+
+#. translators: Client (app) secret for a Social Login provider, used for
+#. identifying and authenticating the app (in our case, the WooCommerce store).
+#: includes/abstract-wc-social-login-provider.php:141
+msgid "Client Secret"
+msgstr "Klient hemmelighed"
+
+#: includes/abstract-wc-social-login-provider.php:143
+msgid "Your app secret"
+msgstr "Din app hemmelighed"
+
+#: includes/abstract-wc-social-login-provider.php:149
+msgid "Login Button Text"
+msgstr "Logind knap tekst"
+
+#: includes/abstract-wc-social-login-provider.php:151
+msgid "Controls the text displayed on the login button."
+msgstr "Styr teksten der vises på din logind knap"
+
+#: includes/abstract-wc-social-login-provider.php:159
+msgid "Controls the text displayed on the link account button."
+msgstr "Styr teksten der vises på din link konto knap"
+
+#: includes/abstract-wc-social-login-provider.php:317
+msgid "Oops, you took too long, please try again."
+msgstr ""
+
+#. translators: WooCommerce customers report tab title
+#: includes/admin/class-wc-social-login-admin.php:88
+msgid "Social Registration"
+msgstr "Social registering"
+
+#: includes/admin/class-wc-social-login-admin.php:187
+msgid "Connected Social Profiles"
+msgstr "Forbundet sociale profiler"
+
+#: includes/admin/class-wc-social-login-admin.php:190
+#: includes/admin/class-wc-social-login-admin.php:216
+msgid "Social Profiles"
+msgstr "Sociale profiler"
+
+#: includes/admin/class-wc-social-login-settings.php:45
+msgid "Social Login"
+msgstr "Social logind"
+
+#: includes/admin/class-wc-social-login-settings.php:60
+#: includes/admin/class-wc-social-login-settings.php:97
+#: includes/admin/class-wc-social-login-settings.php:251
+msgid "Settings"
+msgstr "Indstillinger"
+
+#: includes/admin/class-wc-social-login-settings.php:84
+msgid "Checkout"
+msgstr "Kasse"
+
+#: includes/admin/class-wc-social-login-settings.php:85
+msgid "My Account"
+msgstr "Min konto"
+
+#: includes/admin/class-wc-social-login-settings.php:86
+msgid "Checkout Notice"
+msgstr "Kasse besked"
+
+#: includes/admin/class-wc-social-login-settings.php:91
+msgid "Product Reviews Pro Login"
+msgstr ""
+
+#: includes/admin/class-wc-social-login-settings.php:102
+msgid "Display Social Login buttons on:"
+msgstr "Vis sociale logind knapper på:"
+
+#: includes/admin/class-wc-social-login-settings.php:103
+msgid "Control where Social Login buttons are displayed."
+msgstr "Styr hvor på siden du vil vise dine sociale logind knapper"
+
+#: includes/admin/class-wc-social-login-settings.php:115
+msgid "Display \"Link Your Account\" button on Thank You page"
+msgstr "Vis \"link din konto\" knappen på din Tak side, efter afsluttede køb"
+
+#: includes/admin/class-wc-social-login-settings.php:116
+msgid ""
+"Enable to allow customers to link their social account on the Thank You page "
+"for faster login & checkout next time they purchase."
+msgstr ""
+"Aktivere, for at tillade kunderne at linke deres konto sammen med deres "
+"sociale profiler, for et hurtigt logind ved næste køb"
+
+#: includes/admin/class-wc-social-login-settings.php:123
+#, fuzzy
+msgid "Checkout Social Login Display Text"
+msgstr "Social logind tekst forklaring"
+
+#: includes/admin/class-wc-social-login-settings.php:124
+#, fuzzy
+msgid ""
+"This option controls the text on the checkout page for the frontend section "
+"where the login providers are shown."
+msgstr "Denne indstilling styre hvilken tekst kunderne skal se"
+
+#: includes/admin/class-wc-social-login-settings.php:126
+#: woocommerce-social-login.php:965
+msgid "For faster checkout, login or register using your social account."
+msgstr "For hurtigere logind, oprettelse, og generelt brug din social konto "
+
+#: includes/admin/class-wc-social-login-settings.php:132
+#, fuzzy
+msgid "Non-Checkout Social Login Display Text"
+msgstr "Social logind tekst forklaring"
+
+#: includes/admin/class-wc-social-login-settings.php:133
+#, fuzzy
+msgid ""
+"This option controls the text on the non-checkout pages where the login "
+"provider buttons are shown."
+msgstr "Denne indstilling styre hvilken tekst kunderne skal se"
+
+#: includes/admin/class-wc-social-login-settings.php:135
+#: woocommerce-social-login.php:966 woocommerce-social-login.php:1089
+msgid "Use a social account for faster login or easy registration."
+msgstr ""
+
+#: includes/admin/class-wc-social-login-settings.php:141
+msgid "Force SSL for all providers"
+msgstr ""
+
+#: includes/admin/class-wc-social-login-settings.php:142
+msgid ""
+"Enable to force SSL (HTTPS) on callback URLs for all providers (an SSL "
+"Certificate is required)."
+msgstr ""
+
+#: includes/admin/class-wc-social-login-settings.php:155
+msgid "Callback URL format"
+msgstr ""
+
+#: includes/admin/class-wc-social-login-settings.php:156
+msgid ""
+"Set the authentication callback URL format. Legacy format is deprecated and "
+"support for it will be removed in a future version. IMPORTANT: set the "
+"format to Default only after you've updated the callback URLs for each "
+"provider."
+msgstr ""
+
+#: includes/admin/class-wc-social-login-settings.php:161
+msgid "Default (Recommended)"
+msgstr ""
+
+#: includes/admin/class-wc-social-login-settings.php:162
+msgid "Legacy"
+msgstr ""
+
+#: includes/admin/class-wc-social-login-settings.php:220
+msgid "Providers"
+msgstr "Udbydere"
+
+#: includes/admin/class-wc-social-login-settings.php:225
+#: includes/admin/views/html-report-social-login.php:10
+#: templates/myaccount/social-profiles.php:56
+#: templates/myaccount/social-profiles.php:68
+msgid "Provider"
+msgstr "Udbyder"
+
+#: includes/admin/class-wc-social-login-settings.php:226
+msgid "Status"
+msgstr "Status"
+
+#. translators: Whether a social login provider is enabled or not
+#: includes/admin/class-wc-social-login-settings.php:243
+msgid "Enabled"
+msgstr "Aktivere"
+
+#: includes/admin/class-wc-social-login-settings.php:261
+msgid "Drag and drop the above providers to control their display order."
+msgstr "Drag & Drop for at styre rækkefølgen"
+
+#. translators: The number of registrations for a provider
+#: includes/admin/views/html-report-social-login.php:11
+msgid "Registrations"
+msgstr "Registrering  "
+
+#. translators: Number of linked accounts for a provider. A number will be
+#. prepended to this string. Example: 5 linked accounts
+#: includes/admin/views/html-report-social-login.php:61
+msgid "linked accounts"
+msgstr "Linked kontoer"
+
+#: includes/class-wc-social-login-hybridauth.php:138
+#: includes/frontend/class-wc-social-login-frontend.php:81
+msgid "Provider Authentication error"
+msgstr "Udbyder godkendelses fejl"
+
+#: includes/class-wc-social-login-hybridauth.php:282
+msgid "Please enter your email address to complete your registration"
+msgstr "Indtast din e-mail for at godkende registeringen "
+
+#. translators: %s - a URL
+#: includes/class-wc-social-login-hybridauth.php:285
+#, fuzzy
+msgid ""
+"Please enter your email address to complete your registration and continue "
+"to %s"
+msgstr "Indtast din e-mail for at godkende registeringen "
+
+#: includes/class-wc-social-login-hybridauth.php:346
+msgid "No provider class found for %s"
+msgstr ""
+
+#: includes/class-wc-social-login-hybridauth.php:355
+msgid "%s returned an invalid user identifier."
+msgstr ""
+
+#: includes/class-wc-social-login-hybridauth.php:407
+msgid ""
+"Oops, it looks like you may already have an account&hellip; please log in to "
+"link your profile."
+msgstr ""
+
+#: includes/class-wc-social-login-hybridauth.php:527
+msgid "User"
+msgstr ""
+
+#: includes/class-wc-social-login-hybridauth.php:545
+msgid "ERROR"
+msgstr "FEJL"
+
+#: includes/class-wc-social-login-hybridauth.php:545
+msgid ""
+"Couldn&#8217;t register you&hellip; please contact us if you continue to "
+"have problems."
+msgstr ""
+"Kunne ikke oprette dig, venligst prøv igen. Hvis fejlen forsætter kontakt os "
+"da."
+
+#: includes/frontend/class-wc-social-login-frontend.php:224
+msgid ""
+"Save time next time you checkout by linking your account to your favorite "
+"social network. No need to remember another username and password."
+msgstr ""
+"Spar tid, ved at linke din konto til dit favorit social netværk. Du slipper "
+"for at skulle huske, brugernavn og adgangskode"
+
+#: includes/frontend/class-wc-social-login-frontend.php:295
+msgid "Click here to login"
+msgstr "Tryk her for at logge ind"
+
+#: includes/integrations/class-wc-social-login-integrations-memberships.php:119
+#, fuzzy
+msgid "Social Login Buttons"
+msgstr "Mine linked kontoer"
+
+#: includes/integrations/class-wc-social-login-integrations-memberships.php:120
+msgid "Add Social Login buttons to restriction messages for logged out users"
+msgstr ""
+
+#: includes/providers/class-wc-social-login-provider-amazon.php:44
+msgid "Amazon"
+msgstr "Amazon"
+
+#. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
+#: includes/providers/class-wc-social-login-provider-amazon.php:68
+msgid "Need help setting up and configuring Amazon? %1$sRead the docs%2$s"
+msgstr ""
+"Hjælp til at opsætte og konfigurere din Amazon konto?  %1$sLæs vejledningen"
+"%2$s"
+
+#. translators: Placeholder: %s - a url
+#: includes/providers/class-wc-social-login-provider-amazon.php:73
+msgid "The allowed return URL is %s"
+msgstr "Din godkendte retur URL er %s"
+
+#: includes/providers/class-wc-social-login-provider-amazon.php:77
+msgid "(Please update your Amazon app to use this URL)"
+msgstr ""
+
+#. translators: Placeholder: %s - a url
+#: includes/providers/class-wc-social-login-provider-amazon.php:80
+#, fuzzy
+msgid "The legacy allowed return URL is %s"
+msgstr "Din godkendte retur URL er %s"
+
+#: includes/providers/class-wc-social-login-provider-amazon.php:124
+msgid "Log in with Amazon"
+msgstr "Logind med Amazon"
+
+#: includes/providers/class-wc-social-login-provider-amazon.php:136
+msgid "Link your account to Amazon"
+msgstr "Link din konto til Amazon"
+
+#: includes/providers/class-wc-social-login-provider-amazon.php:148
+msgid "Your Amazon account is now linked to your account."
+msgstr "Din konto er nu linked til Amazon"
+
+#: includes/providers/class-wc-social-login-provider-amazon.php:149
+#, fuzzy
+msgid "Amazon was successfully unlinked from your account."
+msgstr "Din Amazon konto er ikke længere linked med din bruger"
+
+#: includes/providers/class-wc-social-login-provider-amazon.php:150
+msgid "This Amazon account is already linked to another user account."
+msgstr "Denne Amazon konto er linkede til en anden bruger"
+
+#: includes/providers/class-wc-social-login-provider-amazon.php:151
+msgid ""
+"A user account using the same email address as this Amazon account already "
+"exists."
+msgstr "En eksisterende bruger, bruger samme e-mail som din Amazon konto "
+
+#: includes/providers/class-wc-social-login-provider-disqus.php:44
+msgid "Disqus"
+msgstr ""
+
+#. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
+#: includes/providers/class-wc-social-login-provider-disqus.php:66
+#, fuzzy
+msgid "Need help setting up and configuring Disqus? %1$sRead the docs%2$s"
+msgstr ""
+"Hjælp til at opsætte og konfigurere din Twitter konto?  %1$sLæs vejledningen"
+"%2$s"
+
+#. translators: Placeholder: %s - a url
+#: includes/providers/class-wc-social-login-provider-disqus.php:71
+#: includes/providers/class-wc-social-login-provider-twitter.php:74
+msgid "The callback URL is %s"
+msgstr "Callback URL er %s"
+
+#: includes/providers/class-wc-social-login-provider-disqus.php:75
+#: includes/providers/class-wc-social-login-provider-twitter.php:78
+msgid "(Please update your Twitter app to use this URL)"
+msgstr ""
+
+#. translators: Placeholder: %s - a url
+#: includes/providers/class-wc-social-login-provider-disqus.php:78
+#: includes/providers/class-wc-social-login-provider-twitter.php:81
+#, fuzzy
+msgid "The legacy callback URL is %s"
+msgstr "Callback URL er %s"
+
+#: includes/providers/class-wc-social-login-provider-disqus.php:124
+msgid "API Key"
+msgstr "API Key"
+
+#: includes/providers/class-wc-social-login-provider-disqus.php:125
+msgid "API Secret"
+msgstr "API Secret"
+
+#: includes/providers/class-wc-social-login-provider-disqus.php:137
+#, fuzzy
+msgid "Log in with Disqus"
+msgstr "Logind med Twitter"
+
+#: includes/providers/class-wc-social-login-provider-disqus.php:149
+#, fuzzy
+msgid "Link your account to Disqus"
+msgstr "Link din konto til Twitter"
+
+#: includes/providers/class-wc-social-login-provider-disqus.php:161
+#, fuzzy
+msgid "Your Disqus account is now linked to your account."
+msgstr "Din konto er nu linked til Twitter"
+
+#: includes/providers/class-wc-social-login-provider-disqus.php:162
+#, fuzzy
+msgid "Disqus was successfully unlinked from your account."
+msgstr "Din Twitter konto er ikke længere linked med din bruger"
+
+#: includes/providers/class-wc-social-login-provider-disqus.php:163
+#, fuzzy
+msgid "This Disqus account is already linked to another user account."
+msgstr "Din Twitter konto er linked til en anden bruger"
+
+#: includes/providers/class-wc-social-login-provider-disqus.php:164
+#, fuzzy
+msgid ""
+"A user account using the same email address as this Disqus account already "
+"exists."
+msgstr "En eksisterende bruger, bruger samme e-mail som din Twitter konto"
+
+#: includes/providers/class-wc-social-login-provider-facebook.php:44
+msgid "Facebook"
+msgstr "Facebook"
+
+#. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
+#. translators: Placeholders: %1$s - opening HTML <a> tag, %2$s - closing HTML
+#. </a> tag
+#: includes/providers/class-wc-social-login-provider-facebook.php:49
+#: includes/providers/class-wc-social-login-provider-facebook.php:65
+msgid "Need help setting up and configuring Facebook? %1$sRead the docs%2$s"
+msgstr ""
+"Hjælp til at opsætte og konfigurere din Facebook konto?  %1$sLæs vejledningen"
+"%2$s"
+
+#. translators: Placeholder: %s - a url
+#: includes/providers/class-wc-social-login-provider-facebook.php:68
+#, fuzzy
+msgid "The redirect URI is %s"
+msgstr "App redirect URL er %s"
+
+#: includes/providers/class-wc-social-login-provider-facebook.php:114
+msgid "App ID"
+msgstr "App ID"
+
+#: includes/providers/class-wc-social-login-provider-facebook.php:115
+msgid "App Secret"
+msgstr "App hemmelighed"
+
+#: includes/providers/class-wc-social-login-provider-facebook.php:118
+msgid "Redirect URI"
+msgstr ""
+
+#. translators: Placeholders: %1$s - <strong> tag, %2$s - </strong> tag
+#: includes/providers/class-wc-social-login-provider-facebook.php:123
+msgid ""
+"I certify that I have added this site to my app's list of %1$sValid OAuth "
+"redirect URIs%2$s"
+msgstr ""
+
+#. translators: Placeholders: %s - OAuth redirect URI, wrapped in <code> tags
+#: includes/providers/class-wc-social-login-provider-facebook.php:128
+#, fuzzy
+msgid "Your redirect URI is %s"
+msgstr "App redirect URL er %s"
+
+#: includes/providers/class-wc-social-login-provider-facebook.php:143
+msgid "Log in with Facebook"
+msgstr "Logind med Facebook"
+
+#: includes/providers/class-wc-social-login-provider-facebook.php:155
+msgid "Link your account to Facebook"
+msgstr "Link din konto til Facebook"
+
+#: includes/providers/class-wc-social-login-provider-facebook.php:180
+msgid "Your Facebook account is now linked to your account."
+msgstr "Din konto er nu linked til Facebook"
+
+#: includes/providers/class-wc-social-login-provider-facebook.php:181
+#, fuzzy
+msgid "Facebook was successfully unlinked from your account."
+msgstr "Din Facebook konto er ikke længere linked med din bruger"
+
+#: includes/providers/class-wc-social-login-provider-facebook.php:182
+msgid "This Facebook account is already linked to another user account."
+msgstr "Din Facebook konto er linked til en anden bruger"
+
+#: includes/providers/class-wc-social-login-provider-facebook.php:183
+msgid ""
+"A user account using the same email address as this Facebook account already "
+"exists."
+msgstr "En eksisterende bruger, bruger samme e-mail som din Facebook konto"
+
+#: includes/providers/class-wc-social-login-provider-google.php:44
+msgid "Google"
+msgstr "Google"
+
+#. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
+#: includes/providers/class-wc-social-login-provider-google.php:64
+msgid "Need help setting up and configuring Google? %1$sRead the docs%2$s"
+msgstr ""
+"Hjælp til at opsætte og konfigurere din Google konto?  %1$sLæs vejledningen"
+"%2$s"
+
+#. translators: Placeholder: %s - a url
+#: includes/providers/class-wc-social-login-provider-google.php:69
+msgid "The Authorized Redirect URI is %s"
+msgstr "Den Authorized Redirect URI er %s"
+
+#: includes/providers/class-wc-social-login-provider-google.php:73
+msgid "(Please update your Google app to use this URL)"
+msgstr ""
+
+#. translators: Placeholder: %s - a url
+#: includes/providers/class-wc-social-login-provider-google.php:76
+#, fuzzy
+msgid "The legacy Authorized Redirect URI is %s"
+msgstr "Den Authorized Redirect URI er %s"
+
+#: includes/providers/class-wc-social-login-provider-google.php:123
+msgid "Log in with Google"
+msgstr "Logind med Google"
+
+#: includes/providers/class-wc-social-login-provider-google.php:135
+msgid "Link your account to Google"
+msgstr "Link din konto til Google"
+
+#: includes/providers/class-wc-social-login-provider-google.php:147
+msgid "Your Google account is now linked to your account."
+msgstr "Din konto er nu linked til Google"
+
+#: includes/providers/class-wc-social-login-provider-google.php:148
+#, fuzzy
+msgid "Google was successfully unlinked from your account."
+msgstr "Din Google konto er ikke længere linked med din bruger"
+
+#: includes/providers/class-wc-social-login-provider-google.php:149
+msgid "This Google account is already linked to another user account."
+msgstr "Din Google konto er linked til en anden bruger"
+
+#: includes/providers/class-wc-social-login-provider-google.php:150
+msgid ""
+"A user account using the same email address as this Google account already "
+"exists."
+msgstr "En eksisterende bruger, bruger samme e-mail som din Google konto"
+
+#: includes/providers/class-wc-social-login-provider-instagram.php:44
+msgid "Instagram"
+msgstr "Instagram"
+
+#. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
+#: includes/providers/class-wc-social-login-provider-instagram.php:64
+msgid "Need help setting up and configuring Instagram? %1$sRead the docs%2$s"
+msgstr ""
+"Hjælp til at opsætte og konfigurere din Instagram konto?  %1$sLæs "
+"vejledningen%2$s"
+
+#. translators: Placeholder: %s - a url
+#: includes/providers/class-wc-social-login-provider-instagram.php:69
+msgid "The OAuth redirect_uri is %s"
+msgstr "OAuth redirect_uri er %s"
+
+#: includes/providers/class-wc-social-login-provider-instagram.php:73
+msgid "(Please update your Instagram app to use this URL)"
+msgstr ""
+
+#. translators: Placeholder: %s - a url
+#: includes/providers/class-wc-social-login-provider-instagram.php:76
+#, fuzzy
+msgid "The legacy OAuth redirect_uri is %s"
+msgstr "OAuth redirect_uri er %s"
+
+#: includes/providers/class-wc-social-login-provider-instagram.php:119
+msgid "Log in with Instagram"
+msgstr "Logind med Instagram"
+
+#: includes/providers/class-wc-social-login-provider-instagram.php:131
+msgid "Link your account to Instagram"
+msgstr "Link din konto til Instagram"
+
+#: includes/providers/class-wc-social-login-provider-instagram.php:143
+msgid "Your Instagram account is now linked to your account."
+msgstr "Din konto er nu linked til Instagram"
+
+#: includes/providers/class-wc-social-login-provider-instagram.php:144
+#, fuzzy
+msgid "Instagram was successfully unlinked from your account."
+msgstr "Din Instagram konto er ikke længere linked med din bruger"
+
+#: includes/providers/class-wc-social-login-provider-instagram.php:145
+msgid "This Instagram account is already linked to another user account."
+msgstr "Din Instragram konto er linked til en anden bruger"
+
+#: includes/providers/class-wc-social-login-provider-instagram.php:146
+msgid ""
+"A user account using the same email address as this Instagram account "
+"already exists."
+msgstr "En eksisterende bruger, bruger samme e-mail som din Instagram konto"
+
+#: includes/providers/class-wc-social-login-provider-linkedin.php:44
+msgid "LinkedIn"
+msgstr "LinkedIn"
+
+#. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
+#: includes/providers/class-wc-social-login-provider-linkedin.php:64
+msgid "Need help setting up and configuring LinkedIn? %1$sRead the docs%2$s"
+msgstr ""
+"Hjælp til at opsætte og konfigurere din LinkedIn konto?  %1$sLæs vejledningen"
+"%2$s"
+
+#. translators: Placeholder: %s - a url
+#: includes/providers/class-wc-social-login-provider-linkedin.php:69
+msgid "The OAuth 2.0 Redirect URL is %s"
+msgstr "OAuth 2.0 Redirect URL er %s"
+
+#: includes/providers/class-wc-social-login-provider-linkedin.php:73
+msgid "(Please update your LinkedIn app to use this URL)"
+msgstr ""
+
+#. translators: Placeholder: %s - a url
+#: includes/providers/class-wc-social-login-provider-linkedin.php:76
+#, fuzzy
+msgid "The legacy OAuth 2.0 Redirect URL is %s"
+msgstr "OAuth 2.0 Redirect URL er %s"
+
+#: includes/providers/class-wc-social-login-provider-linkedin.php:120
+msgid "Log in with LinkedIn"
+msgstr "Logind med LinkedIn"
+
+#: includes/providers/class-wc-social-login-provider-linkedin.php:132
+msgid "Link your account to LinkedIn"
+msgstr "Link din konto til LinkedIn"
+
+#: includes/providers/class-wc-social-login-provider-linkedin.php:144
+msgid "Your LinkedIn account is now linked to your account."
+msgstr "Din konto er nu linked til LinkedIn"
+
+#: includes/providers/class-wc-social-login-provider-linkedin.php:145
+#, fuzzy
+msgid "LinkedIn was successfully unlinked from your account."
+msgstr "Din LinkedIn konto er ikke længere linked med din bruger"
+
+#: includes/providers/class-wc-social-login-provider-linkedin.php:146
+msgid "This LinkedIn account is already linked to another user account."
+msgstr "Din LinkedIn konto er linked til en anden bruger"
+
+#: includes/providers/class-wc-social-login-provider-linkedin.php:147
+msgid ""
+"A user account using the same email address as this LinkedIn account already "
+"exists."
+msgstr "En eksisterende bruger, bruger samme e-mail som din LinkedIn konto"
+
+#: includes/providers/class-wc-social-login-provider-paypal.php:44
+msgid "PayPal"
+msgstr "PayPal"
+
+#. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
+#: includes/providers/class-wc-social-login-provider-paypal.php:64
+msgid "Need help setting up and configuring PayPal? %1$sRead the docs%2$s"
+msgstr ""
+"Hjælp til at opsætte og konfigurere din PayPal konto?  %1$sLæs vejledningen"
+"%2$s"
+
+#. translators: Placeholder: %s - a url
+#: includes/providers/class-wc-social-login-provider-paypal.php:69
+msgid "The App redirect URL is %s"
+msgstr "App redirect URL er %s"
+
+#: includes/providers/class-wc-social-login-provider-paypal.php:73
+msgid "(Please update your PayPal App to use this URL)"
+msgstr ""
+
+#. translators: Placeholder: %s - a url
+#: includes/providers/class-wc-social-login-provider-paypal.php:76
+#, fuzzy
+msgid "The legacy App redirect URL is %s"
+msgstr "App redirect URL er %s"
+
+#. translators: https:www.skyverge.com/for-translators-environments/
+#: includes/providers/class-wc-social-login-provider-paypal.php:128
+msgid "Environment"
+msgstr "Status"
+
+#: includes/providers/class-wc-social-login-provider-paypal.php:130
+msgid "Select which environment to process logins under."
+msgstr "Vælg en status til loginds nedenfor"
+
+#. translators: Live (Production) environment -
+#. https:www.skyverge.com/for-translators-environments/
+#: includes/providers/class-wc-social-login-provider-paypal.php:133
+msgid "Live"
+msgstr "Live - Aktiv"
+
+#. translators: Placeholders: Sandbox (Test) environment -
+#. https:www.skyverge.com/for-translators-environments/
+#: includes/providers/class-wc-social-login-provider-paypal.php:135
+msgid "Sandbox"
+msgstr "Sandbox - Test"
+
+#: includes/providers/class-wc-social-login-provider-paypal.php:140
+msgid "Secret"
+msgstr "Hemmelighed"
+
+#: includes/providers/class-wc-social-login-provider-paypal.php:152
+msgid "Log in with PayPal"
+msgstr "Logind med PayPal"
+
+#: includes/providers/class-wc-social-login-provider-paypal.php:164
+msgid "Link your account to PayPal"
+msgstr "Link din konto til PayPal"
+
+#: includes/providers/class-wc-social-login-provider-paypal.php:176
+msgid "Your PayPal account is now linked to your account."
+msgstr "Din konto er nu linked til PayPal"
+
+#: includes/providers/class-wc-social-login-provider-paypal.php:177
+#, fuzzy
+msgid "PayPal was successfully unlinked from your account."
+msgstr "Din PayPal konto er ikke længere linked med din bruger"
+
+#: includes/providers/class-wc-social-login-provider-paypal.php:178
+msgid "This PayPal account is already linked to another user account."
+msgstr "Din PayPal konto er linked til en anden bruger"
+
+#: includes/providers/class-wc-social-login-provider-paypal.php:179
+msgid ""
+"A user account using the same email address as this PayPal account already "
+"exists."
+msgstr "En eksisterende bruger, bruger samme e-mail som din PayPal konto"
+
+#: includes/providers/class-wc-social-login-provider-twitter.php:44
+msgid "Twitter"
+msgstr "Twitter"
+
+#. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
+#: includes/providers/class-wc-social-login-provider-twitter.php:69
+msgid "Need help setting up and configuring Twitter? %1$sRead the docs%2$s"
+msgstr ""
+"Hjælp til at opsætte og konfigurere din Twitter konto?  %1$sLæs vejledningen"
+"%2$s"
+
+#: includes/providers/class-wc-social-login-provider-twitter.php:127
+msgid "Consumer Key"
+msgstr ""
+
+#: includes/providers/class-wc-social-login-provider-twitter.php:128
+#, fuzzy
+msgid "Consumer Secret"
+msgstr "Klient hemmelighed"
+
+#: includes/providers/class-wc-social-login-provider-twitter.php:140
+msgid "Log in with Twitter"
+msgstr "Logind med Twitter"
+
+#: includes/providers/class-wc-social-login-provider-twitter.php:152
+msgid "Link your account to Twitter"
+msgstr "Link din konto til Twitter"
+
+#: includes/providers/class-wc-social-login-provider-twitter.php:192
+msgid "Your Twitter account is now linked to your account."
+msgstr "Din konto er nu linked til Twitter"
+
+#: includes/providers/class-wc-social-login-provider-twitter.php:193
+#, fuzzy
+msgid "Twitter was successfully unlinked from your account."
+msgstr "Din Twitter konto er ikke længere linked med din bruger"
+
+#: includes/providers/class-wc-social-login-provider-twitter.php:194
+msgid "This Twitter account is already linked to another user account."
+msgstr "Din Twitter konto er linked til en anden bruger"
+
+#: includes/providers/class-wc-social-login-provider-twitter.php:195
+msgid ""
+"A user account using the same email address as this Twitter account already "
+"exists."
+msgstr "En eksisterende bruger, bruger samme e-mail som din Twitter konto"
+
+#: includes/providers/class-wc-social-login-provider-vkontakte.php:46
+msgid "VK"
+msgstr ""
+
+#. translators: Placeholders: %1$s - opening HTML <a> tag, %2$s - closing HTML
+#. </a> tag
+#: includes/providers/class-wc-social-login-provider-vkontakte.php:64
+#, fuzzy
+msgid "Need help setting up and configuring VK? %1$sRead the docs%2$s"
+msgstr ""
+"Hjælp til at opsætte og konfigurere din Amazon konto?  %1$sLæs vejledningen"
+"%2$s"
+
+#: includes/providers/class-wc-social-login-provider-vkontakte.php:107
+msgid "Application ID"
+msgstr ""
+
+#: includes/providers/class-wc-social-login-provider-vkontakte.php:108
+#, fuzzy
+msgid "Secure Key"
+msgstr "Hemmeligheds nøgle"
+
+#: includes/providers/class-wc-social-login-provider-vkontakte.php:120
+#, fuzzy
+msgid "Log in with VK"
+msgstr "Logind med Amazon"
+
+#: includes/providers/class-wc-social-login-provider-vkontakte.php:132
+#, fuzzy
+msgid "Link your account to VK"
+msgstr "Link din konto til Amazon"
+
+#: includes/providers/class-wc-social-login-provider-vkontakte.php:144
+#, fuzzy
+msgid "Your VK account is now linked to your account."
+msgstr "Din konto er nu linked til Amazon"
+
+#: includes/providers/class-wc-social-login-provider-vkontakte.php:145
+#, fuzzy
+msgid "VK was successfully unlinked from your account."
+msgstr "Din Amazon konto er ikke længere linked med din bruger"
+
+#: includes/providers/class-wc-social-login-provider-vkontakte.php:146
+#, fuzzy
+msgid "This VK account is already linked to another user account."
+msgstr "Denne Amazon konto er linkede til en anden bruger"
+
+#: includes/providers/class-wc-social-login-provider-vkontakte.php:147
+#, fuzzy
+msgid ""
+"A user account using the same email address as this VK account already "
+"exists."
+msgstr "En eksisterende bruger, bruger samme e-mail som din Amazon konto "
+
+#: includes/providers/class-wc-social-login-provider-yahoo.php:44
+msgid "Yahoo"
+msgstr ""
+
+#. translators: Placeholders: %1$s - opening HTML <a> tag, %2$s - closing HTML
+#. </a> tag
+#: includes/providers/class-wc-social-login-provider-yahoo.php:62
+#, fuzzy
+msgid "Need help setting up and configuring Yahoo? %1$sRead the docs%2$s"
+msgstr ""
+"Hjælp til at opsætte og konfigurere din Facebook konto?  %1$sLæs vejledningen"
+"%2$s"
+
+#: includes/providers/class-wc-social-login-provider-yahoo.php:102
+#, fuzzy
+msgid "Log in with Yahoo"
+msgstr "Logind med Facebook"
+
+#: includes/providers/class-wc-social-login-provider-yahoo.php:114
+#, fuzzy
+msgid "Link your account to Yahoo"
+msgstr "Link din konto til Facebook"
+
+#: includes/providers/class-wc-social-login-provider-yahoo.php:126
+#, fuzzy
+msgid "Your Yahoo account is now linked to your account."
+msgstr "Din konto er nu linked til Facebook"
+
+#: includes/providers/class-wc-social-login-provider-yahoo.php:127
+#, fuzzy
+msgid "Yahoo was successfully unlinked from your account."
+msgstr "Din Amazon konto er ikke længere linked med din bruger"
+
+#: includes/providers/class-wc-social-login-provider-yahoo.php:128
+#, fuzzy
+msgid "This Yahoo account is already linked to another user account."
+msgstr "Din Facebook konto er linked til en anden bruger"
+
+#: includes/providers/class-wc-social-login-provider-yahoo.php:129
+#, fuzzy
+msgid ""
+"A user account using the same email address as this Yahoo account already "
+"exists."
+msgstr "En eksisterende bruger, bruger samme e-mail som din Facebook konto"
+
+#: includes/widgets/class-wc-social-login-widget.php:44
+msgid "Display social login buttons."
+msgstr "Vis social logind knap"
+
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce Social Login"
+msgstr "WooCommerce Social Login"
+
+#: includes/widgets/class-wc-social-login-widget.php:120
+msgid "Title"
+msgstr "Titel"
+
+#: includes/widgets/class-wc-social-login-widget.php:124
+msgid "Return URL"
+msgstr "Return URL"
+
+#: templates/myaccount/social-profiles.php:39
+#, fuzzy
+msgid "Social Login Accounts"
+msgstr "Mine linked kontoer"
+
+#. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
+#: templates/myaccount/social-profiles.php:47
+msgid "%1$sAdd more...%2$s"
+msgstr "%1$sTilføj flere...%2$s"
+
+#: templates/myaccount/social-profiles.php:51
+msgid "Your account is connected to the following social login providers."
+msgstr "Din konto er linkede til følgende sociale mediaer "
+
+#: templates/myaccount/social-profiles.php:57
+#: templates/myaccount/social-profiles.php:71
+msgid "Account"
+msgstr "Konto"
+
+#: templates/myaccount/social-profiles.php:58
+#: templates/myaccount/social-profiles.php:81
+msgid "Last login"
+msgstr "Sidste logind"
+
+#. translators: Placeholders: %1$s - date, %2$s - time
+#: templates/myaccount/social-profiles.php:85
+msgid "%1$s @ %2$s"
+msgstr "%1$s @ %2$s"
+
+#: templates/myaccount/social-profiles.php:88
+msgid "Never"
+msgstr "Aldrig"
+
+#. translators: This is an action: unlink account from a social profile
+#: templates/myaccount/social-profiles.php:93
+msgid "Unlink"
+msgstr "Unlink"
+
+#. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
+#: templates/myaccount/social-profiles.php:106
+msgid "You have no social login profiles connected. %1$sConnect one now%2$s"
+msgstr ""
+"Du har endnu ikke forbundet din konto til en social profil. %1$sForbind nu? "
+"%2$s"
+
+#: templates/myaccount/social-profiles.php:114
+msgid "You can link your account to the following providers:"
+msgstr "Du kan forbinde til følgende udbyder"
+
+#. translators: Placeholders: %1$s - opening HTML <a> tag, %2$s - closing HTML
+#. </a> tag
+#: woocommerce-social-login.php:591
+#, fuzzy
+msgid ""
+"Thanks for installing Social Login! Before you get started, please take a "
+"moment to %1$sread through the documentation%2$s."
+msgstr ""
+"Tak fordi du installeret Social Logind! Før du starter venligst læst %svores "
+"dokumentation%s"
+
+#. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag, %3$s - <a> tag,
+#. %4$s - </a> tag
+#: woocommerce-social-login.php:609
+msgid ""
+"WooCommerce Social Login: Facebook now requires your site's full OAuth "
+"Redirect URI to be configured for your app. Please head over to the "
+"%1$sFacebook settings%2$s to get your Redirect URI, and read more about "
+"%3$sconfiguring your app &raquo;%4$s"
+msgstr ""
+
+#: woocommerce-social-login.php:667
+msgid ""
+"Oops, looks like iThemes Security is set to Filter Long URLs. This is likely "
+"to cause a conflict with Social Login -- please disable that setting for "
+"optimal functionality."
+msgstr ""
+
+#. translators: %1$s, %3$s - opening <a> tag, %2$s, %4$s - closing </a> tag
+#: woocommerce-social-login.php:679
+msgid ""
+"Please update callback URLs for each Social Login provider, then switch "
+"callback URLs to the Default format in the %1$sSocial Login settings%2$s. "
+"You can %3$slearn more from the plugin documentation%4$s."
+msgstr ""
+
+#. translators: Placeholders: %1$s - WooCommerce Social Login plugin name, %2$s
+#. - opening <a> HTML link tag, %3$s - closing </a> HTML link tag, %4$s cookie
+#. name wrapped in <code> HTML tags
+#: woocommerce-social-login.php:690
+msgid ""
+"If you are experiencing issues with customers linking a social account using "
+"%1$s, please %2$sfollow the guidelines here%3$s, as your host should fix "
+"your site's caching rules to exclude %4$s cookies from caching. If you're "
+"not seeing any issues with %1$s, please disregard this notice."
+msgstr ""
+
+#: woocommerce-social-login.php:787
+#, fuzzy
+msgid "Removed customer Social Login data"
+msgstr "WooCommerce Social Login"
+
+#. Plugin URI of the plugin/theme
+#, fuzzy
+msgid "http://www.woocommerce.com/products/woocommerce-social-login/"
+msgstr "http://www.woothemes.com/products/woocommerce-social-login/"
+
+#. Description of the plugin/theme
+msgid ""
+"One-click registration and login via social networks like Facebook, Google, "
+"Twitter and Amazon"
+msgstr ""
+"Hurtig oprettelse og logind med sociale medier som Facebook, Google, Twitter "
+"og Amazon. Oversat af Martin Hansen - Restify.dk"
+
+#. Author of the plugin/theme
+msgid "SkyVerge"
+msgstr ""
+
+#. Author URI of the plugin/theme
+#, fuzzy
+msgid "http://www.woocommerce.com"
+msgstr "http://www.woothemes.com"
+
+#. translators: Client (app) ID for a Social Login provider, used for
+#. identifying and authenticating the app (in our case, the WooCommerce store).
+#. This is NOT a WooCommerce customer ID
+#: includes/abstract-wc-social-login-provider.php:132
+#, fuzzy
+msgctxt "Social Login provider app identifier"
+msgid "Client ID"
+msgstr "Klient ID"
+
+#: includes/abstract-wc-social-login-provider.php:157
+msgctxt "noun"
+msgid "Link Button Text"
+msgstr "Link knap tekst"
+
+#: woocommerce-social-login.php:641
+msgctxt "Requires SSL"
+msgid ""
+"WooCommerce Social Login: %s requires SSL for authentication, please force "
+"WooCommerce over SSL."
+msgstr ""
+"WooCommerce Social Login: %s kræver SSL for at virke, Venligst tving "
+"WooCommerce over til SSL"
+
+#~ msgid "Dismiss"
+#~ msgstr "Fjern"
+
+#~ msgid "Docs"
+#~ msgstr "Dokumentation"
+
+#~ msgid "Configure"
+#~ msgstr "Konfigurere "
+
+#~ msgid "WooThemes / SkyVerge"
+#~ msgstr "WooThemes / SkyVerge"
+
+#~ msgctxt "noun"
+#~ msgid "Support"
+#~ msgstr "Support"

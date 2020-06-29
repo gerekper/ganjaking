@@ -1,0 +1,56 @@
+# Copyright (C) 2020 Caseproof, LLC
+# This file is distributed under the same license as the MemberPress User Roles plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: MemberPress User Roles 1.0.5\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/memberpress-userroles\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2020-01-22T09:09:02-06:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.4.0\n"
+"X-Domain: memberpress-userroles\n"
+
+#. Plugin Name of the plugin
+#: main.php:35
+msgid "MemberPress User Roles"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "http://www.memberpress.com/"
+msgstr ""
+
+#. Description of the plugin
+msgid "MemberPress Integration for WordPress User Roles."
+msgstr ""
+
+#. Author of the plugin
+msgid "Caseproof, LLC"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "http://caseproof.com/"
+msgstr ""
+
+#: main.php:36
+msgid "User Roles add-on for MemberPress."
+msgstr ""
+
+#: MpUserRoles.php:185
+msgid "User Roles for this Membership"
+msgstr ""
+
+#: MpUserRoles.php:188
+msgid "Enable Membership User Roles"
+msgstr ""
+
+#: MpUserRoles.php:189
+msgid "These Roles will be added to and removed from the user automatically based on their current subscription status to this Membership level. When they are not active on any Memberships, their Role will go back to the Role you have set in your WordPress -> Settings -> General page."
+msgstr ""
+
+#: MpUserRoles.php:199
+msgid "Hold the Control Key (Command Key on the Mac) in order to select or deselect multiple roles"
+msgstr ""

@@ -1,0 +1,987 @@
+# Translation of YITH WooCommerce Multi-Step Checkout in Spanish (Spain)
+# This file is distributed under the same license as the YITH WooCommerce Multi-Step Checkout package.
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH WooCommerce Multi-Step Checkout\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
+"multi-step-checkout.premium\n"
+"POT-Creation-Date: 2020-05-28 09:15:44+00:00\n"
+"PO-Revision-Date: 2020-04-30 13:40:13+0000\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/2.3.1\n"
+
+#: includes/class.yith-multistep-checkout-admin-premium.php:160
+msgid "Upload/Add Icon"
+msgstr "Subir/Añadir icono"
+
+#: includes/class.yith-multistep-checkout-admin-premium.php:164
+msgid "Restore default icon"
+msgstr "Restaurar icono predeterminado"
+
+#: includes/class.yith-multistep-checkout-admin-premium.php:225
+#: includes/class.yith-multistep-checkout-frontend-premium.php:341
+msgid "Order total amount"
+msgstr "Cantidad total del pedido"
+
+#: includes/class.yith-multistep-checkout-admin-premium.php:271
+msgid "Enable Guest checkout"
+msgstr "Activar proceso de pago para usuarios no registrados"
+
+#: includes/class.yith-multistep-checkout-admin-premium.php:272
+msgid "Enable customers to place orders also without an account"
+msgstr "Permite a los clientes realizar pedidos sin una cuenta"
+
+#: includes/class.yith-multistep-checkout-admin-premium.php:280
+msgid "Enable Customer login"
+msgstr "Activar Inicio de sesión del cliente"
+
+#: includes/class.yith-multistep-checkout-admin-premium.php:281
+msgid "Enable customers to login with their account during the checkout"
+msgstr ""
+"Activar el inicio de sesión del cliente con su cuenta durante el proceso de "
+"pago"
+
+#: includes/class.yith-multistep-checkout-admin-premium.php:317
+msgid "Enable customer registration for \"My Account\" Style"
+msgstr "Activar registro del cliente para el estilo ‘’Mi cuenta’’"
+
+#: includes/class.yith-multistep-checkout-admin-premium.php:318
+msgid "Enable the customer registration on the login step."
+msgstr "Activar el registro del cliente en el paso de inicio de sesión."
+
+#: includes/class.yith-multistep-checkout-admin.php:101
+msgid "YITH WooCommerce Multi-step Checkout"
+msgstr "YITH WooCommerce Multi-step Checkout"
+
+#: includes/class.yith-multistep-checkout-admin.php:102
+msgid "Multi-step Checkout"
+msgstr "Multi-Step Checkout"
+
+#: includes/class.yith-multistep-checkout-admin.php:103
+msgid "Split checkout process into more steps"
+msgstr "Dividir el proceso de pago en más pasos"
+
+#: includes/class.yith-multistep-checkout-admin.php:107
+msgid "Settings"
+msgstr "Ajustes"
+
+#: includes/class.yith-multistep-checkout-admin.php:112
+msgid "Premium Version"
+msgstr "Versión Premium"
+
+#: includes/class.yith-multistep-checkout-privacy.php:41
+msgid ""
+"We collect information about you during the checkout process on our store."
+msgstr ""
+"Recopilamos información sobre ti durante el proceso de pago en nuestra "
+"tienda."
+
+#: includes/class.yith-multistep-checkout-privacy.php:42
+msgid "While you visit our site, we’ll track:"
+msgstr "Mientras visitas nuestro sitio realizaremos el seguimiento de:"
+
+#: includes/class.yith-multistep-checkout-privacy.php:44
+msgid ""
+"Customer information on checkout page: we use a cookie to save customer "
+"information on checkout page. These data are used to restore the current "
+"checkout state in case the customer abandones the payment process for a "
+"while."
+msgstr ""
+"Información del cliente en la página de pago: usamos una cookie para guardar "
+"la información del cliente en la página de pago. Estos datos se utilizan "
+"para restaurar el estado de retirada actual en caso de que el cliente "
+"abandone el proceso de pago por un tiempo."
+
+#: includes/class.yith-multistep-checkout-privacy.php:45
+#, fuzzy
+msgid ""
+"Data saved are: your name, billing address, shipping address, email address, "
+"phone number, credit card/payment type (no credit card/payment information) "
+"and other fields added by 3rd-party plugins"
+msgstr ""
+"Los datos guardados son: su nombre, dirección de facturación, dirección de "
+"envío, dirección de correo electrónico, número de teléfono, tarjeta de "
+"crédito/tipo de pago (sin tarjeta de crédito/información de pago) y otros "
+"campos añadidos por plugins de terceros\n"
+
+#: includes/class.yith-multistep-checkout-privacy.php:50
+msgid ""
+"Members of our team haven't access to the information you provide us because "
+"this cookie are stored on your browser software."
+msgstr ""
+"Los miembros de nuestro equipo no tienen acceso a la información que nos "
+"proporciona porque esta cookie se almacena en el software de tu navegador."
+
+#: includes/class.yith-multistep-checkout-privacy.php:50
+msgid ""
+"Our team members have access to this information to help fulfill orders, "
+"process refunds and support you."
+msgstr ""
+"Los miembros de nuestro equipo tienen acceso a esta información para ayudar "
+"a completar pedidos, procesar reembolsos y darte soporte."
+
+#: templates/woocommerce/checkout/form-checkout.php:44
+#: templates/woocommerce/checkout/form-checkout.php:45
+msgid "Next"
+msgstr "Siguiente"
+
+#: templates/woocommerce/checkout/form-checkout.php:46
+msgid "Previous"
+msgstr "Anterior"
+
+#: templates/woocommerce/checkout/form-checkout.php:96
+msgid "You must be logged in before proceeding to checkout."
+msgstr "Tienes que acceder antes de proceder al pago."
+
+#: templates/woocommerce/checkout/form-checkout.php:126
+msgid "Your order"
+msgstr "Tu pedido"
+
+#: templates/woocommerce/checkout/form-checkout.php:133
+msgid "Payment"
+msgstr "Pago"
+
+#: templates/woocommerce/checkout/thankyou.php:20
+msgid ""
+"Unfortunately your order cannot be processed as the originating bank/"
+"merchant has declined your transaction."
+msgstr ""
+"Desafortunadamente no se ha podido procesar tu pedido porque tu banco/"
+"distribuidor ha rechazado tu transacción."
+
+#: templates/woocommerce/checkout/thankyou.php:24
+msgid "Please, either submit your order again or go to your account page."
+msgstr "Por favor, envía tu pedido otra vez o ve a la página de tu cuenta."
+
+#: templates/woocommerce/checkout/thankyou.php:26
+msgid "Please submit your order again."
+msgstr "Por favor, envía tu pedido otra vez."
+
+#: templates/woocommerce/checkout/thankyou.php:30
+msgid "Pay"
+msgstr "Pagar"
+
+#: templates/woocommerce/checkout/thankyou.php:32
+msgid "My Account"
+msgstr "Mi cuenta"
+
+#: templates/woocommerce/checkout/thankyou.php:39
+#: templates/woocommerce/checkout/thankyou.php:71
+msgid "Thank you. We have received your order."
+msgstr "Gracias. Hemos recibido tu pedido."
+
+#: templates/woocommerce/checkout/thankyou.php:44
+msgid "Order number:"
+msgstr "Número de pedido:"
+
+#: templates/woocommerce/checkout/thankyou.php:48
+msgid "Date:"
+msgstr "Fecha:"
+
+#: templates/woocommerce/checkout/thankyou.php:52
+msgid "Total:"
+msgstr "Total:"
+
+#: templates/woocommerce/checkout/thankyou.php:57
+msgid "Payment method:"
+msgstr "Método de pago:"
+
+#. Description of the plugin/theme
+msgid ""
+"Thanks to <code><strong>YITH WooCommerce Multi-step Checkout</strong></code> "
+"you can split your checkout process into steps. Assist your customers during "
+"the purchase and make them feel safe by showing them where in the process "
+"they are and what the next step is. <a href=\"https://yithemes.com/\" target="
+"\"_blank\">Get more plugins for your e-commerce shop on <strong>YITH</"
+"strong></a>"
+msgstr ""
+"Gracias a <code><strong>YITH WooCommerce Multi-step Checkout</strong></code> "
+"puedes dividir el proceso de pago en pasos. Asiste a tus clientes durante la "
+"compra y hazlos sentirse seguros mostrándoles en qué parte del proceso están "
+"y cual es el siguiente paso.<a href=\"https://yithemes.com/\" target=\"_blank"
+"\">Obtén más plugins para tu comercio electrónico en <strong>YITH</strong></"
+"a>"
+
+#: includes/class.yith-multistep-checkout-admin-premium.php:73
+msgctxt "Admin: Page title"
+msgid "Timeline and Button"
+msgstr "Línea de tiempo y botón"
+
+#: includes/class.yith-multistep-checkout-admin-premium.php:74
+msgctxt "Admin: Page title"
+msgid "\"Order Received\" & \"My Account\" Page"
+msgstr "Página de «Pedido recibido» y «Mi cuenta»"
+
+#: includes/class.yith-multistep-checkout-admin-premium.php:93
+msgctxt "Admin: option description"
+msgid "Preview:"
+msgstr "Vista previa:"
+
+#: includes/class.yith-multistep-checkout-admin-premium.php:252
+msgctxt "Admin: option description"
+msgid ""
+"Choose whether remove shipping step on checkout page (For examples, if you "
+"sell digital products without shipping)"
+msgstr ""
+"Elige si eliminar el paso del envío en la página de proceso de pago (Por "
+"ejemplo, si estableces productos digitales sin envío)"
+
+#: includes/class.yith-multistep-checkout-admin-premium.php:307
+msgctxt "Admin: option description"
+msgid ""
+"Enable to show the \"My Account login/register\" form instead of the default "
+"'returning customer' box"
+msgstr ""
+"Activa para mostrar el formulario de Inicio de sesión/registro de «Mi "
+"cuenta» en vez de la caja de ’’cliente habitual’"
+
+#: plugin-options/timeline-options.php:126
+msgctxt "Admin: option description"
+msgid ""
+"Enter the separator element for steps. For example, you can use / or - or "
+"leave empty if you don't want to use any separator element"
+msgstr ""
+"Introduce el elemento separador para los pasos. Por ejemplo, puedes usarlo o "
+"dejarlo vacío si no quieres usar ningún elemento separador"
+
+#: plugin-options/timeline-options.php:466
+msgctxt "Admin: option description"
+msgid "Select a label for the step"
+msgstr "Selecciona una etiqueta para el paso"
+
+#: plugin-options/timeline-options.php:475
+msgctxt "Admin: option description"
+msgid "Select style for step count: you can either use a number or an icon"
+msgstr ""
+"Selecciona el estilo para el recuento de pasos: puedes usar un número o un "
+"icono"
+
+#: plugin-options/timeline-options.php:491
+msgctxt "Admin: option description"
+msgid "Select an icon for the step"
+msgstr "Selecciona un icono para el paso"
+
+#: plugin-options/timeline-options.php:519
+msgctxt "Admin: option description"
+msgid "Select whether you want to show navigation buttons or not"
+msgstr "Selecciona si quieres mostrar los botones de navegación o no"
+
+#: plugin-options/timeline-options.php:529
+msgctxt "Admin: option description"
+msgid "Enable to hide Previous button in the last step"
+msgstr "Activa si quieres ocultar el botón «Anterior» en el último paso"
+
+#: plugin-options/timeline-options.php:559
+msgctxt "Admin: option description"
+msgid "Enable Back to cart button on the checkout page"
+msgstr "Activar el botón Volver al carrito en la página de proceso de pago"
+
+#: plugin-options/timeline-options.php:586
+msgctxt "Admin: option description"
+msgid "Enable to hide Back to cart button in the last step"
+msgstr ""
+
+#: plugin-options/timeline-options.php:614
+msgctxt "Admin: option description"
+msgid ""
+"Enable  to add a \"scroll to top\" effect when customer click on next/prev "
+"buttons"
+msgstr ""
+"Activa para añadir un efecto ‘’volver a arriba’’ cuando el cliente hace clic "
+"en los botones Siguiente y Anterior"
+
+#: includes/class.yith-multistep-checkout-admin-premium.php:97
+msgctxt "HTML: alt attribute"
+msgid "Timeline Style"
+msgstr "Estilo de línea del tiempo"
+
+#: includes/class.yith-multistep-checkout-admin-premium.php:183
+msgctxt "Panel: page title"
+msgid "AJAX validation"
+msgstr "Validación AJAX"
+
+#: includes/class.yith-multistep-checkout-admin-premium.php:206
+msgctxt "Panel: page title"
+msgid "Payments options"
+msgstr "Opciones de pago"
+
+#: plugin-options/order_received-options.php:20
+msgctxt "Panel: page title"
+msgid "My Account: \"Order Received\" and \"My Account\" Page"
+msgstr "Mi cuenta: Página de «Pedido recibido» y «Mi cuenta»"
+
+#: includes/class.yith-multistep-checkout-admin-premium.php:189
+msgctxt "Admin option: Enable plugin"
+msgid "AJAX validation in Multi-step Checkout"
+msgstr "Validación AJAX en Multi-step Checkout"
+
+#: includes/class.yith-multistep-checkout-admin-premium.php:192
+msgctxt "Admin option description: Enable live validation"
+msgid ""
+"If enabled users can't proceed to the next step if they haven't first filled "
+"in mandatory fields"
+msgstr ""
+"Los usuarios activados no pueden proceder al siguiente paso si no han "
+"rellenado antes los campos obligatorios"
+
+#: includes/class.yith-multistep-checkout-admin-premium.php:212
+msgctxt "Admin option: Enable featrues"
+msgid "Show order total amount in Payment tab"
+msgstr "Mostrar cantidad total del pedido en la pestaña de pago"
+
+#: includes/class.yith-multistep-checkout-admin-premium.php:220
+msgctxt "Admin option: Enable featrues"
+msgid "Order total label"
+msgstr "Etiqueta de total del pedido"
+
+#: includes/class.yith-multistep-checkout-admin-premium.php:223
+msgctxt "[Admin]Option example"
+msgid "e.g.: Order total amount: 13,00$ (includes 0,60$ VAT)"
+msgstr "Ej: Cantidad total del pedido: 13.000€ (incluye 0,60€ de impuestos)"
+
+#: includes/class.yith-multistep-checkout-admin-premium.php:242
+msgctxt "Panel: option title"
+msgid "Shipping step"
+msgstr "Paso de envío"
+
+#: includes/class.yith-multistep-checkout-admin-premium.php:265
+msgctxt "Panel: option title"
+msgid "Login step"
+msgstr "Paso de acceso"
+
+#: includes/class.yith-multistep-checkout-admin-premium.php:248
+msgctxt "Admin: Option title"
+msgid "Remove shipping step"
+msgstr "Quitar paso de envío"
+
+#: includes/class.yith-multistep-checkout-admin-premium.php:303
+msgctxt "Admin: Option title"
+msgid "Use the \"My Account\" login/register box"
+msgstr "Usa la caja de inicio de sesión/registro de ‘’Mi cuenta’’"
+
+#: plugin-options/timeline-options.php:471
+msgctxt "Admin: Option title"
+msgid "Step Count Type"
+msgstr "Tipo de recuento de pasos"
+
+#: includes/class.yith-multistep-checkout-admin-premium.php:289
+msgctxt "Admin option: text"
+msgid ""
+"Message for returning customers (not available for \"My Account\" style)."
+msgstr ""
+"Mensaje para clientes que regresan (no disponible para el estilo ‘’Mi "
+"cuenta’’)"
+
+#: includes/class.yith-multistep-checkout-admin-premium.php:293
+msgctxt "[Frontend] Message for returning customer on checkout page"
+msgid ""
+"If you already have an account on this site, please enter your credentials "
+"below. If you don't have an account yet, please go to the billing step."
+msgstr ""
+"Si ya tienes una cuenta en este sitio, por favor, introduce tus credenciales "
+"a continuación. Si no tienes una cuenta aún, por favor, dirígete al paso de "
+"facturación."
+
+#: includes/class.yith-multistep-checkout-frontend-premium.php:302
+#: plugin-options/timeline-options.php:39
+msgctxt "Frontend: button label"
+msgid "Skip Login"
+msgstr "Saltar acceso"
+
+#: plugin-options/timeline-options.php:37
+msgctxt "Frontend: button label"
+msgid "Next"
+msgstr "Siguiente"
+
+#: plugin-options/timeline-options.php:38
+msgctxt "Frontend: button label"
+msgid "Previous"
+msgstr "Anterior"
+
+#: plugin-options/timeline-options.php:569
+msgctxt "Frontend: button label"
+msgid "Label for Back to cart button"
+msgstr "Etiqueta para botón de Volver al carrito"
+
+#: plugin-options/timeline-options.php:573
+#: templates/woocommerce/checkout/form-checkout.php:52
+msgctxt "Frontend: button label"
+msgid "Back to cart"
+msgstr "Volver al carrito"
+
+#: plugin-options/timeline-options.php:619
+msgctxt "Frontend: button label"
+msgid "Scroll to top anchor"
+msgstr "Anclaje para desplazare hacia arriba"
+
+#: init.php:43
+msgctxt "Alert Message: WooCommerce requires"
+msgid "is enabled but not effective. It requires WooCommerce in order to work."
+msgstr ""
+"está activado pero no es efectivo. Requiere WooCommerce para funcionar."
+
+#: plugin-options/order_received-options.php:26
+msgctxt "Admin option: \"Thank You\" and \"Order Received\" page style"
+msgid "Select style for \"Thank You\" page"
+msgstr "Selecciona el estilo de la página de agradecimiento"
+
+#: plugin-options/order_received-options.php:29
+msgctxt ""
+"Admin option description: choose between applying theme or plugin style"
+msgid "Select plugin style or theme style"
+msgstr "Selecciona el estilo del plugin o el del tema"
+
+#: plugin-options/order_received-options.php:31
+msgctxt "Admin: Option style"
+msgid "Theme Style"
+msgstr "Estilo del tema"
+
+#: plugin-options/order_received-options.php:32
+msgctxt "Admin: Option style"
+msgid "Plugin Style"
+msgstr "Estilo del plugin"
+
+#: plugin-options/order_received-options.php:39
+#: plugin-options/order_received-options.php:53
+msgctxt "Admin: Option"
+msgid "Text Highlight Color"
+msgstr "Color del resaltado de texto"
+
+#: plugin-options/order_received-options.php:67
+msgctxt "Admin: Option"
+msgid "Table Header Background Color"
+msgstr "Color de fondo del encabezado de la tabla"
+
+#: plugin-options/order_received-options.php:81
+msgctxt "Admin: Option"
+msgid "Text Table Header Color"
+msgstr "Color del texto del encabezado de la tabla"
+
+#: plugin-options/order_received-options.php:95
+msgctxt "Admin: Option"
+msgid "Table row background color"
+msgstr "Color de fondo de fila de la tabla"
+
+#: plugin-options/order_received-options.php:109
+msgctxt "Admin: Option"
+msgid "\"Order Details\" color"
+msgstr "Color de «Detalles del pedido»"
+
+#: plugin-options/order_received-options.php:47
+msgctxt "Admin: Option description"
+msgid ""
+"Select the background color for \"Order details\" in \"Thank You\" and "
+"\"Order review\" pages"
+msgstr ""
+"Selecciona el color de fondo de «Detalles del pedido» en las páginas de "
+"agradecimiento y de revisión del pedido"
+
+#: plugin-options/order_received-options.php:61
+msgctxt "Admin: Option description"
+msgid ""
+"Select text highlight color in \"Thank You\" page and \"Order review\" pages"
+msgstr ""
+"Selecciona el color del resaltado de texto en las páginas de agradecimiento "
+"y de revisión del pedido"
+
+#: plugin-options/order_received-options.php:75
+msgctxt "Admin: Option description"
+msgid ""
+"Select background highlight color for the header of \"Order\" table in "
+"\"Thank You\" page and \"Order review\" page"
+msgstr ""
+"Selecciona el color de fondo del resaltado del encabezado de la tabla de "
+"«Pedido» en las páginas de agradecimiento y de revisión del pedido"
+
+#: plugin-options/order_received-options.php:89
+msgctxt "Admin: Option description"
+msgid ""
+"Select text color for the header of order table in \"Thank You\" page and "
+"\"Order review\" page"
+msgstr ""
+"Selecciona el color del texto para el encabezado de la tabla de pedido en "
+"las páginas de agradecimiento y de revisión del pedido"
+
+#: plugin-options/order_received-options.php:103
+msgctxt "Admin: Option description"
+msgid ""
+"Select background color for rows in \"Orders\" table in \"Thank You\" page "
+"and \"Order review\" page"
+msgstr ""
+"Selecciona el color de fondo para las filas en la tabla «Pedidos» en las "
+"páginas de agradecimiento y de revisión del pedido"
+
+#: plugin-options/order_received-options.php:117
+msgctxt "Admin: Option description"
+msgid ""
+"Select color for \"Order details\" text in \"Thank You\" page and \"Order "
+"review\" page"
+msgstr ""
+"Selecciona el color del texto en las páginas de agradecimiento y de revisión "
+"del pedido"
+
+#: plugin-options/timeline-options.php:13
+msgctxt "Frontend: Step title"
+msgid "Login"
+msgstr "Inicio de sesión"
+
+#: plugin-options/timeline-options.php:17
+msgctxt "Frontend: Step title"
+msgid "Billing"
+msgstr "Facturación"
+
+#: plugin-options/timeline-options.php:21
+msgctxt "Frontend: Step title"
+msgid "Shipping"
+msgstr "Envío"
+
+#: plugin-options/timeline-options.php:25
+msgctxt "Frontend: Step title"
+msgid "Order info"
+msgstr "Información del pedido"
+
+#: plugin-options/timeline-options.php:29
+msgctxt "Frontend: Step title"
+msgid "Payment info"
+msgstr "Información de pago"
+
+#: plugin-options/timeline-options.php:34
+msgctxt "Admin: part of label string, i.e. Login Icon, Billing Icon"
+msgid "Icon"
+msgstr "Icono"
+
+#: plugin-options/timeline-options.php:51
+msgctxt "Panel: section title"
+msgid "Timeline style"
+msgstr "Estilo de línea del tiempo"
+
+#: plugin-options/timeline-options.php:112
+msgctxt "Panel: section title"
+msgid "Step customization"
+msgstr "Personalización de paso"
+
+#: plugin-options/timeline-options.php:122
+msgctxt "Panel: section title"
+msgid "Separate step with"
+msgstr "Separar paso con"
+
+#: plugin-options/timeline-options.php:452
+msgctxt "Panel: section title"
+msgid "Timeline Customization"
+msgstr "Personalización de la línea del tiempo"
+
+#: plugin-options/timeline-options.php:510
+msgctxt "Panel: section title"
+msgid "Prev/Next button"
+msgstr ""
+
+#: plugin-options/timeline-options.php:515
+msgctxt "Panel: section title"
+msgid "Show Prev/Next button"
+msgstr ""
+
+#: plugin-options/timeline-options.php:525
+msgctxt "Panel: section title"
+msgid "Hide Prev button in last step"
+msgstr ""
+
+#: plugin-options/timeline-options.php:555
+msgctxt "Panel: section title"
+msgid "Show Back to cart button"
+msgstr ""
+
+#: plugin-options/timeline-options.php:582
+msgctxt "Panel: section title"
+msgid "Hide Back to cart button in last step"
+msgstr ""
+
+#: plugin-options/timeline-options.php:605
+msgctxt "Panel: section title"
+msgid "Scroll to top"
+msgstr "Scroll arriba"
+
+#: plugin-options/timeline-options.php:610
+msgctxt "Panel: section title"
+msgid "Enable scroll to top effect"
+msgstr "Activar el efecto scroll ‘volver a arriba’’"
+
+#: plugin-options/timeline-options.php:58
+msgctxt "Option: title"
+msgid "Step design"
+msgstr "Diseño de paso"
+
+#: plugin-options/timeline-options.php:73
+msgctxt "Option: title"
+msgid "Timeline style"
+msgstr "Estilo de línea del tiempo"
+
+#: plugin-options/timeline-options.php:59
+msgctxt "Option: description"
+msgid "Choose the step design to apply"
+msgstr "Elige el diseño de paso a aplicar"
+
+#: plugin-options/timeline-options.php:74
+msgctxt "Option: description"
+msgid "Select style for the timeline"
+msgstr "Selecciona el estilo de línea del tiempo"
+
+#: plugin-options/timeline-options.php:83
+msgctxt "Option: description"
+msgid "Set if you want to display the steps horizontally or vertically"
+msgstr "Establece si quieres mostrar los pasos horizontal o verticalmente"
+
+#: plugin-options/timeline-options.php:96
+msgctxt "Option: description"
+msgid ""
+"Set the speed of fade animation during transition from one step to the next"
+msgstr ""
+"Establece la velocidad de la animación durante la transición de un paso al "
+"siguiente"
+
+#: plugin-options/timeline-options.php:63
+msgctxt "Option: Timeline Style"
+msgid "Text"
+msgstr "Texto"
+
+#: plugin-options/timeline-options.php:64
+msgctxt "Option: Timeline Style"
+msgid "Style 1"
+msgstr "Estilo 1"
+
+#: plugin-options/timeline-options.php:65
+msgctxt "Option: Timeline Style"
+msgid "Style 2"
+msgstr "Estilo 2"
+
+#: plugin-options/timeline-options.php:66
+msgctxt "Option: Timeline Style"
+msgid "Style 3"
+msgstr "Estilo 3"
+
+#: plugin-options/timeline-options.php:82
+msgctxt "Option: Title"
+msgid "Step position"
+msgstr "Posición de paso"
+
+#: plugin-options/timeline-options.php:86
+msgctxt "Option: timeline display"
+msgid "Horizontal"
+msgstr "Horizontal"
+
+#: plugin-options/timeline-options.php:87
+msgctxt "Option: timeline display"
+msgid "Vertical"
+msgstr "Vertical"
+
+#: plugin-options/timeline-options.php:95
+msgctxt "Option: Title. Please, do not translate FadeIn/FadeOut"
+msgid "FadeIn and FadeOut Transition speed"
+msgstr "Velocidades de transición FadeIn y FadeOut"
+
+#: plugin-options/timeline-options.php:136
+msgctxt "Option Title"
+msgid "Step color"
+msgstr "Color del paso"
+
+#: plugin-options/timeline-options.php:150
+msgctxt "Option Title"
+msgid "Box color"
+msgstr "Color de la caja"
+
+#: plugin-options/timeline-options.php:164
+msgctxt "Option Title"
+msgid "Step number color"
+msgstr "Color del número del paso"
+
+#: plugin-options/timeline-options.php:178
+msgctxt "Option Title"
+msgid "Step label color"
+msgstr "Color de la etiqueta del paso"
+
+#: plugin-options/timeline-options.php:192
+msgctxt "Option Title"
+msgid "Step color of current step"
+msgstr "Color del paso del paso actual"
+
+#: plugin-options/timeline-options.php:206
+msgctxt "Option Title"
+msgid "Box color of current step "
+msgstr "Color del recuadro del paso actual "
+
+#: plugin-options/timeline-options.php:220
+msgctxt "Option Title"
+msgid "Color of current step number"
+msgstr "Color del número del paso actual"
+
+#: plugin-options/timeline-options.php:234
+msgctxt "Option Title"
+msgid "Current step label color"
+msgstr "Color de la etiqueta del paso actual"
+
+#: plugin-options/timeline-options.php:248
+#: plugin-options/timeline-options.php:374
+msgctxt "Option Title"
+msgid "Border Color"
+msgstr "Color de borde"
+
+#: plugin-options/timeline-options.php:262
+#: plugin-options/timeline-options.php:388
+msgctxt "Option Title"
+msgid "Background Color"
+msgstr "Color de fondo"
+
+#: plugin-options/timeline-options.php:276
+msgctxt "Option Title"
+msgid "Bubble Background Color"
+msgstr "Color de fondo de la burbuja"
+
+#: plugin-options/timeline-options.php:290
+msgctxt "Option Title"
+msgid "Number Color"
+msgstr "Color de número"
+
+#: plugin-options/timeline-options.php:304
+#: plugin-options/timeline-options.php:402
+msgctxt "Option Title"
+msgid "Step Label Color"
+msgstr "Color de la etiqueta del paso"
+
+#: plugin-options/timeline-options.php:318
+msgctxt "Option Title"
+msgid "Background Color of Current Step "
+msgstr "Color de fondo del paso actual"
+
+#: plugin-options/timeline-options.php:332
+msgctxt "Option Title"
+msgid "Bubble Background Color of current step"
+msgstr "Color de fondo de la burbuja del paso actual"
+
+#: plugin-options/timeline-options.php:346
+msgctxt "Option Title"
+msgid "Number Color of current step"
+msgstr "Color del número del paso actual"
+
+#: plugin-options/timeline-options.php:360
+#: plugin-options/timeline-options.php:430
+msgctxt "Option Title"
+msgid "Label Color of Current Step"
+msgstr "Color de la etiqueta del paso actual"
+
+#: plugin-options/timeline-options.php:416
+msgctxt "Option Title"
+msgid "Background Color of Current Step"
+msgstr "Color de fondo del paso actual"
+
+#: plugin-options/timeline-options.php:140
+msgctxt "Frontend option: Single step background color"
+msgid "Select background color for timeline steps (Default: #e2e2e2)"
+msgstr ""
+"Selecciona el color de fondo para la línea de tiempo de los pasos (Por "
+"defecto: #e2e2e2)"
+
+#: plugin-options/timeline-options.php:196
+msgctxt "Frontend option: Single step background color"
+msgid ""
+"Select the background color of the step users are currently in (Default: "
+"#1e8cbe)"
+msgstr ""
+"Selecciona el color del fondo del paso en el que los usuarios están "
+"actualmente (Por defecto: #1e8cbe)"
+
+#: plugin-options/timeline-options.php:266
+#: plugin-options/timeline-options.php:392
+msgctxt "Frontend option: Single step background color"
+msgid "Select background color for timeline steps (Default: transparent)"
+msgstr ""
+"Selecciona el color de fondo para los pasos de la línea del tiempo (Por "
+"defecto: transparente)"
+
+#: plugin-options/timeline-options.php:322
+msgctxt "Frontend option: Single step background color"
+msgid ""
+"Select background color for the step users are currently in (Default: "
+"transparent)"
+msgstr ""
+"Selecciona el color de fondo para el paso en el que los usuarios están "
+"actualmente (Por defecto: transparente)"
+
+#: plugin-options/timeline-options.php:420
+msgctxt "Frontend option: Single step background color"
+msgid ""
+"Select background color for timeline step users are currently in (Default: "
+"#1e8cbe)"
+msgstr ""
+"Selecciona el color de fondo para el paso en la línea del tiempo en el que "
+"los usuarios están actualmente (Por defecto: #1e8cbe)"
+
+#: plugin-options/timeline-options.php:154
+msgctxt "Frontend option: step background color"
+msgid "Select color for number box of timeline steps (Default: #b2b2b0)"
+msgstr ""
+"Selecciona el color de la caja con los números de paso de la línea del "
+"tiempo (Por defecto: #b2b2b0)"
+
+#: plugin-options/timeline-options.php:168
+msgctxt "Frontend option: Bubble number color"
+msgid ""
+"Select color for the numbers identifying timeline steps (Default: #ffffff)"
+msgstr ""
+"Selecciona el color de los números que identifican los pasos de la línea de "
+"tiempo (Por defecto: #ffffff)"
+
+#: plugin-options/timeline-options.php:224
+msgctxt "Frontend option: Bubble number color"
+msgid ""
+"Select the color for the number of the step users are currently in (Default: "
+"#ffffff)"
+msgstr ""
+"Selecciona el color del número del paso en el que los usuarios están "
+"actualmente (Por defecto: #ffffff)"
+
+#: plugin-options/timeline-options.php:294
+msgctxt "Frontend option: Bubble number color"
+msgid ""
+"Select color for the number identifying timeline (bubble) steps (Default: "
+"#ffffff)"
+msgstr ""
+"Selecciona el color del número que identifica los pasos (burbujas) en la "
+"línea del tiempo (Por defecto: #ffffff)"
+
+#: plugin-options/timeline-options.php:350
+msgctxt "Frontend option: Bubble number color"
+msgid ""
+"Select color for the number in the bubble identifying the step users are "
+"currently in (Default: #ffffff)"
+msgstr ""
+"Selecciona el número de la burbuja que identifica el paso en el que están "
+"actualmente los usuarios (Por defecto: #ffffff)"
+
+#: plugin-options/timeline-options.php:182
+msgctxt "Frontend option: Step label color"
+msgid "Select color for step label (Default: #8b8b8b)"
+msgstr "Selecciona el color de la etiqueta del paso (Por defecto: #8b8b8b)"
+
+#: plugin-options/timeline-options.php:238
+#: plugin-options/timeline-options.php:434
+msgctxt "Frontend option: Step label color"
+msgid ""
+"Select color for the label of the step users are currently in (Default: "
+"#ffffff)"
+msgstr ""
+"Selecciona el color de la etiqueta del paso en el que los usuarios están "
+"actualmente (Por defecto: #ffffff)"
+
+#: plugin-options/timeline-options.php:308
+#: plugin-options/timeline-options.php:406
+msgctxt "Frontend option: Step label color"
+msgid "Select color for step labels (Default: #b2b2b0)"
+msgstr ""
+"Selecciona el color de las etiquetas de los pasos (Por defecto: #b2b2b0)"
+
+#: plugin-options/timeline-options.php:364
+msgctxt "Frontend option: Step label color"
+msgid ""
+"Select color for label of the step users are currently in (Default: #303030)"
+msgstr ""
+"Selecciona el color de la etiqueta del paso en el que los usuarios están "
+"actualmente (Por defecto: #303030)"
+
+#: plugin-options/timeline-options.php:210
+msgctxt "Frontend option: Bubble step background color"
+msgid ""
+"Select color for the box containing the number or icon of the step users are "
+"currently in (Default: #005b84)"
+msgstr ""
+"Selecciona el color del recuadro que contiene el número o icono del paso en "
+"el que los usuarios están actualmente (Por defecto: #005b84)"
+
+#: plugin-options/timeline-options.php:280
+msgctxt "Frontend option: Bubble step background color"
+msgid ""
+"Select background color for bubbles of timeline steps (Default: #b2b2b0)"
+msgstr ""
+"Selecciona el color de fondo de las burbujas de los pasos de la línea del "
+"tiempo (Por defecto: #b2b2b0)"
+
+#: plugin-options/timeline-options.php:336
+msgctxt "Frontend option: Bubble step background color"
+msgid ""
+"Select background color for the bubble of the step users are currently in "
+"(Default: #acc327)"
+msgstr ""
+"Selecciona el color de fondo para la burbuja del paso en el que los usuarios "
+"están actualmente (Por defecto: #acc327)"
+
+#: plugin-options/timeline-options.php:252
+msgctxt "Frontend option: Single step border color"
+msgid "Select border color for timeline steps (Default: #eeeeee)"
+msgstr ""
+"Selecciona el color del borde para los pasos en la línea del tiempo (Por "
+"defecto: #eeeeee)"
+
+#: plugin-options/timeline-options.php:378
+msgctxt "Frontend option: Single step border color"
+msgid "Select border color for timeline steps (Default: #e2e2e2)"
+msgstr ""
+"Selecciona el color del borde para los pasos de la línea del tiempo (Por "
+"defecto: #e2e2e2)"
+
+#: plugin-options/timeline-options.php:477
+msgctxt "Admin: Select value"
+msgid "Numbers"
+msgstr "Números"
+
+#: plugin-options/timeline-options.php:478
+msgctxt "Admin: Select value"
+msgid "Icons"
+msgstr "Iconos"
+
+#: templates/woocommerce/checkout/form-checkout.php:47
+msgctxt "Checkout: user timeline"
+msgid "Login"
+msgstr "Acceder"
+
+#: templates/woocommerce/checkout/form-checkout.php:48
+msgctxt "Checkout: user timeline"
+msgid "Billing"
+msgstr "Facturación"
+
+#: templates/woocommerce/checkout/form-checkout.php:49
+msgctxt "Checkout: user timeline"
+msgid "Shipping"
+msgstr "Envío"
+
+#: templates/woocommerce/checkout/form-checkout.php:50
+msgctxt "Checkout: user timeline"
+msgid "Order Info"
+msgstr "Información del pedido"
+
+#: templates/woocommerce/checkout/form-checkout.php:51
+msgctxt "Checkout: user timeline"
+msgid "Payment Info"
+msgstr "Información de pago"
+
+#: templates/woocommerce/checkout/form-checkout.php:73
+msgctxt "[Frontend] Default message for returning customer on checkout page"
+msgid ""
+"If you have already registered, please, enter your details below. If you are "
+"a new customer, please, go to the Billing &amp; Shipping section."
+msgstr ""
+
+#~ msgid "https://yithemes.com/"
+#~ msgstr "https://yithemes.com/"
+
+#~ msgid "YITH"
+#~ msgstr "YITH"
+
+#~ msgid ""
+#~ "https://yithemes.com/themes/plugins/yith-woocommerce-multi-step-checkout/"
+#~ msgstr ""
+#~ "https://yithemes.com/themes/plugins/yith-woocommerce-multi-step-checkout/"
+
+#~ msgid "YITH WooCommerce Multi-step Checkout Premium"
+#~ msgstr "YITH WooCommerce Multi-step Checkout Premium"

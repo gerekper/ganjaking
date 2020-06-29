@@ -1,0 +1,97 @@
+#woocommerce_dashboard_carts_right_now .inside {
+	padding: 0;
+	margin: 0;
+}
+
+#woocommerce_dashboard_carts_right_now .wc_status_list {
+	overflow: hidden;
+	margin: 0;
+}
+
+#woocommerce_dashboard_carts_right_now .wc_status_list li {
+	width: 50%;
+	float: left;
+	padding: 0;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	margin: 0;
+	border-top: 1px solid #ececec;
+	color: #aaa;
+}
+
+#woocommerce_dashboard_carts_right_now .wc_status_list li a {
+	display: block;
+	color: #aaa;
+	padding: 9px 12px;
+	-webkit-transition: all ease .5s;
+	position: relative;
+	font-size: 12px;
+}
+
+#woocommerce_dashboard_carts_right_now .wc_status_list li a .wc_sparkline {
+	width: 4em;
+	height: 2em;
+	display: block;
+	float: right;
+	position: absolute;
+	right: 0;
+	top: 50%;
+	margin-right: 12px;
+	margin-top: -1.25em;
+}
+
+#woocommerce_dashboard_carts_right_now .wc_status_list li a strong {
+	font-size: 18px;
+	line-height: 1.2em;
+	font-weight: 400;
+	display: block;
+	color: #21759b;
+}
+
+#woocommerce_dashboard_carts_right_now .wc_status_list li a:hover {
+	color: #2ea2cc;
+}
+
+#woocommerce_dashboard_carts_right_now .wc_status_list li a:hover:before,#woocommerce_dashboard_carts_right_now .wc_status_list li a:hover strong {
+	color: #2ea2cc!important;
+}
+
+#woocommerce_dashboard_carts_right_now .wc_status_list li a:before {
+	font-family: WooCommerce;
+	speak: none;
+	font-weight: 400;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	margin: 0;
+	text-indent: 0;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	content: "\e001";
+	font-size: 2em;
+	position: relative;
+	width: auto;
+	line-height: 1.2em;
+	color: #464646;
+	float: left;
+	margin-right: 12px;
+	margin-bottom: 12px;
+}
+
+
+
+#woocommerce_dashboard_carts_right_now .wc_status_list li.open-carts a:before {
+	content: "\e011";
+	color: #7ad03a;
+}
+
+#woocommerce_dashboard_carts_right_now .wc_status_list li.abandoned-carts a:before {
+	content: "\e02c";
+	color: #a00;
+}

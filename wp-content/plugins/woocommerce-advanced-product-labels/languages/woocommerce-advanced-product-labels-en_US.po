@@ -1,0 +1,405 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Advanced Product Labels 1.0.0\n"
+"POT-Creation-Date: 2015-01-14 21:39+0100\n"
+"PO-Revision-Date: 2015-01-14 21:39+0100\n"
+"Last-Translator: \n"
+"Language-Team: Jeroen Sormani <info@jeroensormani.com>\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.7.1\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../class-wapl-global-labels.php:100
+#: ../includes/class-wapl-post-type.php:231
+msgid "Or a product must match all these condititions to show the label:"
+msgstr ""
+
+#: ../class-wapl-global-labels.php:108
+#: ../includes/class-wapl-post-type.php:219
+#: ../includes/class-wapl-post-type.php:243
+msgid "Or"
+msgstr ""
+
+#: ../class-wapl-single-labels.php:49
+msgid "Product label"
+msgstr ""
+
+#: ../class-wapl-single-labels.php:74
+msgid "Exclude Global Labels"
+msgstr ""
+
+#: ../class-wapl-single-labels.php:75
+msgid "When checked, global labels will be excluded"
+msgstr ""
+
+#: ../class-wapl-single-labels.php:86
+#: ../includes/admin/settings/global-meta-box-label.php:25
+msgid "Label type"
+msgstr ""
+
+#: ../class-wapl-single-labels.php:88
+msgid ""
+"<strong>'Flash'</strong> is positioned on top of the product image<br/>\n"
+"\t\t\t\t\t\t\t\t\t\t\t\t\t<strong>'Label'</strong> is positioned above the "
+"product title"
+msgstr ""
+
+#: ../class-wapl-single-labels.php:98
+#: ../includes/admin/settings/global-meta-box-label.php:36
+#: ../includes/admin/views/global-labels-table.php:25
+msgid "Label text"
+msgstr ""
+
+#: ../class-wapl-single-labels.php:100
+msgid "What text do you want the label to show?"
+msgstr ""
+
+#: ../class-wapl-single-labels.php:106
+#: ../includes/admin/settings/global-meta-box-label.php:44
+msgid "Label style"
+msgstr ""
+
+#: ../class-wapl-single-labels.php:112
+#: ../includes/admin/settings/global-meta-box-label.php:60
+msgid "Label align"
+msgstr ""
+
+#: ../class-wapl-single-labels.php:114
+#: ../includes/admin/settings/global-meta-box-label.php:62
+msgid "None"
+msgstr ""
+
+#: ../class-wapl-single-labels.php:115
+#: ../includes/admin/settings/global-meta-box-label.php:63
+msgid "Left"
+msgstr ""
+
+#: ../class-wapl-single-labels.php:116
+#: ../includes/admin/settings/global-meta-box-label.php:65
+msgid "Right"
+msgstr ""
+
+#: ../class-wapl-single-labels.php:117
+#: ../includes/admin/settings/global-meta-box-label.php:64
+msgid "Center"
+msgstr ""
+
+#: ../includes/admin/class-wapl-admin.php:51
+#: ../includes/class-wapl-post-type.php:51
+msgid "Global Labels"
+msgstr ""
+
+#: ../includes/admin/class-wapl-admin.php:70
+msgid "WooCommerce Advanced Product Labels"
+msgstr ""
+
+#: ../includes/admin/class-wapl-admin.php:77
+msgid "Enable Global Labels"
+msgstr ""
+
+#: ../includes/admin/class-wapl-admin.php:78
+msgid ""
+"When disabled you will still be able to add/modify labels, but no global "
+"labels will be displayed on the front."
+msgstr ""
+
+#: ../includes/admin/class-wapl-admin.php:86
+msgid "Product Labels"
+msgstr ""
+
+#: ../includes/admin/settings/condition-conditions.php:16
+msgid "Conditions"
+msgstr ""
+
+#: ../includes/admin/settings/condition-conditions.php:17
+msgid "Product"
+msgstr ""
+
+#: ../includes/admin/settings/condition-conditions.php:18
+msgid "Product category"
+msgstr ""
+
+#: ../includes/admin/settings/condition-conditions.php:19
+msgid "Product type"
+msgstr ""
+
+#: ../includes/admin/settings/condition-conditions.php:20
+msgid "In sale"
+msgstr ""
+
+#: ../includes/admin/settings/condition-conditions.php:21
+msgid "Bestsellers"
+msgstr ""
+
+#: ../includes/admin/settings/condition-conditions.php:22
+msgid "Product age"
+msgstr ""
+
+#: ../includes/admin/settings/condition-conditions.php:24
+msgid "Attributes"
+msgstr ""
+
+#: ../includes/admin/settings/condition-conditions.php:25
+#: ../includes/admin/settings/condition-values.php:77
+msgid "Price"
+msgstr ""
+
+#: ../includes/admin/settings/condition-conditions.php:26
+#: ../includes/admin/settings/condition-values.php:84
+msgid "Sale price"
+msgstr ""
+
+#: ../includes/admin/settings/condition-conditions.php:27
+msgid "Stock status"
+msgstr ""
+
+#: ../includes/admin/settings/condition-conditions.php:28
+#: ../includes/admin/settings/condition-values.php:101
+msgid "Stock quantity"
+msgstr ""
+
+#: ../includes/admin/settings/condition-conditions.php:29
+msgid "Shipping class"
+msgstr ""
+
+#: ../includes/admin/settings/condition-conditions.php:30
+msgid "Tag"
+msgstr ""
+
+#: ../includes/admin/settings/condition-conditions.php:31
+#: ../includes/admin/settings/condition-values.php:131
+msgid "Total sales"
+msgstr ""
+
+#: ../includes/admin/settings/condition-conditions.php:32
+msgid "Featured product"
+msgstr ""
+
+#: ../includes/admin/settings/condition-descriptions.php:16
+msgid "Only display the label for this product"
+msgstr ""
+
+#: ../includes/admin/settings/condition-operators.php:18
+msgid "Equal to"
+msgstr ""
+
+#: ../includes/admin/settings/condition-operators.php:19
+msgid "Not equal to"
+msgstr ""
+
+#: ../includes/admin/settings/condition-operators.php:20
+msgid "Greater or equal to"
+msgstr ""
+
+#: ../includes/admin/settings/condition-operators.php:21
+msgid "Less or equal to "
+msgstr ""
+
+#: ../includes/admin/settings/condition-values.php:58
+#: ../includes/admin/settings/condition-values.php:139
+msgid "Yes"
+msgstr ""
+
+#: ../includes/admin/settings/condition-values.php:59
+#: ../includes/admin/settings/condition-values.php:140
+msgid "No"
+msgstr ""
+
+#: ../includes/admin/settings/condition-values.php:66
+msgid "Top * of bestsellers"
+msgstr ""
+
+#: ../includes/admin/settings/condition-values.php:71
+msgid "Product age in days or date"
+msgstr ""
+
+#: ../includes/admin/settings/condition-values.php:92
+msgid "In stock"
+msgstr ""
+
+#: ../includes/admin/settings/condition-values.php:93
+msgid "Out of stock"
+msgstr ""
+
+#: ../includes/admin/settings/condition-values.php:187
+msgid "There are no options available"
+msgstr ""
+
+#: ../includes/admin/settings/global-meta-box-label.php:27
+msgid "Label"
+msgstr ""
+
+#: ../includes/admin/settings/global-meta-box-label.php:28
+msgid "Flash"
+msgstr ""
+
+#: ../includes/admin/views/global-labels-table.php:17
+msgid "Labels"
+msgstr ""
+
+#: ../includes/admin/views/global-labels-table.php:24
+msgid "Title"
+msgstr ""
+
+#: ../includes/admin/views/global-labels-table.php:26
+msgid "Author"
+msgstr ""
+
+#: ../includes/admin/views/global-labels-table.php:40
+#: ../includes/admin/views/global-labels-table.php:46
+msgid "Edit Label"
+msgstr ""
+
+#: ../includes/admin/views/global-labels-table.php:41
+msgid "Untitled"
+msgstr ""
+
+#: ../includes/admin/views/global-labels-table.php:47
+msgid "Edit"
+msgstr ""
+
+#: ../includes/admin/views/global-labels-table.php:52
+msgid "Delete Label"
+msgstr ""
+
+#: ../includes/admin/views/global-labels-table.php:53
+msgid "Delete"
+msgstr ""
+
+#: ../includes/admin/views/global-labels-table.php:74
+msgid "There are no Labels. Yet..."
+msgstr ""
+
+#: ../includes/admin/views/global-labels-table.php:83
+msgid "Add Product Label"
+msgstr ""
+
+#: ../includes/class-wapl-post-type.php:52
+msgid "Global Label"
+msgstr ""
+
+#: ../includes/class-wapl-post-type.php:53
+msgid "Add New"
+msgstr ""
+
+#: ../includes/class-wapl-post-type.php:54
+msgid "Add New Global Label"
+msgstr ""
+
+#: ../includes/class-wapl-post-type.php:55
+msgid "Edit Global Label"
+msgstr ""
+
+#: ../includes/class-wapl-post-type.php:56
+msgid "New Global Label"
+msgstr ""
+
+#: ../includes/class-wapl-post-type.php:57
+msgid "View Global Label"
+msgstr ""
+
+#: ../includes/class-wapl-post-type.php:58
+msgid "Search Global Labels"
+msgstr ""
+
+#: ../includes/class-wapl-post-type.php:59
+msgid "No Global Labels"
+msgstr ""
+
+#: ../includes/class-wapl-post-type.php:60
+msgid "No Global Labels found in Trash"
+msgstr ""
+
+#: ../includes/class-wapl-post-type.php:97
+#: ../includes/class-wapl-post-type.php:100
+msgid "Global product label updated."
+msgstr ""
+
+#: ../includes/class-wapl-post-type.php:98
+msgid "Custom field updated."
+msgstr ""
+
+#: ../includes/class-wapl-post-type.php:99
+msgid "Custom field deleted."
+msgstr ""
+
+#: ../includes/class-wapl-post-type.php:102
+#, php-format
+msgid "Product label restored to revision from %s"
+msgstr ""
+
+#: ../includes/class-wapl-post-type.php:104
+msgid "Global product label published."
+msgstr ""
+
+#: ../includes/class-wapl-post-type.php:105
+msgid "Global product label saved."
+msgstr ""
+
+#: ../includes/class-wapl-post-type.php:106
+msgid "Global product label submitted."
+msgstr ""
+
+#: ../includes/class-wapl-post-type.php:108
+#, php-format
+msgid "Global product label scheduled for: <strong>%1$s</strong>."
+msgstr ""
+
+#: ../includes/class-wapl-post-type.php:109
+msgid "M j, Y @ G:i"
+msgstr ""
+
+#: ../includes/class-wapl-post-type.php:111
+msgid "Global product label draft updated."
+msgstr ""
+
+#: ../includes/class-wapl-post-type.php:116
+#: ../includes/class-wapl-post-type.php:121
+msgid "Return to overview."
+msgstr ""
+
+#: ../includes/class-wapl-post-type.php:199
+msgid "A product must match all these conditions to show the label:"
+msgstr ""
+
+#: ../includes/class-wapl-post-type.php:254
+msgid "Add 'or' group"
+msgstr ""
+
+#: ../woocommerce-advanced-product-labels.php:213
+msgid "Red"
+msgstr ""
+
+#: ../woocommerce-advanced-product-labels.php:214
+msgid "Blue"
+msgstr ""
+
+#: ../woocommerce-advanced-product-labels.php:215
+msgid "Green"
+msgstr ""
+
+#: ../woocommerce-advanced-product-labels.php:216
+msgid "Yellow"
+msgstr ""
+
+#: ../woocommerce-advanced-product-labels.php:217
+msgid "Orange"
+msgstr ""
+
+#: ../woocommerce-advanced-product-labels.php:218
+msgid "Gray"
+msgstr ""
+
+#: ../woocommerce-advanced-product-labels.php:219
+msgid "Black"
+msgstr ""
+
+#: ../woocommerce-advanced-product-labels.php:220
+msgid "White"
+msgstr ""

@@ -1,0 +1,59 @@
+/*----------------------------------------------------------------------------*\
+	CAROUSEL POSTS SHORTCODE
+\*----------------------------------------------------------------------------*/
+.mpc-carousel-posts {
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+
+	&.mpc-carousel--stretched .slick-list {
+		overflow: visible;
+	}
+
+	.slick-slide > div:last-child > .mpc-post,
+	.slick-slide.mpc-post {
+		margin-bottom: 0 !important;
+	}
+
+	.mpc-post {
+		display: inline-block;
+		vertical-align: bottom;
+		height: 100%;
+		max-width: 100% !important;
+	}
+
+	&:focus, & *:focus {
+		outline: none;
+		-webkit-outline: none;
+	}
+
+	&[data-slick-cols="1"] .mpc-post {
+		width: 100%;
+	}
+	&[data-slick-cols="2"] .mpc-post {
+		width: 50%;
+	}
+	&[data-slick-cols="3"] .mpc-post {
+		width: 33%;
+
+		&:last-child {
+			width: 34%;
+		}
+	}
+	&[data-slick-cols="4"] .mpc-post {
+		width: 25%;
+	}
+}
+
+.mpc-navigation--posts {
+	text-align: right;
+	width: 100%;
+	margin: 1em 0;
+
+	i {
+		cursor: pointer;
+		padding: .5em 1em;
+		margin-left: 1px;
+		background: #ccc;
+		border-radius: 3px;
+	}
+}

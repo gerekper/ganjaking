@@ -1,0 +1,511 @@
+# Copyright (C) 2018 Lucas Stark
+# This file is distributed under the GNU General Public License v3.0.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Recommendation Engine 3.1.9\n"
+"Report-Msgid-Bugs-To: "
+"https://wordpress.org/support/plugin/woocommerce-recommender\n"
+"POT-Creation-Date: 2018-02-05 19:58:49+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2018-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: grunt-wp-i18n1.0.1\n"
+
+#: admin/class-wc-recommender-admin-settings.php:182
+#: admin/class-wc-recommender-admin-settings.php:190
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin-settings.php:182
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin-settings.php:190
+msgid "2"
+msgstr ""
+
+#: admin/class-wc-recommender-admin-settings.php:22
+#: admin/class-wc-recommender-admin-settings.php:70
+#: admin/class-wc-recommender-admin.php:100
+#: admin/class-wc-recommender-table-recommendations.php:47
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin-settings.php:22
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin-settings.php:70
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin.php:100
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-table-recommendations.php:47
+msgid "Recommendations"
+msgstr ""
+
+#: admin/class-wc-recommender-admin-settings.php:127
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin-settings.php:127
+msgid "Types of Recommendations to Show"
+msgstr ""
+
+#: admin/class-wc-recommender-admin-settings.php:134
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin-settings.php:134
+msgid "Show Related Products by Purchase History"
+msgstr ""
+
+#: admin/class-wc-recommender-admin-settings.php:145
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin-settings.php:145
+msgid "Show Related Products by Views"
+msgstr ""
+
+#: admin/class-wc-recommender-admin-settings.php:156
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin-settings.php:156
+msgid "Show Products Frequently Purchased Together"
+msgstr ""
+
+#: admin/class-wc-recommender-admin-settings.php:167
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin-settings.php:167
+msgid "Built in Related Products"
+msgstr ""
+
+#: admin/class-wc-recommender-admin-settings.php:178
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin-settings.php:178
+msgid "Number of Items to Show"
+msgstr ""
+
+#: admin/class-wc-recommender-admin-settings.php:186
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin-settings.php:186
+msgid "Number of Columns"
+msgstr ""
+
+#: admin/class-wc-recommender-admin-settings.php:197
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin-settings.php:197
+msgid "Titles / Labels"
+msgstr ""
+
+#: admin/class-wc-recommender-admin-settings.php:203
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin-settings.php:203
+msgid "Recommended by Purchase History Label"
+msgstr ""
+
+#: admin/class-wc-recommender-admin-settings.php:207
+#: admin/views/admin/view-recommendations.php:29
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin-settings.php:207
+#: dist/woocommerce-recommendation-engine/admin/views/admin/view-recommendations.php:29
+#: dist/woocommerce-recommendation-engine/templates/single-product/related-completed.php:5
+#: templates/single-product/related-completed.php:5
+msgid "Customers also purchased these products"
+msgstr ""
+
+#: admin/class-wc-recommender-admin-settings.php:211
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin-settings.php:211
+msgid "Recommended by Views Label"
+msgstr ""
+
+#: admin/class-wc-recommender-admin-settings.php:215
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin-settings.php:215
+msgid "Customers who viewed this item also viewed these products"
+msgstr ""
+
+#: admin/class-wc-recommender-admin-settings.php:219
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin-settings.php:219
+msgid "Frequently Purchased Together Label"
+msgstr ""
+
+#: admin/class-wc-recommender-admin-settings.php:223
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin-settings.php:223
+msgid "Frequently purchased together"
+msgstr ""
+
+#: admin/class-wc-recommender-admin-settings.php:230
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin-settings.php:230
+msgid "Position of enabled recommendations"
+msgstr ""
+
+#: admin/class-wc-recommender-admin-settings.php:236
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin-settings.php:236
+msgid "Related Products by Purchase History"
+msgstr ""
+
+#: admin/class-wc-recommender-admin-settings.php:245
+#: admin/class-wc-recommender-admin-settings.php:260
+#: admin/class-wc-recommender-admin-settings.php:275
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin-settings.php:245
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin-settings.php:260
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin-settings.php:275
+msgid "First"
+msgstr ""
+
+#: admin/class-wc-recommender-admin-settings.php:246
+#: admin/class-wc-recommender-admin-settings.php:261
+#: admin/class-wc-recommender-admin-settings.php:276
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin-settings.php:246
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin-settings.php:261
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin-settings.php:276
+msgid "Second"
+msgstr ""
+
+#: admin/class-wc-recommender-admin-settings.php:247
+#: admin/class-wc-recommender-admin-settings.php:262
+#: admin/class-wc-recommender-admin-settings.php:277
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin-settings.php:247
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin-settings.php:262
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin-settings.php:277
+msgid "Third"
+msgstr ""
+
+#: admin/class-wc-recommender-admin-settings.php:251
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin-settings.php:251
+msgid "Related Products by Views"
+msgstr ""
+
+#: admin/class-wc-recommender-admin-settings.php:266
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin-settings.php:266
+msgid "Products Frequently Purchased Together"
+msgstr ""
+
+#: admin/class-wc-recommender-admin.php:118
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin.php:118
+msgid "View Recommendations"
+msgstr ""
+
+#: admin/class-wc-recommender-admin.php:119
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin.php:119
+msgid "A list of the all products and the recommendations associated with them"
+msgstr ""
+
+#: admin/class-wc-recommender-admin.php:125
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin.php:125
+msgid "Maintenance"
+msgstr ""
+
+#: admin/class-wc-recommender-admin.php:130
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin.php:130
+msgid "History Installation"
+msgstr ""
+
+#: admin/class-wc-recommender-admin.php:131
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin.php:131
+msgid ""
+"Install statistics based on orders present in the system before the plugin "
+"was activated"
+msgstr ""
+
+#: admin/class-wc-recommender-admin.php:137
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin.php:137
+msgid "View Session History"
+msgstr ""
+
+#: admin/class-wc-recommender-admin.php:138
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin.php:138
+msgid "A list of all recorded session history"
+msgstr ""
+
+#: admin/class-wc-recommender-admin.php:450
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin.php:450
+msgid "Recommendations rebuilt for %d products"
+msgstr ""
+
+#: admin/class-wc-recommender-admin.php:454
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin.php:454
+msgid "Please choose at least one product"
+msgstr ""
+
+#: admin/class-wc-recommender-admin.php:462
+#: admin/class-wc-recommender-admin.php:470
+#: admin/class-wc-recommender-admin.php:478
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin.php:462
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin.php:470
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-admin.php:478
+msgid "Session Activity Truncuated Before %s"
+msgstr ""
+
+#: admin/class-wc-recommender-table-recommendations.php:23
+#: admin/views/admin/maintenance-rebuild-tab.php:1
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-table-recommendations.php:23
+#: dist/woocommerce-recommendation-engine/admin/views/admin/maintenance-rebuild-tab.php:1
+msgid "Rebuild Recommendations"
+msgstr ""
+
+#: admin/class-wc-recommender-table-recommendations.php:44
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-table-recommendations.php:44
+msgid "Title"
+msgstr ""
+
+#: admin/class-wc-recommender-table-recommendations.php:45
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-table-recommendations.php:45
+msgid "Views"
+msgstr ""
+
+#: admin/class-wc-recommender-table-recommendations.php:46
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-table-recommendations.php:46
+msgid "Orders"
+msgstr ""
+
+#: admin/class-wc-recommender-table-recommendations.php:48
+#: admin/class-wc-recommender-table-recommendations.php:139
+#: admin/views/admin/maintenance-rebuild-tab.php:17
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-table-recommendations.php:48
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-table-recommendations.php:139
+#: dist/woocommerce-recommendation-engine/admin/views/admin/maintenance-rebuild-tab.php:17
+msgid "Rebuild"
+msgstr ""
+
+#: admin/class-wc-recommender-table-recommendations.php:130
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-table-recommendations.php:130
+msgid "Viewed:"
+msgstr ""
+
+#: admin/class-wc-recommender-table-recommendations.php:131
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-table-recommendations.php:131
+msgid "Also Purchased:"
+msgstr ""
+
+#: admin/class-wc-recommender-table-recommendations.php:132
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-table-recommendations.php:132
+msgid "Purchased Together:"
+msgstr ""
+
+#: admin/class-wc-recommender-table-recommendations.php:240
+#: admin/class-wc-recommender-table-session-history.php:217
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-table-recommendations.php:240
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-table-session-history.php:217
+msgid "Empty folder"
+msgstr ""
+
+#: admin/class-wc-recommender-table-session-history.php:22
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-table-session-history.php:22
+msgid "Truncate History ( Keep Past 60 Days )"
+msgstr ""
+
+#: admin/class-wc-recommender-table-session-history.php:23
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-table-session-history.php:23
+msgid "Truncate History ( Keep Past 30 Days )"
+msgstr ""
+
+#: admin/class-wc-recommender-table-session-history.php:24
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-table-session-history.php:24
+msgid "Truncate History ( Keep Past 10 Days )"
+msgstr ""
+
+#: admin/class-wc-recommender-table-session-history.php:45
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-table-session-history.php:45
+msgid "ID"
+msgstr ""
+
+#: admin/class-wc-recommender-table-session-history.php:46
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-table-session-history.php:46
+msgid "Session ID"
+msgstr ""
+
+#: admin/class-wc-recommender-table-session-history.php:47
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-table-session-history.php:47
+msgid "Type"
+msgstr ""
+
+#: admin/class-wc-recommender-table-session-history.php:48
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-table-session-history.php:48
+msgid "Product"
+msgstr ""
+
+#: admin/class-wc-recommender-table-session-history.php:49
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-table-session-history.php:49
+msgid "Order"
+msgstr ""
+
+#: admin/class-wc-recommender-table-session-history.php:50
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-table-session-history.php:50
+msgid "User"
+msgstr ""
+
+#: admin/class-wc-recommender-table-session-history.php:51
+#: dist/woocommerce-recommendation-engine/admin/class-wc-recommender-table-session-history.php:51
+msgid "Date"
+msgstr ""
+
+#: admin/views/admin/cron-jobs-tab.php:8 admin/views/admin/cron-jobs-tab.php:18
+#: dist/woocommerce-recommendation-engine/admin/views/admin/cron-jobs-tab.php:8
+#: dist/woocommerce-recommendation-engine/admin/views/admin/cron-jobs-tab.php:18
+msgid "Hook"
+msgstr ""
+
+#: admin/views/admin/cron-jobs-tab.php:9 admin/views/admin/cron-jobs-tab.php:19
+#: dist/woocommerce-recommendation-engine/admin/views/admin/cron-jobs-tab.php:9
+#: dist/woocommerce-recommendation-engine/admin/views/admin/cron-jobs-tab.php:19
+msgid "Schedule"
+msgstr ""
+
+#: admin/views/admin/cron-jobs-tab.php:10
+#: admin/views/admin/cron-jobs-tab.php:20
+#: dist/woocommerce-recommendation-engine/admin/views/admin/cron-jobs-tab.php:10
+#: dist/woocommerce-recommendation-engine/admin/views/admin/cron-jobs-tab.php:20
+msgid "Previous execution"
+msgstr ""
+
+#: admin/views/admin/cron-jobs-tab.php:11
+#: admin/views/admin/cron-jobs-tab.php:21
+#: dist/woocommerce-recommendation-engine/admin/views/admin/cron-jobs-tab.php:11
+#: dist/woocommerce-recommendation-engine/admin/views/admin/cron-jobs-tab.php:21
+msgid "Next execution"
+msgstr ""
+
+#: admin/views/admin/cron-jobs-tab.php:12
+#: admin/views/admin/cron-jobs-tab.php:22
+#: dist/woocommerce-recommendation-engine/admin/views/admin/cron-jobs-tab.php:12
+#: dist/woocommerce-recommendation-engine/admin/views/admin/cron-jobs-tab.php:22
+msgid "Action"
+msgstr ""
+
+#: admin/views/admin/cron-jobs-tab.php:45
+#: dist/woocommerce-recommendation-engine/admin/views/admin/cron-jobs-tab.php:45
+msgid "Execute"
+msgstr ""
+
+#: admin/views/admin/maintenance-install-stats-tab.php:1
+#: dist/woocommerce-recommendation-engine/admin/views/admin/maintenance-install-stats-tab.php:1
+msgid "Install Statistics from Order History"
+msgstr ""
+
+#: admin/views/admin/maintenance-install-stats-tab.php:3
+#: dist/woocommerce-recommendation-engine/admin/views/admin/maintenance-install-stats-tab.php:3
+msgid "Statistics are collected from the time when the plugin is first activated."
+msgstr ""
+
+#: admin/views/admin/maintenance-install-stats-tab.php:4
+#: dist/woocommerce-recommendation-engine/admin/views/admin/maintenance-install-stats-tab.php:4
+msgid ""
+"If you would like to include statistics based on order history before the "
+"plugin was activated, click Install Statistics below"
+msgstr ""
+
+#: admin/views/admin/maintenance-install-stats-tab.php:9
+#: dist/woocommerce-recommendation-engine/admin/views/admin/maintenance-install-stats-tab.php:9
+msgid "Installation of statistics from order history complete."
+msgstr ""
+
+#: admin/views/admin/maintenance-install-stats-tab.php:13
+#: dist/woocommerce-recommendation-engine/admin/views/admin/maintenance-install-stats-tab.php:13
+msgid "Install statistics from order history now."
+msgstr ""
+
+#: admin/views/admin/maintenance-install-stats-tab.php:16
+#: dist/woocommerce-recommendation-engine/admin/views/admin/maintenance-install-stats-tab.php:16
+msgid "Install Statistics"
+msgstr ""
+
+#: admin/views/admin/maintenance-install-stats-tab.php:20
+#: dist/woocommerce-recommendation-engine/admin/views/admin/maintenance-install-stats-tab.php:20
+msgid "Installing Statistics:"
+msgstr ""
+
+#: admin/views/admin/maintenance-rebuild-tab.php:5
+#: dist/woocommerce-recommendation-engine/admin/views/admin/maintenance-rebuild-tab.php:5
+msgid "Rebuild of recommendations complete"
+msgstr ""
+
+#: admin/views/admin/maintenance-rebuild-tab.php:9
+#: dist/woocommerce-recommendation-engine/admin/views/admin/maintenance-rebuild-tab.php:9
+msgid "Rebuild recommendations for:"
+msgstr ""
+
+#: admin/views/admin/maintenance-rebuild-tab.php:11
+#: dist/woocommerce-recommendation-engine/admin/views/admin/maintenance-rebuild-tab.php:11
+msgid "Also Viewed"
+msgstr ""
+
+#: admin/views/admin/maintenance-rebuild-tab.php:12
+#: dist/woocommerce-recommendation-engine/admin/views/admin/maintenance-rebuild-tab.php:12
+msgid "Also Purchased"
+msgstr ""
+
+#: admin/views/admin/maintenance-rebuild-tab.php:13
+#: dist/woocommerce-recommendation-engine/admin/views/admin/maintenance-rebuild-tab.php:13
+#: dist/woocommerce-recommendation-engine/widgets/widget-purchased_products.php:65
+#: widgets/widget-purchased_products.php:65
+msgid "Purchased Together"
+msgstr ""
+
+#: admin/views/admin/maintenance-rebuild-tab.php:23
+#: dist/woocommerce-recommendation-engine/admin/views/admin/maintenance-rebuild-tab.php:23
+msgid "Building Recommendations:"
+msgstr ""
+
+#: admin/views/admin/maintenance-rebuild-tab.php:25
+#: dist/woocommerce-recommendation-engine/admin/views/admin/maintenance-rebuild-tab.php:25
+msgid "Estimated Time Remaining:"
+msgstr ""
+
+#: admin/views/admin/view-recommendations.php:4
+#: dist/woocommerce-recommendation-engine/admin/views/admin/view-recommendations.php:4
+msgid "Product Recommendations"
+msgstr ""
+
+#: admin/views/admin/view-recommendations.php:10
+#: dist/woocommerce-recommendation-engine/admin/views/admin/view-recommendations.php:10
+#: dist/woocommerce-recommendation-engine/templates/single-product/related-viewed.php:5
+#: templates/single-product/related-viewed.php:5
+msgid "Customers also viewed these products"
+msgstr ""
+
+#: admin/views/admin/view-recommendations.php:47
+#: dist/woocommerce-recommendation-engine/admin/views/admin/view-recommendations.php:47
+#: dist/woocommerce-recommendation-engine/templates/single-product/related-purchased-together.php:4
+#: templates/single-product/related-purchased-together.php:4
+msgid "Frequently Purchased Together"
+msgstr ""
+
+#: dist/woocommerce-recommendation-engine/widgets/widget-purchased_products.php:35
+#: widgets/widget-purchased_products.php:35
+msgid "Display a list of products frequently purchased together on your site."
+msgstr ""
+
+#: dist/woocommerce-recommendation-engine/widgets/widget-purchased_products.php:37
+#: widgets/widget-purchased_products.php:37
+msgid "WooCommerce Purchased Products"
+msgstr ""
+
+#: dist/woocommerce-recommendation-engine/widgets/widget-purchased_products.php:188
+#: dist/woocommerce-recommendation-engine/widgets/widget-recommended_products.php:186
+#: widgets/widget-purchased_products.php:188
+#: widgets/widget-recommended_products.php:186
+msgid "Title:"
+msgstr ""
+
+#: dist/woocommerce-recommendation-engine/widgets/widget-purchased_products.php:191
+#: dist/woocommerce-recommendation-engine/widgets/widget-recommended_products.php:189
+#: widgets/widget-purchased_products.php:191
+#: widgets/widget-recommended_products.php:189
+msgid "Number of products to show:"
+msgstr ""
+
+#: dist/woocommerce-recommendation-engine/widgets/widget-recommended_products.php:35
+#: widgets/widget-recommended_products.php:35
+msgid "Display a list of recommended products on your site."
+msgstr ""
+
+#: dist/woocommerce-recommendation-engine/widgets/widget-recommended_products.php:37
+#: widgets/widget-recommended_products.php:37
+msgid "WooCommerce Recommended Products"
+msgstr ""
+
+#: dist/woocommerce-recommendation-engine/widgets/widget-recommended_products.php:65
+#: widgets/widget-recommended_products.php:65
+msgid "Recommended Products"
+msgstr ""
+
+#: dist/woocommerce-recommendation-engine/widgets/widget-recommended_products.php:193
+#: widgets/widget-recommended_products.php:193
+msgid "Show recommendations based on:"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce Recommendation Engine"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://woothemes.com/woocommerce"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"WooCommerce Recommendation Engine is a smart recommendation engine for your "
+"store, providing automatic cross sells based on users viewing and "
+"purcahsing history."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Lucas Stark"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://www.elementstark.com"
+msgstr ""

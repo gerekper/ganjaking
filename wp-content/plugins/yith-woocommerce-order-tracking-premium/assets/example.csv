@@ -1,0 +1,4 @@
+Order id,Carrier code,Tracking code,shipping date,shipping status
+131,GlobeFlight,"FR123R",2016-04-18,1
+132,GlobeFlight,"678-33",2015-11-09,0
+130,GlobeFlight,"TNT/199-TR2R",2015-12-19,1

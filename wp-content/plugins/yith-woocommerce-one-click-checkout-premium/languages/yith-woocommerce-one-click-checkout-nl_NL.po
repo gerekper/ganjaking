@@ -1,0 +1,492 @@
+# Translation of YITH WooCommerce One Click Checkout in Dutch
+# This file is distributed under the same license as the YITH WooCommerce One Click Checkout package.
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH WooCommerce One Click Checkout\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
+"one-click-checkout-premium\n"
+"POT-Creation-Date: 2020-06-03 10:01:57+00:00\n"
+"PO-Revision-Date: 2020-04-16 10:28:18+0000\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/2.3.1\n"
+
+#: includes/admin-tables/class.yith-wocc-exclusions-table.php:71
+msgid "product"
+msgstr "product"
+
+#: includes/admin-tables/class.yith-wocc-exclusions-table.php:72
+msgid "products"
+msgstr "producten"
+
+#: includes/admin-tables/class.yith-wocc-exclusions-table.php:88
+msgid "Product"
+msgstr "Product"
+
+#: includes/admin-tables/class.yith-wocc-exclusions-table.php:89
+msgid "Stock Quantity"
+msgstr "Hoeveelheid Voorraad"
+
+#: includes/admin-tables/class.yith-wocc-exclusions-table.php:90
+msgid "Price"
+msgstr "Prijs"
+
+#: includes/admin-tables/class.yith-wocc-exclusions-table.php:91
+msgid "Categories"
+msgstr "Categorieën"
+
+#: includes/admin-tables/class.yith-wocc-exclusions-table.php:92
+msgid "Action"
+msgstr "Actie"
+
+#: includes/admin-tables/class.yith-wocc-exclusions-table.php:112
+msgid "Edit product"
+msgstr "Product bewerken"
+
+#: includes/admin-tables/class.yith-wocc-exclusions-table.php:120
+msgid "In stock"
+msgstr "Op voorraad"
+
+#: includes/admin-tables/class.yith-wocc-exclusions-table.php:160
+msgid "Remove"
+msgstr "Verwijderen"
+
+#: includes/admin-tables/class.yith-wocc-exclusions-table.php:166
+msgid "Remove from list"
+msgstr "Verwijderen van lijst"
+
+#: includes/class.yith-wocc-admin-premium.php:124
+msgid "Product List"
+msgstr "Productlijst"
+
+#: includes/class.yith-wocc-admin.php:132
+msgid "Settings"
+msgstr "Instellingen"
+
+#: includes/class.yith-wocc-admin.php:136
+msgid "Premium Version"
+msgstr "Premium Versie"
+
+#: includes/class.yith-wocc-admin.php:142
+msgid "YITH WooCommerce One-Click Checkout"
+msgstr "YITH WooCommerce One-Click Checkout"
+
+#: includes/class.yith-wocc-admin.php:143
+#: templates/yith-wocc-account-section.php:19
+msgid "One-Click Checkout"
+msgstr "Een-Klik Checkout"
+
+#: includes/class.yith-wocc-frontend-premium.php:130
+msgid "Select an address..."
+msgstr "selecteer een adres..."
+
+#: includes/class.yith-wocc-frontend-premium.php:445
+msgid "Ship to"
+msgstr "Verzenden naar"
+
+#: includes/class.yith-wocc-frontend-premium.php:452
+#: templates/yith-wocc-account-section.php:53
+msgid "Add new shipping address"
+msgstr "Voeg nieuw verzend adres toe"
+
+#: includes/class.yith-wocc-frontend-premium.php:626
+msgid ""
+"Thank you, your order is now complete and it has already been charged "
+"correctly."
+msgstr ""
+"Bedankt, uw bestelling is nu compleet en is al succesvol in rekening "
+"gebracht."
+
+#: includes/class.yith-wocc-frontend.php:259
+msgid "Error %d: Unable to create the order. Please try again."
+msgstr ""
+"Fout %d: Niet in staat om bestelling te creëeren. Probeer opnieuw "
+"alstublieft."
+
+#: includes/class.yith-wocc-frontend.php:312
+msgid ""
+"Thank you. Your order has been received and it is now waiting for payment"
+msgstr "Bedankt. Uw bestelling is ontvangen en wacht op betaling"
+
+#: includes/class.yith-wocc-frontend.php:318
+msgid "Thank you. Your order has been received."
+msgstr "Bedankt. Uw bestellingen is ontvangen."
+
+#: includes/class.yith-wocc-frontend.php:382
+msgid ""
+"Unfortunately <strong>we do not ship %s</strong>. Please enter an "
+"alternative shipping address."
+msgstr ""
+"Helaas bezorgen we niet naar <strong>%s</strong>. Vul een ander bezorgadres "
+"in."
+
+#: includes/class.yith-wocc-user-account.php:353
+msgid "is a required field."
+msgstr "is een verplicht veld."
+
+#: includes/class.yith-wocc-user-account.php:366
+msgid "Please enter a valid postcode/ZIP."
+msgstr "Vul een geldige postcode/ZIP in alstublieft."
+
+#: includes/class.yith-wocc-user-account.php:414
+msgid "Address changed successfully."
+msgstr "Adres succesvol gewijzigd."
+
+#: includes/class.yith-wocc-user-account.php:414
+msgid "Address added successfully."
+msgstr "Adres succesvol toegevoegd."
+
+#: includes/class.yith-wocc-user-account.php:450
+msgid "Custom address removed successfully"
+msgstr "Aangepast adres succesvol verwijderd"
+
+#: includes/class.yith-wocc-user-account.php:591
+msgid "One-Click Checkout options"
+msgstr "Een-Klik Checkout opties"
+
+#: init.php:43
+msgid ""
+"YITH WooCommerce One-Click Checkout is enabled but not effective. It "
+"requires WooCommerce in order to work."
+msgstr ""
+"YITH WooCommerce One-Click Checkout is ingeschakeld maar niet werkend. Het "
+"heeft WooCommerce nodig om te kunnen werken."
+
+#: plugin-options/general-options.php:6
+msgid ""
+"If you want to take advantage of this feature, you could consider purchasing "
+"the %s."
+msgstr ""
+"Indien u wilt profiteren van deze feature, kunt u overwegen de %s aan te "
+"schaffen."
+
+#: plugin-options/general-options.php:13
+msgid "General Options"
+msgstr "Algemene Opties"
+
+#: plugin-options/general-options.php:20
+msgid "Activate after first order"
+msgstr "Activeren na eerste bestelling"
+
+#: plugin-options/general-options.php:21
+msgid ""
+"Activate \"One-Click Checkout\" features after the first order of the "
+"customer"
+msgstr ""
+"Activeer \"\"Een-Klik Checkout\" features na de eerste bestelling van de "
+"klant"
+
+#: plugin-options/general-options.php:29
+msgid "Activate with link"
+msgstr "Activeer met link"
+
+#: plugin-options/general-options.php:30
+msgid "Activate \"One-Click Checkout\" features after clicking on a link"
+msgstr "Activeer \"Een-Klik Checkout\" features na klikken op de link"
+
+#: plugin-options/general-options.php:38
+msgid "Activate in shop page"
+msgstr "Activeer in winkelpagina"
+
+#: plugin-options/general-options.php:39
+msgid "Activate plugin features also in shop page"
+msgstr "Activeer plugin features ook in winkelpagina"
+
+#: plugin-options/general-options.php:47
+msgid "Activate for guest"
+msgstr "Activeer voor gast"
+
+#: plugin-options/general-options.php:48
+msgid ""
+"Activate the plugin features also for guest customers. If activated, the "
+"\"One click\" button redirects customers to the checkout page."
+msgstr ""
+"Activeer de plugin-functies ook voor gasten. Indien geactiveerd, stuurt de "
+"knop \"Eén klik\" klanten om naar de betaalpagina."
+
+#: plugin-options/general-options.php:56
+msgid "Exclude Categories"
+msgstr "Categorieën uitsluiten"
+
+#: plugin-options/general-options.php:57
+msgid "Exclude selected categories from one-click checkout features"
+msgstr "Geselecteerde categorieën uitsluiten van een-click checkout features"
+
+#: plugin-options/general-options.php:64
+msgid "Invert Exclusion"
+msgstr "Uitsluiting omdraaien"
+
+#: plugin-options/general-options.php:65
+msgid "Use the elements in the exclusion list as the active ones"
+msgstr "Gebruik de elementen in de uitsluiting lijst als active elementen"
+
+#: plugin-options/general-options.php:73
+msgid "Redirect after creating the order"
+msgstr "Doorsturen na het creëren van een bestelling"
+
+#: plugin-options/general-options.php:74
+msgid ""
+"Choose to which page you want to redirect users after one-click checkout."
+msgstr ""
+"Kies naar welke pagina u gebruikers wilt doorsturen, na de een-klik checkout."
+
+#: plugin-options/general-options.php:80
+msgid "To product page"
+msgstr "Naar productpagina"
+
+#: plugin-options/general-options.php:81
+msgid "To payment page"
+msgstr "Naar betaalpagina"
+
+#: plugin-options/general-options.php:82
+msgid "To thank you page"
+msgstr "Naar bedankt pagina"
+
+#: plugin-options/general-options.php:83
+msgid "To custom page"
+msgstr "Naar aangepaste pagina"
+
+#: plugin-options/general-options.php:89
+msgid "Custom page redirection"
+msgstr "Aangepaste pagina doorverwijzing"
+
+#: plugin-options/general-options.php:90
+msgid "Choose the page to which you want to redirect users"
+msgstr "Kies naar welke pagina u gebruikers wilt doorsturen"
+
+#: plugin-options/general-options.php:99
+msgid "Choose default shipping address"
+msgstr "Kies een default verzend adres"
+
+#: plugin-options/general-options.php:100
+msgid ""
+"Choose which address you want to show as default for shipping addresses "
+"selection."
+msgstr ""
+"Kies welk adres u wilt weergeven als default voor verzend adres selectie."
+
+#: plugin-options/general-options.php:106
+msgid "None"
+msgstr "Geen"
+
+#: plugin-options/general-options.php:107
+msgid "Billing Address"
+msgstr "Factuuradres"
+
+#: plugin-options/general-options.php:108
+msgid "Shipping Address"
+msgstr "Verzend adres"
+
+#: plugin-options/general-options.php:113
+msgid "Text of activation link"
+msgstr "Tekst van activatielink"
+
+#: plugin-options/general-options.php:114
+msgid "Edit the One-Click Checkout activation link label"
+msgstr "Bewerk Een-Klik Checkout activatie link label"
+
+#: plugin-options/general-options.php:117
+msgid "Activate one-click checkout"
+msgstr "Activeer een-click checkout"
+
+#: plugin-options/general-options.php:122
+msgid "Button label"
+msgstr "Label knop"
+
+#: plugin-options/general-options.php:123
+msgid "Edit One-Click Checkout button label"
+msgstr "Bewerk Een-Klik Checkout label knop"
+
+#: plugin-options/general-options.php:126
+msgid "One-Click Purchase"
+msgstr "Een-Click Aankoop"
+
+#: plugin-options/general-options.php:131
+msgid "Button background"
+msgstr "Knop achtergrond"
+
+#: plugin-options/general-options.php:132
+msgid "Choose One-Click Checkout button background color"
+msgstr "Kies Een-Klik Checkout knop achtergrondkleur"
+
+#: plugin-options/general-options.php:140
+msgid "Button background on hover"
+msgstr "Knop achtergron op aanwijzer"
+
+#: plugin-options/general-options.php:141
+msgid ""
+"Choose the color of the One-Click Checkout button background on mouse hover"
+msgstr "Kies de kleur van de Een-Klik Checkout knop tekst op de aanwijzer"
+
+#: plugin-options/general-options.php:149
+msgid "Button text color"
+msgstr "Tekstkleur knop"
+
+#: plugin-options/general-options.php:150
+msgid "Choose One-Click Checkout button text color"
+msgstr "Kies tekstkleur Een-Klik Checkout knop"
+
+#: plugin-options/general-options.php:158
+msgid "Button text color on hover"
+msgstr "Knop tekstkleur op aanwijzer"
+
+#: plugin-options/general-options.php:159
+msgid "Choose the color fo the One-Click Checkout button text on mouse hover"
+msgstr "Kies de kleur van de Een-Klik Checkout knop tekst op de aanwijzer"
+
+#: plugin-options/general-options.php:167
+msgid "Show form divider"
+msgstr "Kies ontwerp scheider"
+
+#: plugin-options/general-options.php:168
+msgid ""
+"Choose to show a divider between \"One-Click Checkout\" button and \"Add to "
+"Cart\" button"
+msgstr ""
+"Kies om een scheider tussen \"Een-Klik Checkout\" knop en \"Toevoegen aan "
+"Winkelwagen\" knop"
+
+#: plugin-options/general-options.php:181
+msgid "Stripe Integration"
+msgstr "Stripe integratie"
+
+#: plugin-options/general-options.php:188
+msgid "Enable stripe payment"
+msgstr "Stripe betaling inschakelen"
+
+#: plugin-options/general-options.php:189
+msgid "Enable direct payment using Stripe. %s"
+msgstr "Direct betalen door middel van Stripe inschakelen. %s"
+
+#: templates/admin/exclusions-tab.php:16
+msgid "Select at least one product to remove."
+msgstr "Selecteer minimaal een product om te verwijderen."
+
+#: templates/admin/exclusions-tab.php:19
+msgid "Products removed successfully."
+msgstr "Producten succesvol verwijderd."
+
+#: templates/admin/exclusions-tab.php:22
+msgid "Products added successfully."
+msgstr "Producten succesvol toegevoegd."
+
+#: templates/admin/exclusions-tab.php:25
+msgid "You must select at least one product to add"
+msgstr "U moet minimaal een product seleteren om toe te voegen"
+
+#: templates/admin/exclusions-tab.php:38
+msgid "Active product list"
+msgstr "Actieve productlijst"
+
+#: templates/admin/exclusions-tab.php:38
+msgid "Product exclusion list"
+msgstr "Product uitsluiten lijst"
+
+#: templates/admin/exclusions-tab.php:55
+msgid "Add products to list"
+msgstr "Product toevoegen aan lijst"
+
+#: templates/admin/exclusions-tab.php:63
+msgid "Search for products..."
+msgstr "Zoek een product..."
+
+#: templates/admin/exclusions-tab.php:67
+msgid "Add products"
+msgstr "Producten toevoegen"
+
+#: templates/admin/select-categories.php:24
+msgid "Search for a category..."
+msgstr "Zoeken naar categorie..."
+
+#: templates/yith-wocc-account-section.php:28
+msgid ""
+"Select this option if you want to activate the one-click checkout features"
+msgstr ""
+"Selecteer deze optie als u de een-klik checkout features wilt activeren"
+
+#: templates/yith-wocc-account-section.php:38
+msgid ""
+"Select this option if you want to use Stripe as default payment method. You "
+"need to have a default credit card saved."
+msgstr ""
+"Selecteer deze optie als u Stripe als default betaalmethode wilt gebruiken. "
+"U moet een default credit card opgeslagen hebben."
+
+#: templates/yith-wocc-account-section.php:44
+msgid "Save"
+msgstr "Opslaan"
+
+#: templates/yith-wocc-account-section.php:51
+msgid "Your custom shipping address"
+msgstr "Uw aangepaste verzend adres"
+
+#: templates/yith-wocc-account-section.php:53
+msgid "Add custom shipping address"
+msgstr "Voeg aangepast verzend adres toe"
+
+#: templates/yith-wocc-account-section.php:67
+msgid "Address"
+msgstr "Adres"
+
+#: templates/yith-wocc-account-section.php:70
+msgid "Edit custom shipping address"
+msgstr "Bewerk aangepast verzendadres"
+
+#: templates/yith-wocc-account-section.php:72
+msgid "Remove custom shipping address"
+msgstr "Verwijder aangepast verzendadres"
+
+#: templates/yith-wocc-account-section.php:87
+msgid "You haven't added any custom shipping address yet."
+msgstr "U heeft nog geen aangepast verzendadres toegevoegd."
+
+#: templates/yith-wocc-form-address.php:23
+msgid "Add address"
+msgstr "Voeg adres toe"
+
+#: templates/yith-wocc-form-address.php:23
+msgid "Edit address"
+msgstr "Bewerk adres"
+
+#: templates/yith-wocc-form-address.php:39
+msgid "Save Address"
+msgstr "Adres opslaan"
+
+#: templates/yith-wocc-form.php:25
+msgid "or"
+msgstr "of"
+
+#. Description of the plugin/theme
+msgid ""
+"The <code><strong>YITH WooCommerce One-Click Checkout</strong></code> plugin "
+"allows your customers to create order by clicking only one button skipping "
+"checkout and cart process. <a href=\"https://yithemes.com/\" target=\"_blank"
+"\">Get more plugins for your e-commerce shop on <strong>YITH</strong></a>."
+msgstr ""
+"De <code> <strong> YITH WooCommerce One-Click Checkout </strong> </code> "
+"plugin stelt uw klanten in staat om order te maken door te klikken op "
+"slechts een knop skipping Checkout en winkelwagen proces. <a href=\"https://"
+"yithemes.com/\" target=\"_blank\">Haal meer plugins voor uw e-commerce shop "
+"op <strong> YITH </strong> </a>."
+
+#: includes/class.yith-wocc-user-account.php:516
+msgctxt "Plugin options - user side"
+msgid "One Click Checkout"
+msgstr "Een Klik Checkout"
+
+#~ msgid "https://yithemes.com/"
+#~ msgstr "https://yithemes.com/"
+
+#~ msgid "YITH"
+#~ msgstr "YITH"
+
+#~ msgid ""
+#~ "https://yithemes.com/themes/plugins/yith-woocommerce-one-click-checkout/"
+#~ msgstr ""
+#~ "https://yithemes.com/themes/plugins/yith-woocommerce-one-click-checkout/"
+
+#~ msgid "YITH WooCommerce One-Click Checkout Premium"
+#~ msgstr "YITH WooCommerce One-Click Checkout Premium"

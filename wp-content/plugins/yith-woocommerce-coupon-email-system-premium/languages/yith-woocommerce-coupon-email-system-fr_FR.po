@@ -1,0 +1,1221 @@
+# Translation of YITH WooCommerce Coupon Email System in French (France)
+# This file is distributed under the same license as the YITH WooCommerce Coupon Email System package.
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH WooCommerce Coupon Email System\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
+"coupon-email-system.premium\n"
+"POT-Creation-Date: 2020-05-27 13:15:06+00:00\n"
+"PO-Revision-Date: 2020-04-29 15:53:50+0000\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: GlotPress/2.3.1\n"
+
+#: class.yith-wc-coupon-email-system.php:326
+msgid "General Settings"
+msgstr "Réglages généraux"
+
+#: class.yith-wc-coupon-email-system.php:329
+msgid "Vendors Settings"
+msgstr "Réglages des vendeurs"
+
+#: class.yith-wc-coupon-email-system.php:333
+#: templates/admin/acceptance-table.php:197
+msgid "Coupons Acceptance"
+msgstr ""
+
+#: class.yith-wc-coupon-email-system.php:336
+#: plugin-options/mandrill-options.php:18
+msgid "Mandrill Settings"
+msgstr "Réglages de Mandrill"
+
+#: class.yith-wc-coupon-email-system.php:337
+#: includes/class-ywces-multivendor.php:117
+msgid "How To"
+msgstr "Aide"
+
+#: class.yith-wc-coupon-email-system.php:342
+#: class.yith-wc-coupon-email-system.php:880
+#: includes/class-ywces-coupon-email.php:52
+#: includes/class-ywces-multivendor.php:123 includes/functions.ywces.php:30
+#: includes/functions.ywces.php:86
+msgid "Coupon Email System"
+msgstr "Coupon Email System"
+
+#: class.yith-wc-coupon-email-system.php:385
+#: templates/admin/class-ywces-custom-send.php:99
+msgid "Sending test email..."
+msgstr "Envoi du mail de test…"
+
+#: class.yith-wc-coupon-email-system.php:386
+msgid "Test email has been sent successfully!"
+msgstr "Le mail de test est envoyé avec succès !"
+
+#: class.yith-wc-coupon-email-system.php:387
+msgid "Please insert a valid email address"
+msgstr "Merci de renseigner une adresse mail valide"
+
+#: class.yith-wc-coupon-email-system.php:388
+msgid "You need to set at least a threshold to send a test email"
+msgstr "Vous devez au moins renseigner un seuil pour envoyer un mail de test"
+
+#: class.yith-wc-coupon-email-system.php:389
+msgid "Please select at least a product"
+msgstr "Merci de sélectionner au moins un produit"
+
+#: class.yith-wc-coupon-email-system.php:390
+msgid ""
+"You need to select at least the amount/percentage of a coupon to send it in "
+"a test email"
+msgstr ""
+"Vous devez au moins sélectionner le montant/pourcentage du coupon pour "
+"envoyer le mail de test"
+
+#: class.yith-wc-coupon-email-system.php:391
+msgid "Please specify the number of days"
+msgstr "Merci de renseigner le nombre de jours"
+
+#: class.yith-wc-coupon-email-system.php:411
+msgid ""
+"In order to use some of the features of YITH WooCommerce Coupon Email System "
+"you need to create at least one coupon"
+msgstr ""
+"Afin d’utiliser certaines des fonctionnalités de YITH WooCommerce Coupon "
+"Email System, vous devez créer au moins un coupon"
+
+#: class.yith-wc-coupon-email-system.php:415
+msgid "Please enter Mandrill API Key for YITH WooCommerce Coupon Email System"
+msgstr ""
+"Merci de renseigner la clé API Mandrill pour YITH WooCommerce Coupon Email "
+"System"
+
+#: class.yith-wc-coupon-email-system.php:422
+#: includes/class-ywces-multivendor.php:192
+msgid "You need to select a coupon to send one for a new user registration."
+msgstr ""
+"Vous devez sélectionner le coupon à envoyer pour la création du compte."
+
+#: class.yith-wc-coupon-email-system.php:432
+#: includes/class-ywces-multivendor.php:202
+msgid "You need to select a coupon to send one for a new first purchase."
+msgstr ""
+"Vous devez sélectionner un coupon à envoyer une fois dès le premier achat."
+
+#: class.yith-wc-coupon-email-system.php:442
+#: includes/class-ywces-multivendor.php:212
+msgid ""
+"You need to set a threshold to send a coupon once a user reaches a specific "
+"number of purchases."
+msgstr ""
+"Vous devez appliquer un seuil pour envoyer le coupon dès que l’utilisateur "
+"atteint un nombre de commande spécifique."
+
+#: class.yith-wc-coupon-email-system.php:460
+#: includes/class-ywces-multivendor.php:232
+msgid ""
+"You need to set a coupon for each threshold to send one when users reach a "
+"specific number of purchases."
+msgstr ""
+"Vous devez définir un coupon pour chaque seuil en fonction du nombre de "
+"commandes du client."
+
+#: class.yith-wc-coupon-email-system.php:471
+#: includes/class-ywces-multivendor.php:244
+msgid ""
+"You need to set a threshold to send a coupon once a user reaches a specific "
+"spent amount."
+msgstr ""
+"Vous devez définir un seuil pour envoyer le coupon dès que le client atteint "
+"un montant dépensé."
+
+#: class.yith-wc-coupon-email-system.php:490
+#: includes/class-ywces-multivendor.php:264
+msgid ""
+"You need to set a coupon for each threshold to send one when users reach a "
+"specific spent amount."
+msgstr ""
+"Vous devez définir un coupon pour chaque seuil dès que l’utilisateur atteint "
+"un montant dépensé."
+
+#: class.yith-wc-coupon-email-system.php:501
+#: includes/class-ywces-multivendor.php:276
+msgid ""
+"You need to select at least one product to send a coupon once purchased."
+msgstr ""
+"Vous devez sélectionner au moins un produit pour déclencher l’envoi du "
+"coupon une fois le produit acheté."
+
+#: class.yith-wc-coupon-email-system.php:509
+#: includes/class-ywces-multivendor.php:284
+msgid ""
+"You need to select at least the amount/percentage of a coupon to send it for "
+"the purchase of a specific product."
+msgstr ""
+"Vous devez sélectionner au moins le montant/pourcentage du coupon à envoyer "
+"en fonction de l’achat du produit."
+
+#: class.yith-wc-coupon-email-system.php:521
+#: includes/class-ywces-multivendor.php:296
+msgid ""
+"You need to select at least the amount/percentage of a coupon to send it for "
+"the birthday of a user."
+msgstr ""
+"Vous devez sélectionner au moins le montant/pourcentage du coupon à envoyer "
+"à la date d’anniversaire du client."
+
+#: class.yith-wc-coupon-email-system.php:533
+#: includes/class-ywces-multivendor.php:308
+msgid ""
+"You need to select at least the amount/percentage of a coupon to send it "
+"after a specific number of days following the last order."
+msgstr ""
+"Vous devez sélectionner au moins le montant/pourcentage du coupon à envoyer "
+"après un nombre de jours suivant la dernière commande."
+
+#: class.yith-wc-coupon-email-system.php:740
+msgid "Placeholder reference"
+msgstr "Référence des balises"
+
+#: class.yith-wc-coupon-email-system.php:749
+msgid ""
+"Replaced with the description of the given coupon. This placeholder must be "
+"included."
+msgstr ""
+"Remplace la description par la description présente dans le coupon. Cette "
+"balise doit être insérée."
+
+#: class.yith-wc-coupon-email-system.php:757
+msgid "Replaced with the site title"
+msgstr "Insère le titre du site"
+
+#: class.yith-wc-coupon-email-system.php:765
+msgid "Replaced with the customer's name"
+msgstr "Insère le prénom du client"
+
+#: class.yith-wc-coupon-email-system.php:773
+msgid "Replaced with the customer's last name"
+msgstr "Insère le nom du client"
+
+#: class.yith-wc-coupon-email-system.php:781
+msgid "Replaced with the customer's email"
+msgstr "Insère le mail du client"
+
+#: class.yith-wc-coupon-email-system.php:789
+msgid "Replaced with the date of the order"
+msgstr "Insère la date de la commande"
+
+#: class.yith-wc-coupon-email-system.php:800
+msgid "Replaced with the number of purchases"
+msgstr "Insère le nombre de commandes effectuées"
+
+#: class.yith-wc-coupon-email-system.php:808
+msgid "Replaced with the amount of money spent by the customer"
+msgstr "Insère le montant dépensé par le client"
+
+#: class.yith-wc-coupon-email-system.php:816
+msgid "Replaced with the spent amount of money"
+msgstr "Insère le montant total dépensé"
+
+#: class.yith-wc-coupon-email-system.php:824
+msgid "Replaced with the number of days since last purchase"
+msgstr "Insère le nombre de jours depuis le dernier achat"
+
+#: class.yith-wc-coupon-email-system.php:832
+msgid "Replaced with the name of a purchased product"
+msgstr "Insère le nom du dernier produit acheté"
+
+#: class.yith-wc-coupon-email-system.php:842
+msgid "Replaced with the name of the vendor"
+msgstr "Insère le nom du vendeur"
+
+#: class.yith-wc-coupon-email-system.php:884
+#: class.yith-wc-coupon-email-system.php:1777
+#: class.yith-wc-coupon-email-system.php:1823
+msgid "Birth date"
+msgstr "Date d’anniversaire"
+
+#: class.yith-wc-coupon-email-system.php:1513
+#: plugin-options/general-options.php:513
+#: plugin-options/vendor/vendor-options.php:452
+msgid "On a specific number of days from the last purchase"
+msgstr "Après un nombre de jours spécifiques après le dernier achat effectué"
+
+#: class.yith-wc-coupon-email-system.php:1517
+#: plugin-options/general-options.php:445
+#: plugin-options/vendor/vendor-options.php:382
+msgid "On customer birthday"
+msgstr "A l’anniversaire d’un client"
+
+#: class.yith-wc-coupon-email-system.php:1521
+#: plugin-options/general-options.php:366
+#: plugin-options/vendor/vendor-options.php:301
+msgid "On specific product purchase"
+msgstr "Sur l’achat d’un produit spécifique"
+
+#: class.yith-wc-coupon-email-system.php:1687
+msgid "YYYY-MM-DD"
+msgstr "YYYY-MM-DD"
+
+#: class.yith-wc-coupon-email-system.php:1688
+msgid "YYYY/MM/DD"
+msgstr "YYYY/MM/DD"
+
+#: class.yith-wc-coupon-email-system.php:1689
+msgid "MM-DD-YYYY"
+msgstr "MM-DD-YYYY"
+
+#: class.yith-wc-coupon-email-system.php:1690
+msgid "MM/DD/YYYY"
+msgstr "MM/DD/YYYY"
+
+#: class.yith-wc-coupon-email-system.php:1691
+msgid "DD-MM-YYYY"
+msgstr "DD-MM-YYYY"
+
+#: class.yith-wc-coupon-email-system.php:1692
+msgid "DD/MM/YYYY"
+msgstr "DD/MM/YYYY"
+
+#: class.yith-wc-coupon-email-system.php:1923
+#: class.yith-wc-coupon-email-system.php:1961
+msgid "I accept to receive coupons via email"
+msgstr ""
+
+#: includes/class-ywces-ajax.php:114
+msgid "There was an error while sending the email"
+msgstr "Il y a eu une erreur lors de l’envoi du mail"
+
+#: includes/class-ywces-ajax.php:124
+msgid "Coupon not valid"
+msgstr "Le coupon n’est pas valide"
+
+#: includes/class-ywces-ajax.php:155
+msgid "Operation completed. %d coupon trashed."
+msgid_plural "Operation completed. %d coupons trashed."
+msgstr[0] "Opération terminée. %d coupon à la poubelle"
+msgstr[1] "Opération terminée. %d coupons à la poubelle"
+
+#: includes/class-ywces-ajax.php:160
+msgid "An error occurred: %s"
+msgstr "Une erreur est arrivée: %s"
+
+#: includes/class-ywces-coupon-email.php:51
+msgid ""
+"YITH WooCommerce Coupon Email System offers an automatic way to send a "
+"coupon to your users according to specific events."
+msgstr ""
+"YITH WooCommerce Coupon Email System offre un moyen automatique d’envoyer un "
+"coupon à vos utilisateurs en fonction d’événements spécifiques."
+
+#: includes/class-ywces-emails.php:208
+msgid "If you don't want to receive these emails click %s here %s"
+msgstr ""
+
+#: includes/class-ywces-emails.php:393
+msgid "Coupon code: "
+msgstr "Code du coupon: "
+
+#: includes/class-ywces-emails.php:406
+msgid "Coupon amount: %s%s off"
+msgstr "Montant du coupon: %s%s"
+
+#: includes/class-ywces-emails.php:408
+msgid "Free shipping"
+msgstr "Livraison gratuite"
+
+#: includes/class-ywces-emails.php:414
+msgid "Valid for a minimum purchase of %s"
+msgstr "Valide pour un minimum d’achat de %s"
+
+#: includes/class-ywces-emails.php:417
+msgid "Valid for a maximum purchase of %s"
+msgstr "Valide pour un maximum d’achat de %s"
+
+#: includes/class-ywces-emails.php:420
+msgid "Valid for a minimum purchase of %s and a maximum of %s"
+msgstr "Valide pour un minimum d’achat de %s et un maximum de %s"
+
+#: includes/class-ywces-emails.php:427
+msgid "Valid for:"
+msgstr "Valide pour:"
+
+#: includes/class-ywces-emails.php:430 includes/class-ywces-emails.php:447
+msgid "Following products: %s"
+msgstr "Produits suivant: %s"
+
+#: includes/class-ywces-emails.php:435 includes/class-ywces-emails.php:452
+msgid "Products of the following categories: %s"
+msgstr "Produits présents dans les catégories: %s"
+
+#: includes/class-ywces-emails.php:444
+msgid "Not valid for:"
+msgstr "Non valide pour:"
+
+#: includes/class-ywces-emails.php:460
+msgid "This coupon cannot be used in conjunction with other coupons"
+msgstr "Ce coupon ne peut pas être utilisé additionné avec un autre coupon"
+
+#: includes/class-ywces-emails.php:464
+msgid "This coupon will not apply to items on sale"
+msgstr "Ce coupon ne sera pas appliqué aux produits en promotions"
+
+#: includes/class-ywces-emails.php:474
+msgid "Expiration date: %s"
+msgstr "Date d’expiration: %s"
+
+#: includes/class-ywces-multivendor.php:116
+msgid "Settings"
+msgstr "Réglages"
+
+#: includes/functions.ywces.php:56
+msgid "Coupon Email System Status"
+msgstr ""
+
+#: includes/functions.ywces.php:60
+msgid "Acceptance"
+msgstr ""
+
+#: includes/functions.ywces.php:61
+msgid "This customer has given consent to receive coupons"
+msgstr ""
+
+#: init.php:25
+msgid ""
+"YITH WooCommerce Coupon Email System is enabled but not effective. It "
+"requires WooCommerce in order to work."
+msgstr ""
+"YITH WooCommerce Coupon Email System est activé mais ne fonctionne pas. Il "
+"nécessite WooCommerce pour fonctionner."
+
+#: plugin-options/admin-vendor-options.php:21
+msgid ""
+"Coupon management must be enabled to make YITH WooCommerce Coupon Email "
+"System work correctly for vendors. %s Enable %s"
+msgstr ""
+"La gestion des coupon doit être activée pour faire fonctionner YITH "
+"WooCommerce Coupon Email System. %s Activer %s"
+
+#: plugin-options/admin-vendor-options.php:29
+msgid "Allow coupon event management for vendors"
+msgstr "Autoriser la gestion des événements de coupon"
+
+#: plugin-options/admin-vendor-options.php:35
+msgid "Enable coupon on user registration"
+msgstr "Activer le coupon à la création du compte utilisateur"
+
+#: plugin-options/admin-vendor-options.php:42
+msgid "Enable coupon on first purchase"
+msgstr "Activer le coupon à la première commande"
+
+#: plugin-options/admin-vendor-options.php:49
+msgid "Enable coupon on specific order threshold"
+msgstr "Activer le coupon à seuil de commande spécifique"
+
+#: plugin-options/admin-vendor-options.php:56
+msgid "Enable coupon on specific spent threshold"
+msgstr "Activer le coupon à un seuil de dépense spécifique"
+
+#: plugin-options/admin-vendor-options.php:63
+msgid "Enable coupon on specific product purchase"
+msgstr "Activer le coupon en fonction de l’achat d’un produit spécifique"
+
+#: plugin-options/admin-vendor-options.php:70
+msgid "Enable coupon on customer birthday"
+msgstr "Activer le coupon à la date d’anniversaire"
+
+#: plugin-options/admin-vendor-options.php:77
+msgid "Enable coupon on a specific number of days from the last purchase"
+msgstr ""
+"Activer le coupon en fonction du nombre de jours après le dernier achat"
+
+#: plugin-options/general-options.php:20
+#: plugin-options/vendor/vendor-options.php:20
+msgid "Allowed placeholders:"
+msgstr "Balises autorisées:"
+
+#: plugin-options/general-options.php:21
+#: plugin-options/vendor/vendor-options.php:21
+msgid "More info"
+msgstr "Plus d’information"
+
+#: plugin-options/general-options.php:36
+#: plugin-options/vendor/vendor-options.php:35
+msgid "Select a coupon"
+msgstr "Sélectionner un coupon"
+
+#: plugin-options/general-options.php:41
+msgid "Use YITH WooCommerce Email Templates"
+msgstr "Utiliser YITH WooCommerce Email Templates"
+
+#: plugin-options/general-options.php:52
+msgid "Coupon Email System settings"
+msgstr "Coupon Email System réglages"
+
+#: plugin-options/general-options.php:56
+msgid "Enable YITH WooCommerce Coupon Email System"
+msgstr "Activer YITH WooCommerce Coupon Email System"
+
+#: plugin-options/general-options.php:63
+msgid "Allow customers to accept or refuse to receive coupons"
+msgstr ""
+
+#: plugin-options/general-options.php:70
+msgid "Birthday Input Date Format"
+msgstr "Formate de la date d’anniversaire"
+
+#: plugin-options/general-options.php:78
+msgid "Email type"
+msgstr "Type d’email"
+
+#: plugin-options/general-options.php:81
+msgid "Choose which email format to send."
+msgstr "Choisir le format dans lequel le mail sera envoyé."
+
+#: plugin-options/general-options.php:83
+msgid "HTML"
+msgstr "HTML"
+
+#: plugin-options/general-options.php:84
+msgid "Plain text"
+msgstr "Texte brut"
+
+#: plugin-options/general-options.php:91
+msgid "Email template"
+msgstr "Modèle d’email"
+
+#: plugin-options/general-options.php:93
+msgid ""
+"Choose which email template to send. Remember to save options before sending "
+"the test email."
+msgstr ""
+"Choisir le modèle d’email à envoyer. Sauvegarder avant d’envoyer un mail de "
+"test."
+
+#: plugin-options/general-options.php:95
+msgid "WooCommerce Template"
+msgstr "Modèle de WooCommerce"
+
+#: plugin-options/general-options.php:96
+msgid "Template 1"
+msgstr "Modèle 1"
+
+#: plugin-options/general-options.php:97
+msgid "Template 2"
+msgstr "Modèle 2"
+
+#: plugin-options/general-options.php:98
+msgid "Template 3"
+msgstr "Modèle 3"
+
+#: plugin-options/general-options.php:104
+msgid "Deletion of Expired Coupons"
+msgstr "Suppression des coupons expirés"
+
+#: plugin-options/general-options.php:106
+msgid ""
+"Delete automatically expired coupons (only those created by this plugin)"
+msgstr ""
+"Supprimer automatiquement les coupons expirés (seulement ceux crées par "
+"l’extension)"
+
+#: plugin-options/general-options.php:115
+#: plugin-options/vendor/vendor-options.php:43
+msgid "On user registration"
+msgstr "A l’enregistrement de l’utilisateur"
+
+#: plugin-options/general-options.php:122
+#: plugin-options/general-options.php:186
+#: plugin-options/general-options.php:249
+#: plugin-options/general-options.php:311
+#: plugin-options/general-options.php:373
+#: plugin-options/general-options.php:452
+#: plugin-options/general-options.php:520
+#: plugin-options/vendor/vendor-options.php:50
+#: plugin-options/vendor/vendor-options.php:115
+#: plugin-options/vendor/vendor-options.php:180
+#: plugin-options/vendor/vendor-options.php:244
+#: plugin-options/vendor/vendor-options.php:308
+#: plugin-options/vendor/vendor-options.php:389
+#: plugin-options/vendor/vendor-options.php:459
+msgid "Enable coupon sending"
+msgstr "Activer l’envoi du coupon"
+
+#: plugin-options/general-options.php:130
+#: plugin-options/general-options.php:194
+#: plugin-options/vendor/vendor-options.php:57
+#: plugin-options/vendor/vendor-options.php:122
+msgid "Selected Coupon"
+msgstr "Sélectionner un coupon"
+
+#: plugin-options/general-options.php:133
+#: plugin-options/general-options.php:196
+#: plugin-options/vendor/vendor-options.php:59
+#: plugin-options/vendor/vendor-options.php:124
+msgid "Choose the coupon to send"
+msgstr "Choisir le coupon à envoyer"
+
+#: plugin-options/general-options.php:139
+#: plugin-options/general-options.php:202
+#: plugin-options/general-options.php:264
+#: plugin-options/general-options.php:326
+#: plugin-options/general-options.php:406
+#: plugin-options/general-options.php:474
+#: plugin-options/general-options.php:553
+#: plugin-options/vendor/vendor-options.php:65
+#: plugin-options/vendor/vendor-options.php:130
+#: plugin-options/vendor/vendor-options.php:194
+#: plugin-options/vendor/vendor-options.php:258
+#: plugin-options/vendor/vendor-options.php:340
+#: plugin-options/vendor/vendor-options.php:410
+#: plugin-options/vendor/vendor-options.php:491
+msgid "Email subject"
+msgstr "Sujet du mail"
+
+#: plugin-options/general-options.php:143
+msgid "You have received a welcome coupon from {site_title}"
+msgstr "Vous avez reçu un coupon de bienvenu de la part de {site_title}"
+
+#: plugin-options/general-options.php:150
+#: plugin-options/general-options.php:213
+#: plugin-options/general-options.php:275
+#: plugin-options/general-options.php:337
+#: plugin-options/general-options.php:417
+#: plugin-options/general-options.php:485
+#: plugin-options/general-options.php:564
+#: plugin-options/vendor/vendor-options.php:76
+#: plugin-options/vendor/vendor-options.php:141
+#: plugin-options/vendor/vendor-options.php:205
+#: plugin-options/vendor/vendor-options.php:269
+#: plugin-options/vendor/vendor-options.php:351
+#: plugin-options/vendor/vendor-options.php:421
+#: plugin-options/vendor/vendor-options.php:502
+msgid "Email content"
+msgstr "Contenu du mail"
+
+#: plugin-options/general-options.php:154
+msgid ""
+"Hi {customer_name},\n"
+"thanks for your the registration on {site_title}!\n"
+"We would like to offer you this coupon as a welcome gift:\n"
+"\n"
+"{coupon_description}\n"
+"\n"
+"See you on our shop,\n"
+"\n"
+"{site_title}."
+msgstr ""
+"Bonjour {customer_name},\n"
+"Merci pour votre inscription sur notre site {site_title}!\n"
+"Pour fêter cela, nous vous offre ce coupon de bienvenu:\n"
+"\n"
+"{coupon_description}\n"
+"\n"
+"A très vite !,\n"
+"\n"
+"{site_title}."
+
+#: plugin-options/general-options.php:169
+#: plugin-options/general-options.php:232
+#: plugin-options/general-options.php:294
+#: plugin-options/general-options.php:356
+#: plugin-options/general-options.php:436
+#: plugin-options/general-options.php:504
+#: plugin-options/general-options.php:583
+#: plugin-options/vendor/vendor-options.php:95
+#: plugin-options/vendor/vendor-options.php:160
+#: plugin-options/vendor/vendor-options.php:224
+#: plugin-options/vendor/vendor-options.php:288
+#: plugin-options/vendor/vendor-options.php:370
+#: plugin-options/vendor/vendor-options.php:440
+#: plugin-options/vendor/vendor-options.php:521
+msgid "Test email"
+msgstr "Email de test"
+
+#: plugin-options/general-options.php:179
+#: plugin-options/vendor/vendor-options.php:108
+msgid "On first purchase"
+msgstr "Au premier achat"
+
+#: plugin-options/general-options.php:206
+#: plugin-options/general-options.php:268
+#: plugin-options/general-options.php:330
+#: plugin-options/general-options.php:410
+#: plugin-options/general-options.php:557
+msgid "You have received a coupon from {site_title}"
+msgstr "Vous avez reçu un coupon de {site_title}"
+
+#: plugin-options/general-options.php:217
+msgid ""
+"Hi {customer_name},\n"
+"thanks for making the first purchase on {order_date} on our shop "
+"{site_title}!\n"
+"Because of this, we would like to offer you this coupon as a little gift:\n"
+"\n"
+"{coupon_description}\n"
+"\n"
+"See you on our shop,\n"
+"\n"
+"{site_title}."
+msgstr ""
+"Bonjour {customer_name},\n"
+"Merci pour votre premier achat le {order_date} sur notre boutique "
+"{site_title}!\n"
+"Grâce à cette première commande, nous aimerions vous remercier en vous "
+"offrant ce coupon de réduction :\n"
+"\n"
+"{coupon_description}\n"
+"\n"
+"A très vite,\n"
+"\n"
+"{site_title}."
+
+#: plugin-options/general-options.php:242
+#: plugin-options/vendor/vendor-options.php:173
+msgid "On specific order threshold"
+msgstr "Dès un seuil de commande spécifique"
+
+#: plugin-options/general-options.php:257
+#: plugin-options/vendor/vendor-options.php:187
+msgid "Order thresholds"
+msgstr "Seuils de commande"
+
+#: plugin-options/general-options.php:279
+msgid ""
+"Hi {customer_name},\n"
+"with the order made on {order_date}, you have reached {purchases_threshold} "
+"orders!\n"
+"Because of this, we would like to offer you this coupon as a gift:\n"
+"\n"
+"{coupon_description}\n"
+"\n"
+"See you on our shop,\n"
+"\n"
+"{site_title}."
+msgstr ""
+"Bonjour {customer_name},\n"
+"Avec le commande du {order_date}, vous atteignez le seuil des  "
+"{purchases_threshold} commandes !\n"
+"Grâce à cela, nous vous offrons un coupon de réduction valable sur votre "
+"prochaine commande:\n"
+"\n"
+"{coupon_description}\n"
+"\n"
+"A très vite,\n"
+"\n"
+"{site_title}."
+
+#: plugin-options/general-options.php:304
+#: plugin-options/vendor/vendor-options.php:237
+msgid "On specific spent threshold"
+msgstr "Dès un montant (en €) de commande spécifique"
+
+#: plugin-options/general-options.php:319
+#: plugin-options/vendor/vendor-options.php:251
+msgid "Amount thresholds"
+msgstr "Montants à dépenser"
+
+#: plugin-options/general-options.php:341
+msgid ""
+"Hi {customer_name},\n"
+"with the order made on {order_date}, you have reached the amount of "
+"{spending_threshold} for a total purchase amount of {customer_money_spent}!\n"
+"Because of this, we would like to offer you this coupon as a gift:\n"
+"\n"
+"{coupon_description}\n"
+"\n"
+"See you on our shop,\n"
+"\n"
+"{site_title}."
+msgstr ""
+"Bonjour {customer_name},\n"
+"Avec la commande passée le {order_date}, vous avez atteint le seuil de "
+"{spending_threshold} pour un montant total d’achat de\n"
+" {customer_money_spent}!\n"
+"Grâce à cela, nous vous offrons un coupon de réduction:\n"
+"\n"
+"{coupon_description}\n"
+"\n"
+"A très vite,\n"
+"\n"
+"{site_title}."
+
+#: plugin-options/general-options.php:380
+#: plugin-options/vendor/vendor-options.php:314
+msgid "Target products"
+msgstr "Produits concernés"
+
+#: plugin-options/general-options.php:387
+#: plugin-options/vendor/vendor-options.php:321
+msgid "Search for a product&hellip;"
+msgstr "Chercher un produit&hellip;"
+
+#: plugin-options/general-options.php:388
+#: plugin-options/vendor/vendor-options.php:322
+msgid "Products that will cause the sending of the coupon"
+msgstr "Produits qui provoqueront l’envoi du coupon"
+
+#: plugin-options/general-options.php:391
+#: plugin-options/general-options.php:459
+#: plugin-options/general-options.php:538
+#: plugin-options/vendor/vendor-options.php:325
+#: plugin-options/vendor/vendor-options.php:395
+#: plugin-options/vendor/vendor-options.php:476
+msgid "Coupon settings"
+msgstr "Réglages du coupon"
+
+#: plugin-options/general-options.php:421
+msgid ""
+"Hi {customer_name},\n"
+"thanks for purchasing the following product with the order made on "
+"{order_date}: {purchased_product}.\n"
+"We would like to offer you this coupon as a gift:\n"
+"\n"
+"{coupon_description}\n"
+"\n"
+"See you on our shop,\n"
+"\n"
+"{site_title}."
+msgstr ""
+"Bonjour {customer_name},\n"
+"Merci d’avoir passé commande le  {order_date} et d’avoir acheté le produit "
+"suivant: {purchased_product}.\n"
+"Nous souhaitons vous remercier en vous offrant un coupon de réduction:\n"
+"\n"
+"{coupon_description}\n"
+"\n"
+"A très vite,\n"
+"\n"
+"{site_title}."
+
+#: plugin-options/general-options.php:478
+msgid "Happy birthday from {site_title}"
+msgstr "Joyeux anniversaire de la part de {site_title}"
+
+#: plugin-options/general-options.php:489
+msgid ""
+"Hi {customer_name},\n"
+"we would like to make you our best wishes for a happy birthday!\n"
+"Please, accept our coupon as a small gift for you:\n"
+"\n"
+"{coupon_description}\n"
+"\n"
+"See you on our shop,\n"
+"\n"
+"{site_title}."
+msgstr ""
+"Bonjour {customer_name},\n"
+"Nous vous souhaitons un très bon anniversaire!\n"
+"Pour célébrer cela, nous vous offrons un code promo pour vous faire "
+"plaisir:\n"
+"\n"
+"{coupon_description}\n"
+"\n"
+"A très vite,\n"
+"\n"
+"{site_title}."
+
+#: plugin-options/general-options.php:527
+#: plugin-options/vendor/vendor-options.php:465
+msgid "Days to elapse"
+msgstr "Jours écoulés"
+
+#: plugin-options/general-options.php:529
+#: plugin-options/vendor/vendor-options.php:467
+msgid ""
+"The number of days that have to pass after the last order has been set as "
+"\"completed\""
+msgstr "Le nombre de jours écoulés après le dernier achat sur le site"
+
+#: plugin-options/general-options.php:568
+msgid ""
+"Hi {customer_name},\n"
+"{days_ago} days have passed since your last order.\n"
+"We would like to encourage you to purchase something more with this coupon:\n"
+"\n"
+"{coupon_description}\n"
+"\n"
+"See you on our shop,\n"
+"\n"
+"{site_title}."
+msgstr ""
+"Bonjour {customer_name},\n"
+"{days_ago} jours se sont écoulés depuis votre dernier achat.\n"
+"Nous aimerions vous revoir sur la boutique et pour cela nous vous offrons un "
+"coupon de réduction:\n"
+"\n"
+"{coupon_description}\n"
+"\n"
+"A très vite,\n"
+"\n"
+"{site_title}."
+
+#: plugin-options/mandrill-options.php:22
+msgid "Enable Mandrill"
+msgstr "Activer Mandrill"
+
+#: plugin-options/mandrill-options.php:24
+msgid "Use Mandrill to send emails"
+msgstr "Utiliser Mandrill pour envoyer les emails"
+
+#: plugin-options/mandrill-options.php:29
+msgid "Mandrill API Key"
+msgstr "Clé API Mandrill"
+
+#: plugin-options/vendor/vendor-options.php:69
+msgid "You have received a welcome coupon from {vendor_name} on {site_title}"
+msgstr "Vous avez reçu un coupon de bienvenu de {vendor_name} sur {site_title}"
+
+#: plugin-options/vendor/vendor-options.php:80
+msgid ""
+"Hi {customer_name},\n"
+"thanks for your the registration on {site_title}!\n"
+"We would like to offer you this coupon as a welcome gift:\n"
+"\n"
+"{coupon_description}\n"
+"\n"
+"See you on our shop,\n"
+"\n"
+"{vendor_name}."
+msgstr ""
+"Bonjour {customer_name},\n"
+"Merci pour votre inscription sur notre site {site_title}!\n"
+"Pour fêter cela, nous vous offre ce coupon de bienvenu:\n"
+"\n"
+"{coupon_description}\n"
+"\n"
+"A très vite !,\n"
+"\n"
+"{site_title}."
+
+#: plugin-options/vendor/vendor-options.php:134
+#: plugin-options/vendor/vendor-options.php:198
+#: plugin-options/vendor/vendor-options.php:262
+#: plugin-options/vendor/vendor-options.php:344
+#: plugin-options/vendor/vendor-options.php:495
+msgid "You have received a coupon from {vendor_name} on {site_title}"
+msgstr "Vous avez reçu un coupon de {vendor_name} sur {site_title}"
+
+#: plugin-options/vendor/vendor-options.php:145
+msgid ""
+"Hi {customer_name},\n"
+"thanks for making the first purchase on {order_date} on our shop "
+"{site_title}!\n"
+"Because of this, we would like to offer you this coupon as a little gift:\n"
+"\n"
+"{coupon_description}\n"
+"\n"
+"See you on our shop,\n"
+"\n"
+"{vendor_name}."
+msgstr ""
+"Bonjour {customer_name},\n"
+"Merci pour votre premier achat le {order_date} sur notre boutique "
+"{site_title}!\n"
+"Grâce à cette première commande, nous aimerions vous remercier en vous "
+"offrant ce coupon de réduction :\n"
+"\n"
+"{coupon_description}\n"
+"\n"
+"A très vite,\n"
+"\n"
+"{site_title}."
+
+#: plugin-options/vendor/vendor-options.php:209
+msgid ""
+"Hi {customer_name},\n"
+"with the order made on {order_date}, you have reached {purchases_threshold} "
+"orders!\n"
+"Because of this, we would like to offer you this coupon as a gift:\n"
+"\n"
+"{coupon_description}\n"
+"\n"
+"See you on our shop,\n"
+"\n"
+"{vendor_name}."
+msgstr ""
+"Bonjour {customer_name},\n"
+"Avec la commande effectuée le {order_date}, vous avez atteint "
+"{purchases_threshold} commandes!\n"
+"Grâce à cela, nous vous offrons un coupon de réduction à utiliser quand vous "
+"voulez:\n"
+"\n"
+"{coupon_description}\n"
+"\n"
+"A très vite,\n"
+"\n"
+"{vendor_name}."
+
+#: plugin-options/vendor/vendor-options.php:273
+msgid ""
+"Hi {customer_name},\n"
+"with the order made on {order_date}, you have reached the amount of "
+"{spending_threshold} for a total purchase amount of {customer_money_spent}!\n"
+"Because of this, we would like to offer you this coupon as a gift:\n"
+"\n"
+"{coupon_description}\n"
+"\n"
+"See you on our shop,\n"
+"\n"
+"{vendor_name}."
+msgstr ""
+"Hi {customer_name},\n"
+"Avec la commande effectuée le {order_date}, vous avez atteint le montant de "
+"{spending_threshold} pour un montant total d’achat de "
+"{customer_money_spent}!\n"
+"Pour cette raison, nous aimerions vous offrir ce coupon en cadeau:\n"
+"\n"
+"{coupon_description}\n"
+"\n"
+"A très vite,\n"
+"\n"
+"{vendor_name}."
+
+#: plugin-options/vendor/vendor-options.php:355
+msgid ""
+"Hi {customer_name},\n"
+"thanks for purchasing the following product with the order made on "
+"{order_date}: {purchased_product}.\n"
+"We would like to offer you this coupon as a gift:\n"
+"\n"
+"{coupon_description}\n"
+"\n"
+"See you on our shop,\n"
+"\n"
+"{vendor_name}."
+msgstr ""
+"Bonjour {customer_name},\n"
+"Merci d’avoir acheté le produit suivant avec la commande effectuée le "
+"{order_date}: {purchased_product}.\n"
+"Nous aimerions vous offrir ce coupon en cadeau:\n"
+"\n"
+"{coupon_description}\n"
+"\n"
+"A bientôt sur notre boutique,\n"
+"\n"
+"{vendor_name}."
+
+#: plugin-options/vendor/vendor-options.php:414
+msgid "Happy birthday from {vendor_name} on {site_title}"
+msgstr "Joyeux anniversaire de la part de {vendor_name} sur {site_title}"
+
+#: plugin-options/vendor/vendor-options.php:425
+msgid ""
+"Hi {customer_name},\n"
+"we would like to make you our best wishes for a happy birthday!\n"
+"Please, accept our coupon as a small gift for you:\n"
+"\n"
+"{coupon_description}\n"
+"\n"
+"See you on our shop,\n"
+"\n"
+"{vendor_name}."
+msgstr ""
+"Bonjour {customer_name},\n"
+"Nous vous souhaitons un très bon anniversaire !\n"
+"Pour célébrer cela, nous vous offrons un coupon de réduction:\n"
+"\n"
+"{coupon_description}\n"
+"\n"
+"A bientôt sur notre boutique,\n"
+"\n"
+"{vendor_name}."
+
+#: plugin-options/vendor/vendor-options.php:506
+msgid ""
+"Hi {customer_name},\n"
+"{days_ago} days have passed since your last order.\n"
+"We would like to encourage you to purchase something more with this coupon:\n"
+"\n"
+"{coupon_description}\n"
+"\n"
+"See you on our shop,\n"
+"\n"
+"{vendor_name}."
+msgstr ""
+"Bonjour {customer_name},\n"
+"{days_ago} jours se sont écoulés depuis votre dernière commande.\n"
+"Vous nous manquez et pour vous permettre de passer une nouvelle commande "
+"voici un coupon de réduction:\n"
+"\n"
+"{coupon_description}\n"
+"\n"
+"A bientôt sur notre boutique,\n"
+"\n"
+"{vendor_name}."
+
+#: templates/admin/acceptance-table.php:80
+msgid "customer"
+msgstr ""
+
+#: templates/admin/acceptance-table.php:81
+msgid "customers"
+msgstr ""
+
+#: templates/admin/acceptance-table.php:103
+msgid "Customer"
+msgstr ""
+
+#: templates/admin/acceptance-table.php:104
+msgid "E-mail"
+msgstr ""
+
+#: templates/admin/acceptance-table.php:126
+#: templates/admin/acceptance-table.php:142
+msgid "Delete"
+msgstr ""
+
+#: templates/admin/acceptance-table.php:169
+msgid "Select a customer"
+msgstr ""
+
+#: templates/admin/acceptance-table.php:175
+msgid "1 customer added successfully"
+msgstr ""
+
+#: templates/admin/acceptance-table.php:191
+msgid "Items deleted: %d"
+msgstr ""
+
+#: templates/admin/acceptance-table.php:214
+msgid "Add Customer"
+msgstr ""
+
+#: templates/admin/acceptance-table.php:223
+msgid "Search Customer"
+msgstr ""
+
+#: templates/admin/acceptance-table.php:236
+msgid "Add E-mail"
+msgstr ""
+
+#: templates/admin/acceptance-table.php:243
+msgid "Search Email"
+msgstr ""
+
+#: templates/admin/acceptance-table.php:267
+msgid "Customers"
+msgstr ""
+
+#: templates/admin/class-ywces-custom-collapse.php:80
+msgid "Click to collapse/expand the table"
+msgstr "Cliquez pour réduire / développer la table"
+
+#: templates/admin/class-ywces-custom-collapse.php:84
+msgid "Expand"
+msgstr "Développer"
+
+#: templates/admin/class-ywces-custom-collapse.php:87
+msgid "Collapse"
+msgstr "Réduire"
+
+#: templates/admin/class-ywces-custom-coupon-purge.php:110
+msgid "Delete expired coupons"
+msgstr "Supprimer les coupons expirés"
+
+#: templates/admin/class-ywces-custom-coupon-purge.php:111
+msgid "Deleting expired coupons..."
+msgstr "Suppression des coupons expirés…"
+
+#: templates/admin/class-ywces-custom-coupon.php:89
+msgid "Discount type"
+msgstr "Type de remise"
+
+#: templates/admin/class-ywces-custom-coupon.php:118
+msgid "Coupon amount"
+msgstr "Montant du coupon"
+
+#: templates/admin/class-ywces-custom-coupon.php:132
+msgid "Expiry days after coupon release"
+msgstr "Le coupon expire après combien de jours"
+
+#: templates/admin/class-ywces-custom-coupon.php:140
+msgid "No expiration"
+msgstr "Pas d’expiration"
+
+#: templates/admin/class-ywces-custom-coupon.php:147
+msgid "Minimum spend"
+msgstr "Dépense minimum"
+
+#: templates/admin/class-ywces-custom-coupon.php:155
+msgid "No minimum"
+msgstr "Pas de minimum"
+
+#: templates/admin/class-ywces-custom-coupon.php:161
+msgid "Maximum spend"
+msgstr "Dépense maximales"
+
+#: templates/admin/class-ywces-custom-coupon.php:169
+msgid "No maximum"
+msgstr "Pas de maximum"
+
+#: templates/admin/class-ywces-custom-coupon.php:183
+msgid "Allow free shipping"
+msgstr "Autoriser la livraison gratuite"
+
+#: templates/admin/class-ywces-custom-coupon.php:195
+msgid "Individual use only"
+msgstr "Utiliser individuellement"
+
+#: templates/admin/class-ywces-custom-coupon.php:207
+msgid "Exclude sale items"
+msgstr "Exclure les produits en promotion"
+
+#: templates/admin/class-ywces-custom-send.php:95
+msgid "Type an email address to send a test email"
+msgstr "Renseigner un mail pour tester"
+
+#: templates/admin/class-ywces-custom-send.php:98
+msgid "Send Test Email"
+msgstr "Envoyer le mail de test"
+
+#: templates/admin/class-ywces-custom-table.php:89
+msgid "Target value"
+msgstr "Valeur"
+
+#: templates/admin/class-ywces-custom-table.php:90
+msgid "Coupon assigned"
+msgstr "Coupon associé"
+
+#: templates/admin/class-ywces-custom-table.php:150
+msgid "+ Add Threshold"
+msgstr "+ Ajouter le seuil"
+
+#: templates/admin/class-ywces-custom-table.php:152
+msgid "Remove selected threshold(s)"
+msgstr "Supprimer le(s) seuil(s) sélectionné(s)"
+
+#. Description of the plugin/theme
+msgid ""
+"<code><strong>YITH WooCommerce Coupon Email System</strong></code> allows "
+"sending one or more coupons based on specific rules to your customers "
+"automatically. You could, for example, send a coupon code to all customers "
+"who register to your store or to those who reach a certain number of orders "
+"in your shop and so on. It's perfect to encourage your users to buy again "
+"and again from you. <a href=\"https://yithemes.com/\" target=\"_blank\">Get "
+"more plugins for your e-commerce shop on <strong>YITH</strong></a>"
+msgstr ""
+
+#: includes/class-ywces-privacy.php:18
+msgctxt "Privacy Policy Content"
+msgid "YITH WooCommerce Coupon Email System"
+msgstr ""
+
+#: includes/class-ywces-privacy.php:30
+msgctxt "Privacy Policy Content"
+msgid ""
+"During the checkout process, customers can give their consent to receive "
+"coupons. When accepting, they will receive coupons according to the events/"
+"thresholds previously set by the administrator. Customers can revoke their "
+"consent from My Account section at any time."
+msgstr ""
+
+#: includes/class-ywces-privacy.php:40
+msgctxt "Privacy Policy Content"
+msgid ""
+"Members of our team have access to the information you provide us. For "
+"example, both Administrators and Shop Managers can access to the list of all "
+"customers that want to receive coupons"
+msgstr ""

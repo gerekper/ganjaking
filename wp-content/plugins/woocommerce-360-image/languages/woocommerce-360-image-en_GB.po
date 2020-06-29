@@ -1,0 +1,94 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce 360 Image\n"
+"POT-Creation-Date: 2014-09-20 16:03+0700\n"
+"PO-Revision-Date: 2014-09-20 16:03+0700\n"
+"Last-Translator: Recipe Hero <info@recipehero.in>\n"
+"Language-Team: \n"
+"Language: en_GB\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.4\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../includes/class-wc360-meta.php:106
+msgid "Replace Image with 360 Image"
+msgstr ""
+
+#: ../includes/class-wc360-meta.php:113
+msgid "WooCommerce 360 Image Settings"
+msgstr ""
+
+#: ../includes/class-wc360-settings.php:69
+msgid "360 Image"
+msgstr ""
+
+#: ../includes/class-wc360-settings.php:94
+msgid "WooCommerce 360 Image"
+msgstr ""
+
+#: ../includes/class-wc360-settings.php:94
+msgid ""
+"The following options are used to configure the WooCommerce 360 Image "
+"display."
+msgstr ""
+
+#: ../includes/class-wc360-settings.php:98
+msgid "Full Screen"
+msgstr ""
+
+#: ../includes/class-wc360-settings.php:99
+msgid ""
+"This will add a button to your 360 Image Displays that opens up a full "
+"screen view."
+msgstr ""
+
+#: ../includes/class-wc360-settings.php:104
+msgid "Enable Full Screen Option"
+msgstr ""
+
+#: ../includes/class-wc360-settings.php:110
+msgid "Navigation Controls"
+msgstr ""
+
+#: ../includes/class-wc360-settings.php:111
+msgid "This will enable the navigation control buttons."
+msgstr ""
+
+#: ../includes/class-wc360-settings.php:116
+msgid "Enable Navigation Controls"
+msgstr ""
+
+#: ../includes/class-wc360-shortcode.php:134
+#, php-format
+msgid "%s There are no gallery images for this product!"
+msgstr ""
+
+#: ../includes/class-wc360-shortcode.php:134
+#: ../includes/class-wc360-shortcode.php:141
+#: ../includes/class-wc360-shortcode.php:148
+msgid "Note:"
+msgstr ""
+
+#: ../includes/class-wc360-shortcode.php:141
+#, php-format
+msgid "%s This is not a valid product ID!"
+msgstr ""
+
+#: ../includes/class-wc360-shortcode.php:148
+#, php-format
+msgid "%s There can only be one rotator per page!"
+msgstr ""
+
+#: ../includes/class-wc360.php:75
+msgid "Settings"
+msgstr ""
+
+#: ../woocommerce-360-image.php:65
+#, php-format
+msgid "WooCommerce 360 Image requires %s to be installed and active."
+msgstr ""

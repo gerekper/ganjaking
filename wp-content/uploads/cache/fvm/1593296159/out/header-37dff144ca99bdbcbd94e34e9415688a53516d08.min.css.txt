@@ -1,0 +1,18 @@
+PROCESSED on Sat, 27 Jun 2020 22:17:20 +0000
+/wp-includes/css/dist/block-library/style.min.css
+/wp-includes/css/dist/block-library/theme.min.css
+/wp-content/plugins/woocommerce/packages/woocommerce-blocks/build/style.css
+/wp-content/plugins/yith-woocommerce-wishlist/assets/css/jquery.selectBox.css
+/wp-content/plugins/yith-woocommerce-wishlist/assets/css/style.css
+/wp-content/plugins/contact-form-7/includes/css/styles.css
+/wp-content/plugins/woocommerce/assets/css/prettyPhoto.css
+/wp-content/plugins/js_composer/assets/css/js_composer.min.css
+/wp-content/uploads/porto_styles/bootstrap.css
+/wp-content/themes/porto/css/plugins_optimized.css
+/wp-content/themes/porto/css/theme.css
+/wp-content/uploads/porto_styles/shortcodes.css
+/wp-content/themes/porto/css/theme_shop.css
+/wp-content/uploads/porto_styles/dynamic_style.css
+/wp-content/themes/porto/style.css
+/wp-content/themes/porto-child/style.css
+PROCESSED from http://ganjaking.asia/shop/accessories/caps/speaker/

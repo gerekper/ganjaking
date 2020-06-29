@@ -1,0 +1,9 @@
+.woocommerce-checkout #payment .payment_method_yith_paypal_adaptive_payments img {
+    max-height: 52px;
+}
+
+#add_payment_method #payment .payment_method_yith_paypal_adaptive_payments .about_paypal, .woocommerce-cart #payment .payment_method_yith_paypal_adaptive_payments .about_paypal, .woocommerce-checkout #payment .payment_method_yith_paypal_adaptive_payments .about_paypal {
+    float: right;
+    line-height: 52px;
+    font-size: .83em;
+}

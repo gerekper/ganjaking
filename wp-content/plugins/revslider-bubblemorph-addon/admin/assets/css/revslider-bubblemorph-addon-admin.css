@@ -1,0 +1,37 @@
+/* 
+ * @author    ThemePunch <info@themepunch.com>
+ * @link      http://www.themepunch.com/
+ * @copyright 2018 ThemePunch
+*/
+
+.tp-bubblemorph:after {
+	
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -14px 0 0 -26px;
+	font-family: "FontAwesome";
+	content: "\f136";
+    color: #fff !important;
+	opacity: 0.25;
+    font-size: 40px;
+	line-height: 40px;
+	
+}
+
+.toolbar_btn.help-hover-bubblemorph .add_layer[data-subtype="bubblemorph"], {background: #3f444a !important; z-index: 99999}
+#add_layer_toolbar_wrap.help-hover-bubblemorph #add_layer_main_wrap > .add_layer[data-subtype="bubblemorph"]:after {
+	
+	position: absolute;
+	bottom: -5px;
+	left: 65%;
+	margin-left: 10px;
+	width: 17px;
+	height: 22px;
+	background: url(../images/hand.png) no-repeat center center;
+	content: "";
+	z-index: 99999;
+	
+}
+
+

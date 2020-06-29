@@ -1,0 +1,43 @@
+#support-conversations-table {
+	margin-bottom: 10px;
+}
+
+#support-conversations-navigation:before,
+#support-conversations-navigation:after {
+	content: " ";
+	display: table;
+}
+
+#support-conversations-navigation:after {
+	clear: both;
+}
+
+#support-conversations-navigation .previous {
+	float: left;
+}
+
+#support-conversations-navigation .next {
+	float: right;
+}
+
+#support-conversation-thread li {
+	border: 1px solid #f0eef0;
+	list-style: none;
+	margin: 0 0 1em;
+	padding: 1em 1em 0px;
+	border-radius: 4px;
+}
+
+/**
+ * Storefront support
+ */
+#support-conversations-table.storefront .ticket-actions {
+	min-width: 190px;
+}
+
+#support-conversations-table.storefront .button {
+	padding: 0.53em 1em;
+	font-size: 0.857em;
+	margin-right: 0.236em;
+	float: right;
+}

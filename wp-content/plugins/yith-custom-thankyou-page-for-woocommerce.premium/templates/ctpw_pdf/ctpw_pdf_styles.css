@@ -1,0 +1,79 @@
+/* Header */
+header {
+	margin: 0;
+	padding: 0;
+	text-align: center;
+}
+
+a {
+	text-decoration: none;
+	color: black;
+}
+
+/* order details */
+/* header table */
+p.woocommerce-thankyou-order-received {
+	text-align: center;
+}
+
+h2.order_details_title {
+	border-bottom: 1px solid #E7E7E7;
+	text-align: center;
+}
+
+table.order_details {
+	width: 100%;
+}
+
+table.order_details td {
+	padding: 10px;
+}
+
+/* shop table */
+table.shop_table th {
+	background-color: #E7E7E7;
+}
+
+table.shop_table td, table.shop_table th {
+	text-align: left;
+	padding: 5px;
+}
+
+/* customer details */
+h2.customer_details {
+	text-align: center;
+}
+
+h3 {
+	text-align: left;
+}
+
+.woocommerce-customer-details.customer_details {
+	list-style: none;
+	text-align: center;
+	padding: 0;
+	margin: 0;
+	width: 100%;
+}
+
+.woocommerce-customer-details.customer_details li {
+	padding: 5px;
+	text-align: center;
+	width: 50%;
+	box-sizing: border-box;
+	float: left;
+}
+
+.col2-set.addresses .col-1, .col2-set.addresses .col-2 {
+	width: 50%;
+	box-sizing: border-box;
+	float: left;
+}
+
+/* footer */
+#footer_text {
+	width: 100%;
+	padding: 10px;
+	text-align: center;
+	margin-top: 10px;
+}

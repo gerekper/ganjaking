@@ -1,0 +1,950 @@
+# Copyright (C) 2020 YITH
+# This file is distributed under the same license as the YITH WooCommerce Bulk Product Editing Premium package.
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH WooCommerce Bulk Product Editing Premium 1.2.23\n"
+"Report-Msgid-Bugs-To: "
+"https://wordpress.org/support/plugin/yith-woocommerce-bulk-product-editing-"
+"premium\n"
+"POT-Creation-Date: 2020-05-18 14:12:33+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: grunt-wp-i18n1.0.2\n"
+
+#: includes/class.yith-wcbep-admin-premium.php:65
+#: templates/premium/panel/enabled-columns-tab.php:7
+msgid "Enabled Columns"
+msgstr ""
+
+#: includes/class.yith-wcbep-admin-premium.php:66
+msgid "Settings"
+msgstr ""
+
+#: includes/class.yith-wcbep-admin-premium.php:92
+msgid "%s product deleted"
+msgid_plural "%s products deleted"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class.yith-wcbep-admin-premium.php:793
+msgid ""
+"The downloadable file %s cannot be used as it does not have an allowed file "
+"type. Allowed types include: %s"
+msgstr ""
+
+#: includes/class.yith-wcbep-admin-premium.php:800
+msgid "The downloadable file %s cannot be used as it does not exist on the server."
+msgstr ""
+
+#: includes/class.yith-wcbep-admin.php:190
+msgid "%s product edited"
+msgid_plural "%s products edited"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class.yith-wcbep-admin.php:248
+msgid "Bulk Product Editing"
+msgstr ""
+
+#: includes/class.yith-wcbep-admin.php:252
+msgid "Premium Version"
+msgstr ""
+
+#: includes/class.yith-wcbep-admin.php:319
+msgid "No Product Selected: to make a bulk edit, select one or more products"
+msgstr ""
+
+#: includes/class.yith-wcbep-admin.php:320
+msgid "- - - Empty - - -"
+msgstr ""
+
+#: includes/class.yith-wcbep-admin.php:321
+msgid "file"
+msgstr ""
+
+#: includes/class.yith-wcbep-admin.php:322
+msgid "files"
+msgstr ""
+
+#: includes/class.yith-wcbep-admin.php:323
+msgid "This field is not editable for this product!"
+msgstr ""
+
+#: includes/class.yith-wcbep-admin.php:324
+msgid ""
+"This field is not editable right now! Please save before trying to edit "
+"this field."
+msgstr ""
+
+#: includes/class.yith-wcbep-admin.php:325
+msgid "ERROR: file not correct!"
+msgstr ""
+
+#: includes/class.yith-wcbep-admin.php:326
+msgid "Confirm Deletion [Selected Products: %s]"
+msgstr ""
+
+#: includes/class.yith-wcbep-admin.php:327
+#: templates/premium/main-tab-filters-and-table.php:428
+msgid "Delete Selected"
+msgstr ""
+
+#: includes/class.yith-wcbep-custom-fields-manager.php:72
+#: templates/premium/main-tab-bulk-editor.php:27
+#: templates/premium/panel/custom-fields-tab.php:13
+msgid "Custom Fields"
+msgstr ""
+
+#: includes/class.yith-wcbep-custom-fields-manager.php:226
+#: includes/class.yith-wcbep-custom-taxonomies-manager.php:348
+#: includes/compatibility/class.yith-wcbep-badge-management-compatibility.php:129
+#: includes/compatibility/class.yith-wcbep-brands-add-on-compatibility.php:248
+#: templates/main-tab.php:117 templates/main-tab.php:132
+#: templates/premium/main-tab-bulk-editor.php:39
+#: templates/premium/main-tab-bulk-editor.php:55
+#: templates/premium/main-tab-bulk-editor.php:71
+#: templates/premium/main-tab-bulk-editor.php:87
+#: templates/premium/main-tab-bulk-editor.php:106
+#: templates/premium/main-tab-bulk-editor.php:125
+#: templates/premium/main-tab-bulk-editor.php:144
+#: templates/premium/main-tab-bulk-editor.php:225
+#: templates/premium/main-tab-bulk-editor.php:249
+#: templates/premium/main-tab-bulk-editor.php:286
+#: templates/premium/main-tab-bulk-editor.php:325
+#: templates/premium/main-tab-bulk-editor.php:388
+#: templates/premium/main-tab-bulk-editor.php:403
+#: templates/premium/main-tab-bulk-editor.php:421
+#: templates/premium/main-tab-bulk-editor.php:434
+#: templates/premium/main-tab-bulk-editor.php:514
+#: templates/premium/main-tab-bulk-editor.php:530
+#: templates/premium/main-tab-bulk-editor.php:546
+#: templates/premium/main-tab-bulk-editor.php:562
+#: templates/premium/main-tab-bulk-editor.php:610
+#: templates/premium/main-tab-bulk-editor.php:627
+#: templates/premium/main-tab-bulk-editor.php:720
+#: templates/premium/main-tab-bulk-editor.php:737
+#: templates/premium/main-tab-bulk-editor.php:775
+#: templates/premium/main-tab-bulk-editor.php:793
+#: templates/premium/main-tab-bulk-editor.php:811
+#: templates/premium/main-tab-bulk-editor.php:828
+msgid "Set new"
+msgstr ""
+
+#: includes/class.yith-wcbep-custom-fields-manager.php:227
+#: templates/premium/main-tab-bulk-editor.php:40
+#: templates/premium/main-tab-bulk-editor.php:56
+#: templates/premium/main-tab-bulk-editor.php:72
+#: templates/premium/main-tab-bulk-editor.php:88
+#: templates/premium/main-tab-bulk-editor.php:107
+#: templates/premium/main-tab-bulk-editor.php:126
+#: templates/premium/main-tab-bulk-editor.php:287
+#: templates/premium/main-tab-bulk-editor.php:776
+#: templates/premium/main-tab-bulk-editor.php:794
+#: templates/premium/main-tab-bulk-editor.php:812
+#: templates/premium/main-tab-bulk-editor.php:829
+msgid "Prepend"
+msgstr ""
+
+#: includes/class.yith-wcbep-custom-fields-manager.php:228
+#: templates/premium/main-tab-bulk-editor.php:41
+#: templates/premium/main-tab-bulk-editor.php:57
+#: templates/premium/main-tab-bulk-editor.php:73
+#: templates/premium/main-tab-bulk-editor.php:89
+#: templates/premium/main-tab-bulk-editor.php:108
+#: templates/premium/main-tab-bulk-editor.php:127
+#: templates/premium/main-tab-bulk-editor.php:288
+#: templates/premium/main-tab-bulk-editor.php:777
+#: templates/premium/main-tab-bulk-editor.php:795
+#: templates/premium/main-tab-bulk-editor.php:813
+#: templates/premium/main-tab-bulk-editor.php:830
+msgid "Append"
+msgstr ""
+
+#: includes/class.yith-wcbep-custom-fields-manager.php:229
+#: templates/premium/main-tab-bulk-editor.php:42
+#: templates/premium/main-tab-bulk-editor.php:58
+#: templates/premium/main-tab-bulk-editor.php:74
+#: templates/premium/main-tab-bulk-editor.php:90
+#: templates/premium/main-tab-bulk-editor.php:109
+#: templates/premium/main-tab-bulk-editor.php:128
+#: templates/premium/main-tab-bulk-editor.php:289
+#: templates/premium/main-tab-bulk-editor.php:778
+#: templates/premium/main-tab-bulk-editor.php:796
+#: templates/premium/main-tab-bulk-editor.php:814
+#: templates/premium/main-tab-bulk-editor.php:831
+msgid "Replace"
+msgstr ""
+
+#: includes/class.yith-wcbep-custom-fields-manager.php:230
+#: templates/main-tab.php:139 templates/premium/main-tab-bulk-editor.php:91
+#: templates/premium/main-tab-bulk-editor.php:110
+#: templates/premium/main-tab-bulk-editor.php:129
+#: templates/premium/main-tab-bulk-editor.php:147
+#: templates/premium/main-tab-bulk-editor.php:226
+#: templates/premium/main-tab-bulk-editor.php:410
+#: templates/premium/main-tab-bulk-editor.php:422
+#: templates/premium/main-tab-bulk-editor.php:435
+#: templates/premium/main-tab-bulk-editor.php:519
+#: templates/premium/main-tab-bulk-editor.php:535
+#: templates/premium/main-tab-bulk-editor.php:551
+#: templates/premium/main-tab-bulk-editor.php:567
+#: templates/premium/main-tab-bulk-editor.php:615
+#: templates/premium/main-tab-bulk-editor.php:632
+#: templates/premium/main-tab-bulk-editor.php:725
+#: templates/premium/main-tab-bulk-editor.php:742
+#: templates/premium/main-tab-bulk-editor.php:779
+#: templates/premium/main-tab-bulk-editor.php:797
+#: templates/premium/main-tab-bulk-editor.php:815
+#: templates/premium/main-tab-bulk-editor.php:832
+#: templates/premium/main-tab-custom-input.php:39
+msgid "Delete"
+msgstr ""
+
+#: includes/class.yith-wcbep-custom-taxonomies-manager.php:70
+#: templates/premium/panel/custom-taxonomies-tab.php:27
+msgid "Custom Taxonomies"
+msgstr ""
+
+#: includes/class.yith-wcbep-custom-taxonomies-manager.php:346
+#: includes/compatibility/class.yith-wcbep-badge-management-compatibility.php:127
+#: includes/compatibility/class.yith-wcbep-brands-add-on-compatibility.php:246
+#: templates/premium/main-tab-bulk-editor.php:247
+#: templates/premium/main-tab-bulk-editor.php:323
+msgid "Add"
+msgstr ""
+
+#: includes/class.yith-wcbep-custom-taxonomies-manager.php:347
+#: includes/compatibility/class.yith-wcbep-badge-management-compatibility.php:128
+#: includes/compatibility/class.yith-wcbep-brands-add-on-compatibility.php:247
+#: templates/premium/main-tab-bulk-editor.php:248
+#: templates/premium/main-tab-bulk-editor.php:324
+msgid "Remove"
+msgstr ""
+
+#: includes/class.yith-wcbep-list-table-premium.php:1027
+#: templates/premium/main-tab-bulk-editor.php:448
+msgid "Taxable"
+msgstr ""
+
+#: includes/class.yith-wcbep-list-table-premium.php:1028
+#: templates/premium/main-tab-bulk-editor.php:449
+msgid "Shipping only"
+msgstr ""
+
+#: includes/class.yith-wcbep-list-table-premium.php:1039
+#: templates/premium/main-tab-bulk-editor.php:465
+msgid "Standard"
+msgstr ""
+
+#: includes/class.yith-wcbep-list-table-premium.php:1058
+#: templates/premium/main-tab-bulk-editor.php:645
+msgid "Do not allow"
+msgstr ""
+
+#: includes/class.yith-wcbep-list-table-premium.php:1059
+#: templates/premium/main-tab-bulk-editor.php:646
+msgid "Allow, but notify customer"
+msgstr ""
+
+#: includes/class.yith-wcbep-list-table-premium.php:1060
+#: templates/premium/main-tab-bulk-editor.php:647
+msgid "Allow"
+msgstr ""
+
+#: includes/class.yith-wcbep-list-table-premium.php:1073
+#: templates/premium/main-tab-bulk-editor.php:490
+#: templates/premium/main-tab-filters-and-table.php:330
+msgid "No shipping class"
+msgstr ""
+
+#: includes/class.yith-wcbep-list-table-premium.php:1087
+msgid "Private"
+msgstr ""
+
+#: includes/class.yith-wcbep-list-table-premium.php:1087
+msgid "Published"
+msgstr ""
+
+#: includes/class.yith-wcbep-list-table-premium.php:1110
+#: templates/premium/main-tab-bulk-editor.php:757
+msgid "Standard Product"
+msgstr ""
+
+#: includes/class.yith-wcbep-list-table-premium.php:1111
+#: templates/premium/main-tab-bulk-editor.php:758
+msgid "Application/Software"
+msgstr ""
+
+#: includes/class.yith-wcbep-list-table-premium.php:1112
+#: templates/premium/main-tab-bulk-editor.php:759
+msgid "Music"
+msgstr ""
+
+#: includes/class.yith-wcbep-list-table-premium.php:1125
+#: includes/functions.yith-wcbep-premium.php:148
+msgid "Variation"
+msgstr ""
+
+#: includes/class.yith-wcbep-list-table-premium.php:1129
+#: includes/functions.yith-wcbep-premium.php:140
+#: templates/premium/main-tab-bulk-editor.php:665
+msgid "Simple product"
+msgstr ""
+
+#: includes/class.yith-wcbep-list-table-premium.php:1130
+#: includes/functions.yith-wcbep-premium.php:131
+#: templates/premium/main-tab-bulk-editor.php:666
+msgid "Grouped product"
+msgstr ""
+
+#: includes/class.yith-wcbep-list-table-premium.php:1131
+#: includes/functions.yith-wcbep-premium.php:134
+#: templates/premium/main-tab-bulk-editor.php:667
+msgid "External/Affiliate product"
+msgstr ""
+
+#: includes/class.yith-wcbep-list-table-premium.php:1132
+#: includes/functions.yith-wcbep-premium.php:137
+#: templates/premium/main-tab-bulk-editor.php:668
+msgid "Variable product"
+msgstr ""
+
+#: includes/class.yith-wcbep-list-table-premium.php:1354
+#: includes/class.yith-wcbep-list-table.php:290
+#: templates/premium/main-tab-columns-settings.php:33
+msgid "Select All"
+msgstr ""
+
+#: includes/class.yith-wcbep-list-table-premium.php:1465
+#: includes/class.yith-wcbep-list-table.php:378
+msgid "1 item"
+msgid_plural "%s items"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class.yith-wcbep-list-table.php:51
+#: includes/functions.yith-wcbep-premium.php:159
+msgid "ID"
+msgstr ""
+
+#: includes/class.yith-wcbep-list-table.php:52
+#: includes/functions.yith-wcbep-premium.php:160
+msgid "Title"
+msgstr ""
+
+#: includes/class.yith-wcbep-list-table.php:53 templates/main-tab.php:48
+#: templates/main-tab.php:113
+msgid "Regular Price"
+msgstr ""
+
+#: includes/class.yith-wcbep-list-table.php:54 templates/main-tab.php:63
+#: templates/main-tab.php:128
+msgid "Sale Price"
+msgstr ""
+
+#: includes/class.yith-wcbep-list-table.php:55
+#: includes/functions.yith-wcbep-premium.php:169
+msgid "Categories"
+msgstr ""
+
+#: includes/class.yith-wcbep-list-table.php:56
+#: includes/functions.yith-wcbep-premium.php:198
+msgid "Date"
+msgstr ""
+
+#: includes/compatibility/class.yith-wcbep-badge-management-compatibility.php:66
+#: includes/compatibility/class.yith-wcbep-badge-management-compatibility.php:122
+msgid "Badge"
+msgstr ""
+
+#: includes/compatibility/class.yith-wcbep-brands-add-on-compatibility.php:83
+#: includes/compatibility/class.yith-wcbep-brands-add-on-compatibility.php:134
+#: includes/compatibility/class.yith-wcbep-brands-add-on-compatibility.php:241
+msgid "Brands"
+msgstr ""
+
+#: includes/compatibility/class.yith-wcbep-deposits-compatibility.php:65
+msgid "Enable deposit"
+msgstr ""
+
+#: includes/compatibility/class.yith-wcbep-deposits-compatibility.php:67
+#: includes/compatibility/class.yith-wcbep-deposits-compatibility.php:76
+#: includes/compatibility/class.yith-wcbep-deposits-compatibility.php:85
+msgid "Default"
+msgstr ""
+
+#: includes/compatibility/class.yith-wcbep-deposits-compatibility.php:68
+#: templates/premium/main-tab-bulk-editor.php:159
+#: templates/premium/main-tab-bulk-editor.php:171
+#: templates/premium/main-tab-bulk-editor.php:353
+#: templates/premium/main-tab-bulk-editor.php:366
+#: templates/premium/main-tab-bulk-editor.php:584
+#: templates/premium/main-tab-bulk-editor.php:685
+#: templates/premium/main-tab-bulk-editor.php:697
+#: templates/premium/main-tab-bulk-editor.php:709
+msgid "Yes"
+msgstr ""
+
+#: includes/compatibility/class.yith-wcbep-deposits-compatibility.php:69
+#: templates/premium/main-tab-bulk-editor.php:160
+#: templates/premium/main-tab-bulk-editor.php:172
+#: templates/premium/main-tab-bulk-editor.php:354
+#: templates/premium/main-tab-bulk-editor.php:367
+#: templates/premium/main-tab-bulk-editor.php:585
+#: templates/premium/main-tab-bulk-editor.php:686
+#: templates/premium/main-tab-bulk-editor.php:698
+#: templates/premium/main-tab-bulk-editor.php:710
+msgid "No"
+msgstr ""
+
+#: includes/compatibility/class.yith-wcbep-deposits-compatibility.php:74
+#: includes/compatibility/class.yith-wcbep-deposits-compatibility.php:77
+msgid "Force deposit"
+msgstr ""
+
+#: includes/compatibility/class.yith-wcbep-deposits-compatibility.php:78
+msgid "Allow deposit"
+msgstr ""
+
+#: includes/compatibility/class.yith-wcbep-deposits-compatibility.php:83
+msgid "Create balance orders"
+msgstr ""
+
+#: includes/compatibility/class.yith-wcbep-deposits-compatibility.php:86
+msgid "Let users pay the balance online"
+msgstr ""
+
+#: includes/compatibility/class.yith-wcbep-deposits-compatibility.php:87
+msgid "Customers will pay the balance using other means"
+msgstr ""
+
+#: includes/compatibility/class.yith-wcbep-multivendor-compatibility.php:74
+msgid "Permission denied!"
+msgstr ""
+
+#: includes/functions.yith-wcbep-premium.php:161
+msgid "Slug"
+msgstr ""
+
+#: includes/functions.yith-wcbep-premium.php:162
+msgid "Image"
+msgstr ""
+
+#: includes/functions.yith-wcbep-premium.php:163
+msgid "Product gallery"
+msgstr ""
+
+#: includes/functions.yith-wcbep-premium.php:164
+msgid "Description"
+msgstr ""
+
+#: includes/functions.yith-wcbep-premium.php:165
+msgid "Short description"
+msgstr ""
+
+#: includes/functions.yith-wcbep-premium.php:166
+msgid "Regular price"
+msgstr ""
+
+#: includes/functions.yith-wcbep-premium.php:167
+msgid "Sale price"
+msgstr ""
+
+#: includes/functions.yith-wcbep-premium.php:168
+msgid "Purchase note"
+msgstr ""
+
+#: includes/functions.yith-wcbep-premium.php:170
+msgid "Tags"
+msgstr ""
+
+#: includes/functions.yith-wcbep-premium.php:171
+msgid "SKU"
+msgstr ""
+
+#: includes/functions.yith-wcbep-premium.php:172
+msgid "Weight"
+msgstr ""
+
+#: includes/functions.yith-wcbep-premium.php:173
+msgid "Height"
+msgstr ""
+
+#: includes/functions.yith-wcbep-premium.php:174
+msgid "Width"
+msgstr ""
+
+#: includes/functions.yith-wcbep-premium.php:175
+msgid "Length"
+msgstr ""
+
+#: includes/functions.yith-wcbep-premium.php:176
+msgid "Stock qty"
+msgstr ""
+
+#: includes/functions.yith-wcbep-premium.php:177
+msgid "Download limit"
+msgstr ""
+
+#: includes/functions.yith-wcbep-premium.php:178
+msgid "Download expiry"
+msgstr ""
+
+#: includes/functions.yith-wcbep-premium.php:179
+msgid "Downloadable files"
+msgstr ""
+
+#: includes/functions.yith-wcbep-premium.php:180
+msgid "Menu order"
+msgstr ""
+
+#: includes/functions.yith-wcbep-premium.php:181
+msgid "Stock status"
+msgstr ""
+
+#: includes/functions.yith-wcbep-premium.php:182
+msgid "Low stock threshold"
+msgstr ""
+
+#: includes/functions.yith-wcbep-premium.php:183
+msgid "Stock quantity"
+msgstr ""
+
+#: includes/functions.yith-wcbep-premium.php:184
+msgid "Manage stock"
+msgstr ""
+
+#: includes/functions.yith-wcbep-premium.php:185
+msgid "Sold individually"
+msgstr ""
+
+#: includes/functions.yith-wcbep-premium.php:186
+msgid "Featured"
+msgstr ""
+
+#: includes/functions.yith-wcbep-premium.php:187
+msgid "Virtual"
+msgstr ""
+
+#: includes/functions.yith-wcbep-premium.php:188
+msgid "Downloadable"
+msgstr ""
+
+#: includes/functions.yith-wcbep-premium.php:189
+msgid "Enable reviews"
+msgstr ""
+
+#: includes/functions.yith-wcbep-premium.php:190
+msgid "Tax status"
+msgstr ""
+
+#: includes/functions.yith-wcbep-premium.php:191
+msgid "Tax class"
+msgstr ""
+
+#: includes/functions.yith-wcbep-premium.php:192
+msgid "Allow backorders?"
+msgstr ""
+
+#: includes/functions.yith-wcbep-premium.php:193
+msgid "Shipping class"
+msgstr ""
+
+#: includes/functions.yith-wcbep-premium.php:194
+msgid "Status"
+msgstr ""
+
+#: includes/functions.yith-wcbep-premium.php:195
+msgid "Catalog visibility"
+msgstr ""
+
+#: includes/functions.yith-wcbep-premium.php:196
+msgid "Download Type"
+msgstr ""
+
+#: includes/functions.yith-wcbep-premium.php:197
+msgid "Product Type"
+msgstr ""
+
+#: includes/functions.yith-wcbep-premium.php:199
+msgid "Sale price from"
+msgstr ""
+
+#: includes/functions.yith-wcbep-premium.php:200
+msgid "Sale price to"
+msgstr ""
+
+#: includes/functions.yith-wcbep-premium.php:201
+msgid "Button text"
+msgstr ""
+
+#: includes/functions.yith-wcbep-premium.php:202
+msgid "Product URL"
+msgstr ""
+
+#: includes/functions.yith-wcbep-premium.php:203
+msgid "Upsells"
+msgstr ""
+
+#: includes/functions.yith-wcbep-premium.php:204
+msgid "Cross-sells"
+msgstr ""
+
+#: init.php:52
+msgid ""
+"YITH WooCommerce Bulk Product Editing Premium Version is enabled but not "
+"effective. It requires WooCommerce in order to work."
+msgstr ""
+
+#: plugin-options/settings-options.php:9
+msgid "General Options"
+msgstr ""
+
+#: plugin-options/settings-options.php:16
+msgid "Round Prices"
+msgstr ""
+
+#: plugin-options/settings-options.php:20
+msgid "If enabled, the prices will be rounded when bulk editing."
+msgstr ""
+
+#: plugin-options/settings-options.php:25
+msgid "Hidden columns per user"
+msgstr ""
+
+#: plugin-options/settings-options.php:29
+msgid ""
+"If enabled, the plugin will store hidden columns set by the user instead of "
+"globally."
+msgstr ""
+
+#: plugin-options/settings-options.php:34
+msgid "Use Regular Expressions"
+msgstr ""
+
+#: plugin-options/settings-options.php:38
+msgid "If enabled, the plugin uses Regular Expressions when searching for texts."
+msgstr ""
+
+#: plugin-options/settings-options.php:43
+msgid "Use Light Query"
+msgstr ""
+
+#: plugin-options/settings-options.php:47
+msgid ""
+"If enabled, the plugin uses a light query to retrieve products, so it "
+"improves your website performance. However, by enabling this option you "
+"CANNOT use advanced functionalities: for example, filtering variable "
+"products by price will not work. Please note: use it only if you have a "
+"huge amount of products."
+msgstr ""
+
+#: templates/main-tab.php:10
+#: templates/premium/main-tab-filters-and-table.php:17
+msgid "Filters"
+msgstr ""
+
+#: templates/main-tab.php:30
+msgid "Filter Categories"
+msgstr ""
+
+#: templates/main-tab.php:78
+#: templates/premium/main-tab-filters-and-table.php:358
+msgid "Products per page"
+msgstr ""
+
+#: templates/main-tab.php:85
+#: templates/premium/main-tab-filters-and-table.php:376
+msgid "Get products"
+msgstr ""
+
+#: templates/main-tab.php:86
+#: templates/premium/main-tab-filters-and-table.php:378
+msgid "Reset filters"
+msgstr ""
+
+#: templates/main-tab.php:91
+#: templates/premium/main-tab-filters-and-table.php:387
+msgid "Products"
+msgstr ""
+
+#: templates/main-tab.php:92 templates/premium/main-tab-custom-input.php:20
+#: templates/premium/main-tab-custom-input.php:46
+#: templates/premium/main-tab-custom-input.php:56
+#: templates/premium/main-tab-custom-input.php:68
+#: templates/premium/main-tab-filters-and-table.php:391
+#: templates/premium/panel/custom-fields-tab.php:29
+#: templates/premium/panel/custom-taxonomies-tab.php:47
+#: templates/premium/panel/enabled-columns-tab.php:41
+msgid "Save"
+msgstr ""
+
+#: templates/main-tab.php:93 templates/main-tab.php:109
+#: templates/premium/main-tab-bulk-editor.php:18
+#: templates/premium/main-tab-filters-and-table.php:393
+msgid "Bulk editing"
+msgstr ""
+
+#: templates/main-tab.php:118 templates/main-tab.php:133
+#: templates/premium/main-tab-bulk-editor.php:145
+#: templates/premium/main-tab-bulk-editor.php:389
+#: templates/premium/main-tab-bulk-editor.php:404
+#: templates/premium/main-tab-bulk-editor.php:515
+#: templates/premium/main-tab-bulk-editor.php:531
+#: templates/premium/main-tab-bulk-editor.php:547
+#: templates/premium/main-tab-bulk-editor.php:563
+#: templates/premium/main-tab-bulk-editor.php:611
+#: templates/premium/main-tab-bulk-editor.php:628
+#: templates/premium/main-tab-bulk-editor.php:721
+#: templates/premium/main-tab-bulk-editor.php:738
+msgid "Increase by value"
+msgstr ""
+
+#: templates/main-tab.php:119 templates/main-tab.php:134
+#: templates/premium/main-tab-bulk-editor.php:146
+#: templates/premium/main-tab-bulk-editor.php:390
+#: templates/premium/main-tab-bulk-editor.php:405
+#: templates/premium/main-tab-bulk-editor.php:516
+#: templates/premium/main-tab-bulk-editor.php:532
+#: templates/premium/main-tab-bulk-editor.php:548
+#: templates/premium/main-tab-bulk-editor.php:564
+#: templates/premium/main-tab-bulk-editor.php:612
+#: templates/premium/main-tab-bulk-editor.php:629
+#: templates/premium/main-tab-bulk-editor.php:722
+#: templates/premium/main-tab-bulk-editor.php:739
+msgid "Decrease by value"
+msgstr ""
+
+#: templates/main-tab.php:120
+msgid "Increase by percentage"
+msgstr ""
+
+#: templates/main-tab.php:121
+msgid "Decrease by percentage"
+msgstr ""
+
+#: templates/main-tab.php:135 templates/premium/main-tab-bulk-editor.php:391
+#: templates/premium/main-tab-bulk-editor.php:406
+#: templates/premium/main-tab-bulk-editor.php:517
+#: templates/premium/main-tab-bulk-editor.php:533
+#: templates/premium/main-tab-bulk-editor.php:549
+#: templates/premium/main-tab-bulk-editor.php:565
+#: templates/premium/main-tab-bulk-editor.php:613
+#: templates/premium/main-tab-bulk-editor.php:630
+#: templates/premium/main-tab-bulk-editor.php:723
+#: templates/premium/main-tab-bulk-editor.php:740
+msgid "Increase by %"
+msgstr ""
+
+#: templates/main-tab.php:136 templates/premium/main-tab-bulk-editor.php:392
+#: templates/premium/main-tab-bulk-editor.php:407
+#: templates/premium/main-tab-bulk-editor.php:518
+#: templates/premium/main-tab-bulk-editor.php:534
+#: templates/premium/main-tab-bulk-editor.php:550
+#: templates/premium/main-tab-bulk-editor.php:566
+#: templates/premium/main-tab-bulk-editor.php:614
+#: templates/premium/main-tab-bulk-editor.php:631
+#: templates/premium/main-tab-bulk-editor.php:724
+#: templates/premium/main-tab-bulk-editor.php:741
+msgid "Decrease by %"
+msgstr ""
+
+#: templates/main-tab.php:137 templates/premium/main-tab-bulk-editor.php:408
+msgid "Decrease by value from regular"
+msgstr ""
+
+#: templates/main-tab.php:138 templates/premium/main-tab-bulk-editor.php:409
+msgid "Decrease by % from regular"
+msgstr ""
+
+#: templates/main-tab.php:147 templates/premium/main-tab-bulk-editor.php:857
+msgid "Apply"
+msgstr ""
+
+#: templates/main-tab.php:148 templates/premium/main-tab-bulk-editor.php:859
+#: templates/premium/main-tab-custom-input.php:21
+#: templates/premium/main-tab-custom-input.php:48
+#: templates/premium/main-tab-custom-input.php:58
+#: templates/premium/main-tab-custom-input.php:70
+msgid "Cancel"
+msgstr ""
+
+#: templates/premium/main-tab-bulk-editor.php:20
+msgid "General"
+msgstr ""
+
+#: templates/premium/main-tab-bulk-editor.php:21
+msgid "Categories, Tags, Attributes"
+msgstr ""
+
+#: templates/premium/main-tab-bulk-editor.php:22
+msgid "Pricing"
+msgstr ""
+
+#: templates/premium/main-tab-bulk-editor.php:23
+msgid "Shipping"
+msgstr ""
+
+#: templates/premium/main-tab-bulk-editor.php:24
+msgid "Stock"
+msgstr ""
+
+#: templates/premium/main-tab-bulk-editor.php:25
+msgid "Type"
+msgstr ""
+
+#: templates/premium/main-tab-bulk-editor.php:230
+msgid "Choose Image"
+msgstr ""
+
+#: templates/premium/main-tab-bulk-editor.php:290
+msgid "Delete all"
+msgstr ""
+
+#: templates/premium/main-tab-bulk-editor.php:347
+#: templates/premium/main-tab-custom-input.php:120
+msgid "is visible"
+msgstr ""
+
+#: templates/premium/main-tab-bulk-editor.php:360
+#: templates/premium/main-tab-custom-input.php:123
+msgid "used for variations"
+msgstr ""
+
+#: templates/premium/main-tab-bulk-editor.php:853
+msgid "Please note: Bulk Editor edits only enabled columns"
+msgstr ""
+
+#: templates/premium/main-tab-columns-settings.php:11
+#: templates/premium/main-tab-filters-and-table.php:398
+msgid "Show/Hide Columns"
+msgstr ""
+
+#: templates/premium/main-tab-columns-settings.php:34
+msgid "Unselect"
+msgstr ""
+
+#: templates/premium/main-tab-custom-input.php:35
+msgid "File Name"
+msgstr ""
+
+#: templates/premium/main-tab-custom-input.php:36
+msgid "http://"
+msgstr ""
+
+#: templates/premium/main-tab-custom-input.php:38
+msgid "Choose file"
+msgstr ""
+
+#: templates/premium/main-tab-custom-input.php:47
+msgid "Add File"
+msgstr ""
+
+#: templates/premium/main-tab-custom-input.php:57
+msgid "Add Images to Product Gallery"
+msgstr ""
+
+#: templates/premium/main-tab-custom-input.php:69
+msgid "Remove Image"
+msgstr ""
+
+#: templates/premium/main-tab-custom-input.php:76
+msgid "This field is not editable because this is a variation!"
+msgstr ""
+
+#: templates/premium/main-tab-filters-and-table.php:31
+#: templates/premium/main-tab-filters-and-table.php:48
+#: templates/premium/main-tab-filters-and-table.php:65
+msgid "Contains"
+msgstr ""
+
+#: templates/premium/main-tab-filters-and-table.php:32
+#: templates/premium/main-tab-filters-and-table.php:49
+#: templates/premium/main-tab-filters-and-table.php:66
+msgid "Does not contain"
+msgstr ""
+
+#: templates/premium/main-tab-filters-and-table.php:33
+#: templates/premium/main-tab-filters-and-table.php:50
+#: templates/premium/main-tab-filters-and-table.php:67
+msgid "Starts with"
+msgstr ""
+
+#: templates/premium/main-tab-filters-and-table.php:34
+#: templates/premium/main-tab-filters-and-table.php:51
+#: templates/premium/main-tab-filters-and-table.php:68
+msgid "Ends with"
+msgstr ""
+
+#: templates/premium/main-tab-filters-and-table.php:35
+#: templates/premium/main-tab-filters-and-table.php:52
+#: templates/premium/main-tab-filters-and-table.php:69
+msgid "Regular Expression"
+msgstr ""
+
+#: templates/premium/main-tab-filters-and-table.php:345
+msgid "Show all product types"
+msgstr ""
+
+#: templates/premium/main-tab-filters-and-table.php:367
+msgid "Include Variations"
+msgstr ""
+
+#: templates/premium/main-tab-filters-and-table.php:380
+msgid "Select on filters"
+msgstr ""
+
+#: templates/premium/main-tab-filters-and-table.php:403
+msgid "Undo"
+msgstr ""
+
+#: templates/premium/main-tab-filters-and-table.php:405
+msgid "Redo"
+msgstr ""
+
+#: templates/premium/main-tab-filters-and-table.php:418
+msgid "Export Selected"
+msgstr ""
+
+#: templates/premium/main-tab-filters-and-table.php:423
+msgid "New Product"
+msgstr ""
+
+#: templates/premium/main-tab-filters-and-table.php:437
+msgid "Resize Table"
+msgstr ""
+
+#: templates/premium/panel/custom-taxonomies-tab.php:31
+msgid "Choose Taxonomies"
+msgstr ""
+
+#: templates/premium/panel/enabled-columns-tab.php:42
+msgid "Enable All"
+msgstr ""
+
+#: templates/premium/panel/enabled-columns-tab.php:43
+msgid "Disable All"
+msgstr ""
+
+#: templates/premium/panel/enabled-columns-tab.php:51
+msgid "Saving..."
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"<code><strong>YITH WooCommerce Bulk Product Editing</strong></code> allows "
+"you to edit multiple products at the same time. You can easily filter "
+"products and edit all fields you need in a massive, simple and fast way. <a "
+"href=\"https://yithemes.com/\" target=\"_blank\">Get more plugins for your "
+"e-commerce shop on <strong>YITH</strong></a>"
+msgstr ""
+
+#: includes/class.yith-wcbep-list-table-premium.php:1029
+#: templates/premium/main-tab-bulk-editor.php:450
+msgctxt "Tax status"
+msgid "None"
+msgstr ""

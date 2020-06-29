@@ -1,0 +1,33 @@
+/**
+ * Frontend style
+ *
+ * @author Leanza Francesco
+ * @version 1.0.0
+ */
+
+/* ----------------------------------------------
+                    PRODUCT TABLE
+   ---------------------------------------------- */
+
+.yith-wcpsc-product-table-wrapper {
+    padding : 20px;
+}
+
+.yith-wcpsc-product-table {
+    width           : 100%;
+    border-collapse : collapse;
+    box-shadow      : 1px 1px 3px 0px #ddd;
+    border          : 1px solid #e9e9e9;
+}
+
+.yith-wcpsc-product-table td, .yith-wcpsc-product-table th {
+    padding    : 10px;
+    border     : 1px solid #e9e9e9;
+    text-align : center;
+    height : 50px;
+}
+
+.yith-wcpsc-product-table tr > td:first-child, .yith-wcpsc-product-table th {
+    font-weight : 700;
+    background  : #f9f9f9;
+}

@@ -1,0 +1,1 @@
+!function(a){"use strict";function b(a){a.trigger("mpc.inited")}a(".mpc-ribbon").each(function(){var c=a(this);c.one("mpc.init",function(){b(c)})})}(jQuery);

@@ -1,0 +1,758 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Cost of Goods v1.6.1\n"
+"Report-Msgid-Bugs-To: https://woocommerce.com/my-account/marketplace-ticket-"
+"form/\n"
+"POT-Creation-Date: 2014-06-15 22:41:24+00:00\n"
+"PO-Revision-Date: 2015-06-02 03:40-0500\n"
+"Last-Translator: sergori <sergori@mail.ru>\n"
+"Language-Team: \n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Poedit 1.8.1\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
+"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
+"X-Poedit-Basepath: ../../\n"
+"X-Textdomain-Support: yes\n"
+"X-Poedit-SearchPath-0: .\n"
+
+# @ woocommerce-cost-of-goods
+#: includes/admin/class-wc-cog-admin-orders.php:97
+#: includes/admin/class-wc-cog-admin-orders.php:348
+msgid "Cost of Goods"
+msgstr "Себестоимость"
+
+#: includes/admin/class-wc-cog-admin-orders.php:172
+msgid "Should be:"
+msgstr ""
+
+# @ woocommerce-cost-of-goods
+#. translators: Placeholder: %s - currency symbol
+#: includes/admin/class-wc-cog-admin-products.php:128
+#: includes/admin/class-wc-cog-admin-products.php:148
+#: includes/admin/class-wc-cog-admin-products.php:533
+msgid "Cost of Good (%s)"
+msgstr "Себестоимость (%s)"
+
+# @ woocommerce-cost-of-goods
+#: includes/admin/class-wc-cog-admin-products.php:151
+msgid "Default cost for product variations"
+msgstr "Себестоимость по-умолчанию для каждого варианта товара"
+
+#: includes/admin/class-wc-cog-admin-products.php:182
+msgid "Set cost"
+msgstr ""
+
+# @ woocommerce-cost-of-goods
+#. translators: Placeholder: %s - currency symbol
+#: includes/admin/class-wc-cog-admin-products.php:235
+msgid "Cost of Good: (%s)"
+msgstr "Себ-ть варианта: (%s)"
+
+# @ woocommerce-cost-of-goods
+#: includes/admin/class-wc-cog-admin-products.php:365
+msgid "Cost of Good"
+msgstr "Себест-ть"
+
+# @ woocommerce-cost-of-goods
+#: includes/admin/class-wc-cog-admin-products.php:370
+msgid "— No Change —"
+msgstr "— Не менять —"
+
+# @ woocommerce-cost-of-goods
+#: includes/admin/class-wc-cog-admin-products.php:371
+msgid "Change to:"
+msgstr "Установить:"
+
+# @ woocommerce-cost-of-goods
+#: includes/admin/class-wc-cog-admin-products.php:372
+msgid "Increase by (fixed amount or %):"
+msgstr "Увеличить (цена или %):"
+
+# @ woocommerce-cost-of-goods
+#: includes/admin/class-wc-cog-admin-products.php:373
+msgid "Decrease by (fixed amount or %):"
+msgstr "Уменьшить (цена или %):"
+
+# @ woocommerce-cost-of-goods
+#: includes/admin/class-wc-cog-admin-products.php:383
+msgid "Enter Cost:"
+msgstr "Значение:"
+
+# @ woocommerce-cost-of-goods
+#: includes/admin/class-wc-cog-admin-products.php:463
+#: includes/admin/class-wc-cog-admin-products.php:577
+msgid "Cost"
+msgstr "Себ-ть"
+
+# @ woocommerce-cost-of-goods
+#: includes/admin/class-wc-cog-admin-reports.php:68
+msgid "Profit"
+msgstr "Прибыль"
+
+# @ woocommerce-cost-of-goods
+#: includes/admin/class-wc-cog-admin-reports.php:71
+#, fuzzy
+msgid "Profit by date"
+msgstr "Прибыль по дате"
+
+# @ woocommerce-cost-of-goods
+#: includes/admin/class-wc-cog-admin-reports.php:77
+#, fuzzy
+msgid "Profit by product"
+msgstr "Прибыль по месяцу"
+
+# @ woocommerce-cost-of-goods
+#: includes/admin/class-wc-cog-admin-reports.php:83
+#, fuzzy
+msgid "Profit by category"
+msgstr "Прибыль по дате"
+
+# @ woocommerce-cost-of-goods
+#: includes/admin/class-wc-cog-admin-reports.php:94
+#, fuzzy
+msgid "Product Valuation"
+msgstr "Стоимость запаса"
+
+# @ woocommerce-cost-of-goods
+#: includes/admin/class-wc-cog-admin-reports.php:100
+#, fuzzy
+msgid "Total Valuation"
+msgstr "Стоимость запаса"
+
+#: includes/admin/class-wc-cog-admin-reports.php:101
+msgid ""
+"Total valuation provides the value of all inventory within your store at "
+"both the cost of the good, as well as the total value of inventory at the "
+"retail price (regular price, or sale price if set). Stock count must be set "
+"to be included in this valuation."
+msgstr ""
+
+# @ woocommerce-cost-of-goods
+#: includes/admin/class-wc-cog-admin-reports.php:342
+#, fuzzy
+msgid "In stock"
+msgstr "%d в наличии"
+
+# @ woocommerce-cost-of-goods
+#: includes/admin/class-wc-cog-admin-reports.php:344
+#, fuzzy
+msgid "Out of stock"
+msgstr "%d в наличии"
+
+# @ woocommerce-cost-of-goods
+#: includes/admin/class-wc-cog-admin.php:163
+msgid "Cost of Goods Options"
+msgstr "Настройки Cost of Goods"
+
+# @ woocommerce-cost-of-goods
+#: includes/admin/class-wc-cog-admin.php:170
+msgid "Exclude these item(s) from income when calculating profit. "
+msgstr "Исключить типы оплаты из расчета прибыли. "
+
+#: includes/admin/class-wc-cog-admin.php:171
+msgid ""
+"Fees charged to customer (e.g. Checkout Add-Ons, Payment Gateway Based Fees)"
+msgstr ""
+
+# @ woocommerce-cost-of-goods
+#: includes/admin/class-wc-cog-admin.php:180
+msgid "Shipping charged to customer"
+msgstr "Стоимость доставки"
+
+# @ woocommerce-cost-of-goods
+#: includes/admin/class-wc-cog-admin.php:189
+msgid "Tax charged to customer"
+msgstr "Налоги"
+
+# @ woocommerce-cost-of-goods
+#: includes/admin/class-wc-cog-admin.php:220
+msgid "Apply Costs to Previous Orders"
+msgstr "Пересчитать себестоимость"
+
+# @ woocommerce-cost-of-goods
+#: includes/admin/class-wc-cog-admin.php:221
+#, fuzzy
+msgid ""
+"This will apply costs to previous orders based on your selection when "
+"\"Apply Costs\" is clicked and cannot be reversed."
+msgstr ""
+"Будет пересчитана себестоимость на всех предыдущих заказах, которые еще не "
+"имеют себестоимость. Эта операция не может быть отменена!"
+
+#: includes/admin/class-wc-cog-admin.php:226
+msgid "Apply costs to orders that do not have costs set"
+msgstr ""
+
+#: includes/admin/class-wc-cog-admin.php:227
+msgid "Apply costs to all orders, overriding previous costs."
+msgstr ""
+
+#: includes/admin/class-wc-cog-admin.php:229
+msgid "Choose carefully, there is no reversing either action!"
+msgstr ""
+
+# @ woocommerce-cost-of-goods
+#: includes/admin/class-wc-cog-admin.php:232
+msgid "Apply Costs"
+msgstr "Пересчитать"
+
+# @ woocommerce-cost-of-goods
+#: includes/admin/class-wc-cog-admin.php:249
+msgid ""
+"Are you sure you want to apply costs to all previous orders that have not "
+"already had costs generated? This cannot be reversed! Note that this can "
+"take some time in shops with a large number of orders, if an error occurs, "
+"simply Apply Costs again to continue the process."
+msgstr ""
+"Вы уверены, что хотите применить затрат на всех предыдущих заказов, которые "
+"еще не были затраты, генерируемых? Это не может быть отменено! Обратите "
+"внимание, что это может занять некоторое время в магазинах с большим "
+"количеством заказов, если происходит ошибка, просто Применить расходы, чтобы "
+"продолжить процесс."
+
+# @ woocommerce-cost-of-goods
+#: includes/admin/class-wc-cog-admin.php:250
+msgid ""
+"Are you sure you want to apply costs to all previous orders, overriding "
+"those with existing costs? This cannot be reversed! Note that this can take "
+"some time in shops with a large number of orders, if an error occurs, simply "
+"Apply Costs again to continue the process."
+msgstr ""
+"Вы уверены, что хотите применить затрат на всех предыдущих заказов, "
+"перекрывая тем с существующими затратами? Это не может быть отменено! "
+"Обратите внимание, что это может занять некоторое время в магазинах с "
+"большим количеством заказов, если происходит ошибка, просто Применить "
+"расходы, чтобы продолжить процесс."
+
+# @ woocommerce-cost-of-goods
+#: includes/admin/class-wc-cog-admin.php:324
+msgid "Database error while applying product costs."
+msgstr "Ошибка записи значения себестоимости в базу данных."
+
+# @ woocommerce-cost-of-goods
+#. translators: Placeholders: %d - number of orders updated.
+#: includes/admin/class-wc-cog-admin.php:366
+msgid "%d order updated."
+msgid_plural "%d orders updated."
+msgstr[0] "%d заказ обновлен."
+msgstr[1] "%d заказов обновлено."
+msgstr[2] "%d заказов обновлено."
+
+# @ woocommerce-cost-of-goods
+#: includes/admin/reports/abstract-wc-cog-admin-report.php:61
+#, fuzzy
+msgid "Year"
+msgstr "Год:"
+
+# @ woocommerce-cost-of-goods
+#: includes/admin/reports/abstract-wc-cog-admin-report.php:62
+#, fuzzy
+msgid "Last Month"
+msgstr "Месяц"
+
+# @ woocommerce-cost-of-goods
+#: includes/admin/reports/abstract-wc-cog-admin-report.php:63
+#, fuzzy
+msgid "This Month"
+msgstr "Прибыль за месяц"
+
+#: includes/admin/reports/abstract-wc-cog-admin-report.php:64
+msgid "Last 7 Days"
+msgstr ""
+
+#: includes/admin/reports/abstract-wc-cog-admin-report.php:83
+msgid "Date"
+msgstr ""
+
+#: includes/admin/reports/abstract-wc-cog-admin-report.php:100
+#: includes/admin/reports/class-wc-cog-admin-report-product-valuation.php:190
+msgid "Export CSV"
+msgstr ""
+
+# @ woocommerce-cost-of-goods
+#: includes/admin/reports/class-wc-cog-admin-report-product-valuation.php:159
+#, fuzzy
+msgid "Value at Retail"
+msgstr "Стоимость запаса в рознице"
+
+# @ woocommerce-cost-of-goods
+#: includes/admin/reports/class-wc-cog-admin-report-product-valuation.php:160
+#, fuzzy
+msgid "Value at Cost"
+msgstr "Стоимость запаса"
+
+# @ woocommerce-cost-of-goods
+#: includes/admin/reports/class-wc-cog-admin-report-product-valuation.php:184
+#, fuzzy
+msgid "Product"
+msgstr "Товар"
+
+#: includes/admin/reports/class-wc-cog-admin-report-product-valuation.php:194
+msgid ""
+"Note: Product Valuation export is in progress, please do not refresh the "
+"page! When the export is complete, the download will start automatically."
+msgstr ""
+
+# @ woocommerce-cost-of-goods
+#: includes/admin/reports/class-wc-cog-admin-report-product-valuation.php:206
+#, fuzzy
+msgid "Search for a product"
+msgstr "Поиск по товарам%s"
+
+# @ woocommerce-cost-of-goods
+#. translators: Placeholders: %1$s - formatted total profit amount surrounded
+#. by <strong> tags, e.g. <strong>$66.77</strong>, %1$s - product category
+#. name, e.g. t-shirts
+#: includes/admin/reports/class-wc-cog-admin-report-profit-by-category.php:109
+#, fuzzy
+msgid "%1$s total profit in %2$s"
+msgstr "Прибыль за период"
+
+#: includes/admin/reports/class-wc-cog-admin-report-profit-by-category.php:136
+msgid "Categories"
+msgstr ""
+
+#: includes/admin/reports/class-wc-cog-admin-report-profit-by-category.php:154
+msgid "Select categories&hellip;"
+msgstr ""
+
+#: includes/admin/reports/class-wc-cog-admin-report-profit-by-category.php:168
+msgid "None"
+msgstr ""
+
+#: includes/admin/reports/class-wc-cog-admin-report-profit-by-category.php:169
+msgid "All"
+msgstr ""
+
+# @ woocommerce-cost-of-goods
+#: includes/admin/reports/class-wc-cog-admin-report-profit-by-category.php:170
+#: includes/admin/reports/class-wc-cog-admin-report-profit-by-product.php:221
+msgid "Show"
+msgstr "Показать"
+
+#: includes/admin/reports/class-wc-cog-admin-report-profit-by-category.php:224
+msgid "&larr; Choose a category to view stats"
+msgstr ""
+
+#. translators: Placeholders: %1$s is the formatted net sales amount with
+#. surrounding <strong> tags, e.g. <strong>$7.77</strong>
+#: includes/admin/reports/class-wc-cog-admin-report-profit-by-date.php:62
+msgid "%1$s net sales in this period"
+msgstr ""
+
+#: includes/admin/reports/class-wc-cog-admin-report-profit-by-date.php:63
+msgid ""
+"This is the sum of the order totals after any refunds and excluding fees, "
+"taxes, and shipping (unless you have toggled the settings to include them)"
+msgstr ""
+
+# @ woocommerce-cost-of-goods
+#. translators: Placeholders: %1$s is the formatted total cost of goods amount
+#. with surrounding <strong> tags, e.g. <strong>$2.00</strong>
+#: includes/admin/reports/class-wc-cog-admin-report-profit-by-date.php:71
+#, fuzzy
+msgid "%1$s total cost of goods in this period"
+msgstr "Себестоимость за период"
+
+#: includes/admin/reports/class-wc-cog-admin-report-profit-by-date.php:72
+msgid "This is the sum of the item cost of goods after any refunds"
+msgstr ""
+
+#. translators: Placeholders: %1$s is the formatted total profit amount with
+#. surrounding <strong> tags, e.g. <strong>$5.77</strong>
+#: includes/admin/reports/class-wc-cog-admin-report-profit-by-date.php:80
+msgid "%1$s total profit in this period"
+msgstr ""
+
+#: includes/admin/reports/class-wc-cog-admin-report-profit-by-date.php:81
+msgid "This is the sum of the order profit after any refunds"
+msgstr ""
+
+# @ woocommerce-cost-of-goods
+#. translators: Placeholders: %1$s is the total orders count with surrounding
+#. <strong> tags, e.g. <strong>7</strong>
+#: includes/admin/reports/class-wc-cog-admin-report-profit-by-date.php:89
+#, fuzzy
+msgid "%1$s orders placed"
+msgstr "%d заказ обновлен."
+
+#. translators: Placeholders: %1$s is the formatted average profit per order
+#. amount with surrounding <strong> tags, e.g. <strong>$1.77</strong>
+#: includes/admin/reports/class-wc-cog-admin-report-profit-by-date.php:97
+msgid "%1$s average profit per order in this period"
+msgstr ""
+
+#: includes/admin/reports/class-wc-cog-admin-report-profit-by-date.php:98
+msgid "This is the average profit per order after any refunds"
+msgstr ""
+
+#: includes/admin/reports/class-wc-cog-admin-report-profit-by-date.php:179
+msgid "Number of orders"
+msgstr ""
+
+#: includes/admin/reports/class-wc-cog-admin-report-profit-by-date.php:187
+msgid "Net Sales amount"
+msgstr ""
+
+# @ woocommerce-cost-of-goods
+#: includes/admin/reports/class-wc-cog-admin-report-profit-by-date.php:197
+#: includes/admin/reports/class-wc-cog-admin-report-profit-by-product.php:404
+#, fuzzy
+msgid "Cost of Goods Sold"
+msgstr "Себестоимость"
+
+# @ woocommerce-cost-of-goods
+#: includes/admin/reports/class-wc-cog-admin-report-profit-by-date.php:207
+#: includes/admin/reports/class-wc-cog-admin-report-profit-by-product.php:414
+#, fuzzy
+msgid "Profit amount"
+msgstr "Прибыль по месяцу"
+
+#. translators: Placeholders: %1$s is the formatted total product sales with
+#. surrounding <strong> tags, e.g. <strong>$7.77</strong>
+#: includes/admin/reports/class-wc-cog-admin-report-profit-by-product.php:94
+msgid "%1$s sales for the selected items"
+msgstr ""
+
+#. translators: Placeholders: %1$s is the formatted total product cost of goods
+#. with surrounding <strong> tags, e.g. <strong>$4.77</strong>
+#: includes/admin/reports/class-wc-cog-admin-report-profit-by-product.php:102
+msgid "%1$s cost of goods for the selected items"
+msgstr ""
+
+#. translators: Placeholders: %1$s is the formatted total product profit with
+#. surrounding <strong> tags, e.g. <strong>$3.00</strong>
+#: includes/admin/reports/class-wc-cog-admin-report-profit-by-product.php:110
+msgid "%1$s profit for the selected items"
+msgstr ""
+
+#. translators: Placeholders: %1$s is the the total number of purchased items
+#. with surrounding <strong> tags, e.g. <strong>5</strong>
+#: includes/admin/reports/class-wc-cog-admin-report-profit-by-product.php:118
+msgid "%1$s purchases for the selected items"
+msgstr ""
+
+# @ woocommerce-cost-of-goods
+#: includes/admin/reports/class-wc-cog-admin-report-profit-by-product.php:145
+#, fuzzy
+msgid "Product Search"
+msgstr "Товар"
+
+#: includes/admin/reports/class-wc-cog-admin-report-profit-by-product.php:158
+msgid "Showing reports for:"
+msgstr ""
+
+#: includes/admin/reports/class-wc-cog-admin-report-profit-by-product.php:183
+msgid "Reset"
+msgstr ""
+
+# @ woocommerce-cost-of-goods
+#: includes/admin/reports/class-wc-cog-admin-report-profit-by-product.php:205
+#: includes/admin/reports/class-wc-cog-admin-report-profit-by-product.php:216
+#, fuzzy
+msgid "Search for a product&hellip;"
+msgstr "Поиск по товарам%s"
+
+# @ woocommerce-cost-of-goods
+#: includes/admin/reports/class-wc-cog-admin-report-profit-by-product.php:244
+msgid "Least Profitable Sellers"
+msgstr "Наименее прибыльные товары"
+
+# @ woocommerce-cost-of-goods
+#: includes/admin/reports/class-wc-cog-admin-report-profit-by-product.php:247
+msgid "Most Profitable Sellers"
+msgstr "Самые прибыльные товары"
+
+#. translators: Placeholders: %1$s - profit margin as a percentage, e.g. 85.4%
+#: includes/admin/reports/class-wc-cog-admin-report-profit-by-product.php:289
+msgid "%1$s%% profit margin"
+msgstr ""
+
+# @ woocommerce-cost-of-goods
+#: includes/admin/reports/class-wc-cog-admin-report-profit-by-product.php:290
+#, fuzzy
+msgid "total profit"
+msgstr "Валовая прибыль"
+
+# @ woocommerce-cost-of-goods
+#: includes/admin/reports/class-wc-cog-admin-report-profit-by-product.php:297
+#, fuzzy
+msgid "No products found in range"
+msgstr "Себестоимость за период"
+
+# @ woocommerce-cost-of-goods
+#: includes/admin/reports/class-wc-cog-admin-report-profit-by-product.php:301
+#, fuzzy
+msgid "show most profitable"
+msgstr "Самые прибыльные товары"
+
+# @ woocommerce-cost-of-goods
+#: includes/admin/reports/class-wc-cog-admin-report-profit-by-product.php:303
+#, fuzzy
+msgid "show least profitable"
+msgstr "Наименее прибыльные товары"
+
+#: includes/admin/reports/class-wc-cog-admin-report-profit-by-product.php:350
+msgid "&larr; Choose a product to view stats"
+msgstr ""
+
+#: includes/admin/reports/class-wc-cog-admin-report-profit-by-product.php:386
+msgid "Number of items sold"
+msgstr ""
+
+#: includes/admin/reports/class-wc-cog-admin-report-profit-by-product.php:394
+msgid "Sales amount"
+msgstr ""
+
+#: includes/admin/reports/class-wc-cog-admin-report-total-valuation.php:53
+msgid "at cost"
+msgstr ""
+
+#: includes/admin/reports/class-wc-cog-admin-report-total-valuation.php:60
+msgid "at retail"
+msgstr ""
+
+# @ woocommerce-cost-of-goods
+#: woocommerce-cost-of-goods.php:48
+msgid "WooCommerce Costs of Goods"
+msgstr "WooCommerce Costs of Goods"
+
+# @ woocommerce-cost-of-goods
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce Cost of Goods"
+msgstr "WooCommerce Cost of Goods"
+
+# @ woocommerce-cost-of-goods
+#. translators: Placeholders: %s - error messages
+#: woocommerce-cost-of-goods.php:499 woocommerce-cost-of-goods.php:565
+msgid "Error upgrading <strong>WooCommerce Cost of Goods</strong>: %s"
+msgstr "Ошибка обновления <strong>WooCommerce Cost of Goods</strong>: %s"
+
+# @ woocommerce-cost-of-goods
+#: woocommerce-cost-of-goods.php:500 woocommerce-cost-of-goods.php:566
+msgid "&laquo; Go Back"
+msgstr "&laquo; Вернуться"
+
+# @ woocommerce-cost-of-goods
+#. Plugin URI of the plugin/theme
+#, fuzzy
+msgid "http://www.woocommerce.com/products/woocommerce-cost-of-goods/"
+msgstr "http://www.woothemes.com/products/woocommerce-cost-of-goods/"
+
+# @ woocommerce-cost-of-goods
+#. Description of the plugin/theme
+msgid ""
+"A full-featured cost of goods management extension for WooCommerce, with "
+"detailed reporting for total cost and profit"
+msgstr ""
+"Полнофункциональный плагин для управления себестоимостью товаров "
+"WooCommerce, с подробным отчетом о прибыли и себестоимости."
+
+# @ woocommerce-cost-of-goods
+#. Author of the plugin/theme
+msgid "SkyVerge"
+msgstr "SkyVerge"
+
+# @ woocommerce-cost-of-goods
+#. Author URI of the plugin/theme
+#, fuzzy
+msgid "http://www.woocommerce.com"
+msgstr "http://www.skyverge.com"
+
+# @ woocommerce-cost-of-goods
+#~ msgid "Gateway Fees charged to customer"
+#~ msgstr "Сборы платежной системы"
+
+# @ woocommerce-cost-of-goods
+#~ msgid ""
+#~ "Enable this to Apply Costs to all orders, overriding any previous set "
+#~ "costs.  Be sure this is what you intend as there's no going back!"
+#~ msgstr ""
+#~ "Включите эту Применить затраты на все заказы, перекрывая любые предыдущие "
+#~ "установочные расходы. Будьте уверены, что это то, что вы не собираетесь, "
+#~ "как там нет пути назад!"
+
+# @ woocommerce-cost-of-goods
+#~ msgid "Overview"
+#~ msgstr "Обзор"
+
+# @ woocommerce-cost-of-goods
+#~ msgid "Product Profit"
+#~ msgstr "Прибыль по товару"
+
+# @ woocommerce-cost-of-goods
+#~ msgid "Total Sales"
+#~ msgstr "Валовая выручка"
+
+# @ woocommerce-cost-of-goods
+#~ msgid "Total Cost of Goods"
+#~ msgstr "Валовая себестоимость"
+
+# @ woocommerce-cost-of-goods
+#~ msgid "Avg. Profit per Order"
+#~ msgstr "Ср. Прибыль за заказ"
+
+# @ woocommerce-cost-of-goods
+#~ msgid "Sales"
+#~ msgstr "Выручка"
+
+# @ woocommerce-cost-of-goods
+#~ msgid "Profits"
+#~ msgstr "Прибыль"
+
+# @ woocommerce-cost-of-goods
+#~ msgid "Total Sales in range"
+#~ msgstr "Выручка за период"
+
+# @ woocommerce-cost-of-goods
+#~ msgid "Avg. Profit per Order in range"
+#~ msgstr "Ср. Прибыль за заказ за период"
+
+# @ woocommerce-cost-of-goods
+#~ msgid "Profits in Date Range"
+#~ msgstr "Прибыль за период"
+
+# @ woocommerce-cost-of-goods
+#~ msgid "Total Sales for Year"
+#~ msgstr "Валовая выручка за год"
+
+# @ woocommerce-cost-of-goods
+#~ msgid "Total Cost of Goods for Year"
+#~ msgstr "Валовая себестоимость за год"
+
+# @ woocommerce-cost-of-goods
+#~ msgid "Total Profit for Year"
+#~ msgstr "Валовая прибыль за год"
+
+# @ woocommerce-cost-of-goods
+#~ msgid "Avg. Profit per Order for Year"
+#~ msgstr "Ср. Прибыль с заказа за год"
+
+# @ woocommerce-cost-of-goods
+#~ msgid "Monthly Profits in Year"
+#~ msgstr "Месячная прибыль за год"
+
+# @ woocommerce-cost-of-goods
+#~ msgid "Profit for %s:"
+#~ msgstr "Прибыль с %s:"
+
+# @ woocommerce-cost-of-goods
+#~ msgid "Metric"
+#~ msgstr "Метрика"
+
+# @ woocommerce-cost-of-goods
+#~ msgid "No sales :("
+#~ msgstr "Нет продаж :("
+
+# @ woocommerce-cost-of-goods
+#~ msgid "Profit ( Margin )"
+#~ msgstr "Прибыль (Маржа)"
+
+# @ woocommerce-cost-of-goods
+#~ msgid ""
+#~ "The retail price of each product with stock is used to calculate the "
+#~ "valuation."
+#~ msgstr "Розничная цена каждого товара в наличии помноженная на его остаток"
+
+# @ woocommerce-cost-of-goods
+#~ msgid "Totals"
+#~ msgstr "Итого"
+
+# @ woocommerce-cost-of-goods
+#~ msgid "There are no products with stock to show valuation for."
+#~ msgstr "Нет товаров в наличии для отображения стоимости запаса"
+
+# @ woocommerce-cost-of-goods
+#~ msgid "Inventory Valuation at Cost"
+#~ msgstr "Стоимость запаса по себестоимости"
+
+# @ woocommerce-cost-of-goods
+#~ msgid ""
+#~ "The cost of good set for each product with stock is used to calculate the "
+#~ "valuation."
+#~ msgstr "Сумма себестоимости товаров помноженная на их остаток"
+
+# @ woocommerce-cost-of-goods
+#~ msgid "N/A"
+#~ msgstr "Н/Д"
+
+# @ woocommerce-cost-of-goods
+#~ msgid "From:"
+#~ msgstr "С:"
+
+# @ woocommerce-cost-of-goods
+#~ msgid "To:"
+#~ msgstr "По:"
+
+# @ woocommerce-cost-of-goods
+#~ msgid "Dismiss"
+#~ msgstr "Отмена"
+
+# @ woocommerce-cost-of-goods
+#~ msgid "You cannot clone instances of %s."
+#~ msgstr "Вы не можете клонировать экземпляры %s."
+
+# @ woocommerce-cost-of-goods
+#~ msgid "You cannot unserialize instances of %s."
+#~ msgstr "Вы не можете unserialize экземпляры %s."
+
+# @ woocommerce-cost-of-goods
+#~ msgid ""
+#~ "%s requires the %s PHP extension to function.  Contact your host or "
+#~ "server administrator to configure and install the missing extension."
+#~ msgid_plural ""
+#~ "%s requires the following PHP extensions to function: %s.  Contact your "
+#~ "host or server administrator to configure and install the missing "
+#~ "extensions."
+#~ msgstr[0] ""
+#~ "%s требуется %s PHP расширение функции. Свяжитесь с вашим хостером или "
+#~ "администратором сервера и установите требуемое расширение"
+#~ msgstr[1] ""
+#~ "%s требуются %s PHP расширения функции. Свяжитесь с вашим хостером или "
+#~ "администратором сервера и установите требуемые расширения"
+#~ msgstr[2] ""
+#~ "%s требуются %s PHP расширения функции. Свяжитесь с вашим хостером или "
+#~ "администратором сервера и установите требуемые расширения"
+
+# @ woocommerce-cost-of-goods
+#~ msgid ""
+#~ "%s requires the %s PHP function to exist.  Contact your host or server "
+#~ "administrator to configure and install the missing function."
+#~ msgid_plural ""
+#~ "%s requires the following PHP functions to exist: %s.  Contact your host "
+#~ "or server administrator to configure and install the missing functions."
+#~ msgstr[0] ""
+#~ "%s требуется наличие %s PHP функции. Свяжитесь с вашим хостером или "
+#~ "администратором сервера и установите недостающую функцию"
+#~ msgstr[1] ""
+#~ "%s требуется наличие %s PHP функции. Свяжитесь с вашим хостером или "
+#~ "администратором сервера и установите недостающую функцию"
+#~ msgstr[2] ""
+#~ "%s требуется наличие %s PHP функции. Свяжитесь с вашим хостером или "
+#~ "администратором сервера и установите недостающую функцию"
+
+# @ woocommerce-cost-of-goods
+#~ msgid "Docs"
+#~ msgstr "Руководство"
+
+# @ woocommerce-cost-of-goods
+#~ msgid "Support"
+#~ msgstr "Поддержка"
+
+# @ woocommerce-cost-of-goods
+#~ msgid "Write a Review"
+#~ msgstr "Написать отзыв"
+
+# @ woocommerce-cost-of-goods
+#~ msgid "Configure"
+#~ msgstr "Настройки"
+
+# @ woocommerce-cost-of-goods
+#~ msgid "1.6.1"
+#~ msgstr "1.6.1"

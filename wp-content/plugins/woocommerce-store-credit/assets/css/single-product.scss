@@ -1,0 +1,27 @@
+/**
+ * single-product.scss
+ * Single product styles.
+ *
+ * @package WC_Store_Credit/Assets/CSS
+ * @since   3.2.0
+ */
+
+.wc-store-credit-product-container {
+	label span.optional {
+		display: none;
+	}
+
+	.send-to-different-customer {
+		label span {
+			.theme-storefront & {
+				font-weight: 300;
+				vertical-align: middle;
+			}
+		}
+	}
+
+	/* Fix for theme twentytwenty */
+	.single-product form.cart & input[type="checkbox"] {
+		width: auto;
+	}
+}

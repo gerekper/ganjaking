@@ -1,0 +1,1037 @@
+# Translation of YITH WooCommerce Review Reminder in French (France)
+# This file is distributed under the same license as the YITH WooCommerce Review Reminder package.
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH WooCommerce Review Reminder\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
+"review-reminder.premium\n"
+"POT-Creation-Date: 2020-05-27 12:01:36+00:00\n"
+"PO-Revision-Date: 2020-04-29 08:49:06+0000\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: GlotPress/2.3.1\n"
+
+#: class.yith-woocommerce-review-reminder-premium.php:311
+#: class.yith-woocommerce-review-reminder.php:294
+#: includes/emails/class-ywrr-request-email.php:69
+msgid "Review Reminder"
+msgstr "Relance des avis"
+
+#: class.yith-woocommerce-review-reminder-premium.php:365
+msgid "Suborder #%s has no reviewable items"
+msgstr ""
+
+#: class.yith-woocommerce-review-reminder-premium.php:371
+msgid "Suborder %s has reviewable items"
+msgstr ""
+
+#: class.yith-woocommerce-review-reminder-premium.php:471
+msgid "Now"
+msgstr ""
+
+#: class.yith-woocommerce-review-reminder-premium.php:472
+msgid "Choose a date"
+msgstr ""
+
+#: class.yith-woocommerce-review-reminder-premium.php:490
+#: class.yith-woocommerce-review-reminder-premium.php:863
+msgid "Send"
+msgstr ""
+
+#: class.yith-woocommerce-review-reminder-premium.php:494
+#: class.yith-woocommerce-review-reminder-premium.php:507
+msgid "Cancel"
+msgstr ""
+
+#: class.yith-woocommerce-review-reminder-premium.php:503
+#: includes/ywrr-functions-premium.php:1393
+#: templates/admin/ywrr-blocklist-table.php:123
+#: templates/admin/ywrr-blocklist-table.php:131
+msgid "Delete"
+msgstr "Supprimer"
+
+#: class.yith-woocommerce-review-reminder-premium.php:519
+msgid "Schedule a review reminder email"
+msgstr ""
+
+#: class.yith-woocommerce-review-reminder-premium.php:521
+#: class.yith-woocommerce-review-reminder-premium.php:558
+msgid "Close modal panel"
+msgstr ""
+
+#: class.yith-woocommerce-review-reminder-premium.php:525
+msgid "Send this reminder email on"
+msgstr ""
+
+#: class.yith-woocommerce-review-reminder-premium.php:556
+msgid "Cancel a review reminder email"
+msgstr ""
+
+#: class.yith-woocommerce-review-reminder-premium.php:562
+msgid "Do you want to cancel the reminder email?"
+msgstr ""
+
+#: class.yith-woocommerce-review-reminder-premium.php:812
+msgid "Review Reminder: Email sent."
+msgid_plural "Review Reminder: %s emails sent"
+msgstr[0] "Relance des avis: Email envoyé."
+msgstr[1] "Relance des avis: %s emails envoyés"
+
+#: class.yith-woocommerce-review-reminder-premium.php:816
+msgid "Review Reminder: Email rescheduled."
+msgid_plural "Review Reminder: %s emails rescheduled."
+msgstr[0] "Relance des avis: Email reprogrammé"
+msgstr[1] "Relance des avis: %s emails reprogrammés"
+
+#: class.yith-woocommerce-review-reminder-premium.php:820
+msgid "Review Reminder: Email cancelled."
+msgid_plural "Review Reminder: %s emails cancelled."
+msgstr[0] "Relance des avis: Email annulé"
+msgstr[1] "Relance des avis: %s emails annulés."
+
+#: class.yith-woocommerce-review-reminder-premium.php:864
+msgid "Schedule"
+msgstr ""
+
+#: class.yith-woocommerce-review-reminder-premium.php:865
+msgid "Please, select a date."
+msgstr ""
+
+#: class.yith-woocommerce-review-reminder-premium.php:866
+msgid "Review Reminder: Send email"
+msgstr ""
+
+#: class.yith-woocommerce-review-reminder-premium.php:867
+msgid "Review Reminder: Reschedule email"
+msgstr ""
+
+#: class.yith-woocommerce-review-reminder-premium.php:868
+msgid "Review Reminder: Cancel email"
+msgstr ""
+
+#: class.yith-woocommerce-review-reminder.php:190
+msgid "Please insert a valid email address"
+msgstr "Merci de renseigner une adresse email valide"
+
+#: class.yith-woocommerce-review-reminder.php:191
+msgid "Sending test email..."
+msgstr "Envoi du mail de test…"
+
+#: class.yith-woocommerce-review-reminder.php:192
+msgid "Please wait..."
+msgstr "Merci de patienter…"
+
+#: class.yith-woocommerce-review-reminder.php:285
+msgid "Mail Settings"
+msgstr "Réglages des mails"
+
+#: class.yith-woocommerce-review-reminder.php:286
+#: includes/ywrr-functions-premium.php:302 includes/ywrr-functions.php:1020
+#: templates/admin/ywrr-blocklist-table.php:167
+msgid "Blocklist"
+msgstr "Liste des blocages"
+
+#: class.yith-woocommerce-review-reminder.php:287
+msgid "Premium Version"
+msgstr "Version premium"
+
+#: includes/admin/class-ywrr-ajax-premium.php:69
+#: includes/admin/class-ywrr-ajax.php:97
+msgid "There was an error while sending the email"
+msgstr "Il y a eu une erreur lors de l’envoi du mail"
+
+#: includes/admin/class-ywrr-ajax-premium.php:143
+msgid "The request will be sent on %s"
+msgstr "La demande sera envoyée le %s"
+
+#: includes/admin/class-ywrr-ajax-premium.php:230
+msgid "1 scheduled order"
+msgid_plural "%s scheduled orders"
+msgstr[0] "1 commande programmé"
+msgstr[1] "%s commandes programmées"
+
+#: includes/admin/class-ywrr-ajax-premium.php:234
+#: includes/admin/class-ywrr-ajax-premium.php:278
+msgid "No scheduled order"
+msgstr "Pas de commande programmé"
+
+#: includes/admin/class-ywrr-ajax-premium.php:274
+msgid "1 unscheduled order"
+msgid_plural "%s unscheduled orders"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/admin/class-ywrr-ajax-premium.php:313
+msgid "1 deleted item"
+msgid_plural "%s deleted items"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/admin/class-ywrr-ajax-premium.php:317
+#: includes/admin/class-ywrr-ajax-premium.php:355
+msgid "No items deleted"
+msgstr "Aucun produit sélectionné"
+
+#: includes/admin/class-ywrr-ajax-premium.php:351
+msgid "1  deleted item"
+msgid_plural "%s  deleted items"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/admin/class-ywrr-ajax.php:57
+msgid ""
+"In order to send the test email, at least one product has to be published"
+msgstr "Afin d’envoyer le mail de test, au moins un produit doit être publié"
+
+#: includes/admin/class-ywrr-ajax.php:101
+msgid "Test email has been sent successfully!"
+msgstr "L’email de test a bien été envoyé avec succès !"
+
+#: includes/admin/class-ywrr-ajax.php:132
+msgid "Please provide a valid email address."
+msgstr "Merci de renseigner une adresse email valide."
+
+#: includes/admin/class-ywrr-ajax.php:134
+msgid "Please retype the email address as provided."
+msgstr "Veillez retaper l’adresse email indiqué ci-dessus."
+
+#: includes/admin/class-ywrr-ajax.php:140
+msgid "Unsubscribe was successful."
+msgstr "Le désabonnement est bien pris en compte."
+
+#: includes/admin/class-ywrr-ajax.php:143
+msgid "An error has occurred"
+msgstr "Une erreur est survenue"
+
+#: includes/admin/class-ywrr-ajax.php:147
+msgid "You have already unsubscribed"
+msgstr "Vous vous êtes déjà désabonné"
+
+#: includes/admin/class-ywrr-ajax.php:178
+msgid "User %s added successfully"
+msgstr "Utilisateur %s ajouté avec succès"
+
+#: includes/admin/class-ywrr-ajax.php:184
+msgid "User %s already unsubscribed"
+msgstr "Utilisateur %s déjà désinscrit"
+
+#: includes/admin/meta-boxes/class-ywrr-meta-box.php:57
+#: includes/admin/meta-boxes/class-ywrr-meta-box.php:78
+msgid "Ask for a review"
+msgstr "Demander un avis"
+
+#: includes/class-ywrr-unsubscribe.php:100
+msgid "The Unsubscribe page cannot be deleted"
+msgstr ""
+
+#: includes/class-ywrr-unsubscribe.php:224 templates/ywrr-unsubscribe.php:39
+msgid "Back To Home Page"
+msgstr ""
+
+#: includes/emails/class-ywrr-request-email.php:71
+msgid "Send a review reminder to the customers over WooCommerce."
+msgstr "Envoyer une demande d’avis aux client à travers WooCommerce."
+
+#: includes/ywrr-functions-premium.php:97
+msgid "Use %s"
+msgstr ""
+
+#: includes/ywrr-functions-premium.php:100
+msgid "By enabling this option, you will have to assign a template from %s"
+msgstr ""
+
+#: includes/ywrr-functions-premium.php:112
+msgid "Email template"
+msgstr ""
+
+#: includes/ywrr-functions-premium.php:117
+msgid "Woocommerce Template"
+msgstr "Modèle de WooCommerce"
+
+#: includes/ywrr-functions-premium.php:118
+msgid "Template 1"
+msgstr "Modèle 1"
+
+#: includes/ywrr-functions-premium.php:119
+msgid "Template 2"
+msgstr "Modèle 2"
+
+#: includes/ywrr-functions-premium.php:120
+msgid "Template 3"
+msgstr "Modèle 3"
+
+#: includes/ywrr-functions-premium.php:127
+msgid "Set links destination"
+msgstr ""
+
+#: includes/ywrr-functions-premium.php:130
+msgid "Set the destination you want to show in the email"
+msgstr ""
+"Définir ou le client devra arriver après avoir cliqué sur le lien pour "
+"laisser un avis"
+
+#: includes/ywrr-functions-premium.php:132
+msgid "Product page"
+msgstr "Page du produit"
+
+#: includes/ywrr-functions-premium.php:133
+msgid "Default WooCommerce Reviews Tab"
+msgstr "Onglet des avis WooCommerce"
+
+#: includes/ywrr-functions-premium.php:134
+msgid "Custom Anchor"
+msgstr "Ancre personnalisée"
+
+#: includes/ywrr-functions-premium.php:140
+msgid "Set Custom Anchor"
+msgstr "Définir une ancre personnalisée"
+
+#: includes/ywrr-functions-premium.php:143
+msgid "HTML ID of the comments tab if different from the standard one"
+msgstr ""
+
+#: includes/ywrr-functions-premium.php:152
+msgid "Comment Form ID"
+msgstr ""
+
+#: includes/ywrr-functions-premium.php:156
+msgid ""
+"HTML ID of the comments form. Leave blank if you don't want the page to "
+"scroll to the form when the customer visits the email links"
+msgstr ""
+
+#: includes/ywrr-functions-premium.php:165
+msgid "Comment Form Offset"
+msgstr ""
+
+#: includes/ywrr-functions-premium.php:169
+msgid ""
+"Set a positive or negative value to adjust the scrolling offset when the "
+"customer visits the email links"
+msgstr ""
+
+#: includes/ywrr-functions-premium.php:178
+msgid "Login from email link"
+msgstr ""
+
+#: includes/ywrr-functions-premium.php:186
+msgid "Add Google Analytics to email links"
+msgstr "Ajouter Google Analytics aux liens de l’email"
+
+#: includes/ywrr-functions-premium.php:194
+msgid "Campaign Source"
+msgstr "Source de la campagne"
+
+#: includes/ywrr-functions-premium.php:197
+msgid "Referrer: google, citysearch, newsletter4"
+msgstr "Référent : Google, Citysearch, Newsletter4"
+
+#: includes/ywrr-functions-premium.php:207
+msgid "Campaign Medium"
+msgstr "Type de campagne"
+
+#: includes/ywrr-functions-premium.php:210
+msgid "Marketing medium: cpc, banner, email"
+msgstr "Type: cpc, bannir, email"
+
+#: includes/ywrr-functions-premium.php:220
+msgid "Campaign Term"
+msgstr "Mots clés de la campagne"
+
+#: includes/ywrr-functions-premium.php:223
+msgid ""
+"Identify the paid keywords. Enter values separated by commas (for example, "
+"term1, term2)"
+msgstr ""
+
+#: includes/ywrr-functions-premium.php:225
+msgid "Insert a term&hellip;"
+msgstr "Insérer un terme&hellip;"
+
+#: includes/ywrr-functions-premium.php:233
+msgid "Campaign Content"
+msgstr "Contenu de la campagne"
+
+#: includes/ywrr-functions-premium.php:236
+msgid "Use to differentiate ads"
+msgstr "Utilisé pour différencier les publicités"
+
+#: includes/ywrr-functions-premium.php:245
+msgid "Campaign Name"
+msgstr "Nom de la campagne"
+
+#: includes/ywrr-functions-premium.php:248
+msgid "Product, promo code, or slogan"
+msgstr "Produit, code promo ou slogan"
+
+#: includes/ywrr-functions-premium.php:258
+msgid "Enable Mandrill"
+msgstr "Activer Mandrill"
+
+#: includes/ywrr-functions-premium.php:261
+msgid "Use Mandrill to send emails"
+msgstr "Utiliser Mandrill pour envoyer des emails"
+
+#: includes/ywrr-functions-premium.php:266
+msgid "Mandrill API Key"
+msgstr "Clé API Mandrill"
+
+#: includes/ywrr-functions-premium.php:299 plugin-options/mail-options.php:18
+msgid "Email Settings"
+msgstr ""
+
+#: includes/ywrr-functions-premium.php:300
+#: plugin-options/settings-options.php:18
+msgid "Request Settings"
+msgstr "Réglages des demandes"
+
+#: includes/ywrr-functions-premium.php:301
+msgid "Scheduled Emails List"
+msgstr ""
+
+#: includes/ywrr-functions-premium.php:1059
+#: includes/ywrr-functions-premium.php:1431 includes/ywrr-functions.php:359
+#: includes/ywrr-functions.php:616 includes/ywrr-functions.php:624
+msgid "There are no reviewable items in this order"
+msgstr ""
+"Il n’y a pas de produits sur lesquels vous pouvez vous exprimer dans cette "
+"commande."
+
+#: includes/ywrr-functions-premium.php:1083
+msgid "This email cannot be rescheduled"
+msgstr ""
+
+#: includes/ywrr-functions-premium.php:1240
+#: includes/ywrr-functions-premium.php:1246
+#: includes/ywrr-functions-premium.php:1259
+#: includes/ywrr-functions-premium.php:1293 includes/ywrr-functions.php:586
+#: includes/ywrr-functions.php:593 includes/ywrr-functions.php:651
+msgid "This email cannot be scheduled"
+msgstr ""
+
+#: includes/ywrr-functions-premium.php:1364
+msgid "The request was sent on"
+msgstr ""
+
+#: includes/ywrr-functions-premium.php:1369
+msgid "The request will be sent on"
+msgstr ""
+
+#: includes/ywrr-functions-premium.php:1389
+msgid "By default, the plugin will send the reminder on %s."
+msgstr ""
+
+#: includes/ywrr-functions-premium.php:1389
+msgid "Pick a new date to overwrite this setting."
+msgstr ""
+
+#: includes/ywrr-functions-premium.php:1399
+msgid "An email was sent on %s."
+msgstr ""
+
+#: includes/ywrr-functions-premium.php:1399
+msgid "Pick a new date to reschedule it."
+msgstr ""
+
+#: includes/ywrr-functions-premium.php:1400
+msgid "Send a new reminder"
+msgstr ""
+
+#: includes/ywrr-functions-premium.php:1406
+msgid "Schedule Reminder"
+msgstr ""
+
+#: includes/ywrr-functions-premium.php:1434
+msgid "This booking cannot be reviewed"
+msgstr ""
+
+#: includes/ywrr-functions-premium.php:1437
+msgid "This customer doesn't want to receive any more review requests"
+msgstr ""
+"Ce client ne souhaite pas recevoir d’autres demandes pour laisser des avis."
+
+#: includes/ywrr-functions-premium.php:1494
+msgid "and other %s..."
+msgstr ""
+
+#: includes/ywrr-functions-premium.php:1495
+msgid "hide"
+msgstr ""
+
+#: includes/ywrr-functions.php:206
+msgid "Plain text"
+msgstr ""
+
+#: includes/ywrr-functions.php:209
+msgid "HTML"
+msgstr ""
+
+#: includes/ywrr-functions.php:210
+msgid "Multipart"
+msgstr ""
+
+#: includes/ywrr-functions.php:214
+msgid "Email subject"
+msgstr "Sujet de l’email"
+
+#: includes/ywrr-functions.php:216 includes/ywrr-functions.php:224
+#: includes/ywrr-functions.php:248
+msgid "Available placeholders: %s"
+msgstr ""
+
+#: includes/ywrr-functions.php:218
+msgid "[{site_title}] Review recently purchased products"
+msgstr "[{site_title}] Laisser votre avis sur les produits récemment achetés"
+
+#: includes/ywrr-functions.php:222
+msgid "Email body"
+msgstr ""
+
+#: includes/ywrr-functions.php:226
+msgid ""
+"Hello {customer_name},\n"
+"Thank you for purchasing items from the {site_title} shop!\n"
+"We would love if you could help us and other customers by reviewing the "
+"products you recently purchased.\n"
+"It only takes a minute and it would really help others by giving them an "
+"idea of your experience.\n"
+"Click the link below for each product and review the product under the "
+"'Reviews' tab.\n"
+"\n"
+"{order_list}\n"
+"\n"
+"Much appreciated,\n"
+"\n"
+"{site_title}.\n"
+"\n"
+"\n"
+"{unsubscribe_link}"
+msgstr ""
+
+#: includes/ywrr-functions.php:246
+msgid "Email body (for booking products)"
+msgstr ""
+
+#: includes/ywrr-functions.php:250
+msgid ""
+"Hello {customer_name},\n"
+"Thank you for booking on {site_title}!\n"
+"We hope you had a great time and would appreciate your help by reviewing the "
+"booking you recently purchased.\n"
+"It only takes a minute and you would really help other customers through "
+"your experience.\n"
+"Click the link below and leave your review under the 'Reviews' tab.\n"
+"\n"
+"{order_list}\n"
+"\n"
+"Much appreciated,\n"
+"\n"
+"\n"
+"{site_title}.\n"
+"\n"
+"\n"
+"{unsubscribe_link}"
+msgstr ""
+
+#: includes/ywrr-functions.php:271
+msgid "Email type"
+msgstr "Type d’email"
+
+#: includes/ywrr-functions.php:275
+msgid "Choose which format of email to send."
+msgstr "Choisir le format du mail à envoyer"
+
+#: includes/ywrr-functions.php:281
+msgid "Review unsubscription text"
+msgstr "Texte de désinscription des avis"
+
+#: includes/ywrr-functions.php:283
+msgid "Unsubscribe from review emails"
+msgstr "Se désabonner des emails de demande d’avis"
+
+#: includes/ywrr-functions.php:285
+msgid "The text of the unsubscribe link."
+msgstr ""
+
+#: includes/ywrr-functions.php:862 includes/ywrr-functions.php:1049
+msgid "Review Reminders"
+msgstr "Demande d’avis"
+
+#: includes/ywrr-functions.php:886 includes/ywrr-functions.php:1139
+msgid "Review Reminder Blocklist"
+msgstr "Liste de refus des avis"
+
+#: includes/ywrr-functions.php:929
+msgid "Order number"
+msgstr ""
+
+#: includes/ywrr-functions.php:930 templates/admin/ywrr-schedule-table.php:92
+msgid "Items to review"
+msgstr "Produit à réviser"
+
+#: includes/ywrr-functions.php:931
+msgid "Completed order date"
+msgstr ""
+
+#: includes/ywrr-functions.php:932
+msgid "Scheduled email date"
+msgstr ""
+
+#: includes/ywrr-functions.php:933 templates/admin/ywrr-schedule-table.php:95
+msgid "Status"
+msgstr "État"
+
+#: includes/ywrr-functions.php:974
+msgid "Scheduled Review Reminders"
+msgstr "Demande d’avis programmée"
+
+#: includes/ywrr-functions.php:1016
+msgid "Review Reminder Status"
+msgstr "Etat de la demande d’avis"
+
+#: includes/ywrr-functions.php:1021
+msgid "This customer doesn't want to receive review requests anymore"
+msgstr ""
+
+#: init.php:25
+msgid ""
+"YITH WooCommerce Review Reminder is enabled but not effective. It requires "
+"WooCommerce in order to work."
+msgstr ""
+"YITH WooCommerce Review Reminder est activé mais ne fonctionne pas. Il "
+"requiert WooCommerce pour fonctionner."
+
+#: plugin-options/mail-options.php:27
+msgid "Test email"
+msgstr "Tester le mail"
+
+#: plugin-options/mail-options.php:28
+msgid "Type an email address to send a test email"
+msgstr "Renseigner une adresse email pour envoyer un mail de test"
+
+#: plugin-options/mail-options.php:33
+msgid "Send Test Email"
+msgstr "Envoyer un mail de test"
+
+#: plugin-options/settings-options.php:24
+msgid "Don't email me checkbox"
+msgstr "Case à cocher : Refus"
+
+#: plugin-options/settings-options.php:27
+msgid ""
+"When they are in checkout page, users can refuse to receive review requests "
+"via email"
+msgstr ""
+"Quand le client est sur la page de paiement, il peut refuser de recevoir les "
+"demandes d’avis par mail si vous cochez cette case"
+
+#: plugin-options/settings-options.php:32
+msgid "Checkbox Label"
+msgstr ""
+
+#: plugin-options/settings-options.php:35
+msgid "The label of the checkbox that will be showed in checkout page"
+msgstr ""
+
+#: plugin-options/settings-options.php:36
+msgid "I accept to receive review requests via email"
+msgstr ""
+"J’accepte de recevoir des demandes par mail afin de laisser des avis sur les "
+"produits"
+
+#: plugin-options/settings-options.php:45
+msgid "Days to elapse"
+msgstr "Jour avant d’envoyer le mail"
+
+#: plugin-options/settings-options.php:48
+msgid ""
+"Type here the number of days that have to pass after the order has been set "
+"as \"completed\" before sending an email for reminding users to review the "
+"item(s)purchased. Defaults to 7 <br/> Note: Changing this WILL NOT re-"
+"schedule currently scheduled emails. If you would like to reschedule emails "
+"to this new date, make sure you check the 'Reschedule emails' checkboxes "
+"below."
+msgstr ""
+"Renseignez ici le nombre de jours qui doivent s’écouler après que la "
+"commande a été définie comme « terminée » avant d’envoyer un e-mail pour "
+"rappeler aux utilisateurs d’examiner les articles achetés. La valeur par "
+"défaut est 7 <br/> Remarque: La modification de ce paramètre ne reprogramme "
+"PAS les e-mails actuellement planifiés. Si vous souhaitez reporter les "
+"emails à cette nouvelle date, assurez-vous de cocher les cases «Replanifier "
+"les courriels» ci-dessous."
+
+#: plugin-options/settings-options.php:54
+msgid "Request a review for"
+msgstr "Demande un avis pour"
+
+#: plugin-options/settings-options.php:57
+msgid "Select the products you want to ask for a review"
+msgstr ""
+
+#: plugin-options/settings-options.php:59
+msgid "All products in order"
+msgstr "Tous les produits de la commande"
+
+#: plugin-options/settings-options.php:60
+msgid "Specific products"
+msgstr "Produits spécifiques"
+
+#: plugin-options/settings-options.php:66
+msgid "Number of products for review request"
+msgstr "Nombre de produits dans la demande"
+
+#: plugin-options/settings-options.php:69
+msgid ""
+"Set the number of products from the order to include in the review reminder "
+"email. Default: 1"
+msgstr ""
+"Choisir le nombre de produit dans la commande à inclure dans la demande "
+"d’avis. Défaut: 1"
+
+#: plugin-options/settings-options.php:79
+msgid "Send review reminder for"
+msgstr "Envoyer une demande d’avis pour"
+
+#: plugin-options/settings-options.php:84
+msgid "First products(s) bought"
+msgstr "Premier produit acheté"
+
+#: plugin-options/settings-options.php:85
+msgid "Last products(s) bought"
+msgstr "Dernier produit acheté"
+
+#: plugin-options/settings-options.php:86
+msgid "Products with highest number of items bought"
+msgstr "Produit avec la plus grande quantité acheté"
+
+#: plugin-options/settings-options.php:87
+msgid "Products with lowest number of items bought"
+msgstr "Produit avec la plus petite quantité acheté"
+
+#: plugin-options/settings-options.php:88
+msgid "Products with highest number of reviews"
+msgstr "Produit avec le plus grand nombre d’avis"
+
+#: plugin-options/settings-options.php:89
+msgid "Products with lowest number of reviews"
+msgstr "Produit avec le plus petit nombre d’avis"
+
+#: plugin-options/settings-options.php:90
+msgid "Products with highest price"
+msgstr "Produit coûtant le plus cher"
+
+#: plugin-options/settings-options.php:91
+msgid "Products with lowest price"
+msgstr "Produit coûtant le moins cher"
+
+#: plugin-options/settings-options.php:92
+msgid "Products with highest total value"
+msgstr "Produits avec la valeur totale la plus élevée"
+
+#: plugin-options/settings-options.php:93
+msgid "Products with lowest total value"
+msgstr "Produits avec la plus faible valeur totale"
+
+#: plugin-options/settings-options.php:94
+msgid "Random"
+msgstr "Aléatoire"
+
+#: plugin-options/settings-options.php:104
+msgid "Reschedule emails"
+msgstr "Emails reprogrammés"
+
+#: plugin-options/settings-options.php:107
+msgid "Reschedule all currently scheduled emails to the new date defined above"
+msgstr ""
+"Reprogrammer tous les emails actuellement programmés à la nouvelle date "
+"définie ci-dessus"
+
+#: plugin-options/settings-options.php:112
+msgid "Send emails immediately"
+msgstr ""
+
+#: plugin-options/settings-options.php:115
+msgid "Send emails if rescheduled date has already passed"
+msgstr "Envoyer les emails si la date de reprogrammation est déjà passée"
+
+#: plugin-options/settings-options.php:128
+msgid "Advanced Tools"
+msgstr "Outils avancés"
+
+#: plugin-options/settings-options.php:132
+msgid "Show in Orders page"
+msgstr "Voir dans la page des commandes"
+
+#: plugin-options/settings-options.php:135
+msgid "Show Review Reminder Column in Orders page"
+msgstr "Voir la colonne des demandes d’avis dans la page des commandes"
+
+#: plugin-options/settings-options.php:143
+msgid "Bulk Schedule"
+msgstr "Planification groupée"
+
+#: plugin-options/settings-options.php:146
+msgid "Schedule Orders"
+msgstr "Commandes planifiées"
+
+#: plugin-options/settings-options.php:153
+msgid ""
+"Use this option to schedule all the orders that have never been scheduled. "
+"This option is useful if you use external tool to manage your e-commerce, "
+"such as Linnworks, that could bypass some WooCommerce functionalities."
+msgstr ""
+"Utilisez cette option pour planifier toutes les commandes qui n’ont jamais "
+"été planifiées. Cette option est utile si vous utilisez un outil externe "
+"pour gérer votre commerce électronique, tel que Linnworks, qui pourrait "
+"contourner certaines fonctionnalités de WooCommerce."
+
+#: plugin-options/settings-options.php:159
+msgid "Bulk Unschedule"
+msgstr "Déprogrammation groupée"
+
+#: plugin-options/settings-options.php:162
+#: plugin-options/settings-options.php:178
+#: plugin-options/settings-options.php:194
+msgid "Clear"
+msgstr "Effacer"
+
+#: plugin-options/settings-options.php:169
+msgid "Use this option to unschedule all pending emails from Schedule List."
+msgstr ""
+"Utilisez cette option pour déprogrammer tous les mails en attente de la "
+"liste planifiée"
+
+#: plugin-options/settings-options.php:175
+msgid "Clear sent emails from Schedule List"
+msgstr "Effacer les emails envoyés depuis la liste planifié"
+
+#: plugin-options/settings-options.php:185
+msgid ""
+"Use this option to clear all sent emails from Schedule List. This option is "
+"useful if you want to reduce the weight of your database."
+msgstr ""
+"Utilisez cette option pour effacer tous les emails de la liste planifiée. "
+"Cette option est utile si vous souhaitez réduire le poids de votre base de "
+"données."
+
+#: plugin-options/settings-options.php:191
+msgid "Clear cancelled emails from Schedule List"
+msgstr "Effacer les emails annulés de liste programmée"
+
+#: plugin-options/settings-options.php:201
+msgid ""
+"Use this option to clear all cancelled emails from Schedule List. This "
+"option is useful if you want to reduce the weight of your database."
+msgstr ""
+"Utilisez cette option pour effacer tous les e-mails annulés de la liste de "
+"planification. Cette option est utile si vous voulez réduire le poids de "
+"votre base de données."
+
+#: templates/admin/ywrr-blocklist-table.php:65
+msgid "customer"
+msgstr "client"
+
+#: templates/admin/ywrr-blocklist-table.php:66
+msgid "customers"
+msgstr "clients"
+
+#: templates/admin/ywrr-blocklist-table.php:92
+msgid "Customer"
+msgstr "Client"
+
+#: templates/admin/ywrr-blocklist-table.php:93
+msgid "Email"
+msgstr "Email"
+
+#: templates/admin/ywrr-blocklist-table.php:104
+msgid "Unregistered User"
+msgstr "Utilisateur désinscrit"
+
+#: templates/admin/ywrr-blocklist-table.php:161
+msgid "Items deleted: %d"
+msgstr "Produits supprimés: %d"
+
+#: templates/admin/ywrr-blocklist-table.php:177
+msgid "Add email to the blocklist"
+msgstr ""
+
+#: templates/admin/ywrr-blocklist-table.php:188
+msgid "Add Email"
+msgstr ""
+
+#: templates/admin/ywrr-blocklist-table.php:202
+msgid "Search Email"
+msgstr "Chercher un email"
+
+#: templates/admin/ywrr-blocklist-table.php:225
+msgid "Customers"
+msgstr "Clients"
+
+#: templates/admin/ywrr-schedule-table.php:64
+msgid "reminder"
+msgstr "rappel"
+
+#: templates/admin/ywrr-schedule-table.php:65
+msgid "reminders"
+msgstr "rappels"
+
+#: templates/admin/ywrr-schedule-table.php:91
+msgid "Order"
+msgstr "Commande"
+
+#: templates/admin/ywrr-schedule-table.php:93
+msgid "Completed Date"
+msgstr ""
+
+#: templates/admin/ywrr-schedule-table.php:94
+msgid "E-mail Scheduled Date"
+msgstr "Date de la programmation de l’email"
+
+#: templates/admin/ywrr-schedule-table.php:110
+#: templates/admin/ywrr-schedule-table.php:224
+msgid "Sent"
+msgstr "Envoyé"
+
+#: templates/admin/ywrr-schedule-table.php:114
+#: templates/admin/ywrr-schedule-table.php:226
+msgid "Cancelled"
+msgstr "Annulé"
+
+#: templates/admin/ywrr-schedule-table.php:118
+#: templates/admin/ywrr-schedule-table.php:225
+msgid "On Hold"
+msgstr "En attente"
+
+#: templates/admin/ywrr-schedule-table.php:140
+msgid "Billing:"
+msgstr "Facturation:"
+
+#: templates/admin/ywrr-schedule-table.php:144
+msgid "Phone:"
+msgstr "Téléphone:"
+
+#: templates/admin/ywrr-schedule-table.php:150
+msgid "Guest"
+msgstr "Visiteur"
+
+#: templates/admin/ywrr-schedule-table.php:170
+#: templates/admin/ywrr-schedule-table.php:194
+msgid "Cancel Schedule"
+msgstr "Annule la programmation"
+
+#: templates/admin/ywrr-schedule-table.php:180
+msgid "As general settings"
+msgstr "En tant que paramètres généraux"
+
+#: templates/admin/ywrr-schedule-table.php:223
+msgid "All"
+msgstr ""
+
+#: templates/admin/ywrr-schedule-table.php:234
+msgid "Email unscheduled: %d"
+msgstr "Email déprogrammé: %d"
+
+#: templates/admin/ywrr-schedule-table.php:240
+msgid "Scheduled Reminders"
+msgstr "Demande programmée"
+
+#: templates/admin/ywrr-schedule-table.php:256
+msgid "Search Order"
+msgstr "Chercher une commande"
+
+#: templates/admin/ywrr-schedule-table.php:279
+msgid "Reminders"
+msgstr "Demandes"
+
+#: templates/emails/email-items-list-premium.php:55
+msgid "Your rating"
+msgstr ""
+
+#: templates/ywrr-unsubscribe.php:27
+msgid ""
+"If you don't want to receive any more review reminders, please retype your "
+"email address: %s"
+msgstr ""
+"Si vous ne souhaitez pas recevoir d’autres mails de demande d’avis, merci de "
+"renseigner votre adresse email: %s"
+
+#: templates/ywrr-unsubscribe.php:29
+msgid "Email address"
+msgstr "Adresse email"
+
+#: templates/ywrr-unsubscribe.php:33
+msgid "Unsubscribe"
+msgstr "Se désabonner"
+
+#. Description of the plugin/theme
+msgid ""
+"<code><strong>YITH WooCommerce Review Reminder</strong></code> allows you to "
+"increase the number of quality reviews for the products of your store, by "
+"automatically reminding users of adding one. Choose your best communication "
+"strategy to encourage them to express their opinion and you'll see your "
+"store grow every day more! <a href=\"https://yithemes.com/\" target=\"_blank"
+"\">Get more plugins for your e-commerce shop on <strong>YITH</strong></a>"
+msgstr ""
+
+#: includes/class-ywrr-privacy.php:18
+msgctxt "Privacy Policy Content"
+msgid "YITH WooCommerce Review Reminder"
+msgstr ""
+
+#: includes/class-ywrr-privacy.php:30
+msgctxt "Privacy Policy Content"
+msgid ""
+"During the checkout, customers can express their consent to receive a review "
+"reminder about the product(s) they’ve purchased."
+msgstr ""
+
+#: includes/class-ywrr-privacy.php:31
+msgctxt "Privacy Policy Content"
+msgid ""
+"If they agree, an email will be scheduled and sent in the following days "
+"after the order is completed."
+msgstr ""
+
+#: includes/class-ywrr-privacy.php:32
+msgctxt "Privacy Policy Content"
+msgid ""
+"If they deny, the email address provided by users during the checkout and, "
+"if registered to the site, their ID, will be logged into a dedicated table "
+"in the database to prevent them from receiving any reminders."
+msgstr ""
+
+#: includes/class-ywrr-privacy.php:42
+msgctxt "Privacy Policy Content"
+msgid ""
+"Members of our team have access to the information you provide us. For "
+"example, both Administrators and Shop Managers can access:"
+msgstr ""
+
+#: includes/class-ywrr-privacy.php:43
+msgctxt "Privacy Policy Content"
+msgid "the list of scheduled emails"
+msgstr ""
+
+#: includes/class-ywrr-privacy.php:44
+msgctxt "Privacy Policy Content"
+msgid ""
+"the list of all email addresses that do not want to receive review reminders"
+msgstr ""
+
+#: includes/class-ywrr-unsubscribe.php:75
+msgctxt "Page slug"
+msgid "unsubscribe"
+msgstr "desabonnement"
+
+#: includes/class-ywrr-unsubscribe.php:76
+msgctxt "Page title"
+msgid "Unsubscribe"
+msgstr "Désabonnement"
+
+#: templates/admin/ywrr-schedule-table.php:173
+msgctxt "Order number by X"
+msgid "%s by %s"
+msgstr "%s par %s"

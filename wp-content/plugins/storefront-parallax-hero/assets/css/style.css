@@ -1,0 +1,250 @@
+@-webkit-keyframes cd-reveal-up {
+  0% {
+    opacity: 1;
+    -webkit-transform: translateY(100%);
+            transform: translateY(100%); }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+            transform: translateY(0); } }
+
+@keyframes cd-reveal-up {
+  0% {
+    opacity: 1;
+    -webkit-transform: translateY(100%);
+            transform: translateY(100%); }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+            transform: translateY(0); } }
+
+@-webkit-keyframes cd-reveal-down {
+  0% {
+    opacity: 1;
+    -webkit-transform: translateY(-100%);
+            transform: translateY(-100%); }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+            transform: translateY(0); } }
+
+@keyframes cd-reveal-down {
+  0% {
+    opacity: 1;
+    -webkit-transform: translateY(-100%);
+            transform: translateY(-100%); }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+            transform: translateY(0); } }
+
+@-webkit-keyframes cd-loading-mask {
+  0%, 100% {
+    -webkit-transform: scaleX(0);
+            transform: scaleX(0); }
+  40%, 60% {
+    -webkit-transform: scaleX(1);
+            transform: scaleX(1); } }
+
+@keyframes cd-loading-mask {
+  0%, 100% {
+    -webkit-transform: scaleX(0);
+            transform: scaleX(0); }
+  40%, 60% {
+    -webkit-transform: scaleX(1);
+            transform: scaleX(1); } }
+
+body,
+.site {
+  overflow-x: hidden; }
+
+.page-template-template-homepage:not(.has-post-thumbnail) .site-main > .sph-hero:first-child {
+  margin-top: -4.235801032em; }
+
+.sph-hero {
+  margin-bottom: 2.618em;
+  text-align: center;
+  background-position: 50% 0;
+  position: relative;
+  margin-left: -2.618em;
+  margin-right: -2.618em;
+  overflow: hidden; }
+
+.video-wrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1; }
+
+.video-wrapper video {
+  max-width: initial;
+  min-width: initial;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+          transform: translateX(-50%) translateY(-50%); }
+
+.sph-video-image-fallback .video-wrapper video {
+  display: none; }
+
+.sph-video-image-fallback .video-wrapper .sph-video-image-fallback {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-repeat: none;
+  background-size: cover; }
+
+.sph-hero .overlay {
+  padding: 2.618em;
+  position: relative;
+  z-index: 9;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box; }
+
+.sph-hero.sph-full-height.full .overlay {
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box; }
+
+.sph-hero.sph-full-height .overlay {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important; }
+
+.sph-inner {
+  width: 100%;
+  padding: 1.618em;
+  -webkit-box-sizing: border-box !important;
+          box-sizing: border-box !important; }
+
+.sph-hero .col-full {
+  margin-left: auto;
+  margin-right: auto; }
+
+.sph-hero.fixed {
+  margin-left: auto;
+  margin-right: auto; }
+
+.sph-hero h1 {
+  font-weight: 700; }
+
+.sph-hero p:last-child {
+  margin-bottom: 0; }
+
+.sph-hero.left {
+  text-align: left; }
+
+.sph-hero.right {
+  text-align: right; }
+
+.entry-content .sph-hero.full {
+  margin-left: 0;
+  margin-right: 0; }
+
+.overlay.animated h1 {
+  position: relative;
+  color: transparent !important;
+  overflow: hidden;
+  padding-bottom: .618em;
+  margin-bottom: 0; }
+  .overlay.animated h1:after {
+    content: attr(data-content);
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    -webkit-transform: translateY(100%);
+            transform: translateY(100%);
+    -webkit-animation-name: cd-reveal-up;
+            animation-name: cd-reveal-up;
+    -webkit-animation-fill-mode: forwards;
+            animation-fill-mode: forwards;
+    -webkit-animation-duration: .4s;
+            animation-duration: .4s;
+    -webkit-animation-delay: .7s;
+            animation-delay: .7s;
+    cursor: text; }
+
+.overlay.animated span {
+  position: relative;
+  display: inline-block;
+  opacity: 1; }
+  .overlay.animated span::before {
+    /* this is the loading bar */
+    content: '';
+    position: absolute;
+    bottom: -.309em;
+    left: -10em;
+    height: 2px;
+    width: calc(100% + 20em);
+    -webkit-animation: cd-loading-mask 1s .3s both;
+            animation: cd-loading-mask 1s .3s both; }
+
+.overlay.animated .sph-hero-content-wrapper {
+  overflow: hidden; }
+
+.overlay.animated .sph-hero-content {
+  position: relative;
+  margin: 0;
+  -webkit-transform: translateY(-100%);
+          transform: translateY(-100%);
+  -webkit-animation-name: cd-reveal-down;
+          animation-name: cd-reveal-down;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+  padding-bottom: 4px;
+  -webkit-animation-duration: .4s;
+          animation-duration: .4s;
+  -webkit-animation-delay: .7s;
+          animation-delay: .7s; }
+
+@media screen and (min-width: 768px) {
+  .sph-hero {
+    margin-bottom: 4.236em;
+    margin-left: -2.618em;
+    margin-right: -2.618em; }
+  .sph-hero .overlay {
+    padding: 9.505em; }
+  .sph-inner {
+    z-index: 2;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    bottom: auto;
+    right: auto;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+            transform: translateX(-50%) translateY(-50%);
+    padding: 0 9.505em !important;
+    -webkit-box-sizing: border-box !important;
+            box-sizing: border-box !important; }
+  .sph-video-image-fallback .video-wrapper video {
+    display: block; }
+  .sph-video-image-fallback .video-wrapper .sph-video-image-fallback {
+    display: none; }
+  .widget-area .widget .sph-hero,
+  .footer-widgets .widget .sph-hero {
+    padding: 1.618em; }
+    .widget-area .widget .sph-hero .overlay,
+    .footer-widgets .widget .sph-hero .overlay {
+      padding: 0; }
+    .widget-area .widget .sph-hero .sph-inner,
+    .footer-widgets .widget .sph-hero .sph-inner {
+      padding: 0 !important; }
+  /**
+	 * Storefront Designer integration
+	 */
+  .sd-fixed-width .sph-hero {
+    margin-left: 0;
+    margin-right: 0; }
+  .sd-fixed-width .sph-hero.full {
+    margin-left: -5.4285em;
+    margin-right: -5.4285em; } }

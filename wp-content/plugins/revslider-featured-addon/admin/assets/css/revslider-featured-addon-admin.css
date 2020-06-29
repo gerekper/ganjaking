@@ -1,0 +1,68 @@
+/**
+ * All of the CSS for your admin-specific functionality should be
+ * included in this file.
+ */
+
+ #revslider_featured_type_auto { display: none }
+ #preview_featured_slider.mini-transparent { background:url(../images/trans_tile.png);	background-repeat:repeat }
+ #revslider_featured_slider_id { width:100%;max-width: 100% ;clear: both;background: transparent; border: 0; box-shadow: none;}
+
+ .featured-list_sliders { border-top:0!important; }
+#featured-slider-set-options { margin-bottom: 10px; }
+
+/**************************************************
+	- SLIDER LIST SETTINGS
+ **************************************************/
+
+.featured-list_sliders	{	list-style:none; margin:0px; padding:5px 0px; background:#fff; border-top:1px solid #e5e5e5;}
+
+
+.featured-slider-slide			{	list-style:  none; margin:0px;padding:0px;
+						position:relative; display:inline-block; width:100%; height:190px; margin-right:10px; z-index:5; background:#333;}
+
+.featured-slider-hover-metas	{	display:none; position:absolute; width:100%;top:160px; background:#353535; padding:10px 0px;}
+.featured-slider-main-metas		{	width:220px;height:160px; top:0px;left:0px; overflow: hidden;}
+
+.featured-slider-slide:hover 	{	z-index:10;}
+.featured-slider-slidenr		{	font-weight:bold; font-size:14px; color:#fff; color:rgba(255,255,255,0.5); position: absolute; right:10px; top:28px;}
+
+.featured-slider-star				{	position:absolute; top:7px;left:5px;color:#fff; line-height:20px; vertical-align: middle;text-decoration: none;}
+.featured-slider-star [class^="eg-icon-"]:before, .featured-slider-star [class*=" eg-icon-"]:before	{	color:#fff !important;}
+
+.featured-slider-source				{	font-size:11px;position:absolute; right:10px;top:10px; color:#fff; line-height:20px; vertical-align: middle;}
+.featured-slider-source i 			{	font-size:14px;margin-right:5px; line-height:16px; vertical-align: top; color:#fff;}
+.featured-slider-source i:before	{	color:#fff !important;}
+.featured-slider-title-wrapper		{	vertical-align:middle; position:absolute; bottom:0px; color:#fff; padding:5px 10px; width:100%;line-height:20px; background:#eee; box-sizing:border-box;}
+
+.featured-slider-title 				{	margin-left:5px; vertical-align:middle; display: inline-block;line-height:20px; max-width:175px; overflow:hidden; white-space: nowrap;}
+.featured-slider-title ,
+.featured-slider-title a 			{	color:#555; text-decoration: none; font-size:11px;line-height:20px; font-weight:600;}
+
+.featured-slider-slide:hover .featured-slider-title-wrapper { background:#252525;}
+.featured-slider-slide:hover .featured-slider-title a,
+.featured-slider-slide:hover .featured-slider-id,
+.featured-slider-slide:hover .featured-slider-title 		{	 color:#fff;}
+.featured-slider-id 				{	font-size:11px; line-height:20px;vertical-align:bottom;color:#555; display: inline-block;}
+.featured-slider-firstslideimage	{	position:absolute; top:0px: left:0px; width:100%;height:100%;}
+#featuredsliderdiv .mini-transparent       { 	background:url(../images/trans_tile.png);	background-repeat:repeat;}
+#featuredsliderdiv .mini-as-bg				{	position:absolute;top:0px;left:0px;width:100%;height:100%;}
+
+.featured-slider-bg-top			{	top:0px;left:0px;width:100%;height:160px; position: absolute; }
+
+.featured-slider-grad-bg		{	
+background: -moz-linear-gradient(top,  rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 50%, rgba(0,0,0,0) 100%); 
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0.65)), color-stop(50%,rgba(0,0,0,0)), color-stop(100%,rgba(0,0,0,0))); 
+background: -webkit-linear-gradient(top,  rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 50%,rgba(0,0,0,0) 100%);
+background: -o-linear-gradient(top,  rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 50%,rgba(0,0,0,0) 100%); 
+background: -ms-linear-gradient(top,  rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 50%,rgba(0,0,0,0) 100%); 
+background: linear-gradient(to bottom,  rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 50%,rgba(0,0,0,0) 100%); 
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6000000', endColorstr='#00000000',GradientType=0 );
+}
+
+.featured-slider-title-wrapper		{	vertical-align:middle; position:absolute; bottom:0px; color:#fff; padding:5px 10px 5px 0; width:100%;line-height:20px; background:#eee; box-sizing:border-box;}
+
+.featured-slider-title 				{	margin-left:5px; vertical-align:middle; display: inline-block;line-height:20px; max-width:175px; overflow:hidden; white-space: nowrap;}
+.featured-slider-title ,
+.featured-slider-title a 			{	color:#555; text-decoration: none; font-size:11px;line-height:20px; font-weight:600;}
+
+#revslider_featured_slider_id option {color: black}

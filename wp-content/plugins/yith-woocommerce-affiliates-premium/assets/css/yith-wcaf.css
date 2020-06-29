@@ -1,0 +1,455 @@
+/* === DASHBOARD SUMMARY === */
+
+.yith-wcaf:after{
+    display: block;
+    content: '';
+    clear: both;
+}
+
+.yith-wcaf.yith-wcaf-dashboard-summary .dashboard-content {
+    margin: 0 -15px;
+}
+
+.yith-wcaf.yith-wcaf-dashboard-summary .dashboard-content:after{
+    display: block;
+    content: '';
+    clear: both;
+}
+
+.yith-wcaf.yith-wcaf-dashboard-summary .dashboard-title {
+    margin-bottom: 35px;
+}
+
+.yith-wcaf.yith-wcaf-dashboard-summary .dashboard-title h2,
+.yith-wcaf.yith-wcaf-dashboard-summary .dashboard-title span.view-all {
+    display: inline-block;
+    margin: 0;
+    vertical-align: baseline;
+}
+
+.yith-wcaf.yith-wcaf-dashboard-summary .dashboard-title span.view-all {
+    margin-left: 5px;
+}
+
+.yith-wcaf table {
+    font-size: .85em;
+}
+
+.yith-wcaf table th {
+    padding: 4px 8px;
+    vertical-align: middle;
+}
+
+.yith-wcaf table td.empty-set {
+    text-align: center;
+}
+
+.yith-wcaf.yith-wcaf-dashboard-summary ul.dashboard-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.yith-wcaf .left-column,
+.yith-wcaf .right-column {
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+
+.yith-wcaf .left-column:not(.full-width) {
+    width: 70%;
+    float: left;
+}
+
+.yith-wcaf .right-column:not(.full-width) {
+    width: 30%;
+    float: left;
+}
+
+/* === DASHBOARD COMMISSIONS / CLICKS / PAYMENTS === */
+
+.yith-wcaf.yith-wcaf-commissions .filters,
+.yith-wcaf.yith-wcaf-clicks .filters,
+.yith-wcaf.yith-wcaf-payments .filters {
+    margin-bottom: 15px;
+}
+
+.yith-wcaf.yith-wcaf-commissions .filters .filters-row,
+.yith-wcaf.yith-wcaf-clicks .filters .filters-row,
+.yith-wcaf.yith-wcaf-payments .filters .filters-row {
+    margin-bottom: 15px;
+}
+
+.yith-wcaf.yith-wcaf-commissions .filters .filters-row .per-page,
+.yith-wcaf.yith-wcaf-clicks .filters .filters-row .per-page,
+.yith-wcaf.yith-wcaf-payments .filters .filters-row .per-page{
+    float: right;
+}
+
+.yith-wcaf.yith-wcaf-commissions .filters .filters-row .per-page input,
+.yith-wcaf.yith-wcaf-clicks .filters .filters-row .per-page input,
+.yith-wcaf.yith-wcaf-payments .filters .filters-row .per-page input{
+    max-width: 70px;
+}
+
+.yith-wcaf.yith-wcaf-commissions .filters .button-row a,
+.yith-wcaf.yith-wcaf-clicks .filters .button-row a {
+    margin-left: 10px;
+}
+
+.yith-wcaf.yith-wcaf-commissions .filters .button-row input,
+.yith-wcaf.yith-wcaf-commissions .filters .button-row a,
+.yith-wcaf.yith-wcaf-clicks .filters .button-row input,
+.yith-wcaf.yith-wcaf-clicks .filters .button-row a,
+.yith-wcaf.yith-wcaf-payments .filters .button-row input,
+.yith-wcaf.yith-wcaf-payments .filters .button-row a {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.yith-wcaf.yith-wcaf-commissions .product-search {
+    min-width: 50%;
+}
+
+.yith-wcaf.yith-wcaf-commissions .product-search a.select2-choice {
+    border-radius: 0;
+    border-color: #eaeaea;
+}
+
+.yith-wcaf.yith-wcaf-commissions .product-search a.select2-choice:hover {
+    border-bottom: 1px solid #eaeaea;
+}
+
+.yith-wcaf.yith-wcaf-commissions .product-search a.select2-choice .select2-chosen {
+    color: #707070;
+}
+
+.yith-wcaf.yith-wcaf-commissions input.datepicker,
+.yith-wcaf.yith-wcaf-clicks input.datepicker,
+.yith-wcaf.yith-wcaf-payments input.datepicker {
+    max-width: 24%;
+    box-sizing: border-box;
+}
+
+.yith-wcaf.yith-wcaf-commissions .product-search,
+.yith-wcaf.yith-wcaf-commissions input.datepicker,
+.yith-wcaf.yith-wcaf-clicks input.datepicker,
+.yith-wcaf.yith-wcaf-payments input.datepicker {
+    width: auto;
+    display: inline-block !important;
+    color: #707070;
+}
+
+/* === DASHBOARD WITHDRAW === */
+
+.yith-wcaf.yith-wcaf-withdraw .first-step,
+.yith-wcaf.yith-wcaf-withdraw .second-step,
+.yith-wcaf.yith-wcaf-withdraw .third-step{
+    border-bottom: 1px solid #bbb;
+    padding: 30px 0;
+}
+
+.yith-wcaf.yith-wcaf-withdraw .second-step p.form-row{
+    margin-bottom: 0;
+}
+
+.yith-wcaf.yith-wcaf-withdraw .third-step{
+    border-bottom: none;
+}
+
+.yith-wcaf.yith-wcaf-withdraw .information-panel {
+    margin-top: 15px;
+    border: 1px solid #bbb;
+    padding: 20px;
+    border-radius: 3px;
+}
+
+.yith-wcaf.yith-wcaf-withdraw .information-panel p{
+    margin-bottom: 5px;
+}
+
+.yith-wcaf.yith-wcaf-withdraw .information-panel .total{
+    font-size: 1.1em;
+    margin-bottom: 25px;
+}
+
+.yith-wcaf.yith-wcaf-withdraw .information-panel .max-withdraw,
+.yith-wcaf.yith-wcaf-withdraw .information-panel .min-withdraw{
+    font-size: .9em;
+}
+
+.yith-wcaf.yith-wcaf-withdraw .invoice-mode-separator{
+    text-align: center;
+    display: block;
+    margin-top: 30px;
+    overflow: hidden;
+    position: relative;
+}
+
+.yith-wcaf.yith-wcaf-withdraw .invoice-mode-separator:before,
+.yith-wcaf.yith-wcaf-withdraw .invoice-mode-separator:after{
+    content: '';
+    display: block;
+    width: 100%;
+    border-top: 1px solid #bbb;
+    position: absolute;
+    top: 50%;
+}
+
+.yith-wcaf.yith-wcaf-withdraw .invoice-mode-separator:before{
+    left: -60%
+}
+
+.yith-wcaf.yith-wcaf-withdraw .invoice-mode-separator:after{
+    right: -60%
+}
+
+.yith-wcaf.yith-wcaf-withdraw p.form-row.yith-field-required input{
+    border: 1px solid #f19999;
+}
+
+.yith-wcaf.yith-wcaf-withdraw .radio-checkout label{
+    display: inline-block;
+    margin-right: 15px;
+}
+
+/* === GENERATE LINK === */
+
+.yith-wcaf-link-generator small{
+    display: block;
+}
+
+.copy-trigger{
+    display: inline-block;
+    padding: 2px 5px;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    background-color: #ebebeb;
+    cursor: pointer;
+}
+
+/* === CURRENT AFFILIATE === */
+
+.yith-wcaf-current-affiliate p.no-affiliate-message{
+    font-style: italic;
+}
+
+.yith-wcaf-current-affiliate .affiliate-gravatar{
+    float: left;
+}
+
+.yith-wcaf-current-affiliate .affiliate-gravatar img{
+    border-radius: 50%;
+    border: 4px solid #cdcdcd
+}
+
+.yith-wcaf-current-affiliate.with-gravatar .affiliate-info{
+    padding-left: 100px;
+    padding-top: 10px;
+}
+
+.yith-wcaf-current-affiliate .affiliate-info .affiliate-name{
+    font-weight: 700;
+}
+
+.yith-wcaf-current-affiliate .affiliate-info .affiliate-real-name{
+    font-weight: 400;
+    font-style: italic;
+}
+
+/* === SET REFERRER FORM === */
+
+.yith-wcaf.yith-wcaf-set-referrer form.referrer-form {
+    border: 1px solid #d3ced2;
+    padding: 20px;
+    margin: 2em 0;
+    text-align: left;
+    border-radius: 5px;
+}
+
+/* === DATEPICKER === */
+
+.yith-wcaf-datepicker.ui-datepicker {
+    background-color: #fff;
+    max-width: 300px;
+    font-size: 0.85em;
+    padding: 10px;
+    border: 1px solid #cdcdcd;
+    margin-top: 5px;
+}
+
+.yith-wcaf-datepicker.ui-datepicker .ui-datepicker-header {
+    margin-bottom: 10px;
+}
+
+.yith-wcaf-datepicker.ui-datepicker .ui-datepicker-header a.ui-datepicker-prev {
+    float: left;
+    cursor: pointer;
+}
+
+.yith-wcaf-datepicker.ui-datepicker .ui-datepicker-header a.ui-datepicker-next {
+    float: right;
+    cursor: pointer;
+}
+
+.yith-wcaf-datepicker.ui-datepicker .ui-datepicker-header .ui-datepicker-title {
+    text-align: center;
+    font-weight: 700;
+}
+
+.yith-wcaf-datepicker.ui-datepicker table {
+    border: none;
+    border-spacing: 5px;
+}
+
+.yith-wcaf-datepicker.ui-datepicker table td,
+.yith-wcaf-datepicker.ui-datepicker table th {
+    border: none;
+    text-align: right;
+    margin-bottom: 10px !important;
+}
+
+.yith-wcaf-datepicker.ui-datepicker table th {
+    padding: 0 5px;
+}
+
+.yith-wcaf-datepicker.ui-datepicker table td {
+    padding: 0;
+}
+
+.yith-wcaf-datepicker.ui-datepicker table td:not(.ui-datepicker-other-month) {
+    background-color: #f7f7f7;
+    border: 1px solid transparent;
+}
+
+.yith-wcaf-datepicker.ui-datepicker table td:hover,
+.yith-wcaf-datepicker.ui-datepicker table td.ui-datepicker-current-day {
+    border-color: #707070;
+    background-color: #fff;
+}
+
+.yith-wcaf-datepicker.ui-datepicker table td a {
+    padding: 0 5px;
+    display: block;
+    color: #707070;
+}
+
+.yith-wcaf-datepicker.ui-datepicker .ui-datepicker-buttonpane {
+    padding-top: 10px;
+    border-top: 1px solid #cdcdcd;
+}
+
+.yith-wcaf-datepicker.ui-datepicker .ui-datepicker-buttonpane:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.yith-wcaf-datepicker.ui-datepicker .ui-datepicker-buttonpane button {
+    font-size: 0.85em;
+    padding: 10px 15px;
+}
+
+.yith-wcaf-datepicker.ui-datepicker .ui-datepicker-buttonpane button:first-child {
+    float: left;
+}
+
+.yith-wcaf-datepicker.ui-datepicker .ui-datepicker-buttonpane button:last-child {
+    float: right;
+}
+
+/* === TOOLTIP === */
+
+.help_tip{
+    position: relative;
+}
+
+.help_tip .yith_wcaf_tooltip {
+    position: absolute;
+    font-size: 12px;
+    line-height: 14px;
+    text-align: left;
+    box-sizing: border-box;
+    opacity: 0;
+    width: 200px;
+    margin-left: -50px;
+    z-index: 99;
+    left: calc(50% - 50px);
+    transition: all 300ms;
+    -webkit-transition: all 300ms;
+    -moz-transition: all 300ms;
+    pointer-events: none;
+}
+
+.help_tip .yith_wcaf_tooltip span:after {
+    content: '';
+    border: 5px solid transparent;
+    border-bottom-color: #434343;
+    width: 1px;
+    height: 1px;
+    position: absolute;
+    left: 50%;
+    margin-left: -5px;
+}
+
+.help_tip .yith_wcaf_tooltip.top {
+    bottom: 100%;
+    padding-bottom: 10px;
+}
+
+.help_tip .yith_wcaf_tooltip.top span:after {
+    bottom: -10px;
+}
+
+.help_tip .yith_wcaf_tooltip.bottom {
+    top: 100%;
+    padding-top: 10px;
+}
+
+.help_tip .yith_wcaf_tooltip.bottom span:after {
+    top: -10px;
+}
+
+.help_tip:hover .yith_wcaf_tooltip {
+    opacity: 1;
+}
+
+.help_tip .yith_wcaf_tooltip > span {
+    display: inline-block;
+    position: relative;
+    height: auto;
+    width: auto;
+    max-width: 100%;
+    border-radius: 3px;
+    padding: 10px 15px;
+
+    background-color: #434343;
+    color: #ffffff;
+}
+/* Share buttons */
+.yith-wcaf-share{
+    margin-bottom: 25px;
+    margin-top: 10px;
+    padding: 10px 0px 10px 10px;
+}
+
+.yith-wcaf-share h4.yith-wcaf-share-title{
+    margin-left: 5px ;
+}
+
+.yith-wcaf-share ul {
+    margin: 5px 0;
+    padding: 0;
+}
+
+.yith-wcaf-share ul, .yith-wcaf-share li { height: 21px; }
+.yith-wcaf-share li, .entry-content .yith-wcaf-share li { margin-left: 0px; margin-right: 0px; }
+
+.yith-wcaf-share li a {
+    background-position: left top;
+    display: inline-block;
+    width: 21px;
+    height: 21px;
+    border: none;
+    box-shadow: none;
+}

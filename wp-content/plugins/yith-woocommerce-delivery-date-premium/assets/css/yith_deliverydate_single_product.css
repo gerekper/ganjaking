@@ -1,0 +1,30 @@
+#ywcdd_info_single_product{
+    margin-bottom: 10px;
+}
+
+#ywcdd_info_shipping_date, #ywcdd_info_first_delivery_date{
+    padding: 10px;
+    display: flex;
+    flex: 1;
+    min-height: 80px;
+}
+
+#ywcdd_info_single_product div:nth-child(2){
+    margin-top: 10px;
+}
+#ywcdd_info_shipping_date .ywcdd_shipping_icon,#ywcdd_info_first_delivery_date .ywcdd_delivery_icon {
+    display: flex;
+    background-size: 90%;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 80px;
+    margin-right: 10px;
+}
+
+.ywcdd_date_info{
+    font-weight: bold;
+}
+
+span.ywcdd_delivery_message, span.ywcdd_shipping_message {
+    flex: 1;
+}

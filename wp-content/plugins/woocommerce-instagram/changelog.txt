@@ -1,0 +1,147 @@
+*** WooCommerce Instagram Changelog ***
+
+2020-06-15 - version 3.2.0
+* Feature - Include all the product images in the catalog.
+* Fix - Fixed the default value of the field used as the product description in the product catalogs.
+
+2020-06-01 - version 3.1.1
+* Tweak - Strip HTML tags from the product description.
+* Tweak - Tested compatibility with WC 4.2.
+
+2020-05-18 - version 3.1.0
+* Feature - Define the brand and the condition per product.
+* Feature - Choose the field used as the product description.
+* Tweak - Added hook to filter the product availability.
+* Fix - Fixed fatal error when the product catalogs setting is an empty string.
+* Dev - Modified template `single-product/instagram.php`.
+
+2020-04-16 - version 3.0.2
+* Tweak - Tested compatibility with WC 4.1.
+* Fix - Fixed error 404 when loading the product catalog feed for sites with a subdirectory in their URL.
+
+2020-03-25 - version 3.0.1
+* Tweak - Use the parent description when a product variation doesn't have a description.
+* Tweak - Tested compatibility with WC 4.0.
+* Tweak - Tested compatibility with WP 5.4.
+* Tweak - Updated styles for Storefront 2.5.5.
+
+2020-02-12 - version 3.0.0
+* Feature - Added support for Instagram Shopping.
+* Feature - Define multiple 'Product Catalog' feeds.
+* Feature - Export the product catalogs to XML and CSV.
+* Tweak - Tested compatibility with WC 3.9.
+* Dev - Set the minimum requirements to WP 4.4 and WC 3.2.
+
+2019-11-06 - version 2.2.1
+* Tweak - Tested compatibility with WP 5.3.
+* Tweak - Tested compatibility with WC 3.8.
+
+2019-10-01 - version 2.2.0
+* Feature - Choose the type of images to display on product pages.
+* Feature - Configure the type of images to display per product.
+* Tweak - Use the top images if there are not enough recent images for a hashtag.
+* Tweak - Check if the access credentials have been deprecated and it requires a re-authentication.
+* Tweak - Display a notice to manually renew the access credentials when the automated process fails several times.
+* Fix - Fixed default expiration time of the access credentials.
+* Dev - Updated the Instagram Graph API version to v4.0.
+
+2019-08-05 - version 2.1.1
+* Tweak - Remove invalid characters from the product hashtag.
+* Tweak - Added compatibility with WC 3.7.
+
+2019-05-22 - version 2.1.0
+* Feature - Automatically renew the access credentials.
+* Tweak - Keep the settings when disconnecting the Instagram account or removing the plugin.
+* Tweak - Remove older update notices on plugin activation.
+* Tweak - Added URL verification when connecting and disconnecting the Instagram account.
+* Tweak - Increased `timeout` parameter for the API requests.
+* Tweak - Added compatibility with WP 5.2.
+* Fix - Fixed error when passing a callable as argument to the `empty()` function in PHP 5.4 and lower.
+* Dev - Updated the Instagram Graph API version to v3.3.
+
+2019-04-05 - version 2.0.1
+* Tweak - Added compatibility with WC 3.6.
+
+2019-02-04 - version 2.0.0
+* Feature - Use the new Instagram Graph API.
+* Feature - Customize the frontend HTML content using WooCommerce template files.
+* Feature - New and more intuitive settings page.
+* Tweak - Added compatibility with WC 3.5.
+* Tweak - Added compatibility with WP 5.0.
+* Tweak - Updated Instagram logo.
+* Tweak - Check the minimum requirements before initializing the plugin.
+* Tweak - Remove the user credentials when uninstalling the plugin.
+* Tweak - Optionally remove all the plugin data when uninstalling it.
+* Tweak - Optimized the use of the API requests.
+* Tweak - Better error handling for the API requests.
+* Dev - Log possible errors in the API requests.
+* Dev - Rewritten the entire extension.
+
+2018-09-26 - version 1.1.1
+* Update - WC tested up to 3.5
+
+2018-05-23 - version 1.1.0
+* New   - Adds API methods to retrieve recent Instagram images for the connected user.
+* Tweak - Adjusts several API properties and methods to be easier to extend.
+* Update - WC tested up to 3.4
+
+2017-12-15 - version 1.0.15
+* Update - WC 3.3 Compatibility
+
+2017-09-07 - version 1.0.14
+ * Fix - Cleans up the Product Data tab styling, to ensure the styling is consistent with the other tabs. Removes the tooltip, to ensure the description is clearly visible.
+
+2017-05-27 - version 1.0.13
+* Fix - Instagram photos won't load.
+
+2017-05-09 - version 1.0.12
+* Tweak - Fixed coding standards warnings and errors.
+* Fix - Deprecated action woocommerce_product_write_panels being used.
+* Fix - Error where not able to connect to Instagram.
+
+2017-04-03 - version 1.0.11
+* Fix - Update for WC 3.0 compatibility.
+
+2016-07-29 - version 1.0.10
+* Fix - Broken Instagram integration. Instagram authentication now works on OAuth 2.0. No need for username and Password in WP-Admin.
+
+2016-04-29 - version 1.0.9
+* Fix - Strict standard notice caused by signature changes on WooCommerce 2.6
+* Tweak - Add filter, `woocommerce_instagram_transient_expire_time`, for transient expire time
+
+2016-02-29 - version 1.0.8
+* Fix - Added translation support by loading plugin textdomain.
+
+2015-07-23 - version 1.0.7
+ * Fix - Avoids "headers" error when connecting to Instagram.
+ /classes/class-woocommerce-instagram-integration.php
+
+2014-09-19 - version 1.0.6
+ * Tweak - Improve the WooCommerce is active check to use the most recent recommended method
+ /classes/class-woocommerce-instagram.php
+ * Fix   - Remove the strict standards error notice
+ /classes/class-woocommerce-instagram-integration.php
+
+2014-09-19 - version 1.0.5
+ * Fix - Adds a check to see if WooCommerce has been network activated, when checking for the presence of WooCommerce.
+   /classes/class-woocommerce-instagram.php
+
+2014-08-27 - version 1.0.4
+ * Fix - Display the Instagram message even if no Instagram images are found for the specified hashtag. This helps to stimulate social interaction on Instagram.
+   /classes/class-woocommerce-instagram-frontend.php
+
+2014-04-10 - version 1.0.3
+* Fix - Ensures the 'headers already sent' notice does not display, by starting the output buffer.
+* Fix - Fixes the connect/disconnect redirect URL to point to the correct admin screen if using WooCommerce 2.1 or higher.
+  /classes/class-woocommerce-instagram-integration.php
+
+2014-04-01 - version 1.0.2
+* Fix - Corrects the "page" parameter in the admin notice URL, for WooCommerce 2.1+ users.
+  /classes/class-woocommerce-instagram-admin.php
+
+2013-11-06 - version 1.0.1
+* /assets/css/admin.css - Optimises CSS to use correct LESS syntax and to correctly style the write panel icon in WooCommerce 2.0.x.
+* /classes/class-woocommerce-instagram-admin.php - Optimises WooCommerce 2.0.x and 2.1.x compatibility switching.
+
+2013-10-29 - version 1.0.0
+ * First release. Woo!

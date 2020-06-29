@@ -1,0 +1,73 @@
+
+/*
+	* LayerSlider Add-On: Debug Styles
+	*
+	* (c) 2011-2020 George Krupa, John Gera & Kreatura Media
+	*
+	* LayerSlider home:		https://layerslider.kreaturamedia.com/
+	* Licensing:			https://layerslider.kreaturamedia.com/licensing/
+*/
+
+
+
+.ls-debug-window-wrapper {
+	border-radius: 3px !important;
+	margin: 20px auto !important;
+	border: 1px solid #ddd !important;
+	z-index: 9999999 !important;
+	overflow: hidden;
+	position: relative !important;
+	max-width: 1000px !important;
+}
+
+	.ls-debug-window-wrapper table {
+		width: 100% !important;
+		box-sizing: border-box !important;
+		border-collapse: collapse !important;
+		border-spacing: 0 !important;
+	}
+
+		.ls-debug-window-wrapper td,
+		.ls-debug-window-wrapper th {
+			font-family: "Open Sans", Lato, HelveticaNeue, Helvetica, Arial !important;
+			font-size: 12px !important;
+			text-align: left !important;
+			vertical-align: center !important;
+			padding: 5px 10px !important;
+		}
+
+		.ls-debug-window-wrapper th {
+			background: rgb(245,245,245) !important;
+			background: -moz-linear-gradient(top,  rgba(245,245,245,1) 0%, rgba(238,238,238,1) 100%) !important;
+			background: -webkit-linear-gradient(top,  rgba(245,245,245,1) 0%,rgba(238,238,238,1) 100%) !important;
+			background: linear-gradient(to bottom,  rgba(245,245,245,1) 0%,rgba(238,238,238,1) 100%) !important;
+			font-weight: 600 !important;
+			color: black !important;
+			padding: 10px !important;
+			font-size: 13px !important;
+		}
+
+		.ls-debug-window-wrapper td {
+			font-weight: 400 !important;
+			border-top: 1px solid #ddd !important;
+			color: #333 !important;
+			background: white !important;
+		}
+
+		.ls-debug-log-type-group {
+			background: #f7f7f7 !important;
+		}
+
+		.ls-debug-log-type-group td {
+			font-weight: 600 !important;
+		}
+
+		.ls-debug-log-type-warn td {
+			background: #fffbe6 !important;
+			color: #725520 !important;
+		}
+
+		.ls-debug-log-type-info td {
+			background: #ddeaff !important;
+			color: #00173e !important;
+		}

@@ -1,0 +1,36 @@
+{
+  "name": "mailoptin/authifly",
+  "description": "PHP OAuth Authentication Library",
+  "keywords": [
+    "oauth",
+    "openid",
+    "authentication",
+    "authorization",
+    "social",
+    "api"
+  ],
+  "type": "wordpress-plugin",
+  "license": "MIT",
+  "require": {
+    "php": ">=5.4.0",
+    "composer/installers": "~1.0"
+  },
+  "require-dev": {
+    "ext-curl": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Authifly\\": "src/"
+    },
+    "files": [
+      "OAuthCredentialStorage.php",
+      "ConstantContact.php",
+      "Aweber.php",
+      "CampaignMonitor.php",
+      "VerticalResponse.php",
+      "Facebook.php",
+      "Hubspot.php",
+      "Zoho.php"
+    ]
+  }
+}

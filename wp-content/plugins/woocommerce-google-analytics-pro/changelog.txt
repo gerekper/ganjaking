@@ -1,0 +1,225 @@
+*** WooCommerce Google Analytics Pro ***
+
+2020.06.18 - version 1.8.13
+ * Fix - Prevent activated subscription event from being tracked twice
+
+2020.06.16 - version 1.8.12
+ * Fix - Ensure variation details are sent when tracking variable subscription product events
+ * Fix - Address an exception that may occur in PHP 7.4
+
+2020.05.05 - version 1.8.11
+ * Misc - Add support for WooCommerce 4.1
+ * Dev - Introduce filter to disable the script that checks for duplicate tracking codes
+
+2020.03.26 - version 1.8.10
+ * Dev - Make script tag attributes filterable
+
+2020.03.10 - version 1.8.9
+ * Misc - Add support for WooCommerce 4.0
+
+2020.01.08 - version 1.8.8
+ * Fix - Fix an issue preventing Subscriptions renewal orders from being tracked
+
+2020.01.02 - version 1.8.7
+ * Misc - Add support for WooCommerce 3.9
+
+2019.11.12 - version 1.8.6
+ * Tweak - Show an admin notice when the plugin detects that another plugin is sending duplicate events to Google Analytics
+ * Fix - Remove all tracking code added by the plugin if the Enable Google Analytics tracking setting is not checked
+
+2019.11.05 - version 1.8.5
+ * Misc - Add support for WooCommerce 3.8
+
+2019.10.15 - version 1.8.4
+ * Fix - Prevent orders placed before installing Google Analytics Pro from being tracked as completed
+
+2019.09.24 - version 1.8.3
+ * Fix - Prevent deprecation notice with WooCommerce Subscriptions 2.6+
+
+2019.09.18 - version 1.8.2
+ * Fix - Address a conflict with plugins defining custom WooCommerce emails
+
+2019.08.29 - version 1.8.1
+ * Tweak - Add tracking image to email additional content, instead of after the html closing tag
+
+2019.08.12 - version 1.8.0
+ * Tweak - Send the user ID rather than the user login for signed in events
+ * Fix - Make sure the signed out event is shown under the My Account category rather than the general category
+ * Fix - Address a PHP warning that may be thrown in some circumstances when MonsterInsights is active
+ * Misc - Add support for WooCommerce 3.7
+ * Misc - Remove support for WooCommerce 2.6
+
+2019.04.03 - version 1.7.1
+ * Misc - Add support for WooCommerce 3.6
+
+2019.03.20 - version 1.7.0
+ * Fix - Ensure custom translation files are correctly loaded when the plugin initializes
+ * Misc - Replace the Google API client library with a lightweight internal API handler
+ * Misc - Remove Guzzle dependency
+ * Localization - Add Italian translation
+
+2019.02.12 - version 1.6.6
+ * Misc - Update Guzzle to v6
+ * Misc - Require PHP 5.6+
+
+2019.01.22 - version 1.6.5
+ * Tweak - Send the document host name parameter in measurement protocol API requests
+ * Fix - Harden code that may have produced a PHP error when a product can't be determined for ecommerce data JavaScript output
+ * Fix - Prevent a PHP error from happening while refreshing the access token in case of remote server errors
+
+2018.10.17 - version 1.6.4
+ * Fix - Only track orders with a paid order status on the completed_purchase event
+ * Misc - Add support for WooCommerce 3.5
+
+2018.09.05 - version 1.6.3
+ * Fix - Fix an issue preventing some Subscriptions events from being reported correctly
+ * Fix - Fix debug mode detection
+
+2018.08.22 - version 1.6.2
+ * Tweak - Only load the Google API Client library on the integration admin page
+ * Fix - Fix an issue which caused the tracking code to be duplicated
+
+2018.08.16 - version 1.6.1
+ * Fix - Make sure Subscriptions event names settings are displayed in the Google Analytics Pro admin settings page
+ * Fix - Ensure the "completed purchase" event is tracked when payment is recorded
+ * Dev - Pass a product argument in `wc_google_analytics_pro_product_details_data` and `wc_google_analytics_pro_product_impression_data` filters
+
+2018.07.25 - version 1.6.0
+ * Misc - Drop support for PHP 5.2: PHP 5.4 is now the minimum required version
+ * Misc - Update Google API client library to v2.2.2
+ * Misc - Update the SkyVerge Plugin Framework to v5.2.0
+
+2018.07.04 - version 1.5.2
+ * Tweak - Subscription renewals will now send their event value in cents by default
+ * Fix - Set a client identity on Subscriptions created before Google Analytics Pro was activated so they can be correctly tracked when renewed
+ * Fix - Ensure Subscriptions events exist in settings before attempting to track them to avoid PHP errors
+ * Fix - Ensure orders processed with the Cash on Delivery gateway are fully tracked
+ * Dev - Add a filter to toggle whether to use cents or dollars in completed purchase, refunds or renewed subscriptions events value
+
+2018.05.23 - version 1.5.1
+ * Misc - Add support for WooCommerce 3.4
+ * Dev - Introduce filter to remove the Google Analytics tracking code
+
+2018.03.14 - version 1.5.0
+ * Feature - Add integration with WooCommerce Subscriptions
+ * Feature - Add support for Google Optimize
+
+2018.02.14 - version 1.4.1
+ * Tweak - Improve detection of Google Analytics by MonsterInsights
+ * Tweak - Improve UUID generation technique
+ * Tweak - Report transactions held by Paypal after payment capture
+ * Tweak - Set non-interaction flag for subscription order renewal events
+ * Fix - Correctly set non-interaction flag on measurement protocol events
+ * Fix - Prevent duplicate payment method events from firing during checkout
+ * Fix - Strip HTML tags from payment gateway titles
+
+2018.01.26 - version 1.4.0
+ * Misc - Add support for WooCommerce 3.3
+ * Misc - Remove support for WooCommerce 2.5
+
+2017.12.12 - version 1.3.6
+ * Tweak - Ensure "completed purchase" event is tracked even if Google Analytics Client ID cannot be determined at checkout
+
+2017.08.01 - version 1.3.5
+ * Tweak - Ensure orders placed by customers are tracked even when manually set as paid by admins
+ * Fix - Ensure a tracking ID is set before outputting tracking scripts
+ * Dev - Fire an action after tracking code is set up
+ * Dev - Tracker options are now filterable
+ * Misc - Update SkyVerge Plugin Framework
+
+2017.05.23 - version 1.3.4
+ * Fix - Update tracking snippet to always load analytics.js over HTTPS
+ * Fix - Ensure BACS and Cheque orders are being tracked
+
+2017.05.02 - version 1.3.3
+ * Fix - Simplify order payment tracking and ensure COD orders are tracked
+ * Fix - Ensure refunds are properly tracked
+
+2017.04.24 - version 1.3.2
+ * Fix - PHP notices if events are inactive
+ * Fix - Update remaining pre-WooCommerce 3.0 incompatibilities for order tracking
+
+2017.04.21 - version 1.3.1
+ * Fix - Ensure tracking when a customer provides a billing email on checkout is backwards compatible with WooCommerce versions earlier than v3.0
+
+2017.04.18 - version 1.3.0
+ * Feature - Adds checkout options to most Checkout Behavior steps for additional data tracking
+ * Feature - Improve full site tracking to remove the need for a general tracking Google Analytics plugin
+ * Tweak - Improved Checkout Behavior funnel support
+ * Fix - Ensure "estimate shipping" event is always tracked
+ * Fix - Show only GA property names instead of all views when connecting to a GA account
+ * Fix - Ensure variation SKUs are used for add to cart events rather than parent SKU
+ * Dev - Custom event names will no longer be url encoded to respect spaces
+ * Dev - Global js function renamed to use `ga` instead of `__gaTracker`
+
+2017.03.28 - version 1.2.0
+ * Misc - Added support for WooCommerce 3.0
+ * Misc - Removed support for WooCommerce 2.4
+
+2017.02.07 - version 1.1.7
+ * Fix - Compatibility with MonsterInsights Pro 6.0.0
+
+2017.01.24 - version 1.1.6
+ * Tweak - Add list values when tracking add-to-cart from archive pages
+ * Fix - Ensure transactions are not tracked more than once
+ * Fix - Include position data in product view actions
+ * Fix - Remove related/up-sell impression on single product pages for the main product being viewed
+
+2016.10.25 - version 1.1.5
+ * Tweak - Included a setting to enable/disable product impression tracking on archive and/or single product pages
+ * Tweak - An empty "alt" attribute is now included with the tracking pixel image added to emails
+ * Fix - The "connect to Google Analytics" notice now doesn't show if a manual tracking ID is used
+ * Fix - Fix an "Uncaught exception" fatal error that may occur in rare instances
+ * Fix - Fix a fatal error that occurs when using the [product_page] shortcode
+
+2016.07.27 - version 1.1.4
+ * Misc - WordPress 4.6 compatibility
+
+2016.07.20 - version 1.1.3
+ * Fix - Ensure the "viewed homepage" event is tracked
+ * Fix - Fix an issue where some events were still being tracked as interaction events, affecting bounces rates
+ * Fix - Avoid issues with tracking events through the Measurement Protocol on some server
+
+2016.07.07 - version 1.1.2
+ * Tweak - Set the cent value of an order's total as the event value of the 'completed purchase' and 'completed payment' events
+ * Fix - Avoid fatal errors when another plugin includes the Google Client API
+
+2016.06.22 - version 1.1.1
+ * Tweak - Avoid most Quota Errors when loading the plugin's settings page
+ * Tweak - Make product impression parameters filterable to allow sites to bypass the Google Analytics request limit
+ * Tweak - Tracking parameters are now filterable
+ * Fix - Product impressions are now triggered on the single product page for the product
+ * Fix - Ensure the Checkout Behavior report is properly populated by utilizing funnel steps correctly
+ * Fix - Ensure product categories are tracked in the correct format expected by Google Analytics
+ * Fix - Avoid undefined index notices that could occur with some themes
+ * Fix - Ensure offsite gateways are not tracked as referrers by Google AdWords
+ * Fix - Better handling of errors thrown by the Google Analytics PHP client
+ * Fix - Use the item's total rather than the product's price when tracking purchases
+ * Fix - Address deflated bounce rates by ensuring certain events are tracked as non-interaction events
+
+2016.06.02 - version 1.1.0
+ * Fix - Ensure orders using gateways like Cash on Delivery are tracked through Enhanced eCommerce
+ * Misc - Added support for WooCommerce 2.6
+ * Misc - Removed support for WooCommerce 2.3
+
+2016.05.18 - version 1.0.4
+ * Tweak - Trigger the "completed payment" event when an order is set to Processing to add support for gateways that use non-standard order status flows such as the Cash on Delivery gateway.
+ * Fix - Ensure events are tracked properly when the MonsterInsights plugin (formerly Google Analytics by Yoast) is active
+
+2016.03.30 - version 1.0.3
+ * Tweak - The Google Analytics global function name is now filterable via `wc_google_analytics_pro_tracking_function_name`
+ * Fix - Send the product's SKU if available instead of the ID when tracking product impressions and events
+ * Fix - Send the order number instead of the ID when tracking transactions and refunds
+ * Fix - Properly escape JavaScript on product archive pages
+ * Fix - Ensure access to the Google Analytics account is refreshed automatically
+ * Fix - Ensure tracking JavaScript is printed in the correct order to avoid Google Analytics errors
+
+2016.02.17 - version 1.0.2
+ * Tweak - Use browser user agent for tracking events
+ * Fix - Fix JavaScript errors for product/category names that contain apostrophes
+
+2016.02.02 - version 1.0.1
+ * Fix - Fix JavaScript errors that could occur when browsing the site as an admin
+
+2016.01.26 - version 1.0.0
+ * Initial Release :)

@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<wpml-config>
+    <admin-texts>
+        <key name="ywrr_mail_subject"/>
+        <key name="ywrr_mail_body"/>
+        <key name="ywrr_mail_body_booking"/>
+        <key name="ywrr_mail_unsubscribe_text"/>
+        <key name="ywrr_refuse_requests_label"/>
+    </admin-texts>
+</wpml-config>

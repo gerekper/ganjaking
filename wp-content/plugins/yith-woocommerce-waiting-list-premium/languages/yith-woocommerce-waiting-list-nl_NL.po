@@ -1,0 +1,1108 @@
+# Translation of YITH WooCommerce Waiting List in Dutch
+# This file is distributed under the same license as the YITH WooCommerce Waiting List package.
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH WooCommerce Waiting List\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
+"waiting-list-premium\n"
+"POT-Creation-Date: 2020-05-20 21:37:27+00:00\n"
+"PO-Revision-Date: 2020-05-04 17:15:39+0000\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/2.3.1\n"
+
+#: includes/admin-table/class.yith-wcwtl-exclusions-table.php:48
+#: includes/admin-table/class.yith-wcwtl-waitlistdata-table.php:49
+#: templates/yith-wcwtl-my-waitlist.php:19
+msgid "Product"
+msgstr "Product"
+
+#: includes/admin-table/class.yith-wcwtl-exclusions-table.php:49
+#: includes/admin-table/class.yith-wcwtl-waitlistdata-table.php:50
+#: templates/yith-wcwtl-my-waitlist.php:20
+msgid "Variation"
+msgstr "Variatie"
+
+#: includes/admin-table/class.yith-wcwtl-exclusions-table.php:50
+#: includes/admin-table/class.yith-wcwtl-waitlistdata-table.php:51
+msgid "Thumbnail"
+msgstr "Thumbnail"
+
+#: includes/admin-table/class.yith-wcwtl-exclusions-table.php:51
+msgid "Action"
+msgstr "Actie"
+
+#: includes/admin-table/class.yith-wcwtl-exclusions-table.php:83
+#: includes/admin-table/class.yith-wcwtl-waitlistdata-table.php:91
+msgid "Edit product"
+msgstr "Bewerk product"
+
+#: includes/admin-table/class.yith-wcwtl-exclusions-table.php:117
+msgid "Remove"
+msgstr "Verwijderen"
+
+#: includes/admin-table/class.yith-wcwtl-exclusions-table.php:144
+msgid "Remove from list"
+msgstr "Verwijderen uit lijst"
+
+#: includes/admin-table/class.yith-wcwtl-exclusions-table.php:248
+#: includes/admin-table/class.yith-wcwtl-waitlistdata-table.php:313
+msgid "No items found."
+msgstr "Geen items gevonden"
+
+#: includes/admin-table/class.yith-wcwtl-waitlistdata-table.php:52
+#: templates/yith-wcwtl-my-waitlist.php:21
+msgid "Stock Status"
+msgstr "Status voorraad"
+
+#: includes/admin-table/class.yith-wcwtl-waitlistdata-table.php:53
+#: templates/admin/waitlistdata-users-tab.php:45
+msgid "Users in the Waiting list"
+msgstr "Gebruikers in wachtlijst"
+
+#: includes/admin-table/class.yith-wcwtl-waitlistdata-table.php:54
+#: includes/admin-table/class.yith-wcwtl-waitlistusers-table.php:51
+msgid "Actions"
+msgstr "Acties"
+
+#: includes/admin-table/class.yith-wcwtl-waitlistdata-table.php:147
+msgid "Delete Waiting list"
+msgstr "Verwijder wachtlijst"
+
+#: includes/admin-table/class.yith-wcwtl-waitlistdata-table.php:156
+msgid "View Users"
+msgstr "Bekijk gebruikers"
+
+#: includes/admin-table/class.yith-wcwtl-waitlistdata-table.php:165
+msgid "Send email"
+msgstr "Verstuur e-mail"
+
+#: includes/admin-table/class.yith-wcwtl-waitlistdata-table.php:199
+msgid "Delete waiting list"
+msgstr "Verwijder wachtlijst"
+
+#: includes/admin-table/class.yith-wcwtl-waitlistdata-table.php:329
+msgid "Select status.."
+msgstr "Selecteer een status"
+
+#: includes/admin-table/class.yith-wcwtl-waitlistdata-table.php:330
+msgid "In Stock"
+msgstr "Op vooraad"
+
+#: includes/admin-table/class.yith-wcwtl-waitlistdata-table.php:331
+msgid "Out of Stock"
+msgstr "Niet op voorraad"
+
+#: includes/admin-table/class.yith-wcwtl-waitlistdata-table.php:334
+msgid "Filter"
+msgstr "Filter"
+
+#: includes/admin-table/class.yith-wcwtl-waitlistusers-table.php:49
+msgid "email"
+msgstr "e-mail"
+
+#: includes/admin-table/class.yith-wcwtl-waitlistusers-table.php:50
+msgid "Is Customer"
+msgstr "Is klant"
+
+#: includes/admin-table/class.yith-wcwtl-waitlistusers-table.php:80
+#: templates/admin/email-settings-tab.php:31
+msgid "Yes"
+msgstr "Ja"
+
+#: includes/admin-table/class.yith-wcwtl-waitlistusers-table.php:83
+msgid "No"
+msgstr "No"
+
+#: includes/admin-table/class.yith-wcwtl-waitlistusers-table.php:99
+#: includes/admin-table/class.yith-wcwtl-waitlistusers-table.php:139
+msgid "Remove User"
+msgstr "Gebruiker verwijder"
+
+#: includes/admin-table/class.yith-wcwtl-waitlistusers-table.php:110
+msgid "Send Email"
+msgstr "Verstuur e-mail"
+
+#: includes/admin-table/class.yith-wcwtl-waitlistusers-table.php:229
+msgid "No user found for this list."
+msgstr "Geen user gevonden in deze lijst"
+
+#: includes/admin-table/class.yith-wcwtl-waitlistusers-table.php:243
+msgid "Export Users"
+msgstr "Gebruikers exporteren"
+
+#: includes/class.yith-wcwtl-admin-premium.php:97
+msgid "Do you really want to send the mail?"
+msgstr "Weet u zeker dat u de e-mail wilt versturen?"
+
+#: includes/class.yith-wcwtl-admin-premium.php:116
+msgid "Style"
+msgstr "Stijl"
+
+#: includes/class.yith-wcwtl-admin-premium.php:117
+msgid "Email Settings"
+msgstr "E-mail instellingen"
+
+#: includes/class.yith-wcwtl-admin-premium.php:118
+#: includes/compatibility/yith-woocommerce-product-vendors.php:140
+msgid "Exclusions List"
+msgstr "Uitsluitingen lijst"
+
+#: includes/class.yith-wcwtl-admin-premium.php:119
+#: includes/compatibility/yith-woocommerce-product-vendors.php:141
+msgid "Waiting list Checklist"
+msgstr "Wachtlijst checklist"
+
+#: includes/class.yith-wcwtl-admin-premium.php:120
+msgid "Waiting list Importer"
+msgstr "Wachtlijst importeur"
+
+#: includes/class.yith-wcwtl-admin-premium.php:217
+msgid "Customer"
+msgstr "Klant"
+
+#: includes/class.yith-wcwtl-admin-premium.php:306
+msgid "You have successfully sent the email to the users of the waiting list!"
+msgstr "Uw e-mail is succesvol verzonden naar de gebruikers van de wachtlijst!"
+
+#: includes/class.yith-wcwtl-admin-premium.php:309
+msgid "An error occurred sending the email to the users. Please try again."
+msgstr ""
+"Er is iets misgegaan bij het verzenden van de e-mail naar de gebruikers. "
+"Probeer het opnieuw."
+
+#: includes/class.yith-wcwtl-admin.php:135
+msgid "Settings"
+msgstr "Instellingen"
+
+#: includes/class.yith-wcwtl-admin.php:139
+msgid "Premium Version"
+msgstr "Premium Versie"
+
+#: includes/class.yith-wcwtl-frontend.php:428
+msgid ""
+"You must provide a valid email address to join the waiting list of this "
+"product"
+msgstr ""
+"U moet een geldig e-mail adres invoeren om deel te nemen aan de wachtlijst "
+"voor dit product."
+
+#: includes/class.yith-wcwtl-frontend.php:431
+msgid "You must accept our Privacy Policy to join the waiting list"
+msgstr ""
+"Je moet ons privacybeleid accepteren om deel te nemen aan de wachtlijst"
+
+#: includes/class.yith-wcwtl-frontend.php:552
+msgid "Waiting List"
+msgstr "Wachtlijst"
+
+#: includes/class.yith-wcwtl-frontend.php:580
+#: templates/yith-wcwtl-my-waitlist.php:23
+msgid "My Waiting List"
+msgstr "Mijn wachtlijst"
+
+#: includes/class.yith-wcwtl-importer-controller.php:88
+msgid "Pick a product"
+msgstr "Kies een product"
+
+#: includes/class.yith-wcwtl-importer-controller.php:92
+msgid "Upload CSV file"
+msgstr "Upload CSV bestand"
+
+#: includes/class.yith-wcwtl-importer-controller.php:96
+msgid "Column mapping"
+msgstr "Kolom toewijzen"
+
+#: includes/class.yith-wcwtl-importer-controller.php:100
+msgid "Import done!"
+msgstr "Import geslaagd!"
+
+#: includes/class.yith-wcwtl-importer-controller.php:236
+msgid "Please, pick a product"
+msgstr "Kies een product a.u.b"
+
+#: includes/class.yith-wcwtl-importer-controller.php:252
+msgid ""
+"File is empty. This error could also be caused by uploads being disabled in "
+"your \"php.ini\" or by \"post_max_size\" being defined as smaller than "
+"upload_max_filesize in php.ini."
+msgstr ""
+"Bestand is leeg. Deze fout kan ook worden veroorzaakt omdat uploads worden "
+"uitgeschakeld in uw \"php.ini\" of door \"post_max_size\" die kleiner worden "
+"gedefinieerd dan upload_max_filesize in php.ini."
+
+#: includes/class.yith-wcwtl-importer-controller.php:256
+msgid "Invalid file type. The importer supports only CSV format."
+msgstr "Ongeldig bestandstype. De importeur ondersteunt alleen een CSV format."
+
+#: includes/class.yith-wcwtl-importer-controller.php:282
+msgid "Please choose a column to use as user email"
+msgstr "Kies een kolom om te gebruiken als e-mail gebruiker"
+
+#: includes/class.yith-wcwtl-importer-controller.php:296
+msgid "Import Waiting List"
+msgstr "Importeer wachtlijst"
+
+#: includes/class.yith-wcwtl-importer-controller.php:389
+msgid ""
+"The file is empty or using a different encoding than UTF-8, please try again "
+"with a new file."
+msgstr ""
+"Het bestand is leeg of gebruikt een andere codering dan UTF-8, probeer het "
+"aub opnieuw met een nieuw bestand."
+
+#: includes/class.yith-wcwtl-importer-controller.php:429
+msgid "An error occurred during the import process. Please try again."
+msgstr ""
+"Er is een fout opgetreden tijdens het importeer proces. Probeer het opnieuw "
+"a.u.b."
+
+#: includes/class.yith-wcwtl-importer-controller.php:435
+msgid "No product with ID #%s found. Please choose a different product."
+msgstr "Geen product met ID #%s gevonden. Kies een ander product a.u.b."
+
+#: includes/class.yith-wcwtl-meta.php:104
+msgid "Waiting list"
+msgstr "Wachtlijst"
+
+#: includes/class.yith-wcwtl-meta.php:122
+msgid "Waiting list for variation: #%s"
+msgstr "Wachtlijst voor variaties: #%s"
+
+#: includes/class.yith-wcwtl-meta.php:171
+msgid "There is %s user in the waiting list for this product"
+msgid_plural "There are %s users in the waiting list for this product"
+msgstr[0] "Er is %s gebruiker in de wachtlijst voor dit product"
+msgstr[1] "Er zijn %s gebruikers in de wachtlijst voor dit product"
+
+#: includes/class.yith-wcwtl-meta.php:174
+msgid "There are no users in this waiting list"
+msgstr "Er zijn geen gebruikers in deze wachtlijst"
+
+#: includes/class.yith-wcwtl-meta.php:196
+msgid "Send the email to the users"
+msgstr "Verstuur de e-mail naar de gebruikers"
+
+#: includes/class.yith-wcwtl-meta.php:228
+msgid "Email sent correctly."
+msgstr "E-mail juist verzonden."
+
+#: includes/class.yith-wcwtl-meta.php:236
+msgid "An error occurred, please try again."
+msgstr "Er is een fout opgetreden, probeer het opnieuw."
+
+#: includes/class.yith-wcwtl-privacy-dpa.php:27
+msgid "When you subscribe to a waiting list, we will track:"
+msgstr "Als u zich inschrijft op een wachtlijst, volgen wij:"
+
+#: includes/class.yith-wcwtl-privacy-dpa.php:29
+msgid ""
+"Email address: we'll use this to populate a list that is used to send you "
+"notifications about subscribed product availability."
+msgstr ""
+"E-mailadres: we gebruiken dit om een lijst te vullen die wordt gebruikt om "
+"je meldingen te sturen met betrekking tot beschikbaarheid van producten "
+"waarop je bent ingeschreven."
+
+#: includes/class.yith-wcwtl-privacy-dpa.php:33
+msgid ""
+"Members of our team have access to the information you provide us. For "
+"example, both Administrators and Shop Managers can access to your email "
+"address."
+msgstr ""
+"Onze teamleden hebben toegang tot de informatie die u ons geeft. "
+"Bijvoorbeeld, zowel administrateurs en winkel managers hebben toegang tot uw "
+"e-mailadres."
+
+#: includes/class.yith-wcwtl.php:345 includes/class.yith-wcwtl.php:378
+#: includes/class.yith-wcwtl.php:405
+msgid "Waiting List Data"
+msgstr "Wachtlijst data"
+
+#: includes/class.yith-wcwtl.php:382
+msgid "Waiting List Subscriptions"
+msgstr "Inschrijvingen voor de wachtlijst"
+
+#: includes/class.yith-wcwtl.php:438
+msgid "Removed customer from waiting list for \"%s\""
+msgstr "Klant verwijderd van wachtlijst voor \"%s\""
+
+#: includes/email/class.yith-wcwtl-mail-admin.php:32
+msgid "YITH Waiting list - Admin Email"
+msgstr "YITH Waiting list - Admin e-mail"
+
+#: includes/email/class.yith-wcwtl-mail-admin.php:33
+msgid ""
+"This email is sent to the store admin whenever a user subscribes to a "
+"waiting list."
+msgstr ""
+"Deze e-mail wordt verzonden naar de winkel admin zodra een gebruiker zich "
+"inschrijft voor de wachtlijst."
+
+#: includes/email/class.yith-wcwtl-mail-admin.php:57
+msgid "New subscription to a product waiting list"
+msgstr "Nieuwe inschrijving voor een product wachtlijst"
+
+#: includes/email/class.yith-wcwtl-mail-admin.php:58
+msgid "A new user has just subscribed to a product waiting list "
+msgstr ""
+"Een nieuwe gebruiker heeft zich zojuist ingeschreven voor een product "
+"wachtlijst "
+
+#: includes/email/class.yith-wcwtl-mail-admin.php:59
+msgid ""
+"Hi, a new user {user_email} has just subscribed to the waiting list of "
+"product {product_title}"
+msgstr ""
+"Hoi, een nieuwe gebruiker {user_email} heeft zich zojuist ingeschreven voor "
+"de wachtlijst van product {product_title}"
+
+#: includes/email/class.yith-wcwtl-mail-admin.php:73
+#: templates/admin/email-settings-tab.php:17
+msgid "Recipient(s)"
+msgstr "Ontvanger(s)"
+
+#. translators: %s: WP admin email
+#: includes/email/class.yith-wcwtl-mail-admin.php:76
+msgid "Enter recipients (comma separated) for this email. Defaults to %s."
+msgstr ""
+"Ontvangers invoeren (gescheiden door komma) voor deze e-mail. Standaard %s."
+
+#: includes/email/class.yith-wcwtl-mail-instock.php:32
+msgid "YITH Waiting list In Stock Email"
+msgstr "YITH Waiting list op voorraad e-mail instellingen"
+
+#: includes/email/class.yith-wcwtl-mail-instock.php:33
+msgid ""
+"When a product is back in stock, this email is sent to all the users "
+"registered in the waiting list of that product."
+msgstr ""
+"Deze e-mail wordt verstuurt zodra het product weer op voorraad is, naar alle "
+"gebruikers in de wachtlijst van dat specifieke product."
+
+#: includes/email/class.yith-wcwtl-mail-instock.php:59
+msgid "{product_title} is now back in stock on {blogname}"
+msgstr "{product_title} is weer op voorraad op {blogname}"
+
+#: includes/email/class.yith-wcwtl-mail-instock.php:60
+msgid "A product you are waiting for is back in stock"
+msgstr "Het product waar u op wachtte is weer op voorraad"
+
+#: includes/email/class.yith-wcwtl-mail-instock.php:61
+msgid ""
+"Hi, {product_title} is now back in stock on {blogname}. You have been sent "
+"this email because your email address was registered in a waiting list for "
+"this product. If you would like to purchase {product_title}, please visit "
+"the following link: {product_link}"
+msgstr ""
+"Hoi, {product_title} is weer op voorraad in {blogname}. U ontvangt deze e-"
+"mail omdat u zich had aangemeld voor de wachtlijst van dit product. Indien u "
+"{product_title} wilt kopen, klik dan op de volgende link: {product_link}"
+
+#: includes/email/class.yith-wcwtl-mail-instock.php:88
+msgid "link"
+msgstr "link"
+
+#: includes/email/class.yith-wcwtl-mail-subscribe-optin.php:32
+msgid "YITH Waiting List Subscription Opt In Email"
+msgstr "YITH Waiting list inschrijving OPT e-mail"
+
+#: includes/email/class.yith-wcwtl-mail-subscribe-optin.php:33
+msgid ""
+"When a user subscribes to a waiting list, this email is sent for request "
+"confirmation."
+msgstr ""
+"Wanneer een gebruiker zich inschrijft voor een wachtlijst, wordt deze email "
+"gestuurd met een bevestiging verzoek."
+
+#: includes/email/class.yith-wcwtl-mail-subscribe-optin.php:35
+msgid "Subscription to waiting list for {product_title}"
+msgstr "Inschrijving voor wachtlijst voor {product_title}"
+
+#: includes/email/class.yith-wcwtl-mail-subscribe-optin.php:36
+msgid "Subscription confirmation request for waiting list"
+msgstr "Bevestiging verzoek voor inschrijving wachtlijst"
+
+#: includes/email/class.yith-wcwtl-mail-subscribe-optin.php:37
+msgid ""
+"Hi, thanks for your request to join the waiting list for {product_title}. "
+"Click this link to confirm your request to join the list: {confirm_link}\n"
+"\t\t\tClicking the link above will confirm your email address and allow you "
+"to receive the information you requested. If you did not request to be on "
+"this list, please ignore this message. Thank you."
+msgstr ""
+"Hallo, bedankt voor uw aanvraag om deel te nemen aan de wachtlijst voor "
+"{product_title}. Klik op deze link om uw aanvraag voor deelname aan de lijst "
+"te bevestigen: {confirm_link} \n"
+"\t\t\tAls u op de bovenstaande link klikt, wordt uw e-mailadres bevestigd en "
+"kunt u de door u gevraagde informatie ontvangen. Als u niet om deze lijst "
+"hebt gevraagd, negeert u dit bericht. Dank je."
+
+#: includes/email/class.yith-wcwtl-mail-subscribe-optin.php:73
+msgid "Confirm your subscription!"
+msgstr "Bevestig je abonnement!"
+
+#: includes/email/class.yith-wcwtl-mail-subscribe.php:32
+msgid "YITH Waiting list Subscription Email"
+msgstr "YITH Waiting list inschrijving e-mail"
+
+#: includes/email/class.yith-wcwtl-mail-subscribe.php:33
+msgid ""
+"When a user subscribes to a waiting list, this email is sent for "
+"confirmation."
+msgstr ""
+"Deze e-mail wordt verzonden ter bevestiging van de inschrijving op een "
+"wachtlijst."
+
+#: includes/email/class.yith-wcwtl-mail-subscribe.php:35
+msgid "You are now in the waiting list for {product_title}"
+msgstr "U bent nu ingeschreven op de wachtlijst voor {product_title}"
+
+#: includes/email/class.yith-wcwtl-mail-subscribe.php:36
+msgid "Subscription confirmation for waiting list"
+msgstr "Bevestiging inschrijving wachtlijst"
+
+#: includes/email/class.yith-wcwtl-mail-subscribe.php:37
+msgid ""
+"Hi, your email address has been saved and you will be notified when "
+"{product_title} is back in stock on {blogname}. If you want to be removed "
+"from this list, please click {remove_link}"
+msgstr ""
+"Hoi, uw e-mailadres is opgeslagen en u wordt op de hoogte gesteld zodra "
+"{product_title} weer op voorraad is op {blogname}. Indien u zich wilt "
+"uitschrijven van de list, klik dan hier {remove_link}"
+
+#: includes/email/class.yith-wcwtl-mail-subscribe.php:91
+msgid "here"
+msgstr "hier"
+
+#: includes/email/class.yith-wcwtl-mail.php:46
+msgid "Email content"
+msgstr "Inhoud e-mail"
+
+#: includes/email/class.yith-wcwtl-mail.php:48
+msgid "Defaults to <code>%s</code>"
+msgstr "Defaults naar <code>%s</code>"
+
+#: includes/email/class.yith-wcwtl-mail.php:53
+msgid "Show product thumbnail"
+msgstr "Toon product thumbnail"
+
+#: includes/email/class.yith-wcwtl-mail.php:55
+msgid "Enable this option to show the product thumbnail in the email"
+msgstr ""
+"Deze optie inschakelen om de product thumbnail weer te geven in de e-mail"
+
+#: includes/tinymce/tinymce-plugin-langs.php:20
+msgid "The Blogname"
+msgstr "Naam van de blog"
+
+#: includes/tinymce/tinymce-plugin-langs.php:21
+msgid "The Site Title"
+msgstr "Titel van site"
+
+#: includes/tinymce/tinymce-plugin-langs.php:22
+msgid "The Product Name"
+msgstr "Productnaam"
+
+#: includes/tinymce/tinymce-plugin-langs.php:26
+msgid "The Product Link"
+msgstr "Link van product"
+
+#: includes/tinymce/tinymce-plugin-langs.php:28
+msgid "Remove from list link"
+msgstr "Verwijderen uit lijst link"
+
+#: includes/tinymce/tinymce-plugin-langs.php:30
+msgid "Confirm subscription link"
+msgstr "Bevestig de abonnementslink"
+
+#: includes/tinymce/tinymce-plugin-langs.php:32
+msgid "The user email"
+msgstr "E-mail gebruiker"
+
+#: init.php:45
+msgid ""
+"YITH WooCommerce Waiting List is enabled but not effective. It requires "
+"WooCommerce in order to work."
+msgstr ""
+"YITH WooCommerce Waiting List is ingeschakeld, maar niet effectief. Het "
+"vereist WooCommerce om volledig te werken."
+
+#: plugin-options/general-options.php:15
+msgid "General Options"
+msgstr "Algemene opties"
+
+#: plugin-options/general-options.php:23
+msgid "Enable Waiting List"
+msgstr "Wachtlijst inschakelen"
+
+#: plugin-options/general-options.php:31
+msgid "Subscription message"
+msgstr "Inschrijving bericht"
+
+#: plugin-options/general-options.php:32
+msgid "Message for successful subscription in the waiting list."
+msgstr "Bericht voor inschrijving op wachtlijst was succesvol."
+
+#: plugin-options/general-options.php:35
+msgid "You have been added to the waiting list of this product."
+msgstr "U bent toegevoegd aan de wachtlijst van dit product."
+
+#: plugin-options/general-options.php:40
+msgid "Subscription message with Double Opt-in enabled"
+msgstr "Inschrijvingsbericht met double opt-in ingeschakeld"
+
+#: plugin-options/general-options.php:41
+msgid ""
+"Message for successful subscription in the waiting list when the option "
+"\"Double Opt-in\" is enabled"
+msgstr ""
+"Bericht voor succesvol ingeschreven in wachtlijst wanneer de optie \"Double "
+"Opt-in\" is ingeschakeld"
+
+#: plugin-options/general-options.php:44
+msgid ""
+"Please confirm your subscription to the waiting list, through the email that "
+"we have just sent you"
+msgstr ""
+"Bevestig uw inschrijving voor de wachtlijst, via de e-mail die we u hebben "
+"gestuurd"
+
+#: plugin-options/general-options.php:49
+msgid "Removal message"
+msgstr "Verwijderen bericht"
+
+#: plugin-options/general-options.php:50
+msgid "Message for successful removal from the waiting list."
+msgstr "U bent succesvol uit de wachtlijst verwijderd."
+
+#: plugin-options/general-options.php:53
+msgid "You have been removed from the waiting list of this product."
+msgstr "U bent verwijderd van de wachtlijst van dit product."
+
+#: plugin-options/general-options.php:58
+msgid "Error message"
+msgstr "Error bericht"
+
+#: plugin-options/general-options.php:59
+msgid "Error message showed when a user try to subscribe to a waiting list."
+msgstr ""
+"Error bericht wordt weergegeven wanneer een gebruiker zich wil inschrijven "
+"voor een wachtlijst."
+
+#: plugin-options/general-options.php:62
+msgid ""
+"An error has occurred or you're already register in this waiting list. "
+"Please try again."
+msgstr ""
+"Er is iets misgegaan of u heeft zich al ingeschreven voor deze wachtlijst. "
+"Probeer opnieuw."
+
+#: plugin-options/general-options.php:67
+msgid "Error message for users already subscribed"
+msgstr "Foutbericht voor gebruikers die al zijn ingeschreven"
+
+#: plugin-options/general-options.php:68
+msgid ""
+"Error message showed when a user tries to subscribe a waiting list in which "
+"that email address already appears."
+msgstr ""
+"Foutbericht wordt weergegeven wanneer een gebruiker zich probeert in te "
+"schrijven voor een lijst waarin het e-mailadres al bekend is."
+
+#: plugin-options/general-options.php:71
+msgid "This email address is already recorded for this waiting list"
+msgstr "Dit e-mailadres is al geregistreerd voor deze wachtlijst"
+
+#: plugin-options/general-options.php:76
+msgid "Automatic email"
+msgstr "Automatische e-mail"
+
+#: plugin-options/general-options.php:77
+msgid ""
+"When a status product is set back as 'In-stock', this option sends an email "
+"to all the users in the waiting list."
+msgstr ""
+"Deze optie verzend een e-mail naar alle gebruikers in de wachtlijst, zodra "
+"een product status wijzigt in \"op voorraad\"."
+
+#: plugin-options/general-options.php:85
+msgid "Keep the list after email"
+msgstr "Behoud te lijst na e-mail"
+
+#: plugin-options/general-options.php:86
+msgid "Keep the waiting list after sending the email."
+msgstr "Behoud de wachtlijst na het verzenden van de e-mail."
+
+#: plugin-options/general-options.php:94
+msgid "Invert Exclusion"
+msgstr "Omkeren uitsluiting"
+
+#: plugin-options/general-options.php:95
+msgid "Use the elements in the exclusion list as the active ones"
+msgstr ""
+"Gebruik de elementen in de uitsluitingen lijst als de actieve elementen"
+
+#: plugin-options/general-options.php:103
+msgid "Enable AJAX form"
+msgstr "AJAX formulier inschakelen"
+
+#: plugin-options/general-options.php:104
+msgid "Enable AJAX form submit on frontend."
+msgstr "AJAX formulier inschakelen op de frontend."
+
+#: plugin-options/general-options.php:112
+msgid "Enable Double Opt-in"
+msgstr "Dubbele Opt-in inschakelen"
+
+#: plugin-options/general-options.php:113
+msgid "Enable Double Opt-in subscription method for waiting list."
+msgstr "Schakel Dubbele Opt-in abonnementsmethode in voor wachtlijst."
+
+#: plugin-options/general-options.php:121
+msgid "Enable Double Opt-in also for logged in customers."
+msgstr "Double Opt-in ook voor ingelogde gebruikers inschakelen."
+
+#: plugin-options/general-options.php:129
+msgid "Enable Privacy checkbox"
+msgstr "Schakel het selectievakje Privacy in"
+
+#: plugin-options/general-options.php:130
+msgid ""
+"Add a checkbox for the Privacy Policy to the Waiting List form. When shown, "
+"this checkbox is required to subscribe to the list."
+msgstr ""
+"Voeg een selectievakje voor het privacybeleid toe aan het "
+"wachtlijstformulier. Indien getoond, is dit selectievakje vereist om zich te "
+"abonneren op de lijst."
+
+#: plugin-options/general-options.php:138
+msgid "Privacy checkbox label"
+msgstr "Privacy checkbox label"
+
+#: plugin-options/general-options.php:139
+msgid ""
+"The text for the privacy policy checkbox in waiting list form. You can use "
+"the shortcode [terms] and [privacy_policy] (from WooCommerce 3.4.0)."
+msgstr ""
+"Het selectievakje voor het privacybeleid in wachtlijstformulier. U kunt de "
+"shortcode [terms] en [privacy_policy] (van WooCommerce 3.4.0) gebruiken."
+
+#: plugin-options/general-options.php:142
+msgid ""
+"Your email will be used to notify you about product availability. You can "
+"read more in our [privacy_policy]."
+msgstr ""
+"Uw e-mailadres wordt gebruikt om u op de hoogte te stellen van de "
+"beschikbaarheid van het product. U kunt meer lezen in ons [privacybeleid]."
+
+#: plugin-options/general-options.php:156
+msgid "Mandrill Options"
+msgstr "Mandrill Opties"
+
+#: plugin-options/general-options.php:164
+msgid "Use Mandrill"
+msgstr "Gebruik Mandrill"
+
+#: plugin-options/general-options.php:172
+msgid "Mandrill API Key"
+msgstr "Mandrill API Key"
+
+#: plugin-options/style-options.php:15
+msgid "Style Options"
+msgstr "Stijl opties"
+
+#: plugin-options/style-options.php:23
+msgid "Top Message"
+msgstr "Bericht boven"
+
+#: plugin-options/style-options.php:24
+msgid "A message to show before the waiting list form in single product pages."
+msgstr ""
+"Een bericht at wordt weergegeven voor het wachtlijstformulier in single "
+"product pagina's."
+
+#: plugin-options/style-options.php:27
+msgid "Notify me when item is back in stock."
+msgstr "Informeer mij wanneer product weer op voorraad is."
+
+#: plugin-options/style-options.php:32
+msgid "Font Size"
+msgstr "Grootte lettertype"
+
+#: plugin-options/style-options.php:33
+msgid ""
+"Set the font size of the waiting list form in product pages (max value 99, "
+"min value 1. Size is in px)."
+msgstr ""
+"Stel grootte lettertype in van het wachtlijstformulier in de productpagina "
+"(maximale waarde 99, minimale waarde 1. Formaat is in px)."
+
+#: plugin-options/style-options.php:43
+msgid "Font Color"
+msgstr "Lettertype kleur"
+
+#: plugin-options/style-options.php:44
+msgid "Set the font color of the waiting list form in product pages"
+msgstr ""
+"Stel kleur lettertype in van het wachtlijstformulier in product pagina's"
+
+#: plugin-options/style-options.php:52
+msgid "Subscription Button Label"
+msgstr "Inschrijving knop label"
+
+#: plugin-options/style-options.php:53
+msgid "The label of the button for subscribing in the waiting list"
+msgstr "Het label van de knop voor het inschrijven in de wachtlijst"
+
+#: plugin-options/style-options.php:56
+msgid "Add to waiting list"
+msgstr "Toevoegen aan wachtlijst"
+
+#: plugin-options/style-options.php:61
+msgid "Subscription Button Background"
+msgstr "Inschrijven knop achtergrond"
+
+#: plugin-options/style-options.php:62
+msgid "Choose the background for the subscription button"
+msgstr "Kies de achtergrond van de inschrijven knop"
+
+#: plugin-options/style-options.php:70
+msgid "Subscription Button Hover Background"
+msgstr "Inschrijven knop hover achtergrond"
+
+#: plugin-options/style-options.php:71
+msgid "Choose the hover background for the subscription button"
+msgstr "Kies de hover achtergrond voor de inschrijven knop"
+
+#: plugin-options/style-options.php:79
+msgid "Subscription Button Text Color"
+msgstr "Tekstkleur voor inschrijven knop"
+
+#: plugin-options/style-options.php:80
+msgid "Choose the text color for the subscription button"
+msgstr "Kies de tekstkleur voor de inschrijven knop"
+
+#: plugin-options/style-options.php:88
+msgid "Subscription Button Hover Text Color"
+msgstr "Inschrijven knop hover tekstkleur"
+
+#: plugin-options/style-options.php:89
+msgid "Choose the hover text color for the subscription button"
+msgstr "Kies de hover tekstkleur voor de inschrijven knop"
+
+#: plugin-options/style-options.php:97
+msgid "Removal Button Label"
+msgstr "Verwijderen knop label"
+
+#: plugin-options/style-options.php:98
+msgid "The label of the button to be removed from the waiting list"
+msgstr "Het label van de knop om te verwijderen van wachtlijst"
+
+#: plugin-options/style-options.php:101
+msgid "Leave waiting list"
+msgstr "Verlaat wachtlijst"
+
+#: plugin-options/style-options.php:106
+msgid "Removal Button Background"
+msgstr "Achtergrond verwijderen knop"
+
+#: plugin-options/style-options.php:107
+msgid "Choose the background of the \"Leave\" button"
+msgstr "Kies de achtergrond van de \"verlaten\" knop"
+
+#: plugin-options/style-options.php:115
+msgid "Removal Button Hover Background"
+msgstr "Verwijderen knop hover achtergrond"
+
+#: plugin-options/style-options.php:116
+msgid "Choose the hover background of the \"Leave\" button"
+msgstr "Kies de hover achtergrond van de \"verlaten\" knop"
+
+#: plugin-options/style-options.php:124
+msgid "Removal Button Text Color"
+msgstr "Tekstkleur verwijderen knop"
+
+#: plugin-options/style-options.php:125
+msgid "Choose the text color of the \"Leave\" button"
+msgstr "Kies de tekstkleur van de \"verlaten\" knop"
+
+#: plugin-options/style-options.php:133
+msgid "Removal Button Hover Text Color"
+msgstr "Verwijderen knop hover tekstkleur"
+
+#: plugin-options/style-options.php:134
+msgid "Choose the hover text color of the \"Leave\" button"
+msgstr "Kies de hover tekstkleur van de \"Verlaten\" knop"
+
+#: templates/admin/email-settings-single.php:20
+msgid "Save changes"
+msgstr "Wijzigingen opslaan"
+
+#: templates/admin/email-settings-tab.php:16
+msgid "Email"
+msgstr "E-mail"
+
+#: templates/admin/email-settings-tab.php:30
+msgid "Enabled"
+msgstr "Ingeschakeld"
+
+#: templates/admin/email-settings-tab.php:35
+msgid "Disabled"
+msgstr "Uitgeschakeld"
+
+#: templates/admin/email-settings-tab.php:47
+msgid "Manage"
+msgstr "Beheren"
+
+#: templates/admin/exclusions-tab.php:14
+msgid "Select at least one product to remove."
+msgstr "Selecteer minstens een product om te verwijderen."
+
+#: templates/admin/exclusions-tab.php:17
+msgid "Products removed successfully."
+msgstr "Producten succesvol verwijderd."
+
+#: templates/admin/exclusions-tab.php:20
+msgid "Products added successfully."
+msgstr "Producten succesvol toegevoegd."
+
+#: templates/admin/exclusions-tab.php:23
+msgid "You must select at least one product to add"
+msgstr "U moet minstens een product selecteren om toe te voegen"
+
+#: templates/admin/exclusions-tab.php:32
+msgid "Exclusion list"
+msgstr "Uitsluitingen lijst"
+
+#: templates/admin/exclusions-tab.php:49
+msgid "Products to exclude"
+msgstr "Producten om uit te sluiten"
+
+#: templates/admin/exclusions-tab.php:56
+msgid "Add product exclusion"
+msgstr "Product uitsluiting toevoegen"
+
+#: templates/admin/exclusions-tab.php:63
+msgid "Search Product"
+msgstr "Zoek product"
+
+#: templates/admin/importer/import-done.php:12
+msgid "Import completed!"
+msgstr "Import compleet!"
+
+#: templates/admin/importer/import-done.php:13
+msgid "You have successfully imported users to the waiting list of product %s"
+msgstr ""
+"U heeft gebruikers succesvol geïmporteerd naar de wachtlijst voor product %s."
+
+#: templates/admin/importer/import-mapping.php:14
+msgid "Map CSV fields"
+msgstr "CSV velden in kaart brengen"
+
+#: templates/admin/importer/import-mapping.php:15
+msgid ""
+"Select the field in your CSV file that you want to use as customer emails"
+msgstr ""
+"Selecteer het veld in uw CSV bestand dat u wilt gebruiken voor e-mail van "
+"klanten"
+
+#: templates/admin/importer/import-mapping.php:19
+msgid "Column name"
+msgstr "Kolomnaam"
+
+#: templates/admin/importer/import-mapping.php:21
+msgid "Select a column..."
+msgstr "Selecteer een kolom..."
+
+#: templates/admin/importer/import-mapping.php:30
+msgid "Run the importer"
+msgstr "Start de importer"
+
+#: templates/admin/importer/import-product.php:14
+msgid "Waiting List Import Tool"
+msgstr "Wachtlijst import instrument"
+
+#: templates/admin/importer/import-product.php:15
+msgid ""
+"This tool allows you to import (or merge) customer emails from a CSV file "
+"into an existing waiting list."
+msgstr ""
+"Dit instrument laat u klant e-mails importeren (of samenvoegen) vanaf een "
+"CSV bestand naar een bestaande wachtlijst."
+
+#: templates/admin/importer/import-product.php:19
+msgid "Choose a product"
+msgstr "Kies een product"
+
+#: templates/admin/importer/import-product.php:22
+msgid "Select a product"
+msgstr "Selecteer een product"
+
+#: templates/admin/importer/import-product.php:30
+#: templates/admin/importer/import-upload.php:64
+msgid "Continue"
+msgstr "Doorgaan"
+
+#: templates/admin/importer/import-upload.php:14
+msgid "Upload a CSV file"
+msgstr "Upload een CSV bestand"
+
+#: templates/admin/importer/import-upload.php:21
+msgid "Choose a CSV file"
+msgstr "Kies een CSV bestand"
+
+#: templates/admin/importer/import-upload.php:28
+msgid ""
+"Before you can upload your import file, you have to fix the following error:"
+msgstr ""
+"Voordat u uw importbestand kunt uploaden, dient u de volgende fout op te "
+"lossen:"
+
+#: templates/admin/importer/import-upload.php:46
+msgid "Overwrite existing waiting list"
+msgstr "Overschrijf bestaande wachtlijst"
+
+#: templates/admin/importer/import-upload.php:51
+msgid "CSV Delimiter"
+msgstr "CSV scheidingsteken"
+
+#: templates/admin/importer/import-upload.php:55
+msgid "CSV Enclosure"
+msgstr "CSV Bijlage"
+
+#: templates/admin/waitlistdata-tab.php:14
+#: templates/admin/waitlistdata-users-tab.php:14
+msgid "Select at last one waitlist to remove."
+msgstr "Selecteer minstens een wachtlijst om te verwijderen."
+
+#: templates/admin/waitlistdata-tab.php:17
+#: templates/admin/waitlistdata-users-tab.php:17
+msgid "Waiting lists removed successfully."
+msgstr "Wachtlijst succesvol verwijderd."
+
+#: templates/admin/waitlistdata-tab.php:20
+#: templates/admin/waitlistdata-users-tab.php:20
+msgid "You must select at least one user."
+msgstr "U moet minstens een gebruiker selecteren."
+
+#: templates/admin/waitlistdata-tab.php:23
+#: templates/admin/waitlistdata-users-tab.php:23
+msgid ""
+"The plugin is currently inactive. Activate it from the admin settings to "
+"send emails."
+msgstr ""
+"De plugin is op dit moment inactief. Activeer hem vanaf de admin "
+"instellingen om e-mails te verzenden."
+
+#: templates/admin/waitlistdata-tab.php:26
+#: templates/admin/waitlistdata-users-tab.php:26
+msgid "Email sent correctly!"
+msgstr "E-mail juist verzonden!"
+
+#: templates/admin/waitlistdata-tab.php:29
+#: templates/admin/waitlistdata-users-tab.php:29
+msgid "An error occurred. Please try again."
+msgstr "Er is een fout opgetreden, probeer het opnieuw."
+
+#: templates/admin/waitlistdata-tab.php:32
+#: templates/admin/waitlistdata-users-tab.php:32
+msgid "All users have been added to this waiting list"
+msgstr "Alle gebruikers zijn toegevoegd aan de wachtlijst"
+
+#: templates/admin/waitlistdata-tab.php:35
+#: templates/admin/waitlistdata-users-tab.php:35
+msgid "%s user removed successfully"
+msgid_plural "%s users removed successfully"
+msgstr[0] "%s gebruiker succesvol verwijderd"
+msgstr[1] "%s gebruikers succesvol verwijderd"
+
+#: templates/admin/waitlistdata-tab.php:44
+msgid "Products with a Waiting List"
+msgstr "Producten met een wachtlijst"
+
+#: templates/admin/waitlistdata-tab.php:61
+msgid "Search Waiting List"
+msgstr "Zoek Wachtlijst"
+
+#: templates/admin/waitlistdata-users-tab.php:53
+msgid "Return to waiting lists checklist"
+msgstr "Keer terug naar wachtlijst checklist"
+
+#: templates/admin/waitlistdata-users-tab.php:73
+msgid "Add user to the Waiting list"
+msgstr "Voeg gebruiker toe aan wachtlijst"
+
+#: templates/admin/waitlistdata-users-tab.php:80
+msgid "Search for an user"
+msgstr "Zoeken naar een gebruiker"
+
+#: templates/admin/waitlistdata-users-tab.php:83
+msgid "Add new user"
+msgstr "Voeg nieuwe gebruiker toe"
+
+#: templates/admin/waitlistdata-users-tab.php:91
+msgid "Search User"
+msgstr "Zoek gebruiker"
+
+#: templates/yith-wcwtl-form.php:36 templates/yith-wcwtl-form.php:45
+msgid "Email Address"
+msgstr "E-mailadres"
+
+#: templates/yith-wcwtl-my-waitlist.php:107
+msgid "Leave"
+msgstr "Verlaten"
+
+#: templates/yith-wcwtl-my-waitlist.php:119
+msgid "You haven't subscribed any waiting list."
+msgstr "U heeft zich voor geen enkele wachtlijst ingeschreven."
+
+#. Description of the plugin/theme
+msgid ""
+"The <code><strong>YITH WooCommerce Waiting List</strong></code> plugin "
+"allows your customers to request an email notification when an out-of-stock "
+"product comes back into stock. <a href=\"https://yithemes.com/\" target="
+"\"_blank\">Get more plugins for your e-commerce shop on <strong>YITH</"
+"strong></a>."
+msgstr ""
+"De <code> <strong> YITH WooCommerce WachtLijst </strong> </code> plugin "
+"kunnen uw klanten een e-mail notificatie aanvragen wanneer een out-of-stock "
+"product komt terug in voorraad. <a href=\"https://yithemes.com/\" target="
+"\"_blank\"> Haal meer plugins voor uw e-commerce shop op <strong> YITH </"
+"strong> </a>."
+
+#: includes/class.yith-wcwtl-admin.php:145
+msgctxt "Plugin page title"
+msgid "YITH WooCommerce Waiting List"
+msgstr "YITH WooCommerce Waiting List"
+
+#: includes/class.yith-wcwtl-admin.php:146
+msgctxt "Plugin Menu Title"
+msgid "Waiting List"
+msgstr "Waiting List"
+
+#: includes/class.yith-wcwtl-privacy-dpa.php:19
+msgctxt "Privacy Policy Content"
+msgid "YITH Woocommerce Waiting List Premium"
+msgstr "YITH Woocommerce Waiting List Premium"
+
+#: templates/admin/importer/import-upload.php:38
+msgctxt "The maximum upload size"
+msgid "Maximum size: %s"
+msgstr "Maximum grootte: %s"
+
+#~ msgid "https://yithemes.com/"
+#~ msgstr "https://yithemes.com/"
+
+#~ msgid "YITH"
+#~ msgstr "YITH"
+
+#~ msgid "https://yithemes.com/themes/plugins/yith-woocommerce-waiting-list"
+#~ msgstr "https://yithemes.com/themes/plugins/yith-woocommerce-waiting-list"
+
+#~ msgid "YITH WooCommerce Waiting List Premium"
+#~ msgstr "YITH Woocommerce Waiting List Premium"

@@ -1,0 +1,122 @@
+.widefat .column-rule_is_active mark{
+    display: block;
+    text-indent: -9999px;
+    position: relative;
+    height: 1em;
+    width: 1em;
+    background: 0 0;
+    font-size: 1.4em;
+}
+
+.widefat .column-rule_is_active mark.show:after,
+.widefat .column-rule_is_active mark.hide:after{
+    font-family: WooCommerce;
+    speak: none;
+    font-weight: 400;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    text-indent: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.widefat .column-rule_is_active mark.hide:after{
+    content: "\e013";
+    color: #a00000;
+}
+
+.widefat .column-rule_is_active mark.show:after{
+    content: "\e015";
+    color: #2ea2cc;
+}
+
+
+/*ADMIN*/
+
+.ywcrbp_show_price_option_content{
+    border-collapse:collapse;
+    border-spacing:0;
+    text-align: center;
+    width: 90%;
+    margin:  0 auto;
+}
+.ywcrbp_show_price_option_content th{
+
+    font-family:Arial, sans-serif;
+    font-size:14px;
+    font-weight:bold;
+    padding:10px 5px!important;
+    overflow:hidden;
+    word-break:normal;
+    width: 100px;
+    text-align: center;
+
+}
+
+ .ywcrbp_column.column_show_price_as{
+
+    max-width: 200px!important;
+
+}
+.ywcrbp_column.column_show_price_as .select2.select2-container{
+min-width: 200px!important;
+}
+.ywcrbp_show_price_option_content tr:nth-child(even){
+    background: #f1f1f1;
+}
+
+.ywcrbp_show_price_option_content td{
+    font-family:Arial, sans-serif;
+    font-size:14px;
+    padding:10px 5px;
+    overflow:hidden;
+    word-break:normal;
+}
+
+.desc_table{
+    margin:30px auto;
+    width: 90%;
+    border: 1px solid #ccc;
+}
+.select_wrapper #_ywcrbp_role_chosen, #_ywcrbp_decimal_value{
+    width: 400px!important;
+}
+.content_cases{
+    margin: 0 auto;
+    padding: 2%;
+}
+.content_cases >p{
+    padding: 10px;
+}
+.content_case h3{
+
+    padding-bottom: 20px!important;
+}
+.content_case{
+    margin-bottom: 46px;
+}
+.content_case img{
+    border: 1px solid #ccc;
+    margin:0 auto 20px;
+    width:100%;
+    max-width: 600px;
+    display: block;
+}
+.text_case{
+    padding: 20px 10px;
+    background-color: #d9edf7;
+    border: 1px solid #bce8f1;
+}
+
+.ywcrbp_deleted{
+    line-height: 2;
+    margin-left: 5px;
+    font-style: italic;
+}

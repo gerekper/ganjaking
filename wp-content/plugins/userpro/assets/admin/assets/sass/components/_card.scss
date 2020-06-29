@@ -1,0 +1,66 @@
+.up-card{
+  display: flex;
+  overflow: hidden;
+  box-shadow: 0 3px 4px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+  margin: 5px 10px 10px 0;
+  padding-right:5px;
+  flex: 1 1 350px;
+
+  @media screen and (max-width: $break-large) {
+    flex:1 1 auto;
+    flex-wrap: wrap;
+
+  }
+    @media screen and (max-width: $break-medium) {
+    justify-content: center;
+    padding-right:0;
+  }
+  @include transition(0.5s);
+
+  &:hover{
+    box-shadow: 0 5px 4px 1px rgba(0, 0, 0, 0.4);
+    @include transition(0.5s);
+  }
+
+  p{
+    margin:0;
+  }
+
+  &__header{
+    height:150px;
+    width:150px;
+    overflow: hidden;
+    margin-right:10px;
+
+    @media screen and (max-width: $break-medium) {
+      border-radius:50%;
+      margin-right:0;
+    }
+    }
+
+  &__body{
+    display: flex;
+    flex-direction: column;
+    margin:10px 0;
+  }
+
+  &__footer{
+    display: flex;
+    margin-top:auto;
+
+    @media screen and (max-width: $break-medium) {
+
+      margin-top:20px;
+    }
+    }
+
+  &__block{
+    margin:5px 0;
+
+    span{
+      font-weight:600;
+    }
+  }
+
+}

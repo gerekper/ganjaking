@@ -1,0 +1,244 @@
+*** WooCommerce Conditional Shipping and Payments ***
+
+2020.05.28 - version 1.8.1
+* Important - Declared compatibility with WooCommerce 4.2.
+* Tweak - List complete trees in Category condition dropdowns.
+
+2020.04.27 - version 1.8.0
+* Important - Added integration with WooCommerce Gift Cards - see https://woocommerce.com/products/gift-cards/.
+* Feature - Conditionally prevent customers from paying with gift cards. Useful for restricting gift card usage to specific products, categories, customers, etc.
+* Feature - Added 'Gift Cards' condition to conditionally exclude payment options depending on whether a gift card is used to pay for an order, partially or fully.
+* Feature - Added 'Gift Card Product' condition to conditionally exclude payment options depending on whether a gift card is used to pay for an order, partially or fully.
+* Tweak - Made 'get_resolution_message' method public.
+
+2020.04.27 - version 1.7.7
+* Tweak - Added 'woocommerce_csp_[restriction_id]_resolution_message' filter.
+
+2020.04.17 - version 1.7.6
+* Important - Declared compatibility with WooCommerce 4.1.
+* Feature - Added 'Product On Sale' condition.
+* Fix - Restrictions toggle not working due to a recent regression.
+* Fix - Warning at checkout when using the Klarna Payments gateway.
+* Tweak - Added 'WC_CSP()->plugin_initialized()' method.
+* Tweak - Ensure that the sw-select script is loaded before displaying notices.
+* Tweak - Enter custom shipping rate IDs with a delimiter character by wrapping it in '%', like '%|%'.
+
+2020.03.12 - version 1.7.5
+* Important - Declared compatibility with WooCommerce 4.0.
+* Feature - Added 'woocommerce_csp_package_item_quantity_count' filter. This filter can be used to limit the Package Item condition to specific package items.
+
+2020.02.19 - version 1.7.4
+* Fix - Item Quantity condition not working for product-level Shipping Countries/States Restrictions.
+
+2020.01.24 - version 1.7.3
+* Fix - Ensured restricted shipping rates are correctly identified by falling back to 'get_id' when a canonical rate ID cannot be constructed.
+
+2020.01.17 - version 1.7.2
+* Fix - Prevent errors when using the Systempay gateway.
+* Tweak - Only add static notices to payment gateway descriptions inside the payment form.
+
+2020.01.14 - version 1.7.1
+* Fix - Release date in changelog.
+
+2020.01.13 - version 1.7.0
+* Important - Bumped the minimum required WooCommerce version to 2.6+.
+* Important - Suppressed dynamically added notices on the checkout page when 'Show Excluded' is enabled. When a restriction is active, WooCommerce would keep scrolling the viewport to the top of the checkout page, resulting in a poor UX while filling in the checkout form fields. Notices are now displayed when 'Place Order' is clicked.
+* Feature - Introduced 'Show Static Notices' option to display static messages under restricted shipping methods and payment gateways.
+
+2019.12.10 - version 1.6.2
+* Fix - Item Quantity condition not working for product-level Shipping Countries/States Restrictions.
+
+2019.12.03 - version 1.6.1
+* Fix - Broken Select All/None buttons.
+
+2019.11.28 - version 1.6.0
+* Tweak - Replaced selectWoo with self-maintained flavor of select2.
+
+2019.10.25 - version 1.5.9
+* Fix - Added WordPres 5.3 and WooCommerce 3.8 support.
+
+2019.10.25 - version 1.5.8
+* Fix - Coupon code condition not evaluating correctly when multiple coupons are used together.
+* Fix - Use variation name in Shipping Class condition resolution message.
+* Fix - Typo in Package Weight resolution message.
+* Fix - Added styles for RTL languages.
+
+2019.08.07 - version 1.5.7
+* Fix - Postcode condition fails to work when entering UK postcodes with spaces.
+
+2019.06.19 - version 1.5.6
+* Important - Removed old Update Helper dependencies. If you are running a WooCommerce version older than 3.1, you will not see any prompts to update Conditional Shipping and Payments from now on, and will need to install extension updates manually!
+* Fix - Incorrect 'Membership Plan' condition behavior when user is not logged in.
+* Tweak - Added 'woocommerce_csp_order_total_contents_only' and 'woocommerce_csp_order_total_condition_incl_contents_tax' filters to modify the behavior of the 'Order Total' condition.
+
+2019.05.08 - version 1.5.5
+* Fix - Fix broken empty state styles under WordPress 5.2+.
+
+2019.05.06 - version 1.5.4
+* Fix - Fatal error when using the cart category condition with multiple category values.
+
+2019.04.30 - version 1.5.3
+* Fix - Fatal error during REST API requests when the Amazon Pay gateway is installed and activated under WC 3.6+.
+
+2019.04.09 - version 1.5.2
+* Tweak - Make Package Weight condition available in Shipping Countries/States restrictions.
+* Fix - Display Custom Notice when defined in product-level Payment Gateway Restrictions.
+
+2019.01.14 - version 1.5.1
+* Fix - Removed custom Paypal Checkout buttons from checkout page.
+* Tweak - Added Shipping Country and Shipping Postcode condition filters to exclude shipping/payment options by default when the state/postcode fields at checkout are empty.
+
+2018.12.04 - version 1.5.0
+* Feature - NUX improvements.
+* Fix - WooCommerce Multi-Currency support.
+
+2018.11.14 - version 1.4.2
+* Fix - Empty period options in Recurring Cart/Package Item conditions.
+
+2018.10.10 - version 1.4.1
+* Fix - The chosen rate may not be found in a shipping package by ID, or may not be an object. In both edge cases a fatal error was generated by the Shipping Method restriction class. That's now fixed.
+* Fix - Category conditions not working correctly with variations.
+
+2018.10.08 - version 1.4.0
+* Feature - Added 'Actions' column in the summary/overview table under 'Settings > Restrictions' and introduced 'Delete' action.
+* Feature - Redesigned restrictions/conditions UI.
+* Feature - Improved integration with Stripe, PayPal Express, Klarna Checkout and Klarna Payments gateways.
+* Feature - Made Shipping Postcode condition available in Payment Gateway restrictions.
+* Feature - Products in the 'product' post-type table are now filterable by restriction.
+* Feature - Added WooCommerce Subscriptions integration: Introduced 'Recurring Item' in cart/package condition.
+* Feature - Added WooCommerce Memberships integration: Introduced 'Membership Plan' condition.
+* Feature - Added WooCommerce Multi-Currency integration: Introduced 'Currency' condition.
+* Tweak - Revised resolution messages for all Restriction types and Conditions.
+* Tweak - Made default Postcode condition behavior consistent with the 'woocommerce_shipping_cost_requires_address' option.
+* Fix - Excluded shipping method rates not hidden when using the 'Customer' (billing e-mail) condition.
+* Fix - Order details not updated when the 'Billing E-mail' field is modified at checkout and a restriction with a 'Customer' (billing e-mail) condition exists.
+* Fix - Fixed an issue with matching of shipping rates with numeric rate IDs.
+* Fix - Fixed a Postcode condition fatal error under WC 2.4/2.5.
+* Fix - Shipping Country, Shipping Postcode and Coupon Code conditions now work correctly in Payment Gateway restrictions when paying for a pending-payment order.
+
+2018.06.04 - version 1.3.5
+* Fix - Shipping class conditions did not always work as expected when using the "all" and "not all" modifiers. Fixed.
+
+2018.05.24 - version 1.3.4
+* Tweak - Added a section in the WordPress Privacy Policy Guide to let store owners know that Conditional Shipping and Payments does not collect, store or share personal data.
+
+2018.05.10 - version 1.3.3
+* Tweak - Changed the wording in some condition resolution strings to maintain a reasonable level of accuracy. Please review your localizations for new, unstranslated strings.
+* Tweak - Renamed "every" and "not every" condition modifiers.
+* Fix - Category conditions did not always work as expected when using the "every" modifier. Fixed.
+* Dev - Aded filters to control the term relationship (and/or) when evaluating category conditions.
+
+2018.03.19 - version 1.3.2
+* Fix - Coupon Code condition with "is not used" modifier not matching when no coupons applied in cart.
+
+2018.02.09 - version 1.3.1
+* Fix - Corrected modifier values in Coupon Code condition.
+
+2018.01.09 - version 1.3.0
+* Feature - Added 'Shipping Postcode' condition.
+* Feature - Added 'Items in Package' condition.
+* Feature - Added 'Package Total' condition.
+* Feature - Added 'Coupon Code' condition.
+* Feature - Added "is not" modifier in 'Shipping Method' condition.
+* Feature - Added "every cart/package item" and "not every cart/pakage item" modifiers to 'Category' conditions.
+* Feature - Added "every cart/package item" and "not every cart/pakage item" modifiers to 'Shipping Class' conditions.
+
+2017.10.14 - version 1.2.9
+* Important - WooCommerce 3.2 support added.
+* Fix - Resolve "doing it wrong" notice with 'WC_Checkout->posted' access.
+* Tweak - Improved shipping method restriction matching when excluding rates with non-canonical/malformed IDs under WC 3.2+. See https://github.com/woocommerce/woocommerce/issues/14837 for details.
+
+2017.08.01 - version 1.2.8
+* Tweak - Admin string tweaks.
+
+2017.06.15 - version 1.2.7
+* Tweak - Cart Total condition value now includes line item taxes, if applicable. Use `add_filter( 'woocommerce_csp_cart_total_condition_incl_tax', '__return_false' );` to revert to the old behavior, if needed.
+* Fix - Totals in Cart/Order Total conditions ignore WooCommerce thousands/decimals separator formatting settings.
+
+2017.06.02 - version 1.2.6
+* Tweak - Revised restriction meta-box styles.
+* Tweak - Updated plugin meta.
+* Fix - PHP deprecated 'WC_Customer::get_country' notice under WC 3.0+.
+
+2017.04.07 - version 1.2.5
+* Fix - Product-level restrictions of variable products not working due to a regression in version 1.2.4.
+
+2017.04.01 - version 1.2.4
+* Fix - WooCommerce 3.0 support added.
+* Fix - Notice on checkout page triggered in error when the default gateway is restricted and excluded.
+
+2016.12.17 - version 1.2.3
+* Feature - Add custom notices to Shipping Method and Shipping Gateway restrictions.
+* Fix - Support WooCommerce Ship to Multiple Addresses.
+* Fix - Incorrect flat-rate shipping method titles in restriction selection drop-down.
+* Fix - Missing shipping method titles in Settings > Restrictions > Restrictions Overview section.
+
+2016.10.12 - version 1.2.2
+* Fix - Multiple global country restrictions all evaluate as true when a single restriction applies.
+
+2016.06.28 - version 1.2.1
+* Fix - "Add Condition" button not working under WC 2.6.
+* Tweak - Refactored logic for adding conditions, now based on JS templates - see 'WC_CSP_Conditions::print_condition_field_scripts()'.
+
+2016.05.30 - version 1.2.0
+* Important - Added support for WooCommerce 2.6 and WC 2.6 Shipping Zones. To ensure that your shipping method restrictions still work after the WC 2.6 update, please ensure that WooCommerce Conditional Shipping and Payments has been updated to version 1.2.0 before running the WC 2.6 data update routine!
+* Important - WC 2.6 has introduced irreversible changes to shipping rate IDs. In some cases, the update may break existing shipping method restrictions/conditions. Please review any existing shipping method restriction settings after running the WC 2.6 update routine!
+* Feature - Ability to create shipping method restrictions based on custom shipping rate IDs ("Exclude Shipping Rate IDs" field).
+* Tweak - After updating to WC 2.6, it is no longer possible to choose specific Table Rate Shipping / Flat Rate Boxes rates when defining Shipping Method restrictions. Instead, this is now possible by making use of the newly introduced "Exclude Shipping Rate IDs" field.
+* Tweak - After updating to WC 2.6, it is no longer possible to create Shipping Method conditions based on specific Table Rate Shipping / Flat Rate Boxes rates. Following the introduction of Shipping Zones in WC, Shipping Method conditions can only be based on shipping method instances.
+* Tweak - Reviewed translatable strings and replaced static variable with string in all 'gettext' function calls.
+
+2015.12.08 - version 1.1.11
+* Fix - WC 2.5 support.
+* Fix - When the id of a shipping rate started with a string equal to the id of another, excluded rate, then the former one would get excluded, too.
+
+2015.11.04 - version 1.1.10
+* Feature - Customer Role condition.
+* Feature - Added 'Restrictions Overview' section in the Restrictions tab under WooCommerce > Settings.
+* Tweak - Simplified restriction settings markup.
+
+2015.09.20 - version 1.1.9
+* Fix - Amazon Payments support.
+
+2015.08.25 - version 1.1.8
+* Fix - Fatal error when attempting to get call 'get_available_payment_gateways()' from an admin page.
+
+2015.08.19 - version 1.1.7
+* Fix - Show "Customer" condition in product-level restrictions.
+
+2015.08.18 - version 1.1.6
+* Fix - Support for Flat Rate Boxes Shipping: Allow exclusions by method id.
+* Feature - Added new "Customer" condition to enable/disable restrictions by customer e-mail.
+
+2015.07.21 - version 1.1.5
+* Fix - Minor admin styling fixes for WC 2.4.
+* Fix - WC 2.4 support: Enable deprecated add-on flat rate options in the Shipping settings panel.
+
+2015.05.21 - version 1.1.4
+* Fix - WC 2.2 JS chosen compatibility.
+
+2015.04.20 - version 1.1.3
+* Fix - Add support for payment gateway rules at the checkout->pay endpoint.
+* Fix - Shipping classes conditions when shipping class defined at variation level.
+* Fix - Duplicate shipping method checkout notices.
+* Feature - Added 'not in' Category and Shipping Class condition modifiers, which can be used, for example, to always exclude a payment gateway ** unless ** a product from the specified categories is present in the cart.
+
+2015.04.01 - version 1.1.2
+* Fix - Support non-core Shipping Methods.
+
+2015.03.30 - version 1.1.1
+* Feature - Support Table Rate Shipping rates in Shipping Method restrictions and conditions.
+* Feature - 'is not' modifier for the Billing Country and Shipping Country/State conditions.
+* Fix - Update checkout fields on State change.
+
+2015.03.17 - version 1.1.0
+* Feature - Support add-on flat rates in the 'Shipping Method' condition.
+* Tweak - Updated conditions UI.
+* Fix - Missing 'State / County' string in resolution messages under specific conditions.
+* Dev - Refactored conditions API.
+
+2015.03.03 - version 1.0.1
+* Fix - select2 localization in WC 2.3.6+.
+
+2015.02.20 - version 1.0.0
+* Initial Release

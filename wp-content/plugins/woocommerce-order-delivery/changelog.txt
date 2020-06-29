@@ -1,0 +1,223 @@
+*** WooCommerce Order Delivery Changelog ***
+
+2020.06.02 - version 1.6.8
+* Tweak - Tested compatibility with WC 4.2.
+* Fix - Fixed warning "datepicker.css.map file not found".
+
+2020.04.28 - version 1.6.7
+* Tweak - Tested compatibility with WC 4.1.
+
+2020.04.06 - version 1.6.6
+* Fix - Assign delivery details to the subscription renewals with local pickup as the shipping method.
+* Fix - Customers couldn't disable preferred delivery days for a subscription.
+
+2020.03.30 - version 1.6.5
+* Tweak - Tested compatibility with WC 4.0.
+* Tweak - Tested compatibility with WP 5.4.
+
+2020.01.16 - version 1.6.4
+* Tweak - Tested compatibility with WC 3.9.
+* Fix - Update calendar options when they change on already initialized calendars.
+
+2019.11.05 - version 1.6.3
+* Tweak - CSS styling changes for WP 5.3.
+* Tweak - Tested compatibility with WP 5.3.
+* Tweak - Tested compatibility with WC 3.8.
+* Tweak - Tested compatibility with WC Subscriptions 3.0.
+* Fix - Fixed issue which made the current day unavailable for shipping the order.
+
+2019.10.10 - version 1.6.2
+* Tweak - Disable the current day for delivery if all its time frames have expired.
+* Fix - Fixed issue which allowed selecting expired dates in the calendar.
+* Fix - Fixed issue when trying to print an invalid time-frame object.
+
+2019.08.06 - version 1.6.1
+* Tweak - Updated calendar styles for supporting the new styles of the 'Storefront' theme.
+* Tweak - Added compatibility with WC 3.7.
+* Fix - Fixed warning when fetching the rates of a 'Table Rate' shipping method and the extension 'Table Rate Shipping' is not activated.
+* Fix - Refresh field values after saving a time frame form.
+
+2019.06.17 - version 1.6.0
+* Feature - Added compatibility with the extension 'WooCommerce Table Rate Shipping'.
+* Feature - Enhanced 'Shipping methods' selector on settings pages.
+* Tweak - Remove expired time frames from the select field when the delivery date is the current date.
+* Tweak - The time frame field is also required when the delivery date field is required.
+* Tweak - Assign the first available time frame when the delivery fields are in auto mode.
+* Tweak - Assign the first available time frame during subscriptions renewal if the customer preferences can't be satisfied.
+* Tweak - Added button for defining time frames from the 'Delivery days' setting.
+* Tweak - Removed 'delivery days' form field when creating a time frame for a single delivery day.
+* Tweak - Remove older update notices on plugin activation.
+* Tweak - Added URL verification to the actions of the database updater.
+* Tweak - Added blank content when there are no elements defined in the 'Time frames' field.
+* Tweak - Improved the initialization of the plugin settings and now they are loaded on demand.
+* Fix - Fixed PHP 5.2 compatibility adding the missing middle part in some ternary operators.
+* Dev - Added classes for representing a delivery day, a time frame and collections of them.
+
+2019.05.23 - version 1.5.7
+* Tweak - Added missing version in some enqueued styles.
+* Tweak - Tested compatibility with WP 5.2.
+* Fix - Fixed conversion to object for the `datesDisabled` parameter in the calendar settings.
+* Dev - Updated bootstrap-datepicker.js library to the version 1.9.0.
+* Dev - Updated jquery.timepicker.js library to the version 1.11.15.
+
+2019.04.09 - version 1.5.6
+* Tweak - Added compatibility with WC 3.6.
+
+2019.03.26 - version 1.5.5
+* Tweak - Added 'Next week' and 'Next 2 weeks' options to the date filters in the orders list.
+* Tweak - Use the 'maximum delivery days' setting as limit if its value is lower than the subscription billing interval.
+* Tweak - Load the subscription delivery data in the checkout form during renewal.
+* Tweak - Hide the delivery details for on-hold subscriptions.
+* Fix - Fixed wrong available dates in the delivery calendar of the checkout form when renewing a subscription.
+* Fix - Fixed wrong delivery values in the order created from a renewal of a subscription.
+* Fix - Fixed margin-top for the `Delivery details` section in the order emails which contain a subscription.
+* Dev - Changed context from `checkout` to `checkout-auto` when auto-calculating the first shipping date in the checkout form.
+* Dev - Updated `emails/email-delivery-date.php` template.
+
+2019.03.14 - version 1.5.4
+* Tweak - Check the time limit for the `start_date` parameter instead of the current date when calculating the first shipping date.
+* Tweak - Check the time limit for the next payment date when calculating the first shipping date of an order renewal.
+* Tweak - Tested compatibility with WP 5.1.
+* Fix - Hide the 'Time frame' label if not present on the order details page.
+* Fix - Unlock the delivery dates beyond the subscription billing interval if the setting `subscriptions_limit_to_billing_interval` is not enabled.
+* Dev - Updated default values for the arguments in the `wc_od_get_first_shipping_date` function.
+* Dev - Updated `order/delivery-date.php` and `myaccount/edit-delivery.php` templates.
+
+2018.12.05 - version 1.5.3
+* Tweak - Added 'priority' parameter to the delivery fields in the checkout form.
+* Tweak - Stop using the deprecated constant 'WC_TEMPLATE_PATH'.
+* Fix - Check if the localization parameters exist before using them in the 'wc-od-checkout.js' script.
+
+2018.10.31 - version 1.5.2
+* Fix - Fixed 'call to undefined function get_current_screen()' issue.
+
+2018.10.23 - version 1.5.1
+* Fix - Fixed 'delivery date required' message when the delivery date field is required and the delivery fields are not displayed in the checkout form.
+
+2018.10.16 - version 1.5.0
+* Feature - Define time frames/time slots for each delivery day.
+* Feature - Choose the available shipping methods for each delivery day and its time frames.
+* Tweak - Added compatibility with WC 3.5.
+* Tweak - Moved the delivery fields to their own meta box in the 'edit-order' and 'edit-subscription' screens.
+* Tweak - Set the default value of 'end_date' parameter to the 'max_delivery_days' setting value when calculating the first delivery date.
+* Tweak - Changed to 'internal' the note added to a subscription when the delivery details are updated due to a change of the next payment date.
+* Tweak - Sanitized the template content before output them.
+* Tweak - Minified the CSS files.
+* Fix - Process renewal orders that come from a failed status.
+* Fix - Convert 'truly' and 'falsy' parameters to booleans before use them to configure the datepicker in the javascript files.
+* Fix - Replaced '$customer_note' variable by '$note' in the template 'emails/plain/admin-subscription-delivery-note.php'.
+* Dev - Updated jquery.timepicker.js library to the version 1.11.14.
+* Dev - Replaced boolean settings values from '0' and '1' to 'yes' and 'no'.
+* Dev - Split the 'wc-od-functions.php' file into multiple files.
+* Dev - Updated plugin templates.
+
+2018.07.27 - version 1.4.1
+* Tweak - Check the minimum requirements before initializing the extension.
+* Tweak - Added setting to optionally display the 'Shipping & Delivery' section on the checkout page for the shipping method 'Local Pickup'.
+* Tweak - Display the delivery details after the order details table in the emails.
+* Fix - Display the delivery details in the plain text emails.
+* Fix - Calculate the 'recommended' shipping date for the renewal orders of a subscription.
+* Fix - Fixed calendar width for RTL languages.
+* Dev - Updated 'emails/email-delivery-date.php' template.
+
+2018.07.05 - version 1.4.0
+* Feature - Calculate the 'recommended' shipping date for each order based on its delivery date.
+* Feature - Added 'shipping_date' and 'delivery_date' filters to the shop order table list to filter the orders by these fields.
+* Feature - Send an email to the merchant when a note related with the delivery is added to an order/subscription.
+* Tweak - Added setting to deactivate the restriction that limits the available dates in the calendar to the billing interval of the subscription.
+* Tweak - Hide the 'Shipping & delivery' section in the checkout page when the customer selects 'Local Pickup' as the shipping method.
+* Tweak - Hide the 'Shipping & delivery' section in the checkout page when the 'WooCommerce Ship to Multiple Addresses' extension is used in the checkout page.
+* Tweak - Removed the delivery date field placeholder by default.
+* Tweak - Use the first delivery date as placeholder in the delivery date field when the date is auto-generated.
+* Fix - Fixed 'required field' validation on virtual products.
+* Dev - Set the minimum requirements to WP 4.1+ and WC 2.6+.
+* Dev - All the checkout content is loaded and refreshed as order-review fragments by AJAX.
+
+2018.05.23 - version 1.3.2
+* Tweak - Added compatibility with WC 3.4.
+* Tweak - Hide virtual keyboard on mobile devices when the datepicker is open.
+* Fix - Fixed warning when previewing the email template (The $email parameter is null).
+* Fix - Fixed selectWoo interaction in the "Delivery Calendar" dialogs.
+
+2018.01.30 - version 1.3.1
+* Tweak - Added compatibility with WC 3.3.
+* Tweak - Added <time> HTML tag to the delivery_date column in the orders list table.
+* Fix - Fixed typo in the Woo header.
+
+2017.12.19 - version 1.3.0
+* Feature - Added compatibility with the extension 'WooCommerce Subscription'.
+* Tweak - Include the delivery details in the 'customer_invoice' emails.
+* Tweak - Minor tweaks in the calendar styles for a mayor compatibility with the themes.
+* Fix - Fixed issue when rendering a delivery_date field and the 'return' parameter is false.
+* Fix - Fixed issue with the date format when assigning a default value to a delivery_date field.
+* Fix - Update the delivery date field value when the customer changes the date manually.
+
+2017.12.04 - version 1.2.0
+* Tweak - Use the WP date format in the checkout calendar.
+* Tweak - Added translations for the plugin calendars.
+* Tweak - Use the WC date format in the 'Delivery Date' column of the shop order list.
+* Tweak - Improved the performance by purging any expired event older than a year.
+* Tweak - Added link to the plugin documentation in the plugin list.
+* Tweak - Improved datepicker styles to add support to the Twenty Seventeen theme.
+* Fix - Fixed ambiguity with the m/d/Y and d/m/Y date formats.
+* Dev - Updated bootstrap-datepicker.js library to the version 1.7.1.
+* Dev - Renamed WC_OD_Delivery_Event class to WC_OD_Event_Delivery.
+* Dev - The function wc_od_get_disabled_days() always returns the dates in the ISO 8601 format.
+
+2017.10.09 - version 1.1.3
+* Tweak - Added more contrast between the enabled and disabled days in the calendars.
+
+2017.06.02 - version 1.1.2
+* Fix - Fixed issue when updating the delivery date and the status of an order at the same time. The delivery date in the emails was outdated.
+
+2017.03.30 - version 1.1.1
+* Fix - Fixed empty value in the 'states' field for the events of the delivery calendar.
+* Tweak - Added 'clear' option in the 'states' field for the events of the delivery calendar.
+* Tweak - Renamed WooCommerce version 2.7 to 3.0.
+
+2017.03.09 - version 1.1.0
+ * Feature - Added a setting to make the delivery date an optional, required or auto-generated field in the checkout form.
+ * Fix - Missing delivery info in the 'customer_on_hold_order' emails.
+ * Fix - Display always the 'Delivery Date' column before the 'Date' column in the order list.
+ * Fix - Fixed the appearance of the 'help tips' icons on the settings page.
+ * Dev - Added plugin constants.
+ * Dev - Deprecated 'dir_path', 'dir_url', 'date_format', 'date_format_js' and 'prefix' properties in the main class.
+ * Dev - Updated bootstrap-datepicker.js library to the version 1.6.4.
+ * Dev - Added wc-od-datepicker.js script to abstract the datepicker library.
+ * Dev - Checkout class rewritten to make it more extensible by developers.
+ * Dev - Set the minimum requirements to WP 4.1+ and WC 2.5+.
+ * Dev - Moved class loading (autoload) code to the 'WC_OD_Autoloader' class.
+ * Dev - Refactored singleton pattern code in the 'WC_OD_Singleton' class.
+ * Tweak - Added compatibility with WooCommerce 2.7.
+ * Tweak - Removed Select2 and jquery.BlockUI assets. It only uses the libraries included with WooCommerce.
+ * Tweak - Added the template 'emails/email-delivery-date.php' to display the delivery details on emails.
+ * Tweak - Updated the templates 'order/delivery-date.php' and 'checkout/form-delivery-date.php' to make them more customizable.
+ * Tweak - Avoid duplicate numbers when displaying a delivery range with the minimum value equal to the maximum value.
+ * Tweak - Added singular string for the delivery range text displayed in the checkout form.
+ * Tweak - Use the global variable '$wp_locale' to fetch the weekdays strings in the function 'wc_od_get_week_days'.
+ * Tweak - Use the timezone of the site instead of UTC for all the date operations.
+ * Tweak - Added hooks to customize the calendar styles.
+
+2017.01.19 - version 1.0.6
+ * Tweak - Calculate the first shipping and delivery dates using the site's timezone instead of UTC for a more accurate result.
+
+2016.11.30 - version 1.0.5
+ * Fix - Fixed bug calculating the first shipping date for orders with min_working_days > 0 and ordered after the time limit.
+ * Fix - Fixed deprecated notice with the woocommerce_update_option_X action hook when saving the plugin settings.
+
+2016.11.21 - version 1.0.4
+ * Fix - Fixed issue when checking the time limit to deliver orders on the same day.
+
+2016.10.18 - version 1.0.3
+ * Fix - Fixed the earlier day for UTC minus timezones in the checkout calendar.
+
+2016.06.28 - version 1.0.2
+ * Tweak - Added WooCommerce 2.6 compatibility.
+ * Fix - Fixed datepicker styles for the themes: Storefront 2.0, Twenty Fifteen 1.5 and Twenty Sixteen 1.2.
+ * Fix - Fixed typo when calling the 'woocommerce_email_subject_customer_processing_order' in the WC_OD_Order_Details class.
+
+2015.12.14 - version 1.0.1
+ * Fix - Added required field validation in the checkout form.
+
+2015.06.04 - version 1.0.0
+ * Initial Release! Woo!

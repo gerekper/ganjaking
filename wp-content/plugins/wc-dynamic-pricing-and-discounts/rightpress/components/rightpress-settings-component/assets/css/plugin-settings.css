@@ -1,0 +1,163 @@
+/**
+ * RightPress Plugin Settings Styles
+ */
+
+#rightpress-plugin-settings-tabs {
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+    margin-right: 20px;
+    margin-bottom: 15px;
+}
+
+#rightpress-plugin-settings {
+    width: 100%;
+    margin-top: 15px;
+    border: 1px solid #dfdfdf;
+    border-top: none;
+    background-color: #ffffff;
+}
+
+#rightpress-plugin-settings p {
+    padding: 12px 25px 0px 25px;
+}
+#rightpress-plugin-settings p.submit {
+    margin-top: 0;
+}
+
+#rightpress-plugin-settings table.form-table {
+    margin: 10px 0 15px 25px;
+    width: auto;
+}
+#rightpress-plugin-settings tr {
+    height: 45px;
+}
+#rightpress-plugin-settings th {
+    width: 320px;
+    padding: 15px 10px 5px 0;
+}
+#rightpress-plugin-settings td {
+    padding: 10px 10px 5px 10px;
+}
+
+#rightpress-plugin-settings h2,
+#rightpress-plugin-settings h3 {
+    padding: 20px;
+    border-bottom: 1px solid #dfdfdf;
+    border-top: 1px solid #dfdfdf;
+    background-color: #fcfcfc;
+    margin: 0;
+    overflow: hidden;
+}
+
+#rightpress-plugin-settings .submit {
+    border-top: 1px solid #dfdfdf;
+    background-color: #fcfcfc;
+    padding: 20px;
+    margin: 0;
+}
+
+#rightpress-plugin-settings input:not([type='checkbox']):not([type='radio']):not([type='submit']):not([type='button']):not([type='file']),
+#rightpress-plugin-settings select,
+#rightpress-plugin-settings textarea {
+    min-width: 400px;
+}
+#rightpress-plugin-settings input {
+    vertical-align: middle;
+}
+#rightpress-plugin-settings input[type='text'] {
+    line-height: 33px;
+}
+#rightpress-plugin-settings select {
+    line-height: 27px;
+}
+
+#rightpress-plugin-settings .rightpress-plugin-settings-hint {
+    font-style: italic;
+    font-size: 12px;
+    color: #666;
+    padding-right: 25px;
+    padding-top: 5px;
+}
+
+#rightpress-plugin-settings .rightpress-plugin-settings-validation-error {
+    background: #666666 !important;
+    color: white !important;
+    border: none !important;
+    padding: 0 !important;
+    opacity: 1 !important;
+    max-width: 200px !important;
+}
+#rightpress-plugin-settings .rightpress-plugin-settings-validation-error .ui-tooltip-content {
+    position: relative !important;
+    padding: 1em !important;
+}
+#rightpress-plugin-settings .rightpress-plugin-settings-validation-error .ui-tooltip-content::after {
+    content: '' !important;
+    position: absolute !important;
+    border-style: solid !important;
+    display: block !important;
+    width: 0 !important;
+}
+#rightpress-plugin-settings .rightpress-plugin-settings-validation-error .ui-tooltip-content::after {
+    top: -10px !important;
+    left: 15px !important;
+    border-color: #666666 transparent !important;
+    border-width: 0 10px 10px !important;
+}
+
+#rightpress-plugin-settings-preloader {
+    display: table-cell;
+    background-color: #fff;
+    color: #000;
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    vertical-align: middle;
+    opacity: 0.8;
+}
+#rightpress-plugin-settings-preloader #rightpress-plugin-settings-preloader-content {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    height: 30%;
+}
+#rightpress-plugin-settings-preloader .rightpress-plugin-settings-preloader-text {
+    padding: 0 35%;
+    text-align: justify;
+}
+.rightpress-plugin-settings-preloader-icon .dashicons {
+    font-size: 40px;
+    width: 40px;
+    height: 40px;
+}
+
+.rightpress-plugin-settings-validation-error {
+    background: #666666 !important;
+    color: white !important;
+    border: none !important;
+    padding: 0 !important;
+    opacity: 1 !important;
+    max-width: 200px !important;
+}
+.rightpress-plugin-settings-validation-error .ui-tooltip-content {
+    position: relative !important;
+    padding: 1em !important;
+}
+.rightpress-plugin-settings-validation-error .ui-tooltip-content::after {
+    content: '' !important;
+    position: absolute !important;
+    border-style: solid !important;
+    display: block !important;
+    width: 0 !important;
+}
+.rightpress-plugin-settings-validation-error .ui-tooltip-content::after {
+    top: -10px !important;
+    left: 15px !important;
+    border-color: #666666 transparent !important;
+    border-width: 0 10px 10px !important;
+}

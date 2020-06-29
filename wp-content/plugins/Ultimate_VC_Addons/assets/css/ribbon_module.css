@@ -1,0 +1,192 @@
+/* For Alignment */
+.ult-ribbon-wrap { 
+  text-align:center;
+}
+
+.ult-ribbon.auto{
+    width:auto;
+    max-width: -webkit-calc(100% - 7em);
+    max-width: calc(100% - 7em);
+}
+.ult-ribbon.full{
+    width:100%;
+    max-width: -webkit-calc(100% - 7em);
+    max-width: calc(100% - 7em);
+}
+.ult-ribbon.custom{
+    max-width: -webkit-calc(100% - 7em);
+    max-width: calc(100% - 7em);
+}
+.ult-ribbon-wrap .ult-ribbon {
+    position: relative;
+    padding: 0;
+    margin: 1.5em 0;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    text-align: center;   
+    display: inline-block; 
+    z-index: 0;
+}
+
+/* Left and right CSS wing CSS*/
+.ult-ribbon .ult-ribbon-text{
+    background: rgb(2, 116, 190);
+ }
+.ult-ribbon .ult-left-ribb {    
+    content: "";
+    bottom: -1em;
+    position: absolute;
+    display: block;
+    left: -3.5em;
+    border-right-width: 3em;
+    border-left-width: 1.5em;
+    border-left-color: transparent;
+   /*box-shadow: rgba(0, 0, 0, 0.4) 1px 1px 1px;*/
+}
+.ult-ribbon .ult-right-ribb {    
+    content: "";
+    bottom: -1em;
+    position: absolute;
+    display: block;
+    right: -3.5em;
+    border-left-width: 3em;
+    border-right-width: 1.5em;
+    border-right-color: transparent;
+    /*box-shadow: rgba(0, 0, 0, 0.4) -1px 1px 1px;*/
+}
+
+.ult-left-ribb.yes{
+    -webkit-box-shadow: rgba(0, 0, 0, 0.5) 2px 2px 2px;
+    box-shadow: rgba(0, 0, 0, 0.5) 2px 2px 2px;
+}
+.ult-right-ribb.yes{
+    -webkit-box-shadow: rgba(0, 0, 0, 0.5) -2px 2px 2px;
+    box-shadow: rgba(0, 0, 0, 0.5) -2px 2px 2px;
+}
+.ult-right-ribb, .ult-left-ribb{
+    z-index: -1;
+    border: 1em solid #0274be;
+}
+.ult-ribbon-text:before{
+    content: "";
+    bottom: -1em;
+    position: absolute;
+    display: block;
+    left: 0;
+    border-width: 1em 0 0 1em;
+    border-style: solid;
+    border-color: #3a3a3a transparent transparent transparent;
+}
+.ult-ribbon-text:after{
+    content: "";
+    bottom: -1em;
+    position: absolute;
+    display: block;
+    right: 0;
+    border-width: 1em 1em 0 0;
+    border-style: solid;
+    border-color: #3a3a3a transparent transparent transparent;
+}
+
+/*  Icon Code 
+*================ */
+.ult-ribbon .ult-ribbon-text {
+    position: relative;
+    padding: 0.5em 1.75em;
+    z-index: 3;
+    display: block;
+}
+
+.ult-ribbon .ult-left-ribb i, 
+.ult-ribbon .ult-right-ribb i {
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    z-index: 4;
+}
+
+.ult-ribbon .ult-left-ribb i {
+    left: 0.5em;
+}
+
+.ult-ribbon .ult-right-ribb i {
+    right: 0.5em;
+}   
+
+/* Snitch Code 
+*=============*/
+
+/* Top Snitch */
+.ult-ribbon .ult-ribbon-stitches-top,
+.ult-ribbon .ult-ribbon-stitches-bottom {
+    position: absolute;
+    left: 0;
+    width: 100%;    
+}
+.ult-ribbon .ult-ribbon-stitches-top {  
+    top: 0;
+    margin-top: 2px;
+    border-top: 1px dashed rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 0px 2px rgba(255, 255, 255, 0.5);
+}
+/* Bottom Snich */
+.ult-ribbon .ult-ribbon-stitches-bottom {
+    bottom: 0;
+    margin-bottom: 2px;
+    border-top: 1px dashed rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 0px 2px rgba(255, 255, 255, 0.3);
+}
+.ult-ribbon-stitches-top {
+    margin-top: 2px;
+    border-top: 1px dashed rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 0px 2px rgba(255, 255, 255, 0.5);
+}
+
+.ult-ribbon-stitches-bottom {
+    margin-bottom: 2px;
+    border-top: 1px dashed rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 0px 2px rgba(255, 255, 255, 0.3);
+}
+
+.ult-ribbon-wrap.no i {
+    text-shadow: none;
+}
+
+/*Hide the Ribbon wings For Small Device*/
+@media(max-width:767px){
+ .ult-ribbon-text.small:before, .ult-ribbon-text.small:after{
+        display:none;
+ }
+ .ult-ribbon .ult-left-ribb.small , .ult-ribbon .ult-right-ribb.small
+ {
+    display:none;
+ }
+ .ult-ribbon-wrap .ult-ribbon.auto.media-width{
+    width:auto;
+    max-width: 100%;
+ }
+  .ult-ribbon-wrap .ult-ribbon.full.media-width{
+    width:100%;
+    max-width: 100%;
+ }
+  .ult-ribbon-wrap .ult-ribbon.custom.media-width{
+    max-width: 100%;
+ }
+}
+/*Hide the Ribbon wings For Small Device & Large device*/
+@media(max-width:1024px){
+  .ult-ribbon-text.medium:before, .ult-ribbon-text.medium:after{
+        display:none;
+ }
+ .ult-ribbon .ult-left-ribb.medium , .ult-ribbon .ult-right-ribb.medium
+ {
+    display:none;
+ }
+}
+

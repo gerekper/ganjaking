@@ -1,0 +1,133 @@
+
+/*
+	* LayerSlider Add-On: Origami Slide Transition
+	*
+	* (c) 2011-2020 George Krupa, John Gera & Kreatura Media
+	*
+	* LayerSlider home:		https://layerslider.kreaturamedia.com/
+	* Licensing:			https://layerslider.kreaturamedia.com/licensing/
+*/
+
+
+
+.ls-origami-block {
+	position: absolute;
+	height : 100%;
+	top : 0;
+	-webkit-transform-style: preserve-3d;
+	-moz-transform-style: preserve-3d;
+	-ms-transform-style: preserve-3d;
+	-o-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+}
+
+.ls-origami-tile {
+	position: absolute;
+	-webkit-transform-style: preserve-3d;
+	-moz-transform-style: preserve-3d;
+	-ms-transform-style: preserve-3d;
+	-o-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+	-webkit-backface-visibility: hidden;
+	-moz-backface-visibility: hidden;
+	-ms-backface-visibility: hidden;
+	-o-backface-visibility: hidden;
+	backface-visibility: hidden;
+	z-index: 20;
+}
+
+.ls-origami-tile {
+	width: 100%;
+	height: 100%;
+}
+
+.ls-origami-left .ls-origami-tile {
+	left: 100%;
+	top: 0;
+	-webkit-transform-origin: 0 100%;
+	-moz-transform-origin: 0 100%;
+	-ms-transform-origin: 0 100%;
+	-o-transform-origin: 0 100%;
+	transform-origin: 0 100%;
+}
+
+.ls-origami-left > .ls-origami-tile {
+	width: 50%;
+	left: 0;
+}
+
+.ls-origami-right .ls-origami-tile {
+	right: 100%;
+	top: 0;
+	-webkit-transform-origin: 100% 0;
+	-moz-transform-origin: 100% 0;
+	-ms-transform-origin: 100% 0;
+	-o-transform-origin: 100% 0;
+	transform-origin: 100% 0;
+}
+
+.ls-origami-right > .ls-origami-tile {
+	width: 50%;
+	right: 0;
+}
+
+.ls-origami-top .ls-origami-tile {
+	left: 0;
+	top: 100%;
+	-webkit-transform-origin: 0 0;
+	-moz-transform-origin: 0 0;
+	-ms-transform-origin: 0 0;
+	-o-transform-origin: 0 0;
+	transform-origin: 0 0;
+}
+
+.ls-origami-top > .ls-origami-tile {
+	height: 50%;
+	top: 0;
+}
+
+.ls-origami-bottom .ls-origami-tile {
+	left: 0;
+	bottom: 100%;
+	-webkit-transform-origin: 100% 100%;
+	-moz-transform-origin: 100% 100%;
+	-ms-transform-origin: 100% 100%;
+	-o-transform-origin: 100% 100%;
+	transform-origin: 100% 100%;
+}
+
+.ls-origami-bottom > .ls-origami-tile {
+	height: 50%;
+	bottom: 0;
+}
+
+.ls-light,
+.ls-origami-image-holder {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	overflow: hidden;
+}
+
+.ls-light {
+	z-index: 1;
+}
+
+.ls-origami-image-holder {
+	z-index: 10;
+}
+
+.ls-origami-image-holder > img {
+	position: relative;
+	z-index: 2;
+}
+
+.ls-white {
+	background: white;
+}
+
+.ls-black {
+	background: black;
+}

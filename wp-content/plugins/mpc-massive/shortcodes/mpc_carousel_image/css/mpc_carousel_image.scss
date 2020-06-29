@@ -1,0 +1,204 @@
+/*----------------------------------------------------------------------------*\
+	CAROUSEL IMAGE SHORTCODE
+\*----------------------------------------------------------------------------*/
+.mpc-carousel-image {
+	overflow: hidden;
+
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+
+	&.mpc-carousel--stretched {
+		&, .slick-list {
+			overflow: visible;
+		}
+	}
+
+	.slick-slide > div:last-child > .mpc-carousel__item-wrapper,
+	.slick-slide.mpc-carousel__item-wrapper {
+		margin-bottom: 0 !important;
+	}
+
+	&:focus, & *:focus {
+		outline: none;
+		-webkit-outline: none;
+	}
+
+	.mpc-carousel__item-wrapper {
+		position: relative;
+		display: block !important;
+		height: 100%;
+		width: auto;
+		max-width: 100% !important;
+	}
+
+	.mpc-item {
+		position: relative;
+		overflow: hidden;
+		cursor: pointer;
+
+		background-repeat: no-repeat;
+		background-position: center center;
+		background-size: cover;
+
+		.mpc-border::before,
+		.mpc-border {
+			position: absolute;
+			z-index: 2;
+			top: 0;
+			left: 0;
+			bottom: 0;
+			right: 0;
+			width: 100%;
+			height: 100%;
+			display: block;
+			content: '';
+
+			border-width: 0px;
+			border-style: solid;
+			border-radius: 0px;
+
+			-webkit-box-sizing: border-box;
+			box-sizing: border-box;
+
+			-webkit-transition: inherit;
+			transition: inherit;
+		}
+	}
+
+	img {
+		width: 100%;
+		height: auto;
+	}
+
+	/* Overlay & Lightbox */
+	.mpc-icon-anchor {
+		display: inline-block;
+		vertical-align: bottom;
+		text-align: center;
+
+		-webkit-transition: all .25s;
+		transition: all .25s;
+
+		i {
+			display: block;
+			vertical-align: bottom;
+			width: 1.35em;
+			height: 1.35em;
+			line-height: 1.35em;
+			font-style: normal;
+
+			-webkit-transition: inherit;
+			transition: inherit;
+
+			&.mpc-icon--image,
+			&.mpc-icon--character {
+				width: auto;
+			}
+		}
+	}
+
+	.mpc-item-overlay {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		z-index: 5;
+		visibility: hidden;
+	}
+
+	.mpc-overlay--vertical-wrap {
+		display: table;
+		width: 100%;
+		height: 100%;
+	}
+	.mpc-overlay--vertical {
+		display: table-cell;
+		vertical-align: middle;
+		text-align: center;
+		width: 100%;
+		height: 100%;
+	}
+	/* Overlay Idle Settings */
+	&.mpc-overlay--fade,
+	&.mpc-overlay--none {
+		.mpc-item-overlay {
+			top: 0;
+			left: 0;
+			opacity: 0;
+		}
+	}
+	&.mpc-overlay--slide-up {
+		.mpc-item-overlay {
+			top: 100%;
+			left: 0;
+		}
+	}
+	&.mpc-overlay--slide-down {
+		.mpc-item-overlay {
+			top: -100%;
+			left: 0;
+		}
+	}
+	&.mpc-overlay--slide-left {
+		.mpc-item-overlay {
+			top: 0;
+			left: 100%;
+		}
+	}
+	&.mpc-overlay--slide-right {
+		.mpc-item-overlay {
+			top: 0;
+			left: -100%;
+		}
+	}
+}
+
+[data-align^=top] .mpc-overlay--vertical {
+	vertical-align: top;
+}
+[data-align^=middle] .mpc-overlay--vertical {
+	vertical-align: middle;
+}
+[data-align^=bottom] .mpc-overlay--vertical {
+	vertical-align: bottom;
+}
+
+[data-align$=left] .mpc-overlay--vertical {
+	text-align: left;
+}
+[data-align$=center] .mpc-overlay--vertical {
+	text-align:  center;
+}
+[data-align$=right] .mpc-overlay--vertical {
+	text-align: right;
+}
+
+
+/* Layout Fluid */
+.mpc-carousel-image.mpc-layout--fluid {
+	* {
+		height: 100%;
+	}
+
+	.mpc-overlay--vertical,
+	.mpc-overlay--vertical * {
+		height: auto;
+	}
+
+	img {
+		width: auto !important;
+		height: 100% !important;
+	}
+}
+
+.mpc-navigation--image {
+	text-align: right;
+	margin: 1em 0;
+
+	i {
+		cursor: pointer;
+		padding: .5em 1em;
+		margin-left: 1px;
+		background: #ccc;
+		border-radius: 3px;
+	}
+}

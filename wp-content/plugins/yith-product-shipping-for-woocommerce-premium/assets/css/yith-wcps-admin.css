@@ -1,0 +1,115 @@
+
+/*
+ *	Settings Table
+ */
+
+.form-table th, .form-table td { padding-top: 10px; }
+
+/*
+ *	Shipping Product Tab
+ */
+
+#woocommerce-product-data ul.wc-tabs li.yith-woocommerce-product-shipping_tab a::before { content: '\e01a'; font-family: WooCommerce; }
+
+/*
+ *	Shipping Product Panel
+ */
+
+.yith_product_shipping_costs_table .yith_product_shipping_rows { padding: 0px 10px 10px 10px; overflow: auto; display: block; clear: both; }
+.yith_product_shipping_costs_table .woocommerce_variable_attributes .yith_product_shipping_rows { padding: 0px; }
+.yith_product_shipping_costs_table .yith_product_shipping_rows p { text-align: center; }
+.yith_product_shipping_costs_table .yith_product_shipping_rows strong { text-transform: uppercase; }
+
+/*
+ *	Shipping Costs Table
+ */
+
+.yith_product_shipping_costs_table ul.columns { }
+.yith_product_shipping_costs_table ul.columns li { margin-right: 10px; display: inline-block; }
+
+.yith_product_shipping_costs_table .yith_product_shipping_rows table { border: 0; padding: 0; }
+.yith_product_shipping_costs_table .yith_product_shipping_rows table .row { display: table-row !important; }
+.yith_product_shipping_costs_table .yith_product_shipping_rows thead th { border: 0; text-align: center; font-weight: bold; }
+.yith_product_shipping_costs_table .yith_product_shipping_rows td { background: #f5f5f5; min-width: 70px; width: auto !important; border-right: 1px solid #dfdfdf; border: 0; padding: 10px 5px; }
+.yith_product_shipping_costs_table .yith_product_shipping_rows td:first-child { min-width: 0px; padding-left: 10px; }
+.yith_product_shipping_costs_table .yith_product_shipping_rows td:last-child { padding-right: 10px; }
+.yith_product_shipping_costs_table .yith_product_shipping_rows tr.first.row th { padding-bottom: 5px; }
+.yith_product_shipping_costs_table .yith_product_shipping_rows tr.second.row th { padding-top: 0; }
+.yith_product_shipping_costs_table .yith_product_shipping_rows tr.row:before { display: none; }
+
+.yith_product_shipping_costs_table .yith_product_shipping_rows tr:hover td { background: #cce3ee; }
+.yith_product_shipping_costs_table .yith_product_shipping_rows.sortable tr:hover td { background: #e5f1f6; }
+.yith_product_shipping_costs_table .yith_product_shipping_rows.sortable tr.current td { background: #cce3ee; }
+
+.yith_product_shipping_costs_table .yith_product_shipping_rows td input { background: #fff; width: 100%; height: 29px; min-width: 70px !important; border: 1px solid #eee; padding: 5px 10px; margin: 0; font-size: 12px; box-shadow: none; }
+.yith_product_shipping_costs_table .yith_product_shipping_rows.sortable td input { height: 39px; padding: 10px; }
+.yith_product_shipping_costs_table .yith_product_shipping_rows .taxonomy input { height: 27px !important; }
+.yith_product_shipping_costs_table .yith_product_shipping_rows .new .taxonomy input { height: 39px !important; }
+.yith_product_shipping_costs_table .yith_product_shipping_rows .taxonomy ul li { font-size: 12px; }
+.yith_product_shipping_costs_table .yith_product_shipping_rows td input[disabled=disabled] { background: #fafafa; }
+.yith_product_shipping_costs_table .yith_product_shipping_rows td p { margin-bottom: 0; }
+.yith_product_shipping_costs_table .yith_product_shipping_rows td select { min-width: 100px; }
+
+.yith_product_shipping_costs_table .yith_product_shipping_rows .edit { text-align: center; vertical-align: middle; cursor: pointer; }
+.yith_product_shipping_costs_table .yith_product_shipping_rows .sort { text-align: center; vertical-align: middle; cursor: move; }
+
+.yith_product_shipping_costs_table .yith_product_shipping_rows tr td.role select { height: 39px; margin: 0; font-size: 12px; }
+
+.yith_product_shipping_costs_table .yith_product_shipping_rows .cart_qty { }
+.yith_product_shipping_costs_table .yith_product_shipping_rows td.cart_qty.min input { background: #fff url('../img/max-icon.png') 13px center no-repeat; padding-left: 30px; }
+.yith_product_shipping_costs_table .yith_product_shipping_rows td.cart_qty.max input { background: #fff url('../img/min-icon.png') 13px center no-repeat; padding-left: 30px; }
+.yith_product_shipping_costs_table .yith_product_shipping_rows td.cart_qty input[disabled=disabled] { background-color: #fafafa; }
+
+.yith_product_shipping_costs_table .yith_product_shipping_rows .quantity { }
+.yith_product_shipping_costs_table .yith_product_shipping_rows td.quantity.min input { background: #fff url('../img/max-icon.png') 13px center no-repeat; padding-left: 30px; }
+.yith_product_shipping_costs_table .yith_product_shipping_rows td.quantity.max input { background: #fff url('../img/min-icon.png') 13px center no-repeat; padding-left: 30px; }
+.yith_product_shipping_costs_table .yith_product_shipping_rows td.quantity input[disabled=disabled] { background-color: #fafafa; }
+
+.yith_product_shipping_costs_table .yith_product_shipping_rows .weight { }
+.yith_product_shipping_costs_table .yith_product_shipping_rows td.weight.min input { background: #fff url('../img/max-icon.png') 13px center no-repeat; padding-left: 30px; }
+.yith_product_shipping_costs_table .yith_product_shipping_rows td.weight.max input { background: #fff url('../img/min-icon.png') 13px center no-repeat; padding-left: 30px; }
+.yith_product_shipping_costs_table .yith_product_shipping_rows td.weight input[disabled=disabled] { background-color: #fafafa; }
+
+.yith_product_shipping_costs_table .yith_product_shipping_rows .cart_weight { }
+.yith_product_shipping_costs_table .yith_product_shipping_rows td.cart_weight.min input { background: #fff url('../img/max-icon.png') 13px center no-repeat; padding-left: 30px; }
+.yith_product_shipping_costs_table .yith_product_shipping_rows td.cart_weight.max input { background: #fff url('../img/min-icon.png') 13px center no-repeat; padding-left: 30px; }
+.yith_product_shipping_costs_table .yith_product_shipping_rows td.cart_weight input[disabled=disabled] { background-color: #fafafa; }
+
+.yith_product_shipping_costs_table .yith_product_shipping_rows .cart_total {}
+.yith_product_shipping_costs_table .yith_product_shipping_rows td.cart_total.min input { background: #fff url('../img/max-icon.png') 13px center no-repeat; padding-left: 30px; }
+.yith_product_shipping_costs_table .yith_product_shipping_rows td.cart_total.max input { background: #fff url('../img/min-icon.png') 13px center no-repeat; padding-left: 30px; }
+
+.yith_product_shipping_costs_table .yith_product_shipping_rows td.cart_total input[disabled=disabled] { background-color: #fafafa; }
+
+.yith_product_shipping_costs_table .yith_product_shipping_rows .taxonomy { width: 200px; }
+.yith_product_shipping_costs_table .yith_product_shipping_rows .taxonomy span,
+.yith_product_shipping_costs_table .yith_product_shipping_rows .taxonomy select { width: 100% !important; }
+.yith_product_shipping_costs_table .yith_product_shipping_rows .taxonomy select.chosen_select { display: none; }
+.yith_product_shipping_costs_table .yith_product_shipping_rows .taxonomy span ul li span { width: auto !important; }
+.yith_product_shipping_costs_table .yith_product_shipping_rows .taxonomy .select2-selection--multiple { border: 0; }
+.yith_product_shipping_costs_table .yith_product_shipping_rows .taxonomy span.select2 { width: 100%; }
+.yith_product_shipping_costs_table .yith_product_shipping_rows .taxonomy span.select2-selection { border: 1px solid #eee; padding: 5px 10px; }
+.yith_product_shipping_costs_table .yith_product_shipping_rows .taxonomy span.select2-selection ul { border: 0; padding: 0px; margin: 0; display: block; }
+.yith_product_shipping_costs_table .yith_product_shipping_rows .taxonomy span.select2-selection ul li { border: 0; padding: 0px; margin: 0; display: block; float: left; }
+.yith_product_shipping_costs_table .yith_product_shipping_rows .taxonomy span.select2-selection ul li.select2-selection__choice { padding: 5px; margin: 0px 1px 1px 0px; }
+.yith_product_shipping_costs_table .yith_product_shipping_rows .taxonomy span.select2-selection ul li input { width: 100% !important; background: none !important; border: 0; padding: 0px; margin: 0; }
+
+.yith_product_shipping_costs_table .ui-sortable td.geo_exclude select { height: 30px; margin-top: 4px; }
+
+/*.yith_product_shipping_costs_table tr th.geo { background: #fff7e5; }*/
+.yith_product_shipping_costs_table .yith_product_shipping_rows tr.new td { background: #bfdedc; }
+
+.yith_product_shipping_costs_table .yith_product_shipping_rows tr td.geo { background: #e5f1f6; }
+.yith_product_shipping_costs_table .yith_product_shipping_rows tr td.geo p { padding: 0; margin: 0; }
+.yith_product_shipping_costs_table .yith_product_shipping_rows tr td.geo select { height: 39px; margin: 0; font-size: 12px; }
+.yith_product_shipping_costs_table .yith_product_shipping_rows tr td.geo_exclude select { width: 100px; }
+
+.yith_product_shipping_costs_table .yith_product_shipping_rows.sortable tr:hover td.geo { background: #cce3ee; }
+.yith_product_shipping_costs_table .yith_product_shipping_rows.sortable tr.current td.geo { background: #cce3ee; }
+
+.yith_product_shipping_costs_table .yith_product_shipping_rows.sortable tr.new:hover td { background: #d6eae4 !important; }
+.yith_product_shipping_costs_table .yith_product_shipping_rows.sortable tr.new.current td { background: #d6eae4 !important; }
+
+.yith_product_shipping_costs_table .pagination { margin-top: 10px; }
+.yith_product_shipping_costs_table .pagination a { background-color: #fff; height: 30px; line-height: 30px; border: 1px solid #ddd; padding: 0px 10px; margin-right: 1px; display: inline-block; text-decoration: none; }
+.yith_product_shipping_costs_table .pagination a.selected { background-color: #eee; }

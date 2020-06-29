@@ -1,0 +1,37 @@
+## Credits
+
+The [CSS](pure-css-toggle-buttons) is  copyright (c) 2016 by Mauricio Allende
+
+You can see his [demo at CodePen.io](http://codepen.io/mallendeo/pen/eLIiG)
+
+The CSS is [licensed](https://blog.codepen.io/legal/licensing/) under the terms of the [MIT license](http://opensource.org/licenses/MIT)
+
+## Copyright and License
+
+WordPress Customizer Toggle Control is copyright 2016 Per Soderlind
+
+WordPress Customizer Toggle Control is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 2 of the License, or (at your option) any later version.
+
+WordPress Customizer Toggle Control is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License along with the Extension. If not, see http://www.gnu.org/licenses/.
+
+
+
+## Credits
+
+The CSS and JavaScript is  copyright (c) 2016 by Sean Stopnik
+
+You can see his [demo at CodePen.io](http://codepen.io/thelifemgmt/pen/CeLqA)
+
+The CSS and JavaScript is [licensed](https://blog.codepen.io/legal/licensing/) under the terms of the [MIT license](http://opensource.org/licenses/MIT)
+
+## Copyright and License
+
+WordPress Customizer Range Value Control is copyright 2016 Per Soderlind
+
+WordPress Customizer Range Value Control is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 2 of the License, or (at your option) any later version.
+
+WordPress Customizer Range Value Control is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License along with the Extension. If not, see http://www.gnu.org/licenses/.

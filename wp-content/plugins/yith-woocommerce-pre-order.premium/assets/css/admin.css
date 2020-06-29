@@ -1,0 +1,29 @@
+#woocommerce-coupon-data ul.wc-tabs li.preorder_options  a:before, #woocommerce-product-data ul.wc-tabs li.preorder_options a:before, .woocommerce ul.wc-tabs li.preorder_options a:before {
+    font-family: Dashicons;
+    speak: none;
+    font-weight: 400;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    content: "\f508";
+    text-decoration: none;
+}
+
+.widefat .column-pre_order div.pre_order_icon_orders_table:before {
+    content: "\e00e";
+    color: #999;
+    font-family: WooCommerce;
+}
+
+.widefat .column-pre_order div.pre_order_icon_orders_table.pre_order_finished:before {
+    color: black;
+}
+
+.widefat .column-pre_order div.pre_order_icon_orders_table.pre_order_last_week:before {
+    color: #b33209;
+}
+
+.ywpo_pre_order_check_icon {
+    vertical-align: top;
+}

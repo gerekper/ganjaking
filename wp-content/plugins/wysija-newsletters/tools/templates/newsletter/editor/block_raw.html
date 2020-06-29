@@ -1,0 +1,8 @@
+{if ! #no-block}
+<div wysija_type="{#type}" class="wysija_block" wysija_position="{#position}" {if #background_color}wysija_bg_color="{#background_color}"{/if}>
+    {include file="templates/newsletter/editor/block_controls.html"}
+{/if}
+    <div class="wysija_raw">{if #raw}{#raw|base64_decode}{/if}</div>
+{if ! #no-block}
+</div>
+{/if}

@@ -1,0 +1,26 @@
+/*----------------------------------------------------------------------------*\
+	INTERACTIVE IMAGE SHORTCODE
+\*----------------------------------------------------------------------------*/
+.mpc-interactive_image {
+	position: relative;
+}
+
+.mpc-interactive_image-wrap {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.mpc-interactive_image__image {
+	width: 100%;
+	height: auto;
+	display: block;
+}
+
+/* FrontEnd Editor */
+.vc_mpc_interactive_image.vc_element .vc_controls > .vc_controls-out-tl {
+	left: initial;
+	right: 0;
+}

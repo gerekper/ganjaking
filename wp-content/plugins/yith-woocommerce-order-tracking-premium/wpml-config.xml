@@ -1,0 +1,6 @@
+<wpml-config>
+    <admin-texts>
+        <key name="ywot_order_tracking_text"/>
+        <key name="ywot_mail_tracking_text"/>
+    </admin-texts>
+</wpml-config>

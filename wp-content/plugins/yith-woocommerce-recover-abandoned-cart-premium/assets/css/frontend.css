@@ -1,0 +1,4 @@
+span.ywrac-privacy-wrapper {display: none;}
+span.ywrac-privacy-wrapper.show_privacy{display: table;padding-top: 10px;}
+input#ywrac-privacy {display:  table-cell;}
+.form-row .ywrac-privacy-wrapper label {display: table-cell;padding-left: 10px;font-size: 0.8em;}

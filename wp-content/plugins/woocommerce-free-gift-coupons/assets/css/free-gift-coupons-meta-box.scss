@@ -1,0 +1,65 @@
+.show_if_free_gift {
+	.add_prompt {
+		float: left;
+		color: #555;
+		line-height: 32px;
+		margin-right: .5em;
+
+		&::before {
+			vertical-align: middle;
+		}
+	}
+}
+
+#wc-free-gift-container {
+
+	padding: 5px 20px 5px 162px !important;
+	
+
+	table {
+
+		border-collapse: collapse;
+		width: 100%;
+
+		thead { 
+			text-align: left; 
+			background: #eee;
+		}
+
+		td, th {
+			border: 1px solid #ddd;
+			padding: .5em;
+		}
+
+		tbody .ui-sortable-handle { cursor: move; }
+
+		tr:nth-child(even){
+			background-color: #fafafa;
+		}
+
+		.product-title { width: 80% }
+		.product-quantity {
+			input { width: 3em; }
+		}
+		.product-remove {
+			width: 2em;
+			button { 
+				background: transparent; border: 0; 
+				&:hover { color: red; }
+				}
+		}
+
+		a {
+			color: #555;
+			font-size: 1.25em;
+			vertical-align: middle;
+		}
+	}
+}
+
+
+@media (max-width: 500px) {
+	#wc-free-gift-container {
+	    margin: 5px 20px !important;
+	}
+}

@@ -1,0 +1,39 @@
+/*front end style*/
+
+
+.yith_surveys_answers{
+
+    width: 90%;
+    height: 36px;
+    color:#4a4a4a;
+    margin:0 0 2em ;
+    padding-left: 5px;
+}
+
+.yith_surveys_answers:first-child{
+    border-bottom: 1px solid ;
+    color:#4a4a4a;
+}
+.yith_surveys_answers:focus option:first-child{
+    display: none;
+}
+
+ .survey_after_before_add_to_cart .yith_send_answer{
+    margin-bottom: 15px !important;
+}
+
+.survey_after_product_summary{
+    margin: 0 0 2em;
+    padding: 0;
+}
+
+.survey_after_product_summary.survey_hide{
+    display: none;
+}
+
+.yith_survey_thanks:after{
+    font-family: WooCommerce;
+    content: "\e017";
+    margin-left: .53em;
+    vertical-align: bottom;
+}

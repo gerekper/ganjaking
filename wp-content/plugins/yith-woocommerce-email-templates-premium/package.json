@@ -1,0 +1,16 @@
+{
+  "name": "yith-woocommerce-email-templates-premium",
+  "version": "1.3.24",
+  "description": "YITH WooCommerce Email Templates Premium",
+  "main": "Gruntfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "YITH",
+  "license": "GPL-3.0+",
+  "keywords": [],
+  "devDependencies": {
+    "grunt": "^1.0.3",
+    "grunt-wp-i18n": "^1.0.2"
+  }
+}

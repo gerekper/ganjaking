@@ -1,0 +1,233 @@
+*** Brands Changelog ***
+
+2020-06-10 - version 1.6.18
+* Tweak - WC 4.2 compatibility.
+
+2020-05-05 - version 1.6.17
+* Fix - Sort brands in shortcode list by brand name instead of slug.
+
+2020-04-29 - version 1.6.16
+* Tweak - WC 4.1 compatibility.
+
+2020-03-04 - version 1.6.15
+* Tweak - WC 4.0 compatibility.
+
+2020-02-18 - version 1.6.14
+* Tweak - Remove legacy code.
+
+2020-02-04 - version 1.6.13
+* Fix - Use proper escaping for attributes.
+
+2020-01-16 - version 1.6.12
+* Tweak - WC 3.9 compatibility.
+
+2019-11-04 - version 1.6.11
+* Tweak - WC 3.8 compatibility.
+
+2019-08-08 - version 1.6.10
+* Tweak - WC 3.7 compatibility.
+
+2019-07-02 - version 1.6.9
+* Add - REST API: allows to filter products by brand id
+* Fix - Added third argument for woocommerce_shortcode_products_query filter to fix fatal error.
+
+2019-04-16 - version 1.6.8
+* Tweak - WC 3.6 compatibility.
+
+2019-02-13 - version 1.6.7
+* Fix - Attribute filter counts when a brand filter is active in layered navigation.
+
+2019-01-29 - version 1.6.6
+* Fix - Add REST api endpoint back to the v2 space.
+
+2019-01-07 - version 1.6.5
+* Fix - Remove CSS classes from strings that can be translated.
+
+2018-10-29 - version 1.6.4
+* Fix - No hierarchical display of child brands in Layered Nav widget.
+* Enhancement - Add optional category limit to brand_products shortcode.
+
+2018-10-11 - version 1.6.3
+* Fix - Better Filter widget compatibility.
+* Update - WC 3.5 compatibility.
+
+2018-05-22 - version 1.6.2
+* Update - WC 3.4 compatibility.
+
+2018-04-16 - version 1.6.1
+* Fix   - Add cache bust to stylesheet enqueue.
+* Fix   - Fix how the code uses constants from the coupon class.
+* Fix   - Brands not allowing coupons to be added from WP Admin.
+* Fix   - PHP 7.2 compatibility.
+* Tweak - Align item count in Brand layered nav widget.
+
+2018-01-24 - version 1.6.0
+* Fix   - Product brand thumbnail lists were not mobile-friendly.
+* Fix   - Use shop_catalog image size for brand images.
+* Fix   - Bulk creating products using the REST endpoint did not create brands.
+* Fix   - Prevent invalid permalink structure.
+* Fix   - Updated coupon validation logic for WooCommerce 2.3+
+* Tweak - PHP 7 compatibility.
+* Tweak - Add brands to Structured Data.
+* Tweak - Support non-latin [A-Z] alphabets with new filters for brand lists.
+* Enhancement: Allow brands permalink base to be changed in settings.
+* Enhancement: Add support for product CSV import/export.
+
+2017-12-14 - version 1.5.3
+* Fix   - Update pot file.
+* Fix   - when copying product also copy brands.
+* Tweak - Remove brands archive settings as this functionality must be added to theme.
+* Fix   - WC 3.3 compatibility.
+
+2017-06-22 - version 1.5.2
+* Fix - Access coupon property directly error.
+* Fix - Additional WC 3.0 compatibility for REST API.
+
+2017-05-15 - version 1.5.1
+* Fix - WC 3.0 compatibility for REST API.
+
+2016-08-09 - version 1.5.0
+* Tweak - Expose brands in the REST API.
+* Tweak - Add responsive thumbnail images.
+
+2016-08-01 - version 1.4.9
+* Fix - Brand terms were not inline with brand label.
+* Fix - PHP notice on brands edit page where it reference empty $columns variable.
+
+2016-06-30 - version 1.4.8
+* Fix - Wrong count of products within certain terms.
+
+2016-06-23 - version 1.4.7
+* Fix - Only filter out categories during a brand query.
+
+2016-06-15 - version 1.4.6
+* Fix - Layered Nav widget dropdown option not layering on top of categories.
+* Fix - WC 2.6 compatibility issues.
+* Tweak - Correctly show brands as singular context when only 1 brand is attached.
+
+2016-03-21 - version 1.4.5
+* Fix - Widget issue causing 404 when selected brand has pagination and selecting a second without.
+* Fix - Admin product type filter dropdown missing.
+
+2016-02-25 - version 1.4.4
+* Fix - Deprecated WP_Widget constructor
+* Enhancement - Add brands column to the products list table to allow sorting by brand.
+
+2016-01-07 - version 1.4.3
+* Fix - Thumbnails shortcode not properly aligning thumbnails when show_empty is false
+
+2015-12-02 - version 1.4.2
+* Fix - Undefined variable: fluid_columns in brand-thumbnails.php
+* Fix - Added fluid_columns field in brand thumbnails widget
+* Fix - Shortcodes not working in taxonomy description
+* Enhancement: Product Shortcode
+* Enhancement: Filter by brand in the dashbard
+
+2015-11-16 - version 1.4.1
+* Fix - Coupons can be applied but no discount shows if the coupon is brand restricted
+* Fix - Only update/save settings when the brands settings page is currently active
+
+2015-09-01 - version 1.4.0
+* Adjusts the coupon validation logic to filter for both cart-based and product-based discounts.
+* Adds logic to conditionally modify product-specific discounts if there are brands involved.
+* Fix deprecated widget calls.
+
+2015-07-07 - version 1.3.3
+* Enhancement - product_brand shortcode now shows all brands associated with a product
+* Use wc_placeholder_img_src instead of the deprecated woocommerce_placeholder_img_src
+
+2015-06-30 - version 1.3.2
+* Fix - Incompatibility with Points and Rewards.
+
+2015-06-29 - version 1.3.1
+* Tweak - Updated a more specific capability to access/manage brands taxonomy
+
+2015-06-10 - version 1.3.0
+* New - Enables the use of %product_brand% in the product permalinks.
+* Fix - Ensures hide_empty works correctly in the brand thumbnails shortcode.
+* Fix - Removes list styles from the brand thumbnails shortcode.
+* Tweak - Adds a fluid_columns attribute to the brand thumbnails shortcode, to facilitate responsive design in themes.
+* Tweak - Moves the Brands settings into a subtab under "Products", in newer versions of WooCommerce.
+* New - Enable filtering of coupons to apply only if selected brands are or aren't in the cart.
+* New - Adds a [product_brand_thumbnails_description] shortcode, to display the brand image as well as the brand description.
+* Fix - Allows get_product_brands() to be called without requiring a post ID to be passed.
+
+2015-04-21 - version 1.2.9
+* Fix - Potential XSS with add_query_arg
+
+2015-02-12 - version 1.2.8
+* wc_get_image_size
+
+2015-02-11 - version 1.2.7
+* Fix Fatal error: Can't use function return value in write context
+
+2015-02-10 - version 1.2.6
+* Filter widget title
+* Fix Admin URLs / plugin header
+
+2014-11-28 - version 1.2.5
+* Correct the $transient_name
+
+2014-08-15 - version 1.2.4
+* Swapped ob_clean() for ob_end_clean()
+
+2014-03-10 - version 1.2.3
+* Fix settings saving in 2.1
+
+2014-02-23 - version 1.2.2
+* Fix notice
+
+2014-02-13 - version 1.2.1
+* Change when rewrite rules are regenerated
+
+2013-12-09 - version 1.2.0
+* 2.1 compat
+
+2013-12-09 - version 1.1.9
+* Fix in enter submission doesn't open thumbnail dialog
+
+2013-10-25 - version 1.1.8
+* Added colon
+
+2013-10-23 - version 1.1.7
+* Remove hardcoded 'brand' label - use taxonomy label
+* woocommerce_brand_thumbnail_size filter to change size used
+
+2013-10-15 - version 1.1.6
+* Fix 'false' for shortcode options
+* Added show_empty_brands option
+
+2013-10-14 - version 1.1.5
+* Fix show_top_links variable
+
+2013-05-07 - version 1.1.4
+* Changed query string variable to work with active filters widget.
+
+2013-05-02 - version 1.1.3
+* post_id parameter for the [product_brand] shortcode to output any products brand.
+
+2013-03-22 - version 1.1.2
+ * Fix brand archive description in 2.0.
+
+2013-03-08 - version 1.1.1
+ * Fix capability in 2.0
+
+2013-01-18 - version 1.1.0
+ * WC 2.0 compat
+ * WP 3.5 media uploaders (requires 3.5)
+
+2012-12-14 - version 1.0.4
+ * Fix dropdown layered nav when viewing a brand archive.
+ * Added 'brand-thumb' image size for use in the Brand Thumbnails shortcode / widget
+
+2012-12-05 - version 1.0.3
+ * Fix dropdown layered nav urls
+
+2012-12-04 - version 1.0.2
+ * New updater
+
+2012-11-26 - version 1.0.1
+ * Fix array merge
+
+2012-11-08 - version 1.0
+ * First Release

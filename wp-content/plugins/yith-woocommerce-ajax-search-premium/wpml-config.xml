@@ -1,0 +1,9 @@
+<wpml-config>
+<admin-texts>
+  <key name="yith_wcas_search_input_label" />
+  <key name="yith_wcas_search_submit_label" />
+  <key name="yith_wcas_search_price_label" />
+  <key name="yith_wcas_search_show_no_results_text" />
+  <key name="yith_wcas_search_show_view_all_text" />
+</admin-texts>
+</wpml-config>

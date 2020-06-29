@@ -1,0 +1,315 @@
+/* 
+ * https://github.com/LukyVj/colofilter.css/blob/master/LICENSE
+*/
+
+.rs-duotone-thumb {width: 100%; height: 100%}
+.rsaddon-duotone-filter:nth-child(5n) {margin-right: 0}
+
+.duotone_active .slotwrapper_cur,
+.duotone_active rs-sbg-wrap {z-index: 0 !important}
+.duotone_active .tp-kbimg-wrapper,
+.duotone_active rs-pzimg-wrap {z-index: 0 !important}
+.duotone_active .slotwrapper_prev {display: none !important}
+
+.rs-duotone-simplified rs-slide,
+.rs-duotone-simplified .tp-revslider-slidesli {opacity: 1 !important}
+.rs-duotone-simplified .rs-duotone-slide {z-index: 9999 !important; opacity: 0 !important} {z-index: 9999 !important; opacity: 0 !important}
+
+.duotone_active [data-duotone^="rs-duotone"] {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.duotone_active [data-duotone^="rs-duotone"] .slotwrapper_cur,
+.duotone_active [data-duotone^="rs-duotone"] rs-sbg-wrap,
+.duotone_active [data-duotone^="rs-duotone"] .rs-duotone-thumb {
+  mix-blend-mode: luminosity;
+  backface-visibility: visible !important;
+}
+
+.duotone_active [data-duotone^="rs-duotone"]:after {
+  display: block;
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  -webkit-filter: contrast(1.3);
+  filter: contrast(1.3);
+  mix-blend-mode: hue;
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-dark"] .slotwrapper_cur,
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-dark"] rs-sbg-wrap,
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-dark"] .rs-duotone-thumb {
+  mix-blend-mode: darken;
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-dark"]:after {
+  mix-blend-mode: lighten !important;
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-light"] .slotwrapper_cur,
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-light"] rs-sbg-wrap,
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-light"] .rs-duotone-thumb {
+  mix-blend-mode: lighten;
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-light"]:after {
+  mix-blend-mode: darken !important;
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-red"] {
+  background: #E50914 !important;
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-red"]:after {
+  mix-blend-mode: hard-light;
+  -webkit-filter: contrast(0.6) saturate(120%) brightness(1.2);
+  filter: contrast(0.6) saturate(120%) brightness(1.2);
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-red"][data-duotone*="-dark"]:after {
+  mix-blend-mode: lighten !important;
+  -webkit-filter: contrast(1.1) !important;
+  filter: contrast(1.1) !important;
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-red"][data-duotone*="-light"]:after {
+  mix-blend-mode: color-dodge !important;
+  -webkit-filter: saturate(400%) contrast(1.5);
+  filter: saturate(400%) contrast(1.5);
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-red"]:after {
+  background: #E50914 !important;
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-red"]:after {
+  background: #282581 !important;
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-orange"] {
+  background: #FCA300 !important;
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-orange"][data-duotone*="-dark"]:after {
+  mix-blend-mode: darken !important;
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-orange"][data-duotone*="-light"]:after {
+  mix-blend-mode: hue !important;
+  -webkit-filter: saturate(400%) contrast(1.5);
+  filter: saturate(400%) contrast(1.5);
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-orange"]:after {
+  background: #FCA300 !important;
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-blue"] {
+  background: #0066BF !important;
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-blue"]:not([data-duotone*="-dark"]):not([data-duotone*="-light"]):after {
+  mix-blend-mode: hard-light;
+  -webkit-filter: brightness(0.6);
+  filter: brightness(0.6);
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-blue"][data-duotone*="-dark"]:after {
+  mix-blend-mode: darken !important;
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-blue"]:after {
+  background: #0066BF !important;
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-blue"]:after {
+  background: #93EF90 !important;
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-yellow"] {
+  background: #FEDD31 !important;
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-yellow"]:not([data-duotone*="-dark"]):not([data-duotone*="-light"]):after {
+  -webkit-filter: brightness(3.5);
+  filter: brightness(3.5);
+  mix-blend-mode: soft-light;
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-yellow"][data-duotone*="-dark"]:after {
+  mix-blend-mode: color-dodge !important;
+  -webkit-filter: hue-rotate(70deg);
+  filter: hue-rotate(70deg);
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-yellow"][data-duotone*="-light"] {
+  background: #000000 !important;
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-yellow"][data-duotone*="-light"]:after {
+  mix-blend-mode: color !important;
+  -webkit-filter: brightness(3) hue-rotate(93deg) contrast(2) saturate(150);
+  filter: brightness(3) hue-rotate(93deg) contrast(2) saturate(150);
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-yellow"]:after {
+  background: #FEDD31 !important;
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-yellow"]:after {
+  background: #EF3CB4 !important;
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-purple"] {
+  background: #BC6D14 !important;
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-purple"]:not([data-duotone*="-dark"]):not([data-duotone*="-light"]) {
+  background: rebeccapurple !important;
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-purple"]:not([data-duotone*="-dark"]):not([data-duotone*="-light"]):after {
+  mix-blend-mode: darken !important;
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-purple"][data-duotone*="-dark"] {
+  background: #B10AFF !important;
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-purple"][data-duotone*="-dark"]:after {
+  mix-blend-mode: soft-light !important;
+  -webkit-filter: saturate(100);
+  filter: saturate(100);
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-purple"][data-duotone*="-light"]:after {
+  background: #A37FC7 !important;
+  -webkit-filter: saturate(520%) brightness(10.5) contrast(350) !important;
+  filter: saturate(520%) brightness(10.5) contrast(350) !important;
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-purple"]:after {
+  background: #BC6D14 !important;
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-purple"]:after {
+  background: #ACFCEE !important;
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-green"] {
+  background: #11C966 !important;
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-green"]:not([data-duotone*="-dark"]):not([data-duotone*="-light"]):after {
+  mix-blend-mode: soft-light;
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-green"][data-duotone*="-light"]:after {
+  mix-blend-mode: color-dodge !important;
+  -webkit-filter: saturate(100%) brightness(0.8) contrast(160%);
+  filter: saturate(100%) brightness(0.8) contrast(160%);
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-green"]:after {
+  background: #11C966 !important;
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-green"]:after {
+  background: #2D3181 !important;
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-pink"] {
+  background: #EA4C89 !important;
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-pink"][data-duotone*="-dark"]:after {
+  background: #1D0E14 !important;
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-pink"][data-duotone*="-light"]:after {
+  background: #FF468D !important;
+  mix-blend-mode: lighten !important;
+  -webkit-filter: contrast(1) saturate(250%) !important;
+  filter: contrast(1) saturate(250%) !important;
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-pink"]:after {
+  background: #EA4C89 !important;
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-pink"]:after {
+  background: #EA4C89 !important;
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-blue-yellow"]:not([data-duotone*="-dark"]):not([data-duotone*="-light"]) {
+  background: linear-gradient(to top left, #55ACEE, #FEDD31) !important;
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-blue-yellow"][data-duotone*="-dark"]:after {
+  mix-blend-mode: hard-light !important;
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-blue-yellow"][data-duotone*="-light"]:after {
+  mix-blend-mode: hard-light !important;
+  -webkit-filter: none;
+  filter: none;
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-blue-yellow"]:after {
+  background: linear-gradient(to top left, #55ACEE, #FEDD31) !important;
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-pink-yellow"]:not([data-duotone*="-dark"]):not([data-duotone*="-light"]) {
+  background: linear-gradient(to bottom right, #FAA6FB, #FBBC05) !important;
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-pink-yellow"][data-duotone*="-dark"]:after {
+  mix-blend-mode: hue !important;
+  -webkit-filter: none !important;
+  filter: none !important;
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-pink-yellow"][data-duotone*="-light"]:after {
+  mix-blend-mode: hard-light !important;
+  -webkit-filter: none !important;
+  filter: none !important;
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-pink-yellow"]:after {
+  background: linear-gradient(to top left, #FAA6FB, #FBBC05) !important;
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-red-blue"]:not([data-duotone*="-dark"]):not([data-duotone*="-light"]) {
+  background: linear-gradient(to bottom right, #3993E2, #E2544B) !important;
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-red-blue"]:not([data-duotone*="-dark"]):not([data-duotone*="-light"]):after {
+  -webkit-filter: none;
+  filter: none;
+  mix-blend-mode: hard-light;
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-red-blue"][data-duotone*="-dark"]:after {
+  mix-blend-mode: hard-light !important;
+  -webkit-filter: none !important;
+  filter: none !important;
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-red-blue"][data-duotone*="-light"]:after {
+  mix-blend-mode: screen !important;
+  -webkit-filter: saturate(300%) brightness(1.2) !important;
+  filter: saturate(300%) brightness(1.2) !important;
+}
+
+.duotone_active [data-duotone^="rs-duotone"][data-duotone*="-red-blue"]:after {
+  background: linear-gradient(to bottom right, #3993E2, #E2544B) !important;
+}
+
+

@@ -1,0 +1,71 @@
+/* VC Editors */
+.vc_navbar { background: #32373c; min-height: 3rem }
+#wpb_visual_composer .vc_navbar { border-bottom: none }
+.vc_ui-panel-header-container { background: #32373c }
+.vc_navbar .vc_navbar-brand { display: none }
+.vc_navbar .vc_navbar-nav > li { height: 3rem; border-right: 1px solid #3f444a }
+.vc_navbar .vc_navbar-nav > .vc_pull-right { border-right: none; border-left: 1px solid #3f444a }
+.vc_navbar .vc_icon-btn { width: 3rem; height: 3rem; box-shadow: none; padding: 1.5rem; font-size: 18px }
+.vc_navbar .vc_pull-right .vc_icon-btn,
+.vc_navbar .vc_dropdown { font-size: 1rem }
+.vc_navbar .vc_pull-right .vc_back-button { font-size: 1.375rem }
+.vc_navbar .vc_icon-btn:not([disabled]):hover,
+.vc_navbar .vc_dropdown:hover .vc_dropdown-toggle,
+.vc_navbar .vc_dropdown .vc_dropdown-list a.active,
+.vc_navbar .vc_dropdown .vc_dropdown-list a:hover { background-color: #3f444a }
+.vc_navbar .vc_dropdown .vc_dropdown-toggle { width: 3.75rem; height: 3rem; line-height: 1; padding: 1rem 1.0625rem; text-align: center }
+.vc_navbar .vc_dropdown .vc_dropdown-list { top: 3rem; padding-top: 0; background: #32373c }
+.vc_navbar .vc_dropdown .vc_dropdown-list a { width: 3.75rem; height: 2.25rem }
+.vc_btn-primary, a.vc_btn-primary, button.vc_btn-primary, .vc_ui-button.vc_ui-button-info { background-color: #08c }
+.vc_navbar .vc_btn-default, .vc_navbar .vc_btn-grey { background: none; color: #fff !important }
+.vc_navbar .vc_btn-default:hover, .vc_navbar .vc_btn-default:focus, .vc_navbar .vc_btn-grey:hover, .vc_navbar .vc_btn-grey:focus { background-color: #3f444a; color: #fff !important; border: none }
+.vc_navbar .vc_navbar-btn { font-family: 'Poppins'; margin: 0; height: 100%; border-radius: 0; outline: none; font-weight: 600; text-transform: uppercase; letter-spacing: -.025em; padding: .75rem 1.75rem; float: left; line-height: 1.5rem; border: none }
+.vc_navbar .vc_navbar-btn:hover, .vc_navbar .vc_navbar-btn:focus { border: none }
+.vc_navbar .vc_navbar-btn:after { font-family: "Font Awesome 5 Free"; font-weight: 900; font-size: 1.1666em; margin-left: .6em; position: relative; top: 1px; line-height: 1 }
+.vc_ui-font-open-sans { font-family: "Poppins", "Open Sans", Helvetica, sans-serif!important }
+.vc_navbar .vc_save-backend .vc_control-save { margin: 0 }
+#vc_button-update:after, .vc_navbar .vc_save-backend .vc_control-save:after { content: "\f054" }
+.vc_btn-backend-editor:after { content: "\f2d0"; font-weight: 400 !important }
+.vc_btn-save-draft:after { content: "\f0c7" }
+.vc_navbar .vc_btn-save-draft { border-left: 1px solid #3f444a !important }
+.vc_message { top: 3rem }
+.vc_add-element-container .wpb-content-layouts a { font-weight: 500 }
+.composer-switch .logo-icon { display: none }
+.composer-inner-switch { border-radius: 4px; overflow: hidden }
+.composer-switch a, .composer-switch a:visited { background: #08c; font-family: 'Poppins', 'Open Sans', sans-serif; font-weight: 600; letter-spacing: -.025em; text-transform: uppercase; font-size: 12px; padding: .5rem 1.25rem; border-radius: 0 !important }
+.composer-switch a.wpb_switch-to-front-composer, .composer-switch a:visited.wpb_switch-to-front-composer { background: #08c }
+.composer-switch a.wpb_switch-to-composer:hover, .composer-switch a:visited.wpb_switch-to-composer:hover,
+.composer-switch a.wpb_switch-to-front-composer:hover, .composer-switch a:visited.wpb_switch-to-front-composer:hover { background: #00a3df }
+
+@media (max-width: 575px) {
+	.vc_navbar .vc_navbar-btn { padding-left: 1rem; padding-right: 1rem }
+	.vc_navbar .vc_navbar-btn:after, #vc_button-update:after, .vc_navbar .vc_save-backend .vc_control-save:after { content: none }
+	.vc_navbar .vc_navbar-nav > .vc_show-mobile { border-left: none }
+}
+
+/* VC deprecated message */
+.vc_ui-panel-window[data-vc-shortcode="vc_tabs"] .vc_shortcode-edit-form-deprecated-message,
+.vc_ui-panel-window[data-vc-shortcode="vc_tab"] .vc_shortcode-edit-form-deprecated-message,
+.vc_ui-panel-window[data-vc-shortcode="vc_tour"] .vc_shortcode-edit-form-deprecated-message,
+.vc_ui-panel-window[data-vc-shortcode="vc_accordion"] .vc_shortcode-edit-form-deprecated-message,
+.vc_ui-panel-window[data-vc-shortcode="vc_accordion_tab"] .vc_shortcode-edit-form-deprecated-message {
+	display: none
+}
+.vc_add-element-container .wpb-elements-list.vc_filter-all .wpb-layout-element-button.vc_element-deprecated[data-element="vc_tabs"],
+.vc_add-element-container .wpb-elements-list.vc_filter-all .wpb-layout-element-button.vc_element-deprecated[data-element="vc_tab"],
+.vc_add-element-container .wpb-elements-list.vc_filter-all .wpb-layout-element-button.vc_element-deprecated[data-element="vc_tour"],
+.vc_add-element-container .wpb-elements-list.vc_filter-all .wpb-layout-element-button.vc_element-deprecated[data-element="vc_accordion"],
+.vc_add-element-container .wpb-elements-list.vc_filter-all .wpb-layout-element-button.vc_element-deprecated[data-element="vc_accordion_tab"] {
+	display: block
+}
+
+.rtl .vc_navbar .vc_navbar-btn:after { float: left; top: -1.5px; margin-right: .6em; margin-left: 0 }
+.rtl #vc_button-update:after { content: "\f053" }
+.rtl .vc_ui-search-box .vc_ui-search-box-input label { left: auto; right: 6px }
+.rtl .vc_ui-search-box input[type=search] { padding: 7px 32px 7px 12px }
+.rtl .vc_add-element-container .vc_element-icon { left: auto; right: 8px }
+.rtl .vc_add-element-container .wpb-content-layouts a { padding: 2px 50px 2px 4px }
+.rtl .vc_general.vc_ui-tabs-line > li { float: right }
+.rtl .vc_ui-panel-header .vc_ui-panel-header-controls { float: left; margin: 2px 12px 0 0 }
+.rtl .vc_ui-panel-header .vc_ui-panel-header-heading { margin-right: 0; margin-left: 1em }
+.rtl.vc_editor #wpcontent { margin-right: 0 !important; padding-right: 0 !important }

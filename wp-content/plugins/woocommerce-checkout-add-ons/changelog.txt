@@ -1,0 +1,241 @@
+*** WooCommerce Checkout Add-Ons Changelog ***
+
+2020.06.09 - version 2.3.0
+ * Tweak - Add a customizer setting to allow to apply percentage adjustments on top of the total or subtotal
+
+2020.05.04 - version 2.2.7
+ * Misc - Add support for WooCommerce 4.1
+
+2020.03.04 - version 2.2.6
+ * Misc - Add support for WooCommerce 4.0
+
+2020.02.06 - version 2.2.5
+ * Fix - Ensure textarea and file add-on values are displayed correctly on Thank You and View Order pages
+
+2020.01.02 - version 2.2.4
+ * Fix - Ensure add-on values can be correctly saved at checkout when using a locale in WordPress other than English
+ * Misc - Add support for WooCommerce 3.9
+ * Localization - Update Italian translation
+
+2019.12.16 - version 2.2.3
+ * Tweak - Add support for Customer/Order/Coupon Export v5 XML exports
+
+2019.12.03 - version 2.2.2
+ * Fix - Fix an issue that caused add-ons not to display when using category rules with variable products
+
+2019.11.18 - version 2.2.1
+ * Fix - Address an issue with enhanced dropdown add-ons that could still gain focus while in background after checkout is refreshed
+ * Fix - Remove cost HTML from field label in required notice
+
+2019.10.21 - version 2.2.0
+ * Misc - Add support for WooCommerce 3.8
+
+2019.10.03 - version 2.1.3
+ * Tweak - Display add-ons labels in order review section
+ * Tweak - Add add-ons required status indication to the admin add-ons table
+ * Tweak - Add filtering of add-ons according to required status
+ * Fix - Fix an issue that caused some add-on fields to lose focus during editing
+ * Fix - Prevent a JavaScript conflict with Secure Trading Gateway for WooCommerce plugin that causes the Place Order button to stop working
+ * Fix - Fix an issue that caused some add-on fields to ignore their default values
+
+2019.08.15 - version 2.1.2
+ * Fix - Correctly filter the values of deprecated add-on filters
+
+2019.08.08 - version 2.1.1
+ * Misc - Add support for WooCommerce 3.7
+
+2019.07.31 - version 2.1.0
+ * Feature - Add display rules for add-ons to limit their display by cart total, products, or another add-on value
+
+2019.06.27 - version 2.0.5
+ * Fix - Don't allow add-ons to be changed when renewing a subscription
+ * Dev - Add filter `wc_checkout_add_ons_fields` which filters the fields available in checkout view.
+
+2019.06.12 - version 2.0.4
+ * Fix - When moving add ons to another position at checkout, ensure that enhanced select and file add ons are re-initialized upon checkout update
+
+2019.05.22 - version 2.0.3
+ * Fix - Ensure that XML exports with checkout add ons data do not contain extra empty tags
+
+2019.04.03 - version 2.0.2
+ * Fix - Address a rare issue where add-ons were sorted in an unexpected order
+ * Misc - Add support for WooCommerce 3.6
+ * Localization - Add Italian translation
+
+2019.03.12 - version 2.0.1
+ * Tweak - Make sure add-on IDs do not begin with a numeric value
+ * Fix - Fix an issue that affected sites using the included Dutch translation
+ * Dev - Add filter `wc_checkout_add_ons_add_on_classnames` which filters the classnames for each add-on type
+
+2019.02.20 - version 2.0.0
+ * Feature - The admin interface has been completely rebuilt with a new add-on list screen and single add-on screens!
+ * Feature - Add 'description' field for add-ons
+ * Feature - Add the ability to enable/disable add-ons
+ * Tweak - Move checkout add-on location settings to the customizer in WC 3.3+
+ * Fix - Fix required checkbox validation for older WooCommerce versions
+ * Fix - Fix issue with apostrophes not being unescaped on newer versions of WooCommerce
+ * Misc - Remove support for WooCommerce 2.6
+ * Dev - Add filter `wc_checkout_add_ons_meta_box_add_on_fields` which filters the fields available in the new Add-On Data meta box
+ * Dev - Add filter `wc_checkout_add_ons_meta_box_add_on_panels` which filters the panels shown on the new Add-On Data meta box
+ * Dev - Add filter `wc_checkout_add_ons_get_field_renderer`, allowing the rendering function for a given field to be overridden
+ * Dev - Add filter `wc_checkout_add_ons_add_on_list` which filters the add-ons available in the add-on list
+
+2018.10.16 -version 1.12.6
+ * Misc - Add support for WooCommerce 3.5
+
+2018.08.07 - version 1.12.5
+ * Fix - Address an infinite recursion error affecting some fields containing an option name that matches their field name
+
+2018.06.13 - version 1.12.4
+ * Fix - Fix unreliable behavior of asterisks when setting default add-on options
+ * Fix - Move the display position options to the Payment settings tab in WooCommerce 3.4
+
+2018.05.23 - version 1.12.3
+ * Misc - Add support for WooCommerce 3.4
+
+2018.03.21 - version 1.12.2
+ * Fix - Prevent WooCommerce price HTML from displaying in select and multiselect add-on costs
+ * Fix - Ensure textarea add-on values are exported when using Customer/Order/Coupon CSV Export
+ * Fix - Improve compatibility with external scripts
+
+2018.03.07 - version 1.12.1
+ * Tweak - Allow HTML in add-on option labels
+
+2018.01.23 - version 1.12.0
+ * Misc - Add support for WooCommerce 3.3
+ * Misc - Remove support for WooCommerce 2.5
+
+2017.07.05 - version 1.11.0
+ * Feature - Added support for WooCommerce Customer / Order CSV Export and WooCommerce Customer / Order XML Export custom format builders
+ * Dev - Filter the add-on labels at checkout
+
+2017.05.09 - version 1.10.4
+ * Fix - Fix compatibility with Print Invoices & Packing Lists in WooCommerce 3.0+
+ * Fix - Fix admin order item display in WooCommerce 3.0+
+ * Fix - Prevent errors when issuing refunds when add-ons are present
+
+2017.04.27 - version 1.10.3
+ * Fix - Prevent a fatal error when purchasing Subscriptions with recurring add-ons
+
+2017.04.18 - version 1.10.2
+ * Fix - Handle inconsistent order item data to avoid Subscriptions renewal errors
+ * Fix - Allow "0" as a label for radio, select, checkbox group, or multi-select choices
+
+2017.04.04 - version 1.10.1
+ * Fix - Ensure radio buttons can't be un-selected if used
+ * Fix - Ensure recurring add-ons are shown the Subscriptions "recurring totals" summary
+
+2017.03.28 - version 1.10.0
+ * Fix - Ensure styles & scripts are loaded where needed when "WooCommerce" string is translated
+ * Fix - Ensure checkbox values are set properly as "yes" or "no" in order CSV exports
+ * Misc - Added support for WooCommerce 3.0
+ * Misc - Removed support for WooCommerce 2.4
+
+2016.12.20 - version 1.9.1
+ * Fix - Fix admin order filtering for Select add-ons with values that contain spaces
+
+2016.10.25 - version 1.9.0
+ * Feature - Add support for Customer / Order XML Export to separate add-ons automatically in exports
+
+2016.09.28 - version 1.8.3
+ * Fix - Ensure required checkbox add-ons are validated at checkout
+
+2016.08.17 - version 1.8.2
+ * Fix - Fix a Customer/Order CSV Export v4.0.0+ compatibility issue for customers using the Custom format with the "A row represents" setting set to "A single line item"
+
+2016.08.10 - version 1.8.1
+ * Fix - Fix compatibility with One Page Checkout
+ * Fix - Improve Customer/Order CSV Export v4.0.0+ compatibility
+
+2016.06.02 - version 1.8.0
+ * Misc - Added support for WooCommerce 2.6
+ * Misc - Removed support for WooCommerce 2.3
+
+2016.05.11 - version 1.7.1
+ * Tweak - Renewals processed with WooCommerce Subscriptions will include add-ons from the original order
+ * Fix - Preserve add-on tax settings when taxes are globally disabled in WooCommerce
+
+2016.01.14 - version 1.7.0
+ * Tweak - Do not calculate taxes for taxable add-ons if taxes are disabled in WooCommerce globally
+ * Misc - Added support for WooCommerce 2.5
+ * Misc - Removed support for WooCommerce 2.2
+
+2015.12.11 - version 1.6.4
+ * Fix - Required select add-ons are no longer pre-filled to ensure customers select the correct option
+
+2015.12.05 - version 1.6.3
+ * Fix - Display add-on value in order review table on the Checkout page
+ * Fix - Better support for special/accented characters in add-on names and values
+
+2015.10.19 - version 1.6.2
+ * Fix - Prevent an undefined variable notice in some cases
+
+2015.09.25 - version 1.6.1
+ * Tweak - Add support for negative option values & costs
+ * Tweak - Eliminate dollar amounts in the checkout order review for add-ons with no cost
+ * Tweak - The add-on fields position can now be more easily filtered using the `wc_checkout_add_ons_position` filter
+
+2015.08.27 - version 1.6.0
+ * Feature - Add support for costs as percentages
+ * Feature - Allow users to change where the add-on fields are displayed on the page
+ * Tweak - Add multi-line support for textarea fields
+ * Tweak - Add the `wc_checkout_add_ons_add_on_option_cost` filter
+
+2015.07.28 - version 1.5.0
+ * Tweak - Introduce the `wc_checkout_add_ons_add_on_name` filter
+ * Tweak - Introduce the `wc_checkout_add_ons_add_on_label` filter
+ * Misc - WooCommerce 2.4 Compatibility
+
+2015.05.14 - version 1.4.3
+ * Tweak - Don't enqueue plupload JS unless the file upload filed is present
+
+2015.03.26 - version 1.4.2
+ * Tweak - Attach Chosen.js to form fields only if Select2 is not available
+
+2015.03.17 - version 1.4.1
+ * Fix - JS variable `wc_select_params` undefined in WC 2.3.6+
+
+2015.02.09 - version 1.4.0
+ * Fix - Filtering a checkout add-on on the orders screen no longer returns all values :)
+ * Misc - WooCommerce 2.3 Compatibility
+
+2015.01.20 - version 1.3.1
+ * Fix - Ensure all translatable strings are loaded on `init`
+ * Fix - Fix issue when Chosen.js library is not available in the admin
+ * Tweak - Localized select and multiselect placeholders in the admin
+ * Localization - Added Dutch translation by Rob Wuijster
+
+2014.12.30 - version 1.3.0
+ * Feature - Compatibility with One Page Checkout
+
+2014.12.02 - version 1.2.4
+ * Fix - Fix fatal error when issuing a refund while Checkout Add-Ons is active
+
+2014.11.11 - version 1.2.3
+ * Tweak - Localized select and multiselect placeholders
+ * Fix - Fix issue when Chosen.js library is not available
+
+2014.10.06 - version 1.2.2
+ * Fix - Fix display of add-on's value in order admin screen
+ * Tweak - ID of the add-on is now visible in the editor table for easier customizations
+
+2014.09.15 - version 1.2.1
+ * Fix - Insert the file ID and product ID, for use with the WooThemes Helper plugin.
+
+2014.09.10 - version 1.2.0
+ * Feature - Added add-on total column in Customer/Order CSV exports
+ * Fix - Include checkout add-ons in Customer/Order CSV exports downloaded from orders list
+ * Fix - Fix the display of some multiselect/multicheckbox options
+
+2014.09.07 - version 1.1.0
+ * Feature - Added compatibility with Customer/Order CSV export
+ * Feature - You can now edit an order add-on from the admin order screen :)
+ * Fix - Fix notice on checkout page when no add-ons have been defined
+ * Fix - Fix checkout add-ons display issues of on certain themes
+ * Misc - WooCommerce 2.2 Compatibility
+
+2014.08.19 - version 1.0.1
+ * Fix - Fix minor admin errors
+
+2014.07.29 - version 1.0.0
+ * Initial Release

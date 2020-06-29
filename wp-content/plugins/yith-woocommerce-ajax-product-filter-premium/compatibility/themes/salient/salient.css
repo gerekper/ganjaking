@@ -1,0 +1,31 @@
+/* === YITH WCAN and Salient Theme Integration === */
+
+#sidebar > div,
+.woocommerce  #sidebar .widget.woocommerce > ul,
+html .ascend.woocommerce #sidebar div ul li {
+    position: relative;
+}
+
+html .ascend.woocommerce #sidebar div ul li a {
+    display: inline-block;
+}
+
+.woocommerce .widget_layered_nav ul li a,
+.woocommerce-page .widget_layered_nav ul li a {
+    padding-left: 20px !important;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+#sidebar div ul li div.clear{
+    padding-bottom: 0;
+}
+
+#sidebar > div.yith-woocommerce-ajax-product-filter {
+    margin-bottom: 25px;
+}
+
+html .woocommerce #sidebar div.yith-woocommerce-ajax-product-filter ul li a:hover + .count{
+    background-color: transparent !important;
+    color: #ff8516;
+}

@@ -1,0 +1,203 @@
+*** WooCommerce Address Validation Changelog ***
+
+2020.06.23 - version 2.6.5
+ * Tweak - Improve address data parsing for PostcodeSoftware.net integrations
+
+2020.05.04 - version 2.6.4
+ * Misc - Add support for WooCommerce 4.1
+
+2020.03.03 - version 2.6.3
+ * Misc - Add support for WooCommerce 4.0
+
+2020.01.02 - version 2.6.2
+ * Misc - Add support for WooCommerce 3.9
+
+2019.11.21 - version 2.6.1
+ * Misc - Update the "WC tested up to" header
+
+2019.10.21 - version 2.6.0
+ * Misc - Add support for WooCommerce 3.8
+
+2019.08.08 - version 2.5.0
+ * Misc - Add support for WooCommerce 3.7
+ * Misc - Remove support for WooCommerce 2.6
+ * Misc - Require PHP 5.6+
+
+2019.05.15 - version 2.4.3
+ * Fix - Fix state field visibility with postcode look-up forcing
+
+2019.04.03 - version 2.4.2
+ * Fix - Remove the postcode lookup form from the footer of the My Account > Addresses page
+ * Add support for WooCommerce 3.6
+ * Require PHP 5.4+
+
+2019.03.27 - version 2.4.1
+ * Fix - Prevent SmartyStreets "Unknown address" errors when changing a previously validated address to a different valid address
+
+2019.02.06 - version 2.4.0
+ * Misc - Drop support for PHP v5.2: PHP v5.3 is now the minimum supported version
+ * Misc - Update SkyVerge plugin framework to version 5.3
+
+2018.12.05 - version 2.3.4
+ * Fix - Address an issue with the postcode lookup not properly hiding billing and shipping address fields when "force lookup" is enabled
+
+2018.10.17 - version 2.3.3
+ * Fix - Prevent some versions of Google Chrome or other browsers from auto-completing the address lookup input field
+ * Dev - Add filters to change the active provider or toggle a provider's availability
+ * Dev - Add filters to dynamically alter the list of supported countries of each provider
+ * Misc - Add support for WooCommerce 3.5
+
+2018.08.23 - version 2.3.2
+ * Tweak - Rebrand Addressy and PCA Predict to Loqate
+ * Tweak - List active provider information in the WooCommerce System Status Report page
+ * Fix - Make sure SmartyStreets validation works with the shipping address when the customer ticks "Ship to a different address" to enable the shipping fields at checkout
+ * Fix - If forcing postcode look-up, don't hide the billing fields when the shipping country is changed to an unsupported country or vice versa
+ * Misc - Update SmartyStreets jQuery LiveAddress to 5.1.9
+ * Localization - Update Italian translation
+
+2018.05.23 - version 2.3.1
+ * Misc - Add support for WooCommerce 3.4
+
+2018.01.23 - version 2.3.0
+ * Misc - Add support for WooCommerce 3.3
+ * Misc - Remove support for WooCommerce 2.5
+
+2017.11.22 - version 2.2.1
+ * Fix - When using SmartyStreets and the current user reaching checkout has no saved billing/shipping address, an error could mangle the checkout process
+
+2017.05.31 - version 2.2.0
+ * Fix - Fix postcode lookup in WC > 3.0
+ * Misc - Redefine ajax calls using custom WC ajax endpoints
+
+2017.03.28 - version 2.1.0
+ * Fix - Patch Smarty Streets library issue that breaks state fields when only one country field is used at checkout
+ * Misc - Added support for WooCommerce 3.0
+ * Misc - Removed support for WooCommerce 2.4
+
+2016.12.22 - version 2.0.1
+ * Fix - Addresses a plugin fatal error occurring on new installs upon activation
+ * Fix - Gets rid of a PHP notice when visiting the settings page
+
+2016.12.16 - version 2.0.0
+ * Feature - Added Addressy as an address validation provider
+ * Fix - Ensure address fields are not shown when no matching address for a postcode was found and postcode lookup is required
+ * Fix - Fix address fields "jumping" when using postcode lookup
+ * Fix - Address Validation settings tab remains visible when shipping is disabled
+ * Misc - Updated SmartyStreets jquery liveAddress to 3.2.19
+ * Misc - Other minor improvements
+
+2016.11.09 - version 1.9.3
+ * Tweak - You can now adjust which fields or address types are validated with SmartyStreets using a filter
+ * Fix - Ensure WooCommerce zip code validation is correctly displayed when address is automatically filled with SmartyStreets
+
+2016.07.20 - version 1.9.2
+ * Fix - Avoid a fatal error that could occur in the WP admin in very rare situations
+
+2016.06.22 - version 1.9.1
+ * Fix - Fix missing postcode lookup form when adding a new shipping address from the My Account area
+
+2016.06.02 - version 1.9.0
+ * Misc - Added support for WooCommerce 2.6
+ * Misc - Removed support for WooCommerce 2.3
+
+2016.02.09 - version 1.8.2
+ * Fix - Fix JavaScript error in SmartyStreets validation
+
+2016.02.02 - version 1.8.1
+ * Fix - Ensure the postcode lookup form displays in stores that sell to a single country
+
+2016.01.14 - version 1.8.0
+ * Misc - Added support for WooCommerce 2.5
+ * Misc - Removed support for WooCommerce 2.2
+
+2015.07.31 - version 1.7.2
+ * Fix - Ensure shipping postcode lookup form only displays when checkout needs a shipping address
+ * Fix - Display single address results from PCA Predict
+ * Misc - Update SmartyStreets jquery.liveaddress to 2.8
+
+2015.07.31 - version 1.7.1
+ * Fix - Fixes transaction processing while "plus-four code" option is selected in SmartyStreets
+ * Tweak - Rebrand Postcode Anywhere to PCA Predict
+ * Tweak - Add Guernsey, Jersey, and the Isle of Man to the list of countries supported by PCA Predict (formerly Postcode Anywhere)
+
+2015.07.28 - version 1.7.0
+ * Misc - WooCommerce 2.4 Compatibility
+
+2015.07.20 - version 1.6.2
+ * Fix - Fix missing organization/department name for CraftyClicks.co.uk
+
+2015.06.16 - version 1.6.1
+ * Fix - Allow transaction processing when using SmartStreets and shipping to US only
+ * Fix - Update the plugin documentation action link to use correct URL
+
+2015.05.14 - version 1.6.0
+ * Feature - You can now disable the validation of US "plus-four" codes in SmartyStreets
+
+2015.03.26 - version 1.5.2
+ * Tweak - Attach Chosen.js to form fields only if Select2 is not available
+
+2015.02.19 - version 1.5.1
+ * Misc - Update SmartyStreets jquery.liveaddress to 2.5
+ * Localization - Add Dutch translation provided by Meint Post
+
+2015.02.09 - version 1.5.0
+ * Fix - Avoid fatal errors when a connection error occurs during postcode lookups
+ * Misc - WooCommerce 2.3 Compatibility
+
+2014.12.30 - version 1.4.0
+ * Feature - Compatibility with One Page Checkout
+ * Fix - Avoid fatal errors when an active provider is not set
+
+2014.12.08 - version 1.3.4
+ * Fix - Ensure postcode lookup fields are displayed
+
+2014.12.02 - version 1.3.3
+ * Tweak - Ensure the postcode lookup results are not hidden with custom CSS
+ * Tweak - Introduce `wc_address_validation_validation_required` filter
+
+2014.11.11 - version 1.3.2
+ * Fix - Don't display postcode lookup on order received page
+
+2014.09.07 - version 1.3.1
+ * Fix - Hide shipping address verify button when shipping address fields are hidden by default
+ * Misc - WooCommerce 2.2 Compatibility
+
+2014.08.19 - version 1.3.0
+ * Feature - Added address validation & postcode lookup to the Edit Address forms in the My Account area
+ * Fix - Don't hide the address form for customers with saved addresses
+ * Fix - Show the shipping address 'address verified' button
+
+2014.07.14 - version 1.2.1
+ * Fix - Fix issue with "Force customer to lookup postcode" option for stores that sell to a single country
+ * Fix - Postcode lookup now correctly hides/shows the address form based on the selected country
+
+2014.05.27 - version 1.2
+ * Feature - Added Postcode.nl as a postcode lookup provider. Dutch users, rejoice!
+ * Fix - Fixed issue with states not updating after validation with SmartyStreets
+
+2014.04.25 - version 1.1.1
+ * Fix - Fix issue when Chosen.js library is not available
+
+2014.01.20 - version 1.1
+ * Misc - WooCommerce 2.1 compatibility
+ * Misc - Uses SkyVerge Plugin Framework
+ * Localization - Text domain changed from `wc-address-validation` to `woocommerce-address-validation`
+ * Localization - Languages path changed from `languages` to `i18n/languages`
+
+2013.09.06 - version 1.0.4
+ * Tweak - Added `wc_address_validation_postcode_lookup_no_address_found_message` filter
+
+2013.07.26 - version 1.0.3
+ * Feature - Added CraftyClicks.co.uk as a Postcode Lookup Provider (Thanks to Adam @ CraftyClicks and Dean Andrews at CodingStuff.co.uk)
+ * Fix - Checkout is refreshed after address is validated so shipping rates are updated
+ * Localization - Italian translation provided by Ali Razzaq
+
+2013.06.21 - version 1.0.2
+ * Fix - Enhanced select boxes (Chosen) are no longer a dependency for using SmartyStreets
+ * Fix - On some servers, SmartStreets did not load properly over SSL.
+
+2013.06.14 - version 1.0.1
+ * Fix - Refresh checkout when a postcode is selected
+
+2013.04.18 - version 1.0
+ * Initial Release :)

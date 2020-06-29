@@ -1,0 +1,36 @@
+/*----------------------------------------------------------------------------*\
+	CHART SHORTCODE
+\*----------------------------------------------------------------------------*/
+.mpc-chart {
+	display: block;
+}
+
+.mpc-chart__box {
+	position: relative;
+	margin: 0 auto;
+}
+
+.mpc-chart__outer_circle,
+.mpc-chart__inner_circle,
+.mpc-chart__marker,
+.mpc-chart__text {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translateX(-50%) translateY(-50%);
+	border-radius: 100%;
+	background-clip: padding-box !important;
+}
+
+.mpc-chart__marker {
+	opacity: 0;
+
+	.mpc-waypoint--init & {
+		opacity: 1;
+	}
+}
+
+.mpc-chart-wrap .mpc-chart__text {
+	border-radius: 0;
+	text-align: center;
+}

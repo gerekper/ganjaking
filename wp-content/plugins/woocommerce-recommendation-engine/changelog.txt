@@ -1,0 +1,126 @@
+*** WooCommerce Recommendation Engine Changelog ***
+2020.04.06 - version 3.2.3
+    * New:  Added a shortcode which can be used anywhere on the site to display Also Viewed and Also Purchased type recommendations.  The recommendations are based on the
+            users browsing history.
+            Basic Syntax:  [woocommerce_related_products_by_status label="Based on your viewing history" type="viewed"]
+            Type can be either "viewed" or "completed"
+
+2019.09.17 - version 3.2.2
+    * Update: Add additional checking before starting the WC session.
+    * Update: Fix widget so that it uses a select box instead of a checkbox array for selecting which items to display.
+
+2019.05.03 - version 3.2.1
+    * Fix:  Correct issue with missing function in < WC 3.6
+
+2019.04.19 - version 3.2.0
+    * New:  Add WP CLI command.   wp wc_recommender_rebuild.  Rebuilds all recommendations.
+    * New:  Add WP ClI coommand.  wp wc_recommender_install.  Installs stats from order history.
+    * Update:  Don't load session if WC API request.
+
+2018.10.23 - version 3.1.12
+    * Update:  Tested to WC 3.5.0
+
+2018.08.22 - version 3.1.11
+    * Update:  Version bump for WC and WP.
+
+2018.03.05 - version 3.1.10
+    * Update: Update path finding for the CLI script.
+        To use the CLI script configure a cron job to execute php <path-to-your-wordpress-plugin-dir>/woocommerce-recommendation-engine/woocommerce-recommender-cli-script.php
+
+2018.02.05 - version 3.1.9
+    * Fix:  Typo in DB query for frequently purchased together.
+
+2017.10.31 - version 3.1.8
+    * Fix:  Properly show / hide the Cancel button on the Recommendations admin tab.
+    * Fix:  Fix issue with older PHP versions during plugin activation.
+
+2017.10.03 - version 3.1.7
+    * Update:  Add view for entire session history table.
+    * Update:  Add ability to truncate session history table to prevent issues with recommendation build timing out.
+    * Update:  Add better visual indicators when rebuilding recommendations for specific products.
+    * Update:  Update rebuild function to only process products which could have a potential match.
+    * Update:  Update Maintenance to allow rebuilding specific recommendation types for performance reasons.
+
+2017.08.31 - version 3.1.6
+    * Update:  Reverse sort order on Also Viewed to properly show products in order of relevance.
+
+2017.08.31 - version 3.1.5
+    * Fix:  Update for WC 3.x to remove notice about accessing order properties directly.
+    * Update:  Add Woo header for automatic updates and subscriptions.
+
+2017.03.28 - version 3.1.4
+    * Update: WC 3.0.0 Ready
+    * Update: Fix the rebuild column in the search results of recommendations.
+    * Update: Remove some debug statements which were committed.
+
+2017.02.16 - version 3.1.3
+    * Fix:  Fix deprecated esc_like statement causing search to fail.
+
+2016.12.22 - version 3.1.2
+    * Fix:  Correct issue where the "Rebuild Recommendations" action would hang in the admin.
+
+2016.10.26 - version 3.1.1
+	* Update:  Use "RollingCurl" library to execute the cron job build jobs asynchronously.
+	
+2016.02.04 - version 3.0.3
+	* Updated languages folder path, is now /languages.  
+	* Added .pot file for translators. 
+	
+2016.01.04 - version 3.0.2
+	* Correction:  Spelling error corrections on admin screen. 
+	
+2015.12.04 - version 3.0.1
+	* Fix:  Correct the count for the Orders column on recommendations maintenance screen. 
+	
+2015.07.17 - version 3.0.0
+	* Feature:  Added Recommendations admin area for viewing and managing recommendations. 
+	* Feature:  Added admin area to rebuild all recommendations based on recorded activity. 
+	* Feature:  Added admin area to install statistics based on order history before the plugin was activated. 
+	
+2015.04.21 - version 2.1.2
+* Fix - Potential XSS with add_query_arg
+
+2015.02.20 - version 2.1.1
+	* Fix:  Only start a session on front end requests. 
+	* Fix:  Do not start a session on WP_CRON jobs. 
+	
+2014.08.13 - version 2.1.0
+	* Compatibility with WooCommerce 2.2.x
+	* Fixes session ID recording issues. 
+	* Removed the stats generation part of the installation script.  This is now handled via the cron job.  Recommendations will not be present until 
+		the cron job has run for the first time. 
+	* Changed default column layout to be 2 columns instead of 4. 
+	
+2014.05.21 - version 2.0.3
+	* Fix problem in installation script with duplicate key defined error. 
+	* Fix memory and timeout issue in installation script by limiting the processing of only the last 500 orders. 
+	* Fix to installation script to make sure that items returned from the order are a complete woocommerce product. 
+	* Fix problem where WooCommerce is not always returning a product object from get_product_from_item();
+
+2014.04.29 - version 2.0.2
+	* Update table schema to change the column 'key' to 'rkey' to prevent various MYSQL issues. 
+	
+2014.04.08 - version 2.0.1
+	* Update to installer to account for duplicate primary key issue with dbDelta().
+
+2014.02.15 - version 2.0.0
+	* Calculate scores twicedaily via WP Cron. 
+
+2014.01.07 - version 1.2.0
+	* 2.1 Compatibility
+	* 2.1 - Modified installation hook priority to 99 to allow the woocommerce taxononmies to be registered first. 
+	
+2014.01.03 - version 1.1.0
+	* Major change to the way the data is collected and calculated.  Only a single query is executed, dramatically reducing the 
+		overall load on the MYSQL server and improving performance. 
+
+2013.07.22 - version 1.0.2
+	* Update: Only install stats on first installation / activation of the plugin
+	* Update: Modified the SQL statement to create / alter table to get rid of the duplicate primary key warning.
+
+2013.07.15 - version 1.0.1
+	* Update: Added Admin Settings to allow users to easily configure the total items and number
+		total number of columns to display the items in. 
+
+2013.06.26 - version 1.0
+ * First Release

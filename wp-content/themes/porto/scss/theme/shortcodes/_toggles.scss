@@ -1,0 +1,165 @@
+/* Toggles */
+.toggle {
+    padding: 0 0 5px 0;
+    position: relative;
+    clear: both;
+    > {
+        input {
+            cursor: pointer;
+            height: 45px;
+            margin: 0;
+            opacity: 0;
+            position: absolute;
+            width: 100%;
+            z-index: 2;
+        }
+        label {
+            @include transition (all .15s ease-out);
+            padding: side-values(12px 20px 12px 10px);
+            border-#{$left}: 3px solid #CCC;
+            display: block;
+            font-size: 1.1em;
+            min-height: 20px;
+            position: relative;
+            cursor: pointer;
+            font-weight: 400;
+            &:-moz-selection {
+                background: none;
+            }
+            &:selection {
+                background: none;
+            }
+            &:before {
+                border: 6px solid transparent;
+                border-#{$left}-color: inherit;
+                #{$right}: 4px;
+                content: '';
+                margin-top: -6px;
+                position: absolute;
+                top: 50%;
+            }
+            + p {
+                color: #999;
+                display: block;
+                overflow: hidden;
+                padding-#{$left}: 30px;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                height: 25px;
+            }
+            i {
+                margin-#{$right}: 7px;
+                position: relative;
+                top: -1px;
+                &.icon-image {
+                    display: inline-block;
+                    max-width: 20px;
+                }
+            }
+        }
+        .toggle-content {
+            display: none;
+            padding-bottom: 5px;
+
+            @media #{$screen-medium} {
+                padding-#{$left}: 0;
+            }
+
+            .porto-toggles & {
+                padding-#{$left}: 0;
+            }
+
+            > p {
+                margin-bottom: 0;
+                padding: 10px 0;
+            }
+        }
+    }
+    &.active {
+        > label {
+            border-color: #CCC;
+            &:before {
+                border: 6px solid transparent;
+                border-top-color: #FFF;
+                margin-top: -3px;
+                #{$right}: 10px;
+            }
+        }
+        > p {
+            white-space: normal;
+        }
+    }
+    > p.preview-active {
+        height: auto;
+        white-space: normal;
+    }
+
+    .toggle-sm & {
+        > label {
+            font-size: 0.9em;
+            padding: side-values(6px 20px 6px 10px);
+        }
+        > .toggle-content > p {
+            font-size: 0.9em;
+        }
+    }
+
+    .toggle-lg & {
+        > label {
+            font-size: 1.1em;
+            padding: 16px 20px 16px 20px;
+        }
+        > .toggle-content > p {
+            font-size: 1.1em;
+        }
+    }
+
+    .toggle-simple & {
+        .toggle-content {
+            padding-#{$left}: 0;
+        }
+        > label {
+            border-radius: 0;
+            border: 0;
+            background: transparent;
+            padding-#{$left}: 32px;
+            margin-bottom: -10px;
+            font-size: 1em;
+            font-weight: 600;
+
+            &:after {
+                content: '';
+                position: absolute;
+                #{$left}: 0;
+                display: block;
+                width: 24px;
+                height: 24px;
+                top: 50%;
+                margin-top: -12px;
+                z-index: 1;
+            }
+            &:before {
+                border: 0;
+                #{$right}: auto;
+                #{$left}: 9px;
+                margin-top: auto;
+                margin-bottom: auto;
+                top: 0;
+                bottom: 0;
+                height: 21px;
+                font-size: 14px;
+                font-family: 'Font Awesome 5 Free'; font-weight: 900;
+                content: $fa-var-plus;
+                z-index: 2;
+                color: #FFF;
+                font-size: 8px;
+            }
+        }
+        &.active > label {
+            background: transparent;
+            &:before {
+                content: $fa-var-minus;
+            }
+        }
+    }
+}

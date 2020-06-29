@@ -1,0 +1,14 @@
+<wpml-config>
+    <custom-types>
+        <custom-type translate="1">portfolio</custom-type>
+        <custom-type translate="1">member</custom-type>
+        <custom-type translate="1">faq</custom-type>
+        <custom-type translate="1">block</custom-type>
+    </custom-types>
+    <taxonomies>
+        <taxonomy translate="1">portfolio_cat</taxonomy>
+        <taxonomy translate="1">portfolio_skills</taxonomy>
+        <taxonomy translate="1">faq_cat</taxonomy>
+        <taxonomy translate="1">member_cat</taxonomy>
+    </taxonomies>
+</wpml-config>

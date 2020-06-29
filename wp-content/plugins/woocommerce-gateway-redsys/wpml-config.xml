@@ -1,0 +1,12 @@
+<wpml-config>
+	<admin-texts>
+		<key name="woocommerce_redsys_settings">
+			<key name="title" />
+			<key name="description" />
+		</key>
+		<key name="woocommerce_iupay_settings">
+			<key name="title" />
+			<key name="description" />
+		</key>
+	</admin-texts>
+</wpml-config>

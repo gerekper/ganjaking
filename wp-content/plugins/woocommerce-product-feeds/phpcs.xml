@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<ruleset name="Ademti WordPress Project">
+	<description>Coding standard definitions for Ademti Software Ltd. WordPress projects</description>
+	<rule ref="WordPress-Extra">
+		<exclude name="Generic.Files.LowercasedFilename.NotFound"/>
+		<exclude name="WordPress.XSS.EscapeOutput.OutputNotEscaped"/>
+	</rule>
+	<rule ref="WordPress.Files.FileName">
+		<properties>
+			<property name="strict_class_file_names" value="false" />
+		</properties>
+	</rule>
+</ruleset>
+

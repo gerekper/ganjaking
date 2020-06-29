@@ -1,0 +1,58 @@
+.yith_woocommerce_slider { 
+	width: 300px; 
+	float: left 
+}
+.yith_woocommerce_slider_value {
+	margin-top: -5px; 
+	margin-left: 10px; 
+	width: 50px; 
+	float: left; 
+	text-align: center; 
+	font-weight: bold;
+}
+
+.attributes li {
+    margin-bottom: 0;
+}
+
+.attributes .ui-sortable-placeholder {
+    background: #f9f9f9;
+    border: 1px dashed #d4d4d4;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    visibility: visible !important;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    margin-bottom: -2px;
+}
+#s2id_yith_woocompare_excluded_category {
+    width: 100% !important;
+}
+
+/* SHORTCODE TAB */
+.yith-woocompare-shortcode-tab .shortcode-preview {
+    border: 1px solid #cdcdcd;
+    padding: 15px;
+}
+.yith-woocompare-shortcode-tab .shortcode-preview {
+    padding: 15px;
+    margin-top: 20px;
+    background-color: #fff;
+    font-size: 17px;
+    color: #333;
+}
+
+.yith-woocompare-shortcode-tab table.form-table{
+    border: none;
+}
+
+.yith-woocompare-shortcode-tab label{
+    display: inline-block;
+}
+
+.yith-woocompare-shortcode-tab img{
+    position: absolute;
+    right: 0;
+    top: calc( 50% - 16px );
+}

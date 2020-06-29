@@ -1,0 +1,1247 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH Google Product Feed for WooCommerce\n"
+"POT-Creation-Date: 2017-11-30 10:24+0000\n"
+"PO-Revision-Date: 2018-09-22 21:25+0200\n"
+"Language-Team: YITH <plugins@yithemes.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.1.1\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e;_n:1,2;__ngettext:1,2;"
+"__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;"
+"_nx_noop:4c,1,2\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Last-Translator: Alexander Cekic <alexander.cekic@agent-4.com>\n"
+"Language: de_DE\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: plugin-fw\n"
+
+#: includes/admin/class.yith-wcgpf-admin-premium.php:79
+msgid "Feed Configuration Templates"
+msgstr "Feed-Konfigurationsvorlagen"
+
+#: includes/admin/class.yith-wcgpf-admin-premium.php:80
+#: templates/admin/google-custom-template.php:17
+msgid "Google Custom Fields"
+msgstr "Google Benutzerdefinierte Felder"
+
+#: includes/admin/class.yith-wcgpf-admin-premium.php:81
+msgid "General options"
+msgstr "Allgemeine Optionen"
+
+#: includes/admin/class.yith-wcgpf-admin-premium.php:103
+msgid "Google feed fields"
+msgstr "Google-Feed-Felder"
+
+#: includes/admin/class.yith-wcgpf-admin-premium.php:230
+msgctxt "Energy efficiency class: A+"
+msgid "Energy efficiency class"
+msgstr "Energieeffizienzklasse"
+
+#: includes/admin/class.yith-wcgpf-admin-premium.php:237
+msgctxt "Admin option: Gender: Female"
+msgid "Gender"
+msgstr "Geschlecht"
+
+#: includes/admin/class.yith-wcgpf-admin-premium.php:244
+msgctxt "Admin option: Age group: Infant"
+msgid "Age group"
+msgstr "Altersgruppe"
+
+#: includes/admin/class.yith-wcgpf-admin-premium.php:251
+msgctxt "Admin option: Material: Plastic"
+msgid "Material"
+msgstr "Material"
+
+#: includes/admin/class.yith-wcgpf-admin-premium.php:257
+msgctxt "Admin option: Pattern: text "
+msgid "Pattern"
+msgstr "Muster"
+
+#: includes/admin/class.yith-wcgpf-admin-premium.php:263
+msgctxt "Admin option: Size: XL"
+msgid "Size"
+msgstr "Größe"
+
+#: includes/admin/class.yith-wcgpf-admin-premium.php:269
+msgctxt "Admin option: Size type: Petite"
+msgid "Size type"
+msgstr "Größe Typ"
+
+#: includes/admin/class.yith-wcgpf-admin-premium.php:276
+msgctxt "Admin option: Size system: United Kingdom sizing "
+msgid "Size system"
+msgstr "Größensystem"
+
+#: includes/admin/class.yith-wcgpf-admin-premium.php:283
+msgctxt "Admin option: custom label 0"
+msgid "Custom label 0"
+msgstr "Kundenspezifische Beschriftung 0"
+
+#: includes/admin/class.yith-wcgpf-admin-premium.php:289
+msgctxt "Admin option: custom label 1"
+msgid "Custom label 1"
+msgstr "Kundenspezifische Beschriftung 1"
+
+#: includes/admin/class.yith-wcgpf-admin-premium.php:295
+msgctxt "Admin option: custom label 2"
+msgid "Custom label 2"
+msgstr "Kundenspezifische Beschriftung 2"
+
+#: includes/admin/class.yith-wcgpf-admin-premium.php:301
+msgctxt "Admin option: custom label 3 "
+msgid "Custom label 3"
+msgstr "Kundenspezifische Beschriftung 3"
+
+#: includes/admin/class.yith-wcgpf-admin-premium.php:307
+msgctxt "Admin option: custom label 4"
+msgid "Custom label 4"
+msgstr "Kundenspezifische Beschriftung 4"
+
+#: includes/admin/class.yith-wcgpf-admin.php:115
+msgid "Manage Feeds"
+msgstr "Feeds verwalten"
+
+#: includes/admin/class.yith-wcgpf-admin.php:116
+msgid "Google Feed General Fields"
+msgstr "Google Feed Allgemeine Felder"
+
+#: includes/admin/class.yith-wcgpf-admin.php:121
+msgid "Premium Version"
+msgstr "Premium Version"
+
+#: includes/admin/class.yith-wcgpf-admin.php:127
+msgctxt "plugin name in admin page title"
+msgid "Google Product Feed"
+msgstr "Google Produkt-Feed"
+
+#: includes/admin/class.yith-wcgpf-admin.php:128
+msgctxt "plugin name in admin WP menu"
+msgid "Google Product Feed"
+msgstr "Google Produkt-Feed"
+
+#: includes/admin/class.yith-wcgpf-admin.php:161
+msgid "Plugin documentation"
+msgstr "Plugin Dokumentation"
+
+#: includes/admin/class.yith-wcgpf-admin.php:165
+msgid "Help Center"
+msgstr "Hilfezentrum"
+
+#: includes/admin/class.yith-wcgpf-admin.php:169
+msgid "Support platform"
+msgstr "Support Plattform"
+
+#: includes/admin/class.yith-wcgpf-admin.php:173
+msgid "Changelog"
+msgstr "Änderungsprotokoll"
+
+#: includes/admin/class.yith-wcgpf-admin.php:173
+msgid "current version"
+msgstr "aktuelle Version"
+
+#: includes/class.yith-wcgpf-google-feed-functions-premium.php:108
+msgid "Default"
+msgstr "Vorgabe"
+
+#: includes/class.yith-wcgpf-google-product-feed-post-type-premium.php:142
+msgid "Filters and conditions"
+msgstr "Filter und Bedingungen"
+
+#: includes/class.yith-wcgpf-google-product-feed-post-type.php:83
+#: includes/class.yith-wcgpf-google-product-feed-post-type.php:84
+msgid "Make feed"
+msgstr "Feed markieren"
+
+#: includes/class.yith-wcgpf-google-product-feed-post-type.php:85
+msgid "Add feed"
+msgstr "Feed hinzufügen"
+
+#: includes/class.yith-wcgpf-google-product-feed-post-type.php:86
+msgid "Add new feed"
+msgstr "Neuen Feed hinzufügen"
+
+#: includes/class.yith-wcgpf-google-product-feed-post-type.php:87
+#: includes/class.yith-wcgpf-google-product-feed-table.php:259
+#: includes/class.yith-wcgpf-google-product-feed-template-feed-list-table.php:242
+#: includes/class.yith-wcgpf-google-product-feed-template-feed.php:58
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: includes/class.yith-wcgpf-google-product-feed-post-type.php:88
+msgid "Edit feed"
+msgstr "Feed bearbeiten"
+
+#: includes/class.yith-wcgpf-google-product-feed-post-type.php:89
+msgid "New feed"
+msgstr "Neuer Feed"
+
+#: includes/class.yith-wcgpf-google-product-feed-post-type.php:90
+#: includes/class.yith-wcgpf-google-product-feed-post-type.php:91
+msgid "View feed"
+msgstr "Feed ansehen"
+
+#: includes/class.yith-wcgpf-google-product-feed-post-type.php:92
+msgid "Search feed"
+msgstr "Feed suchen"
+
+#: includes/class.yith-wcgpf-google-product-feed-post-type.php:93
+msgid "No feed found"
+msgstr "Kein Feed gefunden"
+
+#: includes/class.yith-wcgpf-google-product-feed-post-type.php:94
+msgid "No feed in trash"
+msgstr "Kein Feed im Papierkorb"
+
+#: includes/class.yith-wcgpf-google-product-feed-post-type.php:95
+msgid "Parent feed"
+msgstr "Eltern Feed"
+
+#: includes/class.yith-wcgpf-google-product-feed-post-type.php:96
+msgctxt "Admin menu name"
+msgid "YITH Feed"
+msgstr "YITH Feed"
+
+#: includes/class.yith-wcgpf-google-product-feed-post-type.php:97
+msgid "All Feeds"
+msgstr "Alle Feeds"
+
+#: includes/class.yith-wcgpf-google-product-feed-post-type.php:101
+msgid "Feed"
+msgstr "Feed"
+
+#: includes/class.yith-wcgpf-google-product-feed-post-type.php:103
+msgid "This is where feed are stored."
+msgstr "Hier werden alle Feed-Vorlagen gespeichert."
+
+#: includes/class.yith-wcgpf-google-product-feed-post-type.php:129
+msgid "Configuration feed"
+msgstr "Feed Konfiguration"
+
+#: includes/class.yith-wcgpf-google-product-feed-post-type.php:153
+msgid "Back to the list of feeds"
+msgstr "Zurück zur Liste der Feeds"
+
+#: includes/class.yith-wcgpf-google-product-feed-table.php:29
+#: includes/class.yith-wcgpf-google-product-feed-table.php:30
+msgid "Google product feed table"
+msgstr "Google Produkt-Feed-Tabelle"
+
+#: includes/class.yith-wcgpf-google-product-feed-table.php:42
+#: includes/class.yith-wcgpf-google-product-feed-template-feed-list-table.php:42
+msgid "File name"
+msgstr "Dateiname"
+
+#: includes/class.yith-wcgpf-google-product-feed-table.php:43
+#: includes/class.yith-wcgpf-google-product-feed-template-feed-list-table.php:43
+#: templates/admin/make-tab/configuration-feed-premium.php:25
+msgid "Merchant"
+msgstr "Händler"
+
+#: includes/class.yith-wcgpf-google-product-feed-table.php:44
+msgid "Feed type"
+msgstr "Feed Art"
+
+#: includes/class.yith-wcgpf-google-product-feed-table.php:45
+msgid "Feed URL"
+msgstr "Feed URL"
+
+#: includes/class.yith-wcgpf-google-product-feed-table.php:46
+msgid "Actions"
+msgstr "Aktionen"
+
+#: includes/class.yith-wcgpf-google-product-feed-table.php:82
+msgid "Re-generate feed file"
+msgstr "Feed-Datei neu generieren"
+
+#: includes/class.yith-wcgpf-google-product-feed-table.php:82
+msgid "Generate feed file"
+msgstr "Feed-Datei erzeugen"
+
+#: includes/class.yith-wcgpf-google-product-feed-table.php:98
+#: includes/class.yith-wcgpf-google-product-feed-template-feed-list-table.php:81
+msgid "All"
+msgstr "Alle"
+
+#: includes/class.yith-wcgpf-google-product-feed-table.php:99
+#: includes/class.yith-wcgpf-google-product-feed-template-feed-list-table.php:82
+msgid "Published"
+msgstr "Veröffentlicht"
+
+#: includes/class.yith-wcgpf-google-product-feed-table.php:100
+#: includes/class.yith-wcgpf-google-product-feed-template-feed-list-table.php:83
+msgid "Trash"
+msgstr "Papierkorb"
+
+#: includes/class.yith-wcgpf-google-product-feed-table.php:217
+#: includes/class.yith-wcgpf-google-product-feed-template-feed-list-table.php:200
+#: includes/class.yith-wcgpf-google-product-feed-template-feed-list-table.php:270
+msgid "Delete permanently"
+msgstr "Dauerhaft löschen"
+
+#: includes/class.yith-wcgpf-google-product-feed-table.php:221
+#: includes/class.yith-wcgpf-google-product-feed-template-feed-list-table.php:204
+#: templates/admin/google-custom-template.php:27
+#: templates/merchant/google.php:56
+msgid "Delete"
+msgstr "Löschen"
+
+#: includes/class.yith-wcgpf-google-product-feed-table.php:258
+#: includes/class.yith-wcgpf-google-product-feed-template-feed-list-table.php:241
+#, php-format
+msgid "Edit &#8220;%s&#8221;"
+msgstr "Bearbeite &#8220;%s&#8221;"
+
+#: includes/class.yith-wcgpf-google-product-feed-table.php:269
+#: includes/class.yith-wcgpf-google-product-feed-template-feed-list-table.php:252
+#, php-format
+msgid "Restore &#8220;%s&#8221; from the Trash"
+msgstr "&#8220;%s&#8221; aus dem Papierkorb wieder herstellen"
+
+#: includes/class.yith-wcgpf-google-product-feed-table.php:270
+#: includes/class.yith-wcgpf-google-product-feed-template-feed-list-table.php:253
+msgid "Restore"
+msgstr "Wiederherstellen"
+
+#: includes/class.yith-wcgpf-google-product-feed-table.php:277
+#: includes/class.yith-wcgpf-google-product-feed-template-feed-list-table.php:260
+#, php-format
+msgid "Move &#8220;%s&#8221; to the Trash"
+msgstr "&#8222;%s&#8220; in den Papierkorb verschieben"
+
+#: includes/class.yith-wcgpf-google-product-feed-table.php:278
+#: includes/class.yith-wcgpf-google-product-feed-template-feed-list-table.php:261
+msgctxt "verb"
+msgid "Trash"
+msgstr "Papierkorb"
+
+#: includes/class.yith-wcgpf-google-product-feed-table.php:286
+#: includes/class.yith-wcgpf-google-product-feed-template-feed-list-table.php:269
+#, php-format
+msgid "Delete &#8220;%s&#8221; permanently"
+msgstr "Lösche&#8220;%s&#8221; dauerhaft"
+
+#: includes/class.yith-wcgpf-google-product-feed-table.php:287
+msgid "Delete Permanently"
+msgstr "Unwiderruflich löschen"
+
+#: includes/class.yith-wcgpf-google-product-feed-template-feed-list-table.php:29
+#: includes/class.yith-wcgpf-google-product-feed-template-feed-list-table.php:30
+msgid "List of feed configuration templates"
+msgstr "Liste der Feed-Konfigurationsvorlagen"
+
+#: includes/class.yith-wcgpf-google-product-feed-template-feed.php:54
+#: includes/class.yith-wcgpf-google-product-feed-template-feed.php:55
+msgid "Feed template"
+msgstr "Feed Vorlage"
+
+#: includes/class.yith-wcgpf-google-product-feed-template-feed.php:56
+msgid "Add feed template"
+msgstr "Feed-Vorlage hinzufügen"
+
+#: includes/class.yith-wcgpf-google-product-feed-template-feed.php:57
+msgid "Add new feed template"
+msgstr "Neue Feed-Vorlage hinzufügen"
+
+#: includes/class.yith-wcgpf-google-product-feed-template-feed.php:59
+msgid "Edit feed template"
+msgstr "Feed-Vorlage bearbeiten"
+
+#: includes/class.yith-wcgpf-google-product-feed-template-feed.php:60
+msgid "New feed template"
+msgstr "Neue Feed-Vorlage"
+
+#: includes/class.yith-wcgpf-google-product-feed-template-feed.php:61
+#: includes/class.yith-wcgpf-google-product-feed-template-feed.php:62
+msgid "View feed template"
+msgstr "Feed-Vorlage ansehen"
+
+#: includes/class.yith-wcgpf-google-product-feed-template-feed.php:63
+msgid "Search feed template"
+msgstr "Feed-Vorlage durchsuchen"
+
+#: includes/class.yith-wcgpf-google-product-feed-template-feed.php:64
+msgid "No feed template found"
+msgstr "Keine Feed-Vorlage gefunden"
+
+#: includes/class.yith-wcgpf-google-product-feed-template-feed.php:65
+msgid "No feed template in trash"
+msgstr "Keine Vorlage im Papierkorb"
+
+#: includes/class.yith-wcgpf-google-product-feed-template-feed.php:66
+msgid "Parent feed template"
+msgstr "Vorlage für Eltern Feed"
+
+#: includes/class.yith-wcgpf-google-product-feed-template-feed.php:67
+msgctxt "Admin menu name"
+msgid "YITH feed template"
+msgstr "YITH feed template"
+
+#: includes/class.yith-wcgpf-google-product-feed-template-feed.php:68
+msgid "All feed templates"
+msgstr "Alle Feed-Vorlagen"
+
+#: includes/class.yith-wcgpf-google-product-feed-template-feed.php:72
+msgid "Feed templates"
+msgstr "Feed-Vorlagen"
+
+#: includes/class.yith-wcgpf-google-product-feed-template-feed.php:74
+msgid "This is where all feed templates are stored."
+msgstr "Hier werden alle Feed-Vorlagen gespeichert."
+
+#: includes/class.yith-wcgpf-google-product-feed-template-feed.php:100
+msgid "Template feed configuration"
+msgstr "Konfiguration der Feed Vorlagen"
+
+#: includes/class.yith-wcgpf-google-product-feed-template-feed.php:113
+#: templates/admin/make-tab/configuration-feed-premium.php:87
+#: templates/admin/make-tab/configuration-feed.php:26
+msgid "Attributes"
+msgstr "Eigenschaften"
+
+#: includes/class.yith-wcgpf-google-product-feed-template-feed.php:114
+#: templates/admin/make-tab/configuration-feed-premium.php:88
+#: templates/admin/make-tab/configuration-feed.php:27
+msgid "Prefix"
+msgstr "Vorsilbe"
+
+#: includes/class.yith-wcgpf-google-product-feed-template-feed.php:115
+#: templates/admin/make-tab/configuration-feed-premium.php:89
+#: templates/admin/make-tab/configuration-feed.php:28
+msgid "Value"
+msgstr "Wert"
+
+#: includes/class.yith-wcgpf-google-product-feed-template-feed.php:116
+#: templates/admin/make-tab/configuration-feed-premium.php:90
+#: templates/admin/make-tab/configuration-feed.php:29
+msgid "Suffix"
+msgstr "Nachsilbe"
+
+#: includes/class.yith-wcgpf-google-product-feed-template-feed.php:126
+#: templates/admin/google-custom-template.php:25
+#: templates/admin/make-tab/configuration-feed-premium.php:100
+#: templates/admin/make-tab/configuration-feed.php:39
+msgid "Add new row"
+msgstr "Neue Zeile hinzufügen"
+
+#: includes/class.yith-wcgpf-google-product-feed-template-feed.php:149
+msgid "Back to the list of templates"
+msgstr "Zurück zur Liste der Vorlagen"
+
+#: includes/class.yith-wcgpf-product-function-premium.php:78
+#: includes/class.yith-wcgpf-product-function-premium.php:102
+#: includes/class.yith-wcgpf-product-function-premium.php:118
+#: includes/class.yith-wcgpf-product-function-premium.php:137
+#: includes/class.yith-wcgpf-product-function-premium.php:155
+#: includes/class.yith-wcgpf-product-function-premium.php:174
+#: includes/class.yith-wcgpf-product-function.php:131
+msgid "General field"
+msgstr "Allgemeines Feld"
+
+#: includes/class.yith-wcgpf-product-function-premium.php:79
+msgid "A+++"
+msgstr "A+++"
+
+#: includes/class.yith-wcgpf-product-function-premium.php:80
+msgid "A++"
+msgstr "A++"
+
+#: includes/class.yith-wcgpf-product-function-premium.php:81
+msgid "A+"
+msgstr "A+"
+
+#: includes/class.yith-wcgpf-product-function-premium.php:82
+msgid "A"
+msgstr "A"
+
+#: includes/class.yith-wcgpf-product-function-premium.php:83
+msgid "B"
+msgstr "B"
+
+#: includes/class.yith-wcgpf-product-function-premium.php:84
+msgid "C"
+msgstr "C"
+
+#: includes/class.yith-wcgpf-product-function-premium.php:85
+msgid "D"
+msgstr "D"
+
+#: includes/class.yith-wcgpf-product-function-premium.php:86
+msgid "E"
+msgstr "E"
+
+#: includes/class.yith-wcgpf-product-function-premium.php:87
+msgid "F"
+msgstr "F"
+
+#: includes/class.yith-wcgpf-product-function-premium.php:88
+msgid "G"
+msgstr "G"
+
+#: includes/class.yith-wcgpf-product-function-premium.php:103
+msgid "Male"
+msgstr "Männlich"
+
+#: includes/class.yith-wcgpf-product-function-premium.php:104
+msgid "Female"
+msgstr "Weiblich"
+
+#: includes/class.yith-wcgpf-product-function-premium.php:105
+msgid "Unisex"
+msgstr "Unisex"
+
+#: includes/class.yith-wcgpf-product-function-premium.php:119
+msgid "Newborn"
+msgstr "Baby"
+
+#: includes/class.yith-wcgpf-product-function-premium.php:120
+msgid "Infant"
+msgstr "Kleinkind"
+
+#: includes/class.yith-wcgpf-product-function-premium.php:121
+msgid "Toddler"
+msgstr "Kleinkind"
+
+#: includes/class.yith-wcgpf-product-function-premium.php:122
+msgid "Kid"
+msgstr "Kinder"
+
+#: includes/class.yith-wcgpf-product-function-premium.php:123
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:324
+msgid "Adult"
+msgstr "Erwachsene"
+
+#: includes/class.yith-wcgpf-product-function-premium.php:138
+msgid "Regular"
+msgstr "Normal"
+
+#: includes/class.yith-wcgpf-product-function-premium.php:139
+msgid "Petite"
+msgstr "Klein"
+
+#: includes/class.yith-wcgpf-product-function-premium.php:140
+msgid "Plus"
+msgstr "Plus"
+
+#: includes/class.yith-wcgpf-product-function-premium.php:141
+msgid "Big and tall"
+msgstr "Groß und groß"
+
+#: includes/class.yith-wcgpf-product-function-premium.php:142
+msgid "Maternity"
+msgstr "Babybauch"
+
+#: includes/class.yith-wcgpf-product-function-premium.php:156
+msgid "United States sizing"
+msgstr "Vereinigte Staaten von Amerika Größen"
+
+#: includes/class.yith-wcgpf-product-function-premium.php:157
+msgid "United Kingdom sizing "
+msgstr "Vereinigtes Königreich Größen"
+
+#: includes/class.yith-wcgpf-product-function-premium.php:158
+msgid "European sizing"
+msgstr "Europäische Größen"
+
+#: includes/class.yith-wcgpf-product-function-premium.php:159
+msgid "German sizing"
+msgstr "Deutsche Größen"
+
+#: includes/class.yith-wcgpf-product-function-premium.php:160
+msgid "French sizing"
+msgstr "Französische Größen"
+
+#: includes/class.yith-wcgpf-product-function-premium.php:161
+msgid "Japanese sizing"
+msgstr "Japanische Größen"
+
+#: includes/class.yith-wcgpf-product-function-premium.php:162
+msgid "Chinese sizing"
+msgstr "Chinesische Größen"
+
+#: includes/class.yith-wcgpf-product-function-premium.php:163
+msgid "Italian sizing"
+msgstr "Italienische Größen"
+
+#: includes/class.yith-wcgpf-product-function-premium.php:164
+msgid "Brazilian sizing"
+msgstr "Brasilianische Größenbestimmung"
+
+#: includes/class.yith-wcgpf-product-function-premium.php:165
+msgid "Mexican sizing"
+msgstr "Mexikanische Größen"
+
+#: includes/class.yith-wcgpf-product-function-premium.php:166
+msgid "Australian sizing"
+msgstr "Australische Größen"
+
+#: includes/class.yith-wcgpf-product-function.php:75
+msgid "New"
+msgstr "Neu"
+
+#: includes/class.yith-wcgpf-product-function.php:76
+msgid "Refurbished"
+msgstr "Renoviert"
+
+#: includes/class.yith-wcgpf-product-function.php:77
+msgid "Used"
+msgstr "Benutzt"
+
+#: includes/class.yith-wcgpf-product-function.php:91
+msgid "Yes"
+msgstr "Ja"
+
+#: includes/class.yith-wcgpf-product-function.php:92
+msgid "No"
+msgstr "Nein"
+
+#: includes/class.yith-wcgpf-products-premium.php:159
+msgid "Primary Attributes"
+msgstr "Primäre Attribute"
+
+#: includes/class.yith-wcgpf-products-premium.php:190
+msgid "Image Attributes"
+msgstr "Bild Attribute"
+
+#: includes/class.yith-wcgpf-products-premium.php:226
+msgid "Product Attributes"
+msgstr "Produkt Attribute"
+
+#: includes/compatibility/wpml/class.yith-wcgpf-wpml-templates.php:89
+msgid "Select language Feed"
+msgstr "Sprache auswählen Feed"
+
+#: includes/feed-save-file/class.yith-wcgpf-feed-file.php:64
+msgid "Feed file"
+msgstr "Feed-Datei"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:91
+msgid "Basic product data"
+msgstr "Grundlegende Produktdaten"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:93
+msgid "Product Id [id]"
+msgstr "Produkt-ID [id]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:94
+msgid "Product Title [title]"
+msgstr "Produktbezeichnung [titel]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:95
+msgid "Product Description [description]"
+msgstr "Produkt-Beschreibung [description]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:96
+msgid "Product URL [link]"
+msgstr "Produkt-URL [link]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:97
+msgid "Main Image [image_link]"
+msgstr "Hauptbild [image_link]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:98
+msgid "Product URL [mobile_link]"
+msgstr "Produkt-URL [mobile_link]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:99
+msgid "Additional Image 1 [additional_image_link]"
+msgstr "Zusätzliches Bild 1 [additional_image_link]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:100
+msgid "Additional Image 2 [additional_image_link]"
+msgstr "Zusätzliches Bild 2 [additional_image_link]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:101
+msgid "Additional Image 3 [additional_image_link]"
+msgstr "Zusätzliches Bild 3 [additional_image_link]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:102
+msgid "Additional Image 4 [additional_image_link]"
+msgstr "Zusätzliches Bild 4 [additional_image_link]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:103
+msgid "Additional Image 5 [additional_image_link]"
+msgstr "Zusätzliches Bild 5 [additional_image_link]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:104
+msgid "Additional Image 6 [additional_image_link]"
+msgstr "Zusätzliches Bild 6 [additional_image_link]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:105
+msgid "Additional Image 7 [additional_image_link]"
+msgstr "Zusätzliches Bild 7 [additional_image_link]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:106
+msgid "Additional Image 8 [additional_image_link]"
+msgstr "Zusätzliches Bild 8 [additional_image_link]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:107
+msgid "Additional Image 9 [additional_image_link]"
+msgstr "Zusätzliches Bild 9 [additional_image_link]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:108
+msgid "Additional Image 10 [additional_image_link]"
+msgstr "Zusätzliches Bild 10 [additional_image_link]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:112
+msgid "Price & availability"
+msgstr "Preis & Verfügbarkeit"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:114
+msgid "Stock Status [availability]"
+msgstr "Lagerstatus [availability]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:115
+msgid "Availability Date [availability_date]"
+msgstr "Verfügbarkeitsdatum [availability_date]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:116
+msgid "Expiration Date [expiration_date]"
+msgstr "Verfallsdatum [expiration_date]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:117
+msgid "Regular Price [price]"
+msgstr "Regulärer Preis [price]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:118
+msgid "Sale Price [sale_price]"
+msgstr "Verkaufspreis [sale_price]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:119
+msgid "Sale Price Effective Date [sale_price_effective_date]"
+msgstr "Verkaufspreis Gültigkeitsdatum [sale_price_effective_date]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:120
+msgid "Unit Pricing Measure [unit_pricing_measure]"
+msgstr "Einheitspreis-Maßnahme [unit_pricing_measure]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:121
+msgid "Unit Pricing Base Measure [unit_pricing_base_measure]"
+msgstr "Einheitspreisbasisgröße [unit_pricing_base_measure]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:122
+msgid "Installment [installment]"
+msgstr "Ratenzahlung [installment]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:123
+msgid "loyalty_points [loyalty_points]"
+msgstr "Loyalitäts Punkte  [loyalty_points]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:127
+msgid "Product category"
+msgstr "Produktkategorie"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:129
+msgid "Google Product Category [google_product_category]"
+msgstr "Google Produktkategorie [google_product_category]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:130
+msgid "Product Categories [product_type]"
+msgstr "Produktkategorien [product_type]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:134
+msgid "Product identifiers"
+msgstr "Produktbezeichnungen"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:136
+msgid "Manufacturer [brand]"
+msgstr "Hersteller [brand]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:137
+msgid "GTIN [gtin]"
+msgstr "GTIN [gtin]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:138
+msgid "MPN [mpn]"
+msgstr "MPN [mpn]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:142
+msgid "Detailed product description"
+msgstr "Detaillierte Produktbeschreibung"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:144
+msgid "Condition [condition]"
+msgstr "Zustand [condition]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:145
+msgid "Adult [adult]"
+msgstr "Erwachsener [adult]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:146
+msgid "Multipack [multipack]"
+msgstr "Multipack [multipack]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:147
+msgid "Is Bundle [is_bundle]"
+msgstr "Is Bundle [is_bundle]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:148
+msgid "Energy Efficiency Class [energy_efficiency_class]"
+msgstr "Energieeffizienzklasse [energy_efficiency_class]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:149
+msgid "Age Group [age_group]"
+msgstr "Altersgruppe [age_group]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:150
+msgid "Color [color]"
+msgstr "Farbe [color]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:151
+msgid "Gender [gender]"
+msgstr "Geschlecht [gender]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:152
+msgid "Material [material]"
+msgstr "Material [material]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:153
+msgid "Pattern [pattern]"
+msgstr "Muster [pattern]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:154
+msgid "Size of the item [size]"
+msgstr "Größe des Artikels [size]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:155
+msgid "Size Type [size_type]"
+msgstr "Grösse Typ [size_type]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:156
+msgid "Size System [size_system]"
+msgstr "Größe System [size_system]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:157
+msgid "Item Group Id [item_group_id]"
+msgstr "Elementgruppen-ID [item_group_id]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:161
+msgid "Shopping campaigns and other configurations"
+msgstr "Einkaufskampagnen und andere Konfigurationen"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:163
+msgid "Adwords Redirect [adwords_redirect]"
+msgstr "Adwords Redirect [adwords_redirect]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:164
+msgid "Excluded Destination [excluded_destination]"
+msgstr "Ausgeschlossenes Ziel [excluded_destination]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:165
+msgid "Custom label 0 [custom_label_0]"
+msgstr "Benutzerdefinierte Beschriftung 0 [custom_label_0]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:166
+msgid "Custom label 1 [custom_label_1]"
+msgstr "Benutzerdefinierte Beschriftung 1 [custom_label_1]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:167
+msgid "Custom label 2 [custom_label_2]"
+msgstr "Benutzerdefinierte Beschriftung 2 [custom_label_2]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:168
+msgid "Custom label 3 [custom_label_3]"
+msgstr "Benutzerdefinierte Beschriftung 3 [custom_label_3]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:169
+msgid "Custom label 4 [custom_label_4]"
+msgstr "Benutzerdefinierte Beschriftung 4 [custom_label_4]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:170
+msgid "Promotion Id [promotion_id]"
+msgstr "Promotion-Id [promotion_id]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:174
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:338
+msgid "Shipping"
+msgstr "Versand"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:176
+msgid "Shipping [shipping]"
+msgstr "Versand [shipping]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:177
+msgid "Shipping Label [shipping_label]"
+msgstr "Versandaufkleber [shipping_label]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:178
+msgid "Shipping Weight [shipping_weight]"
+msgstr "Versandgewicht [shipping_weight]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:179
+msgid "Shipping Length [shipping_length]"
+msgstr "Versandlänge [shipping_length]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:180
+msgid "Shipping Width [shipping_width]"
+msgstr "Versandbreite [shipping_width]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:181
+msgid "Shipping Height [shipping_height]"
+msgstr "Versandhöhe [shipping_height]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:185
+msgid "Tax"
+msgstr "Steuer"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:187
+msgid "Tax[tax]"
+msgstr "Steuer [tax]"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:317
+msgid "Product Feed Information"
+msgstr "Produkt Feed Informationen"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:319
+msgid "Brand"
+msgstr "Marke"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:320
+msgid "GTIN"
+msgstr "GTIN"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:321
+msgid "MPN"
+msgstr "MPN"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:322
+msgid "Condition"
+msgstr "Zustand"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:323
+msgid "Google product category"
+msgstr "Google-Produktkategorie"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:325
+msgid "Energy efficiency class"
+msgstr "Energieeffizienzklasse"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:326
+msgid "Gender"
+msgstr "Geschlecht"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:327
+msgid "Age group"
+msgstr "Altersgruppe"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:328
+msgid "Material"
+msgstr "Material"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:329
+msgid "Pattern"
+msgstr "Muster"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:330
+msgid "Size"
+msgstr "Größe"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:331
+msgid "Size type"
+msgstr "Größe Typ"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:332
+msgid "Size system"
+msgstr "Größensystem"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:333
+msgid "Custom label 0"
+msgstr "Kundenspezifische Beschriftung 0"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:334
+msgid "Custom label 1"
+msgstr "Kundenspezifische Beschriftung 1"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:335
+msgid "Custom label 2"
+msgstr "Kundenspezifische Beschriftung 2"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:336
+msgid "Custom label 3"
+msgstr "Kundenspezifische Beschriftung 3"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:337
+msgid "Custom label 4"
+msgstr "Kundenspezifische Beschriftung 4"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:339
+#: templates/admin/product-feed-information/product-information.php:207
+#: templates/admin/product-feed-information/variation-information.php:211
+msgid "Shipping label"
+msgstr "Versandaufkleber"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:340
+#: templates/admin/product-feed-information/product-information.php:217
+#: templates/admin/product-feed-information/variation-information.php:221
+msgid "Shipping weight"
+msgstr "Versandgewicht"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:341
+#: templates/admin/product-feed-information/product-information.php:227
+#: templates/admin/product-feed-information/variation-information.php:231
+msgid "Shipping length"
+msgstr "Versandlänge"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:342
+#: templates/admin/product-feed-information/product-information.php:237
+#: templates/admin/product-feed-information/variation-information.php:241
+msgid "Shipping width"
+msgstr "Versandbreite"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:343
+#: templates/admin/product-feed-information/product-information.php:247
+#: templates/admin/product-feed-information/variation-information.php:251
+msgid "Shipping height"
+msgstr "Versandhöhe"
+
+#: includes/function-merchant/class.yith-wcgpf-merchant-google-premium.php:360
+msgid "Google custom fields"
+msgstr "Google Benutzerdefinierte Felder"
+
+#: init.php:35
+msgctxt "Alert Message: WooCommerce requires"
+msgid ""
+"YITH Google Product Feed for WooCommerce is enabled but not effective. It "
+"requires WooCommerce in order to work."
+msgstr ""
+"YITH Google Produkt-Feed für WooCommerce ist aktiviert, aber nicht "
+"effektiv. Es erfordert WooCommerce, um zu funktionieren."
+
+#: panel/general-options.php:15
+msgctxt "Panel: page title"
+msgid "General settings"
+msgstr "Allgemeine Einstellungen"
+
+#: panel/general-options.php:21
+msgctxt "Admin option: Show price including taxes based on store settings"
+msgid "Show price including taxes based on store settings"
+msgstr "Zeige Preis inkl. Steuern basierend auf Shop-Einstellungen"
+
+#: panel/general-options.php:23
+msgctxt ""
+"Admin option description: Check this option if you want to show price with "
+"tax included depending on store settings"
+msgid ""
+"Check this option if you want to show price with tax included depending on "
+"store settings"
+msgstr ""
+"Aktivieren Sie diese Option, wenn Sie den Preis mit MwSt. anzeigen "
+"möchten, abhängig von den Einstellungen im Shop."
+
+#: panel/google-product-information-options.php:26
+msgctxt "Panel: page title"
+msgid "Google general feed fields"
+msgstr "Google allgemeine Feed-Felder"
+
+#: panel/google-product-information-options.php:32
+msgctxt "Admin option: Brand: YITH "
+msgid "Brand"
+msgstr "Marke"
+
+#: panel/google-product-information-options.php:38
+msgctxt "Admin option: Condition: New"
+msgid "Condition"
+msgstr "Zustand"
+
+#: panel/google-product-information-options.php:45
+msgctxt "Admin option: Google category: Animal & pet suplies "
+msgid "Google category"
+msgstr "Google-Kategorie"
+
+#: panel/google-product-information-options.php:52
+msgctxt "Admin option: Condition: New"
+msgid "Adult"
+msgstr "Erwachsene"
+
+#: templates/admin/google-custom-template.php:35
+msgid "Save"
+msgstr "Speichern"
+
+#: templates/admin/make-tab/configuration-feed-premium.php:40
+msgid "Feed Type"
+msgstr "Feed-Typ"
+
+#: templates/admin/make-tab/configuration-feed-premium.php:54
+msgid "Use a template to configure this feed"
+msgstr "Verwenden Sie eine Vorlage, um diesen Feed zu konfigurieren."
+
+#: templates/admin/make-tab/configuration-feed-premium.php:56
+msgid ""
+"Check this option\n"
+"                     to show feed templates"
+msgstr ""
+"Aktivieren Sie diese Option\n"
+"                     Feed-Vorlagen anzeigen"
+
+#: templates/admin/make-tab/configuration-feed-premium.php:61
+msgid "Which template do you want to use to configure your feed?"
+msgstr "Welche Vorlage möchten Sie zur Konfiguration Ihres Feeds verwenden?"
+
+#: templates/admin/make-tab/configuration-feed-premium.php:80
+#: templates/admin/make-tab/configuration-feed.php:19
+msgid "Custom feed configuration"
+msgstr "Kundenspezifische Feed-Konfiguration"
+
+#: templates/admin/make-tab/configuration-feed-premium.php:81
+#: templates/admin/make-tab/configuration-feed.php:20
+msgid "Custom feed configuration. Based on:"
+msgstr "Kundenspezifische Feed-Konfiguration. Basierend auf:"
+
+#: templates/admin/make-tab/configuration-feed-premium.php:106
+msgid ""
+"If you need to know how to format your product information feed for Google "
+"Shopping, visit the following link: "
+msgstr ""
+"Wenn Sie wissen möchten, wie Sie Ihren Produktinformations-Feed für Google "
+"Shopping formatieren können, besuchen Sie den folgenden Link:"
+
+#: templates/admin/make-tab/filter-and-conditions.php:17
+msgid "Filter by categories:"
+msgstr "Nach Kategorien filtern:"
+
+#: templates/admin/make-tab/filter-and-conditions.php:47
+msgid "Filter by tags:"
+msgstr "Nach Tags filtern:"
+
+#: templates/admin/make-tab/filter-and-conditions.php:78
+msgid "Include products:"
+msgstr "Produkte einbeziehen:"
+
+#: templates/admin/make-tab/filter-and-conditions.php:110
+msgid "Exclude products:"
+msgstr "Produkte ausschließen:"
+
+#: templates/admin/product-feed-information/product-information.php:19
+#: templates/admin/product-feed-information/variation-information.php:23
+msgid "Basic product settings:"
+msgstr "Grundlegende Produkteinstellungen:"
+
+#: templates/admin/product-feed-information/product-information.php:22
+#: templates/admin/product-feed-information/variation-information.php:26
+msgid "Brand:"
+msgstr "Marke:"
+
+#: templates/admin/product-feed-information/product-information.php:32
+#: templates/admin/product-feed-information/variation-information.php:36
+msgid "Global Trade Item Number (GTIN):"
+msgstr "Globale Handelsteilenummer (GTIN):"
+
+#: templates/admin/product-feed-information/product-information.php:42
+#: templates/admin/product-feed-information/variation-information.php:46
+msgid "Manufacturer Part Number (MPN):"
+msgstr "Hersteller-Teilenummer (MPN):"
+
+#: templates/admin/product-feed-information/product-information.php:52
+#: templates/admin/product-feed-information/variation-information.php:56
+msgid "Condition:"
+msgstr "Zustand:"
+
+#: templates/admin/product-feed-information/product-information.php:62
+#: templates/admin/product-feed-information/variation-information.php:66
+msgid "Google Category:"
+msgstr "Google Kategorie:"
+
+#: templates/admin/product-feed-information/product-information.php:72
+#: templates/admin/product-feed-information/variation-information.php:76
+msgid "Adult:"
+msgstr "Erwachsene: "
+
+#: templates/admin/product-feed-information/product-information.php:82
+#: templates/admin/product-feed-information/variation-information.php:86
+msgid "Energy efficiency class:"
+msgstr "Energieeffizienzklasse:"
+
+#: templates/admin/product-feed-information/product-information.php:92
+#: templates/admin/product-feed-information/variation-information.php:96
+msgid "Gender:"
+msgstr "Geschlecht:"
+
+#: templates/admin/product-feed-information/product-information.php:102
+#: templates/admin/product-feed-information/variation-information.php:106
+msgid "Age group:"
+msgstr "Altersgruppe:"
+
+#: templates/admin/product-feed-information/product-information.php:112
+#: templates/admin/product-feed-information/variation-information.php:116
+msgid "Material:"
+msgstr "Gehäusewerkstoff:"
+
+#: templates/admin/product-feed-information/product-information.php:122
+#: templates/admin/product-feed-information/variation-information.php:126
+msgid "Pattern:"
+msgstr "Muster:"
+
+#: templates/admin/product-feed-information/product-information.php:132
+#: templates/admin/product-feed-information/variation-information.php:136
+msgid "Size:"
+msgstr "Größe:"
+
+#: templates/admin/product-feed-information/product-information.php:142
+#: templates/admin/product-feed-information/variation-information.php:146
+msgid "Size type:"
+msgstr "Größe Typ:"
+
+#: templates/admin/product-feed-information/product-information.php:152
+#: templates/admin/product-feed-information/variation-information.php:156
+msgid "Size system:"
+msgstr "Größensystem:"
+
+#: templates/admin/product-feed-information/product-information.php:163
+#: templates/admin/product-feed-information/variation-information.php:167
+msgid "Shipping settings:"
+msgstr "Versandeinstellungen:"
+
+#: templates/admin/product-feed-information/product-information.php:166
+#: templates/admin/product-feed-information/variation-information.php:170
+msgid "Shipping price"
+msgstr "Versandpreis"
+
+#: templates/admin/product-feed-information/product-information.php:176
+#: templates/admin/product-feed-information/variation-information.php:180
+msgid "Shipping country"
+msgstr "Versandland"
+
+#: templates/admin/product-feed-information/product-information.php:186
+#: templates/admin/product-feed-information/variation-information.php:190
+msgid "Shipping region"
+msgstr "Versandregion"
+
+#: templates/admin/product-feed-information/product-information.php:196
+#: templates/admin/product-feed-information/variation-information.php:200
+msgid "Shipping service"
+msgstr "Versand-Dienstleister"
+
+#: templates/admin/product-feed-information/variation-information.php:20
+msgid "Google feed fields for variations"
+msgstr "Google Feed Felder für Variationen"
+
+#: templates/admin/product-feed-table-premium.php:26
+msgid "Product Feed Table"
+msgstr "Produkt Feed Tabelle"
+
+#: templates/admin/product-feed-table-premium.php:26
+msgid "Add new product feed"
+msgstr "Neuen Produkt Feed hinzufügen"
+
+#: templates/admin/product-feed-table-premium.php:46
+msgid ""
+"* Note: If you have problems using the \"Feed Url\" you can try using the "
+"\"Feed File\" url "
+msgstr ""
+"* Hinweis: Wenn Sie Probleme mit der \"Feed Url\" haben, können Sie "
+"versuchen, die \"Feed File\"-URL zu verwenden "
+
+#: templates/admin/product-feed-table.php:17
+msgid "Your feed is available here: "
+msgstr "Ihr Feed ist hier verfügbar:"
+
+#: templates/admin/template-feed-table.php:24
+msgid "Feed Configuration Template List"
+msgstr "Feed Konfigurationsvorlagen Liste"
+
+#: templates/admin/template-feed-table.php:24
+msgid "Add new"
+msgstr "Hinzufügen"

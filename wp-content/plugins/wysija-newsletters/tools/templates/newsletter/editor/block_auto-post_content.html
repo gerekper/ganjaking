@@ -1,0 +1,49 @@
+{if #posts}
+    {if $params.post_ids}<input type="hidden" name="post_ids" value="{$params.post_ids}" />{/if}
+    {loop name="#posts"}
+        {if $params.image_alignment == 'alternate' && $last_alignment}
+            {if $last_alignment == 'left'}
+                {set var="$image_alignment" value="right"}
+            {/if}
+            {if $last_alignment == 'right'}
+                {set var="$image_alignment" value="left"}
+            {/if}
+            {set var="$last_alignment" value="$image_alignment"}
+        {/if}
+        {if $params.image_alignment == 'alternate' && !$last_alignment}
+            {set var="$image_alignment" value="left"}
+            {set var="$last_alignment" value="left"}
+        {/if}
+        {if ! $image_alignment}{set var="$image_alignment" value="$params.image_alignment"}{/if}
+
+        {if #IS_PAIR && $params.bgcolor1 != ''}
+            {set var="$background_color" value="$params.bgcolor1"}
+        {/if}
+
+        {if ! #IS_PAIR && $params.bgcolor2 != ''}
+            {set var="$background_color" value="$params.bgcolor2"}
+        {/if}
+
+        <div class="wysija_content {$image_alignment} {if #IS_FIRST}first{/if}{if #IS_LAST}last{/if} clearfix" {if $background_color}wysija_bg_color="{$background_color}"{/if}>
+            {if #image}
+                <div class="wysija_image {$image_alignment}" style="width:{#image.width}px;">
+                    <img src="{#image.src}" width="{#image.width}" height="{#image.height}" alt="{#image.alt}" />
+                </div>
+            {/if}
+            {if #text}
+                <div class="wysija_text wysija_editable">{#text.value|base64_decode}</div>
+            {/if}
+        </div>
+        {if ! #IS_LAST && $params.divider.src}
+            <div class="wysija_divider" {if $background_color}wysija_bg_color="{$background_color}"{/if}>
+                <img src="{$params.divider.src}" height="{$params.divider.height}" width="{$params.divider.width}" />
+            </div>
+        {/if}
+    {/loop}
+{/if}
+
+{if ! #posts}
+    <div class="nopost wysija_editable">
+        <p class="align-center">{$params.nopost_message|base64_decode}</p>
+    </div>
+{/if}

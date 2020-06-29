@@ -1,0 +1,803 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH WooCommerce Frequently Bought Together\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/init\n"
+"POT-Creation-Date: 2020-03-09 11:35:27+00:00\n"
+"PO-Revision-Date: 2019-12-24 15:11+0000\n"
+"Last-Translator: \n"
+"Language-Team: YIThemes <plugins@yithemes.com>\n"
+"Language: es_ES\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.12\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=n!=1;\n"
+"X-Poedit-KeywordsList: _e;_n:1,2;__ngettext:1,2;__ngettext_noop:1,2;"
+"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;__\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: ..\n"
+"X-Poedit-SearchPathExcluded-0: ../plugin-fw\n"
+
+#: includes/admin-tables/class.yith-wfbt-linked-table.php:41
+#: includes/admin-tables/class.yith-wfbt-products-table.php:41
+msgid "Product"
+msgstr "Producto"
+
+#: includes/admin-tables/class.yith-wfbt-linked-table.php:42
+msgid "Variation"
+msgstr "Variación"
+
+#: includes/admin-tables/class.yith-wfbt-linked-table.php:43
+#: includes/admin-tables/class.yith-wfbt-products-table.php:42
+msgid "Thumbnail"
+msgstr "Miniatura"
+
+#: includes/admin-tables/class.yith-wfbt-linked-table.php:44
+msgid "Stock Status"
+msgstr "Estado de stock"
+
+#: includes/admin-tables/class.yith-wfbt-linked-table.php:45
+#: includes/admin-tables/class.yith-wfbt-products-table.php:44
+msgid "Actions"
+msgstr "Acciones"
+
+#: includes/admin-tables/class.yith-wfbt-linked-table.php:77
+#: includes/admin-tables/class.yith-wfbt-products-table.php:76
+msgid "Edit product"
+msgstr "Editar producto"
+
+#: includes/admin-tables/class.yith-wfbt-linked-table.php:129
+#: includes/admin-tables/class.yith-wfbt-linked-table.php:156
+#: includes/admin-tables/class.yith-wfbt-products-table.php:143
+msgid "Delete"
+msgstr "Borrar"
+
+#: includes/admin-tables/class.yith-wfbt-linked-table.php:253
+#: includes/admin-tables/class.yith-wfbt-products-table.php:242
+msgid "No items found."
+msgstr "No se han encontrado artículos."
+
+#: includes/admin-tables/class.yith-wfbt-products-table.php:43
+msgid "Amount of linked products"
+msgstr "Cantidad de productos relacionados"
+
+#: includes/admin-tables/class.yith-wfbt-products-table.php:105
+msgid "Delete All"
+msgstr "Borrar todo"
+
+#: includes/admin-tables/class.yith-wfbt-products-table.php:114
+msgid "View Linked"
+msgstr "Ver relacionados"
+
+#: includes/class.yith-wfbt-admin.php:186
+msgid "Settings"
+msgstr "Ajustes"
+
+#: includes/class.yith-wfbt-admin.php:187
+#: includes/compatibility/yith-woocommerce-product-vendors.php:135
+msgid "Linked Products"
+msgstr "Productos relacionados"
+
+#: includes/class.yith-wfbt-admin.php:191
+msgid "Slider in Wishlist"
+msgstr "Slider en la Lista de deseos"
+
+#: includes/class.yith-wfbt-admin.php:197
+msgctxt "plugin name in admin page title"
+msgid "YITH WooCommerce Frequently Bought Together"
+msgstr "YITH WooCommerce Frequently Bought Together"
+
+#: includes/class.yith-wfbt-admin.php:198
+msgctxt "plugin name in admin WP menu"
+msgid "Frequently Bought Together"
+msgstr "Frequently Bought Together"
+
+#: includes/class.yith-wfbt-admin.php:300
+msgid "Hard Crop?"
+msgstr "¿Recortar?"
+
+#: includes/class.yith-wfbt-admin.php:367
+msgctxt "tab in product data box"
+msgid "Frequently Bought Together"
+msgstr "Frequently Bought Together"
+
+#: includes/class.yith-wfbt-admin.php:778
+msgid ""
+"You must enable coupons in order to use the plugin discount feature. Please "
+"enable it <a href=\"%s\">here.</a>"
+msgstr ""
+"Debes activar los cupones para poder usar la característica de descuento del "
+"plugin. Por favor, actívalo <a href=\"%s\">aquí.</a>"
+
+#: includes/class.yith-wfbt-frontend.php:180
+msgid ""
+"Sorry, no products matched your selection. Please choose a different "
+"combination."
+msgstr ""
+"Lo siento, no hay productos que coincidan con tu selección. Por favor, "
+"escoge una diferente combinación."
+
+#: includes/class.yith-wfbt-frontend.php:181
+msgid ""
+"Please select some product options before adding this product to your cart."
+msgstr ""
+"Por favor, selecciona algunas opciones de producto antes de añadir este "
+"producto a tu carrito."
+
+#: includes/class.yith-wfbt-frontend.php:182
+msgid ""
+"Sorry, this product is unavailable. Please choose a different combination."
+msgstr ""
+"Lo siento, este producto no está disponible. Por favor, elige una "
+"combinación diferente."
+
+#: includes/class.yith-wfbt-frontend.php:377
+#: includes/class.yith-wfbt-frontend.php:574
+#: plugin-options/general-options.php:171
+msgid "Choose your product"
+msgstr "Elige tu producto"
+
+#: includes/class.yith-wfbt-frontend.php:570
+#: plugin-options/general-options.php:23
+msgid "Frequently Bought Together"
+msgstr "Comprados juntos con frecuencia"
+
+#: includes/class.yith-wfbt.php:290
+msgctxt "[gutenberg]: block name"
+msgid "Frequently Bought Form"
+msgstr "Formulario Frequently Bought"
+
+#: includes/class.yith-wfbt.php:291
+msgctxt "[gutenberg]: block description"
+msgid ""
+"With this block you can print a product \"frequently bought together\" form."
+msgstr ""
+"Con este bloque puedes imprimir un producto en el formulario de ‘’Comprado "
+"con frecuencia juntos’’."
+
+#: includes/class.yith-wfbt.php:297
+msgctxt "[gutenberg]: attributes description"
+msgid "Add the product id (leave blank to get global product value)"
+msgstr ""
+"Añade el ID de producto (déjalo vacío para obtener el valor global de "
+"producto)"
+
+#: includes/class.yith-wfbt.php:316 includes/class.yith-wfbt.php:375
+#: includes/class.yith-wfbt.php:421
+msgid "Frequently Bought Together Data"
+msgstr "Datos de Frequently Bought Together"
+
+#: includes/functions.yith-wfbt.php:119
+msgid ""
+"Spend at least %s for %s or more products of this group and get a %s off."
+msgstr ""
+"Gasta la menos %s por %s o más productos de este grupo y obtén un %s de "
+"descuento."
+
+#: includes/functions.yith-wfbt.php:121
+msgid "Purchase %s or more products and get a %s off."
+msgstr "Compra %s o más productos y obtén %s de descuento."
+
+#: init.php:45
+msgid ""
+"YITH WooCommerce Frequently Bought Together Premium is enabled but not "
+"effective. It requires WooCommerce in order to work."
+msgstr ""
+"YITH WooCommerce Frequently Bought Together Premium está habilitado pero no "
+"es efectivo. Requiere WooCommerce para funcionar."
+
+#: plugin-options/general-options.php:11
+msgid "General Options"
+msgstr "Opciones Generales"
+
+#: plugin-options/general-options.php:19
+msgid "Box title"
+msgstr "Título del recuadro"
+
+#: plugin-options/general-options.php:20
+msgid "Title shown on \"Frequently Bought Together\" box."
+msgstr "Título mostrado en el recuadro de \"Comprados juntos con frecuencia\""
+
+#: plugin-options/general-options.php:28
+msgid "Image Size"
+msgstr "Tamaño de imagen"
+
+#: plugin-options/general-options.php:29
+msgid "Set image size (px). After changing these settings you may need to %s."
+msgstr ""
+"Establece el tamaño de imagen (px). Después de cambiar estos ajustes podrías "
+"necesitar %s."
+
+#: plugin-options/general-options.php:29
+msgid "regenerate your thumbnails"
+msgstr "regenerar tus miniaturas"
+
+#: plugin-options/general-options.php:40
+msgid "Redirect to checkout"
+msgstr "Redireccionar al proceso de pago"
+
+#: plugin-options/general-options.php:41
+msgid "Redirect to checkout page after add to cart action."
+msgstr ""
+"Redireccionar a la página de proceso de pago tras la acción de añadir al "
+"carrito."
+
+#: plugin-options/general-options.php:49
+msgid "Discount name"
+msgstr "Nombre del descuento"
+
+#: plugin-options/general-options.php:50
+msgid ""
+"Choose the discount name to use. This name will be visible in cart and "
+"checkout pages."
+msgstr ""
+"Elige el nombre del descuento a usar. Este nombre será visible en el carrito "
+"y en las páginas de proceso de pago."
+
+#: plugin-options/general-options.php:58
+msgid "Select box position"
+msgstr "Seleccionar la posición del recuadro"
+
+#: plugin-options/general-options.php:63
+msgid "Below product summary"
+msgstr "Debajo del resumen de producto"
+
+#: plugin-options/general-options.php:64
+msgid "Above product tabs"
+msgstr "Encima de las pestañas de producto"
+
+#: plugin-options/general-options.php:65
+msgid "Below product tabs"
+msgstr "Debajo de las pestañas de producto"
+
+#: plugin-options/general-options.php:66
+msgid "Use shortcode [ywfbt_form product_id=\"\"]"
+msgstr "Usar shortcode [ywfbt_form product_id=\"\"]"
+
+#: plugin-options/general-options.php:67
+msgid "Above product meta"
+msgstr "Sobre el product meta"
+
+#: plugin-options/general-options.php:74
+msgid "Loader Image"
+msgstr "Imagen de carga"
+
+#: plugin-options/general-options.php:75
+msgid "Upload a custom loading image."
+msgstr "Sube una imagen de carga personalizada."
+
+#: plugin-options/general-options.php:87
+msgid "Labels and Style Options"
+msgstr "Opciones de etiquetas y estilo"
+
+#: plugin-options/general-options.php:95
+msgid "Total label for single product"
+msgstr "Etiqueta de total para un solo producto"
+
+#: plugin-options/general-options.php:96
+msgid ""
+"This is the text shown for total price label when only one product has been "
+"checked."
+msgstr ""
+"Este es el texto que se muestra para la etiqueta de precio total cuando sólo "
+"se ha marcado un producto."
+
+#: plugin-options/general-options.php:99
+msgid "Price"
+msgstr "Precio"
+
+#: plugin-options/general-options.php:104
+msgid "Total label for double products"
+msgstr "Etiqueta de total para dos productos"
+
+#: plugin-options/general-options.php:105
+msgid ""
+"This is the text shown for total price label when two products have been "
+"checked."
+msgstr ""
+"Este es el texto que se muestra para la etiqueta de precio total cuando se "
+"han marcado dos productos."
+
+#: plugin-options/general-options.php:108
+msgid "Price for both"
+msgstr "Precio de ambos"
+
+#: plugin-options/general-options.php:113
+msgid "Total label for three products"
+msgstr "Etiqueta de total para tres productos"
+
+#: plugin-options/general-options.php:114
+msgid ""
+"This is the text shown for total price label when three products have been "
+"checked."
+msgstr ""
+"Este es el texto que se muestra para la etiqueta del precio total cuando se "
+"han marcado los tres productos."
+
+#: plugin-options/general-options.php:117
+msgid "Price for all three"
+msgstr "Precio de los tres"
+
+#: plugin-options/general-options.php:122
+msgid "Total label for multiple products"
+msgstr "Etiqueta de total para múltiples productos"
+
+#: plugin-options/general-options.php:123
+msgid ""
+"This is the label shown for total price label when more than three products "
+"have been checked."
+msgstr ""
+"Esta es la etiqueta que se muestra para el precio total cuando se han "
+"marcado más de tres productos."
+
+#: plugin-options/general-options.php:126
+msgid "Price for all"
+msgstr "Precio de todos"
+
+#: plugin-options/general-options.php:131
+msgid "Button label for single product"
+msgstr "Etiqueta del botón para un solo producto"
+
+#: plugin-options/general-options.php:132
+msgid ""
+"This is the label shown for \"Add to cart\" button when only one product has "
+"been checked."
+msgstr ""
+"Esta es la etiqueta que se muestra en el botón \"Añadir al carrito\" cuando "
+"sólo se ha marcado un producto."
+
+#: plugin-options/general-options.php:135
+msgid "Add to Cart"
+msgstr "Añadir al carrito"
+
+#: plugin-options/general-options.php:140
+msgid "Button label for two products"
+msgstr "Etiqueta del botón para dos productos"
+
+#: plugin-options/general-options.php:141
+msgid ""
+"This is the label shown for \"Add to cart\" button when two products have "
+"been checked."
+msgstr ""
+"Esta es la etiqueta que se muestra para el botón \"Añadir al carrito\" "
+"cuando se han marcado dos productos."
+
+#: plugin-options/general-options.php:144
+msgid "Add both to Cart"
+msgstr "Añadir ambos al carrito"
+
+#: plugin-options/general-options.php:149
+msgid "Button label for three products"
+msgstr "Etiqueta del botón para tres productos"
+
+#: plugin-options/general-options.php:150
+msgid ""
+"This is the label shown for \"Add to cart\" button when three products have "
+"been checked."
+msgstr ""
+"Esta es la etiqueta que se muestra para el botón de \"Añadir al carrito\" "
+"cuando se han marcado tres productos."
+
+#: plugin-options/general-options.php:153
+msgid "Add all three to Cart"
+msgstr "Añadir los tres al carrito"
+
+#: plugin-options/general-options.php:158
+msgid "Button label for multiple products"
+msgstr "Etiqueta del botón para múltiples productos"
+
+#: plugin-options/general-options.php:159
+msgid ""
+"This is the label shown for \"Add to cart\" button when more than two "
+"products have been checked."
+msgstr ""
+"Esta es la etiqueta que se muestra en el botón \"Añadir al carrito\" cuando "
+"se han marcado más de dos productos."
+
+#: plugin-options/general-options.php:162
+msgid "Add all to Cart"
+msgstr "Añadir todo al carrito"
+
+#: plugin-options/general-options.php:167
+msgid "Variation pick button label"
+msgstr "Etiqueta de botón Escoger variación"
+
+#: plugin-options/general-options.php:168
+msgid ""
+"This is the text of the button that opens the popup to select the product "
+"variation"
+msgstr ""
+"Este es el texto del botón que abre la ventana emergente para seleccionar la "
+"variación de producto"
+
+#: plugin-options/general-options.php:176
+msgid "Popup title"
+msgstr "Título del ventana emergente"
+
+#: plugin-options/general-options.php:177
+msgid ""
+"This is the title of the popup where users can select the product variation"
+msgstr ""
+"Este es el título de la ventana emergente donde los usuarios pueden "
+"selecciona la variación de producto"
+
+#: plugin-options/general-options.php:180
+#: templates/yith-wfbt-dialog-variations.php:14
+msgid "Choose the product"
+msgstr "Elige el producto"
+
+#: plugin-options/general-options.php:185
+msgid "Popup button label"
+msgstr "Etiqueta de botón de la ventana emergente"
+
+#: plugin-options/general-options.php:186
+msgid "This is the text of the \"Add to cart\" button in the popup"
+msgstr ""
+"Este es el texto del botón ‘’Añadir al carrito’’ en la ventana emergente"
+
+#: plugin-options/general-options.php:189
+#: templates/yith-wfbt-dialog-variations.php:15
+msgid "Add product"
+msgstr "Añadir producto"
+
+#: plugin-options/general-options.php:194
+msgid "Form Background Color"
+msgstr "Color de fondo del formulario"
+
+#: plugin-options/general-options.php:195
+msgid "Select background color for Frequently Bought form"
+msgstr ""
+"Selecciona el color de fondo del formulario de Comprados juntos con "
+"frecuencia"
+
+#: plugin-options/general-options.php:203
+msgid "Button Color"
+msgstr "Color del botón"
+
+#: plugin-options/general-options.php:204
+msgid "Select button background color"
+msgstr "Seleccionar color de fondo del botón"
+
+#: plugin-options/general-options.php:212
+msgid "Button Hover Color"
+msgstr "Color del botón en hover"
+
+#: plugin-options/general-options.php:213
+msgid "Select button background hover color"
+msgstr "Selecciona un color de fondo en hover para el botón"
+
+#: plugin-options/general-options.php:221
+msgid "Button Text Color"
+msgstr "Color del texto del botón"
+
+#: plugin-options/general-options.php:222
+msgid "Select button text color"
+msgstr "Selecciona el color del texto del botón en hover"
+
+#: plugin-options/general-options.php:230
+msgid "Button Text Hover Color"
+msgstr "Color del texto del botón en hover"
+
+#: plugin-options/general-options.php:231
+msgid "Select button text hover color"
+msgstr "Selecciona el color del texto del botón en hover"
+
+#: plugin-options/general-options.php:247
+msgid "WPML Options"
+msgstr "Opciones WPML"
+
+#: plugin-options/general-options.php:253
+msgid "WPML Associated Products"
+msgstr "Productos asociados WPML"
+
+#: plugin-options/general-options.php:256
+msgid ""
+"Inherit \"frequently bought together\" products from original language "
+"products."
+msgstr ""
+"Heredar productos \"comparados frecuentemente juntos“ a partir de productos "
+"de idiomas originales."
+
+#: plugin-options/general-options.php:268
+msgid "YITH WooCommerce Multi Vendor Options"
+msgstr ""
+
+#: plugin-options/general-options.php:274
+msgid "Vendor Products"
+msgstr "Productos de los vendedores"
+
+#: plugin-options/general-options.php:277
+msgid ""
+"Allow vendor also add products of other vendors to frequently bought form."
+msgstr ""
+"Permitir al vendedor añadir también productos de otros vendedores al "
+"formulario de frecuentemente comprados."
+
+#: plugin-options/product-data-options.php:11
+msgid "Select default variation"
+msgstr "Selecciona la variación por defecto"
+
+#: plugin-options/product-data-options.php:19
+#, fuzzy
+msgid "Products type"
+msgstr "Nombre de producto"
+
+#: plugin-options/product-data-options.php:20
+#, fuzzy
+msgid "Choose which products you want to use as frequently bought products"
+msgstr "Utilizar productos relacionados como frecuentemente comprados."
+
+#: plugin-options/product-data-options.php:23
+#, fuzzy
+msgid "Use related"
+msgstr "Utilizar productos relacionados"
+
+#: plugin-options/product-data-options.php:24
+msgid "Use cross-sells"
+msgstr ""
+
+#: plugin-options/product-data-options.php:25
+msgid "Use up-sells"
+msgstr ""
+
+#: plugin-options/product-data-options.php:26
+#, fuzzy
+msgid "Custom products"
+msgstr "Lista de productos"
+
+#: plugin-options/product-data-options.php:31
+msgid "Select products"
+msgstr "Seleccionar productos"
+
+#: plugin-options/product-data-options.php:32
+msgid "Select products for \"Frequently bought together\" group"
+msgstr ""
+"Seleccionar productos para el grupo \"Comprados juntos con frecuencia\""
+
+#: plugin-options/product-data-options.php:41
+msgid "Select number of products"
+msgstr "Selecciona el número de productos"
+
+#: plugin-options/product-data-options.php:42
+msgid "Select the number of products to show excluding current one."
+msgstr "Selecciona el número de productos que mostrar excluyendo el actual."
+
+#: plugin-options/product-data-options.php:50
+msgid "Show products unchecked"
+msgstr "Mostrar productos desmarcados"
+
+#: plugin-options/product-data-options.php:51
+msgid "Show all products in group unchecked."
+msgstr "Mostrar todos los productos en grupo desmarcados."
+
+#: plugin-options/product-data-options.php:57
+msgid "Set additional text"
+msgstr "Establecer texto adicional"
+
+#: plugin-options/product-data-options.php:58
+msgid "Set additional text to show before products"
+msgstr "Establece texto adicional a mostrar antes de los productos"
+
+#: plugin-options/product-data-options.php:67
+msgid "Discount Type"
+msgstr "Tipo de descuento"
+
+#: plugin-options/product-data-options.php:70
+msgid "Fixed amount"
+msgstr "Cantidad fija"
+
+#: plugin-options/product-data-options.php:71
+msgid "Percentage"
+msgstr "Porcentaje"
+
+#: plugin-options/product-data-options.php:76
+msgid "Discount amount"
+msgstr "Cantidad de descuento"
+
+#: plugin-options/product-data-options.php:77
+msgid ""
+"Set a fixed discount amount for this group. Leve it blank or set 0 for no "
+"discount."
+msgstr ""
+"Establece una cantidad de descuento fija para este grupo. Déjalo en blanco o "
+"establece 0 para no aplicar descuento."
+
+#: plugin-options/product-data-options.php:87
+msgid "Discount percentage (%)"
+msgstr "Porcentaje de descuento (%)"
+
+#: plugin-options/product-data-options.php:88
+msgid ""
+"Add a percentage discount to products group. Leave it blank or set 0 for no "
+"discount."
+msgstr ""
+"Añade un descuento de porcentaje a un grupo de productos. Déjalo en blanco o "
+"establece 0 para no aplicar descuento."
+
+#: plugin-options/product-data-options.php:102
+msgid "Minimum spend"
+msgstr "Mínimo gastado"
+
+#: plugin-options/product-data-options.php:103
+msgid ""
+"Set a minimum spend referred only to this group (subtotal) allowed to use "
+"the discount."
+msgstr ""
+"Establece un gasto mínimo referido solo a este grupo (subtotal) permitido "
+"para usar el descuento."
+
+#: plugin-options/product-data-options.php:109
+msgid "Minimum product chosen"
+msgstr "Producto mínimo elegido"
+
+#: plugin-options/product-data-options.php:110
+msgid ""
+"Set a minimum chosen products referred only to this group (subtotal) allowed "
+"to use the discount. Cannot be less then 2."
+msgstr ""
+"Establecer un mínimo de productos elegidos referidos solo a este grupo "
+"(subtotal) permitidos para utilizar el descuento. No pueden ser menos de 2."
+
+#: plugin-options/slider-options.php:11
+msgid "Slider Options"
+msgstr "Opciones del Slider"
+
+#: plugin-options/slider-options.php:19
+msgid "Slider Title"
+msgstr "Título del Slider"
+
+#: plugin-options/slider-options.php:20
+msgid "Give a title to the slider with products"
+msgstr "Da un título al slider con los productos"
+
+#: plugin-options/slider-options.php:23 templates/yith-wfbt-shortcode.php:23
+msgid "Customers who bought the items in your wishlist also purchased"
+msgstr ""
+"Los clientes que compraron los artículos de tu lista de deseos también "
+"compraron"
+
+#: plugin-options/slider-options.php:28
+msgid "Number of products"
+msgstr "Número de productos"
+
+#: plugin-options/slider-options.php:29
+msgid ""
+"Choose the maximum number of products displayed at a time when the browser "
+"is used with its widest width."
+msgstr ""
+"Elige el máximo número de productos que se muestra al mismo tiempo cuando el "
+"navegador se usa en su máximo ancho."
+
+#: plugin-options/slider-options.php:38
+msgid "\"Add to cart\" button label"
+msgstr "Etiqueta del botón \"Añadir al carrito\""
+
+#: plugin-options/slider-options.php:39
+msgid "Choose the label for \"Add to cart\" button."
+msgstr "Elige la etiqueta del botón \"Añadir al carrito\""
+
+#: plugin-options/slider-options.php:42
+msgid "Add to cart"
+msgstr "Añadir al carrito"
+
+#: plugin-options/slider-options.php:47
+msgid "\"Wishlist\" button"
+msgstr "Botón \"lista de deseos\""
+
+#: plugin-options/slider-options.php:48
+msgid "Choose the label for \"Wishlist\" button."
+msgstr "Elige la etiqueta para el botón de \"Lista de deseos\"."
+
+#: plugin-options/slider-options.php:51
+msgid "Add to Wishlist"
+msgstr "Añadir a lista de Deseos"
+
+#: plugin-options/slider-options.php:56
+msgid "Select product content"
+msgstr "Seleccionar contenido del producto"
+
+#: plugin-options/slider-options.php:57
+msgid "Product Image"
+msgstr "Imagen de producto"
+
+#: plugin-options/slider-options.php:65
+msgid "Product Name"
+msgstr "Nombre de producto"
+
+#: plugin-options/slider-options.php:73
+msgid "Product Price"
+msgstr "Precio de producto"
+
+#: plugin-options/slider-options.php:81
+msgid "Product Variation"
+msgstr "Variación de producto"
+
+#: plugin-options/slider-options.php:89
+msgid "Product Rating"
+msgstr "Valoración de producto"
+
+#: templates/admin/data-table.php:14
+msgid "Select at least one product that has to be removed."
+msgstr "Selecciona al menos un producto que tiene que borrarse."
+
+#: templates/admin/data-table.php:17
+msgid "Selected products have been removed."
+msgstr "Los productos seleccionados tienen que borrarse."
+
+#: templates/admin/data-table.php:37
+msgid "Linked products for %s"
+msgstr "Productos relacionados con %s"
+
+#: templates/admin/data-table.php:46
+msgid "Go back to main list of products"
+msgstr "Volver a la lista principal de productos"
+
+#: templates/admin/data-table.php:48
+msgid "List of products"
+msgstr "Lista de productos"
+
+#: templates/admin/data-table.php:70
+msgid "Search Product"
+msgstr "Buscar producto"
+
+#: templates/admin/product-panel.php:84
+msgid "Search for a product&hellip;"
+msgstr "Buscar un producto&hellip;"
+
+#: templates/yith-wfbt-form.php:106
+msgid "This Product"
+msgstr "Este producto"
+
+#: templates/yith-wfbt-form.php:132
+msgid "Close"
+msgstr "Cerrar"
+
+#. Plugin Name of the plugin/theme
+msgid "YITH WooCommerce Frequently Bought Together Premium"
+msgstr "YITH WooCommerce Frequently Bought Together Premium"
+
+#. Plugin URI of the plugin/theme
+msgid ""
+"https://yithemes.com/themes/plugins/yith-woocommerce-frequently-bought-"
+"together/"
+msgstr ""
+"https://yithemes.com/themes/plugins/yith-woocommerce-frequently-bought-"
+"together/"
+
+#. Description of the plugin/theme
+msgid ""
+"The <code><strong>YITH WooCommerce Frequently Bought Together</strong></"
+"code> allows increasing the average spent of your store by showing a box "
+"with the products purchased together more frequently. In this way, users are "
+"encouraged to add more products to their cart just like on Amazon. <a href="
+"\"https://yithemes.com/\" target=\"_blank\">Get more plugins for your e-"
+"commerce shop on <strong>YITH</strong></a>."
+msgstr ""
+"<code><strong>YITH WooCommerce Frequently Bought Together</strong></code> "
+"permite incrementar el promedio gastado en tu tienda mostrando una caja con "
+"los productos comprados juntos más frecuentemente. De esta manera, los "
+"usuarios son animados a añadir más productos a su carrito justo como en "
+"Amazon. <a href=\"https://yithemes.com/\" target=\"_blank\">Obtén más "
+"plugins para tu comercio electrónico en <strong>YITH</strong></a>."
+
+#. Author of the plugin/theme
+msgid "YITH"
+msgstr "YITH"
+
+#. Author URI of the plugin/theme
+msgid "https://yithemes.com/"
+msgstr "https://yithemes.com/"
+
+#~ msgctxt "plugin name in admin page title"
+#~ msgid "Frequently Bought Together"
+#~ msgstr "Frequently Bought Together"
+
+#~ msgid "Plugin Documentation"
+#~ msgstr "Documentación del plugin"
+
+#~ msgid "Main lists of products"
+#~ msgstr "Listas principales de productos"
+
+#~ msgid "linked"
+#~ msgstr "relacionados"

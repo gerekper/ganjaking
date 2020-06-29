@@ -1,0 +1,713 @@
+# Translation of YITH WooCommerce Product Bundles in Dutch
+# This file is distributed under the same license as the YITH WooCommerce Product Bundles package.
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH WooCommerce Product Bundles\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
+"product-bundles-premium\n"
+"POT-Creation-Date: 2020-05-21 13:02:48+00:00\n"
+"PO-Revision-Date: 2020-04-01 10:39:28+0000\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/2.3.1\n"
+
+#: includes/class.yith-wcpb-admin-premium.php:120
+#: includes/class.yith-wcpb-admin.php:258
+msgid "Bundled Items"
+msgstr "Gebundelde Items"
+
+#: includes/class.yith-wcpb-admin-premium.php:126
+msgid "Bundle Options"
+msgstr "Bundle Opties"
+
+#: includes/class.yith-wcpb-admin-premium.php:254
+msgid "Per Item Pricing"
+msgstr "Per Item Pricing"
+
+#: includes/class.yith-wcpb-admin-premium.php:255
+msgid ""
+"Check this option if you want your bundle priced per item, that is based on "
+"item prices and tax rates."
+msgstr ""
+"Selecteer deze optie als u de bundle priced per item wilt, die gebasseerd is "
+"op de prijzen van de items en belastingtarief."
+
+#: includes/class.yith-wcpb-admin-premium.php:262
+msgid "Non-Bundled Shipping"
+msgstr "Ongebundelde verzending"
+
+#: includes/class.yith-wcpb-admin-premium.php:263
+msgid ""
+"Check this option if you would like that the bundle items will be shipped "
+"individually."
+msgstr ""
+"Selecteer deze optie als je zou willen dat de gebundelde items ook "
+"onafhankelijk verzonden kunnen worden."
+
+#: includes/class.yith-wcpb-admin-premium.php:310
+msgid "Choose variations&hellip;"
+msgstr "Kies variaties&hellip;"
+
+#: includes/class.yith-wcpb-admin-premium.php:328
+msgid "Any"
+msgstr "Elke"
+
+#: includes/class.yith-wcpb-admin-premium.php:378
+msgid ""
+"Select the variations allowed for this item. To allow all variations leave "
+"it empty."
+msgstr ""
+"Selecteer de gekozen variaties voor dit item. Om alle variaties te "
+"selecteren, laat het leeg."
+
+#: includes/class.yith-wcpb-admin-premium.php:388
+msgid "No default"
+msgstr "Geen default"
+
+#: includes/class.yith-wcpb-admin-premium.php:417
+msgid ""
+"Overwrite the default selection of the attribute for the variable product."
+msgstr ""
+"Overschrijf de default selectie van de atributen voor de variabele producten."
+
+#: includes/class.yith-wcpb-admin-premium.php:424
+msgid "Check this option if you would like to hide this product in the bundle."
+msgstr "Selecteer deze optie als je dit product wilt verbergen in de bundle."
+
+#: includes/class.yith-wcpb-admin-premium.php:430
+msgid ""
+"Check this option if you would like to hide the thumbnail of this product."
+msgstr ""
+"Selecteer deze optie als je graag de thumbnail van dit product wilt "
+"verbergen."
+
+#: includes/class.yith-wcpb-admin-premium.php:436
+msgid "Check this option if you would like to mark this product as optional."
+msgstr "Selecteer deze optie als je dit product graag optioneel wilt markeren."
+
+#: includes/class.yith-wcpb-admin-premium.php:442
+msgid "Choose the minimum quantity for this product."
+msgstr "Kies de minimale hoeveelheid voor dit product."
+
+#: includes/class.yith-wcpb-admin-premium.php:448
+msgid "Choose the maximum quantity for this product."
+msgstr "Kies de maximale hoeveelheid voor dit product."
+
+#: includes/class.yith-wcpb-admin-premium.php:454
+msgid ""
+"Choose the discount for this product. If a discount is applied on a bundled "
+"product on sale, its price will be the regular one discounted by the chosen "
+"percentage."
+msgstr ""
+"Kies de korting voor dit product. Als een korting is toegevoegd op een "
+"gebundeld product, dan zal dit de normale prijs zijn verminderd door de "
+"gekozen korting."
+
+#: includes/class.yith-wcpb-admin-premium.php:459
+msgid "Choose the title for this product."
+msgstr "Kies de titel voor dit product."
+
+#: includes/class.yith-wcpb-admin-premium.php:465
+msgid "Choose the description for this product."
+msgstr "Kies de beschrijving voor dit product."
+
+#: includes/class.yith-wcpb-admin-premium.php:491
+#: includes/class.yith-wcpb-admin.php:443
+msgid "You cannot add a bundle product"
+msgstr "U kunt geen bundel product toevoegen"
+
+#: includes/class.yith-wcpb-admin-premium.php:512
+msgid "Settings"
+msgstr "Instellingen"
+
+#: includes/class.yith-wcpb-admin.php:172
+msgid "%1$s item [%2$s bundled elements]"
+msgid_plural "%1$s items [%2$s bundled elements]"
+msgstr[0] "%1$s item [%2$s bundled elements]"
+msgstr[1] "%1$s items [%2$s bundled elements]"
+
+#: includes/class.yith-wcpb-admin.php:240
+#: includes/class.yith-wcpb-admin.php:442
+msgid ""
+"You can add only simple products with the FREE version of YITH WooCommerce "
+"Product Bundles"
+msgstr ""
+"Je kunt alleen eenvoudige producten toevoegen aan de GRATIS versie van YITH "
+"WooCommerce Product Bundles"
+
+#: includes/class.yith-wcpb-admin.php:369
+msgid "How to"
+msgstr "Hoe te"
+
+#: includes/class.yith-wcpb-admin.php:370
+msgid "Premium Version"
+msgstr "Premium Versie"
+
+#: includes/class.yith-wcpb-admin.php:419
+msgid ""
+"You are trying to add the following Bundle products to the order: %s. You "
+"cannot add Bundle products to orders through this box since this type of "
+"products needs to follow the normal WooCommerce \"Add-to-cart > Cart > "
+"Checkout > Order\" process."
+msgstr ""
+"U probeert de volgende bundel producten toe te voegen aan bestelling: %s. U "
+"kunt geen bundel producten toevoegen aan de bestelling via deze sectie, "
+"omdat deze type producten het normale WooCommerce process moeten volgen "
+"\"toevoegen aan winkelwagen > Checkout > Bestelling\"."
+
+#: includes/class.yith-wcpb-bundle-widget.php:28
+msgid "Display a list of your product bundles on your site."
+msgstr "Weergeef een lijst met jou product bundels op je website."
+
+#: includes/class.yith-wcpb-bundle-widget.php:30
+msgid "YITH WooCommerce Product Bundle"
+msgstr "YITH WooCommerce Product Bundle"
+
+#: includes/class.yith-wcpb-bundle-widget.php:35
+msgid "Product Bundles"
+msgstr "Product Bundels"
+
+#: includes/class.yith-wcpb-bundle-widget.php:36
+msgid "Title"
+msgstr "Titel"
+
+#: includes/class.yith-wcpb-bundle-widget.php:44
+msgid "Number of products to show"
+msgstr "Aantal producten om weer te geven"
+
+#: includes/class.yith-wcpb-bundle-widget.php:49
+msgid "Show"
+msgstr "Weergeven"
+
+#: includes/class.yith-wcpb-bundle-widget.php:51
+msgid "All Products"
+msgstr "Alle producten"
+
+#: includes/class.yith-wcpb-bundle-widget.php:52
+msgid "Featured Products"
+msgstr "Featured Producten"
+
+#: includes/class.yith-wcpb-bundle-widget.php:53
+msgid "On Sale Products"
+msgstr "Producten in de aanbieding"
+
+#: includes/class.yith-wcpb-bundle-widget.php:59
+msgid "Order by"
+msgstr "Besteld bij"
+
+#: includes/class.yith-wcpb-bundle-widget.php:61
+msgid "Date"
+msgstr "Datum"
+
+#: includes/class.yith-wcpb-bundle-widget.php:62
+#: templates/admin/select-product-box-products.php:40
+msgid "Price"
+msgstr "Prijs"
+
+#: includes/class.yith-wcpb-bundle-widget.php:63
+msgid "Random"
+msgstr "Willekeurig"
+
+#: includes/class.yith-wcpb-bundle-widget.php:64
+msgid "Sales"
+msgstr "Verkoop"
+
+#: includes/class.yith-wcpb-bundle-widget.php:72
+msgid "ASC"
+msgstr "ASC"
+
+#: includes/class.yith-wcpb-bundle-widget.php:73
+msgid "DESC"
+msgstr "DESC"
+
+#: includes/class.yith-wcpb-bundle-widget.php:79
+msgid "Hide free bundles"
+msgstr "Verberg gratis bundels"
+
+#: includes/class.yith-wcpb-bundle-widget.php:84
+msgid "Show hidden bundles"
+msgstr "Weergeef verborgen bundels"
+
+#: includes/class.yith-wcpb-bundle-widget.php:89
+msgid "Show products in bundle"
+msgstr "Laat produten zien in bundel"
+
+#: includes/class.yith-wcpb-bundle-widget.php:94
+msgid "Show thumbnails for products in bundle"
+msgstr "Weergeef thumbnails voor producten in bundel"
+
+#: includes/class.yith-wcpb-bundle-widget.php:99
+msgid "Show only bundles including the currently viewed product"
+msgstr "Weergeef alleen bundels met onlangs weergeven producten"
+
+#: includes/class.yith-wcpb-frontend-premium.php:952
+msgid "The minimum number of &quot;%1$s&quot; required is %2$s"
+msgstr "Het minimale nummer van &quot;%1$s&quot; dat toegestaan is %2$s"
+
+#: includes/class.yith-wcpb-frontend-premium.php:959
+msgid "The maximum number of &quot;%1$s&quot; allowed is %2$s"
+msgstr "Het maximale nummer van &quot;%1$s&quot; dat toegestaan is %2$s"
+
+#: includes/class.yith-wcpb-frontend-premium.php:980
+msgid ""
+"&quot;%1$s&quot; cannot be added to the cart. The selected variation of "
+"&quot;%2$s&quot; cannot be purchased."
+msgstr ""
+"&quot;%1$s&quot; Kan niet toegevoegd worden aan de winkelwagen. De "
+"geselecteerde product variatie &quot;%2$s&quot; kan niet worden gekocht."
+
+#: includes/class.yith-wcpb-frontend-premium.php:988
+#: includes/class.yith-wcpb-frontend-premium.php:1008
+msgid ""
+"&quot;%1$s&quot; cannot be added to the cart because &quot;%2$s&quot; cannot "
+"be purchased at the moment."
+msgstr ""
+"&quot;%1$s&quot; Kan niet worden toegevoegd aan de winkelwagen want  &quot;"
+"%2$s&quot; het product kan momenteel niet gekocht worden."
+
+#: includes/class.yith-wcpb-frontend-premium.php:994
+#: includes/class.yith-wcpb-frontend-premium.php:1013
+#: includes/class.yith-wcpb-frontend.php:457
+msgid ""
+"You cannot add this quantity of items, because there are not enough in stock."
+msgstr ""
+"U kunt deze hoeveelheid niet toevoegen, want er zijn niet genoeg producten "
+"op voorraad."
+
+#: includes/class.yith-wcpb-frontend-premium.php:1000
+msgid ""
+"&quot;%1$s&quot; cannot be added to the cart. Please choose an option for "
+"&quot;%2$s&quot;&hellip;"
+msgstr ""
+"&quot;%1$s&quot; Kan niet worden toegevoegd aan de winkelwagen. Kies een "
+"optie voor &quot;%2$s&quot;&hellip;"
+
+#: includes/class.yith-wcpb-frontend-premium.php:1053
+msgid ""
+"The minimum number of items in the bundle &quot;%1$s&quot; required is %2$s"
+msgstr ""
+"Het minimum aantal nummers in de bundel  &quot;%1$s&quot; required is %2$s"
+
+#: includes/class.yith-wcpb-frontend-premium.php:1061
+msgid ""
+"The maximum number of items in the bundle &quot;%1$s&quot; allowed is %2$s"
+msgstr ""
+"Het maximale nummer items in de bundel toegestaan is &quot;%1$s&quot; "
+"allowed is %2$s"
+
+#: includes/class.yith-wcpb-frontend-premium.php:1069
+msgid ""
+"The minimum number of different items in the bundle &quot;%1$s&quot; "
+"required is %2$s"
+msgstr ""
+"Het minimum aantal nummers in de bundel  &quot;%1$s&quot; required is %2$s"
+
+#: includes/class.yith-wcpb-frontend-premium.php:1077
+msgid ""
+"The maximum number of different items in the bundle &quot;%1$s&quot; allowed "
+"is %2$s"
+msgstr ""
+"Het maximale nummer items in de bundel toegestaan is &quot;%1$s&quot; "
+"allowed is %2$s"
+
+#: includes/class.yith-wcpb-frontend-premium.php:1262
+msgid ""
+"Please select some product options before adding this product to your cart."
+msgstr ""
+"Selecteer enkele productopties voordat u dit product toevoegt aan uw "
+"winkelwagen."
+
+#: includes/class.yith-wcpb-frontend-premium.php:1263
+msgid ""
+"Sorry, you selected an out-of-stock item. Please choose a different "
+"combination."
+msgstr ""
+"Sorry, u heeft een product geselecteerd dat niet op voorraad is. Kies een "
+"andere combinatie a.u.b."
+
+#: includes/functions.yith-wcpb.php:22
+msgid "Simple"
+msgstr "Simpel"
+
+#: includes/functions.yith-wcpb.php:23
+msgid "Variable"
+msgstr "Variabele"
+
+#: includes/functions.yith-wcpb.php:49 includes/functions.yith-wcpb.php:66
+msgid "Choose an option"
+msgstr "Kies een optie"
+
+#: includes/objects/class.yith-wc-product-bundle-premium.php:344
+#: includes/objects/class.yith-wc-product-bundle.php:166
+msgid "Add to cart"
+msgstr "Voeg toe aan winkelwagen"
+
+#: includes/objects/class.yith-wc-product-bundle-premium.php:344
+#: includes/objects/class.yith-wc-product-bundle.php:166
+msgid "Read more"
+msgstr "Lees meer"
+
+#: init.php:52
+msgid ""
+"YITH WooCommerce Product Bundles Premium is enabled but not effective. It "
+"requires WooCommerce in order to work."
+msgstr ""
+"YITH WooCommerce Product Bundels Premium is werkzaam maar niet effectief. "
+"Het heeft WooCommerce nodig om te kunnen functioneren."
+
+#: plugin-options/settings-options.php:14
+msgid "General Options"
+msgstr "Algemene Opties"
+
+#: plugin-options/settings-options.php:22
+msgid "Show bundled items in Reports"
+msgstr "Geef de bundels ook weer in Rapporten"
+
+#: plugin-options/settings-options.php:25
+msgid "Flag this option to show also the bundled items in WooCommerce Reports."
+msgstr ""
+"Selecteer deze optie om de bundels ook weer te geven in de WooCommerce "
+"Reports."
+
+#: plugin-options/settings-options.php:31
+msgid "Hide bundled items in Cart and Checkout"
+msgstr "Verberg producten uit bundels in Winkelwagen en Checkout"
+
+#: plugin-options/settings-options.php:34
+msgid ""
+"Flag this option to hide the bundled items in WooCommerce Cart and Checkout."
+msgstr ""
+"Selecteer deze optie om de bundels te verbergen in de WooCommerce "
+"winkelwagen en Checkout."
+
+#: plugin-options/settings-options.php:40
+msgid "Out of stock Sync"
+msgstr "Niet op voorraad Sync"
+
+#: plugin-options/settings-options.php:43
+msgid ""
+"Flag this option to set the bundle as Out of Stock if it contains at least "
+"one Out of Stock item."
+msgstr ""
+"Selecteer deze optie om de bundels in te stellen als niet op voorraad als "
+"het tenminste 1 product bevat dat niet op voorraad is."
+
+#: plugin-options/settings-options.php:49
+msgid "Price of \"per item pricing\" bundles in Shop"
+msgstr "Prijs van bundels van \"per stuk prijsstelling\" in shop"
+
+#: plugin-options/settings-options.php:54
+msgid "Min - Max"
+msgstr "Minimale/maximale"
+
+#: plugin-options/settings-options.php:58
+msgid "Min only"
+msgstr "Minimale alleen"
+
+#: plugin-options/settings-options.php:62
+msgid "Min only higher than"
+msgstr "Minimale alleen hoger als"
+
+#: plugin-options/settings-options.php:66
+msgid "Regular and discounted"
+msgstr "Algemeen en met korting"
+
+#: plugin-options/settings-options.php:70
+msgid ""
+"Choose how you want to view pricing for \"per item pricing\" bundle products"
+msgstr ""
+"Kies hoe u de prijs wilt weergeven voor bundelproducten voor 'per item "
+"pricing'"
+
+#: plugin-options/settings-options.php:76
+msgid "Price of \"per item pricing\" bundles in orders"
+msgstr "Prijs van \"per item prijsaanduiding\" bundels in bestellingen"
+
+#: plugin-options/settings-options.php:79
+msgid "Price in bundle"
+msgstr "Prijs in bundel"
+
+#: plugin-options/settings-options.php:80
+msgid "Price in bundled items"
+msgstr "Prijs in bundel items"
+
+#: plugin-options/settings-options.php:82
+msgid ""
+"Choose how you want to view order pricing for \"per item pricing\" bundle "
+"products"
+msgstr ""
+"Kies hoe je de prijzing wilt weergeven voor  \"per item prijzing\" bundel "
+"producten"
+
+#: plugin-options/settings-options.php:88
+msgid "Show bundled item prices in Cart and Checkout"
+msgstr "Toon gebundelde item prijzen in Winkelwagen en Checkout"
+
+#: plugin-options/settings-options.php:91
+msgid ""
+"Flag this option to show the price of bundled items in Cart and Checkout "
+"when the option \"per item pricing\" is enabled."
+msgstr ""
+"Selecteer deze optie om prijzen van gebundelde items in de Winkelwagen en "
+"Checkout te tonen, wanneer de optie \"per item geprijsd\" is ingeschakeld."
+
+#: plugin-options/settings-options.php:97
+msgid "PhotoSwipe for bundled images"
+msgstr "PhotoSwipe voor gebundelde afbeeldingen"
+
+#: plugin-options/settings-options.php:100
+msgid ""
+"If enabled, use PhotoSwipe to open bundled image gallery. It requires "
+"PhotoSwipe is enabled."
+msgstr ""
+"Als dit is ingeschakeld, gebruikt u PhotoSwipe om gebundelde "
+"afbeeldingengalerij te openen. Het vereist dat PhotoSwipe is ingeschakeld."
+
+#: plugin-options/settings-options.php:106
+msgid "Quick View for bundled items"
+msgstr "Quick View voor gebundelde items"
+
+#: plugin-options/settings-options.php:108
+msgid "If enabled, open bundled item product link in Quick View."
+msgstr ""
+"Als dit is ingeschakeld, opent u de koppeling van het gebundelde "
+"artikelproduct in snelle weergave."
+
+#: plugin-options/settings-options.php:115
+msgid "Bundle price sync"
+msgstr "Prijssynchronisatie bundelen"
+
+#: plugin-options/settings-options.php:119
+msgid "Force price sync for \"per item pricing\" bundles"
+msgstr "Forceer prijssynchronisatie voor bundels per item prijsbepaling"
+
+#: templates/admin/admin-bundle-options-tab.php:23
+#: templates/premium/admin/admin-bundle-options-tab.php:34
+msgid "Close all"
+msgstr "Alles sluiten"
+
+#: templates/admin/admin-bundle-options-tab.php:24
+#: templates/premium/admin/admin-bundle-options-tab.php:35
+msgid "Expand all"
+msgstr "Uitbereiden"
+
+#: templates/admin/admin-bundle-options-tab.php:50
+#: templates/premium/admin/admin-bundle-options-tab.php:60
+msgid "Add Product"
+msgstr "Voeg toe"
+
+#: templates/admin/admin-bundled-product-item.php:34
+#: templates/premium/admin/admin-bundled-product-item.php:32
+msgid "Remove"
+msgstr "Verwijderen"
+
+#: templates/admin/admin-bundled-product-item.php:35
+#: templates/premium/admin/admin-bundled-product-item.php:33
+msgid "Click to toggle"
+msgstr "Klik om te ontkoppelen"
+
+#: templates/admin/admin-bundled-product-item.php:39
+#: templates/premium/admin/admin-bundled-product-item.php:37
+msgid "Not Purchasable"
+msgstr "Aankoop niet mogelijk"
+
+#: templates/admin/select-product-box-products.php:38
+msgid "Image"
+msgstr "Afbeelding"
+
+#: templates/admin/select-product-box-products.php:39
+msgid "Name"
+msgstr "Naam"
+
+#: templates/admin/select-product-box-products.php:41
+msgid "Type"
+msgstr "Type"
+
+#: templates/admin/select-product-box-products.php:42
+msgid "Action"
+msgstr "Actie"
+
+#: templates/admin/select-product-box-products.php:61
+#: templates/single-product/add-to-cart/yith-bundle.php:52
+msgid "Out of stock"
+msgstr "Niet op voorraad"
+
+#: templates/admin/select-product-box-products.php:68
+#: templates/premium/single-product/add-to-cart/yith-bundle-items-list.php:188
+#: templates/premium/single-product/add-to-cart/yith-bundle-items-list.php:215
+msgid "Add"
+msgstr "Toevoegen"
+
+#: templates/admin/select-product-box-products.php:69
+msgid "Added"
+msgstr "Toegevoegd op"
+
+#: templates/admin/select-product-box-products.php:83
+msgid "prev"
+msgstr "Vorige"
+
+#: templates/admin/select-product-box-products.php:85
+msgid "next"
+msgstr "Volgende"
+
+#: templates/admin/select-product-box.php:9
+msgid "Search for a product (min %s characters)"
+msgstr "Een product zoeken (min %s karakters)"
+
+#: templates/premium/admin/admin-bundle-options-tab.php:72
+msgid "Minimum number of items in bundle"
+msgstr "Minimum nummer items in bundel"
+
+#: templates/premium/admin/admin-bundle-options-tab.php:80
+msgid ""
+"Minimum number of items/products that customers have to pick in order to be "
+"able to add the bundle to the cart"
+msgstr ""
+"Minimum aantal items/producten die klanten moeten kiezen om het te kunnen "
+"toevoegen aan de winkelwagen"
+
+#: templates/premium/admin/admin-bundle-options-tab.php:84
+msgid "Maximum number of items in bundle"
+msgstr "Maximum aantal items in bundel"
+
+#: templates/premium/admin/admin-bundle-options-tab.php:92
+msgid ""
+"Maximum number of items/products that customers can pick in order to be able "
+"to add the bundle to the cart"
+msgstr ""
+"Maximum nummer toevoegen aan items/producten die klanten kunnen kiezen om "
+"toe te voegen aan de bundel in de winkelwagen"
+
+#: templates/premium/admin/admin-bundle-options-tab.php:96
+msgid "Minimum number of different items in bundle"
+msgstr "Minimum nummer van verschillende items in bundel"
+
+#: templates/premium/admin/admin-bundle-options-tab.php:104
+msgid ""
+"Minimum number of different items/products that customers have to pick in "
+"order to be able to add the bundle to the cart"
+msgstr ""
+"Minimum aantal items/producten die klanten moeten kiezen om het te kunnen "
+"toevoegen aan de winkelwagen"
+
+#: templates/premium/admin/admin-bundle-options-tab.php:108
+msgid "Maximum number of different items in bundle"
+msgstr "Maximum aantal items in bundel"
+
+#: templates/premium/admin/admin-bundle-options-tab.php:116
+msgid ""
+"Maximum number of different items/products that customers can pick in order "
+"to be able to add the bundle to the cart"
+msgstr ""
+"Maximum nummer toevoegen aan items/producten die klanten kunnen kiezen om "
+"toe te voegen aan de bundel in de winkelwagen"
+
+#: templates/premium/compatibility/request-a-quote/raq-table-row-email.php:32
+#: templates/premium/compatibility/request-a-quote/raq-table-row.php:33
+msgid " SKU:"
+msgstr "SKU:"
+
+#: templates/premium/single-product/add-to-cart/yith-bundle-items-list.php:129
+msgid "Awaiting product image"
+msgstr "Nog geen productfoto beschikbaar"
+
+#: templates/premium/single-product/add-to-cart/yith-bundle-items-list.php:190
+msgid "Add for %s"
+msgstr "Toevoegen voor %s"
+
+#: templates/premium/single-product/add-to-cart/yith-bundle-items-list.php:249
+msgid "Clear"
+msgstr "Wis"
+
+#: templates/single-product/add-to-cart/yith-bundle.php:50
+msgid "In stock"
+msgstr "Op voorraad"
+
+#. Description of the plugin/theme
+msgid ""
+"<code><strong>YITH WooCommerce Product Bundles</strong></code> allows you to "
+"bundle WooCommerce products and sell them at a unique price. You can "
+"configure bundled items as optional, set a discount, the minimum and maximum "
+"quantity, and so on! <a href=\"https://yithemes.com/\" target=\"_blank\">Get "
+"more plugins for your e-commerce shop on <strong>YITH</strong></a>"
+msgstr ""
+"<code><strong>YITH WooCommerce Product Bundles</strong></code>u kunt "
+"bundelen WooCommerce producten en verkopen ze tegen een unieke prijs. U kunt "
+"gebundelde items configureren als optioneel, instellen van een korting, de "
+"minimum en maximum aantal, enzovoort! <a href=\"https://yithemes.com/\" "
+"target=\"_blank\">Krijg meer plugins voor uw e-commerce shop op "
+"<strong>YITH</strong> </a>"
+
+#: includes/class.yith-wcpb-admin-premium.php:308
+msgctxt "Admin: filter variations of the bundled product if it is variable."
+msgid "Filter Product Variations"
+msgstr "Filter Product Variaties"
+
+#: includes/class.yith-wcpb-admin-premium.php:381
+msgctxt ""
+"Admin: overwrite the default selection for attributes of variable product."
+msgid "Overwrite default selection"
+msgstr "Overschrijf default selectie"
+
+#: includes/class.yith-wcpb-admin-premium.php:421
+msgctxt "Admin: hide item of the bundled product."
+msgid "Hide Product"
+msgstr "Verberg product"
+
+#: includes/class.yith-wcpb-admin-premium.php:427
+msgctxt "Admin: hide the thumbnail of the bundled product."
+msgid "Hide thumbnail"
+msgstr "Verberg thumbnail"
+
+#: includes/class.yith-wcpb-admin-premium.php:433
+msgctxt "Admin: mark the bundled product as optional."
+msgid "Optional"
+msgstr "Optioneel"
+
+#: includes/class.yith-wcpb-admin-premium.php:439
+msgctxt "Admin: minimum quantity of the bundled product."
+msgid "Min quantity"
+msgstr "Min hoeveelheid"
+
+#: includes/class.yith-wcpb-admin-premium.php:445
+msgctxt "Admin: maximum quantity of the bundled product."
+msgid "Max quantity"
+msgstr "Max hoeveelheid"
+
+#: includes/class.yith-wcpb-admin-premium.php:451
+msgctxt "Admin: discount for the bundled product."
+msgid "Discount %"
+msgstr "Korting %"
+
+#: includes/class.yith-wcpb-admin-premium.php:457
+msgctxt "Admin: the title of the bundled product."
+msgid "Title"
+msgstr "Titel"
+
+#: includes/class.yith-wcpb-admin-premium.php:462
+msgctxt "Admin: the description of the bundled product."
+msgid "Description"
+msgstr "Beschrijving"
+
+#: includes/class.yith-wcpb-admin.php:186
+msgctxt "Admin: type of product"
+msgid "Product Bundle"
+msgstr "Product bundle"
+
+#: includes/class.yith-wcpb-admin.php:203
+msgctxt "Admin: quantity of the bundled product."
+msgid "Quantity"
+msgstr "Hoeveelheid"
+
+#: includes/class.yith-wcpb-bundle-widget.php:70
+msgctxt "Sorting order"
+msgid "Order"
+msgstr "Bestelling"
+
+#: includes/objects/class.yith-wc-product-bundle-premium.php:531
+msgctxt "From price"
+msgid "From %s"
+msgstr "Van %s"

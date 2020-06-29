@@ -1,0 +1,60 @@
+.mo-responsive-options {
+    margin-bottom: 5px;
+}
+
+.mo-responsive-options li {
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.mo-responsive-options li button {
+    display: inline-block;
+    background: #fff;
+    text-align: center;
+    padding: 0;
+    border-radius: 100%;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    outline: 0;
+}
+
+.mo-responsive-options li button i {
+    font-size: 16px;
+    width: 33px;
+    height: 33px;
+    line-height: 33px;
+}
+
+.mo-responsive-options li button:hover {
+    background: #ccc;
+}
+
+.mo-responsive-options li:hover {
+}
+
+.mo-responsive-options li button.active {
+    background: #ccc;
+}
+
+.mo-control-desktop, .mo-control-tablet, .mo-control-mobile {
+    display: none;
+}
+
+.mo-control-desktop.active, .mo-control-tablet.active, .mo-control-mobile.active {
+    display: block !important;
+}
+
+/* Padding Control */
+.mo-control-padding-top, .mo-control-padding-right, .mo-control-padding-bottom, .mo-control-padding-left {
+    width: 21.5%;
+    float: left;
+    margin-right: 1%;
+    text-align: center;
+}
+
+.customize-control-mo-padding .px,
+.customize-control-mo-responsive-padding .px {
+    line-height: 18px;
+    float: left;
+    padding: 3px 5px;
+}

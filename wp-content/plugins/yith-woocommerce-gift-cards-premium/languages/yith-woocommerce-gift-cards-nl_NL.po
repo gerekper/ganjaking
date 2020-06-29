@@ -1,0 +1,2176 @@
+# Translation of YITH WooCommerce Gift Cards in Dutch
+# This file is distributed under the same license as the YITH WooCommerce Gift Cards package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2020-04-16 17:18:32+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/2.3.1\n"
+"Language: nl\n"
+"Project-Id-Version: YITH WooCommerce Gift Cards\n"
+
+#: templates/yith-gift-cards/physical-gift-card-details.php:34
+msgid "Enter recipient name"
+msgstr "Naam ontvanger invoeren"
+
+#: templates/yith-gift-cards/gift-card-presets.php:132
+msgid "Upload your custom image here, to make your gift card even more special!"
+msgstr "Upload je aangepaste afbeelding hier, om je cadeaubon nog specialer te maken!"
+
+#: templates/yith-gift-cards/gift-card-details.php:69
+#: templates/yith-gift-cards/physical-gift-card-details.php:29
+msgid "Enter your name"
+msgstr "Je naam invoeren"
+
+#: templates/yith-gift-cards/gift-card-details.php:46
+msgid "Enter the recipient's email address"
+msgstr "E-mailadres ontvanger invoeren"
+
+#: templates/yith-gift-cards/gift-card-details.php:40
+msgid "Enter the recipient's name"
+msgstr "Naam ontvanger invoeren"
+
+#: templates/yith-gift-cards/gift-card-details.php:28
+msgid "Today"
+msgstr "Vandaag"
+
+#: templates/support-attachments.php:43
+msgid "Use it!"
+msgstr "Gebruik het!"
+
+#: templates/support-attachments.php:23
+msgid "Drop files or click here"
+msgstr "Sleep bestanden of klik hier"
+
+#: templates/shortcodes/gift-card-check-balance-form.php:27
+msgid "Enter code"
+msgstr "Code invoeren"
+
+#: plugin-options/recipient_delivery-options.php:309
+msgid "Write the gift card PDF file name. You can use the placeholders [giftcardid] to include the gift card ID and [uniqid] to include a unique and random ID. It is recommended to add these placeholders to avoid duplicate file names."
+msgstr "PDF cadeaubon bestandsnaam invoeren. Je kunt de volgende invulvelden gebruiken, [giftcardid] om de ID van de cadeaubon toe te voegen en [uniqid] om een unieke en algemene ID toe te voegen. Het wordt aangeraden om deze invulvelden toe te voegen om gedupliceerde bestandsnamen te voorkomen."
+
+#: plugin-options/recipient_delivery-options.php:304
+msgid "PDF file name"
+msgstr "PDF bestandsnaam"
+
+#: plugin-options/recipient_delivery-options.php:152
+#: templates/yith-gift-cards/gift-card-details.php:74
+#: templates/yith-gift-cards/physical-gift-card-details.php:41
+msgid "Enter a message for the recipient"
+msgstr "Bericht invoeren voor de ontvanger"
+
+#: plugin-options/gift_this_product-options.php:104
+msgid "Description to show before button"
+msgstr "Beschrijving om te tonen vóór knop"
+
+#: plugin-options/gift_this_product-options.php:40
+msgid "Enable to show the \"Gift this product\" link also in shop pages."
+msgstr "Inschakelen om de \"Doe dit product cadeau\" link ook in winkel pagina's te tonen."
+
+#: plugin-options/gift_this_product-options.php:36
+msgid "Show \"Gift this product\" option in shop page"
+msgstr "Toon \"Doe dit product cadeau\" optie in winkel pagina"
+
+#: plugin-options/gift_this_product-options.php:28
+msgid "Show \"Gift this product\" option in product pages"
+msgstr "Toon \"Doe dit product cadeau\" optie in product pagina's"
+
+#: plugin-options/general-options.php:117
+msgid "If enabled, the sender will receive an email notifying the use of the gift card purchased by him."
+msgstr "Indien ingeschakeld, zal de afzender een e-mail ontvangen die hem mededeelt dat de door hem gekochte cadeaubon wordt gebruikt."
+
+#: plugin-options/general-options.php:109
+msgid "If enabled, the sender will receive an email when the gift card has been delivered to recipient."
+msgstr "Indien ingeschakeld, zal de afzender een e-mail ontvangen wanneer de cadeaubon is afgeleverd bij de ontvanger."
+
+#: plugin-options/general-options.php:105
+msgid "Notify the delivery of a gift card"
+msgstr "Meld de aflevering van een cadeaubon"
+
+#: plugin-options/general-options.php:100
+msgid "Create additional emails separating by a comma, to receive a BCC email with the gift card code."
+msgstr "Aanvullende e-mails aanmaken, gescheiden met komma's, om een BCC e-mail te ontvangen met de cadeaubon code."
+
+#: plugin-options/general-options.php:96
+msgid "BCC additional emails"
+msgstr "BCC aanvullende e-mails"
+
+#: plugin-options/general-options.php:76
+msgid "Notifications"
+msgstr "Meldingen"
+
+#: lib/third-party/elementor/class-ywgc-user-table-widget.php:28
+msgid "YITH Gift Card User Table"
+msgstr "YITH Gift Card gebruikerstabel"
+
+#: lib/third-party/elementor/class-ywgc-redeem-widget.php:28
+msgid "YITH Gift Card Redeem Form"
+msgstr "YITH Gift Card inlossen formulier"
+
+#: lib/third-party/elementor/class-ywgc-form-widget.php:64
+msgid "Your section title"
+msgstr "Je sectietitel"
+
+#: lib/third-party/elementor/class-ywgc-form-widget.php:61
+msgid "Form Title"
+msgstr "Titel formulier"
+
+#: lib/third-party/elementor/class-ywgc-form-widget.php:28
+msgid "YITH Gift Card Product Form"
+msgstr "YITH Gift Card Product formulier"
+
+#: lib/third-party/elementor/class-ywgc-check-balance-widget.php:64
+#: lib/third-party/elementor/class-ywgc-redeem-widget.php:64
+#: lib/third-party/elementor/class-ywgc-user-table-widget.php:64
+msgid "Write a description here"
+msgstr "Schrijf hier een beschrijving"
+
+#: lib/third-party/elementor/class-ywgc-check-balance-widget.php:61
+#: lib/third-party/elementor/class-ywgc-redeem-widget.php:61
+#: lib/third-party/elementor/class-ywgc-user-table-widget.php:61
+msgid "Form description"
+msgstr "Beschrijving formulier"
+
+#: lib/third-party/elementor/class-ywgc-check-balance-widget.php:53
+#: lib/third-party/elementor/class-ywgc-form-widget.php:53
+#: lib/third-party/elementor/class-ywgc-redeem-widget.php:53
+#: lib/third-party/elementor/class-ywgc-user-table-widget.php:53
+msgid "Content"
+msgstr "Inhoud"
+
+#: lib/third-party/elementor/class-ywgc-check-balance-widget.php:28
+msgid "YITH Gift Card Check Balance Form"
+msgstr "YITH Gift Card Controleer saldo formulier"
+
+#: lib/emails/class-yith-ywgc-email-delivered-gift-card.php:46
+#: lib/emails/class-yith-ywgc-email-delivered-gift-card.php:86
+msgid "Your gift card has been delivered to <code>{recipient_email}</code>.<br>Thanks again for choosing our store!<br>We wish you all the best."
+msgstr "Je cadeaubon is afgeleverd aan <code>{recipient_email}</code>.<br>Nogmaals bedankt voor het kiezen van onze winkel!<br>Vriendelijke groeten."
+
+#: lib/emails/class-yith-ywgc-email-delivered-gift-card.php:41
+msgid "[{site_title}] Your gift card has been delivered"
+msgstr "[{site_title}] Je cadeaubon is afgeleverd"
+
+#: lib/emails/class-yith-ywgc-email-delivered-gift-card.php:40
+msgid "Your gift card has been delivered"
+msgstr "Je cadeaubon is afgeleverd"
+
+#: lib/emails/class-yith-ywgc-email-delivered-gift-card.php:37
+msgid "Customer notification - the gift card you have bought has been delivered"
+msgstr "Klant melding - de cadeaubon die je hebt gekocht is afgeleverd"
+
+#: lib/emails/class-yith-ywgc-email-delivered-gift-card.php:34
+msgid "YITH Gift Cards - Delivered Gift Card Notification"
+msgstr "YITH Gift Cards - Cadeaubon afgeleverd melding"
+
+#: lib/class-yith-ywgc-gift-cards-table.php:257
+msgid "Link copied!"
+msgstr "Link gekopieerd!"
+
+#: lib/class-yith-ywgc-gift-cards-table.php:256
+msgid "Copy link"
+msgstr "Kopieer link"
+
+#: lib/class-yith-ywgc-frontend-premium.php:401
+msgid "Sending..."
+msgstr "Versturen..."
+
+#: lib/class-yith-ywgc-frontend-premium.php:400
+msgid "Uploading... {percent}%"
+msgstr "Bijwerken... {percent}%"
+
+#: lib/class-yith-ywgc-frontend-premium.php:396
+msgid "File is too large. Max file size:"
+msgstr "Bestand is te groot. Maximale bestandsgrootte:"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:563
+msgid "Pre-Printed"
+msgstr "Vooraf-geprint"
+
+#. Author URI of the plugin/theme
+msgid "https://yithemes.com/"
+msgstr "https://yithemes.com/"
+
+#. Author of the plugin/theme
+msgid "YITH"
+msgstr "YITH"
+
+#. Description of the plugin/theme
+msgid "<code><strong>YITH WooCommerce Gift Card</strong></code> allows your users to purchase and give gift cards. In this way, you will increase the spread of your brand, your sales, and average spend, especially during the holidays. <a href=\"https://yithemes.com/\" target=\"_blank\">Get more plugins for your e-commerce shop on <strong>YITH</strong></a>."
+msgstr "<code><strong>YITH WooCommerce Gift Card</strong></code>laat je gebruikers cadeaubonnen kopen en cadeau doen. Op deze manier verhoog je de verspreiding van je merk, je omzet, en de gemiddelde uitgaven in je winkel, met name tijdens feestagen. <a href=\"https://yithemes.com/\" target=\"_blank\">Verkrijg meer plugins voor je e-commerce winkel op <strong>YITH</strong></a>."
+
+#. Plugin URI of the plugin/theme
+msgid "https://yithemes.com/themes/plugins/yith-woocommerce-gift-cards"
+msgstr "https://yithemes.com/themes/plugins/yith-woocommerce-gift-cards"
+
+#. Plugin Name of the plugin/theme
+msgid "YITH WooCommerce Gift Cards Premium"
+msgstr "YITH WooCommerce Gift Cards Premium"
+
+#: views/privacy/html-policy-content-has_access.php:4
+msgctxt "Privacy Policy Content"
+msgid "Sender name, recipient name, recipient email address, delivery date, message, amount and balance of the gift card you have purchased"
+msgstr "Naam afzender, naam ontvanger, e-mailadres ontvanger, bezorgdatum, bericht, bedrag en saldo van de cadeaubon die je hebt gekocht"
+
+#: views/privacy/html-policy-content-has_access.php:1
+msgctxt "Privacy Policy Content"
+msgid "Members of our team have access to the information you provide us. For example, both Administrators and Shop Managers can access:"
+msgstr "Onze teamleden hebben toegang tot de informatie die je ons geeft. Voorbeeld, zowel beheerders als winkelmanagers hebben toegang tot:"
+
+#: views/privacy/html-policy-content-collect_and_store.php:4
+msgctxt "Privacy Policy Content"
+msgid "Sender's name, recipient's name and email address:  we’ll use this to create gift card products"
+msgstr "Naam afzender, naam ontvanger en e-mailadres ontvanger: we gebruiken dit om cadeaubon producten te maken"
+
+#: views/privacy/html-policy-content-collect_and_store.php:1
+msgctxt "Privacy Policy Content"
+msgid "While you visit our site, we collect information about you during the checkout process on our store. We’ll track:"
+msgstr "Terwijl je onze site bezoekt, verzamelen wij informatie over u tijdens het checkout proces in onze winkel. We volgen:"
+
+#: templates/yith-gift-cards/ywgc-gift-card-template.php:193
+msgctxt "gift card expiration date"
+msgid "This gift card code will be valid until %s (%s)"
+msgstr "Deze cadeaubon code zal geldig zijn tot %s (%s)"
+
+#: templates/yith-gift-cards/ywgc-gift-card-template.php:186
+msgid "You can automatically apply the gift card in our shop by reading the QR code with your phone."
+msgstr "Je kunt de cadeaubon automatisch toepassen in je winkel, door de QR code met je telefoon te scannen."
+
+#: templates/yith-gift-cards/ywgc-gift-card-template.php:156
+msgid "Gift card code:"
+msgstr "Cadeaubon code:"
+
+#: templates/yith-gift-cards/ywgc-gift-card-template.php:104
+msgid "on"
+msgstr "op"
+
+#: templates/yith-gift-cards/ywgc-gift-card-template.php:63
+#: templates/yith-gift-cards/ywgc-gift-card-template.php:64
+#: templates/yith-gift-cards/ywgc-gift-card-template.php:69
+#: templates/yith-gift-cards/ywgc-gift-card-template.php:70
+msgid "Gift card image"
+msgstr "Cadeaubon afbeelding"
+
+#: templates/yith-gift-cards/ywgc-gift-card-template.php:35
+#: templates/yith-gift-cards/ywgc-gift-card-template.php:36
+#: templates/yith-gift-cards/ywgc-gift-card-template.php:86
+#: templates/yith-gift-cards/ywgc-gift-card-template.php:87
+msgid "The shop logo for the gift card"
+msgstr "Het winkel logo voor de cadeaubon"
+
+#: templates/yith-gift-cards/gift-card-presets.php:119
+msgid "Choose"
+msgstr "Kies"
+
+#: templates/yith-gift-cards/gift-card-presets.php:74
+#: templates/yith-gift-cards/gift-card-presets.php:131
+msgid "Upload your image"
+msgstr "Je afbeelding uploaden"
+
+#: templates/yith-gift-cards/gift-card-presets.php:43
+msgctxt "choose image"
+msgid "All"
+msgstr "Alle"
+
+#: templates/yith-gift-cards/gift-card-presets.php:39
+msgid "Categories"
+msgstr "Categorieën"
+
+#: templates/yith-gift-cards/gift-card-details.php:55
+msgid "+ add another recipient"
+msgstr "+ andere ontvanger toevoegen"
+
+#: templates/yith-gift-cards/gift-card-details.php:51
+msgid "If empty, will be sent to your email address"
+msgstr "Indien leeg, wordt het verzonden naar je e-mailadres"
+
+#: templates/yith-gift-cards/gift-card-details.php:44
+msgid "Email: "
+msgstr "E-mail: "
+
+#: templates/yith-gift-cards/gift-card-details.php:33
+msgid "RECIPIENT INFO"
+msgstr "ONTVANGERSINFORMATIE"
+
+#: templates/yith-gift-cards/gift-card-design.php:146
+msgid "Upload your image >"
+msgstr "Je afbeelding uploaden >"
+
+#: templates/yith-gift-cards/gift-card-design.php:146
+msgid "Suggested size (px): "
+msgstr "Voorgestelde maat (px): "
+
+#: templates/yith-gift-cards/gift-card-design.php:146
+msgid "Or "
+msgstr "Of "
+
+#: templates/single-product/form-preview.php:32
+#: templates/yith-gift-cards/ywgc-gift-card-template.php:134
+msgid "To: "
+msgstr "Aan: "
+
+#: templates/single-product/form-preview.php:28
+#: templates/yith-gift-cards/ywgc-gift-card-template.php:130
+msgid "From: "
+msgstr "Van: "
+
+#: plugin-options/gift_this_product-options.php:107
+msgid "Do you feel this product is perfect for a friend or a loved one? You can buy a gift card for this item!"
+msgstr "Vindt je dat dit product perfect is voor een vriend of geliefde? Koop dan een cadeaubon voor dit item!"
+
+#: templates/single-product/add-to-cart/gift-card.php:46
+#: templates/single-product/add-to-cart/gift-this-product-form.php:23
+msgid "This product cannot be purchased"
+msgstr "Dit product kan niet worden gekocht"
+
+#: templates/shortcodes/redeem-gift-card-form.php:44
+msgid "ENTER AMOUNT"
+msgstr "BEDRAG INVOEREN"
+
+#: templates/shortcodes/redeem-gift-card-form.php:43
+msgid "Used amount: "
+msgstr "Gebruikt bedrag: "
+
+#: templates/shortcodes/redeem-gift-card-form.php:31
+msgid "The gift card balance is not enough to cover this order amount."
+msgstr "De cadeaubon balans is niet voldoende om de kosten van deze bestelling te dekken."
+
+#: templates/shortcodes/redeem-gift-card-form.php:26
+msgid "New gift card balance: "
+msgstr "Nieuwe cadeaubon balans: "
+
+#: templates/shortcodes/redeem-gift-card-form.php:25
+msgid "The gift card has been redeemed successfully."
+msgstr "Cadeaubon code succesvol ingelost."
+
+#: templates/shortcodes/gift-card-check-balance-form.php:28
+#: templates/shortcodes/redeem-gift-card-form.php:45
+msgid "Submit"
+msgstr "Versturen"
+
+#: templates/shortcodes/redeem-gift-card-form.php:42
+msgid "ENTER CODE"
+msgstr "CODE INVOEREN"
+
+#: templates/shortcodes/gift-card-check-balance-form.php:26
+#: templates/shortcodes/redeem-gift-card-form.php:41
+msgid "Gift Card code: "
+msgstr "Cadeaubon code: "
+
+#: templates/shortcodes/gift-card-check-balance-form.php:14
+#: templates/shortcodes/redeem-gift-card-form.php:32
+msgid "Gift card balance: "
+msgstr "Cadeaubon balans: "
+
+#: templates/myaccount/my-giftcards.php:157
+#: templates/shortcodes/user-gift-card-table.php:130
+msgid "Apply this gift card"
+msgstr "Deze cadeaubon toepassen"
+
+#: templates/myaccount/my-giftcards.php:137
+msgid "Order %s"
+msgstr "Order %s"
+
+#: templates/myaccount/my-giftcards.php:125
+#: templates/shortcodes/user-gift-card-table.php:113
+msgctxt "gift card expiration date"
+msgid "Expires on: %s (%s)"
+msgstr "Verloopt op: %s (%s)"
+
+#: templates/myaccount/my-giftcards.php:81
+msgid "Add new"
+msgstr "Nieuwe toevoegen"
+
+#: templates/myaccount/my-giftcards.php:80
+#: templates/shortcodes/user-gift-card-table.php:69
+msgid "My Gift Cards"
+msgstr "Mijn cadeaubonnen"
+
+#: templates/myaccount/my-giftcards.php:74
+msgid "Add it"
+msgstr "Toevoegen"
+
+#: templates/myaccount/my-giftcards.php:73
+msgid "Your gift card code here ..."
+msgstr "Je cadeaubon code hier..."
+
+#: templates/myaccount/my-giftcards.php:72
+msgid "Link a gift card to your account "
+msgstr "Link een cadeaubon aan je account"
+
+#: templates/myaccount/my-giftcards.php:64
+msgid "The gift card code %s is now linked to your account."
+msgstr "De cadeaubon code %s is nu gelinkt aan je account."
+
+#: templates/myaccount/my-giftcards.php:58
+#: templates/shortcodes/gift-card-check-balance-form.php:18
+#: templates/shortcodes/redeem-gift-card-form.php:18
+msgid "The code added is not associated to any existing gift card."
+msgstr "De toegevoegde code is niet geassocieerd met een bestaande cadeaubon."
+
+#: templates/myaccount/my-giftcards.php:18
+#: templates/shortcodes/user-gift-card-table.php:31
+msgid "Auto Apply"
+msgstr "Automatisch toepassen"
+
+#: templates/myaccount/my-giftcards.php:17
+#: templates/shortcodes/user-gift-card-table.php:30
+msgid "Status"
+msgstr "Status"
+
+#: templates/myaccount/my-giftcards.php:16
+msgid "Usage"
+msgstr "Gebruik"
+
+#: templates/myaccount/my-giftcards.php:14
+#: templates/shortcodes/user-gift-card-table.php:28
+msgid "Code"
+msgstr "Code"
+
+#: templates/emails/product-suggestion.php:37
+msgid "Maybe you can use the gift card for this item:"
+msgstr "Misschien kunt u de cadeaubon gebruiken voor dit item:"
+
+#: templates/checkout/form-gift-cards.php:68
+msgctxt "Apply gift card"
+msgid "Gift card code"
+msgstr "Cadeaubon code"
+
+#: templates/checkout/form-gift-cards.php:63
+msgid "Apply the gift card code in the following field"
+msgstr "Cadeauboncode toepassen in het volgende veld"
+
+#: templates/checkout/form-gift-cards.php:52
+msgctxt "Apply gift card"
+msgid "In order to apply the gift card, the total amount in the cart has to be at least"
+msgstr "Om de cadeaubon toe te passen, moet de totaalwaarde van de winkelwagen minstens het volgende bedragen"
+
+#: plugin-options/recipient_delivery-options.php:301
+msgid "If enabled, a PDF with the gift card will be attached to the WooCommerce order processing or order completed emails."
+msgstr "Indien ingeschakeld, zal een PDF aan de cadeaubon worden toegevoegd, in de 'bestelling in verwerking' of 'afgerond' e-mails van WooCommerce."
+
+#: plugin-options/recipient_delivery-options.php:296
+msgid "Attach PDF"
+msgstr "PDF bijvoegen"
+
+#: plugin-options/recipient_delivery-options.php:293
+msgid "If enabled, the gift card template will show a QR code with the gift card code, so if customers read the code with their phone, they will be redirected to the Shop page and the gift card will be automatically applied to the cart."
+msgstr "Indien ingeschakeld, zal de cadeaubon tamplate een QR code weergeven met de cadeaubon code, dus als de klant dit nummer scant met zijn telefoon, zal hij worden doorgestuurd naar de winkel pagina en zal de cadeaubon automatisch worden toegepast in de winkelwagen."
+
+#: plugin-options/recipient_delivery-options.php:288
+msgid "Show QR code"
+msgstr "Toon QR code"
+
+#: plugin-options/recipient_delivery-options.php:285
+msgid "If enabled, the gift card expiration date will show up in the gift card template, if available."
+msgstr "Indien ingeschakeld, zal de vervaldatum van de cadeaubon worden weergegeven in de cadeaubon template indien beschikbaar."
+
+#: plugin-options/recipient_delivery-options.php:280
+msgid "Show the gift card’s expiration date"
+msgstr "Toon de vervaldatum van de cadeaubon"
+
+#: plugin-options/recipient_delivery-options.php:272
+msgid "You can automatically apply the gift card code by simply reading the QR code with your phone."
+msgstr "Je kunt de cadeaubon automatisch toepassen in je winkel, door de QR code met je telefoon te scannen."
+
+#: plugin-options/recipient_delivery-options.php:268
+msgid "Custom text in the PDF"
+msgstr "Aangepaste tekst in PDF"
+
+#: plugin-options/recipient_delivery-options.php:260
+#: templates/yith-gift-cards/ywgc-gift-card-template.php:180
+msgid "To use this gift card, you can either enter the code in the gift card field on the cart page or click on the following link to automatically get the discount."
+msgstr "Om deze cadeaubon te gebruiken, kunt u de cadeauboncode invoeren in het daarvoor bestemde veld in de winkelwagen pagina, of klik op de volgende link om de korting automatisch toe te passen."
+
+#: plugin-options/recipient_delivery-options.php:256
+msgid "Custom text in the email"
+msgstr "Aangepaste tekst in e-mail"
+
+#: plugin-options/recipient_delivery-options.php:253
+msgid "This text will be displayed in the gift card email with the instructions about how to redeem the gift card. Leave this field empty if you do not want to display any message."
+msgstr "Deze tekst zal worden weergegeven in de cadeaubon e-mail, met de instructies om de cadeaubon te gebruiken. Laat dit veld leeg als u geen bericht wilt weergeven."
+
+#: plugin-options/recipient_delivery-options.php:248
+msgid "Enter a custom text in the email template"
+msgstr "Aangepaste tekst invoeren in de e-mail template"
+
+#: plugin-options/recipient_delivery-options.php:240
+msgid "If enabled, the gift card code will be automatically applied when the user clicks on the button."
+msgstr "Indien ingeschakeld, zal de cadeaubon automatisch worden toegepast wanneer de gebruiker op de knop klikt."
+
+#: plugin-options/recipient_delivery-options.php:236
+msgid "Auto-apply the Gift Card code"
+msgstr "Cadeaubon code automatisch toepassen"
+
+#: plugin-options/recipient_delivery-options.php:232
+msgid "Select the page where the recipient will be redirected after clicking on the discount button."
+msgstr "Selecteer de pagina waarnaar de ontvanger zal worden doorgestuurd na het klikken op de kortingsknop."
+
+#: plugin-options/recipient_delivery-options.php:226
+msgid "Button redirect to"
+msgstr "Knop doorsturen naar"
+
+#: plugin-options/recipient_delivery-options.php:219
+#: templates/emails/automatic-discount.php:12
+#: templates/emails/automatic-discount.php:18
+msgid "Apply your gift card code"
+msgstr "Je cadeaubon code toepassen"
+
+#: plugin-options/recipient_delivery-options.php:216
+msgid "Button label"
+msgstr "Knop label"
+
+#: plugin-options/recipient_delivery-options.php:211
+msgid "If enabled, the gift card dispatch email will contain a link to redirect your user to your site in one click."
+msgstr "Indien ingeschakeld, zal de 'cadeaubon verzenden' e-mail een link bevatten om de gebruiker in een klik door te sturen naar je site."
+
+#: plugin-options/recipient_delivery-options.php:207
+msgid "Show a button in the gift card email"
+msgstr "Toon een knop in de cadeaubon e-mail"
+
+#: plugin-options/recipient_delivery-options.php:204
+msgid "WooCommerce emails settings"
+msgstr "WooCommerce e-mail instellingen"
+
+#: plugin-options/recipient_delivery-options.php:204
+msgid "You can manage and edit the YITH Gift Card emails in the "
+msgstr "Je kunt de cadeaubon e-mails bewerken en beheren in de "
+
+#: plugin-options/recipient_delivery-options.php:202
+msgid "Email options & customization"
+msgstr "E-mail opties & aanpassingen"
+
+#: plugin-options/recipient_delivery-options.php:185
+msgid "Ask sender's and recipient's name"
+msgstr "Vraag naar naam afzender en ontvanger"
+
+#: plugin-options/recipient_delivery-options.php:178
+msgid "Allow customers to add a printed message to the gift card"
+msgstr "Klanten toestaan een geprint bericht toe te voegen aan de cadeaubon"
+
+#: plugin-options/recipient_delivery-options.php:174
+msgid "Recipient & Delivery settings for physical Gift Cards delivered at home"
+msgstr "Ontvanger & verzendinstellingen voor fysieke cadeaubonnen die thuis worden geleverd"
+
+#: plugin-options/recipient_delivery-options.php:150
+msgid "Enter a placeholder for the sender's message field."
+msgstr "Invulveld invoeren voor het berichtveld van de afzender."
+
+#: plugin-options/recipient_delivery-options.php:146
+msgid "Placeholder for Message textarea"
+msgstr "Invulveld voor tekstveld bericht"
+
+#: plugin-options/recipient_delivery-options.php:131
+#: templates/yith-gift-cards/gift-card-details.php:63
+#: templates/yith-gift-cards/physical-gift-card-details.php:23
+msgid "YOUR INFO"
+msgstr "JE INFORMATIE"
+
+#: plugin-options/recipient_delivery-options.php:129
+msgid "Enter a title for the section with sender's info."
+msgstr "Titel invoeren voor de sectie met afzender informatie."
+
+#: plugin-options/recipient_delivery-options.php:125
+msgid "Title for “Sender's info” section"
+msgstr "Titel voor \"Afzender informatie\" sectie"
+
+#: plugin-options/recipient_delivery-options.php:118
+msgid "Ask sender's name"
+msgstr "Vraag naar naam afzender"
+
+#: plugin-options/recipient_delivery-options.php:114
+msgid "If enabled, customers can set multiple recipients: one gift card for each of them will be generated."
+msgstr "Indien ingeschakeld, kunnen klanten meerdere ontvangers instellen: er zal een cadeaubon worden gegenereerd voor elk van hen."
+
+#: plugin-options/recipient_delivery-options.php:110
+msgid "Enable multiple recipients for virtual gift cards"
+msgstr "Meerdere ontvangers voor virtuele cadeaubonnen inschakelen"
+
+#: plugin-options/recipient_delivery-options.php:106
+msgid "If enabled, the recipient's name and email fields will be mandatory."
+msgstr "Indien ingeschakeld, zijn ontvangers naam en e-mail veld verplicht."
+
+#: plugin-options/recipient_delivery-options.php:102
+msgid "Make recipient's info mandatory"
+msgstr "Maak ontvangersinformatie verplicht"
+
+#: plugin-options/recipient_delivery-options.php:99
+msgid "RECIPIENT'S INFO"
+msgstr "ONTVANGERSINFORMATIE"
+
+#: plugin-options/recipient_delivery-options.php:97
+msgid "Enter a title for the section with the recipient's info."
+msgstr "Voeg een titel in voor de sectie met de ontvangersinformatie."
+
+#: plugin-options/recipient_delivery-options.php:93
+msgid "Title for the “Recipient info” section"
+msgstr "Titel voor de \"Ontvangersinformatie\" sectie"
+
+#: plugin-options/recipient_delivery-options.php:84
+msgid "Select the time when the gift card will be sent. It is a 24h format, where the minimum time is 00:00 and the maximum is 24:00."
+msgstr "Selecteer de tijd waarom de cadeaubon wordt verstuurd. Het is een 24u formaat, waarbij de minimumtijd 00:00 is en de maximumtijd 24:00."
+
+#: plugin-options/recipient_delivery-options.php:80
+msgid "Choose a default delivery time for gift cards"
+msgstr "Bepaal een standaard levertijd voor cadeaubonnen"
+
+#: plugin-options/recipient_delivery-options.php:76
+msgid "Allow your customers to choose a delivery date for the virtual gift card (option not available for physical gift cards delivered at home)."
+msgstr "Laat je klanten een leveringsdatum kiezen voor de virtuele cadeaubon (optie niet beschikbaar voor fysieke cadeaubonnen die thuis worden geleverd)."
+
+#: plugin-options/recipient_delivery-options.php:72
+msgid "Allow the user to choose the delivery date"
+msgstr "Laat de gebruiker de leverdatum kiezen"
+
+#: plugin-options/recipient_delivery-options.php:36
+#: templates/yith-gift-cards/gift-card-details.php:21
+msgid "Delivery info"
+msgstr "Leveringsinformatie"
+
+#: plugin-options/recipient_delivery-options.php:34
+msgid "Enter a title for the delivery info area on your gift card page. This area will include recipient and sender's info, date of delivery and so on."
+msgstr "Titel invoeren voor de leveringsinformatie sectie in de cadeaubon pagina. Deze sectie bevat de informatie van afzender en ontvanger, leveringsdatum etc."
+
+#: plugin-options/recipient_delivery-options.php:30
+msgid "Title for “Delivery info” section"
+msgstr "Titel voor \"Leveringsinformatie\" sectie"
+
+#: plugin-options/recipient_delivery-options.php:26
+msgid "Recipient & Delivery settings for virtual gift cards"
+msgstr "Ontvanger & verzend instellingen voor virtuele cadeaubonnen"
+
+#: plugin-options/gift_this_product-options.php:225
+msgid "Automatically apply the gift voucher code to the cart, without the user having to enter it manually."
+msgstr "Cadeaubon code automatisch toepassen in de winkelwagen, zonder deze handmatig in te voeren."
+
+#: plugin-options/gift_this_product-options.php:221
+msgid "Automatically apply the gift card code to cart"
+msgstr "Cadeaubon code automatisch toepassen in winkelwagen"
+
+#: plugin-options/gift_this_product-options.php:213
+msgid "Add the recommended product to the recipient's cart"
+msgstr "Gerelateerde product toevoegen in winkelwagen van ontvanger"
+
+#: plugin-options/gift_this_product-options.php:209
+msgid "Automatically add the suggested product to the cart"
+msgstr "Aanbevolen product wordt automatisch toegevoegd aan winkelwagen"
+
+#: plugin-options/gift_this_product-options.php:198
+msgid "Set the page you want the user to be redirected to when the button in the gift card email is clicked on."
+msgstr "Stel de pagina in waarnaar de gebruiker moet worden doorgestuurd zodra op de knop in de cadeaubon e-mail is geklikt."
+
+#: plugin-options/gift_this_product-options.php:188
+msgid "Another page"
+msgstr "Andere pagina"
+
+#: plugin-options/gift_this_product-options.php:187
+msgid "Product page"
+msgstr "Productpagina"
+
+#: plugin-options/gift_this_product-options.php:182
+msgid "Button redirect the user to"
+msgstr "Gebruiker doorsturen naar, knop"
+
+#: plugin-options/gift_this_product-options.php:175
+msgid "Go to the product"
+msgstr "Ga naar het product"
+
+#: plugin-options/gift_this_product-options.php:172
+msgid "Enter a text for the button displayed in the email sent to the gift card recipient."
+msgstr "Tekst invoeren voor de knop die wordt weergegeven in de e-mail, verzonden aan de ontvanger van de cadeaubon."
+
+#: plugin-options/gift_this_product-options.php:171
+msgid "Button text"
+msgstr "Knop tekst"
+
+#: plugin-options/gift_this_product-options.php:166
+msgid "Gift this product email options"
+msgstr "De “Doe dit product cadeau” e-mail opties"
+
+#: plugin-options/gift_this_product-options.php:125
+msgid "Label colors"
+msgstr "Labelkleuren"
+
+#: plugin-options/gift_this_product-options.php:115
+msgid "Enter a custom text"
+msgstr "Aangepaste tekst invoeren"
+
+#: plugin-options/gift_this_product-options.php:94
+msgid "Button"
+msgstr "Knop"
+
+#: plugin-options/gift_this_product-options.php:93
+msgid "Only text"
+msgstr "Alleen tekst"
+
+#: plugin-options/gift_this_product-options.php:88
+msgid "Label style"
+msgstr "Label stijl"
+
+#: plugin-options/gift_this_product-options.php:52
+msgid "Enable a gift card icon in the Gift this product title."
+msgstr "Cadeaubon icoon inschakelen in de 'doe dit product cadeau' titel."
+
+#: plugin-options/gift_this_product-options.php:48
+msgid "Gift this product icon"
+msgstr "Doe dit product cadeau icoon"
+
+#: plugin-options/gift_this_product-options.php:32
+msgid "Enable to allow users to buy a gift card of the same amount of the product. This feature appears on the product page. The product will be recommended in the recipient email that includes the gift card code."
+msgstr "Inschakelen om gebruikers toe te staan een cadeaubon te kopen met hetzelfde bedrag als het product. Deze optie verschijnt op de product pagina. Het product zal worden aanbevolen in de e-mail van de ontvanger samen met de cadeaubon code."
+
+#: plugin-options/gift_this_product-options.php:24
+msgid "Product page options"
+msgstr "Product pagina opties"
+
+#: plugin-options/general-options.php:202
+msgid "When an order containing a gift card is refunded"
+msgstr "Wanneer een bestelling die een cadeaubon bevat is gerestitueerd"
+
+#: plugin-options/general-options.php:197
+#: plugin-options/general-options.php:210
+msgid "Dismiss the gift cards"
+msgstr "Cadeaubon afwijzen"
+
+#: plugin-options/general-options.php:196
+#: plugin-options/general-options.php:209
+msgid "Disable the gift cards"
+msgstr "Cadeaubon uitschakelen"
+
+#: plugin-options/general-options.php:195
+#: plugin-options/general-options.php:208
+msgid "Do nothing"
+msgstr "Niets doen"
+
+#: plugin-options/general-options.php:189
+msgid "When an order containing a gift card is cancelled"
+msgstr "Wanneer een bestelling die een cadeaubon bevat is geannuleerd"
+
+#: plugin-options/general-options.php:185
+msgid "Gift card orders settings"
+msgstr "Cadeaubon bestellingen instellingen"
+
+#: plugin-options/general-options.php:167
+msgid "Set a default expiration for gift cards in months. If the value is zero, your gift cards will never expire."
+msgstr "Stel een standaardvervaldatum in voor cadeaubonnen, in maanden. Als de waarde nul is, zal je cadeaubon nooit vervallen."
+
+#: plugin-options/general-options.php:166
+msgid "Gift card expiration date"
+msgstr "Vervaldatum cadeaubon"
+
+#: plugin-options/general-options.php:153
+msgid "Set a minimum value for the custom amount of your gift cards. Leave empty if you don't want to set a minimum amount."
+msgstr "Stel een minimumbedrag in voor aangepaste bedragen in je cadeaubonnen. Laat leeg als je geen minimumbedrag wilt instellen."
+
+#: plugin-options/general-options.php:147
+msgid "If enabled, customers can enter a custom amount when buying a gift card."
+msgstr "Indien ingeschakeld, kunnen klanten een aangepast bedrag invoeren wanneer zij een cadeaubon kopen."
+
+#: plugin-options/general-options.php:143
+msgid "Enable/disable custom amount"
+msgstr "Aangepast bedrag inschakelen/uitschakelen"
+
+#: plugin-options/general-options.php:140
+#: templates/single-product/add-to-cart/gift-card-amount-selection.php:14
+msgid "Set an amount"
+msgstr "Bepaal een bedrag"
+
+#: plugin-options/general-options.php:138
+msgid "Enter a title for the 'Set an amount' area on your gift card page. This area will include the preset gift card amounts and the custom amount if enabled."
+msgstr "Voer een titel in voor de 'Bepaal een bedrag' sectie in je cadeaubon pagina. Deze sectie bevat de huidige vooraf vastgestelde cadeaubon bedragen en de aangepaste bedragen, indien ingeschakeld."
+
+#: plugin-options/general-options.php:134
+msgid "Title for “Set an amount” section"
+msgstr "Titel voor \"Bepaal een bedrag\" sectie"
+
+#: plugin-options/general-options.php:131
+msgid "These options will be applied to all your gift card products, but in the gift card product edit page you can override them if you want different values for specific gift cards."
+msgstr "Deze opties zullen worden toegepast op al je cadeaubon producten, maar je kunt deze overschrijven in de product bewerken pagina, als je andere waarden wilt voor specifieke cadeaubonnen."
+
+#: plugin-options/general-options.php:129
+msgid "Global settings"
+msgstr "Algemene instellingen"
+
+#: plugin-options/general-options.php:69
+msgid "If enabled, the user with role Shop Manager will be able to manage the plugin settings panel."
+msgstr "Indien ingeschakeld, zal de gebruiker met de Winkel manager rol in staat zijn de het plugin instellingen paneel te beheren."
+
+#: plugin-options/general-options.php:65
+msgid "Enable Shop Managers"
+msgstr "Winkel managers inschakelen"
+
+#: plugin-options/general-options.php:113
+msgid "Notify the use of a gift card"
+msgstr "Meldt wanneer de cadeaubon wordt gebruikt"
+
+#: plugin-options/general-options.php:92
+msgid "If enabled, the customer (the gift card sender) will receive a BCC email with the gift card code."
+msgstr "Indien ingeschakeld zal de klant (verzender van cadeaubon) een BCC e-mail ontvangen met de cadeaubon code."
+
+#: plugin-options/general-options.php:88
+msgid "Gift card sender notification"
+msgstr "Melding voor afzender cadeaubon"
+
+#: plugin-options/general-options.php:84
+msgid "If enabled, admin will receive a BCC email with the gift card code."
+msgstr "Indien ingeschakeld zal de admin een BCC e-mail ontvangen met de cadeaubon code."
+
+#: plugin-options/general-options.php:80
+msgid "Gift card admin notification"
+msgstr "Melding voor admin cadeaubon"
+
+#: plugin-options/general-options.php:61
+msgid "If enabled, the use of gift cards codes to purchase a gift card product is not allowed."
+msgstr "Indien ingeschakeld, is het niet toegestaan om een cadeaubon product te kopen met een cadeaubon code."
+
+#: plugin-options/general-options.php:57
+msgid "Prevent the use of a gift card to purchase another gift card"
+msgstr "Voorkom het gebruik van een cadeaubon voor het kopen van een andere cadeaubon"
+
+#: plugin-options/general-options.php:46
+msgid "Choose the pattern of new gift cards. If you set ***-*** your cards will have a code like: 1ME-D28."
+msgstr "Kies het patroon voor nieuwe cadeaubonnen. Als u ***-*** instelt, zullen je cadeaubonnen een code hebben zoals: 1ME-D28"
+
+#: plugin-options/general-options.php:45
+msgid "Gift card code pattern"
+msgstr "Cadeaubon code patroon"
+
+#: plugin-options/general-options.php:40
+msgid "Enable this option if you want to create gift cards without any code."
+msgstr "Deze optie inschakelen als u cadeaubonnen wilt maken zonder enige code."
+
+#: plugin-options/general-options.php:36
+msgid "Disable code generation"
+msgstr "Codes genereren uitschakelen"
+
+#: plugin-options/general-options.php:32
+msgid "Choose the date format for the gift card expiry date, date of delivery and so on."
+msgstr "Bepaal het datum format voor de cadeaubon vervaldatum, de leveringsdatum etc."
+
+#: plugin-options/general-options.php:27
+msgid "Date format"
+msgstr "Datum formaat"
+
+#: plugin-options/general-options.php:23
+msgid "General settings"
+msgstr "Algemene instellingen"
+
+#: plugin-options/design-options.php:261
+msgid "Select the plugin main color."
+msgstr "Bepaal de hoofdkleur van de plugin."
+
+#: plugin-options/design-options.php:260
+msgid "Plugin main color"
+msgstr "Plugin hoofdkleur"
+
+#: plugin-options/design-options.php:256
+msgid "Plugin design options"
+msgstr "Plugin ontwerp opties"
+
+#: plugin-options/design-options.php:210
+msgid "Set up a maximum size (in MB) for the custom images uploaded by customers. Enter 0 if you don't want to set any limit."
+msgstr "Maximumgrootte (in MB) instellen voor de zelf gemaakte afbeeldingen geüpload door klanten. Voer 0 in als u geen limiet wilt instellen."
+
+#: plugin-options/design-options.php:206
+msgid "Set a max size in MB for custom images (required)"
+msgstr "Maximumgrootte in MB instellen voor zelf gemaakte afbeeldingen (verplicht)"
+
+#: plugin-options/design-options.php:196
+msgid "Enter a recommended size for the uploaded image that fits your gift card layout."
+msgstr "Een aanbevolen afbeeldingsgrootte invoeren voer de geüploade afbeelding die past in je cadeaubon lay-out."
+
+#: plugin-options/design-options.php:192
+msgid "Enter a recommended image size (in pixels) for custom images"
+msgstr "Een aanbevolen afbeelding grootte (in pixels) voor zelf gemaakte ontwerpen"
+
+#: plugin-options/design-options.php:187
+msgid "Enable if the customer can upload a custom image/photo for the gift card."
+msgstr "Sta gebruikers toe om een aangepaste afbeelding te uploaden die kan worden gebruikt als cadeaubon."
+
+#: plugin-options/design-options.php:183
+msgid "Custom Image upload"
+msgstr "Eigen ontwerp upload"
+
+#: plugin-options/design-options.php:172
+msgid "Enable if you want to show a title below every image in the gallery."
+msgstr "Inschakelen als u een titel wilt weergeven onder elke afbeelding in de galerij."
+
+#: plugin-options/design-options.php:171
+msgid "Show image title"
+msgstr "Toon afbeeldingstitel"
+
+#: plugin-options/design-options.php:162
+#: templates/yith-gift-cards/gift-card-design.php:121
+msgid "VIEW ALL"
+msgstr "ALLES TONEN"
+
+#: plugin-options/design-options.php:158
+msgid "Text for \"View all\" button"
+msgstr "Tekst voor de \"Alles tonen\" knop"
+
+#: plugin-options/design-options.php:145
+msgid "Set how many gift card images to show on the gift card page. Other designs will be shown when the customer clicks on \"View all\" button."
+msgstr "Bepaal hoeveel cadeaubon afbeeldingen worden weergegeven op de cadeaubon pagina. Overige ontwerpen zullen worden weergegeven wanneer de klant klikt op de \"Alles tonen\" knop."
+
+#: plugin-options/design-options.php:144
+msgid "How many images to show"
+msgstr "Hoeveel afbeeldingen worden weergegeven"
+
+#: plugin-options/design-options.php:139
+msgid "Set your template categories"
+msgstr "Stel je template categorieën in"
+
+#: plugin-options/design-options.php:139
+msgid "Set your gallery categories."
+msgstr "Stel je galerij categorieën in."
+
+#: plugin-options/design-options.php:139
+msgid "Allow users to pick the gift card image from those available in the gallery. Note: images that can be used by customers have to be uploaded through the Media gallery. To make the search easier, you can group images into categories (e.g. Christmas, Easter, Birthday, etc.) through this link: "
+msgstr "Klanten toestaan een cadeaubonafbeelding te kiezen uit de beschikbare afbeeldingen in de galerij. Let op: afbeeldingen die kunnen worden gebruikt door klanten dienen geüpload te worden via de Media galerij. Om de zoektocht makkelijker te maken kunt u de afbeeldingen groeperen in categorieën (vb. Kerstmis, Pasen, verjaardag etc.) via deze link: "
+
+#: plugin-options/design-options.php:135
+msgid "Enable the gallery"
+msgstr "Galerij inschakelen"
+
+#: plugin-options/design-options.php:132
+#: templates/yith-gift-cards/gift-card-design.php:54
+msgid "Choose your image"
+msgstr "Kies je afbeelding"
+
+#: plugin-options/design-options.php:130
+msgid " Enter a title for the 'Choose your image' area on your gift card page."
+msgstr " Titel invoeren voor de \"Kies je afbeelding\" sectie in de cadeaubon pagina."
+
+#: plugin-options/design-options.php:126
+msgid "Title for “Choose your image” section"
+msgstr "Titel voor \"Kies je afbeelding\" sectie"
+
+#: plugin-options/design-options.php:123
+msgid "Upload a image that will be used by default for all your gift cards. You can, however, override it when you create a new gift card product and leave empty if you don't want to apply a default image."
+msgstr "Een afbeelding uploaden die standaard wordt gebruikt voor al je cadeaubon. Je kunt dit daarentegen overschrijven, wanneer je een nieuw cadeaubon product maakt, laat leeg als je geen standaardafbeelding wilt toepassen."
+
+#: plugin-options/design-options.php:119
+msgid "Default gift card image"
+msgstr "Standaard cadeaubon afbeelding"
+
+#: plugin-options/design-options.php:115
+msgid "Gift card design options"
+msgstr "Cadeaubon ontwerp opties"
+
+#: plugin-options/design-options.php:76
+msgid "Add your shop logo before the gift card image"
+msgstr "Je winkellogo toevoegen vóór de cadeaubon afbeelding"
+
+#: plugin-options/design-options.php:66 plugin-options/design-options.php:94
+msgid "Right"
+msgstr "Rechts"
+
+#: plugin-options/design-options.php:65 plugin-options/design-options.php:93
+msgid "Center"
+msgstr "Midden"
+
+#: plugin-options/design-options.php:64 plugin-options/design-options.php:92
+msgid "Left"
+msgstr "Links"
+
+#: plugin-options/design-options.php:59 plugin-options/design-options.php:87
+msgid "Logo alignment"
+msgstr "Logo uitlijning"
+
+#: plugin-options/design-options.php:48
+msgid "Add your shop logo after the gift card image"
+msgstr "Je winkellogo toevoegen na de cadeaubon afbeelding"
+
+#: plugin-options/design-options.php:39
+msgid "Upload the logo you want to show in the gift card sent to customers."
+msgstr "Upload het logo dat u wilt weergeven in de cadeaubon die wordt verstuurd aan klanten."
+
+#: plugin-options/design-options.php:35
+msgid "Upload your shop logo"
+msgstr "Je winkellogo uploaden"
+
+#: plugin-options/design-options.php:31
+msgid "Set if you want the shop logo to show up on the gift card template sent to the customers. We suggest you keep it disabled if your gift card template image contains your shop logo."
+msgstr "Instellen als je het winkel logo wilt weergeven in de cadeaubon template, die wordt verstuurd naar klanten. We adviseren je deze optie uit te schakelen als je cadeaubon template je winkellogo bevat."
+
+#: plugin-options/design-options.php:27
+msgid "Add your shop logo on gift cards"
+msgstr "Je winkellogo toepassen op cadeaubonnen"
+
+#: plugin-options/design-options.php:23
+msgid "Shop logo options"
+msgstr "Winkellogo opties"
+
+#: plugin-options/cart_checkout-options.php:245
+msgid "Colors of Apply gift card button"
+msgstr "Kleur van 'cadeaubon toepassen' knop"
+
+#: plugin-options/cart_checkout-options.php:242
+#: templates/checkout/form-gift-cards.php:75
+msgid "Apply Gift Card"
+msgstr "Cadeaubon toepassen"
+
+#: plugin-options/cart_checkout-options.php:238
+msgid "Text of Apply gift card button"
+msgstr "Tekst voor de 'cadeaubon toepassen' knop"
+
+#: plugin-options/cart_checkout-options.php:231
+#: plugin-options/cart_checkout-options.php:266
+#: plugin-options/gift_this_product-options.php:146
+msgid "hover text color"
+msgstr "Hover tekst kleur"
+
+#: plugin-options/cart_checkout-options.php:226
+#: plugin-options/cart_checkout-options.php:261
+#: plugin-options/gift_this_product-options.php:141
+msgid "default text color"
+msgstr "Standaard tekst kleur"
+
+#: plugin-options/cart_checkout-options.php:221
+#: plugin-options/cart_checkout-options.php:256
+#: plugin-options/gift_this_product-options.php:136
+msgid "hover color"
+msgstr "Hover kleur"
+
+#: plugin-options/cart_checkout-options.php:216
+#: plugin-options/cart_checkout-options.php:251
+#: plugin-options/gift_this_product-options.php:131
+msgid "default color"
+msgstr "standaardkleur"
+
+#: plugin-options/cart_checkout-options.php:210
+msgid "Colors of apply gift card section"
+msgstr "Kleuren van cadeaubon toepassen sectie"
+
+#: plugin-options/cart_checkout-options.php:206
+msgid "Apply the gift card code in the following box"
+msgstr "Cadeauboncode toepassen in het volgende veld"
+
+#: plugin-options/cart_checkout-options.php:202
+msgid "Enter a text for the gift card form"
+msgstr "Voer een tekst in voor het cadeaubonformulier"
+
+#: plugin-options/cart_checkout-options.php:197
+msgid "Visible form"
+msgstr "Getoond formulier"
+
+#: plugin-options/cart_checkout-options.php:196
+msgid "Hidden form"
+msgstr "Verborgen formulier"
+
+#: plugin-options/cart_checkout-options.php:191
+msgid "Apply gift card layout"
+msgstr "Cadeaubon lay-out toepassen"
+
+#: plugin-options/cart_checkout-options.php:187
+msgid "Show a gift-card icon in the text before the gift card form."
+msgstr "Toon een cadeaubonicoon in de tekst vóór het cadeaubonformulier."
+
+#: plugin-options/cart_checkout-options.php:183
+msgid "Enable icon before text"
+msgstr "Icoon voor tekst inschakelen"
+
+#: plugin-options/cart_checkout-options.php:180
+#: templates/checkout/form-gift-cards.php:33
+msgid "Use it here!"
+msgstr "Gebruik het hier!"
+
+#: plugin-options/cart_checkout-options.php:176
+msgid "Enter here the text of the link that opens the gift card form"
+msgstr "Tekst invoeren voor de link die het cadeaubonformulier opent"
+
+#: plugin-options/cart_checkout-options.php:173
+#: templates/checkout/form-gift-cards.php:33
+msgid "Got a gift card from a loved one?"
+msgstr "Heeft u een cadeaubon ontvangen van een geliefde?"
+
+#: plugin-options/cart_checkout-options.php:169
+msgid "Enter a text before the gift card form"
+msgstr "Tekst invoeren vóór het cadeaubonformulier"
+
+#: plugin-options/cart_checkout-options.php:165
+msgid "Apply gift card section design"
+msgstr "Cadeaubon sectie design toepassen"
+
+#: plugin-options/cart_checkout-options.php:147
+msgid "after checkout form"
+msgstr "na afrekeningsformulier"
+
+#: plugin-options/cart_checkout-options.php:146
+msgid "before checkout form"
+msgstr "voor checkout-formulier"
+
+#: plugin-options/cart_checkout-options.php:136
+msgid "If enabled, customers can apply the gift card code on the Checkout page."
+msgstr "Indien ingeschakeld, kunnen klanten de cadeauboncode toepassen in de checkout pagina."
+
+#: plugin-options/cart_checkout-options.php:132
+msgid "Apply gift card on Checkout page"
+msgstr "Cadeaubon toepassen in checkout pagina"
+
+#: plugin-options/cart_checkout-options.php:128
+msgid "Checkout page options"
+msgstr "Checkout pagina opties"
+
+#: plugin-options/cart_checkout-options.php:109
+msgid "after cart"
+msgstr "na winkelwagen"
+
+#: plugin-options/cart_checkout-options.php:108
+msgid "before cart"
+msgstr "voor winkelwagen"
+
+#: plugin-options/cart_checkout-options.php:102
+#: plugin-options/cart_checkout-options.php:140
+msgid "Apply gift card position"
+msgstr "Cadeaubon positie toepassen"
+
+#: plugin-options/cart_checkout-options.php:98
+msgid "If enabled, customers can apply the gift card code on the Cart page."
+msgstr "Indien ingeschakeld, kunnen klanten de cadeauboncode toepassen in de winkelwagen pagina."
+
+#: plugin-options/cart_checkout-options.php:94
+msgid "Apply gift card on Cart page"
+msgstr "Cadeaubon toepassen in winkelwagen pagina"
+
+#: plugin-options/cart_checkout-options.php:85
+msgid "Enter here the cart minimum amount to allow using gift card codes."
+msgstr "Voer hier een minimumbedrag in voor de winkelwagen dat nodig is voor het gebruik van cadeauboncodes."
+
+#: plugin-options/cart_checkout-options.php:84
+msgid "Set cart minimum amount"
+msgstr "Minimumbedrag voor winkelwagen inschakelen"
+
+#: plugin-options/cart_checkout-options.php:77
+msgid "If enabled, customers can only use the gift card code if the cart minimum amount requirement is fulfilled."
+msgstr "Indien ingeschakeld, kunnen klanten de cadeauboncode uitsluitend gebruiken als het minimumbedrag in de winkelwagen is behaald."
+
+#: plugin-options/cart_checkout-options.php:76
+msgid "Minimum amount in cart"
+msgstr "Minimumbedrag in winkelwagen"
+
+#: plugin-options/cart_checkout-options.php:69
+msgid "If enabled, when a gift card is added to the cart, the gift card info will be displayed."
+msgstr "Indien ingeschakeld, zal, wanneer een cadeaubon is toegevoegd aan de winkelwagen, de cadeaubon informatie worden weergegeven."
+
+#: plugin-options/cart_checkout-options.php:68
+msgid "Show gift card info in the cart"
+msgstr "Toon cadeaubon informatie in winkelwagen"
+
+#: plugin-options/cart_checkout-options.php:63
+msgid "Cart page options"
+msgstr "Winkelwagen pagina opties"
+
+#: plugin-options/cart_checkout-options.php:44
+msgid "Enter a text for the 'Have a coupon?' label"
+msgstr "Voer een tekst in voor het \"Heeft u een coupon?\" label"
+
+#: plugin-options/cart_checkout-options.php:36
+msgid "Enter a text for the 'Apply coupon' button"
+msgstr "Tekst invoeren voor de 'coupon toepassen' knop"
+
+#: plugin-options/cart_checkout-options.php:32
+msgid "Let customers apply the gift card code in the standard WooCommerce coupon fields"
+msgstr "Laat klanten de cadeauboncode toepassen in de standaard WooCommerce coupon velden"
+
+#: plugin-options/cart_checkout-options.php:28
+msgid "Allow gift card codes in WooCommerce coupon fields"
+msgstr "Cadeauboncodes toestaan in WooCommerce coupon velden"
+
+#: plugin-options/cart_checkout-options.php:24
+msgid "Coupon fields settings"
+msgstr "Couponveld instellingen"
+
+#: lib/emails/class-yith-ywgc-email-send-gift-card.php:150
+msgid "a friend"
+msgstr "een vriend"
+
+#: lib/emails/class-yith-ywgc-email-send-gift-card.php:46
+#: lib/emails/class-yith-ywgc-email-send-gift-card.php:157
+msgid "Hi {recipient_name}, you have received this gift card from {sender}, use it on our online shop."
+msgstr "Hi {recipient_name}, je hebt deze cadeaubon ontvangen van {sender}, gebruik het in onze webwinkel."
+
+#: lib/emails/class-yith-ywgc-email-send-gift-card.php:40
+msgid "[{site_title}] You have received a gift card"
+msgstr "[{site_title}] U heeft een cadeaubon ontvangen"
+
+#: lib/emails/class-yith-ywgc-email-send-gift-card.php:39
+msgid "Your gift card"
+msgstr "Je cadeaubon"
+
+#: lib/emails/class-yith-ywgc-email-send-gift-card.php:36
+msgid "Send the digital gift card to the email address selected during the purchase"
+msgstr "Stuur de digitale cadeaubon naar het e-mailadres dat geselecteerd is tijdens de aankoop"
+
+#: lib/emails/class-yith-ywgc-email-send-gift-card.php:33
+msgid "YITH Gift Cards - Dispatch of the code"
+msgstr "YITH Gift Cards - Verzending van de code"
+
+#: lib/emails/class-yith-ywgc-email-delivered-gift-card.php:156
+#: lib/emails/class-yith-ywgc-email-notify-customer.php:160
+#: lib/emails/class-yith-ywgc-email-send-gift-card.php:246
+msgid "Introductive message"
+msgstr "Inleidend bericht"
+
+#: lib/emails/class-yith-ywgc-email-delivered-gift-card.php:149
+#: lib/emails/class-yith-ywgc-email-notify-customer.php:153
+#: lib/emails/class-yith-ywgc-email-send-gift-card.php:239
+msgid "Email Heading"
+msgstr "E-mail heading"
+
+#: lib/emails/class-yith-ywgc-email-delivered-gift-card.php:144
+#: lib/emails/class-yith-ywgc-email-delivered-gift-card.php:151
+#: lib/emails/class-yith-ywgc-email-delivered-gift-card.php:158
+#: lib/emails/class-yith-ywgc-email-notify-customer.php:148
+#: lib/emails/class-yith-ywgc-email-notify-customer.php:155
+#: lib/emails/class-yith-ywgc-email-notify-customer.php:162
+#: lib/emails/class-yith-ywgc-email-send-gift-card.php:234
+#: lib/emails/class-yith-ywgc-email-send-gift-card.php:241
+#: lib/emails/class-yith-ywgc-email-send-gift-card.php:248
+msgid "Defaults to <code>%s</code>"
+msgstr "Defaults naar <code>%s</code>"
+
+#: lib/emails/class-yith-ywgc-email-delivered-gift-card.php:142
+#: lib/emails/class-yith-ywgc-email-notify-customer.php:146
+#: lib/emails/class-yith-ywgc-email-send-gift-card.php:232
+msgid "Subject"
+msgstr "Onderwerp"
+
+#: lib/emails/class-yith-ywgc-email-delivered-gift-card.php:138
+#: lib/emails/class-yith-ywgc-email-notify-customer.php:142
+#: lib/emails/class-yith-ywgc-email-send-gift-card.php:228
+msgid "Enable this email notification"
+msgstr "Deze e-mail melding inschakelen"
+
+#: lib/emails/class-yith-ywgc-email-notify-customer.php:46
+#: lib/emails/class-yith-ywgc-email-notify-customer.php:86
+msgid "The gift card you have sent to <code>{recipient_email}</code> has been used in our shop."
+msgstr "De cadeaubon die je hebt verzonden naar <code>{recipient_email}</code> is gebruikt in onze winkel."
+
+#: lib/emails/class-yith-ywgc-email-notify-customer.php:41
+msgid "[{site_title}] Your gift card has been used"
+msgstr "[{site_title}] Je cadeaubon is gebruikt"
+
+#: lib/emails/class-yith-ywgc-email-notify-customer.php:40
+msgid "I have appreciated your gift"
+msgstr "Ik waardeer je cadeau"
+
+#: lib/emails/class-yith-ywgc-email-notify-customer.php:37
+msgid "Customer notification - the gift card you have bought has been used"
+msgstr "Klant melding - de cadeaubon die je hebt gekocht, is gebruikt"
+
+#: lib/emails/class-yith-ywgc-email-notify-customer.php:34
+msgid "YITH Gift Cards - Notification"
+msgstr "YITH Gift Cards - Melding"
+
+#: lib/class.yith-woocommerce-gift-cards-privacy.php:599
+msgid "Gift Card"
+msgstr "Cadeaubon"
+
+#: lib/class.yith-woocommerce-gift-cards-privacy.php:431
+msgctxt "GDPR privacy"
+msgid "Gift cards sent"
+msgstr "Verzonden cadeaubonnen"
+
+#: lib/class.yith-woocommerce-gift-cards-privacy.php:383
+msgctxt "GDPR privacy"
+msgid "YITH gift cards sent"
+msgstr "Verzonden YITH cadeaubonnen"
+
+#: lib/class.yith-woocommerce-gift-cards-privacy.php:355
+msgctxt "GDPR privacy"
+msgid "Gift cards received"
+msgstr "Ontvangen cadeaubonnen"
+
+#: lib/class.yith-woocommerce-gift-cards-privacy.php:302
+msgctxt "GDPR privacy"
+msgid "YITH gift cards received"
+msgstr "Ontvangen YITH cadeaubonnen"
+
+#. translators: %d: Comment ID
+#: lib/class.yith-woocommerce-gift-cards-privacy.php:166
+#: lib/class.yith-woocommerce-gift-cards-privacy.php:241
+msgid "Gift card %d contains personal data but could not be anonymized."
+msgstr "Cadeaubon %d bevat persoonlijke gegevens maar kon niet anoniem gemaakt worden."
+
+#: lib/class.yith-woocommerce-gift-cards-privacy.php:145
+#: lib/class.yith-woocommerce-gift-cards-privacy.php:218
+#: lib/class.yith-woocommerce-gift-cards-privacy.php:558
+msgctxt "GDPR privacy"
+msgid "Anonymous"
+msgstr "Anoniem"
+
+#: lib/class.yith-woocommerce-gift-cards-privacy.php:96
+msgctxt "GDPR privacy"
+msgid "YITH gift cards received and sent"
+msgstr "Ontvangen en verzonden YITH cadeaubonnen"
+
+#: lib/class.yith-woocommerce-gift-cards-privacy.php:28
+msgctxt "Privacy Policy Content"
+msgid "YITH Gift Cards for WooCommerce premium"
+msgstr "YITH Gift Cards for WooCommerce premium"
+
+#: lib/class-ywgc-plugin-fw-loader.php:209
+msgid "In the YITH Plugins tab you can find YITH WooCommerce Gift Cards options.<br> From this menu you can access all the settings of your active YITH plugins."
+msgstr "In de YITH Plugins tab vindt u de YITH WooCommerce Gift Card opties. <br> vanuit dit menu heb je toegang tot alle instellingen van je actieve YITH Plugins."
+
+#: lib/class-ywgc-plugin-fw-loader.php:208
+msgid "YITH WooCommerce Gift Cards"
+msgstr "YITH WooCommerce Gift Cards"
+
+#: lib/class-ywgc-plugin-fw-loader.php:200
+msgid "YITH WooCommerce Gift Cards is available in an outstanding premium version with many new options, discover it now."
+msgstr "YITH WooCommerce Gift Cards is beschikbaar in een uitstekende premium versie met vele nieuwe opties, ontdek het nu."
+
+#: lib/class-ywgc-plugin-fw-loader.php:140
+#: lib/class-ywgc-plugin-fw-loader.php:201
+msgid "Premium version"
+msgstr "Premium versie"
+
+#: lib/class-ywgc-plugin-fw-loader.php:136
+msgid "Cart & checkout"
+msgstr "Winkelwagen & checkout"
+
+#: lib/class-ywgc-plugin-fw-loader.php:135
+msgid "Recipient & delivery"
+msgstr "Ontvanger & levering"
+
+#: lib/class-ywgc-plugin-fw-loader.php:133
+msgid "Image categories"
+msgstr "Afbeelding categorieën"
+
+#: lib/class-ywgc-plugin-fw-loader.php:132
+msgid "Style"
+msgstr "Stijl"
+
+#: lib/class-ywgc-plugin-fw-loader.php:130
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#: lib/class-yith-ywgc-gift-cards-table.php:359
+msgid "Physical product"
+msgstr "Fysiek product"
+
+#: lib/class-yith-ywgc-gift-cards-table.php:352
+msgid "This card is dismissed."
+msgstr "Deze kaart is afgewezen."
+
+#: lib/class-yith-ywgc-gift-cards-table.php:336
+msgid "Send now"
+msgstr "Verstuur nu"
+
+#: lib/class-yith-ywgc-gift-cards-table.php:312
+msgid "Download pdf"
+msgstr "Download pdf"
+
+#: lib/class-yith-ywgc-gift-cards-table.php:228
+msgid "Unlimited"
+msgstr "Ongelimiteerd"
+
+#: lib/class-yith-ywgc-gift-cards-table.php:209
+#: templates/myaccount/my-giftcards.php:142
+msgid "The code has not been used yet"
+msgstr "De code is nog niet gebruikt"
+
+#: lib/class-yith-ywgc-gift-cards-table.php:189
+msgid "Created manually"
+msgstr "Handmatig gemaakt"
+
+#: lib/class-yith-ywgc-gift-cards-table.php:162
+msgctxt "Order number by X"
+msgid "%s by %s"
+msgstr "%s van %s"
+
+#: lib/class-yith-ywgc-gift-cards-table.php:158
+msgid "Guest"
+msgstr "Gast"
+
+#: lib/class-yith-ywgc-gift-cards-table.php:118
+#: lib/emails/class-yith-ywgc-email-delivered-gift-card.php:136
+#: lib/emails/class-yith-ywgc-email-notify-customer.php:140
+#: lib/emails/class-yith-ywgc-email-send-gift-card.php:226
+msgid "Enable/Disable"
+msgstr "Inschakelen/Uitschakelen"
+
+#: lib/class-yith-ywgc-gift-cards-table.php:117
+msgid "Direct link"
+msgstr "Directe link"
+
+#: lib/class-yith-ywgc-gift-cards-table.php:116
+msgid "Notes"
+msgstr "Notities"
+
+#: lib/class-yith-ywgc-gift-cards-table.php:114
+msgid "Information"
+msgstr "Informatie"
+
+#: lib/class-yith-ywgc-gift-cards-table.php:112
+msgid "Orders"
+msgstr "Orders"
+
+#: lib/class-yith-ywgc-gift-cards-table.php:111
+#: templates/myaccount/my-giftcards.php:15
+#: templates/shortcodes/user-gift-card-table.php:29
+msgid "Balance"
+msgstr "Saldo"
+
+#: lib/class-yith-ywgc-gift-cards-table.php:110
+msgid "Order"
+msgstr "Order"
+
+#: lib/class-yith-ywgc-gift-card-premium.php:514
+msgid "No longer valid, replaced by another code"
+msgstr "Niet langer geldig, vervang door andere code"
+
+#: lib/class-yith-ywgc-gift-card-premium.php:511
+msgid "Valid"
+msgstr "Geldig"
+
+#: lib/class-yith-ywgc-gift-card-premium.php:508
+msgid "The gift card has been disabled"
+msgstr "De cadeaubon is uitgeschakeld"
+
+#: lib/class-yith-ywgc-gift-card-premium.php:233
+msgid "Gift card code successfully removed."
+msgstr "Cadeauboncode succesvol verwijderd."
+
+#: lib/class-yith-ywgc-gift-card-premium.php:230
+msgid "Gift card code successfully applied."
+msgstr "Cadeauboncode succesvol toegepast."
+
+#: lib/class-yith-ywgc-gift-card-premium.php:208
+#: lib/class-yith-ywgc-gift-card-premium.php:237
+msgid "Gift card codes cannot be used to purchase other gift cards"
+msgstr "Cadeauboncodes kunnen niet worden gebruikt om andere cadeaubonnen te kopen"
+
+#: lib/class-yith-ywgc-gift-card-premium.php:205
+msgid "Sorry, it seems that the gift card code %s is invalid - it has been removed from your cart."
+msgstr "Sorry, het lijkt erop dat cadeauboncode %s ongeldig is - deze is verwijderd van je winkelwagen."
+
+#: lib/class-yith-ywgc-gift-card-premium.php:202
+msgid "Sorry, the gift card code %s is no longer valid!"
+msgstr "Sorry, cadeauboncode %s is niet langer geldig!"
+
+#: lib/class-yith-ywgc-gift-card-premium.php:199
+msgid "Sorry, the gift card code %s is currently disabled and cannot be used."
+msgstr "Sorry, cadeauboncode %s is momenteel niet beschikbaar en kan niet worden gebruikt."
+
+#: lib/class-yith-ywgc-gift-card-premium.php:196
+msgid "Sorry, the gift card code %s is expired and cannot be used."
+msgstr "Sorry, cadeauboncode %s is vervallen en kan niet worden gebruikt."
+
+#: lib/class-yith-ywgc-gift-card-premium.php:193
+msgid "The gift card code %s has already been applied!"
+msgstr "Cadeauboncode %s is al toegepast!"
+
+#: lib/class-yith-ywgc-gift-card-premium.php:190
+msgid "Sorry, it seems that the gift card code \"%s\" is not yours and cannot be used for this order."
+msgstr "Sorry, het lijkt erop dat cadeauboncode \"%s\" niet van u is en niet gebruikt kan worden voor deze bestelling."
+
+#: lib/class-yith-ywgc-gift-card-premium.php:187
+msgid "The gift card code %s does not exist!"
+msgstr "Cadeauboncode %s bestaat niet!"
+
+#: lib/class-yith-ywgc-frontend-premium.php:1167
+msgid "It is not possible to add a gift card code when the cart contains a gift card product"
+msgstr "Het is niet mogelijk om een cadeaubon code toe te voegen als er een abonnement-product in de winkelwagen zit"
+
+#: lib/class-yith-ywgc-frontend-premium.php:1111
+msgid "Click here to enter your code"
+msgstr "Click hier om je code in te voeren"
+
+#: lib/class-yith-ywgc-frontend-premium.php:1109
+#: plugin-options/cart_checkout-options.php:49
+msgid "Have a coupon?"
+msgstr "Heeft u een coupon?"
+
+#: lib/class-yith-ywgc-frontend-premium.php:1099
+#: plugin-options/cart_checkout-options.php:41
+msgid "Apply coupon"
+msgstr "Coupon toepassen"
+
+#: lib/class-yith-ywgc-frontend-premium.php:1006
+#: lib/class-yith-ywgc-gift-cards-table.php:386
+msgid "Delivery date: %s"
+msgstr "Leverdatum: %s"
+
+#: lib/class-yith-ywgc-frontend-premium.php:1002
+#: lib/class-yith-ywgc-gift-cards-table.php:379
+msgid "Recipient: %s"
+msgstr "Ontvanger: %s"
+
+#: lib/class-yith-ywgc-frontend-premium.php:997
+#: lib/class-yith-ywgc-gift-cards-table.php:374
+msgid "Failed"
+msgstr "Mislukt"
+
+#: lib/class-yith-ywgc-frontend-premium.php:994
+#: lib/class-yith-ywgc-gift-cards-table.php:371
+msgid "Not yet sent"
+msgstr "Nog niet verzonden"
+
+#: lib/class-yith-ywgc-frontend-premium.php:991
+#: lib/class-yith-ywgc-gift-cards-table.php:368
+msgid "Scheduled"
+msgstr "Gepland"
+
+#: lib/class-yith-ywgc-frontend-premium.php:988
+#: lib/class-yith-ywgc-gift-cards-table.php:365
+msgid "Sent on %s"
+msgstr "Vestuurd op %s"
+
+#: lib/class-yith-ywgc-frontend-premium.php:811
+#: templates/support-attachments.php:42
+msgid "Cancel"
+msgstr "Annuleren"
+
+#: lib/class-yith-ywgc-frontend-premium.php:809
+msgid "Apply"
+msgstr "Toepassen"
+
+#: lib/class-yith-ywgc-frontend-premium.php:777
+msgid "Edit"
+msgstr "Bewerken"
+
+#: lib/class-yith-ywgc-frontend-premium.php:769
+#: lib/class-yith-ywgc-frontend-premium.php:795
+msgid "Recipient: "
+msgstr "Ontvanger: "
+
+#: lib/class-yith-ywgc-frontend-premium.php:764
+#: lib/class-yith-ywgc-frontend-premium.php:788
+msgid "Sender: "
+msgstr "Afzender: "
+
+#: lib/class-yith-ywgc-frontend-premium.php:762
+#: lib/class-yith-ywgc-frontend-premium.php:781
+msgid "Gift card details"
+msgstr "Cadeaubon details"
+
+#: lib/class-yith-ywgc-frontend-premium.php:759
+msgid "See card details"
+msgstr "Toon kaart details"
+
+#: lib/class-yith-ywgc-frontend-premium.php:342
+msgid "Buy gift card"
+msgstr "Koop een cadeaubon"
+
+#: lib/class-yith-ywgc-frontend-premium.php:340
+msgid "E-mail: "
+msgstr "E-mail: "
+
+#: lib/class-yith-ywgc-frontend-premium.php:339
+#: templates/yith-gift-cards/gift-card-details.php:39
+#: templates/yith-gift-cards/gift-card-details.php:67
+#: templates/yith-gift-cards/physical-gift-card-details.php:27
+msgid "Name: "
+msgstr "Naam: "
+
+#: lib/class-yith-ywgc-frontend-premium.php:338
+msgid "ENTER ADDITIONAL RECIPIENT'S EMAIL ADDRESS"
+msgstr "VOEG AANVULLENDE E-MAILADRESSEN VAN ONTVANGERS TOE"
+
+#: lib/class-yith-ywgc-frontend-premium.php:337
+msgid "ENTER ADDITIONAL RECIPIENT'S NAME"
+msgstr "VOEG AANVULLENDE NAMVEN VAN ONTVANGERS TOE"
+
+#: lib/class-yith-ywgc-frontend-premium.php:335
+msgid "Please enter a valid email address"
+msgstr "Vul een geldig e-mailadres in"
+
+#: lib/class-yith-ywgc-frontend-premium.php:330
+msgid "Please use only digits and the decimal separator '%1$s'. Valid examples are '123', '123%1$s9 and '123%1$s99'."
+msgstr "Gebruik uitsluitend cijfers en een scheidingsteken voor decimalen '%1$s'. Geldige voorbeelden zijn '123', '123%1$s9 en '123%1$s99'."
+
+#: lib/class-yith-ywgc-frontend-premium.php:317
+msgid "Please enter a valid delivery date"
+msgstr "Vul een geldige leverdatum in"
+
+#: lib/class-yith-ywgc-frontend-premium.php:316
+msgid "<b>Note</b>: You added more than one recipient, so <i class='ywgc-darkred-text'>you will buy %number_gift_cards% gift cards</i> and each recipient will receive a different gift card."
+msgstr "<b>Note</b>: U heeft meer dan een ontvanger toegevoegd, dus <i class='ywgc-darkred-text'>koopt u %number_gift_cards% cadeaubonnen</i> en elke ontvanger zal een aparte cadeaubon ontvangen."
+
+#: lib/class-yith-ywgc-frontend-premium.php:315
+msgid "<b>Attention</b>: the <b>suggested minimum</b> size of the image is 490x195"
+msgstr "<b>Let op</b>: het <b>aanbevolen minimale</b> formaat afbeelding is 490x195"
+
+#: lib/class-yith-ywgc-frontend-premium.php:313
+msgid "The size fo the uploaded file exceeds the maximum allowed"
+msgstr "Maximaal toegestane grootte voor geüpload bestand overschreden"
+
+#: lib/class-yith-ywgc-frontend-premium.php:312
+msgid "File format is not valid, select a jpg, jpeg, png, gif or bmp file"
+msgstr "Bestandsformaat is niet geldig, selecteer een jpg, jpeg, png, gif of bmp bestand"
+
+#: lib/class-yith-ywgc-frontend-premium.php:283
+msgid "The minimum amount is"
+msgstr "Het minimum bedrag is"
+
+#: lib/class-yith-ywgc-frontend-premium.php:235
+msgid "Enter amount"
+msgstr "Bedrag invoeren"
+
+#: lib/class-yith-ywgc-cart-checkout.php:1344
+msgid "You can't purchase a physical product and a digital gift card with the same order"
+msgstr "U kunt geen fysiek product en een digitale cadeaubon kopen in dezelfde bestelling"
+
+#: lib/class-yith-ywgc-cart-checkout.php:1235
+msgid "Email address not valid, please check the following: "
+msgstr "Ongeldig e-mailadres, controleer het volgende alstublieft: "
+
+#: lib/class-yith-ywgc-cart-checkout.php:1224
+msgid "The recipient(s) email address is mandatory"
+msgstr "Het e-mailadres van de ontvanger is verplicht"
+
+#: lib/class-yith-ywgc-cart-checkout.php:1211
+msgid "Add a valid email address for the recipient"
+msgstr "Voeg een geldig e-mailadres toe voor de ontvanger"
+
+#: lib/class-yith-ywgc-cart-checkout.php:1197
+msgid "An error occurred while adding the product to the cart."
+msgstr "Er is een fout opgetreden bij het toevoegen van producten aan de winkelwagen."
+
+#: lib/class-yith-ywgc-cart-checkout.php:981
+msgid "The gift card has invalid amount"
+msgstr "De cadeaubon heeft een ongeldig bedrag"
+
+#: lib/class-yith-ywgc-cart-checkout.php:940
+#: templates/yith-gift-cards/gift-card-details.php:27
+msgid "Delivery date: "
+msgstr "Leverdatum: "
+
+#: lib/class-yith-ywgc-cart-checkout.php:931
+#: lib/class-yith-ywgc-frontend-premium.php:774
+#: lib/class-yith-ywgc-frontend-premium.php:802
+#: templates/yith-gift-cards/gift-card-details.php:73
+#: templates/yith-gift-cards/physical-gift-card-details.php:40
+msgid "Message: "
+msgstr "Bericht: "
+
+#: lib/class-yith-ywgc-cart-checkout.php:927
+msgid "Your name: "
+msgstr "Je naam: "
+
+#: lib/class-yith-ywgc-cart-checkout.php:923
+msgid "Recipient's email: "
+msgstr "E-mail ontvanger: "
+
+#: lib/class-yith-ywgc-cart-checkout.php:920
+msgid "Your billing email address"
+msgstr "Je factuur e-mailadres"
+
+#: lib/class-yith-ywgc-cart-checkout.php:914
+#: templates/yith-gift-cards/physical-gift-card-details.php:32
+msgid "Recipient's name: "
+msgstr "Naam ontvanger: "
+
+#: lib/class-yith-ywgc-cart-checkout.php:847
+msgid "Order paid with gift cards for a total amount of %s."
+msgstr "Order voldaan met cadeaubonnen, voor een totaalbedrag van %s."
+
+#: lib/class-yith-ywgc-cart-checkout.php:552
+msgid "[Remove]"
+msgstr "[Verwijderen]"
+
+#: lib/class-yith-ywgc-cart-checkout.php:548
+msgid "Gift card:"
+msgstr "Cadeaubon:"
+
+#: lib/class-yith-ywgc-cart-checkout.php:527
+msgid "Gift cards:"
+msgstr "Cadeaubonnen:"
+
+#: lib/class-yith-ywgc-cart-checkout.php:481
+msgid "as a Gift Card"
+msgstr "als een cadeaubon"
+
+#: lib/class-yith-ywgc-backend.php:701
+msgid "You haven't configured any gift card yet"
+msgstr "U heeft nog geen cadeaubon geconfigureerd"
+
+#: lib/class-yith-ywgc-backend.php:664
+msgid "Add"
+msgstr "Toevoegen"
+
+#: lib/class-yith-ywgc-backend.php:660
+msgid "Gift card amount"
+msgstr "Cadeaubon bedrag"
+
+#: lib/class-yith-ywgc-backend.php:634
+msgid "Enabled"
+msgstr "Ingeschakeld"
+
+#: lib/class-yith-ywgc-backend.php:631
+msgid "Default"
+msgstr "Default"
+
+#: lib/class-yith-ywgc-backend.php:627
+msgid "Manual amount mode"
+msgstr "Handmatige hoeveelheid modus"
+
+#: lib/class-yith-ywgc-backend.php:610
+msgid "Set an optional minimum custom amount for this gift card."
+msgstr "Bepaal het minimum handmatig bedrag voor een cadeaubon"
+
+#: lib/class-yith-ywgc-backend.php:609
+msgid "Enter a minimum amount"
+msgstr "Minimumbedrag invoeren"
+
+#: lib/class-yith-ywgc-backend.php:608 plugin-options/general-options.php:152
+msgid "Minimum custom amount"
+msgstr "Minimum aangepast bedrag"
+
+#: lib/class-yith-ywgc-backend.php:596
+msgid "Set an expiration date for this gift card."
+msgstr "Vervaldatum invoeren voor deze cadeaubon."
+
+#: lib/class-yith-ywgc-backend.php:575
+msgid "Enter a text  to describe your discount."
+msgstr "Tekst invoeren om de korting te beschrijven."
+
+#: lib/class-yith-ywgc-backend.php:573 lib/class-yith-ywgc-backend.php:574
+msgid "Sale discount text"
+msgstr "Uitverkoop korting tekst"
+
+#: lib/class-yith-ywgc-backend.php:559
+msgid "Set an optional discount for this gift card."
+msgstr "Stel een optionele korting in voor deze cadeaubon."
+
+#: lib/class-yith-ywgc-backend.php:558
+msgid "Enter a discount percentage"
+msgstr "Een kortingspercentage toevoegen"
+
+#: lib/class-yith-ywgc-backend.php:557
+msgid "Sale discount (%)"
+msgstr "Uitverkoop korting (%)"
+
+#: lib/class-yith-ywgc-backend.php:362
+#: templates/yith-gift-cards/ywgc-gift-card-template.php:102
+msgid "Gift card"
+msgstr "Cadeaubon"
+
+#: lib/class-yith-ywgc-backend.php:329
+msgid "Done"
+msgstr "Klaar"
+
+#: lib/class-yith-ywgc-backend.php:328
+msgid "Manage the Media library"
+msgstr "Beheer de Media bibliotheek"
+
+#: lib/class-yith-ywgc-backend.php:305
+msgid "Unset gift card image category"
+msgstr "Cadeaubon afbeelding categorie uitschakelen"
+
+#: lib/class-yith-ywgc-backend.php:304
+msgid "Set gift card image category"
+msgstr "Cadeaubon afbeelding categorie instellen"
+
+#: lib/class-yith-ywgc-backend.php:279
+msgid "Choose Image"
+msgstr "Kies afbeelding"
+
+#: lib/class-yith-ywgc-backend.php:198
+msgid "Enter the pre-printed code: "
+msgstr "Geef de vooraf afgedrukte code in: "
+
+#: lib/class-yith-ywgc-backend.php:190
+#: lib/class-yith-ywgc-frontend-premium.php:982
+msgid "Gift card code: "
+msgstr "Cadeaubon code: "
+
+#: lib/class-yith-ywgc-backend.php:166
+msgid "purchased as a Gift Card"
+msgstr "gekocht als een cadeaubon"
+
+#: lib/class-yith-ywgc-backend-premium.php:990
+msgid "Upload/manage images in the WordPress Media Library and include them in the existing gift card categories."
+msgstr "Upload/beheer afbeeldingen in de WordPress Media Bibliotheek en voeg ze toe aan de bestaande cadeaubon categorieën."
+
+#: lib/class-yith-ywgc-backend-premium.php:989
+msgid "Manage media"
+msgstr "Manage media"
+
+#: lib/class-yith-ywgc-backend-premium.php:987
+msgid "Manage the gift card images through the WordPress Media Library"
+msgstr "Beheer de cadeaubonafbeeldingen via de WordPress Media bibliotheek"
+
+#: lib/class-yith-ywgc-backend-premium.php:962
+msgid "Enable WPML integration"
+msgstr "WPML Currency Switcher-integratie"
+
+#: lib/class-yith-ywgc-backend-premium.php:957
+msgid "WPML Currency Switcher integration"
+msgstr "WPML Currency Switcher-integratie"
+
+#: lib/class-yith-ywgc-backend-premium.php:931
+msgid "Enable Aelia integration"
+msgstr "Schakel Aelia-integratie in"
+
+#: lib/class-yith-ywgc-backend-premium.php:926
+msgid "Aelia Currency Switcher integration"
+msgstr "Toegevoegd: Ondersteuning voor Aelia Currency Switcher voor WooCommerce"
+
+#: lib/class-yith-ywgc-backend-premium.php:904
+msgid "Transfer \"Store Credit / Gift Certificate\" coupons. This action cannot be undone"
+msgstr "Overdracht kortingsbonnen \"Winkel tegoed / cadeaubon\". Deze actie kan niet ongedaan gemaakt worden"
+
+#: lib/class-yith-ywgc-backend-premium.php:900
+msgid "Transfer WooCommerce Smart Coupons to YITH Gift Cards "
+msgstr "WooCommerce Smart Coupons naar YITH Gift Cards verplaatsen "
+
+#: lib/class-yith-ywgc-backend-premium.php:897
+msgid "WooCommerce Smart Coupons integration"
+msgstr "WooCommerce Smart Coupons integratie"
+
+#: lib/class-yith-ywgc-backend-premium.php:685
+msgid "Postdated"
+msgstr "Gepostdateerde"
+
+#: lib/class-yith-ywgc-backend-premium.php:679
+msgid "Version"
+msgstr "Versie"
+
+#: lib/class-yith-ywgc-backend-premium.php:676
+msgid "Subtotal tax"
+msgstr "Subtotaal btw"
+
+#: lib/class-yith-ywgc-backend-premium.php:673
+msgid "Subtotal"
+msgstr "Subtotaal"
+
+#: lib/class-yith-ywgc-backend-premium.php:670
+msgid "Design"
+msgstr "Design"
+
+#: lib/class-yith-ywgc-backend-premium.php:667
+msgid "Design type"
+msgstr "Design type"
+
+#: lib/class-yith-ywgc-backend-premium.php:652
+msgid "Amount"
+msgstr "Bedrag"
+
+#: lib/class-yith-ywgc-backend-premium.php:649
+msgid "Present variation ID"
+msgstr "Cadeau variatie ID"
+
+#: lib/class-yith-ywgc-backend-premium.php:646
+msgid "Present product ID"
+msgstr "Cadeau product ID"
+
+#: lib/class-yith-ywgc-backend-premium.php:643
+msgid "Product as a present"
+msgstr "Product als een cadeau"
+
+#: lib/class-yith-ywgc-backend-premium.php:640
+msgid "Product ID"
+msgstr "Product ID"
+
+#: lib/class-yith-ywgc-backend-premium.php:587
+msgid "Used"
+msgstr "Gebruikt"
+
+#: lib/class-yith-ywgc-backend-premium.php:585
+msgid "Active"
+msgstr "Actief"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1358
+msgid "This code is already applied"
+msgstr "Deze code is al toegepast!"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1345
+msgid "It is not possible to add any gift card if the cart contains a subscription-based product"
+msgstr "Het is niet mogelijk om een cadeaubon toe te voegen aan de winkelwagen, als deze al een 'abonnement gebaseerd' product bevat."
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1049
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1050
+#: lib/class-yith-woocommerce-gift-cards.php:245
+#: lib/class-yith-woocommerce-gift-cards.php:246
+#: lib/class-yith-ywgc-frontend-premium.php:196
+msgid "Gift Cards"
+msgstr "Cadeaubonnen"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1047
+msgid "No gift cards found in Trash."
+msgstr "Geen cadeaubonnen gevonden in prullenbak."
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1046
+#: templates/myaccount/my-giftcards.php:182
+#: templates/shortcodes/user-gift-card-table.php:155
+msgid "No gift cards found."
+msgstr "Geen cadeaubonnen gevonden."
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1045
+msgid "Parent gift cards:"
+msgstr "Bovenliggende cadeaubonnen:"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1044
+msgid "Search gift cards"
+msgstr "Cadeaubonnen zoeken"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1043
+msgid "All gift cards"
+msgstr "Alle cadeaubonnen"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1042
+msgid "View Gift Card"
+msgstr "Bekijk cadeaubon"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1041
+msgid "Edit Gift Card"
+msgstr "Bewerk cadeaubon"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1040
+msgid "New Gift Card"
+msgstr "Nieuwe cadeaubon"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1039
+msgid "Create Gift Card Code"
+msgstr "Cadeaubon code creëren"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1038
+msgctxt "admin menu item"
+msgid "Create Code"
+msgstr "Code creëren"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1037
+msgctxt "add new on admin bar"
+msgid "Gift Card"
+msgstr "Cadeaubon"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1036
+msgctxt "admin menu"
+msgid "Gift Cards"
+msgstr "Cadeaubonnen"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1035
+msgctxt "post type singular name"
+msgid "Gift Card"
+msgstr "Cadeaubon"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1034
+msgctxt "post type general name"
+msgid "All Gift Cards"
+msgstr "Alle cadeaubonnen"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1012
+msgid "Enter your notes here. This will only be visible to the admin."
+msgstr "Je notitie hier invoeren. Deze zullen uitsluitend zichtbaar zijn voor de admin."
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:1011
+msgid "Internal notes"
+msgstr "Interne notitie"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:992
+#: lib/class-yith-woocommerce-gift-cards-premium.php:999
+msgid "The date when the digital gift card will expire."
+msgstr "Datum waarop de digitale cadeaubon zal verlopen."
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:991
+#: lib/class-yith-woocommerce-gift-cards-premium.php:998
+#: lib/class-yith-ywgc-backend.php:594
+#: lib/class-yith-ywgc-gift-cards-table.php:113
+msgid "Expiration date"
+msgstr "Vervaldatum"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:972
+#: lib/class-yith-woocommerce-gift-cards-premium.php:979
+msgid "The date when the digital gift card will be sent to the recipient."
+msgstr "De datum waarop de digitale cadeaubon zal worden verzonden aan ontvanger."
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:971
+#: lib/class-yith-woocommerce-gift-cards-premium.php:978
+#: lib/class-yith-ywgc-backend-premium.php:682
+msgid "Delivery date"
+msgstr "Leverdatum"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:960
+msgid "The message attached to the gift card."
+msgstr "Het bericht gekoppeld aan de cadeaubon."
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:959
+#: lib/class-yith-ywgc-backend-premium.php:664
+msgid "Message"
+msgstr "Bericht"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:949
+msgid "The name of the digital gift card recipient."
+msgstr "Naam van de ontvanger van de digitale cadeaubon"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:948
+#: lib/class-yith-ywgc-backend-premium.php:661
+msgid "Recipient's name"
+msgstr "Naam ontvanger"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:938
+msgid "The email address of the digital gift card recipient."
+msgstr "E-mailadres van ontvanger van de digitale cadeaubon."
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:937
+msgid "Recipient's email"
+msgstr "E-mail ontvanger"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:926
+msgid "The name of the digital gift card sender, if any."
+msgstr "Naam afzender van digitale cadeaubon, indien aanwezig."
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:925
+#: lib/class-yith-ywgc-backend-premium.php:658
+msgid "Sender's name"
+msgstr "Naam afzender"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:919
+msgid "Check if the gift card will be sent via email. Leave it unchecked to make this work as a physical product."
+msgstr "Aanvinken als de cadeaubon moet worden verstuurd via e-mail. Niet aanvinken als u hier een fysiek product van wilt maken."
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:918
+#: lib/class-yith-ywgc-backend-premium.php:655
+msgid "Digital"
+msgstr "Digitaal"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:912
+msgid "The current amount available for the customer."
+msgstr "Huidige bedrag beschikbaar voor de klant."
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:911
+msgid "Current balance"
+msgstr "Huidig saldo"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:905
+msgid "The amount purchased by the customer."
+msgstr "De hoeveelheid gekocht door de klant."
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:904
+msgid "Purchased amount"
+msgstr "Gekocht bedrag"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:899
+#: lib/class-ywgc-plugin-fw-loader.php:131
+msgid "General"
+msgstr "Algemeen"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:893
+msgid "Gift card detail"
+msgstr "Cadeaubon details"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:671
+msgid "An error occurred, you cannot use the plugin"
+msgstr "Er is een fout opgetreden, je kunt deze plugin niet gebruiken"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:642
+msgid "This product has been automatically created by the plugin YITH Gift Cards.You must not edit it, or the plugin could not work properly. The main functionality of this product is to be used for the feature \"Gift this product\""
+msgstr "Dit product is automatisch gecreëerd door de YITH Gift Cards plugin. Gelieve dit niet aan te passen, aanpassen kan problemen veroorzaken met de plugin. Het hoofddoel van dit product is om gebruikt te worden voor de functie “Doe dit product cadeau”"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:640
+#: lib/class-yith-woocommerce-gift-cards-premium.php:774
+#: lib/class-ywgc-plugin-fw-loader.php:134
+#: plugin-options/gift_this_product-options.php:118
+#: templates/single-product/add-to-cart/give-product-as-present.php:33
+#: templates/single-product/add-to-cart/give-product-as-present.php:36
+#: templates/single-product/add-to-cart/give-product-as-present.php:43
+#: templates/single-product/add-to-cart/give-product-as-present.php:47
+msgid "Gift this product"
+msgstr "Doe dit product cadeau"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:552
+msgid "Code not valid"
+msgstr "Code niet geldig"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:541
+msgid "Dismissed"
+msgstr "Afgewezen"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:530
+#: lib/class-yith-ywgc-backend.php:637
+msgid "Disabled"
+msgstr "Uitgeschakeld"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:507
+msgid "Select this category in your gift card product if you want to display all the images categories in your gift card gallery"
+msgstr "Selecteer deze categorie in je cadeaubon product als je alle afbeeldingen wilt weergeven in je cadeaubon galerij"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:504
+msgid "All"
+msgstr "Alle"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:498
+msgid "Select this category in your gift card product if you do not want to display images in your gift card gallery"
+msgstr "Selecteer deze categorie in je cadeaubon product als je geen afbeeldingen wilt weergeven in je cadeaubon galerij"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:495
+msgid "None"
+msgstr "Geen"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:477
+msgid "New image category name"
+msgstr "Nieuwe afbeelding categorienaam"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:476
+msgid "Add new image category"
+msgstr "Nieuwe afbeelding categorie toevoegen"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:475
+msgid "Update gift card image category"
+msgstr "Cadeaubon afbeelding categorie bijwerken"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:474
+msgid "Edit image category"
+msgstr "Bewerk afbeelding categorie"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:473
+msgid "Parent image category:"
+msgstr "Hoofdafbeelding categorie:"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:472
+msgid "Parent image category"
+msgstr "Hoofdafbeelding categorie"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:471
+msgid "All image categories"
+msgstr "Alle afbeelding categorieën"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:470
+msgid "Search image categories"
+msgstr "Zoek cadeaubon afbeelding categorieën"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:469
+#: lib/class-yith-woocommerce-gift-cards-premium.php:478
+msgid "Gift card image category"
+msgstr "Cadeaubon afbeelding categorie"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:468
+msgid "Gift card image categories"
+msgstr "Cadeaubon afbeelding categorieën"
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:423
+msgid "Check this option if you want to disable the option \"gift this product\" on this product."
+msgstr "Selecteer deze optie als je de mogelijkheid \"doe dit product cadeau' voor dit product wilt uitschakelen."
+
+#: lib/class-yith-woocommerce-gift-cards-premium.php:422
+msgid "Disable gift this product"
+msgstr "Doe dit product cadeau uitschakelen"
+
+#: lib/class-yith-wc-product-gift-card.php:251
+msgid "Read more"
+msgstr "Lees verder"
+
+#: lib/class-yith-wc-product-gift-card.php:251
+msgid "Select amount"
+msgstr "Selecteer bedrag"
+
+#: lib/class-yith-wc-product-gift-card.php:192
+#: lib/third-party/class-ywgc-dynamic-pricing.php:95
+msgctxt "Price range: from-to"
+msgid "%1$s&ndash;%2$s"
+msgstr "%1$s&ndash;%2$s"
+
+#: init.php:44
+msgid "YITH WooCommerce Gift Cards is enabled but not effective. It requires WooCommerce in order to work."
+msgstr "YITH WooCommerce Gift Cards is ingeschakeld maar werkt niet. Het heeft WooCommerce nodig om te werken."
+
+#: functions.php:189
+msgid "This title is already used. Please choose another one"
+msgstr "De titel is al in gebruik. Kies a.u.b. een andere titel"

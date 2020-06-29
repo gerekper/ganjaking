@@ -1,0 +1,7 @@
+#{$wrap} {
+	#{$menu} {
+	    li.mega-menu-item a[class^='fa-']:before {
+		    font-family: FontAwesome;
+		}
+	}
+}

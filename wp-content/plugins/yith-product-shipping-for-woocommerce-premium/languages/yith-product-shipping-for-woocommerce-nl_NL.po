@@ -1,0 +1,583 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH WooCommerce Paypal Adaptive Payments\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/init\n"
+"POT-Creation-Date: 2019-01-03 09:36+0000\n"
+"PO-Revision-Date: 2019-01-03 09:44+0000\n"
+"Last-Translator: \n"
+"Language-Team: YIThemes <plugins@yithemes.com>\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.12\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-KeywordsList: __ ;_e;_n:1,2;__ngettext:1,2;__ngettext_noop:1,2;"
+"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: ..\n"
+"X-Poedit-SearchPathExcluded-0: ../plugin-fw\n"
+
+#: includes/class.yith-woocommerce-product-shipping-admin.php:90
+#: includes/class.yith-woocommerce-product-shipping-admin.php:91
+msgid "Vendor Shippings Table"
+msgstr "Tabel met leverancierszendingen"
+
+#: includes/class.yith-woocommerce-product-shipping-admin.php:98
+msgid "Vendor Shipping"
+msgstr "verzending van leveranciers"
+
+#: includes/class.yith-woocommerce-product-shipping-admin.php:101
+#: includes/class.yith-woocommerce-product-shipping-admin.php:107
+#: includes/class.yith-woocommerce-product-shipping-admin.php:110
+#: includes/class.yith-woocommerce-product-shipping-method.php:89
+#: includes/class.yith-woocommerce-product-shipping-method.php:98
+#: includes/class.yith-woocommerce-product-shipping-premium.php:52
+#: includes/class.yith-woocommerce-product-shipping-premium.php:85
+msgid "Product Shipping"
+msgstr "Product verzending"
+
+#: includes/class.yith-woocommerce-product-shipping-admin.php:122
+msgid "Shipping Vendor Table"
+msgstr "Verzending leverancier tabel"
+
+#: includes/class.yith-woocommerce-product-shipping-admin.php:142
+#: includes/class.yith-woocommerce-product-shipping-admin.php:149
+#: includes/class.yith-woocommerce-product-shipping-admin.php:516
+msgid "All states"
+msgstr "Alle staten"
+
+#: includes/class.yith-woocommerce-product-shipping-admin.php:197
+msgid "Shipping Costs"
+msgstr "Verzendkosten"
+
+#: includes/class.yith-woocommerce-product-shipping-admin.php:225
+msgid "Enable Shipping Costs"
+msgstr "Verzendkosten inschakelen"
+
+#: includes/class.yith-woocommerce-product-shipping-admin.php:233
+msgid "Product Message"
+msgstr "Product bericht"
+
+#: includes/class.yith-woocommerce-product-shipping-admin.php:240
+#: includes/class.yith-woocommerce-product-shipping-method.php:109
+#: includes/class.yith-woocommerce-product-shipping-premium.php:96
+msgid "Message Position"
+msgstr "Positie bericht"
+
+#: includes/class.yith-woocommerce-product-shipping-admin.php:243
+#: includes/class.yith-woocommerce-product-shipping-method.php:114
+#: includes/class.yith-woocommerce-product-shipping-premium.php:101
+#: plugin-options/general-options.php:22
+msgid "Before \"Add to cart\" button"
+msgstr "Voor “toevoegen aan winkelwagen” knop"
+
+#: includes/class.yith-woocommerce-product-shipping-admin.php:244
+#: includes/class.yith-woocommerce-product-shipping-method.php:115
+#: includes/class.yith-woocommerce-product-shipping-premium.php:102
+#: plugin-options/general-options.php:23
+msgid "After \"Add to cart\" button"
+msgstr "Achter “toevoegen aan winkelwagen” knop"
+
+#: includes/class.yith-woocommerce-product-shipping-admin.php:317
+msgid "Product ID"
+msgstr "Product ID"
+
+#: includes/class.yith-woocommerce-product-shipping-admin.php:324
+msgid "Cart Price"
+msgstr "Winkelwagen prijs"
+
+#: includes/class.yith-woocommerce-product-shipping-admin.php:327
+msgid "Cart Quantity"
+msgstr "Winkelwagen hoeveelheid"
+
+#: includes/class.yith-woocommerce-product-shipping-admin.php:328
+msgid "Product Quantity"
+msgstr "Product hoeveelheid"
+
+#: includes/class.yith-woocommerce-product-shipping-admin.php:331
+msgid "Product Weight"
+msgstr "Product gewicht"
+
+#: includes/class.yith-woocommerce-product-shipping-admin.php:332
+msgid "Cart Weight"
+msgstr "Gewicht van de winkelwagen"
+
+#: includes/class.yith-woocommerce-product-shipping-admin.php:335
+#: includes/class.yith-woocommerce-product-shipping-premium.php:167
+msgid "Taxonomies"
+msgstr "Taxonomies"
+
+#: includes/class.yith-woocommerce-product-shipping-admin.php:338
+#: includes/class.yith-woocommerce-product-shipping-premium.php:168
+msgid "Geolocation"
+msgstr "Geolocatie"
+
+#: includes/class.yith-woocommerce-product-shipping-admin.php:341
+msgid "Shipping Cost"
+msgstr "Verzendkosten"
+
+#: includes/class.yith-woocommerce-product-shipping-admin.php:357
+#: includes/class.yith-woocommerce-product-shipping-premium.php:163
+msgid "Role"
+msgstr "Rol"
+
+#: includes/class.yith-woocommerce-product-shipping-admin.php:360
+#: includes/class.yith-woocommerce-product-shipping-admin.php:364
+#: includes/class.yith-woocommerce-product-shipping-admin.php:366
+#: includes/class.yith-woocommerce-product-shipping-admin.php:370
+#: includes/class.yith-woocommerce-product-shipping-admin.php:372
+msgid "Min"
+msgstr "Min"
+
+#: includes/class.yith-woocommerce-product-shipping-admin.php:361
+#: includes/class.yith-woocommerce-product-shipping-admin.php:365
+#: includes/class.yith-woocommerce-product-shipping-admin.php:367
+#: includes/class.yith-woocommerce-product-shipping-admin.php:371
+#: includes/class.yith-woocommerce-product-shipping-admin.php:373
+msgid "Max"
+msgstr "Max"
+
+#: includes/class.yith-woocommerce-product-shipping-admin.php:376
+msgid "Categories"
+msgstr "Categorieën"
+
+#: includes/class.yith-woocommerce-product-shipping-admin.php:377
+msgid "Tags"
+msgstr "Tags"
+
+#: includes/class.yith-woocommerce-product-shipping-admin.php:380
+msgid "Action"
+msgstr "Actie"
+
+#: includes/class.yith-woocommerce-product-shipping-admin.php:381
+msgid "Country"
+msgstr "Land"
+
+#: includes/class.yith-woocommerce-product-shipping-admin.php:382
+msgid "State"
+msgstr "Staat"
+
+#: includes/class.yith-woocommerce-product-shipping-admin.php:383
+msgid "Postal Code"
+msgstr "Postcode"
+
+#: includes/class.yith-woocommerce-product-shipping-admin.php:386
+msgid "Per product"
+msgstr "Per product"
+
+#: includes/class.yith-woocommerce-product-shipping-admin.php:387
+msgid "Per quantity"
+msgstr "Per hoeveelheid"
+
+#: includes/class.yith-woocommerce-product-shipping-admin.php:388
+msgid "Per order"
+msgstr "Per bestelling"
+
+#: includes/class.yith-woocommerce-product-shipping-admin.php:451
+msgid "All roles"
+msgstr "Alle rollen"
+
+#: includes/class.yith-woocommerce-product-shipping-admin.php:495
+msgid "Include"
+msgstr "Inclusief"
+
+#: includes/class.yith-woocommerce-product-shipping-admin.php:496
+msgid "Exclude"
+msgstr "Exclusief"
+
+#: includes/class.yith-woocommerce-product-shipping-admin.php:502
+msgid "All countries"
+msgstr "Alle landen"
+
+#: includes/class.yith-woocommerce-product-shipping-admin.php:555
+msgid "Insert row"
+msgstr "Rij invoegen"
+
+#: includes/class.yith-woocommerce-product-shipping-admin.php:556
+msgid "Remove selected"
+msgstr "Verwijder selectie"
+
+#: includes/class.yith-woocommerce-product-shipping-method.php:35
+msgid "YITH Product Shipping"
+msgstr "YITH Product Verzending"
+
+#: includes/class.yith-woocommerce-product-shipping-method.php:36
+msgid "Description of your custom shipping method."
+msgstr "Beschrijving van uw aangepaste verzendmethode."
+
+#: includes/class.yith-woocommerce-product-shipping-method.php:66
+msgid "Global Shipping Costs"
+msgstr "Algemene Verzendkosten"
+
+#: includes/class.yith-woocommerce-product-shipping-method.php:71
+msgid "Single Products Summary"
+msgstr "Single product opgave"
+
+#: includes/class.yith-woocommerce-product-shipping-method.php:72
+msgid "not editable"
+msgstr "niet bewerkbaar"
+
+#: includes/class.yith-woocommerce-product-shipping-method.php:91
+#: includes/class.yith-woocommerce-product-shipping-premium.php:54
+#: includes/class.yith-woocommerce-product-shipping-premium.php:60
+msgid "Enable"
+msgstr "Inschakelen"
+
+#: includes/class.yith-woocommerce-product-shipping-method.php:95
+#: includes/class.yith-woocommerce-product-shipping-premium.php:82
+msgid "Cart Method Name"
+msgstr "Winkelwagen methode naam"
+
+#: includes/class.yith-woocommerce-product-shipping-method.php:97
+#: includes/class.yith-woocommerce-product-shipping-premium.php:84
+msgid "Shipping method title on the frontend."
+msgstr "Verzendmethode titel in de frontend."
+
+#: includes/class.yith-woocommerce-product-shipping-method.php:102
+#: includes/class.yith-woocommerce-product-shipping-premium.php:89
+msgid "Message for Global Products"
+msgstr "Bericht voor Algemene Producten"
+
+#: includes/class.yith-woocommerce-product-shipping-method.php:104
+#: includes/class.yith-woocommerce-product-shipping-premium.php:91
+msgid "Inform customers about shipping costs."
+msgstr "Informeer klanten over verzendkosten."
+
+#: includes/class.yith-woocommerce-product-shipping-premium.php:58
+msgid "Product Variations"
+msgstr "Product Variaties"
+
+#: includes/class.yith-woocommerce-product-shipping-premium.php:60
+msgid ""
+"(this will allow you to enable rules for each product variation, but it will "
+"increase the loading time)"
+msgstr ""
+"(dit zal u toelaten om regels voor elke product variatie in staat te "
+"stellen, maar het zal verhogen de laad-tijd)"
+
+#: includes/class.yith-woocommerce-product-shipping-premium.php:64
+msgid "Availability"
+msgstr "Beschikbaarheid"
+
+#: includes/class.yith-woocommerce-product-shipping-premium.php:69
+msgid "All allowed countries"
+msgstr "Alle toegestane landen"
+
+#: includes/class.yith-woocommerce-product-shipping-premium.php:70
+msgid "Specific Countries"
+msgstr "Specifieke landen"
+
+#: includes/class.yith-woocommerce-product-shipping-premium.php:74
+msgid "Countries"
+msgstr "Landen"
+
+#: includes/class.yith-woocommerce-product-shipping-premium.php:106
+msgid "Taxable"
+msgstr "belastbaar"
+
+#: includes/class.yith-woocommerce-product-shipping-premium.php:110
+msgid "Yes"
+msgstr "Ja"
+
+#: includes/class.yith-woocommerce-product-shipping-premium.php:111
+msgid "No"
+msgstr "Nee"
+
+#: includes/class.yith-woocommerce-product-shipping-premium.php:147
+msgid "Table rows"
+msgstr "Tabelrijen"
+
+#: includes/class.yith-woocommerce-product-shipping-premium.php:160
+msgid "Select columns to show in Shipping Costs table."
+msgstr "Selecteer kolommen om weer te geven in de tabel met verzendkosten."
+
+#: includes/class.yith-woocommerce-product-shipping-premium.php:164
+msgid "Price"
+msgstr "Prijs"
+
+#: includes/class.yith-woocommerce-product-shipping-premium.php:165
+msgid "Quantity"
+msgstr "Hoeveelheid"
+
+#: includes/class.yith-woocommerce-product-shipping-premium.php:166
+msgid "Weight"
+msgstr "Gewicht"
+
+#: includes/class.yith-woocommerce-product-shipping-premium.php:196
+msgid "Custom Shipping Costs"
+msgstr "Aangepaste verzendkosten"
+
+#: includes/class.yith-woocommerce-product-shipping.php:258
+msgid "Cost per product"
+msgstr "Kosten per product"
+
+#: includes/class.yith-woocommerce-product-shipping.php:259
+msgid "Cost per quantity"
+msgstr "Kosten per hoeveelheid"
+
+#: includes/class.yith-woocommerce-product-shipping.php:266
+msgid "Cost per order"
+msgstr "Kosten per bestelling"
+
+#: includes/class.yith-woocommerce-product-shipping.php:271
+msgid "Total cart items"
+msgstr "Totale winkelwagen items"
+
+#: init.php:54
+msgid ""
+"YITH Product Shipping for WooCommerce is enabled but not effective. It "
+"requires WooCommerce in order to work."
+msgstr ""
+"YITH Product Shipping for WooCommerse is ingeschakeld maar werk niet. Het "
+"heeft WooCommerce nodig om te werken."
+
+#: init.php:82
+msgid ""
+"You can't activate the free version of YITH Product Shipping for WooCommerce "
+"while you are using the premium one."
+msgstr ""
+"U kunt de gratis versie van YITH Product Shipping voor WooCommerce niet "
+"activeren, terwijl u de premium versie gebruikt."
+
+#: plugin-options/general-options.php:12
+msgid "General"
+msgstr "Algemeen"
+
+#: plugin-options/general-options.php:18
+msgid "Show add-ons"
+msgstr "Toon add-ons"
+
+#: plugin-options/general-options.php:28
+msgid "\"Add to cart\" button label"
+msgstr "“Toevoegen aan winkelwagen” knop label"
+
+#: plugin-options/general-options.php:30
+msgid "Change button label."
+msgstr "Wijzig knop label."
+
+#: plugin-options/general-options.php:32
+msgid "Select Options"
+msgstr "Selecteer opties"
+
+#: plugin-options/general-options.php:38
+msgid "Show product price in Cart page"
+msgstr "Toon productprijs in winkelwagen pagina"
+
+#: plugin-options/general-options.php:42
+msgid "Checking this option allows you to show the product base price in cart"
+msgstr ""
+"Door deze optie te markeren, kunt u de basisprijs van het product weergeven "
+"in de winkelwagen"
+
+#: plugin-options/general-options.php:47
+msgid "Always show the price table"
+msgstr "Prijstabel altijd tonen"
+
+#: plugin-options/general-options.php:51
+msgid ""
+"Checking this option allows you to always show the price table even if the "
+"total add-on amount is 0 in\n"
+"            on the product page"
+msgstr ""
+"Door deze optie te markeren, toont u altijd de prijstabel, zelfs als het "
+"totaalbedrag 0 is in\n"
+"            op de productpagina"
+
+#: plugin-options/general-options.php:62
+msgid "Add-ons"
+msgstr "Add-ons"
+
+#: plugin-options/general-options.php:68
+msgid "Show add-on titles"
+msgstr "Toon add-ons titels"
+
+#: plugin-options/general-options.php:74
+msgid "Show add-on images"
+msgstr "Toon add-ons afbeeldingen"
+
+#: plugin-options/general-options.php:80
+msgid "Show add-on descriptions"
+msgstr "Toon add-ons beschrijvingen"
+
+#: plugin-options/general-options.php:91
+msgid "Options"
+msgstr "Opties"
+
+#: plugin-options/general-options.php:97
+msgid "Show option images"
+msgstr "Toon optie afbeeldingen"
+
+#: plugin-options/general-options.php:103
+msgid "Show option descriptions"
+msgstr "Toon optie beschrijvingen"
+
+#: plugin-options/general-options.php:109
+msgid "Option image"
+msgstr "Optie afbeelding"
+
+#: plugin-options/general-options.php:116
+msgid "Date Format"
+msgstr "Datum format"
+
+#: plugin-options/general-options.php:118
+msgid "Set the format of the date control eg: mm/dd/yy"
+msgstr "Stel het format in van de datum vb: mm/dd/jj"
+
+#: plugin-options/general-options.php:120
+msgid "mm/dd/yy"
+msgstr "mm/dd/jj"
+
+#: plugin-options/general-options.php:133
+msgid "Tooltip"
+msgstr "Tooltip"
+
+#: plugin-options/general-options.php:140
+msgid "Enable tooltip"
+msgstr "Tooltip inschakelen"
+
+#: plugin-options/general-options.php:142
+msgid "Enable tooltip on options"
+msgstr "Tooltip inschakelen in opties"
+
+#: plugin-options/general-options.php:147
+msgid "Tooltip position"
+msgstr "Tooltip positie"
+
+#: plugin-options/general-options.php:148
+msgid "Select tooltip position"
+msgstr "Selecteer tooltip positie"
+
+#: plugin-options/general-options.php:151
+msgid "Top"
+msgstr "Bovenaan"
+
+#: plugin-options/general-options.php:152
+msgid "Bottom"
+msgstr "Onderaan"
+
+#: plugin-options/general-options.php:158
+msgid "Tooltip animation"
+msgstr "Tooltip animatie"
+
+#: plugin-options/general-options.php:159
+msgid "Select tooltip animation"
+msgstr "Selecteer een tooltip animatie"
+
+#: plugin-options/general-options.php:162
+msgid "Fade in"
+msgstr "Fade in"
+
+#: plugin-options/general-options.php:163
+msgid "Slide in"
+msgstr "Slide in"
+
+#: plugin-options/general-options.php:169
+msgid "Tooltip background"
+msgstr "Tooltip achtergrond"
+
+#: plugin-options/general-options.php:170
+#: plugin-options/general-options.php:177
+msgid "Pick a color"
+msgstr "Kies een kleur"
+
+#: plugin-options/general-options.php:176
+msgid "Tooltip text color"
+msgstr "Tekstkleur tooltip"
+
+#: plugin-options/general-options.php:187
+msgid "Uploading options"
+msgstr "Upload opties"
+
+#: plugin-options/general-options.php:193
+msgid "Uploading folder name"
+msgstr "Upload mapnaam"
+
+#: plugin-options/general-options.php:195
+msgid "Any change you make now will only affect future uploads."
+msgstr ""
+"Toegepaste wijzigingen zullen uitsluitend toekomstige uploads beïnvloeden."
+
+#: plugin-options/general-options.php:202
+msgid "Uploading file types"
+msgstr "Upload bestand types"
+
+#: plugin-options/general-options.php:204
+msgid "Separate file extensions using commas. Ex: .gif, .jpg, .png"
+msgstr "Aparte bestandsuitbreiding gebruik komma´s. Ex: .gif, .jpg, .png"
+
+#: plugin-options/general-options.php:211
+msgid "Uploading file size (MB)"
+msgstr "Upload bestandsformaat (MB)"
+
+#: plugin-options/general-options.php:213
+msgid "Maximum size allowed for uploaded file"
+msgstr "Maximaal toegestane grootte voor geüpload bestand"
+
+#. Plugin Name of the plugin/theme
+msgid "YITH Product Shipping for WooCommerce Premium"
+msgstr "YITH Product Shipping for WooCommerce Premium"
+
+#. Plugin URI of the plugin/theme
+msgid ""
+"https://yithemes.com/themes/plugins/yith-product-shipping-for-woocommerce/"
+msgstr ""
+"https://yithemes.com/themes/plugins/yith-product-shipping-for-woocommerce/"
+
+#. Description of the plugin/theme
+msgid ""
+"<code><strong>YITH Product Shipping for WooCommerce Premium</strong></code> "
+"is the plugin that allows you to create general shipping rules or rules per "
+"single product. <a href=\"https://yithemes.com/\" target=\"_blank\">Get more "
+"plugins for your e-commerce shop on <strong>YITH</strong></a>"
+msgstr ""
+"<code><strong>YITH Productverzending voor WooCommerce Premium</ strong></ "
+"code> is de plug-in waarmee u algemene verzendregels of regels per enkel "
+"product kunt maken. <a href=\"https://yithemes.com/\" target=\"_blank\"> "
+"Download meer plug-ins voor uw e-commerceshop op <strong> YITH </strong></a>"
+
+#. Author of the plugin/theme
+msgid "YITH"
+msgstr "YITH"
+
+#. Author URI of the plugin/theme
+msgid "https://yithemes.com/"
+msgstr "https://yithemes.com/"
+
+#~ msgid "Shipping Costs Table"
+#~ msgstr "Verzendkosten tabel"
+
+#~ msgid ""
+#~ "The first line of this table that meets the requirements will apply to "
+#~ "products in cart."
+#~ msgstr ""
+#~ "De eerste rij in de tabel die voldoet aan deze voorwaarden, zal worden "
+#~ "toegepast op de winkelwagen."
+
+#~ msgid "General Settings"
+#~ msgstr "Algemene instellingen"
+
+#~ msgid "Documentation"
+#~ msgstr "Documentatie"
+
+#~ msgid "Live Demo"
+#~ msgstr "Live Demo"
+
+#~ msgid "Single Product Quantity"
+#~ msgstr "Hoeveelheid single product"
+
+#~ msgid "Cart Total Price"
+#~ msgstr "Totaalprijs winkelwagen"
+
+#~ msgid "Product Cost"
+#~ msgstr "Productkosten"
+
+#~ msgid "Single Product Costs"
+#~ msgstr "Kosten single product"
+
+#~ msgid "Default Product Cost"
+#~ msgstr "Default productkosten"
+
+#~ msgid "Default cost per product if not defined."
+#~ msgstr "Default kosten per producten indien niet gedefinieerd."

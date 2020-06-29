@@ -1,0 +1,99 @@
+*** Flat Rate Box Shipping Changelog ***
+
+2020-06-10 - version 2.0.14
+* Tweak - WC 4.2 compatibility.
+
+2020-04-29 - version 2.0.13
+* Tweak - WC 4.1 compatibility.
+
+2020-03-04 - version 2.0.12
+* Tweak - Remove legacy code.
+* Tweak - WC 4.0 compatibility.
+
+2020-02-05 - version 2.0.11
+* Fix - Use proper escape for attributes.
+
+2020-01-13 - version 2.0.10
+* Tweak - WC tested up to 3.9
+
+2019-11-04 - version 2.0.9
+* Tweak - WC tested up to 3.8
+
+2019-08-08 - version 2.0.8
+* Tweak - WC tested up to 3.7
+
+2019-04-16 - version 2.0.7
+* Tweak - WC tested up to 3.6
+
+2018-10-09 - version 2.0.6
+* Update - WC tested up to 3.5
+
+2018-06-29 - version 2.0.5
+* Fix - Settings not saving.
+
+2018-05-24 - version 2.0.4
+* Update - WC tested up to 3.4
+* Add - GDPR policy
+
+2017-12-14 - version 2.0.3
+* Fix - PHP notice for strict number type.
+* Add - WC minimum requirements to header.
+
+2017-06-14 - version 2.0.2
+* Fix - PHP notice of deprecated `woocommerce_clean` since WC 3.0.
+* Fix - PHP notice caused by calling product properties directly.
+
+2017-04-03 - version 2.0.1
+* Updates for WC 3.0 compatibility.
+
+2016-06-13 - version 2.0.0
+* Implemented WC 2.6.0 Support and new data structures.
+
+2015-11-20 - version 1.3.4
+* Fix - Escape postcodes passed to queries.
+
+2015-04-21 - version 1.3.3
+* Fix - Potential XSS with add_query_arg.
+
+2015-02-17 - version 1.3.2
+* Fix - Postcode save method.
+
+2015-02-11 - version 1.3.1
+* Fix - Fatal error in cart and checkout when trying to register the shipping methods.
+
+2015-01-29 - version 1.3.0
+* Refactored shipping zone framework.
+
+2015-01-28 - version 1.2.3
+* Fix - WC 2.3 support
+
+2015-01-27 - version 1.2.2
+* New - WC 2.3 compatibility (chosen -> select2)
+
+2014-10-13 - version 1.2.1
+* Update box packer
+
+2014-10-03 - version 1.2.0
+* Update box packer.
+* Update zones.
+* Update text domain.
+* Update base file name.
+* Requires 2.1.
+* Tweaked box packer logic to calc % based on weight + volume packed vs unpacked.
+
+2014-05-19 - version 1.1.2
+* Only show customer zone when debugging is on.
+
+2014-01-15 - version 1.1.1
+* Fix sorting
+* Fix box definition ordering
+* Boxes don't require costs - can be free
+
+2014-01-06 - version 1.1.0
+* 2.1 compatibility
+
+2013-06-07 - version 1.0.1
+* Fix Handling Fee
+
+2013-02-01 - version 1.0.0
+* First Release

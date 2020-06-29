@@ -1,0 +1,98 @@
+#woocommerce-product-data {
+	.wc-tabs {
+		li.ticket_options {
+			a:before {
+				content: '';
+			}
+		}
+
+		li.ticket-content_options {
+			a:before {
+				content: '';
+			}
+		}
+
+		li.ticket-email_options {
+			a:before {
+				content: '';
+			}
+		}
+	}
+
+	.woocommerce_options_panel {
+		.ticket_fields {
+			overflow-x: auto;
+
+			table {
+				width: 99%;
+				margin: 5px 0;
+
+				td {
+					.delete {
+						display: block;
+						text-indent: -9999px;
+						position: relative;
+						height: 1em;
+						width: 1em;
+
+						&:before {
+							font-family: WooCommerce;
+							speak: none;
+							font-weight: 400;
+							font-variant: normal;
+							text-transform: none;
+							line-height: 1;
+							-webkit-font-smoothing: antialiased;
+							margin: 0;
+							text-indent: 0;
+							position: absolute;
+							top: 0;
+							left: 0;
+							width: 100%;
+							height: 100%;
+							text-align: center;
+							content: "\e001";
+							content: "\e013";
+							color: #999;
+						}
+					}
+				}
+			}
+
+			input[type="text"] {
+				width: 95%;
+			}
+
+			input[type="checkbox"], input[type="radio"] {
+				width: auto;
+			}
+
+			select {
+				float: none;
+			}
+
+			.email-options span.tips {
+				display: inline-block;
+				margin: 0 0 10px 0;
+				padding: 0 10px 0 0;
+			}
+		}
+
+		._email_ticket_subject_field .description {
+			float: left;
+		}
+
+		.options_group {
+			.ticket-label-variables-info {
+				display: none;
+			}
+			.ticket-label-variables a {
+				margin-right: 10px;
+			}
+		}
+
+		#wp-ticket-content-editor-wrap, #wp-ticket-email-editor-wrap {
+			width: 99% !important;
+		}
+	}
+}

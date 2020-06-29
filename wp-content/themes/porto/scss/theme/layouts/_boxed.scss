@@ -1,0 +1,112 @@
+/* Boxed Layout */
+
+body.boxed {
+    padding: 25px 0;
+
+    @media #{$screen-medium} {
+        padding: 0;
+    }
+
+    #header {
+        border-top-width: 0;
+    }
+
+    .banner-container {
+        overflow: hidden;
+    }
+
+    .page-wrapper {
+        border-top: 5px solid #ccc;
+        margin: 0 auto;
+        box-shadow: $wrapper-shadow;
+
+        @media #{$screen-medium} {
+            width: 100% !important;
+            border-width: 0;
+            border-radius: 0;
+            overflow: hidden;
+        }
+    }
+}
+
+body.boxed,
+#main.main-boxed {
+
+    .vc_row[data-vc-stretch-content] {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .vc_row[data-vc-stretch-content] {
+        @media (min-width: 768px) {
+            #{$left}: auto !important;
+        }
+        @media #{$screen-medium} {
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+        }
+    }
+}
+
+#main.main-boxed {
+    .container .container {
+        width: 100%;
+    }
+}
+
+#main.main-boxed.wide {
+    .porto-container.container {
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+
+body.boxed {
+    #main.wide {
+        .vc_row[data-vc-stretch-content] {
+            @media (min-width: 768px) {
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+            }
+        }
+
+        .container .vc_row {
+            .vc_row {
+                padding-left: 0;
+                padding-right: 0;
+            }
+        }
+
+        .porto-wrap-container {
+            max-width: none;
+            margin: 0;
+            padding: 0;
+        }
+    }
+
+    #header {
+        &.sticky-header {
+            .header-main.sticky {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .main-menu-wrap {
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+    }
+
+    .fixed-header {
+        #header {
+            position: absolute;
+        }
+    }
+
+    .footer-wrapper {
+        &.fixed {
+            position: absolute;
+        }
+    }
+}

@@ -1,0 +1,147 @@
+# Copyright (C) 2020 WooCommerce
+# This file is distributed under the GNU General Public License v3.0.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Products Compare 1.0.20\n"
+"Report-Msgid-Bugs-To: "
+"https://wordpress.org/support/plugin/woocommerce-products-compare\n"
+"POT-Creation-Date: 2020-06-07 09:21:12+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: node-wp-i18n 1.2.3\n"
+
+#: includes/class-wc-products-compare-admin.php:54
+msgid "Template Overrides:"
+msgstr ""
+
+#: includes/class-wc-products-compare-frontend.php:77
+msgid "Products Compare"
+msgstr ""
+
+#: includes/class-wc-products-compare-frontend.php:109
+msgid ""
+"Sorry, you must have cookies enabled in your browser to use compare "
+"products feature"
+msgstr ""
+
+#: includes/class-wc-products-compare-frontend.php:113
+msgid "Sorry, a maximum of %s products can be compared at one time."
+msgstr ""
+
+#: includes/class-wc-products-compare-frontend.php:115
+msgid "Please add at least 2 or more products to compare."
+msgstr ""
+
+#: includes/class-wc-products-compare-frontend.php:116
+#: includes/class-wc-products-compare-widget.php:75
+msgid "Add some products to compare."
+msgstr ""
+
+#: includes/class-wc-products-compare-frontend.php:117
+#: includes/class-wc-products-compare-widget.php:72
+msgid "Remove all products"
+msgstr ""
+
+#: includes/class-wc-products-compare-frontend.php:206
+msgid "Compare"
+msgstr ""
+
+#: includes/class-wc-products-compare-frontend.php:210
+msgid "Compare Page"
+msgstr ""
+
+#: includes/class-wc-products-compare-frontend.php:347
+msgid "Sorry you do not have any products to compare."
+msgstr ""
+
+#: includes/class-wc-products-compare-frontend.php:351
+msgid "Return to Shop."
+msgstr ""
+
+#: includes/class-wc-products-compare-frontend.php:351
+msgid "Return to Shop"
+msgstr ""
+
+#: includes/class-wc-products-compare-frontend.php:392
+#: includes/class-wc-products-compare-widget.php:65
+#: templates/products-compare-page-html.php:53
+msgid "Remove Product"
+msgstr ""
+
+#: includes/class-wc-products-compare-widget.php:21
+msgid "Displays a running list of compared products."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce Products Compare"
+msgstr ""
+
+#: includes/class-wc-products-compare-widget.php:28
+msgid "Compared Products"
+msgstr ""
+
+#: includes/class-wc-products-compare-widget.php:78
+#: includes/class-wc-products-compare-widget.php:97
+msgid "Compare Products"
+msgstr ""
+
+#: includes/class-wc-products-compare-widget.php:100
+msgid "Title:"
+msgstr ""
+
+#: templates/products-compare-page-html.php:15
+msgid ""
+"Sorry, you must have Javascript enabled in your browser to use compare "
+"products"
+msgstr ""
+
+#: templates/products-compare-page-html.php:41
+msgid "Products"
+msgstr ""
+
+#: templates/products-compare-page-html.php:88
+msgid "Ratings"
+msgstr ""
+
+#: templates/products-compare-page-html.php:107
+msgid "Price"
+msgstr ""
+
+#: templates/products-compare-page-html.php:161
+msgid "Stock"
+msgstr ""
+
+#: templates/products-compare-page-html.php:164
+msgid "Description"
+msgstr ""
+
+#: templates/products-compare-page-html.php:167
+msgid "SKU"
+msgstr ""
+
+#: woocommerce-products-compare.php:28
+#. translators: %s WC download URL link.
+msgid ""
+"Products Compare requires WooCommerce to be installed and active. You can "
+"download %s here."
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://woocommerce.com/products/woocommerce-products-compare/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Have your customers to compare similar products side by side."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "WooCommerce"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://woocommerce.com"
+msgstr ""

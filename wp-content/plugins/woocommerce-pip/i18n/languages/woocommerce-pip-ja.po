@@ -1,0 +1,1141 @@
+# Copyright (C) 2016 WooThemes / SkyVerge
+# This file is distributed under the GNU General Public License v3.0.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Print Invoices/Packing Lists 3.0.2\n"
+"Report-Msgid-Bugs-To: https://woocommerce.com/my-account/marketplace-ticket-"
+"form/\n"
+"POT-Creation-Date: 2018-07-05 14:18:03+00:00\n"
+"PO-Revision-Date: 2016-03-21 19:19+0900\n"
+"Last-Translator: Shohei Tanaka <shohei.t@artws.info>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 1.5.7\n"
+
+#: class-wc-pip.php:209
+msgid "You have generated your first invoice!"
+msgstr ""
+
+#: class-wc-pip.php:211
+msgid "You have generated your first packing list!"
+msgstr ""
+
+#: class-wc-pip.php:213
+msgid "You have generated your first pick list!"
+msgstr ""
+
+#. translators: Placeholders: %1$s - this plugin name, %2$s - opening HTML <a>
+#. anchor tag, %3$s - closing HTML </a> tag
+#: class-wc-pip.php:247
+msgid ""
+"Hi there! It looks like you have upgraded %1$s from an older version. We "
+"have added lots of new features, please %2$scheck out the documentation%3$s "
+"for an overview and some helpful upgrading tips!"
+msgstr ""
+"こんちは、旧バージョンから%1$sにアップグレードされました。新しい機能を多数追"
+"加したので、%2$s内容を確認して%3$sアップグレードの参考にしてください。"
+
+#. translators: Placeholders: %1$s - the plugin name, %2$s - opening HTML <a>
+#. anchor tag, %3$s closing HTML </a> tag
+#: class-wc-pip.php:255
+msgid ""
+"Thanks for installing %1$s! To get started, take a minute to %2$sread the "
+"documentation%3$s :)"
+msgstr ""
+"%1$sをインストールして頂きありがとうございます。始める間に良かったら、%2$sこ"
+"ちら(英語)をお読みください。%3$s"
+
+#: class-wc-pip.php:450 includes/admin/class-wc-pip-orders-admin.php:701
+#: includes/admin/class-wc-pip-settings.php:67
+#: includes/class-wc-pip-document-invoice.php:51
+#: includes/emails/class-wc-pip-email-invoice.php:53
+msgid "Invoice"
+msgstr "請求書"
+
+#: class-wc-pip.php:451 includes/admin/class-wc-pip-orders-admin.php:702
+#: includes/admin/class-wc-pip-settings.php:68
+#: includes/class-wc-pip-document-packing-list.php:51
+#: includes/emails/class-wc-pip-email-packing-list.php:53
+msgid "Packing List"
+msgstr "納品書"
+
+#: class-wc-pip.php:452 includes/admin/class-wc-pip-settings.php:69
+#: includes/class-wc-pip-document-pick-list.php:55
+#: includes/emails/class-wc-pip-email-pick-list.php:53
+msgid "Pick List"
+msgstr "出荷商品リスト"
+
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce Print Invoices/Packing Lists"
+msgstr "WooCommerce 請求書・納品書印刷"
+
+#: includes/abstract-wc-pip-document.php:439
+#: includes/class-wc-pip-document-pick-list.php:165
+msgid "No shipping"
+msgstr "配送なし"
+
+#: includes/abstract-wc-pip-document.php:498
+#: includes/admin/views/html-pip-template-preview.php:339
+msgid "Email:"
+msgstr "メールアドレス: "
+
+#: includes/abstract-wc-pip-document.php:506
+msgid "Phone:"
+msgstr "電話番号: "
+
+#: includes/admin/class-wc-pip-admin.php:79
+msgid "Print Invoices/Packing Lists"
+msgstr "請求書および納品書の印刷"
+
+#: includes/admin/class-wc-pip-admin.php:80
+msgid "Documents to print will open in a new window."
+msgstr "新しウインドウを開き印刷ドキュメントを表示"
+
+#: includes/admin/class-wc-pip-admin.php:81
+msgid ""
+"Are you sure you want to reset the invoice number counter? This action could "
+"result in duplicate invoice numbers or other unintended consequences."
+msgstr ""
+"請求書番号のカウンタをリセットしてもよろしいですか？このアクションは、請求書"
+"番号の重複またはその他の意図しない結果につながる可能性があります。"
+
+#: includes/admin/class-wc-pip-admin.php:82
+msgid "Close"
+msgstr ""
+
+#: includes/admin/class-wc-pip-customizer.php:157
+msgid "Template Customizer"
+msgstr "テンプレートカスタマイズ"
+
+#: includes/admin/class-wc-pip-customizer.php:158
+msgid "Customize the template using a visual editor."
+msgstr "ビジュアルエディターを使ってカスタマイズする"
+
+#: includes/admin/class-wc-pip-customizer.php:163
+msgid "Customize"
+msgstr "カスタマイズをする"
+
+#: includes/admin/class-wc-pip-customizer.php:164
+msgid "Customize Template"
+msgstr "テンプレートをカスタマイズする"
+
+#: includes/admin/class-wc-pip-customizer.php:210
+msgid "Company Information"
+msgstr "会社情報"
+
+#: includes/admin/class-wc-pip-customizer.php:217
+msgid "Typography"
+msgstr "字体"
+
+#: includes/admin/class-wc-pip-customizer.php:224
+msgid "Colors"
+msgstr "色"
+
+#: includes/admin/class-wc-pip-customizer.php:231
+msgid "Content"
+msgstr "コンテンツ"
+
+#: includes/admin/class-wc-pip-customizer.php:238
+msgid "Advanced"
+msgstr "高度設定"
+
+#: includes/admin/class-wc-pip-customizer.php:428
+msgid "Shop Logo"
+msgstr "ショップロゴ"
+
+#: includes/admin/class-wc-pip-customizer.php:429
+msgid "Upload a logo representing your shop or business."
+msgstr "お店やビジネスを表すロゴをアップロードします。"
+
+#: includes/admin/class-wc-pip-customizer.php:441
+msgid "Logo Max Width"
+msgstr "ロゴの最大幅"
+
+#: includes/admin/class-wc-pip-customizer.php:442
+msgid "The maximum width of the logo."
+msgstr "ロゴの最大幅を設定"
+
+#: includes/admin/class-wc-pip-customizer.php:453
+msgid "Shop Name"
+msgstr "店舗名"
+
+#: includes/admin/class-wc-pip-customizer.php:454
+msgid ""
+"Enter your shop or business name to be displayed when not using a logo. "
+"Leave blank to use the default site title."
+msgstr ""
+"ロゴを使用しない時の店舗やビジネスの名前を入力してください。クランの場合はサ"
+"イト名が表示されます。"
+
+#: includes/admin/class-wc-pip-customizer.php:463
+msgid "Shop URL"
+msgstr "ショップURL"
+
+#: includes/admin/class-wc-pip-customizer.php:464
+msgid ""
+"Enter the URL to be used in the template for your shop or business website "
+"URL. Leave blank to use the default site url."
+msgstr ""
+"店舗やビジネスのURLを入力してください。空欄の場合はサイトのURLが表示されま"
+"す。"
+
+#: includes/admin/class-wc-pip-customizer.php:473
+msgid "Extra information"
+msgstr "追加情報"
+
+#: includes/admin/class-wc-pip-customizer.php:474
+msgid ""
+"Enter additional information or subheading to be displayed below the title "
+"or logo."
+msgstr "店舗名やロゴの下に表示される追加情報を入力してください。"
+
+#: includes/admin/class-wc-pip-customizer.php:483
+#: includes/admin/class-wc-pip-customizer.php:703
+msgid "VAT Number"
+msgstr ""
+
+#: includes/admin/class-wc-pip-customizer.php:484
+msgid "Enter your business VAT number."
+msgstr ""
+
+#: includes/admin/class-wc-pip-customizer.php:493
+msgid "Shop name or logo alignment"
+msgstr "ショップ名やロゴの配置"
+
+#: includes/admin/class-wc-pip-customizer.php:494
+msgid "Set the alignment of the shop title or logo in template."
+msgstr "テンプレート上のタイトルやロゴの配置を設定します。"
+
+#: includes/admin/class-wc-pip-customizer.php:501
+#: includes/admin/class-wc-pip-customizer.php:527
+msgid "Left"
+msgstr "左"
+
+#: includes/admin/class-wc-pip-customizer.php:502
+#: includes/admin/class-wc-pip-customizer.php:528
+msgid "Right"
+msgstr "右"
+
+#: includes/admin/class-wc-pip-customizer.php:503
+#: includes/admin/class-wc-pip-customizer.php:529
+msgid "Center"
+msgstr "中央"
+
+#: includes/admin/class-wc-pip-customizer.php:509
+msgid "Shop Address"
+msgstr "店舗住所"
+
+#: includes/admin/class-wc-pip-customizer.php:510
+msgid ""
+"Enter your shop or business address to be displayed next to the logo or shop "
+"name."
+msgstr "店舗かビジネスの住所をロゴや店舗名の次に表示します。"
+
+#: includes/admin/class-wc-pip-customizer.php:519
+msgid "Shop Address alignment"
+msgstr "店舗住所の配置"
+
+#: includes/admin/class-wc-pip-customizer.php:520
+msgid "Set the alignment of the shop address in template."
+msgstr "テンプレート上でのショップ住所の配置を設定"
+
+#: includes/admin/class-wc-pip-customizer.php:543
+msgid "Body font size"
+msgstr "本文のフォントサイズ"
+
+#: includes/admin/class-wc-pip-customizer.php:544
+msgid "The template default body font size."
+msgstr "テンプレートでの本文のフォントサイズの設定"
+
+#: includes/admin/class-wc-pip-customizer.php:559
+msgid "Heading font size"
+msgstr "項目(Heading)フォントサイズ"
+
+#: includes/admin/class-wc-pip-customizer.php:560
+msgid "The template default heading font size."
+msgstr "テンプレート標準の項目(Heading)フォントサイズの設定"
+
+#: includes/admin/class-wc-pip-customizer.php:577
+msgid "Link Color"
+msgstr "リンクカラー"
+
+#: includes/admin/class-wc-pip-customizer.php:578
+msgid "Choose the default color of links in template."
+msgstr "テンプレートで使うリンクの色を選択してください。"
+
+#: includes/admin/class-wc-pip-customizer.php:586
+msgid "Headings Color"
+msgstr "項目(Headings)色"
+
+#: includes/admin/class-wc-pip-customizer.php:587
+msgid "Choose the default color for heading text."
+msgstr "テンプレートで標準に使う項目(Headings)文字の色"
+
+#: includes/admin/class-wc-pip-customizer.php:595
+msgid "Table Head Background Color"
+msgstr "テーブルの上部項目背景色"
+
+#: includes/admin/class-wc-pip-customizer.php:596
+msgid "Choose the default color for the table head background."
+msgstr "テーブルの上部項目の背景色を選択してください。"
+
+#: includes/admin/class-wc-pip-customizer.php:604
+msgid "Table Head Color"
+msgstr "テーブルの上部項目文字色"
+
+#: includes/admin/class-wc-pip-customizer.php:605
+msgid "Choose the default color for the table head text."
+msgstr "テーブルの上部項目の文字色を選択してください。"
+
+#: includes/admin/class-wc-pip-customizer.php:617
+msgid "Header"
+msgstr "ヘッダー"
+
+#: includes/admin/class-wc-pip-customizer.php:618
+msgid ""
+"Enter additional information to be displayed below the document's header."
+msgstr "ヘッダードキュメントの下に表示する追加情報を入力してください。"
+
+#: includes/admin/class-wc-pip-customizer.php:626
+msgid "Returns Policy, Terms and Conditions, etc."
+msgstr "返品条件及び利用規約など"
+
+#: includes/admin/class-wc-pip-customizer.php:627
+msgid ""
+"Enter your shop's policies to be displayed at the bottom of the document."
+msgstr "お店の規約などをドキュメントの下部に表示したいものを入力ください。"
+
+#: includes/admin/class-wc-pip-customizer.php:635
+msgid "Fine print"
+msgstr "但し書き"
+
+#: includes/admin/class-wc-pip-customizer.php:636
+msgid "Display the terms and conditions text in fine print."
+msgstr "但し書きに規約を表示する。"
+
+#: includes/admin/class-wc-pip-customizer.php:644
+msgid "Footer"
+msgstr "フッター"
+
+#: includes/admin/class-wc-pip-customizer.php:645
+msgid "Enter additional information to be displayed at the document's footer."
+msgstr "本文のフッターに表示したい追加情報を入力してください。"
+
+#: includes/admin/class-wc-pip-customizer.php:658
+msgid "Custom Styles"
+msgstr "カスタムスタイル"
+
+#: includes/admin/class-wc-pip-customizer.php:659
+msgid ""
+"For advanced users: you may enter additional CSS styles that will be used in "
+"the document template."
+msgstr ""
+"高度設定に対応できるユーザー向け：テンプレート内でCSS設定を追加した場合にお使"
+"いください。"
+
+#: includes/admin/class-wc-pip-customizer.php:682
+msgid "Save and Preview Changes"
+msgstr "保存してプレビューを変更"
+
+#. translators: Placeholders: %d - number of emails sent
+#: includes/admin/class-wc-pip-orders-admin.php:478
+msgid "Pick List email for %d order sent."
+msgid_plural "Pick List email for %d orders sent."
+msgstr[0] "出荷商品リストメールが%d件の注文によって送信されました。"
+
+#. translators: Placeholders: %d - number of emails sent, %s - document name
+#: includes/admin/class-wc-pip-orders-admin.php:481
+msgid "%d %s email sent."
+msgid_plural "%d %s emails sent."
+msgstr[0] "%d件の%sをメール送信しました。"
+
+#. translators: Placeholder: %s - document name
+#: includes/admin/class-wc-pip-orders-admin.php:485
+msgid "No %s emails sent."
+msgstr "%sのメール送信が出来ませんでした。"
+
+#. translators: Placeholder: %s - Document name
+#: includes/admin/class-wc-pip-orders-admin.php:509
+msgid ""
+"No %s created for printing. Please select valid orders or reload this page "
+"first."
+msgstr ""
+"印刷用に%sは作れませんでした。有効な注文を選択するか、最初にこのページを再読"
+"み込みしてください。"
+
+#: includes/admin/class-wc-pip-orders-admin.php:533
+msgid "Print now."
+msgstr "すぐに印刷。"
+
+#. translators: Placeholders: %1$s - document name (pick list), %2$s - number
+#. of documents created, %3$s - link to print
+#: includes/admin/class-wc-pip-orders-admin.php:539
+msgid "%1$s for %2$s orders created. %3$s"
+msgstr "%2$sの注文の%1$sを作りました。%3$s"
+
+#. translators: Placeholders: %1$s - number of documents created, %2$s -
+#. document name, %3$s - link to print
+#: includes/admin/class-wc-pip-orders-admin.php:542
+msgid "%1$s %2$s created. %3$s"
+msgstr "%1$s件の%2$sを作りました。%3$s"
+
+#. translators: Placeholders: %1$s - document name, %2$s - link to print
+#: includes/admin/class-wc-pip-orders-admin.php:547
+msgid "%1$s created. %2$s"
+msgstr "%1$sを作りました。%2$s"
+
+#: includes/admin/class-wc-pip-orders-admin.php:613
+#, fuzzy
+msgid "Invoice number:"
+msgstr "請求書番号"
+
+#: includes/admin/class-wc-pip-orders-admin.php:643
+msgid "Print Invoice"
+msgstr "請求書印刷"
+
+#: includes/admin/class-wc-pip-orders-admin.php:644
+#, fuzzy
+msgid "Email Invoice"
+msgstr "請求書メール送信"
+
+#: includes/admin/class-wc-pip-orders-admin.php:645
+msgid "Print Packing List"
+msgstr "納品書印刷"
+
+#: includes/admin/class-wc-pip-orders-admin.php:646
+#, fuzzy
+msgid "Email Packing List"
+msgstr "納品書メール送信"
+
+#: includes/admin/class-wc-pip-orders-admin.php:674
+msgid "Print Pick List"
+msgstr "出荷商品リストの印刷"
+
+#: includes/admin/class-wc-pip-orders-admin.php:675
+#, fuzzy
+msgid "Email Pick List"
+msgstr "出荷商品リストのメール送信"
+
+#. translators: Placeholder: %s - invoice number
+#: includes/admin/class-wc-pip-orders-admin.php:740
+#: includes/admin/views/html-pip-template-preview.php:105
+msgid "Invoice: %s"
+msgstr "請求書番号: %s"
+
+#. translators: Placeholder: %s - order number
+#: includes/admin/class-wc-pip-orders-admin.php:763
+#, fuzzy
+msgid "Invoice/Packing List (Order #%s)"
+msgstr "請求書・納品書一覧"
+
+#: includes/admin/class-wc-pip-orders-admin.php:814
+#: includes/wc-pip-template-functions.php:118
+msgid "Print"
+msgstr "印刷"
+
+#: includes/admin/class-wc-pip-orders-admin.php:816
+#, fuzzy
+msgid "Email"
+msgstr "メールアドレス: "
+
+#: includes/admin/class-wc-pip-orders-admin.php:873
+#, fuzzy
+msgid "Invoice Number"
+msgstr "請求書番号"
+
+#: includes/admin/class-wc-pip-orders-admin.php:919
+#, fuzzy
+msgid "Print Invoices / Packing Lists"
+msgstr "請求書および納品書の印刷"
+
+#: includes/admin/class-wc-pip-orders-admin.php:994
+msgid "Invoice not printed"
+msgstr "請求書を印刷されませんでした"
+
+#: includes/admin/class-wc-pip-orders-admin.php:995
+msgid "Invoice printed"
+msgstr "請求書が印刷されました"
+
+#: includes/admin/class-wc-pip-orders-admin.php:996
+msgid "Packing List not printed"
+msgstr "納品書が印刷されませんでした"
+
+#: includes/admin/class-wc-pip-orders-admin.php:997
+msgid "Packing List printed"
+msgstr "納品書が印刷されました"
+
+#: includes/admin/class-wc-pip-orders-admin.php:998
+#, fuzzy
+msgid "Pick List not printed"
+msgstr "納品書が印刷されませんでした"
+
+#: includes/admin/class-wc-pip-orders-admin.php:999
+#, fuzzy
+msgid "Pick List printed"
+msgstr "納品書が印刷されました"
+
+#: includes/admin/class-wc-pip-orders-admin.php:1006
+msgid "Show all print statuses"
+msgstr "全ての印刷状況を表示"
+
+#: includes/admin/class-wc-pip-settings.php:48
+msgid "Invoices/Packing Lists"
+msgstr "請求書・納品書一覧"
+
+#: includes/admin/class-wc-pip-settings.php:66
+msgid "General"
+msgstr "一般設定"
+
+#: includes/admin/class-wc-pip-settings.php:150
+msgid "Emails"
+msgstr "メールアドレス"
+
+#. translators: Placeholders: %1$s - opening HTML <a> anchor tag, %2$s closing
+#. HTML </a> anchor tag
+#: includes/admin/class-wc-pip-settings.php:153
+msgid "You can configure Invoices/Packing Lists %1$semail settings here%2$s."
+msgstr "請求書および納品書の%1$sメール設定はこちらから%2$s。"
+
+#: includes/admin/class-wc-pip-settings.php:186
+msgid "Reset counter"
+msgstr "数字のリセット"
+
+#: includes/admin/class-wc-pip-settings.php:187
+msgid "Reset the starting invoice number."
+msgstr "請求書の最初の番号をリセットします。"
+
+#: includes/admin/class-wc-pip-settings.php:188
+msgid "Tick this if you want to edit the invoice start number."
+msgstr "請求書版を変更したい場合はチェックをしてください。"
+
+#. translators: Placeholder: %s - merge tag
+#: includes/admin/class-wc-pip-settings.php:196
+msgid "%s Day of the month without leading zeros"
+msgstr "%s ゼロを頭文字に含めない日にち"
+
+#. translators: Placeholder: %s - merge tag
+#: includes/admin/class-wc-pip-settings.php:198
+msgid "%s Day of the month with leading zeros (2 digits)"
+msgstr "%s ゼロを含めた二桁の日にち"
+
+#. translators: Placeholder: %s - merge tag
+#: includes/admin/class-wc-pip-settings.php:200
+msgid "%s Month, without leading zeros"
+msgstr "%s ゼロを頭文字に含めない月"
+
+#. translators: Placeholder: %s - merge tag
+#: includes/admin/class-wc-pip-settings.php:202
+msgid "%s Month, with leading zeros (2 digits)"
+msgstr "%s ゼロを含めた二桁の月"
+
+#. translators: Placeholder: %s - merge tag
+#: includes/admin/class-wc-pip-settings.php:204
+msgid "%s Year (2 digits)"
+msgstr "%s 年（下2桁）"
+
+#. translators: Placeholder: %s - merge tag
+#: includes/admin/class-wc-pip-settings.php:206
+msgid "%s Year (4 digits)"
+msgstr "%s 年（4桁）"
+
+#. translators: Placeholder: %s - merge tag
+#: includes/admin/class-wc-pip-settings.php:208
+msgid "%s 24-hour format of an hour without leading zeros"
+msgstr "%s 24時間単位のゼロを頭文字に含めない時"
+
+#. translators: Placeholder: %s - merge tag
+#: includes/admin/class-wc-pip-settings.php:210
+msgid "%s 24-hour format of an hour with leading zeros (2 digits)"
+msgstr "%s 24時間単位のゼロを含めた二桁の時"
+
+#. translators: Placeholder: %s - merge tag
+#: includes/admin/class-wc-pip-settings.php:212
+msgid "%s Minutes with leading zeros"
+msgstr "%s ゼロを含む二桁の分"
+
+#. translators: Placeholder: %s - merge tag
+#: includes/admin/class-wc-pip-settings.php:214
+msgid "%s Seconds with leading zeros"
+msgstr "%s ゼロを含む二桁の秒"
+
+#: includes/admin/class-wc-pip-settings.php:222
+msgid "Invoice Appearance"
+msgstr "請求書の外観"
+
+#: includes/admin/class-wc-pip-settings.php:229
+msgid "Show shipping method"
+msgstr "支払い方法の表示"
+
+#: includes/admin/class-wc-pip-settings.php:230
+msgid "Enable if you want to display shipping method for the invoice order."
+msgstr "支払い方法を請求書に表示したい場合は有効にしてください。"
+
+#: includes/admin/class-wc-pip-settings.php:238
+#: includes/admin/class-wc-pip-settings.php:381
+msgid "Show customer details"
+msgstr "顧客詳細の表示"
+
+#: includes/admin/class-wc-pip-settings.php:239
+#: includes/admin/class-wc-pip-settings.php:382
+msgid "Enable if you want to display customer details."
+msgstr "顧客詳細を表示したい場合は有効にしてください。"
+
+#: includes/admin/class-wc-pip-settings.php:247
+#, fuzzy
+msgid "Show customer provided note"
+msgstr "お客様からの備考欄を表示"
+
+#: includes/admin/class-wc-pip-settings.php:248
+#, fuzzy
+msgid "Enable if you want to display the customer provided note."
+msgstr "お客様からの備考欄を表示したい場合は有効にしてください。"
+
+#: includes/admin/class-wc-pip-settings.php:256
+msgid "Show coupons used in order"
+msgstr "注文時のクーポンを表示"
+
+#: includes/admin/class-wc-pip-settings.php:257
+msgid "Enable if you want to display a list of coupons applied to the order."
+msgstr "注文に利用したクーポンを表示したい場合は有効にしてください。"
+
+#: includes/admin/class-wc-pip-settings.php:265
+msgid "Show item prices excluding taxes"
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:266
+#, fuzzy
+msgid "Enable if you want to display item prices exclusive of tax."
+msgstr "お客様からの備考欄を表示したい場合は有効にしてください。"
+
+#: includes/admin/class-wc-pip-settings.php:267
+msgid ""
+"Overrides the store tax display settings when displaying item prices in "
+"invoices."
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:279
+msgid "Invoice Number Generation"
+msgstr "請求番号の設定"
+
+#: includes/admin/class-wc-pip-settings.php:286
+msgid "Use Order Number as Invoice Number"
+msgstr "注文番号を請求番号として使う"
+
+#: includes/admin/class-wc-pip-settings.php:287
+msgid ""
+"Enable this to use the order number as the invoice number. Disable to auto-"
+"generate the invoice number based on a starting number of your choice."
+msgstr ""
+"これを有効にすると請求番号は注文番号を使います。向こうにした場合はあなたの希"
+"望の番号から請求番号を付けていくことが出来ます。"
+
+#: includes/admin/class-wc-pip-settings.php:296
+msgid "Invoice Number Start"
+msgstr "最初の請求書番号"
+
+#: includes/admin/class-wc-pip-settings.php:297
+msgid "Set the starting invoice number."
+msgstr "はじめの請求書番号の設定"
+
+#: includes/admin/class-wc-pip-settings.php:314
+msgid "Invoice Number Minimum Digits"
+msgstr "請求書番号の最小単位"
+
+#: includes/admin/class-wc-pip-settings.php:315
+msgid ""
+"Adds leading zeros to the invoice number count to keep the number of "
+"characters in the invoice number consistent. Leave to 1 to ignore the "
+"setting."
+msgstr ""
+"請求書番号の長さに一貫性を持たせるためにゼロを表示したい場合にその桁数に合わ"
+"せて設定します。(例：3 => 001)設定を無視するには1にしておきます。"
+
+#: includes/admin/class-wc-pip-settings.php:328
+msgid "Invoice Number Prefix"
+msgstr "請求書番号の接頭辞"
+
+#: includes/admin/class-wc-pip-settings.php:329
+msgid "Set your custom invoice number prefix."
+msgstr "請求書番号の頭に数字などの接頭辞が設定できます。"
+
+#. translators: Placeholder: %s - List of merge tags
+#: includes/admin/class-wc-pip-settings.php:331
+#: includes/admin/class-wc-pip-settings.php:341
+msgid "You may also use the following merge tags: %s"
+msgstr "次のタグが利用できます。: %s"
+
+#: includes/admin/class-wc-pip-settings.php:338
+msgid "Invoice Number Suffix"
+msgstr "請求書番号の接尾辞"
+
+#: includes/admin/class-wc-pip-settings.php:339
+msgid "Set your custom invoice number suffix."
+msgstr "請求書の後に何か文字を設定します。"
+
+#: includes/admin/class-wc-pip-settings.php:374
+msgid "Packing List Appearance"
+msgstr "納品書の外観"
+
+#: includes/admin/class-wc-pip-settings.php:390
+msgid "Show customer note"
+msgstr "お客様からの備考欄を表示"
+
+#: includes/admin/class-wc-pip-settings.php:391
+msgid "Enable if you want to display the customer note."
+msgstr "お客様からの備考欄を表示したい場合は有効にしてください。"
+
+#: includes/admin/class-wc-pip-settings.php:399
+msgid "Show terms and conditions"
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:400
+#, fuzzy
+msgid ""
+"Enable if you want to display terms and conditions or return policy on "
+"packing lists."
+msgstr "顧客詳細を表示したい場合は有効にしてください。"
+
+#: includes/admin/class-wc-pip-settings.php:408
+#, fuzzy
+msgid "Show footer"
+msgstr "お客様からの備考欄を表示"
+
+#: includes/admin/class-wc-pip-settings.php:409
+#, fuzzy
+msgid "Enable if you want to display footer information on packing lists."
+msgstr "顧客詳細を表示したい場合は有効にしてください。"
+
+#: includes/admin/class-wc-pip-settings.php:417
+#: includes/admin/class-wc-pip-settings.php:490
+msgid "Exclude Virtual Items"
+msgstr "バーチャル商材除外"
+
+#: includes/admin/class-wc-pip-settings.php:418
+msgid "Exclude virtual items from showing on packing lists."
+msgstr "納品書からバーチャル商材を外します。"
+
+#: includes/admin/class-wc-pip-settings.php:467
+#, fuzzy
+msgid "Pick List Appearance"
+msgstr "納品書の外観"
+
+#: includes/admin/class-wc-pip-settings.php:473
+#, fuzzy
+msgid "Pick List Output"
+msgstr "出荷商品リスト"
+
+#: includes/admin/class-wc-pip-settings.php:474
+msgid "This controls grouped by for selected orders on pick list."
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:479
+msgid "Groups items by order for selected orders"
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:480
+msgid "Groups items by category for selected orders"
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:491
+#, fuzzy
+msgid "Exclude virtual items from showing on pick lists."
+msgstr "納品書からバーチャル商材を外します。"
+
+#. translators: Placeholder: %s - VAT number
+#. translators: Placeholder: %s - VAT Number
+#: includes/admin/views/html-pip-template-preview.php:80
+#: templates/pip/content/order-table-before.php:86
+#, fuzzy
+msgid "VAT Number: %s"
+msgstr "%1$s利用済みクーポン (%2$s):%3$s %4$s"
+
+#. translators: Placeholder: %s - order date
+#. translators: Placeholder:  %s - order date
+#: includes/admin/views/html-pip-template-preview.php:108
+#: includes/class-wc-pip-document-invoice.php:129
+msgid "Order Date: %s"
+msgstr "注文日: %s"
+
+#: includes/admin/views/html-pip-template-preview.php:125
+#: templates/pip/content/order-table-before.php:152
+msgid "Billing Address"
+msgstr "請求住所"
+
+#: includes/admin/views/html-pip-template-preview.php:147
+#: templates/pip/content/order-table-before.php:177
+msgid "Shipping Address"
+msgstr "発送先住所"
+
+#: includes/admin/views/html-pip-template-preview.php:169
+#: templates/pip/content/order-table-before.php:202
+msgid "Shipping Method"
+msgstr "支払い方法"
+
+#: includes/admin/views/html-pip-template-preview.php:222
+msgid "Subtotal:"
+msgstr "小計: "
+
+#: includes/admin/views/html-pip-template-preview.php:230
+msgid "Discount:"
+msgstr "値引き:"
+
+#: includes/admin/views/html-pip-template-preview.php:238
+msgid "Shipping:"
+msgstr "送料: "
+
+#: includes/admin/views/html-pip-template-preview.php:241
+msgid "Free Shipping"
+msgstr "送料無料"
+
+#: includes/admin/views/html-pip-template-preview.php:246
+msgid "State Tax:"
+msgstr "税 : "
+
+#: includes/admin/views/html-pip-template-preview.php:254
+msgid "Payment Method:"
+msgstr "支払い方法"
+
+#: includes/admin/views/html-pip-template-preview.php:262
+msgid "Refund:"
+msgstr "払い戻し"
+
+#: includes/admin/views/html-pip-template-preview.php:270
+msgid "Total:"
+msgstr "合計: "
+
+#: includes/admin/views/html-pip-template-preview.php:302
+msgid "Color:"
+msgstr "色: "
+
+#: includes/admin/views/html-pip-template-preview.php:303
+msgid "Blue"
+msgstr "青"
+
+#: includes/admin/views/html-pip-template-preview.php:304
+msgid "Size:"
+msgstr "サイズ: "
+
+#. translators: Placeholder: %1$s - opening <strong> tag, %2$s - coupons count
+#. (used in order), %3$s - closing </strong> tag - %4$s - coupons list
+#: includes/admin/views/html-pip-template-preview.php:331
+#: templates/pip/content/order-table-after.php:93
+msgid "%1$sCoupon used:%3$s %4$s"
+msgid_plural "%1$sCoupons used (%2$s):%3$s %4$s"
+msgstr[0] "%1$s利用済みクーポン (%2$s):%3$s %4$s"
+
+#: includes/admin/views/html-pip-template-preview.php:337
+msgid "Customer details"
+msgstr "顧客詳細"
+
+#: includes/admin/views/html-pip-template-preview.php:340
+msgid "Telephone:"
+msgstr "電話番号: "
+
+#: includes/class-wc-pip-ajax.php:83
+msgid "Invalid order or document type."
+msgstr ""
+
+#: includes/class-wc-pip-document-invoice.php:52
+msgid "Invoices"
+msgstr "請求書"
+
+#: includes/class-wc-pip-document-invoice.php:55
+#: includes/class-wc-pip-document-packing-list.php:55
+#: includes/class-wc-pip-document-pick-list.php:59
+msgid "SKU"
+msgstr "SKU"
+
+#: includes/class-wc-pip-document-invoice.php:56
+#: includes/class-wc-pip-document-packing-list.php:56
+#: includes/class-wc-pip-document-pick-list.php:60
+msgid "Product"
+msgstr "商品"
+
+#: includes/class-wc-pip-document-invoice.php:57
+#: includes/class-wc-pip-document-packing-list.php:57
+#: includes/class-wc-pip-document-pick-list.php:62
+msgid "Quantity"
+msgstr "数"
+
+#: includes/class-wc-pip-document-invoice.php:58
+msgid "Price"
+msgstr "価格"
+
+#. translators: Placeholders:  %1$s - invoice number, %2$s - order number
+#: includes/class-wc-pip-document-invoice.php:120
+msgid "Invoice %1$s for order %2$s"
+msgstr "請求書番号 %1$s ：注文番号 %2$s"
+
+#. translators: Placeholder: %s - order number
+#: includes/class-wc-pip-document-invoice.php:123
+#, fuzzy
+msgid "Invoice for order %s"
+msgstr "請求書番号 %1$s ：注文番号 %2$s"
+
+#. translators: Placeholder: %s - invoice plain url
+#: includes/class-wc-pip-document-invoice.php:352
+msgid "View your invoice: %s"
+msgstr "請求書を表示: %s"
+
+#: includes/class-wc-pip-document-invoice.php:354
+msgid "View your invoice."
+msgstr "請求書を表示"
+
+#: includes/class-wc-pip-document-packing-list.php:52
+msgid "Packing Lists"
+msgstr "納品書"
+
+#: includes/class-wc-pip-document-packing-list.php:58
+msgid "Total Weight"
+msgstr "総量"
+
+#. translators: Placeholders: %1$s - invoice number, %2$s - order number
+#: includes/class-wc-pip-document-packing-list.php:161
+msgid "Packing List for invoice %1$s (order %2$s)"
+msgstr "請求書 %1$s(注文場号 %2$s)の納品書"
+
+#. translators: Placeholder: %s order number
+#: includes/class-wc-pip-document-packing-list.php:164
+#, fuzzy
+msgid "Packing List for order %s"
+msgstr "請求書 %1$s(注文場号 %2$s)の納品書"
+
+#: includes/class-wc-pip-document-packing-list.php:230
+msgid "Uncategorized"
+msgstr ""
+
+#: includes/class-wc-pip-document-packing-list.php:424
+msgid "This order does not contain shippable items."
+msgstr "この注文は出荷可能な項目が含まれていません。"
+
+#: includes/class-wc-pip-document-packing-list.php:549
+msgid "Totals:"
+msgstr "合計: "
+
+#. translators: Placeholder: %d - total amount of items in packing list
+#: includes/class-wc-pip-document-packing-list.php:551
+msgid "%d pc."
+msgid_plural "%d pcs."
+msgstr[0] "%d 個."
+
+#: includes/class-wc-pip-document-pick-list.php:56
+msgid "Pick Lists"
+msgstr "出荷商品リスト"
+
+#: includes/class-wc-pip-document-pick-list.php:61
+msgid "Details"
+msgstr "詳細"
+
+#. translators: Placeholder: %s - weight measurement unit
+#: includes/class-wc-pip-document-pick-list.php:64
+msgid "Total Weight (%s)"
+msgstr "総重量 (%s)"
+
+#. translators: Placeholders: %1$s - order number, %2$s - invoice number
+#: includes/class-wc-pip-document-pick-list.php:160
+msgid "Order %1$s - Invoice %2$s"
+msgstr "注文番号 %1$s - 請求書 %2$s"
+
+#: includes/class-wc-pip-print.php:77 includes/class-wc-pip-print.php:114
+msgid "You are not allowed to view this page."
+msgstr ""
+
+#: includes/class-wc-pip-print.php:84
+msgid ""
+"You are not allowed to view this page. You need to be an admin or be able to "
+"manage orders."
+msgstr ""
+
+#: includes/class-wc-pip-print.php:108
+msgid "The related order does not exist or is invalid."
+msgstr ""
+
+#: includes/class-wc-pip-print.php:125
+msgid "The requested document could not be found or is of an invalid type."
+msgstr ""
+
+#: includes/emails/class-wc-pip-email-invoice.php:54
+msgid ""
+"If enabled, invoice emails are sent when an order is paid and the order "
+"status is processing or completed."
+msgstr ""
+"有効にした場合、請求書の電子メールは、注文が支払われたときに送信され、注文状"
+"況は、処理または完了しているされています。"
+
+#. translators: Placeholders: %1$s - merge tag for the shop name, %2$s merge
+#. tag for generated invoice number, %3$s merge tag for order number, %4$s
+#. merge tag for date of the order
+#: includes/emails/class-wc-pip-email-invoice.php:56
+msgid "[%1$s] Invoice %2$s for order %3$s from %4$s"
+msgstr "[%1$s] 請求書 %2$s - 注文番号 %3$s - 注文日 %4$s"
+
+#: includes/emails/class-wc-pip-email-invoice.php:158
+#: includes/emails/class-wc-pip-email-packing-list.php:161
+msgid "Enable/Disable"
+msgstr "有効 / 無効"
+
+#: includes/emails/class-wc-pip-email-invoice.php:160
+#: includes/emails/class-wc-pip-email-packing-list.php:163
+msgid "Enable this email notification"
+msgstr "このメール通知を有効にします"
+
+#: includes/emails/class-wc-pip-email-invoice.php:165
+#: includes/emails/class-wc-pip-email-packing-list.php:176
+#: includes/emails/class-wc-pip-email-pick-list.php:153
+msgid "Subject"
+msgstr "件名"
+
+#. translators: Placeholder: %s - Default email subject
+#: includes/emails/class-wc-pip-email-invoice.php:168
+#: includes/emails/class-wc-pip-email-packing-list.php:179
+#: includes/emails/class-wc-pip-email-pick-list.php:156
+msgid "Defaults to <code>%s</code>"
+msgstr "初期状態は <code>%s</code>"
+
+#: includes/emails/class-wc-pip-email-packing-list.php:54
+msgid ""
+"If enabled, packing list emails are sent to designated recipients when an "
+"order needs to be processed."
+msgstr ""
+"有効にした場合、注文の処理が実施されたら納品書が登録したメールアドレスに送信"
+"されます。"
+
+#. translators: Placeholders: %1$s - merge tag for the shop name, %2$s merge
+#. tag for generated invoice number, %3$s merge tag for order number, %4$s
+#. merge tag for date of the order
+#: includes/emails/class-wc-pip-email-packing-list.php:56
+msgid "[%1$s] Packing List for invoice %2$s - order %3$s from %4$s"
+msgstr "[%1$s] 請求書 %2$sの納品書 注文番号 %3$s - 注文日 %4$s"
+
+#: includes/emails/class-wc-pip-email-packing-list.php:168
+#: includes/emails/class-wc-pip-email-pick-list.php:145
+msgid "Recipient(s)"
+msgstr "受信者"
+
+#: includes/emails/class-wc-pip-email-packing-list.php:170
+#: includes/emails/class-wc-pip-email-pick-list.php:147
+msgid ""
+"Enter recipients (comma separated) for this email. Defaults to admin email: "
+"<code>%s</code>."
+msgstr ""
+"受信者（コンマで区切る）のメールアドレスを入力してください。標準では管理者の"
+"メールアドレスが登録されます。: <code>%s</code>"
+
+#: includes/emails/class-wc-pip-email-pick-list.php:54
+msgid ""
+"Pick list emails can be manually sent via order bulk action to the "
+"designated recipients."
+msgstr ""
+"出荷商品リストメールは手動で一括して登録したメールアドレスに送信することが出"
+"来ます。"
+
+#. translators: Placeholders: %1$s - merge tag for the shop name, %2$s merge
+#. tag number of orders included in the document
+#: includes/emails/class-wc-pip-email-pick-list.php:56
+msgid "[%1$s] Pick List for %2$s"
+msgstr "[%1$s] %2$sのための出荷商品リスト"
+
+#. translators: Placeholder: %d orders count
+#: includes/emails/class-wc-pip-email-pick-list.php:185
+msgid "%d order"
+msgid_plural "%d orders"
+msgstr[0] "%d 注文"
+
+#: includes/frontend/class-wc-pip-frontend.php:118
+msgid "View invoice"
+msgstr "請求書表示"
+
+#: includes/frontend/class-wc-pip-frontend.php:154
+msgid "View Invoice"
+msgstr "請求書表示"
+
+#: includes/integrations/vat-number/class-wc-pip-integration-vat-number.php:79
+#, fuzzy
+msgid "Show customer VAT Number"
+msgstr "お客様からの備考欄を表示"
+
+#: includes/integrations/vat-number/class-wc-pip-integration-vat-number.php:80
+#, fuzzy
+msgid "Enable if you want to display the customer VAT Number."
+msgstr "お客様からの備考欄を表示したい場合は有効にしてください。"
+
+#: includes/integrations/vat-number/class-wc-pip-integration-vat-number.php:116
+msgid "VAT Number:"
+msgstr ""
+
+#. translators: Placeholders: %1$s - <strong> tag, %2$s - </strong> tag, %3$s -
+#. VAT number
+#: includes/integrations/vat-number/class-wc-pip-integration-vat-number.php:148
+#, fuzzy
+msgid "%1$sVAT Number:%2$s %3$s"
+msgstr "%1$s利用済みクーポン (%2$s):%3$s %4$s"
+
+#: templates/pip/content/order-table-after.php:105
+msgid "Customer Details"
+msgstr "顧客詳細"
+
+#. translators: Placeholder: %d - orders count (one or many)
+#: templates/pip/content/order-table-before.php:117
+msgid "List of items needed to process %d order."
+msgid_plural "List of items needed to process %d orders."
+msgstr[0] "%d注文は商品の状況が保留状態でなければいけません。"
+
+#. translators: Placeholder: %s - order edit links
+#: templates/pip/content/order-table-before.php:136
+#, fuzzy
+msgid "Orders: %s"
+msgstr "注文日: %s"
+
+#. translators: Placeholders: %1$s - date, %2$s time
+#: templates/pip/content/order-table-before.php:141
+msgid "Printed on: %1$s at %2$s"
+msgstr "印刷日時: "
+
+#. Plugin URI of the plugin/theme
+#, fuzzy
+msgid "http://www.woocommerce.com/products/print-invoices-packing-lists/"
+msgstr "http://www.woothemes.com/products/print-invoices-packing-lists/"
+
+#. Description of the plugin/theme
+msgid ""
+"Customize and print invoices and packing lists for WooCommerce orders from "
+"the WordPress admin"
+msgstr "管理画面から請求書や納品書をカスタマイズできます"
+
+#. Author of the plugin/theme
+msgid "SkyVerge"
+msgstr ""
+
+#. Author URI of the plugin/theme
+#, fuzzy
+msgid "http://www.woocommerce.com/"
+msgstr "http://www.woothemes.com"
+
+#: includes/admin/views/html-pip-template-preview.php:44
+msgctxt "Facsimile label. Try to keep this below 16 characters length."
+msgid "Sample Invoice"
+msgstr "請求書サンプル"
+
+#: includes/admin/views/html-pip-template-preview.php:305
+msgctxt "Sample Variation Medium Size"
+msgid "M"
+msgstr "M"
+
+#: includes/admin/views/html-pip-template-preview.php:352
+msgctxt "Customer note sample for the live template preview."
+msgid "Please include a printed copy of your catalog, thank you."
+msgstr ""
+"カタログ冊子を付けて欲しいです。よろしくお願い致します。（サンプルテキスト）"
+
+#~ msgid "Invoice/Packing List"
+#~ msgstr "請求書・納品書リスト"
+
+#~ msgid "Free shipping"
+#~ msgstr "送料無料"
+
+#~ msgid "WooThemes / SkyVerge"
+#~ msgstr "WooThemes / SkyVerge"

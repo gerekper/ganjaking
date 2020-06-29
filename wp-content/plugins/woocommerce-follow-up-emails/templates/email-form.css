@@ -1,0 +1,417 @@
+#subjectdiv #post_excerpt {
+    background-color: #fff;
+    font-size: 1.7em;
+    height: 1.7em;
+    line-height: 100%;
+    outline: 0 none;
+    padding: 3px 8px;
+    width: 100%;
+}
+#titlediv #title-prompt-text {
+    color: #999;
+}
+#subjectdiv #subject-prompt-text {
+    color: #999;
+    font-size: 1.7em;
+    padding: 11px 10px;
+    position: absolute;
+}
+
+#subjectdiv label.fue-label {
+    margin-top: 20px;
+}
+
+#post-body-content .fue-label {
+    cursor: pointer;
+    font-size: 1.0em;
+    font-weight: bold;
+    display: block;
+}
+
+.email_details_tabs li.non-editable {
+    display: none !important;
+}
+
+.fue_panel.non-editable .blockOverlay {
+    cursor: default !important;
+    background: #fff no-repeat center !important;
+    opacity: 0.6 !important;
+}
+
+.fue_panel.non-editable .blockMsg {
+    cursor: default !important;
+    width: 90% !important;
+    border: none !important;
+}
+
+.meta-box-notice {
+    font-size: 1.3em;
+    color: #999;
+    text-align: center;
+    padding: 25px 0;
+}
+
+#fue-email-details .inside {
+    margin: 0;
+    padding: 0;
+}
+
+#fue-email-details .fue_panel {
+    float: left;
+    width: 100%;
+    padding: 0;
+    color: #555;
+}
+
+#fue-email-details .fue_panel .fue-radios {
+    display: block;
+    float: left;
+    margin: 0;
+}
+
+#fue-email-details .fue_panel .fue-radios li {
+    display: block;
+    padding: 0 0 10px;
+}
+
+#fue-email-details .fue_panel .fue-radios li input {
+    width: auto;
+}
+
+#fue-email-details .panel-wrap {
+    background: none repeat scroll 0 0 #fff;
+    padding-left: 145px;
+}
+
+.panel {
+    color: #555;
+    padding: 10px;
+}
+
+.fue_panel fieldset.form-field, .fue_panel p {
+    font-size: 12px;
+    line-height: 24px;
+    margin: 0 0 9px;
+    padding: 5px 9px;
+}
+
+.fue_panel fieldset.form-field:after, .fue_panel p:after {
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+
+.fue_panel .checkbox {
+    margin: 7px 0;
+    vertical-align: middle;
+    width: auto;
+}
+
+.fue_panel p {
+    margin: 9px 0;
+}
+
+.fue_panel fieldset.form-field, .fue_panel p.form-field {
+    padding: 5px 20px 5px 162px !important;
+}
+
+.fue_panel label, .fue_panel legend {
+    float: left;
+    margin: 0 0 0 -150px;
+    padding: 0;
+}
+.fue_panel .long {
+    width: 230px;
+}
+
+.fue_panel label .req, .fue_panel legend .req {
+    color: #a00;
+    font-style: normal;
+    font-weight: 700;
+}
+.fue_panel .description {
+    margin: 0 0 0 7px;
+    padding: 0;
+}
+.fue_panel .description-block {
+    display: block;
+    margin-left: 0;
+}
+.fue_panel input, .fue_panel select, .fue_panel textarea {
+    margin: 0;
+}
+.fue_panel textarea {
+    height: 3.5em;
+    line-height: 1.5em;
+    vertical-align: top;
+}
+.fue_panel input[type="email"], .fue_panel input[type="number"], .fue_panel input[type="text"] {
+    float: left;
+    width: 50%;
+}
+.fue_panel .button {
+    margin-left: 8px;
+    width: auto;
+}
+.fue_panel select {
+    float: left;
+}
+.fue_panel .short, .fue_panel input.short[type="email"], .fue_panel input.short[type="number"], .fue_panel input.short[type="text"] {
+    width: 25%;
+}
+.fue_panel .sized {
+    margin-right: 6px;
+    width: auto !important;
+}
+.fue_panel .options_group {
+    border-bottom: 1px solid #dfdfdf;
+    border-top: 1px solid #fff;
+}
+.fue_panel .options_group:first-child {
+    border-top: 0 none;
+}
+.fue_panel .options_group:last-child {
+    border-bottom: 0 none;
+}
+.fue_panel .options_group fieldset {
+    font-size: 12px;
+    line-height: 24px;
+    margin: 9px 0;
+    padding: 5px 9px;
+}
+.fue_panel .options_group fieldset label {
+    float: none;
+    width: auto;
+}
+.fue_panel .options_group fieldset ul {
+    float: left;
+    margin: 0;
+    padding: 0;
+    width: 50%;
+}
+.fue_panel .options_group fieldset ul li {
+    margin: 0;
+    width: auto;
+}
+.fue_panel .options_group fieldset ul li input {
+    float: none;
+    margin-right: 4px;
+    width: auto;
+}
+.fue_panel .options_group fieldset ul.fue-radios label {
+    margin-left: 0;
+}
+.fue_panel .dimensions_field .wrap input {
+    margin-right: 0.2%;
+    width: 8.2%;
+}
+
+#triggers_details .options_group input, #triggers_details .options_group select {
+    float: none;
+}
+
+#triggers_details #interval_type {
+    float: left;
+    width: 99%;
+}
+
+#fue-email-details .fue-tabs-back {
+    background: none repeat scroll 0 0 #f5f5f5;
+    border-right: 1px solid #dfdfdf;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 145px;
+}
+
+#fue-email-details ul.fue-tabs {
+    background: none repeat scroll 0 0 #f5f5f5;
+    float: left;
+    line-height: 1em;
+    margin: 0 0 0 -145px;
+    padding: 0 0 10px;
+    position: relative;
+    width: 145px;
+}
+
+#fue-email-details ul.fue-tabs li {
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+
+#fue-email-details ul.fue-tabs li a {
+    background: none repeat scroll 0 0 #fafafa;
+    border-bottom: 1px solid #f5f5f5;
+    border-top: 1px solid #eaeaea;
+    display: block;
+    line-height: 18px !important;
+    margin: 0;
+    padding: 10px;
+    text-decoration: none;
+}
+
+#fue-email-details ul.fue-tabs li:first-child a {
+    border-top: 0 none !important;
+}
+
+#fue-email-details ul.fue-tabs .active a {
+    background-color: #eee;
+    border-color: #dfdfdf;
+    color: #555;
+    margin: 0 -1px 0 0;
+    position: relative;
+}
+
+#fue-delete-action {
+    float: left;
+    line-height: 28px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+#minor-publishing-actions, .misc-pub-visibility, .misc-pub-curtime, #delete-action {
+    display: none;
+}
+
+/* TipTip CSS - Version 1.2 */
+#tiptip_holder {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 99999;
+}
+#tiptip_holder.tip_top {
+    padding-bottom: 5px;
+}
+#tiptip_holder.tip_bottom {
+    padding-top: 5px;
+}
+#tiptip_holder.tip_right {
+    padding-left: 5px;
+}
+#tiptip_holder.tip_left {
+    padding-right: 5px;
+}
+#tiptip_content {
+    font-size: 11px;
+    color: #fff;
+    padding: 4px 8px;
+    background:#a2678c;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: 1px 1px 3px rgba(0,0,0,0.10);
+    -moz-box-shadow: 1px 1px 3px rgba(0,0,0,0.10);
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.10);
+    text-align: center;
+}
+#tiptip_arrow, #tiptip_arrow_inner {
+    position: absolute;
+    border-color: transparent;
+    border-style: solid;
+    border-width: 6px;
+    height: 0;
+    width: 0;
+}
+#tiptip_holder.tip_top #tiptip_arrow_inner {
+    margin-top: -7px;
+    margin-left: -6px;
+    border-top-color: #a2678c;
+}
+
+#tiptip_holder.tip_bottom #tiptip_arrow_inner {
+    margin-top: -5px;
+    margin-left: -6px;
+    border-bottom-color: #a2678c;
+}
+
+#tiptip_holder.tip_right #tiptip_arrow_inner {
+    margin-top: -6px;
+    margin-left: -5px;
+    border-right-color: #a2678c;
+}
+
+#tiptip_holder.tip_left #tiptip_arrow_inner {
+    margin-top: -6px;
+    margin-left: -7px;
+    border-left-color: #a2678c;
+}
+
+div.email-form .subtitle {
+    font-size: 18px;
+}
+
+div.email-form label {
+    display: block;
+    /*font-size: 15px;*/
+}
+
+div.email-form .inline {
+    display: inline;
+    vertical-align: top;
+}
+
+#trigger_conditions fieldset {
+    background: #F2F2F2;
+    margin: 10px;
+    padding: 10px;
+    position: relative;
+    -moz-box-shadow: 0 1px 1px rgba(0,0,0,.04);
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.04);
+    box-shadow: 0 1px 1px rgba(0,0,0,.04);
+    border: 1px solid #e5e5e5;
+}
+
+#trigger_conditions fieldset legend {
+    position: absolute;
+    top: 5px;
+    left: 165px;
+    font-size: 14px;
+}
+
+#trigger_conditions fieldset .delete {
+    color: #a00;
+    text-decoration: none;
+}
+
+#trigger_conditions .condition {
+    margin-left: 15px;
+}
+
+#trigger_conditions fieldset .btn-remove-condition {
+    top: 5px;
+    right: 5px;
+    position: absolute;
+}
+
+#trigger_conditions fieldset .btn-add-or {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+}
+
+#trigger_conditions .condition-value {
+    width: 100px;
+}
+
+.select2-container .select2-search-field,
+.select2-container .select2-input {
+    width: 100% !important;
+}
+
+.followup-description {    
+    border-left: 4px solid #cc99c2;
+    background: #fff;
+    margin: 5px 0;
+    padding: 10px;
+    background-size: 85px;
+    background-position: left 10px top 30px;
+    -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+    -moz-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+}

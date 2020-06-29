@@ -1,0 +1,18 @@
+<div wysija_type="{#type}" class="wysija_block" wysija_position="{#position}" {if #background_color}wysija_bg_color="{#background_color}"{/if}>
+    {include file="templates/newsletter/editor/block_controls.html"}
+    <div class="wysija_gallery {#alignment}" wysija_align="{#alignment}" {if #width}style="width:{#width}px;"{/if}>
+
+        <ul style="display: none;" class="wysija_tools">
+            <li><a href="javascript:;" title="{$i18n.alignmentLeft}" class="alignment-left"><span></span></a></li>
+            <li><a href="javascript:;" title="{$i18n.alignmentCenter}" class="alignment-center"><span></span></a></li>
+            <li><a href="javascript:;" title="{$i18n.alignmentRight}" class="alignment-right"><span></span></a></li>
+            <li><a href="javascript:;" title="{$i18n.remove}" class="remove"><span></span></a></li>
+        </ul>
+
+        <div class="wysija_row clearfix">
+            {foreach name="#items" key="j" value="image"}
+                {include file="templates/newsletter/editor/block_gallery_item.html"}
+            {/foreach}
+        </div>
+    </div>
+</div>

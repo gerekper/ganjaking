@@ -1,0 +1,68 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: dynamic-featured-image\n"
+"POT-Creation-Date: 2014-07-19 16:43+0545\n"
+"PO-Revision-Date: 2018-02-26 21:03+0100\n"
+"Last-Translator: Matthias Wirtz <hello@p4tchwork.de>\n"
+"Language-Team: Ankit Pokhrel <ankitpokhrel@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.6\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e\n"
+"X-Poedit-Basepath: .\n"
+"Language: bs\n"
+
+msgid "Featured Image"
+msgstr "Glavna slika"
+
+msgid "Dynamic Featured Image - Media Selector"
+msgstr "Dinamična Glavna Slika – Izbor Media"
+
+msgid "Set Featured Image"
+msgstr "Postavite glavnu sliku"
+
+msgid "Add New"
+msgstr "Dodoajte novu"
+
+msgid "Remove"
+msgstr "Uklonite"
+
+msgid ""
+"ATTENTION! Please read the <a href=\"https://github.com/ankitpokhrel/Dynamic-"
+"Featured-Image/wiki\" target=\"_blank\">DOCUMENTATION</a> properly before "
+"update."
+msgstr ""
+"PAŽNJA! Molimo vas pažljivo pročitajte <a href=\"https://github.com/"
+"ankitpokhrel/Dynamic-Featured-Image/wiki\" target=\"_blank\">DOKUMENTACIJU</"
+"a> pre ažuriranja."
+
+msgid "0"
+msgstr "0"
+
+msgid "1"
+msgstr "1"
+
+msgid "2"
+msgstr "2"
+
+msgid "3"
+msgstr "3"
+
+msgid "4"
+msgstr "4"
+
+msgid "5"
+msgstr "5"
+
+msgid "6"
+msgstr "6"
+
+msgid "7"
+msgstr "7"
+
+msgid "8"
+msgstr "8"
+
+msgid "9"
+msgstr "9"

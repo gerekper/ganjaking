@@ -1,0 +1,187 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Anti Fraud\n"
+"POT-Creation-Date: 2014-09-08 17:24+0100\n"
+"PO-Revision-Date: 2014-09-08 17:24+0100\n"
+"Last-Translator: Barry Kooij <barry@cageworks.nl>\n"
+"Language-Team: WooThemes <i18n@woothemes.com>\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.9\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n\n"
+"X-Poedit-SearchPath-0: ../.\n"
+
+#: .././anti-fraud-core/class-wc-af-admin-email.php:20
+msgid "Anti Fraud - Admin Notice"
+msgstr ""
+
+#: .././anti-fraud-core/class-wc-af-admin-email.php:21
+msgid "Admin notification about an order."
+msgstr ""
+
+#: .././anti-fraud-core/class-wc-af-admin-email.php:41
+#: .././anti-fraud-core/class-wc-af-admin-email.php:42
+msgid "Fraud notification of order #{order_id}"
+msgstr ""
+
+#: .././anti-fraud-core/class-wc-af-hook-manager.php:124
+msgid "Waiting for Fraud Check"
+msgstr ""
+
+#: .././anti-fraud-core/class-wc-af-meta-box.php:13
+msgid "Fraud Risk"
+msgstr ""
+
+#: .././anti-fraud-core/class-wc-af-meta-box.php:83
+msgid "This order is currently in queue for fraud check."
+msgstr ""
+
+#: .././anti-fraud-core/class-wc-af-meta-box.php:88
+msgid "Calculate Fraud Score"
+msgstr ""
+
+#: .././anti-fraud-core/class-wc-af-score-helper.php:24
+msgid "No fraud check done"
+msgstr ""
+
+#: .././anti-fraud-core/class-wc-af-score-helper.php:28
+msgid "Low Risk"
+msgstr ""
+
+#: .././anti-fraud-core/class-wc-af-score-helper.php:33
+msgid "Medium Risk"
+msgstr ""
+
+#: .././anti-fraud-core/class-wc-af-score-helper.php:36
+msgid "High Risk"
+msgstr ""
+
+#: .././anti-fraud-core/class-wc-af-score-helper.php:67
+msgid "Fraud Check required."
+msgstr ""
+
+#: .././anti-fraud-core/class-wc-af-score-helper.php:172
+msgid "Fraud check done."
+msgstr ""
+
+#: .././anti-fraud-core/class-wc-af-settings.php:31
+msgid "Fraud detection automated actions"
+msgstr ""
+
+#: .././anti-fraud-core/class-wc-af-settings.php:37
+msgid "Cancel score"
+msgstr ""
+
+#: .././anti-fraud-core/class-wc-af-settings.php:40
+msgid ""
+"Orders with a score lower than this number will be automatically cancelled. "
+"Select 0 to disable."
+msgstr ""
+
+#: .././anti-fraud-core/class-wc-af-settings.php:45
+msgid "Hold score"
+msgstr ""
+
+#: .././anti-fraud-core/class-wc-af-settings.php:48
+msgid ""
+"Orders with a score lower than this number will be automatically set on "
+"hold. Select 0 to disable."
+msgstr ""
+
+#: .././anti-fraud-core/class-wc-af-settings.php:53
+msgid "Email score"
+msgstr ""
+
+#: .././anti-fraud-core/class-wc-af-settings.php:56
+msgid ""
+"An admin email notification will be sent if an orders scores lower than this "
+"number. Select 0 to disable."
+msgstr ""
+
+#: .././anti-fraud-core/class-wc-af-settings.php:61
+msgid "Whitelist"
+msgstr ""
+
+#: .././anti-fraud-core/class-wc-af-settings.php:63
+msgid ""
+"Above automated actions don't apply on orders from email addresses entered "
+"here. Enter one email address per line."
+msgstr ""
+
+#: .././anti-fraud-core/class-wc-af-settings.php:128
+msgid "Anti Fraud"
+msgstr ""
+
+#: .././node_modules/grunt-checktextdomain/test/expected/incorrect-domain-autocorrect.php:3
+#: .././node_modules/grunt-checktextdomain/test/expected/incorrect-domain-autocorrect.php:5
+#: .././node_modules/grunt-checktextdomain/test/expected/variable-domain-autocorrect.php:4
+#: .././node_modules/grunt-checktextdomain/test/expected/variable-domain-autocorrect.php:6
+#: .././node_modules/grunt-checktextdomain/test/fixtures/correct-domain.php:3
+#: .././node_modules/grunt-checktextdomain/test/fixtures/correct-domain.php:5
+#: .././node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain-autocorrect.php:3
+#: .././node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain-autocorrect.php:5
+#: .././node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain.php:3
+#: .././node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain.php:5
+#: .././node_modules/grunt-checktextdomain/test/fixtures/missing-domain.php:3
+#: .././node_modules/grunt-checktextdomain/test/fixtures/missing-domain.php:5
+#: .././node_modules/grunt-checktextdomain/test/fixtures/variable-domain-autocorrect.php:4
+#: .././node_modules/grunt-checktextdomain/test/fixtures/variable-domain-autocorrect.php:6
+msgid "Hello World"
+msgstr ""
+
+#: .././node_modules/grunt-checktextdomain/test/expected/incorrect-domain-autocorrect.php:20
+#: .././node_modules/grunt-checktextdomain/test/expected/variable-domain-autocorrect.php:21
+#: .././node_modules/grunt-checktextdomain/test/fixtures/correct-domain.php:20
+#: .././node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain-autocorrect.php:20
+#: .././node_modules/grunt-checktextdomain/test/fixtures/incorrect-domain.php:20
+#: .././node_modules/grunt-checktextdomain/test/fixtures/missing-domain.php:20
+#: .././node_modules/grunt-checktextdomain/test/fixtures/plurals.php:3
+#: .././node_modules/grunt-checktextdomain/test/fixtures/plurals.php:8
+#: .././node_modules/grunt-checktextdomain/test/fixtures/plurals.php:16
+#: .././node_modules/grunt-checktextdomain/test/fixtures/variable-domain-autocorrect.php:21
+#, php-format
+msgid "%d apple"
+msgstr ""
+
+#: .././node_modules/grunt-wp-i18n/test/fixtures/basic-theme/exclude/file.php:3
+#: .././node_modules/grunt-wp-i18n/test/fixtures/plugin-include/plugin-include.php:6
+msgid "Exclude"
+msgstr ""
+
+#: .././node_modules/grunt-wp-i18n/test/fixtures/plugin-include/include/file.php:2
+msgid "Include"
+msgstr ""
+
+#: .././node_modules/grunt-wp-i18n/test/fixtures/text-domains/add-domain.php:2
+#: .././node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-domains.php:2
+#: .././node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-domains.php:3
+msgid "String"
+msgstr ""
+
+#: .././templates/af-admin-notice.php:16
+#, php-format
+msgid "An order with ID #%s scored a fraud score of %s."
+msgstr ""
+
+#: .././templates/af-admin-notice.php:17
+#: .././templates/plain/af-admin-notice.php:14
+#, php-format
+msgid "%sClick here to view the order.%s."
+msgstr ""
+
+#: .././templates/plain/af-admin-notice.php:13
+#, php-format
+msgid "Hi there. Order with ID #%s scored a fraud score of %s."
+msgstr ""
+
+#: .././woocommerce-anti-fraud.php:107
+#, php-format
+msgid ""
+"Please install and activate %sWooCommerce%s in order for the WooCommerce "
+"Anti Fraud extension to work!"
+msgstr ""

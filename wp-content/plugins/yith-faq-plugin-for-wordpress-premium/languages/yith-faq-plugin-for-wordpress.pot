@@ -1,0 +1,463 @@
+# Copyright (C) 2020 YITH
+# This file is distributed under the same license as the YITH FAQ Plugin for WordPress Premium package.
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH FAQ Plugin for WordPress Premium 1.1.4\n"
+"Report-Msgid-Bugs-To: "
+"https://wordpress.org/support/plugin/yith-faq-plugin-for-wordpress.premium\n"
+"POT-Creation-Date: 2020-04-29 15:01:53+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: grunt-wp-i18n 1.0.3\n"
+
+#: includes/class-yith-faq-post-type.php:110
+msgid "Add New FAQ"
+msgstr ""
+
+#: includes/class-yith-faq-post-type.php:111
+msgid "Add New"
+msgstr ""
+
+#: includes/class-yith-faq-post-type.php:112
+msgid "New FAQ"
+msgstr ""
+
+#: includes/class-yith-faq-post-type.php:113
+msgid "Edit FAQ"
+msgstr ""
+
+#: includes/class-yith-faq-post-type.php:114
+msgid "View FAQ"
+msgstr ""
+
+#: includes/class-yith-faq-post-type.php:115
+#: includes/class-yith-faq-shortcode.php:384
+msgid "Search FAQ"
+msgstr ""
+
+#: includes/class-yith-faq-post-type.php:116
+msgid "Not found"
+msgstr ""
+
+#: includes/class-yith-faq-post-type.php:117
+msgid "Not found in Trash"
+msgstr ""
+
+#: includes/class-yith-faq-post-type.php:178
+msgid "Off/On"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode-panel.php:128
+msgid "Shortcode Creation"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode-panel.php:133
+msgid "Show search box"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode-panel.php:147
+msgid "Show category filters"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode-panel.php:161
+msgid "Choose the style"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode-panel.php:169
+msgid "List"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode-panel.php:170
+msgid "Accordion"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode-panel.php:171
+msgid "Toggle"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode-panel.php:181
+msgid "FAQs per page"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode-panel.php:200
+msgid "Categories to display"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode-panel.php:209
+msgid "Search FAQs Categories"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode-panel.php:216
+msgid "If left empty all categories will be displayed"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode-panel.php:220
+msgid "Show icon"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode-panel.php:228
+msgid "Off"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode-panel.php:229
+msgid "Left"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode-panel.php:230
+msgid "Right"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode-panel.php:240
+msgid "Icon size (px)"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode-panel.php:257
+msgid "Choose the icon"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode-panel.php:296
+msgid "Insert Shortcode"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode.php:91
+msgid "Add FAQ shortcode"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode.php:417
+#: includes/class-yith-faq-taxonomy.php:71
+msgid "All Categories"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode.php:430
+msgid "Sorry, no matching results for your search."
+msgstr ""
+
+#: includes/class-yith-faq-shortcode.php:465
+msgid "Copy FAQ Link"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode.php:466
+msgid "Copied!"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode.php:493
+msgid "Previous"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode.php:511
+msgid "Next"
+msgstr ""
+
+#: includes/class-yith-faq-taxonomy.php:70
+msgid "Categories"
+msgstr ""
+
+#: includes/class-yith-faq-taxonomy.php:72
+msgid "Parent Category"
+msgstr ""
+
+#: includes/class-yith-faq-taxonomy.php:73
+msgid "Parent Category:"
+msgstr ""
+
+#: includes/class-yith-faq-taxonomy.php:74
+msgid "New Category"
+msgstr ""
+
+#: includes/class-yith-faq-taxonomy.php:75
+msgid "Add New Category"
+msgstr ""
+
+#: includes/class-yith-faq-taxonomy.php:76
+msgid "Edit Category"
+msgstr ""
+
+#: includes/class-yith-faq-taxonomy.php:77
+msgid "Update Category"
+msgstr ""
+
+#: includes/class-yith-faq-taxonomy.php:78
+msgid "View Category"
+msgstr ""
+
+#: includes/class-yith-faq-taxonomy.php:79
+msgid "Separate items with commas"
+msgstr ""
+
+#: includes/class-yith-faq-taxonomy.php:80
+msgid "Add or remove categories"
+msgstr ""
+
+#: includes/class-yith-faq-taxonomy.php:81
+msgid "Choose from the most used categories"
+msgstr ""
+
+#: includes/class-yith-faq-taxonomy.php:82
+msgid "Popular Categories"
+msgstr ""
+
+#: includes/class-yith-faq-taxonomy.php:83
+msgid "Search Categories"
+msgstr ""
+
+#: includes/class-yith-faq-taxonomy.php:84
+msgid "Not Found"
+msgstr ""
+
+#: includes/class-yith-faq-taxonomy.php:85
+msgid "No Categories"
+msgstr ""
+
+#: includes/class-yith-faq-taxonomy.php:86
+msgid "Categories list"
+msgstr ""
+
+#: includes/class-yith-faq-taxonomy.php:87
+msgid "Categories list navigation"
+msgstr ""
+
+#: plugin-options/color-options.php:22
+msgid "Color Settings"
+msgstr ""
+
+#: plugin-options/color-options.php:34
+msgid "Customize Search Button Colors"
+msgstr ""
+
+#: plugin-options/color-options.php:41
+msgid "Search Button Color"
+msgstr ""
+
+#: plugin-options/color-options.php:52
+msgid "Search Button Hover Color"
+msgstr ""
+
+#: plugin-options/color-options.php:63
+msgid "Search Button Icon Color"
+msgstr ""
+
+#: plugin-options/color-options.php:74
+msgid "Search Button Icon Hover Color"
+msgstr ""
+
+#: plugin-options/color-options.php:85
+msgid "Customize Category Button Colors"
+msgstr ""
+
+#: plugin-options/color-options.php:92
+msgid "Category Button Color"
+msgstr ""
+
+#: plugin-options/color-options.php:103
+msgid "Category Button Hover/Active Color"
+msgstr ""
+
+#: plugin-options/color-options.php:114
+msgid "Category Button Text Color"
+msgstr ""
+
+#: plugin-options/color-options.php:125
+msgid "Category Button Text Hover/Active Color"
+msgstr ""
+
+#: plugin-options/color-options.php:136
+msgid "Customize Navigation Button Colors"
+msgstr ""
+
+#: plugin-options/color-options.php:143
+msgid "Navigation Button Color"
+msgstr ""
+
+#: plugin-options/color-options.php:154
+msgid "Navigation Button Hover/Active Color"
+msgstr ""
+
+#: plugin-options/color-options.php:165
+msgid "Navigation Button Text Color"
+msgstr ""
+
+#: plugin-options/color-options.php:176
+msgid "Navigation Button Text Hover/Active Color"
+msgstr ""
+
+#: plugin-options/color-options.php:187
+msgid "Customize FAQ Icon Colors "
+msgstr ""
+
+#: plugin-options/color-options.php:194
+msgid "FAQ Icon Background Color"
+msgstr ""
+
+#: plugin-options/color-options.php:205
+msgid "FAQ Icon Color"
+msgstr ""
+
+#: plugin-options/color-options.php:216
+msgid "Customize FAQ Link Button Colors"
+msgstr ""
+
+#: plugin-options/color-options.php:223
+msgid "FAQ Link Color"
+msgstr ""
+
+#: plugin-options/color-options.php:234
+msgid "FAQ Link Hover Color"
+msgstr ""
+
+#: plugin-options/color-options.php:245
+msgid "FAQ Link Icon Color"
+msgstr ""
+
+#: plugin-options/color-options.php:256
+msgid "FAQ Link Icon Hover Color"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"<code><strong>YITH FAQ Plugin for WordPress</strong></code> allows entering "
+"an efficient FAQ system on any page of your WordPress or WooCommerce based "
+"website. You can also add custom FAQs for any page. <a "
+"href=\"https://yithemes.com/\" target=\"_blank\">Get more plugins for your "
+"e-commerce shop on <strong>YITH</strong></a>"
+msgstr ""
+
+#: class.yith-faq-plugin-for-wordpress.php:141
+msgctxt "shortcode creation tab name"
+msgid "Shortcode"
+msgstr ""
+
+#: class.yith-faq-plugin-for-wordpress.php:142
+msgctxt "color tab name"
+msgid "Color"
+msgstr ""
+
+#: class.yith-faq-plugin-for-wordpress.php:148
+msgctxt "plugin name in admin page title"
+msgid "FAQ"
+msgstr ""
+
+#: includes/class-yith-faq-post-type.php:108
+msgctxt "Post Type General Name"
+msgid "FAQs"
+msgstr ""
+
+#: includes/class-yith-faq-post-type.php:109
+msgctxt "Post Type Singular Name"
+msgid "FAQ"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode.php:697
+msgctxt "[gutenberg]: block name"
+msgid "FAQ"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode.php:698
+msgctxt "[gutenberg]: block description"
+msgid "Add the FAQ shortcode"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode.php:726
+msgctxt "[gutenberg]: block description"
+msgid "Choose the style"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode.php:743
+msgctxt "[gutenberg]: block description"
+msgid "Categories to display"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode.php:750
+msgctxt "[gutenberg]: block description"
+msgid "Show icon"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode.php:767
+msgctxt "[gutenberg]: block description"
+msgid "Choose the icon"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode.php:702
+msgctxt "[gutenberg]: keywords"
+msgid "FAQ"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode.php:703
+msgctxt "[gutenberg]: keywords"
+msgid "Frequently Asked Questions"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode.php:708
+msgctxt "[gutenberg]: attribute description"
+msgid "Show search box"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode.php:717
+msgctxt "[gutenberg]: attribute description"
+msgid "Show category filters"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode.php:711
+#: includes/class-yith-faq-shortcode.php:720
+msgctxt "[gutenberg]: Help text"
+msgid "Show"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode.php:712
+#: includes/class-yith-faq-shortcode.php:721
+msgctxt "[gutenberg]: Help text"
+msgid "Hide"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode.php:728
+msgctxt "[gutenberg]: inspector description"
+msgid "List"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode.php:729
+msgctxt "[gutenberg]: inspector description"
+msgid "Accordion"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode.php:730
+msgctxt "[gutenberg]: inspector description"
+msgid "Toggle"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode.php:752
+msgctxt "[gutenberg]: inspector description"
+msgid "Off"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode.php:753
+msgctxt "[gutenberg]: inspector description"
+msgid "Left"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode.php:754
+msgctxt "[gutenberg]: inspector description"
+msgid "Right"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode.php:736
+msgctxt "[gutenberg]: attributes description"
+msgid "FAQs per page"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode.php:760
+msgctxt "[gutenberg]: attributes description"
+msgid "Icon size (px)"
+msgstr ""
+
+#: includes/class-yith-faq-taxonomy.php:68
+msgctxt "Taxonomy General Name"
+msgid "Categories"
+msgstr ""
+
+#: includes/class-yith-faq-taxonomy.php:69
+msgctxt "Taxonomy Singular Name"
+msgid "Category"
+msgstr ""

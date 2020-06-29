@@ -1,0 +1,155 @@
+.ypop-wrapper{
+	overflow: hidden;
+}
+.ypop-container-inner{
+	position: relative;
+	overflow: hidden;
+	height: 100%;
+}
+.ypop-content{
+	width: 45%;
+	float: right;
+	margin-right: 5%;
+}
+.ypop-title {
+	font-size: 45px;
+	line-height: 1.1em;
+	text-align: center;
+	padding: 20px 0;
+}
+
+.ypop-form-newsletter-wrapper .newsletter_form_email input{
+	background:#fff;
+}
+.ypop-form-newsletter-wrapper .newsletter_form_email button{
+	margin-bottom: 0;
+}
+.ypop-footer {
+	padding: 15px 0;
+	text-align: center;
+	font-size: 10px;
+}
+
+.ypop-checkzone{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+.ypop-wrapper  a.close{
+	border-radius: 50%;
+	width: 35px;
+	height: 35px;
+}
+
+/* NEWSLETTER */
+.ypop-form-newsletter-wrapper{
+	margin-top: 10px;
+}
+.ypop-form-newsletter-wrapper fieldset {
+	border: 0;
+}
+
+.ypop-form-newsletter-wrapper ul {
+	list-style: none;
+	margin: 10px 0;
+	padding: 0;
+	text-align: left;
+}
+
+.ypop-form-newsletter-wrapper li{
+	margin: 10px 0;
+}
+
+.ypop-content-type .contact-form input,
+.ypop-content-type .contact-form textarea,
+.ypop-form-newsletter-wrapper .newsletter_form_name input,
+.ypop-form-newsletter-wrapper .newsletter_form_email input {
+	width: 100%;
+	border: 1px solid #102d85;
+	padding: 10px 5px;
+	border-radius: 5px;
+	font-size: 14px;
+}
+
+.ypop-wrapper button,
+.ypop-content-type .contact-form input[type=submit],
+div.wpcf7 input[type=submit],
+.ypop-product-wrapper .add_to_cart a{
+	width: 100%;
+	padding: 11px 12px;
+	border-radius: 5px;
+	border: 0px;
+	font-size: 14px;
+	font-weight: 700;
+}
+.user-message,
+.ypop-form-newsletter-wrapper .message-box span{
+	background-color: #fff;
+	margin: 10px 0 0;
+	border-radius: 5px;
+}
+
+.input-prepend{
+	position: relative;
+}
+.msg-error{
+	position: absolute;
+	right: 10px;
+	top: 27px;
+}
+.share-container{
+	text-align: center;
+}
+
+.share-container a{
+	text-decoration: none;
+	text-align: center;
+}
+.icon-circle{
+	border: 1px solid;
+	text-align: center;
+	margin: 15px 2px;
+	text-decoration: none;
+	width: 30px;
+	height: 30px;
+	display: inline-block;
+	font-size: 20px;
+}
+
+/* WOOCOMMERCE */
+
+.ypop-product-wrapper  .add_to_cart{
+	margin: 20px 0px;
+}
+
+.ypop-product-wrapper  .price{
+	margin-top: 10px;
+	font-size: 18px;
+	font-weight: 800;
+}
+
+@media(max-width: 767px) {
+	.ypop-content{
+		width: 100%;
+		float: none;
+		padding: 15px;
+	}
+	.ypop-wrapper{
+		overflow: scroll;
+		position: absolute !important;
+	}
+	.ypop-modal.open{
+		overflow-y: scroll;
+		position: absolute;
+	}
+
+	.ypop-overlay{
+		position: fixed;
+	}
+	.ypop-wrapper a.close{
+		top: 0;
+		right: 0;
+	}
+}

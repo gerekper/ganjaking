@@ -1,0 +1,850 @@
+/* === WC Panel Customizzation === */
+
+.taxonomy-yith_shop_vendor .form-wrap {
+    background: #fff;
+    padding: 15px;
+}
+
+#yith-vendor-commission {
+    max-width: 55px;
+}
+
+label.yith_vendor_enable_selling_label,
+label.yith_vendor_skip_revision_label,
+label.yith_vendor_enable_featured_products_label {
+    display: inline;
+}
+
+.widefat thead tr th#taxonomy-yith_shop_vendor,
+.widefat tbody tr td.taxonomy-yith_shop_vendor.column-taxonomy-yith_shop_vendor {
+    width: 15%;
+}
+
+.taxonomy-yith_shop_vendor span.description{
+    line-height: 20px;
+    margin-bottom: 15px;
+}
+
+.taxonomy-yith_shop_vendor form#edittag {
+    background: #fff;
+    padding: 15px;
+}
+
+.yith-vendor-admin-wrap {
+    background-color: #ffffff;
+    padding: 15px;
+}
+
+.yith-vendor-admin-wrap .form-field,
+.yith-vendor-admin-wrap .form-field.yith-choosen .chosen-container {
+    margin-bottom: 15px;
+}
+
+.yith-vendor-admin-wrap .form-field.yith-choosen .chosen-container {
+    max-width: 40%;
+}
+
+.yith-vendor-admin-wrap label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.yith-vendor-admin-wrap .form-field select{
+    width: 40%;
+    margin-bottom: 10px;
+}
+
+.yith-vendor-admin-wrap .form-field span.description{
+    margin-bottom: 10px;
+    display: inline-block;
+}
+
+.yith-vendor-admin-wrap .form-field .payment-threshold-field {
+    width: 120px;
+    margin-bottom: 10px;
+}
+
+.yith-vendor-admin-wrap .vendor-extra-info {
+    font-weight: bold;
+}
+
+select#tax-input-yith_shop_vendor {
+    width: 100%;
+    cursor: pointer;
+}
+
+#tagsdiv-yith_shop_vendor .inside {
+    overflow: hidden;
+}
+
+#yith_wpv_panel_frontpage .iris-picker.iris-border {
+    position: absolute;
+    z-index: 999;
+}
+
+.yith.status-enabled:before{
+    color: #acc327;
+}
+
+/* Add-ons tab */
+
+#yith_wpv_panel_add-ons #plugin-fw-wc h2,
+#yith_wpv_panel_add-ons #plugin-fw-wc h3,
+#yith_wpv_panel_add-ons #plugin-fw-wc > p {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+/* Orders */
+
+.taxonomy-yith_shop_vendor table.wp-list-table .column-name,
+.taxonomy-yith_shop_vendor table.wp-list-table .column-description,
+.taxonomy-yith_shop_vendor table.wp-list-table .column-slug,
+.taxonomy-yith_shop_vendor table.wp-list-table .column-name,
+.taxonomy-yith_shop_vendor table.wp-list-table .check-column,
+.taxonomy-yith_shop_vendor table.wp-list-table .enable_sales,
+.taxonomy-yith_shop_vendor table.wp-list-table .column-commission_rate,
+.taxonomy-yith_shop_vendor table.wp-list-table .column-registration_date,
+.taxonomy-yith_shop_vendor table.wp-list-table .column-products,
+.taxonomy-yith_shop_vendor table.wp-list-table .column-owner,
+.taxonomy-yith_shop_vendor table.wp-list-table .column-vat,
+.taxonomy-yith_shop_vendor table.wp-list-table .column-user_actions {
+    border-bottom: 1px solid #e1e1e1;
+}
+
+.taxonomy-yith_shop_vendor table.wp-list-table .column-user_actions{
+    width: auto !important;
+}
+
+.widefat .column-commission_id {
+    min-width: 50px;
+    text-align: center
+}
+
+.widefat .column-commission_status,
+.widefat .column-rate {
+    width: 45px;
+    text-align: center
+}
+
+ table.commissions td.user_actions a.view,
+table.commissions td.user_actions a.pay {
+    margin-bottom: 8px;
+    display: block;
+    text-align: center;
+}
+
+.widefat .column-user_actions .action-link {
+    padding-left: 7px;
+}
+
+.widefat .column-user_actions .action-link mark,
+.widefat .column-commission_status mark,
+.widefat .column-enable_sales mark,
+.widefat .column-suborder mark,
+.widefat .column-vat mark,
+.single-orders.suborders-list .suborder-info mark {
+    display: block;
+    text-indent: -9999px;
+    position: relative;
+    height: 1em;
+    width: 1em;
+    background: 0 0;
+    font-size: 1.4em;
+    margin: 0 auto
+}
+
+.widefat .column-user_actions .action-link mark {
+    display: inline-block;
+}
+
+.widefat .column-enable_sales,
+.widefat .column-vat {
+    text-align: center;
+}
+
+.widefat .column-user_actions {
+    width: 160px;
+}
+
+.widefat .column-user_actions .action-link mark.cancelled:after,
+.widefat .column-user_actions .action-link mark.paid:after,
+.widefat .column-user_actions .action-link mark.unpaid:after,
+.widefat .column-user_actions .action-link mark.pending:after,
+.widefat .column-user_actions .action-link mark.refunded:after,
+.widefat .column-user_actions .action-link mark.processing:after,
+.widefat .column-commission_status mark.cancelled:after,
+.widefat .column-commission_status mark.paid:after,
+.widefat .column-commission_status mark.unpaid:after,
+.widefat .column-commission_status mark.pending:after,
+.widefat .column-commission_status mark.refunded:after,
+.widefat .column-commission_status mark.processing:after,
+.widefat .column-enable_sales mark:after,
+.widefat .column-suborder mark:after,
+.widefat .column-vat mark:after,
+.single-orders.suborders-list .suborder-info mark:after,
+.widefat .column-order_status mark.trash:after{
+    font-family: WooCommerce;
+    speak: none;
+    font-weight: 400;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    text-indent: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center
+}
+
+.widefat .column-suborder mark,
+.single-orders.suborders-list .suborder-info mark {
+    float: left;
+    margin-right: 8px;
+    font-size: 1.1em;
+    margin-top: 2px;
+}
+
+.widefat .column-user_actions .action-link mark.pending:after,
+.widefat .column-commission_status mark.pending:after {
+    content: "\e033";
+    color: #999
+}
+
+.widefat .column-user_actions .action-link mark.paid:after,
+.widefat .column-commission_status mark.paid:after,
+.widefat .column-enable_sales mark.enabled:after,
+.widefat .column-vat mark.vat:after {
+    content: "\e015";
+    color: #2ea2cc
+}
+
+.widefat .column-enable_sales mark.enabled:after,
+.widefat .column-vat mark.vat:after {
+    color: #0EB72C;
+}
+
+.widefat .column-user_actions .action-link mark.unpaid:after,
+.widefat .column-commission_status mark.unpaid:after,
+.widefat .column-enable_sales mark.pending:after{
+    content: "\e012";
+    color: #ffba00
+}
+
+.widefat .column-user_actions .action-link mark.cancelled:after,
+.widefat .column-commission_status mark.cancelled:after,
+.widefat .column-enable_sales mark.disabled:after {
+    content: "\e013";
+    color: #a00
+}
+
+.widefat .column-user_actions .action-link mark.refunded:after,
+.widefat .column-commission_status mark.refunded:after {
+    content: "\e014";
+    color: #999
+}
+
+.widefat .column-user_actions .action-link mark.processing:after,
+.widefat .column-commission_status mark.processing:after {
+    content: "\e011";
+    color: #73a724;
+}
+
+.widefat .column-enable_sales mark.no-owner:after,
+.widefat .column-vat mark.no-vat:after {
+    content: "\e016";
+    color: #2ea2cc;
+}
+
+/* Suborder Icon */
+
+.widefat .column-suborder mark.pending:after,
+.single-orders.suborders-list .suborder-info mark.pending:after {
+    content: "\e012";
+    color: #ffba00
+}
+
+.widefat .column-suborder mark.trash:after,
+.widefat .column-order_status mark.trash:after {
+    content: "\e602";
+    color: #a00
+}
+
+.widefat .column-suborder mark.completed:after,
+.single-orders.suborders-list .suborder-info mark.completed:after {
+    content: "\e015";
+    color: #2ea2cc
+}
+
+.widefat .column-suborder mark.on-hold:after,
+.single-orders.suborders-list .suborder-info mark.on-hold:after {
+    content: "\e033";
+    color: #999
+}
+
+.widefat .column-suborder mark.failed:after,
+.single-orders.suborders-list .suborder-info mark.failed:after {
+    content: "\e016";
+    color: #d0c21f
+}
+
+.widefat .column-suborder mark.cancelled:after,
+.single-orders.suborders-list .suborder-info mark.cancelled:after {
+    content: "\e013";
+    color: #a00
+}
+
+.widefat .column-suborder mark.processing:after,
+.single-orders.suborders-list .suborder-info mark.processing:after {
+    content: "\e011";
+    color: #73a724
+}
+
+.widefat .column-suborder mark.refunded:after,
+.single-orders.suborders-list .suborder-info mark.refunded:after {
+    content: "\e014";
+    color: #999
+}
+
+small.yith-wcmv-suborder-owner:not(.single-order) {
+    display: block;
+}
+
+.widefat .column-user_actions .action-link mark {
+    opacity: 0.5;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.widefat .column-user_actions .action-link mark:hover {
+    opacity: 1;
+}
+
+.wp-list-table a.set-an-owner{
+    text-transform: uppercase;
+    color: #d30000;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.wp-list-table a.set-an-owner:hover {
+    color: #f30404;
+}
+
+#commissions-filter .tablenav .actions.bulkactions {
+    padding: 0;
+}
+
+#yith_vendor_commission,
+#yith_wpv_single_commission input[type=number]{
+    width: 70px;
+}
+
+#yith_vendor_store_description {
+    border: none;
+}
+
+#vendor-details .stripe-connect{
+    height: 33px;
+}
+
+#vendor-details input[type=text],
+#vendor-details input[type=number] {
+  width: 40%;
+  margin-bottom: 10px;
+}
+
+#vendor-details input[type=text].required,
+input#yith_vendor_vat.required {
+    border-color: #dc3232;
+    -webkit-box-shadow: 0 0 2px rgba( 204, 0, 0, 0.8 );
+    box-shadow: 0 0 2px rgba( 204, 0, 0, 0.8 );
+}
+
+.yith-field-check.required.vat{
+     color: #dc3232;
+     font-weight: bold;
+ }
+
+input#yith_vendor_vat.valid {
+    border: 2px solid #2C9B29;
+}
+
+.yith-field-check.valid.vat{
+     color: #2c9b29;
+     font-weight: bold;
+ }
+
+#vendor-details .form-field textarea:not(.wp-editor-area){
+    width: 55%;
+    resize: none;
+}
+
+#vendor-details .form-field textarea.wp-editor-area{
+    border: 1px solid #e4e4e4;
+    resize: none;
+}
+
+.vendor_super_user .form-table td {
+    position: relative;
+}
+
+.vendor_super_user .form-table td .spinner{
+    display: none;
+}
+
+.vendor_super_user .form-table td .spinner.yith-visible {
+    float: none;
+    display: inline-block;
+    position: absolute;
+    top: 15px;
+    left: 105px;
+    visibility: visible;
+}
+
+/* Single product commission */
+#woocommerce-product-data ul.wc-tabs li.commissions_options  a:before{
+    content: "\f486";
+}
+
+#order_data.yith-commission .order_data_column {
+    width: 25%;
+    padding: 0;
+}
+
+#commissions-filter .tablenav #filter-by-date {
+    float: left;
+    margin-right: 8px;
+}
+
+#commissions-filter .data_search_wrapper{
+    float: left;
+}
+
+
+
+#vendor_data_search.yith-wpv-commissions,
+#product_data_search.yith-wpv-commissions{
+    width: 50%;
+    display: inline;
+}
+
+#product_data_search .select2-container,
+#vendor_data_search .select2-container {
+    width: auto !important;
+}
+
+#commissions-filter p.search-box{
+    margin-bottom:15px;
+}
+
+#commissions-filter .tablenav .tablenav-pages{
+    margin-top: 15px;
+}
+
+#plugin-fw-wc span.description {
+  display: block;
+  margin-top: 10px;
+}
+
+/* Hide WP Submenu item */
+.yith-wcpv-hide-submenu-item {
+    display: none;
+}
+
+/* Term list table */
+#the-list .switch_pending_status a {
+  color: #006505;
+}
+
+#the-list .switch_pending_status a:hover {
+  color: #00ae63;
+}
+
+/* Vendor Coupon Menu Style */
+#adminmenu #menu-posts-shop_coupon .menu-icon-post div.wp-menu-image:before {
+    font-family: WooCommerce!important;
+    content: "\e600";
+    font-size: 1.3em!important;
+}
+
+/* Orders */
+body.vendor_limited_access .woocommerce_order_items_wrapper table.woocommerce_order_items td.line_tax .delete-order-tax,
+body.vendor_limited_access .woocommerce_order_items_wrapper table.woocommerce_order_items th.line_tax .delete-order-tax,
+body.vendor_limited_access:not(.vendor_refund_management):not(.vendor_quote_management ) .wc-order-items-editable .wc-order-edit-line-item-actions,
+body.vendor_limited_access:not(.vendor_refund_management) .wc-order-items-editable .wc-order-totals .wc-order-edit-line-item,
+body.vendor_limited_access:not(.vendor_refund_management) .wc-order-items-editable .wc-order-totals .wc-order-edit-line-item-actions,
+body.vendor_limited_access:not(.vendor_refund_management):not(.vendor_quote_management ) #woocommerce-order-items .add-items .button.refund-items,
+body.vendor_limited_access #woocommerce-order-items .add-items .description,
+body.vendor_limited_access:not(.vendor_quote_management) #woocommerce-order-items .add-items .add-line-item,
+body.vendor_limited_access #woocommerce-order-items .add-items .add-order-tax,
+body.vendor_limited_access:not(.vendor_quote_management ) #woocommerce-order-items .add-items .calculate-tax-action,
+body.vendor_limited_access:not(.vendor_quote_management ) #woocommerce-order-items .add-items .calculate-action,
+body.vendor_super_user.vendor_suborder_detail .woocommerce_order_items_wrapper table.woocommerce_order_items td.line_tax .delete-order-tax,
+body.vendor_super_user.vendor_suborder_detail .woocommerce_order_items_wrapper table.woocommerce_order_items th.line_tax .delete-order-tax,
+body.vendor_super_user.vendor_suborder_detail #woocommerce-order-items .wc-order-data-row p.add-items button:not(.refund-items),
+body.vendor_super_user.vendor_suborder_detail #woocommerce-order-items .add-items .description {
+    display: none;
+}
+
+body.vendor_limited_access #woocommerce-order-items .wc-order-item-bulk-edit{
+    display: none!important;
+}
+
+body.vendor_limited_access #woocommerce-order-items #order_line_items tr.selected{
+    background: #fff!important;
+}
+
+#woocommerce-order-items .woocommerce_order_items_wrapper .commission-amount-refunded,
+table.commissions td.column-refunded {
+    color: #a00;
+}
+
+span.vacation-date-field {
+    display: block;
+    float: left;
+    margin-right: 10px;
+}
+
+.rtl span.vacation-date-field {
+    float: right;
+}
+
+.form-field.vacation-date:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+/* Product attributes */
+.no-js.vendor_limited_access.product_page_product_attributes .row-actions span.delete {
+    display: none;
+}
+
+.user_actions .edit_extra_info:after {
+    content: "\e603";
+}
+
+.user_actions .edit_extra_info:after {
+    font-weight: 400;
+    text-align: center;
+    margin: 0;
+    font-family: WooCommerce;
+    speak: none;
+    font-variant: normal;
+    text-transform: none;
+    -webkit-font-smoothing: antialiased;
+    top: 0;
+    left: 0;
+    line-height: 1.85;
+}
+
+.user_actions .edit_extra_info:after {
+    text-indent: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.user_actions .edit_extra_info {
+    display: block;
+    text-indent: -9999px;
+    position: relative;
+    padding: 0!important;
+    height: 2em!important;
+    width: 2em;
+}
+
+.vendor_limited_access #adminmenu #menu-posts-shop_order .wp-submenu li:last-child {
+    display: none;
+}
+
+#wpwrap h2.nav-tab-wrapper , #wpbody-content h2.nav-tab-wrapper {
+    border-bottom: 1px solid #ccc;
+}
+
+#s2id_yith_vendor_admins{
+    width: 40%;
+}
+
+.vendor_super_user #s2id_yith_vendor_admins,
+.vendor_super_user #s2id_key_user {
+    width: 95%;
+}
+
+.yith-wcmv-add-ons{
+    display: inline-block;
+    padding: 4px;
+    font-weight: bold;
+    font-size: 12px;
+    margin-left: 10px;
+    border-radius: 5px;
+    color: #ffffff;
+    border: 1px solid #000000;
+    min-width: 40px;
+    text-align: center;
+}
+
+.yith-wcmv-add-ons.is-deprecated{
+    background: #750202;
+}
+
+.yith-wcmv-add-ons.coming-soon{
+    background: #f4f711;
+    color: #000000;
+}
+
+.yith-wcmv-add-ons.is-new{
+    background: #57ad03;
+}
+
+/* RAQ Compatibility */
+.single-orders.suborders-list .suborder-info mark.ywraq-pending.tips:after,
+.single-orders.suborders-list .suborder-info mark.ywraq-rejected.tips:after,
+.single-orders.suborders-list .suborder-info mark.ywraq-expired.tips:after,
+.single-orders.suborders-list .suborder-info mark.ywraq-new.tips:after {
+    content: "\e603";
+}
+
+.single-orders.suborders-list .suborder-info mark.ywraq-new.tips:after{
+    color: #999;
+}
+
+.single-orders.suborders-list .suborder-info mark.ywraq-pending.tips:after{
+    color: #ffba00;
+}
+
+.single-orders.suborders-list .suborder-info mark.ywraq-rejected.tips:after{
+    color: #a00;
+}
+
+.single-orders.suborders-list .suborder-info mark.ywraq-expired.tips:after{
+    color: #C8C8C8;
+}
+
+/* Green Valley Fix */
+.vendor_super_user.post-type-shop_order .subsubsub li.mine {
+    display: none;
+}
+
+
+/* shipping */
+
+.vendor_limited_access.woocommerce.toplevel_page_yith_vendor_settings .wc-backbone-modal .wc-backbone-modal-content {
+    width: initial;
+}
+
+.yith-wpv-shipping-methods-add.add_shipping_method{
+    position: relative;
+}
+
+.yith-vendor-admin-wrap .yith_admin_vendor_shipping .form-field span.description {
+    display: block;
+}
+
+.yith-vendor-admin-wrap .yith_admin_vendor_shipping .form-field.checkbox span.description {
+    display: inline-block;
+}
+
+.yith-vendor-admin-wrap .yith_admin_vendor_shipping .button-secondary:not(.yith-wpdv-wc-shipping-zone-trigger-all) {
+     float: right;
+}
+
+.yith-wcmv-shipping-zone-regions .select2-container{
+  margin-bottom: 10px !important;
+}
+
+.yith-wcmv-shipping-zone-regions .select2-selection__rendered {
+  max-height: 150px;
+  overflow-y: auto !important;
+}
+
+.vendor_limited_access .yith-wpv-shipping-method-form-container {
+    display: none;
+}
+
+.yith-vendor-admin-wrap .wc-shipping-zone-postcodes {
+    display: none;
+    margin-top: 10px;
+}
+
+.vendor_limited_access .wc-shipping-zone-method-remove {
+    display: inline-block;
+    width: 14px;
+    height: 13px;
+    background-repeat: no-repeat;
+    background-image: url(../images/remove_shipping_method.png);
+    margin: 0 5px;
+    margin-bottom: -1px;
+    cursor: pointer;
+}
+
+.vendor_limited_access .wc-backbone-modal-edit-shipping-mode .woocommerce-help-tip,
+.vendor_limited_access .wc-backbone-modal-edit-shipping-mode .select2-container {
+    display: none !important;
+}
+
+.vendor_limited_access .wc-backbone-modal-edit-shipping-mode select {
+    display: block !important;
+    width: 100%;
+}
+
+.vendor_limited_access .yith-wpdv-wc-shipping-zone-postcodes-toggle {
+    display: inline-block;
+}
+
+.vendor_limited_access table.wc-shipping-classes td.wc-shipping-zone-methods ul li::before,
+.vendor_limited_access table.wc-shipping-zone-methods td.wc-shipping-zone-methods ul li::before,
+.vendor_limited_access table.wc-shipping-zones td.wc-shipping-zone-methods ul li::before {
+    content: "";
+}
+
+.vendor_limited_access table.wc-shipping-classes td.wc-shipping-zone-methods ul li,
+.vendor_limited_access table.wc-shipping-zone-methods td.wc-shipping-zone-methods ul li,
+.vendor_limited_access table.wc-shipping-zones td.wc-shipping-zone-methods ul li {
+    margin-left: 5px;
+    display: block;
+}
+
+.toplevel_page_yith_vendor_settings.vendor_limited_access .select2-container--default .select2-selection--multiple .select2-selection__choice__remove::after,
+.toplevel_page_yith_vendor_settings.vendor_limited_access .woocommerce .yith-plugin-ui .select2-container--default .select2-selection--multiple .select2-selection__choice__remove::after,
+.toplevel_page_yith_vendor_settings.vendor_limited_access .yith-plugin-ui .select2-container--default .select2-selection--multiple .select2-selection__choice__remove::after{
+    display: none;
+}
+
+h2.commission-details-shipping:before{
+    display: inline-block;
+    width:30px;
+    height:23px;
+    background-image: url(../images/vendor-shipping-fee.png);
+    background-repeat: no-repeat;
+    content: '';
+    margin:-3px 10px -3px 0;
+}
+
+h2.commission-details-product:before{
+    display: inline-block;
+    width:30px;
+    height:23px;
+    background-image: url(../images/vendor-commission-fee.png);
+    background-repeat: no-repeat;
+    content: '';
+    margin:-3px 10px -3px 0;
+}
+
+#vendor_data_search #post-query-submit{
+    height: 30px;
+    line-height: 28px;
+    margin-left: 8px;
+}
+
+#commissions-filter .data_search_wrapper{
+    margin-right: 8px;
+}
+
+/* === Edit Vendor === */
+label[for=yith_vendor_social_live-chat] small em {
+    font-weight: bold;
+}
+
+label[for=yith_vendor_social_live-chat] small {
+    font-weight: 400;
+}
+
+/* === Gateways Tab === */
+
+.yith-wcmv-gateway-required-external{
+    color: #e40000;
+}
+
+#stripe_connect_coming_soon{
+    max-width: 100%;
+}
+
+#stripe_connect_coming_soon img{
+    margin-bottom: 15px;
+}
+
+#stripe_connect_coming_soon:after{
+    clear: both;
+}
+
+.yith_wcmv_gateways td.name.is_coming_soon a::after {
+    content: "(Coming Soon)";
+    color: #e40000;
+    display: inline-block;
+    margin-left: 2px;
+}
+#stripe-connect-description-wrapper{
+    padding: 10px;
+}
+
+#stripe_collect_fees {
+    list-style-type: disclosure-closed;
+    list-style-position: inside;
+}
+
+#stripe_collect_fees li {
+    margin-bottom: 15px;
+}
+
+.stripe-img {
+    max-width: 100%;
+    display: block;
+}
+
+#yith_wcmv_checkout_gateway {
+    border-radius: 5px;
+}
+
+/* WC 3.0 fix */
+.woocommerce.toplevel_page_yith_vendor_commissions .form-field .select2-container,
+.post-type-product.taxonomy-yith_shop_vendor .form-field .select2-container {
+    width: 100%!important;
+    margin-left: 0;
+}
+
+#vendor_parent_order_id{
+    text-align: center;
+}
+
+/*  WC 3.2 Fix */
+.yith-plugins_page_yith_wpv_panel.woocommerce table.form-table input[type=text].colorpick{
+    max-width: 6em;
+}
+
+.yith-plugins_page_yith_wpv_panel.woocommerce table.form-table select{
+    padding: 0;
+}
+
+#payment_minimum_withdrawals{
+    max-width: 6em;
+}
+
+#yith_wpv_reports_limit{
+    max-width: 6em;
+}
+
+#order_shipping_line_items .shipping .name .view table.display_meta tr th{
+    width: auto;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    #vendor-details .form-field textarea:not(.wp-editor-area) {
+        width: auto;
+    }
+}
+
+@media screen and (max-width: 782px) {
+    #s2id_yith_vendor_admins,
+    #vendor-details input[type=text],
+    #vendor-details input[type=number] {
+        width: 100%;
+    }
+}

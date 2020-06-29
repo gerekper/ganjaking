@@ -1,0 +1,73 @@
+{
+    "require": {
+        "a5hleyrich/wp-background-processing": "dev-master",
+        "xrstf/composer-php52": "^1.0"
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "xrstf\\Composer52\\Generator::onPostInstallCmd"
+        ],
+        "post-update-cmd": [
+            "xrstf\\Composer52\\Generator::onPostInstallCmd"
+        ],
+        "post-autoload-dump": [
+            "xrstf\\Composer52\\Generator::onPostInstallCmd"
+        ]
+    },
+    "autoload": {
+        "classmap": [
+            "./src/common/gamajo-template-loader.class.php",
+            "./src/common/woocommerce-gpf-cache.php",
+            "./src/common/woocommerce-gpf-import-export-integration.php",
+            "./src/common/woocommerce-gpf-rest-api.php",
+            "./src/common/woocommerce-gpf-status-report.php",
+            "./src/common/woocommerce-gpf-template-loader.class.php",
+
+            "./src/gpf/woocommerce-gpf-admin.php",
+            "./src/gpf/woocommerce-gpf-abstract-cache-rebuild-job.php",
+            "./src/gpf/woocommerce-gpf-cache-invalidator.php",
+            "./src/gpf/woocommerce-gpf-cache-rebuild-product-job.php",
+            "./src/gpf/woocommerce-gpf-cache-rebuild-term-job.php",
+            "./src/gpf/woocommerce-gpf-cache-rebuild-all-job.php",
+            "./src/gpf/woocommerce-gpf-common.php",
+            "./src/gpf/woocommerce-gpf-feed.php",
+            "./src/gpf/woocommerce-gpf-feed-bing.php",
+            "./src/gpf/woocommerce-gpf-feed-google.php",
+            "./src/gpf/woocommerce-gpf-feed-google-inventory.php",
+            "./src/gpf/woocommerce-gpf-feed-google-local-products.php",
+            "./src/gpf/woocommerce-gpf-feed-google-local-product-inventory.php",
+            "./src/gpf/woocommerce-gpf-feed-item.php",
+            "./src/gpf/woocommerce-gpf-frontend.php",
+            "./src/gpf/woocommerce-gpf-structured-data.php",
+            "./src/gpf/woocommerce-gpf-template-tags.php",
+
+            "./src/prf/woocommerce-prf-admin.php",
+            "./src/prf/woocommerce-prf-google.php",
+            "./src/prf/woocommerce-prf-google-review-feed.php",
+            "./src/prf/woocommerce-prf-google-review-product-info.php",
+
+            "./src/integrations/woocommerce-cost-of-goods.php",
+            "./src/integrations/woocommerce-gpf-the-content-protection.php",
+            "./src/integrations/woocommerce-gpf-multicurrency.php",
+            "./src/integrations/woocommerce-min-max-quantities.php",
+            "./src/integrations/woocommerce-product-vendors.php",
+            "./src/integrations/yoast-woocommerce-seo.php",
+
+            "tests/unit/WoocommerceGpfTestAbstract.php",
+            "tests/unit/mocks/WoocommerceGpfWcMocks.php",
+            "tests/unit/mocks/WoocommerceGpfWpMocks.php",
+            "tests/unit/mocks/WoocommerceGpfMocks.php",
+            "tests/unit/mocks/MockWpPost.php",
+            "tests/unit/mocks/MockWpTaxonomy.php",
+            "tests/unit/mocks/MockWpTerm.php",
+            "tests/unit/mocks/MockWcProduct.php",
+            "tests/unit/mocks/MockWoocommerceGpfCommon.php",
+            "vendor/a5hleyrich/wp-background-processing/classes/wp-async-request.php",
+            "vendor/a5hleyrich/wp-background-processing/classes/wp-background-process.php"
+        ]
+    },
+    "require-dev": {
+	"phpunit/phpunit": "~7.0",
+        "10up/wp_mock": "dev-dev"
+    }
+}

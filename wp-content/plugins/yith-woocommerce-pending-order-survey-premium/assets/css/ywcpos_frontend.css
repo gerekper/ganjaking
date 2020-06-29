@@ -1,0 +1,102 @@
+.survey-main-content{
+
+    width: 100%;
+    margin: 0;
+    padding:0;
+}
+
+.survey-main-content >div{
+
+    width: 80%;
+    margin: 0 auto;
+}
+
+.pending_survey_title{
+    font-size: 28px;
+}
+
+.survey-main-content div form{
+    margin-top: 10px;
+}
+.survey-main-content div form .pending_question_container{
+    border: 1px solid #cfcfcf;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    padding: 33px 20px 33px 20px;
+
+}
+
+.survey-main-content div form .pending_question_container h3{
+    font-size: 19px;
+    margin-bottom: 30px;
+}
+
+.survey-main-content div form .pending_question_container{
+    position: relative;
+}
+
+.survey-main-content div form .pending_question_container span.is_req{
+
+    position: absolute;
+    top: -10px;
+    right: 20px;
+    background: #ffa800;
+    color: #fff;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+}
+
+.pending_textareacontent {
+    border: 1px solid #cfcfcf;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    height: 153px;
+    padding-top: 23px;
+    padding-bottom: 23px;
+    padding-left: 20px;
+    position: relative;
+}
+
+.pending_textareacontent .dashicons.dashicons-edit{
+    position: absolute;
+    z-index: 10;
+}
+.pending_textareacontent.validate_is_required{
+ border-color:#ff0000;
+}
+
+.survey-main-content .pending_survey_form textarea{
+
+    background: #fff;
+    border: none;
+    width: 97%;
+    height: 126px;
+    resize: none;
+    padding-right: 47px;
+    padding-top: 0;
+    padding-left: 34px;
+    box-sizing: border-box;
+}
+
+.survey-main-content .pending_survey_form textarea:focus{
+    border: none;
+    outline: none;
+}
+
+.pending_textareacontent .dashicons.dashicons-edit:before{
+
+    font-size: 25px;
+    color:#c9c9c9;
+}
+
+.survey-main-content div form .pending_question_container span.is_req:hover{
+    cursor: pointer;
+}
+
+.ywcpos_sendsurvey{
+    float: right;
+}

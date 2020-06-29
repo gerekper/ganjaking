@@ -1,0 +1,139 @@
+
+.wcdn-add-notifications {
+    display:none;
+}
+.wcdn-section {
+    margin-bottom:7px;
+    border: 1px solid #e5e5e5;
+    box-shadow: 0 1px 1px rgba(0,0,0,.04);
+
+}
+.wcdn-section > .section-head {
+    background: #fefefe;
+}
+.wcdn-section > .section-body {
+    display:none;
+    background: #fefefe;
+    border-top: 1px solid #eee;
+}
+
+.wcdn-active {
+    font-weight: 600;
+}
+
+#yith_button_new_notification{
+    margin-bottom: 20px;
+}
+
+table.yith_uploads {
+    display: table;
+    background: #fefefe;
+    font-size: 15px;
+    padding-left: 4px;
+    width: 100%;
+}
+table.yith_uploads td {
+    padding-left: 4px;
+    padding: 0.35em;
+}
+.yith_uploads_table_head td {
+    font-weight: bold;
+    padding-bottom: 1em;
+    padding-top: 10px; !important;
+}
+
+tbody.yith_tbody_new_notification{
+    background: #fefefe;
+}
+tbody.yith_tbody_new_notification th {
+    padding-left: 10px;
+}
+.yith-table-new-notification {
+    border-spacing: 0px;
+}
+.yith_foreach_notifications th {
+    padding-left: 10px;
+}
+.yith-wcdn-head-notification-create {
+    padding: 9px 10px;
+
+}
+.yith_foreach_notifications {
+    background: white;
+}
+
+a.yith_button_delete_icon {
+    background: #e22121 !important;
+    border-color: #0a0a0a !important;
+    color: #f1eded !important;
+}
+a.yith_button_delete_icon:hover {
+    background: #d92e23 !important;
+}
+
+._yith_click_new_audio_preview {
+    margin-left: 20px;
+}
+
+#yith-wcdn-id-status {
+    display: none;
+}
+
+.yith-table-new-notification {
+    width: 100%;
+}
+
+.yith-wcdn-head-notification-create {
+    padding: 8px 12px;
+}
+
+.yith-wcdn-style {
+    width:100%;
+    max-width: 350px;
+}
+
+div.yith_wcdn_icon {
+    display: inline-block !important;
+    margin-right: 10px;
+}
+div.yith_wcdn_sound {
+    display: inline-block !important;
+}
+
+.yith-table-new-notification td {
+    padding: 15px 10px !important;
+}
+.yith_foreach_notifications td {
+    padding: 15px 10px !important;
+}
+
+/*Section head Notification actives*/
+.yith-wcdn-notifications .wcdn-section .yith-wcdn-head-notification-create {
+    cursor: pointer;
+    position: relative;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.yith-wcdn-notifications .wcdn-section .yith-wcdn-head-notification-create:before {
+    content: '';
+    width: 45px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: url( '../images/arrow.png' ) no-repeat center;
+    opacity: 0.6;
+}
+.yith-wcdn-notifications .wcdn-section.open .section-head:before {
+    transform: rotate( 180deg );
+    -webkit-transform: rotate( 180deg );
+    -moz-transform: rotate( 180deg );
+    -ms-transform: rotate( 180deg );
+    opacity: 1;
+}
+
+.yith_wcdn_multiple_role {
+    width: 350px;
+}

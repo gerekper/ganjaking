@@ -1,0 +1,31 @@
+.ywpar_apply_discounts_container{
+    display: none;
+    margin-top: 20px;
+}
+.ywpar-button-message{
+    cursor: pointer;
+}
+.yith-par-message{
+    display: block;
+}
+.yith-par-message.hide{
+    display: none!important;
+}
+.yith-par-message-variation.hide{
+    display: none!important;
+}
+
+.theme-yith-proteo .products .yith-par-message{
+    display: inline-block;
+    width: auto;
+    text-decoration:underline;
+    text-transform:lowercase;
+    font-size:0.9em;
+}
+.theme-yith-proteo .summary .yith-par-message-variation,
+.theme-yith-proteo .summary .yith-par-message{
+    margin-bottom: 30px;
+    background: #f5f5f5;
+    width: fit-content;
+    padding: 4px 5px;
+}

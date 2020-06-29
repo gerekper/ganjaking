@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="04749f2f-ecb4-40e6-a41a-1cef5d8e20a1" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/changelog.txt" beforeDir="false" afterPath="$PROJECT_DIR$/changelog.txt" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
+    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
+    <execution>
+      <executable />
+    </execution>
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="Docker" type="feb32156:DbDataSourceImpl" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="Docker" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="Docker" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="wordpress: schema" type="76f4a085:MysqlImplModel$Schema" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="PHPCSFixerBlackList">
+    <option name="filePaths">
+      <list>
+        <option value="$PROJECT_DIR$/admin/cart_reports_dashboard.php" />
+      </list>
+    </option>
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration">
+    <include_path>
+      <path value="$PROJECT_DIR$/../WordPress" />
+      <path value="$PROJECT_DIR$/../woocommerce" />
+      <path value="$PROJECT_DIR$/vendor/phpcompatibility/phpcompatibility-wp" />
+      <path value="$PROJECT_DIR$/vendor/wp-coding-standards/wpcs" />
+      <path value="$PROJECT_DIR$/vendor/phpcompatibility/php-compatibility" />
+      <path value="$PROJECT_DIR$/vendor/phpcompatibility/phpcompatibility-paragonie" />
+      <path value="$PROJECT_DIR$/vendor/composer" />
+      <path value="$PROJECT_DIR$/vendor/woocommerce/woocommerce-sniffs" />
+      <path value="$PROJECT_DIR$/vendor/dealerdirect/phpcodesniffer-composer-installer" />
+      <path value="$PROJECT_DIR$/vendor/squizlabs/php_codesniffer" />
+    </include_path>
+  </component>
+  <component name="ProjectId" id="1STzt5G4pLNyqV2kQtGNc96nT7A" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="autoscrollToSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.mappings" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.symlinks" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
+    <property name="jsx.switch.disabled" value="true" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="prettierjs.PrettierConfiguration.NodeInterpreter" value="project" />
+    <property name="prettierjs.PrettierConfiguration.Package" value="$USER_HOME$/.nvm/versions/node/v10.16.3/bin" />
+    <property name="settings.editor.selected.configurable" value="settings.javascript.prettier" />
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="04749f2f-ecb4-40e6-a41a-1cef5d8e20a1" name="Default Changelist" comment="" />
+      <created>1571602585892</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1571602585892</updated>
+      <workItem from="1571602593175" duration="138000" />
+      <workItem from="1571602745720" duration="1112000" />
+      <workItem from="1571603876879" duration="10060000" />
+      <workItem from="1571615139734" duration="626000" />
+      <workItem from="1572316112964" duration="562000" />
+      <workItem from="1576362555048" duration="3180000" />
+      <workItem from="1576368712566" duration="1878000" />
+      <workItem from="1576370607240" duration="5333000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="986" y="389" key="#PHP_CS_Fixer" timestamp="1576369039856">
+      <screen x="0" y="23" width="2560" height="1417" />
+    </state>
+    <state x="986" y="389" key="#PHP_CS_Fixer/0.23.2560.1417/2560.23.2560.1417@0.23.2560.1417" timestamp="1576369039856" />
+    <state x="986" y="389" key="#PHP_CodeSniffer" timestamp="1576368863028">
+      <screen x="0" y="23" width="2560" height="1417" />
+    </state>
+    <state x="986" y="389" key="#PHP_CodeSniffer/0.23.2560.1417/2560.23.2560.1417@0.23.2560.1417" timestamp="1576368863028" />
+    <state x="998" y="392" key="#PHP_CodeSniffer_Ignored_Files" timestamp="1576368858139">
+      <screen x="0" y="23" width="2560" height="1417" />
+    </state>
+    <state x="998" y="392" key="#PHP_CodeSniffer_Ignored_Files/0.23.2560.1417/2560.23.2560.1417@0.23.2560.1417" timestamp="1576368858139" />
+    <state x="1086" y="462" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1576368455123">
+      <screen x="0" y="23" width="2560" height="1417" />
+    </state>
+    <state x="1086" y="462" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.23.2560.1417/2560.23.2560.1417@0.23.2560.1417" timestamp="1576368455123" />
+    <state width="234" height="457" key="HiddenNamespacesPopup" timestamp="1576366864579">
+      <screen x="0" y="23" width="2560" height="1417" />
+    </state>
+    <state width="234" height="457" key="HiddenNamespacesPopup/0.23.2560.1417/2560.23.2560.1417@0.23.2560.1417" timestamp="1576366864579" />
+    <state x="1093" y="445" key="RollbackChangesDialog" timestamp="1576374301126">
+      <screen x="0" y="23" width="2560" height="1417" />
+    </state>
+    <state x="1093" y="445" key="RollbackChangesDialog/0.23.2560.1417/2560.23.2560.1417@0.23.2560.1417" timestamp="1576374301126" />
+    <state x="727" y="359" width="1342" height="736" key="SettingsEditor" timestamp="1576374232412">
+      <screen x="0" y="23" width="2560" height="1417" />
+    </state>
+    <state x="727" y="359" width="1342" height="736" key="SettingsEditor/0.23.2560.1417/2560.23.2560.1417@0.23.2560.1417" timestamp="1576374232412" />
+    <state x="1077" y="560" key="com.intellij.ide.util.TipDialog" timestamp="1576370610893">
+      <screen x="0" y="23" width="2560" height="1417" />
+    </state>
+    <state x="1077" y="560" key="com.intellij.ide.util.TipDialog/0.23.2560.1417/2560.23.2560.1417@0.23.2560.1417" timestamp="1576370610893" />
+    <state x="1188" y="651" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1576367619438">
+      <screen x="0" y="23" width="2560" height="1417" />
+    </state>
+    <state x="1188" y="651" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.2560.1417/2560.23.2560.1417@0.23.2560.1417" timestamp="1576367619438" />
+    <state x="1065" y="489" width="669" height="476" key="find.popup" timestamp="1576373739236">
+      <screen x="0" y="23" width="2560" height="1417" />
+    </state>
+    <state x="1065" y="489" width="669" height="476" key="find.popup/0.23.2560.1417/2560.23.2560.1417@0.23.2560.1417" timestamp="1576373739236" />
+    <state x="1064" y="346" width="670" height="676" key="search.everywhere.popup" timestamp="1576374319312">
+      <screen x="0" y="23" width="2560" height="1417" />
+    </state>
+    <state x="1064" y="346" width="670" height="676" key="search.everywhere.popup/0.23.2560.1417/2560.23.2560.1417@0.23.2560.1417" timestamp="1576374319312" />
+  </component>
+  <component name="WordPressConfiguration" enabled="true">
+    <wordpressPath>$PROJECT_DIR$/../WordPress</wordpressPath>
+  </component>
+</project>

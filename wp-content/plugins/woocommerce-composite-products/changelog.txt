@@ -1,0 +1,1295 @@
+*** WooCommerce Composite Products ***
+
+2020.06.19 - version 7.0.3
+* Feature - Check if the server is able to perform loopback requests and display a warning if the test fails.
+* Tweak - Display warning if PHP is truncating form fields on edit-post pages when updating a Composite Product.
+* Fix - Updated the datastore logic of Composite Products to update the 'tax_status' and 'tax_class' product lookup table columns.
+
+2020.06.01 - version 7.0.2
+* Fix - Component options view stuck at 'Loading' state after lazy-loading has finished. Affected optional Components with a single option.
+
+2020.05.22 - version 7.0.1
+* Fix - Declared support for WooCommerce 4.2.
+* Fix - Orphaned Components added to the cart when ordering-again an out-of-stock Composite.
+* Fix - Disabled Scenarios incorrectly used to validate defaults when saving a Composite.
+* Fix - Fix component options view stuck in 'Loading' state.
+* Tweak - Prevent component option reloads due to scenario changes when component is out of view.
+
+2020.05.14 - version 7.0.0
+* Feature - Lazy-load component options to speed up initial page loading speed. Controlled using the 'woocommerce_composite_component_lazy_load' filter.
+* Feature - Simplified query strings to make add-to-cart URLs for Composite Products easier to build. Backwards compatible with existing query strings.
+* Tweak - List complete category tree under 'Component Options > Select Categories'.
+* Tweak - Selection title hidden in static components in some rather... hard-to-describe situations.
+
+2020.05.05 - version 6.2.3
+* Tweak - Made component IDs more visible under 'Product Data > Components'.
+* Tweak - Appended component IDs to identical Component titles under 'Product Data > Scenarios'.
+* Tweak - Added 'woocommerce_compsite_product_sale_price_db_context' filter to prevent Component discounts from making Composites appear as on sale in the database.
+* Tweak - Added Component validation messages when using NYP 3.0.
+* Tweak - Keep Composite price visible when making an out-of-stock selection. You can change this behavior using the 'step_is_valid' JS filter.
+* Fix - Prevent 'product unavailable' notice reasons from being displayed to customers.
+
+2020.04.17 - version 6.2.2
+* Tweak - Prevent caching of empty/corrupted component option query results.
+* Tweak - Prevent component option query results from expiring at the same time across all components of a Composite Product.
+* Tweak - Added tweaks for NYP 3.0 compatibility.
+
+2020.04.10 - version 6.2.1
+* Fix - Declared support for WooCommerce 4.1.
+* Fix - Overflowing of long Component titles in navigation.
+* Tweak - Added '$this' parameter to 'woocommerce_composite_component_query_end' action.
+* Tweak - When using the 'Componentized' layout, auto-scroll to the recently viewed Component when going back to the Summary.
+* Tweak - Reduce opacity of Components when sliding left and right into view.
+* Tweak - Ensure that the 'swselect' script is registered before checking its version.
+
+2020.03.27 - version 6.2.0
+* Fix - Assembled Composites that contain Product Bundles are now represented correctly in shipping package contents.
+* Fix - Composite total does not include the price of Composite level Product Add-Ons.
+* Tweak - Added 'WC_CP()->plugin_initialized()' method.
+
+2020.03.23 - version 6.1.4
+* Tweak - Improved order note accuracy when editing Composites in the edit-order screen.
+* Fix - PHP warning when attempting to choose an incorrect Composite configuration in the edit-order screen under WC 3.9+.
+* Fix - Composited items discount calculation method did not persist in order admin context.
+* Fix - 'Any Product or Variation' and 'No Selection' not included in Scenario ajax search results.
+
+2020.03.10 - version 6.1.3
+* Fix - Incorrect aggregation of Composite container + child prices in shipping packages when using the 'filters' cart item price calculation method. In plain english, some shipping methods that utilize cart item prices to generate shipping rates would produce incorrect results in some cases that involved Composite products.
+* Fix - Components that are not 'Priced Individually' incorrectly seen as on-sale in the cart.
+
+2020.03.04 - version 6.1.2
+* Fix - Improve lifecycle of catalog price filters. Prevent addition/removal actions from being triggered unnecessarily.
+* Fix - Prevent infinite loop when calculating inherited component option Membership discounts.
+* Fix - Prevent inherited component option Membership discounts from being applied twice in the cart.
+* Fix - 'Options Style' hidden on static component init when 'Optional' is enabled.
+
+2020.02.29 - version 6.1.1
+* Fix - Declared support for WooCommerce 4.0.
+* Fix - Return Composite prices using the string data type in REST API, to comply with the product schema.
+* Fix - Changed '/pc.' to 'each'.
+
+2020.02.25 - version 6.1.0
+* Important - Component level Add-On prices are no longer preserved when Priced Individually is disabled. To restore this behavior, use the 'props' price filtering method -- see https://gist.github.com/franticpsyx/891ca54e9b8ea9267b06f6558166ef2c .
+* Important - Component discounts are now applied over sale prices by default.
+* Fix - Prevent uncaught error in the cart, triggered when a Product Bundle that was part of a Composite Product was changed to a different product type while in the cart.
+* Fix - All Products for WooCommerce Subscriptions does not calculate regular subscription plan prices correctly when Product Add-Ons exist at Composite or Component level (requires APFS 3.1+).
+* Fix - Product Add-On precentage costs not calculated correctly in the cart.
+
+2020.02.07 - version 6.0.3
+* Tweak - Move 'Product Data > Shipping > Composite type' div to priority 10000 to avoid conflicts with plugins that add their own fields in the Shipping tab.
+* Fix - All Products for WooCommerce Subscriptions now applies discounts to Product Add-Ons correctly when calculating subscription plan prices in Composite Product pages (requires APFS 3.1+).
+* Fix - Subscription plan prices in Composite Product pages not updating when changing Product Add-Ons created at Composite level.
+* Fix - Resolved 'Undefined index' PHP warning when creating/editing products via the REST API.
+
+2020.02.05 - version 6.0.2
+* Fix - Prevent warnings caused by missing cart prop in REST API context.
+* Fix - Composited product add-on prices applied twice in the cart.
+
+2020.01.29 - version 6.0.1
+* Fix - Component option discounts applied twice in the single product page when using the 'woocommerce_composited_product_discount_from_regular' filter to calculate discounts over sale prices.
+* Fix - Viewport scrolling not working when the viewport is at the top of the page.
+
+2020.01.24 - version 6.0.0
+* Feature - Introduced new assembled/unassembled UI for Composite Products under the 'Product Data > Shipping' tab.
+* Feature - Added 'Assembled weight' option under 'Product Data > Shipping' when the 'Assembled' Composite type is active.
+* Feature - Support '/subscriptions' REST API endpoint.
+* Feature - Introduced support for WooCommerce Memberships: Composite discounts are now inherited by individually-priced Components. Important: Only '%' discounts are supported!
+* Tweak - Introduce filter-based method for discounting Component prices in the cart instead of modifying price props directly.
+* Tweak - Show '/pc' suffix when max (not min) Component quantity > 1.
+* Tweak - Added missing actions for before/after quantity input (thank you, bor0!).
+* Tweak - Declared support for WooCommerce 3.9+.
+
+2019.12.27 - version 5.1.4
+* Fix - 'Default Option' emptied when loading the edit-Composite page. Regression introduced in v5.1.3.
+* Fix - 'Options Style' missing when Components count is 1.
+
+2019.12.04 - version 5.1.2
+* Fix - If 'Default Option' is empty, Safari populates it with a non-empty value on page load. Bug introduced after upgrading select2 to the newest version.
+
+2019.11.28 - version 5.1.1
+* Fix - Microsoft Edge does not preserve the current composite step after adding to cart.
+* Fix - Update in-house WP 5.3+ select2 styles for WC 3.8.1 compatibility.
+
+2019.11.21 - version 5.1.0
+* Feature - Added toggle to enable/disable individual scenarios.
+* Tweak - Replaced selectWoo with self-maintained flavor of select2.
+* Tweak - Minor styling tweaks for WordPress 5.3.
+* Tweak - Keep 'Options Style' and 'Sorting/Filtering' options and controls hidden when a Component is static.
+
+2019.11.04 - version 5.0.5
+* Fix - Added compatibility with WordPress 5.3 and WooCommerce 3.8.
+
+2019.10.30 - version 5.0.4
+* Fix - Missing check in selected component option button.
+
+2019.10.23 - version 5.0.3
+* Fix - Bundled items discount do not apply to the cart if component discount is empty.
+* Fix - Make REST API calls return empty array for Composites without components.
+* Fix - Component visibility cannot depend on matching conditions that reference currently hidden Components.
+
+2019.09.23 - version 5.0.2
+* Fix - Preserve empty, optional component configuration in 'WC_CP_Order::get_current_composite_configuration'.
+
+2019.09.18 - version 5.0.1
+* Tweak - Added missing 'key' to composited cart item data arrays for consistency with WooCommerce core.
+* Tweak - Newly created Components are now saved as masked/unchecked in all existing Scenarios.
+
+2019.09.15 - version 5.0.0
+* Important - Refactored calculation of active scenarios to run by scenario action.
+* Important - JS function 'WC_CP_Scenarios_Manager::calculate_active_scenarios' now calculates active scenarios for a specific scenario action, which must be passed into the function. Please update your extensions/customizations!
+* Important - JS function 'WC_CP_Scenarios_Manager::get_active_scenarios' now returns active scenarios by scenario action.
+* Fix - Auto select attributes script not working for attribute values with special characters.
+* Fix - Resolved incorrect calculation of 'Overlay Image' scenario action.
+* Fix - Stock for Components is now reduced correctly in manually created orders.
+* Tweak - Added stock management comments in manually created orders.
+* Tweak - Use 'woocommerce_bundled_item_discount' instead of 'woocommerce_bundled_item_raw_price_cart' to apply Component discounts to items contained in Product Bundles in the cart.
+* Tweak - Treat discounted Components as 'on-sale' in the cart.
+* Tweak - 'Option Prices > Relative' now displays Component Option prices relative to the Default Option. Falls back to displaying prices relative to the current selection if a Default Option does not exist.
+* Tweak - Added 'woocommerce_composite_products_pip_show_container_item' filter to hide Virtual container items in packing lists when the 'Exclude Virtual Items' option is enabled.
+
+2019.08.07 - version 4.2.0
+* Important - Added support for WooCommerce 3.7+.
+* Important - PHP 5.6.20+ is now required.
+* Tweak - Ignore 'woocommerce_before_cart_item_quantity_zero' action under WC 3.7+.
+* Fix - Prevent Summary Widget from erroring when attempting to call widget() in a non-Composite type product page.
+
+2019.07.18 - version 4.1.1
+* Fix - Selection details fail to load when 'Product Add-Ons' visibility option is disabled at component level from the 'Advanced Settings' section.
+* Fix - Components with pre-selected variable products incorrectly pass validation on initialization.
+* Fix - REST API container line item field props do not persist when creating a new order that contains configured Composites.
+* Fix - REST API fatal error when attempting to add an invalid Composite configuration to an order.
+
+2019.06.27 - version 4.1.0
+* Important - Removed deprecated and unused WC_CP_API class.
+* Fix - Zero prices displayed next to Component Options when 'Priced Individually' is disabled but 'Option Prices' was previously saved as 'Relative'.
+* Fix - Round component subtotals when calculating container item subtotal in order templates.
+* Fix - Help tips not displaying in Scenarios.
+* Fix - Update component option backorder string.
+* Fix - Selection in hidden component may affect the enabled/disabled state of options in following components.
+* Fix - Cost of Goods for 'Priced Individually' composited items stored incorrectly when calling 'WC_CP_Order::add_composite_to_order'.
+* Tweak - Renamed 'Activate Configuration' to 'Activate Options'.
+* Tweak - Replaced '$.each' with native JS functions.
+* Tweak - Revised JS step/component inheritance patterns.
+* Tweak - Revised front-end text strings that included the word "configure/configuraton". For example, "Your Configuration" is now "Your Selections".
+* Dev Feature - Ability to autoselect attribute values when the available variations are limited by scenarios and only 1 option remains.
+* Dev Feature - Added 'woocommerce_composite_component_filter_attributes_args' filter.
+
+2019.05.08 - version 4.0.6
+* Fix - Prevent fatal error in the cart after converting an added-to-cart Composite to a Variable product.
+* Fix - Sliding component tranforms are visible outside the form area.
+* Fix - Order headings are missing from Pick Lists printed with the Print Invoices and Packing Lists extension.
+* Fix - Chosen variations disappear from Scenario configuration when Components contain more than 30 products.
+* Fix - Broken empty state styles under WordPress 5.2+.
+* Dev - Add 'woocommerce_composite_component_discount' filter to modify component discounts conditionally.
+
+2019.05.03 - version 4.0.5
+* Fix - Save prompt not always displayed before entering the 'Product Data > Scenarios' tab.
+
+2019.04.30 - version 4.0.4
+* Fix - Composite total price not updating when selecting a Bundle with a static price.
+
+2019.04.30 - version 4.0.3
+* Fix - Emogrifier error caused by an unrecognized selector.
+
+2019.04.24 - version 4.0.2
+* Tweak - Added support for up to 8 component options thumbnail columns count.
+* Fix - Composite Product stock status not updating when stock quantity changes.
+
+2019.04.17 - version 4.0.1
+* Fix - Composite product app hangs when choosing a product in the last component of a Composite and: 1) Layout > Progressive is active, 2) 'Options Style > Thumbnails' is selected.
+
+2019.04.16 - version 4.0.0
+* Important - Dropped support for WooCommerce 3.0.
+* Important - Added support for WooCommerce 3.6+.
+* Important - Updated templates. Please update any template files you have overridden over time!
+* Important - Restructured and renamed template functions. Please review your customizations!
+* Important - Replaced 'woocommerce_composite_show_composited_product' and 'woocommerce_composite_show_composited_product_{type}' action with 'woocommerce_composited_product_single' and 'woocommerce_composited_product_{type}'.
+* Important - Refactored 'Component_Selection_Model' and 'Component_Selection_View' JS classes in single-product app. Revised the structure of data served to the 'Component_Selection_Model' from the back-end.
+* Important - Hidden 'Pagination Style' when using the Stacked/Progressive layout.
+* Feature - Reviewed entire single page app for accessibility. Improved user experience when providing input exclusively via the keyboard. Key changes and events are properly announced by screen readers.
+* Feature - Introduced 'Advanced Settings > Option Select Action'. Allows you to choose between viewing selection details or displaying the next Component when selecting a product that doesn't require configuration.
+* Feature - Added carousel functionality to the Summary Widget when 'Display > Fixed' is selected.
+* Feature - Single-product page markup, styling and theme compatibility improvements.
+* Feature - Dev: Added 'filter_toggle_state' parameter to control the default open/close state of Component attribute filters. See 'WC_CP_Component::get_filtering_options'.
+* Feature - Dev: Added 'is_multiselect' parameter to control the ability to activate multiple Component attribute filter options per filter. See 'WC_CP_Component::get_filtering_options'.
+* Feature - Added compatibility with ThemeAlien Variation Swatches for WooCommerce.
+* Tweak - Removed old WooCommerce Helper dependencies.
+* Tweak - Performance: Faster Component Option sorting/filtering queries under WooCommerce 3.6+.
+* Tweak - Performance: When using Scenarios, search for min/max prices in background task.
+* Tweak - Admin UX: When searching for min/max prices in background task, show status in edit-product screen and single-product details page.
+* Tweak - Admin UX: Optimized loading, posting and saving Scenarios.
+* Tweak - UX: Selected option details are now center-aligned when using the Thumbnails options style with the Stepped/Componentized layout in combination with 'Options Pagination > Load more'.
+* Tweak - UX: Display a single row of thumbnails when using the Thumbnails options style with the Stacked/Progressive layout.
+* Tweak - UX: Introduced Select/Configure button in the Thumbnails options style template.
+* Tweak - UX: Selected option details are now always relocated below thumbnail when 'Options Pagination > Load more' is active.
+* Fix - Allow Component name to be filtered when rendering wishlists created using WooCommerce Wishlists.
+* Fix - Updated Jetpack integration to optimize lazy load images behavior.
+
+2019.03.07 - version 3.15.2
+* Feature - Added support for bulk editing Composite Regular/Sale prices.
+* Feature - Added filters for extending and handling additional Composite product REST API fields.
+* Tweak - Added 'woocommerce_composite_current_scenario_data' filter.
+* Fix - "Invalid form control not focusable" error when clicking the add-to-cart button of Composites containing Components with required Add-Ons.
+* Fix - Empty selections do not persist when editing Composites.
+* Fix - Incorrect relative prices of Bundles in Composites.
+* Fix - Container quantity does not persist when editing Composites in cart.
+
+2019.01.31 - version 3.15.1
+* Fix - Unable to import Shipstation orders that contain deleted products.
+* Fix - Incorrect relative price calculation when the chosen Component Option quantity is > 1.
+* Fix - "Invalid form control not focusable" error when clicking the add-to-cart button of Composites containing hidden Components with required Add-Ons.
+* Fix - Round individual Component prices when calculating catalog prices and container cart/order item prices/subtotals.
+* Fix - Potential fatal error when attempting to add a Sold-Individually product to the cart with another one already present.
+* Tweak - Respect default toggle-box Component state when initializing app.
+* Tweak - Added 'woocommerce_editing_composite_in_order' action, triggered after editing a Composite product in an order. Useful for porting over old item meta.
+
+2018.12.04 - version 3.15.0
+* Feature - NUX improvements.
+* Tweak - Updated FontAwesome icon fonts.
+* Fix - Added support for Product Add-Ons v3.
+* Fix - Disable scroll anchoring to prevent content jumps in Chrome.
+* Fix - Default Option search not returning results correctly when Component Options are added by category.
+
+2018.11.16 - version 3.14.6
+* Fix - Configure/Edit Composites in Subscriptions.
+* Fix - Unable to re-purchase orders that contain Composites via 'My Account > Orders > View > Order Again' under WC 3.5+.
+* Fix - Prevent PHP execution timeouts due to duplicate WC_Product::save() calls when saving Composites with 'Catalog Price' set to 'Calculate From/To'.
+* Tweak - Moved "Sold Individually" logic into 'woocommerce_add_to_cart_sold_individually_found_in_cart' callback (WC 3.5+ only).
+* Fix - Added REST API v3 support.
+* Fix - 'Undefined type' REST API v2 warning when using the 'composite_components' property 'quantity_max' field.
+
+2018.11.01 - version 3.14.5
+* Fix - Scenarios with masked Components failing to save correctly due to a regression in v3.14.4.
+
+2018.10.30 - version 3.14.4
+* Fix - Default Option failing to save correctly if Component accordion has not been opened.
+
+2018.10.29 - version 3.14.3
+* Tweak - Introduced 'wc_cp_composited_single_variation_attribute_options' to render variable product options in '/templates/composited-product/variable-product.php'.
+* Fix - Prevent unnecessary 'urldecoding' of posted variation attributes. Resolves some issues with re-storing the selection state of variation attribute drop-downs after posting.
+* Fix - Parent variable products not included in Scenario Configuration results when searching via ajax.
+* Fix - Non-configurable Composite products containing Variable products cannot be added to editable orders manually.
+* Fix - Long selection load time if product image in loaded details is hidden with CSS.
+
+2018.10.25 - version 3.14.2
+* Tweak - Prevent Scenarios with undefined matching conditions from saving.
+* Fix - Unable to add Composite to cart if static Components exist and are hidden by Scenarios.
+
+2018.10.18 - version 3.14.1
+* Fix - Backbone Router always setting initial route -- even when history updates are disabled.
+* Fix - Minor styling fixes.
+* Tweak - Reduced content flashing when loading selection details asynchronously in the single-product page app.
+
+2018.10.10 - version 3.14.0
+* Important - Updated single-product page styles. Please review your customizations/integrations before updating any live sites!
+* Important - Using Storefront? Please update to version 2.3.4+!
+* Feature - It is now possible to configure the contents of a Composite in editable/manually-created orders.
+* Feature - When adding a Composite to an order manually, child items are added automatically after the parent item if the Composite doesn't require any configuration.
+* Feature - Added support for getting/setting the 'Edit in Cart', 'Form Location' and 'Sold Individually Context' properties via the WooCommerce REST API.
+* Feature - Added support for getting/setting all Component settings via the WooCommerce REST API.
+* Feature - Added support for exporting/importing the 'Form Location' property.
+* Feature - Added support for exporting/importing all Component settings.
+* Feature - Added support for Product Bundles in Composite Products' REST API order requests. The configuration of a Product Bundle can be appended to the configuration of a Component by adding a 'bundle_configuration' array, as documented in the PB REST API documentation.
+* Feature - Improved the way Composite Products are displayed in the cart widget to include configuration data.
+* Feature - Admin maintenance/compatibility notices now have a "native" WooCommerce look and can be dismissed using the native WordPress flow.
+* Tweak - General UI/UX improvements in 'Product Data > Components/Scenarios' tabs.
+* Tweak - Improved 'Default Option' selection UX in 'Product Data > Components' tab.
+* Tweak - Component masking UI/UX improvements in 'Product Data > Scenarios' tab.
+* Tweak - Renamed script and style files and moved into 'admin' and 'frontend' directories.
+* Tweak - Made toggling the primary Component/Scenario metabox action and introduced dedicated UI element for sorting.
+* Tweak - The "Edit in Cart" flow is no longer triggered when clicking on Composite Product titles in the (mini) cart.
+* Tweak - Changed "Edit in Cart" link text from '(edit in cart)' to 'Edit'.
+* Tweak - Added 'rel="no-follow"' to "Edit in Cart" links.
+* Tweak - Moved 'WC_CP_Query' querying logic into the Composite type's data store class.
+* Tweak - Moved 'Form Location' option from 'Product Data > Advanced' to 'Product Data > Components'.
+* Fix - Component validation not kicking in for hidden components between the current and next one when they become visible due to a change in the current component.
+* Fix - Failing to set catalog price cache.
+* Fix - Cart table layout issues on mobile devices affecting Components that are not Priced Individually.
+* Fix - Default variation excluded by scenarios triggers animation flickering when the parent product is selected.
+* Fix - Incorrect min/max price results when excluding variation in Scenarios using 'non-in' modifier.
+* Fix - Existing component images are not re-used when a Composite is created/updated via the Importer.
+* Fix - Searching variations by ID or SKU in Scenarios now works correctly.
+* Dev - Introduced 'woocommerce_display_composite_container_cart_item_data' filter for appending Composite configuration data in the cart.
+* Dev - Added missing argument to 'woocommerce_add_cart_item_data' filter applied in 'WC_CP_Cart::composited_add_to_cart'.
+
+2018.06.14 - version 3.13.11
+* Fix - Add missing parameters to 'woocommerce_get_price_suffix' filter in 'WC_Product_Composite::get_price_suffix'.
+* Tweak - Fix excessive margins between Components when using the Progressive layout.
+
+2018.05.24 - version 3.13.10
+* Fix - Fixed some cases of unpredictable Hide Component action in Scenarios with masked Components.
+* Fix - Invalid markup generated when rendering Component Descriptions (nested paragraphs).
+* Fix - Price in selection details template incorrectly hidden if 'Option Prices' is set to 'Hidden'.
+* Tweak - Added a section in the WordPress Privacy Policy Guide to let store owners know that Composite Products does not collect, store or share personal data.
+
+2018.05.10 - version 3.13.9
+* Fix - Sticky add-to-cart button behavior in Storefront 2.3+ when 'Form location' is 'After summary'.
+* Tweak - Improved integration with Storefront 2.3.
+* Tweak - Improved Summary widget styles in Fixed display mode.
+* Tweak - Added back extension template overrides in WooCommerce System Report.
+
+2018.04.20 - version 3.13.8
+* Fix - WooCommerce Subscriptions: Paying for failed initial/parent order with composited subscription products creates new order and subscription.
+* Tweak - Composite container & child cart line item subtotals are now aggregated as displayed.
+* Tweak - Speed up removing/restoring Composites in the cart by using 'woocommerce_remove_cart_item' and 'woocommerce_restore_cart_item' instead of 'woocommerce_cart_item_removed' and 'woocommerce_cart_item_restored'.
+
+2018.03.19 - version 3.13.7
+* Fix - Domain mismatch of string "You cannot add another [...]".
+* Fix - 'Masked' matching condition modifier in Scenarios does not work correctly if products were selected before choosing the "Masked" option.
+* Fix - Issues with thumbnails' visibility in Composite Products when Jetpack's "Lazy Load Images" module is active.
+* Fix - Non-numeric value warnings triggered by 'WC_Product_Composite' under some unusual circumstances when running PHP >= 7.1.
+* Fix - Support 'Custom Price Field' inputs in WooCommerce Product Add-Ons.
+* Tweak - Improved compatibility with 'WooCommerce Print Invoices and Packing Lists'.
+
+2018.02.19 - version 3.13.6
+* Fix - Fixed out-of-base client-side totals calculation in single-product pages when prices are defined including tax.
+* Dev - Added 'woocommerce_composites_compatibility_modules' filter for disabling compatibility modules.
+
+2018.02.07 - version 3.13.5
+* Fix - Wrong out-of-base catalog prices of Composites with individually-priced Components when prices defined incl. tax.
+* Fix - Group mode incorrectly modified for all Bundles, even those not grouped by a Composite.
+* Fix - When aggregating component weights into the container item, composited variation weights are ignored when inherited by their parent variable product.
+* Tweak - Refactored composite validation logic to make it easier to extend. Modified most back-end validation strings along the way -- these are displayed under very rare circumstances.
+* Tweak/Important - The visibility of a conditionally hidden component is no longer affected by the state of any components coming after it. This makes the front-end behavior in single-product pages consistent with the back-end validation script, which was commonly failing when the visibility of a component depended on selections in components coming after it (with no possible fix for all uses).
+
+2018.01.26 - version 3.13.4
+* Fix - JS error when conditionally hiding the last component of a Composite Product configured with the 'Progressive' Layout.
+
+2018.01.19 - version 3.13.3
+* Fix - Incorrect quantity validation failure notice.
+* Fix - PHP warnings when updating 'array' type properties using v2 of the WC REST API.
+* Tweak - Changed default component option image size to 'woocommerce_thumbnail' for consistency with WC 3.3 image size changes (WC 3.3+ only).
+* Tweak - Decoupled the 'Thumbnails' style columns count from the WooCommerce shop loop value. The default number of columns is now 3.
+
+2018.01.09 - version 3.13.2
+* Fix - Improved presentation of 'Group mode > No parent' bundles in Composite Products.
+* Fix - Added support for Product Add-Ons 2.9.1.
+* Fix - Some rare issues with incorrect scenario back-end validation notices and conditionally hidden components.
+* Fix - Selections in hidden components incorrectly taken into account when updating the active set of scenarios, resulting in unpredictable behavior in some edge cases.
+* Tweak - Retain component quantity when choosing a different Component Option.
+
+2017.12.15 - version 3.13.1
+* Tweak - Improved handling of non-purchasable products in catalog price calculations.
+* Fix - Issues with DB updating in a WP MultiSite environment - see https://github.com/woocommerce/woocommerce/pull/18060
+* Fix - Override 'Group mode > No parent' for Bundles bought in Composites.
+* Fix - Duplicate triggering of 'woocommerce_after_add_to_cart_form' action.
+
+2017.12.06 - version 3.13.0
+* Feature - New 'Form Location' option, located under 'Product Data > Advanced'. Allows you to modify the display location of the add-to-cart form in single-product pages. "Default": The add-to-cart form is displayed inside the single-product summary. "After summary": The add-to-cart form is displayed after the single-product summary. "After summary" usually allocates the entire page width for displaying form content. Note that some themes may not support this option.
+* Fix - Added basic support for WooCommerce Min/Max Quantities. Min/Max Quantity rules defined at product level may now be overridden by the 'Quantity Min' and 'Quantity Max' configuration of a Component.
+* Fix - Incorrect catalog price string calculations in some edge cases involving non-purchasable products, Variable products and optional Components.
+* Tweak - Optimized catalog price calculation performance.
+* Fix - Component cart quantity incorrectly synced with parent product when adding a composite with "Sold Individually" items to the cart and the quantity of the composite is higher than 1.
+
+2017.11.28 - version 3.12.6
+* Fix - Backbone history errors while initializing composite products in WooCommerce Quick View modals.
+* Fix - Added missing 'woocommerce_before_add_to_cart_form' and 'woocommerce_after_add_to_cart_form' actions.
+* Fix - Components populated with Component Options using child categories are now imported correctly.
+* Fix - Empty 'Advanced Settings > Options Filtering' drop-down under 'Product Data > Components'.
+* Tweak - Prevent unsupported product types from showing up in 'Component Options' search results (back-end and front-end).
+
+2017.11.14 - version 3.12.5
+* Important - Updated '/composited-product/variation.php' template.
+* Fix - Repositioned variable composited product add-ons under variation details.
+* Fix - Missing variable-type Product Add-Ons totals in Components.
+* Fix - Fatal error triggered when a composite product in the cart contains a bundle that was deleted after adding the composite product to the cart.
+* Fix - Importer error handling (returning 'WP_Error' object instead of throwing Exception when importing invalid Component/Scenario data).
+* Fix - Importer failing to import Composite Products correctly and failing silently.
+* Fix - Importer failing to import the "Options Style" field correctly.
+* Fix - Added REST API support for the 'Catalog Price' option.
+* Fix - Failure to initialize selectWoo Component/Scenario fields when clicking 'Expand All'.
+* Fix - Bundled line item prices not aggregated into Composite container item price in the cart ('Price' column only) when a Product Bundle is bundled by a Composite.
+* Fix - Fixed a 'WC_Cart::get_cart_url' deprecated notice when trying to re-purchase a 'Sold Individually' composite.
+
+2017.11.02 - version 3.12.4
+* Fix - Strengthened back-end add-to-cart validation of variable composited product attributes.
+* Fix - Product Add-Ons prices added in string format.
+
+2017.10.31 - version 3.12.3
+* Fix - Hide "Available Options:" in static components.
+* Tweak - Assign priorities to 'Product Data > Components' and 'Product Data > Scenarios' tabs.
+
+2017.10.25 - version 3.12.2
+* Fix - Escaped attributes in '/templates/composited-product/variable-product.php'.
+* Tweak - Reduced JS overhead when editing composite products with hundreds of Scenarios.
+* Tweak - Sortable attribute filters.
+
+2017.10.18 - version 3.12.1
+* Fix - Failing test when 'woocommerce_composited_product_has_bundled_weight' filter is in use.
+
+2017.10.14 - version 3.12.0
+* Important - WooCommerce 2.X support dropped.
+* Important - WooCommerce 3.2 support added.
+* Important - Dropped support for WooCommerce Product Add-Ons versions older than 2.9.0.
+* Feature - New "Catalog Price" option for customizing the calculation method of Composite Product catalog prices. Choose "Use defaults" to display a catalog price string based on the default configuration, "Calculate from/to" to generate a price string based on the configuration with the lowest/highest price, or "Hide" to to hide the catalog price completely.
+* Feature - Relative component option prices (e.g. +$50, -$30). Option available under "Basic Settings > Option Prices" when "Basic Settings > Priced Individually" is enabled.
+* Feature - Added option to hide component option prices when "Priced Individually" is enabled, available under "Basic Settings > Option Prices > Hidden".
+* Feature - "Classic" vs "Load more" pagination styles, configurable under "Basic Settings > Pagination" when the "Basic Settings > Options Style > Thumbnails" option is selected.
+* Feature - New 'WooCommerce Composite Products Summary' widget "Display" option. Choose "Fixed" to fix the position of the 'WooCommerce Composite Products Summary' widget at the bottom of the viewport.
+* Fix - Revised integration with "WooCommerce Print Invoices and Packing Lists" based on real world accounting, shipping and fulfillment requirements. Assembled and unassembled Composite-type kits are now displayed in Invoices, Packing Lists and Pick Lists correctly. Packing Lists -- Each assembled Composite is now listed as one physical item to resolve item weight/count mismatches between packing lists and physical shipments. Invoices -- Component line item subtotals are no longer aggregated for accounting accuracy (e.g. different tax rates). Pick Lists -- Components that require assembly are now clearly marked.
+* Fix - Component Options with Product Add-Ons display incorrect totals when "Priced Individually" is enabled and a Discount exists.
+* Fix - Infinite Ajax loop when displaying composite-level Product Add-Ons totals.
+* Fix - Potential fatal error affecting carts that contain deleted Components.
+* Fix - Prevent concurrent edge-case runs of the DB upgrade routine.
+* Tweak - Revised the 'i18n_total' string passed to the front-end script to allow RTL language localizations.
+* Tweak - Add 'prev' and 'next' classes to component pagination template.
+* Tweak - Removed "General > Hide price". Option available as "Hide" under "Components > Catalog Price".
+* Tweak - Added missing "Classic" pagination buttons above the Component Options view. Applicable when the "Thumbnails" Options Style is selected.
+* Tweak - Preload details of simple-type Component Options in current view instead of requesting them asynchronously. See 'WC_CP_Component_View::get_options_data'.
+* Tweak - Price filter widget meta queries are no longer filtered for performance reasons. Due to WooCommerce database limitations, price filter widget results will now only include composite products if their minimum price is within the searched range. To be revised when WC optimizes its price filter widget DB queries, or switches to a term-based price filtering scheme.
+* Tweak - UX: Child cart item prices in the Prices column are now aggregated, for consistency with subtotals in the Total column.
+* Tweak - UX: Child line item prices and subtotals are now prepended with a "carriage return" symbol.
+* Tweak - Admin: Revised tooltips under 'Product Data > Components' and 'Product Data > Scenarios'.
+* Tweak - Admin: Moved the "Default Option" field under the "Basic Settings" section. Moved the "Optional" field up.
+* Tweak - Admin UX: "Basic Settings > Default Option" now only visible after saving.
+* Tweak - Admin UX: Moved the "Advanced > Edit in Cart" option into the "Components" tab.
+* Tweak - Admin UI: Simplified "Components > Layout" option list items and moved option titles in tooltips.
+* Tweak - Admin UX: Renamed "Selected Option" visibility settings under the "Advanced Settings" section.
+* Dev - Refactored 'WC_Product_Composite' syncing.
+* Dev - Introduced 'WC_Product_Composite::get_bundle_regular_price_{including/excluding}_tax' and 'WC_Product_Composite::calculate_price' methods.
+* Dev - Introduced 'WC_CP_Product::get_regular_price_{including/excluding}_tax' and 'WC_CP_Product::calculate_price' methods.
+* Dev - Replaced 'woocommerce_composited_product_get_{price/regular_price/price_including_tax/price_excluding_tax' filters with a single 'woocommerce_get_composited_product_price' filter.
+* Dev - Moved all display-related cart/order item filters from 'WC_CP_Cart' and 'WC_CP_Order' to 'WC_CP_Display'.
+* Dev - Filter 'woocommerce_composited_table_item_js_enqueued' added. Useful if you want to avoid ugly JS hacks and use plain CSS to indent composite child cart/order line items in your theme.
+* Dev - Renamed 'options_state_{xxx}' JS filters to 'component_options_state_{xxx}'.
+* Dev - Disable automatic DB updates via 'woocommerce_composite_auto_update_db' filter.
+
+2017.09.05 - version 3.11.4
+* Tweak - Added logic for auto-selecting variable product attributes if only 1 option is active per attribute.
+
+2017.08.28 - version 3.11.3
+* Fix - Incorrectly displayed cart subtotals when cart discounts exist.
+* Fix - Inaccessible component notice after adding to cart. Triggered when a component contains a variable product selection with custom attribute values that include quotes.
+* Fix - Unable to intercept variable product custom attribute values with quotes after adding to cart.
+* Tweak - Add customizable classes to composite form element.
+
+2017.08.19 - version 3.11.2
+* Fix - Use 'htmlspecialchars' to encode special characters in 'composite_settings' data attribute.
+* Fix - Component quantity update using +/- inputs in Chrome not triggering totals update.
+* Tweak - Prevent component autotransition on reset.
+* Tweak - Entering an 'id' when importing JSON-encoded component/scenario data using the built-in CSV Importer is now optional.
+
+2017.08.01 - version 3.11.1
+* Fix - WooCommerce REST API v2 support added.
+* Fix - Duplicate child cart items when renewing/resubscribing to subscription-enabled composites created with 'WooCommerce Subscribe All the Things'.
+
+2017.07.08 - version 3.11.0
+* Important - WooCommerce 3.1 support added.
+* Feature - Added support for importing/exporting composite products using the WC product importer/exporter, introduced in WC 3.1.
+* Tweak - Added 'woocommerce_composited_cart_item_name' and 'woocommerce_composited_order_item_name' filters.
+* Tweak - Introduce runtime caching of composite price methods' output. Use 'woocommerce_composite_prices_hash' filter if applying price filters conditionally and conditions change during a single request.
+* Fix - Error on add-to-cart validation of optional Components when "WooCommerce Name Your Price" is installed.
+
+2017.06.06 - version 3.10.1
+* Fix - Inconsistent server/client-side price totals in single-product bundle pages due to rounding issues.
+* Fix - Inaccurate bundle container item subtotals shown in cart due to rounding issues.
+
+2017.06.06 - version 3.10.0
+* Fix - Invalid 'type' parameter error when attempting to create a composite using the REST API.
+* Fix - Incorrect composite product price strings under some circumstances that involve scenarios and variable products.
+* Fix - JS errors when loading variable product data with special chars in components.
+* Fix - Image swapping in variable product galleries when the featured image is undefined.
+* Fix - PHP notice in 'WC_CP_Cart::cart_shipping_packages'.
+* Fix - Timeouts while exporting data to Shipstation. Issue tracked down to lack of order caching in WC 3.0, which results in performance issues when calling 'WC_Order_Item::get_order' repeatedly.
+* Tweak - Revised single-product page styles for consistency with WC 3.0.
+* Tweak - Tweak 'Product Data' tab styles for consistency with WC 3.0.
+* Tweak - Optimized the admin product write-panel JS to fix page load speed issues when editing composites with many components and/or scenarios.
+* Tweak - Lists of physically assembled components are now more readable in Shipstation (WC 3.0+ required).
+
+2017.05.04 - version 3.9.4
+* Fix - Warnings due to use of deprecated 'WC_Coupon' properties under WC 3.0+.
+* Fix - Missing contents data of composite product containers and missing child product attributes when importing orders in Shipstation (Shipstation Integration v4.1.13 required).
+
+2017.04.27 - version 3.9.3
+* Fix - Fatal error when trying to get composite product prices incl/excl tax under WC 2.6-.
+* Fix - Unpredictable validation messages shown while configuring composite products in single-product pages due to missing Scenarios data. Issue introduced in 3.9.0.
+* Fix - Workaround for "Request-URI Too Long" error when searching for products/variations in Components and Scenarios.
+* Fix - Chosen product images not updating in Summary when 'srcset' attribute data is missing.
+* Tweak - UX: Move component messages closer to navigation when using the Stepped layout in combination with the Dropdown or Radio Button style.
+* Tweak - Leverage caching and ajax-powered search to reduce the load time of complex composite products' edit-product pages.
+
+2017.04.20 - version 3.9.2
+* Fix - Cart notices displaying wrong component titles when Scenarios validation fails.
+* Fix - Decode html entities in notices passed when clicking "Save Configuration".
+* Fix - Composite configurations failing to validate under some very rare circumstances that involve Scenarios and multiple, conditionally hidden Components.
+* Fix - Some warnings when using PHP 7.1.
+* Fix - Error while exporting order data to Shipstation if the exported order contains a composite product that has been deleted.
+* Fix - Chosen variation images not updating in Summary.
+* Fix - Added RTL styles.
+
+2017.04.12 - version 3.9.1
+* Fix - Infinite loop when exporting order data to Shipstation/Shipwire under WC 3.0. Triggered when 'WC_CP_Order::get_order_items' is used as a 'woocommerce_order_get_items' filter callback.
+* Fix - Unable to set viewport position with 'window.scrollBy' under Chrome.
+* Fix - Rolling ball of death when attempting to add Scenarios to a newly created, unsaved Composite after clicking "Save Configuration" (only WC 2.6- affected).
+* Fix - Composite configurations failing to validate under some rare circumstances that involve Scenarios and multiple, conditionally hidden Components.
+* Fix - Composite products pagination failing to work under WC 3.0+.
+* Fix - Duplicate queries and performance issues under WC 3.0+.
+
+2017.03.29 - version 3.9.0
+* Important - WooCommerce 3.0 support added.
+* Important - WooCommerce 2.4 support dropped.
+* Dev - 'WC_Product_Composite' refactored based on the core CRUD pattern (WC 3.0+ only). Type-specific data is now handled using getters/setters and a dedicated data store class, 'WC_Product_Composite_Data_Store_CPT'.
+* Dev - Create/update/delete Components and Scenarios directly on 'WC_Product_Composite' objects using 'WC_Product_Composite::set_composite_data' and 'WC_Product_Composite::set_scenario_data' (WC 3.0+ only).
+* Dev - Introduce basic unit tests for 'WC_CP_Order' and 'WC_Product_Composite' classes.
+* Feature - Create composite products using the REST API '/products/' endpoint (WC 3.0+ only). Read more at https://docs.woocommerce.com/document/composite-products/composite-products-rest-api-reference/ .
+* Feature - Add composite products to orders using the REST API '/orders/' endpoint (WC 3.0+ only). Read more at https://docs.woocommerce.com/document/composite-products/composite-products-rest-api-reference/ .
+* Tweak - Support select2 v4 (WC 3.0+ only).
+* Tweak - Simplify price filter widget meta query.
+* Fix - Scenarios are now taken into account when calculating composite product price strings (PHP 5.5+ required).
+* Fix - Weight of composite products in shipping packages does not include the weight of bundled products physically packaged in a bundle that is itself physically packaged in its parent composite.
+* Fix - Prevent infinite loop with plugins calling 'WC_Product::get_sale_price' from a function hooked into 'woocommerce_get_price'.
+* Fix - JS app: Validation messages are not added to components when the current product/variation selection in a component is invalid.
+* Fix - JS app: Always pass validation and hide notices if a component is invisible/hidden or its quantity is zero.
+* Fix - Infinite loop when viewing an order that contains a composite set to be preordered using the WooCommerce Pre-Orders extension.
+* Fix - Sold Individually > "Matching configurations only" option not working correctly.
+* Fix - Missing semicolon in inline JS declared in 'WC_CP_Display::enqueue_composited_table_item_js'.
+* Fix - Issues with navigation when using the Componentized layout and conditionally hidden components exist.
+* Fix - Component indentation in cart is not preserved after refreshing cart contents.
+
+2017.01.18 - version 3.8.3
+* Fix - Database upgrade from v3.6.x unable to complete when migrating many composite products due to an issue with update function 'wc_cp_update_370_main' that caused it to stop and restart indefinitely.
+* Fix - Incorrect Composite total reported in the single-product page caused by including subtotals of invisible/hidden Components.
+* Fix - Empty price string showing up when a composite without a base price contains optional-only, individually-priced components. Price string is now correctly showing up as "From: $0.00".
+* Dev Fix - Prevent stock validation when adding composites to orders using 'WC_CP_Order::add_composite_to_order'.
+* Tweak - Components that are physically packaged in a composite now show up as individual options of their parent in Shipstation packing slips. Previously, they were all listed in a single "Contents" field.
+* Tweak - Components hidden conditionally using Scenarios are animated when removed/added (Stacked and Progressive layouts).
+
+2017.01.02 - version 3.8.2
+* Dev - Added 'scroll_viewport_top_offset' field to 'wc_composite_params' front-end script parameters. Use it to define an auto-scroll top offset in order to resolve issues with floating top bars partially hiding content when auto-scrolling - e.g. when bringing a new Component into view (Stepped/Componentized layout). Modified using 'woocommerce_composite_front_end_params'.
+* Fix - blockUI spinner not spinning.
+* Fix - Updated version in main plugin file.
+
+2016.12.29 - version 3.8.1
+* Fix - Values in Regular and Sale Price fields missing decimal separator if other than '.'.
+* Fix - Variable product price strings in Thumbnails and Radio Buttons templates do not include Component discounts.
+
+2016.12.17 - version 3.8.0
+* Important - The update to version 3.8.0 is irreversible. Please test the update on a local/staging environment first and - as always - backup your website!
+* Dev - Price methods 'get_[regular_/sale_]price' now always return the base prices defined under 'Product Data > General'. To ensure that product sorting and product price filtering in the shop catalog work without issues, meta fields '_[regular_/sale_]price' hold the cheapest raw configuration price.
+* Dev - Base price filters no longer used in order to simplify compatibility with third-party discount plugins.
+* Fix - Composite Products not sorted by price in the catalog correctly.
+* Fix - Issues when attempting to override JS template files.
+* Fix - Quantity input not hidden when WC quantity template is modified and extra classes are added to container element.
+* Fix - Data exported to Shipwire now contains accurate physical representations of composite products, based on their shipping configuration. Note that Shipwire-managed products that are physically packaged in composite containers are not included in exports as individual line items.
+* Fix - Name Your Price compatibility: Price strings of NYP Composites that contain individually-priced items now show up correctly.
+* Tweak - Edit-in-cart UX: Show notice when editing a Composite in the cart.
+* Tweak - Edit-in-cart UX: 'Click to edit' is now also clickable.
+
+2016.11.29 - version 3.7.2
+* Fix - Added JS hooks for WooCommerce Variations Swatches and Photos support.
+* Fix - Inaccurate add-to-cart validation results with some scenario combinations that include conditional components.
+* Fix - Adding Composites to Grouped products is unsupported but "Product Data > Linked Products > Grouping" is visible.
+* Fix - "Product Data > General > Hide Price" option state not saving.
+
+2016.11.16 - version 3.7.1
+* Fix - Calculation of subtotals in JS app when a bundle-type product is selected.
+* Fix - Component discounts not applied to bundled items when a bundle-type product is selected.
+
+2016.11.03 - version 3.7.0
+* Important - The update to version 3.7.0 is irreversible. Please test the update on a local/staging environment first and - as always - backup your website!
+* Important - WooCommerce 2.3 support dropped.
+* Important - Front-end app views are now rendered using JS templates. Please update any overridden template files. New JS templates can be found under 'templates/single-product/js' and 'templates/composited-product/js'.
+* Feature - New "Priced Individually" and "Shipped Individually" options at Component level. The new options replace the "Per-Item Pricing" and "Per-Item Shipping" options to provide greater pricing and shipping flexibility.
+* Feature - Composites can now be saved as virtual or physical at will. Components can be freely defined as "Shipped Individually" without being coupled to the "Virtual" status of their container, making very complex shipping configurations easily possible.
+* Feature - Composites can now be marked as Downloadable, making it possible to offer downloadable content at both: i) Component level and ii) Composite level.
+* Feature - New "Hide Price" option for hiding the chosen Component Option price in the single-product template.
+* Feature - New "Component Price Visibility" options group for hiding Component subtotals in the single-product, cart/checkout and order details templates.
+* Tweak - The Base Price fields and associated metadata are no longer used and have been removed in favor of the Regular and Sale Price fields.
+* Tweak - Component quantities are no longer initialized to 1 if the Min Quantity field value is 0.
+* Tweak - Front-end app UX: Component selections no longer "lock" the selections of previous Components when using Scenarios with the Stacked layout.
+* Tweak - Front-end app UX: Invalid selections are no longer cleared when using Scenarios.
+* Tweak - Front-end app UX: When a Default Option is selected in the Advanced Settings tab of a Component, dropdown menus no longer include the "Select an option..." placeholder.
+* Tweak - Front-end app UX: Component Options in all Components that use the Thumbnails style are automatically refreshed when the active Scenarios are changed.
+* Tweak - Front-end app UX: When incompatible Component Options are set to be hidden instead of greyed-out and the Thumbnails style is active, pagination controls are no longer replaced by a 'Load More' button.
+* Dev - Restructured admin classes. Main admin class methods are now static. Admin class no longer accessible as property of the main plugin class.
+* Dev - Introduced 'WC_CP_Component' class to abstract Component representations. Component data is now accessible using 'WC_CP_Component' class methods. For backwards compatibility, the class implements the PHP ArrayList interface.
+* Dev - Introduced 'WC_CP_Component_View' class to maintain Component view state.
+* Dev - New cart/order functions for establishing composite parent/child item relationships and composite parent/child item status - see 'wc-cp-functions.php'.
+* Dev - Added detailed composite data in REST API order/product GET responses (WP REST API, WC 2.6+ only) - see 'class-wc-cp-rest-api.php' and/or details product/order response schemas.
+* Dev - JS app views are now almost entirely rendered using JS templates. Many templates have been updated - some have been replaced by JS versions. New JS templates can be found under 'templates/single-product/js' and 'templates/composited-product/js'.
+* Dev - AJAX responses to Component Options data app requests now return JSON data objects instead of raw markup. Component Options in the front-end are rendered using JS templates.
+* Dev - Validate and add composite configurations to the cart programmatically - see 'class-wc-cp-cart.php'.
+* Dev - Validate and add composite configurations to orders programmatically - see 'class-wc-cp-order.php'.
+* Dev - It is now possible to reconstruct an accurate shipping representation of a composite from order data. Useful when exporting order data to Shipping Fulfilment services - see 'class-wc-cp-order.php'. Composite container SKUs are also filterable to allow building a kit SKU from contents "packaged" in composite containers ("Shipped Individually" option unchecked).
+
+2016.09.14 - version 3.6.10
+* Tweak - Introduced 'component_selection_change_animation_duration' JS API filter to allow tweaking the component selection open/close animations duration.
+* Fix - Component options view stuck with a rolling ball when attempting to sort the available options, with JS error thrown in browser console. No more.
+* Fix - Editing a Composite from the cart fails and an insufficient stock notice is displayed when there is only enough stock to purchase the items already in the cart.
+* Fix - Updated the Quick View compatibility code to resolve a fatal error condition.
+
+2016.07.21 - version 3.6.9
+* Fix - WC_ROUNDING_PRECISION constant undefined in WC 2.6.3.
+* Fix - Added the 'cart' and 'cart_group' classes to the single-product form element to prevent styling issues with rules targeting 'form.cart'.
+
+2016.07.12 - version 3.6.8
+* Fix - Product Data "Inventory" tab missing in WC 2.6+.
+
+2016.07.05 - version 3.6.7
+* Fix - Strikethrough price displaying without any contained products being on sale.
+* Fix - Class 'WC_Widget_Composite' not found error when 'wp' action runs without 'widgets_init' having been triggered.
+
+2016.06.03 - version 3.6.6
+* Feature - Ability to disable Product Add-ons at component level. New "Disable Product Add-ons" option can be found under the Advanced Configuration tab of each Component.
+* Tweak - Show admin inventory settings note as tooltip.
+* Fix - Fixed support for Packing Lists in the WooCommerce Print Invoices and Packing Lists extension (didn't get it right last time, it seems).
+* Fix - 'WC_Product_Composite' price methods 'get_composite_price' and 'get_composite_regular_price' now respect the '$display' argument when Per-Item Pricing is checked.
+* Tweak - 'WC_Product_Composite' price methods output is now cached in the object during its lifecycle.
+* Tweak - Filter 'woocommerce_composite_on_sale' renamed to 'woocommerce_product_is_on_sale' for consistency with core WC.
+* Fix - Maintain existing URL hash when route does not match with any component slug.
+
+2016.05.10 - version 3.6.5
+* Fix - Filter line item names in order-pay endpoint.
+* Fix - Added support for the WooCommerce Print Invoices and Packing Lists extension.
+
+2016.04.21 - version 3.6.4
+* Fix - Composite range-format price strings display inverted min/max regular price values in some edge cases.
+* Fix - Wrong "% off" variable Component Option dropdown price strings under specific conditions.
+
+2016.04.11 - version 3.6.3
+* Fix - PHP warning in 'wc-cp-widget-functions.php'.
+* Fix - Admin delays/timeouts when a Composite contains a variable product with a large number of variations.
+* Fix - Composited cart item 'product_id' value now correctly cast to the integer type, as required by WooCommerce core.
+* Fix - Re-ordering fails for Composites that contain an optional component that is empty.
+* Tweak - Optimize animations for mobile: Drop expensive opacity transforms and instead use simple blocking/waiting cues when loading ajax data.
+
+2016.04.05 - version 3.6.2
+* Fix - Move 'woocommerce_composite_cart_permalink_args' filter before permalink modification.
+* Tweak - Add in-cart permalink args when component quantity is zero.
+* Tweak - Updated inline JS API docs and various admin help tips for consistency with the extension documentation at https://docs.woothemes.com/document/composite-products/.
+
+2016.04.01 - version 3.6.1
+* Fix - Parse error with older PHP versions when initializing empty arrays.
+
+2016.03.28 - version 3.6.0
+* Important - Front-end script heavily refactored to facilitate integrations with 3rd party code. Notable changes:
+   - JS single-page app logic rewritten using a BackboneJS core. Compatibility with the existing PHP templating logic is maintained since views do not rely on JS templates for updating data.
+   - Introduced JS API for accessing various Composite properties including prices, availability status, validation messages and component configuration data.
+   - Introduced JS Actions API for dispatching model/view actions in response to key events. The Actions API (add_action, do_action, remove_action) is similar to the familiar WP Actions PHP API.
+   - Introduced JS Filters API to allow filtering key app variables. The Filters API (add_filter, apply_filters, remove_filter) is similar to the familiar WP Filters PHP API.
+* Important - Various minor but critical modifications to multiple PHP template files. Please update any overridden template files.
+* Feature - Browser history support when navigating between Composite steps, powered by a BackboneJS router.
+* Feature - "Non-blocking" behaviour for Scenarios when using the Stacked layout. "Blocking" behaviour: A selection in the Nth component constrains the active options in components that precede and follow it. "Non-Blocking" behaviour: A selection in the Nth component constrains only the active options of the components that follow it. A component selection is cleared when an incompatible option is selected in a preceding component.
+* Feature - Added availability, quantity input and add-to-cart button to the Composite Summary Widget.
+* Feature - Extended "Sold Individually" settings for Composite Products, with the ability to choose a 'product-level' or 'configuration-level' context for individually sold items.
+* Feature - Restore Composite Product state when clicking cart item permalink.
+* Feature - Added the ability to edit a Composite from the cart. To enable, check the "Allow editing in cart" option, located in the "Advanced" Product Data tab.
+* Feature - Added the ability to auto-transition to the next step when a valid selection is made.
+* Feature - Options Style now configurable at component level.
+* Feature - Introduced new "Radio Buttons" options style.
+* Fix - Wrong cart package 'contents_cost' value when a Composite is not shipped per-item.
+* Fix - Rounding issues with display prices incl/excl tax and prices defined excl/incl tax when quantity > 1. All JS price calculations are now carried out using 4th decimal precision.
+* Fix - Added price suffix to JS-generated total. To calculate prices incl/excl tax, prices passed to the script are now raw, instead of based on the 'tax_display_shop' setting.
+* Fix - Added 'composite_parent' and 'composite_children' keys to WC API order response data, to assist in establishing Composite Products parent/child item relationships.
+* Fix - Modified composite parent/child weight and dimension keys in WC API order response data, depending on the "Per-Item Shipping" option state and exact cart package content.
+* Fix - Limited use of 'woocommerce_get_item_count' filter within the front-end "My Account" area.
+* Fix - Composite container order items always require processing, unless i) children exist and ii) all children are downloadable and virtual (require no processing).
+* Tweak - Removed the Composite Summary Widget from the sidebar entirely if not visible, instead of creating an empty widget.
+* Tweak - Deprecated WC_Product_Composite::get_composite_selections_style method. Use WC_Product_Composite::get_component_options_style, which operates at component level.
+* Tweak - Methods WC_Product_Composite::get_current_component_scenarios and WC_Product_Composite::get_composite_scenario_data deprecated and merged into a single 'get_current_scenario_data' method.
+* Tweak - Filters 'woocommerce_composite_initial_scenario_data', 'woocommerce_composite_validation_scenario_data' and 'woocommerce_composite_component_current_scenario_data' replaced by a single 'woocommerce_composite_scenario_data' filter.
+* Tweak - Updated multiple i18n strings used in JS validation messages for a friendlier UX.
+
+2016.02.18 - version 3.5.5
+* Fix - Cart prices of Bundles contained in Composites "duplicated" in the cart (minimum bundle price assigned to the container cart item). Affected bundles with an empty base price.
+
+2016.02.08 - version 3.5.4
+* Fix - Variation max quantity incorrectly set equal to min quantity when not managing variation stock (WC 2.5+).
+* Fix - Cart quantities of composited items not configurable unless managing product/variation stock (WC 2.5+).
+* Fix - Missing variations when configuring Scenarios.
+* Fix - Validate screen id when calling get_current_screen().
+* Fix - Radio button values lost during component transitions due to cloning.
+
+2016.01.21 - version 3.5.3
+* Fix - Incorrect base price calculations incl/excl tax when the Base Price field is empty.
+
+2016.01.13 - version 3.5.2
+* Fix - Fatal error associated with 'wc_get_product_cat_ids' function missing from WC versions earlier than 2.5.
+* Tweak - Moved all WC back-compatibility functions into the 'WC_CP_Core_Compatibility' class. Deprecated the old ones.
+
+2016.01.10 - version 3.5.1
+* Tweak - Allow 3rd party scripts to pass step id parameter to 'update_active_scenarios' script function.
+* Fix - Script is now lint free.
+* Tweak - When adding a Composite to the cart, active scenarios are now posted in 'wccp_active_scenarios' variable in order to simplify validation.
+* Fix - Pass scenario meta through 'woocommerce_composite_scenario_meta' filter before validating scenarios in cart.
+* Fix - Component validation messages not hiding when they should under rare circumstances.
+
+2016.01.07 - version 3.5.0
+* Important - Composite price methods get_price(), get_regular_price() and get_sale_price() now always return the minimum prices of a bundle for a uniform behaviour with other WC product types. To avoid issues in cart when the "Per-Item Pricing" option is checked, all container cart item properties are set to their base price counterparts when session data is loaded.
+* Fix - Handling of composited products in coupons. Coupon validity of composited items is now inherited from their parents - specifically: A coupon cannot be valid for a composited item if the composite that contains it is excluded from the coupon. A coupon will be valid for a composited item if it is valid for the composite that contains it, unless the coupon exclusion rules apply to the composited item itself.
+* Fix - PHP warning in order details template when viewing Composites without any Component selections (all Components optional and empty).
+* Fix - Remove nonces from front-end ajax requests.
+* Fix - Restored WooCommerce QuickView compatibility.
+* Fix - Reversed range-format regular prices under specific conditions.
+* Tweak - Moved scenarios-related functions into WC_CP_Scenarios class and deprecated old WC_CP_API class methods.
+* Tweak - Moved various helper functions into WC_CP_Helpers class and deprecated old WC_CP_API class methods.
+* Tweak - Deprecated global functions starting with 'wc_composite_' - now using 'wc_cp_'.
+* Tweak - Added WC_CP_Order::get_composite_parent and WC_CP_Order::get_composite_children functions.
+* Tweak - Renamed "Non-Bundled Shipping" option to "Per-Item Shipping" for clarity.
+* Fix - The state of select inputs no longer appears to change when transitioning between components.
+* Tweak - Allow pre-populating component options and quantities by including the associated fields in the query string.
+
+2015.12.09 - version 3.4.3
+* Fix - Max component-level quantity input fields respect the available stock.
+* Fix - Max composite-level quantity input field respects the available stock.
+* Tweak - Append quantity value to current component selection title.
+* Fix - Duplicate navigation instances when viewing static components using a paged layout.
+* Tweak - Allow disabling relocation of selected product content when appending component options.
+
+2015.12.02 - version 3.4.2
+* Fix - jQuery '.finish' error when running an older library version.
+
+2015.11.30 - version 3.4.1
+* Tweak - Component transitions set to 'sliding' effect by default.
+* Fix - Unhide Summary section when detached from Stepped layout.
+
+2015.11.30 - version 3.4.0
+* Important - WC 2.2 support has been dropped!
+* Important - Template file 'variable-product.php' has been updated.
+* Important - Template functions have been renamed. Functions previously hooked into 'woocommerce_composite_{before/after}_components' are now hooked into 'woocommerce_composite_{before/after}_components_{$layout_name}'.
+* Important - Action 'woocommerce_composite_component_selections_multi' renamed to 'woocommerce_composite_component_selections_paged'.
+* Tweak - UX: When component options are set to be appended and a paged layout is active, the selected product details are displayed below the selected thumbnail, instead of always redirecting the user to a fixed location at the page top.
+* Tweak - UX: When displaying component options as thumbnails and a paged layout is active, a navi instance is appended below the selected product details.
+* Tweak - Changed 'Review & Add to Cart' string to 'Review Configuration'.
+* Dev Feature - Ability to leave blocked components open when using the 'Progressive' layout, see 'WC_Product_Composite::get_component_classes' for details.
+* Dev Feature - Ability to override the global 'Options Style' setting to use a mixed Dropdowns/Thumbnails configuration - see https://gist.github.com/franticpsyx/a8d7fe099aeacc7f8591.
+* Fix - Hidden bundled items are no longer displayed in the Review section.
+* Fix - Fixed JS issues when Array object has been extended by 3rd party code.
+* Fix - Show notice when using a non-js enabled browser.
+* Tweak - Minor 'Components' tab strings and styles tweaks.
+* Tweak - Introduced the 'woocommerce_composite_admin_html' hook, now used to output the 'Components' writepanel options under 'Product Data'.
+* Tweak - Updated 'woocommerce_stock_html' filter args.
+* Tweak - Component message containers are now added in each component, and accessed in JS as 'WC_CP_Component' properties.
+* Tweak - Introduced woocommerce_composite_component_before_summary_content_{single/paged/progressive} hook.
+* Fix - Support WooCommerce Product Bundles v4.12+.
+
+2015.11.03 - version 3.3.2
+* Tweak - Display placeholder images in the Summary/Review section.
+* Tweak - Aggregate validation notice messages and add styling markup.
+* Tweak - Remove obsolete public 'wc_option_' properties from WC_CP_API class.
+* Fix - Suppress out of stock notices when the selected component quantity is zero.
+* Fix - Displayed component options now respect the "Out Of Stock Visibility" option.
+* Fix - Handling of '0' attribute values.
+* Fix - Base sale price scheduling.
+* Fix - Base price not taken into account by 'get_composite_price_{incl/exc}_tax' methods.
+* Fix - Strikethrough prices not appearing correctly.
+
+2015.10.06 - version 3.3.1
+* Fix - Encode posted attribute field values to prevent issues with double quotes.
+* Fix - Component options dropdown visible in "Thumbnails" mode when using select2.
+* Dev Tweak - Introduced 'woocommerce_composited_cart_item' filter to make it easier for 3rd party plugins to modify composited cart items.
+* Dev Tweak - Add case for sorting component options by 'menu_order'.
+* Fix - Script error due to php warning output in JSON response when no Scenarios have been defined.
+* Tweak - Display full product details for Product Bundles in the Summary section.
+* Tweak - Improved Summary section product details markup.
+* Tweak - Improved validation notices.
+* Dev Tweak - Pass script params when firing events to make it easier for 3rd party plugins to integrate with the extension.
+* Dev Tweak - Add 'wc-composite-validate-step' event.
+* Dev Tweak - Script now allows adding custom validation messages at component and composite level.
+* Tweak - Changed 'WC_CP_Stock_Manager' constructor and 'validate_stock' args. Container product can be optionally passed in constructor and is accessible publicly.
+
+2015.09.05 - version 3.3.0
+* Feature - Allow an infinite max component quantity to be selected by leaving the "Max Quantity" field empty.
+* Fix - Simple composited product display prices do not take into account the 'woocommerce_tax_display_shop' setting.
+* Fix - Calculated composite total is wrong when compositing a bundle with add-ons at bundled item level.
+* Fix - Revise admin JS 'show_if_composite' / 'hide_if_composite' logic for improved plugin compatibility.
+* Fix - Composited item name issues in specific admin areas, such as the Orders page.
+* Fix - Shipstation integration broken in recent Shipstation extension versions.
+* Tweak - Display prices in WC_CP_Product class now obtained using the 'get_price' and 'get_regular_price' methods. Class min/max price properties are now based on raw bundled product prices.
+* Dev Feature - Allow additional tabs and tab content in Component metaboxes.
+* Tweak - Abandoned use of the $woocommerce_composite_products global in favour of WC_CP(), which now returns the main instance of the plugin.
+* Tweak - Refactor compatibility class.
+* Tweak - Moved all Product Bundles integration code into Product Bundles.
+* Tweak - Price filter widget results are now based on the '_price' meta only. Meta fields '_min_composite_price' and '_max_composite_price' are no longer used.
+* Tweak - Improved Shipstation integration: Send both container/child order items to allow stock management via Shipstation. Container/child items that are not shipped individually are exported with zero weight to prevent unnecessary shipping cost charges.
+* Fix - Allow ordering by title asc/desc.
+* Tweak - WooCommerce Quantity Increment plugin support.
+
+2015.08.07 - version 3.2.2
+* Fix - Component discounts and prices don't always show up in product details loaded via ajax.
+
+2015.08.06 - version 3.2.1
+* Important - UX: Moved the current selection details, component notices and post-selection auto-scroll target before the component options when using the Product Thumbnails setting in combination with the Stepped and Componentized layouts.
+* Fix - Composite total is incorrect when a selected option is out of stock.
+* Tweak - UX: Added navigation buttons to the top of each step when using the Stepped (mobile) and Componentized layouts.
+
+2015.07.31 - version 3.2.0
+* Fix - WC 2.4 support.
+* Fix - WC 2.4 admin style fixes.
+* Important - Dropped WC 2.1 support.
+* Important - Refactored templating engine for easier customization with hooks. Updated composited product templates to support new handling of text-based attributes in WC 2.4. Please update all template file overrides in your theme!
+* Important - Updated support for Product Bundles v4.11. Composite Products that include Bundles require Product Bundles v4.11 to work.
+* Tweak - Renamed 'woocommerce_composite_product_add_to_cart' to 'woocommerce_composited_product_add_to_cart' and replaced set of passed args.
+* Feature - Introduced ability to append component options when using the 'Thumbnails' style. Use the 'woocommerce_component_options_paginate_results' filter to turn off pagination and display a "Load more" button instead.
+* Feature - Introduced 'woocommerce_component_options_hide_incompatible' filter for hiding incompatible products and/or variations when using Scenarios, instead of greying them out. Note that when using the 'Thumbnails' style with 'woocommerce_component_options_hide_incompatible' set to 'true', component options will be appended instead of paginated.
+* Fix - Improved UX when using the 'Stacked' layout in combination with Scenarios + selection dependencies.
+* Fix - Allow the Composite Configuration Widget to be used for internal linking when the 'Stacked' layout is active.
+* Tweak - Move the validation container out of the price. Apply core style classes to validation messages.
+* Tweak - Improved component selections validation.
+* Tweak - Move single product template functions and hooks out of the display class and into separate files. Hooked functions are global and no longer methods of the display class.
+* Tweak - Front-end AJAX handlers moved to new WC_CP_AJAX class. Remaining WC_CP_API methods are general purpose extension functions.
+* Tweak - Show component options pagination only when the page count is > 1.
+* Fix - Improved some CSS rules for theme compatibility.
+* Tweak - Improved front-end availability status handling.
+* Tweak - When using the Stepped layout, display the Review after adding the Composite to the cart.
+
+2015.07.09 - version 3.1.4
+* Fix - Removed validation notice about "sold individually" products, triggered when the chosen Composite quantity > 1.
+
+2015.07.02 - version 3.1.3
+* Fix - Allow shortcodes in component titles and composited product short descriptions.
+* Tweak - Remove 'woocommerce_composite_progression_style' filter and associated behaviour.
+* Tweak - Merge multiple '.composite_data' data attributes used by JS into a single 'composite_settings' data attribute.
+* Tweak - Do not enforce a sequential configuration when using the componentized layout. Introduced 'woocommerce_composite_sequential_comp_progress' filter to control this behaviour.
+* Fix - Revise creation of 'composite' product type on activation.
+
+2015.06.09 - version 3.1.2
+* Fix - Correct l8n context for a number of strings.
+* Fix - Validation failure when Min Qty value is set to 0.
+* Tweak - Activate one component at a time when transitioning between toggled Components using the Progressive layout.
+* Tweak - CSS tweaks to prevent cutting off JS dropdowns.
+
+2015.05.29 - version 3.1.1
+* Tweak - Localize quantity '&times;' string and composited product title strings.
+* Tweak - Remove quantity from Component Options dropdowns and thumbnails.
+* Tweak - Introduced 'woocommerce_composited_product_thumbnail_title' and 'woocommerce_composited_product_dropdown_title' filters.
+* Fix - Simplified handling of variation attributes when constrained by scenarios.
+* Tweak - CSS tweaks.
+
+2015.05.19 - version 3.1.0
+* Tweak - Composited table item indentation: improved theme compatibility.
+* Tweak - Refactor composite scripts.
+* Feature - Allow components to be masked/ignored in scenarios.
+* Feature - Introduce Scenario Actions API for triggering events based on the selections state of a Composite.
+* Tweak - Replaced 'woocommerce_composite_scenario_data' filter by 'woocommerce_composite_initial_scenario_data'.
+* Tweak - Passed scenario meta data into the 'woocommerce_composite_component_current_scenario_data' filter.
+* Fix - Handling of variations dropdowns when options are constrained by scenarios.
+* Fix - Trigger scenario action scripts on 'found_variation'.
+* Fix - Validate existing variation attribute selections based on scenario rules when returning to a Component.
+* Fix - JS timing issues in iOS/Safari causing components to sometimes appear blank after a transition.
+* Feature - Introduce wc_composite_params 'transition_type' property to choose between 'slide' or 'fade' style component transitions.
+* Feature - Dynamically change 'Select an option...' dropdown text based on optional status of a Component, taking scenarios into account.
+* Dev Feature - Introduce new validation filters: 'woocommerce_composite_validation_component_quantity_min', 'woocommerce_composite_validation_component_quantity_max' and 'woocommerce_composite_validation_component_is_mandatory'.
+
+2015.04.15 - version 3.0.6
+* Dev Feature - Added 'woocommerce_composited_product_discount_from_regular' filter.
+* Fix - Fix unescaped data attributes in some templates.
+* Tweak - Introduce separate "Select an option..." localization context for optional components.
+* Tweak - Move 'woocommerce_cart_shipping_packages' filter into WC_CP_Cart class.
+* Tweak - Remove 'Part of' order item meta.
+
+2015.04.07 - version 3.0.5
+* Fix - Safari input type number scroll bug.
+* Fix - Bundled product quantities in summary.
+* Fix - Fix use of objects vs arrays in JS.
+* Fix - Out-of-stock selections status disappearing.
+* Fix - Fixed args sequence of some localization strings with context.
+
+2015.03.30 - version 3.0.4
+* Important - Please review any custom code based on 'woocommerce_add_to_cart_composite_validation'.
+* Dev Tweak - Replaced 'WC_Bundled_Stock_Data' by 'WC_CP_Stock_Manager', which accurately passes purchased items into 'woocommerce_add_to_cart_composite_validation'.
+* Tweak - Pass composite product into the composited-product templates.
+* Tweak - Pass composite product into the 'woocommerce_composited_product_quantity' filter.
+* Fix - Shipstation compatibility.
+* Fix - Fatal error when a product is added to the cart with Wishlists installed.
+* Tweak - Indent composited items in e-mail templates.
+
+2015.03.12 - version 3.0.3
+* Fix - Scenarios script issues in WC 2.3 when variations are set up incorrectly.
+* Tweak - Tap highlights on webkit devices.
+* Tweak - Minor UX improvements.
+
+2015.03.06 - version 3.0.2
+* Important - Please review any weight/value customizations based on the 'woocommerce_cart_shipping_packages' filter!
+* Dev Feature - Introduced 'woocommerce_composited_product_has_bundled_weight' filter. Used in Bundled shipping mode to add the weight of composited products to the weight of the container. See http://docs.woothemes.com/document/composite-products-tips-tricks-and-snippets/#variable_container_weight .
+* Fix - Shipping weight/value calculation tweaks and edge case fixes.
+* Fix - Rounding after discounts based on the shop decimal precision.
+* Fix - Duplicate composited item cart taxes under specific conditions.
+* Fix - Prevent adding '/pc' suffix to bundled item in composited bundles.
+* Tweak - Summary/Review section small screen CSS tweaks.
+
+2015.03.04 - version 3.0.1
+* Dev Feature - Introduced 'woocommerce_composited_product_custom_data' filter for passing custom data to composited product templates.
+* Dev Feature - Introduced 'woocommerce_composited_product_quantity' filter to allow changing the default quantity in composited product templates.
+
+2015.03.03 - version 3.0.0
+* Important - v3.0.0 is a major update focused on many requested features and a comprehensive actions/filters hook API. Before updating any live websites, please test everything on a local/staging environment and as always, backup your website!
+* Important - Template files have been modified to implement new features and other fixes/tweaks. Please update all overridden template files that are out of date! To see if your theme overrides any Composite Products template files, go to the WooCommerce->System Status page and scroll down to the Templates section.
+* Important - When possible, use the new front-end UI hooks to avoid unnecessary template file overrides. For details, refer to http://docs.woothemes.com/document/composite-products-actions-filters-events-reference/ .
+* Feature - Component Options API: Component options are now loaded by a WP_Query wrapper. Component options are loaded dynamically, allowing custom queries to be created at Component level.
+* Feature - Category-based definition of Component Options.
+* Feature - Dynamic Sorting and Filtering functionality. Component Options are sortable and filterable at component level. Sorting and filtering functionality can be extended easily via hooks.
+* Feature - Component Options pagination in "Product Thumbnails" mode.
+* Feature - Front-end Layout API: Added actions/filters to control the layout and user interaction. See http://docs.woothemes.com/document/composite-products-actions-filters-events-reference/ .
+* Feature - Back-end Settings API: Back end hooks for adding custom component-level settings. See http://docs.woothemes.com/document/composite-products-actions-filters-events-reference/ .
+* Feature - Responsive component options in in "Product Thumbnails" mode. Column count and per-page result count are filterable. See http://docs.woothemes.com/document/composite-products-actions-filters-events-reference/ .
+* Feature - UX: Improved user feedback on transitioning between components. In multi-page mode, auto-scroll targets are used to direct user input after selecting an option and after activating the next component. In progressive mode, auto-scroll behaviour is applied on selecting an option and on giving focus to the next component.
+* Feature - UX: Improved user feedback on option selection in Multi-page mode.
+* Feature - UX: Redesigned Review section in Multi-page mode.
+* Feature - UX: New Composite Summary widget for displaying configuration details in Multi-page stepped mode. Details include thumbnails, descriptions, prices, quantities and meta.
+* Feature - UI: Redesigned the admin Layout settings section. Renamed layout options. Reorganized and paginated the admin component configuration metaboxes.
+* Feature - UX: New "Componentized" layout.
+* Feature - New 'Hide shop price' option, targeted for very complex/large Composites, and for certain use cases where showing a min Composite price is irrelevant.
+* Feature - Scenarios: Option to include/exclude component options when creating a scenario.
+* Tweak - UX: Allow adding a progressive composite to the cart without having to review all components. Use the 'woocommerce_composite_progression_style' filter to force the old behaviour (return 'strict').
+* Tweak - UX: Remove "None" option from the front-end when a component is optional. If a component is optional, the user may proceed to the next component without selecting any options, unless the "none/empty" option has scenario definitions that make it incompatible with the current selections.
+* Tweak - Indent composited cart items.
+* Tweak - Pass the component id and composite id into the 'woocommerce_composite_component_title' hook.
+* Tweak - In per-item pricing mode, the cart price column now displays only container-level totals.
+* Tweak - 'WC_CP_Helpers' renamed to 'WC_CP_API'. Plugin class 'helpers' property now accessed as 'api'.
+* Tweak - Cleaned up old WC 2.0 compatibility functions and global WC declarations and refactored all function references. Introduced 'WC_CP_Core_Compatibility' class.
+* Tweak - Use single_add_to_cart_text() to display add-to-cart button text.
+* Tweak - Allow selecting the 'empty' option as default when a component is optional and contains a single product.
+* Tweak - Post form input fields (product ids / quantities) directly.
+* Tweak - Renamed query string variables: 'add-product-to-cart' to 'wccp_component_selection', 'component_quantity' to 'wccp_component_quantity', 'bto_variation_id' to 'wccp_variation_id' and 'bto_{attribute name}' to 'wccp_{attribute name}'.
+* Tweak - Introduce 'wc_composite_get_product_terms' function for WC 2.3 compatibility.
+* Tweak - Introduce 'woocommerce_composited_product_shipped_individually' filter.
+* Tweak - Use 'variation_is_active' variation property to disable incompatible variation attributes in WC 2.3.
+* Tweak - Out-of-stock selections validation in add-to-cart-composite.js.
+* Fix - Fix paged mode price data when a composite contains NYP products.
+* Fix - Parent/child cart pointers more tolerant to errors caused by 3rd party code.
+* Fix - Correctly show terms when attribute has outfit chars.
+* Fix - Wrong cart prices when Per-Item Pricing unchecked / Non-Bundled Shipping checked.
+* Fix - select2 localization in WC 2.3.6+.
+
+2015.02.18 - version 2.5.7
+* Fix - Fix shipping insurance value when i) Per-Item Pricing checked / Non-Bundled Shipping unchecked, and ii) Per-Item Pricing unchecked / Non-Bundled Shipping checked.
+
+2015.02.09 - version 2.5.6
+* Fix - Remove/restore composited items when removing/restoring composite in cart - WC 2.3 only.
+* Fix - Error in admin area when compositing non-purchasable variable products.
+* Fix - Support Cost of Goods - requires at least CoG 1.6.0. Note: Use the "Apply Costs" CoG option to correctly re-calculate costs for old orders.
+* Fix - Price filter widget range - WC 2.3 only.
+
+2015.01.27 - version 2.5.5
+* Fix - WC 2.3 support.
+* Fix - Update chosen to select2 in WC 2.3.
+* Fix - Remove composited product plus/minus qty buttons in WC 2.3.
+* Fix - Quantity-related bugs when adding Bundles to static components: fixed wrong totals and wrong quantities in cart.
+* Tweak - OPC compatibility: prevent OPC from managing composited cart items.
+
+2014.12.15 - version 2.5.4
+* Feature - One Page Checkout support.
+* Tweak - Use single_add_to_cart_text() to display add-to-cart button text.
+
+2014.11.22 - version 2.5.3
+* Fix - Error on loading new button template.
+
+2014.11.18 - version 2.5.2
+* Tweak - 'Free!' price string tweaks in line with WC 2.1+.
+* Tweak - Remove WC 2.0 compatibility code and resources.
+* Fix - Admin Component/Scenario input styling fix.
+* Fix - Composite price is displayed wrong in the summary under certain conditions.
+* Tweak - Tweaks for future One Page Checkout support.
+* Tweak - Display list of bundled products in multi-page review.
+
+2014.11.9 - version 2.5.1
+* Feature - Paged mode now includes pagination.
+* Fix - Variable products have visible quantity +/- buttons in some themes, although the quantity input field is hidden.
+* Fix - Resolve variation image refreshing issues.
+* Tweak - Added component id as footnote in component metaboxes.
+* Tweak - Added 'woocommerce_composite_component_admin_config_html' and 'woocommerce_composite_component_admin_layout_html' actions for adding custom component settings.
+* Tweak - Added 'woocommerce_composite_process_component_data' filter for processing custom component settings.
+* Tweak - Introduced navigation template.
+* Tweak - CSS '.composite' form scope.
+
+2014.10.31 - version 2.5.0
+* Important - v2.5.0 is a major update. Before updating any live websites, please test everything on a local/staging environment and as always, backup your website!
+* Important - Template files have been modified to implement new features and other fixes/tweaks. Please update any overridden template files!
+* Important - Support for WooCommerce versions older than 2.1.0 has been dropped.
+* Feature - Product Bundles support. Product Bundles can be added in Composite Products as Component Options. Requires Product Bundles v4.7.0+.
+* Feature - Hooks for supporting custom product types.
+* Feature - Pre-Orders support at composite level. Composited items with pre-ordering functionality enabled will not work due to limitations of the Pre-Orders extensions.
+* Tweak - Refactored and minified scripts. Added 'wc-composite-component-loaded' trigger to support 3rd party scripts.
+* Tweak - When unblocking a component in progressive/paged mode, auto-load the first compatible component option if the current one has been disabled.
+* Tweak - To improve UX and conversions, the add to cart button is no longer hidden when bundled product options are missing. Instead, the button is disabled and a suitable message is shown above the button. The "woocommerce_composite_button_behaviour" filter can be used to disable this new behaviour.
+* Tweak - Unavailable add-to-cart message when price is undefined in static pricing mode.
+* Tweak - Replaced generic 'Sale!' suffix for component options with a more suitable '% off' text, filterable via 'woocommerce_composited_item_price_suffix'.
+* Tweak - Use get_product to initialize and store composited product data for later use. Initializing all component options with get_product is not costly as long as product method calls are kept to a minimum.
+* Tweak - Introduced 'get_composited_product' and 'get_composited_item_price_string_data' methods in WC_Product_Composite class.
+* Tweak - Deprecated 'get_bto_scenario_data', 'get_bto_data' and 'get_bto_price_data'.
+* Tweak - Added product id argument to 'woocommerce_composited_product_excerpt' and 'woocommerce_composited_product_title' filters.
+* Tweak - Introduced '/composited-product/quantity.php' template.
+* Tweak - Introduced 'woocommerce_composite_component_options_display' filter for modifying/reordering component options.
+* Tweak - Added 'woocommerce_composite_products_after_filters_added' and 'woocommerce_composite_products_before_filters_removed' action hooks.
+* Tweak - Use esc_textarea to escape Component Description content.
+* Fix - Fixed script error when "Enable Lightbox" WooCommerce setting is disabled.
+* Fix - Re-ordering fixes.
+* Fix - Component selections do not load due to invalid nonce after logging in / out without refreshing product page. Now ajax will return a prompt to reload the page.
+* Fix - Respect sold_individually property of composited products (overrides max component quantity).
+* Tweak - "Thumbnails" template modifications to include product tiles and prices.
+* Tweak - Improved back and front end performance by initializing composited product data on demand.
+* Tweak - Introduced WC_Bundled_Stock_Data class for validating composited stock and interacting with custom composited product types.
+* Tweak - Updated composited item availability method.
+* Tweak - Introduce 'woocommerce_composite_force_old_style_price_html' filter to force "From:" style price html strings.
+
+2014.10.01 - version 2.4.7
+* Feature - Allow zero min quantity in components.
+* Fix - Base regular/sale price fields saving bug.
+* Fix - Points and Rewards compatibility.
+* Tweak - Increase speed by minimizing the number of get_option calls when calculating composited product prices incl / excl tax.
+* Tweak - Add version number to activation script.
+* Tweak - Move extensions compatibility functions in new class.
+* Tweak - Add 'woocommerce_composite_on_sale' and 'woocommerce_composited_item_price_suffix' filters.
+* Tweak - Simplified and refactored template files. Update any overridden template files as necessary.
+
+2014.09.05 - version 2.4.5
+* Fix - Improved progressive UI implementation. Sequential selection is now enforced by requiring user input before giving focus to the next Component. The selection sequence always starts from the first component and moves one component at a time. The user is able to modify previous Component selections by going back (in "multi-page" mode) or simply scrolling up (in "single-page" mode) and clearing options.
+* Fix - UX improvements when selections are constrained by Scenarios. When configuring a Component, Scenario restrictions are now evaluated based on previous Component selections only. Any incompatible subsequent Component selections are automatically reset when the affected Component obtains focus.
+* Fix - Validate scenario dependencies before adding to cart.
+* Fix - Possible price cart rounding issues when using discounts.
+* Tweak - "Multi-Page Progressive" mode merged with vanilla "Multi-Page" mode. A paged UI enforces progressive/linear selections anyway.
+* Tweak - Dropped the tiptip script due to theme issues.
+* Tweak - Refactored composite scripts. Improved behaviour when no scenarios match the current selections.
+* Tweak - Selection animations handled via JS instead of CSS.
+* Tweak - Option names modified for clarity.
+* Tweak - Optional components are taken into account when showing Composite prices (using "from" formatting) - thanks Alex K.
+
+2014.09.03 - version 2.4.2
+* Fix - Write panel JS dependencies for WC 2.2.
+
+2014.09.02 - version 2.4.1
+* Tweak - Minor JS improvements.
+* Tweak - Pass review screen component titles through 'woocommerce_composite_component_title' filter.
+
+2014.08.19 - version 2.4.0
+* Important - Please backup your database before upgrading. After updating to version 2.4.0, it will no longer be possible to downgrade without making database modifications.
+* Important - Composite product type renamed from the ambiguous term 'Bto' to 'Composite'.
+* Important - Template file overhaul. Introduced composite.php add-to-cart template. Reorganized template structure. Renamed all 'bto_item_' prefixed classes to 'component_'. Please update any custom Composite Product CSS rules present in your theme.
+* Important - Extensive plugin refactor. Main class now accessed via 'woocommerce-composite-products' global instead of 'woocommerce_bto'. Dropped 'woo_bto_' prefix from many class functions and changed many function names. Please update any custom scripts accordingly.
+* Important - Renamed recently introduced filters: 'woocommerce_bto_component_title' to 'woocommerce_composite_component_title', 'woocommerce_bto_component_description' to 'woocommerce_composite_component_description' and 'woocommerce_bto_product_excerpt' to 'woocommerce_composited_product_excerpt'.
+* Tweak - Remove "From:" prefix from simple Component Option price strings.
+* Tweak - Thumbnail mode CSS tweaks.
+* Tweak - Renamed composited table item class from 'composited_table_item' to 'component_table_item' and introduced 'component_container_table_item'.
+* Tweak - Introduced many composite add-to-cart script triggers: 'wc-composite-hide-add-to-cart', 'wc-composite-show-add-to-cart', 'wc-composite-enable-component-options', 'wc-composite-disable-component-options'.
+* Tweak - Added 'woocommerce_composite_component_title' filter in scenarios write-panel.
+
+2014.08.15 - version 2.3.0
+* Feature - New "Thumbnail" Component Options selection mode. In "Thumbnail" mode, Component Options are activated/deactivated by clicking on the corresponding thumbnail. Active selections appear highlighted, while deactivated options appear greyed-out. "Drop-down" selection mode is still available as the default option.
+* Fix - Resolved file upload issues affecting composited item add-ons.
+* Tweak - Remove localization and currency data from the WC_Product_Bto class and localize scripts.
+* Tweak - Multi-page navigation tweaks.
+* Tweak - Evaluate wc_bto_show_product nonce when pulling product data via ajax.
+
+2014.08.09 - version 2.2.6
+* Feature - Allow changing composited item quantities in-cart.
+* Fix - '/ pc.' variations suffix.
+* Fix - Better validation for items sold individually.
+* Tweak - Inventory note.
+* Tweak - Changed text domain name to 'woocommerce-composite-products'.
+
+2014.07.24 - version 2.2.5
+* Fix - Incorrect Composite prices in the order review/details templates. Caused by other extensions under specific conditions.
+* Tweak - Introduced 'woocommerce_composited_item_price_html' and 'woocommerce_composited_item_price_string' filters.
+* Tweak - Improved presentation of component options when i) minimum component quantity is > 1 and/or ii) minimum quantity equals max quantity.
+
+2014.06.20 - version 2.2.3
+* Tweak - Ajaxified 'Save Configuration', 'Add Component' and 'Add Scenario' admin buttons.
+* Tweak - Support core template overrides scan via 'woocommerce_template_overrides_scan_paths'.
+
+2014.06.18 - version 2.2.2
+* Fix - Add composited items via 'composited_add_to_cart', to avoid calling 'woocommerce_add_to_cart' recursively.
+* Fix - Admin order item count now includes separate composited items count info.
+* Fix - Composited item add-on options do not affect container uniqueness.
+* Fix - Admin price saving bug when using non-standard decimal/thousand separators.
+* Fix - Added 'single_add_to_cart_button' class for GA event tracking.
+* Tweak - Access helpers class through main plugin class instead of making it global.
+* Tweak - Better validation of bundled item stock using 'composited_add_to_cart'.
+* Tweak - Composite cart and email order item presentation tweaks (introduced component item data template).
+* Tweak - Re-organized functions and filters in classes according to context.
+* Tweak - Indentation of composited line items in admin 'Orders' and 'Edit Order' screens.
+* Tweak - Better code documentation.
+
+2014.04.17 - version 2.2.0
+* Fix - Scenarios variable product array_values JS error.
+* Fix - Multi-Page item template warning.
+* Fix - Composite product thumbnails WC core Lightbox fix.
+* Fix - Component quantity post bug for individually-sold composite products.
+* Fix - Admin saving warning.
+* Fix - Unresponsive UI when clearing variable product options in progressive mode.
+
+2014.04.14 - version 2.1.6
+* Tweak - Price html format reverts to show only min price when components with multiple quantities exist.
+* Tweak - Multi-Page style review screen tweaks.
+* Tweak - Performance optimizations for variable products.
+* Fix - Microdata price in per-product pricing mode.
+* Fix - Wishlists compatibility.
+* Fix - Addons Multi-Page post data bug in progressive mode.
+* Feature - Separate Multi-Page and Multi-Page Progressive display options.
+
+2014.03.11 - version 2.1.0
+* Fix - Add-to-cart button text and linked url in WC 2.1.
+* Fix - Sort by price.
+* Fix - JS trim zeros behaviour uses 'woocommerce_price_trim_zeros' filter.
+* Fix - QuickView compatibility.
+* Fix - Scenarios inaccurate JS filtering of variations.
+
+2014.02.24 - version 2.0.8
+* Fix - NYP Composite product doesn't show add to cart button.
+* Fix - Empty component warning.
+
+2014.02.13 - version 2.0.7
+* Fix - Broken admin layout in WC 2.1.1.
+
+2014.02.07 - version 2.0.6
+* Fix - php saving warning.
+* Fix - QuickView JS error.
+* Tweak - Decimal discounts.
+* Feature - Name Your Price 2.0 support (simple products only).
+
+2014.01.28 - version 2.0.4
+* Fix - Component options did not show in the Scenarios tab if multiple scenarios were added.
+* Fix - Improved admin and front-end handling of default Component Options.
+
+2014.01.24 - version 2.0.1
+* Fix - Custom attributes item meta cart notice fixed.
+* Fix - Unique Component Options.
+* Fix - Variable product ajax error.
+
+2013.12.20 - version 2.0.0
+* Feature - Scenarios - define dependencies between Component Options, based on mutual compatibility or other grouping criteria.
+* Feature - Single-Page Progressive front-end style for use with Scenarios.
+
+2013.12.13 - version 1.8.0
+* Important - WooCommerce 2.1 compatibility.
+* Important - Extension template files modified - please update any overrides present in your theme!
+* Tweak - Variation prices in line with WC 2.1 logic.
+* Tweak - Removed deprecated functions.
+* Tweak - Availability of composited items now takes into account defined min component quantities.
+* Tweak - Refactored code.
+* Fix - Validation uses is_purchasable function.
+* Fix - Add-ons defined on a Composite level do not affect the price of the base product.
+
+2013.12.03 - version 1.7.4
+* Fix - Composite quantity input fields visibility tweaks.
+* Fix - Enabled base price tax rate options.
+
+2013.11.21 - version 1.7.3
+* Fix - Composite quantities initialise to min rather than 1.
+
+2013.11.07 - version 1.7.2
+* Fix - "Clear options" bad behaviour fixed.
+* Fix - has_calculated_shipping() admin menu error.
+
+2013.11.02 - version 1.7.0
+* Tweak - Prices respect 'woocommerce_tax_display_shop' setting in WC 2.1.
+* Tweak - Prices are shown again in the Component drop-downs.
+* Tweak - CSS improvements.
+* Fix - QuickView + "Enable AJAX add to cart buttons on archives" fix.
+
+2013.10.30 - version 1.6.3
+* Tweak - Added 'wc-composite-item-updated' jQuery trigger.
+
+2013.10.26 - version 1.6.2
+* Feature - Added Base Regular and Base Sale Composite prices to allow switching between the Simple and Composite types.
+* Tweak - Filter price filter widget results in WC 2.1 to include Composite Products accurately.
+* Tweak - Per-item priced composites with component discounts now appear as on-sale.
+* Tweak - Added component title and description filters.
+
+2013.10.24 - version 1.6.1
+* Tweak - Form submit action replaced by input.
+
+2013.10.18 - version 1.6.0
+* Tweak - Markup simplified by moving everything under a single form.
+
+2013.10.02 - version 1.5.4
+* Tweak - Further JS and markup revisions.
+* Feature - QuickView support.
+
+2013.09.27 - version 1.5.3
+* Tweak - Important JS and markup revisions.
+
+2013.09.22 - version 1.5.2
+* Tweak - Dropped price display from item options drop-downs to prepare for WC2.1.
+
+2013.09.21 - version 1.5.1
+* Feature - Name-Your-Price support for composited NYP products and Composites.
+
+2013.09.21 - version 1.5.0
+* Tweak - Displayed prices based on get_price and get_price_html for 2.1 compatibility.
+
+2013.09.20 - version 1.4.9
+* Fix - Re-purchasing composites issue fixed.
+
+2013.08.21 - version 1.4.8
+* Tweak - CSS tweak.
+
+2013.08.21 - version 1.4.7
+* Fix - _price meta for per-item-priced Composites is updated when syncing. - thanks Hugh!
+
+2013.08.19 - version 1.4.6
+* Fix - Compatibility with Add-ons contd. - thanks Patrick!
+
+2013.08.19 - version 1.4.5
+* Tweak - Minor presentation tweaks.
+
+2013.08.19 - version 1.4.4
+* Fix - Validation of quantities.
+
+2013.08.17 - version 1.4.3
+* Tweak - Compatibility with Add-ons.
+* Tweak - Load default variable product selections.
+
+2013.08.14 - version 1.4.2
+* Tweak - Security tweaks.
+
+2013.07.30 - version 1.4.1
+* Fix - Template php notices.
+
+2013.07.30 - version 1.4.0
+* Feature - Define default Component options.
+
+2013.07.30 - version 1.3.4
+* Feature - Component options for hiding product titles, descriptions and thumbnails.
+
+2013.07.23 - version 1.3.3
+* Fix - Fixed zero price error in bto-item-options template.
+
+2013.07.19 - version 1.3.2
+* Fix - Fixed cart totals initialisation due to missing filter.
+
+2013.07.01 - version 1.3.1
+* Tweak - Some filters cleaned up.
+* Fix - Fixed quantity saving bug introduced in 1.3.0.
+
+2013.06.29 - version 1.3.0
+* Feature - Composite components can now have discounts in per-item pricing mode.
+* Fix - Fixed variation selection bug for single-item Components.
+
+2013.06.26 - version 1.2.0
+* Initial Release
+* Tweak - Compatibility classes feature dropped in favour of a new system (in development).
+
+2013.06.24 - version 1.1.3
+* Tweak - Renamed 'Properties' to 'Components'.
+* Fix - Fixed disabled component options when using single-page mode.
+* Fix - Cart tax labels in per-item pricing mode.
+
+2013.06.19 - version 1.1.2
+* Tweak - Prevent composite metadata from displaying in order line items.
+* Tweak - Replaced product title hooks.
+* Tweak - Implement some forward compatibility with WC 2.1.
+* Fix - Drop-down product prices in per-item pricing mode no longer use html.
+
+2013.06.16 - version 1.1.1
+* Fix - Renamed product title hooks.
+
+2013.06.11 - version 1.1.0
+* Fix - PHP notices fixed.
+* Fix - Paged UI JS navigation issues.
+
+2013.06.9 - version 1.0.4
+* Fix - Variable custom attributes fix.
+
+2013.05.31 - version 1.0.3
+* Tweak - Filtered order items count.
+
+2013.05.23 - version 1.0.2
+* Fix - Undefined price description.
+* Tweak - Front end CSS.
+
+2013.05.20 - version 1.0.1
+* Tweak - Streamlined admin area - added notifications for creating Composite Properties and Compatibility Classes.
+
+2013.05.15 - version 1.0.0
+* Initial Release.

@@ -1,0 +1,223 @@
+*** Store Credit Changelog ***
+
+2020-05-24 - version 3.2.1
+* Tweak - Added compatibility with WC 4.2.
+
+2020-05-12 - version 3.2.0
+* Feature - Sell Store credit coupons.
+* Feature - Purchase Store Credit coupons and gift them to someone.
+
+2020-04-28 - version 3.1.3
+* Tweak - Added compatibility with WC 4.1.
+
+2020-03-24 - version 3.1.2
+* Tweak - Added compatibility with WC 4.0.
+* Tweak - Tested compatibility with WP 5.4.
+* Fix - Refresh the coupon list on the 'My Account' page when coupons are updated.
+* Fix - Fixed wrong value for the parameter `$file` when calling the register activation hook.
+* Fix - Fixed error 404 when visiting the 'Store Credit' endpoint on the 'My Account' page without flushing the rewrite rules.
+* Dev - Added filter to tweak whether it's allowed to create coupons with tax included.
+
+2020-02-24 - version 3.1.1
+* Fix - Fixed fatal error when loading the customizer.
+
+2020-02-18 - version 3.1.0
+* Feature - Add a note to the customer when sending store credit.
+* Feature - Filter coupons by customer or email in the coupon list.
+* Tweak - Recovered the setting 'Delete after use'.
+* Tweak - Keep the fields' values in the 'Send Store Credit' form on failure.
+* Tweak - Added admin notice to enable the coupons.
+* Tweak - Use the order's currency to display the Store Credit discount in the edit-order screen.
+
+2020-01-16 - version 3.0.5
+* Tweak - Added compatibility with WC 3.9.
+
+2019-11-05 - version 3.0.4
+* Tweak - Clear the shipping discounts before calculating them again.
+* Tweak - Calculate the cart total using the partial cart totals.
+* Fix - Fixed wrong discounts in the shipping costs when working with the extension 'WooCommerce AvaTax'.
+
+2019-10-31 - version 3.0.3
+* Tweak - Tested compatibility with WP 5.3.
+* Tweak - Tested compatibility with WC 3.8.
+* Fix - Fixed issue when applying a discount to a non-taxable shipping method.
+
+2019-10-10 - version 3.0.2
+* Tweak - Check that the coupon has been stored in the database before sending it to the customer.
+* Tweak - Initialize coupon objects with the coupon code for adding compatibility with other extensions.
+* Fix - The success message on the 'Send Credit' page was not translatable.
+
+2019-10-08 - version 3.0.1
+* Feature - Send credit to guest customers.
+* Tweak - Updated the priority used to load the settings page.
+
+2019-09-24 - version 3.0.0
+* Feature - Create coupons which apply discounts to specific products or product categories.
+* Feature - Define if the coupon amounts include tax or not.
+* Feature - Define if the coupons also apply a discount to the shipping costs.
+* Feature - Each coupon can be configured individually.
+* Feature - Customize the coupon code format.
+* Tweak - Removed customer email from the coupon code.
+* Tweak - Always send to trash the exhausted coupons.
+* Tweak - Updated notice message when applying an exhausted coupon in the cart.
+* Tweak - Improved the email templates used to send credit to a customer.
+* Tweak - Added endpoint to the 'My Account' page for displaying the customer's coupons.
+* Tweak - Improved personal data exporter and eraser.
+* Tweak - Removed unnecessary settings 'Coupon retention' and 'Delete after usage'.
+* Tweak - Check the minimum requirements before initializing the plugin.
+* Tweak - Added link to settings in the plugin action links.
+* Tweak - Added link to the documentation on the plugins page.
+* Tweak - Added compatibility with WC 3.7.
+* Tweak - Tested compatibility with WP 5.2.
+* Fix - Fixed the order balance when applying a coupon with tax included.
+* Fix - Fixed report metrics for orders whose coupons include tax.
+* Fix - Update the order balance after recovering an order from a 'cancelled', 'failed' or 'refunded' status.
+* Fix - Fixed 'usage' counter after restoring a coupon.
+* Fix - Fixed invalid decimal precision when storing the credit used for an order.
+* Fix - Fixed issue when fetching a meta data for a `WC_Order_Refund` object.
+* Fix - Fixed wrong discounts when applying a coupon with tax included in combination with the 'WooCommerce AvaTax' extension.
+* Dev - Set the minimum requirements to WP 4.7 and WC 3.4.
+* Dev - Removed deprecated code.
+
+2019-04-26 - version 2.4.6
+* Tweak - Display the tax label when necessary in the order item totals.
+* Tweak - Moved the store credit row after the order subtotal in the order details when applying coupons before taxes.
+* Tweak - Display the applied coupon code in the cart totals during checkout.
+* Fix - Properly display the store credit value with or without taxes in the order item totals.
+* Fix - Fixed invalid discount during checkout when applying a coupon before taxes and the items price includes taxes. Only for WC 3.4+.
+* Fix - Fixed duplicate entry of the `_store_credit_used` meta when adding a coupon manually in the edit order screen.
+
+2019-04-15 - version 2.4.5
+* Fix - Fixed invalid discount when applying a coupon before taxes and the items price include taxes.
+
+2019-04-04 - version 2.4.4
+* Tweak - Include the `store_credit` parameter in the orders data returned by the API requests.
+* Tweak - Automatically delete store credit coupons with zero discount after recalculate order totals.
+* Tweak - Added compatibility with WC 3.6.
+* Fix - Fixed invalid PayPal request when applying an after-tax discount higher than the order subtotal.
+* Dev - The method `WC_Abstract_Order->get_total_discount` now includes the store credit discount.
+
+2019-03-19 - version 2.4.3
+* Tweak - Synchronize the credit used by the orders in batches of 50 orders during the update process.
+
+2019-03-18 - version 2.4.2
+* Tweak - Remove older update notices on plugin activation.
+
+2019-03-15 - version 2.4.1
+* Fix - Fixed wrong discount when applying a 'Store Credit' coupon after taxes to a cart which contains subscription products.
+
+2019-03-11 - version 2.4.0
+* Feature - Apply 'Store Credit' coupons to an order in the admin screens.
+* Feature - Apply multiple 'Store Credit' coupons to the same order.
+* Feature - Set the payment method to 'Store Credit' in orders paid with a store credit coupon.
+* Tweak - Only delete an exhausted coupon when all the orders where it was used are completed.
+* Tweak - Restore the credit when the order is cancelled, refunded or fails.
+* Tweak - Re-calculate the coupon discounts after updating the order items.
+* Tweak - Restore the coupons' credit when necessary on updating an order.
+* Fix - Fixed 'invalid coupon' error when cancelling the payment with PayPal.
+* Fix - Fixed wrong discounts for coupons applied before taxes in WC versions between 3.2.2 and 3.3.5.
+
+2018-12-19 - version 2.3.0
+* Feature - Include the 'Store credit' used in the order totals.
+* Feature - Display the 'Store credit' used in the invoices.
+* Tweak - Exclude the 'Store credit' used from the discount order total.
+
+2018-10-30 - version 2.2.0
+* Feature - Rewritten the way the 'Store Credit' coupons are applied.
+* Tweak - Save the used store credit on each purchase.
+* Tweak - Define the constants if not already set.
+* Fix - Fixed incorrect 'Store Credit' discounts when applied in combination with other coupons.
+* Fix - PHP notice for undefined index.
+* Fix - Remaining credit amount not correct when using taxes.
+* Fix - Removed the use of the third parameter in the 'array_filter' function (Require PHP 5.6+).
+* Dev - Added constant 'WC_STORE_CREDIT_VERSION'.
+
+2018-06-02 - version 2.1.16
+* Fix - Partial use of store credit shows entire value of store credit as used.
+
+2018-05-24 - version 2.1.15
+* Update - WC tested up to 3.4
+* Add - GDPR Privacy
+
+2018-05-09 - version 2.1.14
+* Fix - Smooth discrepancy values to fix 1 cent issues.
+* Fix - Store Credit removes discounts applied from other coupons.
+
+2018-02-15 - version 2.1.13
+* Fix - Additional fixes for Store credit rounding calculations.
+
+2018-01-30 - version 2.1.12
+* Fix - Store Credit Coupon not applied to Manual Orders.
+* Fix - Store credit not rounding properly when two products in cart with tax included.
+
+2017-12-13 - version 2.1.11
+* Update - WC tested up to version.
+
+2017-09-22 - version 2.1.10
+* Fix - Issue with order total being 0 after completing order.
+
+2017-08-21 - version 2.1.9
+* Fix - When credit is used up during a checkout with zero cart amount, emails not sending.
+* Fix - Order totals wrong when recalculation happens.
+
+2017-05-31 - version 2.1.8
+* Fix - Discount not displaying correctly in cart.
+* Fix - Wrong translation domain name.
+
+2017-05-01 - version 2.1.7
+* Fix - Additional updates for WooCommerce 3.0 compatibility
+
+2017-04-11 - version 2.1.6
+* Fix - Compatibility with Subscriptions
+* Fix - WooCommerce 3.0 compatibility
+
+2015-12-18 - version 2.1.5
+* Fix - When tax is inclusive remaining credit was not taking tax in account
+
+2015-08-19 - version 2.1.4
+* Store credits are now always applied last (after any other coupons)
+
+2014-08-29 - version 2.1.3
+* Prevent store credit affecting other coupon types in 2.1.
+
+2014-08-29 - version 2.1.2
+* Fix - Email template inclusion.
+* Fix - Fix compatibility issue with 2.1.12.
+
+2014-08-25 - version 2.1.1
+* Fix - Send store credit referenced wrong file path.
+* Fix - Send store credit admin template filename typo
+
+2014-08-18 - version 2.1.0
+* Update text domain.
+* Code tidy.
+* Require WC 2.1.
+* Change label shown in cart for store credit coupons.
+* Correctly apply before or after tax based on settings.
+
+2014-08-11 - version 2.0.6
+* Prevent apply before tax option
+
+2014-04-22 - version 2.0.5
+* Move settings to general tab
+
+2013-01-20 - version 2.0.4
+* 2.1 Compat
+
+2012-12-04 - version 2.0.3
+* Fix compound bug
+* WC 2.0 compat
+
+2012-12-04 - version 2.0.2
+* New updater
+
+2012-03-08 - version 2.0.1
+* Fix line height of coupon code in email
+
+2012-03-08 - version 2.0
+* Store credit rewrite
+* Bug fixes with coupon validity
+* Store credit display added to My Account page
+* Generate and email credit to a customer email address via admin
+* Store credit settings added to WooCommerce > Settings > General
+* Option to delete coupon when out of credit

@@ -1,0 +1,15 @@
+{
+  "name": "yithemes/yith-woocommerce-active-campaign-premium",
+  "description": "Integrate Active Campaign into your e-commerce shop to manage users' subscription directly from your store.",
+  "type": "plugin",
+  "require": {
+    "guzzlehttp/guzzle": "^6"
+  },
+  "authors": [
+    {
+      "name": "YIThemes",
+      "email": "info@yithemes.com"
+    }
+  ],
+  "minimum-stability": "stable"
+}

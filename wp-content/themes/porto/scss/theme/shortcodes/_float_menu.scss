@@ -1,0 +1,167 @@
+// Porto Floating Menu
+.floating-menu {
+	.nav .menu-item > a {
+		position: relative;
+		display: block;
+		text-decoration: none;
+	}
+	.floating-menu-btn-collapse-nav {
+		color: #fff;
+		display: none;
+		&:hover {
+			color: #fff;
+		}
+	}
+	.floating-menu-nav-main .menu-item {
+		margin-bottom: 0;
+		&.active > a {
+			background: #FFF !important;
+			&:after {
+				background: #FFF;
+			}
+		}
+	}
+}
+
+@media (min-width: 992px) {
+	.floating-menu {
+		background: transparent;
+		height: 0;
+		min-height: 0 !important;
+		.floating-menu-row {
+			position: absolute;
+			top: 90px;
+			#{$left}: -93px;
+		}
+		.floating-menu-body {
+			position: fixed;
+			top: 0;
+			background: transparent;
+			min-height: 0;
+			padding: 0;
+			border: none;
+			z-index: 999;
+			.admin-bar & { top: 32px; }
+		}
+		.floating-menu-nav-main {
+			display: block !important;
+			margin: 0;
+			height: auto !important;
+			box-shadow: 0px 0px 80px 0px rgba(62, 62, 62, 0.3);
+			.menu-item {
+				&:hover > a > span {
+					-webkit-transform: rotateY(0deg);
+					transform: rotateY(0deg);
+					opacity: 1;
+				}
+				> a {
+					font-size: 25px;
+					padding: 16.65px 17px;
+					@if $rtl != 1 {
+						perspective: 770px;
+					}
+					&:after {
+						content: '';
+						display: block;
+						position: absolute;
+						top: 0;
+						#{$right}: 0;
+						width: 100%;
+						height: 100%;
+						z-index: -1;
+					}
+					> span {
+						position: absolute;
+						top: 0;
+						#{$left}: 127%;
+						background: #fff;
+						padding: 0 25px;
+						height: 100%;
+						line-height: 4.1;
+						white-space: nowrap;
+						font-size: 14px;
+						z-index: -2;
+						transition: transform .3s;
+						opacity: 0;
+						@if $rtl == 1 {
+							-webkit-transform-origin: 119% 0%;
+							transform-origin: 119% 0%;
+							-webkit-transform: rotateY(92deg);
+							transform: rotateY(92deg);
+						} @else {
+							-webkit-transform-origin: -19% 0%;
+							transform-origin: -19% 0%;
+							-webkit-transform: rotateY(88deg);
+							transform: rotateY(88deg);
+						}
+						&:before {
+							content: '';
+							display: block;
+							position: absolute;
+							top: 50%;
+							#{$left}: -4px;
+							padding: 10px;
+							background: #FFF;
+							z-index: -1;
+							-webkit-transform: translate(0, -50%) rotate(45deg);
+							transform: translate(0, -50%) rotate(45deg);
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+@media (min-width: 992px) and (max-width: 1281px) {
+	.floating-menu {
+		.floating-menu-row {
+			#{$left}: -53px;
+		}
+		.floating-menu-nav-main .menu-item > a {
+			padding: 9.8px;
+			@if $rtl != 1 {
+				perspective: 450px;
+			}
+			> span {
+				line-height: 3;
+			}
+		}
+	}
+}
+
+@media (max-width: 991px) {
+	.floating-menu {
+		position: absolute;
+		top: 60px;
+		#{$right}: 0;
+		z-index: 999;
+		.floating-menu-body {
+			background: transparent;
+			border: none;
+			min-height: 0;
+		}
+		.floating-menu-btn-collapse-nav {
+			display: block;
+			padding: 15px 20px;
+			outline: 0;
+		}
+		.floating-menu-nav-main {
+			position: absolute;
+			#{$right}: 0px;
+			top: 71px;
+			overflow: hidden;
+			.menu-item {
+				border: none;
+				> a {
+					font-size: 1.7em;
+					margin: 0;
+					padding: 15px;
+					> span {
+						display: none;
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,2759 @@
+# Copyright (C) 2020 YITH
+# This file is distributed under the same license as the YITH Point of Sale for WooCommerce plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH Point of Sale for WooCommerce 1.0.2\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-point-of-sale-for-woocommerce-premium\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2020-03-03T14:57:31+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.3.0-alpha-d72f134\n"
+"X-Domain: yith-point-of-sale-for-woocommerce\n"
+
+#. Plugin Name of the plugin
+msgid "YITH Point of Sale for WooCommerce"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://yithemes.com/themes/plugins/yith-point-of-sale-for-woocommerce"
+msgstr ""
+
+#. Description of the plugin
+msgid "<code><strong>YITH Point of Sale for WooCommerce</strong></code> allows you to turn your WooCommerce installation into an easy to use and powerful cash register for each type of store or business. <a href=\"https://yithemes.com/\" target=\"_blank\">Get more plugins for your e-commerce shop on <strong>YITH</strong></a>"
+msgstr ""
+
+#. Author of the plugin
+msgid "YITH"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://yithemes.com/"
+msgstr ""
+
+#: includes/admin/class.yith-pos-receipt-post-type-admin.php:75
+msgid "Registers with this template"
+msgstr ""
+
+#: includes/admin/class.yith-pos-register-post-type-admin.php:95
+msgid "Filter by store"
+msgstr ""
+
+#: includes/admin/class.yith-pos-register-post-type-admin.php:104
+msgid "Filter by status"
+msgstr ""
+
+#: includes/admin/class.yith-pos-register-post-type-admin.php:127
+msgid "Register Name"
+msgstr ""
+
+#: includes/admin/class.yith-pos-register-post-type-admin.php:128
+#: includes/class.yith-pos-post-types.php:100
+#: includes/class.yith-pos-post-types.php:114
+#: templates/yith-pos-store-register.php:56
+msgid "Store"
+msgstr ""
+
+#: includes/admin/class.yith-pos-register-post-type-admin.php:129
+#: includes/admin/class.yith-pos-store-post-type-admin.php:284
+msgid "Info"
+msgstr ""
+
+#: includes/admin/class.yith-pos-register-post-type-admin.php:130
+msgid "Status"
+msgstr ""
+
+#: includes/admin/class.yith-pos-register-post-type-admin.php:131
+#: includes/admin/class.yith-pos-store-post-type-admin.php:333
+#: dist/pos/index.js:41
+msgid "Enabled"
+msgstr ""
+
+#: includes/admin/class.yith-pos-register-post-type-admin.php:158
+#: views/panel/store-wizard-summary.php:107
+msgid "Guest Register"
+msgstr ""
+
+#: includes/admin/class.yith-pos-register-post-type-admin.php:158
+msgid "Standard Register"
+msgstr ""
+
+#: includes/admin/class.yith-pos-register-post-type-admin.php:162
+msgid "Receipt: %s"
+msgstr ""
+
+#: includes/admin/class.yith-pos-register-post-type-admin.php:164
+msgid "No Receipt"
+msgstr ""
+
+#: includes/admin/class.yith-pos-register-post-type-admin.php:245
+#: includes/class.yith-pos-post-types.php:103
+#: includes/class.yith-pos-post-types.php:146
+#: includes/class.yith-pos-post-types.php:187
+#: plugin-options/metabox/receipt-options.php:14
+#: plugin-options/metabox/store-options.php:11
+msgid "Edit"
+msgstr ""
+
+#: includes/admin/class.yith-pos-register-post-type-admin.php:254
+#: templates/yith-pos-store-register.php:66
+#: dist/pos/index.js:41
+msgid "Open Register"
+msgstr ""
+
+#. Translators: %s Payment gateway name.
+#: includes/admin/class.yith-pos-store-post-type-admin.php:111
+#: includes/class.yith-pos-admin.php:125
+#: dist/pos/index.js:41
+msgid "Yes"
+msgstr ""
+
+#. Translators: %s Payment gateway name.
+#: includes/admin/class.yith-pos-store-post-type-admin.php:112
+#: includes/class.yith-pos-admin.php:128
+msgid "No"
+msgstr ""
+
+#: includes/admin/class.yith-pos-store-post-type-admin.php:116
+msgid "Filter by enabled status"
+msgstr ""
+
+#: includes/admin/class.yith-pos-store-post-type-admin.php:284
+msgid "Step 1: Store Info"
+msgstr ""
+
+#: includes/admin/class.yith-pos-store-post-type-admin.php:285
+#: includes/admin/class.yith-pos-store-post-type-admin.php:293
+msgid "General store info"
+msgstr ""
+
+#: includes/admin/class.yith-pos-store-post-type-admin.php:285
+msgid "Enter the store details including the address, contact information and social accounts"
+msgstr ""
+
+#: includes/admin/class.yith-pos-store-post-type-admin.php:288
+#: includes/admin/class.yith-pos-store-post-type-admin.php:331
+#: plugin-options/metabox/store-options.php:144
+#: views/panel/store-wizard-nav.php:16
+#: views/panel/store-wizard-summary.php:75
+msgid "Employees"
+msgstr ""
+
+#: includes/admin/class.yith-pos-store-post-type-admin.php:288
+msgid "Step 2: Employees"
+msgstr ""
+
+#: includes/admin/class.yith-pos-store-post-type-admin.php:289
+msgid "Set the employees (managers and cashiers) for this store<br/>You can choose your cashiers from the users already registered in this site or create new cashiers"
+msgstr ""
+
+#: includes/admin/class.yith-pos-store-post-type-admin.php:289
+msgid "Assign a manager to manage all registers and add cashiers to each of them"
+msgstr ""
+
+#: includes/admin/class.yith-pos-store-post-type-admin.php:292
+#: includes/admin/class.yith-pos-store-post-type-admin.php:332
+#: includes/class.yith-pos-admin.php:153
+#: includes/class.yith-pos-post-types.php:142
+#: includes/class.yith-pos-post-types.php:157
+#: plugin-options/metabox/store-options.php:241
+#: views/panel/store-wizard-nav.php:21
+#: views/panel/store-wizard-summary.php:96
+msgid "Registers"
+msgstr ""
+
+#: includes/admin/class.yith-pos-store-post-type-admin.php:292
+msgid "Step 3: Registers"
+msgstr ""
+
+#: includes/admin/class.yith-pos-store-post-type-admin.php:293
+msgid "Create at least one register for this store.<br/>You can set the visibility of each register to hide/show to some users"
+msgstr ""
+
+#: includes/admin/class.yith-pos-store-post-type-admin.php:296
+msgid "Resume"
+msgstr ""
+
+#: includes/admin/class.yith-pos-store-post-type-admin.php:297
+msgid "Just one more step! Click the \"Save Store\" button to save your store. To make changes you can go back now or edit these from \"Stores\" tab."
+msgstr ""
+
+#: includes/admin/class.yith-pos-store-post-type-admin.php:330
+#: plugin-options/metabox/store-options.php:42
+#: views/fields/receipt-preview-template.php:8
+#: views/panel/store-wizard-summary.php:19
+msgid "Store Name"
+msgstr ""
+
+#: includes/admin/class.yith-pos-store-post-type-admin.php:356
+#: views/panel/store-wizard-summary.php:77
+msgid "Managers"
+msgstr ""
+
+#: includes/admin/class.yith-pos-store-post-type-admin.php:361
+#: plugin-options/metabox/store-options.php:199
+#: views/panel/store-wizard-summary.php:86
+msgid "Cashiers"
+msgstr ""
+
+#: includes/admin/class.yith-pos-store-post-type-admin.php:446
+msgid "Show Registers"
+msgstr ""
+
+#: includes/class.yith-pos-admin.php:97
+#: includes/class.yith-pos-admin.php:99
+msgid "Enabled on YITH POS"
+msgstr ""
+
+#. Translators: %s Payment gateway name.
+#: includes/class.yith-pos-admin.php:125
+msgid "The \"%s\" payment method is currently enabled on YITH POS"
+msgstr ""
+
+#. Translators: %s Payment gateway name.
+#: includes/class.yith-pos-admin.php:128
+msgid "The \"%s\" payment method is currently disabled on YITH POS"
+msgstr ""
+
+#: includes/class.yith-pos-admin.php:145
+msgid "Dashboard"
+msgstr ""
+
+#: includes/class.yith-pos-admin.php:149
+#: includes/class.yith-pos-post-types.php:99
+msgid "Stores"
+msgstr ""
+
+#: includes/class.yith-pos-admin.php:157
+#: includes/class.yith-pos-post-types.php:183
+#: includes/class.yith-pos-post-types.php:198
+msgid "Receipts"
+msgstr ""
+
+#: includes/class.yith-pos-admin.php:161
+msgid "Customization"
+msgstr ""
+
+#: includes/class.yith-pos-admin.php:390
+msgid "Visit POS"
+msgstr ""
+
+#: includes/class.yith-pos-admin.php:401
+#: includes/class.yith-pos-admin.php:413
+#: includes/class.yith-pos-frontend.php:133
+#: views/fields/receipt-preview-template.php:11
+msgid "VAT"
+msgstr ""
+
+#: includes/class.yith-pos-admin.php:431
+#: includes/class.yith-pos.php:278
+msgid "YITH POS"
+msgstr ""
+
+#: includes/class.yith-pos-admin.php:432
+msgid "Online"
+msgstr ""
+
+#: includes/class.yith-pos-admin.php:435
+msgid "Filter by YITH POS or online"
+msgstr ""
+
+#: includes/class.yith-pos-admin.php:507
+msgid "POS Info"
+msgstr ""
+
+#: includes/class.yith-pos-admin.php:513
+msgid "Settings"
+msgstr ""
+
+#: includes/class.yith-pos-ajax.php:108
+msgid "Error: Store #%s not found"
+msgstr ""
+
+#: includes/class.yith-pos-ajax.php:113
+#: includes/class.yith-pos-ajax.php:139
+#: includes/class.yith-pos-ajax.php:164
+#: includes/class.yith-pos-ajax.php:206
+#: includes/class.yith-pos-ajax.php:243
+#: includes/class.yith-pos-ajax.php:280
+msgid "Error: Invalid request. Try again!"
+msgstr ""
+
+#: includes/class.yith-pos-ajax.php:134
+msgid "Error: Register #%s not found"
+msgstr ""
+
+#: includes/class.yith-pos-ajax.php:258
+msgid "Register updated correctly!"
+msgstr ""
+
+#: includes/class.yith-pos-ajax.php:262
+msgid "Error: Something had gone wrong. Please try again!"
+msgstr ""
+
+#: includes/class.yith-pos-ajax.php:267
+#: includes/class.yith-pos-ajax.php:291
+msgid "Error: Register #%s not found. Please try again!"
+msgstr ""
+
+#: includes/class.yith-pos-ajax.php:359
+msgid "No cashiers found for the selected Store."
+msgstr ""
+
+#: includes/class.yith-pos-assets.php:101
+msgid "Here you can create, edit and manage all the Stores."
+msgstr ""
+
+#: includes/class.yith-pos-assets.php:102
+msgid "Here you can manage all the Registers of the Stores"
+msgstr ""
+
+#: includes/class.yith-pos-assets.php:103
+msgid "Here you can manage all the Receipt Templates"
+msgstr ""
+
+#: includes/class.yith-pos-assets.php:104
+msgid "You need to create at least one Register before proceeding"
+msgstr ""
+
+#: includes/class.yith-pos-assets.php:105
+msgid "You cannot restock items automatically for a POS order.<br />You should restock them manually after refunding the order."
+msgstr ""
+
+#: includes/class.yith-pos-assets.php:117
+msgid "Are you sure you want to delete this Register?"
+msgstr ""
+
+#: includes/class.yith-pos-frontend.php:420
+msgid "Error: you cannot get access to this Register!"
+msgstr ""
+
+#: includes/class.yith-pos-orders.php:90
+#: dist/pos/index.js:41
+msgid "Note"
+msgstr ""
+
+#: includes/class.yith-pos-post-types.php:101
+#: includes/class.yith-pos-post-types.php:102
+msgid "Add New Store"
+msgstr ""
+
+#: includes/class.yith-pos-post-types.php:104
+msgid "Edit Store"
+msgstr ""
+
+#: includes/class.yith-pos-post-types.php:105
+msgid "New Store"
+msgstr ""
+
+#: includes/class.yith-pos-post-types.php:106
+#: includes/class.yith-pos-post-types.php:107
+msgid "View Store"
+msgstr ""
+
+#: includes/class.yith-pos-post-types.php:108
+msgid "Search Store"
+msgstr ""
+
+#: includes/class.yith-pos-post-types.php:109
+#: includes/class.yith-pos-post-types.php:152
+#: includes/class.yith-pos-post-types.php:193
+msgid "Not found"
+msgstr ""
+
+#: includes/class.yith-pos-post-types.php:110
+#: includes/class.yith-pos-post-types.php:153
+#: includes/class.yith-pos-post-types.php:194
+msgid "Not found in trash"
+msgstr ""
+
+#: includes/class.yith-pos-post-types.php:116
+msgid "This is where Stores are stored."
+msgstr ""
+
+#: includes/class.yith-pos-post-types.php:143
+#: templates/yith-pos-store-register.php:62
+#: views/fields/receipt-preview-template.php:96
+msgid "Register"
+msgstr ""
+
+#: includes/class.yith-pos-post-types.php:144
+#: includes/class.yith-pos-post-types.php:145
+msgid "Add New Register"
+msgstr ""
+
+#: includes/class.yith-pos-post-types.php:147
+msgid "Edit Register"
+msgstr ""
+
+#: includes/class.yith-pos-post-types.php:148
+msgid "New Register"
+msgstr ""
+
+#: includes/class.yith-pos-post-types.php:149
+#: includes/class.yith-pos-post-types.php:150
+msgid "View Register"
+msgstr ""
+
+#: includes/class.yith-pos-post-types.php:151
+msgid "Search Registers"
+msgstr ""
+
+#: includes/class.yith-pos-post-types.php:159
+msgid "This is where Registers are stored."
+msgstr ""
+
+#: includes/class.yith-pos-post-types.php:184
+#: includes/class.yith-pos-post-types.php:442
+msgid "Receipt"
+msgstr ""
+
+#: includes/class.yith-pos-post-types.php:185
+#: includes/class.yith-pos-post-types.php:186
+msgid "Add New Receipt"
+msgstr ""
+
+#: includes/class.yith-pos-post-types.php:188
+msgid "Edit Receipt"
+msgstr ""
+
+#: includes/class.yith-pos-post-types.php:189
+msgid "New Receipt"
+msgstr ""
+
+#: includes/class.yith-pos-post-types.php:190
+#: includes/class.yith-pos-post-types.php:191
+msgid "View Receipt"
+msgstr ""
+
+#: includes/class.yith-pos-post-types.php:192
+msgid "Search Receipts"
+msgstr ""
+
+#: includes/class.yith-pos-post-types.php:200
+msgid "This is where Receipts are stored."
+msgstr ""
+
+#: includes/class.yith-pos-post-types.php:323
+#: includes/class.yith-pos-post-types.php:324
+msgid "Store \"%s\" updated!"
+msgstr ""
+
+#: includes/class.yith-pos-post-types.php:325
+msgid "Congrats! You've just created your Store: %s."
+msgstr ""
+
+#: includes/class.yith-pos-post-types.php:326
+msgid "Store \"%s\" saved!"
+msgstr ""
+
+#: includes/class.yith-pos-post-types.php:329
+#: includes/class.yith-pos-post-types.php:330
+msgid "Register \"%s\" updated!"
+msgstr ""
+
+#: includes/class.yith-pos-post-types.php:331
+msgid "Congrats! You've just created your Register: %s."
+msgstr ""
+
+#: includes/class.yith-pos-post-types.php:332
+msgid "Register \"%s\" saved!"
+msgstr ""
+
+#: includes/class.yith-pos-post-types.php:335
+#: includes/class.yith-pos-post-types.php:336
+msgid "Receipt \"%s\" updated!"
+msgstr ""
+
+#: includes/class.yith-pos-post-types.php:337
+msgid "Congrats! You've just created your receipt: %s."
+msgstr ""
+
+#: includes/class.yith-pos-post-types.php:338
+msgid "Receipt \"%s\" saved!"
+msgstr ""
+
+#: includes/class.yith-pos-post-types.php:368
+msgid "YITH POS roles and capabilities regenerated correctly!"
+msgstr ""
+
+#: includes/class.yith-pos-post-types.php:405
+msgctxt "User role"
+msgid "YITH POS Manager"
+msgstr ""
+
+#: includes/class.yith-pos-post-types.php:406
+msgctxt "User role"
+msgid "YITH POS Cashier"
+msgstr ""
+
+#: includes/class.yith-pos-post-types.php:451
+msgid "receipt"
+msgstr ""
+
+#: includes/class.yith-pos-post-types.php:455
+#: plugin-options/metabox/receipt-options.php:65
+msgid "VAT:"
+msgstr ""
+
+#: includes/class.yith-pos-post-types.php:462
+#: plugin-options/metabox/receipt-options.php:206
+msgid "Date:"
+msgstr ""
+
+#: includes/class.yith-pos-post-types.php:464
+#: plugin-options/metabox/receipt-options.php:225
+msgid "Order:"
+msgstr ""
+
+#: includes/class.yith-pos-post-types.php:466
+#: plugin-options/metabox/receipt-options.php:244
+#: dist/pos/index.js:41
+msgid "Customer:"
+msgstr ""
+
+#: includes/class.yith-pos-post-types.php:468
+#: plugin-options/metabox/receipt-options.php:263
+#: views/metabox/shop-order-pos-info-metabox.php:8
+#: dist/pos/index.js:41
+msgid "Register:"
+msgstr ""
+
+#: includes/class.yith-pos-post-types.php:470
+#: plugin-options/metabox/receipt-options.php:298
+#: views/fields/receipt-preview-template.php:105
+msgid "Thanks for your purchase"
+msgstr ""
+
+#: includes/class.yith-pos-products.php:55
+msgid "POS results only"
+msgstr ""
+
+#: includes/class.yith-pos.php:66
+msgid "YITH POS template Page"
+msgstr ""
+
+#: includes/class.yith-pos.php:267
+msgctxt "slug of the page"
+msgid "pos"
+msgstr ""
+
+#: includes/functions.yith-pos-caps.php:148
+msgid "You do not have permission to view products"
+msgstr ""
+
+#: includes/functions.yith-pos-caps.php:149
+msgid "You do not have permission to create products"
+msgstr ""
+
+#: includes/functions.yith-pos-caps.php:150
+msgid "You do not have permission to view product categories"
+msgstr ""
+
+#: includes/functions.yith-pos-caps.php:151
+msgid "You do not have permission to create orders"
+msgstr ""
+
+#: includes/functions.yith-pos-caps.php:152
+msgid "You do not have permission to see orders"
+msgstr ""
+
+#: includes/functions.yith-pos-caps.php:153
+msgid "You do not have permission to manage POS"
+msgstr ""
+
+#: includes/functions.yith-pos-caps.php:154
+msgid "You do not have permission to view reports"
+msgstr ""
+
+#: includes/functions.yith-pos-caps.php:155
+msgid "You do not have permission to view coupons"
+msgstr ""
+
+#: includes/functions.yith-pos-caps.php:156
+msgid "You do not have permission to use POS"
+msgstr ""
+
+#: includes/functions.yith-pos-caps.php:157
+msgid "You do not have permission to view users"
+msgstr ""
+
+#: includes/functions.yith-pos-caps.php:158
+msgid "You do not have permission to edit users"
+msgstr ""
+
+#: includes/functions.yith-pos-caps.php:159
+msgid "You do not have permission to create users"
+msgstr ""
+
+#: includes/functions.yith-pos-core.php:59
+msgid "User #%s"
+msgstr ""
+
+#: includes/functions.yith-pos-core.php:129
+msgid "and other %s..."
+msgstr ""
+
+#: includes/functions.yith-pos-core.php:130
+msgid "hide"
+msgstr ""
+
+#: includes/functions.yith-pos-core.php:322
+msgid "No receipt"
+msgstr ""
+
+#: includes/functions.yith-pos-core.php:350
+#: includes/functions.yith-pos-core.php:351
+msgid "Create new user"
+msgstr ""
+
+#: includes/functions.yith-pos-core.php:352
+msgid "Close new user creation"
+msgstr ""
+
+#: includes/functions.yith-pos-core.php:353
+msgid "Create user"
+msgstr ""
+
+#: includes/functions.yith-pos-core.php:384
+msgid "This field is required."
+msgstr ""
+
+#: includes/functions.yith-pos-core.php:460
+msgid "Opened"
+msgstr ""
+
+#: includes/functions.yith-pos-core.php:461
+msgid "Closed"
+msgstr ""
+
+#: includes/gateways/class.yith-pos-payment-gateway-cache.php:24
+#: includes/gateways/class.yith-pos-payment-gateway-cache.php:61
+#: views/fields/receipt-preview-template.php:70
+msgid "Cash"
+msgstr ""
+
+#: includes/gateways/class.yith-pos-payment-gateway-cache.php:25
+msgid "Allow cash payments."
+msgstr ""
+
+#: includes/gateways/class.yith-pos-payment-gateway-cache.php:51
+#: includes/gateways/class.yith-pos-payment-gateway-chip-pin.php:49
+msgid "Enable/Disable"
+msgstr ""
+
+#: includes/gateways/class.yith-pos-payment-gateway-cache.php:53
+#: includes/gateways/class.yith-pos-payment-gateway-chip-pin.php:51
+msgid "This is a required payment"
+msgstr ""
+
+#: includes/gateways/class.yith-pos-payment-gateway-cache.php:58
+#: includes/gateways/class.yith-pos-payment-gateway-chip-pin.php:56
+msgid "Title"
+msgstr ""
+
+#: includes/gateways/class.yith-pos-payment-gateway-cache.php:60
+#: includes/gateways/class.yith-pos-payment-gateway-chip-pin.php:58
+msgid "This is the title for the Cash Payment."
+msgstr ""
+
+#: includes/gateways/class.yith-pos-payment-gateway-cache.php:65
+#: includes/gateways/class.yith-pos-payment-gateway-chip-pin.php:63
+msgid "Description"
+msgstr ""
+
+#: includes/gateways/class.yith-pos-payment-gateway-cache.php:67
+#: includes/gateways/class.yith-pos-payment-gateway-cache.php:68
+#: includes/gateways/class.yith-pos-payment-gateway-chip-pin.php:65
+#: includes/gateways/class.yith-pos-payment-gateway-chip-pin.php:66
+msgid "This payment method is for YITH Point of Sale for WooCommerce."
+msgstr ""
+
+#: includes/gateways/class.yith-pos-payment-gateway-cache.php:72
+msgid "Instructions"
+msgstr ""
+
+#: includes/gateways/class.yith-pos-payment-gateway-cache.php:74
+msgid "No instructions."
+msgstr ""
+
+#: includes/gateways/class.yith-pos-payment-gateway-cache.php:94
+msgid "Paid via Cash"
+msgstr ""
+
+#: includes/gateways/class.yith-pos-payment-gateway-chip-pin.php:25
+#: includes/gateways/class.yith-pos-payment-gateway-chip-pin.php:59
+msgid "Chip and Pin"
+msgstr ""
+
+#: includes/gateways/class.yith-pos-payment-gateway-chip-pin.php:26
+msgid "Allow Credit Card payments."
+msgstr ""
+
+#: includes/gateways/class.yith-pos-payment-gateway-chip-pin.php:84
+msgid "Paid by Credit Card"
+msgstr ""
+
+#: includes/rest-api/Controllers/Version1/class.yith-pos-wc-rest-registers-controller.php:59
+msgid "Unique identifier for the resource."
+msgstr ""
+
+#: includes/rest-api/Controllers/Version1/class.yith-pos-wc-rest-registers-controller.php:140
+msgid "Unique identifier for the object."
+msgstr ""
+
+#: includes/rest-api/Controllers/Version1/class.yith-pos-wc-rest-registers-controller.php:146
+msgid "Register Name."
+msgstr ""
+
+#: includes/rest-api/Reports/Cashiers/Controller.php:68
+#: includes/rest-api/Reports/PaymentMethods/Controller.php:67
+msgid "Invalid response from data store."
+msgstr ""
+
+#: includes/rest-api/Reports/Cashiers/Controller.php:142
+msgid "Cashier ID."
+msgstr ""
+
+#: includes/rest-api/Reports/Cashiers/Controller.php:148
+msgid "Amount of items sold."
+msgstr ""
+
+#: includes/rest-api/Reports/Cashiers/Controller.php:154
+msgid "Total Sales."
+msgstr ""
+
+#: includes/rest-api/Reports/Cashiers/Controller.php:160
+#: includes/rest-api/Reports/PaymentMethods/Controller.php:157
+msgid "Number of orders."
+msgstr ""
+
+#: includes/rest-api/Reports/Cashiers/Controller.php:166
+msgid "Number of products."
+msgstr ""
+
+#: includes/rest-api/Reports/Cashiers/Controller.php:176
+msgid "Cashier's name."
+msgstr ""
+
+#: includes/rest-api/Reports/Cashiers/Controller.php:194
+#: includes/rest-api/Reports/PaymentMethods/Controller.php:183
+msgid "Current page of the collection."
+msgstr ""
+
+#: includes/rest-api/Reports/Cashiers/Controller.php:202
+#: includes/rest-api/Reports/PaymentMethods/Controller.php:191
+msgid "Maximum number of items to be returned in result set."
+msgstr ""
+
+#: includes/rest-api/Reports/Cashiers/Controller.php:211
+#: includes/rest-api/Reports/PaymentMethods/Controller.php:200
+msgid "Limit response to resources published after a given ISO8601 compliant date."
+msgstr ""
+
+#: includes/rest-api/Reports/Cashiers/Controller.php:217
+#: includes/rest-api/Reports/PaymentMethods/Controller.php:206
+msgid "Limit response to resources published before a given ISO8601 compliant date."
+msgstr ""
+
+#: includes/rest-api/Reports/Cashiers/Controller.php:223
+#: includes/rest-api/Reports/PaymentMethods/Controller.php:212
+msgid "Order sort attribute ascending or descending."
+msgstr ""
+
+#: includes/rest-api/Reports/Cashiers/Controller.php:230
+#: includes/rest-api/Reports/PaymentMethods/Controller.php:219
+msgid "Sort collection by object attribute."
+msgstr ""
+
+#: includes/rest-api/Reports/Cashiers/Controller.php:249
+#: includes/rest-api/Reports/PaymentMethods/Controller.php:229
+msgid "Time interval to use for buckets in the returned data."
+msgstr ""
+
+#: includes/rest-api/Reports/Cashiers/Controller.php:263
+#: includes/rest-api/Reports/PaymentMethods/Controller.php:243
+msgid "Limit result set to items that have the specified order status."
+msgstr ""
+
+#: includes/rest-api/Reports/Cashiers/Controller.php:273
+#: includes/rest-api/Reports/PaymentMethods/Controller.php:253
+msgid "Limit result set to items that don't have the specified order status."
+msgstr ""
+
+#: includes/rest-api/Reports/Cashiers/Controller.php:283
+msgid "Limit result set to all items that have the specified cashier."
+msgstr ""
+
+#: includes/rest-api/Reports/Cashiers/Controller.php:292
+msgid "Add additional info about each cashier to the report."
+msgstr ""
+
+#: includes/rest-api/Reports/Cashiers/Controller.php:300
+#: includes/rest-api/Reports/PaymentMethods/Controller.php:272
+msgid "The Register."
+msgstr ""
+
+#: includes/rest-api/Reports/Cashiers/Controller.php:307
+#: includes/rest-api/Reports/PaymentMethods/Controller.php:279
+msgid "The Store."
+msgstr ""
+
+#: includes/rest-api/Reports/Cashiers/DataStore.php:219
+#: includes/rest-api/Reports/PaymentMethods/DataStore.php:249
+msgid "Sorry, fetching data failed."
+msgstr ""
+
+#: includes/rest-api/Reports/PaymentMethods/Controller.php:145
+msgid "Payment Method."
+msgstr ""
+
+#: includes/rest-api/Reports/PaymentMethods/Controller.php:151
+msgid "Payment Method Name."
+msgstr ""
+
+#: includes/rest-api/Reports/PaymentMethods/Controller.php:163
+msgid "Amount."
+msgstr ""
+
+#: includes/rest-api/Reports/PaymentMethods/Controller.php:264
+msgid "Include payment methods with no sale."
+msgstr ""
+
+#: init.php:45
+msgid "%s is enabled but not effective. It requires WooCommerce in order to work."
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:7
+msgid "Update Receipt"
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:8
+msgid "Move to trash"
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:10
+msgid "Save Receipt"
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:21
+msgid "General"
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:25
+msgid "General Settings"
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:29
+msgid "Receipt name"
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:30
+msgid "Enter a name to identify this receipt template"
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:32
+msgid "The receipt name is required."
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:36
+msgid "Receipt Header"
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:40
+msgid "Logo"
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:43
+msgid "Upload your logo to customize the receipt. Supported image formats : gif, jpg, jpeg, png."
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:47
+#: dist/pos/index.js:41
+msgid "Name"
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:49
+msgid "Show or hide the Store name in this receipt"
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:55
+msgid "Show VAT"
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:57
+msgid "Show or hide the VAT number in this receipt"
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:62
+msgid "VAT label"
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:63
+msgid "Enter the label for VAT field. Default: VAT"
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:74
+#: plugin-options/metabox/store-options.php:55
+#: views/panel/store-wizard-summary.php:27
+#: dist/pos/index.js:41
+msgid "Address"
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:75
+msgid "Show or hide the Address of the store in this receipt"
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:81
+#: plugin-options/metabox/store-options.php:80
+msgid "Contact Info"
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:82
+msgid "Show or hide the Contact Info of the store in this receipt"
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:89
+#: plugin-options/metabox/store-options.php:84
+#: views/panel/store-wizard-summary.php:31
+#: dist/pos/index.js:41
+msgid "Phone"
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:101
+#: plugin-options/metabox/store-options.php:96
+#: views/panel/store-wizard-summary.php:39
+msgid "E-mail"
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:113
+#: plugin-options/metabox/store-options.php:90
+#: views/panel/store-wizard-summary.php:35
+msgid "Fax"
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:126
+#: plugin-options/metabox/store-options.php:102
+#: views/panel/store-wizard-summary.php:43
+msgid "Website"
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:136
+msgid "Socials"
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:137
+msgid "Show or hide the socials of the store in this receipt"
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:144
+#: plugin-options/metabox/store-options.php:112
+#: views/panel/store-wizard-summary.php:47
+msgid "Facebook"
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:156
+#: plugin-options/metabox/store-options.php:118
+#: views/panel/store-wizard-summary.php:51
+msgid "Twitter"
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:168
+#: plugin-options/metabox/store-options.php:124
+#: views/panel/store-wizard-summary.php:55
+msgid "Instagram"
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:181
+#: plugin-options/metabox/store-options.php:130
+#: views/panel/store-wizard-summary.php:59
+msgid "Youtube"
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:192
+msgid "Order Info"
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:196
+msgid "Show Order Date"
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:197
+msgid "Show or hide the order date in this receipt"
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:203
+msgid "Order Date label"
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:204
+msgid "Enter the label for Order Date field"
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:215
+msgid "Show Order Number"
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:216
+msgid "Show or hide the order number in this receipt"
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:222
+msgid "Order Number label"
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:223
+msgid "Enter the label for Order Number field"
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:234
+msgid "Show Customer Name"
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:235
+msgid "Show or hide the customer name in this receipt (not available in guest register)"
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:241
+msgid "Customer label"
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:242
+msgid "Enter the label for Customer field"
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:253
+msgid "Show Register Name"
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:254
+msgid "Show or hide the cashiers name in this receipt (not available in guest register)"
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:260
+msgid "Register label"
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:261
+msgid "Enter the label for Register field"
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:272
+msgid "Show Cashier Name"
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:273
+msgid "Show or hide the cashier name in this receipt (not available in guest register)"
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:279
+msgid "Cashier label"
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:280
+msgid "Enter the label for Cashier field"
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:282
+#: views/metabox/shop-order-pos-info-metabox.php:13
+msgid "Cashier:"
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:292
+msgid "Receipt footer"
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:296
+msgid "Footer text"
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:297
+msgid "Enter optional text for footer area in receipt template"
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:311
+msgid "Receipt Preview"
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:318
+msgid "Print Preview"
+msgstr ""
+
+#: plugin-options/metabox/receipt-options.php:332
+msgid "Print Example"
+msgstr ""
+
+#: plugin-options/metabox/register-options.php:14
+msgid "Register name"
+msgstr ""
+
+#: plugin-options/metabox/register-options.php:15
+msgid "Enter a name to identify this Register."
+msgstr ""
+
+#: plugin-options/metabox/register-options.php:18
+msgid "The Register name is required."
+msgstr ""
+
+#: plugin-options/metabox/register-options.php:25
+msgid "Scan barcodes"
+msgstr ""
+
+#: plugin-options/metabox/register-options.php:26
+msgid "If enabled, products can be added to the cart by scanning their barcodes."
+msgstr ""
+
+#: plugin-options/metabox/register-options.php:37
+#: plugin-options/settings-options.php:90
+msgid "Payment methods"
+msgstr ""
+
+#: plugin-options/metabox/register-options.php:44
+msgid "Select products to show"
+msgstr ""
+
+#: plugin-options/metabox/register-options.php:47
+msgid "All products"
+msgstr ""
+
+#: plugin-options/metabox/register-options.php:48
+msgid "Specific products / product categories"
+msgstr ""
+
+#: plugin-options/metabox/register-options.php:73
+msgid "In Register dashboard show"
+msgstr ""
+
+#: plugin-options/metabox/register-options.php:75
+msgid "Set Categories > Products if you want to show your product categories and the products of each category in your Register dashboard."
+msgstr ""
+
+#: plugin-options/metabox/register-options.php:76
+msgid "Set Only Products if you want to show just your products without categories"
+msgstr ""
+
+#: plugin-options/metabox/register-options.php:79
+msgid "Categories > Products"
+msgstr ""
+
+#: plugin-options/metabox/register-options.php:80
+msgid "Only products"
+msgstr ""
+
+#: plugin-options/metabox/register-options.php:86
+msgid "Register visibility"
+msgstr ""
+
+#: plugin-options/metabox/register-options.php:88
+msgid "Set if you want to show this Register for specific Cashiers."
+msgstr ""
+
+#: plugin-options/metabox/register-options.php:88
+msgid "You must set at least one Cashier in Store."
+msgstr ""
+
+#: plugin-options/metabox/register-options.php:90
+#: dist/pos/index.js:41
+msgid "All"
+msgstr ""
+
+#: plugin-options/metabox/register-options.php:91
+msgid "Hide / Show to specific Cashiers"
+msgstr ""
+
+#: plugin-options/metabox/register-options.php:94
+msgid "You must add at least one Cashier to activate this option"
+msgstr ""
+
+#: plugin-options/metabox/register-options.php:107
+msgid "Enable receipts"
+msgstr ""
+
+#: plugin-options/metabox/register-options.php:115
+msgid "Enable Register closing report"
+msgstr ""
+
+#: plugin-options/metabox/register-options.php:116
+msgid "If enabled, the Cashier will see the final report before closing the Register."
+msgstr ""
+
+#: plugin-options/metabox/register-options.php:122
+msgid "Enable Register final notes"
+msgstr ""
+
+#: plugin-options/metabox/register-options.php:123
+msgid "If enabled, the Cashier will be able to add notes before closing the Register."
+msgstr ""
+
+#: plugin-options/metabox/store-options.php:8
+msgid "Save"
+msgstr ""
+
+#: plugin-options/metabox/store-options.php:18
+msgid "Store Info"
+msgstr ""
+
+#: plugin-options/metabox/store-options.php:38
+msgid "General Info"
+msgstr ""
+
+#: plugin-options/metabox/store-options.php:45
+msgid "Enter a name to identify this store."
+msgstr ""
+
+#: plugin-options/metabox/store-options.php:46
+msgid "The store name is required"
+msgstr ""
+
+#: plugin-options/metabox/store-options.php:50
+#: views/panel/store-wizard-summary.php:23
+msgid "VAT Number"
+msgstr ""
+
+#: plugin-options/metabox/store-options.php:52
+msgid "Enter a VAT number for this store."
+msgstr ""
+
+#: plugin-options/metabox/store-options.php:59
+msgid "Full Address"
+msgstr ""
+
+#: plugin-options/metabox/store-options.php:60
+msgid "Enter a street address for this store location."
+msgstr ""
+
+#: plugin-options/metabox/store-options.php:64
+#: dist/pos/index.js:41
+msgid "City"
+msgstr ""
+
+#: plugin-options/metabox/store-options.php:65
+msgid "Enter the city in which this store is located."
+msgstr ""
+
+#: plugin-options/metabox/store-options.php:69
+msgid "Country / State"
+msgstr ""
+
+#: plugin-options/metabox/store-options.php:70
+msgid "Enter the Country / State / Province in which this store is located."
+msgstr ""
+
+#: plugin-options/metabox/store-options.php:75
+msgid "Postcode / ZIP"
+msgstr ""
+
+#: plugin-options/metabox/store-options.php:76
+msgid "Enter the postal code of this address."
+msgstr ""
+
+#: plugin-options/metabox/store-options.php:85
+msgid "Enter the phone number of this store."
+msgstr ""
+
+#: plugin-options/metabox/store-options.php:91
+msgid "Enter the fax number of this store."
+msgstr ""
+
+#: plugin-options/metabox/store-options.php:97
+msgid "Enter the e-mail address of this store."
+msgstr ""
+
+#: plugin-options/metabox/store-options.php:99
+msgid "Please provide a valid email address"
+msgstr ""
+
+#: plugin-options/metabox/store-options.php:103
+msgid "Enter the website url of this store."
+msgstr ""
+
+#: plugin-options/metabox/store-options.php:105
+msgid "Please provide a valid website url"
+msgstr ""
+
+#: plugin-options/metabox/store-options.php:108
+msgid "Social"
+msgstr ""
+
+#: plugin-options/metabox/store-options.php:113
+msgid "Enter the Facebook url of this store."
+msgstr ""
+
+#: plugin-options/metabox/store-options.php:119
+msgid "Enter the Twitter ID or username of this store."
+msgstr ""
+
+#: plugin-options/metabox/store-options.php:125
+msgid "Enter the Instagram ID or username of this store."
+msgstr ""
+
+#: plugin-options/metabox/store-options.php:131
+msgid "Enter the Youtube username for this store."
+msgstr ""
+
+#: plugin-options/metabox/store-options.php:160
+msgid "Managers "
+msgstr ""
+
+#: plugin-options/metabox/store-options.php:165
+msgid "A <strong>manager</strong> has full access to all registers and functionalities, assigned to this store.<br/>Please note, that <strong>you have to assign at least one manager</strong> before proceeding to the next step."
+msgstr ""
+
+#: plugin-options/metabox/store-options.php:170
+msgid "Choose managers from your \"Users\" list"
+msgstr ""
+
+#: plugin-options/metabox/store-options.php:174
+#: plugin-options/metabox/store-options.php:211
+msgid "Remove All"
+msgstr ""
+
+#: plugin-options/metabox/store-options.php:174
+msgid "Click and type at least 1 letter to search and add a user as a manager."
+msgstr ""
+
+#: plugin-options/metabox/store-options.php:174
+msgid "<strong>Note:</strong> a Contributor and a Subscriber can not be added as Manager."
+msgstr ""
+
+#: plugin-options/metabox/store-options.php:178
+msgid "Search Managers"
+msgstr ""
+
+#: plugin-options/metabox/store-options.php:179
+msgid "You have to set at least one manager to proceed to next step"
+msgstr ""
+
+#: plugin-options/metabox/store-options.php:187
+msgid "Do you need to setup a new manager profile?"
+msgstr ""
+
+#: plugin-options/metabox/store-options.php:189
+msgid "Create new manager"
+msgstr ""
+
+#: plugin-options/metabox/store-options.php:190
+msgid "Close new manager creation"
+msgstr ""
+
+#: plugin-options/metabox/store-options.php:191
+msgid "Create new store manager"
+msgstr ""
+
+#: plugin-options/metabox/store-options.php:192
+msgid "Create manager"
+msgstr ""
+
+#: plugin-options/metabox/store-options.php:204
+msgid "<p class=\"section-description\">A <strong>Cashier</strong> might have limited access to the store Registers (e.g. being allowed to use only Register 1, but not Register 2). You can set these limits when adding a register.</p>"
+msgstr ""
+
+#: plugin-options/metabox/store-options.php:208
+msgid "Choose Cashiers from your \"Users\" list"
+msgstr ""
+
+#: plugin-options/metabox/store-options.php:211
+msgid "Click and type at least 3 letters to search and add a user as a manager."
+msgstr ""
+
+#: plugin-options/metabox/store-options.php:211
+msgid "<strong>Note:</strong> a Contributor and a Subscriber can not be added as cashiers."
+msgstr ""
+
+#: plugin-options/metabox/store-options.php:215
+msgid "Search Cashiers"
+msgstr ""
+
+#: plugin-options/metabox/store-options.php:216
+msgid "You have to set at least one Cashier to proceed to the next step"
+msgstr ""
+
+#: plugin-options/metabox/store-options.php:223
+msgid "Do you need to set up a new Cashier profile?"
+msgstr ""
+
+#: plugin-options/metabox/store-options.php:225
+msgid "Create new Cashier"
+msgstr ""
+
+#: plugin-options/metabox/store-options.php:226
+#: plugin-options/metabox/store-options.php:227
+msgid "Create new store Cashier"
+msgstr ""
+
+#: plugin-options/metabox/store-options.php:228
+msgid "Create cashier"
+msgstr ""
+
+#: plugin-options/settings-options.php:20
+msgctxt "Panel: page title"
+msgid "General Settings"
+msgstr ""
+
+#: plugin-options/settings-options.php:25
+msgid "Enable sound effect"
+msgstr ""
+
+#: plugin-options/settings-options.php:26
+msgid "Enable or disable the sound effect when a product is added to cart"
+msgstr ""
+
+#: plugin-options/settings-options.php:33
+msgid "Close popup windows when clicking on the background"
+msgstr ""
+
+#: plugin-options/settings-options.php:34
+msgid "If enabled, all popup windows will be closed by clicking on the background"
+msgstr ""
+
+#: plugin-options/settings-options.php:45
+#: plugin-options/settings-options.php:49
+msgid "Login page"
+msgstr ""
+
+#: plugin-options/settings-options.php:50
+msgid "Select the page of login"
+msgstr ""
+
+#: plugin-options/settings-options.php:57
+msgid "Login logo"
+msgstr ""
+
+#: plugin-options/settings-options.php:58
+msgid "Select logo for login form"
+msgstr ""
+
+#: plugin-options/settings-options.php:65
+msgid "Login background image"
+msgstr ""
+
+#: plugin-options/settings-options.php:66
+msgid "Select image for background login page"
+msgstr ""
+
+#: plugin-options/settings-options.php:72
+msgid "Login background color"
+msgstr ""
+
+#: plugin-options/settings-options.php:73
+msgid "Select the background color for login page"
+msgstr ""
+
+#: plugin-options/settings-options.php:83
+msgid "Payment method settings"
+msgstr ""
+
+#: plugin-options/settings-options.php:91
+msgid "Select the global payment methods. These methods can be overridden for every single Register."
+msgstr ""
+
+#: plugin-options/settings-options.php:100
+msgid "Preset settings"
+msgstr ""
+
+#: plugin-options/settings-options.php:108
+msgid "Number Keyboard presets"
+msgstr ""
+
+#: plugin-options/settings-options.php:109
+msgid "Set the percentage discount presets within the number keyboard"
+msgstr ""
+
+#: plugin-options/settings-options.php:121
+msgid "Fee and Discount presets"
+msgstr ""
+
+#: plugin-options/settings-options.php:122
+msgid "Set the percentage discount presets within the fee and discount editor"
+msgstr ""
+
+#: plugin-options/settings-options.php:135
+msgid "Stock Management"
+msgstr ""
+
+#: plugin-options/settings-options.php:140
+msgid "Show stock on register"
+msgstr ""
+
+#: plugin-options/settings-options.php:141
+msgid "Choose if to show the stock count on the register"
+msgstr ""
+
+#: plugin-options/settings-options.php:149
+msgid "Enable multistock"
+msgstr ""
+
+#: plugin-options/settings-options.php:150
+msgid "Choose if enable or disable the multistock option"
+msgstr ""
+
+#: plugin-options/settings-options.php:158
+msgid "Products of a store without stock are"
+msgstr ""
+
+#: plugin-options/settings-options.php:160
+msgid "Choose how to manage the purchase of products when no stock value has been set for a specific store."
+msgstr ""
+
+#: plugin-options/settings-options.php:161
+msgid "When you enable the multi-stock option, you'll have to set the product stock for every store. If one of the store stock is not specified, then, this settings will apply."
+msgstr ""
+
+#: plugin-options/settings-options.php:167
+msgid "purchasable without stock management"
+msgstr ""
+
+#: plugin-options/settings-options.php:168
+msgid "purchasable from the general stock"
+msgstr ""
+
+#: plugin-options/settings-options.php:169
+msgid "non-purchasable"
+msgstr ""
+
+#: plugin-options/settings-options.php:184
+msgid "Color Settings"
+msgstr ""
+
+#: plugin-options/settings-options.php:188
+msgid "Primary color"
+msgstr ""
+
+#: plugin-options/settings-options.php:189
+msgid "Select the primary color for Registers"
+msgstr ""
+
+#: plugin-options/settings-options.php:196
+msgid "Secondary color"
+msgstr ""
+
+#: plugin-options/settings-options.php:197
+msgid "Select the secondary color for Registers"
+msgstr ""
+
+#: plugin-options/settings-options.php:204
+msgid "Products grid background"
+msgstr ""
+
+#: plugin-options/settings-options.php:205
+msgid "Select the background color for products grid"
+msgstr ""
+
+#: plugin-options/settings-options.php:212
+msgid "Product title background"
+msgstr ""
+
+#: plugin-options/settings-options.php:213
+msgid "Select the background color for product title"
+msgstr ""
+
+#: plugin-options/settings-options.php:220
+msgid "Saved cart buttons background"
+msgstr ""
+
+#: plugin-options/settings-options.php:221
+msgid "Select the background color for saved cart buttons"
+msgstr ""
+
+#: plugin-options/settings-options.php:228
+msgid "Pay button background"
+msgstr ""
+
+#: plugin-options/settings-options.php:229
+msgid "Select the background color for pay button"
+msgstr ""
+
+#: plugin-options/settings-options.php:236
+msgid "Note buttons background"
+msgstr ""
+
+#: plugin-options/settings-options.php:237
+msgid "Select the background color for note button"
+msgstr ""
+
+#: plugin-options/settings-options.php:244
+msgid "Header background"
+msgstr ""
+
+#: plugin-options/settings-options.php:245
+msgid "Select the background color for header"
+msgstr ""
+
+#: templates/yith-pos-login.php:9
+msgid "Login"
+msgstr ""
+
+#: templates/yith-pos-page.php:36
+msgid "You are using an outdated browser; please update your browser or use a new generation web browser!"
+msgstr ""
+
+#: templates/yith-pos-store-register.php:10
+msgid "Sorry, you are not allowed to see this content"
+msgstr ""
+
+#: templates/yith-pos-store-register.php:23
+msgid "Choose Store and Register"
+msgstr ""
+
+#: templates/yith-pos-store-register.php:33
+msgid "Take over %s"
+msgstr ""
+
+#: templates/yith-pos-store-register.php:35
+msgid "%s is currently in use by %s."
+msgstr ""
+
+#: templates/yith-pos-store-register.php:39
+msgid "Choose another Register or %s"
+msgstr ""
+
+#: templates/yith-pos-store-register.php:50
+msgid "Choose a Store"
+msgstr ""
+
+#: templates/yith-pos-store-register.php:60
+msgid "Choose a Register"
+msgstr ""
+
+#: views/fields/create-user.php:19
+msgid "Username"
+msgstr ""
+
+#: views/fields/create-user.php:22
+msgid "Enter a username to identify this user."
+msgstr ""
+
+#: views/fields/create-user.php:24
+msgid "The username is required and must be unique."
+msgstr ""
+
+#: views/fields/create-user.php:31
+#: dist/pos/index.js:41
+msgid "Password"
+msgstr ""
+
+#: views/fields/create-user.php:34
+msgid "Enter a password for this user."
+msgstr ""
+
+#: views/fields/create-user.php:36
+msgid "You need to set a password to the user."
+msgstr ""
+
+#: views/fields/create-user.php:43
+msgid "User Email"
+msgstr ""
+
+#: views/fields/create-user.php:46
+msgid "Enter the e-mail address of this user."
+msgstr ""
+
+#: views/fields/create-user.php:48
+msgid "Enter a valid email. Must be unique for each user."
+msgstr ""
+
+#: views/fields/create-user.php:55
+msgid "First Name"
+msgstr ""
+
+#: views/fields/create-user.php:58
+msgid "Enter the first name of this user."
+msgstr ""
+
+#: views/fields/create-user.php:60
+msgid "You need to enter a name for this user."
+msgstr ""
+
+#: views/fields/create-user.php:67
+msgid "Last Name"
+msgstr ""
+
+#: views/fields/create-user.php:70
+msgid "Enter the last name of this user."
+msgstr ""
+
+#: views/fields/create-user.php:72
+msgid "You need to enter a last name for this user."
+msgstr ""
+
+#: views/fields/receipt-preview-template.php:18
+#: dist/pos/index.js:41
+msgid "Phone:"
+msgstr ""
+
+#: views/fields/receipt-preview-template.php:21
+#: dist/pos/index.js:41
+msgid "Email:"
+msgstr ""
+
+#: views/fields/receipt-preview-template.php:24
+#: dist/pos/index.js:41
+msgid "Fax:"
+msgstr ""
+
+#: views/fields/receipt-preview-template.php:27
+#: dist/pos/index.js:41
+msgid "Web:"
+msgstr ""
+
+#: views/fields/receipt-preview-template.php:32
+#: dist/pos/index.js:41
+msgid "Facebook:"
+msgstr ""
+
+#: views/fields/receipt-preview-template.php:35
+#: dist/pos/index.js:41
+msgid "Twitter:"
+msgstr ""
+
+#: views/fields/receipt-preview-template.php:38
+#: dist/pos/index.js:41
+msgid "Instagram:"
+msgstr ""
+
+#: views/fields/receipt-preview-template.php:42
+msgid "YouTube:"
+msgstr ""
+
+#: views/fields/receipt-preview-template.php:49
+#: views/fields/receipt-preview-template.php:51
+#: views/fields/receipt-preview-template.php:53
+#: views/fields/receipt-preview-template.php:55
+msgid "Product"
+msgstr ""
+
+#: views/fields/receipt-preview-template.php:61
+#: dist/pos/index.js:41
+msgid "Total"
+msgstr ""
+
+#: views/fields/receipt-preview-template.php:76
+#: dist/pos/index.js:41
+msgid "Change"
+msgstr ""
+
+#: views/fields/receipt-preview-template.php:85
+msgid "Date"
+msgstr ""
+
+#: views/fields/receipt-preview-template.php:88
+msgid "Order"
+msgstr ""
+
+#: views/fields/receipt-preview-template.php:92
+msgid "Customer"
+msgstr ""
+
+#: views/fields/receipt-preview-template.php:100
+#: dist/dashboard/index.js:21
+#: dist/pos/index.js:41
+msgid "Cashier"
+msgstr ""
+
+#: views/fields/show-cashiers.php:38
+msgid "Show Register to"
+msgstr ""
+
+#: views/fields/show-cashiers.php:39
+msgid "Hide Register to"
+msgstr ""
+
+#: views/fields/show-cashiers.php:49
+msgid "Select a Cashier"
+msgstr ""
+
+#: views/fields/show-categories.php:29
+msgid "Search Category"
+msgstr ""
+
+#: views/fields/show-categories.php:38
+msgid "Category to"
+msgstr ""
+
+#: views/fields/show-categories.php:47
+#: views/fields/show-products.php:20
+msgid "Include"
+msgstr ""
+
+#: views/fields/show-categories.php:48
+#: views/fields/show-products.php:21
+msgid "Exclude"
+msgstr ""
+
+#: views/fields/show-products.php:12
+msgid "Product to"
+msgstr ""
+
+#: views/metabox/shop-order-pos-info-metabox.php:3
+msgid "Order made in store:"
+msgstr ""
+
+#: views/metabox/shop-order-pos-info-metabox.php:22
+msgid "Payment methods:"
+msgstr ""
+
+#: views/metabox/store-registers-list-single.php:62
+msgid "Delete"
+msgstr ""
+
+#: views/metabox/store-registers-list-single.php:63
+#: dist/pos/index.js:41
+msgid "Update"
+msgstr ""
+
+#: views/metabox/store-registers-list-single.php:64
+msgid "Create"
+msgstr ""
+
+#: views/metabox/store-registers-list.php:11
+msgid "Registers of this store"
+msgstr ""
+
+#: views/metabox/store-registers-list.php:35
+msgid "Create new Register"
+msgstr ""
+
+#: views/metabox/store-registers-list.php:36
+msgid "Close new Register creation"
+msgstr ""
+
+#: views/metabox/store-registers-list.php:37
+msgid "Create new register"
+msgstr ""
+
+#: views/panel/create-your-first-store.php:9
+msgid "Thanks for choosing %s!"
+msgstr ""
+
+#: views/panel/create-your-first-store.php:10
+msgid "Now, the first step is to create a Store: after that, you will be able to use our powerful Register to sell your products."
+msgstr ""
+
+#: views/panel/create-your-first-store.php:16
+msgid "Create your first store"
+msgstr ""
+
+#: views/panel/dashboard.php:16
+msgid "%s requires %s plugin to show reports!"
+msgstr ""
+
+#: views/panel/dashboard.php:31
+msgid "Activate WooCommerce Admin"
+msgstr ""
+
+#: views/panel/dashboard.php:33
+msgid "You are using an outdated version of WooCommerce Admin"
+msgstr ""
+
+#: views/panel/dashboard.php:38
+msgid "Update WooCommerce Admin"
+msgstr ""
+
+#: views/panel/dashboard.php:44
+msgid "Install WooCommerce Admin"
+msgstr ""
+
+#: views/panel/store-wizard-nav.php:10
+msgid "Step 1"
+msgstr ""
+
+#: views/panel/store-wizard-nav.php:11
+#: views/panel/store-wizard-summary.php:13
+msgid "Store info"
+msgstr ""
+
+#: views/panel/store-wizard-nav.php:15
+msgid "Step 2"
+msgstr ""
+
+#: views/panel/store-wizard-nav.php:20
+msgid "Step 3"
+msgstr ""
+
+#: views/panel/store-wizard-nav.php:26
+msgid "Step 4"
+msgstr ""
+
+#: views/panel/store-wizard-nav.php:27
+#: views/panel/store-wizard-pagination.php:12
+msgid "Save Store"
+msgstr ""
+
+#: views/panel/store-wizard-pagination.php:6
+msgid "Back to step %s"
+msgstr ""
+
+#: views/panel/store-wizard-pagination.php:7
+msgid "Proceed to step %s"
+msgstr ""
+
+#: views/product/product-data-inventory.php:11
+msgid "POS Inventory"
+msgstr ""
+
+#: views/product/product-data-inventory.php:14
+msgid "To enable the multistock, it is necessary activate the option in "
+msgstr ""
+
+#: views/product/product-data-inventory.php:14
+msgid "YITH > Point of Sale > Customization > Enable multistock"
+msgstr ""
+
+#: views/product/product-data-inventory.php:17
+msgid "Enable Multi Stock in POS"
+msgstr ""
+
+#: views/product/product-data-inventory.php:29
+msgid "In store"
+msgstr ""
+
+#: views/product/product-data-inventory.php:45
+#: views/product/product-data-inventory.php:76
+msgid "Select Store"
+msgstr ""
+
+#: views/product/product-data-inventory.php:53
+msgid "set a stock of: "
+msgstr ""
+
+#: views/product/product-data-inventory.php:57
+msgid "units"
+msgstr ""
+
+#: views/product/product-data-inventory.php:67
+msgid "+ manage stock for another store"
+msgstr ""
+
+#: views/product/product-data-inventory.php:93
+msgid "No Store found!"
+msgstr ""
+
+#: dist/dashboard/index.js:21
+msgid "Loading..."
+msgstr ""
+
+#: dist/dashboard/index.js:21
+msgid "All Registers"
+msgstr ""
+
+#: dist/dashboard/index.js:21
+msgid "Filter by Store"
+msgstr ""
+
+#: dist/dashboard/index.js:21
+msgid "All Stores"
+msgstr ""
+
+#: dist/dashboard/index.js:21
+msgid "Filter by Register"
+msgstr ""
+
+#: dist/dashboard/index.js:21
+msgid "Orders"
+msgstr ""
+
+#: dist/dashboard/index.js:21
+msgid "Net Sales"
+msgstr ""
+
+#: dist/dashboard/index.js:21
+msgid "TestString"
+msgstr ""
+
+#: dist/dashboard/index.js:21
+msgid "Average Order Value"
+msgstr ""
+
+#: dist/dashboard/index.js:21
+msgid "Average Items Per Order"
+msgstr ""
+
+#: dist/dashboard/index.js:21
+msgid "Items"
+msgstr ""
+
+#: dist/dashboard/index.js:21
+msgid "New Customers"
+msgstr ""
+
+#: dist/dashboard/index.js:21
+msgid "Returning Customers"
+msgstr ""
+
+#: dist/dashboard/index.js:21
+msgid "Coupons"
+msgstr ""
+
+#: dist/dashboard/index.js:21
+msgid "No data for the selected date range"
+msgstr ""
+
+#: dist/dashboard/index.js:21
+msgid "No data recorded for the selected time period."
+msgstr ""
+
+#: dist/dashboard/index.js:21
+#: dist/pos/index.js:41
+msgid "Payment Method"
+msgstr ""
+
+#: dist/dashboard/index.js:21
+#: dist/pos/index.js:41
+msgid "Amount"
+msgstr ""
+
+#: dist/dashboard/index.js:21
+msgid "Payment Methods"
+msgstr ""
+
+#: dist/dashboard/index.js:21
+msgid "Top Cashiers"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Login times: "
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Total orders"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Total sales"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Download CSV"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Register Screen"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Order History"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Today's profit"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Manage Cash"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Close register"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Store:"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Manage Store"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Switch Register"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Logout"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Empty Cart"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Add note"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Edit note"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Add fee or discount"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Apply coupon"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Shipping"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Suspend & save cart"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Pay"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Add a note to this order"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Add another payment option"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Amount paying"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Amount type"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Back"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Balance"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "By"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Cart "
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Change price per unit"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Customer "
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Guest Customer "
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Discount"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Enter coupon code"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Fee"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Fixed"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Popular fees"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Popular tendered"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "load"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Payment option"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Pending payment"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "product"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "products"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Percentage"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Reason (optional)"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Add a reason or note (optional)"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Save note"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Shipping Method"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Update Total"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Save Shipping"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Total due"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Total paying"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Coupon usage limit has been reached."
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "This coupon has expired."
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "The minimum spend for this coupon is %s."
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "The maximum spend for this coupon is %s."
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Sorry, this coupon is not applicable to your cart contents."
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Sorry, this coupon is not applicable to selected products."
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Sorry, this coupon is not valid for sale items."
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Sorry, this coupon is not applicable to the products: %s."
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Sorry, this coupon is not applicable to the categories: %s."
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Sorry, this coupon is not usable by the current customer."
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Guest"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Subtotal"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Tax"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Subtotal (incl. tax)"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "COUPON"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "You cannot add %s \"%s\" to your cart"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "You cannot add another \"%s\" to your cart"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Coupon already applied!"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "The coupon was not applied!"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Add the first product to the cart"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Are you sure?"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Cancel"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Coupon not found"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Discount type:"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Coupon amount:"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Expiry date:"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "clear"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Order #"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "items"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "item"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "orders"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "order"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "All registers"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Note: "
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Other"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Total Sales"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Youtube:"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Order #%s"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Paid via %s on %s"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Print Receipt"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "< Back to register screen"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Or create a new customer profile >"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Create a new customer profile"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Company"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Country"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Current customer"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Email"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Invalid email address"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "First name"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Last name"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Please enter 3 or more characters"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Not found the right customer?"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "User not found."
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Post Code"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "An account is already registered with this email address."
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "This field is required"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Save Customer"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Save Shipping Address"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "State"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Use this customer profile"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Update customer profile"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "VAT / CIF / ID"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Notice: some information is missing!"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Billing %s is a required field."
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Billing %s are required fields."
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Shipping %s is a required field."
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Shipping %s are required fields."
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Cash in hand"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Reason"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Enter amount"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Save Cash"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Cash Total"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Opening times"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Closing time"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Add"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Remove"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Add or remove cash"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Add a note (optional)"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Download Report"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Close Register"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Product name: "
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Product category:"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "SKU"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Tax Status:"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Tax Class:"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Regular price:"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Stock:"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Quantity in stock:"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Sync with WooCommerce:"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Disabled"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Create product"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Taxable"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Shipping only"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "None"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "No results found."
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "add to cart"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Inclusive"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Exclusive"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "No Category found."
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Invalid or duplicated SKU."
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Standard"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Search a category"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Please enter a number. If decimal, use the decimal separator (%s). Never use thousand separators."
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Please enter a positive number. If decimal, use the decimal separator (%s). Never use thousand separators."
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "On sale"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Featured"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Add product"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Scan product"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Add cash in hand"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Choose variation"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Variable product without variations"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Error"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Error: %s"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "OK"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Do you want to delete this cart and start from scratch?"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "No, continue with this cart"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Suspend and save cart"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Do you want to load the cart number #%s?"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "You have some items in your cart. Do you want to suspend your current cart and load the cart number#%s?"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "No, keep the cart"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Do you want to remove the cart number #%s?"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "This cart was switched with the cart number"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Apply coupon to order total"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Order total"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Add fee or discount to order total"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Set customer's profile"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Shipping Address"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Add a new product"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Split Payment"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Fix your cart and try again"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Error: You are not able to do this."
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Profit of"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgctxt "Title of Close Register modal"
+msgid "Close Register"
+msgstr ""
+
+#: dist/pos/index.js:41
+msgid "Are you sure you want to log out?"
+msgstr ""

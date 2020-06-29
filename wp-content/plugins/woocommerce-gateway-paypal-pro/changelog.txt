@@ -1,0 +1,247 @@
+*** PayPal Pro Changelog ***
+
+2020-03-09 - version 4.5.0
+* Add - SCA support via new 3D Secure 2 setting for modal authentication. (Contact Cardinal to upgrade to Cardinal Cruise before enabling.)
+* Update - Cardinal requests to use TransactionType "C".
+* Tweak - Omit an additional sensitive Cardinal field from debug logging.
+* Fix - Liability shift requirement condition for Mastercard.
+* Tweak - WC tested up to 4.0, WP tested up to 5.3.
+* Update - Minimum WC version.
+
+2019-08-08 - version 4.4.17
+* Tweak  - WC tested up to 3.7
+
+2019-04-16 - version 4.4.16
+* Tweak  - WC tested up to 3.6
+
+2018-10-08 - version 4.4.15
+* Fix    - Rounding error on ITEAMT
+* Fix    - The totals of the cart item amounts do not match order amounts. Remove shipping tax from line item.
+* Update - WC tested up to 3.5
+
+2018-08-02 - version 4.4.14
+* Fix    - Use correct Force checkout href.
+
+2018-05-23 - version 4.4.13
+* Update - WC tested up to 3.4
+* Update - Privacy policy notification.
+* Update - Export/erasure hooks added.
+
+2018-02-08 - version 4.4.12
+* Fix - Log should not display card details.
+
+2017-12-13 - version 4.4.11
+* Update - WC tested up to version.
+
+2017-11-21 - version 4.4.10
+* Fix - Regression issue after adding tax and frieght line items causing mismatched errors.
+
+2017-11-13 - version 4.4.9
+* Add - "woocommerce_gateway_paypal_pro_payflow_post_data" filter.
+* Fix - Tax and shipping amounts not passed for Payflow.
+* Tweak - Credit card field was too narrow.
+
+2017-08-17 - version 4.4.8
+* Fix - Credit Card fields not validating invalid inputs.
+* Fix - Payflow delay capture not working.
+
+2017-05-02 - version 4.4.7
+* Fix - Changing order status on authorized transaction not capturing.
+* Fix - WC_Order_Item_Meta deprecated notice.
+
+2017-04-06 - version 4.4.6
+* Fix - Additional updates for WC 3.0 compatibility.
+
+2017-04-03 - version 4.4.5
+* Fix - Update for WC 3.0 compatibility.
+
+2016-12-26 - version 4.4.4
+* Fix - Deprecated notice for the checkout form.
+* Fix - Notice for using functions that are deprecated in PHP 7.
+* Fix - Make sure ACK/RESULT exists in parsed response before processing the response.
+* Fix - Updated order total in PayFlow is not passed when capturing the payment.
+* Fix - Deprecated notice of credit_card_form.
+
+2016-06-06 - version 4.4.3
+* Fix - Strict standard notice caused by new method introduced in WooCommerce 2.6
+* Fix - Deprecated notice from get_currentuserinfo()
+
+2016-01-05 - version 4.4.2
+* Includes any Checkout Add-On fees when sending line items to PayPal to avoid an "amounts do not match" payment error
+* Fixes the tax amount passed to PayPal when shipping is taxable to avoid an "amounts do not match" payment error
+
+2015-11-12 - version 4.4.1
+* Resolve "extra space" issue in billing address.
+
+2015-09-08 - version 4.4.0
+* Refactor of 3dsecure code. Requires some account side changes (explained in admin notice on activation)
+
+2015-08-03 - version 4.3.7
+* Added - "woocommerce-gateway-paypal-pro_payflow_refund_request" filter
+* Added - "woocommerce-gateway-paypal-pro_payflow_transaction_details_request" filter
+
+2015-06-30 - version 4.3.6
+* Fix notice when date is not set.
+
+2015-06-30 - version 4.3.5
+* Remove SSLVerify from requests.
+
+2015-06-18 - version 4.3.4
+* Tweak 3DS auth code.
+* Fix PayPal Pro taxes not sent as separate line item when "send line items" is enabled
+
+2015-05-16 - version 4.3.3
+* Explicitly pass currencycode to prevent currency mismatch issue for capture
+
+2015-04-17 - version 4.3.2
+* Added ability to remove the SSL nag notice
+
+2015-03-23 - version 4.3.1
+* Force api_request_url secure.
+* Updater fix.
+* Added start date field to PPP Classic for Maestro.
+* Ensure auth/capture settings are passed uppercased as expected by API
+
+2015-01-26 - version 4.3.0
+* woocommerce_paypal_pro_payflow_icon filter.
+* Added logging for PayPal Pro Payflow.
+* Added transaction capture from admin backend for PayPal Pro and Payflow.
+* Added void capability on an authorized only order for PayPal Pro and Payflow.
+* Added order id to be passed to PayPal Pro for reference.
+* Added authorize/capture option to PayPal Pro Payflow.
+* Added refund capability to PayPal Pro Payflow.
+* Updated test credit card number for PayPal Pro Payflow.
+* UPdated PayPal Pro classic API version to 119.
+* Fixed various undefined index bugs in PayPal Pro classic.
+
+2014-10-27 - version 4.2.0
+* Added test credit card number on checkout when in test/sandbox mode.
+* Added refund capability to PayPal Pro classic.
+
+2014-10-27 - version 4.1.1
+* Updated 3DSecure thin client.
+
+2014-10-07 - version 4.1.0
+* Fix SSL required message when gateway is not enabled.
+* Added authorize/capture option to PayPal Pro classic.
+* Hide 3ds options unless 3ds is enabled.
+
+2014-09-18 - version 4.0.4
+* Fix send line items product variations names were not being sent
+
+2014-09-12 - version 4.0.3
+* Added soft descriptor option.
+
+2014-08-29 - version 4.0.2
+* Fix SHIPTONAME field in PP pro
+* Only change order button text in payflow when using transparent redirect.
+
+2014-08-26 - version 4.0.1
+* Send SHIPTOFIRSTNAME for payflow
+
+2014-05-19 - version 4.0.0
+* Made WC 2.1 a requirement - removed cc form fallbacks
+* Removed deprecated functions and code
+* PayFlow now supports transparent redirect (posts details straight to paypal for better security)
+
+2014-04-22 - version 3.4.2
+* Fix 3dsecure authorization
+
+2014-03-31 - version 3.4.1
+* Updated rounding amendment code
+
+2014-03-27 - version 3.4.0
+* Updated textdomain
+* Added handling for status code 126 (under review for fraud)
+* Correctly round shipping + shipping tax together when passing totals to paypal
+
+2014-03-10 - version 3.3.2
+* use un-encoded http_build_query for payflow
+
+2014-01-28 - version 3.3.1
+* Use WC session for 3d secure
+* Redirect fix
+
+2014-01-10 - version 3.3.0
+* Dropped 1.6 support
+* 2.1 compatibility
+
+2013-10-31 - version 3.2.0
+* Built in new cc form from upcoming 2.1 into both Pro and PayFlow
+
+2013-09-16 - version 3.1.2
+* Fix headers for sandbox
+
+2013-09-16 - version 3.1.1
+* Updated API call
+
+2013-08-05 - version 3.1.0
+* JP PayPal Plus support (in pro gateway only)
+
+2013-07-23 - version 3.0.4
+* Tweaked paypal requests
+
+2013-07-22 - version 3.0.3
+* Added woocommerce-gateway-paypal-pro_payflow_request and woocommerce-gateway-paypal-pro_request filters for the payment request.
+
+2013-04-18 - version 3.0.2
+* 3 filters for adding currencies
+* Log remote post errors
+
+2013-03-13 - version 3.0.1
+* Debug mode
+* Sending line items is optional
+* Tweaks to line item sending code
+
+2013-02-06 - version 3.0.0
+* Support for PayPal Pro Payflow Edtion
+* EMAIL sent with dodirectpayment request
+
+2013-01-06 - version 2.2.0
+* Tweak to item amount calculations
+
+2012-12-05 - version 2.1.6
+* Updater
+
+2012-11-29 - version 2.1.5
+* Make SSL non-required when test mode is enabled.
+
+2012-11-23 - version 2.1.4
+* Send ITEMAMT and fix any rounding issues with an offset row
+
+2012-11-05 - version 2.1.3
+* Send line items to paypal
+
+2012-04-26 - version 2.1.2
+* Log error code
+
+2012-04-26 - version 2.1.1
+* JS validation fix
+
+2012-04-26 - version 2.1
+* 3ds tweaks
+* Option to only accept payments when liability shift has occurred (when enrolled and PAResStatus do not equal 'U')
+
+2012-03-09 - version 2.0
+* Added Woo Updater
+* New class names
+* 3D Secure support
+
+2011-11-22 - version 1.0.5
+* Added shipping info to request (thanks Jason Whitaker)
+
+2011-11-02 - version 1.0.4
+* Available countries uses base country rather than customer country to get accepted cards
+* Tweaked wp_remote_post to add woocommerce user-agent
+
+2011-11-01 - version 1.0.3
+* AmEx country check
+
+2011-11-01 - version 1.0.2
+* Changed SSL check
+
+2011-10-28 - version 1.0.1
+* Fixed AmEx javascript
+
+2011-09-27 - version 1.0
+* First Release

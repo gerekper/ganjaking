@@ -1,0 +1,6 @@
+<wpml-config>
+	<custom-types>
+		<custom-type translate="1">follow_up_email</custom-type>
+	</custom-types>
+</wpml-config>
+

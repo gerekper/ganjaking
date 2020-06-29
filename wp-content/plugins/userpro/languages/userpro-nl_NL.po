@@ -1,0 +1,5777 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-12-18 13:58+0200\n"
+"PO-Revision-Date: 2019-12-10 21:10+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __ngettext:1,2;__;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Generator: Poedit 2.2.4\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: addons/badges/admin/admin-functions.php:68
+#, fuzzy
+msgid "Add a New Badge"
+msgstr "Nieuw veld toevoegen"
+
+#: addons/badges/admin/admin-functions.php:70
+msgid "Editing a Badge"
+msgstr ""
+
+#: addons/badges/admin/admin.php:42
+msgid "Add Badges"
+msgstr ""
+
+#: addons/badges/admin/admin.php:43
+#, fuzzy
+msgid "Edit User Badges"
+msgstr "Bewerk profiel pagina"
+
+#: addons/badges/admin/admin.php:44
+#, fuzzy
+msgid "Edit Badges"
+msgstr "Bewerk profiel pagina"
+
+#: addons/badges/admin/admin.php:45
+msgid "Envato Customers"
+msgstr ""
+
+#: addons/badges/admin/admin.php:65
+msgid "Badges and Achievements"
+msgstr ""
+
+#: addons/badges/admin/admin.php:115 addons/emd/admin/admin.php:102
+#: addons/multiforms/admin/admin.php:107 addons/redirects/admin/admin.php:118
+#: addons/requests/admin/admin.php:136 addons/social/admin/admin.php:103
+#: addons/timeline/admin/admin.php:78
+#: addons/userpro-google-map/admin/admin.php:80 admin/admin.php:322
+msgid "Settings saved."
+msgstr "Instellingen opgeslagen."
+
+#: addons/badges/admin/admin.php:121 addons/emd/admin/admin.php:108
+#: addons/multiforms/admin/admin.php:113 addons/redirects/admin/admin.php:124
+#: addons/requests/admin/admin.php:142 addons/social/admin/admin.php:109
+#: addons/timeline/admin/admin.php:84
+#: addons/userpro-google-map/admin/admin.php:86 admin/admin.php:328
+msgid "Settings are reset to default."
+msgstr "Instellingen zijn herstelt naar standaard waarden."
+
+#: addons/badges/admin/panels/achievement.php:3
+msgid ""
+"You can find the badges that you have created and edit it from this page."
+msgstr ""
+
+#: addons/badges/admin/panels/achievement.php:9
+#: addons/badges/admin/panels/achievement.php:18
+msgid "Achievement Type"
+msgstr ""
+
+#: addons/badges/admin/panels/achievement.php:10
+#: addons/badges/admin/panels/achievement.php:19
+msgid "Required"
+msgstr ""
+
+#: addons/badges/admin/panels/achievement.php:11
+#: addons/badges/admin/panels/achievement.php:20
+#: addons/badges/admin/panels/manage.php:35
+#, fuzzy
+msgid "Badge Title"
+msgstr "Label"
+
+#: addons/badges/admin/panels/achievement.php:12
+#: addons/badges/admin/panels/achievement.php:21
+msgid "Badge"
+msgstr ""
+
+#: addons/badges/admin/panels/achievement.php:13
+#: addons/badges/admin/panels/achievement.php:22
+#: addons/multiforms/admin/panels/edit_multifrm.php:23
+msgid "Actions"
+msgstr ""
+
+#: addons/badges/admin/panels/achievement.php:56
+#: addons/badges/admin/panels/achievement.php:68
+#: addons/badges/admin/panels/achievement.php:98
+#: addons/badges/admin/panels/achievement.php:110
+#: addons/multiforms/admin/panels/edit_multifrm.php:36
+#: profile-layouts/layout1/layout.php:48 profile-layouts/layout2/layout.php:19
+#: profile-layouts/layout3/layout.php:123
+msgid "Edit"
+msgstr ""
+
+#: addons/badges/admin/panels/achievement.php:56
+#: addons/badges/admin/panels/achievement.php:68
+#: addons/badges/admin/panels/achievement.php:98
+#: addons/badges/admin/panels/achievement.php:110
+#: addons/multiforms/admin/panels/edit_multifrm.php:36
+#: addons/redirects/admin/admin-functions.php:72
+#: addons/redirects/admin/admin-functions.php:82
+#: functions/fields-functions.php:299 functions/fields-functions.php:305
+#: functions/fields-functions.php:314 functions/fields-functions.php:317
+#: functions/frontend-publisher-functions.php:189
+msgid "Remove"
+msgstr "Verwijder"
+
+#: addons/badges/admin/panels/envato.php:13
+#, php-format
+msgid "%s Customers verified their purchase"
+msgstr ""
+
+#: addons/badges/admin/panels/envato.php:27 addons/social/functions/api.php:56
+#: addons/social/functions/api.php:74 addons/social/functions/api.php:117
+#: addons/social/functions/api.php:141 addons/social/functions/api.php:154
+#: addons/social/functions/api.php:182 addons/social/functions/api.php:202
+#: addons/social/templates/followers.php:15
+#: addons/social/templates/followers.php:90
+#: addons/social/templates/following.php:15
+#: addons/social/templates/following.php:86 admin/admin-users.php:27
+#: functions/hooks-filters.php:137 functions/hooks-filters.php:173
+#: profile-layouts/layout1/layout.php:20 profile-layouts/layout1/layout.php:103
+#: profile-layouts/layout1/layout.php:145
+#: profile-layouts/layout1/layout.php:184 profile-layouts/layout3/layout.php:37
+#: templates/connections.php:15 templates/connections.php:47
+#: templates/connections.php:128 templates/edit.php:10 templates/edit.php:32
+#: templates/edit.php:34 templates/list.php:28 templates/logout.php:17
+#: templates/memberlist_v2.php:93 templates/online.php:32
+#: templates/online.php:55 templates/view.php:73
+msgid "View Profile"
+msgstr "Bekijk profiel"
+
+#: addons/badges/admin/panels/manage.php:3
+#, php-format
+msgid ""
+"If you want to add more badges, please put your badges as PNG in <code>%s</"
+"code>. To give a new badge, or assign a new achievement, click on a badge "
+"below to start."
+msgstr ""
+
+#: addons/badges/admin/panels/manage.php:24
+#, fuzzy
+#| msgid "Upload file"
+msgid "Upload Badge"
+msgstr "Upload bestand"
+
+#: addons/badges/admin/panels/manage.php:30
+msgid "Enter a URL or upload an badge icon , Icon should be 16 X 16 png file."
+msgstr ""
+
+#: addons/badges/admin/panels/manage.php:38
+msgid ""
+"The title of badge will appear when user hovers over the badge e.g. Featured "
+"User, User of the Year, etc."
+msgstr ""
+
+#: addons/badges/admin/panels/manage.php:43
+msgid "How users can get this badge?"
+msgstr ""
+
+#: addons/badges/admin/panels/manage.php:46
+msgid "Give this badge to roles (manual)"
+msgstr ""
+
+#: addons/badges/admin/panels/manage.php:47
+msgid "Give this badge to roles (automatic)"
+msgstr ""
+
+#: addons/badges/admin/panels/manage.php:48
+msgid "Give this badge to users (manual)"
+msgstr ""
+
+#: addons/badges/admin/panels/manage.php:49
+msgid "Require achievement (automatic)"
+msgstr ""
+
+#: addons/badges/admin/panels/manage.php:50
+#, fuzzy
+msgid "Default Badge for All"
+msgstr "Verwijder veld"
+
+#: addons/badges/admin/panels/manage.php:65
+#, fuzzy
+msgid "Enable Default Badge"
+msgstr "Verwijder veld"
+
+#: addons/badges/admin/panels/manage.php:68
+#: addons/social/admin/panels/settings.php:14
+#: addons/social/admin/panels/settings.php:23
+#: addons/social/admin/panels/settings.php:98
+#: addons/social/admin/panels/settings.php:108
+#: addons/timeline/admin/panels/settings.php:8
+#: addons/userpro-google-map/admin/panels/settings.php:9
+#: admin/admin-functions.php:465 admin/admin-functions.php:614
+#: admin/panels/exportusers.php:59 admin/panels/invite.php:28
+#: admin/panels/mail.php:30 admin/panels/mail.php:40 admin/panels/mail.php:50
+#: admin/panels/mail.php:60 admin/panels/mail.php:70 admin/panels/mail.php:80
+#: admin/panels/mail.php:90 admin/panels/mail.php:99 admin/panels/mail.php:109
+#: admin/panels/mail.php:119 admin/panels/mail.php:128
+#: admin/panels/mail.php:138 admin/panels/mail.php:147
+#: admin/panels/restrict.php:10 admin/panels/settings.php:80
+#: admin/panels/settings.php:90 admin/panels/settings.php:128
+#: admin/panels/settings.php:138 admin/panels/settings.php:207
+#: admin/panels/settings.php:216 admin/panels/settings.php:225
+#: admin/panels/settings.php:291 admin/panels/settings.php:301
+#: admin/panels/settings.php:339 admin/panels/settings.php:357
+#: admin/panels/settings.php:370 admin/panels/settings.php:400
+#: admin/panels/settings.php:412 admin/panels/settings.php:435
+#: admin/panels/settings.php:501 admin/panels/settings.php:521
+#: admin/panels/settings.php:531 admin/panels/settings.php:562
+#: admin/panels/settings.php:606 admin/panels/settings.php:615
+#: admin/panels/settings.php:658 admin/panels/settings.php:668
+#: admin/panels/settings.php:734 admin/panels/settings.php:744
+#: admin/panels/settings.php:754 admin/panels/settings.php:764
+#: admin/panels/settings.php:775 admin/panels/settings.php:785
+#: admin/panels/settings.php:795 admin/panels/settings.php:805
+#: admin/panels/settings.php:814 admin/panels/settings.php:865
+#: admin/panels/settings.php:876 admin/panels/settings.php:941
+#: admin/panels/settings.php:962 admin/panels/settings.php:977
+#: admin/panels/settings.php:987 admin/panels/settings.php:1059
+#: admin/panels/settings.php:1118 admin/panels/settings.php:1134
+#: admin/panels/settings.php:1159 admin/panels/settings.php:1258
+#: admin/panels/settings.php:1363 admin/panels/settings.php:1392
+#: admin/panels/settings.php:1423 admin/panels/settings.php:1448
+#: admin/panels/settings.php:1486 admin/panels/settings.php:1586
+#: admin/panels/settings.php:1596 admin/panels/settings.php:1606
+#: admin/panels/settings.php:1621
+msgid "Yes"
+msgstr "Ja"
+
+#: addons/badges/admin/panels/manage.php:69
+#: addons/social/admin/panels/settings.php:15
+#: addons/social/admin/panels/settings.php:24
+#: addons/social/admin/panels/settings.php:99
+#: addons/social/admin/panels/settings.php:109
+#: addons/timeline/admin/panels/settings.php:9
+#: addons/userpro-google-map/admin/panels/settings.php:10
+#: admin/admin-functions.php:466 admin/admin-functions.php:615
+#: admin/panels/exportusers.php:60 admin/panels/invite.php:29
+#: admin/panels/mail.php:31 admin/panels/mail.php:41 admin/panels/mail.php:51
+#: admin/panels/mail.php:61 admin/panels/mail.php:71 admin/panels/mail.php:81
+#: admin/panels/mail.php:91 admin/panels/mail.php:100 admin/panels/mail.php:110
+#: admin/panels/mail.php:120 admin/panels/mail.php:129
+#: admin/panels/mail.php:139 admin/panels/mail.php:148
+#: admin/panels/restrict.php:11 admin/panels/settings.php:81
+#: admin/panels/settings.php:91 admin/panels/settings.php:127
+#: admin/panels/settings.php:139 admin/panels/settings.php:208
+#: admin/panels/settings.php:217 admin/panels/settings.php:226
+#: admin/panels/settings.php:292 admin/panels/settings.php:302
+#: admin/panels/settings.php:340 admin/panels/settings.php:359
+#: admin/panels/settings.php:372 admin/panels/settings.php:402
+#: admin/panels/settings.php:414 admin/panels/settings.php:436
+#: admin/panels/settings.php:502 admin/panels/settings.php:522
+#: admin/panels/settings.php:532 admin/panels/settings.php:563
+#: admin/panels/settings.php:607 admin/panels/settings.php:616
+#: admin/panels/settings.php:659 admin/panels/settings.php:669
+#: admin/panels/settings.php:735 admin/panels/settings.php:745
+#: admin/panels/settings.php:755 admin/panels/settings.php:765
+#: admin/panels/settings.php:776 admin/panels/settings.php:786
+#: admin/panels/settings.php:796 admin/panels/settings.php:806
+#: admin/panels/settings.php:815 admin/panels/settings.php:866
+#: admin/panels/settings.php:877 admin/panels/settings.php:942
+#: admin/panels/settings.php:963 admin/panels/settings.php:978
+#: admin/panels/settings.php:988 admin/panels/settings.php:1060
+#: admin/panels/settings.php:1119 admin/panels/settings.php:1135
+#: admin/panels/settings.php:1161 admin/panels/settings.php:1260
+#: admin/panels/settings.php:1364 admin/panels/settings.php:1393
+#: admin/panels/settings.php:1424 admin/panels/settings.php:1449
+#: admin/panels/settings.php:1487 admin/panels/settings.php:1587
+#: admin/panels/settings.php:1597 admin/panels/settings.php:1607
+#: admin/panels/settings.php:1622
+msgid "No"
+msgstr "Nee"
+
+#: addons/badges/admin/panels/manage.php:77
+#: addons/badges/admin/panels/manage.php:99
+msgid "Choose which users should receive this badge"
+msgstr ""
+
+#: addons/badges/admin/panels/manage.php:79
+#: addons/badges/admin/panels/manage.php:101
+#: addons/badges/admin/panels/manage.php:127
+msgid "Choose..."
+msgstr ""
+
+#: addons/badges/admin/panels/manage.php:93
+#: addons/badges/admin/panels/manage.php:117
+msgid ""
+"You can assign this badge to the users belonging to specified role you want "
+"by choosing them here."
+msgstr ""
+
+#: addons/badges/admin/panels/manage.php:125
+msgid "Choose which users receive this badge"
+msgstr ""
+
+#: addons/badges/admin/panels/manage.php:135
+msgid ""
+"You can assign this badge to specific to the users you want by choosing them "
+"here."
+msgstr ""
+
+#: addons/badges/admin/panels/manage.php:144
+msgid "Setup Achievement"
+msgstr ""
+
+#: addons/badges/admin/panels/manage.php:146
+msgid "User has completed"
+msgstr ""
+
+#: addons/badges/admin/panels/manage.php:149
+msgid "Posts (Any post type)"
+msgstr ""
+
+#: addons/badges/admin/panels/manage.php:150
+msgid "Comments"
+msgstr ""
+
+#: addons/badges/admin/panels/manage.php:152
+#, fuzzy
+msgid "Days (since registration)"
+msgstr "Log de gebruikers automatisch in na registratie"
+
+#: addons/badges/admin/panels/manage.php:159
+msgid "Submit"
+msgstr ""
+
+#: addons/badges/admin/panels/user_badges.php:5
+msgid "Edit/Delete User Badges"
+msgstr ""
+
+#: addons/badges/admin/panels/user_badges.php:8
+#, fuzzy
+msgid "Select a user"
+msgstr "Selecteer rollen"
+
+#: addons/badges/admin/panels/user_badges.php:11
+#, fuzzy
+msgid "Select a user..."
+msgstr "Zoek naar een gebruiker…"
+
+#: addons/badges/admin/panels/user_badges.php:22
+msgid "Select a badge to remove from all current users"
+msgstr ""
+
+#: addons/badges/admin/panels/user_badges.php:25
+#, fuzzy
+msgid "Select a badge..."
+msgstr "Zoek naar een gebruiker…"
+
+#: addons/badges/admin/panels/user_badges.php:68
+#, fuzzy
+msgid "Find User Badges"
+msgstr "Creëer de UserPro pagina's opnieuw"
+
+#: addons/badges/admin/panels/user_badges.php:79
+#, php-format
+msgid "%s's Given Badges"
+msgstr ""
+
+#: addons/badges/admin/panels/user_badges.php:85
+#, fuzzy
+msgid "Delete Badge"
+msgstr "Verwijder veld"
+
+# @ userpro
+msgid "Search by account status"
+msgstr ""
+
+# @ userpro
+msgid "Photo Preference"
+msgstr ""
+
+# @ userpro
+msgid "Search by country"
+msgstr ""
+
+# @ userpro
+msgid "First Name"
+msgstr ""
+
+# @ userpro
+msgid "Last Name"
+msgstr ""
+
+# @ userpro
+msgid "Gender"
+msgstr ""
+
+# @ userpro
+msgid "Country/Region"
+msgstr ""
+
+#: addons/badges/admin/panels/user_badges.php:92
+msgid "This user does not have any manually assigned badges."
+msgstr ""
+
+#: addons/badges/functions/api.php:66
+#, fuzzy
+msgid "You did not choose any user."
+msgstr "Je hebt geen <i>Geheime Sleutel</i> ingegeven."
+
+#: addons/badges/functions/api.php:80 addons/badges/functions/api.php:106
+#: addons/badges/functions/api.php:131 addons/badges/functions/api.php:147
+msgid "You must choose a badge first."
+msgstr ""
+
+#: addons/badges/functions/api.php:82 addons/badges/functions/api.php:108
+#: addons/badges/functions/api.php:133 addons/badges/functions/api.php:149
+msgid "You must enter a title for the badge."
+msgstr ""
+
+#: addons/badges/functions/api.php:87 addons/badges/functions/api.php:91
+#: addons/badges/functions/api.php:96 addons/badges/functions/api.php:114
+#: addons/badges/functions/api.php:138
+msgid "Badges have been assigned."
+msgstr ""
+
+#: addons/badges/functions/api.php:110
+msgid "You did not select any number for this achievement."
+msgstr ""
+
+#: addons/badges/functions/api.php:151
+msgid "You must enter a required number of points for this badge."
+msgstr ""
+
+#: addons/emd/admin/admin.php:27
+#, fuzzy
+msgid "EMD Settings"
+msgstr "Login instellingen"
+
+#: addons/emd/admin/admin.php:54
+#, fuzzy
+msgid "Enhanced Member Directory"
+msgstr "Overzicht geregistreerde gebruikers"
+
+#: addons/emd/admin/admin.php:113 addons/multiforms/admin/admin.php:118
+#: addons/redirects/admin/admin.php:129 addons/requests/admin/admin.php:147
+#: addons/social/admin/admin.php:114 admin/admin.php:333
+msgid "Your plugin pages have been rebuilt successfully."
+msgstr "Je plug-in pagina's zijn opnieuw opgebouwd."
+
+#: addons/emd/admin/panels/settings.php:3
+msgid "All settings can be overriden using shortcode options."
+msgstr ""
+
+#: addons/emd/admin/panels/settings.php:5
+#, fuzzy
+msgid "Global Layout Settings"
+msgstr "Login instellingen"
+
+#: addons/emd/admin/panels/settings.php:9
+msgid "Number of results per page"
+msgstr ""
+
+#: addons/emd/admin/panels/settings.php:16
+msgid "Result Column Width"
+msgstr ""
+
+#: addons/emd/admin/panels/settings.php:19
+msgid ""
+"A percentage (%) or pixel value. This decides how many columns the plugin "
+"will attempt to display relative to 100% width. Example: 30% means there "
+"will be max of 3 users per column."
+msgstr ""
+
+#: addons/emd/admin/panels/settings.php:24
+msgid "Result Column Margin"
+msgstr ""
+
+#: addons/emd/admin/panels/settings.php:27
+msgid ""
+"Left margin applied to the result column, which leaves a gap so that whole "
+"width is close to 100% including the column widths."
+msgstr ""
+
+#: addons/emd/admin/panels/settings.php:32
+#, fuzzy
+msgid "Results Layout"
+msgstr "Veld layout"
+
+#: addons/emd/admin/panels/settings.php:35
+msgid "Masonry"
+msgstr ""
+
+#: addons/emd/admin/panels/settings.php:36
+msgid "Grid / Fit Columns"
+msgstr ""
+
+#: addons/emd/admin/panels/settings.php:44
+#: addons/multiforms/admin/panels/settings.php:29
+#: addons/social/admin/panels/pages.php:23
+#: addons/social/admin/panels/settings.php:133
+#: addons/timeline/admin/panels/settings.php:16
+#: addons/userpro-google-map/admin/panels/settings.php:24
+#: admin/panels/css.php:17 admin/panels/fieldroles.php:29
+#: admin/panels/licensing.php:18 admin/panels/mail.php:749
+#: admin/panels/newsletter_option.php:63 admin/panels/pages.php:41
+#: admin/panels/restrict.php:73 admin/panels/settings.php:1650
+#: functions/shortcode-main.php:111 functions/shortcode-private-content.php:106
+msgid "Save Changes"
+msgstr "Bewaar wijzigingen"
+
+#: addons/emd/admin/panels/settings.php:45
+#: addons/multiforms/admin/panels/settings.php:30
+#: addons/social/admin/panels/pages.php:24
+#: addons/social/admin/panels/settings.php:134
+#: addons/timeline/admin/panels/settings.php:17
+#: addons/userpro-google-map/admin/panels/settings.php:25
+#: admin/panels/css.php:18 admin/panels/fieldroles.php:30
+#: admin/panels/mail.php:750 admin/panels/newsletter_option.php:64
+#: admin/panels/pages.php:42 admin/panels/restrict.php:74
+#: admin/panels/settings.php:1651
+msgid "Reset Options"
+msgstr "Herstel opties"
+
+#: addons/emd/functions/api.php:241 addons/emd/functions/api.php:327
+#: templates/connections.php:98
+#, fuzzy
+msgid "Previous"
+msgstr "« Vorige"
+
+#: addons/emd/functions/api.php:242 addons/emd/functions/api.php:328
+#: templates/connections.php:99
+#, fuzzy
+msgid "Next"
+msgstr "Volgende »"
+
+#: addons/emd/functions/api.php:492
+msgid "No preference"
+msgstr ""
+
+#: addons/emd/functions/api.php:493
+msgid "Only members with photo"
+msgstr ""
+
+#: addons/emd/functions/api.php:494
+msgid "Only members without photo"
+msgstr ""
+
+#: addons/emd/functions/api.php:499
+msgid "All accounts"
+msgstr ""
+
+#: addons/emd/functions/api.php:500
+#, fuzzy
+msgid "Only verified accounts"
+msgstr "Account niet geverifieerd"
+
+#: addons/emd/functions/api.php:543 addons/emd/functions/api.php:573
+msgid "All"
+msgstr ""
+
+#: addons/emd/functions/api.php:592
+#, fuzzy, php-format
+msgid "Select %s"
+msgstr "Selecteer rollen"
+
+#: addons/emd/templates/collage.php:16 templates/memberlist.php:51
+#: templates/memberlist_v2.php:135
+msgid "No users match your search. Please try again."
+msgstr "Geen gebruikers gevonden. Probeer het nogmaals."
+
+#: addons/emd/templates/emd.php:9
+#, fuzzy
+msgid "Customize your Search"
+msgstr "Zoekopdracht verwijderen"
+
+#: addons/emd/templates/emd.php:13
+#, fuzzy
+msgid "Filter Search"
+msgstr "Zoekopdracht verwijderen"
+
+#: addons/emd/templates/emd.php:44 templates/card.php:12
+msgid "View Full Profile"
+msgstr "Bekijk het volledige profiel"
+
+#: addons/emd/templates/emd.php:80
+#, fuzzy
+msgid "No users are matching your search criteria."
+msgstr "Geen gebruikers gevonden. Probeer het nogmaals."
+
+#: addons/multiforms/admin/admin-functions.php:28
+#, php-format
+msgid ""
+"Done. You can use this seperate registration form by adding this to your "
+"register shortcode: <code>type=\"%1$s\"</code> Example: <strong>[userpro "
+"template=register type=\"%1$s\"]</strong>"
+msgstr ""
+
+#: addons/multiforms/admin/admin-functions.php:45
+#: addons/multiforms/admin/admin-functions.php:83
+msgid ""
+"Now check all fields that you want to make available for this registration "
+"form. (Choose only these that apply)"
+msgstr ""
+
+#: addons/multiforms/admin/admin-functions.php:121
+#, fuzzy, php-format
+#| msgid "This account has been deleted successfully."
+msgid "Form %1$s deleted succesfully"
+msgstr "Dit account is succesvol verwijdert."
+
+#: addons/multiforms/admin/admin.php:32
+msgid "Setup Multiple Forms"
+msgstr ""
+
+#: addons/multiforms/admin/admin.php:33
+#, fuzzy
+#| msgid "Edit Field"
+msgid "Edit Forms"
+msgstr "Bewerk veld"
+
+#: addons/multiforms/admin/admin.php:59
+#, fuzzy
+msgid "Multiple Registration Forms"
+msgstr "Registratie pagina"
+
+#: addons/multiforms/admin/panels/edit_multifrm.php:3
+msgid ""
+"You can find the Multiple Forms that you have created and edit it from this "
+"page."
+msgstr ""
+
+#: addons/multiforms/admin/panels/edit_multifrm.php:13
+#: addons/multiforms/admin/panels/edit_multifrm.php:21
+#, fuzzy
+#| msgid "Form Style"
+msgid "Form Title"
+msgstr "Formulier stijl"
+
+#: addons/multiforms/admin/panels/edit_multifrm.php:14
+#: addons/multiforms/admin/panels/edit_multifrm.php:22
+#, fuzzy
+#| msgid "Form Style"
+msgid "Form Shortcode"
+msgstr "Formulier stijl"
+
+#: addons/multiforms/admin/panels/edit_multifrm.php:15
+msgid "Action"
+msgstr ""
+
+#: addons/multiforms/admin/panels/settings.php:8
+#, fuzzy
+msgid "Default Registration Form to Use"
+msgstr "Registratie pagina"
+
+#: addons/multiforms/admin/panels/settings.php:12
+msgid "Choose your default form"
+msgstr ""
+
+#: addons/multiforms/admin/panels/settings.php:38
+msgid "Setup Multiple Register Forms"
+msgstr ""
+
+#: addons/multiforms/admin/panels/settings.php:40
+msgid ""
+"This feature helps you setup multiple or seperate registration forms. For "
+"example, If you want to have two seperate forms or more e.g. Customer, "
+"Seller, etc. This tool helps you create conditional forms, just follow the "
+"simple steps."
+msgstr ""
+
+#: addons/multiforms/admin/panels/settings.php:42
+msgid "Quick Setup Guide"
+msgstr ""
+
+#: addons/multiforms/admin/panels/settings.php:45
+#, php-format
+msgid ""
+"First, setup all form fields including the multiple forms fields at the "
+"field customizer (Registration Fields) <a href=\"%s\">here</a>"
+msgstr ""
+
+#: addons/multiforms/admin/panels/settings.php:46
+msgid ""
+"Enter a unique name below for a seperate registration form below to start."
+msgstr ""
+
+#: addons/multiforms/admin/panels/settings.php:47
+msgid ""
+"Once entered a unique name (used to tell the plugin which fields/form group "
+"to display), you will be able to check all the fields that are available "
+"only in that specific registration form. Save and go!"
+msgstr ""
+
+#: addons/multiforms/admin/panels/settings.php:50
+msgid "Enter a unique name to start"
+msgstr ""
+
+#: addons/multiforms/admin/panels/settings.php:51
+msgid "example: customer_form"
+msgstr ""
+
+#: addons/multiforms/admin/panels/settings.php:56
+msgid "Done! Create another?"
+msgstr ""
+
+#: addons/multiforms/admin/panels/settings.php:56
+msgid "Ready"
+msgstr ""
+
+#: addons/multiforms/admin/panels/settings.php:56
+msgid "Start"
+msgstr ""
+
+#: addons/multiforms/admin/panels/template.php:8
+#, fuzzy
+#| msgid "This account has been deleted successfully."
+msgid "Done! Form edited successfully"
+msgstr "Dit account is succesvol verwijdert."
+
+#: addons/redirects/admin/admin-functions.php:18
+msgid "Map All Users"
+msgstr ""
+
+#: addons/redirects/admin/admin-functions.php:67
+#: addons/redirects/admin/admin-functions.php:77 admin/admin-users.php:8
+#: admin/panels/settings.php:247 functions/api.php:180
+#, fuzzy
+msgid "Username"
+msgstr "Gebruikersnaam of Email"
+
+#: addons/redirects/admin/admin-functions.php:68
+#: addons/redirects/admin/admin-functions.php:78 functions/api.php:192
+#, fuzzy
+msgid "Role"
+msgstr "Rollen"
+
+#: addons/redirects/admin/admin-functions.php:69
+#: addons/redirects/admin/admin-functions.php:79
+#, fuzzy
+msgid "Custom Field"
+msgstr "Velden aanpassen"
+
+#: addons/redirects/admin/admin-functions.php:70
+#: addons/redirects/admin/admin-functions.php:80
+#, fuzzy
+msgid "Field Value"
+msgstr "Label"
+
+#: addons/redirects/admin/admin-functions.php:71
+#: addons/redirects/admin/admin-functions.php:81
+#: addons/redirects/admin/panels/login_redirects.php:30
+#: addons/redirects/admin/panels/register_redirects.php:30
+#, fuzzy
+msgid "Redirection URL"
+msgstr "Doorverwijzen naar de aangepaste URL"
+
+#: addons/redirects/admin/admin-functions.php:98
+#, fuzzy
+msgid "Remove Rule"
+msgstr "Verwijder"
+
+#: addons/redirects/admin/admin-functions.php:112
+#, fuzzy
+msgid "You did not specify a redirection URL."
+msgstr "Je hebt geen <i>Geheime Sleutel</i> ingegeven."
+
+#: addons/redirects/admin/admin-functions.php:114
+msgid ""
+"You did not specify any custom condition (e.g. specific user) for this "
+"redirection."
+msgstr ""
+
+#: addons/redirects/admin/admin.php:41
+#, fuzzy
+msgid "Login Redirects"
+msgstr "Verwijs niet door"
+
+#: addons/redirects/admin/admin.php:42
+#, fuzzy
+msgid "Registration Redirects"
+msgstr "Registratie pagina"
+
+#: addons/redirects/admin/admin.php:43
+#, fuzzy
+msgid "Help"
+msgstr "Help tekst"
+
+#: addons/redirects/admin/admin.php:70
+#, fuzzy
+msgid "Custom Redirects"
+msgstr "Verwijs niet door"
+
+#: addons/redirects/admin/panels/login_redirects.php:3
+#: addons/redirects/admin/panels/register_redirects.php:3
+msgid ""
+"The top rules always have higher priority. So any new rule you add will be "
+"higher in priority and checked first in the redirection rules during login "
+"or registering (depending on where you set the redirection). You can setup a "
+"rule for a specific role, or a specific user, or perhaps redirect all users "
+"who choose United States as country to be redirected to a custom page. This "
+"addon also supports automatic mapping. Please check the help tab for "
+"examples and help."
+msgstr ""
+
+#: addons/redirects/admin/panels/login_redirects.php:5
+#: addons/redirects/admin/panels/register_redirects.php:5
+msgid "Add New Redirection Rule"
+msgstr ""
+
+#: addons/redirects/admin/panels/login_redirects.php:11
+#: addons/redirects/admin/panels/register_redirects.php:11
+#, fuzzy
+msgid "&mdash; For a specific role &mdash;"
+msgstr "&mdash; Selecteer account rol &mdash;"
+
+#: addons/redirects/admin/panels/login_redirects.php:16
+#: addons/redirects/admin/panels/register_redirects.php:16
+#, fuzzy
+msgid "&mdash; For a user / all users &mdash;"
+msgstr "&mdash; Selecteer account rol &mdash;"
+
+#: addons/redirects/admin/panels/login_redirects.php:21
+#: addons/redirects/admin/panels/register_redirects.php:21
+#, fuzzy
+msgid "&mdash; For a custom field &mdash;"
+msgstr "&mdash; Selecteer account rol &mdash;"
+
+#: addons/redirects/admin/panels/login_redirects.php:26
+#: addons/redirects/admin/panels/register_redirects.php:26
+msgid ""
+"If you want redirection based on specific <strong>custom field value</"
+"strong> enter the value here: (e.g. country or city) This is helpful if you "
+"wish to redirect users who have a specific city in profile, be redirected to "
+"a custom page after their login. If you wish to <strong>auto-map</strong> or "
+"redirect users automatically based on the custom field value you could use "
+"wildcards like this: <strong>{your_custom_field}</strong> in the redirection "
+"URL. The wildcard will also work on {username}"
+msgstr ""
+
+#: addons/redirects/admin/panels/login_redirects.php:27
+#: addons/redirects/admin/panels/register_redirects.php:27
+#, fuzzy
+msgid "Enter field value"
+msgstr "%s velden beschikbaar"
+
+#: addons/redirects/admin/panels/login_redirects.php:31
+#: addons/redirects/admin/panels/register_redirects.php:31
+msgid ""
+"You can use wildcards for automated mapping. For example, if you enter "
+"{username} that will be replaced automatically by the username in "
+"redirection url. If you want to map a custom field <strong>country</strong> "
+"then use the wildcart {country} to map the user to his country "
+"automatically. If you use wildcards, the field value is not required."
+msgstr ""
+
+#: addons/redirects/admin/panels/login_redirects.php:32
+#: addons/redirects/admin/panels/register_redirects.php:32
+msgid "Enter redirection URL here."
+msgstr ""
+
+#: addons/redirects/admin/panels/login_redirects.php:34
+#: addons/redirects/admin/panels/register_redirects.php:34
+msgid "Submit New Rule"
+msgstr ""
+
+#: addons/redirects/admin/panels/login_redirects.php:49
+#, fuzzy
+msgid "Existing Login Redirects"
+msgstr "Verwijs niet door"
+
+#: addons/redirects/admin/panels/register_redirects.php:49
+msgid "Existing Register Redirects"
+msgstr ""
+
+#: addons/requests/admin/admin.php:27 addons/requests/admin/admin.php:87
+msgid "User Requests"
+msgstr ""
+
+#: addons/requests/admin/admin.php:83
+#, php-format
+msgid "%d new verification requests"
+msgstr ""
+
+#: addons/requests/admin/admin.php:85
+#, php-format
+msgid "User Requests %s"
+msgstr ""
+
+#: addons/requests/admin/panels/settings.php:11 admin/panels/requests.php:11
+#, fuzzy
+msgid "Users Requesting Verified Status"
+msgstr "Sta gebruikers toe hun profiel te verwijderen"
+
+#: addons/requests/admin/panels/settings.php:15
+#: addons/requests/admin/panels/settings.php:66
+#: addons/requests/admin/panels/settings.php:119 admin/panels/requests.php:15
+#: admin/panels/requests.php:61 admin/panels/requests.php:114
+msgid "Sortby"
+msgstr ""
+
+#: addons/requests/admin/panels/settings.php:18
+#: addons/requests/admin/panels/settings.php:69
+#: addons/requests/admin/panels/settings.php:122 admin/panels/requests.php:18
+#: admin/panels/requests.php:64 admin/panels/requests.php:117
+msgid "Default Order"
+msgstr ""
+
+#: addons/requests/admin/panels/settings.php:19
+#: addons/requests/admin/panels/settings.php:70
+#: addons/requests/admin/panels/settings.php:123 admin/panels/requests.php:19
+#: admin/panels/requests.php:65 admin/panels/requests.php:118
+msgid "Ascending Order"
+msgstr ""
+
+#: addons/requests/admin/panels/settings.php:20
+#: addons/requests/admin/panels/settings.php:71
+#: addons/requests/admin/panels/settings.php:124 admin/panels/requests.php:20
+#: admin/panels/requests.php:66 admin/panels/requests.php:119
+msgid "Descending Order"
+msgstr ""
+
+#: addons/requests/admin/panels/settings.php:39 admin/panels/requests.php:39
+#, fuzzy
+msgid "Verify"
+msgstr "Geverifieerd"
+
+#: addons/requests/admin/panels/settings.php:40 admin/panels/requests.php:40
+#: templates/connections.php:58
+msgid "Reject"
+msgstr ""
+
+#: addons/requests/admin/panels/settings.php:62 admin/panels/requests.php:57
+msgid "Users Awaiting Manual Approval"
+msgstr ""
+
+#: addons/requests/admin/panels/settings.php:95 admin/panels/requests.php:90
+msgid "Approve"
+msgstr ""
+
+#: addons/requests/admin/panels/settings.php:96
+#: addons/requests/admin/panels/settings.php:146 admin/panels/requests.php:91
+#: admin/panels/requests.php:141
+#, fuzzy
+msgid "Delete user"
+msgstr "Verwijder veld"
+
+#: addons/requests/admin/panels/settings.php:115 admin/panels/requests.php:110
+#, fuzzy
+msgid "Users Awaiting E-mail Validation"
+msgstr "Pas de \"Herstel wachtwoord\" email aan"
+
+#: addons/requests/admin/panels/settings.php:145 admin/panels/requests.php:140
+#: admin/panels/settings.php:58 admin/panels/settings.php:69
+msgid "Activate"
+msgstr ""
+
+#: addons/social/admin/admin.php:27
+#, fuzzy
+msgid "Social Extension Settings"
+msgstr "Registratie instellingen"
+
+#: addons/social/admin/admin.php:28
+msgid "Page Setup"
+msgstr ""
+
+#: addons/social/admin/admin.php:55
+#, fuzzy
+msgid "Social Extension"
+msgstr "Velden aanpassen"
+
+#: addons/social/admin/panels/pages.php:3 admin/panels/pages.php:3
+msgid ""
+"You must update your permalinks or Save Changes on your permalinks setup for "
+"the nice URLs to work fine."
+msgstr ""
+"Je moet je permalinks vernieuwen of kies: \"Bewaar wijzigingen: onder "
+"Instellingen | Permalinks van WordPress om gebruik te kunnen maken van de "
+"aangepaste leesbare URL's."
+
+#: addons/social/admin/panels/pages.php:5
+msgid ""
+"For a better multi-language experience, UserPro allow you to edit the slugs "
+"of the official registration/profile pages here. You must rebuild pages If "
+"you changed your slugs for the new slugs to take effect."
+msgstr ""
+"Voor een betere meertalige ervaring, kan je via UserPro de slugs van de "
+"pagina's hieronder aanpassen. Wanneer je de slugs aanpast is het "
+"noodzakelijk de pagina's opnieuw te creëren."
+
+#: addons/social/admin/panels/pages.php:7 admin/panels/pages.php:5
+msgid "Manage Page Slugs"
+msgstr "Beheer pagina slugs"
+
+#: addons/social/admin/panels/pages.php:11
+#, fuzzy
+msgid "\"Following\" Slug"
+msgstr "\"Login\" Slug"
+
+#: addons/social/admin/panels/pages.php:16
+#, fuzzy
+msgid "\"Followers\" Slug"
+msgstr "\"Profiel\" Slug"
+
+#: addons/social/admin/panels/pages.php:27
+#, fuzzy
+msgid ""
+"By default, the extension creates frontend pages automatically. However if "
+"for some reason, these pages were removed or deleted you can rebuild them "
+"here."
+msgstr ""
+"UserPro creëert automatisch de benodigde pagina's. Wanneer echter, voor "
+"welke reden dan ook, deze pagina's zijn verwijderd, dan zijn ze hier opnieuw "
+"te creëren. "
+
+#: addons/social/admin/panels/pages.php:29
+#, fuzzy
+msgid "Check / Rebuild Extension Pages"
+msgstr "Controleer / Creëer Profiel pagina's"
+
+#: addons/social/admin/panels/pages.php:33
+#, fuzzy
+msgid "Following Page"
+msgstr "Login pagina"
+
+#: addons/social/admin/panels/pages.php:37
+#: addons/social/admin/panels/pages.php:50 admin/admin-functions.php:335
+#: admin/admin-functions.php:402 admin/panels/pages.php:53
+#: admin/panels/pages.php:66 admin/panels/pages.php:79
+#: admin/panels/pages.php:92 admin/panels/pages.php:105
+#: admin/panels/pages.php:118
+msgid "View Page"
+msgstr "Bekijk pagina"
+
+#: addons/social/admin/panels/pages.php:46
+#, fuzzy
+msgid "Followers Page"
+msgstr "Profiel pagina"
+
+#: addons/social/admin/panels/pages.php:61
+#, fuzzy
+msgid "Rebuild Pages"
+msgstr "Creëer de UserPro pagina's opnieuw"
+
+#: addons/social/admin/panels/settings.php:7
+#, fuzzy
+msgid "E-mail Notifications"
+msgstr "Email notificaties"
+
+#: addons/social/admin/panels/settings.php:11
+msgid "Send e-mail notification when someone follow another user"
+msgstr ""
+
+#: addons/social/admin/panels/settings.php:20
+msgid "Send e-mail notification to followers when user creates post"
+msgstr ""
+
+#: addons/social/admin/panels/settings.php:31
+msgid "New Follow E-mail Template"
+msgstr ""
+
+#: addons/social/admin/panels/settings.php:35
+#: addons/social/admin/panels/settings.php:65 admin/panels/invite.php:34
+#: admin/panels/mail.php:158 admin/panels/mail.php:188
+#: admin/panels/mail.php:218 admin/panels/mail.php:248
+#: admin/panels/mail.php:278 admin/panels/mail.php:307
+#: admin/panels/mail.php:334 admin/panels/mail.php:362
+#: admin/panels/mail.php:392 admin/panels/mail.php:422
+#: admin/panels/mail.php:452 admin/panels/mail.php:482
+#: admin/panels/mail.php:512 admin/panels/mail.php:542
+#: admin/panels/mail.php:572 admin/panels/mail.php:601
+#: admin/panels/mail.php:633 admin/panels/mail.php:663
+#: admin/panels/mail.php:692 admin/panels/mail.php:723
+msgid "Subject"
+msgstr ""
+
+#: addons/social/admin/panels/settings.php:40
+#: addons/social/admin/panels/settings.php:70 admin/panels/mail.php:163
+#: admin/panels/mail.php:193 admin/panels/mail.php:223
+#: admin/panels/mail.php:253 admin/panels/mail.php:283
+#: admin/panels/mail.php:312 admin/panels/mail.php:339
+#: admin/panels/mail.php:367 admin/panels/mail.php:397
+#: admin/panels/mail.php:427 admin/panels/mail.php:457
+#: admin/panels/mail.php:487 admin/panels/mail.php:517
+#: admin/panels/mail.php:547 admin/panels/mail.php:577
+#: admin/panels/mail.php:606 admin/panels/mail.php:638
+#: admin/panels/mail.php:668 admin/panels/mail.php:697
+#: admin/panels/mail.php:728
+msgid "Email Content"
+msgstr "Email inhoud"
+
+#: addons/social/admin/panels/settings.php:61
+msgid "New Post E-mail Notification to Followers Template"
+msgstr ""
+
+#: addons/social/admin/panels/settings.php:91
+msgid "Activity Stream"
+msgstr ""
+
+#: addons/social/admin/panels/settings.php:95
+msgid "Make public activity visible to guests"
+msgstr ""
+
+#: addons/social/admin/panels/settings.php:105
+msgid "Exclude admin activity from wall"
+msgstr ""
+
+#: addons/social/admin/panels/settings.php:115
+msgid "No. of activities per page"
+msgstr ""
+
+#: addons/social/admin/panels/settings.php:118
+msgid "The number of items in activity stream to load per page."
+msgstr ""
+
+#: addons/social/admin/panels/settings.php:123
+msgid "Exclude these post types from activity"
+msgstr ""
+
+#: addons/social/admin/panels/settings.php:126
+msgid "A comma seperated list of post types to hide from activity."
+msgstr ""
+
+#: addons/social/functions/api.php:58
+#, fuzzy
+msgid "is now a verified account."
+msgstr "Account niet geverifieerd"
+
+#: addons/social/functions/api.php:80
+#, php-format
+msgid "has published a <a href=\"%s\">post on socialwall</a>."
+msgstr ""
+
+#: addons/social/functions/api.php:85
+#, php-format
+msgid "has published a <a href=\"%s\">new %s</a>."
+msgstr ""
+
+#: addons/social/functions/api.php:120
+#, php-format
+msgid "has updated a <a href=\"%s\">%s</a>."
+msgstr ""
+
+#: addons/social/functions/api.php:143
+msgid "has posted a new comment on:"
+msgstr ""
+
+#: addons/social/functions/api.php:156
+#, php-format
+msgid "has started following <a href=\"%s\">%s</a>"
+msgstr ""
+
+#: addons/social/functions/api.php:184
+#, php-format
+msgid "has stopped following <a href=\"%s\">%s</a>"
+msgstr ""
+
+#: addons/social/functions/api.php:204
+msgid "has just registered!"
+msgstr ""
+
+#: addons/social/functions/api.php:236 addons/social/functions/api.php:258
+#: addons/social/functions/api.php:279
+msgid "You"
+msgstr ""
+
+#: addons/social/functions/api.php:324
+#, php-format
+msgid "<span>%s</span> following"
+msgstr ""
+
+#: addons/social/functions/api.php:357
+#, php-format
+msgid "<span>%s</span> followers"
+msgstr ""
+
+#: addons/social/functions/api.php:474 addons/social/functions/api.php:476
+#: profile-layouts/layout2/layout.php:273
+#: profile-layouts/layout2/layout.php:275
+#: profile-layouts/layout3/layout.php:330
+#: profile-layouts/layout3/layout.php:332
+msgid "Follow"
+msgstr ""
+
+#: addons/social/functions/api.php:474 addons/social/functions/api.php:476
+#: profile-layouts/layout2/layout.php:273
+#: profile-layouts/layout2/layout.php:275
+#: profile-layouts/layout3/layout.php:330
+#: profile-layouts/layout3/layout.php:332
+msgid "Unfollow"
+msgstr ""
+
+#: addons/social/functions/api.php:474 addons/social/functions/api.php:476
+#: addons/social/functions/initial-setup.php:33
+#: addons/social/functions/shortcode-main.php:6
+#: profile-layouts/layout1/layout.php:66 profile-layouts/layout2/layout.php:273
+#: profile-layouts/layout2/layout.php:275
+#: profile-layouts/layout3/layout.php:330
+#: profile-layouts/layout3/layout.php:332
+msgid "Following"
+msgstr ""
+
+#: addons/social/functions/api.php:488
+#, php-format
+msgid "<span>%s</span>"
+msgstr ""
+
+#: addons/social/functions/defaults.php:32
+#: addons/social/functions/defaults.php:42 functions/defaults.php:47
+#: functions/defaults.php:52 functions/defaults.php:59
+#: functions/defaults.php:66 functions/defaults.php:73
+#: functions/defaults.php:83 functions/defaults.php:91
+#: functions/defaults.php:96 functions/defaults.php:101
+#: functions/defaults.php:106 functions/defaults.php:111
+#: functions/defaults.php:116 functions/defaults.php:121
+#: functions/defaults.php:127 functions/defaults.php:133
+#: functions/defaults.php:139 functions/defaults.php:145
+#: functions/defaults.php:150 functions/defaults.php:156
+#: functions/defaults.php:160
+msgid "Hi there,"
+msgstr "Hallo!"
+
+#: addons/social/functions/defaults.php:33
+msgid ""
+"{USERPRO_FOLLOWER_NAME} is now following you on {USERPRO_BLOG_NAME}! You can "
+"click the following link to view his/her profile:"
+msgstr ""
+
+#: addons/social/functions/defaults.php:35
+#, fuzzy
+msgid "Or view your profile at:"
+msgstr "Login om je profiel te zien en te beheren."
+
+#: addons/social/functions/defaults.php:37 functions/defaults.php:125
+#: functions/defaults.php:131 functions/defaults.php:137
+#: functions/defaults.php:143 functions/defaults.php:148
+#: functions/defaults.php:154 functions/defaults.php:162
+msgid ""
+"This is an automated notification that was sent to you by UserPro. No "
+"further action is needed."
+msgstr ""
+"Dit is een geautomatiseerd bericht van UserPro. Er is geen verdere actie "
+"vereist."
+
+#: addons/social/functions/defaults.php:39
+msgid "{USERPRO_FOLLOWER_NAME} is now following you!"
+msgstr ""
+
+#: addons/social/functions/defaults.php:43
+#, fuzzy
+msgid "{USERPRO_FROM_NAME} has created a new post - "
+msgstr ""
+"{USERPRO_USERNAME} heeft zojuist zijn/haar profiel bijgewerkt op "
+"{USERPRO_BLOGNAME}."
+
+#: addons/social/functions/defaults.php:44
+#, fuzzy
+#| msgid "Secret Key: {VAR1}"
+msgid "Post Name : {VAR1}"
+msgstr "Geheime Sleutel: {VAR1}"
+
+#: addons/social/functions/defaults.php:46
+#, fuzzy
+msgid "{USERPRO_FROM_NAME} has created a new post!"
+msgstr ""
+"{USERPRO_USERNAME} heeft zojuist zijn/haar profiel bijgewerkt op "
+"{USERPRO_BLOGNAME}."
+
+#: addons/social/functions/initial-setup.php:47
+#: addons/social/functions/shortcode-main.php:7
+#: profile-layouts/layout1/layout.php:65
+msgid "Followers"
+msgstr ""
+
+#: addons/social/functions/shortcode-main.php:8
+msgid "Recent Activity"
+msgstr ""
+
+#: addons/social/templates/activity.php:3
+#: addons/social/templates/followers.php:3
+#: addons/social/templates/following.php:3 templates/card.php:3
+#: templates/change.php:8 templates/connections.php:3 templates/delete.php:3
+#: templates/edit.php:3 templates/list.php:3 templates/login.php:12
+#: templates/logout.php:1 templates/online.php:3 templates/publish.php:3
+#: templates/register.php:1 templates/request_verify.php:3
+#: templates/resend.php:3 templates/reset.php:3 templates/view.php:66
+msgid "Close"
+msgstr "Sluiten"
+
+#: addons/social/templates/activity.php:9
+msgid "Refresh"
+msgstr ""
+
+#: addons/social/templates/activity.php:45
+msgid "View more activity"
+msgstr ""
+
+#: addons/social/templates/activity.php:55
+msgid "There is no recent activity from the users you follow yet."
+msgstr ""
+
+#: addons/social/templates/activity.php:57
+msgid "There is no public activity to display yet."
+msgstr ""
+
+#: addons/social/templates/followers.php:58
+#: addons/social/templates/following.php:57
+#: functions/memberlist-functions.php:517 functions/shortcode-main.php:300
+msgid "« Previous"
+msgstr "« Vorige"
+
+#: addons/social/templates/followers.php:59
+#: addons/social/templates/following.php:58
+#: functions/memberlist-functions.php:518 functions/shortcode-main.php:301
+msgid "Next »"
+msgstr "Volgende »"
+
+#: addons/social/templates/followers.php:110
+#: profile-layouts/layout1/layout.php:122
+msgid "You do not have anyone who started following you yet."
+msgstr ""
+
+#: addons/social/templates/followers.php:112
+#: profile-layouts/layout1/layout.php:124
+msgid "This user does not have anyone who started following him/her yet."
+msgstr ""
+
+#: addons/social/templates/following.php:106
+#: profile-layouts/layout1/layout.php:162
+msgid "You have not started following anyone yet."
+msgstr ""
+
+#: addons/social/templates/following.php:108
+#: profile-layouts/layout1/layout.php:164
+msgid "This user have not started following anyone yet."
+msgstr ""
+
+#: addons/timeline/admin/admin.php:17 addons/timeline/admin/admin.php:29
+#: addons/timeline/functions/hooks-actions.php:27
+msgid "Timeline"
+msgstr ""
+
+#: addons/timeline/admin/panels/settings.php:2
+#: addons/userpro-google-map/admin/panels/settings.php:3
+#, fuzzy
+#| msgid "Aweber Settings"
+msgid "General Settings"
+msgstr "Aweber Instellingen"
+
+#: addons/timeline/admin/panels/settings.php:5
+msgid "Enable Timeline"
+msgstr ""
+
+#: addons/timeline/templates/template-timeline-profilepic_update.php:14
+#, fuzzy
+msgid "Changed profile picture"
+msgstr "Bewerk profiel pagina"
+
+#: addons/timeline/templates/template-timeline-registered.php:10
+#, fuzzy
+#| msgid "Register"
+msgid "Got Registered"
+msgstr "Registreer"
+
+#: addons/timeline/templates/template-timeline-verified.php:9
+#, fuzzy
+msgid "Account got verified"
+msgstr "Dit account is succesvol verwijdert."
+
+#: addons/userpro-google-map/admin/admin.php:17
+#: addons/userpro-google-map/admin/admin.php:29
+#, fuzzy
+msgid "Google Map"
+msgstr "Facebook gelinkt"
+
+#: addons/userpro-google-map/admin/panels/settings.php:6
+msgid "Enable Google Map"
+msgstr ""
+
+#: addons/userpro-google-map/admin/panels/settings.php:15
+msgid "Google Map API Key"
+msgstr ""
+
+#: addons/userpro-google-map/admin/panels/settings.php:18
+msgid ""
+"Enter the Google map API key value. Generate your <a target=\"_blank\" href="
+"\"https://console.developers.google.com/flows/enableapi?apiid=maps_backend,"
+"geocoding_backend,directions_backend,distance_matrix_backend,"
+"elevation_backend,places_backend&reusekey=true\">API Key</a>"
+msgstr ""
+
+#: addons/userpro-google-map/functions/defaults.php:30
+msgid "Hello,"
+msgstr ""
+
+#: addons/userpro-google-map/functions/defaults.php:31
+msgid "Thanks and Regards,"
+msgstr ""
+
+#: addons/userpro-google-map/functions/defaults.php:32
+msgid "<a href=\"{USERPRO_REPLY_URL}\">Click here</a>"
+msgstr ""
+
+#: addons/userpro-google-map/functions/defaults.php:38
+msgid "Received Mail via Contact Me"
+msgstr ""
+
+#: addons/userpro-google-map/templates/gmap.php:5
+msgid "Map"
+msgstr ""
+
+#: admin/admin-functions.php:30
+msgid "Thank you for activating UserPro!"
+msgstr ""
+
+#: admin/admin-functions.php:30
+msgid "This copy is unlicensed. Please activate your copy."
+msgstr ""
+
+#: admin/admin-functions.php:33
+#, fuzzy
+#| msgid "Email Content"
+msgid "Email Support"
+msgstr "Email inhoud"
+
+#: admin/admin-functions.php:34
+msgid "User Manual"
+msgstr "Handleiding"
+
+#: admin/admin-functions.php:35
+msgid "Rate Us On CodeCanyon"
+msgstr ""
+
+#: admin/admin-functions.php:36
+msgid "Download Latest"
+msgstr ""
+
+#: admin/admin-functions.php:40
+msgid "Love the plugin?<br> Rate it on Codecanyon"
+msgstr ""
+
+#: admin/admin-functions.php:80
+msgid ""
+"Displays the admin email that users can contact you at. You can configure it "
+"under Mail settings."
+msgstr ""
+"Toont het email adres van de beheerder via welke je te bereiken bent. Dit is "
+"in te stellen onder Email instellingen."
+
+#: admin/admin-functions.php:81
+msgid "Displays blog name"
+msgstr "Toont blog naam"
+
+#: admin/admin-functions.php:82
+#, fuzzy
+msgid "Displays blog URL"
+msgstr "Toont blog naam"
+
+#: admin/admin-functions.php:83
+#, fuzzy
+msgid "Displays blog WP-admin URL"
+msgstr "Toont blog naam"
+
+#: admin/admin-functions.php:84
+msgid "Displays the UserPro login page"
+msgstr "Toont de UserPro login pagina"
+
+#: admin/admin-functions.php:85
+msgid "Displays the Username of user"
+msgstr "Toont de Gebruikersnaam van de gebruiker"
+
+#: admin/admin-functions.php:86
+#, fuzzy
+msgid "Displays the user first name"
+msgstr "Toont het Gebruikers profiel adres"
+
+#: admin/admin-functions.php:87
+#, fuzzy
+msgid "Displays the user last name"
+msgstr "Toont de UserPro login pagina"
+
+#: admin/admin-functions.php:88
+#, fuzzy
+msgid "Displays the user display name or public name"
+msgstr "Toont de Gebruikersnaam van de gebruiker"
+
+#: admin/admin-functions.php:89
+msgid "Displays the E-mail address of user"
+msgstr "Toont het email adres van de gebruiker"
+
+#: admin/admin-functions.php:90
+msgid "Displays the User Profile address"
+msgstr "Toont het Gebruikers profiel adres"
+
+#: admin/admin-functions.php:91
+msgid "Outputs all profile fields in the e-mail"
+msgstr ""
+
+#: admin/admin-functions.php:92
+msgid ""
+"The account validation URL that user receives after signing up (If you "
+"enable e-mail validation feature)"
+msgstr ""
+
+#: admin/admin-functions.php:93
+msgid ""
+"Gives a link to the admin to manage his pending user requests and "
+"registrations."
+msgstr ""
+
+#: admin/admin-functions.php:94
+msgid ""
+"This is an automatic generated URL that user will click to become verified "
+"after an invitation to get verified is sent to him."
+msgstr ""
+
+#: admin/admin-functions.php:95
+#, fuzzy
+#| msgid "Displays the Username of user"
+msgid "Displays value of custom field"
+msgstr "Toont de Gebruikersnaam van de gebruiker"
+
+#: admin/admin-functions.php:99
+msgid "Custom Variable 1"
+msgstr "Aangepaste variabel 1"
+
+#: admin/admin-functions.php:115
+#, fuzzy
+msgid "Displays Login Popup"
+msgstr "Toont blog naam"
+
+#: admin/admin-functions.php:116
+#, fuzzy
+#| msgid "Displays the Username of user"
+msgid "Displays Register Popup"
+msgstr "Toont de Gebruikersnaam van de gebruiker"
+
+#: admin/admin-functions.php:129
+#, php-format
+msgid "%s fields available"
+msgstr "%s velden beschikbaar"
+
+#: admin/admin-functions.php:162
+msgid "Edit Field"
+msgstr "Bewerk veld"
+
+#: admin/admin-functions.php:164
+msgid "Delete Field"
+msgstr "Verwijder veld"
+
+#: admin/admin-functions.php:311 admin/admin-functions.php:387
+#, fuzzy
+msgid "Registration Fields"
+msgstr "Registratie pagina"
+
+#: admin/admin-functions.php:312 admin/admin-functions.php:388
+#, fuzzy
+msgid "Edit Profile Fields"
+msgstr "Bewerk profiel pagina"
+
+#: admin/admin-functions.php:313 admin/admin-functions.php:389
+#, fuzzy
+msgid "Login Fields"
+msgstr "Velden aanpassen"
+
+#: admin/admin-functions.php:314 admin/admin-functions.php:390
+#, fuzzy
+msgid "Social Fields"
+msgstr "Velden aanpassen"
+
+#: admin/admin-functions.php:337 admin/admin-functions.php:405
+msgid "Reset"
+msgstr "Herstel"
+
+#: admin/admin-functions.php:338 admin/admin-functions.php:406
+#: functions/custom-alerts.php:24 functions/custom-alerts.php:33
+msgid "Save"
+msgstr "Bewaar"
+
+#: admin/admin-functions.php:353
+msgid " Fields which user will see at time of registration."
+msgstr ""
+
+#: admin/admin-functions.php:361
+msgid "  Fields which user will see at time of edit profile. "
+msgstr ""
+
+#: admin/admin-functions.php:368
+msgid " Fields which user will see at time of login. "
+msgstr ""
+
+#: admin/admin-functions.php:376
+#, fuzzy
+msgid " Social Fields."
+msgstr "Velden aanpassen"
+
+#: admin/admin-functions.php:423
+msgid "Label"
+msgstr "Label"
+
+#: admin/admin-functions.php:424 admin/panels/fields.php:97
+msgid "Help Text"
+msgstr "Help tekst"
+
+#: admin/admin-functions.php:425
+#, fuzzy
+msgid "Placeholder"
+msgstr "Aangepaste placeholder"
+
+#: admin/admin-functions.php:426
+msgid "Ajax Check Callback (advanced)"
+msgstr ""
+
+#: admin/admin-functions.php:427
+msgid "Heading Text"
+msgstr "Titel tekst"
+
+#: admin/admin-functions.php:428
+msgid "Collapsible Section"
+msgstr "Inklapbare sectie"
+
+#: admin/admin-functions.php:429
+msgid "Collapsed"
+msgstr "Ingeklapt"
+
+#: admin/admin-functions.php:430
+msgid "followers email alert text"
+msgstr ""
+
+#: admin/admin-functions.php:431
+#, fuzzy
+msgid "Upload Button Text"
+msgstr "Upload foto"
+
+#: admin/admin-functions.php:432
+msgid "MailChimp List ID"
+msgstr ""
+
+#: admin/admin-functions.php:433
+msgid "Recaptcha SiteKey"
+msgstr ""
+
+#: admin/admin-functions.php:434
+msgid "MailChimp Subscribe Text"
+msgstr ""
+
+#: admin/admin-functions.php:435
+msgid "Font Icon Code"
+msgstr ""
+
+#: admin/admin-functions.php:436
+msgid "Security Question"
+msgstr ""
+
+#: admin/admin-functions.php:444
+msgid "Drag fields / sections into this area"
+msgstr ""
+
+#: admin/admin-functions.php:541
+msgid "Show"
+msgstr ""
+
+#: admin/admin-functions.php:542
+msgid "hide"
+msgstr ""
+
+#: admin/admin-functions.php:554
+#, fuzzy
+msgid "select"
+msgstr "Selecteer rollen"
+
+#: admin/admin-functions.php:555
+msgid "Empty"
+msgstr ""
+
+#: admin/admin-functions.php:556
+msgid "Not empty"
+msgstr ""
+
+#: admin/admin-functions.php:557
+msgid "Equal to"
+msgstr ""
+
+#: admin/admin-functions.php:558
+msgid "Not Equal to"
+msgstr ""
+
+#: admin/admin-functions.php:595
+msgid "Add Seperator / Section"
+msgstr "Scheiding / sectie"
+
+#: admin/admin-functions.php:598
+msgid "My Custom Heading"
+msgstr "Mijn aangepaste titel"
+
+#: admin/admin-functions.php:653
+msgid "Broken page. Please rebuild plugin pages."
+msgstr "Missende pagina. Herstel de plug-in pagina's."
+
+#: admin/admin-functions.php:659
+msgid "Text Input"
+msgstr "Tekst invoer"
+
+#: admin/admin-functions.php:660
+msgid "Photo Upload"
+msgstr "Foto upload"
+
+#: admin/admin-functions.php:661
+msgid "File Upload"
+msgstr "Bestandsupload"
+
+#: admin/admin-functions.php:662
+msgid "Textarea"
+msgstr "tekstveld"
+
+#: admin/admin-functions.php:663
+msgid "Select Dropdown"
+msgstr "Selecteer dropdown"
+
+#: admin/admin-functions.php:664
+msgid "Multiselect Box"
+msgstr "Multiselect Box"
+
+#: admin/admin-functions.php:665
+msgid "Checkbox (floating)"
+msgstr "Checkbox (zwevend)"
+
+#: admin/admin-functions.php:666
+msgid "Checkbox (full width)"
+msgstr "Checkbox (volledige breedte)"
+
+#: admin/admin-functions.php:667
+msgid "Radio Choice (floating)"
+msgstr "Radio button (zwevend)"
+
+#: admin/admin-functions.php:668
+msgid "Radio Choice (full width)"
+msgstr "Radio button (volledige breedte)"
+
+#: admin/admin-functions.php:669
+msgid "Date Picker"
+msgstr ""
+
+#: admin/admin-functions.php:670
+msgid "MailChimp Newsletter Subscription"
+msgstr ""
+
+#: admin/admin-functions.php:671
+msgid "Password Field"
+msgstr "Wachtwoord veld"
+
+#: admin/admin-functions.php:672
+msgid "Password Strength Meter"
+msgstr "Wachtwoord sterkte indicator"
+
+#: admin/admin-functions.php:673
+msgid "Security Question Answer"
+msgstr ""
+
+#: admin/admin-functions.php:739
+msgid "Each field must have a title."
+msgstr "Elk veld moet voorzien zijn van een titel."
+
+#: admin/admin-functions.php:741
+msgid "Please enter a unique key or choose an existing usermeta."
+msgstr ""
+"Voeg een unieke sleutel in of kies bestaande gebruikers meta informatie."
+
+#: admin/admin-functions.php:753
+#, fuzzy
+msgid "This existing usermeta already exists in your fields list below."
+msgstr "Dit veld bestaat al in je lijst met velden hieronder."
+
+#: admin/admin-functions.php:755
+#, fuzzy
+msgid "This unique key already exists in your fields list below."
+msgstr "Dit veld bestaat al in je lijst met velden hieronder."
+
+#: admin/admin-functions.php:992 admin/admin-functions.php:1019
+#: admin/admin-users.php:54
+#, fuzzy
+msgid "Verified Invite"
+msgstr "Account geverifieerd"
+
+#: admin/admin-functions.php:1046 admin/admin-users.php:72
+#, fuzzy
+#| msgid "Account Details"
+msgid "Account Blocked"
+msgstr "Account details"
+
+#: admin/admin-functions.php:1089 admin/admin-users.php:52
+msgid "Invitation sent!"
+msgstr ""
+
+#: admin/admin-metabox.php:13
+#, fuzzy
+msgid "No restriction"
+msgstr "Beperk toegang"
+
+#: admin/admin-metabox.php:14
+#, fuzzy
+msgid "Restricted to All Members"
+msgstr "Geblokkeerde inhoud / Alleen voor geregistreerde gebruikers"
+
+#: admin/admin-metabox.php:15
+msgid "Restricted to <b>Verified Accounts</b>"
+msgstr ""
+
+#: admin/admin-metabox.php:16
+msgid "Restricted to <b>User Roles</b>"
+msgstr ""
+
+#: admin/admin-metabox.php:19 admin/panels/settings.php:677
+#: admin/panels/settings.php:696 admin/panels/settings.php:1042
+msgid "Select roles"
+msgstr "Selecteer rollen"
+
+#: admin/admin-notices.php:18 functions/_trial.php:6
+#, php-format
+msgid ""
+"You are using a trial version of UserPro plugin. If you have purchased the "
+"plugin, please enter your purchase code to enable the full version. You can "
+"enter your <a href=\"%s\">purchase code here</a>."
+msgstr ""
+
+#: admin/admin-pointers.php:36
+msgid ""
+"Add more features to your site by installing addons . Check out <a href="
+"\"admin.php?page=userpro-addons\">available addons</a> for UserPro"
+msgstr ""
+
+#: admin/admin-users.php:11
+msgid "Badges"
+msgstr ""
+
+#: admin/admin-users.php:12
+msgid "Verified"
+msgstr "Geverifieerd"
+
+#: admin/admin-users.php:13
+#, fuzzy
+msgid "Block user"
+msgstr "Selecteer rollen"
+
+#: admin/admin-users.php:29 functions/initial-setup.php:147
+#: templates/view.php:98 templates/view.php:100
+msgid "Edit Profile"
+msgstr "Bewerk profiel"
+
+#: admin/admin.php:72 admin/admin.php:75
+msgid "Download Export"
+msgstr ""
+
+#: admin/admin.php:81
+#, fuzzy
+msgid "Settings"
+msgstr "Login instellingen"
+
+#: admin/admin.php:82
+#, fuzzy
+msgid "Fields"
+msgstr "Velden aanpassen"
+
+#: admin/admin.php:83
+#, fuzzy
+msgid "Invite User"
+msgstr "Gebruikersnaam of Email"
+
+#: admin/admin.php:84 admin/panels/css.php:3
+msgid "Custom CSS"
+msgstr ""
+
+#: admin/admin.php:85 admin/panels/mail.php:24
+msgid "Email Notifications"
+msgstr "Email notificaties"
+
+#: admin/admin.php:86
+#, fuzzy
+#| msgid "Reset Options"
+msgid "Newsletter Options"
+msgstr "Herstel opties"
+
+#: admin/admin.php:87
+msgid "Restrict Content"
+msgstr "Beperk toegang"
+
+#: admin/admin.php:88
+msgid "Setup Pages"
+msgstr "Pagina's instellen"
+
+#: admin/admin.php:89
+msgid "WooCommerce"
+msgstr ""
+
+#: admin/admin.php:90
+#, fuzzy
+msgid "Role-based Fields"
+msgstr "Verwijder veld"
+
+#: admin/admin.php:91
+#, fuzzy
+#| msgid "Export Users"
+msgid "Import/Export Users"
+msgstr "Gebruikers exporteren"
+
+#: admin/admin.php:92
+msgid "Import/Export"
+msgstr ""
+
+#: admin/admin.php:93
+msgid "Licensing"
+msgstr ""
+
+#: admin/admin.php:176 admin/admin.php:179
+msgid "UserPro"
+msgstr "UserPro"
+
+#: admin/admin.php:180
+#, fuzzy
+msgid "Add More Features"
+msgstr "Velden aanpassen"
+
+#: admin/admin.php:181
+msgid "Service Request"
+msgstr ""
+
+#: admin/admin.php:241
+#, php-format
+msgid "%s files deleted."
+msgstr ""
+
+#: admin/admin.php:254
+#, php-format
+msgid "%s unused folders deleted."
+msgstr ""
+
+#: admin/admin.php:259
+#, php-format
+msgid "%s Members Cache Clear ."
+msgstr ""
+
+#: admin/admin.php:263
+msgid "Online users data is reset."
+msgstr ""
+
+#: admin/admin.php:267
+msgid "Activity stream has been reset."
+msgstr ""
+
+#: admin/admin.php:340
+#, fuzzy
+msgid "You did not specify a group name."
+msgstr "Je hebt geen <i>Geheime Sleutel</i> ingegeven."
+
+#: admin/admin.php:347
+msgid "This group exists already."
+msgstr ""
+
+#: admin/admin.php:351
+msgid "Group created."
+msgstr ""
+
+#: admin/admin.php:359
+#, fuzzy
+msgid "WooCommerce fields have been added."
+msgstr "Er is geen bestand ge-upload."
+
+#: admin/admin.php:364
+#, fuzzy
+msgid "WooCommerce fields have been removed."
+msgstr "Je profiel is verwijdert!"
+
+#: admin/admin.php:401
+msgid "UserPro has been reset to factory settings."
+msgstr ""
+
+#: admin/admin.php:408
+#, fuzzy
+msgid "Please enter a purchase code."
+msgstr "Geef een correct email adres in."
+
+#: admin/admin.php:412
+msgid "Thanks for activating UserPro!"
+msgstr ""
+
+#: admin/admin.php:415
+msgid ""
+"You have entered an invalid purchase code or the Envato API could be down at "
+"the moment."
+msgstr ""
+
+#: admin/admin.php:427
+#, fuzzy
+msgid "Your UserPro field groups have been imported."
+msgstr "Je profiel is verwijdert!"
+
+#: admin/admin.php:429 admin/admin.php:443 admin/admin.php:457
+msgid "This is not a valid import file."
+msgstr ""
+
+#: admin/admin.php:441
+#, fuzzy
+msgid "Your UserPro fields have been imported."
+msgstr "Je profiel is verwijdert!"
+
+#: admin/admin.php:455
+msgid "Your UserPro settings have been imported."
+msgstr ""
+
+#: admin/admin.php:535
+#, php-format
+msgid "Download the exported users list <a href=\"%s\">here</a>."
+msgstr ""
+
+#: admin/admin.php:546
+msgid "Invalid file uploaded . Please upload file in csv format"
+msgstr ""
+
+#: admin/admin.php:551
+msgid "Users imported successfully"
+msgstr ""
+
+#: admin/class-up-updates-plugin.php:90
+msgid ""
+"An Unexpected HTTP Error occurred during the API request.</p> <p><a href=\"?"
+"\" onclick=\"document.location.reload(); return false;\">Try again</a>"
+msgstr ""
+
+#: admin/class-up-updates-plugin.php:95
+#, fuzzy
+#| msgid "An error has occured"
+msgid "An unknown error occurred"
+msgstr "Er is een fout opgetreden"
+
+#: admin/panels/css.php:7
+msgid "Custom CSS Styles"
+msgstr ""
+
+#: admin/panels/css.php:10
+msgid ""
+"If you want to override existing styles, or add some specific CSS rules, put "
+"them here. They will survive the updates."
+msgstr ""
+
+#: admin/panels/exportusers.php:3
+#, fuzzy
+#| msgid "Export Users"
+msgid "Export Users to CSV"
+msgstr "Gebruikers exporteren"
+
+#: admin/panels/exportusers.php:7
+msgid "Number of Users to export"
+msgstr ""
+
+#: admin/panels/exportusers.php:14
+msgid "From Date"
+msgstr ""
+
+#: admin/panels/exportusers.php:20
+msgid "To Date"
+msgstr ""
+
+#: admin/panels/exportusers.php:27
+msgid "Do not include these fields in export"
+msgstr ""
+
+#: admin/panels/exportusers.php:30
+msgid ""
+"A comma seperated list of fields to exclude from the export. e.g. first_name,"
+"user_login,id,user_email"
+msgstr ""
+
+#: admin/panels/exportusers.php:35
+msgid "Only Include these fields in export"
+msgstr ""
+
+#: admin/panels/exportusers.php:38
+msgid ""
+"A comma seperated list of fields to include only in the export. e.g. "
+"first_name,user_login,id,user_email"
+msgstr ""
+
+#: admin/panels/exportusers.php:45
+msgid "Export to CSV"
+msgstr ""
+
+#: admin/panels/exportusers.php:47
+#, fuzzy
+#| msgid "Export Users"
+msgid "Import Users from CSV"
+msgstr "Gebruikers exporteren"
+
+#: admin/panels/exportusers.php:50
+msgid "Upload users CSV file to import"
+msgstr ""
+
+#: admin/panels/exportusers.php:56
+#, fuzzy
+#| msgid "Redirect to front-end registration"
+msgid "Send email notification to users on registration"
+msgstr "Doorverwijzen naar frontend registratie"
+
+#: admin/panels/exportusers.php:66
+msgid "Import from CSV"
+msgstr ""
+
+#: admin/panels/fieldroles.php:3
+msgid ""
+"Here you can set fields to be available for certain role(s) only. For "
+"example, If you wish to make a set of fields not visible to Subscriber role, "
+"or want to make other fields available only to a Customer role. This does "
+"the job for you."
+msgstr ""
+
+#: admin/panels/fieldroles.php:5
+msgid "Setup Field / Role Relationships"
+msgstr ""
+
+#: admin/panels/fields.php:6
+msgid "How to edit the field settings?"
+msgstr "Hoe moet ik de veld instellingen wijzigen?"
+
+#: admin/panels/fields.php:7
+msgid ""
+"This plugin uses small icons for quick ajax editing for a field. Each icon "
+"means something, this little guide will show you how to control each field "
+"quickly and instantly."
+msgstr ""
+"Deze plug-in maakt gebruik van kleine iconen om een veld snel te kunnen "
+"bewerken. Elke icoon heeft een bepaalde betekenis die hieronder uiteengezet "
+"wordt."
+
+#: admin/panels/fields.php:8
+msgid ""
+"A transparent icon means the setting is turned off. A full-color icon means "
+"the setting is turned on. Click on any icon to switch the state of it on and "
+"off."
+msgstr ""
+"Een transparant icoon betekend dat de instellingen zijn uitgeschakeld. Een "
+"volledig gekleurd icoon betekend dat deze optie is ingeschakeld. Klik op het "
+"icoon om de status in of uit te schakelen."
+
+#: admin/panels/fields.php:11
+msgid "This removes the field from a selected group"
+msgstr "Verwijder het veld van een geselecteerde groep"
+
+#: admin/panels/fields.php:12
+msgid "Click that icon to edit field label and help text or other misc options"
+msgstr ""
+"Klik op het icoon om het label van het veld, de help tekst of andere opties "
+"te bewerken"
+
+#: admin/panels/fields.php:13
+msgid "Make a field hideable from public by user"
+msgstr "Verberg een veld voor andere door de gebruiker"
+
+#: admin/panels/fields.php:14
+msgid "Make a field hidden from public by default if field is hideable"
+msgstr "Verberg standaard een veld voor andere als deze te verbergen is"
+
+#: admin/panels/fields.php:15
+msgid ""
+"Lock a field so that user cannot edit, but admins can still edit all fields"
+msgstr ""
+"Blokkeer een veld zodat deze alleen door gebruikers is te zien, maar door "
+"beheerders te bewerken"
+
+#: admin/panels/fields.php:16
+msgid ""
+"Make a field private so that users cannot view or edit it, but admins will "
+"be able to view it"
+msgstr ""
+"Maak een veld privé zodat andere gebruikers deze niet kunnen zien of "
+"bewerken. Beheerders kunnen te allen tijde het veld zien."
+
+#: admin/panels/fields.php:17
+msgid "Make a field required"
+msgstr "Maak een veld verplicht"
+
+#: admin/panels/fields.php:18
+msgid "Allow HTML in a field. e.g. If the field is textarea"
+msgstr "Sta HTML code toe in een veld. Bijvoorbeeld bij een tekstveld"
+
+#: admin/panels/fields.php:28
+msgid "Before resetting, please remove all UserPro pages from your Pages."
+msgstr ""
+
+#: admin/panels/fields.php:29
+msgid "Re-Install UserPro (Warning: This will reset all fields and settings)"
+msgstr ""
+
+#: admin/panels/fields.php:35
+msgid "Groups & Fields"
+msgstr "Groepen & Velden"
+
+#: admin/panels/fields.php:35
+msgid "Reset All Groups"
+msgstr "Herstel alle groepen"
+
+#: admin/panels/fields.php:47
+msgid "Drag & Drop your fields into Forms"
+msgstr "Sleep je velden in formulieren"
+
+#: admin/panels/fields.php:48
+msgid ""
+"Each field presents a bit of data or a meta key about the user. This allow "
+"you to drag any field to any form you want but be careful, not every field "
+"is suitable for any form. e.g. It makes no sense to add Country to your "
+"login shortcode."
+msgstr ""
+"Elk veld bevat een stukje van de gegevens of een meta-sleutel over de "
+"gebruiker. Dit maakt het mogelijk elk veld naar elk formulier te slepen. "
+"Maar wees voorzichtig, niet elk veld is geschikt voor elke formulier. "
+"Bijvoorbeeld: Het heeft geen zin om Land toe te voegen aan uw login "
+"<i>shortcode</i>."
+
+#: admin/panels/fields.php:53
+msgid "Add New Field / Add or Sync Existing Data"
+msgstr "Nieuw veld toevoegen / Synchroniseer of voeg bestaande gegevens toe"
+
+#: admin/panels/fields.php:54
+msgid ""
+"You can add any field to your forms such as City, Address, or anything else "
+"by clicking on <strong>Add New Field</strong> The plugin will automatically "
+"sync/recognize any meta key stored in your user database, so you could "
+"display the value of any existing meta data."
+msgstr ""
+"Je kan elk veld aan je formulieren toevoegen zoals: stad, adres of iets "
+"anders door het klikken op <strong>Nieuw veld toevoegen</strong>. De plug-in "
+"zal automatisch de meta-sleutel herkennen/synchroniseren in je "
+"gebruikersdatabase. Je kan dus elke waarde van bestaande meta gegevens tonen."
+
+#: admin/panels/fields.php:55
+msgid "Add New Field"
+msgstr "Nieuw veld toevoegen"
+
+#: admin/panels/fields.php:64
+msgid "Field Title"
+msgstr "Label"
+
+#: admin/panels/fields.php:66
+msgid ""
+"Enter title for this data. example: City, How did you hear about us, "
+"Twitter, Personal Website, etc."
+msgstr ""
+"Voeg een titel toe voor deze gegevens. Voorbeeld: Stad, Twitter, "
+"Persoonlijke website, Hoe ben je bij ons terecht gekomen?, etc."
+
+#: admin/panels/fields.php:70
+msgid "Field Type"
+msgstr "Type"
+
+#: admin/panels/fields.php:72
+msgid ""
+"The type of field or how a user is going to enter this data (via text, "
+"selecting a choice from dropdown, etc)"
+msgstr ""
+"Het type veld of de manier waarop de gebruiker gegevens in zal voeren (via "
+"tekst, selectie, etc.)"
+
+#: admin/panels/fields.php:76
+msgid "Allowed file extensions"
+msgstr "Toegestane bestandsextenties "
+
+#: admin/panels/fields.php:78
+msgid ""
+"A comma seperated list of allowed file types. If blank, default will be to "
+"zip, pdf, txt."
+msgstr ""
+"Een komma gescheiden lijst van toegestane bestandstypen. Wanneer leeg, zal "
+"dit standaard zip, pdf en txt zijn."
+
+#: admin/panels/fields.php:82
+msgid "Builtin Choice List"
+msgstr "Ingebouwde lijst met keuzen"
+
+#: admin/panels/fields.php:85
+msgid "Countries List"
+msgstr "Landenlijst"
+
+#: admin/panels/fields.php:86
+msgid "Roles"
+msgstr "Rollen"
+
+#: admin/panels/fields.php:87
+msgid "You can also enter choices for this field manually below."
+msgstr "Je kan ook handmatig de keuzen voor dit veld beneden ingeven."
+
+#: admin/panels/fields.php:91
+msgid "Manual Choices / Options"
+msgstr "Handmatige keuzes / opties"
+
+#: admin/panels/fields.php:93
+msgid "Please enter one choice per line!"
+msgstr "Geef één keuze per regel in!"
+
+#: admin/panels/fields.php:99
+msgid ""
+"Help text will be displayed below field to guide users what to put in that "
+"field or show any relevant info."
+msgstr ""
+"Hulp tekst wordt onder het veld weergegeven om de gebruiker te instrueren "
+"wat er in het veld moet worden ingegeven of het toont relevante informatie."
+
+#: admin/panels/fields.php:103
+msgid "Custom Placeholder"
+msgstr "Aangepaste placeholder"
+
+#: admin/panels/fields.php:109
+msgid "Setting up the user meta key"
+msgstr "Instellen van de gebruikers meta sleutel"
+
+#: admin/panels/fields.php:112
+msgid "Unique Field Key"
+msgstr "Unieke veldcode"
+
+#: admin/panels/fields.php:114
+msgid ""
+"Your field key must be unique for each field. It must be letters only with "
+"only underscore allowd between them."
+msgstr ""
+"Je veldcode moet voor elk veld uniek zijn. Het mag alleen bestaan uit "
+"letters en een onderliggend streepje (_)."
+
+#: admin/panels/fields.php:117
+msgid "Or select/sync an existing meta field key"
+msgstr "Of selecteer/synchroniseer een bestaande meta veld sleutel"
+
+#: admin/panels/fields.php:119
+msgid ""
+"You can sync or use user meta from any other plugin directly and integrate "
+"it with UserPro. Unique key is not needed If you sync with existing field."
+msgstr ""
+"Je kan gebruikers meta-gegevens gebruiken van andere plug-ins en deze "
+"integreren in UserPro. Een unieke sleutel is niet nodig wanneer je bestaande "
+"velden synchroniseert."
+
+#: admin/panels/fields.php:124 functions/shortcode-main.php:172
+#: functions/shortcode-private-content.php:162
+msgid "Publish"
+msgstr "Publiceer"
+
+#: admin/panels/fields.php:125
+msgid "Cancel"
+msgstr "Annuleren"
+
+#: admin/panels/fields.php:138
+msgid "Restore Default Fields"
+msgstr "Herstel standaard velden"
+
+#: admin/panels/import_export.php:3
+msgid "Import / Export (Settings only)"
+msgstr ""
+
+#: admin/panels/import_export.php:8
+#, fuzzy
+msgid "Export Settings"
+msgstr "Login instellingen"
+
+#: admin/panels/import_export.php:11
+#, fuzzy
+#| msgid "How to edit the field settings?"
+msgid "Download the file of userpro settings"
+msgstr "Hoe moet ik de veld instellingen wijzigen?"
+
+#: admin/panels/import_export.php:16
+#, fuzzy
+msgid "Import Settings"
+msgstr "Login instellingen"
+
+#: admin/panels/import_export.php:19 admin/panels/import_export.php:42
+#: admin/panels/import_export.php:64
+msgid "Import"
+msgstr ""
+
+#: admin/panels/import_export.php:20 admin/panels/import_export.php:42
+#: admin/panels/import_export.php:64
+msgid ""
+"Just copy the export file data in to above text box and click on the import "
+"button"
+msgstr ""
+
+#: admin/panels/import_export.php:26
+msgid "Import / Export Fields"
+msgstr ""
+
+#: admin/panels/import_export.php:31
+#, fuzzy
+msgid "Export Fields"
+msgstr "Bewerk veld"
+
+#: admin/panels/import_export.php:34
+msgid "Download the file of userpro fields"
+msgstr ""
+
+#: admin/panels/import_export.php:39
+#, fuzzy
+msgid "Import Fields"
+msgstr "Velden aanpassen"
+
+#: admin/panels/import_export.php:48
+#, fuzzy
+msgid "Import / Export Field Groups"
+msgstr "<i>Shortcodes</i> en veld groepen"
+
+#: admin/panels/import_export.php:53
+#, fuzzy
+msgid "Export Field Groups"
+msgstr "<i>Shortcodes</i> en veld groepen"
+
+#: admin/panels/import_export.php:56
+msgid "Download the file of userpro Field Groups"
+msgstr ""
+
+#: admin/panels/import_export.php:61
+#, fuzzy
+msgid "Import Field Groups"
+msgstr "<i>Shortcodes</i> en veld groepen"
+
+#: admin/panels/invite.php:21
+#, fuzzy
+msgid "Invite Users Setting"
+msgstr "Profiel instellingen"
+
+#: admin/panels/invite.php:25
+msgid "Allow only invited users to register"
+msgstr ""
+
+#: admin/panels/invite.php:38
+msgid "Email Template to send invitation email"
+msgstr ""
+
+#: admin/panels/invite.php:42
+msgid ""
+"Use {invitelink} at the place of your invitation link in your email template"
+msgstr ""
+
+#: admin/panels/invite.php:48
+#, fuzzy
+msgid "Save Settings"
+msgstr "Login instellingen"
+
+#: admin/panels/invite.php:51
+msgid "Invite Users"
+msgstr ""
+
+#: admin/panels/invite.php:61
+#, fuzzy
+#| msgid "Displays the E-mail address of user"
+msgid "Enter Email addresses to Invite"
+msgstr "Toont het email adres van de gebruiker"
+
+#: admin/panels/invite.php:64
+msgid "Enter Email addresses separated by comma"
+msgstr ""
+
+#: admin/panels/invite.php:70
+msgid "Invite"
+msgstr ""
+
+#: admin/panels/licensing.php:3
+msgid ""
+"Please note: <strong>cURL must be enabled</strong> to successfully activate "
+"your license. If you want to find your purchase code, please look <a href="
+"\"http://userproplugin.com/userpro/docs/#install\">here</a>. If you cannot "
+"enable cURL or getting another error, please use the support forum link and "
+"we will activate your license manually."
+msgstr ""
+
+#: admin/panels/licensing.php:5
+#, fuzzy
+msgid "Activate UserPro"
+msgstr "UserPro"
+
+#: admin/panels/licensing.php:9
+msgid "Enter your Item Purchase Code"
+msgstr ""
+
+#: admin/panels/mail.php:7
+msgid ""
+"The variables in {CURLY BRACKETS} are used to present data and info in "
+"email. You can use them to customize your email template."
+msgstr ""
+
+#: admin/panels/mail.php:9
+msgid "Outgoing Mail Settings"
+msgstr "Uitgaande email instellingen"
+
+#: admin/panels/mail.php:13
+msgid "The name that appears on mails sent by UserPro"
+msgstr "De naam die gebruikt wordt bij het verzenden van UserPro email"
+
+#: admin/panels/mail.php:18
+msgid "The address that appears on mails sent by UserPro"
+msgstr "Het email adres dat gebruikt wordt bij het verzenden van UserPro email"
+
+#: admin/panels/mail.php:27
+#, fuzzy
+msgid "Send an Welcome e-mail to new user"
+msgstr ""
+"Stuur de beheerder een email wanneer de gebruiker zijn/haar profiel bijwerkt"
+
+#: admin/panels/mail.php:37
+msgid "Enable HTML email templates"
+msgstr ""
+
+#: admin/panels/mail.php:47
+#, fuzzy
+#| msgid "Send admin an e-mail when user updates profile"
+msgid "Send an e-mail for Update password"
+msgstr ""
+"Stuur de beheerder een email wanneer de gebruiker zijn/haar profiel bijwerkt"
+
+#: admin/panels/mail.php:57
+#, fuzzy
+#| msgid "Reset Password"
+msgid "Reset password by email link"
+msgstr "Herstel wachtwoord"
+
+#: admin/panels/mail.php:67
+#, fuzzy
+msgid "Send an e-mail when user is verified"
+msgstr ""
+"Stuur de beheerder een email wanneer de gebruiker zijn/haar profiel bijwerkt"
+
+#: admin/panels/mail.php:77
+#, fuzzy
+msgid "Send an e-mail when user is unverified"
+msgstr ""
+"Stuur de beheerder een email wanneer de gebruiker zijn/haar profiel bijwerkt"
+
+#: admin/panels/mail.php:87
+#, fuzzy
+msgid "Send an e-mail when account is blocked"
+msgstr ""
+"Stuur de beheerder een email wanneer de gebruiker zijn/haar profiel bijwerkt"
+
+#: admin/panels/mail.php:96
+msgid "Send an e-mail to user when account is pending for admin approval"
+msgstr ""
+
+# @ userpro
+msgid "new_reset_mail"
+msgstr ""
+
+# @ userpro
+msgid "new_welcome_mail"
+msgstr ""
+
+# @ userpro
+msgid "new_secretkey_mail"
+msgstr ""
+
+# @ userpro
+msgid "new_verify_mail"
+msgstr ""
+
+# @ userpro
+msgid "new_changemail_mail"
+msgstr ""
+
+# @ userpro
+msgid "new_accountremoval_mail"
+msgstr ""
+
+# @ userpro
+msgid "new_passwordchange_mail"
+msgstr ""
+
+# @ userpro
+msgid "new_accountpending_mail"
+msgstr ""
+
+#: admin/panels/mail.php:106
+msgid ""
+"Send an e-mail to admin when account is pending for email confirmation by "
+"user"
+msgstr ""
+
+#: admin/panels/mail.php:116
+#, fuzzy
+msgid "Send an e-mail when account is unblocked"
+msgstr ""
+"Stuur de beheerder een email wanneer de gebruiker zijn/haar profiel bijwerkt"
+
+#: admin/panels/mail.php:125
+msgid "Send admin an e-mail when user updates profile"
+msgstr ""
+"Stuur de beheerder een email wanneer de gebruiker zijn/haar profiel bijwerkt"
+
+#: admin/panels/mail.php:135
+msgid "Send admin an e-mail when profile gets removed"
+msgstr ""
+"Stuur de beheerder een email wanneer de gebruiker zijn/haar profiel "
+"verwijdert"
+
+#: admin/panels/mail.php:144
+#, fuzzy
+#| msgid "Send admin an e-mail when user updates profile"
+msgid "Send admin an e-mail when New Registration"
+msgstr ""
+"Stuur de beheerder een email wanneer de gebruiker zijn/haar profiel bijwerkt"
+
+#: admin/panels/mail.php:154
+msgid "User Awaiting Manual Review Template (Admin Notification)"
+msgstr ""
+
+#: admin/panels/mail.php:184
+msgid "New Registration Template (Admin Notification)"
+msgstr ""
+
+#: admin/panels/mail.php:214
+msgid "Profile Updated (Admin Notification)"
+msgstr ""
+
+#: admin/panels/mail.php:244
+msgid "Profile Deleted (Admin Notification)"
+msgstr ""
+
+#: admin/panels/mail.php:274
+msgid "Notification email for verification request (Admin Notification)"
+msgstr ""
+
+#: admin/panels/mail.php:303
+msgid "Admin notification for pending email confirmation by user"
+msgstr ""
+
+#: admin/panels/mail.php:330
+#, fuzzy
+msgid "Customize \"Email Validation\" Mail"
+msgstr "Pas de \"Herstel wachtwoord\" email aan"
+
+#: admin/panels/mail.php:358
+#, fuzzy
+msgid "Customize \"Email Validation after email change\" Mail"
+msgstr "Pas de \"Herstel wachtwoord\" email aan"
+
+#: admin/panels/mail.php:388
+msgid "Customize \"New Account/Welcome\" Mail"
+msgstr "Pas \"Nieuw account/welkom\" email aan"
+
+#: admin/panels/mail.php:418
+msgid "Customize \"Reset Password\" Mail"
+msgstr "Pas de \"Herstel wachtwoord\" email aan"
+
+#: admin/panels/mail.php:448
+#, fuzzy
+#| msgid "Customize \"Reset Password\" Mail"
+msgid "Customize \"Reset Password by email link\" Mail"
+msgstr "Pas de \"Herstel wachtwoord\" email aan"
+
+#: admin/panels/mail.php:478
+#, fuzzy
+#| msgid "Customize \"Reset Password\" Mail"
+msgid "Customize \"Password Change\" Mail"
+msgstr "Pas de \"Herstel wachtwoord\" email aan"
+
+#: admin/panels/mail.php:508
+msgid "Customize \"Account Removal\" Mail"
+msgstr "Pas de \"Account verwijder\" email aan"
+
+#: admin/panels/mail.php:538
+#, fuzzy
+msgid "Customize \"Account Verified\" Mail"
+msgstr "Pas de \"Account verwijder\" email aan"
+
+#: admin/panels/mail.php:568
+#, fuzzy
+msgid "Customize \"Account Un-verified\" Mail"
+msgstr "Pas de \"Account verwijder\" email aan"
+
+#: admin/panels/mail.php:597
+msgid "Customize \"Awaiting Manual Review\" Mail (User Notification)"
+msgstr ""
+
+#: admin/panels/mail.php:629
+#, fuzzy
+msgid "Customize \"Account Blocked\" Mail"
+msgstr "Pas de \"Account verwijder\" email aan"
+
+#: admin/panels/mail.php:659
+#, fuzzy
+msgid "Customize \"Account Unblocked\" Mail"
+msgstr "Pas de \"Account verwijder\" email aan"
+
+#: admin/panels/mail.php:688
+msgid "Customize \"New Connect Request\" Mail (User Notification)"
+msgstr ""
+
+#: admin/panels/mail.php:719
+#, fuzzy
+msgid "Customize \"Invitation to Get Verified\" Mail"
+msgstr "Pas de \"Herstel wachtwoord\" email aan"
+
+#: admin/panels/newsletter_option.php:5 admin/panels/settings.php:1530
+#, fuzzy
+msgid "MailChimp Settings"
+msgstr "Uitgaande email instellingen"
+
+#: admin/panels/newsletter_option.php:9 admin/panels/settings.php:1534
+msgid "MailChimp API Key"
+msgstr ""
+
+#: admin/panels/newsletter_option.php:12 admin/panels/settings.php:1537
+msgid ""
+"Enter your MailChimp API key here to allow integration with MailChimp "
+"subscription."
+msgstr ""
+
+#: admin/panels/newsletter_option.php:17
+#, fuzzy
+#| msgid "Aweber Settings"
+msgid "AWeber Settings"
+msgstr "Aweber Instellingen"
+
+#: admin/panels/newsletter_option.php:20
+msgid "AWeber Authorization Code"
+msgstr ""
+
+#: admin/panels/newsletter_option.php:23 admin/panels/settings.php:1548
+msgid ""
+"Enter your Aweber Authorization Code here to allow integration with Aweber "
+"subscription."
+msgstr ""
+
+#: admin/panels/newsletter_option.php:29
+msgid "AWeber List Id"
+msgstr ""
+
+#: admin/panels/newsletter_option.php:36
+#, fuzzy
+#| msgid "Campaignmonitor Settings"
+msgid "Campaign Monitor Settings"
+msgstr "Campaignmonitor Instellingen"
+
+#: admin/panels/newsletter_option.php:40
+#, fuzzy
+#| msgid "Campaignmonitor Settings"
+msgid "CampaignMonitor Authorization Code"
+msgstr "Campaignmonitor Instellingen"
+
+#: admin/panels/newsletter_option.php:43
+msgid ""
+"Enter your CampaignMonitor Authorization Code here to allow integration with "
+"Campaignmonitor subscription."
+msgstr ""
+
+#: admin/panels/newsletter_option.php:47
+#, fuzzy
+#| msgid "Campaignmonitor Settings"
+msgid "CampaignMonitor List Name"
+msgstr "Campaignmonitor Instellingen"
+
+#: admin/panels/pages.php:9
+msgid "\"Profile\" Slug"
+msgstr "\"Profiel\" Slug"
+
+#: admin/panels/pages.php:14
+msgid "\"Register\" Slug"
+msgstr "\"Registreer\" Slug"
+
+#: admin/panels/pages.php:19
+msgid "\"Edit Profile\" Slug"
+msgstr "\"Profiel bewerken\" Slug"
+
+#: admin/panels/pages.php:24
+msgid "\"Login\" Slug"
+msgstr "\"Login\" Slug"
+
+#: admin/panels/pages.php:29
+msgid "\"Member Directory\" Slug"
+msgstr "\"Overzicht geregistreerde gebruikers\" Slug"
+
+#: admin/panels/pages.php:34
+#, fuzzy
+msgid "\"Logout\" Slug"
+msgstr "\"Login\" Slug"
+
+#: admin/panels/pages.php:45
+msgid "Check / Rebuild Profile Pages"
+msgstr "Controleer / Creëer Profiel pagina's"
+
+#: admin/panels/pages.php:49
+msgid "Profile Page"
+msgstr "Profiel pagina"
+
+#: admin/panels/pages.php:62
+msgid "Registration Page"
+msgstr "Registratie pagina"
+
+#: admin/panels/pages.php:75
+msgid "Edit Profile Page"
+msgstr "Bewerk profiel pagina"
+
+#: admin/panels/pages.php:88
+msgid "Login Page"
+msgstr "Login pagina"
+
+#: admin/panels/pages.php:101
+msgid "Member Directory Page"
+msgstr "Pagina met overzicht van geregistreerde gebruikers"
+
+#: admin/panels/pages.php:114
+#, fuzzy
+msgid "Logout Page"
+msgstr "Login pagina"
+
+#: admin/panels/pages.php:129
+msgid "Rebuild UserPro Pages"
+msgstr "Creëer de UserPro pagina's opnieuw"
+
+#: admin/panels/restrict.php:3
+#, fuzzy
+msgid "Global Restrict/Lock Settings"
+msgstr "Registratie instellingen"
+
+#: admin/panels/restrict.php:7
+msgid "Do you want to lock entire site for guests?"
+msgstr ""
+
+#: admin/panels/restrict.php:17
+msgid ""
+"Page ID that guests will be redirected to (If you locked the entire site "
+"above)"
+msgstr ""
+
+#: admin/panels/restrict.php:20
+msgid ""
+"This is typically your custom login page. Guests will be automatically "
+"redirected to this page If you block entire site for guests."
+msgstr ""
+
+#: admin/panels/restrict.php:25
+msgid ""
+"Page IDs (seperated by comma) that guests can view If you block the entire "
+"site for guests"
+msgstr ""
+
+#: admin/panels/restrict.php:32
+#, fuzzy
+msgid "Redirect guests from homepage to custom URL"
+msgstr "Doorverwijzen naar de aangepaste URL"
+
+#: admin/panels/restrict.php:35
+msgid ""
+"This option allow you to lock the homepage completely for guests and auto-"
+"redirect them to any page you want."
+msgstr ""
+
+#: admin/panels/restrict.php:40
+#, fuzzy
+msgid "Redirect members from homepage to custom URL"
+msgstr "Doorverwijzen naar de aangepaste URL"
+
+#: admin/panels/restrict.php:43
+msgid ""
+"This option allow you to lock the homepage completely for members and auto-"
+"redirect them to any page you want."
+msgstr ""
+
+#: admin/panels/restrict.php:49
+#, fuzzy
+msgid "Specific Restrict/Lock Settings"
+msgstr "Registratie instellingen"
+
+#: admin/panels/restrict.php:53
+#, fuzzy
+msgid "Make Restricted Content Available To"
+msgstr "Geblokkeerde inhoud / Alleen voor geregistreerde gebruikers"
+
+#: admin/panels/restrict.php:56
+msgid "Only Verified Members"
+msgstr ""
+
+#: admin/panels/restrict.php:57
+#, fuzzy
+msgid "All Registered Members"
+msgstr "Nieuwste geregistreerde gebruikers"
+
+#: admin/panels/restrict.php:63
+msgid "Redirect URL (If a whole page is locked/restricted)"
+msgstr ""
+
+#: admin/panels/restrict.php:66
+msgid ""
+"Please enter full web address to send users who access a restricted page. "
+"You can restrict any page/post by visiting it in post editor."
+msgstr ""
+
+#: admin/panels/settings.php:3
+msgid "Quick Maintenance"
+msgstr ""
+
+#: admin/panels/settings.php:7
+msgid "Clear unused Junk"
+msgstr ""
+
+#: admin/panels/settings.php:9
+msgid "Clear un-used uploads"
+msgstr ""
+
+#: admin/panels/settings.php:13 admin/panels/settings.php:15
+#, fuzzy
+msgid "Clear Members Cache"
+msgstr "Zoekopdracht verwijderen"
+
+#: admin/panels/settings.php:20
+msgid "Set Interval to Delete Members Cache"
+msgstr ""
+
+#: admin/panels/settings.php:23
+msgid "Set a interval in days to delete the members cache"
+msgstr ""
+
+#: admin/panels/settings.php:28 admin/panels/settings.php:30
+msgid "Clear deleted users stuff"
+msgstr ""
+
+#: admin/panels/settings.php:35
+msgid "Purge online users data"
+msgstr ""
+
+#: admin/panels/settings.php:37
+msgid "Reset online users"
+msgstr ""
+
+#: admin/panels/settings.php:38
+msgid "Online"
+msgstr ""
+
+#: admin/panels/settings.php:43
+msgid "Clear activity stream"
+msgstr ""
+
+#: admin/panels/settings.php:45
+msgid "Delete all activity"
+msgstr ""
+
+#: admin/panels/settings.php:51
+#, fuzzy
+msgid "Module Settings"
+msgstr "Profiel instellingen"
+
+#: admin/panels/settings.php:55
+#, fuzzy
+msgid "Social Features"
+msgstr "Velden aanpassen"
+
+#: admin/panels/settings.php:59 admin/panels/settings.php:70
+msgid "Deactivate"
+msgstr ""
+
+#: admin/panels/settings.php:61
+msgid "To Enable/Disable Follow feature from user profile"
+msgstr ""
+
+#: admin/panels/settings.php:66
+msgid "Online/Offline Status"
+msgstr ""
+
+#: admin/panels/settings.php:72
+msgid "To Display Online/Offline Status "
+msgstr ""
+
+#: admin/panels/settings.php:77
+msgid "Show Offline Icon"
+msgstr ""
+
+#: admin/panels/settings.php:87
+msgid "Hide Administrators from Online Users"
+msgstr ""
+
+#: admin/panels/settings.php:98
+#, fuzzy
+msgid "Compatibility Settings"
+msgstr "Profiel instellingen"
+
+#: admin/panels/settings.php:102
+#, fuzzy
+msgid "Profile Pictures Fix"
+msgstr "Bewerk profiel pagina"
+
+#: admin/panels/settings.php:105
+msgid "Method A"
+msgstr ""
+
+#: admin/panels/settings.php:106
+msgid "Method B"
+msgstr ""
+
+#: admin/panels/settings.php:108 admin/panels/settings.php:118
+msgid ""
+"Try playing with this setting If you encounter issues with viewing profile "
+"picture either on single site or multisite install. Play with this setting "
+"until your profile pictures appear."
+msgstr ""
+
+#: admin/panels/settings.php:112
+msgid "Url Encoding"
+msgstr ""
+
+#: admin/panels/settings.php:115
+msgid "On"
+msgstr ""
+
+#: admin/panels/settings.php:116
+msgid "Off"
+msgstr ""
+
+#: admin/panels/settings.php:124
+msgid "Disable Activity Log"
+msgstr ""
+
+#: admin/panels/settings.php:130
+msgid ""
+"Please switch off logging activity If you have host problems, your site "
+"crashes or cannot save a post, etc."
+msgstr ""
+
+#: admin/panels/settings.php:135
+msgid "Allow Dash for Display Names"
+msgstr ""
+
+#: admin/panels/settings.php:145
+msgid "Path Compatibility"
+msgstr ""
+
+#: admin/panels/settings.php:148
+msgid "Use Relative URIs"
+msgstr ""
+
+#: admin/panels/settings.php:149
+msgid "Use Full Paths (including domain)"
+msgstr ""
+
+#: admin/panels/settings.php:151
+msgid ""
+"If you use CDN or have a problem with thumbnails, try switching this option."
+msgstr ""
+
+#: admin/panels/settings.php:156
+#, fuzzy
+msgid "External Profile Pictures"
+msgstr "Bewerk profiel pagina"
+
+#: admin/panels/settings.php:159
+msgid "Save them to my server"
+msgstr ""
+
+#: admin/panels/settings.php:160
+msgid "Use the external source"
+msgstr ""
+
+#: admin/panels/settings.php:162
+msgid ""
+"If your host experience some problems when saving an external picture to "
+"your uploads directory, try to use the external method."
+msgstr ""
+
+#: admin/panels/settings.php:166
+#, fuzzy
+#| msgid "Twitter Integration"
+msgid "Twitter Fix"
+msgstr "Facebook integratie"
+
+#: admin/panels/settings.php:169
+msgid "By Using Session"
+msgstr ""
+
+#: admin/panels/settings.php:170
+msgid "By Using Cookie"
+msgstr ""
+
+#: admin/panels/settings.php:172
+msgid ""
+"Try playing with this setting If you encounter issues with twitter Login/"
+"Register."
+msgstr ""
+
+#: admin/panels/settings.php:179
+msgid "General"
+msgstr ""
+
+#: admin/panels/settings.php:183
+msgid "Activate RTL Stylesheet"
+msgstr ""
+
+#: admin/panels/settings.php:186
+msgid "RTL Enabled"
+msgstr ""
+
+#: admin/panels/settings.php:187
+msgid "RTL Disabled"
+msgstr ""
+
+#: admin/panels/settings.php:189
+msgid "If RTL is enabled then content will get display from right to left."
+msgstr ""
+
+#: admin/panels/settings.php:194
+msgid "Membership"
+msgstr ""
+
+#: admin/panels/settings.php:197
+msgid "Anyone can register"
+msgstr ""
+
+#: admin/panels/settings.php:198
+#, fuzzy
+msgid "Disable registration"
+msgstr "Log de gebruikers automatisch in na registratie"
+
+#: admin/panels/settings.php:204
+msgid "Enable editor for frontend publisher"
+msgstr ""
+
+#: admin/panels/settings.php:213
+msgid "Enable Connections"
+msgstr ""
+
+#: admin/panels/settings.php:222
+msgid "Enable save as draft for frontend publisher"
+msgstr ""
+
+#: admin/panels/settings.php:232
+msgid "New User Approval"
+msgstr ""
+
+#: admin/panels/settings.php:235
+msgid "Auto Approve"
+msgstr ""
+
+#: admin/panels/settings.php:236
+msgid "Require E-mail Activation"
+msgstr ""
+
+#: admin/panels/settings.php:237
+msgid "Require Admin Approval"
+msgstr ""
+
+#: admin/panels/settings.php:243
+msgid "Profile Permalink Structure"
+msgstr ""
+
+#: admin/panels/settings.php:246
+msgid "User ID"
+msgstr ""
+
+#: admin/panels/settings.php:248 admin/panels/settings.php:260
+msgid "Full Name"
+msgstr ""
+
+#: admin/panels/settings.php:249
+#, fuzzy
+msgid "Display Name"
+msgstr "Toont blog naam"
+
+#: admin/panels/settings.php:251
+msgid ""
+"User profiles permalink structure setting e.g. /profile/34 or /profile/"
+"Username or /profile/FirstName+LastName If you have a problem with permalink "
+"structure, you can try to change this setting."
+msgstr ""
+
+#: admin/panels/settings.php:256
+msgid "User Display Name Field"
+msgstr ""
+
+#: admin/panels/settings.php:259
+msgid "Default (Display Name)"
+msgstr ""
+
+#: admin/panels/settings.php:265
+msgid "Date format"
+msgstr ""
+
+#: admin/panels/settings.php:268
+msgid "Ex.dd-mm-yy,mm-dd-yy,yy-dd-mm,yy-mm-dd"
+msgstr ""
+
+#: admin/panels/settings.php:272
+msgid "Replace Display Name with custom field"
+msgstr ""
+
+#: admin/panels/settings.php:275
+msgid ""
+"Enter custom field key to override default display name on profiles with "
+"this custom field value."
+msgstr ""
+
+#: admin/panels/settings.php:280
+msgid "Fields to hide completely from profile view"
+msgstr ""
+
+#: admin/panels/settings.php:283
+msgid ""
+"A comma seperated list of custom fields to hide from profile view anyway."
+msgstr ""
+
+#: admin/panels/settings.php:288
+msgid "Unverify Verified accounts automatically if they change display name"
+msgstr ""
+
+#: admin/panels/settings.php:298
+msgid "Display verified account badge beside name"
+msgstr ""
+
+#: admin/panels/settings.php:304
+msgid ""
+"Should the verified account badge display beside name, or as a standard "
+"badge in badges."
+msgstr ""
+
+#: admin/panels/settings.php:309
+msgid "Verified Badge Link"
+msgstr ""
+
+#: admin/panels/settings.php:312
+msgid "Should the verified badge link to a specific page?"
+msgstr ""
+
+#: admin/panels/settings.php:317
+msgid "User Roles that can publish immediately"
+msgstr ""
+
+#: admin/panels/settings.php:320
+msgid ""
+"Enter comma seperated list of user roles to publish automatically using the "
+"frontend publisher without waiting admin approval. e.g. author,subscriber,"
+"etc."
+msgstr ""
+
+#: admin/panels/settings.php:325
+msgid "Photo Lightbox"
+msgstr ""
+
+#: admin/panels/settings.php:328
+msgid "Active"
+msgstr ""
+
+#: admin/panels/settings.php:329
+msgid "Inactive"
+msgstr ""
+
+#: admin/panels/settings.php:331
+msgid ""
+"Lightbox for profile photos and other photo uploads. Turn on / off lightbox "
+"globally."
+msgstr ""
+
+#: admin/panels/settings.php:336
+#, fuzzy
+msgid "Enable webcam to take profile Picture"
+msgstr "Bewerk profiel pagina"
+
+#: admin/panels/settings.php:342
+msgid "Enables webcam feature to take a profile picture using webcam"
+msgstr ""
+
+#: admin/panels/settings.php:346
+msgid "Maximum file size for uploads"
+msgstr ""
+
+#: admin/panels/settings.php:349
+msgid ""
+"The maximum file size that user can upload whether it is a file, or a photo. "
+"e.g. <code>8388608 bytes = 8MB</code>"
+msgstr ""
+
+#: admin/panels/settings.php:354
+msgid "Keep aspect ratio"
+msgstr ""
+
+#: admin/panels/settings.php:367
+msgid "Post by users filter"
+msgstr ""
+
+#: admin/panels/settings.php:378
+msgid "Frontend publisher category selection"
+msgstr ""
+
+#: admin/panels/settings.php:381
+msgid "Single Select"
+msgstr ""
+
+#: admin/panels/settings.php:383
+#, fuzzy
+#| msgid "Multiselect Box"
+msgid "Multi Select"
+msgstr "Multiselect Box"
+
+#: admin/panels/settings.php:390
+msgid "Limit number of categories in frontend publisher"
+msgstr ""
+
+#: admin/panels/settings.php:393
+msgid "This option will work only for multiselect categories selection"
+msgstr ""
+
+#: admin/panels/settings.php:397
+msgid "Display social login button on registration/login page"
+msgstr ""
+
+#: admin/panels/settings.php:409
+msgid "Enable Aplhabetical pagination for Members Directory"
+msgstr ""
+
+#: admin/panels/settings.php:422
+#, fuzzy
+#| msgid "Restrict Content"
+msgid "Text for Restricted Content"
+msgstr "Beperk toegang"
+
+#: admin/panels/settings.php:425
+msgid ""
+"The variables in {CURLY BRACKETS} are used to represent data and info in "
+"text. You can use them to customize your restricted content text."
+msgstr ""
+
+#: admin/panels/settings.php:432
+msgid "Enable Conditional Menu"
+msgstr ""
+
+#: admin/panels/settings.php:438
+msgid ""
+"This option will provide conditional menu as per user's login condition. For "
+"eg: If user is logged in then it will not display the Login or Register menu "
+"in navigation menu and vice versa."
+msgstr ""
+
+#: admin/panels/settings.php:444
+msgid "Appearance and Look"
+msgstr "Uiterlijk en weergave"
+
+#: admin/panels/settings.php:448
+msgid "Use a Google Web Font"
+msgstr ""
+
+#: admin/panels/settings.php:451
+msgid ""
+"To use a Google Web Font for UserPro plugin, enter the font family name here."
+msgstr ""
+
+#: admin/panels/settings.php:456
+msgid "Use an installed font"
+msgstr ""
+
+#: admin/panels/settings.php:459
+msgid ""
+"To override Google font and force plugin to use theme font, or another built "
+"in font please enter font face here (e.g. Open Sans, Arial, etc)"
+msgstr ""
+
+#: admin/panels/settings.php:464
+msgid "Plugin Default Width"
+msgstr ""
+
+#: admin/panels/settings.php:467
+msgid ""
+"A pixel or % width. If you want to make the plugin default width take 100% "
+"of its parent, just change this setting to 100% (It will take as much space "
+"as possible from the parent element). This option can be customized also via "
+"shortcode option <code>max_width</code>."
+msgstr ""
+
+#: admin/panels/settings.php:472
+msgid "Default Skin"
+msgstr ""
+
+#: admin/panels/settings.php:480
+msgid "This setting will work only with Default layout"
+msgstr ""
+
+#: admin/panels/settings.php:485
+msgid "Thumbnail Style"
+msgstr ""
+
+#: admin/panels/settings.php:488 admin/panels/settings.php:646
+#: admin/panels/settings.php:1008
+msgid "Default"
+msgstr ""
+
+#: admin/panels/settings.php:489
+msgid "Rounded"
+msgstr ""
+
+#: admin/panels/settings.php:490
+msgid "A bit rounded"
+msgstr ""
+
+#: admin/panels/settings.php:491
+msgid "Square"
+msgstr ""
+
+#: admin/panels/settings.php:493
+msgid ""
+"This controls the style of your profile thumbnails globally. If you let it "
+"default, these settings will be taken from your active skin."
+msgstr ""
+
+#: admin/panels/settings.php:498
+msgid "Profile Photo Lightbox"
+msgstr ""
+
+#: admin/panels/settings.php:508
+msgid "Fields Layout"
+msgstr "Veld layout"
+
+#: admin/panels/settings.php:511
+msgid "Float (field label on same line)"
+msgstr "Label op dezelfde regel"
+
+#: admin/panels/settings.php:512
+msgid "Block (field label on seperate line)"
+msgstr "Label op aparte regel"
+
+#: admin/panels/settings.php:518
+msgid "Enable Field Icons"
+msgstr ""
+
+#: admin/panels/settings.php:528
+msgid "Hide Top Bar from Non-Admins"
+msgstr ""
+
+#: admin/panels/settings.php:538
+msgid "Light Heading Option"
+msgstr ""
+
+#: admin/panels/settings.php:541
+msgid ""
+"For translation compatibility, enter you \"Light\" heading color option here."
+msgstr ""
+
+#: admin/panels/settings.php:547
+msgid "Form Validation & Security"
+msgstr ""
+
+#: admin/panels/settings.php:559
+msgid "Maximum Field Length Validation"
+msgstr ""
+
+#: admin/panels/settings.php:569
+msgid "Number of characters allowed"
+msgstr ""
+
+#: admin/panels/settings.php:572
+msgid "How many characters should be allowed if the above option is turned on."
+msgstr ""
+
+#: admin/panels/settings.php:577
+msgid "Fields that need to be validated for maximum length"
+msgstr ""
+
+#: admin/panels/settings.php:580
+msgid ""
+"Enter a comma seperated list of field keys to include in the maximum field "
+"length validation."
+msgstr ""
+
+#: admin/panels/settings.php:585
+msgid "Fields that need to be validated as a phone number"
+msgstr ""
+
+#: admin/panels/settings.php:588
+msgid ""
+"Enter a comma seperated list of field keys to automatically validate as a "
+"phone number field."
+msgstr ""
+
+#: admin/panels/settings.php:595
+msgid "Phone Number Regular Expression"
+msgstr ""
+
+#: admin/panels/settings.php:598
+msgid ""
+"The regex used to validate the phone number fields specified above, please "
+"do not change this unless you know what you are doing."
+msgstr ""
+
+#: admin/panels/settings.php:603
+msgid "Check the MailChimp Subscribe checkbox by default"
+msgstr ""
+
+#: admin/panels/settings.php:612
+msgid "Minimum Field Length Validation"
+msgstr ""
+
+#: admin/panels/settings.php:622
+msgid "Minimum number of characters allowed"
+msgstr ""
+
+#: admin/panels/settings.php:625
+msgid ""
+"Minimum many characters should be allowed if the above option is turned on."
+msgstr ""
+
+#: admin/panels/settings.php:630
+msgid "Fields that need to be validated for minimun length"
+msgstr ""
+
+#: admin/panels/settings.php:633
+msgid ""
+"Enter a comma seperated list of field keys to include in the minimum field "
+"length validation."
+msgstr ""
+
+#: admin/panels/settings.php:639
+msgid "Profile Settings"
+msgstr "Profiel instellingen"
+
+#: admin/panels/settings.php:643
+#, fuzzy
+msgid "Select layout"
+msgstr "Selecteer rollen"
+
+#: admin/panels/settings.php:647
+#, fuzzy
+#| msgid "Fields Layout"
+msgid "Modern Layout"
+msgstr "Veld layout"
+
+#: admin/panels/settings.php:648
+#, fuzzy
+#| msgid "Fields Layout"
+msgid "Classic Layout"
+msgstr "Veld layout"
+
+#: admin/panels/settings.php:649
+#, fuzzy
+#| msgid "Fields Layout"
+msgid "Grand Layout"
+msgstr "Veld layout"
+
+#: admin/panels/settings.php:655
+msgid "Allow guests to view other profiles"
+msgstr "Sta gasten toe het profiel van andere te bekijken"
+
+#: admin/panels/settings.php:665
+#, fuzzy
+msgid "Allow members to view other member profiles"
+msgstr "Sta gasten toe het profiel van andere te bekijken"
+
+#: admin/panels/settings.php:674
+#, fuzzy
+msgid "Roles that can edit other users profile"
+msgstr "Sta gasten toe het profiel van andere te bekijken"
+
+#: admin/panels/settings.php:678 admin/panels/settings.php:715
+msgid "None"
+msgstr ""
+
+#: admin/panels/settings.php:690
+msgid ""
+"For example,If you want to some special role user has permission to edit "
+"users profile from front end then select these role.by default admin user "
+"can edit all users profile."
+msgstr ""
+
+#: admin/panels/settings.php:694
+#, fuzzy
+msgid "Roles that can view other profiles"
+msgstr "Sta gasten toe het profiel van andere te bekijken"
+
+#: admin/panels/settings.php:707
+msgid ""
+"For example, If you do not want users to view other profiles but want to "
+"allow these special roles to always view profiles, including administrators."
+msgstr ""
+
+#: admin/panels/settings.php:712
+msgid "Assign role to verified users"
+msgstr ""
+
+#: admin/panels/settings.php:714
+#, fuzzy
+#| msgid "Select roles"
+msgid "Select role"
+msgstr "Selecteer rollen"
+
+#: admin/panels/settings.php:726
+msgid ""
+"If you don't want to change role when user gets verified , select none in "
+"dropdown."
+msgstr ""
+
+#: admin/panels/settings.php:731
+#, fuzzy
+msgid "Allow users to request verified status"
+msgstr "Sta gebruikers toe hun profiel te verwijderen"
+
+#: admin/panels/settings.php:741
+#, fuzzy
+msgid "Allow users to delete their profiles"
+msgstr "Sta gebruikers toe hun profiel te verwijderen"
+
+#: admin/panels/settings.php:751
+msgid "Use default gravatars until users upload a custom avatar for this site"
+msgstr ""
+
+#: admin/panels/settings.php:761
+msgid "Allow admins to set custom notice on user accounts"
+msgstr ""
+
+#: admin/panels/settings.php:767
+msgid ""
+"e.g. Set a custom warning to any user profile for example: This account is "
+"for test purposes only, etc."
+msgstr ""
+
+#: admin/panels/settings.php:772
+msgid "Show custom user notice to the logged-in user"
+msgstr ""
+
+#: admin/panels/settings.php:782
+msgid "Show custom user notice to the public"
+msgstr ""
+
+#: admin/panels/settings.php:792
+msgid "Display User Country Flag in Profile"
+msgstr ""
+
+#: admin/panels/settings.php:802
+#, fuzzy
+msgid "Display User Country Flag in Badges"
+msgstr "Toont de UserPro login pagina"
+
+#: admin/panels/settings.php:811
+#, fuzzy
+msgid "Display badges on profile"
+msgstr "Login om je profiel te zien en te beheren."
+
+#: admin/panels/settings.php:821
+msgid "Default background image"
+msgstr ""
+
+#: admin/panels/settings.php:836
+msgid "Enter a URL or upload an image."
+msgstr ""
+
+#: admin/panels/settings.php:842
+#, fuzzy
+msgid "Redirection & Backend Settings"
+msgstr "Registratie instellingen"
+
+#: admin/panels/settings.php:846
+#, fuzzy
+msgid "Panic Key Setting"
+msgstr "Profiel instellingen"
+
+#: admin/panels/settings.php:849
+#, php-format
+msgid ""
+"The panic key helps you access WP-admin screen If you enabled the hide "
+"backend setting below, and for some reason you cannot get back into your "
+"site. To enter your backend with the panic key use this URL: <strong>%s</"
+"strong>"
+msgstr ""
+
+#: admin/panels/settings.php:854
+msgid "Enable these roles to view the WP-admin (backend)"
+msgstr ""
+
+#: admin/panels/settings.php:857
+msgid ""
+"By default, UserPro hides backend access from non-admins, however you can "
+"type a comma seperated list here of user roles to allow them to access the "
+"dashboard regardless of any other setting. example: author,editor"
+msgstr ""
+
+#: admin/panels/settings.php:862
+#, fuzzy
+msgid "Make Users Backend link to frontend profiles"
+msgstr "Verwijs gebruiker naar frontend profiel"
+
+#: admin/panels/settings.php:868
+msgid ""
+"If set on, users backend will link to frontend profile view/edit. Turn off "
+"to allow backend user editing."
+msgstr ""
+
+#: admin/panels/settings.php:873
+msgid "Redirect Author Archive to UserPro Profile Automatically"
+msgstr ""
+
+#: admin/panels/settings.php:879
+#, fuzzy
+#| msgid ""
+#| "Thank you for registering. You will be redirected to your profile "
+#| "automatically."
+msgid ""
+"If this is set to yes, author archives will be redirected to author profile "
+"pages automatically."
+msgstr ""
+"Bedankt voor de registratie. Je wordt automatisch doorverwezen naar je "
+"profiel."
+
+#: admin/panels/settings.php:884
+msgid "Redirect backend to front-end"
+msgstr "Doorverwijzen van de backend naar de frontend"
+
+#: admin/panels/settings.php:887
+msgid "Redirect to front-end profile view"
+msgstr "Doorverwijzen naar de frontend profiel weergave"
+
+#: admin/panels/settings.php:888 admin/panels/settings.php:901
+#: admin/panels/settings.php:913 admin/panels/settings.php:925
+msgid "Redirect to custom URL"
+msgstr "Doorverwijzen naar de aangepaste URL"
+
+#: admin/panels/settings.php:889 admin/panels/settings.php:902
+#: admin/panels/settings.php:914 admin/panels/settings.php:926
+msgid "Do not redirect"
+msgstr "Verwijs niet door"
+
+#: admin/panels/settings.php:891
+msgid "If you choose cutom URL for this redirect"
+msgstr "Wanneer je de aangepaste URL kiest voor deze doorverwijzing"
+
+#: admin/panels/settings.php:892
+msgid ""
+"You can redirect users to the built-in front-end pages by the plugin to hide "
+"backend access from them."
+msgstr ""
+"Je kan gebruikers via de plug-in doorverwijzen naar de ingebouwde frontend "
+"pagina's door het verbergen van de backend toegang."
+
+#: admin/panels/settings.php:897
+msgid "Redirect backend profile to front-end"
+msgstr "Doorverwijzen van backend profiel naar frontend"
+
+#: admin/panels/settings.php:900
+msgid "Redirect to front-end profile edit"
+msgstr "Doorverwijzen naar frontend profiel bewerken"
+
+#: admin/panels/settings.php:904 admin/panels/settings.php:916
+#: admin/panels/settings.php:928
+msgid "If you choose custom URL for this redirect"
+msgstr "Wanneer je een aangepaste URL kiest voor deze doorverwijzing"
+
+#: admin/panels/settings.php:909
+msgid "Redirect backend registration to front-end"
+msgstr "Doorverwijzen van backend registratie naar frontend"
+
+#: admin/panels/settings.php:912
+msgid "Redirect to front-end registration"
+msgstr "Doorverwijzen naar frontend registratie"
+
+#: admin/panels/settings.php:921
+msgid "Redirect backend login to front-end"
+msgstr "Doorverwijzen van backend login naar frontend"
+
+#: admin/panels/settings.php:924
+msgid "Redirect to front-end login"
+msgstr "Doorverwijzen naar frontend login"
+
+#: admin/panels/settings.php:934
+msgid "Login Settings"
+msgstr "Login instellingen"
+
+#: admin/panels/settings.php:938 admin/panels/settings.php:974
+msgid "Show logout If user is logged in already"
+msgstr ""
+
+#: admin/panels/settings.php:948
+msgid "After a successful login"
+msgstr "Na een succesvolle login"
+
+#: admin/panels/settings.php:951 admin/panels/settings.php:997
+msgid "Refresh page only"
+msgstr "Ververs alleen de pagina"
+
+#: admin/panels/settings.php:952 admin/panels/settings.php:998
+msgid "Redirect user to front-end profile"
+msgstr "Verwijs gebruiker naar frontend profiel"
+
+#: admin/panels/settings.php:954
+msgid ""
+"You can also redirect users to custom URL by passing <code>login_redirect</"
+"code> valid URL in your shortcode."
+msgstr ""
+"Je kan gebruikers ook naar een aangepaste URL doorverwijzen door het "
+"toevoegen van <code>login_redirect</code> en de URL in je <i>shortcode</i>."
+"<br>Bijvoorbeeld: <code>[userpro template=login login_redirect=\"http://www."
+"voorbeeld.nl\"]</code>."
+
+#: admin/panels/settings.php:959
+msgid "Redirect admins to dashboard always"
+msgstr "Verwijs beheerder altijd naar het Dashboard"
+
+#: admin/panels/settings.php:970
+msgid "Registration Settings"
+msgstr "Registratie instellingen"
+
+#: admin/panels/settings.php:984
+msgid "Auto-Login users after registration"
+msgstr "Log de gebruikers automatisch in na registratie"
+
+#: admin/panels/settings.php:994
+msgid "After a successful registration"
+msgstr "Na een succesvolle registratie"
+
+#: admin/panels/settings.php:1000
+msgid ""
+"You can also redirect users to custom URL by passing "
+"<code>register_redirect</code> valid URL in your shortcode."
+msgstr ""
+"Je kan gebruikers ook naar een aangepaste URL doorverwijzen door het "
+"toevoegen van <code>register_redirect</code> en de URL in je <i>shortcode</"
+"i>.<br>Bijvoorbeeld: <code>[userpro template=login register_redirect="
+"\"http://www.voorbeeld.nl\"]</code>."
+
+#: admin/panels/settings.php:1005
+msgid "Update User Role After admin approval"
+msgstr ""
+
+#: admin/panels/settings.php:1007 admin/panels/settings.php:1025
+#: admin/panels/settings.php:1026
+#, fuzzy
+msgid "No Role"
+msgstr "Rollen"
+
+#: admin/panels/settings.php:1017
+msgid ""
+"New users will be assigned to this role automatically ones admin approv the "
+"user."
+msgstr ""
+
+#: admin/panels/settings.php:1023
+msgid "Default Role for New Users"
+msgstr ""
+
+#: admin/panels/settings.php:1035
+msgid ""
+"New users will be assigned to this role automatically If you do not allow "
+"them to choose role."
+msgstr ""
+
+#: admin/panels/settings.php:1040
+msgid "Allowed Roles during Registration"
+msgstr "Toegestane rollen tijdens de registratie"
+
+#: admin/panels/settings.php:1051
+msgid ""
+"If you enable users to select their role, this option can limit allowed "
+"roles for user."
+msgstr ""
+"Wanneer je gebruikers de mogelijkheid geeft zelf een rol te kiezen, dan kan "
+"je hier de rol(len) aangeven waaruit gekozen kan worden."
+
+#: admin/panels/settings.php:1056
+#, fuzzy
+msgid "Allow Terms & Conditions Text Before Registration"
+msgstr "Toegestane rollen tijdens de registratie"
+
+#: admin/panels/settings.php:1066
+msgid "Terms & Conditions Text/HTML"
+msgstr ""
+
+#: admin/panels/settings.php:1071
+#, fuzzy
+msgid "Allow Email Domains for Registration"
+msgstr "Toegestane rollen tijdens de registratie"
+
+#: admin/panels/settings.php:1074
+msgid ""
+"A comma seperated list of Email Domains to be allowed for registering on the "
+"website. Eg - @hotmail.com, @yahoo.com , leave it blank to allow all email "
+"domains"
+msgstr ""
+
+#: admin/panels/settings.php:1079
+msgid "Block Email Domains from Registration"
+msgstr ""
+
+#: admin/panels/settings.php:1082
+msgid ""
+"A comma seperated list of Email Domains to be blocked for registering on the "
+"website. Eg - @hotmail.com, @yahoo.com "
+msgstr ""
+
+#: admin/panels/settings.php:1088
+#, fuzzy
+msgid "Logout Page Settings"
+msgstr "Login instellingen"
+
+#: admin/panels/settings.php:1092
+msgid "After User Logout"
+msgstr ""
+
+#: admin/panels/settings.php:1095
+#, fuzzy
+msgid "Redirect to Homepage"
+msgstr "Doorverwijzen naar de aangepaste URL"
+
+#: admin/panels/settings.php:1096
+#, fuzzy
+msgid "Redirect to Login Page"
+msgstr "Doorverwijzen naar frontend login"
+
+#: admin/panels/settings.php:1097
+#, fuzzy
+msgid "Redirect to Custom Page (enter below)"
+msgstr "Doorverwijzen naar de aangepaste URL"
+
+#: admin/panels/settings.php:1103
+#, fuzzy
+msgid "Custom Logout Redirect"
+msgstr "Verwijs niet door"
+
+#: admin/panels/settings.php:1111
+#, fuzzy
+msgid "Password Settings"
+msgstr "Wachtwoord sterkte"
+
+#: admin/panels/settings.php:1115
+msgid "Allow password to be reset for Admin Accounts"
+msgstr ""
+
+#: admin/panels/settings.php:1127
+msgid "Facebook Integration"
+msgstr "Facebook integratie"
+
+#: admin/panels/settings.php:1131
+msgid "Allow Facebook Social Connect"
+msgstr "Sta Facebook Social Connect toe"
+
+#: admin/panels/settings.php:1142
+msgid "Facebook App ID"
+msgstr "Facebook App ID"
+
+#: admin/panels/settings.php:1145
+msgid ""
+"Open <a href=\"https://developers.facebook.com/apps\">https://developers."
+"facebook.com/apps</a> create a new app and edit its settings to make it work "
+"on your domain. In App Settings, please paste the App ID or API Key into "
+"this field."
+msgstr ""
+"Open <a href=\"https://developers.facebook.com/apps\">https://developers."
+"facebook.com/apps</a>, creëer een nieuwe app en bewerk de instellingen om "
+"deze optie te laten werken op je domein. In App Instellingen, plak je het "
+"App ID of de API Key in dit veld."
+
+#: admin/panels/settings.php:1153
+msgid ""
+"Auto Post on users Facebook wall on post publish from frontend publisher"
+msgstr ""
+
+#: admin/panels/settings.php:1164
+msgid ""
+"When a user post a new post from frontend publisher, a post can be added "
+"automatically to his wall."
+msgstr ""
+
+#: admin/panels/settings.php:1174 admin/panels/settings.php:1274
+msgid "Post Name"
+msgstr ""
+
+#: admin/panels/settings.php:1180 admin/panels/settings.php:1280
+msgid "e.g. Check out this website!, Welcome to XX website, etc."
+msgstr ""
+
+#: admin/panels/settings.php:1190 admin/panels/settings.php:1290
+#, fuzzy
+msgid "Post Caption"
+msgstr "Herstel opties"
+
+#: admin/panels/settings.php:1196 admin/panels/settings.php:1295
+msgid "e.g. URL or small text that appears below the post name."
+msgstr ""
+
+#: admin/panels/settings.php:1206 admin/panels/settings.php:1305
+msgid "Post Body"
+msgstr ""
+
+#: admin/panels/settings.php:1212 admin/panels/settings.php:1311
+msgid ""
+"e.g. This is the main body of post which is displayed before the description "
+"of the wall post. e.g. Check out this great item and save 50%"
+msgstr ""
+
+#: admin/panels/settings.php:1222 admin/panels/settings.php:1322
+msgid "Post Description"
+msgstr ""
+
+#: admin/panels/settings.php:1228 admin/panels/settings.php:1328
+msgid "This is the full description of the Facebook wall post."
+msgstr ""
+
+#: admin/panels/settings.php:1238 admin/panels/settings.php:1338
+msgid "Post Link"
+msgstr ""
+
+#: admin/panels/settings.php:1244 admin/panels/settings.php:1344
+msgid ""
+"The user will be taken to that URL address when they click on that post."
+msgstr ""
+
+#: admin/panels/settings.php:1252
+msgid "Auto Post on users Facebook wall when user follows someone"
+msgstr ""
+
+#: admin/panels/settings.php:1264
+msgid ""
+"When a user follows someone, a post can be added automatically to his "
+"facebook wall."
+msgstr ""
+
+#: admin/panels/settings.php:1356
+#, fuzzy
+msgid "Linkedin Integration"
+msgstr "Linkedin Integratie"
+
+#: admin/panels/settings.php:1360
+msgid "Allow linkedin Social Connect"
+msgstr "Laat linkedin Social Connect"
+
+#: admin/panels/settings.php:1370
+msgid "linkedin App Key"
+msgstr "linkedin App Key"
+
+#: admin/panels/settings.php:1373
+#, fuzzy
+#| msgid ""
+#| "Open <a href=\"https://developers.facebook.com/apps\">https://developers."
+#| "facebook.com/apps</a> create a new app and edit its settings to make it "
+#| "work on your domain. In App Settings, please paste the App ID or API Key "
+#| "into this field."
+msgid ""
+"Open <a href=\"https://www.linkedin.com/developer/apps\">https://www."
+"linkedin.com/developer/apps</a> create a new app and edit its settings to "
+"make it work on your domain. In App Settings, please paste the App ID or API "
+"Key into this field."
+msgstr ""
+"Open <a href=\"https://developers.facebook.com/apps\">https://developers."
+"facebook.com/apps</a>, creëer een nieuwe app en bewerk de instellingen om "
+"deze optie te laten werken op je domein. In App Instellingen, plak je het "
+"App ID of de API Key in dit veld."
+
+#: admin/panels/settings.php:1378
+msgid "linkedin Secret Key"
+msgstr "linkedin Secret Key"
+
+#: admin/panels/settings.php:1385
+msgid "Instagram Integration"
+msgstr "integratie Instagram"
+
+#: admin/panels/settings.php:1389
+msgid "Allow Instagram Social Connect"
+msgstr "Laat Instagram Social Connect"
+
+#: admin/panels/settings.php:1399
+msgid "Instagram Client ID"
+msgstr "Instagram Client ID"
+
+#: admin/panels/settings.php:1402
+#, fuzzy
+#| msgid ""
+#| "Open <a href=\"https://developers.facebook.com/apps\">https://developers."
+#| "facebook.com/apps</a> create a new app and edit its settings to make it "
+#| "work on your domain. In App Settings, please paste the App ID or API Key "
+#| "into this field."
+msgid ""
+"Open <a href=\"http://instagram.com/developer/\">http://instagram.com/"
+"developer/</a> create a new app and edit its settings to make it work on "
+"your domain. In App Settings, please paste the Client ID into this field."
+msgstr ""
+"Open <a href=\"https://developers.facebook.com/apps\">https://developers."
+"facebook.com/apps</a>, creëer een nieuwe app en bewerk de instellingen om "
+"deze optie te laten werken op je domein. In App Instellingen, plak je het "
+"App ID of de API Key in dit veld."
+
+#: admin/panels/settings.php:1407
+msgid "Instagram Client Secret"
+msgstr "Instagram Client Secret"
+
+#: admin/panels/settings.php:1416
+msgid "Twitter Integration"
+msgstr "Facebook integratie"
+
+#: admin/panels/settings.php:1420
+#, fuzzy
+msgid "Allow Twitter Social Connect"
+msgstr "Sta Facebook Social Connect toe"
+
+#: admin/panels/settings.php:1430
+msgid "Consumer key"
+msgstr ""
+
+#: admin/panels/settings.php:1433
+msgid ""
+"You must first create an app at <a href=\"https://dev.twitter.com/apps/"
+"\">https://dev.twitter.com/apps/</a> and enter your consumer keys to enable "
+"twitter connect."
+msgstr ""
+
+#: admin/panels/settings.php:1438
+#, fuzzy
+msgid "Consumer secret"
+msgstr "Je <i>Geheime Sleutel</i>"
+
+#: admin/panels/settings.php:1445
+msgid "Auto Post on users Twitter timeline"
+msgstr ""
+
+#: admin/panels/settings.php:1451
+msgid "When they first connect to your site."
+msgstr ""
+
+#: admin/panels/settings.php:1456
+msgid "Twitter timeline message"
+msgstr ""
+
+#: admin/panels/settings.php:1459
+msgid ""
+"If you enabled the above option to automatically post on users timeline."
+msgstr ""
+
+#: admin/panels/settings.php:1464 admin/panels/settings.php:1515
+#, fuzzy
+#| msgid "Redirect to front-end registration"
+msgid "Custom Redirect URL After Registration"
+msgstr "Doorverwijzen naar frontend registratie"
+
+#: admin/panels/settings.php:1471 admin/panels/settings.php:1522
+#, fuzzy
+msgid "Custom Redirect URL After Login"
+msgstr "Verwijs niet door"
+
+#: admin/panels/settings.php:1479
+#, fuzzy
+msgid "Google Integration"
+msgstr "Facebook integratie"
+
+#: admin/panels/settings.php:1483
+#, fuzzy
+msgid "Allow Google Social Connect"
+msgstr "Sta Facebook Social Connect toe"
+
+#: admin/panels/settings.php:1493
+msgid "Client ID"
+msgstr ""
+
+#: admin/panels/settings.php:1500
+msgid "Client secret"
+msgstr ""
+
+#: admin/panels/settings.php:1507
+msgid "Callback / Redirect URL"
+msgstr ""
+
+#: admin/panels/settings.php:1510
+msgid ""
+"This URL must be in the allowed Redirect URIs for this app in your Google "
+"Console."
+msgstr ""
+
+#: admin/panels/settings.php:1542
+msgid "Aweber Settings"
+msgstr "Aweber Instellingen"
+
+#: admin/panels/settings.php:1545
+msgid "Aweber Authorization Code"
+msgstr ""
+
+#: admin/panels/settings.php:1554
+#, fuzzy
+#| msgid "Aweber Settings"
+msgid "Aweber List Id"
+msgstr "Aweber Instellingen"
+
+#: admin/panels/settings.php:1561
+msgid "Campaignmonitor Settings"
+msgstr "Campaignmonitor Instellingen"
+
+#: admin/panels/settings.php:1565
+#, fuzzy
+#| msgid "Campaignmonitor Settings"
+msgid "Campaignmonitor Authorization Code"
+msgstr "Campaignmonitor Instellingen"
+
+#: admin/panels/settings.php:1568
+msgid ""
+"Enter your Campaignmonitor Authorization Code here to allow integration with "
+"Campaignmonitor subscription."
+msgstr ""
+
+#: admin/panels/settings.php:1572
+#, fuzzy
+#| msgid "Campaignmonitor Settings"
+msgid "Campaignmonitor List Name"
+msgstr "Campaignmonitor Instellingen"
+
+#: admin/panels/settings.php:1579
+msgid "BuddyPress Compatibility"
+msgstr ""
+
+#: admin/panels/settings.php:1583
+msgid "Sync UserPro profile links with BuddyPress"
+msgstr ""
+
+#: admin/panels/settings.php:1593
+msgid "Sync UserPro avatars with BuddyPress"
+msgstr ""
+
+#: admin/panels/settings.php:1603
+msgid "Sync UserPro display name with BuddyPress"
+msgstr ""
+
+#: admin/panels/settings.php:1614
+#, fuzzy
+msgid "bbpress Compatibility"
+msgstr "Profiel instellingen"
+
+#: admin/panels/settings.php:1618
+msgid "Sync UserPro profile links with bbpress"
+msgstr ""
+
+#: admin/panels/settings.php:1628
+#, fuzzy
+msgid "Envato Settings"
+msgstr "Login instellingen"
+
+#: admin/panels/settings.php:1632
+msgid "Envato API Key"
+msgstr ""
+
+#: admin/panels/settings.php:1639
+#, fuzzy
+msgid "Envato Username"
+msgstr "Gebruikersnaam of Email"
+
+#: admin/panels/woo.php:3
+msgid ""
+"Click on the button below to automatically add WooCommerce profile fields to "
+"UserPro fields and make users manage their WooCommerce profile data from one "
+"place, their UserPro profile!"
+msgstr ""
+
+#: admin/panels/woo.php:9
+msgid "Rebuild WooCommerce Sync"
+msgstr ""
+
+#: admin/panels/woo.php:10
+msgid "Remove WooCommerce Sync"
+msgstr ""
+
+#: admin/panels/woo.php:14
+msgid "Start WooCommerce Sync"
+msgstr ""
+
+#: admin/templates/template-addon-single.php:12
+msgid "FREE DOWNLOAD"
+msgstr ""
+
+#: admin/templates/template-addon-single.php:16
+msgid "Buy Now"
+msgstr ""
+
+#: admin/templates/template-addon-single.php:19
+msgid "Installed"
+msgstr ""
+
+#: functions/ajax.php:170
+#, fuzzy
+#| msgid "Your profile has been saved."
+msgid "Your request has been sent"
+msgstr "Je profiel is opgeslagen."
+
+#: functions/ajax.php:350 functions/ajax.php:354
+#, fuzzy
+msgid "Your submission has been drafted!"
+msgstr "Je profiel is opgeslagen."
+
+#: functions/ajax.php:377 functions/ajax.php:390
+#, php-format
+msgid "Your submission has been published! You can view it %s."
+msgstr ""
+
+#: functions/ajax.php:383 functions/ajax.php:395
+msgid "Your submission has been sent! It will be reviewed shortly."
+msgstr ""
+
+#: functions/ajax.php:468
+msgid "Nothing was deleted. You must choose yes to confirm deletion."
+msgstr ""
+"Niets is verwijdert. Je moet ja selecteren om het verwijderen te bevestigen."
+
+#: functions/ajax.php:470
+msgid "For security reasons, admin accounts cannot be deleted."
+msgstr "Ter beveiliging kunnen beheer accounts niet verwijdert worden."
+
+#: functions/ajax.php:472
+msgid "You cannot remove test accounts from frontend!"
+msgstr "Het is niet mogelijk test accounts via de frontend te verwijderen!"
+
+#: functions/ajax.php:475
+msgid "You don't have sufficient permission to delete this account!"
+msgstr ""
+
+#: functions/ajax.php:498
+msgid "This account has been deleted successfully."
+msgstr "Dit account is succesvol verwijdert."
+
+#: functions/ajax.php:514
+msgid "You did not provide a secret key."
+msgstr "Je hebt geen <i>Geheime Sleutel</i> ingegeven."
+
+#: functions/ajax.php:516 functions/ajax.php:1075
+msgid "The secret key you entered is invalid."
+msgstr "De ingegeven <i>Geheime Sleutel</i> is ongeldig."
+
+#: functions/ajax.php:532 functions/ajax.php:1083
+msgid "The secret key is invalid or expired."
+msgstr "De <i>Geheime Sleutel</i> is ongeldig of verlopen."
+
+#: functions/ajax.php:555 functions/ajax.php:609 functions/ajax.php:656
+msgid "You should provide your email or username."
+msgstr "Je moet je email of gebruikersnaam opgeven."
+
+#: functions/ajax.php:564 functions/ajax.php:622 functions/ajax.php:626
+#, fuzzy
+#| msgid "There is not such user in our system."
+msgid "There is no such user in our system."
+msgstr "Zo'n gebruiker is in ons systeem niet beschikbaar."
+
+#: functions/ajax.php:566
+msgid "Resetting admin password is not permitted!"
+msgstr ""
+
+#: functions/ajax.php:659
+msgid "You should provide your password."
+msgstr "Je moet je wachtwoord ingeven."
+
+#: functions/ajax.php:691
+msgid "Invalid email or username entered"
+msgstr "Ongeldige email of gebruikersnaam ingegeven"
+
+#: functions/ajax.php:693
+msgid "The password you entered is incorrect"
+msgstr "Het ingegeven wachtwoord is niet correct"
+
+#: functions/ajax.php:704
+msgid ""
+"Your email is pending verification/Payment is Pending. Please activate your "
+"account."
+msgstr ""
+
+#: functions/ajax.php:709 functions/msg-functions.php:35
+msgid "Your email is pending verification. Please activate your account."
+msgstr ""
+
+#: functions/ajax.php:715
+msgid ""
+"Your account is currently being reviewed/Payment is Pending. Thanks for your "
+"patience."
+msgstr ""
+
+#: functions/ajax.php:720 functions/msg-functions.php:48
+msgid "Your account is currently being reviewed. Thanks for your patience."
+msgstr ""
+
+#: functions/ajax.php:1013
+msgid "Invalid purchase code or Envato API is down."
+msgstr ""
+
+#: functions/ajax.php:1021
+msgid "The display name is already in use."
+msgstr ""
+
+#: functions/ajax.php:1027
+msgid "Username already taken."
+msgstr "Gebruikersnaam bestaat al."
+
+#: functions/ajax.php:1029
+msgid "Illegal characters are not allowed in username."
+msgstr ""
+
+#: functions/ajax.php:1035
+msgid "Please enter a valid email."
+msgstr "Geef een correct email adres in."
+
+#: functions/ajax.php:1037
+msgid ""
+"Email is taken. Is that you? Try to <a href=\"#\" data-template=\"login"
+"\">login</a>"
+msgstr ""
+"Email is al geregistreerd. Ben jij dat? Probeer <a href=\"#\" data-template="
+"\"login\">in te loggen</a>"
+
+#: functions/ajax.php:1051
+msgid "This Email Domain is not allowed for registration"
+msgstr ""
+
+#: functions/ajax.php:1069
+msgid "This Email Domain is not allowed"
+msgstr ""
+
+#: functions/ajax.php:1152
+msgid "No custom notice is set for this account."
+msgstr ""
+
+#: functions/ajax.php:1266
+msgid ""
+"This account has been blocked.For more information please contact the "
+"website Administrator, Thanks."
+msgstr ""
+
+#: functions/ajax.php:1291
+msgid ""
+"This account has been blocked. For more information please contact the "
+"website Administrator, Thanks."
+msgstr ""
+
+#: functions/api.php:122 functions/api.php:196
+msgid "Contact"
+msgstr ""
+
+#: functions/api.php:129 functions/api.php:200
+msgid "Send Message"
+msgstr ""
+
+#: functions/api.php:172
+msgid "ID"
+msgstr ""
+
+#: functions/api.php:176
+msgid "Photo"
+msgstr ""
+
+#: functions/api.php:184
+msgid "Location"
+msgstr ""
+
+#: functions/api.php:188
+msgid "Sex"
+msgstr ""
+
+#: functions/api.php:238 functions/api.php:241
+#, php-format
+msgid "%s's profile photo"
+msgstr ""
+
+#: functions/api.php:243
+#, fuzzy, php-format
+msgid "%s did not upload a photo yet."
+msgstr "Je hebt geen <i>Geheime Sleutel</i> ingegeven."
+
+#: functions/api.php:287
+msgid "now!"
+msgstr ""
+
+#: functions/api.php:290
+msgid "year"
+msgstr ""
+
+#: functions/api.php:291
+msgid "month"
+msgstr ""
+
+#: functions/api.php:292
+msgid "day"
+msgstr ""
+
+#: functions/api.php:293
+msgid "hour"
+msgstr ""
+
+#: functions/api.php:294
+msgid "minute"
+msgstr ""
+
+#: functions/api.php:295
+msgid "second"
+msgstr ""
+
+#: functions/api.php:304
+msgid " ago"
+msgstr ""
+
+#: functions/api.php:1657
+msgid "Found <span>1</span> Member"
+msgstr ""
+
+#: functions/api.php:1659
+#, php-format
+msgid "Found <span>%s</span> Members"
+msgstr ""
+
+#: functions/api.php:2409
+msgid "No available information"
+msgstr ""
+
+#: functions/api.php:2747
+msgid ""
+"<strong>ERROR</strong>: Couldn&#8217;t register you. Please contact the "
+"webmaster."
+msgstr ""
+
+#: functions/api.php:2961
+#, fuzzy, php-format
+msgid "There are %s user online on the site."
+msgstr "Zo'n gebruiker is in ons systeem niet beschikbaar."
+
+#: functions/api.php:2963
+#, fuzzy, php-format
+msgid "There are %s users online on the site."
+msgstr "Zo'n gebruiker is in ons systeem niet beschikbaar."
+
+#: functions/api.php:2984
+#, php-format
+msgid "<span>%s</span> Connection"
+msgstr ""
+
+#: functions/api.php:2986
+#, php-format
+msgid "<span>%s</span> Connections"
+msgstr ""
+
+#: functions/badge-functions.php:139
+msgid "User is online :)"
+msgstr ""
+
+#: functions/badge-functions.php:143
+msgid "User is offline :("
+msgstr ""
+
+#: functions/badge-functions.php:153 functions/badge-functions.php:155
+msgid "Verified Account"
+msgstr "Account geverifieerd"
+
+#: functions/badge-functions.php:161 functions/badge-functions.php:163
+msgid "Unverified Account"
+msgstr "Account niet geverifieerd"
+
+#: functions/badge-functions.php:172
+msgid "Unblock account"
+msgstr ""
+
+#: functions/badge-functions.php:176
+msgid "Block account"
+msgstr ""
+
+#: functions/badge-functions.php:180
+msgid "Facebook Linked"
+msgstr "Facebook gelinkt"
+
+#: functions/badge-functions.php:184
+msgid "Twitter Linked"
+msgstr ""
+
+#: functions/badge-functions.php:188
+#, fuzzy
+msgid "Google Linked"
+msgstr "Facebook gelinkt"
+
+#: functions/badge-functions.php:192
+#, fuzzy
+msgid "Verified Customer"
+msgstr "Account geverifieerd"
+
+#: functions/custom-alerts.php:23 functions/custom-alerts.php:32
+msgid "Set custom note..."
+msgstr ""
+
+#: functions/defaults.php:48
+#, fuzzy
+#| msgid "Your profile has been saved."
+msgid "Your password has been updated"
+msgstr "Je profiel is opgeslagen."
+
+#: functions/defaults.php:49
+#, fuzzy
+#| msgid "Your account password: {VAR1}"
+msgid "Your new Password:{VAR1}"
+msgstr "Je account wachtwoord: {VAR1}"
+
+#: functions/defaults.php:50 functions/defaults.php:56
+#: functions/defaults.php:63 functions/defaults.php:70
+#: functions/defaults.php:80
+msgid "If you have any problems, please contact us at {USERPRO_ADMIN_EMAIL}."
+msgstr ""
+"Wanneer je problemen ondervind, neem dan contact met ons op via: "
+"{USERPRO_ADMIN_EMAIL}."
+
+#: functions/defaults.php:51 functions/defaults.php:57
+#: functions/defaults.php:64 functions/defaults.php:71
+#: functions/defaults.php:81 functions/defaults.php:89
+#: functions/defaults.php:94 functions/defaults.php:99
+#: functions/defaults.php:104 functions/defaults.php:109
+#: functions/defaults.php:114 functions/defaults.php:119
+msgid "Best Regards!"
+msgstr "Met vriendelijke groet!"
+
+#: functions/defaults.php:53
+msgid "You or someone else has requested to change password for this account."
+msgstr ""
+"Jij of iemand anders heeft een wachtwoord wijzig verzoek gedaan voor deze "
+"account."
+
+#: functions/defaults.php:54
+msgid ""
+"The following key was generated to you to be able to change your passsword. "
+"Login to our site and attempt to Change your Password and use that key to "
+"change your password successfully."
+msgstr ""
+"De volgende Geheime Sleutel is aangemaakt zodat je je wachtwoord kan "
+"wijzigen. Gebruik deze sleutel op onze website om je wachtwoord te wijzigen."
+
+#: functions/defaults.php:55
+msgid "Secret Key: {VAR1}"
+msgstr "Geheime Sleutel: {VAR1}"
+
+#: functions/defaults.php:60
+msgid ""
+"Thanks for signing up at {USERPRO_BLOGNAME}. You must confirm/validate your "
+"account before logging in."
+msgstr ""
+
+#: functions/defaults.php:61 functions/defaults.php:68
+msgid ""
+"Please click on the following link to successfully activate your account:"
+msgstr ""
+
+#: functions/defaults.php:67
+msgid ""
+"You have changed your email address at {USERPRO_BLOGNAME}. You must confirm/"
+"validate your account before logging in."
+msgstr ""
+
+#: functions/defaults.php:74
+msgid "Thanks for registering. Your account is now active."
+msgstr "Bedankt voor de registratie. Je account is nu actief."
+
+#: functions/defaults.php:75
+msgid "To login please visit the following URL:"
+msgstr "Om in te loggen, ga je naar:"
+
+#: functions/defaults.php:77
+msgid "Your account e-mail: {USERPRO_EMAIL}"
+msgstr "Je account email:  {USERPRO_EMAIL}."
+
+#: functions/defaults.php:78
+msgid "Your account username: {USERPRO_USERNAME}"
+msgstr "Je account gebruikersnaam: {USERPRO_USERNAME}"
+
+#: functions/defaults.php:79
+msgid "Your account password: {VAR1}"
+msgstr "Je account wachtwoord: {VAR1}"
+
+#: functions/defaults.php:84
+msgid "This is an invitation to get verified at {USERPRO_BLOGNAME}."
+msgstr ""
+
+#: functions/defaults.php:85
+msgid ""
+"To accept this invitation and get verified instantly, please click the "
+"following link:"
+msgstr ""
+
+#: functions/defaults.php:87
+msgid ""
+"If you do not want to GET VERIFIED, please ignore this email. No further "
+"action is required."
+msgstr ""
+
+#: functions/defaults.php:88 functions/defaults.php:93
+#: functions/defaults.php:98 functions/defaults.php:103
+msgid ""
+"If you have any further questions, please contact us at "
+"{USERPRO_ADMIN_EMAIL}."
+msgstr ""
+"Wanneer je nog vragen hebt, neem dan contact met ons op via "
+"{USERPRO_ADMIN_EMAIL}."
+
+#: functions/defaults.php:92
+msgid "Your account has been deleted from {USERPRO_BLOGNAME}."
+msgstr "Je account is verwijdert van {USERPRO_BLOGNAME}."
+
+#: functions/defaults.php:97
+#, fuzzy
+msgid "Your account is now verified at {USERPRO_BLOGNAME}."
+msgstr "Je account is verwijdert van {USERPRO_BLOGNAME}."
+
+#: functions/defaults.php:102
+#, fuzzy
+msgid "We apologize. Your account is no longer verified at {USERPRO_BLOGNAME}."
+msgstr "Je account is verwijdert van {USERPRO_BLOGNAME}."
+
+#: functions/defaults.php:107
+#, fuzzy
+msgid "Your account is now blocked at {USERPRO_BLOGNAME}."
+msgstr "Je account is verwijdert van {USERPRO_BLOGNAME}."
+
+#: functions/defaults.php:108 functions/defaults.php:113
+#: functions/defaults.php:118
+#, fuzzy
+#| msgid ""
+#| "If you have any problems, please contact us at {USERPRO_ADMIN_EMAIL}."
+msgid "If you have any query, please contact us at {USERPRO_ADMIN_EMAIL}."
+msgstr ""
+"Wanneer je problemen ondervind, neem dan contact met ons op via: "
+"{USERPRO_ADMIN_EMAIL}."
+
+#: functions/defaults.php:112
+#, fuzzy
+msgid "Your account is now unblocked."
+msgstr "Dit account is succesvol verwijdert."
+
+#: functions/defaults.php:117
+#, fuzzy
+msgid "Your account is currently being reviewed at {USERPRO_BLOGNAME}."
+msgstr "Je account is verwijdert van {USERPRO_BLOGNAME}."
+
+#: functions/defaults.php:122
+#, fuzzy
+msgid ""
+"{USERPRO_USERNAME} has just created a new account at {USERPRO_BLOGNAME}. The "
+"account is pending your manual review."
+msgstr ""
+"{USERPRO_USERNAME} heeft zojuist zijn/haar profiel bijgewerkt op "
+"{USERPRO_BLOGNAME}."
+
+#: functions/defaults.php:123
+msgid ""
+"To approve/reject new user registrations, please click the following link:"
+msgstr ""
+
+#: functions/defaults.php:128
+#, fuzzy
+msgid ""
+"{USERPRO_USERNAME} has just sent you account verify request at "
+"{USERPRO_BLOGNAME}."
+msgstr ""
+"{USERPRO_USERNAME} heeft zojuist zijn/haar profiel bijgewerkt op "
+"{USERPRO_BLOGNAME}."
+
+#: functions/defaults.php:129 functions/defaults.php:135
+#: functions/defaults.php:141
+msgid "You can check his profile via the following link:"
+msgstr ""
+
+#: functions/defaults.php:134
+#, fuzzy
+msgid ""
+"{USERPRO_USERNAME} has just sent you connect request at {USERPRO_BLOGNAME}."
+msgstr ""
+"{USERPRO_USERNAME} heeft zojuist zijn/haar profiel bijgewerkt op "
+"{USERPRO_BLOGNAME}."
+
+#: functions/defaults.php:140
+#, fuzzy
+msgid ""
+"{USERPRO_USERNAME} has just created a new account at {USERPRO_BLOGNAME}."
+msgstr ""
+"{USERPRO_USERNAME} heeft zojuist zijn/haar profiel bijgewerkt op "
+"{USERPRO_BLOGNAME}."
+
+#: functions/defaults.php:147
+msgid ""
+"{USERPRO_USERNAME}'s profile has been just deleted from {USERPRO_BLOGNAME}."
+msgstr ""
+"{USERPRO_USERNAME}'s profiel is zojuist verwijdert van {USERPRO_BLOGNAME}."
+
+#: functions/defaults.php:151
+msgid ""
+"{USERPRO_USERNAME} has just updated their profile at {USERPRO_BLOGNAME}."
+msgstr ""
+"{USERPRO_USERNAME} heeft zojuist zijn/haar profiel bijgewerkt op "
+"{USERPRO_BLOGNAME}."
+
+#: functions/defaults.php:152
+msgid "To view his/her profile:"
+msgstr "Om zijn/haar profiel te bekijken:"
+
+#: functions/defaults.php:157
+msgid "Please click below link to reset your password,"
+msgstr ""
+
+#: functions/defaults.php:158
+msgid "<a href=\"{USERPRO_LOGIN_URL}?a=reset&sk={VAR1}\">Click here</a>"
+msgstr ""
+
+#: functions/defaults.php:161
+#, fuzzy
+msgid ""
+"{USERPRO_USERNAME} has just created a new account at {USERPRO_BLOGNAME}. The "
+"account is pending email verification."
+msgstr ""
+"{USERPRO_USERNAME} heeft zojuist zijn/haar profiel bijgewerkt op "
+"{USERPRO_BLOGNAME}."
+
+#: functions/defaults.php:201
+#, fuzzy
+#| msgid "Password Field"
+msgid "Password Updated"
+msgstr "Wachtwoord veld"
+
+#: functions/defaults.php:203
+msgid "Reset Your Password"
+msgstr "Herstel je wachtwoord"
+
+#: functions/defaults.php:206
+#, fuzzy
+msgid "Verify your Account"
+msgstr "Account geverifieerd"
+
+#: functions/defaults.php:209
+#, fuzzy
+msgid "Reverify your Account after Email change"
+msgstr "Account geverifieerd"
+
+#: functions/defaults.php:212
+#, php-format
+msgid "Welcome to %s!"
+msgstr "Welkom bij %s!"
+
+#: functions/defaults.php:215
+msgid "Your profile has been removed!"
+msgstr "Je profiel is verwijdert!"
+
+#: functions/defaults.php:218
+msgid "New Connect Request!"
+msgstr ""
+
+#: functions/defaults.php:221
+#, php-format
+msgid "Get Verified at %s!"
+msgstr ""
+
+#: functions/defaults.php:224
+msgid "New verification Request"
+msgstr ""
+
+#: functions/defaults.php:226
+#, fuzzy
+msgid "Your account is now verified!"
+msgstr "Dit account is succesvol verwijdert."
+
+#: functions/defaults.php:229
+msgid "Your account is no longer verified!"
+msgstr ""
+
+#: functions/defaults.php:232
+#, fuzzy
+msgid "Your account is Pending for Manual Review"
+msgstr "Dit account is succesvol verwijdert."
+
+#: functions/defaults.php:235
+#, fuzzy
+msgid "Your account is now blocked!"
+msgstr "Dit account is succesvol verwijdert."
+
+#: functions/defaults.php:238
+#, fuzzy
+msgid "Your account is now unblocked!"
+msgstr "Dit account is succesvol verwijdert."
+
+#: functions/defaults.php:241
+msgid "[UserPro] User awaiting manual review"
+msgstr ""
+
+#: functions/defaults.php:244
+msgid "[UserPro] New User Registration"
+msgstr "[UserPro] Nieuwe gebruikersregistratie"
+
+#: functions/defaults.php:247
+msgid "[UserPro] A profile has been removed!"
+msgstr "[UserPro] Een profiel is verwijdert!"
+
+#: functions/defaults.php:250
+msgid "[UserPro] A profile has been updated!"
+msgstr "[UserPro] Een profiel is bijgewerkt!"
+
+#: functions/defaults.php:253
+#, fuzzy
+#| msgid "Reset Your Password"
+msgid "Reset your password"
+msgstr "Herstel je wachtwoord"
+
+#: functions/defaults.php:336
+msgid ""
+"To complete registration, you must read and agree to our <a href=\"#\">terms "
+"and conditions</a>. This text can be custom."
+msgstr ""
+
+#: functions/defaults.php:337
+#, fuzzy
+#| msgid ""
+#| "You cannot view this content because It is available to members only. "
+#| "Please <a href=\"#\" class=\"popup-login\" data-force_redirect_uri="
+#| "\"1\">login</a> or <a href=\"%s\">register</a> to view this area."
+msgid ""
+"You cannot view this content because It is available to members only. Please "
+"{LOGIN_POPUP} or {REGISTER_POPUP} to view this area."
+msgstr ""
+"Deze inhoud is alleen beschikbaar voor geregistreerde gebruikers. <a href=\"#"
+"\" class=\"popup-login\" data-force_redirect_uri=\"1\">login</a> of <a href="
+"\"%s\">registreer</a> om deze inhoud te bekijken."
+
+#: functions/defaults.php:401
+msgid "You are invited to register at "
+msgstr ""
+
+#: functions/defaults.php:405
+msgid "[UserPro]New Registration - Pending email verification by user"
+msgstr ""
+
+#: functions/fields-filters.php:14
+#, fuzzy
+msgid "Please confirm the Captcha."
+msgstr "Geef een correct email adres in."
+
+#: functions/fields-filters.php:32
+#, fuzzy
+msgid "This account has been blocked"
+msgstr "Dit account is succesvol verwijdert."
+
+#: functions/fields-filters.php:101
+#, fuzzy
+msgid "Please enter a correct phone number"
+msgstr "Geef één keuze per regel in!"
+
+#: functions/fields-filters.php:106
+#, php-format
+msgid "%s must not exceed %s characters"
+msgstr ""
+
+#: functions/fields-filters.php:112
+#, php-format
+msgid "Minimum %s characters are required for %s"
+msgstr ""
+
+#: functions/fields-filters.php:139
+#, fuzzy
+msgid "Incorrect Answer. please try again."
+msgstr "Geen gebruikers gevonden. Probeer het nogmaals."
+
+#: functions/fields-filters.php:158
+#, fuzzy
+msgid "Incorrect answer. please try again."
+msgstr "Geen gebruikers gevonden. Probeer het nogmaals."
+
+#: functions/fields-functions.php:207 functions/fields-functions.php:224
+msgid "No file has been uploaded."
+msgstr "Er is geen bestand ge-upload."
+
+#: functions/fields-functions.php:298
+msgid "Upload photo"
+msgstr "Upload foto"
+
+#: functions/fields-functions.php:302
+msgid "Take Photo"
+msgstr ""
+
+#: functions/fields-functions.php:313
+msgid "Upload file"
+msgstr "Upload bestand"
+
+#: functions/fields-functions.php:333 functions/fields-functions.php:351
+#: functions/fields-functions.php:381 functions/fields-functions.php:502
+#: functions/fields-functions.php:654 functions/fields-functions.php:678
+msgid "Make this field hidden from public"
+msgstr "Verberg dit veld voor anderen"
+
+#: functions/fields-functions.php:360
+#, php-format
+msgid "Answer: %s + %s"
+msgstr ""
+
+#: functions/fields-functions.php:391
+msgid "Password Strength"
+msgstr "Wachtwoord sterkte"
+
+#: functions/fields-functions.php:583
+msgid "Subscribe to our newsletter"
+msgstr ""
+
+#: functions/fields-functions.php:599
+msgid "You are currently subscribed to this newsletter."
+msgstr ""
+
+#: functions/fields-functions.php:602
+msgid "Unsubscribe from this newsletter"
+msgstr ""
+
+#: functions/fields-functions.php:619
+msgid "You are currently receiving following email alerts."
+msgstr ""
+
+#: functions/fields-functions.php:622
+msgid "Remove the following email alert "
+msgstr ""
+
+#: functions/fields-hooks.php:18
+msgid "Remember me"
+msgstr ""
+
+#: functions/fields-hooks.php:51
+#, fuzzy, php-format
+msgid "%s's uploaded photo"
+msgstr "Upload foto"
+
+#: functions/fields-hooks.php:100
+#, php-format
+msgid ""
+"<strong>Warning!</strong> Your account is %s verified. If you change your "
+"display name, <em>you will lose your verification status.</em>"
+msgstr ""
+
+#: functions/fields-setup.php:147 functions/fields-setup.php:190
+msgid "Account Details"
+msgstr "Account details"
+
+#: functions/fields-setup.php:154 functions/fields-setup.php:175
+#: profile-layouts/layout1/layout.php:63
+msgid "Profile Details"
+msgstr "Profiel details"
+
+#: functions/fields-setup.php:160 functions/fields-setup.php:184
+#, fuzzy
+msgid "Social Profiles"
+msgstr "Bewerk profiel"
+
+#: functions/frontend-publisher-functions.php:76
+msgid "Provide some content"
+msgstr ""
+
+#: functions/frontend-publisher-functions.php:76
+msgid "Enter content here..."
+msgstr ""
+
+#: functions/frontend-publisher-functions.php:135
+msgid "You must enter a post title"
+msgstr ""
+
+#: functions/frontend-publisher-functions.php:145
+msgid "Please choose a category at least"
+msgstr ""
+
+#: functions/frontend-publisher-functions.php:190
+msgid "Set Featured Image"
+msgstr ""
+
+#: functions/frontend-publisher-functions.php:191
+msgid "You must upload a featured image"
+msgstr ""
+
+#: functions/hooks-actions.php:277 functions/hooks-actions.php:279
+#: functions/hooks-actions.php:298 functions/hooks-actions.php:302
+msgid "%s's Profile"
+msgstr "%s's profiel"
+
+#: functions/hooks-filters.php:135 functions/hooks-filters.php:169
+#: profile-layouts/layout1/layout.php:18 profile-layouts/layout2/layout.php:24
+#: profile-layouts/layout3/layout.php:31 templates/edit.php:8
+#: templates/view.php:71
+msgid "View member photo"
+msgstr ""
+
+#: functions/initial-setup.php:36 profile-layouts/layout1/layout.php:67
+msgid "Connections"
+msgstr ""
+
+#: functions/initial-setup.php:105 functions/user-functions.php:26
+#: profile-layouts/layout1/layout.php:51 profile-layouts/layout3/layout.php:126
+#: templates/logout.php:18 updates/userpro_1.0.24.php:15
+msgid "Logout"
+msgstr "Uitloggen"
+
+#: functions/initial-setup.php:119
+msgid "Member Directory"
+msgstr "Overzicht geregistreerde gebruikers"
+
+#: functions/initial-setup.php:133
+msgid "My Profile"
+msgstr "Mijn profiel"
+
+#: functions/initial-setup.php:162 functions/shortcode-main.php:47
+#: functions/shortcode-private-content.php:46
+msgid "Register"
+msgstr "Registreer"
+
+#: functions/initial-setup.php:177 functions/shortcode-main.php:48
+#: functions/shortcode-main.php:53 functions/shortcode-main.php:59
+#: functions/shortcode-private-content.php:47
+#: functions/shortcode-private-content.php:52
+#: functions/shortcode-private-content.php:56
+msgid "Login"
+msgstr "Login"
+
+#: functions/invite_users_widgets.php:16
+msgid "Userpro invite users"
+msgstr ""
+
+#: functions/invite_users_widgets.php:17
+msgid "userpro invite users widget for invite users from frontend "
+msgstr ""
+
+#: functions/invite_users_widgets.php:42
+msgid "InviteUser"
+msgstr ""
+
+#: functions/invite_users_widgets.php:45
+msgid "Title:"
+msgstr ""
+
+#: functions/msg-functions.php:4
+#, php-format
+msgid ""
+"Congratulations! Your account is now %s <strong>Verified</strong>. <i class="
+"\"userpro-icon-remove\"></i>"
+msgstr ""
+
+#: functions/msg-functions.php:8
+msgid ""
+"This invitation request is invalid or has expired! <i class=\"userpro-icon-"
+"remove\"></i>"
+msgstr ""
+
+#: functions/msg-functions.php:12
+#, fuzzy
+msgid "Please log in to publish a new post."
+msgstr "Login om je profiel te zien en te beheren."
+
+#: functions/msg-functions.php:16
+#, fuzzy
+msgid "Your account has been successfully activated!"
+msgstr "Dit account is succesvol verwijdert."
+
+#: functions/msg-functions.php:20
+msgid ""
+"Verification email resent on your email address. Please activate your "
+"account."
+msgstr ""
+
+#: functions/msg-functions.php:24
+msgid ""
+"Verification email sent on your email address for reverification. Please "
+"activate your account."
+msgstr ""
+
+#: functions/msg-functions.php:31
+msgid ""
+"Your email is pending verification/Your payment is Pending. Please activate "
+"your account."
+msgstr ""
+
+#: functions/msg-functions.php:44
+msgid ""
+"Your account is currently being reviewed/Pending For payment. Thanks for "
+"your patience."
+msgstr ""
+
+#: functions/msg-functions.php:53
+msgid "Your profile has been saved."
+msgstr "Je profiel is opgeslagen."
+
+#: functions/msg-functions.php:57
+msgid "Thank you for registering. Please login to continue."
+msgstr "Bedankt voor de registratie. Login om verder te gaan."
+
+#: functions/msg-functions.php:61
+msgid "Please login to view and manage your profile."
+msgstr "Login om je profiel te zien en te beheren."
+
+#: functions/msg-functions.php:65
+msgid "Please login to view this user profile."
+msgstr "Login om dit gebruikersprofiel te bekijken."
+
+#: functions/msg-functions.php:69
+msgid ""
+"We'll email you a secret key. Once you obtain the key, you can use it to "
+"Change your Password."
+msgstr ""
+"Wij een <i>Geheime Sleutel</i> naar je toe mailen. Wanneer je deze hebt "
+"ontvangen, kan je deze gebruiken om je wachtwoord te wijzigen."
+
+#: functions/msg-functions.php:73
+msgid "A secret key has been sent successfully."
+msgstr "Een <i>Geheime Sleutel</i> is toegestuurd."
+
+#: functions/msg-functions.php:78
+msgid "Your password has been changed successfully. Please login."
+msgstr "Je wachtwoord is gewijzigd. Login."
+
+#: functions/msg-functions.php:82
+msgid ""
+"We'll email you the reset password link , on clicking the link you can enter "
+"new password for your account"
+msgstr ""
+
+#: functions/msg-functions.php:86
+#, fuzzy
+#| msgid "A secret key has been sent successfully."
+msgid "A reset link has been sent to your email successfully."
+msgstr "Een <i>Geheime Sleutel</i> is toegestuurd."
+
+#: functions/msg-functions.php:89
+msgid ""
+"This account has been blocked. For more information please contact the "
+"website Administrator,Thanks."
+msgstr ""
+
+#: functions/shortcode-main.php:23
+#, fuzzy
+msgid "Your profile has been saved!"
+msgstr "Je profiel is opgeslagen."
+
+#: functions/shortcode-main.php:34 functions/shortcode-private-content.php:32
+msgid "This field is required"
+msgstr "Dit veld is verplicht"
+
+#: functions/shortcode-main.php:35 functions/shortcode-private-content.php:33
+msgid "Your password is too short"
+msgstr "Je wachtwoord is te kort"
+
+#: functions/shortcode-main.php:36 functions/shortcode-private-content.php:34
+msgid "Passwords do not match"
+msgstr "Wachtwoorden zijn niet gelijk"
+
+#: functions/shortcode-main.php:37 functions/shortcode-private-content.php:35
+msgid "Password is not strong enough"
+msgstr "Wachtwoord is niet sterk genoeg"
+
+#: functions/shortcode-main.php:43 functions/shortcode-private-content.php:42
+msgid "Register an Account"
+msgstr "Registreer een account"
+
+#: functions/shortcode-main.php:44 functions/shortcode-private-content.php:43
+msgid "Already a member?"
+msgstr "Al geregistreerd?"
+
+#: functions/shortcode-main.php:54 functions/shortcode-private-content.php:53
+msgid "Forgot your password?"
+msgstr "Wachtwoord vergeten?"
+
+#: functions/shortcode-main.php:56
+msgid "Resend verification email?"
+msgstr ""
+
+#: functions/shortcode-main.php:60 functions/shortcode-private-content.php:57
+msgid "Create an Account"
+msgstr "Maak een account aan"
+
+#: functions/shortcode-main.php:64 functions/shortcode-private-content.php:61
+#: templates/edit.php:113 templates/view.php:177
+msgid "Delete Profile"
+msgstr "Verwijder profiel"
+
+#: functions/shortcode-main.php:65 functions/shortcode-private-content.php:62
+msgid "Undo, back to profile"
+msgstr "Ongedaan maken, terug naar profiel"
+
+#: functions/shortcode-main.php:68 functions/shortcode-private-content.php:65
+#: templates/delete.php:29
+msgid "Confirm Deletion"
+msgstr "Bevestig verwijderen"
+
+#: functions/shortcode-main.php:69 functions/shortcode-private-content.php:66
+msgid "Back to Profile"
+msgstr "Terug naar profiel"
+
+#: functions/shortcode-main.php:71 functions/shortcode-private-content.php:69
+msgid "Reset Password"
+msgstr "Herstel wachtwoord"
+
+#: functions/shortcode-main.php:72 functions/shortcode-main.php:79
+#: functions/shortcode-private-content.php:70
+msgid "Back to Login"
+msgstr "Terug naar Inloggen"
+
+#: functions/shortcode-main.php:75 functions/shortcode-private-content.php:73
+msgid "Request Secret Key"
+msgstr "Vraag een <i>Geheime Sleutel</i> aan"
+
+#: functions/shortcode-main.php:76 functions/shortcode-main.php:84
+#: functions/shortcode-private-content.php:74
+#: functions/shortcode-private-content.php:77
+msgid "Change your Password"
+msgstr "Wijzig je wachtwoord"
+
+#: functions/shortcode-main.php:78
+msgid "Resend email"
+msgstr ""
+
+#: functions/shortcode-main.php:82
+msgid "Resend verification email"
+msgstr ""
+
+#: functions/shortcode-main.php:85 functions/shortcode-private-content.php:78
+msgid "Request New Key"
+msgstr "Vraag nieuwe sleutel aan"
+
+#: functions/shortcode-main.php:88 functions/shortcode-private-content.php:81
+msgid "Change my Password"
+msgstr "Wijzig mijn wachtwoord"
+
+#: functions/shortcode-main.php:89 functions/shortcode-private-content.php:82
+msgid "Do not have a secret key?"
+msgstr "Heb je geen <i>Geheime Sleutel</i>?"
+
+#: functions/shortcode-main.php:91 functions/shortcode-private-content.php:85
+msgid "Latest Members"
+msgstr "Nieuwste geregistreerde gebruikers"
+
+#: functions/shortcode-main.php:104 functions/shortcode-private-content.php:98
+msgid "Who is online now"
+msgstr ""
+
+#: functions/shortcode-main.php:122 functions/shortcode-private-content.php:116
+msgid "An error has occured"
+msgstr "Er is een fout opgetreden"
+
+#: functions/shortcode-main.php:155 functions/shortcode-private-content.php:148
+msgid "Existing member? login"
+msgstr ""
+
+#: functions/shortcode-main.php:171 functions/shortcode-private-content.php:161
+msgid "Add a New Post"
+msgstr ""
+
+#: functions/shortcode-main.php:173 functions/shortcode-private-content.php:163
+msgid "Save as Draft"
+msgstr ""
+
+#: functions/shortcode-social-connect.php:13 functions/social-connect.php:145
+msgid "Login with Facebook"
+msgstr ""
+
+#: functions/shortcode-social-connect.php:16 functions/social-connect.php:154
+msgid "Login with Twitter"
+msgstr ""
+
+#: functions/shortcode-social-connect.php:18 functions/social-connect.php:164
+msgid "Login with Google+"
+msgstr ""
+
+#: functions/shortcode-social-connect.php:20
+msgid "ВКонтакте"
+msgstr ""
+
+#: functions/social-connect.php:172
+msgid "Login with Linkedin"
+msgstr ""
+
+#: functions/social-connect.php:182
+msgid "Login with Instagram"
+msgstr ""
+
+#: functions/terms-agreement.php:12
+msgid "You must accept our terms and conditions"
+msgstr ""
+
+#: lib/BFI_Thumb.php:145
+msgid ""
+"The server does not have ImageMagick or GD installed and/or enabled! Any of "
+"these libraries are required for WordPress to be able to resize images. "
+"Please contact your server administrator to enable this before continuing."
+msgstr ""
+
+#: lib/BFI_Thumb.php:273
+msgid "Image rotate failed."
+msgstr ""
+
+#: lib/BFI_Thumb.php:296
+msgid "Image opacity change failed."
+msgstr ""
+
+#: lib/BFI_Thumb.php:383
+msgid "Image color change failed."
+msgstr ""
+
+#: lib/BFI_Thumb.php:400
+msgid "Image grayscale failed."
+msgstr ""
+
+#: lib/BFI_Thumb.php:417
+msgid "Image negate failed."
+msgstr ""
+
+#: profile-layouts/default/field-layout.php:126
+#: profile-layouts/layout1/field-layout.php:129
+#: profile-layouts/layout2/field-layout.php:122
+#: profile-layouts/layout3/field-layout.php:129
+#, php-format
+msgid "(Your %s will not be visible to public)"
+msgstr "(Je %s is niet publiekelijk zichtbaar)"
+
+#: profile-layouts/layout1/layout.php:187 templates/connections.php:50
+#: templates/connections.php:131
+msgid "Remove Connection"
+msgstr ""
+
+#: profile-layouts/layout1/layout.php:206 templates/connections.php:153
+msgid "You do not have anyone who started connection with you yet."
+msgstr ""
+
+#: profile-layouts/layout1/layout.php:208 templates/connections.php:155
+msgid "This user does not have anyone who started connection him/her yet."
+msgstr ""
+
+#: profile-layouts/layout2/layout.php:61 profile-layouts/layout3/layout.php:67
+msgid "FOLLOWING"
+msgstr ""
+
+#: profile-layouts/layout2/layout.php:68 profile-layouts/layout3/layout.php:73
+msgid "FOLLOWERS"
+msgstr ""
+
+#: profile-layouts/layout2/layout.php:73 profile-layouts/layout3/layout.php:82
+msgid "CONNECTIONS"
+msgstr ""
+
+#: profile-layouts/layout3/layout.php:96
+msgid "View Reviews"
+msgstr ""
+
+#: templates/change.php:34
+msgid "Your Secret Key"
+msgstr "Je <i>Geheime Sleutel</i>"
+
+#: templates/change.php:37
+msgid ""
+"You need a secret key to change your account password. Do not have one? "
+"Click <a href=\"#\" data-template=\"reset\">here</a> to obtain a new key."
+msgstr ""
+"Je hebt een <i>Geheime Sleutel</i> nodig om het wachtwoord van je account te "
+"wijzigen. Heb je er nog geen? Klik <a href=\"#\" data-template=\"reset"
+"\">hier</a> om deze aan te vragen."
+
+#: templates/connections.php:57
+msgid "Accept"
+msgstr ""
+
+#: templates/delete.php:30
+msgid "No, do not delete"
+msgstr "Nee, verwijder niet"
+
+#: templates/delete.php:30
+msgid "Yes, delete this profile!"
+msgstr "Ja, verwijder dit profiel!"
+
+#: templates/delete.php:31
+msgid "This action cannot be UNDONE! It will delete all profile data."
+msgstr ""
+"Deze actie kan <strong>NIET</strong> ongedaan worden gemaakt! Het verwijdert "
+"alle profiel gegevens."
+
+#: templates/edit.php:109 templates/view.php:173
+msgid "Request Verification"
+msgstr ""
+
+#: templates/inviter_user_widgets.php:8
+msgid "Email"
+msgstr ""
+
+#: templates/inviter_user_widgets.php:13
+msgid ""
+"You can invite users for registration,Enter email addresses separated by "
+"comma"
+msgstr ""
+
+#: templates/logout.php:14
+#, fuzzy
+msgid "View/manage your profile"
+msgstr "Login om je profiel te zien en te beheren."
+
+#: templates/memberlist.php:9 templates/memberlist_table.php:9
+#: templates/memberlist_v2.php:28
+msgid "Search for a user..."
+msgstr "Zoek naar een gebruiker…"
+
+#: templates/memberlist.php:14 templates/memberlist_table.php:14
+#: templates/memberlist_v2.php:34
+msgid "Search"
+msgstr "Zoek"
+
+#: templates/memberlist.php:16 templates/memberlist_table.php:16
+#: templates/memberlist_v2.php:36
+#, fuzzy
+msgid "Clear your Search"
+msgstr "Zoekopdracht verwijderen"
+
+#: templates/memberlist_v2.php:86
+msgid "The user did not enter a description yet."
+msgstr ""
+
+#: templates/memberlist_v2.php:112
+msgid "Pending Request"
+msgstr ""
+
+#: templates/memberlist_v2.php:117
+msgid "Connected"
+msgstr ""
+
+#: templates/memberlist_v2.php:123
+msgid "Send Connect Request"
+msgstr ""
+
+#: templates/not_allowed.php:12
+#, fuzzy
+msgid "You are not authorized to access this area."
+msgstr "Je bent niet gemachtigd dit profiel te openen."
+
+#: templates/not_authorized.php:12
+msgid "You are not authorized to access this profile."
+msgstr "Je bent niet gemachtigd dit profiel te openen."
+
+#: templates/not_found.php:12
+msgid ""
+"The user profile you are trying to reach does not exist. It could have been "
+"removed."
+msgstr ""
+"Het gebruikersprofiel dat je probeert te bereiken bestaat niet. Het kan "
+"inmiddels verwijdert zijn."
+
+#: templates/online.php:64
+msgid "No users are online now."
+msgstr ""
+
+#: templates/postsbyuser.php:22
+msgid "Filter Results by"
+msgstr ""
+
+#: templates/postsbyuser.php:113
+#, fuzzy
+msgid "This user has not published any posts"
+msgstr "Login om je profiel te zien en te beheren."
+
+#: templates/private.php:4
+#, fuzzy
+msgid "Restricted Content / Members Only"
+msgstr "Geblokkeerde inhoud / Alleen voor geregistreerde gebruikers"
+
+#: templates/publish.php:39 templates/publish.php:78
+msgid "Enter post title here..."
+msgstr ""
+
+#: templates/publish.php:49 templates/publish.php:84
+msgid "Post Type"
+msgstr ""
+
+#: templates/publish.php:56 templates/publish.php:93
+#, fuzzy
+msgid "Select Categories"
+msgstr "Selecteer rollen"
+
+#: templates/registration_closed.php:6
+#, fuzzy
+msgid "Registration Closed"
+msgstr "Registratie pagina"
+
+#: templates/registration_closed.php:17
+msgid "Registration is currently disabled. We apologize for any inconvenience."
+msgstr ""
+
+#: templates/request_verify.php:6
+msgid "Your request is sent!"
+msgstr ""
+
+#: templates/request_verify.php:14
+#, php-format
+msgid ""
+"Thanks, <strong>%s</strong>! Your request to get verified has been sent to "
+"the staff. A staff member will look at your application shortly and take the "
+"appropriate action."
+msgstr ""
+
+#: templates/resend.php:27 templates/reset.php:27
+msgid "Username or Email"
+msgstr "Gebruikersnaam of Email"
+
+#: templates/reset.php:48
+#, fuzzy
+#| msgid "Request Secret Key"
+msgid "Request reset link"
+msgstr "Vraag een <i>Geheime Sleutel</i> aan"
+
+#: templates/restricted.php:4
+msgid "Access Denied"
+msgstr "Toegang geweigerd"
+
+#: templates/restricted.php:12
+msgid ""
+"You do not have enough permissions or role to view this private content. We "
+"apologize for that."
+msgstr ""
+"Je hebt niet voldoende rechten of de juiste rol om deze privé inhoud te "
+"zien. Onze excuses."
+
+#: templates/view.php:8
+#, fuzzy
+#| msgid "Delete Profile"
+msgid "Restricted Profile"
+msgstr "Verwijder profiel"
+
+#: templates/view.php:14
+msgid "This profile is made hidden by the user"
+msgstr ""
+
+#~ msgid "Support UserPro with your 5-star rating"
+#~ msgstr "Ondersteunen UserPro met uw 5-sterren waardering"
+
+#, fuzzy
+#~ msgid "Restricted to logged in members only"
+#~ msgstr "Geblokkeerde inhoud / Alleen voor geregistreerde gebruikers"
+
+#, fuzzy
+#~ msgid "UserPro %s"
+#~ msgstr "UserPro"
+
+#~ msgid "&mdash; Select account role &mdash;"
+#~ msgstr "&mdash; Selecteer account rol &mdash;"
+
+#~ msgid "Global Options"
+#~ msgstr "Algemene instellingen"
+
+#, fuzzy
+#~ msgid "Emails & Notifications"
+#~ msgstr "Email notificaties"
+
+#~ msgid ""
+#~ "Mass restrict pages by allowing access to members only for full-content. "
+#~ "Unlike the UserPro shortcode which hides the content you specify only. "
+#~ "This will lock all content page until the user is logged in. You can also "
+#~ "bulk block/allow any pages you want."
+#~ msgstr ""
+#~ "Sta alleen toegang tot pagina's toe voor geregistreerde gebruikers. Dit "
+#~ "in tegenstelling tot de UserPro <i>shortcode</i> die alleen de inhoud "
+#~ "blokkeert die je specificeert. Deze selectie beperkt de toegang tot de "
+#~ "gehele pagina tot het moment dat de gebruiker inlogt. Op deze manier kan "
+#~ "je simpel hele pagina's blokkeren/toestaan."
+
+#~ msgid "Choose one or more pages to restrict"
+#~ msgstr "Kies één of meerdere pagina's om toegang tot deze te beperken"
+
+#~ msgid "Redirection Settings (Hiding Dashboard)"
+#~ msgstr "Doorverwijs instellingen (Dashboard verbergen)"
+
+#~ msgid ""
+#~ "These settings help you hide the backend from normal users. You can "
+#~ "control backend redirection precisely, these settings will not affect "
+#~ "administrators."
+#~ msgstr ""
+#~ "Deze instellingen helpen je de backend voor de gewone gebruiker te "
+#~ "verbergen. Je kan de backend doorverwijzing exact instellen zonder dat "
+#~ "het beheerders beïnvloed."
+
+#~ msgid "reCAPTCHA Settings"
+#~ msgstr "reCAPTCHA instellingen"
+
+#~ msgid "reCAPTCHA Public API Key"
+#~ msgstr "reCAPTCHA Public API Key"
+
+#~ msgid ""
+#~ "You can obtain reCAPTCHA API keys from <a href=\"http://www.google.com/"
+#~ "recaptcha\">http://www.google.com/recaptcha</a> they are required to "
+#~ "activate reCAPTCHA verification on your forms."
+#~ msgstr ""
+#~ "Je kan reCAPTCHA API keys aanvragen op <a href=\"http://www.google.com/"
+#~ "recaptcha\">http://www.google.com/recaptcha</a>. Deze zijn nodig om de "
+#~ "reCAPTCHA verificatie op je formulieren te activeren."
+
+#~ msgid "reCAPTCHA Private API Key"
+#~ msgstr "reCAPTCHA Private API Key "
+
+#~ msgid "Enable reCAPTCHA on login by default"
+#~ msgstr "Activeer reCAPTCHA tijdens login"
+
+#~ msgid "Enable reCAPTCHA on registration by default"
+#~ msgstr "Activeer reCAPTCHA tijdens registratie"
+
+#~ msgid "The reCAPTCHA wasn't entered correctly. Please try again."
+#~ msgstr "De reCAPTCHA is niet correct ingegeven. Probeer opnieuw."
+
+#~ msgid "Click to unverify"
+#~ msgstr "Klik om verificatie ongedaan te maken"
+
+#~ msgid "Click to verify"
+#~ msgstr "Klik om te verifiëren"
+
+#~ msgid "Registration Group"
+#~ msgstr "Registreren"
+
+#~ msgid "Edit Profile Group"
+#~ msgstr "Profiel bewerken"
+
+#~ msgid "View Profile Group"
+#~ msgstr "Profiel weergeven"
+
+#~ msgid "Login Group"
+#~ msgstr "Login"
+
+#~ msgid "Social Links Group"
+#~ msgstr "Sociale links"
+
+#~ msgid "Mail Options"
+#~ msgstr "Email opties"
+
+#~ msgid ""
+#~ "Each of your shortcodes e.g. profile editing, registration, etc. can "
+#~ "contain ANY fields you drag from the right side. This enables you a rich "
+#~ "user experience by collecting data either during registration or after "
+#~ "it. You can also make some fields only available during registration this "
+#~ "way."
+#~ msgstr ""
+#~ "Elk van je <i>shortcodes</i>, zoals: login, registratie, etc. kan elk "
+#~ "veld bevatten die je uit de lijst van beschikbare velden selecteert. Dit "
+#~ "betekend dat je gegevens kunt verzamelen tijdens de registratie of erna. "
+#~ "Je kan op deze wijze ook velden alleen tijdens registratie beschikbaar "
+#~ "maken."
+
+#~ msgid "Privacy controls, edit ability and more"
+#~ msgstr "Privacy, bewerk mogelijkheden en meer"
+
+#~ msgid ""
+#~ "Under each shortcode group, you can control all appropriate actions for "
+#~ "each field, such as: making field required during registration, making "
+#~ "field editable by user or locked, making some fields private (only admins "
+#~ "can see them). Full control is here, for each field there are additional "
+#~ "settings based on where it appears (during registration, profile editing, "
+#~ "profile view, etc.)"
+#~ msgstr ""
+#~ "Onder elke <i>shortcode</i> groep is een actie voor elk individueel veld "
+#~ "in te stellen, zoals: maak een veld verplicht tijdens registratie, maak "
+#~ "een veld te bewerken door de gebruiker of blokkeer deze, maak een veld "
+#~ "privé (dus verberg voor anderen, maar altijd zichtbaar voor beheerders). "
+#~ "Hier zijn alle beschikbare velden en eventuele extra instellingen te "
+#~ "beheren."
+
+#~ msgid ""
+#~ "<strong>Please do not remove any strings wrapped in curly brackets!</"
+#~ "strong> they are variables used in the mail e.g. user name, or secret "
+#~ "key, etc. Also use text-only to format your message. Allowed variables to "
+#~ "use in this message are:"
+#~ msgstr ""
+#~ "<strong>Verwijder geen strings binnen de accolades!</strong>. Dit zijn "
+#~ "variabelen die gebruikt worden in de email zoals: gebruikersnaam, "
+#~ "<i>Geheime Sleutel</i>, etc. Gebruik ook alleen platte tekst binnen je "
+#~ "bericht. Toegestane variabelen in het bericht zijn:"
+
+#~ msgid "Thank you for logging in. This page will refresh automatically."
+#~ msgstr "Bedankt voor het inloggen. Deze pagina wordt automatisch ververst."
+
+#~ msgid ""
+#~ "You are logged in as administrator. We'll redirect you to the dashboard!"
+#~ msgstr "Je bent een beheerder en wordt doorverwezen naar het Dashboard."
+
+#~ msgid "Thank you for logging in. You will be redirected automatically."
+#~ msgstr "Bedankt voor het inloggen. Je wordt automatisch doorverwezen."
+
+#~ msgid ""
+#~ "Thank you for logging in. You will be redirected to your profile "
+#~ "automatically."
+#~ msgstr ""
+#~ "Bedankt voor het inloggen. Je wordt automatisch doorverwezen naar je "
+#~ "profiel."
+
+#~ msgid "Thank you for registering. You will be redirected automatically."
+#~ msgstr "Bedankt voor de registratie. Je wordt automatisch doorverwezen."
+
+#~ msgid "Thank you for registering. This page will refresh automatically."
+#~ msgstr ""
+#~ "Bedankt voor de registratie. Deze pagina wordt automatisch ververst."
+
+#~ msgid "Welcome back %s! You will be redirected to profile automatically."
+#~ msgstr "Welkom terug %s! Je wordt automatisch doorverwezen naar je profiel."
+
+#~ msgid "Your account has been created, %s. Redirecting to your profile."
+#~ msgstr ""
+#~ "Je account is aangemaakt, %s. Je wordt doorverwezen naar je profiel."

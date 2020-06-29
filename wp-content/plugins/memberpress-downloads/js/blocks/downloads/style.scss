@@ -1,0 +1,19 @@
+.wp-block-memberpress-memberpress-download {
+	.mp-placeholder {
+		.components-placeholder__fieldset {
+			display: block;
+		}
+		.components-base-control__field {
+			justify-content: center;
+		}
+		.components-radio-control__option {
+			display: inline-block;
+			margin-right: 10px;
+		}
+		.mp-downloads-list-limit-input {
+			.components-text-control__input {
+				max-width: 100px;
+			}
+		}
+	}
+}

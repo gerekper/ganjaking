@@ -1,0 +1,127 @@
+
+.ywcds_amount_field label{
+
+    font-weight: bold;
+
+}
+
+.ywcds_form_container .ywcds_button_field .ywcds_submit_widget, #ywcds_add_donation_form_single_product .ywcds_amount_field .ywcds_amount_single_product{
+
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.ywcds_form_container .ajax-loading {
+
+    box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    display: inline !important;
+    float: right;
+    top: -40px;
+    position: relative;
+}
+
+.ywcds_message.woocommerce-message{
+    padding: 1em 2em 1em 3.5em!important;
+    margin: 0 0 2em!important;
+    position: relative;
+    background-color: #f7f6f7;
+    color: #515151;
+    border-top: 3px solid #8fae1b;
+    list-style: none!important;
+    width: auto;
+
+}
+
+.ywcds_message.woocommerce-message.woocommerce-error{
+    border-top: 3px solid #b81c23;
+}
+
+
+
+/*SUMMARY WIDGET*/
+
+.widget.widget_yith_wc_donations_summary .ywcds_widget_summary{
+    border:2px solid #ccc;
+
+}
+
+.widget.widget_yith_wc_donations_summary .ywcds_widget_summary .widget-title, .widget.widget_yith_wc_donations_summary .ywcds_widget_summary .ywcds_message{
+    padding: 0;
+    margin: 22px 25px 13px 25px;
+}
+
+.widget.widget_yith_wc_donations_summary .ywcds_widget_summary .widget-title{
+
+    font-size: 15px;
+    padding-bottom: 13px;
+    border-bottom:1px solid #ccc;
+    color:#3b3b3b;
+
+}
+
+.widget.widget_yith_wc_donations_summary .ywcds_widget_summary .ywcds_message .ywcds_text{
+    font-size: 14px;
+    margin-bottom: 18px;
+    text-align: left;
+}
+.ywcds_amount{
+    text-align: left;
+}
+
+.ywcds_amount span{
+    text-align: center;
+    display: inline-block;
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 30px;
+    color:#3c3c3c;
+
+
+}
+
+.ywcds_amount span.digit,.ywcds_amount span.separator {
+    background: #e6e6e6;
+    margin-left: 5px;
+    width: 28px;
+    height: 28px;
+}
+.ywcds_amount span.separator{
+    margin-left: 5px;
+}
+
+.ywcds_amount span:last-child{
+    clear: left;
+}
+
+
+.ywcds_select_amounts_content span.ywcdp_single_amount{
+    display: inline-block;
+    padding: 10px;
+    margin-right: 10px;
+    margin-top:10px;
+}
+
+.ywcds_select_amounts_content span.ywcdp_single_amount:hover{
+    cursor: pointer;
+}
+.ywcds_show_extra_info_content {
+    margin-top: 10px;
+}
+.ywcds_show_extra_info{
+    display: block;
+}
+dt.variation-ywcds_extra_info{
+    display: none;
+}
+
+/*GUTENBERG STYLE FIX*/
+
+.block-editor .ywcds_form_container .ywcds_amount{
+    display: block;
+}
+
+.block-editor .ywcds_form_container .ywcdp_single_amount.button{
+    padding-top: 0;
+}

@@ -1,0 +1,12 @@
+.up-pending{
+  color:nth($up-yellows,1);
+  font-weight: bold;
+}
+.up-approve{
+  color:nth($up-greens, 2);
+  font-weight: 600;
+}
+.up-warning{
+  color:nth($up-reds,2);
+  font-weight: 600;
+}

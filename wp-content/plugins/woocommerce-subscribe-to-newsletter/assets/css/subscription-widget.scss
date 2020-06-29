@@ -1,0 +1,29 @@
+/**
+ * subscription-widget.scss
+ * Subscription widget styles.
+ *
+ * @package WC_Newsletter_Subscription/Assets/CSS
+ * @since   2.5.0
+ */
+
+.wc-subscribe-to-newsletter-notice:not(:empty) {
+	margin-bottom: 1rem;
+}
+
+.wc-subscribe-to-newsletter-form-field {
+	margin-bottom: 0.5rem;
+
+	input {
+		width: 100%;
+	}
+}
+
+.wc-subscribe-to-newsletter-form-field-phone {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 0;
+	height: 0;
+	opacity: 0;
+	z-index: -1;
+}

@@ -1,0 +1,31 @@
+#fue-dashboard ul li {
+    padding: 0;
+    margin: -10px 15px -16px 25px;
+}
+
+#fue-donuts {
+    margin: 0;
+}
+
+#fue-donuts li {
+    float: left;
+    width: 200px;
+    font-size: 11px;
+    padding: 5px 0;
+    margin:  0 10px;
+    min-height: 45px;
+}
+
+#fue-dashboard ul li:hover {
+    color: #0074a2;
+}
+
+#fue-dashboard ul li span.dashicons {
+    float: left;
+    font-size: 35px;
+    width: 60px;
+}
+#fue-dashboard ul li strong {
+    font-size: 24px;
+    display: block;
+}

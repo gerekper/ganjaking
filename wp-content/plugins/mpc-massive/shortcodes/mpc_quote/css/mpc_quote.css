@@ -1,0 +1,52 @@
+/*----------------------------------------------------------------------------*\
+	QUOTE SHORTCODE
+\*----------------------------------------------------------------------------*/
+.mpc-quote { position: relative; display: block; overflow: hidden; -webkit-box-sizing: border-box; box-sizing: border-box; }
+
+.mpc-quote .mpc-quote__content { padding: 0; margin: 0; border: 0; }
+
+.mpc-quote .mpc-quote__content p:first-child { margin-top: 0 !important; }
+
+.mpc-quote .mpc-quote__content p:last-child { margin-bottom: 0 !important; }
+
+.mpc-quote .mpc-quote__content .mpc-quote__signature span { font-size: inherit; font-style: inherit; font-family: inherit; color: inherit; text-transform: inherit; }
+
+.mpc-quote:before, .mpc-quote:after { display: block; content: ""; float: none; clear: both; }
+
+.mpc-quote__wrapper { position: relative; }
+
+.mpc-quote__icon-wrapper { display: block; z-index: 1; }
+
+.mpc-icon--left .mpc-quote__icon-wrapper { float: left; margin: 0 1em 0 0; }
+
+.mpc-icon--right .mpc-quote__icon-wrapper { float: right; margin: 0 0 0 1em; }
+
+.mpc-quote__icon-wrapper img { border-radius: inherit; vertical-align: bottom; }
+
+.mpc-quote__content { display: block; position: relative; z-index: 2; overflow: hidden; }
+
+/* Style 1 */
+.mpc-quote--style_1 .mpc-quote__description { margin: 0 0 1em 0; }
+
+/* Style 2 */
+.mpc-quote--style_2 .mpc-quote__description { margin: 1em 0 0 0; }
+
+/* Style 3 */
+.mpc-quote--style_3 .mpc-quote__icon-wrapper { position: absolute; z-index: 1; margin: -.25em; }
+
+.mpc-quote--style_3.mpc-icon--right .mpc-quote__icon-wrapper { right: 0; }
+
+.mpc-quote--style_3 .mpc-quote__description { margin: 0 0 1em 0; }
+
+/* Style 4 */
+.mpc-quote--style_4 .mpc-quote__icon-wrapper { position: absolute; z-index: 1; margin: -.25em; }
+
+.mpc-quote--style_4.mpc-icon--right .mpc-quote__icon-wrapper { right: 0; }
+
+.mpc-quote--style_4 .mpc-quote__description { margin: 1em 0 0 0; }
+
+@media screen and (min-width: 768px) and (max-width: 992px) { .mpc-column:not(.vc_col-sm-12) .mpc-quote--style_1 .mpc-quote__icon-wrapper, .mpc-column:not(.vc_col-sm-12) .mpc-quote--style_2 .mpc-quote__icon-wrapper { float: none; margin: 1em 0 !important; }
+  .mpc-column:not(.vc_col-sm-12) .mpc-quote--style_1 .mpc-quote__icon-wrapper, .mpc-column:not(.vc_col-sm-12) .mpc-quote--style_1 .mpc-quote__description, .mpc-column:not(.vc_col-sm-12) .mpc-quote--style_1 .mpc-quote__signature, .mpc-column:not(.vc_col-sm-12) .mpc-quote--style_2 .mpc-quote__icon-wrapper, .mpc-column:not(.vc_col-sm-12) .mpc-quote--style_2 .mpc-quote__description, .mpc-column:not(.vc_col-sm-12) .mpc-quote--style_2 .mpc-quote__signature { text-align: center !important; } }
+
+@media screen and (max-width: 480px) { .mpc-quote--style_1 .mpc-quote__icon-wrapper, .mpc-quote--style_2 .mpc-quote__icon-wrapper { float: none; margin: 1em 0 !important; }
+  .mpc-quote--style_1 .mpc-quote__icon-wrapper, .mpc-quote--style_1 .mpc-quote__description, .mpc-quote--style_1 .mpc-quote__signature, .mpc-quote--style_2 .mpc-quote__icon-wrapper, .mpc-quote--style_2 .mpc-quote__description, .mpc-quote--style_2 .mpc-quote__signature { text-align: center !important; } }

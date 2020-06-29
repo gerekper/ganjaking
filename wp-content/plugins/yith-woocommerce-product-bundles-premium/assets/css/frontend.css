@@ -1,0 +1,346 @@
+/**
+ * Frontend style
+ *
+ * @author Leanza Francesco
+ * @version 1.0.0
+ */
+
+table.yith-wcpb-product-bundled-items {
+    width              : 100%;
+    border             : 1px solid #dcdcdc !important;
+    border-radius      : 5px;
+    border-collapse    : separate;
+    -webkit-box-shadow : 1px 1px 1px 1px #f0f0f0;
+    box-shadow         : 1px 1px 1px 1px #f0f0f0;
+    margin-bottom      : 40px;
+    overflow           : hidden;
+    table-layout       : auto;
+}
+
+.yith-wcpb-product-bundled-items label {
+    display : inline-block;
+}
+
+table.yith-wcpb-product-bundled-items > tbody > tr > td {
+    border-bottom  : 1px solid #dcdcdc;
+    border-right   : none;
+    font-size      : 13px;
+    vertical-align : top;
+}
+
+table.yith-wcpb-product-bundled-items td.yith-wcpb-product-bundled-item-image {
+    width          : 80px;
+    padding        : 0 !important;
+    vertical-align : top;
+}
+
+table.yith-wcpb-product-bundled-items td.yith-wcpb-product-bundled-item-data {
+    padding  : 12px !important;
+    position : relative;
+}
+
+td.yith-wcpb-product-bundled-item-image .images {
+    margin  : 0 !important;
+    padding : 0 !important;
+    width   : 100% !important;
+    float   : none !important;
+}
+
+td.yith-wcpb-product-bundled-item-image img {
+    width : 80px;
+}
+
+td.yith-wcpb-product-bundled-item-data h3 {
+    font-size : 12px;
+    margin    : 5px 0;
+}
+
+td.yith-wcpb-product-bundled-item-data p {
+    margin-bottom : 5px;
+}
+
+td.yith-wcpb-product-bundled-item-data .woocommerce-variation-price,
+td.yith-wcpb-product-bundled-item-data .price {
+    display : none;
+}
+
+.yith-wcpb-product-bundled-items p.stock {
+    display    : block;
+    margin     : 0 !important;
+    text-align : right;
+    padding    : 0 2px 10px 0;
+    background : transparent;
+    font-size  : 0.92em;
+}
+
+.yith-wcpb-product-bundled-items p.stock.out-of-stock {
+    color : #5d5d5d;
+}
+
+.yith-wcpb-product-bundled-items p.stock.in-stock {
+    color : #5d5d5d;
+}
+
+.yith-wcpb-product-bundled-item-availability.not-variation p.stock {
+    padding : 10px 2px 0 0;
+}
+
+tr.yith-wcpb-child-of-bundle-table-item td.product-name a {
+    font-size    : 12px;
+    padding-left : 15px;
+}
+
+tr.yith-wcpb-child-of-bundle-table-item td.product-name::before {
+    content : "- ";
+}
+
+tr.yith-wcpb-child-of-bundle-table-item dl.variation dt, tr.yith-wcpb-child-of-bundle-table-item dl.variation dd {
+    margin      : 0 !important;
+    font-size   : 11px;
+    padding     : 0 !important;
+    line-height : 1.4;
+}
+
+.yith-wcpb-child-of-bundle-table-item .product-price > *,
+.yith-wcpb-child-of-bundle-table-item .product-subtotal > *,
+.yith-wcpb-child-of-bundle-table-item .product-total > * {
+    opacity : 0.6;
+}
+
+.yith-wcpb-product-bundled-item-data__quantity input[type=number].yith-wcpb-bundled-quantity {
+    width       : 70px;
+    padding     : 13px 5px;
+    background  : #fff;
+    border      : 1px solid #d1d1d1;
+    text-align  : center;
+    line-height : 1;
+    height      : auto;
+}
+
+.yith-wcpb-product-bundled-item-image .price {
+    text-align : center;
+}
+
+.yith-wcpb-product-bundled-item-image .price del, .yith-wcpb-product-bundled-item-image .price ins {
+    display     : block;
+    line-height : 1.4;
+}
+
+.yith-wcpb-product-bundled-item-image .price del {
+    font-size  : 12px !important;
+    opacity    : 1 !important;
+    text-align : center !important;
+}
+
+.yith-wcpb-product-bundled-item-image .price del span.amount {
+    font-size  : 12px !important;
+    opacity    : 1 !important;
+    text-align : center !important;
+}
+
+.yith-wcpb-product-bundled-item-image .price ins {
+    font-weight : bold;
+    color       : #485b6d;
+    line-height : 1.7;
+    text-align  : center !important;
+}
+
+td.yith-wcpb-product-bundled-item-data table.variations, td.yith-wcpb-product-bundled-item-data table.variations tr {
+    border : 0px none;
+}
+
+/*
+	W I D G E T
+*/
+
+.yith_wcpb_bundle_widget {
+    background : #fff !important;
+    border     : 2px solid #f1f1f1;
+    padding    : 20px 30px !important;
+}
+
+.yith_wcpb_bundle_widget h3 {
+    font           : 700 17px "Open Sans", Helvetica, sans-serif !important;
+    text-transform : uppercase;
+    color          : #777 !important;
+}
+
+ul.yith_wcpb_bundle_list_widget {
+    list-style : none !important;
+    padding    : 0;
+}
+
+ul.yith_wcpb_bundle_list_widget > li {
+    min-height     : 65px;
+    padding-bottom : 20px;
+}
+
+ul.yith_wcpb_bundle_list_widget li img {
+    float       : right;
+    margin-left : 4px;
+    width       : 45px;
+    height      : auto;
+    box-shadow  : none;
+}
+
+ul.yith_wcpb_bundle_list_widget li a {
+    display     : block;
+    font-weight : 700;
+}
+
+div.yith-wcbm-widget-bundle-container {
+    overflow      : auto;
+    display       : block;
+    margin-bottom : 10px;
+    padding-top   : 20px;
+    border-top    : 1px solid #eaeaea;
+}
+
+div.yith-wcbm-widget-bundle-container a {
+    font            : 600 16px "Open Sans", Helvetica, sans-serif !important;
+    text-transform  : uppercase;
+    text-decoration : none;
+    color           : #cf1a00;
+}
+
+.yith-wcbm-widget-bundle-price del {
+    font  : 300 14px "Open Sans", Helvetica, sans-serif !important;
+    color : #777;
+}
+
+.yith-wcbm-widget-bundle-price ins {
+    font        : 700 15px "Open Sans", Helvetica, sans-serif !important;
+    background  : transparent;
+    font-weight : 800;
+}
+
+.yith-wcbm-widget-bundle-price > span.amount {
+    font        : 700 15px "Open Sans", Helvetica, sans-serif !important;
+    background  : transparent;
+    font-weight : 800;
+}
+
+ul.yith-wcbm-widget-bundled-items {
+    margin     : 0 !important;
+    padding    : 0 !important;
+    list-style : none !important;
+}
+
+ul.yith-wcbm-widget-bundled-items li {
+    min-height : auto;
+    height     : 25px;
+}
+
+ul.yith-wcbm-widget-bundled-items li a {
+    font            : 600 13px "Open Sans", Helvetica, sans-serif !important;
+    text-decoration : none;
+    color           : #777;
+}
+
+ul.yith-wcbm-widget-bundled-items li img {
+    float       : right;
+    margin-left : 4px;
+    width       : 18px;
+    height      : auto;
+    box-shadow  : none;
+}
+
+table.yith-wcpb-table-variations tr {
+    text-align : right;
+}
+
+table.yith-wcpb-table-variations label {
+    font-weight  : 800;
+    margin-right : 5px;
+}
+
+/* ******* REQUEST A QUOTE ******* */
+#yith-ywraq-form .yith-wcpb-child-of-bundle-table-item .product-thumbnail img {
+}
+
+@media only screen and (max-width : 768px) {
+    .woocommerce table.shop_table_responsive tr.yith-wcpb-child-of-bundle-table-item,
+    .woocommerce-page table.shop_table_responsive tr.yith-wcpb-child-of-bundle-table-item {
+        height : auto;
+    }
+
+    .woocommerce table.shop_table_responsive tr.yith-wcpb-child-of-bundle-table-item .product-price,
+    .woocommerce-page table.shop_table_responsive tr.yith-wcpb-child-of-bundle-table-item .product-price,
+    .woocommerce table.shop_table_responsive tr.yith-wcpb-child-of-bundle-table-item .product-subtotal,
+    .woocommerce-page table.shop_table_responsive tr.yith-wcpb-child-of-bundle-table-item .product-subtotal {
+        display : none;
+    }
+
+    .woocommerce table.shop_table_responsive tr.yith-wcpb-child-of-bundle-table-item td.product-name a,
+    .woocommerce-page table.shop_table_responsive tr.yith-wcpb-child-of-bundle-table-item td.product-name a {
+        font-size    : inherit;
+        padding-left : inherit;
+    }
+
+    .woocommerce table.shop_table_responsive tr.yith-wcpb-child-of-bundle-table-item td.product-name::before,
+    .woocommerce-page table.shop_table_responsive tr.yith-wcpb-child-of-bundle-table-item td.product-name::before {
+        content : "- ";
+    }
+
+    .woocommerce table.shop_table_responsive tr.yith-wcpb-child-of-bundle-table-item dl.variation dt,
+    .woocommerce-page table.shop_table_responsive tr.yith-wcpb-child-of-bundle-table-item dl.variation dt,
+    .woocommerce table.shop_table_responsive tr.yith-wcpb-child-of-bundle-table-item dl.variation dd,
+    .woocommerce-page table.shop_table_responsive tr.yith-wcpb-child-of-bundle-table-item dl.variation dd {
+        margin      : inherit;
+        font-size   : inherit;
+        padding     : inherit;
+        line-height : inherit;
+    }
+}
+
+/**
+ * Storefront - Quick View - Bundle FIX
+ */
+.storefront-full-width-content.single-product .yith-quick-view-content .product .images {
+    margin : 0 !important;
+}
+
+/**
+ * YITH Proteo
+ */
+.theme-yith-proteo .yith-wcpb-product-bundled-item-image .price ins {
+    font-size : 15px;
+}
+
+.theme-yith-proteo td.yith-wcpb-product-bundled-item-data table.variations {
+    margin-top : 10px;
+}
+
+.theme-yith-proteo td.yith-wcpb-product-bundled-item-data table.variations td {
+    padding-bottom : 20px;
+}
+
+.theme-yith-proteo td.yith-wcpb-product-bundled-item-data table.variations td.label {
+    padding-right : 30px;
+}
+
+.theme-yith-proteo td.yith-wcpb-product-bundled-item-data table.variations td.value {
+    width : 100%;
+}
+
+.theme-yith-proteo td.yith-wcpb-product-bundled-item-data table.variations .reset_variations {
+    margin-top : 10px;
+    position   : relative;
+    top        : 25px;
+    left       : 0;
+}
+
+.theme-yith-proteo td.yith-wcpb-product-bundled-item-data table.variations {
+    text-transform : uppercase;
+}
+
+.theme-yith-proteo td.yith-wcpb-product-bundled-item-data table.variations tr > td .select2-container {
+    width : 100% !important;
+}
+
+/**
+ * Elementor
+*/
+.woocommerce div.product.elementor form.yith-wcpb-bundle-form {
+    display : block !important;
+}

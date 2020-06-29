@@ -1,0 +1,115 @@
+*** WooCommerce Cart Reports ***
+
+2019-04-11 - version 1.2.8
+* Bump tested WC version to 4.0
+
+2019-12-14 - version 1.2.7
+* [Docs] Fix changelog typo
+* [Fixed] Fix issue with carts by product report display
+
+2019-12-14 - version 1.2.6
+* [Fixed] Fix issue breaking searching by product
+
+2019-10-19 - version 1.2.5
+* [Fixed] Issue where settings were not saving
+* [Improved] Renamed plugin to follow WooCommerce rules
+* [Improved] Bump tested WC version to 3.7.0
+
+2019-06-02 - version 1.2.4
+* Bump minimum WC version to 3.6
+
+2019-01-21 - version 1.2.3
+* [Fixed] Fixes datepicker functionality
+
+2019-01-14 - version 1.2.2
+* [Fixed] Fixed bug causing cart age to not reflect current time zone.
+* [Fixed] Better php 7.2 compatibility
+
+2018-12-29 - version 1.2.1
+* [Fixed] Fixed bug causing strange miscalculation of cart age
+
+2018-06-09 - version 1.2.0
+* [Fixed] PHP 7.2 compatibility
+* [Improved] Moves settings into their own tab
+* [Improved] Prices shown in reports go through woocommerce_cart_item_price filter
+* [Fixed] Minor CSS issue in admin select field
+
+2018-03-04 - version 1.1.21
+* Fixes conflict between Cart Reports, Order Status Manager and Follow Up emails
+
+2017-09-06 - version 1.1.20
+* Fixes an issue where product search wasn't functioning
+* Renames `detect_search_engines` function`
+
+2017-07-31 - version 1.1.18
+* Fixes an issue where $user->user_login wasn't returning the correct value
+
+2017-06-22 - version 1.1.17
+* Fix PHP notice when accessing a product's variation_id
+
+2017-06-05 - version 1.1.16
+* Fixing variation display bugs introduced in 1.1.15, fixed issues with backwards compatibility with WC 2x
+
+2017-05-23 - version 1.1.15
+* Fix PHP notice.
+* Fix fatal error when trying to open WooCommerce > Carts.
+
+2017-05-17 - version 1.1.14
+* WC 3.0 compatibility.
+
+2016-12-13 - version 1.1.13
+* Fix mobile cart view, remove add cart from the post types capabilities.
+
+2016-12-11 - version 1.1.12
+* Fix variations bug, fix a PHP7 assertion failure, fixing issue with orders becoming ordered by date modified, fixing bad reporting numbers for abandoned carts.
+
+2016-09-26 - version 1.1.11
+* Refactor jQuery UI include code to fix an issue where the Date Picker interface would conflict with other plugins.
+
+2016-06-17 - version 1.1.10
+* Fixing Dashboard cart count display, reports display, and fixes to ensure correct counts throughout the admin interface.
+
+2016-05-05 - version 1.1.9
+* Delete carts when all products are removed, solving issue with subscription plugin. PHP7 support fix. Refactoring cart storage to improve efficiency, and reduce storage footprint.
+
+2015-04-21 - version 1.1.8
+* Fix - Potential XSS with add_query_arg
+
+2015-03-12 - version 1.1.7
+ * Don't filter `pre_get_posts` unless post_type is carts
+
+2015-01-26 - version 1.1.6
+ * WC 2.3 compatibility
+
+2014-12-01 - version 1.1.5
+ * Adding Italian translation, thanks to Nicola Mustone. Added settings option to automatically clear carts older than a chosen number of days to improve performance.
+
+2014-04-17 - version 1.1.4
+ * Fixing Bug that caused carts to clear when bulk updating plugins in the WP Dashboard. Please click the "Upgrade" button on the individual plugin on the plugin update screen to update this plugin.
+
+2014-03-20 - version 1.1.3
+ * Bug Fixes
+
+2014-03-07 - version 1.1.2
+ * Fixing Assertion Bug
+
+2014-02-04 - version 1.1.1
+ * Disabling Assertions when WP DEBUG is set to false, copy changes, fixing a bug that could cause the "Clear Carts" notification to persist in the backend.
+
+2014-01-20 - version 1.1
+ * WooCommerce 2.1 Compatibility, Fixed bugs, integrated the reports into the new 2.1 reports, restyled dashboard widget, building out backwards compatibility with 2.0.xx
+
+2014-01-03 - version 1.0.4
+ * Role-Based Exclusion for cart saving, "Clear All Carts" Button on the Plugin edit screen, bug fixes.
+
+2013-09-27 - version 1.0.3
+ * Fixed false assertion, removed extraneous calls to usermeta that was causing performance issues for larger sites.
+
+2013-07-11 - version 1.0.2
+ * Fixed issue where "guest cart" pages could be created, fixed issue where cart name information could be accessed on the frontend by directly accessing the cart status taxonomy page.
+
+2013-06-13 - version 1.0.1
+ * Fixed issue where carts could be accessed as public post types, fixed tooltip jquery conflict
+
+2013-03-04 - version 1.0
+ * First Release

@@ -1,0 +1,13 @@
+#yith-pos-admin-root {
+    min-height : 300px;
+}
+
+.yith-pos-dashboard__filters {
+
+}
+
+.yith-pos-dashboard__leaderboards {
+    display               : grid;
+    grid-template-columns : 1fr 1fr;
+    grid-gap              : 24px;
+}

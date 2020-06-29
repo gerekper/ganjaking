@@ -1,0 +1,469 @@
+# Translation of YITH FAQ Plugin for WordPress in Dutch
+# This file is distributed under the same license as the YITH FAQ Plugin for WordPress package.
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH FAQ Plugin for WordPress\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-faq-plugin-"
+"for-wordpress.premium\n"
+"POT-Creation-Date: 2020-04-29 15:01:53+00:00\n"
+"PO-Revision-Date: 2020-04-29 14:56:27+0000\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/2.3.1\n"
+
+#: includes/class-yith-faq-post-type.php:110
+msgid "Add New FAQ"
+msgstr "Nieuwe FAQ toevoegen"
+
+#: includes/class-yith-faq-post-type.php:111
+msgid "Add New"
+msgstr "Voeg nieuw toe"
+
+#: includes/class-yith-faq-post-type.php:112
+msgid "New FAQ"
+msgstr "Nieuwe FAQ"
+
+#: includes/class-yith-faq-post-type.php:113
+msgid "Edit FAQ"
+msgstr "Bewerk FAQ"
+
+#: includes/class-yith-faq-post-type.php:114
+msgid "View FAQ"
+msgstr "FAQ weergeven"
+
+#: includes/class-yith-faq-post-type.php:115
+#: includes/class-yith-faq-shortcode.php:384
+msgid "Search FAQ"
+msgstr "Zoek FAQ"
+
+#: includes/class-yith-faq-post-type.php:116
+msgid "Not found"
+msgstr "Niet gevonden"
+
+#: includes/class-yith-faq-post-type.php:117
+msgid "Not found in Trash"
+msgstr "Niet gevonden in prullenbak"
+
+#: includes/class-yith-faq-post-type.php:178
+msgid "Off/On"
+msgstr "Aan/uit"
+
+#: includes/class-yith-faq-shortcode-panel.php:128
+msgid "Shortcode Creation"
+msgstr "Shortcode creatie"
+
+#: includes/class-yith-faq-shortcode-panel.php:133
+msgid "Show search box"
+msgstr "Weergeef zoek box"
+
+#: includes/class-yith-faq-shortcode-panel.php:147
+msgid "Show category filters"
+msgstr "Toon de categorie filters"
+
+#: includes/class-yith-faq-shortcode-panel.php:161
+msgid "Choose the style"
+msgstr "Kies de stijl"
+
+#: includes/class-yith-faq-shortcode-panel.php:169
+msgid "List"
+msgstr "Lijst"
+
+#: includes/class-yith-faq-shortcode-panel.php:170
+msgid "Accordion"
+msgstr "Accordion"
+
+#: includes/class-yith-faq-shortcode-panel.php:171
+msgid "Toggle"
+msgstr "Toggle"
+
+#: includes/class-yith-faq-shortcode-panel.php:181
+msgid "FAQs per page"
+msgstr "FAQs per pagina"
+
+#: includes/class-yith-faq-shortcode-panel.php:200
+msgid "Categories to display"
+msgstr "Categorieën om weer te geven."
+
+#: includes/class-yith-faq-shortcode-panel.php:209
+msgid "Search FAQs Categories"
+msgstr "Zoek FAQs categorieën"
+
+#: includes/class-yith-faq-shortcode-panel.php:216
+msgid "If left empty all categories will be displayed"
+msgstr "Wanneer niet ingevuld  worden alle categorieën weergeven"
+
+#: includes/class-yith-faq-shortcode-panel.php:220
+msgid "Show icon"
+msgstr "Symbool weergeven"
+
+#: includes/class-yith-faq-shortcode-panel.php:228
+msgid "Off"
+msgstr "Uit"
+
+#: includes/class-yith-faq-shortcode-panel.php:229
+msgid "Left"
+msgstr "Links"
+
+#: includes/class-yith-faq-shortcode-panel.php:230
+msgid "Right"
+msgstr "Rechts"
+
+#: includes/class-yith-faq-shortcode-panel.php:240
+msgid "Icon size (px)"
+msgstr "Symbool grootte (px)"
+
+#: includes/class-yith-faq-shortcode-panel.php:257
+msgid "Choose the icon"
+msgstr "Kies het symbool"
+
+#: includes/class-yith-faq-shortcode-panel.php:296
+msgid "Insert Shortcode"
+msgstr "Voeg de shortcode in"
+
+#: includes/class-yith-faq-shortcode.php:91
+msgid "Add FAQ shortcode"
+msgstr "Voeg FAQ shortcode toe"
+
+#: includes/class-yith-faq-shortcode.php:417
+#: includes/class-yith-faq-taxonomy.php:71
+msgid "All Categories"
+msgstr "Alle categorieën"
+
+#: includes/class-yith-faq-shortcode.php:430
+msgid "Sorry, no matching results for your search."
+msgstr "Helaas, geen resultaten voor uw zoekopdracht"
+
+#: includes/class-yith-faq-shortcode.php:465
+msgid "Copy FAQ Link"
+msgstr "FAQ Link kopieëren"
+
+#: includes/class-yith-faq-shortcode.php:466
+msgid "Copied!"
+msgstr "Gekoopieërd"
+
+#: includes/class-yith-faq-shortcode.php:493
+msgid "Previous"
+msgstr "Vorige"
+
+#: includes/class-yith-faq-shortcode.php:511
+msgid "Next"
+msgstr "Volgende"
+
+#: includes/class-yith-faq-taxonomy.php:70
+msgid "Categories"
+msgstr "Categorieën"
+
+#: includes/class-yith-faq-taxonomy.php:72
+msgid "Parent Category"
+msgstr "Hoofd categorie"
+
+#: includes/class-yith-faq-taxonomy.php:73
+msgid "Parent Category:"
+msgstr "Hoofd categorie:"
+
+#: includes/class-yith-faq-taxonomy.php:74
+msgid "New Category"
+msgstr "Nieuwe categorie"
+
+#: includes/class-yith-faq-taxonomy.php:75
+msgid "Add New Category"
+msgstr "Voeg nieuwe categorie toe"
+
+#: includes/class-yith-faq-taxonomy.php:76
+msgid "Edit Category"
+msgstr "Categorie aanpassen"
+
+#: includes/class-yith-faq-taxonomy.php:77
+msgid "Update Category"
+msgstr "Werk categorie bij"
+
+#: includes/class-yith-faq-taxonomy.php:78
+msgid "View Category"
+msgstr "Categorie Weergeven"
+
+#: includes/class-yith-faq-taxonomy.php:79
+msgid "Separate items with commas"
+msgstr "Aparte items met komma's"
+
+#: includes/class-yith-faq-taxonomy.php:80
+msgid "Add or remove categories"
+msgstr "Categorieën toevoegen of verwijderen"
+
+#: includes/class-yith-faq-taxonomy.php:81
+msgid "Choose from the most used categories"
+msgstr "Kies uit de meest gebruikte categorieën "
+
+#: includes/class-yith-faq-taxonomy.php:82
+msgid "Popular Categories"
+msgstr "Populaire categorieën"
+
+#: includes/class-yith-faq-taxonomy.php:83
+msgid "Search Categories"
+msgstr "Zoek categorieën"
+
+#: includes/class-yith-faq-taxonomy.php:84
+msgid "Not Found"
+msgstr "Niet gevonden"
+
+#: includes/class-yith-faq-taxonomy.php:85
+msgid "No Categories"
+msgstr "Geen categorieën."
+
+#: includes/class-yith-faq-taxonomy.php:86
+msgid "Categories list"
+msgstr "Categorieën lijst"
+
+#: includes/class-yith-faq-taxonomy.php:87
+msgid "Categories list navigation"
+msgstr "Categorie lijst navigatie"
+
+#: plugin-options/color-options.php:22
+msgid "Color Settings"
+msgstr "Kleurinstellingen"
+
+#: plugin-options/color-options.php:34
+msgid "Customize Search Button Colors"
+msgstr "Personaliseer kleuren van zoekknop"
+
+#: plugin-options/color-options.php:41
+msgid "Search Button Color"
+msgstr "Kleur zoek knop"
+
+#: plugin-options/color-options.php:52
+msgid "Search Button Hover Color"
+msgstr "Knop tekstkleur op aanwijzer"
+
+#: plugin-options/color-options.php:63
+msgid "Search Button Icon Color"
+msgstr "Kleur icoon zoek knop"
+
+#: plugin-options/color-options.php:74
+msgid "Search Button Icon Hover Color"
+msgstr "Kleur hover icoon zoek knop"
+
+#: plugin-options/color-options.php:85
+msgid "Customize Category Button Colors"
+msgstr "Personaliseer kleuren van categoriek knop"
+
+#: plugin-options/color-options.php:92
+msgid "Category Button Color"
+msgstr "Categorie tekstkleur knop"
+
+#: plugin-options/color-options.php:103
+msgid "Category Button Hover/Active Color"
+msgstr "Categorie knop hover /actieve kleur"
+
+#: plugin-options/color-options.php:114
+msgid "Category Button Text Color"
+msgstr "Categorie knop tekstkleur"
+
+#: plugin-options/color-options.php:125
+msgid "Category Button Text Hover/Active Color"
+msgstr "Categorie knop hover /actieve kleur"
+
+#: plugin-options/color-options.php:136
+msgid "Customize Navigation Button Colors"
+msgstr "Personaliseer kleuren van navigatie knoppen"
+
+#: plugin-options/color-options.php:143
+msgid "Navigation Button Color"
+msgstr "Tekstkleur navigatie knop"
+
+#: plugin-options/color-options.php:154
+msgid "Navigation Button Hover/Active Color"
+msgstr "Categorie knop hover /actieve kleur"
+
+#: plugin-options/color-options.php:165
+msgid "Navigation Button Text Color"
+msgstr "Tekstkleur navigatie knop"
+
+#: plugin-options/color-options.php:176
+msgid "Navigation Button Text Hover/Active Color"
+msgstr "Actieve tekstkleur op aanwijzer knop"
+
+#: plugin-options/color-options.php:187
+msgid "Customize FAQ Icon Colors "
+msgstr "Personaliseer FAQ icoon kleuren "
+
+#: plugin-options/color-options.php:194
+msgid "FAQ Icon Background Color"
+msgstr "FAQ symbool achtergrondkleur"
+
+#: plugin-options/color-options.php:205
+msgid "FAQ Icon Color"
+msgstr "FAQ symbool kleur"
+
+#: plugin-options/color-options.php:216
+msgid "Customize FAQ Link Button Colors"
+msgstr "Personaliseer kleuren van FAQ link knop"
+
+#: plugin-options/color-options.php:223
+msgid "FAQ Link Color"
+msgstr "FAQ link kleur"
+
+#: plugin-options/color-options.php:234
+msgid "FAQ Link Hover Color"
+msgstr "FAQ link hover kleur"
+
+#: plugin-options/color-options.php:245
+msgid "FAQ Link Icon Color"
+msgstr "FAQ link symbool kleur"
+
+#: plugin-options/color-options.php:256
+msgid "FAQ Link Icon Hover Color"
+msgstr "FAQ link symbool hover kleur"
+
+#. Description of the plugin/theme
+msgid ""
+"<code><strong>YITH FAQ Plugin for WordPress</strong></code> allows entering "
+"an efficient FAQ system on any page of your WordPress or WooCommerce based "
+"website. You can also add custom FAQs for any page. <a href=\"https://"
+"yithemes.com/\" target=\"_blank\">Get more plugins for your e-commerce shop "
+"on <strong>YITH</strong></a>"
+msgstr ""
+"<code><strong>YITH FAQ Plugin for WordPress</strong></code> laat u een "
+"efficiënte veelgestelde vragen systeem invoeren in elke pagina van uw op "
+"WordPress of WooCommerce gebaseerde webiste. U kunt tevens een "
+"gepersonaliseerde FAQ toevoegen voor iedere pagina. <a href=\"https://"
+"yithemes.com/\" target=\"_blank\">Krijg meer plugins voor uw e-commerce "
+"winkel op <strong>YITH</strong></a>"
+
+#: class.yith-faq-plugin-for-wordpress.php:141
+msgctxt "shortcode creation tab name"
+msgid "Shortcode"
+msgstr "Shortcode"
+
+#: class.yith-faq-plugin-for-wordpress.php:142
+msgctxt "color tab name"
+msgid "Color"
+msgstr "Kleur"
+
+#: class.yith-faq-plugin-for-wordpress.php:148
+msgctxt "plugin name in admin page title"
+msgid "FAQ"
+msgstr "FAQ"
+
+#: includes/class-yith-faq-post-type.php:108
+msgctxt "Post Type General Name"
+msgid "FAQs"
+msgstr "FAQs"
+
+#: includes/class-yith-faq-post-type.php:109
+msgctxt "Post Type Singular Name"
+msgid "FAQ"
+msgstr "FAQ"
+
+#: includes/class-yith-faq-shortcode.php:697
+msgctxt "[gutenberg]: block name"
+msgid "FAQ"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode.php:698
+msgctxt "[gutenberg]: block description"
+msgid "Add the FAQ shortcode"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode.php:726
+msgctxt "[gutenberg]: block description"
+msgid "Choose the style"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode.php:743
+msgctxt "[gutenberg]: block description"
+msgid "Categories to display"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode.php:750
+msgctxt "[gutenberg]: block description"
+msgid "Show icon"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode.php:767
+msgctxt "[gutenberg]: block description"
+msgid "Choose the icon"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode.php:702
+msgctxt "[gutenberg]: keywords"
+msgid "FAQ"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode.php:703
+msgctxt "[gutenberg]: keywords"
+msgid "Frequently Asked Questions"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode.php:708
+msgctxt "[gutenberg]: attribute description"
+msgid "Show search box"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode.php:717
+msgctxt "[gutenberg]: attribute description"
+msgid "Show category filters"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode.php:711
+#: includes/class-yith-faq-shortcode.php:720
+msgctxt "[gutenberg]: Help text"
+msgid "Show"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode.php:712
+#: includes/class-yith-faq-shortcode.php:721
+msgctxt "[gutenberg]: Help text"
+msgid "Hide"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode.php:728
+msgctxt "[gutenberg]: inspector description"
+msgid "List"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode.php:729
+msgctxt "[gutenberg]: inspector description"
+msgid "Accordion"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode.php:730
+msgctxt "[gutenberg]: inspector description"
+msgid "Toggle"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode.php:752
+msgctxt "[gutenberg]: inspector description"
+msgid "Off"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode.php:753
+msgctxt "[gutenberg]: inspector description"
+msgid "Left"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode.php:754
+msgctxt "[gutenberg]: inspector description"
+msgid "Right"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode.php:736
+msgctxt "[gutenberg]: attributes description"
+msgid "FAQs per page"
+msgstr ""
+
+#: includes/class-yith-faq-shortcode.php:760
+msgctxt "[gutenberg]: attributes description"
+msgid "Icon size (px)"
+msgstr ""
+
+#: includes/class-yith-faq-taxonomy.php:68
+msgctxt "Taxonomy General Name"
+msgid "Categories"
+msgstr "Categorieën"
+
+#: includes/class-yith-faq-taxonomy.php:69
+msgctxt "Taxonomy Singular Name"
+msgid "Category"
+msgstr "Catogorie"

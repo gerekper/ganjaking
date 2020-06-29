@@ -1,0 +1,37 @@
+.yith-frontend-manager-for-woocommerce #woocommerce-order-items .woocommerce_order_items_wrapper table.woocommerce_order_items .quantity input.minus, .yith-frontend-manager-for-woocommerce #woocommerce-order-items .woocommerce_order_items_wrapper table.woocommerce_order_items .quantity input.plus {
+    display: none;
+}
+
+#yith_wcfm-main-content .yith-wcfm-content table tbody tr.tm-order-line td {
+    background: #95a5a6 none repeat scroll 0 0;
+    color: #fff;
+}
+
+.yith-frontend-manager-for-woocommerce .tm-view.tm-order-header {
+    background: #fff none repeat scroll 0 0;
+    color: #7f8c8d;
+    display: inline-block;
+    margin-bottom: 1em;
+    padding: 0 .5em;
+    font-weight: 600;
+}
+
+.yith-frontend-manager-for-woocommerce .tm-header .tm-50 {
+    font-size: .9em;
+    font-weight: bold;
+}
+
+.yith-frontend-manager-for-woocommerce .tm-50 {
+    float: left;
+    width: 50%;
+    min-height: 1px;
+    overflow: auto;
+}
+
+.yith-frontend-manager-for-woocommerce #woocommerce-order-items .woocommerce_order_items_wrapper table.woocommerce_order_items tbody tr.tm-order-line td {
+    cursor: default;
+    font-size: .9em;
+    font-weight: bold;
+    vertical-align: bottom;
+    border-color: #7f8c8d;
+}

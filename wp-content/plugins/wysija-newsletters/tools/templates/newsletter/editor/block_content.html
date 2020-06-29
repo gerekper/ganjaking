@@ -1,0 +1,11 @@
+{if ! #no-block}
+<div wysija_type="{#type}" class="wysija_block{if #static} static{/if}" wysija_position="{#position}" {if #background_color}wysija_bg_color="{#background_color}"{/if}>
+    {if ! #static}
+        {include file="templates/newsletter/editor/block_controls.html"}
+    {/if}
+{/if}
+    <div class="wysija_content {#alignment}" wysija_align="{#alignment}" {if #background_color && #no-block}wysija_bg_color="{#background_color}"{/if}>
+        {include file="templates/newsletter/editor/block_image.html"}
+        {include file="templates/newsletter/editor/block_text.html"}
+    </div>
+{if ! #no-block}</div>{/if}

@@ -1,0 +1,98 @@
+* User data/meta -> nothing store on user data/meta
+
+* Options:
+	⁃	ywgc_gift_this_product_add_to_cart
+	⁃	ywgc_gift_this_product_apply_gift_card
+	⁃	ywgc_minimal_amount_gift_card
+	⁃	ywgc_usage_expiration
+	⁃	ywgc_minimal_car_total
+	⁃	ywgc_gift_this_product_email_button_redirect
+	⁃	ywgc_gift_this_product_redirected_page
+	⁃	ywgc_gift_this_product_email_button_label
+	⁃	ywgc_permit_free_amount
+	⁃	ywgc_permit_its_a_present
+	⁃	ywgc_permit_its_a_present_shop_page
+	⁃	ywgc_permit_its_a_present_product_image
+	⁃	ywgc_physical_details
+	⁃	ywgc_physical_details_mandatory
+	⁃	ywgc_permit_modification
+	⁃	ywgc_enable_send_later
+	⁃	ywgc_notify_customer
+	⁃	ywgc_blind_carbon_copy
+	⁃	ywgc_auto_discount
+	⁃	ywgc_restricted_usage
+	⁃	ywgc_custom_design
+	⁃	ywgc_template_design
+	⁃	ywgc_allow_multi_recipients
+	⁃	ywgc_order_cancelled_action
+	⁃	ywgc_order_refunded_action
+	⁃	ywgc_enable_pre_printed
+	⁃	ywgc_custom_image_max_size
+	⁃	ywgc_shop_logo_url
+	⁃	ywgc_shop_logo_on_gift_card
+	⁃	ywgc_template_style
+	⁃	ywgc_recipient_mandatory
+	⁃	ywgc_show_recipient_on_cart
+	⁃	ywgc_show_preset_title
+	⁃	ywgc_code_pattern
+	⁃	ywgc_minimal_amount_gift_card
+	⁃	ywgc_gift_this_product_label
+
+* Order custom post type meta:
+	⁃	_ywgc_product_id
+	⁃	_ywgc_amount
+	⁃	_ywgc_is_manual_amount
+	⁃	_ywgc_is_digital
+	⁃	_ywgc_is_physical
+	⁃	_ywgc_recipients
+	⁃	_ywgc_sender_name
+	⁃	_ywgc_recipient_name
+	⁃	_ywgc_message
+	⁃	_ywgc_postdated
+	⁃	_ywgc_design_type
+	⁃	_ywgc_has_custom_design
+	⁃	_ywgc_design
+	⁃	_ywgc_subtotal
+	⁃	_ywgc_subtotal_tax
+	⁃	_ywgc_version
+	⁃	_yith_cog_item_tax
+	⁃	_ywpi_product_regular_price
+	⁃	_ywpi_product_sku
+	⁃	_ywpi_product_short_description
+	⁃	_ywgc_gift_card_post_id
+	⁃	_ywgc_gift_card_code
+
+* Product custom post type meta:
+	⁃	_ywgc_is_digital
+	⁃	_ywgc_product_image
+	⁃	_gift_card_amounts
+	⁃	_ywgc_show_product_template_design
+	⁃	_ywgc_manual_amount_mode
+	⁃	_yith_wcgc_gift_this_product
+
+* gift_card custom post type meta:
+	⁃	_ywgc_order_id
+	⁃	_ywgc_customer_id
+	⁃	_ywgc_balance_total
+	⁃	_ywgc_amount_total
+	⁃	_ywgc_sender_name
+	⁃	_ywgc_recipient_name
+	⁃	_ywgc_recipient
+	⁃	_ywgc_message
+	⁃	_ywgc_currency
+	⁃	_ywgc_version
+	⁃	_ywgc_postdated
+	⁃	_ywgc_has_custom_design
+	⁃	_ywgc_expiration
+	⁃	_ywgc_design_type
+	⁃	_ywgc_design
+	⁃	_ywgc_product_as_present
+	⁃	_ywgc_present_product_id
+	⁃	_ywgc_present_variation_id
+	⁃	_ywgc_is_manual_amount
+	⁃	_ywgc_is_digital
+	⁃	_ywgc_internal_notes
+
+* Custom database tables: No custom database tables
+
+* Files: Files store on "wp-content/uploads/yith-gift-cards/" such custom images for gift cards

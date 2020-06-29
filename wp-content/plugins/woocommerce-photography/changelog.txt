@@ -1,0 +1,95 @@
+*** WooCommerce Photography Changelog ***
+
+2020-06-10 - version 1.0.25
+* Tweak - WC 4.2 compatibility.
+
+2020-05-12 - version 1.0.24
+* Add - Option for showing public collections on the shop/archive pages.
+
+2020-04-30 - version 1.0.23
+* Tweak - WC 4.1 compatibility.
+
+2020-03-16 - version 1.0.22
+* Fix   - Unable to add/edit prices to Photography Products.
+* Tweak - Remove legacy code.
+
+2020-03-04 - version 1.0.21
+* Tweak - WC tested up to 4.0.
+
+2020-01-15 - version 1.0.20
+* Fix - Collection bulk quantity not working.
+
+2019-11-05 - version 1.0.19
+* Tweak - WC tested up to 3.8.
+
+2019-08-06 - version 1.0.18
+* Tweak - WC tested up to 3.7.
+
+2019-04-16 - version 1.0.17
+* Tweak - WC 3.6 compatibility.
+
+2019-01-07 - version 1.0.16
+* Fix - Product Add-ons 3.0+ compatibility.
+
+2018-10-09 - version 1.0.15
+* Fix - Collections compatibility with other WooCommerce plugins.
+* Fix - Collection images should not appear on category filter pages.
+* Update - WC tested up to 3.5
+
+2018-05-23 - version 1.0.14
+* Update - WC tested up to 3.4
+* Add - GDPR policy
+
+2018-04-27 - version 1.0.13
+* Fix - Default to using WooCommerce 3.3 products per row/column count.
+* Fix - Force default Photography category like WC/WP posts.
+
+2018-02-01 - version 1.0.12
+* Fix - Additional updates for WC 3.3 compatibility.
+
+2017-12-14 - version 1.0.11
+* Fix - WC 3.3 compatibility.
+
+2017-05-22 - version 1.0.10
+* Fix - Added to cart message shows incorrect product name.
+
+2017-04-03 - version 1.0.9
+* Fix - Update for WooCommerce 3.0 compatibility.
+
+2017-02-22 - version 1.0.8
+* Fix - Issue where photos were not appearing in search.
+
+2016-01-19 - version 1.0.7
+* Fix - Compatibility with the TwentySixteen theme on WooCommerce 2.4 or below.
+
+2015-11-24 - version 1.0.6
+* Fix - Bulk editing prices now works correctly.
+* Fix - Product Addons compatibility. The "select options" button now takes you to the correct screen.
+
+2015-07-29 - version 1.0.5
+ * New - Support to WooCommerce 2.4.
+ * New - Use WooCommerce enable Lightbox option.
+ * Fix - Expand/Close styles for WooCommerce 2.4.
+
+2015-06-03 - version 1.0.4
+ * Fix - Single photo visibility when the collection is public.
+ * Fix - Admin screen ids when using some translation.
+
+2015-05-21 - version 1.0.3
+ * Fix - Potential XSS vulnerability
+
+2015-02-13 - version 1.0.2
+ * Fix - Use `loop_shop_columns` filter in photography archives.
+
+2015-02-12 - version 1.0.1
+ * New - manage_photography user cap capability.
+ * New - Option to set the default collections visibility.
+ * Fix - Error notices on profile page.
+ * Fix - Add to cart button text.
+ * Fix - Collections taxonomy labels.
+ * Fix - Select2 compatibility with WooCommerce 2.3.
+ * Fix - Notices when set a static home page different than the shop page.
+ * Fix - Collections archive hooks, now use the WooCommerce archive hooks for theme compatibility.
+
+2014-12-12 - version 1.0.0
+ * First Release.

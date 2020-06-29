@@ -1,0 +1,2 @@
+#layeraction_group_panorama {display: none}
+.panorama-active #layeraction_group_panorama {display: block}

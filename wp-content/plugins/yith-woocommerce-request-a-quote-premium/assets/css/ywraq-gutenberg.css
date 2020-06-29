@@ -1,0 +1,33 @@
+.block-editor ul.yith-ywraq-list li{
+    position:relative;
+    padding-left: 2em;
+    position: relative;
+    padding-top: 0;
+    padding-bottom: 0px;
+    list-style: none;
+}
+
+.block-editor ul.yith-ywraq-list li a {
+    display: block;
+    font-weight: 700;
+}
+.block-editor ul.yith-ywraq-list a.yith-ywraq-item-remove.remove {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.block-editor ul.yith-ywraq-list img{
+    display: inline-block;
+    float: right;
+    margin-left: 4px;
+    width: 32px;
+    height: auto;
+    box-shadow: none;
+}
+
+.block-editor ul.yith-ywraq-list .yith-ywraq-list-info .quantity{
+    display: block;
+}
+
+

@@ -1,0 +1,87 @@
+*** WooCommerce Distance Rate Shipping Changelog ***
+
+2020-06-10 - version 1.0.22
+* Tweak - WC 4.2 compatibility.
+
+2020-04-29 - version 1.0.21
+* Tweak - WC 4.1 compatibility.
+
+2020-04-08 - version 1.0.20
+* Fix - 'Abort' feature should abort instead of break.
+
+2020-03-29 - version 1.0.19
+* Fix - Return shipping rate when shipping to a different location and billing address is not set yet.
+* Fix - Update build script.
+
+2020-02-27 - version 1.0.18
+* Tweak - Remove legacy code.
+* Tweak - WC tested up to 4.0
+
+2020-01-30 - version 1.0.17
+* Fix - Canadian address string causes zero results for certain addresses.
+* Fix - Use proper escaping for attributes.
+
+2020-01-15 - version 1.0.16
+* Tweak - Compatibility for adjustments in shipping calculator in WC 3.5.
+
+2019-12-03 - version 1.0.15
+* Add - Added abort option for rates to drop all rates if a match is made.
+* Fix - Return shipping rates without using break.
+
+2019-11-04 - version 1.0.14
+* Tweak - WC tested up to 3.8.
+
+2019-10-30 - version 1.0.13
+* Fix - Rule break checking always returned true once one rule was met.
+
+2019-08-08 - version 1.0.12
+* Tweak - WC tested up to 3.7.
+* Fix - Comma separated currency was not allowed.
+
+2019-04-16 - version 1.0.11
+* Tweak - WC tested up to 3.6
+
+2018-10-09 - version 1.0.10
+* Update - WC tested up to 3.5
+
+2018-02-23 - version 1.0.9
+* Fix   - A default distance rate should not be shown before address is entered.
+* Fix   - Google API doc link update.
+* Update - WC tested up to 3.4
+* Add - GDPR privacy support.
+
+2018-01-09 - version 1.0.8
+* Tweak - Add new filters to override rule cost for each calculated conditions (`woocommerce_distance_rate_shipping_rule_cost_distance_shipping`, `woocommerce_distance_rate_shipping_rule_cost_time_shipping`, `woocommerce_distance_rate_shipping_rule_cost_weight_shipping`, `woocommerce_distance_rate_shipping_rule_cost_order_total_shipping`, and `woocommerce_distance_rate_shipping_rule_cost_quantity_shipping`). This allows multiple conditions combined with `AND` or `OR` operations. See https://gist.github.com/gedex/0e444c1026604416ba8cad8ebaf4be6e for an example.
+* Fix - Ensure all min/max accepts decimal values except quantity.
+
+2017-06-19 - version 1.0.7
+* Fix - Issue where decimal values/rules not being honored -- missing round distance down to 1 decimal places towards zero, when it's half way there.
+* Fix - Issue where transient is not used properly.
+* Tweak - Added filter for Distrance Matrix API response.
+
+2017-05-17 - version 1.0.6
+* Tweak - Added show duration option as cost label suffix.
+* Tweak - Better formatting of request and resopnse in debug message.
+* Fix - Issue where multiple instances returns only one rate.
+* Tweak - Refine state and country in address lookup.
+
+2016-10-24 - version 1.0.5
+* Fix - Distance type min/max not allowing decimal precision.
+* New - Shipping zone support.
+
+2016-03-26 - version 1.0.4
+* Fix - Prevent first rule from applying when no rules are matched.
+* Fix - Accuracy of distance due to origin address fields are combining state and country.
+* New - State and country field is now separated for return more accurate distance.
+
+2016-03-03 - version 1.0.3
+* Fix - Avoid calculating the rate if only the country is selected.
+
+2015-02-17 - version 1.0.2
+* Fix - Convert metric to imperial as Google only returns metric values.
+
+2015-02-03 - version 1.0.1
+* Fix - Distance unit only worked in km, now support mi
+
+2014-07-22 - version 1.0.0
+* Initial release

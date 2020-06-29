@@ -1,0 +1,27 @@
+/***************************************************
+ * REVOLUTION 6.0.0 FILMSTRIP ADDON
+ * @version: 2.0 (31.08.2018)
+ * @author ThemePunch
+***************************************************/
+
+#filmstrip_slide_images { margin-right: -5px; position: relative }
+#filmstrip_slide_images .miniprevimage_wrap { vertical-align:top; margin: 0px 5px 5px 0px; cursor: pointer; box-sizing: border-box; position: relative; width:52px; height:52px;}
+
+
+
+#filmstrip_slide_images .miniprevimage_wrap:hover .filmstrip_previewimage	 	{ border: 3px solid #fff; }
+#filmstrip_slide_images .miniprevimage_wrap.selected  .filmstrip_previewimage { border: 3px solid #006dd2;  }
+
+#filmstrip_slide_image_settings .miniprevimage_wrap { margin: 0px 13px; }
+
+.miniimage_buttons_wrap { display: inline-block; vertical-align: top; width: 180px; }
+
+
+.filmstrip_previewimage {background-size: cover; background-position: 50% 50%; background-repeat: no-repeat;  position: absolute; top:0px; left:0px; width: 100%;height: 100%; box-sizing: border-box}
+#rb_tlw #filmstrip_slide_images i.material-icons { font-size: 25px; line-height: 52px !important ; height: 52px; width:52px; position: absolute; top:0px; left:0px; vertical-align: top;}
+
+#add_filmstrip_image:hover { color: #fff; background: #006dd2 }
+
+li.filmstrip_slide { cursor: move !important }
+
+#fs_disable_kenburn { margin-top: 20px; }

@@ -1,0 +1,230 @@
+table.shop_table tr.order td.order-actions a.print-invoice,
+table.shop_table tr.order td.order-actions a.print-pro-forma-invoice {
+    background-image: url('../images/invoice_view.png');
+    background-repeat: no-repeat;
+    background-position: 5px center;
+    padding-left: 30px;
+    margin-left: 10px;
+}
+
+#yith-pdf-invoice-box div.invoice-information a {
+    background-repeat: no-repeat;
+    background-position: 5px center;
+    text-indent: 20px;
+}
+
+#yith-pdf-invoice-box div.invoice-information a.ywpi_create_invoice {
+    background-image: url('../images/invoice_add.png');
+}
+
+#yith-pdf-invoice-box div.invoice-information a.ywpi_view_invoice {
+    background-image: url('../images/invoice_view.png');
+}
+
+#yith-pdf-invoice-box div.invoice-information a.ywpi_cancel_invoice {
+    background-image: url('../images/invoice_cancel.png');
+}
+
+#yith-pdf-invoice-box div.invoice-information a.ywpi_create_packing_slip {
+    background-image: url('../images/shipping_list_add.png');
+}
+
+#yith-pdf-invoice-box div.invoice-information a.ywpi_view_packing_slip {
+    background-image: url('../images/shipping_list_view.png');
+}
+
+#yith-pdf-invoice-box div.invoice-information a.ywpi_cancel_packing_slip {
+    background-image: url('../images/shipping_list_cancel.png');
+}
+
+.widefat .column-order_actions a.button.ywpi_create_invoice,
+.widefat .column-order_actions a.button.ywpi_view_invoice,
+.widefat .column-order_actions a.button.ywpi_create_packing_slip,
+.widefat .column-order_actions a.button.ywpi_view_packing_slip,
+.widefat .column-wc_actions a.button.ywpi_create_invoice,
+.widefat .column-wc_actions a.button.ywpi_view_invoice,
+.widefat .column-wc_actions a.button.ywpi_create_packing_slip,
+.widefat .column-wc_actions a.button.ywpi_view_packing_slip{
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.widefat .column-order_actions a.button.ywpi_create_invoice,
+.widefat .column-wc_actions a.button.ywpi_create_invoice{
+    background-image: url('../images/invoice_add.png');
+}
+
+.widefat .column-order_actions a.button.ywpi_view_invoice,
+.widefat .column-wc_actions a.button.ywpi_view_invoice{
+    background-image: url('../images/invoice_view.png');
+}
+
+.widefat .column-order_actions a.button.ywpi_regenerate_invoice,
+.widefat .column-wc_actions a.button.ywpi_regenerate_invoice{
+    background-image: url('../images/invoice_regenerate.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.ywpi-invoiced-order a {
+    background-image: url('../images/invoice_view.png');
+    background-repeat: no-repeat;
+    padding-left: 25px;
+    height: 25px;
+    display: inline-block;
+}
+
+.ywpi-invoiced-order .ywpi-invoice-information {
+    font-size: smaller;
+    color: #999;
+}
+
+.widefat .column-order_actions a.button.ywpi_create_packing_slip,
+.widefat .column-wc_actions a.button.ywpi_create_packing_slip{
+    background-image: url('../images/shipping_list_add.png');
+}
+
+.widefat .column-order_actions a.button.ywpi_view_packing_slip,
+.widefat .column-wc_actions a.button.ywpi_view_packing_slip {
+    background-image: url('../images/shipping_list_view.png');
+}
+
+.widefat .column-order_actions a.button.ywpi_regenerate_packing_slip,
+.widefat .column-wc_actions a.button.ywpi_regenerate_packing_slip{
+    background-image: url('../images/shipping_list_regenerate.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.widefat .column-order_actions a.button.ywpi_buttons,
+.widefat .column-wc_actions a.button.ywpi_buttons{
+    display: inline-block;
+    text-indent: -9999px;
+    position: relative;
+    padding: 0 !important;
+    height: 2em !important;
+    width: 2em;
+
+    position: relative;
+}
+
+.widefat .column-order_actions a.button.ywpi_buttons:after,
+.widefat .column-wc_actions a.button.ywpi_buttons:after{
+    display: none;
+}
+
+table.multi_vendor_invoice thead tr.multi_vendor_invoice_header {
+    border-bottom: 1px solid #e2e2e2;
+}
+
+table.multi_vendor_invoice thead tr.multi_vendor_invoice_header th {
+    text-transform: uppercase;
+}
+
+/** Backend */
+.ywpi-refund-table {
+    width: 100%;
+    border: none;
+    border-collapse: collapse;
+
+}
+
+.ywpi-refund-table thead td {
+    text-align: center;
+    background-color: #0cb0ff;
+    color: white;
+    text-transform: uppercase;
+}
+
+.ywpi-refund-table tbody td {
+    border:1px solid lightgrey;
+}
+
+.ywpi-refund-table .ywpi-refund-actions {
+    text-align: right;
+}
+
+.ywpi-document-section{
+    border: 1px solid lightgray;
+    margin-bottom: 20px;
+    /*padding: 5px;*/
+}
+
+.ywpi-section-title {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    background-color: #0cb0ff;
+    color: white;
+    text-transform: uppercase;
+}
+
+.ywpi-left-label {
+    display: inline-block;
+    width: 45%;
+}
+
+.ywpi-right-value {
+    display: inline-block;
+    width: 50%;
+    text-align: right;
+    font-weight: bold;
+}
+
+.ywpi-section-row {
+    padding: 5px;
+}
+
+.ywpi-section-row .ywpi-subtitle{
+    font-weight: 700;
+    width: 100%;
+    display: block;
+    margin-bottom: 5px;
+}
+
+
+a.button.tips.ywpi-regenerate-credit-note {
+    margin-top: 10px;
+    margin-bottom: 2px;
+}
+
+.wrap-input.ywpi-disabled{
+    position: relative;
+}
+
+.wrap-input.ywpi-disabled:after{
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    background: rgba( 255, 255, 255, 0.5 )!important;
+    border-color: rgba( 222, 222, 222, 0.75 )!important;
+    box-shadow: inset 0 1px 2px rgba( 0, 0, 0, 0.04 )!important;
+    color: rgba( 51, 51, 51, 0.5 )!important;
+    cursor: not-allowed;
+}
+
+.yith-disabled{
+    pointer-events: none;
+}
+
+#billing_receiver_type_field .woocommerce-input-wrapper input {
+    display: inline-block;
+    float: left;
+    clear: both;
+}
+
+#billing_receiver_type_field .woocommerce-input-wrapper label {
+    display: inline-block;
+    float: left;
+    top: -10px;
+    position: relative;
+}
+
+#billing_receiver_type_field > label {
+    margin-bottom: 10px;
+}

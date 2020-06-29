@@ -1,0 +1,5 @@
+.hide-modal{ display: none; }
+.ywsbs-button.button{font-size: 100%;margin: 0;line-height: 1;cursor: pointer;position: relative;font-family: inherit;text-decoration: none;overflow: visible;padding: .618em 1em;font-weight: 700;border-radius: 3px;left: auto;color: #515151;background-color: #ebe9eb;border: 0;white-space: nowrap;display: inline-block;background-image: none;box-shadow: none;-webkit-box-shadow: none;text-shadow: none;}
+.upgrade-option {margin: 20px 0px;border: 1px solid rgba(0,0,0,.1);padding: 15px;display: none;}
+p.price span.ywsbs-price-detail, td.product-subtotal span.ywsbs-price-detail{display: block;font-size: 14px;}
+.theme-yith-proteo .ywsbs_subscription_table th {font-weight: 500;}

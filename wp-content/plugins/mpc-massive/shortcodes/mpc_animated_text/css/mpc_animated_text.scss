@@ -1,0 +1,112 @@
+/*----------------------------------------------------------------------------*\
+	ANIMATED TEXT SHORTCODE
+\*----------------------------------------------------------------------------*/
+.mpc-animated-text-wrap {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.mpc-animated-text {
+	display: inline-block;
+	vertical-align: middle;
+	min-height: 1em;
+	overflow: hidden;
+
+	-webkit-box-sizing: content-box;
+	   -moz-box-sizing: content-box;
+	        box-sizing: content-box;
+
+	@media screen and (max-width: 768px) {
+		display: block;
+		margin: 0 auto;
+	}
+}
+
+.mpc-animated-text:before {
+	content: '\00a0';
+	display: inline-block;
+	width: 0;
+	float: left;
+}
+
+.mpc-animated-text__block,
+.mpc-animated-text__word {
+	font-family: inherit;
+	font-size: inherit;
+	font-style: inherit;
+	font-weight: inherit;
+	line-height: inherit;
+}
+
+.mpc-animated-text-wrap.mpc-style--rotator {
+	.mpc-animated-text {
+		overflow: hidden;
+	}
+
+	.mpc-animated-text__block {
+		display: none;
+
+		&:first-child {
+			display: block;
+		}
+	}
+
+	.mpc-animated-text__word {
+		display: inline-block;
+		white-space: nowrap;
+
+		@media screen and (max-width: 992px) {
+			white-space: normal;
+		}
+	}
+}
+.mpc-animated-text-wrap.mpc-style--rotator.mpc-loaded {
+	.mpc-animated-text__block {
+		display: block;
+	}
+}
+
+.mpc-animated-text-wrap.mpc-style--typewrite {
+	.mpc-animated-text_block {
+		display: inline-block;
+	}
+}
+
+.mpc-animated-text__pointer {
+	display: inline-block;
+	vertical-align: middle;
+	border-left: 2px solid;
+	margin-left: .25em;
+	line-height: 1;
+
+	-webkit-animation: mpc-blink .75s infinite;
+	        animation: mpc-blink .75s infinite;
+
+	@media screen and (max-width: 992px) {
+		display: none;
+	}
+}
+
+.mpc-animated-text__side {
+	display: inline-block;
+	vertical-align: middle;
+
+	&.mpc-animated-text__before {
+		margin-right: .4em;
+	}
+
+	&.mpc-animated-text__after {
+		margin-left: .4em;
+	}
+}
+
+@-webkit-keyframes mpc-blink {
+	0% { opacity: 0; }
+	50% { opacity: 1; }
+	100% { opacity: 0; }
+}
+@keyframes mpc-blink {
+	0% { opacity: 0; }
+	50% { opacity: 1; }
+	100% { opacity: 0; }
+}

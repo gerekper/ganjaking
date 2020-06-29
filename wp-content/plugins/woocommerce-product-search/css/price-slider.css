@@ -1,0 +1,312 @@
+/*!
+ * price-slider.css
+ *
+ * Copyright (c) "kento" Karim Rahimpur www.itthinx.com
+ *
+ * This code is provided subject to the license granted.
+ * Unauthorized use and distribution is prohibited.
+ * See COPYRIGHT.txt and LICENSE.txt
+ *
+ * This code is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * This header and all notices must be kept intact.
+ *
+ * @author itthinx
+ * @package woocommerce-product-search
+ * @since 2.4.0
+ */
+
+.product-search-filter-price-slider {
+	margin: 1.31em 0.5em 1em 0.5em;
+}
+.product-search-filter-price.show-submit.hide-fields .product-search-filter-price-slider {
+	margin-top: 2em;
+}
+.product-search-filter-price-slider {
+	position: relative;
+}
+.product-search-filter-price-slider-range {
+	position: relative;
+	font-size: 0.92em;
+	height: 2em;
+	opacity: 0.9;
+}
+.product-search-filter-price-slider .slider-min-max {
+	position: absolute;
+	bottom: 0.62em;
+	text-align: center;
+	font-size: 0.92em;
+	opacity: 0.8;
+	width: 100%;
+	display: inline-block;
+	font-weight: 600;
+}
+.product-search-filter-price-slider .slider-min-max-separator {
+	padding: 0.62em;
+}
+.product-search-filter-price-slider span.slider-limit-min {
+	position: absolute;
+	left: 0;
+	text-align: left;
+	padding: 0 1px;
+	font-size: 0.92em;
+	opacity: 0.5;
+	top: 1em;
+	margin: 0;
+	font-size: 0.92em;
+	font-weight: 600;
+}
+
+.product-search-filter-price-slider span.slider-limit-max {
+	position: absolute;
+	right: 0;
+	text-align: right;
+	padding: 0 1px;
+	font-size: 0.92em;
+	opacity: 0.5;
+	top: 1em;
+	margin: 0;
+	font-size: 0.92em;
+	font-weight: 600;
+}
+
+.product-search-filter-price .ui-state-disabled {
+	cursor: default !important;
+}
+
+.product-search-filter-price .ui-widget-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+.product-search-filter-price .ui-slider {
+	position: relative;
+	text-align: left;
+}
+.product-search-filter-price .ui-slider .ui-slider-handle {
+	position: absolute;
+	z-index: 2;
+	width: 1.2em;
+	height: 1.2em;
+	cursor: default;
+	-ms-touch-action: none;
+	touch-action: none;
+}
+.product-search-filter-price .ui-slider .ui-slider-range {
+	position: absolute;
+	z-index: 1;
+	font-size: .7em;
+	display: block;
+	border: 0;
+	background-position: 0 0;
+}
+
+.product-search-filter-price .ui-slider-horizontal {
+	height: .5em;
+}
+.product-search-filter-price .ui-slider-horizontal .ui-slider-handle {
+	top: -0.4em;
+	margin-left: -.6em;
+}
+.product-search-filter-price .ui-slider-horizontal .ui-slider-range {
+	top: 0;
+	height: 100%;
+}
+.product-search-filter-price .ui-slider-horizontal .ui-slider-range-min {
+	left: 0;
+}
+.product-search-filter-price .ui-slider-horizontal .ui-slider-range-max {
+	right: 0;
+}
+
+.product-search-filter-price .ui-slider-vertical {
+	width: .8em;
+	height: 100px;
+}
+.product-search-filter-price .ui-slider-vertical .ui-slider-handle {
+	left: -.3em;
+	margin-left: 0;
+	margin-bottom: -.6em;
+}
+.product-search-filter-price .ui-slider-vertical .ui-slider-range {
+	left: 0;
+	width: 100%;
+}
+.product-search-filter-price .ui-slider-vertical .ui-slider-range-min {
+	bottom: 0;
+}
+.product-search-filter-price .ui-slider-vertical .ui-slider-range-max {
+	top: 0;
+}
+
+.product-search-filter-price .ui-widget {
+	font-family: Arial,Helvetica,sans-serif;
+	font-size: 1em;
+}
+.product-search-filter-price .ui-widget .ui-widget {
+	font-size: 1em;
+}
+.product-search-filter-price .ui-widget input,
+.product-search-filter-price .ui-widget select,
+.product-search-filter-price .ui-widget textarea,
+.product-search-filter-price .ui-widget button {
+	font-family: Arial,Helvetica,sans-serif;
+	font-size: 1em;
+}
+.product-search-filter-price .ui-widget-content {
+	border: 1px solid #ccc;
+	background: #ccc;
+	color: #333;
+}
+.product-search-filter-price .ui-widget-content a {
+	color: #333;
+}
+.product-search-filter-price .ui-widget-header {
+	border: 1px solid #ccc;
+	background: #333;
+	color: #333;
+	font-weight: bold;
+}
+.product-search-filter-price .ui-widget-header a {
+	color: #333;
+}
+
+.product-search-filter-price .ui-state-default,
+.product-search-filter-price .ui-widget-content .ui-state-default,
+.product-search-filter-price .ui-widget-header .ui-state-default {
+	border: none;
+	background: #333;
+	font-weight: normal;
+	color: #ccc;
+}
+.product-search-filter-price .ui-state-default a,
+.product-search-filter-price .ui-state-default a:link,
+.product-search-filter-price .ui-state-default a:visited {
+	color: #ccc;
+	text-decoration: none;
+}
+.product-search-filter-price .ui-state-hover,
+.product-search-filter-price .ui-widget-content .ui-state-hover,
+.product-search-filter-price .ui-widget-header .ui-state-hover,
+.product-search-filter-price .ui-state-focus,
+.product-search-filter-price .ui-widget-content .ui-state-focus,
+.product-search-filter-price .ui-widget-header .ui-state-focus {
+	border: none;
+	background: #333;
+	font-weight: normal;
+	color: #ccc;
+	cursor: ew-resize;
+}
+.product-search-filter-price .ui-state-hover a,
+.product-search-filter-price .ui-state-hover a:hover,
+.product-search-filter-price .ui-state-hover a:link,
+.product-search-filter-price .ui-state-hover a:visited,
+.product-search-filter-price .ui-state-focus a,
+.product-search-filter-price .ui-state-focus a:hover,
+.product-search-filter-price .ui-state-focus a:link,
+.product-search-filter-price .ui-state-focus a:visited {
+	color: #ccc;
+	text-decoration: none;
+}
+.product-search-filter-price .ui-state-active,
+.product-search-filter-price .ui-widget-content .ui-state-active,
+.product-search-filter-price .ui-widget-header .ui-state-active {
+	border: none;
+	background: #333;
+	font-weight: normal;
+	color: #fff;
+}
+.product-search-filter-price .ui-state-active a,
+.product-search-filter-price .ui-state-active a:link,
+.product-search-filter-price .ui-state-active a:visited {
+	color: #fff;
+	text-decoration: none;
+}
+
+.product-search-filter-price .ui-state-highlight,
+.product-search-filter-price .ui-widget-content .ui-state-highlight,
+.product-search-filter-price .ui-widget-header .ui-state-highlight {
+	border: 1px solid #dad55e;
+	background: #fffa90;
+	color: #777620;
+}
+.product-search-filter-price .ui-state-highlight a,
+.product-search-filter-price .ui-widget-content .ui-state-highlight a,
+.product-search-filter-price .ui-widget-header .ui-state-highlight a {
+	color: #777620;
+}
+.product-search-filter-price .ui-state-error,
+.product-search-filter-price .ui-widget-content .ui-state-error,
+.product-search-filter-price .ui-widget-header .ui-state-error {
+	border: 1px solid #f1a899;
+	background: #fddfdf;
+	color: #5f3f3f;
+}
+.product-search-filter-price .ui-state-error a,
+.product-search-filter-price .ui-widget-content .ui-state-error a,
+.product-search-filter-price .ui-widget-header .ui-state-error a {
+	color: #5f3f3f;
+}
+.product-search-filter-price .ui-state-error-text,
+.product-search-filter-price .ui-widget-content .ui-state-error-text,
+.product-search-filter-price .ui-widget-header .ui-state-error-text {
+	color: #5f3f3f;
+}
+.product-search-filter-price .ui-priority-primary,
+.product-search-filter-price .ui-widget-content .ui-priority-primary,
+.product-search-filter-price .ui-widget-header .ui-priority-primary {
+	font-weight: bold;
+}
+.product-search-filter-price .ui-priority-secondary,
+.product-search-filter-price .ui-widget-content .ui-priority-secondary,
+.product-search-filter-price .ui-widget-header .ui-priority-secondary {
+	opacity: .7;
+	font-weight: normal;
+}
+.product-search-filter-price .ui-state-disabled,
+.product-search-filter-price .ui-widget-content .ui-state-disabled,
+.product-search-filter-price .ui-widget-header .ui-state-disabled {
+	opacity: .35;
+	background-image: none;
+}
+
+.product-search-filter-price .ui-corner-all,
+.product-search-filter-price .ui-corner-top,
+.product-search-filter-price .ui-corner-left,
+.product-search-filter-price .ui-corner-tl {
+	border-top-left-radius: 1em;
+}
+.product-search-filter-price .ui-corner-all,
+.product-search-filter-price .ui-corner-top,
+.product-search-filter-price .ui-corner-right,
+.product-search-filter-price .ui-corner-tr {
+	border-top-right-radius: 1em;
+}
+.product-search-filter-price .ui-corner-all,
+.product-search-filter-price .ui-corner-bottom,
+.product-search-filter-price .ui-corner-left,
+.product-search-filter-price .ui-corner-bl {
+	border-bottom-left-radius: 1em;
+}
+.product-search-filter-price .ui-corner-all,
+.product-search-filter-price .ui-corner-bottom,
+.product-search-filter-price .ui-corner-right,
+.product-search-filter-price .ui-corner-br {
+	border-bottom-right-radius: 1em;
+}
+
+.product-search-filter-price .ui-widget-overlay {
+	background: #aaaaaa;
+	opacity: .3;
+}
+.product-search-filter-price .ui-widget-shadow {
+	margin: 0px 0 0 0px;
+	padding: 5px;
+	background: #666666;
+	opacity: .3;
+	border-radius: 8px;
+}

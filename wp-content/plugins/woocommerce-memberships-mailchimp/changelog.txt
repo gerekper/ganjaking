@@ -1,0 +1,76 @@
+*** Mailchimp for WooCommerce Memberships Changelog ***
+
+2020.06.11 - version 1.2.4
+ * Fix - Prevent a fatal error when WooCommerce is deactivated
+
+2020.05.04 - version 1.2.3
+ * Misc - Add support for WooCommerce 4.1
+
+2020.03.10 - version 1.2.2
+ * Misc - Add support for WooCommerce 4.0
+
+2020.01.05 - version 1.2.1
+ * Misc - Add support for WooCommerce 3.9
+
+2019.10.21 - version 1.2.0
+ * Misc - Add support for WooCommerce 3.8
+
+2019.09.18 - version 1.1.2
+ * Fix - Ensure the Debug Mode setting can be disabled
+
+2019.08.13 - version 1.1.1
+ * Fix - Address a PHP callback error when using WooCommerce versions earlier than 3.7
+
+2019.08.09 - version 1.1.0
+ * Misc - Add support for WooCommerce 3.7
+ * Misc - Remove support for WooCommerce 2.6
+ * Misc - Require PHP 5.6+
+
+2019.06.25 - version 1.0.11
+ * Tweak - Open documentation link in settings in new tab
+ * Fix - Make sure a member is synced on user profile updates not only when updating their email address
+ * Misc - Change "List" to "Audience" per Mailchimp terminology update
+
+2019.04.30 - version 1.0.10
+ * Fix - Ensure all available lists are offered in the settings and not limited to the first 10
+
+2019.04.16 - version 1.0.9
+ * Fix - Do not sync manually created memberships that have not been saved yet for the first time and have still an auto-draft status
+ * Fix - Do not sync a user updating details at checkout if they don't have any membership yet
+ * Misc - Add support for WooCommerce 3.6
+ * Misc - Require PHP 5.4+
+
+2019.03.13 - version 1.0.8
+ * Fix - Set active merge field for user memberships linked to subscriptions in free trial period
+ * Fix - When a member updates their email address, remove the previous address from the Mailchimp list of subscribers and then sync the member with the updated address
+ * Fix - Try to avoid pushing automatically again default plan merge fields if the corresponding tags have been deleted from Mailchimp already
+ * Fix - Ensure members are added as "subscribed" during registration
+
+2019.01.15 - version 1.0.7
+ * Fix - Make sure that member details are synced when a member is created at checkout or their profile is updated
+ * Fix - Avoid infinite loops during membership status transitions
+ * Dev - Add filter `wc_memberships_mailchimp_api_request_params` to alter API request parameters
+
+2018.10.23 - version 1.0.6
+ * Misc - Add support for WooCommerce 3.5
+
+2018.08.29 - version 1.0.5
+ * Fix - Prevent errors when interest groups exist, but none are being synced for members
+
+2018.07.22 - version 1.0.4
+ * Fix - Prevent removing a synced member from groups that aren't enabled in the plugin settings
+
+2018.06.21 - version 1.0.3
+ * Tweak - When a membership is deleted from WooCommerce, offer an option to keep the former member user subscribed to the list and just clear their membership-associated merge fields
+ * Tweak - Add an admin notice when creating plan merge fields for lists that have exceeded their limit
+ * Fix - List all available merge fields and interests from a MailChimp list and not limit these to the first default 10
+
+2018.05.23 - version 1.0.2
+ * Fix - Ensure that signup prompts are shown when enabled at checkout and in the members area
+
+2018.05.23 - version 1.0.1
+ * Tweak - Add new setting to subscribe members automatically to the list, or have them to opt in at checkout or via members area prompt
+ * Misc - Add support for WooCommerce 3.4
+
+2018.04.13 - version 1.0.0
+ * Initial Release

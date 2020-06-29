@@ -1,0 +1,41 @@
+.woocommerce-message {
+  margin-top: 10px; }
+
+#wc_checkout_fields {
+  margin-top: 10px; }
+  #wc_checkout_fields thead th input {
+    margin: 2px 0 0 0 !important; }
+  #wc_checkout_fields tbody .description {
+    display: none;
+    color: #999; }
+  #wc_checkout_fields tbody td {
+    overflow: visible !important;
+    padding: 7px;
+    cursor: move;
+    vertical-align: middle; }
+  #wc_checkout_fields tbody td:last-child, #wc_checkout_fields tbody th:last-child {
+    padding-right: 14px; }
+  #wc_checkout_fields tbody input.input-text, #wc_checkout_fields tbody td select {
+    width: 100%; }
+  #wc_checkout_fields tfoot .description {
+    color: #999; }
+  #wc_checkout_fields .check-column {
+    padding: 7px 0 7px 14px; }
+  #wc_checkout_fields strong.core-field {
+    color: #a4688d; }
+  #wc_checkout_fields .field-type, #wc_checkout_fields .field-options, #wc_checkout_fields span.na, #wc_checkout_fields .field-validation {
+    text-align: center;
+    color: #aaa; }
+    #wc_checkout_fields .field-type select, #wc_checkout_fields .field-type div, #wc_checkout_fields .field-type input, #wc_checkout_fields .field-type span.select2-container, #wc_checkout_fields .field-options select, #wc_checkout_fields .field-options div, #wc_checkout_fields .field-options input, #wc_checkout_fields .field-options span.select2-container, #wc_checkout_fields span.na select, #wc_checkout_fields span.na div, #wc_checkout_fields span.na input, #wc_checkout_fields span.na span.select2-container, #wc_checkout_fields .field-validation select, #wc_checkout_fields .field-validation div, #wc_checkout_fields .field-validation input, #wc_checkout_fields .field-validation span.select2-container {
+      text-align: left; }
+  #wc_checkout_fields span.na {
+    display: block; }
+  #wc_checkout_fields .clear {
+    text-align: center; }
+  #wc_checkout_fields tr.disabled td {
+    opacity: 0.3;
+    text-decoration: line-through; }
+  #wc_checkout_fields tr.disabled td:first-child {
+    opacity: 1; }
+
+/*# sourceMappingURL=admin.css.map*/

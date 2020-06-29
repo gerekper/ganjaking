@@ -1,0 +1,6 @@
+<wpml-config>
+    <admin-texts>
+      <key name="ywsl_social_label" />
+      <key name="ywsl_social_label_checkout" />
+    </admin-texts>
+</wpml-config>

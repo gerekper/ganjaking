@@ -1,0 +1,64 @@
+#{$wrap} #{$menu} {
+
+	span.mega-menu-badge {
+	    @include border-radius($badge_border_radius_top_left, $badge_border_radius_top_right, $badge_border_radius_bottom_right, $badge_border_radius_bottom_left);
+	    display: inline;
+	    padding: $badge_padding_top $badge_padding_right $badge_padding_bottom $badge_padding_left;
+	    top: $badge_vertical_offset;
+	    position: relative;
+	    margin: 0 0 0 6px;
+	    text-align: center;
+
+	    @include desktop {
+	    	&.mega-hide-on-desktop {
+	    		display: none;
+	    	}
+	    }
+
+	    @include mobile {
+	    	&.mega-hide-on-mobile {
+	    		display: none;
+	    	}
+	    }
+
+		&.mega-menu-badge-style-one {
+			@include background($badge_one_background_from, $badge_one_background_to);
+			color: $badge_one_font_color;
+			font-weight: $badge_one_font_weight;
+			font-size: $badge_one_font_size;
+            text-transform: $badge_one_text_transform;
+            text-decoration: $badge_one_text_decoration;
+            font-family: $badge_one_font;
+		}
+
+		&.mega-menu-badge-style-two {
+			@include background($badge_two_background_from, $badge_two_background_to);
+			color: $badge_two_font_color;
+			font-weight: $badge_two_font_weight;
+			font-size: $badge_two_font_size;
+            text-transform: $badge_two_text_transform;
+            text-decoration: $badge_two_text_decoration;
+            font-family: $badge_two_font;
+		}
+
+		&.mega-menu-badge-style-three {
+			@include background($badge_three_background_from, $badge_three_background_to);
+			color: $badge_three_font_color;
+			font-weight: $badge_three_font_weight;
+			font-size: $badge_three_font_size;
+            text-transform: $badge_three_text_transform;
+            text-decoration: $badge_three_text_decoration;
+            font-family: $badge_three_font;
+		}
+
+		&.mega-menu-badge-style-four {
+			@include background($badge_four_background_from, $badge_four_background_to);
+			color: $badge_four_font_color;
+			font-weight: $badge_four_font_weight;
+			font-size: $badge_four_font_size;
+            text-transform: $badge_four_text_transform;
+            text-decoration: $badge_four_text_decoration;
+            font-family: $badge_four_font;
+		}
+	}
+}

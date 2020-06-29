@@ -1,0 +1,131 @@
+
+.ywcars_refund_info_block_title {
+    margin-bottom: 30px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.ywcars_line_separator {
+    height: 1px;
+    background-color: #dddddd;
+    margin-bottom: 20px;
+}
+
+.ywcars_refund_info_message_box {
+    background-color: #f1f1f1;
+    margin-bottom: 30px;
+    border-color: #dddddd;
+    border-width: 1px;
+    border-style: solid;
+    padding-top: 27px;
+    padding-right: 27px;
+    padding-left: 0;
+    padding-bottom: 27px;
+    width: auto;
+    word-wrap: break-word;
+}
+
+.ywcars_message_customer {
+    padding: 27px;
+}
+
+.ywcars_message_shop_manager {
+    margin-left: 30px;
+    background-color: white;
+}
+
+.ywcars_refund_info_message_author {
+    display: inline-block;
+    font-size: 12pt;
+    font-weight: 600;
+}
+
+.ywcars_message_shop_manager .ywcars_refund_info_message_author {
+    background-color: #ffa200;
+    color: white;
+    padding-right: 15px;
+    padding-left: 25px;
+    margin-left: -1px;
+}
+
+.ywcars_refund_info_message_date {
+    font-size: 8pt;
+    float: right;
+}
+
+.ywcars_refund_info_message_body {
+    font-size: 10pt;
+    margin: 20px 0;
+}
+
+.ywcars_message_shop_manager .ywcars_refund_info_message_body, .ywcars_message_shop_manager .ywcars_attachments, .ywcars_message_shop_manager .ywcars_attachments_line_separator {
+    margin-left: 27px;
+}
+
+.ywcars_attachments_line_separator {
+    height:1px;
+    background-color: #dddddd;
+    margin-bottom: 12px;
+    margin-top: 20px;
+}
+
+.ywcars_attachments_title {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.ywcars_single_attachment {
+    display: inline-block;
+    width: 130px;
+    height: auto;
+    margin-right: 5px;
+    margin-top: 12px;
+    font-size: 9px;
+}
+
+div.ywcars_attachments div.ywcars_single_attachment a .ywcars_attachment_thumbnail {
+    border: 1px solid black;
+    border-radius: 3px;
+    max-width: 115px;
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 5px;
+}
+
+span.ywcars_attachment_file_name {
+    display: table;
+    margin-top: 5px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.ywcars_refund_info_block {
+    margin-top: 40px;
+}
+
+.ywcars_alert {
+    display: none;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.ywcars_success_alert {
+    background-color: #a7f9a7;
+}
+
+.ywcars_error_alert {
+    background-color: #fa8e8e;
+}
+
+.ywcars_close_alert {
+    float: right;
+    font-weight: bolder;
+    cursor: pointer;
+    border: solid 1px #666666;
+    border-radius: 30px;
+    padding: 0 8px;
+}
+
+
+

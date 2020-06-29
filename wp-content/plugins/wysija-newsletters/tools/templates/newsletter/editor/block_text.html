@@ -1,0 +1,6 @@
+<div class="wysija_text{if ! #image} alone{/if}">
+    <div class="{if #text}wysija_editable{/if}{if ! #text}text_placeholder empty{/if}" style="width:{#block_width|default:564}px;">{if ! #text}{$i18n.drop_block_here}{/if}{#text.value|base64_decode|sanitize}</div>
+    <ul style="display: none;" class="wysija_tools">
+        <li><a href="javascript:;" class="remove"><span></span></a></li>
+    </ul>
+</div>

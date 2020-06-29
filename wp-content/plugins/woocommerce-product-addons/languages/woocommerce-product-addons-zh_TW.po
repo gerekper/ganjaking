@@ -1,0 +1,315 @@
+# Copyright (C) 2014 
+# This file is distributed under the same license as the  package.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/woocommerce-product-addons\n"
+"POT-Creation-Date: 2014-07-21 14:23:29+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-05-19 12:18+0800\n"
+"Last-Translator: 李明軒 <eggeggxuan@gmail.com>\n"
+"Language-Team: moho <eggeggxuan@gmail.com>\n"
+
+#: admin/class-product-addon-admin.php:30
+#: admin/html-global-admin.php:4
+msgid "Global Add-ons"
+msgstr "全域附加選項"
+
+#: admin/class-product-addon-admin.php:75
+msgid "Add-on saved successfully"
+msgstr "成功儲存附加選項"
+
+#: admin/class-product-addon-admin.php:91
+msgid "Error: Global Add-on not found"
+msgstr "錯誤：找不到全域附加選項"
+
+#: admin/class-product-addon-admin.php:106
+#: admin/class-product-addon-admin.php:163
+msgid "Global Add-on Group"
+msgstr "全域附加選項群組"
+
+#: admin/class-product-addon-admin.php:118
+msgid "Add-on deleted successfully"
+msgstr "成功刪除附加選項"
+
+#: admin/class-product-addon-admin.php:132
+#: admin/html-global-admin-add.php:47
+msgid "Add-ons"
+msgstr "附加選項"
+
+#: admin/html-addon-option.php:5
+msgid "Label"
+msgstr "標籤"
+
+#: admin/html-addon-panel.php:6
+msgid "Close all"
+msgstr "關閉"
+
+#: admin/html-addon-panel.php:6
+msgid "Expand all"
+msgstr "展開"
+
+#: admin/html-addon-panel.php:24
+msgid "New Addon Group"
+msgstr "新附加選項"
+
+#: admin/html-addon-panel.php:26
+msgid "Import"
+msgstr "導入"
+
+#: admin/html-addon-panel.php:27
+msgid "Export"
+msgstr "導出"
+
+#: admin/html-addon-panel.php:31
+msgid "Paste exported form data here and then save to import fields. The imported fields will be appended."
+msgstr "在這裡貼上導出格式的數據，然後儲存到導入欄位。導入欄位將會被新增。"
+
+#: admin/html-addon-panel.php:37
+msgid "Global Addon Exclusion"
+msgstr "排除全域附加選項"
+
+#: admin/html-addon-panel.php:38
+msgid "Check this to exclude this product from all Global Addons"
+msgstr "勾選這個選項來排除在這個商品顯示全域附加選項"
+
+#: admin/html-addon-panel.php:130
+msgid "Are you sure you want remove this add-on?"
+msgstr "你確認你想要移除這個附加選項？"
+
+#: admin/html-addon-panel.php:209
+msgid "Are you sure you want delete this option?"
+msgstr "你確認你想要刪除這個選項？"
+
+#: admin/html-addon.php:10
+msgid "Remove"
+msgstr "移除"
+
+#: admin/html-addon.php:11
+msgid "Click to toggle"
+msgstr "點擊切換"
+
+#: admin/html-addon.php:12
+msgid "Group"
+msgstr "群組"
+
+#: admin/html-addon.php:14
+msgid "Checkboxes"
+msgstr "複選框"
+
+#: admin/html-addon.php:15
+msgid "Radio buttons"
+msgstr "單選按鈕"
+
+#: admin/html-addon.php:16
+msgid "Select box"
+msgstr "選擇框"
+
+#: admin/html-addon.php:17
+msgid "Custom input (text)"
+msgstr "自訂輸入 ( 文字 ）"
+
+#: admin/html-addon.php:18
+msgid "Custom input (textarea)"
+msgstr "自訂輸入 ( 文字區域 )"
+
+#: admin/html-addon.php:19
+msgid "File upload"
+msgstr "檔案上傳"
+
+#: admin/html-addon.php:20
+msgid "Custom price input"
+msgstr "自訂價格輸入"
+
+#: admin/html-addon.php:21
+msgid "Custom Input Multipler"
+msgstr "自訂輸入乘數"
+
+#: admin/html-addon.php:29
+msgid "Group Name"
+msgstr "群組名稱"
+
+#: admin/html-addon.php:33
+msgid "Required fields?"
+msgstr "必填欄位？"
+
+#: admin/html-addon.php:39
+msgid "Group Description"
+msgstr "群組描述"
+
+#: admin/html-addon.php:49
+msgid "Option Label"
+msgstr "選項標籤"
+
+#: admin/html-addon.php:50
+msgid "Option Price"
+msgstr "選項價格"
+
+#: admin/html-addon.php:51
+msgid "Min"
+msgstr "最小"
+
+#: admin/html-addon.php:52
+msgid "Max"
+msgstr "最大"
+
+#: admin/html-addon.php:58
+msgid "New&nbsp;Option"
+msgstr "新&nbsp;選項"
+
+#: admin/html-global-admin-add.php:4
+msgid "Add/Edit Global Add-on"
+msgstr "新增 / 編輯全域附加選項"
+
+#: admin/html-global-admin-add.php:10
+msgid "Global Add-on Reference"
+msgstr "全域附加選項參考"
+
+#: admin/html-global-admin-add.php:14
+msgid "Give this global add-on a reference/name to make it recognisable."
+msgstr "給予這個全域附加選項一個參考名稱，以便識別。"
+
+#: admin/html-global-admin-add.php:19
+#: admin/html-global-admin.php:11
+msgid "Priority"
+msgstr "優先權"
+
+#: admin/html-global-admin-add.php:23
+msgid "Give this global addon a priority - this will deternmine the order in which multiple groups of addons get displayed on the frontend. Per-product add-ons will always have priority 10."
+msgstr "給予這個全域附加選項一個優先權 - 這將確認在網站前台，附加選項多重群組的顯示順序。每個商品附加選項都有優先權 10。"
+
+#: admin/html-global-admin-add.php:28
+msgid "Applied to..."
+msgstr "適用於..."
+
+#: admin/html-global-admin-add.php:31
+msgid "Choose some options&hellip;"
+msgstr "選擇一些選項&hellip;"
+
+#: admin/html-global-admin-add.php:32
+#: admin/html-global-admin.php:45
+msgid "All Products"
+msgstr "全部商品"
+
+#: admin/html-global-admin-add.php:33
+msgid "Product category notifications"
+msgstr "商品分類通知"
+
+#: admin/html-global-admin-add.php:38
+msgid "Category:"
+msgstr "分類："
+
+#: admin/html-global-admin-add.php:42
+msgid "Choose categories which should show these addons (or apply to all products)."
+msgstr "選擇那些分類應該顯示這些附加選項 ( 或適用於所有商品 )。"
+
+#: admin/html-global-admin-add.php:56
+msgid "Save Global Add-on"
+msgstr "儲存全域附加選項"
+
+#: admin/html-global-admin.php:4
+msgid "Add Global Add-on"
+msgstr "新增全域附加選項"
+
+#: admin/html-global-admin.php:9
+msgid "Reference"
+msgstr "參考"
+
+#: admin/html-global-admin.php:10
+msgid "Number of Fields"
+msgstr "欄位數量"
+
+#: admin/html-global-admin.php:12
+msgid "Applies to..."
+msgstr "適用於..."
+
+#: admin/html-global-admin.php:13
+msgid "Actions"
+msgstr "動作"
+
+#: admin/html-global-admin.php:57
+msgid "Edit"
+msgstr "編輯"
+
+#: admin/html-global-admin.php:57
+msgid "Delete"
+msgstr "刪除"
+
+#: admin/html-global-admin.php:65
+msgid "No global add-ons exists yet."
+msgstr "全域附加選項目前還不存在。"
+
+#: admin/html-global-admin.php:65
+msgid "Add one?"
+msgstr "新增一個？"
+
+#: classes/class-product-addon-display.php:63
+msgid "Options total:"
+msgstr "選項累計"
+
+#: classes/class-product-addon-display.php:64
+msgid "Grand total:"
+msgstr "全部總計："
+
+#: classes/class-product-addon-display.php:65
+msgid "characters remaining"
+msgstr "剩餘字元"
+
+#: classes/class-product-addon-display.php:323
+msgid "Select options"
+msgstr "選擇選項"
+
+#: classes/fields/class-product-addon-field-custom.php:18
+#: classes/fields/class-product-addon-field-file-upload.php:17
+#: classes/fields/class-product-addon-field-list.php:14
+#: classes/fields/class-product-addon-field-select.php:14
+msgid "\"%s\" is a required field."
+msgstr "\"%s\" 是一個必填欄位"
+
+#: classes/fields/class-product-addon-field-custom.php:25
+msgid "The minimum allowed amount for \"%s - %s\" is %s."
+msgstr "對於 \"%s - %s\" 最小許可金額是 %s。"
+
+#: classes/fields/class-product-addon-field-custom.php:29
+msgid "The maximum allowed amount for \"%s - %s\" is %s."
+msgstr "對於 \"%s - %s\" 最大許可金額是 %s。"
+
+#: classes/fields/class-product-addon-field-custom.php:36
+msgid "Please enter a value greater than 0 for \"%s - %s\"."
+msgstr "對於 \"%s - %s\" 請輸入一個大於 0 的值。"
+
+#: classes/fields/class-product-addon-field-custom.php:40
+msgid "The minimum allowed value for \"%s - %s\" is %s."
+msgstr "對於 \"%s - %s\" 最小許可的值是 %s。"
+
+#: classes/fields/class-product-addon-field-custom.php:44
+msgid "The maximum allowed value for \"%s - %s\" is %s."
+msgstr "對於 \"%s - %s\" 最大許可的值是 %s。"
+
+#: classes/fields/class-product-addon-field-custom.php:50
+msgid "The minimum allowed length for \"%s - %s\" is %s."
+msgstr "對於 \"%s - %s\" 最小長度的值是 %s。"
+
+#: classes/fields/class-product-addon-field-custom.php:54
+msgid "The maximum allowed length for \"%s - %s\" is %s."
+msgstr "對於 \"%s - %s\" 最大長度的值是 %s。"
+
+#: templates/addons/file_upload.php:8
+#: templates/addons/file_upload.php:14
+msgid "(max file size %s)"
+msgstr "( 檔案大小最大：%s )"
+
+#: templates/addons/input_multiplier.php:13
+msgid "This must be a number!"
+msgstr "這必須是一個數字！"
+
+#: templates/addons/select.php:10
+msgid "None"
+msgstr "無"
+
+#: templates/addons/select.php:12
+msgid "Select an option..."
+msgstr "選擇一個選項..."
+

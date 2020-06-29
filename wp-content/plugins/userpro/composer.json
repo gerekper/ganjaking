@@ -1,0 +1,14 @@
+{
+  "autoload": {
+    "classmap": [
+      "functions/",
+      "admin/",
+      "includes/",
+      "includes/user",
+      "includes/admin",
+      "includes/templates",
+      "includes/abstracts",
+      "includes/addons/social"
+    ]
+  }
+}

@@ -1,0 +1,108 @@
+.ywpc-topbar {
+    position: fixed;
+    display: block;
+    width: 100%;
+    z-index: 999999;
+    top: 0;
+}
+
+.ywpc-topbar.ywpc-bottom,
+.ywpc-topbar.ywpc-bottom.ywpc-admin {
+    bottom: 0;
+    top: auto;
+}
+
+.ywpc-topbar.ywpc-admin {
+    top: 32px;
+}
+
+@media screen and (max-width: 782px) {
+
+    .ywpc-topbar.ywpc-admin {
+        top: 46px;
+    }
+
+}
+
+.ywpc-countdown-topbar {
+    font-family: 'Open Sans', sans-serif;
+    background: #ffba00;
+    text-align: center;
+    font-size: 0;
+    text-transform: uppercase;
+    display: block;
+}
+
+.ywpc-topbar.ywpc-top .ywpc-countdown-topbar {
+    -webkit-box-shadow: 0 4px 6px 0 rgba(3, 3, 3, 0.13);
+    -moz-box-shadow: 0 4px 6px 0 rgba(3, 3, 3, 0.13);
+    box-shadow: 0 4px 6px 0 rgba(3, 3, 3, 0.13);
+}
+
+.ywpc-topbar.ywpc-bottom .ywpc-countdown-topbar {
+    margin-top: 15px;
+    -webkit-box-shadow: 0 -4px 6px 0 rgba(3, 3, 3, 0.13);
+    -moz-box-shadow: 0 -4px 6px 0 rgba(3, 3, 3, 0.13);
+    box-shadow: 0 -4px 6px 0 rgba(3, 3, 3, 0.13);
+}
+
+.ywpc-countdown-topbar > .ywpc-header,
+.ywpc-countdown-topbar > .ywpc-timer {
+    vertical-align: middle;
+    display: inline-block;
+    width: 40%;
+}
+
+.ywpc-countdown-topbar > .ywpc-header {
+    font-size: 30px;
+    font-weight: bold;
+    color: #a12418;
+    word-wrap: break-word;
+}
+
+@media screen and (max-width: 1199px) {
+
+    .ywpc-countdown-topbar > .ywpc-header,
+    .ywpc-countdown-topbar > .ywpc-timer {
+        width: 100%;
+        display: block;
+    }
+
+}
+
+.ywpc-countdown-topbar > .ywpc-timer > .ywpc-days,
+.ywpc-countdown-topbar > .ywpc-timer > .ywpc-hours,
+.ywpc-countdown-topbar > .ywpc-timer > .ywpc-minutes,
+.ywpc-countdown-topbar > .ywpc-timer > .ywpc-seconds {
+    display: inline-block;
+    margin: 14px 10px;
+}
+
+.ywpc-countdown-topbar > .ywpc-timer > div > .ywpc-label {
+    color: #232323;
+    font-size: 15px;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.ywpc-countdown-topbar > .ywpc-timer > div > .ywpc-amount {
+    background: #ffffff;
+    height: 42px;
+    width: 42px;
+    border-radius: 42px;
+    -moz-border-radius: 42px;
+    -webkit-border-radius: 42px;
+    margin: 0 10px 0 0;
+    display: inline-block;
+    border: 1px solid #ff8a00
+}
+
+.ywpc-countdown-topbar > .ywpc-timer > div > .ywpc-amount > span {
+    line-height: 40px;
+    color: #363636;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+
+

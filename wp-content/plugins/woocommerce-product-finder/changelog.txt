@@ -1,0 +1,78 @@
+*** Product Finder Changelog ***
+
+2020-06-10 - version 1.2.13
+* Tweak - WC 4.2 compatibility.
+
+2020-04-30 - version 1.2.12
+* Fix - Remove legacy code.
+* Tweak - WC 4.1 compatibility.
+
+2020-03-06 - version 1.2.11
+* Tweak -  WC 4.0 compatibility.
+
+2020-01-14 - version 1.2.10
+* Tweak -  WC 3.9 compatibility.
+
+2019-11-04 - version 1.2.9
+* Tweak -  WC 3.8 compatibility.
+
+2019-08-08 - version 1.2.8
+* Tweak -  WC 3.7 compatibility.
+
+2019-04-16 - version 1.2.7
+* Tweak -  WC 3.6 compatibility.
+
+2018-09-25 - version 1.2.6
+* Update - WC 3.5 compatibility.
+
+2018-05-21 - version 1.2.5
+* Update - WC 3.4 compatibility.
+
+2017-12-14 - version 1.2.4
+* Update - WC tested up to version.
+
+2017-11-16 - version 1.2.3
+* Add - WC minimum requirements to header.
+* Fix - Price filter default value load.
+
+2017-06-06 - version 1.2.2
+* Fix - When product is private, prevent showing price for product in price slider.
+* Fix - Price slider not honoring currency symbol and position setup.
+
+2015-12-14 - version 1.2.1
+* Fix - Coding standards
+* Fix - Notices from deprecated call of WP_Widget
+* Fix - Strict standards: Missing static keyword
+
+2015-04-28 - version 1.2.0
+ * New - Adds localisation file loader.
+* Fix - Corrects the textdomain used to 'woocommerce-product-finder'.
+* Fix - Corrects the name of the widget class (please re-add the widget, if you're using it in a widget area).
+
+2015-03-06 - version 1.1.5
+* Fix - 2.3 Compatability - Widget
+* Fix Strict Standards
+
+2015-02-24 - version 1.1.4
+* Fix - 2.3 Compatability
+
+2014-02-19 - version 1.1.3
+* Fix - Ensuring settings show correctly for WooCommerce 2.1+
+ * Update - Updating more deprecated functions for WooCommerce 2.1+ and ensuring backwards compatibility for older versions
+
+2014-01-10 - version 1.1.2
+ * Update - Updating deprecated functions for WooCommerce 2.1+ and ensuring backwards compatibility for older versions
+
+2013-08-22 - version 1.1.1
+ * Improving loading of search results template
+ * Improving search results loading and display
+
+2013-04-09 - version 1.1
+ * Added option that allows a default form attribute to be set
+* Fixed admin displays (settings and widget) to use attribute labels instead of slugs
+
+2013-03-15 - version 1.0.1
+* Fixed criteria selection to use attribute label instead of slug
+
+2013-03-07 - version 1.0.0
+* Initial release.

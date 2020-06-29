@@ -1,0 +1,32 @@
+/*----------------------------------------------------------------------------*\
+	MAP SHORTCODE
+\*----------------------------------------------------------------------------*/
+.mpc-map-wrap {
+	.mpc-map {
+		padding-bottom: 56.25%;
+		height: 100%;
+	}
+	&.mpc-custom-height .mpc-map,
+	&.mpc-empty .mpc-map {
+		padding-bottom: 0;
+	}
+
+	img {
+		max-width: none;
+	}
+
+	.mpc-error {
+		display: none;
+		padding: 10px 15px;
+		background-color: #FCF5F6;
+		color: #df5461;
+		border-radius: 3px;
+		font-weight: bold;
+	}
+}
+
+/* FrontEnd Editor */
+.vc_mpc_map.vc_element .vc_controls > .vc_controls-out-tl {
+	left: initial;
+	right: 0;
+}

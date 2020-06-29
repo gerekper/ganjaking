@@ -1,0 +1,10 @@
+<wpml-config>
+    <custom-types>
+        <custom-type translate="1">question_answer</custom-type>
+    </custom-types>
+    <admin-texts>
+        <key name="ywqa_tab_label" />
+        <key name="ywqa_question_section_title" />
+        <key name="ywqa_shop_name" />
+    </admin-texts>
+</wpml-config>

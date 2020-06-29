@@ -1,0 +1,59 @@
+/*----------------------------------------------------------------------------*\
+	COLUMN SHORTCODE
+\*----------------------------------------------------------------------------*/
+.mpc-column {
+	display: block;
+}
+
+.mpc-column[data-link="true"] {
+	cursor: pointer;
+}
+
+.mpc-column--sticky {
+	position: relative;
+
+	opacity: 1 !important;
+
+	-webkit-transition: none !important;
+	transition: none !important;
+}
+.mpc-column--spacer {
+    float: left;
+    height: 0;
+	display: none;
+}
+.mpc-column--spacer.mpc-active {
+	float: left;
+	height: 1px;
+	display: block;
+
+	margin-right: -1px !important;
+}
+
+.mpc-row:not(.vc_row-o-equal-height) .mpc-column--divider {
+	display: none;
+}
+.mpc-column--divider {
+	position: relative;
+	width: 0;
+	z-index: 10;
+}
+.mpc-column--divider .vc_column-inner {
+	width: auto;
+
+	-webkit-transform: translateX( -50% );
+	transform: translateX( -50% );
+}
+
+.mpc-column--divider img {
+	width: auto;
+	max-width: none;
+}
+
+/* Uncode theme compatibility fix */
+@media (min-width: 960px) {
+	.single-internal-gutter.mpc-column,
+	.no-internal-gutter.mpc-column {
+		display: table-cell;
+	}
+}

@@ -1,0 +1,32 @@
+/**
+ * Frontend style
+ *
+ * @author Your Inspiration Themes
+ * @package YITH WooCommerce Ajax Search
+ * @version 1.1.1
+ */
+
+/* search autocomplete */
+.autocomplete-suggestions {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background: #fff;
+    border: 1px solid #ccc;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.autocomplete-suggestion {
+    background: #fff;
+    padding-left: 15px;
+    cursor: pointer;
+    text-align: left;
+    line-height: 25px;
+    font-size: 12px;
+}
+
+.autocomplete-suggestion:hover {
+    background-color: #efefef;
+}

@@ -1,0 +1,109 @@
+.woocommerce-boost-sales .wbs-breadcrum {
+	float: left;
+	width: 100%;
+	border-bottom: 1px solid #cdd;
+	padding: 0;
+}
+
+.woocommerce-boost-sales .wbs-content-inner .wbs-bottom {
+	display: inline-block;
+	width: 100%;
+}
+
+.woocommerce-boost-sales .wbs-breadcrum .wbs-header-right {
+	width: 50%;
+	float: right;
+	padding: 35px 35px 25px;
+}
+
+.woocommerce-boost-sales .wbs-breadcrum .wbs-header-right p.wbs-current_total_cart {
+	font-weight: 700;
+	color: #0e1212;
+	margin: 0 0 10px;
+}
+
+.woocommerce-boost-sales .wbs-breadcrum .wbs-product {
+	width: 50%;
+	float: left;
+	border-right: 1px solid #cdd;
+	padding: 35px 35px 25px;
+}
+
+.woocommerce-boost-sales .wbs-breadcrum .wbs-header-right a {
+	margin: 0 2px 2px;
+}
+
+.wbs-content-inner .wbs-bottom > hr {
+	display: none;
+}
+
+.woocommerce-boost-sales .wbs-breadcrum .wbs-p-image {
+	width: 100px;
+	float: left;
+}
+
+.woocommerce-boost-sales .wbs-breadcrum .wbs-p-image img {
+	max-width: 100px;
+	max-height: unset;
+}
+
+.woocommerce-boost-sales .wbs-breadcrum .wbs-combo_popup_style2 {
+	display: inline-block;
+	width: calc(100% - 100px);
+}
+
+.woocommerce-boost-sales .wbs-breadcrum .wbs-p-title {
+	max-width: 214px;
+	float: left;
+}
+
+.woocommerce-boost-sales .wbs-breadcrum .wbs-p-price {
+	margin-left: 14px;
+	margin-top: 10px;
+	float: left;
+	clear: both;
+}
+
+@media (max-width: 767px) {
+	.woocommerce-boost-sales .wbs-breadcrum .wbs-product, .woocommerce-boost-sales .wbs-breadcrum .wbs-header-right {
+		padding: 15px;
+	}
+
+	.woocommerce-boost-sales .wbs-breadcrum p.wbs-notify_added.wbs-title_style2 {
+		display: none;
+	}
+
+	.woocommerce-boost-sales .wbs-breadcrum .wbs-p-image {
+		display: block;
+		width: 100%;
+		text-align: center;
+	}
+
+	.woocommerce-boost-sales .wbs-breadcrum .wbs-combo_popup_style2 {
+		width: 100%;
+		margin: 4px auto;
+	}
+
+	.woocommerce-boost-sales .wbs-breadcrum .wbs-header-right a {
+		width: 152px;
+	}
+
+}
+
+@media (max-width: 640px) {
+	.woocommerce-boost-sales .wbs-breadcrum .wbs-header-right a {
+		width: 100%;
+	}
+}
+
+@media screen and (max-width: 480px) {
+	.woocommerce-boost-sales .wbs-breadcrum .wbs-header-right {
+		width: 100%;
+		float: none;
+		padding: 7px;
+	}
+
+	.woocommerce-boost-sales .wbs-breadcrum .wbs-header-right a {
+		width: auto;
+	}
+}

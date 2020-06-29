@@ -1,0 +1,115 @@
+<p>
+    <span id="bodyColor">
+        <input type="text" class="color" size="6" maxlength="6" name="body-color" value="{#body.color}" data-transparent="false" id="bodyColorInput" />
+    </span>
+    <select id="body[family]" name="body-family">
+        {foreach name="#FONTS" value="value"}
+        <option {if #body.family == #value}selected="selected"{/if} value="{#value}">{#value}</option>
+        {/foreach}
+    </select>
+    <select id="body[size]" name="body-size" class="size">
+        {foreach name="#TEXT_SIZES" value="value"}
+        <option {if #body.size == #value}selected="selected"{/if} value="{#value}">{#value}px</option>
+        {/foreach}
+    </select><label for="bodyColorInput">{$i18n.styleBodyLabel}</label>
+</p>
+
+<p>
+    <span id="h1Color">
+        <input type="text" class="color" size="6" maxlength="6" name="h1-color" value="{#h1.color}" data-transparent="false" id="h1ColorInput" />
+    </span>
+    <select id="h1[family]" name="h1-family">
+        {foreach name="#FONTS" value="value"}
+        <option {if #h1.family == #value}selected="selected"{/if} value="{#value}">{#value}</option>
+        {/foreach}
+    </select>
+    <select id="h1[size]" name="h1-size" class="size">
+        {foreach name="#TITLE_SIZES" value="value"}
+        <option {if #h1.size == #value}selected="selected"{/if} value="{#value}">{#value}px</option>
+        {/foreach}
+    </select><label for="h1ColorInput">{$i18n.styleH1Label}</label>
+</p>
+
+<p>
+    <span id="h2Color">
+        <input type="text" class="color" size="6" maxlength="6" name="h2-color" value="{#h2.color}" data-transparent="false" id="h2ColorInput" />
+    </span>
+    <select id="h2[family]" name="h2-family">
+        {foreach name="#FONTS" value="value"}
+        <option {if #h2.family == #value}selected="selected"{/if} value="{#value}">{#value}</option>
+        {/foreach}
+    </select>
+    <select id="h2[size]" name="h2-size" class="size">
+        {foreach name="#TITLE_SIZES" value="value"}
+        <option {if #h2.size == #value}selected="selected"{/if} value="{#value}">{#value}px</option>
+        {/foreach}
+    </select><label for="h2ColorInput">{$i18n.styleH2Label}</label>
+</p>
+
+<p>
+    <span id="h3Color">
+        <input type="text" class="color" size="6" maxlength="6" name="h3-color" value="{#h3.color}" data-transparent="false" id="h3ColorInput" />
+    </span>
+    <select id="h3[family]" name="h3-family">
+        {foreach name="#FONTS" value="value"}
+        <option {if #h3.family == #value}selected="selected"{/if} value="{#value}">{#value}</option>
+        {/foreach}
+    </select>
+    <select id="h3[size]" name="h3-size" class="size">
+        {foreach name="#TITLE_SIZES" value="value"}
+        <option {if #h3.size == #value}selected="selected"{/if} value="{#value}">{#value}px</option>
+        {/foreach}
+    </select><label for="h3ColorInput">{$i18n.styleH3Label}</label>
+</p>
+
+<p>
+    <span id="linksColor"><input type="text" class="color" size="6" maxlength="6" name="a-color" value="{#a.color}" data-transparent="false" id="linksColorInput" /></span>
+    <label for="linksColorInput">{$i18n.styleLinksLabel}</label>
+
+    <input type="checkbox" class="checkbox" value="1" name="a-underline" id="aUnderlineInput" {if #a.underline == "1"}checked="checked"{/if} />
+    <label for="aUnderlineInput">{$i18n.styleLinksDecorationLabel}</label>
+</p>
+
+<p>
+    <span id="headerBgColor">
+        <input type="text" class="color" size="6" maxlength="6" name="header-background" value="{#header.background|colorOrNil}" id="headerBgColorInput" />
+    </span><label for="headerBgColorInput">{$i18n.styleHeaderBackgroundLabel}</label>
+</p>
+
+<p>
+    <span id="bodyBgColor">
+        <input type="text" class="color" size="6" maxlength="6" name="body-background" value="{#body.background|colorOrNil}" id="bodyBgColorInput" />
+    </span><label for="bodyBgColorInput">{$i18n.styleBodyBackgroundLabel}</label>
+</p>
+
+<p>
+    <span id="footerBgColor">
+        <input type="text" class="color" size="6" maxlength="6" name="footer-background" value="{#footer.background|colorOrNil}" id="footerBgColorInput" />
+    </span><label for="footerBgColorInput">{$i18n.styleFooterBackgroundLabel}</label>
+</p>
+
+<p>
+    <span id="htmlBgColor">
+        <input type="text" class="color" size="6" maxlength="6" name="html-background" value="{#html.background|colorOrNil}" data-transparent="false" id="htmlBgColorInput">
+    </span><label for="htmlBgColorInput">{$i18n.styleHtmlBackgroundLabel}</label>
+</p>
+<p>
+    <span id="unsubscribeColor">
+        <input type="text" class="color" size="6" maxlength="6" name="unsubscribe-color" value="{#unsubscribe.color}" data-transparent="false" id="unsubscribeColorInput">
+    </span><label for="unsubscribeColorInput">{$i18n.styleUnsubscribeColorLabel}</label>
+</p>
+<p>
+    <span id="viewbrowserColor">
+        <input type="text" class="color" size="6" maxlength="6" name="viewbrowser-color" value="{#viewbrowser.color}" data-transparent="false" id="viewbrowserColorInput" />
+    </span>
+    <select id="viewbrowser[family]" name="viewbrowser-family">
+        {foreach name="#FONTS" value="value"}
+        <option {if #viewbrowser.family == #value}selected="selected"{/if} value="{#value}">{#value}</option>
+        {/foreach}
+    </select>
+    <select id="viewbrowser[size]" name="viewbrowser-size" class="size">
+        {foreach name="#VIEWBROWSER_SIZES" value="value"}
+        <option {if #viewbrowser.size == #value}selected="selected"{/if} value="{#value}">{#value}px</option>
+        {/foreach}
+    </select><label for="viewbrowserColorInput">{$i18n.styleViewbrowserLabel}</label>
+</p>

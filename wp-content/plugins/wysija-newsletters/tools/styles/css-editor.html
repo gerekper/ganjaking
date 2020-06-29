@@ -1,0 +1,169 @@
+#tinymce {
+    background-color: transparent !important;
+}
+{#wysija_container} {
+    background-color: {#html.background|color} !important;
+}
+{#header_container} {
+    background-color: {#header.background|color} !important;
+}
+{#footer_container} {
+    background-color: {#footer.background|color} !important;
+}
+{#body_container}, {#placeholder_container} {
+    background-color: {#body.background|color} !important;
+}
+#tinymce p,
+{#text_container}, {#text_container} p {
+    font-family: "{#body.family}" !important;
+    font-size: {#body.size}px !important;
+    color: {#body.color|color} !important;
+    line-height:1.5em !important;
+    padding:0 !important;
+    word-wrap: break-word;
+}
+{#text_container} p {
+    margin:1em 0 1em 0 !important;
+}
+#tinymce ol, #tinymce ul,
+{#text_container} ol, {#text_container} ul {
+    margin:15px 0 15px 0;
+    padding:0;
+}
+#tinymce ul,
+{#text_container} ul {
+    list-style-position: inside;
+    list-style-type: disc;
+}
+#tinymce ol,
+{#text_container} ol {
+    list-style-position: inside;
+    list-style-type: decimal;
+}
+#tinymce ul li, #tinymce ol li,
+{#text_container} ul li, {#text_container} ol li {
+    padding:0 0 0 0;
+    font-family: "{#body.family}" !important;
+    font-size: {#body.size}px !important;
+    color: {#body.color|color} !important;
+}
+#tinymce a,
+{#text_container} a {
+    font-family: "{#body.family}" !important;
+    font-size: {#body.size}px !important;
+    color: {#a.color|color} !important;
+    text-decoration: {if #a.underline == "1"}underline{/if}{if #a.underline == "-1"}none{/if} !important;
+    line-height:1.5em !important;
+}
+#tinymce h1,
+{#text_container} h1 {
+    min-height:1em;
+    font-family: "{#h1.family}" !important;
+    font-size: {#h1.size}px !important;
+    color: {#h1.color|color} !important;
+    text-shadow: none;
+    line-height:125% !important;
+    font-style:normal !important;
+    font-weight:normal !important;
+    margin:0 !important;
+    padding:0 !important;
+    word-wrap: break-word;
+    display:block !important;
+}
+#tinymce h1 a,
+{#text_container} h1 a {
+    font-family: "{#h1.family}" !important;
+    font-size: {#h1.size}px !important;
+    color: {#a.color|color} !important;
+    text-decoration: {if #a.underline == "1"}underline{/if}{if #a.underline == "-1"}none{/if} !important;
+    text-shadow: none;
+    line-height:125% !important;
+    font-style:normal !important;
+    font-weight:normal !important;
+    margin:0 !important;
+    padding:0 !important;
+}
+#tinymce h2,
+{#text_container} h2 {
+    min-height:1em;
+    font-family: "{#h2.family}" !important;
+    font-size: {#h2.size}px !important;
+    color: {#h2.color|color} !important;
+    text-shadow: none;
+    line-height:125% !important;
+    font-style:normal !important;
+    font-weight:normal !important;
+    margin:0 !important;
+    padding:0 !important;
+    word-wrap: break-word;
+    display:block !important;
+}
+#tinymce h2 a,
+{#text_container} h2 a {
+    font-family: "{#h2.family}" !important;
+    font-size: {#h2.size}px !important;
+    color: {#a.color|color} !important;
+    text-decoration: {if #a.underline == "1"}underline{/if}{if #a.underline == "-1"}none{/if} !important;
+    text-shadow: none;
+    line-height:125% !important;
+    font-style:normal !important;
+    font-weight:normal !important;
+    margin:0 !important;
+    padding:0 !important;
+}
+#tinymce h3,
+{#text_container} h3 {
+    min-height:1em;
+    font-family: "{#h3.family}" !important;
+    font-size: {#h3.size}px !important;
+    color: {#h3.color|color} !important;
+    text-shadow: none;
+    line-height:125% !important;
+    font-style:normal !important;
+    font-weight:normal !important;
+    margin:0 !important;
+    padding:0 !important;
+    word-wrap: break-word;
+    display:block !important;
+}
+#tinymce h3 a,
+{#text_container} h3 a {
+    font-family: "{#h3.family}" !important;
+    font-size: {#h3.size}px !important;
+    color: {#a.color|color} !important;
+    text-decoration: {if #a.underline == "1"}underline{/if}{if #a.underline == "-1"}none{/if} !important;
+    text-shadow: none;
+    line-height:125% !important;
+    font-style:normal !important;
+    font-weight:normal !important;
+    margin:0 !important;
+    padding:0 !important;
+}
+{#unsubscribe_container} p,
+{#unsubscribe_container} p a {
+    text-align:center;
+    color: {#unsubscribe.color|color} !important;
+    font-size:12px !important;
+    line-height:1.5em !important;
+}
+{#unsubscribe_container} a {
+    text-decoration:underline;
+}
+{#viewbrowser_container} {
+    text-align:center;
+    width:600px;
+}
+{#viewbrowser_container} p,
+{#viewbrowser_container} a {
+    font-family: "{#viewbrowser.family}" !important;
+    font-size: {#viewbrowser.size}px !important;
+    color: {#viewbrowser.color|color} !important;
+    margin:0 !important
+    padding:0 !important;
+}
+{#viewbrowser_container} p {
+    margin:10px 0 !important;
+}
+{#viewbrowser_container} a {
+    text-decoration:underline;
+}

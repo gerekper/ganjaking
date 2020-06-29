@@ -1,0 +1,292 @@
+# Copyright (C) 2020 Automattic
+# This file is distributed under the same license as the WooCommerce One Page Checkout package.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce One Page Checkout 1.7.6\n"
+"Report-Msgid-Bugs-To: "
+"https://wordpress.org/support/plugin/woocommerce-one-page-checkout\n"
+"POT-Creation-Date: 2020-05-12 21:01:51+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: node-wp-i18n 1.2.3\n"
+
+#: classes/class-wcopc-admin-editor.php:216
+msgid "Products:"
+msgstr ""
+
+#: classes/class-wcopc-admin-editor.php:218
+#: classes/class-wcopc-admin-editor.php:220
+msgid "Search for a product&hellip;"
+msgstr ""
+
+#: classes/class-wcopc-admin-editor.php:226
+msgid "Categories:"
+msgstr ""
+
+#: classes/class-wcopc-admin-editor.php:232
+msgid "Search for a category&hellip;"
+msgstr ""
+
+#: classes/class-wcopc-admin-editor.php:236
+msgid "Template:"
+msgstr ""
+
+#: classes/class-wcopc-admin-editor.php:250
+msgid "Create Shortcode"
+msgstr ""
+
+#: classes/class-wcopc-admin-editor.php:251
+msgid "Cancel"
+msgstr ""
+
+#: classes/class-wcopc-easy-pricing-tables-template.php:22
+msgid "Easy Pricing Table"
+msgstr ""
+
+#: classes/class-wcopc-easy-pricing-tables-template.php:23
+msgid ""
+"Include a pricing table creating with the Easy Pricing Table plugin. Best "
+"for creating highly customised pricing tables."
+msgstr ""
+
+#: classes/class-wcopc-easy-pricing-tables-template.php:60
+msgid "Pricing Table:"
+msgstr ""
+
+#: classes/class-wcopc-easy-pricing-tables-template.php:68
+msgid "No pricing tables available."
+msgstr ""
+
+#: classes/class-wcopc-settings.php:41 js/admin/editor_plugin_lang.php:5
+#: woocommerce-one-page-checkout.php:1685
+msgid "One Page Checkout"
+msgstr ""
+
+#: classes/class-wcopc-settings.php:104
+msgid "Checkout Behavior"
+msgstr ""
+
+#: classes/class-wcopc-settings.php:109
+msgid "Enable auto-scroll"
+msgstr ""
+
+#: classes/class-wcopc-settings.php:110
+msgid "Automatically scroll to notifications on checkout page"
+msgstr ""
+
+#: classes/class-wcopc-settings.php:113
+msgid ""
+"When items in the cart are added, removed, or otherwise updated, One Page "
+"Checkout automatically scrolls to the notification section if necessary. "
+"This setting controls that behavior."
+msgstr ""
+
+#: templates/checkout/add-to-cart/button.php:15
+msgid "Remove"
+msgstr ""
+
+#: templates/checkout/add-to-cart/button.php:16
+#: woocommerce-one-page-checkout.php:557
+msgid "Add to order"
+msgstr ""
+
+#: templates/checkout/add-to-cart/button.php:18
+#: woocommerce-one-page-checkout.php:1241
+msgid "Modify &amp; complete order below"
+msgstr ""
+
+#: templates/checkout/deprecated/review-order.php:20
+#: templates/checkout/review-order-opc.php:21
+msgid "Product"
+msgstr ""
+
+#: templates/checkout/deprecated/review-order.php:21
+#: templates/checkout/review-order-opc.php:22
+msgid "Quantity"
+msgstr ""
+
+#: templates/checkout/deprecated/review-order.php:23
+#: templates/checkout/review-order-opc.php:24
+msgid "Total"
+msgstr ""
+
+#: templates/checkout/deprecated/review-order.php:38
+#: templates/checkout/review-order-opc.php:39
+msgid "Remove this item"
+msgstr ""
+
+#: templates/checkout/deprecated/review-order.php:75
+#: templates/checkout/review-order-opc.php:76
+msgid "Cart Subtotal"
+msgstr ""
+
+#: templates/checkout/deprecated/review-order.php:129
+#: templates/checkout/review-order-opc.php:123
+msgid "Order Total"
+msgstr ""
+
+#: templates/checkout/deprecated/review-order.php:174
+msgid "Please fill in your details above to see available payment methods."
+msgstr ""
+
+#: templates/checkout/deprecated/review-order.php:176
+msgid ""
+"Sorry, it seems that there are no available payment methods for your state. "
+"Please contact us if you require assistance or wish to make alternate "
+"arrangements."
+msgstr ""
+
+#: templates/checkout/deprecated/review-order.php:187
+msgid ""
+"Since your browser does not support JavaScript, or it is disabled, please "
+"ensure you click the <em>Update Totals</em> button before placing your "
+"order. You may be charged more than the amount stated above if you fail to "
+"do so."
+msgstr ""
+
+#: templates/checkout/deprecated/review-order.php:187
+msgid "Update totals"
+msgstr ""
+
+#: templates/checkout/deprecated/review-order.php:194
+msgid "Place order"
+msgstr ""
+
+#: templates/checkout/deprecated/review-order.php:203
+msgid ""
+"I&rsquo;ve read and accept the <a href=\"%s\" target=\"_blank\">terms &amp; "
+"conditions</a>"
+msgstr ""
+
+#: templates/checkout/pricing-table.php:64
+msgid "Weight"
+msgstr ""
+
+#: templates/checkout/pricing-table.php:69
+msgid "Dimensions"
+msgstr ""
+
+#: woocommerce-one-page-checkout.php:194
+msgid "Product Table"
+msgstr ""
+
+#: woocommerce-one-page-checkout.php:195
+msgid ""
+"Display a row for each product containing its thumbnail, title and price. "
+"Best for a few simple products where the thumbnails are helpful, e.g. a set "
+"of halloween masks."
+msgstr ""
+
+#: woocommerce-one-page-checkout.php:199
+msgid "Product List"
+msgstr ""
+
+#: woocommerce-one-page-checkout.php:200
+msgid ""
+"Display a list of products with a radio button for selection. Useful when "
+"the customer does not need a description or photograph to choose, e.g. "
+"versions of an eBook."
+msgstr ""
+
+#: woocommerce-one-page-checkout.php:204
+msgid "Single Product"
+msgstr ""
+
+#: woocommerce-one-page-checkout.php:205
+msgid ""
+"Display the single product template for each product. Useful when the "
+"description, images, gallery and other meta data will help the customer "
+"choose, e.g. evening gowns."
+msgstr ""
+
+#: woocommerce-one-page-checkout.php:209
+msgid "Pricing Table"
+msgstr ""
+
+#: woocommerce-one-page-checkout.php:210
+msgid ""
+"Display a simple pricing table with each product's attributes, weight and "
+"dimensions. Useful to allow customers to compare different, but related "
+"products, e.g. membership subscriptions."
+msgstr ""
+
+#: woocommerce-one-page-checkout.php:528
+msgid "View Cart"
+msgstr ""
+
+#: woocommerce-one-page-checkout.php:548
+msgid "%s&quot; added to your order. Complete your order below."
+msgstr ""
+
+#: woocommerce-one-page-checkout.php:902
+msgid "&quot;%s&quot; was successfully removed from your order."
+msgstr ""
+
+#: woocommerce-one-page-checkout.php:909
+msgid "&quot;%s&quot; could not be removed from your order."
+msgstr ""
+
+#: woocommerce-one-page-checkout.php:1018
+#: woocommerce-one-page-checkout.php:1077
+msgid "Please choose product options&hellip;"
+msgstr ""
+
+#: woocommerce-one-page-checkout.php:1242
+msgid ""
+"Error processing your request. Please try refreshing the page. Contact us "
+"if you continue to have issues."
+msgstr ""
+
+#: woocommerce-one-page-checkout.php:1505
+msgid ""
+"Sorry, your session has expired. <a href=\"%s\">Return to homepage "
+"&rarr;</a>"
+msgstr ""
+
+#: woocommerce-one-page-checkout.php:1506
+msgid "You must select a product."
+msgstr ""
+
+#: woocommerce-one-page-checkout.php:1575
+msgid ""
+"%sWooCommerce One Page Checkout is inactive.%s The %sWooCommerce plugin%s "
+"must be active for WooCommerce One Page Checkout to work. Please %sinstall "
+"& activate WooCommerce%s"
+msgstr ""
+
+#: woocommerce-one-page-checkout.php:1579
+msgid ""
+"%sWooCommerce One Page Checkout is inactive.%s This plugin requires "
+"WooCommerce 2.5 or newer. Please %supdate WooCommerce to version 2.5 or "
+"newer%s"
+msgstr ""
+
+#: woocommerce-one-page-checkout.php:1686
+msgid "Add checkout to product page."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce One Page Checkout"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://woocommerce.com/products/woocommerce-one-page-checkout/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Super fast sales with WooCommerce. Add to cart, checkout & pay all on the "
+"one page!"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Automattic"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://woocommerce.com/"
+msgstr ""

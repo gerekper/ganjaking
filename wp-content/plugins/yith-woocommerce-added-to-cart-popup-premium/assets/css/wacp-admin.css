@@ -1,0 +1,120 @@
+/*################
+* ADMIN STYLE
+##################*/
+
+table.excluded_categories td,
+table.excluded_categories th,
+table.excluded_products td,
+table.excluded_products th {
+    vertical-align: middle;
+}
+
+table.excluded_categories .column-image,
+table.excluded_products .column-image {
+    width: 52px;
+    text-align: center;
+    white-space: nowrap;
+}
+table.excluded_categories .column-image img,
+table.excluded_products .column-image img {
+    margin: 0;
+    width: auto;
+    height: auto;
+    max-width: 40px;
+    max-height: 40px;
+}
+table.excluded_categories .column-slug,
+table.excluded_categories .column-name {
+    width: 25%;
+}
+table.excluded_categories .column-count {
+    width: 74px;
+}
+table.excluded_categories .column-actions,
+table.excluded_products .column-actions {
+    width: 100px;
+}
+
+table.excluded_products .column-stock .in-stock {
+    color: #42af2c;
+}
+table.excluded_products .column-stock .out-of-stock {
+    color: #db1b1b;
+}
+
+#yith-add-exclusion-cat,
+#yith-add-exclusion-prod {
+    margin: 20px 0 0;
+    padding: 20px;
+    background-color: #ebebeb;
+    display: inline-block;
+    border: 1px solid #e0e0e0;
+}
+
+#yith-add-exclusion-prod label,
+#yith-add-exclusion-cat label {
+    margin: 0 0 10px;
+    text-transform: uppercase;
+    font-size: 15px;
+    font-weight: 700;
+    display: block;
+}
+
+#yith-wacp-overlay-opacity_value,
+#yith-wacp-related-columns_value {
+    background: none;
+    border: none;
+    line-height: 30px;
+}
+#yith-wacp-overlay-opacity_slider,
+#yith-wacp-related-columns_slider {
+    margin: 15px 15px 15px 0;
+    height: 5px !important;
+}
+#yith-wacp-overlay-opacity_slider .ui-slider-handle.ui-state-default.ui-corner-all,
+#yith-wacp-related-columns_slider .ui-slider-handle.ui-state-default.ui-corner-all {
+    border-radius: 50%;
+    border: 1px solid #c0c0c0;
+    background: #e0e0e0;
+}
+
+td.yith_wacp_select_prod .description {
+    margin-top: 10px;
+    display: inline-block;
+}
+
+#yith_wacp_panel_style .yit_options .description {
+    float: none;
+    width: auto;
+    margin-left: 0;
+    font-size: 12px;
+}
+
+.yith_box_size_settings input[type="text"],
+.yith_image_size_settings input[type="text"] {
+    width: auto !important;
+}
+
+#yith_wacp_panel_style input.colorpick {
+    width: 6em;
+}
+
+#yith-wacp-mini-cart-position_draggable_container {
+    width: 350px;
+    height: 300px;
+    border: 1px solid #ccc;
+    background: #eee;
+}
+#yith-wacp-mini-cart-position_draggable {
+    width: 30px;
+    height: 30px;
+    background-color: #fff;
+    background-image: url("../images/mini-cart.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 80%;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    cursor: move;
+    display: none;
+}

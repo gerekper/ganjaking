@@ -1,0 +1,102 @@
+.woocommerce_gpf_intro_support_info, .woocommerce_gpf_intro_cache_status {
+    width: 20%;
+    background-color: #fff;
+    padding: 0 1em;
+    margin-left: 2em;
+    float: right;
+    border: 1px solid #ccc;
+    min-height: 24em;
+}
+
+@media screen and (max-width: 1100px) {
+    .woocommerce_gpf_intro_support_info, .woocommerce_gpf_intro_cache_status {
+        width: 49%;
+        margin-left: 0;
+        min-height: 21em;
+        box-sizing: border-box;
+        margin-bottom: 1em;
+    }
+    .woocommerce_gpf_intro_support_info{
+        margin-left: 2%;
+    }
+}
+
+@media screen and (max-width: 730px) {
+    .woocommerce_gpf_intro_support_info, .woocommerce_gpf_intro_cache_status {
+        width: 100%;
+        margin-left: 0;
+        float: none;
+        margin-top: 1em;
+        box-sizing: border-box;
+    }
+}
+
+.woocommerce_gpf_intro_second ul ul {
+    margin-top: 0.5em;
+}
+
+.woocommerce_gpf_intro_second > ul > li {
+    margin-top: 1.5em;
+}
+
+.woocommerce_gpf_settings hr {
+    clear: both;
+}
+
+.woocommerce_gpf_default_label, .woocommerce_gpf_prepopulate_label {
+    font-size: 90%;
+    color: #666;
+}
+
+.woocommerce_gpf_feed_type_icon {
+    padding-right: 4px;
+}
+
+.woocommerce_gpf_settings table.form-table tr {
+	border-bottom: 1px solid #ddd;
+}
+
+.woocommerce_gpf_settings table.form-table td {
+	vertical-align: top;
+}
+
+.woocommerce_gpf_settings table.form-table tr p {
+	margin-top: 1em;
+}
+
+.wc_gpf_metabox {
+    margin-top: 2em;
+    border: 1px solid #eee;
+    clear: both;
+}
+
+.wc_gpf_metabox h2 {
+    background: #fafafa;
+    cursor: pointer;
+}
+
+.wc_gpf_metabox h2 .handlediv {
+    margin-top: -3px;
+}
+
+.wc-metaboxes-wrapper .wc_gpf_metabox.closed .handlediv::before {
+    content: '\f140'!important;
+}
+
+.wc_gpf_metabox_content {
+    padding: 0 1em;
+}
+
+.woocommerce-gpf-meta-field-row {
+    border-top: 1px solid #eee;
+    padding: 0.5em 0;
+}
+
+#woocommerce_gpf_options label {
+    font-weight: 500;
+}
+
+input[type="checkbox"].woocommerce_gpf_field_selector_mandatory {
+    display: none;
+    font-size: 500%;
+}

@@ -1,0 +1,6 @@
+<p class="wysija-paragraph">
+	{if #params.label}<label>{#params.label}</label>{/if}
+    {loop name="#params.values"}
+    	<label class="wysija-radio-label"><input type="radio" class="wysija-radio {$validation}" name="{$field_prefix}[{$field}]" value="{#value}" {if #is_checked}checked="checked"{/if} />{#value}</label>
+    {/loop}
+</p>

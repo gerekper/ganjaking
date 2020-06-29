@@ -1,0 +1,81 @@
+.ywrr-send-box {
+    line-height: 18px;
+    font-size: 12px;
+}
+
+.ywrr-send-box a {
+    font-weight: 600;
+    text-decoration: underline;
+    color: #007593;
+}
+
+.ywrr-send-box a:hover {
+    color: #0b89a9;
+}
+
+.ywrr-send-box a.ywrr-schedule-delete {
+    color: #af0216;
+}
+
+.ywrr-send-box a.ywrr-schedule-delete:hover {
+    color: #f90220;
+}
+
+.ywrr-send-box a.ywrr-button-type {
+    border-radius: 3px;
+    text-transform: uppercase;
+    box-shadow: none;
+    border: 0;
+    font-weight: 700;
+    font-size: 11px;
+    padding: 5px 14px 5px 40px;
+    outline: none;
+    height: auto;
+    transition: all ease 0.3s;
+    background-color: #007694;
+    color: #fff;
+    text-shadow: none;
+    vertical-align: middle;
+    line-height: 26px;
+    display: inline-block;
+    text-decoration: none;
+    cursor: pointer;
+    position: relative;
+}
+
+.ywrr-send-box a.ywrr-button-type:hover {
+    background-color: #375f6b;
+    color: #fff;
+}
+
+.ywrr-send-box a.ywrr-button-type:before {
+    font-family: WooCommerce;
+    text-indent: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 5px;
+    left: 10px;
+    content: "\e02d";
+    font-size: 20px;
+    font-weight: normal;
+}
+
+.ywrr-send-box img {
+    max-width: 50px;
+    float: left;
+}
+
+.ywrr-actions-modal .is_required input {
+    border-color: #ea0034 !important;
+}
+
+.ywrr-actions-modal .is_required span {
+    font-size: small;
+    color: #ea0034;
+    display: block;
+}
+
+.ywrr-actions-modal .ywrr-modal-datepicker {
+    padding-left: 35px;
+}

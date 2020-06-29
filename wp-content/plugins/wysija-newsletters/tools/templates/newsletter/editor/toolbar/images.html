@@ -1,0 +1,12 @@
+{foreach name="#images" key="j" value="image"}
+    <li id="wysija-img-{#image.identifier|html_value}">
+        <a class="wysija_item" href="javascript:;" wysija_type="image"><img src="{#image.thumb_url|html_value}" wysija_src="{#image.url|html_value}" wysija_width="{#image.width|int}" wysija_height="{#image.height|int}" height="80" width="80" /></a>
+        <span class="delete-wrap" style="display:none;"><span class="delete">{#image.identifier|html_value}</span></span>
+    </li>
+{/foreach}
+
+<script type="text/javascript" charset="utf-8">
+    {foreach name="#images" key="j" value="image"}
+        wysijaIMG.set("{#image.identifier|html_value}", {#image|json_encode});
+    {/foreach}
+</script>

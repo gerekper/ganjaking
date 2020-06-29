@@ -1,0 +1,541 @@
+/* YITH WooCommerce Multi Step Checkout */
+
+#checkout-wrapper.timeline-horizontal {
+    width: 100%;
+}
+
+#checkout-wrapper.timeline-vertical {
+    width: 67%;
+    float: left;
+    padding: 0 15px;
+}
+
+#form_actions {
+    text-align: right;
+}
+
+#form_actions.disabled {
+    display: none;
+}
+
+#form_actions input.button.alt.prev {
+    margin-right: 5px;
+    display: none;
+}
+
+#yith-wcms-back-to-cart-button{
+    text-transform: uppercase;
+    display: inline-block;
+    vertical-align: bottom;
+    margin-left: 5px;
+}
+
+form.checkout.woocommerce-checkout {
+    margin-bottom: 15px;
+}
+
+body.woocommerce-checkout #customer_shipping_details,
+body.woocommerce-checkout:not(.woocommerce-order-pay) #order_info,
+body.woocommerce-checkout:not(.woocommerce-order-pay) #order_checkout_payment,
+body.woocommerce-checkout #customer_billing_details.show-login-reminder.not-logged-in,
+body.woocommerce-checkout #checkout_coupon {
+    display: none;
+}
+
+#checkout_timeline {
+    text-align: center;
+    list-style: none;
+    padding: 0;
+}
+
+#checkout_timeline li {
+    transition: all 0.5s ease;
+    font-size: 20px;
+    text-transform: uppercase;
+}
+
+#checkout_timeline.vertical {
+    width: 33%;
+    float: left;
+    padding: 0 15px;
+}
+
+#checkout_timeline:after {
+    clear: both;
+    display: block;
+    content: "";
+}
+
+.yith-wcms-pro #checkout_timeline li {
+    cursor: pointer;
+}
+
+#checkout_timeline.vertical li {
+    display: block;
+}
+
+.yith-wcms-pro.logged-in #checkout_timeline li#timeline-0 {
+    cursor: context-menu;
+}
+
+#checkout_timeline li:last-child {
+    padding-right: 0;
+}
+
+.yith_wcms_show_amount_on_payments.yith_wcms_wc_checkout_show_terms #payment .wc-terms-and-conditions{
+    width: 100%;
+}
+
+#yith-par-message-cart.yith-wcms-vertical-timeline {
+    float: left;
+    margin-left: 15px;
+}
+
+/* === STYLE === */
+
+#checkout_timeline {
+    display: table;
+    width: 100%;
+    height: 100%;
+    margin-left: 0;
+}
+
+#checkout_timeline:not(.text) li {
+    font-size: inherit;
+}
+
+#checkout_timeline li .timeline-wrapper .timeline-step {
+    display: table-cell;
+    vertical-align: middle;
+    font-weight: bold;
+    width: 40px;
+    text-align: center;
+    padding: 10px;
+}
+
+#checkout_timeline.style1 li .timeline-wrapper .timeline-step.with-icon img{
+    max-width: none;
+}
+
+#checkout_timeline li .timeline-wrapper .timeline-step:not(.with-icon):after {
+    content: ".";
+    display: inline;
+}
+
+#checkout_timeline.style1 li .timeline-wrapper .timeline-step:not(.with-icon):after{
+    display: none;
+}
+
+#checkout_timeline li .timeline-wrapper .timeline-label {
+    text-align: center;
+    padding: 5px !important;
+    display: table-cell;
+    vertical-align: middle;
+    width: 100%;
+}
+
+#checkout_timeline.vertical li .timeline-wrapper .timeline-label {
+    font-size: 15px;
+}
+
+#checkout_timeline li {
+    display: table-cell;
+    vertical-align: middle;
+    height: 100%;
+}
+
+#checkout_timeline.horizontal li:first-child {
+    border-left: 1px solid;
+}
+
+#checkout_timeline li {
+    border-width: 0px;
+    padding-right: 10px;
+}
+
+#checkout_timeline.vertical li {
+    width: auto;
+    display: block;
+}
+
+#checkout_timeline li .timeline-wrapper {
+    position: relative;
+    text-align: left;
+    line-height: normal;
+}
+
+#checkout_timeline li .timeline-wrapper {
+      text-align: left;
+      display: table;
+      height: 100%;
+      width: 100%;
+}
+
+#checkout_timeline.vertical li .timeline-wrapper {
+    margin-bottom: 10px;
+}
+
+/* === END STYLE1 === */
+
+/* === TEXT === */
+
+#checkout_timeline.text {
+    display: block;
+}
+
+#checkout_timeline.text li {
+    display: inline-block;
+}
+
+#checkout_timeline.text li.active {
+    font-weight: bold;
+}
+
+#checkout_timeline.text li .timeline-wrapper .timeline-step {
+    display: none;
+}
+
+#checkout_timeline.horizontal.text li:not(:last-child) .timeline-wrapper:after {
+    display: inline-block;
+    margin: 0 5px;
+    font-weight: normal;
+}
+
+#checkout_timeline.text li .timeline-wrapper .timeline-label {
+    display: inline;
+}
+
+#checkout_timeline.text li .timeline-wrapper {
+    display: block;
+}
+
+#checkout_timeline.horizontal.text li:first-child {
+    border: 0
+}
+
+#checkout_timeline.vertical.text{
+    padding: 0;
+}
+
+#checkout_timeline.text.vertical li{
+    display: block;
+}
+
+
+/* === END TEXT === */
+
+/* === STYLE 1 === */
+
+#checkout_timeline.vertical.style1 li{
+    padding-right: 0;
+}
+
+#checkout_timeline.horizontal.style1 li:first-child {
+    border-left: 0;
+}
+
+/* === END STYLE 1 === */
+
+/* === STYLE 2 === */
+
+#checkout_timeline.style2 {
+    display: table;
+}
+
+#checkout_timeline.style2 li {
+    font-size: inherit;
+}
+
+#checkout_timeline.style2 li .timeline-wrapper .timeline-step {
+    display: inline-block;
+    vertical-align: middle;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    line-height: normal;
+}
+
+#checkout_timeline.style2 li .timeline-wrapper .timeline-step {
+    border-width: 1px;
+    border-style: solid;
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    margin-top: -15px;
+    text-align: center;
+}
+
+#checkout_timeline.style2 li.active .timeline-wrapper .timeline-step {
+    border-width: 1px;
+    border-style: solid;
+}
+
+.yith-wcms-pro.logged-in #checkout_timeline li#timeline-0 {
+    cursor: context-menu;
+}
+
+#checkout_timeline.style2 li {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+#checkout_timeline.horizontal.style2 li:first-child {
+    border-left: 1px solid;
+}
+
+#checkout_timeline.horizontal.style2 li {
+    border-style: solid;
+    border-width: 1px 1px 1px 0;
+}
+
+#checkout_timeline.vertical.style2 li:last-child {
+    border-bottom: 1px solid;
+}
+
+#checkout_timeline.vertical.style2 li {
+    border-style: solid;
+    border-width: 1px 1px 0 1px;
+}
+
+.show_checkout_login_reminder #checkout_timeline.horizontal.style2 li {
+    width: 20%;
+}
+
+.logged-in #checkout_timeline.horizontal.style2 li {
+    width: 25%;
+}
+
+.show_checkout_login_reminder #checkout_timeline.horizontal.style2.shipping_removed li {
+    width: 25%;
+}
+
+.logged-in #checkout_timeline.horizontal.style2.shipping_removed li {
+    width: 33.33333333%;
+}
+
+#checkout_timeline.vertical.style2 li {
+    width: auto;
+    display: block;
+}
+
+#checkout_timeline.style2 li .timeline-wrapper {
+    position: relative;
+    text-align: left;
+    line-height: normal;
+}
+
+#checkout_timeline.horizontal.style2 li .timeline-wrapper {
+    padding: 10px 10px 10px 55px;
+}
+
+#checkout_timeline.vertical.style2 li .timeline-wrapper {
+    padding: 15px 10px 5px 55px;
+}
+
+#checkout_timeline.style2 li.active .timeline-wrapper {
+    font-weight: bold;
+}
+
+#checkout_timeline.style2 li .timeline-wrapper .timeline-step{
+    padding: 5px;
+}
+
+#checkout_timeline.style2 li .timeline-wrapper .timeline-step:after{
+    display: none;
+}
+
+/* === END STYLE2 === */
+
+/* === STYLE3 === */
+
+#checkout_timeline.style3 {
+    display: table;
+}
+
+#checkout_timeline.style3 li {
+    font-size: inherit;
+}
+
+#checkout_timeline.style3 li .timeline-wrapper .timeline-step {
+    vertical-align: middle;
+    font-weight: bold;
+    width: 20px;
+    text-align: center;
+    padding: 0;
+}
+
+#checkout_timeline.style3 li .timeline-wrapper .timeline-label{
+    text-align: left;
+    width: auto;
+}
+
+#checkout_timeline.style3 li .timeline-wrapper .timeline-step:after {
+    content: ".";
+}
+
+#checkout_timeline.style3 li .timeline-wrapper .timeline-step.with-icon:after{
+    content: "";
+}
+
+#checkout_timeline.style3 li {
+    vertical-align: middle;
+}
+
+#checkout_timeline.horizontal.style3 li:first-child {
+    border-left: 1px solid;
+}
+
+#checkout_timeline.style3 li:not(#timeline-4) {
+    border-style: solid;
+    border-width: 0px;
+    padding-right: 10px;
+    border: none !important;
+}
+
+#checkout_timeline.horizontal.style3 li {
+    width: 20%;
+}
+
+.logged-in #checkout_timeline.horizontal.style3 li {
+    width: 25%;
+}
+
+#checkout_timeline.horizontal.style3.shipping_removed li {
+    width: 25%;
+}
+
+.logged-in #checkout_timeline.horizontal.style3.shipping_removed li {
+    width: 33.3333333%;
+}
+
+#checkout_timeline.vertical.style3 li {
+    width: auto;
+    display: block;
+}
+
+#checkout_timeline.style3 li .timeline-wrapper {
+    position: relative;
+    text-align: left;
+    line-height: normal;
+}
+
+#checkout_timeline.style3 li .timeline-wrapper {
+    padding: 10px;
+    text-align: center;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 10px;
+}
+
+#checkout_timeline.vertical.style3 li .timeline-wrapper {
+    padding: 15px 10px;
+    margin-bottom: 10px;
+}
+
+/* === END STYLE3 === */
+
+.about_paypal {
+    display: block;
+}
+
+/* === Twenty13 Hack === */
+
+.yith-wcms-pro-myaccount .entry-header,
+.yith-wcms-pro-myaccount .entry-content,
+.yith-wcms-pro-myaccount .entry-summary,
+.yith-wcms-pro-myaccount .entry-meta {
+    max-width: 1170px;
+}
+
+/* === Tank You Page Customizzation === */
+
+.yith-wcms-pro-myaccount .woocommerce h1,
+.yith-wcms-pro-myaccount .woocommerce h2,
+.yith-wcms-pro-myaccount .woocommerce h3 {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 20px;
+    margin: 0;
+}
+
+.yith-wcms-pro-myaccount .woocommerce h2,
+.yith-wcms-pro-myaccount .woocommerce h3 {
+    margin-bottom: 15px;
+}
+
+.yith-wcms-pro-myaccount .yith-wcms-title {
+    width: 40%;
+    float: left;
+}
+
+.yith-wcms-pro-myaccount .order_details.yith-order-info {
+    width: 60%;
+    float: left;
+    padding: 25px;
+}
+
+.yith-wcms-pro-myaccount .woocommerce .order_details li {
+    border-right: 0;
+    font-size: 12px;
+}
+
+.yith-wcms-pro-myaccount .woocommerce table.shop_table.customer_details tbody tr th {
+    width: 25%;
+}
+
+.yith-wcms-pro-myaccount .woocommerce table.shop_table.customer_details tbody tr th,
+.yith-wcms-pro-myaccount .woocommerce table.shop_table.customer_details tbody tr td {
+    border: none;
+    color: #808080;
+    padding: 0;
+
+}
+
+.yith-wcms-pro-myaccount .woocommerce table.shop_table.customer_details tbody tr:nth-child(2n) {
+    background: none;
+}
+
+.yith-wcms-pro-myaccount .woocommerce table.shop_table.customer_details {
+    width: 30%;
+    border: none;
+}
+
+.yith-wcms-pro-myaccount .woocommerce .col2-set address,
+.yith-wcms-pro-myaccount .woocommerce-page .col2-set address {
+    font-style: normal;
+    color: #808080;
+}
+
+/* === WooCommerce 3.2 Fix === */
+.yith-wcms-pro.woocommerce-checkout .woocommerce form .form-row.woocommerce-invalid .select2-container,
+.yith-wcms-pro.woocommerce-checkout .woocommerce form .form-row.woocommerce-invalid input.input-text,
+.yith-wcms-pro.woocommerce-checkout .woocommerce form .form-row.woocommerce-invalid select,
+.yith-wcms-pro.woocommerce-checkout .woocommerce form .form-row.woocommerce-invalid .select2-container .select2-selection--single {
+    border-color: #a00;
+}
+
+.yith-wcms-pro.woocommerce-checkout .woocommerce form .form-row.woocommerce-validated .select2-container,
+.yith-wcms-pro.woocommerce-checkout .woocommerce form .form-row.woocommerce-validated input.input-text,
+.yith-wcms-pro.woocommerce-checkout .woocommerce form .form-row.woocommerce-validated select,
+.yith-wcms-pro.woocommerce-checkout .woocommerce form .form-row.woocommerce-validated .select2-container .select2-selection--single{
+    border-color: #69bf29;
+}
+
+/* === Twenty20 Theme === */
+
+.yith-wcms.theme-twentytwenty.woocommerce-checkout form #order_review,
+.yith-wcms.theme-twentytwenty.woocommerce-checkout form #order_review_heading{
+    width: 100%;
+    float: none;
+}
+
+/* === YITH Proteo === */
+.yith-wcms.theme-yith-proteo #order_review{
+    float: none;
+    width: auto;
+    padding: 0;
+}
+
+.yith-wcms.theme-yith-proteo #order_review .wc_payment_methods{
+    margin: 0 0 35px;
+}

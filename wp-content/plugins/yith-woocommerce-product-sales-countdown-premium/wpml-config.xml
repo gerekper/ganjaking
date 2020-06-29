@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<wpml-config>
+    <admin-texts>
+        <key name="ywpc_timer_title"/>
+        <key name="ywpc_timer_title_before"/>
+        <key name="ywpc_sale_bar_title"/>
+        <key name="ywpc_topbar_timer_title"/>
+    </admin-texts>
+</wpml-config>

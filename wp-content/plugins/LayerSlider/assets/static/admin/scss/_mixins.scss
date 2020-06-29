@@ -1,0 +1,10 @@
+@mixin alphaGradient($top: 3%, $bottom: 10%, $direction: to bottom) {
+	$top: darken(white, $top);
+	$bottom: darken(white, $bottom);
+	background: $top;
+	background: -webkit-linear-gradient($direction, $top 0%, $bottom 100%);
+	background: -moz-linear-gradient($direction, $top 0%, $bottom 100%);
+	background: -o-linear-gradient($direction, $top 0%, $bottom 100%);
+	background: -ms-linear-gradient($direction, $top 0%, $bottom 100%);
+	background: linear-gradient($direction, $top 0%, $bottom 100%);
+}

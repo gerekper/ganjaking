@@ -1,0 +1,295 @@
+# Translation of YITH WooCommerce Sequential Order Number in Italian
+# This file is distributed under the same license as the YITH WooCommerce Sequential Order Number package.
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH WooCommerce Sequential Order Number\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
+"sequential-order-number-premium\n"
+"POT-Creation-Date: 2020-05-26 14:04:04+00:00\n"
+"PO-Revision-Date: 2020-05-16 12:56:23+0000\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/2.3.1\n"
+
+#: includes/class.yith-sequential-order-number-admin.php:156
+msgid "Modules"
+msgstr "Moduli"
+
+#: includes/class.yith-sequential-order-number-admin.php:157
+msgid "Tools"
+msgstr "Strumenti"
+
+#: includes/class.yith-sequential-order-number-admin.php:164
+msgid "Sequential Order Number"
+msgstr "Numeri sequenziale ordini"
+
+#: includes/class.yith-sequential-order-number-admin.php:262
+msgid "Order imported"
+msgid_plural "Orders imported"
+msgstr[0] "Ordine importato"
+msgstr[1] "Ordini importati"
+
+#: init.php:32
+msgid ""
+"YITH WooCommerce Sequential Order Numbers is enabled but not effective. It "
+"requires WooCommerce in order to work."
+msgstr ""
+"YITH WooCommerce Sequential Order Number è attivo ma non operativo. Il suo "
+"funzionamento richiede WooCommerce."
+
+#: plugin-options/general-options.php:7
+msgid "You can use these placeholders"
+msgstr "Puoi usare questi segnaposto"
+
+#: plugin-options/general-options.php:8
+msgid "[D] Day without leading zeros"
+msgstr "[D] Giorno senza zero iniziale"
+
+#: plugin-options/general-options.php:9
+msgid "[DD] Day with leading zeros"
+msgstr "[DD] Giorno con zero iniziale"
+
+#: plugin-options/general-options.php:10
+msgid "[M] Month without leading zeros"
+msgstr "[M] Mese senza zero iniziale"
+
+#: plugin-options/general-options.php:11
+msgid "[MM] Month with leading zeros"
+msgstr "[MM] Mese con zero iniziale"
+
+#: plugin-options/general-options.php:12
+msgid "[YY] two-digit year"
+msgstr "[YY] anno a due cifre"
+
+#: plugin-options/general-options.php:13
+msgid "[YYYY] Full year"
+msgstr "[YYYY] Anno intero"
+
+#: plugin-options/general-options.php:14
+msgid "[h] 24-hour format of an hour without leading zeros"
+msgstr "[h] Formato 24 ore senza zero iniziale"
+
+#: plugin-options/general-options.php:15
+msgid "[hh] 24-hour format of an hour with leading zeros"
+msgstr "[h] Formato 24 ore con zero iniziale"
+
+#: plugin-options/general-options.php:16
+msgid "[m] Minutes with leading zeros"
+msgstr "[m] Minuti senza zero iniziale"
+
+#: plugin-options/general-options.php:17
+msgid "[s] Seconds, with leading zeros"
+msgstr "[s] Secondi con zero iniziale "
+
+#: plugin-options/general-options.php:21
+msgid ""
+"If you enable this option, you can use a different numeration for your "
+"quotes."
+msgstr ""
+"Se abiliti questa opzione, puoi utilizzare una numerazione diversa per i "
+"tuoi preventivi."
+
+#: plugin-options/general-options.php:24
+msgid "YITH WooCommerce Request a Quote Premium"
+msgstr "YITH WooCommerce Request a Quote Premium"
+
+#: plugin-options/general-options.php:25
+msgid "(version 1.5.7 or later) is activated"
+msgstr "(versione 1.5.7 o superiore) è attivato"
+
+#: plugin-options/general-options.php:30
+msgid "Plugin Modules"
+msgstr "Moduli del plugin"
+
+#: plugin-options/general-options.php:34
+msgid "Base Module"
+msgstr "Modulo base"
+
+#: plugin-options/general-options.php:42
+msgid "Numeration starting from"
+msgstr "Inizia numerazione da"
+
+#: plugin-options/general-options.php:44
+msgid "Set the starting number for order numeration"
+msgstr "Imposta il numero iniziale per la numerazione degli ordini"
+
+#: plugin-options/general-options.php:50
+msgid "Order prefix"
+msgstr "Prefisso ordini"
+
+#: plugin-options/general-options.php:52
+msgid "Set a text to be used as prefix for order numbers."
+msgstr ""
+"Imposta un testo da utilizzare come prefisso per la numerazione degli ordini."
+
+#: plugin-options/general-options.php:58
+msgid "Order suffix"
+msgstr "Suffisso ordini"
+
+#: plugin-options/general-options.php:60
+msgid "Set a text to be used as suffix for order numbers."
+msgstr ""
+"Imposta un testo da utilizzare come suffisso per la numerazione degli ordini."
+
+#: plugin-options/general-options.php:69
+msgid "Free Order Module"
+msgstr "Modulo ordini gratuiti"
+
+#: plugin-options/general-options.php:76 plugin-options/general-options.php:126
+msgid "Numeration starting from:"
+msgstr "Inizia numerazione da:"
+
+#: plugin-options/general-options.php:78
+msgid "Set the starting number for free order numeration"
+msgstr "Imposta numero iniziale per la numerazione degli ordini gratuiti"
+
+#: plugin-options/general-options.php:84
+msgid "Free order prefix"
+msgstr "Prefisso ordini gratuiti"
+
+#: plugin-options/general-options.php:87
+msgid "Set a text to be used as prefix for free order numbers."
+msgstr ""
+"Imposta un testo da utilizzare come prefisso per i numeri degli ordini "
+"gratuiti."
+
+#: plugin-options/general-options.php:92
+msgid "Free order suffix"
+msgstr "Suffisso ordini gratuiti"
+
+#: plugin-options/general-options.php:95
+msgid "Set a text to be used as suffix for free order numbers."
+msgstr ""
+"Imposta un testo da utilizzare come suffisso per i numeri degli ordini "
+"gratuiti."
+
+#: plugin-options/general-options.php:99
+msgid "Set your free order type"
+msgstr "Imposta il tipo di ordine gratuito"
+
+#: plugin-options/general-options.php:104
+msgid ""
+"With this option, you can choose in which way orders have to be recognized "
+"as free."
+msgstr ""
+"Con questa opzione puoi scegliere in quale modo gli ordini devono essere "
+"riconosciuti come gratuiti."
+
+#: plugin-options/general-options.php:105
+msgid ""
+"Order total: your order is free if the total is 0 (coupon and shipping "
+"included)."
+msgstr ""
+"Totale ordine: l'ordine è da considerarsi gratuito quando il totale è pari a "
+"zero (inclusi coupon e spese di spedizione)."
+
+#: plugin-options/general-options.php:106
+msgid ""
+"Order products: your order is free only if all products it contains are free "
+"(coupon and shipping excluded)."
+msgstr ""
+"Prodotti: l'ordine è da considerarsi gratuito quando contiene solamente "
+"prodotti gratuiti (inclusi coupon e spese di spedizione)."
+
+#: plugin-options/general-options.php:109
+msgid "Order Total"
+msgstr "Totale Ordini"
+
+#: plugin-options/general-options.php:110
+msgid "Products in Order"
+msgstr "Prodotti dell'ordine"
+
+#: plugin-options/general-options.php:117
+msgid "Quote Module"
+msgstr "Modulo preventivo"
+
+#: plugin-options/general-options.php:118
+msgid "Available only with Yith WooCommerce Request a quote Premium"
+msgstr "Disponibile solo con YITH WooCommerce Request a Quote Premium"
+
+#: plugin-options/general-options.php:128
+msgid "Set the starting number for quote numeration"
+msgstr "Imposta il numero iniziale per la numerazione dei preventivi"
+
+#: plugin-options/general-options.php:134
+msgid "Quote prefix"
+msgstr "Prefisso preventivo"
+
+#: plugin-options/general-options.php:137
+msgid "Set a text to be used as prefix for quote numbers."
+msgstr ""
+"Imposta un testo da utilizzare come prefisso per i numeri dei preventivi."
+
+#: plugin-options/general-options.php:143
+msgid "Quote suffix"
+msgstr "Suffisso preventivo"
+
+#: plugin-options/general-options.php:146
+msgid "Set a text to be used as suffix for quote numbers."
+msgstr ""
+"Imposta un testo da utilizzare come suffisso per i numeri dei preventivi."
+
+#: templates/admin/tools-tab.php:6
+msgid "Select a date"
+msgstr "Seleziona una data"
+
+#: templates/admin/tools-tab.php:13
+msgid "Import Settings"
+msgstr "Impostazioni importazione"
+
+#: templates/admin/tools-tab.php:17
+msgid "Import from WooCommerce Sequential Order Number"
+msgstr "Importa da WooCommerce Sequential Order Number "
+
+#: templates/admin/tools-tab.php:21
+msgid "Import"
+msgstr "Importa"
+
+#: templates/admin/tools-tab.php:22
+msgid ""
+"This tool allows importing all existing sequential order numbers created by "
+"WooCommerce Sequential Order Number. Otherwise, order numbers are assigned "
+"by the plugin."
+msgstr ""
+"Questo strumento ti permette di importare tutti i numeri degli ordini "
+"esistenti creati da WooCommerce Sequential Order Number. Diversamente i "
+"numeri degli ordini verranno assegnati dal plugin."
+
+#. Description of the plugin/theme
+msgid ""
+"<code><strong>YITH WooCommerce Sequential Order Number Premium</strong></"
+"code> allows you to create sequential numbers for your orders! You can add a "
+"prefix and suffix to your orders! <a href =\"https://yithemes.com\">Get more "
+"plugins for your e-commerce shop on <strong>YITH</strong></a>"
+msgstr ""
+"<code><strong>YITH WooCommerce Sequential Order Number Premium</strong></"
+"code>ti permette di creare numeri sequenziali per i tuoi ordini! Puoi "
+"aggiungere un prefisso e un suffisso ai tuoi ordini! <a href =\"https://"
+"yithemes.com\">Scopri più plugin per il tuo e-commerce su <strong>YITH</"
+"strong> </a>"
+
+#: plugin-options/general-options.php:22
+msgctxt ""
+"This option is available if YITH WooCommerce Request a Quote Premium version "
+"1.5.6 or later is activated"
+msgid "This option is available if"
+msgstr "Questa opzione è disponibile se"
+
+#~ msgid "https://yithemes.com/"
+#~ msgstr "https://yithemes.com/"
+
+#~ msgid "YITH"
+#~ msgstr "YITH"
+
+#~ msgid ""
+#~ "https://yithemes.com/themes/plugins/yith-woocommerce-sequential-order-"
+#~ "number"
+#~ msgstr ""
+#~ "https://yithemes.com/themes/plugins/yith-woocommerce-sequential-order-"
+#~ "number"
+
+#~ msgid "YITH WooCommerce Sequential Order Number Premium"
+#~ msgstr "YITH WooCommerce Sequential Order Number Premium"

@@ -1,0 +1,734 @@
+/**
+ * Frontend style
+ *
+ * @author Leanza Francesco
+ * @version 1.0.0
+ */
+
+/*
+    Best Sellers Page
+*/
+
+div.yith-wcbsl-bestseller-container {
+    border-radius : 5px;
+    overflow      : hidden;
+}
+
+div.yith-wcbsl-bestseller-wrapper {
+    position       : relative;
+    width          : 22%;
+    min-width      : 100px;
+    border         : 1px solid #d8d8d8;
+    border-radius  : 6px;
+    overflow       : hidden;
+    background     : #fff;
+    margin         : 1%;
+    margin-bottom  : 10px;
+    display        : inline-block;
+    vertical-align : top;
+}
+
+div.yith-wcbsl-bestseller-wrapper a {
+    text-decoration : none;
+}
+
+span.yith-wcbsl-bestseller-position {
+    font-family   : "Open Sans", Helvetica, sans-serif;
+    position      : absolute;
+    display       : block;
+    top           : 4px;
+    left          : 4px;
+    padding       : 0 8px;
+    height        : 25px;
+    font-size     : 14px;
+    line-height   : 25px;
+    background    : #9cae0e;
+    border-radius : 5px;
+    color         : #fff;
+    z-index       : 10;
+    font-weight   : 600;
+    text-align    : center;
+    box-sizing    : border-box;
+}
+
+span.yith-wcbsl-bestseller-quantity {
+    font-family   : "Open Sans", sans-serif;
+    position      : absolute;
+    display       : block;
+    min-width     : 60px;
+    height        : 36px;
+    font-size     : 11px;
+    line-height   : 12px;
+    border-radius : 0 0 4px 4px;
+    background    : #319ba8;
+    color         : #fff;
+    z-index       : 10;
+    text-align    : center;
+    padding       : 5px;
+    box-sizing    : border-box;
+    top           : 0;
+    left          : calc(50% - 30px);
+    box-shadow    : 0px 2px 5px -4px #000, 0px 2px 6px -5px #000 inset;
+    text-shadow   : 0px 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+div.yith-wcbsl-bestseller-thumb-wrapper {
+    position    : relative;
+    min-height  : 50px;
+    line-height : 0;
+}
+
+
+.yith-wcbsl-bestseller-thumb-wrapper img {
+    height    : auto;
+    width : 100%;
+}
+
+div.yith-wcbsl-bestseller-content-wrapper span.price {
+    display     : block;
+    text-align  : center;
+    line-height : 100%;
+    color       : #606470;
+    font-weight : 800;
+    padding     : 0 0 15px;
+    display     : block;
+}
+
+div.yith-wcbsl-bestseller-content-wrapper span.price > span.amount {
+    /* padding : 10px 0; */
+    /* display : block; */
+}
+
+div.yith-wcbsl-bestseller-content-wrapper span.price del {
+    background  : transparent;
+    color       : #666;
+    font-size   : 70%;
+    font-weight : 400;
+}
+
+div.yith-wcbsl-bestseller-content-wrapper span.price ins {
+    background : transparent;
+}
+
+div.yith-wcbsl-bestseller-content-wrapper span.price del > span.amount {
+    padding : 0;
+    display : block;
+}
+
+div.yith-wcbsl-bestseller-content-wrapper span.price ins > span.amount {
+    padding : 0;
+    display : inline-block;
+}
+
+div.yith-wcbsl-bestseller-content-wrapper h3 {
+    font-size      : 14px;
+    margin         : 10px 5px;
+    text-align     : center;
+    text-transform : uppercase;
+}
+
+span.yith-wcbsl-bestseller-indicator {
+    position      : absolute;
+    display       : block;
+    top           : 3px;
+    right         : 3px;
+    width         : 23px;
+    height        : 23px;
+    font-size     : 15px;
+    border-radius : 50%;
+    background    : #fff;
+    z-index       : 10;
+    text-align    : center;
+    box-sizing    : border-box;
+    border        : 2px solid #fff;
+}
+
+span.yith-wcbsl-bestseller-indicator-up {
+    color       : #00a020;
+    line-height : 20px;
+}
+
+span.yith-wcbsl-bestseller-indicator-down {
+    color       : #a00000;
+    line-height : 23px;
+}
+
+span.yith-wcbsl-bestseller-indicator-equal {
+    color       : #3897ae;
+    font-family : "Open Sans";
+    font-weight : 600;
+    font-size   : 18px;
+    line-height : 18px;
+}
+
+div.yith-wcbsl-bestseller-icon-container {
+    margin : 10px 0;
+    width  : 100%;
+}
+
+div.yith-wcbsl-subtitle-and-feed-container {
+    float         : none;
+    margin-bottom : 15px;
+}
+
+div.yith-wcbsl-subtitle-container {
+    min-height : 30px;
+    width      : calc(100% - 30px);
+    display    : inline-block;
+}
+
+div.yith-wcbsl-subtitle-container h5.yith-wcbsl-categories-subtitle {
+    margin : 0;
+}
+
+/* FEED */
+div.yith-wcbsl-feed-container {
+    display     : inline-block;
+    width       : 27px;
+    margin-left : 2px;
+}
+
+a.yith-wcbsl-link-feed {
+    text-decoration : none !important;
+    border          : 0 none !important;
+}
+
+span.yith-wcbsl-link-feed {
+    width         : 27px;
+    height        : 27px;
+    background    : #db5601 none repeat scroll 0% 0%;
+    display       : inline-block;
+    font-size     : 19px;
+    color         : #f9eed4;
+    line-height   : 27px;
+    border-radius : 5px;
+    box-sizing    : border-box;
+    padding-left  : 1px;
+    box-shadow    : 1px 1px 4px 0px rgba(0, 0, 0, 0.3);
+    transition    : all .1s ease-in;
+}
+
+a.yith-wcbsl-link-feed:hover span.yith-wcbsl-link-feed {
+    transform : scale(1.05);
+}
+
+/*
+    Best sellers Pagination
+*/
+.yith-wcbsl-pagination {
+    text-align : center;
+}
+
+.yith-wcbsl-pagination ul {
+    display      : inline-block;
+    white-space  : nowrap;
+    padding      : 0;
+    border       : 1px solid #d3ced2;
+    border-right : 0;
+    box-shadow   : 1px 1px 4px 0px #ddd;
+}
+
+.yith-wcbsl-pagination ul li {
+    border-right : 1px solid #d3ced2;
+    background   : #fff;
+    padding      : 3px 10px;
+    margin       : 0;
+    float        : left;
+    display      : inline;
+    overflow     : hidden;
+}
+
+.yith-wcbsl-pagination ul li .current {
+    font-weight : 800;
+}
+
+.yith-wcbsl-pagination ul li a {
+    color           : #333;
+    text-decoration : none;
+    border          : 0 none;
+}
+
+.yith-wcbsl-pagination ul li a:hover {
+    text-decoration : none;
+}
+
+/*
+    Best Sellers Widget
+*/
+ul.yith_wcbsl_bestsellers_list_widget {
+    list-style : none;
+    padding    : 0 !important;
+}
+
+ul.yith_wcbsl_bestsellers_list_widget li {
+    padding       : 0;
+    margin-bottom : 7px;
+    border        : 1px solid #ddd;
+    box-sizing    : border-box;
+    box-shadow    : 1px 1px 3px 0 #ddd;
+    overflow      : hidden;
+    font-family   : "Open Sans", Helvetica, sans-serif;
+}
+
+div.yith-wcbsl-widget-position {
+    height      : 40px;
+    width       : 40px;
+    float       : left;
+    background  : #656565 !important;
+    color       : #fff !important;
+    font-weight : 800;
+    font-size   : 20px;
+    text-align  : center;
+    line-height : 40px;
+}
+
+div.yith-wcbsl-widget-image {
+    height              : 40px;
+    width               : 40px;
+    float               : left;
+    overflow            : hidden;
+    background-position : center center;
+    background-repeat   : no-repeat;
+    background-size     : cover;
+}
+
+div.yith-wcbsl-widget-title {
+    background-color : #fff !important;
+    height           : 40px;
+    float            : left;
+    width            : calc(100% - 80px);
+    font-size        : 14px;
+    text-align       : left;
+    text-transform   : uppercase;
+    padding-left     : 10px;
+    line-height      : 40px;
+    box-sizing       : border-box;
+}
+
+div.yith-wcbsl-widget-title a {
+    font-weight     : 800;
+    color           : #222;
+    text-decoration : none;
+}
+
+div.yith-wcbsl-widget-title a:hover {
+    text-decoration : none;
+}
+
+/*
+    Best Sellers Categories Widget
+*/
+
+ul.yith-wcbsl-categories, ul.yith-wcbsl-categories ul {
+    list-style : none;
+}
+
+ul.yith-wcbsl-categories {
+    border-bottom : 1px solid rgba(51, 51, 51, 0.1);
+}
+
+ul.yith-wcbsl-categories li a {
+    display    : block;
+    padding    : 5px 0;
+    border-top : 1px solid rgba(51, 51, 51, 0.1);
+}
+
+ul.yith-wcbsl-categories li.cat-current > a {
+    font-weight : 800;
+}
+
+/*
+    Bestsellers Badge
+*/
+
+.yith-wcbsl-badge-wrapper {
+    position : absolute;
+    top      : 0;
+    left     : 0;
+    width    : 120px;
+    height   : 120px;
+    overflow : hidden;
+    z-index  : 98;
+}
+
+.yith-wcbsl-badge-content {
+    font-family       : "Open Sans", Helvetica, sans-serif;
+    font-size         : 16px;
+    height            : 40px;
+    width             : 200px;
+    background        : #a00000;
+    color             : #fff;
+    -webkit-transform : rotate(-45deg);
+    -ms-transform     : rotate(-45deg);
+    transform         : rotate(-45deg);
+    text-align        : center;
+    line-height       : 40px;
+    position          : absolute;
+    top               : 20px;
+    left              : -60px;
+    box-shadow        : 0px 1px 4px 0 rgba(0, 0, 0, 0.3);
+    font-weight       : 800;
+}
+
+.yith-wcbsl-badge-wrapper.yith-wcbsl-mini-badge {
+    width  : 80px;
+    height : 80px;
+}
+
+.yith-wcbsl-badge-wrapper.yith-wcbsl-mini-badge .yith-wcbsl-badge-content {
+    font-size   : 12px;
+    height      : 30px;
+    width       : 130px;
+    line-height : 30px;
+    top         : 13px;
+    left        : -36px;
+}
+
+/*
+    Best Sellers in Single Product Page
+*/
+.yith-wcbsl-bestseller-positioning-in-product-wrapper {
+    font-family : "Open Sans", Helvetica, sans-serif;
+    margin      : 10px 0;
+}
+
+.yith-wcbsl-bestseller-positioning-in-product-wrapper h4 {
+    font-family    : "Open Sans", Helvetica, sans-serif;
+    margin         : 0 0 10px 0 !important;
+    font-size      : 16px !important;
+    text-transform : uppercase;
+    font-weight    : 600;
+}
+
+.yith-wcbsl-bestseller-positioning-in-product-wrapper p {
+    font-family : "Open Sans", Helvetica, sans-serif;
+    font-size   : 12px;
+    margin      : 4px 0;
+}
+
+.yith-wcbsl-bestseller-positioning-in-product-wrapper a {
+    font-family     : "Open Sans", Helvetica, sans-serif;
+    text-decoration : none;
+    font-weight     : 600;
+    border          : 0px none !important;
+    padding         : 2px 8px;
+    background      : #a00000;
+    border-radius   : 5px;
+    box-sizing      : border-box;
+    color           : #fff;
+    font-size       : 12px;
+}
+
+.yith-wcbsl-bestseller-positioning-in-product-wrapper a:hover {
+    color      : #fff;
+    background : #be0000;
+}
+
+.yith-wcbsl-bestseller-positioning-in-product-wrapper a:focus {
+    color      : #fff;
+    background : #900000;
+    border     : 0 none !important;
+}
+
+/*  ----------------------------------
+                  SLIDER
+    ---------------------------------- */
+
+div.yith-wcbsl-bestsellers-slider {
+    width      : 100%;
+    height     : 250px;
+    border     : 1px solid #ccc;
+    box-shadow : 1px 1px 7px 0px rgba(0, 0, 0, 0.3);
+    background : #fff;
+    position   : relative;
+    margin     : 20px 0 !important;
+}
+
+div.yith-wcbsl-bestsellers-slider-wrapper {
+    width    : 100%;
+    height   : 100%;
+    overflow : hidden;
+    position : relative;
+}
+
+div.yith-wcbsl-bestsellers-slider::after {
+    /*content    : ' ';*/
+    top        : 0;
+    left       : 0;
+    position   : absolute;
+    width      : 100%;
+    background : transparent;
+    height     : 100%;
+    z-index    : 10;
+    box-shadow : -23px 0px 17px -2px rgba(255, 255, 255, 0.6) inset, 23px 0px 17px -2px rgba(255, 255, 255, 0.6) inset;
+}
+
+div.yith-wcbsl-bestsellers-slider-title {
+    width      : 100%;
+    height     : 100%;
+    position   : absolute;
+    top        : 0px;
+    left       : 0px;
+    z-index    : 98;
+    background : #fff none repeat scroll 0% 0%;
+}
+
+div.yith-wcbsl-bestsellers-slider-title-centered {
+    display     : block;
+    text-align  : center;
+    font-size   : 45px;
+    height      : 250px;
+    width       : 100%;
+    margin      : 0;
+    color       : #000 !important;
+    line-height : 220px;
+}
+
+span.yith-wcbsl-bestseller-slider-right, span.yith-wcbsl-bestseller-slider-left {
+    position    : absolute;
+    z-index     : 98;
+    width       : 30px;
+    height      : 30px;
+    background  : #fff;
+    top         : calc(50% - 15px);
+    border      : 1px solid #ccc;
+    box-sizing  : border-box;
+    box-shadow  : 1px 1px 7px 0px rgba(0, 0, 0, 0.3);
+    line-height : 30px;
+    color       : #777;
+    cursor      : pointer;
+}
+
+span.yith-wcbsl-bestseller-slider-right {
+    right : -15px;
+}
+
+span.yith-wcbsl-bestseller-slider-left {
+    left : -15px;
+}
+
+div.yith-wcbsl-bestsellers-slider-container {
+    width    : auto;
+    height   : 250px;
+    overflow : hidden;
+    padding  : 15px;
+    position : absolute;
+}
+
+div.yith-wcbsl-bestseller-in-slider-container {
+    box-shadow    : 0px 0px 7px 0px #ddd;
+    border-radius : 3px;
+    overflow      : hidden;
+}
+
+div.yith-wcbsl-bestseller-in-slider-wrapper {
+    position       : relative;
+    width          : 150px;
+    border         : 1px solid #ddd;
+    background     : #fff;
+    margin         : 5px 5px 10px;
+    display        : block;
+    float          : left;
+    vertical-align : top;
+}
+
+span.yith-wcbsl-bestseller-in-slider-position {
+    font-family   : "Open Sans", Helvetica, sans-serif;
+    position      : absolute;
+    display       : block;
+    top           : -12px;
+    left          : -12px;
+    width         : 30px;
+    height        : 30px;
+    font-size     : 16px;
+    line-height   : 30px;
+    border-radius : 50%;
+    background    : #c5c5c5;
+    color         : #4a4a4a;
+    z-index       : 10;
+    font-weight   : 600;
+    text-align    : center;
+    box-sizing    : border-box;
+
+}
+
+div.yith-wcbsl-bestseller-in-slider-thumb-wrapper {
+    position : relative;
+    height   : 150px;
+    overflow : hidden;
+}
+
+div.yith-wcbsl-bestseller-in-slider-thumb-wrapper::before {
+    content    : ' ';
+    top        : 0;
+    left       : 0;
+    position   : absolute;
+    width      : 100%;
+    background : transparent;
+    height     : 100%;
+    z-index    : 10;
+    box-shadow : 0px -3px 7px -5px #777 inset;
+}
+
+div.yith-wcbsl-bestseller-in-slider-content-wrapper {
+    background : #fff;
+    height     : 60px;
+    overflow   : hidden;
+    padding    : 0 5px;
+}
+
+table.yith-wcbsl-bestseller-in-slider-content-wrapper-table, table.yith-wcbsl-bestseller-in-slider-content-wrapper-table tr, table.yith-wcbsl-bestseller-in-slider-content-wrapper-table td {
+    border         : 0 !important;
+    margin         : 0 !important;
+    padding        : 0 !important;
+    vertical-align : middle !important;
+    background     : #fff !important;
+}
+
+table.yith-wcbsl-bestseller-in-slider-content-wrapper-table {
+    width  : 100%;
+    height : 100%;
+}
+
+div.yith-wcbsl-bestseller-in-slider-content-wrapper h3 {
+    font-size      : 14px;
+    margin         : 0px;
+    text-align     : center;
+    text-transform : uppercase;
+    line-height    : 20px;
+    font-family    : "Open Sans", sans-serif;
+    font-weight    : 600;
+}
+
+/*  ----------------------------------------------
+                     RESPONSIVE
+    ---------------------------------------------- */
+
+@media only screen and (max-width : 768px) {
+    div.yith-wcbsl-bestseller-wrapper {
+        width : 47%;
+    }
+}
+
+/* A N I M A T I O N S */
+.yith-wcbsl-animation-heart {
+    -webkit-animation : yith-wcbsl-animation-heart 2s ease-in-out infinite;
+    -moz-animation    : yith-wcbsl-animation-heart 2s ease-in-out infinite;
+    -ms-animation     : yith-wcbsl-animation-heart 2s ease-in-out infinite;
+    animation         : yith-wcbsl-animation-heart 2s ease-in-out infinite;
+}
+
+@keyframes yith-wcbsl-animation-heart {
+    0% {
+        -webkit-transform : scale(1);
+        -moz-transform    : scale(1);
+        -o-transform      : scale(1);
+        -ms-transform     : scale(1);
+        transform         : scale(1);
+    }
+    5% {
+        -webkit-transform : scale(1.1);
+        -moz-transform    : scale(1.1);
+        -o-transform      : scale(1.1);
+        -ms-transform     : scale(1.1);
+        transform         : scale(1.1);
+    }
+    10% {
+        -webkit-transform : scale(1);
+        -moz-transform    : scale(1);
+        -o-transform      : scale(1);
+        -ms-transform     : scale(1);
+        transform         : scale(1);
+    }
+    15% {
+        -webkit-transform : scale(1.1);
+        -moz-transform    : scale(1.1);
+        -o-transform      : scale(1.1);
+        -ms-transform     : scale(1.1);
+        transform         : scale(1.1);
+    }
+    20% {
+        -webkit-transform : scale(1);
+        -moz-transform    : scale(1);
+        -o-transform      : scale(1);
+        -ms-transform     : scale(1);
+        transform         : scale(1);
+    }
+}
+
+@-moz-keyframes yith-wcbsl-animation-heart {
+    0% {
+        -moz-transform : scale(1);
+        transform      : scale(1);
+    }
+    5% {
+        -moz-transform : scale(1.1);
+        transform      : scale(1.1);
+    }
+    10% {
+        -moz-transform : scale(1);
+        transform      : scale(1);
+    }
+    15% {
+        -moz-transform : scale(1.1);
+        transform      : scale(1.1);
+    }
+    20% {
+        -moz-transform : scale(1);
+        transform      : scale(1);
+    }
+
+}
+
+@-webkit-keyframes yith-wcbsl-animation-heart {
+    0% {
+        -webkit-transform : scale(1);
+        transform         : scale(1);
+    }
+    5% {
+        -webkit-transform : scale(1.1);
+        transform         : scale(1.1);
+    }
+    10% {
+        -webkit-transform : scale(1);
+        transform         : scale(1);
+    }
+    15% {
+        -webkit-transform : scale(1.1);
+        transform         : scale(1.1);
+    }
+    20% {
+        -webkit-transform : scale(1);
+        transform         : scale(1);
+    }
+}
+
+@-ms-keyframes yith-wcbsl-animation-heart {
+    0% {
+        -ms-transform : scale(1);
+        transform     : scale(1);
+    }
+    5% {
+        -ms-transform : scale(1.1);
+        transform     : scale(1.1);
+    }
+    10% {
+        -ms-transform : scale(1);
+        transform     : scale(1);
+    }
+    15% {
+        -ms-transform : scale(1.1);
+        transform     : scale(1.1);
+    }
+    20% {
+        -ms-transform : scale(1);
+        transform     : scale(1);
+    }
+}
+
+/**
+ * YITH Proteo
+ */
+.theme-yith-proteo div.yith-wcbsl-bestseller-content-wrapper span.price {
+    margin-bottom : 0;
+}

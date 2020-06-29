@@ -1,0 +1,452 @@
+# Copyright (C) 2018 YITH Desktop Notifications for WooCommerce Premium
+# This file is distributed under the same license as the YITH Desktop Notifications for WooCommerce Premium package.
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH Desktop Notifications for WooCommerce Premium "
+"1.2.1\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/init\n"
+"POT-Creation-Date: 2020-03-27 14:20:36+00:00\n"
+"PO-Revision-Date: 2020-04-27 15:21+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.3\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: includes/class.yith-wcdn-desktop-notifications-admin-premium.php:91
+#: templates/admin/upload-panel.php:20 templates/admin/upload-panel.php:23
+#: templates/admin/upload-panel.php:67 templates/admin/upload-panel.php:70
+msgid "Upload"
+msgstr "Ανέβασμα"
+
+#: includes/class.yith-wcdn-desktop-notifications-admin-premium.php:112
+#: includes/class.yith-wcdn-desktop-notifications-admin.php:189
+msgid "Help Center"
+msgstr "Κέντρο Βοήθειας"
+
+#: includes/class.yith-wcdn-desktop-notifications-admin-premium.php:116
+#: includes/class.yith-wcdn-desktop-notifications-admin.php:193
+msgid "Support platform"
+msgstr "Πλατφόρμα υποστύριξης"
+
+#: includes/class.yith-wcdn-desktop-notifications-admin-premium.php:184
+msgid "Add new notification"
+msgstr "Προσθήκη νέας ειδοποίησης"
+
+#: includes/class.yith-wcdn-desktop-notifications-admin.php:125
+msgid "Settings"
+msgstr "Ρυθμίσεις"
+
+#: includes/class.yith-wcdn-desktop-notifications-admin.php:126
+msgid "Notifications"
+msgstr "Ειδοποιήσεις"
+
+#: includes/class.yith-wcdn-desktop-notifications-admin.php:131
+msgid "Premium Version"
+msgstr "Premium Version"
+
+#: includes/class.yith-wcdn-desktop-notifications-admin.php:185
+msgid "Plugin documentation"
+msgstr "Εγχειρίδιο χρήσης plugin"
+
+#: includes/class.yith-wcdn-desktop-notifications-ajax-premium.php:58
+#: includes/class.yith-wcdn-desktop-notifications-ajax-premium.php:93
+#: includes/class.yith-wcdn-desktop-notifications-ajax.php:69
+msgid "Notification"
+msgstr "Ειδοποίηση"
+
+#: includes/class.yith-wcdn-desktop-notifications-options-premium.php:60
+msgid "A product is sold"
+msgstr "Ένα προϊόν πωλήθηκε"
+
+#: includes/class.yith-wcdn-desktop-notifications-options-premium.php:61
+msgid "A new order is placed"
+msgstr "Τοποθετήθηκε νέα παραγγελία"
+
+#: includes/class.yith-wcdn-desktop-notifications-options-premium.php:62
+msgid "An order is refunded"
+msgstr "Μια παραγγελία επιστράφηκε"
+
+#: includes/class.yith-wcdn-desktop-notifications-options-premium.php:63
+msgid "A product goes out of stock"
+msgstr "Το προϊόν είναι εκτός αποθέματος"
+
+#: includes/class.yith-wcdn-desktop-notifications-options-premium.php:64
+msgid "An order is switched to a specific status"
+msgstr "Η παραγγελία άλλαξε σε ειδική κατάσταση"
+
+#: includes/class.yith-wcdn-desktop-notifications-options-premium.php:65
+msgid "A product low of stock"
+msgstr "Προϊόν χαμηλό σε απόθεμα"
+
+#: includes/compatibility/class.yith-wcdn-bookings-compatibility.php:35
+msgid "A new booking is placed"
+msgstr "Τοποθετήθηκε νέα κράτηση"
+
+#: includes/compatibility/class.yith-wcdn-bookings-compatibility.php:36
+msgid "A new booking request is placed"
+msgstr "Τοποθετήθηκε νέo αίτημα κράτησης"
+
+#: includes/compatibility/class.yith-wcdn-request-a-quote-compatibility.php:35
+msgid "A quote is placed"
+msgstr "Τοποθετήθηκε παράθεση"
+
+#: init.php:37
+msgctxt "Alert Message: WooCommerce requires"
+msgid ""
+"YITH WooCommerce Desktop Notifications is enabled but not effective. It "
+"requires WooCommerce in order to work."
+msgstr ""
+"Το YITH WooCommerce Desktop Notifications είναι ενεργοποιημένο αλλά "
+"αναποτελεσματικό. Για σωστή λειτουργία, απαιτείται WooCommerce."
+
+#: plugin-options/settings-options.php:21
+msgctxt "Panel: page title"
+msgid "General settings"
+msgstr "Γενικές ρυθμίσεις"
+
+#: plugin-options/settings-options.php:28
+msgctxt "Admin option: Check new notifications"
+msgid "Check new notifications"
+msgstr "Έλεγχος νέων ειδοποιήσεων"
+
+#: plugin-options/settings-options.php:30
+msgctxt "Admin option description: number of days"
+msgid "Number of seconds to pass before checking for new notifications"
+msgstr ""
+"Αριθμός δευτερολέπτων που πρέπει να περάσουν πριν από τον έλεγχο για νέες "
+"ειδοποιήσεις"
+
+#: plugin-options/settings-options.php:39
+msgctxt "Admin option: Looping sound"
+msgid "Looping sound"
+msgstr "Ήχος βρόχου"
+
+#: plugin-options/settings-options.php:41
+msgctxt ""
+"Admin option description: Check this option to set a looping sound that will "
+"stop when the notification is closed"
+msgid ""
+"Check this option to set a looping sound that will stop when the "
+"notification is closed"
+msgstr ""
+"Επιλέξτε αυτή την επιλογή για να ορίσετε έναν ήχο βρόχου που θα σταματήσει "
+"όταν κλείσει η ειδοποίηση"
+
+#: templates/admin/notifications-load-options-premium.php:28
+msgid "New Notification"
+msgstr "Νέα Ειδοποίηση"
+
+#: templates/admin/notifications-load-options-premium.php:33
+#: templates/admin/notifications-load-options-premium.php:227
+msgid "Notification type"
+msgstr "Τύπος ειδοποίησης"
+
+#: templates/admin/notifications-load-options-premium.php:49
+#: templates/admin/notifications-load-options-premium.php:242
+msgid "Specific status"
+msgstr "Ειδική κατάσταση"
+
+#: templates/admin/notifications-load-options-premium.php:64
+#: templates/admin/notifications-load-options-premium.php:270
+msgid "Select products"
+msgstr "Επιλέξτε προϊόντα"
+
+#: templates/admin/notifications-load-options-premium.php:69
+#: templates/admin/notifications-load-options-premium.php:73
+#: templates/admin/notifications-load-options-premium.php:279
+#: templates/admin/notifications-load-options-premium.php:298
+#: templates/admin/notifications-load-options-premium.php:318
+#: templates/admin/notifications-load-options-premium.php:322
+msgid "Search for a product&hellip;"
+msgstr "Αναζήτηση για προϊόν&hellip;"
+
+#: templates/admin/notifications-load-options-premium.php:81
+msgid "Title"
+msgstr "Τίτλος"
+
+#: templates/admin/notifications-load-options-premium.php:89
+msgid "Description"
+msgstr "Περιγραφή"
+
+#: templates/admin/notifications-load-options-premium.php:94
+#: templates/admin/notifications-load-options-premium.php:344
+#: templates/admin/notifications-load-options.php:48
+msgid "Available placeholders:"
+msgstr "Διαθέσιμα κείμενα υποκατάστασης (placeholder):"
+
+#: templates/admin/notifications-load-options-premium.php:122
+msgid "Role notification"
+msgstr "Ειδοποίηση ρόλου"
+
+#: templates/admin/notifications-load-options-premium.php:132
+msgid "Select notification icon:"
+msgstr "Επιλέξτε εικονίδιο ειδοποίησης:"
+
+#: templates/admin/notifications-load-options-premium.php:157
+msgid "Select notification sound:"
+msgstr "Επιλέξτε ήχο ειδοποίησης:"
+
+#: templates/admin/notifications-load-options-premium.php:175
+msgid "click here to preview"
+msgstr "κάντε κλικ για προεπισκόπηση"
+
+#: templates/admin/notifications-load-options-premium.php:182
+#: templates/admin/notifications-load-options-premium.php:431
+#: templates/admin/notifications-load-options.php:80
+msgid "Notification length:"
+msgstr "Διάρκεια ειδοποίησης:"
+
+#: templates/admin/notifications-load-options-premium.php:186
+#: templates/admin/notifications-load-options-premium.php:435
+msgid "Time in seconds, \"0\" = Default notification length"
+msgstr "Χρόνος σε δευτερόλεπτα, “0” = Προεπιλεγμένη διάρκεια ειδοποίησης"
+
+#: templates/admin/notifications-load-options-premium.php:193
+#: templates/admin/notifications-load-options.php:92
+msgid "Create new notification"
+msgstr "Δημιουργία νέας ειδοποίησης"
+
+#: templates/admin/notifications-load-options-premium.php:197
+#: templates/admin/notifications-load-options-premium.php:453
+#: templates/admin/notifications-load-options.php:103
+msgid "Preview notification"
+msgstr "Προεπισκόπηση ειδοποίησης"
+
+#: templates/admin/notifications-load-options-premium.php:207
+msgid "Active Notifications"
+msgstr "Ενεργές Ειδοποιήσεις"
+
+#: templates/admin/notifications-load-options-premium.php:331
+#: templates/admin/notifications-load-options.php:35
+msgid "Title:"
+msgstr "Τίτλος:"
+
+#: templates/admin/notifications-load-options-premium.php:339
+#: templates/admin/notifications-load-options.php:43
+msgid "Description:"
+msgstr "Περιγραφή:"
+
+#: templates/admin/notifications-load-options-premium.php:367
+msgid "Role notification:"
+msgstr "Ειδοποίηση ρόλου:"
+
+#: templates/admin/notifications-load-options-premium.php:380
+#: templates/admin/notifications-load-options.php:59
+msgid "Notification icon:"
+msgstr "Εικονίδιο ειδοποιήσεων:"
+
+#: templates/admin/notifications-load-options-premium.php:405
+msgid "Notification sound:"
+msgstr "Ήχος ειδοποίησης:"
+
+#: templates/admin/notifications-load-options-premium.php:424
+msgid "Click here to preview"
+msgstr "Κάντε κλικ για προεπισκόπηση"
+
+#: templates/admin/notifications-load-options-premium.php:444
+#: templates/admin/notifications-load-options.php:95
+msgid "Update"
+msgstr "Ενημέρωση"
+
+#: templates/admin/notifications-load-options-premium.php:451
+#: templates/admin/upload-panel.php:30 templates/admin/upload-panel.php:77
+msgid "Delete"
+msgstr "Διαγραφή"
+
+#: templates/admin/notifications-load-options.php:21
+msgctxt "yith-desktop-notifications-for-woocommerce"
+msgid "Active Notifications"
+msgstr "Ενεργές Ειδοποιήσεις"
+
+#: templates/admin/notifications-load-options.php:84
+msgctxt "yith-desktop-notifications-for-woocommerce"
+msgid "Time in seconds, \"0\" = Default notification length"
+msgstr "Χρόνος σε δευτερόλεπτα, “0” = Προεπιλεγμένη διάρκεια ειδοποίησης"
+
+#: templates/admin/upload-panel.php:19
+msgid "Notification icon"
+msgstr "Εικονίδιο ειδοποιήσεων"
+
+#: templates/admin/upload-panel.php:21
+msgid "Select image"
+msgstr "Επιλογή εικόνας"
+
+#: templates/admin/upload-panel.php:28
+msgid "Icon"
+msgstr "Εικονίδιο"
+
+#: templates/admin/upload-panel.php:29 templates/admin/upload-panel.php:75
+msgid "File name"
+msgstr "Όνομα αρχείου"
+
+#: templates/admin/upload-panel.php:41 templates/admin/upload-panel.php:90
+#: templates/admin/upload-panel.php:108
+msgid "delete"
+msgstr "διαγραφή"
+
+#: templates/admin/upload-panel.php:66
+msgid "Sound Notifications"
+msgstr "Ήχοι Ειδοποιήσεων"
+
+#: templates/admin/upload-panel.php:68
+msgid "Select audio"
+msgstr "Επιλέξτε ήχο"
+
+#: templates/admin/upload-panel.php:76 templates/admin/upload-panel.php:86
+#: templates/admin/upload-panel.php:103
+msgid "Preview"
+msgstr "Προεπισκόπηση"
+
+#: templates/premium/premium.php:217 templates/premium/premium.php:322
+msgid ""
+"Upgrade to %1$spremium version%2$s of %1$sYITH Desktop Notifications for "
+"WooCommerce%2$s to benefit from all features!"
+msgstr ""
+"Αναβαθμίστε σε %1$spremium version%2$s του %1$sYITH Desktop Notifications "
+"for WooCommerce%2$s για να επωφεληθείτε από όλα τα χαρακτηριστικά!"
+
+#: templates/premium/premium.php:220 templates/premium/premium.php:325
+msgid "UPGRADE"
+msgstr "ΑΝΑΒΑΘΜΙΣΗ"
+
+#: templates/premium/premium.php:221 templates/premium/premium.php:326
+msgid "to the premium version"
+msgstr "σε premium version"
+
+#: templates/premium/premium.php:227
+msgid "Premium Features"
+msgstr "Χαρακτηριστικά Premium"
+
+#: templates/premium/premium.php:235
+msgid "5 notification types"
+msgstr "5 τύποι ειδοποιήσεων"
+
+#: templates/premium/premium.php:238
+msgid ""
+"Have you noticed how useful can be a notification system that shows the "
+"actions related to your shop on your desktop?"
+msgstr ""
+"Παρατηρήσατε πόσο χρήσιμο μπορεί να είναι ένα σύστημα ειδοποιήσεων το οποίο "
+"δείχνει τη δραστηριότητα του καταστήματός σας, στην επιφάνεια εργασίας σας;"
+
+#: templates/premium/premium.php:242
+msgid "%1$sWhy limiting it to notify you only about new orders?%2$s"
+msgstr "%1$sΓιατί να λαμβάνετε ειδοποιήσεις μόνο για νέες παραγγελίες;%2$s"
+
+#: templates/premium/premium.php:245
+msgid ""
+"With the premium version of the plugin, you can enable the notifications "
+"also for the following actions:"
+msgstr ""
+"Με την premium έκδοση του plugin, μπορείτε να ενεργοποιήσετε τις "
+"ειδοποιήσεις και για τις ακόλουθες ενέργειες:"
+
+#: templates/premium/premium.php:249
+msgid "the order was refunded"
+msgstr "η παραγγελία επιστράφηκε"
+
+#: templates/premium/premium.php:252
+msgid "the order changed its status"
+msgstr "η παραγγελία άλλαξε κατάσταση"
+
+#: templates/premium/premium.php:255
+msgid "a specific product of the shop was sold"
+msgstr "ένα ειδικό προϊόν του καταστήματος πωλήθηκε"
+
+#: templates/premium/premium.php:258
+msgid "the product turned into “out of stock” after the last sale"
+msgstr "το προϊόν άλλαξε σε “εκτός αποθέματος” μετά την τελευταία πώληση"
+
+#: templates/premium/premium.php:269
+msgid "Custom notifications"
+msgstr "Προσαρμοσμένες ειδοποιήσεις"
+
+#: templates/premium/premium.php:272
+msgid ""
+"You can edit the body of each notification as you prefer by inserting "
+"%1$stitle%2$s and %1$sdescription%2$s to suit better your notices. ."
+msgstr ""
+"Κάντε επεξεργασία το σώμα κάθε ειδοποίησης εισάγοντας %1$sτίτλος%2$s και "
+"%1$sπεριγραφή%2$s για την καλύτερη προσαρμογή τους."
+
+#: templates/premium/premium.php:275
+msgid ""
+"And that’s not all! By associating an %1$sicon%2$s and a %1$ssound%2$s to "
+"the messages when they are shown, they will stand out even more.  "
+msgstr ""
+"Ακόμη, μπορείτε να συνδέσετε ένα %1$sεικονίδιο%2$s και έναν %1$sήχος%2$s "
+"όταν γίνεται εμφάνιση μηνυμάτων, κάνοντάς τα να ξεχωρίσουν!"
+
+#: templates/premium/premium.php:291
+msgid "User roles"
+msgstr "Ρόλοι χρήστη"
+
+#: templates/premium/premium.php:294
+msgid ""
+"Who are the recipients of the notification you just configured? It’s up to "
+"you!%3$s The premium version of the plugin allows %1$snotifying%2$s only "
+"those users with a specific %1$srole%2$s in your shop. An essential feature "
+"to use the plugin at its best."
+msgstr ""
+"Ποιοί είναι οι παραλήπτες της ειδοποίησης που μόλις ρυθμίσατε; Εσείς το "
+"επιλέγετε!%3$s Η premium έκδοση του plugin επιτρέπει να %1$sειδοποιείτε%2$s "
+"μόνο τους χρήστες με συγκεκριμένο %1$sρόλο%2$s στο κατάστημά σας. Ένα βασικό "
+"χαρακτηριστικό για την καλύτερη χρήση του plugin."
+
+#: templates/premium/premium.php:304
+msgid "Notification duration"
+msgstr "Διάρκεια ειδοποίησης"
+
+#: templates/premium/premium.php:307
+msgid "For %1$show long do you want to show%2$s the notification?"
+msgstr "Για %1$sπόση ώρα θέλετε να φαίνεται%2$s η ειδοποίηση;"
+
+#: templates/premium/premium.php:310
+msgid ""
+"There are two options: remove it only when it was selected or hide it "
+"automatically at the end of the configured time span."
+msgstr ""
+"Υπάρχουν δύο επιλογές: αφαιρέστε την μόνο όταν επιλεχθεί ή αποκρύψτε την "
+"αυτόματα στο τέλος της ρυθμισμένης χρονικής διάρκειας."
+
+#. Plugin Name of the plugin/theme
+msgid "YITH Desktop Notifications for WooCommerce Premium"
+msgstr "YITH Desktop Notifications for WooCommerce Premium"
+
+#. Plugin URI of the plugin/theme
+msgid ""
+"https://yithemes.com/themes/plugins/yith-woocommerce-desktop-notifications/"
+msgstr ""
+"https://yithemes.com/themes/plugins/yith-woocommerce-desktop-notifications/"
+
+#. Description of the plugin/theme
+msgid ""
+"<code><strong>YITH Desktop Notifications for WooCommerce Premium</strong></"
+"code> allows you to receive real time notifications right on your PC screen "
+"letting you know about orders and sales, a quick and easy way to be updated "
+"in real time even while you’re doing something else.  <a href=\"https://"
+"yithemes.com/\" target=\"_blank\">Get more plugins for your e-commerce on "
+"<strong>YITH</strong></a>."
+msgstr ""
+"<code><strong>Το YITH Desktop Notifications for WooCommerce Premium</"
+"strong></code> σας επιτρέπει να δέχεστε ειδοποιήσεις σε πραγματικό χρόνο "
+"στην οθόνη του υπολογιστή σας ενημερώνοντάς σας για παραγγελίες και "
+"πωλήσεις. Ένας γρήγορος και εύκολος τρόπος να ενημερώνεστε σε πραγματικό "
+"χρόνο, ακόμη κι όταν είστε απασχολημένος.  <a href=“https://yithemes.com/“ "
+"target=“_blank”>Αποκτήστε περισσότερα plugins για το ηλεκτρονικό σας "
+"κατάστημα στο <strong>YITH</strong></a>."
+
+#. Author of the plugin/theme
+msgid "YITH"
+msgstr "YITH"
+
+#. Author URI of the plugin/theme
+msgid "https://yithemes.com/"
+msgstr "https://yithemes.com/"
+
+#~ msgid "A new request booking is placed"
+#~ msgstr "Τοποθετήθηκε νέo αίτημα κράτησης"

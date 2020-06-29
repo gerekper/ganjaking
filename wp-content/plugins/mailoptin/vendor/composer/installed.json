@@ -1,0 +1,958 @@
+[
+    {
+        "name": "a5hleyrich/wp-background-processing",
+        "version": "1.0.1",
+        "version_normalized": "1.0.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/A5hleyRich/wp-background-processing.git",
+            "reference": "1f070aab5058dbaf45d5435a343033ddd8a641b1"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/A5hleyRich/wp-background-processing/zipball/1f070aab5058dbaf45d5435a343033ddd8a641b1",
+            "reference": "1f070aab5058dbaf45d5435a343033ddd8a641b1",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.2"
+        },
+        "time": "2018-02-12T09:24:05+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "classmap": [
+                "classes/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "GPL-2.0-only"
+        ],
+        "authors": [
+            {
+                "name": "Ashley Rich",
+                "email": "hello@ashleyrich.com"
+            }
+        ],
+        "description": "WP Background Processing can be used to fire off non-blocking asynchronous requests or as a background processing tool, allowing you to queue tasks."
+    },
+    {
+        "name": "barryvdh/composer-cleanup-plugin",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/mailoptin/composer-cleanup-plugin.git",
+            "reference": "9d13e940d8690a373c6e66d5a62fd1a9575ae448"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/mailoptin/composer-cleanup-plugin/zipball/9d13e940d8690a373c6e66d5a62fd1a9575ae448",
+            "reference": "9d13e940d8690a373c6e66d5a62fd1a9575ae448",
+            "shasum": ""
+        },
+        "require": {
+            "composer-plugin-api": "^1.0"
+        },
+        "time": "2018-05-22T13:15:06+00:00",
+        "type": "composer-plugin",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "0.1-dev"
+            },
+            "class": "Barryvdh\\Composer\\CleanupPlugin"
+        },
+        "installation-source": "source",
+        "autoload": {
+            "psr-4": {
+                "Barryvdh\\Composer\\": "src/"
+            }
+        },
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Barry vd. Heuvel",
+                "email": "barryvdh@gmail.com"
+            }
+        ],
+        "description": "A composer cleanup plugin, to remove tests and documentation to save space",
+        "support": {
+            "source": "https://github.com/mailoptin/composer-cleanup-plugin/tree/master"
+        }
+    },
+    {
+        "name": "collizo4sky/persist-admin-notices-dismissal",
+        "version": "1.4.3",
+        "version_normalized": "1.4.3.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/collizo4sky/persist-admin-notices-dismissal.git",
+            "reference": "2d7d8bb3cba631ad227c92296a4b675d7cbc71d7"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/collizo4sky/persist-admin-notices-dismissal/zipball/2d7d8bb3cba631ad227c92296a4b675d7cbc71d7",
+            "reference": "2d7d8bb3cba631ad227c92296a4b675d7cbc71d7",
+            "shasum": ""
+        },
+        "time": "2019-03-12T05:19:51+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "classmap": [
+                "persist-admin-notices-dismissal.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "authors": [
+            {
+                "name": "Collins Agbonghama",
+                "email": "me@w3guy.com"
+            }
+        ],
+        "description": "Simple library to persist dismissal of admin notices across pages in WordPress dashboard."
+    },
+    {
+        "name": "composer/installers",
+        "version": "v1.9.0",
+        "version_normalized": "1.9.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/composer/installers.git",
+            "reference": "b93bcf0fa1fccb0b7d176b0967d969691cd74cca"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/composer/installers/zipball/b93bcf0fa1fccb0b7d176b0967d969691cd74cca",
+            "reference": "b93bcf0fa1fccb0b7d176b0967d969691cd74cca",
+            "shasum": ""
+        },
+        "require": {
+            "composer-plugin-api": "^1.0 || ^2.0"
+        },
+        "replace": {
+            "roundcube/plugin-installer": "*",
+            "shama/baton": "*"
+        },
+        "require-dev": {
+            "composer/composer": "1.6.* || 2.0.*@dev",
+            "composer/semver": "1.0.* || 2.0.*@dev",
+            "phpunit/phpunit": "^4.8.36",
+            "sebastian/comparator": "^1.2.4",
+            "symfony/process": "^2.3"
+        },
+        "time": "2020-04-07T06:57:05+00:00",
+        "type": "composer-plugin",
+        "extra": {
+            "class": "Composer\\Installers\\Plugin",
+            "branch-alias": {
+                "dev-master": "1.0-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Composer\\Installers\\": "src/Composer/Installers"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Kyle Robinson Young",
+                "email": "kyle@dontkry.com",
+                "homepage": "https://github.com/shama"
+            }
+        ],
+        "description": "A multi-framework Composer library installer",
+        "homepage": "https://composer.github.io/installers/",
+        "keywords": [
+            "Craft",
+            "Dolibarr",
+            "Eliasis",
+            "Hurad",
+            "ImageCMS",
+            "Kanboard",
+            "Lan Management System",
+            "MODX Evo",
+            "MantisBT",
+            "Mautic",
+            "Maya",
+            "OXID",
+            "Plentymarkets",
+            "Porto",
+            "RadPHP",
+            "SMF",
+            "Thelia",
+            "Whmcs",
+            "WolfCMS",
+            "agl",
+            "aimeos",
+            "annotatecms",
+            "attogram",
+            "bitrix",
+            "cakephp",
+            "chef",
+            "cockpit",
+            "codeigniter",
+            "concrete5",
+            "croogo",
+            "dokuwiki",
+            "drupal",
+            "eZ Platform",
+            "elgg",
+            "expressionengine",
+            "fuelphp",
+            "grav",
+            "installer",
+            "itop",
+            "joomla",
+            "known",
+            "kohana",
+            "laravel",
+            "lavalite",
+            "lithium",
+            "magento",
+            "majima",
+            "mako",
+            "mediawiki",
+            "modulework",
+            "modx",
+            "moodle",
+            "osclass",
+            "phpbb",
+            "piwik",
+            "ppi",
+            "puppet",
+            "pxcms",
+            "reindex",
+            "roundcube",
+            "shopware",
+            "silverstripe",
+            "sydes",
+            "sylius",
+            "symfony",
+            "typo3",
+            "wordpress",
+            "yawik",
+            "zend",
+            "zikula"
+        ],
+        "funding": [
+            {
+                "url": "https://packagist.com",
+                "type": "custom"
+            },
+            {
+                "url": "https://tidelift.com/funding/github/packagist/composer/composer",
+                "type": "tidelift"
+            }
+        ]
+    },
+    {
+        "name": "drewm/drip",
+        "version": "v0.7",
+        "version_normalized": "0.7.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/drewm/drip.git",
+            "reference": "3d4afe4c8fb3d602bd82adbbd3838801eb645633"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/drewm/drip/zipball/3d4afe4c8fb3d602bd82adbbd3838801eb645633",
+            "reference": "3d4afe4c8fb3d602bd82adbbd3838801eb645633",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.4"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "4.0.*"
+        },
+        "time": "2017-01-22T11:45:11+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "DrewM\\Drip\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Drew McLellan",
+                "email": "drew.mclellan@gmail.com"
+            }
+        ],
+        "description": "PHP library for interacting with the Drip API",
+        "keywords": [
+            "drip"
+        ]
+    },
+    {
+        "name": "kylekatarnls/update-helper",
+        "version": "1.2.1",
+        "version_normalized": "1.2.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/kylekatarnls/update-helper.git",
+            "reference": "429be50660ed8a196e0798e5939760f168ec8ce9"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/kylekatarnls/update-helper/zipball/429be50660ed8a196e0798e5939760f168ec8ce9",
+            "reference": "429be50660ed8a196e0798e5939760f168ec8ce9",
+            "shasum": ""
+        },
+        "require": {
+            "composer-plugin-api": "^1.1.0 || ^2.0.0",
+            "php": ">=5.3.0"
+        },
+        "require-dev": {
+            "codeclimate/php-test-reporter": "dev-master",
+            "composer/composer": "2.0.x-dev || ^2.0.0-dev",
+            "phpunit/phpunit": ">=4.8.35 <6.0"
+        },
+        "time": "2020-04-07T20:44:10+00:00",
+        "type": "composer-plugin",
+        "extra": {
+            "class": "UpdateHelper\\ComposerPlugin"
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "UpdateHelper\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Kyle",
+                "email": "kylekatarnls@gmail.com"
+            }
+        ],
+        "description": "Update helper",
+        "funding": [
+            {
+                "url": "https://github.com/kylekatarnls",
+                "type": "github"
+            },
+            {
+                "url": "https://opencollective.com/Carbon",
+                "type": "open_collective"
+            },
+            {
+                "url": "https://tidelift.com/funding/github/packagist/nesbot/carbon",
+                "type": "tidelift"
+            }
+        ]
+    },
+    {
+        "name": "league/csv",
+        "version": "7.2.0",
+        "version_normalized": "7.2.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/thephpleague/csv.git",
+            "reference": "69bafa6ff924fbf9effe4275d6eb16be81a853ef"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/thephpleague/csv/zipball/69bafa6ff924fbf9effe4275d6eb16be81a853ef",
+            "reference": "69bafa6ff924fbf9effe4275d6eb16be81a853ef",
+            "shasum": ""
+        },
+        "require": {
+            "ext-mbstring": "*",
+            "php": ">=5.4.0"
+        },
+        "require-dev": {
+            "fabpot/php-cs-fixer": "^1.9",
+            "phpunit/phpunit": "^4.0"
+        },
+        "time": "2015-11-02T07:36:25+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "7.2-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "League\\Csv\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Ignace Nyamagana Butera",
+                "email": "nyamsprod@gmail.com",
+                "homepage": "https://github.com/nyamsprod/",
+                "role": "Developer"
+            }
+        ],
+        "description": "Csv data manipulation made easy in PHP",
+        "homepage": "http://csv.thephpleague.com",
+        "keywords": [
+            "csv",
+            "export",
+            "filter",
+            "import",
+            "read",
+            "write"
+        ]
+    },
+    {
+        "name": "mailoptin/authifly",
+        "version": "0.2.1589314537",
+        "version_normalized": "0.2.1589314537.0",
+        "dist": {
+            "type": "zip",
+            "url": "https://php.fury.io/uDXRvLf8b2ywvgcokC7z/mailoptin/~/up/ver_VGq9d/mailoptinauthifly-0-2-1589314537.zip"
+        },
+        "require": {
+            "composer/installers": "~1.0",
+            "php": ">=5.4.0"
+        },
+        "require-dev": {
+            "ext-curl": "*"
+        },
+        "type": "wordpress-plugin",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Authifly\\": "src/"
+            },
+            "files": [
+                "OAuthCredentialStorage.php",
+                "ConstantContact.php",
+                "Aweber.php",
+                "CampaignMonitor.php",
+                "VerticalResponse.php",
+                "Facebook.php",
+                "Hubspot.php",
+                "Zoho.php"
+            ]
+        },
+        "license": [
+            "MIT"
+        ],
+        "description": "PHP OAuth Authentication Library",
+        "keywords": [
+            "api",
+            "authentication",
+            "authorization",
+            "oauth",
+            "openid",
+            "social"
+        ]
+    },
+    {
+        "name": "mailoptin/connections",
+        "version": "0.2.1589314582",
+        "version_normalized": "0.2.1589314582.0",
+        "dist": {
+            "type": "zip",
+            "url": "https://php.fury.io/uDXRvLf8b2ywvgcokC7z/mailoptin/~/up/ver_1qL4al/mailoptinconnections-0-2-1589314582.zip"
+        },
+        "require": {
+            "a5hleyrich/wp-background-processing": "^1.0",
+            "composer/installers": "~1.0",
+            "drewm/drip": "^0.7.0",
+            "thinkshout/mailchimp-api-php": "^1.0"
+        },
+        "replace": {
+            "guzzlehttp/guzzle": "*"
+        },
+        "type": "wordpress-plugin",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "MailOptin\\RegisteredUsersConnect\\": "RegisteredUsersConnect/",
+                "MailOptin\\LeadBankConnect\\": "LeadBankConnect/",
+                "MailOptin\\CampaignMonitorConnect\\": "CampaignMonitorConnect/",
+                "MailOptin\\VerticalResponseConnect\\": "VerticalResponseConnect/",
+                "MailOptin\\OntraportConnect\\": "OntraportConnect/",
+                "MailOptin\\CtctConnect\\": "CtctConnect/",
+                "MailOptin\\MailChimpConnect\\": "MailChimpConnect/",
+                "MailOptin\\MoosendConnect\\": "MoosendConnect/",
+                "MailOptin\\MailjetConnect\\": "MailjetConnect/",
+                "MailOptin\\ZohoCampaignsConnect\\": "ZohoCampaignsConnect/",
+                "MailOptin\\ZohoCRMConnect\\": "ZohoCRMConnect/",
+                "MailOptin\\AweberConnect\\": "AweberConnect/",
+                "MailOptin\\SendyConnect\\": "SendyConnect/",
+                "MailOptin\\MailerliteConnect\\": "MailerliteConnect/",
+                "MailOptin\\HubspotConnect\\": "HubspotConnect/",
+                "MailOptin\\MailsterConnect\\": "MailsterConnect/",
+                "MailOptin\\DripConnect\\": "DripConnect/",
+                "MailOptin\\SendlaneConnect\\": "SendlaneConnect/",
+                "MailOptin\\EmmaConnect\\": "EmmaConnect/",
+                "MailOptin\\ConvertKitConnect\\": "ConvertKitConnect/",
+                "MailOptin\\ConvertFoxConnect\\": "ConvertFoxConnect/",
+                "MailOptin\\SendinblueConnect\\": "SendinblueConnect/",
+                "MailOptin\\SendGridConnect\\": "SendGridConnect/",
+                "MailOptin\\ActiveCampaignConnect\\": "ActiveCampaignConnect/",
+                "MailOptin\\EmailOctopusConnect\\": "EmailOctopusConnect/",
+                "MailOptin\\GEMConnect\\": "GEMConnect/",
+                "MailOptin\\MailPoetConnect\\": "MailPoetConnect/",
+                "MailOptin\\GetResponseConnect\\": "GetResponseConnect/",
+                "MailOptin\\KlaviyoConnect\\": "KlaviyoConnect/",
+                "MailOptin\\ElementorConnect\\": "ElementorConnect/",
+                "MailOptin\\WPFormsConnect\\": "WPFormsConnect/",
+                "MailOptin\\GravityFormsConnect\\": "GravityFormsConnect/",
+                "MailOptin\\NinjaFormsConnect\\": "NinjaFormsConnect/",
+                "MailOptin\\ContactForm7Connect\\": "ContactForm7Connect/",
+                "MailOptin\\PolylangConnect\\": "PolylangConnect/",
+                "MailOptin\\WPMLConnect\\": "WPMLConnect/",
+                "MailOptin\\FacebookCustomAudienceConnect\\": "FacebookCustomAudienceConnect/",
+                "MailOptin\\Connections\\": "./"
+            },
+            "classmap": [
+                "ActiveCampaignConnect/APIClass/includes/"
+            ]
+        },
+        "description": "MailOptin connections"
+    },
+    {
+        "name": "mailoptin/core",
+        "version": "0.1.0-alpha.1589314575",
+        "version_normalized": "0.1.0.0-alpha1589314575",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/mailoptin/core.git",
+            "reference": "978ec30086304ae353cb23796b706ed3c233ba5c"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/mailoptin/core/zipball/978ec30086304ae353cb23796b706ed3c233ba5c",
+            "reference": "978ec30086304ae353cb23796b706ed3c233ba5c",
+            "shasum": ""
+        },
+        "require": {
+            "barryvdh/composer-cleanup-plugin": "0.1.x@dev",
+            "collizo4sky/persist-admin-notices-dismissal": "^1.3",
+            "composer/installers": "~1.0",
+            "league/csv": "7.2.0",
+            "nesbot/carbon": "^1.32",
+            "pelago/emogrifier": "^1.0",
+            "soundasleep/html2text": "~0.5"
+        },
+        "time": "2020-05-12T19:45:51+00:00",
+        "type": "wordpress-plugin",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "MailOptin\\Core\\": "src/"
+            },
+            "files": [
+                "src/Functions/custom-settings-api.php",
+                "src/Functions/functions.php",
+                "src/Functions/php-html-css-js-minifier.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "description": "Core lib for MailOptin"
+    },
+    {
+        "name": "nesbot/carbon",
+        "version": "1.39.1",
+        "version_normalized": "1.39.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/briannesbitt/Carbon.git",
+            "reference": "4be0c005164249208ce1b5ca633cd57bdd42ff33"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/4be0c005164249208ce1b5ca633cd57bdd42ff33",
+            "reference": "4be0c005164249208ce1b5ca633cd57bdd42ff33",
+            "shasum": ""
+        },
+        "require": {
+            "kylekatarnls/update-helper": "^1.1",
+            "php": ">=5.3.9",
+            "symfony/translation": "~2.6 || ~3.0 || ~4.0"
+        },
+        "require-dev": {
+            "composer/composer": "^1.2",
+            "friendsofphp/php-cs-fixer": "~2",
+            "phpunit/phpunit": "^4.8.35 || ^5.7"
+        },
+        "time": "2019-10-14T05:51:36+00:00",
+        "bin": [
+            "bin/upgrade-carbon"
+        ],
+        "type": "library",
+        "extra": {
+            "update-helper": "Carbon\\Upgrade",
+            "laravel": {
+                "providers": [
+                    "Carbon\\Laravel\\ServiceProvider"
+                ]
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Brian Nesbitt",
+                "email": "brian@nesbot.com",
+                "homepage": "http://nesbot.com"
+            }
+        ],
+        "description": "A simple API extension for DateTime.",
+        "homepage": "http://carbon.nesbot.com",
+        "keywords": [
+            "date",
+            "datetime",
+            "time"
+        ]
+    },
+    {
+        "name": "pelago/emogrifier",
+        "version": "v1.2.2",
+        "version_normalized": "1.2.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/MyIntervals/emogrifier.git",
+            "reference": "fef6a4d3a6cefb2fdc8e749a3f3a100ab43f883a"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/MyIntervals/emogrifier/zipball/fef6a4d3a6cefb2fdc8e749a3f3a100ab43f883a",
+            "reference": "fef6a4d3a6cefb2fdc8e749a3f3a100ab43f883a",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.4.0,<=7.3.99"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "4.8.27",
+            "squizlabs/php_codesniffer": "^3.3.0"
+        },
+        "time": "2018-12-10T08:26:52+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.1.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Pelago\\": "Classes/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "John Reeve",
+                "email": "jreeve@pelagodesign.com"
+            },
+            {
+                "name": "Cameron Brooks"
+            },
+            {
+                "name": "Jaime Prado"
+            },
+            {
+                "name": "Oliver Klee",
+                "email": "github@oliverklee.de"
+            },
+            {
+                "name": "Zoli Szabó",
+                "email": "zoli.szabo+github@gmail.com"
+            },
+            {
+                "name": "Jake Hotson",
+                "email": "jake@qzdesign.co.uk"
+            }
+        ],
+        "description": "Converts CSS styles into inline style attributes in your HTML code",
+        "homepage": "https://www.myintervals.com/emogrifier.php",
+        "keywords": [
+            "css",
+            "email",
+            "pre-processing"
+        ]
+    },
+    {
+        "name": "soundasleep/html2text",
+        "version": "0.5.0",
+        "version_normalized": "0.5.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/soundasleep/html2text.git",
+            "reference": "cdb89f6ffa2c4cc78f8ed9ea6ee0594a9133ccad"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/soundasleep/html2text/zipball/cdb89f6ffa2c4cc78f8ed9ea6ee0594a9133ccad",
+            "reference": "cdb89f6ffa2c4cc78f8ed9ea6ee0594a9133ccad",
+            "shasum": ""
+        },
+        "require": {
+            "ext-dom": "*",
+            "ext-libxml": "*",
+            "php": ">=5.3.2"
+        },
+        "require-dev": {
+            "phpunit/phpunit": ">=4.0",
+            "soundasleep/component-tests": "dev-master"
+        },
+        "time": "2017-04-19T22:01:50+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Html2Text\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "EPL-1.0"
+        ],
+        "authors": [
+            {
+                "name": "Jevon Wright",
+                "homepage": "https://jevon.org",
+                "role": "Developer"
+            }
+        ],
+        "description": "A PHP script to convert HTML into a plain text format",
+        "homepage": "https://github.com/soundasleep/html2text",
+        "keywords": [
+            "email",
+            "html",
+            "php",
+            "text"
+        ]
+    },
+    {
+        "name": "symfony/polyfill-mbstring",
+        "version": "v1.17.0",
+        "version_normalized": "1.17.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/polyfill-mbstring.git",
+            "reference": "fa79b11539418b02fc5e1897267673ba2c19419c"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/fa79b11539418b02fc5e1897267673ba2c19419c",
+            "reference": "fa79b11539418b02fc5e1897267673ba2c19419c",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.3"
+        },
+        "suggest": {
+            "ext-mbstring": "For best performance"
+        },
+        "time": "2020-05-12T16:47:27+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.17-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Symfony\\Polyfill\\Mbstring\\": ""
+            },
+            "files": [
+                "bootstrap.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Nicolas Grekas",
+                "email": "p@tchwork.com"
+            },
+            {
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
+            }
+        ],
+        "description": "Symfony polyfill for the Mbstring extension",
+        "homepage": "https://symfony.com",
+        "keywords": [
+            "compatibility",
+            "mbstring",
+            "polyfill",
+            "portable",
+            "shim"
+        ],
+        "funding": [
+            {
+                "url": "https://symfony.com/sponsor",
+                "type": "custom"
+            },
+            {
+                "url": "https://github.com/fabpot",
+                "type": "github"
+            },
+            {
+                "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                "type": "tidelift"
+            }
+        ]
+    },
+    {
+        "name": "symfony/translation",
+        "version": "v3.4.40",
+        "version_normalized": "3.4.40.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/translation.git",
+            "reference": "4e844362f573713e6d45949795c95a4cb6cf760d"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/translation/zipball/4e844362f573713e6d45949795c95a4cb6cf760d",
+            "reference": "4e844362f573713e6d45949795c95a4cb6cf760d",
+            "shasum": ""
+        },
+        "require": {
+            "php": "^5.5.9|>=7.0.8",
+            "symfony/polyfill-mbstring": "~1.0"
+        },
+        "conflict": {
+            "symfony/config": "<2.8",
+            "symfony/dependency-injection": "<3.4",
+            "symfony/yaml": "<3.4"
+        },
+        "require-dev": {
+            "psr/log": "~1.0",
+            "symfony/config": "~2.8|~3.0|~4.0",
+            "symfony/dependency-injection": "~3.4|~4.0",
+            "symfony/finder": "~2.8|~3.0|~4.0",
+            "symfony/http-kernel": "~3.4|~4.0",
+            "symfony/intl": "^2.8.18|^3.2.5|~4.0",
+            "symfony/var-dumper": "~3.4|~4.0",
+            "symfony/yaml": "~3.4|~4.0"
+        },
+        "suggest": {
+            "psr/log-implementation": "To use logging capability in translator",
+            "symfony/config": "",
+            "symfony/yaml": ""
+        },
+        "time": "2020-04-12T16:39:58+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "3.4-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Symfony\\Component\\Translation\\": ""
+            },
+            "exclude-from-classmap": [
+                "/Tests/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com"
+            },
+            {
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
+            }
+        ],
+        "description": "Symfony Translation Component",
+        "homepage": "https://symfony.com",
+        "funding": [
+            {
+                "url": "https://symfony.com/sponsor",
+                "type": "custom"
+            },
+            {
+                "url": "https://github.com/fabpot",
+                "type": "github"
+            },
+            {
+                "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                "type": "tidelift"
+            }
+        ]
+    },
+    {
+        "name": "thinkshout/mailchimp-api-php",
+        "version": "1.0.10",
+        "version_normalized": "1.0.10.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/thinkshout/mailchimp-api-php.git",
+            "reference": "a409932715ae6b48fae8cc2bae264b4328d17541"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/thinkshout/mailchimp-api-php/zipball/a409932715ae6b48fae8cc2bae264b4328d17541",
+            "reference": "a409932715ae6b48fae8cc2bae264b4328d17541",
+            "shasum": ""
+        },
+        "require": {
+            "guzzlehttp/guzzle": "^6.2.1",
+            "php": ">=5.4.0"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "^6.2.2"
+        },
+        "time": "2017-12-27T21:13:18+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Mailchimp\\": "src/",
+                "Mailchimp\\http\\": "src/http/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "description": "PHP library for v3 of the MailChimp API",
+        "homepage": "https://github.com/thinkshout/mailchimp-api-php",
+        "keywords": [
+            "mail",
+            "mailchimp"
+        ]
+    }
+]

@@ -1,0 +1,63 @@
+/*----------------------------------------------------------------------------*\
+	HOTSPOT SHORTCODE
+\*----------------------------------------------------------------------------*/
+.mpc-interactive_image .mpc-hotspot {
+	position: absolute;
+	line-height: 1;
+
+	transform: translateX(-50%) translateY(-50%);
+
+	&.mpc-active {
+		z-index: 2;
+	}
+}
+
+.mpc-hotspot .mpc-icon-type--image,
+.mpc-hotspot .mpc-icon-type--character {
+	display: block;
+}
+
+.mpc-hotspot .mpc-icon-type--icon {
+	width: 1.2em;
+	line-height: 1.2;
+	text-align: center;
+	display: block;
+
+	-webkit-box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	box-sizing: content-box;
+}
+
+.mpc-hotspot img {
+	max-width: none;
+}
+
+
+/* FrontEnd Editor */
+.vc_mpc_hotspot.vc_element {
+	position: absolute !important;
+	display: inline-block !important;
+
+	-webkit-transform: translateX(-50%) translateY(-50%);
+	transform: translateX(-50%) translateY(-50%);
+}
+
+.vc_mpc_hotspot.vc_element .mpc-hotspot {
+	position: initial;
+	top: 0 !important;
+	left: 0 !important;
+
+	-webkit-transform: none;
+	transform: none;
+}
+
+.vc_mpc_hotspot.vc_element .vc_controls > .vc_controls-cc {
+	height: 30px;
+	top: initial;
+	bottom: 0;
+	-webkit-transform: translate(-50%, 100%);
+	-ms-transform: translate(-50%, 100%);
+	transform: translate(-50%, 100%);
+}
+
+

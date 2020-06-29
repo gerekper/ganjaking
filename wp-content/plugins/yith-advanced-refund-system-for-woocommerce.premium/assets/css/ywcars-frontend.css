@@ -1,0 +1,130 @@
+#ywcars_form_reason {
+    resize: none;
+}
+
+tr.order_item td.product-name .ywcars_button_refund {
+    font-size: 0.7em;
+}
+
+.ywcars_block {
+    margin: 30px 0;
+}
+
+.ywcars_hide {
+    display: none;
+}
+
+.ywcars_bold {
+    font-weight: bold;
+}
+
+label.ywcars_label_for_radio {
+    display: inline-block;
+}
+
+table.ywcars_refund_info {
+    border: 0;
+}
+
+table.ywcars_refund_info tbody, table.ywcars_refund_info tr, table.ywcars_refund_info td {
+    border: 1px solid darkgrey;
+    padding: 22px;
+    font-size: 11pt;
+}
+
+td.ywcars_refund_info_minor_cell {
+    width: 27%;
+    text-align: center;
+}
+
+.ywcars_reduced_text_size {
+    font-size: 9pt;
+}
+
+span.ywcars_current_status {
+    float: right;
+    padding: 8px 12px;
+    border-radius: 5px;
+}
+
+span.ywcars_current_status.ywcars-approved, span.ywcars_current_status.ywcars-coupon {
+    background-color: #c6ffb0;
+}
+
+span.ywcars_current_status.ywcars-rejected {
+    background-color: #ff967a;
+}
+
+span.ywcars_current_status.ywcars-new {
+    background-color: #feffb0;
+}
+
+span.ywcars_current_status.ywcars-processing {
+    background-color: #c1e8fc;
+}
+
+span.ywcars_current_status.ywcars-on-hold {
+    background-color: #dadada;
+}
+
+.ywcars_refund_info_items {
+    margin-top: 30px;
+}
+
+span.ywcars_update_messages {
+    float: right;
+    font-family: Lucida Sans Unicode;
+    cursor: pointer;
+}
+
+.ywcars_refund_info_item_row {
+    margin-bottom: 5px;
+}
+
+.ywcars_refund_info_item_total, .ywcars_refund_info_order_total {
+    float: right;
+}
+
+.ywcars_refund_info_order_total {
+    margin-top: 8px;
+}
+
+.ywcars_refund_info_add_mesage, .ywcars_refund_info_messages_history {
+    margin-top: 40px;
+}
+
+.theme-yith-proteo .ywcars_refund_info_add_mesage, .theme-yith-proteo .ywcars_refund_info_messages_history, .theme-yith-proteo .ywcars_alert {
+    margin-top: 100px;
+}
+
+.ywcars_refund_info_order_button {
+    margin-top: 10px;
+}
+
+.ywcars_coupon_box {
+    border: #dcdada solid 1px;
+    padding: 30px;
+    text-align: center;
+    margin: 10px auto;
+}
+
+.ywcars_coupon {
+    font-size: 24px;
+    color: grey;
+    word-break: break-all;
+}
+
+.ywcars_coupon_description {
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+/* Remove white borders in Twenty Seventeen theme */
+ .entry-content .ywcars_refund_info_message_box .ywcars_attachments .ywcars_single_attachment a img {
+     -webkit-box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+     box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+ }
+
+.entry-content .ywcars_refund_info_message_box .ywcars_attachments .ywcars_single_attachment a {
+    box-shadow: 0 0;
+}

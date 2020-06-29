@@ -1,0 +1,86 @@
+/*!
+ * storefront.css
+ *
+ * Copyright (c) "kento" Karim Rahimpur www.itthinx.com
+ *
+ * This code is provided subject to the license granted.
+ * Unauthorized use and distribution is prohibited.
+ * See COPYRIGHT.txt and LICENSE.txt
+ *
+ * This code is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * This header and all notices must be kept intact.
+ *
+ * @author itthinx
+ * @package woocommerce-product-search
+ * @since 2.9.0
+ */
+
+.wps-storefront-noscroll {
+	overflow: hidden;
+}
+
+.storefront-handheld-footer-bar ul li.search.active .site-search .product-search {
+	position: fixed;
+	top: 0;
+	margin: 0;
+	width: 100%;
+	height: calc( 100% - 4.24em );
+	min-height: 50px;
+	background-color: #fff;
+	opacity: 1;
+	text-align: center;
+	padding: 0;
+	margin: 0;
+	border: none;
+	left: 0;
+}
+.storefront-handheld-footer-bar.admin-bar-is-showing ul li.search.active .site-search .product-search {
+	padding: 72px 0 0 0;
+	margin: 0;
+	border: none;
+}
+.storefront-handheld-footer-bar ul li.search.active .site-search .product-search input[type="text"].product-search-field {
+	width: 90%;
+	left: 0%;
+	right: 0%;
+	border: 2px solid #ccc;
+	border-radius: 2px;
+	padding: 0.4em;
+	font-size: 1.6em;
+}
+.storefront-handheld-footer-bar ul li.search.active .site-search .product-search span.product-search-field-clear {
+	margin-right: 5%; /* compensate 90% width of the input field */
+	font-size: 1.618em;
+	right: 0.62em;
+}
+.storefront-handheld-footer-bar ul li.search.active .site-search .product-search span.product-search-field-clear::after {
+	padding: 0;
+	margin: 0;
+	border: none;
+}
+.storefront-handheld-footer-bar ul li.search.active .site-search .product-search .product-search-results {
+	display: inline-block;
+	border: none;
+	left: 0;
+	width: 100% !important;
+	height: 84%;
+	z-index: 1000;
+	overflow-y: scroll;
+	padding: 0;
+	margin: 0;
+}
+.storefront-handheld-footer-bar ul li.search.active .site-search .product-search .product-search-results .product-search-results-content {
+	padding: 10px 0 0 0;
+	margin: 0;
+	border: none;
+}
+.storefront-handheld-footer-bar ul li.search.active .site-search .widget_search form::before,
+.storefront-handheld-footer-bar ul li.search.active .site-search .widget_product_search form::before {
+	content: '';
+}
+.storefront-handheld-footer-bar li.search.active > a:before {
+	content: "\f010";
+}

@@ -1,0 +1,3896 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerde Redsys Gateway\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-05-24 23:15+0200\n"
+"PO-Revision-Date: 2020-05-25 01:16+0200\n"
+"Last-Translator: José Conti <j.conti@joseconti.com>\n"
+"Language-Team: José Conti https://www.joseconti.com\n"
+"Language: es_ES\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;_e;esc_html__;esc_html_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Generator: Poedit 2.3.1\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../classes/class-redsys-card-images.php:8
+msgid "This Widget add the credit card image"
+msgstr "Este widget añade las imágenes de las tarjetas de crédito"
+
+#: ../classes/class-redsys-card-images.php:26
+msgid "Accepted Credit Cards"
+msgstr "Tarjetas de crédito aceptadas"
+
+#: ../classes/class-redsys-card-images.php:40
+msgid "Title:"
+msgstr "Título:"
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:27
+msgid "Bizum (by José Conti)"
+msgstr "Bizum (por José Conti)"
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:28
+msgid "Bizum works redirecting customers to Bizum."
+msgstr ""
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:80
+#: ../classes/class-wc-gateway-bizum-redsys.php:146
+msgid "Bizum"
+msgstr ""
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:81
+msgid "Bizum works by sending the user to Bizum Gateway"
+msgstr ""
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:84
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:148
+#: ../classes/class-wc-gateway-redsys.php:160
+#, php-format
+msgid ""
+"For Redsys Help: Check WooCommerce.com Plugin <a href=\"%1$s\" target="
+"\"_blank\" rel=\"noopener\">Documentation page</a> for setup, <a href=\"%2$s"
+"\" target=\"_blank\" rel=\"noopener\">FAQ page</a> for working problems, or "
+"open a <a href=\"%3$s\" target=\"_blank\" rel=\"noopener\">Ticket</a> for "
+"support"
+msgstr ""
+"Para ayuda de Redsys: Comprueba la <a href=\"%1$s\" target=\"_blank\" rel="
+"\"noopener\">página de documentación</a> de WooCommerce.com para la "
+"configuración, la <a href=\"%2$s\" target=\"_blank\" rel=\"noopener\">página "
+"FAQ</a> para problemas de funcionamiento, o abre un <a href=\"%3$s\" target="
+"\"_blank\" rel=\"noopener\">ticket</a> para soporte"
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:87
+#: ../classes/class-wc-gateway-insite-redsys.php:102
+#: ../classes/class-wc-gateway-masterpass-redsys.php:94
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:159
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:89
+#: ../classes/class-wc-gateway-redsys.php:171
+msgid "Attention! WPML detected."
+msgstr "¡Atención! detectado WPML."
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:88
+#: ../classes/class-wc-gateway-insite-redsys.php:103
+#: ../classes/class-wc-gateway-masterpass-redsys.php:95
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:160
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:90
+#: ../classes/class-wc-gateway-redsys.php:172
+msgid ""
+"The Gateway will be shown in the customer language. The option \"Language "
+"Gateway\" is not taken into consideration"
+msgstr ""
+"La pasarela de pago se mostrará en el idioma del cliente. La opción \"Idioma "
+"de la pasarela\" no se tomará en cuenta"
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:106
+#: ../classes/class-wc-gateway-insite-redsys.php:122
+#: ../classes/class-wc-gateway-masterpass-redsys.php:114
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:179
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:109
+#: ../classes/class-wc-gateway-redsys.php:191
+msgid "Gateway Disabled"
+msgstr "Pasarela desactivada"
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:106
+#: ../classes/class-wc-gateway-insite-redsys.php:122
+#: ../classes/class-wc-gateway-masterpass-redsys.php:114
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:179
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:109
+#: ../classes/class-wc-gateway-redsys.php:191
+#, fuzzy
+#| msgid "Servired/RedSys"
+msgid "Servired/RedSys only support "
+msgstr "Servired/RedSys"
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:137
+#: ../classes/class-wc-gateway-insite-redsys.php:136
+#: ../classes/class-wc-gateway-masterpass-redsys.php:128
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:209
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:123
+#: ../classes/class-wc-gateway-redsys.php:221
+msgid "Enable/Disable"
+msgstr "Activar/Desactivar"
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:139
+#, fuzzy
+#| msgid "Enable BBVA"
+msgid "Enable Bizum"
+msgstr "Activar BBVA"
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:143
+#: ../classes/class-wc-gateway-insite-redsys.php:152
+#: ../classes/class-wc-gateway-masterpass-redsys.php:134
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:290
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:129
+#: ../classes/class-wc-gateway-redsys.php:327
+msgid "Title"
+msgstr "Título"
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:145
+#: ../classes/class-wc-gateway-insite-redsys.php:154
+#: ../classes/class-wc-gateway-masterpass-redsys.php:136
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:292
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:131
+#: ../classes/class-wc-gateway-redsys.php:329
+msgid "This controls the title which the user sees during checkout."
+msgstr "Título que sus clientes verán al finalizar la compra."
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:150
+#: ../classes/class-wc-gateway-insite-redsys.php:159
+#: ../classes/class-wc-gateway-masterpass-redsys.php:141
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:297
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:136
+#: ../classes/class-wc-gateway-redsys.php:334
+msgid "Description"
+msgstr "Descripción"
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:152
+#: ../classes/class-wc-gateway-insite-redsys.php:161
+#: ../classes/class-wc-gateway-masterpass-redsys.php:143
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:299
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:138
+#: ../classes/class-wc-gateway-redsys.php:336
+msgid "This controls the description which the user sees during checkout."
+msgstr "Descripción que sus clientes verán al finalizar la compra."
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:153
+#, fuzzy
+#| msgid "Pay via Iupay; you can pay with your credit card."
+msgid "Pay via Bizum you can pay with your Bizum account."
+msgstr "Paga mediante Iupay, puedes pagar fácilmente con tu cuenta Iupay."
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:156
+#: ../classes/class-wc-gateway-insite-redsys.php:171
+#: ../classes/class-wc-gateway-masterpass-redsys.php:153
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:309
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:148
+#: ../classes/class-wc-gateway-redsys.php:346
+msgid "Commerce number (FUC)"
+msgstr "Número de comercio (FUC)"
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:158
+#: ../classes/class-wc-gateway-insite-redsys.php:173
+#: ../classes/class-wc-gateway-masterpass-redsys.php:155
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:311
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:150
+#: ../classes/class-wc-gateway-redsys.php:348
+msgid "Commerce number (FUC) provided by your bank."
+msgstr "Número de comercio (FUC) provisto por su entidad bancaria."
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:162
+#: ../classes/class-wc-gateway-bizum-redsys.php:164
+#: ../classes/class-wc-gateway-insite-redsys.php:165
+#: ../classes/class-wc-gateway-insite-redsys.php:167
+#: ../classes/class-wc-gateway-masterpass-redsys.php:147
+#: ../classes/class-wc-gateway-masterpass-redsys.php:149
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:321
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:323
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:154
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:156
+#: ../classes/class-wc-gateway-redsys.php:358
+#: ../classes/class-wc-gateway-redsys.php:360
+msgid "Commerce Name"
+msgstr "Nombre de Comercio"
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:168
+#: ../classes/class-wc-gateway-insite-redsys.php:177
+#: ../classes/class-wc-gateway-masterpass-redsys.php:159
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:327
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:160
+#: ../classes/class-wc-gateway-redsys.php:364
+msgid "Terminal number"
+msgstr "Número de terminal"
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:170
+#: ../classes/class-wc-gateway-insite-redsys.php:179
+#: ../classes/class-wc-gateway-masterpass-redsys.php:161
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:329
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:162
+#: ../classes/class-wc-gateway-redsys.php:366
+msgid "Terminal number provided by your bank."
+msgstr "Número de terminal provisto por su entidad bancaria."
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:174
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:352
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:166
+#: ../classes/class-wc-gateway-redsys.php:389
+msgid "HTTPS SNI Compatibility"
+msgstr "Compatibilidad HTTPS SNI"
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:176
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:168
+msgid "Activate SNI Compatibility."
+msgstr "Activa compatibilidad con certificados SNI."
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:178
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:170
+msgid ""
+"If you are using HTTPS and Redsys don't support your certificate, example "
+"Lets Encrypt, you can deactivate HTTPS notifications. WARNING: If you are "
+"forcing redirection to HTTPS with htaccess, you need to add an exception for "
+"notification URL"
+msgstr ""
+"Si estás usando HTTPS y Redsys no soporta tu certificado, por ejemplo Let’s "
+"Encrypt, debes activar esta función. ATENCIÓN: Si estás forzando la "
+"ridirección a HTTPS mediante htaccess (si usas Really Simple SSL seguro que "
+"lo haces), necesitas añadir una excepción para que no redirija la URL de "
+"notificación"
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:181
+#: ../classes/class-wc-gateway-insite-redsys.php:183
+#: ../classes/class-wc-gateway-masterpass-redsys.php:165
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:369
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:183
+#: ../classes/class-wc-gateway-redsys.php:406
+msgid "Encryption secret passphrase SHA-256"
+msgstr "Frase de encriptación SHA-256"
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:183
+#: ../classes/class-wc-gateway-insite-redsys.php:185
+#: ../classes/class-wc-gateway-masterpass-redsys.php:167
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:371
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:185
+#: ../classes/class-wc-gateway-redsys.php:408
+msgid "Encryption secret passphrase SHA-256 provided by your bank."
+msgstr "Frase de encriptación facilitada por tu banco."
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:187
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:375
+#: ../classes/class-wc-gateway-redsys.php:412
+#, fuzzy
+#| msgid "Encryption secret passphrase SHA-256"
+msgid "TEST MODE: Encryption secret passphrase SHA-256"
+msgstr "Frase de encriptación SHA-256"
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:189
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:377
+#: ../classes/class-wc-gateway-redsys.php:414
+#, fuzzy
+#| msgid "Encryption secret passphrase SHA-256 provided by your bank."
+msgid ""
+"Encryption secret passphrase SHA-256 provided by your bank for test mode."
+msgstr "Frase de encriptación facilitada por tu banco."
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:193
+#: ../classes/class-wc-gateway-insite-redsys.php:189
+#: ../classes/class-wc-gateway-masterpass-redsys.php:171
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:381
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:189
+#: ../classes/class-wc-gateway-redsys.php:418
+msgid "Language Gateway"
+msgstr "Idioma de la pasarela"
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:195
+#: ../classes/class-wc-gateway-insite-redsys.php:191
+#: ../classes/class-wc-gateway-masterpass-redsys.php:173
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:383
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:191
+#: ../classes/class-wc-gateway-redsys.php:420
+msgid "Choose the language for the Gateway. Not all Banks accept all languages"
+msgstr ""
+"Selecciona el idioma para la pasarela de pago. No todos los bancos aceptan "
+"todos los idiomas"
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:200
+#: ../classes/class-wc-gateway-bizum-redsys.php:202
+#: ../classes/class-wc-gateway-bizum-redsys.php:226
+#: ../classes/class-wc-gateway-insite-redsys.php:238
+#: ../classes/class-wc-gateway-insite-redsys.php:240
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:405
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:407
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:431
+#: ../classes/class-wc-gateway-redsys.php:442
+#: ../classes/class-wc-gateway-redsys.php:444
+#: ../classes/class-wc-gateway-redsys.php:468
+msgid "Running in test mode"
+msgstr "Ejecutando en entorno de pruebas"
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:204
+#: ../classes/class-wc-gateway-insite-redsys.php:242
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:409
+#: ../classes/class-wc-gateway-redsys.php:446
+msgid ""
+"Select this option for the initial testing required by your bank, deselect "
+"this option once you pass the required test phase and your production "
+"environment is active."
+msgstr ""
+"Seleccione esta opción para las pruebas requeridas por su entidad bancaria, "
+"deseleccione esta opción una vez que haya activado su entorno de producción."
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:207
+#: ../classes/class-wc-gateway-bizum-redsys.php:209
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:412
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:414
+#: ../classes/class-wc-gateway-redsys.php:449
+#: ../classes/class-wc-gateway-redsys.php:451
+msgid "Running in test mode for a user"
+msgstr "Ejecutando en entorno de pruebas para usuario"
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:211
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:416
+#: ../classes/class-wc-gateway-redsys.php:453
+msgid ""
+"The user selected below will use the terminal in test mode. Other users will "
+"continue to use live mode unless you have the \"Running in test mode\" "
+"option checked."
+msgstr ""
+"Los usuarios seleccionados en el siguiente campo utilizarán el terminal en "
+"modo de pruebas. Los otros usuarios continuarán utilizando el terminal en "
+"modo real a menos que tengas marcado «Ejecutando en entorno de pruebas»."
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:214
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:419
+#: ../classes/class-wc-gateway-redsys.php:456
+#: ../includes/private-products.php:75
+msgid "Users"
+msgstr "Usuarios"
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:216
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:421
+#: ../classes/class-wc-gateway-redsys.php:458
+msgid "Users running in test mode"
+msgstr "Usuarios ejecutados en entorno de pruebas"
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:221
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:426
+#: ../classes/class-wc-gateway-redsys.php:463
+msgid "Select users running in test mode"
+msgstr "Selecciona los usuarios que ejecutarán el entorno en modo de pruebas"
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:224
+#: ../classes/class-wc-gateway-insite-redsys.php:245
+#: ../classes/class-wc-gateway-masterpass-redsys.php:188
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:429
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:214
+#: ../classes/class-wc-gateway-redsys.php:466
+msgid "Debug Log"
+msgstr "Registro"
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:227
+#: ../classes/class-wc-gateway-insite-redsys.php:247
+#: ../classes/class-wc-gateway-masterpass-redsys.php:190
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:432
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:216
+#: ../classes/class-wc-gateway-redsys.php:469
+msgid "Enable logging"
+msgstr "Habilitar registro"
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:229
+#, fuzzy
+#| msgid ""
+#| "Log Iupay events, such as notifications requests, inside "
+#| "<code>woocommerce/logs/iupay.txt</code>"
+msgid ""
+"Log Bizum events, such as notifications requests, inside <code>woocommerce/"
+"logs/redsys.txt</code>"
+msgstr ""
+"Guarda los logs de Iupay, como notificaciones o errores en <code>woocommerce/"
+"logs/iupay.txt</code>"
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:472
+#: ../classes/class-wc-gateway-bizum-redsys.php:501
+#: ../classes/class-wc-gateway-bizum-redsys.php:1082
+#: ../classes/class-wc-gateway-bizum-redsys.php:1101
+#: ../classes/class-wc-gateway-insite-redsys.php:488
+#: ../classes/class-wc-gateway-masterpass-redsys.php:324
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:727
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:1027
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:1470
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:1791
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2915
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2935
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3049
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3065
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3158
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3179
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:264
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:290
+#: ../classes/class-wc-gateway-redsys.php:769
+#: ../classes/class-wc-gateway-redsys.php:1081
+#: ../classes/class-wc-gateway-redsys.php:1523
+#: ../classes/class-wc-gateway-redsys.php:1844
+#: ../classes/class-wc-gateway-redsys.php:3003
+#: ../classes/class-wc-gateway-redsys.php:3023
+#: ../classes/class-wc-gateway-redsys.php:3137
+#: ../classes/class-wc-gateway-redsys.php:3153
+#: ../classes/class-wc-gateway-redsys.php:3246
+#: ../classes/class-wc-gateway-redsys.php:3267
+#: ../classes/class-wc-gateway-redsys.php:3722
+msgid "Order"
+msgstr "Orden"
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:538
+#, fuzzy
+#| msgid ""
+#| "Thank you for your order. We are now redirecting you to Iupay to make the "
+#| "payment."
+msgid ""
+"Thank you for your order. We are now redirecting you to Bizum to make the "
+"payment."
+msgstr ""
+"Gracias por tu pedido. Ahora le estamos redirigiendo a Iupay para que pueda "
+"realizar su pedido."
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:558
+#, fuzzy
+#| msgid "Pay with One Click"
+msgid "Pay with Bizum"
+msgstr "Pago con un solo clic"
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:558
+#: ../classes/class-wc-gateway-insite-redsys.php:574
+#: ../classes/class-wc-gateway-masterpass-redsys.php:381
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:1256
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:1319
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:337
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:369
+#: ../classes/class-wc-gateway-redsys.php:1310
+#: ../classes/class-wc-gateway-redsys.php:1373
+msgid "Cancel order &amp; restore cart"
+msgstr "Cancelar orden &amp; volver al carro"
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:584
+#, fuzzy
+#| msgid ""
+#| "Thank you for your order, please click the button below to pay with Iupay."
+msgid ""
+"Thank you for your order, please click the button below to pay with Bizum."
+msgstr ""
+"Gracias por su pedido, por favor haga clic en el siguiente botón para poder "
+"pagar con Iupay."
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:808
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2423
+#: ../classes/class-wc-gateway-redsys.php:2476
+msgid "Order Payment refunded"
+msgstr "Pago del pedido devuelto"
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:811
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2426
+#: ../classes/class-wc-gateway-redsys.php:2479
+msgid "There was an error refunding"
+msgstr "Hubo un error en la devolución"
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:829
+msgid ""
+"Validation error: Order vs. Notification amounts do not match (order: %1$s - "
+"received: %2&s)."
+msgstr ""
+"Error de validación: Totales de Orden vs. Notificación no coinciden (order: "
+"%1$s - received: %2&s)."
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:951
+#: ../classes/class-wc-gateway-insite-redsys.php:892
+#: ../classes/class-wc-gateway-masterpass-redsys.php:551
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:530
+msgid "HTTP Notification received - payment completed"
+msgstr "Notificación HTTP recibida - pago completado"
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:952
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2664
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:531
+#: ../classes/class-wc-gateway-redsys.php:2722
+msgid "Authorization code: "
+msgstr "Código de autenticación: "
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:955
+#, fuzzy
+#| msgid "Order Completed by Redsys"
+msgid "Order Completed by Bizum"
+msgstr "Pedido completado por Redsys"
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:973
+#: ../classes/class-wc-gateway-bizum-redsys.php:978
+#: ../classes/class-wc-gateway-insite-redsys.php:906
+#: ../classes/class-wc-gateway-insite-redsys.php:916
+#: ../classes/class-wc-gateway-masterpass-redsys.php:565
+#: ../classes/class-wc-gateway-masterpass-redsys.php:575
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2689
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2694
+#: ../classes/class-wc-gateway-redsys.php:2777
+#: ../classes/class-wc-gateway-redsys.php:2782
+msgid "Order cancelled by Redsys: "
+msgstr "Pedido cancelado por Redsys: "
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:997
+#: ../classes/class-wc-gateway-bizum-redsys.php:998
+#, fuzzy
+#| msgid "Order cancelled by Redsys: "
+msgid "Order cancelled by Redsys Bizum"
+msgstr "Pedido cancelado por Redsys: "
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:1016
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2848
+#: ../classes/class-wc-gateway-redsys.php:2936
+msgid "Starting asking for Refund"
+msgstr "Comenzado a pedir la devolución"
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:1020
+#: ../classes/class-wc-gateway-bizum-redsys.php:1058
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2852
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2892
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3007
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3116
+#: ../classes/class-wc-gateway-redsys.php:2940
+#: ../classes/class-wc-gateway-redsys.php:2980
+#: ../classes/class-wc-gateway-redsys.php:3095
+#: ../classes/class-wc-gateway-redsys.php:3204
+msgid "Terminal : "
+msgstr "Terminal : "
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:1027
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2859
+#: ../classes/class-wc-gateway-redsys.php:2947
+msgid "Using meta for SHA256"
+msgstr "Utilizando meta SHA256"
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:1028
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2860
+#: ../classes/class-wc-gateway-redsys.php:2948
+msgid "The SHA256 Meta is: "
+msgstr "El SHA256 meta es: "
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:1033
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2865
+#: ../classes/class-wc-gateway-redsys.php:2953
+msgid "Using settings for SHA256"
+msgstr "Utilizando configuración para SHA256"
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:1034
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2866
+#: ../classes/class-wc-gateway-redsys.php:2954
+msgid "The SHA256 settings is: "
+msgstr "La configuración SHA256 es: "
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:1049
+#: ../classes/class-wc-gateway-bizum-redsys.php:1054
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2883
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2888
+#: ../classes/class-wc-gateway-redsys.php:2971
+#: ../classes/class-wc-gateway-redsys.php:2976
+msgid "All data from meta"
+msgstr "Todos los datos Meta"
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:1052
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2886
+#: ../classes/class-wc-gateway-redsys.php:2974
+msgid "If something is empty, the data was not saved"
+msgstr "Si algo está vacío, los datos no son guardados"
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:1055
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2889
+#: ../classes/class-wc-gateway-redsys.php:2977
+msgid "Authorization Code : "
+msgstr "Código de autorización: "
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:1056
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2890
+#: ../classes/class-wc-gateway-redsys.php:2978
+msgid "Authorization Date : "
+msgstr "Fecha de autorización: "
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:1057
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2891
+#: ../classes/class-wc-gateway-redsys.php:2979
+msgid "Currency Codey : "
+msgstr "Código de moneda: "
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:1059
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2893
+#: ../classes/class-wc-gateway-redsys.php:2981
+msgid "SHA256 : "
+msgstr "SHA256 : "
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:1087
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2921
+#: ../classes/class-wc-gateway-redsys.php:3009
+msgid "Data sent to Redsys for refund"
+msgstr "Datos enviados a Redsys para devolución"
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:1090
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2924
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3054
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3168
+#: ../classes/class-wc-gateway-redsys.php:3012
+#: ../classes/class-wc-gateway-redsys.php:3142
+#: ../classes/class-wc-gateway-redsys.php:3256
+msgid "URL to Redsys : "
+msgstr "URL a Redsys : "
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:1091
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2925
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3055
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3169
+#: ../classes/class-wc-gateway-redsys.php:3013
+#: ../classes/class-wc-gateway-redsys.php:3143
+#: ../classes/class-wc-gateway-redsys.php:3257
+msgid "DS_MERCHANT_AMOUNT : "
+msgstr "DS_MERCHANT_AMOUNT : "
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:1092
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2926
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3056
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3170
+#: ../classes/class-wc-gateway-redsys.php:3014
+#: ../classes/class-wc-gateway-redsys.php:3144
+#: ../classes/class-wc-gateway-redsys.php:3258
+msgid "DS_MERCHANT_ORDER : "
+msgstr "DS_MERCHANT_ORDER : "
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:1093
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2927
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3057
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3171
+#: ../classes/class-wc-gateway-redsys.php:3015
+#: ../classes/class-wc-gateway-redsys.php:3145
+#: ../classes/class-wc-gateway-redsys.php:3259
+msgid "DS_MERCHANT_MERCHANTCODE : "
+msgstr "DS_MERCHANT_MERCHANTCODE : "
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:1094
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2928
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3058
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3172
+#: ../classes/class-wc-gateway-redsys.php:3016
+#: ../classes/class-wc-gateway-redsys.php:3146
+#: ../classes/class-wc-gateway-redsys.php:3260
+msgid "DS_MERCHANT_CURRENCY : "
+msgstr "DS_MERCHANT_CURRENCY : "
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:1095
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2929
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3059
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3173
+#: ../classes/class-wc-gateway-redsys.php:3017
+#: ../classes/class-wc-gateway-redsys.php:3147
+#: ../classes/class-wc-gateway-redsys.php:3261
+msgid "DS_MERCHANT_TRANSACTIONTYPE : "
+msgstr "DS_MERCHANT_TRANSACTIONTYPE : "
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:1096
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2930
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3060
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3174
+#: ../classes/class-wc-gateway-redsys.php:3018
+#: ../classes/class-wc-gateway-redsys.php:3148
+#: ../classes/class-wc-gateway-redsys.php:3262
+msgid "DS_MERCHANT_TERMINAL : "
+msgstr "DS_MERCHANT_TERMINAL : "
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:1097
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2931
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3061
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3175
+#: ../classes/class-wc-gateway-redsys.php:3019
+#: ../classes/class-wc-gateway-redsys.php:3149
+#: ../classes/class-wc-gateway-redsys.php:3263
+msgid "DS_MERCHANT_MERCHANTURL : "
+msgstr "DS_MERCHANT_MERCHANTURL : "
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:1098
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2932
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3062
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3176
+#: ../classes/class-wc-gateway-redsys.php:3020
+#: ../classes/class-wc-gateway-redsys.php:3150
+#: ../classes/class-wc-gateway-redsys.php:3264
+msgid "DS_MERCHANT_URLOK : "
+msgstr "DS_MERCHANT_URLOK : "
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:1099
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2933
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3063
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3177
+#: ../classes/class-wc-gateway-redsys.php:3021
+#: ../classes/class-wc-gateway-redsys.php:3151
+#: ../classes/class-wc-gateway-redsys.php:3265
+msgid "DS_MERCHANT_URLKO : "
+msgstr "DS_MERCHANT_URLKO : "
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:1100
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2934
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3064
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3178
+#: ../classes/class-wc-gateway-redsys.php:3022
+#: ../classes/class-wc-gateway-redsys.php:3152
+#: ../classes/class-wc-gateway-redsys.php:3266
+msgid "DS_MERCHANT_CONSUMERLANGUAGE : 001"
+msgstr "DS_MERCHANT_CONSUMERLANGUAGE : 001"
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:1101
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2935
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3065
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3179
+#: ../classes/class-wc-gateway-redsys.php:3023
+#: ../classes/class-wc-gateway-redsys.php:3153
+#: ../classes/class-wc-gateway-redsys.php:3267
+msgid "DS_MERCHANT_PRODUCTDESCRIPTION : "
+msgstr "DS_MERCHANT_PRODUCTDESCRIPTION : "
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:1102
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2936
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3066
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3180
+#: ../classes/class-wc-gateway-redsys.php:3024
+#: ../classes/class-wc-gateway-redsys.php:3154
+#: ../classes/class-wc-gateway-redsys.php:3268
+msgid "DS_MERCHANT_MERCHANTNAME : "
+msgstr "DS_MERCHANT_MERCHANTNAME : "
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:1103
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2937
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3067
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3181
+#: ../classes/class-wc-gateway-redsys.php:3025
+#: ../classes/class-wc-gateway-redsys.php:3155
+#: ../classes/class-wc-gateway-redsys.php:3269
+msgid "DS_MERCHANT_AUTHORISATIONCODE : "
+msgstr "DS_MERCHANT_AUTHORISATIONCODE : "
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:1104
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2938
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3068
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3182
+#: ../classes/class-wc-gateway-redsys.php:3026
+#: ../classes/class-wc-gateway-redsys.php:3156
+#: ../classes/class-wc-gateway-redsys.php:3270
+msgid "Ds_Merchant_TransactionDate : "
+msgstr "Ds_Merchant_TransactionDate : "
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:1105
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2939
+#: ../classes/class-wc-gateway-redsys.php:3027
+msgid "ask_for_refund Asking por order #: "
+msgstr "ask_for_refund Preguntando por el pedido #: "
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:1131
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2965
+#: ../classes/class-wc-gateway-redsys.php:3053
+msgid "There is an error"
+msgstr "Hay un error"
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:1134
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2968
+#: ../classes/class-wc-gateway-redsys.php:3056
+msgid "The error is : "
+msgstr "El error fue: "
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:1147
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2984
+#: ../classes/class-wc-gateway-redsys.php:3072
+msgid "Checking and waiting ping from Redsys"
+msgstr "Comprobación y esperando ping de Redsys"
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:1150
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2987
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3223
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3238
+#: ../classes/class-wc-gateway-redsys.php:3075
+#: ../classes/class-wc-gateway-redsys.php:3311
+#: ../classes/class-wc-gateway-redsys.php:3326
+msgid "Check order status #: "
+msgstr "Comprobando estado del pedido #: "
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:1151
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2988
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3224
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3239
+#: ../classes/class-wc-gateway-redsys.php:3076
+#: ../classes/class-wc-gateway-redsys.php:3312
+#: ../classes/class-wc-gateway-redsys.php:3327
+msgid "Check order status with get_transient: "
+msgstr "Comprobando estado del pedido mediante get_transient: "
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:1167
+msgid "$order_id#: "
+msgstr ""
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:1177
+#, fuzzy
+#| msgid "check_redsys_refund Asking por order #: "
+msgid "check_redsys_refund Asking for order #: "
+msgstr "check_redsys_refund Preguntando por el pedido #: "
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:1184
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3436
+#: ../classes/class-wc-gateway-redsys.php:3524
+msgid "Refund Failed: "
+msgstr "Error en la devolución: "
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:1195
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3447
+#: ../classes/class-wc-gateway-redsys.php:3535
+msgid "check_redsys_refund = true "
+msgstr "check_redsys_refund = true "
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:1208
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3459
+#: ../classes/class-wc-gateway-redsys.php:3547
+msgid "check_redsys_refund = false "
+msgstr "check_redsys_refund = false "
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:1217
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3468
+#: ../classes/class-wc-gateway-redsys.php:3556
+msgid "!!!!Refund Failed, please try again!!!!"
+msgstr "!!!!Reembolso fallido, por favor, prueba de nuevo!!!!"
+
+#: ../classes/class-wc-gateway-bizum-redsys.php:1230
+#: ../classes/class-wc-gateway-bizum-redsys.php:1237
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3480
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3482
+#: ../classes/class-wc-gateway-redsys.php:3568
+#: ../classes/class-wc-gateway-redsys.php:3570
+msgid "Refund Failed: No transaction ID"
+msgstr "Devolución fallida: No hay ID de transacción"
+
+#: ../classes/class-wc-gateway-insite-redsys.php:36
+msgid "InSite (by José Conti)"
+msgstr ""
+
+#: ../classes/class-wc-gateway-insite-redsys.php:37
+msgid "Insite works Adding a Credit Card for at the Checkout."
+msgstr ""
+
+#: ../classes/class-wc-gateway-insite-redsys.php:99
+#: ../classes/class-wc-gateway-insite-redsys.php:155
+msgid "InSite"
+msgstr ""
+
+#: ../classes/class-wc-gateway-insite-redsys.php:100
+#, fuzzy
+#| msgid ""
+#| "Iupay works by sending the user to your bank TPV to enter their payment "
+#| "information."
+msgid ""
+"InSite works by sending the user to your bank TPV to enter their payment "
+"information."
+msgstr ""
+"Iupay funciona enviando al usuario al TPV de Iupay, donde solo deberían dar "
+"unos pocos datos aumentando el ratio de ventas."
+
+#: ../classes/class-wc-gateway-insite-redsys.php:138
+#, fuzzy
+#| msgid "Enable Iupay"
+msgid "Enable InSite"
+msgstr "Activar Iupay"
+
+#: ../classes/class-wc-gateway-insite-redsys.php:142
+msgid "Select InSite Type"
+msgstr ""
+
+#: ../classes/class-wc-gateway-insite-redsys.php:144
+#: ../classes/class-wc-gateway-insite-redsys.php:230
+#: ../classes/class-wc-gateway-masterpass-redsys.php:180
+msgid ""
+"When the user press the return button at Redsys Gateway (Ex: The user type "
+"an incorrect creadit cart), you can redirect the user to My Cart page "
+"canceling the order, or you can redirect the user to Checkput page without "
+"cancel the order."
+msgstr ""
+"Cuando un cliente aprieta el botón de retorno en la pasarela Redsys (Ej: El "
+"usuario introduce una tarjeta de crédito incorrecta), puedes redirigirlo "
+"mediante el botón a al carro de la compra cancelando el pedido, o puedes "
+"redirigirlo a la página de pago de tu tienda sin cancelar el pedido."
+
+#: ../classes/class-wc-gateway-insite-redsys.php:147
+msgid "Unified integration"
+msgstr ""
+
+#: ../classes/class-wc-gateway-insite-redsys.php:148
+msgid "Integration by independent elements"
+msgstr ""
+
+#: ../classes/class-wc-gateway-insite-redsys.php:162
+#, fuzzy
+#| msgid "Pay via Iupay; you can pay with your credit card."
+msgid "Pay via InSite; you can pay with your credit card."
+msgstr "Paga mediante Iupay, puedes pagar fácilmente con tu cuenta Iupay."
+
+#: ../classes/class-wc-gateway-insite-redsys.php:228
+#: ../classes/class-wc-gateway-masterpass-redsys.php:178
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:388
+#: ../classes/class-wc-gateway-redsys.php:425
+msgid "Return URL (Redsys Error button)"
+msgstr "URL de retorno (Botón de error en Redsys)"
+
+#: ../classes/class-wc-gateway-insite-redsys.php:233
+#: ../classes/class-wc-gateway-masterpass-redsys.php:183
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:393
+#: ../classes/class-wc-gateway-redsys.php:430
+msgid "Cancel the order and return to My Cart page"
+msgstr "Cancelar el pedido y enviar al cliente al carro de compra"
+
+#: ../classes/class-wc-gateway-insite-redsys.php:234
+#: ../classes/class-wc-gateway-masterpass-redsys.php:184
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:394
+#: ../classes/class-wc-gateway-redsys.php:431
+msgid "Don't cancel the order and return to Checkout page"
+msgstr "No cancelar el pedido y enviar al cliente a la página de pago"
+
+#: ../classes/class-wc-gateway-insite-redsys.php:249
+#, fuzzy
+#| msgid ""
+#| "Log Iupay events, such as notifications requests, inside "
+#| "<code>woocommerce/logs/iupay.txt</code>"
+msgid ""
+"Log InSite events, such as notifications requests, inside <code>woocommerce/"
+"logs/iupay.txt</code>"
+msgstr ""
+"Guarda los logs de Iupay, como notificaciones o errores en <code>woocommerce/"
+"logs/iupay.txt</code>"
+
+#: ../classes/class-wc-gateway-insite-redsys.php:554
+#, fuzzy
+#| msgid ""
+#| "Thank you for your order. We are now redirecting you to Iupay to make the "
+#| "payment."
+msgid ""
+"Thank you for your order. We are now redirecting you to InSite to make the "
+"payment."
+msgstr ""
+"Gracias por tu pedido. Ahora le estamos redirigiendo a Iupay para que pueda "
+"realizar su pedido."
+
+#: ../classes/class-wc-gateway-insite-redsys.php:574
+#, fuzzy
+#| msgid "Pay with Iupay account"
+msgid "Pay with InSite account"
+msgstr "Paga con tu cuenta de Iupay"
+
+#: ../classes/class-wc-gateway-insite-redsys.php:868
+#: ../classes/class-wc-gateway-masterpass-redsys.php:527
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2518
+#: ../classes/class-wc-gateway-redsys.php:2571
+#, php-format
+msgid ""
+"Validation error: Order vs. Notification amounts do not match (order: %s - "
+"received: %s)."
+msgstr ""
+"Error de validación: Totales de Orden vs. Notificación no coinciden (orden: "
+"%s - recibido: %s)."
+
+#: ../classes/class-wc-gateway-insite-redsys.php:893
+#: ../classes/class-wc-gateway-masterpass-redsys.php:552
+msgid "Authorisation code: "
+msgstr "Código autorización: "
+
+#: ../classes/class-wc-gateway-insite-redsys.php:937
+#, fuzzy
+#| msgid "Cancelled by Iupay"
+msgid "Cancelled by InSite"
+msgstr "Cancelado por Iupay"
+
+#: ../classes/class-wc-gateway-insite-redsys.php:938
+#, fuzzy
+#| msgid "Order cancelled by Redsys: "
+msgid "Order canceled by InSite"
+msgstr "Pedido cancelado por Redsys: "
+
+#: ../classes/class-wc-gateway-masterpass-redsys.php:36
+msgid "MasterPass (by José Conti)"
+msgstr ""
+
+#: ../classes/class-wc-gateway-masterpass-redsys.php:37
+msgid "MasterPass works redirecting customers to MasterPass."
+msgstr ""
+
+#: ../classes/class-wc-gateway-masterpass-redsys.php:91
+#: ../classes/class-wc-gateway-masterpass-redsys.php:137
+msgid "MasterPass"
+msgstr "MasterPass"
+
+#: ../classes/class-wc-gateway-masterpass-redsys.php:92
+msgid ""
+"MasterPass works by sending the user to your bank TPV to enter their payment "
+"information."
+msgstr ""
+"MasterPass funciona enviando al usuario al TPV de tu banco para introducir "
+"la información de pago."
+
+#: ../classes/class-wc-gateway-masterpass-redsys.php:130
+msgid "Enable MasterPass"
+msgstr "Activar MasterPass"
+
+#: ../classes/class-wc-gateway-masterpass-redsys.php:144
+msgid "Pay via MasterPass; you can pay with your credit card."
+msgstr "Pagar a través de MasterPass; puedes pagar con tu tarjeta de crédito."
+
+#: ../classes/class-wc-gateway-masterpass-redsys.php:192
+msgid ""
+"Log MasterPass events, such as notifications requests, inside "
+"<code>woocommerce/logs/iupay.txt</code>"
+msgstr ""
+
+#: ../classes/class-wc-gateway-masterpass-redsys.php:362
+msgid ""
+"Thank you for your order. We are now redirecting you to MasterPass to make "
+"the payment."
+msgstr ""
+
+#: ../classes/class-wc-gateway-masterpass-redsys.php:381
+msgid "Pay with MasterPass account"
+msgstr ""
+
+#: ../classes/class-wc-gateway-masterpass-redsys.php:408
+msgid ""
+"Thank you for your order, please click the button below to pay with "
+"MasterPass."
+msgstr ""
+
+#: ../classes/class-wc-gateway-masterpass-redsys.php:596
+msgid "Cancelled by MasterPass"
+msgstr ""
+
+#: ../classes/class-wc-gateway-masterpass-redsys.php:597
+#, fuzzy
+#| msgid "Order cancelled by Redsys: "
+msgid "Order canceled by MasterPass"
+msgstr "Pedido cancelado por Redsys: "
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:33
+#, fuzzy
+#| msgid "Redsys Authorisation Code"
+msgid "Redsys Preauthorizations (by José Conti)"
+msgstr "Código autorización Redsys"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:34
+#, fuzzy
+#| msgid ""
+#| "Redsys works redirecting customers to Redsys or paying directly without "
+#| "leaving the website if you have active payment with 1 click and a "
+#| "terminal not secure."
+msgid ""
+"Redsys Preauthorizations works redirecting customers to Redsys or paying "
+"directly without leaving the website if you have active payment with 1 click "
+"and a terminal not secure."
+msgstr ""
+"Redsys funciona redirigiendo a los usuarios a Redsys o pagando directamente "
+"en el sitio sin abandonar el sitio web si tienes activado el pago con 1 clic "
+"y un terminal no seguro."
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:114
+#: ../classes/class-wc-gateway-redsys.php:126
+msgid ""
+"WARNING: The PHP mcrypt_encrypt module is not installed on your server. The "
+"new API Redsys SHA-256 needs this module in order to work.  Please contact "
+"your hosting provider and ask them to install it. Otherwise, your shop will "
+"stop working."
+msgstr ""
+"ATENCIÓN: El módulo PHP mcrypt_encrypt no está instalado en el servidor. La "
+"API de SHA-256 de Redsys necesita este módulo para funcionar. Por favor, "
+"contacta con to proveedor de hosting para pedirle que lo instale. De otro "
+"modo tu tienda no podrá utilizar Redsys."
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:144
+#: ../classes/class-wc-gateway-redsys.php:156
+msgid "Servired/RedSys Spain"
+msgstr "Servired/RedSys España"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:145
+#: ../classes/class-wc-gateway-redsys.php:157
+msgid ""
+"Servired/RedSys works by sending the user to your bank TPV to enter their "
+"payment information."
+msgstr ""
+"La pasarela Servired/RedSys envía a su cliente al TPV de su entidad bancaria "
+"para ingresar su información para el pago."
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:211
+#: ../classes/class-wc-gateway-redsys.php:223
+msgid "Enable Servired/RedSys"
+msgstr "Activar Servired/RedSys"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:215
+#: ../classes/class-wc-gateway-redsys.php:227
+#, fuzzy
+#| msgid "Redsys connection failed"
+msgid "Redirection time"
+msgstr "Error en la conexión con Redsys"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:217
+#: ../classes/class-wc-gateway-redsys.php:229
+msgid ""
+"If you want users to be immediately redirected to the payment gateway when "
+"they press the pay button, don't add anything. If you want to give them time "
+"to think about it, add the seconds in milliseconds, for example, 5 seconds "
+"are 5000 milliseconds."
+msgstr ""
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:220
+#: ../classes/class-wc-gateway-redsys.php:243
+msgid "Pay with One Click"
+msgstr "Pago con un solo clic"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:222
+#: ../classes/class-wc-gateway-redsys.php:245
+msgid ""
+"With Pay with one Click, users who have bought before in your store should "
+"not fill the credit card number in Redsys again. Make sure you have "
+"activated in Redsys that he send to your store the credit card number."
+msgstr ""
+"Con Pagar con un clic, los usuario que hayan pagada con anterioridad en tu "
+"tienda no deberían rellenar de nuevo el número de la tarjeta de crédito. "
+"Asegúrate que tienes activado en Redsys que se envíe a la tienda el numero "
+"de la tarjeta de crédito (parcialmente)."
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:223
+#: ../classes/class-wc-gateway-redsys.php:246
+msgid "Enable Pay with One Click"
+msgstr "Activar pago con un clic"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:227
+#: ../classes/class-wc-gateway-redsys.php:250
+msgid "Disable Subscription token"
+msgstr ""
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:229
+#: ../classes/class-wc-gateway-redsys.php:252
+msgid ""
+"Tokenization is enabled by default (Enable Pay with One Click is not "
+"needed). Here you can disable tokenization for WooCommerce Subscriptions."
+msgstr ""
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:230
+#: ../classes/class-wc-gateway-redsys.php:253
+msgid "Disable Subscription token, it is enabled by default"
+msgstr ""
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:234
+#: ../classes/class-wc-gateway-redsys.php:257
+msgid "One Click in page?"
+msgstr "¿Un clic en la página?"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:236
+#: ../classes/class-wc-gateway-redsys.php:259
+msgid ""
+"ATTENTION: Pay with one Click has to be active before mark this option. With "
+"this option, users to whom you have already collected Tokens for previous "
+"purchases, they do not leave the page after pressing the payment button. "
+"Your terminal must be unsafe, or it will not work. "
+msgstr ""
+"ATENCIÓN: Pago con 1 clic debe estar activo antes de activar esta opción. "
+"Con esta opción, los usuarios que ya tengas los tokens de sus tarjetas de "
+"crédito por compras anteriores, no abandonarán la página web después de "
+"apretar el botón de pago. Tu terminal debe ser no segura o no funcionará. "
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:237
+#: ../classes/class-wc-gateway-redsys.php:260
+msgid "Enable One Click in page"
+msgstr "Activar pago con 1 clic sin abandonar la tienda"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:241
+#: ../classes/class-wc-gateway-redsys.php:271
+#, fuzzy
+#| msgid "Add Bulk Action Immediate Charge"
+msgid "Add Bulk Action Refunds"
+msgstr "Añade la acción en lote «Cargo inmediato en Redsys»"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:243
+#: ../classes/class-wc-gateway-redsys.php:273
+msgid ""
+"This option adds the bulk action Refunds. For security reasons, do not "
+"activate it if not needed"
+msgstr ""
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:244
+#: ../classes/class-wc-gateway-redsys.php:274
+#, fuzzy
+#| msgid "Enable Bulk Action Immediate Charge"
+msgid "Enable Bulk Action Refunds"
+msgstr "Activar la acción en lote «Cargo inmediato en Redsys»"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:248
+#: ../classes/class-wc-gateway-redsys.php:278
+msgid "One Click to Checkout"
+msgstr "Un clic a página de pago"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:250
+#: ../classes/class-wc-gateway-redsys.php:280
+msgid ""
+"ATTENTION: This option can break your website under some circunstances, "
+"check your website and checkout before and after enable this option. With "
+"this option, the customer is redirected to checkout after add a product to "
+"the card. Only activate this option if your customers ONLY buy ONE product "
+"every time."
+msgstr ""
+"ATENCIÓN: Esta opción puede romper tu sitio bajo algunas circunstancias. "
+"Comprueba tu sitio antes y después de activar esta opción, incluso llega a "
+"realizar un pedido. Con esta opción, el cliente es re dirigido a la página "
+"de pago después de añadir a la cesta. Solo activa esta opción si tus "
+"clientes SÓLO cmpran UN producto cada vez."
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:251
+#: ../classes/class-wc-gateway-redsys.php:281
+msgid "Enable One Click to Checkout"
+msgstr "Activar un clic a página de pago"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:255
+#: ../classes/class-wc-gateway-redsys.php:292
+msgid "Send emails"
+msgstr "Enviar emails"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:257
+#: ../classes/class-wc-gateway-redsys.php:294
+msgid ""
+"Every time that a users fails to pay in Redsys, and email will be send to "
+"you with the problem, amount and link to the order details."
+msgstr ""
+"Cada vez que un usuario falla en pagar en Redsys, un email se te enviará con "
+"el problema, cantidad y un enlace a los detalles del pedido."
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:258
+#: ../classes/class-wc-gateway-redsys.php:295
+msgid "Enable Send emails when payment fails"
+msgstr "Activar enviar emails cuando un pago falla"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:262
+#: ../classes/class-wc-gateway-redsys.php:299
+msgid "Send emails Ds_Card_Number problem"
+msgstr ""
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:264
+#: ../classes/class-wc-gateway-redsys.php:301
+msgid ""
+"If tokenization is used, the filed Ds_Card_number can be a very interesting "
+"information. If Redsys isn't sending this field and this options is active, "
+"and email will be sent to the website administrator."
+msgstr ""
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:265
+#: ../classes/class-wc-gateway-redsys.php:302
+#, fuzzy
+#| msgid "Enable Send email Thank you problem for be noticed"
+msgid "Enable Send emails Ds_Card_number problem"
+msgstr ""
+"Activar enviar emails pagina agradecimiento (Thank you) cuando se detecta un "
+"posible problema"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:269
+#: ../classes/class-wc-gateway-redsys.php:306
+msgid "Send emails to customers"
+msgstr "Enviar correo electrónico a los clientes"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:271
+#: ../classes/class-wc-gateway-redsys.php:308
+msgid ""
+"Every time that a users fails to pay in Redsys, and email will be send to "
+"the customer with the problem, This can increase cart recovery."
+msgstr ""
+"Cada vez que un cliente tiene un problema pagando en Redsys, se le enviará "
+"un correo electrónico con el problema. Esto puede aumentar la recuperación "
+"de carritos."
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:272
+#: ../classes/class-wc-gateway-redsys.php:309
+msgid "Enable Send emails to customers when payment fails"
+msgstr ""
+"Activar enviar correo electrónico a los clientes que tienen un problema "
+"pagando"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:276
+#: ../classes/class-wc-gateway-redsys.php:313
+msgid "Notice Thank you problem"
+msgstr "Notificación problema pagina agradecimiento"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:278
+#: ../classes/class-wc-gateway-redsys.php:315
+msgid ""
+"Every time that a users arrive to Thank you page from Redsys, and the order "
+"is not marked as paid, and email will be send to adminsitrator for to warn "
+"the administrator to check Redsys to see if payment has been made and a "
+"notice will be shown to customer at Thank you Page."
+msgstr ""
+"Cada vez que un usuario llegue a la página de agradecimiento desde Redsys, y "
+"el pedido no haya sido marcado como pagado, se enviará un correo electrónico "
+"al administrador para advertirle de que compruebe Redsys para ver si un pago "
+"ha sido realizado y se mostrará una notificación al cliente en la página de "
+"agradecimiento."
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:279
+#: ../classes/class-wc-gateway-redsys.php:316
+msgid "Enable Send email Thank you problem for be noticed"
+msgstr ""
+"Activar enviar emails pagina agradecimiento (Thank you) cuando se detecta un "
+"posible problema"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:283
+#: ../classes/class-wc-gateway-redsys.php:320
+msgid "Text on the thank you page"
+msgstr "Texto en la página de agradecimiento"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:285
+#: ../classes/class-wc-gateway-redsys.php:322
+msgid ""
+"This controls the text that will be show to customers that arrive to the "
+"Thank You page if their order is not marked as paid."
+msgstr ""
+"Esto controla el texto que se mostrará al cliente en la página de "
+"agradecimiento si su pedido no es marcado como pagado."
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:286
+#: ../classes/class-wc-gateway-redsys.php:323
+msgid ""
+"<p><b>ATTENTION:</b> You have used Redsys for the payment. We have detected "
+"that there may have been a problem with your payment and it has not been "
+"marked as paid.  Do not worry, we have detected it and we have received an "
+"email with the notice, so we let's check it to make sure it has.</p>"
+msgstr ""
+"<p><b>ATENCIÓN:</b> Has utilizado Redsys para el pago. Hemos detectado que "
+"pudo haber un problema con tu pago y no ha sido marcado como pagado. No te "
+"preocupes, lo hemos detectado y hemos recibido un correo electrónico "
+"alertándonos del problema, así que lo vamos a comprobar para ver que ha "
+"sucedido.</p>"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:293
+#: ../classes/class-wc-gateway-redsys.php:330
+msgid "Servired/RedSys"
+msgstr "Servired/RedSys"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:300
+#: ../classes/class-wc-gateway-redsys.php:337
+msgid "Pay via Servired/RedSys; you can pay with your credit card."
+msgstr "Pagar con tarjeta de crédito a traves de Servired/RedSys."
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:303
+#: ../classes/class-wc-gateway-redsys.php:340
+msgid "Gateway logo at checkout"
+msgstr "Logo de la pasarela en la página de pago"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:305
+#: ../classes/class-wc-gateway-redsys.php:342
+msgid "Add link to image logo for Gateway at checkout."
+msgstr ""
+"Añade un enlace a la imagen del logo que deseas mostrar para la pasarela en "
+"la página de pago."
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:315
+#: ../classes/class-wc-gateway-redsys.php:352
+msgid "Merchant Group Number"
+msgstr ""
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:317
+#: ../classes/class-wc-gateway-redsys.php:354
+msgid ""
+"It is an identifier for sharing tokens between websites of the same company"
+msgstr ""
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:333
+#: ../classes/class-wc-gateway-redsys.php:370
+msgid "Activate Second Terminal"
+msgstr "Activar segundo terminal"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:335
+#: ../classes/class-wc-gateway-redsys.php:372
+msgid "Activate Second Terminal."
+msgstr "Activar segundo Terminal."
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:337
+#: ../classes/class-wc-gateway-redsys.php:374
+msgid ""
+"If you use a second terminal, you need to add it in the field above and "
+"activate it here. You will need to set when use the Second Terminal in the "
+"field below."
+msgstr ""
+"Si utilizas una segundo terminal, debes añadirlo en el campo anterior y "
+"activarlo aquí. Deberás configurar cuando usar el segundo terminal en el "
+"campo siguiente."
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:340
+#: ../classes/class-wc-gateway-redsys.php:377
+msgid "Second Terminal"
+msgstr "Segundo terminal (Si tienes)"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:342
+#: ../classes/class-wc-gateway-redsys.php:379
+msgid ""
+"If you use a second Terminal number, you need to add here the second "
+"terminal provided by your bank"
+msgstr ""
+"Si utilizas un segundo número de Terminal, debes añadir aquí el segundo "
+"terminal provisto por tu entidad bancaria"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:346
+#: ../classes/class-wc-gateway-redsys.php:383
+msgid "Use the Second Terminal from 0 to (Don't use Currency Symbol)"
+msgstr ""
+"Utilizar el segundo terminal desde 0 a... (No añadir el símbolo de moneda)"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:348
+#: ../classes/class-wc-gateway-redsys.php:385
+msgid ""
+"When will the Second Terminal used? from 0 to...? Add the amount. Ex. Add "
+"100 and the Second Terminal will be used when the amount be from 0 to 100"
+msgstr ""
+"¿Cuando se deberá utilizar el segundo terminal? ¿Desde 0 a...? Añade la "
+"cantidad. Ej. Añade 100 y el segundo terminal se utilizará para los pagos "
+"cuando el precio vaya de 0 a 100"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:354
+#: ../classes/class-wc-gateway-redsys.php:391
+msgid ""
+"Activate SNI Compatibility (only activate it if José Conti indicate you)."
+msgstr ""
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:356
+#: ../classes/class-wc-gateway-redsys.php:393
+#, fuzzy
+#| msgid ""
+#| "If you are using HTTPS and Redsys don't support your certificate, example "
+#| "Lets Encrypt, you can deactivate HTTPS notifications. WARNING: If you are "
+#| "forcing redirection to HTTPS with htaccess, you need to add an exception "
+#| "for notification URL"
+msgid ""
+"Only use it if José Conti indicate you. WARNING: If you are forcing "
+"redirection to HTTPS with htaccess, you need to add an exception for "
+"notification URL"
+msgstr ""
+"Si estás usando HTTPS y Redsys no soporta tu certificado, por ejemplo Let’s "
+"Encrypt, debes activar esta función. ATENCIÓN: Si estás forzando la "
+"ridirección a HTTPS mediante htaccess (si usas Really Simple SSL seguro que "
+"lo haces), necesitas añadir una excepción para que no redirija la URL de "
+"notificación"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:359
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:173
+#: ../classes/class-wc-gateway-redsys.php:396
+msgid "What to do after payment?"
+msgstr "¿Qué hacer tras el pago?"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:361
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:175
+#: ../classes/class-wc-gateway-redsys.php:398
+msgid "Chose what to do after the customer pay the order."
+msgstr "Selecciona que hacer tras que el cliente pago el pedido."
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:364
+#: ../classes/class-wc-gateway-redsys.php:401
+msgid "Mark as Processing (default & recomended)"
+msgstr "Marcar como Procesando (por defecto WooCommerce y recomendado)"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:365
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:179
+#: ../classes/class-wc-gateway-redsys.php:402
+msgid "Mark as Complete"
+msgstr "Marcar como completado"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:390
+#: ../classes/class-wc-gateway-redsys.php:427
+#, fuzzy
+#| msgid ""
+#| "When the user press the return button at Redsys Gateway (Ex: The user "
+#| "type an incorrect creadit cart), you can redirect the user to My Cart "
+#| "page canceling the order, or you can redirect the user to Checkput page "
+#| "without cancel the order."
+msgid ""
+"When the user press the return button at Redsys Gateway (Ex: The user type "
+"an incorrect credit card), you can redirect the user to My Cart page "
+"canceling the order, or you can redirect the user to Checkput page without "
+"cancel the order."
+msgstr ""
+"Cuando un cliente aprieta el botón de retorno en la pasarela Redsys (Ej: El "
+"usuario introduce una tarjeta de crédito incorrecta), puedes redirigirlo "
+"mediante el botón a al carro de la compra cancelando el pedido, o puedes "
+"redirigirlo a la página de pago de tu tienda sin cancelar el pedido."
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:398
+#: ../classes/class-wc-gateway-redsys.php:435
+msgid "Private Products"
+msgstr "Productos privados"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:400
+#: ../classes/class-wc-gateway-redsys.php:437
+msgid ""
+"Activate Private Products if you need to create products visible per customer"
+msgstr ""
+"Activa productos privados si necesitas que los productos se vean por usuario"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:401
+#: ../classes/class-wc-gateway-redsys.php:438
+msgid "Enable Private Products"
+msgstr "Activar productos privados"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:434
+#: ../classes/class-wc-gateway-redsys.php:471
+msgid ""
+"Log Servired/RedSys events, such as notifications requests, inside "
+"<code>woocommerce/logs/redsys.txt</code>"
+msgstr ""
+"Guardar eventos generados por el plugin, como podrían ser notificaciones, se "
+"guardarán en <code>woocommerce/logs/redsys.txt</code>"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:1208
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:1232
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:1297
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:317
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:349
+#: ../classes/class-wc-gateway-redsys.php:1262
+#: ../classes/class-wc-gateway-redsys.php:1286
+#: ../classes/class-wc-gateway-redsys.php:1351
+msgid ""
+"Thank you for your order. We are now redirecting you to Servired/RedSys to "
+"make the payment."
+msgstr ""
+"Gracias por su compra, ahora está siendo redirigido a Servired/RedSys para "
+"realizar el pago."
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:1255
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:1318
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:337
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:369
+#: ../classes/class-wc-gateway-redsys.php:1309
+#: ../classes/class-wc-gateway-redsys.php:1372
+msgid "Pay with Credit Card via Servired/RedSys"
+msgstr "Pagar con tarjeta de crédito a través de Servired/RedSys"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:1620
+#: ../classes/class-wc-gateway-redsys.php:1673
+msgid "There was an error:"
+msgstr "Hay un error:"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:1935
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:1958
+#: ../classes/class-wc-gateway-redsys.php:1988
+#: ../classes/class-wc-gateway-redsys.php:2011
+msgid "There was a Problem. The problem was: "
+msgstr "Ha habido un problema. El problema ha sido: "
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:1945
+#: ../classes/class-wc-gateway-redsys.php:1998
+msgid "There wasn't respond from Redsys"
+msgstr "No hubo respuesta desde Redsys"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:1960
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:1961
+#: ../classes/class-wc-gateway-redsys.php:2013
+#: ../classes/class-wc-gateway-redsys.php:2014
+msgid "There was a problem with a scheduled subscription."
+msgstr "Hubo un problema con una suscripción programada."
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:1962
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2765
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2768
+#: ../classes/class-wc-gateway-redsys.php:2015
+#: ../classes/class-wc-gateway-redsys.php:2853
+#: ../classes/class-wc-gateway-redsys.php:2856
+msgid "The error was: "
+msgstr "El error fue: "
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:1984
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2001
+#: ../classes/class-wc-gateway-redsys.php:2037
+#: ../classes/class-wc-gateway-redsys.php:2054
+msgid "Redsys connection failed"
+msgstr "Error en la conexión con Redsys"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2074
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2102
+#: ../classes/class-wc-gateway-redsys.php:2127
+#: ../classes/class-wc-gateway-redsys.php:2155
+msgid "Thank you for your order"
+msgstr "Muchas gracias por comprar en nuestra tienda"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2078
+#: ../classes/class-wc-gateway-redsys.php:2131
+msgid ""
+"Thank you for your order, Please wait for a moment while we charge your "
+"credit card via Servired/RedSys."
+msgstr ""
+"Gracias por el pedido, por favor, espera un momento mientras realizamos el "
+"cargo a través de tu tarjeta de crédito vía Redsys."
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2084
+#: ../classes/class-wc-gateway-redsys.php:2137
+msgid "There is a problem with your payment, please try again."
+msgstr "Ha habido un problema con el pago, por favor, prueba de nuevo."
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2106
+#: ../classes/class-wc-gateway-redsys.php:2159
+msgid ""
+"Thank you for your Subscription, please click the button below to pay with "
+"Credit Card via Servired/RedSys."
+msgstr ""
+"Gracias por su suscripción, haga click en el botón de debajo para pagar con "
+"su tarjeta de crédito vía Servired/RedSys."
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2117
+#: ../classes/class-wc-gateway-redsys.php:2170
+msgid ""
+"Thank you for your order, please click the button below to pay with Credit "
+"Card via Servired/RedSys."
+msgstr ""
+"Gracias por su compra, haga click en el botón debajo para pagar con su "
+"tarjeta de crédito vía Servired/RedSys."
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2355
+#: ../classes/class-wc-gateway-redsys.php:2408
+msgid "Unknown"
+msgstr "Desconocida"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2363
+#: ../classes/class-wc-gateway-redsys.php:2416
+msgid "Your order will not be marked as paid, missing Redsys fields."
+msgstr "El pedido no se marcará cómo pagado, faltan campos de Redsys."
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2364
+#: ../classes/class-wc-gateway-redsys.php:2417
+msgid ""
+"You need to ask to Redsys to sent some fields for tokenization (Pay with one "
+"Click). Please ask to Redsys to sent with the callback the following fields. "
+"WooCommerce cannot work without these fields"
+msgstr ""
+"Debes pedir a Redsys que te envíe algunos campos para la tokenización (pago "
+"con un clic). Por favor, pide a Redsys que te envíe en el callback los "
+"siguiente campos. WooCommerce no puede funcionar sin estos campos"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2437
+#: ../classes/class-wc-gateway-redsys.php:2490
+msgid "Confirmed Order Preauthorization"
+msgstr "Confirmada preaturización de pedido"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2438
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3390
+#: ../classes/class-wc-gateway-redsys.php:2491
+#: ../classes/class-wc-gateway-redsys.php:3478
+msgid "Order Completed"
+msgstr "Pedido completado"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2449
+#: ../classes/class-wc-gateway-redsys.php:2502
+msgid "Redsys return an error confirming preauthorization"
+msgstr "Redsys ha devuelto un error confirmando la preautorización"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2663
+#: ../classes/class-wc-gateway-redsys.php:2716
+msgid "HTTP Notification received - Transaction Preauthorized"
+msgstr "Notificación HTTP recibida - Transacción preautorización"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2666
+#: ../classes/class-wc-gateway-redsys.php:2726
+msgid "Preauthorized by Redsys"
+msgstr "Preautorizado por Redsys"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2709
+#: ../classes/class-wc-gateway-redsys.php:2797
+msgid "A customer has had payment errors"
+msgstr "Un cliente ha tenido errores en un pago"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2710
+#: ../classes/class-wc-gateway-redsys.php:2798
+msgid "A customer has had payment errors:"
+msgstr "Un cliente ha tenido errores en un pago:"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2713
+#: ../classes/class-wc-gateway-redsys.php:2801
+msgid "Total Order: "
+msgstr "Total pedido: "
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2714
+#: ../classes/class-wc-gateway-redsys.php:2802
+msgid "Customer Name: "
+msgstr "Nombre del cliente: "
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2715
+#: ../classes/class-wc-gateway-redsys.php:2803
+msgid "Customer Country: "
+msgstr "Pais del cliente: "
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2716
+#: ../classes/class-wc-gateway-redsys.php:2804
+msgid "Customer Telephone: "
+msgstr "Teléfono del cliente: "
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2717
+#: ../classes/class-wc-gateway-redsys.php:2805
+msgid "Customer Email: "
+msgstr "Correo electrónico del cliente: "
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2718
+#: ../classes/class-wc-gateway-redsys.php:2806
+msgid "Check order for details"
+msgstr "Comprueba expedido para detalles"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2744
+#: ../classes/class-wc-gateway-redsys.php:2832
+msgid "Credit Cart Payment problem at "
+msgstr "Problema de pago con tarjeta de crédito en "
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2749
+#: ../classes/class-wc-gateway-redsys.php:2837
+msgid "Credit Cart Payment problem"
+msgstr "Problema en pago con tarjeta de crédito"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2760
+#: ../classes/class-wc-gateway-redsys.php:2848
+msgid "Thank you very much for shopping in our store."
+msgstr "Muchas gracias por comprar en nuestra tienda."
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2761
+#: ../classes/class-wc-gateway-redsys.php:2849
+msgid "There was a problem with the credit card payment."
+msgstr "Hubo un problema con el pago con la tarjeta de crédito."
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2762
+#: ../classes/class-wc-gateway-redsys.php:2850
+msgid "If you don't know what the error was."
+msgstr "Si no sabes cual fue el problema que hubo."
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2770
+#: ../classes/class-wc-gateway-redsys.php:2858
+msgid "If you wish, you can try again at this link: "
+msgstr "Si lo deseas, puedes probar de nuevo en este enlace: "
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2771
+#: ../classes/class-wc-gateway-redsys.php:2859
+msgid "Thank you very much for choosing us."
+msgstr "Muchas gracias por seleccionarlos."
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:2804
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:546
+#: ../classes/class-wc-gateway-redsys.php:2892
+msgid "Cancelled by Redsys"
+msgstr "Cancelado por Redys"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3069
+#: ../classes/class-wc-gateway-redsys.php:3157
+msgid "ask_for_confirm_preauthorization Asking for order #: "
+msgstr "ask_for_confirm_preauthorization Consultando para el pedido #: "
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3078
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3193
+#: ../classes/class-wc-gateway-redsys.php:3166
+#: ../classes/class-wc-gateway-redsys.php:3281
+msgid "Next Step, Call"
+msgstr "Siguiente paso, Llamada"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3095
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3210
+#: ../classes/class-wc-gateway-redsys.php:3183
+#: ../classes/class-wc-gateway-redsys.php:3298
+msgid "The call is already made and this is the response: "
+msgstr "La llamada ya se ha realizado, y esta es la respuesta: "
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3183
+#: ../classes/class-wc-gateway-redsys.php:3271
+#| msgid "DS_MERCHANT_ORDER : "
+msgid "DS_MERCHANT_IDENTIFIER: "
+msgstr "DS_MERCHANT_IDENTIFIER: "
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3184
+#: ../classes/class-wc-gateway-redsys.php:3272
+#| msgid "ask_for_refund Asking por order #: "
+msgid "ask_for_collect_remainder Asking for order #: "
+msgstr "ask_for_collect_remainder Asking for order #: "
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3263
+#: ../classes/class-wc-gateway-redsys.php:3351
+msgid "Firs step for confirm Preauthorization for order #: "
+msgstr "Primer paso para confirmar la Preautorización para el pedido #: "
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3268
+#: ../classes/class-wc-gateway-redsys.php:3356
+msgid "Checking for Confirm Preauthorization for order #: "
+msgstr "Comprobando por confirmación de preautorización del pedido #: "
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3274
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3527
+#: ../classes/class-wc-gateway-redsys.php:3362
+#: ../classes/class-wc-gateway-redsys.php:3924
+msgid "Error confirming Preauthorization"
+msgstr "Error confirmando preatorización"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3276
+#: ../classes/class-wc-gateway-redsys.php:3364
+msgid "There was an error confirming Preauthorization"
+msgstr "Hubo un error confirmando la preautorización"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3286
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3539
+#: ../classes/class-wc-gateway-redsys.php:3374
+#: ../classes/class-wc-gateway-redsys.php:3936
+msgid "Confirming Preauthorization = true "
+msgstr "Confirmando preautorización = true "
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3289
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3542
+#: ../classes/class-wc-gateway-redsys.php:3377
+#: ../classes/class-wc-gateway-redsys.php:3939
+msgid "Confirming Preauthorization = false "
+msgstr "Confirmando preautorización = false "
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3293
+#: ../classes/class-wc-gateway-redsys.php:3381
+msgid "Successfully Confirming Preauthorization"
+msgstr "Confirmada la preautorización con éxito"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3294
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3547
+#: ../classes/class-wc-gateway-redsys.php:3382
+#: ../classes/class-wc-gateway-redsys.php:3944
+msgid "Deleted transcient _redsys_preauth"
+msgstr "Borrado transcient _redsys_preauth"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3297
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3299
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3552
+#: ../classes/class-wc-gateway-redsys.php:3385
+#: ../classes/class-wc-gateway-redsys.php:3387
+#: ../classes/class-wc-gateway-redsys.php:3949
+msgid "Failed Confirming Preauthorization, please try again"
+msgstr "Fallo confirmando la preautorización, por favor, prueba de nuevo"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3304
+#: ../classes/class-wc-gateway-redsys.php:3392
+msgid "Failed Confirming Preauthorization: No transaction ID"
+msgstr "Problema confirmando la preautorización: No hay ID de transacción"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3306
+#: ../classes/class-wc-gateway-redsys.php:3394
+msgid "Confirm Preauthorization Failed: No transaction ID"
+msgstr "Problema confirmando la preautorización: No hay ID de transacción"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3343
+#: ../classes/class-wc-gateway-redsys.php:3431
+#| msgid "Firs step for confirm Preauthorization for order #: "
+msgid "First step for collect remainder for order #: "
+msgstr "First step for collect remainder for order #: "
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3348
+#: ../classes/class-wc-gateway-redsys.php:3436
+#| msgid "Checking for Confirm Preauthorization for order #: "
+msgid "Checking for collect remainder for for order #: "
+msgstr "Checking for collect remainder for for order #: "
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3354
+#: ../classes/class-wc-gateway-redsys.php:3442
+msgid "Error Collecting Remainder"
+msgstr ""
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3356
+#: ../classes/class-wc-gateway-redsys.php:3444
+#| msgid "There was an error confirming Preauthorization"
+msgid "There was an error collecting remainder"
+msgstr "There was an error collecting remainder"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3368
+#: ../classes/class-wc-gateway-redsys.php:3456
+#| msgid "Confirming Preauthorization = true "
+msgid "Confirming Collecting Remainder = true "
+msgstr "Confirming Collecting Remainder = true "
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3372
+#: ../classes/class-wc-gateway-redsys.php:3460
+#| msgid "Confirming Preauthorization = false "
+msgid "Confirming Collecting Remainder = false "
+msgstr "Confirming Collecting Remainder = false "
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3377
+#: ../classes/class-wc-gateway-redsys.php:3465
+msgid "Successfully Collected Remainder"
+msgstr ""
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3378
+#: ../classes/class-wc-gateway-redsys.php:3466
+#| msgid "Deleted transcient _redsys_preauth"
+msgid "Deleted transcient _redsys_collect"
+msgstr "Deleted transcient _redsys_collect"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3394
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3396
+#: ../classes/class-wc-gateway-redsys.php:3482
+#: ../classes/class-wc-gateway-redsys.php:3484
+#| msgid "Failed Confirming Preauthorization, please try again"
+msgid "Failed Collecting Remainder, please try again"
+msgstr "Failed Collecting Remainder, please try again"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3401
+#: ../classes/class-wc-gateway-redsys.php:3489
+#| msgid "Failed Confirming Preauthorization: No transaction ID"
+msgid "Failed Collecting Remainder: No transaction ID"
+msgstr "Failed Collecting Remainder: No transaction ID"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3403
+#: ../classes/class-wc-gateway-redsys.php:3491
+msgid "Confirm Collecting Remainder: No transaction ID"
+msgstr "Problema confirmando la preautorización: No hay ID de transacción"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3429
+#: ../classes/class-wc-gateway-redsys.php:3517
+msgid "check_redsys_refund Asking por order #: "
+msgstr "check_redsys_refund Preguntando por el pedido #: "
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3489
+#: ../classes/class-wc-gateway-redsys.php:3580
+msgid "Approve Pre-authorization"
+msgstr "Aprobar preautorización"
+
+#: ../classes/class-wc-gateway-preauthotizations-redsys.php:3511
+#: ../classes/class-wc-gateway-redsys.php:3609
+msgid "Doing Bulk Actions"
+msgstr "Realizando acciones en lote"
+
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:27
+msgid "Redsys Direct Bank Transfer (by José Conti)"
+msgstr ""
+
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:28
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:85
+msgid ""
+"Redys bank transfer works by showing in Redsys the bank account where to "
+"make the transfer. Some banks offer to make it in the moment, so the order "
+"is marked as paid in WooCommerce."
+msgstr ""
+
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:84
+msgid "Redsys Bank Transfer"
+msgstr ""
+
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:125
+msgid "Enable Redsys Bank Transfer"
+msgstr "Activar transferencias bancarias de Redsys"
+
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:132
+msgid ""
+"Example: If you use CaixaBank, you can use this Bank Transfer, you will be "
+"redirected to Redys and from there you will be able to log in to CaixaBank "
+"and make the bank transfer automatically."
+msgstr ""
+
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:139
+msgid "Pay via RedSys Bank Transfer"
+msgstr "Pagar mediante transferencia bancaria"
+
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:142
+msgid "Logo"
+msgstr "Logo"
+
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:144
+msgid "Add link to image logo."
+msgstr "Añadir enlace a la imagen del logo."
+
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:178
+msgid "Mark as Processing (default & recommended)"
+msgstr "Marcar como Procesando (por defecto WooCommerce y recomendado)"
+
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:196
+msgid "SWIFT Code"
+msgstr "Código SWIFT"
+
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:198
+msgid "Add SWIFT Code"
+msgstr "Añade el código SWIFT"
+
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:202
+msgid "IBAN"
+msgstr "IBAN"
+
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:204
+msgid "Add IBAN Code"
+msgstr "Añade el código IBAN"
+
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:208
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:210
+msgid "Transferee"
+msgstr "Beneficiario"
+
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:218
+msgid ""
+"Log Servired/RedSys events, such as notifications requests, inside "
+"<code>WooCommerce > Status > Logs > redsysbanktransfer-{date}-{number}.log</"
+"code>"
+msgstr ""
+"Guardar eventos generados por el plugin, como podrían ser notificaciones, en "
+"<code>WooCommerce > Estado > Registros > redsysbanktransfer-{date}-{number}."
+"log</code>"
+
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:232
+#: ../includes/woo-status/status.php:103
+msgid "Pending Redsys Bank Transfer"
+msgstr "Transferencia pendiente desde Redsys"
+
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:394
+msgid ""
+"Thank you for your order, please click the button below to pay by Bank "
+"Transfer."
+msgstr ""
+"Gracias por su pedido, por favor haga clic en el siguiente botón para poder "
+"pagar por transferencia bancaria."
+
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:507
+#, php-format
+msgid ""
+"Validation error: Order vs. Notification amounts do not match (order: %1$s - "
+"received: %2$s)."
+msgstr ""
+"Error de validación: Totales de Orden vs. Notificación no coinciden (orden: "
+"%1$s - recibido: %2$s)."
+
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:534
+#: ../classes/class-wc-gateway-redsys.php:2731
+#: ../classes/class-wc-gateway-redsys.php:3873
+msgid "Order Completed by Redsys"
+msgstr "Pedido completado por Redsys"
+
+#: ../classes/class-wc-gateway-redsys-bank-transfer.php:547
+msgid "Order cancelled by Redsys: Expired credit card"
+msgstr "Pedido cancelado por Redsys: Tarjeta caducada"
+
+#: ../classes/class-wc-gateway-redsys.php:33
+msgid "Redsys (by José Conti)"
+msgstr ""
+
+#: ../classes/class-wc-gateway-redsys.php:34
+msgid ""
+"Redsys works redirecting customers to Redsys or paying directly without "
+"leaving the website if you have active payment with 1 click and a terminal "
+"not secure."
+msgstr ""
+"Redsys funciona redirigiendo a los usuarios a Redsys o pagando directamente "
+"en el sitio sin abandonar el sitio web si tienes activado el pago con 1 clic "
+"y un terminal no seguro."
+
+#: ../classes/class-wc-gateway-redsys.php:232
+msgid "Payment Type"
+msgstr "Tipo de pago"
+
+#: ../classes/class-wc-gateway-redsys.php:234
+msgid ""
+"Select type of payment at Redsys Gateway. If you chose activate Direct "
+"debit, ensure that this option is enabled by your Bank, just select this "
+"option if all your customers have to do direct debit. If you chose Credit "
+"Card + Direct debit, you cannot use Pay with one click or Preauthorizations, "
+"so it will not be used"
+msgstr ""
+"Selecciona el tipo de pago en la pasarela Redsys. Si seleccionas "
+"Domiciliación bancaria, asegúrate que esta opción está activada por tu "
+"banco, solo selecciona esta opción si deseas crear una domiciliación para "
+"todos tus clientes. Si seleccionas Tarjeta de crédito + Domiciliación "
+"bancaria, no podrás utilizar Pago por un clic o las preautorizaciones ya que "
+"la posible utilización de la Domiciliación lo impide, así que no se "
+"utilizará aunque lo tengas activo"
+
+#: ../classes/class-wc-gateway-redsys.php:237
+msgid "Credit Card"
+msgstr "Tarjeta de crédito"
+
+#: ../classes/class-wc-gateway-redsys.php:238
+msgid "Direct debit"
+msgstr "Domiciliación bancaria"
+
+#: ../classes/class-wc-gateway-redsys.php:239
+msgid "Credit Card + Direct debit"
+msgstr "Tarjetas e crédito + Domiciliación bancaria"
+
+#: ../classes/class-wc-gateway-redsys.php:264
+msgid "Add Bulk Action Immediate Charge"
+msgstr "Añade la acción en lote «Cargo inmediato en Redsys»"
+
+#: ../classes/class-wc-gateway-redsys.php:266
+msgid ""
+"ATTENTION: Pay with one Click has to be active before mark this option and "
+"terminal has to be NOT SECURE. With this option, you can charge many orders "
+"using users cart tokens"
+msgstr ""
+"ATENCIÓN: El Pago con un clic debe estar activo antes de marcar esta opción "
+"como activa, y el terminal debe ser «No seguro». Con esta opción, puedes "
+"cargar muchos pedidos utilizando los tokens de las tarjetas de crédito de "
+"los usuarios"
+
+#: ../classes/class-wc-gateway-redsys.php:267
+msgid "Enable Bulk Action Immediate Charge"
+msgstr "Activar la acción en lote «Cargo inmediato en Redsys»"
+
+#: ../classes/class-wc-gateway-redsys.php:285
+msgid "Preauthorizations (DEPRECATED)"
+msgstr "Preautorizaciones (DEPRECATED)"
+
+#: ../classes/class-wc-gateway-redsys.php:287
+msgid "ATTENTION, DEPRECATED, USE \"Redsys Preauthorizations (by José Conti)\""
+msgstr ""
+"ATENCIÓN: Esta opción será eliminada en breve, ya que ha sido sustituida por "
+"una forma de pago completa. Utiliza la forma de pago \"Redsys "
+"Preauthorizations (by José Conti)\""
+
+#: ../classes/class-wc-gateway-redsys.php:288
+msgid "Enable Redsys preauthorization"
+msgstr "Activar preautorización de Redsys"
+
+#: ../classes/class-wc-gateway-redsys.php:2718
+msgid "HTTP Notification received - Resident payment"
+msgstr "HTTP Notificación recibida - Domiciliación bancaria"
+
+#: ../classes/class-wc-gateway-redsys.php:2720
+msgid "HTTP Notification received - Payment completed"
+msgstr "HTTP Notificación recibida - Pago completado"
+
+#: ../classes/class-wc-gateway-redsys.php:2729
+#: ../includes/woo-status/status.php:87
+msgid "Resident Payment"
+msgstr "Domiciliado"
+
+#: ../classes/class-wc-gateway-redsys.php:3577
+msgid "Immediate Redsys Charge"
+msgstr "Cargo inmediato en Redsys"
+
+#: ../classes/class-wc-gateway-redsys.php:3583
+msgid "Bulk Refund Redsys (Warning)"
+msgstr ""
+
+#: ../classes/class-wc-gateway-redsys.php:3977
+msgid "Bulk refund"
+msgstr ""
+
+#: ../classes/class-wc-gateway-redsys.php:4019
+#: ../classes/class-wc-gateway-redsys.php:4021
+msgid "Invalid refund amount"
+msgstr ""
+
+#: ../classes/class-wc-gateway-redsys.php:4072
+msgid "Failed refund order : "
+msgstr ""
+
+#: ../classes/class-wc-gateway-redsys.php:4078
+msgid "The order is pending payment, or has already been refunded."
+msgstr ""
+
+#: ../classes/class-wc-settings-tab-redsys-sort-invoices.php:25
+#: ../classes/class-wc-settings-tab-redsys-sort-invoices.php:61
+msgid "Sequential Invoice Numbers"
+msgstr "Número secuencial factura"
+
+#: ../classes/class-wc-settings-tab-redsys-sort-invoices.php:67
+#: ../classes/class-wc-settings-tab-redsys-sort-invoices.php:71
+msgid "Activate Sequential Invoice numbers"
+msgstr "Activar número secuenciales en facturas"
+
+#: ../classes/class-wc-settings-tab-redsys-sort-invoices.php:69
+msgid "Activate Sequential Invoice numbers."
+msgstr "Activar número secuenciales en facturas."
+
+#: ../classes/class-wc-settings-tab-redsys-sort-invoices.php:75
+msgid "First Invoice Number"
+msgstr "Primer número de factura"
+
+#: ../classes/class-wc-settings-tab-redsys-sort-invoices.php:77
+msgid ""
+"Add here the first invoice number. By Default is number 1. Save this number "
+"before activate it. Example 345 "
+msgstr ""
+"Añade aquí el primer número para tus facturas. Por defecto se usará el "
+"número 1. Guarda este número antes activar esta funcionalidad. Ejemplo 345 "
+
+#: ../classes/class-wc-settings-tab-redsys-sort-invoices.php:81
+msgid "Invoice Number Length"
+msgstr "Longitud de la numeración"
+
+#: ../classes/class-wc-settings-tab-redsys-sort-invoices.php:83
+msgid ""
+"The Invoice number length, this is not required. Example 10, the result will "
+"be 0000000345"
+msgstr ""
+"La longitud de la numeración de tus facturas, no es necesario. Si el número "
+"resultante en inferior al que se ponga aquí, se añadirán 0s. Ejemplo 10, el "
+"resultado sería 0000000345"
+
+#: ../classes/class-wc-settings-tab-redsys-sort-invoices.php:87
+msgid "Prefix Invoice Number"
+msgstr "Prefijo número factura"
+
+#: ../classes/class-wc-settings-tab-redsys-sort-invoices.php:89
+#, php-format
+msgid ""
+"Add here a prefix invoice number, this is not required. Example WC-, the "
+"result will be WC-0000000345. Pattern are allowed ex. {Y} this will add the "
+"current year. You will find all patterns %1$sshere%2$s."
+msgstr ""
+"Añade aquí un prefijo para la numeración de tus facturas, esto no es "
+"requerido. Ejemplo: WC-, el resultado sería WC-0000000345. La utilización de "
+"plantillas está permitida, por ejemplo, si pusieras <code>{Y}/</code> el "
+"resultado en la numeración de la facturas sería 2015/0000000345. Encontrarás "
+"todas las plantillas posibles %1$saquí%2$s."
+
+#: ../classes/class-wc-settings-tab-redsys-sort-invoices.php:93
+msgid "Postfix Invoice Number"
+msgstr "Sufijo número factura"
+
+#: ../classes/class-wc-settings-tab-redsys-sort-invoices.php:95
+#, php-format
+msgid ""
+"Add here a postfix invoice number, this is not required. Example -2015 the "
+"result will be WC-0000000345-2015. Pattern are allowed ex. {Y} this will add "
+"the current year. You will find all patterns %1$sshere%2$s."
+msgstr ""
+"Añade aquí un sufijo para la numeración de tus facturas, esto no es "
+"requerido. Ejemplo: -2015, el resultado sería WC-0000000345-2015. La "
+"utilización de plantillas está permitida, por ejemplo, si pusieras /{Y] el "
+"resultado en la numeración de la facturas sería 0000000345/2015. Encontrarás "
+"todas las plantillas posibles%1$saquí%2$s."
+
+#: ../classes/class-wc-settings-tab-redsys-sort-invoices.php:99
+msgid "Pretfix Invoice Number"
+msgstr "Prefijo número de pedido"
+
+#: ../classes/class-wc-settings-tab-redsys-sort-invoices.php:101
+#, php-format
+msgid ""
+"Add here a prefix order number, this is not required. Example 2015/ the "
+"result will be 2105/34345. Pattern are allowed ex. {Y} this will add the "
+"current year. You will find all patterns %1$sshere%2$s."
+msgstr ""
+"Añade aquí un prefijo para el número de pedido, esto no es requerido. "
+"Ejemplo 2015/, el resultado será 2105/34345. Las plantillas están permitidas "
+"ejemplo {Y} que añadirá el año actual. Encontrarás todas las plantillas "
+"%1$saquí%2$s."
+
+#: ../classes/class-wc-settings-tab-redsys-sort-invoices.php:105
+msgid "Postfix Order Number"
+msgstr "Sufijo de número de pedido"
+
+#: ../classes/class-wc-settings-tab-redsys-sort-invoices.php:107
+#, php-format
+msgid ""
+"Add here a postfix order number, this is not required. If you don't add a "
+"postfix, a postfix will be automatically added for security reason. "
+"Example /2015 the result will be 34345/2015. Pattern are allowed ex. {Y} "
+"this will add the current year. You will find all patterns %1$sshere%2$s."
+msgstr ""
+"Añade aquí un sufijo para el número de pedido. No es requerido. Si no añades "
+"un sufijo, nosotros añadiremos uno de forma automática por cuestiones de "
+"seguridad. Ejemplo /2015, el resultado sería 34345/2015. Las plantillas "
+"están permitidas Ejemplo {Y} que añadiría el año actual al final de la "
+"factura de forma automática. Encontrarás todas las plantillas %1$saquí%2$s."
+
+#: ../classes/class-wc-settings-tab-redsys-sort-invoices.php:111
+msgid "Reset Invoice Number"
+msgstr "Restablecer número factura"
+
+#: ../classes/class-wc-settings-tab-redsys-sort-invoices.php:113
+msgid "Reset Invoice Number."
+msgstr "Restablecer número factura."
+
+#: ../classes/class-wc-settings-tab-redsys-sort-invoices.php:115
+msgid ""
+"If you enable Reset Invoice Number, every January 1st the invoice number "
+"will be reset and will start again with number 1. Is very important that if "
+"you enable this option, you use a prefix or postfix year pattern {Y}."
+msgstr ""
+"Si activas el reseteo o reinicializacición del número de factura, cada 1 de "
+"enero se reinicializará la numeración comenzando de nuevo con 1. ATENCIÓN: "
+"Es muy importante que si activas esta funcionalidad, añadas un prefijo o un "
+"sufijo al número de pedido que incluya el año {Y}."
+
+#: ../classes/class-wc-settings-tab-redsys-sort-invoices.php:149
+msgid "Invoice Number"
+msgstr "Número factura"
+
+#: ../classes/class-wc-settings-tab-redsys-sort-invoices.php:163
+msgid "No invoice n&#176;"
+msgstr "Sin n&#176; de factura"
+
+#: ../classes/class-wc-settings-tab-redsys-sort-invoices.php:269
+#, php-format
+msgid "Order Number: %s"
+msgstr "Pedido número: %s"
+
+#: ../classes/class-wc-settings-tab-redsys-sort-invoices.php:272
+#, php-format
+msgid "Invoice Number: %s"
+msgstr "Número factura: %s"
+
+#: ../classes/class-wc-settings-tab-redsys-sort-invoices.php:325
+msgid "-ORDER"
+msgstr "-PEDIDO"
+
+#: ../includes/data/dserrors.php:7
+msgid "Error al desmontar el XML de entrada"
+msgstr ""
+
+#: ../includes/data/dserrors.php:8
+msgid "Error falta Ds_Merchant_MerchantCode"
+msgstr ""
+
+#: ../includes/data/dserrors.php:9
+msgid "Error de formato en Ds_Merchant_MerchantCode"
+msgstr ""
+
+#: ../includes/data/dserrors.php:10
+msgid "Error falta Ds_Merchant_Terminal"
+msgstr ""
+
+#: ../includes/data/dserrors.php:11
+msgid "Error de formato en Ds_Merchant_Terminal"
+msgstr ""
+
+#: ../includes/data/dserrors.php:12
+msgid "Error de formato en Ds_Merchant_Order"
+msgstr ""
+
+#: ../includes/data/dserrors.php:13
+msgid "Error falta Ds_Merchant_Currency"
+msgstr ""
+
+#: ../includes/data/dserrors.php:14
+msgid "Error de formato en Ds_Merchant_Currency"
+msgstr ""
+
+#: ../includes/data/dserrors.php:15
+msgid "Error no se admiten operaciones en pesetas"
+msgstr ""
+
+#: ../includes/data/dserrors.php:16
+msgid "Error falta Ds_Merchant_Amount"
+msgstr ""
+
+#: ../includes/data/dserrors.php:17
+msgid "Error de formato en Ds_Merchant_Amount"
+msgstr ""
+
+#: ../includes/data/dserrors.php:18
+msgid "Error falta Ds_Merchant_MerchantSignature"
+msgstr ""
+
+#: ../includes/data/dserrors.php:19
+msgid "Error la Ds_Merchant_MerchantSignature viene vacía"
+msgstr ""
+
+#: ../includes/data/dserrors.php:20
+#| msgid "Ds_Merchant_TransactionDate : "
+msgid "Error de formato en Ds_Merchant_TransactionType"
+msgstr "Error de formato en Ds_Merchant_TransactionType"
+
+#: ../includes/data/dserrors.php:21
+#| msgid "Ds_Merchant_TransactionDate : "
+msgid "Error Ds_Merchant_TransactionType desconocido"
+msgstr "Error Ds_Merchant_TransactionType desconocido"
+
+#: ../includes/data/dserrors.php:22
+msgid "Error Ds_Merchant_ConsumerLanguage tiene mas de 3 posiciones"
+msgstr ""
+
+#: ../includes/data/dserrors.php:23
+msgid "Error de formato en Ds_Merchant_ConsumerLanguage"
+msgstr ""
+
+#: ../includes/data/dserrors.php:24
+msgid "Error No existe el comercio / terminal enviado"
+msgstr ""
+
+#: ../includes/data/dserrors.php:25
+msgid ""
+"Error Moneda enviada por el comercio es diferente a la que tiene asignada "
+"para ese terminal"
+msgstr ""
+
+#: ../includes/data/dserrors.php:26
+msgid "Error Comercio / terminal está dado de baja"
+msgstr ""
+
+#: ../includes/data/dserrors.php:27
+msgid ""
+"Error en un pago con tarjeta ha llegado un tipo de operación que no es ni "
+"pago ni preautorización"
+msgstr ""
+
+#: ../includes/data/dserrors.php:28
+msgid "Método de pago no definido"
+msgstr ""
+
+#: ../includes/data/dserrors.php:29
+msgid ""
+"Error en un pago con móvil ha llegado un tipo de operación que no es ni pago "
+"ni preautorización"
+msgstr ""
+
+#: ../includes/data/dserrors.php:30
+msgid "Error de acceso a la Base de Datos"
+msgstr ""
+
+#: ../includes/data/dserrors.php:31
+msgid "El número de teléfono no es válido"
+msgstr ""
+
+#: ../includes/data/dserrors.php:32
+msgid "Error en java"
+msgstr ""
+
+#: ../includes/data/dserrors.php:33
+msgid "Error el comercio / terminal no tiene ningún método de pago asignado"
+msgstr ""
+
+#: ../includes/data/dserrors.php:34
+msgid "Error en el cálculo de la HASH de datos del comercio."
+msgstr ""
+
+#: ../includes/data/dserrors.php:35
+msgid "La firma enviada no es correcta"
+msgstr ""
+
+#: ../includes/data/dserrors.php:36
+msgid "Error al realizar la notificación on-line"
+msgstr ""
+
+#: ../includes/data/dserrors.php:37
+msgid "El bin de la tarjeta no está dado de alta"
+msgstr ""
+
+#: ../includes/data/dserrors.php:38
+msgid "Error número de pedido repetido"
+msgstr ""
+
+#: ../includes/data/dserrors.php:39
+msgid "Error no existe operación sobre la que realizar la devolución"
+msgstr ""
+
+#: ../includes/data/dserrors.php:40
+msgid "Error existe más de un pago con el mismo número de pedido"
+msgstr ""
+
+#: ../includes/data/dserrors.php:41
+msgid "La operación sobre la que se desea devolver no está autorizada"
+msgstr ""
+
+#: ../includes/data/dserrors.php:42
+msgid "El importe a devolver supera el permitido"
+msgstr ""
+
+#: ../includes/data/dserrors.php:43 ../includes/data/dserrors.php:144
+msgid "Inconsistencia de datos, en la validación de una confirmación"
+msgstr ""
+
+#: ../includes/data/dserrors.php:44
+msgid "Error no existe operación sobre la que realizar la confirmación"
+msgstr ""
+
+#: ../includes/data/dserrors.php:45
+msgid "Ya existe una confirmación asociada a la preautorización"
+msgstr ""
+
+#: ../includes/data/dserrors.php:46
+msgid "La preautorización sobre la que se desea confirmar no está autorizada"
+msgstr ""
+
+#: ../includes/data/dserrors.php:47
+msgid "El importe a confirmar supera el permitido"
+msgstr ""
+
+#: ../includes/data/dserrors.php:48
+msgid "Error. Número de tarjeta no disponible"
+msgstr ""
+
+#: ../includes/data/dserrors.php:49
+msgid "Error. El número de tarjeta no puede tener más de 19 posiciones"
+msgstr ""
+
+#: ../includes/data/dserrors.php:50
+msgid "Error. El número de tarjeta no es numérico"
+msgstr ""
+
+#: ../includes/data/dserrors.php:51
+msgid "Error. Mes de caducidad no disponible"
+msgstr ""
+
+#: ../includes/data/dserrors.php:52
+msgid "Error. El mes de la caducidad no es numérico"
+msgstr ""
+
+#: ../includes/data/dserrors.php:53
+msgid "Error. El mes de la caducidad no es válido"
+msgstr ""
+
+#: ../includes/data/dserrors.php:54
+msgid "Error. Año de caducidad no disponible"
+msgstr ""
+
+#: ../includes/data/dserrors.php:55
+msgid "Error. El Año de la caducidad no es numérico"
+msgstr ""
+
+#: ../includes/data/dserrors.php:56
+msgid "Tarjeta caducada"
+msgstr ""
+
+#: ../includes/data/dserrors.php:57
+msgid "Operación no anulable"
+msgstr ""
+
+#: ../includes/data/dserrors.php:58
+msgid "Error falta Ds_Merchant_Order"
+msgstr ""
+
+#: ../includes/data/dserrors.php:59
+msgid "Error el Ds_Merchant_Order tiene menos de 4 posiciones o más de 12"
+msgstr ""
+
+#: ../includes/data/dserrors.php:60
+msgid ""
+"Error el Ds_Merchant_Order no tiene las cuatro primeras posiciones numéricas"
+msgstr ""
+
+#: ../includes/data/dserrors.php:61
+msgid ""
+"Error el Ds_Merchant_Order no tiene las cuatro primeras posiciones "
+"numéricas. No se utiliza"
+msgstr ""
+
+#: ../includes/data/dserrors.php:62 ../includes/data/dserrors.php:162
+#: ../includes/data/dserrors.php:169
+msgid "Método de pago no disponible"
+msgstr ""
+
+#: ../includes/data/dserrors.php:63
+msgid "Error al realizar el pago con tarjeta"
+msgstr ""
+
+#: ../includes/data/dserrors.php:64
+msgid "La sesión es nueva, se han perdido los datos almacenados"
+msgstr ""
+
+#: ../includes/data/dserrors.php:65
+msgid "El valor de Ds_Merchant_Conciliation es nulo"
+msgstr ""
+
+#: ../includes/data/dserrors.php:66
+msgid "El valor de Ds_Merchant_Conciliation no es numérico"
+msgstr ""
+
+#: ../includes/data/dserrors.php:67
+msgid "El valor de Ds_Merchant_Conciliation no ocupa 6 posiciones"
+msgstr ""
+
+#: ../includes/data/dserrors.php:68
+msgid "El valor de Ds_Merchant_ExpiryDate no ocupa 4 posiciones"
+msgstr ""
+
+#: ../includes/data/dserrors.php:69
+msgid "El valor de Ds_Merchant_ExpiryDate es nulo"
+msgstr ""
+
+#: ../includes/data/dserrors.php:70
+msgid "Tarjeta no encontrada en la tabla de rangos"
+msgstr ""
+
+#: ../includes/data/dserrors.php:71
+msgid "La tarjeta no fue autenticada como 3D Secure"
+msgstr ""
+
+#: ../includes/data/dserrors.php:72
+msgid "Valor del campo Ds_Merchant_CComercio no válido"
+msgstr ""
+
+#: ../includes/data/dserrors.php:73
+msgid "Valor del campo Ds_Merchant_CVentana no válido"
+msgstr ""
+
+#: ../includes/data/dserrors.php:74
+msgid ""
+"Error El tipo de transacción especificado en Ds_Merchant_Transaction_Type no "
+"esta permitido"
+msgstr ""
+
+#: ../includes/data/dserrors.php:75
+msgid "Excepción producida en el servlet de operaciones"
+msgstr ""
+
+#: ../includes/data/dserrors.php:76
+msgid "Error, se ha llamado con un GET en lugar de un POST"
+msgstr ""
+
+#: ../includes/data/dserrors.php:77
+msgid "Error no existe operación sobre la que realizar el pago de la cuota"
+msgstr ""
+
+#: ../includes/data/dserrors.php:78
+msgid ""
+"La operación sobre la que se desea pagar una cuota no es una operación válida"
+msgstr ""
+
+#: ../includes/data/dserrors.php:79
+msgid "La operación sobre la que se desea pagar una cuota no está autorizada"
+msgstr ""
+
+#: ../includes/data/dserrors.php:80
+msgid "Se ha excedido el importe total de las cuotas"
+msgstr ""
+
+#: ../includes/data/dserrors.php:81
+msgid "Valor del campo Ds_Merchant_DateFrecuency no válido"
+msgstr ""
+
+#: ../includes/data/dserrors.php:82
+msgid "Valor del campo Ds_Merchant_ChargeExpiryDate no válido"
+msgstr ""
+
+#: ../includes/data/dserrors.php:83
+msgid "Valor del campo Ds_Merchant_SumTotal no válido"
+msgstr ""
+
+#: ../includes/data/dserrors.php:84
+msgid ""
+"Valor del campo Ds_Merchant_DateFrecuency o no Ds_Merchant_SumTotal tiene "
+"formato incorrecto"
+msgstr ""
+
+#: ../includes/data/dserrors.php:85
+msgid "Se ha excedido la fecha tope para realizar transacciones"
+msgstr ""
+
+#: ../includes/data/dserrors.php:86
+msgid "No ha transcurrido la frecuencia mínima en un pago recurrente sucesivo"
+msgstr ""
+
+#: ../includes/data/dserrors.php:87
+msgid ""
+"La fecha de Confirmación de Autorización no puede superar en más de 7 días a "
+"la de Preautorización."
+msgstr ""
+
+#: ../includes/data/dserrors.php:88
+msgid ""
+"La fecha de Confirmación de Autenticación no puede superar en más de 45 días "
+"a la de Autenticación Previa."
+msgstr ""
+
+#: ../includes/data/dserrors.php:89
+msgid "Error el pago recurrente inicial está duplicado"
+msgstr ""
+
+#: ../includes/data/dserrors.php:90
+msgid "Tiempo excedido para el pago"
+msgstr ""
+
+#: ../includes/data/dserrors.php:91
+msgid ""
+"Error al obtener los datos de cesta de la compra en operación tipo pasarela"
+msgstr ""
+
+#: ../includes/data/dserrors.php:92
+msgid "Error el importe supera el límite permitido para el comercio"
+msgstr ""
+
+#: ../includes/data/dserrors.php:93
+msgid ""
+"Error el número de operaciones supera el límite permitido para el comercio"
+msgstr ""
+
+#: ../includes/data/dserrors.php:94
+msgid "Error el importe acumulado supera el límite permitido para el comercio"
+msgstr ""
+
+#: ../includes/data/dserrors.php:95
+msgid "El comercio no admite devoluciones"
+msgstr ""
+
+#: ../includes/data/dserrors.php:96
+msgid "Error Ds_Merchant_CVV2 tiene más de 3 posiciones"
+msgstr ""
+
+#: ../includes/data/dserrors.php:97
+msgid "Error de formato en Ds_Merchant_CVV2"
+msgstr ""
+
+#: ../includes/data/dserrors.php:98
+msgid "El comercio no permite operaciones seguras por la entrada/operaciones"
+msgstr ""
+
+#: ../includes/data/dserrors.php:99
+msgid ""
+"Error el número de operaciones de la tarjeta supera el límite permitido para "
+"el comercio"
+msgstr ""
+
+#: ../includes/data/dserrors.php:100
+msgid ""
+"Error el importe acumulado de la tarjeta supera el límite permitido para el "
+"comercio"
+msgstr ""
+
+#: ../includes/data/dserrors.php:101
+msgid "Error el CVV2 es obligatorio"
+msgstr ""
+
+#: ../includes/data/dserrors.php:102
+msgid "Ya existe una anulación asociada a la preautorización"
+msgstr ""
+
+#: ../includes/data/dserrors.php:103
+msgid "La preautorización que se desea anular no está autorizada"
+msgstr ""
+
+#: ../includes/data/dserrors.php:104
+msgid "El comercio no permite anulaciones por no tener firma ampliada"
+msgstr ""
+
+#: ../includes/data/dserrors.php:105
+msgid "Error no existe operación sobre la que realizar la anulación"
+msgstr ""
+
+#: ../includes/data/dserrors.php:106
+msgid "Inconsistencia de datos, en la validación de una anulación"
+msgstr ""
+
+#: ../includes/data/dserrors.php:107
+msgid "Valor del campo Ds_Merchant_TransactionDate no válido"
+msgstr "Valor del campo Ds_Merchant_TransactionDate no válido"
+
+#: ../includes/data/dserrors.php:108
+msgid "No existe el código de pago aplazado solicitado"
+msgstr ""
+
+#: ../includes/data/dserrors.php:109
+msgid "No hay forma de pago aplicable para el cliente"
+msgstr ""
+
+#: ../includes/data/dserrors.php:110
+msgid "Error. Forma de pago enviada en Ds_Merchant_Paymethods no disponible"
+msgstr ""
+
+#: ../includes/data/dserrors.php:111
+msgid "Error. Forma de pago enviada en Ds_Merchant_Paymethods desconocida"
+msgstr ""
+
+#: ../includes/data/dserrors.php:112
+msgid "Error. Nombre del titular de la cuenta no disponible"
+msgstr ""
+
+#: ../includes/data/dserrors.php:113
+msgid "Error. Campo Sis_Numero_Entidad no disponible"
+msgstr ""
+
+#: ../includes/data/dserrors.php:114
+msgid "Error. El campo Sis_Numero_Entidad no tiene la longitud requerida"
+msgstr ""
+
+#: ../includes/data/dserrors.php:115
+msgid "Error. El campo Sis_Numero_Entidad no es numérico"
+msgstr ""
+
+#: ../includes/data/dserrors.php:116
+msgid "Error. Campo Sis_Numero_Oficina no disponible"
+msgstr ""
+
+#: ../includes/data/dserrors.php:117
+msgid "Error. El campo Sis_Numero_Oficina no tiene la longitud requerida"
+msgstr ""
+
+#: ../includes/data/dserrors.php:118
+msgid "Error. El campo Sis_Numero_Oficina no es numérico"
+msgstr ""
+
+#: ../includes/data/dserrors.php:119
+msgid "Error. Campo Sis_Numero_DC no disponible"
+msgstr ""
+
+#: ../includes/data/dserrors.php:120
+msgid "Error. El campo Sis_Numero_DC no tiene la longitud requerida"
+msgstr ""
+
+#: ../includes/data/dserrors.php:121
+msgid "Error. El campo Sis_Numero_DC no es numérico"
+msgstr ""
+
+#: ../includes/data/dserrors.php:122
+msgid "Error. Campo Sis_Numero_Cuenta no disponible"
+msgstr ""
+
+#: ../includes/data/dserrors.php:123
+msgid "Error. El campo Sis_Numero_Cuenta no tiene la longitud requerida"
+msgstr ""
+
+#: ../includes/data/dserrors.php:124
+msgid "Error. El campo Sis_Numero_Cuenta no es numérico"
+msgstr ""
+
+#: ../includes/data/dserrors.php:125
+msgid "Dígito de Control de Cuenta Cliente no válido"
+msgstr ""
+
+#: ../includes/data/dserrors.php:126
+msgid "El comercio no permite pago por domiciliación"
+msgstr ""
+
+#: ../includes/data/dserrors.php:127
+msgid "Error al realizar pago por domiciliacion"
+msgstr ""
+
+#: ../includes/data/dserrors.php:128
+msgid "Error al tomar los datos del XML para realizar Pago por Transferencia"
+msgstr ""
+
+#: ../includes/data/dserrors.php:129
+msgid "El comercio no permite pago por transferencia"
+msgstr ""
+
+#: ../includes/data/dserrors.php:130
+msgid "Moneda no permitida para operación de transferencia o domiciliacion"
+msgstr ""
+
+#: ../includes/data/dserrors.php:131
+msgid "Error calculando datos para procesar operación en Linea Abierta Caixa"
+msgstr ""
+
+#: ../includes/data/dserrors.php:132
+msgid "Error procesando datos de respuesta recibidos desde Linea Abierta Caixa"
+msgstr ""
+
+#: ../includes/data/dserrors.php:133
+msgid "Error de firma en los datos recibidos desde Linea Abierta Caixa"
+msgstr ""
+
+#: ../includes/data/dserrors.php:134
+msgid ""
+"No se pueden recuperar los datos de la operación recibida desde Linea "
+"Abierta Caixa"
+msgstr ""
+
+#: ../includes/data/dserrors.php:135
+msgid "La operación no se puede procesar por no existir Codigo Cuenta Cliente"
+msgstr ""
+
+#: ../includes/data/dserrors.php:136
+msgid "La operación no se puede procesar por este canal"
+msgstr ""
+
+#: ../includes/data/dserrors.php:137
+msgid ""
+"No se pueden realizar devoluciones de operaciones de domiciliacion no "
+"descargadas "
+msgstr ""
+
+#: ../includes/data/dserrors.php:138
+msgid "El comercio no permite el envío de tarjeta"
+msgstr ""
+
+#: ../includes/data/dserrors.php:139
+msgid "La tarjeta no cumple el check-digit"
+msgstr ""
+
+#: ../includes/data/dserrors.php:140
+msgid ""
+"El número de operaciones de la IP supera el límite permitido por el comercio"
+msgstr ""
+
+#: ../includes/data/dserrors.php:141
+msgid ""
+"El importe acumulado por la IP supera el límite permitido por el comercio"
+msgstr ""
+
+#: ../includes/data/dserrors.php:142
+msgid "El comercio no puede realizar preautorizaciones"
+msgstr ""
+
+#: ../includes/data/dserrors.php:143
+msgid "Esta tarjeta no permite operativa de preautorizaciones"
+msgstr ""
+
+#: ../includes/data/dserrors.php:145
+msgid ""
+"Operación detenida por superar el control de restricciones en la entrada al "
+"SIS"
+msgstr ""
+
+#: ../includes/data/dserrors.php:146
+msgid "El comercio no puede realizar autorizaciones en diferido"
+msgstr ""
+
+#: ../includes/data/dserrors.php:147
+msgid "Tipo de operación desconocida o no permitida por esta entrada al SIS"
+msgstr ""
+
+#: ../includes/data/dserrors.php:148
+msgid ""
+"Error en la versión enviada por el comercio en el parámetro "
+"Ds_SignatureVersion"
+msgstr ""
+
+#: ../includes/data/dserrors.php:149
+msgid "Error al decodificar el parámetro Ds_MerchantParameters"
+msgstr ""
+
+#: ../includes/data/dserrors.php:150
+msgid ""
+"Error del objeto JSON que se envía codificado en el parámetro "
+"Ds_MerchantParameters"
+msgstr ""
+
+#: ../includes/data/dserrors.php:151
+msgid "Error FUC del comercio erróneo"
+msgstr ""
+
+#: ../includes/data/dserrors.php:152
+msgid "Error Terminal del comercio erróneo"
+msgstr ""
+
+#: ../includes/data/dserrors.php:153
+msgid ""
+"Error ausencia de número de pedido en la operación enviada por el comercio"
+msgstr ""
+
+#: ../includes/data/dserrors.php:154
+msgid "Error en el cálculo de la firma"
+msgstr ""
+
+#: ../includes/data/dserrors.php:155
+msgid ""
+"Error producido al acceder mediante un sistema de firma antiguo teniendo "
+"configurado el tipo de clave HMAC SHA256"
+msgstr ""
+
+#: ../includes/data/dserrors.php:156
+msgid ""
+"Error, la tarjeta de la operación es DINERS y el comercio no tiene el método "
+"de pago \"Pago DINERS\""
+msgstr ""
+
+#: ../includes/data/dserrors.php:157
+msgid ""
+"Error, el tipo de pago de la operación Ds_TransactionType (A) no está "
+"permitido para el comercio."
+msgstr ""
+
+#: ../includes/data/dserrors.php:158
+msgid ""
+"Error, el tipo de pago de la operación Ds_TransactionType (A) no está "
+"permitido para el comercio para tarjetas Amex."
+msgstr ""
+
+#: ../includes/data/dserrors.php:159
+msgid "Método de pago no disponible (Tarjeta 4B)"
+msgstr ""
+
+#: ../includes/data/dserrors.php:160
+msgid ""
+"Error, la tarjeta de la operación es JCB y el comercio no tiene el método de "
+"pago \"Pago JCB\""
+msgstr ""
+
+#: ../includes/data/dserrors.php:161
+msgid ""
+"Error, la tarjeta de la operación es AMEX y el comercio no tiene el método "
+"de pago \"Pago Amex\""
+msgstr ""
+
+#: ../includes/data/dserrors.php:163
+msgid "Método de pago no seguro (Visa) no disponible"
+msgstr ""
+
+#: ../includes/data/dserrors.php:164 ../includes/data/dserrors.php:165
+msgid "Método de pago no seguro (MasterCard) no disponible"
+msgstr ""
+
+#: ../includes/data/dserrors.php:166
+msgid "Método de pago no seguro (JCB) no disponible"
+msgstr ""
+
+#: ../includes/data/dserrors.php:167 ../includes/data/dserrors.php:168
+msgid "Método de pago no seguro (Amex) no disponible"
+msgstr ""
+
+#: ../includes/data/dserrors.php:170
+msgid "Método de pago no seguro no disponible (MasterCard Comercial)"
+msgstr ""
+
+#: ../includes/data/dserrors.php:171
+msgid "Método de pago no seguro no disponible"
+msgstr ""
+
+#: ../includes/data/dserrors.php:172
+msgid "Error, no se ha superado el proceso de control de fraude."
+msgstr ""
+
+#: ../includes/data/dserrors.php:173
+msgid "Error, el comercio no tiene el método de pago Paygold"
+msgstr ""
+
+#: ../includes/data/dserrors.php:174
+msgid "Error, el comercio no tiene el método de pago Pago Manual"
+msgstr ""
+
+#: ../includes/data/dserrors.php:175
+msgid "El comercio no permite realizar operaciones de Trajetas de Archivo"
+msgstr ""
+
+#: ../includes/data/dserrors.php:176
+msgid "El comercio no pertenece al grupo especificado en Ds_Merchant_Group"
+msgstr ""
+
+#: ../includes/data/dserrors.php:177
+msgid ""
+"La referencia indicada en Ds_Merchant_Identifier no está asociada al comercio"
+msgstr ""
+
+#: ../includes/data/dserrors.php:178
+msgid "Error de formato en Ds_Merchant_Group"
+msgstr ""
+
+#: ../includes/data/dserrors.php:179
+msgid ""
+"Se ha pedido no mostrar pantalla pero no se ha enviado ninguna referencia de "
+"tarjeta"
+msgstr ""
+
+#: ../includes/emails/templates/class-redsys-custom-email.php:21
+#: ../includes/emails/templates/class-redsys-custom-email.php:26
+msgid "Card payment problem"
+msgstr "Problema de pago con la tarjeta de crédito"
+
+#: ../includes/emails/templates/class-redsys-custom-email.php:22
+msgid "An email sent to the customer when there was a Card payment problem."
+msgstr ""
+"Se enviará al cliente un correo electrónico cuando exista un problema con el "
+"pago a través de la tarjeta de crédito."
+
+#: ../includes/emails/templates/html/redsys-html-customer-problem.php:18
+#, php-format
+msgid "The order #%d has been cancelled. Order Details:"
+msgstr "El pedido %d ha sido cancelado. Detalles del pedido:"
+
+#: ../includes/emails/templates/html/redsys-html-customer-problem.php:21
+#: ../includes/emails/templates/html/redsys-html-customer-problem.php:25
+#, php-format
+msgid "The error was: #%d, Order Details: "
+msgstr "El error fue %d, detalles del pedido: "
+
+#: ../includes/emails/templates/plain/redsys-plain-customer-problem.php:23
+#, php-format
+msgid "The order #%d has been cancelled. The order details:"
+msgstr "El pedido %d ha sido cancelado. Los detalles del pedido:"
+
+#: ../includes/metabox/metaboxes.php:14
+msgid "Payment Details"
+msgstr "Detalles del pago"
+
+#: ../includes/metabox/metaboxes.php:15
+msgid "Paid with"
+msgstr "Pago con"
+
+#: ../includes/metabox/metaboxes.php:17
+msgid "Redsys Date"
+msgstr "Fecha Redsys"
+
+#: ../includes/metabox/metaboxes.php:21
+msgid "Redsys Hour"
+msgstr "Hora Redsys"
+
+#: ../includes/metabox/metaboxes.php:25
+msgid "Redsys Authorisation Code"
+msgstr "Código autorización Redsys"
+
+#: ../includes/notices/notices.php:9
+msgid ""
+"WARNING: Please, deactivate my WooCommerce Redsys Gateway Light version "
+"before activate WooCommerce Gateway Redsys (by Jos&eacute; Conti & "
+"WooCommerce.com)."
+msgstr ""
+"ATENCIÓN: Por favor, desactiva mi plugin WooCommerce Redsys Gateway Light "
+"antes de activar WooCommerce Redsys Gateway (por Jos&eacute; Conti y "
+"WooCommerce.com)."
+
+#: ../includes/notices/notices.php:42
+#, php-format
+msgid ""
+"<p>You've been using WooCommerce.com&apos;s Redsys plugin for over 30 days. "
+"I would greatly appreciate it if you could share your experience on %s.</"
+"p><p>Thanks a lot!</p>"
+msgstr ""
+"<p>Llevas utilizando el plugin de Redsys de WooCommerce.com desde hace más "
+"de 30 días. Agradecería mucho si pudieras compartir tus impresiones en %s.</"
+"p><p>¡Muchísimas gracias!</p>"
+
+#: ../includes/notices/notices.php:59
+#, php-format
+msgid ""
+"<p><strong>PLEASE READ THIS:</strong> Thank you very much for purchasing the "
+"Redsys extension from WooCommerce.com.</p><p>Before closing this notice, "
+"wait until you test the plugin and everything works. If your orders are kept "
+"on waiting for Redsys payment, please open a ticket in %s Support (select "
+"\"Help with my Extensions\" - \"Redsys Gateway\"), it has solution and it is "
+"not the fault of the plugin.</p><p>You can contact me 7 days a week and "
+"I&apos;ll get back to you. If you give me the access data, I can fix your "
+"installation without problems.</p><p>If you wish, you can contact in "
+"Spanish, since I, Jos&eacute; Conti, give the support directly from the "
+"plugin.</p><p>Some options may not work if they have not been activated in "
+"Redsys. If something doesn&apos;t work for you, like 1-click payment, "
+"preauthorizations, etc, they must be activated first by Redsys. Check it out "
+"or contact me through the WooCommerce.com for help.</p><p>Read everything "
+"that is written under each configuration option, it is very important in "
+"some of them.</p><p>Thanks a lot</p><p>Jos&eacute; Conti</p>"
+msgstr ""
+"<p><strong>POR FAVOR LEE ESTO:</strong> Muchas gracias por adquirir la "
+"extensión Redsys de WooCommerce.com.</p><p>Antes de cerrar este aviso, "
+"espera hasta que pruebes el plugin y todo funcione. Si tus pedidos se "
+"mantienen a la espera de pago por Redsys, por favor, abre un ticket en el "
+"soporte de %s (selecciona \"Help with my Extensions\" - \"Redsys Gateway\"), "
+"tiene solución y no es culpa del plugin.</p><p>Puedes ponerte en contacto "
+"conmigo 7 días a la semana y responderé. Si me das los datos de acceso, "
+"puedo arreglar tu instalación sin problemas.</p><p>Si lo deseas, puedes "
+"ponerte en contacto en castellano, ya que yo, José Conti, doy el soporte "
+"directamente del plugin.</p><p>Algunas opciones pueden no funcionar si no "
+"han sido activadas por Redsys. Si algo no funciona, como el pago con 1 clic, "
+"preautorizaciones, etc, deben ser activadas primero por Redsys. Echa un "
+"vistazo o contáctame a través de la WooCommerce.com para obtener ayuda.</"
+"p><p>Lee todo lo que está escrito bajo cada opción de configuración, es muy "
+"importante en algunos de ellos.</p><p>Muchas gracias</p><p>José Conti</p>"
+
+#: ../includes/notices/notices.php:82 ../includes/notices/notices.php:120
+msgid "Dismiss"
+msgstr "Descartar"
+
+#: ../includes/notices/notices.php:85
+msgid "WooCommerce Redsys Gateway has been updated to version"
+msgstr "WooCommerce Redsys Gateway ha sido actualizado a la versión"
+
+#: ../includes/notices/notices.php:89
+msgid ""
+"Discover the improvements that have been made in this version, and how to "
+"take advantage of them "
+msgstr ""
+"Descubre las mejoras que se han realizado en esta versión, y cómo sacarles "
+"partido "
+
+#: ../includes/notices/notices.php:92
+msgid "Discover the improvements"
+msgstr "Descubre las mejoras"
+
+#: ../includes/notices/notices.php:93
+msgid "Leave a review"
+msgstr "Deja una valoración"
+
+#: ../includes/notices/notices.php:94
+msgid "Sign up for the Telegram channel"
+msgstr "Suscríbete al canal de Telegram"
+
+#: ../includes/notices/notices.php:123
+msgid ""
+"¡Hola! Soy el plugin de Redsys. Mi desarrollador lleva más de 7 años "
+"trabajando en mí para poder ofreceros la mejor pasarela de pago posible para "
+"vuestras tiendas."
+msgstr ""
+
+#: ../includes/notices/notices.php:124
+msgid "¡Muchas gracias por adquirirme!"
+msgstr ""
+
+#: ../includes/notices/notices.php:125
+msgid ""
+"Este plugin tiene una licencia que incluye actualizaciones y soporte por "
+"parte de mi desarrollador, y sólo puede  adquirirse de forma oficial  en "
+"WooCommerce."
+msgstr ""
+
+#: ../includes/notices/notices.php:126
+msgid ""
+"Si me has «encontrado» en otro sitio, ¡recuerda que puedo tener código "
+"modificado (y posiblemente dañino) y que no tienes soporte!"
+msgstr ""
+
+#: ../includes/notices/notices.php:127
+msgid ""
+"En la siguiente página podrás ver un video de como configurarme, explicación "
+"de todas mis funciones y los peligros de no adquirirme en WooCommerce.com"
+msgstr ""
+
+#: ../includes/notices/notices.php:131
+msgid "Infórmate en la siguiente entrada de todo ello"
+msgstr ""
+
+#: ../includes/notices/notices.php:133
+msgid "Check it now"
+msgstr "Míralos ahora"
+
+#: ../includes/notices/notices.php:147
+msgid ""
+"ATTENTION: Preathorizations in \"Redsys (by José Conti)\" is deprecated, "
+"please set up \"Redsys Preauthorizations (by José Conti)\". Once you "
+"deactivate the Preauthorization option in \"Redsys (by José Conti)\" this "
+"notice will disappear."
+msgstr ""
+
+#: ../includes/private-products.php:49 ../includes/private-products.php:69
+msgid "Private Product"
+msgstr "Producto privado"
+
+#: ../includes/private-products.php:81
+msgid "Select user that will be allowed to see this product"
+msgstr "Selecciona los usuarios que deseas que puedan ver el producto"
+
+#: ../includes/thank-you-checks.php:15 ../includes/thank-you-checks.php:36
+msgid ""
+"<p><b>ATTENTION:</b> You have used Redsys for the payment. We have detected "
+"that there may have been a problem with your payment and it has not been "
+"marked as paid. Do not worry, we have detected it and we have received an "
+"email with the notice, so we let's check it to make sure it has.</p>"
+msgstr ""
+"<p><b>ATENCIÓN:</b> Has utilizado Redsys para el pago. Hemos detectado que "
+"pudo haber un problema con tu pago y no ha sido marcado como pagado. No te "
+"preocupes, lo hemos detectado y hemos recibido un correo electrónico "
+"alertándonos del problema, así que lo vamos a comprobar para ver que ha "
+"sucedido.</p>"
+
+#: ../includes/thank-you-checks.php:25
+msgid "You must make the bank transfer to the following account:"
+msgstr ""
+
+#: ../includes/thank-you-checks.php:26
+msgid "SWIFT:"
+msgstr "SWIFT:"
+
+#: ../includes/thank-you-checks.php:27
+msgid "IBAN:"
+msgstr "IBAN:"
+
+#: ../includes/thank-you-checks.php:28
+msgid "beneficiary:"
+msgstr ""
+
+#: ../includes/thank-you-checks.php:29
+msgid "Expenses in charge of:"
+msgstr ""
+
+#: ../includes/thank-you-checks.php:54
+msgid "Possible problem with Redsys notifying the website."
+msgstr "Posible problema con la notificación de Redsys al sitio."
+
+#: ../includes/thank-you-checks.php:55
+msgid ""
+"We have detected that a user has reached the thank you page from Redsys, but "
+"the order is not marked as paid."
+msgstr ""
+"Hemos detectado que un usuario ha llegado a la página de agradecimiento "
+"desde Redsys, pero el pedido no está marcado como pagado."
+
+#: ../includes/thank-you-checks.php:56
+msgid ""
+"<p>This may mean that Redsys has had a problem contacting the website.</p>"
+msgstr ""
+"<p>Esto puede significar que Redsys ha tenido un problema contactando con tu "
+"sitio.</p>"
+
+#: ../includes/thank-you-checks.php:57
+#, php-format
+msgid ""
+"<p>The Order number is: %s. You can see the order  <a href=\"%s\">here</a></"
+"p>"
+msgstr ""
+"<p>El número de pedido es: %s. Puedes ver el pedido <a href=\"%s\">aquí</a></"
+"p>"
+
+#: ../includes/thank-you-checks.php:58
+msgid ""
+"<p>Don't forget to check because a customer may have paid for an order and "
+"you don't know it.</p>"
+msgstr ""
+"<p>No olvides realizar la comprobación, ya que puede que un cliente haya "
+"realizado un pago y no lo sepas.</p>"
+
+#: ../includes/thank-you-checks.php:59
+msgid "<p>What steps should I take now?</p>"
+msgstr "<p>¿Qué pasos debo seguir ahora?</p>"
+
+#: ../includes/thank-you-checks.php:61
+msgid ""
+"<li>Access Redsys (your bank should have given you the access address)</li>"
+msgstr ""
+"<li>Accede a Redsys (tu banco debió facilitarte la dirección de acceso a la "
+"administración de tu terminal)</li>"
+
+#: ../includes/thank-you-checks.php:62
+msgid "<li>Go to Administración > Inicio</li>"
+msgstr "<li>Ve a Administración > Inicio</li>"
+
+#: ../includes/thank-you-checks.php:63
+msgid ""
+"<li>Here you will see all the transactions that have taken place in your "
+"terminal.</li>"
+msgstr ""
+"<li>Aquí verás todas las transacciones que se han realizado en tu pasarela.</"
+"li>"
+
+#: ../includes/thank-you-checks.php:64
+#, php-format
+msgid ""
+"<li>Now look in the Description column for the one that says \"Order %s\"</"
+"li>"
+msgstr "<li>Ahora mira en la columna «Descripción» buscando “Order %s”</li>"
+
+#: ../includes/thank-you-checks.php:65
+msgid ""
+"<li>Once located, look in the column \"Result operation and code\" if in "
+"that column it is Authorized and with a number, type \"Autorización xxxxxxx"
+"\", is that there has been a problem on the part of Redsys to notify your "
+"site of the payment.</li>"
+msgstr ""
+"<li>Una vez localizado, mira en la columna «Resultado de la operación y "
+"código», si en esta columna está Autorizado y con un número, tipo "
+"«Autorizado xxxxxxxx», es que hubo problema por parte de Redsys para "
+"notificar a tu sitio el pago.</li>"
+
+#: ../includes/thank-you-checks.php:66
+#, php-format
+msgid ""
+"<li>If authorized, go to <a href=\"%s\">here</a> and mark the order as "
+"Processing or Completed.</li>"
+msgstr ""
+"<li>Si está autorizado, ve <a href=\"%s\">aquí</a> y marca el pedido como "
+"Procesando o Completado.</li>"
+
+#: ../includes/thank-you-checks.php:68
+#, php-format
+msgid ""
+"<p>If this error is repeated in all orders, please contact the developer of "
+"the plugin, José Conti, opening a ticket at <a href=\"%s\">WooCommerce.com</"
+"a>.</p>"
+msgstr ""
+"<p>Si el error se repite en todos los pedidos, por favor, contacta con el "
+"desarrollador del plugin José Conti, abriendo un ticket en <a href=\"%s"
+"\">WooCommerce.com</a>.</p>"
+
+#: ../includes/woo-status/status.php:20
+#, php-format
+msgid "Preauthorized <span class=\"count\">(%s)</span>"
+msgstr "Preautorizado <span class=\"count\">(%s)</span>"
+
+#: ../includes/woo-status/status.php:36
+#, php-format
+msgid "Resident Payment <span class=\"count\">(%s)</span>"
+msgstr "Domiciliados <span class=\"count\">(%s)</span>"
+
+#: ../includes/woo-status/status.php:36
+#, php-format
+msgid "Resident Payments <span class=\"count\">(%s)</span>"
+msgstr "Domiciliacines <span class=\"count\">(%s)</span>"
+
+#: ../includes/woo-status/status.php:52
+#, php-format
+msgid "Pending Redsys Bank Transfer <span class=\"count\">(%s)</span>"
+msgstr ""
+"Pendiente de transferencia desde Redsys <span class=\"count\">(%s)</span>"
+
+#: ../includes/woo-status/status.php:71
+msgid "Preauthorized"
+msgstr "Preautorizado"
+
+#: ../woocommerce-gateway-redsys.php:107
+msgid "Select Allowed Users"
+msgstr "Seleccionar Usuarios permitidos"
+
+#: ../woocommerce-gateway-redsys.php:228
+msgid "Confirm Preauthorization"
+msgstr "Confirmar preautorización"
+
+#: ../woocommerce-gateway-redsys.php:256
+msgid "Collect the remainder With Redsys: "
+msgstr ""
+
+#, fuzzy
+#~| msgid ""
+#~| "Servired/RedSys only support EUR, USD, GBP, JPY, ARS, CAD, CLP, COP, "
+#~| "INR, MXN, PEN, CHF, BRL, BOB and TRY currency."
+#~ msgid ""
+#~ "Bizum support EUR, USD, GBP, JPY, ARS, CAD, CLP, COP, INR, MXN, PEN, CHF, "
+#~ "BRL, BOB and TRY currency."
+#~ msgstr ""
+#~ "Redsys solo soporta las monedas EUR, USD, GBP, JPY, ARS, CAD, CLP, COP, "
+#~ "INR, MXN, PEN, CHF, BRL, BOB y TRY."
+
+#~ msgid "Spanish"
+#~ msgstr "Español"
+
+#~ msgid "English"
+#~ msgstr "Inglés"
+
+#~ msgid "Catalan"
+#~ msgstr "Catalán"
+
+#~ msgid "French"
+#~ msgstr "Frances"
+
+#~ msgid "German"
+#~ msgstr "Alemán"
+
+#~ msgid "Dutch"
+#~ msgstr "Holandes"
+
+#~ msgid "Italian"
+#~ msgstr "Italiano"
+
+#~ msgid "Swedish"
+#~ msgstr "Sueco"
+
+#~ msgid "Portuguese"
+#~ msgstr "Portugués"
+
+#~ msgid "Valencian"
+#~ msgstr "Valenciano"
+
+#~ msgid "Polish"
+#~ msgstr "Polaco"
+
+#~ msgid "Galician"
+#~ msgstr "Galllego"
+
+#~ msgid "Basque"
+#~ msgstr "Euskera"
+
+#~ msgid "Danish"
+#~ msgstr "Danés"
+
+#, fuzzy
+#~| msgid "Order cancelled by Redsys: Expired credit card"
+#~ msgid "Order cancelled by Bizum: Expired credit card"
+#~ msgstr "Pedido cancelado por Redsys: Tarjeta caducada"
+
+#~ msgid "Iupay"
+#~ msgstr "Iupay"
+
+#~ msgid "Servired/RedSys only support EUROS &euro; and BRL currency."
+#~ msgstr ""
+#~ "Servired/RedSys en estos momentos solo soporta la moneda EURO &euro; y "
+#~ "BRL."
+
+#~ msgid ""
+#~ "Thank you for your order, please click the button below to pay with Iupay."
+#~ msgstr ""
+#~ "Gracias por su pedido, por favor haga clic en el siguiente botón para "
+#~ "poder pagar con Iupay."
+
+#~ msgid "Pedido cancelado por Iupay: Tarjeta caducada"
+#~ msgstr "Pedido cancelado por Iupay: Tarjeta caducada"
+
+#~ msgid ""
+#~ "WARNING: You need to add Encryption secret passphrase SHA-256 to Iupay "
+#~ "Gateway Settings."
+#~ msgstr ""
+#~ "ATENCIÓN: Necesitas añadir la clave de encriptación SHA-256 a la "
+#~ "configuración de Iupay."
+
+#~ msgid "Iupay Date"
+#~ msgstr "Fecha Iupay"
+
+#~ msgid "Iupay Hour"
+#~ msgstr "Hora Iupay"
+
+#~ msgid "Iupay Authorisation Code"
+#~ msgstr "Iupay Código de autorización"
+
+#~ msgid ""
+#~ "Servired/RedSys only support EUR, USD, GBP, JPY, ARS, CAD, CLP, COP, INR, "
+#~ "MXN, PEN, CHF, BRL, BOB and TRY currency."
+#~ msgstr ""
+#~ "Redsys solo soporta las monedas EUR, USD, GBP, JPY, ARS, CAD, CLP, COP, "
+#~ "INR, MXN, PEN, CHF, BRL, BOB y TRY."
+
+#, fuzzy
+#~| msgid ""
+#~| "Servired/RedSys only support EUR, USD, GBP, JPY, ARS, CAD, CLP, COP, "
+#~| "INR, MXN, PEN, CHF, BRL, BOB and TRY currency."
+#~ msgid ""
+#~ "Servired/RedSys only support EUR, BRL, CAD, GBP, JPY, TRY, USD, ARS, CLP, "
+#~ "COP, INR, MXN, PEN, CHF, BOB currency."
+#~ msgstr ""
+#~ "Redsys solo soporta las monedas EUR, USD, GBP, JPY, ARS, CAD, CLP, COP, "
+#~ "INR, MXN, PEN, CHF, BRL, BOB y TRY."
+
+#~ msgid "Bank charges"
+#~ msgstr "Virgos bancarios"
+
+#~ msgid "Who will pay for the transfer?"
+#~ msgstr "¿Quién pagará el coste de la transferencia?"
+
+#~ msgid "At the expense of the payer (customer)"
+#~ msgstr "A cargo del pagador (cliente)"
+
+#~ msgid "To be paid by the beneficiary (You)"
+#~ msgstr "Para ser pagado por el beneficiario (Tu)"
+
+#~ msgid "Enable/Disable Iupay Settings"
+#~ msgstr "Activar/Desactivar configuración Iupay"
+
+#~ msgid "Enable Iupay Settings"
+#~ msgstr "Activar configuración Iupay"
+
+#~ msgid ""
+#~ "With this option, you will ask for preauthorizations to Redsys, so you "
+#~ "will be able to modify the amount to charge after prepare the order."
+#~ msgstr ""
+#~ "Con esta opción, preautorizarás el pago de los pedidos, así que podrás "
+#~ "modificar la cantidad a cargar después de preparar el pedido."
+
+#~ msgid "Tax"
+#~ msgstr "Impuestos"
+
+#~ msgid "Invoice number"
+#~ msgstr "Número de factura"
+
+#~ msgid "Shipping Tax"
+#~ msgstr "Impuesto de envío"
+
+#~ msgid "Shipping Postcode"
+#~ msgstr "Código Postal de envío"
+
+#~ msgid "Shipping State"
+#~ msgstr "Estado/Región de envío"
+
+#~ msgid "Shipping City"
+#~ msgstr "Ciudad de envío"
+
+#~ msgid "Shipping Address 1"
+#~ msgstr "Dirección de envío 1"
+
+#~ msgid "Shipping Address 2"
+#~ msgstr "Dirección de envío 2"
+
+#~ msgid "Shipping Company"
+#~ msgstr "Empresa (Envío)"
+
+#~ msgid "Shipping Last Name"
+#~ msgstr "Apellido (Envío)"
+
+#~ msgid "Shipping First Name"
+#~ msgstr "Nombre (Envío)"
+
+#~ msgid "Shipping Country"
+#~ msgstr "Pais de envío"
+
+#~ msgid "Billing Phone"
+#~ msgstr "Teléfono (factura)"
+
+#~ msgid "Billing Email"
+#~ msgstr "Correo electrónico (factura)"
+
+#~ msgid "Billing Postcode"
+#~ msgstr "Código postal(factura)"
+
+#~ msgid "Billing State"
+#~ msgstr "Estado/provincia (factura)"
+
+#~ msgid "Billing City"
+#~ msgstr "Ciudad (factura)"
+
+#~ msgid "Billing Address 1"
+#~ msgstr "Dirección 1 (factura)"
+
+#~ msgid "Billing Address 2"
+#~ msgstr "Dirección 2 (factura)"
+
+#~ msgid "Billing Company"
+#~ msgstr "Empresa (factura)"
+
+#~ msgid "Billing Last Name"
+#~ msgstr "Apellido (factura)"
+
+#~ msgid "Billing First Name"
+#~ msgstr "Nombre (factura)"
+
+#~ msgid "Billing Country"
+#~ msgstr "Pais (factura)"
+
+#~ msgid "Order Currency"
+#~ msgstr "Moneda"
+
+#~ msgid "Payment Tax"
+#~ msgstr "Impuestos"
+
+#~ msgid "Order Export"
+#~ msgstr "Exportar pedido"
+
+#~ msgid "WooCommerce Order Export"
+#~ msgstr "Exportación de pedidos WooCommerce"
+
+#, php-format
+#~ msgid ""
+#~ "You've not installed \"WooCommerce Order Export\". Please install the "
+#~ "%splugin%s. After install the free plugin, Redsys Gateway Extension will "
+#~ "add many featured to it. Thank you."
+#~ msgstr ""
+#~ "No tienes instalado \"WooCommerce Order Export”. Por favor, instala el "
+#~ "%splugin%s. Después de instalar este plugin gratuito, esta extensión "
+#~ "(Redsys Gateway Extension) añadirá muchas funcionalidad al plugin para "
+#~ "que sirva para España. Muchas gracias."
+
+#~ msgid ""
+#~ "WARNING: Please, deactivate all Redsys plugins before activate "
+#~ "WooCommerce Gateway Redsys (by Jos&eacute; Conti & WooCommerce.com)."
+#~ msgstr ""
+#~ "ATENCIÓN: Por favor, desactiva todos los plugins de Redsys antes de "
+#~ "activar WooCommerce Gateway Redsys (por Jos&eacute; Conti y WooCommerce."
+#~ "com)."
+
+#~ msgid "READ THIS, IT IS VERY IMPORTANT PSD2 SCA"
+#~ msgstr ""
+#~ "LEE ESTO, ES MUY IMPORTANTE Y ES SOBRE LA NUEVA NORMATIVA EU PSD2 / SCA"
+
+#, php-format
+#~ msgid ""
+#~ "Surely you are worried about the new European regulation PSD2 SCA to be "
+#~ "implemented next September 12, 2019. Read about it in this <a href=\"%s\" "
+#~ "target=\"_blank\">link</a>"
+#~ msgstr ""
+#~ "Seguramente estás preocupado sobre la nueva normativa europea PSD2 / SCA "
+#~ "que dede estar implementada el próximo 12 de septiembre de 2019. Lee "
+#~ "sobre este tema en este <a href=\"%s\" target=\"_blank\">enlace</a>"
+
+#~ msgid "<p>José Conti will help you solve the problems quickly.</p>"
+#~ msgstr "<p>José Conti te ayudará a solventar el problema rápidamente.</p>"
+
+#~ msgid ""
+#~ "WARNING: You need to add Encryption secret passphrase SHA-256 to Redsys "
+#~ "Gateway Settings."
+#~ msgstr ""
+#~ "ATENCIÓN: Necesitas añadir la clave de encriptación SHA-256 a la "
+#~ "configuración de Redsys."
+
+#~ msgid "Learn about this update <a href=\"%s\" target=\"_blank\">here</a>"
+#~ msgstr ""
+#~ "Descubre lo que se se ha realizado en esta actualización <a href=\"%s\" "
+#~ "target=\"_blank\">aquí</a>"
+
+#, fuzzy
+#~| msgid ""
+#~| "<p><b>ATTENTION:</b> You have used Redsys for the payment. We have "
+#~| "detected that there may have been a problem with your payment and it has "
+#~| "not been marked as paid.  Do not worry, we have detected it and we have "
+#~| "received an email with the notice, so we let's check it to make sure it "
+#~| "has.</p>"
+#~ msgid ""
+#~ "<b>ATTENTION:</b> You have used Redsys for the payment. We have detected "
+#~ "that there may have been a problem with your payment and it has not been "
+#~ "marked as paid.  Do not worry, we have detected it and we have received "
+#~ "an email with the notice, so we let's check it to make sure it has."
+#~ msgstr ""
+#~ "<p><b>ATENCIÓN:</b> Has utilizado Redsys para el pago. Hemos detectado "
+#~ "que puede haber habido un problema con tu pago y no ha sido marcado como "
+#~ "pagado. No te preocupes, lo hemos detectado y hemos recibido un correo "
+#~ "electrónico alertándonos del problema, así que lo vamos a comprobar para "
+#~ "ver que ha sucedido.</p>"
+
+#~ msgid ""
+#~ "With this option, the customer is redirected to checkout after add a "
+#~ "product to the card. Only activate this option if your customers ONLY buy "
+#~ "ONE product every time."
+#~ msgstr ""
+#~ "Con esta opción, tus clientes serán redirigiros a la página de pago "
+#~ "después de añadir un producto a la cesta. Solo activa esta opción si tus "
+#~ "clientes SOLO compran UN producto cada vez."
+
+#~ msgid ""
+#~ "<p><strong>PLEASE READ THIS:</strong> Before closing this notice, wait "
+#~ "until you test the plugin and everything works. If your orders are kept "
+#~ "on waiting for Redsys payment, please open a ticket in %s Support (select "
+#~ "\"Help with my Extensions\" - \"Redsys Gateway\"), it has solution and it "
+#~ "is not the fault of the plugin.</p><p>You can contact me 7 days a week "
+#~ "and I'll get back to you. If you give me the access data, I can fix your "
+#~ "installation without problems.</p><p>If you wish, you can contact in "
+#~ "Spanish, since I, Jos&eacute; Conti, give the support directly from the "
+#~ "plugin.</p>Thanks a lot</p>"
+#~ msgstr ""
+#~ "<p><strong>POR FAVOR, LEE ESTO:</strong> Antes e cerrar esta "
+#~ "notificación, prueba el plugin de Redsys y asegúrate que todo funciona "
+#~ "correctamente. Si tras el pago en Redsys tus pedidos quedan pendientes de "
+#~ "pago, por favor, abre un ticket en el soporte de %s (selecciona \"Help "
+#~ "with my Extensions\" - \"Redsys Gateway\"), tiene solución y y no es un "
+#~ "problema del plugin.</p><p>Puedes contactar conmigo los 7 días a la "
+#~ "semana y te responderé en mismo día. Si me facilitas los datos de acceso "
+#~ "a tu instalación, puedo arreglártelo sin problemas incluso en fines de "
+#~ "semana.</p><p>Si lo deseas, puedes contactar en castellano, ya que yo, "
+#~ "José Conti, soy el que da el soporte directamente.</p>Muchas gracias</p>"
+
+#~ msgid ""
+#~ "<p><strong>PLEASE READ THIS:</strong> If your orders are kept on waiting "
+#~ "for Redsys payment, please open a thread in %s Support (select \"Help "
+#~ "with my Extensions\" - \"Redsys Gateway\"), it has solution and it is not "
+#~ "the fault of the plugin.</p><p>You can contact me 7 days a week and I'll "
+#~ "get back to you. If you give me the access data, I can fix your "
+#~ "installation without problems.</p><p>If you wish, you can contact in "
+#~ "Spanish, since I, Jos&eacute; Conti, give the support directly from the "
+#~ "plugin.</p>Thanks a lot</p>"
+#~ msgstr ""
+#~ "<p><strong>POR FAVOR, LEE ESTO:</strong> Si tras el pago en Redsys tus "
+#~ "pedidos quedan pendientes de pago, por favor, abre un ticket en el "
+#~ "soporte de %s (selecciona \"Help with my Extensions\" - \"Redsys Gateway"
+#~ "\"), tiene solución y y no es un problema del plugin.</p><p>Puedes "
+#~ "contactar conmigo los 7 días a la semana y te responderé en mismo dia. Si "
+#~ "me facilitas los datos de acceso a tu instalación, puedo arreglártelo sin "
+#~ "problemas incluso en fines de semana.</p><p>Si lo deseas, puedes "
+#~ "contactar en castellano, ya que yo, José Conti, soy el que da el soporte "
+#~ "directamente.</p>Muchas gracias</p>"
+
+#~ msgid ""
+#~ "<p><strong>PLEASE READ THIS:<strong> If your orders are kept on waiting "
+#~ "for Redsys payment, please open a thread in %s Support (select \"Help "
+#~ "with my Extensions\" - \"Redsys Gateway\"), it has solution and it is not "
+#~ "the fault of the plugin.</p><p>You can contact me 7 days a week and I'll "
+#~ "get back to you. If you give me the access data, I can fix your "
+#~ "installation without problems.</p><p>If you wish, you can contact in "
+#~ "Spanish, since I, Jos&eacute; Conti, give the support directly from the "
+#~ "plugin.</p>Thanks a lot</p>"
+#~ msgstr ""
+#~ "<p><strong>POR FAVOR, LEE ESTO:</strong>Si tus pedidos quedan pendientes "
+#~ "de pago, tras el pago en Redsys, por favor, abre un ticket en el soporte "
+#~ "de %s (selecciona \"Help with my Extensions\" - \"Redsys Gateway\"), "
+#~ "tiene solución y y no es un problema del plugin.</p><p>Puedes contactar "
+#~ "conmigo los 7 días a la semana y te responderé en mismo dia. Si me "
+#~ "facilitas los datos de acceso a tu instalación, puedo arreglártelo sin "
+#~ "problemas incluso en fines de semana.</p><p>Si lo deseas, puedes "
+#~ "contactar en castellano, ya que yo, José Conti, soy el que da el soporte "
+#~ "directamente.</p>Muchas gracias</p>"
+
+#~ msgid ""
+#~ "<p>If your orders are kept on waiting for Redsys payment, please open a "
+#~ "thread in %s Support (select \"Help with my Extensions\" - \"Redsys "
+#~ "Gateway\"), it has solution and it is not the fault of the plugin.</"
+#~ "p><p>You can contact me 7 days a week and I'll get back to you. If you "
+#~ "give me the access data, I can fix your installation without problems.</"
+#~ "p><p>If you wish, you can contact in Spanish, since I, Jos&eacute; Conti, "
+#~ "give the support directly from the plugin.</p>Thanks a lot</p>"
+#~ msgstr ""
+#~ "<p>Si tus pedidos quedan pendientes de pago, tras el pago en Redsys, por "
+#~ "favor, abre un ticket en el soporte de %s (selecciona \"Help with my "
+#~ "Extensions\" - \"Redsys Gateway\"), tiene solución y y no es un problema "
+#~ "del plugin.</p><p>Puedes contactar conmigo los 7 días a la semana y te "
+#~ "responderé en mismo dia. Si me facilitas los datos de acceso a tu "
+#~ "instalación, puedo arreglártelo sin problemas incluso en fines de semana."
+#~ "</p><p>Si lo deseas, puedes contactar en castellano, ya que yo, José "
+#~ "Conti, soy el que da el soporte directamente.</p>Muchas gracias</p>"
+
+#~ msgid "Refund Failed, please try again"
+#~ msgstr "Devolución fallida, por favor, inténtalo de nuevo"
+
+#~ msgid ""
+#~ "Check WooCommerce.com Plugin <a href=\"%1$s\" target=\"_blank\" rel="
+#~ "\"noopener\">Documentation page</a> for setup, <a href=\"%2$s\" target="
+#~ "\"_blank\" rel=\"noopener\">FAQ page</a> for working problems, or open a "
+#~ "<a href=\"%3$s\" target=\"_blank\" rel=\"noopener\">Ticket</a> for support"
+#~ msgstr ""
+#~ "Comprueba la <a href=\"%1$s\" target=\"_blank\" rel=\"noopener\">página "
+#~ "de documentación</a> de WooCommerce.com para la configuración, la <a href="
+#~ "\"%2$s\" target=\"_blank\" rel=\"noopener\">página FAQ</a> para problemas "
+#~ "de funcionamiento, o abre un <a href=\"%3$s\" target=\"_blank\" rel="
+#~ "\"noopener\">ticket</a> para soporte"
+
+#~ msgid ""
+#~ "Check WooCommerce.com Plugin <a href=\"%1$s\" target=\"_blank\" rel="
+#~ "\"noopener\">Documentation page</a> for setup, <a href=\"%2$s\" target="
+#~ "\"_blank\" rel=\"noopener\">FAQ page</a> for working problems, or open a  "
+#~ "<a href=\"%3$s\" target=\"_blank\" rel=\"noopener\">Ticket</a> for support"
+#~ msgstr ""
+#~ "Comprueba la <a href=\"%1$s\" target=\"_blank\" rel=\"noopener\">página "
+#~ "de documentación</a> de WooCommerce.com para la configuración, la <a href="
+#~ "\"%2$s\" target=\"_blank\" rel=\"noopener\">página FAQ</a> para problemas "
+#~ "de funcionamiento, o abre un <a href=\"%3$s\" target=\"_blank\" rel="
+#~ "\"noopener\">ticket</a> para soporte"
+
+#~ msgid ""
+#~ "You need to ask to Redsys to sent some fields for tokenization (Pay with "
+#~ "one Click). Please ask to Redsys to sent with the callback the following "
+#~ "fields. WooCommerce cannot work without thise fields"
+#~ msgstr ""
+#~ "Debes pedir a Redsys que te envíe algunos campos para la tokenización "
+#~ "(pago con un clic). Por favor, pide a Redsys que te envíe en el callback "
+#~ "los siguiente campos. WooCommerce no puede funcionar sin estos campos"
+
+#~ msgid "Siguiente paso llamada"
+#~ msgstr "Siguiente paso llamada"
+
+#~ msgid "La llamada ya se ha hecho y hay esta respuesta: "
+#~ msgstr "La llamada ya se ha hecho y hay esta respuesta: "
+
+#~ msgid "Order Preauthorized <span class=\"count\">(%s)</span>"
+#~ msgstr "Pedido preautorizado <span class=\"count\">(%s)</span>"
+
+#~ msgid "Orders Preauthorized <span class=\"count\">(%s)</span>"
+#~ msgstr "Pedidos preautorizados <span class=\"count\">(%s)</span>"
+
+#~ msgid "Pedido cancelado por Redsys: Tarjeta caducada"
+#~ msgstr "Pedido cancelado por Redys: Tarjeta caducada"
+
+#~ msgid "Encription secret passphrase"
+#~ msgstr "Clave secreta de encriptación"
+
+#~ msgid "Encription secret passphrase provided by your bank."
+#~ msgstr "Clave secreta de encriptación provista por su entidad bancaria."
+
+#~ msgid "Key type"
+#~ msgstr "Tipo de clave"
+
+#~ msgid "Choose which key type your bank has setup for your account."
+#~ msgstr ""
+#~ "Elija el tipo de clave que su entidad bancaria ha configurado para su "
+#~ "cuenta"
+
+#~ msgid "SHA-1 Complete"
+#~ msgstr "SHA-1 Completo"
+
+#~ msgid "SHA-1 Complete Extended"
+#~ msgstr "SHA-1 Completo Ampliado"
+
+#~ msgid ""
+#~ "Validation error: Calculated signature vs. Notification signature do not "
+#~ "match (calculated: %s - received: %s)."
+#~ msgstr ""
+#~ "Error de validación: Firma calculada vs. Firma de notificación no "
+#~ "coinciden (calculada: %s - recibido: %s)."
+
+#~ msgid ""
+#~ "WARNING: You need to add the new SHA-256 to Iupay Gateway Settings before "
+#~ "November 23, 2015, Otherwise, your shop will stop working."
+#~ msgstr ""
+#~ "ATENCIÓN: Necesitas añadir la nueva clave de encriptación SHA-256 a la "
+#~ "configuración de Iupay antes del 23 de noviembre, si no lo hicieras tu "
+#~ "tienda dejará de funcionar."
+
+#~ msgid ""
+#~ "WARNING: The PHP mcrypt_encrypt module is not installed on your server. "
+#~ "The new API Redsys SHA-256 needs this module in order to work.  Please "
+#~ "contact your hosting provider and ask them to install it before November "
+#~ "23, 2015. Otherwise, your shop will stop working."
+#~ msgstr ""
+#~ "ATENCIÓN: El módulo PHP mcrypt_encrypt no está instalado en este "
+#~ "servidor. La nueva API de Redsys SHA-256 necesita este módulo para "
+#~ "funcionar. Por favor, contacta con tu proveedor de hosting o con tu "
+#~ "Sysadmin para que lo instale antes del 23 de noviembre de 2015. Si no lo "
+#~ "instala, tu comercio dejará de funcionar."
+
+#~ msgid ""
+#~ "WARNING: You need to add the new SHA-256 to Redsys Gateway Settings "
+#~ "before November 23, 2015, Otherwise, your shop will stop working."
+#~ msgstr ""
+#~ "ATENCIÓN: Debes añadir la nueva clave de encriptación SHA-256 a la "
+#~ "configuración de Redsys antes del 23 de noviembre de 2015, si no lo "
+#~ "haces, tu tienda dejará de funcionar."
+
+#~ msgid ""
+#~ "WARNING: The PHP mcrypt_encrypt module is not installed on your server. "
+#~ "The new Redsys SHA-256 needs this module in order to work.  Please "
+#~ "contact your hosting provider and ask them to install it. After November "
+#~ "23, 2015, Otherwise, your shop will stop working."
+#~ msgstr ""
+#~ "ATENCIÓN: El modulo mcrypt_encrypt no está instalado en este servidor. La "
+#~ "nueva API que utiliza SHA-256 necesita de este módulo para funcionar. Por "
+#~ "favor, contacta con tu proveedor de posting o con tu SysAdmin y diles que "
+#~ "lo instalen. Deben hacerlo antes del 23 de noviembre, o tu tienda dejará "
+#~ "de funcionar."
+
+#~ msgid "La Caixa"
+#~ msgstr "La Caixa"
+
+#~ msgid "La Caixa Spain"
+#~ msgstr "La Caixa España"
+
+#~ msgid "Enable La Caixa"
+#~ msgstr "Activa La Caixa"
+
+#~ msgid "BBVA"
+#~ msgstr "BBVA"
+
+#~ msgid "BBVA Spain"
+#~ msgstr "BBVA Espa&ntilde;a"
+
+#~ msgid "Obfuscated secret phrase downloaded from BBVA."
+#~ msgstr "Palabra secreta ofuscada descargada desde BBVA."
+
+#~ msgid "8 characters password"
+#~ msgstr "Contraseña de 8 caracteres"
+
+#~ msgid "8 characters password you entered on BBVA."
+#~ msgstr "Contraseña de 8 caracteres, la misma ingresada en BBVA."

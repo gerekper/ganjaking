@@ -1,0 +1,54 @@
+/*----------------------------------------------------------------------------*\
+	MARKER SHORTCODE
+\*----------------------------------------------------------------------------*/
+
+/* Frontend Editor */
+.mpc-markers {
+	position: absolute;
+	max-width: 250px;
+	max-height: 90%;
+	top: 10px;
+	right: 10px;
+	z-index: 10;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	border-radius: 4px;
+	overflow: auto;
+	background: rgba( 255, 255, 255, .8);
+
+	opacity: .7;
+
+	-webkit-transition: opacity .25s;
+	transition: opacity .25s;
+
+	&:hover {
+		opacity: 1;
+	}
+}
+
+.mpc-marker-title {
+	display: block;
+	line-height: 30px;
+	font-size: 12px;
+	text-align: center;
+	color: #fff;
+	background-color: #f9b418;
+}
+.mpc-marker-title img {
+	width: 16px;
+	margin-top: -2px;
+	vertical-align: middle;
+	margin-right: 5px;
+}
+
+.mpc-markers .mpc-marker {
+	padding: 8px 5px;
+	margin: 0 5px;
+	border-bottom: 1px solid #ddd;
+}
+.mpc-markers .mpc-marker img {
+	width: 20px;
+	margin-right: 10px;
+	vertical-align: middle;
+}

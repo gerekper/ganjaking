@@ -1,0 +1,31 @@
+.jr-container .donate { padding: 5px 15px 10px; display: inline-block; position: relative; color: #000; background: #ffd751; -webkit-border-radius: 5px; border-radius: 5px; border: 1px solid #b4b4b4; font-weight: bold; font-size: 14px; text-decoration: none; }
+.jr-container .donate a { outline: 0; cursor: pointer }
+.jr-container .donate span:before { color: #ce1f00; font: 400 20px/1 dashicons; font-family: dashicons; font-size: 24px; font-style: normal; font-variant: normal; font-weight: 400; font-stretch: normal; line-height: 1; content: '\f487'; position: relative; display: inline-block; top: 4px; margin-right: 4px; }
+.jr-container .pressthis a, .jr-container .pressthis-bookmarklet a, 
+.jr-container .pressthis a:active, .jr-container .pressthis-bookmarklet a:active,
+.jr-container .pressthis a:focus, .jr-container .pressthis-bookmarklet a:focus,
+.jr-container .pressthis a:hover, .jr-container .pressthis-bookmarklet a:hover { cursor: pointer; background: #53b5d9; border: 1px solid #0074a2; color: #ffffff; font-weight: bold }
+.jr-container .jr_insta_error { border-left: 4px solid #dd3d36; -moz-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1); -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1); box-shadow: 0 1px 1px 0 rgba(0,0,0,.1); padding: 5px 12px; }
+.jr-container .jr-radio { margin-right: 20px }
+.jr-container .jr-search-for-container { display: block; margin-bottom: 7px; }
+.jr-container .jr-seach-for { width: 90px; display: inline-block; vertical-align: middle }
+
+.jr-container .jr-advanced { text-decoration: none; border: none }
+.jr-container .jr-advanced:focus { outline: 0; border: none; box-shadow:none }
+
+.jr-container .jr-advanced-input div { border: 1px solid #cfcfcf; padding: 10px; margin: 25px 0 0; }
+.jr-container .jr-advanced-input .jr-advanced-title{ margin: -22px 0 0 0; background-color: white; width: 160px; padding: 3px 10px; border: 1px solid #cfcfcf; }
+.jr-container .jr-description { color: #777; font-size: smaller; clear:both; display:block; margin-top: 5px;}
+.jr-container .jr-description.hide-media-library, .jr-container .jr-description.hide-instagram { display: none }
+
+.jr-container .switch { position: relative; display: inline-block; margin-left: 5px; width: 45px; height: 24px; }
+.jr-container .switch input {display:none;}
+.jr-container .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; -webkit-transition: .4s; transition: .4s; }
+.jr-container .slider:before { position: absolute; content: ""; height: 22px; width: 22px; left: 0px; bottom: 0px;  border: 1px solid #e5e5e5; background-color: white; -webkit-transition: .4s; transition: .4s; }
+.jr-container input:checked + .slider { background-color: #0085ba; } 
+.jr-container input:focus + .slider { box-shadow: 0 0 1px #0085ba; }
+.jr-container input:checked + .slider:before { -webkit-transform: translateX(22px); -ms-transform: translateX(22px); transform: translateX(22px); }
+.jr-container .slider.round { border-radius: 34px; }
+.jr-container .slider.round:before { border-radius: 50%; }
+.jr-container .donate-buttons { text-align: center }
+.jr-container .donate-button-link { cursor: pointer }

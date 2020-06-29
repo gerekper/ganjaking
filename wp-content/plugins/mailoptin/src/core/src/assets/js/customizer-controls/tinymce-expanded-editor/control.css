@@ -1,0 +1,26 @@
+.mo-tinymce-expanded-editor-btn span.dashicons {
+    margin-top: 12px;
+    margin-right: 5px;
+}
+
+.mo-tinymce-expanded-control-wrapper {
+    padding: 0 36px;
+}
+
+.customize-control.customize-control-mailoptin_tinymce_expanded_editor .button.button-hero {
+    padding: 0;
+    width: 100%;
+}
+
+.mo-tinymce-expanded-editor {
+    position: absolute;
+    bottom: 0;
+    color: #000;
+    right: 0;
+    left: 0;
+    z-index: 99;
+}
+
+.mo-tinymce-expanded-editor .wp-editor-tools  {
+    padding: 0 18px 0 5px;
+}

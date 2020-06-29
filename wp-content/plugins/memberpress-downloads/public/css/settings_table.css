@@ -1,0 +1,187 @@
+table.settings-table {
+  margin: 15px 0;
+  padding: 0;
+  width: 98%;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+table.settings-table td.settings-table-nav {
+  background-color: #444444;
+  vertical-align: top;
+  padding: 0;
+  margin: 0;
+}
+
+table.settings-table td.settings-table-pages {
+  vertical-align: top;
+  padding: 0;
+  margin: 0;
+}
+
+table.settings-table td.settings-table-nav ul {
+  background-color: #444444;
+  width: 150px;
+  height: 100%;
+  min-height: 100%;
+  min-height: 100%;
+  vertical-align: top;
+/*  padding: 0 15px 30px 0; */
+  margin: 0;
+  color: white !important;
+}
+
+table.settings-table td.settings-table-nav ul li {
+  padding: 0;
+  margin: 0;
+  color: white !important;
+}
+
+table.settings-table td.settings-table-nav ul li a {
+  color: white !important;
+  background-color: #444444;
+  text-decoration: none;
+  padding: 15px 0 15px 15px;
+  margin: 0;
+  width: 100%;
+  display: block;
+  box-sizing: border-box;
+}
+
+table.settings-table td.settings-table-nav ul li a:hover {
+  background-color: #1a1a1a;
+}
+
+table.settings-table td.settings-table-nav ul li a.active {
+  background-color: #0074A2;
+  font-weight: bold;
+}
+
+table.settings-table input[type=number] {
+  width: 50px !important;
+}
+
+table.settings-table td.settings-table-pages {
+  width: 100%;
+  background-color: white;
+  vertical-align: top;
+  padding: 15px;
+  height: auto;
+  min-height: 650px;
+  margin-left: -3px;
+}
+
+table.settings-table td.settings-table-pages .page {
+  display: none;
+  width: 100%;
+}
+
+table.settings-table td.settings-table-pages .page .page-title {
+  color: white;
+  background-color: #444444;
+  font-size: 24px;
+  padding: 15px;
+  width: auto;
+  margin-bottom: 15px;
+}
+
+.sub-box {
+  background-color: #f1f1f1;
+  padding: 15px;
+}
+
+.sub-box-white {
+  background-color: white;
+  padding: 15px;
+}
+
+table.settings-table td.settings-table-pages .page input.autoselect {
+  width: 100%;
+}
+
+label.label {
+  font-weight: bold;
+  font-size: 14px;
+  color: #222;
+}
+
+.arrow {
+  display: block !important;
+  background-repeat: no-repeat;
+  margin: 0 !important;
+  padding: 0 !important;
+  background-image: url(../images/settings_table/arrow_sprite.png);
+  width: 32px;
+  height: 32px;
+}
+
+.arrow.up, .arrow.down {
+  width: 16px;
+  height: 8px;
+}
+
+.arrow.right, .arrow.left {
+  width: 8px;
+  height: 16px;
+}
+
+.arrow.down.darkgray { background-position: 0px 0px; }
+.arrow.down.gray     { background-position: 0px -8px; }
+.arrow.down.white    { background-position: 0px -16px; }
+
+.arrow.right.darkgray { background-position: 0px -24px; }
+.arrow.right.gray     { background-position: -8px -24px; }
+.arrow.right.white    { background-position: -16px -24px; }
+
+.arrow.up.darkgray { background-position: -24px -32px; }
+.arrow.up.gray     { background-position: -24px -24px; }
+.arrow.up.white    { background-position: -24px -16px; }
+
+.arrow.left.darkgray { background-position: -32px 0px; }
+.arrow.left.gray     { background-position: -24px 0px; }
+.arrow.left.white    { background-position: -16px 0px; }
+
+.sub-box-arrow { position: relative; top: -23px; left: 15px; }
+
+table.settings-table tr.mobile-nav {
+  display: none;
+}
+
+@media screen and (max-width: 782px) {
+  table.settings-table td.settings-table-nav {
+    display: none;
+    position: absolute;
+    float: left;
+    z-index: 2;
+  }
+
+  table.settings-table td.settings-table-pages {
+    display: block;
+    margin-left: 0;
+    width: 95%;
+  }
+
+  table.settings-table tr.mobile-nav {
+    display: block;
+    padding: 0 !important;
+    width: 95% !important;
+  }
+
+  table.settings-table tr.mobile-nav td {
+    display: block;
+    padding: 0 !important;
+    width: 100% !important;
+  }
+
+  table.settings-table tr.mobile-nav td a.toggle-nav {
+    font-size: 32px;
+    text-decoration: none;
+    font-weight: thin;
+    color: #F1F1F1;
+    background-color: #444444;
+    width: 100% !important;
+    display: block;
+    line-height: 50px;
+    padding: 0 15px;
+  }
+}

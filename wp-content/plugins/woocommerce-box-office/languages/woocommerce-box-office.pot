@@ -1,0 +1,1216 @@
+# Copyright (C) 2020 WooCommerce
+# This file is distributed under the GPL-2.0+.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Box Office 1.1.25\n"
+"Report-Msgid-Bugs-To: "
+"https://wordpress.org/support/plugin/woocommerce-box-office\n"
+"POT-Creation-Date: 2020-06-16 10:48:11+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: node-wp-i18n 1.2.3\n"
+
+#: includes/class-wc-box-office-assets.php:100
+msgid "Product is not selected or email body is empty. Please fill it."
+msgstr ""
+
+#: includes/class-wc-box-office-cart.php:182
+#: includes/class-wc-box-office-settings.php:80
+msgid "Ticket Detail"
+msgstr ""
+
+#: includes/class-wc-box-office-cart.php:230
+#: includes/class-wc-box-office-settings.php:96
+#: includes/class-wc-box-office-ticket-form.php:200
+msgid "Buy Ticket Now"
+msgstr ""
+
+#: includes/class-wc-box-office-cart.php:271
+msgid "%s\"%s\" has been added to your cart."
+msgid_plural "%s\"%s\" have been added to your cart."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-wc-box-office-cart.php:279
+msgid "Continue Shopping"
+msgstr ""
+
+#: includes/class-wc-box-office-cart.php:281
+msgid "View Cart"
+msgstr ""
+
+#: includes/class-wc-box-office-cron.php:28
+msgid "Once every 10 minutes"
+msgstr ""
+
+#: includes/class-wc-box-office-cron.php:211
+msgid "Your link to view %s"
+msgstr ""
+
+#: includes/class-wc-box-office-order.php:146
+#: includes/class-wc-box-office-ticket-create-admin.php:342
+msgid "Ticket #%d"
+msgstr ""
+
+#: includes/class-wc-box-office-post-types.php:62
+#: includes/class-wc-box-office-privacy.php:64
+#: includes/class-wc-box-office-report.php:30
+#: includes/views/admin/create-ticket-step-2.php:43
+msgid "Tickets"
+msgstr ""
+
+#: includes/class-wc-box-office-post-types.php:62
+#: includes/class-wc-box-office-product-admin.php:30
+#: includes/class-wc-box-office-ticket-admin.php:312
+#: includes/class-wc-box-office-tools.php:195
+#: includes/views/admin/create-ticket-step-3.php:27
+msgid "Ticket"
+msgstr ""
+
+#: includes/class-wc-box-office-post-types.php:63
+msgid "Emails"
+msgstr ""
+
+#: includes/class-wc-box-office-post-types.php:63
+#: includes/views/admin/tools.php:21
+msgid "Email"
+msgstr ""
+
+#: includes/class-wc-box-office-privacy.php:12
+#: includes/class-wc-box-office-settings.php:27
+msgid "Box Office"
+msgstr ""
+
+#: includes/class-wc-box-office-privacy.php:14
+#: includes/class-wc-box-office-privacy.php:15
+msgid "WooCommerce Box Office Data"
+msgstr ""
+
+#: includes/class-wc-box-office-privacy.php:41
+msgid ""
+"By using this extension, you may be storing personal data or sharing data "
+"with an external service. <a href=\"%s\" target=\"_blank\">Learn more about "
+"how this works, including what you may want to include in your privacy "
+"policy.</a>"
+msgstr ""
+
+#: includes/class-wc-box-office-privacy.php:68
+#: includes/class-wc-box-office-tools.php:192
+msgid "Ticket ID"
+msgstr ""
+
+#: includes/class-wc-box-office-privacy.php:72
+msgid "Ticket data"
+msgstr ""
+
+#: includes/class-wc-box-office-privacy.php:108
+msgid "Box office personal data erased."
+msgstr ""
+
+#: includes/class-wc-box-office-product-admin.php:31
+msgid "Each ticket purchased will have attendee details added to it."
+msgstr ""
+
+#: includes/class-wc-box-office-product-admin.php:46
+msgid "Ticket Fields"
+msgstr ""
+
+#: includes/class-wc-box-office-product-admin.php:52
+msgid "Ticket Printing"
+msgstr ""
+
+#: includes/class-wc-box-office-product-admin.php:58
+msgid "Ticket Emails"
+msgstr ""
+
+#: includes/class-wc-box-office-report.php:33
+msgid "Sales by Product"
+msgstr ""
+
+#: includes/class-wc-box-office-report.php:68
+msgid "In stock"
+msgstr ""
+
+#: includes/class-wc-box-office-report.php:70
+msgid "Out of stock"
+msgstr ""
+
+#: includes/class-wc-box-office-settings.php:53
+msgid "Ticket Pages"
+msgstr ""
+
+#: includes/class-wc-box-office-settings.php:59
+msgid "My Ticket Page"
+msgstr ""
+
+#: includes/class-wc-box-office-settings.php:60
+msgid "Page contents:"
+msgstr ""
+
+#: includes/class-wc-box-office-settings.php:71
+msgid "Display Options"
+msgstr ""
+
+#: includes/class-wc-box-office-settings.php:77
+msgid "Add to Cart Button Text"
+msgstr ""
+
+#: includes/class-wc-box-office-settings.php:82
+msgid "Define text inside add to cart button in products archive."
+msgstr ""
+
+#: includes/class-wc-box-office-settings.php:85
+msgid "Ticket Title Prefix"
+msgstr ""
+
+#: includes/class-wc-box-office-settings.php:88
+#: includes/class-wc-box-office-ticket-form.php:195
+msgid "Ticket #"
+msgstr ""
+
+#: includes/class-wc-box-office-settings.php:90
+msgid "Define title prefix to show for each ticket to buy in a single product page."
+msgstr ""
+
+#: includes/class-wc-box-office-settings.php:93
+msgid "Buy Ticket Button Text Singular"
+msgstr ""
+
+#: includes/class-wc-box-office-settings.php:98
+msgid "Define text inside buy ticket button when qty of ticket to buy is one."
+msgstr ""
+
+#: includes/class-wc-box-office-settings.php:101
+msgid "Buy Ticket Button Button Text Plural"
+msgstr ""
+
+#: includes/class-wc-box-office-settings.php:104
+#: includes/class-wc-box-office-ticket-form.php:205
+msgid "Buy Tickets Now"
+msgstr ""
+
+#: includes/class-wc-box-office-settings.php:106
+msgid ""
+"Define text inside buy ticket button when qty of ticket to buy is more than "
+"one."
+msgstr ""
+
+#: includes/class-wc-box-office-settings.php:111
+msgid "Default Product Settings"
+msgstr ""
+
+#: includes/class-wc-box-office-settings.php:117
+msgid "Enable Ticket Printing"
+msgstr ""
+
+#: includes/class-wc-box-office-settings.php:121
+#: includes/views/admin/product-ticket-panel.php:73
+msgid "This will enable the 'Print ticket' button on the ticket edit page."
+msgstr ""
+
+#: includes/class-wc-box-office-settings.php:124
+msgid "Enable Ticket Emails"
+msgstr ""
+
+#: includes/class-wc-box-office-settings.php:127
+#: includes/views/admin/product-ticket-panel.php:117
+msgid ""
+"This will send an email to the contact address for each ticket whenever it "
+"is changed."
+msgstr ""
+
+#: includes/class-wc-box-office-settings.php:133
+msgid "Logging"
+msgstr ""
+
+#: includes/class-wc-box-office-settings.php:139
+msgid "Enable Logging"
+msgstr ""
+
+#: includes/class-wc-box-office-settings.php:142
+msgid "Save debug messages to the WooCommerce System Status log."
+msgstr ""
+
+#: includes/class-wc-box-office-settings.php:143
+msgid ""
+"Note: this may log personal information. We recommend using this for "
+"debugging purposes only and deleting the logs when finished."
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-admin.php:85
+msgid "All Ticket Products"
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-admin.php:134
+msgid "Ticket Information"
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-admin.php:137
+msgid "Ticket Barcode"
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-admin.php:264
+msgid "Email Information"
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-admin.php:265
+msgid "Email Content"
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-admin.php:266
+msgid "Email Log"
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-admin.php:313
+#: templates/myaccount/my-tickets.php:34
+msgid "Order"
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-admin.php:314
+msgid "Checked-in yet?"
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-admin.php:315
+#: includes/views/admin/ticket-email-log-meta-box.php:7
+msgid "Date"
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-admin.php:343
+#: includes/class-wc-box-office-ticket-shortcode.php:65
+#: templates/order/order-tickets.php:15
+msgid "Pending"
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-admin.php:363
+#: includes/views/admin/ticket-field.php:39
+#: includes/views/admin/ticket-field.php:46
+#: includes/views/admin/ticket-field.php:52
+msgid "Yes"
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-admin.php:412
+#: includes/class-wc-box-office-ticket-admin.php:413
+#: templates/ticket/scan.php:7
+msgid "Mark as attended"
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-admin.php:415
+#: includes/class-wc-box-office-ticket-admin.php:416
+msgid "Mark as not checked-in yet"
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-admin.php:530
+#: includes/views/admin/create-ticket-step-1.php:15
+#: includes/views/admin/create-ticket-step-2.php:11
+#: includes/views/admin/create-ticket-step-2.php:77
+msgid "Create Ticket"
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-ajax.php:31
+msgid "Permission denied: Security check failed"
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-ajax.php:38
+msgid "Invalid ticket"
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-ajax.php:45
+msgid "Permission denied: You do not have sufficient permissions to scan tickets"
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-ajax.php:49
+msgid "Ticket has been marked as %1$sattended%2$s."
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-ajax.php:61
+msgid "Ticket has already been marked as attended."
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-create-admin.php:78
+msgid "Please choose create order method"
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-create-admin.php:84
+msgid "Invalid order ID provided"
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-create-admin.php:90
+msgid "Ticket quantity must be greater than zero"
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-create-admin.php:96
+msgid "Please choose ticket-enabled product"
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-create-admin.php:173
+msgid "Error - please try again"
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-create-admin.php:246
+msgid "Error: could not create order item"
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-create-admin.php:422
+msgid "Missing value for field %s"
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-create-admin.php:469
+msgid "Something wrong with field %s."
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-create-admin.php:574
+msgid "The product cannot be purchased."
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-create-admin.php:578
+msgid "Product is set to sold individually. You can only add one ticket."
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-create-admin.php:582
+msgid ""
+"You cannot create ticket for &quot;%s&quot; because the product is out of "
+"stock."
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-create-admin.php:586
+msgid ""
+"You cannot create that amount of ticket(s) because there is not enough "
+"stock (%s remaining)."
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-create-admin.php:618
+msgid "Please select the product options."
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-create-admin.php:626
+msgid "Please select option for %s."
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-create-admin.php:631
+msgid "Invalid value for option %s."
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-create-admin.php:661
+msgid "Number of ticket fields does not match with provided ticket quantity."
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-form.php:213
+msgid "Fields are required"
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-form.php:345
+msgid "%s is required field and can not be empty."
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-form.php:356
+msgid "Invalid email is provided."
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-form.php:365
+msgid "Invalid URL is provided"
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-form.php:380
+msgid "Invalid value for field %s"
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-form.php:450
+msgid "Call %s::validate first"
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-frontend-query.php:84
+#: includes/class-wc-box-office-ticket-frontend-query.php:126
+#: includes/class-wc-box-office-ticket-frontend-query.php:131
+#: includes/class-wc-box-office-ticket-shortcode.php:99
+msgid "My Tickets"
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-frontend.php:61
+msgid "Missing nonce to update the ticket."
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-frontend.php:65
+msgid "We were unable to update your ticket, please try again."
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-frontend.php:70
+msgid "Invalid ticket."
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-frontend.php:102
+msgid "Ticket updated."
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-frontend.php:225
+msgid "Log into your acount to edit each of your purchased tickets."
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-frontend.php:263
+#: templates/order/order-tickets.php:1
+msgid "Order Tickets"
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-shortcode.php:53
+msgid "No field defined for this product."
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-shortcode.php:63
+msgid "Your information for %1$s%2$s."
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-shortcode.php:370
+msgid "The content on this page is private."
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-shortcode.php:375
+msgid "Invalid ticket token."
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-shortcode.php:379
+#: includes/class-wc-box-office-ticket-shortcode.php:385
+msgid "Sorry, but your ticket does not allow you to view this content."
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-shortcode.php:417
+msgid "The e-mail address you have entered does not seem to be valid."
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-shortcode.php:427
+msgid "No attendee matches with your email."
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-shortcode.php:435
+msgid "URL to view this content is already sent to %s"
+msgstr ""
+
+#: includes/class-wc-box-office-ticket.php:255
+msgid "Unknown ticket to update"
+msgstr ""
+
+#: includes/class-wc-box-office-ticket.php:352
+msgid "%1$s (%2$s)"
+msgstr ""
+
+#: includes/class-wc-box-office-tools.php:52 includes/views/admin/tools.php:12
+msgid "Ticket Tools"
+msgstr ""
+
+#: includes/class-wc-box-office-tools.php:52
+#: includes/class-wc-box-office-tools.php:62
+msgid "Tools"
+msgstr ""
+
+#: includes/class-wc-box-office-tools.php:125
+msgid "No purchased tickets found for the selected products."
+msgstr ""
+
+#: includes/class-wc-box-office-tools.php:132
+msgid "(no subject)"
+msgstr ""
+
+#: includes/class-wc-box-office-tools.php:193
+msgid "Ticket status"
+msgstr ""
+
+#: includes/class-wc-box-office-tools.php:194
+msgid "SKU"
+msgstr ""
+
+#: includes/class-wc-box-office-tools.php:196
+msgid "Ticket URL"
+msgstr ""
+
+#: includes/class-wc-box-office-tools.php:197
+msgid "Purchase date"
+msgstr ""
+
+#: includes/class-wc-box-office-tools.php:198
+msgid "Order ID"
+msgstr ""
+
+#: includes/class-wc-box-office-tools.php:199
+msgid "Order status"
+msgstr ""
+
+#: includes/class-wc-box-office-tools.php:200
+msgid "User ID"
+msgstr ""
+
+#: includes/class-wc-box-office-tools.php:256
+msgid "N/A"
+msgstr ""
+
+#: includes/class-wc-box-office-tools.php:258
+msgid "Y/m/d g:i:s A"
+msgstr ""
+
+#: includes/class-wc-box-office-tools.php:320
+msgid "Ticket product is required."
+msgstr ""
+
+#: includes/class-wc-box-office-tools.php:321
+msgid "Empty email subject."
+msgstr ""
+
+#: includes/class-wc-box-office-tools.php:322
+msgid "Empty email body."
+msgstr ""
+
+#: includes/class-wc-box-office-tools.php:323
+msgid "Missing security nonce for this request. Please try again."
+msgstr ""
+
+#: includes/class-wc-box-office-tools.php:332
+msgid "Invalid security nonce for this request. Please try again."
+msgstr ""
+
+#: includes/class-wc-box-office-tools.php:386
+msgid "Sending email job is successfully queued."
+msgstr ""
+
+#: includes/class-wc-box-office.php:241 includes/class-wc-box-office.php:250
+msgid "Cheatin&#8217; huh?"
+msgstr ""
+
+#: includes/lib/class-wc-box-office-post-type.php:75
+msgid "Add New %s"
+msgstr ""
+
+#: includes/lib/class-wc-box-office-post-type.php:76
+msgid "Edit %s"
+msgstr ""
+
+#: includes/lib/class-wc-box-office-post-type.php:77
+msgid "New %s"
+msgstr ""
+
+#: includes/lib/class-wc-box-office-post-type.php:78
+msgid "All %s"
+msgstr ""
+
+#: includes/lib/class-wc-box-office-post-type.php:79
+msgid "View %s"
+msgstr ""
+
+#: includes/lib/class-wc-box-office-post-type.php:80
+msgid "Search %s"
+msgstr ""
+
+#: includes/lib/class-wc-box-office-post-type.php:81
+msgid "No %s Found"
+msgstr ""
+
+#: includes/lib/class-wc-box-office-post-type.php:82
+msgid "No %s Found In Trash"
+msgstr ""
+
+#: includes/lib/class-wc-box-office-post-type.php:83
+msgid "Parent %s"
+msgstr ""
+
+#: includes/lib/class-wc-box-office-post-type.php:121
+msgid "%1$s updated. %2$sView %3$s%4$s."
+msgstr ""
+
+#: includes/lib/class-wc-box-office-post-type.php:122
+msgid "Custom field updated."
+msgstr ""
+
+#: includes/lib/class-wc-box-office-post-type.php:123
+msgid "Custom field deleted."
+msgstr ""
+
+#: includes/lib/class-wc-box-office-post-type.php:124
+msgid "%1$s updated."
+msgstr ""
+
+#: includes/lib/class-wc-box-office-post-type.php:125
+msgid "%1$s restored to revision from %2$s."
+msgstr ""
+
+#: includes/lib/class-wc-box-office-post-type.php:126
+msgid "%1$s published. %2$sView %3$s%4s."
+msgstr ""
+
+#: includes/lib/class-wc-box-office-post-type.php:127
+msgid "%1$s saved."
+msgstr ""
+
+#: includes/lib/class-wc-box-office-post-type.php:128
+msgid "%1$s submitted. %2$sPreview post%3$s%4$s."
+msgstr ""
+
+#: includes/lib/class-wc-box-office-post-type.php:129
+msgid "%1$s scheduled for: %2$s. %3$sPreview %4$s%5$s."
+msgstr ""
+
+#: includes/lib/class-wc-box-office-post-type.php:129
+msgid "M j, Y @ G:i"
+msgstr ""
+
+#: includes/lib/class-wc-box-office-post-type.php:130
+msgid "%1$s draft updated. %2$sPreview %3$s%4$s."
+msgstr ""
+
+#: includes/lib/class-wc-box-office-post-type.php:145
+msgid "%1$s %2$s updated."
+msgid_plural "%1$s %3$s updated."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/lib/class-wc-box-office-post-type.php:146
+msgid "%1$s %2$s not updated, somebody is editing it."
+msgid_plural "%1$s %3$s not updated, somebody is editing them."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/lib/class-wc-box-office-post-type.php:147
+msgid "%1$s %2$s permanently deleted."
+msgid_plural "%1$s %3$s permanently deleted."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/lib/class-wc-box-office-post-type.php:148
+msgid "%1$s %2$s moved to the Trash."
+msgid_plural "%1$s %3$s moved to the Trash."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/lib/class-wc-box-office-post-type.php:149
+msgid "%1$s %2$s restored from the Trash."
+msgid_plural "%1$s %3$s restored from the Trash."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/views/admin/create-ticket-step-1.php:18
+msgid ""
+"You can create a new ticket for a customer here. This form will create a "
+"ticket for the user, and optionally an associated order. Created orders "
+"will be marked as pending payment."
+msgstr ""
+
+#: includes/views/admin/create-ticket-step-1.php:27
+msgid "Customer"
+msgstr ""
+
+#: includes/views/admin/create-ticket-step-1.php:31
+#: includes/views/admin/create-ticket-step-1.php:32
+#: includes/views/admin/create-ticket-step-1.php:35
+msgid "Guest"
+msgstr ""
+
+#: includes/views/admin/create-ticket-step-1.php:42
+msgid "Ticket-enabled Product"
+msgstr ""
+
+#: includes/views/admin/create-ticket-step-1.php:46
+msgid "Select a ticket-enabled product..."
+msgstr ""
+
+#: includes/views/admin/create-ticket-step-1.php:56
+msgid "Ticket Quantity"
+msgstr ""
+
+#: includes/views/admin/create-ticket-step-1.php:59
+msgid "Qty"
+msgstr ""
+
+#: includes/views/admin/create-ticket-step-1.php:65
+msgid "Create Order Method"
+msgstr ""
+
+#: includes/views/admin/create-ticket-step-1.php:71
+msgid ""
+"Create a new corresponding order for this new ticket. Please note - the "
+"ticket will not be active until the order is processed/completed."
+msgstr ""
+
+#: includes/views/admin/create-ticket-step-1.php:77
+msgid "Assign ticket(s) to an existing order with this ID:"
+msgstr ""
+
+#: includes/views/admin/create-ticket-step-1.php:84
+msgid "Don't create an order for this ticket."
+msgstr ""
+
+#: includes/views/admin/create-ticket-step-1.php:93
+msgid "Next"
+msgstr ""
+
+#: includes/views/admin/create-ticket-step-2.php:50
+#: templates/single-product/add-to-cart/ticket-form.php:25
+msgid "Ticket #1"
+msgstr ""
+
+#: includes/views/admin/create-ticket-step-2.php:72
+msgid "Send confirmation email to each ticket?"
+msgstr ""
+
+#: includes/views/admin/create-ticket-step-2.php:73
+msgid ""
+"The content in the email is based on the content of Ticket Emails panel "
+"found in selected ticket product."
+msgstr ""
+
+#: includes/views/admin/create-ticket-step-3.php:10
+msgid "Created Tickets"
+msgstr ""
+
+#: includes/views/admin/create-ticket-step-3.php:14
+msgid "%s ticket created."
+msgid_plural "%s tickets created"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/views/admin/create-ticket-step-3.php:18
+msgid "<a href=\"%s\">View order</a>."
+msgstr ""
+
+#: includes/views/admin/create-ticket-step-3.php:26
+#: includes/views/admin/ticket-field.php:40
+#: includes/views/admin/ticket-field.php:47
+#: includes/views/admin/ticket-field.php:52
+msgid "No"
+msgstr ""
+
+#: includes/views/admin/product-ticket-panel.php:8
+msgid "Label"
+msgstr ""
+
+#: includes/views/admin/product-ticket-panel.php:10
+#: includes/views/admin/product-ticket-panel.php:12
+msgid "The field label as it is shown to the user."
+msgstr ""
+
+#: includes/views/admin/product-ticket-panel.php:15
+msgid "Type"
+msgstr ""
+
+#: includes/views/admin/product-ticket-panel.php:17
+msgid "Auto-fill"
+msgstr ""
+
+#: includes/views/admin/product-ticket-panel.php:19
+#: includes/views/admin/product-ticket-panel.php:21
+msgid ""
+"Choose the customer's billing field from which data is auto-filled as well "
+"as what options are available for applicable field types."
+msgstr ""
+
+#: includes/views/admin/product-ticket-panel.php:24
+msgid "Required"
+msgstr ""
+
+#: includes/views/admin/product-ticket-panel.php:46
+msgid "Add Field"
+msgstr ""
+
+#: includes/views/admin/product-ticket-panel.php:73
+msgid "Enable ticket printing"
+msgstr ""
+
+#: includes/views/admin/product-ticket-panel.php:77
+msgid "Include barcode"
+msgstr ""
+
+#: includes/views/admin/product-ticket-panel.php:77
+msgid "This will add the unique ticket barcode to the bottom of the ticket."
+msgstr ""
+
+#: includes/views/admin/product-ticket-panel.php:82
+msgid "This is the content that will be shown on each printed ticket."
+msgstr ""
+
+#: includes/views/admin/product-ticket-panel.php:84
+#: includes/views/admin/product-ticket-panel.php:125
+msgid "Add ticket fields to the content by using following labels: "
+msgstr ""
+
+#: includes/views/admin/product-ticket-panel.php:88
+#: includes/views/admin/product-ticket-panel.php:142
+msgid "You can also use this ticket product variables: "
+msgstr ""
+
+#: includes/views/admin/product-ticket-panel.php:117
+msgid "Enable ticket emails"
+msgstr ""
+
+#: includes/views/admin/product-ticket-panel.php:119
+#: includes/views/admin/tools-email.php:30
+msgid "Email subject"
+msgstr ""
+
+#: includes/views/admin/product-ticket-panel.php:119
+msgid ""
+"Add ticket fields to the subject by inserting the field label like this: "
+"%1$s<br>e.g. %2$s"
+msgstr ""
+
+#: includes/views/admin/product-ticket-panel.php:122
+msgid "This is the content that will make up each email."
+msgstr ""
+
+#: includes/views/admin/product-ticket-panel.php:129
+msgid "To insert ticket link use: "
+msgstr ""
+
+#: includes/views/admin/product-ticket-panel.php:135
+msgid "To insert ticket token use: "
+msgstr ""
+
+#: includes/views/admin/report-sales-by-product.php:4
+msgid "Ticket Product"
+msgstr ""
+
+#: includes/views/admin/report-sales-by-product.php:5
+msgid "Sold Tickets"
+msgstr ""
+
+#: includes/views/admin/report-sales-by-product.php:6
+msgid "Stock"
+msgstr ""
+
+#: includes/views/admin/report-sales-by-product.php:7
+msgid "Price"
+msgstr ""
+
+#: includes/views/admin/report-sales-by-product.php:8
+msgid "Total Sales"
+msgstr ""
+
+#: includes/views/admin/report-sales-by-product.php:29
+msgid "No data to show. Start selling your tickets!"
+msgstr ""
+
+#: includes/views/admin/ticket-email-log-meta-box.php:8
+msgid "Log Message"
+msgstr ""
+
+#: includes/views/admin/ticket-email-meta-box.php:11
+msgid "Subject:"
+msgstr ""
+
+#: includes/views/admin/ticket-email-meta-box.php:18
+#: includes/views/admin/ticket-meta-box.php:25
+msgid "Product:"
+msgstr ""
+
+#: includes/views/admin/ticket-email-meta-box.php:27
+msgid "Sent by:"
+msgstr ""
+
+#: includes/views/admin/ticket-email-meta-box.php:34
+msgid "Date sent:"
+msgstr ""
+
+#: includes/views/admin/ticket-email-meta-box.php:41
+msgid "Total target:"
+msgstr ""
+
+#: includes/views/admin/ticket-field.php:10
+msgid "None"
+msgstr ""
+
+#: includes/views/admin/ticket-field.php:11
+msgid "--------"
+msgstr ""
+
+#: includes/views/admin/ticket-field.php:30
+msgid "Field Label"
+msgstr ""
+
+#: includes/views/admin/ticket-field.php:34
+msgid "Comma-separated list of available options"
+msgstr ""
+
+#: includes/views/admin/ticket-field.php:36
+msgid "Use this email address to contact the ticket holder."
+msgstr ""
+
+#: includes/views/admin/ticket-field.php:37
+msgid "Contact: "
+msgstr ""
+
+#: includes/views/admin/ticket-field.php:43
+msgid "Use this email address for the ticket holder's gravatar."
+msgstr ""
+
+#: includes/views/admin/ticket-field.php:44
+msgid "Gravatar: "
+msgstr ""
+
+#: includes/views/admin/ticket-field.php:53
+msgid "Delete"
+msgstr ""
+
+#: includes/views/admin/ticket-meta-box.php:15
+msgid "Edit Ticket URL:"
+msgstr ""
+
+#: includes/views/admin/ticket-meta-box.php:33
+msgid "Order:"
+msgstr ""
+
+#: includes/views/admin/ticket-meta-box.php:42
+msgid "User:"
+msgstr ""
+
+#: includes/views/admin/ticket-meta-box.php:50
+msgid "Attended"
+msgstr ""
+
+#: includes/views/admin/ticket-meta-box.php:52
+msgid "Mark this ticket as attended."
+msgstr ""
+
+#: includes/views/admin/tools-email-history.php:1
+msgid "Previously sent emails"
+msgstr ""
+
+#: includes/views/admin/tools-email-history.php:6
+#: includes/views/admin/tools-email-history.php:62
+msgid "Subject"
+msgstr ""
+
+#: includes/views/admin/tools-email-history.php:7
+#: includes/views/admin/tools-email-history.php:63
+#: templates/myaccount/my-tickets.php:33
+msgid "Product"
+msgstr ""
+
+#: includes/views/admin/tools-email-history.php:8
+#: includes/views/admin/tools-email-history.php:64
+msgid "Sent"
+msgstr ""
+
+#: includes/views/admin/tools-email-history.php:9
+#: includes/views/admin/tools-email-history.php:65
+msgid "Remaining"
+msgstr ""
+
+#: includes/views/admin/tools-email-history.php:10
+#: includes/views/admin/tools-email-history.php:66
+msgid "Total targetted"
+msgstr ""
+
+#: includes/views/admin/tools-email-history.php:11
+#: includes/views/admin/tools-email-history.php:67
+msgid "Date sent"
+msgstr ""
+
+#: includes/views/admin/tools-email-history.php:55
+msgid "No emails have been sent yet."
+msgstr ""
+
+#: includes/views/admin/tools-email.php:9
+msgid "Send an email to all individuals who have booked the following ticket:"
+msgstr ""
+
+#: includes/views/admin/tools-email.php:12
+msgid "Select ticket product"
+msgstr ""
+
+#: includes/views/admin/tools-email.php:21
+msgid ""
+"Add ticket fields to your email subject or content by inserting the field "
+"label like this: %1$s - e.g. %2$s. Use %3$s for the ticket edit link."
+msgstr ""
+
+#: includes/views/admin/tools-email.php:51
+msgid "Preview email"
+msgstr ""
+
+#: includes/views/admin/tools-email.php:52
+msgid "Send to all ticket holders"
+msgstr ""
+
+#: includes/views/admin/tools-export.php:7
+msgid "Export attendee data for the following chosen tickets:"
+msgstr ""
+
+#: includes/views/admin/tools-export.php:18
+msgid "Only export published tickets"
+msgstr ""
+
+#: includes/views/admin/tools-export.php:23
+msgid "Download Export File (CSV)"
+msgstr ""
+
+#: includes/views/admin/tools.php:16
+msgid "Export"
+msgstr ""
+
+#: includes/wcbo-functions.php:602 includes/wcbo-functions.php:625
+msgid "First name"
+msgstr ""
+
+#: includes/wcbo-functions.php:603 includes/wcbo-functions.php:626
+msgid "Last name"
+msgstr ""
+
+#: includes/wcbo-functions.php:604 includes/wcbo-functions.php:627
+msgid "Email address"
+msgstr ""
+
+#: includes/wcbo-functions.php:605
+msgid "URL"
+msgstr ""
+
+#: includes/wcbo-functions.php:606
+msgid "Twitter"
+msgstr ""
+
+#: includes/wcbo-functions.php:607
+msgid "Text"
+msgstr ""
+
+#: includes/wcbo-functions.php:608
+msgid "Drop down menu"
+msgstr ""
+
+#: includes/wcbo-functions.php:609
+msgid "Radio buttons"
+msgstr ""
+
+#: includes/wcbo-functions.php:610
+msgid "Checkbox(es)"
+msgstr ""
+
+#: includes/wcbo-functions.php:628
+msgid "Phone"
+msgstr ""
+
+#: includes/wcbo-functions.php:629
+msgid "Company"
+msgstr ""
+
+#: includes/wcbo-functions.php:630
+msgid "Country"
+msgstr ""
+
+#: includes/wcbo-functions.php:631
+msgid "Town / City"
+msgstr ""
+
+#: includes/wcbo-functions.php:632
+msgid "State"
+msgstr ""
+
+#: includes/wcbo-functions.php:633
+msgid "Postcode / Zip"
+msgstr ""
+
+#: templates/my-ticket-read-only.php:25
+msgid "Edit"
+msgstr ""
+
+#: templates/my-ticket-read-only.php:30 templates/ticket/form.php:11
+msgid "Print ticket"
+msgstr ""
+
+#: templates/myaccount/my-tickets.php:60
+msgid "View or Edit"
+msgstr ""
+
+#: templates/myaccount/my-tickets.php:70
+msgid "Go Shop"
+msgstr ""
+
+#: templates/myaccount/my-tickets.php:72
+msgid "No ticket has been purchased yet."
+msgstr ""
+
+#: templates/order/order-tickets.php:4 templates/ticket/user-tickets.php:5
+msgid "Edit each of your purchased tickets using the links below."
+msgstr ""
+
+#: templates/single-product/add-to-cart/ticket-form.php:17
+msgid "Your browser must support JavaScript in order to purchase ticket(s)."
+msgstr ""
+
+#: templates/ticket/default-print-content.php:3
+msgid "Attendee Detail"
+msgstr ""
+
+#: templates/ticket/form.php:7
+msgid "Update"
+msgstr ""
+
+#: templates/ticket/private.php:9
+msgid ""
+"If you've purchased the ticket use the form below to send link for "
+"unlocking content to your email."
+msgstr ""
+
+#: templates/ticket/private.php:18
+msgid "E-mail"
+msgstr ""
+
+#: templates/ticket/private.php:23
+msgid "Your email associated with the ticket."
+msgstr ""
+
+#: templates/ticket/private.php:27
+msgid "Send me private link"
+msgstr ""
+
+#: templates/ticket/scan.php:5
+msgid "Select action"
+msgstr ""
+
+#: templates/ticket/scan.php:6
+msgid "Look up"
+msgstr ""
+
+#: templates/ticket/scan.php:10
+msgid "Scan or enter ticket barcode"
+msgstr ""
+
+#: templates/ticket/scan.php:11
+msgid "Go"
+msgstr ""
+
+#: templates/ticket/scan.php:15
+msgid "Processing ticket..."
+msgstr ""
+
+#: woocommerce-box-office.php:69
+#. translators: %s: WooCommerce link
+msgid "WooCommerce Box Office requires %s to be installed and active."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce Box Office"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://woocommerce.com/products/woocommerce-box-office/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"The ultimate event ticket management system, built right on top of "
+"WooCommerce."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "WooCommerce"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://woocommerce.com/"
+msgstr ""
+
+#: includes/class-wc-box-office-updater.php:53
+msgctxt "Page slug"
+msgid "my-ticket"
+msgstr ""
+
+#: includes/class-wc-box-office-updater.php:55
+msgctxt "Page title"
+msgid "My Ticket"
+msgstr ""

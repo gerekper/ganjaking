@@ -1,0 +1,247 @@
+<html>
+  <head>
+  <title>Secure Callback</title>
+  <style>
+    .frameStyle {
+      display: none;
+      position: absolute;
+      height: 1px;
+      width: 1px;
+      top: 1px;
+      left: 1px;
+    }
+  </style>
+  <script>
+
+    /*
+    Secure Callback.html
+    Version 1.6.4.1
+    */
+    var version = '1.6.4.1';
+
+    function querySt(ji) {
+      hu = window.location.search.substring(1);
+      gy = hu.split("&");
+      for (i = 0; i < gy.length; i++) {
+        ft = gy[i].split("=");
+        if (ft[0] == ji) {
+          return decodeURIComponent(ft[1]);
+        }
+      }
+
+      return null;
+    }
+
+    function logCallback(callbackName, message) {
+      var Ajax, postData;
+      var activexModes = [ "Msxml2.XMLHTTP.4.0", "Msxml2.XMLHTTP.3.0", "Msxml2.XMLHTTP", "Microsoft.XMLHTTP" ]; // For ActiveX
+      var logUrl = currentLocation + 'callbackErrorLog.php';
+
+      if ( window.ActiveXObject ) {
+        for ( var i=0; i < activexModes.length; i++ ) {
+          try {
+            Ajax = new ActiveXObject( activexModes[i] );
+            if ( Ajax )
+              break;
+          } catch (e) {}
+        }
+      } else if ( window.XMLHttpRequest ) {
+        Ajax = new XMLHttpRequest();
+      }
+
+      if ( Ajax && currentLocation ) {
+        postData = 'callbackFunction=' + callbackName + '&message=' + message + '&profileId=' + profileId;
+        Ajax.open('POST', logUrl, true);
+        Ajax.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        Ajax.send(postData);
+        return true;
+      }
+
+      return false;
+    }
+
+    function logVersion() {
+      var Ajax, postData;
+      var activexModes = [ "Msxml2.XMLHTTP.4.0", "Msxml2.XMLHTTP.3.0", "Msxml2.XMLHTTP", "Microsoft.XMLHTTP" ]; // For ActiveX
+      var logUrl = currentLocation + 'callbackVersionLog.php';
+
+      if ( window.ActiveXObject ) {
+        for ( var i=0; i < activexModes.length; i++ ) {
+          try {
+            Ajax = new ActiveXObject( activexModes[i] );
+            if ( Ajax )
+              break;
+          } catch (e) {}
+        }
+      } else if ( window.XMLHttpRequest ) {
+        Ajax = new XMLHttpRequest();
+      }
+
+      if ( Ajax && currentLocation ) {
+        postData = 'version=' + version + '&profileId=' + profileId;
+        Ajax.open('POST', logUrl, true);
+        Ajax.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        Ajax.send(postData);
+        return true;
+      }
+
+      return false;
+    }
+
+    errorCode = querySt('errorCode');
+    cancel = querySt('cancel');
+    whatCVV2 = querySt('whatCVV2');
+    whatsThis = querySt('whatsThis');
+    gatewayCode = querySt( 'gatewayCode' );
+    gatewayMessage = querySt( 'gatewayMessage' );
+    currentLocation = querySt('rurl');
+    action = querySt('action');
+    processStart = querySt('processStart');
+    profileId = querySt('profileId');
+
+    if ( currentLocation != null ) {
+      currentLocation = currentLocation.replace(/[^a-zA-Z0-9\-\/\.:_]/g, '');
+      var match = currentLocation.match(/^(https?:\/\/)?([a-z0-9\-_]+\.)*([a-z0-9\-_]+\.[a-z0-9\-_]+)/i);
+      if ( match[3].toLowerCase() != 'chasepaymentechhostedpay-var.com' && match[3].toLowerCase() != 'chasepaymentechhostedpay.com') {
+        currentLocation = null;
+      }
+    }
+
+    theParent = null;
+    complete = false;
+    prefix = '\u0063\u0072\u0065';
+
+    function loadFrame() {
+      var callbackName = '';
+
+      if( (cancel != null || cancel != 'undefined') && (cancel == '1' || cancel == '2') ) {
+
+        try {
+
+          if (typeof window.top.cancelHostedPayment == 'function') {
+            callbackName = 'cancelHostedPayment';
+            window.top.cancelHostedPayment(cancel);
+          } else {
+            callbackName = 'cancel' + prefix.toUpperCase() + 'Payment';
+            window.top[callbackName](cancel);
+          }
+
+        } catch( e ) {
+          logCallback(callbackName, e.message);
+        }
+
+        if (currentLocation != null) {
+          document.getElementById('loadingCompleteFrame').src = currentLocation + "?Reserved=r";
+        }
+
+      } else if(whatCVV2 != null || whatsThis != null) {
+
+        if(typeof window.top.whatsThis == 'function') {
+
+          try {
+            window.top.whatsThis( whatsThis );
+          } catch( e ) {
+            //alert( "Error in whatsThis or syntax error in parent JavaScript. \n" + e.message );
+            //return false;
+            logCallback('whatsThis', e.message);
+          }
+
+        } else {
+
+          try {
+            window.top.whatCVV2();
+          } catch( e ) {
+            //alert( "Error in whatCVV2 or syntax error in parent JavaScript. \n" + e.message );
+            //return false;
+            logCallback('whatCVV2', e.message);
+          }
+
+        }
+
+        if (currentLocation != null) {
+          document.getElementById( 'loadingCompleteFrame' ).src = currentLocation + "?Reserved=r";
+        }
+
+      } else if(processStart == '1') {
+
+        try {
+
+          callbackName = 'start' + prefix.toUpperCase() + 'Payment';
+          if (typeof window.top.startHostedPayment == 'function') {
+            callbackName = 'startHostedPayment';
+            window.top.startHostedPayment();
+          } else if (typeof window.top[callbackName] == 'function') {
+            window.top[callbackName]();
+          }
+
+        } catch( e ) {
+          logCallback(callbackName, e.message);
+        }
+
+      } else if( ( errorCode == null ) || ( errorCode == 'undefined' ) ) {
+        // build a object of all the URL parameters
+        responseObject = new Object();
+
+        var qStr = window.location.search.substring(1);
+        var qStrParts = qStr.split("&");
+
+        for (i = 0; i < qStrParts.length; i++) {
+          var qStrNV = qStrParts[i].split("=");
+          responseObject[qStrNV[0]] = qStrNV[1];
+        }
+
+        try {
+
+          if (typeof window.top.completeHostedPayment == 'function') {
+            callbackName = 'completeHostedPayment';
+            window.top.completeHostedPayment( responseObject );
+          } else {
+            callbackName = 'complete' + prefix.toUpperCase() + 'Payment';
+            window.top[callbackName](responseObject);
+          }
+
+          logVersion();
+
+        } catch( e ) {
+          logCallback(callbackName, e.message);
+        }
+
+        if (currentLocation != null) {
+          document.getElementById('loadingCompleteFrame').src = currentLocation + "?Reserved=r";
+        }
+
+      } else {
+
+        try {
+
+          if (typeof window.top.hostedHandleDetailErrors == 'function') {
+            callbackName = 'hostedHandleDetailErrors';
+            window.top.hostedHandleDetailErrors( errorCode, gatewayCode, gatewayMessage );
+          } else if(typeof window.top[ prefix + 'HandleDetailErrors' ] == 'function') {
+            callbackName = prefix + 'HandleDetailErrors';
+            window.top[ prefix + 'HandleDetailErrors' ]( errorCode, gatewayCode, gatewayMessage );
+          } else if(typeof hostedHandleErrors == 'function') {
+            callbackName = 'hostedHandleErrors';
+            window.top.hostedHandleErrors( errorCode );
+          } else {
+            callbackName = prefix + 'HandleErrors';
+            window.top[ prefix + 'HandleErrors' ]( errorCode );
+          }
+
+        } catch(e) {
+          logCallback(callbackName, e.message);
+        }
+
+        if (currentLocation != null) {
+          document.getElementById('loadingCompleteFrame').src = currentLocation + "?Reserved=r";
+        }
+
+      }
+   }
+  </script>
+ </head>
+ <body onLoad="loadFrame(); ">
+  <iframe id="loadingCompleteFrame" class="frameStyle"></iframe>
+  <p>Version 1.6.4.1</p>
+ </body>
+</html>

@@ -1,0 +1,26 @@
+.userpro-admin-head{
+
+  .userpro-admin-left{
+    $this : &;
+    a{
+      color: #a8a8a8;
+      font-size:28px;
+      text-transform: uppercase;
+      position: relative;
+      span{
+        color: nth($primary-color,1);
+      }
+    }
+    &--version{
+      font-size: 12px;
+      position: absolute;
+      top:0;
+      font-weight:600;
+      margin-left: 5px;
+    }
+    &--desc{
+      display: block;
+      font-size: 11px;
+    }
+  }
+}

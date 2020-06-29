@@ -1,0 +1,28 @@
+.pre_order_single, .pre_order_single-no-auto-format {
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-style: oblique;
+    font-size: 20px;
+}
+
+.pre_order_loop, .pre_order_loop-no-auto-format {
+    font-style: oblique;
+    font-size: 14px;
+}
+
+.pre_order_on_cart, .pre_order_on_cart-no-auto-format {
+    font-style: oblique;
+    font-size: 12px;
+}
+
+.available_label {
+    font-weight: bold;
+}
+
+.woocommerce table.my_account_orders .button.has_pre_orders {
+    font-size: 65%;
+}
+
+.preorder-finished {
+    font-weight: 700;
+}

@@ -1,0 +1,125 @@
+/* Theme Options new design from 5.4.0 */
+.redux-container { background: #fafafa; border: none; }
+.redux-container .switch-live-option-panel:before { color: #eee; font-weight: 600; margin-left: -1rem; top: 50%; margin-top: -7px }
+.redux-container input[type=text] { border-color: #ccc; padding: 6px 10px; }
+.select2-container .select2-choice,
+.redux-container textarea { border-color: #ccc }
+.redux-container input[type=text]:focus { box-shadow: 0 0 0 1px #08c }
+.redux-info-field.redux-normal { background-color: #f4f4f4; border-color: #e7e7e7 }
+#redux-header, .redux-container .redux-sidebar, #redux-footer, .redux-container #redux-sticky { font-family: 'Poppins', sans-serif }
+.redux-container #redux-header { background: #08c; border-bottom: none; padding: 0; text-align: inherit; }
+.redux-container #redux-header .display_header { float: none; margin: 0; }
+.redux-container #redux-header .display_header > h2 { display: block; padding: 0; margin: 0; }
+.redux-container .display_header > span { display: block; }
+.redux-container .button,
+.redux-container .button-primary,
+.redux-container .button-secondary { font-size: .8rem; font-weight: 700; line-height: 1.125rem; letter-spacing: -.05em; text-transform: uppercase; padding: .625rem 1.4rem; background: none; color: #23282d; border-color: #ccc; margin-right: .75rem }
+.redux-container .button:hover,
+.redux-container .button-secondary:hover { color: #08c; border-color: #ccc }
+.redux-container .button-primary { background-color: #08c; border-color: #08c; color: #fff; }
+.redux-container .button-primary:hover { color: #fff; border-color: #016087 }
+.redux-container .redux-action_bar .button:last-child { background-color: #32373c; border-color: #32373c; box-shadow: none; color: #fff; margin-right: 0 }
+.redux-container .redux-action_bar .button:last-child:hover,
+.redux-container .redux-action_bar .button:last-child:focus { background-color: #3f444a }
+.redux-container span.button { padding: .375rem 1.125rem; font-size: .75rem; margin-right: .25rem }
+.redux-container #info_bar { background: none; box-shadow: none; border-bottom-color: #e7e7e7; padding: 5px 30px 7px }
+.redux-main #redux-sticky #info_bar { display: flex; height: auto; flex-wrap: wrap; }
+.redux-main #redux-sticky #info_bar .expand_options { display: none }
+.redux-container .redux-action_bar,
+.redux-container #redux-footer { display: flex; flex: 1; flex-wrap: wrap }
+.redux-container #redux-footer { background: #f4f4f4 !important }
+.redux-container .redux-action_bar > * { order: 0; }
+.redux-container .redux-action_bar .button-primary { order: -1; }
+.redux-container .redux-action_bar .spinner { margin: 13px 0 0 0; }
+.redux-container #redux-footer .spinner { margin-right: auto }
+.redux-container .redux-main { background: #fff; border-color: #e7e7e7 }
+.redux-sidebar .redux-group-menu li a { padding: 8px 4px 8px 8px; border: none; color: #777; opacity: 1; font-weight: 500; letter-spacing: -.05em; border-radius: 4px 0 0 4px }
+.redux-group-menu > .hasSubSections > .subsection { margin-bottom: 1.5rem }
+.redux-sidebar { padding: 1.5rem 0 1.5rem 1.25rem; box-sizing: border-box; }
+.redux-sidebar .redux-group-menu > li > a { font-size: 14px; font-weight: 600; color: #32373c; }
+.wp-admin .redux-sidebar .redux-group-menu li.activeChild.hasSubSections a { color: #32373c; }
+.redux-sidebar ul .subsection { padding-left: 1.75rem }
+.redux-sidebar .redux-group-tab-link-a i { opacity: .3; padding: 0; }
+.redux-sidebar .active .redux-group-tab-link-a i { opacity: .6 }
+.redux-sidebar .redux-group-menu li { margin-top: 4px }
+.redux-main .redux-typography-container .input_wrapper input.mini,
+.redux-container .redux-main .input-prepend input { min-height: auto }
+.redux-sidebar .redux-group-tab-link-a .porto-icon { display: block; width: 22px; height: 22px; background-size: contain; background-position: center; background-repeat: no-repeat; top: 50%; margin-top: -11px; opacity: .2 }
+.redux-sidebar .redux-group-menu li.active a,
+.redux-sidebar .redux-group-menu li.active a:hover,
+.redux-sidebar .redux-group-menu li.activeChild a,
+.redux-sidebar .redux-group-menu li.activeChild a:hover { width: 100%; }
+.redux-sidebar li.active .redux-group-tab-link-a .porto-icon { filter: invert(100%); }
+.redux-sidebar .icon-general { background-image: url(../inc/admin/theme_options/svg/option_general.svg) }
+.redux-sidebar .icon-visual { background-image: url(../inc/admin/theme_options/svg/option_visual.svg) }
+.redux-sidebar .icon-content { background-image: url(../inc/admin/theme_options/svg/option_content.svg) }
+.redux-sidebar .icon-plugins { background-image: url(../inc/admin/theme_options/svg/option_plugins.svg) }
+.redux-sidebar .icon-extra { background-image: url(../inc/admin/theme_options/svg/option_extra.svg) }
+.redux-group-tab h2 { font-family: Poppins; letter-spacing: -.05em; font-size: 1.5rem; font-weight: 700; color: #32373c; }
+.redux-container .redux-ajax-loading { margin-top: 14px }
+#redux-defaults-section-sticky { margin-left: auto }
+.redux-container .porto-theme-options-search { margin: 2px auto 0 4px; font-size: 14px }
+.porto-redux-search .redux-sidebar { transition: opacity .25s; opacity: 0.3 }
+.porto-redux-search .redux-sidebar:hover { opacity: 1 } 
+
+.wp-admin .redux-sidebar .redux-group-menu li.active.hasSubSections ul.subsection li a,
+.wp-admin .redux-sidebar .redux-group-menu li.activeChild.hasSubSections ul.subsection li a,
+.wp-admin .redux-sidebar .redux-group-menu li.activeChild.hasSubSections a { background: none; text-shadow: none }
+.wp-admin .redux-sidebar .redux-group-menu li.active.hasSubSections ul.subsection li a,
+.wp-admin .redux-sidebar .redux-group-menu li.activeChild.hasSubSections ul.subsection li a { color: #777; }
+.wp-admin .redux-sidebar .redux-group-menu li.active.hasSubSections a { background-color: #08c }
+.wp-admin .redux-sidebar .redux-group-menu li.active.hasSubSections ul.subsection li a:hover,
+.wp-admin .redux-sidebar .redux-group-menu li.activeChild.hasSubSections ul.subsection li a:hover,
+.wp-admin .redux-sidebar .redux-group-menu li.active a { background-color: #08c; color: #fff; }
+.wp-admin .redux-sidebar .redux-group-menu li.activeChild.hasSubSections ul.subsection li.active a { text-shadow: none; background-color: #08c; color: #fff; }
+.wp-admin .redux-sidebar .redux-group-menu li.active.hasSubSections ul.subsection li a,
+.wp-admin .redux-sidebar .redux-group-menu li.activeChild.hasSubSections ul.subsection li a { padding: 5px 7px 5px 4px; }
+.wp-admin .redux-sidebar .redux-group-menu li.hasSubSections a .extraIconSubsections i { font-size: 1em; margin-top: 0 }
+.wp-admin .redux-sidebar .redux-group-menu li.activeChild.hasSubSections .active a:after,
+.wp-admin .redux-sidebar .redux-group-menu li.active.hasSubSections a:after { border-width: 10px 8px; margin-top: -10px; z-index: 1 }
+
+.rtl .redux-container .button, .rtl .redux-container .button-primary, .rtl .redux-container .button-secondary { margin-right: 0; margin-left: .75rem }
+.rtl .redux-container .porto-theme-options-search,
+.rtl .redux-container #redux-footer .spinner { margin-left: auto; margin-right: 0 }
+.rtl #redux-defaults-section-sticky { margin-right: auto; margin-left: .25rem }
+.rtl .redux-sidebar { padding-left: 0; padding-right: 1.25rem; }
+.rtl .redux-sidebar ul .subsection { padding-left: 0 }
+.rtl .redux-sidebar .redux-group-menu li a { border-radius: 0 4px 4px 0 }
+.rtl .redux-sidebar .redux-group-menu li.active.hasSubSections a:after,
+.rtl .redux-sidebar .redux-group-menu li.activeChild.hasSubSections .active a:after { left: 0; right: auto; border-left-color: #fff; border-right: none; }
+.rtl .redux-container .redux-main { margin-left: 0 }
+
+@media (min-width: 992px) {
+	.redux-sidebar { width: 240px; }
+	.redux-container .redux-main { margin-left: 239px; padding: 10px 30px; }
+	.redux-main #redux-sticky,
+	.redux-main #redux-footer-sticky { margin-left: -30px; margin-right: -30px }
+	.rtl .redux-container .redux-main { margin-right: 239px }
+}
+@media (max-width: 1199px) {
+	.redux-container .switch-live-option-panel:before { margin-left: -.6rem !important }
+}
+@media (max-width: 991px) {
+	.redux-container #info_bar { padding: 5px 20px 7px; }
+}
+@media (max-width: 782px) {
+	.redux-main .color-transparency-check { padding-top: 0 }
+	.redux-main .redux-action_bar .button { margin-top: 2px }
+}
+@media (max-width: 767px) {
+	.redux-container .button { padding: .5rem; font-size: .75rem; margin-right: .25rem }
+	.redux-container .redux-action_bar .spinner { margin-top: 8px }
+	.rtl .redux-container .button { margin-left: .25rem; margin-right: 0 }
+}
+@media (max-width: 600px) {
+	.redux-sidebar { padding-left: 0 }
+	.redux-sidebar .redux-group-tab-link-a .porto-icon { margin: 0; }
+	.redux-sidebar .redux-group-menu li a { padding: 8px 4px 8px 14px; }
+	.redux-sidebar ul .subsection { padding: 0 }
+	.redux-container .redux_field_th,
+	.redux-container .redux-main .redux-field-container { padding-top: 0; padding-bottom: 0 }
+	.rtl .redux-sidebar { padding-right: 0; }
+	.rtl .redux-container .redux-main { margin-right: 44px }
+	.rtl .redux-sidebar .redux-group-tab-link-a span { left: auto; right: 44px; border-width: 1px 0 1px 1px }
+	.rtl .redux-sidebar .redux-group-menu li a { padding: 8px 14px 8px 4px; }
+}

@@ -1,0 +1,143 @@
+#wc-photography-image-edit {
+	.wc-metaboxes-wrapper {
+		.close_all,
+		.expand_all {
+			float: right;
+			margin-left: 14px;
+			line-height: 22px;
+			text-decoration: none;
+
+			&:before {
+				font-family: WooCommerce;
+				font-weight: 400;
+				font-variant: normal;
+				text-transform: none;
+				line-height: 1;
+				margin-right: 0.618em;
+				content: "";
+				text-decoration: none;
+				font-size: 0.8em;
+				color: #999;
+			}
+		}
+	}
+
+	.wc-metabox {
+		&.closed {
+			h3 {
+				border-bottom: 1px solid #eee;
+			}
+		}
+
+		h3 {
+			line-height: 4.2;
+
+			.thumbnail {
+				height: 60px;
+				width: auto;
+				float: left;
+				margin-right: 20px;
+			}
+
+			.handlediv {
+				margin-top: 8px;
+			}
+
+			.button.remove {
+				margin-top: 16px;
+			}
+		}
+
+		.wc-metabox-content {
+			border-top: 1px solid #eee;
+			padding: 0 12px;
+			overflow: hidden;
+			zoom: 1;
+
+			.fields {
+				overflow: hidden;
+				zoom: 1;
+			}
+
+			.form-field {
+				width: 30.75%;
+				float: left;
+				margin-right: 3.8%;
+
+				&.first {
+					clear: both;
+				}
+
+				&.last {
+					margin-right: 0;
+				}
+
+				&.full {
+					clear: both;
+					width: 100%;
+					margin-right: 0;
+				}
+
+				label {
+					display: block;
+				}
+
+				input,
+				textarea,
+				.select2-container {
+					width: 99.8% !important;
+				}
+			}
+		}
+	}
+}
+
+#wc-photography-uploader {
+	.upload-flash-bypass {
+		display: none;
+	}
+
+	.max-upload-size {
+		display: block;
+		margin: 10px 0;
+	}
+}
+
+#wc-photography-drag-drop-area {
+	border: 4px dashed #bbb;
+	height: 200px;
+}
+
+#wc-photography-uploader-upload-ui {
+	position: relative;
+
+	&.drag-over #wc-photography-drag-drop-area {
+		border-color: #83b4d8;
+	}
+}
+
+.wc-photography-progress-bar {
+	display: none;
+	width: 100%;
+	position: relative;
+	height: 20px;
+	width: 100%;
+	margin: 10px auto;
+	border-radius: 10px;
+	background: #dfdfdf;
+	background: rgba(0, 0, 0, .1);
+
+	div {
+		height: 20px;
+		min-width: 20px;
+		width: 0;
+		background: #aaa;
+		background: rgba(0,0,0,.2);
+		border-radius: 10px;
+		-webkit-transition: width 300ms;
+		-moz-transition: width 300ms;
+		-ms-transition: width 300ms;
+		-o-transition: width 300ms;
+		transition: width 300ms;
+	}
+}

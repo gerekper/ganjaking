@@ -1,0 +1,23 @@
+.vc_ui-font-open-sans { font-family: "Poppins", "Open Sans", Helvetica, sans-serif!important }
+.vc_ui-button.vc_ui-button-info { background-color: #08c }
+.vc_welcome .vc_ui-button { min-width: 170px; padding-top: 12px; padding-bottom: 12px; font-size: .8125rem; font-weight: 700; letter-spacing: -.05em; text-transform: uppercase; margin-left: .5rem; margin-right: .5rem }
+.vc_welcome .vc_ui-button .vc-composer-icon { font-size: 14px }
+.vc_ui-help-block { color: #32373c; font-size: .8125rem; font-weight: 700; font-style: normal; margin-top: 0 }
+.vc_ui-help-block:before { content: "\f05a"; font-family: "Font Awesome 5 Free"; font-size: .9375rem; font-weight: 900; margin-right: .125rem }
+.vc_ui-help-block a { display: inline-block; color: #777; font-weight: 400; text-decoration: none !important; border-bottom: 1px solid; line-height: 1.2 }
+.vc_welcome-brand { display: none }
+.vc_welcome-header { text-transform: capitalize; font-size: .875rem; line-height: 1.6; font-weight: 400; color: #777; margin-bottom: 14px }
+.vc_welcome-header::first-line { font-size: 1.625rem; font-weight: 700; color: #32373c; letter-spacing: -.05em }
+.compose-mode .vc_welcome, .view-mode .vc_welcome, .vc_welcome { display: flex; flex-direction: column }
+.vc_welcome .vc_ui-btn-group { order: 2 }
+.vc_welcome { padding: 40px 20px }
+
+.rtl .vc_ui-help-block:before { margin-right: 0; margin-left: .125rem }
+.rtl .vc_welcome .vc_ui-button .vc-composer-icon { padding: 0 0 0 .5em }
+.rtl.compose-mode .vc_controls > .vc_controls-out-tl > .vc_element > :first-child .vc_btn-content,
+.rtl.compose-mode .vc_controls-column > div > .vc_parent > :first-child .vc_btn-content,
+.rtl.compose-mode .vc_controls-container > div > .vc_parent > :first-child .vc_btn-content,
+.rtl.compose-mode .vc_controls-row > div > .vc_parent > :first-child .vc_btn-content { border-radius: 0 3px 3px 0 }
+.rtl.compose-mode .vc_controls-column>div>.vc_element :last-child .vc_btn-content,
+.rtl.compose-mode .vc_controls-container>div>.vc_element :last-child .vc_btn-content,
+.rtl.compose-mode .vc_controls-row>div>.vc_element :last-child .vc_btn-content { border-radius: 3px 0 0 3px }

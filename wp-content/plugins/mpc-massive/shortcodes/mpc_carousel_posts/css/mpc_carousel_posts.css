@@ -1,0 +1,26 @@
+/*----------------------------------------------------------------------------*\
+	CAROUSEL POSTS SHORTCODE
+\*----------------------------------------------------------------------------*/
+.mpc-carousel-posts { -webkit-box-sizing: border-box; box-sizing: border-box; }
+
+.mpc-carousel-posts.mpc-carousel--stretched .slick-list { overflow: visible; }
+
+.mpc-carousel-posts .slick-slide > div:last-child > .mpc-post, .mpc-carousel-posts .slick-slide.mpc-post { margin-bottom: 0 !important; }
+
+.mpc-carousel-posts .mpc-post { display: inline-block; vertical-align: bottom; height: 100%; max-width: 100% !important; }
+
+.mpc-carousel-posts:focus, .mpc-carousel-posts *:focus { outline: none; -webkit-outline: none; }
+
+.mpc-carousel-posts[data-slick-cols="1"] .mpc-post { width: 100%; }
+
+.mpc-carousel-posts[data-slick-cols="2"] .mpc-post { width: 50%; }
+
+.mpc-carousel-posts[data-slick-cols="3"] .mpc-post { width: 33%; }
+
+.mpc-carousel-posts[data-slick-cols="3"] .mpc-post:last-child { width: 34%; }
+
+.mpc-carousel-posts[data-slick-cols="4"] .mpc-post { width: 25%; }
+
+.mpc-navigation--posts { text-align: right; width: 100%; margin: 1em 0; }
+
+.mpc-navigation--posts i { cursor: pointer; padding: .5em 1em; margin-left: 1px; background: #ccc; border-radius: 3px; }

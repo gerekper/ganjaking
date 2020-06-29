@@ -1,0 +1,106 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Advanced WordPress Reset\n"
+"POT-Creation-Date: 2016-03-18 00:33+0000\n"
+"PO-Revision-Date: 2016-03-18 00:33+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.7\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: includes/reset.php:9
+#, php-format
+msgid "Please type the word \"<b>%s</b>\" correctly in the text box below."
+msgstr ""
+
+#: includes/reset.php:22
+msgid "WARNING:"
+msgstr ""
+
+#: includes/reset.php:24
+msgid ""
+"The reset makes a fresh installation of your database. Therefore, ANY data "
+"in your database will be lost."
+msgstr ""
+
+#: includes/reset.php:26
+msgid "Please do not use this option if you want to keep your posts and pages."
+msgstr ""
+
+#: includes/reset.php:31
+msgid ""
+"The reset does not delete or modify any of your plugins/themes files or "
+"server files."
+msgstr ""
+
+#: includes/reset.php:32
+msgid ""
+"All your plugins will be deactivated (including this one). You should "
+"activate them manually after the reset."
+msgstr ""
+
+#: includes/reset.php:36
+#, php-format
+msgid ""
+"The plugin has detected that the <b>%s</b> user exists. It will be recreated "
+"with its current password."
+msgstr ""
+
+#: includes/reset.php:38
+#, php-format
+msgid ""
+"The <b>%s</b> user does not exist. The user <b>%s</b> will be recreated with "
+"its current password with user level 10."
+msgstr ""
+
+#: includes/reset.php:41
+msgid "After the reset, you will be redirected to the admin login page."
+msgstr ""
+
+#: includes/reset.php:45 includes/reset.php:59
+msgid "Reset database"
+msgstr ""
+
+#: includes/reset.php:49
+#, php-format
+msgid ""
+"Please type \"<b>%s</b>\" in the confirmation field below to confirm the "
+"reset and then click the reset button."
+msgstr ""
+
+#: includes/reset.php:61
+msgid ""
+"You are about to reset your database. Any content will be lost! This "
+"operation is irreversible."
+msgstr ""
+
+#: includes/reset.php:64
+msgid "Are you sure to continue?"
+msgstr ""
+
+#: includes/sidebar.php:3
+msgid "By making a donation, you help me supporting this plugin!"
+msgstr ""
+
+#: includes/sidebar.php:13
+msgid "Please rate us"
+msgstr ""
+
+#: includes/sidebar.php:24
+msgid "Having issues?"
+msgstr ""
+
+#: includes/sidebar.php:28
+msgid "Create a ticket"
+msgstr ""
+
+#: includes/sidebar.php:35
+msgid "Developed by"
+msgstr ""

@@ -1,0 +1,513 @@
+/**
+ * Admin style
+ *
+ * @author Leanza Francesco
+ * @version 1.0.0
+ */
+
+#yith-wcbm-metabox .inside {
+    overflow : auto;
+    position : static !important;
+}
+
+.inside div.ui-corner-all {
+
+}
+
+#yith-wcbm-metabox .ui-tabs-nav li {
+    margin : 0;
+}
+
+#yith-wcbm-metabox .ui-tabs-nav li.ui-state-default a {
+    padding     : 8px 15px;
+    display     : inline-block;
+    font-size   : 1.1em;
+    font-weight : 600;
+}
+
+#yith-wcbm-metabox .ui-tabs-nav li.ui-state-default {
+    display       : inline-block;
+    border        : 1px solid #ddd;
+    border-bottom : 0;
+    margin-bottom : -1px !important;
+}
+
+#yith-wcbm-metabox .ui-tabs-nav a {
+    text-decoration : none;
+}
+
+.tab-container {
+    overflow   : auto;
+    background : transparent !important;
+    border     : 0 !important;
+}
+
+.tab-container li.ui-corner-top {
+    border-radius : 0;
+}
+
+.tab-container .ui-state-default a, .tab-container .ui-state-default a:link, .tab-container .ui-state-default a:visited {
+    color : #555;
+}
+
+.tab-container .ui-state-default:hover {
+    background : #f1f1f1;
+}
+
+.tab-container li.ui-state-default {
+    background : #e4e4e4;
+}
+
+.tab-container li.ui-state-active, .tab-container li.ui-tabs-active {
+    background : #fff;
+    color      : #000;
+}
+
+.tab-container li.ui-state-active:hover, .tab-container li.ui-tabs-active:hover {
+    background : #fff;
+}
+
+.tab-container div.ui-tabs, .tab-container div.ui-tabs-panel {
+    padding : 0;
+}
+
+.half-left {
+    width        : 66%;
+    float        : left;
+    margin-right : 1%;
+    box-sizing   : border-box;
+}
+
+.half-right {
+    width      : 33%;
+    float      : left;
+    box-sizing : border-box;
+}
+
+.section-container {
+    border     : 1px solid #aaa;
+    padding    : 10px;
+    margin-top : 20px;
+    position   : relative;
+}
+
+.section-container div.section-title {
+    background  : #fff;
+    padding     : 5px;
+    color       : #000;
+    font-size   : 14px;
+    font-weight : 800;
+    position    : absolute;
+    top         : -15px;
+    left        : 10px;
+}
+
+.section-content-container {
+    overflow : auto;
+    width    : 100%;
+    margin   : 0;
+    padding  : 0;
+}
+
+table.section-table {
+    width : 100%;
+}
+
+table.section-table tr {
+
+}
+
+td.table-title {
+    width          : 30%;
+    vertical-align : top;
+}
+
+td.table-content {
+    width : 70%;
+}
+
+td.table-align-top {
+    vertical-align : top;
+}
+
+div.table-description {
+    width     : 100%;
+    font-size : 11px;
+}
+
+table.table-mini-title th {
+    font-size      : 10px;
+    font-weight    : 400;
+    text-transform : uppercase;
+}
+
+h3#preview_title {
+    text-align    : center;
+    margin-bottom : 2px;
+}
+
+#preview-bg {
+    display    : block;
+    position   : relative;
+    width      : 150px;
+    height     : 150px;
+    background : #ddd;
+    box-sizing : border-box;
+    z-index    : 0;
+    margin     : 0 auto;
+}
+
+#preview-badge {
+    position    : absolute;
+    box-sizing  : border-box;
+    text-align  : center;
+    z-index     : 10;
+    line-height : 0;
+}
+
+/*** METABOX ***/
+.yith-wcbm-container-button {
+    width    : 100%;
+    overflow : auto;
+}
+
+h3.section-title {
+    padding       : 0 !important;
+    margin-top    : 15px !important;
+    margin-bottom : 15px !important;
+}
+
+.minisection-container {
+    margin-top : 10px;
+    overflow   : auto;
+}
+
+#yith-wcbm-custom-button, #yith-wcbm-image-button {
+    float          : left;
+    padding-left   : 15px;
+    padding-right  : 15px;
+    height         : 30px;
+    margin-right   : 10px;
+    line-height    : 30px;
+    text-align     : center;
+    border-radius  : 7px;
+    border         : 1px #c5c5c5 solid;
+    text-transform : uppercase;
+    cursor         : pointer;
+}
+
+.yith-wcbm-button-selected {
+    background : #f5f5f5;
+    cursor     : default !important;
+}
+
+#yith-wcbm-panel-image {
+    width         : 100%;
+    overflow      : auto;
+    padding-top   : 15px;
+    padding-right : 5px;
+}
+
+.yith-wcbm-select-image-btn {
+    position            : relative;
+    float               : left;
+    width               : 17%;
+    height              : 0;
+    padding-bottom      : 17%;
+    margin              : 1%;
+    margin-right        : 2%;
+    border-radius       : 5px;
+    border              : 1px #d5d5d5 solid;
+    background-repeat   : no-repeat;
+    background-position : center center;
+    cursor              : pointer;
+    box-sizing          : border-box;
+}
+
+.yith-wcbm-select-image-btn-selected {
+    border             : 1px #4968ff solid;
+    box-shadow         : 0px 0px 2px 0px #4968ff;
+    -webkit-box-shadow : 0px 0px 2px 0px #4968ff;
+    -moz-box-shadow    : 0px 0px 2px 0px #4968ff;
+    -o-box-shadow      : 0px 0px 2px 0px #4968ff;
+    -ms-box-shadow     : 0px 0px 2px 0px #4968ff;
+}
+
+div.wp-picker-holder {
+    z-index  : 10;
+    position : absolute;
+}
+
+/* === PREMIUM SECTION === */
+/**
+ * Admin style Premium
+ *
+ * @author Leanza Francesco
+ * @version 1.0.0
+ */
+table.table-four-colums {
+    width : 100%;
+}
+
+.table-four-colums th, .table-four-colums td {
+    width        : 24%;
+    margin-right : 1%;
+    text-align   : center;
+}
+
+.table-four-colums td input {
+    margin : 0 auto;
+}
+
+#preview_box {
+    position : relative;
+    overflow : hidden;
+}
+
+#preview-badge img {
+    max-width  : 200px;
+    max-height : 200px;
+}
+
+.uploader_sect {
+    width      : 100%;
+    float      : left;
+    margin-top : 20px;
+}
+
+.delete_custom_image {
+    display             : none;
+    position            : absolute;
+    top                 : -12px;
+    right               : -12px;
+    z-index             : 100;
+    width               : 30px;
+    height              : 30px;
+    background          : url("../images/x.png");
+    background-repeat   : no-repeat;
+    background-position : center center;
+}
+
+.yith_wcbm_select_image_btn:hover > .delete_custom_image {
+    display : block;
+}
+
+input.yith-wcbm-range-input[type=range] {
+    float : left;
+}
+
+.yith-wcbm-range-output {
+    background-color : #eee;
+    border           : 1px #ddd solid;
+    border-radius    : 50%;
+    text-align       : center;
+    font-size        : 10px;
+    line-height      : 25px;
+    float            : left;
+    width            : 25px;
+    height           : 25px;
+    vertical-align   : middle;
+}
+
+#yith-wcbm-metabox .ui-widget-header {
+    border        : 0;
+    border-radius : 0;
+    border-bottom : 1px solid #e4e4e4;
+    background    : transparent;
+}
+
+div#preview-desc {
+    margin-bottom : 150px;
+    font-size     : 11px;
+    font-weight   : 400;
+    padding-left  : 10px;
+}
+
+#yith-wcbm-metabox a.ui-tabs-anchor:focus {
+    outline            : none;
+    border             : 0;
+    box-shadow         : none;
+    -webkit-box-shadow : none;
+    -moz-box-shadow    : none;
+    -o-box-shadow      : none;
+    -ms-box-shadow     : none;
+}
+
+#preview-bg {
+    cursor : pointer;
+}
+
+#preview-loader {
+    display       : none;
+    position      : absolute;
+    background    : url('spinner.gif') no-repeat;
+    border-radius : 5px;
+    opacity       : 0.7;
+    width         : 20px;
+    height        : 20px;
+    top           : 65px;
+    left          : 65px;
+    z-index       : 999;
+}
+
+/* ----- Metabox Badge in Product Edit Page ----- */
+
+#yith-wcbm-badge_metabox select {
+    width : 100%;
+}
+
+.yith-wcbm-datepicker {
+    width : 205px;
+}
+
+#yith-wcbm-metabox-schedule-options .yith-wcbm-delete-input {
+    font-size   : 25px;
+    line-height : 30px;
+    cursor      : pointer;
+}
+
+#yith-wcbm-metabox-schedule-options .yith-wcbm-delete-input:hover {
+    color : #cc1014;
+}
+
+#yith-wcbm-metabox-schedule-options {
+    background : #f9f9f9;
+    border     : 1px solid #dfdfdf;
+}
+
+#yith-wcbm-metabox-schedule-options h3 {
+    text-transform : uppercase;
+    margin         : 0;
+    font-weight    : 600;
+    font-size      : 12px;
+    padding        : 10px;
+    color          : #333;
+    background     : #f1f1f1;
+}
+
+#yith-wcbm-metabox-schedule-container {
+    padding : 10px;
+}
+
+#yith-wcbm-metabox-schedule-options p {
+    margin : 0 0 7px 0;
+}
+
+#yith-wcbm-metabox-schedule-options input[type=text] {
+    border             : 1px solid #c9c9c9;
+    -webkit-box-shadow : inset 0 1px 2px rgba(0, 0, 0, .07);
+    box-shadow         : inset 0 1px 2px rgba(0, 0, 0, .07);
+    background-color   : #fff;
+    color              : #32373c;
+    outline            : 0;
+    -webkit-transition : .05s border-color ease-in-out;
+    transition         : .05s border-color ease-in-out;
+}
+
+.post-type-yith-wcbm-badge .column-ID {
+    width : 100px;
+}
+
+th.column-yith_wcbm_preview, td.column-yith_wcbm_preview {
+    text-align : center;
+    width      : 250px;
+}
+
+td.column-yith_wcbm_preview {
+    height         : 60px;
+    vertical-align : middle;
+}
+
+.column-yith_wcbm_preview .yith-wcbm-badge {
+    position : relative;
+    display  : inline-block;
+    left     : 0;
+    top      : 0;
+}
+
+#yith-wcbm-3d-rotation-table {
+    width : 100%;
+}
+
+#yith-wcbm-3d-rotation-table td {
+    text-align : center;
+}
+
+#yith-wcbm-3d-rotation-table .yith-wcbm-range-input[type=range] {
+    width  : calc(100% - 28px);
+    margin : 0;
+}
+
+span#yith-wcbm-rotation-mode-change {
+    font-size      : 10px;
+    text-transform : uppercase;
+    padding        : 7px 12px;
+    color          : #fff;
+    background     : #8aa9b3;
+    font-weight    : 800;
+    border-radius  : 3px;
+    cursor         : pointer;
+}
+
+span#yith-wcbm-rotation-mode-change:hover {
+    background : #60acc3;
+}
+
+#yith-wcbm-3d-rotation-table td:last-child,
+#yith-wcbm-3d-rotation-table th:last-child {
+    width : 80px
+}
+
+.edit-php.post-type-product .column-yith_wcbm_badge {
+    width : 10%;
+}
+
+#yith_wcbm_panel_category .pagination span {
+    margin : 0 3px;
+}
+
+#yith_wcbm_panel_category .pagination .navspan {
+    display     : inline-block;
+    min-width   : 17px;
+    border      : 1px solid #ddd;
+    padding     : 3px 5px 7px;
+    background  : #f7f7f7;
+    font-size   : 16px;
+    line-height : 1;
+    font-weight : 400;
+    text-align  : center;
+    color       : #a0a5aa;
+}
+
+#yith_wcbm_panel_category .pagination a {
+    text-decoration : none;
+    box-shadow      : none;
+    outline         : none;
+}
+
+#yith_wcbm_panel_category .pagination a .navspan {
+    border-color : #ccc;
+    background   : #e5e5e5;
+    color        : #0073aa;
+}
+
+#yith_wcbm_panel_category .pagination a:hover .navspan {
+    border-color : #5b9dd9;
+    color        : #fff;
+    background   : #00a0d2;
+}
+
+#yith_wcbm_panel_category .pagination .current-page input {
+    text-align  : center;
+    line-height : 1;
+    height      : 32px;
+}
+
+#yith_wcbm_panel_category .form-table .yith-plugin-fw-panel-wc-row.html:first-child th,
+#yith_wcbm_panel_category .form-table .yith-plugin-fw-panel-wc-row.html:first-child td {
+    padding-bottom : 0;
+}
+
+.inline-edit-row fieldset ul.product_badges-checklist input{
+    margin-right: 5px;
+}

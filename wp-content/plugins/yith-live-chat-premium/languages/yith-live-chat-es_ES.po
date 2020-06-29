@@ -1,0 +1,1560 @@
+# Translation of YITH Live Chat in Spanish (Spain)
+# This file is distributed under the same license as the YITH Live Chat package.
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH Live Chat\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-live-chat."
+"premium\n"
+"POT-Creation-Date: 2020-04-29 14:34:42+00:00\n"
+"PO-Revision-Date: 2020-04-29 14:18:00+0000\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/2.3.1\n"
+
+#: class.yith-livechat-premium.php:295
+msgid "Chat console"
+msgstr "Consola de chat"
+
+#: class.yith-livechat-premium.php:296
+#: templates/admin/ylc-offline-table.php:377
+msgid "Offline messages"
+msgstr "Mensajes fuera de línea"
+
+#: class.yith-livechat-premium.php:297
+msgid "Chat logs"
+msgstr "Registros de chat"
+
+#: class.yith-livechat-premium.php:298
+msgid "Chat macros"
+msgstr "Macros de chat"
+
+#: class.yith-livechat-premium.php:381
+msgid "Default Avatar"
+msgstr "Avatar predeterminado"
+
+#: class.yith-livechat-premium.php:382
+msgid "Uploaded Image"
+msgstr "Imagen subida"
+
+#: class.yith-livechat-premium.php:383
+msgid "Gravatar"
+msgstr "Gravatar"
+
+#: class.yith-livechat-premium.php:391
+msgid ""
+"Remember to refresh the chat console page after updating the operator name "
+"or avatar"
+msgstr ""
+"Recuerda refrescar la página de la consola de chat actualizando el nombre o "
+"el avatar del operador"
+
+#: class.yith-livechat-premium.php:396
+msgid "Operator Nickname"
+msgstr "Nickname del Operador"
+
+#: class.yith-livechat-premium.php:404
+msgid "If not specified, the system will use the default user nickname."
+msgstr ""
+"Si no se especifica, el sistema usará el nickname de usuario predeterminado."
+
+#: class.yith-livechat-premium.php:411
+msgid "Operator Avatar"
+msgstr "Avatar del Operador"
+
+#: class.yith-livechat-premium.php:435
+#: includes/admin/class-ylc-custom-fields.php:65
+msgid "Upload"
+msgstr "Subir"
+
+#: class.yith-livechat.php:383 class.yith-livechat.php:394
+msgid "General"
+msgstr "General"
+
+#: class.yith-livechat.php:384
+msgid "Display"
+msgstr "Mostrar"
+
+#: class.yith-livechat.php:385 class.yith-livechat.php:395
+#: includes/functions-ylc-gdpr.php:186
+#: templates/admin/ylc-offline-table.php:470
+msgid "Messages"
+msgstr "Mensajes"
+
+#: class.yith-livechat.php:386
+msgid "Offline Messages"
+msgstr "Mensajes fuera de línea"
+
+#: class.yith-livechat.php:387
+msgid "Conversation"
+msgstr "Conversación"
+
+#: class.yith-livechat.php:388
+msgid "Appearance"
+msgstr "Apariencia"
+
+#: class.yith-livechat.php:389
+msgid "Users"
+msgstr "Usuarios"
+
+#: class.yith-livechat.php:390
+msgid "Privacy"
+msgstr "Privacidad"
+
+#: class.yith-livechat.php:396
+msgid "Premium Version"
+msgstr "Versión premium"
+
+#: class.yith-livechat.php:404
+msgid "Live Chat"
+msgstr "Live Chat"
+
+#: class.yith-livechat.php:458
+msgid "Please complete Firebase setup for %s. %sClick here%s know how to do."
+msgstr ""
+"Por favor, complete la configiración de Firebase para %s. %sHaz clic aquí%s "
+"para saber cómo hacerlo."
+
+#: class.yith-livechat.php:479
+msgid ""
+"We have updated %s for %s. The plugin will still work with the old "
+"configuration until the old API will not be removed. %sClick here%s to know "
+"about how to update."
+msgstr ""
+
+#: class.yith-livechat.php:491
+msgid ""
+"The Firebase Private Key is not valid. %sClick here%s to know how to get the "
+"correct one."
+msgstr ""
+
+#: class.yith-livechat.php:544
+msgid "YITH Live Chat Operator"
+msgstr "Operador de YITH Live Chat"
+
+#: includes/admin/class-ylc-custom-fields.php:163
+msgid "Choose pages&hellip;"
+msgstr "Elegir páginas&hellip;"
+
+#: includes/admin/class-ylc-custom-fields.php:163
+msgid "Pages"
+msgstr "Páginas"
+
+#: includes/admin/class-ylc-custom-fields.php:173
+msgid "Select all"
+msgstr "Seleccionar todo"
+
+#: includes/admin/class-ylc-custom-fields.php:174
+msgid "Select none"
+msgstr "No seleccionar ninguno"
+
+#: includes/class-ylc-macro.php:66
+msgid "Add New Chat Macro"
+msgstr "Añadir nueva macro de chat"
+
+#: includes/class-ylc-macro.php:67
+msgid "Add Chat Macro"
+msgstr "Añadir macro de chat"
+
+#: includes/class-ylc-macro.php:68
+msgid "New Chat Macro"
+msgstr "Nuevo macro de chat"
+
+#: includes/class-ylc-macro.php:69
+msgid "Edit Chat Macro"
+msgstr "Editar macro de chat"
+
+#: includes/class-ylc-macro.php:70
+msgid "View Chat Macro"
+msgstr "Ver macro de chat"
+
+#: includes/class-ylc-macro.php:71
+msgid "Search Chat Macro"
+msgstr "Buscar macro de chat"
+
+#: includes/class-ylc-macro.php:72
+msgid "Not found"
+msgstr "No encontrado"
+
+#: includes/class-ylc-macro.php:73
+msgid "Not found in Trash"
+msgstr "No se han encontrado en la Papelera"
+
+#: includes/class-ylc-macro.php:177 templates/email/offline-message.php:57
+msgid "Name"
+msgstr "Nombre"
+
+#: includes/class-ylc-macro.php:178
+msgid "Description"
+msgstr "Descripción"
+
+#: includes/functions-ylc-ajax-premium.php:41
+msgid "New offline message"
+msgstr "Nuevo mensaje fuera de línea"
+
+#: includes/functions-ylc-ajax-premium.php:42
+msgid "You have received an offline message"
+msgstr "Has recibido un mensaje fuera de línea"
+
+#: includes/functions-ylc-ajax-premium.php:61
+msgid "We have received your offline message"
+msgstr "Hemos recibido tu mensaje fuera de línea"
+
+#: includes/functions-ylc-ajax-premium.php:62
+msgid "Here follows a recap of the details you have entered"
+msgstr "Aquí sigue un resumen de los detalles que has introducido"
+
+#: includes/functions-ylc-ajax-premium.php:94
+#: includes/functions-ylc-ajax-premium.php:173
+#: includes/functions-ylc-ajax-premium.php:233
+msgid "Something went wrong. Please try again"
+msgstr "Algo ha ido mal. Por favor, inténtalo de nuevo."
+
+#: includes/functions-ylc-ajax-premium.php:99
+msgid ""
+"An error occurred while sending a copy of your message. However, "
+"administrators received it correctly."
+msgstr ""
+"Ha ocurrido un error mientras se enviaba la copia de tu mensaje. Sin "
+"embargo, los administradores lo han recibido correctamente."
+
+#: includes/functions-ylc-ajax-premium.php:104
+msgid "Successfully sent! Thank you"
+msgstr "¡Enviado con éxito! Gracias"
+
+#: includes/functions-ylc-ajax-premium.php:209
+#: includes/functions-ylc-ajax-premium.php:317
+msgid "Successfully saved!"
+msgstr "¡Guardado con éxito!"
+
+#: includes/functions-ylc-ajax-premium.php:382
+msgid "No operator has replied"
+msgstr "Ningún operador ha contestado"
+
+#: includes/functions-ylc-ajax-premium.php:397
+msgid "Below you can find a copy of the chat conversation"
+msgstr "Abajo puedes encontrar una copia de la conversación por chat"
+
+#: includes/functions-ylc-ajax-premium.php:404
+msgid "Not received"
+msgstr "No recibido"
+
+#: includes/functions-ylc-ajax-premium.php:405
+#: includes/functions-ylc-commons.php:361
+msgid "Operator"
+msgstr "Operador"
+
+#: includes/functions-ylc-ajax-premium.php:405
+#: includes/functions-ylc-gdpr.php:87 includes/functions-ylc-gdpr.php:180
+#: templates/admin/ylc-offline-table.php:86
+msgid "User"
+msgstr "Usuario"
+
+#: includes/functions-ylc-ajax.php:54
+msgid "Successfully closed!"
+msgstr "¡Cerrado con éxito!"
+
+#: includes/functions-ylc-commons-premium.php:187
+msgid "I agree to the collection and storage of data sent with this form"
+msgstr ""
+"Acepto la recopilación y almacenamiento de datos enviados con este formulario"
+
+#: includes/functions-ylc-commons-premium.php:188
+msgid ""
+"The data collected by this form is used to get in touch with you. For more "
+"information, please check out our {privacy policy}"
+msgstr ""
+"Los datos recopilados por este formulario son usados para ponernos en "
+"contacto contigo. Para más información, por favor, comprueba nuestra "
+"{privacy policy}"
+
+#: includes/functions-ylc-commons-premium.php:190
+msgid "I agree to the collection and storage of chat logs"
+msgstr "Acepto la recopilación y almacenamiento de sesiones de chat"
+
+#: includes/functions-ylc-commons-premium.php:191
+msgid ""
+"The data collected by the chat form is used to get in touch with you. For "
+"more information, please check out our {privacy policy}"
+msgstr ""
+"Los datos recopilados por del formulario del chat son usados para ponernos "
+"en contacto contigo. Para más información, por favor, comprueba nuestra "
+"{privacy policy}"
+
+#: includes/functions-ylc-commons-premium.php:193
+msgid "Thanks for contacting us. We will answer as soon as possible."
+msgstr ""
+"Gracias por contactar con nosotros. Te responderemos tan pronto como sea "
+"posible."
+
+#: includes/functions-ylc-commons-premium.php:198
+msgid "Below you can find a copy of the chat conversation you have requested."
+msgstr ""
+"Abajo puedes encontrar la copia de la conversación por chat que has "
+"solicitado."
+
+#: includes/functions-ylc-commons.php:256
+msgid "Chat with us"
+msgstr "Chatea con nosotros"
+
+#: includes/functions-ylc-commons.php:257
+msgid "Have you got question? Write to us!"
+msgstr "¿Tienes una pregunta? ¡Escríbenos!"
+
+#: includes/functions-ylc-commons.php:258
+msgid "Questions, doubts, issues? We're here to help you!"
+msgstr "¿Preguntas, dudas, problemas? ¡Estamos aquí para ayudarte!"
+
+#: includes/functions-ylc-commons.php:259
+msgid "This chat session has ended"
+msgstr "La sesión de chat ha terminado"
+
+#: includes/functions-ylc-commons.php:260
+msgid ""
+"None of our operators are available at the moment. Please, try again later."
+msgstr ""
+"Ninguno de nuestros operadores está disponible en este momento. Por favor, "
+"inténtalo de nuevo más tarde."
+
+#: includes/functions-ylc-commons.php:261
+msgid "Our operators are busy. Please try again later"
+msgstr ""
+"Nuestros operadores están ocupados. Por favor, inténtalo de nuevo más tarde."
+
+#: includes/functions-ylc-commons.php:341
+msgid "No messages found"
+msgstr "No se ha encontrado ningún mensaje"
+
+#: includes/functions-ylc-commons.php:342
+#: includes/functions-ylc-commons.php:371
+#: templates/chat-frontend/chat-container.php:57
+msgid "Connecting"
+msgstr "Conectando"
+
+#: includes/functions-ylc-commons.php:343
+#: includes/functions-ylc-commons.php:372
+msgid "%s is writing"
+msgstr "%s está escribiendo"
+
+#: includes/functions-ylc-commons.php:344
+#: templates/chat-backend/chat-console.php:14
+#: templates/chat-backend/chat-console.php:24
+msgid "Please wait"
+msgstr "Por favor, espera"
+
+#: includes/functions-ylc-commons.php:345
+msgid "Connection error!"
+msgstr "¡Error de conexión!"
+
+#: includes/functions-ylc-commons.php:346
+msgid "Online"
+msgstr "En línea"
+
+#: includes/functions-ylc-commons.php:347
+msgid "Offline"
+msgstr "Fuera de línea"
+
+#: includes/functions-ylc-commons.php:348
+msgid "Connect"
+msgstr "Conectar"
+
+#: includes/functions-ylc-commons.php:349
+msgid "Disconnect"
+msgstr "Desconectar"
+
+#: includes/functions-ylc-commons.php:350
+msgid "You are offline"
+msgstr "Estás desconectado"
+
+#: includes/functions-ylc-commons.php:351
+msgid ""
+"If you leave the chat, you will be logged out. However you will be able to "
+"save the conversations into your server when you will come back in the "
+"console!"
+msgstr ""
+"Si dejas el chat, se cerrará la sesión. Sin embargo, ¡podrás guardar las "
+"conversaciones en tu servidor cuando vuelvas a la consola!"
+
+#: includes/functions-ylc-commons.php:352
+msgid "New Message"
+msgstr "Nuevo mensaje"
+
+#: includes/functions-ylc-commons.php:353
+msgid "New User Online"
+msgstr "Nuevo usuario en línea"
+
+#: includes/functions-ylc-commons.php:354
+msgid "Saving"
+msgstr "Guardando"
+
+#: includes/functions-ylc-commons.php:355
+msgid "User queue: %d"
+msgstr "Cola de usuario: %d"
+
+#: includes/functions-ylc-commons.php:355
+msgid "There are people waiting to talk"
+msgstr "Hay gente esperando para hablar"
+
+#: includes/functions-ylc-commons.php:356
+msgid "Talking with %s"
+msgstr "Hablando con %s"
+
+#: includes/functions-ylc-commons.php:357
+msgid "%s shop"
+msgstr "%s tienda"
+
+#: includes/functions-ylc-commons.php:358
+msgid "Apply Macro"
+msgstr "Aplicar macro"
+
+#: includes/functions-ylc-commons.php:359
+msgid "No results match"
+msgstr "Los resultados no coinciden"
+
+#: includes/functions-ylc-commons.php:360
+msgid "Visitor"
+msgstr "Visitante"
+
+#: includes/functions-ylc-commons.php:362
+msgid "Registered User"
+msgstr "Usuario registrado"
+
+#: includes/functions-ylc-commons.php:363
+msgid "No users connected"
+msgstr "No hay usuarios conectados"
+
+#: includes/functions-ylc-commons.php:369
+msgid "The user has closed the conversation"
+msgstr "El usuario ha cerrado la conversación"
+
+#: includes/functions-ylc-commons.php:370
+msgid "No operators online"
+msgstr "No hay ningún operador en línea"
+
+#: includes/functions-ylc-commons.php:373
+msgid "Sending"
+msgstr "Enviando"
+
+#: includes/functions-ylc-commons.php:374
+msgid "Please fill out all required fields"
+msgstr "Por favor rellena todos los campos"
+
+#: includes/functions-ylc-commons.php:375
+msgid "Username is invalid"
+msgstr "El nombre de usuario no es válido"
+
+#: includes/functions-ylc-commons.php:376
+msgid "Email is invalid"
+msgstr "El correo electrónico no es válido"
+
+#: includes/functions-ylc-commons.php:377
+msgid "A user is already logged in with the same email address"
+msgstr ""
+"Un usuario ya ha iniciado sesión con la misma dirección de correo electrónico"
+
+#: includes/functions-ylc-commons.php:384
+msgid "January"
+msgstr "Enero"
+
+#: includes/functions-ylc-commons.php:385
+msgid "February"
+msgstr "Febrero"
+
+#: includes/functions-ylc-commons.php:386
+msgid "March"
+msgstr "Marzo"
+
+#: includes/functions-ylc-commons.php:387
+msgid "April"
+msgstr "Abril"
+
+#: includes/functions-ylc-commons.php:388
+#: includes/functions-ylc-commons.php:402
+msgid "May"
+msgstr "Mayo"
+
+#: includes/functions-ylc-commons.php:389
+msgid "June"
+msgstr "Junio"
+
+#: includes/functions-ylc-commons.php:390
+msgid "July"
+msgstr "Julio"
+
+#: includes/functions-ylc-commons.php:391
+msgid "August"
+msgstr "Agosto"
+
+#: includes/functions-ylc-commons.php:392
+msgid "September"
+msgstr "Septiembre"
+
+#: includes/functions-ylc-commons.php:393
+msgid "October"
+msgstr "Octubre"
+
+#: includes/functions-ylc-commons.php:394
+msgid "November"
+msgstr "Noviembre"
+
+#: includes/functions-ylc-commons.php:395
+msgid "December"
+msgstr "Diciembre"
+
+#: includes/functions-ylc-commons.php:398
+msgid "Jan"
+msgstr "Ene"
+
+#: includes/functions-ylc-commons.php:399
+msgid "Feb"
+msgstr "Feb"
+
+#: includes/functions-ylc-commons.php:400
+msgid "Mar"
+msgstr "Mar"
+
+#: includes/functions-ylc-commons.php:401
+msgid "Apr"
+msgstr "Abr"
+
+#: includes/functions-ylc-commons.php:403
+msgid "Jun"
+msgstr "Jun"
+
+#: includes/functions-ylc-commons.php:404
+msgid "Jul"
+msgstr "Jul"
+
+#: includes/functions-ylc-commons.php:405
+msgid "Aug"
+msgstr "Ago"
+
+#: includes/functions-ylc-commons.php:406
+msgid "Sep"
+msgstr "Sep"
+
+#: includes/functions-ylc-commons.php:407
+msgid "Oct"
+msgstr "Oct"
+
+#: includes/functions-ylc-commons.php:408
+msgid "Nov"
+msgstr "Nov"
+
+#: includes/functions-ylc-commons.php:409
+msgid "Dec"
+msgstr "Dic"
+
+#: includes/functions-ylc-commons.php:412
+msgid "ago"
+msgstr "hace"
+
+#: includes/functions-ylc-commons.php:413
+msgid "less than a minute"
+msgstr "menos de un minuto"
+
+#: includes/functions-ylc-commons.php:414
+msgid "about a minute"
+msgstr "alrededor de un minuto"
+
+#: includes/functions-ylc-commons.php:415
+msgid "%d minutes"
+msgstr "%d minutos"
+
+#: includes/functions-ylc-commons.php:416
+msgid "about an hour"
+msgstr "alrededor de una hora"
+
+#: includes/functions-ylc-commons.php:417
+msgid "about %d hours"
+msgstr "alrededor de %d horas"
+
+#: includes/functions-ylc-commons.php:418
+msgid "a day"
+msgstr "un día"
+
+#: includes/functions-ylc-commons.php:419
+msgid "%d days"
+msgstr "%d días"
+
+#: includes/functions-ylc-commons.php:420
+msgid "about a month"
+msgstr "aproximadamente un mes"
+
+#: includes/functions-ylc-commons.php:421
+msgid "%d months"
+msgstr "%d meses"
+
+#: includes/functions-ylc-commons.php:422
+msgid "about a year"
+msgstr "alrededor de un año"
+
+#: includes/functions-ylc-commons.php:423
+msgid "%d years"
+msgstr "%d años"
+
+#: includes/functions-ylc-email-premium.php:86
+msgid "Chat conversation copy"
+msgstr "Copia de la conversación por chat"
+
+#: includes/functions-ylc-gdpr.php:32 includes/functions-ylc-gdpr.php:127
+#: includes/functions-ylc-gdpr.php:270
+msgid "Live Chat Offline Messages"
+msgstr "Mensajes fuera de línea del chat en vivo"
+
+#: includes/functions-ylc-gdpr.php:51 includes/functions-ylc-gdpr.php:243
+#: includes/functions-ylc-gdpr.php:289
+msgid "Live Chat Logs"
+msgstr "Accesos al chat en vivo"
+
+#: includes/functions-ylc-gdpr.php:86 includes/functions-ylc-gdpr.php:179
+#: templates/admin/ylc-chat-log-table.php:90
+#: templates/admin/ylc-offline-table.php:85
+msgid "Date"
+msgstr "Fecha"
+
+#: includes/functions-ylc-gdpr.php:88 includes/functions-ylc-gdpr.php:181
+#: templates/admin/ylc-chat-log-table.php:88
+#: templates/admin/ylc-offline-table.php:87
+#: templates/email/offline-message.php:62
+msgid "E-mail"
+msgstr "Correo electrónico"
+
+#: includes/functions-ylc-gdpr.php:89 templates/admin/ylc-offline-table.php:88
+#: templates/email/offline-message.php:69
+msgid "Message"
+msgstr "Mensaje"
+
+#: includes/functions-ylc-gdpr.php:90 templates/admin/ylc-offline-table.php:423
+msgid "User Info"
+msgstr "Información del usuario"
+
+#: includes/functions-ylc-gdpr.php:105 includes/functions-ylc-gdpr.php:182
+#: templates/admin/ylc-chat-log-table.php:89
+#: templates/admin/ylc-chat-log-table.php:370
+#: templates/admin/ylc-offline-table.php:426
+#: templates/chat-backend/chat-console.php:60 templates/email/chat-copy.php:71
+msgid "IP Address"
+msgstr "Dirección IP"
+
+#: includes/functions-ylc-gdpr.php:106
+#: templates/admin/ylc-offline-table.php:427
+msgid "OS"
+msgstr "SO"
+
+#: includes/functions-ylc-gdpr.php:107
+#: templates/admin/ylc-offline-table.php:428
+msgid "Browser"
+msgstr "Navegador"
+
+#: includes/functions-ylc-gdpr.php:108
+#: templates/admin/ylc-offline-table.php:429
+msgid "Page"
+msgstr "Página"
+
+#: includes/functions-ylc-gdpr.php:109
+#: templates/admin/ylc-offline-table.php:432
+msgid "GDPR Acceptance"
+msgstr "Aceptación de GDPR"
+
+#: includes/functions-ylc-gdpr.php:109 includes/functions-ylc-gdpr.php:204
+#: templates/admin/ylc-offline-table.php:432
+msgid "Yes"
+msgstr "Sí"
+
+#: includes/functions-ylc-gdpr.php:109 includes/functions-ylc-gdpr.php:204
+#: templates/admin/ylc-offline-table.php:432
+msgid "No"
+msgstr "No"
+
+#: includes/functions-ylc-gdpr.php:183
+#: templates/admin/ylc-chat-log-table.php:93
+msgid "Evaluation"
+msgstr "Evaluación"
+
+#: includes/functions-ylc-gdpr.php:184
+#: templates/admin/ylc-chat-log-table.php:92
+msgid "Chat duration"
+msgstr "Duración del chat"
+
+#: includes/functions-ylc-gdpr.php:185
+msgid "Request copy"
+msgstr "Pedir copia"
+
+#: includes/functions-ylc-gdpr.php:210
+#: templates/admin/ylc-chat-log-table.php:260
+#: templates/admin/ylc-chat-log-table.php:383
+#: templates/chat-frontend/chat-end-chat-premium.php:9
+msgid "Good"
+msgstr "Bueno"
+
+#: includes/functions-ylc-gdpr.php:213
+#: templates/admin/ylc-chat-log-table.php:264
+#: templates/admin/ylc-chat-log-table.php:387
+#: templates/chat-frontend/chat-end-chat-premium.php:13
+msgid "Bad"
+msgstr "Malo"
+
+#: plugin-options/display-options.php:16
+msgid "Show popup only in vendors' pages"
+msgstr "Mostrar ventana emergente sólo en páginas de vendedores"
+
+#: plugin-options/display-options.php:17
+msgid ""
+"Show the chat popup only in vendors' pages and hide it in entire shop pages "
+"(You must have enabled the premium version of YITH WooCommerce Multi Vendor)"
+msgstr ""
+"Mostrar la ventana emergente de chat sólo en las páginas de vendedores y "
+"ocultarlo en páginas de tiendas enteras (Debes tener habilitada la versión "
+"premium de YITH WooCommerce Multi Vendor)"
+
+#: plugin-options/display-options.php:29
+msgid "Display Settings"
+msgstr "Ajustes de visualización"
+
+#: plugin-options/display-options.php:41
+msgid "Hide on mobile devices"
+msgstr "Ocultar en dispositivos móviles"
+
+#: plugin-options/display-options.php:48
+msgid "Hide to non-logged users"
+msgstr "Ocultar a usuarios no registrados"
+
+#: plugin-options/display-options.php:55
+msgid "Hide when operators are offline"
+msgstr "Ocultar cuando los operadores están fuera de línea"
+
+#: plugin-options/display-options.php:62
+msgid "Show popup in all pages"
+msgstr "Mostrar ventana emergente en todas las páginas"
+
+#: plugin-options/display-options.php:69
+msgid "Show in home page"
+msgstr "Mostrar en la página de Inicio"
+
+#: plugin-options/display-options.php:80
+msgid "Show in blog pages"
+msgstr "Mostrar en las páginas de blog"
+
+#: plugin-options/display-options.php:91
+msgid "Show in shop & product pages"
+msgstr "Mostrar en las páginas de tienda y producto"
+
+#: plugin-options/display-options.php:102
+msgid "Pages selection"
+msgstr "Selección de páginas"
+
+#: plugin-options/display-options.php:103
+msgid "Select the pages where you want to show the chat popup"
+msgstr ""
+"Selecciona las páginas donde quieres mostrar la ventana emergente del chat"
+
+#: plugin-options/general-options.php:20
+msgid "Firebase App Secret"
+msgstr "Firebase App Secret"
+
+#: plugin-options/general-options.php:37
+msgid "General Settings"
+msgstr "Ajustes generales"
+
+#: plugin-options/general-options.php:49
+msgid "Enable Live Chat"
+msgstr "Activar Live Chat"
+
+#: plugin-options/general-options.php:50
+msgid "Activate/Deactivate the live chat features. "
+msgstr "Activar/Desactivar las características de chat en vivo. "
+
+#: plugin-options/general-options.php:56
+msgid "Firebase Project ID"
+msgstr "ID de Proyecto Firebase"
+
+#: plugin-options/general-options.php:57
+msgid ""
+"ID of your Firebase project. If you don't have one, get a free Firebase "
+"application here: "
+msgstr ""
+"ID de tu proyecto de Firebase. Si no tienes uno, obtén una aplicación "
+"gratuita a Firebase aquí: "
+
+#: plugin-options/general-options.php:69
+msgid "Firebase API Key"
+msgstr "Clave API de Firebase"
+
+#: plugin-options/general-options.php:70
+msgid "Paste here the API Key of your Firebase application"
+msgstr "Pega aquí la clave API para tu aplicación Firebase"
+
+#: plugin-options/general-options.php:80
+msgid "Firebase Private Key"
+msgstr "Clave privada de Firebase"
+
+#: plugin-options/general-options.php:81
+msgid "Paste here the Private Key of your Firebase application"
+msgstr "Pega aquí la clave privada de tu aplicación Firebase"
+
+#: plugin-options/general-options.php:91
+msgid "Firebase Database Rules"
+msgstr "Reglas de base de datos de Firebase"
+
+#: plugin-options/general-options.php:92
+msgid "Copy and paste in the Rules of your Firebase application"
+msgstr "Copia y pega en las Reglas de tu aplicación Firebase"
+
+#: plugin-options/offline-options.php:21
+msgid "Offline Messages Settings"
+msgstr "Ajustes de mensajes fuera de línea"
+
+#: plugin-options/offline-options.php:35
+#: plugin-options/transcript-options.php:47
+msgid "Sender's E-mail"
+msgstr "Correo electrónico del remitente"
+
+#: plugin-options/offline-options.php:36
+msgid ""
+"If not expressed, the system will use the default WordPress admin email."
+msgstr ""
+"Si no se indica, el sistema usará el correo electrónico de administrador de "
+"WordPress."
+
+#: plugin-options/offline-options.php:45
+msgid "Recipients' E-mail"
+msgstr "Correo electrónico de destinatario"
+
+#: plugin-options/offline-options.php:46
+#: plugin-options/transcript-options.php:84
+msgid ""
+"If not expressed, the system will use the default WordPress admin email. "
+"Separate email addresses with comma \",\""
+msgstr ""
+"Si no se define, el sistema usará por defecto el correo electrónico de "
+"adminstrador WordPress. Separa direcciones de email con comas \",\""
+
+#: plugin-options/offline-options.php:56
+msgid "Send Copy Of Message To Visitor"
+msgstr "Enviar copia del mensaje al visitante"
+
+#: plugin-options/offline-options.php:63
+#: plugin-options/transcript-options.php:61
+msgid "Message Body"
+msgstr "Cuerpo del mensaje"
+
+#: plugin-options/offline-options.php:64
+#: plugin-options/transcript-options.php:62
+msgid "(HTML tags are not allowed)"
+msgstr "(No se permiten etiquetas HTML)"
+
+#: plugin-options/offline-options.php:78
+msgid "Show the offline message form even when all the operators are busy"
+msgstr ""
+"Muestra el mensaje fuera de línea incluso cuando todos los operadores están "
+"ocupados"
+
+#: plugin-options/privacy-options.php:21
+msgid "Privacy Settings"
+msgstr "Ajustes de privacidad"
+
+#: plugin-options/privacy-options.php:33
+msgid "Enable GDPR Compliance for offline messages"
+msgstr "Activar cumplimiento GDPR para los mensajes fuera de línea"
+
+#: plugin-options/privacy-options.php:40 plugin-options/privacy-options.php:76
+msgid "Checkbox Label"
+msgstr "Etiqueta de casilla de verificación"
+
+#: plugin-options/privacy-options.php:54 plugin-options/privacy-options.php:90
+msgid "Checkbox Description"
+msgstr "Descripción de la casilla de verificación"
+
+#: plugin-options/privacy-options.php:56 plugin-options/privacy-options.php:92
+msgid ""
+"Wrap with { } the word(s) that will become the link to your privacy policy"
+msgstr ""
+"Envuelve con {} la(s) palabra(s) que se convertirán en el enlace a tu "
+"política de privacidad"
+
+#: plugin-options/privacy-options.php:69
+msgid "Enable GDPR Compliance for chat popup"
+msgstr "Activar cumplimiento GDPR para la ventana emergente del chat"
+
+#: plugin-options/privacy-options.php:105
+msgid "Privacy Page"
+msgstr "Página de privacidad"
+
+#: plugin-options/privacy-options.php:107
+msgid ""
+"If not expressed, the system will use the default WordPress privacy page."
+msgstr ""
+"Si no se expresa, el sistema usará la página de privacidad por defecto de "
+"WordPress."
+
+#: plugin-options/style-options.php:21
+msgid "Appearance Settings"
+msgstr "Ajustes de apariencia"
+
+#: plugin-options/style-options.php:33
+msgid "Main Color"
+msgstr "Color principal"
+
+#: plugin-options/style-options.php:34
+msgid ""
+"This color will be applied to Chat button, header and form buttons. Default"
+msgstr ""
+"Este color se aplicará al botón de chat y a los botones de encabezamiento y "
+"formulario. Predeterminado."
+
+#: plugin-options/style-options.php:40
+msgid "Chat Button Type"
+msgstr "Tipo de botón de chat"
+
+#: plugin-options/style-options.php:46
+msgid "Classic"
+msgstr "Clásico"
+
+#: plugin-options/style-options.php:47
+msgid "Round"
+msgstr "Redondo"
+
+#: plugin-options/style-options.php:51
+msgid "Chat Button Diameter"
+msgstr "Diámetro del botón de chat"
+
+#: plugin-options/style-options.php:52 plugin-options/style-options.php:67
+#: plugin-options/style-options.php:82 plugin-options/style-options.php:93
+#: plugin-options/style-options.php:104
+msgid "Default%s Min.%s Max.%s"
+msgstr "Predeterminado%s Mín.%s Máx.%s"
+
+#: plugin-options/style-options.php:66
+msgid "Chat Button Width"
+msgstr "Ancho del botón de chat"
+
+#: plugin-options/style-options.php:81
+msgid "Chat Conversation Width"
+msgstr "Ancho de la conversación por chat"
+
+#: plugin-options/style-options.php:92
+msgid "Form Width"
+msgstr "Ancho de Formulario"
+
+#: plugin-options/style-options.php:103
+msgid "Border Radius"
+msgstr "Radio del borde"
+
+#: plugin-options/style-options.php:114
+msgid "Chat Position"
+msgstr "Posición del chat"
+
+#: plugin-options/style-options.php:115 plugin-options/style-options.php:128
+#: plugin-options/user-options.php:64
+msgid "Default"
+msgstr "Predeterminado"
+
+#: plugin-options/style-options.php:120
+msgid "Top left corner"
+msgstr "Esquina superior izquierda"
+
+#: plugin-options/style-options.php:121
+msgid "Top right corner"
+msgstr "Esquina superior derecha"
+
+#: plugin-options/style-options.php:122
+msgid "Bottom left corner"
+msgstr "Esquina inferior izquierda"
+
+#: plugin-options/style-options.php:123
+msgid "Bottom right corner"
+msgstr "Esquina inferior derecha"
+
+#: plugin-options/style-options.php:127
+msgid "Chat Opening Animation"
+msgstr "Animación de apertura de Chat"
+
+#: plugin-options/style-options.php:133
+msgid "None"
+msgstr "Ninguno"
+
+#: plugin-options/style-options.php:134
+msgid "Bounce"
+msgstr "Rebotar"
+
+#: plugin-options/style-options.php:135
+msgid "Fade"
+msgstr "Desvanecer"
+
+#: plugin-options/style-options.php:139
+msgid "Autoplay Delay"
+msgstr "Retraso de Reproducción automática"
+
+#: plugin-options/style-options.php:140
+msgid ""
+"Seconds that have to pass before chat popup opens automatically. Set zero "
+"for no autoplay. Default"
+msgstr ""
+"Segundos que tienen que pasar antes de que la ventana emergente del chat se "
+"abra automáticamente. Establece cero para ninguna reproducción automática. "
+"Por defecto"
+
+#: plugin-options/style-options.php:150
+msgid "Custom CSS"
+msgstr "CSS personalizado"
+
+#: plugin-options/texts-options.php:21
+msgid "Message Settings"
+msgstr "Ajustes de mensaje"
+
+#: plugin-options/texts-options.php:33
+msgid "Chat Title"
+msgstr "Título del chat"
+
+#: plugin-options/texts-options.php:34
+msgid "This text will appear in the chat button and the chat title"
+msgstr "Este texto aparecerá en el botón de chat y en el título del chat"
+
+#: plugin-options/texts-options.php:44
+msgid "Welcome Message"
+msgstr "Mensaje de Bienvenida"
+
+#: plugin-options/texts-options.php:45
+msgid "This text will appear in the login form"
+msgstr "Este texto aparecerá en el formulario de inicio de sesión"
+
+#: plugin-options/texts-options.php:55
+msgid "Starting Chat Message"
+msgstr "Mensaje de Inicio de chat"
+
+#: plugin-options/texts-options.php:56
+msgid "This text will appear when the chat starts"
+msgstr "Este texto aparecerá cuando el chat comience"
+
+#: plugin-options/texts-options.php:66
+msgid "Closing Chat Message"
+msgstr "Mensaje de finalización del chat"
+
+#: plugin-options/texts-options.php:67
+msgid "This text will appear at the end of the chat"
+msgstr "Este texto aparecerá al final del chat"
+
+#: plugin-options/texts-options.php:77
+msgid "Offline Message"
+msgstr "Mensaje Fuera de línea"
+
+#: plugin-options/texts-options.php:78
+msgid "This text will appear if no operator is online"
+msgstr "Este texto aparecerá si no hay ningún operador en línea"
+
+#: plugin-options/texts-options.php:88
+msgid "Busy Message"
+msgstr "Mensaje de ocupado"
+
+#: plugin-options/texts-options.php:89
+msgid "This text will appear if all operators are busy"
+msgstr "Este texto aparecerá si todos los operadores están ocupados"
+
+#: plugin-options/transcript-options.php:21
+msgid "Conversation Settings"
+msgstr "Ajustes de conversación"
+
+#: plugin-options/transcript-options.php:33
+msgid "Enable Conversation Evaluation"
+msgstr "Habilitar evaluación de la conversación"
+
+#: plugin-options/transcript-options.php:34
+msgid "Allow visitors to evaluate the conversation"
+msgstr "Permitir a los visitantes evaluar la conversación"
+
+#: plugin-options/transcript-options.php:40
+msgid "Enable Conversation Copy Request"
+msgstr "Habilitar petición de copia de la conversación"
+
+#: plugin-options/transcript-options.php:41
+msgid "Allow visitors to require a copy of chat conversation"
+msgstr ""
+"Permitir que los visitantes pidan una copia de la conversación por chat"
+
+#: plugin-options/transcript-options.php:48
+msgid "If not expressed, the system will use the default WordPress email."
+msgstr ""
+"Si no se indica, el sistema usará por defecto el correo electrónico de "
+"WordPress."
+
+#: plugin-options/transcript-options.php:76
+msgid "Send A Copy To Administrators"
+msgstr "Enviar una copia a los administradores"
+
+#: plugin-options/transcript-options.php:83
+msgid "Administrator's Email Addresses"
+msgstr "Direcciones de correo electrónico de administradores"
+
+#: plugin-options/user-options.php:36
+msgid "Users Settings"
+msgstr "Ajustes de usuario"
+
+#: plugin-options/user-options.php:48
+msgid "Operator Default Role"
+msgstr "Rol predeterminado del operador"
+
+#: plugin-options/user-options.php:49
+msgid ""
+"In this way, operators will get the same competences of this role, but this "
+"won't transform the users with this role in operators."
+msgstr ""
+"De esta forma, los operadores tendrán las mismas competencias de este rol, "
+"pero esto no transformará a los usuarios con este rol en operadores."
+
+#: plugin-options/user-options.php:56
+msgid "Operator Default Avatar"
+msgstr "Avatar predeterminado del operador"
+
+#: plugin-options/user-options.php:57
+msgid ""
+"Operators will be able to customize their own avatar from their profile page."
+msgstr ""
+"Los operadores podrán personalizar su propio avatar desde su página de "
+"perfil."
+
+#: plugin-options/user-options.php:63
+msgid "Maximum Connected Guests"
+msgstr "Número máximo de invitados conectados"
+
+#: plugin-options/user-options.php:64
+msgid "If set to 0, there will be no limits"
+msgstr "Si se establece en 0, no habrá límites"
+
+#: plugin-options/user-options.php:74
+msgid "Chat Enabled Roles"
+msgstr "Roles de chat activados"
+
+#: plugin-options/user-options.php:75
+msgid "Select user roles that you want to enable as chat operators."
+msgstr ""
+"Selecciona los roles de usuario que quieres activar como operadores de chat."
+
+#: templates/admin/ylc-chat-log-table.php:80
+msgid "log"
+msgstr "registro"
+
+#: templates/admin/ylc-chat-log-table.php:81
+msgid "logs"
+msgstr "registros"
+
+#: templates/admin/ylc-chat-log-table.php:87
+msgid "User name"
+msgstr "Nombre de usuario"
+
+#: templates/admin/ylc-chat-log-table.php:91
+msgid "Total Messages"
+msgstr "Mensajes totales"
+
+#: templates/admin/ylc-chat-log-table.php:94
+msgid "Request Copy"
+msgstr "Solicitar copia"
+
+#: templates/admin/ylc-chat-log-table.php:99
+#: templates/admin/ylc-chat-log-table.php:237
+#: templates/admin/ylc-offline-table.php:93
+#: templates/admin/ylc-offline-table.php:272
+msgid "Delete"
+msgstr "Eliminar"
+
+#: templates/admin/ylc-chat-log-table.php:236
+msgid "View conversation"
+msgstr "Ver conversación"
+
+#: templates/admin/ylc-chat-log-table.php:248
+msgid "N/A"
+msgstr "N/A"
+
+#: templates/admin/ylc-chat-log-table.php:275
+msgid "Not Started"
+msgstr "No empezado"
+
+#: templates/admin/ylc-chat-log-table.php:284
+msgid "Sent"
+msgstr "Enviado"
+
+#: templates/admin/ylc-chat-log-table.php:286
+msgid "Not sent"
+msgstr "No enviado"
+
+#: templates/admin/ylc-chat-log-table.php:303
+#: templates/admin/ylc-offline-table.php:317
+msgid "Vendor"
+msgstr "Vendedor"
+
+#: templates/admin/ylc-chat-log-table.php:350
+msgid "%s conversation deleted successfully"
+msgid_plural "%s conversations deleted successfully"
+msgstr[0] "%s conversación eliminada con éxito"
+msgstr[1] "%s conversaciones eliminadas con éxito"
+
+#: templates/admin/ylc-chat-log-table.php:366
+msgid "User type"
+msgstr "Tipo de usuario"
+
+#: templates/admin/ylc-chat-log-table.php:374 templates/email/chat-copy.php:66
+msgid "User e-mail"
+msgstr "Correo electrónico del usuario"
+
+#: templates/admin/ylc-chat-log-table.php:378 templates/email/chat-copy.php:92
+msgid "Chat Evaluation"
+msgstr "Evaluación del chat"
+
+#: templates/admin/ylc-chat-log-table.php:396
+msgid "Return to chat logs"
+msgstr "Volver a los registros de chat"
+
+#: templates/admin/ylc-chat-log-table.php:412
+msgid "Chat Logs"
+msgstr "Registros de chat"
+
+#: templates/admin/ylc-chat-log-table.php:424
+msgid "Search Log"
+msgstr "Buscar registro"
+
+#: templates/admin/ylc-chat-log-table.php:450
+msgid "Conversations"
+msgstr "Conversaciones"
+
+#: templates/admin/ylc-offline-table.php:79
+msgid "message"
+msgstr "mensaje"
+
+#: templates/admin/ylc-offline-table.php:80
+msgid "messages"
+msgstr "mensajes"
+
+#: templates/admin/ylc-offline-table.php:84
+msgid "Read?"
+msgstr "¿Leído?"
+
+#: templates/admin/ylc-offline-table.php:94
+#: templates/admin/ylc-offline-table.php:270
+msgid "Mark as \"read\""
+msgstr "Marcar como \"leído\""
+
+#: templates/admin/ylc-offline-table.php:95
+#: templates/admin/ylc-offline-table.php:271
+msgid "Mark as \"unread\""
+msgstr "Marcar como \"no leído\""
+
+#: templates/admin/ylc-offline-table.php:182
+msgid "Unread"
+msgstr "No leído"
+
+#: templates/admin/ylc-offline-table.php:186
+msgid "Read"
+msgstr "Leído"
+
+#: templates/admin/ylc-offline-table.php:269
+msgid "View message"
+msgstr "Ver mensaje"
+
+#: templates/admin/ylc-offline-table.php:364
+msgid "%s message deleted successfully"
+msgid_plural "%s messages deleted successfully"
+msgstr[0] "%s mensaje eliminado con éxito"
+msgstr[1] "%s mensajes eliminados con éxito"
+
+#: templates/admin/ylc-offline-table.php:370
+msgid "%s message updated successfully"
+msgid_plural "%s messages updated successfully"
+msgstr[0] "%s mensaje actualizado con éxito"
+msgstr[1] "%s mensajes actualizados con éxito"
+
+#: templates/admin/ylc-offline-table.php:413
+msgid "Message Sender"
+msgstr "Remitente"
+
+#: templates/admin/ylc-offline-table.php:437
+msgid "Return to message list"
+msgstr "Volver a lista de mensajes"
+
+#: templates/admin/ylc-offline-table.php:446
+msgid "Search Message"
+msgstr "Buscar Mensaje"
+
+#: templates/chat-backend/chat-console.php:36
+#: templates/chat-frontend/chat-container.php:50
+msgid "Type here and hit enter to chat"
+msgstr "Escribe aquí y pulsa enter para chatear"
+
+#: templates/chat-backend/chat-console.php:50
+#: templates/chat-frontend/chat-container.php:44
+msgid "End chat"
+msgstr "Terminar chat"
+
+#: templates/chat-backend/chat-console.php:56 templates/email/chat-copy.php:61
+msgid "User Name"
+msgstr "Nombre de usuario"
+
+#: templates/chat-backend/chat-console.php:64
+msgid "User Email"
+msgstr "Correo electrónico del usuario"
+
+#: templates/chat-backend/chat-console.php:68
+msgid "Current Page"
+msgstr "Página actual"
+
+#: templates/chat-backend/chat-console.php:79
+msgid "Firebase offline or not available. Please wait..."
+msgstr "Firebase desconectado o no disponible. Por favor espera..."
+
+#: templates/chat-backend/console-save-btn-premium.php:3
+msgid "Save chat"
+msgstr "Guardar chat"
+
+#: templates/chat-backend/console-user-tools-premium.php:3
+msgid "Elapsed time"
+msgstr "Tiempo transcurrido"
+
+#: templates/chat-frontend/chat-container.php:81
+#: templates/chat-frontend/chat-offline-form-premium.php:3
+msgid "Your Name"
+msgstr "Tu nombre"
+
+#: templates/chat-frontend/chat-container.php:84
+#: templates/chat-frontend/chat-offline-form-premium.php:6
+msgid "Please enter your name"
+msgstr "Por favor introduce tu nombre"
+
+#: templates/chat-frontend/chat-container.php:88
+#: templates/chat-frontend/chat-offline-form-premium.php:10
+msgid "Your Email"
+msgstr "Tu correo electrónico"
+
+#: templates/chat-frontend/chat-container.php:91
+#: templates/chat-frontend/chat-offline-form-premium.php:13
+msgid "Please enter your email"
+msgstr "Por favor introduce tu correo electrónico"
+
+#: templates/chat-frontend/chat-container.php:123
+msgid "Start Chat"
+msgstr "Empieza a chatear"
+
+#: templates/chat-frontend/chat-end-chat-premium.php:4
+msgid "Was this conversation useful? Vote this chat session."
+msgstr "¿Ha sido útil esta conversación? Vota esta sesión de chat."
+
+#: templates/chat-frontend/chat-end-chat-premium.php:21
+#: templates/chat-frontend/chat-end-chat-premium.php:36
+msgid "Receive the copy of the chat via e-mail"
+msgstr "Recibir una copia del chat vía correo electrónico"
+
+#: templates/chat-frontend/chat-offline-form-premium.php:17
+msgid "Your Message"
+msgstr "Tu mensaje"
+
+#: templates/chat-frontend/chat-offline-form-premium.php:20
+msgid "Write your question"
+msgstr "Escribe tu pregunta"
+
+#: templates/chat-frontend/chat-offline-form-premium.php:49
+msgid "Send"
+msgstr "Envíar"
+
+#: templates/email/chat-copy.php:77
+msgid "Operator Name"
+msgstr "Nombre de Operador"
+
+#: templates/email/chat-copy.php:82
+msgid "Chat Duration"
+msgstr "Duración del chat"
+
+#: templates/email/chat-copy.php:87
+msgid "Chat closed by"
+msgstr "Chat cerrado por"
+
+#: templates/email/offline-message.php:76
+msgid "User information"
+msgstr "Información del usuario"
+
+#. Description of the plugin/theme
+msgid ""
+"<code><strong>YITH Live Chat Premium</strong></code>is the plugin that "
+"allows you to chat with your customers! <a href=\"https://yithemes.com/\" "
+"target=\"_blank\">Get more plugins for your e-commerce shop on <strong>YITH</"
+"strong></a>"
+msgstr ""
+"¡<code><strong>YITH Live Chat Premium</strong></code> es el plugin que te "
+"permite chatear con tus clientes! <a href=\"https://yithemes.com/\" target="
+"\"_blank\">Obtén más plugins para tu comercio electrónico en <strong>YITH</"
+"strong></a>"
+
+#: class.yith-livechat-premium.php:159
+msgctxt "enhanced select"
+msgid "One result is available, press enter to select it."
+msgstr "Un resultado disponible, presiona enter para seleccionarlo."
+
+#: class.yith-livechat-premium.php:160
+msgctxt "enhanced select"
+msgid "%qty% results are available, use up and down arrow keys to navigate."
+msgstr ""
+"Hay %qty% resultados disponibles, pulsa las flechas de dirección arriba y "
+"abajo para navegar."
+
+#: class.yith-livechat-premium.php:161
+msgctxt "enhanced select"
+msgid "No matches found"
+msgstr "No se han encontrado coincidencias"
+
+#: class.yith-livechat-premium.php:162
+msgctxt "enhanced select"
+msgid "Loading failed"
+msgstr "Carga fallida"
+
+#: class.yith-livechat-premium.php:163
+msgctxt "enhanced select"
+msgid "Please enter 1 or more characters"
+msgstr "Por favor, introduce 1 o más carácteres"
+
+#: class.yith-livechat-premium.php:164
+msgctxt "enhanced select"
+msgid "Please enter %qty% or more characters"
+msgstr "Por favor, introduce %qty% o más caracteres"
+
+#: class.yith-livechat-premium.php:165
+msgctxt "enhanced select"
+msgid "Please delete 1 character"
+msgstr "Por favor, elimina 1 carácter"
+
+#: class.yith-livechat-premium.php:166
+msgctxt "enhanced select"
+msgid "Please delete %qty% characters"
+msgstr "Por favor, elimina %qty% caracteres"
+
+#: class.yith-livechat-premium.php:167
+msgctxt "enhanced select"
+msgid "You can only select 1 item"
+msgstr "Puedes seleccionar solo 1 artículo"
+
+#: class.yith-livechat-premium.php:168
+msgctxt "enhanced select"
+msgid "You can only select %qty% items"
+msgstr "Sólo puedes seleccionar %qty% artículos"
+
+#: class.yith-livechat-premium.php:169
+msgctxt "enhanced select"
+msgid "Loading more results&hellip;"
+msgstr "Cargando más resultados&hellip;"
+
+#: class.yith-livechat-premium.php:170
+msgctxt "enhanced select"
+msgid "Searching&hellip;"
+msgstr "Buscando&hellip;"
+
+#: includes/class-ylc-macro.php:64
+msgctxt "Post Type General Name"
+msgid "Chat Macros"
+msgstr "Macros del chat"
+
+#: includes/class-ylc-macro.php:65
+msgctxt "Post Type Singular Name"
+msgid "Chat Macro"
+msgstr "Macro del chat"
+
+#: includes/class-ylc-privacy.php:18
+msgctxt "Privacy Policy Content"
+msgid "YITH WooCommerce Live Chat"
+msgstr "YITH WooCommerce Live Chat"
+
+#: includes/class-ylc-privacy.php:32 includes/class-ylc-privacy.php:64
+msgctxt "Privacy Policy Content"
+msgid ""
+"Note: the plugin uses Firebase Realtime Database to which a DPO has to be "
+"assigned."
+msgstr ""
+"Nota: el plugin usa Firebase Realtime Database a la cual se debe asignar un "
+"DPO."
+
+#: includes/class-ylc-privacy.php:33 includes/class-ylc-privacy.php:65
+msgctxt "Privacy Policy Content"
+msgid ""
+"Through the chat popup available on the website pages, users can get in "
+"touch with an operator or send an offline message."
+msgstr ""
+"A través de la ventana emergente de chat disponible en las páginas del "
+"sitio, los usuarios pueden ponerse en contacto con un operador o enviar un "
+"mensaje fuera de línea."
+
+#: includes/class-ylc-privacy.php:34 includes/class-ylc-privacy.php:66
+msgctxt "Privacy Policy Content"
+msgid ""
+"Whenever a chat conversation is started, the following data will be stored: "
+"username, email address and client IP address. They will be temporarily "
+"stored on Firebase (please, refer to %1$sFirebase Privacy Policy%2$s for "
+"more details)."
+msgstr ""
+"Cuando se inicia una conversación de chat, se almacenan los siguientes "
+"datos: nombre de usuario, dirección de correo electrónico y dirección IP del "
+"cliente. Se almacenarán temporalmente en Firebase (Por favor, consulta la "
+"Política de privacidad de%1$sFirebase%2$s para obtener más información)."
+
+#: includes/class-ylc-privacy.php:35
+msgctxt "Privacy Policy Content"
+msgid ""
+"When the chat session ends, the user will be asked to evaluate the support "
+"received. After that, their data will be removed from Firebase and will be "
+"stored on the local database for verification or other purposes related to "
+"the support given via chat."
+msgstr ""
+"Cuando finaliza la sesión de chat, se le pedirá al usuario que evalúe el "
+"soporte recibido. Después de eso, sus datos serán eliminados de Firebase y "
+"se almacenarán en la base de datos local para verificación u otros fines "
+"relacionados con el soporte brindado a través del chat."
+
+#: includes/class-ylc-privacy.php:37
+msgctxt "Privacy Policy Content"
+msgid ""
+"Whenever an offline message is sent through the dedicated offline form, the "
+"following data will be stored: username, email address, message sent, "
+"operating system, web browser, browser version, customer IP address, site "
+"page from which the message is sent and customer consent to the Privacy "
+"Policy."
+msgstr ""
+"Siempre que se envíe un mensaje fuera de línea a través del formulario "
+"dedicado, se almacenarán los siguientes datos: nombre de usuario, dirección "
+"de correo electrónico, mensaje enviado, sistema operativo, navegador web, "
+"versión del navegador, dirección IP del cliente, página del sitio desde "
+"donde se envía el mensaje y  el cliente da su consentimiento a la Política "
+"de privacidad."
+
+#: includes/class-ylc-privacy.php:38
+msgctxt "Privacy Policy Content"
+msgid ""
+"These data will be stored in the local database and will be used for support "
+"purposes or pre-sales support questions."
+msgstr ""
+"Estos datos se almacenarán en la base de datos local y se usarán para fines "
+"de soporte o preguntas de pre-venta."
+
+#: includes/class-ylc-privacy.php:48
+msgctxt "Privacy Policy Content"
+msgid ""
+"Members of our team have access to the information you provide us. For "
+"example, both Administrators and Chat Operators can access:"
+msgstr ""
+"Los miembros de nuestro equipo tienen acceso a la información que nos "
+"proporcionas. Por ejemplo, tanto los administradores como los gerentes de "
+"tienda pueden acceder a:"
+
+#: includes/class-ylc-privacy.php:49
+msgctxt "Privacy Policy Content"
+msgid "the list of offline messages"
+msgstr "la lista de los mensajes fuera de línea"
+
+#: includes/class-ylc-privacy.php:50
+msgctxt "Privacy Policy Content"
+msgid "the list of chat logs"
+msgstr "la lista de accesos al chat"
+
+#: includes/class-ylc-privacy.php:67
+msgctxt "Privacy Policy Content"
+msgid ""
+"When the chat session ends all will be removed from Firebase and will not be "
+"stored anywhere."
+msgstr ""
+"Cuando termine la sesión de chat, todo se eliminará de Firebase y no se "
+"almacenará en ningún lugar."

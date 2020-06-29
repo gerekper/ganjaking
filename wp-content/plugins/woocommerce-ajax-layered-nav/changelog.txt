@@ -1,0 +1,215 @@
+*** Ajax Layered Nav Changelog ***
+
+2020-06-10 - version 1.4.24
+* Fix - Hide color picker title if all color picker attributes are  hidden.
+* Tweak - WC 4.2 compatibility.
+
+2020-05-12 - version 1.4.23
+* Tweak - Fix redundant GET requests when fetching products.
+
+2020-04-29 - version 1.4.22
+* Tweak - WC 4.1 compatibility.
+
+2020-03-05 - version 1.4.21
+* Tweak  - WC tested up to 4.0
+
+2020-02-18 - version 1.4.20
+* Tweak - Remove legacy code.
+
+2020-01-13 - version 1.4.19
+* Fix - When using colorpicker, hex color field only allowed 3 characters.
+* Fix - When using colorpicker in customizer, colorpicker modal not showing.
+* Tweak  - WC tested up to 3.9
+
+2019-11-04 - version 1.4.18
+* Tweak  - WC tested up to 3.8
+
+2019-08-08 - version 1.4.17
+* Tweak  - WC tested up to 3.7
+
+2019-04-16 - version 1.4.16
+* Tweak  - WC tested up to 3.6
+
+2018-10-29 - version 1.4.15
+* Fix    - Clicking on single result gives blank page.
+
+2018-09-25 - version 1.4.14
+* Update - WC tested up to 3.5
+
+2018-05-22 - version 1.4.13
+* Update - WC tested up to 3.4
+
+2018-04-27 - version 1.4.12
+* Fix - Do not filter list for current taxonomy.
+
+2018-01-12 - version 1.4.11
+ * New - Adds a filter for the loading text and image.
+ * New - Adds support for WooCommerce Brands.
+ * Tweak - Applies code standards adjustments.
+ * Tweak - Adjusts the textdomain across the plugin to be woocmmerce-ajax-layered-nav.
+
+2017-05-22 - version 1.4.10
+* Fix - Filter widget not appearing in latest version.
+* Fix - When Shop page is the Front/Home page, domain name is duplicated.
+* Fix - When filtering by price the "Clear All" doesn't appear.
+
+2016-08-01 - version 1.4.9
+* Fix - tax query 
+
+2016-07-20 - version 1.4.8
+* Remove - call to WC_Query::get_main_tax_query
+* Add - call to self::get_main_tax_query
+
+2016-07-18 - version 1.4.7
+* Fix - show counts flag. 
+* Update - add hide filtered counts if zero flag. 
+
+2016-07-11 - version 1.4.6
+* Fix - update sql for get_filtered_term_product_counts(). 
+
+2016-07-06 - version 1.4.5
+* Fix - restore filtering on cats. 
+
+2016-06-30 - version 1.4.4
+* Fix - main_tax_query. 
+
+2016-06-21 - version 1.4.3
+* Restore filtering when on product cats and terms
+
+2016-05-18 - version 1.4.2
+* WC 2.6.0 - final 
+* correct date format in changelog
+
+2016-05-18 - version 1.4.1
+* WC 2.6.0 - fix display of clear all / filters widgets
+
+2016-05-18 - version 1.4.0
+* WC 2.6.0 compatibility
+* Hide empty filters labels that aren't set in admin
+
+2016-02-25 - version 1.3.17
+* Add dropdown as type to account for standard layered nav using jquery.change() instead of jquery.on('change',)
+* Add "Clear All" widget which resets all current ajax filters
+
+2015-12-02 - version 1.3.16
+* Fix conditional enqueuing for product cats
+
+2015-11-24 - version 1.3.15
+* Remove query_type from url
+* Decode filters
+
+2015-11-19 - version 1.3.14
+* Remove extraneous filter from querystring
+* Enqueue script only on product archive and product cats
+
+2015-10-29 - version 1.3.13
+* Patch issue with double sorting filters on shop page
+
+2015-09-22 - version 1.3.12
+* Change widget constructor
+
+2015-07-08 - version 1.3.11
+* Add WPML Filters
+
+2015-06-09 - version 1.3.10
+* Enhancement - Add css transition on img
+
+2015-04-21 - version 1.3.9
+* Fix - Potential XSS with add_query_arg
+
+2015-04-01 - version 1.3.8
+ * update wc_dependency to check for woocommerce/woocommerce.php array_key
+ 
+2014-07-03 - version 1.3.7
+ * jQuery trigger for aln_reloaded event
+ * add show count option to widget instance
+ * WC 2.2 compat check
+
+2014-07-03 - version 1.3.6
+ * fix / cleanup 
+
+2014-04-25 - version 1.3.5
+ * fix equals size in html 
+
+2014-04-14 - version 1.3.4
+ * jQuery Infinite Scroll Support
+
+2014-03-18 - version 1.3.3
+ * Double-check term count before display
+  
+2014-02-27 - version 1.3.2
+ * Re-add brands compatibility  
+ 
+2014-02-17 - version 1.3.1
+ * Remove browser.msie  
+ 
+2014-01-21 - version 1.3.0
+ * WC 2.1 Compat, scrolltop  
+ 
+2013-11-26 - version 1.2.9
+ * Change to ob_end_clean() if no attributes found 
+ 
+2013-11-22 - version 1.2.8
+ * single search result redirect
+ 
+2013-09-20 - version 1.2.7
+ * character length 45
+ 
+2013-07-10 - version 1.2.6
+ * Brands Compatibility
+ 
+2013-05-22 - version 1.2.5
+ * Triggers filters in jquery
+ 
+2013-04-02 - version 1.2.4
+ * Add register widget to is_woocommerce_active() function
+ 
+2013-03-25 - version 1.2.3
+ * Fix orderby filter.
+
+2012-03-17 - version 1.2.2
+ * check ids on ajax update
+
+2012-03-17 - version 1.2.1
+ * filters for ids, product container, classes; fix for sorting change in 2.0
+
+2012-02-01 - version 1.2.0
+ * 2.0 Compatibility; Add Ajax Layered Nav Filters Widget
+
+2012-12-06 - version 1.1.2
+ * Tweak priorities
+
+2012-12-04 - version 1.1.1
+ * New updater
+
+2012-11-18 - 1.1.0
+ * localization
+
+2012-07-20 - version 1.0.7
+ * Fix zip
+
+2012-07-20 - version 1.0.6
+ * Tweaked clearfix
+ * Added init function
+
+2012-04-18 - version 1.0.5
+ * update wc layered nav count transient
+
+2012-04-15 - version 1.0.4
+ * renamed ajax nonce in admin
+
+2012-03-28 - version 1.0.3
+ * Fully commented code, cleaned up code and removed commented out code
+ * Stripped CSS for broader theme compatibility
+ * Added html5.js - ensures more theme support and IE compatability
+
+2012-03-27 - version 1.0.2
+ * CSS bug fix, frontend layered nav color box
+ * Removed html5shiv.js
+ * Color pickers in admin instantiated on input focus instead of color picker click
+
+2012-03-22 - version 1.0.1
+ * Broader out-of-the-box theme support
+
+2012-03-21 - version 1.0
+ * First release

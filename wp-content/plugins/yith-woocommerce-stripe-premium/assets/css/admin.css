@@ -1,0 +1,131 @@
+.widefat .column-ban_status {
+    width: 45px;
+    text-align: center
+}
+
+.widefat .column-user_actions .action-link {
+    padding-left: 7px;
+}
+
+.widefat .column-user_actions .action-link mark,
+.widefat .column-ban_status mark{
+    display: block;
+    text-indent: -9999px;
+    position: relative;
+    height: 1em;
+    width: 1em;
+    background: 0 0;
+    font-size: 1.4em;
+    margin: 0 auto
+}
+
+.widefat .column-user_actions .action-link mark {
+    display: inline-block;
+}
+
+.widefat .column-user_actions {
+    width: 160px;
+}
+
+.widefat .column-user_actions a.button.pay {
+    padding: 0 6px;
+    height: 2em;
+    line-height: 1.8em;
+}
+
+.widefat .column-ban_status mark.cancelled:after,
+.widefat .column-ban_status mark.unbanned:after,
+.widefat .column-ban_status mark.unpaid:after,
+.widefat .column-ban_status mark.pending:after,
+.widefat .column-ban_status mark.refunded:after,
+.widefat .column-ban_status mark.processing:after {
+    font-family: WooCommerce;
+    speak: none;
+    font-weight: 400;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    text-indent: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center
+}
+
+.widefat .column-ban_status mark.pending:after {
+    content: "\e033";
+    color: #999
+}
+
+.widefat .column-ban_status mark.unbanned:after {
+    content: "\e015";
+    color: #2ea2cc
+}
+
+.widefat .column-ban_status mark.unpaid:after {
+    content: "\e012";
+    color: #ffba00
+}
+
+.widefat .column-ban_status mark.cancelled:after {
+    content: "\e013";
+    color: #a00
+}
+
+.widefat .column-ban_status mark.refunded:after {
+    content: "\e014";
+    color: #999
+}
+
+.widefat .column-ban_status mark.processing:after {
+    content: "\e011";
+    color: #73a724;
+}
+
+.widefat .column-user_actions .action-link mark {
+    opacity: 0.5;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.widefat .column-user_actions .action-link mark:hover {
+    opacity: 1;
+}
+
+.user_actions .complete, .user_actions .processing, .user_actions .view {
+    display: block;
+    text-indent: -9999px;
+    position: relative;
+    padding: 0!important;
+    height: 2em!important;
+    width: 2em;
+}
+
+.user_actions .complete:after {
+    font-weight: 400;
+    text-align: center;
+    margin: 0;
+    font-family: WooCommerce;
+    speak: none;
+    font-variant: normal;
+    text-transform: none;
+    -webkit-font-smoothing: antialiased;
+    top: 0;
+    left: 0;
+    line-height: 1.85;
+}
+
+.user_actions .complete:after {
+    text-indent: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.user_actions .complete:after {
+    content: "\e017";
+}

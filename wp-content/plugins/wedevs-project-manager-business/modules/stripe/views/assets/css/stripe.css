@@ -1,0 +1,96 @@
+.pm-payment-instruction .pm-stripe-button {
+  font-size: 12px;
+  font-weight: bold;
+  margin-left: 5%;
+  text-decoration: none;
+}
+.ui-widget-overlay {
+  position: fixed !important;
+  height: 100% !important;
+}
+#pm-stripe-thickbox {
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+}
+#pm-stripe-thickbox input {
+  width: 39%;
+}
+#pm-stripe-thickbox .pm-stripe-spinner {
+  background: url('../images/loading.gif') no-repeat scroll right;
+  height: 16px;
+  padding-right: 6%;
+  display: inline-block;
+  margin-left: 31%;
+  margin-top: 4%;
+}
+#pm-stripe-thickbox .tb-close-icon {
+  margin: 8px -3px 0 0;
+}
+#pm-stripe-thickbox a {
+  background-color: #E6E6E6;
+  border: 1px solid #D2D2D2;
+  border-radius: 3px;
+  box-shadow: 0 1px 2px rgba(64, 64, 64, 0.1);
+  color: #7C7C7C;
+  font-weight: normal;
+  line-height: 1.42857;
+  padding: 0.428571rem 0.714286rem;
+  text-decoration: none;
+  position: absolute;
+  margin-top: 10px;
+}
+#pm-stripe-thickbox .pm-payment-errors {
+  text-align: center;
+}
+#pm-stripe-thickbox .pm-payment-errors p {
+  background: #F2DEDE;
+  color: #B94A48;
+  margin: 5px 5px 5px 30%;
+  padding: 7px;
+  width: 39%;
+}
+#pm-stripe-thickbox .pm-payment-success {
+  text-align: center;
+}
+#pm-stripe-thickbox .pm-payment-success p {
+  background: #DFF0D8;
+  color: #468847;
+  margin: 5px 5px 5px 30%;
+  padding: 7px;
+  width: 39%;
+}
+.pm-card {
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+.pm-card .stripe-row label,
+.pm-card .stripe-row input,
+.pm-card .stripe-row slect {
+  float: left;
+}
+.pm-card .stripe-row label {
+  width: 30%;
+}
+.pm-card .stripe-row label span {
+  color: red;
+}
+.pm-card .stripe-row input {
+  margin-bottom: 2%;
+}
+.pm-card .pm-clear {
+  clear: both;
+}
+.cpm-ui-dialog {
+  font-size: 13px;
+  border: none !important;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+  padding: 10px 15px 10px 15px !important;
+}
+.cpm-ui-dialog .ui-widget-header {
+  background: #fff;
+  border: none;
+  font-size: 16px;
+}
+.cpm-ui-dialog .ui-resizable-handle {
+  display: none !important;
+}

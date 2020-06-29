@@ -1,0 +1,859 @@
+# Copyright (C) 2018 YITH Paypal Adaptive Payments for WooCommerce Premium
+# This file is distributed under the same license as the YITH Paypal Adaptive Payments for WooCommerce Premium package.
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH Paypal Adaptive Payments for WooCommerce Premium "
+"1.0.13\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/init\n"
+"POT-Creation-Date: 2018-10-25 12:32+0200\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2018-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: Poedit 1.8.12\n"
+
+#: class.yith-paypal-adaptive-payments.php:216
+msgid "Gateway Settings"
+msgstr ""
+
+#: class.yith-paypal-adaptive-payments.php:217
+#: plugin-options/general-settings-options.php:9
+msgid "Receiver Settings"
+msgstr ""
+
+#: class.yith-paypal-adaptive-payments.php:218
+msgid "Account & Privacy"
+msgstr ""
+
+#: class.yith-paypal-adaptive-payments.php:219
+#: plugin-options/cron-settings-options.php:9
+msgid "Cron Settings"
+msgstr ""
+
+#: class.yith-paypal-adaptive-payments.php:220
+#: plugin-options/receiver-endpoint-settings-options.php:9
+msgid "Endpoint Settings"
+msgstr ""
+
+#: class.yith-paypal-adaptive-payments.php:227
+msgctxt "Plugin name in admin page title"
+msgid "PayPal Adaptive Payments"
+msgstr ""
+
+#: class.yith-paypal-adaptive-payments.php:380
+msgid "YITH PayPal Adaptive Payments for WooCommerce Cron"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:53
+#: includes/class.yith-padp-privacy.php:74
+#: includes/class.yith-paypal-adaptive-payments-admin.php:113
+msgid "PayPal Adaptive Payments"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:54
+msgid "You can use PayPal for parallel or chained payments"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:56
+msgid "Pay with PayPal"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:117
+msgid "Enable/Disable"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:119
+msgid "Enable adaptive payments"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:123
+msgid "Title"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:125
+msgid "This controls the title that users see during checkout."
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:126
+msgctxt "Selectable payment method in checkout"
+msgid "PayPal Adaptive Payments"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:129
+msgid "Description"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:131
+msgid "This controls the description that users see during checkout."
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:132
+msgid ""
+"Pay with PayPal; if you don't have a PayPal account, you can pay using your "
+"credit card."
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:136
+msgid "API Settings"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:140
+msgid "PayPal API username"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:142
+msgid "Enter a valid PayPal application username"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:146
+msgid "PayPal API password"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:148
+msgid "Enter a valid PayPal application password"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:152
+msgid " PayPal API signature"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:154
+msgid "Enter a valid PayPal application signature"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:161
+msgid "You can find your API Signature in"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:163
+msgid "Sandbox Account"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:164
+msgid "if you use a sandbox account or in "
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:166
+msgid "PayPal Account"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:167
+msgid "if you use an real business account"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:171
+msgid "Application ID"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:173
+msgid "Enter a valid application ID"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:179
+msgid ""
+"If you need an AppID for development and testing purposes please use this "
+"test APPId"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:182
+msgid "Alternatively, you can find your real APP ID within your"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:184
+msgid "PayPal Apps"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:188
+msgid "Payment Settings"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:205
+msgid "Payment Method"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:207
+msgid "Parallel Payments"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:207
+msgid "Chained Payments"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:210
+msgid "Select a payment method"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:211
+msgid "Parallel method, payment from a sender is split among 2 to 6 receivers"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:212
+msgid ""
+"Chained method, payment from a sender is indirectly split among 1 to 9 "
+"secondary receivers"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:213
+msgid "To learn more about Parallel and Chained Payments, please,"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:215
+msgid "visit this page"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:220
+msgid "Delay"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:226
+msgid ""
+"Set a delay (days) for the payments; enter 0 for instant payments (this "
+"works only with chained\n"
+"                    payments - max value 90 )"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:231
+msgid "Primary Receiver"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:233
+msgid "Enter a valid PayPal email address"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:236
+msgid "Invoice Prefix"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:238
+msgid ""
+"Please enter a prefix for your invoice numbers. If you use your PayPal "
+"account for multiple stores,\n"
+"                    ensure this prefix is unique as PayPal will not allow "
+"orders with the same invoice number."
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:245
+msgid "Enable/Disable Sandbox mode"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:247
+msgid "Enable PayPal sandbox"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:249
+msgid ""
+"PayPal sandbox can be used to test payments. Sign up for a developer account "
+"<a href=\"%s\">here</a>."
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:252
+msgid "Debug Settings"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:256
+msgid "Debugging mode"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:257
+msgid "Enable debugging mode"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:335
+msgid ""
+"An error has occurred while processing your payment, please try again. Or "
+"contact us for assistance."
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:371
+msgid "The following error appeared"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:758
+msgid "Payment has been cancelled by IPN"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:762
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:1095
+msgid ""
+"The payment request was received; funds will be transferred once the payment "
+"is approved"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:765
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:828
+msgid "The payment was successful"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:777
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:1107
+#: integrations/class.yith-multivendor-integration.php:491
+msgid "Some transfers succeeded and some failed for a parallel payment"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:782
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:1110
+msgid ""
+"The payment failed and all attempted transfers failed or all completed "
+"transfers were successfully reversed"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:785
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:1113
+#: integrations/class.yith-multivendor-integration.php:500
+msgid "One or more transfers failed when attempting to reverse a payment"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:788
+msgid "The payment is in progress"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:791
+msgid "The payment is awaiting processing"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:824
+msgid ""
+"There is a delayed chained payment for this order, secondary receivers have "
+"not been paid"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:1102
+msgid "All receivers have been paid"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:1237
+msgid "API Username"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:1240
+msgid "API Password"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:1244
+msgid "API SIGNATURE"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:1248
+msgid "APPLICATION ID"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:1252
+msgid "Primary Receiver Email"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:1259
+msgid "The follow option is empty"
+msgid_plural "The follow options are empty"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:1261
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:1272
+msgid "YITH PayPal Adaptive Payments for WooCommerce is disabled"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:1273
+msgctxt ""
+"As in the sentence \"PayPal doesn't support your currency, see here for a "
+"complete list of supported currencies\""
+msgid "PayPal doesn't support your currency"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:1276
+msgctxt ""
+"PayPal doesn't support your currency, see here for a complete list of "
+"supported currencies"
+msgid "see here"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:1278
+msgctxt ""
+"As in the sentence \"PayPal doesn't support your currency, see here for a "
+"complete list of supported currencies\""
+msgid "for a complete supported currency list"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:1299
+msgid "PayPal Acceptance Mark"
+msgstr ""
+
+#: includes/class.wc-gateway-yith-paypal-adaptive-payments.php:1302
+msgid "What is PayPal?"
+msgstr ""
+
+#: includes/class.yith-padp-privacy.php:41
+#: includes/class.yith-padp-privacy.php:162
+msgid "User commission data"
+msgstr ""
+
+#: includes/class.yith-padp-privacy.php:48
+msgid "User data in Adaptive Payment"
+msgstr ""
+
+#: includes/class.yith-padp-privacy.php:106
+msgid "Commission ID"
+msgstr ""
+
+#: includes/class.yith-padp-privacy.php:107
+msgid "Order Number"
+msgstr ""
+
+#: includes/class.yith-padp-privacy.php:108
+msgid "User ID"
+msgstr ""
+
+#: includes/class.yith-padp-privacy.php:109
+msgid "Transaction ID"
+msgstr ""
+
+#: includes/class.yith-padp-privacy.php:110
+msgid "Transaction status"
+msgstr ""
+
+#: includes/class.yith-padp-privacy.php:111
+msgid "Transaction value"
+msgstr ""
+
+#: includes/class.yith-padp-privacy.php:112
+msgid "Transaction date"
+msgstr ""
+
+#: includes/class.yith-padp-privacy.php:132
+msgid "User Commissions Data (Adaptive Payment)"
+msgstr ""
+
+#: includes/class.yith-padp-privacy.php:172
+msgid "User info data"
+msgstr ""
+
+#: includes/class.yith-padp-privacy.php:212
+msgctxt "[GDPR Message]"
+msgid "Removed User information From Adaptive Payment Commissions"
+msgstr ""
+
+#: includes/class.yith-padp-privacy.php:245
+msgid "PayPal email removed"
+msgstr ""
+
+#: includes/class.yith-padp-privacy.php:263
+msgid ""
+"We collect information about you during the registration and checkout "
+"process on our store."
+msgstr ""
+
+#: includes/class.yith-padp-privacy.php:264
+msgid "While you visit our site, we’ll track:"
+msgstr ""
+
+#: includes/class.yith-padp-privacy.php:266
+msgid ""
+"User information: we will use these data to allows them to sell products on "
+"this website in exchange of a commission fee on each sale."
+msgstr ""
+
+#: includes/class.yith-padp-privacy.php:267
+msgid ""
+"The information required are the following: paypal email and commission rate"
+msgstr ""
+
+#: includes/class.yith-padp-privacy.php:272
+msgid ""
+"Members of our team have access to the information you provide us. For "
+"example, both Administrators and Shop Managers can access:"
+msgstr ""
+
+#: includes/class.yith-padp-privacy.php:274
+msgid "User information"
+msgstr ""
+
+#: includes/class.yith-padp-privacy.php:275
+msgid "Data concerning commissions earned by the user"
+msgstr ""
+
+#: includes/class.yith-padp-privacy.php:276
+msgid "Data about payments"
+msgstr ""
+
+#: includes/class.yith-padp-privacy.php:278
+msgid ""
+"Our team members have access to this information to help fulfill orders, "
+"process orders and support you."
+msgstr ""
+
+#: includes/class.yith-padp-privacy.php:282
+msgid ""
+"We send payments to vendors through PayPal. When processing payments, some "
+"of your data will be passed to PayPal, including information required to "
+"process or support the payment, such as the purchase total and billing "
+"information."
+msgstr ""
+
+#: includes/class.yith-padp-privacy.php:283
+msgid ""
+"Please see the <a href=\"https://www.paypal.com/us/webapps/mpp/ua/privacy-"
+"full\">PayPal Privacy Policy</a> for more details."
+msgstr ""
+
+#: includes/class.yith-padp-privacy.php:287
+msgid ""
+"We share information with third parties who help us provide our orders and "
+"store services to you."
+msgstr ""
+
+#: includes/class.yith-paypal-adaptive-payments-admin.php:161
+msgid "PayPal Adaptive Payments info"
+msgstr ""
+
+#: includes/class.yith-paypal-adaptive-payments-admin.php:164
+#: templates/admin/paypal-adaptive-payments-product-data.php:23
+#: templates/admin/types/receivers-list.php:15
+msgid "Email"
+msgstr ""
+
+#: includes/class.yith-paypal-adaptive-payments-admin.php:167
+msgid "Insert the email address you want to associate to your PayPal account"
+msgstr ""
+
+#: includes/class.yith-paypal-adaptive-payments-admin.php:206
+msgid "Pay Secondary Receivers"
+msgstr ""
+
+#: includes/class.yith-paypal-adaptive-payments-admin.php:242
+msgid ""
+"Customize My Account Page is activated, you can change the YITH PayPal "
+"Adaptive Payments Endpoint here"
+msgstr ""
+
+#: includes/class.yith-paypal-adaptive-payments-receivers.php:51
+msgid "Your commissions"
+msgstr ""
+
+#: includes/functions.yith-padp-functions.php:17
+msgid "Order"
+msgstr ""
+
+#: includes/functions.yith-padp-functions.php:18
+#: templates/admin/paypal-adaptive-payments-product-data.php:24
+#: templates/admin/types/receivers-list.php:16
+msgid "Commission"
+msgstr ""
+
+#: includes/functions.yith-padp-functions.php:19
+msgid "Commission Status"
+msgstr ""
+
+#: includes/functions.yith-padp-functions.php:20
+msgid "Date"
+msgstr ""
+
+#: init.php:44
+msgid ""
+"YITH PayPal Adaptive Payments Premium for WooCommerce is enabled but not "
+"effective. It requires WooCommerce in order to work."
+msgstr ""
+
+#: integrations/class.yith-multivendor-integration.php:341
+msgid "Commission was paid successfully"
+msgstr ""
+
+#: integrations/class.yith-multivendor-integration.php:345
+msgid "Commission is awaiting further processing"
+msgstr ""
+
+#: integrations/class.yith-multivendor-integration.php:349
+msgid ""
+"Commission payment request was received; funds will be transferred once "
+"approval is received"
+msgstr ""
+
+#: integrations/class.yith-multivendor-integration.php:353
+msgid "Commission transaction was rejected by the receiver"
+msgstr ""
+
+#: integrations/class.yith-multivendor-integration.php:357
+msgid "Commission transaction is in progress"
+msgstr ""
+
+#: integrations/class.yith-multivendor-integration.php:362
+msgid "Commission payment failed"
+msgstr ""
+
+#: integrations/class.yith-multivendor-integration.php:483
+msgid "Commission paid successfully"
+msgstr ""
+
+#: integrations/class.yith-multivendor-integration.php:487
+msgid ""
+"Commission payment request received; funds will be transferred once approval "
+"is received"
+msgstr ""
+
+#: integrations/class.yith-multivendor-integration.php:495
+msgid ""
+"The payment failed and all attempted transfers failed, or all completed "
+"transfers were successfully\n"
+"                            reversed"
+msgstr ""
+
+#: integrations/class.yith-multivendor-integration.php:643
+msgid "Filter vendor list to fix"
+msgstr ""
+
+#: integrations/class.yith-multivendor-integration.php:645
+msgid "Go to vendor list to fix"
+msgstr ""
+
+#: integrations/class.yith-multivendor-integration.php:655
+msgctxt "PayPal email for vendor is empty"
+msgid "Some vendor PayPal email address is empty."
+msgstr ""
+
+#: integrations/class.yith-multivendor-integration.php:658
+msgid "YITH PayPal Adaptive Payments for WooCommerce is active"
+msgstr ""
+
+#: integrations/class.yith-multivendor-integration.php:703
+msgid "Adaptive Payments"
+msgstr ""
+
+#: integrations/class.yith-multivendor-integration.php:728
+msgid "Choose the PayPal service to pay the commissions to vendors."
+msgstr ""
+
+#: integrations/class.yith-multivendor-integration.php:774
+msgid "You can configure  PayPal Adaptive Payments gateway"
+msgstr ""
+
+#: integrations/class.yith-multivendor-integration.php:774
+msgid "here"
+msgstr ""
+
+#: plugin-options/cron-settings-options.php:14
+msgid "Unit of measurement"
+msgstr ""
+
+#: plugin-options/cron-settings-options.php:19
+msgid "Minutes"
+msgstr ""
+
+#: plugin-options/cron-settings-options.php:20
+msgid "Hours"
+msgstr ""
+
+#: plugin-options/cron-settings-options.php:21
+msgid "Days"
+msgstr ""
+
+#: plugin-options/cron-settings-options.php:26
+msgid "Cron frequency"
+msgstr ""
+
+#: plugin-options/cron-settings-options.php:31
+msgid ""
+"Please, check whether your incomplete orders are ready to be paid (only for "
+"delayed chained payments)."
+msgstr ""
+
+#: plugin-options/general-settings-options.php:14
+msgid "Add Receiver"
+msgstr ""
+
+#: plugin-options/privacy-settings-options.php:20
+msgid "Personal Data Exporter"
+msgstr ""
+
+#: plugin-options/privacy-settings-options.php:25
+msgid "Export user's commission"
+msgstr ""
+
+#: plugin-options/privacy-settings-options.php:28
+msgid "Export Commissions"
+msgstr ""
+
+#: plugin-options/privacy-settings-options.php:29
+msgid ""
+"When handling an <a href=\"%s\">account personal data export request</a>, "
+"should include commissions ?"
+msgstr ""
+
+#: plugin-options/privacy-settings-options.php:42
+msgid "Personal Data Eraser"
+msgstr ""
+
+#: plugin-options/privacy-settings-options.php:47
+msgid "User data"
+msgstr ""
+
+#: plugin-options/privacy-settings-options.php:50
+msgid "Remove user data info"
+msgstr ""
+
+#: plugin-options/privacy-settings-options.php:51
+msgid ""
+"When handling an <a href=\"%s\">account erasure request</a>, should user "
+"paypal email be retained or removed?"
+msgstr ""
+
+#: plugin-options/privacy-settings-options.php:56
+msgid "Commissions"
+msgstr ""
+
+#: plugin-options/privacy-settings-options.php:59
+msgid "Remove user id in customer's commissions"
+msgstr ""
+
+#: plugin-options/privacy-settings-options.php:60
+msgid ""
+"When handling an <a href=\"%s\">account erasure request</a>, should user id "
+"within commissions be retained or removed?"
+msgstr ""
+
+#: plugin-options/receiver-endpoint-settings-options.php:14
+msgid "Receiver Endpoint"
+msgstr ""
+
+#: plugin-options/receiver-endpoint-settings-options.php:18
+msgid "It will display all your receivers' commissions"
+msgstr ""
+
+#: templates/admin/paypal-adaptive-payments-product-data.php:10
+msgctxt ""
+"As in the sentence \"Email: enter a valid email address associated to PayPal"
+"\""
+msgid "Email"
+msgstr ""
+
+#: templates/admin/paypal-adaptive-payments-product-data.php:12
+msgctxt ""
+"As in the sentence \"Email: enter a valid email address associated\n"
+"                         to PayPal\""
+msgid ""
+"enter a valid email address associated\n"
+"                         to PayPal"
+msgstr ""
+
+#: templates/admin/paypal-adaptive-payments-product-data.php:15
+#: templates/admin/types/receivers-list.php:11
+msgctxt "As in the sentence \"Commission: enter a percent value\""
+msgid "Commission"
+msgstr ""
+
+#: templates/admin/paypal-adaptive-payments-product-data.php:16
+#: templates/admin/types/receivers-list.php:12
+msgctxt "As in the sentence \"Commission: enter a percent value\""
+msgid "enter a percent value"
+msgstr ""
+
+#: templates/admin/paypal-adaptive-payments-product-data.php:18
+msgctxt "Split payments after x sales"
+msgid "Split After"
+msgstr ""
+
+#: templates/admin/paypal-adaptive-payments-product-data.php:19
+msgctxt ""
+"As in the sentence: \"Split After: split the payments after n product sales\""
+msgid "split the payments after x product sales"
+msgstr ""
+
+#: templates/admin/paypal-adaptive-payments-product-data.php:30
+msgid "Add Receivers"
+msgstr ""
+
+#: templates/admin/paypal-adaptive-payments-product-data.php:31
+#: templates/admin/types/receivers-list.php:22
+msgid "Add"
+msgstr ""
+
+#: templates/admin/paypal-adaptive-payments-product-data.php:37
+#: templates/admin/types/receivers-list.php:30
+msgid "Receiver"
+msgstr ""
+
+#: templates/admin/paypal-adaptive-payments-product-data.php:53
+#: templates/admin/paypal-adaptive-payments-product-data.php:90
+#: templates/admin/types/receivers-list.php:44
+#: templates/admin/types/receivers-list.php:78
+msgid "Search for users"
+msgstr ""
+
+#: templates/admin/paypal-adaptive-payments-product-data.php:63
+#: templates/admin/paypal-adaptive-payments-product-data.php:96
+msgid "Email address"
+msgstr ""
+
+#: templates/admin/paypal-adaptive-payments-product-data.php:66
+#: templates/admin/paypal-adaptive-payments-product-data.php:98
+msgid "Split after"
+msgstr ""
+
+#: templates/admin/paypal-adaptive-payments-product-data.php:67
+#: templates/admin/paypal-adaptive-payments-product-data.php:99
+#: templates/admin/types/receivers-list.php:58
+#: templates/admin/types/receivers-list.php:88
+msgid "Delete"
+msgstr ""
+
+#: templates/admin/paypal-adaptive-payments-product-data.php:77
+#: templates/admin/types/receivers-list.php:92
+msgid "Attention!"
+msgstr ""
+
+#: templates/admin/paypal-adaptive-payments-product-data.php:78
+#: templates/admin/types/receivers-list.php:93
+msgid "The sum of commission percent values should not exceed 100%"
+msgstr ""
+
+#: templates/admin/settings-tab.php:21
+msgid "Save changes"
+msgstr ""
+
+#: templates/admin/types/receivers-list.php:7
+msgctxt ""
+"As in the sentence \"Email: a valid email address associated to PayPal\""
+msgid "Email"
+msgstr ""
+
+#: templates/admin/types/receivers-list.php:9
+msgctxt ""
+"As in the sentence \"Email: enter a valid email address associated to\n"
+"                        PayPal"
+msgid "enter a valid email address associated to PayPal"
+msgstr ""
+
+#: templates/admin/types/receivers-list.php:54
+#: templates/admin/types/receivers-list.php:85
+msgid "Enter a valid email address"
+msgstr ""
+
+#: templates/view-user-commission.php:71
+msgid "Go Shopping"
+msgstr ""
+
+#: templates/view-user-commission.php:73
+msgid "No commissions found."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "YITH Paypal Adaptive Payments for WooCommerce Premium"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"With <strong><code>YITH PayPal Adaptive Payments for WooCommerce Premium</"
+"code></strong>, you can manage payments between a sender and one or more "
+"receivers, thanks to paypal adaptive payment service. You can set a "
+"commission for each receiver, so to split the payments during the checkout "
+"process! <a href =\"https://yithemes.com\">Get more plugins for your e-"
+"commerce shop on <strong>YITH</strong></a>"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "YITH"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://yithemes.com/"
+msgstr ""

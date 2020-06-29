@@ -1,0 +1,62 @@
+<wpml-config>
+    <admin-texts>
+        <key name="ywraq_checkout_quote_button_label"/>
+        <key name="ywraq_show_btn_link_text"/>
+        <key name="ywraq_show_already_in_quote"/>
+        <key name="ywraq_message_after_sent_the_request"/>
+        <key name="ywraq_show_browse_list"/>
+        <key name="ywraq_show_product_added"/>
+        <key name="ywraq_message_to_view_details"/>
+        <key name="ywraq_additional_text_field_label"/>
+        <key name="ywraq_additional_text_field_label_2"/>
+        <key name="ywraq_additional_text_field_label_3"/>
+        <key name="ywraq_additional_upload_field_label"/>
+        <key name="ywraq_accept_link_label"/>
+        <key name="ywraq_reject_link_label"/>
+        <key name="ywraq_pdf_footer_content"/>
+        <key name="ywraq_pdf_info"/>
+        <key name="ywraq_return_to_shop_label"/>
+        <key name="ywraq_page_id"/>
+        <key name="ywraq_page_accepted"/>
+        <key name="ywraq_return_to_shop_url"/>
+        <key name="ywraq_update_list_label"/>
+        <key name="woocommerce_ywraq_email_settings">
+            <key name="subject"/>
+            <key name="heading"/>
+            <key name="email-title"/>
+            <key name="email-description"/>
+            <key name="email_from_name"/>
+        </key>
+        <key name="woocommerce_ywraq_send_quote_settings">
+            <key name="subject"/>
+            <key name="heading"/>
+            <key name="email-title"/>
+            <key name="email-description"/>
+        </key>
+        <key name="woocommerce_ywraq_email_customer_settings">
+            <key name="subject"/>
+            <key name="heading"/>
+            <key name="email-description"/>
+        </key>
+        <key name="woocommerce_ywraq_send_quote_reminder_settings">
+            <key name="subject"/>
+            <key name="heading"/>
+            <key name="email-title"/>
+            <key name="email-description"/>
+        </key>
+        <key name="woocommerce_ywraq_quote_status">
+            <key name="subject"/>
+            <key name="heading"/>
+            <key name="email-title"/>
+            <key name="email-description"/>
+        </key>
+        <key name="ywraq_fields_form_options">
+            <key name="*">
+                <key name="label"/>
+                <key name="options"/>
+                <key name="description"/>
+            </key>
+        </key>
+        <key name="ywraq_thank_you_page"/>
+    </admin-texts>
+</wpml-config>

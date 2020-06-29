@@ -1,0 +1,250 @@
+.post-type-yith_refund_request table.wp-list-table .column-status {
+    width: 20px;
+}
+
+.post-type-yith_refund_request table.wp-list-table .column-title,
+.post-type-yith_refund_request table.wp-list-table .column-customer {
+    width: 15%;
+}
+
+.post-type-yith_refund_request table.wp-list-table .column-order {
+    width: 8%;
+}
+
+.ywcars_trash_status_icon:before {
+    content: "\f182";
+    font-family: Dashicons;
+    font-size: 20px;
+    vertical-align: text-top;
+    margin: 1px 3px;
+}
+
+div.ywcars_action_list_element {
+    border-bottom: solid 1px #e6e6e6;
+}
+
+div.ywcars_action_list_element:last-child {
+    border: none;
+}
+
+#ywcars-items-metabox .handlediv, #ywcars-items-metabox .hndle, #ywcars-messages-metabox .handlediv, #ywcars-messages-metabox .hndle {
+    display: none;
+}
+
+.post-type-yith_refund_request #post-body-content, .post-type-yith_refund_request #titlediv {
+    display: none;
+}
+
+#poststuff #ywcars-info-metabox .inside, #poststuff #ywcars-manage-refund-requests .inside {
+    margin: 0;
+    padding: 0;
+}
+
+#poststuff #ywcars-manage-refund-requests .inside ul.order_actions li {
+    padding: 6px 10px;
+    box-sizing: border-box;
+}
+
+#ywcars-manage-refund-requests .inside .wide .ywcars_request_actions_icons,
+.wp-list-table .ywcars-requests .ywcars_request_actions_icons {
+    vertical-align: text-top;
+    margin: 1px 5px;
+    width: 18px;
+}
+
+.wp-list-table .ywcars-requests .ywcars_request_actions_icons.ywcars_trash_status_icon {
+    margin: 1px;
+}
+
+table.ywcars_actions_list_table {
+    display: inline-table;
+    vertical-align: sub;
+    width: 70%;
+}
+
+table.ywcars_actions_list_table a {
+    text-decoration: none;
+}
+
+.order_actions li#ywcars-actions select {
+    width: 225px;
+    box-sizing: border-box;
+    float: left;
+}
+
+.order_actions li#ywcars-actions .button {
+    width: 24px;
+    box-sizing: border-box;
+    float: right;
+}
+
+.order_line_items .item .name .ywcars_link {
+    margin-left: 10px;
+}
+
+#ywcars_new_message {
+    width: 100%;
+}
+
+.ywcars_message {
+    background-color: #f1f1f1;
+    margin-bottom: 10px;
+    border-color: darkgrey;
+    border-width: 1px;
+    border-style: solid;
+    padding: 10px;
+    width: auto;
+}
+
+.ywcars_block {
+    margin-top: 30px;
+}
+
+select.ywcars_select {
+    width: 225px;
+    box-sizing: border-box;
+    float: left;
+}
+
+a.ywcars_update_messages:before {
+    content: "\f463";
+    font-family: dashicons;
+    cursor: pointer;
+}
+
+.ywcars_messages_history_block {
+    width: 50%;
+    display: inline-block;
+    vertical-align: top;
+    margin: 20px;
+}
+
+.ywcars_messages_history_frame {
+    padding: 30px;
+    border: solid darkgrey 1px;
+    overflow-y: auto;
+    max-height: 400px;
+}
+
+.ywcars_new_message_block {
+    width: 40%;
+    display: inline-block;
+    vertical-align: top;
+    margin: 20px;
+}
+
+@media ( max-width: 1400px ) {
+    .ywcars_messages_history_block {
+        width: auto;
+        display: block;
+        vertical-align: top;
+        margin: 20px;
+    }
+    .ywcars_new_message_block {
+        width: auto;
+        display: block;
+        vertical-align: top;
+        margin: 20px;
+    }
+}
+
+#ywcars-items-metabox h2 {
+    font-size: 21px;
+}
+
+#ywcars-items-metabox .ywcars_before_items_table {
+    padding: 12px;
+}
+
+#ywcars-items-metabox .inside .ywcars_items_table {
+    margin: 20px 0;
+}
+
+.ywcars_items_table thead tr th {
+    text-align: left;
+    padding: 1em;
+    font-weight: bold;
+    color: #999;
+    background: #f8f8f8;
+}
+
+.ywcars_items_table tbody tr td, .ywcars_items_table tfoot tr td {
+    text-align: left;
+    padding: 1em;
+}
+
+.ywcars_items_table thead tr th.ywcars_items_table_totals {
+    background: #e6e4e4;
+}
+
+.ywcars_items_table thead tr th.ywcars_items_table_totals.ywcars_items_table_refund, .ywcars_items_table tfoot tr td.ywcars_items_table_totals.ywcars_items_table_refund {
+    background: #a2a2a2;
+    color: #fcfcfc;
+}
+
+.ywcars_items_table tbody tr td.ywcars_items_table_totals {
+    background: #f0f0f0;
+    text-align: right;
+}
+
+.ywcars_items_table tfoot tr td.ywcars_items_table_totals {
+    background: #c7c7c7;
+    font-weight: bold;
+    text-align: right;
+}
+
+.ywcars_items_table tbody tr.ywcars_items_table_highlight_single {
+    background: #F5EBF3;
+}
+
+.ywcars_items_table tbody tr td.ywcars_items_table_refund {
+    background: #d1d1d1;
+}
+
+.ywcars_items_table tbody tr.ywcars_items_table_highlight_single td.ywcars_items_table_totals.ywcars_items_table_refund {
+    background: #b9aebd;
+}
+
+.ywcars_items_table tbody tr.ywcars_items_table_highlight_single td.ywcars_items_table_totals {
+    background: #d5c9d9;
+}
+
+.ywcars_after_items_table_block {
+    line-height: 30px;
+}
+
+div.ywcars_items_info div.ywcars_after_items_table button.button {
+    margin-bottom: 10px;
+}
+
+#post-body .ywcars-request-status:before {
+    content: "\f227";
+}
+
+#post-body .ywcars-request-customer:before {
+    content: "\f110";
+}
+
+#post-body .ywcars-request-date:before {
+    content: "\f469";
+}
+
+#post-body .ywcars-misc-pub-icons:before {
+    font: normal 20px/1 dashicons;
+    speak: none;
+    display: inline-block;
+    margin-left: -1px;
+    padding-right: 3px;
+    vertical-align: top;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.wp-core-ui .ywcars-refuse-button {
+    color: #f0f0f0;
+    border-color: #890000;
+    background: #ec0000;
+    -webkit-box-shadow: 0 1px 0 #cccccc;
+    box-shadow: 0 1px 0 #898989;
+    vertical-align: top;
+}

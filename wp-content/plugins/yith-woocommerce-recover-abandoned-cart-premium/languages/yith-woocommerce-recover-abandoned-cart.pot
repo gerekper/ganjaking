@@ -1,0 +1,1077 @@
+# Copyright (C) 2020 YITH
+# This file is distributed under the same license as the YITH WooCommerce Recover Abandoned Cart Premium package.
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH WooCommerce Recover Abandoned Cart Premium 1.4.4\n"
+"Report-Msgid-Bugs-To: "
+"https://wordpress.org/support/plugin/yith-woocommerce-recover-abandoned-"
+"cart.premium\n"
+"POT-Creation-Date: 2020-05-26 12:32:43+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: grunt-wp-i18n 1.0.3\n"
+
+#: includes/admin/class-wp-carts-list-table.php:29
+msgid "Info"
+msgstr ""
+
+#: includes/admin/class-wp-carts-list-table.php:30
+#: includes/admin/class-wp-email-log-list-table.php:28
+msgid "Email"
+msgstr ""
+
+#: includes/admin/class-wp-carts-list-table.php:31
+#: includes/class.yith-wc-abandoned-cart-privacy.php:198
+msgid "Phone"
+msgstr ""
+
+#: includes/admin/class-wp-carts-list-table.php:32
+msgid "Subtotal"
+msgstr ""
+
+#: includes/admin/class-wp-carts-list-table.php:33
+#: includes/admin/class-wp-emails-list-table.php:33
+msgid "Status"
+msgstr ""
+
+#: includes/admin/class-wp-carts-list-table.php:34
+#: includes/admin/class-wp-pending-orders-list-table.php:31
+msgid "Last email sent"
+msgstr ""
+
+#: includes/admin/class-wp-carts-list-table.php:35
+msgid "Last update"
+msgstr ""
+
+#: includes/admin/class-wp-carts-list-table.php:36
+#: includes/admin/class-wp-pending-orders-list-table.php:32
+msgid "Action"
+msgstr ""
+
+#: includes/admin/class-wp-carts-list-table.php:172
+#: includes/admin/class-wp-pending-orders-list-table.php:185
+#: includes/admin/class-yith-wc-abandoned-cart-metaboxes.php:161
+msgid "Not sent"
+msgstr ""
+
+#: includes/admin/class-wp-carts-list-table.php:219
+#: includes/admin/class-wp-email-log-list-table.php:126
+#: includes/admin/class-wp-emails-list-table.php:179
+#: includes/admin/class-wp-emails-list-table.php:204
+msgid "Delete"
+msgstr ""
+
+#: includes/admin/class-wp-carts-list-table.php:247
+msgid "View"
+msgstr ""
+
+#: includes/admin/class-wp-carts-list-table.php:262
+#: includes/admin/class-wp-pending-orders-list-table.php:218
+#: plugin-options/metabox/ywrac_email_metabox_test.php:29
+#: templates/admin/metabox_cart_action.php:27
+msgid "Send email"
+msgstr ""
+
+#: includes/admin/class-wp-carts-list-table.php:264
+#: includes/admin/class-wp-pending-orders-list-table.php:220
+msgid "Add a new email template"
+msgstr ""
+
+#: includes/admin/class-wp-carts-list-table.php:293
+#: includes/admin/class-wp-pending-orders-list-table.php:250
+msgid "Search"
+msgstr ""
+
+#: includes/admin/class-wp-carts-list-table.php:340
+#: includes/admin/class-wp-carts-list-table.php:368
+#: includes/admin/class-wp-pending-orders-list-table.php:296
+#: includes/admin/class-wp-pending-orders-list-table.php:324
+msgid "Show All Customers"
+msgstr ""
+
+#: includes/admin/class-wp-carts-list-table.php:342
+#: includes/admin/class-wp-carts-list-table.php:378
+#: includes/admin/class-wp-pending-orders-list-table.php:298
+#: includes/admin/class-wp-pending-orders-list-table.php:334
+msgid "Filter"
+msgstr ""
+
+#: includes/admin/class-wp-carts-list-table.php:353
+#: includes/admin/class-wp-pending-orders-list-table.php:309
+#. translators: 1: user display name 2: user ID 3: user email
+msgid "%1$s (#%2$s &ndash; %3$s)"
+msgstr ""
+
+#: includes/admin/class-wp-email-log-list-table.php:29
+msgid "Template"
+msgstr ""
+
+#: includes/admin/class-wp-email-log-list-table.php:30
+msgid "Abandoned Cart ID"
+msgstr ""
+
+#: includes/admin/class-wp-email-log-list-table.php:31
+#: includes/admin/class-wp-pending-orders-list-table.php:29
+#: includes/admin/class-wp-recovered-list-table.php:31
+msgid "Date"
+msgstr ""
+
+#: includes/admin/class-wp-email-log-list-table.php:172
+msgid "Search Email"
+msgstr ""
+
+#: includes/admin/class-wp-emails-list-table.php:28
+msgid "Name"
+msgstr ""
+
+#: includes/admin/class-wp-emails-list-table.php:29
+msgid "Send after"
+msgstr ""
+
+#: includes/admin/class-wp-emails-list-table.php:30
+msgid "Subject"
+msgstr ""
+
+#: includes/admin/class-wp-emails-list-table.php:31
+msgid "Message"
+msgstr ""
+
+#: includes/admin/class-wp-emails-list-table.php:32
+#: plugin-options/metabox/ywrac_email_metabox_stat.php:53
+msgid "Conversion Rate"
+msgstr ""
+
+#: includes/admin/class-wp-emails-list-table.php:177
+msgid "Activate"
+msgstr ""
+
+#: includes/admin/class-wp-emails-list-table.php:178
+msgid "Deactivate"
+msgstr ""
+
+#: includes/admin/class-wp-emails-list-table.php:203
+msgid "Edit"
+msgstr ""
+
+#: includes/admin/class-wp-pending-orders-list-table.php:27
+#: includes/admin/class-wp-recovered-list-table.php:27
+msgid "Order"
+msgstr ""
+
+#: includes/admin/class-wp-pending-orders-list-table.php:28
+#: includes/admin/class-wp-recovered-list-table.php:28
+msgid "Purchased"
+msgstr ""
+
+#: includes/admin/class-wp-pending-orders-list-table.php:30
+#: includes/admin/class-wp-recovered-list-table.php:32
+#: templates/admin/metabox_cart_content.php:27 templates/cart_content.php:19
+#: templates/pending-order-content.php:19
+msgid "Total"
+msgstr ""
+
+#: includes/admin/class-wp-pending-orders-list-table.php:112
+#: includes/admin/class-wp-recovered-list-table.php:95
+msgid "Billing:"
+msgstr ""
+
+#: includes/admin/class-wp-pending-orders-list-table.php:116
+#: includes/admin/class-wp-recovered-list-table.php:99
+msgid "Tel:"
+msgstr ""
+
+#: includes/admin/class-wp-pending-orders-list-table.php:141
+#: includes/admin/class-wp-recovered-list-table.php:124
+msgid "Guest"
+msgstr ""
+
+#: includes/admin/class-wp-pending-orders-list-table.php:154
+#: includes/admin/class-wp-recovered-list-table.php:137
+msgid "%d item"
+msgid_plural "%d items"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/admin/class-wp-pending-orders-list-table.php:159
+#: includes/admin/class-wp-recovered-list-table.php:162
+msgid "Unpublished"
+msgstr ""
+
+#: includes/admin/class-wp-pending-orders-list-table.php:161
+#: includes/admin/class-wp-recovered-list-table.php:164
+msgid "Y/m/d g:i:s A"
+msgstr ""
+
+#: includes/admin/class-wp-pending-orders-list-table.php:162
+#: includes/admin/class-wp-recovered-list-table.php:165
+msgid "Y/m/d"
+msgstr ""
+
+#: includes/admin/class-wp-pending-orders-list-table.php:179
+#: includes/admin/class-wp-recovered-list-table.php:180
+msgid "Via"
+msgstr ""
+
+#: includes/admin/class-wp-recovered-list-table.php:29
+msgid "Type"
+msgstr ""
+
+#: includes/admin/class-wp-recovered-list-table.php:30
+#: includes/class-yith-wc-abandoned-cart-admin.php:279
+#: plugin-options/metabox/ywrac_email_metabox_coupon.php:16
+msgid "Coupons"
+msgstr ""
+
+#: includes/admin/class-wp-recovered-list-table.php:142
+msgid "abandoned cart"
+msgstr ""
+
+#: includes/admin/class-wp-recovered-list-table.php:142
+msgid "pending order"
+msgstr ""
+
+#: includes/admin/class-yith-wc-abandoned-cart-metaboxes.php:68
+msgid "Cart Info"
+msgstr ""
+
+#: includes/admin/class-yith-wc-abandoned-cart-metaboxes.php:110
+#: includes/admin/tinymce/tinymce-plugin-langs.php:18
+msgid "Cart Content"
+msgstr ""
+
+#: includes/admin/class-yith-wc-abandoned-cart-metaboxes.php:145
+msgid "Cart Action"
+msgstr ""
+
+#: includes/admin/class-yith-wc-abandoned-cart-metaboxes.php:186
+msgid "Return to Abandoned Cart List"
+msgstr ""
+
+#: includes/admin/tinymce/tinymce-plugin-langs.php:14
+msgid "User First Name"
+msgstr ""
+
+#: includes/admin/tinymce/tinymce-plugin-langs.php:15
+msgid "User Last Name"
+msgstr ""
+
+#: includes/admin/tinymce/tinymce-plugin-langs.php:16
+msgid "Full Name"
+msgstr ""
+
+#: includes/admin/tinymce/tinymce-plugin-langs.php:17
+msgid "User Email"
+msgstr ""
+
+#: includes/admin/tinymce/tinymce-plugin-langs.php:19
+msgid "Cart Link"
+msgstr ""
+
+#: includes/admin/tinymce/tinymce-plugin-langs.php:20
+msgid "Recover Cart"
+msgstr ""
+
+#: includes/admin/tinymce/tinymce-plugin-langs.php:21
+msgid "Unsubscribe Link"
+msgstr ""
+
+#: includes/admin/tinymce/tinymce-plugin-langs.php:22
+msgid "To unsubscribe from this mail click here"
+msgstr ""
+
+#: includes/admin/tinymce/tinymce-plugin-langs.php:23
+msgid "Coupon"
+msgstr ""
+
+#: includes/class-yith-wc-abandoned-cart-admin.php:225
+msgid "Email "
+msgstr ""
+
+#: includes/class-yith-wc-abandoned-cart-admin.php:226
+msgid "Email Sent!"
+msgstr ""
+
+#: includes/class-yith-wc-abandoned-cart-admin.php:229
+msgid "Are you sure you want to reset the reports?"
+msgstr ""
+
+#: includes/class-yith-wc-abandoned-cart-admin.php:274
+msgid "Dashboard"
+msgstr ""
+
+#: includes/class-yith-wc-abandoned-cart-admin.php:275
+#: plugin-options/metabox/ywrac_email_metabox.php:16
+msgid "Settings"
+msgstr ""
+
+#: includes/class-yith-wc-abandoned-cart-admin.php:276
+#: includes/class-yith-wc-abandoned-cart.php:217
+#: templates/admin/carts-tab.php:2
+msgid "Carts"
+msgstr ""
+
+#: includes/class-yith-wc-abandoned-cart-admin.php:277
+#: plugin-options/general-options.php:51
+#: plugin-options/metabox/ywrac_email_metabox.php:33
+#: templates/admin/pending_orders-tab.php:2
+msgid "Pending Orders"
+msgstr ""
+
+#: includes/class-yith-wc-abandoned-cart-admin.php:278
+#: includes/class-yith-wc-abandoned-cart-email.php:109
+#: templates/admin/emails-tab.php:2
+msgid "Email Templates"
+msgstr ""
+
+#: includes/class-yith-wc-abandoned-cart-admin.php:280
+#: plugin-options/metabox/ywrac_email_metabox_stat.php:47
+#: templates/admin/recovered-tab.php:2 templates/admin/reports-tab.php:50
+msgid "Recovered Carts"
+msgstr ""
+
+#: includes/class-yith-wc-abandoned-cart-admin.php:281
+#: templates/admin/mailslog-tab.php:2
+msgid "Email Logs"
+msgstr ""
+
+#: includes/class-yith-wc-abandoned-cart-admin.php:559
+msgid "Reset"
+msgstr ""
+
+#: includes/class-yith-wc-abandoned-cart-admin.php:772
+msgid "Unpaid order cancelled - time limit reached."
+msgstr ""
+
+#: includes/class-yith-wc-abandoned-cart-email.php:96
+#: templates/admin/metabox_cart_info_content.php:59
+msgid "Email Template"
+msgstr ""
+
+#: includes/class-yith-wc-abandoned-cart-email.php:97
+#: includes/class-yith-wc-abandoned-cart.php:204
+msgid "Parent Item:"
+msgstr ""
+
+#: includes/class-yith-wc-abandoned-cart-email.php:98
+msgid "All Email Templates"
+msgstr ""
+
+#: includes/class-yith-wc-abandoned-cart-email.php:99
+msgid "View Email Templates"
+msgstr ""
+
+#: includes/class-yith-wc-abandoned-cart-email.php:100
+#: includes/class-yith-wc-abandoned-cart-email.php:101
+msgid "Add New Email Template"
+msgstr ""
+
+#: includes/class-yith-wc-abandoned-cart-email.php:102
+msgid "Edit Email Template"
+msgstr ""
+
+#: includes/class-yith-wc-abandoned-cart-email.php:103
+msgid "Update Email Template"
+msgstr ""
+
+#: includes/class-yith-wc-abandoned-cart-email.php:104
+msgid "Search Email Template"
+msgstr ""
+
+#: includes/class-yith-wc-abandoned-cart-email.php:105
+#: includes/class-yith-wc-abandoned-cart.php:212
+msgid "Not found"
+msgstr ""
+
+#: includes/class-yith-wc-abandoned-cart-email.php:106
+#: includes/class-yith-wc-abandoned-cart.php:213
+msgid "Not found in Trash"
+msgstr ""
+
+#: includes/class-yith-wc-abandoned-cart-email.php:163
+msgid "Return to Email Template List"
+msgstr ""
+
+#: includes/class-yith-wc-abandoned-cart-helper.php:84
+msgid "YITH WooCommerce Recover Abandoned Cart Cron"
+msgstr ""
+
+#: includes/class-yith-wc-abandoned-cart-unsubscribe.php:88
+msgid "The unsubscribe page cannot be deleted"
+msgstr ""
+
+#: includes/class-yith-wc-abandoned-cart-unsubscribe.php:212
+#: templates/ywrac-unsubscribe.php:39
+msgid "Return To Home Page"
+msgstr ""
+
+#: includes/class-yith-wc-abandoned-cart.php:203
+#: plugin-options/metabox/ywrac_email_metabox.php:32
+msgid "Abandoned Cart"
+msgstr ""
+
+#: includes/class-yith-wc-abandoned-cart.php:205
+msgid "All Abandoned Carts"
+msgstr ""
+
+#: includes/class-yith-wc-abandoned-cart.php:206
+msgid "View Abandoned Carts"
+msgstr ""
+
+#: includes/class-yith-wc-abandoned-cart.php:207
+#: includes/class-yith-wc-abandoned-cart.php:208
+msgid "Add New Abandoned Cart"
+msgstr ""
+
+#: includes/class-yith-wc-abandoned-cart.php:209
+msgid "Edit Abandoned Cart"
+msgstr ""
+
+#: includes/class-yith-wc-abandoned-cart.php:210
+msgid "Update Abandoned Cart"
+msgstr ""
+
+#: includes/class-yith-wc-abandoned-cart.php:211
+msgid "Search Abandoned Cart"
+msgstr ""
+
+#: includes/class-yith-wc-abandoned-cart.php:1045
+msgid "The cart you're trying to recover has expired."
+msgstr ""
+
+#: includes/class-yith-wc-abandoned-cart.php:1248
+msgid "Please provide a valid email address."
+msgstr ""
+
+#: includes/class-yith-wc-abandoned-cart.php:1250
+msgid "Please retype the email address as provided."
+msgstr ""
+
+#: includes/class-yith-wc-abandoned-cart.php:1271
+msgid "You have successfully unsubscribed from this mailing list"
+msgstr ""
+
+#: includes/class.yith-wc-abandoned-cart-privacy-dpa.php:35
+msgid "While you visit our site, we'll track:"
+msgstr ""
+
+#: includes/class.yith-wc-abandoned-cart-privacy-dpa.php:37
+msgid ""
+"Products added to cart: these will be used to send you marketing messages "
+"and invite you to complete the order."
+msgstr ""
+
+#: includes/class.yith-wc-abandoned-cart-privacy-dpa.php:38
+msgid ""
+"Name, Last name, Email and Phone number: data used with the purpose to "
+"contact you."
+msgstr ""
+
+#: includes/class.yith-wc-abandoned-cart-privacy-dpa.php:40
+msgid ""
+"We'll also use cookies to keep track of your cart ID while you're browsing "
+"our site."
+msgstr ""
+
+#: includes/class.yith-wc-abandoned-cart-privacy-dpa.php:41
+msgid ""
+"Note: you may want to provide further details about your cookie policy and "
+"add a link to that section from here."
+msgstr ""
+
+#: includes/class.yith-wc-abandoned-cart-privacy-dpa.php:44
+msgid ""
+"Members of our team have access to the information you provide. For "
+"example, both Administrators and Shop Managers."
+msgstr ""
+
+#: includes/class.yith-wc-abandoned-cart-privacy-dpa.php:45
+msgid ""
+"Our team members have access to this information to help you fulfill orders "
+"and provide support."
+msgstr ""
+
+#: includes/class.yith-wc-abandoned-cart-privacy.php:62
+#: includes/class.yith-wc-abandoned-cart-privacy.php:79
+msgid "Customer Abandoned Cart"
+msgstr ""
+
+#: includes/class.yith-wc-abandoned-cart-privacy.php:113
+msgid "Recover Abandoned Cart"
+msgstr ""
+
+#: includes/class.yith-wc-abandoned-cart-privacy.php:163
+#. Translators: %s Order number.
+msgid "Removed abandoned cart %s."
+msgstr ""
+
+#: includes/class.yith-wc-abandoned-cart-privacy.php:167
+#. Translators: %s Order number.
+msgid "Personal data within subscription %s has been retained."
+msgstr ""
+
+#: includes/class.yith-wc-abandoned-cart-privacy.php:192
+msgid "Cart Id"
+msgstr ""
+
+#: includes/class.yith-wc-abandoned-cart-privacy.php:193
+msgid "Cart Creation Date"
+msgstr ""
+
+#: includes/class.yith-wc-abandoned-cart-privacy.php:194
+#: templates/admin/metabox_cart_content.php:190
+msgid "Cart Total"
+msgstr ""
+
+#: includes/class.yith-wc-abandoned-cart-privacy.php:195
+msgid "First Name"
+msgstr ""
+
+#: includes/class.yith-wc-abandoned-cart-privacy.php:196
+msgid "Last Name"
+msgstr ""
+
+#: includes/class.yith-wc-abandoned-cart-privacy.php:197
+msgid "Email Address"
+msgstr ""
+
+#: includes/emails/class.yith-wc-abandoned-cart-email-recovered-cart.php:30
+msgid "Recovered Abandoned Cart Administrator"
+msgstr ""
+
+#: includes/emails/class.yith-wc-abandoned-cart-email-recovered-cart.php:31
+msgid ""
+"This is the email sent to the administrator when an order is submitted from "
+"a recover cart"
+msgstr ""
+
+#: includes/emails/class.yith-wc-abandoned-cart-email.php:30
+msgid "Recover Abandoned Cart Email"
+msgstr ""
+
+#: includes/functions.yith-wc-abandoned-cart.php:159
+msgid "All"
+msgstr ""
+
+#: plugin-options/coupon-options.php:8
+msgid "Coupon Settings"
+msgstr ""
+
+#: plugin-options/coupon-options.php:15
+msgid "Coupon Prefix"
+msgstr ""
+
+#: plugin-options/coupon-options.php:16
+msgid "Add a 3-character prefix ina a coupon code"
+msgstr ""
+
+#: plugin-options/coupon-options.php:23
+msgid "Delete the coupon once used"
+msgstr ""
+
+#: plugin-options/coupon-options.php:31
+msgid "Delete expired coupons"
+msgstr ""
+
+#: plugin-options/general-options.php:8
+msgid "General settings"
+msgstr ""
+
+#: plugin-options/general-options.php:14
+msgid "Enable Recover Abandoned Cart"
+msgstr ""
+
+#: plugin-options/general-options.php:22
+msgid "Enable Recover Abandoned Cart to Shop Manager"
+msgstr ""
+
+#: plugin-options/general-options.php:30
+msgid "Cut-off time for abandoned carts"
+msgstr ""
+
+#: plugin-options/general-options.php:31
+msgid "Minutes that have to pass to consider a cart abandoned"
+msgstr ""
+
+#: plugin-options/general-options.php:38
+msgid "Delete Abandoned Cart after:"
+msgstr ""
+
+#: plugin-options/general-options.php:39
+msgid ""
+"Hours that have to pass to delete an abandoned cart. Leave zero to never "
+"delete a cart"
+msgstr ""
+
+#: plugin-options/general-options.php:57
+msgid "Enable Recover Pending Orders"
+msgstr ""
+
+#: plugin-options/general-options.php:65
+msgid "Delete Pending Orders after:"
+msgstr ""
+
+#: plugin-options/general-options.php:66
+msgid ""
+"Hours that have to pass to delete an pending orders. Leave zero to never "
+"delete a pending order"
+msgstr ""
+
+#: plugin-options/general-options.php:78
+msgid "User Settings"
+msgstr ""
+
+#: plugin-options/general-options.php:84
+msgid "Enable Guests"
+msgstr ""
+
+#: plugin-options/general-options.php:85
+msgid ""
+"Guests' abandoned carts will be saved only if they write their emails in "
+"the checkout page."
+msgstr ""
+
+#: plugin-options/general-options.php:90
+msgid "Never."
+msgstr ""
+
+#: plugin-options/general-options.php:91
+msgid "Always."
+msgstr ""
+
+#: plugin-options/general-options.php:92
+msgid "Only if \"Recover Abandoned Term and Condition\" is checked."
+msgstr ""
+
+#: plugin-options/general-options.php:98
+msgid "Text of Recover Abandoned Cart Privacy"
+msgstr ""
+
+#: plugin-options/general-options.php:99
+msgid "The email address will only be caught if this box is checked."
+msgstr ""
+
+#: plugin-options/general-options.php:108
+msgid ""
+"If you check this box, you are giving us permission to save some of your "
+"details into a contact list. You may receive email messages containing "
+"information of commercial or promotional nature concerning this store.\n"
+"Personal Data collected: email address, first name, last name and phone "
+"number."
+msgstr ""
+
+#: plugin-options/general-options.php:117
+msgid "Enable for these roles"
+msgstr ""
+
+#: plugin-options/general-options.php:133
+msgid "User Email Settings"
+msgstr ""
+
+#: plugin-options/general-options.php:139
+msgid "Email Sender Name"
+msgstr ""
+
+#: plugin-options/general-options.php:147
+msgid "Email Sender"
+msgstr ""
+
+#: plugin-options/general-options.php:155
+msgid "Reply To:"
+msgstr ""
+
+#: plugin-options/general-options.php:169
+msgid "Admin Email Settings"
+msgstr ""
+
+#: plugin-options/general-options.php:175
+msgid "Send an email to administrators when an abandoned cart is recovered"
+msgstr ""
+
+#: plugin-options/general-options.php:183
+msgid "Admin Email Sender Name"
+msgstr ""
+
+#: plugin-options/general-options.php:191
+msgid "Email Recipients"
+msgstr ""
+
+#: plugin-options/general-options.php:192
+msgid "Enter recipients (separated by commas)"
+msgstr ""
+
+#: plugin-options/general-options.php:200
+#: plugin-options/metabox/ywrac_email_metabox.php:39
+msgid "Email Subject"
+msgstr ""
+
+#: plugin-options/general-options.php:204
+msgid "New Recovered Cart"
+msgstr ""
+
+#: plugin-options/general-options.php:213
+msgid "Cron Settings"
+msgstr ""
+
+#: plugin-options/general-options.php:220
+msgid "Cron time type"
+msgstr ""
+
+#: plugin-options/general-options.php:225
+#: plugin-options/metabox/ywrac_email_metabox.php:57
+msgid "Minutes"
+msgstr ""
+
+#: plugin-options/general-options.php:226
+#: plugin-options/metabox/ywrac_email_metabox.php:58
+msgid "Hours"
+msgstr ""
+
+#: plugin-options/general-options.php:227
+#: plugin-options/metabox/ywrac_email_metabox.php:59
+msgid "Days"
+msgstr ""
+
+#: plugin-options/general-options.php:233
+msgid "Cron time"
+msgstr ""
+
+#: plugin-options/metabox/ywrac_email_metabox.php:9
+msgid "Email Settings"
+msgstr ""
+
+#: plugin-options/metabox/ywrac_email_metabox.php:21
+msgid "Active"
+msgstr ""
+
+#: plugin-options/metabox/ywrac_email_metabox.php:22
+msgid "Choose if activate or deactivate this email"
+msgstr ""
+
+#: plugin-options/metabox/ywrac_email_metabox.php:28
+msgid "Email Type"
+msgstr ""
+
+#: plugin-options/metabox/ywrac_email_metabox.php:29
+msgid "Choose the type for this email"
+msgstr ""
+
+#: plugin-options/metabox/ywrac_email_metabox.php:40
+msgid "Choose the subject for this email"
+msgstr ""
+
+#: plugin-options/metabox/ywrac_email_metabox.php:46
+msgid "Automatic Delivery"
+msgstr ""
+
+#: plugin-options/metabox/ywrac_email_metabox.php:47
+msgid "Choose if activate or deactivate automatic delivery for this template"
+msgstr ""
+
+#: plugin-options/metabox/ywrac_email_metabox.php:53
+msgid "Send after (unit of measure)"
+msgstr ""
+
+#: plugin-options/metabox/ywrac_email_metabox.php:54
+msgid ""
+"Choose the unit of measure of the time that has to pass to send the email "
+"(e.g., Send after days)"
+msgstr ""
+
+#: plugin-options/metabox/ywrac_email_metabox.php:69
+msgid "Send after (value)"
+msgstr ""
+
+#: plugin-options/metabox/ywrac_email_metabox.php:70
+msgid "Set the value of the previous option (e.g., Send after 2)"
+msgstr ""
+
+#: plugin-options/metabox/ywrac_email_metabox_coupon.php:10
+msgid "Coupon Setting"
+msgstr ""
+
+#: plugin-options/metabox/ywrac_email_metabox_coupon.php:21
+msgid "Coupon Value"
+msgstr ""
+
+#: plugin-options/metabox/ywrac_email_metabox_coupon.php:28
+msgid "Coupon type"
+msgstr ""
+
+#: plugin-options/metabox/ywrac_email_metabox_coupon.php:32
+msgid "Percentage"
+msgstr ""
+
+#: plugin-options/metabox/ywrac_email_metabox_coupon.php:33
+msgid "Amount"
+msgstr ""
+
+#: plugin-options/metabox/ywrac_email_metabox_coupon.php:39
+msgid "Validity in days"
+msgstr ""
+
+#: plugin-options/metabox/ywrac_email_metabox_stat.php:22
+msgid "Email Report"
+msgstr ""
+
+#: plugin-options/metabox/ywrac_email_metabox_stat.php:29
+msgid "Report"
+msgstr ""
+
+#: plugin-options/metabox/ywrac_email_metabox_stat.php:35
+msgid "Sent Emails"
+msgstr ""
+
+#: plugin-options/metabox/ywrac_email_metabox_stat.php:41
+msgid "Clicks"
+msgstr ""
+
+#: plugin-options/metabox/ywrac_email_metabox_test.php:10
+msgid "Test Email Template"
+msgstr ""
+
+#: plugin-options/metabox/ywrac_email_metabox_test.php:16
+msgid "Send a testing email"
+msgstr ""
+
+#: plugin-options/metabox/ywrac_email_metabox_test.php:37
+msgid "Save the email template before sending a testing email"
+msgstr ""
+
+#: templates/admin/emails-tab.php:2
+msgid "Add New"
+msgstr ""
+
+#: templates/admin/metabox_cart_action.php:16
+msgid "Send Email Manually:"
+msgstr ""
+
+#: templates/admin/metabox_cart_content.php:23 templates/cart_content.php:15
+#: templates/pending-order-content.php:15
+msgid "Thumbnail"
+msgstr ""
+
+#: templates/admin/metabox_cart_content.php:24 templates/cart_content.php:16
+#: templates/email/email-recover-cart.php:36
+#: templates/pending-order-content.php:16
+msgid "Product"
+msgstr ""
+
+#: templates/admin/metabox_cart_content.php:25 templates/cart_content.php:17
+#: templates/pending-order-content.php:17
+msgid "Product Price"
+msgstr ""
+
+#: templates/admin/metabox_cart_content.php:26 templates/cart_content.php:18
+#: templates/email/email-recover-cart.php:38
+#: templates/pending-order-content.php:18
+msgid "Quantity"
+msgstr ""
+
+#: templates/admin/metabox_cart_content.php:160 templates/cart_content.php:20
+msgid "Cart Subtotal"
+msgstr ""
+
+#: templates/admin/metabox_cart_info_content.php:14
+msgid "Cart Status:"
+msgstr ""
+
+#: templates/admin/metabox_cart_info_content.php:19
+msgid "Cart Last Update:"
+msgstr ""
+
+#: templates/admin/metabox_cart_info_content.php:25
+msgid "User:"
+msgstr ""
+
+#: templates/admin/metabox_cart_info_content.php:30
+msgid "User email:"
+msgstr ""
+
+#: templates/admin/metabox_cart_info_content.php:35
+msgid "User phone:"
+msgstr ""
+
+#: templates/admin/metabox_cart_info_content.php:41
+msgid "Language:"
+msgstr ""
+
+#: templates/admin/metabox_cart_info_content.php:47
+msgid "Currency:"
+msgstr ""
+
+#: templates/admin/metabox_cart_info_content.php:54
+msgid "History:"
+msgstr ""
+
+#: templates/admin/metabox_cart_info_content.php:58
+msgid "Sending Date"
+msgstr ""
+
+#: templates/admin/metabox_cart_info_content.php:60
+msgid "Link Clicked"
+msgstr ""
+
+#: templates/admin/reports-tab.php:2
+msgid "Reports"
+msgstr ""
+
+#: templates/admin/reports-tab.php:10
+msgid "Abandoned Cart and Pending Orders"
+msgstr ""
+
+#: templates/admin/reports-tab.php:15
+msgid "Abandoned Carts"
+msgstr ""
+
+#: templates/admin/reports-tab.php:20
+msgid "Order Pending"
+msgstr ""
+
+#: templates/admin/reports-tab.php:28
+msgid "Emails Sent"
+msgstr ""
+
+#: templates/admin/reports-tab.php:29 templates/admin/reports-tab.php:33
+#: templates/admin/reports-tab.php:37
+msgid "%1$d (%2$d Clicks)"
+msgstr ""
+
+#: templates/admin/reports-tab.php:32
+msgid "Emails for Abandoned Carts Sent"
+msgstr ""
+
+#: templates/admin/reports-tab.php:36
+msgid "Emails for Pending Orders Sent"
+msgstr ""
+
+#: templates/admin/reports-tab.php:45
+msgid "Recovered Carts & Pending Orders"
+msgstr ""
+
+#: templates/admin/reports-tab.php:55
+msgid "Pending Orders Recovered"
+msgstr ""
+
+#: templates/admin/reports-tab.php:63
+msgid "Total Amount Recovered Cart and Pending Orders"
+msgstr ""
+
+#: templates/admin/reports-tab.php:68
+msgid "Total Amount Recovered Cart"
+msgstr ""
+
+#: templates/admin/reports-tab.php:73
+msgid "Total Amount Recovered Pending Orders"
+msgstr ""
+
+#: templates/admin/reports-tab.php:81
+msgid "Rate Conversion"
+msgstr ""
+
+#: templates/admin/reports-tab.php:86
+msgid "Rate Cart Conversion"
+msgstr ""
+
+#: templates/admin/reports-tab.php:91
+msgid "Rate Pending Order Conversion"
+msgstr ""
+
+#: templates/email/email-recover-cart.php:22
+msgid "Order Recovered"
+msgstr ""
+
+#: templates/email/email-recover-cart.php:23
+msgid "You have received an order from %s. The order is as follows:"
+msgstr ""
+
+#: templates/email/email-recover-cart.php:28
+msgid "Order #%s"
+msgstr ""
+
+#: templates/email/email-recover-cart.php:40
+msgid "Price"
+msgstr ""
+
+#: templates/ywrac-unsubscribe.php:27
+msgid ""
+"If you don't want to receive any more abandoned cart reminders, please "
+"retype your email address: %s"
+msgstr ""
+
+#: templates/ywrac-unsubscribe.php:29
+msgid "Email address"
+msgstr ""
+
+#: templates/ywrac-unsubscribe.php:33
+msgid "Unsubscribe"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"<code><strong>YITH WooCommerce Recover Abandoned Cart</strong></code> "
+"reminds users who did not complete the checkout about their pending order, "
+"so you can recover this lost sale. Recovering abandoned carts increase "
+"dramatically the conversion rate of your e-commerce shop. It's perfect if "
+"you want to maximise profit. <a href=\"https://yithemes.com/\" "
+"target=\"_blank\">Get more plugins for your e-commerce shop on "
+"<strong>YITH</strong></a>."
+msgstr ""
+
+#: includes/admin/class-wp-pending-orders-list-table.php:145
+#: includes/admin/class-wp-recovered-list-table.php:128
+msgctxt "Order number by X"
+msgid "%1$s by %2$s"
+msgstr ""
+
+#: includes/class-yith-wc-abandoned-cart-email.php:94
+msgctxt "Post Type General Name"
+msgid "Email Templates"
+msgstr ""
+
+#: includes/class-yith-wc-abandoned-cart.php:201
+msgctxt "Post Type General Name"
+msgid "Abandoned Cart"
+msgstr ""
+
+#: includes/class-yith-wc-abandoned-cart-email.php:95
+msgctxt "Post Type Singular Name"
+msgid "Email Template"
+msgstr ""
+
+#: includes/class-yith-wc-abandoned-cart.php:202
+msgctxt "Post Type Singular Name"
+msgid "Abandoned Cart"
+msgstr ""
+
+#: includes/class-yith-wc-abandoned-cart-unsubscribe.php:64
+msgctxt "Page slug"
+msgid "unsubscribe"
+msgstr ""
+
+#: includes/class-yith-wc-abandoned-cart-unsubscribe.php:65
+msgctxt "Page title"
+msgid "Unsubscribe"
+msgstr ""
+
+#: includes/class.yith-wc-abandoned-cart-privacy-dpa.php:19
+msgctxt "Privacy Policy Content"
+msgid "YITH WooCommerce Recover Abandoned Cart Premium"
+msgstr ""
+
+#: includes/emails/class.yith-wc-abandoned-cart-email.php:31
+msgctxt "do not translate plugin name"
+msgid ""
+"This is the email sent to the customer from the admin with the YITH "
+"WooCommerce Recover Abandoned Cart plugin"
+msgstr ""
+
+#: init.php:104
+msgctxt "do not translate plugin name"
+msgid ""
+"YITH WooCommerce Recover Abandoned Cart is enabled but not effective. It "
+"requires WooCommerce in order to work."
+msgstr ""

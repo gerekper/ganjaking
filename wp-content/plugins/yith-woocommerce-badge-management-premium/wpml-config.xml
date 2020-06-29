@@ -1,0 +1,9 @@
+<wpml-config>
+	<custom-fields>
+		<custom-field action="translate">_badge_meta</custom-field>
+		<custom-field action="translate">_yith_wcbm_product_meta</custom-field>
+	</custom-fields>
+	<custom-types>
+		<custom-type translate="1">yith-wcbm-badge</custom-type>
+	</custom-types>
+</wpml-config>

@@ -1,0 +1,56 @@
+/* 
+ * @author    ThemePunch <info@themepunch.com>
+ * @link      http://www.themepunch.com/
+ * @copyright 2017 ThemePunch
+*/
+
+.particles-icon {
+	
+	padding: 2px; 
+	border: 1px solid #3f444a; 
+	margin: 2px 1px; 
+	display: inline-block;
+	float: left;
+	vertical-align: top;
+	line-height: 0;
+	cursor: pointer;
+	margin-right: 4px;
+
+}
+
+.particles-icon svg { width: 20px; height: 20px; }
+
+.particles-icon.selected {	
+	border: 1px solid #b7bbc0;
+	box-shadow: 0 0 0 1px #b7bbc0;	
+}
+
+.particles-icon:hover svg path, 
+.particles-icon.selected svg path{	
+	fill: #b7bbc0;
+} 
+
+.particles-circle {	
+	width: 14px;
+	height: 14px;
+	margin: 3px;
+	display: block;
+	border-radius: 50%;
+	background: #777c80;	
+}
+
+.particles-icon.selected .particles-circle {
+	background: #b7bbc0;
+}
+
+
+.add_part_color_lines,
+.remove_part_color_lines { margin-right: 0px !important; margin-top: 5px; }
+
+.add_part_color_lines i.material-icons,
+.remove_part_color_lines i.material-icons { margin-left: 0px !important; }
+
+.particle_color_wraps longoption label_a { width: 155px; min-width: 155px; }
+
+
+#rb_tlw .particle_color_wraps  .revbuilder-colorpicker { overflow: hidden; margin-top: 5px; }

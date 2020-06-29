@@ -1,0 +1,134 @@
+*** WooCommerce Box Office Changelog ***
+
+2020-06-16 - version 1.1.25
+* Fix - When adding multiple ticket products to cart only last item retains tickets.
+
+2020-06-10 - version 1.1.24
+* Tweak - WC 4.2 compatibility.
+
+2020-04-29 - version 1.1.23
+* Tweak - WC 4.1 compatibility.
+
+2020-04-14 - version 1.1.22
+* Tweak - Add note on logging settings.
+
+2020-04-08 - version 1.1.21
+* Fix - Orders created by Box office are charged additional tax.
+
+2020-03-17 - version 1.1.20
+* Fix - Tickets created for each failed payment and only first one is trashed.
+
+2020-02-26 - version 1.1.19
+* Fix - Undefined constant error.
+* Tweak - WC 4.0 compatibility.
+
+2020-02-18 - version 1.1.18
+* Tweak - Remove legacy code.
+
+2020-02-04 - version 1.1.17
+* Fix - Clearer wording for editing tickets in My Account section
+* Fix - Use proper escaping function for attributes.
+
+2020-01-14 - version 1.1.16
+* Fix   - Title filter overrides all calls to `the_title`.
+* Tweak - Move ticket form fields above "add to cart" button for better UX.
+* Fix   - Updating information on a ticket does not create a Ticket Email.
+* Tweak - WC 3.9 compatibility.
+
+2019-11-04 - version 1.1.15
+* Tweak - WC 3.8 compatibility.
+
+2019-09-25 - version 1.1.14
+* Fix - Update ticket status when moving order to on-hold or pending status.
+* Fix - Can print tickets in statuses that indicate that the ticket was not yet paid for.
+
+2019-08-06 - version 1.1.13
+* Tweak - WC 3.7 compatibility.
+* Fix - Turned ticket export select into multiple select box.
+
+2019-04-16 - version 1.1.12
+* Tweak - WC 3.6 compatibility.
+
+2018-09-25 - version 1.1.11
+* Update - WC 3.5 compatibility.
+
+2018-05-23 - version 1.1.10
+* Update - Privacy policy notification.
+* Update - Export/erasure hooks added.
+* Update - WC 3.4 compatibility.
+
+2018-03-12 - version 1.1.9
+* Fix - Email (order item meta) formatting no longer pretty.
+* Fix - Unable to add two different products to the cart if Sold individually option is checked for both.
+
+2018-02-21 - version 1.1.8
+* Fix - Issue where ticket checkbox still checked if product type is changed to unsupported ticket product (e.g. subscriptions).
+* Add - Possibility to force ticket creation (e.g. when adding products from 'add-to-cart' query string).
+
+2017-11-27 - version 1.1.7
+* Fix - Ticket information link in email and order confirmation page doesn't work.
+* Fix - Emails to ticket individuals who've booked tickets are not sent.
+* Fix - Issue where order details are not shown in PDF invoice when there's no ticket.
+* Fix - Issue where address details in an order are not populated when ticket is created manually.
+
+2017-08-08 - version 1.1.6
+* Fix - Issue where sold-individually product doesn't work when ticket is enabled.
+
+2017-08-01 - version 1.1.5
+* Fix - PHP notice of undefined variable ticket_product.
+* Fix - Display order number in order link from edit ticket screen.
+* Fix - PPEC button in single product page is rendered twice.
+* Fix - Ticket is not linked in order product item when order is created via admin.
+* Fix - Pot file not named correctly.
+* Tweak - Add SKU column in exported CSV.
+
+2017-06-02 - version 1.1.4
+* Fix - Issue where exported data displayed as 'Array' for a check box field.
+* Fix - Issue where order item meta is not updated when ticket is updated.
+* Fix - Added tax item into order items and recalculate tax in the order total.
+* Fix - Issue where variation price is not used when creating order ticket manually.
+* Fix - Issue where My Tickets page is missing from My Accounts page.
+* Fix - Notice of product properties should not be accessed directly (deprecation that's added in WC 3.0+).
+
+2017-04-03 - version 1.1.3
+* Fix - Update for WooCommerce 3.0 compatibility.
+
+2017-02-23 - version 1.1.2
+* Fix - Incorrect incorrect ticket URL in exported tickets CSV.
+* Fix - Customer information not being populated when ticket is create via admin.
+* Enhancement - Added paragraph wrapper in printed ticket.
+* Fix - Multiple product_page shortcodes on a single page only show the the first ticket's fields.
+
+2016-11-30 - version 1.1.1
+* Fix - PHP notices on the front page.
+* Fix - Issue where 'Add New' link in ticket admin doesn't work.
+* Fix - Error when updating to 1.1.0 caused by too early hook when performing page creation and rewrite flush
+* Fix - Issue where ticket form is not rendered in sold individually product.
+* Fix - Issue where barcodes were not generated for purchased tickets.
+* Fix - Error thrown in [scan_ticket] shortcode.
+
+2016-08-16 - version 1.1.0
+* Fix - Duplicate navigation under My Tickets page
+* Tweak - Added Box Office settings under WooCommerce > Settings
+* Tweak - Allow set the page for My Ticket (edit ticket) page via settings
+* Tweak - Allow changing text on the front-end via settings
+* Fix - Error when using PHP < 5.3
+* Tweak - Add new shortcode [my_ticket]
+* Tweak - Update translation strings
+* Security - Prevent CSV formula injection from exported tickets
+* Fix - Issue where HTML ticket fields being sent to gateway
+
+2016-05-30 - version 1.0.2
+* Tweak - UI redesign, with menu and breadcrumb, for "My Tickets" page under "My Account" page when WooCommerce 2.6 is being used
+* Fix - Issue where ticket panel icons were not correctly displayed when WooCommerce 2.6 is being used
+
+2016-04-23 - version 1.0.1
+* Removed displayed order items meta in checkout. Since order item meta contains
+  ticket fields wrapped in markup, it won't displayed nicely in some gateways.
+* Fixes checkbox field is not displayed for ticket holder. Checkbox's value is
+  stored as array and we skipped to render it. This change implode the value into
+  comma separated string.
+
+
+2016-04-20 - version 1.0.0
+* Initial release

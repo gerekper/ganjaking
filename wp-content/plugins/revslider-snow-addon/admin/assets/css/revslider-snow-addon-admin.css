@@ -1,0 +1,22 @@
+#layeraction_picker_share_facebook,
+#layeraction_picker_share_twitter,
+#layeraction_picker_share_linkedin,
+#layeraction_picker_share_googleplus,
+#layeraction_picker_share_pinterest {
+		
+	display: none;	
+		
+}
+
+.social-addon-active #layeraction_picker_share_facebook,
+.social-addon-active #layeraction_picker_share_twitter,
+.social-addon-active #layeraction_picker_share_linkedin,
+.social-addon-active #layeraction_picker_share_googleplus,
+.social-addon-active #layeraction_picker_share_pinterest {
+		
+	display: block;	
+		
+}
+
+.share-action-selected #action_interaction_wrap,
+.share-action-selected #laction_delay {display: none !important}

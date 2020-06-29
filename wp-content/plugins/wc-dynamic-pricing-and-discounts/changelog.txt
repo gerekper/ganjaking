@@ -1,0 +1,467 @@
+Version 2.3.8, 14 April 2020
+------------------------------------------------------------------------------------
+* Fix - Reverting previous changes that caused issues with sale/regular price display
+
+Version 2.3.7, 6 April 2020
+------------------------------------------------------------------------------------
+* Fix - Struck-through regular price no longer displayed after 2.3.6
+* Fix - Empty sale price incorrectly converted to zero price
+* Fix - Base price not set to regular price when it should under specific conditions
+* Fix - WooCommerce product sale price ignored under specific conditions
+
+Version 2.3.6, 27 March 2020
+------------------------------------------------------------------------------------
+* Fix - In some cases using "buy x get y" does not discount the cheapest product
+* Fix - Fixed amount cart discount is not limited by cart subtotal
+* Fix - Cart discount division by zero warning when cart subtotal is zero
+* Fix - Cart discount id is displayed in order view instead of cart discount title
+* Fix - Malformed card discount names in admin order view if more than one is present
+* Tweak - All cart adjustments now saved to orders for future reference
+* Tweak - Added limited support for product feed plugins (extra step is needed to enable)
+* Tweak - Other minor bug fixes and improvements
+* Dev - New function rp_wcdpd_get_product_pricing_rules_applicable_to_product
+* Dev - New function rp_wcdpd_get_product_pricing_rules_applicable_to_cart_item
+* Dev - New function rp_wcdpd_get_cart_discount_rules_applicable_to_cart
+* Dev - New function rp_wcdpd_get_checkout_fee_rules_applicable_to_cart
+
+Version 2.3.5, 4 February 2020
+------------------------------------------------------------------------------------
+* Tweak - Product price caching subsystem performance improvements
+* Tweak - Other minor bug fixes and improvements
+* Dev - Changed administrative capability from manage_woocommerce to manage_rp_wcdpd
+
+Version 2.3.4, 8 December 2019
+------------------------------------------------------------------------------------
+* Fix - Sale price condition check problem if product sale price has sale date set
+* Fix - In some cases BXGY method discounts not the cheapest products
+* Fix - Trashed products appear in the product conditions user interface
+* Fix - Cart discount subtotal off by a few cents under specific conditions
+* Fix - Volume pricing table not displayed on function call if disabled in settings
+* Tweak - Cart item price adjustments are now applied via filters; no longer set on product
+* Tweak - Changed WooCommerce get price filter hook position from very late to very early
+* Tweak - Other minor bug fixes and improvements
+
+Version 2.3.3, 24 July 2019
+------------------------------------------------------------------------------------
+* Feature - Fees and discounts per cart line are now supported
+* Fix - 3rd party price adjustments not preserved in variable product display prices
+* Fix - Variable product percentage discount calculation does not work on some themes
+* Fix - Main quantity is visible in mini cart when quantity/price breakdown is displayed
+* Fix - Prices one add-to-cart action behind in mini cart
+* Fix - Clicking on quantity in volume pricing table does not trigger price update
+* Fix - Price in mini cart only updates after page refresh
+
+Version 2.3.2, 18 July 2019
+------------------------------------------------------------------------------------
+* Fix - Regular price not displayed for variable products when on sale
+* Tweak - Performance improvements for product price display throughout shop
+* Tweak - Improved compatibility with other plugins that change WC product prices
+* Tweak - Shipping method condition now supports instances of shipping methods from zones
+* Tweak - Other minor bug fixes and improvements
+* Dev - New filter rp_wcdpd_process_product_pricing to cancel all product pricing
+* Dev - New filter rp_wcdpd_process_cart_discounts to cancel all cart discounts
+* Dev - New filter rp_wcdpd_process_checkout_fees to cancel all checkout fees
+
+Version 2.3.1, 28 June 2019
+------------------------------------------------------------------------------------
+* Fix - Translation files for text domain "rightpress" not loaded
+* Fix - Incorrect handling of output buffers in "You Saved" functionality
+* Fix - Original price not displayed for variable product in some cases
+* Tweak - Improved compatibility with WooCommerce Product Bundles plugin
+* Tweak - Added more product page positions for "Your Price" element
+* Tweak - Other minor bug fixes and improvements
+* Dev - New filter rp_wcdpd_promotion_your_price_position to provide custom position
+
+Version 2.3, 21 June 2019
+------------------------------------------------------------------------------------
+* Warning - Multiple core changes: any customizations and integrations must be updated
+* Warning - Text domain for some admin facing strings has changed to 'rightpress'
+* Feature - Added option to restrict purchase of products matched by conditions
+* Feature - Added option to disable all rules at once
+* Feature - New condition: Product shipping class
+* Feature - New condition: Cart item shipping class
+* Feature - New condition: WooCommerce coupon applied to product in cart
+* Fix - Countdown timer is not updated when printed programmatically
+* Fix - "You Saved" element changes position on cart/checkout update
+* Fix - Risk of infinite loop in Cart Discount handling under specific circumstances
+* Fix - Invalid coupon warning is displayed when discount is no longer applicable
+* Fix - Non-variable product attribute condition issues
+* Fix - Incorrect Checkout Fee taxation under specific conditions
+* Fix - Changes to product price cache updates product post date/time
+* Fix - Improved currency converter plugin support in discount limit functionality
+* Tweak - Improved support for WPML Currency Converter
+* Tweak - Added option to display "Your Price" element when product is not discounted
+* Tweak - Non-repeating BXGY/Group rules will no longer repeat on different cart items
+* Tweak - Added color indication for disabled rules
+* Tweak - Improved compatibility with latest PHP versions
+* Tweak - Other minor bug fixes and improvements
+* Dev - Removed method RP_WCDPD_Controller_Methods_Product_Pricing::get_change_set()
+* Dev - Removed filter rightpress_live_product_price_update_price_html
+* Dev - Removed filter rp_wcdpd_product_pricing_initial_price
+* Dev - Changed contents of rp_wcdpd_product_pricing_rule_applied_to_cart second argument
+
+Version 2.2.10, 20 November 2018
+------------------------------------------------------------------------------------
+* Fix - Incorrect handling of quantity ranges in tiered pricing rules
+* Tweak - Other minor bug fixes and improvements
+
+Version 2.2.9, 7 November 2018
+------------------------------------------------------------------------------------
+* Fix - Subtotal off by one cent due to cart discount rounding in some rare cases
+* Fix - Incorrect cart discount calculation with specific tax configuration
+* Fix - WooCommerce compatibility issue related to 'variation_id' in cart item data
+* Tweak - Other minor bug fixes and improvements
+
+Version 2.2.8, 29 August 2018
+------------------------------------------------------------------------------------
+* Fix - "Buy x get y" rule applied twice under some conditions
+* Fix - "Fixed discount per item" incorrect calculation under some conditions
+* Fix - Price caching issue for variable products
+* Fix - Parse error unexpected '{' in PHP 5.3
+
+Version 2.2.7, 1 August 2018
+------------------------------------------------------------------------------------
+* Fix - Tiered pricing price per range wrong when multiple items fall into one range
+* Fix - Tiered pricing price per range subtotal rounding issue
+* Fix - Problems with cart discount limits when fixed cart discount is used
+* Fix - Per item cart discount apportioned to items not matching conditions
+* Fix - Simple pricing rules appear as being applied twice on add to cart
+* Fix - "Cannot read property xxx of undefined" when Object.prototype is modified
+* Fix - Double currency conversion with realmag777 currency switcher plugin
+* Fix - Issue with multiple modal based volume pricing tables on a single page
+* Fix - WooCommerce internal customer and product meta does not work in conditions
+* Fix - Uncaught Error: Call to a member function get_cart() on null
+* Tweak - Changed the way "Your Price" determines what price to display
+* Tweak - Pricing table is now scrollable when there's not enough width for full table
+* Tweak - Other minor bug fixes and improvements
+* Dev - Changed RP_WCDPD_Controller_Methods_Product_Pricing::get_change_set() behavior
+* Dev - Changed "Your Price" label element class to .rightpress_live_product_price_label
+* Dev - New action rp_wcdpd_volume_pricing_table_before_table
+* Dev - New action rp_wcdpd_volume_pricing_table_after_table
+* Dev - New action rp_wcdpd_promotion_countdown_timer_before_timer
+* Dev - New action rp_wcdpd_promotion_countdown_timer_after_timer
+* Dev - New action rp_wcdpd_promotion_countdown_timer_before_label
+* Dev - New action rp_wcdpd_promotion_countdown_timer_after_label
+* Dev - New action rp_wcdpd_promotion_countdown_timer_after_time
+* Dev - New filter rp_wcdpd_volume_pricing_table_title
+* Dev - New filter rp_wcdpd_volume_pricing_table_display
+* Dev - New filter rp_wcdpd_volume_pricing_table_applicable_rule
+* Dev - New filter rp_wcdpd_volume_pricing_table_variation_attributes
+* Dev - New filter rp_wcdpd_promotion_countdown_timer_display
+* Dev - New filter rp_wcdpd_promotion_countdown_timer_display_for_product
+* Dev - New filter rp_wcdpd_promotion_countdown_timer_applicable_rules
+* Dev - New filter rp_wcdpd_promotion_countdown_timer_threshold_datetime
+* Dev - New filter rp_wcdpd_promotion_countdown_timer_data
+* Dev - New filter rp_wcdpd_promotion_rule_notifications_title_{context}
+* Dev - New filter rp_wcdpd_promotion_rule_notifications_description_{context}
+* Dev - New filter rp_wcdpd_promotion_rule_notifications_descriptions_to_combine_{context}
+* Dev - New filter rp_wcdpd_promotion_rule_notifications_combined_description_{context}
+* Dev - New filter rp_wcdpd_promotion_total_saved_discount_threshold
+
+Version 2.2.6, 13 July 2018
+------------------------------------------------------------------------------------
+* Warning - Lowest supported WooCommerce version is now 3.0
+* Fix - Incorrect cart discount amount in some cases since WooCommerce 3.2
+* Fix - Performance issues related to extremely high quantities in cart
+* Fix - More than one group formed for non-repeating group pricing in some cases
+* Fix - Users with role shop_manager can't save settings in Promotion tab
+* Fix - Issues with "Combine to one total discount" functionality
+* Fix - Cart Discount description displays raw HTML in responsive themes
+* Fix - Issue with BXGY rules when no products are added to the "Buy" section
+* Fix - "You Saved" label disappears on responsive themes on mobile devices
+* Fix - Clicking on volume pricing table does not change variable product image
+* Tweak - Volume pricing table can now display discount amount and discount percentage
+* Tweak - Improved handling of irrational prices in case of per-group pricing
+* Tweak - Removed setting "Irrational price handling" after implementing auto detection
+* Tweak - Tiered pricing lower tiers should apply to items with higher prices
+* Tweak - Improved handling of incomplete cart item data due to 3rd party code
+* Tweak - Other minor bug fixes and improvements
+* Dev - Renamed all helper classes, check for new method location if used in custom code
+* Dev - New filter rp_wcdpd_volume_pricing_table_range_value
+* Dev - New filter rp_wcdpd_volume_pricing_table_range_discount_amount
+* Dev - New filter rp_wcdpd_volume_pricing_table_range_discount_percentage
+* Dev - Filter rp_wcdpd_product_pricing_adjusted_price second argument changed
+* Dev - Filter rp_wcdpd_product_pricing_adjusted_unit_price arguments changed
+
+Version 2.2.5, 15 February 2018
+------------------------------------------------------------------------------------
+* Fix - Cart Discount issue related to outdated virtual coupon default values
+* Fix - Unable to determine time zone from time offset on some servers
+* Tweak - Other minor bug fixes and improvements
+
+Version 2.2.4, 14 December 2017
+------------------------------------------------------------------------------------
+* Fix - Fatal syntax error on specific PHP versions
+* Fix - Warning "Parameter must be an array or an object that implements Countable"
+* Fix - Product sale price display issue under specific circumstances
+* Fix - Subtotal in mini-cart is not recalculated in recent WooCommerce versions
+* Fix - Incorrect bigger/smaller discount/fee selection under specific circumstances
+* Tweak - Percentage discounts are now applied as virtual percentage coupons
+* Tweak - Cart discounts will now apply sequentially if set so in WooCommerce settings
+
+Version 2.2.3, 20 November 2017
+------------------------------------------------------------------------------------
+* Fix - Wrong cart item price displayed when some units are based on regular price
+* Fix - WC customer/product properties set as meta conditions result in error
+* Fix - Volume pricing table not displayed in product quick view
+* Fix - Undefined index QUERY_STRING on some servers
+* Fix - Currency switcher compatibility issues
+* Fix - Compatibility issues with WooCommerce versions < 3.0
+* Fix - Public description tooltips not visible on some themes (z-index issue)
+* Fix - Custom taxonomy condition displays warning when get_the_terms returns false
+* Fix - Quotes in condition item names not handled properly
+* Tweak - Other minor bug fixes and improvements
+
+Version 2.2.2, 12 October 2017
+------------------------------------------------------------------------------------
+* Fix - Wrong subtotal displayed in mini-cart
+* Fix - Pricing table should not be displayed on load when targeting specific variations
+* Tweak - Added "All quantities added up" option to "Quantities Based On" for group rules
+* Tweak - Other minor bug fixes and improvements
+* Dev - Changes to HTML layout and CSS classes in "Your Price" functionality
+* Dev - Removed filter rightpress_live_product_price_update_html
+* Dev - Added filter rightpress_live_product_price_update_price_html
+* Dev - Added filter rightpress_live_product_price_update_label_html
+
+Version 2.2.1, 2 October 2017
+------------------------------------------------------------------------------------
+* Fix - Non-product condition issues with group pricing rules
+* Fix - Product attribute condition issue with "any" variation attribute
+* Fix - Tax display issues related to "Your Price" functionality
+* Fix - Tax display issues when cart item price composition is displayed
+* Fix - Auto add to cart does not take actual purchase/receive quantities from settings
+* Fix - Group pricing problems with parent/child categories used for different group products
+* Fix - Double discount in quantity pricing table under some conditions
+* Fix - Warning "Invalid argument supplied for foreach"
+* Tweak - Other minor bug fixes and improvements
+
+Version 2.2, 27 September 2017
+------------------------------------------------------------------------------------
+* Feature - Price breakdown is displayed in cart instead of average price
+* Feature - Public rule descriptions to provide more information to customers
+* Feature - Promotion tool "Your Price" - displays discounted price on product page
+* Feature - Promotion tool "Total Saved" - displays total amount saved by customer
+* Feature - Promotion tool "Customer Notifications" - lets customers know about discounts
+* Feature - Promotion tool "Countdown Timer" - displays timer for time limited rules
+* Feature - Option to limit max discount per product, max cart discount and max checkout fee
+* Feature - Free product in "Buy X Get Y" rules can now be added to cart automatically
+* Feature - New product condition: Product price
+* Feature - New product condition: Product is on sale
+* Feature - New condition: Shipping method
+* Feature - New condition: Any pricing rule applied
+* Feature - New set of conditions: Quantity of specific product purchased in the past
+* Feature - New set of conditions: Value of specific product purchased in the past
+* Feature - Support for custom taxonomy conditions (e.g. brands)
+* Feature - "Buy x get x" rule separated from "Buy x get y" for more clarity
+* Feature - Option to include all rule types when changing prices throughout the shop
+* Feature - Option to define whether amounts in conditions include tax
+* Feature - Option to suppress regular coupons if at least one cart discount is applicable
+* Feature - Settings import and export functionality
+* Fix - Problems with currency switcher extensions
+* Fix - Coupon condition lag for pricing rules with Flatsome
+* Fix - "Group of products" does not honour "Quantities based on" setting
+* Fix - Compatibility issues with WooCommerce Product Bundles
+* Fix - Added jquery dependency for checkout.js
+* Tweak - Basic rule details are now displayed in rule header
+* Tweak - Pricing table: clicking on quantity updates quantity input
+* Tweak - Pricing table: clicking on variation name selects appropriate variation
+* Tweak - Pricing table: clicking on price selects variation and updates quantity input
+* Tweak - Pricing table now considers volume rules with cart conditions
+* Tweak - More cart related conditions made available under product pricing
+* Tweak - Display price caching improvements
+* Tweak - Catalog display prices now includes rules with cart discounts by default
+* Tweak - Changed the appearance of condition type selector for use of use
+* Tweak - Changed lowest supported WooCommerce version to 2.4
+* Tweak - Improved compatibility with WooCommerce 3.2
+* Tweak - Other minor bug fixes and improvements
+* Dev - Added filter rp_wcdpd_all_capabilities
+* Dev - Added filter rp_wcdpd_current_user_capabilities
+* Dev - Added filter rightpress_live_product_price_update_html
+* Dev - Added action rp_wcdpd_product_pricing_rule_applied_to_cart
+* Dev - Added action rp_wcdpd_cart_discounts_rule_applied_to_cart
+* Dev - Added action rp_wcdpd_checkout_fees_rule_applied_to_cart
+* Dev - Added function rp_wcdpd_display_countdown_timer($product_id)
+* Dev - Added function rp_wcdpd_display_volume_pricing_table($product_id)
+* Dev - Table templates moved to extensions/promotion-volume-pricing-table/templates
+
+Version 2.1.1, 24 August 2017
+------------------------------------------------------------------------------------
+* Fix - Fatal error on coupons page when coupons condition is used
+* Fix - Cart subtotal condition does not work properly after 2.1 release
+* Fix - Product stock condition does not check variation stock setting
+* Fix - Numeric comparison in conditions susceptible to float precision problems
+
+Version 2.1, 8 August 2017
+------------------------------------------------------------------------------------
+* Feature - Options to set per-item cart discounts and checkout fees
+* Feature - Product conditions are now available for cart discounts and checkout fees
+* Feature - Option to have a desired subtotal when adjusted price is irrational
+* Feature - Option to hide regular price when discounting products
+* Feature - Option to display a single pricing table for all variations
+* Feature - Option to disable a rule without setting a condition
+* Feature - New pricing method for tiered discounts: Fixed price per range
+* Feature - New condition: Payment method
+* Feature - New condition: Date/time
+* Feature - New condition: Average order amount
+* Feature - New condition: Customer product review count
+* Feature - New condition: Product stock quantity
+* Feature - New set of conditions: Cart item quantities
+* Feature - New set of conditions: Cart item subtotals
+* Fix - Percentage cart discount takes wrong subtotal
+* Fix - Pricing table displayed when product price is empty (product not purchasable)
+* Fix - Pricing table does not honor "Use regular price" setting
+* Fix - Pricing table is not displayed on page load when default variation is set
+* Fix - Problems when products/categories/etc that appear in conditions are deleted
+* Fix - Product pricing regular price tax lag when changing address in cart
+* Fix - "Use regular price" setting affects item at full price
+* Fix - Incorrect prices when RealMag777 currency switcher extension is enabled
+* Fix - Flatsome quickview displays tables for all variations
+* Fix - No striked-through regular price when WooCommerce Multilingual plugin is active
+* Fix - Shipping condition lag in cart
+* Tweak - Improved user interface for "Buy x get y" type of rules
+* Tweak - Separated product conditions from other conditions for better usability
+* Tweak - Improved  price calculation algorithm when multiple rules are applicable
+* Tweak - Improved user interface performance to load quicker with large set of rules
+* Tweak - Correct cart discount titles are now displayed in admin order view
+* Tweak - Cart discount link in admin order view now leads to correct settings page
+* Tweak - Do not add cart discount or checkout fee if amount is zero
+* Tweak - Other minor bug fixes and improvements
+* Dev - Removed filter rp_wcdpd_product_pricing_adjusted_amount
+* Dev - Removed filter rp_wcdpd_datepicker_config
+* Dev - Added filter rp_wcdpd_product_pricing_adjusted_unit_price
+* Dev - Added filter rp_wcdpd_product_pricing_adjusted_price
+* Dev - Added filter rp_wcdpd_datetimepicker_date_config
+* Dev - Added filter rp_wcdpd_datetimepicker_time_config
+* Dev - Added filter rp_wcdpd_datetimepicker_datetime_config
+
+Version 2.0, 30 May 2017
+------------------------------------------------------------------------------------
+* Feature - Plugin core rewritten to make it more flexible and maintainable
+* Feature - User interface redesigned to make it cleaned and easier to use
+* Feature - Checkout fees to allow charging user extra during checkout
+* Feature - New pricing methods: simple, tiered pricing, group of products
+* Feature - New conditional logic system offers 37 powerful conditions
+* Feature - Prices throughout the shop can now be changed based on simple pricing rules
+* Feature - Simple pricing rules now support positive pricing adjustments (fees)
+* Feature - Option to duplicate rules
+* Fix - Quantity pricing table tax issues
+* Fix - Quantity pricing table displayed only once in product list view
+* Fix - Users with role "shop_manager" can't save plugin settings
+* Tweak - Option to exclude products that are set on sale in product settings
+* Tweak - Option to use regular price for pricing adjustments instead of final price
+* Tweak - Option to hide implicit quantity ranges in quantity pricing table
+* Tweak - Option to show cart discounts and checkout fees individually or combined
+* Tweak - Several currency changing extensions are now supported
+* Tweak - Customer value conditions now checks for orders by billing email too
+* Tweak - Removed support for "Products to adjust" for quantity discounts
+* Tweak - Other minor bug fixes and improvements
+* Dev - System to add custom conditions, pricing methods etc programmatically
+* Dev - New filters for flexible control of pricing adjustments, discounts and fees
+
+Version 1.1.2, 10 April 2017
+------------------------------------------------------------------------------------
+* Fix - Conditions not working properly for variable products since 1.1.1
+
+Version 1.1.1, 5 April 2017
+------------------------------------------------------------------------------------
+* Tweak - Improved compatibility with WooCommerce 3.0
+
+Version 1.1, 11 April 2016
+------------------------------------------------------------------------------------
+* Feature - Added support for automatic updates
+* Fix - Admin UI styling issue
+* Tweak - Improved compatibility with Wordpress 4.5
+
+Version 1.0.18, 8 April 2015
+------------------------------------------------------------------------------------
+* Fix - Cart discount is not displayed on product quantity change
+* Fix - Warning "coupon invalid" is produced when the last item is removed from cart
+* Tweak - Removed option to apply discount after tax (compatibility with WooCommerce)
+
+Version 1.0.17, 9 March 2015
+------------------------------------------------------------------------------------
+* Fix - Discount is not displayed on first cart load
+
+Version 1.0.16, 25 February 2015
+------------------------------------------------------------------------------------
+* Fix - Price is displayed striked through when no discount is applied
+
+Version 1.0.15, 19 February 2015
+------------------------------------------------------------------------------------
+* Fix - Compatibility issues with WooCommerce 2.3
+
+Version 1.0.14, 4 February 2015
+------------------------------------------------------------------------------------
+* Fix - Wrong subtotal in widget mini cart
+* Tweak - Improved compatibility with WooCommerce 2.0 (function remove_coupon())
+
+Version 1.0.13, 30 October 2014
+------------------------------------------------------------------------------------
+* Fix - Pricing table display conditions check issues
+
+Version 1.0.12, 24 October 2014
+------------------------------------------------------------------------------------
+* Fix - Problem with maximum_amount property of WooCommerce coupon
+* Fix - Array to string conversion notice
+* Fix - Problems displaying subtotal and total in mini cart
+* Tweak - Pricing table now displays trailing zeros by default
+
+Version 1.0.11, 24 September 2014
+------------------------------------------------------------------------------------
+* Fix - Changed language file template name from default.pot to rp_wcdpd.pot
+* Tweak - Removed hardcoded rounding to two decimals in favor of WooCommerce setting
+* Tweak - "Products in list" will now include products with various statuses
+
+Version 1.0.10, 10 September 2014
+------------------------------------------------------------------------------------
+* Fix - Notice "Undefined index: display_offers"
+* Dev - Allowing other plugins to extend list of capabilities to use in conditions
+
+Version 1.0.9, 9 September 2014
+------------------------------------------------------------------------------------
+* Fix - Improved compatibility with PHP 5.2 (PHP_ROUND_HALF_DOWN issue)
+* Fix - Changed $discounts_applied property from private to public
+
+Version 1.0.8, 20 August 2014
+------------------------------------------------------------------------------------
+* Fix - Cart discount coupon produces error when WooCommerce coupons are disabled
+* Fix - Strict Standards warnings
+* Tweak - Allowing discounts to be applied by manually calling apply_discounts()
+
+Version 1.0.7, 13 August 2014
+------------------------------------------------------------------------------------
+* Tweak - "Coupon Is Not Valid" error on cart quantity change is now suppressed
+* Tweak - Other minor bug fixes and improvements
+
+Version 1.0.6, 6 August 2014
+------------------------------------------------------------------------------------
+* Fix - Discount rounding issues
+
+Version 1.0.5, 14 July 2014
+------------------------------------------------------------------------------------
+* Fix - Infinite loop issue when "ghost" categories are present
+* Fix - Variable product price adjustment bug
+
+Version 1.0.4, 26 June 2014
+------------------------------------------------------------------------------------
+* Fix - Pricing table is not displayed on last variation
+* Tweak - Improvements to rule selection for pricing table
+
+Version 1.0.3, 16 April 2014
+------------------------------------------------------------------------------------
+* Tweak - Improved plugin performance
+
+Version 1.0.2, 27 March 2014
+------------------------------------------------------------------------------------
+* Feature - Added user capabilities to conditions list (support for Groups plugin)
+* Fix - Pricing table display issues when using ranges of one unit
+* Tweak - Pricing table is displayed instantly, if all variations have the same price
+* Tweak - Improved algorithms related to quantity calculation
+
+Version 1.0.1, 12 March 2014
+------------------------------------------------------------------------------------
+* Fix - Several minor issues
+
+Version 1.0, 10 March 2014
+------------------------------------------------------------------------------------
+* Initial release

@@ -1,0 +1,183 @@
+/* PRODUCT PAGE */
+.ywpc-countdown,
+.ywpc-sale-bar {
+    font-family: 'Open Sans', sans-serif;
+    background: #ffffff;
+    border: 1px solid #ffba00;
+    padding: 25px 18px 15px 18px;
+    text-align: center;
+    margin: 0 0 18px 0;
+    font-size: 0;
+    text-transform: uppercase;
+    clear: both;
+
+}
+
+.ywpc-countdown > .ywpc-header,
+.ywpc-sale-bar > .ywpc-header,
+.ywpc-countdown > .ywpc-timer,
+.ywpc-sale-bar > .ywpc-bar {
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.ywpc-countdown > .ywpc-header,
+.ywpc-sale-bar > .ywpc-header {
+    font-size: 30px;
+    font-weight: bold;
+    color: #ffba00;
+    padding: 10px 20px 20px 20px;
+    word-wrap: break-word;
+}
+
+.ywpc-countdown > .ywpc-timer {
+    margin: 0 20px;
+}
+
+.ywpc-sale-bar > .ywpc-header {
+    width: 40%;
+}
+
+.ywpc-sale-bar > .ywpc-bar {
+    width: 60%;
+}
+
+.ywpc-countdown > .ywpc-timer > .ywpc-days,
+.ywpc-countdown > .ywpc-timer > .ywpc-hours,
+.ywpc-countdown > .ywpc-timer > .ywpc-minutes,
+.ywpc-countdown > .ywpc-timer > .ywpc-seconds {
+    display: inline-block;
+    width: 80px;
+    margin: 0;
+}
+
+.ywpc-countdown > .ywpc-timer > div > .ywpc-label {
+    color: #606060;
+    font-size: 12px;
+}
+
+.ywpc-sale-bar > .ywpc-bar > .ywpc-label {
+    color: #606060;
+    font-size: 15px;
+}
+
+.ywpc-countdown > .ywpc-timer > div > .ywpc-amount {
+    background: #ffba00;
+    height: 56px;
+    width: 56px;
+    border-radius: 56px;
+    -moz-border-radius: 56px;
+    -webkit-border-radius: 56px;
+    margin: 2px 12px;
+
+}
+
+.ywpc-countdown > .ywpc-timer > div > .ywpc-amount > span {
+    line-height: 56px;
+    color: #363636;
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.ywpc-sale-bar > .ywpc-bar > .ywpc-back,
+.ywpc-sale-bar > .ywpc-bar > .ywpc-back > .ywpc-fore {
+    display: block;
+    height: 20px;
+}
+
+.ywpc-sale-bar > .ywpc-bar > .ywpc-back {
+    width: 100%;
+    background: #e6e6e6;
+    margin: 5px 0;
+}
+
+.ywpc-sale-bar > .ywpc-bar > .ywpc-back > .ywpc-fore {
+    width: 0;
+    background: #707070;
+}
+
+/* CATEGORY PAGE */
+.ywpc-countdown-loop,
+.ywpc-sale-bar-loop {
+    font-family: 'Open Sans', sans-serif;
+    text-align: center;
+    margin: 10px 0;
+    font-size: 0;
+    text-transform: uppercase;
+    clear: both;
+
+}
+
+.ywpc-countdown-loop > .ywpc-header,
+.ywpc-sale-bar-loop > .ywpc-header,
+.ywpc-countdown-loop > .ywpc-timer,
+.ywpc-sale-bar-loop > .ywpc-bar {
+    display: block;
+}
+
+.ywpc-countdown-loop > .ywpc-header,
+.ywpc-sale-bar-loop > .ywpc-header {
+    font-size: 15px;
+    font-weight: bold;
+    color: #ffba00;
+    word-wrap: break-word;
+}
+
+.ywpc-countdown-loop > .ywpc-timer > .ywpc-days,
+.ywpc-countdown-loop > .ywpc-timer > .ywpc-hours,
+.ywpc-countdown-loop > .ywpc-timer > .ywpc-minutes,
+.ywpc-countdown-loop > .ywpc-timer > .ywpc-seconds {
+    display: inline-block;
+    width: 54px;
+    margin: 5px 0;
+}
+
+.ywpc-countdown-loop > .ywpc-timer > div > .ywpc-label {
+    color: #606060;
+    font-size: 10px;
+}
+
+.ywpc-sale-bar-loop > .ywpc-bar > .ywpc-label {
+    color: #606060;
+    font-size: 15px;
+}
+
+.ywpc-countdown-loop > .ywpc-timer > div > .ywpc-amount {
+    background: #ffba00;
+    height: 50px;
+    width: 50px;
+    border-radius: 50px;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+    margin: 0 2px;
+
+}
+
+.ywpc-countdown-loop > .ywpc-timer > div > .ywpc-amount > span {
+    line-height: 50px;
+    color: #363636;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.ywpc-sale-bar-loop > .ywpc-bar > .ywpc-back,
+.ywpc-sale-bar-loop > .ywpc-bar > .ywpc-back > .ywpc-fore {
+    display: block;
+    height: 12px;
+}
+
+.ywpc-sale-bar-loop > .ywpc-bar > .ywpc-back {
+    width: 100%;
+    background: #e6e6e6;
+    margin: 5px 0;
+}
+
+.ywpc-sale-bar-loop > .ywpc-bar > .ywpc-back > .ywpc-fore {
+    width: 0;
+    background: #707070;
+}
+
+.block-editor .ywpc-shortcode-products li{
+    list-style: none;
+    width: max-content;
+}

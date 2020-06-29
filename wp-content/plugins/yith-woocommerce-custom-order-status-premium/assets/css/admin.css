@@ -1,0 +1,239 @@
+/**
+ * Admin style
+ *
+ * @author Leanza Francesco
+ * @version 1.0.0
+ */
+
+#yith-wccos-metabox .yith-wccos-icon-manager {
+    height     : 200px;
+    width      : 450px;
+    overflow-y : scroll;
+}
+
+#yith-wccos-metabox .yith-wccos-icon-manager-wrapper {
+    width : 500px;
+}
+
+#yith-wccos-metabox .yith-wccos-icon-manager-text {
+    width : 450px;
+}
+
+#yith-wccos-metabox .yith-wccos-icon-list-wrapper li {
+    display : inline-block;
+    padding : 5px;
+}
+
+#yith-wccos-metabox .custom_icon_wrapper {
+    display : none;
+}
+
+#yith_status_icon {
+    width : 60px;
+}
+
+.yith_status_icon mark {
+    display     : block;
+    text-indent : -9999px;
+    position    : relative;
+    height      : 1em;
+    width       : 1em;
+    background  : 0 0;
+    font-size   : 1.4em;
+    margin      : 0 auto;
+}
+
+.column-yith_status_icon span {
+    display    : block;
+    position   : relative;
+    height     : 1em;
+    width      : 1em;
+    background : 0 0;
+    font-size  : 1.2em;
+    margin     : 0 auto;
+    color      : #777;
+}
+
+.column-yith_status_icon span::after {
+    content                : "\e011";
+    top                    : 0;
+    font-family            : WooCommerce;
+    speak                  : none;
+    font-variant           : normal;
+    text-transform         : none;
+    line-height            : 1;
+    -webkit-font-smoothing : antialiased;
+    left                   : 0;
+    text-align             : center;
+}
+
+#yith-wccos-metabox .search-choice-close {
+    z-index : 9998;
+}
+
+#yith-wccos-metabox div.wp-picker-holder {
+    z-index  : 9999;
+    position : absolute;
+}
+
+.yith-wccos-required-field {
+    border     : 1px solid #ca012c !important;
+    box-shadow : 0px 1px 0px 0 #ca012c !important;
+}
+
+.column-yith-wccos-can-cancel,
+.column-yith-wccos-can-pay,
+.column-yith-wccos-is-paid,
+.column-yith-wccos-downloads-permitted,
+.column-yith-wccos-display-in-reports,
+.column-yith-wccos-restore-stock,
+.column-yith-wccos-show-in-actions,
+.column-yith-wccos-send-email-to {
+    text-align : center !important;
+    width      : 30px;
+}
+
+.yith-wccos-icon-check.dashicons-yes,
+.yith-wccos-icon-mail-info:not(.dashicons-no) {
+    color : #00b8d9;
+}
+
+.wp-list-table .yith-wccos-status-icon-head,
+.wp-list-table .yith-wccos-can-cancel-head,
+.wp-list-table .yith-wccos-can-pay-head,
+.wp-list-table .yith-wccos-is-paid-head,
+.wp-list-table .yith-wccos-downloads-permitted-head,
+.wp-list-table .yith-wccos-display-in-reports-head,
+.wp-list-table .yith-wccos-restore-stock-head,
+.wp-list-table .yith-wccos-show-in-actions-head,
+.wp-list-table .yith-wccos-send-email-to-head {
+    display     : block;
+    text-indent : -9999px;
+    position    : relative;
+    height      : 1em;
+    width       : 1em;
+    margin      : 0 auto;
+    font-size   : 17px;
+}
+
+.wp-list-table .yith-wccos-status-icon-head:after,
+.wp-list-table .yith-wccos-can-cancel-head:after,
+.wp-list-table .yith-wccos-can-pay-head:after,
+.wp-list-table .yith-wccos-is-paid-head:after,
+.wp-list-table .yith-wccos-downloads-permitted-head:after,
+.wp-list-table .yith-wccos-display-in-reports-head:after,
+.wp-list-table .yith-wccos-restore-stock-head:after,
+.wp-list-table .yith-wccos-show-in-actions-head:after,
+.wp-list-table .yith-wccos-send-email-to-head:after {
+    font-weight            : 400;
+    margin                 : 0;
+    text-indent            : 0;
+    position               : absolute;
+    width                  : 100%;
+    height                 : 100%;
+    text-align             : center;
+    line-height            : 1;
+    font-family            : Dashicons;
+    speak                  : none;
+    font-variant           : normal;
+    text-transform         : none;
+    -webkit-font-smoothing : antialiased;
+    top                    : 0;
+    left                   : 0;
+}
+
+.wp-list-table .yith-wccos-status-icon-head:after {
+    content     : "\e011";
+    font-family : WooCommerce;
+    color       : #777;
+}
+
+.wp-list-table .yith-wccos-can-cancel-head:after {
+    content : "\f153";
+}
+
+.wp-list-table .yith-wccos-can-pay-head:after {
+    content     : "$";
+    font-family : inherit !important;
+    font-weight : 800;
+}
+
+.wp-list-table .yith-wccos-is-paid-head:after {
+    content     : "\f09d";
+    font-family : 'FontAwesome' !important;
+}
+
+.wp-list-table .yith-wccos-downloads-permitted-head:after {
+    content : "\f316";
+}
+
+.wp-list-table .yith-wccos-display-in-reports-head:after {
+    content : "\f239";
+}
+
+.wp-list-table .yith-wccos-restore-stock-head:after {
+    content : "\f531";
+}
+
+.wp-list-table .yith-wccos-show-in-actions-head:after {
+    content : "\f109";
+}
+
+.wp-list-table .yith-wccos-send-email-to-head:after {
+    content : "\f465";
+}
+
+/** WooCommerce 3.3 fix */
+.post-type-yith-wccos-ostatus .widefat .column-order_status mark {
+    display     : block;
+    text-indent : -9999px;
+    position    : relative;
+    height      : 1em;
+    width       : 1em;
+    background  : 0 0;
+    font-size   : 1.4em;
+    margin      : 0 auto;
+}
+
+.post-type-yith-wccos-ostatus .widefat .column-order_status {
+    width      : 45px;
+    text-align : center;
+}
+
+/**
+ * WPML
+ */
+#yith-wccos-wpml-translations .inside{
+    padding: 0 ;
+}
+
+#yith-wccos-wpml-translations label{
+    display: block;
+    font-weight: 600;
+    margin-bottom:3px;
+}
+
+#yith-wccos-wpml-translations input,
+#yith-wccos-wpml-translations textarea {
+    width : 100%;
+}
+
+.yith-wccos-wpml-translation{
+    border-bottom: 1px solid #e5e5e5;
+    padding: 10px;
+}
+
+.yith-wccos-wpml-translation:last-child{
+    border-bottom: none;
+}
+
+.yith-wccos-wpml-translation__language {
+    font-size   : 1.2em;
+    font-weight : 600;
+    margin-bottom:7px;
+}
+
+.yith-wccos-wpml-translation__single{
+    padding:5px 0;
+}
+

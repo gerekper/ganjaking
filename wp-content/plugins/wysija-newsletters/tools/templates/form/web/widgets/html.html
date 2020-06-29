@@ -1,0 +1,2 @@
+{if #params.nl2br}{#params.text|html_entity_decode|sanitize|nl2br}{/if}
+{if ! #params.nl2br}{#params.text|html_entity_decode|sanitize}{/if}

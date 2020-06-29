@@ -1,0 +1,1175 @@
+# Copyright (C) 2020 SkyVerge
+# This file is distributed under the GNU General Public License v3.0.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Print Invoices/Packing Lists 3.8.6\n"
+"Report-Msgid-Bugs-To: "
+"https://woocommerce.com/my-account/marketplace-ticket-form/\n"
+"POT-Creation-Date: 2020-06-04 16:57:55+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: class-wc-pip.php:236
+msgid "You have generated your first invoice!"
+msgstr ""
+
+#: class-wc-pip.php:238
+msgid "You have generated your first packing list!"
+msgstr ""
+
+#: class-wc-pip.php:240
+msgid "You have generated your first pick list!"
+msgstr ""
+
+#: class-wc-pip.php:274
+#. translators: Placeholders: %1$s - this plugin name, %2$s - opening HTML <a>
+#. anchor tag, %3$s - closing HTML </a> tag
+msgid ""
+"Hi there! It looks like you have upgraded %1$s from an older version. We "
+"have added lots of new features, please %2$scheck out the documentation%3$s "
+"for an overview and some helpful upgrading tips!"
+msgstr ""
+
+#: class-wc-pip.php:282
+#. translators: Placeholders: %1$s - the plugin name, %2$s - opening HTML <a>
+#. anchor tag, %3$s closing HTML </a> tag
+msgid ""
+"Thanks for installing %1$s! To get started, take a minute to %2$sread the "
+"documentation%3$s :)"
+msgstr ""
+
+#: class-wc-pip.php:477 includes/admin/class-wc-pip-orders-admin.php:287
+#: includes/admin/class-wc-pip-settings.php:67
+#: includes/class-wc-pip-document-invoice.php:50
+#: includes/emails/class-wc-pip-email-invoice.php:52
+msgid "Invoice"
+msgstr ""
+
+#: class-wc-pip.php:478 includes/admin/class-wc-pip-orders-admin.php:288
+#: includes/admin/class-wc-pip-settings.php:68
+#: includes/class-wc-pip-document-packing-list.php:50
+#: includes/emails/class-wc-pip-email-packing-list.php:52
+msgid "Packing List"
+msgstr ""
+
+#: class-wc-pip.php:479 includes/admin/class-wc-pip-settings.php:69
+#: includes/class-wc-pip-document-pick-list.php:54
+#: includes/emails/class-wc-pip-email-pick-list.php:52
+msgid "Pick List"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce Print Invoices/Packing Lists"
+msgstr ""
+
+#: includes/abstract-wc-pip-document.php:437
+#: includes/class-wc-pip-document-pick-list.php:178
+msgid "No shipping"
+msgstr ""
+
+#: includes/abstract-wc-pip-document.php:498
+#: includes/admin/views/html-pip-template-preview.php:359
+msgid "Email:"
+msgstr ""
+
+#: includes/abstract-wc-pip-document.php:506
+msgid "Phone:"
+msgstr ""
+
+#: includes/admin/class-wc-pip-admin.php:91
+msgid "Print Invoices/Packing Lists"
+msgstr ""
+
+#: includes/admin/class-wc-pip-admin.php:92
+msgid "Documents to print will open in a new window."
+msgstr ""
+
+#: includes/admin/class-wc-pip-admin.php:93
+msgid ""
+"Are you sure you want to reset the invoice number counter? This action "
+"could result in duplicate invoice numbers or other unintended consequences."
+msgstr ""
+
+#: includes/admin/class-wc-pip-admin.php:94
+msgid "Close"
+msgstr ""
+
+#: includes/admin/class-wc-pip-customizer.php:156
+msgid "Template Customizer"
+msgstr ""
+
+#: includes/admin/class-wc-pip-customizer.php:157
+msgid "Customize the template using a visual editor."
+msgstr ""
+
+#: includes/admin/class-wc-pip-customizer.php:162
+msgid "Customize"
+msgstr ""
+
+#: includes/admin/class-wc-pip-customizer.php:163
+msgid "Customize Template"
+msgstr ""
+
+#: includes/admin/class-wc-pip-customizer.php:209
+msgid "Company Information"
+msgstr ""
+
+#: includes/admin/class-wc-pip-customizer.php:216
+msgid "Typography"
+msgstr ""
+
+#: includes/admin/class-wc-pip-customizer.php:223
+msgid "Colors"
+msgstr ""
+
+#: includes/admin/class-wc-pip-customizer.php:230
+msgid "Content"
+msgstr ""
+
+#: includes/admin/class-wc-pip-customizer.php:237
+msgid "Advanced"
+msgstr ""
+
+#: includes/admin/class-wc-pip-customizer.php:427
+msgid "Shop Logo"
+msgstr ""
+
+#: includes/admin/class-wc-pip-customizer.php:428
+msgid "Upload a logo representing your shop or business."
+msgstr ""
+
+#: includes/admin/class-wc-pip-customizer.php:440
+msgid "Logo Max Width"
+msgstr ""
+
+#: includes/admin/class-wc-pip-customizer.php:441
+msgid "The maximum width of the logo."
+msgstr ""
+
+#: includes/admin/class-wc-pip-customizer.php:452
+msgid "Shop Name"
+msgstr ""
+
+#: includes/admin/class-wc-pip-customizer.php:453
+msgid ""
+"Enter your shop or business name to be displayed when not using a logo. "
+"Leave blank to use the default site title."
+msgstr ""
+
+#: includes/admin/class-wc-pip-customizer.php:462
+msgid "Shop URL"
+msgstr ""
+
+#: includes/admin/class-wc-pip-customizer.php:463
+msgid ""
+"Enter the URL to be used in the template for your shop or business website "
+"URL. Leave blank to use the default site url."
+msgstr ""
+
+#: includes/admin/class-wc-pip-customizer.php:472
+msgid "Extra information"
+msgstr ""
+
+#: includes/admin/class-wc-pip-customizer.php:473
+msgid ""
+"Enter additional information or subheading to be displayed below the title "
+"or logo."
+msgstr ""
+
+#: includes/admin/class-wc-pip-customizer.php:482
+#: includes/admin/class-wc-pip-customizer.php:702
+msgid "VAT Number"
+msgstr ""
+
+#: includes/admin/class-wc-pip-customizer.php:483
+msgid "Enter your business VAT number."
+msgstr ""
+
+#: includes/admin/class-wc-pip-customizer.php:492
+msgid "Shop name or logo alignment"
+msgstr ""
+
+#: includes/admin/class-wc-pip-customizer.php:493
+msgid "Set the alignment of the shop title or logo in template."
+msgstr ""
+
+#: includes/admin/class-wc-pip-customizer.php:500
+#: includes/admin/class-wc-pip-customizer.php:526
+msgid "Left"
+msgstr ""
+
+#: includes/admin/class-wc-pip-customizer.php:501
+#: includes/admin/class-wc-pip-customizer.php:527
+msgid "Right"
+msgstr ""
+
+#: includes/admin/class-wc-pip-customizer.php:502
+#: includes/admin/class-wc-pip-customizer.php:528
+msgid "Center"
+msgstr ""
+
+#: includes/admin/class-wc-pip-customizer.php:508
+msgid "Shop Address"
+msgstr ""
+
+#: includes/admin/class-wc-pip-customizer.php:509
+msgid ""
+"Enter your shop or business address to be displayed next to the logo or "
+"shop name."
+msgstr ""
+
+#: includes/admin/class-wc-pip-customizer.php:518
+msgid "Shop Address alignment"
+msgstr ""
+
+#: includes/admin/class-wc-pip-customizer.php:519
+msgid "Set the alignment of the shop address in template."
+msgstr ""
+
+#: includes/admin/class-wc-pip-customizer.php:542
+msgid "Body font size"
+msgstr ""
+
+#: includes/admin/class-wc-pip-customizer.php:543
+msgid "The template default body font size."
+msgstr ""
+
+#: includes/admin/class-wc-pip-customizer.php:558
+msgid "Heading font size"
+msgstr ""
+
+#: includes/admin/class-wc-pip-customizer.php:559
+msgid "The template default heading font size."
+msgstr ""
+
+#: includes/admin/class-wc-pip-customizer.php:576
+msgid "Link Color"
+msgstr ""
+
+#: includes/admin/class-wc-pip-customizer.php:577
+msgid "Choose the default color of links in template."
+msgstr ""
+
+#: includes/admin/class-wc-pip-customizer.php:585
+msgid "Headings Color"
+msgstr ""
+
+#: includes/admin/class-wc-pip-customizer.php:586
+msgid "Choose the default color for heading text."
+msgstr ""
+
+#: includes/admin/class-wc-pip-customizer.php:594
+msgid "Table Head Background Color"
+msgstr ""
+
+#: includes/admin/class-wc-pip-customizer.php:595
+msgid "Choose the default color for the table head background."
+msgstr ""
+
+#: includes/admin/class-wc-pip-customizer.php:603
+msgid "Table Head Color"
+msgstr ""
+
+#: includes/admin/class-wc-pip-customizer.php:604
+msgid "Choose the default color for the table head text."
+msgstr ""
+
+#: includes/admin/class-wc-pip-customizer.php:616
+msgid "Header"
+msgstr ""
+
+#: includes/admin/class-wc-pip-customizer.php:617
+msgid "Enter additional information to be displayed below the document's header."
+msgstr ""
+
+#: includes/admin/class-wc-pip-customizer.php:625
+msgid "Returns Policy, Terms and Conditions, etc."
+msgstr ""
+
+#: includes/admin/class-wc-pip-customizer.php:626
+msgid "Enter your shop's policies to be displayed at the bottom of the document."
+msgstr ""
+
+#: includes/admin/class-wc-pip-customizer.php:634
+msgid "Fine print"
+msgstr ""
+
+#: includes/admin/class-wc-pip-customizer.php:635
+msgid "Display the terms and conditions text in fine print."
+msgstr ""
+
+#: includes/admin/class-wc-pip-customizer.php:643
+msgid "Footer"
+msgstr ""
+
+#: includes/admin/class-wc-pip-customizer.php:644
+msgid "Enter additional information to be displayed at the document's footer."
+msgstr ""
+
+#: includes/admin/class-wc-pip-customizer.php:657
+msgid "Custom Styles"
+msgstr ""
+
+#: includes/admin/class-wc-pip-customizer.php:658
+msgid ""
+"For advanced users: you may enter additional CSS styles that will be used "
+"in the document template."
+msgstr ""
+
+#: includes/admin/class-wc-pip-customizer.php:681
+msgid "Save and Preview Changes"
+msgstr ""
+
+#: includes/admin/class-wc-pip-orders-admin.php:110
+msgid "Close modal panel"
+msgstr ""
+
+#: includes/admin/class-wc-pip-orders-admin.php:117
+msgid "Done"
+msgstr ""
+
+#: includes/admin/class-wc-pip-orders-admin.php:119
+msgid "Cancel"
+msgstr ""
+
+#: includes/admin/class-wc-pip-orders-admin.php:199
+msgid "Invoice number:"
+msgstr ""
+
+#: includes/admin/class-wc-pip-orders-admin.php:229
+msgid "Print Invoice"
+msgstr ""
+
+#: includes/admin/class-wc-pip-orders-admin.php:230
+msgid "Email Invoice"
+msgstr ""
+
+#: includes/admin/class-wc-pip-orders-admin.php:231
+msgid "Print Packing List"
+msgstr ""
+
+#: includes/admin/class-wc-pip-orders-admin.php:232
+msgid "Email Packing List"
+msgstr ""
+
+#: includes/admin/class-wc-pip-orders-admin.php:260
+msgid "Print Pick List"
+msgstr ""
+
+#: includes/admin/class-wc-pip-orders-admin.php:261
+msgid "Email Pick List"
+msgstr ""
+
+#: includes/admin/class-wc-pip-orders-admin.php:326
+#: includes/admin/views/html-pip-template-preview.php:107
+#. translators: Placeholder: %s - invoice number
+msgid "Invoice: %s"
+msgstr ""
+
+#: includes/admin/class-wc-pip-orders-admin.php:352
+#. translators: Placeholder: %s - order number
+msgid "Invoice/Packing List (Order #%s)"
+msgstr ""
+
+#: includes/admin/class-wc-pip-orders-admin.php:391
+#: includes/wc-pip-template-functions.php:126
+msgid "Print"
+msgstr ""
+
+#: includes/admin/class-wc-pip-orders-admin.php:394
+msgid "Email"
+msgstr ""
+
+#: includes/admin/class-wc-pip-orders-admin.php:477
+msgid "Invoice Number"
+msgstr ""
+
+#: includes/admin/class-wc-pip-orders-admin.php:523
+msgid "Print Invoices / Packing Lists"
+msgstr ""
+
+#: includes/admin/class-wc-pip-orders-admin.php:620
+msgid "Invoice not printed"
+msgstr ""
+
+#: includes/admin/class-wc-pip-orders-admin.php:621
+msgid "Invoice printed"
+msgstr ""
+
+#: includes/admin/class-wc-pip-orders-admin.php:622
+msgid "Packing List not printed"
+msgstr ""
+
+#: includes/admin/class-wc-pip-orders-admin.php:623
+msgid "Packing List printed"
+msgstr ""
+
+#: includes/admin/class-wc-pip-orders-admin.php:624
+msgid "Pick List not printed"
+msgstr ""
+
+#: includes/admin/class-wc-pip-orders-admin.php:625
+msgid "Pick List printed"
+msgstr ""
+
+#: includes/admin/class-wc-pip-orders-admin.php:632
+msgid "Show all print statuses"
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:47
+msgid "Invoices/Packing Lists"
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:66
+msgid "General"
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:152
+msgid "Emails"
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:155
+#. translators: Placeholders: %1$s - opening HTML <a> anchor tag, %2$s closing
+#. HTML </a> anchor tag
+msgid "You can configure Invoices/Packing Lists %1$semail settings here%2$s."
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:190
+msgid "Reset counter"
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:191
+msgid "Reset the starting invoice number."
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:192
+msgid "Tick this if you want to edit the invoice start number."
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:200
+#. translators: Placeholder: %s - merge tag
+msgid "%s Day of the month without leading zeros"
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:202
+#. translators: Placeholder: %s - merge tag
+msgid "%s Day of the month with leading zeros (2 digits)"
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:204
+#. translators: Placeholder: %s - merge tag
+msgid "%s Month, without leading zeros"
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:206
+#. translators: Placeholder: %s - merge tag
+msgid "%s Month, with leading zeros (2 digits)"
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:208
+#. translators: Placeholder: %s - merge tag
+msgid "%s Year (2 digits)"
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:210
+#. translators: Placeholder: %s - merge tag
+msgid "%s Year (4 digits)"
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:212
+#. translators: Placeholder: %s - merge tag
+msgid "%s 24-hour format of an hour without leading zeros"
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:214
+#. translators: Placeholder: %s - merge tag
+msgid "%s 24-hour format of an hour with leading zeros (2 digits)"
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:216
+#. translators: Placeholder: %s - merge tag
+msgid "%s Minutes with leading zeros"
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:218
+#. translators: Placeholder: %s - merge tag
+msgid "%s Seconds with leading zeros"
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:226
+msgid "Invoice Appearance"
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:233
+msgid "Show shipping method"
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:234
+msgid "Enable if you want to display shipping method for the invoice order."
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:242
+#: includes/admin/class-wc-pip-settings.php:395
+msgid "Show customer details"
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:243
+#: includes/admin/class-wc-pip-settings.php:396
+msgid "Enable if you want to display customer details."
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:251
+msgid "Show customer provided note"
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:252
+msgid "Enable if you want to display the customer provided note."
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:260
+msgid "Show coupons used in order"
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:261
+msgid "Enable if you want to display a list of coupons applied to the order."
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:269
+msgid "Show SKU"
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:270
+msgid "Add or remove the SKU from your invoices."
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:278
+msgid "Show item prices excluding taxes"
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:279
+msgid "Enable if you want to display item prices exclusive of tax."
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:280
+msgid ""
+"Overrides the store tax display settings when displaying item prices in "
+"invoices."
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:292
+msgid "Invoice Number Generation"
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:299
+msgid "Use Order Number as Invoice Number"
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:300
+msgid ""
+"Enable this to use the order number as the invoice number. Disable to "
+"auto-generate the invoice number based on a starting number of your choice."
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:309
+msgid "Invoice Number Start"
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:310
+msgid "Set the starting invoice number."
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:327
+msgid "Invoice Number Minimum Digits"
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:328
+msgid ""
+"Adds leading zeros to the invoice number count to keep the number of "
+"characters in the invoice number consistent. Leave to 1 to ignore the "
+"setting."
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:341
+msgid "Invoice Number Prefix"
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:342
+msgid "Set your custom invoice number prefix."
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:344
+#: includes/admin/class-wc-pip-settings.php:354
+#. translators: Placeholder: %s - List of merge tags
+msgid "You may also use the following merge tags: %s"
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:351
+msgid "Invoice Number Suffix"
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:352
+msgid "Set your custom invoice number suffix."
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:388
+msgid "Packing List Appearance"
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:404
+msgid "Show customer note"
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:405
+msgid "Enable if you want to display the customer note."
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:413
+msgid "Show terms and conditions"
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:414
+msgid ""
+"Enable if you want to display terms and conditions or return policy on "
+"packing lists."
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:422
+msgid "Show footer"
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:423
+msgid "Enable if you want to display footer information on packing lists."
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:431
+#: includes/admin/class-wc-pip-settings.php:524
+msgid "Show optional fields"
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:432
+msgid "Add or remove optional fields from your packing lists."
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:440
+#: includes/admin/class-wc-pip-settings.php:534
+#: includes/class-wc-pip-document-invoice.php:58
+#: includes/class-wc-pip-document-packing-list.php:59
+#: includes/class-wc-pip-document-pick-list.php:64
+msgid "SKU"
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:441
+#: includes/admin/class-wc-pip-settings.php:536
+msgid "Total weight"
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:448
+#: includes/admin/class-wc-pip-settings.php:543
+msgid "Exclude Virtual Items"
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:449
+msgid "Exclude virtual items from showing on packing lists."
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:501
+msgid "Pick List Appearance"
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:508
+msgid "Pick List Output"
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:509
+msgid "This controls grouped by for selected orders on pick list."
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:513
+msgid "Groups items by order for selected orders"
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:514
+msgid "Groups items by category for selected orders"
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:525
+msgid "Add or remove optional fields from your pick lists."
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:535
+#: includes/class-wc-pip-document-pick-list.php:66
+msgid "Details"
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:544
+msgid "Exclude virtual items from showing on pick lists."
+msgstr ""
+
+#: includes/admin/views/html-pip-template-preview.php:82
+#: templates/pip/content/order-table-before.php:84
+#. translators: Placeholder: %s - VAT number
+#. translators: Placeholder: %s - VAT Number
+msgid "VAT Number: %s"
+msgstr ""
+
+#: includes/admin/views/html-pip-template-preview.php:110
+#: includes/class-wc-pip-document-invoice.php:133
+#. translators: Placeholder: %s - order date
+#. translators: Placeholder:  %s - order date
+msgid "Order Date: %s"
+msgstr ""
+
+#: includes/admin/views/html-pip-template-preview.php:127
+#: templates/pip/content/order-table-before.php:150
+msgid "Billing Address"
+msgstr ""
+
+#: includes/admin/views/html-pip-template-preview.php:149
+#: templates/pip/content/order-table-before.php:175
+msgid "Shipping Address"
+msgstr ""
+
+#: includes/admin/views/html-pip-template-preview.php:171
+#: templates/pip/content/order-table-before.php:200
+msgid "Shipping Method"
+msgstr ""
+
+#: includes/admin/views/html-pip-template-preview.php:234
+msgid "Subtotal:"
+msgstr ""
+
+#: includes/admin/views/html-pip-template-preview.php:242
+msgid "Discount:"
+msgstr ""
+
+#: includes/admin/views/html-pip-template-preview.php:250
+msgid "Shipping:"
+msgstr ""
+
+#: includes/admin/views/html-pip-template-preview.php:253
+msgid "Free Shipping"
+msgstr ""
+
+#: includes/admin/views/html-pip-template-preview.php:258
+msgid "State Tax:"
+msgstr ""
+
+#: includes/admin/views/html-pip-template-preview.php:266
+msgid "Payment Method:"
+msgstr ""
+
+#: includes/admin/views/html-pip-template-preview.php:274
+msgid "Refund:"
+msgstr ""
+
+#: includes/admin/views/html-pip-template-preview.php:282
+msgid "Total:"
+msgstr ""
+
+#: includes/admin/views/html-pip-template-preview.php:320
+msgid "Color:"
+msgstr ""
+
+#: includes/admin/views/html-pip-template-preview.php:321
+msgid "Blue"
+msgstr ""
+
+#: includes/admin/views/html-pip-template-preview.php:322
+msgid "Size:"
+msgstr ""
+
+#: includes/admin/views/html-pip-template-preview.php:351
+#: templates/pip/content/order-table-after.php:91
+#. translators: Placeholder: %1$s - opening <strong> tag, %2$s - coupons count
+#. (used in order), %3$s - closing </strong> tag - %4$s - coupons list
+msgid "%1$sCoupon used:%3$s %4$s"
+msgid_plural "%1$sCoupons used (%2$s):%3$s %4$s"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/admin/views/html-pip-template-preview.php:357
+msgid "Customer details"
+msgstr ""
+
+#: includes/admin/views/html-pip-template-preview.php:360
+msgid "Telephone:"
+msgstr ""
+
+#: includes/class-wc-pip-ajax.php:114
+#. translators: Placeholder: %s - document name
+msgid "Send %s"
+msgid_plural "Send %s"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-wc-pip-ajax.php:121
+#. translators: Placeholder: %d - orders count, %s - document name
+msgid "Ready to send %s for %d order by email."
+msgid_plural "Ready to send %s for %d orders by email."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-wc-pip-ajax.php:128
+#. translators: Placeholder: %d - orders count, %s - document name
+msgid "Ready to send %d %s by email."
+msgid_plural "Ready to send %d %s by email."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-wc-pip-ajax.php:141
+msgid "Send Email"
+msgid_plural "Send Emails"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-wc-pip-ajax.php:168 includes/class-wc-pip-ajax.php:334
+#. translators: Placeholder: %s - document name
+#. translators: Placeholder: %s - document name (singular or plural)
+msgid "Print %s"
+msgid_plural "Print %s"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-wc-pip-ajax.php:175
+#. translators: Placeholder: %d - orders count, %s - document name
+msgid "Ready to print %s for %d order."
+msgid_plural "Ready to print %s for %d orders."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-wc-pip-ajax.php:182
+#. translators: Placeholder: %d - orders count, %s - document name
+msgid "Ready to print %d %s."
+msgid_plural "Ready to print %d %s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-wc-pip-ajax.php:195 includes/class-wc-pip-ajax.php:337
+#. translators: Placeholder: %s - document name (singular or plural)
+msgid "Print Document"
+msgid_plural "Print Documents"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-wc-pip-ajax.php:305
+#. translators: Placeholder: %s - document name (plural)
+msgid "No %s sent"
+msgstr ""
+
+#: includes/class-wc-pip-ajax.php:305
+msgid "No Emails Sent"
+msgstr ""
+
+#: includes/class-wc-pip-ajax.php:306
+msgid "No emails sent."
+msgstr ""
+
+#: includes/class-wc-pip-ajax.php:309
+#. translators: Placeholder: %s - document name (singular or plural)
+msgid "%s sent"
+msgid_plural "%s sent"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-wc-pip-ajax.php:309
+msgid "Emails Sent"
+msgstr ""
+
+#: includes/class-wc-pip-ajax.php:311
+#. translators: Placeholder: %d - number of documents printed
+msgid "%d email sent."
+msgid_plural "%d emails sent."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-wc-pip-ajax.php:341
+msgid "No printable documents."
+msgstr ""
+
+#: includes/class-wc-pip-ajax.php:344
+#. translators: Placeholder: %d - number of documents printed
+msgid "%d document printed."
+msgid_plural "%d documents printed."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-wc-pip-document-invoice.php:51
+msgid "Invoices"
+msgstr ""
+
+#: includes/class-wc-pip-document-invoice.php:59
+#: includes/class-wc-pip-document-packing-list.php:60
+#: includes/class-wc-pip-document-pick-list.php:65
+msgid "Product"
+msgstr ""
+
+#: includes/class-wc-pip-document-invoice.php:60
+#: includes/class-wc-pip-document-packing-list.php:61
+#: includes/class-wc-pip-document-pick-list.php:67
+msgid "Quantity"
+msgstr ""
+
+#: includes/class-wc-pip-document-invoice.php:61
+msgid "Price"
+msgstr ""
+
+#: includes/class-wc-pip-document-invoice.php:124
+#. translators: Placeholders:  %1$s - invoice number, %2$s - order number
+msgid "Invoice %1$s for order %2$s"
+msgstr ""
+
+#: includes/class-wc-pip-document-invoice.php:127
+#. translators: Placeholder: %s - order number
+msgid "Invoice for order %s"
+msgstr ""
+
+#: includes/class-wc-pip-document-invoice.php:355
+#. translators: Placeholder: %s - invoice plain url
+msgid "View your invoice: %s"
+msgstr ""
+
+#: includes/class-wc-pip-document-invoice.php:357
+msgid "View your invoice."
+msgstr ""
+
+#: includes/class-wc-pip-document-packing-list.php:51
+msgid "Packing Lists"
+msgstr ""
+
+#: includes/class-wc-pip-document-packing-list.php:62
+msgid "Total Weight"
+msgstr ""
+
+#: includes/class-wc-pip-document-packing-list.php:166
+#. translators: Placeholders: %1$s - invoice number, %2$s - order number
+msgid "Packing List for invoice %1$s (order %2$s)"
+msgstr ""
+
+#: includes/class-wc-pip-document-packing-list.php:169
+#. translators: Placeholder: %s order number
+msgid "Packing List for order %s"
+msgstr ""
+
+#: includes/class-wc-pip-document-packing-list.php:250
+msgid "Uncategorized"
+msgstr ""
+
+#: includes/class-wc-pip-document-packing-list.php:288
+msgid "These items have been removed from the shop catalog"
+msgstr ""
+
+#: includes/class-wc-pip-document-packing-list.php:483
+msgid "This order does not contain shippable items."
+msgstr ""
+
+#: includes/class-wc-pip-document-packing-list.php:619
+msgid "Totals:"
+msgstr ""
+
+#: includes/class-wc-pip-document-packing-list.php:621
+#. translators: Placeholder: %d - total amount of items in packing list
+msgid "%d pc."
+msgid_plural "%d pcs."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-wc-pip-document-pick-list.php:55
+msgid "Pick Lists"
+msgstr ""
+
+#: includes/class-wc-pip-document-pick-list.php:69
+#. translators: Placeholder: %s - weight measurement unit
+msgid "Total Weight (%s)"
+msgstr ""
+
+#: includes/class-wc-pip-document-pick-list.php:173
+#. translators: Placeholders: %1$s - order number, %2$s - invoice number
+msgid "Order %1$s - Invoice %2$s"
+msgstr ""
+
+#: includes/class-wc-pip-print.php:76 includes/class-wc-pip-print.php:112
+msgid "You are not allowed to view this page."
+msgstr ""
+
+#: includes/class-wc-pip-print.php:83
+msgid ""
+"You are not allowed to view this page. You need to be an admin or be able "
+"to manage orders."
+msgstr ""
+
+#: includes/class-wc-pip-print.php:106
+msgid "The related order does not exist or is invalid."
+msgstr ""
+
+#: includes/class-wc-pip-print.php:123
+msgid "The requested document could not be found or is of an invalid type."
+msgstr ""
+
+#: includes/emails/class-wc-pip-email-invoice.php:53
+msgid ""
+"If enabled, invoice emails are sent when an order is paid and the order "
+"status is processing or completed."
+msgstr ""
+
+#: includes/emails/class-wc-pip-email-invoice.php:55
+#. translators: Placeholders: %1$s - merge tag for the shop name, %2$s merge
+#. tag for generated invoice number, %3$s merge tag for order number, %4$s
+#. merge tag for date of the order
+msgid "[%1$s] Invoice %2$s for order %3$s from %4$s"
+msgstr ""
+
+#: includes/emails/class-wc-pip-email-invoice.php:157
+#: includes/emails/class-wc-pip-email-packing-list.php:160
+msgid "Enable/Disable"
+msgstr ""
+
+#: includes/emails/class-wc-pip-email-invoice.php:159
+#: includes/emails/class-wc-pip-email-packing-list.php:162
+msgid "Enable this email notification"
+msgstr ""
+
+#: includes/emails/class-wc-pip-email-invoice.php:164
+#: includes/emails/class-wc-pip-email-packing-list.php:175
+#: includes/emails/class-wc-pip-email-pick-list.php:152
+msgid "Subject"
+msgstr ""
+
+#: includes/emails/class-wc-pip-email-invoice.php:167
+#: includes/emails/class-wc-pip-email-packing-list.php:178
+#: includes/emails/class-wc-pip-email-pick-list.php:155
+#. translators: Placeholder: %s - Default email subject
+msgid "Defaults to <code>%s</code>"
+msgstr ""
+
+#: includes/emails/class-wc-pip-email-packing-list.php:53
+msgid ""
+"If enabled, packing list emails are sent to designated recipients when an "
+"order needs to be processed."
+msgstr ""
+
+#: includes/emails/class-wc-pip-email-packing-list.php:55
+#. translators: Placeholders: %1$s - merge tag for the shop name, %2$s merge
+#. tag for generated invoice number, %3$s merge tag for order number, %4$s
+#. merge tag for date of the order
+msgid "[%1$s] Packing List for invoice %2$s - order %3$s from %4$s"
+msgstr ""
+
+#: includes/emails/class-wc-pip-email-packing-list.php:167
+#: includes/emails/class-wc-pip-email-pick-list.php:144
+msgid "Recipient(s)"
+msgstr ""
+
+#: includes/emails/class-wc-pip-email-packing-list.php:169
+#: includes/emails/class-wc-pip-email-pick-list.php:146
+msgid ""
+"Enter recipients (comma separated) for this email. Defaults to admin email: "
+"<code>%s</code>."
+msgstr ""
+
+#: includes/emails/class-wc-pip-email-pick-list.php:53
+msgid ""
+"Pick list emails can be manually sent via order bulk action to the "
+"designated recipients."
+msgstr ""
+
+#: includes/emails/class-wc-pip-email-pick-list.php:55
+#. translators: Placeholders: %1$s - merge tag for the shop name, %2$s merge
+#. tag number of orders included in the document
+msgid "[%1$s] Pick List for %2$s"
+msgstr ""
+
+#: includes/emails/class-wc-pip-email-pick-list.php:184
+#. translators: Placeholder: %d orders count
+msgid "%d order"
+msgid_plural "%d orders"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/frontend/class-wc-pip-frontend.php:112
+msgid "View invoice"
+msgstr ""
+
+#: includes/frontend/class-wc-pip-frontend.php:148
+msgid "View Invoice"
+msgstr ""
+
+#: includes/integrations/vat-number/class-wc-pip-integration-vat-number.php:78
+msgid "Show customer VAT Number"
+msgstr ""
+
+#: includes/integrations/vat-number/class-wc-pip-integration-vat-number.php:79
+msgid "Enable if you want to display the customer VAT Number."
+msgstr ""
+
+#: includes/integrations/vat-number/class-wc-pip-integration-vat-number.php:115
+msgid "VAT Number:"
+msgstr ""
+
+#: includes/integrations/vat-number/class-wc-pip-integration-vat-number.php:147
+#. translators: Placeholders: %1$s - <strong> tag, %2$s - </strong> tag, %3$s -
+#. VAT number
+msgid "%1$sVAT Number:%2$s %3$s"
+msgstr ""
+
+#: templates/pip/content/order-table-after.php:103
+msgid "Customer Details"
+msgstr ""
+
+#: templates/pip/content/order-table-before.php:115
+#. translators: Placeholder: %d - orders count (one or many)
+msgid "List of items needed to process %d order."
+msgid_plural "List of items needed to process %d orders."
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/pip/content/order-table-before.php:134
+#. translators: Placeholder: %s - order edit links
+msgid "Orders: %s"
+msgstr ""
+
+#: templates/pip/content/order-table-before.php:139
+#. translators: Placeholders: %1$s - date, %2$s time
+msgid "Printed on: %1$s at %2$s"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.woocommerce.com/products/print-invoices-packing-lists/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Customize and print invoices and packing lists for WooCommerce orders from "
+"the WordPress admin"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "SkyVerge"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://www.woocommerce.com/"
+msgstr ""
+
+#: includes/admin/views/html-pip-template-preview.php:46
+msgctxt "Facsimile label. Try to keep this below 16 characters length."
+msgid "Sample Invoice"
+msgstr ""
+
+#: includes/admin/views/html-pip-template-preview.php:323
+msgctxt "Sample Variation Medium Size"
+msgid "M"
+msgstr ""
+
+#: includes/admin/views/html-pip-template-preview.php:372
+msgctxt "Customer note sample for the live template preview."
+msgid "Please include a printed copy of your catalog, thank you."
+msgstr ""
+
+#: includes/class-wc-pip-document-packing-list.php:247
+msgctxt "Products deleted from the shop"
+msgid "Removed"
+msgstr ""

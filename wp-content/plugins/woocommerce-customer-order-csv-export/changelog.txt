@@ -1,0 +1,512 @@
+*** WooCommerce Customer/Order/Coupon Export Changelog ***
+
+2020.06.04 - version 5.0.13
+ * Fix - Address a potential PHP fatal error when exporting coupons that are configured to exclude some products, but the products no longer exist
+
+2020.05.04 - version 5.0.12
+ * Misc - Add support for WooCommerce 4.1
+
+2020.04.16 - version 5.0.11
+ * Fix - Fix a bug that was causing orders not to be properly marked as exported by immediate automated exports when changing the order status via the edit page
+
+2020.04.09 - version 5.0.10
+ * Fix - Fix a bug that could cause automations to be scheduled at the wrong time after the interval was changed
+
+2020.03.05 - version 5.0.9
+ * Tweak - Mark customer/order as globally exported when it is exported by all automated exports of the associated type
+ * Fix - Prevent error notices when marking orders as exported
+ * Misc - Add support for WooCommerce 4.0
+
+2020.02.06 - version 5.0.8
+ * Fix - Use a background process to mark orders as exported
+
+2020.01.24 - version 5.0.7
+ * Fix - Correctly use FTP Passive mode when specified in the plugin settings
+
+2020.01.02 - version 5.0.6
+ * Fix - Fix a JavaScript bug that could cause an endless loop of downloads while using the Download to CSV or Download to XML bulk actions
+ * Misc - Add support for WooCommerce 3.9
+
+2019.12.11 - version 5.0.5
+ * Misc - Add support for migrating from the XML Export Suite plugin
+
+2019.12.05 - version 5.0.4
+ * Fix - Correctly send the output_type to the format data sources filter
+ * Fix - Ensure meta values are properly set when exporting to legacy custom formats
+ * Fix - Ensure third-party column options are available when creating new custom formats
+
+2019.11.26 - version 5.0.3
+ * Fix - Add configuration modal to download actions
+ * Fix - Fix empty exports when using a migrated custom format
+ * Fix - Fix fatal error on get_settings_url
+
+2019.11.19 - version 5.0.2
+ * Fix - Order status filter should only consider globally exported orders (for consistency with order status column)
+
+2019.11.13 - version 5.0.1
+ * Fix - Fix a Fatal error triggered if Action Scheduler 3.0 is being used on the website
+ * Fix - Manual exports via order actions or order/user bulk actions should mark the order/user as globally exported
+
+2019.11.12 - version 5.0.0
+ * Feature - Unify the functionality of Customer/Order CSV & XML Export into a single plugin
+ * Feature - Add support for multiple automated exports to send exports to different destinations, in different formats, on their own schedule
+ * Misc - Add support for WooCommerce 3.8
+
+2019.08.21 - version 4.8.1
+ * Fix - Fix issue preventing database-stored exports from displaying properly on some hosts
+
+2019.08.12 - version 4.8.0
+ * Fix - Fix a bug which caused exports not to work without re-saving settings after install
+ * Misc - Add support for WooCommerce 3.7
+ * Misc - Remove support for WooCommerce 2.6
+ * Misc - Require PHP 5.6+
+
+2019.07.30 - version 4.7.1
+ * Fix - Only test loopback connection on plugin settings page
+
+2019.06.27 - version 4.7.0
+ * Feature - Create and manage multiple custom formats for order, customer, and coupon exports
+ * Misc - Update the SkyVerge Plugin Framework to version 5
+
+2019.06.05 - version 4.6.4
+ * Tweak - Drop support for legacy export formats in fresh installations of the plugin
+ * Fix - Exclude auto-draft orders from order export
+ * Fix - Fix load mapping functionality for Coupons custom format
+ * Fix - Address a bug that may have produced a PHP warning in the system status report admin page
+ * Fix - Bail out from writing rows to CSV that may contain empty data and cause file download issues in some circumstances
+
+2019.04.17 - version 4.6.3
+ * Fix - Fix an error which could occur when running certain third-party plugins
+ * Dev - Filter the maximum age of stored exports
+ * Misc - Add support for WooCommerce 3.6
+
+2019.01.22 - version 4.6.2
+ * Fix - Fix issue causing the download_permissions column to always be populated with 0
+ * Fix - Ensure greater than 10 coupons can be exported at a time
+ * Fix - Set individual_use column to yes/no to match CSV Import's format
+ * Fix - Fix an error exporting coupons which are restricted to or excluded from deleted products
+ * Misc - Add a notice on the Custom Formats tab that alerts the user if they are modifying a custom format that is not enabled
+
+2018.11.29 - version 4.6.1
+ * Fix - Fix bug causing no results when more than one coupon matches a filter criteria.
+
+2018.11.07 - version 4.6.0
+ * Feature - Add support for exporting coupons in CSV Import or custom formats
+
+2018.10.16 - version 4.5.3
+ * Fix - Stop exports from aggressively clearing the WP object cache
+ * Misc - Add support for WooCommerce 3.5
+
+2018.07.18 - version 4.5.2
+ * Fix - Fix an issue with malformed exports when using the filesystem data store
+
+2018.07.16 - version 4.5.1
+ * Fix - Fix a javascript console error when adding a new column in the custom format column mapper
+
+2018.07.11 - versions 4.5.0
+ * Feature - Add new data store classes which allow for soring exports in the filesystem, database, or a custom data store
+ * Dev - Add `wc_customer_order_csv_export_custom_data_store` filter to allow the use of custom data stores
+ * Dev - Add `wc_customer_order_csv_auto_export_ids` and `wc_customer_order_csv_auto_export_customers` filters to allow changing auto-exported ids
+ * Dev - Add `wc_customer_order_csv_export_start_export_args` filter to allow changing the export arguments just before creation
+
+2018.05.23 - version 4.4.6
+ * Misc - Add support for WooCommerce 3.4
+
+2018.05.03 - version 4.4.5
+ * Fix - Improve performance when exporting orders containing subscriptions and renewals from sites with many orders
+ * Dev - Add `wc_customer_order_csv_export_admin_export_list_columns` and `wc_customer_order_csv_export_admin_export_list_custom_column` filters to adjust export list columns
+
+2018.03.14 - version 4.4.4
+ * Fix - Ensure Download to CSV order action works in WooCommerce 3.3
+
+2018.01.31 - version 4.4.3
+ * Fix - Ensure Download to CSV button icon is displayed in WooCommerce 3.3
+
+2018.01.23 - version 4.4.2
+ * Misc - Add support for WooCommerce 3.3
+
+2017.12.05 - version 4.4.1
+ * Tweak - Add a fallback to export order numbers even when the Sequential Order Numbers plugins aren't in use
+ * Fix - Prevent orders from being exported more than once when auto-exporting orders immediately as they're created
+ * Fix - Fix a possible race condition when performing background processing health checks
+ * Fix - Account for possible false negatives when testing loopback connections in certain environments
+ * Fix - Ensure that when using a custom format where a row represents a single line item, line items use pipe-delimited formatting
+
+2017.11.01 - version 4.4.0
+ * Feature - Use a batch-processing fallback for manual exports on incompatible hosting environments
+ * Fix - Ensure that auto-exports will not allow more than one export job to be created at a time
+ * Fix - An issue with exports remaining queued due to a nonce check incorrectly failing
+ * Fix - Allow the products auto-export setting to be cleared
+ * Tweak - Improve performance when exporting in the Legacy CSV Import format
+ * Misc - Remove support for WooCommerce 2.5
+ * Dev - Add `manage_woocommerce_csv_exports` capabilities for viewing and managing exports
+
+2017.08.23 - version 4.3.7
+ * Fix - Line item meta was not being consistently output in WooCommerce 3.1.x
+ * Fix - Customer exports not outputting billing or shipping full name
+
+2017.07.25 - version 4.3.6
+ * Fix - Deprecation warnings in WooCommerce 3.1
+
+2017.05.31 - version 4.3.5
+ * Fix - Exporting individual orders using an "Orders" list action showed no orders found
+
+2017.05.23 - version 4.3.4
+ * Misc - Add a filter 'wc_customer_order_csv_export_format_date' to allow tweaking the date format in exported files
+ * Fix - Export modal links where improperly escaped
+ * Fix - PHP notices occurred when a user to export was not found
+ * Fix - A PHP error occurred when an order to export was not found
+
+2017.05.18 - version 4.3.3
+ * Fix - Fix issue with exporting files by properly checking export file permissions
+
+2017.05.17 - version 4.3.2
+ * Fix - Export filenames in Export List were not properly escaped, which made it possibly vulnerable to a stored XSS exploit
+ * Fix - A PHP warning occurred when the export file wasn't writable
+
+2017.05.12 - version 4.3.1
+ * Fix - A PHP error occurred while processing bulk actions in WordPress versions earlier than 4.7
+
+2017.05.09 - version 4.3.0
+ * Feature - Export customers directly from the "Users" list via bulk action
+ * Feature - Add static values (such as shop name) to custom export formats
+ * Tweak - Use direct SQL queries for background jobs to prevent caching issues on certain hosts
+ * Tweak - Use GET request to dispatch background jobs as a workaround to POST request rate-limiting issues on certain hosts
+ * Fix - Properly set format settings when loading custom formats in WooCommerce 3.0+
+ * Dev - Add array keys to export options for easier customization
+
+2017.04.04 - version 4.2.1
+ * Fix - Orders could exported multiple times when auto-export schedule was "immediately"
+ * Fix - Require user to be logged in to download exported files
+
+2017.03.28 - version 4.2.0
+ * Misc - Added support for WooCommerce 3.0
+ * Misc - Removed support for WooCommerce 2.4
+
+2017.01.24 - version 4.1.4
+ * Fix - SFTP can't connect with "not readable" errors in some PHP environments
+
+2016.12.14 - version 4.1.3
+ * Tweak - Add billing full name / shipping full name as custom export format options
+ * Fix - Custom formats could have a new column replace an old one in rare circumstances when editing the format
+ * Fix - Custom formats column ordering has been improved for reliability
+ * Fix - WP 4.7 compatibility for custom formats "select all" checkbox
+ * Fix - Default - One Row per Item format wasn't properly populating item subtotals or product IDs
+ * Fix - Ensure styles & scripts are loaded where needed when "WooCommerce" string is translated
+
+2016.11.23 - version 4.1.2
+ * Tweak - Update requirements for WordPress 4.4 to ensure job names save properly
+ * Tweak - Unknown or deleted products will be assigned a SKU to support re-importing via CSV Import
+ * Fix - Ensure special characters in item meta are encoded as they can break JSON encoding in CSV files
+
+2016.11.14 - version 4.1.1
+ * Fix - Fatal error on new installations while creating custom format
+
+2016.11.09 - version 4.1.0
+ * Feature - Added local auto-export option for orders to generate and save files to the Export List
+ * Tweak - Use state names instead of state code for countries that have numeric state codes (e.g., Japan or China)
+ * Tweak - Add `billing_state_code` and `shipping_state_code` to custom format sources
+ * Misc - Update SkyVerge plugin framework
+
+2016.09.29 - version 4.0.7
+ * Tweak - Customer exports now include registered purchasers with any role for wider customization and plugin support
+ * Fix - "Legacy - Single Column for Item" exports could be missing order items
+ * Fix - Format definition for "Legacy - One Item per Row" formats to correct issues with third party integrations
+
+2016.09.22 - version 4.0.6
+ * Fix - Fix PHP error when using an incorrect port with SFTP
+ * Fix - Fix PHP warning when using custom columns with no source set
+ * Fix - Pass all arguments to renamed filters
+
+2016.09.07 - version 4.0.5
+ * Fix - Fix errors with the SFTP export method
+ * Fix - Better handle PHP errors that may occur while using the FTP export methods
+ * Fix - Fix a fatal error that may be logged while cron events run
+ * Fix - Ensure the "Tab" option can be saved in the Delimiter setting
+
+2016.08.31 - version 4.0.4
+ * Tweak - Add 'total_spent' and 'order_count' column options to the customer exporter
+ * Fix - Fix filtering orders containing product variations
+
+2016.08.17 - version 4.0.3
+ * Fix - Fix order exports in Legacy CSV Import format
+
+2016.08.10 - version 4.0.2
+ * Fix - Fix backwards compatibility for third-party plugins that modify export line item fields
+
+2016.08.04 - version 4.0.1
+ * Fix - Fix fee and tax total calculations
+ * Fix - Fix PHP Notice that occurs when the export is generated
+ * Fix - Fix PHP Notice in Export List view
+
+2016.08.02 - version 4.0.0
+ * Feature - Added a column mapper for defining a custom export format for orders and customers
+ * Feature - CSV files are now exported in background, should handle large exports with no issues!
+ * Feature - Orders can now be exported manually or automatically based on which product / category was purchased
+ * Feature - Export List view with all the exported files from last 14 days
+ * Feature - Automatic exports notify admins of transfer failures (ie FTP transfer failure)
+ * Feature - Added option to auto-export individual orders when the order is paid for
+ * Feature - Added support for auto-exporting customers on a schedule via Email, FTP, or HTTP POST
+ * Feature - Order actions can now transfer CSVs via the auto-export method
+ * Misc - Many other small tweaks, fixes, and improvements
+
+2016.06.28 - version 3.12.1
+ * Fix - Use `order_number_formatted` column for the formatted order number in the CSV Import export format
+ * Fix - Use `order_number` column for the underlying order number in the CSV Import export format
+ * Fix - Replace `customer_id` column with `customer_user` column in the CSV Import export format
+
+2016.06.02 - version 3.12.0
+ * Feature - New format: CSV Import (JSON-based)
+ * Tweak - Improve escaping special characters inside items & meta in CSV
+ * Misc - Added support for WooCommerce 2.6
+ * Misc - Removed support for WooCommerce 2.3
+
+2016.03.03 - version 3.11.2
+ * Fix - Replace legacy 'Cart Discount' and 'Order Discount' columns with the 'Discount Total' column in the legacy export formats
+ * Fix - Replace legacy 'cart_discount' and 'order_discount' columns with the 'discount_total' column in the CSV Import export format
+ * Misc - Add a filter 'wc_customer_order_csv_export_auto_export_order_query_args' to tweak query of orders to be exported automatically
+
+2016.01.26 - version 3.11.1
+ * Fix - Fix Ajax conflict with WPML
+
+2016.01.14 - version 3.11.0
+ * Tweak - Include plugin information in the System Status report
+ * Misc - Added support for WooCommerce 2.5
+ * Misc - Removed support for WooCommerce 2.2
+
+2015.12.12 - version 3.10.4
+ * Fix - Updated version of SV Framework from 4.0.0 to 4.1.2
+
+2015.12.11 - version 3.10.3
+ * Fix - WooCommerce Subscriptions: prevent renewal orders from being marked as exported automatically
+ * Misc - WooCommerce Subscriptions 2.0 compatibility
+
+2015.10.22 - version 3.10.2
+ * Tweak - Escape leading equals sign character to prevent issues with loading CSV in Excel
+ * Misc - Added French translation, props Thomas S.
+
+2015.09.25 - version 3.10.1
+ * Fix - Ensure settings tab titles are translatable
+ * Fix - Fix incorrectly line item totals when exporting in the CSV Import format
+ * Tweak - Allow for line items to be removed from the export using the `wc_customer_order_csv_export_order_line_item` filter
+
+2015.07.28 - version 3.10.0
+ * Misc - WooCommerce 2.4 Compatibility
+
+2015.07.20 - version 3.9.2
+ * Tweak - Attach Chosen.js to form fields only if Select2 is not available
+ * Fix - Fix the exported/not exported order count when filtering by order status
+ * Fix - Avoid malformed CSVs in certain server environments by removing ob_clean()
+
+2015.03.12 - version 3.9.1
+ * Fix - Fix a warning when a line item has no tax data
+ * Tweak - Include order fees in exports
+ * Tweak - Introduce `wc_customer_order_csv_export_ids` filter
+ * Tweak - Introduce `wc_customer_order_csv_export_add_order_note` filter
+ * Tweak - Display the local time and next scheduled export next to the Export Start Time field
+
+2015.02.09 - version 3.9.0
+ * Tweak - Don't clear the export cron job unless the interval and/or start time were changed
+ * Misc - WooCommerce 2.3 Compatibility
+
+2014.12.08 - version 3.8.0
+ * Feature - Exports now include the refund totals for the entire order and individual items
+ * Feature - Export only subscriptions or renewals from the bulk export screen
+ * Tweak - Use 5 minute intervals in Start Time auto export option
+ * Tweak - Introduce `wc_customer_order_csv_export_get_orders_csv` filter
+ * Tweak - Introduce `wc_customer_order_csv_export_get_customers_csv` filter
+ * Fix - Fix export status counts in export status dropdown
+ * Fix - Fix an issue with orders not being marked as exported
+
+2014.10.28 - version 3.7.0
+ * Feature - Added Limit & Offset fields to the bulk exporter allowing users to export smaller CSV files and avoid server constraints
+
+2014.10.21 - version 3.6.0
+ * Feature - Added 'download_permissions_granted' column to all formats
+
+2014.10.06 - version 3.5.0
+ * Feature - Item tax is now included in both 'Default' formats (WooCommerce 2.2+ only)
+ * Fix - Avoid a notice for deleted coupon items
+ * Tweak - Include line item meta for deleted products
+
+2014.09.08 - version 3.4.1
+ * Fix - Fix blank exports with no order statuses selected
+
+2014.09.07 - version 3.4.0
+ * Feature - The 'CSV Import' format now exports line item meta
+ * Tweak - Introduce 'wc_customer_order_csv_export_get_export_method' action
+ * Tweak - Use site timezone for export date range rather than GMT
+ * Misc - WooCommerce 2.2 Compatibility
+
+2014.08.19 - version 3.3.0
+ * Feature - New default one row per item order export format
+ * Tweak - HTML decode line item meta
+ * Tweak - Pass the product and order to 'wc_customer_order_csv_export_order_line_item' filter
+ * Fix - Fix typo affecting date-based order export
+
+2014.06.10 - version 3.2.1
+ * Fix - Fix issue with email exports in WooCommerce 2.0
+
+2014.06.09 - version 3.2
+ * Feature - Coupons now include code, description, and amount!
+ * Fix - Automatic exports with no start time are now scheduled properly
+
+2014.05.27 - version 3.1
+ * Feature - You can now automatically email exports on a recurring schedule
+ * Feature - You can now set a start time for automatic exports
+ * Tweak - Add action that fires when each order is exported
+ * Tweak - Auto-export test button disabled until settings are saved
+ * Tweak - Auto-export cron schedules cleared on plugin deactivation
+ * Tweak - SFTP dependency checks for Windows environments
+
+2014.04.25 - version 3.0.6
+ * Fix - Strip newlines from order notes
+ * Fix - Fix issue with default start/end dates for customer exports
+ * Tweak - Exports in the "CSV Import" format now include the Order ID
+ * Tweak - Added filter for customizing the entire export format
+ * Tweak - Added filter for customizing the order line item export format
+ * Tweak - Added filters for customizing settings & export parameters
+
+2014.03.10 - version 3.0.5
+ * Fix - When exporting customers, the date filter now properly excludes registered customers created outside of the specified date range
+ * Fix - Fix bug that prevented FTP connections with an initial path set from working properly
+
+2014.02.24 - version 3.0.4
+ * Fix - Fix improper loading of javascript on edit post page
+ * Fix - Fix issue with FTP passive mode not working
+ * Tweak - Improved error messages when testing FTP connections
+ * Tweak - Export filename timestamps now reflect the site timezone
+
+2014.02.10 - version 3.0.3
+ * Tweak - Customer exports now include WordPress users with the `customer` role even if they have no associated orders
+ * Fix - Legacy export formats use the order number instead of order ID
+
+2014.01.31 - version 3.0.2
+ * Tweak - The line items column now includes item meta
+ * Tweak - Orders with invalid or deleted products can now be exported properly
+ * Tweak - The CSV Import Suite format now includes the product ID if no SKU exists for the product
+
+2014.01.27 - version 3.0.1
+ * Fix - Fix issue with saving settings
+
+2014.01.20 - version 3.0
+ * Feature - New default customer & order export format that includes more information
+ * Feature - View export status on the Orders screen
+ * Feature - Export single orders with an order action on the Orders and Edit Order Screen
+ * Feature - Automatically export orders on a recurring schedule via FTP or HTTP POST
+ * Feature - Set a filename for exported files
+ * Feature - New filters to quickly and easily modify export formats
+ * Tweak - Custom Order statuses are now fully supported
+ * Misc - Complete rewrite to improve stability and performance
+ * Misc - WooCommerce 2.1 compatibility
+ * Misc - Uses SkyVerge Plugin Framework
+ * Localization - Text domain changed from `wc-export-csv` to `woocommerce-customer-order-csv-export`
+ * Localization - Languages path changed from `languages` to `i18n/languages`
+
+2013.09.21 - version 2.0.7
+* Fixed order coupon not being exported
+
+2013.08.18 - version 2.0.6
+* Changed Import in wrong place to Export
+* Fixed empty client export
+* Added action links to plugins list page
+
+2013.08.18 - version 2.0.5
+* Fixed bug when order status had more than one word
+
+2013.07.22 - version 2.0.4
+* Fixed bug when there was no coupons to export
+
+2013.07.06 - version 2.0.3
+* Added coupons to export
+
+2013.06.09 - version 2.0.2
+* Changed comment query to use $wpdb->comments
+* Fixed csv import order item output
+
+2013.05.05 - version 2.0.1
+* Added order notes to all outputs.
+* Fixed line per item output.
+
+2013.05.01 - version 2.0.0
+* Added output format that is compatible with CSV Import suite
+  for both order and customer exports.
+
+2013.03.27 - version 1.6.4
+* Added BOM character as an selectable option in to the UI.
+  This fixes compatibility issues with Google Spreadsheet.
+
+2013.03.15 - version 1.6.3
+* Fixed empty file issue with order exports.
+
+2013.02.16 - version 1.6.2
+* Added empty folder for translations.
+
+2013.01.23 - version 1.6.1
+* Fix notices
+
+2013.01.21 - version 1.6.0
+* Added filter for custom meta fields.
+* WC 2.0/1.6.6 compatibility check.
+* Fix for order status pulled as translated value
+
+2013.01.18 - version 1.5.10
+* Removed unused jquery scripts
+
+2012.12.15 - version 1.5.9
+* Changed order number to support get_order_number().
+* Added order number preceding character trimming.
+* Fixed problem with quotes not being escaped.
+* woocommerce_export_csv_wrap_data to prevent errors with some php versions
+
+2012.12.04 - version 1.5.8
+ * New updater
+
+2012.11.10 - version 1.5.7
+* Added trimming for new lines in product variable
+
+2012.10.16 - version 1.5.6
+ * Fix for character encoding in Microsoft Excel
+
+2012.08.30 - version 1.5.5
+ * Export translated statuses
+
+2012.08.30 - version 1.5.4
+ * Fixed order item meta
+
+2012.08.06 - version 1.5.3
+ * Fixed order status extracting for client export
+
+2012.06.28 - version 1.5.2
+ * Remove stripping of time in order date fields to provide time too
+
+2012.06.25 - version 1.5.1
+ * EU VAT number compat
+
+2012.05.26 - version 1.5
+ * Fixed double quotes escape problem
+ * Added support for custom order statuses (thanks to Patrick Garman)
+
+2012.05.04 - version 1.4
+ * Added VAT Field
+ * Added customer notes field
+
+2012.04.22 - version 1.3
+ * Added possibility to choose how to display order items
+
+2012.02.29 - version 1.2.1
+ * Fixed case where wrong order status was passed to export
+
+2012.02.26 - version 1.2
+ * Performance improvements: reduced the amounts of DB calls
+ * Added missing order status field
+ * Added order items in to export
+ * Export full country name
+
+2012.02.19 - version 1.1
+ * Added possibility to choose order statuses on export
+ * Added missing billing state and date fields
+ * Split name field to first and last name fields
+
+2012.02.15 - version 1.0
+ * First release

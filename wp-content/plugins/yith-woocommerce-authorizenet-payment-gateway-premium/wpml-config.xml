@@ -1,0 +1,12 @@
+<wpml-config>
+    <admin-texts>
+        <key name="woocommerce_yith_wcauthnet_credit_card_gateway_settings">
+            <key name="title"/>
+            <key name="description"/>
+        </key>
+        <key name="woocommerce_yith_wcauthnet_echeck_gateway_settings">
+            <key name="title"/>
+            <key name="description"/>
+        </key>
+    </admin-texts>
+</wpml-config>

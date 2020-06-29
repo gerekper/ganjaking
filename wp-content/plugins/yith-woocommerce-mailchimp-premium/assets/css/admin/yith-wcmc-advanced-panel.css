@@ -1,0 +1,159 @@
+/**
+ * Advanced panel style
+ *
+ * @author  Your Inspiration Themes
+ * @package YITH WooCommerce Mailchimp
+ * @version 1.0.0
+ */
+
+/* === ADVANCED OPTIONS === */
+.advanced-integration-header{
+    border-top: 1px solid #eee;
+    padding: 15px 0;
+}
+
+.advanced-integration-header a{
+    vertical-align: middle!important;
+}
+
+.advanced-integration-header span{
+    vertical-align: middle;
+    margin-left: 15px;
+}
+
+.advanced-integration-content .advanced-panel-item{
+    border: 1px solid #eee;
+    border-radius: 5px;
+    padding: 20px 20px 0;
+    margin-bottom: 20px;
+}
+
+.advanced-integration-content .panel-item-handle{
+    padding: 10px 20px;
+    margin: -20px -20px 0 -20px;
+    background: #ebebeb;
+}
+
+.advanced-integration-content .panel-item-handle:after{
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.advanced-integration-content .panel-item-handle h3{
+    border: none!important;
+    margin: 0!important;
+    padding: 0!important;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.advanced-integration-content .advanced-panel-item.opened .panel-item-handle{
+    border-bottom: 1px solid #eee;
+}
+
+.advanced-integration-content .advanced-panel-item h4{
+    display: inline-block;
+}
+
+.advanced-integration-content .advanced-panel-item .section {
+    border-bottom: 1px solid #eee;
+    margin-bottom: 10px;
+}
+
+.advanced-integration-content .advanced-panel-item .section:last-child{
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.advanced-integration-content .advanced-panel-item .section p.description{
+    margin-bottom: 15px;
+}
+
+.advanced-integration-content .advanced-panel-item .fields-header,
+.advanced-integration-content .advanced-panel-item .conditions-header{
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 15px;
+}
+
+.advanced-integration-content .panel-item-handle a,
+.advanced-integration-content .field-item a.remove-button,
+.advanced-integration-content .condition-item a.remove-button{
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    vertical-align: middle;
+    text-indent: -999999px;
+    overflow: hidden;
+    opacity: 0.6;
+}
+
+.advanced-integration-content .panel-item-handle a:hover,
+.advanced-integration-content .field-item a.remove-button:hover,
+.advanced-integration-content .condition-item a.remove-button:hover{
+    opacity: 1;
+}
+
+.advanced-integration-content .panel-item-handle a.remove-button,
+.advanced-integration-content .field-item a.remove-button,
+.advanced-integration-content .condition-item a.remove-button{
+    background: url( '../../images/remove.png' ) no-repeat center center;
+}
+
+.advanced-integration-content .panel-item-handle a.collapse-button{
+    background: url( '../../images/arrow.png' ) no-repeat center center;
+}
+
+.advanced-integration-content .advanced-panel-item.opened .panel-item-handle a.collapse-button{
+    -webkit-transform: rotate( 180deg );
+}
+
+.advanced-integration-content .panel-item-content{
+    padding: 20px 10px;
+}
+
+.advanced-integration-content .panel-item-content h4{
+    margin: 0 0 15px!important;
+}
+
+.advanced-integration-content .panel-item-content .field-item,
+.advanced-integration-content .panel-item-content .condition-item{
+    margin: 15px 0;
+}
+
+.advanced-integration-content .panel-item-content .field-item .field-row,
+.advanced-integration-content .panel-item-content .condition-item .condition-row{
+    padding: 15px;
+    border: 1px solid #ebebeb;
+    background: #fafafa;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.advanced-integration-content .panel-item-content .field-item .field-column,
+.advanced-integration-content .panel-item-content .condition-item .condition-column{
+    display: inline-block;
+    margin-right: 15px;
+    vertical-align: middle;
+}
+
+.advanced-integration-content .panel-item-content .field-item .field-column label,
+.advanced-integration-content .panel-item-content .condition-item .condition-column label{
+    margin-bottom: 10px;
+    display: block;
+}
+
+.advanced-integration-content .panel-item-content .condition-item .condition-column select,
+.advanced-integration-content .panel-item-content .condition-item .condition-column input{
+    display: block;
+    margin-bottom: 5px;
+}
+
+.advanced-integration-content .panel-item-content .field-item a{
+    vertical-align: bottom;
+}
+
+.select2-container.select-hidden{
+    display: none!important;
+}

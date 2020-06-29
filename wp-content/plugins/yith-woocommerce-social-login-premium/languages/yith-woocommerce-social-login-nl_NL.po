@@ -1,0 +1,671 @@
+# Translation of YITH WooCommerce Social Login in Dutch
+# This file is distributed under the same license as the YITH WooCommerce Social Login package.
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH WooCommerce Social Login\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-social-login."
+"premium\n"
+"POT-Creation-Date: 2020-05-26 14:55:50+00:00\n"
+"PO-Revision-Date: 2020-05-15 12:52:05+0000\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/2.3.1\n"
+
+#: includes/class-yith-social-login-admin-premium.php:115
+#: templates/admin/social_network_table.php:11
+#: templates/admin/users/social-connect-profile.php:11
+#: templates/myaccount/social-connections.php:13
+msgid "Social Connections"
+msgstr "Sociale Connecties"
+
+#: includes/class-yith-social-login-admin-premium.php:198
+msgid "Connections"
+msgstr "Connecties"
+
+#: includes/class-yith-social-login-admin-premium.php:246
+msgid "Facebook"
+msgstr "Facebook"
+
+#: includes/class-yith-social-login-admin-premium.php:247
+msgid "Twitter"
+msgstr "Twitter"
+
+#: includes/class-yith-social-login-admin-premium.php:248
+msgid "Google"
+msgstr "Google"
+
+#: includes/class-yith-social-login-admin-premium.php:249
+msgid "LinkedIn"
+msgstr "LinkedIn"
+
+#: includes/class-yith-social-login-admin-premium.php:250
+msgid "Yahoo"
+msgstr "Yahoo"
+
+#: includes/class-yith-social-login-admin-premium.php:251
+msgid "Foursquare"
+msgstr "Foursquare"
+
+#: includes/class-yith-social-login-admin-premium.php:252
+#: plugin-options/paypal-options.php:71
+msgid "Live"
+msgstr "Live"
+
+#: includes/class-yith-social-login-admin-premium.php:253
+msgid "Instagram"
+msgstr "Instagram"
+
+#: includes/class-yith-social-login-admin-premium.php:254
+msgid "PayPal"
+msgstr "PayPal"
+
+#: includes/class-yith-social-login-admin-premium.php:255
+msgid "Tumblr"
+msgstr "Tumblr"
+
+#: includes/class-yith-social-login-admin-premium.php:256
+msgid "Vkontakte"
+msgstr "Vkontakte"
+
+#: includes/class-yith-social-login-admin-premium.php:257
+msgid "GitHub"
+msgstr "GitHub"
+
+#: includes/class-yith-social-login-admin.php:141
+#: templates/admin/social_network_table.php:36
+msgid "Settings"
+msgstr "Instellingen"
+
+#: includes/class-yith-social-login-admin.php:145
+msgid "Premium Version"
+msgstr "Premium Versie"
+
+#: includes/class-yith-social-login-admin.php:276
+msgid ""
+"Please, note: the Google+ Sign-in feature has been fully deprecated and will "
+"also be shut down on March 7, 2019."
+msgstr ""
+"Let op: De Google+ inlog functie, is volledig afgeschaft en is daarom niet "
+"meer beschikbaar vanaf 7 maart 2019."
+
+#: includes/class-yith-social-login-admin.php:280
+msgid ""
+"The administrator should check if their credentials are compatible and "
+"adjust them if necessary."
+msgstr ""
+"De beheerder dient te controleren of de gegevens compatibel zijn en deze "
+"aanpassen als het nodig is."
+
+#: includes/class-yith-social-login-admin.php:284
+msgid "Please, check the plugin documentation."
+msgstr "Controleer de plugin documentatie."
+
+#: includes/class-yith-social-login-premium.php:148
+#: templates/myaccount/social-connections.php:34
+msgid "Unlink"
+msgstr "Unlink"
+
+#: includes/class-yith-social-login-premium.php:291
+#: plugin-options/settings-options.php:57
+msgid "Login with:"
+msgstr "Inloggen met:"
+
+#: includes/class-yith-social-login.php:264
+msgid "Add your email address"
+msgstr "Voeg uw e-mailadres toe"
+
+#: includes/class-yith-social-login.php:270
+msgid "Your email address is not valid!"
+msgstr "Uw e-mailadres is niet geldig!"
+
+#: includes/class-yith-social-login.php:276
+msgid "This email already exists"
+msgstr "Dit e-mailadres bestaat al"
+
+#: includes/class-yith-social-login.php:282
+msgid "Username is not valid!"
+msgstr "Gebruikersnaam is niet geldig!"
+
+#: includes/class-yith-social-login.php:573
+msgid "Unspecified error."
+msgstr "Ongespecificeerde fout."
+
+#: includes/class-yith-social-login.php:576
+msgid "Hybriauth configuration error."
+msgstr "Hybriauth-configuratiefout."
+
+#: includes/class-yith-social-login.php:579
+msgid "Provider not properly configured."
+msgstr "Provider niet correct geconfigureerd."
+
+#: includes/class-yith-social-login.php:582
+msgid "Unknown or disabled provider."
+msgstr "Onbekende of uitgeschakelde provider."
+
+#: includes/class-yith-social-login.php:585
+msgid "Missing provider application credentials."
+msgstr "Ontbrekende inloggegevens voor provider."
+
+#: includes/class-yith-social-login.php:588
+msgid ""
+"Authentification failed. The user has canceled the authentication or the "
+"provider refused the connection."
+msgstr ""
+"Authentificatie mislukt. De gebruiker heeft de authenticatie geannuleerd of "
+"de provider heeft de verbinding geweigerd."
+
+#: includes/class-yith-social-login.php:591
+msgid ""
+"Request of user profile failed. Probably the user is not connected to the "
+"provider and a new authentication is necessary."
+msgstr ""
+"Verzoek om gebruikersprofiel mislukt. Waarschijnlijk is de gebruiker niet "
+"verbonden met de provider en is een nieuwe authenticatie nodig."
+
+#: includes/class-yith-social-login.php:594
+msgid "User not connected to the provider."
+msgstr "Gebruiker niet verbonden met de provider."
+
+#: includes/class-yith-social-login.php:597
+msgid "Provider does not support this feature."
+msgstr "Provider ondersteunt deze functie niet."
+
+#: init.php:56
+msgid ""
+"YITH Woocommerce Social Login is enabled but not effective. It requires "
+"WooCommerce in order to work."
+msgstr ""
+"YITH WooCommerce Social Login Premium is ingeschakeld, maar niet effectief. "
+"Het vereist WooCommerce om te kunnen werken."
+
+#: plugin-options/facebook-options.php:26
+msgid "Facebook settings"
+msgstr "Facebook instellingen"
+
+#: plugin-options/facebook-options.php:33
+msgid "Enable Facebook Login"
+msgstr "Stel Facebook in"
+
+#: plugin-options/facebook-options.php:42
+msgid "Facebook App ID"
+msgstr "Facebook Applicatie ID"
+
+#: plugin-options/facebook-options.php:51
+msgid "Facebook Secret"
+msgstr "Facebook Secret"
+
+#: plugin-options/facebook-options.php:60
+msgid "Facebook Icon"
+msgstr "Afbeelding op Facebook"
+
+#: plugin-options/foursquare-options.php:21
+msgid "Foursquare settings"
+msgstr "Foursquare instellingen"
+
+#: plugin-options/foursquare-options.php:28
+msgid "Enable Foursquare Login"
+msgstr "Login voor Foursquare instellen"
+
+#: plugin-options/foursquare-options.php:37
+msgid "Foursquare Client ID"
+msgstr "Foursquare Klant ID"
+
+#: plugin-options/foursquare-options.php:46
+msgid "Foursquare Client Secret"
+msgstr "Foursquare Klant Secret"
+
+#: plugin-options/foursquare-options.php:55
+msgid "Foursquare Icon"
+msgstr "Foursquare Afbeelding"
+
+#: plugin-options/github-options.php:21
+msgid "GitHub settings"
+msgstr "GitHub instellingen"
+
+#: plugin-options/github-options.php:28
+msgid "Enable GitHub Login"
+msgstr "GitHub login instellen"
+
+#: plugin-options/github-options.php:37
+msgid "GitHub Client ID"
+msgstr "GitHub Klant ID"
+
+#: plugin-options/github-options.php:46
+msgid "GitHub Client Secret"
+msgstr "GitHub Klant Secret"
+
+#: plugin-options/github-options.php:55
+msgid "GitHub Icon"
+msgstr "GitHub Afbeelding"
+
+#: plugin-options/google-options.php:21
+msgid "Google settings"
+msgstr "Google instellingen"
+
+#: plugin-options/google-options.php:28
+msgid "Enable Google Login"
+msgstr "Schakel Google Login in"
+
+#: plugin-options/google-options.php:37
+msgid "Google ID"
+msgstr "Google ID"
+
+#: plugin-options/google-options.php:46
+msgid "Google secret"
+msgstr "Google secret"
+
+#: plugin-options/google-options.php:55
+msgid "Google Icon"
+msgstr "Google Afbeelding"
+
+#: plugin-options/instagram-options.php:21
+msgid "Instagram settings"
+msgstr "Instagram Instellingen"
+
+#: plugin-options/instagram-options.php:28
+msgid "Enable Instagram Login"
+msgstr "Instagram Login instellen"
+
+#: plugin-options/instagram-options.php:37
+msgid "Instagram Client ID"
+msgstr "Instagram Klant ID"
+
+#: plugin-options/instagram-options.php:46
+msgid "Instagram Client Secret"
+msgstr "Instagram Klant Secret"
+
+#: plugin-options/instagram-options.php:55
+msgid "Instagram Icon"
+msgstr "Instagram Afbeelding"
+
+#: plugin-options/linkedin-options.php:21
+msgid "LinkedIn settings"
+msgstr "LinkedIn instellingen"
+
+#: plugin-options/linkedin-options.php:28
+msgid "Enable LinkedIn Login"
+msgstr "LinkedIn Login inschakelen"
+
+#: plugin-options/linkedin-options.php:37
+msgid "LinkedIn Api Key"
+msgstr "LinkedIn Api Key"
+
+#: plugin-options/linkedin-options.php:46
+msgid "LinkedIn secret"
+msgstr "LinkedIn secret"
+
+#: plugin-options/linkedin-options.php:55
+msgid "LinkedIn Icon"
+msgstr "LinkedIn Afbeelding"
+
+#: plugin-options/live-options.php:21
+msgid "Live settings"
+msgstr "Live instellingen"
+
+#: plugin-options/live-options.php:28
+msgid "Enable Live Login"
+msgstr "Live Login inschakelen"
+
+#: plugin-options/live-options.php:37
+msgid "Live Consumer Key"
+msgstr "Live Gebruiker Key"
+
+#: plugin-options/live-options.php:46
+msgid "Live Consumer Secret"
+msgstr "Live Gebruiker Secret"
+
+#: plugin-options/live-options.php:55
+msgid "Live Icon"
+msgstr "Live Afbeelding"
+
+#: plugin-options/paypal-options.php:21
+msgid "Paypal settings"
+msgstr "PayPal instellingen"
+
+#: plugin-options/paypal-options.php:28
+msgid "Enable Paypal Login"
+msgstr "Paypal Login Inschakelen"
+
+#: plugin-options/paypal-options.php:37
+msgid "Paypal Key"
+msgstr "Paypal Key"
+
+#: plugin-options/paypal-options.php:46
+msgid "Paypal Secret"
+msgstr "Paypal Secret"
+
+#: plugin-options/paypal-options.php:55
+msgid "Paypal Icon"
+msgstr "Paypal Afbeelding"
+
+#: plugin-options/paypal-options.php:64
+msgid "Environment"
+msgstr "Omgeving"
+
+#: plugin-options/paypal-options.php:70
+msgid "Sandbox"
+msgstr "Sandbox"
+
+#: plugin-options/settings-options.php:21
+msgid "General settings"
+msgstr "Algemene instellingen"
+
+#: plugin-options/settings-options.php:27
+msgid "After login, redirect user to:"
+msgstr "Na het inloggen, de gebruiker doorsturen naar:"
+
+#: plugin-options/settings-options.php:33
+msgid "Auto - Take user back to the page he/she was in"
+msgstr "Automatisch - Gebruiker terugsturen naar de pagina waar hij/zij op zat"
+
+#: plugin-options/settings-options.php:34
+msgid "Cart Page"
+msgstr "Pagina van de Winkelwagen"
+
+#: plugin-options/settings-options.php:35
+#: plugin-options/settings-options.php:114
+msgid "Checkout"
+msgstr "Afrekenen"
+
+#: plugin-options/settings-options.php:36
+msgid "My Account"
+msgstr "Mijn Account"
+
+#: plugin-options/settings-options.php:37
+msgid "Shop"
+msgstr "Winkel"
+
+#: plugin-options/settings-options.php:38
+msgid "Custom URL (add below)"
+msgstr "Eigen URL"
+
+#: plugin-options/settings-options.php:45
+msgid "Custom URL redirect"
+msgstr "Doorsturen naar een Custom URL"
+
+#: plugin-options/settings-options.php:46
+msgid "Paste the URL of the page for redirect"
+msgstr "Kopieer en plak deze URL op de pagina om door te sturen"
+
+#: plugin-options/settings-options.php:54
+msgid "Label"
+msgstr "Label"
+
+#: plugin-options/settings-options.php:55
+msgid "Edit content of the label displayed above social login buttons"
+msgstr ""
+"Bewerk de inhoud van het label dat wordt weergegeven boven de sociale login-"
+"knoppen"
+
+#: plugin-options/settings-options.php:63
+msgid "Description in checkout page"
+msgstr "Beschrijving in het afrekenproces"
+
+#: plugin-options/settings-options.php:64
+msgid "Edit content of the description in checkout page"
+msgstr "Bewerk de inhoud van de beschrijving op de afrekenpagina"
+
+#: plugin-options/settings-options.php:66
+msgid "Social Sign In"
+msgstr "Sociale login"
+
+#: plugin-options/settings-options.php:72
+msgid "List of Social Networks"
+msgstr "Lijst met Sociale Netwerken"
+
+#: plugin-options/settings-options.php:73
+msgid "Drag and Drop content for sort social login buttons"
+msgstr ""
+"Versleep inhoud en sleep voor het sorteren van de sociale login-knoppen"
+
+#: plugin-options/settings-options.php:79
+msgid "Callback Url"
+msgstr "Callback Url"
+
+#: plugin-options/settings-options.php:80
+msgid ""
+"Choose if the url of callback is the root of domain or the url of the "
+"library, if you change all social callback urls must be changed"
+msgstr ""
+"Kies of de URL van terugbellen de root van het domein of de url van de "
+"bibliotheek is, als u alle sociale callback-URL's wijzigt, moet u deze "
+"wijzigen"
+
+#: plugin-options/settings-options.php:92
+msgid "Enable Log"
+msgstr "Log inschakelen"
+
+#: plugin-options/settings-options.php:93
+msgid "If enabled, you can view log details in %s"
+msgstr "Indien ingeschakeld, kun je alle logboek details zien in %s."
+
+#: plugin-options/settings-options.php:107
+msgid "Show login buttons in:"
+msgstr "Toon login-knoppen in:"
+
+#: plugin-options/settings-options.php:122
+msgid "My Account Login Form"
+msgstr "Aanmeldingsformulier voor mijn account"
+
+#: plugin-options/settings-options.php:130
+msgid "My Account Registration Form"
+msgstr "Mijn account registratieformulier"
+
+#: plugin-options/settings-options.php:138
+msgid "Show before post comments"
+msgstr "Laat zien vóór het posten van commentaar"
+
+#: plugin-options/settings-options.php:146
+msgid "Show after comment form"
+msgstr "Weergeven na reactieformulier"
+
+#: plugin-options/settings-options.php:154
+msgid "WordPress Login"
+msgstr "Login WordPress"
+
+#: plugin-options/settings-options.php:167
+msgid "My Account Options:"
+msgstr "Mijn accountopties:"
+
+#: plugin-options/settings-options.php:174
+msgid "Show Social Connection list in My Account:"
+msgstr "Lijst Sociale verbindingen weergeven in Mijn account:"
+
+#: plugin-options/settings-options.php:180
+msgid "None"
+msgstr "Geen"
+
+#: plugin-options/settings-options.php:181
+msgid "Before Recent Orders"
+msgstr "Voor recente bestellingen"
+
+#: plugin-options/settings-options.php:182
+msgid "At the end of page"
+msgstr "Aan het einde van de pagina"
+
+#: plugin-options/tumblr-options.php:21
+msgid "Tumblr settings"
+msgstr "Tumblr instellingen"
+
+#: plugin-options/tumblr-options.php:28
+msgid "Enable Tumblr Login"
+msgstr "Tumblr Login instellen"
+
+#: plugin-options/tumblr-options.php:37
+msgid "Tumblr Consumer Key"
+msgstr "Tumblr Gebruiker Key"
+
+#: plugin-options/tumblr-options.php:46
+msgid "Tumblr Secret Key"
+msgstr "Tumblr Secret Key"
+
+#: plugin-options/tumblr-options.php:55
+msgid "Tumblr Icon"
+msgstr "Tumblr Afbeelding"
+
+#: plugin-options/twitter-options.php:22
+msgid "Twitter settings"
+msgstr "Twitter instellingen"
+
+#: plugin-options/twitter-options.php:29
+msgid "Enable Twitter Login"
+msgstr "Schakel Twitter login in"
+
+#: plugin-options/twitter-options.php:38
+msgid "Twitter Key"
+msgstr "Twitter Key"
+
+#: plugin-options/twitter-options.php:47
+msgid "Twitter Secret"
+msgstr "Twitter Secret"
+
+#: plugin-options/twitter-options.php:56
+msgid "Twitter Icon"
+msgstr "Twitter Afbeelding"
+
+#: plugin-options/vkontakte-options.php:22
+msgid "Vkontakte settings"
+msgstr "Vkontakte instellingen"
+
+#: plugin-options/vkontakte-options.php:29
+msgid "Enable Vkontakte Login"
+msgstr "Vkontakte Login Inschakelen"
+
+#: plugin-options/vkontakte-options.php:38
+msgid "Vkontakte App ID"
+msgstr "Vkontakte Applicatie ID"
+
+#: plugin-options/vkontakte-options.php:47
+msgid "Vkontakte Secret"
+msgstr "Vkontakte Secret"
+
+#: plugin-options/vkontakte-options.php:56
+msgid "Vkontakte Icon"
+msgstr "Vkontakte Afbeelding"
+
+#: plugin-options/yahoo-options.php:21
+msgid "Yahoo settings"
+msgstr "Yahoo instellingen"
+
+#: plugin-options/yahoo-options.php:28
+msgid "Enable Yahoo Login"
+msgstr "Yahoo Login instellen"
+
+#: plugin-options/yahoo-options.php:37
+msgid "Yahoo Consumer Key"
+msgstr "Yahoo Gebruiker Key"
+
+#: plugin-options/yahoo-options.php:46
+msgid "Yahoo Consumer Secret"
+msgstr "Yahoo Gebruiker Secret"
+
+#: plugin-options/yahoo-options.php:55
+msgid "Yahoo Icon"
+msgstr "Yahoo Afbeelding"
+
+#: templates/admin/social_network_table.php:24
+msgid "Enabled"
+msgstr "Ingeschakeld"
+
+#: templates/admin/social_network_table.php:24
+msgid "Disabled"
+msgstr "Uitgeschakeld"
+
+#: templates/admin/social_network_table.php:44
+msgid ""
+"Drag and drop the above listed icons for social networks to set their "
+"display order."
+msgstr ""
+"Versleep de bovenstaande pictogrammen voor sociale netwerken om hun weergave "
+"volgorde in te stellen."
+
+#: templates/myaccount/social-connections.php:15
+msgid "also"
+msgstr "ook"
+
+#: templates/myaccount/social-connections.php:30 templates/request-info.php:199
+msgid "Username"
+msgstr "Gebruikersnaam"
+
+#: templates/myaccount/social-connections.php:42
+msgid "You can %s login with:"
+msgstr "U kunt %s inloggen met:"
+
+#: templates/request-info.php:187
+msgid "Please, fill in the form below with your information to continue"
+msgstr ""
+"Vul alstublieft het onderstaande formulier in met uw gegevens om verder te "
+"gaan"
+
+#: templates/request-info.php:205
+msgid "Email"
+msgstr "E-mail"
+
+#: templates/request-info.php:211
+msgid "Continue to Login"
+msgstr "Doorgaan met Inloggen"
+
+#: templates/request-info.php:219
+msgid "Back to %s"
+msgstr "Terug naar %s"
+
+#: templates/social-buttons-checkout.php:14
+msgid "Click here to login"
+msgstr "Klik hier om in te loggen"
+
+#: widgets/class.yith-ywsl-widget.php:33
+msgid "Show social login"
+msgstr "Weergeef social login"
+
+#: widgets/class.yith-ywsl-widget.php:35
+msgid "YITH WooCommerce Social Login"
+msgstr "YITH WooCommerce Social Login"
+
+#: widgets/class.yith-ywsl-widget.php:107
+msgid "Social Login"
+msgstr "Sociale login"
+
+#: widgets/class.yith-ywsl-widget.php:108
+msgid "Login width:"
+msgstr "Login Wijdte:"
+
+#: widgets/class.yith-ywsl-widget.php:114
+msgid "Title:"
+msgstr "Titel:"
+
+#: widgets/class.yith-ywsl-widget.php:119
+msgid "Description:"
+msgstr "Beschrijving:"
+
+#: widgets/class.yith-ywsl-widget.php:124
+msgid "Redirect To (optional):"
+msgstr "Doorsturen Naar: (Optioneel):"
+
+#. Description of the plugin/theme
+msgid ""
+"<code><strong>YITH WooCommerce Social Login</strong></code> allows your "
+"users and customers to register and log into your store using one of their "
+"favourite social networks, like Facebook, Google, Twitter etc. Perfect for "
+"speeding up the login process on your e-commerce shop. <a href=\"https://"
+"yithemes.com/\" target=\"_blank\">Get more plugins for your e-commerce shop "
+"on <strong>YITH</strong></a>."
+msgstr ""
+"<code><strong>YITH WooCommerce Social Login</strong></code> laat je "
+"gebruikers en klanten registreren en inloggen op je winkel met behulp van "
+"een van hun favoriete sociale netwerken, zoals Facebook, Google, Twitter, "
+"enz. Perfect voor het versnellen van het login-proces van je e-commerce "
+"winkel. <a href=\"https://yithemes.com/\" target=\"_blank\">Verkrijg meer "
+"plugins voor je e-commerce winkel op <strong>YITH</strong></a>."
+
+#: includes/class-yith-social-login-admin.php:152
+msgctxt "Plugin name. Do not translate"
+msgid "YITH WooCommerce Social Login Premium"
+msgstr "YITH WooCommerce Social Login Premium"
+
+#: includes/class-yith-social-login-admin.php:272
+msgctxt "Do not translate"
+msgid "YITH WooCommerce Social Login"
+msgstr "YITH WooCommerce Social Login"

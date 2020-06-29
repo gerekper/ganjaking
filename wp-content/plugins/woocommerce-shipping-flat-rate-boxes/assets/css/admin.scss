@@ -1,0 +1,29 @@
+table#flat_rate_boxes {
+	input, select {
+		width: 100%;
+	}
+	td {
+		cursor: move;
+	}
+	td, th {
+		padding: 15px 10px;
+		vertical-align: middle;
+		background: #fff;
+	}
+	tr:nth-child(even) {
+		td {
+			background: #fafafa;
+		}
+	}
+	.check-column {
+		width: 24px;
+		min-width: 24px !important;
+		text-align: center;
+		padding: 15px 10px;
+		input {
+			width: auto;
+			vertical-align: middle;
+			margin: 0 0 0 8px;
+		}
+	}
+}

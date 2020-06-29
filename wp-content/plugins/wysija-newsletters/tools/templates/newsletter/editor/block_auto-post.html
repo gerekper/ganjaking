@@ -1,0 +1,15 @@
+<div wysija_type="{#type}" class="wysija_block auto-post" wysija_position="{#position}">
+    {include file="templates/newsletter/editor/block_controls.html"}
+
+    <div class="wysija_auto-post"><p class="loading">{$i18n.ajaxLoading}</p></div>
+
+    <div class="wysija_settings" style="display:none;">
+        <a class="settings" href="javascript:;"><span class="dashicons dashicons-admin-generic"></span>{$i18n.autoPostEditSettings}</a>
+    </div>
+
+    <div class="wysija_params">
+        {loop name="#params"}
+            <input type="hidden" name="{#key}" value="{#value}" />
+        {/loop}
+    </div>
+</div>

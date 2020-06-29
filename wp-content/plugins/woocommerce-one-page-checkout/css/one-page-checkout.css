@@ -1,0 +1,208 @@
+.woocommerce form.checkout .opc-single-product:before,
+.woocommerce form.checkout .opc-single-product:after {
+	content: ' '; /* 1 */
+	display: table; /* 2 */
+}
+.woocommerce form.checkout .opc-single-product:after {
+	clear: both;
+}
+.woocommerce form.checkout .opc-single-product {
+	*zoom: 1;
+	margin-bottom: 2em;
+}
+.woocommerce form.checkout .product .entry-summary {
+	margin: 0 !important;
+	padding: 0 !important;
+}
+.woocommerce form.checkout .product .quantity,
+.woocommerce form.checkout .product .add_to_cart_button {
+	margin: 0 0 2em 0 !important;
+}
+.woocommerce form.checkout .opc-single-product .product-quantity:after {
+	content: ' ';
+	display: table;
+	clear: both;
+}
+.woocommerce form.checkout .opc-single-product .quantity {
+	float: left;
+	margin-right: 4px !important;
+}
+/**
+ * - When product is sold individually we only show button for adding/removing
+ * - Changes button to remove text once added to an order
+ */
+.selected button.add_to_cart_button,
+.selected a.add_to_cart_button {
+	opacity: 0.5;
+}
+.selected button.add_to_cart_button span,
+.selected a.add_to_cart_button span {
+	display: none;
+}
+.selected button.add_to_cart_button:hover,
+.selected a.add_to_cart_button:hover {
+	opacity: 1;
+}
+.selected button.add_to_cart_button::after,
+.selected a.add_to_cart_button::after {
+	content: attr(data-opc_remove_text);
+}
+/* Center add to cart input on product table */
+.opc-product-selection .shop_table td.product-quantity {
+	text-align: center;
+}
+/* Display label inline with radio button on product list */
+#opc-product-selection .product-item label.opc-radio-list-label {
+	display: inline;
+}
+/**
+* When product is displayed using single template, style quantity input.
+*/
+.opc-single-product .quantity .qty {
+	width: 5em;
+}
+/**
+* When using single template, display "Add to order" on the same line as qty.
+*/
+.opc-single-product .quantity {
+	float: left;
+	margin-right: 0.5em;
+}
+
+/*
+ * Pricing Tables
+ */
+.opc-pricing-table-wrapper {
+	width: 100%;
+	clear: both;
+}
+/* Pricing Table Columns */
+.opc-pricing-table-product {
+	position: relative;
+	float: left;
+	margin: 1.6em 0 1em -1px;
+	border: 1px solid #e0e0e0;
+	text-align: center;
+}
+.opc-pricing-table-product:not(:first-child) {
+	border-left: none;
+}
+.opc-pricing-table-product,
+.opc_columns_4 .opc-pricing-table-product {
+	width: 24%;
+}
+.opc_columns_2 .opc-pricing-table-product {
+	width: 49%;
+}
+.opc_columns_3 .opc-pricing-table-product {
+	width: 33%;
+}
+.opc_columns_5 .opc-pricing-table-product {
+	width: 19%;
+}
+@media screen and (max-width: 782px) {
+	.opc-pricing-table-product,
+	.opc_columns_4 .opc-pricing-table-product,
+	.opc_columns_2 .opc-pricing-table-product,
+	.opc_columns_3 .opc-pricing-table-product,
+	.opc_columns_5 .opc-pricing-table-product {
+		width: 100%;
+	}
+}
+/* Pricing Table Header */
+.opc-pricing-table-product-header {
+	padding: 1em 1em 1.6em;
+}
+.opc-pricing-table-product-title {
+	font-size: 1em;
+}
+.opc-pricing-table-product-price {
+	font-size: 1.6em;
+	line-height: 1em;
+}
+.opc-pricing-table-product-price .subscription-details {
+	font-size: 0.6em;
+}
+.opc-pricing-table-product .product-quantity {
+	min-height: 30px;
+}
+/* Border between sections */
+.opc-pricing-table-product-attributes,
+.opc-pricing-table-product-dimensions {
+	padding-top: 2em;
+	border-top: 1px solid #e5e5e5;
+}
+/*
+ * Scroll down button
+ */
+.selected .wc-south {
+	display: inline-block;
+	margin-left: 4px;
+}
+.wc-south {
+	display: none;
+}
+.wc-south:before,
+.wc-south a:before {
+	font-family: 'WooCommerce';
+	speak: none;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	margin-right: 7px;
+	content: '\e02e';
+	font-size: 0.75em;
+}
+/**
+ * Order Review Remove Button Styles
+ */
+#order_review .opc_cart_item td.product-name {
+	padding-left: 1.8em;
+	min-width: 60%;
+	vertical-align: middle;
+}
+#order_review .product-remove {
+	display: inline-block;
+	margin-left: -1.2em;
+	float: left;
+}
+.opc_order_review .product-details {
+	display: inline-block;
+	float: left;
+	min-width: 70%;
+}
+.opc_order_review .product-quantity {
+	display: inline-block;
+	float: right;
+}
+.opc_order_review td.product-total {
+	vertical-align: top;
+	padding-top: 0.6em;
+}
+/**
+ * Order Review Remove Button Styles WC < 2.3
+ */
+#order_review.opc_order_review a.remove {
+	display: inline-block;
+	height: 1em;
+	width: 1em;
+	text-align: center;
+	line-height: 0.85em;
+	-webkit-border-radius: 100%;
+	border-radius: 100%;
+	color: red;
+	text-decoration: none;
+}
+#order_review.opc_order_review a.remove:hover {
+	background-color: red;
+	color: #fff;
+}
+/**
+ * Make sure notices clear content
+ */
+#opc-messages,
+.woocommerce-info {
+	clear: both;
+}

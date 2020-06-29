@@ -1,0 +1,86 @@
+/*Metabox functions*/
+.yith-wcdls-select {
+    width: 270px;
+}
+
+.yith-wcdls-select-woo {
+    width: 270px;
+}
+
+.yith-wcdls-rule-payment-restriction > div {
+    margin-bottom:20px;
+}
+.yith-wcdls-conditions-row {
+    clear:left;
+    margin-top:10px;
+    margin-bottom: 10px;
+    padding: 20px;
+    background-color: #f1f1f1;
+}
+.yith-wcdls-condtions-list {
+    margin-top:25px;
+}
+.yith-wcdls-row {
+    margin-left:5px;
+    display:inline;
+}
+
+.yith-wcdls-offer-accepted {
+    margin-left:5px;
+    display:inline;
+}
+
+.yith-wcdls-restriction >label {
+    width:20%;
+    float:left;
+}
+
+#yith-wcdls-bacs-account-select {
+    padding-top: 20px;
+}
+.yith-wcdls-price {
+    width: 270px;
+    height: 30px;
+}
+.yith-wcdls-delete-condition a.remove-button{
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    vertical-align: middle;
+    text-indent: -999999px;
+    overflow: hidden;
+    opacity: 0.6;
+    background: url( '../../assets/images/remove.png' ) no-repeat center center;
+}
+
+.yith-wcdls-div {
+    margin-left:30px;
+}
+
+.yith-wcdls-radio-not-accepted {
+    margin-bottom: 10px;
+    margin-left:10px;
+}
+
+.yith-wcdls-apply-type-offer {
+    margin-top:20px;
+}
+
+.yith-wcdls-select-offers {
+    margin-top:10px;
+}
+
+/*Metabox functions*/
+
+/* tinymce */
+i.mce-i-ywdls-icon {
+    background-image: url(../images/yithemes-icon.png) ;
+    width: 16px;
+    height: 16px;
+    vertical-align: top;
+    speak: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin-left: -2px;
+    padding-right: 2px
+}

@@ -1,0 +1,3 @@
+                        <gtins>
+{gtins}
+                        </gtins>

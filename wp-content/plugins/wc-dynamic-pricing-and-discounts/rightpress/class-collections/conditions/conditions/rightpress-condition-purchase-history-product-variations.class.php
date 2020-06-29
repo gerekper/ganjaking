@@ -1,0 +1,71 @@
+<?php
+
+// Exit if accessed directly
+defined('ABSPATH') || exit;
+
+// Load dependencies
+require_once 'rightpress-condition-purchase-history.class.php';
+
+/**
+ * Condition: Purchase History - Product Variations
+ *
+ * @class RightPress_Condition_Purchase_History_Product_Variations
+ * @package RightPress
+ * @author RightPress
+ */
+abstract class RightPress_Condition_Purchase_History_Product_Variations extends RightPress_Condition_Purchase_History
+{
+
+    protected $key          = 'product_variations';
+    protected $method       = 'list_advanced';
+    protected $fields       = array(
+        'before'    => array('timeframe_span'),
+        'after'     => array('product_variations'),
+    );
+    protected $main_field   = 'product_variations';
+    protected $position     = 20;
+
+    /**
+     * Constructor
+     *
+     * @access public
+     * @return void
+     */
+    public function __construct()
+    {
+
+        parent::__construct();
+
+        $this->hook();
+    }
+
+    /**
+     * Get label
+     *
+     * @access public
+     * @return string
+     */
+    public function get_label()
+    {
+
+        return __('Purchased - Variations', 'rightpress');
+    }
+
+    /**
+     * Get value by order
+     *
+     * @access protected
+     * @param int $order_id
+     * @return array
+     */
+    protected function get_purchase_history_value_by_order($order_id)
+    {
+
+        return RightPress_Help::get_wc_order_product_variation_ids($order_id);
+    }
+
+
+
+
+
+}

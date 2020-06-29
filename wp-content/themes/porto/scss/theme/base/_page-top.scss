@@ -1,0 +1,171 @@
+/* Page Top */
+
+.page-top {
+    background-color: #171717;
+    padding: 12px 0;
+    position: relative;
+    text-align: $left;
+
+    &[data-plugin-parallax] {
+        background-position: 50% 50%;
+    }
+
+    &.wide {
+        .container {
+            width: 100%;
+            max-width: none;
+        }
+    }
+
+    .breadcrumbs-wrap {
+        font-size: 0.8em;
+    }
+    .breadcrumbs-prefix {
+        margin-#{$right}: 10px;
+    }
+
+    ul.breadcrumb {
+        border-radius: 0;
+        background: none;
+        margin: 0;
+        padding: 0;
+        > li {
+            text-shadow: none;
+            text-transform: uppercase;
+            a {
+                display: inline-block;
+                border-color: transparent;
+                background: transparent;
+            }
+            + li:before {
+                display: none;
+            }
+            .delimiter {
+                display: block;
+                float: $right;
+                margin: 0 4px;
+                width: 20px;
+                text-align: center;
+                font-style: normal;
+                font-size: 12px;
+                &:before {
+                    content: "/\00a0";
+                    position: relative;
+                    @if $rtl == 1 {
+                        right: 1px;
+                    } @else {
+                        right: -2px;
+                    }
+                }
+                &.delimiter-2 {
+                    font-family: "Porto";
+                    font-weight: 400;
+                    &:before {
+                        @if $rtl == 1 {
+                            content: "\e819";
+                            right: 0;
+                        } @else {
+                            content: "\e81a";
+                            right: -1px;
+                        }
+                    }
+                }
+            }
+        }
+        li {
+            span {
+                margin-#{$left}: 5px;
+
+                &:first-child {
+                    margin-#{$left}: 0;
+                }
+            }
+        }
+    }
+    .yoast-breadcrumbs {
+        font-size: 12px;
+        a {
+            margin-#{$right}: 5px;
+        }
+        span,
+        .breadcrumb_last {
+            margin-#{$left}: 5px;
+        }
+    }
+    .page-title {
+        display: inline-block;
+        font-size: 2.2em;
+        font-weight: 400;
+        margin: 0;
+        line-height: 1.2;
+        position: relative;
+        letter-spacing: -.05em;
+        text-transform: none;
+        position: relative;
+        z-index: 2;
+        @media #{$screen-medium} {
+            font-size: 2em;
+        }
+    }
+
+    .page-sub-title {
+        font-size: 1.2em;
+        font-weight: $font-weight-light;
+        line-height: 1.5em;
+        opacity: 0.8;
+        @media #{$screen-medium} {
+            font-size: 1.2em;
+        }
+    }
+
+    .sort-source {
+        position: absolute;
+        bottom: 0;
+        @include clearfix;
+
+        > li {
+            float: none;
+            display: inline-block;
+
+            &.active > a {
+                background: transparent !important;
+            }
+        }
+
+        @media #{$screen-medium} {
+            position: relative;
+            text-align: $right;
+            left: 0;
+            right: 0;
+            z-index: 1;
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+    }
+
+    .hide-title {
+        .sort-source {
+            bottom: -6px;
+        }
+    }
+
+    body.single-product .entry-summary & {
+        position: absolute;
+        top: 0;
+        #{$right}: 0;
+        width: 65px;
+        background: transparent !important;
+        border: none !important;
+        & .product-nav .product-link{
+            color: #000000;
+        }
+    }
+}
+
+#breadcrumbs-boxed {
+    position: relative;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: auto;
+    margin-right: auto;
+}

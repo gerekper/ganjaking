@@ -1,0 +1,59 @@
+#yith-wcwtl-output {
+    margin-bottom: 20px;
+    position: relative;
+}
+#yith-wcwtl-output:after,
+#yith-wcwtl-output:before {
+    content: '';
+    clear: both;
+    display: table;
+}
+#yith-wcwtl-output label {
+    display: block;
+    margin-bottom: 5px;
+}
+#yith-wcwtl-output label:last-of-type {
+    margin-bottom: 10px;
+}
+#yith-wcwtl-output input, #yith-wcwtl-output p {
+    margin-bottom: 10px;
+}
+#yith-wcwtl-output input#yith-wcwtl-policy-check {
+    display: inline;
+    margin: -2px 8px 0 0;
+    text-align: center;
+    vertical-align: middle;
+}
+#yith-wcwtl-output input#yith-wcwtl-policy-check + span {
+    font-size: 12px;
+    display: inline;
+}
+/** MY ACCOUNT TABLE **/
+table.my_account_waitlist .product-info img {
+    max-width: 50px;
+    height: auto;
+}
+table.my_account_waitlist .product-info {
+    display: inline-block;
+    text-decoration: none !important;
+    box-shadow: none;
+}
+table.my_account_waitlist .product-image,
+table.my_account_waitlist .product-title {
+    display: inline-block;
+    vertical-align: middle;
+}
+table.my_account_waitlist .product-title {
+    margin-left: 5px;
+}
+table.my_account_waitlist .waitlist-product-variation ul {
+    margin-bottom: 0;
+    list-style: none;
+}
+
+@media (max-width: 768px) {
+    table.my_account_waitlist .waitlist-actions:before {
+        content: '' !important;
+    }
+}
+

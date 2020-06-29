@@ -1,0 +1,29 @@
+.up-professional-layout{
+
+  $this : &;
+
+  &__cover{
+    $this : &;
+    position: relative;
+    height:250px;
+    overflow-y: hidden;
+    img{
+      width:100%;
+      height:100%;
+      object-fit: cover;
+    }
+    &_buttons {
+      position: absolute;
+      bottom:0;
+      right: 0;
+      @media screen and (max-width: 660px) {
+        top: 15px;
+        left: 0;
+        .up-professional-btn{
+          display: block;
+          text-align: center;
+        }
+      }
+    }
+  }
+}

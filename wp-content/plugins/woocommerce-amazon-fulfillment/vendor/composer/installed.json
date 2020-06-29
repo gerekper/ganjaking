@@ -1,0 +1,74 @@
+[
+    {
+        "name": "kint-php/kint",
+        "version": "3.2.2",
+        "version_normalized": "3.2.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/kint-php/kint.git",
+            "reference": "c332db9529fdce74ae6a347f97a1e7395e76ced8"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/kint-php/kint/zipball/c332db9529fdce74ae6a347f97a1e7395e76ced8",
+            "reference": "c332db9529fdce74ae6a347f97a1e7395e76ced8",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.6"
+        },
+        "require-dev": {
+            "friendsofphp/php-cs-fixer": "^2.0",
+            "phpunit/phpunit": "^4.0",
+            "seld/phar-utils": "^1.0",
+            "symfony/finder": "^2.0 || ^3.0 || ^4.0",
+            "vimeo/psalm": "^3.0"
+        },
+        "suggest": {
+            "ext-ctype": "Simple data type tests",
+            "ext-iconv": "Provides fallback detection for ambiguous legacy string encodings such as the Windows and ISO 8859 code pages",
+            "ext-mbstring": "Provides string encoding detection",
+            "kint-php/kint-js": "Provides a simplified dump to console.log()",
+            "kint-php/kint-twig": "Provides d() and s() functions in twig templates",
+            "symfony/polyfill-ctype": "Replacement for ext-ctype if missing",
+            "symfony/polyfill-iconv": "Replacement for ext-iconv if missing",
+            "symfony/polyfill-mbstring": "Replacement for ext-mbstring if missing"
+        },
+        "time": "2019-05-03T16:49:16+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "files": [
+                "init.php"
+            ],
+            "psr-4": {
+                "Kint\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Rokas Šleinius",
+                "homepage": "https://github.com/raveren"
+            },
+            {
+                "name": "Jonathan Vollebregt",
+                "homepage": "https://github.com/jnvsor"
+            },
+            {
+                "name": "Contributors",
+                "homepage": "https://github.com/kint-php/kint/graphs/contributors"
+            }
+        ],
+        "description": "Kint - debugging tool for PHP developers",
+        "homepage": "https://kint-php.github.io/kint/",
+        "keywords": [
+            "debug",
+            "kint",
+            "php"
+        ]
+    }
+]

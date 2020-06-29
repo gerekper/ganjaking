@@ -1,0 +1,9 @@
+<p class="wysija-paragraph">
+    {if ! #params.label_within}<label>{#params.label}{if #params.required} <span class="wysija-required">*</span>{/if}</label>{/if}
+   	<textarea name="{#field_prefix}[{#field}]" class="wysija-textarea {$validation}" rows="{#params.lines|default:1}" placeholder="{if #params.label_within}{#params.label}{/if}"></textarea>
+    {if ! $preview}
+    <span class="abs-req">
+        <input type="text" name="{#field_prefix}[abs][{#field}]" class="wysija-input validated[abs][{#field}]" value="" />
+    </span>
+    {/if}
+</p>

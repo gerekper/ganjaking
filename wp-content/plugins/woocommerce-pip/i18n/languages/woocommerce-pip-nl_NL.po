@@ -1,0 +1,1368 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Print Invoices/Packing Lists v3.1.6\n"
+"Report-Msgid-Bugs-To: https://woocommerce.com/my-account/marketplace-ticket-"
+"form/\n"
+"POT-Creation-Date: 2018-07-05 14:18:03+00:00\n"
+"PO-Revision-Date: 2017-01-04 09:20+0100\n"
+"Last-Translator: johnston <johnston@chipbizz.nl>\n"
+"Language-Team: \n"
+"Language: nl_NL\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Poedit 1.8.7.1\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
+"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
+"X-Poedit-Basepath: ../..\n"
+"X-Textdomain-Support: yes\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: class-wc-pip.php:209
+msgid "You have generated your first invoice!"
+msgstr ""
+
+#: class-wc-pip.php:211
+msgid "You have generated your first packing list!"
+msgstr ""
+
+#: class-wc-pip.php:213
+msgid "You have generated your first pick list!"
+msgstr ""
+
+# @ woocommerce-pip
+#. translators: Placeholders: %1$s - this plugin name, %2$s - opening HTML <a>
+#. anchor tag, %3$s - closing HTML </a> tag
+#: class-wc-pip.php:247
+msgid ""
+"Hi there! It looks like you have upgraded %1$s from an older version. We "
+"have added lots of new features, please %2$scheck out the documentation%3$s "
+"for an overview and some helpful upgrading tips!"
+msgstr ""
+"Hoi! Het ziet er naar uit dat je deze plugin hebt geüpdate naar %1$s vanaf "
+"een oudere versie. We hebben vele nieuwe functies toegevoegd, zie ook de "
+"documentatie %3$s voor een overzicht en tips voor deze update!"
+
+# @ woocommerce-pip
+#. translators: Placeholders: %1$s - the plugin name, %2$s - opening HTML <a>
+#. anchor tag, %3$s closing HTML </a> tag
+#: class-wc-pip.php:255
+msgid ""
+"Thanks for installing %1$s! To get started, take a minute to %2$sread the "
+"documentation%3$s :)"
+msgstr ""
+"Dank je voor het installeren van %1$s! Om te beginnen, neem een momentje om "
+"%2$sde documentatie door te nemen%3$s :)"
+
+# @ woocommerce-pip
+#: class-wc-pip.php:450 includes/admin/class-wc-pip-orders-admin.php:701
+#: includes/admin/class-wc-pip-settings.php:67
+#: includes/class-wc-pip-document-invoice.php:51
+#: includes/emails/class-wc-pip-email-invoice.php:53
+msgid "Invoice"
+msgstr "Factuur"
+
+# @ woocommerce-pip
+#: class-wc-pip.php:451 includes/admin/class-wc-pip-orders-admin.php:702
+#: includes/admin/class-wc-pip-settings.php:68
+#: includes/class-wc-pip-document-packing-list.php:51
+#: includes/emails/class-wc-pip-email-packing-list.php:53
+msgid "Packing List"
+msgstr "Pakbon"
+
+# @ woocommerce-pip
+#: class-wc-pip.php:452 includes/admin/class-wc-pip-settings.php:69
+#: includes/class-wc-pip-document-pick-list.php:55
+#: includes/emails/class-wc-pip-email-pick-list.php:53
+msgid "Pick List"
+msgstr "Picklijst"
+
+# @ woocommerce-pip
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce Print Invoices/Packing Lists"
+msgstr "WooCommerce Facturen en Pakbonnen afdrukken"
+
+# @ woocommerce-pip
+#: includes/abstract-wc-pip-document.php:439
+#: includes/class-wc-pip-document-pick-list.php:165
+msgid "No shipping"
+msgstr "Geen verzending"
+
+# @ woocommerce-pip
+#: includes/abstract-wc-pip-document.php:498
+#: includes/admin/views/html-pip-template-preview.php:339
+msgid "Email:"
+msgstr "E-mailadres: "
+
+# @ woocommerce-pip
+#: includes/abstract-wc-pip-document.php:506
+msgid "Phone:"
+msgstr "Telefoonnummer: "
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-admin.php:79
+msgid "Print Invoices/Packing Lists"
+msgstr "Pakbonnen en facturen printen"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-admin.php:80
+msgid "Documents to print will open in a new window."
+msgstr "Af te drukken documenten openen in nieuw venster."
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-admin.php:81
+msgid ""
+"Are you sure you want to reset the invoice number counter? This action could "
+"result in duplicate invoice numbers or other unintended consequences."
+msgstr ""
+"Weet je zeker dat je de factuurnummerteller wilt resetten? Dit kan dubbele "
+"factuurnummers en andere onverwachte consequenties veroorzaken."
+
+#: includes/admin/class-wc-pip-admin.php:82
+msgid "Close"
+msgstr ""
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-customizer.php:157
+msgid "Template Customizer"
+msgstr "Sjablonen aanpassen"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-customizer.php:158
+msgid "Customize the template using a visual editor."
+msgstr "Pas sjablonen aan via visuele interface."
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-customizer.php:163
+msgid "Customize"
+msgstr "Aanpassen"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-customizer.php:164
+msgid "Customize Template"
+msgstr "Sjabloon aanpassen"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-customizer.php:210
+msgid "Company Information"
+msgstr "Bedrijfsinformatie"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-customizer.php:217
+msgid "Typography"
+msgstr "Typografie"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-customizer.php:224
+msgid "Colors"
+msgstr "Kleuren"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-customizer.php:231
+msgid "Content"
+msgstr "Inhoud"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-customizer.php:238
+msgid "Advanced"
+msgstr "Geavanceerd"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-customizer.php:428
+msgid "Shop Logo"
+msgstr "Logo webwinkel"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-customizer.php:429
+msgid "Upload a logo representing your shop or business."
+msgstr "Upload een logo voor deze webwinkel."
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-customizer.php:441
+msgid "Logo Max Width"
+msgstr "Maximale breedte logo"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-customizer.php:442
+msgid "The maximum width of the logo."
+msgstr "Maximale breedte van logo."
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-customizer.php:453
+msgid "Shop Name"
+msgstr "Naam webwinkel"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-customizer.php:454
+msgid ""
+"Enter your shop or business name to be displayed when not using a logo. "
+"Leave blank to use the default site title."
+msgstr ""
+"Geef de naam van de webwinkel in die wordt getoond indien er geen logo wordt "
+"gebruikt. Laat leeg om de standaardnaam van de webwinkel te tonen."
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-customizer.php:463
+msgid "Shop URL"
+msgstr "Webwinkel URL"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-customizer.php:464
+msgid ""
+"Enter the URL to be used in the template for your shop or business website "
+"URL. Leave blank to use the default site url."
+msgstr ""
+"Voer de URL in om te gebruiken als sjabloon voor de URL van deze webwinkel. "
+"Laat leeg om de standaard URL te gebruiken."
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-customizer.php:473
+msgid "Extra information"
+msgstr "Extra informatie"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-customizer.php:474
+msgid ""
+"Enter additional information or subheading to be displayed below the title "
+"or logo."
+msgstr ""
+"Voer extra informatie of paragraaftitels in om te tonen onder de titel of "
+"logo."
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-customizer.php:483
+#: includes/admin/class-wc-pip-customizer.php:703
+#, fuzzy
+msgid "VAT Number"
+msgstr "BTW nummer: "
+
+#: includes/admin/class-wc-pip-customizer.php:484
+msgid "Enter your business VAT number."
+msgstr ""
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-customizer.php:493
+msgid "Shop name or logo alignment"
+msgstr "Winkelnaam of logo uitlijning"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-customizer.php:494
+msgid "Set the alignment of the shop title or logo in template."
+msgstr "Webwinkel titel of logo uitlijnen in sjabloon."
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-customizer.php:501
+#: includes/admin/class-wc-pip-customizer.php:527
+msgid "Left"
+msgstr "Links"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-customizer.php:502
+#: includes/admin/class-wc-pip-customizer.php:528
+msgid "Right"
+msgstr "Rechts"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-customizer.php:503
+#: includes/admin/class-wc-pip-customizer.php:529
+msgid "Center"
+msgstr "Midden"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-customizer.php:509
+msgid "Shop Address"
+msgstr "Adres webwinkel"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-customizer.php:510
+msgid ""
+"Enter your shop or business address to be displayed next to the logo or shop "
+"name."
+msgstr ""
+"Voer het adres van de webwinkel in om te tonen naast het logo of de "
+"webwinkelnaam"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-customizer.php:519
+msgid "Shop Address alignment"
+msgstr "Uitlijning van webwinkeladres"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-customizer.php:520
+msgid "Set the alignment of the shop address in template."
+msgstr "Webwinkel adres uitlijnen in sjabloon."
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-customizer.php:543
+msgid "Body font size"
+msgstr "Body lettergrootte"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-customizer.php:544
+msgid "The template default body font size."
+msgstr "Standaard body lettergrootte in sjabloon"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-customizer.php:559
+msgid "Heading font size"
+msgstr "Titel lettergrootte"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-customizer.php:560
+msgid "The template default heading font size."
+msgstr "Standaard titel lettergrootte in sjabloon."
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-customizer.php:577
+msgid "Link Color"
+msgstr "Link kleur"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-customizer.php:578
+msgid "Choose the default color of links in template."
+msgstr "Kies de standaardkleur van links in sjabloon."
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-customizer.php:586
+msgid "Headings Color"
+msgstr "Kleur van titels"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-customizer.php:587
+msgid "Choose the default color for heading text."
+msgstr "Kies de standaardkleur voor titels."
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-customizer.php:595
+msgid "Table Head Background Color"
+msgstr "Achtergrondkleur voor tabellen"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-customizer.php:596
+msgid "Choose the default color for the table head background."
+msgstr ""
+"Kies de standaard achtergrondkleur voor de achtergrond van tabelkoppen."
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-customizer.php:604
+msgid "Table Head Color"
+msgstr "Kleur van eerste rij in tabel"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-customizer.php:605
+msgid "Choose the default color for the table head text."
+msgstr "Kies de standaardkleur voor tekst in de eerste rij van een tabel."
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-customizer.php:617
+msgid "Header"
+msgstr "Titel"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-customizer.php:618
+msgid ""
+"Enter additional information to be displayed below the document's header."
+msgstr "Voer extra informatie in om te tonen onder de titel van het document."
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-customizer.php:626
+msgid "Returns Policy, Terms and Conditions, etc."
+msgstr "Retourbeleid, Algemene voorwaarden, etcetera."
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-customizer.php:627
+msgid ""
+"Enter your shop's policies to be displayed at the bottom of the document."
+msgstr "Toon beleid van de webwinkel onderaan het document."
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-customizer.php:635
+msgid "Fine print"
+msgstr "Kleine letters"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-customizer.php:636
+msgid "Display the terms and conditions text in fine print."
+msgstr "Toon algemene voorwaarden in kleine letters."
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-customizer.php:644
+msgid "Footer"
+msgstr "Voet"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-customizer.php:645
+msgid "Enter additional information to be displayed at the document's footer."
+msgstr "Toon extra informatie in de voet van het document."
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-customizer.php:658
+msgid "Custom Styles"
+msgstr "Aangepaste stijlen"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-customizer.php:659
+msgid ""
+"For advanced users: you may enter additional CSS styles that will be used in "
+"the document template."
+msgstr ""
+"Voor geavanceerde gebruikers: Voer extra CSS stijlen in die worden gebruikt "
+"in dit sjabloon."
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-customizer.php:682
+msgid "Save and Preview Changes"
+msgstr "Opslaan en toon voorbeeld"
+
+# @ woocommerce-pip
+#. translators: Placeholders: %d - number of emails sent
+#: includes/admin/class-wc-pip-orders-admin.php:478
+msgid "Pick List email for %d order sent."
+msgid_plural "Pick List email for %d orders sent."
+msgstr[0] "Email pakbon voor %d verzonden order"
+msgstr[1] "Email pakbon voor %d verzonden orders"
+
+# @ woocommerce-pip
+#. translators: Placeholders: %d - number of emails sent, %s - document name
+#: includes/admin/class-wc-pip-orders-admin.php:481
+msgid "%d %s email sent."
+msgid_plural "%d %s emails sent."
+msgstr[0] "%d %s e-mail verzonden."
+msgstr[1] "%d %s e-mails verzonden."
+
+# @ woocommerce-pip
+#. translators: Placeholder: %s - document name
+#: includes/admin/class-wc-pip-orders-admin.php:485
+msgid "No %s emails sent."
+msgstr "Geen %s e-mails verzonden."
+
+# @ woocommerce-pip
+#. translators: Placeholder: %s - Document name
+#: includes/admin/class-wc-pip-orders-admin.php:509
+msgid ""
+"No %s created for printing. Please select valid orders or reload this page "
+"first."
+msgstr ""
+"Geen %s aangemaakt om te printen. Selecteer een geschikte order of herlaad "
+"eerst deze pagina."
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-orders-admin.php:533
+msgid "Print now."
+msgstr "Nu afdrukken."
+
+# @ woocommerce-pip
+#. translators: Placeholders: %1$s - document name (pick list), %2$s - number
+#. of documents created, %3$s - link to print
+#: includes/admin/class-wc-pip-orders-admin.php:539
+msgid "%1$s for %2$s orders created. %3$s"
+msgstr "%1$s voor %2$s bestellingen aangemaakt. %3$s"
+
+# @ woocommerce-pip
+#. translators: Placeholders: %1$s - number of documents created, %2$s -
+#. document name, %3$s - link to print
+#: includes/admin/class-wc-pip-orders-admin.php:542
+msgid "%1$s %2$s created. %3$s"
+msgstr "%1$s %2$s aangemaakt. %3$s"
+
+# @ woocommerce-pip
+#. translators: Placeholders: %1$s - document name, %2$s - link to print
+#: includes/admin/class-wc-pip-orders-admin.php:547
+msgid "%1$s created. %2$s"
+msgstr "%1$s aangemaakt. %2$s"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-orders-admin.php:613
+msgid "Invoice number:"
+msgstr "Factuurnummer: "
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-orders-admin.php:643
+msgid "Print Invoice"
+msgstr "Factuur afdrukken"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-orders-admin.php:644
+#, fuzzy
+msgid "Email Invoice"
+msgstr "Factuur e-mailen"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-orders-admin.php:645
+msgid "Print Packing List"
+msgstr "Pakbon afdrukken"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-orders-admin.php:646
+#, fuzzy
+msgid "Email Packing List"
+msgstr "Pakbon e-mailen"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-orders-admin.php:674
+msgid "Print Pick List"
+msgstr "Piklijst afdrukken"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-orders-admin.php:675
+#, fuzzy
+msgid "Email Pick List"
+msgstr "Piklijst e-mailen"
+
+# @ woocommerce-pip
+#. translators: Placeholder: %s - invoice number
+#: includes/admin/class-wc-pip-orders-admin.php:740
+#: includes/admin/views/html-pip-template-preview.php:105
+msgid "Invoice: %s"
+msgstr "Factuur: %s"
+
+# @ woocommerce-pip
+#. translators: Placeholder: %s - order number
+#: includes/admin/class-wc-pip-orders-admin.php:763
+#, fuzzy
+msgid "Invoice/Packing List (Order #%s)"
+msgstr "Facturen/Pakbonnen"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-orders-admin.php:814
+#: includes/wc-pip-template-functions.php:118
+msgid "Print"
+msgstr "Afdrukken"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-orders-admin.php:816
+#, fuzzy
+msgid "Email"
+msgstr "E-mailadres: "
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-orders-admin.php:873
+#, fuzzy
+msgid "Invoice Number"
+msgstr "Factuurnummer: "
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-orders-admin.php:919
+#, fuzzy
+msgid "Print Invoices / Packing Lists"
+msgstr "Pakbonnen en facturen printen"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-orders-admin.php:994
+msgid "Invoice not printed"
+msgstr "Factuur niet afgedrukt"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-orders-admin.php:995
+msgid "Invoice printed"
+msgstr "Factuur afgedrukt"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-orders-admin.php:996
+msgid "Packing List not printed"
+msgstr "Pakbon niet afgedrukt"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-orders-admin.php:997
+msgid "Packing List printed"
+msgstr "Pakbon geprint"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-orders-admin.php:998
+#, fuzzy
+msgid "Pick List not printed"
+msgstr "Pakbon niet afgedrukt"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-orders-admin.php:999
+#, fuzzy
+msgid "Pick List printed"
+msgstr "Pakbon geprint"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-orders-admin.php:1006
+msgid "Show all print statuses"
+msgstr "Toon status van alle afdrukken"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-settings.php:48
+msgid "Invoices/Packing Lists"
+msgstr "Facturen/Pakbonnen"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-settings.php:66
+msgid "General"
+msgstr "Algemeen"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-settings.php:150
+msgid "Emails"
+msgstr "E-mails"
+
+# @ woocommerce-pip
+#. translators: Placeholders: %1$s - opening HTML <a> anchor tag, %2$s closing
+#. HTML </a> anchor tag
+#: includes/admin/class-wc-pip-settings.php:153
+msgid "You can configure Invoices/Packing Lists %1$semail settings here%2$s."
+msgstr "Pas de %1$se-mail instellingen%2$s voor Facturen/Pakbonenn aan."
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-settings.php:186
+msgid "Reset counter"
+msgstr ""
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-settings.php:187
+msgid "Reset the starting invoice number."
+msgstr "Eerste factuurnummer resetten."
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-settings.php:188
+msgid "Tick this if you want to edit the invoice start number."
+msgstr "Kies deze optie indien u het eerste factuurnummer wilt wijzigen."
+
+# @ woocommerce-pip
+#. translators: Placeholder: %s - merge tag
+#: includes/admin/class-wc-pip-settings.php:196
+msgid "%s Day of the month without leading zeros"
+msgstr "%s Dag van de maand zonder voorloopnullen"
+
+# @ woocommerce-pip
+#. translators: Placeholder: %s - merge tag
+#: includes/admin/class-wc-pip-settings.php:198
+msgid "%s Day of the month with leading zeros (2 digits)"
+msgstr "%s Dag van de maand met voorloopnullen (2 tekens)"
+
+# @ woocommerce-pip
+#. translators: Placeholder: %s - merge tag
+#: includes/admin/class-wc-pip-settings.php:200
+msgid "%s Month, without leading zeros"
+msgstr "%s Maand, zonder voorloopnullen"
+
+# @ woocommerce-pip
+#. translators: Placeholder: %s - merge tag
+#: includes/admin/class-wc-pip-settings.php:202
+msgid "%s Month, with leading zeros (2 digits)"
+msgstr "%s Maand, met voorloopnullen (2 tekens)"
+
+# @ woocommerce-pip
+#. translators: Placeholder: %s - merge tag
+#: includes/admin/class-wc-pip-settings.php:204
+msgid "%s Year (2 digits)"
+msgstr "%s Jaar (2 tekens)"
+
+# @ woocommerce-pip
+#. translators: Placeholder: %s - merge tag
+#: includes/admin/class-wc-pip-settings.php:206
+msgid "%s Year (4 digits)"
+msgstr "%s Jaar (4 tekens)"
+
+# @ woocommerce-pip
+#. translators: Placeholder: %s - merge tag
+#: includes/admin/class-wc-pip-settings.php:208
+msgid "%s 24-hour format of an hour without leading zeros"
+msgstr "%s 24-uurs uurweergave zonder voorloopnullen"
+
+# @ woocommerce-pip
+#. translators: Placeholder: %s - merge tag
+#: includes/admin/class-wc-pip-settings.php:210
+msgid "%s 24-hour format of an hour with leading zeros (2 digits)"
+msgstr "%s 24-uurs uurweergave met voorloopnullen (2 tekens)"
+
+# @ woocommerce-pip
+#. translators: Placeholder: %s - merge tag
+#: includes/admin/class-wc-pip-settings.php:212
+msgid "%s Minutes with leading zeros"
+msgstr "%s Minuten met voorloopnullen"
+
+# @ woocommerce-pip
+#. translators: Placeholder: %s - merge tag
+#: includes/admin/class-wc-pip-settings.php:214
+msgid "%s Seconds with leading zeros"
+msgstr "% Seconden met voorloopnullen"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-settings.php:222
+msgid "Invoice Appearance"
+msgstr "Factuurweergave"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-settings.php:229
+msgid "Show shipping method"
+msgstr "Toon verzendmethodes"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-settings.php:230
+msgid "Enable if you want to display shipping method for the invoice order."
+msgstr "Schakel in indien je de verzendmethode wilt tonen op de factuur."
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-settings.php:238
+#: includes/admin/class-wc-pip-settings.php:381
+msgid "Show customer details"
+msgstr "Toon klantdetails"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-settings.php:239
+#: includes/admin/class-wc-pip-settings.php:382
+msgid "Enable if you want to display customer details."
+msgstr "Schakel in indien je de klantdetails wilt tonen."
+
+#: includes/admin/class-wc-pip-settings.php:247
+msgid "Show customer provided note"
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:248
+msgid "Enable if you want to display the customer provided note."
+msgstr ""
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-settings.php:256
+msgid "Show coupons used in order"
+msgstr "Toon gebruikte kortingsbonnen in bestelling"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-settings.php:257
+msgid "Enable if you want to display a list of coupons applied to the order."
+msgstr ""
+"Schakel in indien je de gebruikte kortingsbonnen wilt tonen in de bestelling."
+
+#: includes/admin/class-wc-pip-settings.php:265
+msgid "Show item prices excluding taxes"
+msgstr ""
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-settings.php:266
+#, fuzzy
+msgid "Enable if you want to display item prices exclusive of tax."
+msgstr "Schakel in indien je de aantekeningen van de klant wilt tonen."
+
+#: includes/admin/class-wc-pip-settings.php:267
+msgid ""
+"Overrides the store tax display settings when displaying item prices in "
+"invoices."
+msgstr ""
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-settings.php:279
+msgid "Invoice Number Generation"
+msgstr "Factuurnummergeneratie"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-settings.php:286
+msgid "Use Order Number as Invoice Number"
+msgstr "Gebruik bestelnummer als factuurnummer"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-settings.php:287
+msgid ""
+"Enable this to use the order number as the invoice number. Disable to auto-"
+"generate the invoice number based on a starting number of your choice."
+msgstr ""
+"Schakel dit in indien je het bestelnummer wilt gebruiken als factuurnummer. "
+"Schakel uit om factuurnummers te genereren aan de hand van een zelf "
+"ingegeven startnummer."
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-settings.php:296
+msgid "Invoice Number Start"
+msgstr "Eerste factuurnummer"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-settings.php:297
+msgid "Set the starting invoice number."
+msgstr "Eerste factuurnummer instellen."
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-settings.php:314
+msgid "Invoice Number Minimum Digits"
+msgstr "Maximaal aantal tekens factuurnummer"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-settings.php:315
+msgid ""
+"Adds leading zeros to the invoice number count to keep the number of "
+"characters in the invoice number consistent. Leave to 1 to ignore the "
+"setting."
+msgstr ""
+"Voegt voorloopnullen toe aan de factuurnummers om de lengte consequent door "
+"te voeren. Laat op 1 om deze instelling te negeren."
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-settings.php:328
+msgid "Invoice Number Prefix"
+msgstr "Factuurnummer voorzetsel"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-settings.php:329
+msgid "Set your custom invoice number prefix."
+msgstr "Stel aangepast voorzetsel in voor factuurnummer."
+
+# @ woocommerce-pip
+#. translators: Placeholder: %s - List of merge tags
+#: includes/admin/class-wc-pip-settings.php:331
+#: includes/admin/class-wc-pip-settings.php:341
+msgid "You may also use the following merge tags: %s"
+msgstr "U kunt ook de volgende merge-tags gebruiken: %s"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-settings.php:338
+msgid "Invoice Number Suffix"
+msgstr "Factuurnummer achtervoegsel"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-settings.php:339
+msgid "Set your custom invoice number suffix."
+msgstr "Stel aangepast achtervoegsel in voor factuurnummer."
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-settings.php:374
+msgid "Packing List Appearance"
+msgstr "Pakbon weergave"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-settings.php:390
+msgid "Show customer note"
+msgstr "Toon aantekeningen door klant"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-settings.php:391
+msgid "Enable if you want to display the customer note."
+msgstr "Schakel in indien je de aantekeningen van de klant wilt tonen."
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-settings.php:399
+msgid "Show terms and conditions"
+msgstr "Toon algemene voorwaarden"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-settings.php:400
+msgid ""
+"Enable if you want to display terms and conditions or return policy on "
+"packing lists."
+msgstr ""
+"Schakel in indien je algemene voorwaarden en retourvoorwaarden wilt tonen op "
+"de pakbon."
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-settings.php:408
+msgid "Show footer"
+msgstr "Voet tonen"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-settings.php:409
+msgid "Enable if you want to display footer information on packing lists."
+msgstr "Schakel in indien je de inhoud van de footer wilt tonen op de pakbon."
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-settings.php:417
+#: includes/admin/class-wc-pip-settings.php:490
+msgid "Exclude Virtual Items"
+msgstr "Digitale / virtuele producten uitsluiten"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-settings.php:418
+msgid "Exclude virtual items from showing on packing lists."
+msgstr "Digitale / virtuele producten uitsluiten van weergave op pakbon."
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-settings.php:467
+#, fuzzy
+msgid "Pick List Appearance"
+msgstr "Pakbon weergave"
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-settings.php:473
+#, fuzzy
+msgid "Pick List Output"
+msgstr "Picklijst"
+
+#: includes/admin/class-wc-pip-settings.php:474
+msgid "This controls grouped by for selected orders on pick list."
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:479
+msgid "Groups items by order for selected orders"
+msgstr ""
+
+#: includes/admin/class-wc-pip-settings.php:480
+msgid "Groups items by category for selected orders"
+msgstr ""
+
+# @ woocommerce-pip
+#: includes/admin/class-wc-pip-settings.php:491
+#, fuzzy
+msgid "Exclude virtual items from showing on pick lists."
+msgstr "Digitale / virtuele producten uitsluiten van weergave op pakbon."
+
+# @ woocommerce-pip
+#. translators: Placeholder: %s - VAT number
+#. translators: Placeholder: %s - VAT Number
+#: includes/admin/views/html-pip-template-preview.php:80
+#: templates/pip/content/order-table-before.php:86
+#, fuzzy
+msgid "VAT Number: %s"
+msgstr "BTW nummer: "
+
+# @ woocommerce-pip
+#. translators: Placeholder: %s - order date
+#. translators: Placeholder:  %s - order date
+#: includes/admin/views/html-pip-template-preview.php:108
+#: includes/class-wc-pip-document-invoice.php:129
+msgid "Order Date: %s"
+msgstr "Besteldatum: %s"
+
+# @ woocommerce-pip
+#: includes/admin/views/html-pip-template-preview.php:125
+#: templates/pip/content/order-table-before.php:152
+msgid "Billing Address"
+msgstr "Factuuradres"
+
+# @ woocommerce-pip
+#: includes/admin/views/html-pip-template-preview.php:147
+#: templates/pip/content/order-table-before.php:177
+msgid "Shipping Address"
+msgstr "Verzendadres"
+
+# @ woocommerce-pip
+#: includes/admin/views/html-pip-template-preview.php:169
+#: templates/pip/content/order-table-before.php:202
+msgid "Shipping Method"
+msgstr "Verzendmethode"
+
+# @ woocommerce-pip
+#: includes/admin/views/html-pip-template-preview.php:222
+msgid "Subtotal:"
+msgstr "Subtotaal: "
+
+# @ wooocommerce-pip
+#: includes/admin/views/html-pip-template-preview.php:230
+msgid "Discount:"
+msgstr "Korting:"
+
+# @ woocommerce-pip
+#: includes/admin/views/html-pip-template-preview.php:238
+msgid "Shipping:"
+msgstr "Verzending: "
+
+# @ woocommerce-pip
+#: includes/admin/views/html-pip-template-preview.php:241
+msgid "Free Shipping"
+msgstr "Gratis verzending"
+
+# @ woocommerce-pip
+#: includes/admin/views/html-pip-template-preview.php:246
+msgid "State Tax:"
+msgstr "Belastingen: "
+
+# @ woocommerce-pip
+#: includes/admin/views/html-pip-template-preview.php:254
+msgid "Payment Method:"
+msgstr "Betaalmethode: "
+
+# @ woocommerce-pip
+#: includes/admin/views/html-pip-template-preview.php:262
+msgid "Refund:"
+msgstr "Terugbetaling: "
+
+# @ woocommerce-pip
+#: includes/admin/views/html-pip-template-preview.php:270
+msgid "Total:"
+msgstr "Totaal: "
+
+# @ woocommerce-pip
+#: includes/admin/views/html-pip-template-preview.php:302
+msgid "Color:"
+msgstr "Kleur: "
+
+# @ woocommerce-pip
+#: includes/admin/views/html-pip-template-preview.php:303
+msgid "Blue"
+msgstr "Blauw"
+
+# @ woocommerce-pip
+#: includes/admin/views/html-pip-template-preview.php:304
+msgid "Size:"
+msgstr "Formaat: "
+
+# @ woocommerce-pip
+#. translators: Placeholder: %1$s - opening <strong> tag, %2$s - coupons count
+#. (used in order), %3$s - closing </strong> tag - %4$s - coupons list
+#: includes/admin/views/html-pip-template-preview.php:331
+#: templates/pip/content/order-table-after.php:93
+msgid "%1$sCoupon used:%3$s %4$s"
+msgid_plural "%1$sCoupons used (%2$s):%3$s %4$s"
+msgstr[0] "%1$sKortingscode gebruikt:%3$s %4$s"
+msgstr[1] "%1$sKortingscodes gebruikt (%2$s):%3$s %4$s"
+
+# @ woocommerce-pip
+#: includes/admin/views/html-pip-template-preview.php:337
+msgid "Customer details"
+msgstr "Klantdetails"
+
+# @ woocommerce-pip
+#: includes/admin/views/html-pip-template-preview.php:340
+msgid "Telephone:"
+msgstr "Telefoonnummer: "
+
+#: includes/class-wc-pip-ajax.php:83
+msgid "Invalid order or document type."
+msgstr ""
+
+# @ woocommerce-pip
+#: includes/class-wc-pip-document-invoice.php:52
+msgid "Invoices"
+msgstr "Facturen"
+
+# @ woocommerce-pip
+#: includes/class-wc-pip-document-invoice.php:55
+#: includes/class-wc-pip-document-packing-list.php:55
+#: includes/class-wc-pip-document-pick-list.php:59
+msgid "SKU"
+msgstr "SKU"
+
+# @ woocommerce-pip
+#: includes/class-wc-pip-document-invoice.php:56
+#: includes/class-wc-pip-document-packing-list.php:56
+#: includes/class-wc-pip-document-pick-list.php:60
+msgid "Product"
+msgstr "Artikel"
+
+# @ woocommerce-pip
+#: includes/class-wc-pip-document-invoice.php:57
+#: includes/class-wc-pip-document-packing-list.php:57
+#: includes/class-wc-pip-document-pick-list.php:62
+msgid "Quantity"
+msgstr "Aantal"
+
+# @ woocommerce-pip
+#: includes/class-wc-pip-document-invoice.php:58
+msgid "Price"
+msgstr "Prijs"
+
+# @ woocommerce-pip
+#. translators: Placeholders:  %1$s - invoice number, %2$s - order number
+#: includes/class-wc-pip-document-invoice.php:120
+msgid "Invoice %1$s for order %2$s"
+msgstr "Factuur %1$s voor bestelling %2$s"
+
+# @ woocommerce-pip
+#. translators: Placeholder: %s - order number
+#: includes/class-wc-pip-document-invoice.php:123
+msgid "Invoice for order %s"
+msgstr "Factuur voor bestelling %s"
+
+# @ woocommerce-pip
+#. translators: Placeholder: %s - invoice plain url
+#: includes/class-wc-pip-document-invoice.php:352
+msgid "View your invoice: %s"
+msgstr "Bekijk je factuur: %s"
+
+# @ woocommerce-pip
+#: includes/class-wc-pip-document-invoice.php:354
+msgid "View your invoice."
+msgstr "Bekijk je factuur."
+
+# @ woocommerce-pip
+#: includes/class-wc-pip-document-packing-list.php:52
+msgid "Packing Lists"
+msgstr "Pakbonnen"
+
+# @ woocommerce-pip
+#: includes/class-wc-pip-document-packing-list.php:58
+msgid "Total Weight"
+msgstr "Totaal gewicht"
+
+# @ woocommerce-pip
+#. translators: Placeholders: %1$s - invoice number, %2$s - order number
+#: includes/class-wc-pip-document-packing-list.php:161
+msgid "Packing List for invoice %1$s (order %2$s)"
+msgstr "Pakbonnen voor factuur %1$s (bestelling %2$s)"
+
+# @ woocommerce-pip
+#. translators: Placeholder: %s order number
+#: includes/class-wc-pip-document-packing-list.php:164
+msgid "Packing List for order %s"
+msgstr "Pakbonnen voor bestelling %s"
+
+# @ woocommerce-pip
+#: includes/class-wc-pip-document-packing-list.php:230
+msgid "Uncategorized"
+msgstr "Ongeordend"
+
+# @ woocommerce-pip
+#: includes/class-wc-pip-document-packing-list.php:424
+msgid "This order does not contain shippable items."
+msgstr "Deze order bevat geen verzendbare artikelen."
+
+# @ woocommerce-pip
+#: includes/class-wc-pip-document-packing-list.php:549
+msgid "Totals:"
+msgstr "Totalen:"
+
+# @ woocommerce-pip
+#. translators: Placeholder: %d - total amount of items in packing list
+#: includes/class-wc-pip-document-packing-list.php:551
+msgid "%d pc."
+msgid_plural "%d pcs."
+msgstr[0] "%d pc."
+msgstr[1] "%d pcs."
+
+# @ woocommerce-pip
+#: includes/class-wc-pip-document-pick-list.php:56
+msgid "Pick Lists"
+msgstr "Picklijsten"
+
+# @ woocommerce-pip
+#: includes/class-wc-pip-document-pick-list.php:61
+msgid "Details"
+msgstr "Details"
+
+# @ woocommerce-pip
+#. translators: Placeholder: %s - weight measurement unit
+#: includes/class-wc-pip-document-pick-list.php:64
+msgid "Total Weight (%s)"
+msgstr "Totaal gewicht (%s)"
+
+# @ woocommerce-pip
+#. translators: Placeholders: %1$s - order number, %2$s - invoice number
+#: includes/class-wc-pip-document-pick-list.php:160
+msgid "Order %1$s - Invoice %2$s"
+msgstr "Bestelling %1$s - Factuur %2$s"
+
+#: includes/class-wc-pip-print.php:77 includes/class-wc-pip-print.php:114
+msgid "You are not allowed to view this page."
+msgstr ""
+
+#: includes/class-wc-pip-print.php:84
+msgid ""
+"You are not allowed to view this page. You need to be an admin or be able to "
+"manage orders."
+msgstr ""
+
+#: includes/class-wc-pip-print.php:108
+msgid "The related order does not exist or is invalid."
+msgstr ""
+
+#: includes/class-wc-pip-print.php:125
+msgid "The requested document could not be found or is of an invalid type."
+msgstr ""
+
+# @ woocommerce-pip
+#: includes/emails/class-wc-pip-email-invoice.php:54
+msgid ""
+"If enabled, invoice emails are sent when an order is paid and the order "
+"status is processing or completed."
+msgstr ""
+"Indien ingeschakeld worden e-mails voor facturen verzonden zodra een order "
+"is betaald en voltooid."
+
+# @ woocommerce-pip
+#. translators: Placeholders: %1$s - merge tag for the shop name, %2$s merge
+#. tag for generated invoice number, %3$s merge tag for order number, %4$s
+#. merge tag for date of the order
+#: includes/emails/class-wc-pip-email-invoice.php:56
+msgid "[%1$s] Invoice %2$s for order %3$s from %4$s"
+msgstr "[%1$s] Factuur %2$s voor bestelling %3$s van %4$s"
+
+# @ woocommerce-pip
+#: includes/emails/class-wc-pip-email-invoice.php:158
+#: includes/emails/class-wc-pip-email-packing-list.php:161
+msgid "Enable/Disable"
+msgstr "Inschakelen / Uitschakelen"
+
+# @ woocommerce-pip
+#: includes/emails/class-wc-pip-email-invoice.php:160
+#: includes/emails/class-wc-pip-email-packing-list.php:163
+msgid "Enable this email notification"
+msgstr "Deze e-mailnotificatie inschakelen"
+
+# @ woocommerce
+# @ woocommerce-pip
+#: includes/emails/class-wc-pip-email-invoice.php:165
+#: includes/emails/class-wc-pip-email-packing-list.php:176
+#: includes/emails/class-wc-pip-email-pick-list.php:153
+msgid "Subject"
+msgstr "Onderwerp"
+
+# @ woocommerce-pip
+#. translators: Placeholder: %s - Default email subject
+#: includes/emails/class-wc-pip-email-invoice.php:168
+#: includes/emails/class-wc-pip-email-packing-list.php:179
+#: includes/emails/class-wc-pip-email-pick-list.php:156
+msgid "Defaults to <code>%s</code>"
+msgstr "Standaard: <code>%s</code>"
+
+# @ woocommerce-pip
+#: includes/emails/class-wc-pip-email-packing-list.php:54
+msgid ""
+"If enabled, packing list emails are sent to designated recipients when an "
+"order needs to be processed."
+msgstr ""
+"Indien ingeschakeld wordt e-mail met pakbon naar de aangegeven ontvanger "
+"verstuurd indien de order nog verwerkt moet worden."
+
+# @ woocommerce-pip
+#. translators: Placeholders: %1$s - merge tag for the shop name, %2$s merge
+#. tag for generated invoice number, %3$s merge tag for order number, %4$s
+#. merge tag for date of the order
+#: includes/emails/class-wc-pip-email-packing-list.php:56
+msgid "[%1$s] Packing List for invoice %2$s - order %3$s from %4$s"
+msgstr "[%1$s] Pakbon voor factuur %2$s - bestelling %3$s van %4$s"
+
+# @ woocommerce-pip
+#: includes/emails/class-wc-pip-email-packing-list.php:168
+#: includes/emails/class-wc-pip-email-pick-list.php:145
+msgid "Recipient(s)"
+msgstr "Ontvanger(s)"
+
+# @ woocommerce-pip
+#: includes/emails/class-wc-pip-email-packing-list.php:170
+#: includes/emails/class-wc-pip-email-pick-list.php:147
+msgid ""
+"Enter recipients (comma separated) for this email. Defaults to admin email: "
+"<code>%s</code>."
+msgstr ""
+"Ontvangers toevoegen (gescheiden met komma) voor deze e-mail. Standaard: "
+"admin e-mail / <code>%s</code>."
+
+# @ woocommerce-pip
+#: includes/emails/class-wc-pip-email-pick-list.php:54
+msgid ""
+"Pick list emails can be manually sent via order bulk action to the "
+"designated recipients."
+msgstr ""
+"E-mails met picklijsten kunnen handmatig verzonden worden per bulk naar de "
+"aangegeven ontvangers."
+
+# @ woocommerce-pip
+#. translators: Placeholders: %1$s - merge tag for the shop name, %2$s merge
+#. tag number of orders included in the document
+#: includes/emails/class-wc-pip-email-pick-list.php:56
+msgid "[%1$s] Pick List for %2$s"
+msgstr "[%1$s] Pakbon voor %2$s"
+
+# @ woocommerce-pip
+#. translators: Placeholder: %d orders count
+#: includes/emails/class-wc-pip-email-pick-list.php:185
+msgid "%d order"
+msgid_plural "%d orders"
+msgstr[0] "%d bestelling"
+msgstr[1] "%d bestellingen"
+
+# @ woocommerce-pip
+#: includes/frontend/class-wc-pip-frontend.php:118
+msgid "View invoice"
+msgstr "Factuur weergeven"
+
+# @ woocommerce-pip
+#: includes/frontend/class-wc-pip-frontend.php:154
+msgid "View Invoice"
+msgstr "Factuur weergeven"
+
+# @ woocommerce-pip
+#: includes/integrations/vat-number/class-wc-pip-integration-vat-number.php:79
+#, fuzzy
+msgid "Show customer VAT Number"
+msgstr "BTW nummer weergeven"
+
+# @ woocommerce-pip
+#: includes/integrations/vat-number/class-wc-pip-integration-vat-number.php:80
+#, fuzzy
+msgid "Enable if you want to display the customer VAT Number."
+msgstr "Schakel in indien u het BTW nummer wilt weergeven."
+
+# @ woocommerce-pip
+#: includes/integrations/vat-number/class-wc-pip-integration-vat-number.php:116
+msgid "VAT Number:"
+msgstr "BTW nummer: "
+
+# @ woocommerce-pip
+#. translators: Placeholders: %1$s - <strong> tag, %2$s - </strong> tag, %3$s -
+#. VAT number
+#: includes/integrations/vat-number/class-wc-pip-integration-vat-number.php:148
+msgid "%1$sVAT Number:%2$s %3$s"
+msgstr "%1$sBTW nummer:%2$s %3$s"
+
+# @ woocommerce-pip
+#: templates/pip/content/order-table-after.php:105
+msgid "Customer Details"
+msgstr "Klantdetails "
+
+# @ woocommerce-pip
+#. translators: Placeholder: %d - orders count (one or many)
+#: templates/pip/content/order-table-before.php:117
+msgid "List of items needed to process %d order."
+msgid_plural "List of items needed to process %d orders."
+msgstr[0] "Lijst van benodigde artikelen om %d order te verwerken"
+msgstr[1] "Lijst van benodigde artikelen om %d orders te verwerken"
+
+# @ woocommerce-pip
+#. translators: Placeholder: %s - order edit links
+#: templates/pip/content/order-table-before.php:136
+#, fuzzy
+msgid "Orders: %s"
+msgstr "Besteldatum: %s"
+
+# @ woocommerce-pip
+#. translators: Placeholders: %1$s - date, %2$s time
+#: templates/pip/content/order-table-before.php:141
+msgid "Printed on: %1$s at %2$s"
+msgstr "Afgedrukt op: %1$s om %2$s"
+
+# @ woocommerce-pip
+#. Plugin URI of the plugin/theme
+#, fuzzy
+msgid "http://www.woocommerce.com/products/print-invoices-packing-lists/"
+msgstr "http://www.woothemes.com/products/print-invoices-packing-lists/"
+
+# @ woocommerce-pip
+#. Description of the plugin/theme
+msgid ""
+"Customize and print invoices and packing lists for WooCommerce orders from "
+"the WordPress admin"
+msgstr ""
+"Aanpassen en printen van facturen en pakbonnen voor WooCommerce bestellingen "
+"vanuit WordPress admin."
+
+#. Author of the plugin/theme
+msgid "SkyVerge"
+msgstr ""
+
+# @ woocommerce-pip
+#. Author URI of the plugin/theme
+#, fuzzy
+msgid "http://www.woocommerce.com/"
+msgstr "http://www.woothemes.com"
+
+# @ woocommerce-pip
+#: includes/admin/views/html-pip-template-preview.php:44
+msgctxt "Facsimile label. Try to keep this below 16 characters length."
+msgid "Sample Invoice"
+msgstr "Voorbeeldfactuur"
+
+# @ woocommerce-pip
+#: includes/admin/views/html-pip-template-preview.php:305
+msgctxt "Sample Variation Medium Size"
+msgid "M"
+msgstr "M"
+
+# @ woocommerce-pip
+#: includes/admin/views/html-pip-template-preview.php:352
+msgctxt "Customer note sample for the live template preview."
+msgid "Please include a printed copy of your catalog, thank you."
+msgstr "Voeg a.u.b. een geprinte catalogus toe, dank u wel."
+
+# @ woocommerce-pip
+#~ msgid "Invoice/Packing List"
+#~ msgstr "Factuur/Pakbon"
+
+# @ woocommerce-pip
+#~ msgid "WooThemes / SkyVerge"
+#~ msgstr "WooThemes / SkyVerge"
+
+# @ woocommerce-pip
+#~ msgid "3.1.6"
+#~ msgstr "3.1.6"

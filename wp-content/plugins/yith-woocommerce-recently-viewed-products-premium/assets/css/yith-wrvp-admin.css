@@ -1,0 +1,110 @@
+.yith-wrvp-shortcode-tab .shortcode-options,
+.yith-wrvp-shortcode-tab .shortcode-preview {
+    border: 1px solid #cdcdcd;
+    padding: 15px;
+    background-color: #fff;
+}
+.yith-wrvp-shortcode-tab .shortcode-preview {
+    padding: 15px;
+    margin-top: 20px;
+    font-size: 17px;
+    color: #333;
+    line-height: 26px;
+}
+.yith-wrvp-shortcode-tab h4 {
+    margin-top: 0;
+}
+.yith-wrvp-shortcode-tab table.form-table {
+    border: none !important;
+}
+
+#yith-wrvp-test-mail {
+    width: 300px;
+}
+#yith_num_post {
+    width: 80px;
+}
+input#yith_title,
+select#yith_order,
+select#yith_prod_type {
+    width: 250px;
+}
+
+/* tinymce */
+i.mce-i-ywrvp-icon {
+    background-image: url('../images/yithemes-icon.png') ;
+    width: 16px;
+    height: 16px;
+    vertical-align: top;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin-left: -2px;
+    padding-right: 2px
+}
+
+.yith-wrvp.upload_img_preview img {
+    max-width: 100px;
+    height: auto;
+}
+#woocommerce_yith_wrvp_mail_mail_content {
+    width: 100%;
+}
+
+.yith_wrvp_coupon_validate {
+    background-repeat: no-repeat;
+    background-origin: content-box;
+    background-position: right top;
+}
+.yith_wrvp_coupon_validate.valid {
+    background-image: url('../images/success.png');
+}
+.yith_wrvp_coupon_validate.error {
+    background-image: url('../images/error.png');
+}
+.yith_wrvp_coupon_validate.loading {
+    background-image: url('../images/ajax-loader.gif');
+}
+#woocommerce_yith_wrvp_mail_title_coupon_section {
+    margin-bottom: 10px !important;
+}
+
+
+.yith-wrvp-shortcode-tabs-nav {
+    display: block;
+    list-style: none;
+    margin: 0;
+    padding: 15px 10px 0 0;
+    background-color: #f1f1f1;
+}
+.yith-wrvp-shortcode-tabs-nav:before,
+.yith-wrvp-shortcode-tabs-nav:after {
+    content: '';
+    display: table;
+    clear: both;
+}
+.yith-wrvp-shortcode-tabs-nav li {
+    float: left;
+    background: #dedede;
+    margin: 0 5px 0 0;
+    border: 1px solid #dedede;
+    border-bottom: none;
+}
+.yith-wrvp-shortcode-tabs-nav li.active {
+    background: #ffffff;
+    border-bottom: 1px solid #fff;
+    margin-bottom: -1px;
+}
+.yith-wrvp-shortcode-tabs-nav li a{
+    color: #555;
+    text-decoration: none;
+    padding: 8px 15px;
+    display: block;
+    outline: none;
+}
+.yith-wrvp-shortcode-tabs-nav li.active a{
+    font-weight: bold;
+}
+
+.yith-plugins_page_yith_wrvp_panel .yith-plugin-ui table.form-table input[type=text].select2-search__field{
+    width: 100%!important;
+}

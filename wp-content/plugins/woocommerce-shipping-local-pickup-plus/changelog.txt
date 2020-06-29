@@ -1,0 +1,410 @@
+*** WooCommerce Local Pickup Plus Changelog ***
+
+2020.05.08 - version 2.8.2
+ * Fix - Make sure customers cannot schedule appointments for times already at the limit
+
+2020.05.05 - version 2.8.1
+ * Fix - When a variable product is added to cart, make sure category-level pickup settings are inherited by its variations
+ * Misc - Add support for WooCommerce 4.1
+
+2020.04.23 - version 2.8.0
+ * Feature - Add a setting to limit the number of customers that can pick up an order in a given time slot if appointments are required
+ * Tweak - Improve the accessibility of the pickup location appointment date picker
+ * Fix - Do not show the pickup location field when Local Pickup Plus is not the chosen shipping option in some cases where only a pickup location per order is the checkout mode
+ * Fix - If a customer that has previously completed a checkout at a pickup location with a price adjustments, ensure the adjustment is applied again when they return to checkout and their preferred location is selected by default
+ * Fix - If the shipping address is the default shipping destination make sure the customer can uncheck the "Ship to a different address?" option and use the billing address instead
+ * Fix - Allow a pickup location to override a price adjustment by setting a "0" value instead of defaulting to global setting
+ * Localization - Update Italian translation
+
+2020.03.10 - version 2.7.5
+ * Fix - Ensure that when using a pickup location per order, and there is only a pickup location in database, the labels for shipping or pickup at checkout are consistent with the current selection
+ * Fix - Use the Local Pickup Plus shipping method title at checkout when the current package selected for pickup
+ * Fix - When cash on delivery availability is restricted to local pickup, but a different shipping method is selected at checkout, cash on delivery should be disabled
+ * Fix - Address an issue with AvaTax where calculated taxes for the pickup location persisted when the shipping method changed from local pickup, in some circumstances
+ * Misc - Add support for WooCommerce 4.0
+
+2020.02.27 - version 2.7.4
+ * Fix - When using tax inclusive prices and displaying prices inclusive of tax in cart and checkout pages, ensure that any pickup discount doesn't include taxes in the amount applied
+ * Fix - Ensure product is available at the returned pickup locations when using enhanced search
+ * Fix - Ensure that some parts of the pickup appointments setting fields can be translatable
+ * Fix - Ensure that pickup dates in order reviews after checkout are localized in the site date format and language
+ * Localization - Update Italian translation
+
+2020.02.04 - version 2.7.3
+ * Fix - Ensure pickup location is retained at checkout when shipping is the default handling and pickup location tax is enabled in settings
+
+2020.01.02 - version 2.7.2
+ * Misc - Add support for WooCommerce 3.9
+
+2019.12.16 - version 2.7.1
+ * Tweak - Add support for Customer/Order/Coupon Export v5 XML exports
+ * Fix - Ensure the Pickup Locations export filter is only displayed for order exports in Customer/Order/Coupon Export v5
+
+2019.12.10 - version 2.7.0
+ * Feature - Add support for scheduling pickup appointment times in addition to pickup dates
+ * Tweak - Replace package handling toggle with a radio button
+ * Tweak - When using automatic handling and the product combination requires shipping and pickup, allow to toggle handling for versatile cart items
+ * Tweak - Do not show "Shipping may be available" help text and tooltip for order items if the shipping was already calculated and it is not available for the given address
+ * Tweak - Display disclaimer if an address was not provided yet and only Local Pickup is available
+ * Tweak - Group shipping packages by handling type (Shipping or Local Pickup)
+
+2019.11.11 - version 2.6.1
+ * Fix - Fix an issue where some items for which shipping is available are forced to be picked up
+ * Fix - When there is only one location available for a shipping package, select it automatically
+
+2019.10.24 - version 2.6.0
+ * Misc - Add support for WooCommerce 3.8
+
+2019.10.17 - version 2.5.2
+ * Fix - Remove the option to select a pickup location for a cart item if a product only allows pickup at a single location
+
+2019.09.24 - version 2.5.1
+ * Tweak - Add a setting to consider business hours and holidays when calculating first pickup date based on lead time
+
+2019.08.12 - version 2.5.0
+ * Fix - Ensure pickup isn't auto-selected when set to default to shipping but there are no methods available yet
+ * Misc - Add support for WooCommerce 3.7
+ * Misc - Remove support for WooCommerce 2.6
+ * Misc - Require PHP 5.6+
+
+2019.07.24 - version 2.4.3
+ * Tweak - If pickup appointments are required and there is only one date available, automatically select it
+ * Tweak - Display weekdays for the holiday date picker (the weekdays displayed are from the current year, but dates are excluded for all years)
+ * Tweak - Allow to clear pickup appointment date if appointment is not required
+ * Fix - If WC shipping is disabled, consider pickup not available and add an admin notice
+ * Fix - Inject order item pickup information when reloaded via AJAX
+ * Fix - Make enhanced location search messages translatable when using latest versions of select2
+ * Fix - Do not show "Shipping to" text in cart when pickup is selected
+ * Fix - Ignore products available per location restrictions when only allowing one pickup location per order
+ * Fix - Prevent JavaScript error when postal code contains only digits
+
+2019.07.02 - version 2.4.2
+ * Fix - Ensure that the WooCommerce session and the chosen shipping methods are available when trying to set the pickup location as taxable address to avoid PHP errors in some circumstances
+
+2019.04.16 - version 2.4.1
+ * Fix - Reload the checkout seamlessly when toggling between shipping and pickup in per-order checkout mode if applying the local pickup tax option is enabled to prevent persisting of the wrong taxable address in some circumstances
+ * Fix - If having a sole pickup location, per-order checkout mode and automatically grouping packages options are enabled, ensure the pickup location is persisting in the session for taxable address evaluation purposes
+ * Misc - Add support for WooCommerce 3.6
+ * Misc - Require PHP 5.4+
+
+2019.03.06 - version 2.4.0
+ * Tweak - Add a WooCommerce System Status Report block gathering some Local Pickup Plus configuration data to aid troubleshooting
+ * Fix - When first opening a pickup appointment date picker, open the calendar to the first available date that is closest possible to the current date
+ * Fix - Clicking on the calendar icon should also open the pickup appointment date picker, not only when clicking on the date picker input field
+ * Fix - Make sure that any text strings attached to the shipping method, such as the ones displayed on the shipping method settings page, load their translations properly
+ * Fix - Improve the logic that determines which address to elect as the tax address when using the pickup location address as the tax address
+ * Misc - Update the SkyVerge Plugin Framework to version 5.3
+ * Misc - Drop support for PHP 5.2: PHP 5.3 is now the minimum supported version
+
+2019.01.08 - version 2.3.18
+ * Fix - Fix an error when displaying shipping rates on the cart page
+
+2019.01.02 - version 2.3.17
+ * Fix - When the default shipping handling is set to "Ship items" in Local Pickup Plus settings, WooCommerce shouldn't set pickup as the default shipping method for a package at checkout
+ * Fix - Fix an issue where WooCommerce was forced to calculate shipping based on the billing address when shipping to a country where the state and/or postcode are not required
+
+2018.10.24 - version 2.3.16
+ * Misc - Add support for WooCommerce 3.5
+ * Dev - Add filter to toggle visibility of the shipping address fields regardless of pickup handling at checkout
+
+2018.10.04 - version 2.3.15
+ * Tweak - Display additional address information in pickup location names in dropdown fields search results (requires WooCommerce 3.0+)
+ * Tweak - Display the pickup location state or city and postcode next to the location name in the selected dropdown option
+ * Tweak - Use a date format based on the site date format in the pickup appointments calendar's date picker
+ * Tweak - Improve pickup location search in admin screens: search by postcode, address parts and phone number besides pickup location ID and name
+ * Tweak - Broaden pickup location results in front end when not using geocoding by trying to match the search term with the street address, besides city and postcode
+ * Fix - Ensure that pickup location search returns results when searching by location name and the lookup area field value is not "Anywhere"
+ * Fix - Improve the checkout HTML styles to avoid horizontal scrolling on mobile devices needed to interact with the pickup fields
+ * Fix - If the Pickup Location Tax option is enabled and there is only one pickup location in the system, ensure the setting is enforced when the customer chooses pickup at this location
+ * Fix - If the Pickup Location Tax option is enabled but there are packages meant for shipping at checkout, follow WooCommerce default handling for determining the taxable address
+ * Misc - Introduce new filters to tweak the pickup appointment date picker format and the pickup location formatted name
+
+2018.07.25 - version 2.3.14
+ * Fix - Ensure that public holidays can be persisted when saved in the shipping method settings in WooCommerce 3.4
+ * Fix - Prevent possible out of memory errors when custom code filters the pickup location and sets it to null
+ * Localization - Updated Italian translation
+
+2018.06.20 - version 2.3.13
+ * Fix - Always show operating hours when Sunday is chosen as a pickup date
+ * Fix - Ensure that the Shipping destination option isn't forced to "shipping"
+ * Fix - Ensure draft pickup locations are included in CSV exports
+ * Fix - Ensure that "shipping may be available" text is hidden when product must be picked up
+ * Fix - Ensure product variations respect parent product's availability settings
+ * Fix - Ensure fixed pickup location costs are applied even when cart contents are free
+ * Fix - Ensure pickup date is preserved during checkout page reloads
+ * Fix - Ensure shipping address fields are not required when cart contains items for pickup only
+ * Fix - Ensure shipping address fields are shown when toggling from pickup to shipping in checkout
+ * Fix - Prevent PHP Warning when a Product Bundle is in cart
+ * Fix - Address an issue where operating hours were sometimes not shown depending on the visitor's timezone
+ * Fix - Ensure pickup location is not reset after selecting it on the cart page cart totals section
+ * Fix - Prevent PHP Notice when cart contains only virtual products
+ * Dev - Ensure filtered items are used for pickup and shipping packages
+
+2018.05.23 - version 2.3.12
+ * Misc - Add support for WooCommerce 3.4
+
+2018.04.16 - version 2.3.11
+ * Fix - When a user is not logged in, prevent the checkout page from reloading endlessly in some circumstances when some specific local pickup settings and shipping options are used
+
+2018.04.11 - version 2.3.10
+ * Fix - When the Shipping destination is set to "Default to customer shipping address" ignore this option for customers that have chosen exclusively pickup for all their items to avoid possible checkout errors
+ * Fix - Address a compatibility issue with Products in WooCommerce 2.6 when checking product pickup availability
+
+2018.03.28 - version 2.3.9
+ * Fix - Fix bug preventing some customers from toggling between shipping and pickup
+ * Fix - Fix bug which prevented local pickup price adjustments from applying when scheduled pickup was disabled
+
+2018.03.15 - version 2.3.8
+ * Tweak - Add option on products to explicitly inherit their availability from their categories
+ * Fix - Fix issue with pickup costs not being reported/updated correctly in the cart and checkout
+ * Fix - Fix bug which was not forcing pickup correctly on product variations marked 'must be picked up'
+ * Fix - Remove reference to deprecated WooCommerce action
+ * Fix - Fix crashing bug related to taxing the pickup location address
+
+2018.01.31 - version 2.3.7
+ * Tweak - Display a message when shipping might be available but hasn't been calculated yet and local pickup seems to be the only option
+
+2018.01.23 - version 2.3.6
+ * Misc - Add support for WooCommerce 3.3
+
+2018.01.10 - version 2.3.5
+ * Tweak - Improve front end performance, especially when many pickup locations exists and many items are in cart :)
+ * Tweak - Ensure that the amount of available working days for pickup match the corresponding amount of days specified in the deadline setting
+ * Tweak - Ensure that the lead time correctly offsets the first available day for pickup and that it also offsets the first available opening hours slot for pickup shown to the customer
+ * Fix - Improve accuracy of the pickup appointment calendar, where in some circumstances unexpected dates were made available or unavailable to the customers at checkout
+ * Fix - When using per-order location mode and automatic grouping is enabled, do not reload the cart or checkout pages upon toggling between package shipping or pickup
+ * Fix - Addresses one bug that might have hung checkout in some circumstances when using WordPress 4.9+ and WooCommerce 2.6.14 or older
+ * Fix - When removing all public holidays from the Local Pickup Plus pickup appointments settings and updating the settings, the public holidays would remain unchanged instead
+ * Fix - PHP error when order data is accessed via the REST API
+ * Fix - Address a possible race condition when selecting pickup date at checkout, causing the pickup date to disappear after selecting it
+ * Dev - The default pickup product availability when a product pickup preference is not yet set on new products or older products before installing Local Pickup Plus can be filterable
+
+2017.11.22 - version 2.3.4
+ * Tweak - Remove generic WP filters on location fields in favor of more specific ones for improved plugin compatibility
+ * Tweak - If a store is shipping to a single country, limit pickup location search lookup area to that country when lookup area is "anywhere"
+ * Fix - Address an issue where the geodata custom table could not be created on some hosts
+ * Fix - Ensure that in per-item pickup mode, if there are 2 or more products in cart and they're only available in different locations, separate shipping packages are created for the them
+ * Fix - Ensure that in per-order pickup mode, location-based product availability checks are disabled
+ * Fix - Ensure that if an item which can be picked up is in cart, but is not available at any of the pickup locations, it cannot be set for pickup via the "I want to pickup this item" toggle, and will not be set as a pickup item even if the store is not offering any other shipping methods
+
+2017.11.15 - version 2.3.3
+ * Fix - Address an issue where pickup appointment field was not displayed for product variations when the parent product was not available on all pickup locations
+ * Fix - Ensure pickup location field is not displayed to virtual product variations when the parent product is not virtual
+
+2017.11.07 - version 2.3.2
+ * Fix - Compatibility issue with WooCommerce 2.6.14 introduced in version 2.3.0
+ * Fix - Ensure that virtual items are skipped when building packages
+
+2017.11.01 - version 2.3.1
+ * Fix - Ensure merging packages tries to retain selected pickup location
+ * Fix - Ensure the "Click to ship this item/these items" link is not shown when no shipping methods are available
+ * Fix - Ensure pickup location is not reset if Local Pickup Plus is the only available method and "Ship Items" is the default cart item handling mode
+ * Fix - Ensure pickup location field correctly displays placeholders when no selection has been made
+ * Fix - Ensure only a single pickup package is created at checkout when using per-order location with automatic grouping
+
+2017.10.04 - version 2.3.0
+ * Tweak - You can set the cart items default handling to either pickup or ship also when using the "Automatically group cart items into as few packages as possible" option
+ * Tweak - When using "Automatically group cart items into as few packages as possible" checkout mode, do not show a toggle to change package handling from pickup to shipping if no other shipping methods are available for the package than pickup
+ * Fix - Address a pickup appointments issue where the lead time is set to zero days and the next day in calendar is a public holiday which could become available to customers for scheduling a pickup
+ * Fix - If Cash on Delivery is enabled exclusively for Local Pickup Plus, orders without items for pickup shouldn't have Cash on Delivery available at checkout
+ * Misc - Removed support for WooCommerce 2.5
+
+2017.09.13 - version 2.2.0
+ * Feature - Added cart item handling mode to determine whether cart items should be automatically grouped into packages or customers should toggle between pickup or shipping for each item
+ * Tweak - If there is only one available pickup location for a product in cart, pre-select that location instead of showing a selector
+ * Fix - Pickup lead time or deadline might have not have displayed the correct selectable days in calendar in some timezones
+ * Fix - When "Allow customers to select only one location per order" is selected, multiple packages for pickup could have been shown until the user chose a pickup location
+ * Fix - Setting a pickup deadline to 0 could have resulted in no selectable dates at checkout
+ * Fix - Ensure screens, styles, & scripts are loaded where needed when "WooCommerce" string is translated
+ * Misc - Improved compatibility with WooCommerce Product Bundles, WooCommerce Composite Products, and WooCommerce Mix and Match Products
+
+2017.08.23 - version 2.1.2
+ * Fix - Ensure Cash on Delivery doesn't show up in the "Add Payment Method" section when being enabled for Local Pickup Plus
+ * Fix - Address a race condition due to which Local Pickup options were possibly not saved for custom product types
+ * Dev - Don't suppress filters when querying locations to allow third parties (such as WPML) to alter the returned location list
+
+2017.07.13 - version 2.1.1
+ * Tweak - Improve customer geolocation accuracy for more accurate results when ordering found nearby locations by distance
+ * Tweak - Improve standard pickup location search by location name when not using geocoding in installations with several pickup locations
+ * Tweak - Improve standard pickup location search by postcode and other address fields when not using geocoding in installations with not many pickup locations
+ * Fix - Ensure that the "Pickup Location Tax" setting is handled properly
+ * Fix - Ensure shipping address is hidden on checkout when all items are selected for pickup
+ * Fix - Ensure that pickup data is not lost if a guest customer creates an account upon checkout
+ * Fix - If Cash on Delivery is enabled only for or to include Local Pickup Plus, and there are multiple packages to pickup, the gateway may have become unavailable
+
+2017.06.28 - version 2.1.0
+ * Tweak - Allow merchants to disable per-item pickup location selection
+ * Tweak - Allow merchants to specify if carts should default to "shipped" or "pickup"
+ * Fix - Don't allow customers to set pickup appointments on dates where the business hours have passed
+ * Fix - Fix reversed Tuesday & Thursday business hour labels in the admin
+
+2017.06.07 - version 2.0.1
+ * Fix - Fatal error when adding manually a location to an order and trying to send email notifications
+ * Fix - When exporting orders via Customer Order CSV Export or XML Export Suite, it should be allowed to have multiple pickup locations selected
+ * Fix - When filtering orders by pickup location and there are no orders at all for that pickup location, all orders are still shown
+ * Fix - Momentarily block the user interface in cart and checkout while interacting with the pickup fields to avoid click-happy customers preventing pickup information to be recorded properly
+
+2017.05.31 - version 2.0.0
+ * Feature - Notify via email a list of recipients, defined per pickup location, when a purchase with the matching pickup location is made
+ * Feature - Restrict certain pickup locations to specific products or product categories
+ * Feature - Choose pickup location on a per-item basis
+ * Feature - Pickup Appointments: allow customers to set a pickup appointment for collecting their purchases
+ * Feature - Define business hours for pickup collection, public holidays calendar, lead time, and pickup deadline for each pickup location
+ * Feature - More flexibility in forcing pickup or preventing pickup for certain products
+ * Feature - Import and export pickup locations individually or in bulk in CSV format
+ * Feature - Support for Google Maps Geocoding API to set pickup locations coordinates and search pickup locations by distance
+ * Feature - Added compatibility for WooCommerce Print Invoices & Packing Lists to display pickup data on documents
+ * Feature - Added compatibility for WooCommerce Customer Order CSV Export and WooCommerce Customer Order XML Export Suite to export orders by pickup locations and add pickup information to exported orders
+ * Tweak - Filter orders by pickup locations in the orders list
+ * Misc - Complete rewrite to enhancing stability and performance
+ * Misc - Various other small fixes and improvements
+ * Misc - Removed support for WooCommerce Subscriptions versions older than 2.0.0
+ * Dev - Add pickup data for orders in WC API order response and webhook payload
+ * Dev - Uses a custom post type for handling pickup locations: manage pickup locations using a familiar interface
+ * Dev - Uses custom tables to store pickup locations geocoded data
+ * Localization - Added Italian translation
+
+2017.05.17 - version 1.14.1
+ * Fix - When the default shipping destination is the customer shipping address and simultaneously hiding the shipping address when local pickup plus is the chosen shipping method, checkout can't be processed
+ * Fix - A notice would be thrown from WooCommerce when using discounts and WooCommerce Subscriptions is active
+ * Fix - Percentage discounts were no longer being applied correctly
+
+2017.03.28 - version 1.14.0
+ * Fix - Resolves an issue at checkout with Subscriptions 2.1.4+
+ * Misc - Added support for WooCommerce 3.0
+ * Misc - Removed support for WooCommerce 2.4
+
+2016.12.28 - version 1.13.5
+ * Fix - If the customer is signing up upon checkout or there is a split package, do not forcefully hide the shipping address
+
+2016.11.23 - version 1.13.4
+ * Fix - Display local pickup fixed discounts formatted with the shop currency and not just as an amount
+ * Fix - Discounts with fixed amounts may have resulted in coupon errors on checkout page
+ * Fix - Prevent Subscriptions displaying a notice on checkout when the cart contains a Subscription and the local pickup has a discount
+
+2016.10.22 - version 1.13.3
+ * Fix - Ensure that pickup costs applied as percentage work as percentage amounts and not as fixed amounts
+ * Fix - If specific product categories may be only locally picked up and the cart contains both products under such categories as well as other categories, allow splitting shipments on checkout
+ * Fix - If WooCommerce is set to ship to the customer shipping address by default, while Local Pickup Plus is set to hide the customer shipping address, this may not be enforced when multiple shipping methods are present despite Local Pickup Plus being selected
+ * Fix - If Pickup Location is the sole shipping option, also when hiding the shipping address fields option is not set, make sure the fields are hidden anyway
+ * Fix - When using WooCommerce Subscriptions, the pickup location selection field may appear in recurring totals also when Local Pickup Plus shipment has not been selected as shipping method
+
+2016.07.20 - version 1.13.2
+ * Tweak - The "Pickup location changed to..." order note will now display which shop admin performed the action
+ * Tweak - Improve compatibility with WooCommerce Subscriptions
+ * Fix - Ensure the pickup location selection box displays in the Recurring Totals section of the Checkout page (WooCommerce Subscriptions)
+ * Fix - Ensure the correct shipping cost is charged based on location selected for the recurring cart (WooCommerce Subscriptions)
+
+2016.06.07 - version 1.13.1
+ * Fix - Fix a rare issue that could cause the order review table to be unresponsive
+
+2016.06.02 - version 1.13.0
+ * Misc - Added support for WooCommerce 2.6
+ * Misc - Removed support for WooCommerce 2.3
+
+2016.03.30 - version 1.12.1
+ * Fix - Display the pickup location fields on the recurring shipping form
+ * Fix - Accept shipping package keys that contain letters, numbers and underscores, instead of just numbers to improve Subscriptions compatibility
+
+2016.01.14 - version 1.12.0
+ * Misc - Added support for WooCommerce 2.5
+ * Misc - Removed support for WooCommerce 2.2
+
+2015.07.28 - version 1.11.0
+ * Fix - Use enhanced select for pickup locations in WooCommerce 2.3+
+ * Tweak - Attach Chosen.js to form fields only if Select2 is not available
+ * Tweak - Pickup location is now included with re-sent emails in WooCommerce 2.3+
+ * Misc - WooCommerce 2.4 Compatibility
+
+2015.03.10 - version 1.10.1
+ * Fix - Avoid 'Undefined variable: state' notices
+ * Fix - Pickup discount compatibility with WooCommerce 2.3+
+
+2015.02.09 - version 1.10.0
+ * Fix - Don't set pickup location order item meta on products that don't need shipping
+ * Tweak - Discounts are now applied before tax
+ * Misc - WooCommerce 2.3 Compatibility
+
+2014.11.25 - version 1.9.0
+ * Feature - Discounts can now be defined as a percentage of the cart contents total
+
+2014.10.21 - version 1.8.1
+ * Tweak - Don't display the shipping address in the order details in the frontend or the emails if Local Pickup Plus is the only shipping method
+
+2014.09.30 - version 1.8.0
+ * Feature - Added a "Pickup Locations" column to the admin order listing screen
+ * Fix - Fix a bug that caused the shipping fields to be hidden when clicking "Ship to a different address"
+
+2014.09.07 - version 1.7.2
+ * Misc - WooCommerce 2.2 Compatibility
+
+2014.08.16 - version 1.7.1
+ * Fix - First pickup location note was sometimes displayed on the checkout page when no location was selected
+
+2014.07.15 - version 1.7
+ * Feature - Pickup location checkout styling option of dropdown or radio buttons
+ * Tweak - Improved handling of custom shipping/billing fields
+
+2014.05.28 - version 1.6.1
+ * Fix - Single pickup location bugfix
+
+2014.04.25 - version 1.6
+ * Feature - Added an "All Categories" option to the pickup Categories setting
+ * Feature - Added an optional freeform note field to the pickup location
+ * Tweak - Improved compatibility with WooCommerce Per Product Shipping for locations with a pickup cost of $0
+ * Tweak - New filter wc_shipping_local_pickup_plus_allow_other_methods_categories to allow other shipping methods for the configured local pickup categories
+ * Fix - Strip slashes from pickup location fields
+
+2014.02.24 - version 1.5.2
+ * Fix - Other shipping options available when no pickup categories defined
+
+2014.02.10 - version 1.5.1
+ * Fix - Incorrect and inconsistent reporting or Local Pickup Plus not being selected on checkout
+
+2014.01.20 - version 1.5
+ * Feature - Multiple shipping methods supported
+ * Misc - Uses SkyVerge Plugin Framework
+ * Misc - WooCommerce 2.1 Compatibility
+ * Localization - Changed text domain, removed text domain inconsistencies, added default POT file to new localization directory
+
+2013.12.13 - version 1.4.5
+ * Fix - Removed cart notice when no shipping method is selected and a local pickup-only product is in the cart
+
+2013.06.29 - version 1.4.4
+ * Feature - Option to use the pickup location as the taxable address rather than the customer shipping or base
+ * Feature - Option to hide the shipping address at checkout if local pickup plus is selected
+ * Feature - Discount for selecting Local Pickup Plus
+
+2013.05.31 - version 1.4.3
+ * Fix - Cart validation for multiple pickup-only categories
+ * Fix - Potential infinite loop on cart page during item check
+
+2013.03.01 - version 1.4.2
+ * Fix - Improved shipping availability handling for cart with non-pickup products
+
+2013.02.24 - version 1.4.1
+ * Fix - Checkout after validation action properly hooked up
+
+2013.02.03 - version 1.4
+ * Tweak - checkout pickup location select box can now be chosen style
+ * WC 2.0 compatibility
+
+2012.12.20 - version 1.3.1
+ * WC 2.0 compatibility
+
+2012.12.09 - version 1.3
+ * Feature - Default pickup cost, and cost per location
+ * Feature - WPML support
+ * Fix - Manual order creation from Order admin properly supported
+
+2012.12.04 - version 1.2.1
+ * New updater
+
+2012.07.13 - version 1.2
+ * Feature - Set categories of products to be pickup-only, and optionally set all other categories to be non-pickup
+
+2012.06.26 - version 1.1
+ * Fix - Compatibility update for WooCommerce 1.5.7+
+
+2012.04.09 - version 1.0
+ * First Release

@@ -1,0 +1,37 @@
+.photography-add-collection {
+	margin: .5em 0;
+
+	.fields {
+		margin: .5em 0 0;
+		display: none;
+	}
+
+	input[type="text"] {
+		width: 20em;
+	}
+
+	.loading {
+		background: transparent url('../../../woocommerce/assets/images/select2-spinner.gif') no-repeat;
+		height: 16px;
+		width: 16px;
+		color: transparent;
+		text-shadow: none;
+		border: 0;
+	}
+
+	.message {
+		display: block;
+		width: 23em;
+		padding: .8em;
+	}
+}
+
+.wc-metabox .wc-metabox-content .photography-add-collection.form-field {
+	a {
+		display: block;
+	}
+
+	input[type="text"] {
+		width: 20em !important;
+	}
+}

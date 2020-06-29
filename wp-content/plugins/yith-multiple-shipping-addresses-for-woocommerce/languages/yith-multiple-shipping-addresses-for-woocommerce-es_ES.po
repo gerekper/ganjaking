@@ -1,0 +1,698 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH Multiple Shipping Addresses for WooCommerce\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/init\n"
+"POT-Creation-Date: 2020-05-21 11:48+0100\n"
+"PO-Revision-Date: 2020-05-21 11:48+0100\n"
+"Last-Translator: \n"
+"Language-Team: Your Inspiration Themes <plugins@yithemes.com>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.12\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
+"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_ex:1,2c;"
+"esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: plugin-fw\n"
+
+#: includes/class.yith-multiple-addresses-shipping-admin.php:133
+msgid "Settings"
+msgstr "Ajustes"
+
+#: includes/class.yith-multiple-addresses-shipping-admin.php:134
+msgid "Exclude products"
+msgstr "Excluir productos"
+
+#: includes/class.yith-multiple-addresses-shipping-admin.php:135
+msgid "Exclude categories"
+msgstr "Excluir categorías"
+
+#: includes/class.yith-multiple-addresses-shipping-admin.php:250
+msgid "Save"
+msgstr "Guardar"
+
+#: includes/class.yith-multiple-addresses-shipping-admin.php:251
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: includes/class.yith-multiple-addresses-shipping-admin.php:466
+msgid "Multi Shipping"
+msgstr "Envío múltiple"
+
+#: includes/class.yith-multiple-addresses-shipping-frontend.php:87
+msgid "Please fill in with all required information"
+msgstr "Por favor, rellena con toda la información necesaria"
+
+#: includes/class.yith-multiple-addresses-shipping-frontend.php:177
+#: includes/class.yith-multiple-addresses-shipping-frontend.php:630
+#: includes/functions.yith-mas.php:163
+msgid "Local pickup"
+msgstr "Recogida en local"
+
+#: includes/class.yith-multiple-addresses-shipping-frontend.php:181
+#: includes/class.yith-multiple-addresses-shipping-frontend.php:630
+msgid "Ship to: %s"
+msgstr "Enviar a: %s"
+
+#: includes/class.yith-multiple-addresses-shipping-frontend.php:190
+msgid "Package weight"
+msgstr "Peso del paquete"
+
+#: includes/class.yith-multiple-addresses-shipping-frontend.php:637
+msgid "Status:"
+msgstr "Estado:"
+
+#: includes/class.yith-multiple-addresses-shipping-frontend.php:646
+msgid "Shipping total:"
+msgstr "Total del envío:"
+
+#: includes/class.yith-multiple-addresses-shipping-frontend.php:766
+msgid "%s and %s are not valid shipping identifiers."
+msgstr "%s y %s son identificadores no válidos de envío."
+
+#: includes/class.yith-multiple-addresses-shipping-frontend.php:792
+msgid "%s is a required field."
+msgstr "%s es un campo necesario"
+
+#: includes/class.yith-multiple-addresses-shipping-frontend.php:805
+msgid "Please enter a valid postcode / ZIP."
+msgstr "Por favor, introduce un código postal válido."
+
+#: includes/class.yith-multiple-addresses-shipping-frontend.php:814
+msgid "%s is not a valid phone number."
+msgstr "%s es un número de teléfono no válido."
+
+#: includes/class.yith-multiple-addresses-shipping-frontend.php:821
+msgid "%s is not a valid email address."
+msgstr "%s es una dirección de correo electrónico no válida"
+
+#: includes/class.yith-multiple-addresses-shipping-frontend.php:887
+msgid "Address changed successfully."
+msgstr "Dirección cambiada con éxito."
+
+#: includes/class.yith-multiple-addresses-shipping-frontend.php:909
+msgid "Are you sure you want to delete all the additional addresses?"
+msgstr ""
+"¿Estás seguro de que quieres eliminar todas las direcciones adicionales?"
+
+#: includes/class.yith-multiple-addresses-shipping-frontend.php:911
+#: includes/class.yith-multiple-addresses-shipping-frontend.php:922
+msgid "Yes"
+msgstr "Sí"
+
+#: includes/class.yith-multiple-addresses-shipping-frontend.php:912
+#: includes/class.yith-multiple-addresses-shipping-frontend.php:923
+msgid "No"
+msgstr "No"
+
+#: includes/class.yith-multiple-addresses-shipping-frontend.php:920
+msgid "Are you sure you want to delete address \"%s\"?"
+msgstr "¿Estás seguro de que quieres eliminar la dirección ‘’%s’’?"
+
+#: includes/class.yith-multiple-addresses-shipping-frontend.php:928
+msgid "Shipping address does not exist. Please reload."
+msgstr "La dirección de envío no existe. Por favor, vuelve a cargar."
+
+#: includes/class.yith-multiple-addresses-shipping-frontend.php:931
+msgid "Shipping address is not provided"
+msgstr "La dirección de envío no ha sido proporcionada"
+
+#: includes/class.yith-multiple-addresses-shipping-frontend.php:953
+msgid "Additional addresses deleted successfully"
+msgstr "Direcciones adicionales eliminadas con éxito"
+
+#: includes/class.yith-multiple-addresses-shipping-frontend.php:968
+msgid "Address \"%s\" deleted successfully"
+msgstr "Dirección ‘’%s’’ eliminada con éxito"
+
+#: includes/class.yith-multiple-addresses-shipping-privacy.php:18
+msgctxt "Privacy Policy Content"
+msgid "YITH Multiple Shipping Addresses for WooCommerce"
+msgstr "YITH Multiple Shipping Addresses for WooCommerce"
+
+#: includes/class.yith-multiple-addresses-shipping.php:156
+msgid "Cost per product"
+msgstr "Coste por producto"
+
+#: includes/class.yith-multiple-addresses-shipping.php:157
+msgid "Cost per quantity"
+msgstr "Coste por cantidad"
+
+#: includes/class.yith-multiple-addresses-shipping.php:163
+msgid "Cost per package"
+msgstr "Coste por paquete"
+
+#: includes/class.yith-multiple-addresses-shipping.php:168
+msgid "Total package items"
+msgstr "Total de artículos en el paquete"
+
+#: includes/elementor/class.yith-mas-custom-addresses-elementor-widget.php:14
+#: includes/elementor/class.yith-mas-custom-addresses-elementor-widget.php:33
+msgid "YITH Multiple Shipping Addresses - Show Custom Addresses"
+msgstr ""
+
+#: includes/elementor/class.yith-mas-custom-addresses-elementor-widget.php:41
+msgid "This widget shows the custom addresses of the customer."
+msgstr ""
+
+#: includes/emails/class.yith-mas-change-status-email.php:39
+msgctxt "Email descriptive title"
+msgid "YITH Multiple Addresses Shipping: Shipping Status change email for user"
+msgstr ""
+"YITH Multiple Addresses Shipping: Correo electrónico de cambio de estado del "
+"envío para el usuario"
+
+#: includes/emails/class.yith-mas-change-status-email.php:40
+msgid "Send an email to the customer when the Shipping Item status has changed"
+msgstr ""
+"Enviar un correo electrónico al cliente cuando el estado del artículo de "
+"envío haya cambiado"
+
+#: includes/emails/class.yith-mas-change-status-email.php:41
+msgid "Shipping Status"
+msgstr "Estado del envío"
+
+#: includes/emails/class.yith-mas-change-status-email.php:42
+msgid "The shipping status of your order has been updated"
+msgstr "El estado de envío de tu pedido ha sido actualizado"
+
+#: includes/emails/class.yith-mas-change-status-email.php:43
+#: includes/emails/class.yith-mas-change-status-email.php:64
+msgid "A package of your order {order_number} is {new_status}."
+msgstr "Un paquete de tu pedido {order_number} es {new_status}."
+
+#: includes/emails/class.yith-mas-change-status-email.php:93
+msgid "Enable/Disable"
+msgstr "Activar/desactivar"
+
+#: includes/emails/class.yith-mas-change-status-email.php:95
+msgid "Enable this email notification"
+msgstr "Activar esta notificación de correo electrónico"
+
+#: includes/emails/class.yith-mas-change-status-email.php:99
+msgid "Subject"
+msgstr "Asunto"
+
+#: includes/emails/class.yith-mas-change-status-email.php:101
+msgid ""
+"This controls the email subject line. Leave blank to use the default "
+"subject: <code>%s</code>."
+msgstr ""
+"Esto controla la linea de asunto del correo electrónico. Déjalo en blanco "
+"para usar el asunto por defecto: <code>%s</code>."
+
+#: includes/emails/class.yith-mas-change-status-email.php:106
+msgid "Email Heading"
+msgstr "Encabezado del correo electrónico"
+
+#: includes/emails/class.yith-mas-change-status-email.php:108
+msgid ""
+"This controls the main heading in the email notification. Leave blank to use "
+"the default heading: <code>%s</code>."
+msgstr ""
+"Esto controla el encabezado principal en la notificación de correo "
+"electrónico. Déjalo en blanco para usar el encabezado por defecto: <code>%s</"
+"code>."
+
+#: includes/emails/class.yith-mas-change-status-email.php:113
+msgid "Email Body"
+msgstr "Cuerpo del correo electrónico"
+
+#: includes/emails/class.yith-mas-change-status-email.php:115
+msgid ""
+"Defaults to <code>%s</code> Use placeholders {order_number}, {new_status} or "
+"{old_status}."
+msgstr ""
+"Por defecto a <code>%s</code> Usa marcadores de posición {order_number}, "
+"{new_status} o {old_status}."
+
+#: includes/functions.yith-mas-gdpr.php:25
+msgid "Shipping Addresses"
+msgstr "Direcciones de envío"
+
+#: includes/functions.yith-mas-gdpr.php:122
+#: includes/functions.yith-mas-gdpr.php:153
+#: includes/functions.yith-mas-gdpr.php:177
+msgid "Additional Addresses"
+msgstr "Direcciones de envío adicionales"
+
+#: includes/functions.yith-mas-gdpr.php:207
+msgid "Removed all additional addresses of the customer"
+msgstr "Eliminadas todas las direcciones adicionales del cliente"
+
+#: includes/functions.yith-mas.php:116
+#: templates/woocommerce/checkout/ywcmas-manage-addresses-viewer.php:33
+#: templates/woocommerce/myaccount/ywcmas-default-address.php:18
+msgid "Billing Address"
+msgstr "Dirección de facturación"
+
+#: includes/functions.yith-mas.php:119
+#: templates/woocommerce/checkout/ywcmas-manage-addresses-viewer.php:36
+#: templates/woocommerce/myaccount/ywcmas-default-address.php:20
+msgid "Default Shipping Address"
+msgstr "Dirección de envío por defecto"
+
+#: includes/functions.yith-mas.php:167
+msgid "No addresses available"
+msgstr "No hay direcciones disponibles"
+
+#: includes/functions.yith-mas.php:243
+msgctxt "Shipping item status"
+msgid "Processing"
+msgstr "Procesando"
+
+#: includes/functions.yith-mas.php:244
+msgctxt "Shipping item status"
+msgid "Shipped"
+msgstr "Enviado"
+
+#: includes/functions.yith-mas.php:245
+msgctxt "Shipping item status"
+msgid "Cancelled"
+msgstr "Cancelado"
+
+#: includes/functions.yith-mas.php:246
+msgctxt "Shipping item status"
+msgid "Returned"
+msgstr "Devuelto"
+
+#: includes/functions.yith-mas.php:247
+msgctxt "Shipping item status"
+msgid "Local pickup ready"
+msgstr "Recogida en local lista"
+
+#: includes/tables/class.yith-wcmas-excluded-categories-table-options.php:68
+#: includes/tables/class.yith-wcmas-excluded-products-table-options.php:68
+msgid "product"
+msgstr "producto"
+
+#: includes/tables/class.yith-wcmas-excluded-categories-table-options.php:69
+#: includes/tables/class.yith-wcmas-excluded-products-table-options.php:69
+msgid "products"
+msgstr "productos"
+
+#: includes/tables/class.yith-wcmas-excluded-categories-table-options.php:86
+msgid "Category"
+msgstr "Categoría"
+
+#: includes/tables/class.yith-wcmas-excluded-categories-table-options.php:87
+msgid "Products in this category"
+msgstr "Productos en esta categoría"
+
+#: includes/tables/class.yith-wcmas-excluded-categories-table-options.php:88
+#: includes/tables/class.yith-wcmas-excluded-products-table-options.php:90
+msgid "Action"
+msgstr "Acción"
+
+#: includes/tables/class.yith-wcmas-excluded-categories-table-options.php:112
+#: includes/tables/class.yith-wcmas-excluded-products-table-options.php:158
+msgid "Remove"
+msgstr "Eliminar"
+
+#: includes/tables/class.yith-wcmas-excluded-categories-table-options.php:118
+#: includes/tables/class.yith-wcmas-excluded-products-table-options.php:164
+msgid "Remove from list"
+msgstr "Eliminar de la lista"
+
+#: includes/tables/class.yith-wcmas-excluded-products-table-options.php:86
+#: templates/woocommerce/checkout/ywcmas-manage-addresses-tables.php:8
+msgid "Product"
+msgstr "Producto"
+
+#: includes/tables/class.yith-wcmas-excluded-products-table-options.php:87
+msgid "Stock Quantity"
+msgstr "Cantidad en inventario"
+
+#: includes/tables/class.yith-wcmas-excluded-products-table-options.php:88
+msgid "Price"
+msgstr "Precio"
+
+#: includes/tables/class.yith-wcmas-excluded-products-table-options.php:89
+msgid "Categories"
+msgstr "Categorías"
+
+#: includes/tables/class.yith-wcmas-excluded-products-table-options.php:110
+msgid "Edit product"
+msgstr "Editar producto"
+
+#: includes/tables/class.yith-wcmas-excluded-products-table-options.php:118
+msgid "In stock"
+msgstr "En inventario"
+
+#: init.php:55
+msgid ""
+"YITH Multiple Shipping Addresses for WooCommerce is enabled but not "
+"effective. It requires WooCommerce in order to work."
+msgstr ""
+"YITH Multiple Shipping Addresses for WooCommerce está activado pero no es "
+"efectivo. Necesita WooCommerce para funcionar."
+
+#: plugin-options/settings-options.php:21
+msgid "General settings"
+msgstr "Ajustes generales"
+
+#: plugin-options/settings-options.php:28
+msgid "Enabled"
+msgstr "Activado"
+
+#: plugin-options/settings-options.php:30
+msgid ""
+"Choose whether to enable or disable the Multiple Shipping Addresses features "
+"on the front-end."
+msgstr ""
+"Elige si activar o no las características de Multiple Shipping Addresses en "
+"la portada."
+
+#: plugin-options/settings-options.php:36
+msgid "Allow guest users"
+msgstr "Permitir usuarios no registrados"
+
+#: plugin-options/settings-options.php:38
+msgid ""
+"Choose whether to allow guest users to set multiple shipping addresses or "
+"not."
+msgstr ""
+"Elige si activar o no permitir que los usuarios no registrados puedan "
+"establecer direcciones múltiples de envío o no."
+
+#: plugin-options/settings-options.php:44
+msgid "Number of different addresses"
+msgstr "Número de direcciones diferentes"
+
+#: plugin-options/settings-options.php:46
+msgid ""
+"Choose the number of different addresses a item can be shipped to in the "
+"same order."
+msgstr ""
+"Elige el número de direcciones diferentes a las que un artículo puede ser "
+"enviado en el mismo pedido."
+
+#: plugin-options/settings-options.php:53
+msgid "Search for variations"
+msgstr "Buscar variaciones"
+
+#: plugin-options/settings-options.php:55
+msgid ""
+"Choose whether to search or not product variations in Exclude products tab"
+msgstr ""
+"Selecciona si buscar o no variaciones de producto en la pestaña Excluir "
+"productos"
+
+#: plugin-options/settings-options.php:61
+msgid "Show package weight"
+msgstr "Mostrar peso del paquete"
+
+#: plugin-options/settings-options.php:63
+msgid ""
+"Choose whether to show or hide the weight for every package on the Checkout "
+"page."
+msgstr ""
+"Elige si mostrar u ocultar el peso para cada paquete en la página de Proceso "
+"de pago."
+
+#: templates/admin/excluded-categories-tab.php:17
+msgid "Select at least one category to remove."
+msgstr "Selecciona al menos una categoría a eliminar."
+
+#: templates/admin/excluded-categories-tab.php:20
+msgid "Categories removed successfully."
+msgstr "Categorías eliminadas con éxito."
+
+#: templates/admin/excluded-categories-tab.php:23
+msgid "Categories added successfully."
+msgstr "Categorías añadidas con éxito."
+
+#: templates/admin/excluded-categories-tab.php:26
+msgid "You must select at least one category to add"
+msgstr "Debes seleccionar al menos una categoría a añadir"
+
+#: templates/admin/excluded-categories-tab.php:43
+msgid "Exclude categories for Multi Shipping"
+msgstr "Excluir categorías para envío múltiple"
+
+#: templates/admin/excluded-categories-tab.php:55
+msgid "Add categories to list"
+msgstr "Añadir categorías a la lista"
+
+#: templates/admin/excluded-categories-tab.php:76
+msgid "Search for a category..."
+msgstr "Buscar una categoría…"
+
+#: templates/admin/excluded-categories-tab.php:81
+msgid "Add categories"
+msgstr "Añadir categorías"
+
+#: templates/admin/excluded-products-tab.php:17
+msgid "Select at least one product to remove."
+msgstr "Selecciona al menos un producto a eliminar."
+
+#: templates/admin/excluded-products-tab.php:20
+msgid "Products removed successfully."
+msgstr "Productos eliminados con éxito."
+
+#: templates/admin/excluded-products-tab.php:23
+msgid "Products added successfully."
+msgstr "Productos añadidos con éxito."
+
+#: templates/admin/excluded-products-tab.php:26
+msgid "You must select at least one product to add"
+msgstr "Debes seleccionar al menos un producto a añadir"
+
+#: templates/admin/excluded-products-tab.php:43
+msgid "Exclude products for Multi Shipping"
+msgstr "Excluir productos de envío múltiple"
+
+#: templates/admin/excluded-products-tab.php:55
+msgid "Add products to list"
+msgstr "Añadir productos a la lista"
+
+#: templates/admin/excluded-products-tab.php:63
+msgid "Search for products..."
+msgstr "Buscar productos…"
+
+#: templates/admin/excluded-products-tab.php:66
+msgid "Add products"
+msgstr "Añadir productos"
+
+#: templates/admin/shipping-item-details.php:18
+msgid "Edit this shipping address"
+msgstr "Editar esta dirección de envío"
+
+#: templates/admin/shipping-item-details.php:19
+msgid "Shipping address: %s"
+msgstr "Dirección de envío: %s"
+
+#: templates/admin/shipping-item-details.php:29
+msgid "Edit address"
+msgstr "Editar dirección"
+
+#: templates/admin/shipping-item-details.php:38
+msgid "Load user address"
+msgstr "Cargar dirección del usuario"
+
+#: templates/admin/shipping-item-details.php:48
+msgid "Load"
+msgstr "Cargar"
+
+#: templates/admin/shipping-item-details.php:57
+msgid "State / County"
+msgstr "Estado / País"
+
+#: templates/admin/shipping-item-details.php:65
+msgid "Country"
+msgstr "País"
+
+#: templates/admin/shipping-item-details.php:69
+msgid "Select a country&hellip;"
+msgstr "Selecciona un país&hellip;"
+
+#: templates/admin/shipping-item-details.php:84
+msgid "Revert changes"
+msgstr "Revertir cambios"
+
+#: templates/emails/ywcmas-shipping-status-change-email.php:42
+msgid "Items"
+msgstr "Artículos"
+
+#: templates/privacy/html-policy-content-collect_and_store.php:1
+msgctxt "Privacy Policy Content"
+msgid ""
+"We’ll store all additional addresses that the user has recorded through the "
+"plugin. We’ll also store the addresses used in multiple shipping orders."
+msgstr ""
+"Almacenamos todas las direcciones adicionales que el usuario haya registrado "
+"con el plugin. También almacenamos las direcciones usadas en pedidos de "
+"múltiple envíos."
+
+#: templates/privacy/html-policy-content-has_access.php:1
+msgctxt "Privacy Policy Content"
+msgid ""
+"Members of our team have access to the information you provide us. For "
+"example, both Administrators and Shop Managers can access information about "
+"customer addresses."
+msgstr ""
+"Los miembros de nuestro equipo tienen acceso a la información que nos "
+"proporcionas. Por ejemplo, tanto Administradores como Gestores de Tienda "
+"pueden acceder a la información sobre las direcciones del cliente."
+
+#: templates/woocommerce/checkout/ywcmas-manage-addresses-cb.php:7
+msgid "Do you want to ship to multiple addresses?"
+msgstr "¿Quieres enviar a múltiples direcciones?"
+
+#: templates/woocommerce/checkout/ywcmas-manage-addresses-content.php:9
+msgid "Manage addresses"
+msgstr "Gestionar dirección"
+
+#: templates/woocommerce/checkout/ywcmas-manage-addresses-tables.php:9
+msgid "Quantity"
+msgstr "Cantidad"
+
+#: templates/woocommerce/checkout/ywcmas-manage-addresses-tables.php:10
+msgid "Ship to"
+msgstr "Enviar a"
+
+#: templates/woocommerce/checkout/ywcmas-manage-addresses-tables.php:57
+#: templates/woocommerce/myaccount/ywcmas-default-address.php:34
+msgid "Update"
+msgstr "Actualizar"
+
+#: templates/woocommerce/checkout/ywcmas-manage-addresses-tables.php:74
+msgid "This item can be shipped to one address only"
+msgstr "Este artículo puede ser enviado solo a una dirección"
+
+#: templates/woocommerce/checkout/ywcmas-manage-addresses-tables.php:75
+msgid "You cannot ship to more than %d different addresses"
+msgstr "No puedes envíar a mas de %d direcciones diferentes"
+
+#: templates/woocommerce/checkout/ywcmas-manage-addresses-tables.php:76
+msgid "Increase the quantity to ship this item to other addresses"
+msgstr "Incrementa la cantidad para enviar este artículo a otras direcciones"
+
+#: templates/woocommerce/checkout/ywcmas-manage-addresses-tables.php:78
+msgid "Ship this item to other addresses"
+msgstr "Enviar este artículo a otras direcciones"
+
+#: templates/woocommerce/checkout/ywcmas-manage-addresses-viewer.php:24
+#: templates/woocommerce/myaccount/ywcmas-custom-addresses.php:12
+msgid "Add new shipping address"
+msgstr "Añadir nuevas direcciones de envío"
+
+#: templates/woocommerce/checkout/ywcmas-manage-addresses-viewer.php:60
+#: templates/woocommerce/myaccount/ywcmas-custom-addresses.php:58
+msgid "You have not set up this type of address yet."
+msgstr "No has establecido este tipo de dirección aún."
+
+#: templates/woocommerce/checkout/ywcmas-manage-addresses-viewer.php:66
+msgid "Address does not exist"
+msgstr "La dirección no existe"
+
+#: templates/woocommerce/checkout/ywcmas-manage-addresses-viewer.php:69
+msgid "Please, set a new address first"
+msgstr "Por favor, establece una nueva dirección primero"
+
+#: templates/woocommerce/checkout/ywcmas-manage-addresses-viewer.php:93
+#: templates/woocommerce/myaccount/ywcmas-custom-addresses.php:79
+msgid "Edit"
+msgstr "Editar"
+
+#: templates/woocommerce/checkout/ywcmas-manage-addresses-viewer.php:95
+#: templates/woocommerce/myaccount/ywcmas-custom-addresses.php:81
+msgid "Delete"
+msgstr "Eliminar"
+
+#: templates/woocommerce/myaccount/ywcmas-custom-addresses.php:33
+msgid "Additional shipping addresses"
+msgstr "Direcciones de envío adicionales"
+
+#: templates/woocommerce/myaccount/ywcmas-custom-addresses.php:35
+msgid "Delete all"
+msgstr "Eliminar todo"
+
+#: templates/woocommerce/myaccount/ywcmas-default-address.php:4
+msgid "Default address:"
+msgstr "Dirección por defecto:"
+
+#: templates/woocommerce/myaccount/ywcmas-default-address.php:9
+#: templates/woocommerce/ywcmas-address-form.php:14
+msgid "Billing address"
+msgstr "Dirección de facturación"
+
+#: templates/woocommerce/myaccount/ywcmas-default-address.php:11
+#: templates/woocommerce/ywcmas-address-form.php:17
+msgid "Default shipping address"
+msgstr "Dirección de envío por defecto"
+
+#: templates/woocommerce/myaccount/ywcmas-default-address.php:25
+msgid "There is no default address set"
+msgstr "No hay dirección por defecto establecida"
+
+#: templates/woocommerce/myaccount/ywcmas-default-address.php:29
+msgid "Change"
+msgstr "Cambiar"
+
+#: templates/woocommerce/ywcmas-address-form.php:23
+msgctxt "Edit (shipping address identifier)"
+msgid "Edit \"%s\""
+msgstr "Editar ‘’%s’’"
+
+#: templates/woocommerce/ywcmas-address-form.php:25
+msgid "New shipping address"
+msgstr "Nueva dirección de envío"
+
+#: templates/woocommerce/ywcmas-address-form.php:35
+msgid "Shipping Identifier"
+msgstr "Identificador de envío"
+
+#: templates/woocommerce/ywcmas-address-form.php:56
+msgid "Save address"
+msgstr "Guardar dirección"
+
+#. Plugin Name of the plugin/theme
+msgid "YITH Multiple Shipping Addresses for WooCommerce"
+msgstr "YITH Multiple Shipping Addresses for WooCommerce"
+
+#. Plugin URI of the plugin/theme
+msgid ""
+"https://yithemes.com/themes/plugins/yith-multiple-addresses-shipping-for-"
+"woocommerce/"
+msgstr ""
+"https://yithemes.com/themes/plugins/yith-multiple-addresses-shipping-for-"
+"woocommerce/"
+
+#. Description of the plugin/theme
+msgid ""
+"<code><strong>YITH Multiple Shipping Addresses for WooCommerce</strong></"
+"code> allows your customer to select the delivery of individual products to "
+"completely different addresses. <a href=\"https://yithemes.com/\" target="
+"\"_blank\">Get more plugins for your e-commerce on <strong>YITH</strong></a>."
+msgstr ""
+"<code><strong>YITH Multiple Shipping Addresses for WooCommerce</strong></"
+"code> permite a tu cliente seleccionar la entrega de productos individuales "
+"a direcciones completamente diferentes. <a href=\"https://yithemes.com/\" "
+"target=\"_blank\">Obtén más plugins para tu comercio electrónico en "
+"<strong>YITH</strong></a>."
+
+#. Author of the plugin/theme
+msgid "YITH"
+msgstr "YITH"
+
+#. Author URI of the plugin/theme
+msgid "https://yithemes.com/"
+msgstr "https://yithemes.com/"
+
+#~ msgid "Multiple Shipping Addresses"
+#~ msgstr "Multiple Shipping Addresses"
+
+#~ msgid "Premium version"
+#~ msgstr "Versión premium"
+
+#~ msgid "Plugin Documentation"
+#~ msgstr "Documentación del plugin"
+
+#~ msgid "Live demo"
+#~ msgstr "Demo en vivo"

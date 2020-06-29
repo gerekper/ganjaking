@@ -1,0 +1,44 @@
+/**
+ * RightPress - Grouped Select2 Styles
+ */
+
+.rightpress_grouped_select2 .select2-results > ul > li > .select2-results__options {
+    display: none;
+}
+.rightpress_grouped_select2 .select2-results > ul > li > .select2-results__group {
+    background-color: #f6f6f6;
+}
+.rightpress_grouped_select2 .select2-results > ul > li > .select2-results__group:before {
+    content: '\f139';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    font-size: 20px;
+    line-height: 1;
+    font-family: dashicons;
+    text-decoration: inherit;
+    font-weight: 400;
+    font-style: normal;
+    vertical-align: top;
+    text-align: center;
+}
+.rightpress_grouped_select2 .select2-results > ul > li > .rightpress_grouped_select2_header_expanded:before {
+    content: '\f140';
+}
+.rightpress_grouped_select2 .select2-results > ul > li > .select2-results__group:hover {
+    background-color: #eeeeee;
+    cursor: pointer;
+}
+.rightpress_grouped_select2 .select2-results li {
+    margin-bottom: 0;
+}
+.select2-container--default .rightpress_grouped_select2 .select2-results > .select2-results__options { 
+    max-height: 280px;
+}
+.select2-container--default .rightpress_grouped_select2 .select2-results__option[aria-selected=true] {
+    background-color: #73A9FF;
+    color: #ffffff;
+}
+*:focus {
+    outline: none;
+}

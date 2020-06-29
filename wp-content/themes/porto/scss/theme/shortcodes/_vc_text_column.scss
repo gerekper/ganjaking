@@ -1,0 +1,29 @@
+/* Featured Box */
+.wpb_text_column {
+    &.featured {
+        font-size: 1.25rem;
+        line-height: 1.8rem;
+    }
+    &.short {
+        margin-bottom: 0;
+    }
+    &.tall {
+        margin-bottom: 20px;
+    }
+    &.taller {
+        margin-bottom: 40px;
+    }
+    .alternative-font {
+        display: inline-block;
+        margin-top: -15px;
+        position: relative;
+        top: 3px;
+        margin-bottom: -6px;
+    }
+}
+
+.lead, .wpb_text_column.lead, .wpb_text_column.lead p {
+    line-height: 1.8rem;
+    letter-spacing: -0.05em;
+}
+

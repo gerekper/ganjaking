@@ -1,0 +1,27 @@
+/**
+ * All of the CSS for your admin-specific functionality should be
+ * included in this file.
+ */
+
+#rs-addon-rel_post-form .rs-dash-widget 		{height:auto}
+#rs-addon-rel_post-form .rs-dash-bottom-wrapper	{position:relative;top:0;left:0}
+#rs-addon-rel_post-form .rs-dash-widget-inner 	{max-height: 100%}
+
+
+ #rs-dash-rel-posts-table 		{display:table}
+ .rs-dash-rel-posts-row			{display:table-row}
+ .rs-dash-rel-posts-row > div	{display:table-cell}
+
+ #rs-dash-rel-posts-table div.rs-dash-rel-posts-row:first .eg-icon-cancel		 	{display:none!important}
+ .eg-icon-cancel				{cursor:pointer}
+
+ /* LAYER SETTINGS TABS */
+
+.rs-submenu-wrapper 							{padding:20px; margin-bottom:0px; background: #fff; border-bottom:1px solid #e5e5e5;}	
+.rs-submenu-tabs						 		{list-style:none;	line-height:25px;	margin:0 20px 0px;	max-height:27px;	border-bottom:1px solid #eee;}
+.rs-submenu-tabs						  		{margin-left:0px;}
+.rs-submenu-tabs li                       		{cursor:pointer;	list-style:none;	position:relative;	line-height:27px;	vertical-align:middle;	margin:0 20px 0px 0px;	display:inline-block;	border-bottom:1px solid #eee;}
+.rs-submenu-tabs li:first-child			 		{margin-left:0;}
+.rs-submenu-tabs li:last-child            		{margin-right:0;}
+.rs-submenu-tabs li.selected,
+.rs-submenu-tabs li:hover                  		{border-bottom-color:#3498db;	color:#3498db;}

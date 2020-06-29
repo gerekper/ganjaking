@@ -1,0 +1,77 @@
+*** WooCommerce Give Products Changelog ***
+
+2020-06-10 - version 1.1.9
+* Tweak - WC 4.2 compatibility.
+
+2020-04-29 - version 1.1.8
+* Tweak - WC 4.1 compatibility.
+
+2020-03-04 - version 1.1.7
+* Update - Remove legacy code.
+* Tweak - WC 4.0 compatibility.
+
+2020-01-13 - version 1.1.6
+ * Update - WC tested up to 3.9
+
+2019-11-04 - version 1.1.5
+ * Update - WC tested up to 3.8
+
+2019-08-08 - version 1.1.4
+ * Update - WC tested up to 3.7
+
+2019-04-16 - version 1.1.3
+ * Update - WC tested up to 3.6
+
+2018-10-09 - version 1.1.2
+ * Update - WC tested up to 3.5
+
+2018-05-23 - version 1.1.1
+ * Update - WC tested up to 3.4
+ * Add - GDPR policy
+
+2018-01-25 - version 1.1.0
+ * New - Adds logic to pre-select users and/or products on the WP Admin form, via the URL.
+ * New - Adds the billing and shipping address to an order, when gifting a product/s to a user.
+
+2017-12-15 - version 1.0.12
+ * Update - WC 3.3 compatibility.
+
+2017-09-06 - version 1.0.11
+ * Fix - Set correct product_id when gifting product variations.
+ * Fix - PHP Notice when gifting products.
+
+2017-06-26 - version 1.0.10
+ * Add - Adds the new Woo plugin header, for WooCommerce 3.1 compatibility.
+
+2017-04-03 - version 1.0.9
+* Fix - Update for WooCommerce 3.0 compatibility.
+
+2016-05-03 - version 1.0.8
+* Fix - Notice: email_order_items_table was called with an argument that is
+  deprecated
+
+2016-02-05 - version 1.0.7
+* Fix - update the order post meta to _wcgp_given_order
+* Fix - show order given notice in admin / order view
+
+2015-11-06 - version 1.0.6
+* Fix - Make gifted line item amounts 0, removing them from sales reports.
+
+2015-04-23 - version 1.0.5
+* Fix - Last XSS fix was not applied correctly.
+
+2015-04-21 - version 1.0.4
+* Fix - Potential XSS with add_query_arg/remove_query_arg.
+
+2015-04-14 - version 1.0.3
+* Fix when more than one product is gifted, it fails
+
+2015-03-21 - version 1.0.2
+* Fix redirect URL not formatted properly causing 404 after gifting
+* Fix stock not reduced when gifting item that has stock management enabled
+
+2015-01-27 - version 1.0.1
+* WC 2.3 Compat
+
+2014-10-07 - version 1.0.0
+* First Release.

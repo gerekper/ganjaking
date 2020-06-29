@@ -1,0 +1,18 @@
+{
+  "name": "yith-woocommerce-bulk-product-editing-premium",
+  "version": "1.2.21",
+  "description": "YITH WooCommerce Bulk Product Editing Premium",
+  "main": "Gruntfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "YITH",
+  "license": "GPL-3.0+",
+  "keywords": [],
+  "devDependencies": {
+    "grunt": "^1.0.3",
+    "grunt-contrib-jshint": "^2.0.0",
+    "grunt-contrib-uglify": "^4.0.0",
+    "grunt-wp-i18n": "^1.0.2"
+  }
+}

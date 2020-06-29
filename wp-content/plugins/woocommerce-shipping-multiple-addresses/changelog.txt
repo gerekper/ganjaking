@@ -1,0 +1,531 @@
+*** Ship to Multiple Addresses Changelog ***
+
+2020-06-16 - version 3.6.19
+* Fix - Should check if there are valid states for the country before validating the field.
+
+2020-06-10 - version 3.6.18
+* Tweak - WC 4.2 compatibility.
+
+2020-04-30 - version 3.6.17
+* Fix - Free Shipping coupon with minimum spend not working as expected.
+* Tweak - WC 4.1 compatibility.
+
+2020-03-29 - version 3.6.16
+* Fix - Postal codes with format 0000 AA are not recognized.
+* Fix - When there's specific country restrictions, SMA does not abide to restrictions for state/provice.
+
+2020-03-17 - version 3.6.15
+* Tweak - Remove legacy code.
+
+2020-02-26 - version 3.6.14
+* Fix - Missing settings.
+
+2020-02-18 - version 3.6.13
+* Add - Compatibility for WC Print Invoices/Packing Lists.
+* Tweak - Update main plugin filename.
+
+2020-02-04 - version 3.6.12
+* Fix - Use proper escape for attributes.
+* Fix - Keep shipping methods in sync when moving from Checkout to Cart pages.
+
+2020-01-14 - version 3.6.11
+* Tweak - CSV export now includes only the corresponding address per line item.
+* Fix   - Fix single package orders showing multiple address notice.
+* Fix - Coupon for percentage amount isn't applied to taxes
+* Tweak  - WC tested up to 3.9
+
+2019-11-05 - version 3.6.10
+* Tweak  - WC tested up to 3.8
+
+2019-08-08 - version 3.6.9
+* Fix - Setting shipping address not mobile friendly.
+* Tweak  - WC tested up to 3.7
+
+2019-04-23 - version 3.6.8
+* Fix    - PHP 7.3 compatibility.
+* Fix    - Undefined index on checkout page in certain conditions.
+* Fix    - Cannot convert string to array in order page in certain conditions.
+* Fix    - Shipping method names not displaying selected shipping method and repeats the same method name.
+* Tweak  - Use friendly display name for shipping methods in order receipt page.
+
+2019-04-11 - version 3.6.7
+* Fix    - Shipping Address header placement
+* Tweak  - WC tested up to 3.6
+
+2019-02-13 - version 3.6.6
+* Fix    - Add missing translations file.
+
+2018-09-25 - version 3.6.5
+* Update - WC 3.5 compatibility.
+
+2018-09-10 - version 3.6.4
+* Fix    - Taxes in subtotal only reflect the taxes for the first product.
+
+2018-05-31 - version 3.6.3
+* Fix    - Adding New Address via "My Account > Addresses > Add address" is not working.
+
+2018-05-23 - version 3.6.2
+* Fix    - Discounts cause checkout errors.
+* Fix    - Usage of deprecated 'Thanks' page.
+* Update - Privacy policy notification.
+* Update - Export/erasure hooks added.
+* Update - WC 3.4 compatibility.
+
+2018-03-14 - version 3.6.1
+* Fix   - Free shipping data (min_amount/requires) was not being extracted correctly.
+* Fix   - Visual bug in displaying shipping cost where rate instance doesn't apply taxes.
+* Fix   - Compatibility with Product Add-Ons.
+
+2017-11-21 - version 3.6.0
+* Add   - Compatibility for Order/Customer CSV Export.
+* Fix   - Taxes are not based on the correct product quantity.
+* Fix   - Tax totals are not calculated properly for WC > 3.2.
+
+2017-11-14 - version 3.5.1
+* Fix   - Fatal Error when trying to add addresses via My Account.
+* Fix   - Undefined rate index notice.
+
+2017-11-08 - version 3.5.0
+* Fix   - Bad index when saving multiple addresses.
+* Tweak - Populate Address when editing an existing address.
+* Fix   - Internationalization and text domain for strings.
+* Fix   - Variable products cause unexpected behavior.
+* Fix   - Subtotal incorrect when multiples of item ship to multiple addresses.
+* Fix   - Additional compatibility with WooCommerce Subscriptions.
+
+2017-10-02 - version 3.4.2
+* Fix - WC 3.2 compatibility.
+
+2017-09-21 - version 3.4.1
+* Fix - Checkout of just virtual product is not allowed.
+
+2017-07-31 - version 3.4.0
+* Fix - Issue where incorrect meta value of order shipment note and date saved as `true`.
+* Fix - Deprecated WC_Order_Item_Meta being used that may throws notice.
+* Fix - Compat for PHP 5.4.
+* Fix - Allow html formatting for wcms_product_title.
+* Fix - Mixed cases sorted wrongly.
+* Fix - Addresses not always sorted.
+* Fix - International addresses displayed correctly when editing in My Account addresses page.
+* Fix - Order line item taxes do not show up for items purchased in multiple quantities.
+* Fix - Ensures we don't use a static path when calling country-select.js.
+* Fix - Guest checkout duplicates addresses.
+* Fix - Calendar button not showing up in the admin date exclusion setting.
+* Fix - Variations not showing on the order item address selection.
+* New - Add address on My Account addresses page.
+* New - Delete multiple shipping address on My Account addresses page.
+
+2017-05-15 - version 3.3.25
+ * Fix: Additional updates for the fix for editing a user address from the profile section.
+ * Fix: Textdomain for several more labels.
+ * Fix: Shipping rates are only showing up for the first Shipping package.
+ * Fix: One or more items has no shipping address error.
+ * Fix: Compatibility with Product Add-Ons showing HTML code in cart.
+
+2017-05-10 - version 3.3.24
+ * Fix: When days are excluded from Valid Shipping Days, they can still be selected and processed as valid dates to check out.
+ * Fix: Use correct textdomain in a string in wcms-checkout.
+ * Fix: Taxes are not based on the correct shipping location.
+ * Fix: Creating new instances of singleton classes such as Checkout and Cart.
+ * Fix: Shortcodes were echoing instead of returning the output.
+ * Fix: Datepicker functioning incorrectly when there is 1 product in packages.
+ * Fix: Blank items show up when adding items after selecting addresses.
+ * Fix: Editing a user address from the profile section doesn't work as expected.
+ * Fix: Save addresses consistently for users when they create an account.
+
+2017-04-03 - version 3.3.23
+ * Fix: Update for WooCommerce 3.0 compatibility.
+
+2017-01-03 - version 3.3.22
+ * Tweak: Update deprecated WooCommerce API calls
+ * Improvement: Updated rounding method from round_tax() to round() in WC_Tax
+ * Bug fix: Fixed issue where WCMS was processing a single-package shipment causing an infinite loop
+ * Bug fix: Fix for localStorage detection script to allow guest purchases to store addresses
+ * Bug fix: Fixed the delete button for guest customers
+ * Bug fix: Added .PO file for better translation support
+ * Bug fix: Fixed bug where product could possibly be FALSE if the previously selected products for "Exclude Products" have been deleted
+ * Tweak: Added filters for product titles for Mix and Match compatibility
+ * Feature: Allow customer to mark an order as a gift even if order is not shipped to multiple addresses
+ * Improvement: Store the _gift postmeta to shipments created by multishipping
+ * Bugfix: Send a note to ShippingEasy when a shipment is marked as a gift
+
+2016-09-07 - version 3.3.21
+ * Bug fix: Fix issue where no shipping options showed when cart contained only one item allowing users to checkout without a method
+
+2016-08-22 - version 3.3.20
+ * Bug fix: Fixed issue where wrong address could be loaded when new addresses are added
+ * Bug fix: Return an empty package if no shippable products are found in the cart to support Virtual Products
+
+2016-07-15 - version 3.3.19
+ * Bug fix: Rely on WC_Countries to check for invalid addresses in is_address_empty()
+ * Bug fix: Removed the redundant full_address package key
+ * Bug fix: Destination city not getting saved
+ * Feature: Added table in the edit-user screen to manege a user's stored addresses
+ * Improvement: Updated support for WC Address Validation
+
+2016-07-04 - version 3.3.18
+ * Bug fix: Use WooCommerce 2.6 hooks to display addresses in address tab
+
+2016-06-21 - version 3.3.17
+ * Bug fix: Resetting the shipping values forces WC to load the shipping methods for the default shipping zone
+ * Bug fix: Don't set the shipping_methods session variable when there is only 1 package
+ * Improvement: Moved the Other Addresses section to the Address tab in my-account in WC 2.6
+
+2016-05-06 - version 3.3.16
+ * Added: WooCommerce 2.6 compatibility (WordPress 4.4+ required)
+
+2016-04-26 - version 3.3.15
+ * Bug fix: Saving the shipping methods to a session variable caused FedEx plugin to load late and resets the previously selected shipping method
+
+2016-04-19 - version 3.3.14
+ * Feature: Updated Order Delivery Date compatibility
+ * Bug fix: Use WC_Shipping::calculate_shipping for all the packages instead of calling WC_Shipping::calculate_shipping_for_package multiple times
+ * Bug fix: Switched from using WC_Shipping::load_shipping_methods() to WC_Shipping::shipping_methods to avoid triggering the Table Rate calculation several times
+
+2016-04-12 - version 3.3.13.1
+ * Bug fix: Fixed warning that is displayed when clearing the current session data
+
+2016-04-06 - version 3.3.13
+ * Bug fix: Do not clear the addresses in WC_MS_Checkout::checkout_process so failed orders do not lose multi-shipping data
+
+2016-03-22 - version 3.3.12
+ * Bug fix: Added the new hook that Shipworks is using in exporting orders from WooCommerce
+ * Bug fix: Added hooks for Order Delivery Date compatibility
+ * Bug fix: Fixed account address form not updating the state field
+
+2016-03-13 - version 3.3.11
+ * Improvement: Initially select the lowest rates when getting shipping costs
+ * Improvement: Added hooks to add in item meta to package contents
+ * Bug fix: Added support for Composite products when calculating package taxes
+ * Bug fix: Fixed shipping total not getting added when the selected shipping method/rate does not exist after an update_order_review refresh
+ * Bug fix: Prevent WooCommerce from updating the customer shipping address on checkout
+ * Bug fix: Store new addresses that are used during checkout
+
+2016-02-16 - version 3.3.10
+ * Bug fix: Made non-editable strings translatable
+ * Bug fix: Added filter to the default address to add ability to add in additional fields
+ * Bug fix: Copy package address to the order if only 1 package [address] exists for the order
+
+2016-02-04 - version 3.3.9
+ * Bug fix: Shipping totals were not updating when shipping methods were changed
+ * Bug fix: Fixed state field not updated on country change
+
+2015-12-30 - version 3.3.8
+ * Bug fix: Fixed warning in admin on orders that did not use multiple addresses
+ * Bug fix: Fixed issue where form became too big for the server when managing 100+ addresses
+
+2015-12-10 - version 3.3.7
+ * Bug fix: Possible fix for taxes getting injected when changing the billing state or address
+ * Bug fix: Fixed warning when creating order shipments from the backend admin
+ * Bug fix: Fixed edge case where manipulating the shipping method would get shipping fees out of sync
+ * Bug fix: Fixed issue where discount amount would get re-added for every address in the packages
+ * Feature: Adding WCMS shipping packages data to the core WooCommerce API order response (currently only read-only)
+
+2015-11-24 - version 3.3.6
+ * Bug fix: Display delivery notes in order details and emails when multiple shipping is enabled but not used
+ * Bug fix: Enforce character limit on delivery notes field if set for any delivery notes fields
+ * Feature: Allow users to import any billing and shipping details they have entered in the checkout form into the multiple address form (requires browser that supports localStorage)
+
+2015-11-16 - version 3.3.5
+ * Bug fix: Fixed issue where Multiple Shipping pulls up the wrong address when editing addresses from the My Account page
+
+2015-11-12 - version 3.3.4
+ * Bug fix: Fixed issue where character limits for order notes were stuck at 1
+ * Bug fix: Added controls to toggle the calendar when defining delivery dates in admin
+ * Bug fix: Fixed redirection issue when editing stored addresses as a customer
+
+2015-11-05 - version 3.3.3
+ * Feature: Added the ability to limit the number of characters allowed on delivery notes
+ * Improvement: Added functionality to inject the delivery notes and dates into the order shipment's post_excerpt field to use with external shipping services integrations
+ * Bug fix: Fix for issue where guest addresses were not saving consistently
+ * Bug fix: Fixed cases where edit address button was not pointing to the correct edit page
+ * Bug fix: Fixed the Delete Address button for guests as it was not working
+
+2015-10-27 - version 3.3.2
+ * Feature: Added ability to limit shipping days and dates in the multi-shipping datepicker
+ * Bug fix: Remove cart dependency that caused order view to not load in some cases for multi-shipping orders
+ * Bug fix: Fixed a number of errors that could appear at checkout and in the order emails
+
+2015-10-13 - version 3.3.1
+ * Bug fix: Enhance the date picker for shipping date to support the localized date format
+ * Bug fix: Fixed address for to share the WooCommerce setting for default customer address
+ * Bug fix: Ensure that ->get_active_provider() returns an object to support all shipping methods
+ * Feature: Added localStorage to avoid losing existing notes when editing an address (requires browser that supports localStorage)
+
+2015-08-31 - version 3.3
+ * Feature: Added support for WooCommerce PIP including product attributes
+ * Feature: Added support WooCommerce Role base shipping methods
+ * Feature: Added support for Shipping Easy exports
+ * Feature: Added support for Xero exports
+ * Feature: Added support for Shipworks exports
+ * Feature: Added ability to quickly select stored address on shipping form
+ * Feature: Allow users to manage and edit stored addresses directly within the My Account page
+ * Improvement: Added option to allow a user to add a date-picker to the shipping address form
+ * Improvement: Added address functions to render custom shipping fields
+ * Bug fix: Fixed the display of the delivery notes for orders not using multiple packages
+ * Bug fix: Adding an address was causing a duplication of the primary address
+ * Bug fix: Added a flag with order data to define whether the order used multiple addresses or not
+ * Bug fix: Fixed issue where shipping addresses may be forgotten on AJAX checkout reloads
+ * Bug fix: Fixed a bug where WooCommerce would overwrite Multi-shipping tax calculations
+ * Bug fix: General code cleanup, minor fixes, warnings, and re-organization
+
+2015-07-08 - version 3.2.20
+ * Bug fix: Improve installer to better ensure pages are created correctly
+
+2015-07-02 - version 3.2.19
+ * Bug fix: Delete shipping session data when cart is ineligible for multiple-shipping
+
+2015-04-21 - version 3.2.18
+ * Bug fix: Potential XSS with add_query_arg
+
+2015-03-29 - version 3.2.17
+ * Bug fix: Non-taxable items should not be taxed
+ * Improvement: Display Gravity Forms data in checkout
+
+2015-02-08 - version 3.2.16
+ * Feature: Ability to overwrite templates by creating a "multi-shipping" directory in your active theme's directory
+
+2015-01-29 - version 3.2.15
+ * WooCommerce 2.3 compatibility
+
+2015-01-12 - version 3.2.14
+ * Bug fix: Additional tax fixes for multiple packages
+
+2014-12-29 - version 3.2.13
+ * Improvement: Added new filter that overrides Free Shipping module to implement a per-package minimum order requirement
+
+2014-11-23 - version 3.2.12
+ * Improvement: Added gift notes to the admin order email
+ * Bug fix: Fixed issue where address selection button was not visible when first product in cart was virtual
+ * Bug fix: Enhanced handling of shipping countries to ensure country is populated with correct form data
+ * Bug fix: Fixed issue with state selector when country was modified
+ * Bug fix: Spelling corrections
+
+2014-11-04 - version 3.2.11
+ * Bug fix: Notes will no longer display blank in the order admin if no note is entered
+ * Bug fix: Fixed incorrect totals due to taxes being added even if woocommerce_calc_tax is off
+ * Bug fix: Fixed undefined index warning for missing gift settings
+
+2014-11-03 - version 3.2.10
+ * Bug fix: Fix issue related to session jumbling addresses
+ * Bug fix: Minor gift fixes to ensure data is presented in order review screen
+
+2014-10-23 - version 3.2.9
+ * Feature: Added ability to add order notes to each individual address
+ * Feature: Added ability to mark specific packages as gifts
+
+2014-10-22 - version 3.2.8
+ * Bug fix: Fixed issue when shipping physical and virtual goods (or subscriptions) in a single order
+
+2014-10-16 - version 3.2.7
+ * Improvement: Change layout slightly to put multi-shipping in control of its own messages
+ * Bug fix: Fixed incorrect subtotal tax due to the default customer shipping address
+
+2014-10-14 - version 3.2.6
+ * Bug fix: Fixed Fatal Error when resending order emails with multiple addresses
+ * Bug fix: Fixed multi-shipping overriding addresses when it is not necessary
+
+2014-10-07 - version 3.2.5
+ * Bug fix: Pass the complete destination address to FedEx shipping
+ * Bug fix: Cooperation with Product Add-ons
+ * Bug fix: Cooperation with Composite Products
+
+2014-09-29 - version 3.2.4
+ * Bug fix: Correctly pass variation_id when generating the cart item key
+
+2014-09-25 - version 3.2.3
+ * Bug fix: Fixed address validation process to not require the state field
+ * Bug fix: Ensure correct cart duplications
+ * Bug fix: Fixed cart item key generation that caused issues with product add-ons
+
+2014-09-15 - version 3.2.2
+ * Bug fix: Additional tax fixes
+
+2014-09-12 - version 3.2.1
+ * Bug fix: Will no longer modify taxes if multiple addresses are not called
+ * Bug fix: Minor backwards compatibility fix
+
+2014-09-04 - version 3.2
+ * Added: WooCommerce 2.2 compatibility
+ * Deprecated the drag and drop options
+ * Added: Shipping addresses to order table and details pages
+ * Bug fix: Changed .live jQuery to .on to avoid conflicts
+ * Bug fix: Do not show multiple address message if multiple addresses are not used
+ * Bug fix: Fixed address duplications on new address creation
+ * Bug fix: Various CSS fixes to ensure no conflicts and easy theming
+ * Bug fix: Tax calculations could be incorrect in certain scenarios
+
+2014-08-15 - version 3.1
+ * Bug fix: Various JS and CSS cleanup
+ * Improvement: Improved address checking on the checkout page
+ * Improvement: Save billing data in real-time and restore stored data after assigning shipping addresses
+ * Bug fix: Fixed not getting the correct shipping method names
+ * Bug fix: Fixed issue with loading content on tooltips that were generating JS errors
+ * Improvement: Added a check to allow plugins to disable ship to multiple location's manipulation of the shipping packages
+ * Bug fix: Removed the Shipping Address block on the Thank You page when multiple addresses are used
+ * Improvement: Added the display of a table of shipping addresses for the order on the Thank You page
+ * Bug fix: Fixed updating of quantities when assigning shipping addresses at the same time on the Checkout > Shipping Addresses page
+
+2014-06-29 - version 3.0.2
+ * Bug fix: Text domain fixes for correct translations
+
+2014-06-04 - version 3.0.1
+ * Bug fix: Fixed ability for non-logged users to add addresses
+ * Bug fix: Added a few missing settings in admin
+
+2014-05-29 - version 3.0
+ * Feature: New tabled add addresses view. Modeled after a large online retailer’s multiple shipping addresses checkout
+ * Bug fix: Better support of address validation
+ * Bug fix: Various bug fixes and general code cleanup and improvements
+ * Bug fix: Removed unnecessary user warnings
+ * Enhancement: Improved cart duplication interaction and interface
+
+2014-05-13 - version 2.4.4
+ * Bug fix: JS errors
+
+2014-05-01 - version 2.4.3
+ * Bug fix: Fix address selection overlay appearing inactive
+
+2014-04-29 - version 2.4.2
+ * Cleanup: Code organization
+ * Bug fix: Address validation fixes (not support for address validation plugin)
+ * Cleanup: Various code fixes
+
+2014-03-19 - version 2.4.1
+ * Bug fix: Ensure that default address is shown for logged in users
+ * Bug fix: Fixed checkout validation for items with no shipping address
+ * Bug fix: Allow resizing of address entry view in mobile browsers
+
+2014-03-07 - version 2.4
+ * Enhancement: Mobile drag, drop, select quantity for mobile browser support
+
+2014-02-02 - version 2.3.2
+ * Bug fix: Fixed support for selecting Canadian Provinces
+
+2014-01-06 - version 2.3.1
+ * Bug fix: Rebuilt tax calculations
+
+2013-12-18 - version 2.3
+ * Added: WooCommerce 2.1 compatibility (WordPress 3.8 required)
+ * Feature: Ability to mark a portion of order as complete, and notify customer via email
+ * Bug fix: Make sure that multiple shipping meta is being stored and displayed
+ * Bug fix: Error related to an unexpected amount of products being ordered
+ * Cleanup: Some CSS cleanup
+ * Cleanup: Remove shipping as billing text when multi-shipping is selected
+
+2013-12-10 - version 2.2.3
+ * Bug fix: Remove an extraneous code that was printing extraneous text to the page
+
+2013-11-27 - version 2.2.2
+ * Bug fix: Cleanup support for adding product bundles to multiple locations
+
+2013-11-21 - version 2.2.1
+ * Bug fix: Adjusted drag pointer tolerances
+
+2013-11-19 - version 2.2
+ * Cleanup: Drag drop and CSS
+ * Feature: Ability to turn off shipping to multiple addresses when certain products/categories are in cart
+
+2013-11-13 - version 2.1.16
+ * Cleanup: Better support of shipping calculations
+
+2013-11-11 - version 2.1.15
+ * Fix: Additional cleanup on drag/drop
+
+2013-11-10 - version 2.1.14
+ * Fix: Clean up cursor positioning on drag/drop
+
+2013-11-01 - version 2.1.13
+ * Cleanup: CSS housekeeping
+ * Bug fix: Clear sessions post purchase
+
+2013-10-29 - version 2.1.12
+ * Enhancement: Added body class to the overlay
+
+2013-09-19 - version 2.1.11
+ * Bug fix: Odd fatal error corrected
+ * Bug fix: Don't load CSS unless necessary in the admin
+
+2013-09-17 - version 2.1.10
+ * Enhancement: Cleaned up some translatable strings
+
+2013-09-10 - version 2.1.9
+ * Bug fix: Better total calculations when using USPS and Local shipping with discounts
+
+2013-08-12 - version 2.1.8
+ * Bug fix: Enhancement to touch device support
+ * Enhancement: Added filter 'wcms_order_shipping_packages_table' to output multiple shipping address
+
+2013-07-23 - version 2.1.7
+ * Bug fix: Changing between local pickup and delivery had caused multi-shipping form to display
+
+2013-07-03 - version 2.1.6
+ * Bug fix: Ability to edit an address that has been added to ship to
+ * Bug fix: Do not show select address form on virtual products only in cart
+ * Enhancement: Support for adding multiple addresses on touch devices
+ * Enhancement: Better support for multiple gift certificates only in cart
+ * Enhancement: Better support for Local Pickup Plus plugin
+
+2013-06-19 - version 2.1.5
+ * Bug fix: Do not show select address form if local pickup is only available method
+
+2013-06-15 - version 2.1.4
+ * Cleanup: Better support of guest checkout when using multiple addresses
+ * Bug fix: Allow selecting of address you've saved to address book in cases where it wasn't being allowed
+ * Bug fix: Support Order Notes which weren't being supported in all cases
+
+2013-06-09 - version 2.1.3
+ * Cleanup: Address form overlay cleanup.
+
+2013-05-21 - version 2.1.2
+ * Bug fix: The 'woocommerce_shipping_fields' filter not working in some installs. Updated instances of that hook/filter to WC_Countries::get_address_fields, which also calls apply_filters('woocommerce_shipping_fields').
+
+2013-05-16 - version 2.1.1
+ * Bug fix: No longer allow 0.5 of a product to be shipped to a location
+ * Cleanup: Various code improvements to the add to address drag/drop
+
+2013-05-09 - version 2.1.0
+ * Added support for the WooCommerce Checkout Field Editor by WooThemes only
+
+2013-05-03 - version 2.0.6
+ * Enhancement: If quantity of item in cart > 1, dragging/dropping will prompt customer for quantity to add to the respective address
+
+2013-04-30 - version 2.0.5
+ * Bug fix: Fixed issue where if only one product was selected, the shipping methods wouldn't load
+
+2013-04-11 - version 2.0.4
+ * Bug fix: At times draggable wouldn't initialize
+ * Cleanup: Made draggable areas more precise for customers when selecting products from cart
+
+2013-03-29 - version 2.0.3
+ * Bug fix: Fixed inaccurate loading of flat-rate shipping fees where it double loaded in some cases
+
+2013-03-14 - version 2.0.2
+ * Bug fixes: Fixed issue where multi-shipping options never loaded addresses
+
+2013-01-30 - version 2.0.1
+ * Code cleanup
+ * 2.0 Fixes
+ * Fix missing addresses on address-form
+
+2013-01-30 - version 2.0.0
+ * Added new drag and drop interface to adding products to addresses
+ * Added ability to ship entire cart to multiple locations
+ * Bug fixes
+ * Ability to edit text shown on checkout page
+ * Support for WooCommerce 2.0
+ * Support for taxes by billing or shipping address
+
+2012-12-04 - version 1.1.1
+ * New updater
+
+2012-10-04 - version 1.1.0
+ * Bug fixes
+ * Changed free-form entries to static selections to avoid customer typos
+
+2012-09-21 - version 1.0.1
+ * Minor CSS changes
+ * Added address edit button to address table on checkout
+
+2012-08-07 - version 1.0
+ * First release

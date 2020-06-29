@@ -1,0 +1,160 @@
+// Diamonds
+.porto-diamonds {
+    font-size: 0;
+    margin: 40px auto;
+    position: relative;
+    text-align: center;
+    max-width: 1110px;
+
+    .csstransforms3d & {
+        padding: side-values(50px 0 12px 57px);
+    }
+
+    .no-csstransforms3d & {
+        max-width: 1035px;
+    }
+
+    > li {
+        display: inline-block;
+        font-size: 18px;
+        margin-#{$right}: 135px;
+
+        .no-csstransforms3d & {
+            margin: side-values(0 20px 20px 0);
+        }
+    }
+
+    .diamond {
+        background: #f4f4f4;
+        display: block;
+        height: 255px;
+        overflow: hidden;
+        position: relative;
+        text-decoration: none;
+        width: 255px;
+
+        &:after {
+            @include transition (all .2s);
+            content: " ";
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            #{$left}: 0;
+            background: #000;
+            opacity: 0;
+            transform: scale(0);
+            z-index: 100;
+        }
+
+        &:hover {
+            &:after {
+                opacity: 0.3;
+                transform: scale(1);
+            }
+
+            .content {
+                &:after {
+                    opacity: 0.8;
+                    transform: scale(1);
+                }
+            }
+
+        }
+
+        .csstransforms3d & {
+            overflow: hidden;
+            @if $rtl == 1{
+                transform: rotate(45deg);
+            }
+            @else {
+                transform: rotate(-45deg);
+            }
+        }
+    }
+
+    .content {
+        display: table-cell;
+        height: 255px;
+        padding: 0 10px;
+        transform: rotate(45deg);
+        @if $rtl == 1{
+            transform: rotate(-45deg);
+        }
+        @else {
+            transform: rotate(45deg);
+        }
+        text-align: center;
+        vertical-align: middle;
+        width: 255px;
+        position: relative;
+
+        &:after {
+            @include transition (all .2s);
+            color: #fff;
+            content: "\e091";
+            font-family: "simple-line-icons";
+            font-size: 28px;
+            #{$left}: 26%;
+            margin: -6px -12px;
+            opacity: 0;
+            position: absolute;
+            top: 49%;
+            z-index: 1000;
+            transform: scale(2);
+        }
+
+        img {
+            margin-#{$left}: -50%;
+            max-width: 375px;
+        }
+    }
+
+    .diamond-sm {
+        .content {
+            &:after {
+                #{$left}: 24%;
+                top: 49%;
+            }
+        }
+
+    }
+}
+
+@media (min-width: #{$screen-lg}px) {
+    .porto-diamonds > li:nth-child(3) { margin-#{$right}: 0; }
+    .porto-diamonds > li:nth-child(4) { #{$right}: 132px; top: 9px; position: absolute; }
+    .porto-diamonds > li:nth-child(5) { margin-#{$left}: 527px; margin-top: -70px; }
+    .porto-diamonds > li:nth-child(6) { position: absolute; margin: side-values(-6px 0 0 -28px); }
+    .porto-diamonds > li:nth-child(7) { position: absolute; margin: side-values(97px 0 0 -133px); }
+    .porto-diamonds .diamond-sm,
+    .porto-diamonds .diamond-sm .content { height: 128px; width: 128px; }
+    .porto-diamonds .diamond-sm .content img { max-width: 195px; }
+}
+@media (max-width: #{$screen-lg - 1}px) {
+    .csstransforms3d .porto-diamonds,
+    .porto-diamonds { width: 748px; margin: 40px auto; padding: side-values(75px 0 75px 75px); }
+    .porto-diamonds > li { margin: 0; position: static; float: $left }
+    .porto-diamonds > li:nth-child(2n+1) { clear: both; }
+    .porto-diamonds > li:nth-child(2n+2) { margin: side-values(200px auto -50px 55px) }
+    .porto-diamonds > li:last-child { margin-bottom: 50px; }
+    .porto-diamonds:after { content: ''; display: block; clear: both }
+}
+
+@media (max-width: 748px) {
+    .csstransforms3d .porto-diamonds,
+    .porto-diamonds {
+        margin: side-values(40px 0 0 -222px);
+        padding: side-values(25px 0 0 50%);
+        width: 445px;
+    }
+
+    .lightbox .porto-diamonds > li {
+        float: none;
+        clear: both;
+        margin: side-values(45px 0 115px 95px);
+        display: block;
+
+    }
+}
+

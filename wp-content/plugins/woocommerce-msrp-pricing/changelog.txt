@@ -1,0 +1,147 @@
+*** WooCommerce MSRP Pricing ***
+
+2020.06.12 - version 2.9.15
+* Re-release as 2.9.14 did not release cleanly
+
+2020.05.28 - version 2.9.14
+* Change: WooCommerce 4.1 / 4.2 compatibility
+
+2020.01.06 - version 2.9.13
+* Change: WooCommerce 3.9 compatibility
+
+2019.10.16 - version 2.9.12
+* New: Introduce woocommerce_msrp_show_msrp_pricing filter
+* New: Add shortcode & template tag for showing MSRP price
+
+2019.08.29 - version 2.9.11
+* Fix: Resolve issue saving settings when running WooCommerce 3.7.0
+* New: Add WPML config file for MSRP syncing between languages
+
+2018.11.15 - version 2.9.10
+* Fix: Compatibility fixes for Product Add-ons integration. Requires Product Add-ons v3.0.3 or above.
+
+2018.11.05 - version 2.9.9
+* Fix: Fix issues caused when other post types created during product saving
+
+2018.10.29 - version 2.9.8
+* New: Update WooCommerce compatibility headers - requires WooCommerce v3.0+
+* Change: Future custom tables compatibility work
+
+2018.08.16 - version 2.9.7
+* Change: Make price strings translatable, allowing i18n overrides
+
+2018.01.29 - version 2.9.6
+* Fix: Variation MSRP support in v1 product batch endpoints
+
+2017.09.27 - version 2.9.5
+* New: Add plugin headers for compatibility with future WooCommerce update checks
+* New: Add .pot file for ease of translating the plugin
+* Change: Do not show variation MSRP content if all variation prices are the
+          same as each other, and all MSRPs prices are the same as each other.
+
+2017.08.01 - version 2.9.4
+* Fix: Savings amount could show incorrect values if saving was greater than 1000
+* Fix: Do not through deprecated warnings for prices on variations on WooCommerce 3.x
+
+2017.07.26 - version 2.9.3
+* New: REST API v2 support
+* Fix: Variation MSRPs not show for REST API v1
+
+2017.07.22 - version 2.9.2
+* Fix Javascript error which could occur under some configurations.
+
+2017.07.13 - version 2.9.1
+* Avoid warnings if price / MSRP are empty
+* Do not show savings if MSRP & price are the same
+
+2017.07.06 - version 2.9.0
+* Move MSRP price on variations edit UI next to the other prices.
+* Show savings now shows savings for variable products.
+
+2017.06.27 - version 2.8.0
+* Support for import / export via new importer / exporter in WooCommerce 3.1
+
+2017.06.21 - version 2.7.0
+* Introduce option to show savings against MSRP as amount, or percentage
+* JS optimisations
+* Clear out some old unused code
+
+2017.06.08 - version 2.6.0
+* Localize JS rather than manually outputting variables.
+* Cut down on the volume of JS output for config dramatically
+* Avoid issues with Storefront homepage layouts.
+
+2017.03.06 - version 2.5.1
+* Compatibility updates for WooCommerce 2.7
+
+2017.03.02 - version 2.5.0
+* Allow MSRP prices to be set, or cleared in bulk for variations.
+
+2017.02.13 - version 2.4.1
+* Fix issue where MSRP would not always show on variable products
+
+2017.01.17 - version 2.4.0
+* Compatibility with WooCommerce 2.7
+* Fix positional placeholders in Product Add-Ons support
+
+2016.08.24 - version 2.3
+* Compatibility with Product Addons extension. Allows MSRP pricing to be stored, and displayed against product add-ons. Requires Product Addons greater than 2.7.22
+
+2016.08.18 - version 2.2
+* Make MSRP prices available via the WooCommerce REST API.
+
+2016.08.02 - version 2.1.2
+* Fix issue where MSRP would show as zero on variable products with no MSRPs set.
+
+2016.06.02 - version 2.1.1
+* Show price ranges for MSRPs for variable products.
+
+2016.04.11 - version 2.0.2
+* Re-release of 2.0.1 to rebuild JS
+
+2016.04.07 - version 2.0.1
+* Move MSRP price next to variation price for variable products.
+
+2015.07.16 - version 2.0
+* Compatibility with WooCommerce 2.4.
+* Frontend javascript minified unless WP_DEBUG set to true.
+* Support for localized prices, e.g. non '.' decimal separators.
+
+2015.02.26 - version 1.7
+* Minor tweak to tooltips on the admin screens. Props Nicola Mustone.
+
+2015.02.22 - version 1.6
+* Fix issue where MSRP values weren't loaded on the product edit form under WC 2.3
+* Support for adding MSRP to Composite products
+
+2014.01.11 - version 1.5
+* WooCommerce 2.1 compatibility
+
+2013.10.20 - version 1.4.1
+* More consistent strings in admin area
+* Coding standard cleanups
+
+2013.07.28 - version 1.4
+ * MSRP display for variable products on category pages
+
+2013.04.04 - version 1.3.3
+ * Improved 2.0 Compat
+
+2013.03.08 - version 1.3.2
+ * Show the MSRP price on grouped product pages in the list table
+
+2012.12.04 - version 1.3.1
+ * New updater
+
+2012.10.09 - version 1.3
+ * Show MSRP for variations properly
+ * Show MSRP information on category pages, not just single product
+
+2012.08.25 - version 1.2
+ * 1.6.5 variation improvements
+
+2012.08.14 - version 1.1
+ * Fix problem where MSRP shown even if not set
+
+2012.08.09 - version 1.0
+ * First Release

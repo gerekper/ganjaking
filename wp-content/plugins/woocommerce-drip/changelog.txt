@@ -1,0 +1,99 @@
+*** WooCommerce Drip Changelog ***
+
+2020-06-10 - version 1.2.20
+* Tweak - WC 4.2 compatibility.
+
+2020-04-29 - version 1.2.19
+* Fix - Fix/log.
+* Fix - Update build script.
+* Tweak - WC 4.1 compatibility.
+
+2020-02-27 - version 1.2.18
+* Tweak - Remove legacy code.
+* Tweak - WC 4.0 compatibility.
+
+2020-01-13 - version 1.2.17
+* Tweak - WC 3.9 compatibility.
+
+2019-10-30 - version 1.2.16
+* Tweak - WC 3.8 compatibility.
+
+2019-10-30 - version 1.2.15
+* Fix - Mismatched emails not sent to Drip.
+* Fix - Completing an order without an email address causes a 500 error.
+
+2019-08-08 - version 1.2.14
+* Update - WC 3.7 compatibility.
+
+2019-04-16 - version 1.2.13
+* Update - WC 3.6 compatibility.
+
+2018-10-17 - version 1.2.12
+* Update - WC 3.5 compatibility.
+
+2018-09-06 - version 1.2.11
+* Fix - Record event regardless of whether user is subscriber or not.
+
+2018-05-23 - version 1.2.10
+* Update - Privacy policy notification.
+* Update - Export/erasure hooks added.
+* Update - WC 3.4 compatibility.
+
+2017-12-14 - version 1.2.9
+* Fix - WC 3.3 compatibility.
+
+2017-08-23 - version 1.2.8
+* Fix - Use the ID from WC_Order_Item_Product instead of WC_Product when sending purchased_products IDs to Drip.
+
+2017-07-07 - version 1.2.7
+* Fix - Fatal errors on checkout when order set to processing.
+
+2017-06-27 - version 1.2.5
+* Fix - Get product ID instead of line item ID.
+
+2017-06-22 - version 1.2.4
+* Fix - Ensure we account for a WP_Error object if we get one from our API requests.
+* Fix - Ensure we correctly send the product IDs, as well as the product names, when sending order data to Drip.
+
+2017-05-15 - version 1.2.3
+* Fix - Additional update for WC 3.0 compatibility.
+
+2017-05-09 - version 1.2.2
+* Fix - Handle wp errors on get accounts.
+* Fix - Undefined index on settings when first activate.
+
+2017-04-03 - version 1.2.1
+* Fix - Update for WC 3.0 compatibility.
+
+2016-01-13 - version 1.2.0
+* Fix - Check for custom fields before accessing, avoiding PHP warnings.
+* Fix - Send the customer ID from the WC Order to Drip instead of the logged in user.
+* Add subscription payments to lifetime value.
+
+2015-11-03 - version 1.1.5
+* Fix - Only run the new order event once per order.
+
+2015-04-23 - version 1.1.4
+ * Adjust variables passed through to wcdrip_custom_fields filter
+ * Fix double-optin-email bug when a user registered + ordered at the same time
+ * New filters for stopping confirmation emails - wcdrip_checkout_subscribe_params + wcdrip_register_subscribe_params
+
+2015-04-16 - version 1.1.3
+ * New filter 'wcdrip_subscribe_default' for setting checkbox default
+ * Remove unneeded variables
+
+2015-04-04 - version 1.1.2
+ * Fix version number
+
+2015-03-14 - version 1.1.1
+ * Fix incorrect saving of drip_accounts transient
+ * Fix .pot files
+
+2015-02-24 - version 1.1.0
+ * Option to clear API key / settings
+ * Update URL to get API key
+ * Check if API key / account settings exist before running code post-checkout
+ * Saved purchased products in custom field for subscriber (, separated)
+
+2015-01-19 - version 1.0.0
+ * First Release.

@@ -1,0 +1,51 @@
+
+// Tickets table list.
+.type-event_ticket .column-ticket .ticket-fields {
+	font-style: italic;
+	font-size: 85%;
+}
+
+// Edit ticket.
+.post-type-event_ticket {
+	.page-title-action {
+		display: none;
+	}
+
+	.woocommerce_options_panel {
+		.ticket-field-option-label {
+			display: block;
+			float: none;
+			margin-left: 0;
+		}
+
+		label {
+			.required {
+				color: red;
+				font-weight: 700;
+			}
+		}
+	}
+
+	#ticket-barcode {
+		p {
+			text-align: center;
+			a {
+				text-decoration: none;
+			}
+			img {
+				width: 100%;
+				height: auto;
+			}
+			span {
+				font-size: 110%;
+			}
+		}
+		#barcode_container {
+			width: 100% !important;
+			height: auto;
+			object {
+				width: 100%;
+			}
+		}
+	}
+}

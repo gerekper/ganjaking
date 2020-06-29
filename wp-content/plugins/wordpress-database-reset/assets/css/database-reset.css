@@ -1,0 +1,87 @@
+p {
+  font-size: 14px;
+}
+
+.wrap h1 {
+  margin-bottom: 20px;
+}
+
+#select-container {
+  width: 290px;
+}
+
+#select-all {
+  float: right;
+  margin-top: 6px;
+}
+
+#security-code {
+  font-weight: bold;
+  display: inline-block;
+  margin-left: 3px;
+  padding: 3px 5px 2px 5px;
+  background: #eaeaea;
+}
+
+.code, code {
+    font-family: Consolas,Monaco,monospace;
+    direction: ltr;
+    unicode-bidi: embed;
+}
+
+#loader {
+  margin-left: 10px;
+  position: absolute;
+  width: 28px;
+}
+
+#wp-reset-ad img {
+  float: left;
+  margin-right: 20px;
+  width: 100px;
+}
+
+/* wpr upsell dialog */
+.wpr-upsell-dialog .ui-dialog-titlebar {
+  background: #ccc;
+  text-align: center;
+  height: 55px;
+}
+.wpr-upsell-dialog .ui-dialog-titlebar img {
+  height: 32px;
+  display: inline-block;
+  margin: 11px 0 0 0;
+}
+.wpr-upsell-dialog .ui-dialog-titlebar-close {
+  color: #515151;
+  height: 55px;
+}
+.wpr-upsell-dialog .ui-dialog-titlebar-close:hover {
+  color: #333;
+}
+.wpr-upsell-dialog .ui-dialog-content {
+  padding: 0;
+}
+.wpr-upsell-dialog .ui-tabs-nav {
+  text-align: center;
+}
+.wpr-upsell-dialog .ui-tabs .upsell-tab {
+  padding: 20px 15px;
+  text-align: center;
+}
+.wpr-upsell-dialog a {
+  color: #333;
+}
+.wpr-upsell-dialog a:hover {
+  color: #000;
+}
+.wpr-upsell-dialog ul {
+  list-style: disc;
+  list-style-position: inside;
+}
+.wpr-upsell-dialog .upsell-footer {
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* wpr upsell dialog */

@@ -1,0 +1,371 @@
+
+// adsense container
+body {
+    .ads-container {
+        color: #777;
+        background: #fbfbfb;
+        border: 1px solid #e1e1e1;
+        margin: 20px 0 0;
+
+        .left-icon {
+            &.porto-sicon-box {
+                display: block;
+                text-align: center;
+                margin: 0 !important;
+                padding: 20px 0;
+            }
+            .porto-sicon-left {
+                display: inline-block;
+            }
+            .porto-icon.none,
+            .porto-sicon-img.none {
+                text-align: $right;
+
+                @media #{$screen-normal} {
+                    text-align: center;
+                }
+            }
+            .porto-sicon-body {
+                display: inline-block;
+                text-align: $left;
+                @media #{$screen-normal} {
+                    min-width: 215px;
+                }
+            }
+            .porto-sicon-left {
+                .porto-icon,
+                .porto-sicon-img {
+                    margin: side-values(0 10px 0 0);
+                }
+            }
+            .porto-sicon-header,
+            .porto-sicon-description {
+                float: none;
+                width: auto;
+            }
+            h3.porto-sicon-title {
+                line-height: 1.1;
+            }
+            .porto-sicon-description {
+                margin-top: 3px;
+                line-height: 1.2;
+            }
+        }
+
+        .vc_column_container {
+            border-#{$left}: 1px solid #e1e1e1;
+            @if $rtl == 1 {
+                &:last-child {
+                    border-right-width: 0;
+                }
+            } @else {
+                &:first-child {
+                    border-left-width: 0;
+                }
+            }
+            @media #{$screen-normal} {
+                float: none;
+                width: 100%;
+                border-#{$left}-width: 0;
+            }
+        }
+    }
+
+    .ads-container-full {
+        border-left-width: 0;
+        border-right-width: 0;
+        margin-top: 0;
+    }
+
+    .menu-ads-container {
+        color: #777;
+        margin-top: 0;
+
+        .vc_column_container {
+            @include if-rtl {
+                &:last-child {
+                    border-right-width: 0;
+                }
+            }
+            @include if-ltr {
+                &:first-child {
+                    border-left-width: 0;
+                }
+            }
+        }
+    }
+
+    .ads-container-light {
+        color: #777;
+        background: #ffffff;
+        border-top: 1px solid #f5f5f5;
+        border-bottom: 1px solid #f5f5f5;
+        margin-top: 20px;
+        margin-bottom: 0;
+
+        .left-icon {
+            &.porto-sicon-box {
+                display: block;
+                text-align: center;
+                margin: 0 !important;
+                padding: 20px 0;
+            }
+            .porto-sicon-left {
+                display: inline-block;
+            }
+            .porto-icon.none,
+            .porto-sicon-img.none {
+                text-align: $right;
+
+                @media #{$screen-normal} {
+                    text-align: center;
+                }
+            }
+            .porto-sicon-body {
+                display: inline-block;
+                text-align: $left;
+                @media #{$screen-normal} {
+                    min-width: 215px;
+                }
+            }
+            .porto-sicon-left {
+                .porto-icon,
+                .porto-sicon-img {
+                    margin: side-values(0 10px 0 0);
+                }
+            }
+            .porto-sicon-header,
+            .porto-sicon-description {
+                float: none;
+                width: auto;
+            }
+            h3.porto-sicon-title {
+                line-height: 1.1;
+            }
+            .porto-sicon-description {
+                margin-top: 3px;
+                line-height: 1.2;
+            }
+        }
+
+        .vc_column_container {
+            border-#{$left}: 1px solid #f5f5f5;
+            @if $rtl == 1 {
+                &:last-child {
+                    border-right-width: 0;
+                }
+            } @else {
+                &:first-child {
+                    border-left-width: 0;
+                }
+            }
+            @media #{$screen-normal} {
+                float: none;
+                width: 100%;
+                border-#{$left}-width: 0;
+            }
+        }
+    }
+
+    .ads-container-blue {
+        color: #fff;
+        background: #08c;
+        border: 1px solid #08c;
+        padding: 10px 0;
+
+        .left-icon {
+            &.porto-sicon-box {
+                display: block;
+                text-align: center;
+                margin: 0 !important;
+                padding: 20px 0;
+            }
+            .porto-sicon-left {
+                display: inline-block;
+            }
+            .porto-icon.none,
+            .porto-sicon-img.none {
+                text-align: $right;
+
+                @media #{$screen-normal} {
+                    text-align: center;
+                }
+            }
+            .porto-sicon-body {
+                display: inline-block;
+                text-align: $left;
+                @media #{$screen-normal} {
+                    min-width: 215px;
+                }
+            }
+            .porto-sicon-left {
+                .porto-icon,
+                .porto-sicon-img {
+                    margin: side-values(0 10px 0 0);
+                }
+            }
+            .porto-sicon-header,
+            .porto-sicon-description {
+                float: none;
+                width: auto;
+            }
+            h3.porto-sicon-title {
+                line-height: 1.1;
+            }
+            .porto-sicon-description {
+                margin-top: 3px;
+                line-height: 1.2;
+            }
+        }
+
+        .vc_column_container {
+            border-#{$left}: 1px solid #149ce0;
+            @if $rtl == 1 {
+                &:last-child {
+                    border-right-width: 0;
+                }
+            } @else {
+                &:first-child {
+                    border-left-width: 0;
+                }
+            }
+            @media #{$screen-normal} {
+                float: none;
+                width: 100%;
+                border-#{$left}-width: 0;
+            }
+        }
+    }
+
+    // banner container
+    .banner-container {
+        strong {
+            font-weight: 600;
+        }
+        small {
+            font-size: 11px;
+            display: block;
+        }
+        .porto-ibanner-title {
+            line-height: 1;
+            text-align: $left;
+        }
+    }
+    .banner-title-bottom {
+        .porto-ibanner-title {
+            #{$left}: 0;
+        }
+    }
+    .banner-title-top {
+        .porto-ibanner-title {
+            top: 0;
+            #{$left}: 0;
+            small {
+                font-size: 8px;
+            }
+        }
+    }
+}
+
+/* Home Intro */
+.home-intro {
+    background: #171717;
+    overflow: hidden;
+    position: relative;
+    padding: 35px 0;
+    text-align: $left;
+
+    p {
+        color: #999;
+        display: inline-block;
+        font-size: 1.12em;
+        font-weight: 300;
+        max-width: 800px;
+
+        strong {
+            color: #fff;
+            display: block;
+            font-size: 1.25em;
+            font-weight: 500;
+            padding-bottom: 7px;
+        }
+
+        em {
+            font-size: 1.6em;
+            font-style: normal;
+        }
+    }
+    .get-started {
+        margin-top: 5px;
+        margin-bottom: 5px;
+        position: relative;
+        text-align: $right;
+        @media (max-width: 767px) {
+            text-align: $left;
+            margin-top: 30px;
+        }
+
+        .btn {
+            position: relative;
+            i {
+                font-size: 1.1em;
+                font-weight: normal;
+                margin-#{$left}: 5px;
+            }
+        }
+        a {
+            color: #FFF;
+        }
+        p {
+            font-size: 1em;
+            padding: 0;
+        }
+    }
+    .learn-more {
+        display: inline-block;
+        white-space: nowrap;
+        vertical-align: middle;
+        margin-#{$left}: 15px;
+    }
+    &.light {
+        background-color: #e2e2e2;
+        &.secondary {
+            background-color: #E0E1E4;
+        }
+    }
+    .btn {
+        padding: 1.15em 1.8em;
+        font-size: 1em;
+    }
+}
+
+/* Highlighted Word */
+@keyframes pencilAnimation {
+    from {
+        width: 0;
+    }
+    to {
+        width: 74px;
+    }
+}
+.highlighted-word {
+    position: relative;
+}
+.highlighted-word.highlighted-word-animation-1 {
+    &:after {
+        content: '';
+        position: absolute;
+        right: calc(100% - 74px);
+        bottom: -6px;
+        background: url(../images/pencil-blue-line.png);
+        width: 0;
+        height: 15px;
+        animation: pencilAnimation .5s ease 2s;
+        animation-fill-mode: forwards;
+        overflow: hidden;
+        transform: rotate(180deg);
+    }
+    &.light:after {
+        filter: brightness(0) invert(1);
+    }
+}

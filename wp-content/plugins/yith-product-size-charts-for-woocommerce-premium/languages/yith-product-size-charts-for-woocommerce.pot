@@ -1,0 +1,543 @@
+# Copyright (C) 2020 YITH
+# This file is distributed under the same license as the YITH Product Size Charts for WooCommerce Premium package.
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH Product Size Charts for WooCommerce Premium 1.1.19\n"
+"Report-Msgid-Bugs-To: "
+"https://wordpress.org/support/plugin/yith-product-size-charts-for-"
+"woocommerce-premium\n"
+"POT-Creation-Date: 2020-05-25 14:07:58+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: grunt-wp-i18n1.0.2\n"
+
+#: includes/class.yith-wcpsc-admin-premium.php:94
+msgid "Shortcode"
+msgstr ""
+
+#: includes/class.yith-wcpsc-admin-premium.php:125
+msgid "Duplicate"
+msgstr ""
+
+#: includes/class.yith-wcpsc-admin-premium.php:150
+msgid "Copy"
+msgstr ""
+
+#: includes/class.yith-wcpsc-admin-premium.php:214
+msgid "Select size charts you want show in this product"
+msgstr ""
+
+#: includes/class.yith-wcpsc-admin-premium.php:250
+msgid "Display as"
+msgstr ""
+
+#: includes/class.yith-wcpsc-admin-premium.php:251
+msgid "Select how you want display the chosen Product Size Chart."
+msgstr ""
+
+#: includes/class.yith-wcpsc-admin-premium.php:255
+msgid "Tab"
+msgstr ""
+
+#: includes/class.yith-wcpsc-admin-premium.php:256
+msgid "Popup"
+msgstr ""
+
+#: includes/class.yith-wcpsc-admin-premium.php:257
+msgid "Tabbed Popup"
+msgstr ""
+
+#: includes/class.yith-wcpsc-admin-premium.php:262
+msgid "Show in widget"
+msgstr ""
+
+#: includes/class.yith-wcpsc-admin-premium.php:263
+msgid "Check it if you want to display the Product Size Chart in a Widget."
+msgstr ""
+
+#: includes/class.yith-wcpsc-admin-premium.php:269
+msgid "Title of description tab"
+msgstr ""
+
+#: includes/class.yith-wcpsc-admin-premium.php:270
+msgid ""
+"Enter here the text you want display as title of the description tab of the "
+"selected Product Size Chart."
+msgstr ""
+
+#: includes/class.yith-wcpsc-admin-premium.php:273
+#: includes/class.yith-wcpsc-admin.php:139
+msgid "Description"
+msgstr ""
+
+#: includes/class.yith-wcpsc-admin-premium.php:276
+msgid "Button text"
+msgstr ""
+
+#: includes/class.yith-wcpsc-admin-premium.php:277
+msgid ""
+"Enter here the text you want display for the Product Size Chart button. "
+"Leave ematy to use the title."
+msgstr ""
+
+#: includes/class.yith-wcpsc-admin-premium.php:283
+msgid "Tab position"
+msgstr ""
+
+#: includes/class.yith-wcpsc-admin-premium.php:284
+msgid ""
+"Use this field to choose the position of the tab. Please consider the "
+"following WooCommerce priority order: 10 -> Description tab; 20 -> "
+"Additional Information tab; 30 -> Reviews tab"
+msgstr ""
+
+#: includes/class.yith-wcpsc-admin-premium.php:291
+msgid "Tab Title"
+msgstr ""
+
+#: includes/class.yith-wcpsc-admin-premium.php:292
+msgid "Choose the tab title. If not set, it will be the Size Chart title"
+msgstr ""
+
+#: includes/class.yith-wcpsc-admin-premium.php:311
+msgid "Settings"
+msgstr ""
+
+#: includes/class.yith-wcpsc-admin-premium.php:312
+msgid "Advanced Display"
+msgstr ""
+
+#: includes/class.yith-wcpsc-admin-premium.php:374
+msgid "Select the Product Size Chart you want to add"
+msgstr ""
+
+#: includes/class.yith-wcpsc-admin-premium.php:384
+msgid "Add"
+msgstr ""
+
+#: includes/class.yith-wcpsc-admin-premium.php:385
+msgid "Cancel"
+msgstr ""
+
+#: includes/class.yith-wcpsc-admin-premium.php:457
+#: includes/class.yith-wcpsc-admin.php:350
+msgid "Product Size Charts"
+msgstr ""
+
+#: includes/class.yith-wcpsc-admin.php:140
+msgid "Premium Version"
+msgstr ""
+
+#: includes/class.yith-wcpsc-admin.php:181
+#: plugin-options/settings-options.php:121
+msgid "None"
+msgstr ""
+
+#: includes/class.yith-wcpsc-admin.php:203
+#: includes/class.yith-wcpsc-admin.php:209
+msgid "Chart Options"
+msgstr ""
+
+#: includes/class.yith-wcpsc-admin.php:212
+msgid "Product"
+msgstr ""
+
+#: includes/class.yith-wcpsc-admin.php:213
+msgid "Select the product in which this size chart has to be shown."
+msgstr ""
+
+#: includes/class.yith-wcpsc-admin.php:274
+msgid "Create your Size Chart"
+msgstr ""
+
+#: includes/class.yith-wcpsc-admin.php:353
+msgid "%s allows you to create custom size charts."
+msgstr ""
+
+#: includes/class.yith-wcpsc-admin.php:354
+msgid "Go to %s menu."
+msgstr ""
+
+#: includes/class.yith-wcpsc-admin.php:355 includes/class.yith-wcpsc.php:71
+msgid "Size Charts"
+msgstr ""
+
+#: includes/class.yith-wcpsc-admin.php:356
+msgid "Create your Size Chart and assign it to a product."
+msgstr ""
+
+#: includes/class.yith-wcpsc-admin.php:357
+msgid "It will be visible on detail page of the selected product."
+msgstr ""
+
+#: includes/class.yith-wcpsc-free-to-premium-importer.php:63
+msgid "All size charts updated correctly!"
+msgstr ""
+
+#: includes/class.yith-wcpsc-free-to-premium-importer.php:86
+msgid "Free to Premium Update"
+msgstr ""
+
+#: includes/class.yith-wcpsc-free-to-premium-importer.php:87
+msgid "Update"
+msgstr ""
+
+#: includes/class.yith-wcpsc-free-to-premium-importer.php:88
+msgid "Skip"
+msgstr ""
+
+#: includes/class.yith-wcpsc-free-to-premium-importer.php:93
+msgid "There some size charts assigned to your products from the free version."
+msgstr ""
+
+#: includes/class.yith-wcpsc-free-to-premium-importer.php:94
+msgid "To keep them assigned to your product you should simply click on update."
+msgstr ""
+
+#: includes/class.yith-wcpsc-free-to-premium-importer.php:95
+msgid "You can skip this process if you want to assign them manually."
+msgstr ""
+
+#: includes/class.yith-wcpsc-widget.php:28
+msgid "Display a list with your Product Size Charts."
+msgstr ""
+
+#: includes/class.yith-wcpsc-widget.php:30
+msgid "YITH Product Size Charts"
+msgstr ""
+
+#: includes/class.yith-wcpsc-widget.php:36
+msgid "Title"
+msgstr ""
+
+#: includes/class.yith-wcpsc-widget.php:44
+msgid "Number of charts to show"
+msgstr ""
+
+#: includes/class.yith-wcpsc.php:72
+msgid "Size Chart"
+msgstr ""
+
+#: includes/class.yith-wcpsc.php:73
+msgid "Add Size Chart"
+msgstr ""
+
+#: includes/class.yith-wcpsc.php:74
+msgid "New Size Chart"
+msgstr ""
+
+#: includes/class.yith-wcpsc.php:75
+msgid "Edit Size Chart"
+msgstr ""
+
+#: includes/class.yith-wcpsc.php:76
+msgid "View Size Chart"
+msgstr ""
+
+#: includes/class.yith-wcpsc.php:77
+msgid "Size Chart not found"
+msgstr ""
+
+#: includes/class.yith-wcpsc.php:78
+msgid "Size Chart not found in trash"
+msgstr ""
+
+#: init.php:52
+msgid ""
+"YITH Product Size Charts for WooCommerce Premium is enabled but not "
+"effective. It requires WooCommerce in order to work."
+msgstr ""
+
+#: plugin-options/advanced-display-options.php:35
+msgid "Advanced Options"
+msgstr ""
+
+#: plugin-options/advanced-display-options.php:41
+msgid "Charts for all products"
+msgstr ""
+
+#: plugin-options/advanced-display-options.php:43
+msgid "Select the Product Size Charts you want to display in all products"
+msgstr ""
+
+#: plugin-options/advanced-display-options.php:54
+msgid "Category Options"
+msgstr ""
+
+#: plugin-options/advanced-display-options.php:70
+msgid ""
+"Select the Product Size Charts you want to display in all products "
+"belonging to category %s"
+msgstr ""
+
+#: plugin-options/settings-options.php:10
+msgid "Popup Options"
+msgstr ""
+
+#: plugin-options/settings-options.php:16
+#: plugin-options/settings-options.php:197
+msgid "Style"
+msgstr ""
+
+#: plugin-options/settings-options.php:18
+msgid "Select the style you want to apply to all popups"
+msgstr ""
+
+#: plugin-options/settings-options.php:21
+#: plugin-options/settings-options.php:202
+msgid "Default"
+msgstr ""
+
+#: plugin-options/settings-options.php:22
+#: plugin-options/settings-options.php:203
+msgid "Informal"
+msgstr ""
+
+#: plugin-options/settings-options.php:23
+#: plugin-options/settings-options.php:204
+msgid "Elegant"
+msgstr ""
+
+#: plugin-options/settings-options.php:24
+#: plugin-options/settings-options.php:205
+msgid "Casual"
+msgstr ""
+
+#: plugin-options/settings-options.php:30
+#: plugin-options/settings-options.php:211
+msgid "Main Color"
+msgstr ""
+
+#: plugin-options/settings-options.php:33
+msgid "Select the main color for popups"
+msgstr ""
+
+#: plugin-options/settings-options.php:39
+msgid "Position"
+msgstr ""
+
+#: plugin-options/settings-options.php:41
+msgid "Select the position you want to apply to all popups"
+msgstr ""
+
+#: plugin-options/settings-options.php:44
+msgid "Center"
+msgstr ""
+
+#: plugin-options/settings-options.php:45
+msgid "Top Left"
+msgstr ""
+
+#: plugin-options/settings-options.php:46
+msgid "Top Right"
+msgstr ""
+
+#: plugin-options/settings-options.php:47
+msgid "Bottom Left"
+msgstr ""
+
+#: plugin-options/settings-options.php:48
+msgid "Bottom Right"
+msgstr ""
+
+#: plugin-options/settings-options.php:49
+msgid "Top Center"
+msgstr ""
+
+#: plugin-options/settings-options.php:50
+msgid "Bottom Center"
+msgstr ""
+
+#: plugin-options/settings-options.php:56
+msgid "Effect"
+msgstr ""
+
+#: plugin-options/settings-options.php:58
+msgid "Select the effect you want to apply to all popups"
+msgstr ""
+
+#: plugin-options/settings-options.php:61
+msgid "Fade"
+msgstr ""
+
+#: plugin-options/settings-options.php:62
+msgid "Slide"
+msgstr ""
+
+#: plugin-options/settings-options.php:63
+msgid "Zoom In"
+msgstr ""
+
+#: plugin-options/settings-options.php:64
+msgid "Zoom Out"
+msgstr ""
+
+#: plugin-options/settings-options.php:70
+msgid "Overlay Color"
+msgstr ""
+
+#: plugin-options/settings-options.php:73
+msgid "Select the color you want to apply to popup overlay"
+msgstr ""
+
+#: plugin-options/settings-options.php:79
+msgid "Overlay Opacity"
+msgstr ""
+
+#: plugin-options/settings-options.php:81
+msgid "Select the opacity you want to set for popup overlay"
+msgstr ""
+
+#: plugin-options/settings-options.php:95
+msgid "Popup Button Options"
+msgstr ""
+
+#: plugin-options/settings-options.php:101
+msgid "Button Position"
+msgstr ""
+
+#: plugin-options/settings-options.php:103
+msgid "Select the position you want to apply to buttons in all popups."
+msgstr ""
+
+#: plugin-options/settings-options.php:106
+#: plugin-options/settings-options.php:122
+msgid "Before summary"
+msgstr ""
+
+#: plugin-options/settings-options.php:107
+#: plugin-options/settings-options.php:123
+msgid "Before description"
+msgstr ""
+
+#: plugin-options/settings-options.php:108
+#: plugin-options/settings-options.php:124
+msgid "After description"
+msgstr ""
+
+#: plugin-options/settings-options.php:109
+#: plugin-options/settings-options.php:125
+msgid "After \"Add to Cart\" Button"
+msgstr ""
+
+#: plugin-options/settings-options.php:110
+#: plugin-options/settings-options.php:126
+msgid "After summary"
+msgstr ""
+
+#: plugin-options/settings-options.php:116
+msgid "Quick View Button Position"
+msgstr ""
+
+#: plugin-options/settings-options.php:118
+msgid "Select the position you want to apply to size chart buttons in quick view."
+msgstr ""
+
+#: plugin-options/settings-options.php:118
+msgid ""
+"<b>This feature requires YITH WooCommerce Quick View Premium 1.1.5 or "
+"greater</b>"
+msgstr ""
+
+#: plugin-options/settings-options.php:132
+msgid "Button Color"
+msgstr ""
+
+#: plugin-options/settings-options.php:135
+msgid "Select the color you want to apply to the popup button"
+msgstr ""
+
+#: plugin-options/settings-options.php:141
+msgid "Button Text Color"
+msgstr ""
+
+#: plugin-options/settings-options.php:144
+msgid "Select the color you want to apply to popup button text"
+msgstr ""
+
+#: plugin-options/settings-options.php:150
+msgid "Border Radius"
+msgstr ""
+
+#: plugin-options/settings-options.php:152
+msgid "Select the border radius for popup"
+msgstr ""
+
+#: plugin-options/settings-options.php:160
+msgid "Padding"
+msgstr ""
+
+#: plugin-options/settings-options.php:169
+msgid "Top"
+msgstr ""
+
+#: plugin-options/settings-options.php:170
+msgid "Right"
+msgstr ""
+
+#: plugin-options/settings-options.php:171
+msgid "Bottom"
+msgstr ""
+
+#: plugin-options/settings-options.php:172
+msgid "Left"
+msgstr ""
+
+#: plugin-options/settings-options.php:178
+msgid "Button Shadow Color"
+msgstr ""
+
+#: plugin-options/settings-options.php:181
+msgid "Select the color you want to apply to popup button shadow"
+msgstr ""
+
+#: plugin-options/settings-options.php:191
+msgid "Table Options"
+msgstr ""
+
+#: plugin-options/settings-options.php:199
+msgid "Select the style you want to apply to all tables"
+msgstr ""
+
+#: plugin-options/settings-options.php:214
+msgid "Select the main color for tables"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"<code><strong>YITH Product Size Charts for WooCommerce</strong></code> "
+"allows adding a table or a detailed and customizable chart with all the "
+"information about your product sizes. Perfect to get rid of the objections "
+"about size, weight, dimension, etc. made by users when purchasing. <a "
+"href=\"https://yithemes.com/\" target=\"_blank\">Get more plugins for your "
+"e-commerce shop on <strong>YITH</strong></a>"
+msgstr ""
+
+#: includes/class.yith-wcpsc-admin-premium.php:204
+msgctxt "Admin:title of Metabox"
+msgid "Product Size Charts"
+msgstr ""
+
+#: includes/class.yith-wcpsc-admin-premium.php:210
+msgctxt "Admin:title of Metabox tab"
+msgid "Product Size Charts"
+msgstr ""
+
+#: includes/class.yith-wcpsc-admin-premium.php:213
+msgctxt "Admin:title of Metabox field"
+msgid "Product Size Charts"
+msgstr ""
+
+#: includes/class.yith-wcpsc-admin-premium.php:401
+msgctxt "Admin:title of column in products table"
+msgid "Product Size Charts"
+msgstr ""
+
+#: includes/class.yith-wcpsc-widget.php:35
+msgctxt "default title for plugin widget"
+msgid "Product Size Charts"
+msgstr ""

@@ -1,0 +1,63 @@
+/*----------------------------------------------------------------------------*\
+	IMAGE SHORTCODE
+\*----------------------------------------------------------------------------*/
+.mpc-image { display: inline-block; overflow: hidden; vertical-align: bottom; max-width: 100%; -webkit-box-sizing: border-box; box-sizing: border-box; /* Overlay & Lightbox */ /* Overlay Idle Settings */ /* Interactive Banner overlay fix */ }
+
+.mpc-image:focus, .mpc-image *:focus { outline: none; -webkit-outline: none; }
+
+.mpc-image img { display: block; }
+
+.mpc-image.mpc-fullwidth, .mpc-ribbon-wrap > .mpc-image { width: 100%; }
+
+.mpc-image.mpc-fullwidth img, .mpc-ribbon-wrap > .mpc-image img { width: 100%; height: auto; }
+
+.mpc-image .mpc-item { position: relative; overflow: hidden; display: block; z-index: 1; }
+
+.mpc-image .mpc-item::before { position: absolute; z-index: 2; top: 0; left: 0; bottom: 0; right: 0; display: block; content: ''; -webkit-box-sizing: border-box; box-sizing: border-box; -webkit-transition: inherit; transition: inherit; }
+
+.mpc-image .mpc-icon-anchor { display: inline-block; vertical-align: bottom; text-align: center; cursor: pointer; -webkit-transition: all .25s; transition: all .25s; }
+
+.mpc-image .mpc-icon-anchor i { display: block; vertical-align: bottom; width: 1.35em; height: 1.35em; line-height: 1.35em; font-style: normal; -webkit-transition: inherit; transition: inherit; }
+
+.mpc-image .mpc-icon-anchor i.mpc-icon--image, .mpc-image .mpc-icon-anchor i.mpc-icon--character { width: auto; }
+
+.mpc-image .mpc-item-overlay { position: absolute; width: 100%; height: 100%; z-index: 5; visibility: hidden; }
+
+.mpc-image .mpc-overlay--vertical-wrap { display: table; width: 100%; height: 100%; }
+
+.mpc-image .mpc-overlay--vertical { display: table-cell; vertical-align: middle; text-align: center; width: 100%; height: 100%; }
+
+.mpc-image.mpc-overlay--fade .mpc-item-overlay, .mpc-image.mpc-overlay--none .mpc-item-overlay { top: 0; left: 0; opacity: 0; }
+
+.mpc-image.mpc-overlay--slide-up .mpc-item-overlay { top: 100%; left: 0; }
+
+.mpc-image.mpc-overlay--slide-down .mpc-item-overlay { top: -100%; left: 0; }
+
+.mpc-image.mpc-overlay--slide-left .mpc-item-overlay { top: 0; left: 100%; }
+
+.mpc-image.mpc-overlay--slide-right .mpc-item-overlay { top: 0; left: -100%; }
+
+.mpc-image.mpc-interactive-banner-fix .mpc-icon-anchor i.mpc-icon--character { height: auto; }
+
+/* Overlay & Item Hover Settings */
+.mpc-image:hover { /* Overlay */ }
+
+.mpc-image:hover .mpc-item-overlay { visibility: visible; }
+
+.mpc-image:hover.mpc-overlay--fade .mpc-item-overlay, .mpc-image:hover.mpc-overlay--none .mpc-item-overlay { opacity: 1; }
+
+.mpc-image:hover.mpc-overlay--slide-up .mpc-item-overlay, .mpc-image:hover.mpc-overlay--slide-down .mpc-item-overlay { top: 0; }
+
+.mpc-image:hover.mpc-overlay--slide-left .mpc-item-overlay, .mpc-image:hover.mpc-overlay--slide-right .mpc-item-overlay { left: 0; }
+
+[data-align^="top"] .mpc-overlay--vertical { vertical-align: top; }
+
+[data-align^="middle"] .mpc-overlay--vertical { vertical-align: middle; }
+
+[data-align^="bottom"] .mpc-overlay--vertical { vertical-align: bottom; }
+
+[data-align$="left"] .mpc-overlay--vertical { text-align: left; }
+
+[data-align$="center"] .mpc-overlay--vertical { text-align: center; }
+
+[data-align$="right"] .mpc-overlay--vertical { text-align: right; }

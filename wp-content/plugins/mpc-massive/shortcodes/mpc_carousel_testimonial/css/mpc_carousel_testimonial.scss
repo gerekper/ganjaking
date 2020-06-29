@@ -1,0 +1,67 @@
+/*----------------------------------------------------------------------------*\
+	CAROUSEL TESTIMONIAL SHORTCODE
+\*----------------------------------------------------------------------------*/
+.mpc-carousel-testimonial {
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+
+	.slick-slide {
+		overflow: hidden;
+	}
+
+	.slick-slide > div > .mpc-testimonial,
+	.slick-slide > div > .mpc-gap {
+		width: auto !important;
+		display: block !important;
+	}
+
+	&.mpc-carousel--stretched .slick-list {
+		overflow: visible;
+	}
+
+	&:focus, & *:focus {
+		-webkit-outline: none;
+		outline: none;
+	}
+
+	.mpc-gap {
+		vertical-align: middle;
+	}
+
+	&.mpc-align-items .mpc-testimonial {
+		display: flex;
+		align-items: stretch;
+
+		&.mpc-testimonial--style_3,
+		&.mpc-testimonial--style_4 {
+			flex-direction: column;
+		}
+
+		&.mpc-testimonial--style_7 .mpc-testimonial__thumbnail,
+		&.mpc-testimonial--style_6 .mpc-testimonial__thumbnail,
+		&.mpc-testimonial--style_2 .mpc-testimonial__thumbnail,
+		&.mpc-testimonial--style_1 .mpc-testimonial__thumbnail {
+			flex: 1 0 auto;
+		}
+	}
+}
+
+.mpc-navigation--carousel {
+	text-align: right;
+	width: 100%;
+	margin: 1em 0;
+
+	i {
+		cursor: pointer;
+		padding: .5em 1em;
+		margin-left: 1px;
+		background: #ccc;
+		border-radius: 3px;
+	}
+}
+
+/* FrontEnd Editor */
+.vc_mpc_carousel_testimonial.vc_element .vc_controls > .vc_controls-out-tl {
+	left: initial;
+	right: 0;
+}

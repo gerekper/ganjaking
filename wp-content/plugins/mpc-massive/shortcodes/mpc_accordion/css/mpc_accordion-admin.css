@@ -1,0 +1,32 @@
+/*----------------------------------------------------------------------------*\
+	ACCORDION SHORTCODE - Panel
+\*----------------------------------------------------------------------------*/
+#poststuff .wpb_mpc_accordion .tab-label { margin-left: 23px; color: #6f777d; font-size: 14px; }
+
+#poststuff .wpb_mpc_accordion .tab_controls { -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; background: #ffffff; }
+
+#poststuff .wpb_mpc_accordion .tab_controls .add_tab { opacity: 0.7; filter: alpha(opacity=70); cursor: pointer; color: #b0b4b8; padding: 16px; position: relative; width: 100%; height: 16px; display: block; }
+
+#poststuff .wpb_mpc_accordion .tab_controls .add_tab .vc_icon { background-image: none !important; position: absolute; left: 19px; top: 18px; text-indent: 0 !important; overflow: visible !important; line-height: 16px !important; }
+
+#poststuff .wpb_mpc_accordion .tab_controls .add_tab .vc-icon:before { content: '+'; display: inline-block; font-size: 26px; color: #6f777d; }
+
+#poststuff .wpb_mpc_accordion .ui-accordion-header { -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; padding: 16px; background: #ffffff !important; border: 1px solid transparent !important; margin-bottom: 3px; text-align: center; outline: 0; box-shadow: none; -webkit-box-shadow: none; }
+
+#poststuff .wpb_mpc_accordion .ui-accordion-header.ui-state-active { background: #FFFFFF !important; border: 1px solid transparent !important; border-bottom-right-radius: 0; border-bottom-left-radius: 0; margin-bottom: 0; }
+
+#poststuff .wpb_mpc_accordion .ui-accordion-header .ui-icon { background-image: none !important; text-indent: 0 !important; left: 1.5em !important; overflow: visible !important; line-height: 16px !important; }
+
+#poststuff .wpb_mpc_accordion .ui-accordion-header .ui-icon:before { content: '+'; display: inline-block; font-size: 26px; color: #6f777d; }
+
+#poststuff .wpb_mpc_accordion .ui-accordion-header.ui-accordion-header-active .ui-icon:before { content: '-'; line-height: 10px; font-family: 'Dashicons'; }
+
+#poststuff .wpb_mpc_accordion .wpb_mpc_accordion_tab { background-color: #ffffff; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; padding: 6px 14px 14px; }
+
+#poststuff .wpb_mpc_accordion .wpb_mpc_accordion_tab > .vc_controls { opacity: 1 !important; filter: alpha(opacity=100) !important; visibility: visible; height: 35px; background: transparent; }
+
+#poststuff .wpb_mpc_accordion .wpb_mpc_accordion_tab.ui-accordion-content { overflow: visible; margin-bottom: 3px; }
+
+#poststuff .wpb_mpc_accordion > .vc_controls { opacity: 1 !important; filter: alpha(opacity=100) !important; visibility: visible; position: relative; height: 23px; margin: 18px 0 2px 0; border: 1px dotted #e6e6e6; border-bottom-width: 0; }
+
+#poststuff .wpb_mpc_accordion > .wpb_element_wrapper { padding: 0; height: auto; background: none; }

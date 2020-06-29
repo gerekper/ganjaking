@@ -1,0 +1,1211 @@
+# Copyright (C) 2020 Andrew Benbow
+# This file is distributed under the same license as the WooCommerce PDF Invoices plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce PDF Invoices 4.5.6\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocommerce-pdf-invoice\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2020-02-21T11:46:54-05:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.4.0\n"
+"X-Domain: woocommerce-pdf-invoice\n"
+
+#. Plugin Name of the plugin
+msgid "WooCommerce PDF Invoices"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://woocommerce.com/products/pdf-invoices/"
+msgstr ""
+
+#. Description of the plugin
+msgid "Attach a PDF Invoice to the completed order email and allow invoices to be downloaded from customer's My Account page."
+msgstr ""
+
+#. Author of the plugin
+msgid "Andrew Benbow"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "http://www.chromeorange.co.uk"
+msgstr ""
+
+#: classes/class-pdf-admin-functions.php:95
+msgid "Update PDF Meta"
+msgstr ""
+
+#: classes/class-pdf-admin-functions.php:112
+msgid "Create Invoice(s)"
+msgstr ""
+
+#: classes/class-pdf-admin-functions.php:113
+msgid "Create and Email Invoice(s)"
+msgstr ""
+
+#: classes/class-pdf-admin-functions.php:114
+msgid "Email Invoice(s)"
+msgstr ""
+
+#: classes/class-pdf-admin-functions.php:131
+msgid "Delete Invoice(s)"
+msgstr ""
+
+#: classes/class-pdf-admin-functions.php:196
+#: classes/class-pdf-debug.php:120
+msgid "Invoice information changed. <br/>Previous details : "
+msgstr ""
+
+#: classes/class-pdf-admin-functions.php:361
+#: classes/class-pdf-order-meta-box.php:219
+msgid "Invoice deleted. <br/>Previous details : "
+msgstr ""
+
+#: classes/class-pdf-debug.php:40
+msgid "Invoice Meta"
+msgstr ""
+
+#: classes/class-pdf-debug.php:65
+msgid "Please ensure you are aware of any potential legal issues before changing this information.<br />Changing the \"Invoice Number\" field IS NOT RECOMMENDED, changing this could cause duplicate invoice numbers."
+msgstr ""
+
+#: classes/class-pdf-debug.php:158
+#: classes/class-pdf-debug.php:166
+#: classes/class-pdf-debug.php:169
+#: classes/class-pdf-export.php:192
+msgid "============================================="
+msgstr ""
+
+#: classes/class-pdf-debug.php:160
+#: classes/class-pdf-export.php:194
+msgid "PDF Invoice Log"
+msgstr ""
+
+#: classes/class-pdf-email-customer-invoice.php:32
+msgid "Customer PDF invoice"
+msgstr ""
+
+#: classes/class-pdf-email-customer-invoice.php:33
+msgid "Email for customer with order details and PDF invoice attached."
+msgstr ""
+
+#: classes/class-pdf-email-customer-invoice.php:60
+msgid "Your invoice for order #{order_number} on {site_title} is attached"
+msgstr ""
+
+#: classes/class-pdf-email-customer-invoice.php:69
+msgid "Your invoice for order #{order_number} is attached"
+msgstr ""
+
+#: classes/class-pdf-email-customer-invoice.php:98
+msgid "Thanks for using {site_address}!"
+msgstr ""
+
+#. translators: %s: list of placeholders
+#: classes/class-pdf-email-customer-invoice.php:176
+msgid "Available placeholders: %s"
+msgstr ""
+
+#: classes/class-pdf-email-customer-invoice.php:179
+msgid "Subject"
+msgstr ""
+
+#: classes/class-pdf-email-customer-invoice.php:187
+msgid "Email heading"
+msgstr ""
+
+#: classes/class-pdf-email-customer-invoice.php:195
+msgid "Subject (paid)"
+msgstr ""
+
+#: classes/class-pdf-email-customer-invoice.php:203
+msgid "Email heading (paid)"
+msgstr ""
+
+#: classes/class-pdf-email-customer-invoice.php:211
+msgid "Additional content"
+msgstr ""
+
+#: classes/class-pdf-email-customer-invoice.php:212
+msgid "Text to appear below the main email content."
+msgstr ""
+
+#: classes/class-pdf-email-customer-invoice.php:214
+msgid "N/A"
+msgstr ""
+
+#: classes/class-pdf-email-customer-invoice.php:220
+msgid "Email type"
+msgstr ""
+
+#: classes/class-pdf-email-customer-invoice.php:222
+msgid "Choose which format of email to send."
+msgstr ""
+
+#: classes/class-pdf-export.php:19
+msgid "ZipArchive exists : "
+msgstr ""
+
+#: classes/class-pdf-export.php:20
+msgid "gzcompress exists : "
+msgstr ""
+
+#: classes/class-pdf-export.php:50
+msgid "redirect_to : "
+msgstr ""
+
+#: classes/class-pdf-export.php:51
+msgid "action : "
+msgstr ""
+
+#: classes/class-pdf-export.php:52
+msgid "Order IDs : "
+msgstr ""
+
+#: classes/class-pdf-export.php:76
+msgid "$zip_file : "
+msgstr ""
+
+#: classes/class-pdf-export.php:102
+msgid "Export failed, cannot open : "
+msgstr ""
+
+#. translators: %s: orders count
+#: classes/class-pdf-export.php:161
+msgid "%s invoice added to zip file."
+msgid_plural "%s invoices added to zip file."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: orders count
+#: classes/class-pdf-export.php:161
+msgid "Download the zipfile from <a href=\"%1$s/%2$s.zip\">%3$s.zip</a>"
+msgstr ""
+
+#: classes/class-pdf-export.php:164
+msgid "Zip file creation failed. Check the log in the WooCommerce System Status logs tab."
+msgstr ""
+
+#: classes/class-pdf-functions-class.php:472
+msgid "Send PDF"
+msgstr ""
+
+#: classes/class-pdf-functions-class.php:490
+msgid "Download PDF"
+msgstr ""
+
+#: classes/class-pdf-functions-class.php:504
+msgid "You do not have sufficient permissions to access this page."
+msgstr ""
+
+#: classes/class-pdf-functions-class.php:505
+msgid "You have taken too long. Please go back and retry."
+msgstr ""
+
+#: classes/class-pdf-functions-class.php:536
+#: classes/class-pdf-settings-class.php:44
+msgid "PDF Invoice"
+msgstr ""
+
+#: classes/class-pdf-functions-class.php:660
+msgid "<p class=\"pdf-download\">Download your invoice : "
+msgstr ""
+
+#: classes/class-pdf-functions-class.php:662
+msgid "</p>"
+msgstr ""
+
+#: classes/class-pdf-help.php:17
+msgid "Create and modify your invoice templates"
+msgstr ""
+
+#: classes/class-pdf-help.php:20
+msgid "Installation and Updating"
+msgstr ""
+
+#: classes/class-pdf-help.php:21
+msgid "Setup and Configuration"
+msgstr ""
+
+#: classes/class-pdf-help.php:23
+msgid "Date Format"
+msgstr ""
+
+#: classes/class-pdf-help.php:24
+msgid "Testing Invoice Layouts"
+msgstr ""
+
+#: classes/class-pdf-help.php:25
+msgid "PDF File Name Parameters"
+msgstr ""
+
+#: classes/class-pdf-help.php:26
+msgid "PDF Invoice Number Suffix"
+msgstr ""
+
+#: classes/class-pdf-help.php:29
+msgid "Create Invoices for Existing Orders"
+msgstr ""
+
+#: classes/class-pdf-help.php:30
+msgid "Order Screen"
+msgstr ""
+
+#: classes/class-pdf-help.php:31
+msgid "Usage"
+msgstr ""
+
+#: classes/class-pdf-help.php:32
+msgid "Customization"
+msgstr ""
+
+#: classes/class-pdf-help.php:34
+msgid "Copy the template to your theme"
+msgstr ""
+
+#: classes/class-pdf-help.php:35
+msgid "Add new placeholders"
+msgstr ""
+
+#: classes/class-pdf-help.php:36
+msgid "Using the included fonts"
+msgstr ""
+
+#: classes/class-pdf-help.php:37
+msgid "Using Google Fonts"
+msgstr ""
+
+#: classes/class-pdf-help.php:38
+msgid "Using a True Type font"
+msgstr ""
+
+#: classes/class-pdf-help.php:41
+msgid "Using Hooks and Filters"
+msgstr ""
+
+#: classes/class-pdf-help.php:42
+msgid "Translating PDF Invoice"
+msgstr ""
+
+#: classes/class-pdf-help.php:43
+msgid "FAQ"
+msgstr ""
+
+#: classes/class-pdf-help.php:45
+msgid "Are PDFs stored in a secure way?"
+msgstr ""
+
+#: classes/class-pdf-help.php:48
+msgid "Bulk Exporting PDFs"
+msgstr ""
+
+#: classes/class-pdf-help.php:49
+msgid "Feedback and feature requests"
+msgstr ""
+
+#: classes/class-pdf-help.php:50
+msgid "Questions &amp; Support"
+msgstr ""
+
+#: classes/class-pdf-order-meta-box.php:49
+msgid "Invoice Details"
+msgstr ""
+
+#: classes/class-pdf-order-meta-box.php:66
+msgid "Invoice Number:"
+msgstr ""
+
+#: classes/class-pdf-order-meta-box.php:72
+msgid "Invoice Date:"
+msgstr ""
+
+#: classes/class-pdf-order-meta-box.php:102
+msgid "Download Invoice"
+msgstr ""
+
+#: classes/class-pdf-order-meta-box.php:172
+msgid "Invoice emailed to customer manually."
+msgstr ""
+
+#: classes/class-pdf-order-meta-box.php:191
+msgid "Invoice created manually."
+msgstr ""
+
+#: classes/class-pdf-order-meta-box.php:237
+msgid "Order updated and PDF invoice emailed."
+msgstr ""
+
+#: classes/class-pdf-send-pdf-class.php:97
+msgid "here"
+msgstr ""
+
+#: classes/class-pdf-send-pdf-class.php:155
+msgid "PDF Invoice Body : "
+msgstr ""
+
+#: classes/class-pdf-send-pdf-class.php:897
+#: classes/class-pdf-send-pdf-class.php:899
+#: templates/template.php:94
+msgid "VAT Number : "
+msgstr ""
+
+#: classes/class-pdf-send-pdf-class.php:950
+#: classes/class-pdf-send-pdf-class.php:1977
+msgid "Order Details"
+msgstr ""
+
+#: classes/class-pdf-send-pdf-class.php:952
+#: classes/class-pdf-send-pdf-class.php:1986
+msgid "Qty"
+msgstr ""
+
+#: classes/class-pdf-send-pdf-class.php:953
+#: classes/class-pdf-send-pdf-class.php:1995
+msgid "Product"
+msgstr ""
+
+#: classes/class-pdf-send-pdf-class.php:954
+msgid "Price Ex"
+msgstr ""
+
+#: classes/class-pdf-send-pdf-class.php:955
+#: classes/class-pdf-send-pdf-class.php:2013
+msgid "Total Ex."
+msgstr ""
+
+#: classes/class-pdf-send-pdf-class.php:956
+#: classes/class-pdf-send-pdf-class.php:2022
+msgid "Tax"
+msgstr ""
+
+#: classes/class-pdf-send-pdf-class.php:957
+#: classes/class-pdf-send-pdf-class.php:2031
+msgid "Price Inc"
+msgstr ""
+
+#: classes/class-pdf-send-pdf-class.php:958
+#: classes/class-pdf-send-pdf-class.php:2040
+msgid "Total Inc"
+msgstr ""
+
+#: classes/class-pdf-send-pdf-class.php:1038
+#: classes/class-pdf-send-pdf-class.php:1268
+#: docs/filters.php:386
+msgid "Booking ID : %d"
+msgstr ""
+
+#: classes/class-pdf-send-pdf-class.php:1039
+#: classes/class-pdf-send-pdf-class.php:1269
+msgid "Booking Date : %s"
+msgstr ""
+
+#: classes/class-pdf-send-pdf-class.php:1578
+msgid "Note:"
+msgstr ""
+
+#: classes/class-pdf-send-pdf-class.php:1598
+msgid "Subtotal"
+msgstr ""
+
+#: classes/class-pdf-send-pdf-class.php:1618
+msgid "Shipping"
+msgstr ""
+
+#: classes/class-pdf-send-pdf-class.php:1654
+msgid "Coupons used"
+msgstr ""
+
+#: classes/class-pdf-send-pdf-class.php:1678
+msgid "Discount:"
+msgstr ""
+
+#: classes/class-pdf-send-pdf-class.php:1724
+msgid "Total Tax"
+msgstr ""
+
+#: classes/class-pdf-send-pdf-class.php:1767
+msgid "Grand Total"
+msgstr ""
+
+#: classes/class-pdf-send-pdf-class.php:1891
+msgid "Invoice No."
+msgstr ""
+
+#: classes/class-pdf-send-pdf-class.php:1900
+msgid "Order No."
+msgstr ""
+
+#: classes/class-pdf-send-pdf-class.php:1909
+msgid "Invoice Date"
+msgstr ""
+
+#: classes/class-pdf-send-pdf-class.php:1918
+msgid "Order Date"
+msgstr ""
+
+#: classes/class-pdf-send-pdf-class.php:1927
+#: templates/template.php:78
+msgid "Billing Details"
+msgstr ""
+
+#: classes/class-pdf-send-pdf-class.php:1936
+#: templates/template.php:85
+msgid "Shipping Details"
+msgstr ""
+
+#: classes/class-pdf-send-pdf-class.php:1952
+msgid "Payment Method"
+msgstr ""
+
+#: classes/class-pdf-send-pdf-class.php:1961
+msgid "Shipping Method"
+msgstr ""
+
+#: classes/class-pdf-send-pdf-class.php:2004
+msgid "Price Ex."
+msgstr ""
+
+#: classes/class-pdf-send-pdf-class.php:2059
+msgid "Registered Name "
+msgstr ""
+
+#: classes/class-pdf-send-pdf-class.php:2076
+msgid "Registered Office "
+msgstr ""
+
+#: classes/class-pdf-send-pdf-class.php:2093
+msgid "Company Number "
+msgstr ""
+
+#: classes/class-pdf-send-pdf-class.php:2110
+msgid "VAT Number "
+msgstr ""
+
+#: classes/class-pdf-send-pdf-class.php:2255
+msgid "Test Email with PDF Attachment"
+msgstr ""
+
+#: classes/class-pdf-send-pdf-class.php:2256
+msgid "A PDF should be attached to this email to confirm that the PDF is being created and attached correctly"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:98
+msgid "WooCommerce PDF Invoice"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:105
+msgid "A required PHP function is not installed, please contact your host and ask them to install <a href=\"%s\" target=\"_blank\">ICONV</a>"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:118
+msgid "PDF Settings"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:119
+msgid "Debugging Information"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:120
+msgid "Help and Customisation"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:134
+msgid "Configure the WooCommerce PDF settings here, refer to the <a href=\""
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:188
+msgid "Choose which additional emails to attach the PDF to."
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:189
+msgid "By default the PDF Invoice extension will only atach to the Completed Order Email, if you want to attach it to other emails sent by WooCommerce then make selections here(ctrl-click or cmd-click for multiple selections)"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:216
+msgid "When to create the invoice"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:217
+msgid "Do you want to create the invoice details when the order is paid for (processing) or wait until you have shipped (completed), from version 1.2.1 you can also create an invoice when the order status is On-Hold"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:232
+msgid "Show \"Download Invoice\" link on Thank You page?"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:233
+msgid "Add a link to download the invoice to the Thank You for your order page"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:253
+msgid "Attach a PDF Invoice to the email or include a download link?"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:254
+msgid "Choose how you want to send the invoice to your customer, PDF attachment, PDF attachment and download link or just download link"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:267
+msgid "Download your PDF Invoice [[PDFINVOICEDOWNLOADURL]]"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:276
+msgid "Invoice download URL format"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:277
+msgid "This text is used in emails and the \"thank you\" page to display a link to download the invoice."
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:287
+msgid "Current URL Format :"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:288
+msgid "Default URL Format :"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:297
+msgid "Paper Size"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:298
+msgid "Set the paper size of your PDF invoice, this is only really used if your customer prints it out."
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:313
+msgid "Paper Orientation"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:314
+msgid "Set the paper orientation of your PDF invoice, this is only really used if your customer prints it out."
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:328
+msgid "PDF Logo"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:329
+msgid "Add a logo to your PDF, otherwise it will just use your WordPress title %s"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:337
+msgid "Copy the URL to your logo into here or upload using the button"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:339
+msgid "Upload Your Logo"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:349
+msgid "Remote Logo"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:350
+msgid "Allow remote images, if your logo is not hosted on your site then set this to 'YES'."
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:359
+msgid ""
+"If this is set to Yes, PDF Invoice will access remote sites for images and CSS files as required.\n"
+"                                <br /><strong>==== IMPORTANT ====</strong><br />\n"
+"                                Setting this to yes may allow malicious php code in remote html pages to be executed by your server with your account privileges. This setting may increase the risk of system exploit. \n"
+"                                <br /><strong>Do not change this settings without understanding the consequences.</strong></p>"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:370
+msgid "Font Subsetting"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:371
+msgid "Enable font subsetting, which embeds only used characters into the file, set this to 'YES' and test to confirm the invoice looks correct."
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:380
+msgid "Setting this option to yes will significantly reduce the PDF file size. You should check the invoice to confirm that all characters are displayed correctly."
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:387
+msgid "Company Name"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:388
+msgid "The name of your company, this shows at the top of the invoice"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:395
+msgid "Your company name"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:402
+msgid "Company Information"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:408
+msgid "Your company contact info"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:415
+msgid "Registered Name"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:423
+msgid "The legal name of your company"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:430
+msgid "Registered Office"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:436
+msgid "The legal registered address of your company"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:443
+msgid "Company Number"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:451
+msgid "Government issued company ID"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:458
+msgid "Tax Number"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:459
+msgid "If your buisness is registered for tax purposes your tax office may have issued you with a number (in the UK this would be your VAT number)"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:466
+msgid "Govenment issued tax number if you have one"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:474
+msgid "Use Sequential Invoice Numbering"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:475
+msgid "By default WooCommerce uses the post->ID as the order number so there will be gaps in the order number sequence. By setting this to Yes invoice numbers will be sequential."
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:490
+msgid "Reset Invoice Numbering to 1 at the start of each year"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:491
+msgid "Will reset the invoice number to 1 for the first order of the year."
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:499
+msgid "Use this option with caution, check with your local tax office if you are not sure if you need to use this.<br /><strong>You should include -{{year}} in the \"Invoice number suffix\" setting</strong>"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:506
+msgid "Number of first invoice if not 1"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:507
+msgid "What number would you like on the first invoice? Once you have issued an invoice changing this will make no difference"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:514
+msgid "What number would you like on the first invoice?"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:521
+msgid "Enter a pattern for the invoice number, EG 000000"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:522
+msgid "Set the length of the number part of your invoice number. EG 000000 would give an invoice number like ABC-000492"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:536
+msgid "Invoice number prefix"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:537
+msgid "Use this field to add a prefix to your invoice numbers. If you want your invoice number to look like ABC-123 then add ABC- to this field"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:544
+msgid "Add an invoice number prefix"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:551
+msgid "Invoice number suffix"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:552
+msgid "Use this field to add a prefix to your invoice numbers. If you want your invoice number to look like 123-ABC then add -ABC to this field"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:559
+msgid "Add an invoice number prefix suffix"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:569
+msgid "The next invoice number will be"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:570
+msgid "Use this field to change the next Invoice Number. You MUST increase this number, you can not save a smaller number than the current number"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:577
+msgid "Next Invoice Number"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:578
+msgid "Take care changing this number, you may be breaking your local tax law by having gaps in your invoice numbers.<br />You can only increase the number, decreasing it could lead to duplicate invoice numbers. "
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:579
+msgid "This option has no affect if you have the 'Reset Invoice Numbering to 1 at the start of each year' set to YES. "
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:591
+msgid "Invoice file name format"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:592
+msgid "Set the file name format for your PDF files. Bear in mind that your customer should be able to identify your invoice easily. Please review the documentation for accepted variables. Default is {{company}}-{{invoicenumber}}"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:599
+msgid "Invoice filename layout"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:607
+msgid "Which date should the invoice use"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:608
+msgid "Do you want the invoice date to be the date of order or the date the order is completed."
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:627
+msgid "Invoice date format"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:628
+msgid "Set the invoice date format, see the docs for further information and examples."
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:635
+msgid "j F, Y"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:645
+msgid "PDF Terms Page"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:646
+msgid "Set a terms page for your PDF invoices, if you set a terms page then an additional page will be added to the PDF. This terms pages uses a seperate template file so you can style the terms seperately"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:650
+msgid "Select PDF terms page if required"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:662
+msgid "PDF Creation Method"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:663
+msgid "If you have problems with PDFs not creating change this option to 'File only'"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:678
+msgid "Disable invoice number caching"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:679
+msgid "Set this to 'No' if you are using a caching plugin and you see any duplicated invoice numbers"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:694
+msgid "PDF Debugging"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:695
+msgid "If you have problems with PDFs turn on debugging. DO NOT leave this option on, the log will get very large very quickly."
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:710
+msgid "PDF Currency Font"
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:711
+msgid "If your currency symbol is not showing in the PDF you can chose a differnt font just for the symbol."
+msgstr ""
+
+#: classes/class-pdf-settings-class.php:730
+msgid "Save Options"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:38
+msgctxt "post type general name"
+msgid "PDF Invoice Templates"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:39
+msgctxt "post type singular name"
+msgid "PDF Invoice Template"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:40
+msgctxt "admin menu"
+msgid "PDF Invoice Templates"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:41
+msgctxt "add new on admin bar"
+msgid "PDF Invoice Template"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:42
+msgctxt "template"
+msgid "Add New"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:43
+msgid "Add New Template"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:44
+msgid "New Template"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:45
+msgid "Edit Template"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:46
+msgid "View Template"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:47
+msgid "All Templates"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:48
+msgid "Search Templates"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:49
+msgid "Parent Templates:"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:50
+msgid "No templates found."
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:51
+msgid "No templates found in Trash."
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:56
+msgid "Description."
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:99
+msgid "Default template tags"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:115
+msgid "[[PDFFONTFAMILY]]"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:122
+msgid "[[TEXTDIRECTION]]"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:129
+msgid "[[PDFLOGO]]"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:136
+msgid "[[PDFCOMPANYNAME]]"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:143
+msgid "[[PDFCOMPANYDETAILS]]"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:150
+msgid "[[PDFINVOICENUMHEADING]]"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:157
+msgid "[[PDFINVOICENUM]]"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:164
+msgid "[[PDFORDERENUMHEADING]]"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:171
+msgid "[[PDFORDERENUM]]"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:178
+msgid "[[PDFINVOICEDATEHEADING]]"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:185
+msgid "[[PDFINVOICEDATE]]"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:192
+msgid "[[PDFORDERDATEHEADING]]"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:199
+msgid "[[PDFORDERDATE]]"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:206
+msgid "[[PDFINVOICE_PAYMETHOD_HEADING]]"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:213
+msgid "[[PDFINVOICEPAYMENTMETHOD]]"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:220
+msgid "[[PDFINVOICE_SHIPMETHOD_HEADING]]"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:227
+msgid "[[PDFSHIPPINGMETHOD]]"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:234
+msgid "[[PDFINVOICE_BILLINGDETAILS_HEADING]]"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:241
+msgid "[[PDFBILLINGADDRESS]]"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:248
+msgid "[[PDFBILLINGTEL]]"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:255
+msgid "[[PDFBILLINGEMAIL]]"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:262
+msgid "[[PDFBILLINGVATNUMBER]]"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:269
+msgid "[[PDFINVOICE_SHIPPINGDETAILS_HEADING]]"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:276
+msgid "[[PDFSHIPPINGADDRESS]]"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:283
+msgid "[[PDFINVOICE_REGISTEREDNAME_HEADING]]"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:290
+msgid "[[PDFREGISTEREDNAME]]"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:297
+msgid "[[PDFINVOICE_REGISTEREDOFFICE_HEADING]]"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:304
+msgid "[[PDFREGISTEREDADDRESS]]"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:311
+msgid "[[PDFINVOICE_COMPANYNUMBER_HEADING]]"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:318
+msgid "[[PDFCOMPANYNUMBER]] "
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:325
+msgid "[[PDFINVOICE_VATNUMBER_HEADING]]"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:332
+msgid "[[PDFTAXNUMBER]]"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:339
+msgid "[[PDFINVOICE_ORDERDETAILS_HEADING]]"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:346
+msgid "[[PDFINVOICE_QTY_HEADING]]"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:353
+msgid "[[PDFINVOICE_PRODUCT_HEADING]]"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:360
+msgid "[[PDFINVOICE_PRICEEX_HEADING]]"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:367
+msgid "[[PDFINVOICE_TOTALEX_HEADING]]"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:374
+msgid "[[PDFINVOICE_TAX_HEADING]]"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:381
+msgid "[[PDFINVOICE_PRICEINC_HEADING]]"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:388
+msgid "[[PDFINVOICE_TOTALINC_HEADING]]"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:395
+msgid "[[ORDERINFO]]"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:402
+msgid "[[PDFBARCODES]]"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:409
+msgid "[[PDFORDERNOTES]]"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:416
+msgid "[[PDFORDERTOTALS]]"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:427
+msgid "Tag"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:428
+msgid "Description"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:429
+msgid "Default"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:430
+msgid "Filter"
+msgstr ""
+
+#: classes/class-pdf-template-editor.php:431
+msgid "Translatable?"
+msgstr ""
+
+#: lib/pdf_debugging.php:119
+msgid "Send test email with PDF attachment"
+msgstr ""
+
+#: lib/pdf_debugging.php:124
+msgid "Enter email address"
+msgstr ""
+
+#: lib/pdf_debugging.php:127
+msgid "Send test email with PDF Attachment"
+msgstr ""
+
+#: lib/pdf_debugging.php:133
+#: lib/pdf_debugging.php:141
+msgid "Create Invoices For Past Orders"
+msgstr ""
+
+#: lib/pdf_debugging.php:134
+msgid "This option will create invoices for any orders that are complete and don't have an invoice number. The process runs in the background and should take no more than 60 seconds to complete"
+msgstr ""
+
+#: lib/pdf_debugging.php:138
+msgid "Type 'confirm' to create invoices for past orders."
+msgstr ""
+
+#: lib/pdf_debugging.php:148
+msgid "Delete Invoice Information"
+msgstr ""
+
+#: lib/pdf_debugging.php:149
+msgid "This is an unrecoverable option, use with caution."
+msgstr ""
+
+#: lib/pdf_debugging.php:150
+msgid "You can delete the invoice information store in each order. The information can only be recovered using a backup of your database. USE WITH CAUTION!\""
+msgstr ""
+
+#: lib/pdf_debugging.php:154
+msgid "Type 'confirm' to confirm you understand that this will delete all of the invoice information stored in each order."
+msgstr ""
+
+#: lib/pdf_debugging.php:157
+msgid "Delete invoice information from orders and reset invoice numbers"
+msgstr ""
+
+#: templates/template.php:57
+msgid "Invoice No. :"
+msgstr ""
+
+#: templates/template.php:59
+msgid "Order No. :"
+msgstr ""
+
+#: templates/template.php:63
+msgid "Invoice Date :"
+msgstr ""
+
+#: templates/template.php:65
+msgid "Order Date :"
+msgstr ""
+
+#: templates/template.php:70
+msgid "Payment Method :"
+msgstr ""
+
+#: templates/template.php:72
+msgid "Shipping Method :"
+msgstr ""
+
+#: templates/template.php:93
+msgid "Registered Name : "
+msgstr ""
+
+#: templates/template.php:93
+msgid "Registered Office : "
+msgstr ""
+
+#: templates/template.php:94
+msgid "Company Number : "
+msgstr ""
+
+#: woocommerce-pdf-invoice.php:133
+msgid "Support"
+msgstr ""
+
+#: woocommerce-pdf-invoice.php:134
+msgid "Docs"
+msgstr ""
+
+#: woocommerce-pdf-invoice.php:253
+msgid "Invoice_Number"
+msgstr ""
+
+#: woocommerce-pdf-invoice.php:254
+msgid "Invoice_Date"
+msgstr ""

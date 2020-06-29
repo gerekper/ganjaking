@@ -1,0 +1,75 @@
+# Copyright (C) 2020 WooCommerce
+# This file is distributed under the same license as the WooCommerce Force Sells package.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Force Sells 1.1.24\n"
+"Report-Msgid-Bugs-To: "
+"https://wordpress.org/support/plugin/woocommerce-force-sells\n"
+"POT-Creation-Date: 2020-06-11 10:38:02+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: node-wp-i18n 1.2.3\n"
+
+#: woocommerce-force-sells.php:171
+msgid "Linked to"
+msgstr ""
+
+#: woocommerce-force-sells.php:219
+msgid "Force Sells"
+msgstr ""
+
+#: woocommerce-force-sells.php:225 woocommerce-force-sells.php:239
+#: woocommerce-force-sells.php:264 woocommerce-force-sells.php:278
+msgid "Search for a product&hellip;"
+msgstr ""
+
+#: woocommerce-force-sells.php:255
+msgid ""
+"These products will be added to the cart when the main product is added. "
+"Quantity will not be synced in case the main product quantity changes."
+msgstr ""
+
+#: woocommerce-force-sells.php:258
+msgid "Synced Force Sells"
+msgstr ""
+
+#: woocommerce-force-sells.php:295
+msgid ""
+"These products will be added to the cart when the main product is added and "
+"quantity will be synced in case the main product quantity changes."
+msgstr ""
+
+#: woocommerce-force-sells.php:355
+msgid "This will also add the following products to your cart:"
+msgstr ""
+
+#: woocommerce-force-sells.php:416
+#. translators: %s: Product title
+msgid "%s will also be removed as they're sold together."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce Force Sells"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://woocommerce.com/products/force-sells/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Allows you to select products which will be used as force-sells - items "
+"which get added to the cart along with other items."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "WooCommerce"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://woocommerce.com"
+msgstr ""

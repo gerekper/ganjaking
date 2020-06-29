@@ -1,0 +1,287 @@
+*** WooCommerce Social Login Changelog ***
+
+2020.06.23 - version 2.8.8
+ * Fix - Fix an error trying to login using VK provider
+ * Misc - Update HybridAuth to version 2.17
+
+2020.05.04 - version 2.8.7
+ * Misc - Add support for WooCommerce 4.1
+
+2020.03.10 - version 2.8.6
+ * Misc - Add support for WooCommerce 4.0
+ * Localization - Update Italian translation
+
+2020.01.02 - version 2.8.5
+ * Misc - Add support for WooCommerce 3.9
+
+2019.12.05 - version 2.8.4
+ * Misc - Add a warning that the Instagram integration will be retired in early 2020
+ * Misc - The Instagram integration is no longer available for new installs
+
+2019.11.05 - version 2.8.3
+ * Misc - Add support for WooCommerce 3.8
+
+2019.10.10 - version 2.8.2
+ * Fix - Fix text domain and MC ref param in setup wizard
+ * Fix - Ensure VK provider is able to work with VK API v5
+ * Misc - Update HybridAuth to version 2.16
+
+2019.09.04 - version 2.8.1
+ * Fix - Avoid throwing an error, in certain cases, when setting a profile image avatar
+
+2019.08.07 - version 2.8.0
+ * Misc - Add support for WooCommerce 3.7
+ * Misc - Remove support for WooCommerce 2.6
+ * Misc - Require PHP 5.6+
+
+2019.07.31 - version 2.7.0
+ * Feature - Add a Setup Wizard to configure and get the plugin ready upon installation
+
+2019.06.05 - version 2.6.5
+ * Fix - Address an issue with Facebook or Google login affecting some installations
+ * Misc - Use Facebook Graph API v2.12
+
+2019.05.07 - version 2.6.4
+ * Tweak - Add support for LinkedIn API v2
+ * Fix - Handle properly OAuth requests errors
+ * Fix - Add missing options key for WPML translation
+ * Fix - Do not display admin notices for lack of SSL support on newer WooCommerce versions running on HTTPS
+ * Dev - Filter the callback URL format
+ * Misc - Upgrade HybridAuth authentication library to v2.14.0
+
+2019.04.03 - version 2.6.3
+ * Misc - Add support for WooCommerce 3.6
+ * Misc - Require PHP 5.4+
+
+2018.12.12 - version 2.6.2
+ * Fix - As PayPal may not allow sharing users email addresses without approval, do not require email for new installations and let users that sign in with PayPal provide one manually instead
+ * Dev - Add filter hook to alter the request scope of PayPal profile fields and add more fields
+ * Dev - Remove SkyVerge Framework methods from template files for better backwards compatibility
+
+2018.10.24 - version 2.6.1
+ * Dev - Add filter to toggle loading of frontend scripts in the footer instead of head of the document page
+ * Misc - Add support for WooCommerce 3.5
+
+2018.08.22 - version 2.6.0
+ * Tweak - Allow getting the user email address when signing up using a Twitter account (requires additional permissions)
+ * Tweak - Update the Twitter callback URL example for Twitter's new app requirements
+ * Misc - Drop support for PHP 5.2: PHP 5.3 is now the minimum supported version
+ * Misc - Upgrade HybridAuth authentication library to v2.11.0
+
+2018.07.18 - version 2.5.3
+ * Fix - Ensure users are able to log in via VK without errors
+ * Fix - Additional fix for users registering in with non-ASCII usernames
+ * Fix - Ensure callback/redirect URIs displayed in the admin in sites that use SSL are prepended with HTTPS rather than HTTP by default
+ * Localization - Added Japanese translation provided by Hiro.M
+ * Localization - Updated Italian translation
+
+2018.05.29 - version 2.5.2
+ * Fix - When a user tries to register a user name made of encoded characters only, to avoid WordPress stripping those and prompting an empty name error, set a numerical user name instead
+
+2018.05.23 - version 2.5.1
+ * Tweak - Erase Social Login linked accounts information when a user requests to erase their personal data
+ * Fix - Fix an error which occurs when used with WooCommerce Memberships
+ * Misc - Add support for WooCommerce 3.4
+
+2018.05.09 - version 2.5.0
+ * Feature - Add support for WooCommerce Memberships to add Social Login buttons to restriction messages for logged out users
+ * Misc - Warn admins if a caching issue may be affecting Social Login authentication making customers unable to link their accounts and log in
+
+2018.02.28 - version 2.4.1
+ * Tweak - Add a setting and admin notice for Facebook's upcoming Redirect URI requirements
+
+2018.01.23 - version 2.4.0
+ * Misc - Add support for WooCommerce 3.3
+ * Misc - Remove support for WooCommerce 2.5
+
+2018.01.10 - version 2.3.4
+ * Tweak - Clear HybridAuth session once user is logged in to add another layer of security on hosts with misconfigured session caching
+
+2017.11.15 - version 2.3.3
+ * Fix - Ensure ampersands in return URLs are not incorrectly escaped before redirecting to the return URL
+
+2017.09.06 - version 2.3.2
+ * Misc - Added support for WooCommerce One Page Checkout plugin
+
+2017.07.06 - version 2.3.1
+ * Fix - Fix a CSRF issue when setting a missing email address in some cases
+
+2017.06.13 - version 2.3.0
+ * Feature - Option to display login buttons in Product Reviews Pro forms
+ * Tweak - Ensure an admin notice is displayed if cURL isn't enabled
+ * Misc - Update SkyVerge plugin framework
+
+2017.05.23 - version 2.2.1
+ * Fix - Social Login providers settings could not be saved or updated
+
+2017.05.17 - version 2.2.0
+ * Fix - Some provider-specific settings were not being shown in admin
+ * Fix - Ensure HybridAuth logs out from all providers when WP session is terminated
+ * Misc - Upgraded HybridAuth authentication library to v2.9.4
+ * Misc - Fire wp_login action when logging in via Social Login
+
+2017.03.28 - version 2.1.0
+ * Fix - Ensure styles & scripts are loaded where needed when "WooCommerce" string is translated
+ * Misc - Added support for WooCommerce 3.0
+ * Misc - Removed support for WooCommerce 2.4
+
+2016.12.29 - version 2.0.4
+ * Fix - Make sure provider notices text can handle translations correctly
+ * Localization - Updated Italian translation
+
+2016.12.14 - version 2.0.3
+ * Fix - Issue with account linking when using PayPal login
+
+2016.11.23 - version 2.0.2
+ * Fix - Fix login issues on subdirectory installs
+
+2016.11.15 - version 2.0.1
+ * Fix - Update PHP error for sites using PHP 5.2, 5.3
+
+2016.11.09 - version 2.0.0
+ * Tweak - "Reset password" fields are now hidden when a customer is prompted for an email while linking Twitter / Instagram
+ * Tweak - User is not prompted for an email while linking Twitter / Instagram if they were on the checkout page
+ * Tweak - Widgets will now show buttons to link an account if a user is already logged in
+ * Misc - Update login button styling to reflect newer guidelines
+ * Misc - Use Facebook Graph API v 2.8
+ * Misc - Switched to HybridAuth as the base authentication library
+ * Fix - French translation was corrupted
+ * Fix - Amazon attempts to complete the customer's first / last name from the returned display name
+ * Fix - "Please provide your email address" message is not shown anymore after user already provided it
+
+2016.06.02 - version 1.8.0
+ * Misc - Added support for WooCommerce 2.6
+ * Misc - Removed support for WooCommerce 2.3
+
+2016.05.19 - version 1.7.6
+ * Fix - Properly include and verify the state parameter in OAuth requests to prevent CSRF login attacks
+ * Fix - Fix a CSRF issue with the "Unlink Social Account" action
+
+2016.05.18 - version 1.7.5
+ * Fix - Fix open redirect issue with login redirect URLs
+
+2016.03.30 - version 1.7.4
+ * Tweak - The linked profiles table on the My Account page now looks better on mobile :)
+ * Fix - Don't display the "Link Your Account" notice on Thank You page for logged out users
+
+2016.03.15 - version 1.7.3
+ * Fix - When using the option `Display "Link Your Account" button on Thank You page`, the notice won't be shown to logged in users who already have a linked account
+
+2016.01.26 - version 1.7.2
+ * Fix - Ensure users with restricted roles can always link accounts when logged in
+ * Fix - Ensure users can link multiple accounts on the My Account page
+
+2016.01.20 - version 1.7.1
+ * Fix - An update in 1.7.0 caused some settings to disappear from the settings page, now restored
+
+2016.01.14 - version 1.7.0
+ * Misc - Added support for WooCommerce 2.5
+ * Misc - Removed support for WooCommerce 2.2
+ * Misc - Improved compatibility with multi-language/translation plugins
+
+2015.10.20 - version 1.6.0
+ * Feature - Add Disqus provider
+ * Feature - Add VK (Vkontakte) provider
+ * Feature - Add Yahoo provider
+ * Tweak - Detect and disable conflicting iThemes Security "filter long URLs" setting
+ * Tweak - Ensure replaced avatars are fully responsive
+ * Tweak - Namespace Opauth library files to avoid conflicts with other integrations
+ * Tweak - Use My Account page as default return URL for the [woocommerce_social_login_buttons] shortcode
+ * Fix - Better error handling on log-in/sign-up
+ * Fix - Ensure profile image is replaced when a profile is unlinked
+ * Fix - Only link a new profile found via email if the account has the Subscriber or Customer role
+
+2015.07.28 - version 1.5.0
+ * Misc - WooCommerce 2.4 Compatibility
+
+2015.07.20 - version 1.4.3
+ * Fix - Fix issue with logging in with Facebook for recently created apps, props Poyu Chen
+
+2015.06.11 - version 1.4.2
+ * Fix - Fix potential object injection in Opauth library
+ * Fix - Use `wc_set_customer_auth_cookie()` to ensure the same user experience when customers login via a social provider
+ * Tweak - Introduce the `wc_social_login_set_auth_cookie` filter
+ * Localization - Added French translation provided by Mathieu Racine (mathieu@racine.ws)
+ * Localization - Added Finnish translation provided by Juho Tikkanen
+
+2015.03.26 - version 1.4.1
+ * Fix - Don't override the avatar icons on the Settings > Discussion screen
+ * Fix - Fix fatal error "Cannot redeclare class tmhoauth"
+ * Tweak - Added a new option to force SSL callback URLs
+
+2015.02.09 - version 1.4.0
+ * Misc - WooCommerce 2.3 Compatibility
+ * Localization - Add wpml-config.xml file allowing you to translate option texts
+ * Localization - Added Italian translation by DOT agency (https://dot-agency.it)
+
+2015.01.20 - version 1.3.2
+ * Fix - Ensure is widget is properly registered
+ * Localization - Added Danish translation by Martin Hansen
+
+2014.12.08 - version 1.3.1
+ * Fix - Ensure text domain is loaded before all translatable string function calls
+
+2014.11.18 - version 1.3.0
+ * Feature - The linked social profiles are now displayed on the user's WordPress profile
+ * Feature - Added "Social Profiles" column to the admin manage users screen
+ * Tweak - Added 'wc_social_login_opauth_config' filter
+
+2014.10.21 - version 1.2.1
+ * Tweak - Tweaked styling of social buttons to be compatible with more themes
+ * Fix - Make Amazon available even if Force SSL is not enabled
+
+2014.10.06 - version 1.2.0
+ * Feature - Redirect and prompt user to enter their email address if one was not provided by the social login provider
+ * Feature - Linked accounts table on My Account page is now responsive :)
+ * Tweak - Load larger profile image sizes
+ * Tweak - Added optional $return_url parameter to woocommerce_social_login_link_account_buttons() template function
+ * Tweak - Added a more descriptive error notice when linking an account whose email matches an existing account
+ * Fix - Fix mixed content warnings by loading profile images over HTTPS for sites using SSL
+ * Fix - Properly redirect the user to the return URL set in the widget or shortcode
+
+2014.09.09 - version 1.1.2
+ * Tweak - Fix styling of social buttons in certain themes
+
+2014.09.09 - version 1.1.1
+ * Fix - Fix 'access denied' error when logging in with Twitter
+ * Fix - Fix PHP warning on checkout page
+
+2014.09.07 - version 1.1.0
+ * Feature - Add LinkedIn provider
+ * Feature - Add PayPal provider
+ * Feature - Add Instagram provider
+ * Feature - Add social login buttons to Sensei login form
+ * Feature - Option to show 'Link Account' buttons on Thank You page
+ * Feature - Use the user's profile picture as their avatar
+ * Tweak - Get user's name from Twitter
+ * Fix - New account emails are now sent when a new customer registers via a social provider
+ * Fix - A number of provider fixes for various hosting environments
+ * Fix - Use the 'Social Login Display Text' setting value in the global template
+ * Misc - Swap out JustVector for Zocial icons
+ * Misc - 117% more awesomeness than prior version
+ * Misc - WooCommerce 2.2 Compatibility
+
+2014.08.22 - version 1.0.6
+ * Fix - Fix a styling issue with some themes
+ * Fix - Fix issues with Amazon login in certain environments
+
+2014.08.19 - version 1.0.5
+ * Fix - Fix another issue with sites installed in subdirectories
+
+2014.08.14 - version 1.0.4
+ * Tweak - Improve hiding/showing of social login form on checkout
+ * Tweak - Don't display social buttons via the shortcode or widget when the user is logged in
+ * Fix - Fix issues with sites installed in subdirectories
+
+2014.08.13 - version 1.0.3
+ * Fix - Fix error in environments with case-sensitive filenames
+
+2014.08.12 - version 1.0.2
+ * Fix - Really fix error with PHP 5.2 environments
+
+2014.08.12 - version 1.0.1
+ * Tweak - Improve layout when using shortcode
+ * Fix - Fix error with PHP 5.2 environments
+
+2014.08.12 - version 1.0
+ * Initial Release :)

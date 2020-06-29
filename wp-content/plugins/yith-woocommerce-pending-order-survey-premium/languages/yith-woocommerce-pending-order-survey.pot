@@ -1,0 +1,836 @@
+# Copyright (C) 2020 YITH
+# This file is distributed under the same license as the YITH WooCommerce Pending Order Survey Premium package.
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH WooCommerce Pending Order Survey Premium 1.0.17\n"
+"Report-Msgid-Bugs-To: "
+"https://wordpress.org/support/plugin/yith-woocommerce-pending-order-survey-"
+"premium\n"
+"POT-Creation-Date: 2020-05-28 13:55:50+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: grunt-wp-i18n 1.0.3\n"
+
+#: includes/admin/tinymce/tinymce-plugin-langs.php:12
+msgid "User's first Name"
+msgstr ""
+
+#: includes/admin/tinymce/tinymce-plugin-langs.php:13
+msgid "User's last Name"
+msgstr ""
+
+#: includes/admin/tinymce/tinymce-plugin-langs.php:14
+msgid "Full Name"
+msgstr ""
+
+#: includes/admin/tinymce/tinymce-plugin-langs.php:15
+msgid "User's email address"
+msgstr ""
+
+#: includes/admin/tinymce/tinymce-plugin-langs.php:16
+msgid "Order Content"
+msgstr ""
+
+#: includes/admin/tinymce/tinymce-plugin-langs.php:17
+msgid "Order Link"
+msgstr ""
+
+#: includes/admin/tinymce/tinymce-plugin-langs.php:18
+#: includes/classes/class.yith-wcpos-survey.php:227
+msgid "Pending Order"
+msgstr ""
+
+#: includes/admin/tinymce/tinymce-plugin-langs.php:19
+#: templates/admin/lightbox.php:131
+msgid "Pending Survey"
+msgstr ""
+
+#: includes/admin/tinymce/tinymce-plugin-langs.php:20
+#: templates/admin/lightbox.php:122
+msgid "Coupon"
+msgstr ""
+
+#: includes/classes/class.yith-wcpos-export.php:25
+msgid "Id"
+msgstr ""
+
+#: includes/classes/class.yith-wcpos-export.php:26
+msgid "Survey Title"
+msgstr ""
+
+#: includes/classes/class.yith-wcpos-export.php:27
+msgid "Questions"
+msgstr ""
+
+#: includes/classes/class.yith-wcpos-export.php:28
+msgid "Answer"
+msgstr ""
+
+#: includes/classes/class.yith-wcpos-export.php:31
+msgid "No Answers for this Survey"
+msgstr ""
+
+#: includes/classes/class.yith-wcpos-survey-cron.php:50
+msgid "YITH WooCommerce Pending Order Survey Cron"
+msgstr ""
+
+#: includes/classes/class.yith-wcpos-survey.php:224
+msgid "General Settings"
+msgstr ""
+
+#: includes/classes/class.yith-wcpos-survey.php:225
+msgid "Survey"
+msgstr ""
+
+#: includes/classes/class.yith-wcpos-survey.php:226
+msgid "Email"
+msgstr ""
+
+#: includes/classes/class.yith-wcpos-survey.php:228
+msgid "Recover Order"
+msgstr ""
+
+#: includes/classes/class.yith-wcpos-survey.php:229
+msgid "Report"
+msgstr ""
+
+#: includes/classes/class.yith-wcpos-survey.php:230
+msgid "Account & Privacy"
+msgstr ""
+
+#: includes/classes/class.yith-wcpos-survey.php:238
+#: includes/post_type/class.yith-wcpos-survey-post-type.php:161
+#: templates/admin/pending-survey-tab.php:8
+msgid "Pending Order Survey"
+msgstr ""
+
+#: includes/classes/class.yith-wcpos-survey.php:335
+msgid "Close"
+msgstr ""
+
+#: includes/classes/class.yith-wcpos-survey.php:479
+msgid "Add new field"
+msgstr ""
+
+#: includes/emails/class.yith-wcpos-pending-order-email.php:33
+msgid "Pending Order Survey Email"
+msgstr ""
+
+#: includes/emails/class.yith-wcpos-pending-order-email.php:34
+msgid ""
+"This is the email sent by admin to the customer using YITH WooCommerce "
+"Pending Order Survey"
+msgstr ""
+
+#: includes/emails/class.yith-wcpos-pending-order-thanks-email.php:31
+#: includes/emails/class.yith-wcpos-pending-order-thanks-email.php:124
+#: plugin-options/pending-email-thanks-options.php:5
+msgid "Thanks for your feedback!"
+msgstr ""
+
+#: includes/emails/class.yith-wcpos-pending-order-thanks-email.php:33
+#: includes/emails/class.yith-wcpos-pending-order-thanks-email.php:126
+#: plugin-options/pending-email-thanks-options.php:7
+msgid "Dear"
+msgstr ""
+
+#: includes/emails/class.yith-wcpos-pending-order-thanks-email.php:34
+#: includes/emails/class.yith-wcpos-pending-order-thanks-email.php:127
+#: plugin-options/pending-email-thanks-options.php:8
+msgid "thanks for answering this survey"
+msgstr ""
+
+#: includes/emails/class.yith-wcpos-pending-order-thanks-email.php:35
+#: includes/emails/class.yith-wcpos-pending-order-thanks-email.php:128
+#: plugin-options/pending-email-thanks-options.php:9
+msgid "and for your precious time"
+msgstr ""
+
+#: includes/emails/class.yith-wcpos-pending-order-thanks-email.php:36
+#: includes/emails/class.yith-wcpos-pending-order-thanks-email.php:129
+#: plugin-options/pending-email-thanks-options.php:10
+msgid "This information is very important for us"
+msgstr ""
+
+#: includes/emails/class.yith-wcpos-pending-order-thanks-email.php:37
+#: includes/emails/class.yith-wcpos-pending-order-thanks-email.php:130
+#: plugin-options/pending-email-thanks-options.php:11
+msgid "Best regards"
+msgstr ""
+
+#: includes/emails/class.yith-wcpos-pending-order-thanks-email.php:42
+#: plugin-options/general-settings-options.php:70
+msgid "Thank-you email"
+msgstr ""
+
+#: includes/emails/class.yith-wcpos-pending-order-thanks-email.php:43
+msgid "This is the email a customer receives after answering a survey"
+msgstr ""
+
+#: includes/emails/class.yith-wcpos-pending-order-thanks-email.php:97
+msgid "User"
+msgstr ""
+
+#: includes/emails/class.yith-wcpos-pending-order-thanks-email.php:134
+#: plugin-options/pending-email-thanks-options.php:15
+msgid "You can use these placeholders"
+msgstr ""
+
+#: includes/emails/class.yith-wcpos-pending-order-thanks-email.php:135
+#: plugin-options/pending-email-thanks-options.php:16
+msgid "{site_title} replaced with site title"
+msgstr ""
+
+#: includes/emails/class.yith-wcpos-pending-order-thanks-email.php:136
+#: plugin-options/pending-email-thanks-options.php:17
+msgid "{survey} replaced with survey details"
+msgstr ""
+
+#: includes/emails/class.yith-wcpos-pending-order-thanks-email.php:137
+msgid "{customer_name} replaced with customer's name"
+msgstr ""
+
+#: includes/emails/class.yith-wcpos-pending-order-thanks-email.php:138
+#: plugin-options/pending-email-thanks-options.php:19
+msgid "{customer_email} replaced with customer's email address"
+msgstr ""
+
+#: includes/emails/class.yith-wcpos-pending-order-thanks-email.php:139
+msgid "{order_content} replaced with order"
+msgstr ""
+
+#: includes/emails/class.yith-wcpos-pending-order-thanks-email.php:144
+#: plugin-options/pending-email-thanks-options.php:45
+msgid "Email Subject"
+msgstr ""
+
+#: includes/emails/class.yith-wcpos-pending-order-thanks-email.php:146
+#: includes/emails/class.yith-wcpos-pending-order-thanks-email.php:153
+msgid "Defaults to <code>%s</code>"
+msgstr ""
+
+#: includes/emails/class.yith-wcpos-pending-order-thanks-email.php:151
+msgid "Email Heading"
+msgstr ""
+
+#: includes/emails/class.yith-wcpos-pending-order-thanks-email.php:158
+msgid "Custom Message"
+msgstr ""
+
+#: includes/post_type/class.yith-wcpos-survey-email-type.php:171
+msgid "Email Template"
+msgstr ""
+
+#: includes/post_type/class.yith-wcpos-survey-email-type.php:172
+#: includes/post_type/class.yith-wcpos-survey-post-type.php:162
+msgid "Parent Item:"
+msgstr ""
+
+#: includes/post_type/class.yith-wcpos-survey-email-type.php:173
+msgid "All Email Templates"
+msgstr ""
+
+#: includes/post_type/class.yith-wcpos-survey-email-type.php:174
+msgid "View Email Templates"
+msgstr ""
+
+#: includes/post_type/class.yith-wcpos-survey-email-type.php:175
+#: includes/post_type/class.yith-wcpos-survey-email-type.php:176
+msgid "Add New Email Template"
+msgstr ""
+
+#: includes/post_type/class.yith-wcpos-survey-email-type.php:177
+msgid "Edit Email Template"
+msgstr ""
+
+#: includes/post_type/class.yith-wcpos-survey-email-type.php:178
+msgid "Update Email Template"
+msgstr ""
+
+#: includes/post_type/class.yith-wcpos-survey-email-type.php:179
+msgid "Search Email Template"
+msgstr ""
+
+#: includes/post_type/class.yith-wcpos-survey-email-type.php:180
+msgid "Not found"
+msgstr ""
+
+#: includes/post_type/class.yith-wcpos-survey-email-type.php:181
+msgid "Not found in Trash"
+msgstr ""
+
+#: includes/post_type/class.yith-wcpos-survey-email-type.php:203
+#: includes/post_type/class.yith-wcpos-survey-email-type.php:206
+#: includes/post_type/class.yith-wcpos-survey-post-type.php:191
+#: includes/post_type/class.yith-wcpos-survey-post-type.php:194
+msgid "%s updated"
+msgstr ""
+
+#: includes/post_type/class.yith-wcpos-survey-email-type.php:204
+#: includes/post_type/class.yith-wcpos-survey-post-type.php:192
+msgid "Custom field updated"
+msgstr ""
+
+#: includes/post_type/class.yith-wcpos-survey-email-type.php:205
+#: includes/post_type/class.yith-wcpos-survey-post-type.php:193
+msgid "Custom field deleted"
+msgstr ""
+
+#: includes/post_type/class.yith-wcpos-survey-email-type.php:207
+msgid "Email template restored to version %s"
+msgstr ""
+
+#: includes/post_type/class.yith-wcpos-survey-email-type.php:209
+#: includes/post_type/class.yith-wcpos-survey-post-type.php:196
+msgid "%s published"
+msgstr ""
+
+#: includes/post_type/class.yith-wcpos-survey-email-type.php:210
+#: includes/post_type/class.yith-wcpos-survey-post-type.php:197
+msgid "%s saved"
+msgstr ""
+
+#: includes/post_type/class.yith-wcpos-survey-email-type.php:211
+#: includes/post_type/class.yith-wcpos-survey-post-type.php:198
+msgid "%s submitted"
+msgstr ""
+
+#: includes/post_type/class.yith-wcpos-survey-email-type.php:212
+#: includes/post_type/class.yith-wcpos-survey-post-type.php:199
+msgid "%s"
+msgstr ""
+
+#: includes/post_type/class.yith-wcpos-survey-email-type.php:213
+#: includes/post_type/class.yith-wcpos-survey-post-type.php:200
+msgid "%s draft updated"
+msgstr ""
+
+#: includes/post_type/class.yith-wcpos-survey-post-type.php:75
+msgid "YITH WooCommerce Pending Order Survey"
+msgstr ""
+
+#: includes/post_type/class.yith-wcpos-survey-post-type.php:163
+msgid "All Pending Order Surveys"
+msgstr ""
+
+#: includes/post_type/class.yith-wcpos-survey-post-type.php:164
+msgid "View Pending Order Survey"
+msgstr ""
+
+#: includes/post_type/class.yith-wcpos-survey-post-type.php:165
+#: includes/post_type/class.yith-wcpos-survey-post-type.php:166
+msgid "Add New Pending Order Survey"
+msgstr ""
+
+#: includes/post_type/class.yith-wcpos-survey-post-type.php:167
+msgid "Edit Pending Order Survey"
+msgstr ""
+
+#: includes/post_type/class.yith-wcpos-survey-post-type.php:168
+msgid "Update Pending Order Survey"
+msgstr ""
+
+#: includes/post_type/class.yith-wcpos-survey-post-type.php:169
+msgid "Search Pending Order Survey"
+msgstr ""
+
+#: includes/post_type/class.yith-wcpos-survey-post-type.php:170
+msgid "No Pending Order Survey found"
+msgstr ""
+
+#: includes/post_type/class.yith-wcpos-survey-post-type.php:171
+msgid "No Pending Order Survey found in Trash"
+msgstr ""
+
+#: includes/post_type/class.yith-wcpos-survey-post-type.php:195
+msgid "Survey restored to version %s"
+msgstr ""
+
+#: includes/tables/class.yith-wcpos-pending-order-table.php:29
+#: includes/tables/class.yith-wcpos-recovered-order-table.php:29
+msgid "Order"
+msgstr ""
+
+#: includes/tables/class.yith-wcpos-pending-order-table.php:30
+#: includes/tables/class.yith-wcpos-recovered-order-table.php:30
+msgid "Order Total"
+msgstr ""
+
+#: includes/tables/class.yith-wcpos-pending-order-table.php:31
+msgid "Pending order"
+msgstr ""
+
+#: includes/tables/class.yith-wcpos-pending-order-table.php:32
+msgid "Send Email"
+msgstr ""
+
+#: includes/tables/class.yith-wcpos-pending-order-table.php:52
+#: includes/tables/class.yith-wcpos-recovered-order-table.php:50
+msgid "View Order"
+msgstr ""
+
+#: includes/tables/class.yith-wcpos-pending-order-table.php:67
+msgid "Guest"
+msgstr ""
+
+#: includes/tables/class.yith-wcpos-pending-order-table.php:84
+#: includes/tables/class.yith-wcpos-recovered-order-table.php:77
+msgid "Via"
+msgstr ""
+
+#: includes/tables/class.yith-wcpos-pending-order-table.php:95
+msgid "Pending for"
+msgstr ""
+
+#: includes/tables/class.yith-wcpos-pending-order-table.php:108
+msgid "Send email"
+msgstr ""
+
+#: includes/tables/class.yith-wcpos-pending-order-table.php:111
+msgid "Add a new email template"
+msgstr ""
+
+#: includes/tables/class.yith-wcpos-pending-survey-email-table.php:38
+#: includes/tables/class.yith-wcpos-pending-survey-table.php:38
+msgid "Title"
+msgstr ""
+
+#: includes/tables/class.yith-wcpos-pending-survey-email-table.php:39
+msgid "Send After"
+msgstr ""
+
+#: includes/tables/class.yith-wcpos-pending-survey-email-table.php:40
+msgid "Status"
+msgstr ""
+
+#: includes/tables/class.yith-wcpos-pending-survey-email-table.php:41
+#: includes/tables/class.yith-wcpos-pending-survey-table.php:39
+msgid "Author"
+msgstr ""
+
+#: includes/tables/class.yith-wcpos-pending-survey-email-table.php:42
+#: includes/tables/class.yith-wcpos-pending-survey-table.php:41
+msgid "Date"
+msgstr ""
+
+#: includes/tables/class.yith-wcpos-pending-survey-email-table.php:66
+#: includes/tables/class.yith-wcpos-pending-survey-email-table.php:70
+#: includes/tables/class.yith-wcpos-pending-survey-table.php:66
+#: includes/tables/class.yith-wcpos-pending-survey-table.php:69
+msgid "Edit"
+msgstr ""
+
+#: includes/tables/class.yith-wcpos-pending-survey-email-table.php:67
+#: includes/tables/class.yith-wcpos-pending-survey-email-table.php:151
+#: includes/tables/class.yith-wcpos-pending-survey-table.php:123
+msgid "Delete"
+msgstr ""
+
+#: includes/tables/class.yith-wcpos-pending-survey-table.php:40
+msgid "Number of surveys responded"
+msgstr ""
+
+#: init.php:35
+msgid ""
+"YITH WooCommerce Pending Order Survey is enabled but not effective. It "
+"requires WooCommerce in order to work."
+msgstr ""
+
+#: plugin-options/general-settings-options.php:13
+msgid "Send an email to users who have answered the survey"
+msgstr ""
+
+#: plugin-options/general-settings-options.php:14
+msgid "Click here to customize email content"
+msgstr ""
+
+#: plugin-options/general-settings-options.php:20
+msgid "Pending Order Settings"
+msgstr ""
+
+#: plugin-options/general-settings-options.php:25
+msgid "Mark \"Pending Order\" as \"Survey Pending Order\""
+msgstr ""
+
+#: plugin-options/general-settings-options.php:32
+msgid "in minutes"
+msgstr ""
+
+#: plugin-options/general-settings-options.php:35
+msgid "Cut-off time type for pending order"
+msgstr ""
+
+#: plugin-options/general-settings-options.php:37
+msgid "Unit of time"
+msgstr ""
+
+#: plugin-options/general-settings-options.php:39
+msgid "Minutes"
+msgstr ""
+
+#: plugin-options/general-settings-options.php:40
+msgid "Hours"
+msgstr ""
+
+#: plugin-options/general-settings-options.php:41
+msgid "Days"
+msgstr ""
+
+#: plugin-options/general-settings-options.php:47
+msgid "Cut-off time value for pending order"
+msgstr ""
+
+#: plugin-options/general-settings-options.php:48
+msgid ""
+"Process pending orders as cancelled after current time. When this limit is "
+"reached, the pending order will be\n"
+"            cancelled. Leave blank to disable."
+msgstr ""
+
+#: plugin-options/general-settings-options.php:64
+msgid "Admin email settings"
+msgstr ""
+
+#: plugin-options/general-settings-options.php:83
+msgid "User email settings"
+msgstr ""
+
+#: plugin-options/general-settings-options.php:89
+msgid "Email sender name"
+msgstr ""
+
+#: plugin-options/general-settings-options.php:97
+msgid "Email sender"
+msgstr ""
+
+#: plugin-options/general-settings-options.php:105
+msgid "Reply to:"
+msgstr ""
+
+#: plugin-options/general-settings-options.php:117
+#: templates/metaboxes/pending-survey-coupon-email-metaboxes-options.php:9
+msgid "Coupon settings"
+msgstr ""
+
+#: plugin-options/general-settings-options.php:122
+msgid "Coupon prefix"
+msgstr ""
+
+#: plugin-options/general-settings-options.php:123
+msgid "Add a 3-character prefix in coupon codes"
+msgstr ""
+
+#: plugin-options/pending-email-thanks-options.php:18
+msgid "{customer_name} replaced with with customer's name"
+msgstr ""
+
+#: plugin-options/pending-email-thanks-options.php:27
+msgid "Email Settings"
+msgstr ""
+
+#: plugin-options/pending-email-thanks-options.php:33
+msgid "Email Type"
+msgstr ""
+
+#: plugin-options/pending-email-thanks-options.php:36
+msgid "HTML"
+msgstr ""
+
+#: plugin-options/pending-email-thanks-options.php:37
+msgid "Plain Text"
+msgstr ""
+
+#: plugin-options/pending-email-thanks-options.php:55
+msgid "Email Content"
+msgstr ""
+
+#: plugin-options/pending-email-thanks-options.php:77
+msgid "Enable/Disable"
+msgstr ""
+
+#: plugin-options/privacy-settings-options.php:11
+msgid "Privacy Settings"
+msgstr ""
+
+#: plugin-options/privacy-settings-options.php:16
+msgid "GDPR compliance"
+msgstr ""
+
+#: plugin-options/privacy-settings-options.php:20
+msgid ""
+"If checked, you will allow customers to choose whether they want to receive "
+"a email for the concerned order"
+msgstr ""
+
+#: plugin-options/privacy-settings-options.php:25
+msgid "Description"
+msgstr ""
+
+#: plugin-options/privacy-settings-options.php:29
+msgid "This description will be displayed next to the checkbox"
+msgstr ""
+
+#: plugin-options/privacy-settings-options.php:35
+msgid "Yes, I want to receive emails for this order"
+msgstr ""
+
+#: templates/admin/lightbox.php:35
+msgid "Add shortcode"
+msgstr ""
+
+#: templates/admin/lightbox.php:116
+msgid "User' first Name"
+msgstr ""
+
+#: templates/admin/lightbox.php:117
+msgid "User' last Name"
+msgstr ""
+
+#: templates/admin/lightbox.php:118
+msgid "Full name"
+msgstr ""
+
+#: templates/admin/lightbox.php:119
+msgid "User 's email address"
+msgstr ""
+
+#: templates/admin/lightbox.php:120
+msgid "Cart content"
+msgstr ""
+
+#: templates/admin/lightbox.php:121
+msgid "Cart link"
+msgstr ""
+
+#: templates/admin/pending-reports-tab.php:14
+#: templates/metaboxes/pending-survey-email-report-metaboxes-options.php:16
+#: templates/metaboxes/pending-survey-report-metaboxes-options.php:16
+msgid "Reports"
+msgstr ""
+
+#: templates/admin/pending-reports-tab.php:22
+#: templates/admin/pending-survey-order-tab.php:9
+msgid "Pending orders"
+msgstr ""
+
+#: templates/admin/pending-reports-tab.php:27
+msgid "Emails sent"
+msgstr ""
+
+#: templates/admin/pending-reports-tab.php:33
+#: templates/admin/pending-survey-order-recovered-tab.php:9
+#: templates/metaboxes/types/pending_survey_email_report.php:27
+msgid "Recovered orders"
+msgstr ""
+
+#: templates/admin/pending-reports-tab.php:38
+#: templates/metaboxes/types/pending_survey_email_report.php:31
+msgid "Conversion rate"
+msgstr ""
+
+#: templates/admin/pending-survey-email-tab.php:9
+msgid "Email templates"
+msgstr ""
+
+#: templates/admin/pending-survey-tab.php:38
+msgid "Export results"
+msgstr ""
+
+#: templates/answers/single-textarea-answer.php:8
+msgid "Enter your answer here"
+msgstr ""
+
+#: templates/content-single-pending-survey.php:23
+msgid "Send Survey"
+msgstr ""
+
+#: templates/metaboxes/pending-survey-coupon-email-metaboxes-options.php:16
+msgid "Coupons"
+msgstr ""
+
+#: templates/metaboxes/pending-survey-coupon-email-metaboxes-options.php:19
+msgid "Coupon value"
+msgstr ""
+
+#: templates/metaboxes/pending-survey-coupon-email-metaboxes-options.php:25
+msgid "Coupon type"
+msgstr ""
+
+#: templates/metaboxes/pending-survey-coupon-email-metaboxes-options.php:29
+msgid "Percentage"
+msgstr ""
+
+#: templates/metaboxes/pending-survey-coupon-email-metaboxes-options.php:30
+msgid "Amount"
+msgstr ""
+
+#: templates/metaboxes/pending-survey-coupon-email-metaboxes-options.php:35
+msgid "Validity in days"
+msgstr ""
+
+#: templates/metaboxes/pending-survey-email-metaboxes-options.php:10
+msgid "Email settings"
+msgstr ""
+
+#: templates/metaboxes/pending-survey-email-metaboxes-options.php:17
+#: templates/metaboxes/pending-survey-metaboxes-options.php:16
+msgid "Settings"
+msgstr ""
+
+#: templates/metaboxes/pending-survey-email-metaboxes-options.php:20
+msgid "Subject"
+msgstr ""
+
+#: templates/metaboxes/pending-survey-email-metaboxes-options.php:22
+msgid "Subject email"
+msgstr ""
+
+#: templates/metaboxes/pending-survey-email-metaboxes-options.php:26
+msgid "Enable/disable"
+msgstr ""
+
+#: templates/metaboxes/pending-survey-email-metaboxes-options.php:32
+msgid "Send after"
+msgstr ""
+
+#: templates/metaboxes/pending-survey-email-metaboxes-options.php:33
+msgid "minutes"
+msgstr ""
+
+#: templates/metaboxes/pending-survey-email-report-metaboxes-options.php:7
+msgid "Email report"
+msgstr ""
+
+#: templates/metaboxes/pending-survey-metaboxes-options.php:7
+msgid "Pending Order Survey Options"
+msgstr ""
+
+#: templates/metaboxes/pending-survey-metaboxes-options.php:19
+#: templates/metaboxes/pending-survey-report-metaboxes-options.php:19
+msgid "Survey Questions"
+msgstr ""
+
+#: templates/metaboxes/pending-survey-report-metaboxes-options.php:7
+msgid "Pending Order Survey Reports"
+msgstr ""
+
+#: templates/metaboxes/types/pending_survey_email_report.php:23
+msgid "Email sent"
+msgstr ""
+
+#: templates/metaboxes/types/pending_survey_report.php:11
+msgid "Show more"
+msgstr ""
+
+#: templates/metaboxes/types/pending_survey_report.php:12
+msgid "Show less"
+msgstr ""
+
+#: templates/metaboxes/types/pending_survey_type.php:11
+msgid "Add new survey questions"
+msgstr ""
+
+#: templates/metaboxes/types/pending_survey_type.php:14
+msgid "Add survey question"
+msgstr ""
+
+#: templates/metaboxes/types/single_pending_survey_question.php:21
+msgid "Remove"
+msgstr ""
+
+#: templates/metaboxes/types/single_pending_survey_question.php:29
+msgid "Survey question"
+msgstr ""
+
+#: templates/metaboxes/types/single_pending_survey_question.php:34
+msgid "Enter your text here"
+msgstr ""
+
+#: templates/metaboxes/types/single_pending_survey_question.php:42
+#: templates/single-survey-question.php:12
+msgid "Required"
+msgstr ""
+
+#: templates/pending-survey-not-avaible.php:11
+msgid "You have already answer this survey for this order"
+msgstr ""
+
+#: templates/survey-thankyou-message.php:5
+msgid "Survey sent"
+msgstr ""
+
+#: templates/survey-thankyou-message.php:7
+msgid "Thanks for answering this survey!"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"<code><strong>YITH WooCommerce Pending Order Survey Premium</strong></code> "
+"allows you to send emails including surveys to users with pending orders. "
+"<a href =\"https://yithemes.com\">Get more plugins for your e-commerce shop "
+"on <strong>YITH</strong></a>"
+msgstr ""
+
+#: includes/post_type/class.yith-wcpos-survey-email-type.php:169
+msgctxt "Post Type General Name"
+msgid "Email Templates"
+msgstr ""
+
+#: includes/post_type/class.yith-wcpos-survey-email-type.php:170
+msgctxt "Post Type Singular Name"
+msgid "Email Template"
+msgstr ""
+
+#: includes/post_type/class.yith-wcpos-survey-post-type.php:159
+msgctxt "post type general name"
+msgid "YITH WooCommerce Pending Order Survey"
+msgstr ""
+
+#: includes/post_type/class.yith-wcpos-survey-post-type.php:160
+msgctxt "post type singular name"
+msgid "Pending Order Survey"
+msgstr ""
+
+#: includes/tables/class.yith-wcpos-pending-order-table.php:15
+msgctxt "yith-woocommerce-pending-order-survey"
+msgid "pending order"
+msgstr ""
+
+#: includes/tables/class.yith-wcpos-pending-order-table.php:16
+msgctxt "yith-woocommerce-pending-order-survey"
+msgid "pending orders"
+msgstr ""
+
+#: includes/tables/class.yith-wcpos-pending-survey-email-table.php:22
+msgctxt "yith-woocommerce-pending-order-survey"
+msgid "email"
+msgstr ""
+
+#: includes/tables/class.yith-wcpos-pending-survey-email-table.php:23
+msgctxt "yith-woocommerce-pending-order-survey"
+msgid "emails"
+msgstr ""
+
+#: includes/tables/class.yith-wcpos-pending-survey-table.php:22
+msgctxt "yith-woocommerce-pending-order-survey"
+msgid "pending order survey"
+msgstr ""
+
+#: includes/tables/class.yith-wcpos-pending-survey-table.php:23
+msgctxt "yith-woocommerce-pending-order-survey"
+msgid "pending order surveys"
+msgstr ""
+
+#: includes/tables/class.yith-wcpos-recovered-order-table.php:15
+msgctxt "yith-woocommerce-pending-order-survey"
+msgid "recovered order"
+msgstr ""
+
+#: includes/tables/class.yith-wcpos-recovered-order-table.php:16
+msgctxt "yith-woocommerce-pending-order-survey"
+msgid "recovered orders"
+msgstr ""

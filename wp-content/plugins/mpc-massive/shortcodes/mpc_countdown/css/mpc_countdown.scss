@@ -1,0 +1,68 @@
+/*----------------------------------------------------------------------------*\
+	COUNTDOWN SHORTCODE
+\*----------------------------------------------------------------------------*/
+.mpc-countdown {
+	display: block;
+
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.mpc-countdown__content {
+	overflow: hidden;
+	text-align: center;
+
+	display: -ms-flexbox;
+	-ms-flex-direction: row;
+	-ms-flex-wrap: wrap;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	flex-wrap: wrap;
+
+	&.is-countdown {
+		border: 0;
+		background: none;
+	}
+}
+
+.mpc-countdown__section {
+	display: inline-block;
+	margin: 1em 0;
+
+	-ms-flex: 1 1 auto;
+	flex: 1 1 auto;
+
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+
+	h4 {
+		margin: 0;
+		padding: 0;
+		white-space: nowrap;
+	}
+
+	.mpc-main {
+		display: inline-block;
+		white-space: nowrap;
+
+		> div {
+			display: table;
+			width: 100%;
+			height: 100%;
+		}
+
+		> div div {
+			display: table-cell;
+			vertical-align: middle;
+		}
+	}
+}
+
+/* Responsive */
+@media screen and (max-width: 992px) {
+	.mpc-countdown__section {
+		margin: 1em;
+	}
+}

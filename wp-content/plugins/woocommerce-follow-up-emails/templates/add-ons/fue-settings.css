@@ -1,0 +1,192 @@
+.fue-settings .fue-settings, .fue-settings .fue-templates {
+    overflow: hidden;
+}
+
+.fue-settings .fue-settings li, .fue-settings .fue-templates li {
+    margin: 0 1em 1em 0 !important;
+    padding: 0;
+    vertical-align: top;
+    width: 30%;
+    display: inline-block;
+}
+
+.fue-settings .fue-settings li div, .fue-settings .fue-templates li div {
+    background: none repeat scroll 0 0 #f5f5f5;
+    border: 1px solid #ddd;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 -1px 0 rgba(0, 0, 0, 0.1) inset;
+    color: inherit;
+    display: block;
+    min-height: 240px;
+    overflow: hidden;
+    text-decoration: none;
+    position: relative;
+    padding-bottom: 25px;
+}
+
+.fue-settings .fue-settings li div:hover, .fue-settings .fue-templates li div:hover {
+    background: #fff;
+}
+
+.fue-settings .fue-settings li h3 {
+    background: none repeat scroll 0 0 #fff;
+    margin: 0 !important;
+    padding: 20px !important;
+}
+
+.fue-settings .fue-templates li h3 {
+    background: #3595BC;
+    background-image: linear-gradient(to bottom, #46AFDB, #3199C5);
+    color: #fff;
+    text-shadow: #268FBB 0 1px 0;
+    margin: 0 !important;
+    padding: 20px !important;
+}
+
+.fue-settings .fue-settings li .price, .fue-settings .fue-settings li img.extension-thumb + h3,
+.fue-settings .fue-templates li .price, .fue-settings .fue-templates li img.extension-thumb + h3 {
+    display: none;
+}
+
+.fue-settings .fue-settings li p, .fue-settings .fue-templates li p {
+    border-top: 1px solid #f1f1f1;
+    margin: 0 !important;
+    padding: 20px !important;
+}
+
+.fue-settings .fue-settings li h3 a, .fue-settings .fue-templates li h3 a {
+    color: inherit;
+}
+
+.fue-settings .fue-settings li a.button, .fue-settings .fue-templates li a.button {
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+}
+	
+	.fue-settings .fue-settings li a.button-secondary, .fue-settings .fue-templates li a.button-secondary {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+	}
+
+.fue-settings .fue-settings li p.installed, .fue-settings .fue-templates li p.installed {
+    position: absolute;
+    bottom: -10px;
+    left: 0px;
+    border: none;
+    color: green;
+    font-weight: bold;
+}
+
+.fue-settings .fue-templates li p.hover {
+    display: none;
+}
+
+.fue-settings .fue-templates li p.hover a {
+    text-decoration: none;
+}
+
+.fue-settings .fue-templates li p.hover a.uninstall {
+    color: #ff0000;
+}
+
+.fue-settings .fue-templates li:hover p.installed {
+    display: none;
+}
+
+.fue-settings .fue-templates li:hover p.hover {
+    display: block;
+    position: absolute;
+    bottom: -10px;
+    left: 0px;
+    border: none;
+    font-weight: bold;
+}
+
+.fue-settings .fue-templates li p.downloads {
+    position: absolute;
+    bottom: -10px;
+    right: 0px;
+    border: none;
+    font-weight: bold;
+    color: #cdcdcd;
+}
+
+.fue-settings .fue-templates li img {
+    padding: 5px 5px 10px 5px;
+    margin: 0 auto;
+    display: block;
+}
+
+.fue-settings #template_editor {
+    display: none;
+}
+
+.fue-settings #editor {
+    height: 400px;
+    width: 100%;
+}
+
+.edit-html-spinner {
+    float: none;
+}
+
+.edit-html-status {
+    display: inline-block;
+}
+
+.edit-html-status.updated {
+    color: #057F14;
+}
+
+.edit-html-status.error {
+    color: #C81F00;
+}
+
+.templates-new {
+    margin-top: 25px !important;
+}
+
+.templates-new .row {
+    border-radius: 10px;
+    border: 1px solid #cecece;
+    padding: 20px 10px;
+    margin: 10px 0;
+    font-size: 16px;
+    color: #999;
+    line-height: 3em;
+    -webkit-box-shadow: 0 0 10px 5px #ccc;
+    -moz-box-shadow: 0 0 10px 5px #ccc;
+    box-shadow: 0 0 10px 5px #ccc;
+    display: block;
+}
+
+.templates-new .row .button.big {
+    font-size: 16px;
+    padding: 7px 20px 35px;
+    float: right;
+}
+
+.templates-new .row .upload {
+    text-align: center;
+}
+
+.template-form .form-field label {
+    display: block;
+}
+
+.template-form .wp-switch-editor {
+    display: none;
+}
+
+#template_source_editor {
+    height: 300px;
+    width: 100%;
+    display: none;
+}
+
+.template-form .switch-editor {
+    display: block;
+    float: right;
+    margin-top: -15px;
+}

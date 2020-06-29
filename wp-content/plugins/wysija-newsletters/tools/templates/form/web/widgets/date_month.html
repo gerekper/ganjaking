@@ -1,0 +1,5 @@
+<select class="wysija_date_month {$validation}" name="{#field_prefix}[{#field}][month]" placeholder="{#i18n.date_select_month}">
+	{loop name="#months"}
+		<option value="{#month}"{if #is_selected} selected="selected"{/if}>{#month_name}</option>
+	{/loop}
+</select>

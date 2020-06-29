@@ -1,0 +1,619 @@
+# Copyright (C) 2019 YITH WooCommerce Surveys Premium
+# This file is distributed under the same license as the YITH WooCommerce Surveys Premium package.
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH WooCommerce Surveys Premium 1.2.0\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/init\n"
+"POT-Creation-Date: 2019-11-05 13:36:43+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2019-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: includes/classes/class.yith-wc-surveys-admin-premium.php:87
+msgid "Conversion completed!"
+msgstr ""
+
+#: includes/classes/class.yith-wc-surveys-admin-premium.php:236
+msgid "Add YITH WooCommerce Surveys shortcode"
+msgstr ""
+
+#: includes/classes/class.yith-wc-surveys-admin-premium.php:301
+#: templates/admin/yith-wc-surveys-conversion.php:22
+msgid "Conversion Tool"
+msgstr ""
+
+#: includes/classes/class.yith-wc-surveys-admin-premium.php:332
+msgid "Error on importing order "
+msgstr ""
+
+#: includes/classes/class.yith-wc-surveys-admin-premium.php:358
+msgctxt ""
+"From version 1.1.0 the method to save answers of the surveys showed on the "
+"checkout page has changed. Please complete the conversion procedure on this "
+"page"
+msgid ""
+"From version 1.1.0 the method to save answers of the surveys showed on the "
+"checkout page has changed. Please complete the conversion procedure on this"
+msgstr ""
+
+#: includes/classes/class.yith-wc-surveys-admin-premium.php:359
+msgid "page"
+msgstr ""
+
+#: includes/classes/class.yith-wc-surveys-admin.php:264
+#: includes/functions.yith-surveys-premium-function.php:194
+#: includes/functions.yith-surveys-premium-function.php:198
+#: includes/post-type/class.yith-surveys-post-type.php:186
+#: templates/admin/yith-wc-surveys-report.php:116
+#: templates/surveys/surveys_after_product_summary.php:7
+msgid "Surveys"
+msgstr ""
+
+#: includes/classes/class.yith-wc-surveys-export.php:25
+#: includes/classes/class.yith-wc-surveys-table.php:152
+#: templates/metaboxes/types/surveys_answer.php:18
+#: templates/metaboxes/types/surveys_answer.php:19
+msgid "Answer"
+msgstr ""
+
+#: includes/classes/class.yith-wc-surveys-export.php:26
+#: includes/classes/class.yith-wc-surveys-table.php:153
+msgid "Votes"
+msgstr ""
+
+#: includes/classes/class.yith-wc-surveys-export.php:27
+#: includes/classes/class.yith-wc-surveys-table.php:154
+msgid "Visible in"
+msgstr ""
+
+#: includes/classes/class.yith-wc-surveys-export.php:28
+#: includes/classes/class.yith-wc-surveys-table.php:155
+msgid "Order totals"
+msgstr ""
+
+#: includes/classes/class.yith-wc-surveys-export.php:29
+#: includes/classes/class.yith-wc-surveys-table.php:156
+msgid "Order Details"
+msgstr ""
+
+#: includes/classes/class.yith-wc-surveys-frontend.php:78
+msgid "Please, give an answer to the questions to contribute to the survey"
+msgstr ""
+
+#: includes/classes/class.yith-wc-surveys-list-table.php:19
+msgctxt "yith-woocommerce-surveys"
+msgid "survey"
+msgstr ""
+
+#: includes/classes/class.yith-wc-surveys-list-table.php:20
+msgctxt "yith-woocommerce-surveys"
+msgid "surveys"
+msgstr ""
+
+#: includes/classes/class.yith-wc-surveys-list-table.php:34
+msgid "Survey"
+msgstr ""
+
+#: includes/classes/class.yith-wc-surveys-list-table.php:35
+#: includes/post-type/class.yith-surveys-post-type-premium.php:189
+msgid "Items"
+msgstr ""
+
+#: includes/classes/class.yith-wc-surveys-list-table.php:36
+#: includes/post-type/class.yith-surveys-post-type-premium.php:190
+msgid "Type"
+msgstr ""
+
+#: includes/classes/class.yith-wc-surveys-list-table.php:37
+msgid "Date"
+msgstr ""
+
+#: includes/classes/class.yith-wc-surveys-list-table.php:83
+msgid "View results"
+msgstr ""
+
+#: includes/classes/class.yith-wc-surveys-list-table.php:88
+msgid "View result"
+msgstr ""
+
+#: includes/classes/class.yith-wc-surveys-premium.php:59
+msgid "Reports"
+msgstr ""
+
+#: includes/classes/class.yith-wc-surveys-premium.php:60
+msgid "Tools"
+msgstr ""
+
+#: includes/classes/class.yith-wc-surveys-table.php:36
+msgctxt "yith-woocommerce-surveys"
+msgid "answer"
+msgstr ""
+
+#: includes/classes/class.yith-wc-surveys-table.php:37
+msgctxt "yith-woocommerce-surveys"
+msgid "answers"
+msgstr ""
+
+#: includes/classes/class.yith-wc-surveys-table.php:64
+msgid "Checkout"
+msgstr ""
+
+#: includes/classes/class.yith-wc-surveys-table.php:67
+msgid "Product"
+msgstr ""
+
+#: includes/classes/class.yith-wc-surveys-table.php:70
+#: includes/classes/class.yith-wc-surveys-table.php:324
+#: includes/functions.yith-surveys-premium-function.php:141
+#: templates/metaboxes/surveys_meta_box.php:46
+msgid "Other Pages"
+msgstr ""
+
+#: includes/classes/class.yith-wc-surveys-table.php:79
+msgid "No Orders"
+msgstr ""
+
+#: includes/classes/class.yith-wc-surveys-table.php:91
+msgid "View Details"
+msgstr ""
+
+#: includes/classes/class.yith-wc-surveys-table.php:114
+msgid "View order"
+msgstr ""
+
+#: includes/classes/class.yith-wc-surveys-table.php:125
+msgid "No Details"
+msgstr ""
+
+#: includes/classes/class.yith-wc-surveys-table.php:164
+msgctxt "yith-woocommerce-surveys"
+msgid "Survey ID"
+msgstr ""
+
+#: includes/classes/class.yith-wc-surveys-table.php:322
+#: includes/functions.yith-surveys-premium-function.php:139
+#: templates/metaboxes/surveys_meta_box.php:44
+msgid "WooCommerce Checkout"
+msgstr ""
+
+#: includes/classes/class.yith-wc-surveys-table.php:323
+#: includes/classes/compatibility/class.yith-wc-surveys-multivendor-compatibility.php:100
+#: includes/functions.yith-surveys-premium-function.php:140
+#: templates/metaboxes/surveys_meta_box.php:45
+msgid "WooCommerce Product"
+msgstr ""
+
+#: includes/classes/class.yith-wc-surveys-table.php:329
+msgid "Filter by survey type"
+msgstr ""
+
+#: includes/classes/class.yith-wc-surveys-table.php:331
+msgid "All survey types"
+msgstr ""
+
+#: includes/classes/class.yith-wc-surveys-table.php:352
+msgid "Filter by survey"
+msgstr ""
+
+#: includes/classes/class.yith-wc-surveys-table.php:354
+msgid "All surveys"
+msgstr ""
+
+#: includes/classes/class.yith-wc-surveys.php:181
+msgid "Survey Settings"
+msgstr ""
+
+#: includes/classes/class.yith-wc-surveys.php:184
+msgid "Premium Version"
+msgstr ""
+
+#: includes/classes/class.yith-wc-surveys.php:198
+msgid "Create and show a custom survey on the Checkout page"
+msgstr ""
+
+#: includes/functions.yith-surveys-premium-function.php:195
+msgid "Show a survey in the page"
+msgstr ""
+
+#: includes/functions.yith-surveys-premium-function.php:202
+#: includes/widgets/class.yith-wc-surveys-widget.php:44
+#: includes/widgets/class.yith-wc-surveys-widget.php:48
+#: templates/admin/lightbox.php:109 templates/admin/lightbox.php:111
+msgid "Select a Survey"
+msgstr ""
+
+#: includes/post-type/class.yith-surveys-post-type-premium.php:63
+#: includes/post-type/class.yith-surveys-post-type-premium.php:66
+msgid "%s updated"
+msgstr ""
+
+#: includes/post-type/class.yith-surveys-post-type-premium.php:64
+msgid "Custom field updated"
+msgstr ""
+
+#: includes/post-type/class.yith-surveys-post-type-premium.php:65
+msgid "Custom field deleted"
+msgstr ""
+
+#: includes/post-type/class.yith-surveys-post-type-premium.php:67
+msgid "Survey restored to version %s"
+msgstr ""
+
+#: includes/post-type/class.yith-surveys-post-type-premium.php:68
+msgid "%s published"
+msgstr ""
+
+#: includes/post-type/class.yith-surveys-post-type-premium.php:69
+msgid "%s saved"
+msgstr ""
+
+#: includes/post-type/class.yith-surveys-post-type-premium.php:70
+msgid "%s submitted"
+msgstr ""
+
+#: includes/post-type/class.yith-surveys-post-type-premium.php:71
+msgid "%s"
+msgstr ""
+
+#: includes/post-type/class.yith-surveys-post-type-premium.php:72
+msgid "%s draft updated"
+msgstr ""
+
+#: includes/post-type/class.yith-surveys-post-type-premium.php:411
+msgctxt "posts"
+msgid "Mine <span class=\"count\">(%s)</span>"
+msgid_plural "Mine <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/post-type/class.yith-surveys-post-type.php:71
+#: includes/widgets/class.yith-wc-surveys-widget.php:12
+msgid "YITH WooCommerce Surveys"
+msgstr ""
+
+#: includes/post-type/class.yith-surveys-post-type.php:184
+msgctxt "post type general name"
+msgid "YITH WooCommerce Surveys"
+msgstr ""
+
+#: includes/post-type/class.yith-surveys-post-type.php:185
+msgctxt "post type singular name"
+msgid "Survey"
+msgstr ""
+
+#: includes/post-type/class.yith-surveys-post-type.php:187
+msgid "Parent Item:"
+msgstr ""
+
+#: includes/post-type/class.yith-surveys-post-type.php:188
+msgid "All Surveys"
+msgstr ""
+
+#: includes/post-type/class.yith-surveys-post-type.php:189
+msgid "View Survey"
+msgstr ""
+
+#: includes/post-type/class.yith-surveys-post-type.php:190
+#: includes/post-type/class.yith-surveys-post-type.php:191
+msgid "Add New Survey"
+msgstr ""
+
+#: includes/post-type/class.yith-surveys-post-type.php:192
+msgid "Edit Survey"
+msgstr ""
+
+#: includes/post-type/class.yith-surveys-post-type.php:193
+msgid "Update Survey"
+msgstr ""
+
+#: includes/post-type/class.yith-surveys-post-type.php:194
+msgid "Search Surveys"
+msgstr ""
+
+#: includes/post-type/class.yith-surveys-post-type.php:195
+msgid "No surveys found"
+msgstr ""
+
+#: includes/post-type/class.yith-surveys-post-type.php:196
+msgid "No surveys found in Trash"
+msgstr ""
+
+#: includes/widgets/class.yith-wc-surveys-widget.php:13
+msgid "Show your Surveys in sidebar!"
+msgstr ""
+
+#: includes/widgets/class.yith-wc-surveys-widget.php:38
+msgid "Title"
+msgstr ""
+
+#: includes/widgets/class.yith-wc-surveys-widget.php:40
+msgid "Enter a title"
+msgstr ""
+
+#: init.php:35
+msgid ""
+"YITH WooCommerce Surveys Premium is enabled but not effective. It requires "
+"WooCommerce in order to work."
+msgstr ""
+
+#: plugin-options/survey-settings-options.php:10
+msgid "Survey Option"
+msgstr ""
+
+#: plugin-options/survey-settings-options.php:16
+msgid "Thank-you message"
+msgstr ""
+
+#: plugin-options/survey-settings-options.php:19
+msgid "Thanks for voting"
+msgstr ""
+
+#: plugin-options/survey-settings-options.php:21
+msgid "Works only in Survey, visible in product or via shortcode or widget"
+msgstr ""
+
+#: plugin-options/survey-settings-options.php:26
+msgid "Hide survey only after one answer is given. "
+msgstr ""
+
+#: plugin-options/survey-settings-options.php:30
+msgid ""
+"If enabled, users will no longer be able to see surveys they have answered. "
+"Works only in Survey, visible in product or via shortcode or widget"
+msgstr ""
+
+#: plugin-options/survey-settings-options.php:35
+msgid "Order By"
+msgstr ""
+
+#: plugin-options/survey-settings-options.php:40
+msgid "DATE"
+msgstr ""
+
+#: plugin-options/survey-settings-options.php:41
+msgid "NAME"
+msgstr ""
+
+#: plugin-options/survey-settings-options.php:47
+msgid "Order"
+msgstr ""
+
+#: plugin-options/survey-settings-options.php:52
+msgid "ASC"
+msgstr ""
+
+#: plugin-options/survey-settings-options.php:53
+msgid "DESC"
+msgstr ""
+
+#: templates/admin/lightbox.php:35
+msgid "Add shortcode"
+msgstr ""
+
+#: templates/admin/lightbox.php:124
+msgid "Insert"
+msgstr ""
+
+#: templates/admin/yith-wc-surveys-conversion.php:26
+msgid "Convert"
+msgstr ""
+
+#: templates/admin/yith-wc-surveys-conversion.php:30
+msgid "Convert!"
+msgstr ""
+
+#: templates/admin/yith-wc-surveys-conversion.php:31
+msgid ""
+"From version 1.1.0 the method to save answers of the surveys showed on the "
+"checkout page has changed. Please complete the conversion procedure"
+msgstr ""
+
+#: templates/admin/yith-wc-surveys-export.php:6
+msgid "Export Data"
+msgstr ""
+
+#: templates/admin/yith-wc-surveys-export.php:16
+#: templates/admin/yith-wc-surveys-export.php:20
+#: templates/admin/yith-wc-surveys-export.php:28
+#: templates/admin/yith-wc-surveys-export.php:36
+msgid "Choose data to export"
+msgstr ""
+
+#: templates/admin/yith-wc-surveys-export.php:24
+msgid "Surveys in Checkout"
+msgstr ""
+
+#: templates/admin/yith-wc-surveys-export.php:32
+msgid "Surveys in Product"
+msgstr ""
+
+#: templates/admin/yith-wc-surveys-export.php:40
+msgid "Surveys in other pages"
+msgstr ""
+
+#: templates/admin/yith-wc-surveys-export.php:49
+msgid "Confirm"
+msgstr ""
+
+#: templates/admin/yith-wc-surveys-report.php:85
+msgid "Report"
+msgstr ""
+
+#: templates/admin/yith-wc-surveys-report.php:91
+msgid "Return to rule list"
+msgstr ""
+
+#: templates/metaboxes/survey-meta-box-options.php:5
+msgid ""
+"If checkout, surveys will show in checkout page.%1$sIf product, surveys "
+"will\n"
+"show in product page.%1$sIf other page, surveys can be placed using "
+"shortcode or a widget."
+msgstr ""
+
+#: templates/metaboxes/survey-meta-box-options.php:10
+#: templates/metaboxes/surveys_meta_box.php:19
+msgid "Before Checkout Billing Form"
+msgstr ""
+
+#: templates/metaboxes/survey-meta-box-options.php:11
+#: templates/metaboxes/surveys_meta_box.php:20
+msgid "After Checkout Billing Form"
+msgstr ""
+
+#: templates/metaboxes/survey-meta-box-options.php:12
+#: templates/metaboxes/surveys_meta_box.php:21
+msgid "Before Checkout Shipping Form"
+msgstr ""
+
+#: templates/metaboxes/survey-meta-box-options.php:13
+#: templates/metaboxes/surveys_meta_box.php:22
+msgid "After Checkout Shipping Form"
+msgstr ""
+
+#: templates/metaboxes/survey-meta-box-options.php:14
+#: templates/metaboxes/surveys_meta_box.php:23
+msgid "Before Order Notes"
+msgstr ""
+
+#: templates/metaboxes/survey-meta-box-options.php:15
+#: templates/metaboxes/surveys_meta_box.php:24
+msgid "After Order Notes"
+msgstr ""
+
+#: templates/metaboxes/survey-meta-box-options.php:19
+msgid "After Single Product Summary"
+msgstr ""
+
+#: templates/metaboxes/survey-meta-box-options.php:20
+msgid "Before Add to Cart button"
+msgstr ""
+
+#: templates/metaboxes/survey-meta-box-options.php:21
+msgid "After Add to Cart button"
+msgstr ""
+
+#: templates/metaboxes/survey-meta-box-options.php:27
+msgid "Survey Options"
+msgstr ""
+
+#: templates/metaboxes/survey-meta-box-options.php:35
+msgid "Settings"
+msgstr ""
+
+#: templates/metaboxes/survey-meta-box-options.php:40
+#: templates/metaboxes/surveys_meta_box.php:40
+msgid "Display Survey in"
+msgstr ""
+
+#: templates/metaboxes/survey-meta-box-options.php:48
+#: templates/metaboxes/surveys_meta_box.php:54
+msgid "Position in Checkout"
+msgstr ""
+
+#: templates/metaboxes/survey-meta-box-options.php:60
+#: templates/metaboxes/surveys_meta_box.php:66
+msgid "Required"
+msgstr ""
+
+#: templates/metaboxes/survey-meta-box-options.php:61
+msgid "If checked, survey is required in checkout"
+msgstr ""
+
+#: templates/metaboxes/survey-meta-box-options.php:73
+msgid "Choose Product"
+msgstr ""
+
+#: templates/metaboxes/survey-meta-box-options.php:74
+msgid ""
+"Select products in which you want to show surveys. Leave it blank to show "
+"the survey on every product."
+msgstr ""
+
+#: templates/metaboxes/survey-meta-box-options.php:87
+msgid "Position in Product"
+msgstr ""
+
+#: templates/metaboxes/survey-meta-box-options.php:100
+#: templates/metaboxes/surveys_meta_box.php:74
+msgid "Survey Answers"
+msgstr ""
+
+#: templates/metaboxes/surveys_meta_box.php:17
+msgid "Before Customer Details"
+msgstr ""
+
+#: templates/metaboxes/surveys_meta_box.php:18
+msgid "After Customer Details"
+msgstr ""
+
+#: templates/metaboxes/surveys_meta_box.php:32
+msgid "Survey Title"
+msgstr ""
+
+#: templates/metaboxes/surveys_meta_box.php:35
+msgid "Insert a Survey Title"
+msgstr ""
+
+#: templates/metaboxes/surveys_meta_box.php:48
+msgid ""
+"If \"Checkout\" is selected, surveys will show in checkout page, while if "
+"\"Other Pages\" is selected,\n"
+"            surveys can be added using shortcode or a widget"
+msgstr ""
+
+#: templates/metaboxes/surveys_meta_box.php:116
+#: templates/metaboxes/types/survey_answers.php:57
+msgid ""
+"You have reached the maximum number of elements for this survey, remove o "
+"edit existing\n"
+"                ones to add new ones."
+msgstr ""
+
+#: templates/metaboxes/surveys_meta_box.php:120
+#: templates/metaboxes/types/survey_answers.php:60
+msgid "Add Survey Answer"
+msgstr ""
+
+#: templates/metaboxes/types/surveys_answer.php:21
+msgid "Remove"
+msgstr ""
+
+#: templates/surveys/single-survey-form.php:33
+#: templates/surveys/survey_checkout_form.php:37
+#: templates/surveys/survey_other_page_form.php:31
+msgid "Select an option"
+msgstr ""
+
+#: templates/surveys/survey_other_page_form.php:40
+#: templates/surveys/surveys_after_before_add_to_cart.php:30
+#: templates/surveys/surveys_after_product_summary.php:34
+msgid "Send Answer"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "YITH WooCommerce Surveys Premium"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://yithemes.com/themes/plugins/yith-woocommerce-surveys/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"<code><strong>YITH WooCommerce Surveys Premium</strong></code> allows adding "
+"a survey to your checkout page to learn more about your customers' habits! "
+"<a href =\"https://yithemes.com\">Get more plugins for your e-commerce shop "
+"on <strong>YITH</strong></a>"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "YITH"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://yithemes.com/"
+msgstr ""

@@ -1,0 +1,867 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Project-Id-Version: WooCommerce Amazon Fulfillment\n"
+"POT-Creation-Date: 2018-07-02 15:55-0500\n"
+"PO-Revision-Date: 2016-11-28 00:15-0600\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.8\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-WPHeader: woocommerce-amazon-fulfillment.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: lib/class-ns-fba-inventory.php:59 lib/class-ns-fba-inventory.php:211
+msgid "Inventory Response from FBA not Initialized or Received"
+msgstr ""
+
+#: lib/class-ns-fba-outbound.php:378
+msgid ""
+"There were NO items in this Order that were eligible to be sent to FBA based "
+"on their [Fulfill with Amazon FBA] product settings. Please double-check the "
+"product(s) and try again."
+msgstr ""
+
+#: lib/class-ns-fba-outbound.php:385
+msgid ""
+"Perfection Mode is active and Not ALL products in this order are set to "
+"Fulfill with Amazon, so we did not try to send this order to FBA."
+msgstr ""
+
+#: lib/class-ns-fba-outbound.php:395
+msgid ""
+"The Order cannot be sent to FBA due to the configured settings or products."
+msgstr ""
+
+#: lib/class-ns-fba-outbound.php:403
+msgid ""
+"The Destination address contains encoded characters that cannot be properly "
+"converted. Please manually update shipping address and manually submit to "
+"Amazon FBA."
+msgstr ""
+
+#: lib/class-ns-fba-outbound.php:515
+msgid "Inventory sync is not enabled in the settings."
+msgstr ""
+
+#: lib/class-ns-fba-outbound.php:546
+msgid "Successfully submitted order to FBA"
+msgstr ""
+
+#: lib/class-ns-fba-outbound.php:546 lib/class-ns-fba-outbound.php:575
+#: lib/class-ns-fba-outbound.php:673 lib/class-ns-fba-outbound.php:753
+#: lib/class-ns-fba-woocommerce.php:247
+msgid "click for full log"
+msgstr ""
+
+#: lib/class-ns-fba-outbound.php:568 lib/class-ns-fba-outbound.php:571
+msgid "<b>Warning:"
+msgstr ""
+
+#: lib/class-ns-fba-outbound.php:575
+msgid "Failed to submit order to FBA"
+msgstr ""
+
+#: lib/class-ns-fba-outbound.php:575 lib/class-ns-fba-outbound.php:673
+#: lib/class-ns-fba-outbound.php:753
+msgid "Error Message:"
+msgstr ""
+
+#: lib/class-ns-fba-outbound.php:579
+msgid "Full details: "
+msgstr ""
+
+#: lib/class-ns-fba-outbound.php:579
+msgid "FBA Order Fulfillment Request FAIL"
+msgstr ""
+
+#: lib/class-ns-fba-outbound.php:673
+msgid "Failed to check order status"
+msgstr ""
+
+#: lib/class-ns-fba-outbound.php:753
+msgid "Failed to sync order status from FBA"
+msgstr ""
+
+#: lib/class-ns-fba-utils.php:188
+msgid ""
+"This order was NOT sent to FBA because International fulfillment is disabled "
+"in the NS FBA settings and the shipping address country does not match the "
+"base location country in the WooCommerce settings."
+msgstr ""
+
+#: lib/class-ns-fba-utils.php:215
+msgid ""
+"This order was NOT sent to FBA because it is using a Shipping Method that is "
+"disabled for FBA in the NS FBA settings."
+msgstr ""
+
+#: lib/class-ns-fba-utils.php:224
+msgid ""
+"This order was NOT sent to FBA because a different plugin has modified the "
+"filter: ns_fba_is_order_fulfill."
+msgstr ""
+
+#: lib/class-ns-fba-utils.php:265 lib/class-ns-fba-utils.php:271
+msgid "The Order Item with SKU: "
+msgstr ""
+
+#: lib/class-ns-fba-utils.php:281
+msgid "Fulfillment status for the Order Item with SKU: "
+msgstr ""
+
+#: lib/class-ns-fba-woocommerce.php:36
+msgid "FBA"
+msgstr ""
+
+#: lib/class-ns-fba-woocommerce.php:81 lib/class-ns-fba-woocommerce.php:140
+msgctxt "Order status"
+msgid "Sent to FBA"
+msgstr ""
+
+#: lib/class-ns-fba-woocommerce.php:86
+#, php-format
+msgid "Sent to FBA <span class=\"count\">(%s)</span>"
+msgid_plural "Sent to FBA <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/class-ns-fba-woocommerce.php:89 lib/class-ns-fba-woocommerce.php:141
+msgctxt "Order status"
+msgid "Partial to FBA"
+msgstr ""
+
+#: lib/class-ns-fba-woocommerce.php:94
+#, php-format
+msgid "Partial to FBA <span class=\"count\">(%s)</span>"
+msgid_plural "Partial to FBA <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/class-ns-fba-woocommerce.php:97 lib/class-ns-fba-woocommerce.php:142
+msgctxt "Order status"
+msgid "Failed to FBA"
+msgstr ""
+
+#: lib/class-ns-fba-woocommerce.php:102
+#, php-format
+msgid "Failed to FBA <span class=\"count\">(%s)</span>"
+msgid_plural "Failed to FBA <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/class-ns-fba-woocommerce.php:163
+msgid "Amazon Fulfillment"
+msgstr ""
+
+#: lib/class-ns-fba-woocommerce.php:180
+msgid "Fulfill with Amazon FBA"
+msgstr ""
+
+#: lib/class-ns-fba-woocommerce.php:189
+msgid "Send Parent SKU to FBA instead of Variation SKU"
+msgstr ""
+
+#: lib/class-ns-fba-woocommerce.php:215
+msgid "Send to Amazon FBA"
+msgstr ""
+
+#: lib/class-ns-fba-woocommerce.php:247
+msgid "Captured new DEBUG log"
+msgstr ""
+
+#: lib/class-ns-fba-woocommerce.php:261
+msgid ""
+"<div class=\"error\"><p>Uh-oh! The submission to Amazon Fulfillment failed.</"
+"p></div>"
+msgstr ""
+
+#: lib/class-ns-fba-woocommerce.php:264
+msgid ""
+"<div class=\"updated\"><p>Success! The submission to Amazon Fulfillment "
+"worked!</p></div>"
+msgstr ""
+
+#: woocommerce-amazon-fulfillment.php:318
+#, php-format
+msgid ""
+"<div class=\"updated\"><p>Inventory Sync Complete! <a href=\"%s\" target="
+"\"_blank\">Click here to see the results</a></p></div>"
+msgstr ""
+
+#: woocommerce-amazon-fulfillment.php:338
+msgid "Settings"
+msgstr ""
+
+#: woocommerce-settings-integration.php:37
+msgid "Fulfillment by Amazon"
+msgstr ""
+
+#: woocommerce-settings-integration.php:139
+#, php-format
+msgid ""
+"<div class=\"error\"><p>You need to <a href=\"%s\">configure all settings "
+"for Amazon Fulfillment</a> before it will work.</p></div>"
+msgstr ""
+
+#: woocommerce-settings-integration.php:151
+#, php-format
+msgid ""
+"<div class=\"updated\"><p>Inventory Test Success! There are %1$s units of "
+"%2$s in FBA stock.</p></div>"
+msgstr ""
+
+#: woocommerce-settings-integration.php:154
+#, php-format
+msgid ""
+"<div class=\"error\"><p>Inventory Test Fail! Error Message: %s </p></div>"
+msgstr ""
+
+#: woocommerce-settings-integration.php:171
+#, php-format
+msgid "<div class=\"updated\"><p>%s log files deleted successfully.</p></div>"
+msgstr ""
+
+#: woocommerce-settings-integration.php:174
+msgid ""
+"<div class=\"error\"><p>There were no files older than 30 days, or there was "
+"an error trying to delete them.</p></div>"
+msgstr ""
+
+#: woocommerce-settings-integration.php:187
+msgid ""
+"<div class=\"updated\"><p>Success! Your MWS credentials are correct and the "
+"service is active!</p></div>"
+msgstr ""
+
+#: woocommerce-settings-integration.php:189
+#, php-format
+msgid ""
+"<div class=\"error\"><p>Uh-oh! There was a problem connecting: %s.</p></div>"
+msgstr ""
+
+#: woocommerce-settings-integration.php:205
+msgid "Amazon Account and MWS Settings"
+msgstr ""
+
+#: woocommerce-settings-integration.php:211
+msgid "Register for MWS"
+msgstr ""
+
+#: woocommerce-settings-integration.php:212
+msgid ""
+"The below settings are all required and can be obtained by clicking the link "
+"for your region."
+msgstr ""
+
+#: woocommerce-settings-integration.php:218
+msgid "Select Home Region"
+msgstr ""
+
+#: woocommerce-settings-integration.php:219
+msgid ""
+"The default is set for North America, all available regions are options. You "
+"can only have 1 home region and it should match the region in which you "
+"opened your Seller Central account."
+msgstr ""
+
+#: woocommerce-settings-integration.php:225
+msgid "N. America (Default) - https://mws.amazonservices.com"
+msgstr ""
+
+#: woocommerce-settings-integration.php:226
+msgid "Europe - https://mws-eu.amazonservices.com"
+msgstr ""
+
+#: woocommerce-settings-integration.php:227
+msgid "India - https://mws.amazonservices.in"
+msgstr ""
+
+#: woocommerce-settings-integration.php:228
+msgid "China - https://mws.amazonservices.com.cn"
+msgstr ""
+
+#: woocommerce-settings-integration.php:229
+msgid "Japan - https://mws.amazonservices.jp"
+msgstr ""
+
+#: woocommerce-settings-integration.php:230
+msgid "Australia - https://mws.amazonservices.com.au"
+msgstr ""
+
+#: woocommerce-settings-integration.php:235
+msgid "AWS Access Key ID"
+msgstr ""
+
+#: woocommerce-settings-integration.php:242
+msgid "AWS Secret Key"
+msgstr ""
+
+#: woocommerce-settings-integration.php:249
+msgid "Amazon Seller ID"
+msgstr ""
+
+#: woocommerce-settings-integration.php:256
+msgid "Amazon Marketplace ID"
+msgstr ""
+
+#: woocommerce-settings-integration.php:263
+msgid "Store Name"
+msgstr ""
+
+#: woocommerce-settings-integration.php:264
+msgid ""
+"Used for MWS-required user-agent header. It can be anything, but no spacess "
+"like: MyStore."
+msgstr ""
+
+#: woocommerce-settings-integration.php:282
+msgid "Test MWS Connection"
+msgstr ""
+
+#: woocommerce-settings-integration.php:283
+msgid "Click to Test MWS Connection"
+msgstr ""
+
+#: woocommerce-settings-integration.php:284
+msgid ""
+"This will check to see if you have a connection to Amazon and if your MWS "
+"Access Credentials are correct"
+msgstr ""
+
+#: woocommerce-settings-integration.php:298
+msgid "FBA Inventory (Stock Level) Settings"
+msgstr ""
+
+#: woocommerce-settings-integration.php:304
+msgid "Update WC levels from FBA"
+msgstr ""
+
+#: woocommerce-settings-integration.php:305
+msgid "Update local stock levels for each Order item after sending to FBA"
+msgstr ""
+
+#: woocommerce-settings-integration.php:312
+msgid "Sync WC levels from FBA"
+msgstr ""
+
+#: woocommerce-settings-integration.php:313
+msgid "Sync local stock levels from FBA once per hour"
+msgstr ""
+
+#: woocommerce-settings-integration.php:314
+msgid "NOTE: This will only sync products configured to fulfill through FBA"
+msgstr ""
+
+#: woocommerce-settings-integration.php:321
+msgid "Test Inventory SKU"
+msgstr ""
+
+#: woocommerce-settings-integration.php:322
+msgid ""
+"Active SKU from your FBA inventory to test with the Test FBA Inventory "
+"Button Below"
+msgstr ""
+
+#: woocommerce-settings-integration.php:329
+msgid "Test Inventory Connection\t"
+msgstr ""
+
+#: woocommerce-settings-integration.php:330
+msgid "Click to Test Inventory Connection\t"
+msgstr ""
+
+#: woocommerce-settings-integration.php:331
+msgid ""
+"Fill in a valid SKU above in the Test Inventory SKU field and click to test "
+"a stock level request"
+msgstr ""
+
+#: woocommerce-settings-integration.php:338
+msgid "Manually Sync Local Levels"
+msgstr ""
+
+#: woocommerce-settings-integration.php:339
+msgid "Click to Sync ALL local levels of Stock to match FBA"
+msgstr ""
+
+#: woocommerce-settings-integration.php:340
+msgid ""
+"Initiate FBA > WooCommerce Inventory Sync. NOTE: Use sparingly. Syncing "
+"inventory this way can have performance implications and impact live traffic "
+"depending on multiple factors"
+msgstr ""
+
+#: woocommerce-settings-integration.php:349
+msgid "FBA Order Fulfillment Settings"
+msgstr ""
+
+#: woocommerce-settings-integration.php:355
+msgid "Order Prefix (Recommended)"
+msgstr ""
+
+#: woocommerce-settings-integration.php:356
+msgid ""
+"This will add a prefix to the order number ID that is sent to Amazon for "
+"fulfillment. If it is blank, only the WooCommerce Order Number will be sent. "
+"It is recommended to specify a short value (no spaces) to give all FBA "
+"requests a unique order identifier."
+msgstr ""
+
+#: woocommerce-settings-integration.php:363
+msgid "DEFAULT Shipping Speed"
+msgstr ""
+
+#: woocommerce-settings-integration.php:364
+msgid ""
+"This will be used when the shipping method chosen by the customer for their "
+"order does NOT match ANY of the mappings below"
+msgstr ""
+
+#: woocommerce-settings-integration.php:370
+msgid "Standard (Default)"
+msgstr ""
+
+#: woocommerce-settings-integration.php:371
+msgid "Expedited"
+msgstr ""
+
+#: woocommerce-settings-integration.php:372
+msgid "Priority"
+msgstr ""
+
+#: woocommerce-settings-integration.php:377
+msgid "Shipping for STANDARD"
+msgstr ""
+
+#: woocommerce-settings-integration.php:378
+msgid ""
+"Orders with the selected shipping method will use Amazon STANDARD Shipping "
+"Speed. <strong>IMPORTANT:</strong> There are extra fees associated with "
+"using different Amazon Shipping Speeds. Check with Amazon for specifics "
+"related to your region."
+msgstr ""
+
+#: woocommerce-settings-integration.php:385
+msgid "Shipping for EXPEDITED"
+msgstr ""
+
+#: woocommerce-settings-integration.php:386
+msgid ""
+"Orders with the selected shipping method will use Amazon EXPEDITED Shipping "
+"Speed. <strong>IMPORTANT:</strong> There are extra fees associated with "
+"using different Amazon Shipping Speeds. Check with Amazon for specifics "
+"related to your region."
+msgstr ""
+
+#: woocommerce-settings-integration.php:393
+msgid "Shipping for PRIORITY"
+msgstr ""
+
+#: woocommerce-settings-integration.php:394
+msgid ""
+"Orders with the selected shipping method will use Amazon PRIORITY Shipping "
+"Speed. <strong>IMPORTANT:</strong> There are extra fees associated with "
+"using different Amazon Shipping Speeds. Check with Amazon for specifics "
+"related to your region."
+msgstr ""
+
+#: woocommerce-settings-integration.php:401
+msgid "FBA Fulfillment Policy"
+msgstr ""
+
+#: woocommerce-settings-integration.php:402
+msgid ""
+"More info about each option: <a href=\"http://docs.developer.amazonservices."
+"com/en_US/fba_outbound/FBAOutbound_CreateFulfillmentOrder.html\" target="
+"\"_blank\">CreateFulfillmentOrder MWS Documentation</a>"
+msgstr ""
+
+#: woocommerce-settings-integration.php:408
+msgid "FillOrKill (Default)"
+msgstr ""
+
+#: woocommerce-settings-integration.php:409
+msgid "FillAll"
+msgstr ""
+
+#: woocommerce-settings-integration.php:410
+msgid "FillAllAvailable"
+msgstr ""
+
+#: woocommerce-settings-integration.php:417
+msgid "General Plugin Settings"
+msgstr ""
+
+#: woocommerce-settings-integration.php:423
+msgid "Notification Email"
+msgstr ""
+
+#: woocommerce-settings-integration.php:424
+msgid ""
+"Include this email address on Amazon Notifications sent to the customer. "
+"Leave this setting BLANK to prevent Amazon Notifications to you. This will "
+"also be used as the TO: address for any error messages if the Email on Error "
+"setting is ON."
+msgstr ""
+
+#: woocommerce-settings-integration.php:431
+msgid "Email on Error"
+msgstr ""
+
+#: woocommerce-settings-integration.php:432
+msgid "Send Error Notifications"
+msgstr ""
+
+#: woocommerce-settings-integration.php:433
+msgid ""
+"Send an email message when an order fails to be sent to FBA to the address "
+"above or the site admin email if the notification email is blank."
+msgstr ""
+
+#: woocommerce-settings-integration.php:440
+msgid "Exclude Customer Phone #"
+msgstr ""
+
+#: woocommerce-settings-integration.php:441
+msgid "Do NOT send customer phone number to Amazon"
+msgstr ""
+
+#: woocommerce-settings-integration.php:442
+msgid ""
+"Sometimes Amazon uses the customer phone number to text them shipping "
+"tracking info. Use this option to exclude the customer phone number from the "
+"order data sent to FBA."
+msgstr ""
+
+#: woocommerce-settings-integration.php:449
+msgid "Encoding Convert BYPASS"
+msgstr ""
+
+#: woocommerce-settings-integration.php:450
+msgid "Bypass automatic encoding conversion"
+msgstr ""
+
+#: woocommerce-settings-integration.php:451
+msgid ""
+"This will bypass NS FBAs normal attempt to convert customer name and address "
+"characters into a format that FBA will always accept. Sometimes there is a "
+"problem with the conversion which results in [?] characters. If you see this "
+"with your FBA orders in Seller Central, try turning this option ON to bypass "
+"the conversion completely and pass the raw data directly to Amazon. Note: "
+"this might cause FBA to reject orders in certain situations."
+msgstr ""
+
+#: woocommerce-settings-integration.php:458
+msgid "Encoding Check OVERRIDE"
+msgstr ""
+
+#: woocommerce-settings-integration.php:459
+msgid ""
+"Override normal encoding conversion validation checking for unconverted "
+"characters"
+msgstr ""
+
+#: woocommerce-settings-integration.php:460
+msgid ""
+"This will override NS FBAs final check on character encodings in the "
+"shipping address and allow the order to be sent to FBA even if it cannot "
+"convert some characters successfully. This might result in some addresses "
+"containing [?] characters."
+msgstr ""
+
+#: woocommerce-settings-integration.php:467
+msgid "Auto-Complete Order Status"
+msgstr ""
+
+#: woocommerce-settings-integration.php:468
+msgid "Automatically mark successful orders complete"
+msgstr ""
+
+#: woocommerce-settings-integration.php:469
+msgid ""
+"Instantly set orders successfully received by FBA to the standard "
+"WooCommerce Completed status instead of the custom NS FBA status."
+msgstr ""
+
+#: woocommerce-settings-integration.php:476
+msgid "Sync Shipping Status"
+msgstr ""
+
+#: woocommerce-settings-integration.php:477
+msgid "Automatically sync order status based on Amazon shipping status"
+msgstr ""
+
+#: woocommerce-settings-integration.php:478
+msgid ""
+"Check for updates to shipping status once per hour on orders that have been "
+"successfully Sent to FBA (including Partial to FBA). This will also "
+"automatically update the order status to Completed if FBA reports the order "
+"has shipped. If this option is ON then the Mark Orders Complete option "
+"should be OFF."
+msgstr ""
+
+#: woocommerce-settings-integration.php:485
+msgid "Disable Shipping Email"
+msgstr ""
+
+#: woocommerce-settings-integration.php:486
+msgid ""
+"Prevent Amazon from emailing the customer directly with order information"
+msgstr ""
+
+#: woocommerce-settings-integration.php:487
+msgid ""
+"Do NOT allow Amazon to send the customer a shipping notice email. Most "
+"stores should leave this option OFF. However, some might find this option "
+"useful when Amazon is sending confusing messages to the customer (like in "
+"the wrong language). When this option is ON the shipping notices will ONLY "
+"be sent to the admin email address. Changing this will NOT affect any orders "
+"already placed."
+msgstr ""
+
+#: woocommerce-settings-integration.php:494
+msgid "Display Order Tracking"
+msgstr ""
+
+#: woocommerce-settings-integration.php:495
+msgid "Show order information from Amazon on your customer view order page"
+msgstr ""
+
+#: woocommerce-settings-integration.php:496
+msgid ""
+"Show Order Shipping and Tracking information on the customer Order View Page "
+"pulled directly from Amazon including the latest status and tracking number. "
+"It can take up to an hour for tracking info to be retrieved and updated."
+msgstr ""
+
+#: woocommerce-settings-integration.php:503
+msgid "Enable DEBUG mode"
+msgstr ""
+
+#: woocommerce-settings-integration.php:504
+msgid "Capture additional info to help with support cases"
+msgstr ""
+
+#: woocommerce-settings-integration.php:505
+msgid ""
+"Turn on additional logging for support cases. Normally, leave this turned "
+"OFF."
+msgstr ""
+
+#: woocommerce-settings-integration.php:512
+msgid "Enable Daily Log Deletion"
+msgstr ""
+
+#: woocommerce-settings-integration.php:513
+msgid ""
+"Automatically delete error and success logs older than 30 days once per day"
+msgstr ""
+
+#: woocommerce-settings-integration.php:514
+msgid ""
+"This schedules a job to remove both error and success logs daily and "
+"automatically for log files older than 20 days. Any links in order notes "
+"pointing to deleted log files will be broken, but this will help keep logs "
+"from growing indefinitely. Default is OFF."
+msgstr ""
+
+#: woocommerce-settings-integration.php:521
+msgid "Delete Logs Manually"
+msgstr ""
+
+#: woocommerce-settings-integration.php:522
+msgid "Click to Manually Delete Old Logs NOW"
+msgstr ""
+
+#: woocommerce-settings-integration.php:523
+msgid ""
+"This will delete ALL error and success logs older than 30 days. Links to "
+"these deleted logs inside order notes will be broken."
+msgstr ""
+
+#: woocommerce-settings-integration.php:532
+msgid "Order Level Processing Rules"
+msgstr ""
+
+#: woocommerce-settings-integration.php:538
+msgid "Manual Order OVERRIDE"
+msgstr ""
+
+#: woocommerce-settings-integration.php:539
+msgid ""
+"Skip all other processing rules below when manually submitting an order to "
+"Amazon"
+msgstr ""
+
+#: woocommerce-settings-integration.php:540
+msgid ""
+"This will bypass ALL other Order Level Processing Rules below <b>when "
+"manually sending an order to FBA</b> and force NS FBA to try to send it "
+"through. Normally leave this turned OFF. This setting does NOT bypass the "
+"rules below for automatic fulfillment."
+msgstr ""
+
+#: woocommerce-settings-integration.php:547
+msgid "Disable for International"
+msgstr ""
+
+#: woocommerce-settings-integration.php:548
+msgid ""
+"ONLY Send Orders to FBA for addresses inside your <a href=\"/wp-admin/admin."
+"php?page=wc-settings\" target=\"_blank\">Base Location Country</a>"
+msgstr ""
+
+#: woocommerce-settings-integration.php:549
+msgid ""
+"Prevent orders from other countries from being sent to Amazon for fulfillment"
+msgstr ""
+
+#: woocommerce-settings-integration.php:556
+msgid "Disable for Shipping Methods"
+msgstr ""
+
+#: woocommerce-settings-integration.php:557
+msgid ""
+"ONLY Send Orders to FBA that do not use any of the selected Shipping methods "
+"below (CTL+Click to Select Multiple Items)."
+msgstr ""
+
+#: woocommerce-settings-integration.php:564
+msgid "Order Item (Product) Level Processing Rules"
+msgstr ""
+
+#: woocommerce-settings-integration.php:570
+msgid "Manual Order Item OVERRIDE"
+msgstr ""
+
+#: woocommerce-settings-integration.php:571
+msgid ""
+"Skip all other item processing rules below when manually submitting an order "
+"to Amazon"
+msgstr ""
+
+#: woocommerce-settings-integration.php:572
+msgid ""
+"This will bypass ALL other Order Item Level Processing Rules below <b>when "
+"manually sending an order to FBA</b> and force NS FBA to try to send ALL "
+"items in an order regardless of their individual Product settings. Normally "
+"leave this turned ON. This setting does NOT bypass the rules below for "
+"automatic fulfillment."
+msgstr ""
+
+#: woocommerce-settings-integration.php:579
+msgid "Vacation Mode"
+msgstr ""
+
+#: woocommerce-settings-integration.php:580
+msgid "Force all items in all order to go to Amazon for fulfillment"
+msgstr ""
+
+#: woocommerce-settings-integration.php:581
+msgid ""
+"Send ALL Order Items to FBA Regardless of their individual Product Settings. "
+"You can also use this to avoid turning ON the Fulfill with Amazon FBA "
+"setting in every single product, but this is not recommended unless every "
+"SKU has a match in FBA."
+msgstr ""
+
+#: woocommerce-settings-integration.php:588
+msgid "Perfection Mode"
+msgstr ""
+
+#: woocommerce-settings-integration.php:589
+msgid "Do NOT send partially fulfillable orders to Amazon"
+msgstr ""
+
+#: woocommerce-settings-integration.php:590
+msgid ""
+"ONLY Send Orders to FBA if ALL order item products are set to Fulfill with "
+"Amazon FBA."
+msgstr ""
+
+#: woocommerce-settings-integration.php:597
+msgid "Quantity Max Filter"
+msgstr ""
+
+#: woocommerce-settings-integration.php:598
+msgid ""
+"This is the maximum quantity per item that will be allowed to go to FBA. If "
+"the ordered quantity is more than this number for an item, it will NOT be "
+"sent to FBA. Leave this setting BLANK to send items to FBA regardless of the "
+"quantities ordered."
+msgstr ""
+
+#: woocommerce-settings-integration.php:607
+msgid "Configuration for Multiple Currencies - Normally NOT Used"
+msgstr ""
+
+#: woocommerce-settings-integration.php:613
+msgid "Currency Code OVERRIDE"
+msgstr ""
+
+#: woocommerce-settings-integration.php:614
+msgid ""
+"Manually Override the WooCommerce with a value like USD or GBP or EUR, etc. "
+"Leave this BLANK unless you know exactly what you are doing.</strong> "
+"Normally, NS FBA will use the currency configured in WooCommerce. This "
+"setting is ONLY if your store (WooCommerce) currency is different than you "
+"default Amazon Marketplace currency."
+msgstr ""
+
+#: woocommerce-settings-integration.php:621
+msgid "Currency Conversion Value"
+msgstr ""
+
+#: woocommerce-settings-integration.php:622
+msgid ""
+"Rate used to calculate Amazon PerUnitDeclaredValue. This is ONLY used if "
+"Currency Override is set. The formula is: Product Price * Currency "
+"Conversion = PerUnitDeclaredValue sent to Amazon"
+msgstr ""
+
+#: woocommerce-settings-integration.php:649
+msgid "N. America"
+msgstr ""
+
+#: woocommerce-settings-integration.php:650
+msgid "Europe"
+msgstr ""
+
+#: woocommerce-settings-integration.php:651
+msgid "India"
+msgstr ""
+
+#: woocommerce-settings-integration.php:652
+msgid "China"
+msgstr ""
+
+#: woocommerce-settings-integration.php:653
+msgid "Japan"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce Amazon Fulfillment"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+#. Author URI of the plugin/theme
+msgid "https://neversettle.it"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Integrates Amazon Fulfillment (FBA) with WooCommerce."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Never Settle"
+msgstr ""

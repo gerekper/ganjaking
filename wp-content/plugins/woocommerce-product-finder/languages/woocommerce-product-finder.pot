@@ -1,0 +1,149 @@
+# Copyright (C) 2020 WooCommerce
+# This file is distributed under the GNU General Public License v3.0.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Product Finder 1.2.13\n"
+"Report-Msgid-Bugs-To: "
+"https://wordpress.org/support/plugin/woocommerce-product-finder\n"
+"POT-Creation-Date: 2020-06-11 12:14:57+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: node-wp-i18n 1.2.3\n"
+
+#: classes/class-woocommerce-product-finder-admin.php:26
+#: classes/class-woocommerce-product-finder-widget.php:164
+#: classes/class-woocommerce-product-finder.php:116
+msgid "Product Finder"
+msgstr ""
+
+#: classes/class-woocommerce-product-finder-admin.php:28
+msgid ""
+"Select which product criteria (category/attributes) will be included in "
+"your site's Product Finder and which one will be selected by default."
+msgstr ""
+
+#: classes/class-woocommerce-product-finder-admin.php:33
+msgid "Attrbutes to be included:"
+msgstr ""
+
+#: classes/class-woocommerce-product-finder-admin.php:34
+#: classes/class-woocommerce-product-finder-admin.php:43
+#: classes/class-woocommerce-product-finder-widget.php:193
+#: classes/class-woocommerce-product-finder.php:327
+msgid "Product Category"
+msgstr ""
+
+#: classes/class-woocommerce-product-finder-admin.php:42
+msgid "None"
+msgstr ""
+
+#: classes/class-woocommerce-product-finder-admin.php:85
+msgid "Attribute selected by default:"
+msgstr ""
+
+#: classes/class-woocommerce-product-finder-admin.php:89
+msgid ""
+"The attribute chosen here will be selected by default on the Product Finder "
+"form."
+msgstr ""
+
+#: classes/class-woocommerce-product-finder-widget.php:40
+msgid "Customisable Product Finder widget."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce Product Finder"
+msgstr ""
+
+#: classes/class-woocommerce-product-finder-widget.php:187
+msgid "Title (optional):"
+msgstr ""
+
+#: classes/class-woocommerce-product-finder-widget.php:190
+msgid "Select which criteria to include:"
+msgstr ""
+
+#: classes/class-woocommerce-product-finder.php:106
+msgid "Search Results"
+msgstr ""
+
+#: classes/class-woocommerce-product-finder.php:133
+msgid "Add row"
+msgstr ""
+
+#: classes/class-woocommerce-product-finder.php:139
+msgid "Keywords"
+msgstr ""
+
+#: classes/class-woocommerce-product-finder.php:145
+msgid "Search"
+msgstr ""
+
+#: classes/class-woocommerce-product-finder.php:261
+msgid "Min price"
+msgstr ""
+
+#: classes/class-woocommerce-product-finder.php:262
+msgid "Max price"
+msgstr ""
+
+#: classes/class-woocommerce-product-finder.php:264
+msgid "Price:"
+msgstr ""
+
+#: classes/class-woocommerce-product-finder.php:280
+msgid "All"
+msgstr ""
+
+#: classes/class-woocommerce-product-finder.php:281
+msgid "Any"
+msgstr ""
+
+#: classes/class-woocommerce-product-finder.php:284
+msgid "Search for products that match %s of these criteria:"
+msgstr ""
+
+#: classes/class-woocommerce-product-finder.php:296
+msgid "Is"
+msgstr ""
+
+#: classes/class-woocommerce-product-finder.php:297
+msgid "Is not"
+msgstr ""
+
+#: classes/class-woocommerce-product-finder.php:316
+msgid "Select criteria"
+msgstr ""
+
+#: classes/class-woocommerce-product-finder.php:375
+msgid "Select criteria first"
+msgstr ""
+
+#: classes/class-woocommerce-product-finder.php:442
+msgid "Remove row"
+msgstr ""
+
+#: woocommerce-product-finder.php:30
+#. translators: %s WC download URL link.
+msgid ""
+"Product Finder requires WooCommerce to be installed and active. You can "
+"download %s here."
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"An advanced search for WooCommerce that helps your customers find your "
+"products more easily."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "WooCommerce"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://woocommerce.com"
+msgstr ""

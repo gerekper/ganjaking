@@ -1,0 +1,59 @@
+<wpml-config>
+	<admin-texts>
+
+		<key name="wc_social_login_text" />
+
+		<key name="wc_social_login_text_non_checkout" />
+
+		<key name="wc_social_login_amazon_settings">
+			<key name="login_button_text" />
+			<key name="link_button_text" />
+		</key>
+
+		<key name="wc_social_login_facebook_settings">
+			<key name="login_button_text" />
+			<key name="link_button_text" />
+		</key>
+
+		<key name="wc_social_login_disqus_settings">
+			<key name="login_button_text" />
+			<key name="link_button_text" />
+		</key>
+
+		<key name="wc_social_login_yahoo_settings">
+			<key name="login_button_text" />
+			<key name="link_button_text" />
+		</key>
+
+		<key name="wc_social_login_vkontakte_settings">
+			<key name="login_button_text" />
+			<key name="link_button_text" />
+		</key>
+
+		<key name="wc_social_login_google_settings">
+			<key name="login_button_text" />
+			<key name="link_button_text" />
+		</key>
+
+		<key name="wc_social_login_instagram_settings">
+			<key name="login_button_text" />
+			<key name="link_button_text" />
+		</key>
+
+		<key name="wc_social_login_linkedin_settings">
+			<key name="login_button_text" />
+			<key name="link_button_text" />
+		</key>
+
+		<key name="wc_social_login_paypal_settings">
+			<key name="login_button_text" />
+			<key name="link_button_text" />
+		</key>
+
+		<key name="wc_social_login_twitter_settings">
+			<key name="login_button_text" />
+			<key name="link_button_text" />
+		</key>
+
+	</admin-texts>
+</wpml-config>

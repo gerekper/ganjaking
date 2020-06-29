@@ -1,0 +1,9 @@
+.ywsfl_button_container{
+ margin: 10px;
+}
+.ywsfl_button_container .ywsfl_single_add.ywsfl_hide,
+.ywsfl_button_container .ywsfl_single_remove.ywsfl_hide,
+.ywsfl_button_container .ywsfl_single_message{
+ display: none;
+}
+

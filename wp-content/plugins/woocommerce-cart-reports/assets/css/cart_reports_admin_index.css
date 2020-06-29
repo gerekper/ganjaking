@@ -1,0 +1,122 @@
+.default{
+	font-weight:bold;
+}
+#author_chzn {
+	width:300px;
+}
+
+.post-type-carts dl.variation{
+	display: inline-block;	
+}
+
+.post-type-carts dl.variation:before{
+	content: "(";
+}
+
+.post-type-carts dl.variation:after{
+	content: ")";
+}
+
+
+.post-type-carts dl.variation dt{
+	display: inline-block;
+  margin: 0;
+  margin-right: 4px;
+}
+
+.post-type-carts dl.variation dd:last-child{
+  margin-right: 0;
+}
+
+.post-type-carts dl.variation dd:after{
+	content: ", ";
+}
+.post-type-carts dl.variation dd:last-child:after{
+	content: "";
+}
+
+.post-type-carts dl.variation dd{
+  display: inline-block;
+  margin: 0;
+  margin-right: 4px;
+  font-weight: 700;	  
+}
+
+.add-new-h2{
+	display: none;
+} /*Hide the Add New Button */
+.custom{
+	border-top:solid 1px #e5e5e5;
+}
+.custom_state{
+	font-size:9px;
+	color:#666;
+	background:#e5e5e5;
+	padding:3px 6px 3px 6px;
+		-moz-border-radius:3px;
+}
+.fixed .column-date, .fixed .column-parent, .fixed .column-links{
+	width:auto;
+}   
+
+.index_status mark{
+	display: block;
+	text-align: center;
+	white-space: nowrap;
+	padding: 1px 2px;
+	border: 1px solid white;
+	-webkit-box-shadow: inset 0 0 2px 1px rgba(255, 255, 255, 0.5);
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	-o-border-radius: 4px;
+	border-radius: 4px;
+	margin: 0;
+	font-size: 9px;
+	text-transform: uppercase;
+	color: white;
+	font-weight: bold;
+	text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
+	border-image: initial;
+	min-width: 100px;
+}
+
+
+.converted_index{
+	text-align:center;
+	width:100px;
+	background:#080;
+	color:#fff;
+}
+.open_index{
+	text-align:center;
+	width:100px;
+	background:#E66F00;
+	color:#fff;
+}
+.abandoned_index{
+	text-align:center;
+	width:100px;
+	background:#b53c3b;
+	color:#fff;
+}
+.woocommerce_cart_reports_items_wrapper table.woocommerce_cart_reports_items thead th {
+	background: #ECECEC;
+	padding: 8px;
+	font-size: 11px;
+	text-align: left;
+}
+
+select[name=m] {
+	display:none;
+}
+#cart-reports-filters__from{
+	width:120px;
+}
+#cart-reports-filters__to {
+	width:120px;
+}
+img.ui-datepicker-trigger {
+	vertical-align: middle;
+	margin-top: -1px;
+	cursor: pointer;
+}

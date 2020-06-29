@@ -1,0 +1,230 @@
+p.form-field._gift_card_amount_field span.variation-amount {
+    float: left;
+    background-color: #f1f1f1;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin: 5px;
+    position: relative;
+    border: 1px solid #cbcbcb;
+}
+
+p.form-field._gift_card_amount_field span.variation-amount span.amount {
+    font-size: 13px;
+    color: #838383;
+}
+
+p.form-field._gift_card_amount_field a.remove-amount {
+    position: absolute;
+    top: -8px;
+    right: -7px;
+    background-color: white;
+    padding: 0px;
+    line-height: 1;
+    color: #a0a5aa;
+    font-weight: bold;
+    font-size: 16px;
+    text-decoration: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #838383;
+}
+
+p.form-field._gift_card_amount_field a.remove-amount:hover {
+    background-color: #b20000;
+}
+
+p.form-field._gift_card_amount_field a.remove-amount:before {
+    content: 'x';
+    position: absolute;
+    left: 5px;
+    top: 1px;
+}
+
+p.form-field._gift_card_amount_field a.remove-amount:hover:before {
+    color: white;
+}
+
+#gift_card-amount {
+    width: 100px;
+    margin-right: 10px;
+}
+
+a.add-new-amount {
+    background-color: #009c0f;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    color: white;
+}
+
+span.add-new-amount-section {
+    display: inline-block;
+}
+
+span.ywgc-delivery-status.scheduled {
+    color: #FFA700;
+}
+
+span.ywgc-delivery-status.sent {
+    color: #40C771;
+}
+
+span.ywgc-delivery-status.failed {
+    color: #EA1306;
+}
+
+span.ywgc-delivery-status.not-sent {
+    color: #0000ff;
+}
+
+a.ywgc-delivery-status.retry-sending {
+    display: inline-block;
+    border: 1px solid #D4CECE;
+    border-radius: 5px;
+    padding: 3px 5px;
+    background-color: #4BB939;
+    color: white;
+}
+
+a.ywgc-delivery-status.retry-sending:hover {
+    color: #1E6F11;
+}
+
+tr.type-gift_card.status-ywgc-disabled {
+    background-color: #fef7f1;
+}
+
+tr.type-gift_card.status-ywgc-dismissed {
+    background-color: #C5C5C5;
+}
+
+tr.type-gift_card.status-ywgc-disabled th.check-column,
+tr.type-gift_card.status-ywgc-dismissed th.check-column {
+    border-left: 4px solid #d54e21;
+}
+
+td.column-gift_card_actions, td.column-gift_card_enable_disable {
+    font-size: 12px;
+    vertical-align: middle;
+}
+
+td.column-gift_card_actions a, td.column-gift_card_enable_disable a {
+    display: inline-block;
+    border: 1px solid #D4CECE;
+    border-radius: 3px;
+    padding: 5px 10px 5px 10px;
+    color: white;
+    margin-left: 5px;
+}
+
+a.ywgc-actions.disabled {
+    border-radius: 3px;
+    text-transform: uppercase;
+    box-shadow: none;
+    border: 0;
+    font-weight: 700;
+    font-size: 11px;
+    padding: 0px 14px;
+    outline: none;
+    transition: all ease 0.3s;
+    color            : #fff;
+    cursor           : pointer;
+    text-shadow: none;
+    vertical-align: middle;
+    line-height:  32px;;
+    display: inline-block;
+    text-decoration: none;
+    height: 32px;
+    background-color: #4BB939;
+}
+
+a.ywgc-actions.disabled:before {
+    content: url("../images/admin-enable-gift-card.png");
+    margin-right: 10px;
+    top: 2px;
+    position: relative;
+}
+
+a.ywgc-actions.enabled {
+    background-color: #b9331e;
+    border-radius: 3px;
+    text-transform: uppercase;
+    box-shadow: none;
+    border: 0;
+    font-weight: 700;
+    font-size: 11px;
+    padding: 0px 14px;
+    outline: none;
+    transition: all ease 0.3s;
+    color            : #fff;
+    cursor           : pointer;
+    text-shadow: none;
+    vertical-align: middle;
+    line-height: 32px;;
+    display: inline-block;
+    text-decoration: none;
+    height: 32px;
+}
+
+a.ywgc-actions.enabled:before {
+    content: url("../images/admin-disable-gift-card.png");
+    margin-right: 10px;
+    top: 2px;
+    position: relative;
+}
+
+
+
+a.ywgc-actions.send-now {
+    border-radius: 3px;
+    text-transform: uppercase;
+    box-shadow: none;
+    border: 0;
+    font-weight: 700;
+    font-size: 11px;
+    padding: 0px 14px;
+    outline: none;
+    transition: all ease 0.3s;
+    background-color : #375f6b;
+    color            : #fff;
+    cursor           : pointer;
+    text-shadow: none;
+    vertical-align: middle;
+    line-height: 32px;;
+    display: inline-block;
+    text-decoration: none;
+    height: 32px;
+
+}
+
+a.ywgc-actions.send-now:before {
+    content: url("../images/admin-send-gift-card-code.png");
+    margin-right: 10px;
+    top: 2px;
+    position: relative;
+}
+
+a.ywgc-actions.download_pdf {
+    background-color: lightgrey;
+    color: grey;
+}
+
+
+.the-metabox #_ywgc_delivery_date-container{
+    display: none;
+}
+.the-metabox #_ywgc_expiration-container{
+    display: none;
+}
+
+.ywgc-form-field__description {
+    display     : block;
+    padding     : 0;
+    font-size   : 12px;
+    font-style  : italic;
+    clear       : both;
+    line-height : 1.4em;
+    margin-top  : 5px;
+    color       : #777;
+}

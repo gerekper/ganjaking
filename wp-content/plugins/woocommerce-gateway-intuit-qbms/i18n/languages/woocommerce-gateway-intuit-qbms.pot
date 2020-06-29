@@ -1,0 +1,396 @@
+# Copyright (C) 2018 SkyVerge
+# This file is distributed under the GNU General Public License v3.0.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Intuit Payments Gateway 2.3.0\n"
+"Report-Msgid-Bugs-To: "
+"https://woocommerce.com/my-account/marketplace-ticket-form/\n"
+"POT-Creation-Date: 2014-06-15 22:41:26+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2018-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: class-wc-intuit-payments.php:352
+msgid "Use Legacy QBMS Gateway"
+msgstr ""
+
+#: class-wc-intuit-payments.php:354
+msgid "Use Payments Gateway"
+msgstr ""
+
+#: class-wc-intuit-payments.php:412
+msgid "Intuit QBMS Gateway is now active."
+msgstr ""
+
+#: class-wc-intuit-payments.php:414
+msgid "Intuit Payments Gateway is now active."
+msgstr ""
+
+#: class-wc-intuit-payments.php:425
+#. translators: Placeholders: %1$s - payment gateway name, %2$s - <strong> tag,
+#. %3$s - </strong> tag, %4$s - <a> tag, %5$s - </a> tag
+msgid ""
+"%1$s: Your connection to Intuit appears to be invalid. If you are having "
+"issues with payment processing, please %2$sDisconnect from Quickbooks%3$s "
+"and Connect again from the %4$sgateway settings%5$s."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce Intuit Payments Gateway"
+msgstr ""
+
+#: class-wc-intuit-payments.php:661
+msgid "Configure eChecks"
+msgstr ""
+
+#: class-wc-intuit-payments.php:663
+msgid "Configure Credit Cards"
+msgstr ""
+
+#: class-wc-intuit-payments.php:665
+msgid "Configure"
+msgstr ""
+
+#: includes/abstract-wc-gateway-intuit-payments.php:89
+msgid ""
+"Intuit Payments Gateway provides a seamless and secure checkout process for "
+"your customers"
+msgstr ""
+
+#: includes/abstract-wc-gateway-intuit-payments.php:92
+#: includes/qbms/class-wc-gateway-intuit-qbms-credit-card.php:83
+#: includes/qbms/class-wc-gateway-intuit-qbms-echeck.php:60
+msgid "Production"
+msgstr ""
+
+#: includes/abstract-wc-gateway-intuit-payments.php:93
+msgid "Sandbox"
+msgstr ""
+
+#: includes/abstract-wc-gateway-intuit-payments.php:169
+#: includes/abstract-wc-gateway-intuit-payments.php:183
+msgid "Consumer Key"
+msgstr ""
+
+#: includes/abstract-wc-gateway-intuit-payments.php:169
+#: includes/abstract-wc-gateway-intuit-payments.php:183
+msgid "Client ID"
+msgstr ""
+
+#: includes/abstract-wc-gateway-intuit-payments.php:172
+msgid "Your Intuit Developer App consumer key."
+msgstr ""
+
+#: includes/abstract-wc-gateway-intuit-payments.php:176
+#: includes/abstract-wc-gateway-intuit-payments.php:190
+msgid "Consumer Secret"
+msgstr ""
+
+#: includes/abstract-wc-gateway-intuit-payments.php:176
+#: includes/abstract-wc-gateway-intuit-payments.php:190
+msgid "Client Secret"
+msgstr ""
+
+#: includes/abstract-wc-gateway-intuit-payments.php:179
+msgid "Your Intuit Developer App consumer secret."
+msgstr ""
+
+#: includes/abstract-wc-gateway-intuit-payments.php:186
+#: includes/abstract-wc-gateway-intuit-payments.php:193
+msgid "Find this in your Intuit Developer App."
+msgstr ""
+
+#: includes/abstract-wc-gateway-intuit-payments.php:197
+msgid "Payments Account"
+msgstr ""
+
+#: includes/abstract-wc-gateway-intuit-payments.php:223
+msgid "Are you sure you wish to disconnect from your QuickBooks account?"
+msgstr ""
+
+#: includes/abstract-wc-gateway-intuit-payments.php:264
+msgid "Reconnect"
+msgstr ""
+
+#: includes/abstract-wc-gateway-intuit-payments.php:267
+msgid "Disconnect from QuickBooks"
+msgstr ""
+
+#: includes/abstract-wc-gateway-intuit-payments.php:271
+msgid ""
+"Please save your Consumer Key &amp; Secret before connecting with "
+"QuickBooks."
+msgstr ""
+
+#: includes/abstract-wc-gateway-intuit-payments.php:271
+msgid "Please save your Client ID &amp; Secret before connecting with QuickBooks."
+msgstr ""
+
+#: includes/abstract-wc-gateway-intuit-payments.php:278
+msgid "Connect with QuickBooks"
+msgstr ""
+
+#: includes/abstract-wc-gateway-intuit-payments.php:283
+msgid "Please make sure your app's Redirect URI is configured exactly as:%s"
+msgstr ""
+
+#: includes/abstract-wc-gateway-intuit-payments.php:645
+msgid "Error Test Case"
+msgstr ""
+
+#: includes/abstract-wc-gateway-intuit-payments.php:649
+msgid "None"
+msgstr ""
+
+#: includes/abstract-wc-gateway-intuit-payments.php:741
+msgid "Provided last four is invalid."
+msgstr ""
+
+#: includes/abstract-wc-gateway-intuit-payments.php:748
+msgid "Provided token is invalid."
+msgstr ""
+
+#: includes/api/responses/class-wc-intuit-payments-api-oauth-response.php:90
+msgid "Invalid Consumer Key"
+msgstr ""
+
+#: includes/api/responses/class-wc-intuit-payments-api-oauth-response.php:94
+#: includes/api/responses/class-wc-intuit-payments-api-oauth2-response.php:109
+msgid "Authentication error. Please try again."
+msgstr ""
+
+#: includes/class-wc-gateway-intuit-payments-credit-card.php:47
+msgid "Intuit Payments Credit Card"
+msgstr ""
+
+#: includes/class-wc-gateway-intuit-payments-credit-card.php:92
+msgid "Payment system error"
+msgstr ""
+
+#: includes/class-wc-gateway-intuit-payments-credit-card.php:93
+msgid "Card number is invalid"
+msgstr ""
+
+#: includes/class-wc-gateway-intuit-payments-credit-card.php:94
+msgid "General decline"
+msgstr ""
+
+#: includes/class-wc-gateway-intuit-payments-credit-card.php:157
+msgid "Provided card type is invalid."
+msgstr ""
+
+#: includes/class-wc-gateway-intuit-payments-echeck.php:47
+msgid "Intuit Payments eCheck"
+msgstr ""
+
+#: includes/class-wc-gateway-intuit-payments-echeck.php:68
+msgid "Pending"
+msgstr ""
+
+#: includes/class-wc-gateway-intuit-payments-echeck.php:69
+msgid "Declined"
+msgstr ""
+
+#: includes/class-wc-gateway-intuit-payments-echeck.php:70
+msgid "Succeeded"
+msgstr ""
+
+#: includes/qbms/api/class-wc-intuit-qbms-api-response.php:145
+msgid "Authentication successful"
+msgstr ""
+
+#: includes/qbms/api/class-wc-intuit-qbms-api-response.php:146
+msgid "Application agent not found - the ticket provided is invalid or cancelled"
+msgstr ""
+
+#: includes/qbms/api/class-wc-intuit-qbms-api-response.php:147
+msgid "Unauthorized"
+msgstr ""
+
+#: includes/qbms/api/class-wc-intuit-qbms-api-response.php:148
+msgid "Session Authentication required"
+msgstr ""
+
+#: includes/qbms/api/class-wc-intuit-qbms-api-response.php:149
+msgid "Internal error"
+msgstr ""
+
+#: includes/qbms/api/class-wc-intuit-qbms-api-response.php:151
+msgid "Unknown error"
+msgstr ""
+
+#: includes/qbms/class-wc-gateway-intuit-qbms-credit-card.php:63
+msgid "Intuit QBMS"
+msgstr ""
+
+#: includes/qbms/class-wc-gateway-intuit-qbms-credit-card.php:64
+msgid "Allow customers to securely pay using their credit cards with Intuit QBMS."
+msgstr ""
+
+#: includes/qbms/class-wc-gateway-intuit-qbms-credit-card.php:84
+#: includes/qbms/class-wc-gateway-intuit-qbms-echeck.php:60
+msgid "Test"
+msgstr ""
+
+#: includes/qbms/class-wc-gateway-intuit-qbms-credit-card.php:112
+msgid "Require Card Verification"
+msgstr ""
+
+#: includes/qbms/class-wc-gateway-intuit-qbms-credit-card.php:113
+msgid "Require the Card Security Code (CV2) for all transactions"
+msgstr ""
+
+#: includes/qbms/class-wc-gateway-intuit-qbms-credit-card.php:114
+msgid ""
+"Enabling this field will require the CSC even for tokenized transactions, "
+"and will disable support for WooCommerce Subscriptions and WooCommerce "
+"Pre-Orders.  Enable this if you have configured your merchant settings to "
+"Reject Transaction if CSC is not available."
+msgstr ""
+
+#: includes/qbms/class-wc-gateway-intuit-qbms-credit-card.php:194
+msgid "CC Processing Gateway comm error"
+msgstr ""
+
+#: includes/qbms/class-wc-gateway-intuit-qbms-credit-card.php:195
+msgid "Processing Gateway login error"
+msgstr ""
+
+#: includes/qbms/class-wc-gateway-intuit-qbms-credit-card.php:196
+msgid "Invalid CC account number"
+msgstr ""
+
+#: includes/qbms/class-wc-gateway-intuit-qbms-credit-card.php:197
+msgid "Insufficient funds"
+msgstr ""
+
+#: includes/qbms/class-wc-gateway-intuit-qbms-credit-card.php:198
+msgid "Transaction declined"
+msgstr ""
+
+#: includes/qbms/class-wc-gateway-intuit-qbms-credit-card.php:199
+msgid "Invalid merchant account"
+msgstr ""
+
+#: includes/qbms/class-wc-gateway-intuit-qbms-credit-card.php:200
+msgid "Declined pending voice auth"
+msgstr ""
+
+#: includes/qbms/class-wc-gateway-intuit-qbms-credit-card.php:201
+msgid "Capture error"
+msgstr ""
+
+#: includes/qbms/class-wc-gateway-intuit-qbms-credit-card.php:202
+msgid "General error"
+msgstr ""
+
+#: includes/qbms/class-wc-gateway-intuit-qbms-credit-card.php:203
+msgid "AVS Failure"
+msgstr ""
+
+#: includes/qbms/class-wc-gateway-intuit-qbms-credit-card.php:209
+msgid "Test an Error Condition:"
+msgstr ""
+
+#: includes/qbms/class-wc-gateway-intuit-qbms-credit-card.php:427
+msgid "Wallet Token ID"
+msgstr ""
+
+#: includes/qbms/class-wc-gateway-intuit-qbms-credit-card.php:447
+msgid "Wallet Token ID must be numeric."
+msgstr ""
+
+#: includes/qbms/class-wc-gateway-intuit-qbms-echeck.php:52
+msgid "Intuit QBMS eCheck"
+msgstr ""
+
+#: includes/qbms/class-wc-gateway-intuit-qbms-echeck.php:53
+msgid ""
+"Allow customers to securely pay using their checking accounts with Intuit "
+"QBMS."
+msgstr ""
+
+#: includes/qbms/class-wc-gateway-intuit-qbms.php:132
+msgid ""
+"You can create your own production Application Login and Application ID in "
+"the %1$sIntuit Partner Program%2$s, or use the default.  This is optional."
+msgstr ""
+
+#: includes/qbms/class-wc-gateway-intuit-qbms.php:136
+msgid ""
+"Generate a new production connection ticket for the configured Application "
+"ID by following %1$sthis link%2$s"
+msgstr ""
+
+#: includes/qbms/class-wc-gateway-intuit-qbms.php:140
+msgid ""
+"You can create your own test Application Login and Application ID in the "
+"%1$sIntuit Partner Program%2$s, or use the default.  This is optional."
+msgstr ""
+
+#: includes/qbms/class-wc-gateway-intuit-qbms.php:144
+msgid ""
+"Generate a new test connection ticket for the configured Application ID by "
+"following %1$sthis link%2$s"
+msgstr ""
+
+#: includes/qbms/class-wc-gateway-intuit-qbms.php:203
+msgid "Connection Settings"
+msgstr ""
+
+#: includes/qbms/class-wc-gateway-intuit-qbms.php:208
+#: includes/qbms/class-wc-gateway-intuit-qbms.php:231
+msgid "Application Login"
+msgstr ""
+
+#: includes/qbms/class-wc-gateway-intuit-qbms.php:211
+#: includes/qbms/class-wc-gateway-intuit-qbms.php:234
+msgid ""
+"Your application login value, this will be something like "
+"appname.domainname.com"
+msgstr ""
+
+#: includes/qbms/class-wc-gateway-intuit-qbms.php:216
+#: includes/qbms/class-wc-gateway-intuit-qbms.php:239
+msgid "Application ID"
+msgstr ""
+
+#: includes/qbms/class-wc-gateway-intuit-qbms.php:219
+#: includes/qbms/class-wc-gateway-intuit-qbms.php:242
+msgid "Your application ID value."
+msgstr ""
+
+#: includes/qbms/class-wc-gateway-intuit-qbms.php:224
+#: includes/qbms/class-wc-gateway-intuit-qbms.php:247
+msgid "Connection Ticket"
+msgstr ""
+
+#: includes/qbms/class-wc-gateway-intuit-qbms.php:227
+#: includes/qbms/class-wc-gateway-intuit-qbms.php:250
+msgid "Your unique connection ticket value."
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.woothemes.com/products/intuit-qbms/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Accept credit cards in WooCommerce with the Intuit Payments gateway"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "SkyVerge"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://www.woothemes.com/"
+msgstr ""
+
+#: includes/qbms/api/class-wc-intuit-qbms-api-request.php:257
+#: includes/qbms/api/class-wc-intuit-qbms-api-request.php:700
+msgctxt "hash before order number"
+msgid "#"
+msgstr ""

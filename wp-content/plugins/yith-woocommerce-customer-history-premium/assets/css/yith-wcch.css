@@ -1,0 +1,5 @@
+@media (min-width: 1000px) and (max-width: 1200px) and (min-height: 580px) and (max-height: 600px) {
+	html { padding-top: 0px !important; }
+	#wpcontent { margin-left: 0px !important; }
+	#adminmenumain, #wpadminbar, #screen-meta-links { display: none; }
+}

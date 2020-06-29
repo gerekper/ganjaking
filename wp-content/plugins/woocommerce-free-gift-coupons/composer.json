@@ -1,0 +1,39 @@
+{
+    "name": "woocommece/woocommerce-free-gift-coupons",
+    "description": "WordPress plugin to give free gifts with WooCommerce coupons",
+    "type": "wordpress-plugin",
+    "keywords": [],
+    "license": "LGPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "Kathy Darling",
+            "role": "lead",
+            "homepage": "https://www.kathyisawesome.com"
+        },
+        {
+            "name": "Contributors",
+            "homepage": "https://github.com/woocommece/woocommerce-free-gift-coupons/graphs/contributors"
+        }
+    ],
+    "homepage": "https://woocommerce.com/products/free-gift-coupons/",
+    "support": {
+        "source": "https://github.com/woocommece/woocommerce-free-gift-coupons"
+    },
+    "require": {
+        "woocommerce/woocommerce-sniffs": "^0.0.9"
+    },
+    "scripts": {
+        "sniff": [
+            "phpcs -s -p"
+        ],
+        "fixer": [
+            "phpcbf -p"
+        ]
+     },
+    "extra": {
+        "scripts-description": {
+          "phpcs": "Analyze code against the WordPress coding standards with PHP_CodeSniffer",
+          "phpcbf": "Fix coding standards warnings/errors automatically with PHP Code Beautifier"
+        }
+    }
+}

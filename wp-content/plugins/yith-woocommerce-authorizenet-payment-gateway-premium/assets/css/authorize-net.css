@@ -1,0 +1,41 @@
+/* MY ACCOUNT */
+.woocommerce table.my_account_orders th.payment-method-expire,
+.woocommerce table.my_account_orders td.payment-method-expire {
+    width: 90px;
+}
+
+.woocommerce table.my_account_orders th.payment-method-actions,
+.woocommerce table.my_account_orders td.payment-method-actions {
+    width: 120px;
+}
+
+.woocommerce table.my_account_orders td .tag-label {
+    font-size: 0.5em;
+    padding: 0 5px 2px;
+    border-radius: 3px;
+    color: #fff;
+    display: inline-block;
+    margin-left: 4px;
+    vertical-align: top;
+    margin-top: 6px;
+    text-decoration: none;
+    border: 0;
+    text-transform: uppercase;
+}
+
+.woocommerce table.my_account_orders td .tag-label.default {
+    background: #080;
+}
+
+.woocommerce table.my_account_orders td .tag-label.show-on-hover {
+    display: none;
+}
+
+.woocommerce table.my_account_orders td:hover .tag-label.show-on-hover {
+    display: inline-block;
+    opacity: 0.3;
+}
+
+.woocommerce table.my_account_orders td:hover .tag-label.show-on-hover:hover {
+    opacity: 1;
+}

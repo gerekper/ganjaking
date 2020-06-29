@@ -1,0 +1,34 @@
+.userpro-admin-contain{
+
+  $this : &;
+
+  h3{
+    background: #fff;
+    color: #666;
+    margin: 4px 0;
+    padding: 10px 12px;
+    font-size: 13px;
+    cursor: pointer;
+    @include transition(0.5s);
+    -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+    -moz-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+
+    &:hover, &.selected{
+      border-left:4px solid nth($primary-color,3);
+      @include transition(0.25s);
+    }
+  }
+  .form-table{
+    margin:0 0 25px 0;
+  }
+  .submit{
+    position: fixed;
+    bottom: 0;
+    right: 15px;
+    z-index: 99;
+    &.submit-static {
+      position: relative;
+    }
+  }
+}

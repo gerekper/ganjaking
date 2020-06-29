@@ -1,0 +1,284 @@
+/**
+ * Admin style
+ *
+ * @author Leanza Francesco
+ * @version 1.0.0
+ */
+
+#yith-wcbep-my-page-wrapper {
+    margin-top : 25px;
+}
+
+#yith_wcbep_categories_filter_chosen input, #yith_wcbep_tags_filter_chosen input, .yith-wcbep-custom-input .chosen-choices input, #yith-wcbep-bulk-editor .chosen-choices input {
+    height : 30px !important;
+}
+
+#yith-wcbep-custom-input-textarea {
+    padding            : 10px;
+    background         : #f1f1f1;
+    border             : 1px solid #ccc;
+    overflow           : auto;
+    display            : inline-block;
+    box-shadow         : 0px 0px 5px 0px #ccc;
+    -webkit-box-shadow : 0px 0px 5px 0px #ccc;
+    -moz-box-shadow    : 0px 0px 5px 0px #ccc;
+    -o-box-shadow      : 0px 0px 5px 0px #ccc;
+    -ms-box-shadow     : 0px 0px 5px 0px #ccc;
+    display            : none;
+    position           : absolute;
+    z-index            : 99999;
+}
+
+#yith-wcbep-custom-input-textarea-button-wrap {
+    display    : block;
+    padding    : 5px;
+    text-align : center;
+}
+
+td.yith-wcbep-filter-form-label-col {
+    width : 30%;
+}
+
+td.yith-wcbep-filter-form-content-col {
+    width : 70%;
+}
+
+select.yith-wcbep-miniselect {
+    width : 17%;
+}
+
+input.yith-wcbep-minifield {
+    width : 77%;
+}
+
+div#yith-wcbep-custom-input {
+    background : #fff;
+    border     : 1px solid #ccc;
+    display    : none;
+    position   : absolute;
+    padding    : 7px;
+    z-index    : 99999;
+}
+
+.yith-wcbep-custom-input {
+    display  : none;
+    position : absolute;
+    z-index  : 99999;
+}
+
+td.yith-wcbep-table-modified-td {
+    background  : #cd0a0a;
+    color       : #fff;
+    font-weight : 600;
+}
+
+div#yith-wcbep-bulk-editor {
+    display            : none;
+    width              : 50%;
+    background         : #f1f1f1;
+    border             : 1px solid #ccc;
+    position           : absolute;
+    left               : 25%;
+    top                : 100px;
+    z-index            : 9999;
+    box-sizing         : border-box;
+    box-shadow         : 0px 0px 8px 1px #333;
+    -webkit-box-shadow : 0px 0px 8px 1px #333;
+    -moz-box-shadow    : 0px 0px 8px 1px #333;
+    -o-box-shadow      : 0px 0px 8px 1px #333;
+    -ms-box-shadow     : 0px 0px 8px 1px #333;
+}
+
+div#yith-wcbep-columns-settings-wrapper {
+    display            : none;
+    width              : 50%;
+    background         : #f1f1f1;
+    border             : 1px solid #ccc;
+    position           : absolute;
+    left               : 25%;
+    top                : 100px;
+    z-index            : 9999;
+    box-sizing         : border-box;
+    box-shadow         : 0px 0px 8px 1px #333;
+    -webkit-box-shadow : 0px 0px 8px 1px #333;
+    -moz-box-shadow    : 0px 0px 8px 1px #333;
+    -o-box-shadow      : 0px 0px 8px 1px #333;
+    -ms-box-shadow     : 0px 0px 8px 1px #333;
+    padding            : 20px 30px 30px 30px;
+}
+
+#yith-wcbep-bulk-editor-container {
+    padding       : 30px 30px 70px 30px;
+    border-bottom : 1px solid #a5a5a5;
+}
+
+#yith-wcbep-bulk-editor-container h2 {
+    margin-top : 0;
+}
+
+#yith-wcbep-message {
+    display    : none;
+    margin-top : 10px;
+    position   : relative;
+}
+
+div#yith-wcbep-bulk-button-wrap {
+    padding    : 15px;
+    width      : 100%;
+    text-align : center;
+    box-sizing : border-box;
+    background : #e1e1e1;
+    border-top : 1px solid #f1f1f1;
+
+}
+
+div#yith-wcbep-bulk-button-wrap input {
+    margin : 0 10px;
+}
+
+table#yith-wcbep-bulk-editor-table {
+    width : 100%;
+}
+
+td.yith-wcbep-bulk-form-label-col {
+    width : 20%;
+}
+
+td.yith-wcbep-bulk-form-content-col {
+    width : 80%;
+}
+
+td.yith-wcbep-bulk-form-content-col select.yith-wcbep-miniselect {
+    width : 30%;
+}
+
+td.yith-wcbep-bulk-form-content-col input.yith-wcbep-minifield {
+    width : 64%;
+}
+
+.yith-wcbep-bulk-chosen-wrapper {
+    width   : 64%;
+    display : inline-block;
+}
+
+td.yith-wcbep-bulk-form-content-col textarea.yith-wcbep-minifield {
+    width          : 64%;
+    height         : 30px;
+    vertical-align : middle;
+}
+
+.yith_wcbep_no_display {
+    display : none;
+}
+
+#yith-wcbep-table-wrap td.description, #yith-wcbep-table-wrap td.shortdesc, #yith-wcbep-table-wrap td.purchase_note {
+    overflow      : hidden;
+    text-overflow : ellipsis;
+    white-space   : nowrap;
+    min-height    : 20px;
+}
+
+#yith-wcbep-table-wrap th#show {
+    width : 1em !important;
+}
+
+#yith-wcbep-percentual-container {
+    display       : none;
+    width         : 300px;
+    background    : #6b6b6b;
+    border-radius : 4px;
+    overflow      : hidden;
+    margin-top    : 10px;
+}
+
+.yith-wcbep-percentual {
+    background : #11b4f5;
+    display    : block;
+    padding    : 4px;
+    min-width  : 50px;
+    text-align : center;
+    color      : #fff;
+    box-sizing : border-box;
+    font-size  : 17px;
+    box-shadow : 1px 1px 6px 0 #0a739c inset;
+}
+
+/* ------------- TOGGLE -------------- */
+.yith-wcbep-toggle {
+    cursor     : pointer;
+    display    : inline-block;
+    position   : absolute;
+    right      : 0;
+    top        : 0;
+    width      : 38px;
+    height     : 38px;
+    text-align : center;
+    background : none;
+    border     : none;
+    box-shadow : none;
+    outline    : none;
+}
+
+.yith-wcbep-toggle-indicator {
+    color : #555;
+}
+
+.yith-wcbep-toggle-indicator:hover {
+    color : #222;
+}
+
+.yith-wcbep-toggle-indicator:before {
+    content                 : "\f142";
+    display                 : inline-block;
+    font                    : normal 19px/1 dashicons;
+    speak                   : none;
+    -webkit-font-smoothing  : antialiased;
+    -moz-osx-font-smoothing : grayscale;
+    text-decoration         : none !important;
+}
+
+.yith-wcbep-toggle.closed .yith-wcbep-toggle-indicator:before {
+    content : "\f140";
+}
+
+/** Filters  **/
+.yith-wcbep-filter-wrap {
+    background : #fff;
+    border     : 1px solid #ddd;
+    box-shadow : 0 1px 7px rgba(0, 0, 0, 0.1);
+    position   : relative;
+}
+
+.yith-wcbep-filter-wrap h2 {
+    margin      : 0;
+    padding     : 10px 15px;
+    font-size   : 15px;
+    font-weight : 600;
+}
+
+#yith-wcbep-filter-form {
+    padding    : 10px 15px 15px 15px;
+    border-top : 1px solid #e5e5e5;
+}
+
+#yith-wcbep-filter-form table {
+    width         : 100%;
+    max-width     : 800px;
+    margin-bottom : 15px;
+}
+
+form#yith-wcbep-filter-form input[type=text],
+form#yith-wcbep-filter-form input[type=number],
+form#yith-wcbep-filter-form select {
+    min-height : 30px;
+    box-shadow : none;
+    float      : left;
+}
+
+form#yith-wcbep-filter-form .yith-wcbep-miniselect {
+    margin-right : 4px;
+}
+
+form#yith-wcbep-filter-form > table > tbody > tr > td {
+    padding : 2px 0;
+}

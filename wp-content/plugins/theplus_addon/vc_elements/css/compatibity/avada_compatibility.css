@@ -1,0 +1,99 @@
+.pt_plus_button *:before, .pt_plus_button *:after {
+    -webkit-box-sizing: inherit;
+    -moz-box-sizing: inherit;
+    box-sizing: inherit;
+}
+.read-more-btn [class*="fa-"],.pt_plus_button [class*="fa-"]{
+    width: auto;
+    height: auto;
+    line-height: initial;
+    font-size: inherit;
+}
+.blog-list.blog-style-1 h3.post-title{
+	margin-bottom:0;
+}
+.blog-style-2 h3.post-title, .blog-style-3 h3.post-title,.blog-style-4 .post-title{
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+.post-inner-loop .grid-item article {
+    margin-bottom: 0;
+}
+.icon-counte-inner h6:not(.subject-color,.sub-subject-color){
+	margin:0;
+}
+.icon-counte-inner h6.subject-color,.icon-counte-inner h6.sub-subject-color{
+	margin-top:0;
+}
+.pt_plus_blockquote-4 blockquote{
+	margin-right:0px !important;
+}
+ .pt_plus_cf7_form  .pt_plus_cf7_styles .input__field{
+	height:auto !important;
+}
+.pt_plus_cf7_form .cf7-style-1 .input__label--style-1,.pt_plus_cf7_form .cf7-style-5 .input__label--style-5,.pt_plus_cf7_form .cf7-style-6 .input__label--style-6,.pt_plus_cf7_form .cf7-style-7 .input__label--style-7,.pt_plus_cf7_form .cf7-style-11 .input__label--style-11{
+	top:0;
+}
+.pt_plus_cf7_form .cf7-style-2 .input__label--style-2::before{
+	border-top-width:0px !important;
+}
+.pt_plus_cf7_form .cf7-style-10 .input__label-content--style-10 {
+    height: 44px;
+    line-height: 30px;
+	    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.pt_plus_cf7_form .cf7-style-12 .input__label--style-12::before{
+	    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+ul.pt_plus_countdown h6 {
+    margin: .07em 0;
+}
+.pt_plus_animated_image figure {
+    margin: 0;
+}
+h3.info-title {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+.pt_plus_infobanner *:before, .pt_plus_infobanner *:after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+h4.infobanner_subtitle {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.info-box-inner .service-title {
+	margin-top:0px;
+	margin-bottom:5px;
+}
+.pt-plus-list-product-post .post-title h3 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+figure.product-image {
+    margin: 0;
+}
+.lity-close {
+    width: 50px !important;
+    height: 50px !important;
+    padding: 0px 12px !important;
+}
+.pt_theplus-list-portfolio-post .tp-portfolio-image .thumb-wrap {
+    position: relative;
+    width: 100%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+.pt_theplus-list-portfolio-post .tp-portfolio-image .thumb-wrap img {
+    width: 100% !important;
+    max-width: 100%;
+    height: 100%;
+}

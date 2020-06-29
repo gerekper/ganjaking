@@ -1,0 +1,76 @@
+#ywbc-generate {
+    margin: 10px 0;
+    display: block;
+    border-radius: 3px;
+    text-decoration: none;
+}
+
+.ywbc-barcode-image {
+    display: block;
+    margin: 0 auto;
+}
+
+.ywbc-barcode-display-value {
+    display: block;
+    text-align: center;
+}
+
+.barcode-value {
+    display: inline-block;
+    text-align: center;
+}
+
+.ywbc-barcode-generation {
+    max-width: 250px;
+
+}
+
+.ywbc-generate-barcode {
+    margin-top: 10px;
+    text-align: left;
+    border: 1px;
+    border-radius: 3px;
+}
+
+.ywbc-generate-barcode .ywbc-generate {
+  display: block;
+  margin-top: 10px;
+}
+
+.ywbc-action-results.error {
+    color: red;
+}
+
+.yith-barcode-buttons {
+    margin: 10px 0;
+}
+
+input.ywbc-value-field {
+    width: 75%;
+}
+
+.yith-barcode-actions {
+    padding: 30px 0;
+}
+
+.product .ywbc_barcode_value{
+  width: 50%;
+}
+
+.ywbc-print-barcode-by-product-tr .yith-plugin-fw-ajax-products-field-wrapper{
+  max-width: 25%;
+  width: 200px !important;
+  display: inline-block !important;
+  margin: 0px 5px 0px 5px;
+}
+
+.ywbc-print-barcode-by-product-tr .yith-plugin-fw-ajax-products-field-wrapper .yith-plugin-fw-select2-wrapper .select2-container{
+  margin-top: -10px;
+  min-width: 200px !important;
+  width: 200px !important;
+}
+
+.ywbc-print-barcode-by-product-tr .ywbc-print-barcode-by-product{
+  margin-left: 5px;
+  margin-top: -5px !important;
+}

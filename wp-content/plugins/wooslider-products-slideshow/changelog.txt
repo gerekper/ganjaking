@@ -1,0 +1,69 @@
+*** WooCommerce - WooSlider Products Slideshow Changelog ***
+
+2020-06-10 - version 1.0.20
+* Tweak - WC 4.2 compatibility.
+
+2020-04-30 - version 1.0.19
+* Tweak - WC 4.1 compatibility.
+
+2020-03-30 - version 1.0.18
+* Tweak - Remove legacy code.
+
+2020-03-05 - version 1.0.17
+* Tweak - WC 4.0 compatibility.
+
+2020-01-16 - version 1.0.16
+* Tweak - WC 3.9 compatibility.
+
+2019-11-05 - version 1.0.15
+* Tweak - WC tested up to 3.8.
+
+2019-08-06 - version 1.0.14
+* Tweak - WC tested up to 3.7.
+
+2019-04-16 - version 1.0.13
+* Tweak - WC 3.6 compatibility.
+
+2018-09-25 - version 1.0.12
+* Update - WC 3.5 compatibility.
+
+2018-05-22 - version 1.0.11
+* Tweak  - Update deprecated WooCommerce function calls.
+* Update - WC 3.4 compatibility.
+
+2016-01-12 - version 1.0.10
+* Tweak - Make product images clickable.
+* Fix - Prevent strict static notice from displaying.
+
+2015-03-06 - version 1.0.9
+ * Fix - WooCommerce compatibility fix for fatal error on activation.
+
+2015-02-16 - version 1.0.8
+ * Fix - Fixes the strict standards PHP warning when loading the plugin textdomain language file.
+
+2014-03-04 - version 1.0.7
+ * Fix - Fixed filter sale products before query.
+   /includes/classes/class-wooslider-wc-products.php
+ * WooCommerce 2.1 compatibility.
+
+2013-02-25 - version 1.0.6
+ * WooCommerce 2.0 compatibility
+
+2012-12-11 - version 1.0.5
+ * Updated WooThemes Updater logic
+
+2012-12-11 - version 1.0.4
+ * New updater.
+
+2012-11-19 - version 1.0.3
+ * Fixed text top layout issue.
+
+2012-11-19 - version 1.0.2
+ * /includes/classes/class-wooslider-wc-products.php - Change "numberposts" to "posts_per_page" when setting the query's limit.
+
+2012-08-31 - version 1.0.1
+ * Fixed logic for in stock check
+ * Added on sale option
+
+2012-08-23 - version 1.0.0
+ * First Release

@@ -1,0 +1,3175 @@
+# Translation of YITH WooCommerce Request a Quote in Dutch
+# This file is distributed under the same license as the YITH WooCommerce Request a Quote package.
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH WooCommerce Request a Quote\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
+"request-a-quote.premium\n"
+"POT-Creation-Date: 2020-05-26 09:57:20+00:00\n"
+"PO-Revision-Date: 2020-04-14 13:42:02+0000\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/2.3.1\n"
+
+#: includes/admin/class.yith-ywraq-exclusions-cat-table.php:77
+msgid "Thumbnail"
+msgstr "Thumbnail"
+
+#: includes/admin/class.yith-ywraq-exclusions-cat-table.php:169
+#: includes/admin/class.yith-ywraq-exclusions-prod-table.php:156
+#: includes/admin/class.yith-ywraq-exclusions-tag-table.php:153
+msgid "Delete"
+msgstr "Verwijderen"
+
+#: includes/admin/class.yith-ywraq-exclusions-cat-table.php:182
+#: includes/admin/class.yith-ywraq-exclusions-prod-table.php:169
+msgid "Image"
+msgstr "Afbeelding"
+
+#: includes/admin/class.yith-ywraq-exclusions-cat-table.php:183
+#: includes/admin/class.yith-ywraq-exclusions-tag-table.php:166
+#: templates/admin/ywraq-fields-edit.php:31
+#: templates/admin/ywraq-raqform-table.php:49
+#: templates/admin/ywraq-raqform-table.php:64
+msgid "Name"
+msgstr "Naam"
+
+#: includes/admin/class.yith-ywraq-exclusions-cat-table.php:184
+#: includes/admin/class.yith-ywraq-exclusions-tag-table.php:167
+#: templates/admin/ywraq-fields-edit.php:62
+msgid "Description"
+msgstr "Beschrijving"
+
+#: includes/admin/class.yith-ywraq-exclusions-cat-table.php:185
+#: includes/admin/class.yith-ywraq-exclusions-tag-table.php:168
+msgid "Slug"
+msgstr "Slug"
+
+#: includes/admin/class.yith-ywraq-exclusions-cat-table.php:186
+#: includes/admin/class.yith-ywraq-exclusions-tag-table.php:169
+msgid "Count"
+msgstr "Tellen"
+
+#: includes/admin/class.yith-ywraq-exclusions-cat-table.php:187
+#: includes/admin/class.yith-ywraq-exclusions-prod-table.php:173
+#: includes/admin/class.yith-ywraq-exclusions-tag-table.php:170
+#: plugin-options/form-options.php:209
+#: templates/admin/ywraq-raqform-table.php:56
+#: templates/admin/ywraq-raqform-table.php:71
+msgid "Actions"
+msgstr "Acties"
+
+#: includes/admin/class.yith-ywraq-exclusions-prod-table.php:133
+msgid "In Stock"
+msgstr "Op voorraad"
+
+#: includes/admin/class.yith-ywraq-exclusions-prod-table.php:170
+#: templates/emails/quote-table.php:46
+#: templates/emails/request-quote-table.php:54
+#: templates/myaccount/view-quote.php:174 templates/pdf/quote-table-div.php:54
+#: templates/pdf/quote-table.php:59 templates/request-quote-view.php:57
+#: templates/request-quote-view.php:93 templates/request-quote-view.php:183
+msgid "Product"
+msgstr "Product"
+
+#: includes/admin/class.yith-ywraq-exclusions-prod-table.php:171
+#: templates/request-quote-view.php:142 templates/request-quote-view.php:287
+msgid "Price"
+msgstr "Prijs"
+
+#: includes/admin/class.yith-ywraq-exclusions-prod-table.php:172
+msgid "Stock Status"
+msgstr "Voorraad status"
+
+#: includes/class.yith-request-quote-admin.php:204
+#: templates/admin/ywraq-raqform-table.php:28
+msgid "Add new field"
+msgstr "Nieuw veld toevoegen"
+
+#: includes/class.yith-request-quote-admin.php:205
+msgid "Edit field"
+msgstr "Veld aanpassen"
+
+#: includes/class.yith-request-quote-admin.php:206
+msgid "Set"
+msgstr "Instellen"
+
+#: includes/class.yith-request-quote-admin.php:207
+#: templates/admin/ywraq-raqform-table.php:120
+#: templates/emails/plain/request-quote-customer.php:91
+#: templates/emails/plain/request-quote.php:91
+msgid "Yes"
+msgstr "Ja"
+
+#: includes/class.yith-request-quote-admin.php:244
+msgid "Button Settings"
+msgstr "Knop instellingen"
+
+#: includes/class.yith-request-quote-admin.php:245
+msgid "Form Settings"
+msgstr "Formulier instellingen"
+
+#: includes/class.yith-request-quote-admin.php:246
+msgid "Request List"
+msgstr "Aanvraaglijst"
+
+#: includes/class.yith-request-quote-admin.php:247
+#: plugin-options/quote-options.php:22
+msgid "Quote Settings"
+msgstr "Prijsopgave instellingen"
+
+#: includes/class.yith-request-quote-admin.php:248
+msgid "Other Settings"
+msgstr "Andere Instellingen"
+
+#: includes/class.yith-request-quote-admin.php:254
+msgid "PDF Quote"
+msgstr "PDF Prijsopgave"
+
+#: includes/class.yith-request-quote-admin.php:262
+msgid "Exclusion List"
+msgstr "Uitzonderingenlijst"
+
+#: includes/class.yith-request-quote-admin.php:383
+#: includes/class.yith-request-quote-frontend.php:205
+#: plugin-options/button-options.php:121
+#: templates/emails/request-quote-table.php:36
+#: templates/emails/request-quote-table.php:38
+msgid "Request a Quote"
+msgstr "Prijsopgave aanvraagen"
+
+#: includes/class.yith-request-quote-admin.php:476
+#: includes/class.yith-request-quote-admin.php:518
+msgid "YITH WooCommerce Request a Quote"
+msgstr "YITH WooCommerce Request a Quote"
+
+#: includes/class.yith-request-quote-admin.php:480
+msgid ""
+"WooCommerce coupon system has been disabled. In order to make YITH "
+"WooCommerce Request a Quote work correctly, you have to enable coupons."
+msgstr ""
+"WooCommerce coupon systeem is uitgeschakeld. Om YITH WooCommerce Request a "
+"Quote juist te laten werken, moet u coupons inschakelen."
+
+#: includes/class.yith-request-quote-admin.php:484
+msgid "Enable the use of coupons"
+msgstr "Gebruik van coupons inschakelen"
+
+#: includes/class.yith-request-quote-admin.php:512
+msgid ""
+"The template 'request-quote-form.php' that you've override in your theme was "
+"deprecated since version 2.0 and will be ignored."
+msgstr ""
+"Het template 'request-quote-form.php' dat je in je thema hebt overschreven, "
+"is sinds versie 2.0 verouderd en zal worden genegeerd."
+
+#: includes/class.yith-request-quote-frontend.php:122
+#: plugin-options/quote-options.php:216 templates/myaccount/my-quotes.php:129
+msgid "Request Quote Again"
+msgstr "Prijsopgave opnieuw aanvragen"
+
+#: includes/class.yith-request-quote-frontend.php:187
+msgid "Clean List"
+msgstr "Lijst wissen"
+
+#: includes/class.yith-request-quote-frontend.php:335
+msgid "Please enter a stronger password."
+msgstr "Sterker wachtwoord invoeren."
+
+#: includes/class.yith-request-quote-frontend.php:355
+msgid "Set at least the quantity for a product"
+msgstr "Minimumhoeveelheid voor een product instellen"
+
+#: includes/class.yith-request-quote-frontend.php:356
+msgid ""
+"Please select some product options before adding this product to your quote "
+"list."
+msgstr ""
+"Selecteer enkele product opties voordat je dit product aan je prijsopgave "
+"lijst toevoegt."
+
+#: includes/class.yith-request-quote-frontend.php:357
+msgid "This Variation is Out of Stock, please select another one."
+msgstr "Deze variatie is niet op voorraad, selecteer een andere alsjeblieft."
+
+#: includes/class.yith-request-quote-gateway.php:36
+#: includes/class.yith-request-quote-gateway.php:37
+msgid "YITH Request a Quote"
+msgstr "YITH Request a Quote"
+
+#: includes/class.yith-request-quote-gateway.php:38
+msgid "Allows to request a quote at checkout."
+msgstr "Maakt het mogelijk een prijsopgave aan te vragen tijdens afrekenen."
+
+#: includes/class.yith-request-quote-premium.php:450
+msgid "Error: Invalid request. Try again!"
+msgstr "Fout: Ongeldig verzoek. Probeer opnieuw!"
+
+#: includes/class.yith-request-quote-premium.php:695
+msgid "You must be logged in to access this page"
+msgstr "Je moet ingelogd zijn om toegang te krijgen tot deze pagina"
+
+#: includes/class.yith-request-quote-privacy-dpa.php:46
+msgid "While you visit our site, we'll track:"
+msgstr "Terwijl je onze site bezoekt, zullen wij volgen:"
+
+#: includes/class.yith-request-quote-privacy-dpa.php:48
+msgid ""
+"Products added to the quote list: these products will be used to offer you "
+"our best price."
+msgstr ""
+"Producten die zijn toegevoegd aan de prijsopgave lijst: deze producten "
+"worden gebruikt om de beste prijs te bieden."
+
+#: includes/class.yith-request-quote-privacy-dpa.php:49
+msgid "All fields in the quote request form: name, email and message content."
+msgstr ""
+"Alle velden in het prijsopgave aanvraagformulier: naam, e-mail en inhoud "
+"bericht."
+
+#: includes/class.yith-request-quote-privacy-dpa.php:51
+msgid ""
+"Note: you should add here all the fields that appear in the quote request "
+"form."
+msgstr ""
+"Let op: je moet hier alle velden toevoegen die verschijnen in het "
+"prijsopgave aanvraagformulier."
+
+#: includes/class.yith-request-quote-privacy-dpa.php:52
+msgid ""
+"We'll also use cookies to keep track of request a quote list while you're "
+"browsing our site."
+msgstr ""
+"We zullen ook gebruik maken van cookies voor het bijhouden van de aanvraag "
+"verzoek lijst, terwijl je op onze site surft."
+
+#: includes/class.yith-request-quote-privacy-dpa.php:53
+msgid ""
+"Note: you may want to further detail your cookie policy, and link to that "
+"section from here."
+msgstr ""
+"Let op: wellicht wil je je cookiebeleid nader specificeren, en vanaf hier "
+"naar die sectie linken."
+
+#: includes/class.yith-request-quote-privacy-dpa.php:54
+msgid "Send you information about your request:"
+msgstr "Stuurt je informatie over je verzoek:"
+
+#: includes/class.yith-request-quote-privacy-dpa.php:55
+msgid "The answer to your quote request."
+msgstr "Het antwoord op je prijsopgave verzoek."
+
+#: includes/class.yith-request-quote-privacy-dpa.php:56
+msgid ""
+"Note: all the fields in the quote request that have been filled by the user "
+"will be saved in the order details, so, they will be subject to WooCommerce "
+"plugin Privacy Policy."
+msgstr ""
+"Let op: alle velden in de prijsopgave aanvraag die zijn ingevuld door de "
+"gebruiker, zullen worden opgeslagen in de bestellingdetails, dus zij zullen "
+"vallen onder het WooCommerce plugin privacy beleid."
+
+#: includes/class.yith-request-quote-privacy-dpa.php:59
+msgid ""
+"Members of our team have access to the information you provide us. For "
+"example, both Administrators and Shop Managers can access:"
+msgstr ""
+"Onze teamleden hebben toegang tot de informatie die je ons geeft. Voorbeeld, "
+"zowel beheerders en winkelmanagers hebben toegang tot:"
+
+#: includes/class.yith-request-quote-privacy-dpa.php:61
+msgid "- the quote request you've submitted through our store."
+msgstr "- de prijsopgave aanvraag die je hebt gestuurd via onze winkel."
+
+#: includes/class.yith-request-quote-privacy-dpa.php:62
+msgid "- data entered in the quote request form."
+msgstr "- ingevulde gegevens in het prijsopgave aanvraagformulier."
+
+#: includes/class.yith-request-quote-privacy-dpa.php:64
+msgid ""
+"Our team members have access to this information to send you the best offer."
+msgstr ""
+"Onze teamleden hebben toegang tot deze informatie, om je de beste aanbieding "
+"te sturen."
+
+#: includes/class.yith-request-quote-privacy.php:179
+msgid "Request a quote - Customer Name"
+msgstr "Request a quote - Klantnaam"
+
+#: includes/class.yith-request-quote-privacy.php:180
+msgid "Request a quote - Customer Email"
+msgstr "Request a quote - E-mail van de klant"
+
+#: includes/class.yith-request-quote-privacy.php:181
+msgid "Request a quote - Customer Message"
+msgstr "Request a quote - Bericht klant"
+
+#: includes/class.yith-request-quote-privacy.php:182
+msgid "Request a quote - Email Content"
+msgstr "Request a quote - Inhoud E-mail"
+
+#: includes/class.yith-request-quote.php:480
+#: includes/functions.yith-request-quote.php:216
+#: plugin-options/button-options.php:148
+msgid "Product already in the list."
+msgstr "Product zit al in de lijst."
+
+#: includes/class.yith-request-quote.php:698
+msgid "Error occurred while adding product to Request a Quote list."
+msgstr ""
+"Er is een fout opgetreden tijdens het toevoegen van een product aan de "
+"prijsopgave aanvraag lijst."
+
+#: includes/class.yith-request-quote.php:862
+msgid "This product is not quotable."
+msgstr "Dit product is niet beschikbaar voor prijsopgave."
+
+#: includes/class.yith-request-quote.php:966
+msgid "Please enter a name"
+msgstr "Naam invoeren"
+
+#: includes/class.yith-request-quote.php:970
+msgid "Please enter a valid email"
+msgstr "Geldige e-mail invoeren"
+
+#: includes/class.yith-request-quote.php:974
+msgid "An account is already registered with your email address. Please login."
+msgstr "Er bestaat al een account met dit e-mailadres. Log in alsjeblieft."
+
+#: includes/class.yith-request-quote.php:978
+#: includes/class.yith-request-quote.php:984
+#: includes/class.yith-request-quote.php:990
+msgid "Please enter a value for %s"
+msgstr "Waarde invoeren voor %s"
+
+#: includes/class.yith-request-quote.php:997
+#: includes/forms/default/class.yith-ywraq-default-form.php:635
+msgid "Please check the the captcha form."
+msgstr "Controleer het captcha formulier."
+
+#: includes/class.yith-request-quote.php:1088
+msgid "There was a problem sending your request. Please try again."
+msgstr ""
+"Er is een fout opgetreden bij het versturen van je verzoek. Probeer het "
+"nogmaals."
+
+#: includes/class.yith-ywraq-cron.php:118
+msgid "YITH WooCommerce Request a Quote Cron"
+msgstr "YITH WooCommerce Request a Quote Cron"
+
+#: includes/class.yith-ywraq-order-request.php:227
+msgid ""
+"The discount has been removed because you have changed the quote contents."
+msgstr ""
+"De korting is verwijderd omdat je de inhoud van de prijsopgave hebt "
+"gewijzigd."
+
+#: includes/class.yith-ywraq-order-request.php:273
+#: includes/compatibility/yith-woocommerce-product-vendors.php:115
+msgid "This quote has been submitted from the checkout page."
+msgstr "Deze prijsopgave is ingediend vanaf de afrekenen-pagina."
+
+#. translators: $%s quote number
+#: includes/class.yith-ywraq-order-request.php:649
+#: templates/pdf/quote-header.php:150
+msgid "Quote #%s"
+msgstr "Prijsopgave #%s"
+
+#: includes/class.yith-ywraq-order-request.php:697
+#: includes/class.yith-ywraq-order-request.php:772
+#: includes/class.yith-ywraq-order-request.php:795
+msgid "New Quote Request"
+msgstr "Nieuwe prijsopgave aanvraag"
+
+#. translators: %s: count
+#: includes/class.yith-ywraq-order-request.php:703
+msgid "New Quote Request <span class=\"count\">(%s)</span>"
+msgid_plural "New Quote Requests <span class=\"count\">(%s)</span>"
+msgstr[0] "Nieuwe prijsopgave aanvraag <span class=\"count\">(%s)</span>"
+msgstr[1] "Nieuwe prijsopgave aanvragen <span class=\"count\">(%s)</span>"
+
+#: includes/class.yith-ywraq-order-request.php:710
+#: includes/class.yith-ywraq-order-request.php:773
+#: includes/class.yith-ywraq-order-request.php:796
+msgid "Pending Quote"
+msgstr "Prijsopgave in behandeling"
+
+#. translators: %s: count
+#: includes/class.yith-ywraq-order-request.php:716
+msgid "Pending Quote <span class=\"count\">(%s)</span>"
+msgid_plural "Pending Quote <span class=\"count\">(%s)</span>"
+msgstr[0] "Prijsopgave in behandeling <span class=\"count\">(%s)</span>"
+msgstr[1] "Prijsopgaven in behandeling <span class=\"count\">(%s)</span>"
+
+#: includes/class.yith-ywraq-order-request.php:723
+#: includes/class.yith-ywraq-order-request.php:774
+#: includes/class.yith-ywraq-order-request.php:797
+msgid "Expired Quote"
+msgstr "Verlopen prijsopgave"
+
+#. translators: %s: count
+#: includes/class.yith-ywraq-order-request.php:729
+msgid "Expired Quote <span class=\"count\">(%s)</span>"
+msgid_plural "Expired Quotes <span class=\"count\">(%s)</span>"
+msgstr[0] "Verlopen prijsopgave <span class=\"count\">(%s)</span>"
+msgstr[1] "Verlopen prijsopgaven <span class=\"count\">(%s)</span>"
+
+#: includes/class.yith-ywraq-order-request.php:736
+#: includes/class.yith-ywraq-order-request.php:775
+#: includes/class.yith-ywraq-order-request.php:798
+msgid "Accepted Quote"
+msgstr "Geaccepteerde prijsopgave"
+
+#. translators: %s: count
+#: includes/class.yith-ywraq-order-request.php:742
+msgid "Accepted Quote <span class=\"count\">(%s)</span>"
+msgid_plural "Accepted Quote <span class=\"count\">(%s)</span>"
+msgstr[0] "Geaccepteerde prijsopgave <span class=\"count\">(%s)</span>"
+msgstr[1] "Geaccepteerde prijsopgaven <span class=\"count\">(%s)</span>"
+
+#: includes/class.yith-ywraq-order-request.php:749
+#: includes/class.yith-ywraq-order-request.php:776
+#: includes/class.yith-ywraq-order-request.php:799
+msgid "Rejected Quote"
+msgstr "Afgewezen prijsopgave"
+
+#. translators: %s: count
+#: includes/class.yith-ywraq-order-request.php:755
+msgid "Rejected Quote <span class=\"count\">(%s)</span>"
+msgid_plural "Rejected Quote <span class=\"count\">(%s)</span>"
+msgstr[0] "Afgewezen prijsopgave <span class=\"count\">(%s)</span>"
+msgstr[1] "Afgewezen prijsopgaven <span class=\"count\">(%s)</span>"
+
+#. translators: %d Error message
+#: includes/class.yith-ywraq-order-request.php:987
+msgid "Error %d: Unable to create the order. Please try again."
+msgstr ""
+"Fout %d: niet in staat om de bestelling aan te maken. Probeer het nogmaals."
+
+#: includes/class.yith-ywraq-order-request.php:1320
+msgid "Send the Quote"
+msgstr "Verstuur de prijsopgave"
+
+#. translators: %s: url
+#: includes/class.yith-ywraq-order-request.php:1369
+msgid "<p><a href=\"%s\" class=\"page-title-action\">Add a new Quote</a></p>"
+msgstr ""
+"<p><a href=\"%s\" class=\"page-title-action\">Nieuwe prijsopgave aanvraag "
+"toevoegen</a></p>"
+
+#: includes/class.yith-ywraq-order-request.php:1508
+msgid "An error occurred creating your request. Please try again."
+msgstr ""
+"Er is een fout opgetreden bij het maken van je aanvraag. Probeer het opnieuw."
+
+#: includes/class.yith-ywraq-order-request.php:1585
+#: includes/class.yith-ywraq-order-request.php:1617
+#: includes/class.yith-ywraq-order-request.php:1641
+msgid "An error occurred. Please, contact site administrator"
+msgstr ""
+"Er is een fout opgetreden, neem contact op met de beheerder van de site"
+
+#: includes/class.yith-ywraq-order-request.php:1651
+#: includes/functions.yith-request-quote.php:352
+msgid "rejected"
+msgstr "afgewezen"
+
+#: includes/class.yith-ywraq-order-request.php:1732
+msgid "Discount:"
+msgstr "Korting:"
+
+#: includes/class.yith-ywraq-order-request.php:1770
+msgid "You do not have permission to read the quote"
+msgstr "Je hebt geen recht om de prijsopgave te lezen"
+
+#. translators: %d order id
+#: includes/class.yith-ywraq-order-request.php:1815
+msgid "Quote n. %d has been rejected and is not available"
+msgstr "Prijsopgave nr. %d is afgewezen en niet beschikbaar"
+
+#. translators: %d order id
+#: includes/class.yith-ywraq-order-request.php:1819
+#: includes/class.yith-ywraq-order-request.php:1833
+msgid "Quote n. %d has expired and is not available"
+msgstr "Prijsopgave nr. %d is verlopen en niet beschikbaar"
+
+#. translators: %d order id
+#: includes/class.yith-ywraq-order-request.php:1823
+msgid "Quote n. %d can't be accepted because its status is: %s"
+msgstr "Prijsopgave nr. %d kan niet worden geaccepteerd, de status is: %s"
+
+#. translators: %d order id
+#: includes/class.yith-ywraq-order-request.php:1830
+msgid "Quote n. %d has been rejected"
+msgstr "Prijsopgave nr. %d is afgewezen"
+
+#. translators: %d order id
+#: includes/class.yith-ywraq-order-request.php:1836
+msgid "Quote n. %d can't be rejected because its status is: %s"
+msgstr "Prijsopgave nr. %d kan niet worden afgewezen, de status is: %s"
+
+#. translators: %d order id
+#: includes/class.yith-ywraq-order-request.php:1864
+msgid "The quote n. %d has been rejected"
+msgstr "Prijsopgave nr. %d is afgewezen"
+
+#: includes/class.yith-ywraq-order-request.php:1903
+msgid "Discount applied successfully."
+msgstr "Korting succesvol toegepast."
+
+#: includes/class.yith-ywraq-order-request.php:1905
+msgid "Discount removed successfully."
+msgstr "Korting succesvol verwijderd."
+
+#: includes/class.yith-ywraq-order-request.php:2223
+msgid ""
+"It's not possible to add products to the cart since you have already "
+"accepted a quote."
+msgstr ""
+"Het is niet mogelijk om producten toe te voegen aan je winkelwagen, omdat je "
+"de prijsopgave al hebt geaccepteerd."
+
+#: includes/class.yith-ywraq-order-request.php:2241
+msgid ""
+"It's not possible change the quantity since you have already accepted a "
+"quote."
+msgstr ""
+"Het is niet mogelijk de hoeveelheid te wijzigen, omdat je de prijsopgave al "
+"hebt geaccepteerd."
+
+#: includes/class.yith-ywraq-shortcodes.php:133
+#: includes/class.yith-ywraq-shortcodes.php:242
+#: includes/widgets/class.yith-ywraq-mini-list-quote-widget.php:69
+#: includes/widgets/class.yith-ywraq-mini-list-quote-widget.php:158
+#: plugin-options/gutenberg/blocks.php:97
+msgid "item"
+msgstr "item"
+
+#: includes/class.yith-ywraq-shortcodes.php:134
+#: includes/class.yith-ywraq-shortcodes.php:243
+#: includes/widgets/class.yith-ywraq-mini-list-quote-widget.php:70
+#: includes/widgets/class.yith-ywraq-mini-list-quote-widget.php:159
+#: plugin-options/gutenberg/blocks.php:102
+msgid "items"
+msgstr "Items"
+
+#: includes/class.yith-ywraq-shortcodes.php:211
+#: includes/class.yith-ywraq-shortcodes.php:241
+#: includes/widgets/class.yith-ywraq-list-quote-widget.php:143
+#: includes/widgets/class.yith-ywraq-mini-list-quote-widget.php:68
+#: includes/widgets/class.yith-ywraq-mini-list-quote-widget.php:157
+#: plugin-options/gutenberg/blocks.php:32
+#: plugin-options/gutenberg/blocks.php:92
+msgid "Quote List"
+msgstr "Prijsopgave lijst"
+
+#: includes/class.yith-ywraq-shortcodes.php:249
+#: includes/widgets/class.yith-ywraq-list-quote-widget.php:71
+#: includes/widgets/class.yith-ywraq-list-quote-widget.php:144
+#: includes/widgets/class.yith-ywraq-mini-list-quote-widget.php:71
+#: includes/widgets/class.yith-ywraq-mini-list-quote-widget.php:160
+#: plugin-options/gutenberg/blocks.php:37
+#: plugin-options/gutenberg/blocks.php:107
+msgid "View list"
+msgstr "Lijst bekijken"
+
+#: includes/compatibility/class.woocommerce-composite-products.php:238
+#: includes/compatibility/class.woocommerce-composite-products.php:347
+#: includes/compatibility/yith-woocommerce-composite-products.php:220
+#: includes/compatibility/yith-woocommerce-composite-products.php:340
+#: includes/compatibility/yith-woocommerce-composite-products.php:433
+#: templates/emails/plain/quote-table.php:28
+#: templates/emails/plain/request-quote-table.php:30
+#: templates/emails/quote-table.php:78
+#: templates/emails/request-quote-table.php:81
+#: templates/myaccount/view-quote.php:193 templates/pdf/quote-table-div.php:84
+#: templates/pdf/quote-table.php:97 templates/request-quote-view.php:188
+msgid " SKU:"
+msgstr "SKU:"
+
+#: includes/compatibility/class.woocommerce-composite-products.php:314
+#: includes/compatibility/class.woocommerce-composite-products.php:369
+#: includes/compatibility/yith-woocommerce-composite-products.php:271
+#: includes/compatibility/yith-woocommerce-composite-products.php:493
+msgid "Option subtotal: "
+msgstr "Optie subtotaal: "
+
+#: includes/compatibility/elementor/class.yith-request-quote-button-elementor-widget.php:14
+#: includes/compatibility/elementor/class.yith-request-quote-button-elementor-widget.php:33
+msgid "YITH Request a Quote Button"
+msgstr "YITH Request a Quote knop"
+
+#: includes/compatibility/elementor/class.yith-request-quote-button-elementor-widget.php:41
+msgid ""
+"This widget inherits the style from the settings of YITH Request a Quote "
+"plugin that you can edit"
+msgstr ""
+"Deze widget neemt de stijl over van de instellingen van de YITH Request a "
+"Quote plugin die je kunt wijzigen"
+
+#: includes/compatibility/elementor/class.yith-request-quote-button-elementor-widget.php:42
+msgid "here"
+msgstr "hier"
+
+#: includes/compatibility/elementor/class.yith-request-quote-button-elementor-widget.php:50
+msgid "Product ID"
+msgstr "Product ID"
+
+#: includes/compatibility/elementor/class.yith-request-quote-button-elementor-widget.php:56
+msgid "Leave empty for single product page"
+msgstr "Laat leeg voor single product pagina"
+
+#: includes/compatibility/yith-woocommerce-advanced-product-options.php:190
+#: templates/request-quote-view.php:109
+msgid "Attached file"
+msgstr "Toegevoegde bijlage "
+
+#: includes/compatibility/yith-woocommerce-composite-products.php:538
+msgid "Base Price:"
+msgstr "Basisprijs:"
+
+#: includes/compatibility/yith-woocommerce-composite-products.php:538
+msgid "Total Price:"
+msgstr "Totaalprijs:"
+
+#: includes/compatibility/yith-woocommerce-composite-products.php:551
+msgid "Options subtotal"
+msgstr "Opties subtotaal"
+
+#: includes/compatibility/yith-woocommerce-deposits-and-down-payments.php:90
+msgid "%s (of %s)"
+msgstr "%s (van %s)"
+
+#: includes/compatibility/yith-woocommerce-deposits-and-down-payments.php:92
+msgid "Pay now:"
+msgstr "Betaal nu:"
+
+#: includes/compatibility/yith-woocommerce-deposits-and-down-payments.php:154
+msgid "Enable Deposit"
+msgstr "Aanbetaling inschakelen"
+
+#: includes/compatibility/yith-woocommerce-deposits-and-down-payments.php:161
+msgid "Deposit Rate"
+msgstr "Aanbetaling tarief"
+
+#: includes/compatibility/yith-woocommerce-deposits-and-down-payments.php:163
+msgid "Percentage of product total price required as deposit"
+msgstr "Percentage van de totale productprijs vereist als aanbetaling"
+
+#: includes/emails/class.yith-ywraq-quote-status.php:39
+msgid "[YITH Request a Quote] Accepted/rejected Quote"
+msgstr "[YITH Request a Quote] Prijsopgave geaccepteerd/afgewezen"
+
+#: includes/emails/class.yith-ywraq-quote-status.php:40
+msgid ""
+"This email is sent when a user clicks on \"Accept/Reject\" button in a "
+"Proposal"
+msgstr ""
+"Deze e-mail wordt verstuurd als een gebruiker klikt op de \"accepteren/"
+"afwijzen\" knop in een voorstel"
+
+#: includes/emails/class.yith-ywraq-quote-status.php:42
+#: includes/emails/class.yith-ywraq-send-email-request-quote-customer.php:42
+#: includes/emails/class.yith-ywraq-send-email-request-quote.php:42
+msgid "Request a quote"
+msgstr "Prijsopgave aanvragen"
+
+#: includes/emails/class.yith-ywraq-quote-status.php:43
+msgid "[Answer to quote request]"
+msgstr "[Answer to quote request]"
+
+#: includes/emails/class.yith-ywraq-quote-status.php:201
+#: includes/emails/class.yith-ywraq-send-email-request-quote-customer.php:257
+#: includes/emails/class.yith-ywraq-send-email-request-quote.php:259
+#: includes/emails/class.yith-ywraq-send-quote-reminder.php:264
+#: includes/emails/class.yith-ywraq-send-quote.php:280
+msgid "Enable/Disable"
+msgstr "Inschakelen/uitschakelen"
+
+#: includes/emails/class.yith-ywraq-quote-status.php:203
+#: includes/emails/class.yith-ywraq-send-email-request-quote-customer.php:259
+#: includes/emails/class.yith-ywraq-send-email-request-quote.php:261
+#: includes/emails/class.yith-ywraq-send-quote-reminder.php:266
+#: includes/emails/class.yith-ywraq-send-quote.php:282
+msgid "Enable this email notification"
+msgstr "Deze e-mail melding inschakelen"
+
+#: includes/emails/class.yith-ywraq-quote-status.php:207
+#: includes/emails/class.yith-ywraq-send-email-request-quote-customer.php:263
+#: includes/emails/class.yith-ywraq-send-email-request-quote.php:265
+#: includes/emails/class.yith-ywraq-send-quote-reminder.php:278
+#: includes/emails/class.yith-ywraq-send-quote.php:286
+msgid "\"From\" Name"
+msgstr "\"Van\" Naam"
+
+#: includes/emails/class.yith-ywraq-quote-status.php:214
+#: includes/emails/class.yith-ywraq-send-email-request-quote-customer.php:270
+#: includes/emails/class.yith-ywraq-send-email-request-quote.php:272
+#: includes/emails/class.yith-ywraq-send-quote-reminder.php:285
+#: includes/emails/class.yith-ywraq-send-quote.php:293
+msgid "\"From\" Email Address"
+msgstr "\"Van\" E-mailadres"
+
+#: includes/emails/class.yith-ywraq-quote-status.php:222
+#: includes/emails/class.yith-ywraq-send-email-request-quote-customer.php:277
+#: includes/emails/class.yith-ywraq-send-email-request-quote.php:279
+#: includes/emails/class.yith-ywraq-send-quote-reminder.php:292
+#: includes/emails/class.yith-ywraq-send-quote.php:300
+msgid "Subject"
+msgstr "Onderwerp"
+
+#: includes/emails/class.yith-ywraq-quote-status.php:224
+msgid ""
+"This field lets you edit email subject line. Leave it blank to use default "
+"subject text: <code>%s</code>. You can use {quote_number} as a placeholder "
+"that will show the quote number in the quote."
+msgstr ""
+"Hiermee wijzig je het onderwerp van de e-mail. Laat leeg om de default "
+"onderwerp tekst te gebruiken: <code>%s</code>. je kunt {quote_number} "
+"gebruiken als invulveld die het prijsopgave nummer toont in de prijsopgave."
+
+#: includes/emails/class.yith-ywraq-quote-status.php:230
+#: includes/emails/class.yith-ywraq-send-email-request-quote.php:286
+msgid "Recipient(s)"
+msgstr "Ontvanger(s)"
+
+#: includes/emails/class.yith-ywraq-quote-status.php:232
+#: includes/emails/class.yith-ywraq-send-email-request-quote.php:288
+msgid ""
+"Enter recipients (separated by commas) for this email. Defaults to <code>%s</"
+"code>"
+msgstr ""
+"Voer ontvangers in (gescheiden met komma´s) voor deze e-mail. Standaard naar "
+"<code>%s</code>"
+
+#: includes/emails/class.yith-ywraq-quote-status.php:238
+#: includes/emails/class.yith-ywraq-send-email-request-quote.php:293
+msgid "Send CC copy"
+msgstr "Verstuur CC kopie"
+
+#: includes/emails/class.yith-ywraq-quote-status.php:240
+#: includes/emails/class.yith-ywraq-send-email-request-quote.php:295
+msgid "Send a carbon copy to the user"
+msgstr "Verstuur een carbon kopie naar gebruiker"
+
+#: includes/emails/class.yith-ywraq-quote-status.php:245
+#: includes/emails/class.yith-ywraq-send-email-request-quote-customer.php:297
+#: includes/emails/class.yith-ywraq-send-email-request-quote.php:299
+#: includes/emails/class.yith-ywraq-send-quote-reminder.php:312
+#: includes/emails/class.yith-ywraq-send-quote.php:320
+msgid "Email Heading"
+msgstr "E-mail hoofd"
+
+#: includes/emails/class.yith-ywraq-quote-status.php:247
+#: includes/emails/class.yith-ywraq-send-email-request-quote-customer.php:299
+#: includes/emails/class.yith-ywraq-send-email-request-quote.php:301
+#: includes/emails/class.yith-ywraq-send-quote-reminder.php:314
+#: includes/emails/class.yith-ywraq-send-quote.php:322
+msgid ""
+"This field lets you change the main heading in email notification. Leave it "
+"blank to use default heading type: <code>%s</code>."
+msgstr ""
+"Hiermee wijzig je het e-mailhoofd in de e-mail notificatie. Laat leeg om "
+"standaard hoofd type te gebruiken: <code>%s</code>."
+
+#: includes/emails/class.yith-ywraq-quote-status.php:253
+#: includes/emails/class.yith-ywraq-send-email-request-quote-customer.php:305
+#: includes/emails/class.yith-ywraq-send-email-request-quote.php:307
+#: includes/emails/class.yith-ywraq-send-quote-reminder.php:325
+#: includes/emails/class.yith-ywraq-send-quote.php:333
+msgid "Email Description"
+msgstr "E-mail beschrijving"
+
+#: includes/emails/class.yith-ywraq-quote-status.php:256
+#: includes/emails/class.yith-ywraq-send-email-request-quote.php:310
+msgid "You have received a request for a quote. The request is the following:"
+msgstr ""
+"Je hebt een verzoek voor prijsopgave ontvangen. Het verzoek is als volgt:"
+
+#: includes/emails/class.yith-ywraq-quote-status.php:260
+#: includes/emails/class.yith-ywraq-send-email-request-quote-customer.php:311
+#: includes/emails/class.yith-ywraq-send-email-request-quote.php:325
+#: includes/emails/class.yith-ywraq-send-quote-reminder.php:331
+#: includes/emails/class.yith-ywraq-send-quote.php:339
+msgid "Email type"
+msgstr "Type e-mail"
+
+#: includes/emails/class.yith-ywraq-quote-status.php:262
+#: includes/emails/class.yith-ywraq-send-email-request-quote-customer.php:313
+#: includes/emails/class.yith-ywraq-send-email-request-quote.php:327
+#: includes/emails/class.yith-ywraq-send-quote-reminder.php:333
+#: includes/emails/class.yith-ywraq-send-quote.php:341
+msgid "Choose email format."
+msgstr "Kies het e-mail formaat."
+
+#: includes/emails/class.yith-ywraq-send-email-request-quote-customer.php:39
+msgid "[YITH Request a Quote] Confirmation email for the customer"
+msgstr "[YITH Request a Quote] Bevestigings e-mail voor de klant"
+
+#: includes/emails/class.yith-ywraq-send-email-request-quote-customer.php:40
+msgid ""
+"This email is sent as confirmation when a user clicks on \"Request a quote\" "
+"button"
+msgstr ""
+"Deze e-mail wordt verstuurd als een gebruiker klikt op de “Prijsopgave "
+"aanvragen” knop"
+
+#: includes/emails/class.yith-ywraq-send-email-request-quote-customer.php:43
+#: includes/emails/class.yith-ywraq-send-email-request-quote.php:43
+msgid "[Request a quote]"
+msgstr "[Request a quote]"
+
+#: includes/emails/class.yith-ywraq-send-email-request-quote-customer.php:279
+#: includes/emails/class.yith-ywraq-send-email-request-quote.php:281
+msgid ""
+"This field lets you edit email subject line. Leave it blank to use default "
+"subject text: <code>%s</code>. You can use {quote_number} as a placeholder "
+"that will show the quote number in the quote,<br>{quote_user} to show the "
+"customer's name, {quote_email} to show the customer's email"
+msgstr ""
+"Hiermee wijzig je het onderwerp van de e-mail. Laat leeg om de standaard "
+"onderwerp tekst te gebruiken: <code>%s</code>. Je kunt {quote_number} "
+"gebruiken als invulveld die het prijsopgavenummer toont in de prijsopgave, "
+"<br>{quote_user} om de klantnaam te tonen, en {quote_email} om de klant e-"
+"mail te tonen"
+
+#: includes/emails/class.yith-ywraq-send-email-request-quote-customer.php:284
+#: includes/emails/class.yith-ywraq-send-quote-reminder.php:299
+#: includes/emails/class.yith-ywraq-send-quote.php:313
+msgid "Bcc Recipient(s)"
+msgstr "Bcc ontvanger(s)"
+
+#: includes/emails/class.yith-ywraq-send-email-request-quote-customer.php:286
+msgid ""
+"Enter futher recipients (separated by commas) for this email. By default "
+"email to the customer."
+msgstr ""
+"Voer meerdere ontvangers in (gescheiden met komma´s) voor deze e-mail. De "
+"email wordt standaard verstuurt naar de klant."
+
+#: includes/emails/class.yith-ywraq-send-email-request-quote-customer.php:291
+msgid "Enter additional recipients"
+msgstr "Voer aanvullende geadresseerden in"
+
+#: includes/emails/class.yith-ywraq-send-email-request-quote-customer.php:293
+#: includes/emails/class.yith-ywraq-send-quote-reminder.php:308
+#: includes/emails/class.yith-ywraq-send-quote.php:309
+msgid "Send a blind carbon copy to the administrator"
+msgstr "Stuur een verborgen carbon kopie naar de beheerder"
+
+#: includes/emails/class.yith-ywraq-send-email-request-quote-customer.php:308
+msgid "You have sent a quote request for the following products:"
+msgstr "Je hebt een prijsopgave verzoek ingediend voor de volgende producten:"
+
+#: includes/emails/class.yith-ywraq-send-email-request-quote.php:39
+msgid "[YITH Request a Quote] Email to request a quote"
+msgstr "[YITH Request a Quote] E-mail naar prijsopgave aanvragen"
+
+#: includes/emails/class.yith-ywraq-send-email-request-quote.php:40
+msgid "This email is sent when a user clicks on \"Request a quote\" button"
+msgstr ""
+"Deze e-mail wordt verstuurd als een gebruiker klikt op “Prijsopgave "
+"Aanvragen” knop"
+
+#: includes/emails/class.yith-ywraq-send-email-request-quote.php:145
+msgid "There was a problem sending your request. Please try again...."
+msgstr ""
+"Er is een fout opgetreden bij het versturen van je verzoek. Probeer het "
+"nogmaals...."
+
+#: includes/emails/class.yith-ywraq-send-email-request-quote.php:313
+msgid "Link to quote request details to be shown in \"Request a Quote\" email"
+msgstr ""
+"Link naar prijsopgave aanvraag details weergegeven in “Prijsopgave "
+"aanvragen” e-mail"
+
+#: includes/emails/class.yith-ywraq-send-email-request-quote.php:319
+msgid "Quote request details"
+msgstr "Prijsopgave aanvraag details"
+
+#: includes/emails/class.yith-ywraq-send-email-request-quote.php:320
+msgid "Quote creation page (admin)"
+msgstr "Prijsopgave aanmaken pagina (beheerder)"
+
+#: includes/emails/class.yith-ywraq-send-quote-reminder.php:39
+msgid "[YITH Request a Quote] Reminder: expiring quote"
+msgstr "[YITH Request a Quote] Herinnering: te vervallen prijsopgave"
+
+#: includes/emails/class.yith-ywraq-send-quote-reminder.php:40
+msgid ""
+"This email is sent when to the customer when the quote is going to expire."
+msgstr ""
+"Deze e-mail wordt verzonden naar de klant wanneer de prijsopgave bijna gaat "
+"vervallen."
+
+#: includes/emails/class.yith-ywraq-send-quote-reminder.php:42
+#: includes/emails/class.yith-ywraq-send-quote-reminder.php:43
+msgid "Reminder: expiring quote"
+msgstr "Herinnering: te vervallen prijsopgave"
+
+#: includes/emails/class.yith-ywraq-send-quote-reminder.php:270
+msgid "Days (to pass) before sending the email: "
+msgstr "Dagen (die moeten passeren) voordat de e-mail wordt verzonden:"
+
+#: includes/emails/class.yith-ywraq-send-quote-reminder.php:272
+msgid "Number of days before quote expiration to send the email"
+msgstr "Aantal dagen voor vervaldatum prijsopgave om e-mail te versturen"
+
+#: includes/emails/class.yith-ywraq-send-quote-reminder.php:294
+#: includes/emails/class.yith-ywraq-send-quote.php:302
+msgid ""
+"This field lets you modify the email subject line. Leave it blank to use the "
+"default subject text: <code>%s</code>. You can use {quote_number} as a "
+"placeholder that will show the quote number in the quote."
+msgstr ""
+"Hiermee wijzig je het onderwerp van de e-mail. Laat leeg om de "
+"standaardonderwerp tekst te gebruiken: <code>%s</code>. Je kunt "
+"{quote_number} gebruiken als invulveld die het prijsopgave nummer toont in "
+"de prijsopgave."
+
+#: includes/emails/class.yith-ywraq-send-quote-reminder.php:301
+msgid ""
+"Enter futher recipients (separated by commas) for this email. By default "
+"email to the customer"
+msgstr ""
+"Voer meerdere ontvangers in (gescheiden met komma´s) voor deze e-mail. "
+"Standaard e-mail naar de klant"
+
+#: includes/emails/class.yith-ywraq-send-quote-reminder.php:306
+#: includes/emails/class.yith-ywraq-send-quote.php:307
+msgid "Send BCC copy"
+msgstr "Verstuur BCC kopie"
+
+#: includes/emails/class.yith-ywraq-send-quote-reminder.php:319
+#: includes/emails/class.yith-ywraq-send-quote.php:327
+msgid "Email Title"
+msgstr "E-mail titel"
+
+#: includes/emails/class.yith-ywraq-send-quote-reminder.php:322
+msgid "Expiring Proposal"
+msgstr "Aflopend voorstel"
+
+#: includes/emails/class.yith-ywraq-send-quote-reminder.php:328
+msgid ""
+"You have received this email because your quote request on our store is "
+"about to expire and will be no longer available. Our best proposal is the "
+"following:"
+msgstr ""
+"Je hebt deze e-mail ontvangen omdat je prijsopgave aanvraag in onze winkel "
+"bijna zal verlopen en niet langer beschikbaar zal zijn. Ons beste voorstel "
+"is het volgende:"
+
+#: includes/emails/class.yith-ywraq-send-quote.php:40
+msgid "[YITH Request a Quote] Email with Quote"
+msgstr "[YITH Request a Quote] E-mail met prijsopgave"
+
+#: includes/emails/class.yith-ywraq-send-quote.php:41
+msgid ""
+"This email is sent when an administrator performs the action \"Send the quote"
+"\" from Order Editor"
+msgstr ""
+"Deze e-mail wordt verzonden wanneer een beheerder de actie \"Verstuur de "
+"prijsopgave\" uitvoert vanaf de Bestelling Editor"
+
+#: includes/emails/class.yith-ywraq-send-quote.php:43
+msgid "Our Proposal"
+msgstr "Ons voorstel"
+
+#: includes/emails/class.yith-ywraq-send-quote.php:44
+msgid "[Quote]"
+msgstr "[Quote]"
+
+#: includes/emails/class.yith-ywraq-send-quote.php:315
+msgid ""
+"Enter further recipients (separated by commas) for this email. By default "
+"email to the admin"
+msgstr ""
+
+#: includes/emails/class.yith-ywraq-send-quote.php:330
+msgid "Proposal"
+msgstr "Voorstel"
+
+#: includes/emails/class.yith-ywraq-send-quote.php:336
+msgid ""
+"You have received this email because you sent a quote request to our shop. "
+"The response to your request is the following:"
+msgstr ""
+"Je hebt deze e-mail ontvangen omdat je een prijsopgave aanvraag hebt "
+"verzonden naar onze winkel. Je ontvangt de volgende reactie:"
+
+#: includes/forms/contact-form-7/class.yith-ywraq-contact-form-7.php:145
+msgid "Contact Form 7"
+msgstr "Contact Form 7"
+
+#: includes/forms/contact-form-7/class.yith-ywraq-contact-form-7.php:166
+#: includes/forms/contact-form-7/class.yith-ywraq-contact-form-7.php:185
+#: includes/forms/gravity-forms/ywraq-gravity-form-addons.php:713
+#: includes/forms/gravity-forms/ywraq-gravity-form-addons.php:731
+#: includes/forms/yit-contact-form/class.yith-ywraq-yit-contact-form.php:140
+msgid "Choose the form to display"
+msgstr "Kies het formulier om weer te geven"
+
+#: includes/forms/contact-form-7/class.yith-ywraq-contact-form-7.php:185
+#: includes/forms/gravity-forms/ywraq-gravity-form-addons.php:731
+msgid "Edit form"
+msgstr "Formulier bewerken"
+
+#: includes/forms/contact-form-7/functions.yith-ywraq-contact-form-7.php:51
+#: includes/forms/yit-contact-form/class.yith-ywraq-yit-contact-form.php:108
+msgid "Plugin not activated or not installed"
+msgstr "Plugin niet geactiveerd of niet geïnstalleerd"
+
+#: includes/forms/contact-form-7/functions.yith-ywraq-contact-form-7.php:62
+#: includes/forms/gravity-forms/ywraq-gravity-form-addons.php:636
+#: includes/forms/yit-contact-form/class.yith-ywraq-yit-contact-form.php:123
+msgid "No contact form found"
+msgstr "Geen contactformulier gevonden"
+
+#: includes/forms/default/class.yith-ywraq-default-form.php:111
+msgid "Default Form"
+msgstr "Standaard formulier"
+
+#: includes/forms/default/class.yith-ywraq-default-form.php:319
+msgid "This is a required field."
+msgstr "Dit is een verplicht veld."
+
+#: includes/forms/default/class.yith-ywraq-default-form.php:320
+msgid "The mail you have entered seems to be wrong."
+msgstr "De mail die je hebt ingevoerd lijkt niet te kloppen."
+
+#: includes/forms/default/class.yith-ywraq-default-form.php:321
+msgid "The file is greater than "
+msgstr "Het bestand is groter dan "
+
+#: includes/forms/default/class.yith-ywraq-default-form.php:322
+msgid "This file type is unsupported. Valid extensions: "
+msgstr "Dit bestandstype wordt niet ondersteund. Geldige extensies:"
+
+#: includes/forms/default/class.yith-ywraq-default-form.php:348
+#: includes/forms/default/class.yith-ywraq-default-form.php:390
+#: includes/forms/default/class.yith-ywraq-default-form.php:426
+#: includes/forms/default/class.yith-ywraq-default-form.php:460
+#: includes/forms/default/class.yith-ywraq-default-form.php:491
+msgid "required"
+msgstr "Verplicht"
+
+#: includes/forms/default/class.yith-ywraq-default-form.php:824
+#: includes/forms/default/class.yith-ywraq-default-form.php:912
+msgid "%s is required."
+msgstr "%s is verplicht"
+
+#: includes/forms/default/class.yith-ywraq-default-form.php:834
+msgid " %s is not a valid email address."
+msgstr " %s is geen geldig e-mail adres."
+
+#: includes/forms/default/class.yith-ywraq-default-form.php:839
+msgid " %s is not a valid phone number."
+msgstr " %s is geen geldig telefoon nummer."
+
+#: includes/forms/default/class.yith-ywraq-default-form.php:845
+msgid " %s is greater than %s."
+msgstr " %s is groter dan %s. "
+
+#: includes/forms/default/class.yith-ywraq-default-form.php:1039
+#: templates/emails/plain/request-quote.php:99
+#: templates/emails/request-quote.php:150
+msgid "Accepted"
+msgstr "Geaccepteerd"
+
+#: includes/forms/default/class.yith-ywraq-default-form.php:1039
+#: templates/emails/plain/request-quote.php:99
+#: templates/emails/request-quote.php:150
+msgid "Not Accepted"
+msgstr "Niet geaccepteerd"
+
+#: includes/forms/default/functions.yith-ywraq-default-form.php:37
+msgid "First Name"
+msgstr "Voornaam"
+
+#: includes/forms/default/functions.yith-ywraq-default-form.php:47
+msgid "Last Name"
+msgstr "Achternaam"
+
+#: includes/forms/default/functions.yith-ywraq-default-form.php:57
+#: includes/forms/default/functions.yith-ywraq-default-form.php:279
+msgid "Email"
+msgstr "E-mail"
+
+#: includes/forms/default/functions.yith-ywraq-default-form.php:67
+#: includes/forms/gravity-forms/ywraq-gravity-form-addons.php:572
+#: plugin-options/metabox/ywraq-metabox-order.php:65
+msgid "Message"
+msgstr "Bericht"
+
+#: includes/forms/default/functions.yith-ywraq-default-form.php:277
+msgid "No validation"
+msgstr "Geen validatie"
+
+#: includes/forms/default/functions.yith-ywraq-default-form.php:278
+#: includes/forms/default/functions.yith-ywraq-default-form.php:313
+#: includes/forms/gravity-forms/ywraq-gravity-form-addons.php:580
+msgid "Phone"
+msgstr "Telefoon"
+
+#: includes/forms/default/functions.yith-ywraq-default-form.php:280
+msgid "File"
+msgstr "Bestand"
+
+#: includes/forms/default/functions.yith-ywraq-default-form.php:295
+msgid "First"
+msgstr "Eerste"
+
+#: includes/forms/default/functions.yith-ywraq-default-form.php:296
+msgid "Last"
+msgstr "Laatste"
+
+#: includes/forms/default/functions.yith-ywraq-default-form.php:297
+msgid "Wide"
+msgstr "Breedte"
+
+#: includes/forms/default/functions.yith-ywraq-default-form.php:312
+msgid "Text"
+msgstr "Tekst"
+
+#: includes/forms/default/functions.yith-ywraq-default-form.php:314
+msgid "Textarea"
+msgstr "Tekstgebied"
+
+#: includes/forms/default/functions.yith-ywraq-default-form.php:315
+msgid "Radio"
+msgstr "Radio"
+
+#: includes/forms/default/functions.yith-ywraq-default-form.php:316
+msgid "Checkbox"
+msgstr "Keuzevakje"
+
+#: includes/forms/default/functions.yith-ywraq-default-form.php:317
+msgid "Select"
+msgstr "Selecteer"
+
+#: includes/forms/default/functions.yith-ywraq-default-form.php:318
+msgid "Country"
+msgstr "Land"
+
+#: includes/forms/default/functions.yith-ywraq-default-form.php:319
+msgid "State"
+msgstr "Staat"
+
+#: includes/forms/default/functions.yith-ywraq-default-form.php:320
+msgid "Upload"
+msgstr "Upload"
+
+#: includes/forms/default/functions.yith-ywraq-default-form.php:321
+msgid "Multi select"
+msgstr "Multi select"
+
+#: includes/forms/default/functions.yith-ywraq-default-form.php:322
+#: templates/myaccount/my-quotes.php:58 templates/myaccount/my-quotes.php:91
+msgid "Date"
+msgstr "Datum"
+
+#: includes/forms/default/functions.yith-ywraq-default-form.php:323
+msgid "Time"
+msgstr "Tijd"
+
+#: includes/forms/default/functions.yith-ywraq-default-form.php:324
+msgid "Acceptance"
+msgstr "Acceptatie"
+
+#: includes/forms/default/functions.yith-ywraq-default-form.php:325
+msgid "Heading"
+msgstr "Hoofd"
+
+#: includes/forms/gravity-forms/ywraq-gravity-form-addons.php:212
+msgid "YITH Quote List"
+msgstr "YITH Prijsopgave lijst"
+
+#: includes/forms/gravity-forms/ywraq-gravity-form-addons.php:500
+#: includes/forms/gravity-forms/ywraq-gravity-form-addons.php:554
+msgid "YITH WooCommerce Request a Quote Settings"
+msgstr "YITH WooCommerce Request a Quote instellingen"
+
+#: includes/forms/gravity-forms/ywraq-gravity-form-addons.php:504
+msgid "This is the tooltip"
+msgstr "Dit is de tooltip"
+
+#: includes/forms/gravity-forms/ywraq-gravity-form-addons.php:505
+msgid "This is the label"
+msgstr "Dit is het label"
+
+#: includes/forms/gravity-forms/ywraq-gravity-form-addons.php:526
+msgid "Choose the field"
+msgstr "Kies het veld"
+
+#: includes/forms/gravity-forms/ywraq-gravity-form-addons.php:557
+msgid "Name of user *"
+msgstr "Naam van de gebruiker *"
+
+#: includes/forms/gravity-forms/ywraq-gravity-form-addons.php:560
+msgid "Choose what field should be used for the name"
+msgstr "Kies welk veld moet worden gebruikt voor de naam"
+
+#: includes/forms/gravity-forms/ywraq-gravity-form-addons.php:564
+msgid "Email of user *"
+msgstr "E-mail van gebruiker *"
+
+#: includes/forms/gravity-forms/ywraq-gravity-form-addons.php:567
+#: includes/forms/gravity-forms/ywraq-gravity-form-addons.php:575
+msgid "Choose what field should be used for the email"
+msgstr "Kies welk veld moet worden gebruikt voor de e-mail"
+
+#: includes/forms/gravity-forms/ywraq-gravity-form-addons.php:583
+msgid "Choose what field should be used for the Phone"
+msgstr "Kies welk veld moet worden gebruikt voor de telefoon"
+
+#: includes/forms/gravity-forms/ywraq-gravity-form-addons.php:588
+#: plugin-options/metabox/ywraq-metabox-order.php:53
+msgid "Billing Address"
+msgstr "Factuuradres"
+
+#: includes/forms/gravity-forms/ywraq-gravity-form-addons.php:591
+msgid "Choose what field should be used for the Address"
+msgstr "Kies welk veld moet worden gebruikt voor het adres"
+
+#: includes/forms/gravity-forms/ywraq-gravity-form-addons.php:596
+msgid "Shipping Address"
+msgstr "Verzendadres"
+
+#: includes/forms/gravity-forms/ywraq-gravity-form-addons.php:599
+#: includes/forms/gravity-forms/ywraq-gravity-form-addons.php:606
+msgid "Choose what field should be used for the Shipping Address"
+msgstr "Kies welk veld moet worden gebruikt voor het verzendadres"
+
+#: includes/forms/gravity-forms/ywraq-gravity-form-addons.php:603
+msgid "Product List"
+msgstr "Product lijst"
+
+#: includes/forms/gravity-forms/ywraq-gravity-form-addons.php:623
+msgid "Plugin Gravity Forms not activated or not installed"
+msgstr "Plugin Gravity Forms zijn niet geactiveerd of niet geïnstalleerd"
+
+#: includes/forms/gravity-forms/ywraq-gravity-form-addons.php:692
+msgid "Gravity Forms"
+msgstr "Gravity Forms"
+
+#: includes/forms/yit-contact-form/class.yith-ywraq-yit-contact-form.php:87
+msgid "YIT Contact Form"
+msgstr "YIT Contact Formulier"
+
+#: includes/forms/yit-contact-form/class.yith-ywraq-yit-contact-form.php:218
+msgid "An error has occurred. Please, contact site administrator."
+msgstr ""
+"Er is een fout opgetreden, neem contact op met de beheerder van de site."
+
+#: includes/functions.yith-request-quote.php:136
+#: plugin-options/pdf-options.php:105
+msgid "All"
+msgstr "Alle"
+
+#: includes/functions.yith-request-quote.php:207
+#: plugin-options/button-options.php:167
+msgid "Product added to the list!"
+msgstr "Product toegevoegd aan lijst!"
+
+#: includes/functions.yith-request-quote.php:210
+#: plugin-options/button-options.php:158 plugin-options/button-options.php:163
+msgid "Browse the list"
+msgstr "Bladeren in lijst"
+
+#: includes/functions.yith-request-quote.php:213
+#: plugin-options/button-options.php:139
+msgid "Add to Quote"
+msgstr "Toevoegen aan prijsopgave"
+
+#: includes/functions.yith-request-quote.php:219
+#: plugin-options/quote-options.php:65
+msgid "Accept"
+msgstr "Accepteren"
+
+#: includes/functions.yith-request-quote.php:222
+#: plugin-options/quote-options.php:112
+msgid "Reject"
+msgstr "Afwijzen"
+
+#: includes/functions.yith-request-quote.php:343
+msgid "new"
+msgstr "nieuw"
+
+#: includes/functions.yith-request-quote.php:346
+msgid "pending"
+msgstr "in behandeling"
+
+#: includes/functions.yith-request-quote.php:349
+msgid "expired"
+msgstr "verlopen"
+
+#: includes/functions.yith-request-quote.php:355
+msgid "accepted"
+msgstr "geaccepteerd"
+
+#: includes/functions.yith-request-quote.php:703
+msgid "Your list is empty, add products to the list to send a request"
+msgstr ""
+"Je lijst is leeg, voeg nieuwe producten toe aan de lijst om een aanvraag te "
+"versturen"
+
+#: includes/widgets/class.yith-ywraq-list-quote-widget.php:41
+#: includes/widgets/class.yith-ywraq-mini-list-quote-widget.php:41
+msgid "Show products added to your list"
+msgstr "Toon de producten die zijn toegevoegd aan je lijst"
+
+#: includes/widgets/class.yith-ywraq-list-quote-widget.php:43
+msgid "YITH WooCommerce Request a Quote List"
+msgstr "YITH WooCommerce Request a Quote List"
+
+#: includes/widgets/class.yith-ywraq-list-quote-widget.php:155
+#: includes/widgets/class.yith-ywraq-mini-list-quote-widget.php:174
+msgid "Title:"
+msgstr "Titel:"
+
+#: includes/widgets/class.yith-ywraq-list-quote-widget.php:165
+#: includes/widgets/class.yith-ywraq-mini-list-quote-widget.php:205
+msgid "Button Label:"
+msgstr "Knop Label:"
+
+#: includes/widgets/class.yith-ywraq-list-quote-widget.php:179
+#: includes/widgets/class.yith-ywraq-mini-list-quote-widget.php:228
+msgid "Show Thumbnail"
+msgstr "Toon Thumbnail"
+
+#: includes/widgets/class.yith-ywraq-list-quote-widget.php:188
+#: includes/widgets/class.yith-ywraq-mini-list-quote-widget.php:237
+msgid "Show Price"
+msgstr "Toon Prijs"
+
+#: includes/widgets/class.yith-ywraq-list-quote-widget.php:197
+#: includes/widgets/class.yith-ywraq-mini-list-quote-widget.php:246
+msgid "Show Quantity"
+msgstr "Toon Hoeveelheid"
+
+#: includes/widgets/class.yith-ywraq-list-quote-widget.php:206
+#: includes/widgets/class.yith-ywraq-mini-list-quote-widget.php:255
+msgid "Show Variations"
+msgstr "Toon Variaties"
+
+#: includes/widgets/class.yith-ywraq-mini-list-quote-widget.php:43
+msgid "YITH WooCommerce Mini Request a Quote List"
+msgstr "YITH WooCommerce Mini Request a Quote List"
+
+#: includes/widgets/class.yith-ywraq-mini-list-quote-widget.php:184
+msgid "Item Name:"
+msgstr "Item Naam:"
+
+#: includes/widgets/class.yith-ywraq-mini-list-quote-widget.php:194
+msgid "Item Plural Name:"
+msgstr "Item Meervoud Naam:"
+
+#: includes/widgets/class.yith-ywraq-mini-list-quote-widget.php:219
+msgid "Show widget title inside"
+msgstr "Toon widgettitel binnenin"
+
+#: init.php:109
+msgid ""
+"YITH Woocommerce Request A Quote is enabled but not effective. It requires "
+"WooCommerce in order to work."
+msgstr ""
+"YITH WooCommerce Request A Quote is ingeschakeld maar niet werkend. Het "
+"heeft WooCommerce nodig om te werken."
+
+#: plugin-options/button-options.php:19
+msgid "Request a Quote Button Settings"
+msgstr "Toevoegen aan prijsopgave knop instellingen"
+
+#: plugin-options/button-options.php:25
+msgid "Button type"
+msgstr "Type knop"
+
+#: plugin-options/button-options.php:26
+msgid ""
+"Choose whether to show a button or a link for the \"Add to quote\" button."
+msgstr ""
+"Kies of je een knop of link wilt weergeven voor de knop 'Toevoegen aan "
+"offerte'."
+
+#: plugin-options/button-options.php:32
+msgid "Link"
+msgstr "Link"
+
+#: plugin-options/button-options.php:33
+msgid "Button"
+msgstr "Knop"
+
+#: plugin-options/button-options.php:39
+msgid "Add to quote action after click"
+msgstr "Toevoegen aan prijsopgave actie na klikken"
+
+#: plugin-options/button-options.php:40
+msgid ""
+"Select one of the options to define the \"Add to quote\" button or link "
+"behavior."
+msgstr ""
+"Selecteer een van de opties om het 'Toevoegen aan prijsopgave' knop of link "
+"gedrag te definieren."
+
+#: plugin-options/button-options.php:45
+msgid ""
+"after clicking on \"add to quote button\", the user will view a link on the "
+"single product page to go to the request list."
+msgstr ""
+"na klikken op de knop \"toevoegen aan prijsopgave\", zal de gebruiker een "
+"link zien op single product pagina om naar de aanvraaglijst te gaan."
+
+#: plugin-options/button-options.php:46
+msgid ""
+"after clicking on \"add to quote button\", the user will be automatically "
+"redirected to the request list."
+msgstr ""
+"na klikken op de knop \"toevoegen aan prijsopgave\", wordt de gebruiker "
+"automatisch doorgestuurd naar de aanvraaglijst."
+
+#: plugin-options/button-options.php:52
+msgid "Choose where to show the \"add to quote\" button."
+msgstr "Bepaal waar je de knop 'Toevoegen aan prijsopgave' wilt weergeven."
+
+#: plugin-options/button-options.php:53
+msgid "Show button in single product page"
+msgstr "Toon knop in single product pagina"
+
+#: plugin-options/button-options.php:62
+msgid "Show button in other pages"
+msgstr "Toon knop in andere pagina´s"
+
+#: plugin-options/button-options.php:72
+msgid "Show button in WooCommerce Blocks"
+msgstr "Knop tonen in WooCommerce Blocks"
+
+#: plugin-options/button-options.php:81
+msgid "Show button even if the product is out of stock"
+msgstr "Knop weergeven ook als het product niet op voorraad is"
+
+#: plugin-options/button-options.php:90
+msgid "Show button only on out of stock products. "
+msgstr "Knop alleen weergeven als het product niet op voorraad is. "
+
+#: plugin-options/button-options.php:98
+msgid "Show button next to \"Add to cart\" in single product page"
+msgstr "Toon knop naast “Toevoegen aan winkelwagen” op single product pagina"
+
+#: plugin-options/button-options.php:99
+msgid ""
+"By enabling this option, the user will see the Request a Quote link or "
+"button next to the Add to cart button."
+msgstr ""
+"Door deze optie in te schakelen, ziet de gebruiker de 'Prijsopgave "
+"aanvragen' link of knop naast de knop toevoegen aan winkelwagen."
+
+#: plugin-options/button-options.php:107
+msgid "Show button on checkout page"
+msgstr "Knop tonen in afrekenen pagina"
+
+#: plugin-options/button-options.php:108
+msgid ""
+"Show a button in checkout to let your users convert the cart content into a "
+"quote request. This will immediately create a quote request. <br>(We suggest "
+"enabling this option if you want that your users on checkout are not "
+"directed to the Quote page before submitting a request.)"
+msgstr ""
+"Knop weergeven tijdens het afrekenen om je gebruikers de inhoud van de "
+"winkelwagen in een prijsopgave te laten omzetten. Dit zal onmiddellijk een "
+"prijsopgave aanmaken. <br> (We raden aan deze optie in te schakelen als je "
+"wilt dat je gebruikers bij het afrekenen niet naar de Prijsopgave pagina "
+"worden geleid voordat ze een aanvraag indienen.)"
+
+#: plugin-options/button-options.php:116
+msgid "Checkout Button Label"
+msgstr "Afrekenen knop label"
+
+#: plugin-options/button-options.php:117
+msgid ""
+"Choose the text you wish to show within the \"add to quote\" button or link "
+"on the checkout page."
+msgstr ""
+"Kies de tekst die je wilt weergeven in de 'toevoegen aan prijsopgave' knop "
+"of link in de afrekenen pagina."
+
+#: plugin-options/button-options.php:133
+msgid "Button Labels"
+msgstr "Knop Labels"
+
+#: plugin-options/button-options.php:140
+msgid ""
+"Choose the text you wish to show within the \"add to quote\" button or link "
+"on the single product page."
+msgstr ""
+"Kies de tekst die je wilt weergeven in de knop 'toevoegen aan prijsopgave' "
+"of link op de single product pagina."
+
+#: plugin-options/button-options.php:144
+msgid "Add to quote"
+msgstr "Toevoegen aan prijsopgave"
+
+#: plugin-options/button-options.php:149
+msgid ""
+"Choose the text you wish to display in the link that shows users the product "
+"is already on the request list within the loop (product list) or in the "
+"single product page."
+msgstr ""
+"Kies de tekst die je wilt tonen in de link, die gebruikers het product toont "
+"dat al is toegevoegd aan de aanvraaglijst binnen de loop (product lijst) of "
+"in de single product pagina."
+
+#: plugin-options/button-options.php:153
+msgid "This product is already in quote request list."
+msgstr "Dit product is al toegevoegd aan de prijsopgave aanvraaglijst."
+
+#: plugin-options/button-options.php:159
+msgid ""
+"Choose the text you wish to show in the link that redirects users to the "
+"request list within the loop (product list) or on the single product page."
+msgstr ""
+"Kies de tekst die je wilt tonen in de link, die gebruikers doorstuurt naar "
+"de aanvraaglijst binnen de loop (product lijst) of in de single product "
+"pagina."
+
+#: plugin-options/button-options.php:168
+msgid ""
+"Choose the text you wish to show soon after adding a product to the request "
+"list."
+msgstr ""
+"Kies de tekst die je snel wilt weergeven nadat je een product aan de "
+"aanvraaglijst hebt toegevoegd."
+
+#: plugin-options/button-options.php:172
+msgid "Product added."
+msgstr "Product toegevoegd."
+
+#: plugin-options/button-options.php:183
+msgid "Request Quote Button Customizations"
+msgstr "Prijsopgave aanvragen knop aanpassingen"
+
+#: plugin-options/button-options.php:189
+msgid "Button background color"
+msgstr "Achtergrondkleur knop"
+
+#: plugin-options/button-options.php:198
+msgid "Button background on hover"
+msgstr "Achtergrond knop bij hoveren"
+
+#: plugin-options/button-options.php:207
+msgid "Button/Link text color"
+msgstr "Knop/Link tekstkleur"
+
+#: plugin-options/button-options.php:216
+msgid "Button/Link text color hover"
+msgstr "Knop/Link tekstkleur hover"
+
+#: plugin-options/button-options.php:225
+msgid "Loader"
+msgstr "Lader"
+
+#: plugin-options/button-options.php:226
+msgid "Loader gif"
+msgstr "Lader gif"
+
+#: plugin-options/button-options.php:234
+msgid "Enable AJAX loading"
+msgstr "AJAX laden inschakelen"
+
+#: plugin-options/button-options.php:235
+msgid "Load any cacheable quote item via AJAX"
+msgstr "Laad elke cacheable prijsopgave item via AJAX"
+
+#: plugin-options/button-options.php:251
+msgid "User Settings"
+msgstr "Gebruikers instellingen"
+
+#: plugin-options/button-options.php:257 plugin-options/button-options.php:271
+msgid "Choose who you want to show the \"Add to quote\" button."
+msgstr "Bepaal wie de knop 'Toevoegen aan prijsopgave' kan zien."
+
+#: plugin-options/button-options.php:258
+msgid ""
+"Choose whether to show the \"Add to quote\" button only to logged or guest "
+"users or both."
+msgstr ""
+"Kies of de knop 'Toevoegen aan prijsopgave' alleen wordt weergegeven voor "
+"ingelogde gebruikers, gasten of beide."
+
+#: plugin-options/button-options.php:264
+msgid "Guests & logged-in users"
+msgstr "Gasten en ingelogde gebruikers"
+
+#: plugin-options/button-options.php:265
+msgid "Guests"
+msgstr "Gasten"
+
+#: plugin-options/button-options.php:266
+msgid "Logged-in users"
+msgstr "Ingelogde gebruikers"
+
+#: plugin-options/button-options.php:272
+msgid ""
+"Choose whether to show the \"Add to quote\" button only to specific roles."
+msgstr ""
+"Kies of de knop 'Aan prijsopgave toevoegen' alleen voor specifieke rollen "
+"wordt weergegeven."
+
+#: plugin-options/form-options.php:26 plugin-options/form-options.php:46
+msgid "Default"
+msgstr "Standaard"
+
+#: plugin-options/form-options.php:32
+msgid "Form settings"
+msgstr "Formulier instellingen"
+
+#: plugin-options/form-options.php:37
+msgid "Request form"
+msgstr "Aanvraagformulier"
+
+#: plugin-options/form-options.php:38
+msgid ""
+"Choose one. You can also add forms from YIT Contact Form, Contact Form 7 or "
+"Gravity Form that must be installed and activated."
+msgstr ""
+"Kies er een. Je kunt ook formulieren toevoegen zoals YIT Contact Form, "
+"Contact Form 7 of Gravity Form welke moeten worden geïnstalleerd en "
+"geactiveerd."
+
+#: plugin-options/form-options.php:54
+msgid "Edit the default form"
+msgstr "Bewerk het standaardformulier"
+
+#: plugin-options/form-options.php:66
+msgid "Edit the Request a quote email options"
+msgstr "Bewerk de 'prijsopgave aanvragen' e-mail opties"
+
+#: plugin-options/form-options.php:84
+msgid "Enable registration on the \"Request a Quote\" page"
+msgstr "Inschakelen registratie op de \"Prijsopgave aanvragen\" pagina"
+
+#: plugin-options/form-options.php:85
+msgid "The plugin adds a checkbox below the form"
+msgstr "De plugin voegt een selectievakje onder het formulier toe"
+
+#: plugin-options/form-options.php:99
+msgid "Force Registration on the \"Request a Quote\" page"
+msgstr "Forceer registratie op de pagina \"Prijsopgave aanvragen\""
+
+#: plugin-options/form-options.php:113
+msgid "Add a reCAPTCHA to the default form"
+msgstr "Voeg een reCAPTCHA toe aan het standaardformulier"
+
+#: plugin-options/form-options.php:114
+msgid "To start using reCAPTCHA V2, you need to sign up for an"
+msgstr "Om reCAPTCHA V2 te gebruiken, moet je je inschrijven voor een"
+
+#: plugin-options/form-options.php:114
+msgid " API key pair for your site"
+msgstr " API Key paar voor uw site"
+
+#: plugin-options/form-options.php:128
+msgid "Add reCAPTCHA site key"
+msgstr "reCAPTCHA site key toevoegen"
+
+#: plugin-options/form-options.php:142
+msgid "Add reCAPTCHA secret key"
+msgstr "reCAPTCHA secret key toevoegen"
+
+#: plugin-options/form-options.php:156
+msgid "Autocomplete Form"
+msgstr "Formulier automatisch invullen"
+
+#: plugin-options/form-options.php:157
+msgid ""
+"Check this option if you want that the fields connected to WooCommerce "
+"fields will be filled automatically"
+msgstr ""
+"Schakel deze optie in als je wilt dat de velden die zijn verbonden met "
+"WooCommerce-velden automatisch worden ingevuld"
+
+#: plugin-options/form-options.php:169
+msgid "Date Picker Format"
+msgstr "Datum prikker format"
+
+#: plugin-options/form-options.php:183
+msgid "Time Picker Format Time"
+msgstr "Datumprikker opmaak tijd"
+
+#: plugin-options/form-options.php:215
+msgid "Set what to show after sending the quote "
+msgstr "Bepaal wat je wilt tonen na het sturen van de prijsopgave  "
+
+#: plugin-options/form-options.php:216
+msgid "Select which details you want to show after sending the quote"
+msgstr "Selecteer welke details je wilt tonen na het sturen van de prijsopgave"
+
+#: plugin-options/form-options.php:221
+msgid "Show a simple message"
+msgstr "Toon een simpel bericht"
+
+#: plugin-options/form-options.php:222
+msgid "Show quote details"
+msgstr "Toon details prijsopgave"
+
+#: plugin-options/form-options.php:223
+msgid "Thank you page"
+msgstr "Bedankt pagina"
+
+#: plugin-options/form-options.php:228
+msgid "Show this message after a quote request is sent"
+msgstr "Toon dit bericht nadat de prijsaanvraag is verstuurd"
+
+#: plugin-options/form-options.php:233
+msgid "Your request has been sent successfully."
+msgstr "Je verzoek is succesvol verzonden."
+
+#: plugin-options/form-options.php:241
+msgid "Show request details after it has been submitted"
+msgstr "Toon aanvraag details nadat ze zijn ingediend"
+
+#: plugin-options/form-options.php:242
+msgid "If checked, the link of the quote details will be showed"
+msgstr ""
+"Indien aangevinkt, wordt de link van de prijsopgave details weergegeven"
+
+#: plugin-options/form-options.php:254
+msgid "Show this text to lead users to Details page"
+msgstr "Toon deze tekst om gebruikers door te verwijzen naar details pagina"
+
+#: plugin-options/form-options.php:265
+msgid "You can see details at:"
+msgstr "Je kunt de details hier zien:"
+
+#: plugin-options/form-options.php:269
+msgid "Select your Thank-you page"
+msgstr "Selecteer je bedankt pagina"
+
+#: plugin-options/metabox/ywraq-metabox-order.php:57
+msgid "Billing Phone"
+msgstr "Factuur telefoonnummer:"
+
+#: plugin-options/metabox/ywraq-metabox-order.php:61
+msgid "Billing Vat"
+msgstr "Factuur BTW"
+
+#: plugin-options/metabox/ywraq-metabox-order.php:83
+msgid "Attachment"
+msgstr "Bijlage"
+
+#: plugin-options/metabox/ywraq-metabox-order.php:108
+msgid "Request a Quote Order Settings"
+msgstr "Prijsopgave aanvragen bestelling instellingen"
+
+#: plugin-options/metabox/ywraq-metabox-order.php:114
+#: plugin-options/metabox/ywraq-metabox.php:25
+msgid "Settings"
+msgstr "Instellingen"
+
+#: plugin-options/metabox/ywraq-metabox-order.php:122
+msgid "Customer's name"
+msgstr "Klantnaam"
+
+#: plugin-options/metabox/ywraq-metabox-order.php:129
+msgid "Customer's email"
+msgstr "E-mail klant"
+
+#: plugin-options/metabox/ywraq-metabox-order.php:136
+#: templates/emails/plain/request-quote.php:33
+#: templates/emails/request-quote.php:58
+msgid "Customer's message"
+msgstr "Bericht klant"
+
+#: plugin-options/metabox/ywraq-metabox-order.php:146
+#: plugin-options/metabox/ywraq-metabox-order.php:147
+#: plugin-options/metabox/ywraq-metabox-order.php:152
+msgid "Additional email content"
+msgstr "Aanvullende e-mail inhoud"
+
+#: plugin-options/metabox/ywraq-metabox-order.php:160
+#: plugin-options/metabox/ywraq-metabox-order.php:168
+#: plugin-options/metabox/ywraq-metabox-order.php:176
+msgid "Customer's additional field"
+msgstr "Aanvullend veld klant"
+
+#: plugin-options/metabox/ywraq-metabox-order.php:184
+msgid "Customer's attachment"
+msgstr "Bijlage klant"
+
+#: plugin-options/metabox/ywraq-metabox-order.php:198
+msgid "Attach message to the quote before the table list (optional)"
+msgstr "Bericht toevoegen aan prijsopgave, voor de tabel lijst (optioneel)"
+
+#: plugin-options/metabox/ywraq-metabox-order.php:200
+msgid "Write a message that will be attached to the quote"
+msgstr "Schrijf een bericht dat wordt toegevoegd aan de prijsopgave"
+
+#: plugin-options/metabox/ywraq-metabox-order.php:206
+msgid "Attach message to the quote after the table list (optional)"
+msgstr "Bericht toevoegen aan prijsopgave, na de tabel lijst (optioneel)"
+
+#: plugin-options/metabox/ywraq-metabox-order.php:208
+msgid "Write a message that will be attached to the quote after the list"
+msgstr ""
+"Schrijf een bericht dat wordt toegevoegd aan de prijsopgave na de lijst"
+
+#: plugin-options/metabox/ywraq-metabox-order.php:214
+msgid "Optional Attachment"
+msgstr "Bijlage optioneel"
+
+#: plugin-options/metabox/ywraq-metabox-order.php:216
+msgid "Use this field to add additional attachment to the email"
+msgstr ""
+"Gebruik dit veld om een aanvullende bijlage toe te voegen aan de e-mail"
+
+#: plugin-options/metabox/ywraq-metabox-order.php:221
+msgid "Expire date (optional)"
+msgstr "Vervaldatum (optioneel)"
+
+#: plugin-options/metabox/ywraq-metabox-order.php:222
+#: plugin-options/metabox/ywraq-metabox-order.php:275
+msgid "Set an expiration date for this quote"
+msgstr "Vervaldatum instellen voor deze prijsopgave"
+
+#: plugin-options/metabox/ywraq-metabox-order.php:232
+msgid "Send the customer to \"Pay for Quote\""
+msgstr "Naar de klant \"Betaal prijsopgave\" sturen"
+
+#: plugin-options/metabox/ywraq-metabox-order.php:234
+msgid ""
+"If billing and shipping fields are filled, you can send the customer to Pay "
+"for Quote Page. In this page, neither billing nor shipping information will "
+"be requested."
+msgstr ""
+"Als betaal- en verzendgegevens velden zijn ingevuld, kun je de klant "
+"doorsturen naar de betaal prijsopgave pagina. Op deze pagina, zal de noch om "
+"factuur- noch om verzendgegevens worden gevraagd."
+
+#: plugin-options/metabox/ywraq-metabox-order.php:240
+msgid "Override checkout fields"
+msgstr "Afrekenen-velden overschrijven"
+
+#: plugin-options/metabox/ywraq-metabox-order.php:243
+msgid "Select an option if you want to override checkout fields."
+msgstr "Selecteer een optie als je de afrekenen-velden wilt overschrijven."
+
+#: plugin-options/metabox/ywraq-metabox-order.php:246
+msgid "Do not override Billing and Shipping Info"
+msgstr "Factuur- en verzendinformatie niet overschrijven"
+
+#: plugin-options/metabox/ywraq-metabox-order.php:247
+msgid "Override Billing and Shipping Info"
+msgstr "Factuur- en verzendinformatie overschrijven"
+
+#: plugin-options/metabox/ywraq-metabox-order.php:248
+msgid "Override Billing Info"
+msgstr "Factuurinformatie overschrijven"
+
+#: plugin-options/metabox/ywraq-metabox-order.php:249
+msgid "Override Shipping Info"
+msgstr "Verzendinformatie overschrijven"
+
+#: plugin-options/metabox/ywraq-metabox-order.php:255
+msgid "Lock the editing of fields selected above"
+msgstr "Blokkeer het bewerken van bovengenoemde velden"
+
+#: plugin-options/metabox/ywraq-metabox-order.php:257
+msgid ""
+"Check this option if you want to disable the editing of the checkout fields."
+msgstr ""
+"Selecteer deze optie als je het bewerken van de afrekenen-velden wilt "
+"uitschakelen."
+
+#: plugin-options/metabox/ywraq-metabox-order.php:264
+msgid "Override shipping"
+msgstr "Verzenden overschrijven"
+
+#: plugin-options/metabox/ywraq-metabox-order.php:266
+msgid ""
+"Check this option if you want to use only the shipping method in the quote."
+msgstr ""
+"Deze optie aanvinken als je de verzendmethode alleen in de prijstopgave wilt "
+"gebruiken."
+
+#: plugin-options/metabox/ywraq-metabox-order.php:294
+msgid "Create PDF"
+msgstr "Maak PDF"
+
+#: plugin-options/metabox/ywraq-metabox-order.php:295
+msgid "View PDF"
+msgstr "Bekijk PDF"
+
+#: plugin-options/metabox/ywraq-metabox-order.php:298
+msgid "View Pdf"
+msgstr "Bekijk Pdf"
+
+#: plugin-options/metabox/ywraq-metabox-order.php:308
+msgid "Send Quote"
+msgstr "Verstuur de prijsopgave"
+
+#: plugin-options/metabox/ywraq-metabox.php:19
+msgid "Single Product Settings for quote requests"
+msgstr "Single product instellingen voor prijsopgave verzoeken"
+
+#: plugin-options/metabox/ywraq-metabox.php:30
+msgid "\"Add to quote\" button"
+msgstr "“Toevoegen aan prijsopgave” knop"
+
+#: plugin-options/metabox/ywraq-metabox.php:31
+msgid "Exclude this product from showing \"Add to quote\" button"
+msgstr "Voor dit product geen “Toevoegen aan prijsopgave” knop tonen"
+
+#: plugin-options/other-options.php:20 plugin-options/other-options.php:33
+msgid "Exclusion List Settings"
+msgstr "Instellingen uitsluitingenlijst"
+
+#: plugin-options/other-options.php:25
+msgid "Enable Exclusion List"
+msgstr "Uitsluitingenlijst inschakelen"
+
+#: plugin-options/other-options.php:26
+#, fuzzy
+msgid ""
+"By enabling the exclusion list, you can exclude the products you prefer from "
+"the plugin behavior. You can add the products you wish to be excluded from "
+"Request a Quote features in the new \"Exclusion List\" tab soon after "
+"enabling this option."
+msgstr ""
+"Door de uitsluitingenlijst in te schakelen, kun je de door jou gewenste "
+"producten uitsluiten van het gedrag van de plugin. <br> je kunt de producten "
+"die je wilt uitsluiten van de prijsopgave functies, toevoegen aan het nieuwe "
+"\"Uitsluitingslijst\" tabblad, zodra deze optie is ingeschakeld."
+
+#: plugin-options/other-options.php:34
+msgid "From here, you can change the behavior of the \"exclusion list\"."
+msgstr "Vanaf hier kun je het gedrag van de \"uitsluitingenlijst\" wijzigen."
+
+#: plugin-options/other-options.php:43
+msgid "Hide the button \"add to quote\" on all products of the exclusion list."
+msgstr ""
+"Verberg de knop \"toevoegen aan prijsopgave\" voor alle producten in de "
+"uitsluitingenlijst."
+
+#: plugin-options/other-options.php:44
+msgid "Show the \"add to quote\" button on all products of the exclusion list."
+msgstr ""
+"Toon de knop 'toevoegen aan prijsopgave' voor alle producten in de "
+"uitsluitingenlijst."
+
+#: plugin-options/other-options.php:54
+msgid "PDF Settings"
+msgstr "PDF Instellingen"
+
+#: plugin-options/other-options.php:59
+msgid "Allow creating PDF Documents"
+msgstr "Sta het maken van PDF-documenten toe"
+
+#: plugin-options/other-options.php:60
+msgid ""
+"By checking this option, a new tab named PDF Settings will be enabled. Here, "
+"you can customizethe PDF."
+msgstr ""
+"Door deze optie aan te vinken, wordt een nieuw tabblad met de naam PDF-"
+"instellingen geactiveerd. Hier kun je de PDF aanpassen."
+
+#: plugin-options/other-options.php:76
+msgid "General Settings"
+msgstr "Algemene Instellingen"
+
+#: plugin-options/other-options.php:81
+msgid "Hide \"Add to cart\" button"
+msgstr "Verberg “Toevoegen aan winkelwagen” knop"
+
+#: plugin-options/other-options.php:82
+msgid "Hide \"Add to cart\" button to all products"
+msgstr "Verberg de knop \"Toevoegen aan winkelwagen\" voor alle producten"
+
+#: plugin-options/other-options.php:90
+msgid "Hide price"
+msgstr "Verberg prijs"
+
+#: plugin-options/other-options.php:91
+msgid "Hide price to all products"
+msgstr "Verberg de prijs van alle producten"
+
+#: plugin-options/pdf-options.php:20
+msgid "PDF Quote Settings"
+msgstr "PDF Prijsopgave instellingen"
+
+#: plugin-options/pdf-options.php:25
+msgid "Allow creating PDF document download in My Account page"
+msgstr "PDF Document maken en downloaden in Mijn Account pagina toestaan"
+
+#: plugin-options/pdf-options.php:26
+msgid ""
+"If checked, a button \"Download PDF\" will be added in the quote detail page"
+msgstr ""
+"Indien geselecteerd, zal een “Download PDF' knop worden toegevoegd aan de "
+"prijsopgave detail pagina"
+
+#: plugin-options/pdf-options.php:33 plugin-options/pdf-options.php:34
+msgid "Enable pagination."
+msgstr "Paginering inschakelen."
+
+#: plugin-options/pdf-options.php:41
+msgid "Attach PDF quote to the email"
+msgstr "PDF prijsopgave toevoegen aan de e-mail"
+
+#: plugin-options/pdf-options.php:42
+msgid "If checked, the quote will be sent as PDF attachment"
+msgstr ""
+"Indien geselecteerd, zal de prijsopgave worden verstuurd als een PDF bijlage"
+
+#: plugin-options/pdf-options.php:54
+msgid "PDF Quote Layout"
+msgstr "PDF Prijsopgave lay-out"
+
+#: plugin-options/pdf-options.php:59
+msgid "Template"
+msgstr "Sjabloon"
+
+#: plugin-options/pdf-options.php:60
+msgid ""
+"Select the template: Table allows adding the quote content to an HTML table; "
+"Div replaces the HTML table with Divs (this can help to avoid some issues "
+"with pagination)"
+msgstr ""
+"Selecteer het template: de tabel laat je de prijsopgave inhoud toevoegen aan "
+"een HTML tabel; Div vervangt de HTML tabel met Divs (dit kan helpen bij het "
+"voorkomen van pagineringproblemen)"
+
+#: plugin-options/pdf-options.php:65
+msgid "Table"
+msgstr "Tabel"
+
+#: plugin-options/pdf-options.php:66
+msgid "Div"
+msgstr "Div"
+
+#: plugin-options/pdf-options.php:71
+msgid "Logo"
+msgstr "Logo"
+
+#: plugin-options/pdf-options.php:72
+msgid ""
+"Upload the logo you want to show in the PDF document. Only .png and .jpeg "
+"extensions are allowed."
+msgstr ""
+"Upload het logo dat je wilt weergeven in het PDF document. Alleen png. en ."
+"jpeg bestanden zijn toegestaan."
+
+#: plugin-options/pdf-options.php:79
+msgid "Sender Info in PDF file"
+msgstr "Afzender informatie in PDF bestand"
+
+#: plugin-options/pdf-options.php:80
+msgid "Add sender information that have to be shown in the PDF document"
+msgstr ""
+"Voeg de afzender informatie toe, die wordt weergegeven in het PDF document"
+
+#: plugin-options/pdf-options.php:87
+msgid "Show quote author"
+msgstr "Auteur prijsopgave tonen"
+
+#: plugin-options/pdf-options.php:88
+msgid "If checked, the quote will show information of the user who sent it."
+msgstr ""
+"Indien aangevinkt, zal de prijsopgave de informatie tonen van de aanvragen."
+
+#: plugin-options/pdf-options.php:96
+msgid "Table Columns"
+msgstr "Tabel kolommen"
+
+#: plugin-options/pdf-options.php:97
+msgid "Select the columns you want to show in the List"
+msgstr "Selecteer de kolommen die je wilt tonen in de lijst"
+
+#: plugin-options/pdf-options.php:121
+msgid "Hide Total Row"
+msgstr "Totaal rij verbergen"
+
+#: plugin-options/pdf-options.php:122
+msgid "Do not diasplay the Total Price Row in the Product List "
+msgstr "Totaalprijs rij, niet weergeven in product lijst "
+
+#: plugin-options/pdf-options.php:129
+msgid "Remove the list with products from the email"
+msgstr "Verwijder de lijst met producten uit de e-mail"
+
+#: plugin-options/pdf-options.php:130
+msgid "Hide quote in the email if it has been sent as PDF attachment"
+msgstr ""
+"Verberg de prijsopgave in de e-mail als deze is verzonden als PDF bijlage"
+
+#: plugin-options/pdf-options.php:137
+msgid "Show Link  Accept/Reject"
+msgstr "Toon Accepteren/Afwijzen link"
+
+#: plugin-options/pdf-options.php:138
+msgid ""
+"By enabling this option, the link to accept or reject the quote will be "
+"inserted into the PDF. You can enable the link to accept or reject the quote "
+"from the Quote Settings tab."
+msgstr ""
+"Door deze optie in te schakelen, wordt de link om de prijsopgave te "
+"accepteren of te weigeren aan de PDF toegevoegd. Je kunt de link inschakelen "
+"om de prijsopgave te accepteren of te weigeren vanaf het Prijsopgave "
+"instellingen tabblad."
+
+#: plugin-options/pdf-options.php:145
+msgid "Add general text on the footer of pdf document."
+msgstr "Voeg algemene tekst toe aan de footer van het pdf document."
+
+#: plugin-options/pdf-options.php:146
+msgid ""
+"If checked, a button \"Download PDF\" will be added in the quote detail page."
+msgstr ""
+"Indien aangevinkt, zal een knop \"PDF downloaden\" worden toegevoegd aan de "
+"offerte detailpagina."
+
+#: plugin-options/quote-options.php:27
+msgid "Enable order creation"
+msgstr "Bestelling aanmaken inschakelen"
+
+#: plugin-options/quote-options.php:28
+msgid "If checked, the orders will be created. (Recommended)"
+msgstr ""
+"Indien geselecteerd, zullen de bestellingen worden gemaakt. (Aanbevolen)"
+
+#: plugin-options/quote-options.php:37
+msgid "Edit the Quote email options"
+msgstr "Bewerk de e-mailopties van de offerte"
+
+#: plugin-options/quote-options.php:48
+msgid "Show users the link to accept the quote."
+msgstr "Toon gebruikers de link om de prijsopgave te accepteren."
+
+#: plugin-options/quote-options.php:49
+msgid ""
+"If checked, \"Accept\" link will be shown in the quote both in the email "
+"received by the user and on My account page."
+msgstr ""
+"Indien ingeschakeld, wordt de link \"Accepteren\" weergegeven in de offerte, "
+"zowel in de e-mail die de gebruiker ontvangt als op de Mijn Account pagina."
+
+#: plugin-options/quote-options.php:56
+msgid "Write in the text for your \"Accept\" link"
+msgstr "Schrijf de tekst voor je “Accepteren” link"
+
+#: plugin-options/quote-options.php:57
+msgid "Insert the \"Accept\" link label"
+msgstr "Plaats het linklabel \"Accepteren\""
+
+#: plugin-options/quote-options.php:68
+msgid "Redirect page"
+msgstr "Doorsturen naar pagina"
+
+#: plugin-options/quote-options.php:69
+msgid ""
+"Select the page where to redirect your user after the quote has been "
+"accepted."
+msgstr ""
+"Pagina selecteren waarnaar je gebruikers worden doorverwezen nadat een "
+"prijsopgave is geaccepteerd."
+
+#: plugin-options/quote-options.php:82
+msgid "Allow adding products to the cart"
+msgstr "Producten toevoegen aan winkelwagen toestaan"
+
+#: plugin-options/quote-options.php:83
+msgid "Allow adding products to the cart after accepting the quote"
+msgstr ""
+"Toestaan dat producten worden toegevoegd aan winkelwagen na het accepteren "
+"van prijsopgave"
+
+#: plugin-options/quote-options.php:95
+msgid "Show \"Reject\" link"
+msgstr "Toon “Afwijzen” link"
+
+#: plugin-options/quote-options.php:96
+msgid ""
+"If checked, \"Reject\" link will be shown in the quote both in the email "
+"received by the user and on My account page."
+msgstr ""
+"Indien ingeschakeld, wordt de link \"afwijzen\" weergegeven in de "
+"prijsopgave, zowel in de e-mail die de gebruiker ontvangt als op de Mijn "
+"Account pagina."
+
+#: plugin-options/quote-options.php:103
+msgid "Write in the text for your \"Reject\" link"
+msgstr "Schrijf de tekst voor je “Afwijzen” link"
+
+#: plugin-options/quote-options.php:104
+msgid "Insert the \"Reject\" link label."
+msgstr "Plaats het \"Weigeren\" label."
+
+#: plugin-options/quote-options.php:117
+msgid "Edit the Accepted/Rejected Quote Email options"
+msgstr "Bewerk de geaccepteerde/afgewezen prijsopgave e-mail opties"
+
+#: plugin-options/quote-options.php:126
+msgid "Generate quotes automatically"
+msgstr "Prijsopgaven automatisch genereren"
+
+#: plugin-options/quote-options.php:127
+msgid ""
+"If checked, an automatic quote will be generated and sent. The reply to "
+"quote request will be sent automatically.<br>The price of the products "
+"included in the request list will remain the same."
+msgstr ""
+"Indien ingeschakeld, zal een automatische prijsopgave worden aangemaakt en "
+"verzonden. Het antwoord voor de prijsopgave aanvraag zal automatisch worden "
+"verzonden. <br>De prijs van de producten in de aanvraag zullen hetzelfde "
+"blijven."
+
+#: plugin-options/quote-options.php:134
+msgid "Payment method"
+msgstr "Betaalmethode"
+
+#: plugin-options/quote-options.php:135
+msgid ""
+"Select payment method for quote. Leave this field empty if you want to allow "
+"all gateways enabled in WooCommerce"
+msgstr ""
+"Selecteer betaalmethode voor de prijsopgave. Laat dit veld leeg als je alle "
+"methoden die zijn ingeschakeld in WooCommerce wilt toestaan."
+
+#: plugin-options/quote-options.php:143
+msgid "Start a cron every"
+msgstr "Start een cron elke"
+
+#: plugin-options/quote-options.php:144
+msgid "Insert 0 to send the quote immediately."
+msgstr "Voer 0 in om de prijsopgave direct te versturen."
+
+#: plugin-options/quote-options.php:156
+msgid ""
+"Decide the time span for which the plugin will check new quote requests to "
+"be processed automatically."
+msgstr ""
+"Bepaal de tijdspanne waarin de plugin zal controleren op nieuwe, te "
+"verwerken, prijsopgave aanvragen om automatisch te verwerken."
+
+#: plugin-options/quote-options.php:166
+msgid "Minutes"
+msgstr "Minuten"
+
+#: plugin-options/quote-options.php:167
+msgid "Hours"
+msgstr "Uren"
+
+#: plugin-options/quote-options.php:168
+msgid "Days"
+msgstr "Dagen"
+
+#: plugin-options/quote-options.php:173
+msgid "Set a default expiring date after"
+msgstr "Stel een standaard vervaldatum in na"
+
+#: plugin-options/quote-options.php:174
+msgid ""
+"(days). Quotes will automatically get an expiry date based on how many days "
+"you select above. Leave it empty if you don't want quotes to expire."
+msgstr ""
+"(Dagen). Prijsopgaven krijgen automatisch een vervaldatum op basis van het "
+"aantal dagen dat je hierboven selecteert. Laat het leeg als je niet wilt dat "
+"offertes verlopen."
+
+#: plugin-options/quote-options.php:183
+msgid "Add default shipping on quote"
+msgstr "Voeg standaard verzenden toe aan prijsopgave"
+
+#: plugin-options/quote-options.php:184
+msgid "If checked the default shipping will be added to the quote"
+msgstr ""
+"Indien aangevinkt, wordt de standaard verzending aan de prijsopgave "
+"toegevoegd"
+
+#: plugin-options/quote-options.php:191
+msgid "Enable the option to add multiple shipping cost"
+msgstr "Inschakelen, optie voor toevoegen van meerdere verzendkosten"
+
+#: plugin-options/quote-options.php:192
+msgid ""
+"If checked, from the editor's quote, it is possible to add more shipping "
+"costs that will be summed at checkout"
+msgstr ""
+"Indien geselecteerd, vanaf de prijsopgave editor, is het mogelijk om "
+"meerdere verzendkosten toe te voegen, die worden getoond bij afrekenen"
+
+#: plugin-options/quote-options.php:199
+msgid "Enable reorder"
+msgstr "Opnieuw bestellen inschakelen"
+
+#: plugin-options/quote-options.php:200
+msgid "Show the button to order again on My Account page"
+msgstr "Toon de knop om opnieuw te bestellen op de Mijn Account pagina"
+
+#: plugin-options/quote-options.php:207
+msgid "Text for the Request Quote Again button"
+msgstr "Tekst voor prijsopgave opnieuw aanvragen knop"
+
+#: plugin-options/quote-options.php:208
+msgid "Insert here the text to show for the Request Quote Again button"
+msgstr ""
+"Voer hier de tekst in die wordt weergegeven voor de 'prijsopgave opnieuw "
+"aanvragen' knop"
+
+#: plugin-options/request-options.php:19
+msgid "Request a Quote List Settings"
+msgstr "Prijsopgave verzoek lijst instellingen"
+
+#: plugin-options/request-options.php:24
+msgid "Choose what page will include the list."
+msgstr "Bepaal op welke pagina de lijst wordt getoond."
+
+#: plugin-options/request-options.php:27
+msgid ""
+"You can choose from this list the page on which users will see their quote "
+"requests."
+msgstr ""
+"Je kunt uit deze lijst de pagina kiezen, waarop gebruikers hun "
+"offerteaanvragen zullen zien."
+
+#: plugin-options/request-options.php:28
+msgid "Please note"
+msgstr "Ter informatie"
+
+#: plugin-options/request-options.php:29
+msgid ""
+": by choosing a page different from the default one (request a quote) and "
+"allow users to view their requests list, you will need to insert the "
+"following shortcode [yith_ywraq_request_quote] "
+msgstr ""
+": door een andere pagina te kiezen dan de standaardpagina (prijsopgave "
+"aanvragen) en gebruikers toe te staan hun lijst met verzoeken te bekijken, "
+"moet je de volgende shortcode invoegen [yith_ywraq_request_quote] "
+
+#: plugin-options/request-options.php:40
+msgid "Page Layout"
+msgstr "Pagina lay-out"
+
+#: plugin-options/request-options.php:41
+msgid "Choose the layout for the quote page."
+msgstr "Kies de lay-out voor de prijsopgave pagina."
+
+#: plugin-options/request-options.php:46
+msgid "Show the form under the quote list"
+msgstr "Toon het formulier onder de prijsopgave lijst"
+
+#: plugin-options/request-options.php:47
+msgid "Show the form next to the quote list"
+msgstr "Toon het formulier naast de prijsopgave lijst"
+
+#: plugin-options/request-options.php:53
+msgid "Show SKU on list table"
+msgstr "Toon SKU in lijst tabel"
+
+#: plugin-options/request-options.php:54
+msgid ""
+"If checked, the sku will be added near the title of product in the request "
+"list"
+msgstr ""
+"Indien geselecteerd, zal de sku worden toegevoegd naast de titel van het "
+"product in de prijsopgave lijst"
+
+#: plugin-options/request-options.php:62
+msgid "Show preview thumbnail on email list table"
+msgstr "Toon voorbeeld thumbnail in e-mail lijst tabel"
+
+#: plugin-options/request-options.php:63
+msgid ""
+"If checked, the thumbnail will be added in the table of request and in the "
+"proposal email"
+msgstr ""
+"Indien geselecteerd, zal de thumbnail worden toegevoegd aan de prijsopgave "
+"tabel en de e-mail met het voorstel"
+
+#: plugin-options/request-options.php:71
+msgid "Show old price on list table"
+msgstr "Toon oude prijs in lijst tabel"
+
+#: plugin-options/request-options.php:72
+msgid ""
+"If checked, the old price will be showed in the table of request and in the "
+"proposal email"
+msgstr ""
+"Indien geselecteerd, zal de oude prijs worden getoond in de prijsopgave "
+"tabel en in de e-mail met het voorstel"
+
+#: plugin-options/request-options.php:80
+msgid "Show \"Return to Shop\" button"
+msgstr "Toon “Terugkeren naar winkel” knop"
+
+#: plugin-options/request-options.php:81
+msgid ""
+"If checked, the \"Return to Shop\" button will be showed in the request list"
+msgstr ""
+"Indien ingeschakeld, wordt de knop \"Terugkeren naar winkel\" weergegeven in "
+"de lijst met aanvragen"
+
+#: plugin-options/request-options.php:89
+msgid "\"Return to Shop\" button label"
+msgstr "“Terugkeren naar winkel” knop label"
+
+#: plugin-options/request-options.php:90
+msgid ""
+"Edit the text of the button that will allow users to go back to the shop "
+"page."
+msgstr ""
+"Bewerk de tekst van de knop waarmee gebruikers terug kunnen gaan naar de "
+"winkelpagina."
+
+#: plugin-options/request-options.php:98
+msgid "Return to Shop"
+msgstr "Terugkeren naar winkel"
+
+#: plugin-options/request-options.php:102
+msgid "\"Return to Shop\" URL"
+msgstr "“Terugkeren naar winkel” URL"
+
+#: plugin-options/request-options.php:103
+msgid "Define the URL to assign to the button."
+msgstr "Definieer de URL die moet worden toegewezen aan de knop."
+
+#: plugin-options/request-options.php:115
+msgid "Show \"Update List\" button"
+msgstr "Toon \"Lijst bijwerken\" knop"
+
+#: plugin-options/request-options.php:116
+msgid ""
+"If checked, the \"Update List\" button will be showed in the request list"
+msgstr ""
+"Indien ingeschakeld, wordt de knop \"Lijst bijwerken\" weergegeven in de "
+"lijst met aanvragen"
+
+#: plugin-options/request-options.php:124
+msgid "\"Update List\" button label"
+msgstr "\"Lijst bijwerken\" knop label"
+
+#: plugin-options/request-options.php:125
+msgid "Edit the text of the button that will allow users to update the list."
+msgstr ""
+"Bewerk de tekst van de knop waarmee gebruikers de lijst kunnen bijwerken."
+
+#: plugin-options/request-options.php:133
+msgid "Update List"
+msgstr "Lijst bijwerken"
+
+#: plugin-options/request-options.php:137
+msgid "Hide column Total"
+msgstr "Kollum totaal verbergen"
+
+#: plugin-options/request-options.php:138
+msgid "Hide the column Total of single product."
+msgstr "Verberg de 'totaal' kolom van single product."
+
+#: plugin-options/request-options.php:146
+msgid "Show total in quote list"
+msgstr "Toon totaal in prijsopgave lijst"
+
+#: plugin-options/request-options.php:147
+msgid "Show the total amount of selected products"
+msgstr "Toon het totaalbedrag van geselecteerde producten"
+
+#: plugin-options/request-options.php:155
+msgid "Show Button to clear the quote list"
+msgstr "Toon knop om de prijsopgave lijst te legen"
+
+#: plugin-options/request-options.php:156
+msgid ""
+"Show the Button to remove all the items in the quote list with one click"
+msgstr ""
+"Toon de knop om alle items in de prijsopgave lijst in een klik te verwijderen"
+
+#: templates/admin/ywraq-exclusions-cat-table.php:31
+msgid "Category exclusion list"
+msgstr "Categorie uitsluitingenlijst"
+
+#: templates/admin/ywraq-exclusions-cat-table.php:47
+msgid "Select categories to exclude"
+msgstr "Selecteer categorieën die je wilt uitsluiten"
+
+#: templates/admin/ywraq-exclusions-cat-table.php:55
+msgid "Search category..."
+msgstr "Categorie zoeken..."
+
+#: templates/admin/ywraq-exclusions-cat-table.php:62
+#: templates/admin/ywraq-exclusions-prod-table.php:61
+#: templates/admin/ywraq-exclusions-tag-table.php:61
+msgid "Exclude"
+msgstr "Uitsluiten"
+
+#: templates/admin/ywraq-exclusions-prod-table.php:31
+msgid "Product exclusion list"
+msgstr "Product uitsluitingenlijst"
+
+#: templates/admin/ywraq-exclusions-prod-table.php:47
+msgid "Select products to exclude"
+msgstr "Selecteer producten die je wilt uitsluiten"
+
+#: templates/admin/ywraq-exclusions-prod-table.php:55
+msgid "Search product..."
+msgstr "Product zoeken..."
+
+#: templates/admin/ywraq-exclusions-table.php:28
+msgid " Exclusion List"
+msgstr "Uitsluitingslijst"
+
+#: templates/admin/ywraq-exclusions-tag-table.php:31
+msgid "Tag exclusion list"
+msgstr "Tag uitsluitingenlijst"
+
+#: templates/admin/ywraq-exclusions-tag-table.php:46
+msgid "Select tags to exclude"
+msgstr "Selecteer tags om uit te sluiten"
+
+#: templates/admin/ywraq-exclusions-tag-table.php:54
+msgid "Search tag..."
+msgstr "Tag zoeken..."
+
+#: templates/admin/ywraq-fields-edit.php:35
+#: templates/admin/ywraq-raqform-table.php:50
+#: templates/admin/ywraq-raqform-table.php:65
+msgid "Type"
+msgstr "Type"
+
+#: templates/admin/ywraq-fields-edit.php:45
+msgid "ID"
+msgstr "ID"
+
+#: templates/admin/ywraq-fields-edit.php:54
+#: templates/admin/ywraq-raqform-table.php:51
+#: templates/admin/ywraq-raqform-table.php:66
+msgid "Label"
+msgstr "Label"
+
+#: templates/admin/ywraq-fields-edit.php:58
+#: templates/admin/ywraq-raqform-table.php:52
+#: templates/admin/ywraq-raqform-table.php:67
+msgid "Placeholder"
+msgstr "Invulveld"
+
+#: templates/admin/ywraq-fields-edit.php:64
+msgid ""
+"You can use the shortcode [terms] and [privacy_policy] (from WooCommerce "
+"3.4.0)"
+msgstr ""
+"Je kunt de shortcode [terms] en [privacy_policy] (from WooCommerce 3.4.0)"
+
+#: templates/admin/ywraq-fields-edit.php:68
+msgid "Allowed extensions"
+msgstr "Toegestane extensies"
+
+#: templates/admin/ywraq-fields-edit.php:70
+msgid "Add a list of allowed extensions comma separated."
+msgstr "Lijst toevoegen met toegestane extensies, gescheiden door komma."
+
+#: templates/admin/ywraq-fields-edit.php:74
+msgid "Max filesize (MB):"
+msgstr "Max. Bestandsgrootte (MB):"
+
+#: templates/admin/ywraq-fields-edit.php:76
+msgid "Add the max filesize of upload file"
+msgstr "Voeg de maximale bestandsgrootte van het uploadbestand toe"
+
+#: templates/admin/ywraq-fields-edit.php:80
+msgid "Options"
+msgstr "Opties"
+
+#: templates/admin/ywraq-fields-edit.php:82
+msgid ""
+"Separate options with pipes (|) and key from value using (::). Es. key::"
+"value|"
+msgstr ""
+"Scheid opties met streepjes (|) en sleutel van waarde met (::). Vb. sleutel::"
+"waarde|"
+
+#: templates/admin/ywraq-fields-edit.php:87
+msgid "Position"
+msgstr "Positie"
+
+#: templates/admin/ywraq-fields-edit.php:98
+msgid "Class"
+msgstr "Klasse"
+
+#: templates/admin/ywraq-fields-edit.php:100
+#: templates/admin/ywraq-fields-edit.php:106
+msgid "Separate classes with commas"
+msgstr "Scheidt klassen met komma's"
+
+#: templates/admin/ywraq-fields-edit.php:104
+msgid "Label class"
+msgstr "Label klasse"
+
+#: templates/admin/ywraq-fields-edit.php:110
+msgid "Connect field to"
+msgstr "Verbind veld met"
+
+#: templates/admin/ywraq-fields-edit.php:121
+msgid "Validation"
+msgstr "Validatie"
+
+#: templates/admin/ywraq-fields-edit.php:135
+msgid "Checked"
+msgstr "Geselecteerd"
+
+#: templates/admin/ywraq-fields-edit.php:142
+#: templates/admin/ywraq-raqform-table.php:55
+#: templates/admin/ywraq-raqform-table.php:70
+msgid "Required"
+msgstr "Verplicht"
+
+#: templates/admin/ywraq-raqform-table.php:29
+msgid "Enter field name"
+msgstr "Veldnaam invoeren"
+
+#: templates/admin/ywraq-raqform-table.php:31
+msgid "Add field"
+msgstr "Veld toevoegen"
+
+#: templates/admin/ywraq-raqform-table.php:37
+#: templates/admin/ywraq-raqform-table.php:140
+msgid "Select an action"
+msgstr "Selecteer een actie"
+
+#: templates/admin/ywraq-raqform-table.php:38
+#: templates/admin/ywraq-raqform-table.php:124
+#: templates/admin/ywraq-raqform-table.php:125
+#: templates/admin/ywraq-raqform-table.php:141
+msgid "Enable"
+msgstr "Inschakelen"
+
+#: templates/admin/ywraq-raqform-table.php:39
+#: templates/admin/ywraq-raqform-table.php:124
+#: templates/admin/ywraq-raqform-table.php:125
+#: templates/admin/ywraq-raqform-table.php:142
+msgid "Disable"
+msgstr "Uitschakelen"
+
+#: templates/admin/ywraq-raqform-table.php:53
+#: templates/admin/ywraq-raqform-table.php:68
+msgid "Validation rules"
+msgstr "Validatieregels"
+
+#: templates/admin/ywraq-raqform-table.php:54
+#: templates/admin/ywraq-raqform-table.php:69
+msgid "Connected to"
+msgstr "Verbonden met"
+
+#: templates/admin/ywraq-raqform-table.php:122
+msgid "Edit"
+msgstr "Bewerken"
+
+#: templates/admin/ywraq-raqform-table.php:129
+msgid "Remove"
+msgstr "Verwijder"
+
+#: templates/admin/ywraq-raqform-table.php:147
+msgid "Save changes"
+msgstr "Bewaar wijzigingen"
+
+#: templates/emails/change-status.php:36
+msgid "The Proposal #%s has been accepted"
+msgstr "Voorstel #%s is geaccepteerd"
+
+#: templates/emails/change-status.php:38
+msgid "The Proposal #%s has been rejected."
+msgstr "Voorstel #%s is afgewezen."
+
+#: templates/emails/change-status.php:42
+#: templates/emails/request-quote-customer.php:55
+#: templates/emails/request-quote.php:53
+msgid "You can see details here:"
+msgstr "Je kunt de details hier raadplegen:"
+
+#. translators: number of quote .
+#: templates/emails/plain/change-status.php:25
+msgid "The Proposal #%d has been accepted"
+msgstr "Voorstel #%d is geaccepteerd"
+
+#. translators: number of quote and reason .
+#: templates/emails/plain/change-status.php:28
+msgid "The Proposal #%1$d has been rejected. %2$s"
+msgstr "Voorstel #%1$d is afgewezen. %2$s"
+
+#: templates/emails/plain/quote-reminder.php:18
+#: templates/emails/plain/quote.php:18
+msgid "%1$s n. %2$d"
+msgstr "%1$s n. %2$d"
+
+#: templates/emails/plain/quote-reminder.php:22
+#: templates/emails/plain/quote.php:22
+msgid "Request date: %s"
+msgstr "Datum aanvraag: %s"
+
+#: templates/emails/plain/quote-reminder.php:25
+#: templates/emails/plain/quote.php:25
+msgid "Expiration date: %s"
+msgstr "Vervaldatum: %s"
+
+#: templates/emails/plain/quote-reminder.php:85
+#: templates/emails/plain/quote.php:84
+#: templates/emails/plain/request-quote.php:38
+#: templates/emails/quote-reminder.php:104 templates/emails/quote.php:103
+#: templates/emails/request-quote.php:61 templates/myaccount/view-quote.php:281
+msgid "Customer's details"
+msgstr "Klant details"
+
+#: templates/emails/plain/quote-reminder.php:87
+#: templates/emails/plain/quote.php:86
+#: templates/emails/plain/request-quote-customer.php:40
+#: templates/emails/plain/request-quote.php:40
+#: templates/emails/quote-reminder.php:106 templates/emails/quote.php:105
+#: templates/myaccount/view-quote.php:306
+msgid "Name:"
+msgstr "Naam:"
+
+#: templates/emails/plain/quote-reminder.php:91
+#: templates/emails/plain/quote.php:90 templates/myaccount/view-quote.php:309
+msgid "Company:"
+msgstr "Bedrijf:"
+
+#: templates/emails/plain/quote-reminder.php:95
+#: templates/emails/plain/quote.php:94 templates/myaccount/view-quote.php:314
+msgid "Address:"
+msgstr "Adres:"
+
+#: templates/emails/plain/quote-reminder.php:99
+#: templates/emails/plain/quote.php:98 templates/myaccount/view-quote.php:318
+msgid "City:"
+msgstr "Stad:"
+
+#: templates/emails/plain/quote-reminder.php:103
+#: templates/emails/plain/quote.php:102 templates/myaccount/view-quote.php:322
+msgid "Postcode:"
+msgstr "Postcode:"
+
+#: templates/emails/plain/quote-reminder.php:113
+#: templates/emails/plain/quote.php:112
+msgid "State:"
+msgstr "Provincie:"
+
+#: templates/emails/plain/quote-reminder.php:120
+#: templates/emails/plain/quote.php:119 templates/myaccount/view-quote.php:334
+msgid "Country:"
+msgstr "Land:"
+
+#: templates/emails/plain/quote-reminder.php:124
+#: templates/emails/plain/quote.php:123
+#: templates/emails/plain/request-quote-customer.php:42
+#: templates/emails/plain/request-quote.php:42
+#: templates/emails/quote-reminder.php:111 templates/emails/quote.php:110
+#: templates/myaccount/view-quote.php:338
+msgid "Email:"
+msgstr "E-mail:"
+
+#: templates/emails/plain/quote-reminder.php:128
+#: templates/emails/plain/quote.php:127 templates/emails/quote-reminder.php:120
+#: templates/emails/quote.php:119
+msgid "Billing Phone:"
+msgstr "Factuur telefoonnummer:"
+
+#: templates/emails/plain/quote-reminder.php:133
+#: templates/emails/plain/quote.php:132 templates/emails/quote-reminder.php:116
+#: templates/emails/quote.php:115
+msgid "Billing VAT:"
+msgstr "Factuur BTW:"
+
+#: templates/emails/plain/request-quote-customer.php:33
+#: templates/emails/request-quote-customer.php:60
+msgid "Your message"
+msgstr "Je bericht"
+
+#: templates/emails/plain/request-quote-customer.php:38
+#: templates/emails/request-quote-customer.php:63
+msgid "Your details"
+msgstr "Je details"
+
+#: templates/emails/plain/request-quote-customer.php:91
+#: templates/emails/plain/request-quote.php:91
+msgid "No"
+msgstr "Nee"
+
+#: templates/emails/plain/request-quote-customer.php:105
+#: templates/emails/plain/request-quote.php:110
+#: templates/emails/request-quote.php:171
+msgid "Customer's additional fields"
+msgstr "Extra velden klant"
+
+#: templates/emails/quote-reminder.php:45 templates/emails/quote.php:44
+msgid "in"
+msgstr "in"
+
+#: templates/emails/quote-reminder.php:50 templates/emails/quote.php:49
+#: templates/myaccount/view-quote.php:81
+msgid "Request date"
+msgstr "Datum aanvraag"
+
+#: templates/emails/quote-reminder.php:52 templates/emails/quote.php:51
+#: templates/myaccount/view-quote.php:166 templates/pdf/quote-header.php:140
+msgid "Expiration date"
+msgstr "Vervaldatum"
+
+#: templates/emails/quote-table.php:44
+#: templates/emails/request-quote-table.php:51
+#: templates/pdf/quote-table-div.php:51 templates/pdf/quote-table.php:54
+msgid "Preview"
+msgstr "Voorbeeld"
+
+#: templates/emails/quote-table.php:47
+#: templates/emails/request-quote-table.php:56
+#: templates/pdf/quote-table-div.php:60 templates/pdf/quote-table.php:69
+#: templates/request-quote-view.php:58 templates/request-quote-view.php:136
+#: templates/request-quote-view.php:260
+msgid "Quantity"
+msgstr "Hoeveelheid"
+
+#: templates/emails/quote-table.php:48
+#: templates/emails/request-quote-table.php:59
+#: templates/pdf/quote-table-div.php:63 templates/pdf/quote-table.php:74
+msgid "Subtotal"
+msgstr "Subtotaal"
+
+#: templates/emails/request-quote-customer.php:157
+msgid "Your additional fields"
+msgstr "Je aanvullende velden"
+
+#: templates/emails/request-quote-table.php:172
+#: templates/request-quote-view.php:333
+msgid "Total:"
+msgstr "Totaal:"
+
+#: templates/emails/request-quote-table.php:178
+#: templates/request-quote-view.php:340
+msgid "includes"
+msgstr "bevat"
+
+#: templates/myaccount/my-quotes.php:46
+msgid "Recent Quotes"
+msgstr "Recente prijsopgaven"
+
+#: templates/myaccount/my-quotes.php:55 templates/myaccount/my-quotes.php:83
+msgid "Status"
+msgstr "Status"
+
+#: templates/myaccount/my-quotes.php:57
+msgid "Quote"
+msgstr "Prijsopgave"
+
+#: templates/myaccount/my-quotes.php:86
+msgid "Order Number"
+msgstr "Bestellingnummer"
+
+#: templates/myaccount/my-quotes.php:103 templates/myaccount/view-quote.php:85
+msgid "Checkout"
+msgstr "Afrekenen"
+
+#: templates/myaccount/my-quotes.php:125
+msgid "View"
+msgstr "Bekijken"
+
+#: templates/myaccount/my-quotes.php:155
+msgid "No quote request available."
+msgstr "Geen prijsopgave aanvragen beschikbaar."
+
+#: templates/myaccount/view-quote.php:35
+msgid "This Quote doesn't exist."
+msgstr "Deze prijsopgave bestaat niet."
+
+#: templates/myaccount/view-quote.php:48
+msgid "You do not have permission to read the quote."
+msgstr "Je hebt geen toegang om de prijsopgave te zien."
+
+#: templates/myaccount/view-quote.php:54
+msgid "This Quote was deleted by administrator."
+msgstr "Deze prijsopgave is verwijderd door de beheerder."
+
+#: templates/myaccount/view-quote.php:102
+#: templates/myaccount/view-quote.php:121
+#: templates/myaccount/view-quote.php:159
+msgid "Download PDF"
+msgstr "Download PDF"
+
+#: templates/myaccount/view-quote.php:147
+msgid "Order Status:"
+msgstr "Status bestelling:"
+
+#: templates/myaccount/view-quote.php:151
+msgid "Customer reason:"
+msgstr "Reden van de klant:"
+
+#: templates/myaccount/view-quote.php:162
+msgid "Quote Details"
+msgstr "Details prijsopgave"
+
+#: templates/myaccount/view-quote.php:176 templates/request-quote-view.php:60
+#: templates/request-quote-view.php:336
+msgid "Total"
+msgstr "Totaal"
+
+#: templates/myaccount/view-quote.php:329
+msgid "State/Province:"
+msgstr "Provincie:"
+
+#: templates/myaccount/view-quote.php:342
+msgid "Telephone:"
+msgstr "Telefoonnummer:"
+
+#: templates/myaccount/view-quote.php:346
+msgid "VAT:"
+msgstr "BTW:"
+
+#: templates/myaccount/view-quote.php:359
+msgid "Additional Information"
+msgstr "Extra informatie"
+
+#: templates/myaccount/view-quote.php:367
+msgid "Customer's Message:"
+msgstr "Bericht klant:"
+
+#: templates/myaccount/view-quote.php:368
+msgid "Customer's Message"
+msgstr "Bericht klant:"
+
+#: templates/myaccount/view-quote.php:388
+msgid "Administrator's Message:"
+msgstr "Bericht beheerder:"
+
+#: templates/myaccount/view-quote.php:389
+msgid "Administrator's Message"
+msgstr "Bericht beheerder:"
+
+#: templates/pdf/quote-footer.php:31
+msgid "Page"
+msgstr "Pagina"
+
+#: templates/pdf/quote-header.php:74
+msgid "From"
+msgstr "Van"
+
+#: templates/pdf/quote-header.php:103
+msgid "Customer"
+msgstr "Klant"
+
+#: templates/pdf/quote-header.php:130
+msgid "Date created"
+msgstr "Aanmaakdatum"
+
+#: templates/pdf/quote-table-div.php:57 templates/pdf/quote-table.php:64
+msgid "Unit Price"
+msgstr "Eenheidsprijs"
+
+#: templates/request-quote-default-form.php:28
+msgid "Send the request"
+msgstr "Verstuur je aanvraag"
+
+#: templates/request-quote-default-form.php:53
+msgid "Create an account?"
+msgstr "Een account aanmaken?"
+
+#: templates/request-quote-default-form.php:81
+msgid "Send Your Request"
+msgstr "Verstuur je aanvraag"
+
+#: templates/request-quote-message.php:31
+msgid "Are you sure you want to reject quote No. %d?"
+msgstr "Weet je zeker dat je prijsopgave nr. %d wilt afwijzen?"
+
+#: templates/request-quote-message.php:40
+msgid "Please, feel free to send us your feedback/reasons:"
+msgstr "Alsjeblieft, laat ons je feedback en reden weten:"
+
+#: templates/request-quote-message.php:44
+msgid "Yes, I want to reject the quote"
+msgstr "Ja, ik wil deze prijsopgave afwijzen"
+
+#: templates/request-quote-view.php:166
+#: templates/widgets/mini-quote-list.php:90 templates/widgets/quote-list.php:66
+msgid "Remove this item"
+msgstr "Dit item verwijderen"
+
+#: templates/request-quote.php:36
+msgid "You do not have access to this page"
+msgstr "Je hebt geen toegang tot deze pagina"
+
+#: templates/widgets/mini-quote-list.php:74 templates/widgets/quote-list.php:49
+msgid "No products in the list"
+msgstr "Geen producten in de lijst"
+
+#. Description of the plugin/theme
+msgid ""
+"The <code><strong>YITH WooCommerce Request A Quote</strong></code> plugin "
+"lets your customers ask for an estimate of a list of products they are "
+"interested into. It allows hiding price and/or add to cart button so that "
+"your customers can request a quote on every product page. <a href=\"https://"
+"yithemes.com/\" target=\"_blank\">Get more plugins for your e-commerce shop "
+"on <strong>YITH</strong></a>."
+msgstr ""
+"Met de <code><strong>YITH WooCommerce Request A Quote</strong></code> plugin "
+"kunnen je klanten vragen om een ​​prijsopgave van een lijst met producten "
+"waarin ze geïnteresseerd zijn. Je kunt de prijs en/of de winkelwagen knop "
+"verbergen, zodat je klanten een prijsopgave kunnen aanvragen op elke "
+"productpagina. <a href=\"https://yithemes.com/\" target=\"_blank\">Verkrijg "
+"meer plugins voor je e-commerce winkel op <strong>YITH</strong></a>."
+
+#: includes/class.yith-request-quote-admin.php:382
+msgctxt "page_slug"
+msgid "request-quote"
+msgstr "aanvraag-prijsopgave"
+
+#: includes/class.yith-request-quote-privacy-dpa.php:30
+msgctxt "Privacy Policy Content"
+msgid "YITH Woocommerce Request A Quote Premium"
+msgstr "YITH Woocommerce Request A Quote Premium"
+
+#: includes/compatibility/yith-woocommerce-advanced-product-options.php:365
+msgctxt "notice on admin order item meta"
+msgid "* Sold invidually"
+msgstr "* Individueel verkocht"
+
+#: plugin-options/gutenberg/blocks.php:20
+msgctxt "[gutenberg]: block name"
+msgid "Widget Quote List"
+msgstr "Prijsopgave lijst widget"
+
+#: plugin-options/gutenberg/blocks.php:80
+msgctxt "[gutenberg]: block name"
+msgid "Mini Widget Quote List"
+msgstr "Mini Prijsopgave lijst widget"
+
+#: plugin-options/gutenberg/blocks.php:21
+#: plugin-options/gutenberg/blocks.php:81
+msgctxt "[gutenberg]: block description"
+msgid "Show products added to your list."
+msgstr "Toon de producten die zijn toegevoegd aan je lijst."
+
+#: plugin-options/gutenberg/blocks.php:25
+#: plugin-options/gutenberg/blocks.php:85
+msgctxt "[gutenberg]: keywords"
+msgid "Quote"
+msgstr "Prijsopgave"
+
+#: plugin-options/gutenberg/blocks.php:26
+msgctxt "[gutenberg]: keywords"
+msgid "Quote Widget"
+msgstr "Prijsopgave widget"
+
+#: plugin-options/gutenberg/blocks.php:86
+msgctxt "[gutenberg]: keywords"
+msgid "Mini Quote Widget"
+msgstr "Mini Prijsopgave widget"
+
+#: plugin-options/gutenberg/blocks.php:31
+#: plugin-options/gutenberg/blocks.php:91
+msgctxt "[gutenberg]: title of widget"
+msgid "Title"
+msgstr "Titel"
+
+#: plugin-options/gutenberg/blocks.php:96
+msgctxt "[gutenberg]: title of widget"
+msgid "Item name"
+msgstr "Item naam"
+
+#: plugin-options/gutenberg/blocks.php:101
+msgctxt "[gutenberg]: title of widget"
+msgid "Item plural name"
+msgstr "Item meervoud naam"
+
+#: plugin-options/gutenberg/blocks.php:36
+#: plugin-options/gutenberg/blocks.php:106
+msgctxt "[gutenberg]: label of button"
+msgid "Button Label"
+msgstr "Knop label"
+
+#: plugin-options/gutenberg/blocks.php:41
+#: plugin-options/gutenberg/blocks.php:120
+msgctxt "[gutenberg]: show or hide the thumbnail"
+msgid "Show Thumbnail"
+msgstr "Toon Thumbnail"
+
+#: plugin-options/gutenberg/blocks.php:44
+#: plugin-options/gutenberg/blocks.php:123
+msgctxt "[gutenberg]: Help to show thumbnail"
+msgid "Show it"
+msgstr "Toon het"
+
+#: plugin-options/gutenberg/blocks.php:45
+#: plugin-options/gutenberg/blocks.php:124
+msgctxt "[gutenberg]: Help to hide thumbnail"
+msgid "Hide it"
+msgstr "Verberg het"
+
+#: plugin-options/gutenberg/blocks.php:50
+#: plugin-options/gutenberg/blocks.php:129
+msgctxt "[gutenberg]: show or hide the price"
+msgid "Show Price"
+msgstr "Toon Prijs"
+
+#: plugin-options/gutenberg/blocks.php:53
+#: plugin-options/gutenberg/blocks.php:132
+msgctxt "[gutenberg]: Help to show price"
+msgid "Show it"
+msgstr "Toon het"
+
+#: plugin-options/gutenberg/blocks.php:54
+#: plugin-options/gutenberg/blocks.php:133
+msgctxt "[gutenberg]: Help to hide price"
+msgid "Hide it"
+msgstr "Verberg het"
+
+#: plugin-options/gutenberg/blocks.php:59
+#: plugin-options/gutenberg/blocks.php:138
+msgctxt "[gutenberg]: show or hide the quantity"
+msgid "Show Quantity"
+msgstr "Toon Hoeveelheid"
+
+#: plugin-options/gutenberg/blocks.php:62
+#: plugin-options/gutenberg/blocks.php:141
+msgctxt "[gutenberg]: Help to show quantity"
+msgid "Show it"
+msgstr "Toon het"
+
+#: plugin-options/gutenberg/blocks.php:63
+#: plugin-options/gutenberg/blocks.php:142
+msgctxt "[gutenberg]: Help to hide quantity"
+msgid "Hide it"
+msgstr "Verberg het"
+
+#: plugin-options/gutenberg/blocks.php:68
+#: plugin-options/gutenberg/blocks.php:147
+msgctxt "[gutenberg]: show or hide the variations"
+msgid "Show Variations"
+msgstr "Toon Variaties"
+
+#: plugin-options/gutenberg/blocks.php:71
+#: plugin-options/gutenberg/blocks.php:150
+msgctxt "[gutenberg]: Help to show variations"
+msgid "Show it"
+msgstr "Toon het"
+
+#: plugin-options/gutenberg/blocks.php:72
+#: plugin-options/gutenberg/blocks.php:151
+msgctxt "[gutenberg]: Help to hide variations"
+msgid "Hide it"
+msgstr "Verberg het"
+
+#: plugin-options/gutenberg/blocks.php:111
+msgctxt ""
+"[gutenberg]: Choose whether to show the title inside (visible when the "
+"widget is open) or outside next to the item counter (visible when it is "
+"collapsed)."
+msgid "Show widget title inside"
+msgstr "Toon widgettitel binnenin"
+
+#: plugin-options/gutenberg/blocks.php:114
+msgctxt "[gutenberg]: Help to set title position"
+msgid "Show the title inside the widget dropdown"
+msgstr "Toon de titel binnenin de widget dropdown"
+
+#: plugin-options/gutenberg/blocks.php:115
+msgctxt "[gutenberg]: Help to set the title position"
+msgid "Show the title outside next to the item counter"
+msgstr "Toon titel buiten de widget naast de item teller"

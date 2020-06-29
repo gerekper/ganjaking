@@ -1,0 +1,1550 @@
+# Translation of Yith Active Campaign for WooCommerce in Dutch
+# This file is distributed under the same license as the Yith Active Campaign for WooCommerce package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2020-05-13 12:57+0200\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Poedit 2.2\n"
+"Language: nl\n"
+"Project-Id-Version: Yith Active Campaign for WooCommerce\n"
+"POT-Creation-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+
+#: templates/admin/types/integration-status.php:40
+msgctxt "Active Campaign account details"
+msgid "Email:"
+msgstr "E-mail:"
+
+#: templates/admin/types/integration-status.php:36
+#: templates/admin/types/integration-status.php:42
+msgctxt "Active Campaign account details"
+msgid "&lt; Not Found &gt;"
+msgstr "&lt; Niet gevonden &gt;"
+
+#: templates/admin/types/integration-status.php:34
+msgctxt "Active Campaign account details"
+msgid "Name:"
+msgstr "Naam:"
+
+#: templates/admin/types/integration-status.php:29
+msgctxt "wrong API provided"
+msgid "KO"
+msgstr "KO"
+
+#: templates/admin/types/integration-status.php:27
+msgctxt "Correct API provided"
+msgid "OK"
+msgstr "OK"
+
+#: templates/admin/types/integration-status.php:18
+msgid "No user found with this API key"
+msgstr "Geen gebruiker gevonden met deze API key"
+
+#: templates/admin/types/deep-data-connection-status.php:21
+msgid "Delete connection"
+msgstr ""
+
+#: templates/admin/types/date-range.php:8
+#: templates/admin/types/date-range.php:9
+msgid "To"
+msgstr "Tot"
+
+#: templates/admin/types/date-range.php:6
+#: templates/admin/types/date-range.php:7
+msgid "From"
+msgstr "Van"
+
+#: templates/admin/types/custom-fields.php:5
+msgid "Add new fields from Active Campaign and customise the field name (label)"
+msgstr "Nieuwe velden toevoegen van Active Campaign en veldnaam (label) aanpassen"
+
+#: templates/admin/types/custom-fields-item.php:8
+msgid "Merge var"
+msgstr "Merge var"
+
+#: templates/admin/types/custom-fields-item.php:4
+msgid "Field name"
+msgstr "Veldnaam"
+
+#: templates/admin/types/advanced-integration.php:50
+msgid "Click \"Add set option\" button to add a bunch of options; don't forget to save, when you're done"
+msgstr "Klik op de \"Ingestelde optie toevoegen\" knop om meerdere opties toe te voegen; vergeet het niet op te slaan als je klaar bent"
+
+#: templates/admin/types/advanced-integration.php:49
+msgid "+ Add set option"
+msgstr "+ Ingestelde optie toevoegen"
+
+#: templates/admin/types/advanced-integration.php:43
+msgid "Select position for tags that will be display on the page"
+msgstr "Selecteer de positie van tags die worden weergegeven op de pagina"
+
+#: templates/admin/types/advanced-integration.php:31
+msgid "Position for tags"
+msgstr "Positie voor tags"
+
+#: templates/admin/types/advanced-integration-item.php:81
+msgid ""
+"Select order matching conditions for user subscription; all conditions selected must match in order\n"
+"            to complete the subscription"
+msgstr ""
+"Selecteer order overeenstemmende voorwaarden voor gebruikers subscriptie; alle geselecteerde voorwaarden moeten overeenstemmen om\n"
+"            de inschrijving af te ronden"
+
+#: templates/admin/types/advanced-integration-item.php:79
+msgid "+ Add New Condition"
+msgstr "+ Nieuwe voorwaarden toevoegen"
+
+#: templates/admin/types/advanced-integration-item.php:77
+msgid "Conditions"
+msgstr "Voorwaarden"
+
+#: templates/admin/types/advanced-integration-item.php:55
+msgid "Select the checkout field to connect with the Active Campaign list fields"
+msgstr "Selecteer het checkout veld om te verbinden met de Active Campaign lijst velden"
+
+#: templates/admin/types/advanced-integration-item.php:52
+#: templates/admin/types/custom-fields.php:4
+msgid "+ Add New Field"
+msgstr "+ Nieuw veld toevoegen"
+
+#: templates/admin/types/advanced-integration-item.php:43
+#: templates/admin/types/advanced-integration.php:25
+msgid "Update Tags"
+msgstr "Update Tags"
+
+#: templates/admin/types/advanced-integration-item.php:26
+msgid "Update Lists"
+msgstr "Update lijsten"
+
+#: templates/admin/types/advanced-integration-item.php:10
+msgid "Lists & Tags"
+msgstr "Lijst & Tags"
+
+#: templates/admin/types/advanced-integration-item.php:5
+msgid "Set options #"
+msgstr "Opties instellen #"
+
+#: templates/admin/types/advanced-integration-item.php:4
+msgid "remove"
+msgstr "verwijderen"
+
+#: templates/admin/types/advanced-integration-item.php:3
+msgid "toggle"
+msgstr "toggle"
+
+#: templates/admin/types/advanced-integration-field.php:34
+#: templates/admin/types/custom-fields-item.php:26
+msgid "Update fields"
+msgstr "Update velden"
+
+#: templates/admin/types/advanced-integration-field.php:22
+msgid "Active Campaign field"
+msgstr "Active Campaign veld"
+
+#: templates/admin/types/advanced-integration-field.php:4
+msgid "Checkout field"
+msgstr "Checkout veld"
+
+#: templates/admin/types/advanced-integration-condition.php:87
+#: templates/admin/types/advanced-integration-field.php:36
+#: templates/admin/types/custom-fields-item.php:31
+msgid "Remove"
+msgstr "Verwijderen"
+
+#: templates/admin/types/advanced-integration-condition.php:85
+msgid "Field value on checkout page"
+msgstr "Veldwaarde op checkout pagina"
+
+#: templates/admin/types/advanced-integration-condition.php:74
+msgid "Number"
+msgstr "Nummer"
+
+#: templates/admin/types/advanced-integration-condition.php:71
+msgid "Contains"
+msgstr "Bevat"
+
+#: templates/admin/types/advanced-integration-condition.php:70
+msgid "Is not"
+msgstr "Is not"
+
+#: templates/admin/types/advanced-integration-condition.php:69
+msgid "Is"
+msgstr "Is"
+
+#: templates/admin/types/advanced-integration-condition.php:68
+msgid "String operator"
+msgstr "String operator"
+
+#: templates/admin/types/advanced-integration-condition.php:64
+msgid "Field name on checkout page"
+msgstr "Veldnaam op checkout pagina"
+
+#: templates/admin/types/advanced-integration-condition.php:60
+msgid "Threshold"
+msgstr "Threshold"
+
+#: templates/admin/types/advanced-integration-condition.php:45
+msgid "Select a category"
+msgstr "Selecteer een categorie"
+
+#: templates/admin/types/advanced-integration-condition.php:39
+msgid "Search for a product&hellip;"
+msgstr "Zoek een product&hellip;"
+
+#: templates/admin/types/advanced-integration-condition.php:28
+#: templates/admin/types/advanced-integration-condition.php:79
+msgid "Greater than"
+msgstr "Groter dan"
+
+#: templates/admin/types/advanced-integration-condition.php:27
+#: templates/admin/types/advanced-integration-condition.php:78
+msgid "Greater than or equal to"
+msgstr "Groter dan of gelijk aan"
+
+#: templates/admin/types/advanced-integration-condition.php:26
+#: templates/admin/types/advanced-integration-condition.php:77
+msgid "Equal to"
+msgstr "Gelijk aan"
+
+#: templates/admin/types/advanced-integration-condition.php:25
+#: templates/admin/types/advanced-integration-condition.php:76
+msgid "Less than or equal to"
+msgstr "Minder dan of gelijk aan"
+
+#: templates/admin/types/advanced-integration-condition.php:24
+#: templates/admin/types/advanced-integration-condition.php:75
+msgid "Less than"
+msgstr "Minder dan"
+
+#: templates/admin/types/advanced-integration-condition.php:19
+#: templates/admin/types/advanced-integration-condition.php:72
+msgid "Does not contain"
+msgstr "Bevat niet"
+
+#: templates/admin/types/advanced-integration-condition.php:18
+msgid "Contains all of"
+msgstr "Bevat alle van"
+
+#: templates/admin/types/advanced-integration-condition.php:17
+msgid "Contains at least one of"
+msgstr "Bevat minstens een van"
+
+#: templates/admin/types/advanced-integration-condition.php:13
+msgid "Details"
+msgstr "Details"
+
+#: templates/admin/types/advanced-integration-condition.php:8
+msgid "Order total"
+msgstr "Order totaal"
+
+#: templates/admin/types/advanced-integration-condition.php:7
+msgid "Product category in cart"
+msgstr "Productcategorie in winkelwagen"
+
+#: templates/admin/types/advanced-integration-condition.php:6
+msgid "Product in cart"
+msgstr "Product in winkelwagen"
+
+#: templates/admin/types/advanced-integration-condition.php:4
+msgid "Condition"
+msgstr "Voorwaarde"
+
+#: templates/admin/metaboxes/user-preferences-metabox.php:41
+msgid "In this section you'll find customer personal data that was sent to Active Campaign servers"
+msgstr "In deze sectie vind je persoonlijke gegevens van de klant die was verzonden naar Active Campaign servers"
+
+#: templates/admin/metaboxes/user-preferences-metabox.php:39
+msgid "Personal data"
+msgstr "Persoonlijke gegevens"
+
+#: templates/admin/metaboxes/user-preferences-metabox.php:32
+msgid "Submitted value:"
+msgstr "Ingediende waarde:"
+
+#: templates/admin/metaboxes/user-preferences-metabox.php:27
+msgid "Checkbox shown at checkout:"
+msgstr "Keuzevakje weergegeven tijdens checkout:"
+
+#: templates/admin/metaboxes/user-preferences-metabox.php:23
+#: templates/admin/metaboxes/user-preferences-metabox.php:28
+#: templates/admin/metaboxes/user-preferences-metabox.php:33
+msgid "no"
+msgstr "nee"
+
+#: templates/admin/metaboxes/user-preferences-metabox.php:23
+#: templates/admin/metaboxes/user-preferences-metabox.php:28
+#: templates/admin/metaboxes/user-preferences-metabox.php:33
+msgid "yes"
+msgstr "ja"
+
+#: templates/admin/metaboxes/user-preferences-metabox.php:22
+msgid "Customer subscribed:"
+msgstr "Klant ingeschreven:"
+
+#: templates/admin/metaboxes/user-preferences-metabox.php:19
+msgid "In this section you'll find data about customer consent to Active Campaign subscription"
+msgstr "In deze sectie vind je gegevens over de toestemming van klanten voor de Active Campaign inschrijving"
+
+#: templates/admin/metaboxes/user-preferences-metabox.php:17
+msgid "Checkout preferences"
+msgstr "Checkout voorkeuren"
+
+#: templates/admin/active-campaign-dashboard-widget.php:68
+msgid "Refresh stats"
+msgstr "Statistieken vernieuwen"
+
+#: templates/admin/active-campaign-dashboard-widget.php:59
+msgid "total"
+msgstr "totaal"
+
+#: templates/admin/active-campaign-dashboard-widget.php:56
+msgid "Member count"
+msgstr "Leden telling"
+
+#: templates/admin/active-campaign-dashboard-widget.php:48
+msgid "Next"
+msgstr "Next"
+
+#: templates/admin/active-campaign-dashboard-widget.php:47
+msgid "Prev"
+msgstr "Prev"
+
+#: templates/admin/active-campaign-dashboard-widget.php:35
+msgid "Email:"
+msgstr "E-mail:"
+
+#: templates/admin/active-campaign-dashboard-widget.php:29
+#: templates/admin/types/deep-data-connection-status.php:15
+msgid "Name:"
+msgstr "Naam:"
+
+#: templates/admin/active-campaign-dashboard-widget.php:24
+msgid "KO"
+msgstr "KO"
+
+#: templates/admin/active-campaign-dashboard-widget.php:24
+#: templates/admin/types/integration-status.php:29
+msgid "Wrong API key"
+msgstr "Foutieve API Key"
+
+#: templates/admin/active-campaign-dashboard-widget.php:22
+#: templates/admin/types/deep-data-connection-status.php:11
+msgid "OK"
+msgstr "OK"
+
+#: templates/admin/active-campaign-dashboard-widget.php:22
+#: templates/admin/types/deep-data-connection-status.php:11
+#: templates/admin/types/integration-status.php:27
+msgid "Correctly synchronized"
+msgstr "Correct gesynchroniseerd"
+
+#: templates/admin/active-campaign-dashboard-widget.php:19
+#: templates/admin/types/deep-data-connection-status.php:9
+#: templates/admin/types/integration-status.php:24
+msgid "Status:"
+msgstr "Status:"
+
+#: templates/admin/active-campaign-dashboard-widget.php:14
+#: templates/admin/active-campaign-dashboard-widget.php:31
+#: templates/admin/active-campaign-dashboard-widget.php:37
+#: templates/admin/types/deep-data-connection-status.php:17
+#: templates/admin/types/integration-status.php:19
+msgid "&lt; Not Found &gt;"
+msgstr "&lt; Niet gevonden &gt;"
+
+#: templates/admin/active-campaign-dashboard-widget.php:13
+msgid "No user can be found with this API key"
+msgstr "Er kan geen gebruiker worden gevonden met deze API Key"
+
+#: templates/admin/active-campaign-dashboard-widget.php:13
+#: templates/admin/types/integration-status.php:17
+msgid "Active Campaign user"
+msgstr "Active Campaign gebruiker"
+
+#: plugin-options/widget-options.php:251
+msgid "Enter your custom CSS for the widget here"
+msgstr "Voer hier uw aangepaste CSS in voor de widget"
+
+#: plugin-options/widget-options.php:195
+msgid "Check this option to make the button corners round"
+msgstr "Selecteer deze optie om de knophoeken rond te maken"
+
+#: plugin-options/widget-options.php:78
+msgid "When you select this option, the registration form will be hidden after a successful registration"
+msgstr "Als u deze optie selecteert, wordt het formulier verborgen na een succesvolle registratie"
+
+#: plugin-options/widget-options.php:25
+msgid "Set here the options for <b>YITH Active Campaign Subscription Form</b> widget; use the widget in you sidebars, by selecting it from <a href=\"%s\">Appearance > Widgets</a>"
+msgstr "Stel de opties in voor <b>YITH Active Campaign Subscription Form</b> widget; use the widget in you sidebars, by selecting it from <a href=\"%s\">Appearance > Widgets</a>"
+
+#: plugin-options/widget-options.php:23
+msgid "Widget Options"
+msgstr "Widget Opties"
+
+#: plugin-options/tags-options.php:46
+msgid "Tags per status"
+msgstr "Tags per status"
+
+#: plugin-options/tags-options.php:28
+msgid "Select tags which will be automatically added to customer when order switches to %s"
+msgstr "Selecteer tags die automatisch worden toegevoegd aan klanten wanneer de bestelling wijzigt naar %s"
+
+#: plugin-options/tags-options.php:25
+msgid "Order %s tags"
+msgstr "Order %s tags"
+
+#: plugin-options/shortcode-options.php:251
+msgid "Enter here the custom CSS that will applied to the shortcode"
+msgstr "Vul hier de aangepaste CSS in die wordt toegepast op de shortcode"
+
+#: plugin-options/shortcode-options.php:241
+#: plugin-options/widget-options.php:241
+msgid "\"Subscribe\" Button Hover Border Color"
+msgstr "\"Inschrijven\" knop hover randkleur"
+
+#: plugin-options/shortcode-options.php:233
+#: plugin-options/widget-options.php:233
+msgid "\"Subscribe\" Button Hover Text Color"
+msgstr "\"Inschrijven\" knop hover tekstkleur"
+
+#: plugin-options/shortcode-options.php:225
+#: plugin-options/widget-options.php:225
+msgid "\"Subscribe\" Button Hover Background Color"
+msgstr "\"Inschrijven\" knop hover achtergrondkleur"
+
+#: plugin-options/shortcode-options.php:217
+#: plugin-options/widget-options.php:217
+msgid "\"Subscribe\" Button Border Color"
+msgstr "\"Inschrijven\" knop randkleur"
+
+#: plugin-options/shortcode-options.php:209
+#: plugin-options/widget-options.php:209
+msgid "\"Subscribe\" Button Text Color"
+msgstr "\"Inschrijven\" knop tekstkleur"
+
+#: plugin-options/shortcode-options.php:201
+#: plugin-options/widget-options.php:201
+msgid "\"Subscribe\" Button Background Color"
+msgstr "\"Inschrijven\" knop achtergrondkleur"
+
+#: plugin-options/shortcode-options.php:195
+msgid "Check this option  to make the button corners round"
+msgstr "Selecteer deze optie als u de hoeken rond wilt maken"
+
+#: plugin-options/shortcode-options.php:193
+#: plugin-options/widget-options.php:193
+msgid "Round Corners for \"Subscribe\" Button"
+msgstr "Ronde hoeken voor \"Inschrijven\" knop"
+
+#: plugin-options/shortcode-options.php:77
+msgid "If you select this option, the registration form will be hidden after a successful registration"
+msgstr "Selecteer of u het formulier wilt verbergen na een succesvolle registratie"
+
+#: plugin-options/shortcode-options.php:74 plugin-options/widget-options.php:75
+msgid "Hide form after registration"
+msgstr "Verberg formulier na registratie"
+
+#: plugin-options/shortcode-options.php:69 plugin-options/widget-options.php:70
+msgid "Please, make sure to read and accept our %privacy_policy%"
+msgstr "Verzeker dat het volgende hebt gelezen en geaccepteerd %privacy_policy% "
+
+#: plugin-options/shortcode-options.php:68 plugin-options/widget-options.php:69
+msgid "Label that describes privacy checkbox. Use <code>%privacy_policy%</code> to add a link to your store privacy policy page"
+msgstr "Label die je privacy keuzevakje beschrijft. Gebruik <code>%privacy_policy%</code> om een link toe te voegen aan de privacy beleid pagina van je winkel"
+
+#: plugin-options/shortcode-options.php:65 plugin-options/widget-options.php:66
+msgid "Privacy field label"
+msgstr "Privacy veld label"
+
+#: plugin-options/shortcode-options.php:60 plugin-options/widget-options.php:61
+msgid "Show checkbox to obtain explicit consent to collect personal data (Requested by GDPR regulations)"
+msgstr "Toon keuzevakje om expliciet toestemming te vragen voor het verzamelen van persoonlijke gegevens (verzocht wegens AVG (GDPR) regels)"
+
+#: plugin-options/shortcode-options.php:57 plugin-options/widget-options.php:58
+msgid "Show privacy checkbox"
+msgstr "Toon privacy keuzevakje"
+
+#: plugin-options/shortcode-options.php:50 plugin-options/widget-options.php:51
+msgid "Select a message to display when users complete their registration successfully"
+msgstr "Selecteer het bericht dat wordt weergegeven als gebruikers de registratie succesvol afronden"
+
+#: plugin-options/shortcode-options.php:47 plugin-options/widget-options.php:48
+msgid "\"Successfully Registered\" message"
+msgstr "\"Succesvol geregistreerd\" bericht"
+
+#: plugin-options/shortcode-options.php:42 plugin-options/widget-options.php:43
+msgid "SUBMIT"
+msgstr "INDIENEN"
+
+#: plugin-options/shortcode-options.php:41 plugin-options/widget-options.php:42
+msgid "Select a label for the \"Submit\" button in the form"
+msgstr "Selecteer een label voor de \"Indienen\" knop in het formulier"
+
+#: plugin-options/shortcode-options.php:38 plugin-options/widget-options.php:39
+msgid "\"Submit\" button label"
+msgstr "\"Indienen\" knop label"
+
+#: plugin-options/shortcode-options.php:33 plugin-options/widget-options.php:34
+msgid "Newsletter"
+msgstr "Nieuwsbrief"
+
+#: plugin-options/shortcode-options.php:32 plugin-options/widget-options.php:33
+msgid "Select a title for the newsletter subscription form"
+msgstr "Selecteer een titel voor het inschrijfformulier nieuwsbrief"
+
+#: plugin-options/shortcode-options.php:29 plugin-options/widget-options.php:30
+msgid "Form title"
+msgstr "Formulier titel"
+
+#: plugin-options/shortcode-options.php:24
+msgid "Insert the <b>[yith_wcac_subscription_form]</b> shortcode into your pages to print a subscription form; set the options for your form here"
+msgstr "Voer de <b>[yith_wcac_subscription_form]</b> shortcode in op uw pagina´s om het inschrijfformulier weer te geven; bepaal de opties voor uw formulier hier"
+
+#: plugin-options/shortcode-options.php:22
+msgid "Shortcode Options"
+msgstr "Shortcode opties"
+
+#: plugin-options/register-options.php:174
+msgid "Enter your custom CSS for the register area here"
+msgstr "Voer hier uw aangepaste CSS in voor de registratie veld"
+
+#: plugin-options/register-options.php:172
+#: plugin-options/shortcode-options.php:249
+#: plugin-options/widget-options.php:249
+msgid "Custom CSS"
+msgstr "Aangepaste CSS"
+
+#: plugin-options/register-options.php:166
+#: plugin-options/shortcode-options.php:187
+#: plugin-options/widget-options.php:187
+msgid "Check this option to enable custom CSS"
+msgstr "Selecteer deze optie om aangepaste CSS in te schakelen"
+
+#: plugin-options/register-options.php:164
+#: plugin-options/shortcode-options.php:185
+#: plugin-options/widget-options.php:185
+msgid "Enable custom CSS"
+msgstr "Aangepaste css inschakelen"
+
+#: plugin-options/register-options.php:157
+#: plugin-options/shortcode-options.php:178
+#: plugin-options/widget-options.php:178
+msgid "Style Options"
+msgstr "Stijlopties"
+
+#: plugin-options/register-options.php:145
+#: plugin-options/shortcode-options.php:166
+#: plugin-options/widget-options.php:166
+#: templates/admin/types/advanced-integration-item.php:50
+msgid "Fields"
+msgstr "Velden"
+
+#: plugin-options/register-options.php:138
+#: plugin-options/shortcode-options.php:159
+#: plugin-options/widget-options.php:159
+msgid "Field Options"
+msgstr "Veld opties"
+
+#: plugin-options/register-options.php:127
+#: plugin-options/shortcode-options.php:148
+#: plugin-options/widget-options.php:148
+#: templates/admin/types/advanced-integration.php:8
+msgid "Type here a text that will be used as title for the Tags section on the checkout page"
+msgstr "Type hier de tekst die gebruikt wordt als titel voor de Tags sectie op de checkout pagina"
+
+#: plugin-options/register-options.php:125
+#: plugin-options/shortcode-options.php:146
+#: plugin-options/widget-options.php:146
+#: templates/admin/types/advanced-integration.php:3
+msgid "Tags label"
+msgstr "Tags label"
+
+#: plugin-options/register-options.php:114
+#: plugin-options/shortcode-options.php:135
+#: plugin-options/widget-options.php:135
+#: templates/admin/types/advanced-integration.php:26
+msgid "Select tags among which users can choose"
+msgstr "Selecteer tags waaruit gebruikers kunnen kiezen"
+
+#: plugin-options/register-options.php:112
+#: plugin-options/shortcode-options.php:133
+#: plugin-options/widget-options.php:133
+#: templates/admin/types/advanced-integration.php:13
+msgid "Show tags"
+msgstr "Toon tags"
+
+#: plugin-options/register-options.php:65
+#: plugin-options/shortcode-options.php:86 plugin-options/widget-options.php:86
+msgid "Define the default contact status when users submit the form"
+msgstr "Definieer de default contact status als de gebruiker het formulier indient"
+
+#: plugin-options/register-options.php:56
+msgid "When you check this option, the \"Newsletter subscription\" checkbox will be printed as already checked"
+msgstr "Als u deze optie selecteert, zal het keuzevakje \"Inschrijven nieuwsbrief\" worden weergegeven als aangevinkt"
+
+#: plugin-options/register-options.php:46
+msgid "Enter here the label you want to use for the \"Newsletter subscription\" checkbox"
+msgstr "Voer hier het label in dat u wil gebruiken voor het \"Inschrijven nieuwsbrief\" keuzevakje"
+
+#: plugin-options/register-options.php:38
+msgid ""
+"When you select this option, a checkbox will be added to the register form, inviting users to subscribe to the\n"
+"\t\t\tnewsletter; otherwise, users will automatically subscribe"
+msgstr ""
+"Als u deze optie selecteert, zal het keuzevakje worden toegevoegd aan het checkout formulier. Om de gebruikers uit te nodigen zich in te schrijven voor de\n"
+"\t\t\tnieuwsbrief; anderzins worden gebruikers automatisch ingeschreven"
+
+#: plugin-options/register-options.php:29
+msgid "Enable \"Newsletter subscription\" on register page"
+msgstr "Inschakelen \"Nieuwsbrief inschrijving\" op registratie pagina"
+
+#: plugin-options/register-options.php:25
+msgid "Set the options for <b>YITH Active Campaign Subscription Form</b> that appears below the registration form."
+msgstr "Stel de opties in voor het <b>YITH Active Campaign Inschrijfformulier</b> dat wordt weergegeven onderaan het registratieformulier."
+
+#: plugin-options/register-options.php:23
+msgid "Register Options"
+msgstr "Registreer opties"
+
+#: plugin-options/integration-options.php:42
+msgid "Integration status"
+msgstr "Integratie status"
+
+#: plugin-options/integration-options.php:36
+msgid "Active Campaign API key; you can get one at <b>//&lt;your_company&gt;.activehosted.com/admin/main.php?action=settings#tab_api</b>"
+msgstr "Active Campaign API key; kunt u hier verkrijgen <b>//&lt;your_company&gt;.activehosted.com/admin/main.php?action=settings#tab_api</b>"
+
+#: plugin-options/integration-options.php:33
+msgid "Active Campaign API Key"
+msgstr "Active Campaign API Key"
+
+#: plugin-options/integration-options.php:27
+msgid "Active Campaign API URL; you can get one at <b>//&lt;your_company&gt;.activehosted.com/admin/main.php?action=settings#tab_api</b>"
+msgstr "Active Campaign API URL; kunt u hier verkrijgen <b>//&lt;your_company&gt;.activehosted.com/admin/main.php?action=settings#tab_api</b>"
+
+#: plugin-options/integration-options.php:24
+msgid "Active Campaign API URL"
+msgstr "Active Campaign API URL"
+
+#: plugin-options/export-options.php:275
+msgid "Export a group of users from your store to a CSV file"
+msgstr "Exporteer een gebruikersgroep van uw winkel naar een CSV bestand"
+
+#: plugin-options/export-options.php:273
+msgid "CSV Download"
+msgstr "CSV Download"
+
+#: plugin-options/export-options.php:257
+msgid "Specify an Active Campaign field where saving the waiting-list products subscribed by users"
+msgstr "Specificeer een Active Campaign veld waar de wachtlijst producten ingeschreven door gebruikers worden opgeslagen"
+
+#: plugin-options/export-options.php:255
+msgid "Waiting products"
+msgstr "Producten in wacht"
+
+#: plugin-options/export-options.php:250 plugin-options/export-options.php:309
+msgid "Export users that purchased within this date range"
+msgstr "Exporteer gebruikers die hebben gekocht binnen dit datum bereik"
+
+#: plugin-options/export-options.php:248 plugin-options/export-options.php:307
+msgid "Filter by date"
+msgstr "Filteren op datum"
+
+#: plugin-options/export-options.php:233 plugin-options/export-options.php:292
+msgid "Waiting Lists"
+msgstr "Wachtlijst"
+
+#: plugin-options/export-options.php:230 plugin-options/export-options.php:289
+msgid "Filter users using custom conditions"
+msgstr "Filter gebruikers door gebruik te maken van aangepaste criteria"
+
+#: plugin-options/export-options.php:229 plugin-options/export-options.php:288
+msgid "Select a group of users manually"
+msgstr "Selecteer handmatig een gebruikersgroep"
+
+#: plugin-options/export-options.php:228 plugin-options/export-options.php:287
+msgid "All Customers"
+msgstr "Alle klanten"
+
+#: plugin-options/export-options.php:227 plugin-options/export-options.php:286
+msgid "All Users"
+msgstr "Alle gebruikers"
+
+#: plugin-options/export-options.php:223 plugin-options/export-options.php:282
+msgid "Select a group of users to export"
+msgstr "Selecteer een gebruikersgroep om te exporteren"
+
+#: plugin-options/export-options.php:221 plugin-options/export-options.php:280
+msgid "Groups of users"
+msgstr "Gebruikersgroepen"
+
+#: plugin-options/export-options.php:215 plugin-options/register-options.php:68
+#: plugin-options/shortcode-options.php:89 plugin-options/widget-options.php:89
+msgid "Unsubscribe"
+msgstr "Uitschrijven"
+
+#: plugin-options/export-options.php:212
+msgid "Define the default contact status"
+msgstr "Definieer de default contact status"
+
+#: plugin-options/export-options.php:209 plugin-options/register-options.php:62
+#: plugin-options/shortcode-options.php:83 plugin-options/widget-options.php:83
+msgid "Status"
+msgstr "Status"
+
+#: plugin-options/export-options.php:191
+msgid "Export a group of users from your store to one of your Active Campaign lists"
+msgstr "Exporteer een gebruikersgroep van uw winkel naar een van uw Active Campaign lijsten"
+
+#: plugin-options/export-options.php:189
+msgid "Export"
+msgstr "Exporteer"
+
+#: plugin-options/export-options.php:112
+msgid "Export users that bought a product with a specific tag"
+msgstr "Exporteer gebruikers die een product hebben gekocht met een specifieke tag"
+
+#: plugin-options/export-options.php:102
+msgid "Export users that bought a product belonging to a specific category"
+msgstr "Exporteer gebruikers die een product hebben gekocht, behorende tot een specifieke categorie"
+
+#: plugin-options/export-options.php:92
+msgid "Export users that bought a specific product"
+msgstr "Exporteer gebruikers die een specifiek product hebben gekocht"
+
+#: plugin-options/export-options.php:82
+msgid "Select users to export"
+msgstr "Selecteer gebruikers om te exporteren"
+
+#: plugin-options/export-options.php:81
+msgid "Users to export"
+msgstr "Gebruikers om te exporteren"
+
+#: plugin-options/export-options.php:72
+msgid "Export users that bought a product with at least one of the selected tags"
+msgstr "Exporteer gebruikers die een product hebben gekocht met minstens een van de geselecteerde tags"
+
+#: plugin-options/export-options.php:71 plugin-options/export-options.php:111
+msgid "Filter by tag"
+msgstr "Filteren op tag"
+
+#: plugin-options/export-options.php:62
+msgid "Export users that bought a product belonging at least to one of the selected categories"
+msgstr "Exporteer gebruikers die een product hebben gekocht met minstens een van de geselecteerde categorieën"
+
+#: plugin-options/export-options.php:61 plugin-options/export-options.php:101
+msgid "Filter by category"
+msgstr "Filteren op categorie"
+
+#: plugin-options/export-options.php:53
+msgid "Export users that bought at least one of the selected products"
+msgstr "Exporteer gebruikers die minstens een van de geselecteerde producten hebben gekocht"
+
+#: plugin-options/export-options.php:52 plugin-options/export-options.php:91
+msgid "Filter by product"
+msgstr "Filteren op product"
+
+#: plugin-options/export-options.php:44
+msgid "Select customers to export"
+msgstr "Selecteer klanten om te exporteren"
+
+#: plugin-options/export-options.php:43
+msgid "Customers to export"
+msgstr "Klanten om te exporteren"
+
+#: plugin-options/export-options.php:40
+msgid "Select tags"
+msgstr "Selecteer tags"
+
+#: plugin-options/export-options.php:39
+msgid "Select categories"
+msgstr "Selecteer categorieën"
+
+#: plugin-options/export-options.php:38
+msgid "Select products"
+msgstr "Selecteer producten"
+
+#: plugin-options/export-options.php:37
+msgid "Select customers"
+msgstr "Selecteer klanten"
+
+#: plugin-options/deep-data-options.php:201
+msgid "Stop store synchronization"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:193
+msgid "Stop Sync"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:188
+msgid "Stop sync"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:182
+msgid "Rerun store synchronization <b>Note that this may take a while, and will be processed in the background</b>"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:174
+msgid "Sync Again"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:169
+msgid "Sync again"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:163
+msgid "Start store syncronization <b>Note that this may take a while, and will be processed in the background</b>"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:155
+msgid "Resume Sync"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:150
+msgid "Resume sync"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:144
+msgid "Start store synchronization <b>Note that this may take a while, and will be processed in the background</b>"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:136
+msgid "Start Sync"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:131
+msgid "Start sync"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:122
+msgid "Store Synchronization"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:111
+msgid "Select the time system should wait before registering a cart as abandoned"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:109
+msgid "24 Hours"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:108
+msgid "10 Hours"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:107
+msgid "6 Hours"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:106
+msgid "2 Hours"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:105
+msgid "1 Hour"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:102
+msgid "Delay"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:97
+msgid "Register guest billing email only after Terms & Conditions agreement"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:95
+msgid "Wait for T&C agreement"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:90
+msgid "Enable abandoned cart registration, for guest users too"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:88
+msgid "Enable guest"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:83
+msgid "Enable abandoned cart registration"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:81
+msgid "Enable"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:75
+msgid "Abandoned cart"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:56
+msgid "Select the logo that you want to assign to your store on Active Campaign dashboard"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:52
+msgid "Store logo"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:44
+msgid "Select the name that you want to assign to your store on Active Campaign dashboard"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:41
+msgid "Store name"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:33
+msgid "Connection status"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:24
+msgid "Deep Data integration"
+msgstr ""
+
+#: plugin-options/checkout-options.php:166
+#: templates/admin/types/advanced-integration-item.php:44
+msgid "Select tags for the new user"
+msgstr "Selecteer tags voor de nieuwe gebruiker"
+
+#: plugin-options/checkout-options.php:164
+msgid "Tags"
+msgstr "Tags"
+
+#: plugin-options/checkout-options.php:149
+msgid "Advanced options"
+msgstr "Geavanceerde opties"
+
+#: plugin-options/checkout-options.php:137
+#: plugin-options/register-options.php:101
+#: plugin-options/shortcode-options.php:122
+#: plugin-options/widget-options.php:122
+msgid "Select tags which will be automatically added to new users"
+msgstr "Selecteer tags welke automatisch worden toegevoegd aan nieuwe gebruikers"
+
+#: plugin-options/checkout-options.php:135
+#: plugin-options/register-options.php:99
+#: plugin-options/shortcode-options.php:120
+#: plugin-options/widget-options.php:120
+#: templates/admin/types/advanced-integration-item.php:32
+msgid "Auto-subscribe tags"
+msgstr "Auto-inschrijven tags"
+
+#: plugin-options/checkout-options.php:124
+#: plugin-options/export-options.php:198 plugin-options/register-options.php:88
+#: plugin-options/shortcode-options.php:109
+#: plugin-options/widget-options.php:109
+#: templates/admin/types/advanced-integration-item.php:27
+msgid "Select a list for new users"
+msgstr "Selecteer een lijst voor nieuwe gebruikers"
+
+#: plugin-options/checkout-options.php:122
+#: plugin-options/export-options.php:196 plugin-options/register-options.php:86
+#: plugin-options/shortcode-options.php:107
+#: plugin-options/widget-options.php:107
+#: templates/admin/types/advanced-integration-item.php:14
+msgid "Active Campaign list"
+msgstr "Active Campaign lijst"
+
+#: plugin-options/checkout-options.php:117
+msgid "Advanced"
+msgstr "Geavanceerd"
+
+#: plugin-options/checkout-options.php:116
+msgid "Simple"
+msgstr "Simpel"
+
+#: plugin-options/checkout-options.php:113
+msgid "Select whether to use a basic set of options or add integration settings"
+msgstr "Selecteer of u de basis optie set wilt gebruiken, of dat u integratie instellingen wilt toevoegen"
+
+#: plugin-options/checkout-options.php:111
+msgid "Integration mode"
+msgstr "Integratie modus"
+
+#: plugin-options/checkout-options.php:104
+#: plugin-options/register-options.php:79
+#: plugin-options/shortcode-options.php:100
+#: plugin-options/widget-options.php:100
+msgid "List Options"
+msgstr "Lijst opties"
+
+#: plugin-options/checkout-options.php:93
+msgid "Unsubscribed"
+msgstr "Niet ingeschreven"
+
+#: plugin-options/checkout-options.php:92 plugin-options/export-options.php:214
+#: plugin-options/register-options.php:67
+#: plugin-options/shortcode-options.php:88 plugin-options/widget-options.php:88
+msgid "Active"
+msgstr "Actief"
+
+#: plugin-options/checkout-options.php:90
+msgid "Contact status in Active Campaign list"
+msgstr "Contact status in Active Campaign lijst"
+
+#: plugin-options/checkout-options.php:87
+msgid "Contact status"
+msgstr "Contact status"
+
+#: plugin-options/checkout-options.php:81
+msgid "When you check this option, \"Newsletter subscription\" checkbox will be displayed as already checked"
+msgstr "Als u deze optie selecteert, zal het \"Inschrijven nieuwsbrief\" keuzevakje worden weergegeven als aangevinkt"
+
+#: plugin-options/checkout-options.php:78
+#: plugin-options/register-options.php:53
+msgid "Show \"Newsletter subscription\" as checked"
+msgstr "Toon \"Inschrijven nieuwsbrief\" als aangevinkt"
+
+#: plugin-options/checkout-options.php:71
+#: templates/admin/types/advanced-integration.php:42
+msgid "Above shipping details"
+msgstr "Boven verzend details"
+
+#: plugin-options/checkout-options.php:70
+#: templates/admin/types/advanced-integration.php:41
+msgid "Below billing details"
+msgstr "Onder factuurdetails"
+
+#: plugin-options/checkout-options.php:69
+#: templates/admin/types/advanced-integration.php:40
+msgid "Above billing details"
+msgstr "Boven factuurdetails"
+
+#: plugin-options/checkout-options.php:68
+#: templates/admin/types/advanced-integration.php:39
+msgid "Above \"Review order\" total"
+msgstr "Boven \"Review order\" totaal"
+
+#: plugin-options/checkout-options.php:67
+#: templates/admin/types/advanced-integration.php:38
+msgid "Below \"Place order\" button"
+msgstr "Onder \"Plaats order\" knop"
+
+#: plugin-options/checkout-options.php:66
+#: templates/admin/types/advanced-integration.php:37
+msgid "Above \"Place order\" button"
+msgstr "Boven \"Plaats order\" knop"
+
+#: plugin-options/checkout-options.php:65
+#: templates/admin/types/advanced-integration.php:36
+msgid "Below customer details"
+msgstr "Onder klantdetails"
+
+#: plugin-options/checkout-options.php:64
+#: templates/admin/types/advanced-integration.php:35
+msgid "Above customer details"
+msgstr "Boven klantdetails"
+
+#: plugin-options/checkout-options.php:61
+msgid "Select the position of the \"Newsletter subscription\" checkbox on the page"
+msgstr "Selecteer de positie van het \"Inschrijven nieuwsbrief\" keuzevakje op de pagina"
+
+#: plugin-options/checkout-options.php:59
+msgid "Position of \"Newsletter subscription\""
+msgstr "Positie van \"Inschrijven nieuwsbrief\""
+
+#: plugin-options/checkout-options.php:54
+#: plugin-options/register-options.php:48
+msgid "Subscribe to our cool newsletter"
+msgstr "Schrijf je nu in voor onze coole nieuwsbrief"
+
+#: plugin-options/checkout-options.php:52
+msgid "Enter here the label you want to use for the \"Newsletter subscription\" checkbox. Use <code>%privacy_policy%</code> to add a link to your store privacy policy page"
+msgstr "Voer het label in dat je wilt gebruiken voor het \"Nieuwsbrief inschrijving\" keuzevakje. Gebruik <code>%privacy_policy%</code> om een link toe te voegen aan de privacy beleid pagina van je winkel"
+
+#: plugin-options/checkout-options.php:50
+#: plugin-options/register-options.php:44
+msgid "\"Newsletter subscription\" label"
+msgstr "\"Inschrijven nieuwsbrief\" label"
+
+#: plugin-options/checkout-options.php:44
+msgid ""
+"If you select this option, a checkbox will be added to the checkout form, inviting users to subscribe to the\n"
+"\t\t\tnewsletter; otherwise, users will be subscribed automatically"
+msgstr ""
+"Als u deze optie selecteert, zal het keuzevakje worden toegevoegd aan het checkout formulier. Om de gebruikers uit te nodigen zich in te schrijven voor de\n"
+"\t\t\tnieuwsbrief; anderzins worden gebruikers automatisch ingeschreven"
+
+#: plugin-options/checkout-options.php:41
+#: plugin-options/register-options.php:35
+msgid "Show \"Newsletter subscription\" checkbox"
+msgstr "Toon \"Inschrijven nieuwsbrief\" keuzevakje"
+
+#: plugin-options/checkout-options.php:35
+msgid "Order placed"
+msgstr "Order geplaatst"
+
+#: plugin-options/checkout-options.php:34
+msgid "Order completed"
+msgstr "Order afgerond"
+
+#: plugin-options/checkout-options.php:33
+msgid "Never"
+msgstr "Nooit"
+
+#: plugin-options/checkout-options.php:30
+msgid "Select the moment in which the user will be added to the list"
+msgstr "Selecteer het moment waarop de gebruiker zal worden toegevoegd aan de lijst"
+
+#: plugin-options/checkout-options.php:28
+msgid "Register after"
+msgstr "Registreer na"
+
+#: plugin-options/checkout-options.php:21
+#: plugin-options/integration-options.php:17
+msgid "Active Campaign Options"
+msgstr "Active Campaign Opties"
+
+#: init.php:151
+msgid "You can't activate the free version of %s while you are using the premium one."
+msgstr "U kunt de gratis versie van %s niet activeren, terwijl u de premium versie gebruikt."
+
+#: init.php:141
+msgid "%s is enabled but not effective. It requires WooCommerce in order to work."
+msgstr "%s is ingeschakeld maar niet werkend. Het heeft WooCommerce nodig om te werken."
+
+#: includes/libraries/class-wc-background-process.php:173
+msgid "Every %d minutes"
+msgstr ""
+
+#: includes/class.yith-wcac.php:2075
+msgid "There is an error with your data; try again later."
+msgstr ""
+
+#: includes/class.yith-wcac.php:2068
+msgid "You must agree privacy agreement"
+msgstr "Je moet toestemmen met privacy overeenkomst"
+
+#: includes/class.yith-wcac.php:2049
+msgid "Email is required"
+msgstr "E-mail is verplicht"
+
+#: includes/class.yith-wcac.php:2037 plugin-options/shortcode-options.php:52
+#: plugin-options/widget-options.php:53
+msgid "Great! You're now subscribed to our newsletter"
+msgstr "Goed! U bent nu ingeschreven op onze nieuwsbrief"
+
+#: includes/class.yith-wcac.php:1296 includes/class.yith-wcac.php:2095
+msgid "Correctly subscribed %1$s."
+msgstr ""
+
+#: includes/class.yith-wcac.php:1189
+msgid "Email"
+msgstr "E-mail"
+
+#: includes/class.yith-wcac.php:1010 includes/class.yith-wcac.php:1790
+msgid "Privacy Policy"
+msgstr "Privacybeleid"
+
+#: includes/class.yith-wcac.php:840
+msgctxt "API error message"
+msgid "The following errors occurred while processing API request: %s"
+msgstr ""
+
+#: includes/class.yith-wcac.php:831
+msgctxt "API error message"
+msgid "You're being rate limited! Please, wait a couple of minutes before submitting further requests to ActiveCampaign API"
+msgstr ""
+
+#: includes/class.yith-wcac.php:828
+msgctxt "API error message"
+msgid "The requested resource does not exist."
+msgstr ""
+
+#: includes/class.yith-wcac.php:825
+msgctxt "API error message"
+msgid "The request could not be authenticated or the authenticated user is not authorized to access the requested resource."
+msgstr ""
+
+#: includes/class.yith-wcac.php:822
+msgctxt "API error message"
+msgid "The request could not be validated, as it probably contains malformed data."
+msgstr ""
+
+#: includes/class.yith-wcac.php:730
+msgid "An error occurred while subscribing user to the list; please, try again later"
+msgstr ""
+
+#: includes/class.yith-wcac.php:725
+msgid "An error occurred while trying to subscribe user; please, try again later"
+msgstr ""
+
+#: includes/class.yith-wcac.php:720
+msgid "Email address is missing or malformed"
+msgstr ""
+
+#: includes/class.yith-wcac.php:397
+msgid "Telephone"
+msgstr ""
+
+#: includes/class.yith-wcac.php:393 includes/class.yith-wcac.php:1185
+msgid "Last name"
+msgstr "Achternaam"
+
+#: includes/class.yith-wcac.php:389 includes/class.yith-wcac.php:1181
+msgid "First name"
+msgstr "Voornaam"
+
+#: includes/class.yith-wcac.php:385
+msgid "Email Address"
+msgstr "E-mailadres"
+
+#: includes/class.yith-wcac-widget.php:47
+msgid ""
+"You can customize the options of the <b>Active Campaign Subscription Form</b> widget from YITH WooCommerce Active Campaign <a href=\"%s\">admin\n"
+"page</a>"
+msgstr ""
+"U kunt de opties aanpassen van de <b>Active Campaign Inschrijfformulier</b> widget van YITH WooCommerce Active Campaign <a href=\"%s\">admin\n"
+"page</a>"
+
+#: includes/class.yith-wcac-widget.php:31
+msgid "Display an Active Campaign subscription form in sidebars"
+msgstr "Active Campaign inschrijfformilier weergeven in sidebars"
+
+#: includes/class.yith-wcac-privacy.php:164
+msgid "Active Campaign Data"
+msgstr "Active Campaign gegevens"
+
+#: includes/class.yith-wcac-privacy.php:148
+msgid "User unsubscribed from %d lists."
+msgstr "Gebruiker uitgeschreven van %d lijsten."
+
+#: includes/class.yith-wcac-privacy.php:106
+msgid "Active Campaign Subscribed Lists"
+msgstr "Active Campaign ingeschreven lijst"
+
+#: includes/class.yith-wcac-privacy.php:85
+msgid "Please see the <a href=\"https://www.activecampaign.com/privacy-policy/\">Active Campaign Privacy Policy</a> for more details."
+msgstr "Bekijk het <a href=\"https://www.activecampaign.com/privacy-policy/\">Active Campaign Privacybeleid</a> voor meer details."
+
+#: includes/class.yith-wcac-privacy.php:84
+msgid "We contact Active Campaign in order to subscribe users, and retrieve information about lists and groups. When processing subscriptions, some of your data will be passed to Active Campaign, including information required to target your account, such as the billing information and the product(s) you’re purchasing."
+msgstr "We contacteren Active Campaign om gebruikers in te schrijven en om informatie te winnen van lijsten en groepen. Bij het verwerken van inschrijvingen, zullen enkele van je gegevens worden doorgestuurd aan Active Campaign, inclusief informatie die nodig is om je account te targeten, zoals factuuradres en de product(en) die je koopt."
+
+#: includes/class.yith-wcac-privacy.php:81
+msgid "Our team members have access to these data in order to review what our plugin sent to Active Campaign servers."
+msgstr "Onze teamleden hebben toegang tot deze gegevens om te beoordelen wat onze plugin stuurt naar Active Campaign servers."
+
+#: includes/class.yith-wcac-privacy.php:79
+msgid "Active Campaign lists to which you are subscribed,"
+msgstr "Active Campaign lijsten waarop je bent ingeschreven,"
+
+#: includes/class.yith-wcac-privacy.php:78
+msgid "Log of your consent,"
+msgstr "log van je toestemming,"
+
+#: includes/class.yith-wcac-privacy.php:77
+msgid "All personal data sent to Active Campaign,"
+msgstr "Alle persoonlijke gegevens verstuurd naar Active Campaign,"
+
+#: includes/class.yith-wcac-privacy.php:75
+msgid "Members of our team have access to the information you provide us. For example, both Administrators and Shop Managers can access:"
+msgstr "Onze teamleden hebben toegang tot de informatie die jij ons geeft. Voorbeeld, zowel administrateurs als winkelmanagers hebben toegang tot:"
+
+#: includes/class.yith-wcac-privacy.php:72
+msgid "We’ll ask for your explicit consent before sending any data to Active Campaign servers."
+msgstr "We vragen je expliciet om toestemming voor het versturen van gegevens naar Active Campaign servers."
+
+#: includes/class.yith-wcac-privacy.php:70
+msgid "Any other information submitted through the registration form: we’ll use this information in order to complete your account on Active Campaign, and send you targeted emails."
+msgstr "Elke andere informatie ingediend via het registratieformulier: we gebruiken deze informatie om je Active Campaign account af te ronden, en versturen u gerichte e-mails."
+
+#: includes/class.yith-wcac-privacy.php:69
+msgid "Email address: we’ll use this in order to populate basic information of your account on Active Campaign"
+msgstr "E-mailadres: we gebruiken dit om de basis informatie van je account op Active Campaign in te vullen"
+
+#: includes/class.yith-wcac-privacy.php:67
+msgid "When subscribing to a newsletter, we’ll track:"
+msgstr "Tijdens het inschrijven voor een nieuwsbrief, volgen wij:"
+
+#: includes/class.yith-wcac-privacy.php:65
+msgid "Preferences, products purchased, categories of products purchased: we’ll use this information in order to improve your profile and send you targeted newsletters"
+msgstr "Voorkeuren, gekochte producten, productcategorieën gekocht: we gebruiken deze informatie om uw profiel te verbeteren en u gerichte nieuwsbrieven te sturen"
+
+#: includes/class.yith-wcac-privacy.php:64
+msgid "Order total, payment method, customer IP: we’ll use this information in order to improve your account, and send you targeted newsletters"
+msgstr "Bestelling totaal, betaalmethode, klant IP: we gebruiken deze informatie om je account te verbeteren, en sturen je gerichte nieuwsbrieven"
+
+#: includes/class.yith-wcac-privacy.php:63
+msgid "Billing or shipping data: we’ll use this information in order to complete your account on Active Campaign"
+msgstr "Factuuradres of verzendadres: we zullen deze informatie gebruiken om je account compleet te maken op Active Campaign"
+
+#: includes/class.yith-wcac-privacy.php:62
+msgid "Email address, first name, last name: we’ll use this information in order to populate the basic details of your account on Active Campaign"
+msgstr "E-mailadres, voornaam, achternaam: we gebruiken deze informatie om de basisdetails van je account op Active Campaign in te vullen"
+
+#: includes/class.yith-wcac-privacy.php:60
+msgid "During checkout, we’ll track:"
+msgstr "Tijdens de checkout, volgen wij:"
+
+#: includes/class.yith-wcac-deep-data.php:1270
+msgctxt "log message"
+msgid "Customer %s processed"
+msgstr ""
+
+#: includes/class.yith-wcac-deep-data.php:1249
+msgctxt "log message"
+msgid "Customer %s skipped"
+msgstr ""
+
+#: includes/class.yith-wcac-deep-data.php:1205
+msgctxt "log message"
+msgid "Cart for customer %s deleted"
+msgstr ""
+
+#: includes/class.yith-wcac-deep-data.php:1172
+msgctxt "log message"
+msgid "Cart for user %1$s wasn't processed due to an error: %2$s"
+msgstr ""
+
+#: includes/class.yith-wcac-deep-data.php:1167
+msgctxt "log message"
+msgid "Cart for user %s processed"
+msgstr ""
+
+#: includes/class.yith-wcac-deep-data.php:1153
+msgctxt "log message"
+msgid "Cart for user %s skipped"
+msgstr ""
+
+#: includes/class.yith-wcac-deep-data.php:1115
+msgctxt "log message"
+msgid "Attempting to process cart for user %s"
+msgstr ""
+
+#: includes/class.yith-wcac-deep-data.php:1106
+msgctxt "log message"
+msgid "Cart for user %s couldn't process because we weren't able to update customer object"
+msgstr ""
+
+#: includes/class.yith-wcac-deep-data.php:1062
+msgctxt "log message"
+msgid "Order %s deleted"
+msgstr ""
+
+#: includes/class.yith-wcac-deep-data.php:1047
+msgctxt "log message"
+msgid "Attempting to delete order %s"
+msgstr ""
+
+#: includes/class.yith-wcac-deep-data.php:1022
+msgctxt "log message"
+msgid "Order %1$s wasn't processed due to an error: %2$s"
+msgstr ""
+
+#: includes/class.yith-wcac-deep-data.php:1017
+msgctxt "log message"
+msgid "Order %s processed"
+msgstr ""
+
+#: includes/class.yith-wcac-deep-data.php:1002
+msgctxt "log message"
+msgid "Order %s skipped"
+msgstr ""
+
+#: includes/class.yith-wcac-deep-data.php:956
+msgctxt "log message"
+msgid "Attempting to process order %s"
+msgstr ""
+
+#: includes/class.yith-wcac-deep-data.php:947
+msgctxt "log message"
+msgid "Order %1$s couldn't process because we weren't able to update customer %2$s"
+msgstr ""
+
+#: includes/class.yith-wcac-deep-data.php:538
+msgctxt "log message"
+msgid "Sync completed!"
+msgstr ""
+
+#: includes/class.yith-wcac-deep-data.php:533
+#: includes/class.yith-wcac-deep-data.php:640
+msgctxt "log message"
+msgid "New sync step: %s\n"
+msgstr "\n"
+
+#: includes/class.yith-wcac-deep-data.php:468
+msgctxt "log message"
+msgid "Sync action performed: %s"
+msgstr ""
+
+#: includes/class.yith-wcac-deep-data.php:448
+msgctxt "log message"
+msgid "Attempting sync action: %s"
+msgstr ""
+
+#: includes/class.yith-wcac-deep-data.php:430
+msgid "Current synchronization status:"
+msgstr ""
+
+#: includes/class.yith-wcac-deep-data.php:427
+msgid "Synchronization complete"
+msgstr ""
+
+#: includes/class.yith-wcac-deep-data.php:414
+msgid "<b>%1$s</b> %2$s/%3$s (%4$s%%)"
+msgstr ""
+
+#: includes/class.yith-wcac-deep-data.php:375
+msgid "Your store is currently being synced! This may take a while, but won't affect performance of your store. You can keep track of the status of the operation in this page"
+msgstr ""
+
+#: includes/class.yith-wcac-deep-data.php:347
+msgctxt "log message"
+msgid "Store disconnected!"
+msgstr ""
+
+#: includes/class.yith-wcac-deep-data.php:337
+msgctxt "log message"
+msgid "Attempting to disconnect store"
+msgstr ""
+
+#: includes/class.yith-wcac-deep-data.php:318
+msgctxt "log message"
+msgid "Store connected!"
+msgstr ""
+
+#: includes/class.yith-wcac-deep-data.php:288
+msgctxt "log message"
+msgid "Attempting to connect store"
+msgstr ""
+
+#: includes/class.yith-wcac-deep-data.php:135
+msgid "Every %d Minutes"
+msgstr ""
+
+#: includes/class.yith-wcac-background-process.php:94
+msgctxt "log message"
+msgid "Task completed: %1$s %2$s"
+msgstr ""
+
+#: includes/class.yith-wcac-api.php:221
+msgid "There was an error with your request; please try again later."
+msgstr ""
+
+#: includes/class.yith-wcac-api.php:165
+msgid "Error while establishing connection to Active Campaign API server. Please, try again later"
+msgstr ""
+
+#: includes/class.yith-wcac-admin.php:1559
+msgid "Active Campaign status"
+msgstr "Active Campaign status"
+
+#: includes/class.yith-wcac-admin.php:1452
+#: includes/class.yith-wcac-admin.php:1487
+msgid "Active Campaign's tags"
+msgstr "Active Campaign tags"
+
+#: includes/class.yith-wcac-admin.php:961
+msgid "Download CSV"
+msgstr "Download CSV"
+
+#: includes/class.yith-wcac-admin.php:960
+msgid "Export Users"
+msgstr "Exporteer gebruikers"
+
+#: includes/class.yith-wcac-admin.php:899
+msgctxt "Last name label defined by Active Campaign"
+msgid "Last name"
+msgstr "Achternaam"
+
+#: includes/class.yith-wcac-admin.php:898
+msgctxt "First name label defined by Active Campaign"
+msgid "First name"
+msgstr "Voornaam"
+
+#: includes/class.yith-wcac-admin.php:897
+msgctxt "Email label defined by Active Campaign"
+msgid "Email Address"
+msgstr "E-mailadres"
+
+#: includes/class.yith-wcac-admin.php:888
+msgid ""
+"Are you sure you want to delete connection?\n"
+"This will permanently remove from Active Campaign any data registered with this connection."
+msgstr ""
+
+#: includes/class.yith-wcac-admin.php:887
+msgctxt "Backend button on Deep Data tab"
+msgid "Connect store"
+msgstr ""
+
+#: includes/class.yith-wcac-admin.php:886
+msgctxt "Backend update fields button"
+msgid "Update Fields"
+msgstr ""
+
+#: includes/class.yith-wcac-admin.php:885
+msgctxt "Backend update tag button"
+msgid "Update Tags"
+msgstr "Update Tags"
+
+#: includes/class.yith-wcac-admin.php:884
+msgctxt "Backend update list button"
+msgid "Update Lists"
+msgstr "Update lijsten"
+
+#: includes/class.yith-wcac-admin.php:633
+#: templates/admin/types/advanced-integration-condition.php:9
+msgid "Custom"
+msgstr "Aangepast"
+
+#: includes/class.yith-wcac-admin.php:624
+msgid "User ID"
+msgstr "Gebruikers ID"
+
+#: includes/class.yith-wcac-admin.php:623
+msgid "Payment method name"
+msgstr "Naam betaalwijze"
+
+#: includes/class.yith-wcac-admin.php:622
+msgid "Shipping method name"
+msgstr "Naam verzendmethode"
+
+#: includes/class.yith-wcac-admin.php:191
+#: includes/class.yith-wcac-admin.php:192
+msgid "Active Campaign"
+msgstr "Active Campaign"
+
+#: includes/class.yith-wcac-admin.php:86
+msgctxt "Panel tab"
+msgid "Export"
+msgstr "Exporteer"
+
+#: includes/class.yith-wcac-admin.php:85
+msgctxt "Panel tab"
+msgid "Deep Data"
+msgstr ""
+
+#: includes/class.yith-wcac-admin.php:84
+msgctxt "Panel tab"
+msgid "Tags"
+msgstr "Tags"
+
+#: includes/class.yith-wcac-admin.php:83
+msgctxt "Panel tab"
+msgid "Register"
+msgstr "Registreer"
+
+#: includes/class.yith-wcac-admin.php:82
+msgctxt "Panel tab"
+msgid "Widget"
+msgstr "Widget"
+
+#: includes/class.yith-wcac-admin.php:81
+msgctxt "Panel tab"
+msgid "Shortcode"
+msgstr "Shortcode"
+
+#: includes/class.yith-wcac-admin.php:80
+msgctxt "Panel tab"
+msgid "Checkout"
+msgstr "Checkout"
+
+#: includes/class.yith-wcac-admin.php:79
+msgctxt "Panel tab"
+msgid "Integration"
+msgstr "Integratie"

@@ -1,0 +1,15 @@
+button.wbs-ajax-add-to-cart {
+	display: inline-block !important;
+}
+
+button[name="add-to-cart"]:not(.wbs-ajax-add-to-cart), button.single_add_to_cart_button:not(.wbs-ajax-add-to-cart){
+	display: none !important;
+}
+
+.woocommerce-boost-sales .single_add_to_cart_button {
+	display: inline-block !important;
+}
+
+.woocommerce-boost-sales button[name="add-to-cart"]:not(.wbs-ajax-add-to-cart), .woocommerce-boost-sales  button.single_add_to_cart_button:not(.wbs-ajax-add-to-cart){
+	display: inline-block !important;
+}

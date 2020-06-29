@@ -1,0 +1,196 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH WooCommerce Email Templates\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/init\n"
+"POT-Creation-Date: 2019-04-05 14:15+0100\n"
+"PO-Revision-Date: 2019-04-05 14:18+0100\n"
+"Last-Translator: \n"
+"Language-Team: Yithemes <plugins@yithemes.com>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.12\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e;_n:1,2;__ngettext:1,2;"
+"__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;"
+"_nx_noop:4c,1,2\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: plugin-fw\n"
+
+#: includes/class.yith-wtbe-admin.php:96
+msgid "Settings"
+msgstr "Ajustes"
+
+#: includes/class.yith-wtbe-admin.php:162
+msgid "YITH WordPress Title Bar Effects"
+msgstr "YITH WordPress Title Bar Effects"
+
+#: includes/class.yith-wtbe-admin.php:184
+msgid "%1$sTitle displayed on the tab when the animation is applied%2$s"
+msgstr "%1$sTítulo mostrado en la pestaña cuando la animación es aplicada%2$s"
+
+#: includes/class.yith-wtbe-admin.php:186
+msgid "%1$sTitle prefix%2$s"
+msgstr "%1$sPrefijo del título%2$s"
+
+#: includes/class.yith-wtbe-admin.php:188
+msgid "%1$sTitle suffix%2$s"
+msgstr "%1$sSufijo del título%2$s"
+
+#: plugin-options/settings-options.php:11
+msgid "General Settings"
+msgstr "Ajustes generales"
+
+#: plugin-options/settings-options.php:25
+msgid "Enable WordPress Title Bar Effects"
+msgstr "Activar Title Bar Effects de WordPress"
+
+#: plugin-options/settings-options.php:33
+msgid "Select animation"
+msgstr "Seleccionar animación"
+
+#: plugin-options/settings-options.php:37
+msgid "Typing"
+msgstr "Escribiendo"
+
+#: plugin-options/settings-options.php:38
+msgid "Scrolling"
+msgstr "Desplazando"
+
+#: plugin-options/settings-options.php:39
+msgid "Intermittence"
+msgstr "Intermitencia"
+
+#: plugin-options/settings-options.php:47
+msgid "Change tab"
+msgstr "Cambiar pestaña"
+
+#: plugin-options/settings-options.php:48
+msgid "Enable effects when users switch to another browser tab."
+msgstr ""
+"Activa los efectos cuando los usuarios cambien a la pestaña de otro "
+"navegador."
+
+#: plugin-options/settings-options.php:55
+msgid "Animation speed"
+msgstr "Velocidad de animación"
+
+#: plugin-options/settings-options.php:56
+msgid ""
+"Set the animation speed (milliseconds). This is an inversely proportionate "
+"value, so, the smaller the value, the quicker the animation is performed."
+msgstr ""
+"Establece la velocidad de la animación (milisegundos). Este es un valor "
+"inversamente proporcional, por lo tanto, cuanto menor es el valor, más "
+"rápido se realiza la animación."
+
+#: plugin-options/settings-options.php:63
+msgid "Delay time to start"
+msgstr "Tiempo de retardo para activar"
+
+#: plugin-options/settings-options.php:64
+msgid ""
+"Set delay time (milliseconds) to start the effect after the page is loaded."
+msgstr ""
+"Establecer tiempo de retardo (milisegundos) para activar el efecto tras la "
+"carga de la página."
+
+#: plugin-options/settings-options.php:71
+msgid "Effect duration"
+msgstr "Duración del efecto"
+
+#: plugin-options/settings-options.php:72
+msgid ""
+"Set the duration of the effect (milliseconds). Count starts after delay time."
+msgstr ""
+"Establecer la duración del efecto (milisegundos). El recuento comienza "
+"después del tiempo de retardo."
+
+#: plugin-options/settings-options.php:79
+msgid "Time between animation cycles"
+msgstr "Tiempo entre ciclos de animación"
+
+#: plugin-options/settings-options.php:80
+msgid ""
+"Set the time (milliseconds) that has to pass between an animation cycle and "
+"the following one"
+msgstr ""
+"Establecer el tiempo (milisegundos) que tiene que pasar entre un ciclo de "
+"animación y el siguiente"
+
+#: plugin-options/settings-options.php:87
+msgid "Title"
+msgstr "Título"
+
+#: plugin-options/settings-options.php:88
+msgid ""
+"Title shown on the tab when the animation is applied. If empty, the "
+"animation effect will be applied on the default page title."
+msgstr ""
+"Título mostrado en la pestaña cuando la animación es aplicada. Si está "
+"vacío, el efecto de animación será aplicado en el título de página por "
+"defecto."
+
+#: plugin-options/settings-options.php:94
+msgid "Title prefix"
+msgstr "Prefijo del título"
+
+#: plugin-options/settings-options.php:95
+msgid "Text to prefix to the page title"
+msgstr "Texto para el prefijo del título de página"
+
+#: plugin-options/settings-options.php:101
+msgid "Title suffix"
+msgstr "Sufijo del título"
+
+#: plugin-options/settings-options.php:102
+msgid "Text to suffix to the page title"
+msgstr "Texto para el sufijo para el título de página"
+
+#. Plugin Name of the plugin/theme
+msgid "YITH WordPress Title Bar Effects Premium"
+msgstr "YITH WordPress Title Bar Effects Premium"
+
+#. Plugin URI of the plugin/theme
+msgid "https://yithemes.com/themes/plugins/yith-wordpress-title-bar-effects"
+msgstr "https://yithemes.com/themes/plugins/yith-wordpress-title-bar-effects"
+
+#. Description of the plugin/theme
+msgid ""
+"<code><strong>YITH WordPress Title Bar Effects</strong></code> catches your "
+"users' eye when they leave the site and open a new tab on your browser. "
+"Thanks to the animated TITLE, your users will go back to your site. Don't "
+"miss the chance to avoid them to leave it so easily. <a href=\"https://"
+"yithemes.com/\" target=\"_blank\">Get more plugins for your e-commerce on "
+"<strong>YITH</strong></a>"
+msgstr ""
+"<code><strong>YITH WordPress Title Bar Effects</strong></code> captura la "
+"atención de tus usuarios cuando abandonan el sitio y abren una nueva pestaña "
+"en el navegador. Gracias al TÍTULO animado, tus usuarios volverán a tu "
+"sitio. No pierdas la oportunidad de evitar que se vayan tan fácilmente. <a "
+"href=\"https://yithemes.com/\" target=\"_blank\">Obtén más plugins para tu "
+"comercio electrónico en <strong>YITH</strong></a>"
+
+#. Author of the plugin/theme
+msgid "YITH"
+msgstr "YITH"
+
+#. Author URI of the plugin/theme
+msgid "http://yithemes.com/"
+msgstr "http://yithemes.com/"
+
+#~ msgctxt "plugin name in admin page title"
+#~ msgid "Title Bar Effects"
+#~ msgstr "Title Bar Effects"
+
+#~ msgctxt "plugin name in admin WP menu"
+#~ msgid "Title Bar Effects"
+#~ msgstr "Title Bar Effects"
+
+#~ msgid "Live demo"
+#~ msgstr "Demo en vivo"
+
+#~ msgid "Plugin documentation"
+#~ msgstr "Documentación del plugin"

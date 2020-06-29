@@ -1,0 +1,58 @@
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 600 600" style="height: 1em; width: 1em; enable-background:new 0 0 600 600;" xml:space="preserve">
+<style type="text/css">
+	.store_register_st0{fill:none;stroke:currentcolor;stroke-width:10;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+	.store_register_st1{fill:currentcolor;stroke:currentcolor;stroke-miterlimit:10;}
+	.store_register_st2{fill:none;stroke:currentcolor;stroke-width:6;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+</style>
+<g>
+	<polyline class="store_register_st0" points="179.8,260.4 179.8,428.3 199.5,428.3 	"/>
+	<line class="store_register_st0" x1="418.9" y1="260.4" x2="418.9" y2="329.9"/>
+	<path class="store_register_st0" d="M155,217.8c-9.9,9.9-4.2,27.4,9.7,28.7c0.6,0.1,1.3,0.1,1.9,0.1c8.7,0,16.1-5.5,19-13.3
+		c2.8,7.8,10.2,13.3,19,13.3s16.1-5.5,19-13.3c2.8,7.8,10.2,13.3,19,13.3s16.1-5.5,19-13.3c2.8,7.8,10.2,13.3,19,13.3
+		s16.1-5.5,19-13.3c2.8,7.8,10.2,13.3,19,13.3c8.7,0,16.1-5.5,19-13.3c2.8,7.8,10.2,13.3,19,13.3c8.7,0,16.1-5.5,19-13.3
+		c2.8,7.8,10.2,13.3,19,13.3c8.7,0,16.1-5.5,19-13.3c2.8,7.8,10.2,13.3,19,13.3c0.1,0,0.2,0,0.3,0c14.7-0.2,21.6-18.5,11.2-28.9
+		L395,168.6h-92.8c-22.9,0,47.8,0-97.6,0L155,217.8z"/>
+	<rect x="216.1" y="302.6" class="store_register_st0" width="54.4" height="125.7"/>
+	<circle class="store_register_st0" cx="229.7" cy="347.3" r="0.9"/>
+	<path class="store_register_st1" d="M256.9,370.4l-1.5,4.3c-5.2,15.1-13.8,28.8-25.2,40l0,0h26.6L256.9,370.4L256.9,370.4z"/>
+	<g>
+		<g>
+			<path class="store_register_st2" d="M396,385.8V355c0-4.1,3.4-7.4,7.5-7.4h27.2"/>
+			<line class="store_register_st2" x1="430.7" y1="364.1" x2="430.7" y2="385.8"/>
+			<path class="store_register_st2" d="M430.7,347.6c3.4,0,6.2,2.7,6.2,6.1c0,1.7-0.7,3.2-1.8,4.3h-32.4c1.1-1.1,1.8-2.6,1.8-4.3
+				c0-0.5-0.1-1-0.2-1.5"/>
+		</g>
+		<g>
+			<line class="store_register_st2" x1="346" y1="377.1" x2="349.7" y2="377.1"/>
+			<line class="store_register_st2" x1="355.9" y1="377.1" x2="359.6" y2="377.1"/>
+			<line class="store_register_st2" x1="365.8" y1="377.1" x2="369.5" y2="377.1"/>
+			<line class="store_register_st2" x1="346" y1="385.8" x2="349.7" y2="385.8"/>
+			<line class="store_register_st2" x1="355.9" y1="385.8" x2="359.6" y2="385.8"/>
+			<line class="store_register_st2" x1="365.8" y1="385.8" x2="369.5" y2="385.8"/>
+			<line class="store_register_st2" x1="346" y1="394.5" x2="349.7" y2="394.5"/>
+			<line class="store_register_st2" x1="355.9" y1="394.5" x2="359.6" y2="394.5"/>
+			<line class="store_register_st2" x1="365.8" y1="394.5" x2="369.5" y2="394.5"/>
+		</g>
+		<g>
+			<path class="store_register_st2" d="M352.5,345.4c0,2.9,2.3,5.2,5.2,5.2s5.2-2.3,5.2-5.2s-2.1-4.2-5.2-5.2c-2.7-0.9-5.2-2.3-5.2-5.2
+				c0-2.9,2.3-5.2,5.2-5.2s5.2,2.3,5.2,5.2"/>
+			<line class="store_register_st2" x1="357.8" y1="327" x2="357.8" y2="329.9"/>
+			<line class="store_register_st2" x1="357.8" y1="350.5" x2="357.8" y2="353.5"/>
+		</g>
+		<polyline class="store_register_st2" points="386.1,359.3 382.9,359.3 335,359.3 315.8,407.1 382.9,407.1 450,407.1 441.4,385.8 		"/>
+		<polyline class="store_register_st2" points="450,407.1 450,431.3 406.2,431.3 		"/>
+		<polyline class="store_register_st2" points="363.4,431.3 315.8,431.3 315.8,407.1 		"/>
+		<polyline class="store_register_st2" points="380.5,359.3 380.5,321.1 335,321.1 335,359.3 		"/>
+		<line class="store_register_st2" x1="382.9" y1="385.8" x2="441.4" y2="385.8"/>
+		<g>
+			<path class="store_register_st1" d="M424.2,369.7h-21.6c-0.9,0-1.6-0.7-1.6-1.6s0.7-1.6,1.6-1.6h21.6c0.9,0,1.6,0.7,1.6,1.6
+				S425.1,369.7,424.2,369.7z"/>
+		</g>
+		<g>
+			<path class="store_register_st1" d="M424.2,378.8h-21.6c-0.9,0-1.6-0.7-1.6-1.6s0.7-1.6,1.6-1.6h21.6c0.9,0,1.6,0.7,1.6,1.6
+				C425.9,378,425.1,378.8,424.2,378.8z"/>
+		</g>
+	</g>
+</g>
+</svg>

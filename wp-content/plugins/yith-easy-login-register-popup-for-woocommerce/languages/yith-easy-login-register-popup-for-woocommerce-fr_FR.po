@@ -1,0 +1,1603 @@
+# Translation of YITH Easy Login Register Popup for WooCommerce in French (France)
+# This file is distributed under the same license as the YITH Easy Login Register Popup for WooCommerce package.
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH Easy Login Register Popup for WooCommerce\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-easy-login-"
+"register-popup-for-woocommerce\n"
+"POT-Creation-Date: 2020-05-05 13:42:50+00:00\n"
+"PO-Revision-Date: 2020-04-16 12:46:46+0000\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: GlotPress/2.3.1\n"
+
+#: includes/class.yith-easy-login-register-admin.php:67
+msgid "General Settings"
+msgstr "Réglages généraux"
+
+#: includes/class.yith-easy-login-register-admin.php:68
+msgid "First Step Options"
+msgstr "Options première étape"
+
+#: includes/class.yith-easy-login-register-admin.php:69
+msgid "Login Options"
+msgstr "Options de connexion"
+
+#: includes/class.yith-easy-login-register-admin.php:70
+msgid "Register Options"
+msgstr "Options d’inscription"
+
+#: includes/class.yith-easy-login-register-admin.php:71
+msgid "Lost Password Options"
+msgstr "Options mot de passe oublié"
+
+#: includes/class.yith-easy-login-register-admin.php:72
+msgid "Additional Popup"
+msgstr "Popup additionnel"
+
+#: includes/class.yith-easy-login-register-popup-handler.php:196
+msgid "Please enter a valid username or email address."
+msgstr "Merci de renseigner un nom d’utilisateur valide ou un email valide."
+
+#: includes/class.yith-easy-login-register-popup-handler.php:197
+#: includes/class.yith-easy-login-register-popup-handler.php:314
+#: includes/class.yith-easy-login-register-popup-handler.php:360
+msgid "Please enter a valid email address."
+msgstr "Merci de renseigner une adresse email valide."
+
+#: includes/class.yith-easy-login-register-popup-handler.php:230
+#: plugin-options/login-options.php:43
+msgid "Great to see you again! Enter your password to continue."
+msgstr "Ravis de vous revoir! Renseigner votre mot de passe pour continuer."
+
+#: includes/class.yith-easy-login-register-popup-handler.php:237
+#: plugin-options/register-options.php:122
+msgid "Register and proceed to checkout"
+msgstr "Créer un compte et procéder au paiement"
+
+#: includes/class.yith-easy-login-register-popup-handler.php:238
+#: plugin-options/additional-popup-options.php:47
+msgid "Register"
+msgstr "Créer un compte"
+
+#: includes/class.yith-easy-login-register-popup-handler.php:242
+#: plugin-options/register-options.php:34
+msgid "You are new here. Create your account!"
+msgstr "Vous êtes nouveau ici. Créer votre compte !"
+
+#: includes/class.yith-easy-login-register-popup-handler.php:243
+#: plugin-options/register-options.php:43
+msgid ""
+"It seems you don't have an account on [blogname] yet. But don't worry, you "
+"can create one and then complete your order."
+msgstr ""
+"Il semble que vous n’avez pas de compte sur [blogname] pour le moment. Mais "
+"pas de panique vous pouvez créer un compte et terminer votre commande."
+
+#: includes/class.yith-easy-login-register-popup-handler.php:265
+msgid "Password field cannot be empty."
+msgstr "Le champ mot de passe ne peut pas être vide."
+
+#: includes/class.yith-easy-login-register-popup-handler.php:292
+msgid "You have successfully logged in, great to see you again!"
+msgstr ""
+
+#: includes/class.yith-easy-login-register-popup-handler.php:317
+msgid "An account is already registered with this email."
+msgstr "Un compte est déjà enregistré avec cet email."
+
+#: includes/class.yith-easy-login-register-popup-handler.php:320
+#: includes/class.yith-easy-login-register-popup-handler.php:473
+msgid "Passwords do not match! Please try again."
+msgstr "Les mots de passe ne correspond pas. Merci de recommencer."
+
+#: includes/class.yith-easy-login-register-popup-handler.php:323
+msgid "You must accept our terms and privacy policy!"
+msgstr ""
+"Vous devez accepter nos mentions légales et politique de confidentialité!"
+
+#: includes/class.yith-easy-login-register-popup-handler.php:341
+msgid ""
+"Your account has been successfully created. Your login details have been "
+"sent to your email address."
+msgstr ""
+"Votre compte a bien été crée. Les détails viennent de parvenir sur votre "
+"boite mail."
+
+#: includes/class.yith-easy-login-register-popup-handler.php:367
+msgid "Password reset is not allowed for this user"
+msgstr ""
+"La réinitialisation du mot de passe n’est pas autorisé pour cet utilisateur"
+
+#: includes/class.yith-easy-login-register-popup-handler.php:389
+msgid "A new authentication code was sent successfully to your email"
+msgstr ""
+"Un nouveau code d’authentification vient d’être envoyé avec succès sur votre "
+"adresse email"
+
+#: includes/class.yith-easy-login-register-popup-handler.php:393
+#: plugin-options/lost-password-options.php:159
+msgid "Authentication required"
+msgstr "Authentification requise"
+
+#: includes/class.yith-easy-login-register-popup-handler.php:394
+#: includes/class.yith-easy-login-register-popup.php:97
+#: plugin-options/first-step-options.php:67
+#: plugin-options/lost-password-options.php:225
+msgid "Continue"
+msgstr "Continuer"
+
+#: includes/class.yith-easy-login-register-popup-handler.php:395
+#: plugin-options/lost-password-options.php:173
+msgid ""
+"For your security we need to authenticate your request. We've sent a code to "
+"your email. Please enter it below."
+msgstr ""
+"Pour votre sécurité, vous avez besoin d’authentifier votre demande. Nous "
+"avons envoyé un code par mail. Merci de le renseigner ci dessous."
+
+#: includes/class.yith-easy-login-register-popup-handler.php:402
+msgid ""
+"A new password reset email has been sent to the email address of your "
+"account."
+msgstr ""
+"Un nouvel email de réinitialisation du mot de passe vient d’être envoyé sur "
+"le mail lié à votre compte."
+
+#: includes/class.yith-easy-login-register-popup-handler.php:406
+#: plugin-options/lost-password-options.php:108
+msgid "Check your email"
+msgstr "Vérifiez votre boite mail"
+
+#: includes/class.yith-easy-login-register-popup-handler.php:407
+msgid ""
+"A password reset email has been sent to the email address of your account. "
+"If you did not receive it, check your spam folder or click to receive "
+"another email."
+msgstr ""
+
+#: includes/class.yith-easy-login-register-popup-handler.php:438
+msgid "Invalid code."
+msgstr "Code invalide."
+
+#: includes/class.yith-easy-login-register-popup-handler.php:442
+#: plugin-options/lost-password-options.php:315
+msgid "Save password and proceed to checkout"
+msgstr "Enregistrer le mot de passe et procéder au paiement"
+
+#: includes/class.yith-easy-login-register-popup-handler.php:443
+#: plugin-options/additional-popup-options.php:55
+msgid "Save password and access"
+msgstr "Enregistrer le mot de passe et accéder"
+
+#: includes/class.yith-easy-login-register-popup-handler.php:450
+#: plugin-options/lost-password-options.php:249
+msgid "Set a new password and login"
+msgstr "Définir un nouveau mot de passe et me connecter"
+
+#: includes/class.yith-easy-login-register-popup-handler.php:452
+#: plugin-options/lost-password-options.php:263
+msgid "Now you can set a new password for your account."
+msgstr ""
+"Maintenant vous pouvez créer un nouveau mot de passe pour votre compte."
+
+#: includes/class.yith-easy-login-register-popup-handler.php:483
+msgid "The password of your account has been changed successfully"
+msgstr ""
+
+#: includes/class.yith-easy-login-register-popup-handler.php:553
+msgid "ReCaptcha validation error. Please try again."
+msgstr ""
+
+#: includes/class.yith-easy-login-register-popup.php:48
+#: includes/class.yith-easy-login-register-popup.php:172
+#: plugin-options/lost-password-options.php:34
+msgid "Lost your password?"
+msgstr "Mot de passe oublié ?"
+
+#: includes/class.yith-easy-login-register-popup.php:49
+#: includes/class.yith-easy-login-register-popup.php:173
+#: plugin-options/lost-password-options.php:67
+msgid "Reset password"
+msgstr "Réinitialiser le mot de passe"
+
+#: includes/class.yith-easy-login-register-popup.php:50
+#: includes/class.yith-easy-login-register-popup.php:174
+#: plugin-options/lost-password-options.php:43
+msgid "Don't worry. Enter the email address of your account."
+msgstr "Pas de soucis. Renseigner l’adresse email de votre compte."
+
+#: includes/class.yith-easy-login-register-popup.php:95
+msgid "Go to checkout"
+msgstr "Aller au paiement"
+
+#: includes/class.yith-easy-login-register-popup.php:98
+msgid "E-mail address or username:"
+msgstr "Adresse email ou nom d’utilisateur:"
+
+#: includes/class.yith-easy-login-register-popup.php:101
+msgid "Don't want to register now?"
+msgstr ""
+
+#: includes/class.yith-easy-login-register-popup.php:102
+msgid "Guest Checkout"
+msgstr ""
+
+#: includes/class.yith-easy-login-register-popup.php:120
+#: includes/class.yith-easy-login-register-popup.php:144
+#: plugin-options/first-step-options.php:26 plugin-options/login-options.php:26
+#: plugin-options/register-options.php:26
+msgid "Proceed to checkout"
+msgstr "Procéder au paiement"
+
+#: includes/class.yith-easy-login-register-popup.php:121
+#: plugin-options/login-options.php:75
+msgid "Sign in"
+msgstr "Se connecter"
+
+#: includes/class.yith-easy-login-register-popup.php:124
+#: plugin-options/login-options.php:59
+msgid "Stay signed in"
+msgstr "Rester connecté"
+
+#: includes/class.yith-easy-login-register-popup.php:151
+#: plugin-options/register-options.php:96
+msgid "I have read and accepted your [terms] and [privacy_policy]"
+msgstr "J’ai lu et j’accepte les [terms] et la [privacy_policy]"
+
+#: includes/class.yith-easy-login-register-popup.php:171
+#: plugin-options/lost-password-options.php:26
+msgid "Recover your password"
+msgstr "Réinitialiser votre mot de passe"
+
+#: includes/class.yith-easy-login-register-popup.php:177
+#: plugin-options/lost-password-options.php:212
+msgid "Not received the code? Resend it"
+msgstr "Vous n’avez pas reçu le code? Le renvoyer"
+
+#: includes/class.yith-easy-login-register-popup.php:178
+#: plugin-options/lost-password-options.php:135
+msgid "Resend email"
+msgstr "Renvoyer l’email"
+
+#: includes/class.yith-easy-login-register-social.php:187
+msgid "You have successfully logged in."
+msgstr "Vous êtes connecté avec succès."
+
+#: includes/class.yith-easy-login-register.php:256
+#: plugin-options/first-step-options.php:34
+msgid "But first... login or register!"
+msgstr "Mais d’abord… connectez-vous ou créer un compte !"
+
+#: includes/class.yith-easy-login-register.php:257
+#: plugin-options/additional-popup-options.php:39
+msgid "Login or Register"
+msgstr "Se connecter ou Créer un compte"
+
+#: includes/email/class.yith-welrp-customer-authentication-code.php:60
+msgid "Reset password authentication code"
+msgstr "Code de réinitialisation du mot de passe"
+
+#: includes/email/class.yith-welrp-customer-authentication-code.php:61
+msgid ""
+"Customer \"reset password authentication code\" emails are sent when "
+"customers lose their passwords and ask to set a new one."
+msgstr ""
+"Les e-mails « réinitialiser le code d’authentification du mot de passe » du "
+"client sont envoyés lorsque les clients perdent leur mot de passe et "
+"demandent d’en définir un nouveau."
+
+#: includes/email/class.yith-welrp-customer-authentication-code.php:81
+msgid "Password reset request for {site_title}"
+msgstr "Demande de réinitialisation du mot de passe pour {site_title}"
+
+#: includes/email/class.yith-welrp-customer-authentication-code.php:91
+msgid "Password reset request"
+msgstr "Demande de réinitialisation du mot de passe"
+
+#: includes/functions.yith-easy-login-register.php:47
+msgid "An error has occurred! Please try again."
+msgstr "Une erreur vient de survenir. Merci de recommencer."
+
+#: plugin-options/first-step-options.php:104
+msgid "Login with Facebook"
+msgstr "Connexion avec Facebook"
+
+#: plugin-options/first-step-options.php:184
+msgid "Login with Google"
+msgstr "Connexion avec Google"
+
+#: plugin-options/lost-password-options.php:122
+msgid ""
+"A password reset email has been sent to the email address of your account. "
+"If you have not received it, check your spam folder or click on the "
+"following link to send another email."
+msgstr ""
+"Un e-mail de réinitialisation du mot de passe a été envoyé à l’adresse e-"
+"mail de votre compte. Si vous ne l’avez pas reçu, vérifiez votre dossier "
+"spam ou cliquez sur le lien suivant pour envoyer un autre e-mail."
+
+#. translators: %s: Customer first name
+#: templates/emails/customer-authentication-code.php:15
+#: templates/emails/plain/customer-authentication-code.php:15
+msgid "Hi %s,"
+msgstr "Bonjour %s,"
+
+#. translators: %s: Store name
+#: templates/emails/customer-authentication-code.php:17
+#: templates/emails/plain/customer-authentication-code.php:17
+msgid "Someone has requested a new password for the following account on %s:"
+msgstr ""
+"Quelqu’un vient de demander un nouveau mot de passe pour le compte suivant "
+"sur %s:"
+
+#. translators: %s Customer username
+#. translators: %s: Customer username
+#: templates/emails/customer-authentication-code.php:19
+#: templates/emails/plain/customer-authentication-code.php:19
+msgid "Username: %s"
+msgstr "Nom d’utilisateur: %s"
+
+#: templates/emails/customer-authentication-code.php:20
+#: templates/emails/plain/customer-authentication-code.php:20
+msgid ""
+"If it was not you, just ignore this email. If you'd like to proceed, copy "
+"and paste the following code into the authentication popup to validate the "
+"request and set a new password"
+msgstr ""
+"Si ce n’était pas vous, ignorez simplement cet e-mail. Si vous souhaitez "
+"continuer, copiez et collez le code suivant dans la fenêtre "
+"d’authentification pour valider la demande et définir un nouveau mot de passe"
+
+#: templates/login-section.php:25
+msgid "Not your account?"
+msgstr "Ce n’est pas votre compte?"
+
+#: templates/register-section.php:24
+msgid "Want to use a different email address?"
+msgstr "Utiliser une adresse email différente ?"
+
+#: templates/register-section.php:37
+msgid "Set an email for this account:"
+msgstr "Définir un email pour ce compte:"
+
+#: templates/register-section.php:38
+msgid "Enter email here"
+msgstr "Renseigner votre email ici"
+
+#. Description of the plugin/theme
+msgid ""
+"The <code><strong>YITH Easy Login & Register Popup For WooCommerce</strong></"
+"code> plugin lets you make the login, registration and password reset "
+"processes easier during the checkout and reducs the cart abandonment rate. "
+"<a href=\"https://yithemes.com/\" target=\"_blank\">Get more plugins for "
+"your e-commerce shop on <strong>YITH</strong></a>."
+msgstr ""
+
+#: includes/class.yith-easy-login-register-admin.php:78
+msgctxt "plugin name on options page"
+msgid "YITH Easy Login & Register Popup for WooCommerce"
+msgstr "YiTH Easy Login & Register Popup pour WooCommerce"
+
+#: includes/class.yith-easy-login-register-admin.php:79
+msgctxt "plugin description on options page"
+msgid ""
+"Makes the login, registration and password reset processes easier during the "
+"checkout and reduces the cart abandonment rate."
+msgstr ""
+"Rend le processus de connexion, l’enregistrement et la récupération du mot "
+"de passe plus simple lors du processus d’achat et réduit le taux d’abandon "
+"panier."
+
+#: includes/class.yith-easy-login-register-admin.php:80
+msgctxt "plugin name in YITH menu"
+msgid "Easy Login Register Popup"
+msgstr "Easy Login Register Popup"
+
+#: includes/class.yith-easy-login-register-popup-handler.php:229
+#: plugin-options/login-options.php:34
+msgctxt "[username] is a placeholder for username."
+msgid "Welcome back, [username]!"
+msgstr "Re bienvenue, [username]!"
+
+#: includes/class.yith-easy-login-register-popup.php:122
+#: plugin-options/login-options.php:51
+msgctxt "Input password label"
+msgid "Password:"
+msgstr "Mot de passe:"
+
+#: includes/class.yith-easy-login-register-popup.php:145
+#: plugin-options/register-options.php:51
+msgctxt "Input password label"
+msgid "Set a password for this account:"
+msgstr "Définir un mot de passe pour ce compte:"
+
+#: includes/class.yith-easy-login-register-popup.php:123
+#: includes/class.yith-easy-login-register-popup.php:146
+#: includes/class.yith-easy-login-register-popup.php:185
+msgctxt "Input password placeholder"
+msgid "Enter password here"
+msgstr "Renseigner votre mot de passe ici"
+
+#: includes/class.yith-easy-login-register-popup.php:148
+#: plugin-options/register-options.php:67
+msgctxt "Input repeat password label"
+msgid "Repeat password:"
+msgstr "Répéter le mot de passe:"
+
+#: includes/class.yith-easy-login-register-popup.php:149
+msgctxt "Input repeat password placeholder"
+msgid "Enter password again"
+msgstr "Renseigner le mot de passe à nouveau"
+
+#: includes/class.yith-easy-login-register-popup.php:187
+msgctxt "Input repeat password placeholder"
+msgid "Enter password here again"
+msgstr ""
+
+#: includes/class.yith-easy-login-register-popup.php:180
+msgctxt "User login input label"
+msgid "E-mail address or username:"
+msgstr "Adresse email ou nom d’utilisateur:"
+
+#: plugin-options/first-step-options.php:59
+#: plugin-options/lost-password-options.php:51
+msgctxt "User login input label"
+msgid "Email address or username:"
+msgstr "Adresse email ou nom d'utilisateur:"
+
+#: includes/class.yith-easy-login-register-popup.php:182
+msgctxt "Autheticate lost password action input label"
+msgid "Enter code:"
+msgstr "Entrer le code:"
+
+#: includes/class.yith-easy-login-register-popup.php:183
+msgctxt "Autheticate lost password action input placeholder"
+msgid "Enter code here"
+msgstr "Entrer le code ici"
+
+#: includes/class.yith-easy-login-register-popup.php:184
+#: plugin-options/lost-password-options.php:276
+msgctxt "Set new password action input label"
+msgid "New password:"
+msgstr "Nouveau mot de passe:"
+
+#: includes/class.yith-easy-login-register-popup.php:186
+#: plugin-options/lost-password-options.php:302
+msgctxt "Repeat new password action input label"
+msgid "Repeat password:"
+msgstr "Répéter le mot de passe:"
+
+#: includes/class.yith-easy-login-register-popup.php:203
+msgctxt "Input email placeholder"
+msgid "Enter your email or username here"
+msgstr "Renseigner votre email ou nom d’utilisateur ici"
+
+#: includes/class.yith-easy-login-register-popup.php:204
+msgctxt "Input email placeholder"
+msgid "Enter email here"
+msgstr "Renseigner votre email ici"
+
+#: includes/class.yith-easy-login-register-social-facebook.php:61
+#: includes/class.yith-easy-login-register-social-google.php:72
+#: includes/class.yith-easy-login-register-social-google.php:79
+msgctxt "Form error message"
+msgid "An error has occurred! Invalid token."
+msgstr "Oups, nous avons une erreur! Le token est invalide."
+
+#: includes/class.yith-easy-login-register-social.php:152
+msgctxt "Form error message"
+msgid "An error has occurred! A valid email address is required."
+msgstr "Oups, nous avons une erreur! Une adresse email valide est requise."
+
+#: plugin-options/additional-popup-options.php:15
+msgctxt "[admin]Settings section title"
+msgid "Additional Login/Register Popup"
+msgstr "Fenêtre popup de connexion/enregistrement"
+
+#: plugin-options/first-step-options.php:15
+msgctxt "[admin]Settings section title"
+msgid "First Step Options"
+msgstr "Options de la première étape"
+
+#: plugin-options/first-step-options.php:74
+msgctxt "[admin]Settings section title"
+msgid "Social Login Options"
+msgstr "Options des réseaux sociaux"
+
+#: plugin-options/general-options.php:15
+msgctxt "[admin]Settings section title"
+msgid "Popup general settings"
+msgstr "Réglages généraux de la popup"
+
+#: plugin-options/general-options.php:181
+msgctxt "[admin]Settings section title"
+msgid "Colors"
+msgstr "Couleurs"
+
+#: plugin-options/login-options.php:15
+msgctxt "[admin]Settings section title"
+msgid "Login options"
+msgstr "Options de connexion"
+
+#: plugin-options/lost-password-options.php:15
+msgctxt "[admin]Settings section title"
+msgid "Lost password options"
+msgstr "Options du mot de passe perdu"
+
+#: plugin-options/lost-password-options.php:74
+msgctxt "[admin]Settings section title"
+msgid "Recover password options"
+msgstr "Options de récupération du mot de passe"
+
+#: plugin-options/register-options.php:15
+msgctxt "[admin]Settings section title"
+msgid "Register options"
+msgstr "Options d'enregistrement"
+
+#: plugin-options/register-options.php:129
+msgctxt "[admin]Settings section title"
+msgid "Google reCaptcha"
+msgstr ""
+
+#: plugin-options/additional-popup-options.php:17
+msgctxt "[admin]Settings section description"
+msgid ""
+"You can also take our login/register popup out of the checkout process and "
+"place it anywhere on your site using CSS selectors. As a selector, you can "
+"either use the ID or the class of the element that will trigger the popup. "
+"Make sure that the ID is preceded by a hashtag # (e.g. #elementID) and the "
+"class by a dot . (e.g. .elementClass). You can also specify more elements "
+"and separate them with a comma (e.g. #element1, #element2)."
+msgstr ""
+
+#: plugin-options/additional-popup-options.php:31
+msgctxt "[admin]Settings section description"
+msgid ""
+"This popup will use the same content and settings of the checkout popup. You "
+"can change the following texts to make it simpler and avoid any reference to "
+"the checkout process."
+msgstr ""
+"Cette popup utilisera le même contenu et les mêmes paramètres que la popup "
+"de paiement. Vous pouvez modifier les textes suivants pour la rendre plus "
+"simple et éviter toute référence au processus de paiement."
+
+#: plugin-options/additional-popup-options.php:21
+msgctxt "[admin]Plugin option label"
+msgid "Enter the ID or CLASS of the element that will open the popup"
+msgstr "Renseigner l'ID ou la classe de l'élément qui ouvrira la popup"
+
+#: plugin-options/additional-popup-options.php:34
+#: plugin-options/first-step-options.php:29 plugin-options/login-options.php:29
+#: plugin-options/lost-password-options.php:29
+#: plugin-options/lost-password-options.php:103
+#: plugin-options/lost-password-options.php:154
+#: plugin-options/lost-password-options.php:244
+#: plugin-options/register-options.php:29
+msgctxt "[admin]Plugin option label"
+msgid "Popup title"
+msgstr "Titre de la popup"
+
+#: plugin-options/additional-popup-options.php:42
+msgctxt "[admin]Plugin option label"
+msgid "Register button text"
+msgstr "Texte du bouton d'enregistrement"
+
+#: plugin-options/additional-popup-options.php:50
+msgctxt "[admin]Plugin option label"
+msgid "Save password button in Recover password step"
+msgstr ""
+"Bouton pour enregistrer lors de l'étape de récupération du mot de passe"
+
+#: plugin-options/first-step-options.php:21 plugin-options/login-options.php:21
+#: plugin-options/lost-password-options.php:21
+#: plugin-options/register-options.php:21
+msgctxt "[admin]Plugin option label"
+msgid "Popup header text"
+msgstr "Texte d'en tête de la popup"
+
+#: plugin-options/first-step-options.php:37
+msgctxt "[admin]Plugin option label"
+msgid "Allow username"
+msgstr "Autoriser le nom d'utilisateur"
+
+#: plugin-options/first-step-options.php:45
+msgctxt "[admin]Plugin option label"
+msgid "Custom text before the form"
+msgstr "Texte personnalisé avant le formulaire"
+
+#: plugin-options/first-step-options.php:54
+#: plugin-options/lost-password-options.php:46
+msgctxt "[admin]Plugin option label"
+msgid "User input label"
+msgstr "Champ utilisateur"
+
+#: plugin-options/first-step-options.php:62
+#: plugin-options/lost-password-options.php:62
+#: plugin-options/lost-password-options.php:220
+#: plugin-options/lost-password-options.php:310
+#: plugin-options/register-options.php:117
+msgctxt "[admin]Plugin option label"
+msgid "Button text"
+msgstr "Texte du bouton"
+
+#: plugin-options/first-step-options.php:80
+msgctxt "[admin]Plugin option label"
+msgid "Facebook login"
+msgstr "Connexion à Facebook"
+
+#: plugin-options/first-step-options.php:89
+msgctxt "[admin]Plugin option label"
+msgid "Facebook App ID"
+msgstr "Facebook App ID"
+
+#: plugin-options/first-step-options.php:95
+msgctxt "[admin]Plugin option label"
+msgid "Facebook App Secret"
+msgstr "Facebook App Secret"
+
+#: plugin-options/first-step-options.php:101
+msgctxt "[admin]Plugin option label"
+msgid "Facebook button text"
+msgstr "Texte du bouton Facebook"
+
+#: plugin-options/first-step-options.php:107
+#: plugin-options/first-step-options.php:187
+msgctxt "[admin]Plugin option label"
+msgid "Button background color"
+msgstr "Couleur de fond du bouton"
+
+#: plugin-options/first-step-options.php:112
+#: plugin-options/first-step-options.php:129
+#: plugin-options/first-step-options.php:146
+#: plugin-options/first-step-options.php:192
+#: plugin-options/first-step-options.php:209
+#: plugin-options/first-step-options.php:226
+#: plugin-options/general-options.php:218
+#: plugin-options/general-options.php:237
+#: plugin-options/general-options.php:256
+#: plugin-options/general-options.php:275
+msgctxt "[admin]Plugin option label"
+msgid "Default color"
+msgstr "Couleur par défaut"
+
+#: plugin-options/first-step-options.php:117
+#: plugin-options/first-step-options.php:134
+#: plugin-options/first-step-options.php:151
+#: plugin-options/first-step-options.php:197
+#: plugin-options/first-step-options.php:214
+#: plugin-options/first-step-options.php:231
+#: plugin-options/general-options.php:223
+#: plugin-options/general-options.php:242
+#: plugin-options/general-options.php:261
+#: plugin-options/general-options.php:280
+msgctxt "[admin]Plugin option label"
+msgid "Hover color"
+msgstr "Couleur au survol"
+
+#: plugin-options/first-step-options.php:124
+#: plugin-options/first-step-options.php:204
+msgctxt "[admin]Plugin option label"
+msgid "Button border color"
+msgstr "Couleur de la bordure du bouton"
+
+#: plugin-options/first-step-options.php:141
+#: plugin-options/first-step-options.php:221
+msgctxt "[admin]Plugin option label"
+msgid "Button text color"
+msgstr "Couleur du texte du bouton"
+
+#: plugin-options/first-step-options.php:158
+msgctxt "[admin]Plugin option label"
+msgid "Facebook icon"
+msgstr "Icône Facebook"
+
+#: plugin-options/first-step-options.php:166
+msgctxt "[admin]Plugin option label"
+msgid "Google login"
+msgstr "Connexion avec Google"
+
+#: plugin-options/first-step-options.php:175
+msgctxt "[admin]Plugin option label"
+msgid "Google Client ID"
+msgstr "Google Client ID"
+
+#: plugin-options/first-step-options.php:181
+msgctxt "[admin]Plugin option label"
+msgid "Google button text"
+msgstr "Texte du bouton Google"
+
+#: plugin-options/first-step-options.php:238
+msgctxt "[admin]Plugin option label"
+msgid "Google icon"
+msgstr "Icône Google"
+
+#: plugin-options/general-options.php:21
+msgctxt "[admin]Plugin option label"
+msgid "Popup size"
+msgstr "Dimension de la popup"
+
+#: plugin-options/general-options.php:29
+msgctxt "[admin]Plugin option label"
+msgid "Close popup by clicking on the background"
+msgstr "Fermer la popup en cliquant sur l’arrière plan"
+
+#: plugin-options/general-options.php:37
+msgctxt "[admin]Plugin option label"
+msgid "Blur background"
+msgstr "Flouter le fond"
+
+#: plugin-options/general-options.php:45
+msgctxt "[admin]Plugin option label"
+msgid "Popup animations"
+msgstr "Animations de la popup"
+
+#: plugin-options/general-options.php:53
+msgctxt "[admin]Plugin option label"
+msgid "Entrance animation"
+msgstr "Animation d’ouverture"
+
+#: plugin-options/general-options.php:169
+msgctxt "[admin]Plugin option label"
+msgid "Close popup icon"
+msgstr "Icône de fermeture de la popup"
+
+#: plugin-options/general-options.php:187
+msgctxt "[admin]Plugin option label"
+msgid "Popup background color"
+msgstr "Couleur de fond de la popup"
+
+#: plugin-options/general-options.php:195
+msgctxt "[admin]Plugin option label"
+msgid "Popup header background color"
+msgstr "Couleur de fond de l'en tête de la popup"
+
+#: plugin-options/general-options.php:203
+msgctxt "[admin]Plugin option label"
+msgid "Popup text color"
+msgstr "Couleur du texte de la popup"
+
+#: plugin-options/general-options.php:211
+msgctxt "[admin]Plugin option label"
+msgid "Popup link colors"
+msgstr "Couleurs des liens de la popup"
+
+#: plugin-options/general-options.php:230
+msgctxt "[admin]Plugin option label"
+msgid "Button colors"
+msgstr "Couleurs du bouton"
+
+#: plugin-options/general-options.php:249
+msgctxt "[admin]Plugin option label"
+msgid "Button border colors"
+msgstr "Couleurs de la bordure du bouton"
+
+#: plugin-options/general-options.php:268
+msgctxt "[admin]Plugin option label"
+msgid "Button text colors"
+msgstr "Couleurs du texte du bouton"
+
+#: plugin-options/general-options.php:287
+msgctxt "[admin]Plugin option label"
+msgid "Overlay background color"
+msgstr "Couleur de fond de superposition"
+
+#: plugin-options/login-options.php:37
+msgctxt "[admin]Plugin option label"
+msgid "Custom text before the password form"
+msgstr "Texte personnalisé avant le formulaire du mot de passe"
+
+#: plugin-options/login-options.php:46
+#: plugin-options/lost-password-options.php:271
+#: plugin-options/register-options.php:46
+msgctxt "[admin]Plugin option label"
+msgid "Password input label"
+msgstr "Champ mot de passe"
+
+#: plugin-options/login-options.php:54
+msgctxt "[admin]Plugin option label"
+msgid "Text for Stay signed in option"
+msgstr "Texte pour \" Rester connecté\""
+
+#: plugin-options/login-options.php:62
+msgctxt "[admin]Plugin option label"
+msgid "Check Stay signed in by default"
+msgstr "Cocher \"Rester connecté\" par défaut"
+
+#: plugin-options/login-options.php:70
+msgctxt "[admin]Plugin option label"
+msgid "Button label"
+msgstr "Texte du bouton"
+
+#: plugin-options/lost-password-options.php:37
+msgctxt "[admin]Plugin option label"
+msgid "Custom text before email form"
+msgstr "Texte personnalisé avant le formulaire de l'email"
+
+#: plugin-options/lost-password-options.php:54
+msgctxt "[admin]Plugin option label"
+msgid "Pre-filled email field"
+msgstr "Pré remplir le champ email"
+
+#: plugin-options/lost-password-options.php:80
+msgctxt "[admin]Plugin option label"
+msgid "Recover password type"
+msgstr ""
+
+#: plugin-options/lost-password-options.php:86
+msgctxt "[admin]Plugin option label"
+msgid "Classic (users will receive a link by email to reset the password)"
+msgstr ""
+"Classique (les utilisateurs recevront un lien par email pour réinitialiser "
+"le mot de passe)"
+
+#: plugin-options/lost-password-options.php:87
+msgctxt "[admin]Plugin option label"
+msgid ""
+"With code (users will receive a code by email to set a new password without "
+"leaving the checkout process)"
+msgstr ""
+"Avec un code (les utilisateurs recevront un code par email pour définir un "
+"nouveau mot de passe sans quitter le processus de paiement)"
+
+#: plugin-options/lost-password-options.php:94
+msgctxt "[admin]Plugin option label"
+msgid "Recover password email options"
+msgstr "Options de récupération du mot de passe par email"
+
+#: plugin-options/lost-password-options.php:116
+msgctxt "[admin]Plugin option label"
+msgid "Custom text"
+msgstr "Texte personnalisé"
+
+#: plugin-options/lost-password-options.php:130
+msgctxt "[admin]Plugin option label"
+msgid "Resend email label"
+msgstr "Texte de renvoi par email"
+
+#: plugin-options/lost-password-options.php:145
+msgctxt "[admin]Plugin option label"
+msgid "Authentication options"
+msgstr "Options d'authentification"
+
+#: plugin-options/lost-password-options.php:167
+msgctxt "[admin]Plugin option label"
+msgid "Custom text before Code field"
+msgstr "Texte personnalisé avec le champ du code"
+
+#: plugin-options/lost-password-options.php:181
+msgctxt "[admin]Plugin option label"
+msgid "Code input label"
+msgstr "Texte du champ Code"
+
+#: plugin-options/lost-password-options.php:194
+msgctxt "[admin]Plugin option label"
+msgid "Send code again"
+msgstr "Envoyer à nouveau le code"
+
+#: plugin-options/lost-password-options.php:207
+msgctxt "[admin]Plugin option label"
+msgid "Send code again label"
+msgstr "Texte pour envoyer un nouveau code"
+
+#: plugin-options/lost-password-options.php:235
+msgctxt "[admin]Plugin option label"
+msgid "Set a new password options"
+msgstr "Options pour définir un nouveau mot de passe"
+
+#: plugin-options/lost-password-options.php:257
+msgctxt "[admin]Plugin option label"
+msgid "Custom text before password field"
+msgstr "Texte personnalisé avec le champ mot de passe"
+
+#: plugin-options/lost-password-options.php:284
+#: plugin-options/register-options.php:54
+msgctxt "[admin]Plugin option label"
+msgid "Repeat password option"
+msgstr "Option répéter le mot de passe"
+
+#: plugin-options/lost-password-options.php:297
+#: plugin-options/register-options.php:62
+msgctxt "[admin]Plugin option label"
+msgid "Repeat password input label"
+msgstr "Texte répéter le mot de passe"
+
+#: plugin-options/register-options.php:37
+msgctxt "[admin]Plugin option label"
+msgid "Custom text before password form"
+msgstr "Texte personnalisé avant le formulaire du mot de passe"
+
+#: plugin-options/register-options.php:75
+msgctxt "[admin]Plugin option label"
+msgid "Password strength check"
+msgstr ""
+
+#: plugin-options/register-options.php:83
+msgctxt "[admin]Plugin option label"
+msgid "Privacy policy checkbox"
+msgstr "Case à cocher Politique de confidentialité"
+
+#: plugin-options/register-options.php:91
+msgctxt "[admin]Plugin option label"
+msgid "Privacy policy text"
+msgstr "Texte Politique de confidentialité"
+
+#: plugin-options/register-options.php:104
+msgctxt "[admin]Plugin option label"
+msgid "Check Privacy Policy by default"
+msgstr "Cocher la case Politique de confidentialité par défaut"
+
+#: plugin-options/register-options.php:135
+msgctxt "[admin]Plugin option label"
+msgid "Enable Google reCaptcha"
+msgstr ""
+
+#: plugin-options/register-options.php:143
+msgctxt "[admin]Plugin option label"
+msgid "reCaptcha Public Key"
+msgstr ""
+
+#: plugin-options/register-options.php:155
+msgctxt "[admin]Plugin option label"
+msgid "reCaptcha Private Key"
+msgstr ""
+
+#: plugin-options/additional-popup-options.php:37
+#: plugin-options/lost-password-options.php:32
+#: plugin-options/lost-password-options.php:106
+#: plugin-options/lost-password-options.php:157
+#: plugin-options/lost-password-options.php:247
+#: plugin-options/register-options.php:32
+msgctxt "[admin]Plugin option description"
+msgid "Enter a title for the popup."
+msgstr "Renseigner un titre pour la popup."
+
+#: plugin-options/first-step-options.php:24 plugin-options/login-options.php:24
+#: plugin-options/lost-password-options.php:24
+#: plugin-options/register-options.php:24
+msgctxt "[admin]Plugin option description"
+msgid "Enter a text for the popup header section."
+msgstr "Renseigner un texte pour la section d'en tête de la popup."
+
+#: plugin-options/first-step-options.php:32
+msgctxt "[admin]Plugin option description"
+msgid "Set a title for the popup."
+msgstr "Renseigner le titre de la popup."
+
+#: plugin-options/first-step-options.php:40
+msgctxt "[admin]Plugin option description"
+msgid ""
+"If enabled the user can also enter the username to log in. If disabled, only "
+"the email address can be used to log in."
+msgstr ""
+"S'il est activé, l'utilisateur peut également entrer le nom d'utilisateur "
+"pour se connecter. S'il est désactivé, seule l'adresse e-mail peut être "
+"utilisée pour se connecter."
+
+#: plugin-options/first-step-options.php:49
+msgctxt "[admin]Plugin option description"
+msgid "Here you can add a custom text that will be shown before the form."
+msgstr ""
+"Ici vous pouvez ajouter du texte personnalisé qui sera affiché avant le "
+"formulaire."
+
+#: plugin-options/first-step-options.php:57
+msgctxt "[admin]Plugin option description"
+msgid "Enter a text for the email/username input field."
+msgstr "Renseigner le texte pour le champ email/nom d'utilisateur."
+
+#: plugin-options/first-step-options.php:65
+msgctxt "[admin]Plugin option description"
+msgid "Enter the text for the button that redirects users to the next step."
+msgstr ""
+"Renseigner le texte du bouton qui redirigera les utilisateur à l'étape "
+"suivante."
+
+#: plugin-options/first-step-options.php:91
+msgctxt "[admin]Plugin option description"
+msgid ""
+"Add your Facebook App ID. <a href=\"%s\" target=\"_blank\">Find it ></a>"
+msgstr ""
+"Ajouter votre ID Facebook App <a href=\"%s\" target=\"_blank\">Trouvez-le ></"
+"a>"
+
+#: plugin-options/first-step-options.php:97
+msgctxt "[admin]Plugin option description"
+msgid "Add your Facebook App Secret"
+msgstr "Ajouter votre Facebook App Secret"
+
+#: plugin-options/first-step-options.php:160
+msgctxt "[admin]Plugin option description"
+msgid ""
+"Upload a custom icon for Facebook button. Recommended size 20x20px (leave "
+"empty to use the default one)."
+msgstr ""
+"Téléverser une icône personnalisée pour le bouton Facebook. Taille "
+"recommandée 20x20px (laisser vide pour utiliser celle par défaut)."
+
+#: plugin-options/first-step-options.php:177
+msgctxt "[admin]Plugin option description"
+msgid ""
+"Add your Google Client ID. <a href=\"%s\" target=\"_blank\">Find it ></a>"
+msgstr ""
+"Ajouter votre Google Client ID <a href=\"%s\" target=\"_blank\">Trouvez-le "
+"></a>"
+
+#: plugin-options/first-step-options.php:240
+msgctxt "[admin]Plugin option description"
+msgid ""
+"Upload a custom icon for Google button. Recommended size 20x20px (leave "
+"empty to use the default one)."
+msgstr ""
+"Téléverser une icône personnalisée pour le bouton Google. Taille recommandée "
+"20x20px (laisser vide pour utiliser celle par défaut)."
+
+#: plugin-options/general-options.php:24
+msgctxt "[admin]Plugin option description"
+msgid ""
+"Set the size of the popup window in pixel. In our demo we use a 590px width."
+msgstr ""
+"Définir la dimension de la fenêtre popup en pixel. Dans notre démo nous "
+"utilisons 590px de large."
+
+#: plugin-options/general-options.php:32
+msgctxt "[admin]Plugin option description"
+msgid ""
+"If enabled, when the user clicks on the overlay background the popup will "
+"close."
+msgstr ""
+"Si activé, quand l’utilisateur cliquera sur l’arrière plan la popup se "
+"fermera."
+
+#: plugin-options/general-options.php:40
+msgctxt "[admin]Plugin option description"
+msgid "If enabled, the page content will be blurred when the popup is opened."
+msgstr ""
+"Si activé, le contenu de la page en arrière plan sera flouté quand la popup "
+"est ouverte."
+
+#: plugin-options/general-options.php:49
+msgctxt "[admin]Plugin option description"
+msgid ""
+"Choose the entrance and exit animation effects for the popup opening and "
+"closing. Default values are fade in and fade out."
+msgstr ""
+"Choisir l’animation lors de l’ouverture et fermeture de la popup. La valeur "
+"par défaut est fade in et fade out."
+
+#: plugin-options/general-options.php:172
+msgctxt "[admin]Plugin option description"
+msgid ""
+"Upload a custom icon for the Close button in the popup (X icon by default)."
+msgstr ""
+"Faîtes parvenir une icône personnalisée pour le bouton de fermeture de la "
+"popup (X est l’icône par défaut)."
+
+#: plugin-options/general-options.php:233
+msgctxt "[admin]Plugin option description"
+msgid "Set the button colors (default and hover)"
+msgstr "Définir les couleurs du bouton (défaut et au survol)"
+
+#: plugin-options/general-options.php:252
+msgctxt "[admin]Plugin option description"
+msgid "Set the button border color (default and hover)"
+msgstr "Définir les couleurs de la bordure du bouton (défaut et au survol)"
+
+#: plugin-options/login-options.php:32
+msgctxt "[admin]Plugin option description"
+msgid ""
+"Enter a title for the login popup. Use [username] as a placeholder for the "
+"current username."
+msgstr ""
+"Renseigner un titre pour la fenêtre de connexion. Utilisez [username] pour "
+"afficher le nom d'utilisateur du client."
+
+#: plugin-options/login-options.php:41
+msgctxt "[admin]Plugin option description"
+msgid ""
+"Here you can add a custom text that will be shown before the password form."
+msgstr ""
+"Ici vous pouvez ajouter un texte personnalisé qui sera affiché avant le "
+"formulaire du mot de passe."
+
+#: plugin-options/login-options.php:49
+msgctxt "[admin]Plugin option description"
+msgid "Enter text for password input label."
+msgstr "Renseigner le texte pour le champ mot de passe."
+
+#: plugin-options/login-options.php:57
+msgctxt "[admin]Plugin option description"
+msgid "Enter a text for the Stay signed in option under the password field."
+msgstr ""
+"Renseigner le texte pour \"Rester connecté\" sous le champ mot de passe."
+
+#: plugin-options/login-options.php:65
+msgctxt "[admin]Plugin option description"
+msgid "If enabled, the Stay signed in option will be checked by default."
+msgstr "Si activé, la case \"Rester connecté\" sera cochée par défaut."
+
+#: plugin-options/login-options.php:73
+msgctxt "[admin]Plugin option description"
+msgid "Enter the text for the login button."
+msgstr "Renseigner le texte pour le bouton de connexion."
+
+#: plugin-options/lost-password-options.php:41
+msgctxt "[admin]Plugin option description"
+msgid ""
+"Here you can add a custom text that will be shown before the email form."
+msgstr ""
+"Ici vous pouvez ajouter un texte personnalisé avant que le formulaire ou le "
+"client renseigne le mail ou recevoir le mot de passe n'apparaisse."
+
+#: plugin-options/lost-password-options.php:49
+msgctxt "[admin]Plugin option description"
+msgid "Enter the text for the email/username input field."
+msgstr "Renseigner le texte pour le champ email/nom d'utilisateur."
+
+#: plugin-options/lost-password-options.php:57
+msgctxt "[admin]Plugin option description"
+msgid ""
+"If enabled the email field will be automatically populated with the email "
+"address entered by the user."
+msgstr ""
+"Si activé, le champ email sera automatiquement rempli avec l'adresse email "
+"renseignée par l'utilisateur."
+
+#: plugin-options/lost-password-options.php:65
+#: plugin-options/lost-password-options.php:313
+msgctxt "[admin]Plugin option description"
+msgid "Enter the text for the button"
+msgstr "Renseigner le texte pour le bouton"
+
+#: plugin-options/lost-password-options.php:120
+msgctxt "[admin]Plugin option description"
+msgid ""
+"Here you can add a custom text that will confirm that the email has been "
+"sent."
+msgstr ""
+"Ici vous pouvez ajouter un texte personnalisé qui confirme que le mail a "
+"bien été envoyé."
+
+#: plugin-options/lost-password-options.php:171
+msgctxt "[admin]Plugin option description"
+msgid ""
+"Here you can add a custom text that will be shown before the Code field."
+msgstr ""
+"Ici vous pouvez ajouter un texte personnalisé qui sera affiché avec le champ "
+"du code."
+
+#: plugin-options/lost-password-options.php:184
+msgctxt "[admin]Plugin option description"
+msgid "Enter a text for the authentication code input field."
+msgstr "Renseigner un texte pour l'authentification par code."
+
+#: plugin-options/lost-password-options.php:197
+msgctxt "[admin]Plugin option description"
+msgid "If enabled, the user can request a new code."
+msgstr "Si activé, l'utilisateur peut demander un nouveau code."
+
+#: plugin-options/lost-password-options.php:223
+msgctxt "[admin]Plugin option description"
+msgid "Enter here the text for the button"
+msgstr "Renseigner ici le texte du bouton"
+
+#: plugin-options/lost-password-options.php:261
+msgctxt "[admin]Plugin option description"
+msgid ""
+"Here you can add a custom text that will be shown before the password field."
+msgstr ""
+"Ici vous pouvez ajouter un texte personnalisé qui sera affiché avant le "
+"champ mot de passe."
+
+#: plugin-options/lost-password-options.php:274
+msgctxt "[admin]Plugin option description"
+msgid "Enter a text for the new password input field."
+msgstr "Renseigner le texte pour le champ nouveau mot de passe."
+
+#: plugin-options/lost-password-options.php:287
+msgctxt "[admin]Plugin option description"
+msgid "If enabled, the user will have to put the password twice."
+msgstr "Si activé, l'utilisateur devra renseigner le mot de passe deux fois."
+
+#: plugin-options/lost-password-options.php:300
+msgctxt "[admin]Plugin option description"
+msgid "Enter a text for the Repeat password input field."
+msgstr "Renseigner un texte pour le champ \"Répéter le mot de passe\"."
+
+#: plugin-options/register-options.php:41
+msgctxt "[admin]Plugin option description"
+msgid ""
+"Here you can add a custom text that will be shown before the password form. "
+"Use [blogname] as placeholder for blog name."
+msgstr ""
+"Ici, vous pouvez ajouter un texte personnalisé qui sera affiché avant le "
+"formulaire de mot de passe. Utilisez [blogname] comme espace réservé pour le "
+"nom du site."
+
+#: plugin-options/register-options.php:49
+msgctxt "[admin]Plugin option description"
+msgid "Enter a text for the password input label."
+msgstr "Renseigner un texte pour le champ mot de passe."
+
+#: plugin-options/register-options.php:57
+msgctxt "[admin]Plugin option description"
+msgid "If enabled, the user will be asked to enter the password twice."
+msgstr "Si activé l'utilisateur devra renseigner deux fois le mot de passe."
+
+#: plugin-options/register-options.php:65
+msgctxt "[admin]Plugin option description"
+msgid "Enter a text for the Repeat password input label."
+msgstr "Renseigner un texte pour le champ répéter le mot de passe."
+
+#: plugin-options/register-options.php:78
+msgctxt "[admin]Plugin option description"
+msgid "If enabled, an additional password strength check will be added."
+msgstr ""
+
+#: plugin-options/register-options.php:86
+msgctxt "[admin]Plugin option description"
+msgid "If enabled a Privacy Policy checkbox will be shown."
+msgstr "Si activé, la case Politique de confidentialité sera affichée."
+
+#: plugin-options/register-options.php:94
+msgctxt "[admin]Plugin option description"
+msgid ""
+"Enter a text for the Privacy Policy checkbox. Use [terms] as placeholder for "
+"the Terms and Conditions page and [privacy_policy] as a placeholder for the "
+"Privacy Policy page."
+msgstr ""
+"Renseigner le texte pour la politique de confidentialité. Utilisez [terms] "
+"pour faire un lien vers les mentions légales et [privacy_policy] pour faire "
+"un lien vers la politique de confidentialité."
+
+#: plugin-options/register-options.php:107
+msgctxt "[admin]Plugin option description"
+msgid "If enabled the Privacy Policy option will be checked by default."
+msgstr "Si activé, la case sera cochée par défaut."
+
+#: plugin-options/register-options.php:120
+msgctxt "[admin]Plugin option description"
+msgid "Set the label for the register popup button."
+msgstr "Définir le champ texte pour le bouton de création de compte."
+
+#: plugin-options/register-options.php:138
+msgctxt "[admin]Plugin option description"
+msgid "Add reCaptcha (v2) verification to register form."
+msgstr ""
+
+#: plugin-options/general-options.php:57
+msgctxt "[admin]Plugin animation option group"
+msgid "Fading entrances"
+msgstr ""
+
+#: plugin-options/general-options.php:71
+msgctxt "[admin]Plugin animation option group"
+msgid "Bouncing entrances"
+msgstr ""
+
+#: plugin-options/general-options.php:81 plugin-options/general-options.php:138
+msgctxt "[admin]Plugin animation option group"
+msgid "Flippers"
+msgstr ""
+
+#: plugin-options/general-options.php:88
+msgctxt "[admin]Plugin animation option group"
+msgid "Sliding entrances"
+msgstr ""
+
+#: plugin-options/general-options.php:97
+msgctxt "[admin]Plugin animation option group"
+msgid "Zoom entrances"
+msgstr ""
+
+#: plugin-options/general-options.php:114
+msgctxt "[admin]Plugin animation option group"
+msgid "Fading exits"
+msgstr ""
+
+#: plugin-options/general-options.php:128
+msgctxt "[admin]Plugin animation option group"
+msgid "Bouncing exits"
+msgstr ""
+
+#: plugin-options/general-options.php:145
+msgctxt "[admin]Plugin animation option group"
+msgid "Sliding exits"
+msgstr ""
+
+#: plugin-options/general-options.php:154
+msgctxt "[admin]Plugin animation option group"
+msgid "Zoom exits"
+msgstr ""
+
+#: plugin-options/general-options.php:59
+msgctxt "[admin]Plugin animation option label"
+msgid "Fade in"
+msgstr ""
+
+#: plugin-options/general-options.php:60
+msgctxt "[admin]Plugin animation option label"
+msgid "Fade in up"
+msgstr ""
+
+#: plugin-options/general-options.php:61
+msgctxt "[admin]Plugin animation option label"
+msgid "Fade in down"
+msgstr ""
+
+#: plugin-options/general-options.php:62
+msgctxt "[admin]Plugin animation option label"
+msgid "Fade in right"
+msgstr ""
+
+#: plugin-options/general-options.php:63
+msgctxt "[admin]Plugin animation option label"
+msgid "Fade in left"
+msgstr ""
+
+#: plugin-options/general-options.php:64
+msgctxt "[admin]Plugin animation option label"
+msgid "Fade in up big"
+msgstr ""
+
+#: plugin-options/general-options.php:65
+msgctxt "[admin]Plugin animation option label"
+msgid "Fade in down big"
+msgstr ""
+
+#: plugin-options/general-options.php:66
+msgctxt "[admin]Plugin animation option label"
+msgid "Fade in right big"
+msgstr ""
+
+#: plugin-options/general-options.php:67
+msgctxt "[admin]Plugin animation option label"
+msgid "Fade in left big"
+msgstr ""
+
+#: plugin-options/general-options.php:73
+msgctxt "[admin]Plugin animation option label"
+msgid "Bounce in"
+msgstr ""
+
+#: plugin-options/general-options.php:74
+msgctxt "[admin]Plugin animation option label"
+msgid "Bounce in up"
+msgstr ""
+
+#: plugin-options/general-options.php:75
+msgctxt "[admin]Plugin animation option label"
+msgid "Bounce in down"
+msgstr ""
+
+#: plugin-options/general-options.php:76
+msgctxt "[admin]Plugin animation option label"
+msgid "Bounce in right"
+msgstr ""
+
+#: plugin-options/general-options.php:77
+msgctxt "[admin]Plugin animation option label"
+msgid "Bounce in left"
+msgstr ""
+
+#: plugin-options/general-options.php:83
+msgctxt "[admin]Plugin animation option label"
+msgid "Flip in X"
+msgstr ""
+
+#: plugin-options/general-options.php:84
+msgctxt "[admin]Plugin animation option label"
+msgid "Flip in Y"
+msgstr ""
+
+#: plugin-options/general-options.php:90
+msgctxt "[admin]Plugin animation option label"
+msgid "Slide in up"
+msgstr ""
+
+#: plugin-options/general-options.php:91
+msgctxt "[admin]Plugin animation option label"
+msgid "Slide in down"
+msgstr ""
+
+#: plugin-options/general-options.php:92
+msgctxt "[admin]Plugin animation option label"
+msgid "Slide in right"
+msgstr ""
+
+#: plugin-options/general-options.php:93
+msgctxt "[admin]Plugin animation option label"
+msgid "Slide in left"
+msgstr ""
+
+#: plugin-options/general-options.php:99
+msgctxt "[admin]Plugin animation option label"
+msgid "Zoom in"
+msgstr ""
+
+#: plugin-options/general-options.php:100
+msgctxt "[admin]Plugin animation option label"
+msgid "Zoom in up"
+msgstr ""
+
+#: plugin-options/general-options.php:101
+msgctxt "[admin]Plugin animation option label"
+msgid "Zoom in down"
+msgstr ""
+
+#: plugin-options/general-options.php:102
+msgctxt "[admin]Plugin animation option label"
+msgid "Zoom in right"
+msgstr ""
+
+#: plugin-options/general-options.php:103
+msgctxt "[admin]Plugin animation option label"
+msgid "Zoom in left"
+msgstr ""
+
+#: plugin-options/general-options.php:116
+msgctxt "[admin]Plugin animation option label"
+msgid "Fade out"
+msgstr ""
+
+#: plugin-options/general-options.php:117
+msgctxt "[admin]Plugin animation option label"
+msgid "Fade out up"
+msgstr ""
+
+#: plugin-options/general-options.php:118
+msgctxt "[admin]Plugin animation option label"
+msgid "Fade out down"
+msgstr ""
+
+#: plugin-options/general-options.php:119
+msgctxt "[admin]Plugin animation option label"
+msgid "Fade out right"
+msgstr ""
+
+#: plugin-options/general-options.php:120
+msgctxt "[admin]Plugin animation option label"
+msgid "Fade out left"
+msgstr ""
+
+#: plugin-options/general-options.php:121
+msgctxt "[admin]Plugin animation option label"
+msgid "Fade out up big"
+msgstr ""
+
+#: plugin-options/general-options.php:122
+msgctxt "[admin]Plugin animation option label"
+msgid "Fade out down big"
+msgstr ""
+
+#: plugin-options/general-options.php:123
+msgctxt "[admin]Plugin animation option label"
+msgid "Fade out right big"
+msgstr ""
+
+#: plugin-options/general-options.php:124
+msgctxt "[admin]Plugin animation option label"
+msgid "Fade out left big"
+msgstr ""
+
+#: plugin-options/general-options.php:130
+msgctxt "[admin]Plugin animation option label"
+msgid "Bounce out"
+msgstr ""
+
+#: plugin-options/general-options.php:131
+msgctxt "[admin]Plugin animation option label"
+msgid "Bounce out up"
+msgstr ""
+
+#: plugin-options/general-options.php:132
+msgctxt "[admin]Plugin animation option label"
+msgid "Bounce out down"
+msgstr ""
+
+#: plugin-options/general-options.php:133
+msgctxt "[admin]Plugin animation option label"
+msgid "Bounce out right"
+msgstr ""
+
+#: plugin-options/general-options.php:134
+msgctxt "[admin]Plugin animation option label"
+msgid "Bounce out left"
+msgstr ""
+
+#: plugin-options/general-options.php:140
+msgctxt "[admin]Plugin animation option label"
+msgid "Flip out X"
+msgstr ""
+
+#: plugin-options/general-options.php:141
+msgctxt "[admin]Plugin animation option label"
+msgid "Flip out Y"
+msgstr ""
+
+#: plugin-options/general-options.php:147
+msgctxt "[admin]Plugin animation option label"
+msgid "Slide out up"
+msgstr ""
+
+#: plugin-options/general-options.php:148
+msgctxt "[admin]Plugin animation option label"
+msgid "Slide out down"
+msgstr ""
+
+#: plugin-options/general-options.php:149
+msgctxt "[admin]Plugin animation option label"
+msgid "Slide out right"
+msgstr ""
+
+#: plugin-options/general-options.php:150
+msgctxt "[admin]Plugin animation option label"
+msgid "Slide out left"
+msgstr ""
+
+#: plugin-options/general-options.php:156
+msgctxt "[admin]Plugin animation option label"
+msgid "Zoom out"
+msgstr ""
+
+#: plugin-options/general-options.php:157
+msgctxt "[admin]Plugin animation option label"
+msgid "Zoom out up"
+msgstr ""
+
+#: plugin-options/general-options.php:158
+msgctxt "[admin]Plugin animation option label"
+msgid "Zoom out down"
+msgstr ""
+
+#: plugin-options/general-options.php:159
+msgctxt "[admin]Plugin animation option label"
+msgid "Zoom out right"
+msgstr ""
+
+#: plugin-options/general-options.php:160
+msgctxt "[admin]Plugin animation option label"
+msgid "Zoom out left"
+msgstr ""
+
+#: plugin-options/general-options.php:110
+msgctxt "Plugin option label"
+msgid "Exit animation"
+msgstr "Animation de fermeture"
+
+#: plugin-options/lost-password-options.php:186
+msgctxt "Authenticate lost password action input label"
+msgid "Enter code:"
+msgstr "Renseigner le code:"
+
+#: templates/email-section.php:44
+msgctxt "Social line separator text"
+msgid "or"
+msgstr "ou"
+
+#: templates/login-section.php:26 templates/register-section.php:25
+msgctxt "Go back link text"
+msgid "Go back"
+msgstr "Retour"
+
+#: templates/lost-password-section.php:68
+msgctxt "Go back link text"
+msgid "< Go back"
+msgstr "< Retour"
+
+#: templates/login-section.php:50
+msgctxt "Reset password section link"
+msgid "Forgot your password?"
+msgstr "Mot de passe oublié?"
+
+#~ msgid "https://yithemes.com/"
+#~ msgstr "https://yithemes.com/"
+
+#~ msgid "YITH"
+#~ msgstr "YITH"
+
+#~ msgid "YITH Easy Login & Register Popup For WooCommerce"
+#~ msgstr "YITH Easy Login & Register Popup pour WooCommerce"

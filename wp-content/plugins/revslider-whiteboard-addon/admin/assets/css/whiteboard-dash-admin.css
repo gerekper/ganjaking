@@ -1,0 +1,31 @@
+.tp-steps span {
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    border: 2px solid #d50000;
+    color: #d50000;
+    font-size: 17px;
+    font-weight: 700;
+    width: 40px;
+    height: 40px;
+    line-height: 37px;
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 10px;
+}
+
+.tp-steps.wb span {
+    border: 2px solid #22a2ad;
+    color: #fff;
+    background: #22a2ad;
+}
+
+h3.tp-steps {
+    font-size: 20px;
+    text-align: center;
+}
+
+.wb-featuretext {
+	margin-top: 10px;
+}

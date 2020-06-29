@@ -1,0 +1,132 @@
+# Copyright (C) 2014 WooSlider - WooCommerce Products Slideshow
+# This file is distributed under the same license as the WooSlider - WooCommerce Products Slideshow package.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooSlider - WooCommerce Products Slideshow 1.0.7\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/wooslider-products-slideshow\n"
+"POT-Creation-Date: 2014-03-04 08:02:10+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2014-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: classes/class-wooslider-wc-products.php:69
+msgid "Products"
+msgstr ""
+
+#: classes/class-wooslider-wc-products.php:180
+msgid "None"
+msgstr ""
+
+#: classes/class-wooslider-wc-products.php:180
+msgid "Full"
+msgstr ""
+
+#: classes/class-wooslider-wc-products.php:180
+msgid "Natural"
+msgstr ""
+
+#: classes/class-wooslider-wc-products.php:193
+msgid "Number of Products"
+msgstr ""
+
+#: classes/class-wooslider-wc-products.php:193
+msgid "The maximum number of products to display"
+msgstr ""
+
+#: classes/class-wooslider-wc-products.php:194
+msgid "Use thumbnails for Pagination"
+msgstr ""
+
+#: classes/class-wooslider-wc-products.php:194
+msgid "Use thumbnails for pagination, instead of \"dot\" indicators (uses featured image)"
+msgstr ""
+
+#: classes/class-wooslider-wc-products.php:195
+msgid "Display \"Add to Cart\" button"
+msgstr ""
+
+#: classes/class-wooslider-wc-products.php:195
+msgid "Display the product's \"Add to Cart\" button"
+msgstr ""
+
+#: classes/class-wooslider-wc-products.php:196
+msgid "Layout"
+msgstr ""
+
+#: classes/class-wooslider-wc-products.php:196
+msgid "The layout to use when displaying products"
+msgstr ""
+
+#: classes/class-wooslider-wc-products.php:197
+msgid "Overlay"
+msgstr ""
+
+#: classes/class-wooslider-wc-products.php:197
+msgid "The type of overlay to use when displaying the product text"
+msgstr ""
+
+#: classes/class-wooslider-wc-products.php:198
+msgid "Categories"
+msgstr ""
+
+#: classes/class-wooslider-wc-products.php:198
+msgid "The categories from which to display products"
+msgstr ""
+
+#: classes/class-wooslider-wc-products.php:199
+msgid "Tags"
+msgstr ""
+
+#: classes/class-wooslider-wc-products.php:199
+msgid "The tags from which to display products"
+msgstr ""
+
+#: classes/class-wooslider-wc-products.php:200
+msgid "Link the Slide Title to the product"
+msgstr ""
+
+#: classes/class-wooslider-wc-products.php:201
+msgid "Check product in stock"
+msgstr ""
+
+#: classes/class-wooslider-wc-products.php:201
+msgid "Only displays the product if in stock"
+msgstr ""
+
+#: classes/class-wooslider-wc-products.php:202
+msgid "Featured products only"
+msgstr ""
+
+#: classes/class-wooslider-wc-products.php:202
+msgid "Display only featured products"
+msgstr ""
+
+#: classes/class-wooslider-wc-products.php:203
+msgid "On sale products only"
+msgstr ""
+
+#: classes/class-wooslider-wc-products.php:203
+msgid "Display only products which are on sale"
+msgstr ""
+#. Plugin Name of the plugin/theme
+msgid "WooSlider - WooCommerce Products Slideshow"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://woothemes.com/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Add slideshows of your WooCommerce products to WooSlider."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "WooThemes"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://woothemes.com/"
+msgstr ""

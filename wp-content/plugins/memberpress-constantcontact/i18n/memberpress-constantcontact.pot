@@ -1,0 +1,123 @@
+# Copyright (C) 2020 Caseproof, LLC
+# This file is distributed under the same license as the MemberPress Constant Contact plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: MemberPress Constant Contact 1.1.1\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/memberpress-constantcontact\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2020-01-13T10:51:05-06:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.4.0\n"
+"X-Domain: memberpress-constantcontact\n"
+
+#. Plugin Name of the plugin
+#: main.php:35
+msgid "MemberPress Constant Contact"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "http://www.memberpress.com/"
+msgstr ""
+
+#. Description of the plugin
+msgid "Constant Contact Autoresponder integration for MemberPress."
+msgstr ""
+
+#. Author of the plugin
+msgid "Caseproof, LLC"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "http://caseproof.com/"
+msgstr ""
+
+#: main.php:36
+msgid "Constant Contact Autoresponder Integration for MemberPress."
+msgstr ""
+
+#: MpConstantContact.php:97
+msgid "Enable Constant Contact"
+msgstr ""
+
+#: MpConstantContact.php:104
+msgid "Constant Contact API Key "
+msgstr ""
+
+#: MpConstantContact.php:107
+msgid "Constant Contact API Key and Access Token"
+msgstr ""
+
+#: MpConstantContact.php:108
+msgid "In order to integrate Constant Contact with your application , you need to get a Constant Contact API key along with an access token. <br/>An API key is required to build an application that integrates with Constant Contact using Constant Contact API. For more details, please visit below link address."
+msgstr ""
+
+#: MpConstantContact.php:117
+msgid "You can get your API key at <a href=\"https://developer.constantcontact.com/api-keys.html\" target=\"_blank\">https://developer.constantcontact.com/api-keys.html</a>"
+msgstr ""
+
+#: MpConstantContact.php:124
+#: MpConstantContact.php:126
+msgid "Constant Contact Access Token"
+msgstr ""
+
+#: MpConstantContact.php:127
+msgid "In order for an application to access the Constant Contact API, it needs to have a valid access token. The token is generated when a Constant Contact customer grants the application access to their account."
+msgstr ""
+
+#: MpConstantContact.php:140
+msgid "Constant Contact Email List:"
+msgstr ""
+
+#: MpConstantContact.php:159
+msgid "Enable Opt-In Checkbox"
+msgstr ""
+
+#: MpConstantContact.php:163
+msgid "If checked, an opt-in checkbox will appear on all of your membership registration pages."
+msgstr ""
+
+#: MpConstantContact.php:168
+msgid "Signup Checkbox Label:"
+msgstr ""
+
+#: MpConstantContact.php:171
+msgid "This is the text that will display on the signup page next to your mailing list opt-in checkbox."
+msgstr ""
+
+#: MpConstantContact.php:220
+msgid "We Respect Your Privacy"
+msgstr ""
+
+#: MpConstantContact.php:281
+msgid "Constant Contact Email list for this Membership"
+msgstr ""
+
+#: MpConstantContact.php:284
+msgid "Enable Membership Constant Contact List"
+msgstr ""
+
+#: MpConstantContact.php:285
+msgid "If this is set the member will be added to this email list when their payment is completed for this membership. If the member cancels or you refund their subscription, they will be removed from the list automatically. You must have your Constant Contact API key and Access Token set in the Options before this will work."
+msgstr ""
+
+#: MpConstantContact.php:289
+msgid "Constant Contact Email List: "
+msgstr ""
+
+#: MpConstantContact.php:315
+#: MpConstantContact.php:337
+msgid "Hey yo, why you creepin'?"
+msgstr ""
+
+#: MpConstantContact.php:320
+#: MpConstantContact.php:342
+msgid "No apikey code was sent"
+msgstr ""
+
+#: MpConstantContact.php:524
+msgid "Sign Up for the %s Newsletter"
+msgstr ""

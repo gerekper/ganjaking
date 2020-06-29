@@ -1,0 +1,446 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the woocommerce-recommendation-engine package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: woocommerce-recommendation-engine 3.0.2\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-11-14 11:17-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: admin/class-wc-recommender-admin-settings.php:22
+#: admin/class-wc-recommender-admin-settings.php:70
+#: admin/class-wc-recommender-admin.php:100
+#: admin/class-wc-recommender-table-recommendations.php:47
+msgid "Recommendations"
+msgstr ""
+
+#: admin/class-wc-recommender-admin-settings.php:127
+msgid "Types of Recommendations to Show"
+msgstr ""
+
+#: admin/class-wc-recommender-admin-settings.php:134
+msgid "Show Related Products by Purchase History"
+msgstr ""
+
+#: admin/class-wc-recommender-admin-settings.php:145
+msgid "Show Related Products by Views"
+msgstr ""
+
+#: admin/class-wc-recommender-admin-settings.php:156
+msgid "Show Products Frequently Purchased Together"
+msgstr ""
+
+#: admin/class-wc-recommender-admin-settings.php:167
+msgid "Built in Related Products"
+msgstr ""
+
+#: admin/class-wc-recommender-admin-settings.php:178
+msgid "Number of Items to Show"
+msgstr ""
+
+#: admin/class-wc-recommender-admin-settings.php:182
+#: admin/class-wc-recommender-admin-settings.php:190
+msgid "2"
+msgstr ""
+
+#: admin/class-wc-recommender-admin-settings.php:186
+msgid "Number of Columns"
+msgstr ""
+
+#: admin/class-wc-recommender-admin-settings.php:197
+msgid "Titles / Labels"
+msgstr ""
+
+#: admin/class-wc-recommender-admin-settings.php:203
+msgid "Recommended by Purchase History Label"
+msgstr ""
+
+#: admin/class-wc-recommender-admin-settings.php:207
+#: admin/views/admin/view-recommendations.php:29
+#: templates/single-product/related-completed.php:5
+msgid "Customers also purchased these products"
+msgstr ""
+
+#: admin/class-wc-recommender-admin-settings.php:211
+msgid "Recommended by Views Label"
+msgstr ""
+
+#: admin/class-wc-recommender-admin-settings.php:215
+msgid "Customers who viewed this item also viewed these products"
+msgstr ""
+
+#: admin/class-wc-recommender-admin-settings.php:219
+msgid "Frequently Purchased Together Label"
+msgstr ""
+
+#: admin/class-wc-recommender-admin-settings.php:223
+msgid "Frequently purchased together"
+msgstr ""
+
+#: admin/class-wc-recommender-admin-settings.php:230
+msgid "Position of enabled recommendations"
+msgstr ""
+
+#: admin/class-wc-recommender-admin-settings.php:236
+msgid "Related Products by Purchase History"
+msgstr ""
+
+#: admin/class-wc-recommender-admin-settings.php:245
+#: admin/class-wc-recommender-admin-settings.php:260
+#: admin/class-wc-recommender-admin-settings.php:275
+msgid "First"
+msgstr ""
+
+#: admin/class-wc-recommender-admin-settings.php:246
+#: admin/class-wc-recommender-admin-settings.php:261
+#: admin/class-wc-recommender-admin-settings.php:276
+msgid "Second"
+msgstr ""
+
+#: admin/class-wc-recommender-admin-settings.php:247
+#: admin/class-wc-recommender-admin-settings.php:262
+#: admin/class-wc-recommender-admin-settings.php:277
+msgid "Third"
+msgstr ""
+
+#: admin/class-wc-recommender-admin-settings.php:251
+msgid "Related Products by Views"
+msgstr ""
+
+#: admin/class-wc-recommender-admin-settings.php:266
+msgid "Products Frequently Purchased Together"
+msgstr ""
+
+#: admin/class-wc-recommender-admin.php:118
+msgid "View Recommendations"
+msgstr ""
+
+#: admin/class-wc-recommender-admin.php:119
+msgid "A list of the all products and the recommendations associated with them"
+msgstr ""
+
+#: admin/class-wc-recommender-admin.php:125
+msgid "Maintenance"
+msgstr ""
+
+#: admin/class-wc-recommender-admin.php:130
+msgid "History Installation"
+msgstr ""
+
+#: admin/class-wc-recommender-admin.php:131
+msgid ""
+"Install statistics based on orders present in the system before the plugin "
+"was activated"
+msgstr ""
+
+#: admin/class-wc-recommender-admin.php:137
+msgid "View Session History"
+msgstr ""
+
+#: admin/class-wc-recommender-admin.php:138
+msgid "A list of all recorded session history"
+msgstr ""
+
+#: admin/class-wc-recommender-admin.php:449
+#, php-format
+msgid "Recommendations rebuilt for %d products"
+msgstr ""
+
+#: admin/class-wc-recommender-admin.php:453
+msgid "Please choose at least one product"
+msgstr ""
+
+#: admin/class-wc-recommender-admin.php:461
+#: admin/class-wc-recommender-admin.php:469
+#: admin/class-wc-recommender-admin.php:477
+#, php-format
+msgid "Session Activity Truncuated Before %s"
+msgstr ""
+
+#: admin/class-wc-recommender-table-recommendations.php:23
+#: admin/views/admin/maintenance-rebuild-tab.php:1
+msgid "Rebuild Recommendations"
+msgstr ""
+
+#: admin/class-wc-recommender-table-recommendations.php:44
+msgid "Title"
+msgstr ""
+
+#: admin/class-wc-recommender-table-recommendations.php:45
+msgid "Views"
+msgstr ""
+
+#: admin/class-wc-recommender-table-recommendations.php:46
+msgid "Orders"
+msgstr ""
+
+#: admin/class-wc-recommender-table-recommendations.php:48
+#: admin/class-wc-recommender-table-recommendations.php:139
+#: admin/views/admin/maintenance-rebuild-tab.php:17
+msgid "Rebuild"
+msgstr ""
+
+#: admin/class-wc-recommender-table-recommendations.php:130
+msgid "Viewed:"
+msgstr ""
+
+#: admin/class-wc-recommender-table-recommendations.php:131
+msgid "Also Purchased:"
+msgstr ""
+
+#: admin/class-wc-recommender-table-recommendations.php:132
+msgid "Purchased Together:"
+msgstr ""
+
+#: admin/class-wc-recommender-table-recommendations.php:240
+#: admin/class-wc-recommender-table-session-history.php:217
+msgid "Empty folder"
+msgstr ""
+
+#: admin/class-wc-recommender-table-session-history.php:22
+msgid "Truncate History ( Keep Past 60 Days )"
+msgstr ""
+
+#: admin/class-wc-recommender-table-session-history.php:23
+msgid "Truncate History ( Keep Past 30 Days )"
+msgstr ""
+
+#: admin/class-wc-recommender-table-session-history.php:24
+msgid "Truncate History ( Keep Past 10 Days )"
+msgstr ""
+
+#: admin/class-wc-recommender-table-session-history.php:45
+msgid "ID"
+msgstr ""
+
+#: admin/class-wc-recommender-table-session-history.php:46
+msgid "Session ID"
+msgstr ""
+
+#: admin/class-wc-recommender-table-session-history.php:47
+msgid "Type"
+msgstr ""
+
+#: admin/class-wc-recommender-table-session-history.php:48
+msgid "Product"
+msgstr ""
+
+#: admin/class-wc-recommender-table-session-history.php:49
+msgid "Order"
+msgstr ""
+
+#: admin/class-wc-recommender-table-session-history.php:50
+msgid "User"
+msgstr ""
+
+#: admin/class-wc-recommender-table-session-history.php:51
+msgid "Date"
+msgstr ""
+
+#: admin/views/admin/cron-jobs-tab.php:8 admin/views/admin/cron-jobs-tab.php:18
+msgid "Hook"
+msgstr ""
+
+#: admin/views/admin/cron-jobs-tab.php:9 admin/views/admin/cron-jobs-tab.php:19
+msgid "Schedule"
+msgstr ""
+
+#: admin/views/admin/cron-jobs-tab.php:10
+#: admin/views/admin/cron-jobs-tab.php:20
+msgid "Previous execution"
+msgstr ""
+
+#: admin/views/admin/cron-jobs-tab.php:11
+#: admin/views/admin/cron-jobs-tab.php:21
+msgid "Next execution"
+msgstr ""
+
+#: admin/views/admin/cron-jobs-tab.php:12
+#: admin/views/admin/cron-jobs-tab.php:22
+msgid "Action"
+msgstr ""
+
+#: admin/views/admin/cron-jobs-tab.php:45
+msgid "Execute"
+msgstr ""
+
+#: admin/views/admin/maintenance-install-stats-tab.php:1
+msgid "Install Statistics from Order History"
+msgstr ""
+
+#: admin/views/admin/maintenance-install-stats-tab.php:3
+msgid ""
+"Statistics are collected from the time when the plugin is first activated."
+msgstr ""
+
+#: admin/views/admin/maintenance-install-stats-tab.php:4
+msgid ""
+"If you would like to include statistics based on order history before the "
+"plugin was activated, click Install Statistics below"
+msgstr ""
+
+#: admin/views/admin/maintenance-install-stats-tab.php:9
+msgid "Installation of statistics from order history complete."
+msgstr ""
+
+#: admin/views/admin/maintenance-install-stats-tab.php:13
+msgid "Install statistics from order history now."
+msgstr ""
+
+#: admin/views/admin/maintenance-install-stats-tab.php:16
+msgid "Install Statistics"
+msgstr ""
+
+#: admin/views/admin/maintenance-install-stats-tab.php:20
+msgid "Installing Statistics:"
+msgstr ""
+
+#: admin/views/admin/maintenance-rebuild-tab.php:5
+msgid "Rebuild of recommendations complete"
+msgstr ""
+
+#: admin/views/admin/maintenance-rebuild-tab.php:9
+msgid "Rebuild recommendations for:"
+msgstr ""
+
+#: admin/views/admin/maintenance-rebuild-tab.php:11
+msgid "Also Viewed"
+msgstr ""
+
+#: admin/views/admin/maintenance-rebuild-tab.php:12
+msgid "Also Purchased"
+msgstr ""
+
+#: admin/views/admin/maintenance-rebuild-tab.php:13
+#: widgets/widget-purchased_products.php:65
+msgid "Purchased Together"
+msgstr ""
+
+#: admin/views/admin/maintenance-rebuild-tab.php:23
+msgid "Building Recommendations:"
+msgstr ""
+
+#: admin/views/admin/maintenance-rebuild-tab.php:25
+msgid "Estimated Time Remaining:"
+msgstr ""
+
+#: admin/views/admin/view-recommendations.php:4
+msgid "Product Recommendations"
+msgstr ""
+
+#: admin/views/admin/view-recommendations.php:10
+#: templates/single-product/related-viewed.php:5
+msgid "Customers also viewed these products"
+msgstr ""
+
+#: admin/views/admin/view-recommendations.php:47
+#: templates/single-product/related-purchased-together.php:4
+msgid "Frequently Purchased Together"
+msgstr ""
+
+#: node_modules/grunt-pot/test/fixtures/some-file.php:3
+msgid "I'm a translatable string."
+msgstr ""
+
+#: node_modules/grunt-pot/test/fixtures/some-other-file.php:4
+msgid "Me too"
+msgstr ""
+
+#: node_modules/grunt-pot/test/fixtures/some-other-file.php:7
+#, php-format
+msgid "I have %d apple"
+msgid_plural "I have %d apples"
+msgstr[0] ""
+msgstr[1] ""
+
+#. / TRANSLATORS: This should be translated as a shorthand for YEAR-MONTH-DAY using 4, 2 and 2 digits.
+#: node_modules/grunt-pot/test/fixtures/some-other-file.php:16
+msgid "yyyy-mm-dd"
+msgstr ""
+
+#: node_modules/grunt-wp-i18n/test/fixtures/basic-theme/exclude/file.php:3
+#: node_modules/grunt-wp-i18n/test/fixtures/plugin-include/plugin-include.php:6
+msgid "Exclude"
+msgstr ""
+
+#: node_modules/grunt-wp-i18n/test/fixtures/plugin-include/include/file.php:2
+msgid "Include"
+msgstr ""
+
+#: node_modules/grunt-wp-i18n/test/fixtures/text-domains/add-domain.php:2
+#: node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-all-domains.php:2
+#: node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-all-domains.php:3
+#: node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-all-domains.php:4
+#: node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-domains.php:2
+#: node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-domains.php:3
+msgid "String"
+msgstr ""
+
+#: node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-all-domains.php:6
+#: node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-all-domains.php:7
+#: node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-all-domains.php:8
+msgctxt "a string"
+msgid "String"
+msgstr ""
+
+#: node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-all-domains.php:9
+#: node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-all-domains.php:10
+#: node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-all-domains.php:11
+#, php-format
+msgid "1 Star"
+msgid_plural "%s Stars"
+msgstr[0] ""
+msgstr[1] ""
+
+#: node_modules/grunt-wp-i18n/test/fixtures/translator-comments/translator-comments.php:7
+msgid "A"
+msgstr ""
+
+#: node_modules/grunt-wp-i18n/test/fixtures/translator-comments/translator-comments.php:15
+msgid "B"
+msgstr ""
+
+#: widgets/widget-purchased_products.php:35
+msgid "Display a list of products frequently purchased together on your site."
+msgstr ""
+
+#: widgets/widget-purchased_products.php:37
+msgid "WooCommerce Purchased Products"
+msgstr ""
+
+#: widgets/widget-purchased_products.php:188
+#: widgets/widget-recommended_products.php:186
+msgid "Title:"
+msgstr ""
+
+#: widgets/widget-purchased_products.php:191
+#: widgets/widget-recommended_products.php:189
+msgid "Number of products to show:"
+msgstr ""
+
+#: widgets/widget-recommended_products.php:35
+msgid "Display a list of recommended products on your site."
+msgstr ""
+
+#: widgets/widget-recommended_products.php:37
+msgid "WooCommerce Recommended Products"
+msgstr ""
+
+#: widgets/widget-recommended_products.php:65
+msgid "Recommended Products"
+msgstr ""
+
+#: widgets/widget-recommended_products.php:193
+msgid "Show recommendations based on:"
+msgstr ""

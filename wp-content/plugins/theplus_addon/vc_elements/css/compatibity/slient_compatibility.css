@@ -1,0 +1,202 @@
+.pt_plus_button *:before, .pt_plus_button *:after {
+    -webkit-box-sizing: inherit;
+    -moz-box-sizing: inherit;
+    box-sizing: inherit;
+}
+.read-more-btn [class*="fa-"],.pt_plus_button [class*="fa-"]{
+    width: auto;
+    height: auto;
+    line-height: initial;
+    font-size: inherit;
+}
+.blog-featured-image img,.post-inner-loop .gallery-image img,.addbanner_inner_img img,.pt-plus-parallax-img-parent .simple-parallax-img,.pt-plus-animated-image-wrapper, .animated-image-parallax,.pt_plus_animated_image img,.pt-plus-food-menu .food-img img,.infobanner_inner .info_img,.service-media img.service-img,.pin-point-trigger img,.sep-mg img,img.stylish-img,.pt-plus-testimonial-item img,.pt-plus-testimonials-item img,.timeline-content-image img,.theservice-pop-up-image img,.pt_plus_video_player img,.pt_theplus-list-portfolio-post img,.tm-featured-image img{
+    margin-bottom: 0 !important;
+}
+.post-inner-loop .grid-item .post-content {
+    padding-left: 0;
+}
+.post-inner-loop .grid-item {
+    margin: 0;
+}
+.gallery-icons [class*="fa-"] {
+    width: auto;
+    height: auto;
+    line-height: initial;
+    top: 0;
+    -webkit-box-sizing: inherit;
+    -moz-box-sizing: inherit;
+    box-sizing: inherit;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+#pt-plus-gallery-list.gallery-style-1 .grid-item .gallery-icons a:after, #pt-plus-gallery-list.gallery-style-2 .grid-item .gallery-icons a:after{
+	-webkit-box-sizing: inherit;
+    -moz-box-sizing: inherit;
+    box-sizing: inherit;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.ts-icon-cunter [class^="icon-"], .ts-icon-cunter i[class*=" icon-"] {
+    display: block;
+    width: auto;
+    height: auto;
+    line-height: initial;
+    top: auto;
+    word-spacing: initial;
+	background: transparent;
+	border-radius: initial;
+}
+span.theserivce-milestone-number[class^="icon-"], span.theserivce-milestone-number[class*=" icon-"],.pt_plus_animated_svg[class^="icon-"],.pt_plus_animated_svg[class*=" icon-"] {
+    background: transparent !important;
+}
+.pt_plus_blockquote-4 blockquote{
+	margin-right:0px !important;
+}
+.pt_plus_blockquote-5 [class*="fa-"] {
+    width: auto;
+    height: auto;
+    line-height: initial;
+    top: auto;
+    text-align: left;
+    word-spacing: initial;
+}
+.breadcrumbs-icon-wrap [class*="fa-"] {
+    font-size: inherit;
+    width: auto;
+    height: auto;
+    line-height: initial;
+    top: auto;
+}
+.pt_plus_cf7_styles .minimal-form-input {
+    position: initial !important;
+    padding-top: initial !important;
+}
+.counter-icon[class*="fa-"] {
+    width: auto;
+    height: auto;
+    line-height: inherit;
+    font-size: inherit;
+    top: auto;
+}
+.service-media .icon-img-b {
+    background: transparent !important;
+}
+
+.progress_bar [class*="fa-"] {
+    width: auto;
+    height: auto;
+    line-height: inherit;
+    top: auto;
+    word-spacing: initial;
+}
+ul.social_list [class*="fa-"] {
+    width: auto;
+    height: auto;
+    line-height: inherit;
+    top: auto;
+    font-size: inherit;
+	vertical-align: initial;
+}
+.stylish-icon[class*="fa-"] {
+    width: auto;
+    height: auto;
+    line-height: initial;
+    top: auto;
+}
+span.icon-wrap[class^="icon-"], span.icon-wrap[class*=" icon-"] {
+    background: transparent;
+    border-radius: initial;
+    width: auto;
+    height: auto;
+    line-height: inherit;
+    font-size: inherit;
+    top: auto;
+}
+.pt-plus-testimonial-slide .slick-dots,.list-carousel-slick .slick-dots {
+    margin-left: 0;
+    margin-bottom: 0;
+}
+.icon-client[class^="icon-"], .icon-client[class*=" icon-"] {
+    background: transparent;
+    width: auto;
+    height: auto;
+    line-height: inherit;
+    font-size: inherit;
+    top: auto;
+}
+i.point-icon-inner[class*="fa-"] {
+    width: auto;
+    height: auto;
+    line-height: 1;
+    font-size: 20px;
+    top: auto;
+}
+.blog-featured-image img {
+    display: block;
+}
+.team-soicial li [class*="fa-"] {
+    font-size: inherit;
+    line-height: initial;
+    width: auto;
+    height: auto;
+    display: inline-block;
+    top: auto;
+	vertical-align: inherit;
+}
+.pt_plus_cf7_form .cf7-style-2 .input__label--style-2::before{
+	border-top-width: 0px !important;
+}
+.pt_plus_cf7_form .cf7-style-3 .input__label--style-3{
+	top:1.95em !important;
+}
+.pt_plus_cf7_styles * {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.pt_plus_cf7_styles *,.pt_plus_cf7_styles  *:before,.pt_plus_cf7_styles  *:after {
+    -webkit-box-sizing: inherit;
+    -moz-box-sizing: inherit;
+    box-sizing: inherit;
+}
+.pt_plus_cf7_form .cf7-style-4 span.wpcf7-form-control-wrap.input--style-4,.pt_plus_cf7_form .cf7-style-5 .input--style-5,.pt_plus_cf7_form .cf7-style-6 .input--style-6,.pt_plus_cf7_form .cf7-style-7 .input--style-7,.pt_plus_cf7_form .cf7-style-8 .input--style-8,.pt_plus_cf7_form .cf7-style-11 .input--style-11,.pt_plus_cf7_form .cf7-style-12 .input--style-12{
+	display: inline-block !important;
+}
+.pt_plus_cf17_styles.cf7-style-4 p,.pt_plus_cf7_styles.cf7-style-5 p,.pt_plus_cf7_styles.cf7-style-7 p,.pt_plus_cf7_styles.cf7-style-8 p,.pt_plus_cf7_styles.cf7-style-9 p,.pt_plus_cf7_styles.cf7-style-10 p ,.pt_plus_cf7_styles.cf7-style-11 p ,.pt_plus_cf7_styles.cf7-style-12 p{
+    padding-bottom: 5px;
+}
+.pt_plus_cf7_form  textarea {
+    height: auto !important;
+    min-height: auto;
+    padding: 0.8em !important;
+	-webkit-box-sizing: inherit !important;
+    -moz-box-sizing: inherit !important;
+    box-sizing: inherit !important;
+}
+.pt_plus_cf7_form .cf7-style-5 .input__label-content{
+	padding:0.8em 0;
+}
+.pt_plus_cf7_form .cf7-style-9 .input__field--style-9{
+	padding: .5em !important;
+}
+.pt_plus_cf7_form .cf7-style-7 .input__field--style-7,.pt_plus_cf7_form .cf7-style-8 .input__field--style-8,.pt_plus_cf7_form .cf7-style-10 .input__field--style-10,.pt_plus_cf7_form .cf7-style-11 .input__field--style-11,.pt_plus_cf7_form .cf7-style-12 .input__field--style-12{
+    padding-left: 10px !important;
+}
+.pt_plus_cf7_form .cf7-style-12 .input__label-content--style-12{
+	padding: 1.5em 1em !important;
+}
+.pt_theplus-list-portfolio-post .tp-portfolio-image .thumb-wrap {
+    position: relative;
+    width: 100%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+.pt_theplus-list-portfolio-post .tp-portfolio-image .thumb-wrap img {
+    width: 100% !important;
+    max-width: 100%;
+    height: 100%;
+}

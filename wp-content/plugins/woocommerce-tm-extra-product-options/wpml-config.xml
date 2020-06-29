@@ -1,0 +1,54 @@
+<wpml-config>
+    <admin-texts>
+        <key name="tm_epo_separator_cart_text"/>
+        <key name="tm_epo_final_total_text"/>
+        <key name="tm_epo_update_cart_text"/>
+        <key name="tm_epo_options_unit_price_text"/>
+        <key name="tm_epo_options_total_text"/>
+        <key name="tm_epo_fees_total_text"/>
+        <key name="tm_epo_subscription_fee_text"/>
+        <key name="tm_epo_replacement_free_price_text"/>
+        <key name="tm_epo_reset_variation_text"/>
+        <key name="tm_epo_edit_options_text"/>
+        <key name="tm_epo_additional_options_text"/>
+        <key name="tm_epo_close_button_text"/>
+        <key name="tm_epo_closeText"/>
+        <key name="tm_epo_currentText"/>
+        <key name="tm_epo_slider_prev_text"/>
+        <key name="tm_epo_slider_next_text"/>
+        <key name="tm_epo_force_select_text"/>
+        <key name="tm_epo_empty_cart_text"/>
+        <key name="tm_epo_this_field_is_required_text"/>
+        <key name="tm_epo_characters_remaining_text"/>
+        <key name="tm_epo_uploading_files_text"/>
+        <key name="tm_epo_uploading_message_text"/>
+        <key name="tm_epo_select_file_text"/>
+        <key name="tm_epo_no_zero_priced_products_text"/>
+        <key name="tm_epo_no_negative_priced_products_text"/>
+        <key name="tm_epo_dpd_prefix"/>
+        <key name="tm_epo_dpd_suffix"/>
+        <key name="tm_epo_global_required_indicator"/>
+    </admin-texts>
+    <custom-types>
+        <custom-type translate="0">tm_global_cp</custom-type>
+        <custom-type translate="0">tm_product_cp</custom-type>
+    </custom-types>
+    <custom-fields>
+        <custom-field action="copy">tmcp_attribute</custom-field>
+        <custom-field action="copy">tmcp_attribute_is_taxonomy</custom-field>
+        <custom-field action="copy">tmcp_hide_price</custom-field>
+        <custom-field action="copy">tmcp_limit</custom-field>
+        <custom-field action="copy">tmcp_required</custom-field>
+        <custom-field action="copy">tmcp_type</custom-field>
+        <custom-field action="ignore">tm_meta</custom-field>
+        <custom-field action="copy">tm_meta_cpf</custom-field>
+        <custom-field action="copy">tm_meta_disable_categories</custom-field>
+        <custom-field action="ignore">tm_meta_lang</custom-field>
+        <custom-field action="ignore">tm_meta_parent_post_id</custom-field>
+        <custom-field action="ignore">tm_meta_product_ids</custom-field>
+        <custom-field action="ignore">tm_meta_product_exclude_ids</custom-field>
+        <custom-field action="ignore">tm_meta_enabled_roles</custom-field>
+        <custom-field action="ignore">tm_meta_disabled_roles</custom-field>
+        <custom-field action="ignore">tm_meta_wpml</custom-field>
+    </custom-fields>
+</wpml-config>

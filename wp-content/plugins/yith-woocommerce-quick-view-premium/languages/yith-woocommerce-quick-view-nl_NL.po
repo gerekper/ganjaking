@@ -1,0 +1,546 @@
+# Translation of YITH WooCommerce Quick View in Dutch
+# This file is distributed under the same license as the YITH WooCommerce Quick View package.
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH WooCommerce Quick View\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
+"quick-view-premium\n"
+"POT-Creation-Date: 2020-05-20 20:32:58+00:00\n"
+"PO-Revision-Date: 2020-05-04 16:53:14+0000\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/2.3.1\n"
+
+#: includes/class.yith-wcqv-admin.php:125
+msgid "General"
+msgstr "Algemeen"
+
+#: includes/class.yith-wcqv-admin.php:126
+msgid "Product"
+msgstr "Product"
+
+#: includes/class.yith-wcqv-admin.php:127
+msgid "Style"
+msgstr "Stijl"
+
+#: init.php:46
+msgid ""
+"YITH WooCommerce Quick View is enabled but not effective. It requires "
+"WooCommerce in order to work."
+msgstr ""
+"YITH WooCommerce Quick View is ingeschakeld maar werkt niet. Het heeft "
+"WooCommerce nodig om te werken."
+
+#: plugin-options/general-options.php:10
+msgid "General Options"
+msgstr "Algemene Opties"
+
+#: plugin-options/general-options.php:18
+msgid "Enable Quick View"
+msgstr "Quick View Inschakelen"
+
+#: plugin-options/general-options.php:26
+msgid "Enable Quick View on mobile"
+msgstr "Quick View op mobiel inschakelen"
+
+#: plugin-options/general-options.php:27
+msgid "Enable quick view features on mobile device too"
+msgstr "Quick view features ook op mobiele apparaten inschakelen"
+
+#: plugin-options/general-options.php:35
+msgid "Enable Quick View on wishlist"
+msgstr "Quick View inschakelen op wishlist"
+
+#: plugin-options/general-options.php:36
+msgid ""
+"Enable quick view on wishlist table (available only with modal window). You "
+"need %s installed."
+msgstr ""
+"Quick view inschakelen op wishlist tabel (uitsluitend beschikbaar met modaal "
+"scherm). U moet %s hebben geinstalleerd."
+
+#: plugin-options/general-options.php:44
+msgid "Enable Lightbox"
+msgstr "Lightbox inschakelen"
+
+#: plugin-options/general-options.php:45
+msgid "Enable lightbox. Product images will open in a lightbox."
+msgstr "Lightbox inschakelen. Productafbeelding zal openenen in een lightbox."
+
+#: plugin-options/general-options.php:53
+msgid "Quick View Navigation"
+msgstr "Quick View Navigatie"
+
+#: plugin-options/general-options.php:54
+msgid ""
+"Enable product navigation on quick view. NOTE: only available on modal "
+"window style."
+msgstr ""
+"Product navigatie op quick view inschakelen. LET OP: uitsluitend beschikbaar "
+"in modaal scherm stijl."
+
+#: plugin-options/general-options.php:62
+msgid "Enable navigation in the same product category"
+msgstr "Navigatie in dezelfde productcategorie inschakelen"
+
+#: plugin-options/general-options.php:70
+msgid "Quick View Navigation Style"
+msgstr "Quick View Navigatie Stijl"
+
+#: plugin-options/general-options.php:74
+msgid "Slide ( thumbnail and product name )"
+msgstr "Slide ( thumbnail en productnaam )"
+
+#: plugin-options/general-options.php:75
+msgid "Rotate ( thumbnail )"
+msgstr "Draaien ( thumbnail )"
+
+#: plugin-options/general-options.php:83
+msgid "Quick View Type"
+msgstr "Quick View Type"
+
+#: plugin-options/general-options.php:87
+msgid "Modal Window"
+msgstr "Modaal Scherm"
+
+#: plugin-options/general-options.php:88
+msgid "Cascading"
+msgstr "Cascading"
+
+#: plugin-options/general-options.php:96
+msgid "Closing cascading quick view"
+msgstr "Trapsgewijze quick view sluiten"
+
+#: plugin-options/general-options.php:100
+msgid "Close Quick View and stay in the same row"
+msgstr "Quick view sluiten en in dezelfde rij blijven"
+
+#: plugin-options/general-options.php:101
+msgid "Close quick view and scroll to the row of selected product"
+msgstr ""
+"Quick view sluiten en scrollen naar de rij van het geselecteerde product"
+
+#: plugin-options/general-options.php:113
+msgid "Select modal effect"
+msgstr "Selecteer modaal effect"
+
+#: plugin-options/general-options.php:117
+msgid "Slide in"
+msgstr "Slide in"
+
+#: plugin-options/general-options.php:118
+msgid "Fade in"
+msgstr "Fade in"
+
+#: plugin-options/general-options.php:119
+msgid "Scale up"
+msgstr "Scale up"
+
+#: plugin-options/general-options.php:131
+msgid "Modal window loading"
+msgstr "Modaal scherm laadt"
+
+#: plugin-options/general-options.php:132
+msgid "Enable overlay during loading of the modal window."
+msgstr "Overlay inschakelen gedurende het laden van het modale scherm."
+
+#: plugin-options/general-options.php:144
+msgid "Modal Loading Text"
+msgstr "Modaal laad tekst"
+
+#: plugin-options/general-options.php:145
+msgid ""
+"Enter here the text to show during quick view loading when modal overlay is "
+"enabled."
+msgstr ""
+"Typ hier de tekst die wordt weergegeven tijdens quick view laden, wanneer "
+"modaal overlay is ingeschakeld."
+
+#: plugin-options/general-options.php:148
+msgid "Loading..."
+msgstr "Laden..."
+
+#: plugin-options/general-options.php:157
+msgid "Modal Width"
+msgstr "Modaal breedte"
+
+#: plugin-options/general-options.php:158
+msgid "Set width of modal window."
+msgstr "Stel breedte in van modaal scherm."
+
+#: plugin-options/general-options.php:171
+msgid "Modal Height"
+msgstr "Modaal hoogte"
+
+#: plugin-options/general-options.php:172
+msgid "Set height of modal window."
+msgstr "Stel hoogte in van modaal scherm."
+
+#: plugin-options/general-options.php:189
+msgid "Button Options"
+msgstr "Knop Opties"
+
+#: plugin-options/general-options.php:197
+msgid "Quick View Button Type"
+msgstr "Quick View knop type"
+
+#: plugin-options/general-options.php:198
+#: plugin-options/general-options.php:225
+msgid "Label for the quick view button in the WooCommerce loop."
+msgstr "Label voor de quick view knop in het WooCommerce veld."
+
+#: plugin-options/general-options.php:202
+msgid "Use button"
+msgstr "Gebruik knop"
+
+#: plugin-options/general-options.php:203
+msgid "Use icon"
+msgstr "Gebruik icoon"
+
+#: plugin-options/general-options.php:211
+msgid "Quick View Button Icon"
+msgstr "Quick View knop icoon"
+
+#: plugin-options/general-options.php:212
+msgid "Icon for the quick view button in the WooCommerce loop."
+msgstr "Icoon voor de quick view knop."
+
+#: plugin-options/general-options.php:224
+msgid "Quick View Button Label"
+msgstr "Quick View knop label"
+
+#: plugin-options/general-options.php:228
+msgid "Quick View"
+msgstr "Quick View"
+
+#: plugin-options/general-options.php:237
+msgid "Quick View Button Position"
+msgstr "Quick View knop Positie"
+
+#: plugin-options/general-options.php:238
+msgid "Position of the quick view button."
+msgstr "Positie van de quick view knop."
+
+#: plugin-options/general-options.php:242
+msgid "After 'add to cart' button"
+msgstr "Na ´toevoegen aan winkelwagen´ knop"
+
+#: plugin-options/general-options.php:243
+msgid "Inside product image"
+msgstr "Binnen product afbeelding"
+
+#: plugin-options/product-options.php:10
+msgid "Content Options"
+msgstr "Inhoud Opties"
+
+#: plugin-options/product-options.php:18
+msgid "Select Element to Show"
+msgstr "Selecteer element om weer te geven"
+
+#: plugin-options/product-options.php:19
+msgid "Show Product Image"
+msgstr "Toon Productafbeelding"
+
+#: plugin-options/product-options.php:27
+msgid "Show Product Name"
+msgstr "Toon Productnaam"
+
+#: plugin-options/product-options.php:35
+msgid "Show Product Rating"
+msgstr "Toon Productwaardering"
+
+#: plugin-options/product-options.php:43
+msgid "Show Product Price"
+msgstr "Toon Productprijs"
+
+#: plugin-options/product-options.php:51
+msgid "Show Product Excerpt"
+msgstr "Toon Productfragment"
+
+#: plugin-options/product-options.php:59
+msgid "Show Product Add To Cart"
+msgstr "Toon Product Toevoegen aan winkelwagen"
+
+#: plugin-options/product-options.php:67
+msgid "Show Wishlist Button"
+msgstr "Toon Wishlist Knop"
+
+#: plugin-options/product-options.php:75
+msgid "Show Compare Button"
+msgstr "Toon Vergelijk Knop"
+
+#: plugin-options/product-options.php:83
+msgid "Show Request Quote Button"
+msgstr "Toon Request Quote Knop"
+
+#: plugin-options/product-options.php:91
+msgid "Show Dynamic Pricing Discount Table"
+msgstr "Toon Dynamic Pricing Discount Tabel"
+
+#: plugin-options/product-options.php:99
+msgid "Show Dynamic Pricing Discount Note"
+msgstr "Toon Dynamic Pricing Discount Notitie"
+
+#: plugin-options/product-options.php:107
+msgid "Show Product Meta"
+msgstr "Toon Product Meta"
+
+#: plugin-options/product-options.php:115
+msgid "Show full description"
+msgstr "Toon volledige beschrijving"
+
+#: plugin-options/product-options.php:116
+msgid "Show full description instead of short description"
+msgstr "Toon volledige beschrijving in plaats van een korte beschrijving"
+
+#: plugin-options/product-options.php:124
+msgid "Product Image Width"
+msgstr "Breedte Productafbeelding"
+
+#: plugin-options/product-options.php:125
+msgid "Set width of product image."
+msgstr "Stel de breedte van de productafbeelding in."
+
+#: plugin-options/product-options.php:134
+msgid "Product Image Height"
+msgstr "Hoogte Productafbeelding"
+
+#: plugin-options/product-options.php:135
+msgid "Set height of product image."
+msgstr "Stel de hoogte van de productafbeelding in."
+
+#: plugin-options/product-options.php:144
+msgid "Select Thumbnails Type"
+msgstr "Selecteer Thumbnails type"
+
+#: plugin-options/product-options.php:148
+msgid "Don't show"
+msgstr "Niet weergeven"
+
+#: plugin-options/product-options.php:149
+msgid "Slider mode"
+msgstr "Slider modus"
+
+#: plugin-options/product-options.php:150
+msgid "Classic mode"
+msgstr "Klassieke modus"
+
+#: plugin-options/product-options.php:158
+msgid "Enable image zoom"
+msgstr "Afbeelding zoom inschakelen"
+
+#: plugin-options/product-options.php:159
+msgid ""
+"Enable the plugin YITH WooCommerce Zoom Magnifier on quick view (not "
+"available for slider mode). You need %s installed."
+msgstr ""
+"YITH WooCommerce Zoom Magnifier plugin op quick view inschakelen (niet "
+"beschikbaar voor slider modus). U moet %s hebben geinstalleerd."
+
+#: plugin-options/product-options.php:167
+msgid "Add 'View Details' Button"
+msgstr "Voeg ´Bekijk Details´ knop toe"
+
+#: plugin-options/product-options.php:168
+msgid "Check this option to add a button to go to the single product page."
+msgstr ""
+"Selecteer deze optie om een knop toe te voegen, om naar de single product "
+"pagina te gaan."
+
+#: plugin-options/product-options.php:176
+msgid "'View Details' Button Label"
+msgstr "´Bekijk Details´ knop label"
+
+#: plugin-options/product-options.php:177
+msgid "Set label for 'View Details' button"
+msgstr "Stel label in voor ´Bekijk Details´ knop"
+
+#: plugin-options/product-options.php:180
+msgid "View Details"
+msgstr "Bekijk Details"
+
+#: plugin-options/product-options.php:189
+msgid "Enable Ajax Add To Cart"
+msgstr "Ajax Toevoegen aan winkelwagen toevoegen"
+
+#: plugin-options/product-options.php:190
+msgid "Check this option to enable add to cart in ajax"
+msgstr ""
+"Selecteer deze optie om toevoegen aan winkelwagen in te schakelen in ajax"
+
+#: plugin-options/product-options.php:198
+msgid "Close Popup after \"Add To Cart\""
+msgstr "Popup sluiten na toevoegen aan winkelwagen"
+
+#: plugin-options/product-options.php:199
+msgid ""
+"Check this option to auto close popup after the add to cart action in ajax"
+msgstr ""
+"Selecteer deze optie om toevoegen aan winkelwagen in te schakelen in ajax"
+
+#: plugin-options/product-options.php:211
+msgid "Redirect to checkout after add to cart"
+msgstr "Doorverwijzen naar checkout na toevoegen aan winkelwagen"
+
+#: plugin-options/product-options.php:212
+msgid "Check this option to redirect to checkout after add to cart"
+msgstr ""
+"Selecteer deze optie om door te verwijzen naar checkout, na toevoegen aan "
+"winkelwagen"
+
+#: plugin-options/product-options.php:224
+msgid "Share Options"
+msgstr "Deel opties"
+
+#: plugin-options/product-options.php:232
+msgid "Enable Share"
+msgstr "Delen inschakelen"
+
+#: plugin-options/product-options.php:233
+msgid ""
+"Check this option if you want to show the share link for products in quick "
+"view"
+msgstr ""
+"Selecteer deze optie als u de delen link wilt weergeven op producten in "
+"quick view"
+
+#: plugin-options/product-options.php:241
+msgid "Select Socials"
+msgstr "Selecteer Social Media"
+
+#: plugin-options/product-options.php:246
+msgid "Facebook"
+msgstr "Facebook"
+
+#: plugin-options/product-options.php:247
+msgid "Twitter"
+msgstr "Twitter"
+
+#: plugin-options/product-options.php:248
+msgid "Pinterest"
+msgstr "Pinterest"
+
+#: plugin-options/product-options.php:249
+msgid "eMail"
+msgstr "eMail"
+
+#: plugin-options/product-options.php:257
+msgid "Facebook App ID"
+msgstr "Facebook App ID"
+
+#: plugin-options/product-options.php:258
+msgid ""
+"Facebook App ID necessary to share contents. Read more in the official "
+"Facebook <a href=\"%s\">documentation</a>"
+msgstr ""
+"Facebook App ID nodig om inhoud te delen. Lees meer in de officiele Facebook "
+"<a href=\"%s\">documentatie</a>"
+
+#: plugin-options/style-options.php:8
+msgid "General Style"
+msgstr "Algemene Stijl"
+
+#: plugin-options/style-options.php:15
+msgid "Modal Window Background Color"
+msgstr "Achtergrondkleur Modaal Scherm"
+
+#: plugin-options/style-options.php:25
+msgid "'Quick View' Button Color"
+msgstr "'Quick View' Knop Kleur"
+
+#: plugin-options/style-options.php:34
+msgid "'Quick View' Button Text Color"
+msgstr "'Quick View' Knop Tekstkleur"
+
+#: plugin-options/style-options.php:43
+msgid "'Quick View' Button Hover Color "
+msgstr "'Quick View' Knop Aanwijzer kleur "
+
+#: plugin-options/style-options.php:52
+msgid "'Quick View' Button Hover Text Color"
+msgstr "'Quick View' Knop Aanwijzer Tekstkleur"
+
+#: plugin-options/style-options.php:65
+msgid "Content Style"
+msgstr "Inhoud Stijl"
+
+#: plugin-options/style-options.php:73
+msgid "Main Text Color"
+msgstr "Hoofdtekst kleur"
+
+#: plugin-options/style-options.php:82
+msgid "Star Color"
+msgstr "Ster kleur"
+
+#: plugin-options/style-options.php:91
+msgid "'Add to Cart' Button Color"
+msgstr "'Toevoegen aan winkelwagen' Knop Kleur"
+
+#: plugin-options/style-options.php:100
+msgid "'Add to Cart' Button Text Color"
+msgstr "'Toevoegen aan winkelwagen' Knop Textkleur"
+
+#: plugin-options/style-options.php:109
+msgid "'Add to Cart' Button Hover Color "
+msgstr "'Toevoegen aan winkelwagen' Knop Aanwijzer kleur "
+
+#: plugin-options/style-options.php:118
+msgid "'Add to Cart' Button Hover Text Color"
+msgstr "'Toevoegen aan winkelwagen' Knop Aanwijzer Tekstkleur"
+
+#: plugin-options/style-options.php:127
+msgid "'View Details' Button Color"
+msgstr "'Bekijk Details' Knop Kleur"
+
+#: plugin-options/style-options.php:136
+msgid "'View Details' Button Text Color"
+msgstr "'Bekijk Details' Knop Tekstkleur"
+
+#: plugin-options/style-options.php:145
+msgid "'View Details' Button Hover Color "
+msgstr "'Bekijk Details' Knop Aanwijzer kleur "
+
+#: plugin-options/style-options.php:154
+msgid "'View Details' Button Hover Text Color"
+msgstr "'Bekijk Details' Knop Aanwijzer Tekstkleur"
+
+#: templates/yith-quick-view-share.php:52
+msgid "May I ask you to see this product, please?"
+msgstr "Mag ik u vragen dit product te bekijken?"
+
+#. Description of the plugin/theme
+msgid ""
+"The <code><strong>YITH WooCommerce Quick View</strong></code> plugin allows "
+"your customers to have a quick look about products. <a href=\"https://"
+"yithemes.com/\" target=\"_blank\">Get more plugins for your e-commerce shop "
+"on <strong>YITH</strong></a>."
+msgstr ""
+"Met de plug-in <code> <strong> YITH WooCommerce Quick View </strong></code> "
+"kunnen uw klanten snel producten bekijken. <a href=\"https://yithemes.com/\" "
+"target=\"_blank\"> Download meer plug-ins voor uw e-commerceshop op <strong> "
+"YITH </strong></a>."
+
+#: includes/class.yith-wcqv-admin.php:133
+msgctxt "options page title"
+msgid "YITH WooCommerce Quick View"
+msgstr "YITH WooCommerce Quick View"
+
+#: includes/class.yith-wcqv-admin.php:134
+msgctxt "plugin menu title"
+msgid "Quick View"
+msgstr "Quick View"
+
+#~ msgid "https://yithemes.com/"
+#~ msgstr "https://yithemes.com/"
+
+#~ msgid "YITH"
+#~ msgstr "YITH"
+
+#~ msgid "https://yithemes.com/themes/plugins/yith-woocommerce-quick-view"
+#~ msgstr "https://yithemes.com/themes/plugins/yith-woocommerce-quick-view"
+
+#~ msgid "YITH WooCommerce Quick View Premium"
+#~ msgstr "YITH WooCommerce Quick View Premium"

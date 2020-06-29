@@ -1,0 +1,3287 @@
+# Copyright (C) 2020 weDevs
+# This file is distributed under the GPL2.
+msgid ""
+msgstr ""
+"Project-Id-Version: WP Project Manager Pro 2.4.3\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/cpm-pro\n"
+"POT-Creation-Date: 2020-04-30 05:06:16+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: wp-vue-i18n 1.1.4\n"
+
+#: bootstrap/start.php:60
+msgid "Your Project Manager pro is almost ready."
+msgstr ""
+
+#: bootstrap/start.php:61
+msgid ""
+"You just need to active the <strong>Project Manager free</strong> to make "
+"it functional."
+msgstr ""
+
+#: bootstrap/start.php:64
+msgid "Active"
+msgstr ""
+
+#: bootstrap/start.php:111
+msgid "Error: Nonce verification failed"
+msgstr ""
+
+#: bootstrap/start.php:124
+msgid "ERROR: Error fetching plugin information: %s"
+msgstr ""
+
+#: core/Notifications/Emails/Comment_Mention_Notification.php:46
+msgid "Message"
+msgstr ""
+
+#: core/Notifications/Emails/Comment_Mention_Notification.php:51
+#: modules/gantt/views/assets/src/components/gantt.vue:21
+#: modules/time_tracker/views/assets/src/components/report-form.vue:40
+#: views/assets/src/components/reports/completed-task-results.vue:20
+#: views/assets/src/components/reports/milestone-task-results.vue:20
+#: views/assets/src/components/reports/overdue-results.vue:20
+#: views/assets/src/components/reports/unassigned-task-results.vue:20
+#: views/assets/src/components/reports/user-activity-results.vue:20
+msgid "Task List"
+msgstr ""
+
+#: core/Notifications/Emails/Comment_Mention_Notification.php:56
+#: modules/gantt/views/assets/src/components/gantt.vue:22
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/invoice-entry.vue:7
+#: modules/invoice/views/assets/src/components/single-invoice-content.vue:210
+#: modules/invoice/views/assets/src/components/single-invoice.vue:213
+#: modules/time_tracker/views/assets/src/components/directive.js:10
+#: modules/time_tracker/views/assets/src/components/lists-task-estimation.vue:45
+#: modules/time_tracker/views/assets/src/components/projects-task-estimation.vue:46
+#: modules/time_tracker/views/assets/src/components/projects-task-estimation.vue:107
+#: modules/time_tracker/views/assets/src/components/projects-task-estimation.vue:192
+#: modules/time_tracker/views/assets/src/components/user-projects-task-estimation.vue:44
+#: modules/time_tracker/views/assets/src/components/user-reports-task-estimation.vue:125
+#: modules/time_tracker/views/assets/src/components/user-reports-task-estimation.vue:241
+#: modules/time_tracker/views/assets/src/components/user-reports-task-estimation.vue:357
+#: views/assets/src/components/calendar/task-create-form.vue:50
+#: views/emails/html/daily_digest.php:63
+msgid "Task"
+msgstr ""
+
+#: core/Notifications/Emails/Comment_Mention_Notification.php:61
+msgid "File"
+msgstr ""
+
+#: core/Notifications/Emails/Comment_Mention_Notification.php:73
+msgid "[%s][%s] Comment on: %s"
+msgstr ""
+
+#: core/Notifications/Emails/Daily_Digest.php:80
+msgid "[%s] Daily digest -"
+msgstr ""
+
+#: core/Notifications/Notification.php:86
+#: views/assets/src/components/settings/settings.vue:40
+#: views/emails/html/daily_digest.php:11
+msgid "Daily Digest"
+msgstr ""
+
+#: core/Notifications/Notification.php:91
+msgid "Enable project manager Daily Digest"
+msgstr ""
+
+#: core/Notifications/Notification.php:107
+msgid "Email Notification"
+msgstr ""
+
+#: core/Notifications/Notification.php:111
+msgid "Enable project manager email"
+msgstr ""
+
+#: core/Notifications/Notification.php:142
+msgid "Notifications for"
+msgstr ""
+
+#: core/Notifications/Notification.php:147
+msgid "New Projects "
+msgstr ""
+
+#: core/Notifications/Notification.php:151
+msgid "Update Projects "
+msgstr ""
+
+#: core/Notifications/Notification.php:155
+msgid "New Message "
+msgstr ""
+
+#: core/Notifications/Notification.php:159
+msgid "New Comment "
+msgstr ""
+
+#: core/Notifications/Notification.php:163
+msgid "Update Comment "
+msgstr ""
+
+#: core/Notifications/Notification.php:167
+msgid "New Task "
+msgstr ""
+
+#: core/Notifications/Notification.php:171
+msgid "Update Task "
+msgstr ""
+
+#: core/Notifications/Notification.php:175
+msgid "Complete Task "
+msgstr ""
+
+#: core/Update/Update.php:85
+msgid ""
+"Please <a href=\"%s\">enter</a> your <strong>%s</strong> plugin license key "
+"to get the pro features, regular update and support."
+msgstr ""
+
+#: core/Update/Update.php:100
+msgid " Error: Please activate your <a href=\"%s\">license</a>"
+msgstr ""
+
+#: core/Update/Update.php:140
+msgid "Your License is About to Expire!"
+msgstr ""
+
+#: core/Update/Update.php:141
+msgid ""
+"Your WP Project Manager Pro license will expire in %s (%s). Please renew "
+"your license to keep using the plugin."
+msgstr ""
+
+#: core/Update/Update.php:145 core/Update/Wedevs_Updater.php:107
+#: src/Update/Controllers/Update_Controller.php:85
+msgid "Renew License"
+msgstr ""
+
+#: core/Update/Update.php:220
+msgid "License"
+msgstr ""
+
+#: core/Update/Update.php:270 core/Update/Wedevs_Updater.php:97
+#: src/Update/Controllers/Update_Controller.php:30
+#: src/Update/Controllers/Update_Controller.php:75
+msgid "has been expired %s ago"
+msgstr ""
+
+#: core/Update/Update.php:273 core/Update/Wedevs_Updater.php:101
+#: src/Update/Controllers/Update_Controller.php:33
+#: src/Update/Controllers/Update_Controller.php:79
+msgid "will expire in %s"
+msgstr ""
+
+#: core/Update/Update.php:276 src/Update/Controllers/Update_Controller.php:36
+msgid "Your license %s (%s)."
+msgstr ""
+
+#: core/Update/Wedevs_Updater.php:66
+msgid "Nonce verification failied"
+msgstr ""
+
+#: core/Update/Wedevs_Updater.php:74
+#: src/Update/Controllers/Update_Controller.php:52
+msgid "Please enter your email address"
+msgstr ""
+
+#: core/Update/Wedevs_Updater.php:78
+#: src/Update/Controllers/Update_Controller.php:56
+msgid "Please enter your valid license key"
+msgstr ""
+
+#: core/Update/Wedevs_Updater.php:96
+#: src/Update/Controllers/Update_Controller.php:74
+msgid "Opps! license invalid. "
+msgstr ""
+
+#: core/Update/Wedevs_Updater.php:100
+#: src/Update/Controllers/Update_Controller.php:78
+msgid "Congrats! License activated successfully. "
+msgstr ""
+
+#: core/Update/Wedevs_Updater.php:113
+#: src/Update/Controllers/Update_Controller.php:91
+msgid "Invalid license"
+msgstr ""
+
+#: core/Update/Wedevs_Updater.php:122
+#: src/Update/Controllers/Update_Controller.php:97
+msgid "Something went wrong"
+msgstr ""
+
+#: core/Update/Wedevs_Updater.php:146
+msgid "License successfully deleted"
+msgstr ""
+
+#: core/Update/Wedevs_Updater.php:149
+msgid "Something wrong, Please try again"
+msgstr ""
+
+#: core/Update/Wedevs_Updater.php:220
+msgid ""
+"Please <a href=\"%s\">enter</a> your <strong>%s</strong> plugin license key "
+"to get regular update and support."
+msgstr ""
+
+#: core/Update/Wedevs_Updater.php:235
+msgid " Error: Please activate your license"
+msgstr ""
+
+#: core/Upgrades/Upgrade.php:104
+msgid "WP Project Manager-Pro Data Update Required"
+msgstr ""
+
+#: core/Upgrades/Upgrade.php:105
+msgid "&#8211; Please click the button below to update to the latest version."
+msgstr ""
+
+#: core/Upgrades/Upgrade.php:109
+msgid "Run the Update"
+msgstr ""
+
+#: core/Upgrades/Upgrade.php:117
+msgid ""
+"It is strongly recommended that you backup your database before proceeding. "
+"Are you sure you wish to run the updater now?"
+msgstr ""
+
+#: core/WP/Active.php:105
+#: modules/pm_buddypress/src/PM_BP_Group_Extension.php:21
+#: modules/time_tracker/views/assets/src/components/user-by-project-graph.vue:144
+msgid "Projects"
+msgstr ""
+
+#: core/WP/Menu.php:25 views/assets/src/components/calendar/calendar.vue:17
+#: views/assets/src/components/calendar/router.js:22
+msgid "Calendar"
+msgstr ""
+
+#: core/WP/Menu.php:28 views/assets/src/components/progress/progress.vue:15
+#: views/assets/src/components/progress/router.js:25
+msgid "Progress"
+msgstr ""
+
+#: core/WP/Menu.php:29 views/assets/src/components/reports/router.js:179
+msgid "Reports"
+msgstr ""
+
+#: core/WP/Menu.php:30 views/assets/src/components/module-lists/router.js:25
+msgid "Modules"
+msgstr ""
+
+#: core/WP/Menu.php:57
+msgid "PM Frontend"
+msgstr ""
+
+#: libs/functions-modules.php:109
+msgid "This is not a valid plugin"
+msgstr ""
+
+#: libs/functions-modules.php:168
+msgid "The module is invalid"
+msgstr ""
+
+#: libs/functions.php:414 src/Reports/Controllers/Reports_Controller.php:192
+#: src/Reports/Controllers/Reports_Controller.php:310
+#: src/Reports/Controllers/Reports_Controller.php:425
+#: src/Reports/Controllers/Reports_Controller.php:842
+#: src/Reports/Controllers/Reports_Controller.php:1045
+#: views/assets/src/components/project-settings/slack.vue:71
+#: views/assets/src/components/reports/completed-task-results.vue:37
+#: views/assets/src/components/reports/milestone-task-results.vue:38
+#: views/assets/src/components/reports/overdue-results.vue:38
+#: views/assets/src/components/reports/result-view.vue:22
+#: views/assets/src/components/reports/result-view.vue:97
+#: views/assets/src/components/reports/task-result-view.vue:21
+#: views/assets/src/components/reports/task-result-view.vue:84
+#: views/assets/src/components/reports/unassigned-task-results.vue:38
+#: views/assets/src/components/reports/user-activity-results.vue:37
+#: views/assets/src/components/reports/user-task-results.vue:21
+#: views/reports/completed-tasks.php:62 views/reports/milestone-tasks.php:62
+#: views/reports/overdue-tasks.php:62 views/reports/unassigned-tasks.php:62
+#: views/reports/user-activity-tasks.php:62
+msgid "Tasks"
+msgstr ""
+
+#: modules/custom_fields/views/assets/src/components/custom-field-form.vue:11
+msgid "Field Title"
+msgstr ""
+
+#: modules/custom_fields/views/assets/src/components/custom-field-form.vue:19
+msgid "e.g Priority, Stage, Status"
+msgstr ""
+
+#: modules/custom_fields/views/assets/src/components/custom-field-form.vue:26
+#: modules/custom_fields/views/assets/src/components/field-lists.vue:7
+msgid "Type"
+msgstr ""
+
+#: modules/custom_fields/views/assets/src/components/custom-field-form.vue:30
+msgid "Drop-down"
+msgstr ""
+
+#: modules/custom_fields/views/assets/src/components/custom-field-form.vue:31
+msgid "Text"
+msgstr ""
+
+#: modules/custom_fields/views/assets/src/components/custom-field-form.vue:32
+msgid "Number"
+msgstr ""
+
+#: modules/custom_fields/views/assets/src/components/custom-field-form.vue:33
+msgid "URL"
+msgstr ""
+
+#: modules/custom_fields/views/assets/src/components/custom-field-form.vue:46
+msgid "Add description"
+msgstr ""
+
+#: modules/custom_fields/views/assets/src/components/custom-field.vue:71
+msgid "Custom Fields"
+msgstr ""
+
+#: modules/custom_fields/views/assets/src/components/custom-field.vue:86
+msgid "Custom Field"
+msgstr ""
+
+#: modules/custom_fields/views/assets/src/components/custom-field.vue:134
+msgid "Field title required!"
+msgstr ""
+
+#: modules/custom_fields/views/assets/src/components/custom-field.vue:139
+msgid "Field type required!"
+msgstr ""
+
+#: modules/custom_fields/views/assets/src/components/custom-field.vue:144
+msgid "Field options required!"
+msgstr ""
+
+#: modules/custom_fields/views/assets/src/components/custom-field.vue:168
+msgid "Custom field created successfully!"
+msgstr ""
+
+#: modules/custom_fields/views/assets/src/components/custom-field.vue:198
+msgid "Custom field updated successfully!"
+msgstr ""
+
+#: modules/custom_fields/views/assets/src/components/custom-field.vue:251
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/sub_tasks/views/assets/src/components/slack.vue:18
+#: views/assets/src/components/project-settings/create-task-label-form.vue:37
+#: views/assets/src/components/project-settings/slack.vue:84
+msgid "Update"
+msgstr ""
+
+#: modules/custom_fields/views/assets/src/components/field-lists.vue:6
+#: modules/custom_fields/views/assets/src/directives/directive.js:37
+#: modules/gantt/views/assets/src/directives/directive.js:37
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/listing.vue:6
+#: modules/invoice/views/assets/src/components/listing.vue:79
+#: views/assets/src/components/project-files/doc-create-form.vue:77
+#: views/assets/src/components/project-files/link-create-form.vue:75
+msgid "Title"
+msgstr ""
+
+#: modules/custom_fields/views/assets/src/components/field-lists.vue:8
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: views/assets/src/components/project-settings/create-task-label-form.vue:15
+#: views/assets/src/components/project-settings/label.vue:17
+msgid "Description"
+msgstr ""
+
+#: modules/custom_fields/views/assets/src/components/field-lists.vue:9
+#: modules/custom_fields/views/assets/src/directives/directive.js:40
+#: modules/gantt/views/assets/src/directives/directive.js:40
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/listing.vue:14
+#: modules/invoice/views/assets/src/components/listing.vue:87
+#: views/assets/src/components/project-settings/label.vue:18
+msgid "Action"
+msgstr ""
+
+#: modules/custom_fields/views/assets/src/components/field-lists.vue:22
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/create-invoice-form.vue:98
+#: modules/invoice/views/assets/src/components/create-invoice-form.vue:155
+#: modules/invoice/views/assets/src/components/listing.vue:51
+#: modules/invoice/views/assets/src/components/single-invoice-content.vue:34
+#: modules/invoice/views/assets/src/components/single-invoice.vue:37
+#: modules/sub_tasks/views/assets/src/components/sub-task-lists.vue:40
+#: views/assets/src/components/project-files/doc-content.vue:11
+#: views/assets/src/components/project-files/link-content.vue:11
+#: views/assets/src/components/project-settings/label.vue:33
+msgid "Edit"
+msgstr ""
+
+#: modules/custom_fields/views/assets/src/components/field-lists.vue:26
+#: modules/gantt/views/assets/src/components/list-form.vue:15
+#: modules/gantt/views/assets/src/components/task-form.vue:15
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/kanboard-content.vue:137
+#: modules/sub_tasks/views/assets/src/components/sub-task-lists.vue:43
+#: modules/sub_tasks/views/assets/src/components/sub-task-lists.vue:76
+#: modules/time_tracker/views/assets/src/components/others-time-log.vue:11
+#: modules/time_tracker/views/assets/src/components/others-time-log.vue:23
+#: modules/woo_project/views/assets/js/woo-project.js:1
+#: modules/woo_project/views/assets/src/components/user-search.vue:53
+#: views/assets/src/components/project-settings/label.vue:35
+msgid "Delete"
+msgstr ""
+
+#: modules/custom_fields/views/assets/src/components/field-lists.vue:32
+msgid "No field found!"
+msgstr ""
+
+#: modules/custom_fields/views/assets/src/components/field-lists.vue:117
+#: modules/time_tracker/views/assets/src/components/time-log.vue:383
+#: views/assets/src/components/project-files/mixin.js:456
+#: views/assets/src/components/project-settings/label.vue:254
+msgid "Are you sure!"
+msgstr ""
+
+#: modules/custom_fields/views/assets/src/components/field-lists.vue:127
+msgid "Field deleted successfully!"
+msgstr ""
+
+#: modules/custom_fields/views/assets/src/components/options.vue:4
+msgid "Options"
+msgstr ""
+
+#: modules/custom_fields/views/assets/src/components/options.vue:93
+msgid "Type an option name"
+msgstr ""
+
+#: modules/custom_fields/views/assets/src/components/options.vue:304
+msgid "Maximum character limit 40"
+msgstr ""
+
+#: modules/custom_fields/views/assets/src/components/options.vue:339
+msgid "Option name required"
+msgstr ""
+
+#: modules/custom_fields/views/assets/src/components/task-content.vue:15
+#: modules/time_tracker/views/assets/src/components/report-form.vue:37
+msgid "-Select-"
+msgstr ""
+
+#: modules/custom_fields/views/assets/src/components/task-content.vue:251
+msgid " is not number"
+msgstr ""
+
+#: modules/custom_fields/views/assets/src/components/task-content.vue:262
+msgid " is not url"
+msgstr ""
+
+#: modules/custom_fields/views/assets/src/directives/directive.js:38
+#: modules/gantt/views/assets/src/directives/directive.js:38
+msgid "Start time"
+msgstr ""
+
+#: modules/custom_fields/views/assets/src/directives/directive.js:39
+#: modules/gantt/views/assets/src/directives/directive.js:39
+msgid "Group"
+msgstr ""
+
+#: modules/custom_fields/views/assets/src/directives/directive.js:213
+#: modules/gantt/views/assets/src/directives/directive.js:213
+msgid "will start after completing "
+msgstr ""
+
+#: modules/custom_fields/views/assets/src/directives/directive.js:239
+#: modules/gantt/views/assets/src/directives/directive.js:239
+msgid "will complete after start"
+msgstr ""
+
+#: modules/custom_fields/views/assets/src/directives/directive.js:266
+#: modules/gantt/views/assets/src/directives/directive.js:266
+msgid "will complete after completing the"
+msgstr ""
+
+#: modules/custom_fields/views/assets/src/directives/directive.js:292
+#: modules/gantt/views/assets/src/directives/directive.js:292
+msgid "%1$s will start with the %2$s or after completing the %3$s"
+msgstr ""
+
+#: modules/gantt/views/assets/src/components/gantt.vue:20
+#: modules/woo_project/views/assets/src/components/woo-option.vue:27
+#: views/assets/src/components/calendar/task-create-form.vue:27
+#: views/assets/src/components/reports/advance-task.vue:305
+#: views/assets/src/components/reports/completed-task-results.vue:8
+#: views/assets/src/components/reports/completed-tasks.vue:59
+#: views/assets/src/components/reports/milestone-task-results.vue:8
+#: views/assets/src/components/reports/milestone-task.vue:59
+#: views/assets/src/components/reports/overdue-results.vue:8
+#: views/assets/src/components/reports/overdue-task.vue:59
+#: views/assets/src/components/reports/project-tasks.vue:33
+#: views/assets/src/components/reports/unassigned-task-results.vue:8
+#: views/assets/src/components/reports/unassigned-task.vue:59
+#: views/assets/src/components/reports/user-activity-results.vue:8
+#: views/assets/src/components/reports/user-activity.vue:60
+#: views/assets/src/components/reports/user-task.vue:52
+#: views/assets/src/components/reports/user-task.vue:94
+#: views/assets/src/components/reports/user-task.vue:211
+#: views/reports/completed-tasks.php:7 views/reports/milestone-tasks.php:7
+#: views/reports/overdue-tasks.php:7 views/reports/unassigned-tasks.php:7
+#: views/reports/user-activity-tasks.php:7
+msgid "Project"
+msgstr ""
+
+#: modules/gantt/views/assets/src/components/list-form.vue:7
+msgid "New Task List"
+msgstr ""
+
+#: modules/gantt/views/assets/src/components/list-form.vue:8
+msgid "Edit Task List"
+msgstr ""
+
+#: modules/gantt/views/assets/src/components/tab-menu.vue:12
+msgid "Gantt Chart"
+msgstr ""
+
+#: modules/gantt/views/assets/src/components/task-form.vue:7
+#: views/assets/src/components/calendar/task-create-form.vue:24
+msgid "New Task"
+msgstr ""
+
+#: modules/gantt/views/assets/src/components/task-form.vue:8
+msgid "Edit Task"
+msgstr ""
+
+#: modules/invoice/core/Paypal/Paypal.php:50
+msgid "Payment from PayPal, Txn: %s"
+msgstr ""
+
+#: modules/invoice/core/Permission/Payment.php:46
+msgid "Please insert your payment amount"
+msgstr ""
+
+#: modules/invoice/invoice.php:139 modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/invoice.vue:21
+#: modules/invoice/views/assets/src/components/settings-tab-menu.vue:3
+#: modules/invoice/views/assets/src/components/tab-menu.vue:13
+msgid "Invoice"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/listing.vue:55
+#: modules/invoice/views/assets/src/components/listing.vue:118
+msgid "Download PDF"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+msgid "Here is the default terms"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/payment.vue:114
+#: modules/sub_tasks/views/assets/src/components/new-subtask-form.vue:120
+msgid "Start Date"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/create-invoice-form.vue:173
+msgid "Due date"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+msgid "Add Invoice"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+msgid "Update Invoice"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/autocomplete.vue:123
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/import-task-modal.vue:76
+msgid "No Task Found!"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/client-payment.vue:71
+msgid "Process Payment"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/invoice-entry.vue:8
+#: modules/invoice/views/assets/src/components/single-invoice-content.vue:212
+#: modules/invoice/views/assets/src/components/single-invoice.vue:215
+msgid "Rate"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/invoice-entry.vue:9
+msgid "Hour"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/invoice-entry.vue:10
+#: modules/invoice/views/assets/src/components/invoice-entry.vue:62
+#: modules/invoice/views/assets/src/components/invoice-entry.vue:125
+#: modules/invoice/views/assets/src/components/payment-history.vue:51
+msgid "Tax"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/invoice-entry.vue:11
+#: modules/invoice/views/assets/src/components/invoice-entry.vue:63
+#: modules/invoice/views/assets/src/components/listing.vue:12
+#: modules/invoice/views/assets/src/components/listing.vue:85
+#: modules/time_tracker/views/assets/src/components/others-time-log.vue:10
+#: modules/time_tracker/views/assets/src/components/others-time-log.vue:30
+#: modules/time_tracker/views/assets/src/components/summary-search-results.vue:64
+#: modules/time_tracker/views/assets/src/components/time-log.vue:9
+#: modules/time_tracker/views/assets/src/components/time-log.vue:29
+#: modules/time_tracker/views/assets/src/components/time-log.vue:53
+msgid "Total"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/entry-task-row.vue:51
+#: modules/invoice/views/assets/src/components/invoice-entry.vue:18
+#: modules/invoice/views/assets/src/components/invoice-entry.vue:70
+msgid "Remove this task"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/entry-task-row.vue:27
+#: modules/invoice/views/assets/src/components/invoice-entry.vue:28
+#: modules/invoice/views/assets/src/components/invoice-entry.vue:81
+msgid "Toggle Description"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/invoice-entry.vue:47
+#: modules/invoice/views/assets/src/components/invoice-entry.vue:101
+msgid "+Add More"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/invoice-entry.vue:59
+#: views/assets/src/components/project-settings/label.vue:16
+msgid "Name"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/invoice-entry.vue:60
+msgid "Unit Price"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/invoice-entry.vue:61
+msgid "Qty"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/invoice-entry.vue:112
+#: modules/invoice/views/assets/src/components/payment-history.vue:30
+msgid "Subtotal"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/invoice-entry.vue:118
+#: modules/invoice/views/assets/src/components/listing.vue:10
+#: modules/invoice/views/assets/src/components/listing.vue:83
+#: modules/invoice/views/assets/src/components/payment-history.vue:40
+msgid "Discount"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/invoice-entry.vue:144
+msgid "Total Paid"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/invoice-entry.vue:150
+#: modules/invoice/views/assets/src/components/payment-history.vue:87
+msgid "Due"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/create-invoice-form.vue:8
+msgid "Invoice Title"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/create-invoice-form.vue:16
+#: views/assets/src/components/project-settings/capabilities.vue:9
+msgid "Client"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/create-invoice-form.vue:19
+msgid "-Select Client-"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/create-invoice-form.vue:27
+msgid "Addresses"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/create-invoice-form.vue:33
+#: modules/invoice/views/assets/src/components/single-invoice-content.vue:124
+#: modules/invoice/views/assets/src/components/single-invoice.vue:127
+msgid "From"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/create-invoice-form.vue:34
+#: modules/invoice/views/assets/src/components/single-invoice-content.vue:167
+#: modules/invoice/views/assets/src/components/single-invoice.vue:170
+msgid "To"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/create-invoice-form.vue:45
+#: modules/invoice/views/assets/src/components/create-invoice-form.vue:106
+#: modules/invoice/views/assets/src/components/settings.vue:76
+msgid "Organization"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/create-invoice-form.vue:50
+#: modules/invoice/views/assets/src/components/create-invoice-form.vue:110
+#: modules/invoice/views/assets/src/components/settings.vue:85
+msgid "Address Line 1"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/create-invoice-form.vue:55
+#: modules/invoice/views/assets/src/components/create-invoice-form.vue:114
+msgid "Address Field 2"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/create-invoice-form.vue:60
+#: modules/invoice/views/assets/src/components/create-invoice-form.vue:118
+#: modules/invoice/views/assets/src/components/settings.vue:101
+msgid "City"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/create-invoice-form.vue:65
+#: modules/invoice/views/assets/src/components/create-invoice-form.vue:122
+msgid "State"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/create-invoice-form.vue:70
+#: modules/invoice/views/assets/src/components/create-invoice-form.vue:126
+msgid "Zip"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/create-invoice-form.vue:75
+#: modules/invoice/views/assets/src/components/create-invoice-form.vue:131
+#: modules/invoice/views/assets/src/components/settings.vue:123
+msgid "Country"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/create-invoice-form.vue:83
+#: modules/invoice/views/assets/src/components/create-invoice-form.vue:139
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/kanboard-content.vue:368
+#: modules/sub_tasks/views/assets/src/components/new-subtask-form.vue:47
+#: views/assets/src/components/project-settings/create-task-label-form.vue:35
+#: views/assets/src/components/project-settings/create-task-label-form.vue:44
+msgid "Cancel"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/create-invoice-form.vue:166
+msgid "Invoice Date"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+msgid "Invoice Discount (%)"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+msgid "Minimum Partial payment"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+msgid "Enable partial payment"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+msgid "Min Partial Amount"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+msgid "Initial Invoice Entry"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+msgid "Terms:"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+msgid "Notes Visible to Client:"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/listing.vue:7
+#: modules/invoice/views/assets/src/components/listing.vue:80
+msgid "Created"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/listing.vue:8
+#: modules/invoice/views/assets/src/components/listing.vue:11
+#: modules/invoice/views/assets/src/components/listing.vue:81
+#: modules/invoice/views/assets/src/components/listing.vue:84
+msgid "due"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/listing.vue:9
+#: modules/invoice/views/assets/src/components/listing.vue:82
+#: src/Reports/Controllers/Reports_Controller.php:842
+#: src/Reports/Controllers/Reports_Controller.php:1045
+#: views/assets/src/components/reports/advance-task.vue:307
+#: views/assets/src/components/reports/milestone-task-results.vue:44
+#: views/assets/src/components/reports/result-view.vue:28
+#: views/assets/src/components/reports/result-view.vue:103
+#: views/assets/src/components/reports/task-result-view.vue:26
+#: views/assets/src/components/reports/task-result-view.vue:89
+#: views/assets/src/components/reports/unassigned-task-results.vue:42
+#: views/assets/src/components/reports/user-activity-results.vue:42
+#: views/reports/milestone-tasks.php:84 views/reports/unassigned-tasks.php:74
+msgid "Status"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/listing.vue:13
+#: modules/invoice/views/assets/src/components/listing.vue:86
+msgid "Paid"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+msgid "Edit this invoice"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/listing.vue:59
+#: modules/invoice/views/assets/src/components/listing.vue:63
+msgid "Send PDF"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/payment-history.vue:3
+msgid "Invoice Payment History"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/payment-history.vue:8
+#: modules/invoice/views/assets/src/components/payment.vue:47
+#: modules/time_tracker/views/assets/src/components/custom-time-log-form.vue:6
+#: views/assets/src/components/reports/task-result-view.vue:22
+#: views/assets/src/components/reports/task-result-view.vue:85
+msgid "Date"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/payment-history.vue:9
+msgid "Payment Method"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/payment-history.vue:10
+msgid "Note"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/payment-history.vue:11
+msgid "Ammount"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/payment-history.vue:64
+msgid "Total Amount"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/payment-history.vue:77
+msgid "Total paid"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/stripe.vue:10
+msgid "Card Number"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/stripe.vue:12
+msgid "Invalid Card Number"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/stripe.vue:18
+msgid "CVC Number"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/stripe.vue:20
+msgid "Invalid CVC Number"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/stripe.vue:26
+msgid "EXPIRY"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/stripe.vue:33
+msgid "Invalid Expiry"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/client-payment.vue:9
+msgid "Pay Amount"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/single-invoice-content.vue:19
+#: modules/invoice/views/assets/src/components/single-invoice.vue:22
+#: views/assets/src/components/reports/advance-task.vue:7
+#: views/assets/src/components/reports/advance-task.vue:11
+#: views/assets/src/components/reports/project-tasks.vue:7
+msgid "Back"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/single-invoice-content.vue:30
+#: modules/invoice/views/assets/src/components/single-invoice.vue:33
+msgid "Enter payment"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/single-invoice-content.vue:39
+#: modules/invoice/views/assets/src/components/single-invoice.vue:42
+msgid "More"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/single-invoice-content.vue:47
+#: modules/invoice/views/assets/src/components/single-invoice.vue:50
+msgid "Send by email"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/single-invoice-content.vue:52
+#: modules/invoice/views/assets/src/components/single-invoice.vue:55
+#: views/assets/src/helpers/mixin/mixin.js:24
+msgid "PDF"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/single-invoice-content.vue:59
+#: modules/invoice/views/assets/src/components/single-invoice.vue:62
+msgid "pay"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/single-invoice-content.vue:85
+#: modules/invoice/views/assets/src/components/single-invoice.vue:88
+msgid "Invoice #:"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/single-invoice-content.vue:89
+#: modules/invoice/views/assets/src/components/single-invoice.vue:92
+msgid "Invoice Date:"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/single-invoice-content.vue:93
+#: modules/invoice/views/assets/src/components/single-invoice.vue:96
+msgid "Due Date:"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/single-invoice-content.vue:98
+#: modules/invoice/views/assets/src/components/single-invoice.vue:101
+msgid "Amount Due:"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/single-invoice-content.vue:110
+#: modules/invoice/views/assets/src/components/single-invoice.vue:113
+msgid "INVOICE"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/single-invoice-content.vue:211
+#: modules/invoice/views/assets/src/components/single-invoice.vue:214
+msgid "Entry Notes"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/single-invoice-content.vue:213
+#: modules/invoice/views/assets/src/components/single-invoice.vue:216
+#: modules/time_tracker/views/assets/src/components/project-by-user-graph.vue:133
+#: modules/time_tracker/views/assets/src/components/projects-task-estimation.vue:238
+#: modules/time_tracker/views/assets/src/components/user-by-project-graph.vue:136
+msgid "Hours"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+msgid "Tax (%)"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+msgid "Item"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice-frontend.js:1
+#: modules/invoice/views/assets/js/invoice.js:1
+msgid "Unit Cost"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/settings.vue:156
+#: views/assets/src/components/project-settings/capabilities.vue:225
+#: views/assets/src/components/project-settings/github-bitbucket.vue:177
+#: views/assets/src/components/settings/page-tab-content.vue:44
+msgid "Save Changes"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/payment.vue:115
+msgid "Enter Payment"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/invoice.vue:22
+#: modules/woo_project/views/assets/src/components/woo-project.vue:27
+msgid "Add New"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/settings.vue:5
+msgid "Invoices"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/settings.vue:10
+msgid "Theme Color"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/settings.vue:19
+msgid "Currency"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/settings.vue:29
+msgid "Payment Gateway"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/settings.vue:42
+msgid "PayPal email"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/settings.vue:51
+msgid "Enable demo/sandbox mode forPayPal"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/settings.vue:58
+#: modules/stripe/views/assets/js/stripe.js:1
+#: modules/stripe/views/assets/src/components/settings.vue:19
+msgid "When sandbox mode is active, all payment gateway will be used in demo mode"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/settings.vue:65
+msgid "PayPal Instruction"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/settings.vue:69
+msgid ""
+"Pay via PayPal; you can pay with your credit card if you don't have a "
+"PayPal account"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/settings.vue:93
+msgid "Address Line 2"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/settings.vue:109
+msgid "State/Province"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/settings.vue:116
+msgid "Zip/Postal Code"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice.js:1
+msgid "Tax(%)"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice.js:1
+msgid "Price"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice.js:1
+msgid "As For Invoice"
+msgstr ""
+
+#: modules/invoice/views/assets/js/invoice.js:1
+#: modules/invoice/views/assets/src/components/payment.vue:13
+msgid "Payment"
+msgstr ""
+
+#: modules/invoice/views/assets/src/components/entry-task-row.vue:23
+msgid "No user found."
+msgstr ""
+
+#: modules/invoice/views/assets/src/components/entry-task-row.vue:50
+msgid "Add an entry"
+msgstr ""
+
+#: modules/invoice/views/assets/src/components/entry-task-row.vue:52
+msgid "Type to search"
+msgstr ""
+
+#: modules/invoice/views/assets/src/components/payment.vue:21
+msgid "Full payment"
+msgstr ""
+
+#: modules/invoice/views/assets/src/components/payment.vue:29
+msgid "Invoice amount"
+msgstr ""
+
+#: modules/invoice/views/assets/src/components/payment.vue:37
+msgid "Method"
+msgstr ""
+
+#: modules/invoice/views/assets/src/components/payment.vue:57
+msgid "Notes"
+msgstr ""
+
+#: modules/kanboard/core/Permission/Permission.php:25
+msgid "This task already exist in this board"
+msgstr ""
+
+#: modules/kanboard/src/Controllers/Kanboard_Controller.php:109
+msgid "Open"
+msgstr ""
+
+#: modules/kanboard/src/Controllers/Kanboard_Controller.php:116
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/automation.vue:25
+msgid "In Progress"
+msgstr ""
+
+#: modules/kanboard/src/Controllers/Kanboard_Controller.php:122
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/automation.vue:26
+msgid "Done"
+msgstr ""
+
+#: modules/kanboard/src/Controllers/Kanboard_Controller.php:130
+msgid "Overdue"
+msgstr ""
+
+#: modules/kanboard/src/Controllers/Kanboard_Controller.php:487
+msgid "Plase remove the 'task lists' item from others column"
+msgstr ""
+
+#: modules/kanboard/src/Controllers/Kanboard_Controller.php:492
+msgid "You have selectd 'Newlyadded' option for others column"
+msgstr ""
+
+#: modules/kanboard/src/Controllers/Kanboard_Controller.php:509
+msgid "Please remove the 'Newlyadded' option from others column"
+msgstr ""
+
+#: modules/kanboard/src/Controllers/Kanboard_Controller.php:543
+msgid "You have already selectd 'completed tasks' in others column"
+msgstr ""
+
+#: modules/kanboard/src/Controllers/Kanboard_Controller.php:559
+msgid "You have selectd 'in progress' in others column"
+msgstr ""
+
+#: modules/kanboard/src/Controllers/Kanboard_Controller.php:578
+msgid "You have already selectd 'completed task status' in others column"
+msgstr ""
+
+#: modules/kanboard/src/Controllers/Kanboard_Controller.php:592
+msgid "You have already selectd 'incomplete task status' in others column"
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/helpers/mixin/mixin.js:14
+msgid "Are you sure?"
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/helpers/mixin/mixin.js:183
+msgid "This task already included in others column."
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/kanboard-content.vue:836
+msgid "Search Task"
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/kanboard-content.vue:837
+msgid "Add Task"
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/kanboard-content.vue:838
+msgid "Remove task from this board"
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/kanboard-content.vue:839
+msgid "Add New Task"
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/import-task-modal.vue:483
+#: modules/kanboard/views/assets/src/components/kanboard-content.vue:840
+#: modules/sub_tasks/views/assets/src/components/subtask-to-task-modal.vue:413
+msgid "Select Task List"
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/kanboard-content.vue:841
+#: modules/sub_tasks/views/assets/src/components/new-subtask-form.vue:116
+#: views/assets/src/components/reports/advance-task.vue:300
+#: views/assets/src/components/reports/completed-tasks.vue:150
+#: views/assets/src/components/reports/overdue-task.vue:155
+#: views/assets/src/components/reports/user-task.vue:160
+#: views/assets/src/components/reports/user-task.vue:302
+msgid "Select User"
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/kanboard-content.vue:842
+msgid "Add"
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/kanboard-content.vue:843
+msgid "Add new section"
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/kanboard-content.vue:1095
+msgid "Set color successfully!"
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/kanboard.vue:55
+msgid "List views"
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/kanboard.vue:56
+msgid "Kanboard"
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/automation.vue:609
+msgid "Activated automation for this column"
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/import-task-modal.vue:686
+msgid "You do not select any task for importing"
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/kanboard.vue:8
+msgid "List View"
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/kanboard.vue:14
+msgid "Kanban"
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/kanboard.vue:20
+msgid "Task Filter"
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/kanboard.vue:24
+#: modules/time_tracker/views/assets/src/components/summary-search-results.vue:23
+#: views/assets/src/components/calendar/select-projects.vue:121
+#: views/assets/src/components/reports/completed-tasks.vue:16
+#: views/assets/src/components/reports/milestone-task.vue:16
+#: views/assets/src/components/reports/overdue-task.vue:16
+#: views/assets/src/components/reports/overdue-task.vue:17
+#: views/assets/src/components/reports/unassigned-task.vue:16
+#: views/assets/src/components/reports/unassigned-task.vue:17
+#: views/assets/src/components/reports/user-activity.vue:16
+#: views/assets/src/components/reports/user-activity.vue:17
+#: views/assets/src/components/reports/user-task.vue:16
+#: views/assets/src/components/reports/user-task.vue:17
+msgid "Filter"
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/automation.vue:9
+#: modules/kanboard/views/assets/src/components/kanboard-content.vue:111
+msgid "Manage Automation"
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/automation.vue:15
+msgid "Choose a preset to automate your kanbanboard and sync with Task Lists"
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/automation.vue:18
+msgid "Move Tasks"
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/automation.vue:22
+msgid "Select Type"
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/automation.vue:23
+#: modules/kanboard/views/assets/src/components/automation.vue:162
+msgid "None"
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/automation.vue:24
+msgid "To Do"
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/automation.vue:31
+msgid "This column will not to be automated"
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/automation.vue:35
+msgid "Move task here when..."
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/automation.vue:40
+msgid "Newly added"
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/automation.vue:44
+msgid ""
+"Tasks you have added recently on any task lists will be automatically moved "
+"here."
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/automation.vue:52
+msgid "Task lists"
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/automation.vue:56
+msgid ""
+"Tasks added only in the selected task lists will be automatically moved "
+"here."
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/automation.vue:69
+msgid "Search Task Lists"
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/automation.vue:95
+msgid "Reopened tasks"
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/automation.vue:99
+msgid "If a closed task in this project reopens, it will automatically move here."
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/automation.vue:105
+msgid "Move issue here when..."
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/automation.vue:110
+msgid "Completed tasks"
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/automation.vue:114
+msgid "Issues will automatically move here when added to this project."
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/automation.vue:123
+msgid "Assign User"
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/automation.vue:126
+msgid ""
+"Select team members to be assigned automatically when a task droppped in "
+"this column."
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/automation.vue:137
+msgid "Select users"
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/automation.vue:156
+msgid "Change task status"
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/automation.vue:166
+msgid "Dropping task here has no progress status"
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/automation.vue:173
+msgid "Completed task"
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/automation.vue:177
+msgid "Dropping task here will automatically mark the task as complete."
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/automation.vue:185
+msgid "Incompleted task"
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/automation.vue:189
+msgid "Dropping task here will automatically mark the task as incomplete."
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+msgid "Update Automation"
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/import-task-modal.vue:7
+msgid "Import From Task List"
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/import-task-modal.vue:12
+#: modules/sub_tasks/views/assets/src/components/subtask-to-task-modal.vue:12
+msgid "Loading Task Lists"
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/import-task-modal.vue:34
+#: views/assets/src/components/calendar/store.js:10
+msgid "All"
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/import-task-modal.vue:37
+#: modules/kanboard/views/assets/src/components/import-task-modal.vue:66
+msgid "Completed"
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/import-task-modal.vue:40
+#: modules/sub_tasks/views/assets/src/components/slack.vue:35
+#: views/assets/src/components/project-settings/slack.vue:101
+#: views/assets/src/components/reports/advance-task.vue:63
+msgid "Incomplete"
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/import-task-modal.vue:46
+msgid "Select All"
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/import-task-modal.vue:51
+msgid "Loading Tasks"
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+msgid "Import Tasks"
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/kanboard-content.vue:9
+#: modules/kanboard/views/assets/src/components/kanboard-content.vue:11
+#: modules/kanboard/views/assets/src/components/kanboard-content.vue:29
+msgid "Fullscreen"
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/kanboard-content.vue:91
+msgid "No task found."
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/kanboard-content.vue:120
+msgid "Import Task"
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/kanboard-content.vue:129
+msgid "Background Color"
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/kanboard-content.vue:149
+msgid "Select Banground Color"
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/kanboard-content.vue:161
+msgid "Apply"
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/kanboard-content.vue:269
+msgid "Lists"
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/kanboard-content.vue:300
+msgid "Assign User "
+msgstr ""
+
+#: modules/kanboard/views/assets/js/kanboard.js:1
+#: modules/kanboard/views/assets/src/components/kanboard-content.vue:347
+#: modules/sub_tasks/views/assets/src/components/new-subtask-form.vue:121
+#: views/assets/src/components/reports/result-view.vue:25
+#: views/assets/src/components/reports/result-view.vue:100
+msgid "Due Date"
+msgstr ""
+
+#: modules/pm_buddypress/pm_buddypress.php:150
+#: modules/woo_project/woo_project.php:141
+msgid ""
+"<div class=\"error\"><p><strong>WP Project Manager</strong> is not "
+"installed or inactive. Please install/activate the plugin for Project "
+"Manager - BuddyPress add-on to work.</p> If you do not have the pro "
+"version, <strong><a href=\"%s\">you can use the free "
+"version</a>.</strong></div>"
+msgstr ""
+
+#: modules/pm_buddypress/pm_buddypress.php:154
+msgid ""
+"<div class=\"error\"><p><strong>BuddyPress</strong> is missing. Please "
+"<strong><a href=\"%s\">install BuddyPress</a></strong> for Project Manager "
+"- BuddyPress add-on to work.</p></div>"
+msgstr ""
+
+#: modules/pm_buddypress/src/PM_BP_Group_Extension.php:49
+msgid "Only group members are authorized to access this page."
+msgstr ""
+
+#: modules/stripe/src/Controllers/Stripe_Controller.php:61
+msgid "Payment from Stripe, id: %s"
+msgstr ""
+
+#: modules/stripe/src/Controllers/Stripe_Controller.php:76
+msgid "Payment has been done successfully"
+msgstr ""
+
+#: modules/stripe/stripe.php:30
+msgid ""
+"<div class=\"error\"><p><strong>Project Invoice</strong> module is not "
+"active. Please active <strong><a href=\"%s\">Project Invoice</a>.</strong> "
+"</p> </div>"
+msgstr ""
+
+#: modules/stripe/views/assets/js/stripe.js:1
+#: modules/stripe/views/assets/src/components/settings.vue:6
+msgid "Stripe Instruction"
+msgstr ""
+
+#: modules/stripe/views/assets/js/stripe.js:1
+#: modules/stripe/views/assets/src/components/settings.vue:14
+msgid "Enable stripe test secret Key"
+msgstr ""
+
+#: modules/stripe/views/assets/js/stripe.js:1
+#: modules/stripe/views/assets/src/components/settings.vue:26
+msgid "Test Secret Key"
+msgstr ""
+
+#: modules/stripe/views/assets/js/stripe.js:1
+#: modules/stripe/views/assets/src/components/settings.vue:42
+msgid "Live Secret Key"
+msgstr ""
+
+#: modules/stripe/views/assets/js/stripe.js:1
+#: modules/stripe/views/assets/src/components/settings.vue:50
+msgid "Live Publishable Key"
+msgstr ""
+
+#: modules/sub_tasks/Permissions/Create_Sub_Task.php:30
+#: modules/sub_tasks/Permissions/Edit_Sub_Task.php:33
+msgid "You have no permission."
+msgstr ""
+
+#: modules/sub_tasks/src/Controllers/Sub_Tasks_Controller.php:130
+msgid "A sub task has been created successfully."
+msgstr ""
+
+#: modules/sub_tasks/src/Controllers/Sub_Tasks_Controller.php:190
+msgid "A sub task has been updated successfully."
+msgstr ""
+
+#: modules/sub_tasks/src/Controllers/Sub_Tasks_Controller.php:226
+msgid "A sub task has been deleted successfully."
+msgstr ""
+
+#: modules/sub_tasks/src/Controllers/Sub_Tasks_Controller.php:285
+msgid "A sub task has been sorted successfully"
+msgstr ""
+
+#: modules/sub_tasks/src/Validators/Create_Sub_Task.php:10
+msgid "Sub task discription is required."
+msgstr ""
+
+#: modules/sub_tasks/src/Validators/Create_Sub_Task.php:11
+#: modules/sub_tasks/src/Validators/Update_Sub_Task.php:11
+msgid "Project id is required."
+msgstr ""
+
+#: modules/sub_tasks/src/Validators/Create_Sub_Task.php:12
+#: modules/sub_tasks/src/Validators/Update_Sub_Task.php:12
+msgid "Task id is required."
+msgstr ""
+
+#: modules/sub_tasks/src/Validators/Update_Sub_Task.php:10
+msgid "Comment title is required."
+msgstr ""
+
+#: modules/sub_tasks/views/assets/src/components/new-subtask-button.vue:22
+#: modules/sub_tasks/views/assets/src/components/new-subtask-form.vue:118
+#: modules/sub_tasks/views/assets/src/components/single-subtask-create.vue:215
+#: modules/sub_tasks/views/assets/src/components/single-subtask-edit.vue:230
+msgid "New sub task"
+msgstr ""
+
+#: modules/sub_tasks/views/assets/src/components/new-subtask-form.vue:117
+msgid "Update Sub Task"
+msgstr ""
+
+#: modules/sub_tasks/views/assets/src/components/new-subtask-form.vue:119
+msgid "Sub task title"
+msgstr ""
+
+#: modules/sub_tasks/views/assets/src/components/show-subtask-button.vue:21
+msgid "Show Subtask"
+msgstr ""
+
+#: modules/sub_tasks/views/assets/src/components/single-subtask-create.vue:9
+msgid "Add a subtask"
+msgstr ""
+
+#: modules/sub_tasks/views/assets/src/components/single-subtask-create.vue:28
+#: modules/sub_tasks/views/assets/src/components/single-subtask-edit.vue:19
+msgid "Assign to"
+msgstr ""
+
+#: modules/sub_tasks/views/assets/src/components/single-subtask-create.vue:70
+#: modules/sub_tasks/views/assets/src/components/single-subtask-edit.vue:65
+#: modules/sub_tasks/views/assets/src/components/slack.vue:5
+msgid "Subtask"
+msgstr ""
+
+#: modules/sub_tasks/views/assets/src/components/single-subtask-edit.vue:392
+msgid "Invalid date range!"
+msgstr ""
+
+#: modules/sub_tasks/views/assets/src/components/single-subtask-lists.vue:3
+msgid "Subtasks"
+msgstr ""
+
+#: modules/sub_tasks/views/assets/src/components/single-subtask-lists.vue:97
+#: modules/sub_tasks/views/assets/src/components/sub-task-lists.vue:66
+msgid "Completed by"
+msgstr ""
+
+#: modules/sub_tasks/views/assets/src/components/single-subtask-lists.vue:97
+#: modules/sub_tasks/views/assets/src/components/sub-task-lists.vue:66
+msgid "on"
+msgstr ""
+
+#: modules/sub_tasks/views/assets/src/components/single-subtask-lists.vue:330
+msgid "User already exist in subtask"
+msgstr ""
+
+#: modules/sub_tasks/views/assets/src/components/slack.vue:11
+#: modules/woo_project/views/assets/js/woo-project.js:1
+#: modules/woo_project/views/assets/src/components/action.vue:5
+#: views/assets/src/components/project-settings/capabilities.vue:27
+#: views/assets/src/components/project-settings/capabilities.vue:33
+#: views/assets/src/components/project-settings/capabilities.vue:68
+#: views/assets/src/components/project-settings/capabilities.vue:74
+#: views/assets/src/components/project-settings/capabilities.vue:108
+#: views/assets/src/components/project-settings/capabilities.vue:114
+#: views/assets/src/components/project-settings/capabilities.vue:147
+#: views/assets/src/components/project-settings/capabilities.vue:153
+#: views/assets/src/components/project-settings/slack.vue:77
+msgid "Create"
+msgstr ""
+
+#: modules/sub_tasks/views/assets/src/components/slack.vue:28
+#: views/assets/src/components/project-settings/slack.vue:94
+#: views/assets/src/components/reports/advance-task.vue:64
+msgid "Complete"
+msgstr ""
+
+#: modules/sub_tasks/views/assets/src/components/sub-task-lists.vue:46
+msgid "Make as a task"
+msgstr ""
+
+#: modules/sub_tasks/views/assets/src/components/subtask-to-task-modal.vue:7
+msgid "Subtask To Task"
+msgstr ""
+
+#: modules/sub_tasks/views/assets/src/components/subtask-to-task-modal.vue:439
+msgid "Pelase select task list"
+msgstr ""
+
+#: modules/task_recurring/views/assets/src/components/recurrent-button.vue:5
+msgid "Set Recurrence"
+msgstr ""
+
+#: modules/time_tracker/core/Permissions/Time_Add.php:26
+msgid "Time format should be HH:mm [ Ex: 01:30 ]"
+msgstr ""
+
+#: modules/time_tracker/core/Permissions/Time_Add.php:36
+msgid "User not assign in this task"
+msgstr ""
+
+#: modules/time_tracker/core/Permissions/Time_Delete.php:31
+msgid "You have no permission to delete time"
+msgstr ""
+
+#: modules/time_tracker/core/Permissions/Time_Start.php:24
+#: modules/time_tracker/core/Permissions/Time_Stop.php:22
+msgid "No user assign in this task"
+msgstr ""
+
+#: modules/time_tracker/core/Permissions/Time_Start.php:28
+#: modules/time_tracker/core/Permissions/Time_Stop.php:26
+msgid "You are not assign in this task"
+msgstr ""
+
+#: modules/time_tracker/core/Permissions/Time_Start.php:32
+msgid "Please at first mark undone the task"
+msgstr ""
+
+#: modules/time_tracker/core/Permissions/Time_Stop.php:31
+msgid "This task has no running time tracker."
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/components/custom-time-log-form.vue:13
+msgid "Total Time"
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/components/custom-time-log-form.vue:76
+msgid "Add Entry"
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/components/directive.js:9
+#: modules/time_tracker/views/assets/src/components/lists-task-estimation.vue:44
+#: modules/time_tracker/views/assets/src/components/projects-task-estimation.vue:45
+#: modules/time_tracker/views/assets/src/components/projects-task-estimation.vue:106
+#: modules/time_tracker/views/assets/src/components/projects-task-estimation.vue:191
+#: modules/time_tracker/views/assets/src/components/user-projects-task-estimation.vue:43
+#: modules/time_tracker/views/assets/src/components/user-reports-task-estimation.vue:124
+#: modules/time_tracker/views/assets/src/components/user-reports-task-estimation.vue:240
+#: modules/time_tracker/views/assets/src/components/user-reports-task-estimation.vue:356
+#: views/emails/html/daily_digest.php:71
+msgid "Activity"
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/components/estimated-time-field.vue:8
+#: modules/time_tracker/views/assets/src/components/single-task-estimation-form.vue:2
+#: modules/time_tracker/views/assets/src/components/single-task-estimation-form.vue:6
+#: modules/time_tracker/views/assets/src/components/subtask-estimation-time-field.vue:3
+#: modules/time_tracker/views/assets/src/components/subtask-estimation-time-field.vue:8
+msgid "Estimated Time"
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/components/estimated-time-field.vue:11
+#: modules/time_tracker/views/assets/src/components/single-task-estimation-form.vue:9
+#: modules/time_tracker/views/assets/src/components/subtask-estimation-time-field.vue:12
+msgid "hh:mm"
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/components/lists-subtask-estimation.vue:3
+#: modules/time_tracker/views/assets/src/components/lists-task-estimation.vue:3
+msgid "All Lists"
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/components/lists-subtask-estimation.vue:6
+#: modules/time_tracker/views/assets/src/components/lists-task-estimation.vue:9
+#: modules/time_tracker/views/assets/src/components/projects-subtask-estimation.vue:6
+#: modules/time_tracker/views/assets/src/components/projects-task-estimation.vue:12
+#: modules/time_tracker/views/assets/src/components/user-reports-task-estimation.vue:26
+msgid "Project Name"
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/components/lists-subtask-estimation.vue:7
+#: modules/time_tracker/views/assets/src/components/lists-task-estimation.vue:10
+#: modules/time_tracker/views/assets/src/components/projects-subtask-estimation.vue:7
+#: modules/time_tracker/views/assets/src/components/projects-task-estimation.vue:13
+#: modules/time_tracker/views/assets/src/components/user-projects-subtask-estimation.vue:7
+#: modules/time_tracker/views/assets/src/components/user-projects-task-estimation.vue:10
+#: modules/time_tracker/views/assets/src/components/user-reports-task-estimation.vue:27
+#: modules/time_tracker/views/assets/src/components/user-reports-task-estimation.vue:47
+#: modules/time_tracker/views/assets/src/components/user-reports-task-estimation.vue:66
+msgid "Working Hour"
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/components/lists-subtask-estimation.vue:8
+#: modules/time_tracker/views/assets/src/components/lists-task-estimation.vue:11
+#: modules/time_tracker/views/assets/src/components/projects-subtask-estimation.vue:8
+#: modules/time_tracker/views/assets/src/components/projects-task-estimation.vue:14
+#: modules/time_tracker/views/assets/src/components/user-projects-subtask-estimation.vue:8
+#: modules/time_tracker/views/assets/src/components/user-projects-task-estimation.vue:11
+#: modules/time_tracker/views/assets/src/components/user-reports-task-estimation.vue:28
+#: modules/time_tracker/views/assets/src/components/user-reports-task-estimation.vue:48
+#: modules/time_tracker/views/assets/src/components/user-reports-task-estimation.vue:67
+msgid "Est. Hour"
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/components/lists-task-estimation.vue:19
+#: modules/time_tracker/views/assets/src/components/project-by-user-graph.vue:8
+#: modules/time_tracker/views/assets/src/components/projects-task-estimation.vue:23
+#: modules/time_tracker/views/assets/src/components/user-by-project-graph.vue:9
+#: modules/time_tracker/views/assets/src/components/user-projects-task-estimation.vue:19
+#: modules/time_tracker/views/assets/src/components/user-reports-task-estimation.vue:38
+#: modules/time_tracker/views/assets/src/components/user-reports-task-estimation.vue:57
+#: modules/time_tracker/views/assets/src/components/user-reports-task-estimation.vue:76
+msgid "No results found!"
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/components/lists-task-estimation.vue:50
+#: modules/time_tracker/views/assets/src/components/projects-task-estimation.vue:197
+#: modules/time_tracker/views/assets/src/components/user-projects-task-estimation.vue:49
+#: modules/time_tracker/views/assets/src/components/user-reports-task-estimation.vue:130
+#: modules/time_tracker/views/assets/src/components/user-reports-task-estimation.vue:246
+#: modules/time_tracker/views/assets/src/components/user-reports-task-estimation.vue:362
+msgid "Work Hours"
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/components/lists-task-estimation.vue:62
+#: modules/time_tracker/views/assets/src/components/projects-task-estimation.vue:209
+#: modules/time_tracker/views/assets/src/components/user-projects-task-estimation.vue:61
+#: modules/time_tracker/views/assets/src/components/user-reports-task-estimation.vue:142
+#: modules/time_tracker/views/assets/src/components/user-reports-task-estimation.vue:258
+#: modules/time_tracker/views/assets/src/components/user-reports-task-estimation.vue:374
+msgid "Est. Hours"
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/components/others-time-log.vue:4
+msgid "Time log for"
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/components/others-time-log.vue:8
+#: modules/time_tracker/views/assets/src/components/time-log.vue:7
+msgid "Start"
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/components/others-time-log.vue:9
+#: modules/time_tracker/views/assets/src/components/time-log.vue:8
+msgid "End"
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/components/project-by-user-graph.vue:141
+#: views/assets/src/components/calendar/calendar.vue:127
+msgid "Users"
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/components/projects-subtask-estimation.vue:3
+#: modules/time_tracker/views/assets/src/components/projects-task-estimation.vue:4
+#: modules/time_tracker/views/assets/src/components/user-reports-task-estimation.vue:4
+#: modules/time_tracker/views/assets/src/components/user-reports-task-estimation.vue:23
+#: views/assets/src/components/calendar/select-projects.vue:126
+#: views/assets/src/components/calendar/store.js:25
+#: views/assets/src/components/reports/completed-tasks.vue:213
+#: views/assets/src/components/reports/overdue-task.vue:220
+msgid "All Projects"
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/components/report-form.vue:6
+#: modules/time_tracker/views/assets/src/components/report-form.vue:14
+#: views/assets/src/components/reports/completed-tasks.vue:125
+#: views/assets/src/components/reports/overdue-task.vue:130
+#: views/assets/src/components/reports/user-task.vue:135
+msgid "Report"
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/components/report-form.vue:19
+msgid "Choose report type"
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/components/report-form.vue:23
+#: modules/time_tracker/views/assets/src/components/report-summery.vue:4
+#: modules/time_tracker/views/assets/src/components/summary-search-results.vue:5
+msgid "Summary"
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/components/report-form.vue:27
+#: modules/time_tracker/views/assets/src/components/time-log.vue:6
+#: views/assets/src/components/reports/advance-task.vue:306
+msgid "User"
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/components/report-form.vue:34
+msgid "Summary Type"
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/components/report-form.vue:38
+#: src/Reports/Controllers/Reports_Controller.php:162
+#: src/Reports/Controllers/Reports_Controller.php:231
+#: src/Reports/Controllers/Reports_Controller.php:280
+#: src/Reports/Controllers/Reports_Controller.php:355
+#: src/Reports/Controllers/Reports_Controller.php:395
+#: src/Reports/Controllers/Reports_Controller.php:470
+#: src/Reports/Controllers/Reports_Controller.php:812
+#: src/Reports/Controllers/Reports_Controller.php:895
+#: src/Reports/Controllers/Reports_Controller.php:1016
+#: src/Reports/Controllers/Reports_Controller.php:1085
+#: views/assets/js/pm-pro-library.js:1
+#: views/assets/src/components/reports/mixin.js:34
+msgid "All Project"
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/components/report-form.vue:39
+msgid "Summary total"
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/components/report-form.vue:41
+#: views/assets/src/components/reports/completed-tasks.vue:212
+#: views/assets/src/components/reports/overdue-task.vue:219
+msgid "All User"
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/components/report-form.vue:42
+msgid "Project vs User"
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/components/report-form.vue:43
+msgid "User vs Project"
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/components/report-form.vue:51
+msgid "According Users"
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/components/report-form.vue:63
+msgid "Search User"
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/components/report-form.vue:86
+msgid "Start date"
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/components/report-form.vue:88
+#: views/assets/src/components/reports/advance-task.vue:302
+#: views/assets/src/components/reports/completed-tasks.vue:128
+#: views/assets/src/components/reports/overdue-task.vue:133
+#: views/assets/src/components/reports/user-task.vue:138
+#: views/assets/src/components/reports/user-task.vue:309
+msgid "Select start date"
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/components/report-form.vue:89
+#: modules/time_tracker/views/assets/src/components/report-form.vue:98
+msgid "Time log start date"
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/components/report-form.vue:95
+msgid "End date"
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/components/report-form.vue:97
+#: views/assets/src/components/reports/advance-task.vue:303
+#: views/assets/src/components/reports/completed-tasks.vue:131
+#: views/assets/src/components/reports/overdue-task.vue:136
+#: views/assets/src/components/reports/user-task.vue:141
+msgid "Select due date"
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/components/report-summery.vue:5
+#: views/assets/src/components/reports/reports.vue:48
+msgid ""
+"Browse   <strong>tasks</strong> reports according to "
+"<strong>Milestones</strong> (CSV exportable)."
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/components/report-summery.vue:8
+#: views/assets/src/components/reports/reports.vue:18
+#: views/assets/src/components/reports/reports.vue:29
+#: views/assets/src/components/reports/reports.vue:40
+#: views/assets/src/components/reports/reports.vue:51
+#: views/assets/src/components/reports/reports.vue:62
+msgid "View Full Report"
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/components/single-task-estimation-form.vue:126
+msgid "Please insert task estimation time"
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/components/single-task-estimation-form.vue:151
+msgid "Task estimation updated!"
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/components/summary-search-results.vue:7
+#: views/assets/src/components/reports/completed-tasks.vue:9
+#: views/assets/src/components/reports/milestone-task.vue:9
+#: views/assets/src/components/reports/overdue-task.vue:9
+#: views/assets/src/components/reports/overdue-task.vue:93
+#: views/assets/src/components/reports/unassigned-task.vue:9
+#: views/assets/src/components/reports/user-activity.vue:9
+#: views/assets/src/components/reports/user-task.vue:9
+#: views/assets/src/components/reports/user-task.vue:85
+msgid "Date between"
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/components/summary-search-results.vue:29
+#: views/assets/src/components/reports/completed-tasks.vue:20
+#: views/assets/src/components/reports/milestone-task.vue:20
+#: views/assets/src/components/reports/overdue-task.vue:21
+#: views/assets/src/components/reports/unassigned-task.vue:21
+#: views/assets/src/components/reports/user-activity.vue:21
+#: views/assets/src/components/reports/user-task.vue:21
+msgid "Export"
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/components/summary-search-results.vue:36
+#: views/assets/src/components/reports/advance-task.vue:99
+#: views/assets/src/components/reports/completed-tasks.vue:27
+#: views/assets/src/components/reports/milestone-task.vue:27
+#: views/assets/src/components/reports/milestone-task.vue:84
+#: views/assets/src/components/reports/overdue-task.vue:28
+#: views/assets/src/components/reports/unassigned-task.vue:28
+#: views/assets/src/components/reports/user-activity.vue:28
+#: views/assets/src/components/reports/user-task.vue:28
+msgid "Export to CSV"
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/components/summary-search-results.vue:42
+#: views/assets/src/components/reports/completed-tasks.vue:34
+#: views/assets/src/components/reports/milestone-task.vue:34
+#: views/assets/src/components/reports/overdue-task.vue:34
+#: views/assets/src/components/reports/unassigned-task.vue:34
+#: views/assets/src/components/reports/user-activity.vue:35
+#: views/assets/src/components/reports/user-task.vue:34
+msgid "Export to PDF"
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/components/summary-search-results.vue:67
+msgid "Working Hours"
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/components/summary-search-results.vue:72
+msgid "Estimation Hours"
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/components/time-log.vue:44
+msgid "Net Total"
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/components/user-projects-subtask-estimation.vue:3
+#: modules/time_tracker/views/assets/src/components/user-projects-task-estimation.vue:3
+msgid "User All Projects"
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/components/user-projects-subtask-estimation.vue:6
+#: modules/time_tracker/views/assets/src/components/user-projects-task-estimation.vue:9
+#: modules/time_tracker/views/assets/src/components/user-reports-task-estimation.vue:20
+msgid "User Name"
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/components/user-reports-task-estimation.vue:9
+#: modules/time_tracker/views/assets/src/components/user-reports-task-estimation.vue:43
+msgid "All Task Lists"
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/components/user-reports-task-estimation.vue:14
+#: modules/time_tracker/views/assets/src/components/user-reports-task-estimation.vue:62
+msgid "All Tasks"
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/components/user-reports-task-estimation.vue:46
+msgid "Task List Name"
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/components/user-reports-task-estimation.vue:65
+msgid "Task Name"
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/components/user-reports-task-estimation.vue:81
+msgid "No result found!"
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/components/watch.vue:5
+msgid "Time Log"
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/components/watch.vue:15
+#: modules/time_tracker/views/assets/src/components/watch_back.vue:12
+msgid "Start Time"
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/components/watch.vue:19
+#: modules/time_tracker/views/assets/src/components/watch_back.vue:16
+msgid "Stop"
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/components/watch.vue:25
+#: modules/time_tracker/views/assets/src/components/watch_back.vue:22
+msgid "Custom Time"
+msgstr ""
+
+#: modules/time_tracker/views/assets/src/helpers/mixin/mixin.js:211
+msgid "Please stop your time tracker"
+msgstr ""
+
+#: modules/woo_project/views/assets/js/woo-project.js:1
+#: modules/woo_project/views/assets/src/components/woo-option.vue:79
+msgid "Search Product"
+msgstr ""
+
+#: modules/woo_project/views/assets/js/woo-project.js:1
+#: modules/woo_project/views/assets/src/components/woo-option.vue:80
+msgid "Search Project"
+msgstr ""
+
+#: modules/woo_project/views/assets/js/woo-project.js:1
+#: modules/woo_project/views/assets/src/components/user-search.vue:52
+msgid "Select User to project"
+msgstr ""
+
+#: modules/woo_project/views/assets/js/woo-project.js:1
+#: modules/woo_project/views/assets/src/components/action.vue:3
+msgid "Actions"
+msgstr ""
+
+#: modules/woo_project/views/assets/js/woo-project.js:1
+#: modules/woo_project/views/assets/src/components/action.vue:8
+#: views/assets/src/components/duplicate/duplicate.vue:5
+#: views/assets/src/components/duplicate/list-duplicate.vue:5
+#: views/assets/src/components/duplicate/list-duplicate.vue:43
+msgid "Duplicate"
+msgstr ""
+
+#: modules/woo_project/views/assets/src/components/user-search.vue:3
+msgid "Assignees Users"
+msgstr ""
+
+#: modules/woo_project/views/assets/src/components/woo-option.vue:4
+msgid "Product"
+msgstr ""
+
+#: modules/woo_project/views/assets/src/components/woo-option.vue:21
+msgid "Oops! No product found. Consider changing the search query."
+msgstr ""
+
+#: modules/woo_project/views/assets/src/components/woo-option.vue:45
+msgid "Oops! No project found. Consider changing the search query."
+msgstr ""
+
+#: modules/woo_project/views/assets/src/components/woo-project.vue:26
+msgid "Save Change"
+msgstr ""
+
+#: modules/woo_project/woo_project.php:116
+msgid "Woo Project"
+msgstr ""
+
+#: modules/woo_project/woo_project.php:145
+msgid ""
+"<div class=\"error\"><p><strong>Woocommerce</strong> is not installed or "
+"inactive. Please <strong><a href=\"%s\">install Woocommerce</a></strong> "
+"for Project Manager - Woo Project add on to work.</p></div>"
+msgstr ""
+
+#: src/Duplicate/Controllers/Duplicate_Controller.php:24
+msgid "A project has been Duplicated successfully."
+msgstr ""
+
+#: src/Duplicate/Controllers/Duplicate_Controller.php:41
+msgid "Task list not found"
+msgstr ""
+
+#: src/Duplicate/Controllers/Duplicate_Controller.php:72
+msgid "A Task List has been Duplicated successfully."
+msgstr ""
+
+#: src/Reports/Controllers/Reports_Controller.php:168
+#: src/Reports/Controllers/Reports_Controller.php:237
+#: src/Reports/Controllers/Reports_Controller.php:286
+#: src/Reports/Controllers/Reports_Controller.php:361
+#: src/Reports/Controllers/Reports_Controller.php:401
+#: src/Reports/Controllers/Reports_Controller.php:476
+#: src/Reports/Controllers/Reports_Controller.php:818
+#: src/Reports/Controllers/Reports_Controller.php:901
+#: src/Reports/Controllers/Reports_Controller.php:1022
+#: src/Reports/Controllers/Reports_Controller.php:1091
+#: views/assets/js/pm-pro-library.js:1
+#: views/assets/src/components/reports/mixin.js:46
+msgid "All Coworker"
+msgstr ""
+
+#: src/Reports/Controllers/Reports_Controller.php:186
+#: src/Reports/Controllers/Reports_Controller.php:304
+#: src/Reports/Controllers/Reports_Controller.php:419
+#: src/Reports/Controllers/Reports_Controller.php:836
+#: src/Reports/Controllers/Reports_Controller.php:1040
+#: views/reports/completed-tasks.php:44 views/reports/milestone-tasks.php:44
+#: views/reports/overdue-tasks.php:44 views/reports/unassigned-tasks.php:44
+#: views/reports/user-activity-tasks.php:44
+msgid "Project title: "
+msgstr ""
+
+#: src/Reports/Controllers/Reports_Controller.php:190
+#: src/Reports/Controllers/Reports_Controller.php:308
+#: src/Reports/Controllers/Reports_Controller.php:423
+#: src/Reports/Controllers/Reports_Controller.php:840
+#: src/Reports/Controllers/Reports_Controller.php:1044
+#: views/reports/completed-tasks.php:53 views/reports/milestone-tasks.php:53
+#: views/reports/overdue-tasks.php:53 views/reports/unassigned-tasks.php:53
+#: views/reports/user-activity-tasks.php:53
+msgid "Task List title: "
+msgstr ""
+
+#: src/Reports/Controllers/Reports_Controller.php:192
+#: src/Reports/Controllers/Reports_Controller.php:310
+#: src/Reports/Controllers/Reports_Controller.php:425
+#: src/Reports/Controllers/Reports_Controller.php:842
+#: src/Reports/Controllers/Reports_Controller.php:1045
+#: views/assets/src/components/reports/completed-task-results.vue:39
+#: views/assets/src/components/reports/milestone-task-results.vue:41
+#: views/assets/src/components/reports/overdue-results.vue:40
+#: views/assets/src/components/reports/unassigned-task-results.vue:40
+#: views/assets/src/components/reports/user-activity-results.vue:39
+#: views/assets/src/components/reports/user-task-results.vue:22
+#: views/reports/completed-tasks.php:66 views/reports/milestone-tasks.php:70
+#: views/reports/overdue-tasks.php:66 views/reports/unassigned-tasks.php:66
+#: views/reports/user-activity-tasks.php:66
+msgid "Date Between"
+msgstr ""
+
+#: src/Reports/Controllers/Reports_Controller.php:192
+#: src/Reports/Controllers/Reports_Controller.php:310
+#: src/Reports/Controllers/Reports_Controller.php:425
+#: src/Reports/Controllers/Reports_Controller.php:1045
+#: views/assets/src/components/reports/completed-task-results.vue:40
+#: views/assets/src/components/reports/overdue-results.vue:41
+#: views/assets/src/components/reports/unassigned-task-results.vue:41
+#: views/assets/src/components/reports/user-activity-results.vue:40
+#: views/assets/src/components/reports/user-task-results.vue:23
+#: views/reports/completed-tasks.php:70 views/reports/overdue-tasks.php:70
+#: views/reports/unassigned-tasks.php:70
+#: views/reports/user-activity-tasks.php:70
+msgid "Created At"
+msgstr ""
+
+#: src/Reports/Controllers/Reports_Controller.php:192
+#: src/Reports/Controllers/Reports_Controller.php:310
+#: src/Reports/Controllers/Reports_Controller.php:425
+#: src/Reports/Controllers/Reports_Controller.php:1045
+#: views/assets/src/components/reports/completed-task-results.vue:42
+#: views/assets/src/components/reports/overdue-results.vue:42
+#: views/assets/src/components/reports/unassigned-task-results.vue:43
+#: views/assets/src/components/reports/user-task-results.vue:24
+#: views/reports/completed-tasks.php:78 views/reports/overdue-tasks.php:74
+#: views/reports/unassigned-tasks.php:78
+#: views/reports/user-activity-tasks.php:78
+msgid "Created By"
+msgstr ""
+
+#: src/Reports/Controllers/Reports_Controller.php:195
+#: src/Reports/Controllers/Reports_Controller.php:314
+#: src/Reports/Controllers/Reports_Controller.php:429
+#: src/Reports/Controllers/Reports_Controller.php:851
+#: src/Reports/Controllers/Reports_Controller.php:1049
+#: views/reports/completed-tasks.php:85 views/reports/milestone-tasks.php:96
+#: views/reports/overdue-tasks.php:81 views/reports/unassigned-tasks.php:85
+#: views/reports/user-activity-tasks.php:85
+msgid " to "
+msgstr ""
+
+#: src/Reports/Controllers/Reports_Controller.php:310
+#: src/Reports/Controllers/Reports_Controller.php:425
+#: src/Reports/Controllers/Reports_Controller.php:842
+#: views/assets/src/components/reports/completed-task-results.vue:41
+#: views/assets/src/components/reports/milestone-task-results.vue:42
+#: views/assets/src/components/reports/result-view.vue:26
+#: views/assets/src/components/reports/result-view.vue:101
+#: views/assets/src/components/reports/user-activity-results.vue:41
+#: views/reports/completed-tasks.php:74 views/reports/milestone-tasks.php:74
+#: views/reports/user-activity-tasks.php:74
+msgid "Tracked Time"
+msgstr ""
+
+#: src/Reports/Controllers/Reports_Controller.php:842
+#: views/assets/src/components/reports/milestone-task-results.vue:40
+#: views/reports/milestone-tasks.php:66
+msgid "Assigned User"
+msgstr ""
+
+#: src/Reports/Controllers/Reports_Controller.php:842
+#: views/assets/src/components/reports/milestone-task-results.vue:43
+#: views/reports/milestone-tasks.php:78
+msgid "Completed At"
+msgstr ""
+
+#: src/Search/Controllers/Search_Controller.php:55
+#: src/Search/Controllers/Search_Controller.php:96
+#: src/Search/Controllers/Search_Controller.php:116
+#: src/Search/Controllers/Search_Controller.php:120
+msgid "No result found."
+msgstr ""
+
+#: src/Settings/Controllers/Settings_Controller.php:82
+msgid "successfully deleted label"
+msgstr ""
+
+#: src/Update/Controllers/Update_Controller.php:133
+msgid "License successfully deactivated"
+msgstr ""
+
+#: views/assets/js/pm-pro-license.js:1
+#: views/assets/src/components/update/update.vue:99
+msgid "License will delete permanently"
+msgstr ""
+
+#: views/assets/js/pm-pro-license.js:1
+#: views/assets/src/components/update/update.vue:133
+msgid "Please provide your email and license key"
+msgstr ""
+
+#: views/assets/js/pm-pro-license.js:1
+#: views/assets/src/components/update/update.vue:7
+msgid "License Activation"
+msgstr ""
+
+#: views/assets/js/pm-pro-license.js:1
+#: views/assets/src/components/update/update.vue:36
+msgid "Deactive License"
+msgstr ""
+
+#: views/assets/js/pm-pro-license.js:1
+#: views/assets/src/components/update/update.vue:11
+msgid "E-mail Address"
+msgstr ""
+
+#: views/assets/js/pm-pro-license.js:1
+#: views/assets/src/components/update/update.vue:14
+msgid "Enter your purchase Email address"
+msgstr ""
+
+#: views/assets/js/pm-pro-license.js:1
+#: views/assets/src/components/update/update.vue:18
+msgid "License Key"
+msgstr ""
+
+#: views/assets/js/pm-pro-license.js:1
+#: views/assets/src/components/update/update.vue:21
+msgid "Enter your license key"
+msgstr ""
+
+#: views/assets/js/pm-pro-license.js:1
+#: views/assets/src/components/update/update.vue:27
+msgid "Save & Activate"
+msgstr ""
+
+#: views/assets/src/components/archive-list/archive-list.vue:21
+msgid "Archive"
+msgstr ""
+
+#: views/assets/src/components/archive-list/archive-list.vue:21
+msgid "Restore"
+msgstr ""
+
+#: views/assets/src/components/archive-list/archive-page-button.vue:2
+msgid "Archive List"
+msgstr ""
+
+#: views/assets/src/components/calendar/calendar.vue:23
+msgid "Incomplete Task"
+msgstr ""
+
+#: views/assets/src/components/calendar/calendar.vue:24
+#: views/assets/src/components/reports/reports.vue:25
+msgid "Complete Task"
+msgstr ""
+
+#: views/assets/src/components/calendar/calendar.vue:25
+msgid "Outstanding Task"
+msgstr ""
+
+#: views/assets/src/components/calendar/calendar.vue:26
+#: views/assets/src/components/project-settings/capabilities.vue:137
+#: views/reports/milestone-tasks.php:11
+msgid "Milestone"
+msgstr ""
+
+#: views/assets/src/components/calendar/calendar.vue:116
+msgid "User view"
+msgstr ""
+
+#: views/assets/src/components/calendar/select-projects.vue:11
+msgid "Filter by project"
+msgstr ""
+
+#: views/assets/src/components/calendar/select-projects.vue:23
+msgid "Filter by user"
+msgstr ""
+
+#: views/assets/src/components/calendar/task-create-form.vue:33
+msgid "Type project name"
+msgstr ""
+
+#: views/assets/src/components/calendar/task-create-form.vue:39
+msgid "In List"
+msgstr ""
+
+#: views/assets/src/components/calendar/task-create-form.vue:44
+msgid "Type task list name"
+msgstr ""
+
+#: views/assets/src/components/common/file-uploader.vue:17
+msgid "To attach"
+msgstr ""
+
+#: views/assets/src/components/common/file-uploader.vue:18
+msgid "select files"
+msgstr ""
+
+#: views/assets/src/components/common/file-uploader.vue:19
+msgid "from your computer."
+msgstr ""
+
+#: views/assets/src/components/common/text-editor.vue:35
+msgid "Write a comment..."
+msgstr ""
+
+#: views/assets/src/components/erp-department/erp-department.vue:3
+msgid "Assign co-worker from departments"
+msgstr ""
+
+#: views/assets/src/components/front-end/frontend-menu.vue:65
+msgid "Categories"
+msgstr ""
+
+#: views/assets/src/components/privacy/discuss-privacy.vue:5
+#: views/assets/src/components/privacy/milestone-privacy.vue:5
+#: views/assets/src/components/privacy/task-list-privacy.vue:5
+#: views/assets/src/components/privacy/task-privacy.vue:5
+msgid "Private"
+msgstr ""
+
+#: views/assets/src/components/progress/progress.vue:38
+msgid "No activity found"
+msgstr ""
+
+#: views/assets/src/components/project-files/comment-form.vue:58
+msgid "Add Comment"
+msgstr ""
+
+#: views/assets/src/components/project-files/comment-form.vue:59
+msgid "Update Comment"
+msgstr ""
+
+#: views/assets/src/components/project-files/doc-content.vue:7
+msgid "View current doc."
+msgstr ""
+
+#: views/assets/src/components/project-files/doc-content.vue:15
+#: views/assets/src/components/project-files/file-lists.vue:50
+#: views/assets/src/components/project-files/file-lists.vue:138
+#: views/assets/src/components/project-files/file-lists.vue:188
+#: views/assets/src/components/project-files/link-content.vue:15
+#: views/assets/src/components/project-files/single-file.vue:68
+msgid "by"
+msgstr ""
+
+#: views/assets/src/components/project-files/doc-content.vue:17
+#: views/assets/src/components/project-files/link-content.vue:21
+msgid "at"
+msgstr ""
+
+#: views/assets/src/components/project-files/doc-create-form.vue:5
+msgid "Create a document"
+msgstr ""
+
+#: views/assets/src/components/project-files/doc-create-form.vue:6
+msgid "Updage the doc"
+msgstr ""
+
+#: views/assets/src/components/project-files/doc-create-form.vue:21
+#: views/assets/src/components/project-files/file-upload-form.vue:13
+#: views/assets/src/components/project-files/folder-create-form.vue:24
+#: views/assets/src/components/project-files/link-create-form.vue:20
+msgid "Make this private."
+msgstr ""
+
+#: views/assets/src/components/project-files/doc-create-form.vue:78
+msgid "Update Doc"
+msgstr ""
+
+#: views/assets/src/components/project-files/doc-create-form.vue:79
+#: views/assets/src/components/project-files/files.vue:15
+msgid "Create a doc"
+msgstr ""
+
+#: views/assets/src/components/project-files/file-lists.vue:24
+#: views/assets/src/components/project-files/file-lists.vue:73
+#: views/assets/src/components/project-files/file-lists.vue:114
+#: views/assets/src/components/project-files/file-lists.vue:162
+#: views/assets/src/components/project-files/file-lists.vue:213
+msgid "Move"
+msgstr ""
+
+#: views/assets/src/components/project-files/file-lists.vue:48
+#: views/assets/src/components/project-files/single-file.vue:66
+msgid "Attached to"
+msgstr ""
+
+#: views/assets/src/components/project-files/file-upload-form.vue:4
+msgid "File uploads"
+msgstr ""
+
+#: views/assets/src/components/project-files/file-upload-form.vue:55
+msgid "Submit"
+msgstr ""
+
+#: views/assets/src/components/project-files/files.vue:6
+#: views/assets/src/components/project-files/folder-create-form.vue:11
+#: views/assets/src/components/project-files/folder-create-form.vue:56
+msgid "Create a folder"
+msgstr ""
+
+#: views/assets/src/components/project-files/files.vue:10
+msgid "Upload a file"
+msgstr ""
+
+#: views/assets/src/components/project-files/files.vue:19
+#: views/assets/src/components/project-files/link-create-form.vue:5
+#: views/assets/src/components/project-files/link-create-form.vue:77
+msgid "Link to Docs"
+msgstr ""
+
+#: views/assets/src/components/project-files/link-content.vue:7
+msgid "View current link."
+msgstr ""
+
+#: views/assets/src/components/project-files/link-content.vue:36
+msgid "View Online"
+msgstr ""
+
+#: views/assets/src/components/project-files/link-content.vue:37
+msgid "Note :"
+msgstr ""
+
+#: views/assets/src/components/project-files/link-create-form.vue:76
+msgid "Link for docs"
+msgstr ""
+
+#: views/assets/src/components/project-files/link-create-form.vue:78
+msgid "Update Link"
+msgstr ""
+
+#: views/assets/src/components/project-files/move-file.vue:12
+msgid "File: "
+msgstr ""
+
+#: views/assets/src/components/project-files/move-file.vue:26
+msgid "Search Folders"
+msgstr ""
+
+#: views/assets/src/components/project-files/move-file.vue:37
+msgid "Move File"
+msgstr ""
+
+#: views/assets/src/components/project-files/single-doc.vue:62
+#: views/assets/src/components/project-files/single-file.vue:85
+#: views/assets/src/components/project-files/single-link.vue:64
+msgid "Attachment"
+msgstr ""
+
+#: views/assets/src/components/project-files/single-doc.vue:72
+#: views/assets/src/components/project-files/single-file.vue:95
+#: views/assets/src/components/project-files/single-link.vue:74
+msgid "Comments"
+msgstr ""
+
+#: views/assets/src/components/project-files/single-doc.vue:143
+#: views/assets/src/components/project-files/single-file.vue:166
+#: views/assets/src/components/project-files/single-link.vue:145
+msgid "Revisions"
+msgstr ""
+
+#: views/assets/src/components/project-files/single-doc.vue:150
+#: views/assets/src/components/project-files/single-file.vue:173
+#: views/assets/src/components/project-files/single-link.vue:152
+msgid "No Revision"
+msgstr ""
+
+#: views/assets/src/components/project-files/uploader.vue:15
+msgid "Attach a File"
+msgstr ""
+
+#: views/assets/src/components/project-settings/capabilities.vue:8
+msgid "Co-worker"
+msgstr ""
+
+#: views/assets/src/components/project-settings/capabilities.vue:17
+msgid "Message: "
+msgstr ""
+
+#: views/assets/src/components/project-settings/capabilities.vue:41
+#: views/assets/src/components/project-settings/capabilities.vue:47
+#: views/assets/src/components/project-settings/capabilities.vue:83
+#: views/assets/src/components/project-settings/capabilities.vue:89
+#: views/assets/src/components/project-settings/capabilities.vue:122
+#: views/assets/src/components/project-settings/capabilities.vue:128
+#: views/assets/src/components/project-settings/capabilities.vue:161
+#: views/assets/src/components/project-settings/capabilities.vue:167
+msgid "View Private"
+msgstr ""
+
+#: views/assets/src/components/project-settings/capabilities.vue:59
+msgid "Todo List"
+msgstr ""
+
+#: views/assets/src/components/project-settings/capabilities.vue:98
+msgid "Todo"
+msgstr ""
+
+#: views/assets/src/components/project-settings/capabilities.vue:176
+msgid "Files"
+msgstr ""
+
+#: views/assets/src/components/project-settings/capabilities.vue:186
+#: views/assets/src/components/project-settings/capabilities.vue:192
+msgid "Upload or create doc"
+msgstr ""
+
+#: views/assets/src/components/project-settings/capabilities.vue:200
+#: views/assets/src/components/project-settings/capabilities.vue:206
+msgid "View Private files or docs"
+msgstr ""
+
+#: views/assets/src/components/project-settings/content.vue:156
+msgid "Capabilities"
+msgstr ""
+
+#: views/assets/src/components/project-settings/content.vue:162
+msgid "Integrations"
+msgstr ""
+
+#: views/assets/src/components/project-settings/content.vue:168
+msgid "Label"
+msgstr ""
+
+#: views/assets/src/components/project-settings/create-task-label-form.vue:6
+msgid "Label Name"
+msgstr ""
+
+#: views/assets/src/components/project-settings/create-task-label-form.vue:9
+msgid "Label name..."
+msgstr ""
+
+#: views/assets/src/components/project-settings/create-task-label-form.vue:18
+msgid "Description (optional)"
+msgstr ""
+
+#: views/assets/src/components/project-settings/create-task-label-form.vue:24
+msgid "Color"
+msgstr ""
+
+#: views/assets/src/components/project-settings/create-task-label-form.vue:46
+msgid "Create label"
+msgstr ""
+
+#: views/assets/src/components/project-settings/create-task-label-form.vue:198
+msgid "Label name required!"
+msgstr ""
+
+#: views/assets/src/components/project-settings/create-task-label-form.vue:203
+msgid "Label color required!"
+msgstr ""
+
+#: views/assets/src/components/project-settings/github-bitbucket.vue:58
+#: views/assets/src/components/project-settings/github-bitbucket.vue:67
+msgid "Webhook URL"
+msgstr ""
+
+#: views/assets/src/components/project-settings/github-bitbucket.vue:69
+#: views/assets/src/components/project-settings/slack.vue:54
+msgid "to send our JSON payloads"
+msgstr ""
+
+#: views/assets/src/components/project-settings/github-bitbucket.vue:70
+#: views/assets/src/components/project-settings/slack.vue:56
+msgid "View documentation"
+msgstr ""
+
+#: views/assets/src/components/project-settings/slack.vue:52
+msgid "Slack webhook URL"
+msgstr ""
+
+#: views/assets/src/components/project-settings/slack.vue:64
+msgid "More option"
+msgstr ""
+
+#: views/assets/src/components/project-settings/slack.vue:111
+msgid "New comment"
+msgstr ""
+
+#: views/assets/src/components/project-settings/slack.vue:118
+msgid "Update comment"
+msgstr ""
+
+#: views/assets/src/components/project-settings/tab-menu.vue:12
+msgid "Settings"
+msgstr ""
+
+#: views/assets/src/components/reports/advance-task.vue:6
+#: views/assets/src/components/reports/reports.vue:7
+msgid "Advanced Report"
+msgstr ""
+
+#: views/assets/src/components/reports/advance-task.vue:10
+msgid "Advance Report Generator"
+msgstr ""
+
+#: views/assets/src/components/reports/advance-task.vue:18
+msgid "- Select -"
+msgstr ""
+
+#: views/assets/src/components/reports/advance-task.vue:65
+msgid "Pending"
+msgstr ""
+
+#: views/assets/src/components/reports/advance-task.vue:73
+msgid "Not Payable"
+msgstr ""
+
+#: views/assets/src/components/reports/advance-task.vue:74
+#: views/assets/src/components/reports/advance-task.vue:309
+msgid "Payable"
+msgstr ""
+
+#: views/assets/src/components/reports/advance-task.vue:95
+msgid "Load more"
+msgstr ""
+
+#: views/assets/src/components/reports/advance-task.vue:98
+msgid "Generate"
+msgstr ""
+
+#: views/assets/src/components/reports/advance-task.vue:301
+#: views/assets/src/components/reports/project-tasks.vue:120
+#: views/assets/src/components/reports/user-task.vue:303
+msgid "Select Projects"
+msgstr ""
+
+#: views/assets/src/components/reports/advance-task.vue:308
+msgid "Time Range"
+msgstr ""
+
+#: views/assets/src/components/reports/completed-task-results.vue:55
+#: views/assets/src/components/reports/completed-tasks.vue:11
+#: views/assets/src/components/reports/milestone-task-results.vue:67
+#: views/assets/src/components/reports/milestone-task.vue:11
+#: views/assets/src/components/reports/overdue-results.vue:55
+#: views/assets/src/components/reports/overdue-task.vue:11
+#: views/assets/src/components/reports/overdue-task.vue:95
+#: views/assets/src/components/reports/unassigned-task-results.vue:56
+#: views/assets/src/components/reports/unassigned-task.vue:11
+#: views/assets/src/components/reports/user-activity-results.vue:55
+#: views/assets/src/components/reports/user-activity.vue:11
+#: views/assets/src/components/reports/user-task-results.vue:45
+#: views/assets/src/components/reports/user-task.vue:11
+#: views/assets/src/components/reports/user-task.vue:87
+#: views/assets/src/components/reports/user-task.vue:98
+#: views/assets/src/components/reports/user-task.vue:215
+msgid "to"
+msgstr ""
+
+#: views/assets/src/components/reports/completed-task-results.vue:72
+#: views/assets/src/components/reports/milestone-task-results.vue:89
+#: views/assets/src/components/reports/overdue-results.vue:69
+#: views/assets/src/components/reports/result-view.vue:72
+#: views/assets/src/components/reports/result-view.vue:140
+#: views/assets/src/components/reports/task-result-view.vue:123
+#: views/assets/src/components/reports/unassigned-task-results.vue:72
+#: views/assets/src/components/reports/user-activity-results.vue:71
+#: views/assets/src/components/reports/user-task-results.vue:61
+msgid "No Data Found, Please search again!"
+msgstr ""
+
+#: views/assets/src/components/reports/completed-tasks.vue:7
+#: views/emails/html/daily_digest.php:67
+msgid "Completed Task"
+msgstr ""
+
+#: views/assets/src/components/reports/completed-tasks.vue:70
+#: views/assets/src/components/reports/milestone-task.vue:70
+#: views/assets/src/components/reports/overdue-task.vue:70
+#: views/assets/src/components/reports/unassigned-task.vue:70
+#: views/assets/src/components/reports/user-activity.vue:71
+#: views/assets/src/components/reports/user-task.vue:63
+#: views/reports/completed-tasks.php:11 views/reports/overdue-tasks.php:11
+#: views/reports/unassigned-tasks.php:11
+#: views/reports/user-activity-tasks.php:11
+msgid "Co Worker"
+msgstr ""
+
+#: views/assets/src/components/reports/completed-tasks.vue:81
+#: views/assets/src/components/reports/milestone-task.vue:81
+#: views/assets/src/components/reports/overdue-task.vue:82
+#: views/assets/src/components/reports/unassigned-task.vue:81
+#: views/assets/src/components/reports/user-activity.vue:83
+#: views/reports/completed-tasks.php:15 views/reports/milestone-tasks.php:15
+#: views/reports/overdue-tasks.php:15 views/reports/unassigned-tasks.php:15
+#: views/reports/user-activity-tasks.php:15
+msgid "Total Tasks"
+msgstr ""
+
+#: views/assets/src/components/reports/completed-tasks.vue:118
+msgid "Completed Task Filter"
+msgstr ""
+
+#: views/assets/src/components/reports/completed-tasks.vue:136
+#: views/assets/src/components/reports/overdue-task.vue:141
+#: views/assets/src/components/reports/user-task.vue:146
+msgid "Select Project"
+msgstr ""
+
+#: views/assets/src/components/reports/completed-tasks.vue:215
+#: views/assets/src/components/reports/overdue-task.vue:222
+#: views/assets/src/components/reports/project-tasks.vue:123
+#: views/assets/src/components/reports/user-task.vue:311
+msgid "Run Report"
+msgstr ""
+
+#: views/assets/src/components/reports/completed-tasks.vue:267
+#: views/assets/src/components/reports/overdue-task.vue:279
+msgid "Start and Due date field is required"
+msgstr ""
+
+#: views/assets/src/components/reports/milestone-task.vue:7
+msgid "Milestone Tasks"
+msgstr ""
+
+#: views/assets/src/components/reports/milestone-task.vue:85
+#: views/assets/src/components/reports/project-tasks.vue:25
+#: views/assets/src/components/reports/unassigned-task.vue:86
+#: views/assets/src/components/reports/user-activity.vue:88
+#: views/assets/src/components/reports/user-task.vue:202
+msgid "Filter Report"
+msgstr ""
+
+#: views/assets/src/components/reports/overdue-task.vue:7
+msgid "Overdue Task"
+msgstr ""
+
+#: views/assets/src/components/reports/overdue-task.vue:123
+#: views/assets/src/components/reports/user-task.vue:128
+msgid "Overdue Task Filter"
+msgstr ""
+
+#: views/assets/src/components/reports/project-tasks.vue:6
+#: views/assets/src/components/reports/project-tasks.vue:210
+#: views/assets/src/components/reports/reports.vue:6
+msgid "Project Report"
+msgstr ""
+
+#: views/assets/src/components/reports/project-tasks.vue:14
+msgid "All Task by Project"
+msgstr ""
+
+#: views/assets/src/components/reports/project-tasks.vue:34
+msgid "Co Worker : "
+msgstr ""
+
+#: views/assets/src/components/reports/project-tasks.vue:35
+#: views/assets/src/components/reports/user-task.vue:74
+#: views/assets/src/components/reports/user-task.vue:96
+#: views/assets/src/components/reports/user-task.vue:213
+msgid "Total Result"
+msgstr ""
+
+#: views/assets/src/components/reports/project-tasks.vue:49
+#: views/assets/src/components/reports/user-task.vue:228
+msgid "Report for"
+msgstr ""
+
+#: views/assets/src/components/reports/project-tasks.vue:49
+msgid "Project Task"
+msgstr ""
+
+#: views/assets/src/components/reports/project-tasks.vue:69
+msgid "All Task"
+msgstr ""
+
+#: views/assets/src/components/reports/project-tasks.vue:76
+msgid "All Complete Task"
+msgstr ""
+
+#: views/assets/src/components/reports/project-tasks.vue:83
+msgid "All Incomplete Task"
+msgstr ""
+
+#: views/assets/src/components/reports/project-tasks.vue:137
+msgid "Task Status : Complete Task"
+msgstr ""
+
+#: views/assets/src/components/reports/project-tasks.vue:139
+msgid "Task Status : Incomplete Task"
+msgstr ""
+
+#: views/assets/src/components/reports/project-tasks.vue:141
+msgid "Task Status : All Task"
+msgstr ""
+
+#: views/assets/src/components/reports/reports.vue:14
+msgid "Overdue Tasks"
+msgstr ""
+
+#: views/assets/src/components/reports/reports.vue:15
+msgid ""
+"Generate a report based on <strong>tasks</strong> which are "
+"<strong>pending</strong> beyond due dates."
+msgstr ""
+
+#: views/assets/src/components/reports/reports.vue:26
+msgid ""
+"Generate a report from <strong>tasks</strong> which were "
+"<strong>completed</strong>."
+msgstr ""
+
+#: views/assets/src/components/reports/reports.vue:36
+#: views/assets/src/components/reports/user-activity.vue:7
+msgid "User Activities"
+msgstr ""
+
+#: views/assets/src/components/reports/reports.vue:37
+msgid ""
+"Create a report based on an employee or <strong>all employee</strong> "
+"activity on <strong>tasks</strong>."
+msgstr ""
+
+#: views/assets/src/components/reports/reports.vue:47
+msgid "Task by Milestone"
+msgstr ""
+
+#: views/assets/src/components/reports/reports.vue:58
+#: views/assets/src/components/reports/unassigned-task.vue:7
+msgid "Unassigned Task"
+msgstr ""
+
+#: views/assets/src/components/reports/reports.vue:59
+msgid ""
+"Find out <strong>all tasks</strong> whichwere not  "
+"<strong>assigned</strong> to any employee."
+msgstr ""
+
+#: views/assets/src/components/reports/result-view.vue:6
+msgid "Project:"
+msgstr ""
+
+#: views/assets/src/components/reports/result-view.vue:23
+#: views/assets/src/components/reports/result-view.vue:98
+msgid "Assigned to"
+msgstr ""
+
+#: views/assets/src/components/reports/result-view.vue:24
+#: views/assets/src/components/reports/result-view.vue:99
+msgid "Assigned Date"
+msgstr ""
+
+#: views/assets/src/components/reports/result-view.vue:27
+#: views/assets/src/components/reports/result-view.vue:102
+#: views/assets/src/components/reports/task-result-view.vue:23
+#: views/assets/src/components/reports/task-result-view.vue:86
+msgid "Estimation"
+msgstr ""
+
+#: views/assets/src/components/reports/task-result-view.vue:24
+#: views/assets/src/components/reports/task-result-view.vue:87
+msgid "Completed Date"
+msgstr ""
+
+#: views/assets/src/components/reports/task-result-view.vue:25
+#: views/assets/src/components/reports/task-result-view.vue:88
+msgid "Completed By"
+msgstr ""
+
+#: views/assets/src/components/reports/task-result-view.vue:61
+msgid "Total Extimated: "
+msgstr ""
+
+#: views/assets/src/components/reports/task-result-view.vue:67
+msgid "Complete Extimated: "
+msgstr ""
+
+#: views/assets/src/components/reports/user-task.vue:7
+msgid "User Tasks"
+msgstr ""
+
+#: views/assets/src/components/reports/user-task.vue:95
+#: views/assets/src/components/reports/user-task.vue:212
+msgid "Co-Worker : "
+msgstr ""
+
+#: views/assets/src/components/reports/user-task.vue:97
+#: views/assets/src/components/reports/user-task.vue:214
+msgid "Total Estimation"
+msgstr ""
+
+#: views/assets/src/components/reports/user-task.vue:98
+#: views/assets/src/components/reports/user-task.vue:215
+msgid "Range"
+msgstr ""
+
+#: views/assets/src/components/reports/user-task.vue:191
+msgid "User Tasks Report"
+msgstr ""
+
+#: views/assets/src/components/reports/user-task.vue:228
+msgid "User Activity"
+msgstr ""
+
+#: views/assets/src/components/reports/user-task.vue:266
+msgid "Task view only"
+msgstr ""
+
+#: views/assets/src/components/reports/user-task.vue:310
+msgid "Select end date"
+msgstr ""
+
+#: views/assets/src/components/reports/user-task.vue:424
+msgid "User Activity Report"
+msgstr ""
+
+#: views/assets/src/components/search/directives.js:105
+msgid "No project found !"
+msgstr ""
+
+#: views/assets/src/components/search/project-search.vue:31
+msgid "No result found"
+msgstr ""
+
+#: views/assets/src/components/search/project-search.vue:53
+#: views/assets/src/components/search/search-all.vue:24
+msgid "Search ..."
+msgstr ""
+
+#: views/assets/src/components/search/search-all.vue:25
+msgid "Search by Client2..."
+msgstr ""
+
+#: views/assets/src/components/settings/page-tab-content.vue:7
+msgid "Page Settings"
+msgstr ""
+
+#: views/assets/src/components/settings/page-tab-content.vue:12
+msgid "Front-end"
+msgstr ""
+
+#: views/assets/src/components/settings/page-tab-menu.vue:3
+msgid "Pages"
+msgstr ""
+
+#: views/assets/src/components/settings/settings.vue:6
+msgid "Task start date"
+msgstr ""
+
+#: views/assets/src/components/settings/settings.vue:13
+msgid "Enable task start date field"
+msgstr ""
+
+#: views/assets/src/components/settings/settings.vue:23
+msgid "Logo"
+msgstr ""
+
+#: views/assets/src/components/settings/settings.vue:47
+msgid "Enable Daily Digest"
+msgstr ""
+
+#: views/assets/src/components/task-label/label.vue:23
+#: views/assets/src/components/task-label/single-in-task.vue:42
+msgid "No label found!"
+msgstr ""
+
+#: views/emails/html/daily_digest.php:57
+msgid "Project Overview"
+msgstr ""
+
+#: views/emails/html/daily_digest.php:59
+msgid "Discuss"
+msgstr ""
+
+#: views/emails/html/daily_digest.php:80
+msgid "Upcomnig Milestone"
+msgstr ""
+
+#: views/emails/html/daily_digest.php:100
+msgid "Your due tasks"
+msgstr ""
+
+#: views/emails/html/mention.php:12
+msgid "Hello"
+msgstr ""
+
+#: views/emails/html/mention.php:15
+msgid "You are mentioned in a comment by"
+msgstr ""
+
+#: views/emails/html/mention.php:17
+msgid "Please click the link bellow to view the comment."
+msgstr ""
+
+#: views/emails/html/mention.php:25
+msgid "View Comment"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "WP Project Manager Pro"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://wedevs.com/wp-project-manager-pro/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Premium version of WordPress Project Manager."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "weDevs"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://wedevs.com"
+msgstr ""

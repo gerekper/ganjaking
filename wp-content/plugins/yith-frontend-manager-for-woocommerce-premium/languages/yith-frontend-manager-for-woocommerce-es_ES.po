@@ -1,0 +1,2013 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH Frontend Manager for WooCommerce\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/init\n"
+"POT-Creation-Date: 2020-04-30 10:29:31+00:00\n"
+"PO-Revision-Date: 2019-12-24 15:06+0000\n"
+"Last-Translator: Fernando Tellado <fernando@tellado.es>\n"
+"Language-Team: Your Inspiration Themes <plugins@yithemes.com>\n"
+"Language: es_ES\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.12\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;__ngettext_noop:1,2;_n_noop:1,2;"
+"_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: plugin-fw\n"
+
+#: includes/class.yith-frontend-manager-admin.php:121
+msgctxt "[admin endpoints section]: label"
+msgid "enabled"
+msgstr "activado"
+
+#: includes/class.yith-frontend-manager-admin.php:122
+msgctxt "[admin endpoints section]: label"
+msgid "disabled"
+msgstr "desactivado"
+
+#: includes/class.yith-frontend-manager-admin.php:133
+msgid "Are you sure you want to flush permalink settings?"
+msgstr ""
+"¿Estás seguro de que quieres regenerar los ajustes de enlace permanente?"
+
+#: includes/class.yith-frontend-manager-admin.php:134
+msgid "Flushed!"
+msgstr "¡Regenerados!"
+
+#: includes/class.yith-frontend-manager-admin.php:187
+#: settings/settings-options.php:21
+msgid "General Settings"
+msgstr "Ajustes generales"
+
+# En WooCommerce endpoints siempre se está traduciendo como variables
+#: includes/class.yith-frontend-manager-admin.php:188
+#: settings/endpoints-options.php:21
+msgid "Endpoints"
+msgstr "Variables"
+
+#: includes/class.yith-frontend-manager-admin.php:189
+msgid "Premium Version"
+msgstr "Versión premium"
+
+#: includes/class.yith-frontend-manager-admin.php:195
+#: includes/class.yith-frontend-manager-admin.php:196
+#: includes/class.yith-frontend-manager-admin.php:327
+#: includes/extends/class.yith-frontend-manager-gui-premium.php:55
+#: includes/functions.yith-frontend-manager.php:64
+msgid "Frontend Manager"
+msgstr "Frontend Manager"
+
+#: includes/class.yith-frontend-manager-admin.php:374
+msgid ""
+"<b>YITH Stripe Connect for WooCommerce (Frontend Manager Integration) -</b> "
+"Define the following <b>Redirect URI</b> %s in your <b>Redirect URIs</b> "
+"section at the following path <a href=\"%s\" target=\"_blank\">Stripe "
+"Dashboard > Connect > Settings</a>."
+msgstr ""
+"<b>YITH Stripe Connect for WooCommerce (integración con Frontend Manager) -</"
+"b> Define lo siguiente <b>Redirect URI</b> %s en tu  sección de "
+"<b>Redirección de URIs</b> en la siguiente ruta <a href=\"%s\" target="
+"\"_blank\">Stripe Dashboard > Connect > Ajustes</a>."
+
+#: includes/class.yith-frontend-manager-admin.php:376
+msgid "Done"
+msgstr "Hecho"
+
+#: includes/class.yith-frontend-manager-gui.php:509
+msgid "Clear"
+msgstr "Limpiar"
+
+#: includes/class.yith-frontend-manager-gui.php:510
+msgid "Clear color"
+msgstr "Limpiar color"
+
+# default = por defecto
+#: includes/class.yith-frontend-manager-gui.php:511
+#: settings/skins-options.php:19
+#: templates/sections/products/categories-form.php:97
+msgid "Default"
+msgstr "Por defecto"
+
+#: includes/class.yith-frontend-manager-gui.php:512
+msgid "Select default color"
+msgstr "Establecer color por defecto"
+
+#: includes/class.yith-frontend-manager-gui.php:513
+msgid "Select Color"
+msgstr "Seleccionar color"
+
+#: includes/class.yith-frontend-manager-gui.php:514
+msgid "Color value"
+msgstr "Valor del color"
+
+# enter = intro
+#: includes/class.yith-frontend-manager-gui.php:591
+msgctxt "enhanced select"
+msgid "One result is available, press enter to select."
+msgstr "Hay un resultado disponible, presiona intro para seleccionar."
+
+#: includes/class.yith-frontend-manager-gui.php:592
+msgctxt "enhanced select"
+msgid "%qty% results are available, use up and down arrow keys to navigate."
+msgstr ""
+"%qty% resultados disponibles, usa las teclas de flecha arriba y abajo para "
+"navegar."
+
+#: includes/class.yith-frontend-manager-gui.php:593
+msgctxt "enhanced select"
+msgid "No matches found"
+msgstr "No se encontraron coincidencias"
+
+#: includes/class.yith-frontend-manager-gui.php:594
+msgctxt "enhanced select"
+msgid "Loading failed"
+msgstr "Error de carga"
+
+#: includes/class.yith-frontend-manager-gui.php:595
+msgctxt "enhanced select"
+msgid "Please enter 1 or more characters"
+msgstr "Por favor, introduce 1 o más carácteres"
+
+#: includes/class.yith-frontend-manager-gui.php:596
+msgctxt "enhanced select"
+msgid "Please enter %qty% or more characters"
+msgstr "Por favor, ingresa %qty% o más carácteres"
+
+#: includes/class.yith-frontend-manager-gui.php:597
+msgctxt "enhanced select"
+msgid "Please delete 1 character"
+msgstr "Por favor, elimina 1 carácter"
+
+#: includes/class.yith-frontend-manager-gui.php:598
+msgctxt "enhanced select"
+msgid "Please delete %qty% characters"
+msgstr "Por favor, elimina %qty% carácteres"
+
+#: includes/class.yith-frontend-manager-gui.php:599
+msgctxt "enhanced select"
+msgid "You can only select 1 item"
+msgstr "Solo puedes seleccionar 1 artículo"
+
+#: includes/class.yith-frontend-manager-gui.php:600
+msgctxt "enhanced select"
+msgid "You can only select %qty% items"
+msgstr "Solo puedes seleccionar %qty% artículos"
+
+#: includes/class.yith-frontend-manager-gui.php:601
+msgctxt "enhanced select"
+msgid "Loading more results&hellip;"
+msgstr "Cargando más resultados&hellip;"
+
+#: includes/class.yith-frontend-manager-gui.php:602
+msgctxt "enhanced select"
+msgid "Searching&hellip;"
+msgstr "Buscando&hellip;"
+
+#. translators: %s: decimal
+#: includes/class.yith-frontend-manager-gui.php:615
+msgid "Please enter in decimal (%s) format without thousand separators."
+msgstr "Por favor, introduce en formato (%s) decimal sin separadores de mil."
+
+#. translators: %s: price decimal separator
+#: includes/class.yith-frontend-manager-gui.php:617
+msgid ""
+"Please enter in monetary decimal (%s) format without thousand separators and "
+"currency symbols."
+msgstr ""
+"Por favor, introduce en formato (%s) monetario decimal sin separadores de "
+"mil ni símbolos de moneda."
+
+#: includes/class.yith-frontend-manager-gui.php:618
+msgid "Please enter in country code with two capital letters."
+msgstr "Por favor, introudce el código del país con dos letras mayúsculas."
+
+#: includes/class.yith-frontend-manager-gui.php:619
+msgid "Please enter in a value less than the regular price."
+msgstr "Por favor, introduce un valor inferior al precio habitual."
+
+#: includes/class.yith-frontend-manager-gui.php:623
+msgid "Import"
+msgstr "Importar"
+
+#: includes/class.yith-frontend-manager-gui.php:624
+msgid "Export"
+msgstr "Exportar"
+
+#: includes/class.yith-frontend-manager-gui.php:636
+msgid "Select an option&hellip;"
+msgstr "Selecciona una opción&hellip;"
+
+#: includes/class.yith-frontend-manager-gui.php:651
+msgid ""
+"Are you sure you want to remove the selected items? If you have previously "
+"reduced this item's stock, or this order was submitted by a customer, you "
+"will need to manually restore the item's stock."
+msgstr ""
+"¿Estás seguro de que quieres eliminar los artículos seleccionados? Si ha "
+"reducido previamente las existencias de este artículo o si este pedido fue "
+"solicitado por un cliente, deberás restaurar manualmente el inventario del "
+"artículo."
+
+#: includes/class.yith-frontend-manager-gui.php:652
+msgid "Please select some items."
+msgstr "Por favor, selecciona algunos artículos."
+
+#: includes/class.yith-frontend-manager-gui.php:653
+msgid ""
+"Are you sure you wish to process this refund? This action cannot be undone."
+msgstr ""
+"¿Estás seguro de que deseas procesar este reembolso? Esta acción no se puede "
+"deshacer."
+
+#: includes/class.yith-frontend-manager-gui.php:654
+msgid ""
+"Are you sure you wish to delete this refund? This action cannot be undone."
+msgstr ""
+"¿Estás seguro que deseas eliminar este reembolso? Esta acción no se puede "
+"deshacer."
+
+#: includes/class.yith-frontend-manager-gui.php:655
+msgid ""
+"Are you sure you wish to delete this tax column? This action cannot be "
+"undone."
+msgstr ""
+"¿Estás seguro de que deseas eliminar esta columna de impuestos? Esta acción "
+"no se puede deshacer."
+
+# cambiado orden de la frase
+#: includes/class.yith-frontend-manager-gui.php:656
+msgid "Remove this item meta?"
+msgstr "¿Eliminar los meta de este artículo?"
+
+#: includes/class.yith-frontend-manager-gui.php:657
+msgid "Remove this attribute?"
+msgstr "¿Eliminar este atributo?"
+
+#: includes/class.yith-frontend-manager-gui.php:658
+#: templates/sections/products/attribute-terms-form.php:39
+#: templates/sections/products/attribute-terms-table.php:10
+#: templates/sections/products/attributes-form.php:46
+#: templates/sections/products/attributes-form.php:96
+#: templates/sections/products/attributes-table.php:19
+#: templates/sections/products/categories-form.php:37
+#: templates/sections/products/categories-table.php:10
+#: templates/sections/products/tags-form.php:34
+#: templates/sections/products/tags-table.php:7
+msgid "Name"
+msgstr "Nombre"
+
+#: includes/class.yith-frontend-manager-gui.php:659
+msgid "Remove"
+msgstr "Eliminar"
+
+#: includes/class.yith-frontend-manager-gui.php:660
+msgid "Click to toggle"
+msgstr "Haz clic para alternar"
+
+#: includes/class.yith-frontend-manager-gui.php:661
+msgid "Value(s)"
+msgstr "Valor(es)"
+
+#: includes/class.yith-frontend-manager-gui.php:662
+msgid "Enter some text, or some attributes by pipe (|) separating values."
+msgstr ""
+"Introduce algún texto o algunos atributos por barra (|) separando valores."
+
+#: includes/class.yith-frontend-manager-gui.php:663
+msgid "Visible on the product page"
+msgstr "Visible en la página del producto"
+
+#: includes/class.yith-frontend-manager-gui.php:664
+msgid "Used for variations"
+msgstr "Usado para variaciones"
+
+#: includes/class.yith-frontend-manager-gui.php:665
+msgid "Enter a name for the new attribute term:"
+msgstr "Introduce un nombre para el nuevo atributo:"
+
+#: includes/class.yith-frontend-manager-gui.php:666
+msgid "Calculate totals based on order items, discounts, and shipping?"
+msgstr "¿Calcular totales basados en pedidos de artículos, descuentos y envío?"
+
+#: includes/class.yith-frontend-manager-gui.php:667
+msgid ""
+"Calculate line taxes? This will calculate taxes based on the customers "
+"country. If no billing/shipping is set it will use the store base country."
+msgstr ""
+"¿Calcular los impuestos de línea? Esto calculará los impuestos basados en el "
+"país de los clientes. Si no se establece facturación / envío, utilizará el "
+"país base de la tienda."
+
+#: includes/class.yith-frontend-manager-gui.php:668
+msgid ""
+"Copy billing information to shipping information? This will remove any "
+"currently entered shipping information."
+msgstr ""
+"¿Copiar la información de facturación a la información de envío? Esto "
+"eliminará cualquier información de envío introducida."
+
+#: includes/class.yith-frontend-manager-gui.php:669
+msgid ""
+"Load the customer's billing information? This will remove any currently "
+"entered billing information."
+msgstr ""
+"¿Cargar la información de facturación del cliente? Esto eliminará cualquier "
+"información de facturación introducida."
+
+#: includes/class.yith-frontend-manager-gui.php:670
+msgid ""
+"Load the customer's shipping information? This will remove any currently "
+"entered shipping information."
+msgstr ""
+"¿Cargar la información de envío del cliente? Esto eliminará cualquier "
+"información de envío introducida."
+
+#: includes/class.yith-frontend-manager-gui.php:671
+msgid "Featured"
+msgstr "Destacado"
+
+#: includes/class.yith-frontend-manager-gui.php:675
+msgid "No customer selected"
+msgstr "Ningún cliente seleccionado"
+
+#: includes/class.yith-frontend-manager-gui.php:699
+msgid ""
+"Could not grant access - the user may already have permission for this file "
+"or billing email is not set. Ensure the billing email is set, and the order "
+"has been saved."
+msgstr ""
+"No se pudo conceder acceso - el usuario puede tener permiso para este "
+"archivo o el correo electrónico de facturación aún no está establecido. "
+"Asegúrate de que el correo electrónico de facturación está establecido y de "
+"que se ha guardado el pedido."
+
+#: includes/class.yith-frontend-manager-gui.php:700
+msgid "Are you sure you want to revoke access to this download?"
+msgstr "¿Estás seguro de que deseas revocar el acceso a esta descarga?"
+
+#: includes/class.yith-frontend-manager-gui.php:701
+msgid "You cannot add the same tax rate twice!"
+msgstr "¡No puedes añadir la misma tasa de impuesto dos veces!"
+
+#: includes/class.yith-frontend-manager-gui.php:702
+msgid ""
+"Your product has variations! Before changing the product type, it is a good "
+"idea to delete the variations to avoid errors in the stock reports."
+msgstr ""
+"¡Tu producto tiene variaciones! Antes de cambiar el tipo de producto, es "
+"buena idea eliminar las variaciones para evitar errores en los informes de "
+"inventario."
+
+#: includes/class.yith-frontend-manager-gui.php:703
+msgid ""
+"Are you sure you wish to delete this note? This action cannot be undone."
+msgstr ""
+"¿Estás seguro de que deseas eliminar esta nota? Esta acción no se puede "
+"deshacer."
+
+#: includes/class.yith-frontend-manager-gui.php:724
+msgid ""
+"Are you sure you want to link all variations? This will create a new "
+"variation for each and every possible combination of variation attributes "
+"(max %d per run)."
+msgstr ""
+"¿Seguro que quieres vincular todas las variaciones? Esto creará una nueva "
+"variación para cada combinación posible de atributos de variación (max%d por "
+"ejecución)."
+
+#: includes/class.yith-frontend-manager-gui.php:725
+msgid "Enter a value"
+msgstr "Introduce un valor"
+
+#: includes/class.yith-frontend-manager-gui.php:726
+msgid "Variation menu order (determines position in the list of variations)"
+msgstr ""
+"Orden del menú de variación (determina la posición en la lista de "
+"variaciones)"
+
+#: includes/class.yith-frontend-manager-gui.php:727
+msgid "Enter a value (fixed or %)"
+msgstr "Introduce un valor (fijo o %)"
+
+#: includes/class.yith-frontend-manager-gui.php:728
+msgid "Are you sure you want to delete all variations? This cannot be undone."
+msgstr ""
+"¿Estás seguro de que quieres eliminar todas las variaciones? Esto no se "
+"puede deshacer."
+
+#: includes/class.yith-frontend-manager-gui.php:729
+msgid "Last warning, are you sure?"
+msgstr "Última advertencia, ¿estás seguro?"
+
+#: includes/class.yith-frontend-manager-gui.php:730
+msgid "Choose an image"
+msgstr "Elige una imágen"
+
+#: includes/class.yith-frontend-manager-gui.php:731
+msgid "Set variation image"
+msgstr "Establecer una imagen de variación"
+
+#: includes/class.yith-frontend-manager-gui.php:732
+msgid "variation added"
+msgstr "variación añadida"
+
+#: includes/class.yith-frontend-manager-gui.php:733
+msgid "variations added"
+msgstr "variaciones añadidas"
+
+#: includes/class.yith-frontend-manager-gui.php:734
+msgid "No variations added"
+msgstr "No se han añadido variaciones"
+
+#: includes/class.yith-frontend-manager-gui.php:735
+msgid "Are you sure you want to remove this variation?"
+msgstr "¿Estás seguro de que quieres eliminar esta variación?"
+
+#: includes/class.yith-frontend-manager-gui.php:736
+msgid "Sale start date (YYYY-MM-DD format or leave blank)"
+msgstr "Fecha de inicio de la venta (formato AAAA-MM-DD o dejar en blanco)"
+
+#: includes/class.yith-frontend-manager-gui.php:737
+msgid "Sale end date (YYYY-MM-DD format or leave blank)"
+msgstr "Fecha de fin de la venta (formato AAAA-MM-DD o dejar en blanco)"
+
+#: includes/class.yith-frontend-manager-gui.php:738
+msgid "Save changes before changing page?"
+msgstr "¿Guardar cambios antes de salir de abandonar esta página?"
+
+#: includes/class.yith-frontend-manager-gui.php:739
+msgid "%qty% variation"
+msgstr "%qty% variación"
+
+#: includes/class.yith-frontend-manager-gui.php:740
+msgid "%qty% variations"
+msgstr "%qty% variaciones"
+
+#: includes/class.yith-frontend-manager-gui.php:757
+#: includes/class.yith-frontend-manager-gui.php:796
+#: includes/class.yith-frontend-manager-gui.php:818
+msgid "Your changed data will be lost if you leave this page without saving."
+msgstr "Tus cambios se perderán si abandonas esta página sin guardarla."
+
+#: includes/class.yith-frontend-manager-gui.php:758
+msgid ""
+"Are you sure you want to delete this zone? This action cannot be undone."
+msgstr ""
+"¿Estás seguro de que quieres eliminar esta zona? Esta acción no se puede "
+"deshacer."
+
+#: includes/class.yith-frontend-manager-gui.php:759
+#: includes/class.yith-frontend-manager-gui.php:798
+#: includes/class.yith-frontend-manager-gui.php:819
+msgid "Your changes were not saved. Please retry."
+msgstr "Tus cambios no se han guardado. Por favor, inténtalo de nuevo."
+
+#: includes/class.yith-frontend-manager-gui.php:760
+msgid "No shipping methods offered to this zone."
+msgstr "No se ofrecen métodos de envío en esta zona."
+
+#: includes/class.yith-frontend-manager-gui.php:775
+msgid "Zone does not exist!"
+msgstr "¡Esta zona no existe!"
+
+#: includes/class.yith-frontend-manager-gui.php:797
+msgid ""
+"Do you wish to save your changes first? Your changed data will be discarded "
+"if you choose to cancel."
+msgstr ""
+"¿Deseas guardar tus cambios primero? Tus datos modificados serán descartados "
+"si seleccionas cancelar."
+
+#: includes/class.yith-frontend-manager-gui.php:799
+msgid "Shipping method could not be added. Please retry."
+msgstr "No se pudo añadir el método de envío. Por favor, inténtalo de nuevo."
+
+#: includes/class.yith-frontend-manager-gui.php:800
+msgid "Yes"
+msgstr "Sí"
+
+#: includes/class.yith-frontend-manager-gui.php:801
+msgid "No"
+msgstr "No"
+
+#: includes/class.yith-frontend-manager-gui.php:802
+msgid "Zone"
+msgstr "Zona"
+
+#: includes/class.yith-frontend-manager-media.php:46
+msgid "Upload/add image"
+msgstr "Sube/añade una imágen"
+
+#: includes/class.yith-frontend-manager-media.php:47
+msgid "Remove image"
+msgstr "Eliminar imágen"
+
+#: includes/class.yith-frontend-manager-media.php:80
+#: includes/class.yith-frontend-manager-media.php:94
+msgid "Please log in to upload"
+msgstr "Por favor, accede para subir"
+
+#: includes/class.yith-frontend-manager-media.php:88
+msgid "Add product gallery image"
+msgstr "Añadir una imagen a la galería de producto"
+
+#: includes/class.yith-frontend-manager-section.php:401
+msgid "Endpoint"
+msgstr "Término"
+
+#: includes/class.yith-frontend-manager-section.php:413
+msgid "Section name"
+msgstr "Nombre de la sección"
+
+#: includes/class.yith-frontend-manager-section.php:415
+msgid "Menu label on the frontend &rarr;"
+msgstr "Menú de etiqueta en la portada &rarr;"
+
+#: includes/class.yith-frontend-manager-section.php:422
+msgid "Section slug"
+msgstr "Slug de sección"
+
+#: includes/class.yith-frontend-manager-section.php:424
+msgid "Endpoint for the frontend &rarr;"
+msgstr "Término para la portada &rarr;"
+
+#: includes/class.yith-frontend-manager-section.php:425
+#: includes/class.yith-frontend-manager-section.php:464
+msgctxt "i.e.: Endpoint for the Frontend Manager Dashboard page"
+msgid "page"
+msgstr "página"
+
+#: includes/class.yith-frontend-manager-section.php:446
+msgid "sub-section name"
+msgstr "nombre de subsección"
+
+#: includes/class.yith-frontend-manager-section.php:449
+msgid "Menu label on the frontend"
+msgstr "Menú de etiqueta en la portada"
+
+#: includes/class.yith-frontend-manager-section.php:458
+msgid "sub-section slug"
+msgstr "slug de subsección"
+
+#: includes/class.yith-frontend-manager-section.php:461
+msgid "Endpoint for the frontend"
+msgstr "Término para la portada"
+
+#: includes/extends/class.yith-frontend-manager-admin-premium.php:93
+msgctxt "[Admin] ex. Notice: xxxx"
+msgid "Notice"
+msgstr "Por favor, ten en cuenta"
+
+#: includes/extends/class.yith-frontend-manager-admin-premium.php:94
+msgid "This section has been disabled. Enable it in the"
+msgstr "Esta sección ha sido desactivada. Actívala en"
+
+#: includes/extends/class.yith-frontend-manager-admin-premium.php:96
+msgctxt "[Admin]: Link to the Sections panel page"
+msgid "Sections"
+msgstr "Secciones"
+
+#: includes/extends/class.yith-frontend-manager-admin-premium.php:97
+msgctxt "[Admin]: option tab"
+msgid "tab"
+msgstr "pestaña"
+
+#: includes/extends/class.yith-frontend-manager-admin-premium.php:120
+msgid "WordPress admin bar"
+msgstr "Barra de administración de WordPress"
+
+#: includes/extends/class.yith-frontend-manager-admin-premium.php:121
+msgid "Check this option to remove the WordPress admin bar on the frontend"
+msgstr ""
+"Marca esta opción para eliminar la barra de administración de WordPress en "
+"la portada"
+
+#: includes/extends/class.yith-frontend-manager-admin-premium.php:128
+msgid "Prevent backend access to shop managers"
+msgstr "Impide el acceso al panel de administración a los gerentes de tienda"
+
+#: includes/extends/class.yith-frontend-manager-admin-premium.php:129
+msgid ""
+"This option allows you to prevent shop managers from accessing the WordPress "
+"dashboard"
+msgstr ""
+"Esta opción te permite evitar que los administradores de tienda accedan al "
+"panel de WordPress"
+
+#: includes/extends/class.yith-frontend-manager-admin-premium.php:219
+msgid "Skins"
+msgstr "Pieles"
+
+#: includes/extends/class.yith-frontend-manager-section-premium.php:90
+#: settings/sections-options.php:21
+msgid "Sections"
+msgstr "Secciones"
+
+#: includes/functions.yith-frontend-manager.php:193
+msgid "Frontend Manager - Header sidebar"
+msgstr "Frontend Manager - Barra lateral de encabezado"
+
+#: includes/functions.yith-frontend-manager.php:195
+msgid "Widgets in this area will be shown in the header of your Frontend page."
+msgstr ""
+"Los widgets en este área se mostrarán en el encabezado de tu página de "
+"portada."
+
+#: includes/functions.yith-frontend-manager.php:204
+msgid "Frontend Manager - Footer sidebar"
+msgstr "Frontend Manager - Barra lateral del pie de página"
+
+#: includes/functions.yith-frontend-manager.php:206
+msgid "Widgets in this area will be shown in the footer of your Frontend page."
+msgstr ""
+"Los widgets en esta área se mostrarán en el pie de página de tu página de "
+"portada."
+
+#: includes/functions.yith-frontend-manager.php:294
+msgid "Shop Manager"
+msgstr "Administrador de tienda"
+
+#: includes/functions.yith-frontend-manager.php:299
+msgid "Vendor"
+msgstr "Vendedor"
+
+#: includes/functions.yith-frontend-manager.php:456
+msgid "Filter by date"
+msgstr "Filtrar por fecha"
+
+#: includes/functions.yith-frontend-manager.php:458
+msgid "All dates"
+msgstr "Todas las fechas"
+
+#. translators: 1: month name, 2: 4-digit year
+#: includes/functions.yith-frontend-manager.php:492
+msgid ""
+"You are about to delete this item. Click OK to delete the item or CANCEL to "
+"stop."
+msgstr ""
+"Estás a punto de eliminar este artículo. Haz clic en ACEPTAR para eliminar "
+"el artículo o CANCELAR para detenerlo."
+
+#: includes/functions.yith-frontend-manager.php:602
+msgctxt "[Plugin Name]"
+msgid ""
+"YITH Frontend Manager for WooCommerce is enabled but not effective. It "
+"requires WooCommerce in order to work."
+msgstr ""
+"YITH Frontend Manager for WooCommerce está activado pero no es efectivo. "
+"Necesita WooCommerce para funcionar."
+
+#: includes/lib/class.yith-frontend-manager-chat-macro-list-table.php:228
+#: includes/lib/class.yith-frontend-manager-commissions-list-table.php:80
+#: includes/lib/class.yith-frontend-manager-products-list-table.php:355
+#: includes/lib/class.yith-frontend-manager-tabs-list-table.php:177
+#: includes/sections/class.yith-frontend-manager-section-orders.php:408
+msgid "%s item"
+msgid_plural "%s items"
+msgstr[0] "%s artículo"
+msgstr[1] "%s artículos"
+
+#: includes/lib/class.yith-frontend-manager-chat-macro-list-table.php:264
+#: includes/lib/class.yith-frontend-manager-commissions-list-table.php:116
+#: includes/lib/class.yith-frontend-manager-products-list-table.php:391
+#: includes/lib/class.yith-frontend-manager-tabs-list-table.php:213
+#: includes/sections/class.yith-frontend-manager-section-orders.php:444
+msgid "First page"
+msgstr "Primera página"
+
+#: includes/lib/class.yith-frontend-manager-chat-macro-list-table.php:274
+#: includes/lib/class.yith-frontend-manager-commissions-list-table.php:126
+#: includes/lib/class.yith-frontend-manager-products-list-table.php:401
+#: includes/lib/class.yith-frontend-manager-tabs-list-table.php:223
+#: includes/sections/class.yith-frontend-manager-section-orders.php:454
+msgid "Previous page"
+msgstr "Página anterior"
+
+#: includes/lib/class.yith-frontend-manager-chat-macro-list-table.php:281
+#: includes/lib/class.yith-frontend-manager-chat-macro-list-table.php:284
+#: includes/lib/class.yith-frontend-manager-commissions-list-table.php:133
+#: includes/lib/class.yith-frontend-manager-commissions-list-table.php:136
+#: includes/lib/class.yith-frontend-manager-products-list-table.php:408
+#: includes/lib/class.yith-frontend-manager-products-list-table.php:411
+#: includes/lib/class.yith-frontend-manager-tabs-list-table.php:230
+#: includes/lib/class.yith-frontend-manager-tabs-list-table.php:233
+#: includes/sections/class.yith-frontend-manager-section-orders.php:461
+#: includes/sections/class.yith-frontend-manager-section-orders.php:464
+msgid "Current Page"
+msgstr "Página actual"
+
+#: includes/lib/class.yith-frontend-manager-chat-macro-list-table.php:290
+#: includes/lib/class.yith-frontend-manager-commissions-list-table.php:142
+#: includes/lib/class.yith-frontend-manager-products-list-table.php:417
+#: includes/lib/class.yith-frontend-manager-tabs-list-table.php:239
+#: includes/sections/class.yith-frontend-manager-section-orders.php:470
+msgctxt "paging"
+msgid "%1$s of %2$s"
+msgstr "%1$s of %2$s"
+
+#: includes/lib/class.yith-frontend-manager-chat-macro-list-table.php:297
+#: includes/lib/class.yith-frontend-manager-commissions-list-table.php:149
+#: includes/lib/class.yith-frontend-manager-products-list-table.php:424
+#: includes/lib/class.yith-frontend-manager-tabs-list-table.php:246
+#: includes/sections/class.yith-frontend-manager-section-orders.php:477
+msgid "Next page"
+msgstr "Página siguiente"
+
+#: includes/lib/class.yith-frontend-manager-chat-macro-list-table.php:307
+#: includes/lib/class.yith-frontend-manager-commissions-list-table.php:159
+#: includes/lib/class.yith-frontend-manager-products-list-table.php:434
+#: includes/lib/class.yith-frontend-manager-tabs-list-table.php:256
+#: includes/sections/class.yith-frontend-manager-section-orders.php:487
+msgid "Last page"
+msgstr "Última página"
+
+#: includes/lib/class.yith-frontend-manager-tabs-list-table.php:326
+#: templates/sections/live-chat/ylc-macro.php:77
+#: templates/sections/products/product.php:117
+msgid "Title"
+msgstr "Título"
+
+#: includes/lib/class.yith-frontend-manager-tabs-list-table.php:327
+#: templates/sections/coupons/coupon.php:149
+#: templates/sections/coupons/coupons.php:17
+#: templates/sections/live-chat/ylc-macro.php:82
+#: templates/sections/multi-vendor/coupon.php:150
+#: templates/sections/products/attribute-terms-form.php:89
+#: templates/sections/products/attribute-terms-table.php:11
+#: templates/sections/products/categories-form.php:89
+#: templates/sections/products/categories-table.php:11
+#: templates/sections/products/product.php:123
+#: templates/sections/products/tags-form.php:47
+#: templates/sections/products/tags-table.php:8
+msgid "Description"
+msgstr "Descripción"
+
+#: includes/lib/class.yith-frontend-manager-tabs-list-table.php:328
+msgid "Is Visible"
+msgstr "Es visible"
+
+#: includes/lib/class.yith-frontend-manager-tabs-list-table.php:329
+msgid "Tab Position"
+msgstr "Posición de la pestaña"
+
+#: includes/lib/class.yith-frontend-manager-tabs-list-table.php:330
+msgid "Tab type"
+msgstr "Tipo de pestaña"
+
+#: includes/lib/class.yith-frontend-manager-tabs-list-table.php:331
+#: includes/sections/class.yith-frontend-manager-section-orders.php:160
+msgid "Date"
+msgstr "Fecha"
+
+#: includes/lib/class.yith-frontend-manager-tabs-list-table.php:345
+#: templates/sections/inline-actions.php:14
+msgid "Edit"
+msgstr "Editar"
+
+#: includes/lib/class.yith-frontend-manager-tabs-list-table.php:347
+#: templates/sections/inline-actions.php:20
+msgid "Delete"
+msgstr "Eliminar"
+
+#: includes/lib/class.yith-frontend-manager-tabs-list-table.php:359
+msgid "No description"
+msgstr "Sin descripción"
+
+#: includes/lib/class.yith-frontend-manager-tabs-list-table.php:363
+msgid "Show more"
+msgstr "Mostrar más"
+
+#: includes/lib/class.yith-frontend-manager-tabs-list-table.php:363
+msgid "Show less"
+msgstr "Mostrar menos"
+
+#: includes/module/auctions/module.yith-auctions.php:123
+msgid "Are you sure you want to delete the customer's bid?"
+msgstr "¿Estás seguro de que quieres eliminar la puja del cliente?"
+
+#: includes/module/auctions/module.yith-auctions.php:155
+msgid "Auction bid list"
+msgstr "Lista de pujas de la subasta"
+
+#: includes/module/featured-audio-and-video/module.yith-featured-audio-and-video-content.php:85
+msgid "Featured Video or Audio"
+msgstr "Video o audio destacado"
+
+#: includes/module/multi-vendor/module.yith-multi-vendor.php:371
+#: includes/module/sms-notifications/module.yith-sms-notifications.php:88
+msgid "only available for vendors"
+msgstr "solo disponible para vendedores"
+
+#: includes/module/multi-vendor/module.yith-multi-vendor.php:544
+msgid "You are not allowed to create more than %1$s products"
+msgstr "No estás autorizado a crear mas de %1$s productos"
+
+#: includes/module/multi-vendor/module.yith-multi-vendor.php:812
+msgid "Delete note"
+msgstr "Eliminar nota"
+
+#: includes/module/multi-vendor/module.yith-multi-vendor.php:924
+msgctxt "Order table details"
+msgid "in"
+msgstr "en"
+
+#: includes/module/multi-vendor/module.yith-multi-vendor.php:947
+msgid "Suborders"
+msgstr "Subpedidos"
+
+#: includes/module/multi-vendor/module.yith-multi-vendor.php:1045
+#: templates/sections/commissions/commissions.php:43
+#: templates/sections/reports/commissions-report.php:12
+msgid "Commissions"
+msgstr "Comisiones"
+
+#: includes/module/multi-vendor/module.yith-multi-vendor.php:1256
+msgid "Unpaid commissions"
+msgstr "Comisiones sin pagar"
+
+#: includes/module/multi-vendor/module.yith-multi-vendor.php:1274
+msgid "Net commissions this month"
+msgstr "Comisiones netas este mes"
+
+#: includes/sections/class.yith-frontend-manager-section-commissions.php:26
+msgctxt "[Frontend]: Commissions menu item"
+msgid "Commissions"
+msgstr "Comisiones"
+
+#: includes/sections/class.yith-frontend-manager-section-coupons.php:26
+msgctxt "[Frontend]: Coupons menu item"
+msgid "Coupons"
+msgstr "Cupones"
+
+#: includes/sections/class.yith-frontend-manager-section-coupons.php:31
+msgid "All Coupons"
+msgstr "Todos los cupones"
+
+#: includes/sections/class.yith-frontend-manager-section-coupons.php:36
+msgid "Add Coupon"
+msgstr "Añadir cupón"
+
+#: includes/sections/class.yith-frontend-manager-section-coupons.php:157
+msgid "Coupon deleted."
+msgstr "Cupón eliminado."
+
+#: includes/sections/class.yith-frontend-manager-section-coupons.php:161
+msgid "Unable to delete the coupon."
+msgstr "No se puede eliminar este cupón."
+
+#: includes/sections/class.yith-frontend-manager-section-coupons.php:165
+msgid "The coupon doesn't exist."
+msgstr "El cupón no existe."
+
+#: includes/sections/class.yith-frontend-manager-section-dashboard.php:26
+msgctxt "[Frontend]: Dashboard menu item"
+msgid "Dashboard"
+msgstr "Escritorio"
+
+#: includes/sections/class.yith-frontend-manager-section-dashboard.php:144
+msgid "Net sales this month"
+msgstr "Ventas netas este mes"
+
+#: includes/sections/class.yith-frontend-manager-section-dashboard.php:145
+msgid "Awaiting process orders"
+msgstr "En espera de proceso de pedidos"
+
+#: includes/sections/class.yith-frontend-manager-section-dashboard.php:146
+msgid "On-hold orders"
+msgstr "Pedidos en espera"
+
+#: includes/sections/class.yith-frontend-manager-section-dashboard.php:147
+msgid "Low stock level"
+msgstr "Nivel bajo de inventario"
+
+#: includes/sections/class.yith-frontend-manager-section-dashboard.php:148
+msgid "Products out of stock"
+msgstr "Productos fuera de inventario"
+
+#: includes/sections/class.yith-frontend-manager-section-live-chat.php:31
+msgctxt "[Frontend]: Live Chat menu item"
+msgid "Live Chat"
+msgstr "Chat en vivo"
+
+#: includes/sections/class.yith-frontend-manager-section-live-chat.php:37
+msgid "Chat Console"
+msgstr "Consola del chat"
+
+#: includes/sections/class.yith-frontend-manager-section-live-chat.php:42
+msgid "Offline Messages"
+msgstr "Mensajes fuera de líne"
+
+#: includes/sections/class.yith-frontend-manager-section-live-chat.php:47
+msgid "Chat Logs"
+msgstr "Accesos al chat"
+
+#: includes/sections/class.yith-frontend-manager-section-live-chat.php:52
+#: templates/sections/live-chat/ylc-macros.php:48
+msgid "Chat Macros"
+msgstr "Macros del chat"
+
+#: includes/sections/class.yith-frontend-manager-section-live-chat.php:57
+msgid "Add Macro"
+msgstr "Añadir macro"
+
+#: includes/sections/class.yith-frontend-manager-section-live-chat.php:220
+msgid "Macro Saved"
+msgstr "Macro guardada"
+
+#: includes/sections/class.yith-frontend-manager-section-live-chat.php:225
+msgid "Unable to save macro"
+msgstr "No ha sido posible guardar la macro"
+
+#: includes/sections/class.yith-frontend-manager-section-logout.php:26
+msgctxt "[Frontend]: Dashboard menu item"
+msgid "Logout"
+msgstr "Cerrar sesión"
+
+#: includes/sections/class.yith-frontend-manager-section-orders.php:31
+msgctxt "[Frontend]: Orders menu item"
+msgid "Orders"
+msgstr "Pedidos"
+
+#: includes/sections/class.yith-frontend-manager-section-orders.php:36
+msgid "All Orders"
+msgstr "Todos los pedidos"
+
+#: includes/sections/class.yith-frontend-manager-section-orders.php:41
+msgid "Add Order"
+msgstr "Añadir pedido"
+
+#: includes/sections/class.yith-frontend-manager-section-orders.php:156
+#: templates/sections/products/product.php:159
+msgid "Status"
+msgstr "Estado"
+
+#: includes/sections/class.yith-frontend-manager-section-orders.php:157
+msgid "Order"
+msgstr "Pedido"
+
+#: includes/sections/class.yith-frontend-manager-section-orders.php:158
+msgid "Purchased"
+msgstr "Comprado"
+
+#: includes/sections/class.yith-frontend-manager-section-orders.php:159
+msgid "Ship to"
+msgstr "Enviar a"
+
+#: includes/sections/class.yith-frontend-manager-section-orders.php:161
+msgid "Total"
+msgstr "Total"
+
+#: includes/sections/class.yith-frontend-manager-section-orders.php:162
+msgid "Actions"
+msgstr "Acciones"
+
+#: includes/sections/class.yith-frontend-manager-section-orders.php:295
+msgid "item"
+msgstr "artículo"
+
+#: includes/sections/class.yith-frontend-manager-section-orders.php:295
+msgid "items"
+msgstr "artículos"
+
+#: includes/sections/class.yith-frontend-manager-section-orders.php:327
+msgid "Processing"
+msgstr "Procesando"
+
+#: includes/sections/class.yith-frontend-manager-section-orders.php:335
+msgid "Complete"
+msgstr "Completo"
+
+#: includes/sections/class.yith-frontend-manager-section-orders.php:342
+#: templates/sections/inline-actions.php:26
+msgid "View"
+msgstr "Ver"
+
+#: includes/sections/class.yith-frontend-manager-section-products-premium.php:51
+msgid "Categories"
+msgstr "Categorías"
+
+#: includes/sections/class.yith-frontend-manager-section-products-premium.php:57
+msgid "Tags"
+msgstr "Etiquetas"
+
+#: includes/sections/class.yith-frontend-manager-section-products-premium.php:63
+msgid "Attributes"
+msgstr "Atributos"
+
+#: includes/sections/class.yith-frontend-manager-section-products-premium.php:169
+msgctxt "[Frontend]: user message"
+msgid "Term deleted successfully"
+msgstr "Término eliminado con éxito"
+
+#: includes/sections/class.yith-frontend-manager-section-products-premium.php:176
+msgctxt "[Frontend]: user message"
+msgid "Term does not exist"
+msgstr "Este término no existe"
+
+#: includes/sections/class.yith-frontend-manager-section-products-premium.php:180
+msgctxt "[Frontend]: user message"
+msgid "Taxonomy does not exist"
+msgstr "Esta taxonomía no existe"
+
+#: includes/sections/class.yith-frontend-manager-section-products-premium.php:184
+msgctxt "[Frontend]: user message"
+msgid "Attempted deletion of default Category"
+msgstr "Intento de eliminación de categoría predeterminada"
+
+#: includes/sections/class.yith-frontend-manager-section-products-premium.php:299
+#: includes/sections/class.yith-frontend-manager-section-products-premium.php:350
+msgid "Please, provide an attribute name and slug."
+msgstr "Por favor, proporciona un nombre de atributo y slug."
+
+# Añadido artículo inicial a la frase
+#: includes/sections/class.yith-frontend-manager-section-products-premium.php:304
+msgid ""
+"Slug <strong>\"%s\"</strong> is already being used. Please, choose a new one."
+msgstr ""
+"El slug <strong> \"% s\" </strong> ya se está utilizando. Por favor, elige "
+"uno nuevo."
+
+#: includes/sections/class.yith-frontend-manager-section-products-premium.php:314
+msgctxt "[Frontend]: user message"
+msgid "Attribute added successfully"
+msgstr "Atributo añadido con éxito"
+
+#: includes/sections/class.yith-frontend-manager-section-products.php:28
+msgctxt "[Frontend]: Dashboard menu item"
+msgid "Products"
+msgstr "Productos"
+
+#: includes/sections/class.yith-frontend-manager-section-products.php:33
+msgid "All Products"
+msgstr "Todos los productos"
+
+#: includes/sections/class.yith-frontend-manager-section-products.php:39
+msgid "Add Product"
+msgstr "Añadir producto"
+
+#: includes/sections/class.yith-frontend-manager-section-products.php:469
+msgid "Applied to..."
+msgstr "Aplicado a…"
+
+#: includes/sections/class.yith-frontend-manager-section-products.php:503
+msgid "Published"
+msgstr "Añadir producto"
+
+#: includes/sections/class.yith-frontend-manager-section-products.php:504
+msgid "Pending review"
+msgstr "Valoración pendiente"
+
+#: includes/sections/class.yith-frontend-manager-section-products.php:505
+msgid "Draft"
+msgstr "Borrador"
+
+#: includes/sections/class.yith-frontend-manager-section-products.php:525
+msgctxt "[Frontend]: user message"
+msgid "Product deleted successfully"
+msgstr "Producto eliminado con éxito"
+
+#: includes/sections/class.yith-frontend-manager-section-products.php:530
+msgctxt "[Frontend]: user message"
+msgid "Product does not exist"
+msgstr "Este producto no existe"
+
+#: includes/sections/class.yith-frontend-manager-section-products.php:573
+msgid "Product Saved"
+msgstr "Producto guardado"
+
+#: includes/sections/class.yith-frontend-manager-section-products.php:578
+msgid "Unable to save product"
+msgstr "No ha sido posible guardar el producto"
+
+#: includes/sections/class.yith-frontend-manager-section-reports-premium.php:43
+#: templates/sections/product_orders/product_orders.php:11
+#: templates/sections/reports/orders-report.php:22
+msgid "Orders"
+msgstr "Pedidos"
+
+#: includes/sections/class.yith-frontend-manager-section-reports.php:28
+msgctxt "[Frontend]: Reports menu item"
+msgid "Reports"
+msgstr "Reportes"
+
+#: includes/sections/class.yith-frontend-manager-section-reports.php:34
+#: templates/sections/reports/customers-report.php:13
+msgid "Customers"
+msgstr "Clientes"
+
+# stock = inventario
+#: includes/sections/class.yith-frontend-manager-section-reports.php:39
+#: templates/sections/reports/stock-report.php:13
+msgid "Stock"
+msgstr "Inventario"
+
+#: includes/sections/class.yith-frontend-manager-section-sms-vendor.php:33
+msgctxt "[Frontend]: SMS Notifications vendor settings menu item"
+msgid "SMS Notifications"
+msgstr "SMS Notifications"
+
+#: includes/sections/class.yith-frontend-manager-section-tab-manager.php:29
+msgctxt "[Frontend]: Dashboard menu item"
+msgid "Tab Manager"
+msgstr "Tab Manager"
+
+#: includes/sections/class.yith-frontend-manager-section-tab-manager.php:34
+msgid "All tabs"
+msgstr "Todas las pestañas"
+
+#: includes/sections/class.yith-frontend-manager-section-tab-manager.php:40
+msgid "Add Tab"
+msgstr "Añadir pestaña"
+
+#: includes/sections/class.yith-frontend-manager-section-tab-manager.php:180
+msgctxt "[Frontend]: user message"
+msgid "Tab deleted successfully"
+msgstr "Pestaña eliminada con éxito"
+
+#: includes/sections/class.yith-frontend-manager-section-tab-manager.php:185
+msgctxt "[Frontend]: user message"
+msgid "Tab does not exist"
+msgstr "La pestaña no existe"
+
+#: includes/sections/class.yith-frontend-manager-section-vendor.php:31
+msgctxt "[Frontend]: Vendor settings menu item"
+msgid "Vendor settings"
+msgstr "Ajustes del vendedor"
+
+#: includes/sections/class.yith-frontend-manager-section-vendor.php:114
+msgid "Prevent backend access to vendors"
+msgstr "Impedir el acceso al panel de administración a los vendedores"
+
+#: includes/sections/class.yith-frontend-manager-section-vendor.php:115
+msgid ""
+"This option allows you to prevent vendors from accessing the WordPress "
+"dashboard"
+msgstr ""
+"Esta opción te permite evitar que los vendedores accedan al escritorio de "
+"WordPress"
+
+#: includes/sections/class.yith-frontend-manager-section-vendor.php:236
+msgid "Option Saved"
+msgstr "Opción guardada"
+
+#: includes/sections/class.yith-frontend-manager-section-vendor.php:241
+msgid "A vendor with this name already exists."
+msgstr "Ya existe un vendedor con este nombre."
+
+#: settings/endpoints-options.php:22
+msgid ""
+"Endpoints are appended to your page URLs to handle specific actions on the "
+"frontend manager pages. They should be unique and leaving them blank will "
+"disable the endpoint."
+msgstr ""
+"Los puntos finales se añaden a las URL de tu página para manejar acciones "
+"específicas en las páginas del administrador de la portada. Deben ser únicos "
+"y dejarlos en blanco deshabilitará el punto final."
+
+#: settings/sections-options.php:22
+msgid "Please, select which modules you want to enable on the frontend."
+msgstr "Por favor, selecciona que módulos quieres habilitar en la portada."
+
+#: settings/settings-options.php:25
+msgid "\"Frontend Manager\" page"
+msgstr "Página de “Frontend Manager”"
+
+#: settings/settings-options.php:31
+msgctxt "[Admin] Option description"
+msgid "Set the page where to add the \"Frontend Manager Shortcodes\""
+msgstr ""
+"Establece la página donde añadir los \"Accesos directos de Frontend Manager\""
+
+#: settings/settings-options.php:33
+msgid "Page contents"
+msgstr "Contenidos de la página"
+
+#: settings/settings-options.php:47
+msgid "Permalinks Settings"
+msgstr "Ajustes de enlaces permanentes"
+
+#: settings/settings-options.php:51
+msgid "Flush permalinks"
+msgstr "Refrescar enlaces permanentes"
+
+#: settings/settings-options.php:54
+msgctxt "[Admin] button label. Please use a short string"
+msgid "Flush Permalinks"
+msgstr "Refrescar enlaces permanentes"
+
+#: settings/settings-options.php:55
+msgctxt "[Admin] Option description"
+msgid ""
+" If after activating the plugin or after editing some options, you get a 404 "
+"error on the frontend, please, flush permalinks and update the page."
+msgstr ""
+" Si después de activar el plugin o después de editar algunas opciones, "
+"aparece un error 404 en la portada, descarga los enlaces permanentes y "
+"actualiza la página."
+
+#: settings/settings-options.php:68
+msgid "Access control"
+msgstr "Control de acceso"
+
+#: settings/settings-options.php:72
+msgid "Not authorized title"
+msgstr "Título no autorizado"
+
+#: settings/settings-options.php:76
+msgctxt "[Admin Panel]: Unauthorized access page title"
+msgid "Restricted Area"
+msgstr "Area restringida"
+
+#: settings/settings-options.php:80
+msgid "Not authorized message"
+msgstr "Mensaje no autorizado"
+
+#: settings/settings-options.php:84
+msgctxt "[Admin Panel]: Unauthorized access message"
+msgid "You do not have sufficient permissions to access this section"
+msgstr "No tienes los permisos suficientes para acceder a esta sección"
+
+#: settings/skins-options.php:10
+msgid "Dashboard skin"
+msgstr "Escritorio de apariencia"
+
+#: settings/skins-options.php:14
+msgid "Choose the skin"
+msgstr "Elige la apariencia"
+
+#: settings/skins-options.php:18
+msgid "None"
+msgstr "Ninguno"
+
+#: settings/skins-options.php:20
+msgid "Skin-1"
+msgstr "Apariencia-1"
+
+#: templates/sections/commissions/commissions.php:13
+msgid "Commission"
+msgstr "Comisión"
+
+#: templates/sections/commissions/commissions.php:35
+msgid "Vendor Commissions"
+msgstr "Comisiones del vendedor"
+
+#: templates/sections/commissions/commissions.php:49
+msgid "Search commissions"
+msgstr "Buscar comisiones"
+
+#: templates/sections/coupons/coupon.php:22
+#: templates/sections/multi-vendor/coupon.php:22
+msgid "Coupon created."
+msgstr "Cupón creado."
+
+#: templates/sections/coupons/coupon.php:28
+#: templates/sections/multi-vendor/coupon.php:28
+msgid "Coupon updated."
+msgstr "Cupón actualizado."
+
+#: templates/sections/coupons/coupon.php:135
+#: templates/sections/multi-vendor/coupon.php:136
+msgid "Coupon"
+msgstr "Cupón"
+
+#: templates/sections/coupons/coupon.php:144
+#: templates/sections/multi-vendor/coupon.php:145
+msgid "Coupon Code"
+msgstr "Código del cupón"
+
+#: templates/sections/coupons/coupon.php:150
+#: templates/sections/multi-vendor/coupon.php:151
+msgid "Description (optional)"
+msgstr "Descripción (opcional)"
+
+#: templates/sections/coupons/coupon.php:155
+#: templates/sections/multi-vendor/coupon.php:156
+msgid "Coupon Data"
+msgstr "Datos del cupón"
+
+#: templates/sections/coupons/coupon.php:160
+#: templates/sections/multi-vendor/coupon.php:161
+msgid "Discount type"
+msgstr "Tipo de descuento"
+
+#: templates/sections/coupons/coupon.php:169
+#: templates/sections/coupons/coupons.php:16
+#: templates/sections/multi-vendor/coupon.php:170
+msgid "Coupon amount"
+msgstr "Valor del cupón"
+
+#: templates/sections/coupons/coupon.php:174
+msgid "Allow free shipping"
+msgstr "Permitir envío gratuito"
+
+#: templates/sections/coupons/coupon.php:176
+msgid ""
+"Check this box if the coupon grants free shipping. A free shipping method "
+"must be enabled\n"
+"                in your shipping zone. It needs to be set up to require \"a "
+"valid free shipping coupon\" (see the \"Free Shipping Requires\"\n"
+"                setting)."
+msgstr ""
+"Marca esta casilla si el cupón concede el envío gratis. Se debe habilitar un "
+"método de envío gratuito\n"
+"                 en tu zona de envío. Se debe configurar para que requiera "
+"\"un cupón de envío gratis válido\"(consulta ajustes de \"Envío gratuito "
+"requiere\"\n"
+"                 )."
+
+#: templates/sections/coupons/coupon.php:183
+#: templates/sections/multi-vendor/coupon.php:175
+msgid "Coupon expiry date"
+msgstr "Fecha de vencimiento del cupón"
+
+#: templates/sections/coupons/coupon.php:189
+#: templates/sections/multi-vendor/coupon.php:181
+msgid "Usage Restriction"
+msgstr "Restricción de uso"
+
+#: templates/sections/coupons/coupon.php:194
+#: templates/sections/multi-vendor/coupon.php:186
+msgid "Minimum spend"
+msgstr "Minimo gastado"
+
+#: templates/sections/coupons/coupon.php:199
+#: templates/sections/multi-vendor/coupon.php:191
+msgid "Maximum spend"
+msgstr "Máximo gastado"
+
+#: templates/sections/coupons/coupon.php:204
+#: templates/sections/multi-vendor/coupon.php:196
+msgid "Individual use only"
+msgstr "Solo uso individual"
+
+#: templates/sections/coupons/coupon.php:206
+#: templates/sections/multi-vendor/coupon.php:198
+msgid ""
+"Check this box if the coupon cannot be used in conjunction with other "
+"coupons."
+msgstr ""
+"Marcá esta casilla si el cupón no puede ser usado junto con otros cupones."
+
+#: templates/sections/coupons/coupon.php:210
+#: templates/sections/multi-vendor/coupon.php:202
+msgid "Exclude sale items"
+msgstr "Exluir artículos de rebaja"
+
+#: templates/sections/coupons/coupon.php:212
+#: templates/sections/multi-vendor/coupon.php:204
+msgid ""
+"Check this box if the coupon should not apply to on-sale items. Per-item "
+"coupons\n"
+"                will only work if the item is not on-sale. Per-cart coupons "
+"will only work if there are no sale items in the cart."
+msgstr ""
+"Marca esta casilla si el cupón no debe aplicarse a artículos en venta. "
+"Cupones por artículo\n"
+"                 solo funcionará si el artículo no está en venta. Los "
+"cupones por carrito solo funcionarán si no hay artículos de venta en el "
+"carro."
+
+#: templates/sections/coupons/coupon.php:222
+#: templates/sections/multi-vendor/coupon.php:214
+#: templates/sections/products/categories-form.php:98
+#: templates/sections/products/products.php:41
+msgid "Products"
+msgstr "Productos"
+
+#: templates/sections/coupons/coupon.php:237
+#: templates/sections/multi-vendor/coupon.php:229
+msgid "Exclude products"
+msgstr "Excluir productos"
+
+#: templates/sections/coupons/coupon.php:256
+#: templates/sections/products/product.php:174
+msgid "Product categories"
+msgstr "Categorías de producto"
+
+#: templates/sections/coupons/coupon.php:263
+msgid "Exclude categories"
+msgstr "Excluir categorías"
+
+#: templates/sections/coupons/coupon.php:273
+#: templates/sections/multi-vendor/coupon.php:248
+msgid "Email restrictions"
+msgstr "Restricciones de correo electrónico"
+
+#: templates/sections/coupons/coupon.php:279
+#: templates/sections/multi-vendor/coupon.php:254
+msgid "Usage Limits"
+msgstr "Límites de uso"
+
+#: templates/sections/coupons/coupon.php:284
+#: templates/sections/multi-vendor/coupon.php:259
+msgid "Usage limit per coupon"
+msgstr "Límite de uso por cupón"
+
+#: templates/sections/coupons/coupon.php:289
+#: templates/sections/multi-vendor/coupon.php:264
+msgid "Limit usage to X items"
+msgstr "Limitar el uso a X artículos"
+
+#: templates/sections/coupons/coupon.php:294
+#: templates/sections/multi-vendor/coupon.php:269
+msgid "Usage limit per user"
+msgstr "Límite de uso por usuario"
+
+#: templates/sections/coupons/coupons.php:14
+msgid "Code"
+msgstr "Código"
+
+#: templates/sections/coupons/coupons.php:15
+msgid "Coupon type"
+msgstr "Tipo de cupón"
+
+#: templates/sections/coupons/coupons.php:18
+msgid "Product IDs"
+msgstr "IDs de productos"
+
+#: templates/sections/coupons/coupons.php:19
+msgid "Usage / Limit"
+msgstr "Uso / Límite"
+
+#: templates/sections/coupons/coupons.php:20
+msgid "Expiry date"
+msgstr "Fecha de vencimiento"
+
+#: templates/sections/coupons/coupons.php:29
+msgid "Coupons"
+msgstr "Cupones"
+
+#: templates/sections/coupons/coupons.php:35
+msgid "Show all types"
+msgstr "Mostrar todos los tipos"
+
+#: templates/sections/coupons/coupons.php:40
+msgctxt "Button Label"
+msgid "Filter"
+msgstr "Filtrar"
+
+#: templates/sections/coupons/coupons.php:43
+msgid "Reset"
+msgstr "Reestablecer"
+
+#: templates/sections/coupons/coupons.php:131
+msgid "No coupons found"
+msgstr "No se encontraron cupones"
+
+#: templates/sections/dashboard/dashboard.php:17
+msgid "Hello %s%s%s (not %2$s? %sSign out%s)"
+msgstr "Hola %s%s%s (no %2$s? %sSign Out%s)"
+
+#: templates/sections/dashboard/dashboard.php:29
+msgid "SHOP STATS"
+msgstr "ESTADÍSTICAS DE LA TIENDA"
+
+#: templates/sections/live-chat/ylc-macro.php:61
+msgid "Chat macro"
+msgstr "Macro del chat"
+
+#: templates/sections/live-chat/ylc-macros.php:27
+msgctxt "[Frontend]: user message"
+msgid "Macro deleted successfully"
+msgstr "Macro eliminada con éxito"
+
+#: templates/sections/live-chat/ylc-macros.php:30
+msgctxt "[Frontend]: user message"
+msgid "Macro does not exist"
+msgstr "La macro no existe"
+
+#: templates/sections/product_orders/product_order.php:97
+msgid "Order updated."
+msgstr "Pedido actualizado."
+
+#: templates/sections/product_orders/product_order.php:121
+msgid "Downloadable Product Permissions"
+msgstr "Permisos de productos descargables"
+
+#: templates/sections/product_orders/product_orders.php:14
+#: templates/sections/products/products.php:45
+msgctxt "Frontend Button Label"
+msgid "Search"
+msgstr "Buscar"
+
+#: templates/sections/product_orders/product_orders.php:20
+msgid "1 order moved to the Trash."
+msgstr "Se ha movido un pedido a la papelera."
+
+#: templates/sections/product_orders/product_orders.php:32
+msgctxt "Order status label"
+msgid "All"
+msgstr "Todo"
+
+#: templates/sections/product_orders/product_orders.php:81
+msgid "No orders found"
+msgstr "No se encontraron pedidos"
+
+#: templates/sections/products/attribute-terms-form.php:19
+msgid "Edit product attribute terms"
+msgstr "Editar términos de atributo de producto"
+
+#: templates/sections/products/attribute-terms-form.php:19
+msgid "Add new product attribute terms"
+msgstr "Añadir un nuevo término de atributo de producto"
+
+#: templates/sections/products/attribute-terms-form.php:41
+#: templates/sections/products/categories-form.php:39
+msgid "Enter the name as you want it to appear on your site."
+msgstr "Introduce el nombre como quieres que aparezca en tu sitio."
+
+#: templates/sections/products/attribute-terms-form.php:46
+#: templates/sections/products/attribute-terms-table.php:12
+#: templates/sections/products/attributes-form.php:52
+#: templates/sections/products/attributes-table.php:20
+#: templates/sections/products/categories-form.php:43
+#: templates/sections/products/categories-table.php:12
+#: templates/sections/products/tags-form.php:40
+#: templates/sections/products/tags-table.php:9
+msgid "Slug"
+msgstr "Slug"
+
+#: templates/sections/products/attribute-terms-form.php:48
+msgid ""
+"A URL-friendly version of the name. It usually contains only lowercase "
+"letters, numbers, and hyphens."
+msgstr ""
+"Una versión del nombre que sea compatible con la URL. Por lo general, "
+"contiene solo letras minúsculas, números y guiones."
+
+#: templates/sections/products/attribute-terms-form.php:54
+#: templates/sections/products/categories-form.php:50
+msgid "Parent"
+msgstr "Superior"
+
+#: templates/sections/products/attribute-terms-form.php:91
+#: templates/sections/products/categories-form.php:91
+#: templates/sections/products/tags-form.php:49
+msgid ""
+"The description is not prominent by default; however, some themes may show "
+"it."
+msgstr ""
+"La descripción no es prominente por defecto; sin embargo, algunos temas "
+"pueden mostrarlo."
+
+#: templates/sections/products/attribute-terms-table.php:5
+msgid "Add new term"
+msgstr "Añadir nuevo término"
+
+#: templates/sections/products/attribute-terms-table.php:13
+#: templates/sections/products/categories-table.php:13
+#: templates/sections/products/tags-table.php:10
+msgid "Count"
+msgstr "Contar"
+
+#: templates/sections/products/attribute-terms-table.php:34
+msgctxt "[Part of] No items found"
+msgid "No"
+msgstr "No"
+
+#: templates/sections/products/attribute-terms-table.php:36
+msgctxt "[Part of] No items found"
+msgid "found"
+msgstr "se encontraron"
+
+#: templates/sections/products/attributes-form.php:27
+msgid "Edit Product Attribute"
+msgstr "Editar atributo del producto"
+
+#: templates/sections/products/attributes-form.php:27
+msgid "Add New Product Attribute"
+msgstr "Añadir nuevo atributo de producto"
+
+#: templates/sections/products/attributes-form.php:48
+msgid "Attribute name (shown on the frontend)."
+msgstr "Nombre del atributo (mostrado en la portada)."
+
+#: templates/sections/products/attributes-form.php:55
+msgid ""
+"Unique slug/reference to the attribute; it must be shorter than 28 "
+"characters."
+msgstr "Único slug/referencia al atributo; debe tener menos de 28 caracteres."
+
+#: templates/sections/products/attributes-form.php:60
+msgid "Enable Archives?"
+msgstr "¿Habilitar archivos?"
+
+#: templates/sections/products/attributes-form.php:62
+msgid ""
+"Enable this option, if you want this attribute to have product archives in "
+"your store."
+msgstr ""
+"Habilita esta opción si quieres que este atributo tenga archivos de producto "
+"en tu tienda."
+
+#: templates/sections/products/attributes-form.php:68
+#: templates/sections/products/attributes-table.php:21
+msgid "Type"
+msgstr "Tipo"
+
+#: templates/sections/products/attributes-form.php:91
+msgid "Default sort order"
+msgstr "Orden de clasificación predeterminado"
+
+#: templates/sections/products/attributes-form.php:95
+msgid "Custom ordering"
+msgstr "Pedido personalizado"
+
+#: templates/sections/products/attributes-form.php:97
+msgid "Name (numeric)"
+msgstr "Nombre (númerico)"
+
+#: templates/sections/products/attributes-form.php:98
+msgid "Term ID"
+msgstr "ID del término"
+
+#: templates/sections/products/attributes-form.php:102
+msgid ""
+"Determines the sort order of the terms on the frontend shop product pages. "
+"If using custom ordering, you can drag and drop the terms in this attribute."
+msgstr ""
+"Determina el orden de clasificación de los términos en las páginas de "
+"productos de la tienda en la portada. Si utiliza pedidos personalizados, "
+"puede arrastrar y soltar los términos en este atributo."
+
+#: templates/sections/products/attributes-table.php:4
+msgid "Add new attribute"
+msgstr "Añadir nuevo atributo"
+
+#: templates/sections/products/attributes-table.php:22
+msgid "Order by"
+msgstr "Pedido por"
+
+#: templates/sections/products/attributes-table.php:23
+msgid "Terms"
+msgstr "Términos"
+
+#: templates/sections/products/attributes-table.php:65
+msgid "No Attributes found"
+msgstr "No se encontraron atributos"
+
+#: templates/sections/products/attributes.php:42
+msgid "Product Attributes"
+msgstr "Atributos del producto"
+
+#: templates/sections/products/attributes.php:43
+msgid ""
+"Attributes let you define extra product data, such as size or colour. You "
+"can use these attributes in the shop sidebar using the \"layered nav\" "
+"widgets. Please note: you cannot rename an attribute later on."
+msgstr ""
+"Los atributos permiten definir datos adicionales del producto, como el "
+"tamaño o el color. Puedes utilizar estos atributos en la barra lateral de la "
+"tienda con los widgets de \"navegación en capas\". Tenga en cuenta que no "
+"puede cambiar el nombre de un atributo más adelante."
+
+#: templates/sections/products/categories-form.php:18
+msgid "Edit Product Category"
+msgstr "Añadir categoría de producto"
+
+#: templates/sections/products/categories-form.php:18
+msgid "Add New Product Category"
+msgstr "Añadir nueva categoría de producto"
+
+#: templates/sections/products/categories-form.php:45
+msgid ""
+"The URL-friendly version of the name. It usually contains only lowercase "
+"letters, numbers, and hyphens."
+msgstr ""
+"La versión URL-amistosa del nombre. Por lo general, sólo contiene letras "
+"minúsculas, números y guiones."
+
+#: templates/sections/products/categories-form.php:95
+msgid "Display type"
+msgstr "Tipo de visualización"
+
+#: templates/sections/products/categories-form.php:99
+msgid "Subcategories"
+msgstr "Subcategorías"
+
+#: templates/sections/products/categories-form.php:100
+msgid "Both"
+msgstr "Ambos"
+
+#: templates/sections/products/categories-form.php:105
+msgid "Product Image"
+msgstr "Imágen del producto"
+
+#: templates/sections/products/categories-table.php:4
+msgid "Add new category"
+msgstr "Añadir nueva categoría"
+
+#: templates/sections/products/categories-table.php:9
+msgid "Image"
+msgstr "Imágen"
+
+#: templates/sections/products/categories-table.php:88
+msgid "No Categories found"
+msgstr "No se encontraron categorías"
+
+#: templates/sections/products/categories.php:32
+msgid "Product Categories"
+msgstr "Categorías de producto"
+
+#: templates/sections/products/product.php:65
+msgid "Product"
+msgstr "Producto"
+
+#: templates/sections/products/product.php:75
+msgid "View Product"
+msgstr "Ver producto"
+
+#: templates/sections/products/product.php:86
+msgid "Thumbnail"
+msgstr "Miniatura"
+
+#: templates/sections/products/product.php:94
+msgid "Product Gallery"
+msgstr "Galería del producto"
+
+#: templates/sections/products/product.php:131
+#: templates/sections/tab_manager/tab.php:52
+msgid "Excerpt"
+msgstr "Extracto"
+
+#: templates/sections/products/product.php:175
+msgid "product category"
+msgstr "categoría del producto"
+
+#: templates/sections/products/product.php:180
+msgid "Product tags"
+msgstr "Etiquetas del producto"
+
+#: templates/sections/products/product.php:181
+msgid "product tag"
+msgstr "etiqueta del producto"
+
+#: templates/sections/products/product.php:205
+msgctxt "[Part of]: Add new product category"
+msgid "Add new"
+msgstr "Añadir nueva"
+
+#: templates/sections/products/product.php:223
+msgctxt "Button Label"
+msgid "Save"
+msgstr "Guardar"
+
+#: templates/sections/products/tags-form.php:15
+msgid "Edit Product Tag"
+msgstr "Editar etiqueta del producto"
+
+#: templates/sections/products/tags-form.php:15
+msgid "Add New Product Tag"
+msgstr "Añadir una nueva etiqueta del producto"
+
+#: templates/sections/products/tags-form.php:36
+msgid "Enter the name as you want it to appear on your site.."
+msgstr "Introduce el nombre como quieres que aparezca en tu sitio.."
+
+#: templates/sections/products/tags-form.php:42
+msgid ""
+"The “slug” is the URL-friendly version of the name. It usually contains only "
+"lowercase letters, numbers, and hyphens."
+msgstr ""
+"El \"slug\" es la versión URL-amistosa del nombre. Por lo general, sólo "
+"contiene letras minúsculas, números y guiones."
+
+#: templates/sections/products/tags-table.php:3
+msgid "Add new tag"
+msgstr "Añadir nueva etiqueta"
+
+#: templates/sections/products/tags-table.php:46
+msgid "No Tags found"
+msgstr "No se encontraron etiquetas"
+
+#: templates/sections/products/tags.php:32
+msgid "Product Tags"
+msgstr "Etiquetas de producto"
+
+#: templates/sections/reports/commissions-report.php:33
+#: templates/sections/reports/customers-report.php:27
+#: templates/sections/reports/orders-report.php:39
+#: templates/sections/reports/stock-report.php:28
+#: templates/sections/reports/vendors.php:58
+msgid "Only users with \"Shop Reports\" capabilities can view this page."
+msgstr ""
+"Sólo los usuarios con capacidades de \"Informes de tienda\" pueden ver esta "
+"página."
+
+#: templates/sections/reports/customers-report.php:16
+msgid "Customers vs Guests"
+msgstr "Clientes e invitados"
+
+#: templates/sections/reports/customers-report.php:17
+msgid "Customer List"
+msgstr "Liste del cliente"
+
+#: templates/sections/reports/orders-report.php:10
+msgid "Sales by date"
+msgstr "Ventas por fecha"
+
+#: templates/sections/reports/orders-report.php:11
+msgid "Sales by product"
+msgstr "Ventas por producto"
+
+#: templates/sections/reports/orders-report.php:12
+msgid "Sales by category"
+msgstr "Ventas por categoría"
+
+#: templates/sections/reports/orders-report.php:13
+msgid "Coupons by date"
+msgstr "Cupones por fecha"
+
+#: templates/sections/reports/orders-report.php:14
+msgid "Customer downloads"
+msgstr "Descargas de clientes"
+
+#: templates/sections/reports/stock-report.php:16
+msgid "Low stock"
+msgstr "Bajo inventario"
+
+# out of stock = sin existencias
+#: templates/sections/reports/stock-report.php:17
+msgid "Out of stock"
+msgstr "Sin existencias"
+
+#: templates/sections/reports/stock-report.php:18
+msgid "High-stocked"
+msgstr "Alto surtido"
+
+#: templates/sections/reports/vendors.php:13
+msgid "Vendors"
+msgstr "Vendedores"
+
+#: templates/sections/reports/vendors.php:16
+msgid "Vendors Sales"
+msgstr "Ventas de los vendedores"
+
+#: templates/sections/reports/vendors.php:17
+msgid "Vendors Registered"
+msgstr "Vendedores registrados"
+
+#: templates/sections/reports/vendors.php:18
+msgid "Commissions by Vendor"
+msgstr "Comisiones por vendedor"
+
+#: templates/sections/tab_manager/tab.php:48
+msgid "Tab Title"
+msgstr "Título de la pestaña"
+
+#: templates/sections/tab_manager/tab_manager.php:21
+msgid "All Tabs"
+msgstr "Todas las pestañas"
+
+#: templates/sections/tab_manager/tab_manager.php:31
+msgid "Tabs"
+msgstr "Pestañas"
+
+#: templates/skins/skin-1/skin-functions.php:41
+msgid "Hi"
+msgstr "Hola"
+
+#. Plugin Name of the plugin/theme
+msgid "YITH Frontend Manager for WooCommerce Premium"
+msgstr "YITH Frontend Manager for WooCommerce Premium"
+
+#. Plugin URI of the plugin/theme
+msgid "https://yithemes.com/themes/plugins/yith-woocommerce-frontend-manager/"
+msgstr "https://yithemes.com/themes/plugins/yith-woocommerce-frontend-manager/"
+
+#. Description of the plugin/theme
+msgid ""
+"<code><strong>YITH Frontend Manager for WooCommerce</strong></code> allows "
+"you to manage a WooCommerce based shop without accessing the admin area. "
+"Thanks to a handy frontend interface, your partners and you will be able to "
+"edit and manage products, orders, stats and coupons in a highly professional "
+"way. <a href=\"https://yithemes.com/\" target=\"_blank\">Get more plugins "
+"for your e-commerce shop on <strong>YITH</strong></a>"
+msgstr ""
+"<code><strong>YITH Frontend Manager for WooCommerce</strong></code> te "
+"permite gestionar una tienda basada en WooCommerce sin acceder al área de "
+"administración. Gracias a la práctica interfaz de frontend, tus compañeros y "
+"tú podrán editar y gestionar productos, pedidos, estados y cupones de manera "
+"profesional. <a href=\"https://yithemes.com/\" target=\"_blank\">Obtén más "
+"plugins para tu comercio electrónico en <strong>YITH</strong></a>"
+
+#. Author of the plugin/theme
+msgid "YITH"
+msgstr "YITH"
+
+#. Author URI of the plugin/theme
+msgid "https://yithemes.com/"
+msgstr "https://yithemes.com/"
+
+#, fuzzy
+#~ msgid "Are you sure you want to deactivate the license for current site?"
+#~ msgstr "¿Estás seguro de que quieres eliminar la puja del cliente?"
+
+#, fuzzy
+#~ msgctxt "plugin-fw"
+#~ msgid "%s updated!"
+#~ msgstr "Pedido actualizado."
+
+#, fuzzy
+#~ msgid ""
+#~ "You do not have sufficient permissions to update the plugins for this "
+#~ "site."
+#~ msgstr "No tienes los permisos suficientes para acceder a esta sección"
+
+#, fuzzy
+#~ msgid "License expiry date"
+#~ msgstr "Fecha de vencimiento del cupón"
+
+#, fuzzy
+#~ msgid "Check expiry date"
+#~ msgstr "Fecha de vencimiento del cupón"
+
+#, fuzzy
+#~ msgid "Product to activate"
+#~ msgid_plural "Products to activate"
+#~ msgstr[0] "Atributos del producto"
+#~ msgstr[1] "Atributos del producto"
+
+#, fuzzy
+#~ msgid "Read this article"
+#~ msgstr "¿Eliminar este atributo?"
+
+#, fuzzy
+#~ msgid "Product Name"
+#~ msgstr "Producto guardado"
+
+#, fuzzy
+#~ msgid "Expires"
+#~ msgstr "Fecha de vencimiento"
+
+#, fuzzy
+#~ msgid "Club Subscription"
+#~ msgstr "Sin descripción"
+
+#, fuzzy
+#~ msgid "%1s out of %2s"
+#~ msgstr "%1$s of %2$s"
+
+#, fuzzy
+#~ msgid "Expired"
+#~ msgstr "Fecha de vencimiento"
+
+#, fuzzy
+#~ msgid "Order again"
+#~ msgstr "Pedido por"
+
+#~ msgid ""
+#~ "Check this box if the coupon should not apply to items on sale. Per-item "
+#~ "coupons will only work if the item is not on sale. Per-cart coupons will "
+#~ "only work if there are no sale items in the cart."
+#~ msgstr ""
+#~ "Marca esta casilla si el cupón no debe aplicarse a los artículos en "
+#~ "venta. Los cupones por artículo solo funcionarán si el artículo no está a "
+#~ "la venta. Los cupones por carrito solo funcionarán si no hay artículos de "
+#~ "venta en el carro."
+
+# cambiada totalmente la traducción
+#~ msgid "Restrict shop manager backend access"
+#~ msgstr "Restringir al gestor de la tienda el acceso a la administración"
+
+#~ msgid "Settings"
+#~ msgstr "Ajustes"
+
+#~ msgid "Premium live demo"
+#~ msgstr "Demo en vivo premium"
+
+#, fuzzy
+#~| msgid "Premium live demo"
+#~ msgid "Live demo"
+#~ msgstr "Demo en vivo premium"
+
+#~ msgid "Plugin Documentation"
+#~ msgstr "Documentación del plugin"
+
+#~ msgid "Plugin documentation"
+#~ msgstr "Documentación del plugin"
+
+#~ msgid "Discover the premium version"
+#~ msgstr "Descubre la versión premium"
+
+#~ msgid "Free vs Premium"
+#~ msgstr "Gratis o premium"
+
+#~ msgid "WordPress support forum"
+#~ msgstr "Foro de soporte de WordPress"
+
+#~ msgid "Changelog"
+#~ msgstr "Registro de cambios"
+
+#~ msgid "Support platform"
+#~ msgstr "Plataforma de soporte"
+
+#~ msgid "current version"
+#~ msgstr "versión actual"
+
+#~ msgid "%1$s %2$d"
+#~ msgstr "%1$s %2$d"

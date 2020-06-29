@@ -1,0 +1,195 @@
+# Copyright (C) 2020 WooCommerce
+# This file is distributed under the GNU General Public License v3.0.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Advanced Ajax Layered Navigation 1.4.24\n"
+"Report-Msgid-Bugs-To: "
+"https://wordpress.org/support/plugin/woocommerce-ajax-layered-nav\n"
+"POT-Creation-Date: 2020-06-10 11:39:27+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: node-wp-i18n 1.2.3\n"
+
+#: widgets/class-sod-widget-ajax-layered-nav-clear.php:17
+msgid "Displays a \"Clear All\" Link. Should be used with the Ajax Layered Nav."
+msgstr ""
+
+#: widgets/class-sod-widget-ajax-layered-nav-clear.php:19
+msgid "WooCommerce Ajax Layered Nav Clear All"
+msgstr ""
+
+#: widgets/class-sod-widget-ajax-layered-nav-clear.php:28
+#: widgets/class-sod-widget-ajax-layered-nav-clear.php:59
+msgid "Clear All Filters"
+msgstr ""
+
+#: widgets/class-sod-widget-ajax-layered-nav-clear.php:29
+#: widgets/class-sod-widget-ajax-layered-nav-filters.php:29
+#: widgets/class-sod-widget-ajax-layered-nav.php:188
+msgid "Title"
+msgstr ""
+
+#: widgets/class-sod-widget-ajax-layered-nav-clear.php:33
+#: widgets/class-sod-widget-ajax-layered-nav-clear.php:61
+msgid "Clear All"
+msgstr ""
+
+#: widgets/class-sod-widget-ajax-layered-nav-clear.php:34
+msgid "Link Text"
+msgstr ""
+
+#: widgets/class-sod-widget-ajax-layered-nav-filters.php:17
+msgid ""
+"Shows active layered nav filters so users can see and deactivate them. "
+"Should be used with the Ajax Layered Nav."
+msgstr ""
+
+#: widgets/class-sod-widget-ajax-layered-nav-filters.php:19
+msgid "WooCommerce Ajax Layered Nav Filters"
+msgstr ""
+
+#: widgets/class-sod-widget-ajax-layered-nav-filters.php:28
+msgid "Active Filters"
+msgstr ""
+
+#: widgets/class-sod-widget-ajax-layered-nav-filters.php:55
+msgid "Active filters"
+msgstr ""
+
+#: widgets/class-sod-widget-ajax-layered-nav-filters.php:95
+#: widgets/class-sod-widget-ajax-layered-nav-filters.php:101
+#: widgets/class-sod-widget-ajax-layered-nav-filters.php:106
+#: widgets/class-sod-widget-ajax-layered-nav-filters.php:113
+msgid "Remove filter"
+msgstr ""
+
+#: widgets/class-sod-widget-ajax-layered-nav-filters.php:101
+msgid "Min"
+msgstr ""
+
+#: widgets/class-sod-widget-ajax-layered-nav-filters.php:106
+msgid "Max"
+msgstr ""
+
+#: widgets/class-sod-widget-ajax-layered-nav.php:18
+msgid ""
+"Shows a custom attribute in a widget which lets you narrow down the list of "
+"products when viewing product categories."
+msgstr ""
+
+#: widgets/class-sod-widget-ajax-layered-nav.php:20
+msgid "WooCommerce Ajax Layered Nav"
+msgstr ""
+
+#: widgets/class-sod-widget-ajax-layered-nav.php:44
+#: widgets/class-sod-widget-ajax-layered-nav.php:93
+#: woocommerce-ajax-layered-nav.php:271 woocommerce-ajax-layered-nav.php:291
+msgid "Name"
+msgstr ""
+
+#: widgets/class-sod-widget-ajax-layered-nav.php:45
+#: woocommerce-ajax-layered-nav.php:272
+msgid "Color Code"
+msgstr ""
+
+#: widgets/class-sod-widget-ajax-layered-nav.php:94
+#: woocommerce-ajax-layered-nav.php:292
+msgid "Label"
+msgstr ""
+
+#: widgets/class-sod-widget-ajax-layered-nav.php:187
+msgid "Filter by"
+msgstr ""
+
+#: widgets/class-sod-widget-ajax-layered-nav.php:193
+msgid "Attribute"
+msgstr ""
+
+#: widgets/class-sod-widget-ajax-layered-nav.php:200
+msgid "Show Attribute Count"
+msgstr ""
+
+#: widgets/class-sod-widget-ajax-layered-nav.php:205
+msgid "Hide attributes if filtered count goes to zero"
+msgstr ""
+
+#: widgets/class-sod-widget-ajax-layered-nav.php:211
+msgid "Display type"
+msgstr ""
+
+#: widgets/class-sod-widget-ajax-layered-nav.php:213
+msgid "List"
+msgstr ""
+
+#: widgets/class-sod-widget-ajax-layered-nav.php:214
+msgid "Dropdown"
+msgstr ""
+
+#: widgets/class-sod-widget-ajax-layered-nav.php:215
+msgid "Checkbox"
+msgstr ""
+
+#: widgets/class-sod-widget-ajax-layered-nav.php:216
+msgid "Size Selector"
+msgstr ""
+
+#: widgets/class-sod-widget-ajax-layered-nav.php:217
+msgid "Color Picker"
+msgstr ""
+
+#: widgets/class-sod-widget-ajax-layered-nav.php:230
+msgid "Query type"
+msgstr ""
+
+#: widgets/class-sod-widget-ajax-layered-nav.php:232
+msgid "AND"
+msgstr ""
+
+#: widgets/class-sod-widget-ajax-layered-nav.php:233
+msgid "OR"
+msgstr ""
+
+#: widgets/class-sod-widget-ajax-layered-nav.php:255
+msgid "Any %s"
+msgstr ""
+
+#: woocommerce-ajax-layered-nav.php:73
+#. translators: %s: WooCommerce link
+msgid ""
+"WooCommerce Advanced Ajax Layered Navigation requires %s to be installed "
+"and active."
+msgstr ""
+
+#: woocommerce-ajax-layered-nav.php:170
+msgid "Loading"
+msgstr ""
+
+#: woocommerce-ajax-layered-nav.php:181
+msgid "Error getting products. Try again."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce Advanced Ajax Layered Navigation"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://woocommerce.com/products/ajax-layered-navigation/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Ajaxifies the standard WooCommerce Layered Nav and adds additional output "
+"types like color swatches, sizes, checkboxes, etc"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "WooCommerce"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://woocommerce.com"
+msgstr ""

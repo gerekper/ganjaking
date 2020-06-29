@@ -1,0 +1,197 @@
+== Changelog ==
+
+2020-05-12 - version 1.7.6
+* Fix   - Remove selected class from inputs when removing from cart.
+* Tweak - Name Your Price 3.0 compatibility fixes.
+
+2020-04-29 - version 1.7.5
+* Tweak - Ability to use opc_add_remove_product to avoid AJAX add to cart request.
+
+2020-03-30 - version 1.7.4
+* Fix: Load plugin files using plugin path.
+* Fix: Notice ID was called incorrectly.
+* Fix: Fix display of Quantity input on single product template.
+* Fix: Style label on product list to be inline.
+
+2020.01.30 - version 1.7.3
+* Fix: When using shortcode modal, tooltips were cut off unable to read.
+
+2020.01.21 - version 1.7.2
+* Tweak: Reposition coupon field to after the product selection.
+* Tweak: WC 3.9 compatibility.
+
+2019.11.21 - version 1.7.1
+* Tweak: Tooltip display in admin screen of category search.
+* Tweak: WC 3.8 compatibility.
+
+2019.07.04 - version 1.7.0
+* New: Introduce helper to find if it's a frontend request
+* New: Bumps WC tested up to version.
+* Tweak: Updates notice copy to reflect minimum WC version
+* Tweak: Update minimum required WC version
+* Tweak: Removes WC 2.5 pre code
+* Tweak: Remove duplicate jQuery selectors
+* Fix: Hides shipping fields for virtual products
+* Fix: Avoid duplicated notices when variables product is not selected
+* Fix: Prevent errors while generating page via Gutenberg editor
+* Fix: Removes use of deprecated jQuery function size()
+
+2018.09.27 - version 1.6.0
+* New: Add documentation to the README file for `category_ids` shortcode property. PR #338
+* New: Allow disabling the auto-scroll behavior when cart items are added/removed/changed. PR #339
+* New: Allow passing custom data to Ajax calls on easy pricing table templates. PR #326
+* New: Include category IDs in the shortcode generator (requires WC 3.2+). PR #342
+* Fix: Compatibility with Name Your Price hook changes. PR #324
+* Fix: [WC 3.2] Ensure `no-index` meta is not displayed on OPC pages. PR #336
+* Fix: Do not use `__FILE__` PHP constant for nonce action names. PR #325
+* Fix: Only display shipping fields on single product pages when a child product requires shipping. PR #335
+* Fix: Include simple children of grouped products on OPC pages. PR #330
+
+2018.06.25 - version 1.5.5
+* Fix: [WC3.0] Get a variation product parent product ID is a WC version compatible way. PR#290
+* Fix: Display the list of product names added to the cart when using add-to-cart url parameters. PR#302
+* Fix: Update the `woocommerce_cart_item_quantity` filters to include the cart item argument. PR#311
+* Fix: Update the `woocommerce_cart_item_quantity` filters to include the cart item argument. PR#311
+* Fix: Fix display issues when displaying products with long names in the One Page Checkout edit page modal. PR#315
+* Fix: Ensure Ajax request URLs use relative format to avoid issues when the site is `https` but the current page is `http`. PR#310
+* Fix: Search for products by visibility in a WC version compatible way. Fixes an issue were OPC pages using category_ids shortcode args were not displaying any products. PR#319
+
+2018.02.12 - version 1.5.4
+* Fix: Fix Flatsome theme infinite spinner. PR#287
+* Fix: Get product the product name in a WC version compatible way. PR#292
+* Fix: [WC3.3] Fix various deprecated warnings. PR#301
+* Tweak: Distinguish between AJAX add to cart and regular add to cart requests. PR#297
+
+2017.08.07 - version 1.5.3
+* Fix: Set quantity inputs to 0 after removing product from cart.
+
+2017.07.14 - version 1.5.2
+* Fix: Improve compatibility with Name Your Price extension.
+
+2017.06.20 - version 1.5.1
+* Fix: Fix issues with compatibility with Name Your Price introduced with v1.5.0.
+* Fix: Update .pot file for translations.
+
+2017.06.06 - version 1.5.0
+* New: Add improved support for Name Your Price extension - support Product Table, Pricing Table, and Single Product templates. PR#272
+* WooCommerce 3.0: Fix display of product attributes for variation products. PR#274
+* Fix: do not nest additional .opc_order_review divs for each Ajax load. PR#277
+* Fix: Handle Grouped OPC products correctly rather than always triggering a "Sorry, this product cannot be purchased" error. PR#278
+* Fix: Make sure "Ship to a different address" checkbox is available when it should be, which also fixes Apple Pay compatibility. PR#276
+
+2017.04.18 - version 1.4.1
+* WooCommerce 3.0: Fix autofocus/page scroll by removing the new 'autofocus' attribute on the first name checkout form when WooCommerce 3.0+ is active. PR#267
+* WooCommerce 3.0: Fix image display on single product product selection template.
+* WooCommerce 3.0: Fix use of deprecated 'wc_add_to_cart_message'.
+
+2017.04.03 - version 1.4.0
+* WooCommerce 3.0 Compatibility
+
+2017.02.01 - version 1.3.2
+* Fix: Incorrect redirection with WordPress 4.7 and older versions of PHP, like 5.3.29. (PR#261)
+* Fix: Handle undefined variables when a One Page Checkout page is left over for a period of time beyond the lifetime of the nonces used on the page. (PR#257)
+
+2016.10.03 - version 1.3.1
+* Tweak: when the OPC notices are not within view, scroll to 150 pixels above that element to make sure coupon form is displayed. (PR#255)
+
+2016.07.12 - version 1.3.0
+ * Tweak: add support for Easy Pricing Tables' Pricing Toggles and other complex tables. (PR#253)
+ * Fix: support auto-switching between different product variations with WooCommerce Subscriptions on One Page Checkout pages. (PR#251)
+
+2016.04.28 - version 1.2.7
+ * Fix: always show products specified in the shortcode's product_ids attribute, even if the product's Catalog visibility is set to "hidden". One Page Checkout will continue to honour the Catalog visibility setting if the product ID is not specified.
+
+2015.02.12 - version 1.2.6
+ * Fix: show/hide create account fields to improve compatibility with subscription products (which require an account to be created, regardless of default store settings)
+
+2015.01.09 - version 1.2.5
+ * Tweak: block input elements when ajax request to add items to cart is in progress to avoid the possibility of a customer attempting to add multiple different items to the cart within a few seconds of each other (i.e. before the first ajax request had finished)
+ * Fix: compatibility with PHP 7, specifically, OPC pages were redirecting to the cart when loading for a customer without any items in the cart when the server was running PHP 7 because the order of debug backtrace has changed
+ * Fix: compatibility with new templates in Easy Pricing Tables (by making selectors more generic)
+ * Fix: clearing content on products wtih no content and reviews disabled (by making sure the notices element clears content)
+
+2015.09.17 - version 1.2.4
+ * Fix: adding variable products using custom attributes to the order with the Single Product template with WooCommerce 2.4
+ * Fix: don't override checkout page URL on order methods to fix compatibility with payment gateways that require payment on the Checkout > Pay page
+
+2015.09.02 - version 1.2.3
+ * Tweak: add readme.txt to plugin with WordPress.org plugin headers
+ * Fix: adding variations with catch-all custom attributes attributes (e.g. "Any Colour" or "Any Size") to the cart from an OPC page using the Single Product template
+
+2015.08.28 - version 1.2.2
+ * Tweak: always use own text domain instead of using WooCommerce's text domain for identical strings
+ * Fix: compatibility with WooCommerce 2.4.2 and newer, which uses WC's custom Ajax endpoints on checkout. Fixes redirection back to OPC page instead of thank you page, addition of an extra product to the cart on checkout for some products and breaking of checkout with some custom product types, like Subscriptions and Bookings.
+ * Fix: compatibility with Relevanssi and other plugins which evaluate shortcodes on the administration side of the site (i.e. call do_shortcode())
+ * Fix: adding to cart with custom product attributes that are uppercase in WC 2.4
+ * Fix: load shipping fields on OPC product pages
+
+2015.06.10 - version 1.2.1
+ * Tweak: only load prettyPhoto JS and CSS when lightbox is enabled under WooCommerce > Products > Display
+ * Fix: make sure a session is set for non-authenticated users when loading an OPC page to fix compatibility with WC 2.3.9 which began using the customer_id in the session for the nonce user ID
+
+2015.05.22 - version 1.2
+ * Tweak: new "One Page Checkout" checkbox on all products to add the checkout fields below the product information
+ * Tweak: bundle support for WooCommerce Bookings so that bookable products can be added to pages using the Single Product product selection template
+ * Tweak: add 'wcopc_products_query_args' to allow for inclusion of hidden products and other customisations via code.
+ * Fix: parameters passed to callbacks on the 'opc_add_remove_product' and 'after_opc_add_remove_product' events triggered by one-page-checkout.js
+ * Fix: make sure admin pages are never identified as OPC pages just in case other plugins are calling front end hooks on the back end
+
+2015.04.17 - version 1.1.5
+ * Tweak: add support for Accound Funds extension by supporting the Deposit product type
+ * Tweak: enqueue the iframeResizer script on its own so that it can be dequeued/overridden individually
+ * Tweak: trigger add to cart/remove form cart on input event for number and quantity input elements
+ * Tweak: add a 1 second delay before adding to cart/removing from cart on number and input elements to avoid sending multiple update requests
+ * Fix: remove errant question mark in 'grouped' template
+ * Fix: update iframeResizer script to fix javascript error relating to the location of the '.map' file
+
+2015.03.13 - version 1.1.4
+ * Tweak: rename order table template to /review-order-opc.php to make sure OPC's template is used and not the theme's custom review-order.php template, but still allow themes and sites to customise the order table for OPC pages
+ * Fix: session expired error on OPC pages when the theme has a custom review-order.php template
+ * Fix: do not display shipping address fields even when physical products are in the cart if shipping is disabled site wide or the "Only ship to the users billing address" setting is enabled
+
+2015.03.03 - version 1.1.3
+ * Tweak: add new 'is_wcopc_checkout' filter to allow plugins, themes and custom code to always load OPC styles and scripts on certain pages (or all pages)
+ * Tweak: Reduce specificity of CSS selectors to ensure that our styles are still applied for OPC templates loaded outside of the main query, for example, with the One Pager theme.
+ * Fix: Do not re-add to cart order item/s when placing orders
+
+2015.02.20 - version 1.1.2
+ * Tweak: trigger 'woocommerce_check_cart_items' action to make WooCommerce and other extensions check the items added or removed to the cart via One Page Checkout
+ * Fix: remove cart coupons which require a specific product to be in the cart in order to be valid
+ * Fix: output scripts correctly on IIS servers
+
+2015.02.02 - version 1.1.1
+ * WooCommerce 2.3 Compatibility
+ * Tweak: Do not rely on wp_guess_url() when determining if the post is an OPC post
+ * Tweak: Use the jQuery Visible plugin (https://github.com/customd/jquery-visible) instead of jQuery Viewport plugin for determining when an element is visible within the browser viewport.
+ * Tweak: Prepend reponses/messages/notices within an '#opc-messages' div
+ * Fix: Display custom product attributes on pricing table, notices and order review table the same way WooCommerce displays them - as uppercased words with spaces not dashes separating each word
+ * Fix: Do not add two variations with the same attributes as two separate line items when the first was added via One Page Checkout and the second was added from a WooCommerce template
+ * Fix: Remove/clear OPC related '.woocommerce-info' notices when an OPC post is 'updated' to avoid replication etc.
+
+2014.12.17 - version 1.1
+ * New: Improved support for numerous extensions including Name Your Price, Product Add Ons, Product Bundles, Composite Products
+ * New: Cart management in OPC is now possible through a modified review-order template that includes Remove buttons and Quantity selectors identical to the ones used in the cart.php template.
+ * Tweak: Use add-to-cart button on single product template in addition to quantity selectors
+ * Tweak: In the single-product template, add-to-cart buttons / quantity selectors are decoupled from cart item management, which allows us to re-use the core templates.
+ * Tweak: Extensive variable/variations handling improvements. The OPC single product template now handles variations like the standard single product template
+ * Tweak: Filter 'woocommerce_product_single_add_to_cart_text' only for OPC supported product types to rename "Add to cart" to "Add to order"
+ * Tweak: In the table / list templates, the coupling between product-level quantity selectors and the cart has been maintained and enhanced to ensure that OPC page product quantity selectors target specific cart items that have been previously added from that container.
+ * Tweak: The functions that handle ajax requests have been modified to target cart item keys.
+ * Tweak: For extension compatibility, cart item update requests that target specific cart keys do not remove + re-add cart items, to avoid deleting sensitive cart item data required by other extensions. Instead, cart item quantities are simply updated as usual.
+ * Tweak: Unhook 'WC_Form_Handler::add_to_cart_action' from 'init' in OPC pages, to prevent products from being added to the cart when submitting an order
+ * Tweak: More consistent use of 'wcopc_' prefix for actions/filters
+ * Tweak: Only scroll to checkout form messages and notices when they are not already in the viewport
+ * Tweak: If using a custom add-to-cart link, change the success message from WooCommerce's default "added to cart" to "added to order" and mention that order can be completed at the bottom of the page
+ * Tweak: If using an add-to-cart link outside the OPC product selection fields, display the success or error notice at the top of the page, rather than the top of the checkout form (which may be further down the page)
+ * Tweak: If using an add-to-cart link outside the OPC product selection fields, redirect the customer to a URL without the 'add-to-cart=ID' param to avoid adding the product to the cart when refreshing the page
+ * Fix: WC 2.2.9 compatibility: add errors/messages after WooCommerce updates checkout, because it now removes all errors/messages when updating checkout
+
+2014.11.17 - version 1.0.2
+ * Fix: make sure cart cookies are set when adding items to cart to ensure checkout works for new guest customers
+
+2014.11.10 - version 1.0.1
+ * Tweak: include internationalisation files and load localisation file
+ * Fix: strict notice
+
+2014.10.24 - version 1.0
+ * Initial release

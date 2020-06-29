@@ -1,0 +1,53 @@
+#mfn-form-wrapper{margin:20px 0 0 20px}
+
+/* #mfn-aside */
+#mfn-aside{float:right}
+#mfn-wrapper ul.mfn-menu > li > a > .icon{margin:12px 18px 12px 14px;float:right}
+#mfn-wrapper ul.mfn-menu li ul.mfn-submenu li a{border-left:none;border-right:5px solid transparent;padding:0 47px 0 20px;background-position:20px center}
+#mfn-wrapper ul.mfn-menu li ul.mfn-submenu li.active a,#mfn-wrapper ul.mfn-menu li ul.mfn-submenu li:hover a{border-left:none;border-right:5px solid #a9cdf1}
+
+/* #mfn-main */
+#mfn-main{margin-left:0;margin-right:230px}
+#mfn-wrapper .form-table tr th{padding:15px 0 15px 10px}
+#mfn-wrapper .form-table tr td{padding:15px 10px 15px 0}
+#mfn-wrapper .form-table tr td span.btn-desc{float:right;margin-right:15px;max-width:222px}
+#mfn-wrapper .form-table input.small-text{float:right;margin-left:15px;margin-right:0}
+#mfn-wrapper .mfn-sections input.multi-text-add{margin-left:1px}
+#mfn-wrapper .mfn-sections .multi-text-btn{float:right}
+#mfn-wrapper .mfn-sections .multi-text-ul{float:right}
+#mfn-wrapper .mfn-sections .multi-text-ul li a.multi-text-remove{left:0;right:auto}
+#mfn-wrapper .mfn-sections .multi-text-desc{float:right}
+
+#mfn-wrapper .mfn-custom-field ul{float:right;margin-left:0;margin-right:1%}
+#mfn-wrapper a.mfn-opts-upload-remove{margin-left:0;margin-right:10px;padding-left:0;padding-right:18px;background-position:right center}
+.mfn-radio-item{float:right}
+.mfn-upload-field input.image{float:right}
+.ui-slider{float:right;margin:14px 0 0 14px}
+#mfn-wrapper .form-table input.sliderbar_input{float:right;margin-left:15px;margin-right:0}
+#mfn-wrapper .form-table tr td span.sliderbar_desc{float:right}
+#mfn-wrapper .form-table tr.mfn-info td{right:-207px;left:auto;box-shadow:3px 0 0 0 #b9cbe4}
+.mfn-icon-field .mfn-icon{float:right}
+.mfn-field-color .wp-color-result.button{padding-left:0;padding-right:40px}
+.mfn-field-color .wp-picker-holder{left:auto;right:-10px}
+#mfn-wrapper .form-table .mfnf-checkbox{float:right;display:block;opacity:1}
+#mfn-wrapper .form-table .mfnf-checkbox.float-left ul li{float:right}
+.mfn-field-typography .typography-wrapper{float:right;margin-left:40px;margin-right:0}
+
+.mfn-import-wrapper .mfn-import-imp-action span{margin-left:0;margin-right:10px}
+
+/* .switch */
+.has-switch{float:right;text-align:right}
+.has-switch > div.switch-animate{-webkit-transition:right .25s ease-out;-moz-transition:right .25s ease-out;-o-transition:right .25s ease-out;transition:right .25s ease-out}
+.has-switch > div.switch-off{left:auto;right:-63%}
+.has-switch > div.switch-on{left:auto;right:0}
+.has-switch span{float:right}
+.has-switch span.switch-left{border-right:1px solid transparent;border-right:none;border-radius:0 30px 30px 0}
+.has-switch span.switch-right{border-radius:30px 0 0 30px}
+.has-switch label{float:right}
+
+/* .mfn-slider-field */
+.mfn-slider-field .ui-slider{float:right;margin-left:14px;margin-right:0}
+.mfn-slider-field .range{left:auto;right:0}
+
+/* BUILDER */
+#mfn-popup a.mfn-popup-close{left:15px;right:auto}

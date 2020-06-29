@@ -1,0 +1,168 @@
+/* admin notices */
+
+#wpbody-content > .updated,
+#wpbody-content > #message{display:none!important}
+#mfn-dashboard > .mfn-dashboard-error{display:block!important}
+
+/* buttons */
+
+#mfn-dashboard .mfn-button{display:inline-block;padding:10px 20px;box-sizing:border-box;margin-bottom:1em;font-size:14px;line-height:20px;text-align:center;text-decoration:none;background:#DCDCDE;color:#313133;border:none;border-radius:3px;box-shadow: 0 2px 0 #C5C5C7;cursor:pointer}
+#mfn-dashboard .mfn-button:hover{background:#D5D5D5}
+
+#mfn-dashboard .mfn-button-primary{background:#0095EB;color:#fff;box-shadow: 0 2px 0 #006DAC;}
+#mfn-dashboard .mfn-button-primary:hover{background:#008EE0}
+
+#mfn-dashboard .mfn-button-secondary{background:#82B440;color:#fff;box-shadow: 0 2px 0 #6f9a37;}
+#mfn-dashboard .mfn-button-secondary:hover{background:#7AA93C}
+
+#mfn-dashboard .mfn-button-fw{width:100%;box-sizing:border-box;}
+
+/* dashboard */
+
+#mfn-dashboard .about-text{margin-bottom:50px;}
+#mfn-dashboard p.box{background:#fff;padding:15px 20px;}
+#mfn-dashboard .mb-30{margin-bottom:30px}
+
+/* logo */
+
+#mfn-dashboard .logo{position:absolute;top:0;right:0;width:140px;margin-top:10px;text-align:center;}
+#mfn-dashboard .logo .version{position:absolute;top:-5px;right:0;font-size:14px;line-height:14px;font-weight:300;color:#777}
+#mfn-dashboard .logo .button{margin-top:15px;width:100%}
+
+.white-label #mfn-dashboard .logo{display:none}
+
+/* .dashboard-tab */
+
+#mfn-dashboard .dashboard-tab{margin-top:30px;}
+
+#mfn-dashboard .dashboard-tab h3{font-size:20px;margin-top:0}
+#mfn-dashboard .dashboard-tab h3.primary{font-size:26px}
+
+#mfn-dashboard .dashboard-tab .col{float:left;box-sizing:border-box;}
+#mfn-dashboard .dashboard-tab .col-left{width:66%;width:calc(66.6% - 1px);padding-right:30px;border-right:1px solid #ccc}
+#mfn-dashboard .dashboard-tab .col-right{width:33.3%;padding-left:30px}
+#mfn-dashboard .dashboard-tab .col-fw{float:none}
+
+#mfn-dashboard .dashboard-tab .form-register input[type="text"]{width:100%;padding:10px;box-sizing:border-box}
+#mfn-dashboard .dashboard-tab .form-register .mfn-button-fw{font-size:16px}
+
+#mfn-dashboard .dashboard-tab .form-register code{display:block;width:100%;padding:10px;box-sizing:border-box;background:#e9e9e9}
+
+#mfn-dashboard .dashboard-tab .question{display:none;min-height:56px}
+#mfn-dashboard .dashboard-tab .question span{margin-right:10px}
+
+#mfn-dashboard .dashboard-tab .check-licenses{margin-bottom:30px}
+
+#mfn-dashboard .dashboard-tab ol,
+#mfn-dashboard .dashboard-tab ul{margin-bottom:30px;}
+
+#mfn-dashboard .dashboard-tab .data-collection{margin-bottom:30px}
+#mfn-dashboard .dashboard-tab .data-collection ul{margin-bottom:20px;margin-left:2em;list-style:disc;list-style-position:inside}
+
+/* system status */
+
+#mfn-dashboard .system-status li{margin-bottom:10px}
+#mfn-dashboard .system-status li.info{font-size:12px;line-height:14px;color:#aaa;font-weight:300}
+
+#mfn-dashboard .system-status li > span{display:inline-block;margin-right:3%;}
+
+#mfn-dashboard .system-status li .label{width:165px}
+
+#mfn-dashboard .system-status li .status{width:1em}
+#mfn-dashboard .system-status li .status.yes{color:green}
+#mfn-dashboard .system-status li .status.no{color:red}
+#mfn-dashboard .system-status li .status.info{color:orange}
+
+#mfn-dashboard .system-status li.secondary .status{color:#444}
+
+#mfn-dashboard .system-status li .desc{margin-right:0;color:#000}
+#mfn-dashboard .system-status li .desc a.button{margin-top:-4px}
+
+#mfn-dashboard .system-status li .desc.dashicons{width:auto;text-align:left;cursor:pointer;opacity:.7}
+#mfn-dashboard .system-status li .desc.dashicons:hover{opacity:1}
+
+#mfn-dashboard .system-status li .status-notice{margin:5px 0 0;font-size:12px;line-height:15px;opacity:.8}
+
+/* system status | mini */
+
+#mfn-dashboard .system-status.mini li{margin-bottom:12px}
+#mfn-dashboard .system-status.mini li .label{width:165px}
+
+/* .dashboard-tab.status */
+
+#mfn-dashboard .status .col-left{width:49.5%;width:calc(50% - 1px)}
+#mfn-dashboard .status .col-right{width:50%}
+
+#mfn-dashboard .status .system-status{background:#fff;padding:15px;font-size:90%}
+#mfn-dashboard .status .system-status li{padding-bottom:10px;border-bottom:1px solid #ddd}
+#mfn-dashboard .status .system-status li:last-child{padding:0;margin:0;border-width:0;}
+
+/* .dashboard-tab.manual */
+
+#mfn-dashboard .support .videos{margin-bottom:0}
+#mfn-dashboard .support .videos li{display:inline-block;width:48%;width:calc(50% - 15px);margin-bottom:20px;}
+#mfn-dashboard .support .videos li:nth-child(2n+1){padding-right:20px}
+#mfn-dashboard .support .videos li a{position:relative;box-shadow:unset;display:block;max-width:340px;margin:0 auto}
+#mfn-dashboard .support .videos li a:after{content:"";display:block;width:48px;height:48px;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:url(images/icon-youtube.png) no-repeat;background-size:100%;opacity:.9}
+#mfn-dashboard .support .videos li a:hover:after{opacity:1;}
+#mfn-dashboard .support .videos li a .desc{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);margin-top:40px;width:90%;text-align:center;color:#eee;font-size:110%;font-weight:300}
+
+#mfn-dashboard .support .manual .group{width:100%;float:left;}
+#mfn-dashboard .support .manual .group h4{margin:0 0 10px}
+
+#mfn-dashboard .support .manual ul{float:left;width:49%;width:calc(50% - 10px);margin:0 0 20px}
+#mfn-dashboard .support .manual ul:first-of-type{margin-right:20px}
+#mfn-dashboard .support .manual ul li{margin-bottom:5px;font-size:13px;line-height:16px;}
+
+#mfn-dashboard .support .forum {margin-bottom:30px;}
+#mfn-dashboard .support .forum li .status{width:2em}
+#mfn-dashboard .support .forum li .status.yes{color:green}
+#mfn-dashboard .support .forum li .status.no{color:red}
+
+/* .dashboard-tab.changelog */
+
+#mfn-dashboard .changes .version{padding:15px 20px;margin-bottom:30px;background:#fff}
+
+#mfn-dashboard .changes .version div ul{margin:15px 0 20px;padding:0 0 15px 35px;border-bottom:1px solid #ddd;list-style:disc inside;font-size:90%;font-weight:300}
+#mfn-dashboard .changes .version div:last-child ul{margin-bottom:0;padding-bottom:0;border-bottom:0}
+
+#mfn-dashboard .changes .version .dashicons{width:1.5em}
+#mfn-dashboard .changes .version .new .dashicons{color:green}
+#mfn-dashboard .changes .version .fix .dashicons{color:red}
+#mfn-dashboard .changes .version .improve .dashicons{color:orange}
+#mfn-dashboard .changes .version .update .dashicons{color:steelblue}
+
+/* RTL */
+
+.rtl #mfn-dashboard .logo{left:0;right:auto}
+
+.rtl #mfn-dashboard .dashboard-tab .col{float:right}
+.rtl #mfn-dashboard .dashboard-tab .col-left{padding-left:30px;padding-right:0;border-right-width:0;border-left:1px solid #ccc}
+.rtl #mfn-dashboard .dashboard-tab .col-right{padding-left:0;padding-right:30px}
+
+.rtl #mfn-dashboard .support .manual ul{float:right;margin-right:20px}
+.rtl #mfn-dashboard .support .manual ul:first-of-type{margin-right:0}
+
+.rtl #mfn-dashboard .support .videos li:nth-child(2n+1){padding-left:20px;padding-right:0}
+
+/* RESPONSIVE */
+
+@media (max-width: 1253px){
+	#mfn-dashboard .system-status li .desc a.button{margin-top:5px}
+}
+
+@media (min-width: 783px){
+	#mfn-dashboard .dashboard-tab .col-left{min-height:500px}
+}
+
+@media (max-width: 782px){
+	#mfn-dashboard .dashboard-tab .col{width:100%;padding:0;border-right:none}
+	#mfn-dashboard .dashboard-tab .col-left{padding-bottom:30px;border-bottom:1px solid #ccc}
+	#mfn-dashboard .dashboard-tab .col-right{padding-top:30px}
+	#mfn-dashboard .status .system-status{margin-bottom:0}
+}
+
+@media (max-width: 500px){
+	#mfn-dashboard .about-text{margin-bottom:30px}
+	#mfn-dashboard .logo{position:relative;margin:20px auto;}
+}

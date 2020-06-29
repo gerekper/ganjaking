@@ -1,0 +1,43 @@
+<wpml-config>
+<admin-texts>
+  <key name="yith_welrp_popup_header" />
+  <key name="yith_welrp_popup_title" />
+  <key name="yith_welrp_popup_message" />
+  <key name="yith_welrp_input_label" />
+  <key name="yith_welrp_button_label" />
+  <key name="yith_welrp_popup_login_header" />
+  <key name="yith_welrp_popup_login_title" />
+  <key name="yith_welrp_popup_login_message" />
+  <key name="yith_welrp_popup_login_input_label" />
+  <key name="yith_welrp_popup_login_button_label" />
+  <key name="yith_welrp_popup_register_header" />
+  <key name="yith_welrp_popup_register_title" />
+  <key name="yith_welrp_popup_register_message" />
+  <key name="yith_welrp_popup_register_password_label" />
+  <key name="yith_welrp_popup_register_repeat_password_label" />
+  <key name="yith_welrp_popup_register_policy_label" />
+  <key name="yith_welrp_popup_register_button_label" />
+  <key name="yith_welrp_popup_lost_password_title" />
+  <key name="yith_welrp_popup_lost_password_message" />
+  <key name="yith_welrp_popup_lost_password_input_label" />
+  <key name="yith_welrp_popup_lost_password_button_label" />
+  <key name="yith_welrp_popup_lost_password_confirm_message" />
+  <key name="yith_welrp_popup_lost_password_resend_email_text" />
+  <key name="yith_welrp_popup_lost_password_authentication_title" />
+  <key name="yith_welrp_popup_lost_password_authentication_message" />
+  <key name="yith_welrp_popup_lost_password_authentication_input_label" />
+  <key name="yith_welrp_popup_lost_password_authentication_send_again_text" />
+  <key name="yith_welrp_popup_lost_password_authentication_button_label" />
+  <key name="yith_welrp_popup_lost_password_set_title" />
+  <key name="yith_welrp_popup_lost_password_set_message" />
+  <key name="yith_welrp_popup_lost_password_set_input_label" />
+  <key name="yith_welrp_popup_lost_password_set_repeat_input_label" />
+  <key name="yith_welrp_popup_lost_password_set_button_label" />
+  <key name="yith_welrp_social_login_facebook">
+    <key name="button_label"/>
+  </key>
+  <key name="yith_welrp_social_login_google">
+    <key name="button_label"/>
+  </key>
+</admin-texts>
+</wpml-config>

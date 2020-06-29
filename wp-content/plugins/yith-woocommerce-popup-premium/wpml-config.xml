@@ -1,0 +1,7 @@
+<wpml-config>
+    <admin-texts>
+        <key name="yit_ypop_options">
+            <key name="ypop_hide_text" />
+        </key>
+    </admin-texts>
+</wpml-config>

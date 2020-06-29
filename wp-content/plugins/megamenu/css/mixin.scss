@@ -1,0 +1,47 @@
+@mixin border-radius($topleft: 0, $topright: 0, $bottomright: 0, $bottomleft: 0) {
+    @if $topleft == 0 and $topright == 0 and $bottomright == 0 and $bottomleft == 0 {
+        border-radius: 0;
+    } @else if $topleft == 0px and $topright == 0px and $bottomright == 0px and $bottomleft == 0px {
+        border-radius: 0;
+    } @else {
+        border-radius: $topleft $topright $bottomright $bottomleft;
+    }
+}
+
+@mixin box-shadow($value) {
+    box-shadow: $value;
+}
+
+@mixin background($from, $to) {
+    @if $to == $from {
+        background: $to;
+    } @else {
+        background: $to;
+        background: linear-gradient(to bottom, $from, $to);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{ie_hex_str($from)}', endColorstr='#{ie_hex_str($to)}');
+    }
+}
+
+@mixin border($top, $left, $right, $bottom, $color) {
+    @if $top == 0px and $left == 0px and $right == 0px and $bottom == 0px {
+        border: 0;
+    } @else {
+        border-top: $top solid $color;
+        border-left: $left solid $color;
+        border-right: $right solid $color;
+        border-bottom: $bottom solid $color;
+    }
+}
+
+@mixin mobile {
+    @media only screen and (max-width : $responsive_breakpoint) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media only screen and (min-width : $responsive_breakpoint + 1) {
+        @content;
+    }
+}
+

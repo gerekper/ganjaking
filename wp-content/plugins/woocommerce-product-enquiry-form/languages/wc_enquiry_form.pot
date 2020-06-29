@@ -1,0 +1,133 @@
+# Copyright (C) 2015 WooCommerce Product Enquiry Form
+# This file is distributed under the same license as the WooCommerce Product Enquiry Form package.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Product Enquiry Form 1.2.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocommerce-product-enquiry-form\n"
+"POT-Creation-Date: 2015-11-11 20:08:33+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: product-enquiry-form.php:62
+msgid "Product Enquiries"
+msgstr ""
+
+#: product-enquiry-form.php:64
+msgid "Product enquiry email"
+msgstr ""
+
+#: product-enquiry-form.php:65
+msgid "Where to send product enquiries."
+msgstr ""
+
+#: product-enquiry-form.php:71
+msgid "ReCaptcha public key"
+msgstr ""
+
+#: product-enquiry-form.php:72 product-enquiry-form.php:79
+msgid "Enter your key if you wish to use <a href=\"https://www.google.com/recaptcha/\">recaptcha</a> on the product enquiry form."
+msgstr ""
+
+#: product-enquiry-form.php:78
+msgid "ReCaptcha private key"
+msgstr ""
+
+#: product-enquiry-form.php:141 product-enquiry-form.php:161
+#: product-enquiry-form.php:291
+msgid "Product Enquiry"
+msgstr ""
+
+#: product-enquiry-form.php:168
+msgid "Name"
+msgstr ""
+
+#: product-enquiry-form.php:169
+msgid "Your name"
+msgstr ""
+
+#: product-enquiry-form.php:173
+msgid "Email address"
+msgstr ""
+
+#: product-enquiry-form.php:174
+msgid "you@yourdomain.com"
+msgstr ""
+
+#: product-enquiry-form.php:182
+msgid "Enquiry"
+msgstr ""
+
+#: product-enquiry-form.php:183
+msgid "What would you like to know?"
+msgstr ""
+
+#: product-enquiry-form.php:206
+msgid "Send Enquiry"
+msgstr ""
+
+#: product-enquiry-form.php:221
+msgid "Please enter your name."
+msgstr ""
+
+#: product-enquiry-form.php:227
+msgid "Please enter your email."
+msgstr ""
+
+#: product-enquiry-form.php:233
+msgid "Please enter your enquiry."
+msgstr ""
+
+#: product-enquiry-form.php:251
+msgid "Enquiry sent successfully. We will get back to you shortly."
+msgstr ""
+
+#: product-enquiry-form.php:334
+msgid "Invalid product!"
+msgstr ""
+
+#: product-enquiry-form.php:337
+msgid "Please enter a valid email."
+msgstr ""
+
+#: product-enquiry-form.php:351
+msgid "Please click on the anti-spam checkbox."
+msgstr ""
+
+#: product-enquiry-form.php:356
+msgid "Product Enquiry - %s"
+msgstr ""
+
+#: product-enquiry-form.php:360
+msgid "Hello, "
+msgstr ""
+
+#: product-enquiry-form.php:362
+msgid "You have been contacted by %s (%s) about %s (%s). Their enquiry is as follows: "
+msgstr ""
+
+#: product-enquiry-form.php:427
+msgid "Disable enquiry form?"
+msgstr ""
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce Product Enquiry Form"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://woothemes.com/woocommerce"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Adds an enquiry form tab to certain product pages which allows customers to contact you about a product. Also includes optional reCAPTCHA for preventing spam."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "WooThemes"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://woothemes.com"
+msgstr ""

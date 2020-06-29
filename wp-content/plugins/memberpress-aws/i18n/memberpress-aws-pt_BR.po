@@ -1,0 +1,314 @@
+# Copyright (C) 2015 MemberPress AWS
+# This file is distributed under the same license as the MemberPress AWS package.
+msgid ""
+msgstr ""
+"Project-Id-Version: MemberPress AWS 1.2.5\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/memberpress-aws\n"
+"POT-Creation-Date: 2017-01-28 21:07-0200\n"
+"PO-Revision-Date: 2017-01-29 13:56-0200\n"
+"Last-Translator: \n"
+"Language-Team: Celso Coslop Barbante <celsocos@yahoo.com>\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.11\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#. Plugin Name of the plugin/theme
+#: MpawsUpdateController.php:143 memberpress-aws.php:94
+#: views/settings_page.php:1
+msgid "MemberPress AWS"
+msgstr "MemberPress AWS"
+
+#. Author of the plugin/theme
+#: MpawsUpdateController.php:144
+msgid "Caseproof, LLC"
+msgstr "Caseproof, LLC"
+
+#: MpawsUpdateController.php:159
+msgid "Membership"
+msgstr "Associação"
+
+#: MpawsUpdateController.php:160
+msgid "Membership Software"
+msgstr "Software de Associação"
+
+#: MpawsUpdateController.php:161
+msgid "Members"
+msgstr "Membros"
+
+#: MpawsUpdateController.php:162
+msgid "Payment"
+msgstr "Pagamento"
+
+#: MpawsUpdateController.php:163
+msgid "Protection"
+msgstr "Proteção"
+
+#: MpawsUpdateController.php:164
+msgid "Rule"
+msgstr "Regra"
+
+#: MpawsUpdateController.php:165
+msgid "Lock"
+msgstr "Trava"
+
+#: MpawsUpdateController.php:166
+msgid "Access"
+msgstr "Acessar"
+
+#: MpawsUpdateController.php:167
+msgid "Community"
+msgstr "Comunidade"
+
+#: MpawsUpdateController.php:168
+msgid "Admin"
+msgstr "Admin"
+
+#: MpawsUpdateController.php:169
+msgid "Pages"
+msgstr "Páginas"
+
+#: MpawsUpdateController.php:170
+msgid "Posts"
+msgstr "Posts"
+
+#: MpawsUpdateController.php:171
+msgid "Plugin"
+msgstr "Plugin"
+
+#: MpawsUpdateController.php:174
+msgid ""
+"MemberPress AWS allows you to protect and embed content hosted on Amazon AWS."
+msgstr ""
+"MemberPress AWS permite que você proteja e incorpore conteúdo hospedado no "
+"Amazon AWS."
+
+#: MpawsUpdateController.php:175
+msgid ""
+"You can access in-depth information about MemberPress at %1$sthe MemberPress "
+"User Manual%2$s."
+msgstr ""
+"Você pode acessar informações detalhadas sobre o MemberPress no %1$sManual "
+"de Usuário MemberPress%2$s."
+
+#: MpawsUpdateController.php:176
+msgid "No Additional information right now"
+msgstr "Nenhuma informação adicional agora"
+
+#: MpawsUpdateController.php:206
+msgid "You had an HTTP error connecting to Caseproof's Mothership API"
+msgstr "Você teve um erro HTTP na conexão com a API principal da Caseproof"
+
+#: MpawsUpdateController.php:218
+msgid "Your License Key was invalid"
+msgstr "Sua chave de licença é inválida."
+
+#: memberpress-aws.php:124
+msgid "AWS"
+msgstr "AWS"
+
+#: memberpress-aws.php:199
+msgid "Download"
+msgstr "Download"
+
+#: script/i18n/pomo/sample/app.php:56
+msgid "Welcome %s!"
+msgstr "Olá %s!"
+
+#: script/i18n/pomo/sample/app.php:60
+msgid "A string with low priority!"
+msgstr "Um texto com baixa prioridade!"
+
+#: script/i18n/pomo/sample/app.php:62
+msgid "Bye\n"
+msgstr "Adeus\n"
+
+#: views/documentation.php:2
+msgid "AWS S3 URL Shortcode:"
+msgstr "AWS S3 Shortcode para URL:"
+
+#: views/documentation.php:5
+msgid "AWS S3 Link Shortcode:"
+msgstr "AWS S3 Shortcode para Link:"
+
+#: views/documentation.php:6
+msgid "Link text goes here..."
+msgstr "Texto do link vai aqui..."
+
+#: views/documentation.php:8
+msgid "AWS S3 Audio Shortcode:"
+msgstr "AWS S3 Shortcode para Áudio:"
+
+#: views/documentation.php:11 views/documentation.php:14
+msgid "AWS S3 Video Shortcode:"
+msgstr "AWS S3 Shortcode para Vídeo:"
+
+#: views/settings.php:2
+msgid "Amazon AWS Integration"
+msgstr "Integração Amazon AWS"
+
+#: views/settings.php:7
+msgid "AWS Access Key:"
+msgstr "Chave de acesso AWS:"
+
+#: views/settings.php:11
+msgid "AWS Access Key"
+msgstr "Chave de acesso AWS"
+
+#: views/settings.php:12 views/settings.php:27
+msgid ""
+"You can find your AWS Access Key by logging into your aws management portal."
+msgstr ""
+"Você pode encontrar sua Chave de Acesso AWS entrando na página de gestão da "
+"sua conta AWS."
+
+#: views/settings.php:22
+msgid "AWS Secret Key:"
+msgstr "Chave Secreta AWS:"
+
+#: views/settings.php:26
+msgid "AWS Secret Key"
+msgstr "Chave Secreta AWS"
+
+#: views/settings.php:38 views/settings.php:54
+msgid "Use V4 Signatures:"
+msgstr "Use assinatura V4:"
+
+#: views/settings.php:42 views/settings.php:58
+msgid "Enable AWS V4 Signatures"
+msgstr "Habilitar assinaturas AWS V4"
+
+#: views/settings.php:43 views/settings.php:59
+msgid ""
+"All AWS regions support V4 signatures but we recommend enabling AWS V4 "
+"Signatures only if your AWS region is new (regions such as eu-central-1 that "
+"are newer than January, 2014 only support V4 signatures).<br/><br/>V4 "
+"signatures are more secure than the default signatures but are more complex "
+"to generate so they can affect your website's performance.<br/><br/"
+"><strong>Note:</strong> When using V4 Signatures you must also provide the "
+"region that you're using."
+msgstr ""
+"Todas as regiões suportam assinaturas AWS V4 mas recomendamos habilitar AWS "
+"V4 somente se sua região AWS é nova (regiões como eu-central-1 ou que forem "
+"mais recentes que Janeiro/2014).<br><br>Assinaturas V4 são mais seguras que "
+"as assinaturas padrão, mas são mais complexas para gerar e podem afetar o "
+"desempenho do seu site.<br><br><strong>Nota:</strong> Ao usar assinaturas "
+"V4, você também deve fornecer a região que você está usando."
+
+#: views/settings.php:64
+msgid "Your webserver must be upgraded to enable V4 Signatures:"
+msgstr "Seu servidor web precisa ser atualizado para suportar assinaturas V4:"
+
+#: views/settings.php:66
+msgid "<span style=\"color: green;\"><b>GOOD</b></span>"
+msgstr "<span style=\"color: green;\"><b>BOM</b></span>"
+
+#: views/settings.php:67
+msgid "<span style=\"color: red;\"><b>BAD</b></span>"
+msgstr "<span style=\"color: red;\"><b>RUIM</b></span>"
+
+#: views/settings.php:68
+msgid " &ndash; you need to be running PHP version 5.3.3 or above"
+msgstr " &ndash; Você precisa estar executando PHP versão 5.3.3 ou superior"
+
+#: views/settings.php:72
+msgid " &ndash; you need to be running cURL version 7.16.2 or above"
+msgstr " &ndash; Você precisa estar executando cURL versão 7.16.2 ou superior"
+
+#: views/settings.php:73
+msgid "cURL is installed: %s"
+msgstr "cURL está instalado: %s"
+
+#: views/settings.php:74
+msgid "cURL was compiled with OpenSSL: %s"
+msgstr "cURL foi compilado com OpenSSL: %s"
+
+#: views/settings.php:74
+msgid "cURL was not compiled with OpenSSL: %s"
+msgstr "cURL não foi compilado com OpenSSL: %s"
+
+#: views/settings.php:75
+msgid "cURL was compiled with libz: %s"
+msgstr "cURL foi compilado com libz: %s"
+
+#: views/settings.php:75
+msgid "cURL was not compiled with libz: %s"
+msgstr "cURL não foi compilado com libz: %s"
+
+#: views/settings.php:78
+msgid "cURL isn't installed: %s"
+msgstr "cURL não está instalado: %s"
+
+#: views/settings.php:82
+msgid "You're running PHP Version %1$s: %2$s"
+msgstr "Você está rodando PHP versão %1$s: %2$s"
+
+#: views/settings.php:85
+msgid "You're running cURL version %1$s: %2$s"
+msgstr "Você está rodando cURL versão %1$s: %2$s"
+
+#: views/settings.php:101
+msgid "AWS Region:"
+msgstr "Região AWS:"
+
+#: views/settings.php:105
+msgid "AWS Region"
+msgstr "Região AWS"
+
+#: views/settings.php:106
+msgid ""
+"You can find your AWS Region by logging into your AWS management portal."
+msgstr ""
+"Você pode encontrar sua Região AWS entrando na página de gestão da sua conta "
+"AWS."
+
+#: views/settings.php:126 views/settings.php:130
+msgid "AWS Domain Restriction Policy"
+msgstr "Política de Restrição de Domínio AWS"
+
+#: views/settings.php:131
+msgid ""
+"Copy & Paste this policy into your AWS Bucket Permissions to restrict access "
+"to content for any buckets to this website. NOTE: Make sure you change the "
+"name of 'examplebucket' to your bucket name before saving the policy at AWS."
+msgstr ""
+"Copie e cole esta política em seu AWS Bucket Permissions para restringir o "
+"acesso ao conteúdo de qualquer Bucket a este site. Nota: Certifique-se que "
+"você mudou o nome de 'examplebucket' para o seu nome do seu Bucket antes de "
+"salvar a política do AWS."
+
+#: views/settings.php:135
+msgid "Click here to read more about adding a domain restriction policy"
+msgstr ""
+"Clique aqui para ler mais sobre adicionar uma política de restrição de "
+"domínio"
+
+#: views/settings_page.php:10
+msgid "Enable AWS Plugin Automatic Updates"
+msgstr "Habilitar as atualizações automáticas de Plugin AWS"
+
+#: views/settings_page.php:15
+msgid "AWS License Key:"
+msgstr "Chave de licença AWS:"
+
+#: views/settings_page.php:25
+msgid "Update"
+msgstr "Atualizar"
+
+#. Plugin URI of the plugin/theme
+msgid "http://memberpress.com"
+msgstr "http://memberpress.com"
+
+#. Description of the plugin/theme
+msgid ""
+"Allows you to protect and reliably serve up all kinds of files using "
+"MemberPress and Amazon AWS."
+msgstr ""
+"Permite-lhe proteger e servir todos os tipos de arquivos usando MemberPress "
+"e Amazon AWS."
+
+#. Author URI of the plugin/theme
+msgid "http://caseproof.com"
+msgstr "http://caseproof.com"

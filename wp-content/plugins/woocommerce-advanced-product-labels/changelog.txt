@@ -1,0 +1,91 @@
+*** WooCommerce Advanced Product Labels Changelog ***
+
+2020.02.06 - version 1.1.7
+* [Improvement] - Ensure styles are loaded on non-WooCommerce pages when labels are displayed
+
+2019.11.25 - version 1.1.6
+* [Improvement] - Better styling for ribbon for small characters (ensuring there's one per line)
+* [Improvement] - Update WP Conditions to 1.0.10
+
+2018.10.02 - version 1.1.5
+* [Improvement] - Improving stability on most themes with gallery images
+* [Improvement] - Update WP Conditions to 1.0.8
+* [Fix] - incidental JS conflict
+
+2017.10.26 - version 1.1.4
+* [Fix] - Fatal error when saving a page in admin that holds a shortcode like [products ids="97"]
+
+2017.09.01 - version 1.1.3
+* [Fix] - Featured condition not matching in cases after WC 3.0
+* [Fix] - PHP 7.1 notice {discount} is used when sale price is not set
+* [Improvement] - Small style fix for Storefront (should also help other themes)
+
+2017.06.30 - version 1.1.2
+* [Improvement] - Update WP Conditions to 1.0.3
+		- [Fix] - 'User role' condition 'Guest' wasn't working
+        - [Improvement] - Allow conditions outside postbox / multiple times inside. Not limited to .postbox class.
+        - [Add] - Zipcode range support. E.g. 'Zipcode' = 'equal to' = '10000-20000,30000-40000'
+
+2017.04.09 - version 1.1.1
+* [Add] - Support for 'Guest user' on the 'User role' condition
+* [Improvement] - Further improvements to prevent WC 3.0 notices
+* [Fix] - Random IDs for conditions being too big for 32-bit systems
+
+2017.03.09 - version 1.1.0
+* [IMPORTANT NOTE] - As of this version, the plugin requires PHP 5.3 or higher to function
+* [Add] - 4 new label types!
+* [Add] - WC 3.0 compatibility
+* [Improvement] - BIG performance improvements
+* [Improvement] - BIG refactor of the backend conditions - please verify your setup if using custom coded condition
+* [Improvement] - Smoother User Experience with conditions
+	- Instant adding of conditions / condition groups
+	- Only show valid operator options
+	- Instantly show condition descriptions
+	- Deleting entire condition groups
+	- Duplicate condition groups
+
+2016.12.23 - version 1.0.9
+* [Add] - Condition instance argument to 'wapl_condition_values' filter
+* [Improvement] - Add jquery-ui-sortable dependency to script
+* [Improvement] - Only load assets on related admin pages
+* [Fix] - Warning when creating a new label
+* [Add] - Basic Composite product support for discount smart label
+
+2016.09.14 - version 1.0.8
+* [Improvement] - Refactored condition code (backend)
+* [Improvement] - Optimize asset resources
+* [Improvement] - Improved 'product' condition value fields (allow searching) and supports huge amounts of product
+
+2016.07.25 - version 1.0.7
+* [Improvement] - Handle 'stock' condition and variable products better. Uses the highest stock level of variations.
+* [Fix] - 'Show on detail pages' setting being ignored
+
+2016.05.24 - version 1.0.6
+* [Fix] - Division by zero notice when using {percentage} in combination with $0 regular prices.
+
+2016.01.08 - version 1.0.5
+* [Add] - Option to show product labels on product detail pages
+
+2015.09.29 - version 1.0.4
+* [Fix] - Variable product {percentage} smart label now showing the right percentage
+* [Improvement] - Keep the Woo settings menu open while in Product Label edit screen.
+* [Improvement] - Use get_regular_price & get_sale_price functions for discount calculation.
+* [Remove] - Visibility options from the Product Labels post type.
+
+2015.07.14 - version 1.0.3
+* [Fix] - Error showing when using the 'shipping class' condition
+* [Improvement] - Changelog format to Woo's standard
+
+2015.05.16 - version 1.0.2
+* [Add] - Custom text/bg color
+* [Improvement] - Add filter for label types
+* [Fix] - Error 'division by zero' when regular price is 0
+* [Fix] - HUGE typo in plugin name! You actually spell WooComerce with TWO M's!
+* [Fix] - Exclude from global option doesn't exclude
+
+2015.02.11 - version 1.0.1
+* Fix single php short tag '<?'
+* Improvement in featured products condition matcher
+
+2015.02.03 - version 1.0.0
+* Initial release

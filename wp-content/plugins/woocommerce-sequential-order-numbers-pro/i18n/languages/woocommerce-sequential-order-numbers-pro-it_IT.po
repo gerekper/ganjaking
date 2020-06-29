@@ -1,0 +1,170 @@
+# Copyright (C) 2017 SkyVerge
+# This file is distributed under the GNU General Public License v3.0.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Sequential Order Numbers Pro 1.11.1\n"
+"Report-Msgid-Bugs-To: https://woocommerce.com/my-account/marketplace-ticket-"
+"form/\n"
+"POT-Creation-Date: 2014-06-15 22:41:29+00:00\n"
+"PO-Revision-Date: 2017-05-12 22:27+0800\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.7.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce Sequential Order Numbers Pro"
+msgstr "WooCommerce Sequential Order Numbers Pro"
+
+#: woocommerce-sequential-order-numbers.php:531
+msgid "Draft"
+msgstr "Bozza"
+
+#: woocommerce-sequential-order-numbers.php:653
+msgid "Order Number Start must be a number greater than or equal to 0."
+msgstr ""
+"Il numero ordine iniziale deve essere un numero pari a o maggiore di zero."
+
+#. translators: Placeholders: %1$s - highest order number, %2$s - current order
+#. number set
+#: woocommerce-sequential-order-numbers.php:667
+msgid ""
+"There is an existing order (%1$s) with a number greater than or equal to "
+"%2$s. To set a new order number start please choose a higher number or "
+"permanently delete the relevant order(s)."
+msgstr ""
+"C'è un ordine esistente (%1$) con un numero pari a o più grande di %2$s. Per "
+"impostare un nuovo numero ordine iniziale, per favore scegli un numero più "
+"grande o elimina permanentemente l'ordine o gli ordini rilevanti che causano "
+"un conflitto."
+
+#: woocommerce-sequential-order-numbers.php:691
+msgid "Order Numbers"
+msgstr "Numeri Ordine"
+
+#: woocommerce-sequential-order-numbers.php:694
+msgid "Order Number Start"
+msgstr "Numero Ordine Iniziale"
+
+#. translators: Placeholders: %s - sample order number
+#: woocommerce-sequential-order-numbers.php:697
+msgid ""
+"The starting number for the incrementing portion of the order numbers, "
+"unless there is an existing order with a higher number.  Use leading zeroes "
+"to pad your order numbers to a desired minimum length.  Any newly placed "
+"orders will be numbered like: %s"
+msgstr ""
+"Il numero iniziale per la parte incrementale dei numeri ordine, a meno che "
+"non esista già un ordine con un numero più grande. Puoi inserire degli zeri "
+"per tenere i tuoi numeri ordine di una lunghezza consistente. I nuovi ordini "
+"saranno enumerati come: %s"
+
+#. translators: Placeholders: %s - order number
+#: woocommerce-sequential-order-numbers.php:704
+msgid "Sample order number: %s"
+msgstr "Numero ordine di esempio: %s"
+
+#: woocommerce-sequential-order-numbers.php:708
+msgid "Order Number Prefix"
+msgstr "Prefisso Numero Ordine"
+
+#: woocommerce-sequential-order-numbers.php:709
+msgid ""
+"Set your custom order number prefix.  You may use {DD}, {MM}, {YYYY} for the "
+"current day, month and year respectively."
+msgstr ""
+"Imposta il tuo prefisso personalizzato per il numero ordine. Puoi utilizzare "
+"{DD}, {MM}, {YYYY} rispettivamente per il giorno, mese e anno correnti."
+
+#. translators: Placeholders: %1$s - opening <a> link tag, %2$s - closing </a>
+#. link tag
+#: woocommerce-sequential-order-numbers.php:715
+msgid ""
+"See the %1$splugin documentation%2$s for the full set of available patterns."
+msgstr ""
+"Vedi la %1$sdocumentazione del plugin%2$s per un elenco completo dei pattern "
+"disponibili."
+
+#: woocommerce-sequential-order-numbers.php:719
+msgid "Order Number Suffix"
+msgstr "Suffisso Numero Ordine"
+
+#: woocommerce-sequential-order-numbers.php:720
+msgid ""
+"Set your custom order number suffix. You may use {DD}, {MM}, {YYYY} for the "
+"current day, month and year respectively."
+msgstr ""
+"Imposta il tuo suffisso personalizzato per il numero ordine. Puoi utilizzare "
+"{DD}, {MM}, {YYYY} rispettivamente per il giorno, mese e anno correnti."
+
+#: woocommerce-sequential-order-numbers.php:728
+msgid "Skip Free Orders"
+msgstr "Salta Ordini Gratuiti"
+
+#: woocommerce-sequential-order-numbers.php:729
+msgid "Skip order numbers for free orders"
+msgstr "Salta numeri ordine per ordini gratuiti"
+
+#: woocommerce-sequential-order-numbers.php:730
+msgid ""
+"With this enabled an order number will not be assigned to an order "
+"consisting solely of free products."
+msgstr ""
+"Abilitando questa impostazione, un numero ordine non verrà assegnato ad un "
+"ordine contenente solo prodotti gratuiti."
+
+#: woocommerce-sequential-order-numbers.php:738
+msgid "Free Order Identifer"
+msgstr "Identificativo Ordini Gratuiti"
+
+#. translators: Placeholders: %s - sample order number
+#: woocommerce-sequential-order-numbers.php:740
+msgid "Example free order identifier: %s"
+msgstr "Esempio di identificativo ordine gratuito: %s"
+
+#: woocommerce-sequential-order-numbers.php:741
+msgid ""
+"The text to display in place of the order number for free orders. This will "
+"be displayed anywhere an order number would otherwise be shown: to the "
+"customer, in emails, and in the admin."
+msgstr ""
+"Testo da mostrare al posto del numero ordine per ordini gratuiti. Questo "
+"sarà mostrato dove un semplice numero ordine viene mostrato normalmente: al "
+"cliente, nelle email, e nell'amministrazione."
+
+#. translators: FREE- as in free purchase order
+#: woocommerce-sequential-order-numbers.php:746
+#: woocommerce-sequential-order-numbers.php:1209
+msgid "FREE-"
+msgstr "GRATIS-"
+
+#. translators: Placeholders: %1$s - Plugin Name, %2$s - Error message(s)
+#: woocommerce-sequential-order-numbers.php:1359
+msgid "Error activating and installing %1$s: %2$s"
+msgstr "Si è verificato un errore nell'installare e attivare %1$s: %2$s"
+
+#: woocommerce-sequential-order-numbers.php:1362
+msgid "&laquo; Go Back"
+msgstr "&laquo; Torna Indietro"
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.woocommerce.com/products/sequential-order-numbers-pro/"
+msgstr "http://www.woocommerce.com/products/sequential-order-numbers-pro/"
+
+#. Description of the plugin/theme
+msgid "Provides custom incrementing order numbers for WooCommerce orders."
+msgstr ""
+"Consente di impostare numeri ordine incrementali e personalizzati in "
+"WooCommerce."
+
+#. Author of the plugin/theme
+msgid "SkyVerge"
+msgstr "SkyVerge"
+
+#. Author URI of the plugin/theme
+msgid "http://www.woocommerce.com"
+msgstr "http://www.woocommerce.com"

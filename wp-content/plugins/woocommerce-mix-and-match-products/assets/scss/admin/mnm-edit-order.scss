@@ -1,0 +1,114 @@
+// Admin Orders CSS
+#woocommerce-order-items .woocommerce_order_items_wrapper table.woocommerce_order_items { 
+	.mnm_table_container {
+		td {
+			border-bottom: none !important;
+		}
+		dl, .display_meta { 
+			font-size: .96em; 
+		}
+	}
+	.mnm_table_item {
+		border-bottom: none !important;
+
+		* { font-size: .96em; }
+
+		td.name, td.thumb {
+			padding-left: 3em;
+		}
+	}
+}
+.wc-order-preview-table {
+	tr.wc-order-preview-table__item.mnm_table_item {
+		* {
+			font-size: 0.96em;
+		}
+		td.wc-order-preview-table__column--product {
+			padding-left: 3em;
+		}
+
+		&:not(.last) td, td {
+			border-bottom-color: #f8f8ff;
+		}
+	}
+}
+
+.configure_container_order_item {
+	margin: .5em 0 0;
+	font-size: .92em!important;
+	color: #888;
+}
+
+/* Modal */
+
+.wc-backbone-modal {
+
+	table.mnm_child_products {
+		width: 100%;
+		line-height: 30px;
+
+		th {
+			padding: 0.5em 0;
+
+			&.child_item_details_head {
+				padding-left: 1em;
+				text-align: left;
+			}
+		}
+
+		td {
+			padding: 0.75em 0;
+			border-bottom: 1px solid #eee;
+			vertical-align: top;
+
+			&.product-thumbnail {
+				img {
+					width: 50px;
+				 	height: auto;
+				}
+			}
+
+			&.product-details {
+				padding-left: 1em;
+
+				dl.variation {
+					font-size: 85%;
+					list-style: none outside;
+					&:last-child {
+						marging-bottom: 0;
+					}
+
+					dt { 
+						float: left;
+						clear: both;
+						margin-right: .25em;
+						display: inline-block;
+						font-weight: 700;
+					}
+
+					dd {
+						margin: 0;
+					}
+				}
+
+			}
+
+			&.product-quantity {
+				vertical-align: top;
+
+				.quantity {
+					text-align: center;
+					input {
+						width: 53px
+					}
+				}
+			}
+		}
+
+		tr.mnm_item:last-of-type > td {
+			border-bottom: none;
+		}
+
+	}
+
+}

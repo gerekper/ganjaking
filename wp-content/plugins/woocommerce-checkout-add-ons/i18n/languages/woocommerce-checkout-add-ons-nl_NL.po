@@ -1,0 +1,373 @@
+# Copyright (C) 2014 SkyVerge
+# This file is distributed under the GNU General Public License v3.0.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Checkout Add-Ons 1.3.0\n"
+"Report-Msgid-Bugs-To: https://woocommerce.com/my-account/marketplace-ticket-"
+"form/\n"
+"POT-Creation-Date: 2014-06-15 22:41:24+00:00\n"
+"PO-Revision-Date: 2015-01-09 17:17+0100\n"
+"Last-Translator: \n"
+"Language-Team: RowuMedia <info@rowumedia.nl>\n"
+"Language: nl_NL\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.7.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: includes/admin/class-wc-checkout-add-ons-admin.php:57
+msgid "Text"
+msgstr "Tekst Veld"
+
+#: includes/admin/class-wc-checkout-add-ons-admin.php:58
+msgid "Text Area"
+msgstr "Tekst Blok"
+
+#: includes/admin/class-wc-checkout-add-ons-admin.php:59
+msgid "Select"
+msgstr "Selecteer"
+
+#: includes/admin/class-wc-checkout-add-ons-admin.php:60
+msgid "Multiselect"
+msgstr "Meerkeuze"
+
+#: includes/admin/class-wc-checkout-add-ons-admin.php:61
+msgid "Radio"
+msgstr "Keuzerondje"
+
+#: includes/admin/class-wc-checkout-add-ons-admin.php:62
+msgid "Checkbox"
+msgstr "Keuzevakje"
+
+#: includes/admin/class-wc-checkout-add-ons-admin.php:63
+msgid "Multi-checkbox"
+msgstr "Meerkeuze keuzevakje"
+
+#: includes/admin/class-wc-checkout-add-ons-admin.php:64
+msgid "File"
+msgstr "Bestand"
+
+#: includes/admin/class-wc-checkout-add-ons-admin.php:68
+msgid "Required"
+msgstr "Verplicht"
+
+#: includes/admin/class-wc-checkout-add-ons-admin.php:69
+msgid "Display in View Orders screen"
+msgstr "Zichtbaar in het 'Toon Bestellingen' venster"
+
+#: includes/admin/class-wc-checkout-add-ons-admin.php:70
+msgid "Allow Sorting on View Orders screen"
+msgstr "Laat sorteren toe in het 'Toon Bestellingen' venster"
+
+#: includes/admin/class-wc-checkout-add-ons-admin.php:71
+msgid "Allow Filtering on View Orders screen"
+msgstr "Laat filteren toe in het 'Toon Bestellingen' venster"
+
+#: includes/admin/class-wc-checkout-add-ons-admin.php:75
+msgid "Renew with Subscriptions"
+msgstr ""
+
+#: includes/admin/class-wc-checkout-add-ons-admin.php:125
+msgid "Name is a required field"
+msgstr "Naam is een verplicht veld"
+
+#: includes/admin/class-wc-checkout-add-ons-admin.php:126
+msgid "Name must be unique"
+msgstr ""
+
+#: includes/admin/class-wc-checkout-add-ons-admin.php:127
+msgid "A select/multiselect/checkbox/radio field must have at least one option"
+msgstr ""
+"Een keuze/meerkeuze/keuzevakje/keuzerondje moet minimaal 1 keuzemogelijkheid "
+"hebben"
+
+#: includes/admin/class-wc-checkout-add-ons-admin.php:128
+#: includes/admin/views/html-add-on-editor-table-row.php:58
+msgid "Pipe (|) separates options"
+msgstr "Pipe (|) onderverdeelt opties"
+
+#: includes/admin/class-wc-checkout-add-ons-admin.php:129
+msgid "Cost of add-on"
+msgstr "Kosten van een Add-On"
+
+#: includes/admin/class-wc-checkout-add-ons-admin.php:130
+#: includes/frontend/class-wc-checkout-add-ons-frontend.php:240
+msgid "Select an Option"
+msgstr "Selecteer een optie"
+
+#: includes/admin/class-wc-checkout-add-ons-admin.php:131
+#: includes/frontend/class-wc-checkout-add-ons-frontend.php:241
+msgid "Select Some Options"
+msgstr "Selecteer meerdere opties"
+
+#: includes/admin/class-wc-checkout-add-ons-admin.php:132
+#: includes/frontend/class-wc-checkout-add-ons-frontend.php:242
+msgid "No results match"
+msgstr "Geen overeenkomende resultaten"
+
+#: includes/admin/class-wc-checkout-add-ons-admin.php:176
+#: includes/admin/class-wc-checkout-add-ons-admin.php:177
+#: includes/admin/class-wc-checkout-add-ons-admin.php:551
+msgid "Checkout Add-Ons"
+msgstr "Checkout Add-Ons"
+
+#: includes/admin/class-wc-checkout-add-ons-admin.php:196
+msgid "Checkout Add-Ons Editor"
+msgstr "Checkout Add-Ons Editor"
+
+#: includes/admin/class-wc-checkout-add-ons-admin.php:227
+msgid "Name"
+msgstr "Veld Naam"
+
+#: includes/admin/class-wc-checkout-add-ons-admin.php:228
+msgid ""
+"Add-on name displayed in the admin and order details, e.g., \"Gift Message\""
+msgstr ""
+"Add-on naam, zoals getoont in de admin en bestelling details, b.v., "
+"\"Geschenk Bericht\"."
+
+#: includes/admin/class-wc-checkout-add-ons-admin.php:231
+msgid "Checkout Label"
+msgstr "Checkout Label"
+
+#: includes/admin/class-wc-checkout-add-ons-admin.php:232
+msgid ""
+"Optional descriptive label shown on checkout, e.g., \"Add a Gift Message?\". "
+"This will default to Name if blank."
+msgstr ""
+"Optioneel beschrijvend label op de Checkout pagina, b.v. \"Voeg een kado "
+"bericht toe?\". Wanneer het veld leeg is, wordt het label gelijk aan de Veld "
+"Naam."
+
+#: includes/admin/class-wc-checkout-add-ons-admin.php:235
+msgid "Type"
+msgstr "Soort"
+
+#: includes/admin/class-wc-checkout-add-ons-admin.php:238
+msgid "Options / Costs"
+msgstr "Opties / Kosten"
+
+#: includes/admin/class-wc-checkout-add-ons-admin.php:239
+msgid ""
+"Use Pipe (|) to separate options and surround options with double stars (**) "
+"to set as a default. To set a price for an option, append it to the option "
+"with an equation mark. Example: Yes=5.00|No"
+msgstr ""
+"Gebruik het Pipe teken (|) om de diverse opties apart in te voeren. Zet de "
+"standaard optie tussen dubbele ster tekens (**).  Voeg een prijs aan een "
+"optie toe d.m.v. een = teken, v.b.: Ja=5.00|Nee"
+
+#: includes/admin/class-wc-checkout-add-ons-admin.php:242
+msgid "Attributes"
+msgstr "Attributen"
+
+#: includes/admin/class-wc-checkout-add-ons-admin.php:246
+msgid "Taxes"
+msgstr "Belastingen"
+
+#: includes/admin/class-wc-checkout-add-ons-admin.php:255
+msgid "New Add-On"
+msgstr "Nieuw Veld"
+
+#: includes/admin/class-wc-checkout-add-ons-admin.php:256
+msgid "Remove Selected"
+msgstr "Verwijder geselecteerd veld"
+
+#: includes/admin/class-wc-checkout-add-ons-admin.php:258
+msgid "Save Add-Ons"
+msgstr "Sla Add-Ons op"
+
+#: includes/admin/class-wc-checkout-add-ons-admin.php:299
+msgid "Standard"
+msgstr "Standaard"
+
+#: includes/admin/class-wc-checkout-add-ons-admin.php:363
+msgid "Action failed. Please refresh the page and retry."
+msgstr "Aktie mislukt. Herlaad de pagina en probeer het opnieuw."
+
+#: includes/admin/class-wc-checkout-add-ons-admin.php:515
+msgid "Add-Ons Saved"
+msgstr "Add-Ons opgeslagen"
+
+#: includes/admin/class-wc-checkout-add-ons-admin.php:558
+msgid "Display Position"
+msgstr ""
+
+#: includes/admin/class-wc-checkout-add-ons-admin.php:559
+msgid ""
+"This controls where on the Checkout page your custom add-ons will be "
+"displayed."
+msgstr ""
+
+#: includes/admin/class-wc-checkout-add-ons-admin.php:566
+msgid "Before Order Summary"
+msgstr ""
+
+#: includes/admin/class-wc-checkout-add-ons-admin.php:567
+msgid "Before Billing Details"
+msgstr ""
+
+#: includes/admin/class-wc-checkout-add-ons-admin.php:568
+msgid "After Billing Details"
+msgstr ""
+
+#: includes/admin/post-types/class-wc-checkout-add-ons-shop-order-cpt.php:160
+msgid "%d file"
+msgid_plural "%d files"
+msgstr[0] "%d bestand"
+msgstr[1] "%d bestanden"
+
+#: includes/admin/post-types/class-wc-checkout-add-ons-shop-order-cpt.php:167
+#: includes/class-wc-checkout-add-on.php:229
+#: includes/class-wc-checkout-add-on.php:241
+msgid "(File has been removed)"
+msgstr "(Bestand is verwijderd)"
+
+#. translators: Placeholder: %s - Add on name
+#. translators: Placeholder: %s - Add on label
+#. translators: Placeholder: %s - Add on label
+#: includes/admin/post-types/class-wc-checkout-add-ons-shop-order-cpt.php:303
+#: includes/admin/post-types/class-wc-checkout-add-ons-shop-order-cpt.php:326
+#: includes/admin/post-types/class-wc-checkout-add-ons-shop-order-cpt.php:350
+msgid "Show all %s"
+msgstr ""
+
+#: includes/admin/post-types/class-wc-checkout-add-ons-shop-order-cpt.php:331
+#: includes/admin/post-types/class-wc-checkout-add-ons-shop-order-cpt.php:356
+msgid "Show all "
+msgstr ""
+
+#: includes/admin/views/html-add-on-editor-table-row.php:73
+msgid "Taxable"
+msgstr "Belastbaar"
+
+#: includes/admin/views/html-add-on-editor-table-row.php:74
+msgid "Not taxable"
+msgstr "Niet Belastbaar"
+
+#: includes/class-wc-checkout-add-on.php:221
+msgid "Uploaded files:"
+msgstr "Geuploade bestanden:"
+
+#: includes/class-wc-checkout-add-on.php:227
+msgid "File %d"
+msgstr "Bestand %d"
+
+#: includes/class-wc-checkout-add-on.php:239
+msgid "Uploaded file"
+msgstr "Geupload bestand"
+
+#: includes/class-wc-checkout-add-on.php:425
+msgid "Free!"
+msgstr "Gratis!"
+
+#. translators: Placeholders: %s - the required field name
+#: includes/frontend/class-wc-checkout-add-ons-frontend.php:410
+#, fuzzy
+msgid "%s is a required field."
+msgstr "Naam is een verplicht veld"
+
+#: includes/frontend/class-wc-checkout-add-ons-frontend.php:770
+msgid "required"
+msgstr "Verplicht Veld"
+
+#: includes/frontend/class-wc-checkout-add-ons-frontend.php:888
+msgid "Drag file here or click to upload"
+msgstr "Sleep hiernaar toe of klik voor uploaden"
+
+#: includes/frontend/class-wc-checkout-add-ons-frontend.php:894
+msgid "Remove"
+msgstr "Verwijder Veld"
+
+#: includes/frontend/class-wc-checkout-add-ons-frontend.php:899
+msgid "You need to enable Javascript to upload files"
+msgstr "Je moet Javascript aanzetten om bestanden te kunnen uploaden"
+
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce Checkout Add-Ons"
+msgstr "WooCommerce Checkout Add-Ons"
+
+#. translators: Placeholders: %1$s opening <a> link HTML tag, %2$s closing </a>
+#. link HTML tag
+#: woocommerce-checkout-add-ons.php:213
+#, fuzzy
+msgid ""
+"Thanks for installing Checkout Add-Ons! Before you get started, please take "
+"a moment to %1$sread through the documentation%2$s."
+msgstr ""
+"Bedankt voor het installeren van de Checkout Add-Ons! Neem, voor je verder "
+"gaat, een moment om de %sdocumentatie%s door te nemen."
+
+#: woocommerce-checkout-add-ons.php:353 woocommerce-checkout-add-ons.php:355
+msgid "Checkout Add-on Value"
+msgstr "Checkout Add-on waarde"
+
+#. Plugin URI of the plugin/theme
+#, fuzzy
+msgid "http://www.woocommerce.com/products/woocommerce-checkout-add-ons/"
+msgstr "http://www.woothemes.com/products/wc-checkout-add-ons/"
+
+#. Description of the plugin/theme
+msgid ""
+"Easily create paid add-ons for your WooCommerce checkout and display them in "
+"the Orders admin, the My Orders section, and even order emails!"
+msgstr ""
+"Voeg eenvoudig betaalde add-ons toe aan je Woocommerce Checkout pagina. Toon "
+"deze tevens in de Bestellingen Admin en Mijn Bestellingen sectie, en zelfs "
+"in de  bestellingen email!"
+
+#. Author of the plugin/theme
+msgid "SkyVerge"
+msgstr "SkyVerge"
+
+#. Author URI of the plugin/theme
+#, fuzzy
+msgid "http://www.woocommerce.com"
+msgstr "http://www.skyverge.com"
+
+#~ msgid "Dismiss"
+#~ msgstr "Negeren"
+
+#~ msgid ""
+#~ "%s requires the %s PHP extension to function.  Contact your host or "
+#~ "server administrator to configure and install the missing extension."
+#~ msgid_plural ""
+#~ "%s requires the following PHP extensions to function: %s.  Contact your "
+#~ "host or server administrator to configure and install the missing "
+#~ "extensions."
+#~ msgstr[0] ""
+#~ "%s gebruikt de %s PHP extensie. Neem kontakt op met je hosting provider "
+#~ "of server administrator om de missende extensie te installeren en "
+#~ "configureren."
+#~ msgstr[1] ""
+#~ "%s gebruikt de volgende PHP extensies: %s .  Neem kontakt op met je "
+#~ "hosting provider of server administrator om de missende extensies te "
+#~ "installeren en configureren."
+
+#~ msgid ""
+#~ "%s requires the %s PHP function to exist.  Contact your host or server "
+#~ "administrator to configure and install the missing function."
+#~ msgid_plural ""
+#~ "%s requires the following PHP functions to exist: %s.  Contact your host "
+#~ "or server administrator to configure and install the missing functions."
+#~ msgstr[0] ""
+#~ "%s heeft deze %s PHP functie nodig.  Neem kontakt op met je hosting "
+#~ "provider of server administrator om de missende functie te installeren en "
+#~ "configureren."
+#~ msgstr[1] ""
+#~ "%s heeft deze %s PHP functies nodig.  Neem kontakt op met je hosting "
+#~ "provider of server administrator om de missende functies te installeren "
+#~ "en configureren."
+
+#~ msgid "Docs"
+#~ msgstr "Documentatie"
+
+#~ msgid "Support"
+#~ msgstr "Support"
+
+#~ msgid "Write a Review"
+#~ msgstr "Schrijf een review"
+
+#~ msgid "Configure"
+#~ msgstr "Configureer"

@@ -1,0 +1,71 @@
+/*----------------------------------------------------------------------------*\
+	MPC_ALIGN PARAM
+\*----------------------------------------------------------------------------*/
+
+.vc_wrapper-param-type-mpc_align {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.vc_wrapper-param-type-mpc_align *,
+.vc_wrapper-param-type-mpc_align *:before,
+.vc_wrapper-param-type-mpc_align *:after {
+	-webkit-box-sizing: inherit;
+	-moz-box-sizing: inherit;
+	box-sizing: inherit;
+}
+
+.mpc-vc-align .mpc-align-single {
+	display: inline-block;
+	float: left;
+	width: 30px;
+	height: 30px;
+	background: #e9e9e9;
+	border-radius: 3px;
+	margin: 3px !important;
+}
+.mpc-vc-align .mpc-align-single:hover {
+	background: #e1e1e1;
+}
+.mpc-vc-align .mpc-align-single:hover i {
+	opacity: .5;
+}
+.mpc-vc-align .mpc-align-radio:checked + .mpc-align-single {
+	background: #86d677;
+}
+.mpc-vc-align .mpc-align-radio:checked + .mpc-align-single i {
+	opacity: 1;
+}
+
+.mpc-vc-align .mpc-align-single i {
+	line-height: 30px;
+	width: 30px;
+	height: 30px;
+	display: block;
+	opacity: .25;
+}
+.mpc-vc-align .mpc-align-single[class*="mpc-align-top-"] i {
+	line-height: 24px;
+}
+.mpc-vc-align .mpc-align-single[class*="mpc-align-bottom-"] i {
+	line-height: 36px;
+}
+.mpc-vc-align .mpc-align-single i.dashicons-editor-alignleft {
+	text-align: left;
+	padding-left: 2px;
+}
+.mpc-vc-align .mpc-align-single i.dashicons-editor-alignright {
+	text-align: right;
+	padding-right: 2px;
+}
+
+.mpc-vc-align .mpc-align-radio {
+	display: none;
+}
+
+.mpc-align-single.mpc-align-left,
+.mpc-align-single.mpc-align-middle-left,
+.mpc-align-single.mpc-align-bottom-left {
+	clear: both;
+}

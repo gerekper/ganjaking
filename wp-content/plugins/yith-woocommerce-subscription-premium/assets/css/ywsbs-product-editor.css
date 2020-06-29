@@ -1,0 +1,8 @@
+/* shipping fields on product editor */
+h4.ywsbs-title-section { font-size: 1.0em; margin: 15px 10px;}
+p.form-field._ywsbs_one_time_shipping_field.show_if_simple.show_if_variable h3 { border-top: 1px solid #eee; padding-top: 10px!important;}
+.woocommerce_options_panel input.ywsbs-short{width:15%;}
+.form-row input.ywsbs-short, .form-row select.ywsbs-short{ width:30%;}
+.form-row label.ywsbs-block{ display: block; }
+.woocommerce_options_panel select.ywsbs-with-margin{ margin-left: 3px;}
+.woocommerce_variable_attributes div.ywsbs_subscription_variation_products{border: 1px solid #eee; clear: both;}

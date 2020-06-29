@@ -1,0 +1,5 @@
+// http://paulirish.com/2011/requestanimationframe-for-smart-animating/
+// http://my.opera.com/emoller/blog/2011/12/20/requestanimationframe-for-smart-er-animating
+// requestAnimationFrame polyfill by Erik MÃ¶ller. fixes from Paul Irish and Tino Zijdel
+// MIT license
+!function(){for(var t=0,n=["ms","moz","webkit","o"],i=0;i<n.length&&!window.requestAnimationFrame;++i)window.requestAnimationFrame=window[n[i]+"RequestAnimationFrame"],window.cancelAnimationFrame=window[n[i]+"CancelAnimationFrame"]||window[n[i]+"CancelRequestAnimationFrame"];window.requestAnimationFrame||(window.requestAnimationFrame=function(n,i){var e=(new Date).getTime(),a=Math.max(0,16-(e-t)),o=window.setTimeout(function(){n(e+a)},a);return t=e+a,o}),window.cancelAnimationFrame||(window.cancelAnimationFrame=function(n){clearTimeout(n)})}();

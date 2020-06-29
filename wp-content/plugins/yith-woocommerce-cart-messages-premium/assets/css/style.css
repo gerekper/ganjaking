@@ -1,0 +1,159 @@
+.yith-cart-message{
+    margin: 0 0 2em!important;
+    width:100%;
+    min-height:60px;
+    position:relative;
+}
+.yith-cart-message .content{
+    padding: 1em 1em 1em 80px;
+    overflow: hidden;
+}
+
+.yith-cart-message .content .button,
+.yith-cart-message .content .button:hover{
+    display:inline-block;
+    float:right;
+    background:none;
+    text-shadow:none;
+    border:0;
+    border-radius:0px;
+    text-transform: uppercase;
+    font-size: 0.8em;
+    padding: 8px 20px;
+    box-shadow:none;
+}
+
+/* Layout 2 */
+
+.yith-cart-message-layout2{
+    border-width:2px;
+    border-style:solid;
+}
+
+.yith-cart-message-layout2 .icon-wrapper{
+    width: 60px;
+    top:-2px;
+    left:-2px;
+    bottom:-2px;
+    position: absolute;
+}
+
+.yith-cart-message-layout2 .icon-wrapper:before{
+    content:'';
+    width:100%;
+    height:100%;
+    background-position: center  center;
+    background-repeat: no-repeat;
+    position:absolute;
+}
+
+.yith-cart-message-layout2 .content .button, .yith-cart-message-layout2 .content .button:hover{
+    border-radius:0px;
+}
+
+
+/* Layout 3 */
+.yith-cart-message-layout3{
+    border-width:2px;
+    border-style:solid;
+    border-radius: 7px;
+}
+
+.yith-cart-message-layout3 .icon-wrapper{
+    width: 60px;
+    top:-2px;
+    left:-2px;
+    bottom:-2px;
+    position: absolute;
+}
+.yith-cart-message-layout3 .icon-wrapper:before{
+    content:'';
+    width:100%;
+    height:100%;
+    background-position: top  center;
+    background-repeat: no-repeat;
+    position:absolute;
+}
+
+.yith-cart-message-layout3 .content .button, .yith-cart-message-layout3 .content .button:hover{
+    border-radius: 5px;
+}
+
+/* Layout 4 */
+.yith-cart-message-layout4{
+    border-width: 2px;
+    border-style:solid;
+}
+
+.yith-cart-message-layout4 .icon-wrapper{
+    width: 80px;
+    top:-2px;
+    left:-2px;
+    bottom:-2px;
+    position: absolute;
+}
+
+.yith-cart-message-layout4 .icon-wrapper:before{
+    content:'';
+    width:100%;
+    height:100%;
+    background-position: center  center;
+    background-repeat: no-repeat;
+    position:absolute;
+}
+
+.yith-cart-message-layout4 .content .button, .yith-cart-message-layout4 .content .button:hover{
+    border-radius: 3px;
+}
+
+/* Layout 5 */
+.yith-cart-message-layout5{
+    border-width: 0px;
+}
+
+.yith-cart-message-layout5 .icon-wrapper{
+    width: 80px;
+    top:-2px;
+    left:-2px;
+    bottom:-2px;
+    position: absolute;
+}
+
+.yith-cart-message-layout5 .icon-wrapper:before{
+    content:'';
+    width:100%;
+    height:100%;
+    background-position: center  center;
+    background-repeat: no-repeat;
+    position:absolute;
+}
+
+.yith-cart-message-layout5 .content .button, .yith-cart-message-layout5 .content .button:hover{
+    border-radius: 3px;
+}
+
+/* Layout 6 */
+.yith-cart-message-layout6{
+    border-width: 0px;
+}
+
+.yith-cart-message-layout6 .icon-wrapper{
+    width: 80px;
+    top:-2px;
+    left:-2px;
+    bottom:-2px;
+    position: absolute;
+}
+
+.yith-cart-message-layout6 .icon-wrapper:before{
+    content:'';
+    width:100%;
+    height:100%;
+    background-position: center  center;
+    background-repeat: no-repeat;
+    position:absolute;
+}
+
+.yith-cart-message-layout6 .content .button, .yith-cart-message-layout6 .content .button:hover{
+    border-radius: 3px;
+}

@@ -1,0 +1,1 @@
+jQuery(function(n){void 0===n.fn.on&&(n.fn.on=function(o,t,e,i){return"function"==typeof t?n(this.context).live(o,t):n(t).live(o,e,i),this}),n(".wysija-footer pre").hide(),n(document).on("click",".wysija-footer .expandquer h2",function(){n(this).nextAll().toggle()})});

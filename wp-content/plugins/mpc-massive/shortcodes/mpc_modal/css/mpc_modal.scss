@@ -1,0 +1,157 @@
+/*----------------------------------------------------------------------------*\
+	MODAL SHORTCODE
+\*----------------------------------------------------------------------------*/
+.mpc-modal {
+	position: relative;
+	display: inline-block;
+}
+
+.mpc-modal__close {
+	position: absolute;
+	right: 0;
+	top: 0;
+	z-index: 1000;
+
+	cursor: pointer;
+
+	.mpc-icon {
+		margin: 0 !important;
+	}
+}
+
+.mpc-modal__content {
+	max-width: 90vw;
+	max-height: 90vh;
+	overflow-x: hidden;
+	overflow-y: auto;
+
+	> *:last-child {
+		margin-bottom: 0;
+	}
+}
+
+html, body {
+	&.mpc-block-scroll {
+		overflow: hidden !important;
+		height: auto !important;
+	}
+}
+
+/*----------------------------------------------------------------------------*\
+	MODAL OVERLAY
+\*----------------------------------------------------------------------------*/
+.mpc-modal-overlay {
+	position: fixed;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	visibility: hidden;
+	z-index: -1;
+
+	-webkit-transition: all .25s;
+	transition: all .25s;
+
+	&.mpc-visible {
+		visibility: visible;
+		opacity: 1;
+		z-index: 1000000;
+	}
+
+	&:before {
+		content: '';
+		display: inline-block;
+		width: 0;
+		height: 100%;
+	}
+
+	.mpc-inited,
+	.mpc-inited * {
+		visibility: inherit;
+	}
+}
+
+.mpc-overlay__wrapper {
+	position: relative;
+	display: table;
+	width: 100%;
+	height: 100%;
+}
+.mpc-overlay__wrapper--vertical {
+	display: table-cell;
+}
+
+/* Alignment */
+.mpc-modal-overlay[data-position^=top] {
+	&:before, .mpc-modal {
+		vertical-align: top;
+	}
+}
+.mpc-modal-overlay[data-position^=middle] {
+	&:before, .mpc-modal {
+		vertical-align: middle;
+	}
+}
+.mpc-modal-overlay[data-position^=bottom] {
+	&:before, .mpc-modal {
+		vertical-align: bottom;
+	}
+}
+
+.mpc-modal-overlay[data-position$=left] {
+	text-align: left;
+}
+.mpc-modal-overlay[data-position$=center] {
+	text-align:  center;
+}
+.mpc-modal-overlay[data-position$=right] {
+	text-align: right;
+}
+
+/* Mobile */
+@media screen and ( max-width: 768px ) {
+	.mpc-modal-overlay .mpc-modal.mpc-modal .mpc-modal__content {
+		max-height: 80vh;
+		max-width: 80vw;
+	}
+	.mpc-close--outside .mpc-modal__close {
+		margin: 0 !important;
+	}
+
+	.mpc-modal-overlay:before,
+	.mpc-modal-overlay .mpc-modal {
+		vertical-align: middle !important;
+		margin: 0 !important;
+	}
+	.mpc-modal-overlay {
+		text-align: center !important;
+	}
+}
+
+/* Compability fixes */
+/* Bridge */
+html, body {
+	&.mpc-block-scroll-bridge {
+		overflow: hidden !important;
+
+		.container,
+		.content,
+		.full_width,
+		.title,
+		.wrapper,
+		header,
+		.header_inner_left,
+		.header_inner_right,
+		.full_section_inner {
+			z-index: initial;
+		}
+	}
+}
+
+/* Salient */
+html.mpc-block-scroll body.mpc-salient-theme .mpc-row-modal {
+    z-index: 101 !important;
+}

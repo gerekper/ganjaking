@@ -1,0 +1,11 @@
+<wpml-config>
+    <admin-texts>
+        <key name="yith_wctc_popup_button_text" />
+        <key name="yith_wctc_scroll_till_end_message" />
+        <key name="yith_wctc_terms_text" />
+        <key name="yith_wctc_terms_label" />
+        <key name="yith_wctc_privacy_text" />
+        <key name="yith_wctc_privacy_label" />
+        <key name="yith_wctc_common_text" />
+    </admin-texts>
+</wpml-config>

@@ -1,0 +1,616 @@
+/**
+ * WooCommerce Dynamic Pricing & Discounts Plugin Settings Page Styles
+ */
+.rp_wcdpd_tabs_container {
+    width: 100%;
+}
+.rp_wcdpd_tabs_container {
+    border-bottom: 1px solid #ccc;
+    margin-right: 20px;
+}
+.rp_wcdpd_settings_container {
+    width: 100%;
+    border: 1px solid #dfdfdf;
+    border-top: none;
+    background-color: #ffffff;
+}
+.rp_wcdpd_settings_container p.submit {
+    margin-top: 0;
+}
+.rp_wcdpd_settings_container p {
+    padding: 12px 25px 0px 25px;
+}
+.rp_wcdpd_settings_container tr {
+    height: 45px;
+}
+.rp_wcdpd_settings_container th {
+    width: 300px;
+    padding: 15px 10px 5px 0;
+}
+.rp_wcdpd_settings_container td {
+    padding: 10px 10px 5px 10px;
+}
+.rp_wcdpd_settings_container h2,
+.rp_wcdpd_settings_container h3 {
+    padding: 20px;
+    border-bottom: 1px solid #dfdfdf;
+    border-top: 1px solid #dfdfdf;
+    background-color: #fcfcfc;
+    margin: 0;
+    overflow: hidden;
+}
+.woocommerce .rp_wcdpd_settings_container table.form-table,
+.rp_wcdpd_settings_container table.form-table {
+    margin: 10px 0 15px 25px;
+    width: auto;
+}
+.rp_wcdpd_settings_container .submit {
+    border-top: 1px solid #dfdfdf;
+    background-color: #fcfcfc;
+    padding: 20px;
+    margin: 0;
+}
+.rp_wcdpd_settings_container input {
+    vertical-align: middle;
+}
+.rp_wcdpd_settings_container select {
+    line-height: 27px;
+    height: 27px;
+}
+.rp_wcdpd_settings_container .rp_wcdpd_field_short {
+    min-width: 100px;
+}
+.rp_wcdpd_settings_container .rp_wcdpd_field_medium {
+    min-width: 200px;
+}
+.rp_wcdpd_settings_container .rp_wcdpd_field_long {
+    min-width: 450px;
+}
+
+#rp_wcdpd_product_pricing_rule_selection_method,
+#rp_wcdpd_cart_discounts_rule_selection_method,
+#rp_wcdpd_checkout_fees_rule_selection_method {
+    min-width: inherit;
+}
+#rp_wcdpd_product_pricing_total_limit,
+#rp_wcdpd_cart_discounts_total_limit,
+#rp_wcdpd_checkout_fees_total_limit {
+    min-width: inherit;
+}
+#rp_wcdpd_product_pricing_total_limit_value,
+#rp_wcdpd_cart_discounts_total_limit_value,
+#rp_wcdpd_checkout_fees_total_limit_value {
+    min-width: inherit;
+    width: 80px;
+    display: none;
+}
+
+.rp_wcdpd_top_rule_setting_separator {
+    display: inline-block;
+    margin: 0 12px 0 10px;
+    border-right: 1px solid #cccccc;
+    line-height: 27px;
+    position: relative;
+    top: 1px;
+}
+
+
+#setting-error-rp_wcdpd_settings_updated,
+#setting-error-rp_wcdpd_settings_error {
+    margin-left: 2px;
+    margin-top: 1em;
+}
+
+.rp_wcdpd_settings_container .rp_wcdpd_settings_hint {
+    font-style: italic;
+    font-size: 12px;
+    color: #666;
+    /*padding: 0 24px;
+    display: inline-block;
+    height: 25px;
+    line-height: 25px;*/
+    padding-right: 25px;
+    padding-top: 5px;
+}
+.rp_wcdpd_settings_container .rp_wcdpd_setting {
+    /*float: left;*/
+}
+
+wrap h2.rp_wcdpd_tabs_container {
+    margin-bottom: 15px;
+}
+div.rp_wcdpd_settings {
+    margin-top: 15px;
+}
+
+div.rp_wcdpd_rules_header {
+    border-bottom: 1px solid #dfdfdf;
+    border-top: 1px solid #dfdfdf;
+    background-color: #fcfcfc;
+    overflow: hidden;
+}
+div.rp_wcdpd_rules_title {
+    float: left;
+}
+.rp_wcdpd_settings_container div.rp_wcdpd_rules_title h2 {
+    border: 0;
+}
+div.rp_wcdpd_rules_settings {
+    float: right;
+    padding: 15px 19px 15px 15px;
+    text-align: right;
+}
+
+#rp_wcdpd_preloader {
+    display: table-cell;
+    background-color: #fff;
+    color: #000;
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    vertical-align: middle;
+    opacity: 0.8;
+}
+#rp_wcdpd_preloader #rp_wcdpd_preloader_content {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    height: 30%;
+}
+#rp_wcdpd_preloader .rp_wcdpd_preloader_text {
+    padding: 0 35%;
+    text-align: justify;
+}
+
+#rp_wcdpd_rule_wrapper .rp_wcdpd_inner_wrapper .dashicons-menu,
+#rp_wcdpd_rule_wrapper .rp_wcdpd_inner_wrapper .dashicons-no-alt {
+    position: relative;
+    top: 5px;
+}
+#rp_wcdpd_rule_wrapper .dashicons {
+    color: #cccccc;
+}
+#rp_wcdpd_rule_wrapper .dashicons:hover {
+    color: #000000;
+}
+#rp_wcdpd_rule_wrapper .rp_wcdpd_row_remove_handle .dashicons:hover,
+#rp_wcdpd_rule_wrapper .rp_wcdpd_child_element_remove_handle .dashicons:hover {
+    color: red;
+}
+#rp_wcdpd_rule_wrapper .dashicons-admin-page {
+    font-size: 16px;
+    position: relative;
+    top: 2px;
+}
+
+.rp_wcdpd_validation_error {
+    background: #666666 !important;
+    color: white !important;
+    border: none !important;
+    padding: 0 !important;
+    opacity: 1 !important;
+    max-width: 200px !important;
+}
+.rp_wcdpd_validation_error .ui-tooltip-content {
+    position: relative !important;
+    padding: 1em !important;
+}
+.rp_wcdpd_validation_error .ui-tooltip-content::after {
+    content: '' !important;
+    position: absolute !important;
+    border-style: solid !important;
+    display: block !important;
+    width: 0 !important;
+}
+.rp_wcdpd_validation_error .ui-tooltip-content::after {
+    top: -10px !important;
+    left: 15px !important;
+    border-color: #666666 transparent !important;
+    border-width: 0 10px 10px !important;
+}
+
+
+
+
+#rp_wcdpd_product_pricing,
+#rp_wcdpd_cart_discounts,
+#rp_wcdpd_checkout_fees {
+    background: #fff;
+    padding: 20px;
+}
+#rp_wcdpd_no_rows {
+    text-align: center;
+    padding-top: 40px;
+}
+#rp_wcdpd_add_row {
+    text-align: right;
+    margin-top: 15px;
+}
+#rp_wcdpd_rule_wrapper {
+    font-size: 1em;
+    font-family: inherit;
+}
+.rp_wcdpd_settings .rp_wcdpd_accordion_handle {
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left: 5px solid #118238;
+    background: #f7f7f7;
+    height: 30px;
+}
+.rp_wcdpd_settings .rp_wcdpd_row_content {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    padding: 10px 20px;
+    background: 0;
+    background-color: #ffffff;
+    border: 1px solid #a8a8a8;
+    border-top: 0;
+}
+.rp_wcdpd_row_sort_handle {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    vertical-align: middle;
+    margin: 0 auto;
+    cursor: pointer;
+    padding-right: 10px;
+    padding-top: 5px;
+}
+.rp_wcdpd_row_duplicate_handle,
+.rp_wcdpd_row_remove_handle {
+    float: right;
+    display: inline-block;
+    width: 22.5px;
+    height: 20px;
+    text-align: center;
+    vertical-align: middle;
+    margin: 0 auto;
+    cursor: pointer;
+    padding-top: 5px;
+}
+.rp_wcdpd_row_sort_handle i,
+.rp_wcdpd_row_duplicate_handle i,
+.rp_wcdpd_row_remove_handle i {
+    color: #a8a8a8;
+    font-size: 0.9em;
+    vertical-align: middle;
+}
+.rp_wcdpd_row_sort_handle:hover i {
+    color: #444;
+}
+.rp_wcdpd_row_duplicate_handle:hover i {
+    color: #444;
+}
+.rp_wcdpd_row_remove_handle:hover i {
+    color: red;
+}
+.rp_wcdpd_row_title {
+    display: inline-block;
+    position: absolute;
+    line-height: 20px;
+    height: 20px;
+    overflow: hidden;
+    padding-top: 5px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 50%;
+}
+.rp_wcdpd_settings .rp_wcdpd_field {
+    float: left;
+    padding: 5px 0 10px 0;
+    font-size: 12px;
+    line-height: 24px;
+    color: #555;
+}
+ .rp_wcdpd_settings .rp_wcdpd_inner_wrapper .rp_wcdpd_field {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+.rp_wcdpd_settings .rp_wcdpd_field input,
+.rp_wcdpd_settings .rp_wcdpd_field select {
+    display: block;
+    height: 27px;
+    width: 100%;
+    max-width: initial;
+}
+.rp_wcdpd_settings .rp_wcdpd_field_half {
+    width: 11.78%;
+    margin-left: 0.8%;
+}
+.rp_wcdpd_settings .rp_wcdpd_field_single {
+    width: 24.375%;
+    margin-left: 0.8%;
+}
+.rp_wcdpd_settings .rp_wcdpd_field_double {
+    width: 49.55%;
+    margin-left: 0.8%;
+}
+.rp_wcdpd_settings .rp_wcdpd_field_triple {
+    width: 74.725%;
+    margin-left: 0.8%;
+}
+.rp_wcdpd_settings #rp_wcdpd_product_pricing .rp_wcdpd_no_left_margin,
+.rp_wcdpd_settings #rp_wcdpd_cart_discounts .rp_wcdpd_no_left_margin,
+.rp_wcdpd_settings #rp_wcdpd_checkout_fees .rp_wcdpd_no_left_margin {
+    margin-left: 0;
+}
+.rp_wcdpd_settings .rp_wcdpd_field_full {
+    width: 100%;
+}
+.rp_wcdpd_settings .rp_wcdpd_field_checkbox {
+    float: left;
+    width: 25%;
+    min-width: 70px;
+}
+.rp_wcdpd_settings .rp_wcdpd_field_checkbox input {
+    margin-top: 5px;
+    margin-left: 1px;
+    width: auto;
+    height: 16px;
+}
+.rp_wcdpd_settings .rp_wcdpd_inner_wrapper {
+    border: 1px solid #cccccc;
+    padding: 15px;
+    background: #fcfcfc;
+}
+.rp_wcdpd_add_child_element {
+    text-align: right;
+    padding-top: 8px;
+}
+.rp_wcdpd_no_child_elements {
+    text-align: center;
+    padding-top: 10px;
+}
+.rp_wcdpd_settings input.rp_wcdpd_half_left,
+.rp_wcdpd_settings select.rp_wcdpd_half_left {
+    float: left;
+    width: 75%;
+}
+.rp_wcdpd_settings input.rp_wcdpd_half_right,
+.rp_wcdpd_settings select.rp_wcdpd_half_right {
+    float: left;
+    width: 20%;
+}
+
+.rp_wcdpd_child_element_sort,
+.rp_wcdpd_child_element_remove {
+    display: table-cell;
+    width: 20px;
+    min-width: 30px;
+    height: 100%;
+    vertical-align: top;
+}
+.rp_wcdpd_child_element_sort {
+    border-right: 0;
+}
+.rp_wcdpd_child_element_remove {
+    border-left: 0;
+}
+.rp_wcdpd_child_element_sort_handle,
+.rp_wcdpd_child_element_remove_handle {
+    width: 20px;
+    height: 30px;
+    text-align: center;
+    vertical-align: middle;
+    margin: 0 auto;
+    cursor: pointer;
+    position: relative;
+    top: 4px;
+}
+.rp_wcdpd_child_element_sort_handle i,
+.rp_wcdpd_child_element_remove_handle i {
+    color: #cccccc;
+    line-height: 30px;
+}
+.rp_wcdpd_child_element_sort_handle:hover i {
+    color: #444;
+}
+.rp_wcdpd_child_element_remove_handle:hover i {
+    color: red;
+}
+.rp_wcdpd_child_element_content {
+    display: table-cell;
+    padding: 0 5px;
+    width: 100%;
+}
+.rp_wcdpd_settings .rp_wcdpd_product_condition_setting,
+.rp_wcdpd_settings .rp_wcdpd_bogo_product_condition_setting,
+.rp_wcdpd_settings .rp_wcdpd_condition_setting,
+.rp_wcdpd_settings .rp_wcdpd_quantity_range_setting,
+.rp_wcdpd_settings .rp_wcdpd_group_product_setting {
+    float: left;
+    padding: 5px 0;
+    font-size: 12px;
+    line-height: 24px;
+    color: #555;
+}
+.rp_wcdpd_settings .rp_wcdpd_product_condition_setting,
+.rp_wcdpd_settings .rp_wcdpd_bogo_product_condition_setting,
+.rp_wcdpd_settings .rp_wcdpd_condition_setting,
+.rp_wcdpd_settings .rp_wcdpd_group_product_setting {
+    width: 24.5%;
+}
+.rp_wcdpd_settings .rp_wcdpd_quantity_range_setting {
+    width: 24.5%;
+    margin-left: 0.66%;
+}
+.rp_wcdpd_settings .rp_wcdpd_group_product_setting_quantity {
+    width: 5.63%;
+}
+.rp_wcdpd_settings .rp_wcdpd_group_product_setting_quantity input {
+    width: 100%;
+}
+.rp_wcdpd_settings .rp_wcdpd_group_product_setting_type {
+    width: 18.21%;
+    margin-left: 0.66%;
+}
+.rp_wcdpd_settings .rp_wcdpd_quantity_range_content .rp_wcdpd_quantity_range_setting:first-child,
+.rp_wcdpd_settings .rp_wcdpd_group_product_content .rp_wcdpd_group_product_setting:first-child {
+    margin-left: 0;
+}
+
+.rp_wcdpd_product_condition_setting_single input,
+.rp_wcdpd_product_condition_setting_single select,
+.rp_wcdpd_bogo_product_condition_setting_single input,
+.rp_wcdpd_bogo_product_condition_setting_single select,
+.rp_wcdpd_condition_setting_single input,
+.rp_wcdpd_condition_setting_single select,
+.rp_wcdpd_group_product_setting_single input,
+.rp_wcdpd_group_product_setting_single select {
+    height: 27px;
+    width: 100%;
+}
+.rp_wcdpd_settings .rp_wcdpd_product_condition_setting_fields,
+.rp_wcdpd_settings .rp_wcdpd_bogo_product_condition_setting_fields,
+.rp_wcdpd_settings .rp_wcdpd_condition_setting_fields,
+.rp_wcdpd_settings .rp_wcdpd_group_product_setting_fields {
+    float: left;
+    width: 75.5%;
+    padding: 5px 0;
+    line-height: 24px;
+}
+.rp_wcdpd_settings .rp_wcdpd_product_condition_setting_fields_single,
+.rp_wcdpd_settings .rp_wcdpd_bogo_product_condition_setting_fields_single,
+.rp_wcdpd_settings .rp_wcdpd_condition_setting_fields_single,
+.rp_wcdpd_settings .rp_wcdpd_group_product_setting_fields_single {
+    float: left;
+    width: 32.45%;
+    margin-left: 0.85%;
+}
+.rp_wcdpd_settings .rp_wcdpd_product_condition_setting_fields_double,
+.rp_wcdpd_settings .rp_wcdpd_bogo_product_condition_setting_fields_double,
+.rp_wcdpd_settings .rp_wcdpd_condition_setting_fields_double,
+.rp_wcdpd_settings .rp_wcdpd_group_product_setting_fields_double {
+    float: left;
+    width: 65.75%;
+    margin-left: 0.85%;
+}
+.rp_wcdpd_settings .rp_wcdpd_product_condition_setting_fields_triple,
+.rp_wcdpd_settings .rp_wcdpd_bogo_product_condition_setting_fields_triple,
+.rp_wcdpd_settings .rp_wcdpd_condition_setting_fields_triple,
+.rp_wcdpd_settings .rp_wcdpd_group_product_setting_fields_triple {
+    float: left;
+    width: 99.05%;
+    margin-left: 0.85%;
+}
+.rp_wcdpd_settings .rp_wcdpd_product_condition_setting_fields_single input,
+.rp_wcdpd_settings .rp_wcdpd_product_condition_setting_fields_double input,
+.rp_wcdpd_settings .rp_wcdpd_product_condition_setting_fields_triple input,
+.rp_wcdpd_settings .rp_wcdpd_product_condition_setting_fields_single select,
+.rp_wcdpd_settings .rp_wcdpd_product_condition_setting_fields_double select,
+.rp_wcdpd_settings .rp_wcdpd_product_condition_setting_fields_triple select,
+.rp_wcdpd_settings .rp_wcdpd_bogo_product_condition_setting_fields_single input,
+.rp_wcdpd_settings .rp_wcdpd_bogo_product_condition_setting_fields_double input,
+.rp_wcdpd_settings .rp_wcdpd_bogo_product_condition_setting_fields_triple input,
+.rp_wcdpd_settings .rp_wcdpd_bogo_product_condition_setting_fields_single select,
+.rp_wcdpd_settings .rp_wcdpd_bogo_product_condition_setting_fields_double select,
+.rp_wcdpd_settings .rp_wcdpd_bogo_product_condition_setting_fields_triple select,
+.rp_wcdpd_settings .rp_wcdpd_condition_setting_fields_single input,
+.rp_wcdpd_settings .rp_wcdpd_condition_setting_fields_double input,
+.rp_wcdpd_settings .rp_wcdpd_condition_setting_fields_triple input,
+.rp_wcdpd_settings .rp_wcdpd_condition_setting_fields_single select,
+.rp_wcdpd_settings .rp_wcdpd_condition_setting_fields_double select,
+.rp_wcdpd_settings .rp_wcdpd_condition_setting_fields_triple select,
+.rp_wcdpd_settings .rp_wcdpd_group_product_setting_fields_single input,
+.rp_wcdpd_settings .rp_wcdpd_group_product_setting_fields_double input,
+.rp_wcdpd_settings .rp_wcdpd_group_product_setting_fields_triple input,
+.rp_wcdpd_settings .rp_wcdpd_group_product_setting_fields_single select,
+.rp_wcdpd_settings .rp_wcdpd_group_product_setting_fields_double select,
+.rp_wcdpd_settings .rp_wcdpd_group_product_setting_fields_triple select {
+    height: 27px;
+    width: 100%;
+}
+.rp_wcdpd_settings .select2-selection--multiple .select2-selection__rendered .select2-search__field {
+    margin-top: 3px;
+    padding: 3px 5px 3px 0px;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+}
+.rp_wcdpd_settings li.select2-search {
+    margin-bottom: 0px;
+}
+#advanced_settings fieldset label {
+    font-weight: normal;
+}
+.rp_wcdpd_settings .wc-settings-sub-title {
+    margin-top: 2em;
+}
+
+.rp_wcdpd_rules .ui-accordion .ui-accordion-content {
+    padding: 1em 1.7em;
+}
+
+.rp_wcdpd_settings .rp_wcdpd_field_exclusivity {
+    width: 35%;
+    max-width: 300px;
+    float: right;
+    margin-right: 15px;
+    background-color: #f7f7f7;
+}
+
+.rp_wcdpd_settings .ui-accordion .ui-accordion-content {
+    overflow: inherit;
+}
+
+.rp_wcdpd_preloader_icon .dashicons {
+    font-size: 40px;
+    width: 40px;
+    height: 40px;
+}
+
+.rp_wcdpd_settings label {
+    font-weight: 700;
+}
+.rp_wcdpd_settings label.rp_wcdpd_enabled_condition_label {
+    font-weight: normal;
+}
+
+.rp_wcdpd_settings_label_extra {
+    font-weight: normal;
+    color: #ccc;
+}
+
+.rp_wcdpd_condition_non_existent,
+.rp_wcdpd_condition_non_existent_taxonomy,
+.rp_wcdpd_condition_disabled,
+.rp_wcdpd_condition_disabled_taxonomy {
+    width: 100%;
+    padding: 5px 0;
+}
+.rp_wcdpd_condition_non_existent_text,
+.rp_wcdpd_condition_non_existent_taxonomy_text,
+.rp_wcdpd_condition_disabled_text,
+.rp_wcdpd_condition_disabled_taxonomy_text {
+    height: 27px;
+    background-color: red;
+    overflow: overlay;
+    padding: 3px 0 0 10px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.rp_wcdpd_row_title_title {
+    font-weight: 700;
+}
+.rp_wcdpd_row_title_note {
+    padding-left: 10px;
+    margin-left: 8px;
+    border-left: 1px solid #ccc;
+}
+.rp_wcdpd_row_title_method,
+.rp_wcdpd_row_title_pricing {
+    color: #cccccc;
+    font-weight: normal;
+    padding-left: 10px;
+    margin-left: 8px;
+    border-left: 1px solid #ccc;
+}

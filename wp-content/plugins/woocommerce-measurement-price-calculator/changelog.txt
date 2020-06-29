@@ -1,0 +1,338 @@
+*** WooCommerce Measurement Price Calculator Changelog ***
+
+2020.06.02 - version 3.17.5
+ * Fix - When using a comma as the decimal separator in a quantity mode calculator, ensure that the actual amount displayed uses the same separator consistently
+
+2020.05.05 - version 3.17.4
+ * Misc - Add support for WooCommerce 4.1
+
+2020.03.19 - version 3.17.3
+ * Fix - In quantity mode, make sure that when updating the quantity and using a decimal separator other than a period, the updated needed amount retains the intended separator
+ * Fix - If multiple amount needed inputs are present while in quantity mode, do not automatically change the amounts needed while adjusting quantity
+ * Fix - Prevent the price for Measurement Price Calculator products from appearing without tax when WooCommerce is configured to display prices including tax
+
+2020.03.04 - version 3.17.2
+ * Misc - Add support for WooCommerce 4.0
+
+2020.01.02 - version 3.17.1
+ * Misc - Add support for WooCommerce 3.9
+
+2019.11.18 - version 3.17.0
+ * Fix - Ensure calculated inventory stock is replenished when marking orders as cancelled
+ * Misc - Add support for WooCommerce 3.8
+
+2019.10.02 - version 3.16.2
+ * Fix - Fix "Editable" product setting checkbox becoming unintentionally editable
+
+2019.09.24 - version 3.16.1
+ * Fix - Prevent products with calculated inventories from being incorrectly adjusted in WC 3.6+
+
+2019.09.24 - version 3.16.0
+ * Feature - Add minimum price support for variable products
+
+2019.09.11 - version 3.15.1
+ * Fix - Update amount needed when quantity is changed
+
+2019.08.08 - version 3.15.0
+ * Localization - Edits to ensure the right variables are used in the French translation
+ * Misc - Add support for WooCommerce 3.7
+ * Misc - Remove support for WooCommerce 2.6
+ * Misc - Require PHP 5.6+
+
+2019.06.19 - version 3.14.2
+ * Fix - Use core WooCommerce loader function to include settings classes to prevent possible conflicts with some third party plugins
+ * Dev - Adds a variation arg to the wc_measurement_price_calculator_measurement_needed_surface_area and wc_measurement_price_calculator_measurement_needed filters
+
+2019.04.16 - version 3.14.1
+ * Misc - Add support for WooCommerce 3.6
+ * Misc - Require PHP 5.4+
+
+2019.03.06 - version 3.14.0
+ * Fix - Remove potential PHP errors by gracefully bailing out on edge cases where product measurement values are null
+ * Fix - When ordering again a product, make sure cart price determined from measurements is correct if the originally ordered item is a product variation
+ * Fix - Address a JavaScript browser compatibility issue with Microsoft Explorer
+ * Dev - Introduce a filter hook to modify the final calculated price for an item with measurements
+ * Misc - Drop support for PHP version 5.2: PHP 5.3 becomes the minimum supported version
+ * Misc - Update the SkyVerge Plugin Framework to version 5.3
+
+2019.01.15 - version 3.13.7
+ * Fix - Fix incorrect price display on the product page for certain measurement values
+ * Fix - Don't change the entered measurement needed to the actual amount in quantity mode
+ * Fix - Ensure weight attributes are displayed as per-unit after variations are chosen on the product page
+ * Fix - Don't replace the amount needed input value with the actual calculated amount when clicking away from the input
+
+2018.10.25 - version 3.13.6
+ * Tweak - Show notices in "quantity" mode if customer enters area more than the available stock
+ * Fix - Adjust rounding in the price preview on the product page to always match the cart value
+ * Fix - Adjust decimal precision in actual amount
+ * Fix - Resolve a conflict with the Teams for WooCommerce Memberships extension on the product edit screen
+ * Fix - Resolve a conflict with the WooCommerce Quick View extension when non-ajax trigger is selected
+ * Misc - Add support for WooCommerce 3.5
+
+2018.07.04 - version 3.13.5
+ * Tweak - Improve product front end input validation and add some inline guidance to help customers entering a required measurement value in the expected format
+ * Fix - When entering area or volume amounts in the product shipping data, add input field validation to make sure the values entered are in the expected format
+ * Fix - In user-defined mode, ensure no console errors are thrown in front end when "Accept a limited set of customer inputs" is selected and with decimals or fractions in the product configuration
+ * Fix - In user-defined mode, when "Accept free-form customer input" is selected and a minimum and a maximum values are set, make sure that in front end customers can enter the expected measurement values without an error being thrown upon adding to cart
+ * Fix - In quantity-based mode, ensure that the calculated measurement reflects the decimal separator in use
+ * Fix - When entering fractions in "Accept a limited set of customer inputs", but the store uses comma as decimal separator, make sure there are no miscalculations in front end when converting those fraction values into floats
+ * Dev - Introduce a filter to allow the calculator script to be enqueued when using a product shortcode
+
+2018.05.23 - version 3.13.4
+ * Misc - Add support for WooCommerce 3.4
+
+2018.03.15 - version 3.13.3
+ * Fix - Round the measurement needed on add to cart validation to match the decimal precision used to round the value on the product page
+
+2018.02.22 - version 3.13.2
+ * Fix - Fix an issue with calculated weights for variations which inherit the per unit weight from the parent product
+
+2018.02.13 - version 3.13.1
+ * Tweak - Allow multiple decimal places when defining accepted minimum and maximum values for product measurements
+ * Fix - Fix support for mixed fractions in measurement options
+
+2018.01.23 - version 3.13.0
+ * Misc - Add support for WooCommerce 3.3
+ * Misc - Remove support for WooCommerce 2.5
+
+2017.12.20 - version 3.12.9
+ * Fix - Ensure product price is re-calculated after reloading the product page
+ * Fix - Do not use pricing table ranges to override regular price unless pricing tables are currently in use
+
+2017.12.12 - version 3.12.8
+ * Tweak - Use browser decimal separator for number inputs
+ * Tweak - Allow the use of a semi-colon to create a set of limited input options for sites where the comma is the decimal separator
+
+2017.11.29 - version 3.12.7
+ * Fix - Product page calculated price could use incorrect decimal place placement when rounding in some cases
+ * Fix - Variations with measurements enabled hide the sale price "schedule" link
+
+2017.11.22 - version 3.12.6
+ * Fix - Ensure restricted inputs in pricing mode work when commas are used as the decimal separator
+ * Fix - In some edge cases, product page calculator rounding would not match cart rounding
+ * Fix - Ensure calculated price rounding on product page matches the rounding in cart
+
+2017.11.08 - version 3.12.5
+ * Tweak - Allow customers to enter measurements using the store's configured "thousands" number separator on product pages
+ * Fix - Allow more decimal places when defining accepted increments for product measurements
+
+2017.09.06 - version 3.12.4
+ * Tweak - Add additional validation when limiting user-defined measurements for mobile browsers
+
+2017.08.03 - version 3.12.3
+ * Fix - In some browsers, when toggling between "Accept free-form customer input" and "Accept a limited set of customer inputs", if some values were entered in the previous fields corresponding to the alternative option, the product could not be saved until the fields were cleared
+ * Fix - When a minimum price is set on a Simple Product before switching to a Variable Product, the minimum price setting remains active, but is no longer visible or editable until switching back to Simple Product
+ * Fix - Ensure products with sale prices in pricing table are shown when using the `sale_products` shortcode (requires saving again the product from the admin product edit screen)
+ * Dev - Added wc_measurement_price_calculator_get_price_html and wc_measurement_price_calculator_settings_rule filters to help plugins like WooCommerce Memberships filtering price rules
+ * Localization - Added Italian translation
+
+2017.07.12 - version 3.12.2
+ * Fix - "Order Again" functionality includes measurement data in WooCommerce 3.0+
+ * Fix - Hardened add to cart validation to ensure pricing table breaks can't be manipulated in the browser
+
+2017.06.27 - version 3.12.1
+ * Fix - Fix issue in WooCommerce 3.0+ where an incorrect calculated quantity was added to the cart for calculated inventory/customer-defined measurement products
+ * Fix - Ensure products created prior to v3.12 use dropdowns when input options are limited
+
+2017.06.13 - version 3.12.0
+ * Feature - Add a percentage overage or cut estimate when accepting customer-defined measurements
+ * Feature - Optionally limit customer-defined measurements with minimum value, maximum value, or increment
+ * Fix - Ensure "remaining stock" checks do not fail when inventory is being calculated, but remaining inventory is less than 1 (requires WooCommerce 3.1+)
+ * Fix - Always persist user inputs if add-to-cart validation fails
+
+2017.05.03 - version 3.11.4
+ * Fix - Ensure calculated inventory reduction is correct when using IPN gateways in WooCommerce 3.0+
+ * Fix - "Sold Individually" setting respected when "Calculated Inventory" is enabled in WooCommerce 3.0+
+ * Fix - Incorrect unit prices for simple products or variations displayed when using quantity-based pricing in WooCommerce 3.0+
+ * Fix - Incorrect line item price when using unit price and a remaining stock of "1" in WooCommerce 3.0+
+ * Fix - Ensure variations fallback to parent product measurements if not set in quantity-based mode
+
+2017.04.18 - version 3.11.3
+ * Fix - Potential timeouts for non-measurement products with certain configurations
+ * Fix - PHP notices when inventory is calculated in WooCommerce 3.0+
+ * Fix - Product weight missing from "Additional Information" tab when not using measurements
+
+2017.04.12 - version 3.11.2
+ * Fix - Show the correct price range when using a pricing table
+ * Fix - Calculated inventory only accounted for entered measurement, not quantity in WooCommerce 3.0+
+
+2017.04.04 - version 3.11.1
+ * Fix - Errors with simple products that have "calculated price" enabled
+
+2017.03.28 - version 3.11.0
+ * Fix - Compatibility error with Min / Max Quantities plugin
+ * Fix - Avoid overriding the shop "add to cart" text when measurement products are out of stock
+ * Misc - Added support for WooCommerce 3.0
+ * Misc - Removed support for WooCommerce 2.4
+
+2017.01.11 - version 3.10.2
+ * Fix - PHP notices when a measurement product is back-ordered
+ * Fix - PHP 7.1 warning when product sale price is not set
+ * Dev - Updated single-product/price-calculator.php and single-product/quantity-calculator.php templates
+
+2016.09.07 - version 3.10.1
+ * Tweak - Allow merchants to filter the measurement options select to add additional data to the measurement labels
+ * Tweak - Allow plugins to force price calculations to round to the set decimal places
+ * Fix - Ensure the quantity input doesn't have a maximum value when calculated inventory is enabled
+ * Fix - Fix a rare issue where the calculated total price doesn't display below the calculator
+ * Fix - Fix incorrect cart contents weight when using products with the pricing calculator inventory feature enabled
+ * Fix - Fix a rounding error which can occur with large quantities
+ * Fix - A user's entered measurements for a pricing calculator product will not clear if add-to-cart validation fails with a page refresh
+ * Fix - Ensure the pricing calculator displays below the variation description
+
+2016.06.02 - version 3.10.0
+ * Misc - Added support for WooCommerce 2.6
+ * Misc - Removed support for WooCommerce 2.3
+
+2016.05.18 - version 3.9.1
+ * Fix - Improve Google Product Feed compatibility
+
+2016.01.14 - version 3.9.0
+ * Misc - Added support for WooCommerce 2.5
+ * Misc - Removed support for WooCommerce 2.2
+
+2015.12.14 - version 3.8.1
+ * Fix - Fix a PHP warning when backorders are allowed
+ * Tweak - Use the maximum pricing rules price in Google Product Feed
+
+2015.11.06 - version 3.8.0
+ * Feature - Google Product Feed compatibility
+ * Tweak - Display the maximum price per unit in the price rich snippet for pricing calculator products
+
+2015.09.10 - version 3.7.1
+ * Fix - Quantity calculator pricing per unit display for variable products in WooCommerce 2.4
+ * Fix - Ensure a variation's area and volume are updated when variations are saved via AJAX in WooCommerce 2.4
+ * Fix - Ensure a variation's meta is inherited from the parent when not set
+
+2015.07.28 - version 3.7.0
+ * Feature - Catalog Visibility Options compatibility
+ * Fix - Measurement product pricing now respects the tax display settings :)
+ * Fix - Compatibility fix with Dynamic Pricing 2.9.0+
+ * Fix - Ensure variation meta is inherited from the parent if not set
+ * Fix - Virtual products are allowed again
+ * Fix - Compatibility fix with Request a Quote
+ * Fix - Allow mixed fractions to be used in measurement options
+ * Fix - Fix incorrect cart contents count when using products with the pricing calculator inventory feature enabled
+ * Tweak - Use `woocommerce_get_price_html` and `woocommerce_get_variation_price_html` to filter the per-unit price HTML
+ * Tweak - Skip saving the `_wc_price_calculator` meta if the measurement type is set to 'None'
+ * Tweak - Translatable quantity calculator actual amount label
+ * Tweak - Display the weight per unit label on the Additional Information product tab for products with calculated weight enabled
+ * Misc - WooCommerce 2.4 Compatibility
+
+2015.02.24 - version 3.6.1
+ * Fix - Ensure variation meta is properly saved in WooCommerce 2.3
+
+2015.02.09 - version 3.6.0
+ * Misc - WooCommerce 2.3 Compatibility
+
+2015.01.27 - version 3.5.5
+ * Fix - Fix stock availability for variable products using pricing rules
+ * Fix - Fix a potential rounding issue when using PayPal as a payment gateway
+ * Tweak - Introduce `wc_measurement_price_calculator_no_price_available_notice_text` filter
+
+2014.12.03 - version 3.5.4
+ * Fix - Fix an error with the price for simple pricing rules products once placed in the cart
+
+2014.12.02 - version 3.5.3
+ * Fix - Fix an error with the price for variable pricing rules products once placed in the cart
+
+2014.11.18 - version 3.5.2
+ * Tweak - Introduce 'wc_measurement_price_calculator_measurement_needed' filter
+ * Tweak - Introduce 'wc_measurement_price_calculator_measurement_dimension' filter
+ * Tweak - Introduce 'wc_measurement_price_calculator_measurement_area' filter
+ * Tweak - Introduce 'wc_measurement_price_calculator_measurement_perimeter' filter
+ * Tweak - Introduce 'wc_measurement_price_calculator_measurement_volume' filter
+ * Fix - Display sale badge on pricing rules products
+
+2014.10.07 - version 3.5.1
+ * Fix - Fix an error when using variable measurement products
+
+2014.10.06 - version 3.5.0
+ * Feature - Surface area calculator
+ * Tweak - Support for measurement price calculator pricing products sold individually
+ * Tweak - Separate price and pricing label with a slash
+ * Fix - Fix an issue with variation measurement meta in WooCommerce 2.2
+
+2014.09.10 - version 3.4.3
+ * Fix - Compatibility with Cost of Goods Sold
+
+2014.09.07 - version 3.4.2
+ * Misc - WooCommerce 2.2 Compatibility
+
+2014.08.22 - version 3.4.1
+* Fix - Fix bug with fractions calculations
+
+2014.08.19 - version 3.4.0
+ * Feature - Users can now enter measurements needed in fractions such as "1/4" or "8 1/4"
+ * Tweak - Show pricing as a range for better compatibility with rich snippets
+ * Tweak - Show price suffix after the pricing label for quantity calculator products
+ * Tweak - Frontend measurement label is filterable with wc_measurement_price_calculator_label
+ * Fix - Include price suffix for products that use the pricing calculator
+ * Fix - Fix price rich snippet for pricing calculator products
+ * Fix - Total measurement needed can no longer be altered from the browser
+
+2014.05.27 - version 3.3.3
+ * Fix - Error that can occur during WPML translation
+
+2014.04.25 - version 3.3.2
+ * Fix - Product variation with pricing table support
+
+2014.02.24 - version 3.3.1
+ * Fix - Quantity calculator pricing per unit display for variable products
+
+2014.01.20 - version 3.3
+ * Misc - Uses SkyVerge Plugin Framework
+ * Misc - WooCommerce 2.1 Compatibility
+ * Localization - Changed text domain to woocommerce-measurement-price-calculator and moved languages directory to i18n
+
+2013.12.13 - version 3.2
+ * Feature - Perimeter calculator
+ * Fix - Improved shipping handling for pricing quantity calculator products
+ * Fix - Corrected Volume (LxWxH) calculation for metric units
+ * Localization - Fixed text domain
+
+2013.10.18 - version 3.1.3
+ * Fix - Allow non-integer stock quantities
+ * Fix - Pricing calculator compatibility with WooCommerce Dynamic Pricing plugin
+ * Fix - Improved compatbility with WooCommerce Product Addons
+
+2013.09.06 - version 3.1.2
+ * Tweak - Improved customizability of the frontend unit label field
+
+2013.07.16 - version 3.1.1
+ * Fix - Bug fix on edit product page
+
+2013.07.12 - version 3.1
+ * Feature - Pricing calculator product minimum price
+ * Tweak - Pricing Calculator Product compatibility with WooCommerce Product Addons 2.0.9+
+
+2013.05.31 - version 3.0.1
+ * Tweak - Frontend unit label is filterable with wc_measurement_price_calculator_unit_label
+ * Tweak - Measurement unit labels are localized on frontend
+
+2013.05.17 - version 3.0
+ * Feature - Fixed values or select dropdowns can be configured for pricing calculator product measurement fields
+ * Feature - Price per unit (ie $/sq ft) can be displayed on frontend for quantity calculator products
+ * Feature - Customizable pricing calculator products inventory can now be managed "per unit" (requires WC 2.0.4+)
+ * Feature - Customizable pricing calculator products weight can now be calculated "per unit"
+ * Feature - Pricing table for configuring stepped prices for pricing calculator products
+ * Feature - Pricing Calculator Product compatibility with WooCommerce Product Addons
+ * Tweak - Total amount displayed on frontend for derived pricing calculator products
+ * Tweak - Measurement units are localized on frontend
+ * Fix - Improved "order again" support for pricing calculator customizable products (requires WC 2.0.4+)
+
+2013.01.13 - version 2.0
+ * Feature - Pricing per unit calculator
+ * Feature - Quantity calculator variation support
+ * Localization - added German translation by Stephanie Schlieske
+ * WC 2.0 compatibility
+
+2012.12.17 - version 1.0.2
+ * Fix - cleaned up frontend javascript minor issues
+ * Localization - added French translation by Olivier Herzog
+
+2012.12.04 - version 1.0.1
+ * New updater
+
+2012.07.09 - version 1.0
+ * Initial Release

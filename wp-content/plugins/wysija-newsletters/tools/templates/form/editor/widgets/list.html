@@ -1,0 +1,7 @@
+{if #params.label}<p>{#params.label}</p>{/if}
+{if ! #params.values}<p class="wysija_warning">{$i18n.list_cannot_be_empty}</p>{/if}
+{loop name="#params.values"}
+    <p>
+        <input class="checkbox" type="checkbox" data-list-id="{#list_id}" {if #is_checked}checked="checked"{/if} disabled="disabled" /> {$lists|index:{#list_id}}
+    </p>
+{/loop}

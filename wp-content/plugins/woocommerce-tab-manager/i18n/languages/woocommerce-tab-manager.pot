@@ -1,0 +1,459 @@
+# Copyright (C) 2020 SkyVerge
+# This file is distributed under the GNU General Public License v3.0.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Tab Manager 1.12.2\n"
+"Report-Msgid-Bugs-To: "
+"https://woocommerce.com/my-account/marketplace-ticket-form/\n"
+"POT-Creation-Date: 2020-05-05 02:03:10+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: admin/post-types/wc_product_tab.php:123
+msgid "Name"
+msgstr ""
+
+#: admin/post-types/wc_product_tab.php:124
+msgid "Tab Type"
+msgstr ""
+
+#: admin/post-types/wc_product_tab.php:125
+msgid "Parent Product"
+msgstr ""
+
+#: admin/post-types/wc_product_tab.php:126
+msgid "Categories"
+msgstr ""
+
+#: admin/post-types/wc_product_tab.php:131
+msgid "Searchable?"
+msgstr ""
+
+#: admin/post-types/wc_product_tab.php:170
+msgid "Draft"
+msgstr ""
+
+#: admin/post-types/wc_product_tab.php:203
+msgid "Restore this item from the Trash"
+msgstr ""
+
+#: admin/post-types/wc_product_tab.php:203
+msgid "Restore"
+msgstr ""
+
+#: admin/post-types/wc_product_tab.php:207
+msgid "Move this item to the Trash"
+msgstr ""
+
+#: admin/post-types/wc_product_tab.php:207
+msgid "Trash"
+msgstr ""
+
+#: admin/post-types/wc_product_tab.php:210
+msgid "Delete this item permanently"
+msgstr ""
+
+#: admin/post-types/wc_product_tab.php:210
+#: admin/post-types/writepanels/writepanel-product-tab_actions.php:65
+msgid "Delete Permanently"
+msgstr ""
+
+#: admin/post-types/wc_product_tab.php:236
+msgid "Product"
+msgstr ""
+
+#: admin/post-types/wc_product_tab.php:238
+msgid "Global"
+msgstr ""
+
+#: admin/post-types/wc_product_tab.php:249
+#: admin/post-types/wc_product_tab.php:274
+msgid "N/A"
+msgstr ""
+
+#: admin/post-types/wc_product_tab.php:283
+msgid "Yes"
+msgstr ""
+
+#: admin/post-types/wc_product_tab.php:288
+msgid "No"
+msgstr ""
+
+#: admin/post-types/wc_product_tab.php:340
+msgid "Show all Tabs"
+msgstr ""
+
+#: admin/post-types/wc_product_tab.php:343
+msgid "Show product tabs"
+msgstr ""
+
+#: admin/post-types/wc_product_tab.php:346
+msgid "Show global tabs"
+msgstr ""
+
+#: admin/post-types/wc_product_tab_metabox.php:65
+#: admin/post-types/wc_product_tab_metabox.php:137
+msgid "Product Categories"
+msgstr ""
+
+#: admin/post-types/wc_product_tab_metabox.php:128
+msgid "Product-level tabs will always be shown on their assigned product."
+msgstr ""
+
+#: admin/post-types/wc_product_tab_metabox.php:139
+msgid "Select categories to restrict the display of this tab to certain products."
+msgstr ""
+
+#: admin/post-types/wc_product_tab_metabox.php:147
+msgid "Any category"
+msgstr ""
+
+#: admin/post-types/writepanels/writepanel-product-tab_actions.php:55
+msgid "Save Tab"
+msgstr ""
+
+#: admin/post-types/writepanels/writepanel-product-tab_actions.php:55
+msgid "Save/update the tab"
+msgstr ""
+
+#: admin/post-types/writepanels/writepanel-product-tab_actions.php:67
+msgid "Move to Trash"
+msgstr ""
+
+#: admin/post-types/writepanels/writepanel-product_data-tabs.php:42
+#: admin/woocommerce-tab-manager-admin-init.php:261
+#: class-wc-tab-manager.php:301
+msgid "Tabs"
+msgstr ""
+
+#: admin/post-types/writepanels/writepanels-init.php:79
+#. translators: Placeholders: %1$s - <a>, %2$s - </a>
+msgid ""
+"Please %1$srun the tab search update%2$s to ensure the new tab content is "
+"indexed and searchable."
+msgstr ""
+
+#: admin/post-types/writepanels/writepanels-init.php:124
+msgid "Tab Actions"
+msgstr ""
+
+#: admin/woocommerce-tab-manager-admin-functions.php:103
+msgid "Override default tab layout:"
+msgstr ""
+
+#: admin/woocommerce-tab-manager-admin-functions.php:105
+msgid "Close all"
+msgstr ""
+
+#: admin/woocommerce-tab-manager-admin-functions.php:105
+msgid "Expand all"
+msgstr ""
+
+#: admin/woocommerce-tab-manager-admin-functions.php:153
+msgid "Edit Global Tab Content"
+msgstr ""
+
+#: admin/woocommerce-tab-manager-admin-functions.php:237
+#: admin/woocommerce-tab-manager-admin-init.php:152
+msgid "Remove"
+msgstr ""
+
+#: admin/woocommerce-tab-manager-admin-functions.php:238
+#: admin/woocommerce-tab-manager-admin-init.php:153
+msgid "Click to toggle"
+msgstr ""
+
+#: admin/woocommerce-tab-manager-admin-functions.php:248
+msgid "The title/content for this tab will be provided by a third party plugin"
+msgstr ""
+
+#: admin/woocommerce-tab-manager-admin-functions.php:253
+#: admin/woocommerce-tab-manager-admin-init.php:154
+msgid "Title"
+msgstr ""
+
+#: admin/woocommerce-tab-manager-admin-functions.php:258
+#: admin/woocommerce-tab-manager-admin-init.php:155
+msgid "The tab title, this appears in the tab"
+msgstr ""
+
+#: admin/woocommerce-tab-manager-admin-functions.php:264
+msgid "Heading"
+msgstr ""
+
+#: admin/woocommerce-tab-manager-admin-functions.php:265
+msgid "The tab heading, this appears just before the tab content"
+msgstr ""
+
+#: admin/woocommerce-tab-manager-admin-functions.php:270
+#: admin/woocommerce-tab-manager-admin-init.php:156
+msgid "Content"
+msgstr ""
+
+#: admin/woocommerce-tab-manager-admin-functions.php:295
+msgid "Add"
+msgstr ""
+
+#: admin/woocommerce-tab-manager-admin-functions.php:298
+msgid "Custom Tab"
+msgstr ""
+
+#: admin/woocommerce-tab-manager-admin-global-layout.php:52
+msgid "Tabs layout %s"
+msgstr ""
+
+#: admin/woocommerce-tab-manager-admin-global-layout.php:59
+#: admin/woocommerce-tab-manager-admin-init.php:267
+msgid "Default Tab Layout"
+msgstr ""
+
+#: admin/woocommerce-tab-manager-admin-global-layout.php:73
+msgid "Save Changes"
+msgstr ""
+
+#: admin/woocommerce-tab-manager-admin-init.php:151
+msgid "Remove this product tab?"
+msgstr ""
+
+#: admin/woocommerce-tab-manager-admin-init.php:199
+#: admin/woocommerce-tab-manager-admin-init.php:202
+#: admin/woocommerce-tab-manager-admin-init.php:204
+msgid "Tab updated."
+msgstr ""
+
+#: admin/woocommerce-tab-manager-admin-init.php:200
+msgid "Custom field updated."
+msgstr ""
+
+#: admin/woocommerce-tab-manager-admin-init.php:201
+msgid "Custom field deleted."
+msgstr ""
+
+#: admin/woocommerce-tab-manager-admin-init.php:203
+msgid "Tab restored to revision from %s"
+msgstr ""
+
+#: admin/woocommerce-tab-manager-admin-init.php:205
+msgid "Tab saved."
+msgstr ""
+
+#: admin/woocommerce-tab-manager-admin-init.php:206
+msgid "Tab submitted."
+msgstr ""
+
+#: admin/woocommerce-tab-manager-admin-init.php:208
+msgid "Tab scheduled for: <strong>%1$s</strong>."
+msgstr ""
+
+#: admin/woocommerce-tab-manager-admin-init.php:209
+msgid "M j, Y @ G:i"
+msgstr ""
+
+#: admin/woocommerce-tab-manager-admin-init.php:211
+msgid "Tab draft updated."
+msgstr ""
+
+#: admin/woocommerce-tab-manager-admin-init.php:239
+msgid "Add Global Tab"
+msgstr ""
+
+#: admin/woocommerce-tab-manager-admin-init.php:252
+#: class-wc-tab-manager.php:307
+msgid "Edit Tab"
+msgstr ""
+
+#: admin/woocommerce-tab-manager-admin-init.php:272
+#. translators: Placeholders: %s - keyword search query
+msgid "Search results for &#8220;%s&#8221;"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce Tab Manager"
+msgstr ""
+
+#: class-wc-tab-manager.php:302
+msgid "Tab"
+msgstr ""
+
+#: class-wc-tab-manager.php:304
+msgid "Add Tab"
+msgstr ""
+
+#: class-wc-tab-manager.php:305
+msgid "Add New Tab"
+msgstr ""
+
+#: class-wc-tab-manager.php:306
+msgid "Edit"
+msgstr ""
+
+#: class-wc-tab-manager.php:308
+msgid "New Tab"
+msgstr ""
+
+#: class-wc-tab-manager.php:309
+msgid "View Tabs"
+msgstr ""
+
+#: class-wc-tab-manager.php:310
+msgid "View Tab"
+msgstr ""
+
+#: class-wc-tab-manager.php:311
+msgid "Search Tabs"
+msgstr ""
+
+#: class-wc-tab-manager.php:312
+msgid "No Tabs found"
+msgstr ""
+
+#: class-wc-tab-manager.php:313
+msgid "No Tabs found in trash"
+msgstr ""
+
+#: class-wc-tab-manager.php:315
+msgid "This is where you can add new tabs that you can add to products."
+msgstr ""
+
+#: class-wc-tab-manager.php:678
+msgid "Description"
+msgstr ""
+
+#: class-wc-tab-manager.php:679
+msgid "Displays the product content set in the main content editor."
+msgstr ""
+
+#: class-wc-tab-manager.php:680
+msgid "Product Description"
+msgstr ""
+
+#: class-wc-tab-manager.php:686 class-wc-tab-manager.php:688
+msgid "Additional Information"
+msgstr ""
+
+#: class-wc-tab-manager.php:687
+msgid ""
+"Displays the product attributes and properties configured in the Product "
+"Data panel."
+msgstr ""
+
+#: class-wc-tab-manager.php:694
+msgid "Reviews (%d)"
+msgstr ""
+
+#: class-wc-tab-manager.php:695
+msgid ""
+"Displays the product review form and any reviews. Use %d in the Title to "
+"substitute the number of reviews for the product."
+msgstr ""
+
+#: includes/class-wc-tab-manager-search.php:286
+msgid "Include tab content in search results?"
+msgstr ""
+
+#: includes/class-wc-tab-manager-search.php:315
+msgid "Any tab layout"
+msgstr ""
+
+#: includes/class-wc-tab-manager-search.php:318
+msgid "Default layout"
+msgstr ""
+
+#: includes/class-wc-tab-manager-search.php:321
+msgid "Custom layout"
+msgstr ""
+
+#: includes/class-wc-tab-manager-search.php:923
+msgid ""
+"Hey there, Tab Manager has a nifty new search feature. If you'd like to "
+"take advantage of this you'll need to update your products and tabs (you "
+"only need to do this once)."
+msgstr ""
+
+#: includes/class-wc-tab-manager-search.php:926
+msgid ""
+"It looks like you recently installed the Relevanssi plugin. If you'd like "
+"to use the new Tab Manager search feature with Relevanssi, you'll need to "
+"update your products and tabs so they can be indexed."
+msgstr ""
+
+#: includes/class-wc-tab-manager-search.php:933
+msgid "Go to the update page."
+msgstr ""
+
+#: includes/class-wc-tab-manager-search.php:935
+msgid "OK, don't remind me again."
+msgstr ""
+
+#: includes/class-wc-tab-manager-settings.php:88
+msgid "Search Settings"
+msgstr ""
+
+#: includes/class-wc-tab-manager-settings.php:96
+msgid "Include product tab content in search"
+msgstr ""
+
+#: includes/class-wc-tab-manager-settings.php:100
+msgid ""
+"Enable to include custom tab content (and global tab content if enabled) in "
+"site search."
+msgstr ""
+
+#: includes/class-wc-tab-manager-settings.php:122
+msgid "Update Products & Tabs"
+msgstr ""
+
+#: includes/class-wc-tab-manager-settings.php:129
+msgid "Update"
+msgstr ""
+
+#: includes/class-wc-tab-manager-settings.php:135
+msgid ""
+"This update will allow your product tab content to show up in your site’s "
+"search results, making it easier for customers to find products whose tabs "
+"contain the search query."
+msgstr ""
+
+#: templates/js/admin.tmpl.php:3
+msgid "Updating your products and tabs..."
+msgstr ""
+
+#: templates/js/admin.tmpl.php:6
+msgid "All done!"
+msgstr ""
+
+#: templates/js/admin.tmpl.php:9
+#. translators: {{ data.current }} - current product count, {{ data.total }} -
+#. total product count (eg. 2 of 168 products updated)
+msgid "{{ data.current }} of {{ data.total }} products updated."
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.woocommerce.com/products/woocommerce-tab-manager/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "A product tab manager for WooCommerce"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "SkyVerge"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://www.woocommerce.com"
+msgstr ""
+
+#: class-wc-tab-manager.php:303
+msgctxt "Admin menu name"
+msgid "Tab Manager"
+msgstr ""
+
+#: includes/class-wc-tab-manager-settings.php:63
+msgctxt "Custom WooCommerce settings section"
+msgid "Tab Manager"
+msgstr ""

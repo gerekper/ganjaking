@@ -1,0 +1,119 @@
+*** WooCommerce Anti Fraud ***
+
+2020-05-25 version 2.7.2
+* PLUGINS-124 - Fixed verify fraud email or generated email
+* PLUGINS-339 - version check and alternative strategy for WC 4.0
+
+2020-02-14 version 2.7.1
+* PLUGINS-258 - Fixed automatic blacklist of email
+
+2019-12-28 version 2.7
+*Fixed the paypal verify email issue. 
+
+2019-11-06 version 2.6
+* fixed the issue in rule ip geolocation check getting error usage_limit_reached.
+
+2019-10-21 version 2.5
+* Added feature customer cannot place an order from blacklisted email.
+
+2019-10-15 version 2.4
+* Added option to send score notification via email to multiple emails.
+* Added option for first order check for processing order.
+* fixed proxy detect issue.
+* fixed international order issue.
+* Fixed score calculations Issue when risk score more then 100.
+* Fixed Geo location issue.
+
+2019-08-20 version 2.3
+* New Feature Added — User can update verification email content.
+* Added option HTML <br> tag for message formating.
+
+2019-08-05 version 2.2
+* Fix international order issue
+
+2019-06-18 version 2.1
+* Fix Proxy Check issue
+
+2019-05-29 - version 2.0
+* Major release that adds many new features.
+* Add Rule Weight.
+* Add Rule enable & disabled check.
+* Add Email blacklist.
+* Add Paypal Address Verification
+  
+2019-04-30 - version 1.0.20
+* Fix - ipstack Api upgrade.
+
+2019-04-17 - version 1.0.19
+* Fix - further adjustment to On Hold issue with Cheque payments.
+
+2019-03-04 - version 1.0.18
+* Fix - Bug Order status changes from On Hold to Processing after the fraud check completes on Cheque payment.
+
+2018-11-14 - version 1.0.17
+* Fix - Bug causing all orders to be set to On Hold.
+
+2018-09-25 - version 1.0.16
+* Fix    - Manually created orders should be set to `Processing` status after fraud check.
+* Fix    - Usage of deprecated Geo IP API.
+* Fix    - Only compare billing and shipping details if there is a shipping address set.
+* Update - WC 3.5 compatibility.
+
+2018-05-23 - version 1.0.15
+* Update - Privacy policy notification.
+* Update - Export/erasure hooks added.
+* Update - WC 3.4 compatibility.
+
+2017-12-12 - version 1.0.14
+* Update - WC tested up to version.
+
+2017-12-05 - version 1.0.13
+* Fix - Disabling email notification had no affect.
+* Fix - On-hold and Cancelled were incorrectly set.
+
+2017-07-05 - version 1.0.12
+* Fix - Blank order sreen when order completed.
+
+2017-06-13 - version 1.0.11
+* Fix - Order status should not change to processing for cancelled orders.
+
+2017-06-01 - version 1.0.10
+* Fix - Additional updates for WC 3.0 compatibility.
+
+2017-05-31 - version 1.0.9
+* Fix - Rules not being triggered.
+* Fix - Additional updates for WC 3.0 compatibility.
+
+2017-04-03 - version 1.0.8
+* Fix - Update for WC 3.0 compatibility.
+
+2016-11-24 - version 1.0.7
+* Fix - When scores become negative number, cancel and on-hold is not disabled.
+* Fix - Ensure get ip address is checking for proxies.
+
+2016-10-28 - version 1.0.6
+* Fix - Use order number instead of id as 3rd party plugins adds their own filters.
+
+2016-07-21 - version 1.0.5
+* Fix - Setting 0 to disable order status change was not working.
+
+2016-03-31 - version 1.0.4
+* Fix - Help text specification should be equal to or greater than
+
+2015-08-18 - version 1.0.3
+* Remove order status tweaking since it was causing twice completed.
+
+2015-07-31 - version 1.0.2
+* Replaced call to deprecated get_billing_address with get_formatted_billing_address
+* Replaced call to deprecated get_shipping_address with get_formatted_shipping_address
+* Fixed fatal error when viewing orders in wp-admin with proxy rule violations
+* Use order IP, not server IP, when comparing orders for same ip, multiple details rule
+* Replaced call to deprecated get_billing_address with get_formatted_billing_address
+* Replaced call to deprecated get_shipping_address with get_formatted_shipping_address
+* Fixed fatal error when generating fraud notification emails for WC 2.3+
+
+2014-10-14 - version 1.0.1
+* Registered waiting post status in wc_order_statuses.
+
+2014-09-11 - version 1.0
+* First Release

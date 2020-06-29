@@ -1,0 +1,301 @@
+
+/* Visual Composer Grid */
+.no-padding,
+.vc_row-no-padding {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+.row.no-padding,
+.vc_row.no-padding > .container > .row {
+    margin-left: 0;
+    margin-right: 0;
+    > .vc_column_container {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+.vc_row {
+    &.wpb_row {
+        margin-bottom: 0;
+
+        &.vc_row-no-padding > .vc_column_container {
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
+    &.section-with-divider {
+        overflow: visible;
+    }
+    &:not(.row) {
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+.wpb_single_image.vc_align_right {
+    text-align: $right;
+}
+.wpb_single_image.vc_align_left {
+    text-align: $left;
+}
+body {
+    .row {
+        &.vc_column-gap-1{
+            margin-left: -0.5px;
+            margin-right: -0.5px;
+            > .vc_column_container {
+                padding: .5px;
+            }
+        }
+        &.vc_column-gap-2{
+            margin-left: -1px;
+            margin-right: -1px;
+            > .vc_column_container {
+                padding: 1px;
+            }
+        }
+        &.vc_column-gap-3{
+            margin-left: -1.5px;
+            margin-right: -1.5px;
+            > .vc_column_container {
+                padding: 1.5px;
+            }
+        }
+        &.vc_column-gap-4{
+            margin-left: -2px;
+            margin-right: -2px;
+            > .vc_column_container {
+                padding: 2px;
+            }
+        }
+        &.vc_column-gap-5{
+            margin-left: -2.5px;
+            margin-right: -2.5px;
+            > .vc_column_container {
+                padding: 2.5px;
+            }
+        }
+        &.vc_column-gap-10{
+            margin-left: -5px;
+            margin-right: -5px;
+            > .vc_column_container {
+                padding: 5px;
+            }
+        }
+        &.vc_column-gap-15{
+            margin-left: -7.5px;
+            margin-right: -7.5px;
+            > .vc_column_container {
+                padding: 7.5px;
+            }
+        }
+        &.vc_column-gap-20{
+            margin-left: -10px;
+            margin-right: -10px;
+            > .vc_column_container {
+                padding: 10px;
+            }
+        }
+        &.vc_column-gap-25{
+            margin-left: -12.5px;
+            margin-right: -12.5px;
+            > .vc_column_container {
+                padding: 12.5px;
+            }
+        }
+        &.vc_column-gap-30{
+            margin-left: -15px;
+            margin-right: -15px;
+            > .vc_column_container {
+                padding: 15px;
+            }
+        }
+        &.vc_column-gap-35{
+            margin-left: -17.5px;
+            margin-right: -17.5px;
+            > .vc_column_container {
+                padding: 17.5px;
+            }
+        }
+    }
+}
+
+
+.vc_row {
+    .vc_column_container > .wpb_wrapper.vc_column-inner {
+        padding: 0;
+    }
+}
+
+/* Visual Composer Buttons */
+.btn-inverse {
+    @include button-variant(#fff, #333, #2d2d2d);
+}
+
+.btn {
+    margin: 0;
+}
+.btn-block {
+    padding-right: 0;
+    padding-left: 0;
+}
+.vc_btn3.vc_btn3-size-md {
+    border-radius: 4px;
+}
+
+.btn,
+.btn-group-md > .btn,
+.vc_btn3.vc_btn3-size-md {
+    padding: 0.533rem 0.933rem;
+    font-size: 0.8rem;
+    line-height: 1.42857;
+}
+
+.btn-xl,
+.vc_btn3.vc_btn3-size-xl {
+    font-size: 1rem;
+    padding: 0.8rem 2rem;
+}
+
+.btn-lg,
+.btn-group-lg > .btn,
+.vc_btn3.vc_btn3-size-lg,
+.cart-actions .button,
+.checkout-button,
+#place_order,
+input.submit.btn-lg, input.btn.btn-lg[type="submit"], input.button.btn-lg[type="submit"] {
+    padding: 0.5rem 0.875rem;
+    font-size: 0.875rem;
+    line-height: 1.3333;
+}
+
+.btn-sm,
+.btn-group-sm > .btn,
+.vc_btn3.vc_btn3-size-sm {
+    padding: 0.3rem 0.65rem;
+    font-size: 0.75rem;
+    line-height: 1.5;
+}
+
+.btn-xs,
+.btn-group-xs > .btn
+.vc_btn3.vc_btn3-size-xs {
+    padding: 0.2rem 0.5rem;
+    font-size: 0.7rem;
+    line-height: 1.5;
+}
+
+@import "buttons";
+
+.label {
+    display: inline;
+    padding: 0.2em 0.6em 0.3em;
+    font-size: 75%;
+    font-weight: bold;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 3px;
+}
+
+/* Visual Composer Alert */
+body {
+    .wpb_alert {
+        padding: 15px;
+        .messagebox_text {
+            background-image: none;
+            padding-#{$left}: 0;
+        }
+    }
+    .vc_message_box-icon > * {
+        transform: translate(-50%, -50%);
+    }
+}
+.vc_message_box .alert-link {
+    font-weight: bold;
+}
+
+/* Visual Composer Slider */
+body {
+    .wpb_gallery .wpb_flexslider .flex-control-nav {
+        bottom: -50px;
+    }
+}
+
+/* Visual Composer Flickr */
+.wpb_content_element {
+    &.wpb_flickr_widget {
+        margin-bottom: 15px;
+    }
+}
+
+/* Visual Composer Others */
+.overlay-show {
+    margin-bottom: 30px;
+}
+
+.tab-pane,
+.card-body {
+    > *:last-child {
+        margin-bottom: 0;
+    }
+}
+
+/* Ultimate Addon Others */
+.upb_row_bg {
+    min-height: 0 !important;
+}
+
+.video-cover {
+    overflow: hidden !important;
+    .upb_video-bg {
+        left: 0 !important;
+    }
+    .upb_video-src {
+        position: absolute;
+        left: 49% !important;
+        top: 49% !important;
+        transform: translate(-49%, -50%);
+
+    }
+}
+
+.upb_bg_overlay,
+.upb_bg_overlay_pattern {
+    -webkit-backface-visibility: hidden;
+    -webkit-transform: translate3d(0px, 0px, 0px);
+}
+
+/* Google Map */
+.map_info_text {
+    p {
+        margin-bottom: 10px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+/* Nivo Slider */
+.wpb_gallery .theme-default {
+    .nivoSlider {
+        box-shadow: none;
+    }
+    .nivo-controlNav {
+        padding-top: 20px;
+    }
+}
+.wpb_gallery {
+    &.nav-right {
+        .nivo-controlNav {
+            float: $right;
+        }
+    }
+    &.nav-left {
+        .nivo-controlNav {
+            float: $left;
+        }
+    }
+}

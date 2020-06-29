@@ -1,0 +1,172 @@
+*** WooCommerce Account Funds ***
+
+2020-06-09 - version 2.2.1
+* Tweak - Tested compatibility with WC 4.2.
+
+2020-04-22 - version 2.2.0
+* Tweak - Added responsive styles to the 'Recent deposits' table on the 'My Account' page.
+* Tweak - Check the minimum requirements are satisfied before initializing the extension.
+* Tweak - Added link to the extension settings on the plugins page.
+* Tweak - Updated plugin row metas.
+* Tweak - Enqueue minified scripts.
+* Fix - Enqueue the checkout scripts on the checkout page only.
+* Update - WC 4.1 compatibility.
+* Dev - Optimized code for handling the 'Account Funds' on the 'My Account' page.
+* Dev - Updated `myaccount/` templates.
+* Dev - Added new constants for defining the basename, path, and URL of the extension.
+* Dev - Optimized plugin initialization.
+
+2020-03-30 - version 2.1.21
+* Update - WC 4.0 compatibility.
+* Update - WP 5.4 compatibility.
+
+2020-01-08 - version 2.1.20
+* Update - WC 3.9 compatibility.
+
+2019-10-31 - version 2.1.19
+* Fix - Fixed incompatibility with the extension "Dynamic pricing" which made the account funds discount was applied twice.
+* Update - WC 3.8 compatibility.
+* Update - WP 5.3 compatibility.
+
+2019-09-02 - version 2.1.18
+* Fix - Fixed error when checking if the 'Account Funds' gateway is available during a REST API request.
+
+2019-08-06 - version 2.1.17
+* Tweak - Directly mark as completed the orders with only top-up/deposit products.
+* Update - WC 3.7 compatibility.
+* Update - WP 5.2 compatibility.
+
+2019-04-09 - version 2.1.16
+* Fix - Fixed issue fetching the created date of the orders in the deposits report.
+* Update - WC 3.6 compatibility.
+
+2019-01-09 - version 2.1.15
+* Fix - Include the 'Account Funds' gateway in the list of available payment methods in the subscription renewals.
+* Fix - Remove funds from the user account after paying for a failed subscription renewal.
+
+2018-12-14 - version 2.1.14
+* Fix - Don't add the funds used to the order total when checking the PayPal IPNs.
+
+2018-11-27 - version 2.1.13
+* Fix - Check the 'WC_Cart' instance is initialized before use it.
+* Fix - Fixed 'text domain' for some translatable strings.
+
+2018-09-25 - version 2.1.12
+* Tweak  - Hide Account Funds payment gateway when there are not enough funds.
+* Update - WC 3.5 compatibility.
+
+2018-05-23 - version 2.1.11
+* Update - Privacy policy notification.
+* Update - Export/erasure hooks added.
+* Update - WC 3.4 compatibility.
+* Tweak  - Add filters for add/remove funds, `woocommerce_account_funds_add_funds` and `woocommerce_account_funds_remove_funds` respectively.
+
+2018-01-30 - version 2.1.10
+* Fix - Order page edits affect order total.
+
+2017-12-12 - version 2.1.9
+* Update - WC tested up to version.
+
+2017-12-12 - version 2.1.8
+* Fix - Apply correct discount calculation when account funds are used.
+
+2017-09-29 - version 2.1.7
+* Fix - WC 3.1 error notices.
+* Fix - Widget should redirect to My Account > Account Funds.
+* Fix - Display funds used in order items section of edit order screen.
+* Fix - Issue where failed renewal payment doesn't set the renewal order to failed.
+
+2017-06-22 - version 2.1.6
+* Fix - Refund on a top-up order doesn't remove the Account Funds.
+* Fix - When coupon discount is used incorrect total is added to funds.
+
+2017-04-26 - version 2.1.5
+* Fix - Issue where product type deposit reverted to simple product upon saving.
+
+2017-04-17 - version 2.1.4
+* Fix - Error when opening admin page of coupons.
+* Tweak - Add new email settings and templates when funds are increased via admin page.
+
+2017-04-12 - version 2.1.3
+* Fix - Unable to add funds via top-up when using WooCommerce 3.0.
+* Fix - Amount funded in recent deposits display zero.
+* Fix - Error in my account funds page.
+* Fix - Added migration routine to store top-up related information in order item meta.
+
+2017-04-03 - version 2.1.2
+* Fix - When partially paying with a gateway, the full amount is passed instead of remaining amount.
+* Fix - Subscriptions recurring payments applied but status not set to active after payment.
+* Fix - Update for WC 3.0 compatibility.
+
+2016-12-28 - version 2.1.1
+* Fix - Use subtotal for adding the funds from topup amount. Otherwise it'd incorrect when coupons are applied in the order.
+
+2016-11-10 - version 2.1.0
+* New - Change with how the checkout flow logic works. User may apply account funds if less than order total and if more user must use it like a normal gateway.
+* Fix - When partially paying with a gateway, the full amount is passed instead of remaining amount.
+* Fix - Checkout gateway selection does not work if additional payment gateways are active.
+* Fix - Subscriptions recurring payments applied but status not set to active after payment.
+* Fix - PayPal double account funds applied.
+* Fix - Stripe Partial account funds not applied on the gateway side.
+
+2016-07-15 - version 2.0.15
+* Fix - Revert applied tax to top-up product that's added in 2.0.14
+* Tweak - Provide filter `woocommerce_account_funds_topup_get_tax_status` to change the tax status of top-up product
+
+2016-07-05 - version 2.0.14
+* Fix - Double navigation displayed under Account Funds of My Account page
+* Fix - Tax was not respected when adding the funds via top-up.
+
+2016-06-09 - version 2.0.13
+* Fix - Partial payments with Sage Pay Form now sending correct amount.
+
+2016-05-31 - version 2.0.12
+* Tweak - New UI in my account, with menu and breadcrumb, when WooCommerce 2.6 is being used
+* Fix - Issue where calculation for partial payments with multiple quantities was incorrect
+* Fix - Issue where topup funds were not getting added into user funds
+
+2016-03-07 - version 2.0.11
+* Fix - Account funds not applied to Paypal Standard items.
+
+2016-02-05 - version 2.0.10
+* Fix - Deprecated notices that causes header already sent errors.
+* Fix - Partial funds was not working correctly.
+
+2016-01-21 - version 2.0.9
+* Fix - Added update routine to fix incorrect order total on existing renewal orders.
+
+2016-01-11 - version 2.0.8
+* Fix - Incorrect order total on subscription renewal.
+
+2015-12-21 - version 2.0.7
+* Fix - Rounding error.
+
+2015-12-17 - version 2.0.6
+* Feature - Allow deposits to have a sale price.
+* Tweak - Show min/max topup amount info to customer if Minimum/Maximum Top-up is set.
+* Fix - Fatal error when using PHP7.
+* Fix - Make top-up product virtual.
+* Fix - Account page errors.
+
+2015-11-11 - version 2.0.5
+* Fix - Error when subscription renewal happened in the backend.
+
+2015-08-18 - version 2.0.4
+* Fix - Error on account page.
+
+2015-04-21 - version 2.0.3
+* Fix - Potential XSS with add_query_arg/remove_query_arg.
+* Fix my account product display when no deposit products exist.
+
+2015-03-03 - version 2.0.2
+* Fix saving gateway options.
+
+2015-03-03 - version 2.0.1
+* Prevent case where meta is cleared.
+
+2015-02-01 - version 2.0.0
+* WC 2.3 compatibility.
+* Refactored entire plugin.
+* Send email to customer when manually increasing funds.
+* Allow partial fund payments.
+* Allow user-defined topups from the "my account" page.

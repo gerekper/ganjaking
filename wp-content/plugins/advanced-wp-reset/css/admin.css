@@ -1,0 +1,114 @@
+/*---------------------------------------------------------------------------------------------
+*  Global styles
+*---------------------------------------------------------------------------------------------*/
+html {
+    overflow-y: scroll; 
+}
+.DBR-margin-r-300 {
+	margin-top: 10px;
+	margin-right: 260px;
+}
+.DBR-float-left{
+	float: left;
+}
+.DBR-float-right{
+	float: right;
+}
+.DBR-button-reset{
+	width: 150px !important;
+	height: 40px !important;
+	text-align: center;
+}
+.DBR-jquery-dialog{
+	padding:20px;
+	display:none;
+}
+
+/*---------------------------------------------------------------------------------------------
+*  Tabs
+*---------------------------------------------------------------------------------------------*/
+.DBR-tab-box {
+    float: left;
+	width: 100%;
+}
+.DBR-tab-box-div {
+	min-height: 400px;
+	background: #fff;
+	border: 1px solid #ccc;
+	padding: 30px 20px 20px 20px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;	
+}
+
+/*---------------------------------------------------------------------------------------------
+*  Sidebar
+*---------------------------------------------------------------------------------------------*/
+.DBR-sidebar {
+	float: right;
+	border: 1px solid #ccc;
+	background: #fff;
+	margin-right: -260px;
+	width: 240px;
+    border-radius: 5px 5px 0 0;
+    -moz-border-radius: 5px 5px 0 0;
+    -webkit-border-radius: 5px 5px 0 0;
+}
+.DBR-sidebar  > div{
+	padding: 15px;
+}
+.DBR-sidebar  h2{
+	font-size: 16px;
+	text-align: center;
+	color: #888;
+	line-height: 24px;
+}
+.DBR-donation-text{
+	text-align:center;
+	color: #555
+}
+.DBR-donation-gif{
+	background: url("../images/donate.gif") no-repeat;
+	width: 92px;
+	height: 26px;
+	margin: auto;
+}
+.DBR-grey-row{
+	height: 20px;
+	background-color: #fff;
+}
+.DBR-white-row{
+	height: 20px;
+	background-color: #fff;
+}
+.DBR-row-text{
+	font-size: 13px;
+	color: #555;
+}
+.DBR-sidebar-link{
+	text-decoration: none;
+}
+.DBR-support-us{
+	background: url("../images/rate.png") no-repeat center right;
+	width: 88px;
+	height: 18px;
+	margin-top: 0px;
+}
+
+/*---------------------------------------------------------------------------------------------
+*  Box messages
+*---------------------------------------------------------------------------------------------*/
+.DBR-box-warning {
+    background: #fff5cc url("../images/warning.png") no-repeat scroll 8px 50%;
+    border-bottom: 1px dashed orange;
+    color: #404040;
+    padding: 10px 10px 10px 40px;
+	margin-bottom: 20px;
+}
+.DBR-box-info {
+    background: #f0f5fa url("../images/info.png") no-repeat scroll 8px 50%;
+    border-bottom: 1px dashed #ccc;
+    color: #404040;
+    padding: 10px 10px 10px 40px;
+	margin-bottom: 20px;
+}

@@ -1,0 +1,28 @@
+.event_ticket_page_ticket_tools {
+	.ticket-tools-hr {
+		margin: 30px 0;
+	}
+
+	.ticket-product-select {
+		width: 100%;
+	}
+
+	.ticket-product-field-select {
+		width: 100%;
+	}
+
+	#ticket-email-advanced-toggle {
+		cursor: pointer;
+	}
+
+	#ticket-email-advanced-options {
+		opacity: 0.3;
+	}
+
+	#email-preview-container {
+		display: none;
+		border: 1px solid #E5E5E5;
+		padding: 5px 10px;
+		background: #FFF;
+	}
+}

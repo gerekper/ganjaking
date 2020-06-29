@@ -1,0 +1,78 @@
+/*********************
+ * Ribbon
+ *********************/
+.label-wrap.wapl-diagonal-bar {
+	top: 0;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	overflow: hidden;
+}
+.wapl-diagonal-bar .product-label {
+	overflow: hidden;
+	white-space: nowrap;
+	position: absolute;
+	left: -60px;
+	top: 20px;
+	width: 200px;
+	color: #FFF;
+	text-align: center;
+	padding: 3px;
+	-webkit-transform: rotate(-42deg);
+	-moz-transform: rotate(-42deg);
+	-ms-transform: rotate(-42deg);
+	-o-transform: rotate(-42deg);
+	transform: rotate(-42deg);
+}
+.wapl-diagonal-bar .label-product[href]:hover,
+.wapl-diagonal-bar .label-product[href]:focus {
+	color: #FFF;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+/* Ribbon align */
+.wapl-diagonal-bar.wapl-alignright .product-label {
+	float: right;
+	right: -60px;
+	left: inherit;
+	top: 20px;
+	-webkit-transform: rotate(42deg);
+	-moz-transform: rotate(42deg);
+	-ms-transform: rotate(42deg);
+	-o-transform: rotate(42deg);
+	transform: rotate(42deg);
+}
+.label-wrap.wapl-diagonal-bar.wapl-alignleft .product-label {
+	float: left;
+	left: -60px;
+	top: 20px;
+}
+
+/* Ribbon colors */
+.wapl-diagonal-bar .label-red {
+	background-color: #e74c3c;
+}
+.wapl-diagonal-bar .label-blue {
+	background-color: #3498db;
+}
+.wapl-diagonal-bar .label-green {
+	background-color: #39A539;
+}
+.wapl-diagonal-bar .label-yellow {
+	background-color: #ffe312;
+	color: #444;
+}
+.wapl-diagonal-bar .label-orange {
+	background-color: #ffA608;
+}
+.wapl-diagonal-bar .label-gray {
+	background-color: #999;
+}
+.wapl-diagonal-bar .label-black {
+	background-color: #444;
+}
+.wapl-diagonal-bar .label-white {
+	background-color: white;
+	color: #444;
+}

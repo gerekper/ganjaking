@@ -1,0 +1,52 @@
+.ywsl-social {
+    text-decoration: none;
+    display: inline-block;
+    margin-right: 2px;
+    margin-bottom: 5px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.ywsl-box {
+    display: none;
+}
+
+/*my account*/
+td.sl-provider {
+    text-align: center;
+    /*width: 10%;*/
+}
+
+td.sl-username {
+    text-align: left;
+    /*width: 60%;*/
+}
+
+td.sl-unlink {
+    text-align: right;
+    /*width: 30%;*/
+}
+
+.sl-username span {
+    margin-right: 10px;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
+}
+
+.sl-unlink form {
+    margin: 0;
+    float: right;
+}
+
+.my_account_social td {
+    border: 0;
+    vertical-align: middle;
+}
+
+.my_account_social .social_unlink .button {
+    text-transform: none;
+}

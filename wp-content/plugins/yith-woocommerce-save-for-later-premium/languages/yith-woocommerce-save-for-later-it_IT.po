@@ -1,0 +1,231 @@
+# Translation of YITH WooCommerce Save for Later in Italian
+# This file is distributed under the same license as the YITH WooCommerce Save for Later package.
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH WooCommerce Save for Later\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
+"save-for-later-premium\n"
+"POT-Creation-Date: 2020-05-22 12:53:43+00:00\n"
+"PO-Revision-Date: 2020-05-08 14:42:55+0000\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/2.3.1\n"
+
+#: includes/class.yith-wsfl-install.php:123 includes/class.yith-wsfl.php:738
+#: includes/class.yith-wsfl.php:945 includes/functions.yith-wsfl.php:78
+msgid "Save for later"
+msgstr "Salva per dopo"
+
+#: includes/class.yith-wsfl-premium.php:103
+msgid "Product Settings"
+msgstr "Impostazioni prodotto"
+
+#: includes/class.yith-wsfl-premium.php:196
+msgid "View List"
+msgstr "Visualizza Lista"
+
+#: includes/class.yith-wsfl-shortcode.php:19
+#: includes/functions.yith-wsfl.php:83
+msgid "Saved for later "
+msgstr "Salvati per dopo"
+
+#: includes/class.yith-wsfl.php:569 includes/class.yith-wsfl.php:852
+#: plugin-options/general-options.php:21 plugin-options/general-options.php:22
+#: plugin-options/general-options.php:30
+#: plugin-options/single-product-options.php:24
+msgid "Save for Later"
+msgstr "Salva per dopo"
+
+#: includes/class.yith-wsfl.php:641
+msgid ""
+"We are sorry, but this feature is available only if cookies are enabled in "
+"your browser."
+msgstr ""
+"Ci dispiace, questa funzionalità è disponibile solo se i cookie nel tuo "
+"browser sono attivati."
+
+#: includes/class.yith-wsfl.php:642
+msgid "Product correctly added to cart"
+msgstr "Prodotto aggiunto correttamente al carrello"
+
+#: includes/class.yith-wsfl.php:730
+msgid "Settings"
+msgstr "Impostazioni"
+
+#: includes/class.yith-wsfl.php:731
+msgid "Premium Version"
+msgstr "Versione Premium"
+
+#: includes/class.yith-wsfl.php:911
+msgid "Products in list"
+msgstr "Prodotti in lista"
+
+#: includes/class.yith-wsfl.php:919
+msgid "Save For Later"
+msgstr "Salva per dopo"
+
+#: includes/class.yith-wsfl.php:989
+msgid "Item removed from Save For Later list"
+msgid_plural "Items removed from Save For Later list"
+msgstr[0] "Prodotto eliminato dalla lista Salva per dopo"
+msgstr[1] "Prodotti eliminati dalla lista Salva per dopo"
+
+#: includes/functions.yith-wsfl.php:74
+msgid "Save for later list"
+msgstr "Lista Salva per dopo"
+
+#: includes/functions.yith-wsfl.php:75
+msgid "Show the save for later list in the page"
+msgstr "Mostra la lista Salva per dopo nella pagina"
+
+#: includes/functions.yith-wsfl.php:82
+msgid "Title"
+msgstr "Titolo"
+
+#: includes/functions.yith-wsfl.php:127
+msgid "Product added on save for later list"
+msgstr "Prodotto aggiunto in Salva per dopo"
+
+#: includes/functions.yith-wsfl.php:128
+msgid "Product deleted from Save for later"
+msgstr "Prodotto eliminato da Salva per dopo"
+
+#: includes/functions.yith-wsfl.php:129
+msgid "Cannot add the product in save for later list"
+msgstr "Impossibile aggiungere il prodotto alla lista Salva per dopo"
+
+#: includes/functions.yith-wsfl.php:130
+msgid "Product already in Save for later"
+msgstr "Prodotto già in Salva per dopo"
+
+#: init.php:41
+msgid ""
+"YITH WooCommerce Save for Later Premium is enabled but not effective. It "
+"requires WooCommerce in order to work."
+msgstr ""
+"YITH WooCommerce Save for Later Premium è attivo ma non operativo. Il suo "
+"funzionamento richiede WooCommerce."
+
+#: plugin-options/general-options.php:13
+msgid "General Settings"
+msgstr "Impostazioni Generali"
+
+#: plugin-options/general-options.php:19
+msgid "\"Save for Later\" text"
+msgstr "Testo \"Salva per dopo\""
+
+#: plugin-options/general-options.php:24
+msgid "You can set the text for your \"Save for Later\" link"
+msgstr "Puoi impostare il testo per il tuo link \"Salva per dopo\""
+
+#: plugin-options/general-options.php:28
+msgid "Save for Later page"
+msgstr "Pagina Salva per dopo"
+
+#: plugin-options/general-options.php:32
+msgid ""
+"This page contains the [yith_wsfl_saveforlater] shortcode.<br> You can use "
+"this shortcode in other pages!."
+msgstr ""
+"Questa pagina contiene lo shortcode  [yith_wsfl_saveforlater]. <br> Puoi "
+"usare questo shortcode in altre pagine!"
+
+#: plugin-options/general-options.php:38
+msgid "Show \"Add to Wishlist\""
+msgstr "Mostra \"Aggiungi alla lista dei desideri\""
+
+#: plugin-options/general-options.php:42
+msgid ""
+"If YITH WooCommerce Wishlist is installed, you can display the \"Add to "
+"Wishlist\" link in your \"Save for Later\" list"
+msgstr ""
+"Se hai installato YITH WooCommerce Wishlist, è possibile visualizzare il "
+"link \"Aggiungi alla lista dei desideri\" nella tua lista \"Salva per dopo\""
+
+#: plugin-options/single-product-options.php:9
+msgid "Single Product Settings"
+msgstr "Impostazioni singolo prodotto "
+
+#: plugin-options/single-product-options.php:14
+msgid "Show Save For Later button on single product page"
+msgstr "Mostra il pulsante Salva per dopo nella pagina del singolo prodotto"
+
+#: plugin-options/single-product-options.php:18
+msgid "If checked, the button shows on single product page"
+msgstr ""
+"Se selezionato, il pulsante viene mostrato sulla pagina del singolo prodotto"
+
+#: plugin-options/single-product-options.php:22
+msgid "Add button text"
+msgstr "Testo pulsante"
+
+#: plugin-options/single-product-options.php:26
+msgid "Set the text for \"save for later\" button"
+msgstr "Imposta il testo per il pulsante \"Salva per dopo\""
+
+#: plugin-options/single-product-options.php:31
+msgid "Remove button text"
+msgstr "Testo pulsante Rimuovi"
+
+#: plugin-options/single-product-options.php:33
+msgid "Remove from list"
+msgstr "Rimuovi dalla lista"
+
+#: plugin-options/single-product-options.php:34
+msgid "Button text to remove product from the list"
+msgstr "Testo del pulsante per rimuovere il prodotto dalla lista"
+
+#: templates/saveforlater-view.php:11
+msgid "1 Product"
+msgid_plural "%s Products"
+msgstr[0] "1 prodotto"
+msgstr[1] "%s prodotti"
+
+#: templates/saveforlater-view.php:30 templates/saveforlater-view.php:86
+msgid "Product"
+msgstr "Prodotto"
+
+#: templates/saveforlater-view.php:31 templates/saveforlater-view.php:124
+msgid "Price"
+msgstr "Prezzo"
+
+#: templates/saveforlater-view.php:130
+msgid "Free!"
+msgstr "Gratis!"
+
+#: templates/saveforlater-view.php:192
+msgid "No Products in save list"
+msgstr "Nessun prodotto nella lista salvati"
+
+#. Description of the plugin/theme
+msgid ""
+"<code><strong>YITH WooCommerce Save for Later Premium</strong></code> allows "
+"your customers to add products to a save-list in the cart page just like "
+"Amazon. <a href =\"https://yithemes.com\">Get more plugins for your e-"
+"commerce shop on <strong>YITH</strong></a>"
+msgstr ""
+"<code><strong>YITH WooCommerce Save for Later Premium</strong></code> "
+"permette ai tuoi clienti di aggiungere e salvare i prodotti in una lista "
+"nella pagina carrello proprio come su Amazon. <a href =\"https://yithemes.com"
+"\">Scopri più plugin per il tuo e-commerce su <strong>YITH</strong></a>"
+
+#: includes/class.yith-wsfl-install.php:122
+msgctxt "page_slug"
+msgid "saveforlater"
+msgstr "saveforlater"
+
+#~ msgid "https://yithemes.com/"
+#~ msgstr "https://yithemes.com/"
+
+#~ msgid "YITH"
+#~ msgstr "YITH "
+
+#~ msgid "https://yithemes.com/themes/plugins/yith-woocommerce-save-for-later/"
+#~ msgstr ""
+#~ "https://yithemes.com/themes/plugins/yith-woocommerce-save-for-later/"
+
+#~ msgid "YITH WooCommerce Save for Later Premium"
+#~ msgstr "YITH WooCommerce Save for Later Premium"

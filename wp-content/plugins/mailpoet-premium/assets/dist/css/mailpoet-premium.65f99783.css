@@ -1,0 +1,11 @@
+.mailpoet_purchased_product_list { display: flex; flex-direction: row; flex-wrap: wrap; margin: 0 -12px; }
+
+.mailpoet_purchased_product_list .mailpoet_purchased_product { align-items: center; background-color: white; border: 1px solid #dedede; box-sizing: border-box; display: flex; flex-direction: column; margin: 15px 12px 0 12px; padding: 15px; width: calc(25% - 24px); /* 4 in a row minus margin width */ }
+
+.mailpoet_purchased_product_list .mailpoet_purchased_product h4 { font-size: 14.4px; font-weight: 600; line-height: 20.16px; margin: 15px 0; text-align: center; }
+
+.mailpoet_purchased_product_list .mailpoet_purchased_product p { font-size: 13px; line-height: 1.5; margin: 0; text-align: center; }
+
+.mailpoet_purchased_product_list .mailpoet_purchased_product img { max-height: 150px; max-width: 150px; }
+
+@media screen and (max-width: 520px) { .mailpoet_purchased_product_list .mailpoet_purchased_product { width: calc(50% - 24px); } }

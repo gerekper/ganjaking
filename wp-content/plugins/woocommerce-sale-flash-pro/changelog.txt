@@ -1,0 +1,68 @@
+*** Sale Flash Pro Changelog ***
+
+2020-04-30 - version 1.2.16
+* Tweak - Remove legacy code.
+* Tweak - WC 4.1 compatibility.
+
+2020-03-06 - version 1.2.15
+* Tweak - WC 4.0 compatibility.
+
+2020-01-14 - version 1.2.14
+* Tweak - WC 3.9 compatibility.
+
+2019-11-04 - version 1.2.13
+* Tweak - WC 3.8 compatibility.
+
+2019-08-12 - version 1.2.12
+* Tweak - Minor fixes.
+
+2019-08-08 - version 1.2.11
+* Tweak - WC 3.7 compatibility.
+
+2019-04-16 - version 1.2.10
+* Tweak - WC 3.6 compatibility.
+
+2018-09-25 - version 1.2.9
+* Update - WC 3.5 compatibility.
+
+2018-05-21 - version 1.2.8
+* Update - WC 3.4 compatibility.
+
+2017-12-14 - version 1.2.7
+* Update - WC tested up to version.
+
+2017-04-03 - version 1.2.6
+* Fix - Update for WooCommerce 3.0 compatibility
+
+2016-04-04 - version 1.2.5
+* Fix - Allow plugin to be translated properly by third party plugin
+
+2014-03-17 - version 1.2.4
+* Save hook correction
+
+2014-03-10 - version 1.2.3
+* Fix settings saving in 2.1
+
+2013-01-09 - version 1.2.2
+* Only affect prices on frontend
+
+2012-12-04 - version 1.2.1
+* New updater
+
+2012-05-08 - version 1.2
+* Option to hide sales flash per product
+* Updated Woo includes
+
+2011-02-23 - version 1.1
+* Updated class names to 1.4 standard
+* Sale flash for group/variations (optional)
+
+2011-12-11 - version 1.0.2
+* Option to show original price
+* Added Woo Updater
+
+2011-11-15 - version 1.0.1
+* Changed textdomain
+
+2011-09-27 - version 1.0
+* First Release

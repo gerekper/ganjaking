@@ -1,0 +1,164 @@
+.ylc-icons {
+    font-size: 24px;
+    display: inline-block;
+}
+
+@font-face {
+    font-family: 'fontello';
+    src: url('../fonts/fontello.eot?46136497');
+    src: url('../fonts/fontello.eot?46136497#iefix') format('embedded-opentype'),
+    url('../fonts/fontello.woff2?46136497') format('woff2'),
+    url('../fonts/fontello.woff?46136497') format('woff'),
+    url('../fonts/fontello.ttf?46136497') format('truetype'),
+    url('../fonts/fontello.svg?46136497#fontello') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+    @font-face {
+        font-family: 'fontello';
+        src: url('../fonts/fontello.svg?46136497#fontello') format('svg');
+    }
+}
+
+[class^="ylc-icons-"]:before, [class*=" ylc-icons-"]:before {
+    font-family: "fontello";
+    font-style: normal;
+    font-weight: normal;
+    speak: none;
+    display: inline-block;
+    text-decoration: inherit;
+    width: 1em;
+    text-align: center;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.ylc-icons-unread:before {
+    content: '\e801';
+}
+
+.ylc-icons-read:before {
+    content: '\f2b7';
+}
+
+.ylc-icons-yes:before {
+    content: '\e803';
+}
+
+.ylc-icons-no:before {
+    content: '\e804';
+}
+
+.ylc-icons-save:before {
+    content: '\e80c';
+}
+
+.ylc-icons-close:before {
+    content: '\e80e';
+}
+
+.ylc-icons-good:before {
+    content: '\f164';
+    color: #008000;
+}
+
+.ylc-icons-bad:before {
+    content: '\f165';
+    color: #e54440;
+}
+
+.ylc-icons-user-name:before {
+    content: '\f2bd';
+}
+
+.ylc-icons-user-ip:before {
+    content: '\e810';
+}
+
+.ylc-icons-user-email:before {
+    content: '\f0e0';
+}
+
+.ylc-icons-user-page:before {
+    content: '\e80f';
+}
+
+.ylc-icons-user-time:before {
+    content: '\e811';
+}
+
+.ylc-icons-onoff:before {
+    content: '\e80b';
+}
+
+.ylc-icons-status:before {
+    content: '\e805';
+}
+
+.ylc-icons-mobile:before {
+    content: '\f10b';
+}
+
+.ylc-icons-typing:before {
+    content: '\f27b';
+}
+
+.ylc-icons-error:before {
+    content: '\e800';
+}
+
+.ylc-icons-success:before {
+    content: '\e805';
+}
+
+.ylc-icons-chat:before {
+    content: '\e80d';
+}
+
+.ylc-icons-angle-up:before {
+    content: '\f106';
+}
+
+.ylc-icons-angle-down:before {
+    content: '\f107';
+}
+
+.ylc-icons-reply:before {
+    content: '\f112';
+}
+
+
+
+/* '' */
+.ylc-icons-help-circled:before {
+    content: '\e806';
+}
+/* '' */
+.ylc-icons-info-circled:before {
+    content: '\e807';
+}
+/* '' */
+.ylc-icons-attention-circled:before {
+    content: '\e808';
+}
+/* '' */
+.ylc-icons-trash-empty:before {
+    content: '\e809';
+}
+/* '' */
+.ylc-icons-cog:before {
+    content: '\e80a';
+}
+/* '' */
+.ylc-icons-chat-empty:before {
+    content: '\f0e6';
+}
+/* '' */
+.ylc-icons-trash:before {
+    content: '\f1f8';
+}

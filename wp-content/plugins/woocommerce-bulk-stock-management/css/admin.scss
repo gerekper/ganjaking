@@ -1,0 +1,31 @@
+#stock-management td {
+	vertical-align: middle;
+}
+#stock-management table.wp-list-table mark.yes {
+	font-weight: bold;
+	color: green;
+	background: transparent none;
+	line-height: 1;
+}
+#stock-management table.wp-list-table mark.no {
+	font-weight: bold;
+	color: #A44;
+	background: transparent none;
+	line-height: 1;
+}
+#stock-management .column-id {
+	width: 5em;
+}
+#stock-management .column-sku,
+#stock-management .column-manage_stock,
+#stock-management .column-stock_status,
+#stock-management .column-backorders,
+#stock-management .column-stock {
+	width: 9%;
+}
+#stock-management .column-stock {
+	padding-right: 16px;
+}
+#stock-management .column-stock input {
+	width: 100%;
+}

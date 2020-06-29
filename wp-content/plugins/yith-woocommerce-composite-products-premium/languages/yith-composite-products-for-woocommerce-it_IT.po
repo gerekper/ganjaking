@@ -1,0 +1,713 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: YIT WooCommerce Composite Products\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/init\n"
+"POT-Creation-Date: 2018-12-28 13:48:41+00:00\n"
+"PO-Revision-Date: 2019-01-29 17:49+0100\n"
+"Last-Translator: \n"
+"Language-Team: Yithemes <plugins@yithemes.com>\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2.1\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e;_n:1,2;__ngettext:1,2;"
+"__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;"
+"_nx_noop:4c,1,2\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SearchPath-0: ..\n"
+"X-Poedit-SearchPathExcluded-0: ../plugin-fw\n"
+
+#: includes/class.yith-wcp-admin.php:160 plugin-options/general-options.php:11
+msgid "General"
+msgstr "Generali"
+
+#: includes/class.yith-wcp-admin.php:167 includes/class.yith-wcp-admin.php:168
+msgctxt "yith plugin title"
+msgid "Composite products"
+msgstr "Composite products"
+
+#: includes/class.yith-wcp-admin.php:194
+msgid "Plugin Documentation"
+msgstr "Documentazione del Plugin"
+
+#: includes/class.yith-wcp-admin.php:198
+msgid "Support platform"
+msgstr "Piattaforma di supporto"
+
+#: includes/class.yith-wcp-admin.php:258
+msgid "Live demo"
+msgstr "Live demo"
+
+#: includes/class.yith-wcp-admin.php:282
+msgid "Plugin documentation"
+msgstr "Documentazione del plugin"
+
+#: includes/class.yith-wcp-admin.php:328
+msgctxt "dropdown admin edit title product type"
+msgid "Composite product"
+msgstr "Prodotto composito"
+
+#: includes/class.yith-wcp-admin.php:344
+msgid "Virtual"
+msgstr "Virtuale"
+
+#: includes/class.yith-wcp-admin.php:345
+msgid "Virtual products are intangible and are not shipped."
+msgstr ""
+"I prodotti virtuali sono intangibili e non vengono spediti.\n"
+"\v"
+
+#: includes/class.yith-wcp-admin.php:351
+msgid "Downloadable"
+msgstr "Scaricabile"
+
+#: includes/class.yith-wcp-admin.php:352
+msgid "Downloadable products give access to a file upon purchase."
+msgstr "I prodotti scaricabili danno accesso ad un file dopo l'acquisto."
+
+#: includes/class.yith-wcp-admin.php:358
+msgid "Per-Item Shipping"
+msgstr "Spedizione per articolo"
+
+#: includes/class.yith-wcp-admin.php:359
+msgid ""
+"If your Composite product consists of items that are assembled or packaged "
+"together, leave this box un-checked and define the shipping properties\n"
+"of the entire Composite below. If, however, the contents of the Composite "
+"product  are shipped individually, check this option to retain their\n"
+"original shipping weight and dimensions. <strong>Per-Item Shipping</strong> "
+"should also be checked if all composite items are virtual."
+msgstr ""
+"Se il tuo prodotto composito è costituito di articoli che saranno assemblati "
+"insieme o spediti in un unico pacco, lascia questa casellina vuota e "
+"definisci le proprietà per la spedizione\n"
+"dell'intero prodotto composito qui sotto. Se, invece, i vari elementi del "
+"prodotto composito saranno spediti individualmente, seleziona questa opzione "
+"per mantenere il peso e le dimensioni inserite. <strong>Spedizione per "
+"singolo articolo</strong> dovrebbe essere selezionato anche nel caso in cui "
+"tutti i componenti del prodotto siano virtuali."
+
+#: includes/class.yith-wcp-admin.php:367
+msgid "Per-Item Pricing"
+msgstr "Prezzo per singolo articolo"
+
+#: includes/class.yith-wcp-admin.php:368
+msgid ""
+"When <strong>Per-Item Pricing</strong> is checked, the Composite product "
+"will be priced according to the cost of its contents. In this case the "
+"regular price will be a fixed cost added to the total price"
+msgstr ""
+"Quando <strong>Prezzo per singolo articolo</strong> è selezionato, il prezzo "
+"del prodotto composito sarà calcolato in base al costo del suo contenuto. In "
+"questo caso, il prezzo di base sarà un costo fisso aggiunto al prezzo totale."
+
+#: includes/class.yith-wcp-admin.php:382
+#: templates/admin/yith-wcp-copy-components.php:82
+#: templates/admin/yith-wcp-copy-components.php:152
+#: templates/admin/yith-wcp-copy-components.php:153
+#: templates/admin/yith-wcp-edit-component-list-options.php:23
+msgid "Components"
+msgstr "Componenti"
+
+#: includes/class.yith-wcp-admin.php:383
+msgid "Dependecies"
+msgstr "Dipendenze"
+
+#: includes/class.yith-wcp-admin.php:825
+msgid "All variations"
+msgstr "Tutte le variazioni"
+
+#: includes/class.yith-wcp-admin.php:911
+msgctxt "admin action type"
+msgid "DO"
+msgstr "FA' SÌ CHE"
+
+#: includes/class.yith-wcp-admin.php:912
+msgctxt "admin action type"
+msgid "IF"
+msgstr "SE"
+
+#: includes/class.yith-wcp-admin.php:927
+msgctxt "admin selection type"
+msgid "No action"
+msgstr "Nessuna azione"
+
+#: includes/class.yith-wcp-admin.php:928
+msgctxt "admin selection type"
+msgid "No product is selected"
+msgstr "Nessun prodotto selezionato"
+
+#: includes/class.yith-wcp-admin.php:929
+msgctxt "admin selection type"
+msgid "Any product is selected"
+msgstr "È selezionato un qualsiasi prodotto"
+
+#: includes/class.yith-wcp-admin.php:930
+msgctxt "admin selection type"
+msgid "Selection is"
+msgstr "La selezione è"
+
+#: includes/class.yith-wcp-admin.php:931
+msgctxt "admin selection type"
+msgid "Selection is not"
+msgstr "La selezione non è"
+
+#: includes/class.yith-wcp-admin.php:950
+msgctxt "admin selection type"
+msgid "Nothing"
+msgstr "Niente"
+
+#: includes/class.yith-wcp-admin.php:951
+msgctxt "admin selection type"
+msgid "Force selection to"
+msgstr "Forza selezione per"
+
+#: includes/class.yith-wcp-admin.php:952
+msgctxt "admin selection type"
+msgid "Exclude"
+msgstr "Escludi "
+
+#: includes/class.yith-wcp-admin.php:953
+msgctxt "admin selection type"
+msgid "Hide Component"
+msgstr "Nascondi il componente"
+
+#: includes/class.yith-wcp-admin.php:970
+msgid "Default sorting (custom ordering + name)"
+msgstr "Ordinamento predefinito (ordinamento personalizzato + nome)"
+
+#: includes/class.yith-wcp-admin.php:971
+msgid "Popularity (sales)"
+msgstr "Popolarità (vendite)"
+
+#: includes/class.yith-wcp-admin.php:972
+msgid "Average Rating"
+msgstr "Valutazione media"
+
+#: includes/class.yith-wcp-admin.php:973
+msgid "Sort by date"
+msgstr "Ordina per data"
+
+#: includes/class.yith-wcp-admin.php:974
+msgid "Sort by price"
+msgstr "Ordina per prezzo"
+
+#: includes/class.yith-wcp-admin.php:998
+msgid "%d item"
+msgid_plural "%d items"
+msgstr[0] "articolo %d "
+msgstr[1] "articoli %d "
+
+#: includes/class.yith-wcp-admin.php:1006
+#: includes/class.yith-wcp-admin.php:1007
+msgid "Copy components"
+msgstr "Copia componenti"
+
+#: includes/class.yith-wcp-cart.php:683
+msgid "Base Price:"
+msgstr "Prezzo di listino:"
+
+#: includes/class.yith-wcp-cart.php:684
+msgid "Components:"
+msgstr "Componenti:"
+
+#: includes/class.yith-wcp-cart.php:692 includes/class.yith-wcp-cart.php:759
+msgid "Options subtotal"
+msgstr "Subtotale opzioni"
+
+#: init.php:54
+msgid ""
+"YITH Composite Products for WooCommerce is enabled but not effective. It "
+"requires WooCommerce in order to work."
+msgstr ""
+"YITH WooCommerce Composite Products è abilitato ma non in funzione. Richiede "
+"WooCommerce per funzionare correttamente."
+
+#: plugin-options/general-options.php:18
+msgid "Enable Plugin Features"
+msgstr "Abilita le funzionalità del plugin"
+
+#: plugin-options/general-options.php:25
+msgid "AJAX variation threshold"
+msgstr "Soglia variazioni AJAX"
+
+#: plugin-options/general-options.php:27
+msgid ""
+"If the variation count is greater than the specified value, WooCommerce will "
+"load the selected variations via AJAX to avoid page overload"
+msgstr ""
+"Se il conteggio delle variazioni è maggiore del valore specificato, "
+"WooCommerce caricherà le variazioni selezionate in AJAX per evitare il "
+"sovraccarico della pagina"
+
+#: plugin-options/general-options.php:34
+msgid "Remove composite product quantity from order table"
+msgstr "Elimina la quantità del prodotto composito dalla tabella dell'ordine"
+
+#: templates/admin/yith-wcp-copy-components.php:33
+msgid "Select components to copy"
+msgstr "Seleziona i componenti da copiare"
+
+#: templates/admin/yith-wcp-copy-components.php:38
+#: templates/admin/yith-wcp-copy-components.php:66
+#: templates/admin/yith-wcp-copy-components.php:79
+#: templates/admin/yith-wcp-copy-components.php:149
+msgid "Select All"
+msgstr "Seleziona tutto"
+
+#: templates/admin/yith-wcp-copy-components.php:39
+#: templates/admin/yith-wcp-copy-components.php:67
+#: templates/admin/yith-wcp-copy-components.php:81
+#: templates/admin/yith-wcp-copy-components.php:151
+#: templates/admin/yith-wcp-edit-component-list-options-single-item.php:82
+#: templates/admin/yith-wcp-edit-dependencies-list-options-single-item.php:40
+msgid "Name"
+msgstr "Nome"
+
+#: templates/admin/yith-wcp-copy-components.php:40
+#: templates/admin/yith-wcp-copy-components.php:68
+#: templates/admin/yith-wcp-edit-component-list-options-single-item.php:88
+#: templates/admin/yith-wcp-edit-dependencies-list-options-single-item.php:46
+msgid "Description"
+msgstr "Descrizione"
+
+#: templates/admin/yith-wcp-copy-components.php:74
+msgid "Select destination products"
+msgstr "Seleziona i prodotti di destinazione"
+
+#: templates/admin/yith-wcp-copy-components.php:80
+#: templates/admin/yith-wcp-copy-components.php:150
+msgid "Image"
+msgstr "Immagine"
+
+#: templates/admin/yith-wcp-copy-components.php:83
+msgid "Product Type"
+msgstr "Tipo prodotto"
+
+#: templates/admin/yith-wcp-copy-components.php:84
+#: templates/admin/yith-wcp-copy-components.php:154
+msgid "Date"
+msgstr "Data"
+
+#: templates/admin/yith-wcp-copy-components.php:135
+msgid "Published"
+msgstr "Pubblicato"
+
+#: templates/admin/yith-wcp-copy-components.php:160
+msgid "Select method"
+msgstr "Seleziona metodo"
+
+#: templates/admin/yith-wcp-copy-components.php:165
+msgid "Simply add components"
+msgstr "Aggiungi componenti"
+
+#: templates/admin/yith-wcp-copy-components.php:169
+msgid "Replace all components"
+msgstr "Sostituisci tutti i componenti"
+
+#: templates/admin/yith-wcp-copy-components.php:170
+msgid "You will lose all original destination products components"
+msgstr "Perderai tutti i componenti dei prodotti di destinazione originali"
+
+#: templates/admin/yith-wcp-copy-components.php:174
+msgid "Paste Components"
+msgstr "Incolla componenti"
+
+#: templates/admin/yith-wcp-copy-components.php:213
+msgid "Components updated"
+msgstr "Componenti aggiornati"
+
+#: templates/admin/yith-wcp-edit-component-layouts-options.php:20
+msgid "Composite product layout"
+msgstr "Layout prodotti compositi"
+
+#: templates/admin/yith-wcp-edit-component-layouts-options.php:22
+msgid "Simple list"
+msgstr "Elenco semplice"
+
+#: templates/admin/yith-wcp-edit-component-layouts-options.php:23
+msgid "Accordion list"
+msgstr "Elenco a fisarmonica"
+
+#: templates/admin/yith-wcp-edit-component-layouts-options.php:24
+msgid "Steps"
+msgstr "Step"
+
+#: templates/admin/yith-wcp-edit-component-layouts-options.php:27
+msgid "This option modifies the way the plugin list of components is shown"
+msgstr ""
+"Questa opzione modifica il modo in cui viene mostrato l'elenco dei "
+"componenti dal plugin"
+
+#: templates/admin/yith-wcp-edit-component-list-options-single-item.php:19
+msgid "New Component"
+msgstr "Nuovo componente"
+
+#: templates/admin/yith-wcp-edit-component-list-options-single-item.php:53
+msgctxt "product inclusion type"
+msgid "Products"
+msgstr "Prodotti"
+
+#: templates/admin/yith-wcp-edit-component-list-options-single-item.php:54
+msgctxt "product inclusion type"
+msgid "Categories"
+msgstr "Categorie"
+
+#: templates/admin/yith-wcp-edit-component-list-options-single-item.php:55
+msgctxt "product inclusion type"
+msgid "Tags"
+msgstr "Tag"
+
+#: templates/admin/yith-wcp-edit-component-list-options-single-item.php:60
+msgid "Dropdown"
+msgstr "Menu a tendina"
+
+#: templates/admin/yith-wcp-edit-component-list-options-single-item.php:61
+msgid "Product thumbnails"
+msgstr "Miniature prodotto"
+
+#: templates/admin/yith-wcp-edit-component-list-options-single-item.php:62
+msgid "Radio button"
+msgstr "Radio button"
+
+#: templates/admin/yith-wcp-edit-component-list-options-single-item.php:68
+msgid "Ascendent"
+msgstr "Crescente"
+
+#: templates/admin/yith-wcp-edit-component-list-options-single-item.php:69
+msgid "Descendent"
+msgstr "Decrescente"
+
+#: templates/admin/yith-wcp-edit-component-list-options-single-item.php:75
+msgctxt "admin list advice"
+msgid "Required"
+msgstr "Campo obbligatorio"
+
+#: templates/admin/yith-wcp-edit-component-list-options-single-item.php:75
+msgid "Exclusive"
+msgstr "Esclusivo"
+
+#: templates/admin/yith-wcp-edit-component-list-options-single-item.php:76
+#: templates/admin/yith-wcp-edit-dependencies-list-options-single-item.php:34
+msgid "Remove"
+msgstr "Rimuovi"
+
+#: templates/admin/yith-wcp-edit-component-list-options-single-item.php:84
+msgid "Component title"
+msgstr "Titolo componente"
+
+#: templates/admin/yith-wcp-edit-component-list-options-single-item.php:90
+msgid "Component description"
+msgstr "Descrizione componente"
+
+#: templates/admin/yith-wcp-edit-component-list-options-single-item.php:94
+msgid "Selection type"
+msgstr "Tipo di selezione"
+
+#: templates/admin/yith-wcp-edit-component-list-options-single-item.php:96
+msgid "Select how to retrieve the list of products for this component"
+msgstr ""
+"Seleziona il modo in cui recuperare l'elenco dei prodotti per questo "
+"componente"
+
+#: templates/admin/yith-wcp-edit-component-list-options-single-item.php:105
+#: templates/admin/yith-wcp-edit-component-list-options-single-item.php:121
+msgid "Search for a product&hellip;"
+msgstr "Cerca un prodotto&hellip;"
+
+#: templates/admin/yith-wcp-edit-component-list-options-single-item.php:146
+#: templates/admin/yith-wcp-edit-component-list-options-single-item.php:153
+#: templates/admin/yith-wcp-edit-dependencies-list-options-single-item-component-item.php:38
+msgid "Applied to..."
+msgstr "Applicato a..."
+
+#: templates/admin/yith-wcp-edit-component-list-options-single-item.php:160
+msgid "Sort products by"
+msgstr "Ordina i prodotti per"
+
+#: templates/admin/yith-wcp-edit-component-list-options-single-item.php:162
+msgid "Select the products order"
+msgstr "Seleziona l'ordine dei prodotti"
+
+#: templates/admin/yith-wcp-edit-component-list-options-single-item.php:166
+msgid "Select the products order ASC|DESC"
+msgstr "Seleziona l'ordine dei prodotti ASC/DISC"
+
+#: templates/admin/yith-wcp-edit-component-list-options-single-item.php:170
+msgid "Option selection style"
+msgstr "Stile selezione opzione"
+
+#: templates/admin/yith-wcp-edit-component-list-options-single-item.php:172
+msgid "Select how to show the list of products"
+msgstr "Seleziona il modo in cui mostrare l'elenco dei prodotti"
+
+#: templates/admin/yith-wcp-edit-component-list-options-single-item.php:176
+msgid "Counted Separately"
+msgstr "Conteggiato separatamente"
+
+#: templates/admin/yith-wcp-edit-component-list-options-single-item.php:178
+msgid ""
+"Check if you want the component quantity to be calculated as a independent "
+"value, no matter how many composite products are added to the cart."
+msgstr ""
+"Attiva se vuoi che la quantità del componente sia calcolata come valore "
+"separato indipendentemente da quanti prodotti compositi sono stati aggiunti "
+"al carrello. "
+
+#: templates/admin/yith-wcp-edit-component-list-options-single-item.php:182
+msgid "Min quantity"
+msgstr "Quantità minima"
+
+#: templates/admin/yith-wcp-edit-component-list-options-single-item.php:184
+msgid "Minimum quantity"
+msgstr "Quantità minima"
+
+#: templates/admin/yith-wcp-edit-component-list-options-single-item.php:188
+msgid "Max quantity"
+msgstr "Quantità massima"
+
+#: templates/admin/yith-wcp-edit-component-list-options-single-item.php:190
+msgid "The mimimum quantity required"
+msgstr "Quantità minima richiesta"
+
+#: templates/admin/yith-wcp-edit-component-list-options-single-item.php:194
+msgid "Discount %"
+msgstr "Sconto %"
+
+#: templates/admin/yith-wcp-edit-component-list-options-single-item.php:196
+msgid ""
+"Discount applied. Note: it works only if \"Per-Item Pricing\" is checked"
+msgstr ""
+"Sconto applicato. Nota: funziona solo se \"Prezzo per singolo articolo\" è "
+"selezionato"
+
+#: templates/admin/yith-wcp-edit-component-list-options-single-item.php:201
+msgid "Apply discount to sale price"
+msgstr "Applica sconto al prezzo in offerta"
+
+#: templates/admin/yith-wcp-edit-component-list-options-single-item.php:203
+msgid ""
+"Check if you want to combine this discount to sale price for the selected "
+"product"
+msgstr ""
+"Seleziona se vuoi combinare questo sconto al prezzo in offerta per il "
+"prodotto corrente"
+
+#: templates/admin/yith-wcp-edit-component-list-options-single-item.php:208
+msgid "Replace thumbnail"
+msgstr "Sostituisci miniatura"
+
+#: templates/admin/yith-wcp-edit-component-list-options-single-item.php:210
+msgid "Check if you want replace the composite product thumbnail"
+msgstr "Attiva se vuoi sostituire la miniatura del prodotto composito"
+
+#: templates/admin/yith-wcp-edit-component-list-options-single-item.php:214
+msgid "Required"
+msgstr "Campo obbligatorio"
+
+#: templates/admin/yith-wcp-edit-component-list-options-single-item.php:216
+msgid "Check if you want to set this component as required"
+msgstr "Seleziona se vuoi che questo componente sia un campo obbligatorio"
+
+#: templates/admin/yith-wcp-edit-component-list-options-single-item.php:220
+msgid "Exclusive selection"
+msgstr "Selezione esclusiva"
+
+#: templates/admin/yith-wcp-edit-component-list-options-single-item.php:222
+msgid ""
+"Check if you want that the current product cannot be selected in other "
+"components"
+msgstr ""
+"Seleziona se vuoi che il prodotto corrente non possa essere selezionato in "
+"altri componenti"
+
+#: templates/admin/yith-wcp-edit-component-list-options.php:24
+#: templates/admin/yith-wcp-edit-dependencies-list-options-single-item.php:51
+msgid "List of components"
+msgstr "Elenco dei componenti"
+
+#: templates/admin/yith-wcp-edit-component-list-options.php:29
+#: templates/admin/yith-wcp-edit-dependencies-list-options.php:33
+msgid "Expand all"
+msgstr "Espandi tutto"
+
+#: templates/admin/yith-wcp-edit-component-list-options.php:30
+#: templates/admin/yith-wcp-edit-dependencies-list-options.php:34
+msgid "Collapse all"
+msgstr "Chiudi tutto"
+
+#: templates/admin/yith-wcp-edit-component-list-options.php:53
+msgid "Save Components"
+msgstr "Salva Componenti"
+
+#: templates/admin/yith-wcp-edit-component-list-options.php:54
+msgid "Add Component"
+msgstr "Aggiungi Componente"
+
+#: templates/admin/yith-wcp-edit-component-list-options.php:55
+msgid "Copy Components"
+msgstr "Copia componenti"
+
+#: templates/admin/yith-wcp-edit-dependencies-list-options-single-item-component-item.php:24
+msgid "Select the type of action for this component"
+msgstr "Seleziona il tipo di azione per questo componente"
+
+#: templates/admin/yith-wcp-edit-dependencies-list-options-single-item-component-item.php:29
+#: templates/admin/yith-wcp-edit-dependencies-list-options-single-item-component-item.php:34
+msgid "Select the type of dependence for this component"
+msgstr "Seleziona il tipo di dipendenza per questo componente"
+
+#: templates/admin/yith-wcp-edit-dependencies-list-options-single-item.php:17
+msgid "New Dependence"
+msgstr "Nuova dipendenza"
+
+#: templates/admin/yith-wcp-edit-dependencies-list-options-single-item.php:42
+msgid "Dependence title"
+msgstr "Titolo dipendenza"
+
+#: templates/admin/yith-wcp-edit-dependencies-list-options-single-item.php:48
+msgid "Dependence description"
+msgstr "Descrizione dipendenza"
+
+#: templates/admin/yith-wcp-edit-dependencies-list-options.php:27
+msgid "Dependencies"
+msgstr "Dipendenze"
+
+#: templates/admin/yith-wcp-edit-dependencies-list-options.php:28
+msgid "List of dependencies"
+msgstr "Elenco delle dipendenze"
+
+#: templates/admin/yith-wcp-edit-dependencies-list-options.php:55
+msgid "Save Dependencies"
+msgstr "Salva le dipendenze"
+
+#: templates/admin/yith-wcp-edit-dependencies-list-options.php:56
+msgid "Add Dependence"
+msgstr "Aggiungi dipendenza"
+
+#: templates/frontend/component-item/ywcp-component-item-options-dropdowns.php:20
+#: templates/frontend/component-item/ywcp-component-item-options-radio.php:18
+msgid "None"
+msgstr "Nessuno"
+
+#: templates/frontend/component-item/ywcp-component-item-selected.php:62
+msgid "show the product page"
+msgstr "Mostra la pagina prodotto"
+
+#: templates/frontend/component-item/ywcp-component-item-selected.php:79
+msgid "Clear"
+msgstr "Cancella"
+
+#: templates/frontend/ywcp-add-to-cart.php:33
+msgid "Loading..."
+msgstr "Caricamento..."
+
+#: templates/frontend/ywcp-composite-list.php:57
+msgctxt "front end tag abbr text"
+msgid "Required"
+msgstr "Campo Obbligatorio"
+
+#: templates/frontend/ywcp-composite-list.php:58
+msgctxt "front end tag abbr text"
+msgid "Optional"
+msgstr "Opzionale"
+
+#: templates/frontend/ywcp-composite-list.php:92
+msgid "Clear selection"
+msgstr "Cancella Prodotto"
+
+#: templates/frontend/ywcp-composite-list.php:93
+msgid "Subtotal:"
+msgstr "Subtotale:"
+
+#: templates/frontend/ywcp-composite-list.php:105
+msgid "Prev"
+msgstr "Indiatro"
+
+#: templates/frontend/ywcp-composite-list.php:106
+msgid "Next"
+msgstr "Avanti"
+
+#: templates/frontend/ywcp-composite-list.php:118
+msgid "Product Base Price:"
+msgstr "Prezzo di listino del prodotto:"
+
+#: templates/frontend/ywcp-composite-list.php:123
+msgid "Add-Ons Option Total:"
+msgstr "Totale opzione supplementare:"
+
+#: templates/frontend/ywcp-composite-list.php:128
+msgid "Component Options Total:"
+msgstr "Totale Opzioni Componente:"
+
+#: templates/frontend/ywcp-composite-list.php:133
+msgid "Order Total:"
+msgstr "Totale Ordine:"
+
+#: templates/frontend/ywcp-composite-list.php:140
+msgid ""
+"The add to cart button is disabled because the following component is not "
+"selected:"
+msgstr ""
+"Il tasto Acquista è disabilitato fino a quando non avrai selezionato i "
+"componenti:"
+
+#. Plugin Name of the plugin/theme
+msgid "YITH Composite Products for WooCommerce Premium"
+msgstr "YITH Composite Products for WooCommerce Premium"
+
+#. Plugin URI of the plugin/theme
+msgid ""
+"https://yithemes.com/themes/plugins/yith-woocommerce-composite-products/"
+msgstr ""
+"https://yithemes.com/themes/plugins/yith-woocommerce-composite-products/"
+
+#. Description of the plugin/theme
+msgid ""
+"<code><strong>YITH Composite Products for WooCommerce Premium</strong></"
+"code> is the plugin that allows your customers to assemble their own product "
+"using other products from your store. <a href=\"https://yithemes.com/\" "
+"target=\"_blank\">Get more plugins for your e-commerce shop on <strong>YITH</"
+"strong></a>"
+msgstr ""
+"<code><strong>YITH Composite Products for WooCommerce Premium</strong></"
+"code> è il plugin che permette ai tuoi clienti di assemblare il loro "
+"prodotto usando altri prodotti del tuo sito. <a href=\"https://yithemes.com/"
+"\" target=\"_blank\">Ottieni altri plugin per il tuo e-commerce su "
+"<strong>YITH</strong></a>"
+
+#. Author of the plugin/theme
+msgid "YITH"
+msgstr "YITH"
+
+#. Author URI of the plugin/theme
+msgid "https://yithemes.com/"
+msgstr "https://yithemes.com/"
+
+#~ msgctxt "cart price advice"
+#~ msgid "Base Price:"
+#~ msgstr "Prezzo di listino:"
+
+#~ msgctxt "cart price advice"
+#~ msgid "Total Price:"
+#~ msgstr "Prezzo totale:"
+
+#~ msgid "Categories"
+#~ msgstr "Categorie"
+
+#~ msgid "Tags"
+#~ msgstr "Tag"
+
+#~ msgid "Composite product"
+#~ msgstr "Prodotto composito"
+
+#~ msgid "Ajax variations threshold"
+#~ msgstr "Soglia variazioni AJAX"
+
+#~ msgid "Composite products"
+#~ msgstr "Composite products"
+
+#~ msgid "Total Price:"
+#~ msgstr "Prezzo totale:"

@@ -1,0 +1,704 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Cart Reports v1.1.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2014-12-01 14:51-0600\n"
+"Last-Translator: Nicola Mustone <mustone.nicola@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Poedit 1.5.7\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
+"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
+"X-Textdomain-Support: yes\n"
+"Language: it_IT\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: .\n"
+
+# @ woocommerce_cart_reports
+#: admin/cart_edit_interface.php:100 admin/cart_index_interface.php:195
+#: admin/cart_index_interface.php:204
+msgid "Cart Status"
+msgstr "Stato Carrello"
+
+# @ woocommerce_cart_reports
+#: admin/cart_edit_interface.php:107
+msgid "Customer Actions"
+msgstr "Azioni Cliente"
+
+# @ woocommerce_cart_reports
+#: admin/cart_edit_interface.php:114
+msgid "Cart Customer"
+msgstr "Carrello Cliente"
+
+# @ woocommerce_cart_reports
+#: admin/cart_edit_interface.php:123
+msgid "Cart Items"
+msgstr "Elementi Carrello"
+
+# @ woocommerce_cart_reports
+#: admin/cart_edit_interface.php:131
+msgid "Cart Data"
+msgstr "Dati Carrello"
+
+# @ woocommerce_cart_reports
+#: admin/cart_edit_interface.php:148
+msgid "<a href=\"\"></a>"
+msgstr "<a href=\"\"></a>"
+
+# @ woocommerce_cart_reports
+#: admin/cart_edit_interface.php:153
+msgid "<p></p>"
+msgstr "<p></p>"
+
+# @ woocommerce_cart_reports
+#: admin/cart_edit_interface.php:166
+msgid "<span style=\"color:gray\";>Name Not Available</span>"
+msgstr "<span style=\"color:gray\";>Nome Non Disponibile</span>"
+
+# @ woocommerce_cart_reports
+#: admin/cart_edit_interface.php:166
+msgid ""
+"No customer name information available for carts created by non-logged-in "
+"Guests."
+msgstr ""
+"Informazioni sul nome del cliente non disponibili per i carrello creati da "
+"utenti ospiti."
+
+# @ woocommerce_cart_reports
+#: admin/cart_edit_interface.php:199
+msgid ""
+"A cart becomes <i>Converted</i> when the customer purchases the cart "
+"contents. Congrats :) "
+msgstr ""
+"Un carrello diventa <i>Convertito</i> quando il cliente acquista i contenuti "
+"del carrello. Congratulazioni :)"
+
+# @ woocommerce_cart_reports
+#: admin/cart_edit_interface.php:228
+msgid "Cart Last Updated"
+msgstr "Ultimo Aggiornamento Carrello"
+
+# @ woocommerce_cart_reports
+#: admin/cart_edit_interface.php:228
+msgid ""
+"<i>Cart Last Updated</i> indicates the last time the customer performed a "
+"cart-related action on your site. These actions include viewing the cart, "
+"adding new items to the cart, updating quantities, or removing products from "
+"the cart."
+msgstr ""
+"<I>Ultimo Aggiornamento Carrello</I> indica la data dell'ultimo "
+"aggiornamento fatto dal cliente su un carrello sul tuo sito. Queste azioni "
+"includono visualizzazioni del carrello, aggiunta di nuovi element, "
+"aggiornamento di quantit&agrave; o rimozioni di prodotti dal carrello."
+
+# @ woocommerce_cart_reports
+#: admin/cart_edit_interface.php:230
+msgid "Time To Conversion"
+msgstr "Tempo Alla Conversione"
+
+# @ woocommerce_cart_reports
+#: admin/cart_edit_interface.php:230
+msgid ""
+"<i>Time to Conversion</i> indicates total time elapsed from when the cart "
+"was first created until the actual conversion. (purchase)"
+msgstr ""
+"<i>Tempo alla Conversione</i> indica il tempo totale passato da quando il "
+"carrello &egrave; stato creato la prima volta alla conversione attuale. "
+"(acquisto)"
+
+# @ woocommerce_cart_reports
+#: admin/cart_edit_interface.php:231
+msgid "Cart Age"
+msgstr "Et&agrave; Carrello"
+
+# @ woocommerce_cart_reports
+#: admin/cart_edit_interface.php:231
+msgid ""
+"<i>Cart Age</i> indicates the total time elapsed since this non-converted "
+"cart has been created."
+msgstr ""
+"<i>Et&agrave; Carrello</i> indica il tempo totale passato da quando questo "
+"carrello non-convertito &egrave; stato creato."
+
+# @ woocommerce_cart_reports
+#: admin/cart_edit_interface.php:232
+msgid "Customer IP Address"
+msgstr "Indirizzo IP Cliente"
+
+# @ woocommerce_cart_reports
+#: admin/cart_edit_interface.php:264 admin/cart_edit_interface.php:316
+#: models/AV8_Cart_Receipt.php:421
+msgid "Not Available"
+msgstr "Non Disponibile"
+
+# @ woocommerce_cart_reports
+#: admin/cart_edit_interface.php:316
+msgid ""
+"You have probably unchecked \"Log IP Address\" in the WooCommerce Cart "
+"Reports settings panel."
+msgstr ""
+"Probabilmente non hai spuntato l'opzione \"Logga Indirizzo IP\" nel pannello "
+"impostazioni di WooCommerce Cart Reports."
+
+# @ woocommerce_cart_reports
+#: admin/cart_edit_interface.php:405
+msgid "Item"
+msgstr "Elemento"
+
+# @ woocommerce_cart_reports
+#: admin/cart_edit_interface.php:407
+msgid "SKU"
+msgstr "SKU"
+
+# @ woocommerce_cart_reports
+#: admin/cart_edit_interface.php:409
+msgid "Name"
+msgstr "Nome"
+
+# @ woocommerce_cart_reports
+#: admin/cart_edit_interface.php:411
+msgid "Price"
+msgstr "Prezzo"
+
+# @ woocommerce_cart_reports
+#: admin/cart_edit_interface.php:415
+msgid "Qty"
+msgstr "Qt&agrave;"
+
+# @ woocommerce_cart_reports
+#: admin/cart_edit_interface.php:459
+msgid "Product ID:"
+msgstr "ID Prodotto:"
+
+# @ woocommerce_cart_reports
+#: admin/cart_edit_interface.php:460
+msgid "Variation ID:"
+msgstr "ID Variazione:"
+
+# @ woocommerce_cart_reports
+#: admin/cart_edit_interface.php:461
+msgid "Product SKU:"
+msgstr "SKU Prodotto:"
+
+# @ woocommerce_cart_reports
+#: admin/cart_edit_interface.php:473
+msgid "View product"
+msgstr "Vedi prodotto"
+
+# @ woocommerce_cart_reports
+#: admin/cart_edit_interface.php:504
+msgid ""
+"When a customer adds items to a cart, then abandones the cart for a "
+"considerable amount of time, the browser often deletes the cart data. The "
+"cart still belongs to the customer, but their brower removed the products. :"
+"( But hey! This indicates that they came back. And might be ready to "
+"purchase."
+msgstr ""
+"Quando un cliente aggiunge elementi al carrello, e successivamente lo "
+"abbandona per un considerevole lasso di tempo, il browser spesso cancella i "
+"dati del carrello. Il carrello appartiene ancora al cliente, ma il suo "
+"browser ha rimosso i prodotti. :( Ma hey! Questo indica che sono tornati "
+"indietro. E potrebbero essere pronti ad acquistare."
+
+# @ woocommerce_cart_reports
+#: admin/cart_index_interface.php:194 admin/cart_index_interface.php:203
+msgid "Cart Description"
+msgstr "Descrizione Carrello"
+
+# @ woocommerce_cart_reports
+#: admin/cart_index_interface.php:196 admin/cart_index_interface.php:205
+msgid "Last Online"
+msgstr "Ultima volta Online"
+
+# @ woocommerce_cart_reports
+#: admin/cart_index_interface.php:197 admin/cart_index_interface.php:207
+msgid "Actions"
+msgstr "Azioni"
+
+# @ woocommerce_cart_reports
+#: admin/cart_index_interface.php:206
+msgid "Products"
+msgstr "Prodotti"
+
+# @ default
+#: admin/cart_index_interface.php:298
+msgid "</a>"
+msgstr "</a>"
+
+# @ woocommerce_cart_reports
+#: admin/cart_index_interface.php:367
+msgid "No Products"
+msgstr "Nessun Prodotto"
+
+# @ woocommerce_cart_reports
+#: admin/cart_index_interface.php:417 admin/cart_reports_page.php:131
+#: admin/cart_reports_page.php:426
+msgid "From:"
+msgstr "Da:"
+
+# @ woocommerce_cart_reports
+#: admin/cart_index_interface.php:417 admin/cart_reports_page.php:131
+#: admin/cart_reports_page.php:426
+msgid "To:"
+msgstr "A:"
+
+# @ woocommerce_cart_reports
+#: admin/cart_index_interface.php:425
+msgid "Show All Carts"
+msgstr "Mostra Tutti i Carrelli"
+
+# @ woocommerce_cart_reports
+#: admin/cart_index_interface.php:469
+msgid "Show All Customers"
+msgstr "Mostra Tutti i Clienti"
+
+# @ woocommerce_cart_reports
+#: admin/cart_reports_dashboard.php:41
+msgid "Monthly Carts"
+msgstr "Carrelli Mensili"
+
+# @ woocommerce_cart_reports
+#: admin/cart_reports_dashboard.php:45 admin/cart_reports_dashboard.php:50
+msgid "Recent Cart Activity"
+msgstr "Attivit&agrave; Recente Carrello"
+
+# @ woocommerce_cart_reports
+#: admin/cart_reports_dashboard.php:96
+msgid "Right Now"
+msgstr "Proprio Ora"
+
+# @ woocommerce_cart_reports
+#: admin/cart_reports_dashboard.php:102
+msgid "Open"
+msgstr "Aperto"
+
+# @ woocommerce_cart_reports
+#: admin/cart_reports_dashboard.php:121
+msgid "Abandoned"
+msgstr "Abbandonato"
+
+# @ woocommerce_cart_reports
+#: admin/cart_reports_dashboard.php:133 admin/cart_reports_dashboard.php:165
+msgid "Converted"
+msgstr "Convertito"
+
+# @ woocommerce_cart_reports
+#: admin/cart_reports_dashboard.php:145
+msgid "Lifetime"
+msgstr "A vita"
+
+# @ woocommerce_cart_reports
+#: admin/cart_reports_dashboard.php:151
+msgid "Abandonded"
+msgstr "Abbandonato"
+
+# @ woocommerce_cart_reports
+#: admin/cart_reports_dashboard.php:203
+msgid "carts currently open"
+msgstr "carrello attualmente aperti"
+
+# @ woocommerce_cart_reports
+#: admin/cart_reports_dashboard.php:347 admin/cart_reports_page.php:406
+#: admin/cart_reports_page.php:474 admin/cart_reports_page.php:556
+msgid "Converted Carts"
+msgstr "Carrelli Convertiti"
+
+# @ woocommerce_cart_reports
+#: admin/cart_reports_dashboard.php:348
+msgid "Open + Abandoned Carts"
+msgstr "Carrelli Aperti + Abbandonati"
+
+# @ woocommerce_cart_reports
+#: admin/cart_reports_page.php:16 admin/cart_reports_page.php:35
+#: admin/cart_reports_page.php:241
+msgid "Carts"
+msgstr "Carrelli"
+
+# @ woocommerce_cart_reports
+#: admin/cart_reports_page.php:16 admin/cart_reports_page.php:35
+#: admin/cart_reports_page.php:241
+msgid "Cart"
+msgstr "Carrello"
+
+# @ woocommerce_cart_reports
+#: admin/cart_reports_page.php:16 admin/cart_reports_page.php:35
+#: admin/cart_reports_page.php:241
+msgid "cart"
+msgstr "carello"
+
+# @ woocommerce_cart_reports
+#: admin/cart_reports_page.php:19
+msgid "Carts By Date"
+msgstr "Carrelli Per Data"
+
+# @ woocommerce_cart_reports
+#: admin/cart_reports_page.php:25
+msgid "Carts By Product"
+msgstr "Carrelli Per Prodotto"
+
+# @ woocommerce_cart_reports
+#: admin/cart_reports_page.php:38
+msgid "Overview"
+msgstr "Panoramica"
+
+# @ woocommerce_cart_reports
+#: admin/cart_reports_page.php:44
+msgid "Most Frequently Abandoned Products"
+msgstr "Prodotti Abbandonati Pi&ugrave; Spesso"
+
+# @ woocommerce_cart_reports
+#: admin/cart_reports_page.php:50
+msgid "Product Abandonment"
+msgstr "Abbandono del Prodotto"
+
+# @ woocommerce_cart_reports
+#: admin/cart_reports_page.php:131 admin/cart_reports_page.php:265
+#: admin/cart_reports_page.php:426
+#: admin/reports/class-wc-report-carts-by-product.php:175
+msgid "Show"
+msgstr "Mostra"
+
+# @ woocommerce_cart_reports
+#: admin/cart_reports_page.php:136
+msgid "Product"
+msgstr "Prodotto"
+
+# @ woocommerce_cart_reports
+#: admin/cart_reports_page.php:137
+msgid "Carts Abandoned"
+msgstr "Carrelli Abbandonati"
+
+# @ woocommerce_cart_reports
+#: admin/cart_reports_page.php:151
+msgid "Product does not exist"
+msgstr "Il prodotto non esiste"
+
+# @ woocommerce_cart_reports
+#: admin/cart_reports_page.php:236
+#, php-format
+msgid "Abandoned Carts containing %s:"
+msgstr "Carrello abbandonati contenenti %s:"
+
+# @ woocommerce_cart_reports
+#: admin/cart_reports_page.php:240
+msgid "Month"
+msgstr "mese"
+
+# @ woocommerce_cart_reports
+#: admin/cart_reports_page.php:256
+msgid "No Carts :)"
+msgstr "Nessun Carrello :)"
+
+# @ woocommerce_cart_reports
+#: admin/cart_reports_page.php:265
+#: admin/reports/class-wc-report-carts-by-product.php:174
+msgid "Search for a product&hellip;"
+msgstr "Cerca un prodotto&hellip;"
+
+# @ woocommerce_cart_reports
+#: admin/cart_reports_page.php:407
+msgid "Open and Abandoned Carts"
+msgstr "Carrelli Aperti ed Abbandonati"
+
+# @ woocommerce_cart_reports
+#: admin/cart_reports_page.php:434
+msgid "Open & Abandoned Carts In Range"
+msgstr "Carrelli Aperti &amp; Abbandonati nell'intervallo"
+
+# @ woocommerce_cart_reports
+#: admin/cart_reports_page.php:436 admin/cart_reports_page.php:445
+msgid "n/a"
+msgstr "n/a"
+
+# @ woocommerce_cart_reports
+#: admin/cart_reports_page.php:443
+msgid "Converted Carts In Range"
+msgstr "Carrello Convertiti nell'intervallo"
+
+# @ woocommerce_cart_reports
+#: admin/cart_reports_page.php:452
+msgid "Open & Abandoned Carts vs. Converted Carts"
+msgstr "Carrelli Aperto &amp; Abbandonati vs. Carrelli Convertiti"
+
+# @ woocommerce_cart_reports
+#: admin/cart_reports_page.php:474 admin/cart_reports_page.php:561
+msgid "Open & Abandoned Carts"
+msgstr "Carrelli Aperti &amp; Abbandonati"
+
+# @ woocommerce_cart_reports
+#: admin/cart_reports_settings.php:37
+msgid "Cart Reports Settings"
+msgstr "Impostazioni Cart Reports"
+
+# @ woocommerce_cart_reports
+#: admin/cart_reports_settings.php:39
+msgid "Abandoned Cart Timeout (Seconds)"
+msgstr "Timeout Carrello Abbandonato (Secondi)"
+
+# @ woocommerce_cart_reports
+#: admin/cart_reports_settings.php:40
+msgid "Site activity timeout length for cart abandonment, in seconds."
+msgstr ""
+"Timeout di attivit&agrave; sul sito per considerare abbandonato un carrello, "
+"in secondi."
+
+# @ woocommerce_cart_reports
+#: admin/cart_reports_settings.php:45
+msgid "Dashboard Widget Time Range (Days)"
+msgstr "Intervallo di Tempo del Widget sulla Bacheca (Giorni)"
+
+# @ woocommerce_cart_reports
+#: admin/cart_reports_settings.php:46
+msgid ""
+"Time-range displayed in the middle column of the \"Recent Cart Activity\" "
+"dashboard widget."
+msgstr ""
+"Intervallo di tempo mostrato nella colonna centrale del widget "
+"\"Attivit&agrave; Recente Carrello\" sulla bacheca."
+
+# @ woocommerce_cart_reports
+#: admin/cart_reports_settings.php:51
+msgid "Show Products On The Cart Index Page"
+msgstr "Mostra Prodotti nella Pagina Indice del Carrello"
+
+# @ woocommerce_cart_reports
+#: admin/cart_reports_settings.php:52
+msgid ""
+"Displaying cart products may slow down table listing when showing many carts "
+"at once."
+msgstr ""
+"Mostrare i prodotti del carrello potrebbe rallentare la visualizzazione "
+"della tabella quando vengono visualizzati pi&ugrave; carrelli "
+"contemporaneamente."
+
+# @ woocommerce_cart_reports
+#: admin/cart_reports_settings.php:57
+msgid "Exclude User Roles from Cart Tracking"
+msgstr "Escludi Ruoli Utente dal Tracciamento Carrello"
+
+# @ woocommerce_cart_reports
+#: admin/cart_reports_settings.php:58
+msgid "Choose WP Roles to exclude from cart tracking"
+msgstr "Scegli i Ruoli da escludere dal tracciamento del carrello"
+
+# @ woocommerce_cart_reports
+#: admin/cart_reports_settings.php:64
+msgid "Log Customer IP Address"
+msgstr "Logga Indirizzo IP Cliente"
+
+# @ woocommerce_cart_reports
+#: admin/cart_reports_settings.php:65
+msgid "Logged IP addresses are visible in the edit cart view."
+msgstr ""
+"Gli indirizzi IP loggati sono visibili nella pagina di modifica del carrello."
+
+# @ woocommerce_cart_reports
+#: admin/reports/class-wc-report-carts-by-date.php:64
+#, php-format
+msgid "%s abandoned carts in this period."
+msgstr "%s carrelli abbandonati in questo period."
+
+# @ woocommerce_cart_reports
+#: admin/reports/class-wc-report-carts-by-date.php:69
+#, php-format
+msgid "%s orders placed"
+msgstr "%s ordini effettuati"
+
+# @ woocommerce_cart_reports
+#: admin/reports/class-wc-report-carts-by-date.php:83
+#: admin/reports/class-wc-report-carts-by-product.php:105
+msgid "Year"
+msgstr "Anno"
+
+# @ woocommerce_cart_reports
+#: admin/reports/class-wc-report-carts-by-date.php:84
+#: admin/reports/class-wc-report-carts-by-product.php:106
+msgid "Last Month"
+msgstr "Ultimo Mese"
+
+# @ woocommerce_cart_reports
+#: admin/reports/class-wc-report-carts-by-date.php:85
+#: admin/reports/class-wc-report-carts-by-product.php:107
+msgid "This Month"
+msgstr "Questo Mese"
+
+# @ woocommerce_cart_reports
+#: admin/reports/class-wc-report-carts-by-date.php:86
+#: admin/reports/class-wc-report-carts-by-product.php:108
+msgid "Last 7 Days"
+msgstr "Ultimi 7 Giorni"
+
+# @ woocommerce_cart_reports
+#: admin/reports/class-wc-report-carts-by-date.php:131
+#: admin/reports/class-wc-report-carts-by-product.php:241
+msgid "Date"
+msgstr "Data"
+
+# @ woocommerce_cart_reports
+#: admin/reports/class-wc-report-carts-by-date.php:135
+#: admin/reports/class-wc-report-carts-by-product.php:244
+msgid "Export CSV"
+msgstr "Esporta CSV"
+
+# @ woocommerce_cart_reports
+#: admin/reports/class-wc-report-carts-by-date.php:231
+msgid "Number of conversions"
+msgstr "Numero di conversioni"
+
+# @ woocommerce_cart_reports
+#: admin/reports/class-wc-report-carts-by-date.php:239
+msgid "Abandoned Carts"
+msgstr "Carrelli Abbandonati"
+
+# @ woocommerce_cart_reports
+#: admin/reports/class-wc-report-carts-by-product.php:90
+#, php-format
+msgid "%s Product Abandonments"
+msgstr "%s Abbandonamenti Prodotto"
+
+# @ woocommerce_cart_reports
+#: admin/reports/class-wc-report-carts-by-product.php:135
+msgid "Showing reports for:"
+msgstr "Mostrando i rapporti per:"
+
+# @ woocommerce_cart_reports
+#: admin/reports/class-wc-report-carts-by-product.php:161
+msgid "Reset"
+msgstr "Reimposta"
+
+# @ woocommerce_cart_reports
+#: admin/reports/class-wc-report-carts-by-product.php:170
+msgid "Product Search"
+msgstr "Cerca Prodotto"
+
+# @ woocommerce_cart_reports
+#: admin/reports/class-wc-report-carts-by-product.php:259
+msgid "&larr; Choose a product to view stats"
+msgstr "%larr; Scegli il prodotto di cui visualizzare le statistiche"
+
+# @ woocommerce_cart_reports
+#: admin/reports/class-wc-report-carts-by-product.php:339
+msgid "Number of items Abandoned"
+msgstr "Numero di elementi Abbandonati"
+
+# @ woocommerce_cart_reports
+#: models/AV8_Cart_Receipt.php:431
+msgid "> 6 Months"
+msgstr "> 6 Mesi"
+
+# @ woocommerce_cart_reports
+#: models/AV8_Cart_Receipt.php:438
+msgid "Days"
+msgstr "Giorni"
+
+# @ woocommerce_cart_reports
+#: models/AV8_Cart_Receipt.php:440
+msgid "Day"
+msgstr "Giorno"
+
+# @ woocommerce_cart_reports
+#: models/AV8_Cart_Receipt.php:443
+msgid "Hours"
+msgstr "Ore"
+
+# @ woocommerce_cart_reports
+#: models/AV8_Cart_Receipt.php:445
+msgid "Hour"
+msgstr "Ora"
+
+# @ woocommerce_cart_reports
+#: models/AV8_Cart_Receipt.php:448
+msgid "Minutes"
+msgstr "Minuti"
+
+# @ woocommerce_cart_reports
+#: models/AV8_Cart_Receipt.php:450
+msgid "Minute"
+msgstr "Minuto"
+
+# @ woocommerce_cart_reports
+#: models/AV8_Cart_Receipt.php:453
+msgid "Seconds"
+msgstr "Secondi"
+
+# @ woocommerce_cart_reports
+#: models/AV8_Cart_Receipt.php:455
+msgid "Second"
+msgstr "Secondo"
+
+# @ woocommerce_cart_reports
+#: models/AV8_Cart_Receipt.php:665
+msgid "No Actions Available"
+msgstr "Nessuna Azione Disponibile"
+
+# @ woocommerce_cart_reports
+#: woocommerce-cart-reports.php:79
+msgid "Cart statuses"
+msgstr "Stati carrello"
+
+# @ woocommerce_cart_reports
+#: woocommerce-cart-reports.php:80
+msgid "Cart status"
+msgstr "Stato carrello"
+
+# @ woocommerce_cart_reports
+#: woocommerce-cart-reports.php:81
+msgid "Search Cart statuses"
+msgstr "Cerca stati carrello"
+
+# @ woocommerce_cart_reports
+#: woocommerce-cart-reports.php:82
+msgid "All Cart statuses"
+msgstr "Tutti gli stati"
+
+# @ woocommerce_cart_reports
+#: woocommerce-cart-reports.php:83
+msgid "Parent Cart status"
+msgstr "Stato Carrello Genitore"
+
+# @ woocommerce_cart_reports
+#: woocommerce-cart-reports.php:84
+msgid "Parent Cart status:"
+msgstr "Stato Carrello Genitore:"
+
+# @ woocommerce_cart_reports
+#: woocommerce-cart-reports.php:85
+msgid "Edit Cart status"
+msgstr "Modifica stato carrello"
+
+# @ woocommerce_cart_reports
+#: woocommerce-cart-reports.php:86
+msgid "Update Cart status"
+msgstr "Aggiorna stato carrello"
+
+# @ woocommerce_cart_reports
+#: woocommerce-cart-reports.php:87
+msgid "Add New Cart status"
+msgstr "Aggiungi Nuovo Stato carrello"
+
+# @ woocommerce_cart_reports
+#: woocommerce-cart-reports.php:88
+msgid "New Cart status Name"
+msgstr "Nuovo Nome Stato carrello"
+
+# @ woocommerce_cart_reports
+#: woocommerce-cart-reports.php:589
+msgid "Guest"
+msgstr "Ospite"
+
+# @ woocommerce_cart_reports
+msgid "Guest's"
+msgstr "Ospite"
+
+# @ woocommerce_cart_reports
+msgid "Email"
+msgstr "E-mail"
+
+# @ woocommerce_cart_reports
+msgid "View Order"
+msgstr "Visualizza Ordine"

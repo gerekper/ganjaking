@@ -1,0 +1,330 @@
+<?php
+/**
+ * Recover password plugin settings array
+ *
+ * @author  YITH
+ * @package YITH Easy Login & Register Popup For WooCommerce
+ * @version 1.0.0
+ */
+
+defined( 'YITH_WELRP' ) || exit;
+
+$settings = [
+	'lost-password' => [
+		[
+			'title' => _x( 'Lost password options', '[admin]Settings section title', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'type'  => 'title',
+			'desc'  => '',
+			'id'    => 'yith_welrp_lost_password_options',
+		],
+		[
+			'title'     => _x( 'Popup header text', '[admin]Plugin option label', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'type'      => 'yith-field',
+			'yith-type' => 'text',
+			'desc'      => _x( 'Enter a text for the popup header section.', '[admin]Plugin option description', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'id'        => 'yith_welrp_popup_lost_password_header',
+			'default'   => __( 'Recover your password', 'yith-easy-login-register-popup-for-woocommerce' ),
+		],
+		[
+			'title'     => _x( 'Popup title', '[admin]Plugin option label', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'type'      => 'yith-field',
+			'yith-type' => 'text',
+			'desc'      => _x( 'Enter a title for the popup.', '[admin]Plugin option description', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'id'        => 'yith_welrp_popup_lost_password_title',
+			'default'   => __( 'Lost your password?', 'yith-easy-login-register-popup-for-woocommerce' ),
+		],
+		[
+			'title'         => _x( 'Custom text before email form', '[admin]Plugin option label', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'type'          => 'yith-field',
+			'yith-type'     => 'textarea-editor',
+			'textarea_rows' => 8,
+			'desc'          => _x( 'Here you can add a custom text that will be shown before the email form.', '[admin]Plugin option description', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'id'            => 'yith_welrp_popup_lost_password_message',
+			'default'       => __( 'Don\'t worry. Enter the email address of your account.', 'yith-easy-login-register-popup-for-woocommerce' ),
+		],
+		[
+			'title'     => _x( 'User input label', '[admin]Plugin option label', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'type'      => 'yith-field',
+			'yith-type' => 'text',
+			'desc'      => _x( 'Enter the text for the email/username input field.', '[admin]Plugin option description', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'id'        => 'yith_welrp_popup_lost_password_input_label',
+			'default'   => _x( 'Email address or username:', 'User login input label', 'yith-easy-login-register-popup-for-woocommerce' ),
+		],
+		[
+			'title'     => _x( 'Pre-filled email field', '[admin]Plugin option label', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'type'      => 'yith-field',
+			'yith-type' => 'onoff',
+			'desc'      => _x( 'If enabled the email field will be automatically populated with the email address entered by the user.', '[admin]Plugin option description', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'id'        => 'yith_welrp_popup_lost_password_prefill',
+			'default'   => 'no',
+		],
+		[
+			'title'     => _x( 'Button text', '[admin]Plugin option label', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'type'      => 'yith-field',
+			'yith-type' => 'text',
+			'desc'      => _x( 'Enter the text for the button', '[admin]Plugin option description', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'id'        => 'yith_welrp_popup_lost_password_button_label',
+			'default'   => __( 'Reset password', 'yith-easy-login-register-popup-for-woocommerce' ),
+		],
+		[
+			'type' => 'sectionend',
+			'id'   => 'yith_welrp_lost_password_options',
+		],
+		[
+			'title' => _x( 'Recover password options', '[admin]Settings section title', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'type'  => 'title',
+			'desc'  => '',
+			'id'    => 'yith_welrp_recover_password_options',
+		],
+		[
+			'title'     => _x( 'Recover password type', '[admin]Plugin option label', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'type'      => 'yith-field',
+			'yith-type' => 'radio',
+			'desc'      => '',
+			'id'        => 'yith_welrp_popup_lost_password_recover_type',
+			'options'   => [
+				'classic'   => _x( 'Classic (users will receive a link by email to reset the password)', '[admin]Plugin option label', 'yith-easy-login-register-popup-for-woocommerce' ),
+				'with-code' => _x( 'With code (users will receive a code by email to set a new password without leaving the checkout process)', '[admin]Plugin option label', 'yith-easy-login-register-popup-for-woocommerce' ),
+			],
+			'default'   => 'classic',
+		],
+		[
+			'type'      => 'yith-field',
+			'yith-type' => 'title',
+			'desc'      => _x( 'Recover password email options', '[admin]Plugin option label', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'id'        => 'yith_welrp_popup_lost_password_confirm_section',
+			'deps'      => [
+				'id'    => 'yith_welrp_popup_lost_password_recover_type',
+				'value' => 'classic',
+				'type'  => 'hide',
+			],
+		],
+		[
+			'title'     => _x( 'Popup title', '[admin]Plugin option label', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'type'      => 'yith-field',
+			'yith-type' => 'text',
+			'desc'      => _x( 'Enter a title for the popup.', '[admin]Plugin option description', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'id'        => 'yith_welrp_popup_lost_password_confirm_title',
+			'default'   => __( 'Check your email', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'deps'      => [
+				'id'    => 'yith_welrp_popup_lost_password_recover_type',
+				'value' => 'classic',
+				'type'  => 'hide',
+			],
+		],
+		[
+			'title'         => _x( 'Custom text', '[admin]Plugin option label', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'type'          => 'yith-field',
+			'yith-type'     => 'textarea-editor',
+			'textarea_rows' => 8,
+			'desc'          => _x( 'Here you can add a custom text that will confirm that the email has been sent.', '[admin]Plugin option description', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'id'            => 'yith_welrp_popup_lost_password_confirm_message',
+			'default'       => __( 'A password reset email has been sent to the email address of your account. If you have not received it, check your spam folder or click on the following link to send another email.', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'deps'          => [
+				'id'    => 'yith_welrp_popup_lost_password_recover_type',
+				'value' => 'classic',
+				'type'  => 'hide',
+			],
+		],
+		[
+			'title'     => _x( 'Resend email label', '[admin]Plugin option label', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'type'      => 'yith-field',
+			'yith-type' => 'text',
+			'desc'      => '',
+			'id'        => 'yith_welrp_popup_lost_password_resend_email_text',
+			'default'   => __( 'Resend email', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'deps'      => [
+				'id'    => 'yith_welrp_popup_lost_password_recover_type',
+				'value' => 'classic',
+				'type'  => 'hide',
+			],
+		],
+		[
+			'type'      => 'yith-field',
+			'yith-type' => 'title',
+			'desc'      => _x( 'Authentication options', '[admin]Plugin option label', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'id'        => 'yith_welrp_popup_lost_password_authentication_section',
+			'deps'      => [
+				'id'    => 'yith_welrp_popup_lost_password_recover_type',
+				'value' => 'with-code',
+				'type'  => 'hide',
+			],
+		],
+		[
+			'title'     => _x( 'Popup title', '[admin]Plugin option label', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'type'      => 'yith-field',
+			'yith-type' => 'text',
+			'desc'      => _x( 'Enter a title for the popup.', '[admin]Plugin option description', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'id'        => 'yith_welrp_popup_lost_password_authentication_title',
+			'default'   => __( 'Authentication required', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'deps'      => [
+				'id'    => 'yith_welrp_popup_lost_password_recover_type',
+				'value' => 'with-code',
+				'type'  => 'hide',
+			],
+		],
+		[
+			'title'         => _x( 'Custom text before Code field', '[admin]Plugin option label', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'type'          => 'yith-field',
+			'yith-type'     => 'textarea-editor',
+			'textarea_rows' => 8,
+			'desc'          => _x( 'Here you can add a custom text that will be shown before the Code field.', '[admin]Plugin option description', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'id'            => 'yith_welrp_popup_lost_password_authentication_message',
+			'default'       => __( 'For your security we need to authenticate your request. We\'ve sent a code to your email. Please enter it below.', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'deps'          => [
+				'id'    => 'yith_welrp_popup_lost_password_recover_type',
+				'value' => 'with-code',
+				'type'  => 'hide',
+			],
+		],
+		[
+			'title'     => _x( 'Code input label', '[admin]Plugin option label', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'type'      => 'yith-field',
+			'yith-type' => 'text',
+			'desc'      => _x( 'Enter a text for the authentication code input field.', '[admin]Plugin option description', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'id'        => 'yith_welrp_popup_lost_password_authentication_input_label',
+			'default'   => _x( 'Enter code:', 'Authenticate lost password action input label', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'deps'      => [
+				'id'    => 'yith_welrp_popup_lost_password_recover_type',
+				'value' => 'with-code',
+				'type'  => 'hide',
+			],
+		],
+		[
+			'title'     => _x( 'Send code again', '[admin]Plugin option label', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'type'      => 'yith-field',
+			'yith-type' => 'onoff',
+			'desc'      => _x( 'If enabled, the user can request a new code.', '[admin]Plugin option description', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'id'        => 'yith_welrp_popup_lost_password_authentication_send_again',
+			'default'   => 'no',
+			'deps'      => [
+				'id'    => 'yith_welrp_popup_lost_password_recover_type',
+				'value' => 'with-code',
+				'type'  => 'hide',
+			],
+		],
+		[
+			'title'     => _x( 'Send code again label', '[admin]Plugin option label', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'type'      => 'yith-field',
+			'yith-type' => 'text',
+			'desc'      => '',
+			'id'        => 'yith_welrp_popup_lost_password_authentication_send_again_text',
+			'default'   => __( 'Not received the code? Resend it', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'deps'      => [
+				'id'    => 'yith_welrp_popup_lost_password_recover_type',
+				'value' => 'with-code',
+				'type'  => 'hide',
+			],
+		],
+		[
+			'title'     => _x( 'Button text', '[admin]Plugin option label', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'type'      => 'yith-field',
+			'yith-type' => 'text',
+			'desc'      => _x( 'Enter here the text for the button', '[admin]Plugin option description', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'id'        => 'yith_welrp_popup_lost_password_authentication_button_label',
+			'default'   => __( 'Continue', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'deps'      => [
+				'id'    => 'yith_welrp_popup_lost_password_recover_type',
+				'value' => 'with-code',
+				'type'  => 'hide',
+			],
+		],
+		[
+			'type'      => 'yith-field',
+			'yith-type' => 'title',
+			'desc'      => _x( 'Set a new password options', '[admin]Plugin option label', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'id'        => 'yith_welrp_popup_lost_password_set_section',
+			'deps'      => [
+				'id'    => 'yith_welrp_popup_lost_password_recover_type',
+				'value' => 'with-code',
+				'type'  => 'hide',
+			],
+		],
+		[
+			'title'     => _x( 'Popup title', '[admin]Plugin option label', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'type'      => 'yith-field',
+			'yith-type' => 'text',
+			'desc'      => _x( 'Enter a title for the popup.', '[admin]Plugin option description', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'id'        => 'yith_welrp_popup_lost_password_set_title',
+			'default'   => __( 'Set a new password and login', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'deps'      => [
+				'id'    => 'yith_welrp_popup_lost_password_recover_type',
+				'value' => 'with-code',
+				'type'  => 'hide',
+			],
+		],
+		[
+			'title'         => _x( 'Custom text before password field', '[admin]Plugin option label', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'type'          => 'yith-field',
+			'yith-type'     => 'textarea-editor',
+			'textarea_rows' => 8,
+			'desc'          => _x( 'Here you can add a custom text that will be shown before the password field.', '[admin]Plugin option description', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'id'            => 'yith_welrp_popup_lost_password_set_message',
+			'default'       => __( 'Now you can set a new password for your account.', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'deps'          => [
+				'id'    => 'yith_welrp_popup_lost_password_recover_type',
+				'value' => 'with-code',
+				'type'  => 'hide',
+			],
+		],
+		[
+			'title'     => _x( 'Password input label', '[admin]Plugin option label', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'type'      => 'yith-field',
+			'yith-type' => 'text',
+			'desc'      => _x( 'Enter a text for the new password input field.', '[admin]Plugin option description', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'id'        => 'yith_welrp_popup_lost_password_set_input_label',
+			'default'   => _x( 'New password:', 'Set new password action input label', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'deps'      => [
+				'id'    => 'yith_welrp_popup_lost_password_recover_type',
+				'value' => 'with-code',
+				'type'  => 'hide',
+			],
+		],
+		[
+			'title'     => _x( 'Repeat password option', '[admin]Plugin option label', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'type'      => 'yith-field',
+			'yith-type' => 'onoff',
+			'desc'      => _x( 'If enabled, the user will have to put the password twice.', '[admin]Plugin option description', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'id'        => 'yith_welrp_popup_lost_password_set_repeat_password',
+			'default'   => 'no',
+			'deps'      => [
+				'id'    => 'yith_welrp_popup_lost_password_recover_type',
+				'value' => 'with-code',
+				'type'  => 'hide',
+			],
+		],
+		[
+			'title'     => _x( 'Repeat password input label', '[admin]Plugin option label', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'type'      => 'yith-field',
+			'yith-type' => 'text',
+			'desc'      => _x( 'Enter a text for the Repeat password input field.', '[admin]Plugin option description', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'id'        => 'yith_welrp_popup_lost_password_set_repeat_input_label',
+			'default'   => _x( 'Repeat password:', 'Repeat new password action input label', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'deps'      => [
+				'id'    => 'yith_welrp_popup_lost_password_recover_type',
+				'value' => 'with-code',
+				'type'  => 'hide',
+			],
+		],
+		[
+			'title'     => _x( 'Button text', '[admin]Plugin option label', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'type'      => 'yith-field',
+			'yith-type' => 'text',
+			'desc'      => _x( 'Enter the text for the button', '[admin]Plugin option description', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'id'        => 'yith_welrp_popup_lost_password_set_button_label',
+			'default'   => __( 'Save password and proceed to checkout', 'yith-easy-login-register-popup-for-woocommerce' ),
+			'deps'      => [
+				'id'    => 'yith_welrp_popup_lost_password_recover_type',
+				'value' => 'with-code',
+				'type'  => 'hide',
+			],
+		],
+		[
+			'type' => 'sectionend',
+			'id'   => 'yith_welrp_recover_password_options',
+		],
+	],
+];
+
+return apply_filters( 'yith_welrp_panel_settings_lost_password_options', $settings );
+

@@ -1,0 +1,417 @@
+#my-account-menu {
+    float: left;
+    width: 25%;
+    box-sizing: border-box;
+}
+#my-account-menu.position-left {
+    padding-right: 15px;
+}
+#my-account-menu.position-right {
+    padding-left: 15px;
+    float: right;
+}
+#my-account-menu ~ .woocommerce-MyAccount-content {
+    float: left;
+    width: 75%;
+    box-sizing: border-box;
+    margin: 0;
+}
+.woocommerce-MyAccount-navigation:not( .wc-memberships-for-teams-teams-area-navigation ) {
+    display: none;
+}
+#my-account-menu ~ .woocommerce-MyAccount-content .woocommerce-MyAccount-content {
+    float: none;
+    width: 100%;
+    margin: 0;
+}
+#my-account-menu .myaccount-menu, #my-account-menu .myaccount-submenu,
+#my-account-menu .myaccount-menu li, #my-account-menu .myaccount-submenu li {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+#my-account-menu .myaccount-menu {
+    margin: 30px 0;
+}
+
+#my-account-menu .myaccount-menu:before {
+    display: block;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 10px 0;
+    content: '';
+}
+#my-account-menu.position-left .myaccount-menu:before {
+    border-right: 1px solid #e0e0e0;
+}
+#my-account-menu.position-right .myaccount-menu:before {
+    border-left: 1px solid #e0e0e0;
+}
+#my-account-menu .myaccount-menu:after {
+    display: block;
+    padding: 60px 0;
+    content: '';
+}
+#my-account-menu.position-left .myaccount-menu:after {
+    border-right: 1px solid #e0e0e0;
+}
+#my-account-menu.position-right .myaccount-menu:after {
+    border-left: 1px solid #e0e0e0;
+}
+#my-account-menu .myaccount-menu li a {
+    border-bottom: 1px solid #e0e0e0;
+    margin: 0;
+    cursor: pointer;
+}
+#my-account-menu.position-left .myaccount-menu li a {
+    border-right: 1px solid #e0e0e0;
+}
+#my-account-menu.position-right .myaccount-menu li a {
+    border-left: 1px solid #e0e0e0;
+}
+#my-account-menu .myaccount-menu li.active > a,
+#my-account-menu .myaccount-menu li.is-active > a {
+    font-weight: bold;
+}
+#my-account-menu.position-right .myaccount-menu li.active a,
+#my-account-menu.position-right .myaccount-menu li.is-active a {
+    border-left: 0;
+}
+#my-account-menu.position-left .myaccount-menu li.active a,
+#my-account-menu.position-left .myaccount-menu li.is-active a {
+    border-right: 0;
+}
+#my-account-menu .myaccount-menu li > a {
+    display: block;
+    padding: 12px 5px 12px 0;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    text-align: left;
+    text-transform: uppercase;
+    box-shadow: none;
+    outline: none;
+}
+#my-account-menu.position-right .myaccount-menu li > a {
+    text-align: right;
+}
+#my-account-menu .myaccount-menu li > a > .fa {
+    margin-right: 10px;
+}
+
+#my-account-menu .myaccount-menu a.group-opener {
+    position: relative;
+    padding-right: 35px;
+}
+#my-account-menu .myaccount-menu a.group-opener i.opener {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    margin: 0;
+}
+
+#my-account-menu.position-right a.group-opener {
+    padding-right: 5px;
+    padding-left: 35px;
+}
+#my-account-menu.position-right a.group-opener i {
+    right: auto;
+    left: 15px;
+}
+#my-account-menu .user-profile {
+    text-align: center;
+}
+#my-account-menu .user-profile .username {
+    text-align: center;
+    margin-bottom: 10px;
+}
+.user-profile .user-info .logout a{
+    padding: 2px 10px;
+    font-size: 14px;
+    text-transform: uppercase;
+    border: 0;
+}
+.yith-wcmap .user-image {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    cursor: pointer;
+}
+.yith-wcmap .user-image img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 0;
+}
+#load-avatar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    top: 0;
+    right: 0;
+    display: inline-block;
+    text-align: center;
+    background: rgba( 0, 0, 0, 0.5 );
+    transform: scale(0);
+    -webkit-transform: scale(0);
+    -moz-transform: scale(0);
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    border-radius: 50%;
+    cursor: pointer;
+}
+#load-avatar:before {
+    content: '';
+    width: 0;
+    height: 100%;
+    display: inline-block;
+    vertical-align: middle;
+}
+#load-avatar i {
+    color: #fff;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 15px;
+}
+.yith-wcmap .user-image:hover #load-avatar {
+    transform: scale(1.5);
+    -webkit-transform: scale(1.5);
+    -moz-transform: scale(1.5);
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+}
+
+.yith-wcmap-avatar-form-popup p {
+    margin-bottom: 0;
+}
+.yith-wcmap-avatar-form-popup .submit {
+    text-align: right;
+}
+
+#my-account-content .waitlist-title-section {
+    display: none;
+}
+/*####################
+ TAB STYLE
+####################*/
+
+#my-account-menu-tab .myaccount-menu {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+#my-account-menu-tab .myaccount-menu:before,
+#my-account-menu-tab .myaccount-menu:after {
+    content: '';
+    display: table;
+    clear: both;
+}
+#my-account-menu-tab .myaccount-menu > li {
+    float: left;
+    margin-top: 7px;
+    margin-bottom: 0;
+    margin-right: 5px;
+    position: relative;
+    display: block;
+}
+#my-account-menu-tab .myaccount-menu > li:last-child a {
+    margin-right: 0;
+}
+#my-account-menu-tab .myaccount-menu li a {
+    text-decoration: none;
+    display: block;
+    padding: 0.5em 1em;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    text-align: center;
+    text-transform: uppercase;
+    box-shadow: none;
+    position: relative;
+    cursor: pointer;
+}
+#my-account-menu-tab .myaccount-menu > li > a {
+    border: 1px solid #e0e0e0;
+    border-bottom: none;
+}
+#my-account-menu-tab .myaccount-submenu {
+    display: none;
+    list-style: none;
+    padding: 5px;
+    border: 1px solid #e0e0e0;
+    right: 0;
+    margin: 0;
+    position: absolute;
+    z-index: 999;
+    background: #fff;
+}
+#my-account-menu-tab .myaccount-submenu > li > a {
+    border-bottom: 1px solid #e0e0e0;
+}
+#my-account-menu-tab .myaccount-submenu > li:last-child > a {
+    border: none;
+}
+#my-account-menu-tab .user-info {
+    display: inline-block;
+    vertical-align: top;
+    padding-left: 15px;
+}
+#my-account-menu-tab ~ .woocommerce-MyAccount-content,
+#my-account-menu-tab ~ .woocommerce-MyAccount-content .woocommerce-MyAccount-content {
+    float: none;
+    width: 100%;
+}
+
+#my-account-menu-tab .myaccount-menu li.active > a,
+#my-account-menu-tab .myaccount-menu li.is-active > a {
+    font-weight: bold;
+}
+
+/*###########################
+AVATAR MODAL
+###########################*/
+#yith-wcmap-avatar-form-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba( 0,0,0,0.5 );
+    z-index: 1000;
+}
+div#yith-wcmap-avatar-form-overlay.loading:before {
+    border: 4px double #f3f3f3;
+    border-top: 4px solid #333;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 2s linear infinite;
+    content: '';
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    margin-top: -20px;
+    left: 50%;
+    margin-left: -20px;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+#yith-wcmap-avatar-form {
+    background-color: rgba(255,255,255,1);
+    padding: 30px;
+    position: fixed;
+    border: 3px solid #e0e0e0;
+    z-index: 1100;
+}
+
+#yith-wcmap-avatar-form h3{
+    font-size: 18px;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #e0e0e0;
+}
+#yith-wcmap-avatar-form input[type='submit']{
+    font-size: 14px;
+    padding: 8px 16px;
+    transition: all 0.3s ease;
+}
+#yith-wcmap-avatar-form p.submit{
+    text-align: right;
+    margin-bottom: 10px;
+}
+#yith-wcmap-avatar-form i.close-form {
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    display: inline;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    background: #fff;
+    border-radius: 50%;
+    line-height: 24px;
+    font-size: 17px;
+    border: 2px solid #e0e0e0;
+    cursor: pointer;
+    color: #a0a0a0;
+    transition: all 0.3s ease;
+}
+#yith-wcmap-avatar-form i.close-form:hover {
+    color: #000;
+    transition: all 0.3s ease;
+}
+/*########################
+RESPONSIVE
+########################*/
+
+@media( max-width: 768px ) {
+    #my-account-menu .myaccount-menu li i{
+        display: none;
+    }
+}
+
+@media( min-width: 481px ) {
+    #my-account-menu-tab .myaccount-menu > li:hover .myaccount-submenu,
+    #my-account-menu-tab .myaccount-menu > li.is-hover .myaccount-submenu {
+        display: block;
+    }
+}
+
+@media( max-width: 480px ) {
+    #my-account-menu {
+        width: 100%;
+        float: none;
+        padding: 0 !important;
+    }
+    #my-account-menu ~ #my-account-content {
+        width: 100%;
+        float: none;
+    }
+    #my-account-menu .myaccount-menu:after,
+    #my-account-menu .myaccount-menu:before {
+        display: none;
+    }
+    #my-account-menu .myaccount-menu li a {
+        border: 1px solid #e0e0e0;
+        border-bottom: 0;
+    }
+    #my-account-menu .myaccount-menu li:last-child a {
+        border-bottom: 1px solid #e0e0e0;
+    }
+    #my-account-menu .myaccount-menu li.active a,
+    #my-account-menu .myaccount-menu li.is-active a {
+        border-right: 1px solid #e0e0e0 !important;
+    }
+    #my-account-menu.position-right .myaccount-menu li.active a,
+    #my-account-menu.position-right .myaccount-menu li.is-active a {
+        border-left: 1px solid #e0e0e0 !important;
+    }
+    #my-account-menu .myaccount-menu li i{
+        display: inline-block;
+    }
+    #my-account-menu .myaccount-menu li a {
+        text-align: center;
+        padding: 12px 10px;
+    }
+    #my-account-menu .myaccount-menu li,
+    #my-account-menu-tab .myaccount-menu li {
+        margin: 0;
+        display: block;
+        float: none;
+    }
+    #my-account-menu-tab .myaccount-submenu {
+        position: static;
+        padding: 0;
+        display: none;
+    }
+}

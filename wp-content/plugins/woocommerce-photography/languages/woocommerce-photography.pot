@@ -1,0 +1,554 @@
+# Copyright (C) 2020 WooCommerce
+# This file is distributed under the GNU General Public License v3.0.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Photography 1.0.25\n"
+"Report-Msgid-Bugs-To: "
+"https://wordpress.org/support/plugin/woocommerce-photography\n"
+"POT-Creation-Date: 2020-06-11 13:46:30+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: node-wp-i18n 1.2.3\n"
+
+#: includes/admin/class-wc-photography-admin-collections.php:90
+msgid "Image"
+msgstr ""
+
+#: includes/admin/class-wc-photography-admin-collections.php:92
+#: includes/admin/views/html-add-new-collection.php:11
+#: includes/admin/views/html-edit-collection.php:8
+#: templates/myaccount/my-collections.php:21
+#: templates/myaccount/my-collections.php:56
+msgid "Visibility"
+msgstr ""
+
+#: includes/admin/class-wc-photography-admin-collections.php:123
+#: includes/admin/views/html-add-new-collection.php:20
+#: includes/admin/views/html-edit-collection.php:19
+msgid "Thumbnail"
+msgstr ""
+
+#: includes/admin/class-wc-photography-admin-collections.php:134
+#. translators: 1: number of products
+msgid "View products on this collection."
+msgstr ""
+
+#: includes/admin/class-wc-photography-admin-collections.php:134
+msgid "View Products (%d)"
+msgstr ""
+
+#: includes/admin/class-wc-photography-admin-collections.php:135
+msgid "View collection page."
+msgstr ""
+
+#: includes/admin/class-wc-photography-admin-collections.php:135
+msgid "View Collection"
+msgstr ""
+
+#: includes/admin/class-wc-photography-admin-settings.php:38
+#: includes/admin/class-wc-photography-admin.php:59
+#: includes/admin/class-wc-photography-admin.php:60
+#: includes/admin/views/html-batch-upload.php:42
+#: includes/admin/views/html-batch-upload.php:46
+#: includes/admin/views/html-batch-upload.php:136
+#: includes/admin/views/html-customer-profile-fields.php:10
+msgid "Collections"
+msgstr ""
+
+#: includes/admin/class-wc-photography-admin-settings.php:43
+msgid "Collections Default Visibility"
+msgstr ""
+
+#: includes/admin/class-wc-photography-admin-settings.php:44
+msgid "Set the default Collections visibility."
+msgstr ""
+
+#: includes/admin/class-wc-photography-admin-settings.php:47
+#: includes/admin/views/html-add-new-collection.php:13
+#: includes/admin/views/html-edit-collection.php:11
+#: includes/wc-photography-helpers.php:19
+#: templates/myaccount/my-collections.php:59
+msgid "Restricted"
+msgstr ""
+
+#: includes/admin/class-wc-photography-admin-settings.php:48
+#: includes/admin/views/html-add-new-collection.php:14
+#: includes/admin/views/html-edit-collection.php:12
+#: includes/wc-photography-helpers.php:20
+#: templates/myaccount/my-collections.php:60
+msgid "Public"
+msgstr ""
+
+#: includes/admin/class-wc-photography-admin-settings.php:54
+msgid "Shop Page Visbility"
+msgstr ""
+
+#: includes/admin/class-wc-photography-admin-settings.php:55
+msgid "Allow public collections to show up on shop/archive pages."
+msgstr ""
+
+#: includes/admin/class-wc-photography-admin-settings.php:61
+msgid "Thumbnails"
+msgstr ""
+
+#: includes/admin/class-wc-photography-admin-settings.php:66
+msgid "Collections Thumbnail size:"
+msgstr ""
+
+#: includes/admin/class-wc-photography-admin-settings.php:77
+msgid "Collections Lightbox size:"
+msgstr ""
+
+#: includes/admin/class-wc-photography-admin-settings.php:171
+msgid ""
+"The settings of this image size have been disabled because its values are "
+"being overwritten by a filter."
+msgstr ""
+
+#: includes/admin/class-wc-photography-admin-settings.php:178
+msgid "Hard Crop?"
+msgstr ""
+
+#: includes/admin/class-wc-photography-admin.php:48
+#: includes/admin/class-wc-photography-admin.php:49
+#: includes/admin/class-wc-photography-admin.php:152
+#: includes/admin/class-wc-photography-admin.php:208
+#: includes/admin/class-wc-photography-privacy.php:12
+msgid "Photography"
+msgstr ""
+
+#: includes/admin/class-wc-photography-admin.php:67
+#: includes/admin/class-wc-photography-admin.php:68
+msgid "Add Photographs"
+msgstr ""
+
+#: includes/admin/class-wc-photography-admin.php:76
+msgid "Photography Settings"
+msgstr ""
+
+#: includes/admin/class-wc-photography-admin.php:77
+#: woocommerce-photography.php:157
+msgid "Settings"
+msgstr ""
+
+#: includes/admin/class-wc-photography-admin.php:178
+msgid "Allowed Files"
+msgstr ""
+
+#: includes/admin/class-wc-photography-admin.php:247
+#: includes/admin/class-wc-photography-admin.php:269
+#: includes/admin/views/html-batch-upload.php:56
+#: includes/admin/views/html-batch-upload.php:151
+#: includes/admin/views/html-customer-profile-fields.php:30
+msgid "Search for a collection&hellip;"
+msgstr ""
+
+#: includes/admin/class-wc-photography-admin.php:248
+#: includes/admin/class-wc-photography-admin.php:270
+msgid "Loading&hellip;"
+msgstr ""
+
+#: includes/admin/class-wc-photography-admin.php:249
+#: includes/admin/class-wc-photography-admin.php:271
+msgid "An error occurred while creating the collection! Please try again."
+msgstr ""
+
+#: includes/admin/class-wc-photography-admin.php:250
+msgid "Photographs edited successfully!"
+msgstr ""
+
+#: includes/admin/class-wc-photography-admin.php:290
+msgid "Choose an image"
+msgstr ""
+
+#: includes/admin/class-wc-photography-admin.php:291
+msgid "Use image"
+msgstr ""
+
+#: includes/admin/class-wc-photography-privacy.php:20
+msgid ""
+"By using this extension, you may be storing personal data or sharing data "
+"with an external service. <a href=\"%s\" target=\"_blank\">Learn more about "
+"how this works, including what you may want to include in your privacy "
+"policy.</a>"
+msgstr ""
+
+#: includes/admin/views/html-add-new-collection.php:16
+#: includes/admin/views/html-edit-collection.php:14
+msgid ""
+"Restricted: only users in this collection can access. Public: any customers "
+"can access."
+msgstr ""
+
+#: includes/admin/views/html-add-new-collection.php:24
+#: includes/admin/views/html-edit-collection.php:24
+msgid "Upload/Add image"
+msgstr ""
+
+#: includes/admin/views/html-add-new-collection.php:25
+#: includes/admin/views/html-edit-collection.php:25
+msgid "Remove image"
+msgstr ""
+
+#: includes/admin/views/html-batch-upload.php:9
+msgid ""
+"Use this screen to upload your photographs. Before uploading, set any of "
+"the following parameters to apply them to each uploaded photograph."
+msgstr ""
+
+#: includes/admin/views/html-batch-upload.php:18
+#: includes/admin/views/html-batch-upload.php:22
+msgid "SKU Pattern"
+msgstr ""
+
+#: includes/admin/views/html-batch-upload.php:24
+msgid "Specify a pattern to ensure your photos have a unique SKU. E.g. %swc-%s"
+msgstr ""
+
+#: includes/admin/views/html-batch-upload.php:30
+#: includes/admin/views/html-batch-upload.php:34
+#: includes/admin/views/html-batch-upload.php:131
+msgid "Price"
+msgstr ""
+
+#: includes/admin/views/html-batch-upload.php:36
+msgid "Set a global price that will be set for each photo uploaded."
+msgstr ""
+
+#: includes/admin/views/html-batch-upload.php:61
+msgid "Specify which collection(s) these photos belong to."
+msgstr ""
+
+#: includes/admin/views/html-batch-upload.php:63
+#: includes/admin/views/html-batch-upload.php:163
+#: includes/admin/views/html-customer-profile-fields.php:42
+msgid "+ Add Collection"
+msgstr ""
+
+#: includes/admin/views/html-batch-upload.php:66
+#: includes/admin/views/html-batch-upload.php:166
+#: includes/admin/views/html-customer-profile-fields.php:45
+msgid "Add New Collection"
+msgstr ""
+
+#: includes/admin/views/html-batch-upload.php:78
+msgid "Drop images here"
+msgstr ""
+
+#: includes/admin/views/html-batch-upload.php:81
+msgid "Select Images"
+msgstr ""
+
+#: includes/admin/views/html-batch-upload.php:88
+msgid "Maximum upload file size: %s."
+msgstr ""
+
+#: includes/admin/views/html-batch-upload.php:92
+msgid ""
+"You can't send images because your browser is too old or do not have "
+"JavaScript enabled!"
+msgstr ""
+
+#: includes/admin/views/html-batch-upload.php:98
+#: includes/admin/views/html-batch-upload.php:112
+msgid "Save Changes"
+msgstr ""
+
+#: includes/admin/views/html-batch-upload.php:103
+msgid "Close all"
+msgstr ""
+
+#: includes/admin/views/html-batch-upload.php:103
+msgid "Expand all"
+msgstr ""
+
+#: includes/admin/views/html-batch-upload.php:104
+msgid "Photographs"
+msgstr ""
+
+#: includes/admin/views/html-batch-upload.php:119
+msgid "Remove"
+msgstr ""
+
+#: includes/admin/views/html-batch-upload.php:120
+msgid "Click to toggle"
+msgstr ""
+
+#: includes/admin/views/html-batch-upload.php:127
+msgid "SKU"
+msgstr ""
+
+#: includes/admin/views/html-batch-upload.php:171
+msgid "Caption"
+msgstr ""
+
+#: includes/class-wc-photography-ajax.php:116
+#. translators: 1: image id 2: first collection name
+msgid "Photography #%1$d from %2$s"
+msgstr ""
+
+#: includes/class-wc-photography-ajax.php:119
+#. translators: 1: image id
+msgid "Photography #%d"
+msgstr ""
+
+#: includes/class-wc-photography-products-addons.php:43
+#: includes/class-wc-photography-taxonomies.php:33
+#: includes/class-wc-photography-taxonomies.php:35
+msgid "Photography Collections"
+msgstr ""
+
+#: includes/class-wc-photography-products-addons.php:48
+#: includes/class-wc-photography-products-addons.php:104
+#: includes/wc-photography-template-functions.php:226
+msgid "Collection:"
+msgstr ""
+
+#: includes/class-wc-photography-products.php:38
+msgid "Photograph"
+msgstr ""
+
+#: includes/class-wc-photography-products.php:355
+msgid "Please choose the quantity of items you wish to add to your order&hellip;"
+msgstr ""
+
+#: includes/class-wc-photography-products.php:420
+msgid "You don't have permission to purchase this photo!"
+msgstr ""
+
+#: includes/class-wc-photography-taxonomies.php:36
+msgid "Photography Collection"
+msgstr ""
+
+#: includes/class-wc-photography-taxonomies.php:38
+msgid "All Photography Collections"
+msgstr ""
+
+#: includes/class-wc-photography-taxonomies.php:39
+msgid "Edit Photography Collection"
+msgstr ""
+
+#: includes/class-wc-photography-taxonomies.php:40
+msgid "View Photography Collection"
+msgstr ""
+
+#: includes/class-wc-photography-taxonomies.php:41
+msgid "Update Photography Collection"
+msgstr ""
+
+#: includes/class-wc-photography-taxonomies.php:42
+msgid "Add New Photography Collection"
+msgstr ""
+
+#: includes/class-wc-photography-taxonomies.php:43
+msgid "New Photography Collection name"
+msgstr ""
+
+#: includes/class-wc-photography-taxonomies.php:44
+msgid "Parent Photography Collection"
+msgstr ""
+
+#: includes/class-wc-photography-taxonomies.php:45
+msgid "Parent Photography Collection:"
+msgstr ""
+
+#: includes/class-wc-photography-taxonomies.php:46
+msgid "Search Photography Collections"
+msgstr ""
+
+#: includes/class-wc-photography-taxonomies.php:47
+msgid "No Photography Collections found"
+msgstr ""
+
+#: includes/class-wc-product-photography.php:43
+#: templates/loop/photography/collections-tools.php:41
+msgid "Add to cart"
+msgstr ""
+
+#: includes/emails/class-wc-mail-photography-new-collection.php:21
+msgid "New Photography Collection"
+msgstr ""
+
+#: includes/emails/class-wc-mail-photography-new-collection.php:22
+msgid ""
+"This email is sent to customers when you assign a collection to their "
+"account."
+msgstr ""
+
+#: includes/emails/class-wc-mail-photography-new-collection.php:25
+msgid "[{site_title}] Your photographs are ready! - {collections}"
+msgstr ""
+
+#: includes/emails/class-wc-mail-photography-new-collection.php:26
+msgid ""
+"Photos from your event(s) have been added to your account & are ready to be "
+"viewed."
+msgstr ""
+
+#: includes/emails/class-wc-mail-photography-new-collection.php:46
+msgid "Enable/Disable"
+msgstr ""
+
+#: includes/emails/class-wc-mail-photography-new-collection.php:48
+msgid "Enable this email notification"
+msgstr ""
+
+#: includes/emails/class-wc-mail-photography-new-collection.php:52
+msgid "Subject"
+msgstr ""
+
+#: includes/emails/class-wc-mail-photography-new-collection.php:54
+msgid ""
+"This controls the email subject line. Leave blank to use the default "
+"subject: <code>%s</code>."
+msgstr ""
+
+#: includes/emails/class-wc-mail-photography-new-collection.php:59
+msgid "Email Heading"
+msgstr ""
+
+#: includes/emails/class-wc-mail-photography-new-collection.php:61
+msgid ""
+"This controls the main heading contained within the email. Leave blank to "
+"use the default heading: <code>%s</code>."
+msgstr ""
+
+#: includes/emails/class-wc-mail-photography-new-collection.php:66
+msgid "Email type"
+msgstr ""
+
+#: includes/emails/class-wc-mail-photography-new-collection.php:68
+msgid "Choose which format of email to send."
+msgstr ""
+
+#: includes/emails/class-wc-mail-photography-new-collection.php:72
+msgid "Plain text"
+msgstr ""
+
+#: includes/emails/class-wc-mail-photography-new-collection.php:73
+msgid "HTML"
+msgstr ""
+
+#: includes/emails/class-wc-mail-photography-new-collection.php:74
+msgid "Multipart"
+msgstr ""
+
+#: templates/emails/photography-new-collection.php:17
+#: templates/emails/plain/photography-new-collection.php:16
+msgid "The following photo collection(s) has been added to your account:"
+msgstr ""
+
+#: templates/emails/photography-new-collection.php:25
+msgid "You can view your collections on the %s page."
+msgstr ""
+
+#: templates/emails/photography-new-collection.php:25
+msgid "My Account"
+msgstr ""
+
+#: templates/emails/plain/photography-new-collection.php:24
+msgid "You can view your collections on the My Account page: %s"
+msgstr ""
+
+#: templates/loop/photography/collections-tools.php:24
+msgid "Select"
+msgstr ""
+
+#: templates/loop/photography/collections-tools.php:38
+msgid "of each photo"
+msgstr ""
+
+#: templates/loop/photography/image.php:26
+msgid "Placeholder"
+msgstr ""
+
+#: templates/loop/photography/sku.php:16
+msgid "SKU:"
+msgstr ""
+
+#: templates/loop/photography/sku.php:16
+msgid "N/A"
+msgstr ""
+
+#: templates/myaccount/my-collections.php:12
+msgid "My Collections"
+msgstr ""
+
+#: templates/myaccount/my-collections.php:18
+#: templates/myaccount/my-collections.php:42
+msgid "Cover image"
+msgstr ""
+
+#: templates/myaccount/my-collections.php:19
+#: templates/myaccount/my-collections.php:54
+msgid "Title"
+msgstr ""
+
+#: templates/myaccount/my-collections.php:20
+#: templates/myaccount/my-collections.php:55
+msgid "Number of photos"
+msgstr ""
+
+#: templates/myaccount/my-collections.php:62
+msgid "Save"
+msgstr ""
+
+#: templates/myaccount/my-collections.php:67
+msgid "View Photographs"
+msgstr ""
+
+#: woocommerce-photography.php:37
+#. translators: %s WC download URL link.
+msgid ""
+"Photography requires WooCommerce to be installed and active. You can "
+"download %s here."
+msgstr ""
+
+#: woocommerce-photography.php:158
+msgid "Support"
+msgstr ""
+
+#: woocommerce-photography.php:159
+msgid "Docs"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce Photography"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://woocommerce.com/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Provide a user experience for photographers to offer batches of images for "
+"order."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "WooCommerce"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://woocommerce.com"
+msgstr ""
+
+#: includes/admin/views/html-batch-upload.php:79
+msgctxt "Uploader: Drop images here - or - Select Images"
+msgid "or"
+msgstr ""
+
+#: includes/class-wc-photography-taxonomies.php:37
+msgctxt "Admin menu name"
+msgid "Collections"
+msgstr ""
+
+#: includes/class-wc-photography-taxonomies.php:61
+msgctxt "slug"
+msgid "collection"
+msgstr ""

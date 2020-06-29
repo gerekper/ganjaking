@@ -1,0 +1,173 @@
+#{$wrap} .mega-menu-toggle {
+
+    /** Menu Toggle Blocks **/
+    @each $item in $logo_blocks {
+        $id: nth($item, 1);
+        $logo_id: nth($item, 2);
+        $logo_src: nth($item, 3);
+        $logo_url: nth($item, 4);
+        $logo_offset: nth($item, 5);
+        $logo_max_height: nth($item, 6);
+
+        @if type-of($id) == number {
+            .mega-toggle-block-#{$id} a.mega-menu-logo {
+                padding: 0;
+                text-decoration: none;
+                line-height: unset;
+
+                &:hover {
+                    background: transparent;
+                }
+
+                img.mega-menu-logo {
+                    max-height: $logo_max_height;
+                    top: $logo_offset;
+                    margin: 0;
+                    padding: 0;
+                    position: relative;
+                    vertical-align: middle;
+                    width: auto;
+                }
+            }
+        }
+    }
+
+    /** Icon Toggle Blocks **/
+    @each $item in $icon_blocks {
+        $id: nth($item, 1);
+        $icon: nth($item, 2);
+        $color: nth($item, 3);
+        $font: nth($item, 4);
+        $size: nth($item, 5);
+        $weight: nth($item, 6);
+
+        @if type-of($id) == number {
+            .mega-toggle-block-#{$id} a.mega-icon:before {
+                content: $icon;
+                font-family: $font;
+                font-size: $size;
+                color: $color;
+                width: 40px;
+                height: 100%;
+                font-weight: $weight;
+            }
+        }
+    }
+
+    /** Search Toggle Blocks **/
+    @each $item in $search_blocks {
+        $id: nth($item, 1);
+        $search_height: nth($item, 2);
+        $search_text_color: nth($item, 3);
+        $search_icon_color_closed: nth($item, 4);
+        $search_icon_color_open: nth($item, 5);
+        $search_background_color_closed: nth($item, 6);
+        $search_background_color_open: nth($item, 7);
+        $search_border_radius: nth($item, 8);
+        $search_vertical_offset: nth($item, 9);
+        $search_width: nth($item, 10);
+
+        @if type-of($id) == number {
+
+            .mega-toggle-block-#{$id} {
+                border-left: 0;
+                -webkit-box-shadow: none;
+                -moz-box-shadow: none;
+                box-shadow: none;
+                line-height: $toggle_bar_height;
+                
+                .mega-search-wrap {
+                    position: relative;
+                    width: $search_height; // square icon
+                    height: $search_height;
+                    vertical-align: middle;
+                    display: inline-block;
+                    z-index: 99999;
+                    margin-top: $search_vertical_offset;
+                    align-self: center;
+
+                    &.mega-static {
+                        width: $search_width;
+                    }
+                }
+
+                .mega-search {
+                    line-height: $search_height;
+                    position: absolute;
+                    right: 0;
+                    margin: 0;
+
+                    &.expand-to-right {
+                        right: auto;
+                        left: 0;
+                    }
+
+                    &.mega-search-open {
+                        input[type=text] {
+                            background-color: $search_background_color_open;
+                        }
+
+                        .search-icon:before {
+                            color: $search_icon_color_open;
+                        }
+                    }
+
+                    &.mega-search-closed input[type=text] {
+                        width: $search_height;
+                        padding: 0; 
+                    }
+
+                    input[type=text] {
+                        color: $search_text_color;
+                        background-color: $search_background_color_closed;
+                        width: $search_width;
+                        margin: 0;
+                        min-height: 0;
+                        padding: 0 $search_height 0 5px;
+                        height: $search_height;
+                        border: 0;
+                        line-height: $search_height;
+                        transition: width 0.6s, background-color 0.6s, color 1s;
+                        box-sizing: border-box;
+                        border-radius: $search_border_radius;
+                        vertical-align: top;
+                        @include box-shadow(none);
+                    }
+
+                    input:focus {
+                        outline: none;
+                    }
+
+                    input[type=submit] {
+                        display: none;
+                    }
+
+                    .search-icon {
+                        right: 0;
+                        position: absolute;
+                        width: $search_height;
+                        height: $search_height;
+                        cursor: pointer;
+
+                        &:before {
+                            color: $search_icon_color_closed;
+                            height: $search_height;
+                            width: $search_height;
+                            vertical-align: middle;
+                            line-height: $search_height;
+                        }
+                    }
+
+                    &.expand-to-right {
+                        .search-icon {
+                            right: auto;
+                        }
+                        input[type=text] {
+                            padding: 0 5px 0 $search_height;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

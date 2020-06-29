@@ -1,0 +1,7 @@
+{
+  "name": "woocommerce-product-feeds",
+  "devDependencies": {
+    "grunt": "^1.0.3",
+    "grunt-wp-i18n": "^1.0.3"
+  }
+}

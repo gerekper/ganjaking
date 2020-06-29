@@ -1,0 +1,66 @@
+body {
+	margin: 0;
+}
+
+.mainTable {
+	width: 100%;
+	color: #5E5E5E;
+	font-size: 1em;
+	line-height: 1.5em;
+}
+
+.mainTable tr:nth-child(2n) td {
+	padding-bottom: 10px;
+}
+
+button, input, textarea {
+	font-size: 1em;
+	padding: 8px;
+	border: 1px solid #CCCCCC;
+	border-radius: 3px;
+	font-family: "Open Sans",Helvetica,Arial,sans-serif;
+	-moz-box-sizing: border-box;
+	line-height: 1em;
+	outline: 0 none;
+}
+
+label {
+	font-size: 0.9em;
+	font-family: "Open Sans",Helvetica,Arial,sans-serif;
+}
+
+input[type="text"]:focus {
+	box-shadow: 0 0 .1875em #3498db;
+}
+
+button {
+	font-size: 100%;
+	margin: 0;
+	line-height: 1;
+	cursor: pointer;
+	position: relative;
+	text-decoration: none;
+	overflow: visible;
+	padding: .618em 1em;
+	font-weight: 700;
+	border-radius: 3px;
+	left: auto;
+	border: 0;
+	white-space: nowrap;
+	display: inline-block;
+	background-image: none;
+	box-shadow: none;
+	-webkit-box-shadow: none;
+	text-shadow: none;
+	background-color: #a46497;
+	color: #fff;
+	-webkit-font-smoothing: antialiased;
+}
+button:hover {
+	background-color: #935386;
+	color: #fff;
+}
+
+#amountDisplay {
+	opacity: 0.5;
+}

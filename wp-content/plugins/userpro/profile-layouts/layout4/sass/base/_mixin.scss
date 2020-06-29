@@ -1,0 +1,16 @@
+@mixin transition($time) {
+
+  -webkit-transition: all $time;
+  -moz-transition: all $time;
+  -ms-transition: all $time;
+  -o-transition: all $time;
+  transition: all $time;
+}
+
+@keyframes up_slide_content {
+  100% { right: 0; }
+}
+
+@keyframes up_slide_content_out {
+  100% { right: 100%;}
+}

@@ -1,0 +1,4 @@
+vendor/*
+composer.lock
+FacebookTest.php
+VerticalResponseTest.php

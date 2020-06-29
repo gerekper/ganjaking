@@ -1,0 +1,13 @@
+body{background-color:#fff;color:#222}
+body,button,input,select,textarea {font-family:'Roboto',Arial,sans-serif;font-size:14px;line-height:25px;font-weight:400;}
+
+h1,h2,h3,h4,h5,h6{margin-bottom:15px}
+.big{font-size:110%;line-height:180%}
+
+a{color:#0095eb}
+h1{font-size:48px;line-height:50px;font-weight:400}
+h2{font-size:30px;line-height:34px;font-weight:300}
+h3{font-size:25px;line-height:29px;font-weight:300}
+h4{font-size:21px;line-height:25px;font-weight:500}
+h5{font-size:15px;line-height:25px;font-weight:700}
+h6{font-size:14px;line-height:25px;font-weight:400}

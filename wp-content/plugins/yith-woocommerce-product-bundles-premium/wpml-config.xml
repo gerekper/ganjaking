@@ -1,0 +1,8 @@
+<wpml-config>
+	<custom-fields>
+		<custom-field action="copy">_yith_wcpb_bundle_data</custom-field>
+		<custom-field action="copy">_yith_wcpb_per_item_pricing</custom-field>
+		<custom-field action="copy">_yith_wcpb_non_bundled_shipping</custom-field>
+		<custom-field action="copy">_yith_wcpb_bundle_advanced_options</custom-field>
+	</custom-fields>
+</wpml-config>

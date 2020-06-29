@@ -1,0 +1,153 @@
+/* Ajax-Layerd Nav Widgets 
+ * Shopping Cart: WooCommerce
+ * File: Admin/Frontend CSS 
+ * License: GPL
+ * Copyright: SixtyOneDesigns 
+ */
+
+/* Admin UI 
+ * tables: color, size
+ * use: setting config values for widget in admin
+ */
+	table.sizes, table.color{
+		width:100%;
+		float:left;
+	}
+	table.sizes input, table.color input{
+		border-collapse:collapse;
+		border:1px solid #dbdbd1;
+	}
+	
+	table.sizes thead, table.color thead {
+		font-weight:bold;
+	}
+	table.color td.inputs{
+		width:75%;
+	}
+	table.color td.inputs input{
+		float:left; 
+		padding:5px 5px 0 0;
+	}
+	table.color td.inputs .colorSelector{
+		float:left;	
+	}
+
+/* Frontend UI
+ * lists, conatiners for frontend ajax layered nav elements
+ */
+
+/* Products container */
+	#products{
+		position:relative;
+		min-height: 100px;
+		
+	}
+	
+	#products:after {
+		content:"";
+		display:block;
+		clear:both;
+	}
+
+/* UI Filter Types */
+/*All*/
+	.widget_layered_nav {
+		overflow: hidden;
+		zoom: 1;
+	}
+	ul.colors li, ul.sizes li, ul.checkboxes li {
+		list-style:none;
+	}
+	
+	ul.colors li.chosen, ul.sizes li.chosen, ul.checkboxes li.chosen{
+		background:none !important;
+	}
+	ul.colors li.chosen a:before, ul.sizes li.chosen a:before, ul.checkboxes li.chosen a:before{
+		content:none !important;
+	}
+/* Colors */
+	ul.colors, ul.colors li {
+		float:left;
+	}
+	ul.colors.show-count, ul.sizes.show-count,
+	ul.colors li.show-count, ul.sizes li.show-count{
+		width:100%;
+	}
+	/*swatch heights and  borders*/
+	ul.colors li .box{
+		height:21px;
+		width:21px;
+		border:1px solid #dbdbd1;
+	}
+	ul.colors li .box.no-count{
+		opacity:0.4; 
+		
+	}
+	ul.colors li .box.has-count:hover, ul.colors li.chosen .box{
+		border:1px solid #000;
+	}
+	/*swatch padding and margins*/
+	ul.colors li, ul.colors li.chosen{
+		margin:0 !important;
+		padding: 3px 6px 3px 0 !important;
+	}
+	ul.colors li.chosen a, ul.colors li a{
+		padding: 1px 0 3px 0 !important;
+		border:none !important;
+		background:none !important;
+	}
+
+/* Sizes */
+	ul.sizes , ul.sizes li {
+		float:left;
+	}
+	/* paddings and margins*/
+	ul.sizes li, ul.sizes li.chosen{
+		margin:0 !important;
+		padding: 3px 6px 3px 0 !important;
+	}
+	ul.sizes li.chosen a, ul.sizes li a{
+		padding: 1px 0 3px 0 !important;
+		border:none !important;
+		background:none !important;
+	}
+	/*anchor styling */
+	ul.sizes li.chosen a:hover, ul.sizes li a:hover{
+		text-decoration:none;
+	}
+	/*filter styling */
+	ul.sizes li .size-filter{
+		height:21px;
+		min-width:15px;
+		padding:0 3px; 
+		border:1px solid #dbdbd1;
+		text-align:center;
+		font-size:14px;
+		background-color: #EEE;
+		color:#777;
+	}
+	/*filter hover/chosen*/
+	ul.sizes li.chosen .size-filter, ul.sizes li .size-filter:hover{
+		border:1px solid #000;
+		color:#000;
+	}
+
+/*Checkboxes */
+	ul.checkboxes input[type="checkbox"]{
+		padding-top:3px;
+	}
+	/* paddings and margins*/
+	ul.checkboxes li.chosen{
+		padding:1px 0 !important;
+		margin-top:1px !important;
+		color:inherit !important;
+	}
+	
+/*Transitions*/
+	ul.products li.product a img {
+	    -webkit-transition: all ease-in-out .2s;
+	    transition: all ease-in-out .2s;
+	}
+ul.sizes li a .size-filter:empty{
+	display:none;
+}

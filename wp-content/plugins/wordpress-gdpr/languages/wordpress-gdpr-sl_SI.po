@@ -1,0 +1,2436 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WordPress GDPR\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-06-30 18:24+0000\n"
+"PO-Revision-Date: 2019-06-30 18:24+0000\n"
+"Last-Translator: WeLaunch <support@dev.welaunch.io>\n"
+"Language-Team: Slovenian\n"
+"Language: sl_SI\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.3.0; wp-5.2.1"
+
+#: wordpress-gdpr.php:90
+msgid ""
+"WordPress GDPR requires the Redux Framework Please install or activate it "
+"before!"
+msgstr ""
+"WordPress GDPR requires the Redux Framework Please install or activate it "
+"before!"
+
+#: admin/class-wordpress-gdpr-migrate-services.php:56
+msgid "Necessary"
+msgstr ""
+
+#: admin/class-wordpress-gdpr-migrate-services.php:58
+msgid ""
+"These cookies are necessary for the website to function and cannot be "
+"switched off in our systems."
+msgstr ""
+
+#: admin/class-wordpress-gdpr-migrate-services.php:63
+msgid "Preferences"
+msgstr ""
+
+#: admin/class-wordpress-gdpr-migrate-services.php:65
+msgid ""
+"Preference cookies enable a website to remember information that changes the "
+"way the website behaves or looks, like your preferred language or the region "
+"that you are in."
+msgstr ""
+
+#: admin/class-wordpress-gdpr-migrate-services.php:70
+msgid "Analytics"
+msgstr ""
+
+#: admin/class-wordpress-gdpr-migrate-services.php:72
+msgid ""
+"These cookies allow us to count visits and traffic sources, so we can "
+"measure and improve the performance of our site."
+msgstr ""
+
+#: admin/class-wordpress-gdpr-migrate-services.php:77
+msgid "Marketing"
+msgstr ""
+
+#: admin/class-wordpress-gdpr-migrate-services.php:79
+msgid "These cookies are set through our site by our advertising partners."
+msgstr ""
+
+#: admin/class-wordpress-gdpr-migrate-services.php:84
+msgid "Unclassified"
+msgstr ""
+
+#: admin/class-wordpress-gdpr-migrate-services.php:86
+msgid ""
+"Unclassified cookies are cookies that we are in the process of classifying, "
+"together with the providers of individual cookies."
+msgstr ""
+
+#: admin/class-wordpress-gdpr-migrate-services.php:113
+#: public/class-wordpress-gdpr-public-deprecated.php:602
+msgid "Cloudflare"
+msgstr "Cloudflare"
+
+#: admin/class-wordpress-gdpr-migrate-services.php:114
+#: public/class-wordpress-gdpr-public-deprecated.php:603
+msgid ""
+"For perfomance reasons we use Cloudflare as a CDN network. This saves a "
+"cookie \"__cfduid\" to apply security settings on a per-client basis. This "
+"cookie is strictly necessary for Cloudflare's security features and cannot "
+"be turned off."
+msgstr ""
+"Za boljše delovanje strani uporabljamo Cloudflare kot CDN omrežje. To shrani "
+"piškotek  \"__cfduid\" za delovanje varnostnih nastavitev za posameznega "
+"uporabnika. Ta piškotek je obvezen za varno delovanje Cloudflare in njihovi  "
+"možđnosti in ne morem biti onemogočen."
+
+#: admin/class-wordpress-gdpr-migrate-services.php:125
+msgid "Quform"
+msgstr ""
+
+#: admin/class-wordpress-gdpr-migrate-services.php:126
+msgid ""
+"We use Quform Plugin for all contact forms on our website. This stores a "
+"security token."
+msgstr ""
+
+#: admin/class-wordpress-gdpr-migrate-services.php:137
+#: public/class-wordpress-gdpr-public-deprecated.php:609
+msgid "WooCommerce"
+msgstr "WooCommerce"
+
+#: admin/class-wordpress-gdpr-migrate-services.php:138
+msgid ""
+"We use WooCommerce as a shopping system. For cart and order processing 2 "
+"cookies will be stored. This cookies are strictly necessary and can not be "
+"turned off."
+msgstr ""
+
+#: admin/class-wordpress-gdpr-migrate-services.php:149
+#: public/class-wordpress-gdpr-public-deprecated.php:616
+msgid "Google Analytics"
+msgstr "Google Analytics"
+
+#: admin/class-wordpress-gdpr-migrate-services.php:150
+#: public/class-wordpress-gdpr-public-deprecated.php:617
+msgid "We track anonymized user information to improve our website."
+msgstr ""
+"Za izboljšanje naše spletne strani sledimo anonimnim uporabniškim "
+"informacijam."
+
+#: admin/class-wordpress-gdpr-migrate-services.php:161
+#: public/class-wordpress-gdpr-public-deprecated.php:623
+msgid "Google Adwords"
+msgstr "Google Adwords"
+
+#: admin/class-wordpress-gdpr-migrate-services.php:162
+#: public/class-wordpress-gdpr-public-deprecated.php:624
+msgid "We use Adwords to track our Conversions through Google Clicks."
+msgstr "Uporabljamo Adwords za beleženje konverzij preko google oglaševanja."
+
+#: admin/class-wordpress-gdpr-migrate-services.php:173
+#: public/class-wordpress-gdpr-public-deprecated.php:630
+msgid "Google Tag Manager"
+msgstr "Google Tag Manager"
+
+#: admin/class-wordpress-gdpr-migrate-services.php:174
+msgid ""
+"We use Google Tag Manager to monitor our traffic and to help us AB test new "
+"features."
+msgstr ""
+
+#: admin/class-wordpress-gdpr-migrate-services.php:185
+#: public/class-wordpress-gdpr-public-deprecated.php:637
+msgid "Hot Jar"
+msgstr "Hot Jar"
+
+#: admin/class-wordpress-gdpr-migrate-services.php:186
+msgid "We use HotJar to track what users click on and engage with on this site"
+msgstr ""
+
+#: admin/class-wordpress-gdpr-migrate-services.php:197
+msgid "Facebook Pixel"
+msgstr ""
+
+#: admin/class-wordpress-gdpr-migrate-services.php:198
+#: public/class-wordpress-gdpr-public-deprecated.php:645
+msgid "We use Facebook to track connections to social media channels."
+msgstr "Facebook uporabljamo za sledenje povezavam z družbenimi mediji."
+
+#: admin/class-wordpress-gdpr-migrate-services.php:209
+#: public/class-wordpress-gdpr-public-deprecated.php:651
+msgid "Piwik"
+msgstr "Piwik"
+
+#: admin/class-wordpress-gdpr-migrate-services.php:210
+#: public/class-wordpress-gdpr-public-deprecated.php:652
+msgid "We use Piwik to track user information to improve our website."
+msgstr ""
+"Uporabljamo Piwik za sledenje informacij o uporabniku za izboljšanje "
+"uporabniške izkušnje na naši spletni strani."
+
+#: admin/class-wordpress-gdpr-migrate-services.php:221
+msgid "Google Adsense"
+msgstr ""
+
+#: admin/class-wordpress-gdpr-migrate-services.php:222
+#: public/class-wordpress-gdpr-public-deprecated.php:660
+msgid "We use Google AdSense to show online advertisements on our website."
+msgstr ""
+"Uporabljamo Google AdSense za prikaz spletnega oglaševanja na naši spletni "
+"strani."
+
+#: admin/class-wordpress-gdpr-migrate-services.php:233
+#: public/class-wordpress-gdpr-public-deprecated.php:667
+msgid "Custom"
+msgstr "Po meri"
+
+#: admin/class-wordpress-gdpr-migrate-services.php:234
+#: public/class-wordpress-gdpr-public-deprecated.php:668
+msgid "Use Loco Translate to change Text for custom Code"
+msgstr "Uporabi Loco Translate za spremembo teksta kode po meri"
+
+#: admin/class-wordpress-gdpr-migrate-services.php:244
+#: public/class-wordpress-gdpr-public-deprecated.php:575
+msgid "Technical Cookies"
+msgstr "Tehnični piškotki"
+
+#: admin/class-wordpress-gdpr-migrate-services.php:245
+msgid ""
+"In order to use this website we use the following technically required "
+"cookies"
+msgstr ""
+
+#: admin/class-wordpress-gdpr-data-retention.php:172
+msgid "Data Retention disabled"
+msgstr "Ohranjanje podatkov je onemogočeno"
+
+#: admin/options-init.php:28 admin/options-init.php:30
+msgid "WordPress GDPR"
+msgstr "GDPR za spletno stran"
+
+#: admin/options-init.php:37
+msgid "GDPR"
+msgstr "GDPR"
+
+#: admin/options-init.php:91
+msgid "Information"
+msgstr "Informacije"
+
+#: admin/options-init.php:92
+msgid "<p>Need support? Please use the comment function on codecanyon.</p>"
+msgstr "<p>Potrebujete pomoč? Prosimo kontaktirajte administratorja.</p>"
+
+#: admin/options-init.php:119
+msgid "Settings"
+msgstr ""
+
+#: admin/options-init.php:121
+msgid "Need support? Please use the comment function on codecanyon."
+msgstr "Potrebujete pomoč? Prosimo kontaktirajte administratorja."
+
+#: admin/options-init.php:126
+msgid "General"
+msgstr "Splošno"
+
+#: admin/options-init.php:133
+msgid "Enable"
+msgstr "Omogoči"
+
+#: admin/options-init.php:139
+msgid "Domain Name"
+msgstr "Ime domene"
+
+#: admin/options-init.php:140
+msgid ""
+"Important for Cookie unsettings. E.g. \".yourdomain.com\". Dot before "
+"important for GA-Cookies."
+msgstr ""
+"Pomembno za ustavitev piškotkov. NPR. \".vaša-domena.si\". Pika je pomembna "
+"za GA-piškotke"
+
+#: admin/options-init.php:147
+msgid "Enable Recaptcha for Forms"
+msgstr "Omogoči Recaptcha za obrazce"
+
+#: admin/options-init.php:148
+msgid ""
+"Install & Setup the <a href=\"https://wordpress.org/plugins/invisible-"
+"recaptcha/\" target=\"_blank\">invisible recaptcha plugin from here</a>. "
+"Then check this option."
+msgstr ""
+"Naloži in namesti <a href=\"https://wordpress.org/plugins/invisible-"
+"recaptcha/\" target=\"_blank\">invisible recaptcha</a> vtičnik. Nato "
+"označite to možnost."
+
+#: admin/options-init.php:155
+msgid "Allow all Cookies for all users visiting first time"
+msgstr "Dovoli vse piškotke za obiskovalce, ki so prvič na strani"
+
+#: admin/options-init.php:156
+msgid "This allows all cookies until a user opts out himself."
+msgstr "To omogoči vse piškotke dokler jih uporabnik ne odstrani sam."
+
+#: admin/options-init.php:163
+msgid "Allow all Cookies for users continue visiting your site"
+msgstr ""
+
+#: admin/options-init.php:164
+msgid ""
+"When a user makes no decision, but continues to browse on your site all "
+"cookies will be enabled."
+msgstr ""
+
+#: admin/options-init.php:171
+msgid "Allow all Cookies for logged in users"
+msgstr "Dovoli vse piškotke za prijavljene uporabnike"
+
+#: admin/options-init.php:172
+msgid "This disables cookie check consents for logged in users."
+msgstr ""
+"Onemogoči preverjanje s strinjanjem s piškotki za prijavljene uporabnike."
+
+#: admin/options-init.php:179
+msgid "Use Font Awesome 5"
+msgstr ""
+
+#: admin/options-init.php:180
+msgid "This will disable font awesome 4 to load."
+msgstr ""
+
+#: admin/options-init.php:187
+msgid "Font Awesome Prefix"
+msgstr ""
+
+#: admin/options-init.php:188
+msgid "Choose fas if you use free, otherwise you can use fal or far"
+msgstr ""
+
+#: admin/options-init.php:195
+msgid "Load Font Awesome 5 Free"
+msgstr ""
+
+#: admin/options-init.php:196
+msgid "If your theme does not load it, our plugin will load it when checked."
+msgstr ""
+
+#: admin/options-init.php:203
+msgid "Cookie Lifetime."
+msgstr "Trajanje piškotkov."
+
+#: admin/options-init.php:204
+msgid "Days before the Cookie expires."
+msgstr "Dni preden je potrebno znova potrditi."
+
+#: admin/options-init.php:214
+msgid "This will create all pages, where no current assigned pages were found."
+msgstr ""
+"To bo ustvarilo vse strani, kjer ni bilo mogoče najti trenutnih dodeljenih "
+"strani."
+
+#: admin/options-init.php:215
+msgid "Install all Pages"
+msgstr "Namesti vse strani"
+
+#: admin/options-init.php:221 admin/options-init.php:1456
+msgid ""
+"This will migrate all Service like Google Analytics etc to our new services "
+"section."
+msgstr ""
+
+#: admin/options-init.php:222 admin/options-init.php:1457
+msgid "Migrate Services"
+msgstr ""
+
+#: admin/options-init.php:229
+msgid "Cookie Popup"
+msgstr ""
+
+#: admin/options-init.php:236
+msgid "Enable Popup"
+msgstr "Omogoči Popup"
+
+#: admin/options-init.php:242
+msgid "Exclude Pages"
+msgstr "Izloči strani"
+
+#: admin/options-init.php:243
+msgid "Popup will not show in these pages:"
+msgstr "Pojavno okno se ne bo prikazovalo na naslednjih straneh:"
+
+#: admin/options-init.php:251
+msgid "Popup Text"
+msgstr "Tekst v Popupu"
+
+#: admin/options-init.php:252
+msgid ""
+"We use cookies to give you the best online experience. By agreeing you "
+"accept the use of cookies in accordance with our cookie policy."
+msgstr ""
+"Na naši stran uporabljamo piškotke za pravilno delovanje strani in beleženje "
+"obiskanosti strani. S strinjanjem nam dovolite uporabo piškotkov."
+
+#: admin/options-init.php:258
+msgid "Popup Agree Text"
+msgstr "Tekst za strnijam se v popupu"
+
+#: admin/options-init.php:259 admin/options-init.php:267
+#: admin/options-init.php:275 admin/options-init.php:283
+#: admin/options-init.php:291 admin/options-init.php:485
+#: admin/options-init.php:492 admin/options-init.php:499
+msgid "Leave Empty if not needed"
+msgstr "Pusti prazno v kolikor ne potrebujete"
+
+#: admin/options-init.php:260
+msgid "I accept"
+msgstr "Potrjujem"
+
+#: admin/options-init.php:266
+msgid "Popup Decline Text"
+msgstr "Tekst za zavrnitev v popup-u"
+
+#: admin/options-init.php:268
+msgid "I decline"
+msgstr "Zavračam"
+
+#: admin/options-init.php:274 admin/options-init.php:484
+msgid "Popup Privacy Center Text"
+msgstr "Tekst za gumb za nastavitve zasebnosti"
+
+#: admin/options-init.php:276 admin/options-init.php:486
+#: admin/options-init.php:612 admin/class-wordpress-gdpr-install-pages.php:58
+#: public/class-wordpress-gdpr-integrations.php:270
+msgid "Privacy Center"
+msgstr "Center zasebnosti"
+
+#: admin/options-init.php:282
+msgid "Popup Privacy Settings Text"
+msgstr "Besedilo za nastavitve zasebnosti v pojavnem oknu"
+
+#: admin/options-init.php:284 admin/options-init.php:401
+#: admin/options-init.php:473 public/class-wordpress-gdpr-public.php:189
+#: public/class-wordpress-gdpr-public-deprecated.php:344
+msgid "Privacy Settings"
+msgstr "Nastavitve zasebnosti"
+
+#: admin/options-init.php:290 admin/options-init.php:498
+msgid "Popup Cookie Policy Text"
+msgstr "Tekst o piškotkih v pojavnem oknu"
+
+#: admin/options-init.php:292 admin/options-init.php:500
+#: admin/options-init.php:714 admin/class-wordpress-gdpr-install-pages.php:72
+#: public/class-wordpress-gdpr-public.php:144
+#: public/class-wordpress-gdpr-public-deprecated.php:299
+msgid "Cookie Policy"
+msgstr "Piškotki"
+
+#: admin/options-init.php:298
+msgid "Popup Style"
+msgstr "Popup dizajn"
+
+#: admin/options-init.php:300
+msgid "Full Width"
+msgstr "Celotna širina"
+
+#: admin/options-init.php:301
+msgid "Small Width"
+msgstr "Majhna širina"
+
+#: admin/options-init.php:302
+msgid "Overlay"
+msgstr "Overlay"
+
+#: admin/options-init.php:310
+msgid "Popup Position"
+msgstr "Pozicija popupa"
+
+#: admin/options-init.php:312
+msgid "Top"
+msgstr "Zgoraj"
+
+#: admin/options-init.php:313
+msgid "Bottom"
+msgstr "Spodaj"
+
+#: admin/options-init.php:321 admin/options-init.php:428
+#: admin/options-init.php:540 admin/options-init.php:595
+msgid "Background Color"
+msgstr "Barva za ozadje"
+
+#: admin/options-init.php:329 admin/options-init.php:436
+#: admin/options-init.php:548
+msgid "Text Color"
+msgstr "Barva teksta"
+
+#: admin/options-init.php:337 admin/options-init.php:556
+msgid "Accept Button Text Color"
+msgstr ""
+
+#: admin/options-init.php:345 admin/options-init.php:564
+msgid "Accept Button Background Color"
+msgstr ""
+
+#: admin/options-init.php:353 admin/options-init.php:572
+msgid "Decline Button Text Color"
+msgstr ""
+
+#: admin/options-init.php:361 admin/options-init.php:580
+msgid "Decline Button Background Color"
+msgstr ""
+
+#: admin/options-init.php:369
+msgid "Link Color"
+msgstr ""
+
+#: admin/options-init.php:377
+msgid "Close Icon"
+msgstr ""
+
+#: admin/options-init.php:384
+msgid "Close Icon Background Color"
+msgstr ""
+
+#: admin/options-init.php:392
+msgid "Close Icon Color"
+msgstr ""
+
+#: admin/options-init.php:408
+msgid "Privacy Settings Trigger"
+msgstr ""
+
+#: admin/options-init.php:409
+msgid ""
+"This is the fixed button on bottom right for example to open the privacy "
+"settings popup."
+msgstr ""
+
+#: admin/options-init.php:415
+msgid "Enable the Privacy Settings Trigger"
+msgstr ""
+
+#: admin/options-init.php:421
+msgid "Trigger Icon HTML"
+msgstr ""
+
+#: admin/options-init.php:422
+msgid "<i class=\"fa fa-lg fa-user-secret\"></i>"
+msgstr ""
+
+#: admin/options-init.php:444
+msgid "Trigger Position"
+msgstr ""
+
+#: admin/options-init.php:446
+msgid "Bottom Left"
+msgstr ""
+
+#: admin/options-init.php:447
+msgid "Bottom Right"
+msgstr ""
+
+#: admin/options-init.php:455
+msgid "Privacy Settings texts"
+msgstr ""
+
+#: admin/options-init.php:456
+msgid "Set up your privacy settings texts here."
+msgstr ""
+
+#: admin/options-init.php:472
+msgid "Popup Title"
+msgstr ""
+
+#: admin/options-init.php:478
+msgid "Popup Description"
+msgstr ""
+
+#: admin/options-init.php:479
+msgid ""
+"When you visit any web site, it may store or retrieve information on your "
+"browser, mostly in the form of cookies. Control your personal Cookie "
+"Services here."
+msgstr ""
+
+#: admin/options-init.php:491
+msgid "Popup Privacy Policy Text"
+msgstr ""
+
+#: admin/options-init.php:493 admin/options-init.php:1279
+#: admin/class-wordpress-gdpr-install-pages.php:150
+#: public/class-wordpress-gdpr-public.php:184
+#: public/class-wordpress-gdpr-public-deprecated.php:339
+#: public/class-wordpress-gdpr-public-deprecated.php:588
+msgid "Privacy Policy"
+msgstr "Politika zasebnsoti"
+
+#: admin/options-init.php:505
+msgid "Privacy Settings Shortcode"
+msgstr ""
+
+#: admin/options-init.php:506
+msgid "Use Shortcode instead of popup."
+msgstr ""
+
+#: admin/options-init.php:512
+msgid "Use Privacy Settings Shortcode"
+msgstr ""
+
+#: admin/options-init.php:513
+msgid ""
+"If enabled you need to add the following shortcode to a new page: "
+"[wordpress_gdpr_privacy_settings]."
+msgstr ""
+
+#: admin/options-init.php:519
+msgid "Privacy Settings Page"
+msgstr ""
+
+#: admin/options-init.php:520
+msgid ""
+"Set the page you created with the shortcode above here. Trigger and Privacy "
+"center will link there."
+msgstr ""
+
+#: admin/options-init.php:527
+msgid "Privacy Settings Modal"
+msgstr ""
+
+#: admin/options-init.php:528
+msgid "Set up your privacy settings modal here."
+msgstr ""
+
+#: admin/options-init.php:534
+msgid "Enable the Privacy Settings Popup"
+msgstr ""
+
+#: admin/options-init.php:588
+msgid "Popup Close Icon"
+msgstr "Zapri popup ikona"
+
+#: admin/options-init.php:603
+msgid "Icon Color"
+msgstr "Barva ikone"
+
+#: admin/options-init.php:619 admin/options-init.php:620
+msgid "Enable Privacy Center"
+msgstr "Omogoči center zasebnosti"
+
+#: admin/options-init.php:626
+msgid "Privacy Center Page"
+msgstr "Stran centra zasebnosti"
+
+#: admin/options-init.php:627
+msgid ""
+"Shortcode: [wordpress_gdpr_privacy_center] This will be the page, where the "
+"privacy center will be shown."
+msgstr ""
+"Koda: [wordpress_gdpr_privacy_center] Vstavi to kodo na stran, kjer bo "
+"center zasebnosti."
+
+#: admin/options-init.php:635
+msgid "Confirmation Email"
+msgstr "Potrditvena e-pošta"
+
+#: admin/options-init.php:642
+msgid "Info"
+msgstr "Info"
+
+#: admin/options-init.php:643
+msgid ""
+"If you have enabled to use WP Core Functions in advanced settings this is no "
+"longer needed."
+msgstr ""
+
+#: admin/options-init.php:648
+msgid "Confirmation Email Subject"
+msgstr "Zadeva potrditvene e-pošte"
+
+#: admin/options-init.php:649
+msgid "Subject of the confirmation Email."
+msgstr "Zadeva potrditvene e-pošte."
+
+#: admin/options-init.php:650
+msgid "GDPR - Confirm your Request"
+msgstr "GDPR - Potrdite zahtevek"
+
+#: admin/options-init.php:656
+msgid "Confirmation Email Text"
+msgstr "Tekst za potrditev"
+
+#: admin/options-init.php:657
+msgid ""
+"Text of the Email send out to the user to confirm his email to create a new "
+"request."
+msgstr ""
+"Tekst, ki bo poslan uporabniku za potrditev e-pošte za ustvaritev novega "
+"zahtevka."
+
+#: admin/options-init.php:658
+#, php-format
+msgid ""
+"Dear %s,\n"
+"                                <br><br>\n"
+"                                we have received your %s. If this is correct,"
+" please click on the link below. Otherwise ignore this email!"
+msgstr ""
+"Spoštovani/a %s,\n"
+"                                <br><br>\n"
+"                                sprejeli smo vaš %s. V kolikor ste bili to "
+"vi prosimo kliknite na povezavo spodaj. V nasprotnem primeru imejte zadevo "
+"za brezpredmetno!"
+
+#: admin/options-init.php:667 admin/class-wordpress-gdpr-install-pages.php:65
+#: public/class-wordpress-gdpr-public.php:139
+#: public/class-wordpress-gdpr-public-deprecated.php:294
+msgid "Contact DPO"
+msgstr "DPO Kontakt"
+
+#: admin/options-init.php:674
+msgid "Enable Contact DPO"
+msgstr "Omogoči kontakt za DPO"
+
+#: admin/options-init.php:675
+msgid "Enable Data Privacy Officer Contact form."
+msgstr "Omogoči obrazec za pooblaščeno osebo (DPO)."
+
+#: admin/options-init.php:681
+msgid "Contact DPO Page"
+msgstr "Stran za DPO osebo"
+
+#: admin/options-init.php:682
+msgid "Shortcode: [wordpress_gdpr_contact_dpo]"
+msgstr "Shortcode: [wordpress_gdpr_contact_dpo]"
+
+#: admin/options-init.php:689 admin/options-init.php:812
+#: admin/options-init.php:948 admin/options-init.php:1419
+msgid "Disable User Exists Check"
+msgstr "Onemogoči preverjanje če uporabnik obstaja"
+
+#: admin/options-init.php:690 admin/options-init.php:813
+#: admin/options-init.php:949 admin/options-init.php:1420
+msgid "This allows all users to create requests for manually processing."
+msgstr "To omogoča vsem uporabnikom, da ustvarijo zahteve za ročno obdelavo."
+
+#: admin/options-init.php:697
+msgid "DPO Email"
+msgstr "DPO E-pošta"
+
+#: admin/options-init.php:698 admin/options-init.php:821
+msgid "Emails will be sent there."
+msgstr "E-pošta bo poslana na ta naslov."
+
+#: admin/options-init.php:705
+msgid "DPO Email Subject"
+msgstr "Zadeva za DPO e-pošto"
+
+#: admin/options-init.php:706
+msgid "Subject of the DPO contact Email."
+msgstr "Zadeva za DPO osebo."
+
+#: admin/options-init.php:707
+msgid "GDPR - New Request for DPO"
+msgstr "GDPR - Nov zahtevek za DPO"
+
+#: admin/options-init.php:721
+msgid "Enable Cookie Policy"
+msgstr "Omogoči text o piškotkih"
+
+#: admin/options-init.php:722
+msgid "Enable Cookie Policy Page"
+msgstr "Omogoči stran za obvestilo o piškotkih"
+
+#: admin/options-init.php:728
+msgid "Cookie Policy Page"
+msgstr "Stran za obvestilo o piškotkih"
+
+#: admin/options-init.php:729
+msgid "Add your Cookie Policy here."
+msgstr "Tukaj vnesite besedilo o piškotkih."
+
+#: admin/options-init.php:737
+msgid "Data Breach"
+msgstr "Kršitev podatkov"
+
+#: admin/options-init.php:744
+msgid "Enable Data Breach"
+msgstr "Omogoči kršitev podatkov"
+
+#: admin/options-init.php:745
+msgid "Enable Data Breach form."
+msgstr "Omogoči obrazec za kršitev podatkov."
+
+#: admin/options-init.php:751
+msgid "Data Breach from Email"
+msgstr "E-pošta od za kršitev podatkov"
+
+#: admin/options-init.php:752
+msgid "The FROM Email used for data breach issues."
+msgstr "OD e-pošta je uporabljena za težave o kršitvi podatkov."
+
+#: admin/options-init.php:759
+msgid "Data Breach Email Subject"
+msgstr "Kršitev podatkov zadeva e-pošte"
+
+#: admin/options-init.php:760 admin/options-init.php:981
+#: admin/options-init.php:1341
+msgid "Subject of the Email."
+msgstr "Zadeva E-pošte."
+
+#: admin/options-init.php:761
+msgid "GDPR - Data Breach"
+msgstr "GDPR - kršitev podatkov"
+
+#: admin/options-init.php:767
+msgid "Data Breach Email Text"
+msgstr "Besedilo e-pošte za kršitev podatkov"
+
+#: admin/options-init.php:768
+msgid "Text of the Email regarding a data breach.."
+msgstr "Tekst, ki se nanaša na kršitev podatkov.."
+
+#: admin/options-init.php:769
+#, php-format
+msgid ""
+"Dear %s,\n"
+"                                <br><br>\n"
+"                                We value your business and respect the "
+"privacy of your information, which is why, as a\n"
+"                                precautionary measure, we are writing to let "
+"you know about a data security incident that may\n"
+"                                involve/involves your personal information.\n"
+"                                <br><br>\n"
+"                                Between XX and XX we discovered a foreign "
+"access to our data."
+msgstr ""
+"Spoštovani/a %s,\n"
+"                                <br><br>\n"
+"                                Ker cenimo vaše podjetje in spoštujemo "
+"zasebnost vaših podatkov, samo vas ravno zaradi tega, kot \n"
+"                                previdnosti ukrep primorani obvestiti o "
+"incidentu varnostih podatkov, ki \n"
+"                               vključuje ali so bili vključeni vaši osebni "
+"podatki.\n"
+"                                <br><br>\n"
+"                                Med XX in XX smo odkrili tuj dostop do naših "
+"podatkov."
+
+#: admin/options-init.php:782
+msgid "Send Data Breach Email"
+msgstr "Pošlji E-pošto o kršitvi podatkov"
+
+#: admin/options-init.php:790 admin/class-wordpress-gdpr-install-pages.php:101
+#: admin/class-wordpress-gdpr-install-pages.php:129
+#: public/class-wordpress-gdpr-public.php:154
+#: public/class-wordpress-gdpr-public-deprecated.php:309
+#: public/class-wordpress-gdpr-forms.php:65
+msgid "Data Rectification"
+msgstr "Urejanje podatkov"
+
+#: admin/options-init.php:797
+msgid "Enable Data Rectification"
+msgstr "Omogoči urejanje podatkov"
+
+#: admin/options-init.php:798
+msgid "Enable Data Rectification form."
+msgstr "Omogoči obrazec za urejanje podatkov."
+
+#: admin/options-init.php:804
+msgid "Data Rectification Page"
+msgstr "Stran za urejanje podatkov"
+
+#: admin/options-init.php:805
+msgid "Shortcode: [wordpress_gdpr_data_rectification]"
+msgstr "Shortcode: [wordpress_gdpr_data_rectification]"
+
+#: admin/options-init.php:820
+msgid "Data Rectification Email"
+msgstr "E-pošta za urejanje podatkov"
+
+#: admin/options-init.php:828
+msgid "Data Rectification Email Subject"
+msgstr "Zadeva e-pošte za urejanje podatkov"
+
+#: admin/options-init.php:829
+msgid "Subject of the Data Rectification contact Email."
+msgstr "Zadeva za kontakt za urejanje podatkov v e-pošti"
+
+#: admin/options-init.php:830
+msgid "GDPR - New Request for Data Rectification"
+msgstr "GDPR - Nov zahtevek za urejanje podatkov"
+
+#: admin/options-init.php:837
+msgid "Data Retention"
+msgstr "Hramba podatkov"
+
+#: admin/options-init.php:844
+msgid "Enable Data Retention"
+msgstr "Omogoči hrambo podatkov"
+
+#: admin/options-init.php:845
+msgid "Enable Data Retention."
+msgstr "Omogoči hrambo podatkov."
+
+#: admin/options-init.php:851
+msgid "Delete User after X Days."
+msgstr "Izbriši uporabnika po X dneh."
+
+#: admin/options-init.php:852
+msgid "When user has not logged in since X days, all his data will be deleted."
+msgstr ""
+"Če se uporabnik ni prijavil po X dneh bodo vsi njegovi podatki izbrisani."
+
+#: admin/options-init.php:863
+msgid ""
+"Update the \"last logged in\"-Meta with Todays Time for Users without an "
+"existing value."
+msgstr ""
+"Posodobi \"zadnje prijave in meta podatke\" vključno z današnjimi za "
+"uporabnike brez obstoječe vrednosti."
+
+#: admin/options-init.php:871 admin/class-wordpress-gdpr-install-pages.php:108
+#: public/class-wordpress-gdpr-public.php:159
+#: public/class-wordpress-gdpr-public-deprecated.php:314
+msgid "Disclaimer"
+msgstr "Omejitev odgovornosti"
+
+#: admin/options-init.php:878
+msgid "Enable Disclaimer"
+msgstr "Omogoči omejitev odgovornosti"
+
+#: admin/options-init.php:879
+msgid "Enable Disclaimer form."
+msgstr "Omogoči obrazec za omejitve odgovornosti."
+
+#: admin/options-init.php:885
+msgid "Disclaimer Page"
+msgstr "Stran omejitve odgovornosti"
+
+#: admin/options-init.php:886
+msgid "Set your Disclaimer Page here."
+msgstr "Tukaj nastavite svojo stran za omejitev odgovornosti."
+
+#: admin/options-init.php:894 public/class-wordpress-gdpr-public.php:149
+#: public/class-wordpress-gdpr-public-deprecated.php:304
+msgid "DMCA"
+msgstr "DMCA"
+
+#: admin/options-init.php:901
+msgid "Enable DMCA"
+msgstr "Omogoči DMCA"
+
+#: admin/options-init.php:902
+msgid "Enable DMCA form."
+msgstr "Omogoči obrazec za DMCA."
+
+#: admin/options-init.php:908
+msgid "DMCA Page"
+msgstr "DMCA stran"
+
+#: admin/options-init.php:909
+msgid "Place your DMCA Contact form on this page."
+msgstr "Vstavi vaš DMCA obrazec na to stran."
+
+#: admin/options-init.php:918 admin/class-wordpress-gdpr-install-pages.php:115
+#: public/class-wordpress-gdpr-public.php:164
+#: public/class-wordpress-gdpr-public-deprecated.php:319
+msgid "Forget Me"
+msgstr "Izbris mojih podatkov"
+
+#: admin/options-init.php:925
+msgid "Enable Forget Me"
+msgstr "Omogoči izbris podatkov"
+
+#: admin/options-init.php:926
+msgid "Enable Forget Me form."
+msgstr "Omogoči obrazec za izbris podatkov."
+
+#: admin/options-init.php:932
+msgid "Forget Me Page"
+msgstr "Stran za izbris podatkov"
+
+#: admin/options-init.php:933
+msgid "Shortcode: [wordpress_gdpr_forget_me]"
+msgstr "Shortcode: [wordpress_gdpr_forget_me]"
+
+#: admin/options-init.php:940
+msgid "Show Delete Data Button for Logged in"
+msgstr "Prikaži izbriši me gumb za prijavljene uporabnike"
+
+#: admin/options-init.php:941
+msgid ""
+"This will show logged in users a button where they can delete data "
+"theirselves."
+msgstr ""
+"To bo prikazalo prijavljenim uporabnikom gumb kjer lahko izbrišejo svoje "
+"podatke."
+
+#: admin/options-init.php:959
+msgid "Delete Posts & Pages (& all other post types)"
+msgstr "Izbriši prispevke in strani (in vse ostale objave.)"
+
+#: admin/options-init.php:966
+msgid "Delete Comments"
+msgstr "Izbriši komentarje"
+
+#: admin/options-init.php:973
+msgid "Reassign Posts to User"
+msgstr "Prenesi objave na uporabnika"
+
+#: admin/options-init.php:974
+msgid ""
+"Posts created by the user to be deleted will be reassigned to this user."
+msgstr "Prispevki, ki bi naj bili izbrisani bodo prenešeni na tega uporabnika."
+
+#: admin/options-init.php:980
+msgid "Forget me Deleted Email Subject"
+msgstr "Izbriši me zadeva za e-pošto"
+
+#: admin/options-init.php:982
+msgid "GDPR - Your Data has been Deleted"
+msgstr "GDPR - vaši podatki so bili izbrisani"
+
+#: admin/options-init.php:988
+msgid "Forget me Deleted Email Text"
+msgstr "Tekst za E-pošto za pozabi me"
+
+#: admin/options-init.php:989
+msgid "Text of the Email informing the user, that his data has been deleted."
+msgstr "Teks, ki sporoča uporabniku, da so bili podatki izbrisani."
+
+#: admin/options-init.php:990
+#, php-format
+msgid ""
+"Dear %s,\n"
+"                                <br><br>\n"
+"                                we have successfully deleted all your "
+"personal data from our Website."
+msgstr ""
+"Spoštovani/a %s,\n"
+"                                <br><br>\n"
+"                                Sporočamo vam, da smo izbrisali vse vaše "
+"osebne podatke z naše strani."
+
+#: admin/options-init.php:999 admin/class-wordpress-gdpr-install-pages.php:122
+#: public/class-wordpress-gdpr-public.php:169
+#: public/class-wordpress-gdpr-public-deprecated.php:324
+msgid "Imprint"
+msgstr "Imprint"
+
+#: admin/options-init.php:1006
+msgid "Enable Imprint"
+msgstr "Omogoči Imprint"
+
+#: admin/options-init.php:1007
+msgid "Enable Imprint Page"
+msgstr "Omogoči Imprint stran"
+
+#: admin/options-init.php:1013
+msgid "Imprint Page"
+msgstr "Stran za Imprint"
+
+#: admin/options-init.php:1014
+msgid "Add your Imprint here."
+msgstr "Vnesite svoj Imprint tukaj."
+
+#: admin/options-init.php:1026
+msgid "Integrations"
+msgstr "Integracije"
+
+#: admin/options-init.php:1033
+msgid "Enable Comments"
+msgstr "Omogoči komentarje"
+
+#: admin/options-init.php:1034
+msgid ""
+"Activated this will add a checkbox to comment form to accept your privay "
+"policy."
+msgstr ""
+"Aktiviranje tega bo vstavilo potrditveno polje pod komentarje za sprejem "
+"pogojev poslovanja."
+
+#: admin/options-init.php:1040
+msgid "Only registered users can comment"
+msgstr ""
+
+#: admin/options-init.php:1041
+msgid ""
+"Either you go to settings > discussions and check \"Users must be "
+"registered\" or you activate this setting here. If you do not do this, user "
+"deletion & export will not work, because no accounts are created!"
+msgstr ""
+"Ali pojdite v nastavitve > razprava in odkljukajte \"Uporabniki morajo biti "
+"registrirani in prijavljeni za komentiranje \" ali aktivirajte to nastavitev."
+" V kolikor tega ne storite, izbris uporabnika in izvoz nebo deloval, ker "
+"račun uporabnika ne bo ustvarjen!"
+
+#: admin/options-init.php:1048
+msgid "Comments Privacy Policy Page"
+msgstr "Politika zasebnosti za komentarje"
+
+#: admin/options-init.php:1049
+msgid ""
+"Assign your privacy policy page here. You could also use a custom one for "
+"Comments"
+msgstr "Določite stran za pogoje poslovanja tukaj"
+
+#: admin/options-init.php:1056 admin/options-init.php:1111
+#: admin/options-init.php:1134 admin/options-init.php:1247
+#: admin/options-init.php:1308
+msgid "Privacy Policy Accept text"
+msgstr "Tekst za potrditev pogojev poslovanja"
+
+#: admin/options-init.php:1057 admin/options-init.php:1112
+msgid "Text for users to agree on privacy policy on checkout page."
+msgstr ""
+"Tekst za potrditev pogojev poslovanja za uporabnike ob oddaji naročila."
+
+#: admin/options-init.php:1058 admin/options-init.php:1113
+#: admin/options-init.php:1310
+msgid "I’ve read and accept the privacy policy."
+msgstr "Prebral sem in se v celoti strinjam s politiko zasebnosti."
+
+#: admin/options-init.php:1064
+msgid "Enable WooCommerce"
+msgstr "Omogoči WooCommerce"
+
+#: admin/options-init.php:1065
+msgid ""
+"Activated this will add a checkbox to the checkout, registration and product "
+"review form to accept your privay policy. It also adds a menu item to the my "
+"account page for the privacy center. In addtion to this make sure you have "
+"setup a terms and conditions page in WooCommerce settings. With WooCommerce "
+"Version 3.4. you may not need this anymore"
+msgstr ""
+"Aktiviranje te možnosti bo dodalo potrditveno polje ob zaključku nakupa, "
+"registraciji in komentiranju izdelkov, da se strinjajo s politiko zasebnosti."
+" Prav tako doda zavihek na strani moj račun v za center zasebnosti. Za "
+"pravilno delovanje morate v nastavitvah WooCommerca stran za pogoje "
+"poslovanja. Z WooCommercem verzije 3.4 ta opcija ni več potrebna"
+
+#: admin/options-init.php:1071
+msgid "Delete WooCommerce Orders"
+msgstr "Izbriši WooCommerce naročila"
+
+#: admin/options-init.php:1072
+msgid "If enabled WooCommerce Orders will be deleted on Forget Me Request."
+msgstr ""
+"Če je omogočeno bodo vsa naročila v trgovini izbrisana ob izbiri Izbriši "
+"moje podatke."
+
+#: admin/options-init.php:1079
+msgid "Privacy Acceptance Checkbox on Checkout"
+msgstr "Potrdilno polje o zasebnosti na strani zaključka nakupa"
+
+#: admin/options-init.php:1080
+msgid "Adds a privacy acceptance checkbox on checkout."
+msgstr "Doda potrdilno polje o zasebnosti ob zaključku nakupa."
+
+#: admin/options-init.php:1087
+msgid "Privacy Acceptance Checkbox on Registration"
+msgstr "Potrdilno polje o zasebnosti na strani registracije"
+
+#: admin/options-init.php:1088
+msgid "Adds a privacy acceptance checkbox on Registration."
+msgstr "Doda potrdilno polje o zasebnosti ob regsitraciji."
+
+#: admin/options-init.php:1095
+msgid "Disable Guest Checkout"
+msgstr "Onemogoči nakup kot gost"
+
+#: admin/options-init.php:1096
+msgid ""
+"Either you go to WooCommerce > Settings > Checkout and disable Guest "
+"Checkout or you activate this setting here. If you do not do this, user "
+"deletion & export will not work, because no accounts are created!"
+msgstr ""
+"Ali pojditev WooCommerce > Nastavitve > Zaključek nakupa in onemogočite "
+"nakup kot gost in odstranite kljukico Omogočite nakup brez registracije ali "
+"omogočite to možnost tukaj. V kolikor tega ne storite, izbris uporabnika in "
+"izvoz nebo deloval, ker račun uporabnika ne bo ustvarjen!"
+
+#: admin/options-init.php:1103
+msgid "WooCommerce Privacy Policy Page"
+msgstr "Stran s politiko zasebnosti za WooCommerce"
+
+#: admin/options-init.php:1104
+msgid ""
+"Assign your privacy policy page here. You could also use a custom one for "
+"WooCommerce"
+msgstr ""
+"Določite stran za pogoje poslovanja. Lahko tudi uporabite že obstoječo za "
+"woocomerce"
+
+#: admin/options-init.php:1119
+msgid "Enable BuddyPress"
+msgstr "Omogoči BuddyPress"
+
+#: admin/options-init.php:1120
+msgid "This will add checkbox to BuddyPress Account registration form."
+msgstr ""
+"To možnost bo dodala potrditveno polje v BuddyPress registracijsko formo."
+
+#: admin/options-init.php:1126
+msgid "BuddyPress Privacy Policy Page"
+msgstr "Stran o pogojih poslovanja za BuddyPress"
+
+#: admin/options-init.php:1127
+msgid ""
+"Assign your privacy policy page here. You could also use a custom one for "
+"BuddyPress"
+msgstr ""
+"Tukaj določite stran pogojev poslovanja. Lahko tudi uporabite posebej stran "
+"samo za BuddyPress"
+
+#: admin/options-init.php:1135
+msgid ""
+"Text for users to agree on privacy policy on BuddyPress Registration page."
+msgstr ""
+"Tekst na strani politiko zasebnsoti za uporabnike, da se strinjajo z "
+"registracijo v BuddyPress."
+
+#: admin/options-init.php:1136
+msgid "By registering an Account I have read and accept the privacy policy."
+msgstr ""
+"S potrditvijo registracije potrjujem, da sem prebral in se strinjam s "
+"politiko zasebnosti."
+
+#: admin/options-init.php:1142
+msgid "Enable CF7"
+msgstr "Omogoči CF7"
+
+#: admin/options-init.php:1143
+msgid "Make sure you add a checkbox to your forms to accept privacy policy."
+msgstr ""
+"Prepričajte se, da ste dodali potrditveno polje za sprejem politike "
+"zasebnosti v obrazec."
+
+#: admin/options-init.php:1149
+msgid "Enable Flamingo DB (Deprecated)"
+msgstr ""
+
+#: admin/options-init.php:1150
+msgid ""
+"No longer needed with CF7 Version 5.0.3 - <a target=\"_blank\" href=\"https:"
+"//plugins.db-dzine.com/wordpress-gdpr/documentation/faq/cf7/\">see here</a>. "
+"This will depending on the opt-in checkbox setting save data or not."
+msgstr ""
+
+#: admin/options-init.php:1156
+msgid "Opt-In Field name"
+msgstr "Opt-In ime polja"
+
+#: admin/options-init.php:1157
+msgid "Enter the field name for the opt in checkbox here."
+msgstr "Tukaj vnesite ime polja za potrditveno polje."
+
+#: admin/options-init.php:1158
+msgid "opt-in"
+msgstr "opt-in"
+
+#: admin/options-init.php:1164
+msgid "Delete Flamingo DB Records"
+msgstr "Izbriši Flamingo zapise iz baze"
+
+#: admin/options-init.php:1165
+msgid "On Forget Me Request, delete Flamingo DB records."
+msgstr "Ob zahtevku za izbris podatkov izbriši Flamingo zapise iz Baze."
+
+#: admin/options-init.php:1172
+msgid "Enable Quform"
+msgstr "Omogoči Quform"
+
+#: admin/options-init.php:1173
+msgid ""
+"This will add Quform entries to data export. Checkbox needs to be added to "
+"each form manually."
+msgstr ""
+"To bo avtomatsko dodalo vnose iz Quform-a v izvoz podatkov. Potrditveno "
+"polje mora biti dodano ročno v vsak obrazec."
+
+#: admin/options-init.php:1179
+msgid "Delete Quform Records"
+msgstr "Izbriši Quform vnose"
+
+#: admin/options-init.php:1180
+msgid "On Forget Me Request, delete Quform records."
+msgstr "Ob zahtevku izbrisa podatkov izbriši tudi Quform vnose."
+
+#: admin/options-init.php:1187
+msgid "Enable Formidable"
+msgstr "Omogoči Formidable"
+
+#: admin/options-init.php:1188
+msgid ""
+"This will add Formidable entries to data export. Checkbox needs to be added "
+"to each form manually."
+msgstr ""
+"To bo dodalo Formidable vnose za izvoz podatkov. Potrditveno polje je treba "
+"vsakemu obrazcu dodati ročno."
+
+#: admin/options-init.php:1194
+msgid "Delete Formidable Records"
+msgstr "Izbriši Formidable zapise"
+
+#: admin/options-init.php:1195
+msgid "On Forget Me Request, delete Formidable records."
+msgstr "Ob zahtevku za izbris podatkov izbriši tudi Formidable vnose."
+
+#: admin/options-init.php:1202
+msgid "Enable GravityForms"
+msgstr "Omogoči GravityForms"
+
+#: admin/options-init.php:1203
+msgid ""
+"This will add Gravity Forms entries to data export & removes IP saving. "
+"Checkbox needs to be added to each form manually."
+msgstr ""
+
+#: admin/options-init.php:1209
+msgid "Delete GravityForms Records"
+msgstr "Izbriši GravityForms vnose"
+
+#: admin/options-init.php:1210
+msgid "On Forget Me Request, delete Gravity Forms records."
+msgstr "Ob zahtevku za izbris, izbriši tudi GravityForms vnose."
+
+#: admin/options-init.php:1217
+msgid "Enable Mailster"
+msgstr "Omogoči Mailster"
+
+#: admin/options-init.php:1218
+msgid "Activate our Mailster Integration."
+msgstr "Omogoči našo integracijo za Mailster."
+
+#: admin/options-init.php:1224
+msgid "Enable Mailster Checkbox"
+msgstr "Omogoči potrditveno polje za Mailster"
+
+#: admin/options-init.php:1225
+msgid "This will add checkbox to Mailster Subscribe form."
+msgstr "To bo dodalo potrditveno polje v formo za Mailster Subscribe."
+
+#: admin/options-init.php:1232
+msgid "Enable PixelYourSite"
+msgstr ""
+
+#: admin/options-init.php:1233
+msgid ""
+"Disable PixelYourSite Loading if no service found. Make sure you add a "
+"service and check the pixelyoursite checkbox. This does not work with "
+"caching due to PixelYourSite plugin."
+msgstr ""
+
+#: admin/options-init.php:1239
+msgid "Mailster Privacy Policy Page"
+msgstr "Stran o politika zasebnosti za Mailster"
+
+#: admin/options-init.php:1240
+msgid ""
+"Assign your privacy policy page here. You could also use a custom one for "
+"Mailster"
+msgstr ""
+"Tukaj določite stran o politiki zasebnosti. Lahko tudi uporabite svojo stran "
+"za Mailster"
+
+#: admin/options-init.php:1248
+msgid ""
+"Text for users to agree on privacy policy on Mailster Registration page."
+msgstr ""
+"Tekst za uporabnika, da potrditev politike zasebnosti na strani za "
+"registracijo na Mailster."
+
+#: admin/options-init.php:1249
+msgid ""
+"By subscribing to this newsletter I have read and accept the privacy policy."
+msgstr "S prijavo na obveščanje sem prebral in sprejel politiko zasebnosti."
+
+#: admin/options-init.php:1256 admin/class-wordpress-gdpr-install-pages.php:136
+#: public/class-wordpress-gdpr-public.php:174
+#: public/class-wordpress-gdpr-public-deprecated.php:329
+msgid "Media Credits"
+msgstr "Media Credits"
+
+#: admin/options-init.php:1263
+msgid "Enable Media Credits"
+msgstr "Omogoči Media Credits"
+
+#: admin/options-init.php:1264
+msgid ""
+"Enable Media Credits page where you can inform about image + author + "
+"license etc."
+msgstr ""
+"Omogoči stran za Media Credits. to je stran, kjer imate informacije o "
+"avtorjih, slikah, licencah, itd."
+
+#: admin/options-init.php:1270
+msgid "Media Credits Page"
+msgstr "Stran Media Credits"
+
+#: admin/options-init.php:1271
+msgid "Place your Media Credits there."
+msgstr "Vnesite Media Credits"
+
+#: admin/options-init.php:1286 admin/options-init.php:1287
+msgid "Enable Privacy Policy"
+msgstr "Omogoči pogoje poslovanja"
+
+#: admin/options-init.php:1293
+msgid "Privacy Policy Page"
+msgstr "Stran pogojev poslovanja"
+
+#: admin/options-init.php:1294
+msgid "Add your privacy policy to this page!"
+msgstr "Dodaj pogoje poslovanja na to stran!"
+
+#: admin/options-init.php:1301 admin/options-init.php:1647
+msgid "Show Accept Checkbox"
+msgstr "Prikaži potrditveno polje"
+
+#: admin/options-init.php:1302
+msgid ""
+"Place the following Shortcode at the bottom of your privacy policy: "
+"[wordpress_gdpr_privacy_policy_accept]"
+msgstr ""
+"Vstavite kodo na dno strani v politiki zasebnosti: "
+"[wordpress_gdpr_privacy_policy_accept]"
+
+#: admin/options-init.php:1309
+msgid "Text for users to agree on privacy policy."
+msgstr "Tekst za uporabnike za strinjanje na strani politika zasebnosti."
+
+#: admin/options-init.php:1318
+msgid "Privacy Policy Update"
+msgstr "Posodobitev politike zasebnosti"
+
+#: admin/options-init.php:1325
+msgid "Enable Privacy Policy Update"
+msgstr "Omogoči posodobitev politike zasebnosti"
+
+#: admin/options-init.php:1326
+msgid "Enable Privacy Policy Update form."
+msgstr "Omogoči obrazec za posodobitev politike zasebnosti."
+
+#: admin/options-init.php:1332
+msgid "Privacy Policy Update from Email"
+msgstr "E-poštni naslov pošiljatelja posodobitev politike zasebnosti"
+
+#: admin/options-init.php:1333
+msgid "The FROM Email used for Privacy Policy Updates."
+msgstr ""
+"Pošiljateljeva e-pošta se uporablja za posodobitve pravilnika o zasebnosti."
+
+#: admin/options-init.php:1340
+msgid "Privacy Policy Update Email Subject"
+msgstr "Zadeva E-pošte za posodobitev politike zasebnosti"
+
+#: admin/options-init.php:1342
+msgid "GDPR - Privacy Policy Updated"
+msgstr "GDPR - Posodobitev politike zasebnosti"
+
+#: admin/options-init.php:1348
+msgid "Privacy Policy Update Email Text"
+msgstr "Tekst za E-pošto posodobitev politike zasebnosti"
+
+#: admin/options-init.php:1349
+msgid "Text of the Email regarding a Privacy Policy Update."
+msgstr "TEkst, ki se nanaša na posodobitev politike zasebnosti."
+
+#: admin/options-init.php:1350
+#, php-format
+msgid ""
+"Dear %s,\n"
+"                                <br>\n"
+"                                We have updated our privacy policy. Please "
+"read more here: INSERT YOUR LINK."
+msgstr ""
+"Spoštovani/a %s,\n"
+"                                <br>\n"
+"                                Posodobili smo politiko zasebnosti. Prosimo, "
+"da preberete nove pogoje: TUKAJ VSTAVI POVEZAVO."
+
+#: admin/options-init.php:1359
+msgid "Send Privacy Update Email"
+msgstr "Pošlji E-pošto o posodobitvi politike zasebnosti"
+
+#: admin/options-init.php:1367 admin/options-init.php:1374
+msgid "Pseudonymization"
+msgstr "Vzdevek"
+
+#: admin/options-init.php:1375
+msgid ""
+"Pseudonymization is not mandatory by GDPR. It might be a good improvement, "
+"but also can risk in data loss. <a href=\"https://plugins.db-dzine."
+"com/wordpress-gdpr/documentation/faq/pseudonymization/\" target=\"_blank\">"
+"Please read more here</a>."
+msgstr ""
+"Pseudonimizacija ni obvezna za GDPR., je pa lahko dobra izboljšava, prav "
+"tako lahko pride do izgube podatkov. <a href=\"https://plugins.db-dzine."
+"com/wordpress-gdpr/documentation/faq/pseudonymization/\" target=\"_blank\">"
+"Preberi več tukaj</a>."
+
+#: admin/options-init.php:1382
+msgid "Request Data Archive"
+msgstr "Zahtevaj hrambo podatkov"
+
+#: admin/options-init.php:1389
+msgid "Enable Request Data"
+msgstr "Omogoči zahtevek za hrambo podatkov"
+
+#: admin/options-init.php:1390
+msgid "Enable Request Data form."
+msgstr "Omogoči obrazec za prenos podatkov."
+
+#: admin/options-init.php:1396
+msgid "Request Data Archive Page"
+msgstr "Stran za prenos podatkov"
+
+#: admin/options-init.php:1397
+msgid "Shortcode: [wordpress_gdpr_request_data]"
+msgstr "Shortcode: [wordpress_gdpr_request_data]"
+
+#: admin/options-init.php:1404
+msgid "Show Export Data Button for Logged in"
+msgstr "Prikaži gumb za izvoz podatkov za prijavljene uporabnike"
+
+#: admin/options-init.php:1405
+msgid ""
+"This will show logged in users a button where they can export data "
+"theirselves."
+msgstr ""
+"To bo prikazalo prijavljenim uporabnikom gumb, kjer si lahko izvozijo svoje "
+"podatke."
+
+#: admin/options-init.php:1412
+msgid "Export Data as HTML Table"
+msgstr "Izvozi podatke kot HTML tabelo"
+
+#: admin/options-init.php:1413
+msgid "Instead of JSON data will be exported as html table."
+msgstr "Namesto JSON izvoza izvozi HTNL tabelo."
+
+#: admin/options-init.php:1430
+msgid "Request Data Export Email Subject"
+msgstr "Zadeva E-pošte za izvoz Zahtevaj podatke"
+
+#: admin/options-init.php:1431
+msgid "Subject of the Email notification."
+msgstr "Zadeva v obvestilu e-pošte."
+
+#: admin/options-init.php:1432
+msgid "GDPR - Your User Data is Ready"
+msgstr "GDPR - Vaši podatki so pripravljeni"
+
+#: admin/options-init.php:1438
+msgid "Request Data Export Email Text"
+msgstr "Besedilo E-pošte za izvoz Zahtevaj podatke"
+
+#: admin/options-init.php:1439
+msgid "Text of the Email data export."
+msgstr "Tekst E-pošte za izvoz podatkov."
+
+#: admin/options-init.php:1440
+#, php-format
+msgid "Dear %s, <br><br>attached you find an export of your user data."
+msgstr "Spoštovani/a %s, <br><br>v priponki lahko najdete vaše podatke."
+
+#: admin/options-init.php:1448 admin/class-wordpress-gdpr-services.php:55
+msgid "Services"
+msgstr ""
+
+#: admin/options-init.php:1450
+msgid ""
+"!! DEPRECATED !! The Services you find below are deprecated in our plugin "
+"settings and they should be moved into our new Services section (see menu "
+"GDPR > Services). However you can enable an old Service here and click on "
+"migrate Services to migrate them automatically."
+msgstr ""
+
+#: admin/options-init.php:1463
+msgid "Custom Allowed Cookies"
+msgstr "Dovoljeni piškotki po meri"
+
+#: admin/options-init.php:1464
+msgid "Put your technically required cookies here - separated by COMMA (,)."
+msgstr "Vnesite zahtevane tehnične piškotke tukaj - ločene z VEJIVO (,)."
+
+#: admin/options-init.php:1470
+msgid "Enable Cloudlfare"
+msgstr "Omogoči Cloudlfare"
+
+#: admin/options-init.php:1471
+msgid ""
+"If you use Cloudlfare enable this. <a href=\"https://support.cloudflare."
+"com/hc/en-us/articles/200170156-What-does-the-Cloudflare-cfduid-cookie-do-\">"
+"See here about __cfduid cookie</a>."
+msgstr ""
+"Omogočite če uporabljate Cloudfare <a href=\"https://support.cloudflare."
+"com/hc/en-us/articles/200170156-What-does-the-Cloudflare-cfduid-cookie-do-\">"
+"Več o __cfduid cookie</a>."
+
+#: admin/options-init.php:1477
+msgid "Enable Google Analytics"
+msgstr "Omogoči Google Analytics"
+
+#: admin/options-init.php:1478
+msgid "Enable Analytics Loading only if allowed."
+msgstr "Omogoči nalaganje statistike samo če je izdano dovoljenje uporabnika."
+
+#: admin/options-init.php:1485
+msgid "Analytics Code"
+msgstr "Koda Google Analytics"
+
+#: admin/options-init.php:1500
+msgid "Enable Google Adwords"
+msgstr "Omogoči Google Adwords"
+
+#: admin/options-init.php:1501
+msgid "Enable Adwords Loading only if allowed."
+msgstr "Omogoči Adwords samo če je izdano dovoljenje."
+
+#: admin/options-init.php:1508
+msgid "Adwords Code"
+msgstr "Koda Adwords"
+
+#: admin/options-init.php:1515
+msgid "Enable Google Tag Manager"
+msgstr "Omogoči Google Tag Manager"
+
+#: admin/options-init.php:1516
+msgid "Enable Tag Manager Loading only if allowed."
+msgstr "Omogoči Google Tag Manager samo če je izdano dovoljene."
+
+#: admin/options-init.php:1523
+msgid "Tag Manager Head Code"
+msgstr "Tag Manager Head Code"
+
+#: admin/options-init.php:1531
+msgid "Tag Manager Body Code"
+msgstr "Tag Manager Body Code"
+
+#: admin/options-init.php:1538
+msgid "Enable Hot Jar"
+msgstr "Omogoči Hot Jar"
+
+#: admin/options-init.php:1539
+msgid "Enable Hot Jar Loading only if allowed."
+msgstr "Omogoči Hot Jar samo, če je izdano dovoljenje."
+
+#: admin/options-init.php:1546
+msgid "Hot Jar Code"
+msgstr "Hot Jar Koda"
+
+#: admin/options-init.php:1553
+msgid "Enable Facebook"
+msgstr ""
+
+#: admin/options-init.php:1554
+msgid "Enable Facebook pixel loading only if allowed."
+msgstr "Omogoči Facebook pixel nalaganje samo če je uporabnik dovolil."
+
+#: admin/options-init.php:1561
+msgid "Facebook Code"
+msgstr "Facebook koda"
+
+#: admin/options-init.php:1568
+msgid "Enable Piwik"
+msgstr "Omogoči Piwik"
+
+#: admin/options-init.php:1569
+msgid "Enable Piwik Loading only if allowed."
+msgstr "Omogoči Piwik samo, če je dovoljeno."
+
+#: admin/options-init.php:1576
+msgid "Piwik Code"
+msgstr "Piwik Koda"
+
+#: admin/options-init.php:1583
+msgid "Enable Adsense"
+msgstr "Omogoči Adsense"
+
+#: admin/options-init.php:1584
+msgid "Enable Adsense Loading only if allowed."
+msgstr "Omogoči Adsense samo, če je dovoljeno."
+
+#: admin/options-init.php:1591
+msgid "Adsense Code"
+msgstr "Adsense Koda"
+
+#: admin/options-init.php:1598
+msgid "Enable Custom"
+msgstr "Omogoči po meri"
+
+#: admin/options-init.php:1599
+msgid ""
+"Use this for custom JS Code to be executed if allowed. Use Loco Translate to "
+"adjust frontend text."
+msgstr ""
+"Tukaj vnesite JS Kodo po meri, ki bo izvršena če je dovoljena. Uporabite "
+"Loco Translate to prilagoditev teksta na sprednji strani."
+
+#: admin/options-init.php:1606
+msgid "Custom Code"
+msgstr "Koda po meri"
+
+#: admin/options-init.php:1613
+msgid "Custom Integrations"
+msgstr "Integracije po meri"
+
+#: admin/options-init.php:1614
+msgid "Add custom Integrations here."
+msgstr "Dodaj integracijo po meri tukaj"
+
+#: admin/options-init.php:1616 admin/class-wordpress-gdpr-users.php:102
+#: public/class-wordpress-gdpr-public-deprecated.php:197
+#: public/class-wordpress-gdpr-public-deprecated.php:258
+#: public/class-wordpress-gdpr-public-deprecated.php:548
+msgid "Name"
+msgstr "Ime"
+
+#: admin/options-init.php:1617
+msgid "Code (script tag)"
+msgstr "Koda (script tag)"
+
+#: admin/options-init.php:1618
+#: public/class-wordpress-gdpr-public-deprecated.php:198
+#: public/class-wordpress-gdpr-public-deprecated.php:259
+#: public/class-wordpress-gdpr-public-deprecated.php:549
+msgid "Reason"
+msgstr "Razlog"
+
+#: admin/options-init.php:1625 public/class-wordpress-gdpr-public.php:194
+#: public/class-wordpress-gdpr-public-deprecated.php:349
+#: public/class-wordpress-gdpr-public-deprecated.php:595
+msgid "Terms & Conditions"
+msgstr "Pogoji poslovanja"
+
+#: admin/options-init.php:1632
+msgid "Enable Terms & Conditions"
+msgstr "Omogoči pogoje poslovanja"
+
+#: admin/options-init.php:1633
+msgid "Enable Terms & Conditions form."
+msgstr "Omogoči obrazec za pogoje poslovanja."
+
+#: admin/options-init.php:1639
+msgid "Terms & Conditions Page"
+msgstr "Stran pogojev poslovanja"
+
+#: admin/options-init.php:1640
+msgid "Place your Terms & Conditions Page here:"
+msgstr "Tukaj vnesite stran pogojev poslovanja:"
+
+#: admin/options-init.php:1648
+msgid ""
+"Place the following Shortcode at the bottom of your Terms & Conditions: "
+"[wordpress_gdpr_terms_conditions_accept]"
+msgstr ""
+"Vnesite kodo na dno strani na strani pogoji poslovanja: "
+"[wordpress_gdpr_terms_conditions_accept]"
+
+#: admin/options-init.php:1654
+msgid "Terms & Conditions Accept text"
+msgstr "Potrditveni tekst za pogoje poslovanja"
+
+#: admin/options-init.php:1655
+msgid "Text for users to agree on Terms & Conditions."
+msgstr "Tekst za uporabnike, da se strinjajo s pogoji poslovanja."
+
+#: admin/options-init.php:1656
+msgid "I’ve read and accept the Terms & Conditions."
+msgstr "Sem prebral in se strinjam s pogoji poslovanja."
+
+#: admin/options-init.php:1663 public/class-wordpress-gdpr-public.php:199
+#: public/class-wordpress-gdpr-public-deprecated.php:354
+msgid "Unsubscribe"
+msgstr "Odjava"
+
+#: admin/options-init.php:1670 admin/options-init.php:1671
+msgid "Enable Unsubscribe"
+msgstr "Omogoči odjavo"
+
+#: admin/options-init.php:1677
+msgid "Unsubscribe Page"
+msgstr "Stran za odjavo"
+
+#: admin/options-init.php:1678
+msgid ""
+"Add your unsubscribe Form here! For <a target=\"_blank\" href=\"https://kb."
+"mailchimp.com/lists/signup-forms/find-the-unsubscribe-link-for-your-list\">"
+"Mailchimp see here how to setup a Mailchimp Unsuscribe form</a>. This can be "
+"embedded via iFrame."
+msgstr ""
+"Tukaj dodajte obrazec za odjavo! Za <a target=\"_blank\" href=\"https://kb."
+"mailchimp.com/lists/signup-forms/find-the-unsubscribe-link-for-your-list\">"
+"odjavo z Mailchimpa lako tukaj pogledate kako ustvariti formo </a>. Forma je "
+"lahko vstavljena skozi iFrame."
+
+#: admin/options-init.php:1686
+msgid "Expert"
+msgstr "Expert"
+
+#: admin/options-init.php:1687
+msgid "Expert Settings."
+msgstr "Expert Nastavitve"
+
+#: admin/options-init.php:1694
+msgid "Use GEO IP to show Popup only for EU"
+msgstr "Uporabi GEO IP za prikaz piškotkov samo EU državljanom"
+
+#: admin/options-init.php:1695
+msgid "Use with caution - users surfing with a proxy might be wrong targeted."
+msgstr "Previdno uporabi - uporabniki s proxy-jem so lahko napačno locirani"
+
+#: admin/options-init.php:1701
+msgid "Use WP Core Functions (req. WP 4.9.6 or Higher!)"
+msgstr "Uporabi osnovne funkcije WP (zahtevan WP 4.9.6 ali više)"
+
+#: admin/options-init.php:1702
+msgid ""
+"Only check this option, if you are on WP 4.9.6 or later. We will then use "
+"the WP Core functions for Data Export & Erasing. Our built-in GDPR Requests "
+"Menu will be removed."
+msgstr ""
+"Odkljukajte samo, če uporabljate WP 4.9.6 ali novejšo verzijo. Uporabili "
+"bomo osnovne funkcije WP-ja za izvoz in izbris podatkov. Naš vključen meni "
+"za GDPR zahtevek bo odstranjen. "
+
+#: admin/options-init.php:1708
+msgid "Use Cookie Whitelist"
+msgstr "Uporabil belo listo (dovoljene piškotke)"
+
+#: admin/options-init.php:1709
+msgid ""
+"If enabled our plugin will remove all cookies, that are not allowed by a "
+"certain service. If disabled all cookies will only be removed on decline."
+msgstr ""
+
+#: admin/options-init.php:1716
+msgid "Custom CSS"
+msgstr "Custom CSS"
+
+#: admin/options-init.php:1717
+msgid "Add some stylesheet if you want."
+msgstr "Dodaj stil po meri."
+
+#: admin/class-wordpress-gdpr-data-export.php:82
+#: admin/class-wordpress-gdpr-data-delete.php:65
+msgid "No User ID set."
+msgstr "ID uporabnika ni nastavljen."
+
+#: admin/class-wordpress-gdpr-data-export.php:98
+msgid "Data Exported Manually"
+msgstr "Podatki izvoženi ročno"
+
+#: admin/class-wordpress-gdpr-data-export.php:169
+msgid "Data Sent"
+msgstr "Podatki poslani"
+
+#: admin/class-wordpress-gdpr-data-export.php:172
+msgid "Export Data could not be mailed to user"
+msgstr "Izvoz podatkov ne more biti poslan uporabniku"
+
+#: admin/class-wordpress-gdpr-data-delete.php:162
+msgid "User Data Not Deleted"
+msgstr "Podatki o uporabniku niso bili izbrisani"
+
+#: admin/class-wordpress-gdpr-data-delete.php:192
+msgid "Data Deleted"
+msgstr "Podatki izbrisani"
+
+#: admin/class-wordpress-gdpr-data-delete.php:194
+msgid "User Data Notification sent"
+msgstr "Poslano obvestilo o uporabniških podatkih"
+
+#: admin/class-wordpress-gdpr-data-delete.php:196
+msgid "User Data Notification not sent"
+msgstr "Obvestilo o uporabniških podatkih ni poslano"
+
+#: admin/class-wordpress-gdpr-requests.php:71
+msgid "GDPR Request"
+msgstr "GDPR zahtevek"
+
+#: admin/class-wordpress-gdpr-requests.php:72
+msgid "GDPR Requests"
+msgstr "GDPR zahtevki"
+
+#: admin/class-wordpress-gdpr-requests.php:76
+msgid "Requests"
+msgstr ""
+
+#: admin/class-wordpress-gdpr-requests.php:78
+#: admin/class-wordpress-gdpr-requests.php:81
+#: admin/class-wordpress-gdpr-services.php:57
+#: admin/class-wordpress-gdpr-services.php:60
+#, php-format
+msgid "New %s"
+msgstr "Nov %s"
+
+#: admin/class-wordpress-gdpr-requests.php:79
+#: admin/class-wordpress-gdpr-services.php:58
+#: admin/class-wordpress-gdpr-services.php:105
+#, php-format
+msgid "Add New %s"
+msgstr "Dodaj nov %s"
+
+#: admin/class-wordpress-gdpr-requests.php:80
+#: admin/class-wordpress-gdpr-services.php:59
+#: admin/class-wordpress-gdpr-services.php:103
+#, php-format
+msgid "Edit %s"
+msgstr "Uredi %s"
+
+#: admin/class-wordpress-gdpr-requests.php:82
+#: admin/class-wordpress-gdpr-services.php:61
+#, php-format
+msgid "View %s"
+msgstr "Poglej %s"
+
+#: admin/class-wordpress-gdpr-requests.php:83
+#: admin/class-wordpress-gdpr-services.php:62
+#: admin/class-wordpress-gdpr-services.php:99
+#, php-format
+msgid "Search %s"
+msgstr "Poišči %s"
+
+#: admin/class-wordpress-gdpr-requests.php:84
+#: admin/class-wordpress-gdpr-services.php:63
+#, php-format
+msgid "No %s found"
+msgstr "Ni najdenih %s"
+
+#: admin/class-wordpress-gdpr-requests.php:85
+#: admin/class-wordpress-gdpr-services.php:64
+#, php-format
+msgid "No %s found in trash"
+msgstr "Ni najdenih %s v smeteh"
+
+#: admin/class-wordpress-gdpr-requests.php:125
+msgid "User"
+msgstr "Uporabnik"
+
+#: admin/class-wordpress-gdpr-requests.php:126
+msgid "Email confirmed"
+msgstr "E-pošta potrjena"
+
+#: admin/class-wordpress-gdpr-requests.php:127
+msgid "Status"
+msgstr "Status"
+
+#: admin/class-wordpress-gdpr-requests.php:128
+msgid "User Identifier"
+msgstr "Identifikator uporabnika"
+
+#: admin/class-wordpress-gdpr-requests.php:129
+#: admin/class-wordpress-gdpr-users.php:106
+msgid "Actions"
+msgstr "Dejanje"
+
+#: admin/class-wordpress-gdpr-requests.php:189
+#: admin/class-wordpress-gdpr-users.php:146
+msgid "Delete Data"
+msgstr "Izbriši podatke"
+
+#: admin/class-wordpress-gdpr-requests.php:198
+#: admin/class-wordpress-gdpr-users.php:151
+msgid "Export Data"
+msgstr "Izvozi podatke"
+
+#: admin/class-wordpress-gdpr-requests.php:207
+#: admin/class-wordpress-gdpr-users.php:156
+msgid "Send Data"
+msgstr "Pošlji podatke"
+
+#: admin/class-wordpress-gdpr-requests.php:214
+msgid "Manually Done"
+msgstr "Ročno končano"
+
+#: admin/class-wordpress-gdpr-requests.php:261
+msgid "Firstname"
+msgstr "Ime"
+
+#: admin/class-wordpress-gdpr-requests.php:266
+msgid "Last name"
+msgstr "Priimek"
+
+#: admin/class-wordpress-gdpr-requests.php:271
+#: admin/class-wordpress-gdpr-users.php:103
+msgid "Email"
+msgstr "E-pošta"
+
+#: admin/class-wordpress-gdpr-requests.php:339
+msgid "Done"
+msgstr "Urejeno"
+
+#: admin/class-wordpress-gdpr-requests.php:341
+msgid "Post id not found"
+msgstr "Id prispevka ni najden"
+
+#: admin/class-wordpress-gdpr-install-pages.php:94
+msgid "Contact DMCA"
+msgstr "Kontaktiraj DMCA"
+
+#: admin/class-wordpress-gdpr-install-pages.php:143
+#: public/class-wordpress-gdpr-public.php:179
+#: public/class-wordpress-gdpr-public-deprecated.php:334
+msgid "Request Data"
+msgstr "Zahtevaj podatke"
+
+#: admin/class-wordpress-gdpr-install-pages.php:202
+msgid "Terms And Conditions"
+msgstr "Pogoji poslovanja"
+
+#: admin/class-wordpress-gdpr-install-pages.php:327
+msgid "Unscribe"
+msgstr "Prekliči"
+
+#: admin/class-wordpress-gdpr-services.php:50
+msgid "GDPR Service"
+msgstr ""
+
+#: admin/class-wordpress-gdpr-services.php:51
+msgid "GDPR Services"
+msgstr ""
+
+#: admin/class-wordpress-gdpr-services.php:93
+msgid "GDPR Service Category"
+msgstr ""
+
+#: admin/class-wordpress-gdpr-services.php:94
+msgid "GDPR Service Categories"
+msgstr ""
+
+#: admin/class-wordpress-gdpr-services.php:100
+#, php-format
+msgid "All %s"
+msgstr "Vsi %s"
+
+#: admin/class-wordpress-gdpr-services.php:101
+#, php-format
+msgid "Parent %s"
+msgstr ""
+
+#: admin/class-wordpress-gdpr-services.php:102
+#, php-format
+msgid "Parent %s:"
+msgstr ""
+
+#: admin/class-wordpress-gdpr-services.php:104
+#, php-format
+msgid "Update %s"
+msgstr ""
+
+#: admin/class-wordpress-gdpr-services.php:106
+#, php-format
+msgid "New %s Name"
+msgstr ""
+
+#: admin/class-wordpress-gdpr-services.php:129
+#: admin/class-wordpress-gdpr-services.php:130
+msgid "Service Categories"
+msgstr ""
+
+#: admin/class-wordpress-gdpr-services.php:157
+#: public/class-wordpress-gdpr-public-deprecated.php:582
+msgid "Cookies"
+msgstr "Piškotki"
+
+#: admin/class-wordpress-gdpr-services.php:158
+msgid "Deactivatable"
+msgstr ""
+
+#: admin/class-wordpress-gdpr-services.php:230
+msgid "Capable of being deactivated"
+msgstr ""
+
+#: admin/class-wordpress-gdpr-services.php:241
+msgid "Enabled by Default"
+msgstr ""
+
+#: admin/class-wordpress-gdpr-services.php:252
+msgid "Is PixelYourSite Service?"
+msgstr ""
+
+#: admin/class-wordpress-gdpr-services.php:263
+msgid "Is Adsense Service?"
+msgstr ""
+
+#: admin/class-wordpress-gdpr-services.php:268
+msgid "Cookies Set by this Service (seperated by Comma)"
+msgstr ""
+
+#: admin/class-wordpress-gdpr-services.php:275
+msgid "Head Script Tag"
+msgstr ""
+
+#: admin/class-wordpress-gdpr-services.php:282
+msgid "Body Script Tag"
+msgstr ""
+
+#: admin/class-wordpress-gdpr-users.php:60
+#: admin/class-wordpress-gdpr-users.php:61
+msgid "GDPR Users"
+msgstr ""
+
+#: admin/class-wordpress-gdpr-users.php:101
+msgid "Username"
+msgstr "Uporabniško ime"
+
+#: admin/class-wordpress-gdpr-users.php:104
+msgid "Last Login"
+msgstr "Zadnja prijava"
+
+#: admin/class-wordpress-gdpr-users.php:105
+msgid "Consents"
+msgstr "Privolitev"
+
+#: admin/class-wordpress-gdpr-users.php:113
+msgid "No users found"
+msgstr "Ni najdenih uporabnikov"
+
+#: admin/class-wordpress-gdpr-users.php:126
+msgid "None logged"
+msgstr "Noben ni prijavljen"
+
+#: public/class-wordpress-gdpr-public.php:80
+#: public/class-wordpress-gdpr-integrations.php:239
+msgid "You must accept our Privacy Policy."
+msgstr "Sprejet morate naše politiko zasebnosti."
+
+#: public/class-wordpress-gdpr-public.php:81
+msgid "You must accept our Terms and Conditions."
+msgstr ""
+
+#: public/class-wordpress-gdpr-public.php:121
+#: public/class-wordpress-gdpr-public-deprecated.php:282
+msgid "Learn More"
+msgstr "Preberi več"
+
+#: public/class-wordpress-gdpr-public.php:140
+#: public/class-wordpress-gdpr-public-deprecated.php:295
+msgid "Contact our Data Protection Officer."
+msgstr "Kontaktirajte osebno zadolženo za vaše podatke."
+
+#: public/class-wordpress-gdpr-public.php:145
+#: public/class-wordpress-gdpr-public-deprecated.php:300
+msgid "Read more about our Cookie Policy."
+msgstr "Preberite več o piškotkih, ki jih uporabljamo."
+
+#: public/class-wordpress-gdpr-public.php:150
+#: public/class-wordpress-gdpr-public-deprecated.php:305
+msgid "Report a Copyright violation."
+msgstr "Prijavite kršitev avtorskih pravic."
+
+#: public/class-wordpress-gdpr-public.php:155
+#: public/class-wordpress-gdpr-public-deprecated.php:310
+msgid "Contact us for data change request."
+msgstr "Za spremembo podatkov nas prosimo kontaktirajte."
+
+#: public/class-wordpress-gdpr-public.php:160
+#: public/class-wordpress-gdpr-public-deprecated.php:315
+msgid "Learn more about our liabilities."
+msgstr "Več o naših obveznostih."
+
+#: public/class-wordpress-gdpr-public.php:165
+#: public/class-wordpress-gdpr-public-deprecated.php:320
+msgid "Submit a request to erase your private data."
+msgstr "Pošlji zahtevek za izbris vaših osebnih podatkov."
+
+#: public/class-wordpress-gdpr-public.php:170
+#: public/class-wordpress-gdpr-public-deprecated.php:325
+msgid "Learn about our ownership and authorship."
+msgstr "Preberite več o lastništvu in avtorstvu."
+
+#: public/class-wordpress-gdpr-public.php:175
+#: public/class-wordpress-gdpr-public-deprecated.php:330
+msgid "Get to know the Credits of our Media."
+msgstr "Preveri pravice naših slik."
+
+#: public/class-wordpress-gdpr-public.php:180
+#: public/class-wordpress-gdpr-public-deprecated.php:335
+msgid "Submit a request to get a copy of all your data stored."
+msgstr "Pošljite zahtevo, da dobite kopijo vseh shranjenih podatkov."
+
+#: public/class-wordpress-gdpr-public.php:185
+#: public/class-wordpress-gdpr-public-deprecated.php:340
+msgid "Read about our Privacy Policy here."
+msgstr "Pravilnik zasebnosti na naši spletni strani."
+
+#: public/class-wordpress-gdpr-public.php:190
+#: public/class-wordpress-gdpr-public-deprecated.php:345
+msgid "Configure your personal privacy settings here."
+msgstr "Tukaj konfigurirajte svoje osebne nastavitve zasebnosti."
+
+#: public/class-wordpress-gdpr-public.php:195
+#: public/class-wordpress-gdpr-public-deprecated.php:350
+msgid "Read more about the Terms & Conditions of our website."
+msgstr "Preberi več o pogojih poslovanja na naši strani."
+
+#: public/class-wordpress-gdpr-public.php:200
+#: public/class-wordpress-gdpr-public-deprecated.php:355
+msgid "Unsubscribe from our Newsletters."
+msgstr "Odjava s pošiljanja novic in obvestil."
+
+#: public/class-wordpress-gdpr-public.php:297
+#: public/class-wordpress-gdpr-public-deprecated.php:426
+msgid "Yes"
+msgstr "Da"
+
+#: public/class-wordpress-gdpr-public.php:305
+#: public/class-wordpress-gdpr-public-deprecated.php:434
+msgid "GDPR Request - "
+msgstr "GDPR Zahtevek - "
+
+#: public/class-wordpress-gdpr-public.php:305
+#: public/class-wordpress-gdpr-public-deprecated.php:434
+msgid "A new GDPR Request is available."
+msgstr "Nov GDPR zahteve je na voljo."
+
+#: public/class-wordpress-gdpr-public.php:308
+#: public/class-wordpress-gdpr-public-deprecated.php:437
+msgid "Email Address confirmed and your request is in process now."
+msgstr "E-pošta potrjena in vaš zahtevek je v sedaj v obdelavi."
+
+#: public/class-wordpress-gdpr-public.php:312
+#: public/class-wordpress-gdpr-public-deprecated.php:441
+msgid "Email Address could not be confirmed. Please send individual request."
+msgstr ""
+"E-poštnega naslova ni mogoče potrditi. Prosimo, pošljite individualno "
+"zahtevo."
+
+#: public/class-wordpress-gdpr-public-deprecated.php:199
+#: public/class-wordpress-gdpr-public-deprecated.php:260
+#: public/class-wordpress-gdpr-public-deprecated.php:550
+msgid "Enabled"
+msgstr "Omogočeno"
+
+#: public/class-wordpress-gdpr-public-deprecated.php:541
+#: public/class-wordpress-gdpr-forms.php:96
+msgid "Return to Privacy Center"
+msgstr "Vrni se na center zasebnosti"
+
+#: public/class-wordpress-gdpr-public-deprecated.php:576
+#, php-format
+msgid ""
+"In order to use this website we use the following technically required "
+"cookies: %s."
+msgstr ""
+"Za pravilno delovanje spletne strani uporabljamo naslednje tehnične piškotke:"
+" %s."
+
+#: public/class-wordpress-gdpr-public-deprecated.php:583
+msgid "We use Cookies to give you a better website experience."
+msgstr ""
+"Za pravilno delovanja in boljšo uporabniško izkušnjo uporabljamo piškotke. "
+"Potrjeno strinjanje z uporabo piškotkov."
+
+#: public/class-wordpress-gdpr-public-deprecated.php:589
+msgid "Check if you have accepted our privacy policy."
+msgstr "Potrjeno strinjanje s politiko zasebnosti"
+
+#: public/class-wordpress-gdpr-public-deprecated.php:596
+msgid "Check if you have accepted our terms & conditions."
+msgstr "Potrjeno strinjanje z našimi pogoji poslovanja."
+
+#: public/class-wordpress-gdpr-public-deprecated.php:610
+msgid ""
+"We use WooCommerce as a shopping system. For cart and order processing 2 "
+"cookies will be stored: woocommerce_cart_hash & woocommerce_items_in_cart. "
+"This cookies are strictly necessary and can not be turned off."
+msgstr ""
+"Za spletne nakupe uporabljamo sistem WooCommerce. Za košarico in obdelavo "
+"naročila bosta shranjena dva piškotka: woocommerce_cart_hash & "
+"woocommerce_items_in_cart. Ta dva piškotka sta obvezna za pravilno delovanje "
+"in jih ni mogoče onemogočiti."
+
+#: public/class-wordpress-gdpr-public-deprecated.php:631
+msgid ""
+"We use Google Tag Manager to monitor our traffic and to help us AB test new "
+"features    "
+msgstr ""
+"Google Upravitelja oznak uporabljamo za spremljanje prometa in za pomoč pri "
+"testiranju AB novih funkcij   "
+
+#: public/class-wordpress-gdpr-public-deprecated.php:638
+msgid ""
+"We use HotJar to track what users click on and engage with on this site "
+msgstr "Uporabljamo Hot Jar program za pregled klikov na strani "
+
+#: public/class-wordpress-gdpr-public-deprecated.php:644
+msgid "Facebook"
+msgstr "Facebook"
+
+#: public/class-wordpress-gdpr-public-deprecated.php:659
+msgid "AdSense"
+msgstr "AdSense"
+
+#: public/class-wordpress-gdpr-privacy-settings.php:193
+msgid "Privacy Settings saved!"
+msgstr ""
+
+#: public/class-wordpress-gdpr-privacy-settings.php:240
+msgid "Decline all Services"
+msgstr ""
+
+#: public/class-wordpress-gdpr-privacy-settings.php:243
+msgid "Accept all Services"
+msgstr ""
+
+#: public/class-wordpress-gdpr-forms.php:49
+msgid "Forget Me Request"
+msgstr "Zahtevek za izbris podatkov"
+
+#: public/class-wordpress-gdpr-forms.php:57
+msgid "DPO Contact Request"
+msgstr "DPO kontaktni zahtevek"
+
+#: public/class-wordpress-gdpr-forms.php:74
+msgid "Data Request"
+msgstr "Zahtevek o podatkih"
+
+#: public/class-wordpress-gdpr-forms.php:106
+msgid "Request sent successfully. Our DPO will answer you soon."
+msgstr "Zahtevek poslan. Naš DPO vam bo kmalu odgovoril."
+
+#: public/class-wordpress-gdpr-forms.php:109
+msgid ""
+"Request received. We have sent you a confirmation email to validate your "
+"email address for this type of request."
+msgstr ""
+"Zahtevek sprejet. Poslali smo vam potrditveno e-poštno sporočilo za "
+"potrditev vašega e-poštnega naslova za to vrsto zahteve."
+
+#: public/class-wordpress-gdpr-forms.php:115
+msgid "Could not send your request!"
+msgstr "Vaše zahteve ni bilo mogoče poslati!"
+
+#: public/class-wordpress-gdpr-forms.php:180
+msgid "Recaptcha not passed!"
+msgstr "Recaptcha ni uspela!"
+
+#: public/class-wordpress-gdpr-forms.php:185
+msgid "First Name missing."
+msgstr "Manjka ime."
+
+#: public/class-wordpress-gdpr-forms.php:189
+msgid "Last Name missing."
+msgstr "Manjka priimek."
+
+#: public/class-wordpress-gdpr-forms.php:193
+msgid "Email missing."
+msgstr "Manjka E-pošta."
+
+#: public/class-wordpress-gdpr-forms.php:197
+msgid "Terms not accepted."
+msgstr "Prosimo sprejmite pogoje."
+
+#: public/class-wordpress-gdpr-forms.php:202
+msgid "Message missing."
+msgstr "Vnesite sporočilo."
+
+#: public/class-wordpress-gdpr-forms.php:210
+msgid "Could not find a user with this email. Please contact our DPO directly."
+msgstr ""
+"Ne najdem uporabnika s tem E-poštnim naslovom. Prosimo direktno "
+"kontaktirajte našo pooblaščeno osebo (DPO)."
+
+#: public/class-wordpress-gdpr-forms.php:250
+msgid "Could not create your GDPR request."
+msgstr "Vaše zahteve za GDPR ni bilo mogoče ustvariti."
+
+#: public/class-wordpress-gdpr-forms.php:261
+msgid "Open"
+msgstr "Odpri"
+
+#: public/class-wordpress-gdpr-forms.php:267
+#, php-format
+msgid "First Name: %s"
+msgstr "Ime: %s"
+
+#: public/class-wordpress-gdpr-forms.php:268
+#, php-format
+msgid "Last Name: %s"
+msgstr "Priimek: %s"
+
+#: public/class-wordpress-gdpr-forms.php:269
+#, php-format
+msgid "Email: %s"
+msgstr "E-pošta: %s"
+
+#: public/class-wordpress-gdpr-forms.php:270
+#, php-format
+msgid "Terms Accepted: %s"
+msgstr "Pogoji sprejeti: %s"
+
+#: public/class-wordpress-gdpr-forms.php:273
+#, php-format
+msgid "Message: %s"
+msgstr "Sporočilo: %s"
+
+#: public/class-wordpress-gdpr-forms.php:275
+msgid "Not Needed"
+msgstr "Ni potrebno"
+
+#: public/class-wordpress-gdpr-forms.php:285
+msgid "Confirm Request"
+msgstr "Potrdi zahtevek"
+
+#: public/class-wordpress-gdpr-forms.php:288
+msgid "No"
+msgstr "Ne"
+
+#: public/class-wordpress-gdpr-forms.php:345
+msgid "Your First Name (*)"
+msgstr "Vaše ime (*)"
+
+#: public/class-wordpress-gdpr-forms.php:361
+msgid "Your Last Name (*)"
+msgstr "Vaš priimek (*)"
+
+#: public/class-wordpress-gdpr-forms.php:377
+msgid "Your Email (*)"
+msgstr "Vaša E-pošta (*)"
+
+#: public/class-wordpress-gdpr-forms.php:393
+msgid "Your message (*)"
+msgstr "Sporočilo (*)"
+
+#: public/class-wordpress-gdpr-forms.php:413
+msgid ""
+"I agree to the privacy policy and that my data will be stored for this GDPR "
+"request ."
+msgstr ""
+"Strinjam se s politiko zasebnosti in da se lahko moji podatki shranijo za "
+"zahtevo GDPR."
+
+#: public/class-wordpress-gdpr-forms.php:428
+msgid "Submit"
+msgstr "Pošlji"
+
+#: public/class-wordpress-gdpr-forms.php:438
+msgid "Delete my Data"
+msgstr "Izbriši moje podatke"
+
+#: public/class-wordpress-gdpr-forms.php:440
+msgid "Export my Data"
+msgstr "Izvozi moje podatke"
+
+#. Description of the plugin
+msgid "EU-DSVGO, GDPR Compliance Plugin"
+msgstr "EU-DSVGO, GDPR Compliance Plugin"
+
+#. URI of the plugin
+msgid "https://welaunch.io/plugins/wordpress-gdpr/"
+msgstr ""
+
+#. Author of the plugin
+msgid "weLaunch"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://welaunch.io"
+msgstr ""

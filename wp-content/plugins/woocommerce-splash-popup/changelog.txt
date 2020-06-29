@@ -1,0 +1,73 @@
+*** WooCommerce Spash Popup ***
+
+2020-06-10 - version 1.2.17
+* Tweak - WC 4.2 compatibility.
+
+2020-04-30 - version 1.2.16
+* Tweak - WC 4.1 compatibility.
+
+2020-04-08 - version 1.2.15
+* Fix - Outputs Last Post's Content in Footer on fresh installs.
+
+2020-03-29 - version 1.2.14
+* Tweak - Remove legacy code.
+
+2020-03-04 - version 1.2.13
+ * Fix - Product shortcode not working on Safari.
+ * Fix - Don't enqueue script if content is not selected.
+ * Tweak - WC 4.0 compatibility.
+
+2020-01-14 - version 1.2.12
+ * Tweak - WC 3.9 compatibility.
+
+2019-11-04 - version 1.2.11
+ * Tweak - WC 3.8 compatibility.
+
+2019-08-08 - version 1.2.10
+ * Tweak - WC 3.7 compatibility.
+
+2019-04-16 - version 1.2.9
+ * Tweak - WC 3.6 compatibility.
+
+2018-09-25 - version 1.2.8
+ * Update - WC 3.5 compatibility.
+
+2018-05-23 - version 1.2.7
+ * Update - Privacy policy notification.
+ * Update - WC 3.4 compatibility.
+
+2018-02-23 - version 1.2.6
+ * Fix - Splash popup should not be triggered on AJAX calls.
+
+2018-02-15 - version 1.2.5
+ * Tweak - Add settings link in plugin actions list.
+ * Tweak - Update plugin main filename to match with plugin's slug.
+ * Fix - Use Unix newlines in source code.
+
+2017-12-13 - version 1.2.4
+ * Tweak - Adjusts the headers to indicate WooCommerce 3.3 compatibility.
+
+2017-11-23 - version 1.2.3
+ * Fix - Undefined index notice when loading the settings screen.
+ * Tweak - Load the class via a singleton, instead of simply instantiating a new object.
+
+2017-06-26 - version 1.2.2
+ * New - Adds the new Woo plugin header, for WooCommerce 3.1 compatibility.
+
+2015.03.06 - version 1.2.1
+ * General code cleanup
+
+2015.01.05 - version 1.2.0
+ * Clicking a link in the splash content will now set the cookie as closed for the destination page.
+
+2014.03.12 - version 1.1.1
+ * Fixed issue where splash popup wouldn't initialise on first page view.
+
+2014.09.05 - version 1.1.0
+ * WooCommerce 2.2.0 compat
+
+2014.12.06 - version 1.0.1
+ * Stripped object pass by reference
+
+2013.05.02 - version 1.0
+ * First release

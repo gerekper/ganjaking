@@ -1,0 +1,40 @@
+.ywctm-custom-button-container span.ywctm-icon-form {
+    font-size: 20px;
+    margin-right: 5px;
+}
+
+.ywctm-custom-button-container span.ywctm-icon-form,
+.ywctm-custom-button-container span.ywctm-icon-form:before,
+.ywctm-custom-button-container span.ywctm-inquiry-title {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.ywctm-inquiry-form-wrapper .ywctm-form-title {
+    margin: 0 0 10px 0;
+    font-size: 23px;
+    font-weight: bold;
+}
+
+#tab-inquiry_form ul {
+    list-style: none;
+    margin: 0;
+}
+
+#tab-inquiry_form ul li {
+    margin-bottom: 11px;
+}
+
+/* Use the following CSS code if you want to use data attributes for inserting your icons */
+[data-font="FontAwesome"]:before {
+    font-family: 'FontAwesome';
+    content: attr(data-icon);
+    speak: none;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}

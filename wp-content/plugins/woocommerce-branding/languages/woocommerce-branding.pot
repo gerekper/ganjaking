@@ -1,0 +1,64 @@
+# Copyright (C) 2020 WooCommerce
+# This file is distributed under the GNU General Public License v3.0.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Branding 1.0.26\n"
+"Report-Msgid-Bugs-To: "
+"https://wordpress.org/support/plugin/woocommerce-branding\n"
+"POT-Creation-Date: 2020-06-10 11:43:01+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: node-wp-i18n 1.2.3\n"
+
+#: classes/class-wc-branding.php:45 classes/class-wc-branding.php:276
+msgid "Branding"
+msgstr ""
+
+#: classes/class-wc-branding.php:279
+msgid "Name"
+msgstr ""
+
+#: classes/class-wc-branding.php:280
+msgid ""
+"This sets the name to be used in all branding of the administration "
+"sections."
+msgstr ""
+
+#: classes/class-wc-branding.php:289
+msgid "URL to Icon"
+msgstr ""
+
+#: classes/class-wc-branding.php:290
+msgid ""
+"This sets the icon to be used in all branding of the administration "
+"sections."
+msgstr ""
+
+#: woocommerce-branding.php:61
+#. translators: %s: WooCommerce link
+msgid "WooCommerce Branding requires %s to be installed and active."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce Branding"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://woocommerce.com/products/branding/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Rebrand WooCommerce using your own brand name, colour scheme, and icon."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "WooCommerce"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://woocommerce.com/"
+msgstr ""

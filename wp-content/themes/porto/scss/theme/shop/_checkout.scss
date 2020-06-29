@@ -1,0 +1,87 @@
+
+.checkout_coupon {
+    .form-row {
+        display: inline-block;
+        float: none;
+        width: auto;
+    }
+}
+
+form.checkout_coupon {
+    padding-bottom: 5px;
+}
+
+.form-row.terms {
+    position: relative;
+    margin-top: 15px;
+    .input-checkbox {
+        position: absolute;
+        #{$left}: 0;
+        top: 2px;
+    }
+    label.checkbox {
+        margin-#{$left}: 20px;
+        display: block;
+    }
+}
+
+.payment_methods {
+    margin: 30px 0;
+    padding: 0;
+    list-style: none;
+
+    .payment_method_paypal {
+        .about_paypal {
+            display: inline-block;
+            margin-#{$left}: 10px;
+        }
+        @media #{$screen-medium} {
+            .input-radio {
+                vertical-align: top;
+            }
+            img,
+            .about_paypal {
+                display: block;
+                margin: 0;
+            }
+        }
+        @media #{$screen-small} {
+            img {
+                width: 190px;
+            }
+        }
+
+        @media (max-width: 319px) {
+            img {
+                width: 150px;
+            }
+        }
+    }
+}
+
+.woocommerce-page {
+    .woocommerce {
+        header {
+            margin-top: 32px;
+        }
+        .featured-box {
+            header {
+                margin-top: 20px;
+            }
+        }
+    }
+}
+
+.checkout-v2 .card-header {
+    line-height: 40px;
+}
+
+.place-order{
+	img{
+		margin-#{$left}: 5px;
+		display: none;
+		.woocommerce-checkout.processing &{
+			display: inline-block;
+		}
+	}
+}

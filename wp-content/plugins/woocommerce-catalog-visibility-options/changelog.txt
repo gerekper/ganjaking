@@ -1,0 +1,320 @@
+*** Catalog Visibility Options Changelog ***
+2020.05.06 - version 3.2.9
+    * Update:  Make sure locations returned for a product are in array format.
+    * Update:  WP and WC version compatibility tags.
+
+2020.03.30 - version 3.2.8
+    * Update:  Version bump
+
+2020.03.27 - version 3.2.7
+    * Fix:  Fix warning on settings tab.
+    * Update:  Clean up some older labels.
+    * Update:  Move location picker shortcode to template.  To override, place /lib/woocommerce-catalog-restrictions/templates/location-picker.php inside of your theme's woocommerce folder.
+    * Update:  Correct for add to cart button not being hidden properly.
+
+
+2020.02.25 - version 3.2.6
+    * Update:  Validate WC() is not null before setting sessions.  Apparently some plugins cause issues with the WC() instance.
+    * Update:  Correct previous publish date.
+    * Update:  Check for correct WooCommerce class name in session handler.
+
+2020.02.19 - version 3.2.5
+    * Update:  Filter WooCommerce related products query.
+    * Update:  Added basic caching on the restrictions look up.
+    * Update:  Remove legacy filtering code.
+    * Update:  Added filters to filter products rendered using the AbstractProductGrid class, notably Gutenberg product blocks.
+    * Update:  Unbind filters before WooCommerce generates emails.  It appears that some payment gateways mistakenly call the price_html filters somehow during
+                    the email process, therefore catalog visibility options filters it out.
+    * Update session handling code to prevent extensions from calling init without WC being loaded.
+
+2019.04.18 - version 3.2.4
+    * Update:  Remove deprecated function calls for WC 3.6
+
+2019.02.27 - version 3.2.3
+    * Update:  Include template for variation data for when purchases disabled but prices enabled.
+    * Update:  WC and WP version updates.
+
+2019.01.02 - version 3.2.2
+    * Update:  Check for output buffer before filtering.
+    * Update:  Check rendered content in after cart button, fixes issues with themes which call woocommerce_after_add_to_cart_button inside of their own variable.php
+    * Update:  Clean up alternate variation HTML to remove duplicate divs
+
+2018.10.23 - version 3.2.1
+    * Update:  Modify the category filters so that the store default is taken into account.
+            The individual category rules will override the store defaults in a sensible way.
+    * Update:  WC tested to 3.5.
+
+2018.08.22 - version 3.2.0
+    * New:  Add location filters to individual products for who can purchase and who can view prices.
+    * New:  Add role and location filters to categories for who can purchase and who can view prices.
+    * New:  Update location filters to be inclusive or exclusive on individual products.
+    * Update:  Update API in prep for the Product Data Tables move in WC core.
+    * Update:  Allow adding to the cart even if prices are disabled.
+    * Fix:  Fix issue where "What locations can view this product" were not compatible with newer versions of WooCommerce.
+
+2018.06.08 - version 3.1.3
+    * Fix:  Fix issue with the extension not hiding add to cart button for simple products.
+
+2018.06.05 - version 3.1.2
+    * Fix:  Fix issue with duplicate variation descriptions being output, due to the change in hook order in WC core 3.4.1
+    * Update:  Merge logic between the separate filtering functions for global and product level.
+    * Update:  Code refactorings to support the logic move.  More to come in 3.1.4
+    * Fix:  Fix problem with un-setting product offers.
+    * Fix   Fix formatting of location selector.
+    * Update: Version bump.  Tested to WordPress 4.9.6.
+    * Update: WC tested up to: 3.4.2.
+    * Update: Add support to target Guest roles in product specific pricing and purchasing rules.
+    * New:  New Filter - Added catalog_visibility_alternate_cart_item_price_html
+    * New:  New Filter - Added catalog_visibility_alternate_price_html
+    * New:  Added option to allow management of product visibility by States / Regions in addition to Countries.
+
+2018.03.16 - version 3.1.1
+    * Update:  Version updates.
+    * Update:  Filter variation JSON data display_price and display_regular_price
+    * Update:  Delete wc_loop transients when clearing cached product restrictions.
+
+2017.11.27 - version 3.1.0
+    * Update:  Move Product Restrictions metabox inside of WooCommerce Product Metabox
+    * Fix:  Fix an issue where setting prices to "Everyone" on a variable product
+            when prices were disabled globally would not work properly.
+
+2017.09.29 - version 3.0.3
+    * Update:  Filter woocommerce shortcode transients so catalog visibility rules apply properly.
+    * Update:  Filter product structured data if user can not view price.
+
+2017.08.29 - version 3.0.2
+    * Update:  Provide compatibility with WooCommerce Paypal Express on single product pages by hiding the paypal button when user
+                can not purchase the product.
+
+2017.05.08 - version 3.0.1
+    * Update:  Remove pass by references which were raising warnings in PHP 7x
+
+2017-04-01 - version 3.0.0
+ * Fix: Update for WC 3.0 compatibility.
+
+2016-10-11 - version 2.8.4
+ * Update:  When prices are hidden, still allow variation descriptions to show up.   This update overrides the javascript template used to build the variation
+            markup, removing the price div.
+ * Update:  Hide variable subscription prices when a user does not have access to view prices.
+
+2016-08-23 - version 2.8.3
+ * Update:  Correctly return instances from the singletons.
+
+2016-06-02 - version 2.8.2
+ * Update:  Change transient caching to cache by role(s) rather than individual session ID. 
+  Caching by individual session ID was causing too many transients to be added to the options
+  table, which would never be removed since unauthenticated users will always get a new customer ID
+  until a WooCommerce session is started.   
+  Note, unless filtered unauthenticated users are cached with a "guest" role. 
+ 
+2016-05-25 - version 2.8.1
+ * Fix:  Remove quantity box and stock status when purchase or prices are disabled. 
+ * Update:  Include stock status if WooCommerce Wishlists is active since users can still add the item to a wishlist. 
+ 
+2016-05-04 - version 2.8.0
+ * Update:  WC 2.6 Compatibility
+ * Update:  Uses new termmeta table when it's present for filters. 
+ * Update:  Remove unused call to chosen() library. 
+ * Update:  Update installer to use the termmeta table when present. 
+  
+2016-04-26 - version 2.7.2
+ * Update:  Hook into cart validation to disallow items from ever being added to the cart by any means. 
+ * Update:  Only activate a WC session if required by location selector. 
+ * Update:  Update the variation template to use the new action, wc_cvo_after_single_variation, which is in the correct location inside of the variable template. 
+ * Update:  Update tested up to for WordPress. 
+ 
+2016-01-06 - version 2.7.1
+ * Fix:  Fix the location selector when choosing a specific location(s) for a product category. 
+ * Fix:  Correct the size of the help tip icons to match the rest of the admin area. 
+ 
+2015-10-16 - version 2.7.0
+ * Update:   Use a filter to filter the add to cart button on the shop archive page.   
+   Fixes issues with themes who use custom handling to render out the button. 
+   
+2015-09-15 - version 2.6.8
+ * Update:  Allow add to cart even when prices are disabled.  Set prices to disabled and 
+   use the filter catalog_visibility_user_can_purchase to return true. 
+ 
+2015-08-19 - version 2.6.7
+ * Update:  Fix notice for WP 4.3 constructor style. 
+ 
+2015-08-13 - version 2.6.6
+ * Enhancement:  Better compatibility with Bookings. 
+
+2015-07-30 - version 2.6.5
+ * Fix:  Prevent filters from running if woocommerce_init has not been fired yet. Fixes issue with WP SEO News plugin. 
+
+2015-07-27 - version 2.6.4
+ * Update: Update logon form to use built in WC handlers rather than WP Core. Prevents users from being redirected to wp-login.php
+ 
+2015-07-21 - version 2.6.3
+ * Update:  WC 2.4 Compatibility
+ * Fix:  Fix error when doing cron when restrictions are on from the 2.6.2 update. 
+ 
+2015-06-30 - version 2.6.2
+ * Update:  Do not run catalog restrictions which rely on a session ID or logged on user ID when doing CRON jobs. 
+ 
+2015-05-21 - version 2.6.1
+ * Update:  Move the template_redirect filter to priority 11 to prevent issues when calling is_product() before redirect_canonical is called 
+   and you are attempting to access a page with custom WC query_vars. 
+   
+2015-05-11 - version 2.6.0
+ * Update:  Add caching to the taxonomy filters. 
+ * Fix:     Remove debug code which was causing the plugin to disable caching of some queries. 
+ * Fix:    Remove .none reset class since it is no longer being used. 
+ 
+2015-04-21 - version 2.5.10
+ * Fix - Potential XSS with add_query_arg
+
+2015-04-05 - version 2.5.9
+ * Update:  Adds a workaround to the taxonomy filter to resolve a bug in how wp_get_term_args handles include and exclude values. 
+   This allows us to filter the categories which are shown in the product category shortcode. 
+ 
+2015-03-8 - version 2.5.8
+ * Update:  PHP tag cleanup. 
+ * Update:  Added filter to category widget to filter out categories the user does not have access to. 
+ 
+2015-02-20 - version 2.5.7
+ * Feature: Adds option to use Geo Location lib to automatically select a users location. Default is Yes. 
+ * Fix: Make sure the WC Session object is initialized before accessing it. 
+ * Fix: Make sure the session is not accessed on WP_CRON jobs. 
+ 
+2015-02-13 - version 2.5.6
+ * Adds option to clear the cart when a user changes their location. 
+ 
+2015-02-12 - version 2.5.5
+ * Only check and set session variables on front end requests. 
+ 
+2014-12-03 - version 2.5.4
+ * Use compatibility class to load the woocommerce object in the query filters. 
+ * Add very agressive session checks to ensure a session object is available before attempting to reterive the customer ID. 
+
+2014-12-01 - version 2.5.3
+ * Clear cached visibility options when a user registers. 
+ * Added filter to allow modification of the redirect URL after a user selects a location. 
+  * woocommerce_catalog_restrictions_redirect_on_location
+   * $url : The url where the user will be redirected after choosing their location. 
+ 
+2014-11-25 - version 2.5.2
+ * Enhancement:  Added filter to allow filtering of the roles gathered for a user.  This filter is usually used to give both logged in users in a specific role
+  or unauthenticated users the rights to see a specific product category.  
+  * woocommerce_catalog_restrictions_get_roles_for_current_user($roles);
+   * $roles:  array key, value set of roles used to determine which products can be viewed. 
+
+2014-10-30 - version 2.5.1
+ * Additional action added for Wishlist Compatibility 
+ * Fixes warning in the installer of a missing file in WooCommerce 2.2x
+
+2014-09-03 - version 2.5.0
+ * WC 2.2 compatibility. 
+ * Fix location selector loop by forcing WooCommerce to actually start a session when a session starts. 
+ * Added new option which disables the selection of new location after first selection has been made.  
+   This is configurable on the Visibility Options settings page. 
+ 
+2014-07-23 - version 2.4.7
+ * Fix to prevent products with restrictions from effecting other products when viewed on archive pages. 
+ 
+2014-05-22 - version 2.4.6
+ * Fix to allow shortcodes with quoted attributes. 
+
+2014-02-12 - version 2.4.5
+ * CSS Tweaks for WC 2.1x
+
+2014-02-11 - version 2.4.4
+ * WC2.1 Compat, fix Call to undefined function wc_create_page()
+ 
+2014-01-25 - version 2.4.3
+ * Store user location selection in user meta, not just in session data. 
+ * Added User Profile fields to allow selection of location. 
+ * Added User Profile fields to allow administrators to enable or disable user's changing of location. 
+
+2014-01-16 - version 2.4.2 
+ * Fix incorrect check for WooCommerce 2.1 in installation script. 
+
+2014-01-09 - version 2.4.1
+ * Added compatibility with WooCommerce Wishlists.  Users can add items they can not purchase to a WishList. 
+
+2014-01-05 - version 2.4.0
+ * Added compatibility for WooCommerce 2.1x
+ * Change location filter to be off by default. 
+
+2013-10-29 - version 2.3.2
+ * Update: Use generic get_price_html filter to allow better compatibility with some plugins. 
+ 
+2013-08-28 - version 2.3.1
+ * Fix: Do not save empty restrictions to the term meta table
+ * Fix: DB update script to remove invalid restrictions from the term meta table on activation. 
+ * Update: Clear filter transients on plugin update / activation. 
+
+2013-07-26 - version 2.3.0
+ * Update: Remove variable price HTML when users can not view prices. 
+
+2013-07-11 - version 2.2.9
+ * Update:  Text domain and minior loclization updates. 
+
+2013-06-29 - version 2.2.8
+ * Update: Compatibility with Bulk Variations
+
+2013-06-23 - version 2.2.7
+ * Update: Use WooCommerce Sessions for hosts that are not compatibile with starndard PHP sessions. 
+ * Update: Moved location picker post handler to woocommerce_init to fire sooner. 
+ * Fix: SQL query syntax update to prevent WPML SQL conflicts.
+ 
+2013-06-06 - version 2.2.6
+ * Update:  Product specific rules will now override the global settings.  
+
+2013-06-03 - version 2.2.5
+ * Update: Version number changes only.  
+
+2013-05-25 - version 2.2.3
+ * Fix: When both simple and advanced rules prevented purchases, the "View Product" button was displayed twice. 
+
+2013-05-07 - version 2.2.2
+ * Fix: Unable to remove alternate content in settings
+ * Fix: AJAX add to cart
+
+2013-04-22 - version 2.2.1
+ * Update:  Set priority on filters to filter gravity forms and product add on options. 
+
+2013-04-02 - version 2.2.0
+ * Performance Tweaks
+
+2013-03-12 - version 2.1.1
+ * Tweak output buffering for compatibility with WP SEO
+ * More updates to the way the logon form shortcode is handled, covering more situations now. 
+
+2013-03-08 - version 2.1
+ * Fixes javascript error with chosen select
+ * Update to use before and after form filters so the entire form is filtered, not just the add to cart button.
+    Allows use of logon form directly on product pages. 
+
+2013-01-01 - version 2.0
+ * Added Location Filters
+ * Added options to completely remove products or product categories from the shop for specific roles
+ * Added price visibility options for specific roles to products and product categories
+ * Added purchase options for specific roles to products and product categories
+ * Fixes for HTML in settings area
+
+2012-12-04 - version 1.1.3
+ * New updater
+
+2012-11-09 - version 1.1.2
+ * Don't strip html from content field
+
+2012-04-02 - version 1.1.1
+ * Allow variable products to display price, but hide cart
+
+2012-03-02 - version 1.1
+ * Added filter to allow theme developers to control when users should see prices and be able to make purchases.
+    catalog_visibility_user_has_access
+ * Added filters to allow theme developers to modify the alternate contents
+    catalog_visibility_alternate_content
+    catalog_visibility_alternate_price_html
+    catalog_visibility_alternate_add_to_cart_link
+    catalog_visibility_alternate_add_to_cart_button
+
+2012-02-25 - version 1.0.1
+ * Tweaked WC detection
+
+2012-02-16 - version 1.0
+ * First release

@@ -1,0 +1,5 @@
+code,type,description,amount,expiry_date,enable_free_shipping,minimum_amount,maximum_amount,individual_use,exclude_sale_items,products,exclude_products,product_categories,exclude_product_categories,customer_emails,usage_limit,limit_usage_to_x_items,usage_limit_per_user,usage_count
+spring10,fixed_cart,$10 off when you buy clothing; order over $25,10,,,25,,yes,yes,,,clothing,,,500,,1,
+15off,percent,15% off orders when you buy music club,15,2016-12-31,yes,,100,yes,,woo-ninja,,,"clothing, posters",,,,2,2
+ninja5,fixed_product,$5 off up to 2 ninja tees,5,2016-06-30,,10,,,yes,,,"clothing, tee-shirts",,,45,2,1,
+5forninjas,percent,5% off up to 3 ninja hoodies,5,,yes,5,150,yes,yes,,,hoodies,,,500,3,,

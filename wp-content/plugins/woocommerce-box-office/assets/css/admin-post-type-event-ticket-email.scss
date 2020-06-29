@@ -1,0 +1,19 @@
+// Edit ticket.
+.post-type-event_ticket {
+	.page-title-action {
+		display: none;
+	}
+
+	#post-body-content {
+		display: none;
+	}
+
+	#poststuff #post-body.columns-2 {
+		margin-right: 0;
+	}
+
+	textarea#_ticket_email_plain {
+		width: 99% !important;
+		min-height: 200px !important;
+	}
+}

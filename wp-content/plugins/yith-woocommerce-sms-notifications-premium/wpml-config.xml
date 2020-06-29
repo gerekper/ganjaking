@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<wpml-config>
+    <admin-texts>
+        <key name="ywsn_checkout_checkbox_text"/>
+        <key name="ywsn_message_admin"/>
+        <key name="ywsn_message_generic"/>
+        <key name="ywsn_message_wc-pending"/>
+        <key name="ywsn_message_wc-processing"/>
+        <key name="ywsn_message_wc-on-hold"/>
+        <key name="ywsn_message_wc-completed"/>
+        <key name="ywsn_message_wc-cancelled"/>
+        <key name="ywsn_message_wc-refunded"/>
+        <key name="ywsn_message_wc-failed"/>
+    </admin-texts>
+</wpml-config>

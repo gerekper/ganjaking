@@ -1,0 +1,82 @@
+/**
+ * Admin styles
+ *
+ * @package WC_OD
+ * @since   1.5.0
+ */
+
+.wc-od-metabox {
+	.form-field {
+		input,
+		select,
+		textarea {
+			width: 100%;
+			max-width: 100%;
+		}
+
+		.time-range {
+			display: block;
+			&::after {
+				content: "";
+				clear: both;
+				display: table;
+			}
+		}
+
+		.time-from {
+			float: left;
+			width: 48%;
+		}
+
+		.time-to {
+			float: right;
+			width: 48%;
+		}
+	}
+}
+
+/* Edit order view */
+.wc-od-order-delivery {
+	.form-field:last-child {
+		margin-bottom: 0;
+	}
+}
+
+/* Edit subscription view */
+.wc-od-subscription-delivery__preferences-toggle {
+	display: block;
+	font-weight: bold;
+
+	.toggle-indicator {
+		float: right;
+
+		&::before {
+			content: "\f140" !important;
+
+			.wc-od-subscription-delivery__preferences.open & {
+				content: "\f142" !important;
+			}
+		}
+	}
+}
+
+.wc-od-subscription-delivery__preferences-content {
+	display: none;
+	margin-top: 1rem;
+
+	.wc-od-subscription-delivery__preferences.open & {
+		display: block;
+	}
+}
+
+.wc-od-subscription-delivery-days {
+	tbody {
+		tr {
+			&:nth-child(odd) {
+				td {
+					background-color: #f9f9f9;
+				}
+			}
+		}
+	}
+}

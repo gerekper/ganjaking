@@ -1,0 +1,80 @@
+
+/*
+ *	GENERAL
+ */
+
+#yith-woocommerce-customer-history h2 i { margin-right: 10px; }
+#yith-woocommerce-customer-history p.description { margin-bottom: 30px; font-style: normal; }
+#yith-woocommerce-customer-history table tr td { vertical-align: top; }
+#yith-woocommerce-customer-history .tablenav a.button { margin: 0; display: inline-block; }
+
+
+/*
+ *	THICKBOX POPUP
+ */
+
+.admin_page_yith-wcch-customer #TB_window,
+.customer-history_page_yith-wcch-sessions #TB_window { width: 1200px !important; height: 600px !important; margin-left: -600px !important; margin-top: -300px !important; top: 50% !important; left: 50% !important; }
+.admin_page_yith-wcch-customer #TB_window iframe,
+.customer-history_page_yith-wcch-sessions #TB_window iframe { width: 100% !important; height: 100% !important; }
+
+@media (min-width: 1000px) and (max-width: 1200px) and (min-height: 580px) and (max-height: 600px) {
+	html { padding-top: 0px !important; }
+	#wpcontent { margin-left: 0px !important; }
+	#adminmenumain, #wpadminbar, #screen-meta-links { display: none; }
+}
+
+/*
+ *	CUSTOMERS
+ */
+
+#yith-woocommerce-customer-history #customers { }
+
+/*
+ *	CUSTOMER
+ */
+
+#yith-woocommerce-customer-history #customer { }
+#yith-woocommerce-customer-history #customer .customer-profile { background-color: rgba(0,0,0,0.05); padding: 20px; margin-bottom: 30px; display: inline-block; }
+#yith-woocommerce-customer-history #customer .customer-profile .customer-avatar { margin-right: 20px; float: left; }
+#yith-woocommerce-customer-history #customer .customer-profile .customer-info { border-right: 1px solid rgba(0,0,0,0.1); padding-right: 20px; margin-right: 20px; float: left; }
+#yith-woocommerce-customer-history #customer .customer-profile .customer-actions { float: left; }
+#yith-woocommerce-customer-history #customer .customer-profile .customer-actions i { margin-right: 10px; }
+
+#yith-woocommerce-customer-history #customer > table { margin-bottom: 50px; }
+#yith-woocommerce-customer-history #customer table tr.action-search { background-color: #def; }
+#yith-woocommerce-customer-history #customer table tr.action-add_to_cart { background-color: #fed; }
+#yith-woocommerce-customer-history #customer table tr.action-new_order { background-color: #dfd; }
+#yith-woocommerce-customer-history #customer h2 { margin: 0px 10px 20px 0px; float: left; }
+
+/*
+ *	SEARCHES
+ */
+
+#yith-woocommerce-customer-history #searches table tr td { white-space: nowrap; }
+#yith-woocommerce-customer-history #searches table tr .date,
+#yith-woocommerce-customer-history #searches table tr .user { width: 15%; }
+
+/*
+ *	SESSIONS
+ */
+
+#yith-woocommerce-customer-history #sessions table tr td { white-space: nowrap; }
+#yith-woocommerce-customer-history #sessions table tr .ip,
+#yith-woocommerce-customer-history #sessions table tr .date,
+#yith-woocommerce-customer-history #sessions table tr .user { width: 15%; }
+
+#yith-woocommerce-customer-history #sessions table tr.action-search { background-color: #def; }
+#yith-woocommerce-customer-history #sessions table tr.action-add_to_cart { background-color: #fed; }
+#yith-woocommerce-customer-history #sessions table tr.action-new_order { background-color: #dfd; }
+#yith-woocommerce-customer-history #sessions table tr.bot { background-color: #ddf; }
+#yith-woocommerce-customer-history #sessions table tr:hover { background-color: #eee; }
+#yith-woocommerce-customer-history #sessions table tr td { overflow: hidden; }
+
+/*
+ *	SETTINGS
+ */
+
+#yith-woocommerce-customer-history #settings .settings-box { max-width: 300px; background-color: #ddd; border: 1px solid #ccc; padding: 30px 20px; margin-right: 20px; margin-bottom: 20px; float: left; }
+#yith-woocommerce-customer-history #settings .settings-box h2 { margin-top: 0px; }
+#yith-woocommerce-customer-history #settings .settings-box .warning { color: #a00; }

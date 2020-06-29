@@ -1,0 +1,15 @@
+{
+  "rules": {
+    ".read": "auth != null",
+    ".write": "auth != null",
+    "messages": {
+      "$msg_id": {
+        ".validate": "auth.is_operator == true || newData.child('conversation_id').val() == root.child('chat_users').child(auth.uid).child('conversation_id').val()"
+      }
+    },
+    "active_admins": {
+      ".read": true,
+      ".write": "auth != null"
+    }
+  }
+}

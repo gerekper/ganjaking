@@ -1,0 +1,1719 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH Advanced Refund System for WooCommerce\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/init\n"
+"POT-Creation-Date: 2020-05-21 12:12+0100\n"
+"PO-Revision-Date: 2020-05-21 12:12+0100\n"
+"Last-Translator: \n"
+"Language-Team: Your Inspiration Themes <plugins@yithemes.com>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.12\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-KeywordsList: __ ;_e;_n:1,2;__ngettext:1,2;__ngettext_noop:1,2;"
+"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: plugin-fw\n"
+
+#: functions.php:10
+msgctxt "Request status"
+msgid "New refund request"
+msgstr "Nueva solicitud de reembolso"
+
+#: functions.php:11
+msgctxt "Request status"
+msgid "Processing"
+msgstr "Procesando"
+
+#: functions.php:12
+msgctxt "Request status"
+msgid "On hold"
+msgstr "En espera"
+
+#: functions.php:13
+msgctxt "Request status"
+msgid "Approved"
+msgstr "Aprobada"
+
+#: functions.php:14
+msgctxt "Request status"
+msgid "Rejected"
+msgstr "Rechazada"
+
+#: functions.php:15
+msgctxt "Request status"
+msgid "Refund request in Trash"
+msgstr "Solicitud de reembolso en la papelera"
+
+#: functions.php:24
+msgid "No status"
+msgstr "Sin estado"
+
+#: includes/class.yith-advanced-refund-system-admin-premium.php:105
+#: includes/class.yith-advanced-refund-system-admin-premium.php:564
+msgid "Refunds"
+msgstr "Reembolsos"
+
+#: includes/class.yith-advanced-refund-system-admin-premium.php:124
+#: includes/class.yith-advanced-refund-system-admin-premium.php:313
+msgid "Set the refundable status"
+msgstr "Establecer el estado reembolsable"
+
+#: includes/class.yith-advanced-refund-system-admin-premium.php:137
+#: includes/class.yith-advanced-refund-system-admin-premium.php:194
+#: includes/class.yith-advanced-refund-system-admin-premium.php:251
+msgid "Use the global value"
+msgstr "Usar el valor global"
+
+#: includes/class.yith-advanced-refund-system-admin-premium.php:139
+#: includes/class.yith-advanced-refund-system-admin-premium.php:196
+#: includes/class.yith-advanced-refund-system-admin-premium.php:329
+#: includes/class.yith-advanced-refund-system-admin-premium.php:387
+msgid "Currently:"
+msgstr "Actualmente:"
+
+#: includes/class.yith-advanced-refund-system-admin-premium.php:142
+#: includes/class.yith-advanced-refund-system-admin-premium.php:331
+msgid "Yes"
+msgstr "Sí"
+
+#: includes/class.yith-advanced-refund-system-admin-premium.php:144
+#: includes/class.yith-advanced-refund-system-admin-premium.php:333
+msgid "No"
+msgstr "No"
+
+#: includes/class.yith-advanced-refund-system-admin-premium.php:157
+msgid "Set the product as refundable"
+msgstr "Establecer el producto como reembolsable"
+
+#: includes/class.yith-advanced-refund-system-admin-premium.php:167
+msgid "Set the product as non-refundable"
+msgstr "Establecer el producto como no reembolsable"
+
+#: includes/class.yith-advanced-refund-system-admin-premium.php:171
+msgid "Choose whether refunds are allowed for this product or not."
+msgstr "Elige si los reembolsos están permitidos para este producto o no."
+
+#: includes/class.yith-advanced-refund-system-admin-premium.php:181
+#: includes/class.yith-advanced-refund-system-admin-premium.php:370
+msgid "Number of days for refund"
+msgstr "Número de días para reembolsar"
+
+#: includes/class.yith-advanced-refund-system-admin-premium.php:209
+msgid "Set a custom number of days"
+msgstr "Establece un número de días personalizado"
+
+#: includes/class.yith-advanced-refund-system-admin-premium.php:213
+msgid ""
+"Enter the maximum time (in days) to allow refunds. Set 0 if refunds for this "
+"product are always\n"
+"                    available"
+msgstr ""
+"Introduce el tiempo máximo (en días) para permitir reembolsos. Establece 0 "
+"si los reembolsos para este producto están siempre\n"
+"                     disponibles"
+
+#: includes/class.yith-advanced-refund-system-admin-premium.php:219
+#: includes/class.yith-advanced-refund-system-admin-premium.php:417
+msgid "Custom number of days"
+msgstr "Número de días personalizado"
+
+#: includes/class.yith-advanced-refund-system-admin-premium.php:221
+#: includes/class.yith-advanced-refund-system-admin-premium.php:417
+msgid "0 means that refunds for this product are always available"
+msgstr ""
+"0 significa que los reembolsos para este producto están siempre disponibles"
+
+#: includes/class.yith-advanced-refund-system-admin-premium.php:236
+#: includes/class.yith-advanced-refund-system-admin-premium.php:427
+msgid "Non-refundable message"
+msgstr "Mensaje de no reembolsable"
+
+#: includes/class.yith-advanced-refund-system-admin-premium.php:250
+#: includes/class.yith-advanced-refund-system-admin-premium.php:442
+msgid "Current message: '%s'"
+msgstr "Mensaje actual: ‘%s’"
+
+#: includes/class.yith-advanced-refund-system-admin-premium.php:262
+#: includes/class.yith-advanced-refund-system-admin-premium.php:460
+msgid "Use a custom message"
+msgstr "Usar un mensaje personalizado"
+
+#: includes/class.yith-advanced-refund-system-admin-premium.php:266
+msgid "Select a message to show on non-refundable products"
+msgstr "Selecciona un mensaje a mostrar en los productos no reembolsables"
+
+#: includes/class.yith-advanced-refund-system-admin-premium.php:272
+#: includes/class.yith-advanced-refund-system-admin-premium.php:471
+msgid "Custom message"
+msgstr "Mensaje personalizado"
+
+#: includes/class.yith-advanced-refund-system-admin-premium.php:274
+#: includes/class.yith-advanced-refund-system-admin-premium.php:471
+msgid "Set a custom message that will be shown on the product page."
+msgstr ""
+"Establecer un mensaje personalizado que será mostrado en la página del "
+"producto."
+
+#: includes/class.yith-advanced-refund-system-admin-premium.php:314
+msgid "Choose whether the product allows refunds or not."
+msgstr "Elige si el producto permite reembolsos o no."
+
+#: includes/class.yith-advanced-refund-system-admin-premium.php:327
+#: includes/class.yith-advanced-refund-system-admin-premium.php:385
+#: includes/class.yith-advanced-refund-system-admin-premium.php:443
+msgid "Global value"
+msgstr "Valor global"
+
+#: includes/class.yith-advanced-refund-system-admin-premium.php:344
+#: includes/class.yith-advanced-refund-system-admin-premium.php:398
+#: includes/class.yith-advanced-refund-system-admin-premium.php:452
+msgid "Parent value"
+msgstr "Valor general del producto"
+
+#: includes/class.yith-advanced-refund-system-admin-premium.php:352
+msgid "Refundable"
+msgstr "Reembolsable"
+
+#: includes/class.yith-advanced-refund-system-admin-premium.php:360
+msgid "Non-refundable"
+msgstr "No reembolsable"
+
+#: includes/class.yith-advanced-refund-system-admin-premium.php:371
+msgid ""
+"Enter the maximum time (in days) to allow refunds. 0 means that refunds for "
+"this product are always\n"
+"\t\t\t\t        available"
+msgstr ""
+"Introduce el tiempo máximo (en días) para permitir reembolsos. 0 significa "
+"que los reembolsos para este producto están siempre\n"
+"disponibles"
+
+#: includes/class.yith-advanced-refund-system-admin-premium.php:406
+msgid "Set custom number of days"
+msgstr "Establecer número personalizado de días"
+
+#: includes/class.yith-advanced-refund-system-admin-premium.php:428
+msgid "Select which message to show on non-refundable products"
+msgstr "Selecciona qué mensaje mostrar en los productos no reembolsables"
+
+#: includes/class.yith-advanced-refund-system-admin-premium.php:503
+#: includes/class.yith-advanced-refund-system-my-account-premium.php:47
+msgid "Attach files (optional)"
+msgstr "Adjuntar archivos (opcional)"
+
+#: includes/class.yith-advanced-refund-system-admin-premium.php:518
+msgid "Go to coupon: %s"
+msgstr "Ir al cupón: %s"
+
+#: includes/class.yith-advanced-refund-system-admin-premium.php:526
+msgid "Offer a coupon for %s"
+msgstr "Ofrecer un cupón para: %s"
+
+#: includes/class.yith-advanced-refund-system-admin-premium.php:571
+msgid "Accept all refund requests automatically"
+msgstr "Aceptar todas las solicitudes de reembolso automáticamente"
+
+#: includes/class.yith-advanced-refund-system-admin-premium.php:573
+msgid ""
+"By activating this option, incoming refund requests will be accepted "
+"automatically."
+msgstr ""
+"Activando esta opción, las solicitudes de reembolso entrantes serán "
+"aceptadas automáticamente."
+
+#: includes/class.yith-advanced-refund-system-admin-premium.php:580
+msgid "Restock refunded items on automatic refunds?"
+msgstr "¿Reponer artículos reembolsados en reembolsos automáticos?"
+
+#: includes/class.yith-advanced-refund-system-admin-premium.php:582
+msgid ""
+"By activating this option, automatic refunds will restock the refunded items "
+"(bulk refunds included)."
+msgstr ""
+"Activando esta opción, los reembolsos automáticos reabastecerán los "
+"artículos reembolsados (reembolsos masivos incluidos)."
+
+#: includes/class.yith-advanced-refund-system-admin-premium.php:589
+msgid "Minimum order amount"
+msgstr "Cantidad mínima del pedido"
+
+#: includes/class.yith-advanced-refund-system-admin-premium.php:591
+msgid "Minimum amount of the order required to accept customers's requests."
+msgstr ""
+"Cantidad mínima del pedido necesaria para aceptar las solicitudes de los "
+"clientes."
+
+#: includes/class.yith-advanced-refund-system-admin-premium.php:601
+msgid "Enable message to show on non-refundable products"
+msgstr "Activar mensaje a mostrar en productos no reembolsables"
+
+#: includes/class.yith-advanced-refund-system-admin-premium.php:603
+msgid ""
+"You can display a message which shows users that the product is refundable."
+msgstr ""
+"Puedes mostrar un mensaje que muestre a los usuarios que el producto es "
+"reembolsable."
+
+#: includes/class.yith-advanced-refund-system-admin-premium.php:610
+msgctxt "Admin option: custom message for non-refundable products"
+msgid "Message"
+msgstr "Mensaje"
+
+#: includes/class.yith-advanced-refund-system-admin-premium.php:612
+msgid "Custom message for alert users when a product is not refundable."
+msgstr ""
+"Mensaje personalizado para alertar a los clientes cuando un producto es no "
+"reembolsable."
+
+#: includes/class.yith-advanced-refund-system-admin-premium.php:615
+msgid "Sorry, this product is not refundable."
+msgstr "Lo siento, este producto no es reembolsable."
+
+#: includes/class.yith-advanced-refund-system-admin-premium.php:632
+msgid "File uploads"
+msgstr "Subidas de archivo"
+
+#: includes/class.yith-advanced-refund-system-admin-premium.php:639
+msgid "Maximum file size allowed"
+msgstr "Tamaño máximo de archivo permitido"
+
+#: includes/class.yith-advanced-refund-system-admin-premium.php:641
+msgid "In Kilobytes. 0 means no limit."
+msgstr "En kilobites. 0 significa sin limite."
+
+#: includes/class.yith-advanced-refund-system-admin-premium.php:650
+msgid "Only images"
+msgstr "Solo imágenes"
+
+#: includes/class.yith-advanced-refund-system-admin-premium.php:652
+msgid "Allow uploading images only"
+msgstr "Permitir subir solo imágenes"
+
+#: includes/class.yith-advanced-refund-system-admin-premium.php:669
+msgid "Coupon settings"
+msgstr "Ajustes de cupón"
+
+#: includes/class.yith-advanced-refund-system-admin-premium.php:676
+msgid "Code"
+msgstr "Código"
+
+#: includes/class.yith-advanced-refund-system-admin-premium.php:678
+msgid ""
+"Pattern for automatically generated coupon codes when a coupon is offered in "
+"place of a refund. You\n"
+"\t\t            can use the following placeholders: %s, %s, %s or %s."
+msgstr ""
+"Patrón para códigos de cupón generados automáticamente cuando se ofrece un "
+"cupón en lugar de un reembolso. Tú\n"
+"puedes usar los siguientes marcadores de posición:% s,% s,% s o% s."
+
+#: includes/class.yith-advanced-refund-system-admin-premium.php:686
+msgid "Expiry date"
+msgstr "Fecha de caducidad"
+
+#: includes/class.yith-advanced-refund-system-admin-premium.php:688
+msgid ""
+"Number of days through which the coupon will be valid. 0 means the coupon "
+"will never expire."
+msgstr ""
+"Número de días por los que el cupón será válido. 0 significa que el cupón "
+"nunca caducará."
+
+#: includes/class.yith-advanced-refund-system-admin.php:131
+msgid "Settings"
+msgstr "Ajustes"
+
+#: includes/class.yith-advanced-refund-system-admin.php:136
+msgid "Premium version"
+msgstr "Versión premium"
+
+#: includes/class.yith-advanced-refund-system-admin.php:204
+msgid "Plugin documentation"
+msgstr "Documentación del plugin"
+
+#: includes/class.yith-advanced-refund-system-admin.php:208
+msgid "Help Center"
+msgstr "Centro de ayuda"
+
+#: includes/class.yith-advanced-refund-system-admin.php:215
+msgid "Discover the premium version"
+msgstr "Descubre la versión premium"
+
+#: includes/class.yith-advanced-refund-system-admin.php:220
+msgid "Free vs Premium"
+msgstr "Gratis vs Premium"
+
+#: includes/class.yith-advanced-refund-system-admin.php:225
+msgid "Premium live demo"
+msgstr "Demo en vivo premium"
+
+#: includes/class.yith-advanced-refund-system-admin.php:230
+msgid "WordPress support forum"
+msgstr "Foro de soporte de WordPress"
+
+#: includes/class.yith-advanced-refund-system-admin.php:235
+#: includes/class.yith-advanced-refund-system-admin.php:247
+msgid "Changelog"
+msgstr "Registro de cambios"
+
+#: includes/class.yith-advanced-refund-system-admin.php:235
+#: includes/class.yith-advanced-refund-system-admin.php:247
+msgid "current version"
+msgstr "versión actual"
+
+#: includes/class.yith-advanced-refund-system-admin.php:242
+msgid "Support platform"
+msgstr "Plataforma de soporte"
+
+#: includes/class.yith-advanced-refund-system-admin.php:284
+msgid ""
+"Are you sure you want to process this refund? This action cannot be undone."
+msgstr ""
+"¿Estás seguro de que quieres procesar este reembolso? Esta acción no puede "
+"ser deshecha."
+
+#: includes/class.yith-advanced-refund-system-admin.php:293
+msgid "Please enter in decimal format (%s) without thousand separators."
+msgstr "Por favor, introduce en formato decima (%s) sin separadores de mil."
+
+#: includes/class.yith-advanced-refund-system-admin.php:295
+msgid ""
+"Please enter in monetary decimal format (%s) without thousand separators "
+"and\n"
+"                currency symbols."
+msgstr ""
+"Por favor, introduce en formato monetario decimal(%s) sin separadores de mil "
+"y\n"
+"                símbolos de moneda."
+
+#: includes/class.yith-advanced-refund-system-admin.php:297
+msgid "Please enter in country code with two capital letters."
+msgstr "Por favor, introduce un código de país con dos letras mayúsculas."
+
+#: includes/class.yith-advanced-refund-system-admin.php:298
+msgid "Please enter in a lower value than the regular price."
+msgstr "Por favor, introduce un valor más bajo que el precio regular."
+
+#: includes/class.yith-advanced-refund-system-admin.php:306
+msgctxt "Money amount after semicolon"
+msgid "Do you want to offer a coupon for:"
+msgstr "¿Quieres ofrecer un cupón para:"
+
+#: includes/class.yith-advanced-refund-system-admin.php:307
+msgid ""
+"Are you sure you want to reject this request? This action cannot be undone."
+msgstr ""
+"¿Estás seguro de que quieres rechazar esta solicitud? Esta acción no puede "
+"ser deshecha."
+
+#: includes/class.yith-advanced-refund-system-admin.php:308
+msgid ""
+"Are you sure you want to close this request? This action cannot be undone. "
+"Messages system will be closed and you won't be able to change the request "
+"status anymore."
+msgstr ""
+"¿Estás seguro de que quieres cerrar esta solicitud? Esta acción no puede ser "
+"deshecha. Los mensajes del sistema se cerraran y no podrás cambiar el estado "
+"de la solicitud de nuevo."
+
+#: includes/class.yith-advanced-refund-system-admin.php:309
+msgid "Please enter a message"
+msgstr "Por favor, introduce un mensaje"
+
+#: includes/class.yith-advanced-refund-system-admin.php:310
+#: includes/class.yith-advanced-refund-system-frontend.php:105
+#: includes/elementor/class.yith-ars-view-request-elementor-widget.php:88
+msgid "Message submitted successfully"
+msgstr "Mensaje enviado con éxito"
+
+#: includes/class.yith-advanced-refund-system-admin.php:331
+msgid "Approve"
+msgstr "Aprobar"
+
+#: includes/class.yith-advanced-refund-system-admin.php:332
+msgid "Reject"
+msgstr "Rechazar"
+
+#: includes/class.yith-advanced-refund-system-admin.php:347
+msgid "Request info"
+msgstr "Información de la solicitud"
+
+#: includes/class.yith-advanced-refund-system-admin.php:351
+msgid "Items"
+msgstr "Artículos"
+
+#: includes/class.yith-advanced-refund-system-admin.php:364
+msgid "YITH Advanced Refunds"
+msgstr "YITH Advanced Refunds"
+
+#: includes/class.yith-advanced-refund-system-admin.php:384
+msgid "Status: "
+msgstr "Estado: "
+
+#: includes/class.yith-advanced-refund-system-admin.php:388
+msgid "Customer:"
+msgstr "Cliente:"
+
+#: includes/class.yith-advanced-refund-system-admin.php:392
+#: includes/class.yith-advanced-refund-system-my-account.php:218
+msgid "Request date:"
+msgstr "Fecha de solicitud:"
+
+#: includes/class.yith-advanced-refund-system-admin.php:400
+msgid "Save"
+msgstr "Guardar"
+
+#: includes/class.yith-advanced-refund-system-admin.php:428
+#: includes/class.yith-advanced-refund-system-my-account.php:282
+msgid "Reload"
+msgstr "Recargar"
+
+#: includes/class.yith-advanced-refund-system-admin.php:429
+msgid "Message history:"
+msgstr "Historial de mensaje:"
+
+#: includes/class.yith-advanced-refund-system-admin.php:436
+msgid "Write an answer to the customer: "
+msgstr ""
+
+#: includes/class.yith-advanced-refund-system-admin.php:443
+#: includes/class.yith-advanced-refund-system-my-account.php:257
+#: includes/class.yith-advanced-refund-system-request-manager.php:116
+msgid "Submit"
+msgstr "Enviar"
+
+#: includes/class.yith-advanced-refund-system-admin.php:478
+#: includes/class.yith-advanced-refund-system-admin.php:644
+msgid "Request #%d"
+msgstr "Solicitud #%d"
+
+#: includes/class.yith-advanced-refund-system-admin.php:479
+msgid "This request can neither be Approved nor Rejected."
+msgstr "Esta solicitud no puede ser aprobada ni rechazada."
+
+#: includes/class.yith-advanced-refund-system-admin.php:501
+#: includes/class.yith-advanced-refund-system-admin.php:579
+#: includes/class.yith-advanced-refund-system-my-account.php:193
+msgid "Whole order"
+msgstr "Pedido completo"
+
+#: includes/class.yith-advanced-refund-system-admin.php:526
+msgid "Actions"
+msgstr "Acciones"
+
+#: includes/class.yith-advanced-refund-system-admin.php:527
+msgid "Approve selected"
+msgstr "Aprobar lo seleccionado"
+
+#: includes/class.yith-advanced-refund-system-admin.php:528
+msgid "Reject selected"
+msgstr "Rechazar lo seleccionado"
+
+#: includes/class.yith-advanced-refund-system-admin.php:530
+#: includes/class.yith-advanced-refund-system-admin.php:531
+msgid "Apply"
+msgstr "Aplicar"
+
+#: includes/class.yith-advanced-refund-system-admin.php:553
+msgid "Title"
+msgstr "Título"
+
+#: includes/class.yith-advanced-refund-system-admin.php:554
+msgid "Date"
+msgstr "Fecha"
+
+#: includes/class.yith-advanced-refund-system-admin.php:555
+#: templates/myaccount/my-refund-requests.php:13
+msgid "Order"
+msgstr "Pedido"
+
+#: includes/class.yith-advanced-refund-system-admin.php:556
+msgid "Customer"
+msgstr "Cliente"
+
+#: includes/class.yith-advanced-refund-system-admin.php:557
+#: templates/myaccount/my-refund-requests.php:14
+msgid "Product"
+msgstr "Pedido"
+
+#: includes/class.yith-advanced-refund-system-admin.php:588
+msgid "N/A"
+msgstr "N/A"
+
+#: includes/class.yith-advanced-refund-system-admin.php:619
+msgid "Refund status"
+msgstr "Estado del reembolso"
+
+#: includes/class.yith-advanced-refund-system-admin.php:643
+msgid "Request for entire order"
+msgstr "Solicitud para el pedido completo"
+
+#: includes/class.yith-advanced-refund-system-admin.php:659
+msgid "More"
+msgstr "Más"
+
+#: includes/class.yith-advanced-refund-system-admin.php:691
+msgid "Refund requests"
+msgstr "Solicitudes de reembolso"
+
+#: includes/class.yith-advanced-refund-system-frontend-premium.php:76
+#: includes/class.yith-advanced-refund-system-frontend.php:121
+msgid "Refund my entire order"
+msgstr "Reembolsar mi pedido entero"
+
+#: includes/class.yith-advanced-refund-system-frontend-premium.php:104
+#: includes/class.yith-advanced-refund-system-frontend-premium.php:112
+#: includes/class.yith-advanced-refund-system-frontend.php:161
+msgid "Refund on the entire order is not allowed"
+msgstr "No está permitido reembolso en le pedido entero"
+
+#: includes/class.yith-advanced-refund-system-frontend-premium.php:127
+msgid "Ask for a refund"
+msgstr "Reembolso"
+
+#: includes/class.yith-advanced-refund-system-frontend-premium.php:151
+msgid "No further refunds can be granted on this item"
+msgstr "No se pueden garantizar reembolsos adicionales para este artículo"
+
+#: includes/class.yith-advanced-refund-system-frontend-premium.php:159
+msgid "No refund shall be granted on this product"
+msgstr "No se garantizará reembolso para este producto"
+
+#: includes/class.yith-advanced-refund-system-frontend-premium.php:291
+msgid "Please, select the amount of items:"
+msgstr "Por favor, selecciona la cantidad de artículos:"
+
+#: includes/class.yith-advanced-refund-system-frontend-premium.php:305
+msgid "Attach a file (optional)"
+msgstr "Adjuntar un archivo (opcional)"
+
+#: includes/class.yith-advanced-refund-system-frontend.php:104
+#: includes/elementor/class.yith-ars-view-request-elementor-widget.php:87
+msgid "Reloading..."
+msgstr "Recargando..."
+
+#: includes/class.yith-advanced-refund-system-frontend.php:106
+#: includes/elementor/class.yith-ars-view-request-elementor-widget.php:89
+msgid "Please fill in with all required information"
+msgstr "Por favor, rellena con toda la información necesaria"
+
+#: includes/class.yith-advanced-refund-system-frontend.php:125
+msgid "The deadline for refund requests is over"
+msgstr "La fecha límite para solicitudes de reembolso ha terminado"
+
+#: includes/class.yith-advanced-refund-system-frontend.php:136
+msgid "Refunds are not available"
+msgstr "Los reembolsos no están disponibles"
+
+#: includes/class.yith-advanced-refund-system-my-account.php:102
+#: includes/class.yith-advanced-refund-system-my-account.php:117
+msgid "My Refund Requests"
+msgstr "Mis solicitudes de reembolso"
+
+#: includes/class.yith-advanced-refund-system-my-account.php:108
+msgid "Request #%s"
+msgstr "Solicitud #%s"
+
+#: includes/class.yith-advanced-refund-system-my-account.php:154
+#: includes/class.yith-advanced-refund-system-my-account.php:163
+#: includes/class.yith-advanced-refund-system-my-account.php:176
+msgid "Invalid refund request."
+msgstr "Solicitud de reembolso no válida."
+
+#: includes/class.yith-advanced-refund-system-my-account.php:154
+#: includes/class.yith-advanced-refund-system-my-account.php:163
+#: includes/class.yith-advanced-refund-system-my-account.php:176
+msgid "My account"
+msgstr "Mi cuenta"
+
+#: includes/class.yith-advanced-refund-system-my-account.php:191
+msgid "Requested:"
+msgstr "Solicitado:"
+
+#: includes/class.yith-advanced-refund-system-my-account.php:201
+msgid "%s (%d unit)."
+msgid_plural "%s (%d units)."
+msgstr[0] "%s (%d unidad)."
+msgstr[1] "%s (%d unidades)."
+
+#: includes/class.yith-advanced-refund-system-my-account.php:208
+msgid "View Order"
+msgstr "Ver pedido"
+
+#: includes/class.yith-advanced-refund-system-my-account.php:215
+msgid "Current status: "
+msgstr "Estado actual: "
+
+#: includes/class.yith-advanced-refund-system-my-account.php:216
+#: templates/myaccount/my-refund-requests.php:60
+msgid "Submitted"
+msgstr "Enviado"
+
+#: includes/class.yith-advanced-refund-system-my-account.php:227
+msgid "The coupon code does no longer exists"
+msgstr "El código de cupón ya no existe"
+
+#: includes/class.yith-advanced-refund-system-my-account.php:232
+msgid "Coupon code:"
+msgstr "Código de cupón:"
+
+#: includes/class.yith-advanced-refund-system-my-account.php:236
+msgctxt "Value of the coupon"
+msgid "value"
+msgstr "valor"
+
+#: includes/class.yith-advanced-refund-system-my-account.php:237
+msgctxt "Coupon amount value"
+msgid "N/A"
+msgstr "N/A"
+
+#: includes/class.yith-advanced-refund-system-my-account.php:249
+msgid "Add a message"
+msgstr "Añadir un mensaje"
+
+#: includes/class.yith-advanced-refund-system-my-account.php:251
+msgid "Write a message you want to sent to the Shop Manager."
+msgstr "Escribe un mensaje que quieras enviar el gerente de la tienda."
+
+#: includes/class.yith-advanced-refund-system-my-account.php:274
+msgid "This request is closed. You cannot send further messages."
+msgstr "Esta solicitud está cerrada. No puedes enviar mensajes adicionales."
+
+#: includes/class.yith-advanced-refund-system-my-account.php:281
+msgid "Message history"
+msgstr "Historial de mensajes"
+
+#: includes/class.yith-advanced-refund-system-premium.php:111
+msgctxt "Request status"
+msgid "Coupon offered"
+msgstr "Cupón ofrecido"
+
+#: includes/class.yith-advanced-refund-system-premium.php:129
+msgid "Coupon offered"
+msgstr "Cupón ofrecido"
+
+#: includes/class.yith-advanced-refund-system-request-manager-premium.php:52
+msgid "You do not have permission to create coupons."
+msgstr "No tienes permisos para crear cupones."
+
+#: includes/class.yith-advanced-refund-system-request-manager-premium.php:57
+#: includes/class.yith-advanced-refund-system-request-manager.php:370
+msgid "Refund request does not exist."
+msgstr "No existe ninguna solicitud de reembolso."
+
+#: includes/class.yith-advanced-refund-system-request-manager-premium.php:69
+msgid "Order does not exist."
+msgstr "El pedido no existe."
+
+#: includes/class.yith-advanced-refund-system-request-manager-premium.php:92
+msgid "Error: invalid data when creating coupon."
+msgstr "Error: datos no válidos al crear un cupón."
+
+#: includes/class.yith-advanced-refund-system-request-manager.php:86
+msgid "Refund the entire order #%s"
+msgstr "Reembolsar el pedido #%s entero"
+
+#: includes/class.yith-advanced-refund-system-request-manager.php:86
+msgid "Refund the entire order %s"
+msgstr ""
+
+#: includes/class.yith-advanced-refund-system-request-manager.php:90
+msgid "Refund for %s"
+msgstr "Reembolso para %s"
+
+#: includes/class.yith-advanced-refund-system-request-manager.php:102
+msgid "Please, write the reason why you are asking for a refund:"
+msgstr "Por favor, escribe la razón por la que estás solicitando un reembolso:"
+
+#: includes/class.yith-advanced-refund-system-request-manager.php:139
+msgid ""
+"You cannot submit new requests on this Live Demo. Click on \"Launch Admin "
+"Demo\" to unblock this and fully test the plugin."
+msgstr ""
+"No puedes enviar nuevas solicitudes en esta demo en vivo. Haz clic en "
+"''Launch Admin Demo'' para desbloquearla y probar el plugin completo."
+
+#: includes/class.yith-advanced-refund-system-request-manager.php:144
+#: includes/class.yith-advanced-refund-system-request-manager.php:150
+msgctxt "Exception description. Technical error message."
+msgid "Exception on submitting request: missing data."
+msgstr "Excepción en enviar solicitud: faltan datos."
+
+#: includes/class.yith-advanced-refund-system-request-manager.php:155
+msgctxt "Exception description. Technical error message."
+msgid "Exception on submitting request: quantity limit exceeded."
+msgstr "Excepción al enviar una solicitud: cantidad límite excedida."
+
+#: includes/class.yith-advanced-refund-system-request-manager.php:229
+msgid "Request #%s submitted successfully"
+msgstr "Solicitud #%s enviada con éxito"
+
+#: includes/class.yith-advanced-refund-system-request-manager.php:248
+msgid ""
+"You cannot submit new messages on this Live Demo. Click on \"Launch Admin "
+"Demo\" to unblock this and fully test the plugin."
+msgstr ""
+"No puedes enviar nuevos mensajes en esta demo en vivo. Haz clic en ''Launch "
+"Admin Demo'' para desbloquearla y probar el plugin completo."
+
+#: includes/class.yith-advanced-refund-system-request-manager.php:253
+msgctxt "Exception description. Technical error message."
+msgid "Exception on submitting message: missing data."
+msgstr "Excepción al enviar un mensaje: faltan datos."
+
+#: includes/class.yith-advanced-refund-system-request-manager.php:360
+msgid "Empty data."
+msgstr "Datos vacíos."
+
+#: includes/class.yith-advanced-refund-system-request-manager.php:364
+msgid "You do not have permission to change any request status."
+msgstr "No tienes permisos para cambiar ningún estado de solicitud."
+
+#: includes/class.yith-advanced-refund-system-request-manager.php:390
+msgid "Wrong status code."
+msgstr "Código de estado erróneo."
+
+#: includes/class.yith-advanced-refund-system-request-manager.php:514
+msgid "Automatic refund"
+msgstr "Reembolso automático"
+
+#: includes/class.yith-advanced-refund-system-request-manager.php:557
+msgid "Invalid refund amount"
+msgstr "Cantidad de reembolso no válida"
+
+#: includes/class.yith-advanced-refund-system-request-manager.php:615
+msgid "Refund failed"
+msgstr "Reembolso fallido"
+
+#: includes/class.yith-advanced-refund-system-request-manager.php:630
+msgid "Item #%s stock increased from %s to %s."
+msgstr "Inventario de artículo #%s incrementado de %s a %s."
+
+#: includes/class.yith-advanced-refund-system.php:149
+msgctxt "Page title"
+msgid "YITH Refund Requests"
+msgstr "YITH Refund Requests"
+
+#: includes/class.yith-advanced-refund-system.php:150
+msgctxt "Post type singular name"
+msgid "Refund Request"
+msgstr "Solicitud de reembolso"
+
+#: includes/class.yith-advanced-refund-system.php:151
+msgctxt "admin menu"
+msgid "YITH Refund Requests"
+msgstr "YITH Refund Requests"
+
+#: includes/class.yith-advanced-refund-system.php:152
+msgctxt "add new on admin bar"
+msgid "YITH Refund Request"
+msgstr "YITH Refund Request"
+
+#: includes/class.yith-advanced-refund-system.php:153
+msgctxt "Add New refund request"
+msgid "Add New"
+msgstr "Añadir nueva"
+
+#: includes/class.yith-advanced-refund-system.php:154
+msgid "Add new refund request"
+msgstr "Añadir nueva solicitud de reembolso"
+
+#: includes/class.yith-advanced-refund-system.php:155
+#: includes/class.yith-advanced-refund-system.php:192
+msgid "New refund request"
+msgstr "Nueva solicitud de reembolso"
+
+#: includes/class.yith-advanced-refund-system.php:156
+msgid "Manage refund request"
+msgstr "Gestionar solicitud de reembolso"
+
+#: includes/class.yith-advanced-refund-system.php:157
+msgid "View refund request"
+msgstr "Ver solicitud de reembolso"
+
+#: includes/class.yith-advanced-refund-system.php:158
+msgid "All refund requests"
+msgstr "Todas las solicitudes de reembolso"
+
+#: includes/class.yith-advanced-refund-system.php:159
+msgid "Search refund requests"
+msgstr "Buscar solicitudes de reembolso"
+
+#: includes/class.yith-advanced-refund-system.php:160
+msgid "Parent refund requests:"
+msgstr "Solicitudes de reembolso superiores:"
+
+#: includes/class.yith-advanced-refund-system.php:161
+msgid "No refund request found."
+msgstr "No se encontraron solicitudes de reembolso."
+
+#: includes/class.yith-advanced-refund-system.php:162
+msgid "No refund requests found in Trash."
+msgstr "No se encontraron solicitudes de reembolso en la papelera."
+
+#: includes/class.yith-advanced-refund-system.php:179
+msgid "Description."
+msgstr "Descripción."
+
+#: includes/class.yith-advanced-refund-system.php:202
+msgid "Processing refund request"
+msgstr "Procesando solicitud de reembolso"
+
+#: includes/class.yith-advanced-refund-system.php:212
+msgid "Refund request on hold"
+msgstr "Solicitud de reembolso en espera"
+
+#: includes/class.yith-advanced-refund-system.php:222
+msgid "Refund request approved"
+msgstr "Solicitud de reembolso aprobada"
+
+#: includes/class.yith-advanced-refund-system.php:232
+msgid "Refund request rejected"
+msgstr "Solicitud de reembolso rechazada"
+
+#: includes/class.yith-refund-request.php:260
+msgid "Refund request #%d"
+msgstr "Solicitud de reembolso #%d"
+
+#: includes/class.yith-refund-request.php:350
+#: includes/class.yith-refund-request.php:359
+#: includes/class.yith-refund-request.php:382
+msgctxt "full name"
+msgid "%1$s %2$s"
+msgstr "%1$s %2$s"
+
+#: includes/class.yith-refund-request.php:363
+#: includes/class.yith-refund-request.php:386
+msgid "Guest"
+msgstr "Visitante"
+
+#: includes/class.yith-upload-exception.php:34
+msgctxt "Exception description. Technical error message."
+msgid "The uploaded file exceeds the upload_max_filesize directive in php.ini"
+msgstr ""
+"El archivo subido excede la directiva de upload_max_filesize en php.ini"
+
+#: includes/class.yith-upload-exception.php:38
+msgctxt "Exception description. Technical error message."
+msgid "Maximum file size exceeded"
+msgstr "Tamaño máximo de archivo excedido"
+
+#: includes/class.yith-upload-exception.php:42
+msgctxt "Exception description. Technical error message."
+msgid "The file was uploaded only partially"
+msgstr "El archivo fue subido solo parcialmente"
+
+#: includes/class.yith-upload-exception.php:46
+msgctxt "Exception description. Technical error message."
+msgid "No file was uploaded"
+msgstr "No se ha subido ningún archivo"
+
+#: includes/class.yith-upload-exception.php:50
+msgctxt "Exception description. Technical error message."
+msgid "Missing a temporary folder"
+msgstr "Falta una carpeta temporal"
+
+#: includes/class.yith-upload-exception.php:54
+msgctxt "Exception description. Technical error message."
+msgid "Failed to write file to disk"
+msgstr "Fallo al escribir el archivo al disco"
+
+#: includes/class.yith-upload-exception.php:58
+msgctxt "Exception description. Technical error message."
+msgid "File upload stopped by extension"
+msgstr "Subida de archivo detenida por extensión"
+
+#: includes/class.yith-upload-exception.php:62
+msgctxt "Exception description. Technical error message."
+msgid "File must be an image format."
+msgstr "El archivo debe ser un formato de imagen."
+
+#: includes/class.yith-upload-exception.php:66
+msgctxt "Exception description. Technical error message."
+msgid "Image must either be PNG, JPEG, or GIF format."
+msgstr "La imagen debe ser formato PNG, JPEG o GIF."
+
+#: includes/class.yith-upload-exception.php:71
+msgctxt "Exception description. Technical error message."
+msgid "Unknown upload error"
+msgstr "Erro de subida desconocido"
+
+#: includes/elementor/class.yith-ars-refund-requests-elementor-widget.php:14
+#: includes/elementor/class.yith-ars-refund-requests-elementor-widget.php:33
+msgid "YITH Advanced Refund System - Refund Requests"
+msgstr ""
+
+#: includes/elementor/class.yith-ars-refund-requests-elementor-widget.php:41
+msgid "This widget shows the current refund requests made by the customer"
+msgstr ""
+
+#: includes/elementor/class.yith-ars-view-request-elementor-widget.php:14
+#: includes/elementor/class.yith-ars-view-request-elementor-widget.php:33
+msgid "YITH Advanced Refund System - View Request"
+msgstr ""
+
+#: includes/elementor/class.yith-ars-view-request-elementor-widget.php:41
+msgid "Enter the ID of the refund request to be displayed."
+msgstr ""
+
+#: includes/elementor/class.yith-ars-view-request-elementor-widget.php:48
+msgid "Refund Request ID"
+msgstr ""
+
+#: includes/elementor/class.yith-ars-view-request-elementor-widget.php:51
+msgid "Request ID"
+msgstr ""
+
+#: includes/emails/class.yith-ars-approved-user-email.php:41
+msgctxt "Email descriptive title"
+msgid "YITH Advanced Refund System: Approved Refund Request email for user"
+msgstr ""
+"YITH Advanced Refund System: correo electrónico de solicitud de reembolso "
+"aprobada para el usuario"
+
+#: includes/emails/class.yith-ars-approved-user-email.php:43
+#: includes/emails/class.yith-ars-new-request-user-email.php:41
+msgid "The user will receive an email when a new request is submitted."
+msgstr ""
+"El usuario recibirá un correo electrónico cuando una nueva solicitud es "
+"enviada."
+
+#: includes/emails/class.yith-ars-approved-user-email.php:44
+#: includes/emails/class.yith-ars-approved-user-email.php:45
+msgid "Your refund request has been approved!"
+msgstr "¡Tu solicitud de reembolso ha sido aprobada!"
+
+#: includes/emails/class.yith-ars-approved-user-email.php:46
+#: includes/emails/class.yith-ars-approved-user-email.php:70
+msgid ""
+"Hi {customer_name}! Your refund request {request_number} for order "
+"{order_number} has been approved!"
+msgstr ""
+"¡Hola {customer_name}! tu solicitud de reembolso {request_number} para el "
+"pedido {order_number} ha sido aprobada!"
+
+#: includes/emails/class.yith-ars-approved-user-email.php:93
+#: includes/emails/class.yith-ars-coupon-user-email.php:130
+#: includes/emails/class.yith-ars-new-message-admin-email.php:146
+#: includes/emails/class.yith-ars-new-message-user-email.php:157
+#: includes/emails/class.yith-ars-new-request-admin-email.php:84
+#: includes/emails/class.yith-ars-new-request-user-email.php:92
+#: includes/emails/class.yith-ars-on-hold-user-email.php:94
+#: includes/emails/class.yith-ars-processing-user-email.php:94
+#: includes/emails/class.yith-ars-rejected-user-email.php:92
+msgid "Enable/Disable"
+msgstr "Activar/desactivar"
+
+#: includes/emails/class.yith-ars-approved-user-email.php:95
+#: includes/emails/class.yith-ars-coupon-user-email.php:132
+#: includes/emails/class.yith-ars-new-message-admin-email.php:148
+#: includes/emails/class.yith-ars-new-message-user-email.php:159
+#: includes/emails/class.yith-ars-new-request-admin-email.php:86
+#: includes/emails/class.yith-ars-new-request-user-email.php:94
+#: includes/emails/class.yith-ars-on-hold-user-email.php:96
+#: includes/emails/class.yith-ars-processing-user-email.php:96
+#: includes/emails/class.yith-ars-rejected-user-email.php:94
+msgid "Enable this email notification"
+msgstr "Activar esta notificación de correo electrónico"
+
+#: includes/emails/class.yith-ars-approved-user-email.php:99
+#: includes/emails/class.yith-ars-coupon-user-email.php:136
+#: includes/emails/class.yith-ars-new-message-admin-email.php:160
+#: includes/emails/class.yith-ars-new-message-user-email.php:163
+#: includes/emails/class.yith-ars-new-request-admin-email.php:98
+#: includes/emails/class.yith-ars-new-request-user-email.php:98
+#: includes/emails/class.yith-ars-on-hold-user-email.php:100
+#: includes/emails/class.yith-ars-processing-user-email.php:100
+#: includes/emails/class.yith-ars-rejected-user-email.php:98
+msgid "Subject"
+msgstr "Asunto"
+
+#: includes/emails/class.yith-ars-approved-user-email.php:101
+#: includes/emails/class.yith-ars-coupon-user-email.php:138
+#: includes/emails/class.yith-ars-new-message-admin-email.php:162
+#: includes/emails/class.yith-ars-new-message-user-email.php:165
+#: includes/emails/class.yith-ars-new-request-admin-email.php:100
+#: includes/emails/class.yith-ars-new-request-user-email.php:100
+#: includes/emails/class.yith-ars-on-hold-user-email.php:102
+#: includes/emails/class.yith-ars-processing-user-email.php:102
+#: includes/emails/class.yith-ars-rejected-user-email.php:100
+msgid ""
+"This controls the email subject line. Leave blank to use the default "
+"subject: <code>%s</code>."
+msgstr ""
+"Esto controla la línea de asunto del correo electrónico. Déjalo en blanco "
+"para usar el asunto por defecto: <code>%s</code>."
+
+#: includes/emails/class.yith-ars-approved-user-email.php:106
+#: includes/emails/class.yith-ars-coupon-user-email.php:143
+#: includes/emails/class.yith-ars-new-message-admin-email.php:167
+#: includes/emails/class.yith-ars-new-message-user-email.php:170
+#: includes/emails/class.yith-ars-new-request-admin-email.php:105
+#: includes/emails/class.yith-ars-new-request-user-email.php:105
+#: includes/emails/class.yith-ars-on-hold-user-email.php:107
+#: includes/emails/class.yith-ars-processing-user-email.php:108
+#: includes/emails/class.yith-ars-rejected-user-email.php:105
+msgid "Email Heading"
+msgstr "Encabezado del correo electrónico"
+
+#: includes/emails/class.yith-ars-approved-user-email.php:108
+#: includes/emails/class.yith-ars-coupon-user-email.php:145
+#: includes/emails/class.yith-ars-new-message-admin-email.php:169
+#: includes/emails/class.yith-ars-new-message-user-email.php:172
+#: includes/emails/class.yith-ars-new-request-admin-email.php:107
+#: includes/emails/class.yith-ars-new-request-user-email.php:107
+#: includes/emails/class.yith-ars-on-hold-user-email.php:109
+#: includes/emails/class.yith-ars-processing-user-email.php:110
+msgid ""
+"This controls the main heading in the email notification. Leave blank to use "
+"the default heading: <code>%s</code>."
+msgstr ""
+"Esto controla el encabezado principal en la notificación de correo "
+"electrónico. <code>%s</code>."
+
+#: includes/emails/class.yith-ars-approved-user-email.php:113
+#: includes/emails/class.yith-ars-coupon-user-email.php:150
+#: includes/emails/class.yith-ars-new-message-admin-email.php:174
+#: includes/emails/class.yith-ars-new-message-user-email.php:177
+#: includes/emails/class.yith-ars-new-request-admin-email.php:112
+#: includes/emails/class.yith-ars-new-request-user-email.php:112
+#: includes/emails/class.yith-ars-on-hold-user-email.php:114
+#: includes/emails/class.yith-ars-processing-user-email.php:116
+#: includes/emails/class.yith-ars-rejected-user-email.php:112
+msgid "Email Body"
+msgstr "Cuerpo del correo electrónico"
+
+#: includes/emails/class.yith-ars-approved-user-email.php:115
+#: includes/emails/class.yith-ars-coupon-user-email.php:152
+#: includes/emails/class.yith-ars-new-message-admin-email.php:176
+#: includes/emails/class.yith-ars-new-message-user-email.php:179
+#: includes/emails/class.yith-ars-new-request-admin-email.php:114
+#: includes/emails/class.yith-ars-new-request-user-email.php:114
+#: includes/emails/class.yith-ars-on-hold-user-email.php:116
+#: includes/emails/class.yith-ars-processing-user-email.php:118
+#: includes/emails/class.yith-ars-rejected-user-email.php:114
+msgid "Defaults to <code>%s</code>"
+msgstr "Por defecto a <code>%s</code>"
+
+#: includes/emails/class.yith-ars-coupon-user-email.php:44
+msgctxt "Email descriptive title"
+msgid "YITH Advanced Refund System: email for users for coupon offer"
+msgstr ""
+"YITH Advanced Refund System: correo electrónico para ofrecer cupón a los "
+"usuarios"
+
+#: includes/emails/class.yith-ars-coupon-user-email.php:46
+msgid ""
+"The user will receive an email when a coupon is offered in place of a refund."
+msgstr ""
+"El usuario recibirá un correo electrónico cuando un cupón es ofrecido en "
+"lugar de un reembolso."
+
+#: includes/emails/class.yith-ars-coupon-user-email.php:49
+#: includes/emails/class.yith-ars-coupon-user-email.php:50
+msgid "You've received a Coupon Code"
+msgstr "Has recibido un código de cupón"
+
+#: includes/emails/class.yith-ars-coupon-user-email.php:51
+msgid ""
+"Hi {customer_name}. You've received a Coupon Code for your order\n"
+"\t        {order_number} which is worth {coupon_amount}."
+msgstr ""
+"Hola {customer_name}. Has recibido un código de cupón para tu pedido\n"
+"\t        {order_number} con un valor de {coupon_amount}."
+
+#: includes/emails/class.yith-ars-coupon-user-email.php:153
+#: includes/emails/class.yith-ars-new-message-admin-email.php:177
+#: includes/emails/class.yith-ars-new-message-user-email.php:180
+#: includes/emails/class.yith-ars-new-request-admin-email.php:115
+#: includes/emails/class.yith-ars-new-request-user-email.php:115
+#: includes/emails/class.yith-ars-on-hold-user-email.php:117
+#: includes/emails/class.yith-ars-processing-user-email.php:119
+#: includes/emails/class.yith-ars-rejected-user-email.php:115
+msgctxt "yith-advanced-refund-system-for-woocommerce"
+msgid "You can use the following placeholders:"
+msgstr "Puedes usar los siguientes marcadores de posición:"
+
+#: includes/emails/class.yith-ars-new-message-admin-email.php:31
+msgctxt "Email descriptive title"
+msgid "YITH Advanced Refund System: New message - email for admin"
+msgstr ""
+"YITH Advanced Refund System: nuevo mensaje - correo electrónico para el "
+"administrador"
+
+#: includes/emails/class.yith-ars-new-message-admin-email.php:33
+msgid "The admin will receive an email when a customer submits a new message."
+msgstr ""
+"El administrador recibirá un correo electrónico cuando un cliente envíe un "
+"nuevo mensaje."
+
+#: includes/emails/class.yith-ars-new-message-admin-email.php:35
+msgid "New message from customer"
+msgstr "Nuevo mensaje del cliente"
+
+#: includes/emails/class.yith-ars-new-message-admin-email.php:36
+msgid "New message from {customer_name}"
+msgstr "Nuevo mensaje de {customer_name}"
+
+#: includes/emails/class.yith-ars-new-message-admin-email.php:37
+#: includes/emails/class.yith-ars-new-message-admin-email.php:70
+msgid "Hi admin! New message from {customer_name}."
+msgstr "¡Hola Administrador! Un nuevo mensaje de {customer_name}."
+
+#: includes/emails/class.yith-ars-new-message-admin-email.php:152
+#: includes/emails/class.yith-ars-new-request-admin-email.php:90
+msgid "Recipient(s)"
+msgstr "Destinatario(s)"
+
+#: includes/emails/class.yith-ars-new-message-admin-email.php:154
+#: includes/emails/class.yith-ars-new-request-admin-email.php:92
+msgid "Enter recipients (comma separated) for this email. Defaults to %s."
+msgstr ""
+"Introducir destinatarios (separados por coma) para este correo lectrónico. "
+"Por defecto a %s."
+
+#: includes/emails/class.yith-ars-new-message-user-email.php:39
+msgctxt "Email descriptive title"
+msgid "YITH Advanced Refund System: New message - email for user"
+msgstr ""
+"YITH Advanced Refund System: nuevo mensaje - correo electrónico para el "
+"usuario"
+
+#: includes/emails/class.yith-ars-new-message-user-email.php:41
+msgid "The user will receive an email when the admin sends a new message."
+msgstr ""
+"El usuario recibirá un correo electrónico cuando el administrador envíe un "
+"nuevo mensaje."
+
+#: includes/emails/class.yith-ars-new-message-user-email.php:43
+msgid "New message from Shop Manager"
+msgstr "Nuevo mensaje del administrador de la tienda"
+
+#: includes/emails/class.yith-ars-new-message-user-email.php:44
+msgid "Hi {customer_name}! New message for your refund request"
+msgstr "¡Hola {customer_name}! Un nuevo mensaje por tu solicitud de reembolso"
+
+#: includes/emails/class.yith-ars-new-message-user-email.php:45
+#: includes/emails/class.yith-ars-new-message-user-email.php:81
+msgid "Hi {customer_name}! You have received a new message."
+msgstr "¡Hola {customer_name}! Has recibido un nuevo mensaje."
+
+#: includes/emails/class.yith-ars-new-request-admin-email.php:32
+msgctxt "Email descriptive title"
+msgid "YITH Advanced Refund System: New request - email for admin"
+msgstr ""
+"YITH Advanced Refund System: nueva solicitud - correo electrónico para el "
+"administrador"
+
+#: includes/emails/class.yith-ars-new-request-admin-email.php:34
+msgid "The admin will receive an email when a new request is submitted."
+msgstr ""
+"El administrador recibirá un correo electrónico cuando se envíe una nueva "
+"solicitud."
+
+#: includes/emails/class.yith-ars-new-request-admin-email.php:35
+#: includes/emails/class.yith-ars-new-request-admin-email.php:36
+msgid "New refund request received"
+msgstr "Nueva solicitud de reembolso recibida"
+
+#: includes/emails/class.yith-ars-new-request-admin-email.php:37
+msgid ""
+"Hi Admin, there's a new Refund Request ({request_number}) from user "
+"{customer_name} on order {order_number}. The Refund Request is for the "
+"following items: {items_table}"
+msgstr ""
+
+#: includes/emails/class.yith-ars-new-request-admin-email.php:60
+msgid ""
+"Hi Admin, there's a new Refund Request ({request_number}) from user\n"
+"\t\t\t{customer_name} on order {order_number}."
+msgstr ""
+"Hola administrador, hay una nueva solicitud de reembolso ({request_number}) "
+"del usuario\n"
+"\t\t\t{customer_name} en el pedido {order_number}."
+
+#: includes/emails/class.yith-ars-new-request-user-email.php:39
+msgctxt "Email descriptive title"
+msgid "YITH Advanced Refund System: New request - email for user"
+msgstr ""
+"YITH Advanced Refund System: nueva solicitud - correo electrónico para el "
+"usuario"
+
+#: includes/emails/class.yith-ars-new-request-user-email.php:42
+#: includes/emails/class.yith-ars-new-request-user-email.php:43
+msgid "Request succesfully submitted"
+msgstr "Solicitud enviada con éxito"
+
+#: includes/emails/class.yith-ars-new-request-user-email.php:44
+msgid ""
+"Hi {customer_name}! Your request {request_number} for order {order_number} "
+"has been successfully submitted. You will receive a reply soon."
+msgstr ""
+"¡Hola {customer_name}! Tu solicitud {request_number} para el pedido "
+"{order_number} ha sido enviada con éxito. Recibirás una respuesta pronto."
+
+#: includes/emails/class.yith-ars-new-request-user-email.php:68
+msgid ""
+"Hi {customer_name}! Your request {request_number} for order {order_number}\n"
+"            has been successfully submitted. You will receive a reply soon."
+msgstr ""
+"¡Hola {customer_name}! Tu solicitud {request_number} para el pedido "
+"{order_number}\n"
+"            ha sido enviada con éxito. Recibirás una respuesta pronto."
+
+#: includes/emails/class.yith-ars-on-hold-user-email.php:40
+msgctxt "Email descriptive title"
+msgid "YITH Advanced Refund System: On hold request - email for user"
+msgstr ""
+"YITH Advanced Refund System: solicitud en espera - correo electrónico para "
+"el usuario"
+
+#: includes/emails/class.yith-ars-on-hold-user-email.php:42
+msgid "The user will receive an email when the request is on hold."
+msgstr ""
+"El usuario recibirá un correo electrónico cuando la solicitud esté en espera."
+
+#: includes/emails/class.yith-ars-on-hold-user-email.php:43
+#: includes/emails/class.yith-ars-on-hold-user-email.php:44
+msgid "Your refund request is on hold"
+msgstr "Tu solicitud de reembolso está en espera"
+
+#: includes/emails/class.yith-ars-on-hold-user-email.php:45
+msgid ""
+"Hi {customer_name}! Your request concerning order {order_number} is "
+"currently on hold."
+msgstr ""
+"¡Hola {customer_name}! Tu solicitud relacionad con el pedido {order_number} "
+"está actualmente en espera."
+
+#: includes/emails/class.yith-ars-on-hold-user-email.php:71
+msgid ""
+"Hi {customer_name}! Your request {request_number} for order {order_number} "
+"is currently on hold."
+msgstr ""
+"¡Hola {customer_name}! Tu solicitud {request_number} para el pedido "
+"{order_number} está actualmente en espera."
+
+#: includes/emails/class.yith-ars-processing-user-email.php:40
+msgctxt "Email descriptive title"
+msgid "YITH Advanced Refund System: Request Processing - email for user"
+msgstr ""
+"YITH Advanced Refund System: Procesando solicitud - correo electrónico para "
+"el usuario"
+
+#: includes/emails/class.yith-ars-processing-user-email.php:42
+msgid "The user will receive an email when the request is being processed."
+msgstr ""
+"El usuario recibirá un correo electrónico cuando la solicitud esté siendo "
+"procesada."
+
+#: includes/emails/class.yith-ars-processing-user-email.php:43
+#: includes/emails/class.yith-ars-processing-user-email.php:44
+msgid "Your refund request is being processed"
+msgstr "Tu solicitud de reembolso está siendo procesada"
+
+#: includes/emails/class.yith-ars-processing-user-email.php:45
+msgid ""
+"Hi {customer_name}! Your request {request_number} for order {order_number} "
+"is being processing."
+msgstr ""
+"¡Hola {customer_name}! Tu solicitud {request_number} para el pedido "
+"{order_number} está siendo procesada."
+
+#: includes/emails/class.yith-ars-processing-user-email.php:70
+msgid ""
+"Hi {customer_name}! Your request {request_number} for order {order_number} "
+"is\n"
+"             being processing."
+msgstr ""
+"¡Hola {customer_name}! Tu solicitud {request_number} para el pedido "
+"{order_number} está\n"
+"             siendo procesada."
+
+#: includes/emails/class.yith-ars-rejected-user-email.php:40
+msgctxt "Email descriptive title"
+msgid "YITH Advanced Refund System: Rejected Refund Request - email for user"
+msgstr ""
+"YITH Advanced Refund System: Solicitud de reembolso rechazada - correo "
+"electrónico para el usuario"
+
+#: includes/emails/class.yith-ars-rejected-user-email.php:42
+msgid "The user will receive an email when the request is rejected."
+msgstr ""
+"El usuario recibirá un correo electrónico cuando la solicitud es rechazada."
+
+#: includes/emails/class.yith-ars-rejected-user-email.php:43
+#: includes/emails/class.yith-ars-rejected-user-email.php:44
+msgid "Your refund request has been rejected"
+msgstr "Tu solicitud de reembolso ha sido rechazada"
+
+#: includes/emails/class.yith-ars-rejected-user-email.php:45
+#: includes/emails/class.yith-ars-rejected-user-email.php:69
+msgid ""
+"Hi {customer_name}. Your refund request {request_number} for order "
+"{order_number} has been rejected."
+msgstr ""
+"Hola {customer_name}. Tu solicitud {request_number} para el pedido "
+"{order_number} ha sido rechazada."
+
+#: includes/emails/class.yith-ars-rejected-user-email.php:107
+msgid ""
+"This controls the main heading included in the email notification. Leave "
+"blank to use the default heading: <code>%s</code>."
+msgstr ""
+"Esto controla el encabezado principal incluido en la notificación de correo "
+"electrónico. Déjalo en blanco para usar el encabezado por defecto: <code>%s</"
+"code>."
+
+#: init.php:94
+msgid ""
+"YITH Advanced Refund System for WooCommerce is enabled but not effective. It "
+"requires WooCommerce in order to work."
+msgstr ""
+"YITH Advanced Refund System for WooCommerce está activado pero no es "
+"efectivo. Necesita WooCommerce para funcionar."
+
+#: plugin-options/settings-options.php:21
+msgid "General settings"
+msgstr "Ajustes generales"
+
+#: plugin-options/settings-options.php:28
+msgid "Allow refunds"
+msgstr "Permitir reembolsos"
+
+#: plugin-options/settings-options.php:36
+msgid "Number of days for refunds"
+msgstr "Número de días para reembolsos"
+
+#: plugin-options/settings-options.php:38
+msgid ""
+"Maximum time (in days) to allow refunds. 0 means that users can always ask "
+"for refunds"
+msgstr ""
+"Tiempo máximo (en días) para permitir reembolsos. 0 significa que los "
+"usuarios siempre pueden solicitar reembolsos"
+
+#: plugin-options/settings-options.php:49
+msgid "Enable taxes"
+msgstr "Activar impuestos"
+
+#: plugin-options/settings-options.php:51
+msgid "Enable this if you want to refund taxes."
+msgstr "Activar esto si quieres reembolsar los impuestos."
+
+#: plugin-options/settings-options.php:57
+msgid "Allow to close new requests"
+msgstr "Permitir cerrar nuevas solicitudes"
+
+#: plugin-options/settings-options.php:59
+msgid ""
+"Enable this if you want to be able to close requests without accepting/"
+"rejecting the request first."
+msgstr ""
+"Activa esto si quieres poder cerrar las solicitudes sin aceptar/rechazar la "
+"solicitud primero."
+
+#: templates/admin/ywcars-items-table.php:18
+msgid "Go to order #%d"
+msgstr "Ir al pedido #%d"
+
+#: templates/admin/ywcars-items-table.php:18
+msgid "Go to order %s"
+msgstr ""
+
+#: templates/admin/ywcars-items-table.php:37
+msgctxt "Request [request ID] for order [order ID]"
+msgid "Request %s for order %s"
+msgstr "Solicitud %s para el pedido %s"
+
+#: templates/admin/ywcars-items-table.php:44
+msgid "%s made a request for the whole order"
+msgstr "%s ha hecho una solicitud para el pedido completo"
+
+#: templates/admin/ywcars-items-table.php:47
+msgid "Quantity requested"
+msgstr "Cantidad solicitada"
+
+#: templates/admin/ywcars-items-table.php:48
+msgid "%s made a request for %s (%s)"
+msgstr "%s ha hecho una solicitud para %s (%s)"
+
+#: templates/admin/ywcars-items-table.php:59
+#: templates/ywcars-items-table-for-email.php:25
+msgid "Item"
+msgstr "Artículo"
+
+#: templates/admin/ywcars-items-table.php:60
+#: templates/ywcars-items-table-for-email.php:26
+msgid "Item value"
+msgstr "Valor del artículo"
+
+#: templates/admin/ywcars-items-table.php:62
+#: templates/ywcars-items-table-for-email.php:28
+msgid "Tax per item"
+msgstr "Impuesto por artículo"
+
+#: templates/admin/ywcars-items-table.php:64
+msgid "Qty"
+msgstr "Cantidad"
+
+#: templates/admin/ywcars-items-table.php:66
+msgid "Item total"
+msgstr "Total del artículo"
+
+#: templates/admin/ywcars-items-table.php:67
+msgid "Tax total"
+msgstr "Total de impuesto"
+
+#: templates/admin/ywcars-items-table.php:69
+msgid "Order Total"
+msgstr "Total del pedido"
+
+#: templates/admin/ywcars-items-table.php:70
+#: templates/ywcars-items-table-for-email.php:30
+msgid "Qty to refund"
+msgstr "Cantidad a reembolsar"
+
+#: templates/admin/ywcars-items-table.php:71
+#: templates/ywcars-items-table-for-email.php:31
+msgid "Total to be refunded"
+msgstr "Total a reembolsar"
+
+#: templates/admin/ywcars-items-table.php:89
+#: templates/ywcars-items-table-for-email.php:48
+msgid "The requested product does not exist."
+msgstr "El producto solicitado no existe."
+
+#: templates/admin/ywcars-items-table.php:174
+msgid "Shipping"
+msgstr "Envío"
+
+#: templates/admin/ywcars-items-table.php:219
+msgid "Fee"
+msgstr "Cuota"
+
+#: templates/admin/ywcars-items-table.php:254
+msgid "Totals"
+msgstr "Totales"
+
+#: templates/admin/ywcars-items-table.php:279
+msgid "Refunds for this order have already been managed through WooCommerce."
+msgstr ""
+
+#: templates/admin/ywcars-items-table.php:285
+msgid "This request is currently closed."
+msgstr "Esta solicitud está actualmente cerrada."
+
+#: templates/admin/ywcars-items-table.php:296
+msgid "Restock selected items?"
+msgstr "¿Reabastecer los artículos seleccionados?"
+
+#: templates/admin/ywcars-items-table.php:301
+msgid "Use a custom refund amount"
+msgstr "Usar una cantidad de reembolso personalizada"
+
+#: templates/admin/ywcars-items-table.php:319
+msgid "Payment Gateway"
+msgstr "Pasarela de pago"
+
+#: templates/admin/ywcars-items-table.php:322
+msgid ""
+"The payment gateway used to place this order does not support automatic "
+"refunds."
+msgstr ""
+"La pasarela de pago usada para realizar este pedido no es compatible con "
+"reembolsos automáticos."
+
+#: templates/admin/ywcars-items-table.php:323
+msgid ""
+"You will need to manually issue a refund through your payment gateway after "
+"using this."
+msgstr ""
+"Deberás emitir manualmente un reembolso a través de tu pasarela de pago "
+"después de usar esto."
+
+#: templates/admin/ywcars-items-table.php:327
+msgctxt "Refund [amount] via [gateway name]"
+msgid "Refund %s via %s"
+msgstr "Reembolsar %s vía %s"
+
+#: templates/admin/ywcars-items-table.php:331
+msgctxt "Refund $amount manually"
+msgid "Refund %s manually"
+msgstr "Reembolsar %s manualmente"
+
+#: templates/admin/ywcars-items-table.php:335
+msgid "Reject request"
+msgstr "Rechazar la solicitud"
+
+#: templates/admin/ywcars-items-table.php:338
+msgid "Set to processing"
+msgstr "Establecer a procesando"
+
+#: templates/admin/ywcars-items-table.php:341
+msgid "Set to on hold"
+msgstr "Establecer como en espera"
+
+#: templates/admin/ywcars-items-table.php:350
+msgid ""
+"Close the request by stopping the messages system. This action prevents you "
+"from changing the request status."
+msgstr ""
+"Cierra la solicitud deteniendo el sistema de mensajes. Esta acción te impide "
+"cambiar el estado de la solicitud."
+
+#: templates/admin/ywcars-items-table.php:351
+msgid "Close this request"
+msgstr "Cerrar esta solicitud"
+
+#: templates/admin/ywcars-load-messages.php:16
+msgid "Shop Manager"
+msgstr "Gerente de la tienda"
+
+#: templates/admin/ywcars-load-messages.php:27
+#: templates/emails/ywcars-new-message.php:76
+msgid "Message attachments:"
+msgstr "Archivos adjuntos del mensaje:"
+
+#: templates/emails/ywcars-email-for-user.php:53
+msgctxt "Coupon amount"
+msgid "Value:"
+msgstr "Valor:"
+
+#: templates/emails/ywcars-email-for-user.php:57
+msgctxt "Coupon expiration date"
+msgid "Expires:"
+msgstr "Caduca:"
+
+#: templates/emails/ywcars-new-message.php:28
+msgctxt "Author of messages from shop"
+msgid "Shop Manager"
+msgstr "Gerente de la tienda"
+
+#: templates/myaccount/my-refund-requests.php:12
+msgid "ID"
+msgstr "ID"
+
+#: templates/myaccount/my-refund-requests.php:15
+msgid "Requested amount"
+msgstr "Cantidad solicitada"
+
+#: templates/myaccount/my-refund-requests.php:16
+msgid "Status"
+msgstr "Estado"
+
+#: templates/myaccount/my-refund-requests.php:23
+msgid ""
+"There are currently no refund requests, if you would like to request a "
+"refund, then please navigate to orders page and select which order or "
+"product you want to request a refund for."
+msgstr ""
+"Actualmente no tienes ninguna solicitud de reembolso, si quiere pedir un "
+"reembolso, por favor accede a la sección de pedidos y selecciona el producto "
+"o el pedido por el que quiere solicitar el reembolso."
+
+#: templates/myaccount/my-refund-requests.php:45
+msgid "Whole Order"
+msgstr "Pedido completo"
+
+#: templates/myaccount/my-refund-requests.php:53
+msgid "View"
+msgstr "Ver"
+
+#. Plugin Name of the plugin/theme
+msgid "YITH Advanced Refund System for WooCommerce Premium"
+msgstr "YITH Advanced Refund System for WooCommerce Premium"
+
+#. Plugin URI of the plugin/theme
+msgid ""
+"https://yithemes.com/themes/plugins/yith-advanced-refund-system-for-"
+"woocommerce/"
+msgstr ""
+"https://yithemes.com/themes/plugins/yith-advanced-refund-system-for-"
+"woocommerce/"
+
+#. Description of the plugin/theme
+msgid ""
+"<code><strong>YITH Advanced Refund System for WooCommerce Premium</strong></"
+"code> makes refund requests accessible and easily manageable both from the "
+"user's and the customer's side. <a href=\"https://yithemes.com/\" target="
+"\"_blank\">Get more plugins for your e-commerce on <strong>YITH</strong></a>."
+msgstr ""
+"<code><strong>YITH Advanced Refund System for WooCommerce Premium</strong></"
+"code> hace las solicitudes de reembolso accesibles y fáciles de gestionar "
+"tanto para el usuario como para el cliente. <a href=\"https://yithemes.com/"
+"\" target=\"_blank\">Obtén más plugins para tu e-commerce en <strong>YITH</"
+"strong></a>."
+
+#. Author of the plugin/theme
+msgid "YITH"
+msgstr "YITH"
+
+#. Author URI of the plugin/theme
+msgid "https://yithemes.com/"
+msgstr "https://yithemes.com/"
+
+#~ msgid "Answer the customer: "
+#~ msgstr "Responder al cliente: "
+
+#~ msgid ""
+#~ "Hi Admin, there's a new Refund Request ({request_number}) from user "
+#~ "{customer_name}\n"
+#~ "\t\t\t on order {order_number}."
+#~ msgstr ""
+#~ "Hola administrador, hay una nueva solicitud de reembolso "
+#~ "({request_number}) del usuario {customer_name}\n"
+#~ "\t\t\t en el pedido {order_number}."
+
+#~ msgid "Refunds managed by WooCommerce has been done on the order."
+#~ msgstr ""
+#~ "Los reembolsos gestionados por WooCommerce has sido hechos en el pedido."
+
+#~ msgid "Logout"
+#~ msgstr "Cerrar sesión"
+
+#~ msgid "New"
+#~ msgstr "Nuevo"
+
+#~ msgid "<span class=\"count\"> (%s)</span>"
+#~ msgid_plural " <span class=\"count\"> (%s)</span>"
+#~ msgstr[0] "<span class=\"count\"> (%s)</span>"
+#~ msgstr[1] " <span class=\"count\"> (%s)</span>"
+
+#~ msgid "Processing"
+#~ msgstr "Procesando"
+
+#~ msgid "On Hold"
+#~ msgstr "En espera"
+
+#~ msgid "Approved"
+#~ msgstr "Aprobada"
+
+#~ msgid "Rejected"
+#~ msgstr "Rechazada"
+
+#~ msgid "Request messages"
+#~ msgstr "Mensajes de solicitud"
+
+#~ msgid "Refund"
+#~ msgstr "Reembolsar"
+
+#~ msgid "Plugin Documentation"
+#~ msgstr "Documentación del plugin"
+
+#~ msgid "Live demo"
+#~ msgstr "Demo en vivo"
+
+#~ msgid "Advanced Refund System"
+#~ msgstr "Advanced Refund System"
+
+#~ msgid "Request %s for order %s"
+#~ msgstr "Solicitud %s para el pedido %s"
+
+#~ msgid "Refund %s via %s"
+#~ msgstr "Reembolsar %s vía %s"

@@ -1,0 +1,18 @@
+/********************************************************
+		
+	 			T Y P E W R I T E R 
+	
+ * REVOLUTION 6.0 EXTENSION - TYPEWRITER ADMIN CSS
+ * @version: 2.0 (13.08.2018)
+ * @requires jquery.themepunch.revolution.js
+ * @author ThemePunch
+*********************************************************/
+
+
+#typewriter_word_pattern_wrap oneabsolute { top: 0px; }
+
+#rb_tlw #ta_layertext_extension textarea.typewriterline { width: 247px; height: 62px; padding: 5px 20px; }
+.tw_textarea_wrap { position: relative }
+.tw_textarea_wrap .remove_tw_lines { position: absolute; right: 0px; top: 0px; margin-right: 0px; }
+.tw_textarea_wrap .add_tw_lines { position: absolute; right: 0px; top: 31px;  margin-right: 0px;}
+#form_layer_revslider-typewriter-addon .tponoff {display: none !important}

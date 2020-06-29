@@ -1,0 +1,49 @@
+
+/* 
+ * @author    ThemePunch <info@themepunch.com>
+ * @link      http://www.themepunch.com/
+ * @copyright 2018 ThemePunch
+*/
+
+
+.explodinglayers-icon {
+	
+	padding: 2px; 
+	border: 1px solid #3f444a; 
+	margin: 2px 1px; 
+	display: inline-block;
+	vertical-align: top;
+	line-height: 0;
+	cursor: pointer;
+
+	
+}
+
+.explodinglayers-icon svg { width: 20px; height: 20px; }
+
+.explodinglayers-icon:hover, 
+.explodinglayers-icon.selected,
+#olib_exla_selection.explodinglayers-icon {	
+	border: 1px solid #b7bbc0;
+	box-shadow: 0 0 0 1px #b7bbc0;	
+}
+
+.explodinglayers-icon:hover svg path, 
+.explodinglayers-icon.selected svg path,
+#olib_exla_selection.explodinglayers-icon svg path {	
+	fill: #b7bbc0;
+} 
+
+.explodinglayers-icon.selected {pointer-events: none}
+.explodinglayers-circle {	
+	width: 14px;
+	height: 14px;
+	margin: 3px;
+	display: block;
+	border-radius: 50%;
+	background: #777c80;	
+}
+
+.explodinglayers-icon.selected .explodinglayers-circle {
+	background: #b7bbc0;
+}

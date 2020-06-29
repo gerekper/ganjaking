@@ -1,0 +1,666 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH WooCommerce Ajax Search Premium\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/init\n"
+"POT-Creation-Date: 2020-03-20 07:22:19+00:00\n"
+"PO-Revision-Date: 2020-03-20 08:22+0100\n"
+"Last-Translator: \n"
+"Language-Team: Yithemes <plugins@yithemes.com>\n"
+"Language: it_IT\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2.1\n"
+"X-Poedit-KeywordsList: __;_e;_x\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: ..\n"
+"X-Poedit-SearchPathExcluded-0: ../plugin-fw\n"
+
+#: class.yith-wcas-admin.php:123
+msgid "Settings"
+msgstr "Impostazioni"
+
+#: class.yith-wcas-admin.php:124
+msgid "Premium Version"
+msgstr "Versione premium"
+
+#. Plugin Name of the plugin/theme
+#: class.yith-wcas-admin.php:131
+#: compatibility/elementor/class.yith-wcas-search-form-elementor.php:40
+#: compatibility/elementor/class.yith-wcas-search-form-elementor.php:77
+msgid "YITH WooCommerce Ajax Search"
+msgstr "YITH WooCommerce Ajax Search"
+
+#: class.yith-wcas-admin.php:132
+msgid "Ajax Search"
+msgstr "Ajax Search"
+
+#: class.yith-wcas.php:203
+msgid "No results"
+msgstr "Nessun risultato"
+
+#: compatibility/elementor/class.yith-wcas-search-form-elementor.php:87
+msgid ""
+"This widget inherits the style from the settings of YITH WooCommerce Ajax "
+"Search plugin that you can edit"
+msgstr ""
+
+#: compatibility/elementor/class.yith-wcas-search-form-elementor.php:89
+msgid "here"
+msgstr ""
+
+#: init.php:52
+msgid ""
+"You can't activate the free version of YITH WooCommerce Ajax Search while "
+"you are using the premium one."
+msgstr ""
+"Non puoi attivare la versione free di YITH WooCommerce Ajax Search se stai "
+"già utilizzando la premium."
+
+#: init.php:121
+msgid ""
+"YITH WooCommerce Ajax Search is enabled but not effective. It requires "
+"WooCommerce in order to work."
+msgstr ""
+"YITH WooCommerce Ajax Search è abilitato ma non in funzione. Devi aver "
+"installato WooCommerce per poter funzionare."
+
+#: plugin-options/gutenberg/blocks.php:17
+#, fuzzy
+#| msgid "Ajax Search"
+msgctxt "[gutenberg]: block name"
+msgid "Ajax Search"
+msgstr "Ajax Search"
+
+#: plugin-options/gutenberg/blocks.php:18
+#, fuzzy
+#| msgid "Ajax Search"
+msgctxt "[gutenberg]: block description"
+msgid "Show Ajax Search Form"
+msgstr "Ajax Search"
+
+#: plugin-options/gutenberg/blocks.php:22
+#, fuzzy
+#| msgid "Ajax Search"
+msgctxt "[gutenberg]: keywords"
+msgid "Ajax Search"
+msgstr "Ajax Search"
+
+#: plugin-options/gutenberg/blocks.php:23
+#, fuzzy
+#| msgid "Search"
+msgctxt "[gutenberg]: keywords"
+msgid "Search"
+msgstr "Cerca"
+
+#: plugin-options/settings-options.php:21
+msgid "General settings"
+msgstr "Impostazioni generali"
+
+#: plugin-options/settings-options.php:30
+msgid "Search input label"
+msgstr "Etichetta campo \"Cerca\""
+
+#: plugin-options/settings-options.php:32
+#: plugin-options/settings-options.php:40
+msgid "Label for Search input field."
+msgstr "Etichetta per il campo \"Cerca\""
+
+#: plugin-options/settings-options.php:34
+msgid "Search for products"
+msgstr "Cerca prodotto"
+
+#: plugin-options/settings-options.php:38
+msgid "Search submit label"
+msgstr "Etichetta campo \"Submit\""
+
+#: plugin-options/settings-options.php:42
+msgid "Search"
+msgstr "Cerca"
+
+#: plugin-options/settings-options.php:46
+msgid "Minimum number of characters"
+msgstr "Numero minimo di caratteri"
+
+#: plugin-options/settings-options.php:47
+msgid "Minimum number of characters required to trigger autosuggest."
+msgstr ""
+"Numero minimo di caratteri richiesti per mostrare i suggerimenti automatici."
+
+#: plugin-options/settings-options.php:60
+msgid "Maximum number of results"
+msgstr "Numero massimo di risultati"
+
+#: plugin-options/settings-options.php:61
+msgid "Maximum number of results showed within the autosuggest box."
+msgstr "Numero massimo di risultati da mostrare tra i suggerimenti automatici."
+
+#: plugin-options/settings-options.php:74
+msgid "Enable transients to cache autocomplete results"
+msgstr "Attiva i transient per salvare nella cache i risulti autocompletati"
+
+#: plugin-options/settings-options.php:75
+msgid "Save the results of a query in a transient"
+msgstr "Salva i risultati di una query in un transient"
+
+#: plugin-options/settings-options.php:84
+msgid "Set the duration of transient"
+msgstr "Imposta la durata del transient "
+
+#: plugin-options/settings-options.php:85
+msgid "(hours)"
+msgstr "(ore)"
+
+#: templates/admin/premium.php:256 templates/admin/premium.php:304
+msgid ""
+"Upgrade to the %1$spremium version%2$s%3$s of %1$sYITH WooCommerce Ajax "
+"Search%2$s to benefit from all features!"
+msgstr ""
+"Aggiorna alla %1$spremium versione%2$s %3$s di%1$sYITH WooCommerce Ajax "
+"Search%2$s per usufruire di tutte le sue funzionalità!"
+
+#: templates/admin/premium.php:258 templates/admin/premium.php:306
+msgid "%1$sUPGRADE%2$s %3$sto the premium version%2$s"
+msgstr "%1$sAGGIORNA%2$s %3$salla versione premium%2$s "
+
+#: templates/admin/premium.php:264
+msgid "Premium Features"
+msgstr "Funzionalità premium"
+
+#: templates/admin/premium.php:266
+msgid "HOW TO CUSTOMIZE THE RESULTS OF THE AUTOCOMPLETE"
+msgstr "Come personalizzare i risultati del riempimento automatico"
+
+#: templates/admin/premium.php:268
+msgid "RESULTS OF THE AUTOCOMPLETE"
+msgstr "Risultati del completamento automatico"
+
+#: templates/admin/premium.php:273
+msgid "Show %1$sthe image%2$s of the product (left or right aligned)"
+msgstr "Mostra %1$sl'immagine%2$s del prodotto (a destra o sinistra)"
+
+#: templates/admin/premium.php:274
+msgid "Enable the %1$sprice visualization%2$s"
+msgstr "Abilita %1$svisualizzazione prezzo%2$s"
+
+#: templates/admin/premium.php:275
+msgid "Show the %1$sproduct description%2$s"
+msgstr "Mostra %1$sdescrizione prodotto%2$s"
+
+#: templates/admin/premium.php:276
+msgid "Tell to the client if the product is %1$son discount or is featured%2$s"
+msgstr "Informa l'utente se il prodotto è %1$sin saldo o in evidenza%2$s"
+
+#: templates/admin/premium.php:284
+msgid "HOW TO CUSTOMIZE THE SEARCH OPTIONS"
+msgstr "Come personalizzare le opzioni di ricerca"
+
+#: templates/admin/premium.php:288
+msgid "%1$sExtend the research%2$s in the excerpt and in the content"
+msgstr ""
+"%1$sEstendi le funzionalità di ricerca%2$s anche all'interno del riassunto "
+"prodotto e del contenuto"
+
+#: templates/admin/premium.php:289
+msgid "%1$sActivate%2$s the category search"
+msgstr "%1$sAbilita%2$s la ricerca per categoria"
+
+#: templates/admin/premium.php:290
+msgid "Configure the %1$stag%2$s search"
+msgstr "Configura la ricerca per %1$stag%2$s"
+
+#: templates/admin/premium.php:291
+msgid "Search a product with an %1$sID%2$s"
+msgstr "Cerca un prodotto utilizzando il suo %1$sID%2$s"
+
+#: templates/yith-woocommerce-ajax-search.php:19
+msgid "Search for:"
+msgstr "Cerca:"
+
+#: widgets/class.yith-wcas-ajax-search.php:29
+msgid "An Ajax Search box for products only."
+msgstr "Un filtro di ricerca Ajax solo per i prodotti."
+
+#: widgets/class.yith-wcas-ajax-search.php:31
+msgid "YITH WooCommerce Ajax Product Search"
+msgstr "YITH WooCommerce Ajax Product Search"
+
+#: widgets/class.yith-wcas-ajax-search.php:94
+msgid "Title:"
+msgstr "Titolo:"
+
+#. Plugin URI of the plugin/theme
+msgid "https://yithemes.com/themes/plugins/yith-woocommerce-ajax-search/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"<code><strong>YITH WooCommerce Ajax Search</strong></code> is the plugin "
+"that allows you to search for a specific product by inserting a few "
+"characters. Thanks to <strong>Ajax Search</strong>, users can quickly find "
+"the contents they are interested in without wasting time among site pages. "
+"<a href=\"https://yithemes.com/\" target=\"_blank\">Get more plugins for "
+"your e-commerce shop on <strong>YITH</strong></a>."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "YITH"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://yithemes.com/"
+msgstr ""
+
+#~ msgid "YITH WooCommerce Ajax Search Updated"
+#~ msgstr "YITH WooCommerce Ajax Search aggiornato"
+
+#~ msgid "Upgrade to the PREMIUM VERSION"
+#~ msgstr "Aggiorna alla VERSIONE PREMIUM"
+
+#~ msgid "Discover the Advanced Features"
+#~ msgstr "Scopri le funzionalità avanzate"
+
+#, fuzzy
+#~| msgid ""
+#~| "Upgrade to the PREMIUM VERSION\n"
+#~| "of YITH WOOCOMMERCE AJAX SEARCH to benefit from all features!"
+#~ msgid ""
+#~ "Upgrade to the PREMIUM VERSION\r\n"
+#~ "of YITH WOOCOMMERCE AJAX SEARCH to benefit from all features!"
+#~ msgstr ""
+#~ "Passa alla VERSIONE PREMIUM\n"
+#~ "di YITH WooCommerce Ajax Search per poter fruire di tutte le sue "
+#~ "funzionalità!"
+
+#~ msgid "Get Support and Pro Features"
+#~ msgstr "Accedi al supporto e alle funzionalità premium"
+
+#~ msgid ""
+#~ "By purchasing the premium version of the plugin, you will take advantage "
+#~ "of the advanced features of the product and you will get one year of free "
+#~ "updates and support through our platform available 24h/24."
+#~ msgstr ""
+#~ "Acquistando la versione premium del plugin, potrai utilizzare le "
+#~ "funzionalità avanzate del prodotto ed otterrai un anno di aggiornamenti "
+#~ "gratuiti e di supporto sulla nostra piattaforma disponibile 24h su 24."
+
+#~ msgid "SEARCH OPTIONS"
+#~ msgstr "OPZIONI DI RICERCA"
+
+#~ msgid "Plugin Documentation"
+#~ msgstr "Documentazione plugin"
+
+#~ msgid ""
+#~ "In the YIT Plugin tab you can find the YITH WooCommerce Ajax Search "
+#~ "options.\n"
+#~ "With this menu, you can access to all the settings of our plugins that "
+#~ "you have activated.\n"
+#~ "YITH WooCommerce Ajax Search is available in an outstanding PREMIUM "
+#~ "version with many new options, <a href=\""
+#~ msgstr ""
+#~ "Nella scheda del plugin puoi trovare tutte le opzioni di YITH WooCommerce "
+#~ "Ajax Search.\n"
+#~ "Da questo menu, avrai accesso a tutte le impostazioni dei nostri plugin "
+#~ "attivati finora.\n"
+#~ "YITH WooCommerce Ajax Search è disponibile in una eccezionale versione "
+#~ "PREMIUM con molte nuove optioni, <a href=\""
+
+#~ msgid ""
+#~ "From now on, you can find all the options of YITH WooCommerce Ajax Search "
+#~ "Updated under YIT Plugin -> Ajax Search instead of WooCommerce -> "
+#~ "Settings -> Ajax Search, as in the previous version.\n"
+#~ "When one of our plugins updates, a new voice will be added to this menu.\n"
+#~ "YITH WooCommerce Ajax Search renovates with new available options, "
+#~ "discover the <a href=\""
+#~ msgstr ""
+#~ "Da adesso, puoi trovare tutte le opzioni del nuovo YITH WooCommerce Ajax "
+#~ "Search in YIT Plugin > Ajax Search invece che in WooCommerce > Settings > "
+#~ "Ajax Search, come accadeva nelle precedenti versioni.\n"
+#~ "Quando uno dei nostri plugin verrà aggiornato, una nuova voce sarà "
+#~ "aggiunta a questo menu.\n"
+#~ "YITH WooCommerce Ajax Search si è rinnovato con molte nuove opzioni "
+#~ "disponibili, scopri <a href=\""
+
+#~ msgid "Output"
+#~ msgstr "Risultati di ricerca"
+
+#~ msgid "sale"
+#~ msgstr "in saldo"
+
+#~ msgid "featured"
+#~ msgstr "in evidenza"
+
+#~ msgid "Search in product brands"
+#~ msgstr "Cerca marche prodotti"
+
+#~ msgid "Extend search in product brands"
+#~ msgstr "Estendi la ricerca alle marche dei prodotti"
+
+#~ msgid ""
+#~ "YITH WooCommerce Ajax Search Premium is enabled but not effective. It "
+#~ "requires WooCommerce in order to work."
+#~ msgstr ""
+#~ "YITH WooCommerce Ajax Search Premium è abilitato ma non in funzione. Devi "
+#~ "aver installato WooCommerce per poterlo utilizzare."
+
+#~ msgid "Output Options"
+#~ msgstr "Impostazioni risultati di ricerca"
+
+#~ msgid "Show thumbnail"
+#~ msgstr "Mostra thumbnail"
+
+#~ msgid "Choose if you want show thumbnail and position"
+#~ msgstr "Scegli se mostrare la thumbnail e dove"
+
+#~ msgid "Hide thumbnail"
+#~ msgstr "Nascondi thumbnail"
+
+#~ msgid "Show on the Left"
+#~ msgstr "Mostra a sinistra"
+
+#~ msgid "Show on the Right"
+#~ msgstr "Mostra a destra"
+
+#~ msgid "Size of thumbnails"
+#~ msgstr "Dimensione thumbnail"
+
+#~ msgid "Show price"
+#~ msgstr "Mostra prezzo"
+
+#~ msgid "Show price of product"
+#~ msgstr "Mostra prezzo prodotto"
+
+#~ msgid "Price Label"
+#~ msgstr "Etichetta prezzo"
+
+#~ msgid "Show a label before the price"
+#~ msgstr "Mostra un'etichetta prima del prezzo"
+
+#~ msgid "Price:"
+#~ msgstr "Prezzo:"
+
+#~ msgid "Loader"
+#~ msgstr "Icona di caricamento"
+
+#~ msgid "Loader gif"
+#~ msgstr "GIF icona di caricamento"
+
+#~ msgid "Sales and Features badges"
+#~ msgstr "Simboli \"in saldo\" e \"in evidenza\""
+
+#~ msgid "Show sale badge"
+#~ msgstr "Mostra adesivo \"in saldo\""
+
+#~ msgid "Show sale badge if the product is on sale"
+#~ msgstr "Mostra adesivo \"in saldo\" per i prodotti in saldo"
+
+#~ msgid "Sale badge background color"
+#~ msgstr "Colore sfondo adesivo \"in saldo\""
+
+#~ msgid "Sale badge color"
+#~ msgstr "Colore adesivo \"in saldo\""
+
+#~ msgid "Show featured badge"
+#~ msgstr "Mostra adesivo \"in evidenza\""
+
+#~ msgid "Featured badge background color"
+#~ msgstr "Colore sfondo adesivo \"in evidenza\""
+
+#~ msgid "Featured badge color"
+#~ msgstr "Colore adesivo \"in evidenza\""
+
+#~ msgid "Hide featured bagde if the product is on sale"
+#~ msgstr "Nascondi adesivo \"in evidenza\" per i prodotti in saldo"
+
+#~ msgid "Title & Excerpt"
+#~ msgstr "Titolo & Riassunto"
+
+#~ msgid "Title color"
+#~ msgstr "Colore titolo"
+
+#~ msgid "Show excerpt"
+#~ msgstr "Mostra riassunto"
+
+#~ msgid "Show excerpt of product"
+#~ msgstr "Mostra riassunto prodotto"
+
+#~ msgid "Number of words to show in excerpt"
+#~ msgstr "Numero di parole da mostrare nel riassunto"
+
+#~ msgid "\"View All\" Link"
+#~ msgstr "Link \"Visualizza tutto\""
+
+#~ msgid "Show \"view all\" link"
+#~ msgstr "Mostra link \"Visualizza tutto\""
+
+#~ msgid "Add a link to the bottom of results"
+#~ msgstr "Aggiungi un link sotto tutti i risultati"
+
+#~ msgid "Text of \"view all\" link"
+#~ msgstr "Testo del link \"Visualizza tutto\""
+
+#~ msgid "Add a link at the bottom of results"
+#~ msgstr "Aggiungi un link sotto tutti i risultati"
+
+#~ msgid "View all"
+#~ msgstr "Visualizza tutto"
+
+#~ msgid "Search settings"
+#~ msgstr "Impostazioni di ricerca"
+
+#~ msgid "Choose element types to search"
+#~ msgstr "Scegli il tipo di elementi da cercare"
+
+#~ msgid "Choose if you want to extend search also to posts and pages"
+#~ msgstr "Scegli se estendere la ricerca anche ad articoli e pagine"
+
+#~ msgid "All"
+#~ msgstr "Tutti"
+
+#~ msgid "Products"
+#~ msgstr "Prodotti"
+
+#~ msgid "Search in excerpt"
+#~ msgstr "Cerca in riassunto"
+
+#~ msgid "Extend search in the excerpt of the product"
+#~ msgstr "Estendi ricerca anche al riassunto del prodotto"
+
+#~ msgid "Search in content"
+#~ msgstr "Cerca nel contenuto"
+
+#~ msgid "Extend search in the content of the product"
+#~ msgstr "Estendi ricerca anche al contenuto del prodotto"
+
+#~ msgid "Search in product categories"
+#~ msgstr "Cerca tra le categorie prodotto"
+
+#~ msgid "Extend search in product categories"
+#~ msgstr "Estendi ricerca alle categorie prodotto"
+
+#~ msgid "Search in product tags"
+#~ msgstr "Cerca fra i tag del prodotto"
+
+#~ msgid "Extend search in product tags"
+#~ msgstr "Estendi ricerca ai tag del prodotto"
+
+#~ msgid "Multiple Word Search"
+#~ msgstr "Ricerca per più parole"
+
+#~ msgid "Show items containing all words typed"
+#~ msgstr "Mostra articoli contenenti tutte le parole inserite"
+
+#~ msgid "Show items containing al least one of the words typed"
+#~ msgstr "Mostra articoli contenenti almeno una delle parole inserite"
+
+#~ msgid "Search by Sku Settings"
+#~ msgstr "Impostazioni per Cerca per SKU "
+
+#~ msgid ""
+#~ "Extend search functionality so that search includes also sku. Attention: "
+#~ "this feature may slow down the search process on some servers."
+#~ msgstr ""
+#~ "Estendi la funzionalità di ricerca in modo tale che sia incluso anche lo "
+#~ "SKU del prodotto. Attenzione: questa funzionalità potrebbe rallentare il "
+#~ "processo di ricerca su alcuni server."
+
+#~ msgid "Search by sku"
+#~ msgstr "Cerca per SKU"
+
+#~ msgid "Extend search functionality so that search includes also sku"
+#~ msgstr ""
+#~ "Estendi la funzionalità di ricerca in modo tale da includere anche lo SKU"
+
+#~ msgid "Search by sku variable products"
+#~ msgstr "Cerca tra prodotti con SKU variabile"
+
+#~ msgid "Extend sku search including variable products."
+#~ msgstr "Estendi ricerca SKU includendo prodotti variabili."
+
+#~ msgid "Maximum number of results showed in autosuggest box."
+#~ msgstr "Numero massimo di risultati da mostrare nel riquadro suggerimenti."
+
+#~ msgid "Additional Features"
+#~ msgstr "Funzionalità aggiuntive"
+
+#~ msgid ""
+#~ "If these options are not showed, your theme may not support these "
+#~ "features. Please, contact the developer of theme to implement them."
+#~ msgstr ""
+#~ "Se non visualizzi queste opzioni, il tuo tema potrebbe non supportare "
+#~ "queste funzionalità. Contatta lo sviluppatore del tuo tema per "
+#~ "implementarle."
+
+#~ msgid "Show filter for search fields"
+#~ msgstr "Mostra filtro per campi di ricerca"
+
+#~ msgid ""
+#~ "Show filter for search fields (it allows searching the Whole site or only "
+#~ "among products)"
+#~ msgstr ""
+#~ "Mostra filtro per campi di ricerca (consente la ricerca in tutto il sito "
+#~ "o solo tra i prodotti)"
+
+#~ msgid "Show the category list"
+#~ msgstr "Mostra lista categorie"
+
+#~ msgid "Categories to show"
+#~ msgstr "Categorie da mostrare"
+
+#~ msgid ""
+#~ "This option lets you decide to show all the categories or only the main "
+#~ "ones"
+#~ msgstr ""
+#~ "Con questa opzione puoi scegliere di mostrare tutte le categorie o solo "
+#~ "le principali"
+
+#~ msgid "Main Categories"
+#~ msgstr "Categorie principali"
+
+#~ msgid "All Categories"
+#~ msgstr "Tutte le categorie"
+
+#~ msgid "Test of \"view all\" link"
+#~ msgstr "Testo di"
+
+#, fuzzy
+#~ msgid "Search %s"
+#~ msgstr "Cerca"
+
+#, fuzzy
+#~ msgid "Search Categories"
+#~ msgstr "Cerca:"
+
+#, fuzzy
+#~ msgid "%s Settings"
+#~ msgstr "Impostazioni"
+
+#, fuzzy
+#~ msgid "layout settings"
+#~ msgstr "Impostazioni"
+
+#, fuzzy
+#~ msgid "Plugin Settings"
+#~ msgstr "Impostazioni"
+
+#, fuzzy
+#~ msgid "Settings saved"
+#~ msgstr "Impostazioni"
+
+#, fuzzy
+#~ msgid "Settings reset"
+#~ msgstr "Impostazioni"
+
+#, fuzzy
+#~ msgid "Maximum number of activations exceeded"
+#~ msgstr "Numero massimo  di risultati"
+
+#, fuzzy
+#~ msgid "Search for a product"
+#~ msgstr "Cerca prodotto"
+
+#, fuzzy
+#~ msgid "Select"
+#~ msgstr "Seleziona una data"
+
+#, fuzzy
+#~ msgid "File Upload"
+#~ msgstr "Upload"
+
+#, fuzzy
+#~ msgid "Click to toggle"
+#~ msgstr "Clicca per anteprima"
+
+#, fuzzy
+#~ msgid "Insert the title for the field."
+#~ msgstr "Seleziona un font"
+
+#, fuzzy
+#~ msgid "Select the type for this field."
+#~ msgstr "Seleziona un font"
+
+#, fuzzy
+#~ msgid "Selected"
+#~ msgstr "Seleziona una data"
+
+#~ msgid "Upload"
+#~ msgstr "Upload"
+
+#~ msgid "px"
+#~ msgstr "px"
+
+#~ msgid "em"
+#~ msgstr "em"
+
+#~ msgid "pt"
+#~ msgstr "pt"
+
+#~ msgid "rem"
+#~ msgstr "rem"
+
+#~ msgid "Regular"
+#~ msgstr "Regular"
+
+#~ msgid "Bold"
+#~ msgstr "Bold"
+
+#~ msgid "Extra bold"
+#~ msgstr "Extra bold"
+
+#~ msgid "Italic"
+#~ msgstr "Italic"
+
+#~ msgid "Italic bold"
+#~ msgstr "Italic bold"
+
+#~ msgid "Label for Search submit field."
+#~ msgstr "Etichetta per il campo di submit"
+
+#~ msgid "Docs"
+#~ msgstr "Documentazione"
+
+#~ msgid "Hours"
+#~ msgstr "Ore"
+
+#~ msgid "Minutes"
+#~ msgstr "Minuti"

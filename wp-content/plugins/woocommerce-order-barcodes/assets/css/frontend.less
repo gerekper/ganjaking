@@ -1,0 +1,49 @@
+.woocommerce-checkout {
+	#order_barcode_image, #order_barcode_text {
+		display: none;
+	}
+	#barcode_container {
+		display: none;
+	}
+}
+#barcode-scan-form {
+	text-align: center;
+	select {
+		text-align: left;
+	}
+	input#scan-code {
+		margin: 0 10px;
+	}
+}
+#barcode-scan-loader {
+	text-align: center;
+	line-height: 70px;
+	font-style: italic;
+	display: none;
+}
+#barcode-scan-result {
+	margin-top: 20px;
+	h3.checked_in {
+		text-align: center;
+		&.yes {
+			color: green;
+		}
+		&.no {
+			color: red;
+		}
+	}
+}
+#view-order-barcode {
+	width: 100%;
+	text-align: center;
+	img {
+		border: 0;
+		padding: 0;
+		margin: 0;
+		box-shadow: none;
+		border-radius: 0;
+	}
+	span {
+		font-size: 110%;
+	}
+}

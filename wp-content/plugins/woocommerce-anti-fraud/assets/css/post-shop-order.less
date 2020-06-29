@@ -1,0 +1,56 @@
+@import '../../../woocommerce/assets/css/mixins.less';
+
+#woocommerce-af-risk {
+	.inside {
+		padding: 20px 0 0 0;
+		margin: 0;
+		text-align: center;
+
+		p {
+			margin: 0 0 20px !important;
+		}
+
+		.woocommerce-af-risk-failure-list {
+			margin: 20px 0 0 0;
+			background: #f8f8f8;
+			border-top: 1px solid #dfdfdf;
+
+			ul {
+				text-align: left;
+				margin: 8px 12px;
+				padding: 0;
+
+
+				li {
+					font-size: 1.1em;
+					padding: 4px 0;
+					margin: 0;
+					&.failed {
+						&:before {
+
+							.iconbefore("\e016");
+						}
+						color: #D54E21;
+					}
+				}
+			}
+
+			.woocommerce-af-risk-failure-list-toggle {
+				display: block;
+				overflow: hidden;
+				text-align: left;
+				color: #999;
+				text-decoration: none;
+				margin: 8px 12px;
+				padding: 0;
+			}
+		}
+
+		.mb-score-label {
+			display:     block;
+			font-size:   1.8em;
+			padding:     0 0 20px;
+			font-weight: bold;
+		}
+	}
+}

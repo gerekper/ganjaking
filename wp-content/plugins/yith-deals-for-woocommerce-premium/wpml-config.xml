@@ -1,0 +1,10 @@
+<wpml-config>
+	<custom-fields>
+		<custom-field action="copy">yith_wcdls_enable_disable</custom-field>
+		<custom-field action="copy">yith_wcdls_rule</custom-field>
+		<custom-field action="copy">yith_wcdls_offer</custom-field>
+	</custom-fields>
+	<custom-types>
+		<custom-type translate="1">yith_wcdls_offer</custom-type>
+	</custom-types>
+</wpml-config>

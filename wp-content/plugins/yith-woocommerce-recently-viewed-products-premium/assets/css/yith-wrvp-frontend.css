@@ -1,0 +1,85 @@
+.yith-similar-products:not(.in-page) {
+    overflow: hidden;
+    clear: both;
+    width: 100%;
+}
+.yith-similar-products .shop-link{
+    margin-left: 10px;
+}
+.yith-similar-products .products.slick-slider {
+    padding: 20px 0;
+    position: relative;
+    border-top: 1px solid #cdcdcd;
+    margin-top: 30px;
+}
+.yith-similar-products .products.slick-slider .product {
+    margin: 0;
+    padding: 0 15px;
+    clear: none !important;
+    float: left !important;
+}
+.yith-similar-products .products.slick-slider .slick-list {
+    margin: 0 -15px;
+    overflow: visible;
+}
+.yith-similar-products .products.slick-slider .product.first,
+.yith-similar-products .products.slick-slider .product.last {
+    clear: none;
+}
+
+.yith-similar-products .slick-arrow {
+    font-size: 0;
+    line-height: 0;
+    display: block;
+    width: 24px;
+    height: 30px;
+    padding: 3px 0;
+    cursor: pointer;
+    color: transparent;
+    outline: none;
+    background: transparent url( '../images/nav-arrow.png' ) no-repeat;
+    background-origin: content-box;
+    border: 1px solid #cdcdcd;
+    position: absolute;
+    top: -30px;
+    right: 0;
+}
+.yith-similar-products .slick-prev {
+    background-position: center 0;
+    right: 23px;
+}
+.yith-similar-products .slick-next {
+    background-position: center -24px;
+}
+
+/**** FILTER BY CAT *****/
+.yith-wrvp-filters-cat {
+    margin-top: 10px;
+    margin-bottom: 25px;
+    text-align: center;
+}
+.yith-wrvp-filters-cat .filter-cat {
+    display: inline-block;
+    border: 1px solid #cdcdcd;
+    cursor: pointer;
+    padding: 0 5px;
+    text-transform: uppercase;
+    font-size: 14px;
+    vertical-align: middle;
+    margin: 5px;
+}
+.yith-wrvp-filters-cat .filter-cat a {
+    color: #cdcdcd;
+}
+.yith-wrvp-filters-cat .filter-cat.active,
+.yith-wrvp-filters-cat .filter-cat:hover {
+    border: 1px solid #333333;
+}
+.yith-wrvp-filters-cat .filter-cat.active a,
+.yith-wrvp-filters-cat .filter-cat:hover a {
+    color: #333333;
+}
+
+.entry-content .woocommerce a {
+    border-bottom: 0;
+}

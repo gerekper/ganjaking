@@ -1,0 +1,52 @@
+#yith-wfbt-data-table tbody td {
+    padding: 8px 15px;
+    vertical-align: middle;
+}
+#yith-wfbt-data-table tbody th {
+    vertical-align: middle;
+    text-align: center;
+}
+#yith-wfbt-data-table tbody th input {
+    margin-top: -5px;
+}
+#yith-wfbt-data-table tbody td:not( .column-product ) {
+    text-align: center;
+}
+#yith-wfbt-data-table td.column-thumb img {
+    max-height: 70px;
+    max-width: 70px;
+}
+#yith-wfbt-data-table td.column-thumb {
+    width: auto;
+}
+#yith-wfbt-data-table td.column-actions a{
+    margin: 0 5px;
+}
+#yith-wfbt-data-table thead th:not( .column-product ),
+#yith-wfbt-data-table tfoot th:not( .column-product ) {
+    text-align: center;
+}
+
+.yith-wfbt .add-new-h2,
+.yith-wfbt .add-new-h2:active {
+    margin-left: 15px;
+}
+#yith-wfbt-data-table td.column-status span.in-stock {
+    color: #77a464;
+}
+#yith-wfbt-data-table td.column-status span.out-of-stock {
+    color: #ff0000;
+}
+
+.yith_image_size_settings label {
+    margin-left: 10px;
+}
+
+#yith_wfbt_data_option .coupon-disabled-error {
+    background: #fff;
+    border: 1px solid #f0f0f0;
+    border-left: 4px solid #ff0000;
+    margin: 10px 10px;
+    padding: 1px 12px;
+    font-size: 13px;
+}

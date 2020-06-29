@@ -1,0 +1,241 @@
+# Copyright (C) 2020 WooCommerce
+# This file is distributed under the GNU General Public License v3.0.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Shipment Tracking 1.6.23\n"
+"Report-Msgid-Bugs-To: "
+"https://wordpress.org/support/plugin/woocommerce-shipment-tracking\n"
+"POT-Creation-Date: 2020-06-05 23:36:58+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: node-wp-i18n 1.2.3\n"
+
+#: includes/api/class-wc-shipment-tracking-order-rest-api-controller.php:102
+msgid "Sorry, you cannot list resources."
+msgstr ""
+
+#: includes/api/class-wc-shipment-tracking-order-rest-api-controller.php:115
+msgid "Sorry, you are not allowed to create resources."
+msgstr ""
+
+#: includes/api/class-wc-shipment-tracking-order-rest-api-controller.php:128
+msgid "Sorry, you cannot view this resource."
+msgstr ""
+
+#: includes/api/class-wc-shipment-tracking-order-rest-api-controller.php:141
+msgid "Sorry, you are not allowed to delete this resource."
+msgstr ""
+
+#: includes/api/class-wc-shipment-tracking-order-rest-api-controller.php:179
+#: includes/api/class-wc-shipment-tracking-order-rest-api-controller.php:223
+#: includes/api/class-wc-shipment-tracking-order-rest-api-controller.php:262
+#: includes/api/class-wc-shipment-tracking-order-rest-api-controller.php:290
+msgid "Invalid order ID."
+msgstr ""
+
+#: includes/api/class-wc-shipment-tracking-order-rest-api-controller.php:218
+msgid "Cannot create existing order shipment tracking."
+msgstr ""
+
+#: includes/api/class-wc-shipment-tracking-order-rest-api-controller.php:269
+#: includes/api/class-wc-shipment-tracking-order-rest-api-controller.php:297
+msgid "Invalid shipment tracking ID."
+msgstr ""
+
+#: includes/api/class-wc-shipment-tracking-order-rest-api-controller.php:306
+msgid "The shipment tracking cannot be deleted."
+msgstr ""
+
+#: includes/api/class-wc-shipment-tracking-order-rest-api-controller.php:387
+msgid "Unique identifier for shipment tracking."
+msgstr ""
+
+#: includes/api/class-wc-shipment-tracking-order-rest-api-controller.php:393
+msgid "Tracking provider name."
+msgstr ""
+
+#: includes/api/class-wc-shipment-tracking-order-rest-api-controller.php:399
+msgid "Custom tracking provider name."
+msgstr ""
+
+#: includes/api/class-wc-shipment-tracking-order-rest-api-controller.php:405
+msgid "Custom tracking provider link."
+msgstr ""
+
+#: includes/api/class-wc-shipment-tracking-order-rest-api-controller.php:411
+msgid "Tracking number."
+msgstr ""
+
+#: includes/api/class-wc-shipment-tracking-order-rest-api-controller.php:417
+msgid "Date when package was shipped."
+msgstr ""
+
+#: includes/class-wc-shipment-tracking-privacy.php:12
+#: includes/class-wc-shipment-tracking.php:168
+#: includes/class-wc-shipment-tracking.php:224
+#: includes/compats/class-wc-shipment-tracking-order-csv-import-compat.php:38
+#: includes/compats/class-wc-shipment-tracking-pip-compat.php:42
+msgid "Shipment Tracking"
+msgstr ""
+
+#: includes/class-wc-shipment-tracking-privacy.php:14
+msgid "WooCommerce Shipment Tracking Order Data"
+msgstr ""
+
+#: includes/class-wc-shipment-tracking-privacy.php:16
+msgid "WooCommerce Shipment Tracking Data"
+msgstr ""
+
+#: includes/class-wc-shipment-tracking-privacy.php:49
+msgid ""
+"By using this extension, you may be storing personal data or sharing data "
+"with an external service. <a href=\"%s\" target=\"_blank\">Learn more about "
+"how this works, including what you may want to include in your privacy "
+"policy.</a>"
+msgstr ""
+
+#: includes/class-wc-shipment-tracking-privacy.php:64
+msgid "Shipment Tracking - %s"
+msgstr ""
+
+#: includes/class-wc-shipment-tracking-privacy.php:101
+msgid "Orders"
+msgstr ""
+
+#: includes/class-wc-shipment-tracking.php:237
+#: includes/class-wc-shipment-tracking.php:344
+#: templates/pip/tracking-info.php:23
+msgid "Click here to track your shipment"
+msgstr ""
+
+#: includes/class-wc-shipment-tracking.php:237
+#: templates/email/tracking-info.php:43 templates/myaccount/view-order.php:43
+#: templates/pip/tracking-info.php:23
+msgid "Track"
+msgstr ""
+
+#: includes/class-wc-shipment-tracking.php:244
+#: templates/pip/tracking-info.php:29
+#. translators: 1: shipping date
+#. translators: 1: date of shipping
+msgid "Shipped on %s"
+msgstr ""
+
+#: includes/class-wc-shipment-tracking.php:245
+msgid "Delete"
+msgstr ""
+
+#: includes/class-wc-shipment-tracking.php:269
+msgid "Add Tracking Number"
+msgstr ""
+
+#: includes/class-wc-shipment-tracking.php:273
+msgid "Provider:"
+msgstr ""
+
+#: includes/class-wc-shipment-tracking.php:275
+msgid "Custom Provider"
+msgstr ""
+
+#: includes/class-wc-shipment-tracking.php:310
+msgid "Provider Name:"
+msgstr ""
+
+#: includes/class-wc-shipment-tracking.php:318
+msgid "Tracking number:"
+msgstr ""
+
+#: includes/class-wc-shipment-tracking.php:326
+msgid "Tracking link:"
+msgstr ""
+
+#: includes/class-wc-shipment-tracking.php:334
+msgid "Date shipped:"
+msgstr ""
+
+#: includes/class-wc-shipment-tracking.php:335
+#: includes/class-wc-shipment-tracking.php:338
+msgid "Y-m-d"
+msgstr ""
+
+#: includes/class-wc-shipment-tracking.php:341
+msgid "Save Tracking"
+msgstr ""
+
+#: includes/class-wc-shipment-tracking.php:344
+msgid "Preview:"
+msgstr ""
+
+#: includes/compats/class-wc-shipment-tracking-order-csv-import-compat.php:35
+msgid "Order data"
+msgstr ""
+
+#: includes/compats/class-wc-shipment-tracking-pip-compat.php:47
+msgid "Shipment tracking"
+msgstr ""
+
+#: includes/compats/class-wc-shipment-tracking-pip-compat.php:48
+msgid "Select which document types should display shipment tracking."
+msgstr ""
+
+#: templates/email/plain/tracking-info.php:18
+msgid "TRACKING INFORMATION"
+msgstr ""
+
+#: templates/email/tracking-info.php:17 templates/myaccount/view-order.php:18
+#: templates/pip/tracking-info.php:17
+msgid "Tracking Information"
+msgstr ""
+
+#: templates/email/tracking-info.php:23 templates/email/tracking-info.php:33
+#: templates/myaccount/view-order.php:23 templates/myaccount/view-order.php:32
+msgid "Provider"
+msgstr ""
+
+#: templates/email/tracking-info.php:24 templates/email/tracking-info.php:36
+#: templates/myaccount/view-order.php:24 templates/myaccount/view-order.php:35
+msgid "Tracking Number"
+msgstr ""
+
+#: templates/email/tracking-info.php:25 templates/myaccount/view-order.php:25
+#: templates/myaccount/view-order.php:38
+msgid "Date"
+msgstr ""
+
+#: templates/email/tracking-info.php:39
+msgid "Status"
+msgstr ""
+
+#: woocommerce-shipment-tracking.php:36
+#. translators: %s WC download URL link.
+msgid ""
+"Shipment Tracking requires WooCommerce to be installed and active. You can "
+"download %s here."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce Shipment Tracking"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://woocommerce.com/products/shipment-tracking/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Add tracking numbers to orders allowing customers to track their orders via "
+"a link. Supports many shipping providers, as well as custom ones if "
+"neccessary via a regular link."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "WooCommerce"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://woocommerce.com"
+msgstr ""

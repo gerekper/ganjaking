@@ -1,0 +1,1 @@
+<h3><?php _e( 'Feed types to enable', 'woocommerce_gpf' ); ?></h3>

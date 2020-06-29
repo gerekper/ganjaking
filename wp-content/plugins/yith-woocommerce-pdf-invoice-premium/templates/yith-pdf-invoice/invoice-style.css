@@ -1,0 +1,283 @@
+body {
+    font-family: 'dejavusanscondensed';
+    background: #fff;
+    color: #000;
+    font-size: 14px;
+    margin: 0px;
+    padding: 0;
+}
+
+.invoice-document {
+    margin: 0;
+    padding: 0;
+}
+
+/* Section: general */
+
+/* end */
+
+/* Section: document title */
+.ywpi-document-title {
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 25px;
+}
+
+/* end */
+
+/* Section: company details and customer    */
+.company-header {
+    padding-top: 15px;
+}
+
+.ywpi-company-details,
+.ywpi-customer-details {
+    width: 50%;
+    float: left;
+    display: inline-block;
+    line-height: 1;
+    vertical-align: top;
+    padding-bottom: 15px;
+    color: #808080;
+}
+
+.ywpi-company-content,
+.ywpi-customer-content {
+    padding: 10px;
+}
+
+.company-name,
+.customer-title {
+    font-weight: bold;
+    font-size: 18px;
+    color: #414141;
+    margin: 8px 0;
+}
+
+.company-logo-section {
+    float: right;
+    width: 30%;
+    text-align: right;
+    padding: 20px;
+    padding-right: 0px;
+
+}
+
+.invoice-from-title,
+.invoice-to-title {
+    font-size: 12px;
+}
+
+img.ywpi-company-logo {
+    max-height: 100px;
+}
+
+.ywpi-customer-details {
+    float: left;
+    width: 50%;
+    margin-top: 10px;
+}
+
+/* end */
+
+/* Invoice data */
+
+
+.invoice-data-content table {
+    width: 100%;
+}
+
+.invoice-data-content .ywpi-invoice-number {
+    height: 150px;
+}
+
+.invoice-data-content .ywpi-invoice-number td {
+    padding-bottom: 15px;
+    text-align: center;
+}
+
+.invoice-data-content .ywpi-invoice-number-value {
+    padding-top: 30px;
+    margin-top: 30px;
+    background-color: black;
+}
+
+.ywpi-document-data {
+    padding-top: 10px;
+    border-top: 2px solid #CBCBCB;
+
+}
+
+.invoice-values {
+    float: right;
+    background-color: #eef6ff;
+    width: 250px;
+    display: inline-block;
+    padding: 10px;
+}
+
+.ywpi-invoice-number {
+    color: #414141;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.ywpi-invoice-number .ywpi-invoice-number-value {
+    margin: 10px 0;
+}
+
+.left-content {
+    width: 50%;
+    /*float: left;*/
+}
+
+.right-content {
+    width: 50%;
+    text-align: right;
+}
+
+/* end */
+
+/* Section: order content */
+.product-image {
+    width: 45px;
+    height: 45px;
+    vertical-align: middle;
+}
+
+table.invoice-details,
+table.credit-note-details {
+    border-collapse: collapse;
+    margin-top: 15px;
+    padding-top: 15px;
+    width: 100%;
+}
+
+.invoice-details thead th,
+.invoice-details thead,
+.invoice-details thead tr,
+.credit-note-details thead th,
+.credit-note-details thead,
+.credit-note-details thead tr {
+    background-color: #619DDA;
+    border: 0;
+    color: white;
+}
+
+.credit-note-details .column-amount {
+    width: 80px;
+    text-align: right;
+    padding: 5px;
+}
+
+table.invoice-details tr td {
+    padding: 5px 0;
+}
+
+table.invoice-details td.column-price,
+table.invoice-details td.column-total,
+table.invoice-details td.column-discount-percentage,
+table.invoice-details td.column-tax {
+    padding: 5px;
+    text-align: right;
+    width: 1px;
+    white-space: nowrap;
+}
+
+table.invoice-details td.column-quantity {  /* Same rule as above. Only change the padding for Qty  */
+    padding: 20px;
+    text-align: right;
+    width: 1px;
+    white-space: nowrap;
+}
+
+
+table.invoice-details td.column-credit-note-amount {
+    width: 80px;
+    text-align: right;
+}
+
+table.invoice-details td.column-picture {
+    width: 50px;
+    padding: 5px 15px 0 0;
+}
+
+/* end */
+
+/* Section: totals */
+.document-totals {
+    margin-top: 30px;
+    float: right;
+    width: 250px;
+    text-align: right;
+}
+
+.document-totals table {
+    width: 100%;
+    border-collapse: collapse;
+
+}
+
+.document-totals table td {
+    padding: 10px 5px;
+    width: 50%;
+}
+
+.document-totals .invoice-details-total td {
+    background-color: #eef6ff;
+}
+
+table.invoice-totals tr.invoice-details-subtotal td {
+    font-weight: bold;
+}
+
+table.invoice-totals tr.invoice-details-total td {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+/* end */
+
+/* Section: notes and footer */
+#footer table {
+    width: 100%;
+}
+
+#footer table td {
+    text-align: center;
+}
+
+.ywpi-section-notes {
+    margin-top: 100px;
+}
+
+.notes {
+    clear: both;
+    min-height: 70px;
+    background-color: #dddddd;
+    padding: 10px;
+    padding-left: 20px;
+}
+
+.notes span {
+    display: block;
+}
+
+.notes-title {
+    /*font-size: 14px;*/
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.delivery {
+    clear: both;
+    margin-bottom: 50px;
+    min-height: 70px;
+    background-color: #dddddd;
+    padding-left: 20px;
+}
+
+
+/* end */

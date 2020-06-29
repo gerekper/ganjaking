@@ -1,0 +1,166 @@
+/* ICONS */
+.vc_element-icon.vc_element-icon[class*="mpc-shicon"] {
+	background-color: transparent !important;
+	background-image: url( '../images/sprites/sh-icons.png' ) !important;
+	width: 32px !important;
+	height: 32px !important;
+	border: 0 !important;
+}
+.vc_element-icon.vc_element-icon[class*="mpc-shicon"]:before {
+	display: none;
+}
+.vc_element-icon.mpc-shicon-accordion,
+.vc_element-icon.mpc-shicon-accordion-tab {
+	background-position: 0 0 !important;
+}
+.vc_element-icon.mpc-shicon-alert {
+	background-position: 0 -33px !important;
+}
+.vc_element-icon.mpc-shicon-animated-text {
+	background-position: 0 -66px !important;
+}
+.vc_element-icon.mpc-shicon-button {
+	background-position: 0 -99px !important;
+}
+.vc_element-icon.mpc-shicon-buttons-set {
+	background-position: 0 -132px !important;
+}
+.vc_element-icon.mpc-shicon-callout {
+	background-position: 0 -165px !important;
+}
+.vc_element-icon.mpc-shicon-car-anything {
+	background-position: 0 -198px !important;
+}
+.vc_element-icon.mpc-shicon-car-images {
+	background-position: 0 -231px !important;
+}
+.vc_element-icon.mpc-shicon-car-posts {
+	background-position: 0 -264px !important;
+}
+.vc_element-icon.mpc-shicon-car-slider {
+	background-position: 0 -297px !important;
+}
+.vc_element-icon.mpc-shicon-car-testimonial {
+	background-position: 0 -330px !important;
+}
+.vc_element-icon.mpc-shicon-chart {
+	background-position: 0 -363px !important;
+}
+.vc_element-icon.mpc-shicon-circle-icons {
+	background-position: 0 -396px !important;
+}
+.vc_element-icon.mpc-shicon-connected-icons {
+	background-position: 0 -429px !important;
+}
+.vc_element-icon.mpc-shicon-countdown {
+	background-position: 0 -462px !important;
+}
+.vc_element-icon.mpc-shicon-counter {
+	background-position: 0 -495px !important;
+}
+.vc_element-icon.mpc-shicon-cubebox {
+	background-position: 0 -528px !important;
+}
+.vc_element-icon.mpc-shicon-divider {
+	background-position: 0 -561px !important;
+}
+.vc_element-icon.mpc-shicon-dropcap {
+	background-position: 0 -594px !important;
+}
+.vc_element-icon.mpc-shicon-flipbox {
+	background-position: 0 -627px !important;
+}
+.vc_element-icon.mpc-shicon-grid-anything {
+	background-position: 0 -660px !important;
+}
+.vc_element-icon.mpc-shicon-grid-images {
+	background-position: 0 -693px !important;
+}
+.vc_element-icon.mpc-shicon-grid-posts {
+	background-position: 0 -726px !important;
+}
+.vc_element-icon.mpc-shicon-icon {
+	background-position: 0 -759px !important;
+}
+.vc_element-icon.mpc-shicon-icon-column {
+	background-position: 0 -792px !important;
+}
+.vc_element-icon.mpc-shicon-ihover,
+.vc_element-icon.mpc-shicon-ihover-item {
+	background-position: 0 -825px !important;
+}
+.vc_element-icon.mpc-shicon-image {
+	background-position: 0 -858px !important;
+}
+.vc_element-icon.mpc-shicon-inter-image,
+.vc_element-icon.mpc-shicon-hotspot {
+	background-position: 0 -891px !important;
+}
+.vc_element-icon.mpc-shicon-lightbox {
+	background-position: 0 -924px !important;
+}
+.vc_element-icon.mpc-shicon-map,
+.vc_element-icon.mpc-shicon-marker {
+	background-position: 0 -957px !important;
+}
+.vc_element-icon.mpc-shicon-modal {
+	background-position: 0 -990px !important;
+}
+.vc_element-icon.mpc-shicon-pricing-box,
+.vc_element-icon.mpc-shicon-pricing-column,
+.vc_element-icon.mpc-shicon-pricing-legend {
+	background-position: 0 -1023px !important;
+}
+.vc_element-icon.mpc-shicon-progress-bar {
+	background-position: 0 -1056px !important;
+}
+.vc_element-icon.mpc-shicon-quote {
+	background-position: 0 -1089px !important;
+}
+.vc_element-icon.mpc-shicon-single-post {
+	background-position: 0 -1122px !important;
+}
+.vc_element-icon.mpc-shicon-tabs,
+.vc_element-icon.mpc-shicon-tab {
+	background-position: 0 -1155px !important;
+}
+.vc_element-icon.mpc-shicon-testimonial {
+	background-position: 0 -1188px !important;
+}
+.vc_element-icon.mpc-shicon-mailchimp {
+	background-position: 0 -1221px !important;
+}
+.vc_element-icon.mpc-shicon-icon-list {
+	background-position: 0 -1254px !important;
+}
+.vc_element-icon.mpc-shicon-qrcode {
+	background-position: 0 -1287px !important;
+}
+.vc_element-icon.mpc-shicon-timeline-basic,
+.vc_element-icon.mpc-shicon-timeline-item {
+	background-position: 0 -1320px !important;
+}
+.vc_element-icon.mpc-shicon-textblock {
+	background-position: 0 -1353px !important;
+}
+.vc_element-icon.mpc-shicon-wc-add_to_cart {
+	background-position: 0 -1386px !important;
+}
+.vc_element-icon.mpc-shicon-wc-carousel-categories {
+	background-position: 0 -1419px !important;
+}
+.vc_element-icon.mpc-shicon-wc-grid-categories {
+	background-position: 0 -1452px !important;
+}
+.vc_element-icon.mpc-shicon-wc-carousel-products {
+	background-position: 0 -1485px !important;
+}
+.vc_element-icon.mpc-shicon-wc-category {
+	background-position: 0 -1518px !important;
+}
+.vc_element-icon.mpc-shicon-wc-product {
+	background-position: 0 -1551px !important;
+}
+.vc_element-icon.mpc-shicon-wc-grid-products {
+	background-position: 0 -1584px !important;
+}

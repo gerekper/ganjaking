@@ -1,0 +1,109 @@
+
+/*
+	* LayerSlider Add-On: Popup Slider Styles
+	*
+	* (c) 2011-2020 George Krupa, John Gera & Kreatura Media
+	*
+	* LayerSlider home:		https://layerslider.kreaturamedia.com/
+	* Licensing:			https://layerslider.kreaturamedia.com/licensing/
+*/
+
+
+
+.ls-popup-overlay {
+	position: fixed !important;
+	z-index: 999999 !important;
+	left: 0;
+	top: 0;
+	width: 100% !important;
+	height: 100% !important;
+	display: none;
+}
+
+.ls-popup {
+	position: static !important;
+	width: 0 !important;
+	height: 0 !important;
+	overflow: hidden !important;
+	visibility: hidden !important;
+}
+
+.ls-popup-visible {
+	position: fixed !important;
+	width: auto !important;
+	height: auto !important;
+	z-index: 9999999 !important;
+	display: block !important;
+	overflow: visible !important;
+	visibility: visible !important;
+}
+
+.ls-popup-visible .ls-popup-inner {
+	width: 100% !important;
+	height: 100% !important;
+}
+
+.ls-popup,
+.ls-popup-inner {
+	border: 0 !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	pointer-events: none !important;
+	background: none !important;
+}
+
+.ls-popup-visible .ls-popup-inner .ls-container {
+	position: absolute !important;
+	pointer-events: auto !important;
+}
+
+.ls-popup-close-button {
+	position: absolute;
+	width: 28px;
+	height: 28px;
+	border-radius: 100%;
+	border: 2px solid white;
+	z-index: 1000;
+	left: 10px;
+	top: 10px;
+	cursor: pointer;
+	opacity: .75;
+	transition: opacity .3s ease-in-out;
+	background: rgba(0,0,0,.25);
+	box-sizing: content-box !important;
+}
+
+.ls-popup-close-button:before,
+.ls-popup-close-button:after {
+	content: '';
+	width: 20px;
+	height: 2px;
+	position: absolute;
+	top: 13px;
+	left: 4px;
+	background: white;
+	border-radius: 10px;
+	transition: transform .2s ease-in-out;
+}
+
+.ls-popup-close-button:before {
+	transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+}
+
+.ls-popup-close-button:after {
+	transform: rotate(-45deg);
+	-ms-transform: rotate(-45deg);
+}
+
+.ls-popup-close-button:hover {
+	opacity: 1;
+}
+
+.ls-popup-close-button:hover:before {
+	transform: rotate(135deg);
+}
+
+.ls-popup-close-button:hover:after {
+	transform: rotate(45deg);
+}

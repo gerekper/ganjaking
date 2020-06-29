@@ -1,0 +1,502 @@
+# Copyright (C) 2020 Themesquad
+# This file is distributed under the GNU General Public License v3.0.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Subscribe to Newsletter 2.8.1\n"
+"Report-Msgid-Bugs-To: "
+"https://github.com/woocommerce/woocommerce-subscribe-to-newsletter/issues\n"
+"POT-Creation-Date: 2020-05-26 15:42:23+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"X-Generator: grunt-wp-i18n 1.0.3\n"
+
+#: includes/admin/class-wc-newsletter-subscription-admin-settings.php:31
+msgid "Newsletter"
+msgstr ""
+
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:103
+msgid "Checked"
+msgstr ""
+
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:104
+msgid "Un-checked"
+msgstr ""
+
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:268
+msgid "Select a list..."
+msgstr ""
+
+#: includes/class-wc-cm-integration.php:100
+msgid "Unable to load data from Campaign Monitor - check your API key."
+msgstr ""
+
+#: includes/class-wc-cm-integration.php:126
+#: includes/class-wc-mailchimp-newsletter-integration.php:204
+#: includes/class-wc-mailpoet-integration.php:113
+msgid "Total subscribers"
+msgstr ""
+
+#: includes/class-wc-cm-integration.php:127
+msgid "Subscribers today"
+msgstr ""
+
+#: includes/class-wc-cm-integration.php:128
+msgid "Subscribers this month"
+msgstr ""
+
+#: includes/class-wc-cm-integration.php:129
+msgid "Unsubscribes this month"
+msgstr ""
+
+#: includes/class-wc-cm-integration.php:135
+msgid "Unable to load stats from Campaign Monitor"
+msgstr ""
+
+#: includes/class-wc-cm-integration.php:185
+msgid "Unexpected response from Campaign Monitor API."
+msgstr ""
+
+#: includes/class-wc-cm-integration.php:187
+msgid "HTTP status code %s with following response: %s."
+msgstr ""
+
+#: includes/class-wc-cm-integration.php:191
+msgid "Email subscription failed (Campaign Monitor)"
+msgstr ""
+
+#: includes/class-wc-mailchimp-newsletter-integration.php:164
+#. translators: 1: list code 2: list error
+msgid "Unable to load lists() from MailChimp: (%1$s) %2$s"
+msgstr ""
+
+#: includes/class-wc-mailchimp-newsletter-integration.php:199
+msgid "Unable to load stats from MailChimp"
+msgstr ""
+
+#: includes/class-wc-mailchimp-newsletter-integration.php:205
+#: includes/class-wc-mailpoet-integration.php:114
+msgid "Unsubscribes"
+msgstr ""
+
+#: includes/class-wc-mailchimp-newsletter-integration.php:206
+msgid "Subscribers since last newsletter"
+msgstr ""
+
+#: includes/class-wc-mailchimp-newsletter-integration.php:207
+msgid "Unsubscribes since last newsletter"
+msgstr ""
+
+#: includes/class-wc-mailchimp-newsletter-integration.php:256
+msgid "Email subscription failed (Mailchimp)"
+msgstr ""
+
+#: includes/class-wc-mailpoet-integration.php:164
+msgid "No error messages were returned by MailPoet."
+msgstr ""
+
+#: includes/class-wc-mailpoet-integration.php:169
+msgid "Email subscription failed (MailPoet)"
+msgstr ""
+
+#: includes/class-wc-mailpoet-integration.php:170
+msgid "Error:"
+msgstr ""
+
+#: includes/class-wc-subscribe-to-newsletter-privacy.php:12
+msgid "Subscribe to Newsletter"
+msgstr ""
+
+#: includes/class-wc-subscribe-to-newsletter-privacy.php:20
+msgid ""
+"By using this extension, you may be storing personal data or sharing data "
+"with an external service. <a href=\"%s\" target=\"_blank\">Learn more about "
+"how this works, including what you may want to include in your privacy "
+"policy.</a>"
+msgstr ""
+
+#: includes/class-wc-widget-subscribe-to-newsletter.php:147
+#. translators: %s: settings URL
+msgid "You must set up <a href=\"%s\">API details</a> before using this widget."
+msgstr ""
+
+#: woocommerce-subscribe-to-newsletter.php:205
+msgid "Newsletter subscribers"
+msgstr ""
+
+#: woocommerce-subscribe-to-newsletter.php:307
+msgid "User subscribed to newsletter via PayPal Express return page."
+msgstr ""
+
+#: woocommerce-subscribe-to-newsletter.php:365
+msgid "Points earned for newsletter signup"
+msgstr ""
+
+#: woocommerce-subscribe-to-newsletter.php:366
+msgid ""
+"Enter the amount of points earned when a customer signs up for a newsletter "
+"via the \"Subscribe to Newsletter\" extension."
+msgstr ""
+
+#: woocommerce-subscribe-to-newsletter.php:388
+#. translators: 1: points label
+msgid "%s earned for newsletter signup"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce Subscribe to Newsletter"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://woocommerce.com/products/newsletter-subscription/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Allow users to subscribe to your newsletter via the checkout page and via a "
+"sidebar widget. Supports MailChimp and Campaign Monitor and also MailChimp "
+"ecommerce360 tracking. Go to WooCommerce > Settings > Newsletter to "
+"configure the plugin."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Themesquad"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://themesquad.com"
+msgstr ""
+
+#: includes/abstracts/abstract-wc-newsletter-subscription-settings-api.php:177
+msgctxt "settings back link label"
+msgid "Return to the Extension settings"
+msgstr ""
+
+#: includes/admin/class-wc-newsletter-subscription-admin.php:79
+msgctxt "settings notice"
+msgid "Your newsletter service provider was disconnected successfully."
+msgstr ""
+
+#: includes/admin/class-wc-newsletter-subscription-admin.php:110
+msgctxt "aria-label: settings link"
+msgid "View WooCommerce Newsletter Subscription Settings"
+msgstr ""
+
+#: includes/admin/class-wc-newsletter-subscription-admin.php:111
+msgctxt "plugin action link"
+msgid "Settings"
+msgstr ""
+
+#: includes/admin/class-wc-newsletter-subscription-admin.php:134
+msgctxt "aria-label: documentation link"
+msgid "View WooCommerce Newsletter Subscription Documentation"
+msgstr ""
+
+#: includes/admin/class-wc-newsletter-subscription-admin.php:135
+msgctxt "plugin row link"
+msgid "Docs"
+msgstr ""
+
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:31
+msgctxt "settings page title"
+msgid "Newsletter"
+msgstr ""
+
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:32
+msgctxt "settings page description"
+msgid "Configure your newsletter provider."
+msgstr ""
+
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:61
+msgctxt "setting title"
+msgid "Service provider"
+msgstr ""
+
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:87
+msgctxt "setting title"
+msgid "Disconnect account"
+msgstr ""
+
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:99
+msgctxt "setting title"
+msgid "Default checkbox status"
+msgstr ""
+
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:110
+msgctxt "setting title"
+msgid "Subscribe checkbox label"
+msgstr ""
+
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:161
+msgctxt "setting title"
+msgid "MailChimp API Key"
+msgstr ""
+
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:178
+msgctxt "setting title"
+msgid "MailChimp List"
+msgstr ""
+
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:184
+msgctxt "setting title"
+msgid "Enable Double Opt-in?"
+msgstr ""
+
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:208
+msgctxt "setting title"
+msgid "Campaign Monitor API Key"
+msgstr ""
+
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:221
+msgctxt "setting title"
+msgid "Campaign Monitor List"
+msgstr ""
+
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:248
+msgctxt "setting title"
+msgid "MailPoet List"
+msgstr ""
+
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:62
+msgctxt "setting desc"
+msgid "Choose which service is handling your subscribers."
+msgstr ""
+
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:89
+msgctxt "setting desc"
+msgid "Disconnect newsletter provider."
+msgstr ""
+
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:100
+msgctxt "setting desc"
+msgid ""
+"The default state of the subscribe checkbox. Be aware some countries have "
+"laws against using opt-out checkboxes."
+msgstr ""
+
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:111
+msgctxt "setting desc"
+msgid ""
+"The text you want to display next to the \"subscribe to newsletter\" "
+"checkboxes."
+msgstr ""
+
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:162
+msgctxt "setting desc"
+msgid "Enter your MailChimp api key"
+msgstr ""
+
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:166
+#. translators: %s: MailChimp URL for getting the API key
+msgctxt "setting desc"
+msgid ""
+"You can obtain your API key by logging in to your <a href=\"%s\" "
+"target=\"_blank\">MailChimp account</a>."
+msgstr ""
+
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:179
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:222
+msgctxt "setting desc"
+msgid "Choose a list customers can subscribe to."
+msgstr ""
+
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:185
+msgctxt "setting desc"
+msgid ""
+"Controls whether a double opt-in confirmation message is sent, defaults to "
+"true. Abusing this may cause your account to be suspended."
+msgstr ""
+
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:209
+msgctxt "setting desc"
+msgid "You can obtain your API key by logging in to your Campaign Monitor account."
+msgstr ""
+
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:210
+msgctxt "setting desc"
+msgid "Enter your Campaign Monitor api key"
+msgstr ""
+
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:249
+msgctxt "setting desc"
+msgid ""
+"Choose a list customers can subscribe to (MailPoet WordPress plugin must be "
+"installed and configured first)."
+msgstr ""
+
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:250
+msgctxt "setting desc"
+msgid ""
+"Choose a list customers can subscribe to. The <a "
+"href=\"https://www.mailpoet.com/\" target=\"_blank\">MailPoet</a> WordPress "
+"plugin must be installed and configured first."
+msgstr ""
+
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:65
+msgctxt "setting option"
+msgid "MailChimp"
+msgstr ""
+
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:66
+msgctxt "setting option"
+msgid "Campaign Monitor"
+msgstr ""
+
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:67
+msgctxt "setting option"
+msgid "MailPoet"
+msgstr ""
+
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:88
+msgctxt "disconnect account button"
+msgid "Disconnect"
+msgstr ""
+
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:95
+msgctxt "settings section title"
+msgid "Subscription Settings"
+msgstr ""
+
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:109
+#: woocommerce-subscribe-to-newsletter.php:240
+msgctxt "subscription checkbox label"
+msgid "Subscribe to our newsletter"
+msgstr ""
+
+#: includes/class-wc-widget-subscribe-to-newsletter.php:21
+msgctxt "widget title"
+msgid "WooCommerce Subscribe to Newsletter"
+msgstr ""
+
+#: includes/class-wc-widget-subscribe-to-newsletter.php:22
+msgctxt "widget desc"
+msgid "Allows users to subscribe to your newsletter."
+msgstr ""
+
+#: includes/class-wc-widget-subscribe-to-newsletter.php:97
+msgctxt "widget setting"
+msgid "Title:"
+msgstr ""
+
+#: includes/class-wc-widget-subscribe-to-newsletter.php:102
+msgctxt "widget setting"
+msgid "Message:"
+msgstr ""
+
+#: includes/class-wc-widget-subscribe-to-newsletter.php:107
+msgctxt "widget setting"
+msgid "List:"
+msgstr ""
+
+#: includes/class-wc-widget-subscribe-to-newsletter.php:113
+msgctxt "widget setting"
+msgid "Name field(s):"
+msgstr ""
+
+#: includes/class-wc-widget-subscribe-to-newsletter.php:98
+msgctxt "widget default title"
+msgid "Subscribe to our Newsletter"
+msgstr ""
+
+#: includes/class-wc-widget-subscribe-to-newsletter.php:103
+msgctxt "widget default message"
+msgid "Join our mailing list to receive the latest news."
+msgstr ""
+
+#: includes/class-wc-widget-subscribe-to-newsletter.php:116
+msgctxt "widget setting option"
+msgid "No name"
+msgstr ""
+
+#: includes/class-wc-widget-subscribe-to-newsletter.php:117
+msgctxt "widget setting option"
+msgid "Single name"
+msgstr ""
+
+#: includes/class-wc-widget-subscribe-to-newsletter.php:118
+msgctxt "widget setting option"
+msgid "First + Last name"
+msgstr ""
+
+#: includes/class-wc-widget-subscribe-to-newsletter.php:233
+msgctxt "widget label"
+msgid "Name:"
+msgstr ""
+
+#: includes/class-wc-widget-subscribe-to-newsletter.php:239
+msgctxt "widget label"
+msgid "First Name:"
+msgstr ""
+
+#: includes/class-wc-widget-subscribe-to-newsletter.php:245
+msgctxt "widget label"
+msgid "Last Name:"
+msgstr ""
+
+#: includes/class-wc-widget-subscribe-to-newsletter.php:251
+msgctxt "widget label"
+msgid "Phone:"
+msgstr ""
+
+#: includes/class-wc-widget-subscribe-to-newsletter.php:262
+msgctxt "widget label"
+msgid "Email Address:"
+msgstr ""
+
+#: includes/class-wc-widget-subscribe-to-newsletter.php:234
+msgctxt "widget placeholder"
+msgid "Name"
+msgstr ""
+
+#: includes/class-wc-widget-subscribe-to-newsletter.php:240
+msgctxt "widget placeholder"
+msgid "First name"
+msgstr ""
+
+#: includes/class-wc-widget-subscribe-to-newsletter.php:246
+msgctxt "widget placeholder"
+msgid "Last name"
+msgstr ""
+
+#: includes/class-wc-widget-subscribe-to-newsletter.php:252
+msgctxt "widget placeholder"
+msgid "Phone"
+msgstr ""
+
+#: includes/class-wc-widget-subscribe-to-newsletter.php:263
+msgctxt "widget placeholder"
+msgid "Email address"
+msgstr ""
+
+#: includes/class-wc-widget-subscribe-to-newsletter.php:272
+msgctxt "widget submit"
+msgid "Subscribe"
+msgstr ""
+
+#: includes/wc-newsletter-subscription-functions.php:79
+msgctxt "widget error"
+msgid "An unexpected error happened."
+msgstr ""
+
+#: includes/wc-newsletter-subscription-functions.php:85
+msgctxt "widget error"
+msgid "Please, enter a valid email address."
+msgstr ""
+
+#: includes/wc-newsletter-subscription-functions.php:90
+msgctxt "widget error"
+msgid "Are you a robot?"
+msgstr ""
+
+#: includes/wc-newsletter-subscription-functions.php:105
+msgctxt "widget error"
+msgid "Too many attempts to subscribe. Try it again later."
+msgstr ""
+
+#: includes/wc-newsletter-subscription-functions.php:145
+msgctxt "widget success"
+msgid "Thanks for subscribing."
+msgstr ""

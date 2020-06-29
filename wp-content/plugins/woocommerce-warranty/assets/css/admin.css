@@ -1,0 +1,205 @@
+.warranty-updated {
+    background-color: #ffffe0;
+    border-color: #e6db55;
+    border-radius: 3px;
+    border-style: solid;
+    border-width: 1px;
+    margin: 5px 0 15px;
+    padding: 0 0.6em;
+    width: 95%;
+}
+
+.warranty-updated p {
+    margin: 0.8em 0 !important;
+}
+
+div.warranty_form {
+    float: left;
+    width: 65%;
+}
+
+div.warranty_fields {
+    float: left;
+    width: 300px;
+    margin-left: 15px;
+}
+
+div.warranty_form h4, div.warranty_fields h4 {
+    margin: 0;
+}
+
+ul#warranty_form, ul#warranty_form_fields {
+    border: 1px solid #ececec;
+    background: #fff;
+    margin-bottom: 5px;
+}
+
+ul#warranty_form li, ul#warranty_form_fields li {
+    position: relative;
+    padding: 5px;
+}
+
+ul#warranty_form li.placeholder {
+    color: #c9c9c9;
+    font-style: italic;
+}
+
+ul#warranty_form li.wfb-field {
+
+}
+
+ul#warranty_form_fields {
+    width: 200px;
+}
+a.control.button {
+    width: 100%;
+}
+
+ul#warranty_form .wfb-field-controls {
+    position: absolute;
+    right: 5px;
+    top: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+ul#warranty_form .wfb-field-controls a {text-decoration: none; margin: 0 2px;}
+
+ul#warranty_form h3 {
+	margin: 10px 0;
+}
+
+.wfb-field-content {
+    background: #F1F1F1;
+    padding: 0 5px;
+    border-top: 1px solid #cecece;
+    border-bottom: 1px solid #cecece;
+}
+
+li.wfb-field {cursor:move;}
+
+
+.wfb-field-block {
+    width: 50%;
+    float: left;
+}
+
+.wfb-field-block .normal-width {
+    width: auto;
+}
+
+.wfb-field-block select {
+    float: none !important;
+}
+
+table.toplevel_page_warranties tr.inline-edit-row {
+    background: #eee;
+}
+
+table.toplevel_page_warranties tr.inline-edit-row td {
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+.button.tips.inline-rma {
+    padding: 2px !important;
+    font-size: 19px;
+    line-height: 10px;
+}
+
+.button.tips.inline-rma span.dashicons {
+    font-size: 20px;
+}
+
+.inline-edit-order .warranty-request {
+    margin-bottom: 30px;
+}
+
+.inline-edit-order .warranty-request h2 {
+    border-bottom: 1px solid #ccc;
+}
+
+.inline-edit-order .warranty-request div.field .label {
+    display: inline-block;
+    width: 40%;
+    font-weight: bold;
+}
+
+.inline-edit-order .warranty-request div.field .value {
+    display: inline-block;
+    width: 59%;
+}
+
+.inline-edit-order .warranty-request input.full-width {
+    width: 100%;
+}
+
+.warranty-request div > h4 {
+    margin-top: 15px;
+}
+
+ul.admin-notes {
+    padding: 2px 0 0;
+}
+ul.admin-notes li {
+    padding: 0 10px;
+}
+
+ul.admin-notes li .note-content::after {
+    border-color: #fff transparent;
+    border-style: solid;
+    border-width: 10px 10px 0 0;
+    bottom: -10px;
+    content: "";
+    display: block;
+    height: 0;
+    left: 20px;
+    position: absolute;
+    width: 0;
+}
+
+ul.admin-notes li .note-content {
+    background: #fff none repeat scroll 0 0;
+    padding: 10px 10px 5px 10px;
+    position: relative;
+}
+
+ul.admin-notes li p.meta {
+    color: #999;
+    font-size: 11px;
+    margin: 0;
+    padding: 10px;
+}
+
+ul.admin-notes li a.delete_note {
+    color: #a00;
+}
+
+ul.order-items {
+    margin: 0;
+}
+
+table.warranty th#order_id {
+    width: 10%;
+}
+
+table.warranty th#order_status {
+    width: 10%;
+}
+
+table.warranty th#order_customer {
+    width: 20%;
+}
+
+table.warranty th#order_items {
+    width: 45%;
+}
+
+table.warranty th#order_date {
+    width: 15%;
+}
+
+.widefat .column-order_actions a.button.inline-rma {
+    height: 1.4em;
+}

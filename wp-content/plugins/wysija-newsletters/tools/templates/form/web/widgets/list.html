@@ -1,0 +1,4 @@
+{if #params.label}<p class="wysija-checkbox-label">{#params.label}</p>{/if}
+{loop name="#params.values"}
+    <p class="wysija-checkbox-paragraph"><label><input class="wysija-checkbox {$validation}" name="wysija[user_list][list_id][]" type="checkbox" value="{#list_id}" {if #is_checked}checked="checked"{/if} /> {#name}</label></p>
+{/loop}

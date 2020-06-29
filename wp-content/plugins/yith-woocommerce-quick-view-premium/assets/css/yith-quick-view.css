@@ -1,0 +1,837 @@
+/*=======================
+* MODAL POPUP STYLE
+========================*/
+
+html.yith-quick-view-is-open,
+html.yith-quick-view-is-open body {
+    overflow: hidden;
+}
+
+html.yith-quick-view-is-open .select2-container.select2-container--open {
+    z-index: 1500;
+}
+
+.yith-quick-view.yith-modal {
+    position: fixed;
+    visibility: hidden;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1400;
+    opacity: 0;
+    text-align: center;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+.yith-quick-view.yith-modal .yith-quick-view-overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba( 0, 0, 0, 0.8);
+}
+
+.yith-quick-view.yith-modal .yith-wcqv-wrapper {
+    position: absolute;
+    visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    backface-visibility: hidden;
+    text-align: left;
+}
+
+.yith-quick-view.yith-modal .yith-wcqv-main {
+    opacity: 0;
+    height: 100%;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+    -webkit-box-shadow: 0 0 0 10px rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+.yith-quick-view.yith-modal.open,
+.yith-quick-view.yith-modal.open .yith-wcqv-wrapper {
+    visibility: visible;
+    opacity: 1;
+}
+
+.yith-quick-view.yith-modal.open .yith-wcqv-main {
+    opacity: 1;
+}
+
+.yith-quick-view.yith-modal .yith-quick-view-content {
+    height: 100%;
+}
+
+/* SLIDE IN */
+
+.yith-quick-view.yith-modal.slide-in .yith-wcqv-main {
+    -webkit-transform: translateY(20%);
+    -moz-transform: translateY(20%);
+    -ms-transform: translateY(20%);
+    transform: translateY(20%);
+}
+.yith-quick-view.yith-modal.open.slide-in .yith-wcqv-main {
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
+}
+
+/* FADE IN SCALE */
+
+.yith-quick-view.yith-modal.fade-in .yith-wcqv-main {
+    -webkit-transform: scale(0.7);
+    -moz-transform: scale(0.7);
+    -ms-transform: scale(0.7);
+    transform: scale(0.7);
+}
+.yith-quick-view.yith-modal.open.fade-in .yith-wcqv-main {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+}
+
+/* SCALE UP */
+
+.yith-quick-view.yith-modal.scale-up .yith-wcqv-main {
+    -webkit-transform: scale(1.5);
+    -moz-transform: scale(1.5);
+    -ms-transform: scale(1.5);
+    transform: scale(1.5);
+}
+.yith-quick-view.yith-modal.open.scale-up .yith-wcqv-main {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+}
+
+
+/*=========================
+* INLINE STYLE
+=========================*/
+
+.yith-quick-view.yith-inline {
+    position: relative;
+    display: none;
+    clear: both;
+}
+.yith-quick-view.yith-inline .yith-quick-view-overlay {
+    display: none;
+}
+.yith-quick-view.yith-inline .yith-wcqv-main {
+    padding: 20px 0;
+}
+.yith-quick-view-content:after,
+.yith-quick-view-content:before {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+.yith-quick-view-content div.woocommerce-product-rating:after,
+.yith-quick-view-content div.woocommerce-product-rating:before {
+    content: '';
+    display: table;
+    clear: both;
+}
+.yith-quick-view-content div.woocommerce-product-rating a.woocommerce-review-link {
+    display: none;
+}
+
+/*===========================
+* QUICK VIEW CLOSE
+============================*/
+
+.yith-wcqv-head {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    z-index: 10;
+}
+
+.yith-quick-view-close {
+    background: url('../image/close.png') no-repeat center;
+    cursor: pointer;
+    box-shadow: none;
+    display: block;
+    width: 24px;
+    height: 24px;
+    text-indent: -99999px;
+    -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(100%);
+    opacity: 0.3;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.yith-quick-view-close:hover {
+    -webkit-filter: none; /* Safari 6.0 - 9.0 */
+    filter: none;
+    opacity: 1;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+
+/*============================
+* QUICK VIEW NAVIGATION
+=============================*/
+
+.yith-quick-view-nav a {
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    display: block;
+}
+.yith-quick-view-nav a:before {
+    content: '';
+    position: absolute;
+    background: url( '../image/nav-arrow.png' ) no-repeat center;
+    top: 0;
+    bottom: 0;
+}
+.yith-quick-view-nav a.yith-wcqv-prev:before {
+    -ms-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+.yith-quick-view-nav a.yith-wcqv-next {
+    right: 0;
+}
+
+.yith-quick-view-nav a.yith-wcqv-left {
+    left: 0;
+}
+
+/* diamond */
+
+.yith-quick-view-nav.diamond a:before {
+    width: 100%;
+    z-index: 10;
+    right: 0;
+}
+
+.yith-quick-view-nav.diamond a {
+    margin: 0 30px;
+}
+
+.yith-quick-view-nav.diamond div {
+    position: relative;
+    overflow: hidden;
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.2);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform: scale(0.6);
+    transform: scale(0.6);
+    -webkit-transition: -webkit-transform 0.3s;
+    transition: transform 0.3s;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.yith-quick-view-nav.diamond div img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    opacity: 0;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
+    transition: opacity 0.3s, transform 0.3s;
+    max-width: none;
+}
+
+.yith-quick-view-nav.diamond a.yith-wcqv-next img {
+    -webkit-transform: translateX(-50%) translateY(-50%) rotate(-45deg) scale(2);
+    transform: translateX(-50%) translateY(-50%) rotate(-45deg) scale(2);
+}
+
+.yith-quick-view-nav.diamond a.yith-wcqv-prev img {
+    -webkit-transform: translateX(-50%) translateY(-50%) rotate(45deg) scale(2);
+    transform: translateX(-50%) translateY(-50%) rotate(45deg) scale(2);
+}
+
+/* hover */
+.yith-quick-view-nav.diamond a:hover div {
+    -webkit-transform: scale(1) rotate(-45deg);
+    transform: scale(1) rotate(-45deg);
+}
+.yith-quick-view-nav.diamond a.yith-wcqv-next:hover div {
+    -webkit-transform: scale(1) rotate(45deg);
+    transform: scale(1) rotate(45deg);
+}
+.yith-quick-view-nav.diamond a:hover img {
+    opacity: 0.8;
+}
+.yith-quick-view-nav.diamond a.yith-wcqv-prev:hover img {
+    -webkit-transform: translateX(-50%) translateY(-50%) rotate(45deg) scale(1);
+    transform: translateX(-50%) translateY(-50%) rotate(45deg) scale(1);
+}
+.yith-quick-view-nav.diamond a.yith-wcqv-next:hover img {
+    -webkit-transform: translateX(-50%) translateY(-50%) rotate(-45deg) scale(1);
+    transform: translateX(-50%) translateY(-50%) rotate(-45deg) scale(1);
+}
+
+/* reveal */
+
+.yith-quick-view-nav.reveal a {
+    background-color: rgba(255, 255, 255, 0.2);
+    width: 40px;
+    height: 70px;
+    overflow: hidden;
+    -webkit-transition: width 0.4s, background-color 0.4s;
+    transition: width 0.4s, background-color 0.4s;
+    -webkit-transition-timing-function: cubic-bezier(0.7,0,0.3,1);
+    transition-timing-function: cubic-bezier(0.7,0,0.3, 1 );
+
+}
+.yith-quick-view-nav.reveal a:before {
+    width: 40px;
+}
+.yith-quick-view-nav.reveal a.yith-wcqv-prev:before {
+    left: 0;
+}
+.yith-quick-view-nav.reveal a.yith-wcqv-next:before {
+    right: 0;
+}
+
+.yith-quick-view-nav.reveal a div {
+    position: absolute;
+    top: 0;
+    max-width: 250px;
+    width: 100%;
+    height: 100%;
+    padding: 0 50px;
+    display: table;
+    opacity: 0;
+    -webkit-transition: all 0.4s;
+    transition: all 0.4s;
+}
+
+.yith-quick-view-nav.reveal a div h4 {
+    position: relative;
+    margin: 0;
+    padding: 10px 0;
+    color: #fff;
+    font-size: 13px;
+    line-height: normal;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.yith-quick-view-nav.reveal a div img {
+    position: absolute;
+    top: 10px;
+    width: 50px;
+    height: auto;
+}
+.yith-quick-view-nav.reveal a.yith-wcqv-prev {
+    left: 0;
+}
+.yith-quick-view-nav.reveal a.yith-wcqv-prev div {
+    padding-right: 70px;
+    text-align: right;
+}
+.yith-quick-view-nav.reveal a.yith-wcqv-prev div img {
+    right: 10px;
+}
+
+.yith-quick-view-nav.reveal a.yith-wcqv-next {
+    right: 0;
+}
+.yith-quick-view-nav.reveal a.yith-wcqv-next div {
+    right: 0;
+    padding-left: 70px;
+    text-align: left;
+}
+.yith-quick-view-nav.reveal a.yith-wcqv-next div img {
+    left: 10px;
+}
+
+/* hover */
+.yith-quick-view-nav.reveal a:hover {
+    width: 250px;
+}
+.yith-quick-view-nav.reveal a:hover div {
+    opacity: 1;
+    -webkit-transition: all 0.4s;
+    transition: all 0.4s;
+}
+
+/* pagination */
+.yith-quick-view.yith-modal .yith-wcqv-wrapper .bx-pager {
+    position: absolute;
+    bottom: 0;
+    width: 300px;
+    left: 50%;
+    margin-left: -150px;
+}
+
+.yith-quick-view.yith-modal .yith-wcqv-wrapper .bx-pager .bx-pager-item {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.yith-quick-view.yith-modal .yith-wcqv-wrapper .bx-pager .bx-pager-item a {
+    border: 1px solid black;
+    border-radius: 50%;
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    color: transparent;
+}
+
+.yith-quick-view.yith-modal .yith-wcqv-wrapper .bx-pager .bx-pager-item a.active {
+    background-color: #000000;
+}
+
+.yith-quick-view.yith-modal .bx-controls.bx-has-controls-direction.bx-has-pager {
+    text-align: center;
+}
+
+/*=============================
+* QUICK VIEW SHARE
+==============================*/
+
+.yith-quick-view-share {
+    margin-top: 20px;
+}
+.yith-quick-view-share > a {
+    cursor: pointer;
+    display: inline-block;
+    background: url( '../image/socials.png' ) no-repeat;
+    text-indent: -99999px;
+    text-decoration: none;
+    width: 32px;
+    height: 32px;
+    border-bottom: none;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    margin: 0 3px;
+    border-radius: 50%;
+    outline: none;
+
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+}
+.yith-quick-view-share > a:first-child {
+    margin-left: 0;
+}
+.yith-quick-view-share > a:last-child {
+    margin-right: 0;
+}
+.yith-quick-view-share a.social-facebook { background-position: -47px -5px; }
+.yith-quick-view-share a.social-twitter { background-position: -89px -5px; }
+.yith-quick-view-share a.social-pinterest { background-position: -173px -5px; }
+.yith-quick-view-share a.social-mail { background-position: -5px -5px; }
+.yith-quick-view-share > a:hover {
+    -webkit-box-shadow: inset 0 0 0 250px rgba(255,255,255,.2);
+    -moz-box-shadow: inset 0 0 0 250px rgba(255,255,255,.2);
+    box-shadow: inset 0 0 0 250px rgba(255,255,255,.2);
+
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+}
+
+/*=========================
+* TRIGGER BUTTON
+==========================*/
+
+.yith-wcqv-button {
+    display: inline-block;
+    outline: none;
+    cursor: pointer;
+}
+
+.yith-wcqv-button img.yith-wcqv-icon {
+    max-width: 100%;
+    width: auto !important;
+    height: auto;
+    display: inline-block !important;
+    margin: 0 !important;
+}
+
+.yith-wcqv-button:not( .button ) span {
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.yith-wcqv-button.inside-thumb {
+    position: absolute;
+    text-transform: uppercase;
+    opacity: 0;
+    transform: scale(0);
+    -webkit-transform: scale(0);
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    text-align: center;
+    display: none;
+    z-index: 10;
+}
+
+.yith-wcqv-button.inside-thumb span {
+    padding: 5px 10px;
+    display: inline-block;
+}
+
+.products .product:hover .yith-wcqv-button.inside-thumb,
+.products .product.hover_mobile .yith-wcqv-button.inside-thumb {
+    opacity: 1;
+    transform: scale(1);
+    -webkit-transform: scale(1);
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+}
+
+/*=====================
+* CONTENT STYLE
+====================*/
+
+.yith-quick-view-content.woocommerce div.product {
+    height: 100%;
+}
+.yith-quick-view .yith-quick-view-content.woocommerce div.images {
+    position: relative;
+    overflow: hidden;
+    height: auto;
+    max-height: 100%;
+    float: left;
+    margin: 0;
+    opacity: 1;
+}
+.yith-quick-view-content.woocommerce div.images img {
+    height: auto;
+    max-width: 100%;
+}
+/* LOADING GALLERY */
+.yith-quick-view-content.woocommerce div.images.loading-gallery::after {
+    content: '';
+    position: absolute;
+    background: url('../image/qv-loader.gif') #fff no-repeat center center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1001;
+}
+.yith-quick-view-content div.images .yith-quick-view-thumbs {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    z-index: 1000;
+}
+.yith-quick-view-content div.images .yith-quick-view-thumbs div {
+    float: left;
+    width: 50px;
+    margin: 5px 10px 0 0;
+    border: 1px solid #cdcdcd;
+    cursor: pointer;
+}
+.yith-quick-view-content div.images .yith-quick-view-thumbs div.active {
+    border: 1px solid #222222;
+}
+.yith-quick-view-content div.images .yith-quick-view-thumbs img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+.yith-quick-view-content.woocommerce span.onsale {
+    top: 5px;
+    left: 5px;
+    right: auto;
+    z-index: 10;
+}
+.yith-quick-view .yith-quick-view-content.woocommerce div.summary {
+    display: inline-block;
+    height: auto;
+    max-height: 100%;
+    padding: 0;
+    position: relative;
+    box-sizing: border-box;
+    float: none;
+    margin: 0;
+    overflow: hidden;
+    font-size: inherit;
+}
+.yith-quick-view-content.woocommerce div.summary-content {
+    padding: 20px;
+}
+.yith-quick-view-content.woocommerce div.entry-summary a {
+    border-bottom: 0;
+}
+.yith-quick-view-content.woocommerce div.entry-summary a.reset_variations {
+    visibility: hidden;
+}
+.yith-quick-view-content.woocommerce div.summary h1 {
+    font-size: 30px;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 10px;
+    margin-top: 0;
+}
+.yith-quick-view-content.woocommerce div.summary .woocommerce-product-rating,
+.yith-quick-view-content.woocommerce div.summary .single_variation {
+    margin-bottom: 15px;
+}
+.yith-quick-view-content.woocommerce div.summary form.cart {
+    margin-bottom: 25px;
+}
+.yith-quick-view-content.woocommerce div.summary .woocommerce-product-rating .star-rating,
+.yith-quick-view-content.woocommerce div.summary .woocommerce-product-rating .star-rating:before {
+    height: 14px;
+    font-size: 14px;
+    line-height: 14px;
+}
+.yith-quick-view-content.woocommerce div.summary p {
+    font-size: 15px;
+}
+.yith-quick-view-content.woocommerce #yith-wcwtl-output {
+    margin-bottom: 15px;
+}
+.yith-quick-view-content.woocommerce div.summary .price {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+.yith-quick-view-content.woocommerce div.summary .price del,
+.yith-quick-view-content.woocommerce div.summary .price ins {
+    display: inline-block;
+    background: none;
+}
+.yith-quick-view-content.woocommerce div.summary .price del {
+    font-size: 80%;
+    opacity: 0.5;
+}
+.yith-quick-view-content.woocommerce div.summary div[itemprop="description"],
+.yith-quick-view-content.woocommerce div.summary .product_meta {
+    font-size: 15px;
+}
+.yith-quick-view-content.woocommerce div.summary .product_meta > span {
+    display: block;
+}
+.yith-quick-view-content.woocommerce div.summary div.quantity,
+.yith-quick-view-content.woocommerce div.summary .single_add_to_cart_button {
+    margin-right: 15px;
+    display: inline-block;
+}
+.yith-quick-view-content.woocommerce div.summary table.variations {
+    border: 0;
+    margin-bottom: 0;
+}
+.yith-quick-view-content.woocommerce div.summary table.variations td {
+    padding: 0;
+    border: 0;
+    display: block;
+    margin-bottom: 10px;
+}
+.yith-quick-view-content.woocommerce div.summary .yith-wcqv-view-details {
+    margin: 10px 0;
+    display: inline-block;
+}
+
+.yith-quick-view-content.woocommerce div.product form.cart .variations select {
+    float: none;
+    width: auto;
+}
+
+.yith-quick-view .woocommerce div.product div.images {
+    opacity: 1 !important;
+}
+
+/*=================
+* SLIDER STYLE
+==================*/
+
+.yith-quick-view-content .bx-wrapper {
+    position: relative;
+    padding: 0;
+    zoom: 1;
+    -ms-touch-action: pan-y;
+    touch-action: pan-y;
+    background: #fff;
+}
+.yith-quick-view-content .bx-wrapper img {
+    max-width: 100%;
+    display: block;
+}
+.yith-quick-view-content ul.bxslider,
+.yith-quick-view-content ul.bxslider li {
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+.yith-quick-view-content .bx-viewport {
+    /*fix other elements on the page moving (on Chrome)*/
+    -webkit-transform: translatez(0);
+}
+/* LOADER */
+.yith-quick-view-content .bx-wrapper .bx-loading {
+    min-height: 50px;
+    background: url('../image/bx_loader.gif') center center no-repeat #ffffff;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2000;
+}
+/* NAV */
+.yith-quick-view-content .bx-controls-direction a {
+    opacity: 0;
+    z-index: 10;
+    position: absolute;
+    top: 50%;
+    width: 30px;
+    height: 60px;
+    cursor: pointer;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    transition: opacity 0.3s ease;
+    -webkit-transition: opacity 0.3s ease;
+    -moz-transition: opacity 0.3s ease;
+    -ms-transition: opacity 0.3s ease;
+    background: url( '../image/nav-arrow-slider.png' ) no-repeat center;
+    outline: none;
+}
+.yith-quick-view-content .bx-controls-direction a.bx-prev {
+    left: 0;
+    transform: translateY(-50%) rotate(180deg);
+    -webkit-transform: translateY(-50%) rotate(180deg);
+}
+.yith-quick-view-content .bx-controls-direction a.bx-next {
+    right: 0;
+}
+.yith-quick-view-content .bx-wrapper:hover .bx-controls-direction a {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+    -webkit-transition: opacity 0.3s ease;
+    -moz-transition: opacity 0.3s ease;
+}
+
+/*==============================*/
+
+.yith-wcqv-button .blockUI.blockOverlay:before,
+.yith-quick-view-content .blockUI.blockOverlay:before {
+    background: none;
+}
+
+
+/* inline style */
+.yith-quick-view.yith-inline .yith-quick-view-content div.images,
+.yith-quick-view.yith-inline .yith-quick-view-content div.summary {
+    width: 50%;
+}
+.yith-quick-view.yith-inline .yith-quick-view-content div.images {
+    height: auto;
+}
+.yith-quick-view.yith-inline .yith-quick-view-content.woocommerce span.onsale,
+.yith-quick-view.yith-inline .yith-quick-view-close {
+    top: 25px;
+}
+.yith-quick-view.is-mobile div.images > a {
+    pointer-events: none;
+}
+
+/*=======================================
+* WOOCOMMERCE MESSAGE
+=======================================*/
+
+.yith-quick-view div.woocommerce-message,
+.yith-quick-view ul.woocommerce-error {
+    margin: 35px 15px 15px !important;
+    border-top: none;
+    font-size: 14px;
+}
+
+/*======================================
+LOADING EFFECT
+======================================*/
+
+.yith-quick-view.yith-modal.loading {
+    visibility: visible;
+    opacity: 1;
+}
+
+.yith-quick-view.yith-modal.loading .yith-quick-view-overlay {
+    display: table;
+    width: 100%;
+    height: 100%;
+}
+
+.yith-quick-view.yith-modal.loading .yith-quick-view-overlay p {
+    color: #efefef;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    letter-spacing: 1px;
+}
+
+.yith-quick-view.yith-modal.loading .yith-wcqv-wrapper {
+    visibility: hidden;
+}
+
+/*==============================
+MAGNIFIER INTEGRATION
+===============================*/
+
+.yith-quick-view .yith_magnifier_zoom_wrap,
+.yith-quick-view .yith_magnifier_zoom {
+    height: 100%;
+}
+.yith-quick-view .yith_expand {
+    display: none !important;
+}
+.yith-quick-view div.pp_woocommerce a.pp_expand {
+    left: auto;
+    top: auto;
+    bottom: 5px;
+    right: 5px;
+}
+
+/*============================
+* RESPONSIVE
+===========================*/
+
+@media (max-width: 767px) {
+    .woocommerce .products .product:nth-child(2n), .woocommerce-page .products .product:nth-child(2n) {
+        float: left;
+        clear: both !important;
+    }
+    .woocommerce .products .product:nth-of-type(2n), .woocommerce-page .products .product:nth-of-type(2n) {
+        float: right;
+        clear: none !important;
+    }
+}
+@media (max-width: 480px) {
+    .yith-quick-view.yith-modal .yith-quick-view-content {
+        overflow-y: scroll;
+    }
+    .yith-quick-view.yith-modal .yith-quick-view-content div.images,
+    .yith-quick-view.yith-modal .yith-quick-view-content div.summary {
+        width: 100% !important;
+        height: auto;
+        max-height: none;
+    }
+}
+@media (min-width: 768px) and (max-width: 979px) {
+
+}
+@media (min-width: 980px) and (max-width: 1199px) {
+
+}

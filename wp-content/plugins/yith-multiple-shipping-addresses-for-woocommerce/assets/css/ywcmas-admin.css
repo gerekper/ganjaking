@@ -1,0 +1,53 @@
+/*#poststuff div#woocommerce-order-items div.woocommerce_order_items_wrapper table.woocommerce_order_items tbody.order_shipping_line_items tr.shipping div.edit .ywcmas_edit_shipping_item_fields_table td {*/
+    /*border: 0 !important;*/
+    /*padding-left: 0 !important;*/
+/*}*/
+
+/*.ywcmas_edit_shipping_item_fields_table td {*/
+    /*border: 0 !important;*/
+    /*padding-left: 0 !important;*/
+/*}*/
+
+.ywcmas_edit_shipping_item_fields_table .select2-container {
+    width: 160px !important;
+}
+
+.ywcmas_edit_shipping_address_button::before {
+    font-family: Dashicons;
+    content: "";
+}
+
+#ywcmas-add-exclusion {
+    margin: 20px 0;
+    padding: 20px;
+    background-color: #ebebeb;
+    display: inline-block;
+    border: 1px solid #e0e0e0;
+}
+
+#ywcmas-add-exclusion .select2-container {
+    width: 300px !important;
+    display: inline-block !important;
+}
+
+#ywcmas-add-exclusion h4 {
+    margin: 0 0 10px;
+    text-transform: uppercase;
+}
+
+#ywcmas-exclusion-table td.product img {
+    margin: 0 10px 0 0;
+    vertical-align: middle;
+    width: auto;
+    height: auto;
+    max-width: 40px;
+    max-height: 40px;
+}
+
+.widefat .column-yith_mas {
+    width: 80px;
+}
+
+.wp-admin .ui-dialog .ywcmas_edit_shipping_item_dialog {
+    overflow: inherit;
+}

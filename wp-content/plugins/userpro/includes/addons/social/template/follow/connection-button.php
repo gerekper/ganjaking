@@ -1,0 +1,1 @@
+<a href="<?php echo $userpro->permalink($user_id, 'connections','userpro_connections'); ?>" class="up-social-tab"><?php echo $userpro->connetions_count($user_id); ?></a>

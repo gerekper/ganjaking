@@ -1,0 +1,136 @@
+/* Review statistics */
+table.product-review-stats tbody tr td.stats.selected {
+    background-color: rgb(253, 253, 212);
+}
+
+table.product-review-stats tbody tr td.stats,
+table.product-review-stats thead tr th.stats,
+table.product-review-stats tbody tr td.stats {
+    text-align: center;
+}
+
+/* Review table */
+#ywar-reviews table.wp-list-table thead tr th#upvoting a {
+    background: url("../images/like.png") no-repeat;
+    background-position: 5px 5px;
+    display: inline-block;
+}
+
+#ywar-reviews table.wp-list-table thead tr th#upvoting span.sorting-indicator,
+#ywar-reviews table.wp-list-table thead tr th#downvoting span.sorting-indicator {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+#ywar-reviews table.wp-list-table thead tr th#downvoting a {
+    background: url("../images/dislike.png") no-repeat;
+    background-position: 5px 5px;
+    display: inline-block;
+}
+
+#ywar-reviews table.wp-list-table th.column-reply-status,
+#ywar-reviews table.wp-list-table th.column-review-featured,
+#ywar-reviews table.wp-list-table th.column-inappropriate {
+    width: 140px;
+}
+
+body.post-type-ywar_reviews tr.stop-reply td.column-review span.review-content {
+    color: #ffb92b;
+}
+
+th#review-rating {
+    width: 85px;
+}
+
+#ywar-reviews table tbody tr.review-unapproved {
+    background-color: #fef7f1;
+}
+
+#ywar-reviews table tbody tr.review-unapproved th.check-column {
+    border-left: 4px solid #d54e21;
+}
+
+#ywar-reviews table tbody tr td.column-inappropriate span.inappropriate-review {
+    float: left;
+    padding: 5px;
+}
+
+#ywar-reviews table tbody tr td.column-inappropriate img.inappropriate-review {
+    float: left;
+}
+
+a.edit-product-review {
+    margin-right: 10px;
+}
+
+span.review-title {
+    padding-bottom: 15px;
+    display: inline-block;
+}
+
+span.review-content {
+    font-size: small;
+}
+
+td.column-review-featured a.featured-review {
+    overflow: hidden;
+    position: relative;
+    height: 1em;
+    line-height: 1;
+    font-size: 2em;
+    width: 1em;
+    font-family: star;
+    display: inline-block;
+}
+
+td.column-review-featured a.featured-review:before {
+    color: rgba(211, 206, 210, 0.4);
+    content: "\73";
+    top: 0;
+    position: absolute;
+    left: 0;
+}
+
+td.column-review-featured a.featured-review.selected:before {
+    content: "\53";
+    top: 0;
+    position: absolute;
+    left: 0;
+    color: rgb(227, 227, 111);
+}
+
+td.column-reply-status a.reply-status {
+    font-family: 'WooCommerce';
+    overflow: hidden;
+    position: relative;
+    height: 1em;
+    line-height: 1;
+    font-size: 2em;
+    width: 1em;
+    display: inline-block;
+    color: rgba(211, 206, 210, 0.4);
+}
+
+td.column-reply-status a.reply-status:before {
+    content: "\e602";
+    top: 0;
+    left: 0;
+}
+
+td.column-reply-status a.reply-status.closed:before {
+    content: "\e602";
+    top: 0;
+    left: 0;
+    color: rgb(248, 22, 33);
+}
+
+span.converted-items {
+    font-size: 12px;
+    font-style: italic;
+    font-weight: 600;
+}
+
+.toplevel_page_Reviews table.reviews th#upvoting,
+.toplevel_page_Reviews table.reviews th#downvoting {
+    width: 50px;
+}

@@ -1,0 +1,526 @@
+{
+  "mpc_preset_91": {
+    "__name": "Duku Hospital - \"Departments\" Custom Heading Accordion Set",
+    "offset": "vc_col-md-4",
+    "animation_in_type": "transition.slideRightIn",
+    "animation_in_offset": "60",
+    "animation_in_duration": "1200",
+    "animation_in_delay": "100"
+  },
+  "mpc_preset_90": {
+    "__name": "Duku Hospital - \"Our Services\" Grid Posts Set",
+    "offset": "vc_col-md-8",
+    "animation_in_type": "transition.slideLeftIn",
+    "animation_in_offset": "60",
+    "animation_in_duration": "1100"
+  },
+  "mpc_preset_93": {
+    "__name": "Huito - \"Browse Spring\" Simple Image Border Button",
+    "css": ".vc_custom_1461675163502{margin-bottom: 50px !important;padding-top: 0px !important;padding-bottom: 0px !important;background-position: 0 0 !important;background-repeat: repeat !important;}",
+    "offset": "vc_col-md-3"
+  },
+  "mpc_preset_92": {
+    "__name": "Huito - \"Buy For $50 \" Callout With Button",
+    "css": ".vc_custom_1461675121654{margin-bottom: 50px !important;}",
+    "offset": "vc_col-md-9"
+  },
+  "mpc_preset_94": {
+    "__name": "Nectarine Furniture - \"Fequently Asked\" Accordion",
+    "css": ".vc_custom_1461675308035{margin-bottom: 30px !important;padding-top: 0px !important;}",
+    "width": "1\/2",
+    "animation_in_type": "transition.perspectiveLeftIn",
+    "animation_in_offset": "80",
+    "animation_in_duration": "800"
+  },
+  "mpc_preset_95": {
+    "__name": "Nectarine Furniture - \"Martin Jondo\" Blue Carousel Testimonial",
+    "css": ".vc_custom_1461675366738{margin-bottom: 30px !important;padding-top: 0px !important;}",
+    "width": "1\/2"
+  },
+  "mpc_preset_97": {
+    "__name": "Pineapple - \"Compose Your\" Accordion With Progress Bar",
+    "offset": "vc_col-md-6",
+    "animation_in_type": "transition.slideRightIn",
+    "animation_in_offset": "80",
+    "animation_in_duration": "800"
+  },
+  "mpc_preset_96": {
+    "__name": "Pineapple - \"Compose Your\" Info Circle With Image",
+    "css": ".vc_custom_1461675468232{margin-bottom: 40px !important;}",
+    "offset": "vc_col-md-6",
+    "animation_in_type": "transition.bounceLeftIn",
+    "animation_in_offset": "80",
+    "animation_in_duration": "800"
+  },
+  "mpc_preset_98": {
+    "__name": "Purple Sport - \"Push Your Limits\" Vibrant Green Counter",
+    "offset": "vc_col-md-3",
+    "alignment": "center",
+    "animation_in_type": "transition.perspectiveRightIn",
+    "animation_in_duration": "1000",
+    "animation_in_delay": "600"
+  },
+  "__index": 0,
+  "mpc_preset_36": {
+    "__name": "Advanced Header - Center Bold Header Blue Icon Circle",
+    "width": "1\/3"
+  },
+  "mpc_preset_40": {
+    "__name": "Advanced Header - Center Bold Header Vector Box",
+    "width": "1\/3"
+  },
+  "mpc_preset_38": {
+    "__name": "Advanced Header - Center Bold Header Vector Clock",
+    "width": "1\/3"
+  },
+  "mpc_preset_39": {
+    "__name": "Advanced Header - Center Bold Header Vector Tick",
+    "width": "1\/3"
+  },
+  "mpc_preset_61": {
+    "__name": "Advanced Header -  Center Header Image Brush Paint Divider",
+    "width": "1\/3"
+  },
+  "mpc_preset_62": {
+    "__name": "Advanced Header -  Center Header Image Brush Paint Divider 2",
+    "width": "1\/3"
+  },
+  "mpc_preset_60": {
+    "__name": "Advanced Header -  Center Header Image Wave Divider",
+    "width": "1\/3"
+  },
+  "mpc_preset_70": {
+    "__name": "Advanced Header - Center Header In Thick Blue Divider",
+    "width": "1\/3"
+  },
+  "mpc_preset_53": {
+    "__name": "Advanced Header -  Center Medium Header Black Icon Divider",
+    "width": "1\/3"
+  },
+  "mpc_preset_44": {
+    "__name": "Advanced Header - Center Medium Header Image Divider",
+    "css": ".vc_custom_1461666146100{padding-top: 30px !important;padding-right: 30px !important;padding-bottom: 0px !important;padding-left: 30px !important;}",
+    "width": "1\/3"
+  },
+  "mpc_preset_46": {
+    "__name": "Advanced Header - Center Medium Header Image Divider 2",
+    "css": ".vc_custom_1461666242539{padding-top: 30px !important;padding-right: 30px !important;padding-bottom: 0px !important;padding-left: 30px !important;}",
+    "width": "1\/3"
+  },
+  "mpc_preset_45": {
+    "__name": "Advanced Header - Center Medium Header Image Divider Dark Bg",
+    "css": ".vc_custom_1461666211523{padding-top: 30px !important;padding-right: 30px !important;padding-bottom: 0px !important;padding-left: 30px !important;background-color: #3b3b3b !important;}",
+    "width": "1\/3"
+  },
+  "mpc_preset_50": {
+    "__name": "Advanced Header -  Center Medium Header Red Preheader & Divider",
+    "width": "1\/3"
+  },
+  "mpc_preset_67": {
+    "__name": "Advanced Header -  Center Red Divider Preheader Header",
+    "width": "1\/3"
+  },
+  "mpc_preset_34": {
+    "__name": "Advanced Header - Center Red Title & Divider",
+    "width": "1\/3"
+  },
+  "mpc_preset_42": {
+    "__name": "Advanced Header - Center Small Header Divider With Icon",
+    "width": "1\/3"
+  },
+  "mpc_preset_56": {
+    "__name": "Advanced Header -  Center Yellow Short Divider Header Subheader",
+    "width": "1\/3"
+  },
+  "mpc_preset_66": {
+    "__name": "Advanced Header -  Left Blue Divider Header Subheader",
+    "width": "1\/3"
+  },
+  "mpc_preset_33": {
+    "__name": "Advanced Header - Left Blue Title & Divider",
+    "width": "1\/3"
+  },
+  "mpc_preset_69": {
+    "__name": "Advanced Header - Left Header In Thick Black Divider",
+    "width": "1\/3"
+  },
+  "mpc_preset_59": {
+    "__name": "Advanced Header -  Left Header In Triple Dashed Line Divider",
+    "width": "1\/2"
+  },
+  "mpc_preset_58": {
+    "__name": "Advanced Header -  Left Header In Twin Line Divider",
+    "width": "1\/2"
+  },
+  "mpc_preset_64": {
+    "__name": "Advanced Header -  Left Header Orange Subheader Dotted Divider",
+    "width": "1\/3"
+  },
+  "mpc_preset_49": {
+    "__name": "Advanced Header -  Left Medium Header Blue Preheader & Divider",
+    "width": "1\/3"
+  },
+  "mpc_preset_52": {
+    "__name": "Advanced Header -  Left Medium Header Red Icon Divider",
+    "width": "1\/3"
+  },
+  "mpc_preset_63": {
+    "__name": "Advanced Header -  Left Preheader Header Line With Icon Divider",
+    "width": "1\/3"
+  },
+  "mpc_preset_55": {
+    "__name": "Advanced Header -  Left Preheader Header Yellow Short Divider",
+    "width": "1\/3"
+  },
+  "mpc_preset_47": {
+    "__name": "Advanced Header -  Left Preheader Huge Header Subheader",
+    "width": "1\/2",
+    "alignment": "left"
+  },
+  "mpc_preset_48": {
+    "__name": "Advanced Header -  Left Preheader Huge Header Subheader 2",
+    "width": "1\/2"
+  },
+  "mpc_preset_41": {
+    "__name": "Advanced Header - Left Small Header Divider With Icon",
+    "width": "1\/3",
+    "alignment": "center"
+  },
+  "mpc_preset_37": {
+    "__name": "Advanced Header - Right Bold Header Yellow Icon Dashed Circle",
+    "width": "1\/3"
+  },
+  "mpc_preset_68": {
+    "__name": "Advanced Header -  Right Green Divider Header Subheader",
+    "width": "1\/3"
+  },
+  "mpc_preset_54": {
+    "__name": "Advanced Header -  Right Medium Header Blue Icon Divider",
+    "width": "1\/3"
+  },
+  "mpc_preset_51": {
+    "__name": "Advanced Header -  Right Medium Header Grey Subheader & Dashed Divider",
+    "width": "1\/3"
+  },
+  "mpc_preset_65": {
+    "__name": "Advanced Header -  Right Preheader Header Dashed Divider",
+    "width": "1\/3"
+  },
+  "mpc_preset_57": {
+    "__name": "Advanced Header -  Right Preheader Header Yellow Slim Divider",
+    "width": "1\/3"
+  },
+  "mpc_preset_71": {
+    "__name": "Advanced Header - Right Red Thick Diveder With Icon",
+    "width": "1\/3"
+  },
+  "mpc_preset_43": {
+    "__name": "Advanced Header - Right Small Header Divider With Icon",
+    "width": "1\/3"
+  },
+  "mpc_preset_35": {
+    "__name": "Advanced Header - Right Yellow Title & Divider",
+    "width": "1\/3"
+  },
+  "mpc_preset_15": {
+    "__name": "Author Box - Big Avatar Grey Bg Thick Loading Bars Center",
+    "css": ".vc_custom_1461658912340{padding-top: 40px !important;padding-right: 40px !important;padding-bottom: 40px !important;padding-left: 40px !important;background-color: #f3f3f3 !important;border-radius: 15px !important;}",
+    "offset": "vc_col-lg-4 vc_col-md-6"
+  },
+  "mpc_preset_14": {
+    "__name": "Author Box - Big Avatar Social Icons Loading Bars Center",
+    "css": ".vc_custom_1461658871568{padding-top: 40px !important;padding-right: 40px !important;padding-bottom: 40px !important;padding-left: 40px !important;}",
+    "offset": "vc_col-lg-4 vc_col-md-6"
+  },
+  "mpc_preset_16": {
+    "__name": "Author Box - Big Avatar Social Icons Rounded Loading Bars Center",
+    "css": ".vc_custom_1461658954259{padding-top: 40px !important;padding-right: 40px !important;padding-bottom: 40px !important;padding-left: 40px !important;}",
+    "offset": "vc_col-lg-offset-0 vc_col-lg-4 vc_col-md-offset-3 vc_col-md-6"
+  },
+  "mpc_preset_19": {
+    "__name": "Author Box - Top Square Image Small Title 3d Social Icons",
+    "offset": "vc_col-lg-4 vc_col-md-6"
+  },
+  "mpc_preset_17": {
+    "__name": "Author Box - Top Square Image With Ribbon Small Title Social Icons",
+    "offset": "vc_col-lg-4 vc_col-md-6"
+  },
+  "mpc_preset_18": {
+    "__name": "Author Box - Top Square Image With Small Title Social Icons",
+    "offset": "vc_col-lg-offset-0 vc_col-lg-4 vc_col-md-offset-3 vc_col-md-6"
+  },
+  "mpc_preset_26": {
+    "__name": "Highlight Box- Light Grey Gradient Blue Hover",
+    "width": "1\/3"
+  },
+  "mpc_preset_27": {
+    "__name": "Highlight Box - Rounded Dark Blue Hover",
+    "width": "1\/3",
+    "alignment": "center"
+  },
+  "mpc_preset_25": {
+    "__name": "Highlight Box- Rounded Green Rectangle With Frame",
+    "width": "1\/2",
+    "alignment": "center"
+  },
+  "mpc_preset_28": {
+    "__name": "Highlight Box- Rounded Red With Tooltip",
+    "width": "1\/3"
+  },
+  "mpc_preset_23": {
+    "__name": "Highlight Box- Simple Blue Thin Rectangle",
+    "width": "1\/3"
+  },
+  "mpc_preset_24": {
+    "__name": "Highlight Box- Simple Blue Thin Rectangle White Frame",
+    "width": "1\/2"
+  },
+  "mpc_preset_29": {
+    "__name": "Highlight Box- Simple Cyan Square With Icon",
+    "width": "1\/4"
+  },
+  "mpc_preset_31": {
+    "__name": "Highlight Box- Simple Grey Square With Yellow Icon Hover",
+    "width": "1\/4"
+  },
+  "mpc_preset_22": {
+    "__name": "Highlight Box - Simple Navy Rectangle",
+    "width": "1\/3"
+  },
+  "mpc_preset_21": {
+    "__name": "Highlight Box - Simple Orange Rectangle Icon",
+    "width": "1\/3"
+  },
+  "mpc_preset_30": {
+    "__name": "Highlight Box- Simple Orange Square Hover Icon",
+    "width": "1\/4",
+    "alignment": "center"
+  },
+  "mpc_preset_32": {
+    "__name": "Highlight Box- Simple Violet Frame Icon & Tooltip",
+    "width": "1\/4"
+  },
+  "mpc_preset_1": {
+    "__name": "Info Banner - Simple Grey Border Centered Slim Button",
+    "css": ".vc_custom_1461664250007{padding-top: 3em !important;}",
+    "offset": "vc_col-lg-3"
+  },
+  "mpc_preset_0": {
+    "__name": "Info Banner - Berry Gradient Bg Rounded Button",
+    "css": ".vc_custom_1461664225037{padding-top: 3em !important;}",
+    "offset": "vc_col-lg-9"
+  },
+  "mpc_preset_4": {
+    "__name": "Info Banner - Bookshelf Slim Button Green",
+    "css": ".vc_custom_1461664502159{padding-top: 3em !important;}",
+    "width": "1\/2",
+    "offset": "vc_col-md-3"
+  },
+  "mpc_preset_6": {
+    "__name": "Info Banner - Bookshelf Slim Button Orange",
+    "css": ".vc_custom_1461664537574{padding-top: 3em !important;}",
+    "width": "1\/2",
+    "offset": "vc_col-md-3"
+  },
+  "mpc_preset_9": {
+    "__name": "Info Banner - Bookshelf Slim Button Purple",
+    "css": ".vc_custom_1461664561580{padding-top: 3em !important;}",
+    "width": "1\/2",
+    "offset": "vc_col-md-3"
+  },
+  "mpc_preset_5": {
+    "__name": "Info Banner - Bookshelf Slim Button Violet",
+    "css": ".vc_custom_1461664519576{padding-top: 3em !important;}",
+    "width": "1\/2",
+    "offset": "vc_col-md-3"
+  },
+  "mpc_preset_2": {
+    "__name": "Info Banner - Dark Bg Left Simple Button Pink Ribbon",
+    "css": ".vc_custom_1461664303470{padding-top: 3em !important;}",
+    "offset": "vc_col-lg-6"
+  },
+  "mpc_preset_12": {
+    "__name": "Info Banner - Grey Bg Content To Right Berry Red Button",
+    "css": ".vc_custom_1461664704217{padding-bottom: 8em !important;}"
+  },
+  "mpc_preset_11": {
+    "__name": "Info Banner - Grey Bg Text To Left",
+    "css": ".vc_custom_1461664656266{padding-top: 3em !important;}",
+    "offset": "vc_col-md-6",
+    "animation_loop_type": "callout.pulse",
+    "animation_loop_delay": "2500",
+    "animation_loop_hover": "true"
+  },
+  "mpc_preset_3": {
+    "__name": "Info Banner - Title & Content Simple Line Button",
+    "css": ".vc_custom_1461664329742{padding-top: 3em !important;}",
+    "offset": "vc_col-lg-6"
+  },
+  "mpc_preset_10": {
+    "__name": "Info Banner - Transparent Bg Orange Title Dashed Button Center",
+    "css": ".vc_custom_1461664633240{margin-top: 0px !important;margin-bottom: 0px !important;padding-top: 3em !important;padding-bottom: 0px !important;background-position: center !important;background-repeat: no-repeat !important;background-size: cover !important;}",
+    "offset": "vc_col-md-6"
+  },
+  "mpc_preset_76": {
+    "__name": "Interactive Banner - Big Square Image With Dark Frame Lightbox",
+    "offset": "vc_col-md-6"
+  },
+  "mpc_preset_85": {
+    "__name": "Interactive Banner - Dark Border Bottom Add Icon",
+    "width": "1\/4",
+    "offset": "vc_hidden-md vc_hidden-sm vc_hidden-xs"
+  },
+  "mpc_preset_86": {
+    "__name": "Interactive Banner - Dark Border Bottom Arrow Icon",
+    "width": "1\/4",
+    "offset": "vc_hidden-md vc_hidden-sm vc_hidden-xs"
+  },
+  "mpc_preset_88": {
+    "__name": "Interactive Banner - Dark Inner Border Small Navy Ribbon",
+    "offset": "vc_col-lg-6"
+  },
+  "mpc_preset_84": {
+    "__name": "Interactive Banner - Grey Border Bottom Heart Icon",
+    "width": "1\/4",
+    "offset": "vc_hidden-md vc_hidden-sm vc_hidden-xs"
+  },
+  "mpc_preset_87": {
+    "__name": "Interactive Banner - Navy Border Bottom Cart Icon",
+    "width": "1\/4",
+    "offset": "vc_hidden-md vc_hidden-sm vc_hidden-xs"
+  },
+  "mpc_preset_73": {
+    "__name": "Interactive Banner - Square Image Bottom Icon Hover",
+    "width": "1\/2",
+    "offset": "vc_col-lg-3",
+    "animation_loop_type": "callout.shake",
+    "animation_loop_duration": "750",
+    "animation_loop_delay": "2300",
+    "animation_loop_hover": "true"
+  },
+  "mpc_preset_72": {
+    "__name": "Interactive Banner - Square Image Center Icon Hover",
+    "width": "1\/2",
+    "offset": "vc_col-lg-3"
+  },
+  "mpc_preset_83": {
+    "__name": "Interactive Banner - Square Image Dark Border Bottom",
+    "offset": "vc_col-lg-4 vc_col-md-6"
+  },
+  "mpc_preset_81": {
+    "__name": "Interactive Banner - Square Image Dark Ribbon Bottom",
+    "offset": "vc_col-lg-6"
+  },
+  "mpc_preset_78": {
+    "__name": "Interactive Banner - Square Image Grey Border Top",
+    "offset": "vc_col-lg-4"
+  },
+  "mpc_preset_80": {
+    "__name": "Interactive Banner - Square Image Grey Ribbon Top",
+    "offset": "vc_col-lg-6"
+  },
+  "mpc_preset_74": {
+    "__name": "Interactive Banner - Square Image Top Icon Hover",
+    "width": "1\/2",
+    "offset": "vc_col-lg-3"
+  },
+  "mpc_preset_75": {
+    "__name": "Interactive Banner - Square Image With Ribbon Center Icon Hover",
+    "width": "1\/2",
+    "offset": "vc_col-lg-3"
+  },
+  "mpc_preset_77": {
+    "__name": "Interactive Banner - Square Image Yellow Border Top",
+    "offset": "vc_col-lg-4"
+  },
+  "mpc_preset_100": {
+    "__name": "Our Process - Pricing Slim Blue Small",
+    "css": ".vc_custom_1461674831705{margin-top: 5px !important;}",
+    "width": "1\/3"
+  },
+  "mpc_preset_107": {
+    "__name": "Text Block - Big Header Blue",
+    "width": "1\/3"
+  },
+  "mpc_preset_108": {
+    "__name": "Text Block - Big Header Red",
+    "css": ".vc_custom_1460368097362{margin-top: 10px !important;}",
+    "width": "1\/3",
+    "alignment": "center"
+  },
+  "mpc_preset_109": {
+    "__name": "Text Block - Big Header Yellow",
+    "width": "1\/3",
+    "alignment": "right"
+  },
+  "mpc_preset_110": {
+    "__name": "Text Block - Fancy Divider Red",
+    "css": ".vc_custom_1461831113411{margin-top: 0px !important;margin-right: 0px !important;margin-bottom: 0px !important;margin-left: 3em !important;}",
+    "width": "1\/3"
+  },
+  "mpc_preset_111": {
+    "__name": "Text Block - Fancy Divider Green",
+    "css": ".vc_custom_1461831819525{margin-left: 20px !important;}",
+    "width": "1\/4"
+  },
+  "mpc_preset_112": {
+    "__name": "Text Block - Fancy Divider Blue",
+    "css": ".vc_custom_1461831868436{margin-right: 30px !important;}",
+    "width": "1\/4",
+    "alignment": "right"
+  },
+  "mpc_preset_113": {
+    "__name": "Text Block - Fancy Divider Yellow",
+    "width": "1\/4"
+  },
+  "mpc_preset_114": {
+    "__name": "Text Block - Simple Green",
+    "width": "1\/3"
+  },
+  "mpc_preset_115": {
+    "__name": "Text Block - Simple Black",
+    "width": "1\/3"
+  },
+  "mpc_preset_116": {
+    "__name": "Text Block - Simple Orange",
+    "width": "1\/3",
+    "alignment": "right"
+  },
+  "mpc_preset_117": {
+    "__name": "Text Block - Uppercase",
+    "width": "1\/3"
+  },
+  "mpc_preset_120": {
+    "__name": "Text Block - With Tags Black",
+    "width": "1\/3"
+  },
+  "mpc_preset_118": {
+    "__name": "Text Block - With Tags Red",
+    "width": "1\/3"
+  },
+  "mpc_preset_119": {
+    "__name": "Text Block - With Tags Yellow",
+    "width": "1\/3"
+  },
+  "mpc_preset_121": {
+    "__name": "Side By Side - Color Square Blue",
+    "width": "1\/3"
+  },
+  "mpc_preset_123": {
+    "__name": "Side By Side - Color Square Green",
+    "width": "1\/3"
+  },
+  "mpc_preset_122": {
+    "__name": "Side By Side - Color Square Violet",
+    "width": "1\/3"
+  },
+  "mpc_preset_124": {
+    "__name": "Side By Side - Flat Square Red",
+    "width": "1\/2"
+  },
+  "mpc_preset_125": {
+    "__name": "Side By Side - Flat Square Wheat",
+    "css": ".vc_custom_1465211347497{margin-top: 15px !important;}",
+    "width": "1\/2"
+  }
+}

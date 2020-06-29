@@ -1,0 +1,60 @@
+{
+  "name": "mailoptin/connections",
+  "description": "MailOptin connections",
+  "type": "wordpress-plugin",
+  "autoload": {
+    "psr-4": {
+      "MailOptin\\RegisteredUsersConnect\\": "RegisteredUsersConnect/",
+      "MailOptin\\LeadBankConnect\\": "LeadBankConnect/",
+      "MailOptin\\CampaignMonitorConnect\\": "CampaignMonitorConnect/",
+      "MailOptin\\VerticalResponseConnect\\": "VerticalResponseConnect/",
+      "MailOptin\\OntraportConnect\\": "OntraportConnect/",
+      "MailOptin\\CtctConnect\\": "CtctConnect/",
+      "MailOptin\\MailChimpConnect\\": "MailChimpConnect/",
+      "MailOptin\\MoosendConnect\\": "MoosendConnect/",
+      "MailOptin\\MailjetConnect\\": "MailjetConnect/",
+      "MailOptin\\ZohoCampaignsConnect\\": "ZohoCampaignsConnect/",
+      "MailOptin\\ZohoCRMConnect\\": "ZohoCRMConnect/",
+      "MailOptin\\AweberConnect\\": "AweberConnect/",
+      "MailOptin\\SendyConnect\\": "SendyConnect/",
+      "MailOptin\\MailerliteConnect\\": "MailerliteConnect/",
+      "MailOptin\\HubspotConnect\\": "HubspotConnect/",
+      "MailOptin\\MailsterConnect\\": "MailsterConnect/",
+      "MailOptin\\DripConnect\\": "DripConnect/",
+      "MailOptin\\SendlaneConnect\\": "SendlaneConnect/",
+      "MailOptin\\EmmaConnect\\": "EmmaConnect/",
+      "MailOptin\\ConvertKitConnect\\": "ConvertKitConnect/",
+      "MailOptin\\ConvertFoxConnect\\": "ConvertFoxConnect/",
+      "MailOptin\\SendinblueConnect\\": "SendinblueConnect/",
+      "MailOptin\\SendGridConnect\\": "SendGridConnect/",
+      "MailOptin\\ActiveCampaignConnect\\": "ActiveCampaignConnect/",
+      "MailOptin\\EmailOctopusConnect\\": "EmailOctopusConnect/",
+      "MailOptin\\GEMConnect\\": "GEMConnect/",
+      "MailOptin\\MailPoetConnect\\": "MailPoetConnect/",
+      "MailOptin\\GetResponseConnect\\": "GetResponseConnect/",
+      "MailOptin\\KlaviyoConnect\\": "KlaviyoConnect/",
+      "MailOptin\\ElementorConnect\\": "ElementorConnect/",
+      "MailOptin\\WPFormsConnect\\": "WPFormsConnect/",
+      "MailOptin\\GravityFormsConnect\\": "GravityFormsConnect/",
+      "MailOptin\\NinjaFormsConnect\\": "NinjaFormsConnect/",
+      "MailOptin\\ContactForm7Connect\\": "ContactForm7Connect/",
+      "MailOptin\\PolylangConnect\\": "PolylangConnect/",
+      "MailOptin\\WPMLConnect\\": "WPMLConnect/",
+      "MailOptin\\FacebookCustomAudienceConnect\\": "FacebookCustomAudienceConnect/",
+      "MailOptin\\Connections\\": "./"
+    },
+    "classmap": [
+      "ActiveCampaignConnect/APIClass/includes/"
+    ]
+  },
+  "require": {
+    "composer/installers": "~1.0",
+    "thinkshout/mailchimp-api-php": "^1.0",
+    "a5hleyrich/wp-background-processing": "^1.0",
+    "drewm/drip": "^0.7.0"
+  },
+  "_comment": "doing this to remove guzzle dependency declared by thinkshout/mailchimp-api-php because we are explicitly using the curl adpater",
+  "replace": {
+    "guzzlehttp/guzzle": "*"
+  }
+}

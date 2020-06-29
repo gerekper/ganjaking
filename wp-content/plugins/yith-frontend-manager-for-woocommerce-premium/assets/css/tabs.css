@@ -1,0 +1,16 @@
+/*====YITH WOOCOMMERCE TAB MANAGER PREMIUM====*/
+
+.metaboxes-tabs{
+    list-style: none;
+}
+
+#_ywtm_tab_type, #_ywtm_icon_tab_select_icon_mode,#_ywtm_layout_type {
+    height:auto;
+}
+.ywtb-table th.sort{
+    width:30px;
+}
+
+#ywtb-form-field-container .ywtb-field span.desc.inline{
+font-size: 10px;
+}

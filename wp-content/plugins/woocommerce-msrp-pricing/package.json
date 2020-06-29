@@ -1,0 +1,12 @@
+{
+  "name": "woocommerce-msrp-pricing",
+  "devDependencies": {
+    "grunt": "^1.0.4",
+    "grunt-contrib-uglify": "^3.4",
+    "grunt-contrib-watch": "^1.1",
+    "grunt-wp-i18n": "^1.0.2"
+  },
+  "dependencies": {
+    "grunt-contrib-less": "^2.0.0"
+  }
+}

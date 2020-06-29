@@ -1,0 +1,35 @@
+/*Style for lightbox section*/
+
+#ywcca_lightbox_content{
+    background: #fff;
+}
+
+#ywcca_lightbox_content p{
+    margin: 0;
+    padding: 10px;
+}
+
+#ywcca_lightbox_content .title_shortcode{
+    height: 39px;
+}
+#ywcca_lightbox_content label{
+    font-weight: bold;
+}
+
+
+#ywcca_lightbox_content input[type="checkbox"] {
+
+    float: right;
+    width: 20px;
+    height: 20px;
+}
+
+#ywcca_title{
+
+    font-size: small;
+}
+
+.ywcca_separator{
+
+    border-bottom: 1px solid #ccc;
+}

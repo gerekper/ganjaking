@@ -1,0 +1,65 @@
+#woocommerce-product-data ul.wc-tabs li.yith_min_max_qty_tab a:before {
+    content: "\e601";
+    font-family: WooCommerce;
+}
+
+.widefat .column-excluded,
+.widefat .column-override_qty,
+.widefat .column-override_val,
+.widefat .column-minimum_qty,
+.widefat .column-maximum_qty,
+.widefat .column-minimum_val,
+.widefat .column-maximum_val {
+    width: 20%;
+    text-align: center;
+}
+
+.widefat .column-excluded mark,
+.widefat .column-override_qty mark,
+.widefat .column-override_val mark {
+    display: inline-block;
+    text-indent: -9999px;
+    position: relative;
+    height: 1em;
+    width: 1em;
+    background: 0 0;
+    font-size: 1.4em;
+    margin: 0 auto;
+}
+
+.widefat .column-excluded mark.show:after,
+.widefat .column-excluded mark.hide:after,
+.widefat .column-override_qty mark.show:after,
+.widefat .column-override_qty mark.hide:after,
+.widefat .column-override_val mark.show:after,
+.widefat .column-override_val mark.hide:after {
+    font-family: WooCommerce;
+    speak: none;
+    font-weight: 400;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    text-indent: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.widefat .column-excluded mark.hide:after,
+.widefat .column-override_qty mark.hide:after,
+.widefat .column-override_val mark.hide:after {
+    content: "\e013";
+    color: #a00000;
+}
+
+.widefat .column-excluded mark.show:after,
+.widefat .column-override_qty mark.show:after,
+.widefat .column-override_val mark.show:after {
+    content: "\e015";
+    color: #2ea2cc;
+}

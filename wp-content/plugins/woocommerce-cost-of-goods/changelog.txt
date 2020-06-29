@@ -1,0 +1,266 @@
+*** WooCommerce Cost of Goods Changelog ***
+
+2020.06.08 - version 2.9.8
+ * Fix - Prevent the same job from running both as a batch and as a background job
+ * Fix - Fix Apply Costs to Previous Orders job progress message
+
+2020.05.12 - version 2.9.7
+ * Fix - Prevent PHP notices when WooCommerce Admin populates the Orders panel
+
+2020.05.04 - version 2.9.6
+ * Misc - Add support for WooCommerce 4.1
+
+2020.03.04 - version 2.9.5
+ * Misc - Add support for WooCommerce 4.0
+
+2020.02.27 - version 2.9.4
+ * Fix - Recalculate cost on subscription creation and renewal
+
+2020.01.02 - version 2.9.3
+ * Misc - Update filter handling for Customer/Order/Coupon Export v5
+ * Misc - Add support for WooCommerce 3.9
+
+2019.11.06 - version 2.9.2
+ * Misc - Add support for WooCommerce 3.8
+
+2019.09.18 - version 2.9.1
+ * Fix - Prevent duplicate meta keys from being added to order items when products are added to an order via AJAX from the admin dashboard
+ * Fix - Change display format for percentages in profit margins tooltips on Most Profitable Sellers section of the report to show the number of decimals configured in WooCommerce settings
+
+2019.08.09 - version 2.9.0
+ * Misc - Add support for WooCommerce 3.7
+ * Misc - Remove support for WooCommerce 2.6
+ * Misc - Require PHP 5.6+
+
+2019.06.27 - version 2.8.4
+ * Tweak - Update order cost when an item is removed in the admin edit order page via AJAX (only for WC >= 3.2)
+
+2019.04.24 - version 2.8.3
+ * Fix - Address a potential issue when downloading product valuation reports on some hosts and browsers
+ * Fix - Ensure total orders is at least 1 to avoid division by zero error
+
+2019.04.11 - version 2.8.2
+ * Tweak - Add a note when applying costs for previous orders is running in the background
+ * Tweak - Use WooCommerce 3.0+ methods to get total refund costs instead of a direct query
+ * Fix - Ensure costs are applied to subscriptions as well as orders when triggered manually
+ * Fix - Address a conflict with WooCommerce Multistore plugin
+ * Fix - Ensure orders placed count is 0 instead of 1, when no orders have been placed
+ * Misc - Add support for WooCommerce 3.6
+ * Misc - Require PHP 5.4+
+
+2018.10.16 - version 2.8.1
+ * Misc - Add support for WooCommerce 3.5
+
+2018.09.05 - version 2.8.0
+ * Tweak - Apply costs to previous orders and subscriptions via background process
+ * Fix - Avoid duplicating pricing labels per unit with Measurement Price Calculator when updating variations or changing the pricing unit in the measurement settings
+ * Fix - When exporting Product Valuation reports via CSV, prepend the SKU to the product name as it appears in the corresponding admin screen table
+ * Misc - Remove support for PHP 5.2: PHP 5.3 is now the minimum supported version
+
+2018.06.20 - version 2.7.0
+ * Feature - Improve Measurement Price Calculator compatibility by factoring user-defined quantities into the cost of goods
+ * Fix - Ensure proper decimal formatting in the suggested cost on the admin order screen
+ * Fix - Properly escape product valuation CSV exports
+ * Fix - Ensure subscription costs are applied to renewal orders
+
+2018.05.23 - version 2.6.1
+ * Misc - Add support for WooCommerce 3.4
+
+2018.01.23 - version 2.6.0
+ * Tweak - Ensure cost item meta is set when orders are created via the REST API
+ * Misc - Add support for WooCommerce 3.3
+ * Misc - Remove support for WooCommerce 2.5
+
+2017.08.15 - version 2.5.0
+ * Feature - Add the ability to export the "Product Valuation" report to put all of the product totals in a CSV
+ * Tweak - Change the way the Total Valuation report is processed to avoid timeouts
+ * Fix - Ensure Product Valuation lists only count products that have costs and stock to avoid "blank" or incomplete lists
+ * Fix - Ensure product search on Profit by Product report screen is compatible with WooCommerce 3.0+
+
+2017.08.01 - version 2.4.1
+ * Tweak - Add line item costs to v2 REST API as top-level API data
+ * Fix - Line item cost fields interfered with the v1 REST API
+
+2017.07.12 - version 2.4.0
+ * Feature - Added support for WooCommerce Customer / Order CSV Export and WooCommerce Customer / Order XML Export Suite custom format builders
+ * Tweak - Cost fields will now be available via the REST API
+ * Tweak - Suggest cost while editing or adding line item to an order
+ * Fix - Ensure Order XML Exports include line item costs in WooCommerce 3.0+
+ * Misc - Update SkyVerge plugin framework
+ * Localization - Added Italian translation
+
+2017.04.26 - version 2.3.2
+ * Fix - Address a potential error when the Product Valuation or Total Valuation reports contain an invalid product
+
+2017.04.11 - version 2.3.1
+ * Fix - Existing product costs were not being shown the product quick-edit
+
+2017.03.28 - version 2.3.0
+ * Tweak - Improve the accuracy of the total valuation report
+ * Misc - Added support for WooCommerce 3.0
+ * Misc - Removed support for WooCommerce 2.4
+
+2016.12.14 - version 2.2.7
+ * Fix - Products with costs under $1 not included in some reports
+
+2016.11.23 - version 2.2.6
+ * Fix - Update Bookings compatibility check for v1.9.11 due to main plugin file renaming
+
+2016.10.19 - version 2.2.5
+ * Fix - Properly output pagination controls on product valuation reports
+
+2016.09.22 - version 2.2.4
+ * Misc - Improve Customer / Order XML Export 2.0+ compatibility to remove deprecated filter use
+
+2016.08.31 - version 2.2.3
+ * Fix - Fix WooCommerce Bookings compatibility in WooCommerce 2.6+
+
+2016.08.17 - version 2.2.2
+ * Fix - Fix a Customer/Order CSV Export v4.0.0+ compatibility issue for customers using the Custom format with the "A row represents" setting set to "A single line item"
+
+2016.08.10 - version 2.2.1
+ * Fix - Improve Customer/Order CSV Export v4.0.0+ compatibility
+
+2016.06.02 - version 2.2.0
+ * Misc - Added support for WooCommerce 2.6
+ * Misc - Removed support for WooCommerce 2.3
+ * Localization - Added Norwegian translation provided by Hein Tore Tønnesen
+
+2016.05.11 - version 2.1.1
+ * Fix - Fixes an issue where a product's cost was not already filled when quick editing
+ * Fix - Fixes quick and bulk editing for variable products
+
+2016.03.23 - version 2.1.0
+ * Feature - Separate stock valuation report into two reports, Product Valuation and Total Valuation so you can view both product-specific valuation and total inventory valuation
+ * Feature - You can now search for a product when viewing the Product Valuation stock report
+ * Feature - Costs are included in the product quick edit UI for faster editing :)
+
+2016.03.08 - version 2.0.1
+ * Tweak - The total inventory valuation is now displayed when viewing the inventory valuation report
+
+2016.02.02 - version 2.0.0
+ * Feature - Redesigned Profit by Date and Profit by Product reports with improved filtering and CSV Export support!
+ * Feature - Added a brand-new Profit by Category report
+ * Feature - Updated inventory valuation report
+ * Feature - Order/line item cost data is now automatically included in XML Exports when using the WooCommerce Customer/Order XML Export plugin!
+ * Feature - Cost data is now included in REST API response for orders and reports
+ * Feature - You can now edit the total line item cost when an order is pending (or other order status if you've added custom code to allow it)
+ * Feature - Costs are automatically reversed when refunding an order or line item
+ * Tweak - Added various new filters to better support customizing and extending the plugin, see our developer docs for more info.
+
+2016.01.26 - version 1.10.1
+ * Fix - Fix a fatal error on the Valuation report
+
+2016.01.14 - version 1.10.0
+ * Misc - Added support for WooCommerce 2.5
+ * Misc - Removed support for WooCommerce 2.2
+
+2015.09.22 - version 1.9.3
+ * Fix - Fix issue with applying costs to previous orders containing deleted products
+
+2015.09.01 - version 1.9.2
+ * Fix - Fix issue with decimal line item costs not saving correctly
+ * Tweak - Update a variable product's min/max cost when variations are saved via AJAX in WooCommerce 2.4
+
+2015.08.27 - version 1.9.1
+ * Fix - Fix `wc_cost_of_goods_set_order_cost_meta` filter
+
+2015.08.18 - version 1.9.0
+ * Feature - Add support for orders created with the REST API
+ * Tweak - Added `wc_cost_of_goods_set_order_cost_meta` filter
+ * Tweak - Removed `wc_cost_of_goods_save_checkout_order_item_meta_item_cost` filter
+ * Tweak - Removed `wc_cost_of_goods_save_checkout_order_meta_item_cost` filter
+
+2015.07.28 - version 1.8.0
+ * Misc - WooCommerce 2.4 Compatibility
+
+2015.06.16 - version 1.7.5
+ * Localization - Added Russian translation provided by Sergey Zhigulev
+
+2015.04.29 - version 1.7.4
+ * Fix - Ensure wc_format_decimal() is used when saving cost meta to fully support all decimal separators
+
+2015.04.21 - version 1.7.3
+ * Fix - Escape all instances of add_query_arg and remove_query_arg to avoid a potential XSS attack
+
+2015.04.21 - version 1.7.2
+ * Fix - Potential XSS with add_query_arg
+
+2015.04.15 - version 1.7.1
+ * Fix - Bring back Cost of Goods settings in WooCommerce 2.3
+
+2015.04.08 - version 1.7.0
+ * Feature - Add support for WooCommerce Bookings
+
+2015.02.24 - version 1.6.1
+ * Fix - Ensure variation cost is saved in WooCommerce 2.3
+
+2015.02.09 - version 1.6.0
+ * Tweak - Added `wc_cost_of_goods_save_checkout_order_item_meta_item_cost` filter
+ * Tweak - Added `wc_cost_of_goods_save_checkout_order_meta_item_cost` filter
+ * Tweak - Added `wc_cost_of_goods_set_order_item_cost_meta_item_cost` filter
+ * Misc - WooCommerce 2.3 Compatibility
+
+2015.01.20 - version 1.5.1
+ * Fix - Show all available years in the Profit by Month report
+ * Tweak - The date pickers on the Profit by Day report now go as far back as your first order date
+
+2014.11.11 - version 1.5.0
+ * Feature - Add 'item_cost' column to "Default - One Row per Item" CSV exports generated by Customer/Order CSV Export plugin
+ * Fix - Ensure the Profit reports use the site's set timezone rather than UTC
+
+2014.09.19 - version 1.4.5
+ * Fix - Fix plugin versioning
+
+2014.09.18 - version 1.4.4
+ * Fix - Fix profit reports in WooCommerce 2.1
+
+2014.09.18 - version 1.4.3
+ * Fix - Fix an issue with applying costs to previous orders in WooCommerce 2.2
+
+2014.09.07 - version 1.4.2
+ * Fix - Bulk updating cost for variable products now works as expected :)
+ * Misc - WooCommerce 2.2 Compatibility
+
+2014.08.19 - version 1.4.1
+ * Fix - Fix bug with CSV exports using the one item per row format
+
+2014.04.25 - version 1.4
+ * Feature - Order/line item cost data is now automatically included in CSV Exports when using the WooCommerce Customer/Order CSV Export plugin!
+ * Tweak - Zero cost order total is now displayed in the admin
+
+2014.03.10 - version 1.3.3
+ * Fix - Stock valuation report for products with cost less than 1
+ * Fix - Stock valuation report for variation products with a default cost
+
+2014.02.10 - version 1.3.2
+ * Fix - Fixed exclude tax setting handling on overview/detail reports
+
+2014.02.01 - version 1.3.1
+ * Fix - Order costs not being properly applied when creating/updating orders from the admin
+
+2014.01.20 - version 1.3
+ * Fix - Exclude tax setting is only applied to per product charts when prices include tax
+ * Misc - WooCommerce 2.1 compatibility
+ * Misc - Uses SkyVerge Plugin Framework
+ * Localization - Text domain changed from `wc-cog` to `woocommerce-cost-of-goods`
+
+2013.12.13 - version 1.2
+ * Feature - Option to apply costs to all orders, even those with a cost already set
+
+2013.11.09 - version 1.1.1
+ * Fix - Trying to apply costs to previous orders that contain a deleted product no longer causes a fatal error
+
+2013.09.06 - version 1.1
+ * Feature - Product cost shown on product list table
+ * Feature - "Apply Costs" to previous orders
+ * Feature - Variable product default cost
+ * Tweak - Adjust queries to handle conservative MySQL configurations
+ * Tweak - Update WP Admin Message Handler to 1.0.1
+
+2013.06.14 - version 1.0.1
+ * Feature - Compatibility with WP-Lister
+ * Fix - Only line items are included in Profit report
+
+2013.04.25 - version 1.0
+ * Initial Release :)

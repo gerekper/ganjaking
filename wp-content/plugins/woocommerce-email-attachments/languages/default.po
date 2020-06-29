@@ -1,0 +1,835 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Woocommerce EMail Attachments\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-08-29 09:09+0100\n"
+"PO-Revision-Date: 2014-08-29 09:09+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e\n"
+"X-Poedit-Basepath: C:\\XAMPP\\htdocs\\wp_shop\\wp-content\\plugins"
+"\\woocommerce-email-attachments\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Generator: Poedit 1.6.8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SearchPath-0: C:\\XAMPP\\htdocs\\wp_shop\\wp-content\\plugins"
+"\\woocommerce-email-attachments\n"
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-activation.php:48
+msgid ""
+"<p>The plugin <strong>WooCommerce Email Attachments</strong> needs the "
+"plugin WooCommerce to be able to be activated. Please activate this plugin "
+"first. Plugin could not be activated.</p>"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-activation.php:48
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-activation.php:68
+msgid "Plugin Activation Error"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-activation.php:68
+msgid ""
+"<p>The plugin <strong>WooCommerce Email Attachments</strong> encountered an "
+"error on creating the new upload folder. Try again or check your permissons "
+"or the permissons of Wordpress with your administrator. Plugin could not be "
+"activated.</p>"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-admin.php:84
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att.php:440
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att.php:452
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:242
+msgid "E-Mail Attachments"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-admin.php:143
+msgid "Do you want to remove this file from the attachment list?"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-admin.php:144
+msgid "Uploaded for E-Mail attachment"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-admin.php:148
+msgid ""
+"Error occured in loading selected file info. Please try again. No files have "
+"been selected."
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-admin.php:150
+msgid ""
+"Are you sure, you want to delete all uploaded EMail attachment files "
+"permanently? This can take some time depending on the quantity of files to "
+"delete."
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-admin.php:154
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:348
+msgid "E-Mail address is not a string."
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-admin.php:155
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:349
+msgid "Empty E-Mail is not allowed."
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-admin.php:156
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:350
+msgid "\"<\" is not allowed in E-Mail address."
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-admin.php:157
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:351
+msgid "Endtag \">\" is missing in E-Mail address."
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-admin.php:158
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:352
+msgid "Invalid E-Mail address entered."
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-admin.php:159
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:353
+msgid "Enter only the E-Mail address - not name and EM-ail address."
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-admin.php:160
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:354
+msgid "Only 1 E-Mail address is allowed to be entered."
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-admin.php:161
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:355
+msgid "Errors found in E-Mail addresses:"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-admin.php:162
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:356
+msgid "Check for marked addresses."
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-admin.php:212
+msgid ""
+"An error occured in loading attachment file info. Please try again. No files "
+"have been saved."
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-admin.php:327
+msgid "Goto settingspage of this plugin"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-admin.php:327
+msgid "Settings"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-admin.php:331
+msgid "Delete all uploaded EMail attachment files permanently"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-admin.php:331
+msgid "Delete attachment files"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-admin.php:390
+msgid ""
+"All options and settings are copied. All the existing files are moved to be "
+"shown as E-Mail attachment files in the WP media manager and the source "
+"files and folder is deleted."
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-admin.php:391
+msgid ""
+"All options and settings are copied. All the existing files are copied to be "
+"shown as E-Mail attachment files in the WP media manager and leave the "
+"source files and folder. You can delete this folder manually."
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-admin.php:392
+msgid ""
+"Only General settings are copied - You have to set all the the E-Mail "
+"specific settings and the file attachments manually again. All the existing "
+"files are moved to be shown as E-Mail attachment files in the WP media "
+"manager and the source files and folder is deleted."
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-admin.php:393
+msgid ""
+"Only General settings are copied - You have to set all the the E-Mail "
+"specific settings and the file attachments manually again. The old source "
+"files and folder are deleted and no longer available."
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-admin.php:394
+msgid ""
+"Ignore all old settings, delete all old files and folder and start with the "
+"default settings."
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-admin.php:395
+msgid "Change to a new upload folder first and update data afterwards."
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-admin.php:396
+msgid "Start executing the selected task."
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-admin.php:399
+msgid ""
+"<strong>WooCommerce Email Attachment Data Update Required:</strong><br/><br/"
+"> The new version needs a new data and directory structure. The upload path "
+"will be changed:"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-admin.php:400
+msgid "<strong>From:</strong>"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-admin.php:401
+msgid "<strong>To:</strong>"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-admin.php:402
+msgid ""
+"It is recommended to make a backup of your database and WordPress "
+"installation before proceeding."
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-admin.php:403
+msgid ""
+"You have the following possibilities with the existing old data and files:"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-admin.php:407
+msgid "Move all files and option settings"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-admin.php:408
+msgid "Copy all files and option settings"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-admin.php:409
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-upgrade.php:126
+msgid "Copy General Settings and move files"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-admin.php:410
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-upgrade.php:133
+msgid "Copy General Settings and delete files"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-admin.php:411
+msgid "Ignore old settings and delete files"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-admin.php:412
+msgid "Set new upload folder"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-admin.php:416
+msgid "Execute Selection"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-admin.php:430
+msgid ""
+"It is recommended that you backup your database and files before proceeding. "
+"Are you sure you wish to run the updater now? This may take some time "
+"depending on the amount of files to copy."
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-admin.php:541
+#, php-format
+msgid "All %d attachment file(s) could be permanently deleted."
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-admin.php:549
+#, php-format
+msgid ""
+"%d attachment file(s) could not be deleted, %d file(s) could be deleted."
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-upgrade.php:98
+msgid "Upgrading of data and files successfull:"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-upgrade.php:109
+msgid "Move all files and copy option settings"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-upgrade.php:118
+msgid "Copy all files and copy option settings"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-upgrade.php:139
+msgid "Ignore all old settings and delete files"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-upgrade.php:142
+msgid ""
+"Illegal parameter for upgrading. No changes are made and default settings "
+"are kept. Please report this internal error to plugin author: action = "
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-wpml.php:486
+msgid "Language"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-wpml.php:527
+msgid "All languages"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-wpml.php:533
+msgid ""
+"Check the languages where you want to have this attachment or all languages."
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-wpml.php:598
+#, php-format
+msgid ""
+"WPML translation in %1$s: Enter your translation of notification headline in "
+"%1$s here"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att-wpml.php:629
+#, php-format
+msgid ""
+"WPML translation in %1$s: Enter your translation of notification text in "
+"%1$s here:"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att.php:180
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att.php:189
+msgid "Cheatin&#8217; huh?"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att.php:441
+msgid "E-Mail Attachment"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att.php:442
+msgid "Add New"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att.php:443
+msgid "Add new E-Mail Attachment"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att.php:444
+msgid "Edit E-Mail Attachment"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att.php:445
+msgid "New E-Mail Attachment"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att.php:446
+msgid "All E-Mail Attachments"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att.php:447
+msgid "View E-Mail Attachment"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att.php:448
+msgid "Search E-Mail Attachments"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att.php:449
+msgid "No E-Mail Attachment found"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att.php:450
+msgid "No E-Mail Attachment(s) found in Trash"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att.php:496
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att.php:497
+msgid "Low Stock"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att.php:498
+msgid "WooCommerce internal E-Mail: sent when a product reaches low stock."
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att.php:502
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att.php:503
+msgid "No Stock"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att.php:504
+msgid "WooCommerce internal E-Mail: sent when a product reaches no stock."
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att.php:508
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att.php:509
+msgid "Backorder"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att.php:510
+msgid "WooCommerce internal E-Mail: sent when a product is on backorder."
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att.php:520
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att.php:521
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att.php:522
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att.php:570
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att.php:571
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att.php:572
+msgid "Unknown E-Mailtype:"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att.php:522
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att.php:572
+msgid ""
+"There is no description available. Please check with supplier of plugin or "
+"in documentation."
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/class-wc-email-att.php:1046
+msgid "Unknown File - probably deleted"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/panels/class-wc-email-att-panel-admin.php:88
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:389
+msgid "CC:"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/panels/class-wc-email-att-panel-admin.php:89
+msgid ""
+"Enter the email address(es) you want, seperate multiple addresses with \","
+"\", leave blank if not needed. Follow these rules for a single address: <br/"
+">recipient_name@hisdomain.ext -- or -- hisfirstname hislastname &lt;"
+"recipient_name@hisdomain.ext&gt;"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/panels/class-wc-email-att-panel-admin.php:90
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:391
+msgid "BCC:"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/panels/class-wc-email-att-panel-admin.php:91
+msgid ""
+"recipient_name@domain.ext -- or -- firstname lastname &lt;"
+"recipient_name@hisdomain.ext&gt;"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/panels/class-wc-email-att-panel-admin.php:92
+msgid ""
+"Enter the email address(es) you want, seperate multiple addresses with \","
+"\", leave blank if not needed."
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/panels/class-wc-email-att-panel-admin.php:93
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:1281
+msgid "Attachment notification headline:"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/panels/class-wc-email-att-panel-admin.php:94
+msgid ""
+"Insert the headline of your attachment notification.<br/> The attachment "
+"notification will be displayed in the email footer. Leave this field empty "
+"if you do not want to use this feature."
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/panels/class-wc-email-att-panel-admin.php:95
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:1291
+msgid "Attachment notification text:"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/panels/class-wc-email-att-panel-admin.php:96
+msgid ""
+"Insert the text of your attachment notification.<br/> The attachment "
+"notification will be displayed in the email footer and tells the recipient "
+"that your email contains attached files. <br/>E.g. this notification is "
+"useful if you fear that attachments may be blocked because of the file size, "
+"filters, etc. and you want to make sure that the recipient is aware of the "
+"fact that he should have received attachments.<br/> Leave this field empty "
+"if you do not want to use this feature."
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/panels/class-wc-email-att-panel-admin.php:144
+#, php-format
+msgid ""
+"%1$d Error(s) have been found and were reset to original value. Please check "
+"your entries."
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/panels/class-wc-email-att-panel-admin.php:211
+msgid "General Settings"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/panels/class-wc-email-att-panel-admin.php:233
+msgid "E-Mail Settings"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/panels/class-wc-email-att-panel-admin.php:294
+msgid "Select type of E-Mail for settings:"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/panels/class-wc-email-att-panel-admin.php:297
+msgid ""
+"Select the type of E-Mail, where you want to set or change the atttachments "
+"from the dropdown list."
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/panels/class-wc-email-att-panel-admin.php:329
+msgid "General settings for WooCommerce Email Attachment plugin"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/panels/class-wc-email-att-panel-admin.php:339
+msgid "Delete options on deactivate"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/panels/class-wc-email-att-panel-admin.php:340
+msgid ""
+"Check to delete options on deactivate. The uploaded attachment files are not "
+"deleted. Keep in mind, that WP deactivates the plugin when updating."
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/panels/class-wc-email-att-panel-admin.php:351
+msgid "Delete options on uninstall"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/panels/class-wc-email-att-panel-admin.php:352
+msgid ""
+"Check to delete options on uninstall. The uploaded attachment files are not "
+"deleted. You can force to delete the files on the plugin page."
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/panels/class-wc-email-att-panel-admin.php:358
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:1271
+msgid "Upload folder:"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/panels/class-wc-email-att-panel-admin.php:359
+msgid ""
+"<br/>You can change the upload folder to a new one. Enter a path, which will "
+"be located below the standard WP upload folder. Files in the previous folder "
+"are NOT moved and the old folder with its content is kept."
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/panels/class-wc-email-att-panel-admin.php:399
+msgid "always show the attachment notification"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/panels/class-wc-email-att-panel-admin.php:400
+msgid ""
+"Uncheck, if you want to show notification only, when attachment files are "
+"sent. If checked, the notifications are sent regrardless of attachment files."
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/panels/class-wc-email-att-panel-admin.php:430
+msgid "E-Mail Attachment Settings for subject:"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/panels/class-wc-email-att-panel-admin.php:439
+msgid ""
+"Sorry, there is no description available for this E-Mail. Check "
+"documentation of WooCommerce or the other plugins."
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/panels/class-wc-email-att-panel-admin.php:484
+msgid "Attachment Files Management:"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/panels/class-wc-email-att-panel-admin.php:491
+msgid ""
+"Selected files for attachment are listed below. Drag and drop the files to "
+"control their order of attachment."
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/panels/class-wc-email-att-panel-admin.php:497
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/panels/class-wc-email-att-panel-admin.php:637
+msgid "Thumb"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/panels/class-wc-email-att-panel-admin.php:498
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/panels/class-wc-email-att-panel-admin.php:638
+msgid "Name"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/panels/class-wc-email-att-panel-admin.php:502
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/panels/class-wc-email-att-panel-admin.php:642
+msgid "ID"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/panels/class-wc-email-att-panel-admin.php:503
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/panels/class-wc-email-att-panel-admin.php:643
+msgid "Location"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/panels/class-wc-email-att-panel-admin.php:511
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/panels/class-wc-email-att-panel-admin.php:648
+msgid "Remove"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/panels/class-wc-email-att-panel-admin.php:512
+msgid ""
+"Removes this file from the list of attachments, but does not delete the "
+"file. You can reuse it later at any time."
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/panels/class-wc-email-att-panel-admin.php:513
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/panels/class-wc-email-att-panel-admin.php:650
+msgid "Selected files:"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/panels/class-wc-email-att-panel-admin.php:535
+msgid "Select files or upload new files"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/panels/class-wc-email-att-panel-admin.php:537
+msgid "Choose your attachment file(s)"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/panels/class-wc-email-att-panel-admin.php:538
+msgid "Accept as attachment"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/panels/class-wc-email-att-panel-admin.php:539
+msgid ""
+"Select one or more files from the uploaded attachment files, the stamdard "
+"media gallery or upload new attachment files. Upload needed files only once "
+"and select them at the emails needed."
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/classes/panels/class-wc-email-att-panel-admin.php:649
+msgid ""
+"Removes this file from the list of attachments for this email, but does not "
+"delete the file. You can reuse it later at any time."
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:339
+msgid "successfully uploaded - stored as: "
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:340
+msgid "error on uploading: "
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:341
+msgid "Do you really want to delete the following file permanenty:"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:342
+msgid "Deleting File..."
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:343
+msgid "Loading File..."
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:344
+msgid "Processing..."
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:390
+msgid ""
+"<br/>Enter the email address(es) you want, seperate multiple addresses with "
+"\",\", leave blank if not needed. Follow these rules for a single address: "
+"<br/>recipient_name@hisdomain.ext -- or -- hisfirstname hislastname &lt;"
+"recipient_name@hisdomain.ext&gt;"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:400
+msgid "Select CC, BCC and Attachment Files for New Order"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:408
+msgid "Select CC, BCC and Attachment Files for Processing Order"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:415
+msgid "Select CC, BCC and Attachment Files for Completed Order"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:422
+msgid "Select CC, BCC and Attachment Files for Invoice"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:429
+msgid "Select CC, BCC and Attachment Files for Customer Note"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:436
+msgid "Select CC, BCC and Attachment Files for Low Stock Information"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:443
+msgid "Select CC, BCC and Attachment Files for No Stock Information"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:450
+msgid "Select CC, BCC and Attachment Files for Backorder Information"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:457
+msgid "Select CC, BCC and Attachment Files for New Customer Account"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:1237
+msgid ""
+"Specify the basic settings for this plugin, upload and delete the files and "
+"select the attachments. <br/><br/>When finished with the upload, click "
+"\"Reinitialize Selection List\" or \"Save Changes\" to refresh screen and "
+"make the new uploaded files available for selection and save all your input ."
+"<br/><br/>If you need more help, "
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:1239
+msgid "here you find the documentation."
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:1244
+msgid "Basic Settings"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:1252
+msgid "Deactivation:"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:1253
+msgid ""
+"Delete all files and settings on deactivation of plugin (Be aware, that "
+"Wordpress deactivates the plugin when upgrading to a new version)."
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:1260
+msgid "Uninstallation:"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:1261
+msgid "Delete all files and settings on uninstalling of plugin"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:1267
+msgid "<span class=\"statusinfo\">Processing...</span>"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:1272
+msgid ""
+"<br/>You can change the upload folder to a new one. You have to specify the "
+"complete serverpath."
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:1282
+msgid ""
+"<br/>Insert the headline of your attachment notification. The attachment "
+"notification will be displayed in the email footer. Leave this field empty "
+"if you don't want to use this feature."
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:1292
+msgid ""
+"<br/>Insert the text of your attachment notification. The attachment "
+"notification will be displayed in the email footer and tells the recipient "
+"that your email contains attached files. E.g. this notification is useful if "
+"you fear that attachments may be blocked because of the file size, filters, "
+"etc. and you want to make sure that the recipient is aware of the fact that "
+"he should have received attachments. Leave this field empty if you don't "
+"want to use this feature."
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:1308
+msgid "Upload the files you need for attachment"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:1314
+msgid "Upload File"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:1315
+msgid "Reinitialize Selection List"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:1701
+msgid "Failed to create new directory:"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:1703
+msgid "Old Directory remains valid:"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:1720
+msgid "Failed to copy file to new directory:"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:1722
+msgid "Old Directory and content remain valid:"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:1789
+msgid "Loading..."
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:1970
+msgid "Sorry, you don't have permisson to upload files!"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:1977
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:2044
+msgid "No Uploadfolder set"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:1995
+msgid "File not uploaded - Uploadfolder cannot be created"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:2003
+msgid "File already exists"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:2016
+msgid "File could not be saved"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:2037
+msgid "Sorry, you don't have permisson to delete files!"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:2061
+msgid "File could not be deleted"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:2145
+msgid "Delete this file"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:2146
+msgid "Delete"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:2147
+msgid "Edit"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:2148
+msgid "Files Uploading"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:2149
+msgid "Uploaded Files"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:2150
+msgid "Upload Files for Attachment"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:2151
+msgid "Drop Files Here"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:2152
+msgid "or"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:2153
+msgid "Open your File Browser"
+msgstr ""
+
+#: C:\XAMPP\htdocs\wp_shop\wp-content\plugins\woocommerce-email-attachments/v210/woocommerce_email_attachments.php:2154
+msgid "Choose Your Files From Local Computer"
+msgstr ""

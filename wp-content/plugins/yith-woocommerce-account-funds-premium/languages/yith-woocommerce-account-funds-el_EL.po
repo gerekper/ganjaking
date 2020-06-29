@@ -1,0 +1,1518 @@
+# Translation of YITH WooCommerce Account Funds in Greek
+# This file is distributed under the same license as the YITH WooCommerce Account Funds package.
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH WooCommerce Account Funds\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
+"account-funds-premium\n"
+"POT-Creation-Date: 2020-05-25 15:32:51+00:00\n"
+"PO-Revision-Date: 2020-05-25 15:30:03+0000\n"
+"Language: el_GR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/2.3.1\n"
+
+#: class.yith-funds.php:212
+msgid "Settings"
+msgstr "Ρυθμίσεις"
+
+#: class.yith-funds.php:213
+msgid "Users' funds"
+msgstr "Κεφάλαια χρηστών"
+
+#: class.yith-funds.php:214
+msgid "Email settings"
+msgstr "Ρυθμίσεις Email"
+
+#: class.yith-funds.php:215 plugin-options/endpoints-settings-options.php:11
+msgid "Funds endpoints"
+msgstr "Τελικά σημεία κεφαλαίων"
+
+#: class.yith-funds.php:216
+msgid "Account & Privacy"
+msgstr "Λογαριασμός και Προστασία Προσωπικών Δεδομένων"
+
+#: class.yith-funds.php:225 includes/class.yith-ywf-order.php:899
+msgid "Account Funds"
+msgstr "Κεφάλαια Λογαριασμού"
+
+#: class.yith-funds.php:226
+msgid ""
+"Let customers deposit funds in their online wallet in your store and use "
+"them at any time to proceed with faster checkout"
+msgstr ""
+"Δώστε στους πελάτες σας την δυνατότητα να καταθέσουν κεφάλαια στο online "
+"κατάστημά σας τώρα και να τα χρησιμοποιήσουν οποιαδήποτε στιγμή αργότερα, "
+"μεταβαίνοντας έτσι γρηγορότερα στο ταμείο"
+
+#: class.yith-funds.php:340 class.yith-funds.php:627
+#: includes/class.yith-ywf-order.php:655
+#: includes/functions.yith-ywf-functions.php:288
+#: includes/shortcodes/class.yith-ywf-shortcodes.php:180
+#: plugin-options/emails-multi-tab-options.php:12
+msgid "Deposit"
+msgstr "Κατάθεση"
+
+#: class.yith-funds.php:373
+msgid "Show logs"
+msgstr "Εμφάνιση αρχείων καταγραφής"
+
+#: class.yith-funds.php:404
+msgid "Show more details"
+msgstr "Εμφάνιση περισσότερων λεπτομεριών"
+
+#: class.yith-funds.php:452
+msgid "You cannot refund an amount greater than user's total funds available."
+msgstr ""
+"Δεν μπορεί να επιστραφεί ποσό μεγαλύτερο από αυτό των διαθέσιμων κεφαλαίων "
+"του χρήστη."
+
+#: class.yith-funds.php:453
+msgid ""
+"Attention! User's current funds are lower than the amount you are entering"
+msgstr ""
+"Προσοχή! Τα τρέχοντα κεφάλαια του χρήστη είναι χαμηλότερα από το ποσό που "
+"πληκτρολογείτε"
+
+#: class.yith-funds.php:454
+msgid ""
+"Attention! It is not possible to refund this order automatically because it "
+"was partially paid with funds. Only the manual refund option is available."
+msgstr ""
+"Προσοχή! Δεν είναι δυνατό να επιστραφεί αυτή η παραγγελία αυτόματα διότι "
+"πληρώθηκε μερικώς μέσω κεφαλαίων. Μπορεί να επιστραφεί μόνο χειροκίνητα."
+
+#: class.yith-funds.php:455
+msgid "Attention! It is not possible to set a value < 0"
+msgstr "Προσοχή! Δεν είναι δυνατός ο ορισμός μιας τιμής < 0"
+
+#: class.yith-funds.php:504
+msgid "Recent history"
+msgstr "Πρόσφατο ιστορικό"
+
+#: class.yith-funds.php:504
+msgid "Show all"
+msgstr "Εμφάνιση όλων"
+
+#: class.yith-funds.php:576
+msgid ""
+"Customize My Account Page is activated, you can change the YITH Account "
+"Funds Endpoints here"
+msgstr ""
+"Το Customize My Account Page ενεργοποιήθηκε, μπορείτε να αλλάξετε τα Τελικά "
+"Σημεία YITH Κεφαλαίων εδώ"
+
+#: class.yith-funds.php:602
+msgid "YITH Deposit"
+msgstr "YITH Κατάθεση"
+
+#: class.yith-funds.php:605
+msgid ""
+"This product has been created by YITH Account Funds Plugin, please not remove"
+msgstr ""
+"Αυτό το προϊόν έχει δημιουργηθεί από το Πρόσθετο YITH Account Funds, "
+"παρακαλώ μην αφαιρέσετε"
+
+#: class.yith-funds.php:664
+msgid "Account Funds Info"
+msgstr "Πληροφορίες Κεφαλαίων Λογαριασμού"
+
+#: class.yith-funds.php:707
+msgid "for a total of "
+msgstr "συνολικά "
+
+#: class.yith-funds.php:720
+msgid "Available fund"
+msgstr "Διαθέσιμο κεφάλαιο"
+
+#: class.yith-funds.php:727
+msgid "Account Funds Log"
+msgstr "Καταγραφή Κεφαλαίων Λογαριασμού"
+
+#: class.yith-funds.php:749
+msgid "Account funds"
+msgstr "Κεφάλαια λογαριασμού"
+
+#: class.yith-funds.php:789
+msgid "Item removed from Account Fund log"
+msgid_plural "Items removed from Account Fund log"
+msgstr[0] "Αντικείμενο αφαιρέθηκε από καταγραφή Κεφαλαίων Λογαριασμού"
+msgstr[1] "Αντικείμενα αφαιρέθηκαν από καταγραφή Κεφαλαίων Λογαριασμού"
+
+#: class.yith-funds.php:794
+msgid "Removed user meta _customer_fund properly"
+msgstr "Επιτυχής αφαίρεση μέτα χρήστη _customer_fund"
+
+#: includes/admin/meta-boxes/html-account-fund-meta-box.php:17
+msgid "(available funds %s)"
+msgstr "(διαθέσιμα κεφάλαια %s)"
+
+#: includes/admin/meta-boxes/html-account-fund-meta-box.php:19
+msgid "Add fund"
+msgstr "Προσθήκη κεφαλαίου"
+
+#: includes/admin/meta-boxes/html-account-fund-meta-box.php:20
+msgid "Edit funds"
+msgstr "Επεξεργασία κεφαλαίων"
+
+#: includes/admin/meta-boxes/html-account-fund-meta-box.php:22
+msgid "Add"
+msgstr "Προσθήκη"
+
+#: includes/class.wc-gateway-yith-funds.php:15
+msgid "YITH Funds"
+msgstr "YITH Κεφάλαια"
+
+#: includes/class.wc-gateway-yith-funds.php:16
+msgid "Allow payments with credits (use the available funds)"
+msgstr "Επιτρέψτε πληρωμές με πόντους (χρησιμοποιήστε διαθέσιμα κεφάλαια)"
+
+#: includes/class.wc-gateway-yith-funds.php:33
+msgid "Available funds"
+msgstr "Διαθέσιμα κεφάλαια"
+
+#: includes/class.wc-gateway-yith-funds.php:68
+#: includes/class.wc-gateway-yith-funds.php:78
+#: includes/compatibility/yith-woocommerce-subscription/class.yith-funds-yith-subscription.php:111
+#: includes/compatibility/yith-woocommerce-subscription/class.yith-funds-yith-subscription.php:119
+msgid "Payment error:"
+msgstr "Σφάλμα πληρωμής:"
+
+#: includes/class.wc-gateway-yith-funds.php:68
+msgid "You must be logged in to use this payment method"
+msgstr ""
+"Για να χρησιμοποιήσετε αυτή τη μέθοδο πληρωμής, πρέπει να είστε συνδεδεμένος"
+
+#: includes/class.wc-gateway-yith-funds.php:78
+#: includes/compatibility/yith-woocommerce-subscription/class.yith-funds-yith-subscription.php:119
+msgid "Insufficient account balance"
+msgstr "Ανεπαρκές υπόλοιπο λογαριασμού"
+
+#: includes/class.wc-gateway-yith-funds.php:131
+#: includes/class.yith-ywf-order.php:845
+msgid "Add %s funds to customer #%s"
+msgstr "Πρόσθεση %s κεφαλαίων στον πελάτη #%s"
+
+#: includes/class.wc-gateway-yith-funds.php:183
+#: plugin-options/emails-multi-tab/deposit-email-options.php:36
+#: plugin-options/emails-multi-tab/edit-funds-email-options.php:37
+#: plugin-options/emails-multi-tab/redeem-email-options.php:22
+msgid "Enable/Disable"
+msgstr "Ενεργοποίηση/Απενεργοποίηση"
+
+#: includes/class.wc-gateway-yith-funds.php:185
+msgid "Enable customers to use their funds as a payment gateway"
+msgstr ""
+"Ενεργοποιείστε τους πελάτες να μπορούν να χρησιμοποιούν τα κεφάλαιά τους ως "
+"πύλη πληρωμής"
+
+#: includes/class.wc-gateway-yith-funds.php:189
+#: includes/widgets/class.yith-ywf-make-a-deposit-widget.php:29
+#: includes/widgets/class.yith-ywf-view-user-funds-widget.php:32
+msgid "Title"
+msgstr "Τίτλος"
+
+#: includes/class.wc-gateway-yith-funds.php:191
+msgid "This is the title that users see during the checkout."
+msgstr ""
+"Αυτός είναι ο τίτλος που βλέπουν οι χρήστες κατά τη διάρκεια του ταμείου."
+
+#: includes/class.wc-gateway-yith-funds.php:192
+#: includes/tables/class.yith-ywf-user-list.php:38
+msgid "Funds"
+msgstr "Κεφάλαια"
+
+#: includes/class.wc-gateway-yith-funds.php:206
+msgid "Use your funds"
+msgstr "Χρησιμοποιήστε κεφάλαια"
+
+#: includes/class.yith-funds-endpoints.php:185
+#: includes/shortcodes/class.yith-ywf-shortcodes.php:158
+msgid "Place order"
+msgstr "Τοποθέτηση παραγγελίας"
+
+#: includes/class.yith-funds-endpoints.php:298
+#: includes/functions.yith-ywf-functions.php:423
+msgid "Make a deposit"
+msgstr "Δημιουργία κατάθεσης"
+
+#: includes/class.yith-funds-endpoints.php:302
+#: includes/class.yith-funds-endpoints.php:304
+msgid "My Funds History"
+msgstr "Ιστορικό Κεφαλαίων Μου"
+
+#: includes/class.yith-ywf-cart-process.php:243
+msgid "Discount applied for having used your account funds!"
+msgstr ""
+"Εφαρμόστηκε έκπτωση επειδή χρησιμοποιήσατε τα κεφάλαια λογαριασμού σας!"
+
+#: includes/class.yith-ywf-cart-process.php:260
+msgid "Discount"
+msgstr "Έκπτωση"
+
+#: includes/class.yith-ywf-cart-process.php:338
+#: includes/class.yith-ywf-order.php:374 includes/class.yith-ywf-order.php:579
+msgid "Funds used"
+msgstr "Χρησιμοποιήθηκαν κεφάλαια"
+
+#: includes/class.yith-ywf-cart-process.php:363
+msgid "User funds"
+msgstr "Κεφάλαια χρήστη"
+
+#: includes/class.yith-ywf-cart-process.php:365
+msgid "[Remove]"
+msgstr "[Αφαίρεση]"
+
+#: includes/class.yith-ywf-cart-process.php:432
+msgid "Add a Deposit"
+msgstr "Πρόσθεση Κατάθεσης"
+
+#: includes/class.yith-ywf-cart-process.php:433
+msgid "Deposit at least"
+msgstr "Κατάθεση τουλάχιστον"
+
+#: includes/class.yith-ywf-cart-process.php:433
+msgid "to get the available discount"
+msgstr "για να λάβετε τη διαθέσιμη έκπτωση"
+
+#: includes/class.yith-ywf-cart-process.php:514
+msgid "Your funds have been used successfully. Pay the rest now!"
+msgstr ""
+"Τα κεφάλαιά σας έχουν χρησιμοποιηθεί με επιτυχία. Πληρωμή υπολοίπου τώρα!"
+
+#: includes/class.yith-ywf-deposit-fund-checkout.php:64
+msgid "Enter a price"
+msgstr "Εισάγετε τιμή"
+
+#: includes/class.yith-ywf-deposit-fund-checkout.php:75
+msgid "Minimum deposit amount is"
+msgstr "Το ελάχιστο ποσό κατάθεσης είναι"
+
+#: includes/class.yith-ywf-deposit-fund-checkout.php:84
+msgid "Maximum deposit amount is"
+msgstr "Το μέγιστο ποσό κατάθεσης είναι"
+
+#: includes/class.yith-ywf-deposit-fund-checkout.php:193
+msgid ""
+"You cannot add &quot;%s&quot; to the cart because you are depositing funds"
+msgstr ""
+"Δεν μπορείτε να προσθέσετε &quot;%s&quot; στο καλάθι επειδή καταθέτετε "
+"κεφάλαια"
+
+#: includes/class.yith-ywf-order.php:132 includes/class.yith-ywf-order.php:257
+#: includes/class.yith-ywf-order.php:615
+msgid "Removed %s funds from customer #%s account"
+msgstr "Έγινε αφαίρεση %s κεφαλαίων από τον λογαριασμό του πελάτη #%s"
+
+#: includes/class.yith-ywf-order.php:174 includes/class.yith-ywf-order.php:211
+msgid "Added %s funds to customer #%s account"
+msgstr "Έγινε πρόσθεση %s κεφαλαίων στον λογαριασμό του πελάτη #%s"
+
+#: includes/class.yith-ywf-order.php:374
+msgid "Funds used by the customer to pay for this order."
+msgstr ""
+"Τα κεφαλαία χρησιμοποιήθηκαν από τον πελάτη για να πληρώσει την παραγγελία."
+
+#: includes/class.yith-ywf-order.php:439
+msgid "(Includes %s)"
+msgstr "(Περιλαμβάνει %s)"
+
+#: includes/class.yith-ywf-order.php:561
+msgid "Total with funds:"
+msgstr "Συνολικά με κεφάλαια:"
+
+#: includes/class.yith-ywf-order.php:565
+msgid "Total with %s: "
+msgstr "Συνολικά με %s: "
+
+#: includes/class.yith-ywf-order.php:755
+msgid "Deposit again"
+msgstr "Κατάθεση ξανά"
+
+#: includes/class.yith-ywf-order.php:854
+msgid "Add %s fund in the order #%s"
+msgstr "Πρόσθεση %s κεφαλαίων στην παραγγελία #%s"
+
+#: includes/class.yith-ywf-product-deposit.php:98
+#: plugin-options/endpoints-settings-options.php:17
+msgid "Add funds"
+msgstr "Προσθήκη κεφαλαίων"
+
+#: includes/class.yith-ywf-product-deposit.php:108
+#: plugin-options/emails-multi-tab/deposit-email-options.php:30
+msgid "Deposit funds"
+msgstr "Κατάθεση κεφαλαίων"
+
+#: includes/class.yith-ywf-reports.php:35
+#: includes/class.yith-ywf-reports.php:38
+msgid "Deposits"
+msgstr "Καταθέσεις"
+
+#: includes/class.yith-ywf-reports.php:114
+#: includes/tables/class.yith-ywf-users-log-table.php:31
+#: templates/view-deposit-history.php:6
+msgid "Date"
+msgstr "Ημερομηνία"
+
+#: includes/class.yith-ywf-reports.php:117
+msgid "CSV export"
+msgstr "Εξαγωγή CSV"
+
+#: includes/class.yith-ywf-reports.php:143
+msgid "Year"
+msgstr "Έτος"
+
+#: includes/class.yith-ywf-reports.php:144
+msgid "Last month"
+msgstr "Προηγούμενος μήνας"
+
+#: includes/class.yith-ywf-reports.php:145
+msgid "This month"
+msgstr "Τρέχον μήνας"
+
+#: includes/class.yith-ywf-reports.php:146
+msgid "Last 7 days"
+msgstr "Τελευταίες 7 μέρες"
+
+#: includes/compatibility/class.yith-funds-yith-pdf-invoice-compatibility.php:131
+msgid "It is not possible to create an invoice for deposit"
+msgstr "Αδύνατη η έκδοση τιμολογίου για την κατάθεση"
+
+#: includes/compatibility/class.yith-funds-yith-pdf-invoice-compatibility.php:216
+msgid "Discount for Funds Used"
+msgstr "Χρησιμοποιήθηκε Έκπτωση για Κεφάλαια"
+
+#: includes/compatibility/class.yith-funds-yith-pdf-invoice-compatibility.php:235
+msgid "Order paid through funds"
+msgstr "Έγινε πληρωμή παραγγελίας μέσω κεφαλαίων"
+
+#: includes/compatibility/yith-woocommerce-multi-vendor/class.yith-funds-multi-vendor.php:143
+msgid "Commission"
+msgstr "Προμήθεια"
+
+#: includes/compatibility/yith-woocommerce-multi-vendor/class.yith-funds-multi-vendor.php:144
+msgid "Commission Refunded"
+msgstr "Επιστράφηκε Προμήθεια"
+
+#: includes/compatibility/yith-woocommerce-multi-vendor/class.yith-funds-multi-vendor.php:255
+msgid ""
+"Impossible to process this request without the PayPal Email set for this "
+"Vendor"
+msgstr ""
+"Δεν είναι δυνατή η επεξεργασία του αιτήματος αν δεν έχει εισαχθεί Email "
+"PayPal για αυτόν τον Πωλητή"
+
+#: includes/compatibility/yith-woocommerce-multi-vendor/class.yith-funds-multi-vendor.php:268
+msgid "The vendor's profile is not connected to Stripe."
+msgstr "Το προφίλ του πωλητή δεν είναι συνδεδεμένο με το Stripe."
+
+#: includes/compatibility/yith-woocommerce-multi-vendor/class.yith-funds-multi-vendor.php:291
+msgid "We were unable to process your request, please try again."
+msgstr ""
+"Δεν μπορέσαμε να επεξεργαστούμε το αίτημά σας, παρακαλώ προσπαθήστε ξανά."
+
+#: includes/compatibility/yith-woocommerce-multi-vendor/class.yith-funds-multi-vendor.php:302
+msgid "Invalid amount"
+msgstr "Μη έγκυρο ποσό"
+
+#: includes/compatibility/yith-woocommerce-multi-vendor/class.yith-funds-multi-vendor.php:307
+msgid "You can't redeem funds because you need at least %s in your balance"
+msgstr ""
+"Δεν είναι δυνατή η εξαργύρωση κεφαλαίων γιατί χρειάζεστε τουλάχιστον %s στο "
+"υπόλοιπο σας"
+
+#: includes/compatibility/yith-woocommerce-multi-vendor/class.yith-funds-multi-vendor.php:311
+msgid "You can redeem at most %s"
+msgstr "Μπορείτε να εξαργυρώσετε μέχρι %s"
+
+#: includes/compatibility/yith-woocommerce-multi-vendor/class.yith-funds-multi-vendor.php:538
+msgid "Redeem Vendor Funds"
+msgstr "Εξαργύρωση Κεφαλαίων Πωλητή"
+
+#: includes/compatibility/yith-woocommerce-multi-vendor/class.yith-funds-multi-vendor.php:589
+msgid "Fee"
+msgstr "Χρέωση"
+
+#: includes/compatibility/yith-woocommerce-multi-vendor/class.yith-funds-multi-vendor.php:595
+msgid "Total transaction"
+msgstr "Σύνολο συναλλαγής"
+
+#: includes/compatibility/yith-woocommerce-multi-vendor/class.yith-funds-redeem-payouts-gateway.php:73
+#: includes/compatibility/yith-woocommerce-multi-vendor/class.yith-funds-redeem-payouts-gateway.php:121
+msgid "Redeem %s funds with PayPal Payouts"
+msgstr "Εξαργύρωση %s κεφαλαίων με PayPal Payouts"
+
+#: includes/compatibility/yith-woocommerce-multi-vendor/class.yith-funds-redeem-payouts-gateway.php:136
+msgid "Restored %s funds because payout %s is %s"
+msgstr "Επαναφορά %s κεφαλαίων γιατί η αποζημίωση %s είναι %s"
+
+#: includes/compatibility/yith-woocommerce-multi-vendor/class.yith-funds-redeem-stripe-connect-gateway.php:104
+msgid "Redeem vendor funds"
+msgstr "Εξαργύρωση κεφαλαίων πωλητή"
+
+#: includes/compatibility/yith-woocommerce-multi-vendor/class.yith-funds-redeem-stripe-connect-gateway.php:108
+msgid "Redeem %s funds with Stripe Connect"
+msgstr "Εξαργύρωση %s κεφαλαίων με Stripe Connect"
+
+#: includes/compatibility/yith-woocommerce-multi-vendor/class.yith-funds-redeem-stripe-connect-gateway.php:118
+#: includes/compatibility/yith-woocommerce-multi-vendor/class.yith-funds-redeem-stripe-connect-gateway.php:135
+msgid ""
+"Impossible redeem funds for now, please contact the site administrator for "
+"more details"
+msgstr ""
+"Δεν είναι δυνατή η εξαργύρωση κεφαλαίων αυτή τη στιγμή, παρακαλώ "
+"επικοινωνήστε με τον διαχειριστή ιστοσελίδας για περισσότερες λεπτομέρειες"
+
+#: includes/compatibility/yith-woocommerce-multi-vendor/class.yith-funds-redeem-stripe-connect-gateway.php:119
+msgid "You have insufficient funds in your Stripe account :"
+msgstr "Δεν έχετε αρκετά κεφαλαία στον λογαριασμό Stripe σας :"
+
+#: includes/compatibility/yith-woocommerce-subscription/class.yith-funds-yith-subscription-integration.php:112
+msgid "Renewed a subscription with Funds"
+msgstr "Ανανεώθηκε συνδρομή με Κεφάλαια"
+
+#: includes/compatibility/yith-woocommerce-subscription/class.yith-funds-yith-subscription-integration.php:134
+msgid "Renewed order #%s for subscription #%s"
+msgstr "Ανανεώθηκε παραγγελία #%s για συνδρομή #%s"
+
+#: includes/compatibility/yith-woocommerce-subscription/class.yith-funds-yith-subscription.php:111
+msgid "Subscriptions not found."
+msgstr "Δεν βρέθηκαν συνδρομές."
+
+#: includes/emails/class.yith-ywf-advise-customer-email.php:12
+msgid "Customer funds note"
+msgstr "Σημείωση κεφαλαίων πελάτη"
+
+#: includes/emails/class.yith-ywf-advise-customer-email.php:13
+msgid ""
+"This email is sent to customers when the administrator changes the amount of "
+"their available funds"
+msgstr ""
+"Αυτό το mail στέλνεται στους πελάτες όταν ο διαχειριστής αλλάζει το ποσό των "
+"διαθέσιμων κεφαλαίων"
+
+#: includes/emails/class.yith-ywf-customer-email.php:18
+msgid "Funds email"
+msgstr "Email κεφαλαίων"
+
+#: includes/emails/class.yith-ywf-customer-email.php:19
+msgid ""
+"This email is sent to customers when the administrator changes their "
+"available fund amount"
+msgstr ""
+"Αυτό το email στέλνεται στους πελάτες όταν ο διαχειριστής αλλάζει το "
+"διαθέσιμο ποσό κεφαλαίων τους"
+
+#: includes/emails/class.yith-ywf-vendor-redeem-email.php:16
+msgid ""
+"This email is sent to administrator when one or more vendor redeem funds"
+msgstr ""
+"Αυτό το email στέλνεται στον διαχειριστή όταν ένας ή περισσότεροι πωλητές "
+"εξαργυρώνουν κεφάλαια"
+
+#: includes/functions.yith-ywf-functions.php:289
+msgid "Payment"
+msgstr "Πληρωμή"
+
+#: includes/functions.yith-ywf-functions.php:290
+msgid "Admin activity"
+msgstr "Δραστηριότητα διαχειριστή"
+
+#: includes/functions.yith-ywf-functions.php:291
+msgid "Funds restored"
+msgstr "Κεφάλαια αποκαταστάθηκαν"
+
+#: includes/functions.yith-ywf-functions.php:292
+msgid "Funds refunded"
+msgstr "Κεφάλαια επιστράφηκαν"
+
+#: includes/functions.yith-ywf-functions.php:417
+#: plugin-options/endpoints-settings-options.php:31
+msgid "Income/Expenditure History"
+msgstr "Ιστορικό Εισόδων/Εξόδων"
+
+#: includes/reports/class.yith-ywf-report-deposit-order.php:138
+msgid "Average daily deposits: %s"
+msgstr "Μέσος όρος ημερήσιων καταθέσεων: %s"
+
+#: includes/reports/class.yith-ywf-report-deposit-order.php:142
+msgid "Average gross monthly sales: %s"
+msgstr "Μέσος όρος μεικτών μηνιαίων πωλήσεων: %s"
+
+#: includes/reports/class.yith-ywf-report-deposit-order.php:148
+msgid "Gross sales in this period: %s"
+msgstr "Μεικτές πωλήσεις στο διάστημα: %s"
+
+#: includes/reports/class.yith-ywf-report-deposit-order.php:149
+msgid "This is the sum of the order totals after any refunds."
+msgstr ""
+"Αυτό είναι το άθροισμα του συνόλου των παραγγελιών μετά των επιστροφών."
+
+#: includes/reports/class.yith-ywf-report-deposit-order.php:163
+msgid "%s deposits placed"
+msgstr "%s καταθέσεις τοποθετήθηκαν"
+
+#: includes/reports/class.yith-ywf-report-deposit-order.php:202
+msgid "Deposits placed"
+msgstr "Τοποθετήθηκαν καταθέσεις"
+
+#: includes/reports/class.yith-ywf-report-deposit-order.php:212
+msgid "Deposit amount"
+msgstr "Ποσό κατάθεσης"
+
+#: includes/reports/class.yith-ywf-report-deposit-order.php:223
+msgid "Average net sales"
+msgstr "Μέσος όρος καθαρών πωλήσεων"
+
+#: includes/shortcodes/class.yith-ywf-shortcodes.php:105
+msgid "Available funds:"
+msgstr "Διαθέσιμα κεφάλαια:"
+
+#: includes/tables/class.yith-ywf-user-list.php:36
+msgid "ID"
+msgstr "ID"
+
+#: includes/tables/class.yith-ywf-user-list.php:37
+msgid "User"
+msgstr "Χρήστης"
+
+#: includes/tables/class.yith-ywf-user-list.php:39
+msgid "Action"
+msgstr "Ενέργεια"
+
+#: includes/tables/class.yith-ywf-user-list.php:159
+msgid "View Logs"
+msgstr "Εμφάνιση αρχείων καταγραφής"
+
+#. translators: 1: user display name 2: user ID 3: user email
+#: includes/tables/class.yith-ywf-user-list.php:205
+msgid "%1$s (#%2$s &ndash; %3$s)"
+msgstr "%1$s (#%2$s &ndash; %3$s)"
+
+#: includes/tables/class.yith-ywf-user-list.php:213
+msgid "Filter by registered customer"
+msgstr "Ταξινόμηση κατά καταγεγραμμένο πελάτη"
+
+#: includes/tables/class.yith-ywf-user-list.php:219
+#: templates/view-deposit-history.php:24
+msgid "Filter"
+msgstr "Ταξινόμηση"
+
+#: includes/tables/class.yith-ywf-users-log-table.php:32
+#: plugin-options/privacy-settings-options.php:25
+#: templates/admin/user-log-table.php:90 templates/view-deposit-history.php:6
+msgid "Description"
+msgstr "Περιγραφή"
+
+#: includes/tables/class.yith-ywf-users-log-table.php:33
+msgid "Transaction"
+msgstr "Συναλλαγή"
+
+#: includes/tables/class.yith-ywf-users-log-table.php:80
+msgid "Funds used in order"
+msgstr "Κεφάλαια χρησιμοποιήθηκαν στην παραγγελία"
+
+#: includes/tables/class.yith-ywf-users-log-table.php:83
+msgid "Funds deposited through order"
+msgstr "Κεφάλαια κατατέθηκαν μέσω παραγγελίας"
+
+#: includes/tables/class.yith-ywf-users-log-table.php:86
+msgid "Funds restored for the order"
+msgstr "Κεφάλαια αποκαταστάθηκαν για την παραγγελία"
+
+#: includes/tables/class.yith-ywf-users-log-table.php:89
+msgid "Funds refunded for the order"
+msgstr "Κεφάλαια επιστράφηκαν για την παραγγελία"
+
+#: includes/widgets/class.yith-ywf-make-a-deposit-widget.php:14
+msgid "YITH Account Funds: Make a deposit widget"
+msgstr "YITH Account Funds: Δημιουργία μικροεφαρμογής κατάθεσης"
+
+#: includes/widgets/class.yith-ywf-make-a-deposit-widget.php:15
+msgid "Shows the form to let customers deposit funds"
+msgstr "Εμφανίζει τη φόρμα όπου οι πελάτες καταθέτουν κεφάλαια"
+
+#: includes/widgets/class.yith-ywf-view-user-funds-widget.php:14
+msgid "YITH Account Funds: View user funds widget"
+msgstr "YITH Account Funds: Εμφάνιση μικροεφαρμογής κεφαλαίων χρήστη"
+
+#: includes/widgets/class.yith-ywf-view-user-funds-widget.php:15
+msgid "Shows customer's available funds"
+msgstr "Εμφανίζει διαθέσιμα κεφάλαια πελάτη"
+
+#: includes/widgets/class.yith-ywf-view-user-funds-widget.php:36
+msgid "Text alignment"
+msgstr "Στοίχιση κειμένου"
+
+#: includes/widgets/class.yith-ywf-view-user-funds-widget.php:38
+msgid "Left"
+msgstr "Αριστερά"
+
+#: includes/widgets/class.yith-ywf-view-user-funds-widget.php:39
+msgid "Center"
+msgstr "Κέντρο"
+
+#: includes/widgets/class.yith-ywf-view-user-funds-widget.php:40
+msgid "Right"
+msgstr "Δεξιά"
+
+#: includes/widgets/class.yith-ywf-view-user-funds-widget.php:44
+msgid "Font weight"
+msgstr "Πάχος γραμματοσειράς"
+
+#: includes/widgets/class.yith-ywf-view-user-funds-widget.php:46
+msgid "Normal"
+msgstr "Κανονικό"
+
+#: includes/widgets/class.yith-ywf-view-user-funds-widget.php:47
+msgid "Bold"
+msgstr "Έντονο"
+
+#: init.php:36
+msgid ""
+"YITH WooCommerce Account Funds Premium is enabled but not effective. It "
+"requires WooCommerce in order to work."
+msgstr ""
+"Το YITH WooCommerce Account Funds Premium είναι ενεργοποιημένο αλλά μη "
+"αποτελεσματικό. Για σωστή λειτουργία, απαιτείται WooCommerce."
+
+#: plugin-options/emails-multi-tab/deposit-email-options.php:5
+msgid "You are running out of funds!"
+msgstr "Ξεμένεις από κεφάλαια!"
+
+#: plugin-options/emails-multi-tab/deposit-email-options.php:7
+#: plugin-options/emails-multi-tab/edit-funds-email-options.php:9
+msgid "Dear"
+msgstr "Αγαπητέ"
+
+#: plugin-options/emails-multi-tab/deposit-email-options.php:8
+msgid "you are going to run out of funds on"
+msgstr "θα ξεμείνεις από κεφάλαια στo"
+
+#: plugin-options/emails-multi-tab/deposit-email-options.php:9
+msgid "your available funds:"
+msgstr "τα διαθέσιμα κεφάλαιά σου:"
+
+#: plugin-options/emails-multi-tab/deposit-email-options.php:10
+msgid "Top up your account at"
+msgstr "Γέμισε τον λογαριασμό σου στο"
+
+#: plugin-options/emails-multi-tab/deposit-email-options.php:11
+msgid ""
+"to be able to make new orders quickly and forget about card numbers and "
+"codes."
+msgstr ""
+"για να κάνεις γρήγορα νέες παραγγελίες χωρίς να πρέπει να θυμάσαι αριθμούς "
+"και κωδικούς κάρτας."
+
+#: plugin-options/emails-multi-tab/deposit-email-options.php:12
+#: plugin-options/emails-multi-tab/edit-funds-email-options.php:13
+msgid "Best regards"
+msgstr "Με εκτίμιση"
+
+#: plugin-options/emails-multi-tab/deposit-email-options.php:16
+#: plugin-options/emails-multi-tab/edit-funds-email-options.php:17
+msgid "You can use the following placeholders"
+msgstr ""
+"Μπορείς να χρησιμοποιήσεις τα ακόλουθα κείμενα υποκατάστασης (placeholder)"
+
+#: plugin-options/emails-multi-tab/deposit-email-options.php:17
+msgid "<code>{site_title}</code> replaced by website title"
+msgstr "<code>{site_title}</code> αποκαταστάθηκε από τίτλο ιστοτόπου"
+
+#: plugin-options/emails-multi-tab/deposit-email-options.php:18
+msgid "<code>{user_funds}</code> replaced by user's current balance"
+msgstr "<code>{user_funds}</code> αποκαταστάθηκε από τρέχον υπόλοιπο χρήστη"
+
+#: plugin-options/emails-multi-tab/deposit-email-options.php:19
+#: plugin-options/emails-multi-tab/edit-funds-email-options.php:21
+msgid "<code>{customer_email}</code> replaced by customer's email address"
+msgstr ""
+"<code>{customer_email}</code> αποκαταστάθηκε από διεύθυνση ηλεκτρονικού "
+"ταχυδρομείου πελάτη"
+
+#: plugin-options/emails-multi-tab/deposit-email-options.php:20
+#: plugin-options/emails-multi-tab/edit-funds-email-options.php:22
+msgid "<code>{customer_name}</code> replaced by customer's name"
+msgstr "<code>{customer_name}</code> αποκαταστάθηκε από όνομα πελάτη"
+
+#: plugin-options/emails-multi-tab/deposit-email-options.php:21
+msgid "<code>{button_charging}</code> replaced by \"Deposit now\" button"
+msgstr ""
+"<code>{button_charging}</code> αποκαταστάθηκε από κουμπί “Κατάθεση τώρα”"
+
+#: plugin-options/emails-multi-tab/deposit-email-options.php:41
+msgid ""
+"If enabled, send an email to the customer once the balance is below the "
+"threshold"
+msgstr ""
+"Αν ενεργοποιηθεί, στέλνει email στον πελάτη όταν το υπόλοιπο του είναι κάτω "
+"από το όριο"
+
+#: plugin-options/emails-multi-tab/deposit-email-options.php:44
+msgid "User funds threshold"
+msgstr "Όριο κεφαλαίων χρήστη"
+
+#: plugin-options/emails-multi-tab/deposit-email-options.php:51
+msgid ""
+"Set a minimum threshold when an email is sent to customers to invite them to "
+"deposit more funds"
+msgstr ""
+"Ορίστε κατώτατο όριο υπό του οποίου στέλνεται email στους πελάτες "
+"προσκαλώντας τους να καταθέσουν περισσότερα κεφάλαια"
+
+#: plugin-options/emails-multi-tab/deposit-email-options.php:54
+msgid "Email subject"
+msgstr "Θέμα email"
+
+#: plugin-options/emails-multi-tab/deposit-email-options.php:62
+#: plugin-options/emails-multi-tab/edit-funds-email-options.php:55
+#: plugin-options/emails-multi-tab/redeem-email-options.php:49
+msgid "Email heading"
+msgstr "Επικεφαλίδα email"
+
+#: plugin-options/emails-multi-tab/deposit-email-options.php:66
+msgid "Visit {site_title} to top up your funds"
+msgstr "Μπείτε στο {site_title} για να ανανεώσετε τα κεφάλαιά σας"
+
+#: plugin-options/emails-multi-tab/deposit-email-options.php:71
+msgid "Email content"
+msgstr "Περιεχόμενο email"
+
+#: plugin-options/emails-multi-tab/deposit-email-options.php:82
+#: plugin-options/emails-multi-tab/edit-funds-email-options.php:73
+#: plugin-options/emails-multi-tab/redeem-email-options.php:58
+msgid "Email type"
+msgstr "Τύπος email"
+
+#: plugin-options/emails-multi-tab/deposit-email-options.php:87
+#: plugin-options/emails-multi-tab/edit-funds-email-options.php:78
+#: plugin-options/emails-multi-tab/redeem-email-options.php:63
+msgid "HTML"
+msgstr "HTML"
+
+#: plugin-options/emails-multi-tab/deposit-email-options.php:88
+#: plugin-options/emails-multi-tab/edit-funds-email-options.php:79
+#: plugin-options/emails-multi-tab/redeem-email-options.php:64
+msgid "Plain text"
+msgstr "Απλό κείμενο"
+
+#: plugin-options/emails-multi-tab/edit-funds-email-options.php:6
+msgid "The Administrator has changed your funds from"
+msgstr "Ο Διαχειριστής έχει αλλάξει τα κεφάλαιά σας από"
+
+#: plugin-options/emails-multi-tab/edit-funds-email-options.php:10
+msgid "the administrator has changed your funds from"
+msgstr "ο διαχειριστής έχει αλλάξει τα κεφάλαιά σας από"
+
+#: plugin-options/emails-multi-tab/edit-funds-email-options.php:11
+msgid "to"
+msgstr "σε"
+
+#: plugin-options/emails-multi-tab/edit-funds-email-options.php:12
+msgid "for the following reason"
+msgstr "για την παρακάτω αιτία"
+
+#: plugin-options/emails-multi-tab/edit-funds-email-options.php:18
+msgid "<code>{site_title}</code> replaced by site title"
+msgstr "<code>{site_title}</code> αποκαταστάθηκε από τίτλο ιστοτόπου"
+
+#: plugin-options/emails-multi-tab/edit-funds-email-options.php:19
+msgid ""
+"<code>{before_funds}</code> replaced by user funds before admin adjustments"
+msgstr ""
+"<code>{before_funds}</code> αποκαταστάθηκε από κεφάλαια χρήστη πριν από "
+"αναπροσαρμογές διαχειριστή"
+
+#: plugin-options/emails-multi-tab/edit-funds-email-options.php:20
+msgid ""
+"<code>{after_funds}</code> replaced by user funds after admin adjustments"
+msgstr ""
+"<code>{after_funds}</code> αποκαταστάθηκε από κεφάλαια χρήστη μετά από "
+"αναπροσαρμογές διαχειριστή"
+
+#: plugin-options/emails-multi-tab/edit-funds-email-options.php:23
+msgid "<code>{log_date}</code> replaced with adjustment date"
+msgstr "<code>{log_date}</code> αποκαταστάθηκε με ημερομηνία αναπροσαρμογής"
+
+#: plugin-options/emails-multi-tab/edit-funds-email-options.php:24
+msgid "<code>{change_reason}</code> replaced by adjustment reason"
+msgstr "<code>{change_reason}</code> αποκαταστάθηκε λόγω αιτίας αναπροσαρμογής"
+
+#: plugin-options/emails-multi-tab/edit-funds-email-options.php:32
+msgid "Funds edited"
+msgstr "Έγινε επεξεργασία κεφαλαίων"
+
+#: plugin-options/emails-multi-tab/edit-funds-email-options.php:42
+msgid ""
+"If enabled, send an email to customer as soon the admin change the funds in "
+"admin area"
+msgstr ""
+"Αν ενεργοποιηθεί, στέλνει email στον πελάτη μόλις ο διαχειριστής αλλάξει τα "
+"κεφαλαία στην περιοχή διαχειριστή"
+
+#: plugin-options/emails-multi-tab/edit-funds-email-options.php:46
+msgid "Email Subject"
+msgstr "Θέμα Email"
+
+#: plugin-options/emails-multi-tab/edit-funds-email-options.php:51
+msgid "The Administrator has changed your funds from {log_date}"
+msgstr "Ο Διαχειριστής έχει αλλάξει τα κεφάλαιά σας από {log_date}"
+
+#: plugin-options/emails-multi-tab/edit-funds-email-options.php:60
+msgid "Funds edited by admin!"
+msgstr "Κεφάλαια επεξεργάστηκαν από διαχειριστή!"
+
+#: plugin-options/emails-multi-tab/edit-funds-email-options.php:64
+msgid "Email Content"
+msgstr "Περιεχόμενο Email"
+
+#: plugin-options/emails-multi-tab/redeem-email-options.php:5
+msgid "Available placeholders: %s"
+msgstr "Διαθέσιμα placeholders: %s"
+
+#: plugin-options/emails-multi-tab/redeem-email-options.php:13
+msgid "Funds redeemed"
+msgstr "Κεφάλαια εξαργυρώθηκαν"
+
+#: plugin-options/emails-multi-tab/redeem-email-options.php:19
+#: plugin-options/vendor-multi-tab/funds-settings-options.php:18
+#: plugin-options/vendor-multi-tab/redeem-funds-options.php:29
+msgid ""
+"These features are available only with YITH WooCommerce MultiVendor Premium "
+"3.5.3 or greater"
+msgstr ""
+"Αυτά τα χαρακτηριστικά είναι διαθέσιμα μόνο με το YITH WooCommerce Multi "
+"Vendor Premium 3.5.3 ή ανώτερο"
+
+#: plugin-options/emails-multi-tab/redeem-email-options.php:28
+msgid "If enabled, send an email to admin when one or more vendor redeem funds"
+msgstr ""
+"Αν ενεργοποιηθεί, στέλνει email στον διαχειριστή όταν ένας ή περισσότεροι "
+"πωλητές εξαργυρώσουν κεφαλαία"
+
+#: plugin-options/emails-multi-tab/redeem-email-options.php:31
+msgid "Recipient(s)"
+msgstr "Παραλήπτης (-ες)"
+
+#: plugin-options/emails-multi-tab/redeem-email-options.php:37
+msgid "Enter recipients (comma separated) for this email. Defaults to %s."
+msgstr ""
+"Πληκτρολογήστε παραλήπτες (διαχωρίστε με κόμμα) για αυτό το email. "
+"Προεπιλεγμένα σε %s."
+
+#: plugin-options/emails-multi-tab/redeem-email-options.php:40
+msgid "Subject"
+msgstr "Θέμα"
+
+#: plugin-options/emails-multi-tab/redeem-email-options.php:45
+msgid "[{site_title}] New Redeems"
+msgstr "[{site_title}] Νέες Εξαργυρώσεις"
+
+#: plugin-options/emails-multi-tab/redeem-email-options.php:54
+msgid "New Redeems"
+msgstr "Νέες Εξαργυρώσεις"
+
+#: plugin-options/emails-multi-tab/redeem-email-options.php:66
+msgid "Select if the email is HTML or plain"
+msgstr "Επιλέξτε αν το email είναι HTML ή απλό"
+
+#: plugin-options/emails-multi-tab-options.php:16
+msgid "Funds Edited"
+msgstr "Επεξεργασμένα Κεφάλαια"
+
+#: plugin-options/endpoints-settings-options.php:15
+msgid "\"Add funds\" endpoint title"
+msgstr "Τίτλος τελικού σημείου “Προσθήκη κεφαλαίων”"
+
+#: plugin-options/endpoints-settings-options.php:22
+msgid "\"Add funds\" endpoint slug"
+msgstr "Slug τελικού σημείου “Προσθήκη κεφαλαίων”"
+
+#: plugin-options/endpoints-settings-options.php:29
+msgid "Income/Expenditure History endpoint title"
+msgstr "Τίτλος τελικού σημείου Ιστορικού Εισόδων/Εξόδων"
+
+#: plugin-options/endpoints-settings-options.php:36
+msgid "Income/Expenditure History endpoint slug"
+msgstr "Slug τελικού σημείου Ιστορικού Εισόδων/Εξόδων"
+
+#: plugin-options/general-settings-options.php:11
+msgid "Charging Account settings"
+msgstr "Φόρτωμα ρυθμίσεων Λογαριασμού"
+
+#: plugin-options/general-settings-options.php:15
+msgid "Minimum deposit amount"
+msgstr "Ελάχιστο ποσό κατάθεσης"
+
+#: plugin-options/general-settings-options.php:22
+msgid "Set a minimum required amount for deposits"
+msgstr "Ορίστε ελάχιστο απαιτούμενο ποσό καταθέσεων"
+
+#: plugin-options/general-settings-options.php:27
+msgid "Maximum deposit amount"
+msgstr "Μέγιστο ποσό κατάθεσης"
+
+#: plugin-options/general-settings-options.php:34
+msgid ""
+"Set the maximum amount for each individual deposit. Leave it blank to make "
+"it unlimited."
+msgstr ""
+"Ορίστε μέγιστο ποσό για κάθε ξεχωριστή κατάθεση. Αφήστε το κενό για "
+"απεριόριστο."
+
+#: plugin-options/general-settings-options.php:39
+msgid "Amount increments"
+msgstr "Προσαύξηση ποσών"
+
+#: plugin-options/general-settings-options.php:40
+msgid ""
+"Choose the increments of the deposit amount. For example, enter 5 if you "
+"want to let your users only select increments of $5"
+msgstr ""
+"Επιλέξτε το ποσό προσαυξήσεων του ποσού κατάθεσης. Για παράδειγμα, εισάγετε "
+"5 αν θέλετε οι χρήστες σας να επιλέξουν μόνο ποσά των 5$"
+
+#: plugin-options/general-settings-options.php:50
+msgid "Use Coupon"
+msgstr "Χρησιμοποιήστε Κουπόνι"
+
+#: plugin-options/general-settings-options.php:51
+msgid "If enabled, the customer can use the coupon code to purchase funds"
+msgstr ""
+"Αν το ενεργοποιήσετε, ο πελάτης θα μπορεί να χρησιμοποιήσει κουπόνι κωδικού "
+"για την αγορά κεφαλαίων"
+
+#: plugin-options/general-settings-options.php:58
+msgid "Payment method"
+msgstr "Μέθοδος πληρωμής"
+
+#: plugin-options/general-settings-options.php:59
+msgid ""
+"Select payment method for deposits. Leave this field empty if you want to "
+"allow all gateways enabled in WooCommerce"
+msgstr ""
+"Επιλέξτε μέθοδο πληρωμής για καταθέσεις. Αφήστε το πεδίο ελεύθερο αν θέλετε "
+"να ενεργοποιήσετε όλα τα gateways στο WooCommerce"
+
+#: plugin-options/general-settings-options.php:63
+msgid "Select a Payment Method"
+msgstr "Επιλέξτε μια Μέθοδο Πληρωμής"
+
+#: plugin-options/general-settings-options.php:73
+msgid "Using funds settings"
+msgstr "Ρυθμίσεις χρησιμοποιημένων κεφαλαίων"
+
+#: plugin-options/general-settings-options.php:77
+msgid "Enable discount"
+msgstr "Ενεργοποίηση έκπτωσης"
+
+#: plugin-options/general-settings-options.php:81
+msgid "Apply a discount if customers use their funds to pay"
+msgstr ""
+"Εφαρμόστε μια έκπτωση αν οι πελάτες χρησιμοποιούν κεφάλαια για πληρωμές"
+
+#: plugin-options/general-settings-options.php:86
+msgid "Discount type"
+msgstr "Τύπος έκπτωσης"
+
+#: plugin-options/general-settings-options.php:88
+msgid "Choose if the discount is fixed or in percentage"
+msgstr "Επιλέξτε αν η έκπτωση είναι σταθερή ή σε ποσοστό"
+
+#: plugin-options/general-settings-options.php:91
+msgid "Fixed price"
+msgstr "Σταθερή τιμή"
+
+#: plugin-options/general-settings-options.php:92
+msgid "Percentage"
+msgstr "Ποσοστό"
+
+#: plugin-options/general-settings-options.php:103
+msgid "Discount amount"
+msgstr "Ποσό έκπτωσης"
+
+#: plugin-options/general-settings-options.php:110
+msgid ""
+"Enter a value. Based on to the above selection, it will be calculated either "
+"as fixed amount or as percentage."
+msgstr ""
+"Εισάγετε μιαν αξία. Βάσει της παραπάνω επιλογής, θα υπολογιστεί είτε ως "
+"σταθερό ποσό ή ως ποσοστό."
+
+#: plugin-options/general-settings-options.php:120
+msgid "Enable partial payments"
+msgstr "Ενεργοποίηση μερικών πληρωμών"
+
+#: plugin-options/general-settings-options.php:121
+msgid ""
+"Allow customers to pay for the order using their available funds and pay the "
+"rest using a different payment method."
+msgstr ""
+"Επιτρέψτε στους πελάτες να πραγματοποιήσουν πληρωμή παραγγελίας μέσω των "
+"διαθέσιμων κεφαλαίων τους και πληρωμή του υπολοίπου χρησιμοποιώντας άλλη "
+"μέθοδο πληρωμής."
+
+#: plugin-options/privacy-settings-options.php:11
+msgid "Privacy Settings"
+msgstr "Ρυθμίσεις Προστασίας"
+
+#: plugin-options/privacy-settings-options.php:16
+msgid "GDPR compliance"
+msgstr "GDPR compliance"
+
+#: plugin-options/privacy-settings-options.php:20
+msgid ""
+"If checked, it allows customers to choose whether to receive emails or not "
+"about their funds. This option is visible in 'My Account' page"
+msgstr ""
+"Εάν επιλεχθεί, επιτρέπει στους πελάτες να επιλέξουν αν θέλουν ή όχι να "
+"λαμβάνουν email για τα κεφάλαιά τους. Η επιλογή είναι ορατή στην σελίδα ‘Ο "
+"Λογαριασμός Μου’"
+
+#: plugin-options/privacy-settings-options.php:29
+msgid "This description will be displayed next to the checkbox"
+msgstr "Αυτή η περιγραφή θα εμφανίζεται δίπλα στο κουμπί επιλογής"
+
+#: plugin-options/privacy-settings-options.php:35
+msgid "Yes, I want to receive emails for my funds"
+msgstr "Ναι, θέλω να λαμβάνω mails για τα κεφάλαιά μου"
+
+#: plugin-options/vendor-multi-tab/funds-settings-options.php:12
+msgid "Funds Settings"
+msgstr "Ρυθμίσεις Κεφαλαίων"
+
+#: plugin-options/vendor-multi-tab/funds-settings-options.php:25
+msgid "The vendor can charge funds"
+msgstr "Ο πωλητής μπορεί να χρεώσει κεφάλαια"
+
+#: plugin-options/vendor-multi-tab/funds-settings-options.php:27
+msgid "If enabled, vendor can charge funds like a normal customer"
+msgstr ""
+"Αν ενεργοποιηθεί, ο πωλητής μπορεί να χρεώσει κεφάλαια σαν κανονικός πελάτης"
+
+#: plugin-options/vendor-multi-tab/funds-settings-options.php:34
+msgid "The vendor can use funds"
+msgstr "Ο πωλητής μπορεί να χρησιμοποιήσει κεφάλαια"
+
+#: plugin-options/vendor-multi-tab/funds-settings-options.php:36
+msgid "If enabled, vendor can use funds to purchase products"
+msgstr ""
+"Αν το ενεργοποιήσετε, ο πωλητής θα μπορεί να χρησιμοποιήσει κεφάλαια για την "
+"αγορά προϊόντων"
+
+#: plugin-options/vendor-multi-tab/redeem-funds-options.php:23
+msgid "Funds Redeem Settings"
+msgstr "Ρυθμίσεις Εξαργύρωσης Κεφαλαίων"
+
+#: plugin-options/vendor-multi-tab/redeem-funds-options.php:36
+msgid "Vendor can redeem"
+msgstr "Ο πωλητής μπορεί να εξαργυρώσει"
+
+#: plugin-options/vendor-multi-tab/redeem-funds-options.php:37
+msgid "If enabled the vendor can redeem funds"
+msgstr "Αν το ενεργοποιήσετε, ο πωλητής θα μπορεί να εξαργυρώσει κεφάλαια"
+
+#: plugin-options/vendor-multi-tab/redeem-funds-options.php:41
+msgid "Minimum funds to redeem"
+msgstr "Ελάχιστα κεφάλαια προς εξαργύρωση"
+
+#: plugin-options/vendor-multi-tab/redeem-funds-options.php:49
+msgid "Set the minimum balance necessary for a vendor to redeem funds"
+msgstr ""
+"Ορίστε ελάχιστο απαραίτητο υπόλοιπο για να μπορεί ένας πωλητής να "
+"εξαργυρώσει κεφάλαια"
+
+#: plugin-options/vendor-multi-tab/redeem-funds-options.php:52
+msgid "Maximum funds to redeem"
+msgstr "Μέγιστα κεφάλαια προς εξαργύρωση"
+
+#: plugin-options/vendor-multi-tab/redeem-funds-options.php:60
+msgid ""
+"Set the maximum funds that can be redeemed in a transaction, leave empty to "
+"disable this restriction."
+msgstr ""
+"Ορίστε μέγιστα κεφάλαια που μπορούν να εξαργυρωθούν σε μια συναλλαγή, αφήστε "
+"κενό για να απενεργοποιήσετε αυτόν τον περιορισμό."
+
+#: plugin-options/vendor-multi-tab/redeem-funds-options.php:65
+msgid "Gateway Method"
+msgstr "Μέθοδος Πύλης"
+
+#: plugin-options/vendor-multi-tab/redeem-funds-options.php:66
+msgid ""
+"Set the gateway to use for transferring funds from the site to the vendor "
+"(You will pay a fee to transfer money from the site to PayPal )"
+msgstr ""
+"Ορίστε την πύλη που θέλετε να χρησιμοποιείτε για την μεταφορά κεφαλαίων από "
+"την ιστοσελίδα στον πωλητή (Υπάρχει χρέωση για την μεταφορά χρημάτων από την "
+"ιστοσελίδα στην PayPal )"
+
+#: plugin-options/vendor-multi-tab/redeem-funds-options.php:71
+msgid "PayPal Payouts"
+msgstr "PayPal Payouts"
+
+#: plugin-options/vendor-multi-tab/redeem-funds-options.php:80
+msgid "Automatic Redeem Type"
+msgstr "Αυτόματος Τύπος Εξαργύρωσης"
+
+#: plugin-options/vendor-multi-tab/redeem-funds-options.php:85
+msgid "None"
+msgstr "Κανένα"
+
+#: plugin-options/vendor-multi-tab/redeem-funds-options.php:86
+msgid "Automatically when the minimum threshold is reached"
+msgstr "Αυτόματα όταν έχει φτάσει το ελάχιστο όριο"
+
+#: plugin-options/vendor-multi-tab/redeem-funds-options.php:87
+msgid ""
+"Automatically, on a specific day and when the minimum threshold is reached."
+msgstr "Αυτόματα, μια συγκεκριμένη μέρα και όταν έχει φτάσει το ελάχιστο όριο."
+
+#: plugin-options/vendor-multi-tab/redeem-funds-options.php:94
+msgid "Redeem Day"
+msgstr "Μέρα Εξαργύρωσης"
+
+#: plugin-options/vendor-multi-tab/redeem-funds-options.php:95
+msgid "Set a day of the month for redeeming payment funds"
+msgstr "Ορίστε μια ημέρα του μήνα για εξαργύρωση κεφαλαίων πληρωμής"
+
+#: plugin-options/vendor-multi-tab/redeem-funds-options.php:110
+msgid "Manual Redeem"
+msgstr "Χειροκίνητη Εξαργύρωση"
+
+#: plugin-options/vendor-multi-tab/redeem-funds-options.php:114
+msgid "If enabled, the vendor can redeem funds from 'My Account' Page"
+msgstr ""
+"Αν το ενεργοποιήσετε, ο πωλητής θα μπορεί να εξαργυρώσει κεφάλαια από την "
+"σελίδα ‘Ο Λογαριασμός Μου’"
+
+#: plugin-options/vendor-multi-tab/redeem-funds-options.php:119
+msgid "Redeem Button"
+msgstr "Κουμπί Εξαργύρωσης"
+
+#: plugin-options/vendor-multi-tab/redeem-funds-options.php:122
+msgid "Redeem funds!"
+msgstr "Εξαργύρωση κεφαλαίων!"
+
+#: plugin-options/vendor-multi-tab/redeem-funds-options.php:123
+msgid "Set the text for the redeem button visible on 'My Account' page"
+msgstr ""
+"Ορίστε κείμενο για το κουμπί εξαργύρωσης που θα είναι ορατό στη σελίδα ‘Ο "
+"Λογαριασμός Μου’"
+
+#: plugin-options/vendor-multi-tab/redeem-funds-options.php:133
+msgid "Redeem Button Text Color"
+msgstr "Χρώμα Κειμένου Κουμπιού Εξαργύρωσης"
+
+#: plugin-options/vendor-multi-tab/redeem-funds-options.php:138
+#: plugin-options/vendor-multi-tab/redeem-funds-options.php:163
+msgid "Default"
+msgstr "Προεπιλεγμένο"
+
+#: plugin-options/vendor-multi-tab/redeem-funds-options.php:143
+#: plugin-options/vendor-multi-tab/redeem-funds-options.php:168
+msgid "Hover"
+msgstr "Αιώρηση"
+
+#: plugin-options/vendor-multi-tab/redeem-funds-options.php:148
+msgid "Set the color for the button text"
+msgstr "Ορίστε χρώμα για το κείμενο κουμπιού"
+
+#: plugin-options/vendor-multi-tab/redeem-funds-options.php:158
+msgid "Redeem Button Color"
+msgstr "Χρώμα Κουμπιού Εξαργύρωσης"
+
+#: plugin-options/vendor-multi-tab/redeem-funds-options.php:173
+msgid "Set the color for the button background"
+msgstr "Ορίστε χρώμα για το φόντο κουμπιού"
+
+#: plugin-options/vendor-multi-tab-options.php:14
+msgid "General Settings"
+msgstr "Γενικές Ρυθμίσεις"
+
+#: templates/admin/image-select.php:24
+msgid "Upload"
+msgstr "Ανέβασμα"
+
+#: templates/admin/image-select.php:24
+msgid "Select an image"
+msgstr "Επιλογή εικόνας"
+
+#: templates/admin/user-log-table.php:16
+msgid "User Log"
+msgstr "Αρχείο καταγραφής χρήστη"
+
+#: templates/admin/user-log-table.php:22
+msgid "User Funds"
+msgstr "Κεφάλαια Χρήστη"
+
+#: templates/admin/user-log-table.php:55
+msgid "User funds edited successfully"
+msgstr "Επιτυχής επεξεργασία κεφαλαίων χρήστη"
+
+#: templates/admin/user-log-table.php:71
+msgid "Edit funds for"
+msgstr "Επεξεργασία κεφαλαίων για"
+
+#: templates/admin/user-log-table.php:81
+msgid "Current funds"
+msgstr "Τρέχοντα κεφάλαια"
+
+#: templates/admin/user-log-table.php:86
+msgid "Edit user's funds!"
+msgstr "Επεξεργασία κεφαλαίων χρήστη!"
+
+#: templates/admin/user-log-table.php:93
+msgid "Enter a brief description"
+msgstr "Εισάγετε σύντομη περιγραφή"
+
+#: templates/admin/user-log-table.php:98
+msgid "Return to user list"
+msgstr "Επιστροφή σε λίστα χρήστη"
+
+#: templates/admin/user-log-table.php:99
+msgid "Change user fund"
+msgstr "Αλλαγή κεφαλαίου χρήστη"
+
+#: templates/emails/vendor-redeem-funds.php:13
+msgid "The following vendors have redeem funds:"
+msgstr "Οι ακόλουθοι πωλητές έχουν εξαργυρώσει κεφάλαια:"
+
+#: templates/emails/vendor-redeem-funds.php:19
+msgid "Vendor Info"
+msgstr "Πληροφορίες Πωλητή"
+
+#: templates/emails/vendor-redeem-funds.php:21
+msgid "Amount redeemed"
+msgstr "Εξαργυρωμένο ποσό"
+
+#: templates/make-a-deposit-form.php:10 templates/make-a-deposit.php:43
+msgid "Enter amount"
+msgstr "Εισάγετε ποσό"
+
+#: templates/make-a-deposit-form.php:22
+msgid "Add funds now"
+msgstr "Προσθήκη κεφαλαίων τώρα"
+
+#: templates/make-a-deposit.php:28
+msgid "You are loading"
+msgstr "Φορτώνει"
+
+#: templates/make-a-deposit.php:28
+msgid "Enter a different amount"
+msgstr "Εισάγεται διαφορετικό ποσό"
+
+#: templates/make-a-deposit.php:47
+msgid "Amount"
+msgstr "Ποσό"
+
+#: templates/redeem-funds.php:39
+msgid "Your funds are available to redeem shortly"
+msgstr "Τα κεφάλαιά σας θα είναι σύντομα διαθέσιμα για εξαργύρωση"
+
+#: templates/redeem-funds.php:47
+msgid "You don't have enough funds to redeem."
+msgstr "Δεν έχετε αρκετά κεφάλαια προς εξαργύρωση."
+
+#: templates/redeem-funds.php:50
+msgid ""
+"You don't have enough funds to redeem. Minimum required funds to redeem is "
+"%s, available funds is %s"
+msgstr ""
+"Δεν έχετε αρκετά κεφάλαια προς εξαργύρωση. Ελάχιστα απαραίτητα κεφάλαια προς "
+"εξαργύρωση είναι %s, τα διαθέσιμα κεφάλαια είναι %s"
+
+#: templates/redeem-funds.php:56
+msgid "Amount to redeem"
+msgstr "Ποσό προς εξαργύρωση"
+
+#: templates/redeem-funds.php:85
+msgid "You can't access in this content"
+msgstr "Δεν έχετε πρόσβαση σε αυτό το περιεχόμενο"
+
+#: templates/view-deposit-history.php:6
+msgid "Transactions"
+msgstr "Συναλλαγές"
+
+#: templates/view-deposit-history.php:19
+msgid "Show All"
+msgstr "Εμφάνιση όλων"
+
+#: templates/view-deposit-history.php:60
+msgid "Reason"
+msgstr "Αιτία"
+
+#: templates/view-deposit-history.php:65
+msgid "%s item"
+msgid_plural "%s items"
+msgstr[0] "%s αντικείμενο"
+msgstr[1] "%s αντικείμενα"
+
+#: templates/view-deposit-history.php:66
+msgid "Funds used to purchase"
+msgstr "Τα κεφάλαια χρησιμοποιήθηκαν για ολοκλήρωση αγοράς"
+
+#: templates/view-deposit-history.php:66
+msgid "in order"
+msgstr "σε παραγγελία"
+
+#: templates/view-deposit-history.php:71
+msgid "Order Credited Funds"
+msgstr "Κεφάλαια Πιστωμένα από Παραγγελία"
+
+#: templates/view-deposit-history.php:76
+msgid "deleted"
+msgstr "διεγράφη"
+
+#: templates/view-deposit-history.php:77
+msgid "Funds restored because order"
+msgstr "Τα κεφάλαια αποκαταστάθηκαν γιατί η παραγγελία"
+
+#: templates/view-deposit-history.php:77
+msgid "switched to"
+msgstr "άλλαξε σε"
+
+#: templates/view-deposit-history.php:83
+msgid "Refunded credits in order"
+msgstr "Επιστράφηκαν μονάδες σε παραγγελία"
+
+#: templates/view-deposit-history.php:119
+msgid "Your available funds"
+msgstr "Τα διαθέσιμά σου κεφάλαια"
+
+#: templates/view-deposit-history.php:131
+msgid "No deposit history for this user"
+msgstr "Δεν υπάρχει ιστορικό κατάθεσης για τον χρήστη"
+
+#: templates/woocommerce/admin/reports/deposit-order.php:23
+msgid "Custom:"
+msgstr "Προσαρμογή:"
+
+#: templates/woocommerce/admin/reports/deposit-order.php:41
+msgid "Go"
+msgstr "Go"
+
+#. Description of the plugin/theme
+msgid ""
+"The plugin <code><strong>YITH WooCommerce Account Funds Premium</strong></"
+"code> gives your customers the possibility to deposit funds in your online "
+"store now and use them later at any time to proceed with the checkout more "
+"quickly. <a href=\"https://yithemes.com\">Get more plugins for your e-"
+"commerce shop on <strong>YITH</strong></a>."
+msgstr ""
+
+#: includes/class.wc-gateway-yith-funds.php:47
+msgctxt ""
+"If you choose to pay through your available funds and funds are enough to "
+"cover the whole order amount, you can get a 30% discount"
+msgid ""
+"If you choose to pay through your available funds and funds are enough to "
+"cover the whole order amount, you can get a %s discount"
+msgstr ""
+"Αν επιλέξετε να πληρώσετε μέσω των διαθέσιμων κεφαλαίων σας και αυτά είναι "
+"αρκετά για να καλύψετε ολόκληρο το ποσό παραγγελίας, μπορείτε να κερδίσετε "
+"έκπτωση %s"
+
+#: includes/class.yith-ywf-cart-process.php:393
+#: includes/shortcodes/class.yith-ywf-shortcodes.php:224
+msgctxt ""
+"Part of: Pay the order using your account funds and get a 50% discount on "
+"your cart"
+msgid "Pay the order using your account funds and get a"
+msgstr ""
+"Πληρώστε την παραγγελία χρησιμοποιώντας τα κεφάλαια λογαριασμού σας και "
+"κερδίστε"
+
+#: includes/class.yith-ywf-cart-process.php:394
+#: includes/shortcodes/class.yith-ywf-shortcodes.php:225
+msgctxt ""
+"Part of: Pay the order using your account funds and get a 50% discount on "
+"your cart"
+msgid "discount on your cart"
+msgstr "έκπτωση στο καλάθι σας"
+
+#: includes/class.yith-ywf-cart-process.php:594
+msgctxt "Use your funds (20$) or Place Order"
+msgid "Use your funds (%s) or "
+msgstr ""
+
+#: includes/compatibility/yith-woocommerce-multi-vendor/class.yith-funds-multi-vendor.php:555
+msgctxt "Redeem Funds Payment for Jon Doe"
+msgid "Redeem Funds Payment for %s"
+msgstr "Εξαργύρωση Κεφαλαίων Πληρωμής για %s"
+
+#: includes/compatibility/yith-woocommerce-multi-vendor/class.yith-funds-multi-vendor.php:605
+msgctxt "Is the title of PayPal Payout detail"
+msgid "Redeem Funds"
+msgstr "Εξαργύρωση Κεφαλαίων"
+
+#: includes/compatibility/yith-woocommerce-multi-vendor/class.yith-funds-redeem-payouts-gateway.php:42
+msgctxt "Is the subject email that is send by PayPal"
+msgid "Redeem Funds"
+msgstr "Εξαργύρωση Κεφαλαίων"
+
+#: includes/compatibility/yith-woocommerce-multi-vendor/class.yith-funds-redeem-stripe-connect-gateway.php:48
+msgctxt "Is the description of Stripe transfer"
+msgid "Redeem Funds"
+msgstr "Εξαργύρωση Κεφαλαίων"
+
+#: includes/emails/class.yith-ywf-vendor-redeem-email.php:15
+msgctxt "Is the email title"
+msgid "Vendor Redeem Funds"
+msgstr "Εξαργύρωση Κεφαλαίων Πωλητή"
+
+#: includes/functions.yith-ywf-functions.php:420
+msgctxt "Endpoint title visible on My Account page"
+msgid "Redeem Funds"
+msgstr "Εξαργύρωση Κεφαλαίων"
+
+#: includes/tables/class.yith-ywf-users-log-table.php:19
+msgctxt "yith-woocommerce-account-funds"
+msgid "user log"
+msgstr "αρχείο καταγραφής χρήστη"
+
+#: includes/tables/class.yith-ywf-users-log-table.php:20
+msgctxt "yith-woocommerce-account-funds"
+msgid "user logs"
+msgstr "αρχεία καταγραφής χρήστη"
+
+#: includes/tables/class.yith-ywf-users-log-table.php:34
+msgctxt "Who changed the funds"
+msgid "Funds edited by"
+msgstr "Κεφάλαια επεξεργάστηκαν από"
+
+#: includes/tables/class.yith-ywf-users-log-table.php:104
+msgctxt "Not available"
+msgid "N/A"
+msgstr "N/A"
+
+#: plugin-options/vendor-multi-tab/redeem-funds-options.php:16
+msgctxt ""
+"[PART OF] Require YITH PayPal Payouts For WooCommerce Premium v1.0.12 or "
+"YITH Stripe Connect For WooCommerce Premium v2.0.4"
+msgid "Require %s to use this feature "
+msgstr "Απαιτείται %s για να χρησιμοποιήσετε αυτό το χαρακτηριστικό "
+
+#: plugin-options/vendor-multi-tab-options.php:18
+msgctxt "Sub tab title, visible on backend"
+msgid "Redeem Funds"
+msgstr "Εξαργύρωση Κεφαλαίων"
+
+#: templates/redeem-funds.php:44
+msgctxt ""
+"In this page, your funds are in United States Dollar ($), because the redeem "
+"is possible only with this currency"
+msgid ""
+"In this page, your funds are in %s (%s), because the redeem action is "
+"available only with this currency"
+msgstr ""
+"Σε αυτή τη σελίδα, τα κεφάλαιά σας είναι %s (%s) γιατί η ενέργεια "
+"εξαργύρωσης είναι διαθέσιμη μόνο με αυτό το νόμισμα"
+
+#: templates/view-deposit-history.php:57
+msgctxt "hashtag before order number"
+msgid "#"
+msgstr "#"

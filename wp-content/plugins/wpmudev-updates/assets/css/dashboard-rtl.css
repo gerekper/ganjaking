@@ -1,0 +1,143 @@
+.wpmud div.row .col-third:first-child,
+.wpmud div.row .col-two-third:first-child,
+.wpmud div.row .col-half:first-child{
+	padding-left: 15px;
+	padding-right: 0 ;
+}
+.wpmud div.row .col-third:last-child,
+.wpmud div.row .col-two-third:last-child,
+.wpmud div.row .col-half:last-child{
+	padding-right: 15px;
+	padding-left: 0;
+}
+.wpmud #header div.actions{
+	float: left;
+}
+.wpmud #header .actions span.flag{
+	margin-left: auto;
+	margin-right: -41px;
+}
+.wpmud.wpmud-dashboard section#header h1{
+	padding-left: 0;
+	padding-right: 120px;
+}
+.wpmud section#header h1{
+	text-align: right;
+}
+.wpmud #subheader div.photo-wrap{
+	float: right;
+	margin-left:21px;
+	margin-right: auto;
+}
+
+/*general*/
+.wpmud .dev-list > li span.list-label{
+	padding: 10px 0 10px 10px;
+}
+.wpmud .search-box .input-box i.search-icon{
+	left: 0;
+	right: auto;
+}
+.wpmud .search-box .input-box input[type="search"]{
+	padding: 6px 15px 7px 40px;
+}
+.wpmud .select-container span.dropdown-handle{
+	right: auto;
+	left:-1px;
+	border-right-color: transparent;
+	border-left-color: inherit;
+}
+.wpmud .select-container:hover span.dropdown-handle{
+	border-right-color: transparent;
+	border-left-color: #BBB;
+}
+.wpmud div.select-list-container{
+	padding-right: 0;
+	padding-left: 45px;
+}
+.wpmud .select-list-container div.list-value{
+	padding: 8px 15px 8px 8px;
+	text-align: right;
+}
+.wpmud div.tr{
+	text-align: left;
+}
+.wpmud.wpmud-plugins div.select-container.sel-sort,
+.wpmud.wpmud-plugins div.select-container.sel-category,
+.wpmud.wpmud-themes div.select-container.sel-sort,
+.wpmud.wpmud-themes div.select-container.sel-category{
+	margin: 0 10px  0 0;
+}
+.wpmud.wpmud-plugins .input-group label[for=sel_category], .wpmud.wpmud-themes .input-group label[for=sel_category]{
+	padding-left: 0;
+	padding-right: 30px;
+}
+.wpmud .section-title{
+	text-align: right !important;
+}
+.wpmud .section-title span.count{
+	float: left;
+}
+.wpmud .dev-box div.box-title h3{
+	text-align: right;
+}
+.wpmud .dev-box .box-title span.buttons{
+	float: left;
+}
+.wpmud .dev-list > li span.list-detail{
+	text-align: left;
+}
+.wpmud .quick-links span.icon{
+	left: auto;
+	right: 0;
+}
+.wpmud ul.quick-links > li > div{
+	padding: 0 70px  0 0;
+}
+
+.wpmud span.float-l{
+	float: right;
+}
+.wpmud span.float-r{
+	float: left;
+}
+
+.wpmud div.project-box{
+	float: right;
+}
+.wpmud .wrap-settings .box-membership i.status-ok{
+	margin-left: auto;
+	margin-right: 8px;
+}
+.wpmud .wrap-settings section.box-membership h4{
+	text-align: right;
+}
+
+.wpmud .dev-list.userlist > li .list-label img.avatar{
+	margin-right: auto;
+	margin-left: 10px;
+}
+
+/*Overlay*/
+.wpmud div.dev-overlay{
+	right: 160px;
+	left: 0;
+}
+.wpmud .dev-overlay div.title h3{
+	text-align: right;
+}
+.wpmud .dev-overlay .title div.title-action{
+	left:60px;
+}
+
+.wdp-update table.update-infos th{
+	text-align: right;
+}
+.wpmud .dev-overlay div.title h3{
+	text-align:left;
+}
+.wpmud div.update-notice,
+.wpmud div.wpmud-loading-info{
+	right: 160px;
+	left: 0;
+}

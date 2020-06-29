@@ -1,0 +1,68 @@
+<wpml-config>
+	<admin-texts>
+		<key name="wordpress_gdpr_options">
+			<key name="enable" />
+			<key name="domainName" />
+			<key name="popupText" />
+			<key name="popupTextAgree" />
+			<key name="popupTextDecline" />
+			<key name="popupTextPrivacyCenter" />
+			<key name="popupTextPrivacySettings" />
+			<key name="popupTextCookiePolicy" />
+
+			<key name="privacySettingsTriggerText" />
+			<key name="privacySettingsPopupTitle" />
+			<key name="privacySettingsPopupDescription" />
+			<key name="privacySettingsPopupTextPrivacyCenter" />
+			<key name="privacySettingsPopupTextPrivacyPolicy" />
+			<key name="privacySettingsPopupTextCookiePolicy" />
+
+			<key name="confirmationEmailSubject" />
+			<key name="confirmationEmailText" />
+			<key name="contactDPOEmail" />
+			<key name="contactDPOSubject" />
+
+			<key name="dataBreachEmail" />
+			<key name="dataBreachSubject" />
+			<key name="dataBreachText" />
+
+			<key name="forgetMeSubject" />
+			<key name="forgetMeText" />
+
+			<key name="integrationsCommentsPolicyAcceptText" />
+			<key name="integrationsWooCommercePolicyAcceptText" />
+			<key name="integrationsBuddyPressPolicyAcceptText" />
+			<key name="integrationsFlamingoDBField" />
+			<key name="integrationsMailsterPolicyAcceptText" />
+
+			<key name="privacyPolicyUpdateEmail" />
+			<key name="privacyPolicyUpdateSubject" />
+
+			<key name="privacyPolicyAcceptText" />
+			<key name="termsConditionsAcceptText" />
+
+			<key name="privacyCenterPage" />
+			<key name="contactDPOPage" />
+			<key name="cookiePolicyPage" />
+			<key name="disclaimerPage" />
+			<key name="forgetMePage" />
+			<key name="imprintPage" />
+			<key name="dataRectificationPage" />
+			<key name="DMCAPage" />
+			
+			<key name="integrationsCommentsPolicyPage" />
+			<key name="integrationsWooCommercePolicyPage" />
+			<key name="integrationsBuddyPressPolicyPage" />
+			<key name="integrationsMailsterPolicyPage" />
+			<key name="integrationsCustoms" />
+			<key name="privacyPolicyPage" />
+			<key name="privacySettingsPage" />
+			<key name="requestDataPage" />
+			<key name="termsConditionsPage" />
+			<key name="unsubscribePage" />
+			
+			<key name="requestDataSubject" />
+			<key name="requestDataText" />
+		</key> 
+	</admin-texts>
+</wpml-config>

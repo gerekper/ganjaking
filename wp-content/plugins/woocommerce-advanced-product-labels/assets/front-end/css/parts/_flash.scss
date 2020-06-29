@@ -1,0 +1,67 @@
+.wapl-flash {
+	position: absolute;
+	top: -13px;
+	font-size: 12px;
+	font-weight: 700;
+	line-height: 50px;
+	height: 50px;
+	width: 50px;
+}
+.wapl-flash .product-label  {
+	text-align: center;
+	border-radius: 100%;
+	border: 3px solid white;
+	color: white;
+	font-size: 12px;
+	font-weight: 700;
+	line-height: 50px;
+	display: block;
+	height: 50px;
+	width: 50px;
+}
+.wapl-flash .product-label {
+	position: relative;
+	z-index: 999;
+}
+
+/* Flash colors */
+.wapl-flash.label-red .product-label {
+	background-color: #D9534F;
+}
+.wapl-flash.label-blue .product-label {
+	background-color: #0E44B6;
+}
+.wapl-flash.label-green .product-label {
+	background-color: #39A539;
+}
+.wapl-flash.label-yellow .product-label {
+	background-color: #ffe312;
+	color: #444;
+}
+.wapl-flash.label-orange .product-label {
+	background-color: #ffA608;
+}
+.wapl-flash.label-gray .product-label {
+	background-color: #999;
+}
+.wapl-flash.label-black .product-label {
+	background-color: #444;
+}
+.wapl-flash.label-white .product-label {
+	background-color: white;
+	color: #444;
+	border-color: #444;
+}
+
+/* Flash alignment */
+.wapl-flash.wapl-alignleft  {
+	left: -13px;
+}
+.wapl-flash.wapl-alignnone,
+.wapl-flash.wapl-alignright {
+	right: -13px;
+}
+.wapl-flash.wapl-aligncenter {
+	left: 50%;
+	margin-left: -25px !important; /* Margin left minus half the width */
+}

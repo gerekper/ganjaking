@@ -1,0 +1,669 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: YIT WooCommerce Social Login\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/init\n"
+"POT-Creation-Date: 2018-10-23 12:35:12+00:00\n"
+"PO-Revision-Date: 2018-10-24 10:09+0200\n"
+"Last-Translator: Digerati <me@digerati.ir>\n"
+"Language-Team: Yithemes <plugins@yithemes.com>\n"
+"Language: fa\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e;_n:1,2;__ngettext:1,2;"
+"__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;"
+"_nx_noop:4c,1,2\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Poedit-SearchPath-0: ..\n"
+"X-Poedit-SearchPathExcluded-0: ../plugin-fw\n"
+
+#: includes/class-yith-social-login-admin-premium.php:115
+#: templates/admin/social_network_table.php:11
+#: templates/admin/users/social-connect-profile.php:11
+#: templates/myaccount/social-connections.php:13
+msgid "Social Connections"
+msgstr "ارتباطات اجتماعی"
+
+#: includes/class-yith-social-login-admin-premium.php:198
+msgid "Connections"
+msgstr "ارتباطات"
+
+#: includes/class-yith-social-login-admin-premium.php:246
+msgid "Facebook"
+msgstr "فیسبوک"
+
+#: includes/class-yith-social-login-admin-premium.php:247
+msgid "Twitter"
+msgstr "توئیتر"
+
+#: includes/class-yith-social-login-admin-premium.php:248
+msgid "Google"
+msgstr "گوگل پلاس"
+
+#: includes/class-yith-social-login-admin-premium.php:249
+msgid "LinkedIn"
+msgstr "لینکداین"
+
+#: includes/class-yith-social-login-admin-premium.php:250
+msgid "Yahoo"
+msgstr "یاهو"
+
+#: includes/class-yith-social-login-admin-premium.php:251
+msgid "Foursquare"
+msgstr "Foursquare "
+
+#: includes/class-yith-social-login-admin-premium.php:252
+#: plugin-options/paypal-options.php:71
+msgid "Live"
+msgstr "لایو"
+
+#: includes/class-yith-social-login-admin-premium.php:253
+msgid "Instagram"
+msgstr "اینستاگرام"
+
+#: includes/class-yith-social-login-admin-premium.php:254
+msgid "PayPal"
+msgstr "پی پال"
+
+#: includes/class-yith-social-login-admin-premium.php:255
+msgid "Tumblr"
+msgstr "تامبلر"
+
+#: includes/class-yith-social-login-admin-premium.php:256
+msgid "Vkontakte"
+msgstr " Vkontakte"
+
+#: includes/class-yith-social-login-admin-premium.php:257
+msgid "GitHub"
+msgstr "گیت هاب"
+
+#: includes/class-yith-social-login-admin-premium.php:321
+#: includes/class-yith-social-login-admin.php:140
+#: templates/admin/social_network_table.php:36
+msgid "Settings"
+msgstr "تنظیمات"
+
+#: includes/class-yith-social-login-admin.php:144
+msgid "Premium Version"
+msgstr "نسخه پرمیوم"
+
+#: includes/class-yith-social-login-admin.php:151
+#: includes/class-yith-social-login-admin.php:152
+#, fuzzy
+#| msgid "Social Login"
+msgctxt "Plugin name. Do not translate"
+msgid "Social Login"
+msgstr "ورود به سیستم اجتماعی"
+
+#: includes/class-yith-social-login-premium.php:148
+#: templates/myaccount/social-connections.php:33
+msgid "Unlink"
+msgstr "لغو اتصال"
+
+#: includes/class-yith-social-login-premium.php:291
+#: plugin-options/settings-options.php:62
+msgid "Login with:"
+msgstr "ورود به سیستم با:"
+
+#: includes/class-yith-social-login.php:256
+msgid "Add your email address"
+msgstr "آدرس ایمیل خود را اضافه کنید"
+
+#: includes/class-yith-social-login.php:262
+msgid "Your email address is not valid!"
+msgstr "آدرس ایمیل شما معتبر نیست!"
+
+#: includes/class-yith-social-login.php:268
+msgid "This email already exists"
+msgstr "این ایمیل در حال حاضر موجود است"
+
+#: includes/class-yith-social-login.php:274
+msgid "Username is not valid!"
+msgstr "نام کاربری معتبر نیست!"
+
+#: includes/class-yith-social-login.php:557
+msgid "Unspecified error."
+msgstr "خطای نامشخص."
+
+#: includes/class-yith-social-login.php:560
+msgid "Hybriauth configuration error."
+msgstr "خطای پیکربندی Hybriauth."
+
+#: includes/class-yith-social-login.php:563
+msgid "Provider not properly configured."
+msgstr "ارائه دهنده به درستی پیکربندی نشده است."
+
+#: includes/class-yith-social-login.php:566
+msgid "Unknown or disabled provider."
+msgstr "ارائه دهنده نامشخص یاغیر فعال شده است"
+
+#: includes/class-yith-social-login.php:569
+msgid "Missing provider application credentials."
+msgstr "اعتبار نرم افزار ارائه دهنده سرویس از دست رفته است."
+
+#: includes/class-yith-social-login.php:572
+msgid ""
+"Authentification failed. The user has canceled the authentication or the "
+"provider refused the connection."
+msgstr ""
+"تأیید اعتبار ناموفق بود. کاربر تأیید هویت را لغو کرده یا ارائه دهنده از "
+"اتصال امتناع کرده است."
+
+#: includes/class-yith-social-login.php:575
+msgid ""
+"Request of user profile failed. Probably the user is not connected to the "
+"provider and a new authentication is necessary."
+msgstr ""
+"درخواست پروفایل کاربر با شکست مواجه شد. به احتمال زیاد، کاربر به ارائه دهنده "
+"متصل نبوده و یک احراز هویت جدید ضروری است."
+
+#: includes/class-yith-social-login.php:578
+msgid "User not connected to the provider."
+msgstr "کاربر به سرویس دهنده متصل نیست."
+
+#: includes/class-yith-social-login.php:581
+msgid "Provider does not support this feature."
+msgstr "ارائه دهنده این ویژگی را پشتیبانی نمی کند."
+
+#: init.php:56
+msgid ""
+"YITH Woocommerce Social Login is enabled but not effective. It requires "
+"WooCommerce in order to work."
+msgstr ""
+"افزونه YITH Woocommerce Social Login فعال شده اما قابل استفاده نیست. برای "
+"استفاده از این افزونه ابتدا باید افزونه ووکامرس را نصب یا فعال کنید."
+
+#: plugin-options/facebook-options.php:31
+msgid "Facebook settings"
+msgstr "تنظیمات فیسبوک"
+
+#: plugin-options/facebook-options.php:39
+msgid "Enable Facebook Login"
+msgstr "قابلیت ورود به سامانه از طریق فیسبوک"
+
+#: plugin-options/facebook-options.php:47
+msgid "Facebook App ID"
+msgstr "شناسۀ برنامۀ کاربردی فیسبوک"
+
+#: plugin-options/facebook-options.php:55
+msgid "Facebook Secret"
+msgstr "کلید مخفی فیس بوک"
+
+#: plugin-options/facebook-options.php:63
+msgid "Facebook Icon"
+msgstr "آیکون فیسبوک"
+
+#: plugin-options/foursquare-options.php:27
+msgid "Foursquare settings"
+msgstr "تنظیمات Foursquare"
+
+#: plugin-options/foursquare-options.php:34
+msgid "Enable Foursquare Login"
+msgstr "فعال سازی ورود به سامانه از طریق Foursquare"
+
+#: plugin-options/foursquare-options.php:42
+msgid "Foursquare Client ID"
+msgstr "شناسه مشتری Foursquare "
+
+#: plugin-options/foursquare-options.php:50
+msgid "Foursquare Client Secret"
+msgstr "کلید مخفی مشتری Foursquare "
+
+#: plugin-options/foursquare-options.php:58
+msgid "Foursquare Icon"
+msgstr "آیکون Foursquare "
+
+#: plugin-options/github-options.php:26
+msgid "GitHub settings"
+msgstr "تنظیمات گیت هاب"
+
+#: plugin-options/github-options.php:33
+msgid "Enable GitHub Login"
+msgstr "فعال کردن ورود به سامانه از طریق گیت هاب"
+
+#: plugin-options/github-options.php:41
+msgid "GitHub Client ID"
+msgstr "شناسه مشتری گیت هاب"
+
+#: plugin-options/github-options.php:49
+msgid "GitHub Client Secret"
+msgstr "کلید مخفی مشتری گیت هاب"
+
+#: plugin-options/github-options.php:57
+msgid "GitHub Icon"
+msgstr "آیکون گیت هاب"
+
+#: plugin-options/google-options.php:26
+msgid "Google settings"
+msgstr "تنظیمات گوگل"
+
+#: plugin-options/google-options.php:33
+msgid "Enable Google Login"
+msgstr "فعال کردن ورود به سامانه از طریق گوگل"
+
+#: plugin-options/google-options.php:41
+msgid "Google ID"
+msgstr "شناسه گوگل"
+
+#: plugin-options/google-options.php:49
+msgid "Google secret"
+msgstr "کلید مخفی گوگل"
+
+#: plugin-options/google-options.php:57
+msgid "Google Icon"
+msgstr "آیکون گوگل"
+
+#: plugin-options/instagram-options.php:26
+msgid "Instagram settings"
+msgstr "تنظیمات اینستاگرام"
+
+#: plugin-options/instagram-options.php:33
+msgid "Enable Instagram Login"
+msgstr "فعال کردن ورود به سامانه از طریق اینستاگرام"
+
+#: plugin-options/instagram-options.php:41
+msgid "Instagram Client ID"
+msgstr "شناسه مشتری اینستاگرام"
+
+#: plugin-options/instagram-options.php:49
+msgid "Instagram Client Secret"
+msgstr "کلید مخفی مشتری اینستاگرام"
+
+#: plugin-options/instagram-options.php:57
+msgid "Instagram Icon"
+msgstr "آیکون اینستاگرام"
+
+#: plugin-options/linkedin-options.php:26
+msgid "LinkedIn settings"
+msgstr "تنظیمات لینکد این"
+
+#: plugin-options/linkedin-options.php:33
+msgid "Enable LinkedIn Login"
+msgstr "فعال کردن ورود به سامانه از طریق لینکداین"
+
+#: plugin-options/linkedin-options.php:41
+msgid "LinkedIn Api Key"
+msgstr "کلید Api لینکداین"
+
+#: plugin-options/linkedin-options.php:49
+msgid "LinkedIn secret"
+msgstr "کلید مخفی لینکداین"
+
+#: plugin-options/linkedin-options.php:57
+msgid "LinkedIn Icon"
+msgstr "آیکون لینکداین"
+
+#: plugin-options/live-options.php:26
+msgid "Live settings"
+msgstr "تنظیمات لایو"
+
+#: plugin-options/live-options.php:33
+msgid "Enable Live Login"
+msgstr "فعال کردن ورود به سامانه از طریق لایو"
+
+#: plugin-options/live-options.php:41
+msgid "Live Consumer Key"
+msgstr "کلید مصرف کننده لایو"
+
+#: plugin-options/live-options.php:49
+msgid "Live Consumer Secret"
+msgstr "کلید مخفی مصرف کننده لایو"
+
+#: plugin-options/live-options.php:57
+msgid "Live Icon"
+msgstr "آیکون لایو"
+
+#: plugin-options/paypal-options.php:26
+msgid "Paypal settings"
+msgstr "تنظیمات PayPal"
+
+#: plugin-options/paypal-options.php:33
+msgid "Enable Paypal Login"
+msgstr "فعال کردن ورود به سامانه از طریق پی پال"
+
+#: plugin-options/paypal-options.php:41
+msgid "Paypal Key"
+msgstr "کلید پی پال"
+
+#: plugin-options/paypal-options.php:49
+msgid "Paypal Secret"
+msgstr "کلید مخفی پی‌پال"
+
+#: plugin-options/paypal-options.php:57
+msgid "Paypal Icon"
+msgstr "آیکون پی پال"
+
+#: plugin-options/paypal-options.php:65
+msgid "Environment"
+msgstr "محیط"
+
+#: plugin-options/paypal-options.php:70
+msgid "Sandbox"
+msgstr "Sandbox"
+
+#: plugin-options/settings-options.php:26
+msgid "General settings"
+msgstr "تنظیمات عمومی"
+
+#: plugin-options/settings-options.php:34
+msgid "After login, redirect user to:"
+msgstr "پس از ورود، تغییر مسیر کاربر به آدرس:"
+
+#: plugin-options/settings-options.php:39
+msgid "Auto - Take user back to the page he/she was in"
+msgstr "خودکار - کاربر را به صفحه ای که در آن بود منتقل می کند"
+
+#: plugin-options/settings-options.php:40
+msgid "Cart Page"
+msgstr "صفحه سبد خرید"
+
+#: plugin-options/settings-options.php:41
+#: plugin-options/settings-options.php:115
+msgid "Checkout"
+msgstr "پرداخت"
+
+#: plugin-options/settings-options.php:42
+msgid "My Account"
+msgstr "حساب کاربری من"
+
+#: plugin-options/settings-options.php:43
+msgid "Shop"
+msgstr "فروشگاه"
+
+#: plugin-options/settings-options.php:44
+msgid "Custom URL (add below)"
+msgstr "آدرس سفارشی (در زیر اضافه کنید)"
+
+#: plugin-options/settings-options.php:51
+msgid "Custom URL redirect"
+msgstr "آدرس سفارشی ریدایرکت"
+
+#: plugin-options/settings-options.php:52
+msgid "Paste the URL of the page for redirect"
+msgstr "آدرس را برای تغییر مسیر جای گذاری کنید"
+
+#: plugin-options/settings-options.php:59
+msgid "Label"
+msgstr "برچسب"
+
+#: plugin-options/settings-options.php:60
+msgid "Edit content of the label displayed above social login buttons"
+msgstr "ویرایش محتوای برچسب نشان داده شده بالای دکمه های ورود با سیستم اجتماعی"
+
+#: plugin-options/settings-options.php:67
+msgid "Description in checkout page"
+msgstr "توضیحات در صفحه پرداخت"
+
+#: plugin-options/settings-options.php:68
+msgid "Edit content of the description in checkout page"
+msgstr "ویرایش محتوا از توضیحات در صفحه پرداخت"
+
+#: plugin-options/settings-options.php:70
+msgid "Social Sign In"
+msgstr "ورود به سیستم اجتماعی"
+
+#: plugin-options/settings-options.php:75
+msgid "List of Social Networks"
+msgstr "فهرست شبکه های اجتماعی"
+
+#: plugin-options/settings-options.php:76
+msgid "Drag and Drop content for sort social login buttons"
+msgstr "کشیدن و رها کردن محتوا برای مرتب کردن دکمه های ورود به سیستم اجتماعی"
+
+#: plugin-options/settings-options.php:82
+msgid "Callback Url"
+msgstr "نشانی کال بک"
+
+#: plugin-options/settings-options.php:83
+msgid ""
+"Choose if the url of callback is the root of domain or the url of the "
+"library, if you change all social callback urls must be changed"
+msgstr ""
+"انتخاب کنید اگر آدرس از callback ریشه دامنه یا آدرس کتابخانه است، اگر شما "
+"تمام تغییرات کلی تماس اجتماعی را تغییر دهید، callback باید تغییر کند"
+
+#: plugin-options/settings-options.php:94
+msgid "Enable Log"
+msgstr "فعالسازی گزارش ها"
+
+#: plugin-options/settings-options.php:95
+#, fuzzy
+#| msgid "If enabled, you can view log details in "
+msgid "If enabled, you can view log details in %s logs/log.txt"
+msgstr "در صورت فعال بودن، می توانید گزارش جزئیات را ببینید در"
+
+#: plugin-options/settings-options.php:108
+msgid "Show login buttons in:"
+msgstr "نمایش دکمه های ورود در:"
+
+#: plugin-options/settings-options.php:122
+msgid "My Account Login Form"
+msgstr "فرم ورود به حساب کاربری"
+
+#: plugin-options/settings-options.php:129
+msgid "My Account Registration Form"
+msgstr "فرم ثبت نام حساب کاربری"
+
+#: plugin-options/settings-options.php:136
+msgid "Show before post comments"
+msgstr "نمایش قبل از ارسال نظرات"
+
+#: plugin-options/settings-options.php:143
+msgid "Show after comment form"
+msgstr "نمایش بعد از فرم نظر"
+
+#: plugin-options/settings-options.php:150
+msgid "WordPress Login"
+msgstr "ورود به وردپرس"
+
+#: plugin-options/settings-options.php:162
+msgid "My Account Options:"
+msgstr "گزینه های حساب کاربری من:"
+
+#: plugin-options/settings-options.php:169
+msgid "Show Social Connection list in My Account:"
+msgstr "نمایش لیست ارتباط اجتماعی در حساب کاربری من:"
+
+#: plugin-options/settings-options.php:174
+msgid "None"
+msgstr "هیچ کدام"
+
+#: plugin-options/settings-options.php:175
+msgid "Before Recent Orders"
+msgstr "قبل از سفارشات اخیر"
+
+#: plugin-options/settings-options.php:176
+msgid "At the end of page"
+msgstr "در پایان صفحه"
+
+#: plugin-options/tumblr-options.php:26
+msgid "Tumblr settings"
+msgstr "تنظیمات Tumblr"
+
+#: plugin-options/tumblr-options.php:33
+msgid "Enable Tumblr Login"
+msgstr "فعال سازی ورود به سامانه از طریق Tumblr"
+
+#: plugin-options/tumblr-options.php:41
+msgid "Tumblr Consumer Key"
+msgstr "کلید مشتری Tumblr"
+
+#: plugin-options/tumblr-options.php:49
+msgid "Tumblr Secret Key"
+msgstr "کلید مخفی Tumblr"
+
+#: plugin-options/tumblr-options.php:57
+msgid "Tumblr Icon"
+msgstr "آیکون Tumblr"
+
+#: plugin-options/twitter-options.php:27
+msgid "Twitter settings"
+msgstr "تنظیمات توئیتر"
+
+#: plugin-options/twitter-options.php:34
+msgid "Enable Twitter Login"
+msgstr "فعال سازی ورود به سامانه از طریق توئیتر"
+
+#: plugin-options/twitter-options.php:42
+msgid "Twitter Key"
+msgstr "کلید توئیتر"
+
+#: plugin-options/twitter-options.php:50
+msgid "Twitter Secret"
+msgstr "کلید مخفی توئیتر"
+
+#: plugin-options/twitter-options.php:58
+msgid "Twitter Icon"
+msgstr "آیکون توئیتر"
+
+#: plugin-options/vkontakte-options.php:26
+msgid "Vkontakte settings"
+msgstr "تنظیمات Vkontakte"
+
+#: plugin-options/vkontakte-options.php:32
+msgid "Enable Vkontakte Login"
+msgstr "فعال سازی ورود به سامانه از طریق Vkontakte"
+
+#: plugin-options/vkontakte-options.php:40
+msgid "Vkontakte App ID"
+msgstr "شناسه برنامه Vkontakte"
+
+#: plugin-options/vkontakte-options.php:48
+msgid "Vkontakte Secret"
+msgstr "کلید مخفی Vkontakte"
+
+#: plugin-options/vkontakte-options.php:56
+msgid "Vkontakte Icon"
+msgstr "آیکون Vkontakte"
+
+#: plugin-options/yahoo-options.php:26
+msgid "Yahoo settings"
+msgstr "تنظیمات یاهو"
+
+#: plugin-options/yahoo-options.php:33
+msgid "Enable Yahoo Login"
+msgstr "فعال سازی ورود به سامانه از طریق یاهو"
+
+#: plugin-options/yahoo-options.php:41
+msgid "Yahoo Consumer Key"
+msgstr "کلید مشتری یاهو"
+
+#: plugin-options/yahoo-options.php:49
+msgid "Yahoo Consumer Secret"
+msgstr "کلید مخفی مشتری یاهو"
+
+#: plugin-options/yahoo-options.php:57
+msgid "Yahoo Icon"
+msgstr "آیکون یاهو"
+
+#: templates/admin/social_network_table.php:24
+msgid "Enabled"
+msgstr "فعال"
+
+#: templates/admin/social_network_table.php:24
+msgid "Disabled"
+msgstr "غیر فعال"
+
+#: templates/admin/social_network_table.php:44
+msgid ""
+"Drag and drop the above listed icons for social networks to set their "
+"display order."
+msgstr ""
+"کشیدن و رها کردن آیکون های لیست بالا برای مرتب سازی و نمایش آیکون شبکه های "
+"اجتماعی."
+
+#: templates/myaccount/social-connections.php:15
+msgid "also"
+msgstr "همچنین"
+
+#: templates/myaccount/social-connections.php:23 templates/request-info.php:199
+msgid "Username"
+msgstr "نام کاربری"
+
+#: templates/myaccount/social-connections.php:42
+msgid "You can %s login with:"
+msgstr "شما می توانید با %s وارد شوید:"
+
+#: templates/request-info.php:187
+msgid "Please, fill in the form below with your information to continue"
+msgstr "لطفا فرم زیر را با اطلاعات خود پر کنید تا ادامه یابد"
+
+#: templates/request-info.php:205
+msgid "Email"
+msgstr "ایمیل"
+
+#: templates/request-info.php:211
+msgid "Continue to Login"
+msgstr "ادامه عملیات ورود به سیستم"
+
+#: templates/request-info.php:219
+msgid "Back to %s"
+msgstr "بازگشت به %s"
+
+#: templates/social-buttons-checkout.php:14
+msgid "Click here to login"
+msgstr "برای ورود اینجا را کلیک کنید"
+
+#: widgets/class.yith-ywsl-widget.php:33
+msgid "Show social login"
+msgstr "نمایش ورود به سیستم اجتماعی"
+
+#: widgets/class.yith-ywsl-widget.php:35
+msgid "YITH WooCommerce Social Login"
+msgstr "YITH WooCommerce Social Login"
+
+#: widgets/class.yith-ywsl-widget.php:107
+msgid "Social Login"
+msgstr "ورود به سیستم اجتماعی"
+
+#: widgets/class.yith-ywsl-widget.php:108
+msgid "Login width:"
+msgstr "عرض ورود:"
+
+#: widgets/class.yith-ywsl-widget.php:114
+msgid "Title:"
+msgstr "عنوان:"
+
+#: widgets/class.yith-ywsl-widget.php:119
+msgid "Description:"
+msgstr "توضیحات:"
+
+#: widgets/class.yith-ywsl-widget.php:124
+msgid "Redirect To (optional):"
+msgstr "تغییر مسیر به (اختیاری):"
+
+#. Plugin Name of the plugin/theme
+#, fuzzy
+#| msgid "YITH WooCommerce Social Login"
+msgid "YITH WooCommerce Social Login Premium"
+msgstr "YITH WooCommerce Social Login"
+
+#. Plugin URI of the plugin/theme
+msgid "https://yithemes.com/themes/plugins/yith-woocommerce-social-login/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"<code><strong>YITH WooCommerce Social Login</strong></code> allows your "
+"users and customers to register and log into your store using one of their "
+"favourite social networks, like Facebook, Google, Twitter etc. Perfect for "
+"speeding up the login process on your e-commerce shop. <a href=\"https://"
+"yithemes.com/\" target=\"_blank\">Get more plugins for your e-commerce shop "
+"on <strong>YITH</strong></a>."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "YITH"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://yithemes.com/"
+msgstr ""
+
+#~ msgid "Plugin Documentation"
+#~ msgstr "مستندات افزونه"
+
+#~ msgid "Paypal"
+#~ msgstr "پی پال"

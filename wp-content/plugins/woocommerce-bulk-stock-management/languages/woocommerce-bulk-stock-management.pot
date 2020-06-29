@@ -1,0 +1,234 @@
+# Copyright (C) 2020 WooCommerce
+# This file is distributed under the GNU General Public License v3.0.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Bulk Stock Management 2.2.28\n"
+"Report-Msgid-Bugs-To: "
+"https://wordpress.org/support/plugin/woocommerce-bulk-stock-management\n"
+"POT-Creation-Date: 2020-06-10 11:43:06+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: node-wp-i18n 1.2.3\n"
+
+#: includes/class-wc-stock-management-list-table.php:79
+msgid "Parent"
+msgstr ""
+
+#: includes/class-wc-stock-management-list-table.php:81
+#: includes/class-wc-stock-management-list-table.php:106
+msgid "Yes"
+msgstr ""
+
+#: includes/class-wc-stock-management-list-table.php:91
+msgid "N/A"
+msgstr ""
+
+#: includes/class-wc-stock-management-list-table.php:100
+#: includes/class-wc-stock-management-list-table.php:266
+msgid "In stock"
+msgstr ""
+
+#: includes/class-wc-stock-management-list-table.php:100
+#: includes/class-wc-stock-management-list-table.php:267
+msgid "Out of stock"
+msgstr ""
+
+#: includes/class-wc-stock-management-list-table.php:104
+msgid "Notify"
+msgstr ""
+
+#: includes/class-wc-stock-management-list-table.php:134
+msgid "Image"
+msgstr ""
+
+#: includes/class-wc-stock-management-list-table.php:135
+#: templates/stock-report.php:80
+msgid "ID"
+msgstr ""
+
+#: includes/class-wc-stock-management-list-table.php:136
+msgid "Name"
+msgstr ""
+
+#: includes/class-wc-stock-management-list-table.php:137
+#: templates/stock-report.php:77
+msgid "SKU"
+msgstr ""
+
+#: includes/class-wc-stock-management-list-table.php:138
+msgid "Manage Stock"
+msgstr ""
+
+#: includes/class-wc-stock-management-list-table.php:139
+msgid "Stock Status"
+msgstr ""
+
+#: includes/class-wc-stock-management-list-table.php:140
+msgid "Backorders"
+msgstr ""
+
+#: includes/class-wc-stock-management-list-table.php:141
+msgid "Quantity"
+msgstr ""
+
+#: includes/class-wc-stock-management-list-table.php:180
+msgid "Save stock quantities"
+msgstr ""
+
+#: includes/class-wc-stock-management-list-table.php:181
+msgid "Selected: Turn on stock management"
+msgstr ""
+
+#: includes/class-wc-stock-management-list-table.php:182
+msgid "Selected: Turn off stock management"
+msgstr ""
+
+#: includes/class-wc-stock-management-list-table.php:183
+msgid "Selected: Mark \"In stock\""
+msgstr ""
+
+#: includes/class-wc-stock-management-list-table.php:184
+msgid "Selected: Mark \"Out of stock\""
+msgstr ""
+
+#: includes/class-wc-stock-management-list-table.php:185
+msgid "Selected: Allow backorders"
+msgstr ""
+
+#: includes/class-wc-stock-management-list-table.php:186
+msgid "Selected: Allow backorders, but notify customer"
+msgstr ""
+
+#: includes/class-wc-stock-management-list-table.php:187
+msgid "Selected: Do not allow backorders"
+msgstr ""
+
+#: includes/class-wc-stock-management-list-table.php:213
+msgid "Select bulk action"
+msgstr ""
+
+#: includes/class-wc-stock-management-list-table.php:215
+msgid "Bulk Actions"
+msgstr ""
+
+#: includes/class-wc-stock-management-list-table.php:223
+msgid "Apply"
+msgstr ""
+
+#: includes/class-wc-stock-management-list-table.php:243
+msgid "All"
+msgstr ""
+
+#: includes/class-wc-stock-management-list-table.php:244
+#: woocommerce-bulk-stock-management.php:128
+msgid "Products"
+msgstr ""
+
+#: includes/class-wc-stock-management-list-table.php:245
+msgid "Variations"
+msgstr ""
+
+#: includes/class-wc-stock-management-list-table.php:248
+msgid "Search"
+msgstr ""
+
+#: includes/class-wc-stock-management-list-table.php:260
+msgid "All Products"
+msgstr ""
+
+#: includes/class-wc-stock-management-list-table.php:261
+msgid "Managing stock"
+msgstr ""
+
+#: includes/class-wc-stock-management-list-table.php:262
+msgid "Not managing stock"
+msgstr ""
+
+#: includes/class-wc-stock-management-list-table.php:265
+msgid "Any stock status"
+msgstr ""
+
+#: includes/class-wc-stock-management-list-table.php:284
+msgid "Any category"
+msgstr ""
+
+#: includes/class-wc-stock-management-list-table.php:288
+msgid "Uncategorized"
+msgstr ""
+
+#: includes/class-wc-stock-management-list-table.php:295
+msgid "Filter"
+msgstr ""
+
+#: templates/stock-report.php:59 templates/stock-report.php:70
+msgid "Stock Report"
+msgstr ""
+
+#: templates/stock-report.php:79
+msgid "Product"
+msgstr ""
+
+#: templates/stock-report.php:81
+msgid "Type"
+msgstr ""
+
+#: templates/stock-report.php:82
+msgid "Unit Retail Price"
+msgstr ""
+
+#: templates/stock-report.php:83
+msgid "Stock Qty"
+msgstr ""
+
+#: woocommerce-bulk-stock-management.php:109
+#: woocommerce-bulk-stock-management.php:167
+msgid "Stock Management"
+msgstr ""
+
+#: woocommerce-bulk-stock-management.php:167
+msgid "View stock report"
+msgstr ""
+
+#: woocommerce-bulk-stock-management.php:184
+#. translators: 1: number of product(s)
+msgid "%s product was updated"
+msgid_plural "%s products were updated"
+msgstr[0] ""
+msgstr[1] ""
+
+#: woocommerce-bulk-stock-management.php:215
+msgid ""
+"Bulk action must be submitted via POST. Make sure JavaScript is enabled in "
+"your browser"
+msgstr ""
+
+#: woocommerce-bulk-stock-management.php:346
+#. translators: %s: WooCommerce link
+msgid "WooCommerce Bulk Stock Management requires %s to be installed and active."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce Bulk Stock Management"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://woocommerce.com/products/bulk-stock-management/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Bulk edit stock levels and print out stock reports right from WooCommerce "
+"admin."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "WooCommerce"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://woocommerce.com"
+msgstr ""

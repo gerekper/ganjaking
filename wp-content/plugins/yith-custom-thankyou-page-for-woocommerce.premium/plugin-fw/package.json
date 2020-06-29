@@ -1,0 +1,21 @@
+{
+  "name": "yith-plugin-framewowrk",
+  "version": "3.4.19",
+  "description": "YITH Plugin Framework",
+  "main": "Gruntfile.js",
+  "scripts": {
+    "build": "npm run js && npm run i18n",
+    "js": "grunt js",
+    "i18n": "grunt i18n"
+  },
+  "author": "YITH",
+  "license": "GPL-3.0+",
+  "keywords": [],
+  "devDependencies": {
+    "grunt": "^1.0.3",
+    "grunt-cli": "^1.3.2",
+    "grunt-contrib-jshint": "^2.0.0",
+    "grunt-contrib-uglify-es": "github:gruntjs/grunt-contrib-uglify#harmony",
+    "grunt-wp-i18n": "^1.0.2"
+  }
+}

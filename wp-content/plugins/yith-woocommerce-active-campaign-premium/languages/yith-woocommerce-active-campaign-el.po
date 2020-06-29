@@ -1,0 +1,1544 @@
+# Translation of Yith Active Campaign for WooCommerce in Greek
+# This file is distributed under the same license as the Yith Active Campaign for WooCommerce package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2020-05-13 12:57+0200\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Poedit 2.2\n"
+"Language: el_GR\n"
+"Project-Id-Version: Yith Active Campaign for WooCommerce\n"
+"POT-Creation-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+
+#: templates/admin/types/integration-status.php:40
+msgctxt "Active Campaign account details"
+msgid "Email:"
+msgstr ""
+
+#: templates/admin/types/integration-status.php:36
+#: templates/admin/types/integration-status.php:42
+msgctxt "Active Campaign account details"
+msgid "&lt; Not Found &gt;"
+msgstr "&lt; Δεν βρέθηκε &gt;"
+
+#: templates/admin/types/integration-status.php:34
+msgctxt "Active Campaign account details"
+msgid "Name:"
+msgstr "Όνομα:"
+
+#: templates/admin/types/integration-status.php:29
+msgctxt "wrong API provided"
+msgid "KO"
+msgstr "KO"
+
+#: templates/admin/types/integration-status.php:27
+msgctxt "Correct API provided"
+msgid "OK"
+msgstr "OK"
+
+#: templates/admin/types/integration-status.php:18
+msgid "No user found with this API key"
+msgstr "Δεν βρέθηκε χρήστης με αυτό το κλειδί API"
+
+#: templates/admin/types/deep-data-connection-status.php:21
+msgid "Delete connection"
+msgstr ""
+
+#: templates/admin/types/date-range.php:8
+#: templates/admin/types/date-range.php:9
+msgid "To"
+msgstr "Προς"
+
+#: templates/admin/types/date-range.php:6
+#: templates/admin/types/date-range.php:7
+msgid "From"
+msgstr "Από"
+
+#: templates/admin/types/custom-fields.php:5
+msgid "Add new fields from Active Campaign and customise the field name (label)"
+msgstr "Προσθέστε νέα πεδία από το Active Campaign και προσαρμόστε το όνομα πεδίου (επιγραφή)"
+
+#: templates/admin/types/custom-fields-item.php:8
+msgid "Merge var"
+msgstr "Συγχώνευση var"
+
+#: templates/admin/types/custom-fields-item.php:4
+msgid "Field name"
+msgstr "Όνομα πεδίου"
+
+#: templates/admin/types/advanced-integration.php:50
+msgid "Click \"Add set option\" button to add a bunch of options; don't forget to save, when you're done"
+msgstr "Επιλέξτε κουμπί “Προσθήκη επιλογής σετ” για να προσθέσετε διάφορες επιλογές. Μην ξεχάσετε να αποθηκεύσετε τελειώνοντας"
+
+#: templates/admin/types/advanced-integration.php:49
+msgid "+ Add set option"
+msgstr "+ Προσθήκη επιλογής σετ"
+
+#: templates/admin/types/advanced-integration.php:43
+msgid "Select position for tags that will be display on the page"
+msgstr "Επιλέξτε θέση για τις ετικέτες που θα εμφανίζονται στην σελίδα"
+
+#: templates/admin/types/advanced-integration.php:31
+msgid "Position for tags"
+msgstr "Θέση ετικετών"
+
+#: templates/admin/types/advanced-integration-item.php:81
+msgid ""
+"Select order matching conditions for user subscription; all conditions selected must match in order\n"
+"            to complete the subscription"
+msgstr "Επιλέξτε η παραγγελία να αντιστοιχεί με τις συνθήκες εγγραφής χρήστη. Όλες οι επιλεγμένες συνθήκες πρέπει να αντιστοιχούν για να ολοκληρωθεί η εγγραφή"
+
+#: templates/admin/types/advanced-integration-item.php:79
+msgid "+ Add New Condition"
+msgstr "+ Προσθήκη Νέας Συνθήκης"
+
+#: templates/admin/types/advanced-integration-item.php:77
+msgid "Conditions"
+msgstr "Συνθήκες"
+
+#: templates/admin/types/advanced-integration-item.php:55
+msgid "Select the checkout field to connect with the Active Campaign list fields"
+msgstr "Επιλέξτε το πεδίο ταμείου που θα συνδέσετε με τα πεδία λίστας του Active Campaign"
+
+#: templates/admin/types/advanced-integration-item.php:52
+#: templates/admin/types/custom-fields.php:4
+msgid "+ Add New Field"
+msgstr "+ Προσθήκη Νέου Πεδίου"
+
+#: templates/admin/types/advanced-integration-item.php:43
+#: templates/admin/types/advanced-integration.php:25
+msgid "Update Tags"
+msgstr "Ενημέρωση Ετικετών"
+
+#: templates/admin/types/advanced-integration-item.php:26
+msgid "Update Lists"
+msgstr "Ενημέρωση Λιστών"
+
+#: templates/admin/types/advanced-integration-item.php:10
+msgid "Lists & Tags"
+msgstr "Λίστες & Ετικέτες"
+
+#: templates/admin/types/advanced-integration-item.php:5
+msgid "Set options #"
+msgstr "Ορίστε επιλογές #"
+
+#: templates/admin/types/advanced-integration-item.php:4
+msgid "remove"
+msgstr "αφαίρεση"
+
+#: templates/admin/types/advanced-integration-item.php:3
+msgid "toggle"
+msgstr "εναλλαγή"
+
+#: templates/admin/types/advanced-integration-field.php:34
+#: templates/admin/types/custom-fields-item.php:26
+msgid "Update fields"
+msgstr "Ενημέρωση πεδίων"
+
+#: templates/admin/types/advanced-integration-field.php:22
+msgid "Active Campaign field"
+msgstr "Πεδίο Active Campaign"
+
+#: templates/admin/types/advanced-integration-field.php:4
+msgid "Checkout field"
+msgstr "Πεδίο ταμείου"
+
+#: templates/admin/types/advanced-integration-condition.php:87
+#: templates/admin/types/advanced-integration-field.php:36
+#: templates/admin/types/custom-fields-item.php:31
+msgid "Remove"
+msgstr "Αφαίρεση"
+
+#: templates/admin/types/advanced-integration-condition.php:85
+msgid "Field value on checkout page"
+msgstr "Πεδίο αξίας στη σελίδα ταμείου"
+
+#: templates/admin/types/advanced-integration-condition.php:74
+msgid "Number"
+msgstr "Αριθμός"
+
+#: templates/admin/types/advanced-integration-condition.php:71
+msgid "Contains"
+msgstr "Περιλαμβάνει"
+
+#: templates/admin/types/advanced-integration-condition.php:70
+msgid "Is not"
+msgstr "Δεν είναι"
+
+#: templates/admin/types/advanced-integration-condition.php:69
+msgid "Is"
+msgstr "Είναι"
+
+#: templates/admin/types/advanced-integration-condition.php:68
+msgid "String operator"
+msgstr "Χειριστής συμβολοσειράς"
+
+#: templates/admin/types/advanced-integration-condition.php:64
+msgid "Field name on checkout page"
+msgstr "Όνομα πεδίου στη σελίδα ταμείου"
+
+#: templates/admin/types/advanced-integration-condition.php:60
+msgid "Threshold"
+msgstr "Κατώτατο όριο"
+
+#: templates/admin/types/advanced-integration-condition.php:45
+msgid "Select a category"
+msgstr "Επιλέξτε κατηγορία"
+
+#: templates/admin/types/advanced-integration-condition.php:39
+msgid "Search for a product&hellip;"
+msgstr "Αναζήτηση προϊόντος&hellip;"
+
+#: templates/admin/types/advanced-integration-condition.php:28
+#: templates/admin/types/advanced-integration-condition.php:79
+msgid "Greater than"
+msgstr "Μεγαλύτερο από"
+
+#: templates/admin/types/advanced-integration-condition.php:27
+#: templates/admin/types/advanced-integration-condition.php:78
+msgid "Greater than or equal to"
+msgstr "Μεγαλύτερο από ή ίσο με"
+
+#: templates/admin/types/advanced-integration-condition.php:26
+#: templates/admin/types/advanced-integration-condition.php:77
+msgid "Equal to"
+msgstr "Ίσο με"
+
+#: templates/admin/types/advanced-integration-condition.php:25
+#: templates/admin/types/advanced-integration-condition.php:76
+msgid "Less than or equal to"
+msgstr "Λιγότερο από ή ίσο με"
+
+#: templates/admin/types/advanced-integration-condition.php:24
+#: templates/admin/types/advanced-integration-condition.php:75
+msgid "Less than"
+msgstr "Λιγότερο από"
+
+#: templates/admin/types/advanced-integration-condition.php:19
+#: templates/admin/types/advanced-integration-condition.php:72
+msgid "Does not contain"
+msgstr "Δεν περιλαμβάνει"
+
+#: templates/admin/types/advanced-integration-condition.php:18
+msgid "Contains all of"
+msgstr "Περιλαμβάνει όλα τα"
+
+#: templates/admin/types/advanced-integration-condition.php:17
+msgid "Contains at least one of"
+msgstr "Περιλαμβάνει τουλάχιστον ένα από"
+
+#: templates/admin/types/advanced-integration-condition.php:13
+msgid "Details"
+msgstr "Λεπτομέρειες"
+
+#: templates/admin/types/advanced-integration-condition.php:8
+msgid "Order total"
+msgstr "Σύνολο παραγγελίας"
+
+#: templates/admin/types/advanced-integration-condition.php:7
+msgid "Product category in cart"
+msgstr "Κατηγορία προϊόντος στο καλάθι"
+
+#: templates/admin/types/advanced-integration-condition.php:6
+msgid "Product in cart"
+msgstr "Προϊόν στο καλάθι"
+
+#: templates/admin/types/advanced-integration-condition.php:4
+msgid "Condition"
+msgstr "Συνθήκη"
+
+#: templates/admin/metaboxes/user-preferences-metabox.php:41
+msgid "In this section you'll find customer personal data that was sent to Active Campaign servers"
+msgstr "Σε αυτή την ενότητα θα βρείτε τα προσωπικά δεδομένα του πελάτη που στάλθηκαν στους διακομιστές Active Campaign"
+
+#: templates/admin/metaboxes/user-preferences-metabox.php:39
+msgid "Personal data"
+msgstr "Προσωπικά δεδομένα"
+
+#: templates/admin/metaboxes/user-preferences-metabox.php:32
+msgid "Submitted value:"
+msgstr "Υποβληθείσα αξία:"
+
+#: templates/admin/metaboxes/user-preferences-metabox.php:27
+msgid "Checkbox shown at checkout:"
+msgstr "Εμφάνιση πλαισίου ελέγχου σε ταμείο:"
+
+#: templates/admin/metaboxes/user-preferences-metabox.php:23
+#: templates/admin/metaboxes/user-preferences-metabox.php:28
+#: templates/admin/metaboxes/user-preferences-metabox.php:33
+msgid "no"
+msgstr "όχι"
+
+#: templates/admin/metaboxes/user-preferences-metabox.php:23
+#: templates/admin/metaboxes/user-preferences-metabox.php:28
+#: templates/admin/metaboxes/user-preferences-metabox.php:33
+msgid "yes"
+msgstr "ναι"
+
+#: templates/admin/metaboxes/user-preferences-metabox.php:22
+msgid "Customer subscribed:"
+msgstr "Εγγεγραμμένος πελάτης:"
+
+#: templates/admin/metaboxes/user-preferences-metabox.php:19
+msgid "In this section you'll find data about customer consent to Active Campaign subscription"
+msgstr "Σε αυτή την ενότητα θα βρεις δεδομένα σχετικά με την συγκατάθεση πελάτη στην εγγραφή Active Campaign"
+
+#: templates/admin/metaboxes/user-preferences-metabox.php:17
+msgid "Checkout preferences"
+msgstr "Προτιμήσεις ταμείου"
+
+#: templates/admin/active-campaign-dashboard-widget.php:68
+msgid "Refresh stats"
+msgstr "Ανανέωση στατιστικών"
+
+#: templates/admin/active-campaign-dashboard-widget.php:59
+msgid "total"
+msgstr "συνολικά"
+
+#: templates/admin/active-campaign-dashboard-widget.php:56
+msgid "Member count"
+msgstr "Αρίθμηση μέλους"
+
+#: templates/admin/active-campaign-dashboard-widget.php:48
+msgid "Next"
+msgstr "Επόμενο"
+
+#: templates/admin/active-campaign-dashboard-widget.php:47
+msgid "Prev"
+msgstr "Προηγ"
+
+#: templates/admin/active-campaign-dashboard-widget.php:35
+msgid "Email:"
+msgstr ""
+
+#: templates/admin/active-campaign-dashboard-widget.php:29
+#: templates/admin/types/deep-data-connection-status.php:15
+msgid "Name:"
+msgstr "Όνομα:"
+
+#: templates/admin/active-campaign-dashboard-widget.php:24
+msgid "KO"
+msgstr "KO"
+
+#: templates/admin/active-campaign-dashboard-widget.php:24
+#: templates/admin/types/integration-status.php:29
+msgid "Wrong API key"
+msgstr "Λάθος κλειδί API"
+
+#: templates/admin/active-campaign-dashboard-widget.php:22
+#: templates/admin/types/deep-data-connection-status.php:11
+msgid "OK"
+msgstr "OK"
+
+#: templates/admin/active-campaign-dashboard-widget.php:22
+#: templates/admin/types/deep-data-connection-status.php:11
+#: templates/admin/types/integration-status.php:27
+msgid "Correctly synchronized"
+msgstr "Συγχρονισμένα επιτυχώς"
+
+#: templates/admin/active-campaign-dashboard-widget.php:19
+#: templates/admin/types/deep-data-connection-status.php:9
+#: templates/admin/types/integration-status.php:24
+msgid "Status:"
+msgstr "Κατάσταση:"
+
+#: templates/admin/active-campaign-dashboard-widget.php:14
+#: templates/admin/active-campaign-dashboard-widget.php:31
+#: templates/admin/active-campaign-dashboard-widget.php:37
+#: templates/admin/types/deep-data-connection-status.php:17
+#: templates/admin/types/integration-status.php:19
+msgid "&lt; Not Found &gt;"
+msgstr "&lt; Δεν βρέθηκε &gt;"
+
+#: templates/admin/active-campaign-dashboard-widget.php:13
+msgid "No user can be found with this API key"
+msgstr "Δεν βρέθηκε χρήστης με αυτό το κλειδί API"
+
+#: templates/admin/active-campaign-dashboard-widget.php:13
+#: templates/admin/types/integration-status.php:17
+msgid "Active Campaign user"
+msgstr "Χρήστης Active Campaign"
+
+#: plugin-options/widget-options.php:251
+msgid "Enter your custom CSS for the widget here"
+msgstr "Εισάγετε το προσαρμοσμένο CSS για την μικροεφαρμογή εδώ"
+
+#: plugin-options/widget-options.php:195
+msgid "Check this option to make the button corners round"
+msgstr "Επιλέξτε για να κάνετε τις γωνίες του κουμπιού κυκλικές"
+
+#: plugin-options/widget-options.php:78
+msgid "When you select this option, the registration form will be hidden after a successful registration"
+msgstr "Επιλέγοντας, θα γίνει απόκρυψη της φόρμας εγγραφής μετά από επιτυχής εγγραφή"
+
+#: plugin-options/widget-options.php:25
+msgid "Set here the options for <b>YITH Active Campaign Subscription Form</b> widget; use the widget in you sidebars, by selecting it from <a href=\"%s\">Appearance > Widgets</a>"
+msgstr ""
+
+#: plugin-options/widget-options.php:23
+msgid "Widget Options"
+msgstr "Επιλογές Μικροεφαρμογής"
+
+#: plugin-options/tags-options.php:46
+msgid "Tags per status"
+msgstr "Ετικέτες ανά κατάσταση"
+
+#: plugin-options/tags-options.php:28
+msgid "Select tags which will be automatically added to customer when order switches to %s"
+msgstr "Επιλέξτε ετικέτες που θα προστεθούν αυτόματα στον πελάτη όταν η παραγγελία αλλάξει σε %s"
+
+#: plugin-options/tags-options.php:25
+msgid "Order %s tags"
+msgstr "Ετικέτες Παραγγελίας %s"
+
+#: plugin-options/shortcode-options.php:251
+msgid "Enter here the custom CSS that will applied to the shortcode"
+msgstr "Εισάγετε εδώ το προσαρμοσμένο CSS που θα εφαρμοστεί σε μικροκώδικα"
+
+#: plugin-options/shortcode-options.php:241
+#: plugin-options/widget-options.php:241
+msgid "\"Subscribe\" Button Hover Border Color"
+msgstr "Χρώμα Περιθωρίου Κουμπιού “Εγγραφής” κατά Αιώρηση Ποντικιού"
+
+#: plugin-options/shortcode-options.php:233
+#: plugin-options/widget-options.php:233
+msgid "\"Subscribe\" Button Hover Text Color"
+msgstr "Χρώμα Κειμένου Κουμπιού “Εγγραφής” κατά Αιώρηση Ποντικιού"
+
+#: plugin-options/shortcode-options.php:225
+#: plugin-options/widget-options.php:225
+msgid "\"Subscribe\" Button Hover Background Color"
+msgstr "Χρώμα Φόντου Κουμπιού “Εγγραφής” κατά Αιώρηση Ποντικιού"
+
+#: plugin-options/shortcode-options.php:217
+#: plugin-options/widget-options.php:217
+msgid "\"Subscribe\" Button Border Color"
+msgstr "Χρώμα Περιθωρίου Κουμπιού “Εγγραφής”"
+
+#: plugin-options/shortcode-options.php:209
+#: plugin-options/widget-options.php:209
+msgid "\"Subscribe\" Button Text Color"
+msgstr "Χρώμα Κειμένου Κουμπιού “Εγγραφής”"
+
+#: plugin-options/shortcode-options.php:201
+#: plugin-options/widget-options.php:201
+msgid "\"Subscribe\" Button Background Color"
+msgstr "Χρώμα Φόντου Κουμπιού “Εγγραφής”"
+
+#: plugin-options/shortcode-options.php:195
+msgid "Check this option  to make the button corners round"
+msgstr "Επιλέξτε για να κάνετε τις γωνίες του κουμπιού κυκλικές"
+
+#: plugin-options/shortcode-options.php:193
+#: plugin-options/widget-options.php:193
+msgid "Round Corners for \"Subscribe\" Button"
+msgstr "Κυκλικές Γωνίες για κουμπί “Εγγραφής”"
+
+#: plugin-options/shortcode-options.php:77
+msgid "If you select this option, the registration form will be hidden after a successful registration"
+msgstr "Επιλέγοντας, θα γίνει απόκρυψη της φόρμας εγγραφής μετά από επιτυχή εγγραφή"
+
+#: plugin-options/shortcode-options.php:74 plugin-options/widget-options.php:75
+msgid "Hide form after registration"
+msgstr "Απόκρυψη φόρμας μετά από εγγραφή"
+
+#: plugin-options/shortcode-options.php:69 plugin-options/widget-options.php:70
+msgid "Please, make sure to read and accept our %privacy_policy%"
+msgstr "Παρακαλώ βεβαιωθείτε ότι διαβάσατε και αποδέχεστε την %privacy_policy%"
+
+#: plugin-options/shortcode-options.php:68 plugin-options/widget-options.php:69
+msgid "Label that describes privacy checkbox. Use <code>%privacy_policy%</code> to add a link to your store privacy policy page"
+msgstr "Επιγραφή που περιγράφει πλαίσιο ελέγχου απορρήτου. Χρησιμοποιείστε <code>%privacy_policy%</code> για να προσθέσετε λινκ στη σελίδα πολιτικής απορρήτου του καταστήματός σας"
+
+#: plugin-options/shortcode-options.php:65 plugin-options/widget-options.php:66
+msgid "Privacy field label"
+msgstr "Επιγραφή πεδίου απορρήτου"
+
+#: plugin-options/shortcode-options.php:60 plugin-options/widget-options.php:61
+msgid "Show checkbox to obtain explicit consent to collect personal data (Requested by GDPR regulations)"
+msgstr "Εμφάνιση πλαισίου ελέγχου για να αποκτήσετε ρητή συγκατάθεση για συγκέντρωση προσωπικών στοιχείων (Ζητείται από κανονισμούς GDPR)"
+
+#: plugin-options/shortcode-options.php:57 plugin-options/widget-options.php:58
+msgid "Show privacy checkbox"
+msgstr "Εμφάνιση πλαισίου ελέγχου απορρήτου"
+
+#: plugin-options/shortcode-options.php:50 plugin-options/widget-options.php:51
+msgid "Select a message to display when users complete their registration successfully"
+msgstr "Επιλέξτε να εμφανίζεται μήνυμα όταν οι χρήστες ολοκληρώσουν επιτυχώς την εγγραφή τους"
+
+#: plugin-options/shortcode-options.php:47 plugin-options/widget-options.php:48
+msgid "\"Successfully Registered\" message"
+msgstr "Μήνυμα “Εγγραφήκατε Επιτυχώς”"
+
+#: plugin-options/shortcode-options.php:42 plugin-options/widget-options.php:43
+msgid "SUBMIT"
+msgstr "ΥΠΟΒΟΛΗ"
+
+#: plugin-options/shortcode-options.php:41 plugin-options/widget-options.php:42
+msgid "Select a label for the \"Submit\" button in the form"
+msgstr "Επιλέξτε μια επιγραφή για το κουμπί “Υποβολής” στη φόρμα"
+
+#: plugin-options/shortcode-options.php:38 plugin-options/widget-options.php:39
+msgid "\"Submit\" button label"
+msgstr "Επιγραφή κουμπιού “Υποβολής”"
+
+#: plugin-options/shortcode-options.php:33 plugin-options/widget-options.php:34
+msgid "Newsletter"
+msgstr "Ενημερωτικό δελτίο"
+
+#: plugin-options/shortcode-options.php:32 plugin-options/widget-options.php:33
+msgid "Select a title for the newsletter subscription form"
+msgstr "Επιλέξτε έναν τίτλο για την φόρμα εγγραφής ενημερωτικού δελτίου"
+
+#: plugin-options/shortcode-options.php:29 plugin-options/widget-options.php:30
+msgid "Form title"
+msgstr "Τίτλος φόρμας"
+
+#: plugin-options/shortcode-options.php:24
+msgid "Insert the <b>[yith_wcac_subscription_form]</b> shortcode into your pages to print a subscription form; set the options for your form here"
+msgstr "Εισάγετε τον μικροκώδικα <b>[yith_wcac_subscription_form]</b> στις σελίδες σας για να τυπώσετε μια φόρμα εγγραφής. Ορίστε τις επιλογές για τη φόρμα σας εδώ"
+
+#: plugin-options/shortcode-options.php:22
+msgid "Shortcode Options"
+msgstr "Επιλογές Μικροκώδικα"
+
+#: plugin-options/register-options.php:174
+msgid "Enter your custom CSS for the register area here"
+msgstr "Εισάγετε προσαρμοσμένο CSS για την περιοχή εγγραφής εδώ"
+
+#: plugin-options/register-options.php:172
+#: plugin-options/shortcode-options.php:249
+#: plugin-options/widget-options.php:249
+msgid "Custom CSS"
+msgstr "Προσαρμοσμένο CSS"
+
+#: plugin-options/register-options.php:166
+#: plugin-options/shortcode-options.php:187
+#: plugin-options/widget-options.php:187
+msgid "Check this option to enable custom CSS"
+msgstr "Επιλέξτε αυτήν την επιλογή για να ενεργοποιήσετε προσαρμοσμένο CSS"
+
+#: plugin-options/register-options.php:164
+#: plugin-options/shortcode-options.php:185
+#: plugin-options/widget-options.php:185
+msgid "Enable custom CSS"
+msgstr "Ενεργοποίηση προσαρμοσμένου CSS"
+
+#: plugin-options/register-options.php:157
+#: plugin-options/shortcode-options.php:178
+#: plugin-options/widget-options.php:178
+msgid "Style Options"
+msgstr "Επιλογές Εμφάνισης"
+
+#: plugin-options/register-options.php:145
+#: plugin-options/shortcode-options.php:166
+#: plugin-options/widget-options.php:166
+#: templates/admin/types/advanced-integration-item.php:50
+msgid "Fields"
+msgstr "Πεδία"
+
+#: plugin-options/register-options.php:138
+#: plugin-options/shortcode-options.php:159
+#: plugin-options/widget-options.php:159
+msgid "Field Options"
+msgstr "Επιλογές πεδίου"
+
+#: plugin-options/register-options.php:127
+#: plugin-options/shortcode-options.php:148
+#: plugin-options/widget-options.php:148
+#: templates/admin/types/advanced-integration.php:8
+msgid "Type here a text that will be used as title for the Tags section on the checkout page"
+msgstr "Πληκτρολογήστε εδώ ένα κείμενο που θα χρησιμοποιηθεί ως τίτλος για την ενότητα \"Ετικέτες\" στη σελίδα ολοκλήρωσης αγοράς"
+
+#: plugin-options/register-options.php:125
+#: plugin-options/shortcode-options.php:146
+#: plugin-options/widget-options.php:146
+#: templates/admin/types/advanced-integration.php:3
+msgid "Tags label"
+msgstr "Επιγραφή ετικετών"
+
+#: plugin-options/register-options.php:114
+#: plugin-options/shortcode-options.php:135
+#: plugin-options/widget-options.php:135
+#: templates/admin/types/advanced-integration.php:26
+msgid "Select tags among which users can choose"
+msgstr "Επιλέξτε Ετικέτες μεταξύ των οποίων οι χρήστες μπορούν να επιλέξουν"
+
+#: plugin-options/register-options.php:112
+#: plugin-options/shortcode-options.php:133
+#: plugin-options/widget-options.php:133
+#: templates/admin/types/advanced-integration.php:13
+msgid "Show tags"
+msgstr "Εμφάνιση ετικετών"
+
+#: plugin-options/register-options.php:65
+#: plugin-options/shortcode-options.php:86 plugin-options/widget-options.php:86
+msgid "Define the default contact status when users submit the form"
+msgstr "Ορίστε τη προεπιλεγμένη κατάσταση επαφής όταν οι χρήστες υποβάλλουν την φόρμα"
+
+#: plugin-options/register-options.php:56
+msgid "When you check this option, the \"Newsletter subscription\" checkbox will be printed as already checked"
+msgstr "Επιλέγοντας το, το πλαίσιο ελέγχου “Εγγραφής ενημερωτικού δελτίου” θα τυπωθεί ως ήδη επιλεγμένο"
+
+#: plugin-options/register-options.php:46
+msgid "Enter here the label you want to use for the \"Newsletter subscription\" checkbox"
+msgstr "Ορίστε εδώ την επιγραφή που θέλετε να χρησιμοποιήσετε για το πλαίσιο ελέγχου “Εγγραφής ενημερωτικού δελτίου”"
+
+#: plugin-options/register-options.php:38
+msgid ""
+"When you select this option, a checkbox will be added to the register form, inviting users to subscribe to the\n"
+"\t\t\tnewsletter; otherwise, users will automatically subscribe"
+msgstr "Επιλέγοντας θα προστεθεί ένα πλαίσιο ελέγχου στη φόρμα εγγραφής, προσκαλώντας τους χρήστες να εγγραφούν στο ενημερωτικό δελτίο. Διαφορετικά οι χρήστες θα εγγράφονται αυτόματα"
+
+#: plugin-options/register-options.php:29
+msgid "Enable \"Newsletter subscription\" on register page"
+msgstr "Ενεργοποίηση “Εγγραφής ενημερωτικού δελτίου” στη σελίδα εγγραφής"
+
+#: plugin-options/register-options.php:25
+msgid "Set the options for <b>YITH Active Campaign Subscription Form</b> that appears below the registration form."
+msgstr "Ορίστε επιλογές για <b>YITH Active Campaign Subscription Form</b> που εμφανίζεται κάτω από τη φόρμα εγγραφής."
+
+#: plugin-options/register-options.php:23
+msgid "Register Options"
+msgstr "Επιλογές Εγγραφής"
+
+#: plugin-options/integration-options.php:42
+msgid "Integration status"
+msgstr "Κατάσταση ενοποίησης"
+
+#: plugin-options/integration-options.php:36
+msgid "Active Campaign API key; you can get one at <b>//&lt;your_company&gt;.activehosted.com/admin/main.php?action=settings#tab_api</b>"
+msgstr "Active Campaign κλειδί API; μπορείς να βρεις ένα στο <b>//&lt;your_company&gt;.activehosted.com/admin/main.php?action=settings#tab_api</b>"
+
+#: plugin-options/integration-options.php:33
+msgid "Active Campaign API Key"
+msgstr "Active Campaign Κλειδί API"
+
+#: plugin-options/integration-options.php:27
+msgid "Active Campaign API URL; you can get one at <b>//&lt;your_company&gt;.activehosted.com/admin/main.php?action=settings#tab_api</b>"
+msgstr "Active Campaign API URL; μπορείς να βρεις ένα στο <b>//&lt;your_company&gt;.activehosted.com/admin/main.php?action=settings#tab_api</b>"
+
+#: plugin-options/integration-options.php:24
+msgid "Active Campaign API URL"
+msgstr "Active Campaign API URL"
+
+#: plugin-options/export-options.php:275
+msgid "Export a group of users from your store to a CSV file"
+msgstr "Εξαγωγή ομάδας χρηστών του καταστήματός σας σε αρχείο CSV"
+
+#: plugin-options/export-options.php:273
+msgid "CSV Download"
+msgstr "Κατέβασμα CSV"
+
+#: plugin-options/export-options.php:257
+msgid "Specify an Active Campaign field where saving the waiting-list products subscribed by users"
+msgstr "Ορίστε ένα πεδίο Active Campaign όπου θα αποθηκεύονται τα προϊόντα λίστας αναμονής εγγεγραμμένα από χρήστες"
+
+#: plugin-options/export-options.php:255
+msgid "Waiting products"
+msgstr "Προϊόντα σε αναμονή"
+
+#: plugin-options/export-options.php:250 plugin-options/export-options.php:309
+msgid "Export users that purchased within this date range"
+msgstr "Εξαγωγή χρηστών που πραγματοποίησαν αγορά εντός του εύρους ημερομηνιών"
+
+#: plugin-options/export-options.php:248 plugin-options/export-options.php:307
+msgid "Filter by date"
+msgstr "Ταξινόμηση κατά ημερομηνία"
+
+#: plugin-options/export-options.php:233 plugin-options/export-options.php:292
+msgid "Waiting Lists"
+msgstr "Λίστες Αναμονής"
+
+#: plugin-options/export-options.php:230 plugin-options/export-options.php:289
+msgid "Filter users using custom conditions"
+msgstr "Ταξινόμηση χρηστών χρησιμοποιώντας προσαρμοσμένες συνθήκες"
+
+#: plugin-options/export-options.php:229 plugin-options/export-options.php:288
+msgid "Select a group of users manually"
+msgstr "Επιλέξτε μια ομάδα χρηστών χειροκίνητα"
+
+#: plugin-options/export-options.php:228 plugin-options/export-options.php:287
+msgid "All Customers"
+msgstr "Όλοι Πελάτες"
+
+#: plugin-options/export-options.php:227 plugin-options/export-options.php:286
+msgid "All Users"
+msgstr "Όλοι Χρήστες"
+
+#: plugin-options/export-options.php:223 plugin-options/export-options.php:282
+msgid "Select a group of users to export"
+msgstr "Επιλέξτε μια ομάδα χρηστών για εξαγωγή"
+
+#: plugin-options/export-options.php:221 plugin-options/export-options.php:280
+msgid "Groups of users"
+msgstr "Ομάδες χρηστών"
+
+#: plugin-options/export-options.php:215 plugin-options/register-options.php:68
+#: plugin-options/shortcode-options.php:89 plugin-options/widget-options.php:89
+msgid "Unsubscribe"
+msgstr "Διαγραφή συνδρομής"
+
+#: plugin-options/export-options.php:212
+msgid "Define the default contact status"
+msgstr "Όρισε την προεπιλεγμένη κατάσταση επαφής"
+
+#: plugin-options/export-options.php:209 plugin-options/register-options.php:62
+#: plugin-options/shortcode-options.php:83 plugin-options/widget-options.php:83
+msgid "Status"
+msgstr "Κατάσταση"
+
+#: plugin-options/export-options.php:191
+msgid "Export a group of users from your store to one of your Active Campaign lists"
+msgstr "Εξαγωγή ομάδας χρηστών του καταστήματός σας σε μια από τις Active Campaign λίστες σας"
+
+#: plugin-options/export-options.php:189
+msgid "Export"
+msgstr "Εξαγωγή"
+
+#: plugin-options/export-options.php:112
+msgid "Export users that bought a product with a specific tag"
+msgstr "Εξαγωγή χρηστών που αγόρασαν ένα προϊόν με συγκεκριμένη ετικέτα"
+
+#: plugin-options/export-options.php:102
+msgid "Export users that bought a product belonging to a specific category"
+msgstr "Εξαγωγή χρηστών που αγόρασαν ένα προϊόν που ανήκει σε μια συγκεκριμένη κατηγορία"
+
+#: plugin-options/export-options.php:92
+msgid "Export users that bought a specific product"
+msgstr "Εξαγωγή χρηστών που αγόρασαν ένα συγκεκριμένο προϊόν"
+
+#: plugin-options/export-options.php:82
+msgid "Select users to export"
+msgstr "Επιλέξτε χρήστες για εξαγωγή"
+
+#: plugin-options/export-options.php:81
+msgid "Users to export"
+msgstr "Χρήστες για εξαγωγή"
+
+#: plugin-options/export-options.php:72
+msgid "Export users that bought a product with at least one of the selected tags"
+msgstr "Εξαγωγή χρηστών που αγόρασαν ένα προϊόν με τουλάχιστον μια από τις επιλεγμένες ετικέτες"
+
+#: plugin-options/export-options.php:71 plugin-options/export-options.php:111
+msgid "Filter by tag"
+msgstr "Ταξινόμηση κατά ετικέτα"
+
+#: plugin-options/export-options.php:62
+msgid "Export users that bought a product belonging at least to one of the selected categories"
+msgstr "Εξαγωγή χρηστών που αγόρασαν ένα προϊόν που ανήκει τουλάχιστον σε μία από τις επιλεγμένες κατηγορίες"
+
+#: plugin-options/export-options.php:61 plugin-options/export-options.php:101
+msgid "Filter by category"
+msgstr "Ταξινόμηση κατά κατηγορία"
+
+#: plugin-options/export-options.php:53
+msgid "Export users that bought at least one of the selected products"
+msgstr "Εξαγωγή χρηστών που αγόρασαν τουλάχιστον ένα από τα επιλεγμένα προϊόντα"
+
+#: plugin-options/export-options.php:52 plugin-options/export-options.php:91
+msgid "Filter by product"
+msgstr "Ταξινόμηση κατά προϊόν"
+
+#: plugin-options/export-options.php:44
+msgid "Select customers to export"
+msgstr "Επιλογή πελατών για εξαγωγή"
+
+#: plugin-options/export-options.php:43
+msgid "Customers to export"
+msgstr "Πελάτες για εξαγωγή"
+
+#: plugin-options/export-options.php:40
+msgid "Select tags"
+msgstr "Επιλογή ετικετών"
+
+#: plugin-options/export-options.php:39
+msgid "Select categories"
+msgstr "Επιλογή κατηγοριών"
+
+#: plugin-options/export-options.php:38
+msgid "Select products"
+msgstr "Επιλογή προϊόντων"
+
+#: plugin-options/export-options.php:37
+msgid "Select customers"
+msgstr "Επιλογή πελατών"
+
+#: plugin-options/deep-data-options.php:201
+msgid "Stop store synchronization"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:193
+msgid "Stop Sync"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:188
+msgid "Stop sync"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:182
+msgid "Rerun store synchronization <b>Note that this may take a while, and will be processed in the background</b>"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:174
+msgid "Sync Again"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:169
+msgid "Sync again"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:163
+msgid "Start store syncronization <b>Note that this may take a while, and will be processed in the background</b>"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:155
+msgid "Resume Sync"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:150
+msgid "Resume sync"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:144
+msgid "Start store synchronization <b>Note that this may take a while, and will be processed in the background</b>"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:136
+msgid "Start Sync"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:131
+msgid "Start sync"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:122
+msgid "Store Synchronization"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:111
+msgid "Select the time system should wait before registering a cart as abandoned"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:109
+msgid "24 Hours"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:108
+msgid "10 Hours"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:107
+msgid "6 Hours"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:106
+msgid "2 Hours"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:105
+msgid "1 Hour"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:102
+msgid "Delay"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:97
+msgid "Register guest billing email only after Terms & Conditions agreement"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:95
+msgid "Wait for T&C agreement"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:90
+msgid "Enable abandoned cart registration, for guest users too"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:88
+msgid "Enable guest"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:83
+msgid "Enable abandoned cart registration"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:81
+msgid "Enable"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:75
+msgid "Abandoned cart"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:56
+msgid "Select the logo that you want to assign to your store on Active Campaign dashboard"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:52
+msgid "Store logo"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:44
+msgid "Select the name that you want to assign to your store on Active Campaign dashboard"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:41
+msgid "Store name"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:33
+msgid "Connection status"
+msgstr ""
+
+#: plugin-options/deep-data-options.php:24
+msgid "Deep Data integration"
+msgstr ""
+
+#: plugin-options/checkout-options.php:166
+#: templates/admin/types/advanced-integration-item.php:44
+msgid "Select tags for the new user"
+msgstr "Επιλογή ετικετών για τον νέο χρήστη"
+
+#: plugin-options/checkout-options.php:164
+msgid "Tags"
+msgstr "Ετικέτες"
+
+#: plugin-options/checkout-options.php:149
+msgid "Advanced options"
+msgstr "Επιπλέον επιλογές"
+
+#: plugin-options/checkout-options.php:137
+#: plugin-options/register-options.php:101
+#: plugin-options/shortcode-options.php:122
+#: plugin-options/widget-options.php:122
+msgid "Select tags which will be automatically added to new users"
+msgstr "Επιλογή ετικετών που θα προστεθούν αυτόματα σε νέους χρήστες"
+
+#: plugin-options/checkout-options.php:135
+#: plugin-options/register-options.php:99
+#: plugin-options/shortcode-options.php:120
+#: plugin-options/widget-options.php:120
+#: templates/admin/types/advanced-integration-item.php:32
+msgid "Auto-subscribe tags"
+msgstr "Αυτόματη εγγραφή ετικετών"
+
+#: plugin-options/checkout-options.php:124
+#: plugin-options/export-options.php:198 plugin-options/register-options.php:88
+#: plugin-options/shortcode-options.php:109
+#: plugin-options/widget-options.php:109
+#: templates/admin/types/advanced-integration-item.php:27
+msgid "Select a list for new users"
+msgstr "Επιλογή λίστας για νέους χρήστες"
+
+#: plugin-options/checkout-options.php:122
+#: plugin-options/export-options.php:196 plugin-options/register-options.php:86
+#: plugin-options/shortcode-options.php:107
+#: plugin-options/widget-options.php:107
+#: templates/admin/types/advanced-integration-item.php:14
+msgid "Active Campaign list"
+msgstr "Λίστα Active Campaign"
+
+#: plugin-options/checkout-options.php:117
+msgid "Advanced"
+msgstr "Προηγμένο"
+
+#: plugin-options/checkout-options.php:116
+msgid "Simple"
+msgstr "Απλό"
+
+#: plugin-options/checkout-options.php:113
+msgid "Select whether to use a basic set of options or add integration settings"
+msgstr "Επιλέξτε αν θέλετε να χρησιμοποιήσετε ένα βασικό σύνολο επιλογών ή να προσθέσετε ρυθμίσεις ενοποίησης"
+
+#: plugin-options/checkout-options.php:111
+msgid "Integration mode"
+msgstr "Λειτουργία διασύνδεσης"
+
+#: plugin-options/checkout-options.php:104
+#: plugin-options/register-options.php:79
+#: plugin-options/shortcode-options.php:100
+#: plugin-options/widget-options.php:100
+msgid "List Options"
+msgstr "Επιλογές Λίστας"
+
+#: plugin-options/checkout-options.php:93
+msgid "Unsubscribed"
+msgstr "Διαγραμμένη συνδρομή"
+
+#: plugin-options/checkout-options.php:92 plugin-options/export-options.php:214
+#: plugin-options/register-options.php:67
+#: plugin-options/shortcode-options.php:88 plugin-options/widget-options.php:88
+msgid "Active"
+msgstr "Ενεργή"
+
+#: plugin-options/checkout-options.php:90
+msgid "Contact status in Active Campaign list"
+msgstr "Κατάσταση επαφής στη λίστα Active Campaign"
+
+#: plugin-options/checkout-options.php:87
+msgid "Contact status"
+msgstr "Κατάσταση επαφής"
+
+#: plugin-options/checkout-options.php:81
+msgid "When you check this option, \"Newsletter subscription\" checkbox will be displayed as already checked"
+msgstr "Αν επιλέξετε, το πλαίσιο ελέγχου “Εγγραφής ενημερωτικού δελτίου” θα εμφανίζεται ως ήδη επιλεγμένο"
+
+#: plugin-options/checkout-options.php:78
+#: plugin-options/register-options.php:53
+msgid "Show \"Newsletter subscription\" as checked"
+msgstr "Εμφάνιση “Εγγραφής ενημερωτικού δελτίου” ως επιλεγμένη"
+
+#: plugin-options/checkout-options.php:71
+#: templates/admin/types/advanced-integration.php:42
+msgid "Above shipping details"
+msgstr "Πάνω από στοιχεία αποστολής"
+
+#: plugin-options/checkout-options.php:70
+#: templates/admin/types/advanced-integration.php:41
+msgid "Below billing details"
+msgstr "Κάτω από στοιχεία χρέωσης"
+
+#: plugin-options/checkout-options.php:69
+#: templates/admin/types/advanced-integration.php:40
+msgid "Above billing details"
+msgstr "Πάνω από στοιχεία χρέωσης"
+
+#: plugin-options/checkout-options.php:68
+#: templates/admin/types/advanced-integration.php:39
+msgid "Above \"Review order\" total"
+msgstr "Πάνω από σύνολο “Ανασκόπησης παραγγελίας”"
+
+#: plugin-options/checkout-options.php:67
+#: templates/admin/types/advanced-integration.php:38
+msgid "Below \"Place order\" button"
+msgstr "Κάτω από κουμπί “Αποστολή παραγγελίας”"
+
+#: plugin-options/checkout-options.php:66
+#: templates/admin/types/advanced-integration.php:37
+msgid "Above \"Place order\" button"
+msgstr "Πάνω από κουμπί “Αποστολή παραγγελίας”"
+
+#: plugin-options/checkout-options.php:65
+#: templates/admin/types/advanced-integration.php:36
+msgid "Below customer details"
+msgstr "Κάτω από προσωπικά στοιχεία πελάτη"
+
+#: plugin-options/checkout-options.php:64
+#: templates/admin/types/advanced-integration.php:35
+msgid "Above customer details"
+msgstr "Πάνω από προσωπικά στοιχεία πελάτη"
+
+#: plugin-options/checkout-options.php:61
+msgid "Select the position of the \"Newsletter subscription\" checkbox on the page"
+msgstr "Επιλέξτε την θέση του πλαισίου ελέγχου της “Εγγραφής ενημερωτικού δελτίου” στη σελίδα"
+
+#: plugin-options/checkout-options.php:59
+msgid "Position of \"Newsletter subscription\""
+msgstr "Θέση της “Εγγραφής ενημερωτικού δελτίου”"
+
+#: plugin-options/checkout-options.php:54
+#: plugin-options/register-options.php:48
+msgid "Subscribe to our cool newsletter"
+msgstr "Εγγραφείτε στο ενημερωτικό μας δελτίο"
+
+#: plugin-options/checkout-options.php:52
+msgid "Enter here the label you want to use for the \"Newsletter subscription\" checkbox. Use <code>%privacy_policy%</code> to add a link to your store privacy policy page"
+msgstr "Εισάγετε την επιγραφή που θέλετε να χρησιμοποιήσετε για το πλαίσιο ελέγχου “Εγγραφής ενημερωτικού δελτίου”. Χρησιμοποιήστε <code>%privacy_policy%</code> για να προσθέσετε ένα σύνδεσμο στη σελίδα πολιτικής απορρήτου του καταστήματός σας"
+
+#: plugin-options/checkout-options.php:50
+#: plugin-options/register-options.php:44
+msgid "\"Newsletter subscription\" label"
+msgstr "Επιγραφή “Εγγραφής ενημερωτικού δελτίου”"
+
+#: plugin-options/checkout-options.php:44
+msgid ""
+"If you select this option, a checkbox will be added to the checkout form, inviting users to subscribe to the\n"
+"\t\t\tnewsletter; otherwise, users will be subscribed automatically"
+msgstr ""
+"Αν το επιλέξετε θα προστεθεί ένα πλαίσιο ελέγχου στη φόρμα του ταμείου, προσκαλώντας τους χρήστες να κάνουν εγγραφή στο \n"
+"\t\t\tενημερωτικό δελτίο. Διαφορετικά, οι χρήστες θα εγγράφονται αυτόματα"
+
+#: plugin-options/checkout-options.php:41
+#: plugin-options/register-options.php:35
+msgid "Show \"Newsletter subscription\" checkbox"
+msgstr "Εμφάνιση πλαίσιο ελέγχου “Εγγραφής ενημερωτικού δελτίου”"
+
+#: plugin-options/checkout-options.php:35
+msgid "Order placed"
+msgstr "Παραγγελία απεστάλη"
+
+#: plugin-options/checkout-options.php:34
+msgid "Order completed"
+msgstr "Παραγγελία ολοκληρώθηκε"
+
+#: plugin-options/checkout-options.php:33
+msgid "Never"
+msgstr "Ποτέ"
+
+#: plugin-options/checkout-options.php:30
+msgid "Select the moment in which the user will be added to the list"
+msgstr "Επιλέξτε πότε μπορεί να προστεθεί ο χρήστης στη λίστα"
+
+#: plugin-options/checkout-options.php:28
+msgid "Register after"
+msgstr "Εγγραφή μετά"
+
+#: plugin-options/checkout-options.php:21
+#: plugin-options/integration-options.php:17
+msgid "Active Campaign Options"
+msgstr "Επιλογές Active Campaign"
+
+#: init.php:151
+msgid "You can't activate the free version of %s while you are using the premium one."
+msgstr "Δεν μπορείτε να ενεργοποιήσετε την δωρεάν έκδοση του %s ενώ χρησιμοποιείτε την προηγμένη."
+
+#: init.php:141
+msgid "%s is enabled but not effective. It requires WooCommerce in order to work."
+msgstr "%s είναι ενεργοποιημένο αλλά αναποτελεσματικό. Απαιτείται WooCommerce για τη σωστή λειτουργία."
+
+#: includes/libraries/class-wc-background-process.php:173
+msgid "Every %d minutes"
+msgstr ""
+
+#: includes/class.yith-wcac.php:2075
+msgid "There is an error with your data; try again later."
+msgstr ""
+
+#: includes/class.yith-wcac.php:2068
+msgid "You must agree privacy agreement"
+msgstr "Πρέπει να συμφωνείτε με την σύμβαση απορρήτου"
+
+#: includes/class.yith-wcac.php:2049
+msgid "Email is required"
+msgstr "Απαιτείται διεύθυνση ηλεκτρονικού ταχυδρομείου"
+
+#: includes/class.yith-wcac.php:2037 plugin-options/shortcode-options.php:52
+#: plugin-options/widget-options.php:53
+msgid "Great! You're now subscribed to our newsletter"
+msgstr "Τέλεια! Είστε πλέον εγγεγραμμένος στο ενημερωτικό μας δελτίο"
+
+#: includes/class.yith-wcac.php:1296 includes/class.yith-wcac.php:2095
+msgid "Correctly subscribed %1$s."
+msgstr ""
+
+#: includes/class.yith-wcac.php:1189
+msgid "Email"
+msgstr ""
+
+#: includes/class.yith-wcac.php:1010 includes/class.yith-wcac.php:1790
+msgid "Privacy Policy"
+msgstr "Πολιτική Απορρήτου"
+
+#: includes/class.yith-wcac.php:840
+msgctxt "API error message"
+msgid "The following errors occurred while processing API request: %s"
+msgstr ""
+
+#: includes/class.yith-wcac.php:831
+msgctxt "API error message"
+msgid "You're being rate limited! Please, wait a couple of minutes before submitting further requests to ActiveCampaign API"
+msgstr ""
+
+#: includes/class.yith-wcac.php:828
+msgctxt "API error message"
+msgid "The requested resource does not exist."
+msgstr ""
+
+#: includes/class.yith-wcac.php:825
+msgctxt "API error message"
+msgid "The request could not be authenticated or the authenticated user is not authorized to access the requested resource."
+msgstr ""
+
+#: includes/class.yith-wcac.php:822
+msgctxt "API error message"
+msgid "The request could not be validated, as it probably contains malformed data."
+msgstr ""
+
+#: includes/class.yith-wcac.php:730
+msgid "An error occurred while subscribing user to the list; please, try again later"
+msgstr ""
+
+#: includes/class.yith-wcac.php:725
+msgid "An error occurred while trying to subscribe user; please, try again later"
+msgstr ""
+
+#: includes/class.yith-wcac.php:720
+msgid "Email address is missing or malformed"
+msgstr ""
+
+#: includes/class.yith-wcac.php:397
+msgid "Telephone"
+msgstr ""
+
+#: includes/class.yith-wcac.php:393 includes/class.yith-wcac.php:1185
+msgid "Last name"
+msgstr "Επώνυμο"
+
+#: includes/class.yith-wcac.php:389 includes/class.yith-wcac.php:1181
+msgid "First name"
+msgstr "Όνομα"
+
+#: includes/class.yith-wcac.php:385
+msgid "Email Address"
+msgstr "Διεύθυνση ηλεκτρονικού ταχυδρομείου"
+
+#: includes/class.yith-wcac-widget.php:47
+msgid ""
+"You can customize the options of the <b>Active Campaign Subscription Form</b> widget from YITH WooCommerce Active Campaign <a href=\"%s\">admin\n"
+"page</a>"
+msgstr ""
+
+#: includes/class.yith-wcac-widget.php:31
+msgid "Display an Active Campaign subscription form in sidebars"
+msgstr "Εμφάνιση μιας φόρμας συνδρομής Active Campaign σε πλευρικές στήλες"
+
+#: includes/class.yith-wcac-privacy.php:164
+msgid "Active Campaign Data"
+msgstr "Δεδομένα Active Campaign"
+
+#: includes/class.yith-wcac-privacy.php:148
+msgid "User unsubscribed from %d lists."
+msgstr "Ο χρήστης ακύρωσε εγγραφή από λίστες %d."
+
+#: includes/class.yith-wcac-privacy.php:106
+msgid "Active Campaign Subscribed Lists"
+msgstr "Λίστες Active Campaign στις οποίες είστε εγγεγραμμένος"
+
+#: includes/class.yith-wcac-privacy.php:85
+msgid "Please see the <a href=\"https://www.activecampaign.com/privacy-policy/\">Active Campaign Privacy Policy</a> for more details."
+msgstr ""
+
+#: includes/class.yith-wcac-privacy.php:84
+msgid "We contact Active Campaign in order to subscribe users, and retrieve information about lists and groups. When processing subscriptions, some of your data will be passed to Active Campaign, including information required to target your account, such as the billing information and the product(s) you’re purchasing."
+msgstr "Ερχόμαστε σε επαφή με το Active Campaign για την εγγραφή χρηστών, και την ανάκτηση πληροφοριών λιστών και ομάδων. Κατά την επεξεργασία συνδρομών, κάποια απ’τα προσωπικά σας δεδομένα θα περάσουν στο Active Campaign, συμπεριλαμβανομένων των απαιτούμενων πληροφοριών για να συγκεντρώσουμε τον λογαριασμό σας, όπως οι πληροφορίες χρέωσης και το προϊόν(τα) που αγοράζετε."
+
+#: includes/class.yith-wcac-privacy.php:81
+msgid "Our team members have access to these data in order to review what our plugin sent to Active Campaign servers."
+msgstr "Τα μέλη της ομάδας μας έχουν πρόσβαση σε αυτά τα προσωπικά δεδομένα για να μπορούν να επανεξετάζουν ό,τι έχει στείλει το plugin μας στους διακομιστές Active Campaign."
+
+#: includes/class.yith-wcac-privacy.php:79
+msgid "Active Campaign lists to which you are subscribed,"
+msgstr "Λίστες Active Campaign στις οποίες είστε εγγεγραμμένος,"
+
+#: includes/class.yith-wcac-privacy.php:78
+msgid "Log of your consent,"
+msgstr "Καταγραφή της συγκατάθεσης σας,"
+
+#: includes/class.yith-wcac-privacy.php:77
+msgid "All personal data sent to Active Campaign,"
+msgstr "Όλα τα προσωπικά δεδομένα που αποστέλλονται στο Active Campaign,"
+
+#: includes/class.yith-wcac-privacy.php:75
+msgid "Members of our team have access to the information you provide us. For example, both Administrators and Shop Managers can access:"
+msgstr "Τα μέλη της ομάδας μας έχουν πρόσβαση στις πληροφορίες που μας παρέχετε. Για παράδειγμα, τόσο οι διαχειριστές όσο και οι διαχειριστές καταστημάτων μπορούν να έχουν πρόσβαση:"
+
+#: includes/class.yith-wcac-privacy.php:72
+msgid "We’ll ask for your explicit consent before sending any data to Active Campaign servers."
+msgstr "Θα ζητήσουμε τη ρητή συγκατάθεσή σας πριν από την αποστολή οποιωνδήποτε δεδομένων σε διακομιστές του Active Campaign."
+
+#: includes/class.yith-wcac-privacy.php:70
+msgid "Any other information submitted through the registration form: we’ll use this information in order to complete your account on Active Campaign, and send you targeted emails."
+msgstr "Οποιαδήποτε άλλη πληροφορία υποβάλλεται μέσω της φόρμας εγγραφής: θα χρησιμοποιήσουμε αυτές τις πληροφορίες για να ολοκληρώσουμε τον λογαριασμό σας στο Active Campaign και για την αποστολή στοχευμένων μηνυμάτων ηλεκτρονικού ταχυδρομείου."
+
+#: includes/class.yith-wcac-privacy.php:69
+msgid "Email address: we’ll use this in order to populate basic information of your account on Active Campaign"
+msgstr "Διεύθυνση ηλεκτρονικού ταχυδρομείου: θα το χρησιμοποιήσουμε για να συμπληρώσουμε τις βασικές πληροφορίες του λογαριασμού σας στο Active Campaign"
+
+#: includes/class.yith-wcac-privacy.php:67
+msgid "When subscribing to a newsletter, we’ll track:"
+msgstr "Όταν εγγράφεστε σε ένα ενημερωτικό δελτίο, θα καταγράφουμε:"
+
+#: includes/class.yith-wcac-privacy.php:65
+msgid "Preferences, products purchased, categories of products purchased: we’ll use this information in order to improve your profile and send you targeted newsletters"
+msgstr "Προτιμήσεις, αγορασμένα προϊόντα, κατηγορίες αγορασμένων προϊόντων: θα χρησιμοποιήσουμε αυτές τις πληροφορίες για να βελτιώσουμε το προφίλ σας και για την αποστολή στοχευμένων ενημερωτικών δελτίων"
+
+#: includes/class.yith-wcac-privacy.php:64
+msgid "Order total, payment method, customer IP: we’ll use this information in order to improve your account, and send you targeted newsletters"
+msgstr "Σύνολο παραγγελίας, μέθοδος πληρωμής, IP πελάτη: θα χρησιμοποιήσουμε αυτές τις πληροφορίες για να βελτιώσουμε τον λογαριασμό σας, και για την αποστολή στοχευμένων ενημερωτικών δελτίων"
+
+#: includes/class.yith-wcac-privacy.php:63
+msgid "Billing or shipping data: we’ll use this information in order to complete your account on Active Campaign"
+msgstr "Δεδομένα χρέωσης ή αποστολής: θα χρησιμοποιήσουμε τα στοιχεία για να ολοκληρώσουμε τον λογαριασμό σας στο Active Campaign"
+
+#: includes/class.yith-wcac-privacy.php:62
+msgid "Email address, first name, last name: we’ll use this information in order to populate the basic details of your account on Active Campaign"
+msgstr "Διεύθυνση ηλεκτρονικού ταχυδρομείου, όνομα, επίθετο: θα χρησιμοποιήσουμε αυτές τις πληροφορίες για να συμπληρώσουμε τα βασικά στοιχεία του λογαριασμού σας στο Active Campaign"
+
+#: includes/class.yith-wcac-privacy.php:60
+msgid "During checkout, we’ll track:"
+msgstr "Κατά τη διάρκεια του ταμείου, θα καταγράφουμε:"
+
+#: includes/class.yith-wcac-deep-data.php:1270
+msgctxt "log message"
+msgid "Customer %s processed"
+msgstr ""
+
+#: includes/class.yith-wcac-deep-data.php:1249
+msgctxt "log message"
+msgid "Customer %s skipped"
+msgstr ""
+
+#: includes/class.yith-wcac-deep-data.php:1205
+msgctxt "log message"
+msgid "Cart for customer %s deleted"
+msgstr ""
+
+#: includes/class.yith-wcac-deep-data.php:1172
+msgctxt "log message"
+msgid "Cart for user %1$s wasn't processed due to an error: %2$s"
+msgstr ""
+
+#: includes/class.yith-wcac-deep-data.php:1167
+msgctxt "log message"
+msgid "Cart for user %s processed"
+msgstr ""
+
+#: includes/class.yith-wcac-deep-data.php:1153
+msgctxt "log message"
+msgid "Cart for user %s skipped"
+msgstr ""
+
+#: includes/class.yith-wcac-deep-data.php:1115
+msgctxt "log message"
+msgid "Attempting to process cart for user %s"
+msgstr ""
+
+#: includes/class.yith-wcac-deep-data.php:1106
+msgctxt "log message"
+msgid "Cart for user %s couldn't process because we weren't able to update customer object"
+msgstr ""
+
+#: includes/class.yith-wcac-deep-data.php:1062
+msgctxt "log message"
+msgid "Order %s deleted"
+msgstr ""
+
+#: includes/class.yith-wcac-deep-data.php:1047
+msgctxt "log message"
+msgid "Attempting to delete order %s"
+msgstr ""
+
+#: includes/class.yith-wcac-deep-data.php:1022
+msgctxt "log message"
+msgid "Order %1$s wasn't processed due to an error: %2$s"
+msgstr ""
+
+#: includes/class.yith-wcac-deep-data.php:1017
+msgctxt "log message"
+msgid "Order %s processed"
+msgstr ""
+
+#: includes/class.yith-wcac-deep-data.php:1002
+msgctxt "log message"
+msgid "Order %s skipped"
+msgstr ""
+
+#: includes/class.yith-wcac-deep-data.php:956
+msgctxt "log message"
+msgid "Attempting to process order %s"
+msgstr ""
+
+#: includes/class.yith-wcac-deep-data.php:947
+msgctxt "log message"
+msgid "Order %1$s couldn't process because we weren't able to update customer %2$s"
+msgstr ""
+
+#: includes/class.yith-wcac-deep-data.php:538
+msgctxt "log message"
+msgid "Sync completed!"
+msgstr ""
+
+#: includes/class.yith-wcac-deep-data.php:533
+#: includes/class.yith-wcac-deep-data.php:640
+msgctxt "log message"
+msgid "New sync step: %s\n"
+msgstr "\n"
+
+#: includes/class.yith-wcac-deep-data.php:468
+msgctxt "log message"
+msgid "Sync action performed: %s"
+msgstr ""
+
+#: includes/class.yith-wcac-deep-data.php:448
+msgctxt "log message"
+msgid "Attempting sync action: %s"
+msgstr ""
+
+#: includes/class.yith-wcac-deep-data.php:430
+msgid "Current synchronization status:"
+msgstr ""
+
+#: includes/class.yith-wcac-deep-data.php:427
+msgid "Synchronization complete"
+msgstr ""
+
+#: includes/class.yith-wcac-deep-data.php:414
+msgid "<b>%1$s</b> %2$s/%3$s (%4$s%%)"
+msgstr ""
+
+#: includes/class.yith-wcac-deep-data.php:375
+msgid "Your store is currently being synced! This may take a while, but won't affect performance of your store. You can keep track of the status of the operation in this page"
+msgstr ""
+
+#: includes/class.yith-wcac-deep-data.php:347
+msgctxt "log message"
+msgid "Store disconnected!"
+msgstr ""
+
+#: includes/class.yith-wcac-deep-data.php:337
+msgctxt "log message"
+msgid "Attempting to disconnect store"
+msgstr ""
+
+#: includes/class.yith-wcac-deep-data.php:318
+msgctxt "log message"
+msgid "Store connected!"
+msgstr ""
+
+#: includes/class.yith-wcac-deep-data.php:288
+msgctxt "log message"
+msgid "Attempting to connect store"
+msgstr ""
+
+#: includes/class.yith-wcac-deep-data.php:135
+msgid "Every %d Minutes"
+msgstr ""
+
+#: includes/class.yith-wcac-background-process.php:94
+msgctxt "log message"
+msgid "Task completed: %1$s %2$s"
+msgstr ""
+
+#: includes/class.yith-wcac-api.php:221
+msgid "There was an error with your request; please try again later."
+msgstr ""
+
+#: includes/class.yith-wcac-api.php:165
+msgid "Error while establishing connection to Active Campaign API server. Please, try again later"
+msgstr ""
+
+#: includes/class.yith-wcac-admin.php:1559
+msgid "Active Campaign status"
+msgstr "Κατάσταση Active Campaign"
+
+#: includes/class.yith-wcac-admin.php:1452
+#: includes/class.yith-wcac-admin.php:1487
+msgid "Active Campaign's tags"
+msgstr "Ετικέτες Active Campaign"
+
+#: includes/class.yith-wcac-admin.php:961
+msgid "Download CSV"
+msgstr "Κατεβάστε το CSV"
+
+#: includes/class.yith-wcac-admin.php:960
+msgid "Export Users"
+msgstr "Εξαγωγή Χρηστών"
+
+#: includes/class.yith-wcac-admin.php:899
+msgctxt "Last name label defined by Active Campaign"
+msgid "Last name"
+msgstr "Επώνυμο"
+
+#: includes/class.yith-wcac-admin.php:898
+msgctxt "First name label defined by Active Campaign"
+msgid "First name"
+msgstr "Όνομα"
+
+#: includes/class.yith-wcac-admin.php:897
+msgctxt "Email label defined by Active Campaign"
+msgid "Email Address"
+msgstr "Διεύθυνση ηλεκτρονικού ταχυδρομείου"
+
+#: includes/class.yith-wcac-admin.php:888
+msgid ""
+"Are you sure you want to delete connection?\n"
+"This will permanently remove from Active Campaign any data registered with this connection."
+msgstr ""
+
+#: includes/class.yith-wcac-admin.php:887
+msgctxt "Backend button on Deep Data tab"
+msgid "Connect store"
+msgstr ""
+
+#: includes/class.yith-wcac-admin.php:886
+msgctxt "Backend update fields button"
+msgid "Update Fields"
+msgstr ""
+
+#: includes/class.yith-wcac-admin.php:885
+msgctxt "Backend update tag button"
+msgid "Update Tags"
+msgstr "Ενημέρωση Ετικετών"
+
+#: includes/class.yith-wcac-admin.php:884
+msgctxt "Backend update list button"
+msgid "Update Lists"
+msgstr "Ενημέρωση Λιστών"
+
+#: includes/class.yith-wcac-admin.php:633
+#: templates/admin/types/advanced-integration-condition.php:9
+msgid "Custom"
+msgstr "Προσαρμογή"
+
+#: includes/class.yith-wcac-admin.php:624
+msgid "User ID"
+msgstr "ID Χρήστη"
+
+#: includes/class.yith-wcac-admin.php:623
+msgid "Payment method name"
+msgstr "Όνομα μεθόδου πληρωμής"
+
+#: includes/class.yith-wcac-admin.php:622
+msgid "Shipping method name"
+msgstr "Όνομα μεθόδου αποστολής"
+
+#: includes/class.yith-wcac-admin.php:191
+#: includes/class.yith-wcac-admin.php:192
+msgid "Active Campaign"
+msgstr "Active Campaign"
+
+#: includes/class.yith-wcac-admin.php:86
+msgctxt "Panel tab"
+msgid "Export"
+msgstr "Εξαγωγή"
+
+#: includes/class.yith-wcac-admin.php:85
+msgctxt "Panel tab"
+msgid "Deep Data"
+msgstr ""
+
+#: includes/class.yith-wcac-admin.php:84
+msgctxt "Panel tab"
+msgid "Tags"
+msgstr "Ετικέτες"
+
+#: includes/class.yith-wcac-admin.php:83
+msgctxt "Panel tab"
+msgid "Register"
+msgstr "Εγγραφή"
+
+#: includes/class.yith-wcac-admin.php:82
+msgctxt "Panel tab"
+msgid "Widget"
+msgstr "Μικροεφαρμογή"
+
+#: includes/class.yith-wcac-admin.php:81
+msgctxt "Panel tab"
+msgid "Shortcode"
+msgstr "Μικροκώδικας"
+
+#: includes/class.yith-wcac-admin.php:80
+msgctxt "Panel tab"
+msgid "Checkout"
+msgstr "Ταμείο"
+
+#: includes/class.yith-wcac-admin.php:79
+msgctxt "Panel tab"
+msgid "Integration"
+msgstr "Ενσωμάτωση"

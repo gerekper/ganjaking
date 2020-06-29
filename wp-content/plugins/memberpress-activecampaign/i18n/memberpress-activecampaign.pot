@@ -1,0 +1,133 @@
+# Copyright (C) 2016 MemberPress Active Campaign
+# This file is distributed under the same license as the MemberPress Active Campaign package.
+msgid ""
+msgstr ""
+"Project-Id-Version: MemberPress Active Campaign 1.0.4\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/memberpress-"
+"activecampaign\n"
+"POT-Creation-Date: 2016-01-30 00:10:54+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2016-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: MpActiveCampaign.php:90
+msgid "Enable ActiveCampaign"
+msgstr ""
+
+#: MpActiveCampaign.php:97
+msgid "Active Campaign Account:"
+msgstr ""
+
+#: MpActiveCampaign.php:102
+msgid "Your ActiveCampaign account ID. Typically something like: 1234567890123"
+msgstr ""
+
+#: MpActiveCampaign.php:109
+msgid "ActiveCampaign API Key:"
+msgstr ""
+
+#: MpActiveCampaign.php:116
+msgid ""
+"You can find your API key under your Account settings at activecampaign.com."
+msgstr ""
+
+#: MpActiveCampaign.php:124
+msgid "ActiveCampaign List:"
+msgstr ""
+
+#: MpActiveCampaign.php:142
+msgid "Enable Opt-In Checkbox"
+msgstr ""
+
+#: MpActiveCampaign.php:146
+msgid ""
+"If checked, an opt-in checkbox will appear on all of your product "
+"registration pages."
+msgstr ""
+
+#: MpActiveCampaign.php:151
+msgid "Signup Checkbox Label:"
+msgstr ""
+
+#: MpActiveCampaign.php:154
+msgid ""
+"This is the text that will display on the signup page next to your mailing "
+"list opt-in checkbox."
+msgstr ""
+
+#: MpActiveCampaign.php:203
+msgid "We Respect Your Privacy"
+msgstr ""
+
+#: MpActiveCampaign.php:303
+msgid "Active Campaign list for this Product"
+msgstr ""
+
+#: MpActiveCampaign.php:306
+msgid "Enable Product ActiveCampaign List"
+msgstr ""
+
+#: MpActiveCampaign.php:307
+msgid ""
+"If this is set the member will be added to this list when their payment is "
+"completed for this product. If the member cancels or you refund their "
+"subscription, they will be removed from the list automatically. You must "
+"have your ActiveCampaign API key set in the Options before this will work."
+msgstr ""
+
+#: MpActiveCampaign.php:311
+msgid "ActiveCampaign List: "
+msgstr ""
+
+#: MpActiveCampaign.php:337 MpActiveCampaign.php:359
+msgid "Hey yo, why you creepin'?"
+msgstr ""
+
+#: MpActiveCampaign.php:342 MpActiveCampaign.php:364
+msgid "No apikey code was sent"
+msgstr ""
+
+#: MpActiveCampaign.php:523
+msgid "Sign Up for the %s Newsletter"
+msgstr ""
+
+#. #-#-#-#-#  memberpress-activecampaign.pot (MemberPress Active Campaign 1.0.4)  #-#-#-#-#
+#. Plugin Name of the plugin/theme
+#: main.php:35
+msgid "MemberPress Active Campaign"
+msgstr ""
+
+#: main.php:36
+msgid "Active Campaign Autoresponder Integration for MemberPress."
+msgstr ""
+
+#: script/i18n/pomo/sample/app.php:56
+msgid "Welcome %s!"
+msgstr ""
+
+#: script/i18n/pomo/sample/app.php:60
+msgid "A string with low priority!"
+msgstr ""
+
+#: script/i18n/pomo/sample/app.php:62
+msgid "Bye\n"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.memberpress.com/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Active Campaign Autoresponder integration for MemberPress."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Caseproof, LLC"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://caseproof.com/"
+msgstr ""

@@ -1,0 +1,30 @@
+<wpml-config>
+    <admin-texts>
+        <key name="woocommerce_ywgc-email-send-gift-card_settings"/>
+        <key name="woocommerce_ywgc-email-notify-customer_settings" />
+        <key name="woocommerce_ywgc-email-send-gift-card_subject" />
+        <key name="woocommerce_ywgc-email-send-gift-card_heading"/>
+        <key name="woocommerce_ywgc-email-send-gift-card_introductory_text" />
+        <key name="woocommerce_ywgc-email-notify-customer_subject" />
+        <key name="woocommerce_ywgc-email-notify-customer_heading" />
+        <key name="woocommerce_ywgc-email-notify-customer_introductory_text" />
+        <key name="ywgc_apply_coupon_button_text_button" />
+        <key name="ywgc_apply_coupon_label_text" />
+        <key name="ywgc_text_before_gc_form" />
+        <key name="ywgc_link_text_before_gc_form" />
+        <key name="ywgc_text_in_the_form" />
+        <key name="ywgc_apply_gift_card_button_text" />
+        <key name="ywgc_choose_design_title" />
+        <key name="ywgc_template_design_view_all_button" />
+        <key name="ywgc_select_amount_title" />
+        <key name="ywgc_gift_this_product_label" />
+        <key name="ywgc_gift_this_product_email_button_label" />
+        <key name="ywgc_delivery_info_title" />
+        <key name="ywgc_recipient_info_title" />
+        <key name="ywgc_sender_info_title" />
+        <key name="ywgc_sender_message_placeholder" />
+        <key name="ywgc_email_button_label" />
+        <key name="ywgc_description_template_email_text" />
+        <key name="ywgc_description_template_text_pdf" />
+    </admin-texts>
+</wpml-config>

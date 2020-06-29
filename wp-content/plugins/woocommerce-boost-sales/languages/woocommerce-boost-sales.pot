@@ -1,0 +1,1183 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Boost Sales Premium\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-06-12 10:27+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/"
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/woocommerce-boost-sales.php:43
+msgid "Please install and activate WooCommerce to use WooCommerce Boost Sales."
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/admin.php:68
+msgid "Settings"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/bundles.php:160
+#, php-format
+msgid "%1$s item [%2$s bundled elements]"
+msgid_plural "%1$s items [%2$s bundled elements]"
+msgstr[0] ""
+msgstr[1] ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/bundles.php:174
+msgctxt "Admin: type of product"
+msgid "WBS Product Bundle"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/bundles.php:188
+msgctxt "Admin: quantity of the bundled product."
+msgid "Quantity"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/bundles.php:226
+msgid "Bundle Options"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/bundles.php:249
+#, php-format
+msgid "Price(%s)"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/bundles.php:255
+msgid "Close all"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/bundles.php:256
+msgid "Expand all"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/bundles.php:285
+msgid "Search for a product&hellip;"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/bundles.php:290
+msgid "Add Product"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:26
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:925
+msgid "Auto Update Key"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:38
+msgid "Get Key"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:42
+msgid ""
+"Please fill your key what you get from <a target=\"_blank\" href=\"https:"
+"//villatheme.com/my-download\">Villatheme</a>. You can automatically update "
+"WooCommerce Boost sales plugin. See guide <a target=\"_blank\" href=\"https:"
+"//villatheme.com/knowledge-base/how-to-use-auto-update-feature/\">here</a>"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:70
+msgid "Recalculate bundle price."
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:73
+msgid "Bundle Price From"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:74
+msgid "Discount Value"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:75
+msgid "Discount Type"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:101
+msgid ")"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:102
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:129
+msgid "Percent(%)"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:128
+msgid "Fixed"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:138
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/upsell.php:559
+msgid "Add"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:139
+msgid "Remove last level"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:176
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:666
+msgid "General"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:184
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:210
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:415
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:583
+msgid "Enable"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:194
+msgid "Enable Mobile"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:203
+msgid "Upsell"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:212
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:222
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:232
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:242
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:252
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:262
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:272
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:282
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:292
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:316
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:382
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:392
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:402
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:417
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:427
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:448
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:459
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:481
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:503
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:532
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:543
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:553
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:697
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:706
+msgid "Yes"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:220
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:425
+msgid "Hide on Single Product Page"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:230
+msgid "Hide on Cart Page"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:240
+msgid "Hide on Checkout Page"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:250
+msgid "Hide Products Out Of Stock"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:260
+msgid "Hide Products Added to Cart"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:269
+msgid "Go to cart page"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:270
+msgid "Go to cart page when product is added to cart on up sells."
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:279
+msgid "Upsell popup will show recently viewed products."
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:280
+msgid "Recently Viewed Products"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:289
+msgid ""
+"Upsell popup will show products in the same category. Upsell products of "
+"Upsells page will not use."
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:290
+msgid "Products in category"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:301
+msgid "Customer can add to cart many upsell products to cart."
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:302
+msgid "Show up products "
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:304
+msgid "Not Show"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:305
+msgid "Show above description"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:312
+msgid "Only get products from current subcategory. It is the end subcategory."
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:313
+msgid "Only Subcategory"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:324
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:334
+msgid "Please fill your product title"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:325
+msgid "Exclude products to enable upsell"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:335
+msgid "Exclude products that display in upsell popup"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:344
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:354
+msgid "Please fill your category title"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:345
+msgid "Exclude categories to enable upsell"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:355
+msgid "Exclude categories that display in upsell popup"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:365
+msgid "Sort by"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:368
+msgid "Title A-Z"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:369
+msgid "Title Z-A"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:370
+msgid "Price highest"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:371
+msgid "Price lowest"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:372
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:469
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:491
+msgid "Random"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:373
+msgid "Best Selling"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:380
+msgid "Hide view more button"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:389
+msgid "Add to cart will use Ajax instead of submit in Detail Product page."
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:390
+msgid "Add To Cart button"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:399
+msgid ""
+"Do not redirect page when customers add up-sells products to their cart. "
+"This will override option \"Go to cart page\""
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:400
+msgid "Ajax add to cart for product on up-sell popup"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:409
+msgid "Cross sell"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:434
+msgid "Display on"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:436
+msgid "Popup"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:437
+msgid "Below Add to cart button"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:438
+msgid "Above Description Tab"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:439
+msgid "Below description"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:446
+msgid "Slide"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:450
+msgid "Make slider for cross-sells"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:457
+msgid "Show on Cart page"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:466
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:488
+msgid "Product bundle type"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:468
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:490
+msgid "The largest quantity in order"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:470
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:492
+msgid "The most expensive"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:473
+msgid "Select product bundle type on Cart page"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:479
+msgid "Show on Checkout page"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:495
+msgid "Select product bundle type on Checkout page"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:501
+msgid "The same bundle in cart"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:505
+msgid "The same bundle can display in cart page and checkout page."
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:511
+msgid "Hang on! We have this offer just for you!"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:512
+msgid "Description"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:519
+msgid "Display saved price"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:521
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/zcrosssell.php:1070
+msgid "Price"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:522
+msgid "Percent"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:524
+msgid "Display saved price on cross-sell."
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:530
+msgid "Override products"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:534
+msgid "Remove the same products on cart when add combo."
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:540
+msgid ""
+"Do not redirect page when customers add bundle to their cart on single "
+"product page"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:541
+msgid "Ajax add to cart for bundle"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:550
+msgid "Do not show crosssell if one of bundle items is out of stock"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:551
+msgid "Hide out of stock"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:560
+msgid "Product bundle name"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:561
+msgid ""
+"Name of product bundle when creating new bundle. {product_title} refers to "
+"the title of main product that the bundle is created for.<p>e.g when you "
+"create a bundle for product named \"Product A\", if Product bundle name is "
+"set \"Bundle of {product_title}\" then new bundle's name will be \"Bundle of "
+"Product A\"</p>"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:567
+msgid "Bundle categories"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:568
+msgid "Default categories when you create new bundle"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:569
+msgid "Please fill your category name"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:576
+msgid "Discount"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:592
+msgid ""
+"If this option is disabled, discount bar will only show each time a customer "
+"add a product to cart"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:593
+msgid "Always show discount bar"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:595
+msgid ""
+"Always display discount bar if customers have not reached the minimum amount "
+"and the cart is not empty"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:602
+msgid "Please fill your coupon name"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:604
+msgid ""
+"If 2 coupons name coincide - the coupon latest will eventually be used. "
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:604
+msgid "Dashboard >> WooCommerce >> Coupons >>"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:604
+msgid "Add New Coupon"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:605
+msgid "Select Coupon"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:612
+msgid ""
+"SWEET! Add more products and get {discount_amount} off on your entire order!"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:613
+msgid "{discount_amount} - The number of discount."
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:614
+msgid "Head line"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:621
+msgid "Congrats when get coupon"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:622
+msgid "Thank You"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:630
+msgid ""
+"You have successfully reached the goal, and a {discount_amount} discount "
+"will be applied to your order."
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:631
+msgid "{discount_amount} - The number of discount"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:632
+msgid "Message congratulation"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:639
+msgid "Checkout now"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:640
+msgid "Text button checkout"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:647
+msgid "Auto redirect checkout"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:656
+msgid "Redirect after second"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:662
+msgid "Design"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:672
+msgid "Button color"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:678
+msgid "Button background color"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:682
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/zcrosssell.php:813
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/zcrosssell.php:813
+msgid "Cross-Sells"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:688
+msgid "Init delay"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:689
+msgid ""
+"Cross-sell will show with popup or gift icon. If you want to time randomly, "
+"2 numbers are separated by comma. Eg: 3,20. It is random from 3 to 20."
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:695
+msgid "Auto popup"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:704
+msgid "Hide Gift Icon"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:714
+msgid "Icon "
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:716
+msgid "Default"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:717
+msgid "Gift box"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:718
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:906
+msgid "Custom"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:725
+msgid "Custom Gift Box Icon"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:726
+msgid ""
+"Dimension should be 58x58(px). Please change \"Icon Option\" to \"Custom\""
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:732
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:739
+msgid "Only apply with Icon default"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:733
+msgid "Icon Color"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:740
+msgid "Icon Background Color"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:747
+msgid "Icon Position"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:749
+msgid "Bottom right"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:750
+msgid "Botton left"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:757
+msgid "Background color for popup cross-sell."
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:758
+msgid "Background Color"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:765
+msgid "Background Image"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:772
+msgid "Text Color"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:779
+msgid "Price Color"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:786
+msgid "Save Price Color"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:793
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:841
+msgid "Template on mobile"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:795
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:843
+msgid "Slider"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:796
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:844
+msgid "Scroll"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:802
+msgid "Upsells"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:808
+msgid "Item per row"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:814
+msgid "Max item"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:815
+msgid ""
+"Maximum number of upsells per product. Used only if \"Products in category\" "
+"is enabled."
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:821
+msgid "Popup style"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:832
+msgid "{name_product} - The name of product purchased"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:833
+msgid "Message in popup"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:852
+msgid "Button \"Continue Shopping\" title"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:860
+msgid "Button \"Continue Shopping\" action"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:862
+msgid "Just close popup"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:863
+msgid "Go to Shop page"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:864
+msgid "Go to Home page"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:870
+msgid "Discount Bar"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:877
+msgid "Select Position"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:879
+msgid "Top"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:880
+msgid "Bottom"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:887
+msgid "Color for text of process bar."
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:888
+msgid "Text color"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:894
+msgid "Process bar main color"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:900
+msgid "Color of main process bar."
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:901
+msgid "Process bar background color"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:913
+msgid "Custom CSS"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:918
+msgid "Update"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:948
+msgid "WooCommerce Boost Sales"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/settings.php:948
+msgid "Woo Boost Sales"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/upsell.php:415
+msgid "Up-Sells"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/upsell.php:473
+msgid "UP-SELLS"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/upsell.php:474
+msgid ""
+"Up-sells are products that you recommend instead of the currently product "
+"added to cart. They are typically products that are more profitable or "
+"better quality or more expensive"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/upsell.php:477
+msgid "What is UPSELLS?"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/upsell.php:483
+msgid ""
+"Up-sells feature is currently disabled. <a class=\"wbs-upsells-ajax-enable "
+"button button-primary\" href=\"javascript:void(0)\">Enable now</a>"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/upsell.php:522
+msgid "Bulk Adds Up-Sells"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/upsell.php:526
+msgid ""
+"Create Up-sells to use with WooCommerce Boost Sales plugin from Up-sells "
+"data in WooCommerce single product settings."
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/upsell.php:526
+msgid "Get Product Up-Sells"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/upsell.php:528
+msgid ""
+"Up-sells data in WooCommerce single product settings will be OVERRIDDEN by "
+"Up-sells data managed by WooCommerce Boost Sales plugin."
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/upsell.php:528
+msgid "Sync to WooCommerce Upsells"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/upsell.php:530
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/zcrosssell.php:939
+msgid "Search product"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/upsell.php:539
+msgid "Products"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/upsell.php:540
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/upsell.php:598
+msgid "Up sells"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/upsell.php:541
+msgid "Action"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/upsell.php:551
+msgid "Select all"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/upsell.php:572
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/zcrosssell.php:950
+msgid "Product Name"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/upsell.php:576
+msgid "Up-sells products"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/upsell.php:579
+msgid "Up-sells categories"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/upsell.php:582
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/upsell.php:656
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/zcrosssell.php:956
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/zcrosssell.php:1100
+msgid "Actions"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/upsell.php:617
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/zcrosssell.php:409
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/zcrosssell.php:477
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/zcrosssell.php:493
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/zcrosssell.php:507
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/zcrosssell.php:1029
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/frontend/bundles.php:611
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/frontend/bundles.php:704
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/includes/fields.php:250
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/templates/single-product/add-to-cart/wbs-bundle.php:56
+msgid "Out of stock"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/upsell.php:659
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/zcrosssell.php:1103
+msgid "View"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/upsell.php:661
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/zcrosssell.php:1104
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/includes/fields.php:433
+msgid "Save"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/upsell.php:663
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/zcrosssell.php:1105
+msgid "Remove all"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/upsell.php:695
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/zcrosssell.php:1136
+msgid "Previous Page"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/upsell.php:701
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/zcrosssell.php:1141
+msgid "Current Page"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/upsell.php:721
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/zcrosssell.php:1160
+msgid "Next Page"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/zcrosssell.php:227
+#, php-format
+msgid "%s (Copy)"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/zcrosssell.php:871
+msgid "CROSS-SELLS"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/zcrosssell.php:873
+msgid ""
+"Cross-sells are products that instead of you buy this product you can buy "
+"bundle products contain this product, based on the current product. **For "
+"example, if you are selling a laptop, cross-sells might be a protective case "
+"or stickers or a special adapter.**"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/zcrosssell.php:876
+msgid "What is CROSS-SELLS?"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/zcrosssell.php:882
+msgid ""
+"Cross-sells feature is currently disabled. <a class=\"wbs-crosssells-ajax-"
+"enable button button-primary\" href=\"javascript:void(0)\">Enable now</a>"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/zcrosssell.php:937
+msgid ""
+"Create bundle from WooCommerce cross-sells for products whose bundles are "
+"not set yet"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/zcrosssell.php:937
+msgid "Sync Cross-Sells"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/zcrosssell.php:953
+msgid "Cross-sells"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/zcrosssell.php:972
+msgid "Cross sells"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/zcrosssell.php:987
+msgid "Use a bundle of other products"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/zcrosssell.php:1054
+msgid "Edit product bundle"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/zcrosssell.php:1055
+msgid "Quick Edit product bundle"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/zcrosssell.php:1062
+msgid "Title"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/zcrosssell.php:1074
+msgid "Please enter the number of price"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/zsystem.php:19
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/zsystem.php:47
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/zsystem.php:48
+msgid "System Status"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/zsystem.php:23
+msgid "PHP Time Limit"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/zsystem.php:27
+msgid "PHP Max Input Vars"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/admin/zsystem.php:32
+msgid "Memory Limit"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/frontend/bundles.php:447
+msgid ""
+"You cannot add this quantity of items, because there are not enough in stock."
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/frontend/bundles.php:806
+msgid "Price: "
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/frontend/bundles.php:814
+msgid "Total: "
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/frontend/bundles.php:820
+msgid "Save: "
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/frontend/scripts.php:142
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/includes/cross-sells.php:92
+msgid "Added to cart"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/frontend/scripts.php:145
+msgid "Please choose product option you want to add to cart"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/frontend/scripts.php:253
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/includes/upsells.php:277
+msgid "View Cart"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/frontend/single_upsells.php:41
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/includes/upsells.php:298
+#, php-format
+msgid "Your current cart(%s product): %s"
+msgid_plural "Your current cart(%s products): %s"
+msgstr[0] ""
+msgstr[1] ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/frontend/upsells.php:181
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/frontend/upsells.php:207
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/frontend/upsells.php:243
+msgid "View more"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/includes/discount-bar.php:50
+msgid "Discount:"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/includes/discount-bar.php:54
+msgid "Your cart have applied coupon"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/includes/discount-bar.php:57
+msgid "Spend over: "
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/includes/discount-bar.php:117
+msgid "Redirect to checkout after  "
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/includes/discount-bar.php:118
+msgid "s"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/includes/discount-bar.php:137
+msgid "% Cart"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/includes/discount-bar.php:140
+msgid " off Cart"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/includes/discount-bar.php:143
+msgid " per Product"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/includes/fields.php:196
+msgid "Category is not found"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/includes/fields.php:341
+msgid ""
+"Please enable Coupon in WooCommerce >> Settings >> Checkout before enable "
+"Discount !"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/includes/fields.php:437
+msgid "Save & Check Key"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/includes/functions.php:183
+#, php-format
+msgid "%s does not exist."
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/includes/image-field.php:33
+msgid "Select Image"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/includes/image-field.php:36
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/templates/admin/admin-bundled-product-item.php:21
+msgid "Remove"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/includes/upsells.php:184
+#, php-format
+msgid "\"%s\" has been added to your cart"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/includes/upsells.php:270
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/includes/upsells.php:310
+msgid "New item(s) have been added to your cart."
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/includes/upsells.php:270
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/includes/upsells.php:310
+#, php-format
+msgid "%s new item has been added to your cart"
+msgid_plural "%s new items have been added to your cart"
+msgstr[0] ""
+msgstr[1] ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/includes/upsells.php:287
+msgid "Checkout"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/includes/upsells.php:346
+msgid "Quantity:"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/includes/upsells.php:351
+msgid "Total"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/includes/wbs_product_bundle.php:146
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/templates/single-product/add-to-cart/add-to-cart-mobile.php:12
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/templates/single-product/add-to-cart/add-to-cart.php:9
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/templates/single-product/add-to-cart/simple-mobile.php:37
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/templates/single-product/add-to-cart/simple.php:40
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/templates/single-product/add-to-cart/variation-add-to-cart-button-mobile.php:29
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/templates/single-product/add-to-cart/variation-add-to-cart-button.php:29
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/templates/single-product/add-to-cart/wbs-bundle.php:82
+msgid "Add to cart"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/includes/wbs_product_bundle.php:146
+msgid "Read More"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/templates/admin/admin-bundled-product-item.php:22
+msgid "Click to toggle"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/templates/single-product/add-to-cart/variable-mobile.php:37
+#, php-format
+msgid "Choose %s"
+msgstr ""
+
+#: E:/Git/master/woocommerce-boost-sales/woocommerce-boost-sales/templates/single-product/add-to-cart/wbs-bundle.php:54
+msgid "In stock"
+msgstr ""
+
+#. Name of the plugin
+msgid "WooCommerce Boost Sales Premium"
+msgstr ""
+
+#. Description of the plugin
+msgid ""
+"Increases sales from every order by using Up-sell and Cross-sell techniques "
+"for your online store."
+msgstr ""
+
+#. URI of the plugin
+#. Author URI of the plugin
+msgid "http://villatheme.com"
+msgstr ""
+
+#. Author of the plugin
+msgid "Andy Ha (villatheme.com)"
+msgstr ""

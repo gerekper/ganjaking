@@ -1,0 +1,13 @@
+{
+  "name": "woocommerce-order-status-manager",
+  "homepage": "https://github.com/skyverge/wc-plugins",
+  "authors": [
+    "SkyVerge"
+  ],
+  "license": "GPL-3.0",
+  "private": true,
+  "devDependencies": {
+    "magnific-popup": "~1.1.0",
+    "fontIconPicker": "~2.0.0"
+  }
+}

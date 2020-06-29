@@ -1,0 +1,213 @@
+/**
+ * Admin style
+ *
+ * @author Leanza Francesco
+ * @version 1.0.0
+ */
+
+/*
+	Metabox [Email Template]
+*/
+.yith-wcet-section-container {
+    border     : 1px solid #aaa;
+    padding    : 10px;
+    margin-top : 20px;
+    position   : relative;
+}
+
+.yith-wcet-section-container div.yith-wcet-section-title {
+    background  : #fff;
+    padding     : 5px;
+    color       : #000;
+    font-size   : 14px;
+    font-weight : 800;
+    position    : absolute;
+    top         : -15px;
+    left        : 10px;
+    height      : 10px;
+}
+
+.yith-wcet-section-content-container {
+    overflow : auto;
+    width    : 100%;
+    margin   : 0;
+    padding  : 0;
+}
+
+table.yith-wcet-section-table {
+    width : 100%;
+}
+
+table.yith-wcet-section-table tr {
+
+}
+
+td.yith-wcet-table-title {
+    width          : 30%;
+    vertical-align : middle;
+}
+
+td.yith-wcet-table-content {
+    width : 70%;
+}
+
+td.yith-wcet-table-content textarea {
+    width  : 100%;
+    height : 130px;
+}
+
+td.yith-wcet-table-align-top {
+    vertical-align : top;
+}
+
+div.yith-wcet-table-description {
+    width     : 100%;
+    font-size : 11px;
+}
+
+table.yith-wcet-table-mini-title th {
+    font-size      : 10px;
+    font-weight    : 400;
+    text-transform : uppercase;
+}
+
+div.wp-picker-holder {
+    z-index  : 10;
+    position : absolute;
+}
+
+#yith-wcet-logo-uploaded-image img {
+    height : 40px;
+    float  : left;
+}
+
+#yith-wcet-logo-uploaded-image {
+    margin-left : 10px;
+    display     : inline-block;
+}
+
+#yith-wcet-logo-and-del-container, #yith-wcet-logo-and-del-container-footer {
+    position : relative;
+    overflow : auto;
+}
+
+#yith-wcet-remove-logo-btn, #yith-wcet-remove-logo-btn-footer {
+    display        : none;
+    background     : #c00;
+    width          : 40px;
+    height         : 40px;
+    vertical-align : middle;
+    text-align     : center;
+    padding        : 2px;
+    box-sizing     : border-box;
+    right          : -45px;
+    float          : left;
+    margin-left    : 10px;
+    color          : #fff;
+    font-size      : 38px;
+}
+
+.yith-wcet-nofocus:focus {
+    -webkit-box-shadow : none !important;
+    -moz-box-shadow    : none !important;
+    -o-box-shadow      : none !important;
+    -ms-box-shadow     : none !important;
+    box-shadow         : none !important;
+}
+
+.yith-wcet-table-title-cl {
+    width : 100px !important;
+}
+
+.yith-wcet-table-content-cl {
+    width : 220px !important;
+}
+
+.yith-wcet-table-content-btn-remove {
+    width : auto !important;
+}
+
+select.yith-wcet-enhanced-select {
+    min-width     : 150px;
+    border-radius : 5px;
+}
+
+/*
+	Admin Panel
+*/
+#yith_wcet_panel_settings .wc-enhanced-select {
+    width : 350px;
+}
+
+#yith_wcet_panel_settings th {
+    width : 300px;
+}
+
+#yith_wcet_panel_settings .upload_img_preview img {
+    max-width  : 200px !important;
+    max-height : 100px !important;
+}
+
+#yith-wcet-image-preview-template {
+    -webkit-box-shadow : 1px 1px 3px 0px #777;
+    -moz-box-shadow    : 1px 1px 3px 0px #777;
+    -o-box-shadow      : 1px 1px 3px 0px #777;
+    -ms-box-shadow     : 1px 1px 3px 0px #777;
+    box-shadow         : 1px 1px 3px 0px #777;
+}
+
+.yith-wcet-padding-table {
+    border-collapse : collapse;
+}
+
+.yith-wcet-padding-table th {
+    text-transform : uppercase;
+    font-size      : 10px;
+    padding        : 0 !important;
+}
+
+.yith-wcet-mini-input {
+    width : 60px;
+}
+
+.yith-wcet-test-email-message span {
+    padding     : 4px 12px;
+    margin-left : 5px;
+    color       : #555;
+    border-left : 3px solid #999;
+}
+
+.yith-wcet-test-email-message span.message {
+    color       : #319e88;
+    border-left : 3px solid #319e88;
+}
+
+.yith-wcet-test-email-message span.error {
+    color       : #bf0035;
+    border-left : 3px solid #bf0035;
+}
+
+.yith-wcet-info-btn {
+    text-decoration : none;
+    padding         : 3px 7px;
+    background      : #0073aa;
+    color           : #fff;
+    border-radius   : 2px;
+    font-weight     : 600;
+    cursor          : pointer;
+}
+
+.yith-wcet-info-btn:hover {
+    background : #0097dc;
+    color      : #fff;
+}
+
+#yith_wcet_panel_socials .yith-plugin-fw-upload-img-preview {
+    display    : inline-block;
+    margin-top : 0 !important;
+}
+
+#yith_wcet_panel_socials .yith-plugin-fw-upload-img-preview img {
+    max-width  : 30px !important;
+    max-height : 30px !important;
+}

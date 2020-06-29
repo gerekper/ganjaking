@@ -1,0 +1,31 @@
+@import '../../../woocommerce/assets/css/mixins.less';
+
+table.wp-list-table {
+
+	th.column-anti_fraud {
+		&:before {
+			content:                "\f334";
+			display:                inline-block;
+			-webkit-font-smoothing: antialiased;
+			font:                   normal 20px/1 'dashicons';
+			vertical-align:         top;
+		}
+	}
+
+	.column-order_status mark.af-waiting:after {
+		.icon;
+		content: "\e012";
+		color:   #999;
+	}
+	.column-anti_fraud {
+		width:      48px;
+		text-align: center;
+
+		.wc-af-score:before {
+			content:                "\f334";
+			display:                inline-block;
+			-webkit-font-smoothing: antialiased;
+			font:                   normal 20px/1 'dashicons';
+		}
+	}
+}

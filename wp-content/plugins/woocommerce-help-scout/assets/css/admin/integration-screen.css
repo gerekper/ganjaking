@@ -1,0 +1,12 @@
+#allow_access_url {
+    display: none;
+    background: green;
+    padding: 5px;
+    color: #fff;
+    text-decoration: none;
+    border: 1px solid #000;
+    border-radius: 5px;
+    position: absolute;
+    bottom: 87px;
+    left: 10%;
+}

@@ -1,0 +1,68 @@
+/**
+ * Admin style
+ *
+ * @author Leanza Francesco
+ * @version 1.0.0
+ */
+
+/*
+    Restrict Access Metabox
+*/
+
+#yith-wcmbs-restrict-access-metabox select {
+    width : 100%;
+}
+
+/*
+    Plugin Settings
+*/
+#yith_wcmbs_panel_settings .description {
+    font-size  : 13px;
+    font-style : italic;
+}
+
+/*
+    WP List Table
+*/
+th#yith_wcmbs_restrict_access, td.yith_wcmbs_restrict_access {
+    width : 30px;
+}
+
+/*
+    ADMIN Wp List Users
+*/
+
+span.yith-wcmbs-users-membership-info {
+    margin        : 5px;
+    border-radius : 2px;
+    padding       : 4px 7px 4px 12px;
+    display       : inline-block;
+    background    : #7e8188;
+    color         : #fff;
+    cursor        : default !important;
+}
+
+span.yith-wcmbs-users-membership-info.active, span.yith-wcmbs-users-membership-info.resumed {
+    background : #1aa24a;
+}
+
+span.yith-wcmbs-users-membership-info.expired, span.yith-wcmbs-users-membership-info.cancelled {
+    background : #bd0d2e;
+}
+
+span.yith-wcmbs-users-membership-info.expiring {
+    background : #e2821f;
+}
+
+span.yith-wcmbs-users-membership-info a {
+    color      : inherit;
+    box-shadow : none !important;
+}
+
+span.yith-wcmbs-users-membership-info .dashicons {
+    font-size   : 18px;
+    color       : inherit;
+    margin-left : 5px;
+    width       : 18px;
+    height      : 18px;
+}

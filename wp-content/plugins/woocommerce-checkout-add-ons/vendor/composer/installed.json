@@ -1,0 +1,53 @@
+[
+    {
+        "name": "skyverge/wc-jilt-promotions",
+        "version": "1.0.1",
+        "version_normalized": "1.0.1.0",
+        "source": {
+            "type": "git",
+            "url": "git@github.com:skyverge/wc-jilt-promotions.git",
+            "reference": "e9c8fdede446e33d6b4469d2c25d3d6817489b0b"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/skyverge/wc-jilt-promotions/zipball/e9c8fdede446e33d6b4469d2c25d3d6817489b0b",
+            "reference": "e9c8fdede446e33d6b4469d2c25d3d6817489b0b",
+            "shasum": ""
+        },
+        "time": "2020-05-04T23:03:09+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "description": "Callouts to promote Jilt in WooCommerce",
+        "support": {
+            "source": "https://github.com/skyverge/wc-jilt-promotions/tree/1.0.1",
+            "issues": "https://github.com/skyverge/wc-jilt-promotions/issues"
+        }
+    },
+    {
+        "name": "skyverge/wc-plugin-framework",
+        "version": "5.5.0",
+        "version_normalized": "5.5.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/skyverge/wc-plugin-framework.git",
+            "reference": "1a0f0738ac389ffb0e79f943c2efcb83ba8724ce"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/skyverge/wc-plugin-framework/zipball/1a0f0738ac389ffb0e79f943c2efcb83ba8724ce",
+            "reference": "1a0f0738ac389ffb0e79f943c2efcb83ba8724ce",
+            "shasum": ""
+        },
+        "require-dev": {
+            "lucatume/wp-browser": "^2.1"
+        },
+        "time": "2019-10-15T17:02:44+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "description": "The official SkyVerge WooCommerce plugin framework",
+        "support": {
+            "source": "https://github.com/skyverge/wc-plugin-framework/tree/5.5.0",
+            "issues": "https://github.com/skyverge/wc-plugin-framework/issues"
+        }
+    }
+]

@@ -1,0 +1,25 @@
+
+@function if-dark($if, $else: null) {
+    @if $dark == 1 {
+        @return $if;
+    }
+    @else {
+        @return $else;
+    }
+}
+
+@function if-light($if, $else: null) {
+    @return if-dark($else, $if);
+}
+
+@mixin if-dark {
+    @if $dark == 1 {
+        @content;
+    }
+}
+
+@mixin if-light {
+    @if $dark != 1 {
+        @content;
+    }
+}

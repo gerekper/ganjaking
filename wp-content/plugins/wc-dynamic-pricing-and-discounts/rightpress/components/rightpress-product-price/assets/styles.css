@@ -1,0 +1,48 @@
+/**
+ * RightPress Product Price Styles
+ */
+
+
+/* Live Update */
+.rightpress_product_price_live_update {
+    margin: 1.5em 0 !important;
+    overflow: hidden !important;
+}
+.rightpress_product_price_live_update dt {
+    display: inline-block !important;
+    font-size: 1.25em !important;
+}
+.rightpress_product_price_live_update dd {
+    display: inline-block !important;
+    float: right !important;
+}
+.rightpress_product_price_live_update dd .price {
+    font-size: 1.25em !important;
+}
+
+
+/* Price Breakdown */
+
+.rightpress_product_price_breakdown_row {
+    display: table-row !important;
+}
+.rightpress_product_price_breakdown_price,
+.rightpress_product_price_breakdown_quantity {
+    display: table-cell !important;
+    white-space: nowrap !important;
+    vertical-align: top !important;
+}
+.rightpress_product_price_breakdown_quantity {
+    float: right !important;
+    padding-left: 0.25em !important;
+}
+.rightpress_product_price_breakdown {
+    display: table !important;
+    width: 100% !important;
+}
+.rightpress_product_price_breakdown_subtotal {
+    text-align: right !important;
+    margin-top: 5px !important;
+    padding-top: 5px !important;
+    border-top: 1px solid #ddd !important;
+}

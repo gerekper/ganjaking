@@ -1,0 +1,88 @@
+.yith-woocompare-widget ul.products-list {
+    list-style: none;
+    margin: 0 0 15px;
+}
+
+.yith-woocompare-widget ul.products-list li:not( .list_empty ) {
+    position: relative;
+    padding: 5px 0 5px 30px;
+    border-bottom: 1px solid #dfdfdf;
+}
+
+.yith-woocompare-widget ul.products-list li .remove {
+    position: absolute;
+    left: 3px;
+    top: 50%;
+    margin-top: -0.6em;
+    color: #ff0000;
+    font-weight: 400;
+    font-size: 1.2em;
+    line-height: 1.2;
+    height: 1.2em;
+    width: 1.2em;
+    border-radius: 50%;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+}
+
+.yith-woocompare-widget ul.products-list li .remove:hover {
+    background-color: #ff0000;
+    color: #ffffff;
+}
+.yith-woocompare-widget ul.products-list li img {
+    max-width: 50px;
+    height: auto;
+    display: block;
+    vertical-align: middle;
+    float: left;
+}
+.yith-woocompare-widget ul.products-list li .product-info {
+    cursor: pointer;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 400;
+    display: block;
+    outline: none;
+}
+.yith-woocompare-widget ul.products-list li .product-info:before,
+.yith-woocompare-widget ul.products-list li .product-info:after {
+    content: '';
+    display: table;
+    clear: both;
+}
+.yith-woocompare-widget ul.products-list li .product-info span {
+    padding-left: 5px;
+    display: block;
+    overflow: hidden;
+}
+
+.yith-woocompare-widget a.compare-widget,
+.yith-woocompare-widget a.compare {
+    float: right;
+    float: right;
+    line-height: 1;
+    cursor: pointer;
+    padding: 8px 10px;
+    font-size: 13px;
+    text-transform: uppercase;
+    font-weight: 700;
+    border-radius: 3px;
+    border: 0;
+    white-space: nowrap;
+    display: inline-block;
+    color: #ffffff;
+    background-color: #b2b2b2;
+}
+
+.yith-woocompare-widget a.compare-widget:hover,
+.yith-woocompare-widget a.compare:hover {
+    color: #ffffff;
+    background-color: #303030;
+}
+
+.yith-woocompare-widget a.clear-all {
+    outline: none;
+    font-size: 12px;
+    cursor: pointer;
+}

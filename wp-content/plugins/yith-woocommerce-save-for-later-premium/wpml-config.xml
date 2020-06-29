@@ -1,0 +1,6 @@
+<wpml-config>
+    <admin-texts>
+        <key name="ywsfl_button_text_single_product"/>
+        <key name="ywsfl_button_text_remove_in_list"/>
+    </admin-texts>
+</wpml-config>

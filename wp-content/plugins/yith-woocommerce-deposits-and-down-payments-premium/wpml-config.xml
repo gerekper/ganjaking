@@ -1,0 +1,28 @@
+<wpml-config>
+    <admin-texts>
+        <key name="yith_wcdp_deposit_labels_deposit" />
+        <key name="yith_wcdp_deposit_labels_pay_deposit" />
+        <key name="yith_wcdp_deposit_labels_pay_full_amount" />
+        <key name="yith_wcdp_deposit_labels_partially_paid_status" />
+        <key name="yith_wcdp_deposit_labels_full_price_label" />
+        <key name="yith_wcdp_deposit_labels_balance_label" />
+        <key name="yith_wcdp_deposit_labels_pay_in_loco" />
+        <key name="yith_wcdp_deposit_labels_product_note" />
+        <key name="woocommerce_admin_new_deposit_settings">
+            <key name="subject"/>
+            <key name="heading"/>
+        </key>
+        <key name="woocommerce_new_deposit_settings">
+            <key name="subject"/>
+            <key name="heading"/>
+            <key name="content_html"/>
+            <key name="content_text"/>
+        </key>
+        <key name="woocommerce_expiring_deposit_settings">
+            <key name="subject"/>
+            <key name="heading"/>
+            <key name="content_html"/>
+            <key name="content_text"/>
+        </key>
+    </admin-texts>
+</wpml-config>

@@ -1,0 +1,7 @@
+#woocommerce-product-data ul.wc-tabs li.follow-ups_options a:before {
+    content: "\f465";
+}
+
+.woocommerce_options_panel .fue_lists_field label {
+    width: 100%;
+}

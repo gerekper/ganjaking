@@ -1,0 +1,2194 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/memberpress-"
+"developer-tools\n"
+"POT-Creation-Date: 2017-02-08 01:28-0200\n"
+"PO-Revision-Date: 2017-02-08 02:18-0200\n"
+"Last-Translator: \n"
+"Language-Team: Celso Coslop Barbante <celsocos@yahoo.com>\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.11\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: app/controllers/MpdtAdminCtrl.php:14 app/controllers/MpdtAdminCtrl.php:15
+msgid "Developer"
+msgstr "Desenvolvedor"
+
+#: app/controllers/MpdtAdminCtrl.php:58
+msgid "default value:"
+msgstr "valor padrão:"
+
+#: app/controllers/MpdtAdminCtrl.php:78
+msgid "Your Webhooks have been saved."
+msgstr "Seus Webhooks foram salvos."
+
+#: app/controllers/MpdtAdminCtrl.php:105
+msgid "Select which events should be pushed to this Webhook"
+msgstr "Selecionar quais eventos devem ser direcionados para este Webhook"
+
+#: app/controllers/MpdtApiCtrl.php:40 app/controllers/MpdtWebhooksCtrl.php:126
+#: app/controllers/MpdtWebhooksCtrl.php:185
+msgid "Error: You are unauthorized."
+msgstr "Erro: Você não está autorizado."
+
+#: app/controllers/MpdtApiCtrl.php:45 app/controllers/MpdtWebhooksCtrl.php:131
+#: app/controllers/MpdtWebhooksCtrl.php:190
+msgid "Error: No event was specified."
+msgstr "Erro: O evento não foi especificado."
+
+#: app/controllers/MpdtApiCtrl.php:53 app/controllers/MpdtWebhooksCtrl.php:139
+#: app/controllers/MpdtWebhooksCtrl.php:198
+msgid "Error: Invalid event."
+msgstr "Erro: Evento inválido."
+
+#. Plugin Name of the plugin/theme
+#: app/controllers/MpdtUpdateCtrl.php:141 app/views/admin.php:6
+msgid "MemberPress Developer Tools"
+msgstr "Ferramentas para desenvolvedores MemberPress"
+
+#. Author of the plugin/theme
+#: app/controllers/MpdtUpdateCtrl.php:142
+msgid "Caseproof, LLC"
+msgstr "Caseproof, LLC"
+
+#: app/controllers/MpdtUpdateCtrl.php:157
+msgid "Membership"
+msgstr "Associação"
+
+#: app/controllers/MpdtUpdateCtrl.php:158
+msgid "Membership Software"
+msgstr "Software de Associação"
+
+#: app/controllers/MpdtUpdateCtrl.php:159
+msgid "Members"
+msgstr "Associados"
+
+#: app/controllers/MpdtUpdateCtrl.php:160
+msgid "Payment"
+msgstr "Pagamento"
+
+#: app/controllers/MpdtUpdateCtrl.php:161
+msgid "Protection"
+msgstr "Proteção"
+
+#: app/controllers/MpdtUpdateCtrl.php:162
+msgid "Rule"
+msgstr "Regra"
+
+#: app/controllers/MpdtUpdateCtrl.php:163
+msgid "Lock"
+msgstr "Trava"
+
+#: app/controllers/MpdtUpdateCtrl.php:164
+msgid "Access"
+msgstr "Acesso"
+
+#: app/controllers/MpdtUpdateCtrl.php:165
+msgid "Community"
+msgstr "Comunidade"
+
+#: app/controllers/MpdtUpdateCtrl.php:166
+msgid "Admin"
+msgstr "Admin"
+
+#: app/controllers/MpdtUpdateCtrl.php:167
+msgid "Pages"
+msgstr "Páginas"
+
+#: app/controllers/MpdtUpdateCtrl.php:168
+msgid "Posts"
+msgstr "Posts"
+
+#: app/controllers/MpdtUpdateCtrl.php:169
+msgid "Plugin"
+msgstr "Plugin"
+
+#: app/controllers/MpdtUpdateCtrl.php:172
+msgid ""
+"MemberPress Developer Tools brings Webhooks and a full REST API to "
+"MemberPress."
+msgstr ""
+"As ferramentas de desenvolvedor do MemberPress trazem Webhooks e uma API "
+"REST completa para MemberPress."
+
+#: app/controllers/MpdtUpdateCtrl.php:173
+msgid ""
+"You can access in-depth information about MemberPress at %1$sthe MemberPress "
+"User Manual%2$s."
+msgstr ""
+"Você pode acessar informações detalhadas sobre o MemberPress no %1$sManual "
+"de Usuário MemberPress%2$s."
+
+#: app/controllers/MpdtUpdateCtrl.php:174
+msgid "No Additional information right now"
+msgstr "Nenhuma informação adicional agora"
+
+#: app/controllers/MpdtUpdateCtrl.php:204
+msgid "You had an HTTP error connecting to Caseproof's Mothership API"
+msgstr "Você teve um erro HTTP na conexão com a API principal da Caseproof"
+
+#: app/controllers/MpdtUpdateCtrl.php:216
+msgid "Your License Key was invalid"
+msgstr "Sua chave de licença é inválida."
+
+#: app/controllers/MpdtWebhooksCtrl.php:165
+msgid "Event %s was successfully sent to webhooks"
+msgstr "Evento %s foi enviado com sucesso para o webhooks"
+
+#: app/controllers/MpdtWebhooksCtrl.php:178
+msgid "Unknown event type"
+msgstr "Tipo de evento desconhecido:"
+
+#: app/docs/routes/base.php:5 app/docs/routes/base.php:20
+msgid "Get %s"
+msgstr "Iniciar %s"
+
+#: app/docs/routes/base.php:11 app/docs/routes/base.php:25
+#: app/docs/routes/base.php:26 app/docs/routes/base.php:40
+#: app/docs/routes/base.php:55 app/docs/routes/base.php:70
+#: app/docs/routes/base.php:71
+msgid "None"
+msgstr "Nenhum"
+
+#: app/docs/routes/base.php:12 app/docs/routes/base.php:27
+#: app/docs/routes/base.php:42 app/docs/routes/base.php:57
+#: app/docs/routes/base.php:72
+msgid "JSON"
+msgstr "JSON"
+
+#: app/docs/routes/base.php:35
+msgid "Create %s"
+msgstr "Criar %s"
+
+#: app/docs/routes/base.php:50
+msgid "Update %s"
+msgstr "Atualizar %s"
+
+#: app/docs/routes/base.php:65
+msgid "Delete %s"
+msgstr "Apagar %s"
+
+#: app/docs/search_args/base.php:6
+msgid "Current page of the collection."
+msgstr "Página atual da coleção."
+
+#: app/docs/search_args/base.php:12
+msgid "Maximum number of items to be returned in result set."
+msgstr "Número máximo de itens devolvidos no conjunto de resultados."
+
+#: app/docs/search_args/base.php:18
+msgid "Limit results to those matching a string."
+msgstr "Limite os resultados aos coincidentes com uma expressão."
+
+#: app/docs/search_args/coupons.php:6
+msgid "Grab the coupon with the given code."
+msgstr "Pegue o cupom com o código fornecido."
+
+#: app/docs/search_args/events.php:6
+msgid "Limit results to those matching a specific named event."
+msgstr ""
+"Limitar os resultados aos coincidentes com um nome de evento específico."
+
+#: app/docs/search_args/events.php:11
+msgid "Limit results to those matching a specific IP Address."
+msgstr "Limitar os resultados aos coincidentes com um endereço IP específico."
+
+#: app/docs/search_args/memberships.php:6
+msgid "Limit results to those matching a specific group."
+msgstr "Limitar os resultados aos coincidentes com um grupo específico."
+
+#: app/docs/search_args/subscriptions.php:6
+msgid "Limit results to subscriptions of a specific member."
+msgstr "Limitar os resultados para as assinaturas de um membro específico."
+
+#: app/docs/search_args/subscriptions.php:11
+msgid "Limit results to subscriptions for a specific membership."
+msgstr "Limitar os resultados de assinaturas para uma associação específica."
+
+#: app/docs/search_args/subscriptions.php:16
+msgid "Limit results to subscriptions created with a specific coupon."
+msgstr "Limitar os resultados de assinaturas criadas com um cupom específico."
+
+#: app/docs/search_args/subscriptions.php:21
+msgid "Limit results to subscriptions with a given status."
+msgstr "Limitar os resultados de assinaturas com um determinado estado."
+
+#: app/docs/search_args/subscriptions.php:26
+msgid "Limit results to subscriptions created with a specific payment gateway."
+msgstr ""
+"Limitar os resultados de assinaturas criadas com um gateway de pagamento "
+"específico."
+
+#: app/docs/search_args/transactions.php:6
+msgid "Limit results to transactions of a specific member."
+msgstr "Limitar os resultados de transações de um membro específico."
+
+#: app/docs/search_args/transactions.php:11
+msgid "Limit results to transactions for a specific membership."
+msgstr "Limitar os resultados de transações para uma associação específica."
+
+#: app/docs/search_args/transactions.php:16
+msgid "Limit results to transactions created with a specific coupon."
+msgstr "Limitar os resultados de transações criadas com um cupom específico."
+
+#: app/docs/search_args/transactions.php:21
+msgid "Limit results to transactions with a given status."
+msgstr "Limitar os resultados de transações com um determinado estado."
+
+#: app/docs/search_args/transactions.php:26
+msgid "Limit results to transactions created with a specific payment gateway."
+msgstr ""
+"Limitar os resultados de transações criadas com um gateway de pagamento "
+"específico."
+
+#: app/docs/search_args/transactions.php:31
+msgid "Limit results to transactions associated with a specific subscription"
+msgstr ""
+"Limitar os resultados de transações associadas com uma assinatura específica"
+
+#: app/docs/update_args/coupons.php:7
+msgid "Coupon Code"
+msgstr "Código de cupom"
+
+#: app/docs/update_args/coupons.php:11
+msgid ""
+"This is the coupon code to be associated with the coupon. This should be a "
+"unique code with no spaces or special characters other than '-'. If spaces "
+"are present the value will be accepted but MemberPress will replace them "
+"with dashes. Also, if this value is left blank, MemberPress will "
+"automatically generate a unique code for this coupon."
+msgstr ""
+"Este é o código do cupom para ser associado com o cupom. Este deve ser um "
+"código único, sem espaços ou caracteres especiais além de '-'. Se os espaços "
+"estão presentes o valor será aceitos, mas o MemberPress irá substituí-los "
+"com traços. Além disso, se esse valor for deixado em branco, o MemberPress "
+"irá gerar automaticamente um código único para este cupom."
+
+#: app/docs/update_args/coupons.php:14
+msgid "Expire Coupon"
+msgstr "Expirar o cupom"
+
+#: app/docs/update_args/coupons.php:17 app/docs/update_args/coupons.php:55
+#: app/docs/update_args/events.php:8 app/docs/update_args/events.php:29
+#: app/docs/update_args/events.php:36 app/docs/update_args/members.php:22
+#: app/docs/update_args/members.php:29 app/docs/update_args/members.php:36
+#: app/docs/update_args/rules.php:30 app/docs/update_args/subscriptions.php:30
+#: app/docs/update_args/subscriptions.php:44
+#: app/docs/update_args/subscriptions.php:124
+#: app/docs/update_args/subscriptions.php:132
+#: app/docs/update_args/transactions.php:29
+#: app/docs/update_args/transactions.php:36
+#: app/docs/update_args/transactions.php:43
+#: app/docs/update_args/transactions.php:50
+#: app/docs/update_args/transactions.php:73
+#: app/docs/update_args/transactions.php:80
+msgid "Required"
+msgstr "Obrigatório"
+
+#: app/docs/update_args/coupons.php:18
+msgid ""
+"Set this to true if you want the coupon to expire sometime in the future."
+msgstr ""
+"Defina como verdadeiro se você quiser que o cupom expire em algum momento no "
+"futuro."
+
+#: app/docs/update_args/coupons.php:21
+msgid "Expire Coupon On Date"
+msgstr "Expirar o cupom na data"
+
+#: app/docs/update_args/coupons.php:24
+msgid "Required if 'should_expire' is true"
+msgstr "Necessário se 'should_expire' for verdadeiro"
+
+#: app/docs/update_args/coupons.php:25
+msgid "Set this to the unix timestamp of when you'd like the coupon to expire."
+msgstr ""
+"Defina isso para o \"unix timestamp\" de quando você deseja que o cupom "
+"expire."
+
+#: app/docs/update_args/coupons.php:28
+msgid "Limit Coupon Usage"
+msgstr "Limite de uso do cupom"
+
+#: app/docs/update_args/coupons.php:31 app/docs/update_args/coupons.php:69
+msgid "0 or more"
+msgstr "0 ou mais"
+
+#: app/docs/update_args/coupons.php:33
+msgid ""
+"Set this to a number greater than zero if you want to limit the number of "
+"times the coupon can be used."
+msgstr ""
+"Configure isso para um número maior que zero se você deseja limitar o número "
+"de vezes que o cupom pode ser usado."
+
+#: app/docs/update_args/coupons.php:36
+msgid "Discount Type"
+msgstr "Tipo de Desconto"
+
+#: app/docs/update_args/coupons.php:40 app/docs/update_args/groups.php:37
+msgid "' or '"
+msgstr "' ou '"
+
+#: app/docs/update_args/coupons.php:41
+msgid ""
+"This will alter the way MemberPress interprets the 'discount_amount' to "
+"either be a percentage or fixed amount."
+msgstr ""
+"Isto irá alterar a maneira que o MemberPress interpreta o 'discount_amount' "
+"para um percentual ou montante fixo."
+
+#: app/docs/update_args/coupons.php:44
+msgid "Discount Amount"
+msgstr "Valor do Desconto"
+
+#: app/docs/update_args/coupons.php:48 app/docs/update_args/coupons.php:77
+msgid "0.00 or more"
+msgstr "0.00 ou mais"
+
+#: app/docs/update_args/coupons.php:49
+msgid ""
+"The amount of the discount. Depending on what 'discount_type' is set to, "
+"this can either be a fixed amount or a percentage."
+msgstr ""
+"O montante do desconto. Dependendo de como 'discount_type' é definido, isso "
+"pode ser uma quantia fixa ou uma porcentagem."
+
+#: app/docs/update_args/coupons.php:52
+msgid "Valid Memberships"
+msgstr "Associações válidas"
+
+#: app/docs/update_args/coupons.php:56
+msgid ""
+"You can set an array of membership ids here that the coupon will apply to."
+msgstr ""
+"Você pode definir uma matriz de IDs de assinaturas aonde o cupom será "
+"aplicado."
+
+#: app/docs/update_args/coupons.php:59
+msgid "Override Trial Period"
+msgstr "Sobrescrever período de testes"
+
+#: app/docs/update_args/coupons.php:63
+msgid ""
+"Set this to true if you want to override the trial period of any "
+"subscription that this coupon is applied to."
+msgstr ""
+"Defina como verdadeiro se você deseja substituir o período de testes de "
+"qualquer assinatura aonde o cupom será aplicado."
+
+#: app/docs/update_args/coupons.php:66
+msgid "Number of Days in Trial Period"
+msgstr "Número de dias do período de testes"
+
+#: app/docs/update_args/coupons.php:71 app/docs/update_args/coupons.php:79
+msgid "You can set an array of product ids here that the coupon will apply to."
+msgstr ""
+"Você pode definir uma matriz de IDs de produto aonde o cupom será aplicado."
+
+#: app/docs/update_args/coupons.php:74
+msgid "Amount Charged for Trial"
+msgstr "Valor cobrado para o período de testes"
+
+#: app/docs/update_args/events.php:5
+msgid "Event"
+msgstr "Evento"
+
+#: app/docs/update_args/events.php:9
+msgid ""
+"This is a string \"slug\" for your event type. We recommend using a naming "
+"convention such as \"login\" or \"subscription-changed\" etc."
+msgstr ""
+"Esta é uma sequência de caracteres \"slug\" para o tipo de evento. "
+"Recomendamos usar uma convenção de nomenclatura como \"login\" ou "
+"\"assinatura-mudou\", etc."
+
+#: app/docs/update_args/events.php:12 app/docs/update_args/subscriptions.php:34
+msgid "IP Address"
+msgstr "Endereço IP"
+
+#: app/docs/update_args/events.php:16
+msgid "An IP Address to associate with this event."
+msgstr "Um endereço de IP para associar a este evento."
+
+#: app/docs/update_args/events.php:19
+msgid "Arguments"
+msgstr "Argumentos"
+
+#: app/docs/update_args/events.php:23
+msgid ""
+"Any arguments that will be useful for you when recalling this event at some "
+"point in the future. For example, when a reminder is sent out in MemberPress "
+"we store the ID of the Reminder Custom Post Type as an argument."
+msgstr ""
+"Quaisquer argumentos que serão úteis para você quando chamar este evento em "
+"algum momento no futuro. Por exemplo, quando um lembrete é enviado pelo "
+"MemberPress, nós armazenamos o ID do lembrete no Post Personalizado como um "
+"argumento."
+
+#: app/docs/update_args/events.php:26
+msgid "Event ID"
+msgstr "ID do Evento"
+
+#: app/docs/update_args/events.php:30
+msgid ""
+"An ID for the event. For example, if your evt_id_type was set to \"users\", "
+"then this would be the integer ID for ther User account."
+msgstr ""
+"Uma ID para o evento. Por exemplo, se seu evt_id_type foi definido como "
+"\"users\", então isso seria o ID inteiro para a conta de usuário."
+
+#: app/docs/update_args/events.php:33
+msgid "Event ID Type"
+msgstr "Tipo da ID do Evento"
+
+#: app/docs/update_args/events.php:37
+msgid ""
+"The type associated with the evt_id. So for example if your evt_id was the "
+"id of a Transaction, then the id type should be \"transactions\""
+msgstr ""
+"O tipo associado com o evt_id. Por exemplo, se seu evt_id era o ID de uma "
+"transação, a identificação do tipo deve ser \"transações\""
+
+#: app/docs/update_args/groups.php:5
+msgid "Group Title"
+msgstr "Título do Grupo"
+
+#: app/docs/update_args/groups.php:9
+msgid "This is the title of the Group."
+msgstr "Este é o título do grupo."
+
+#: app/docs/update_args/groups.php:12
+msgid "Group Content"
+msgstr "Conteúdo do grupo"
+
+#: app/docs/update_args/groups.php:16
+msgid ""
+"This content will appear above the Group pricing table. You can customize "
+"the position of the pricing table simply by including the shortcode: [mepr-"
+"group-price-boxes] in the content here wherever you want."
+msgstr ""
+"Este conteúdo irá aparecer acima do grupo da tabela de preços. Você pode "
+"personalizar a posição da tabela de preços simplesmente incluindo o "
+"shortcode: [mepr-group-price-boxes] no conteúdo onde você quiser."
+
+#: app/docs/update_args/groups.php:19
+msgid "Disable Pricing Page"
+msgstr "Desabilita a página de Grupo de Preços"
+
+#: app/docs/update_args/groups.php:23
+msgid ""
+"This will disable the Group pricing page when set to true. When visitors try "
+"to go to the Group pricing page they'll get a 404 error if this is set to "
+"true."
+msgstr ""
+"Isso desabilitará  a página de Grupo de Preços quando definido como "
+"verdadeiro. Quando os visitantes tentam ir para a página de Grupo de Preços, "
+"eles obterão um erro 404 se isso for definido como verdadeiro."
+
+#: app/docs/update_args/groups.php:26
+msgid "Is this Group an Upgrade Path?"
+msgstr "É este grupo um caminho de crescimento?"
+
+#: app/docs/update_args/groups.php:30 app/docs/update_args/groups.php:38
+msgid ""
+"When set to true, MemberPress may apply a proration when users switch "
+"subscriptions within the group."
+msgstr ""
+"Quando definido como verdadeiro, o MemberPress pode aplicar um cálculo pró-"
+"rata quando os usuários alternam as assinaturas dentro do grupo."
+
+#: app/docs/update_args/groups.php:33
+msgid "Group Theme"
+msgstr "Tema do grupo"
+
+#: app/docs/update_args/groups.php:41
+msgid "Custom Button CSS Class"
+msgstr "Classes CSS personalizadas do botão"
+
+#: app/docs/update_args/groups.php:45
+msgid "This class will be added to the buttons of the pricing page."
+msgstr "Essa classe será adicionada aos botões da página preços."
+
+#: app/docs/update_args/groups.php:48
+msgid "Custom Higlighted Button CSS Class"
+msgstr "Classe CSS personalizada do botão destacado"
+
+#: app/docs/update_args/groups.php:52
+msgid ""
+"This class will be added to any highlighted buttons on the pricing page."
+msgstr ""
+"Essa classe será adicionada a qualquer botão de destaque na página preços."
+
+#: app/docs/update_args/groups.php:55
+msgid "Custom Disabled Button CSS Class"
+msgstr "Classe CSS personalizada do botão desabilitado"
+
+#: app/docs/update_args/groups.php:59
+msgid "This class will be added to any disabled buttons on the pricing page."
+msgstr ""
+"Essa classe será adicionada qualquer botão desabilitado na página de preços."
+
+#: app/docs/update_args/groups.php:62
+msgid "Alternate Group URL"
+msgstr "URL do grupo alternativo"
+
+#: app/docs/update_args/groups.php:66
+msgid "Empty or a valid URL"
+msgstr "Vazio ou uma URL válida"
+
+#: app/docs/update_args/groups.php:67
+msgid ""
+"If not left blank then this url will override the current group pricing page "
+"URL."
+msgstr ""
+"Se não for deixado em branco, esta URL irá substituir o grupo de preços "
+"atual na URL da página de preços."
+
+#: app/docs/update_args/groups.php:70
+msgid "Use custom page template"
+msgstr "Modelo de Página Personalizada"
+
+#: app/docs/update_args/groups.php:74
+msgid ""
+"If checked then MemberPress will attempt to load the page with a custom page "
+"template."
+msgstr ""
+"Se verdadeiro, o MemberPress tentará carregar a página com um modelo de "
+"página personalizada."
+
+#: app/docs/update_args/groups.php:77
+msgid "Custom page template"
+msgstr "Modelo de página personalizada"
+
+#: app/docs/update_args/groups.php:80
+msgid "Required if 'use_custom_template' is true"
+msgstr "Necessário se 'usar_modelo_personalizado' é verdadeiro"
+
+#: app/docs/update_args/groups.php:81
+msgid "Any valid page template"
+msgstr "Qualquer modelo válido de página"
+
+#: app/docs/update_args/groups.php:82
+msgid ""
+"If 'use_custom_template' is checked then this value will be used as the page "
+"template for the Group pricing page."
+msgstr ""
+"Se 'use_custom_template' está ligada, esse valor será usado como o modelo de "
+"página para o grupo da página de preços."
+
+#: app/docs/update_args/members.php:5
+msgid "First Name"
+msgstr "Nome"
+
+#: app/docs/update_args/members.php:9
+msgid "The User's First Name."
+msgstr "Primeiro nome do usuário"
+
+#: app/docs/update_args/members.php:12
+msgid "Last Name"
+msgstr "Sobrenome"
+
+#: app/docs/update_args/members.php:16
+msgid "The User's Last Name."
+msgstr "Sobrenomes do usuário"
+
+#: app/docs/update_args/members.php:19
+msgid "Email Address"
+msgstr "Endereço de e-mail"
+
+#: app/docs/update_args/members.php:23
+msgid "The User's Email Address."
+msgstr "O e-mail do usuário"
+
+#: app/docs/update_args/members.php:26
+msgid "Username"
+msgstr "Usuário"
+
+#: app/docs/update_args/members.php:30
+msgid ""
+"The username for this User. If you're using email addresses as the Username, "
+"then both username and email should be set to the same string."
+msgstr ""
+"O nome de usuário para este membro. Se você estiver usando endereços de e-"
+"mail como o nome de usuário, então o username e o e-mail devem ser definidos "
+"para o mesmo valor."
+
+#: app/docs/update_args/members.php:33
+msgid "Plaintext Password"
+msgstr "Senha de texto sem formatação"
+
+#: app/docs/update_args/members.php:37
+msgid "A plaintext password which will be hashed and stored with this user."
+msgstr ""
+"Uma senha de texto sem formatação que será encriptada e armazenada com este "
+"usuário."
+
+#: app/docs/update_args/memberships.php:5
+msgid "Membership Price"
+msgstr "Valor da Associação"
+
+#: app/docs/update_args/memberships.php:9
+msgid "The base price for the Membership."
+msgstr "O preço base para a associação."
+
+#: app/docs/update_args/memberships.php:12
+msgid "Membership Period"
+msgstr "Período da Associação"
+
+#: app/docs/update_args/memberships.php:16
+msgid ""
+"The Period for the Membership billing cycles. For one-time payments leave "
+"this set to 1. If you wanted to bill the customer once a quarter, you would "
+"set this to 3 and the period_type to months. There are some limitations "
+"depending on the period_type."
+msgstr ""
+"O período da associação por ciclos de faturamento. Para pagamentos únicos, "
+"deixar este campo como 1. Se você desejar cobrar do cliente uma vez por "
+"trimestre, você define isso como 3 e o 'period_type' como meses. Existem "
+"algumas limitações dependendo do 'period_type' escolhido."
+
+#: app/docs/update_args/memberships.php:19
+msgid "Membership Period Type"
+msgstr "Tipo do período da assinatura"
+
+#: app/docs/update_args/memberships.php:23
+msgid ""
+"The billing period type. For non-recurring payments this should always be "
+"set to \"lifetime\". Other possible values are \"weeks\", \"months\" and "
+"\"years\". There are some limitations depending on the period."
+msgstr ""
+"Define o tipo do período de faturamento para a assinatura. Para pagamentos "
+"não-recorrentes, isso sempre deve ser definido para \"vitalício\". Outros "
+"valores possíveis são \"semanas\", \"meses\" e \"anos\". Existem algumas "
+"limitações dependendo do período escolhido."
+
+#: app/docs/update_args/memberships.php:26
+msgid "Signup Button Text"
+msgstr "Texto do Botão de Registro"
+
+#: app/docs/update_args/memberships.php:30
+msgid ""
+"The text shown on the submit button shown on this Membership's registration "
+"form."
+msgstr ""
+"O texto mostrado no botão Enviar, mostrado no formulário de registo da "
+"associação."
+
+#: app/docs/update_args/memberships.php:33
+#: app/docs/update_args/subscriptions.php:76
+msgid "Enable Limited Billing Cycles"
+msgstr "Habilitar ciclos de faturamento limitados"
+
+#: app/docs/update_args/memberships.php:37
+#: app/docs/update_args/subscriptions.php:80
+msgid ""
+"Whether or not to limit the billing cycles for recurring membership "
+"payments. If set to true, MemberPress will cancel the recurring payments "
+"after the limit_cycles_num amount has been reached."
+msgstr ""
+"Se limita ou não os ciclos de faturamento para pagamentos recorrentes de "
+"assinatura. Se definido como verdadeiro, o MemberPress irá cancelar os "
+"pagamentos recorrentes, após ter sido atingido o montante definido em "
+"'limit_cycles_num'."
+
+#: app/docs/update_args/memberships.php:40
+#: app/docs/update_args/subscriptions.php:83
+msgid "Limited Billing Cycles Number"
+msgstr "Número de ciclos de faturamento limitado"
+
+#: app/docs/update_args/memberships.php:44
+#: app/docs/update_args/subscriptions.php:87
+msgid ""
+"If limit_cycles is true, then this number is used to determine how many "
+"recurring billings should happen before MemberPress automatically cancels "
+"the Subscription. If set to 1, the Subscription will be cancelled "
+"immediately after the first payment has come through, however the member "
+"will maintain access until their Transaction has expired."
+msgstr ""
+"Se limit_cycles for verdadeiro, esse número é usado para determinar quantos "
+"faturamento recorrente devem acontecer antes do MemberPress cancelar "
+"automaticamente a assinatura. Se for definido como 1, a inscrição será "
+"cancelada imediatamente após o primeiro pagamento excedente, no entanto, o "
+"membro manterá o acesso até sua transação expirar."
+
+#: app/docs/update_args/memberships.php:47
+#: app/docs/update_args/subscriptions.php:90
+msgid "Limited Billing Cycles Action"
+msgstr "Ação do ciclo de faturamento limitado"
+
+#: app/docs/update_args/memberships.php:51
+#: app/docs/update_args/subscriptions.php:94
+msgid "expire or lifetime"
+msgstr "expiração ou tempo de vida"
+
+#: app/docs/update_args/memberships.php:52
+#: app/docs/update_args/subscriptions.php:95
+msgid ""
+"If limit_cycles is enabled, then this will determine the Member's access "
+"after their Subscription has reached its limit_cycles_num limit and has been "
+"cancelled. If set to \"expire\" then the Member will lose access after their "
+"last Transaction expires. If set to \"lifetime\", the Member will be granted "
+"lifetime access."
+msgstr ""
+"Se 'limit_cycles' estiver habilitado, então isso determinará o acesso do "
+"usuário após sua assinatura atingir o limite definido em 'limit_cycles_num'. "
+"Se for definido para \"expirar\", o membro irá ter o acesso cancelado após "
+"sua última transação expirar. Se for definido como \"vitalício\", o membro "
+"terá o acesso vitalício concedido."
+
+#: app/docs/update_args/memberships.php:55
+#: app/docs/update_args/subscriptions.php:100
+msgid "Enable Trial Period"
+msgstr "Ativar período de teste"
+
+#: app/docs/update_args/memberships.php:59
+msgid ""
+"Whether or not there will be a trial period on this Membership. Trial "
+"periods ONLY work on auto-recurring payments."
+msgstr ""
+"Se existe ou não um período de testes para esta associação. Períodos de "
+"testes funcionam APENAS em faturamento recorrente."
+
+#: app/docs/update_args/memberships.php:62
+#: app/docs/update_args/subscriptions.php:107
+msgid "Trial Period Days"
+msgstr "Dias do período de teste"
+
+#: app/docs/update_args/memberships.php:66
+#: app/docs/update_args/subscriptions.php:111
+msgid ""
+"How many days the trial period should last before the regular billing cycles "
+"begin."
+msgstr ""
+"Quantos dias o período de testes deve durar antes do início da cobrança "
+"regular por ciclos de faturamento."
+
+#: app/docs/update_args/memberships.php:69
+#: app/docs/update_args/subscriptions.php:114
+msgid "Trial Period Amount"
+msgstr "Quantidade do período de teste"
+
+#: app/docs/update_args/memberships.php:73
+msgid ""
+"If a trial period is enabled, this specifies how much the user will pay for "
+"the trial period."
+msgstr ""
+"Se um período de teste estiver habilitado, especifica quanto o usuário "
+"pagará para ter um período experimental de testes."
+
+#: app/docs/update_args/memberships.php:76
+msgid "Group ID"
+msgstr "ID do Grupo"
+
+#: app/docs/update_args/memberships.php:80
+msgid ""
+"The ID of a MemberPress Group which this Membership should belong to. "
+"Defaults to no Group."
+msgstr ""
+"A ID do grupo MemberPress a qual deve pertencer esta associação. O padrão é "
+"Nenhum Grupo."
+
+#: app/docs/update_args/memberships.php:83
+msgid "Group Order"
+msgstr "Ordem do grupo"
+
+#: app/docs/update_args/memberships.php:87
+msgid ""
+"If the Membership belongs to a Group, this will determine its placement on "
+"the Group page and is also used to determine the Upgrade/Downgrade paths."
+msgstr ""
+"Se a Associação pertence a um grupo, isso irá determinar o seu "
+"posicionamento na página do grupo, além de determinar os caminhos de Upgrade/"
+"Downgrade."
+
+#: app/docs/update_args/memberships.php:90
+msgid "Group Pricing Box - Highlighted"
+msgstr "Grupo de caixa de preços - Destacada"
+
+#: app/docs/update_args/memberships.php:94
+msgid ""
+"Whether or not to highlight this Membership in the Group. This adds extra "
+"CSS classes to make the Group pricing/features box stand out from the others."
+msgstr ""
+"Se destaca ou não essa Associação no grupo. Isso adiciona classes CSS extras "
+"para deixar a caixa de preços e características do grupo destacada dos "
+"outros."
+
+#: app/docs/update_args/memberships.php:99
+msgid "Group Pricing Box - Title"
+msgstr "Grupo de caixa de preços - Título"
+
+#: app/docs/update_args/memberships.php:103
+msgid "The title that shows at the top of the pricing box on a Group page."
+msgstr ""
+"O título que é mostrado no topo da caixa de preços em uma página de grupo."
+
+#: app/docs/update_args/memberships.php:113
+msgid "Group Pricing Box - Price Display"
+msgstr "Grupo de caixa de preços - Preço"
+
+#: app/docs/update_args/memberships.php:117
+msgid ""
+"How to display the price on this Membership's pricing box on the Group page."
+msgstr ""
+"Como exibir o preço na caixa de preço para esta associação, na página de "
+"grupo."
+
+#: app/docs/update_args/memberships.php:120
+msgid "Group Pricing Box - Heading Text"
+msgstr "Grupo de caixa de preços  - Texto do Cabeçalho"
+
+#: app/docs/update_args/memberships.php:124
+msgid ""
+"A heading to show on this pricing box. Shows below price, but above features/"
+"benefits list."
+msgstr ""
+"Um cabeçalho para mostrar nesta caixa de preços. Aparece abaixo o preço, mas "
+"acima da lista de recursos e benefícios."
+
+#: app/docs/update_args/memberships.php:127
+msgid "Group Pricing Box - Footer Text"
+msgstr "Grupo de caixa de preços  - Rexto do rodapé"
+
+#: app/docs/update_args/memberships.php:131
+msgid ""
+"Show a message at the foot of the pricing box. Shows right above the "
+"purchase button."
+msgstr ""
+"Mostra uma mensagem no rodapé da caixa de preços. Aparece logo acima do "
+"botão de compra."
+
+#: app/docs/update_args/memberships.php:134
+msgid "Group Pricing Box - Button Text"
+msgstr "Grupo de caixa de preços  - Texto do Botão"
+
+#: app/docs/update_args/memberships.php:138
+msgid "The text of the purchase button."
+msgstr "O texto do botão de compra."
+
+#: app/docs/update_args/memberships.php:141
+msgid "Group Pricing Box - Features/Benefits List"
+msgstr "Grupo de caixa de preços - Lista de Benefícios"
+
+#: app/docs/update_args/memberships.php:145
+msgid ""
+"An array of strings. Each string will show as a line-item on the pricing box "
+"on the Group page."
+msgstr ""
+"Uma matriz de strings. Cada string aparece como uma linha de item na caixa "
+"de preço em uma página de grupo."
+
+#: app/docs/update_args/memberships.php:148
+msgid "Register Price String"
+msgstr "Registrar o texto do preço"
+
+#: app/docs/update_args/memberships.php:152
+msgid ""
+"A custom pricing string for this Membership. This is only used if "
+"register_price_action is set to \"custom\"."
+msgstr ""
+"Uma string personalizada de preço para esta associação. Isto é usado apenas "
+"se register_price_action é definido para \"personalizado\"."
+
+#: app/docs/update_args/memberships.php:155
+msgid "Register Price Action"
+msgstr "Registrar o preço da ação"
+
+#: app/docs/update_args/memberships.php:159
+msgid "default, custom, or hidden"
+msgstr "padrão, personalizado ou oculto"
+
+#: app/docs/update_args/memberships.php:160
+msgid ""
+"Whether to use the default pricing string generated by MemberPress, a custom "
+"pricing string, or to hide the pricing string completely."
+msgstr ""
+"Se usa ou não a string padrão de preço gerada pelo MemberPress, uma string "
+"personalizada de preços, ou esconde a string completamente."
+
+#: app/docs/update_args/memberships.php:163
+msgid "Enable Custom Thank You Page Message"
+msgstr "Permitir Personalização da Página Agradecimento"
+
+#: app/docs/update_args/memberships.php:167
+msgid ""
+"If set to true, the content on the Thank You page will be overridden with "
+"the message contained in thank_you_message value."
+msgstr ""
+"Se definido como verdadeiro, o conteúdo da Página de Agradecimento será "
+"substituído com a mensagem contida no valor de thank_you_message."
+
+#: app/docs/update_args/memberships.php:170
+msgid "Thank You Page Message"
+msgstr "Mensagem de Agradecimento"
+
+#: app/docs/update_args/memberships.php:174
+msgid ""
+"A string containing the Custom Thank You Page Message which is shown on the "
+"Thank You page anytime this Membership is purchased. thank_you_page_enabled "
+"must be set to true before this will be shown."
+msgstr ""
+"Uma string que contém a mensagem personalizada de agradecimento que é "
+"mostrada na Página de Agradecimento a qualquer momento que esta associação é "
+"comprada. thank_you_page_enabled deve ser definida como verdadeiro antes "
+"isso seja mostrado."
+
+#: app/docs/update_args/memberships.php:177
+msgid "Enable Custom Login URLs"
+msgstr "Habilitar Login Personalizado"
+
+#: app/docs/update_args/memberships.php:181
+msgid ""
+"If set to true, you can modify the login redirection by using the "
+"custom_login_urls_default and/or the custom_login_urls to control where a "
+"member is taken to after logging in."
+msgstr ""
+"Se definido como verdadeiro, você pode modificar o redirecionamento de Login "
+"usando o custom_login_urls_default e/ou o custom_login_urls para controlar "
+"onde um membro é levado para após o login."
+
+#: app/docs/update_args/memberships.php:184
+msgid "Default Login Redirection URL For This Membership"
+msgstr "URL de Redirecionamento Padrão para Login Nesta Associação"
+
+#: app/docs/update_args/memberships.php:188
+msgid ""
+"The URL the member will be redirected to by deafult when logging in if they "
+"have purchased this Membership. This overrides the global Login Redirect URL "
+"set in MemberPress -> Options."
+msgstr ""
+"A URL para onde o membro será redirecionada por padrão quando fizer Login "
+"após comprar essa associação. Isso substitui o Redirecionamento Global de "
+"URL definido em MemberPress-> Opções."
+
+#: app/docs/update_args/memberships.php:191
+msgid "Custom Login Redirect URLs"
+msgstr "URLs de Redirecionamento de Login Personalizado"
+
+#: app/docs/update_args/memberships.php:195
+msgid ""
+"An array of standard objects. Each object should have \\$obj->url and \\$obj-"
+">count. url is the URL the user should be redirected to when logging in, and "
+"count is the number of times they've logged in. So for example, if you "
+"wanted to take your user to a specific landing page on their 4th login "
+"attempt, you would set the url to the landing page, and the count to 4."
+msgstr ""
+"Uma matriz de objetos padrão. Cada objeto deve ter \\$obj->url e \\$obj-"
+">count. A URL é o endereço para o qual o usuário deve ser redirecionado "
+"quando ele entrar, e count é o número de vezes que eles já fez login. Assim, "
+"por exemplo, se você deseja levar seu usuário a uma página de destino "
+"específico na sua 4ª tentativa de login, você definiria o URL para a página "
+"desejada e a contagem como 4."
+
+#: app/docs/update_args/memberships.php:198
+msgid "Membership Expiration Type"
+msgstr "Tipo de expiração da associação"
+
+#: app/docs/update_args/memberships.php:202
+msgid "none, delay, or fixed"
+msgstr "nenhum, atrasado, ou fixo"
+
+#: app/docs/update_args/memberships.php:203
+msgid ""
+"If the Membership is a one-time payment (not auto-recurring), then you can "
+"set if/when it should expire. A value of none means it will be good for a "
+"lifetime. A value of delay means it expires at some delayed point in the "
+"future (example: 6 months). And a value of fixed means it will expire on a "
+"fixed date in the future (example December 31st 2019). Note: this does not "
+"work on recurring Memberships."
+msgstr ""
+"Se a associação é de pagamento único (não-recorrentes), você poderá definir "
+"se/quando ela deve expirar. Um valor igual a nenhum significa que será "
+"vitalício. Um valor atrasado significa expira em algum momento posterior no "
+"futuro (exemplo: 6 meses). Um valor fixo significa que irá expirar em uma "
+"data específica no futuro (exemplo: 31 de dezembro de 2019). Nota: isto não "
+"funciona em assinaturas recorrentes."
+
+#: app/docs/update_args/memberships.php:206
+msgid "Expire Membership After"
+msgstr "Expirar associação depois"
+
+#: app/docs/update_args/memberships.php:210
+msgid ""
+"If the expire_type is set to \"delay\", use this to determine how many "
+"expire_unit's before the Membership expires. This should be a number "
+"(example \"6\", for 6 days/months/weeks/years)."
+msgstr ""
+"Se expire_type é definido como \"atraso\", use isto para determinar quantos "
+"expire_unit existem antes a associação expire. Este valor deve ser um número "
+"(exemplo \"6\", para 6 dias/meses/semanas/anos)."
+
+#: app/docs/update_args/memberships.php:213
+msgid "Expire Membership Unit"
+msgstr "Unidade de expiração da associação"
+
+#: app/docs/update_args/memberships.php:217 app/docs/update_args/rules.php:52
+#: app/docs/update_args/rules.php:89
+msgid "days, weeks, months, or years"
+msgstr "dias, semanas, meses ou anos"
+
+#: app/docs/update_args/memberships.php:218
+msgid ""
+"If the expire_type is set to \"delay\", use this to set the unit for the "
+"expire_after value. For example, if expire_after was set to \"6\" and this "
+"was set to \"months\", then the Membership would expire 6 months after the "
+"date the Member registered."
+msgstr ""
+"Se expire_type é definido como \"atraso\", use isto para definir a unidade "
+"para o valor de expire_after. Por exemplo, se expire_after foi definido como "
+"\"6\" e este campo for definido como \"meses\", a associação irá expirar 6 "
+"meses após a data em que o assinante foi registrado."
+
+#: app/docs/update_args/memberships.php:221
+msgid "Expire Membership Fixed Date"
+msgstr "Expirar associação na data fixada"
+
+#: app/docs/update_args/memberships.php:225
+msgid ""
+"If the expire_type is set to \"fixed\", then set this to the string of the "
+"date on which this Membership should expire. You can use any date format "
+"which PHP's strtotime() function can understand."
+msgstr ""
+"Se o 'expire_type' for definida como Fixo, em seguida defina a sequência de "
+"caracteres a partir da data em que esta associação deverá expirar. Você pode "
+"usar qualquer formato de data que a função strtotime() do PHP entenda."
+
+#: app/docs/update_args/memberships.php:228
+msgid "Tax Exempt"
+msgstr "Isento de imposto"
+
+#: app/docs/update_args/memberships.php:232
+msgid "Should this Membership be exempt from taxes or not."
+msgstr "Se esta assinatura deve ser isenta de impostos ou não."
+
+#: app/docs/update_args/memberships.php:235
+msgid "Allow Renewals"
+msgstr "Permitir Renovação"
+
+#: app/docs/update_args/memberships.php:239
+msgid ""
+"Allow Members to renew one-time payments before they have expired. Note: "
+"this only works on one-time payment Memberships which have a \"delay\" "
+"expire_type value."
+msgstr ""
+"Permitir que os associados renovem os pagamentos únicos antes que eles "
+"tenham expirado. Nota: isto só funciona em associações que têm um valor para "
+"expire_type definido como \"atraso\"."
+
+#: app/docs/update_args/memberships.php:242
+msgid "Membership Access URL"
+msgstr "URL para acesso dos associados"
+
+#: app/docs/update_args/memberships.php:246
+msgid ""
+"Use this to add a URL which should be used as the page the member can access "
+"the content for this Membership subscription."
+msgstr ""
+"Use isto para adicionar uma URL que deve ser usada como a página do "
+"associado para acesso ao conteúdo dessa assinatura."
+
+#: app/docs/update_args/memberships.php:251
+msgid "Allow Simultaneous Subscriptions"
+msgstr "Permitir assinaturas simultâneas"
+
+#: app/docs/update_args/memberships.php:255
+msgid ""
+"Allow Members to have multiple active Subscriptions to this Product "
+"simultaneously. Note: Do not use this if allow_renewal is set to true."
+msgstr ""
+"Permitir que os membros tenham múltiplas assinaturas ativas para este "
+"produto simultaneamente. Nota: Não utilize essa opção se allow_renewal "
+"estiver definida como verdadeiro."
+
+#: app/docs/update_args/memberships.php:258
+msgid "Use Custom Template"
+msgstr "Usar um modelo personalizado"
+
+#: app/docs/update_args/memberships.php:262
+msgid "Whether or not to use a Custom Page Template for this Membership page."
+msgstr ""
+"Se usa ou não um modelo de página personalizado para esta página de "
+"associação."
+
+#: app/docs/update_args/memberships.php:265
+msgid "Custom Page Template Path"
+msgstr "Modelo de Página Personalizada"
+
+#: app/docs/update_args/memberships.php:269
+msgid "The relative path to your template file."
+msgstr "O caminho relativo do arquivo de modelo."
+
+#: app/docs/update_args/memberships.php:272
+msgid "Customize Payment Methods"
+msgstr "Personaliza métodos de pagamento"
+
+#: app/docs/update_args/memberships.php:276
+msgid ""
+"Allow Payment Methods to be disabled on this Membership. A disabled payment "
+"method cannot be used by a Member at checkout."
+msgstr ""
+"Permitem que os métodos de pagamento sejam desabilitados para esta "
+"associação. Um método de pagamento desabilitado não pode ser usado por um "
+"assinante no checkout."
+
+#: app/docs/update_args/memberships.php:279
+msgid "Custom Payment Methods"
+msgstr "Métodos de pagamento personalizado"
+
+#: app/docs/update_args/memberships.php:283
+msgid ""
+"If customize_payment_methods is true, then this must be an array of the "
+"valid payment method ID's for this Membership. Note: If filtering valid "
+"payment methods, this MUST have at least one gateway ID."
+msgstr ""
+"Se 'customize_payment_methods' for verdadeiro, então isso deve ser uma "
+"matriz de IDs de métodos de pagamento válidos para esta assinatura. Nota: Se "
+"a filtragem de métodos de pagamento válido estiver habilitada, isto deve ter "
+"pelo menos um gateway ID."
+
+#: app/docs/update_args/reminders.php:5
+msgid "Reminder Trigger Length"
+msgstr "Comprimento do disparador de lembrete"
+
+#: app/docs/update_args/reminders.php:9
+msgid "The number of trigger_interval units for this reminder."
+msgstr "O número de unidades do 'trigger_interval' para este lembrete."
+
+#: app/docs/update_args/reminders.php:12
+msgid "Reminder Trigger Inverval Type"
+msgstr "Tipo de Intervalo do disparador de lembrete"
+
+#: app/docs/update_args/reminders.php:16
+msgid "hours, days, weeks, months, years"
+msgstr "horas, dias, semanas, meses, anos"
+
+#: app/docs/update_args/reminders.php:17
+msgid ""
+"The interval type for this Reminder's trigger. Used in conjunction with "
+"trigger_length. If you wanted to send a Reminder 1 week before a "
+"Subscription expires then you'd set trigger_length to 1, trigger_interval to "
+"\"weeks\", and trigger_timing to \"before\"."
+msgstr ""
+"O tipo de intervalo para o disparador deste lembrete. Usado em conjunto com "
+"trigger_length. Se você deseja enviar uma lembrete 1 semana antes que uma "
+"assinatura expire, você deve definir trigger_length para 1, trigger_interval "
+"para \"semanas\" e trigger_timing para \"antes\"."
+
+#: app/docs/update_args/reminders.php:20
+msgid "Reminder Trigger Timing"
+msgstr "Tempo do Disparador de Lembrete"
+
+#: app/docs/update_args/reminders.php:24
+msgid ""
+"Whether this reminder should happen before or after the event has occurred."
+msgstr ""
+"Se este lembrete deve acontecer antes ou depois da ocorrência do evento."
+
+#: app/docs/update_args/reminders.php:27
+msgid "Reminder Trigger Event"
+msgstr "Evento Disparador de Lembrete"
+
+#: app/docs/update_args/reminders.php:31
+msgid "sub-expires, cc-expires, member-signup, signup-abandoned, sub-renews"
+msgstr ""
+"sub-expira, cc-expira, inscrição-membro, inscrição-abandonada, sub-renova"
+
+#: app/docs/update_args/reminders.php:32
+msgid "The event which should trigger this Reminder to be sent out."
+msgstr "O evento que deve ativar o envio deste lembrete."
+
+#: app/docs/update_args/rules.php:5
+msgid "Rule Type"
+msgstr "Tipo de Regra"
+
+#: app/docs/update_args/rules.php:9
+msgid ""
+"all, custom, all_tax_* (* = TAXONOMY), all_* (* = CPT), single_* (* = CPT), "
+"parent_* (* = CPT), category, tag, partial, or ?"
+msgstr ""
+"todos, personalizado, todas_tax_* (* = TAXONOMIA), todos_* (* = CPT), "
+"único_* (* = CPT), pai_* (* = CPT), categoria, tag, parcial, ou ?"
+
+#: app/docs/update_args/rules.php:10
+msgid "The type of Rule you are creating."
+msgstr "O tipo de regra que você está criando."
+
+#: app/docs/update_args/rules.php:13
+msgid "Rule Content"
+msgstr "Conteúdo da Regra"
+
+#: app/docs/update_args/rules.php:17
+msgid ""
+"The ID of the rule_type being protected. For example, if you protect a "
+"Single Page, then you would set this to the ID of that page. If you protect "
+"an entire category, then you would set this to the ID of that category."
+msgstr ""
+"A ID da 'rule_type' a ser protegida. Por exemplo, se você proteger uma única "
+"página, então você definiria isso para a ID dessa página. Se você proteger "
+"uma categoria inteira, então você definiria isso para a identificação dessa "
+"categoria."
+
+#: app/docs/update_args/rules.php:20
+msgid "Use Regular Expression"
+msgstr "Usar expressão regular"
+
+#: app/docs/update_args/rules.php:24
+msgid ""
+"Whether to use Regular Expression matching on \"custom\" (aka Custom URI) "
+"rule_type's."
+msgstr ""
+"Se usa ou não uma Expressão Regular correspondente ao rule_type "
+"\"personalizado\" (ou URI personalizado)."
+
+#: app/docs/update_args/rules.php:27
+msgid "Memberships With Access"
+msgstr "Associações com Acesso"
+
+#: app/docs/update_args/rules.php:31
+msgid ""
+"An array of Membership ID's which grant the Member access to the Content "
+"being protected by this Rule."
+msgstr ""
+"Uma matriz de IDs de assinaturas que concedem o acesso do assinante para o "
+"conteúdo protegido por esta regra."
+
+#: app/docs/update_args/rules.php:34
+msgid "Enable Dripping"
+msgstr "Habilitar Dripping de Conteúdo"
+
+#: app/docs/update_args/rules.php:38
+msgid "Whether Dripping should be enabled on this Rule."
+msgstr "Se o dripping de conteúdo deve ser ativado nesta regra."
+
+#: app/docs/update_args/rules.php:41
+msgid "Dripping Amount"
+msgstr "Quantidade de Dripping de Conteúdo"
+
+#: app/docs/update_args/rules.php:45
+msgid "The number of units to delay Dripping by."
+msgstr "O número de unidades para atrasar o Dripping de Conteúdo."
+
+#: app/docs/update_args/rules.php:48
+msgid "Dripping Unit"
+msgstr "Unidade de Dripping de Conteúdo"
+
+#: app/docs/update_args/rules.php:53
+msgid "The unit to Drip the Content by."
+msgstr "A unidade para o Dripping de conteúdo."
+
+#: app/docs/update_args/rules.php:56
+msgid "Dripping Base Date"
+msgstr "Data-Base do Dripping de Conteúdo"
+
+#: app/docs/update_args/rules.php:60 app/docs/update_args/rules.php:97
+msgid ""
+"registers, fixed, rule-products (based on the date the Member purchased ANY "
+"of the Memberships defined in authorized_memberships), or any single "
+"Membership ID (based on the signup date the Member purchased the Membership "
+"with this ID)"
+msgstr ""
+"registra, fixo, regra-produtos (baseadas na data em que o usuário comprou "
+"alguma das associações definidas no 'authorized_memberships'), ou qualquer "
+"ID de associação simples (baseadas na data de inscrição que o membro "
+"adquiriu a associação com esta ID)"
+
+#: app/docs/update_args/rules.php:61
+msgid "The date to base the Dripping off of."
+msgstr "A data para basear o Dripping de Conteúdo."
+
+#: app/docs/update_args/rules.php:64
+msgid "Dripping Fixed Date"
+msgstr "Data Fixa de Dripping de Conteúdo"
+
+#: app/docs/update_args/rules.php:68
+msgid ""
+"If drip_after is set to \"fixed\", then this is required and must be a valid "
+"date in the future which PHP's strtotime() function can interpret."
+msgstr ""
+"Se 'drip_after' for definido como Fixo, então isso é necessário e deve ser "
+"uma data válida no futuro, em um formato que a função de strtotime() do PHP "
+"possa interpretar."
+
+#: app/docs/update_args/rules.php:71
+msgid "Enable Content Expiration"
+msgstr "Habilitar Expiração do Conteúdo"
+
+#: app/docs/update_args/rules.php:75
+msgid "Whether Content Expiration should be enabled on this Rule."
+msgstr "Se a expiração do conteúdo deve ser ativada nesta regra."
+
+#: app/docs/update_args/rules.php:78
+msgid "Content Expiration Amount"
+msgstr "Atraso na Expiração do Conteúdo"
+
+#: app/docs/update_args/rules.php:82
+msgid "The number of units to delay Content Expiration by."
+msgstr "O número de unidades para atrasar a expiração do conteúdo."
+
+#: app/docs/update_args/rules.php:85
+msgid "Content Expiration Unit"
+msgstr "Unidade de Expiração do Conteúdo"
+
+#: app/docs/update_args/rules.php:90
+msgid "The unit to Expire the Content by."
+msgstr "A unidade para expirar o conteúdo."
+
+#: app/docs/update_args/rules.php:93
+msgid "Content Expiration Base Date"
+msgstr "Data-Base de Expiração do Conteúdo"
+
+#: app/docs/update_args/rules.php:98
+msgid "The date to base the Content Expiration off of."
+msgstr "A data para a expiração do conteúdo."
+
+#: app/docs/update_args/rules.php:101
+msgid "Content Expiration Fixed Date"
+msgstr "Data Fixada para Expiração do Conteúdo"
+
+#: app/docs/update_args/rules.php:105
+msgid ""
+"If expires_after is set to \"fixed\", then this is required and must be a "
+"valid date in the future which PHP's strtotime() function can interpret."
+msgstr ""
+"Se 'expires_after' for definido como Fixo, então isso é necessário e deve "
+"ser uma data válida no futuro, em um formato que a função de strtotime() do "
+"PHP possa interpretar."
+
+#: app/docs/update_args/rules.php:108
+msgid "Unauthorized Excerpt Type"
+msgstr "Tipo de Trecho Não Autorizado"
+
+#: app/docs/update_args/rules.php:112
+msgid ""
+"default, hide, more (aka everything before the &lt;!--more--&gt; tag), "
+"excerpt, or custom"
+msgstr ""
+"padrão, ocultar, mais (tudo antes da tag &lt;!--more--&gt;), trecho, "
+"personalizado"
+
+#: app/docs/update_args/rules.php:113
+msgid ""
+"The type of excerpt from the protected Content to show to unauthorized "
+"visitors. If set to anything other than \"default\" this will override the "
+"global behavior set in the MemberPress Options for any Content protected by "
+"this Rule."
+msgstr ""
+"O tipo do trecho do conteúdo protegido para mostrar aos visitantes não "
+"autorizados. Se definido para algo diferente do \"padrão\" isto irá "
+"substituir o comportamento global definido nas Opções do MemberPress para "
+"qualquer conteúdo protegido por esta regra."
+
+#: app/docs/update_args/rules.php:116
+msgid "Unauthorized Excerpt Size"
+msgstr "Tamanho do trecho não autorizado"
+
+#: app/docs/update_args/rules.php:120
+msgid ""
+"This is only used if unauth_exceprt_type is set to \"custom\". It will show "
+"X characters of the actual protected Content as the excerpt to unauthorized "
+"visitors."
+msgstr ""
+"Isso é usado apenas se unauth_exceprt_type for definido como \"personalizado"
+"\". Ele irá mostrar X caracteres do conteúdo protegido como um trecho para "
+"visitantes não autorizados."
+
+#: app/docs/update_args/rules.php:123
+msgid "Unauthorized Message Type"
+msgstr "Tipo da Mensagem Não Autorizada"
+
+#: app/docs/update_args/rules.php:127
+msgid "default, hide, or custom"
+msgstr "padrão, ocultar ou personalizado"
+
+#: app/docs/update_args/rules.php:128
+msgid ""
+"The type of message to show to unauthorized users trying to view Content "
+"protected by this Rule. If set to anything other than \"default\" this will "
+"override the global behavior set in the MemberPress Options for any Content "
+"protected by this Rule."
+msgstr ""
+"O tipo de mensagem para mostrar aos usuários não autorizados que tentam ver "
+"o conteúdo protegido por esta regra. Se definido para algo diferente de "
+"\"padrão\", isto irá substituir o comportamento global definido nas Opções "
+"do MemberPress para qualquer conteúdo protegido por esta regra."
+
+#: app/docs/update_args/rules.php:131
+msgid "Unauthorized Message"
+msgstr "Mensagem Não Autorizada"
+
+#: app/docs/update_args/rules.php:135
+msgid ""
+"If the unauth_message_type is set to \"custom\", then this string will be "
+"shown as the message which unauthorized users will see when they try to view "
+"Content protected by this Rule."
+msgstr ""
+"Se o unauth_message_type estiver definida como \"personalizado\", essa "
+"string será mostrada como a mensagem que os usuários não autorizados irão "
+"ver quando eles acessarem um conteúdo protegido por esta regra."
+
+#: app/docs/update_args/rules.php:138
+msgid "Show/Hide Login Form"
+msgstr "Mostrar/Ocultar Formulário de Login"
+
+#: app/docs/update_args/rules.php:142
+msgid "default, show, or hide"
+msgstr "padrão, mostrar ou ocultar"
+
+#: app/docs/update_args/rules.php:143
+msgid ""
+"Whether or not to show/hide the Login Form, or leave at the default global "
+"settings in the MemberPress Options."
+msgstr ""
+"Se mostra ou não o Formulário de Login, ou deixa as configurações globais "
+"padrão definidas nas Opções do MemberPress."
+
+#: app/docs/update_args/subscriptions.php:5
+msgid "Recurring Subscription Number"
+msgstr "Número da Assinatura Recorrente"
+
+#: app/docs/update_args/subscriptions.php:9
+msgid ""
+"The Recurring Subscription Number. In order for recurring billings to be "
+"tracked, this should be the exact Subsription Number generated by the "
+"Payment Gateway for this Subscription."
+msgstr ""
+"O número da assinatura recorrente. Para cobranças recorrentes serem "
+"controladas, este deve ser o número exato da Subsription Number gerado pelo "
+"Gateway de Pagamento para esta assinatura."
+
+#: app/docs/update_args/subscriptions.php:12
+msgid "Subscription Response"
+msgstr "Resposta da adesão"
+
+#: app/docs/update_args/subscriptions.php:16
+#: app/docs/update_args/transactions.php:59
+msgid ""
+"A place where you can store Payment Gateway POST or GET responses for later "
+"reference."
+msgstr ""
+"Um lugar onde você pode armazenar o POST ou GET do Gateway de Pagamento para "
+"referência posterior."
+
+#: app/docs/update_args/subscriptions.php:19
+#: app/docs/update_args/transactions.php:62
+msgid "Gateway ID"
+msgstr "ID de Pagamento"
+
+#: app/docs/update_args/subscriptions.php:23
+#: app/docs/update_args/transactions.php:66
+msgid ""
+"manual, free, or the ID of any live Gateway setup in your MemberPress Options"
+msgstr ""
+"manual, grátis, ou a ID de qualquer Gateway ativo em suas Opções do "
+"MemberPress."
+
+#: app/docs/update_args/subscriptions.php:24
+msgid "The Payment Gateway to use for this Subscription."
+msgstr "O Gateway de pagamento para usar com esta assinatura."
+
+#: app/docs/update_args/subscriptions.php:27
+#: app/docs/update_args/transactions.php:26
+msgid "Member ID"
+msgstr "ID do Assinante"
+
+#: app/docs/update_args/subscriptions.php:31
+#: app/docs/update_args/transactions.php:30
+msgid "The Member's WordPress User ID."
+msgstr "ID de usuário WordPress do assinante"
+
+#: app/docs/update_args/subscriptions.php:38
+msgid "IP Address associated with this Subscription."
+msgstr "Endereço de IP associados a essa assinatura."
+
+#: app/docs/update_args/subscriptions.php:41
+#: app/docs/update_args/transactions.php:33
+msgid "Membership ID"
+msgstr "ID da Assinatura"
+
+#: app/docs/update_args/subscriptions.php:45
+msgid "The ID of the Membership this Subscription is for."
+msgstr "A identificação da associação para essa assinatura."
+
+#: app/docs/update_args/subscriptions.php:48
+#: app/docs/update_args/transactions.php:40
+msgid "Coupon ID"
+msgstr "ID do Cupom"
+
+#: app/docs/update_args/subscriptions.php:52
+msgid "The ID of the Coupon used on this Subscription."
+msgstr "A ID do cupom usado na assinatura."
+
+#: app/docs/update_args/subscriptions.php:55
+msgid "Subscription Price"
+msgstr "Valor da Assinatura"
+
+#: app/docs/update_args/subscriptions.php:59
+msgid "The Subscription Sub-Total Amount."
+msgstr "O valor do subtotal de assinatura."
+
+#: app/docs/update_args/subscriptions.php:62
+msgid "Subscription Period"
+msgstr "Período da Assinatura"
+
+#: app/docs/update_args/subscriptions.php:66
+msgid ""
+"The Period for the Subscription billing cycles. See Memberships "
+"documentation for more info."
+msgstr ""
+"O período para os ciclos de faturamento. Consulte a documentação sobre "
+"associações para mais informações."
+
+#: app/docs/update_args/subscriptions.php:69
+msgid "Subscription Period Type"
+msgstr "Tipo do período da assinatura"
+
+#: app/docs/update_args/subscriptions.php:73
+msgid "The billing period type. See Memberships documentation for more info."
+msgstr ""
+"O tipo do período de faturamento. Consulte a documentação sobre associações "
+"para mais informações."
+
+#: app/docs/update_args/subscriptions.php:104
+msgid ""
+"Whether or not there is a trial period on this Subscription. Trial periods "
+"ONLY work on auto-recurring payments."
+msgstr ""
+"Se existe ou não é um período de teste com essa assinatura. Períodos de "
+"teste funcionam APENAS com pagamentos recorrentes."
+
+#: app/docs/update_args/subscriptions.php:118
+msgid ""
+"If a trial period is enabled, this specifies how much the user paid for the "
+"trial period."
+msgstr ""
+"Se um período de teste estiver ativo, especifica quanto o usuário paga pelo "
+"período de teste."
+
+#: app/docs/update_args/subscriptions.php:121
+msgid "Subscription Billing Status"
+msgstr "Estado da cobrança da assinatura"
+
+#: app/docs/update_args/subscriptions.php:125
+msgid "pending, active, or cancelled"
+msgstr "pendente, ativo ou cancelado"
+
+#: app/docs/update_args/subscriptions.php:126
+msgid "The Subscription's current billing status."
+msgstr "Estado do faturamento atual de assinatura."
+
+#: app/docs/update_args/subscriptions.php:129
+#: app/docs/update_args/transactions.php:77
+msgid "Created At Date"
+msgstr "Criado na data"
+
+#: app/docs/update_args/subscriptions.php:133
+msgid ""
+"The date the Subscription was created. This should be in a MySQL datetime "
+"format or PHP's date('c') format. All dates stored in the database should be "
+"in UTC timezone."
+msgstr ""
+"A data em que a assinatura foi criada. Isto deve estar no formato datetime "
+"do MySQL ou formato date('c') do PHP. Todas as datas armazenadas no banco de "
+"dados devem ser no fuso horário UTC."
+
+#: app/docs/update_args/subscriptions.php:136
+msgid "Subscription Total"
+msgstr "Total da assinatura"
+
+#: app/docs/update_args/subscriptions.php:140
+msgid "The Subscription's Total Amount (including taxes)."
+msgstr "Valor Total das Assinaturas (incluindo impostos)."
+
+#: app/docs/update_args/subscriptions.php:151
+msgid "Credit Card Last Four Digits"
+msgstr "Últimos Quatro Dígitos do Cartão de Crédito"
+
+#: app/docs/update_args/subscriptions.php:155
+msgid ""
+"The last four digits of the Member's Credit Card associated with this "
+"Recurring Subscription."
+msgstr ""
+"Os últimos quatro dígitos do cartão de crédito do usuário associado a uma "
+"assinatura recorrente."
+
+#: app/docs/update_args/subscriptions.php:158
+msgid "Credit Card Expiring Month"
+msgstr "Mês de Expiração do Cartão de Crédito"
+
+#: app/docs/update_args/subscriptions.php:162
+msgid "The Month (0-12) which the Credit Card expires."
+msgstr "O mês (0-12) que o cartão de crédito expira."
+
+#: app/docs/update_args/subscriptions.php:165
+msgid "Credit Card Expiring Year"
+msgstr "Ano de Expiração do Cartão de Crédito"
+
+#: app/docs/update_args/subscriptions.php:169
+msgid "The 4 digit Year which the Credit Card expires."
+msgstr "O ano (4 dígitos) de expiração do cartão de crédito."
+
+#: app/docs/update_args/transactions.php:5
+msgid "Transaction Number"
+msgstr "Número da Transação"
+
+#: app/docs/update_args/transactions.php:9
+msgid "The unique Transaction Number."
+msgstr "O número único da transação."
+
+#: app/docs/update_args/transactions.php:12
+msgid "Transaction Sub-Total"
+msgstr "Subtotal da Transação"
+
+#: app/docs/update_args/transactions.php:16
+msgid "The base price for the Transaction (not including tax)"
+msgstr "O preço-base para esta transação (não incluindo impostos)"
+
+#: app/docs/update_args/transactions.php:19
+msgid "Transaction Total"
+msgstr "Total de Transações"
+
+#: app/docs/update_args/transactions.php:23
+msgid "The total price for this Transaction (including tax)"
+msgstr "O preço total para esta transação (incluindo impostos)"
+
+#: app/docs/update_args/transactions.php:37
+msgid "The Membership ID associated with this Transaction."
+msgstr "O ID de Assinante associado com esta transação."
+
+#: app/docs/update_args/transactions.php:44
+msgid "The Coupon ID associated with this Transaction."
+msgstr "O ID de Cupom associado com esta transação."
+
+#: app/docs/update_args/transactions.php:47
+msgid "Transaction Status"
+msgstr "Estado da Transação"
+
+#: app/docs/update_args/transactions.php:51
+msgid "pending, complete, failed, or refunded"
+msgstr "pendente, completar, falha, ou reembolsado"
+
+#: app/docs/update_args/transactions.php:52
+msgid "The status of this Transaction."
+msgstr "O estado para essa transação."
+
+#: app/docs/update_args/transactions.php:55
+msgid "Transaction Response"
+msgstr "Resposta da Transação"
+
+#: app/docs/update_args/transactions.php:67
+msgid "The Payment Gateway to use for this Transaction."
+msgstr "O Gateway de Pagamento para usar com esta Transação."
+
+#: app/docs/update_args/transactions.php:70
+msgid "Subscription ID"
+msgstr "ID da Assinatura"
+
+#: app/docs/update_args/transactions.php:74
+msgid ""
+"The ID of the Recurring Subscription CPT associated with this Transaction."
+msgstr "A ID do CPT de Assinatura Recorrente associado com esta transação."
+
+#: app/docs/update_args/transactions.php:81
+msgid ""
+"The date the Transaction was created. This should be in a MySQL datetime "
+"format. All dates stored in the database should be in UTC timezone."
+msgstr ""
+"A data em que a transação foi criada. Isto deve estar no formato datetime do "
+"MySQL. Todas as datas armazenadas no banco de dados devem ser no fuso "
+"horário UTC."
+
+#: app/docs/update_args/transactions.php:84
+msgid "Expires At Date"
+msgstr "Expirar na Data"
+
+#: app/docs/update_args/transactions.php:88
+msgid ""
+"The date the Transaction will expire on. This should be in a MySQL datetime "
+"format. All dates stored in the database should be in UTC timezone. Note: "
+"Leave at default to create a Transaction that last's a lifetime (aka never "
+"expires)."
+msgstr ""
+"A data em que a transação irá expirar. Isto deve ser um formato datetime do "
+"MySQL. Todas as datas armazenadas no banco de dados devem ser no fuso "
+"horário UTC. Nota: Deixar no padrão para criar uma transação vitalícia (que "
+"nunca expira)."
+
+#: app/docs/webhooks/events.php:4
+msgid "<b>All Events</b>"
+msgstr "<b>Todos os Eventos</b>"
+
+#: app/docs/webhooks/events.php:5
+msgid "Send a webhook for any of the events listed below."
+msgstr "Envie um webhook para qualquer um dos eventos listados abaixo."
+
+#: app/docs/webhooks/events.php:11
+msgid "Member Added"
+msgstr "Assinante Adicionado"
+
+#: app/docs/webhooks/events.php:12
+msgid ""
+"Sent when a new member registers but before their payment details are "
+"accepted."
+msgstr ""
+"Enviado quando um novo associado se registra, mas antes que seu pagamento "
+"seja aceito e confirmado."
+
+#: app/docs/webhooks/events.php:16
+msgid "Member Signup Completed"
+msgstr "Inscrição de Assinante Concluída"
+
+#: app/docs/webhooks/events.php:17
+msgid ""
+"Sent when a new member completes the signup and their payment is accepted."
+msgstr ""
+"Enviado quando um novo assinante completa o registro e o pagamento é aceito."
+
+#: app/docs/webhooks/events.php:21
+msgid "Member Account Info Updated"
+msgstr "Informação de Conta de Assiante Atualizada"
+
+#: app/docs/webhooks/events.php:22
+msgid "Sent when a member updates his/her account information."
+msgstr "Enviado quando um associado atualiza suas informações de conta."
+
+#: app/docs/webhooks/events.php:26
+msgid "Member Deleted"
+msgstr "Assinante Apagado"
+
+#: app/docs/webhooks/events.php:27
+msgid "Sent when a member is deleted from the system."
+msgstr "Enviado quando um assinante é excluído do sistema."
+
+#: app/docs/webhooks/events.php:31
+msgid "Member Logged In"
+msgstr "Assinante Logado"
+
+#: app/docs/webhooks/events.php:32
+msgid "Sent when any member logs in."
+msgstr "Enviado quando qualquer assinante efetua login."
+
+#: app/docs/webhooks/events.php:38
+msgid "Subscription Created"
+msgstr "Assinatura Criada"
+
+#: app/docs/webhooks/events.php:39
+msgid "Sent when a subscription is created."
+msgstr "Enviado quando uma assinatura é criada."
+
+#: app/docs/webhooks/events.php:43
+msgid "Subscription Paused"
+msgstr "Assinatura Pausada"
+
+#: app/docs/webhooks/events.php:44
+msgid "Sent when a subscription is paused."
+msgstr "Enviado quando uma assinatura é pausada."
+
+#: app/docs/webhooks/events.php:48
+msgid "Subscription Resumed"
+msgstr "Assinatura Reativada"
+
+#: app/docs/webhooks/events.php:49
+msgid "Sent when a subscription is resumed."
+msgstr "Enviado quando uma assinatura é retomada."
+
+#: app/docs/webhooks/events.php:53
+msgid "Subscription Stopped"
+msgstr "Assinatura Paralizada"
+
+#: app/docs/webhooks/events.php:54
+msgid "Sent when a subscription is cancelled."
+msgstr "Enviado quando uma assinatura é cancelada."
+
+#: app/docs/webhooks/events.php:58
+msgid "Subscription Upgraded"
+msgstr "Assinatura Promovida"
+
+#: app/docs/webhooks/events.php:59
+msgid "Sent when a subscription is upgraded."
+msgstr "Enviado quando uma assinatura é aumentada."
+
+#: app/docs/webhooks/events.php:63
+msgid "Subscription Downgraded"
+msgstr "Assinatura Rebaixada"
+
+#: app/docs/webhooks/events.php:64
+msgid "Sent when a subscription is downgraded."
+msgstr "Enviado quando uma assinatura é rebaixada."
+
+#: app/docs/webhooks/events.php:68
+msgid "Subscription Expired"
+msgstr "Assinatura Expirada"
+
+#: app/docs/webhooks/events.php:69
+msgid "Sent when a subscription expires."
+msgstr "Enviado quando uma assinatura expira."
+
+#: app/docs/webhooks/events.php:75
+msgid "Transaction Completed"
+msgstr "Transação Concluída"
+
+#: app/docs/webhooks/events.php:76
+msgid "Sent when a transaction has completed on MemberPress."
+msgstr "Enviado quando uma transação foi concluída no MemberPress."
+
+#: app/docs/webhooks/events.php:80
+msgid "Transaction Refunded"
+msgstr "Transação Reembolsada"
+
+#: app/docs/webhooks/events.php:81
+msgid "Sent when any transaction is refunded."
+msgstr "Enviada quando qualquer transação for reembolsada."
+
+#: app/docs/webhooks/events.php:85
+msgid "Transaction Failed"
+msgstr "Transação com Falha"
+
+#: app/docs/webhooks/events.php:86
+msgid "Sent when any transaction fails."
+msgstr "Enviado quando qualquer transação falhar."
+
+#: app/docs/webhooks/events.php:90
+msgid "Transaction Expired"
+msgstr "Transação Expirada"
+
+#: app/docs/webhooks/events.php:91
+msgid "Sent when any transaction expires."
+msgstr "Enviada quando qualquer transação expirar."
+
+#: app/docs/webhooks/events.php:96
+msgid "Recurring Transaction Completed"
+msgstr "Transação Recorrente Concluída"
+
+#: app/docs/webhooks/events.php:97
+msgid "Sent when a transaction associated with a subscription completes."
+msgstr ""
+"Enviado quando uma transação associada a uma assinatura for completada."
+
+#: app/docs/webhooks/events.php:101
+msgid "Recurring Transaction Failed"
+msgstr "Transação Recorrente com Falha"
+
+#: app/docs/webhooks/events.php:102
+msgid ""
+"Sent when a recurring transaction completes. Because recurring transactions "
+"typically involve a 3rd party gateway it's good to know when a payment has "
+"failed on the gateway's end."
+msgstr ""
+"Enviado quando uma transação recorrente for concluída. Como transações "
+"recorrentes normalmente envolvem um gateway de terceiros, é preciso saber "
+"quando um pagamento falhou no final do pagamento."
+
+#: app/docs/webhooks/events.php:106
+msgid "Recurring Transaction Expired"
+msgstr "Transação Recorrente Expirada"
+
+#: app/docs/webhooks/events.php:107
+msgid ""
+"Sent when any transaction associated with a subscription expires. This event "
+"will not indicate that a recurring subscription is expiring, just that a "
+"transaction associated with it is expiring. If you're looking through a "
+"subscription expiration event, try 'subscription-expired'."
+msgstr ""
+"Enviada quando qualquer transação associada a uma assinatura expirar. Este "
+"evento não irá indicar que uma assinatura recorrente está expirando, mas "
+"apenas que uma transação associado a ela está expirando. Se você está "
+"procurando por um evento de expiração da assinatura, tente 'Assinatura "
+"Expirada'."
+
+#: app/docs/webhooks/events.php:112
+msgid "Non-Recurring Transaction Completed"
+msgstr "Transação Não-Recorrente Concluída"
+
+#: app/docs/webhooks/events.php:113
+msgid "Sent when a non-recurring transaction has completed on MemberPress."
+msgstr ""
+"Enviado quando uma transação não-recorrentes for concluída no MemberPress."
+
+#: app/docs/webhooks/events.php:117
+msgid "Non-Recurring Transaction Expired"
+msgstr "Transação Não-Recorrente Expirada"
+
+#: app/docs/webhooks/events.php:118
+msgid "Sent when any transaction not associated with a subscription expires."
+msgstr ""
+"Enviada quando qualquer transação não associada a uma assinatura expirar."
+
+#: app/docs/webhooks/events.php:124
+msgid "After Member Registers"
+msgstr "Depois do Registo do Assinante"
+
+#: app/docs/webhooks/events.php:125
+msgid "Sent when any After Member Signup reminder fires."
+msgstr "Enviada após o disparo do lembrete \"After Member Signup\"."
+
+#: app/docs/webhooks/events.php:129
+msgid "After Signup Abandoned"
+msgstr "Depois do Registo Abandonado"
+
+#: app/docs/webhooks/events.php:130
+msgid "Sent when any After Member Signup Abandoned reminder fires."
+msgstr ""
+"Enviada quando acionado qualquer lembrete \"After Member Signup Abandoned\"."
+
+#: app/docs/webhooks/events.php:134
+msgid "Before Subscription Expires"
+msgstr "Antes que a Assinatura Expire"
+
+#: app/docs/webhooks/events.php:135
+msgid "Sent when any Before Subscription Expires reminder fires."
+msgstr ""
+"Enviada quando acionado qualquer lembrete \"Before Subscription Expires\"."
+
+#: app/docs/webhooks/events.php:139
+msgid "After Subscription Expires"
+msgstr "Depois que a Assinatura Expirou"
+
+#: app/docs/webhooks/events.php:140
+msgid "Sent when any After Subscription Expires reminder fires."
+msgstr ""
+"Enviada quando acionado qualquer lembrete \"After Subscription Expires\"."
+
+#: app/docs/webhooks/events.php:144
+msgid "Before Subscription Renews"
+msgstr "Antes que a Assinatura Seja Renovada"
+
+#: app/docs/webhooks/events.php:145
+msgid "Sent when any Before Subscription Renews reminder fires."
+msgstr ""
+"Enviada quando acionado qualquer lembrete \"Before Subscription Renews\"."
+
+#: app/docs/webhooks/events.php:149
+msgid "After Credit Card Expires"
+msgstr "Depois que o Cartão de Crédito Expirou"
+
+#: app/docs/webhooks/events.php:150
+msgid "Sent when any After Credit Card Expires reminder fires."
+msgstr ""
+"Enviada quando acionado qualquer lembrete \"After Credit Card Expires\"."
+
+#: app/docs/webhooks/events.php:154
+msgid "Before Credit Card Expires"
+msgstr "Antes que o Cartão de Crédito Expire"
+
+#: app/docs/webhooks/events.php:155
+msgid "Sent when any Before Credit Card Expires reminder fires."
+msgstr ""
+"Enviada quando acionado qualquer lembrete \"Before Credit Card Expires\"."
+
+#: app/lib/MpdtBaseApi.php:120
+msgid "There were no %s found with an id of %d"
+msgstr "Não existe %s encontrado com uma ID %d"
+
+#: app/lib/MpdtBaseApi.php:198
+msgid "The %s with an id of %d wasn't found."
+msgstr "O %s com uma ID %d não foi encontado."
+
+#: app/lib/MpdtWebhookJob.php:9
+msgid "\"webhook\" cannot be blank"
+msgstr "\"webhook\" não pode estar em branco"
+
+#: app/lib/MpdtWebhookJob.php:13
+msgid "\"event\" cannot be blank"
+msgstr "\"evento\" não pode estar em branco"
+
+#: app/lib/MpdtWebhookJob.php:17
+msgid "\"data_id\" cannot be blank"
+msgstr "\"data_id\" não pode estar em branco"
+
+#: app/views/admin.php:19 app/views/webhooks.php:4
+msgid "Webhooks"
+msgstr "Webhooks"
+
+#: app/views/admin.php:20
+msgid "Events"
+msgstr "Eventos"
+
+#: app/views/admin.php:21 app/views/api.php:7
+msgid "REST API"
+msgstr "REST API"
+
+#: app/views/admin.php:22
+msgid "Other Resources"
+msgstr "Outros recursos"
+
+#: app/views/api.php:8
+msgid "View dynamic API route documentation and examples."
+msgstr "Ver rotas de API dinâmica, documentação e exemplos."
+
+#: app/views/api.php:10
+msgid "Select an API Route:"
+msgstr "Selecione uma rota de API:"
+
+#: app/views/api.php:14
+msgid "Select a Route"
+msgstr "Seleccione uma rota"
+
+#: app/views/api.php:32
+msgid ""
+"You're not running WordPress 4.7 and the WordPress REST API plugin isn't "
+"active"
+msgstr ""
+"Você não está executando WordPress 4.7 e o WordPress REST API não está ativa"
+
+#: app/views/api.php:33
+msgid ""
+"The MemberPress REST API requires at least WordPress 4.7 or relies on "
+"WordPress's REST API plugin **Version 2** being installed and activated on "
+"this site."
+msgstr ""
+"A API REST do MemberPress requer pelo menos WordPress 4.7 e depende do "
+"plugin API REST do WordPress **Versão 2** instalado e ativo neste site."
+
+#: app/views/events.php:3
+msgid "Webhook Events"
+msgstr "Eventos webhook"
+
+#: app/views/events.php:4
+msgid ""
+"Here are the Events sent to URLs configured with Webhooks. Select an Event "
+"for more information, to have the ability to send test POST requests, and "
+"see an example of the JSON response you can expect."
+msgstr ""
+"Aqui estão os eventos enviados para URLs configuradas como webhooks. "
+"Selecione um evento para mais informações. Para ter a capacidade de enviar "
+"solicitações POST de teste, veja um exemplo da resposta JSON que você pode "
+"esperar."
+
+#: app/views/events.php:6
+msgid "Select an Event:"
+msgstr "Selecione um evento:"
+
+#: app/views/events.php:11
+msgid "Select an Event"
+msgstr "Selecione um evento"
+
+#: app/views/events.php:27
+msgid "Description"
+msgstr "Descrição"
+
+#: app/views/events.php:32
+msgid "Test"
+msgstr "Teste"
+
+#: app/views/events.php:33
+msgid ""
+"Click this button to send a POST request of this event to all webhooks you "
+"currently have setup."
+msgstr ""
+"Clique neste botão para enviar um POST deste evento para todos os webhooks "
+"que você atualmente tem definido."
+
+#: app/views/events.php:35
+msgid "Send Test"
+msgstr "Enviar Teste"
+
+#: app/views/events.php:43
+msgid "JSON Response"
+msgstr "Resposta JSON"
+
+#: app/views/events.php:44
+msgid ""
+"MemberPress will send JSON like this in the POST body to your Webhook when "
+"this event triggers."
+msgstr ""
+"O MemberPress enviará um JSON como este no corpo do POST para seu webhook "
+"quando esse evento for acionado."
+
+#: app/views/resources.php:3
+msgid "Resources"
+msgstr "Recursos"
+
+#: app/views/resources.php:4
+msgid "Additional MemberPress Development Resources"
+msgstr "Recursos de desenvolvimento adicionais do MemberPress"
+
+#: app/views/resources.php:6
+msgid "Shortcodes"
+msgstr "Shortcodes"
+
+#: app/views/route.php:4
+msgid "Definition"
+msgstr "Definição"
+
+#: app/views/route.php:6
+msgid "(Requires Authentication)"
+msgstr "(Requer Autenticação)"
+
+#: app/views/route.php:9
+msgid "Example Request"
+msgstr "Solicitação de exemplo"
+
+#: app/views/route.php:13
+msgid "Search Arguments"
+msgstr "Argumentos de pesquisa"
+
+#: app/views/route.php:17
+msgid "Update Arguments"
+msgstr "Argumentos de atualização"
+
+#: app/views/route.php:21
+msgid "Example Response"
+msgstr "Exemplo de resposta"
+
+#: app/views/webhook-row.php:8
+msgid "Webhook URL"
+msgstr "URL do webhook"
+
+#: app/views/webhook-row.php:12
+msgid "Remove Webhook URL"
+msgstr "Remover URL do webhook"
+
+#: app/views/webhook-row.php:16
+msgid "Advanced"
+msgstr "Avançado"
+
+#: app/views/webhook-row.php:24
+msgid "Select Events to send to this Webhook"
+msgstr "Selecione eventos para enviar para este webhook"
+
+#: app/views/webhooks.php:5
+msgid ""
+"Webhooks can send JSON push notices to specific URLs via POST when specific "
+"events occur in MemberPress. You can configure your webhooks here:"
+msgstr ""
+"Webhooks podem enviar avisos JSON para URLs específicas através de POST "
+"quando ocorrem eventos específicos no MemberPress. Você pode configurar seus "
+"webhooks aqui:"
+
+#: app/views/webhooks.php:20
+msgid "Add Webhook URL"
+msgstr "Adicionar URL de webhooks"
+
+#: app/views/webhooks.php:25
+msgid "Save Webhooks"
+msgstr "Salvar Webhooks"
+
+#: script/i18n/pomo/sample/app.php:56
+msgid "Welcome %s!"
+msgstr "Bem-vindo %s!"
+
+#: script/i18n/pomo/sample/app.php:60
+msgid "A string with low priority!"
+msgstr "Um texto com baixa prioridade!"
+
+#: script/i18n/pomo/sample/app.php:62
+msgid "Bye\n"
+msgstr "Adeus\n"
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.memberpress.com/"
+msgstr "http://www.memberpress.com/"
+
+#. Description of the plugin/theme
+msgid "Tools for MemberPress Developers."
+msgstr "Ferramentas para desenvolvedores do MemberPress."
+
+#. Author URI of the plugin/theme
+msgid "http://caseproof.com/"
+msgstr "http://caseproof.com/"

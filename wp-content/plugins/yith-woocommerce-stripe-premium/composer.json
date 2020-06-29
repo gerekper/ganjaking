@@ -1,0 +1,15 @@
+{
+    "name": "yithemes/yith-woocommerce-stripe-premium",
+    "description": "Allows you to add Stripe gateway payment to WooCommerce",
+    "type": "plugin",
+    "require": {
+        "stripe/stripe-php": "^7.0"
+    },
+    "authors": [
+        {
+            "name": "YIThemes",
+            "email": "info@yithemes.com"
+        }
+    ],
+    "minimum-stability": "stable"
+}
