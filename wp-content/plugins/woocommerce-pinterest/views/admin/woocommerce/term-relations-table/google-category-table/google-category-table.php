@@ -15,13 +15,9 @@ use Premmerce\WooCommercePinterest\Admin\Table\CatalogTable;
 	<th scope="row">
 
 	</th>
-	<td class="forminp">
+	<td style="padding: 0">
 		<div id="woocommerce-pinterest-google-catalog-table" class="woocommerce-pinterest-settings-list-table">
 			<?php $table->display(); ?>
-			
-			<div class="woocommerce-pinterest-list-table-save">
-				<?php submit_button(__('Save categories table', 'woocommerce-pinterest'), 'primary', 'save-google-categories-table', false); ?>
-			</div>
 
 			<div class="woocommerce-pinterest-table-saved-message">
 				<p><?php esc_html_e('Saved', 'woocommerce-pinterest'); ?></p>

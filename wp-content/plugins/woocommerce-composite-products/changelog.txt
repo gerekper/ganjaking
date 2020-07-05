@@ -1,5 +1,9 @@
 *** WooCommerce Composite Products ***
 
+2020.06.26 - version 7.0.4
+* Fix - 'Sold Individually > Yes' not working as expected.
+* Tweak - Added loopback test results in Status Report.
+
 2020.06.19 - version 7.0.3
 * Feature - Check if the server is able to perform loopback requests and display a warning if the test fails.
 * Tweak - Display warning if PHP is truncating form fields on edit-post pages when updating a Composite Product.

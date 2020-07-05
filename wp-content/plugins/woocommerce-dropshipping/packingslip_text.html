@@ -1,0 +1,65 @@
+Order Number : <?php echo 'Order #'.$order_info['id']; ?><br>
+
+Packing Company Name : <?php echo $order_info['options']['packing_slip_company_name']; ?><br>
+
+Packing Slip Address : <?php echo $order_info['options']['packing_slip_address']; ?><br>
+
+Packing Service Email : <?php echo $order_info['options']['packing_slip_customer_service_email']; ?><br>
+
+Packing Service Phone : <?php echo $order_info['options']['packing_slip_customer_service_phone']; ?><br>
+           
+		   
+SHIP TO:                
+                
+Name : <?php if(strlen($order_info['shipping_info']['name']) > 0){echo $order_info['shipping_info']['name'];} ?><br>
+
+Company : <?php if(strlen($order_info['shipping_info']['shipping_company']) > 0){echo $order_info['shipping_info']['shipping_company'];} ?><br>
+
+Address 1 : <?php echo $order_info['shipping_info']['shipping_address_1']; ?><br>
+
+Address 2 : <?php if(strlen($order_info['shipping_info']['shipping_address_2']) > 0) {echo $order_info['shipping_info']['shipping_address_2']; } ?><br>
+
+City : <?php echo $order_info['shipping_info']['shipping_city'];?><br>
+
+State : <?php echo $order_info['shipping_info']['shipping_state'];?><br>
+
+Postcode : <?php echo $order_info['shipping_info']['shipping_postcode']; ?><br>
+
+Country : <?php echo $order_info['shipping_info']['shipping_country']; ?> <br>
+Phone : <?php echo $order_info['shipping_info']['phone']; ?><br>
+
+Customer Note : <?php if(!empty($order_info['ordernote'])) { echo $order_info['ordernote']; } ?><br>
+
+Chosen Shipping Method: <?php echo $order_info['shipping_info']['shipping_method']; ?><br>
+           
+
+<?php 
+	$rows = '';
+	foreach($order_info[$supplier_info['slug']] as $prod_info)
+	{
+?>
+<?php echo "SkU: ".$prod_info['sku'];?><br>
+ <?php echo "Product Name: " .$prod_info['name'];?><br>
+ <?php echo 'Qty: '.$prod_info['qty'];?><br>                   
+<?php		
+			foreach($prod_info['variation_data'] as $key=>$value)
+			{
+			?>
+			<?php echo $value;?><br>
+			<?php
+				
+			}
+			foreach($prod_info['order_item_meta'] as $meta)
+			{
+			?>
+			<?php echo trim($meta->value);?><br> 
+			
+			<?php
+			}
+	} 
+?>
+<br>
+<b>To mark this order as shipped please visit the following link on your browser:</b><br> 
+	<a><?php echo bloginfo('url') ?>/wp-admin/admin-ajax.php?action=woocommerce_dropshippers_mark_as_shipped&orderid=<?php echo $order_info['id']; ?>&supplierid=<?php echo $supplier_info['id'];?></a><br><br>
+
+<?php echo @$order_info['options']['packing_slip_thankyou']; ?><br><br>

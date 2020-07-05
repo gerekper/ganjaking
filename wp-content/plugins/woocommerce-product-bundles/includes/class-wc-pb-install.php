@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Handles installation and updating tasks.
  *
  * @class    WC_PB_Install
- * @version  5.9.0
+ * @version  6.3.0
  */
 class WC_PB_Install {
 
@@ -292,6 +292,13 @@ class WC_PB_Install {
 			WC_PB_Admin_Notices::add_maintenance_notice( 'welcome' );
 		}
 
+		// Run a loopback test after every update. Will only run once if successful.
+		WC_PB_Admin_Notices::add_maintenance_notice( 'loopback' );
+
+		// Add feature plugin recommendations in the Inbox: These are only added once.
+		WC_PB_Admin_Notices::add_note( 'min-max' );
+		WC_PB_Admin_Notices::add_note( 'bulk-discounts' );
+
 		// Update plugin version - once set, 'maybe_install' will not call 'install' again.
 		self::update_version();
 	}
@@ -548,8 +555,8 @@ CREATE TABLE {$wpdb->prefix}woocommerce_bundled_itemmeta (
 
 		if ( $file == WC_PB()->plugin_basename() ) {
 			$row_meta = array(
-				'docs'    => '<a href="https://docs.woocommerce.com/document/bundles/">' . __( 'Documentation', 'woocommerce-product-bundles' ) . '</a>',
-				'support' => '<a href="' . esc_url( WC_PB_SUPPORT_URL ) . '">' . __( 'Support', 'woocommerce-product-bundles' ) . '</a>',
+				'docs'    => '<a href="' . WC_PB()->get_resource_url( 'docs-contents' ) . '">' . __( 'Documentation', 'woocommerce-product-bundles' ) . '</a>',
+				'support' => '<a href="' . WC_PB()->get_resource_url( 'ticket-form' ) . '">' . __( 'Support', 'woocommerce-product-bundles' ) . '</a>',
 			);
 
 			return array_merge( $links, $row_meta );

@@ -5,11 +5,14 @@ class MpdtMembersApi extends MpdtBaseApi {
 
   protected function after_create($args, $request, $response) {
     $member_data = (object)$response->get_data();
+    $mepr_user = new MeprUser($member_data->id);
 
     if(isset($args['send_password_email']) && !empty($args['send_password_email'])) {
-      $mepr_user = new MeprUser($member_data->id);
       $mepr_user->send_password_notification('new');
     }
+
+    // Needed for autoresponders - call before txn is stored
+    MeprHooks::do_action('mepr-signup-user-loaded', $mepr_user);
 
     if(isset($args['transaction']) && is_array($args['transaction'])) {
       $args['transaction']['member'] = $member_data->id; // hard code current member

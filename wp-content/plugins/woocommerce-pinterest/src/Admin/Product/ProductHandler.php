@@ -25,7 +25,6 @@ use WP_Post;
  */
 class ProductHandler {
 
-
 	const PRODUCT_BOARD_META_FIELD = 'woocommerce_pinterest_product_board';
 
 	/**

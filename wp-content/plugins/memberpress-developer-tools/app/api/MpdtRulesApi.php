@@ -7,5 +7,28 @@ class MpdtRulesApi extends MpdtBaseApi {
     $rule['auto_gen_title'] = false;
     return $rule;
   }
+
+  protected function after_store($request, $response) {
+    $rule_data = (object) $response->get_data();
+    $args = $request->get_params();
+
+    if(!empty($rule_data->id) && isset($args['authorized_memberships']) && is_array($args['authorized_memberships'])) {
+      // Delete rules first then add them back below
+      MeprRuleAccessCondition::delete_all_by_rule($rule_data->id);
+
+      $memberships = array_filter(array_map('intval', $args['authorized_memberships']));
+
+      foreach($memberships as $membership) {
+        $rule_access_condition = new MeprRuleAccessCondition();
+        $rule_access_condition->rule_id = $rule_data->id;
+        $rule_access_condition->access_type = 'membership';
+        $rule_access_condition->access_operator = 'is';
+        $rule_access_condition->access_condition  = $membership;
+        $rule_access_condition->store();
+      }
+    }
+
+    return $response;
+  }
 }
 

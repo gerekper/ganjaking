@@ -67,22 +67,19 @@ th.manage-column.column-image.column-primary {
 	content: " \f469";
 }
 
-.woocommerce-pinterest-board-select-container:only-of-type .woocommerce-pinterest-remove-board-select{
+
+.woocommerce-pinterest-board-select-container:only-of-type .woocommerce-pinterest-remove-board-select {
 	display: none;
 }
 
-h3.wc-settings-sub-title{
-	background: #fff;
-	margin-bottom: 0;
-	padding: 10px 20px;
-	border: 1px solid #e5e5e5;
-	cursor: pointer;
+.woocommerce-pinterest-remove-board-select {
+	line-height: 30px;
+	margin-left: 10px;
+	color: red;
 }
 
-h3.wc-settings-sub-title:before{
-	font-family: "dashicons";
-	content: "\f142";
-	float: right;
+.woocommerce-pinterest-remove-board-select:hover {
+	color: #ad0000;
 }
 
 h3.wc-settings-sub-title.closed:before{
@@ -94,20 +91,10 @@ h3.wc-settings-sub-title.closed:before{
 	transform: rotate(180deg);
 }
 
-table.form-table{
-	border: 1px solid #e5e5e5;
-	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
-	background: #fff;
-	display: block;
+#woocommerce-pinterest-category-board-table .tablenav.top, #woocommerce-pinterest-google-catalog-table .tablenav.top {
+	display: none;
 }
 
-table.form-table th.titledesc{
-	padding: 20px;
-}
-
-h3.wc-settings-sub-title.closed + table.form-table{
-	display:none;
-}
 .woocommerce-pinterest-settings-list-table .woocommerce-pinterest-list-table-save{
 	max-width: 33%;
 	float: left;
@@ -131,10 +118,6 @@ h3.wc-settings-sub-title.closed + table.form-table{
 	display: none;
 }
 
-#woocommerce-pinterest-category-board-table .tablenav  {
-	display: none;
-}
-
 #woocommerce-pinterest-google-catalog-table .woocommerce-pinterest-google-category-select{
 	width: 100%;
 }
@@ -144,8 +127,10 @@ h3.wc-settings-sub-title.closed + table.form-table{
 }
 
 #woocommerce-pinterest-google-catalog-table .wp-list-table th,
-#woocommerce-pinterest-category-board-table .wp-list-table th{
-	padding: 20px 10px 20px;
+#woocommerce-pinterest-category-board-table .wp-list-table th,
+#woocommerce-pinterest-google-catalog-table .wp-list-table td,
+#woocommerce-pinterest-category-board-table .wp-list-table td{
+	padding: 20px 20px 20px;
 }
 
 #woocommerce-pinterest-category-board-table .woocommerce-pinterest-board-select-container {

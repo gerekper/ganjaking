@@ -8,7 +8,7 @@
 	</span>
 <?php elseif ($state->isWaiting()) : ?>
 	<span class="woo-pinterest-orange">
-		<?php esc_html_e('API is temporary unavailable.', 'woocommerce-pinterest'); ?>
+		<?php esc_html_e('API is temporary unavailable. You\'ve reached the daily limit (100 requests), please, wait 24 hours and try again.', 'woocommerce-pinterest'); ?>
 	</span>
 <?php else : ?>
 	<a class="woocommerce-pinterest-update-link"

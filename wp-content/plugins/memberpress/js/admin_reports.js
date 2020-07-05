@@ -52,22 +52,31 @@ var drawReportingCharts = function () {
 
   jQuery
     .getJSON(ajaxurl, args, function (data) {
-      var chartData = new google.visualization.DataTable(data);
-      var chart = new google.visualization.AreaChart(document.getElementById('yearly-amounts-area-graph'));
+      var $chart = jQuery('#yearly-amounts-area-graph'),
+        chartSettings = {
+          height: '350',
+          width: main_width,
+          title: jQuery('div#mepr-reports-yearly-areas-title').attr('data-value'),
+          hAxis: {
+            title: jQuery('div#mepr-reports-yearly-htitle').attr('data-value')
+          },
+          vAxis:{
+            format: currency_symbol
+          }
+        };
 
-      var chartSettings = {
-        height: '350',
-        width: main_width,
-        title: jQuery('div#mepr-reports-yearly-areas-title').attr('data-value'),
-        hAxis: {
-          title: jQuery('div#mepr-reports-yearly-htitle').attr('data-value')
-        },
-        vAxis:{
-          format: currency_symbol
-        }
-      };
+      if($chart.is(':visible')) {
+        var chartData = new google.visualization.DataTable(data);
+        var chart = new google.visualization.AreaChart($chart[0]);
 
-      chart.draw(chartData, chartSettings);
+        chart.draw(chartData, chartSettings);
+      }
+      else {
+        $chart.data({
+          chartData: data,
+          chartSettings: chartSettings
+        });
+      }
   });
 
   //Monthly Transactions Area Chart
@@ -82,19 +91,28 @@ var drawReportingCharts = function () {
 
   jQuery
     .getJSON(ajaxurl, args, function (data) {
-      var chartData = new google.visualization.DataTable(data);
-      var chart = new google.visualization.AreaChart(document.getElementById('monthly-transactions-area-graph'));
+      var $chart = jQuery('#monthly-transactions-area-graph'),
+        chartSettings = {
+          height: '350',
+          width: main_width,
+          title: jQuery('div#mepr-reports-monthly-transactions-title').attr('data-value'),
+          hAxis: {
+            title: jQuery('div#mepr-reports-monthly-htitle').attr('data-value')
+          }
+        };
 
-      var chartSettings = {
-        height: '350',
-        width: main_width,
-        title:jQuery('div#mepr-reports-monthly-transactions-title').attr('data-value'),
-        hAxis: {
-          title:jQuery('div#mepr-reports-monthly-htitle').attr('data-value')
-        }
-      };
+      if($chart.is(':visible')) {
+        var chartData = new google.visualization.DataTable(data);
+        var chart = new google.visualization.AreaChart($chart[0]);
 
-      chart.draw(chartData, chartSettings);
+        chart.draw(chartData, chartSettings);
+      }
+      else {
+        $chart.data({
+          chartData: data,
+          chartSettings: chartSettings
+        });
+      }
     });
 
   //Yearly Transactions Area Chart
@@ -108,19 +126,28 @@ var drawReportingCharts = function () {
 
   jQuery
     .getJSON(ajaxurl, args, function (data) {
-      var chartData = new google.visualization.DataTable(data);
-      var chart = new google.visualization.AreaChart(document.getElementById('yearly-transactions-area-graph'));
+      var $chart = jQuery('#yearly-transactions-area-graph'),
+        chartSettings = {
+          height: '350',
+          width: main_width,
+          title: jQuery('div#mepr-reports-yearly-transactions-title').attr('data-value'),
+          hAxis: {
+            title: jQuery('div#mepr-reports-yearly-htitle').attr('data-value')
+          }
+        };
 
-      var chartSettings = {
-        height:'350',
-        width: main_width,
-        title:jQuery('div#mepr-reports-yearly-transactions-title').attr('data-value'),
-        hAxis:{
-          title:jQuery('div#mepr-reports-yearly-htitle').attr('data-value')
-        }
-      };
+      if($chart.is(':visible')) {
+        var chartData = new google.visualization.DataTable(data);
+        var chart = new google.visualization.AreaChart($chart[0]);
 
-      chart.draw(chartData, chartSettings);
+        chart.draw(chartData, chartSettings);
+      }
+      else {
+        $chart.data({
+          chartData: data,
+          chartSettings: chartSettings
+        });
+      }
     });
 
   //Monthly Pie Chart Totals
@@ -207,13 +234,17 @@ google.charts.setOnLoadCallback(drawReportingCharts);
       if($(this).hasClass('nav-tab-active'))
         return false;
 
-      var chosen = $(this).attr('id');
+      var $chosen = $('div.' + $(this).attr('id'));
 
       $('a.main-nav-tab').removeClass('nav-tab-active');
       $(this).addClass('nav-tab-active');
 
       $('div.mepr_reports_area').hide();
-      $('div.' + chosen).show();
+      $chosen.show();
+
+      $chosen.find('.monthly_graph_area, .yearly_graph_area').each(function () {
+        maybeDrawHiddenAreaChart($(this));
+      });
 
       return false;
     });
@@ -223,13 +254,15 @@ google.charts.setOnLoadCallback(drawReportingCharts);
       if($(this).hasClass('nav-tab-active'))
         return false;
 
-      var chosen = $(this).attr('id');
+      var $chosen = $('div.' + $(this).attr('id'));
 
       $('a.monthly-nav-tab').removeClass('nav-tab-active');
       $(this).addClass('nav-tab-active');
 
       $('div.monthly_graph_area').hide();
-      $('div.' + chosen).show();
+      $chosen.show();
+
+      maybeDrawHiddenAreaChart($chosen);
 
       return false;
     });
@@ -239,16 +272,30 @@ google.charts.setOnLoadCallback(drawReportingCharts);
       if($(this).hasClass('nav-tab-active'))
         return false;
 
-      var chosen = $(this).attr('id');
+      var $chosen = $('div.' + $(this).attr('id'));
 
       $('a.yearly-nav-tab').removeClass('nav-tab-active');
       $(this).addClass('nav-tab-active');
 
       $('div.yearly_graph_area').hide();
-      $('div.' + chosen).show();
+      $chosen.show();
+
+      maybeDrawHiddenAreaChart($chosen);
 
       return false;
     });
 
+    function maybeDrawHiddenAreaChart($chart) {
+      if($chart.is(':visible') && $chart.data('chartData') && $chart.data('chartSettings')) {
+        var chart = new google.visualization.AreaChart($chart[0]);
+
+        chart.draw(
+          new google.visualization.DataTable($chart.data('chartData')),
+          $chart.data('chartSettings')
+        );
+
+        $chart.removeData(['chartData', 'chartSettings']);
+      }
+    }
   });
 })(jQuery);

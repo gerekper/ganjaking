@@ -101,11 +101,11 @@ class MpBuddyPress {
         <div id="mepr_bp_options_area" class="mepr-hidden mepr-sub-box-white" style="margin-top:20px;">
           <div class="mepr-arrow mepr-white mepr-up mepr-sub-box-arrow"> </div>
 
-          <?php if(!get_option('users_can_register') && !bp_is_active('groups')): ?>
+          <?php if(!bp_is_active('groups')): ?>
             <p><?php _e('BuddyPress Integration is activated. For further integration options - enable BuddyPress Groups.', 'memberpress-buddypress'); ?></p>
           <?php endif; ?>
 
-          <?php if(get_option('users_can_register')): ?>
+          <?php //if(get_option('users_can_register')): // Commenting out so this can work with Email Invites BuddyBoss add-on which requires that "Anyone can register" be disabled ?>
             <label for="mepr_bp_default_free_membership"><?php _e('Default Free Membership', 'memberpress-buddypress'); ?>:</label>
             <br/>
             <select id="mepr_bp_default_free_membership" name="mepr_bp_default_free_membership">
@@ -116,12 +116,12 @@ class MpBuddyPress {
             </select>
             <br/>
             <small><?php _e("If the user signs up via BuddyPress's signup page, then no payment can be collected. Therefore the member will get lifetime free access to the default Membership you choose here. If you need to charge your users, then we recommend that you disable signups via BuddyPress and instead force the users to signup via MemberPress instead.", 'memberpress-buddypress'); ?></small>
-          <?php endif; //Users can register ?>
+          <?php //endif; //Users can register ?>
           <?php if(bp_is_active('groups') && $groups['total']): ?>
-            <?php if(get_option('users_can_register')): //Show a spacer ?>
+            <?php //if(get_option('users_can_register')): //Show a spacer ?>
               <br/>
               <br/>
-            <?php endif; ?>
+            <?php //endif; ?>
             <label for="mepr_bp_default_groups"><?php _e('Default Group(s) for ALL Members', 'memberpress-buddypress'); ?>:</label>
             <br/>
             <select id="mepr_bp_default_groups" name="mepr_bp_default_groups[]" multiple="multiple" style="width:98%;height:150px;">

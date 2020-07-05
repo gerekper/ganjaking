@@ -139,7 +139,7 @@ return array(
   ),
   'recurring-transaction-failed' => (object)array(
     'label' => __('Recurring Transaction Failed', 'memberpress-developer-tools'),
-    'desc'  => __('Sent when a recurring transaction completes. Because recurring transactions typically involve a 3rd party gateway it\'s good to know when a payment has failed on the gateway\'s end.', 'memberpress-developer-tools'),
+    'desc'  => __('Sent when a recurring transaction fails. Because recurring transactions typically involve a 3rd party gateway it\'s good to know when a payment has failed on the gateway\'s end.', 'memberpress-developer-tools'),
     'type'  => 'transaction'
   ),
   'recurring-transaction-expired' => (object)array(

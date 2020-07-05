@@ -47,7 +47,7 @@ class MpdtEventUtils extends MpdtBaseUtils {
       $search_clause = $wpdb->prepare("
         {$where} ( e.event LIKE %s
                  OR e.args LIKE %s
-                 OR e.evt_type LIKE %s )
+                 OR e.evt_id_type LIKE %s )
       ",
       '%'.$args['search'].'%',
       '%'.$args['search'].'%',

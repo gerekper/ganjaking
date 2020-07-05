@@ -22,7 +22,7 @@ $formattedNow               = ( new DateTime() )->format('Y-m-d H:i:s');
 	<th scope="row" class="titledesc">
 		<?php echo esc_html($title); ?>
 	</th>
-	<td class="forminp">
+	<td>
 		<fieldset>
 			<legend class="screen-reader-text"><span><?php echo esc_html($title); ?></span></legend>
 

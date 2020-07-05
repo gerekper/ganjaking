@@ -25,14 +25,14 @@ if($method=='get'):
 
 ?>
 $ curl "<?php echo $url.$argstr; ?>" \
-       -u <?php echo $current_user->user_login; ?>:yourpassword
+       -H "MEMBERPRESS-API-KEY: <?php echo get_option('mpdt_api_key', 'yourApiKeyHere'); ?>"
 <?php
 
 elseif($method=='post'):
 
 ?>
 $ curl -X POST "<?php echo $url; ?>" \
-       -u <?php echo $current_user->user_login; ?>:yourpassword \
+       -H "MEMBERPRESS-API-KEY: <?php echo get_option('mpdt_api_key', 'yourApiKeyHere'); ?>" \
 <?php
 
   $curl_params = array();

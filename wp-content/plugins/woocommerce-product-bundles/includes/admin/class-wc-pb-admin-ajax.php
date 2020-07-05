@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Admin AJAX meta-box handlers.
  *
  * @class    WC_PB_Admin_Ajax
- * @version  6.1.5
+ * @version  6.3.0
  */
 class WC_PB_Admin_Ajax {
 
@@ -37,6 +37,9 @@ class WC_PB_Admin_Ajax {
 
 		// Dismiss notices.
 		add_action( 'wp_ajax_woocommerce_dismiss_bundle_notice', array( __CLASS__ , 'dismiss_notice' ) );
+
+		// Ajax handler for performing loopback tests.
+		add_action( 'wp_ajax_woocommerce_bundles_loopback_test', array( __CLASS__, 'ajax_loopback_test' ) );
 
 		/*
 		 * Edit-Product screens.
@@ -95,6 +98,51 @@ class WC_PB_Admin_Ajax {
 		if ( ! $dismissed ) {
 			wp_send_json( $failure );
 		}
+
+		$response = array(
+			'result' => 'success'
+		);
+
+		wp_send_json( $response );
+	}
+
+	/**
+	 * Checks if loopback requests work.
+	 *
+	 * @since  6.3.0
+	 *
+	 * @return void
+	 */
+	public static function ajax_loopback_test() {
+
+		$failure = array(
+			'result' => 'failure'
+		);
+
+		if ( ! check_ajax_referer( 'wc_pb_loopback_notice_nonce', 'security', false ) ) {
+			wp_send_json( $failure );
+		}
+
+		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+			wp_send_json( $failure );
+		}
+
+		if ( ! class_exists( 'WP_Site_Health' ) ) {
+			require_once( ABSPATH . 'wp-admin/includes/class-wp-site-health.php' );
+		}
+
+		$site_health = method_exists( 'WP_Site_Health', 'get_instance' ) ? WP_Site_Health::get_instance() : new WP_Site_Health();
+		$result      = $site_health->can_perform_loopback();
+		$passes_test = 'good' === $result->status;
+
+		WC_PB_Admin_Notices::set_notice_option( 'loopback', 'last_tested', gmdate( 'U' ) );
+		WC_PB_Admin_Notices::set_notice_option( 'loopback', 'last_result', $passes_test ? 'pass' : 'fail' );
+
+		if ( ! $passes_test ) {
+			wp_send_json( $failure );
+		}
+
+		WC_PB_Admin_Notices::remove_maintenance_notice( 'loopback' );
 
 		$response = array(
 			'result' => 'success'

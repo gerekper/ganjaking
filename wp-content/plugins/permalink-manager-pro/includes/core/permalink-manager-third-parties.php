@@ -39,6 +39,10 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 			}
 
 			add_action('woocommerce_product_import_inserted_product_object', array($this, 'woocommerce_generate_permalinks_after_import'), 9, 2);
+
+			if(wp_doing_ajax() && class_exists('SitePress')) {
+				add_filter('permalink_manager_filter_final_post_permalink', array($this, 'woocommerce_translate_ajax_fragments_urls'), 9999, 3);
+			}
 		}
 
 		// 5. Theme My Login
@@ -95,7 +99,20 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 
 		// 12. My Listing by 27collective
 		if(defined('CASE27_THEME_DIR')) {
-			add_filter( 'permalink_manager_filter_default_post_uri', array($this, 'replace_listing_custom_field_tags'), 5, 5 );
+			add_filter('permalink_manager_filter_default_post_uri', array($this, 'ml_listing_custom_fields'), 5, 5 );
+			add_action('mylisting/submission/save-listing-data', array($this, 'ml_set_listing_uri'), 100);
+			add_filter('permalink_manager_filter_query', array($this, 'ml_detect_archives'), 1);
+		}
+
+		// 13. bbPress
+		if(class_exists('bbPress')) {
+			add_filter('permalink_manager_endpoints', array($this, 'bbpress_endpoints'), 9);
+		}
+
+		// 14. Dokan
+		if(class_exists('WeDevs_Dokan')) {
+			add_action('wp', array($this, 'dokan_detect_endpoints'), 999);
+			add_filter('permalink_manager_endpoints', array($this,'dokan_endpoints'));
 		}
 	}
 
@@ -103,7 +120,7 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 	 * Some of the hooks must be called shortly after all the plugins are loaded
 	 */
 	public function init_early_hooks() {
-		// 13. WP Store Locator
+		// WP Store Locator
 		if(class_exists('WPSL_CSV')) {
 			add_action('added_post_meta', array($this, 'wpsl_regenerate_after_import'), 10, 4);
 			add_action('updated_post_meta', array($this, 'wpsl_regenerate_after_import'), 10, 4);
@@ -149,6 +166,14 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 			}
 			// The Events Calendar
 			else if(!empty($query_vars['eventDisplay'])) {
+				$wp_query->query_vars['do_not_redirect'] = 1;
+			}
+			// Groundhogg
+			else if(!empty($query_vars['target_url'])) {
+				$wp_query->query_vars['do_not_redirect'] = 1;
+			}
+			// MyListing theme
+			else if(!empty($query_vars['explore_tab']) || !empty($query_vars['explore_region'])) {
 				$wp_query->query_vars['do_not_redirect'] = 1;
 			}
 		}
@@ -316,6 +341,32 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 		}
 	}
 
+	function woocommerce_translate_ajax_fragments_urls($permalink, $post, $old_permalink) {
+		// Use it only if the permalinks are different
+		if($permalink == $old_permalink || $post->post_type !== 'page') {
+			return $permalink;
+		}
+
+		// A. Native WooCommerce AJAX events
+		if(!empty($_REQUEST['wc-ajax'])) {
+			$action = sanitize_title($_REQUEST['wc-ajax']);
+		}
+		// B. Shoptimizer theme
+		else if(!empty($_REQUEST['action'])) {
+			$action = sanitize_title($_REQUEST['action']);
+		}
+
+		// Allowed action names
+		$allowed_actions = array('shoptimizer_pdp_ajax_atc', 'get_refreshed_fragments');
+
+		if(in_array($action, $allowed_actions)) {
+			$translated_post_id = apply_filters('wpml_object_id', $post->ID, 'page');
+			$permalink = ($translated_post_id !== $post->ID) ? get_permalink($translated_post_id) : $permalink;
+		}
+
+		return $permalink;
+	}
+
 	/**
 	 * 5. Theme My Login
 	 */
@@ -451,28 +502,34 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 
  			// 1C. Try to get page/post
  			if(empty($element) && !empty($available_post_types)) {
- 				$sql = sprintf("SELECT ID, post_title FROM {$wpdb->posts} WHERE post_name = '%s' AND post_status = 'publish' AND post_type IN ('%s') AND post_type != 'attachment' LIMIT 1", esc_sql($slug), implode("','", array_keys($available_post_types)));
+ 				$sql = sprintf("SELECT ID, post_title, post_type FROM {$wpdb->posts} WHERE post_name = '%s' AND post_status = 'publish' AND post_type IN ('%s') AND post_type != 'attachment' LIMIT 1", esc_sql($slug), implode("','", array_keys($available_post_types)));
 
  				$element = $wpdb->get_row($sql);
  			}
 
  			// 2A. When the term is found, we can add it to the breadcrumbs
  			if(!empty($element->term_id)) {
- 				$title = (!empty($yoast_meta_terms[$element->taxonomy][$element->term_id]['wpseo_bctitle'])) ? $yoast_meta_terms[$element->taxonomy][$element->term_id]['wpseo_bctitle'] : $element->name;
+				$term_id = apply_filters('wpml_object_id', $element->term_id, $element->taxonomy, true);
+				$term = ($element->term_id !== $term_id) ? get_term($term_id) : $element;
+
+ 				$title = (!empty($yoast_meta_terms[$term->taxonomy][$term->term_id]['wpseo_bctitle'])) ? $yoast_meta_terms[$term->taxonomy][$term->term_id]['wpseo_bctitle'] : $term->name;
 
  				$breadcrumbs[] = array(
  					'text' => $title,
- 					'url' => get_term_link((int) $element->term_id, $element->taxonomy),
+ 					'url' => get_term_link((int) $term->term_id, $term->taxonomy),
  				);
  			}
  			// 2B. When the post/page is found, we can add it to the breadcrumbs
  			else if(!empty($element->ID)) {
- 				$title = get_post_meta($element->ID, '_yoast_wpseo_bctitle', true);
- 				$title = (!empty($title)) ? $title : $element->post_title;
+				$page_id = apply_filters('wpml_object_id', $element->ID, $element->post_type, true);
+				$page = ($element->ID !== $page_id) ? get_post($page_id) : $element;
+
+ 				$title = get_post_meta($page->ID, '_yoast_wpseo_bctitle', true);
+ 				$title = (!empty($title)) ? $title : $page->post_title;
 
  				$breadcrumbs[] = array(
  					'text' => $title,
- 					'url' => get_permalink($element->ID),
+ 					'url' => get_permalink($page->ID),
  				);
  			}
  		}
@@ -730,14 +787,28 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 	/**
 	 * 12. My Listing by 27collective
 	 */
-	public function replace_listing_custom_field_tags($default_uri, $native_slug, $element, $slug, $native_uri) {
+	public function ml_listing_custom_fields($default_uri, $native_slug, $element, $slug, $native_uri) {
 		global $permalink_manager_uris;
 
 		// Use only for "listing" post type & custom permalink
 		if(empty($element->post_type) || $element->post_type !== 'job_listing' || $native_uri) { return $default_uri; }
 
-		// A. Listing type
+		// A1. Listing type
 		if(strpos($default_uri, '%listing-type%') !== false || strpos($default_uri, '%listing_type%') !== false) {
+			$listing_type_slug = get_post_meta($element->ID, '_case27_listing_type', true);
+			$listing_type_post = get_page_by_path($listing_type_slug, OBJECT, 'case27_listing_type');
+
+			if(!empty($listing_type_post)) {
+				$listing_type_post_settings = get_post_meta($listing_type_post->ID, 'case27_listing_type_settings_page', true);
+				$listing_type_post_settings = (is_serialized($listing_type_post_settings)) ? unserialize($listing_type_post_settings) : array();
+
+				$listing_type = (!empty($listing_type_post_settings['permalink'])) ? $listing_type_post_settings['permalink'] : $listing_type_post->post_name;
+				$default_uri = str_replace(array('%listing-type%', '%listing_type%'), Permalink_Manager_Helper_Functions::sanitize_title($listing_type, true), $default_uri);
+			}
+		}
+
+		// A2. Listing type (slug)
+		if(strpos($default_uri, '%listing-type-slug%') !== false || strpos($default_uri, '%listing_type_slug%') !== false) {
 			$listing_type = get_post_meta($element->ID, '_case27_listing_type', true);
 
 			if(!empty($listing_type)) {
@@ -750,7 +821,7 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 		if(strpos($default_uri, '%listing-location%') !== false || strpos($default_uri, '%listing_location%') !== false) {
 			$listing_location = get_post_meta($element->ID, '_job_location', true);
 
-			if(!empty($listing_type)) {
+			if(!empty($listing_location)) {
 				$listing_location = Permalink_Manager_Helper_Functions::sanitize_title($listing_location, true);
 				$default_uri = str_replace(array('%listing-location%', '%listing_location%'), $listing_location, $default_uri);
 			}
@@ -785,8 +856,88 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 		return $default_uri;
 	}
 
+	function ml_set_listing_uri($post_id) {
+		global $permalink_manager_uris;
+
+		if(!empty($permalink_manager_uris)) {
+			$default_uri = Permalink_Manager_URI_Functions_Post::get_default_post_uri($post_id);
+
+			if($default_uri) {
+				$permalink_manager_uris[$post_id] = $default_uri;
+				update_option('permalink-manager-uris', $permalink_manager_uris);
+			}
+		}
+	}
+
+	function ml_detect_archives($query) {
+		if(function_exists('mylisting_custom_taxonomies')) {
+			$explore_page_id = get_option('options_general_explore_listings_page', false);
+			if(empty($explore_page_id)) { return $query; }
+
+			$taxonomies = mylisting_custom_taxonomies();
+			$taxonomies = array_merge(array_keys($taxonomies), array('job_listing_category', 'region', 'case27_job_listing_tags'));
+
+			// Check if any MyListing taxonomy was detected
+			foreach($taxonomies as $taxonomy) {
+				if(!empty($query[$taxonomy])) {
+					return array(
+						"page_id" => $explore_page_id,
+						"explore_tab" => $taxonomy,
+						"explore_{$taxonomy}" => $query['term']
+					);
+				}
+			}
+		}
+
+		return $query;
+	}
+
 	/**
-	 * 13. Store Locator - CSV Manager
+	 * 13. bbPress
+	 */
+	function bbpress_endpoints($endpoints, $all = true) {
+		$bbpress_endpoints = array();
+		$bbpress_endpoints[] = bbp_get_edit_slug();
+		// $bbpress_endpoints[] = bbp_get_paged_slug();
+
+		return ($all) ? $endpoints . "|" . implode("|", $bbpress_endpoints) : $bbpress_endpoints;
+	}
+
+	/**
+	 * 14. Dokan
+	 **/
+	function dokan_endpoints($endpoints) {
+		return "{$endpoints}|edit|edit-account";
+	}
+
+	function dokan_detect_endpoints() {
+		global $post, $wp_query, $wp;
+
+		// Check if Dokan is activated
+		if(!function_exists('dokan_get_option') || is_admin()) { return; }
+
+		// Get Dokan dashboard page id
+		$dashboard_page = dokan_get_option('dashboard', 'dokan_pages');
+
+		// Stop the redirect
+		if(!empty($dashboard_page) && !empty($post->ID) && ($post->ID == $dashboard_page)) {
+			$wp->query_vars['do_not_redirect'] = 1;
+
+			// Detect Dokan shortcode
+			if(empty($pm_query['endpoint'])) {
+				$wp->query_vars['page'] = 1;
+			}
+		}
+
+		// 2. Support "Edit Product" pages
+		if(isset($wp_query->query_vars['edit'])) {
+			$wp_query->query_vars['edit'] = 1;
+			$wp_query->query_vars['do_not_redirect'] = 1;
+		}
+	}
+
+	/**
+	 * 15. Store Locator - CSV Manager
 	 */
 	public function wpsl_regenerate_after_import($meta_id, $post_id, $meta_key, $meta_value) {
 		global $permalink_manager_uris;

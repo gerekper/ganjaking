@@ -1,16 +1,46 @@
-# Copyright (C) 2019 MemberPress + BuddyPress Integration
-# This file is distributed under the same license as the MemberPress + BuddyPress Integration package.
+# Copyright (C) 2020 Caseproof, LLC
+# This file is distributed under the same license as the MemberPress + BuddyPress Integration plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: MemberPress + BuddyPress Integration 1.1.2\n"
+"Project-Id-Version: MemberPress + BuddyPress Integration 1.1.6\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/memberpress-buddypress\n"
-"POT-Creation-Date: 2019-05-21 23:07:21+00:00\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2019-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: 2020-06-12T11:38:19-05:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.4.0\n"
+"X-Domain: memberpress-buddypress\n"
+
+#. Plugin Name of the plugin
+msgid "MemberPress + BuddyPress Integration"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "http://www.memberpress.com/"
+msgstr ""
+
+#. Description of the plugin
+msgid "Integrates MemberPress with BuddyPress"
+msgstr ""
+
+#. Author of the plugin
+msgid "Caseproof, LLC"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "http://caseproof.com/"
+msgstr ""
+
+#: main.php:35
+msgid "MemberPress + BuddyPress"
+msgstr ""
+
+#: main.php:36
+msgid "BuddyPress Integration for MemberPress."
+msgstr ""
 
 #: MpBuddyPress.php:80
 msgid "BuddyPress"
@@ -40,11 +70,13 @@ msgstr ""
 msgid "If the user signs up via BuddyPress's signup page, then no payment can be collected. Therefore the member will get lifetime free access to the default Membership you choose here. If you need to charge your users, then we recommend that you disable signups via BuddyPress and instead force the users to signup via MemberPress instead."
 msgstr ""
 
-#: MpBuddyPress.php:125 MpBuddyPress.php:177
+#: MpBuddyPress.php:125
+#: MpBuddyPress.php:177
 msgid "Default Group(s) for ALL Members"
 msgstr ""
 
-#: MpBuddyPress.php:133 MpBuddyPress.php:185
+#: MpBuddyPress.php:133
+#: MpBuddyPress.php:185
 msgid "Hold the Control Key (Command Key on the Mac) in order to select or deselect multiple groups."
 msgstr ""
 
@@ -97,43 +129,4 @@ msgstr ""
 #: MpBuddyPress.php:513
 msgctxt "ui"
 msgid "Membership Payments"
-msgstr ""
-
-#: main.php:35
-msgid "MemberPress + BuddyPress"
-msgstr ""
-
-#: main.php:36
-msgid "BuddyPress Integration for MemberPress."
-msgstr ""
-
-#: script/i18n/pomo/sample/app.php:56
-msgid "Welcome %s!"
-msgstr ""
-
-#: script/i18n/pomo/sample/app.php:60
-msgid "A string with low priority!"
-msgstr ""
-
-#: script/i18n/pomo/sample/app.php:62
-msgid "Bye\n"
-msgstr ""
-#. Plugin Name of the plugin/theme
-msgid "MemberPress + BuddyPress Integration"
-msgstr ""
-
-#. Plugin URI of the plugin/theme
-msgid "http://www.memberpress.com/"
-msgstr ""
-
-#. Description of the plugin/theme
-msgid "Integrates MemberPress with BuddyPress"
-msgstr ""
-
-#. Author of the plugin/theme
-msgid "Caseproof, LLC"
-msgstr ""
-
-#. Author URI of the plugin/theme
-msgid "http://caseproof.com/"
 msgstr ""

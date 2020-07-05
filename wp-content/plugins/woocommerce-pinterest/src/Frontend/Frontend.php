@@ -147,7 +147,7 @@ class Frontend {
 		$data['product:price:amount']   = esc_attr( $product_cost );
 		$data['product:price:currency'] = esc_attr( get_woocommerce_currency() );
 		$data['og:availability']        = $this->formatStock( $product );
-		$data['og:type']                = 'og:product';
+		$data['og:type']                = 'product';
 
 		if ( PinterestPluginUtils::isYoastActive() && $this->isEnabledYoastCompatibility() ) {
 

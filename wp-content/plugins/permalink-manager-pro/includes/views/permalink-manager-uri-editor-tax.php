@@ -196,7 +196,7 @@ class Permalink_Manager_Tax_Uri_Editor_Table extends WP_List_Table {
 			// Search in array with custom URIs
 			$found = Permalink_Manager_Helper_Functions::search_uri($search_query, 'taxonomies');
 			if($found) {
-				$sql_parts['where'] .= sprintf("OR t.term_id IN ('%s') ", implode(',', (array) $found));
+				$sql_parts['where'] .= sprintf("OR t.term_id IN (%s) ", implode(',', (array) $found));
 			}
 			$sql_parts['where'] .= ") AND tt.taxonomy IN ({$taxonomies}) ";
 		} else {

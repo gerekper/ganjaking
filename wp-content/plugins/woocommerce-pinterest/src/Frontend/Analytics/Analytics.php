@@ -60,7 +60,7 @@ class Analytics {
 	 * @param PinterestIntegration $integration
 	 * @param Model $primaryCategoryModel
 	 */
-	public function __construct( FileManager $fileManager, PinterestIntegration $integration, Model $primaryCategoryModel) {
+	public function __construct( FileManager $fileManager, PinterestIntegration $integration, Model $primaryCategoryModel ) {
 		$this->fileManager = $fileManager;
 		$this->integration = $integration;
 
@@ -71,10 +71,10 @@ class Analytics {
 	 * Init hooks
 	 */
 	public function init() {
-		add_action('wp_enqueue_scripts', array($this, 'initPinterestScript'), 9);
-		add_action('wp_loaded', array($this, 'registerEvents'));
+		add_action( 'wp_enqueue_scripts', array( $this, 'initPinterestScript' ), 9 );
+		add_action( 'wp_loaded', array( $this, 'registerEvents' ) );
 
-		add_action('shutdown', array($this, 'saveDeferredEvents'));
+		add_action( 'shutdown', array( $this, 'saveDeferredEventsData' ) );
 	}
 
 	/**
@@ -83,17 +83,17 @@ class Analytics {
 	public function initPinterestScript() {
 		wp_enqueue_script(
 			self::PINTEREST_ANALYTICS_INIT_SCRIPT_HANDLE,
-			$this->fileManager->locateAsset('frontend/analytics/pinterest-analytics-init.js'),
+			$this->fileManager->locateAsset( 'frontend/analytics/pinterest-analytics-init.js' ),
 			array(),
 			PinterestPlugin::$version,
 			false
 		);
 
-		$tagId = $this->integration->get_option('tag_id');
+		$tagId = $this->integration->get_option( 'tag_id' );
 
-		wp_localize_script(self::PINTEREST_ANALYTICS_INIT_SCRIPT_HANDLE,
+		wp_localize_script( self::PINTEREST_ANALYTICS_INIT_SCRIPT_HANDLE,
 			'pinterestSettings',
-			array('tagId' => $tagId));
+			array( 'tagId' => $tagId ) );
 	}
 
 	/**
@@ -102,25 +102,24 @@ class Analytics {
 	public function registerEvents() {
 		$this->loadEvents();
 
-		foreach ($this->events as $event) {
+		foreach ( $this->events as $event ) {
 
-			if (! $event->enabled()) {
+			if ( ! $event->enabled() ) {
 				continue;
 			}
 
-			if ($event->isDeferred()) {
-				$deferredEvent = $this->restoreDeferredEvent($event->getName());
-				if ($deferredEvent) {
-					$event = $deferredEvent;
+			if ( $event->isDeferred() ) {
+				$deferredEventData = $this->restoreDeferredEventData( $event->getName() );
+				if ( $deferredEventData ) {
+					$event->setData( $deferredEventData );
 				}
 			}
 
-			add_action('wp_enqueue_scripts', function () use ( $event) {
-				if ($event->fired()) {
+			add_action( 'wp_enqueue_scripts', function () use ( $event ) {
+				if ( $event->fired() ) {
 					$event->trigger();
 				}
-			}, 11);
-
+			}, 11 );
 
 		}
 
@@ -129,15 +128,17 @@ class Analytics {
 
 	private function loadEvents() {
 		$this->events = array(
-			PageVisitEvent::class => new PageVisitEvent($this->integration),
-			LeadEvent::class => new LeadEvent($this->integration),
-			ProductCategoryEvent::class => new ProductCategoryEvent($this->integration),
-			SearchEvent::class => new SearchEvent($this->integration),
-			AddToCartEvent::class => new AddToCartEvent($this->integration, $this->fileManager),
-			EventCheckout::class => new EventCheckout($this->integration, $this->primaryCategoryModel)
+			PageVisitEvent::class       => new PageVisitEvent( $this->integration ),
+
+
+			// LeadEvent::class => new LeadEvent($this->integration), //todo: Check why this is commented. Delete if this not needed anymore.
+			ProductCategoryEvent::class => new ProductCategoryEvent( $this->integration ),
+			SearchEvent::class          => new SearchEvent( $this->integration ),
+			AddToCartEvent::class       => new AddToCartEvent( $this->integration, $this->fileManager ),
+			EventCheckout::class        => new EventCheckout( $this->integration, $this->primaryCategoryModel )
 		);
 
-		$this->events = apply_filters('woocommerce_pinterest_tracking_events', $this->events);
+		$this->events = apply_filters( 'woocommerce_pinterest_tracking_events', $this->events );
 	}
 
 	/**
@@ -145,30 +146,30 @@ class Analytics {
 	 *
 	 * @param $eventName
 	 *
-	 * @return EventInterface|null
+	 * @return array|null
 	 */
-	private function restoreDeferredEvent( $eventName) {
-		$deferredEvents = get_transient(self::DEFERRED_EVENTS_TRANSIENT_NAME);
-		if (isset($deferredEvents[$eventName])) {
-			return $deferredEvents[$eventName];
+	private function restoreDeferredEventData( $eventName ) {
+		$deferredEventsData = get_transient( self::DEFERRED_EVENTS_TRANSIENT_NAME );
+		if ( isset( $deferredEventsData[ $eventName ] ) ) {
+			return (array) $deferredEventsData[ $eventName ];
 		}
 
 		return null;
 	}
 
 	private function clearDeferredEvents() {
-		delete_transient(self::DEFERRED_EVENTS_TRANSIENT_NAME);
+		delete_transient( self::DEFERRED_EVENTS_TRANSIENT_NAME );
 	}
 
-	public function saveDeferredEvents() {
+	public function saveDeferredEventsData() {
 		$deferredEventsData = array();
-		foreach ($this->events as $event) {
-			if ($event->isDeferred() && $event->getData()) {
-				$deferredEventsData[$event->getName()] = $event;
+		foreach ( $this->events as $event ) {
+			if ( $event->isDeferred() && $event->getData() ) {
+				$deferredEventsData[ $event->getName() ] = $event->getData();
 			}
 		}
 
-		set_transient(self::DEFERRED_EVENTS_TRANSIENT_NAME, $deferredEventsData);
+		set_transient( self::DEFERRED_EVENTS_TRANSIENT_NAME, $deferredEventsData );
 	}
 
 	/**
@@ -177,6 +178,6 @@ class Analytics {
 	 * @return bool
 	 */
 	public function enabled() {
-		return $this->integration->get_option('enable_track_conversion') === 'yes' && $this->integration->get_option('tag_id');
+		return $this->integration->get_option( 'enable_track_conversion' ) === 'yes' && $this->integration->get_option( 'tag_id' );
 	}
 }

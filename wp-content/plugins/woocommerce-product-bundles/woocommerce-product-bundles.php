@@ -3,7 +3,7 @@
 * Plugin Name: WooCommerce Product Bundles
 * Plugin URI: https://woocommerce.com/products/product-bundles/
 * Description: Offer product bundles, bulk discount packages and assembled products.
-* Version: 6.2.5
+* Version: 6.3.0
 * Author: SomewhereWarm
 * Author URI: https://somewherewarm.com/
 *
@@ -18,7 +18,7 @@
 * Tested up to: 5.4
 *
 * WC requires at least: 3.1
-* WC tested up to: 4.2
+* WC tested up to: 4.3
 *
 * Copyright: © 2017-2020 SomewhereWarm SMPC.
 * License: GNU General Public License v3.0
@@ -34,11 +34,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Main plugin class.
  *
  * @class    WC_Bundles
- * @version  6.2.5
+ * @version  6.3.0
  */
 class WC_Bundles {
 
-	public $version  = '6.2.5';
+	public $version  = '6.3.0';
 	public $required = '3.1.0';
 
 	/**
@@ -180,6 +180,7 @@ class WC_Bundles {
 	public function initialize_plugin() {
 
 		$this->define_constants();
+		$this->maybe_create_store();
 
 		// WC version sanity check.
 		if ( ! function_exists( 'WC' ) || version_compare( WC()->version, $this->required ) < 0 ) {
@@ -191,7 +192,7 @@ class WC_Bundles {
 
 		// PHP version check.
 		if ( ! function_exists( 'phpversion' ) || version_compare( phpversion(), '5.6.20', '<' ) ) {
-			$notice = sprintf( __( 'WooCommerce Product Bundles requires at least PHP <strong>%1$s</strong>. Learn <a href="%2$s">how to update PHP</a>.', 'woocommerce-product-bundles' ), '5.6.20', 'https://docs.woocommerce.com/document/how-to-update-your-php-version/' );
+			$notice = sprintf( __( 'WooCommerce Product Bundles requires at least PHP <strong>%1$s</strong>. Learn <a href="%2$s">how to update PHP</a>.', 'woocommerce-product-bundles' ), '5.6.20', $this->get_resource_url( 'update-php' ) );
 			require_once( 'includes/admin/class-wc-pb-admin-notices.php' );
 			WC_PB_Admin_Notices::add_notice( $notice, 'error' );
 			return false;
@@ -271,6 +272,19 @@ class WC_Bundles {
 	}
 
 	/**
+	 * A simple dumb datastore for sharing information accross our plugins.
+	 *
+	 * @since  6.3.0
+	 *
+	 * @return void
+	 */
+	private function maybe_create_store() {
+		if ( ! isset( $GLOBALS[ 'sw_store' ] ) ) {
+			$GLOBALS[ 'sw_store' ] = array();
+		}
+	}
+
+	/**
 	 * Includes.
 	 */
 	public function includes() {
@@ -330,6 +344,9 @@ class WC_Bundles {
 		// REST API hooks.
 		require_once( 'includes/class-wc-pb-rest-api.php' );
 
+		// Notices handling.
+		require_once( 'includes/class-wc-pb-notices.php' );
+
 		// Admin includes.
 		if ( is_admin() ) {
 			$this->admin_includes();
@@ -358,6 +375,41 @@ class WC_Bundles {
 	 */
 	public function load_translation() {
 		load_plugin_textdomain( 'woocommerce-product-bundles', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+	}
+
+	/**
+	 * Returns URL to a doc or support resource.
+	 *
+	 * @since  6.3.0
+	 *
+	 * @param  string  $handle
+	 * @return string
+	 */
+	public function get_resource_url( $handle ) {
+
+		$resource = false;
+
+		if ( 'pricing-options' === $handle ) {
+			$resource = 'https://docs.woocommerce.com/document/bundles/bundles-configuration/#pricing';
+		} elseif ( 'shipping-options' === $handle ) {
+			$resource = 'https://docs.woocommerce.com/document/bundles/bundles-configuration/#shipping';
+		} elseif ( 'update-php' === $handle ) {
+			$resource = 'https://docs.woocommerce.com/document/how-to-update-your-php-version/';
+		} elseif ( 'docs-contents' === $handle ) {
+			$resource = 'https://docs.woocommerce.com/document/bundles/';
+		} elseif ( 'max-input-vars' === $handle ) {
+			$resource = 'https://docs.woocommerce.com/document/bundles/bundles-faq/#faq_bundled_items_dont_save';
+		} elseif ( 'updating' === $handle ) {
+			$resource = 'https://docs.woocommerce.com/document/how-to-update-woocommerce/';
+		} elseif ( 'min-max' === $handle ) {
+			$resource = 'https://wordpress.org/plugins/product-bundles-minmax-items-for-woocommerce/';
+		} elseif ( 'bulk-discounts' === $handle ) {
+			$resource = 'https://wordpress.org/plugins/product-bundles-bulk-discounts-for-woocommerce/';
+		} elseif ( 'ticket-form' === $handle ) {
+			$resource = WC_PB_SUPPORT_URL;
+		}
+
+		return $resource;
 	}
 
 	/*

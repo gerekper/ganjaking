@@ -308,6 +308,10 @@ class MeprUser extends MeprBaseModel {
   public function active_product_subscriptions($return_type = 'ids', $force = false, $exclude_expired = true) {
     static $items; //Prevents a butt load of queries on the front end
 
+    if ( empty( $this->ID ) ) {
+      return array();
+    }
+
     $user_id = $this->ID;
 
     // Setup caching array
@@ -1764,6 +1768,38 @@ class MeprUser extends MeprBaseModel {
         return $wpdb->get_var($q);
       default:
         return false;
+    }
+  }
+
+  protected function mgm_trial_txn_count($mgm, $val = '') {
+    global $wpdb;
+
+    $mepr_db = MeprDb::fetch();
+
+    switch($mgm) {
+      case 'get':
+        return $wpdb->get_var($wpdb->prepare("(
+            SELECT COUNT(*)
+              FROM {$mepr_db->transactions} AS t
+              JOIN {$mepr_db->subscriptions} AS sub
+                ON t.subscription_id = sub.id
+             WHERE t.user_id = %d
+               AND t.txn_type = %s
+               AND (
+                 t.expires_at IS NULL
+                 OR t.expires_at = %s
+                 OR t.expires_at > %s
+               )
+               AND sub.trial IS TRUE
+               AND sub.trial_amount = 0.00
+          )",
+          $this->rec->ID,
+          MeprTransaction::$subscription_confirmation_str,
+          MeprUtils::db_lifetime(),
+          MeprUtils::db_now()
+        ));
+      default:
+        return 0;
     }
   }
 

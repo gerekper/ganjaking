@@ -44,12 +44,6 @@ class WC_CP_Admin_Notices {
 	public static $dismissed_notices = array();
 
 	/**
-	 * Notice options.
-	 * @var array
-	 */
-	public static $notice_options = array();
-
-	/**
 	 * Array of maintenance notice types - name => callback.
 	 * @var array
 	 */
@@ -64,23 +58,28 @@ class WC_CP_Admin_Notices {
 	 */
 	public static function init() {
 
+		if ( ! class_exists( 'WC_CP_Notices' ) ) {
+			require_once  WC_CP_ABSPATH . 'includes/class-wc-cp-notices.php' ;
+		}
+
 		// Avoid duplicates for some notice types that are meant to be unique.
 		if ( ! isset( $GLOBALS[ 'sw_store' ][ 'notices_unique' ] ) ) {
 			$GLOBALS[ 'sw_store' ][ 'notices_unique' ] = array();
 		}
 
 		self::$maintenance_notices = get_option( 'wc_cp_maintenance_notices', array() );
-		self::$notice_options      = get_option( 'wc_cp_notice_options', array() );
-
-		self::$dismissed_notices = get_user_meta( get_current_user_id(), 'wc_cp_dismissed_notices', true );
-		self::$dismissed_notices = empty( self::$dismissed_notices ) ? array() : self::$dismissed_notices;
+		self::$dismissed_notices   = get_user_meta( get_current_user_id(), 'wc_cp_dismissed_notices', true );
+		self::$dismissed_notices   = empty( self::$dismissed_notices ) ? array() : self::$dismissed_notices;
 
 		// Show meta box notices.
 		add_action( 'admin_notices', array( __CLASS__, 'output_notices' ) );
 		// Save meta box notices.
 		add_action( 'shutdown', array( __CLASS__, 'save_notices' ), 100 );
-		// Show maintenance notices.
-		add_action( 'admin_print_styles', array( __CLASS__, 'hook_maintenance_notices' ) );
+
+		if ( function_exists( 'WC' ) ) {
+			// Show maintenance notices.
+			add_action( 'admin_print_styles', array( __CLASS__, 'hook_maintenance_notices' ) );
+		}
 	}
 
 	/**
@@ -146,7 +145,7 @@ class WC_CP_Admin_Notices {
 	 * @return array
 	 */
 	public static function get_notice_option( $notice_name, $key, $default = null ) {
-		return isset( self::$notice_options[ $notice_name ] ) && is_array( self::$notice_options[ $notice_name ] ) && isset( self::$notice_options[ $notice_name ][ $key ] ) ? self::$notice_options[ $notice_name ][ $key ] : $default;
+		return WC_CP_Notices::get_notice_option( $notice_name, $key, $default );
 	}
 
 	/**
@@ -160,16 +159,7 @@ class WC_CP_Admin_Notices {
 	 * @return array
 	 */
 	public static function set_notice_option( $notice_name, $key, $value ) {
-
-		if ( ! isset( self::$notice_options ) ) {
-			self::$notice_options = array();
-		}
-
-		if ( ! isset( self::$notice_options[ $notice_name ] ) ) {
-			self::$notice_options[ $notice_name ] = array();
-		}
-
-		self::$notice_options[ $notice_name ][ $key ] = $value;
+		return WC_CP_Notices::set_notice_option( $notice_name, $key, $value );
 	}
 
 	/**
@@ -197,12 +187,11 @@ class WC_CP_Admin_Notices {
 	}
 
 	/**
-	 * Save errors to an option.
+	 * Save notices to the DB.
 	 */
 	public static function save_notices() {
 		update_option( 'wc_cp_meta_box_notices', self::$meta_box_notices );
 		update_option( 'wc_cp_maintenance_notices', self::$maintenance_notices );
-		update_option( 'wc_cp_notice_options', self::$notice_options );
 	}
 
 	/**
@@ -439,7 +428,7 @@ class WC_CP_Admin_Notices {
 		}
 
 		$last_tested   = self::get_notice_option( 'loopback', 'last_tested', 0 );
-		$last_result   = self::get_notice_option( 'loopback', 'last_result', 'pass' );
+		$last_result   = self::get_notice_option( 'loopback', 'last_result', '' );
 		$auto_run_test = gmdate( 'U' ) - $last_tested > DAY_IN_SECONDS;
 		$show_notice   = 'fail' === $last_result;
 

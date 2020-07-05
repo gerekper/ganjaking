@@ -61,14 +61,13 @@ class MeprOptionsCtrl extends MeprBaseCtrl {
     $mepr_options = MeprOptions::fetch();
 
     if(MeprUtils::is_logged_in_and_an_admin()) {
-    
-        $li = array();
-		
+     
+        
+		$li = array();
 		$li['license_key']['license'] = '86007fe7c96b81e21230c92332cec962';
 		$li['activation_count'] = '1';
 		$li['max_activations'] = '100';
 		$li['product_name'] = 'Memberpress';
-
 
       MeprView::render('/admin/options/form', get_defined_vars());
     }
@@ -93,13 +92,15 @@ class MeprOptionsCtrl extends MeprBaseCtrl {
         $message = __('Options saved.', 'memberpress');
       }
 
-      
+     
         $li = array();
 		$li['license_key']['license'] = '86007fe7c96b81e21230c92332cec962';
 		$li['activation_count'] = '1';
 		$li['max_activations'] = '100';
 		$li['product_name'] = 'Memberpress';
-    
+
+       
+     
 
       MeprView::render('/admin/options/form', get_defined_vars());
     }
@@ -226,12 +227,12 @@ class MeprOptionsCtrl extends MeprBaseCtrl {
   }
 
   public static function ajax_activate_license() {
-   
-
+    
     if(!MeprUtils::is_logged_in_and_an_admin()) {
       wp_send_json_error(__('Sorry, you don\'t have permission to do this.', 'memberpress'));
     }
 
+    
     $mepr_options = MeprOptions::fetch();
     $mepr_options->mothership_license = sanitize_text_field(wp_unslash($_POST['key']));
 
@@ -239,11 +240,12 @@ class MeprOptionsCtrl extends MeprBaseCtrl {
       $act = MeprUpdateCtrl::send_mothership_request("/license_keys/jactivate/{$mepr_options->mothership_license}", MeprUpdateCtrl::activation_args(true), 'post');
       MeprUpdateCtrl::manually_queue_update();
       $mepr_options->store(false);
-      $li = array();
-	  $li['license_key']['license'] = '86007fe7c96b81e21230c92332cec962';
-	  $li['activation_count'] = '1';
-	  $li['max_activations'] = '100';
-	  $li['product_name'] = 'Memberpress';
+     $li = array();
+	 $li['license_key']['license'] = '86007fe7c96b81e21230c92332cec962';
+	 $li['activation_count'] = '1';
+	 $li['max_activations'] = '100';
+	 $li['product_name'] = 'Memberpress';
+
       // Clear the cache of add-ons
       delete_site_transient('mepr_addons');
       delete_site_transient('mepr_all_addons');

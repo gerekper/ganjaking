@@ -118,7 +118,7 @@ class PinDataGenerator {
 
 		$tags  = $this->pinterestTagsController->getTagsForProduct($id);
 		$tags  = apply_filters('woocommerce_pinterest_description_tags', $tags, $pin);
-		$note .= ' '. $this->formatTagNamesToString($tags);
+		$note .= ' ' . $this->formatTagNamesToString($tags);
 
 		return apply_filters('woocommerce_pinterest_description', trim($note), $pin, $product);
 	}

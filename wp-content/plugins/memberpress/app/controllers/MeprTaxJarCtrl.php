@@ -246,9 +246,10 @@ class MeprTaxJarCtrl extends MeprBaseCtrl {
 
     $transaction = $event->get_data();
     $user = $transaction->user();
+    $should_send = isset( $transaction->tax_amount ) && $transaction->tax_amount > 0.00;
 
     // Only push to TaxJar if transaction has tax
-    if ( isset( $transaction->tax_amount ) && $transaction->tax_amount > 0.00 ) {
+    if ( apply_filters( 'mepr_taxjar_should_refund_txn', $should_send, $event ) ) {
 
       // For available and required parameters, see https://developers.taxjar.com/api/reference/#post-create-a-refund-transaction
       $args = MeprHooks::apply_filters( 'mepr_taxjar_api_create_refund_args', array(

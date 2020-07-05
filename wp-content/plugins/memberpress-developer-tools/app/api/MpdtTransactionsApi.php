@@ -23,6 +23,15 @@ class MpdtTransactionsApi extends MpdtBaseApi {
     ) );
   }
 
+  protected function before_create($args, $request) {
+    // If no expiration date is passed in, default to lifetime
+    if(!isset($args['expires_at'])) {
+      $request->set_param('expires_at', '0000-00-00 00:00:00');
+    }
+
+    return $request;
+  }
+
   protected function after_create($args, $request, $response) {
     $transaction_data = (object)$response->get_data();
     $transaction = new MeprTransaction($transaction_data->id);

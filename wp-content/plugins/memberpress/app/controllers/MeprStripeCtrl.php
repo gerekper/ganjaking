@@ -119,7 +119,7 @@ class MeprStripeCtrl extends MeprBaseCtrl
           MeprEvent::record('login', $usr); //Record the first login here
         }
         catch(MeprCreateException $e) {
-          wp_send_json(array('error' => __( 'The user was unable to be saved.', 'memberpress')));
+          wp_send_json(array('error' => __('The user was unable to be saved.', 'memberpress')));
         }
       }
 
@@ -130,6 +130,10 @@ class MeprStripeCtrl extends MeprBaseCtrl
       // Get the membership in place
       $txn->product_id = sanitize_text_field($_POST['mepr_product_id']);
       $product = $txn->product();
+
+      if(empty($product->ID)) {
+        wp_send_json(array('error' => __('Sorry, we were unable to find the membership.', 'memberpress')));
+      }
 
       // If we're showing the fields on logged in purchases, let's save them here
       if(!$is_existing_user || ($is_existing_user && $mepr_options->show_fields_logged_in_purchases)) {

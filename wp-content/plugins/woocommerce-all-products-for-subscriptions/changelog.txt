@@ -1,5 +1,8 @@
 *** WooCommerce All Products For Subscriptions ***
 
+2020.06.24 - version 3.1.14
+* Feature - Restore chosen subscription plan when clicking cart item title.
+
 2020.06.04 - version 3.1.13
 * Fix - Added context to resolve a duplicate string issue.
 * Fix - Incorrect initial form state when clicking the back button in Chrome 80+.

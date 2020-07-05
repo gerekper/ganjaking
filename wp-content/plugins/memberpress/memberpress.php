@@ -3,7 +3,7 @@
 Plugin Name: MemberPress Plus
 Plugin URI: http://www.memberpress.com/
 Description: The membership plugin that makes it easy to accept payments for access to your content and digital products.
-Version: 1.8.11
+Version: 1.8.12
 Author: Caseproof, LLC
 Author URI: http://caseproof.com/
 Text Domain: memberpress
@@ -78,6 +78,7 @@ function mepr_plugin_info($field) {
     }
 
     $curr_plugins = get_plugins();
+    wp_cache_delete('plugins', 'plugins');
   }
 
   if(isset($curr_plugins[MEPR_PLUGIN_SLUG][$field])) {
@@ -167,9 +168,6 @@ MeprAppCtrl::setup_menus();
 
 // Start Job Processor / Scheduler
 new MeprJobs();
-
-update_option('mepr_activated',true);
-update_option('mepr_activation_override',true);
 
 // Template Tags
 function mepr_account_link() {

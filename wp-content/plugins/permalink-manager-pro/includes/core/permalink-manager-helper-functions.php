@@ -59,9 +59,9 @@ class Permalink_Manager_Helper_Functions extends Permalink_Manager_Class {
 			$primary_term = the_seo_framework()->get_primary_term($post_id, $taxonomy);
 		}
 		// C. RankMath
-		else if(class_exists('RankMath') && $taxonomy == 'category') {
-			$primary_cat_id = get_post_meta($post_id, 'rank_math_primary_category', true);
-			$primary_term = (!empty($primary_cat_id)) ? get_term($primary_cat_id, 'category') : '';
+		else if(class_exists('RankMath')) {
+			$primary_cat_id = get_post_meta($post_id, "rank_math_primary_{$taxonomy}", true);
+			$primary_term = (!empty($primary_cat_id)) ? get_term($primary_cat_id, $taxonomy) : '';
 		}
 		// D. SEOPress
 		else if(function_exists('seopress_init') && $taxonomy == 'category') {
@@ -187,7 +187,7 @@ class Permalink_Manager_Helper_Functions extends Permalink_Manager_Class {
 	static function get_disabled_taxonomies($include_user_excluded = true) {
 		global $wp_taxonomies, $permalink_manager_options;
 
-		$disabled_taxonomies = array('product_shipping_class', 'post_status', 'fl-builder-template-category', 'post_format', 'nav_menu');
+		$disabled_taxonomies = array('product_shipping_class', 'post_status', 'fl-builder-template-category', 'post_format', 'nav_menu', 'language');
 
 		// 1. Disable taxonomies that are not publicly_queryable
 		foreach($wp_taxonomies as $taxonomy) {
@@ -257,7 +257,9 @@ class Permalink_Manager_Helper_Functions extends Permalink_Manager_Class {
 
 		foreach($wp_taxonomies as $taxonomy) {
 			$key = ($prefix) ? "tax-{$taxonomy->name}" : $taxonomy->name;
-			$taxonomies_array[$taxonomy->name] = ($format == 'full') ? array('label' => $taxonomy->labels->name, 'name' => $taxonomy->name) : $taxonomy->labels->name;
+			$taxonomy_name = (!empty($taxonomy->labels->name)) ? $taxonomy->labels->name : '-';
+
+			$taxonomies_array[$taxonomy->name] = ($format == 'full') ? array('label' => $taxonomy->labels->name, 'name' => $taxonomy->name) : $taxonomy_name;
 		}
 
 		if(is_array($disabled_taxonomies)) {
@@ -617,7 +619,7 @@ class Permalink_Manager_Helper_Functions extends Permalink_Manager_Class {
 
  		// Keep the URIs in a separate array just here & unset the URI for requested element to prevent false alert
  		$all_uris = $permalink_manager_uris;
- 		unset($all_uris[$element_id]);
+ 		if(!empty($all_uris[$element_id])) { unset($all_uris[$element_id]); }
 
  		if(in_array($uri, $all_uris)) {
 			$all_duplicates = (array) array_keys($all_uris, $uri);
@@ -627,7 +629,7 @@ class Permalink_Manager_Helper_Functions extends Permalink_Manager_Class {
 				foreach($all_duplicates as $key => $duplicated_id) {
 					$duplicated_uri_lang = Permalink_Manager_Language_Plugins::get_language_code($duplicated_id);
 
-					if($duplicated_uri_lang !== $this_uri_lang) {
+					if($duplicated_uri_lang !== $this_uri_lang && !empty($all_duplicates[$key])) {
 						unset($all_duplicates[$key]);
 					}
 				}

@@ -29,7 +29,7 @@ class BoardsSection implements IntegrationSectionInterface {
 					'This table represents the relation between your product categories and Pinterest boards.',
 					'woocommerce-pinterest'
 				),
-			)
+			),
 		);
 
 	}

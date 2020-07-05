@@ -39,6 +39,11 @@ class ProductCategoryEvent extends AbstractEvent implements EventInterface {
 	 * @return array
 	 */
 	public function getData() {
+		
+		if ($this->data) {
+			return $this->data;
+		}
+
 		$category = get_queried_object();
 		return array('category' => $category->name);
 	}

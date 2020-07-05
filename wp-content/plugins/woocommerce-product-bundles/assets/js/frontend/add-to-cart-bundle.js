@@ -2199,7 +2199,7 @@ jQuery.fn.wc_get_bundle_script = function() {
 
 			return status;
 
-		}
+		};
 
 		this.is_sold_individually = function() {
 			return this.sold_individually;

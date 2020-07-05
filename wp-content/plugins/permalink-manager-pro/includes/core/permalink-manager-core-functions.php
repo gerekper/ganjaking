@@ -340,8 +340,8 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 			}
 
 			/**
-			* 5A. Endpoints
-			*/
+			 * 5A. Endpoints
+			 */
 			if(!empty($element_id) && (!empty($endpoint) || !empty($endpoint_value))) {
 				if(is_array($endpoint)) {
 					foreach($endpoint as $endpoint_name => $endpoint_value) {
@@ -349,13 +349,15 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 					}
 				} else if($endpoint == 'feed') {
 					$query[$endpoint] = 'feed';
+				} else if($endpoint == 'embed') {
+					$query[$endpoint] = true;
 				} else if($endpoint == 'page') {
 					$endpoint = 'paged';
 					$query[$endpoint] = $endpoint_value;
 				} else if($endpoint == 'trackback') {
 					$endpoint = 'tb';
 					$query[$endpoint] = 1;
-				} else if(!$endpoint && is_numeric($endpoint_value)) {
+				} else if(empty($endpoint) && is_numeric($endpoint_value)) {
 					$query['page'] = $endpoint_value;
 				} else {
 					$query[$endpoint] = $endpoint_value;
@@ -381,6 +383,14 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 						$query[$endpoint] = sanitize_text_field($endpoint_value);
 					}
 				}
+			}
+
+			/**
+			 * 5C. Fix for WPML (language switcher on blog page)
+			 */
+			$blog_page_id = get_option('page_for_posts');
+			if(is_numeric($element_id) && !empty($blog_page_id) && ($blog_page_id == $element_id) && !isset($query['page'])) {
+				$query['page'] = 1;
 			}
 
 			/**
@@ -447,10 +457,10 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 	}
 
 	/**
-   * Display 404 if requested page does not exist in pagination
-   */
+	 * Display 404 if requested page does not exist in pagination
+	 */
 	function fix_pagination_pages() {
-		global $wp_query;
+		global $wp_query, $pm_query;
 
 		// 1. Get the queried object
 		$post = get_queried_object();
@@ -468,6 +478,10 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 		}
 		// 3. Force 404 if no posts are loaded
 		else if(!empty($wp_query->query['paged']) && $wp_query->post_count == 0) {
+			$is_404 = true;
+		}
+		// 4. Force 404 if endpoint value is not set
+		else if(!empty($pm_query['endpoint']) && $pm_query['endpoint'] == 'page' && empty($pm_query['endpoint_value'])) {
 			$is_404 = true;
 		}
 
@@ -498,6 +512,7 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 		$canonical_redirect = (!empty($permalink_manager_options['general']['canonical_redirect'])) ? $permalink_manager_options['general']['canonical_redirect'] : false;
 		$old_slug_redirect = (!empty($permalink_manager_options['general']['old_slug_redirect'])) ? $permalink_manager_options['general']['old_slug_redirect'] : false;
 		$endpoint_redirect = (!empty($permalink_manager_options['general']['endpoint_redirect'])) ? $permalink_manager_options['general']['endpoint_redirect'] : false;
+		$pagination_redirect = (!empty($permalink_manager_options['general']['pagination_redirect'])) ? $permalink_manager_options['general']['pagination_redirect'] : false;
 		$redirect_type = '-';
 
 		// Get home URL
@@ -579,7 +594,15 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 			if(!empty($_SERVER['REQUEST_URI']) && (strpos($_SERVER['REQUEST_URI'], '/wp-content') !== false)) { return false; }
 
 			/**
-			 * 1C. Enhance native redirect
+			 * 1C. Pagination redirect
+			 */
+			if($pagination_redirect && ((isset($wp_query->query_vars['paged']) && $wp_query->query_vars['paged'] == 1) || (isset($wp_query->query_vars['page']) && $wp_query->query_vars['page'] == 1 && !empty($pm_query['endpoint_value'])))) {
+				$pm_query['endpoint'] = $pm_query['endpoint_value'] = '';
+				$wp_query->query_vars['do_not_redirect'] = 0;
+			}
+
+			/**
+			 * 1D. Enhance native redirect
 			 */
 	 		if($canonical_redirect && empty($wp_query->query_vars['do_not_redirect']) && !empty($queried_object) && empty($correct_permalink)) {
 
@@ -609,7 +632,7 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 	 		}
 
 			/**
-			 * 1D. Old slug redirect
+			 * 1E. Old slug redirect
 			 */
 			if($old_slug_redirect && !empty($pm_query['uri']) && empty($wp_query->query_vars['do_not_redirect']) && is_404()) {
 				$slug = basename($pm_query['uri']);

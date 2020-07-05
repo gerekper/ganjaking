@@ -1,5 +1,15 @@
 *** WooCommerce Product Bundles ***
 
+2020.06.26 - version 6.3.0
+* Feature - Added free Product Bundles mini-extension recommendations in the WooCommerce Inbox.
+* Feature - Check if the server is able to perform loopback requests and display a warning if the test fails.
+* Feature - Check if PHP is truncating form fields on edit-product pages when updating a Product Bundle and display a warning.
+* Feature - Check if the pricing configuration of a Product Bundle is incomplete and display a warning in the edit-product page.
+* Tweak - Remove '- optional' suffix from optional bundled items. To bring it back: add_filter( 'woocommerce_bundles_optional_bundled_item_add_suffix', '__return_true' );
+* Tweak - The 'stock_status' of Bundles in the product lookup table now takes child availability into account: Bundles with an 'Insufficient stock' availability status now appear as 'outofstock' in the lookup table.
+* Tweak - Added loopback test results in Status Report.
+* Fix - Updated the datastore logic of Product Bundles to update the 'tax_status' and 'tax_class' product lookup table columns.
+
 2020.06.05 - version 6.2.5
 * Fix - Prevent infinite loops involving 'WC_Product_Bundle::sync()'.
 

@@ -544,7 +544,7 @@ class WC_PB_CP_Compatibility {
 			$form_classes[] = 'bundle_insufficient_stock';
 		}
 
- 		wc_get_template( 'composited-product/bundle-product.php', array(
+		wc_get_template( 'composited-product/bundle-product.php', array(
 			'product_id'         => $product_id,
 			'product'            => $product,
 			'quantity_min'       => $quantity_min,
@@ -610,7 +610,7 @@ class WC_PB_CP_Compatibility {
 			$form_classes[] = 'bundle_insufficient_stock';
 		}
 
- 		wc_get_template( 'composited-product/bundle-product.php', array(
+		wc_get_template( 'composited-product/bundle-product.php', array(
 			'product_id'         => $product_id,
 			'product'            => $product,
 			'quantity_min'       => $quantity_min,

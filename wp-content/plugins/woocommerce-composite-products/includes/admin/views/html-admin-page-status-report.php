@@ -40,6 +40,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</td>
 		</tr>
 		<tr>
+			<td data-export-label="Loopback Test"><?php esc_html_e( 'Loopback test', 'woocommerce-composite-products' ); ?>:</td>
+			<td class="help"><?php echo wc_help_tip( esc_html__( 'Loopback requests are used by Composite Products to process tasks in the background.', 'woocommerce-composite-products' ) ); ?></td>
+			<td>
+			<?php
+
+				if ( 'pass' === $debug_data[ 'loopback_test_result' ] ) {
+					echo '<mark class="yes"><span class="dashicons dashicons-yes"></span></mark>';
+				} elseif ( '' === $debug_data[ 'loopback_test_result' ] ) {
+					echo '<mark class="no">&ndash;</mark>';
+				} else {
+					echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . __( 'Loopback test failed.', 'woocommerce-composite-products' ) . '</mark>';
+				}
+			?>
+			</td>
+		</tr>
+		<tr>
 			<td data-export-label="Template Overrides"><?php esc_html_e( 'Template overrides', 'woocommerce-composite-products' ); ?>:</td>
 			<td class="help"><?php echo wc_help_tip( esc_html__( 'Shows any files overriding the default Composite Products templates.', 'woocommerce-composite-products' ) ); ?></td>
 			<td><?php

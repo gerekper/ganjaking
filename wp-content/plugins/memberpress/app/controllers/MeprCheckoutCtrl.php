@@ -311,6 +311,12 @@ class MeprCheckoutCtrl extends MeprBaseCtrl {
       $txn->product_id = sanitize_text_field($_POST['mepr_product_id']);
       $product = $txn->product();
 
+      if(empty($product->ID)) {
+        $_POST['errors'] = array(__('Sorry, we were unable to find the membership.', 'memberpress'));
+        $_REQUEST['errors'] = array(__('Sorry, we were unable to find the membership.', 'memberpress'));
+        return;
+      }
+
       // If we're showing the fields on logged in purchases, let's save them here
       if(!$is_existing_user || ($is_existing_user && $mepr_options->show_fields_logged_in_purchases)) {
         MeprUsersCtrl::save_extra_profile_fields($usr->ID, true, $product, true);

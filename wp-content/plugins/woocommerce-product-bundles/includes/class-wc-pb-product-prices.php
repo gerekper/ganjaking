@@ -92,7 +92,7 @@ class WC_PB_Product_Prices {
 		 * @param  string  $method  Method to use for calculating cart item discounts. Values: 'filters' | 'props'.
 		 */
 		$discount_method = apply_filters( 'woocommerce_bundled_cart_item_discount_method', 'filters' );
- 		return in_array( $discount_method, array( 'filters', 'props' ) ) ? $discount_method : 'filters';
+		return in_array( $discount_method, array( 'filters', 'props' ) ) ? $discount_method : 'filters';
 	}
 
 	/**

@@ -119,10 +119,10 @@ class MpdtMemberUtils extends MpdtBaseUtils {
         FROM {$wpdb->users} AS u
    LEFT JOIN {$wpdb->usermeta} AS um_first_name
           ON um_first_name.user_id = u.ID
-         AND um_first_name.meta_key = \"first_name\"
+         AND um_first_name.meta_key = 'first_name'
    LEFT JOIN {$wpdb->usermeta} AS um_last_name
           ON um_last_name.user_id = u.ID
-         AND um_last_name.meta_key = \"last_name\"
+         AND um_last_name.meta_key = 'last_name'
       {$id_clause}
       {$search_clause}
       {$order_statement}

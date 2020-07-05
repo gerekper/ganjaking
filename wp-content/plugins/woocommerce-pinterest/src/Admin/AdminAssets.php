@@ -189,30 +189,34 @@ class AdminAssets {
 		return isset($assetsData[$screen]) ? $assetsData[$screen] : array();
 	}
 
-    /**
-     * @param $scriptBaseName
-     *
-     * @return array
-     */
-	private function getScriptDependencies($scriptBaseName) {
-	    $dependencies = array(
-            'product' => array('jquery', 'selectWoo'),
-            'products-table' => array('jquery', 'selectWoo'),
-            'pins' => array('jquery', 'selectWoo'),
-            'terms-pages' => array('jquery', 'selectWoo'),
-            'settings' => array('jquery')
-        );
+	/**
+	 * Get script dependencies
+	 *
+	 * @param $scriptBaseName
+	 *
+	 * @return array
+	 */
+	private function getScriptDependencies( $scriptBaseName) {
+		$dependencies = array(
+			'product' => array('jquery', 'selectWoo'),
+			'products-table' => array('jquery', 'selectWoo'),
+			'pins' => array('jquery', 'selectWoo'),
+			'terms-pages' => array('jquery', 'selectWoo'),
+			'settings' => array('jquery')
+		);
 
-	    return array_key_exists($scriptBaseName, $dependencies) ? $dependencies[$scriptBaseName] : array();
-    }
+		return array_key_exists($scriptBaseName, $dependencies) ? $dependencies[$scriptBaseName] : array();
+	}
 
-    /**
-     * @return bool
-     */
-	private function isProductsListPage(){
-	    $screen = get_current_screen();
-        return $screen && isset($screen->post_type) && 'product' === $screen->post_type;
-    }
+	/**
+	 * Is products list page
+	 *
+	 * @return bool
+	 */
+	private function isProductsListPage() {
+		$screen = get_current_screen();
+		return $screen && isset($screen->post_type) && 'product' === $screen->post_type;
+	}
 
 	/**
 	 * Get categories sceens assets data
@@ -269,10 +273,6 @@ class AdminAssets {
 			$this->localizeArrayField => array(
 				'get_google_categories_nonce' => wp_create_nonce(AjaxController::GET_GOOGLE_CATEGORIES_BY_PARENT_ACTION),
 				'get_google_categories_action' => AjaxController::GET_GOOGLE_CATEGORIES_BY_PARENT_ACTION,
-				'save_google_categories_mapping_nonce' => wp_create_nonce(AjaxController::SAVE_GOOGLE_CATEGORIES_ACTION),
-				'save_google_categories_mapping_action' => AjaxController::SAVE_GOOGLE_CATEGORIES_ACTION,
-				'save_category_boards_relations_nonce' => wp_create_nonce(AjaxController::SAVE_CATEGORY_BOARDS_RELATIONS_ACTION),
-				'save_category_boards_relations_action' => AjaxController::SAVE_CATEGORY_BOARDS_RELATIONS_ACTION,
 				'update_settings_page_boxes_states_nonce' => wp_create_nonce(AjaxController::UPDATE_SETTINGS_BOX_STATE_ACTION),
 				'update_settings_page_boxes_states_action' => AjaxController::UPDATE_SETTINGS_BOX_STATE_ACTION,
 				'not_selected_option_name' => __('Not selected', 'woocommerce-pinterest'),

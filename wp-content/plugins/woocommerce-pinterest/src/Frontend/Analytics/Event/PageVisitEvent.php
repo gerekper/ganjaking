@@ -20,7 +20,7 @@ class PageVisitEvent extends AbstractEvent implements EventInterface {
 	 * @return bool
 	 */
 	public function fired() {
-		return is_page() && ! is_checkout() && ! is_shop();
+		return ( is_page() || is_product() ) && ! is_checkout() && ! is_shop();
 	}
 
 	/**
@@ -38,7 +38,20 @@ class PageVisitEvent extends AbstractEvent implements EventInterface {
 	 * @return array
 	 */
 	public function getData() {
-		return array();
+
+		if ($this->data) {
+			return $this->data;
+		}
+
+		$data = array();
+
+		if ( is_product() ) {
+			global $post;
+
+			$data['product_id'] = $post->ID;
+		}
+
+		return $data;
 	}
 
 	/**

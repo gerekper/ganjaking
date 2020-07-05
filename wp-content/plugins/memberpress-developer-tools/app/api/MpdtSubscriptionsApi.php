@@ -22,6 +22,15 @@ class MpdtSubscriptionsApi extends MpdtBaseApi {
     ) );
   }
 
+  protected function before_create($args, $request) {
+    // Zapier strips out the preceeding 0's which fails validation
+    if(isset($args['cc_exp_month']) && $args['cc_exp_month'] < 10) {
+      $request->set_param('cc_exp_month', '0' . (int)$args['cc_exp_month']); // add the preceeding 0
+    }
+
+    return $request;
+  }
+
   /**
    * Cancel a Subscription
    *
@@ -54,7 +63,7 @@ class MpdtSubscriptionsApi extends MpdtBaseApi {
     $get_req = new WP_REST_Request('GET');
     $get_req->set_url_params(compact('id'));
     $data = array(
-      'message' => __('The transaction was successfully refunded and it\'s associated subscription was cancelled.', 'memberpress-developer-tools'),
+      'message' => __('The subscription was successfully cancelled.', 'memberpress-developer-tools'),
       'data' => $this->get_item( $get_req )
     );
 

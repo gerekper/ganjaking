@@ -212,6 +212,7 @@ class CatalogGenerationTaskManager extends AbstractTaskManager {
 	 * @return array
 	 */
 	public function registerCatalogRegenerationInterval( array $cronSchedules) {
+
 		$container = ServiceContainer::getInstance();
 		$frequency = $container->getPinterestIntegration()->get_option('pinterest_catalog_updating_frequency');
 

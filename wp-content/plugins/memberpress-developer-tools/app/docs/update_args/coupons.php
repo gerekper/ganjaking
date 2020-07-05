@@ -24,6 +24,13 @@ return array(
     'required' => __('Required if \'should_expire\' is true', 'memberpress-developer-tools'),
     'desc' => __('Set this to the unix timestamp of when you\'d like the coupon to expire.', 'memberpress-developer-tools')
   ),
+  'use_on_upgrades' => array(
+    'name' => __('Allowed on Upgrades', 'memberpress-developer-tools'),
+    'type' => 'bool',
+    'default' => 'false',
+    'required' => false,
+    'desc' => __('If this is enabled, this coupon may be used on Subscription Upgrades within an upgrade path Group.', 'memberpress-developer-tools')
+  ),
   'usage_amount' => array(
     'name' => __('Limit Coupon Usage', 'memberpress-developer-tools'),
     'type' => 'integer',

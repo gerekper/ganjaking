@@ -20,7 +20,7 @@ return array(
     )
   ),
   "refund_transaction_and_cancel" => (object)array(
-    'name'   => __('Refund & Cancel Transaction', 'memberpress-developer-tools'),
+    'name'   => __('Refund Transaction & Cancel Subscription', 'memberpress-developer-tools'),
     'desc'   => __('Refund a given transaction and cancel its associated subscription.', 'memberpress-developer-tools'),
     'method' => 'POST',
     'url'    => rest_url($this->namespace.'/'.$this->base) . '/:id/refund_and_cancel',

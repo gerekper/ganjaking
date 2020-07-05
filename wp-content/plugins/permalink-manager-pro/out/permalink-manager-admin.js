@@ -311,7 +311,7 @@ jQuery(document).ready(function() {
 					pm_help_tooltips();
 
 					if(wp && wp.data !== 'undefined') {
-						wp.data.dispatch('core/editor').refreshPost();
+						wp.data.dispatch('core/editor').savePost();
 					}
 
 					pm_reload_pending = false;
@@ -466,7 +466,7 @@ jQuery(document).ready(function() {
 				}
 
 				// Trigger again
-				if(data.hasOwnProperty('left_chunks')) {
+				if(data.hasOwnProperty('left_chunks') && (typeof total !== "undefined" && data.progress < total)) {
 					jQuery.ajax(this);
 
 					// Update progress
@@ -494,6 +494,8 @@ jQuery(document).ready(function() {
 				alert('Tthere was a problem running this tool and the process could not be completed. You can find more details in browser\'s console log.')
 				console.log('Status: ' + status);
 				console.log('Please send the debug data to contact@permalinkmanager.pro:\n\n' + xhr.responseText);
+
+				jQuery('#permalink-manager #tools').LoadingOverlay("hide", true);
 			}
 		});
 

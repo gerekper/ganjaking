@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Setup admin hooks.
  *
  * @class    WC_CP_Admin
- * @version  6.2.1
+ * @version  7.0.4
  */
 class WC_CP_Admin {
 
@@ -335,8 +335,9 @@ class WC_CP_Admin {
 	public static function render_system_status_items() {
 
 		$debug_data = array(
-			'db_version' => get_option( 'woocommerce_composite_products_db_version', null ),
-			'overrides'  => self::get_template_overrides()
+			'db_version'           => get_option( 'woocommerce_composite_products_db_version', null ),
+			'loopback_test_result' => WC_CP_Notices::get_notice_option( 'loopback', 'last_result', '' ),
+			'overrides'            => self::get_template_overrides()
 		);
 
 		include( 'views/html-admin-page-status-report.php' );

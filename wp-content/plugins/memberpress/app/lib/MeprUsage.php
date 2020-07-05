@@ -219,6 +219,7 @@ class MeprUsage {
 
   private function plugins() {
     $plugin_list = get_plugins();
+    wp_cache_delete('plugins', 'plugins');
 
     $plugins = array();
     foreach($plugin_list as $slug => $info) {

@@ -1821,7 +1821,7 @@ class WC_CP_Cart {
 
 		$product = wc_get_product( $product_id );
 
-		if ( $product ) {
+		if ( ! $product ) {
 			return $found;
 		}
 

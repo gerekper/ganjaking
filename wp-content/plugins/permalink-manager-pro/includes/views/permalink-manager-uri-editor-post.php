@@ -238,7 +238,7 @@ class Permalink_Manager_URI_Editor_Post extends WP_List_Table {
 			// Search in array with custom URIs
 			$found = Permalink_Manager_Helper_Functions::search_uri($search_query, 'posts');
 			if($found) {
-				$sql_parts['where'] .= sprintf("OR ID IN ('%s')", implode(',', (array) $found));
+				$sql_parts['where'] .= sprintf("OR ID IN (%s)", implode(',', (array) $found));
 			}
 			$sql_parts['where'] .= " ) AND ((post_status IN ($this->displayed_post_statuses) AND post_type IN ($this->displayed_post_types)) {$attachment_support}) {$extra_filters} ";
 		} else {

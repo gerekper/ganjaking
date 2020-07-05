@@ -10,7 +10,7 @@
         </script>
       <?php else: ?>
         <div class="mepr-already-logged-in">
-          <?php printf(_x('You\'re already logged in. %1$sLogout.%2$s', 'ui', 'memberpress'), '<a href="'. wp_logout_url($redirect_to) . '">', '</a>'); ?>
+          <?php printf(_x('You\'re already logged in. %1$sLogout.%2$s', 'ui', 'memberpress'), '<a href="'. wp_logout_url(urldecode($redirect_to)) . '">', '</a>'); ?>
         </div>
       <?php endif; ?>
     <?php else: ?>

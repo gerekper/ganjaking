@@ -15,6 +15,7 @@ class MeprAddonsCtrl extends MeprBaseCtrl {
     $force = isset($_GET['refresh']) && $_GET['refresh'] == 'true';
     $addons = MeprUpdateCtrl::addons(true, $force, true);
     $plugins = get_plugins();
+    wp_cache_delete('plugins', 'plugins');
 
     MeprView::render('/admin/addons/ui', get_defined_vars());
   }
@@ -215,6 +216,7 @@ class MeprAddonsCtrl extends MeprBaseCtrl {
       }
 
       $curr_plugins = get_plugins();
+      wp_cache_delete('plugins', 'plugins');
     }
 
     if(isset($curr_plugins[$main_file])) {

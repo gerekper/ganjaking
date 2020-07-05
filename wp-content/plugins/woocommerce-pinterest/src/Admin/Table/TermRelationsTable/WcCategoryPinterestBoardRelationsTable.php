@@ -114,7 +114,7 @@ class WcCategoryPinterestBoardRelationsTable extends AbstractTermRelationsTable 
 
 		$html .= '</fieldset>';
 
-		$html .= '<button class="woocommerce-pinterest-category-board-new-select">' . __('Add board', 'woocommerce-pinterest') . '</button>';
+		$html .= '<button class="woocommerce-pinterest-category-board-new-select button">' . __('Add board', 'woocommerce-pinterest') . '</button>';
 
 		return $html;
 	}
@@ -144,17 +144,10 @@ class WcCategoryPinterestBoardRelationsTable extends AbstractTermRelationsTable 
 
 
 	public function prepare_items() {
-		$this->_column_headers = array($this->get_columns(), array(), $this->get_sortable_columns());
+		parent::prepare_items();
 
 		$integration  = ServiceContainer::getInstance()->getPinterestIntegration();
 		$this->boards = (array) $integration->get_option('boards');
-
-		$terms = get_terms(array(
-			'taxonomy' => 'product_cat',
-			'hide_empty' => false
-		));
-
-		$this->items = new TermsCollection($terms);
 
 	}
 

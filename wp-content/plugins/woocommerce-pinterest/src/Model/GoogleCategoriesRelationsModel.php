@@ -67,7 +67,8 @@ class GoogleCategoriesRelationsModel extends AbstractModel {
 		}
 
 		if (! $categoryId) {
-			$categoryId = reset(wc_get_product_term_ids($productToGetCategoryFrom->get_id(), 'product_cat'));
+			$productCategories = wc_get_product_term_ids($productToGetCategoryFrom->get_id(), 'product_cat');
+			$categoryId = reset($productCategories);
 		}
 
 		return (int) $categoryId;

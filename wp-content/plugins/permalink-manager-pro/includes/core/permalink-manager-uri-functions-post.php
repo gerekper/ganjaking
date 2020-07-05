@@ -17,12 +17,12 @@ class Permalink_Manager_URI_Functions_Post extends Permalink_Manager_Class {
 		add_filter( 'permalink_manager_uris', array($this, 'exclude_homepage'), 99);
 
 		// Support url_to_postid
-		add_filter( 'url_to_postid', array($this, 'url_to_postid'), 99);
+		add_filter( 'url_to_postid', array($this, 'url_to_postid'), 999);
 
 		/**
 		 * URI Editor
 		 */
-		add_filter( 'get_sample_permalink_html', array($this, 'edit_uri_box'), 99, 5 );
+		add_filter( 'get_sample_permalink_html', array($this, 'edit_uri_box'), 10, 5 );
 
 		add_action( 'save_post', array($this, 'update_post_uri'), 99, 1);
 		add_action( 'edit_attachment', array($this, 'update_post_uri'), 99, 1 );
@@ -58,16 +58,24 @@ class Permalink_Manager_URI_Functions_Post extends Permalink_Manager_Class {
 		// Do not filter in WPML String Editor
 		if(!empty($_REQUEST['icl_ajx_action']) && $_REQUEST['icl_ajx_action'] == 'icl_st_save_translation') { return $permalink; }
 
+		// WPML (prevent duplicated posts)
+		if(!empty($_REQUEST['trid']) && !empty($_REQUEST['skip_sitepress_actions'])) { return $permalink; }
+
 		// Do not run when metaboxes are loaded with Gutenberg
 		if(!empty($_REQUEST['meta-box-loader']) && empty($_POST['custom_uri'])) { return $permalink; }
 
 		$post = (is_integer($post)) ? get_post($post) : $post;
 
+		// Do not run if post object is invalid
+		if(empty($post) || empty($post->ID) || empty($post->post_type)) {
+			return $permalink;
+		}
+
 		// Start with homepage URL
 		$home_url = Permalink_Manager_Helper_Functions::get_permalink_base($post);
 
 		// 1. Check if post type is allowed
-		if(!empty($post->post_type) && Permalink_Manager_Helper_Functions::is_disabled($post->post_type, 'post_type')) { return $permalink; }
+		if(!empty($post->post_type) && Permalink_Manager_Helper_Functions::is_disabled($post->post_type, 'post_type') && $post->post_type !== 'attachment') { return $permalink; }
 
 		// 2A. Do not change permalink of frontpage
 		if(Permalink_Manager_Helper_Functions::is_front_page($post->ID)) {
@@ -143,7 +151,10 @@ class Permalink_Manager_URI_Functions_Post extends Permalink_Manager_Class {
 	* Get the default (not overwritten by the user) or native URI (unfiltered)
 	*/
 	public static function get_default_post_uri($post, $native_uri = false, $check_if_disabled = false) {
-		global $permalink_manager_options, $permalink_manager_uris, $permalink_manager_permastructs, $wp_post_types;
+		global $permalink_manager_options, $permalink_manager_uris, $permalink_manager_permastructs, $wp_post_types, $icl_adjust_id_url_filter_off;
+
+		// Disable WPML adjust ID filter
+		$icl_adjust_id_url_filter_off = true;
 
 		// Load all bases & post
 		$post = is_object($post) ? $post : get_post($post);
@@ -266,6 +277,9 @@ class Permalink_Manager_URI_Functions_Post extends Permalink_Manager_Class {
 
 		if($taxonomies) {
 			foreach($taxonomies as $taxonomy) {
+				// 0. Check if taxonomy tag is present
+				if(strpos($default_uri, "%{$taxonomy}") === false) { continue; }
+
 				// 1. Reset $replacement
 				$replacement = $replacement_term = "";
 				$terms = wp_get_object_terms($post->ID, $taxonomy);
@@ -317,6 +331,9 @@ class Permalink_Manager_URI_Functions_Post extends Permalink_Manager_Class {
 			}
 		}
 
+		// Enable WPML adjust ID filter
+		$icl_adjust_id_url_filter_off = false;
+
 		return apply_filters('permalink_manager_filter_default_post_uri', $default_uri, $post->post_name, $post, $post_name, $native_uri);
 	}
 
@@ -349,13 +366,10 @@ class Permalink_Manager_URI_Functions_Post extends Permalink_Manager_Class {
 		$pm_query = $old_pm_query;
 
 		if(!empty($post->ID)) {
-			$native_uri = self::get_default_post_uri($post->ID, true);
-			$native_url = sprintf("%s/%s", trim(home_url(), "/"), $native_uri);
-		} else {
-			$native_uri = '';
+			$native_url = "/?p={$post->ID}";
 		}
 
-		return (!empty($native_uri)) ? $native_uri : $url;
+		return (!empty($native_url)) ? $native_url : $url;
 	}
 
 	/**
@@ -721,7 +735,7 @@ class Permalink_Manager_URI_Functions_Post extends Permalink_Manager_Class {
 		if($post_object->post_type == 'nav_menu_item') { return $post_id; }
 
 		// Ignore auto-drafts & removed posts
-		if(in_array($post_object->post_status, array('auto-draft', 'trash'))) { return; }
+		if(in_array($post_object->post_status, array('auto-draft', 'trash')) || (!empty($post_object->post_name) && $post_object->post_name == 'auto-draft')) { return $post_id; }
 
 		$native_uri = self::get_default_post_uri($post_id, true);
 		$new_uri = self::get_default_post_uri($post_id);

@@ -291,6 +291,7 @@ class MeprStripeGateway extends MeprBaseRealGateway {
       }
 
       $subscription = isset($_REQUEST['subscription']) ? (object) $_REQUEST['subscription'] : null;
+      $invoice = isset($_REQUEST['invoice']) ? (object) $_REQUEST['invoice'] : null;
       $sub = isset($subscription, $subscription->id) ? MeprSubscription::get_one_by_subscr_id($subscription->id) : null;
 
       if($sub instanceof MeprSubscription) {
@@ -330,9 +331,21 @@ class MeprStripeGateway extends MeprBaseRealGateway {
       $txn->gateway    = $this->id;
       $txn->subscription_id = $sub->id;
 
-      // If this is the first payment for a paid trial, expire the transaction after the trial ends
-      if($sub->trial && isset($_REQUEST['invoice']->billing_reason) && $_REQUEST['invoice']->billing_reason == 'subscription_create') {
-        $txn->expires_at = MeprUtils::ts_to_mysql_date(time() + MeprUtils::days($sub->trial_days), 'Y-m-d 23:59:59');
+      // If this is the first payment for a paid trial, expire the transaction after the trial ends.
+      // The actual number of trial days can be different from $sub->trial_days, for example when resuming, so we'll
+      // calculate the trial days from the Stripe subscription data.
+      if($subscription &&
+        $subscription->status == 'trialing' &&
+        isset($invoice->billing_reason) &&
+        $invoice->billing_reason == 'subscription_create' &&
+        is_numeric($subscription->trial_start) &&
+        is_numeric($subscription->trial_end)
+      ) {
+        $trial_days = ($subscription->trial_end - $subscription->trial_start) / MeprUtils::days(1);
+
+        if($trial_days > 0) {
+          $txn->expires_at = MeprUtils::ts_to_mysql_date(time() + MeprUtils::days($trial_days), 'Y-m-d 23:59:59');
+        }
       }
 
       if(MeprUtils::is_zero_decimal_currency()) {
@@ -403,7 +416,8 @@ class MeprStripeGateway extends MeprBaseRealGateway {
     if(isset($_REQUEST['invoice'], $_REQUEST['invoice']->id)) {
       $invoice = (object) $_REQUEST['invoice'];
 
-      $sub = isset($invoice->subscription['id']) ? MeprSubscription::get_one_by_subscr_id($invoice->subscription['id']) : null;
+      $subscription = isset($_REQUEST['subscription']) ? (object) $_REQUEST['subscription'] : null;
+      $sub = isset($subscription, $subscription->id) ? MeprSubscription::get_one_by_subscr_id($subscription->id) : null;
 
       if(!($sub instanceof MeprSubscription)) {
         // Look for an old cus_xxx subscription
@@ -430,9 +444,21 @@ class MeprStripeGateway extends MeprBaseRealGateway {
       $txn->subscription_id = $sub->id;
       $txn->set_subtotal(0.00); // Just a confirmation txn
 
-      // If this is the first invoice "payment" of a paid trial, set the expiry date to the end of the trial.
-      if($invoice->billing_reason == 'subscription_create' && $sub->trial && $sub->trial_amount > 0.00) {
-        $txn->expires_at = MeprUtils::ts_to_mysql_date(time() + MeprUtils::days($sub->trial_days), 'Y-m-d 23:59:59');
+      // If this is the first invoice "payment" for a paid trial, expire the transaction after the trial ends.
+      // The actual number of trial days can be different from $sub->trial_days, for example when resuming, so we'll
+      // calculate the trial days from the Stripe subscription data.
+      if($subscription &&
+        $subscription->status == 'trialing' &&
+        isset($invoice->billing_reason) &&
+        $invoice->billing_reason == 'subscription_create' &&
+        is_numeric($subscription->trial_start) &&
+        is_numeric($subscription->trial_end)
+      ) {
+        $trial_days = ($subscription->trial_end - $subscription->trial_start) / MeprUtils::days(1);
+
+        if($trial_days > 0) {
+          $txn->expires_at = MeprUtils::ts_to_mysql_date(time() + MeprUtils::days($trial_days), 'Y-m-d 23:59:59');
+        }
       }
 
       $txn->store();
@@ -956,6 +982,15 @@ class MeprStripeGateway extends MeprBaseRealGateway {
   public function update_subscription_payment_method(MeprSubscription $sub, MeprUser $usr, $payment_method) {
     // Attach the payment method to the customer and set this as the default payment method for the subscription
     if(strpos($sub->subscr_id, 'sub_') === 0) {
+      $customer_id = $usr->get_stripe_customer_id($this->get_meta_gateway_id());
+
+      if(!is_string($customer_id) || strpos($customer_id, 'cus_') !== 0) {
+        // If the Stripe customer ID isn't saved locally for this user, let's fetch it first from the subscription, then
+        // save it. This can happen if sub_ subscriptions are imported and the cus_ IDs aren't imported for users.
+        $subscription = (object) $this->send_stripe_request('subscriptions/' . $sub->subscr_id, [], 'get');
+        $usr->set_stripe_customer_id($this->get_meta_gateway_id(), $subscription->customer);
+      }
+
       $this->get_customer_id($usr, $payment_method->id);
       $this->send_stripe_request('subscriptions/' . $sub->subscr_id, ['default_payment_method' => $payment_method->id], 'post');
     } else {

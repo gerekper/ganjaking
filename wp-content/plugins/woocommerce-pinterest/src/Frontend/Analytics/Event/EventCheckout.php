@@ -16,7 +16,7 @@ class EventCheckout extends AbstractEvent implements EventInterface {
 	 * @var WC_Order
 	 */
 	private $order;
-	
+
 	/**Primary Category Model instance
 	 *
 	 * @var Model
@@ -29,32 +29,30 @@ class EventCheckout extends AbstractEvent implements EventInterface {
 	 * @param PinterestIntegration $integration
 	 * @param Model $primaryCategoryModel
 	 */
-	public function __construct( PinterestIntegration $integration, Model $primaryCategoryModel) {
+	public function __construct( PinterestIntegration $integration, Model $primaryCategoryModel ) {
 		$this->primaryCategoryModel = $primaryCategoryModel;
-		parent::__construct($integration);
+		parent::__construct( $integration );
 
 		$this->init();
 	}
 
 	public function init() {
-		if ($this->enabled()) {
-			add_action('woocommerce_checkout_order_processed', array($this, 'setCheckoutData'), 9, 3);
+		if ( $this->enabled() ) {
+			$orderKey = isset( $_GET['key'] ) ?  sanitize_text_field( $_GET['key'] ) : false;
+			if ( $orderKey ) {
+				$orderId = wc_get_order_id_by_order_key( $orderKey );
+				if ( $orderId ) {
+					$order = wc_get_order( $orderId );
+
+					if ( $order ) {
+						$this->order = $order;
+						$this->userEmail = $order->get_billing_email();
+					}
+				}
+			}
 		}
 	}
-
-	/**
-	 * Save data from checkout event to use later
-	 *
-	 * @param $orderId
-	 * @param array $postedData Should be array but afterpay payment gateway plugin passes false sometimes, so type hint removed.
-	 *
-	 * @param WC_Order $order
-	 */
-	public function setCheckoutData( $orderId, $postedData, WC_Order $order) {
-		$this->order = $order;
-	}
-
-
+	
 	/**
 	 * Return event status
 	 *
@@ -89,15 +87,20 @@ class EventCheckout extends AbstractEvent implements EventInterface {
 	 */
 	public function getData() {
 
+		if ( $this->data ) {
+			return $this->data;
+		}
+
+
 		$data = array();
 
-		if ($this->order instanceof WC_Order) {
+		if ( $this->order instanceof WC_Order ) {
 			$data = array(
-				'order_id' => $this->order->get_id(),
-				'value' => $this->order->get_total(),
-				'currency' => get_woocommerce_currency(),
+				'order_id'       => $this->order->get_id(),
+				'value'          => $this->order->get_total(),
+				'currency'       => get_woocommerce_currency(),
 				'order_quantity' => $this->order->get_item_count(),
-				'line_items' => $this->getLineItems($this->order)
+				'line_items'     => $this->getLineItems( $this->order )
 			);
 		}
 
@@ -107,15 +110,15 @@ class EventCheckout extends AbstractEvent implements EventInterface {
 	/**
 	 * Return product category name
 	 *
+	 * @return string
 	 * @var int $productId
 	 *
-	 * @return string
 	 */
-	private function getProductCategoryName( $productId) {
-		$categoryId = $this->getProductCategoryId($productId);
-		$result     = get_term_field('name', $categoryId, 'product_cat');
+	private function getProductCategoryName( $productId ) {
+		$categoryId = $this->getProductCategoryId( $productId );
+		$result     = get_term_field( 'name', $categoryId, 'product_cat' );
 
-		return is_string($result) ? $result : '';
+		return is_string( $result ) ? $result : '';
 	}
 
 	/**
@@ -125,12 +128,12 @@ class EventCheckout extends AbstractEvent implements EventInterface {
 	 *
 	 * @return int|null
 	 */
-	private function getProductCategoryId( $productId) {
-		$categoryId = $this->primaryCategoryModel->getPrimaryCategoryId($productId);
+	private function getProductCategoryId( $productId ) {
+		$categoryId = $this->primaryCategoryModel->getPrimaryCategoryId( $productId );
 
-		if (! $categoryId) {
-			$categoriesIds = wc_get_product_term_ids($productId, 'product_cat');
-			$categoryId    = reset($categoriesIds);
+		if ( ! $categoryId ) {
+			$categoriesIds = wc_get_product_term_ids( $productId, 'product_cat' );
+			$categoryId    = reset( $categoriesIds );
 		}
 
 		return $categoryId ? $categoryId : null;
@@ -140,14 +143,15 @@ class EventCheckout extends AbstractEvent implements EventInterface {
 	 * Return order line items data
 	 *
 	 * @param WC_Order $order
+	 *
 	 * @return array
 	 */
-	private function getLineItems( WC_Order $order) {
+	private function getLineItems( WC_Order $order ) {
 		$line_items = array();
 
-		foreach ($order->get_items() as $item) {
-			if ($item instanceof WC_Order_Item_Product) {
-				$line_items[] = $this->getOrderProductData($item);
+		foreach ( $order->get_items() as $item ) {
+			if ( $item instanceof WC_Order_Item_Product ) {
+				$line_items[] = $this->getOrderProductData( $item );
 			}
 		};
 
@@ -161,14 +165,14 @@ class EventCheckout extends AbstractEvent implements EventInterface {
 	 *
 	 * @return array
 	 */
-	private function getOrderProductData( WC_Order_Item_Product $item) {
+	private function getOrderProductData( WC_Order_Item_Product $item ) {
 		$product = $item->get_product();
 
 		return array(
-			'product_category' => $this->getProductCategoryName($product->get_id()),
-			'product_name' => $product->get_name(),
-			'product_id' => $product->get_id(),
-			'product_price' => $product->get_price(),
+			'product_category' => $this->getProductCategoryName( $product->get_id() ),
+			'product_name'     => $product->get_name(),
+			'product_id'       => $product->get_id(),
+			'product_price'    => $product->get_price(),
 			'product_quantity' => $item->get_quantity()
 		);
 	}

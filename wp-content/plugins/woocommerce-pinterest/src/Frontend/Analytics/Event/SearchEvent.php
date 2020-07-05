@@ -39,6 +39,11 @@ class SearchEvent extends AbstractEvent implements EventInterface {
 	 * @return array
 	 */
 	public function getData() {
+
+		if ($this->data) {
+			return $this->data;
+		}
+
 		return array('search_query' => get_search_query());
 	}
 

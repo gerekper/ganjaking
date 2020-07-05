@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product meta-box data for the 'Bundle' type.
  *
  * @class    WC_PB_Meta_Box_Product_Data
- * @version  6.2.1
+ * @version  6.3.0
  */
 class WC_PB_Meta_Box_Product_Data {
 
@@ -57,6 +57,48 @@ class WC_PB_Meta_Box_Product_Data {
 
 		// Extended "Sold Individually" option.
 		add_action( 'woocommerce_product_options_sold_individually', array( __CLASS__, 'sold_individually_option' ) );
+
+		/*
+		 * Support.
+		 */
+
+		// Add a notice if prices not set.
+		add_action( 'admin_notices', array( __CLASS__, 'maybe_add_non_purchasable_notice' ), 0 );
+	}
+
+	/**
+	 * Adds a notice if prices not set.
+	 *
+	 * @return void
+	 */
+	public static function maybe_add_non_purchasable_notice() {
+
+		global $post_id;
+
+		// Get admin screen ID.
+		$screen    = get_current_screen();
+		$screen_id = $screen ? $screen->id : '';
+
+		if ( 'product' !== $screen_id ) {
+			return;
+		}
+
+		$product_type = WC_Product_Factory::get_product_type( $post_id );
+
+		if ( 'bundle' !== $product_type ) {
+			return;
+		}
+
+		$product = wc_get_product( $post_id );
+
+		if ( ! $product ) {
+			return;
+		}
+
+		if ( false === $product->contains( 'priced_individually' ) && '' === $product->get_price( 'edit' ) ) {
+			$notice = sprintf( __( '&quot;%1$s&quot; is not purchasable just yet. But, fear not &ndash; setting up <a href="%2$s" target="_blank">pricing options</a> only takes a minute! <ul class="pb_notice_list"><li>To give &quot;%1$s&quot; a static base price, navigate to <strong>Product Data > General</strong> and fill in the <strong>Regular Price</strong> field.</li><li>To preserve the prices and taxes of individual bundled products, go to <strong>Product Data > Bundled Products</strong> and enable <strong>Priced Individually</strong> for each bundled product whose price must be preserved.</li></ul> Then, save your changes.', 'woocommerce-product-bundles' ), $product->get_title(), WC_PB()->get_resource_url( 'pricing-options' ) );
+			WC_PB_Admin_Notices::add_notice( $notice, 'warning' );
+		}
 	}
 
 	/**
@@ -238,8 +280,8 @@ class WC_PB_Meta_Box_Product_Data {
 			<div class="wp-clearfix"></div>
 			<div id="message" class="inline notice">
 				<p>
-					<span class="assembled_notice_title"><?php _e( 'Where did the shipping options go?', 'woocommerce-product-bundles' ); ?></span><br/>
-					<?php _e( 'The contents of this bundle preserve their dimensions, weight and shipping classes. Unassembled bundles do not have a physical container. The parent item that groups bundled products in the cart is virtual &ndash; it has no shipping properties of its own.', 'woocommerce-product-bundles' ); ?>
+					<span class="assembled_notice_title"><?php _e( 'What happened to the shipping options?', 'woocommerce-product-bundles' ); ?></span>
+					<?php echo sprintf( __( 'The contents of this bundle preserve their dimensions, weight and shipping classes. <a href="%s" target="_blank">Unassembled</a> bundles do not have a physical container &ndash; or any shipping options to configure.', 'woocommerce-product-bundles' ), WC_PB()->get_resource_url( 'shipping-options' ) ); ?>
 				</p>
 			</div>
 		<?php
@@ -315,6 +357,14 @@ class WC_PB_Meta_Box_Product_Data {
 	public static function process_bundle_data( $product ) {
 
 		if ( $product->is_type( 'bundle' ) ) {
+
+			/*
+			 * Test if 'max_input_vars' limit may have been exceeded.
+			 */
+			if ( isset( $_POST[ 'pb_post_control_var' ] ) && ! isset( $_POST[ 'pb_post_test_var' ] ) ) {
+				$notice = sprintf( __( 'Product Bundles has detected that your server may have failed to process and save some of the data on this page. Please get in touch with your server\'s host or administrator and (kindly) ask them to <a href="%1$s" target="_blank">increase the number of variables</a> that PHP scripts can post and process%2$s.', 'woocommerce-product-bundles' ), WC_PB()->get_resource_url( 'max-input-vars' ), function_exists( 'ini_get' ) && ini_get( 'max_input_vars' ) ? sprintf( __( ' (currently %s)', 'woocommerce-product-bundles' ), ini_get( 'max_input_vars' ) ) : '' );
+				self::add_admin_notice( $notice, 'warning' );
+			}
 
 			$props = array(
 				'layout'                    => 'default',
@@ -441,9 +491,20 @@ class WC_PB_Meta_Box_Product_Data {
 					}
 				}
 
-				$group_modes_without_parent_msg = sprintf( _n( '%s is only supported by <a href="https://docs.woocommerce.com/document/bundles/bundles-configuration/#shipping" target="_blank">unassembled</a> bundles with an empty <a href="https://docs.woocommerce.com/document/bundles/bundles-configuration/#pricing" target="_blank">base price</a>.', '%s are only supported by <a href="https://docs.woocommerce.com/document/bundles/bundles-configuration/#shipping" target="_blank">unassembled</a> bundles with an empty <a href="https://docs.woocommerce.com/document/bundles/bundles-configuration/#pricing" target="_blank">base price</a>.', sizeof( $group_modes_without_parent ), 'woocommerce-product-bundles' ), WC_PB_Helpers::format_list_of_items( $group_modes_without_parent ) );
+				$group_modes_without_parent_msg = sprintf( _n( '%1$s is only supported by <a href="%2$s" target="_blank">unassembled</a> bundles with an empty <a href="%3$s" target="_blank">base price</a>.', '%1$s are only supported by <a href="%2$s" target="_blank">unassembled</a> bundles with an empty <a href="%3$s" target="_blank">base price</a>.', sizeof( $group_modes_without_parent ), 'woocommerce-product-bundles' ), WC_PB_Helpers::format_list_of_items( $group_modes_without_parent ), WC_PB()->get_resource_url( 'shipping-options' ), WC_PB()->get_resource_url( 'pricing-options' ) );
 
 				self::add_admin_error( sprintf( __( 'The chosen <strong>Item Grouping</strong> option is invalid. %s', 'woocommerce-product-bundles' ), $group_modes_without_parent_msg ) );
+
+			}
+
+			/*
+			 * Show non-mandatory bundle notice.
+			 */
+			if ( ! class_exists( 'WC_PB_Min_Max_Items' ) && 'none' !== $product->get_group_mode( 'edit' ) && $product->get_bundled_items() && ! $product->contains( 'mandatory' ) ) {
+
+				$notice = sprintf( __( 'Looking for a way to control the minimum or maximum number of items that customers must choose in this bundle? Check out the free <a href="%s" target="_blank">Min/Max Items</a> add-on!', 'woocommerce-product-bundles' ), WC_PB()->get_resource_url( 'min-max' ) );
+
+				self::add_admin_notice( $notice, array( 'dismiss_class' => 'process_data_min_max', 'type' => 'info' ) );
 			}
 
 			// Clear dismissible welcome notice.
@@ -1406,11 +1467,15 @@ class WC_PB_Meta_Box_Product_Data {
 	 * Add admin notices.
 	 *
 	 * @param  string  $content
-	 * @param  string  $type
+	 * @param  mixed   $args
 	 */
-	public static function add_admin_notice( $content, $type ) {
-
-		WC_PB_Admin_Notices::add_notice( $content, $type, true );
+	public static function add_admin_notice( $content, $args ) {
+		if ( is_array( $args ) && ! empty( $args[ 'dismiss_class' ] ) ) {
+			$args[ 'save_notice' ] = true;
+			WC_PB_Admin_Notices::add_dismissible_notice( $content, $args );
+		} else {
+			WC_PB_Admin_Notices::add_notice( $content, $args, true );
+		}
 	}
 
 	/**
@@ -1420,7 +1485,6 @@ class WC_PB_Meta_Box_Product_Data {
 	 * @return string
 	 */
 	public static function add_admin_error( $error ) {
-
 		self::add_admin_notice( $error, 'error' );
 	}
 

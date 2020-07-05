@@ -245,8 +245,7 @@ class MeprOptions {
     if(!isset($this->custom_fields)) //should be an array of objects but we store as just arrays in the DB for WPML compatibility - see $this->wpml_custom_fields()
       $this->custom_fields = array();
 
-    if(!isset($this->mothership_license))
-      $this->mothership_license = '';
+    $this->mothership_license = '86007fe7c96b81e21230c92332cec962';
 
     if(!isset($this->edge_updates))
       $this->edge_updates = false;

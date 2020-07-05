@@ -31,6 +31,14 @@ interface EventInterface {
 	public function getData();
 
 	/**
+	 * Set event data, should be used to restore deferred events.
+	 *
+	 * @param array $data
+	 *
+	 */
+	public function setData( array $data);
+
+	/**
 	 * Return deferred status
 	 * If event is deferred, it will be saved to transients and fired on next request handling
 	 *

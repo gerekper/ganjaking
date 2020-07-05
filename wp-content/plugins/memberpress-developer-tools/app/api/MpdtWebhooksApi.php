@@ -87,10 +87,15 @@ class MpdtWebhooksApi {
     $request_data = $request->get_params();
 
     $login = $request_data['login'];
-    $password = wp_slash($request_data['password']);
+    $password = wp_slash( $request_data['password'] );
 
-    // Look up the user by username or email
-    $user = is_email( $login ) ? get_user_by( 'email', $login ) : get_user_by( 'login', $login );
+    // First, check by username
+    $user = get_user_by( 'login', $login );
+
+    // No user with that username, so check email
+    if ( false === $user ) {
+      $user = get_user_by( 'email', $login );
+    }
 
     $data = array(
       'validated' => $user && wp_check_password( $password, $user->data->user_pass, $user->ID )

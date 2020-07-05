@@ -25,6 +25,13 @@ class TermsCollection extends ArrayObject {
 	private $sortedTerms = array();
 
 	/**
+	 * Terms will be displayed on current page
+	 *
+	 * @var array
+	 */
+	private $termsToDisplay = array();
+
+	/**
 	 * Terms levels array
 	 *
 	 * @var int[]
@@ -32,14 +39,34 @@ class TermsCollection extends ArrayObject {
 	private $termsLevels = array();
 
 	/**
+	 * Terms number per page
+	 *
+	 * @var int
+	 */
+	private $perPage;
+
+	/**
+	 * Current page number
+	 *
+	 * @var int
+	 */
+	private $currentPage;
+
+	/**
 	 * TermsCollection constructor.
 	 *
 	 * @param WP_Term[] $terms
+	 * @param int $perPage
+	 * @param int $currentPage
 	 */
-	public function __construct( array $terms) {
-		$this->sortedTerms = $this->sortTerms($terms);
+	public function __construct( array $terms, $perPage = 20, $currentPage = 1) {
+		$this->perPage 	   	  = $perPage;
+		$this->currentPage	  = $currentPage;
+		$this->sortedTerms 	  = $this->sortTerms($terms);
+		$this->termsToDisplay = $this->getTermsToDisplay();
 
-		parent::__construct($this->sortedTerms);
+
+		parent::__construct($this->termsToDisplay);
 	}
 
 	/**
@@ -63,7 +90,7 @@ class TermsCollection extends ArrayObject {
 
 		foreach ($terms as $term) {
 			if (! $term->parent) {
-				$this->setTermLevel($term->term_taxonomy_id, 0);
+				$this->setTermLevel($term->term_id, 0);
 
 				$branch         = $this->getBranchAsFlatArray($term, $terms);
 				$filteredBranch = array_filter($branch);
@@ -74,6 +101,74 @@ class TermsCollection extends ArrayObject {
 		}
 
 		return $sortedTerms;
+	}
+
+	/**
+	 * Get terms to be displayed on current page
+	 *
+	 * @return array
+	 */
+	public function getTermsToDisplay() {
+
+		/**
+		 * Get terms offset
+		 *
+		 * @var WP_Term $firstInList
+		 */
+		$firstInList     = $this->sortedTerms[$this->getTermsOffset()];
+		$sortedAncestors = array();
+		if ($this->hasAncestors($firstInList)) {
+			$sortedAncestors = $this->getSortedAncestorsList($firstInList->term_id);
+		}
+
+		$termsToGetFrom = array_slice($this->sortedTerms, $this->getTermsOffset(), $this->perPage);
+
+		return array_merge($sortedAncestors, $termsToGetFrom);
+	}
+
+	/**
+	 * Get terms offset
+	 *
+	 * @return int
+	 */
+	private function getTermsOffset() {
+		return ( $this->currentPage -1 ) * $this->perPage;
+	}
+
+	/**
+	 * Whether term has ancestors
+	 *
+	 * @param WP_Term $term
+	 *
+	 * @return bool
+	 */
+	private function hasAncestors( WP_Term $term) {
+		return 0 !== $term->parent;
+	}
+
+	/**
+	 * Return ancestors in ascending order
+	 *
+	 * @param $termId
+	 *
+	 * @return WP_Term[]
+	 */
+	private function getSortedAncestorsList( $termId) {
+		$sortedAncestors = array();
+
+		$ancestorsIds = get_ancestors($termId, 'product_cat', 'taxonomy');
+		$ancestors    = get_terms(array(
+			'include' => $ancestorsIds,
+			'hide_empty' => false,
+			'orderby' => 'parent',
+			'order' => 'ASC'
+		));
+
+		if ($ancestors) {
+			$sortedAncestors = $this->getBranchAsFlatArray(reset($ancestors), $ancestors);
+		}
+
+		return $sortedAncestors;
 	}
 
 	/**
@@ -108,10 +203,10 @@ class TermsCollection extends ArrayObject {
 		$foundTerms = array();
 		foreach ($terms as $index => $term) {
 			if ($term->parent === $parentId) {
-				$this->setTermLevel($term->term_taxonomy_id, $level);
+				$this->setTermLevel($term->term_id, $level);
 
 				$foundTerms[]  = $term;
-				$childrenTerms = $this->walkBranch($term->term_taxonomy_id, $terms, $level + 1);
+				$childrenTerms = $this->walkBranch($term->term_id, $terms, $level + 1);
 				if ($childrenTerms) {
 					$foundTerms = array_merge($foundTerms, $childrenTerms);
 				}

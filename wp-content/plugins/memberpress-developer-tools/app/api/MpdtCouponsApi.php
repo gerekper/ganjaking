@@ -12,6 +12,10 @@ class MpdtCouponsApi extends MpdtBaseApi {
       $request->set_param('expires_on', strtotime($args['expires_on']));
     }
 
+    if(!isset($args['coupon_code']) || empty($args['coupon_code'])) {
+      $request->set_param('coupon_code', strtoupper(uniqid()));
+    }
+
     return $request;
   }
 }

@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * The bunded item class is a product container that initializes and holds pricing, availability and variation/attribute-related data for a bundled product.
  *
  * @class    WC_Bundled_Item
- * @version  6.2.5
+ * @version  6.3.0
  */
 class WC_Bundled_Item {
 
@@ -1780,6 +1780,17 @@ class WC_Bundled_Item {
 	 */
 	public function is_optional() {
 		return 'yes' === $this->optional;
+	}
+
+	/**
+	 * Optional item suffix.
+	 *
+	 * @since  6.3.0
+	 *
+	 * @return string
+	 */
+	public function get_optional_suffix() {
+		return $this->is_optional() && apply_filters( 'woocommerce_bundles_optional_bundled_item_add_suffix', false, $this ) && $this->get_bundle() && $this->get_bundle()->contains( 'mandatory' ) ? apply_filters( 'woocommerce_bundles_optional_bundled_item_suffix', __( 'optional', 'woocommerce-product-bundles' ) ) : '';
 	}
 
 	/**

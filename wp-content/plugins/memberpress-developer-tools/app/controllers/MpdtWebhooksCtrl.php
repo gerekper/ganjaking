@@ -59,7 +59,7 @@ class MpdtWebhooksCtrl extends MpdtBaseCtrl {
     if(is_array($webhooks) && !empty($webhooks)) {
       foreach($webhooks as $webhook) {
         // Skip it if this event is messed up or not active for this webhook
-        if(!isset($webhook['url']) ||
+        if(empty($webhook['url']) ||
            (!isset($webhook['events']['all']) &&
             !isset($webhook['events'][$event])))
         { continue; }

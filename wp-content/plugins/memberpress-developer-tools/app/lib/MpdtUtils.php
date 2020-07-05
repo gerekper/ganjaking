@@ -2,10 +2,10 @@
 
 class MpdtUtils {
   public static function get_authorization_header() {
-    if(isset($_SERVER['HTTP_AUTHORIZATION'])) {
+    if(isset($_SERVER['HTTP_AUTHORIZATION']) && !empty($_SERVER['HTTP_AUTHORIZATION'])) {
       return $_SERVER['HTTP_AUTHORIZATION'];
     }
-    elseif(isset($_SERVER['HTTP_MEMBERPRESS_API_KEY'])) {
+    elseif(isset($_SERVER['HTTP_MEMBERPRESS_API_KEY']) && !empty($_SERVER['HTTP_MEMBERPRESS_API_KEY'])) {
       return $_SERVER['HTTP_MEMBERPRESS_API_KEY'];
     }
     elseif(function_exists('apache_request_headers')) {

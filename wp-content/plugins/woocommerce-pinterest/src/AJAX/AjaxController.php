@@ -28,8 +28,6 @@ class AjaxController {
 
 	const SAVE_GOOGLE_CATEGORIES_ACTION = self::ACTION_PREFIX . 'save-google-categories-mapping';
 
-	const SAVE_CATEGORY_BOARDS_RELATIONS_ACTION = self::ACTION_PREFIX . 'save-category-boards-mapping';
-
 	const UPDATE_SETTINGS_BOX_STATE_ACTION = self::ACTION_PREFIX . 'update-settings-box-state';
 
 	/**
@@ -94,8 +92,6 @@ class AjaxController {
 	public function init() {
 		add_action('wp_ajax_' . self::GET_TAGS_FOR_CATEGORY_ACTION, array($this, 'sendTagsForCategory'));
 		add_action('wp_ajax_' . self::GET_GOOGLE_CATEGORIES_BY_PARENT_ACTION, array($this, 'sendGoogleCategoriesForNewSelector'));
-		add_action('wp_ajax_' . self::SAVE_GOOGLE_CATEGORIES_ACTION, array($this, 'saveGoogleCategoriesMapping'));
-		add_action('wp_ajax_' . self::SAVE_CATEGORY_BOARDS_RELATIONS_ACTION, array($this, 'saveCategoryBoardsRelations'));
 		add_action('wp_ajax_' . self::UPDATE_SETTINGS_BOX_STATE_ACTION, array($this, 'updateSettingsBoxState'));
 	}
 
@@ -127,40 +123,6 @@ class AjaxController {
 		$parentId = filter_input(INPUT_GET, 'parentId', FILTER_SANITIZE_NUMBER_INT);
 
 		wp_send_json($this->googleCategoriesModel->getChildren($parentId));
-	}
-
-	public function saveGoogleCategoriesMapping() {
-		check_ajax_referer(self::SAVE_GOOGLE_CATEGORIES_ACTION);
-
-
-		$categories = filter_input(INPUT_POST, 'categories', FILTER_SANITIZE_NUMBER_INT, FILTER_FORCE_ARRAY);
-
-		try {
-			$this->googleCategoriesRelationsModel->updateCategoriesRelations($categories);
-		} catch (PinterestModelException $e) {
-			ServiceContainer::getInstance()->getLogger()->logPinterestException($e);
-			wp_send_json(array('success' => false));
-		}
-
-		wp_send_json(array('success' => true));
-	}
-
-	public function saveCategoryBoardsRelations() {
-		check_ajax_referer(self::SAVE_CATEGORY_BOARDS_RELATIONS_ACTION);
-
-		$relations = filter_input(INPUT_POST, 'data', FILTER_SANITIZE_NUMBER_INT, FILTER_FORCE_ARRAY );
-
-		try {
-			$this->boardRelationsModel->updateCategoryBoardsRelationsFromAjax($relations);
-		} catch (PinterestModelException $e) {
-			wp_send_json(array(
-				'success' => false,
-				'message' => "Looks like something goes wrong. Settings wasn't saved."
-			));
-			ServiceContainer::getInstance()->getLogger()->logPinterestException($e);
-		}
-
-		wp_send_json(array('success' => true));
 	}
 
 	public function updateSettingsBoxState() {

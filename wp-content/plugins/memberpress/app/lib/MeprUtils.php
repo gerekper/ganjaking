@@ -520,10 +520,14 @@ class MeprUtils {
 
       $days = $new_days_left;
       if($proration < 0) {
-        // Extend days out by finding out how many periods the
-        // old outstanding amount will buy to create a free trial
-        $days = ($new_amount > 0 ? ((abs($proration)+$new_amount)/$new_amount)*$new_days_left : 0);
         $proration = 0;
+
+        if($new_per_day_amount > 0 && $old_outstanding_amount > 0) {
+          $days = $old_outstanding_amount / $new_per_day_amount;
+        }
+        else {
+          $days = ($new_amount > 0 ? ((abs($proration)+$new_amount)/$new_amount)*$new_days_left : 0);
+        }
       }
     }
     elseif(is_numeric($old_period) && is_numeric($old_days_left) && ($new_period == 'lifetime' || $new_sub === false) && $old_amount > 0) {
@@ -1402,7 +1406,10 @@ class MeprUtils {
 
   public static function record_upgraded_sub_events($obj, $event_txn) {
     MeprEvent::record('subscription-upgraded', $obj);
-    MeprEvent::record('subscription-changed', $event_txn, $obj->first_txn_id); //first_txn_id works best here for MPCA
+
+    if($event_txn instanceof MeprTransaction) {
+      MeprEvent::record('subscription-changed', $event_txn, $obj->first_txn_id); //first_txn_id works best here for MPCA
+    }
 
     if($obj instanceof MeprTransaction) {
       MeprEvent::record('subscription-upgraded-to-one-time', $obj);
@@ -1426,7 +1433,10 @@ class MeprUtils {
 
   public static function record_downgraded_sub_events($obj, $event_txn) {
     MeprEvent::record('subscription-downgraded', $obj);
-    MeprEvent::record('subscription-changed', $event_txn, $obj->first_txn_id); //first_txn_id works best here for MPCA
+
+    if($event_txn instanceof MeprTransaction) {
+      MeprEvent::record('subscription-changed', $event_txn, $obj->first_txn_id); //first_txn_id works best here for MPCA
+    }
 
     if($obj instanceof MeprTransaction) {
       MeprEvent::record('subscription-downgraded-to-one-time', $obj);

@@ -13,16 +13,13 @@ use \Premmerce\WooCommercePinterest\Admin\Table\TermRelationsTable\WcCategoryPin
 
 ?>
 
-<tr valign="top">
+<tr valign="top" class="top">
 	<th scope="row" class="titledesc">
 
 	</th>
-	<td class="forminp">
+	<td style="padding: 0">
 		<div id="woocommerce-pinterest-category-board-table" class="woocommerce-pinterest-settings-list-table">
 				<?php $table->display(); ?>
-			<div class="woocommerce-pinterest-list-table-save">
-				<?php submit_button(__('Save boards settings', 'woocommerce-pinterest'), 'primary', 'save-category-boards-table', false); ?>
-			</div>
 			<div class="woocommerce-pinterest-table-saved-message">
 				<p><?php esc_html_e('Saved', 'woocommerce-pinterest'); ?></p>
 			</div>

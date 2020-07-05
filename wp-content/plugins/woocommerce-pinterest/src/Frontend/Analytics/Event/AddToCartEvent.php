@@ -32,7 +32,7 @@ class AddToCartEvent extends AbstractEvent implements EventInterface {
 	 * @var FileManager
 	 */
 	private $fileManager;
-	
+
 	/**
 	 * Was event fired
 	 *
@@ -46,18 +46,18 @@ class AddToCartEvent extends AbstractEvent implements EventInterface {
 	 * @param PinterestIntegration $integration
 	 * @param FileManager $fileManager
 	 */
-	public function __construct( PinterestIntegration $integration, FileManager $fileManager) {
+	public function __construct( PinterestIntegration $integration, FileManager $fileManager ) {
 		$this->fileManager = $fileManager;
 		$this->init();
 
-		parent::__construct($integration);
+		parent::__construct( $integration );
 	}
 
 	public function init() {
 
-		add_action('woocommerce_add_to_cart', array($this, 'setAddToCartData'), 9, 3);
-		add_action('wp_enqueue_scripts', array($this, 'registerAddToCartScript'));
-		add_action('wc_ajax_woocommerce_pinterest_get_product_data', array($this, 'ajaxGetProductData'));
+		add_action( 'woocommerce_add_to_cart', array( $this, 'setAddToCartData' ), 9, 3 );
+		add_action( 'wp_enqueue_scripts', array( $this, 'registerAddToCartScript' ) );
+		add_action( 'wc_ajax_woocommerce_pinterest_get_product_data', array( $this, 'ajaxGetProductData' ) );
 	}
 
 	/**
@@ -67,14 +67,13 @@ class AddToCartEvent extends AbstractEvent implements EventInterface {
 	 * @param $productId
 	 * @param $quantity
 	 */
-	public function setAddToCartData( $cartHash, $productId, $quantity) {
-		if ('yes' === get_option('woocommerce_cart_redirect_after_add') || ! wp_doing_ajax()) {
+	public function setAddToCartData( $cartHash, $productId, $quantity ) {
+		if ( 'yes' === get_option( 'woocommerce_cart_redirect_after_add' ) || ! wp_doing_ajax() ) {
 			$this->productId = $productId;
 			$this->quantity  = $quantity;
 			$this->fired     = true;
 		}
 	}
-
 
 	/**
 	 * Return event status
@@ -109,7 +108,11 @@ class AddToCartEvent extends AbstractEvent implements EventInterface {
 	 * @return array
 	 */
 	public function getData() {
-		return $this->fired() ? array('product_id' => $this->productId, 'quantity' => $this->quantity) : array();
+		if ( $this->data ) {
+			return $this->data;
+		}
+
+		return $this->fired() ? array( 'product_id' => $this->productId, 'quantity' => $this->quantity ) : array();
 	}
 
 	/**
@@ -140,18 +143,18 @@ class AddToCartEvent extends AbstractEvent implements EventInterface {
 	 */
 	public function registerAddToCartScript() {
 		$version = PinterestPlugin::$version;
-		if ('yes' === get_option('woocommerce_enable_ajax_add_to_cart')) {
+		if ( 'yes' === get_option( 'woocommerce_enable_ajax_add_to_cart' ) ) {
 			wp_enqueue_script(
 				'pinterest-analytics-add-to-cart',
-				$this->fileManager->locateAsset('frontend/analytics/track-add-to-cart' . ( defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min' ) . '.js'),
-				array('jquery'),
+				$this->fileManager->locateAsset( 'frontend/analytics/track-add-to-cart' . ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min' ) . '.js' ),
+				array( 'jquery' ),
 				$version,
 				false //todo: check if it can be enqueued in footer
 			);
 
-			wp_localize_script('pinterest-analytics-add-to-cart', 'wooPinterestAnalyticsConfig', array(
-				'ajaxNonce' => wp_create_nonce(self::AJAX_GET_PRODUCT_NONCE),
-			));
+			wp_localize_script( 'pinterest-analytics-add-to-cart', 'wooPinterestAnalyticsConfig', array(
+				'ajaxNonce' => wp_create_nonce( self::AJAX_GET_PRODUCT_NONCE ),
+			) );
 		}
 	}
 
@@ -160,18 +163,27 @@ class AddToCartEvent extends AbstractEvent implements EventInterface {
 	 * Send product data for AddToCart event
 	 */
 	public function ajaxGetProductData() {
-		if (check_ajax_referer( self::AJAX_GET_PRODUCT_NONCE ) && ! empty($_REQUEST['id'])) {
-			$product = wc_get_product(intval($_REQUEST['id']));
+		if ( check_ajax_referer( self::AJAX_GET_PRODUCT_NONCE ) && ! empty( $_REQUEST['id'] ) ) {
+			$product = wc_get_product( intval( $_REQUEST['id'] ) );
 
-			$data = array('status' => false);
-			if ($product instanceof WC_Product) {
+			$data = array( 'status' => false );
+			if ( $product instanceof WC_Product ) {
+
 				$data = array(
-					'price'    => $product->get_price(),
-					'currency' => get_woocommerce_currency(),
-					'status'   => 1,
+					'price'                  => $product->get_price(),
+					'currency'               => get_woocommerce_currency(),
+					'status'                 => 1,
+					'isEnhancedMatchEnabled' => $this->integration->get_option( 'enable_enhanced_match' ) === 'yes',
+					'tagId'                  => $this->integration->get_option( 'tag_id' ),
 				);
+
+				if ( is_user_logged_in() ) {
+					$user = new \WP_User( get_current_user_id() );
+
+					$data['userEmail'] = $user->user_email;
+				}
 			}
-			wp_send_json($data);
+			wp_send_json( $data );
 		}
 	}
 }

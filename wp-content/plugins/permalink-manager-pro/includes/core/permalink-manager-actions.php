@@ -109,7 +109,7 @@ class Permalink_Manager_Actions extends Permalink_Manager_Class {
 	 * Trigger bulk tools via AJAX
 	 */
 	function pm_bulk_tools() {
-		global $sitepress, $wp_filter;
+		global $sitepress, $wp_filter, $wpdb;
 
 		// Define variables
 		$return = array('alert' => Permalink_Manager_Admin_Functions::get_alert_message(__( '<strong>No slugs</strong> were updated!', 'permalink-manager' ), 'error updated_slugs'));
@@ -159,8 +159,15 @@ class Permalink_Manager_Actions extends Permalink_Manager_Class {
 				// Split items array into chunks and save them to transient
 				$items = array_chunk($items, $chunk_size);
 
-				set_transient("pm_{$uniq_id}", $items, 300);
 				set_transient("pm_{$uniq_id}_progress", 0, 300);
+				set_transient("pm_{$uniq_id}", $items, 300);
+
+				// Check for MySQL errors
+				if(!empty($wpdb->last_error)) {
+					printf('%s (%sMB)', $wpdb->last_error, strlen(serialize($items)) / 1000000);
+					http_response_code(500);
+					die();
+				}
 			}
 
 			// Get homepage URL and ensure that it ends with slash
@@ -172,11 +179,7 @@ class Permalink_Manager_Actions extends Permalink_Manager_Class {
 
 			// Process only one subarray
 			if(!empty($items[0])) {
-				$chunk = $items[0];
-
-				// Remove from array & update the transient
-				unset($items[0]);
-				$items = array_values($items);
+				$chunk = array_shift($items);
 				set_transient("pm_{$uniq_id}", $items, 300);
 
 				// Check if posts or terms should be updated

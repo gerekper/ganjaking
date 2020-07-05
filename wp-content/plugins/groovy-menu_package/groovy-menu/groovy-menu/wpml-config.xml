@@ -1,0 +1,5 @@
+<wpml-config>
+	<custom-types>
+		<custom-type translate="1">gm_menu_block</custom-type>
+	</custom-types>
+</wpml-config>

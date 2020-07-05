@@ -1,0 +1,212 @@
+*** WooCommerce AliExpress Dropshipping Changelog ***
+
+2020.06.24 -Version 2.4
+
+PLUGINS-427 - Checkbox label name changed in the plugin settings.
+PLUGINS-432 - Checkbox label name changed in the plugin settings.
+PLUGINS-393 - Fixed the issues - [show payment method] checkbox option is not working.
+PLUGINS-425 - Fixed the issues - [Payment Type, Image and Price labels in Language Conversion doesn’t convert].
+PLUGINS-433 - I have added the Login URL, when Supplier information is shared.
+PLUGINS-353 - Added Feature - Support Amazon Affiliate.
+PLUGINS-294 - Added Feature - Added option ["Show 'Payment Type' in the notification email"].
+PLUGINS-317 - Added Feature - Update AliExpress Order Status from CBE.
+PLUGINS-426 - Fixed size of logo on PDF
+PLUGINS-429 - Fixed Bug - Added storename on CSV
+
+2020.05.14 -Version 2.3
+
+* Fixed - Products edit on "quick edit" removes "All custom fields value[Like- Product URL, Store Name, Store URL, Store Price Range, Currency]". 
+* Added new feature- Added the option [Allow "Read notification email" to be send to merchant, as soon as dropshipper open the order notification email].
+* Added the option in dropshipping setting[Customer Note into the Dropshipper packing slip].
+
+2020.05.11 -Version 2.2
+
+* Fixed "The Link is showing in the mail which is good – but is also showing in the PDF which is bad. 
+* Added field "Description - Type of Package" for both “variable” as well as “simple” products. Whatever website admin will specify in this field for each product, it will be displayed as a new column in the pdf packing slip for each product.
+* Added the option in dropshipping setting [Need to show "Cost of Goods" instead of actual "Selling Price" of products, in PDF packing slip].
+* Added new feature- Adding in shipping cost and tax fields along with subtotal for the customer to the customer packing slip
+* Fixed - Taracking filter not using correctly issue fixed.
+* Fixed - Shipping address formating issue fixed.
+* Added new feature - Now customer/merchant can Hide the message CBE required in the admin while clicking the close button.
+* Fixed - Issue fixed when admin uncheck the hide supplier information on the order page from settings . Then the supplier cannot see the placed order on the Supplier Dashboard.
+
+2020.03.03 -version 2.1
+* Added new feature -  Now customer have the ability to not receive a CC'd email, and also able to turn this ON or OFF.
+* Fixed - when customer login as dropshipper role then displaying lots of menu and sub-menu in dashboard section and if customer have installed elementor plugin then it also display all elementor menu and sub-menu.
+* Fixed - Increase image size in dropshipper PDF.
+* Fixed - Issue fixed when admin unchecked these option "Show product thumbnail image and Show product prices" in dropshipping notification setting then only hide it value not hide title and also if admin unchecked this option "Show product thumbnail image" then all value row collapse.
+* Fixed - Filter return nothing when tracking number inserted in dropshipper email notification.
+* New Feature - I have added “Cost of Goods for Supplier” feature and now merchant can hide total product selling price for supllier, and only send "Cost of Goods for Supplier" price in supplier mail notification and PDF attachement as well as send in CSV.
+* Fixed - Adress issues in Supplier email notification & PDF. Now Address format supported based on selected country.
+* New Feature  - Added Email tracking feature(email open or not). If Supplier open order email first time then notification mail will send  to the Admin. 
+* Fixed Address issue in supplier mail notification and PDf file and fixed Warning messages.
+* Fixed Undefined Index errors:[Undefined index: orderid]
+
+2020.01.22 -version 2.0
+ ## New Feature Added ##
+* Multiple email addresses for 1 supplier.
+* Allow supplier to enter tracking number.
+* Authentication Ali Dropshipping Plugin with CBE.
+* Import AliExpress Products in Woo Store.
+* Update AliExpress Products.
+* When merchant Edit order and click on button "Place Order Automatically" Open all AliExpress product in new tabs merchant need to placed order manually on AliExpress.com.
+* Merchant can change custom status After order placed on AliExpress.com (Default AliExpress Status is "Order Pending").
+* Merchant can filter order list based on pending AliExpress status(Custom Status) and completed.
+
+
+2019.12.25 -version 1.2.23
+* Fixed the issues when Merchant create a new supplier with multiple email.
+* Fixed the issue when customer using SMTP plugin, Duplicate attachment was sent to the supplier.
+* Fixed the issue when the trying to asign supplier by bulk apply option by selecting products from admin
+* Fixed the issue when the customer loged in as a supplier and click on the order list and can not see orders.
+
+2019.11.19 -version 1.2.22
+* Fixed when the Customer receives the order confirmation as a supplier, several items are missing in the email, such as the price of it sold and product image. This was an error in the checkboxes status in combination. These were earlier not getting applier correctly in combination.
+* Added a checkbox to send email notification to supplier in woo standard format (if this checkbox is checked), irrespective of whether SMTP is being used or not.
+
+2019.11.04 -version 1.2.21
+* Fixed all Undefined Index errors: When plugin is install for the first time on any website.
+* Fixed Undefined Index : When product not assign any supplier then throw error.
+* Fixed Undefined variable($append is undefined).
+* Added Admin Notice : If allow_url_fopen PHP extension not install on Server.
+* Fixed PDF default image size issue.
+* Changed a settings label from "Send email to supplier with login details" to "When admin create a new supplier, send registration details to supplier email"
+* Fixed the logo image width if not selected the content is not overlapped.
+
+2019.10.17 -version 1.2.20
+* Added custom comment field in dropshipping settings as well as in the email notification
+* Added a checkbox in the plugin settings using which website admin can hide the supplier name from the Orders page on the frontend
+* Added a feature using which only that shipment will be marked as complete for which the supplier clicked on the corresponding link from the notification email (and not the complete order). 
+* After this release, for the already existing orders in all the websites, the corresponding "Mark as complete" links will no more work from notification emails (because earlier they were marking the order itself as complete and this was a bug).
+* For all the new orders that will be placed, the "Mark as complete" link will work as desired.
+* After this release, the order will be marked as complete only if all the suppliers asociated with the order, has marked their shipment as complete.
+
+2019.09.24 -version 1.2.19
+* Show country name in shipping address in the attachments. 
+* Color scheme option - The dropshipping emails now uses the color scheme options of woocommerce.
+* Option to hide the supplier name on confirmation email.
+* New setting 'Send email to supplier with login details' checkbox in backend dropshipping settings area
+  If the above setting is checked, only then supplier will recieve email with login details.
+* CSV Import feature to update stock quantity of corresponding product on the website (as per the quantity mentioned in the CSV file for that supplier)
+* Option in dropshipping email settings, so that admin can customize the notification email labels as per his wish (labels can now be in any language)
+* The feature to show account number of the supplier in an email attachment (if its mentioned in supplier settings)
+* Removed certain error logs appearing in debug.log file
+
+2019.08.21 -version 1.2.18
+* New setting 'Show user phone number to supplier' checkbox in backend dropshipping settings area
+* If the above setting is checked, then customers phone number will also be sent in the notification email as well as attached pdf
+* Updated the TCPDF library to the new stable version 6.2.25. This will remove all corresponding errors those were coming in error logs
+* There were certain woo hooks (e.g. create_term, delete_term, save_post) those were written in the plugin starting from the beginning. Those are corrected.
+* Corrected certain code standards while assigning supplier role to the created suppliers.
+* jquery-ui module was earlier imported from CDN. Changed it to get imported using wp standards.
+
+2019.07.08 -version 1.2.17-beta
+* When Add supplier auto create user with dropshipper role and recieve login detail through email.
+* Dropshipper login with detail and check order list. 
+* Dropshipper mark order complete from order list section.
+* Dropshipper print packing slip from supplier area.
+* Dropshipper Add Order Shipping info like date,Shipping Company,notes etc.
+* Shipping info Show into order detail page in admin area.
+
+2019.07.01 -version 1.2.16
+* Fixed - corrupted pdf in mail attachment.
+* PDF attachment recieve in mail according backend checkbox selection.
+
+2019.06.18 -version 1.2.15
+* Add Function - Reciever not recieve email if product is digital product.
+
+2019.06.18 -version 1.2.14
+* Update TCPDF library
+* Update woocommerce deprecated functions
+
+2019.06.11 -version 1.2.13
+* Removed unwanted text from supplier mail subject.
+* get_woocommerce_term_meta() update this function with new function get_term_meta().
+* Woocommerce admin order page Dropship Supplier column, If the Order is not a Drop Ship order, then it should show nothing in this column else show supplier name, product name and quantity.
+* fix dbug.log file errors.
+* Term condition update.
+* Condition for Customer doesn't wants to send pdf in mail for supplier.
+* Update TCPDF library
+
+2019.05.20 -version 1.2.12
+* Fixed double pdf attachement
+* Fixed tooltip in dropshiiping email settings
+* Fixed completion order link in mail
+
+* Allow website admin to add "From Name" and "From Email ID" in dropshipping email settings, via which email notifications will be sent
+* Provided an option to website admin, to sent email notifications via SMTP or PHP mail
+* Fixed - 500 error while modifying supplier email id
+* Fixed - Product Variation not showing in PDF and Email.
+* Order Completion email for supplier option from backend.
+* Send "mark order complete" URL link in PDF and Email.
+* Fixed - Corrupted pdf issue in webmail. 
+
+2019.04.17 -version 1.2.11
+* fixed - customer recieve csv file in mail if disable csv option from backend.
+* fieed - Admin recieve multiple mail of same order.
+
+2019.04.10 -version 1.2.10
+* Fixed - Refund section not showing.
+* Create Dropship user automatic.
+* Supplier mark order complete with link in pdf and email.
+
+
+2019.03.29 - version 1.2.9
+* Add Supplier on Order Listing page in admin	
+* Add Supplier on Order Detail page in admin
+* Add Bulk Assign product supplier for product
+* Billing User Email In PDF and Email.
+
+2019.03.28 - version 1.2.8
+* Fixed 'r' append in end of cc email id.
+* Update variation function wc3 compatible.
+* Send Email to supplier when order place and order complete.
+* Send Billing User email in pdf.
+* Changes in pdf slip layout.
+* Correct logo appearance in pdf slip.
+* PDF Data customization From admin.
+
+2019.02.22 - version 1.2.7
+* Update supplier email to include CSV attachment.
+
+2019.02.15 - version 1.2.6
+* Update supplier email to support Outlook and various email clients.  
+* Packing slip updated to include HTML and Text versions.
+
+2019.02.06 - version 1.2.5
+* Resolve supplier email bug.
+
+2019.01.25 - version 1.2.4
+* Update to support both HTML and Text Supplier emails.
+
+2018.08.15 - version 1.2.3
+* Add Order Notes to the Packing Slip.
+
+2018.05.14 - version 1.2.2
+* Fixed packing slip to include all product variation information
+
+2017.09.15 - version 1.2.1
+* Fixed packing slip not showing correct order ID
+* Fixed custom packing slip directory points to old plugin name
+
+2017.09.06 - version 1.2.0
+* Fix for can't save CSV Indicator column
+* Add customer company name to supplier email/PDF
+* Fix for WooCommerce Order Number is Not Included on packing slip
+* Add compatibility with Product Add-Ons extension
+
+2017.06.08 - version 1.1.2
+ * Fix - Update the plugin header to include the new Woo keys.
+
+2017.05.25 - version 1.1.1
+
+* Product variation attribute information included on packing slip
+
+2017.02.23 - version 1.1.0
+
+* Adjustable PDF header logo width in settings
+* Product shipping information included on packing slip
+* Product attribute information included on packing slip
+
+2016.10.18 - version 1.0.0
+* Initial release.

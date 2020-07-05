@@ -66,8 +66,11 @@ class WCS_ATT_Admin_Notices {
 		add_action( 'admin_notices', array( __CLASS__, 'output_notices' ) );
 		// Save meta box notices.
 		add_action( 'shutdown', array( __CLASS__, 'save_notices' ), 100 );
-		// Show maintenance notices.
-		add_action( 'admin_print_styles', array( __CLASS__, 'hook_maintenance_notices' ) );
+
+		if ( function_exists( 'WC' ) ) {
+			// Show maintenance notices.
+			add_action( 'admin_print_styles', array( __CLASS__, 'hook_maintenance_notices' ) );
+		}
 	}
 
 	/**
@@ -370,7 +373,7 @@ class WCS_ATT_Admin_Notices {
 			return;
 		}
 
-		if ( ! class_exists( 'WC_Data_Store' ) ) {
+		if ( ! WCS_ATT_Core_Compatibility::is_wc_version_gte( '4.0' ) ) {
 			return;
 		}
 

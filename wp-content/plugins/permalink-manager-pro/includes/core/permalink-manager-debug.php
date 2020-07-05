@@ -12,6 +12,7 @@ class Permalink_Manager_Debug_Functions extends Permalink_Manager_Class {
 	public function debug_data() {
 		add_filter('permalink_manager_filter_query', array($this, 'debug_query'), 9, 5);
 		add_filter('permalink_manager_filter_redirect', array($this, 'debug_redirect'), 9, 3);
+		add_filter('wp_redirect', array($this, 'debug_wp_redirect'), 9, 2);
 
 		self::debug_custom_redirects();
 		self::debug_custom_fields();
@@ -66,7 +67,21 @@ class Permalink_Manager_Debug_Functions extends Permalink_Manager_Class {
 	}
 
 	/**
-	 * 3. Outputs a list of native & custom redirects
+	 * 3. Used to debug wp_redirect() function used in 3rd party plugins
+	 */
+	public function debug_wp_redirect($url, $status) {
+ 		if(isset($_GET['debug_wp_redirect'])) {
+ 			$debug_info['url'] = $url;
+ 			$debug_info['backtrace'] = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 10);
+
+			self::display_debug_data($debug_info);
+ 		}
+
+ 		return $url;
+ 	}
+
+	/**
+	 * 4. Outputs a list of native & custom redirects
 	 */
 	public function debug_custom_redirects() {
 		global $permalink_manager, $permalink_manager_uris, $permalink_manager_redirects;

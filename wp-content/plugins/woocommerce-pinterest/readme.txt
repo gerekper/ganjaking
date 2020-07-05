@@ -2,8 +2,8 @@
 Contributors: premmerce
 Tags: pinterest, woocommerce pinterest, pin products, social, social media
 Requires at least: 4.8
-Tested up to: 5.3
-Stable tag: 2.0.4
+Stable tag: 2.1.5
+Tested up to: 5.4
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -153,3 +153,40 @@ Release Date: Feb 20, 2020
 Release Date: Feb 20, 2020
 
 * Fix with afterpay payment gateway
+
+= 2.1.0 =
+
+Release Date: April 1, 2020
+
+* Setting tabs
+
+= 2.1.1 =
+
+Release Date: April 30, 2020
+
+* Debug mode
+
+= 2.1.3 =
+
+Release Date: May 3, 2020
+
+* Added Pinterest Enhanced Match
+* Added Pin All feature
+* Style improvements
+* Bugs fixes
+
+= 2.1.4 =
+
+Release Date: May 26, 2020
+
+* Feature: pin all
+* Minor improvements
+* Bugs fixes
+
+= 2.1.5 =
+
+Release Date: June 23, 2020
+
+* Added Enhanced Match Events
+* Fix catalog bug
+* Fix Checkout Event bug

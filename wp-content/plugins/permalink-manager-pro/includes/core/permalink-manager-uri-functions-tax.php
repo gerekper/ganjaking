@@ -120,7 +120,10 @@ class Permalink_Manager_URI_Functions_Tax extends Permalink_Manager_Class {
 	* Get the default (not overwritten by the user) or native URI (unfiltered)
 	*/
 	public static function get_default_term_uri($term, $native_uri = false, $check_if_disabled = false) {
-		global $permalink_manager_options, $permalink_manager_uris, $permalink_manager_permastructs, $wp_rewrite, $wp_taxonomies;
+		global $permalink_manager_options, $permalink_manager_uris, $permalink_manager_permastructs, $wp_rewrite, $wp_taxonomies, $icl_adjust_id_url_filter_off;
+
+		// Disable WPML adjust ID filter
+		$icl_adjust_id_url_filter_off = true;
 
 		// 1. Load all bases & term
 		$term = is_object($term) ? $term : get_term($term);
@@ -217,6 +220,9 @@ class Permalink_Manager_URI_Functions_Tax extends Permalink_Manager_Class {
 				$default_uri .= "/{$full_slug}";
 			}
 		}
+
+		// Enable WPML adjust ID filter
+		$icl_adjust_id_url_filter_off = false;
 
 		return apply_filters('permalink_manager_filter_default_term_uri', $default_uri, $term->slug, $term, $term_slug, $native_uri);
 	}

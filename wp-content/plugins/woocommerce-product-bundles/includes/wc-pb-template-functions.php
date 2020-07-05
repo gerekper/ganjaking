@@ -96,13 +96,13 @@ function wc_pb_template_add_to_cart_wrap( $product ) {
 
 		// Give store owners a reason.
 		if ( defined( 'WC_PB_UPDATING' ) ) {
-			$purchasable_notice_reason .= __( 'The Product Bundles database is updating in the background. During this time, all bundles on your site will be unavailable. If this message persists, please <a href="https://woocommerce.com/my-account/marketplace-ticket-form/" target="_blank">get in touch</a> with our support team. This note cannot be viewed by customers.', 'woocommerce-product-bundles' );
+			$purchasable_notice_reason .= sprintf( __( 'The Product Bundles database is updating in the background. During this time, all bundles on your site will be unavailable. If this message persists, please <a href="%s" target="_blank">get in touch</a> with our support team. Note: This message is visible to store managers only.', 'woocommerce-product-bundles' ), WC_PB()->get_resource_url( 'ticket-form' ) );
 		} elseif ( false === $product->contains( 'priced_individually' ) && '' === $product->get_price() ) {
-			$purchasable_notice_reason .= __( 'The pricing configuration of this bundle is incomplete. To give this bundle a static price, navigate to <strong>Product Data > General</strong> tab and fill in the <strong>Regular Price</strong> field. If you prefer to calculate its price dynamically, go to <strong>Product Data > Bundled Products</strong> and enable <strong>Priced Individually</strong> for all bundled products whose price you want to preserve. Then, save your changes. This note cannot be viewed by customers.', 'woocommerce-product-bundles' );
+			$purchasable_notice_reason .= sprintf( __( '&quot;%1$s&quot; is not purchasable just yet. But, fear not &ndash; setting up <a href="%2$s" target="_blank">pricing options</a> only takes a minute! <ul class="pb_notice_list"><li>To give &quot;%1$s&quot; a static base price, navigate to <strong>Product Data > General</strong> and fill in the <strong>Regular Price</strong> field.</li><li>To preserve the prices and taxes of individual bundled products, go to <strong>Product Data > Bundled Products</strong> and enable <strong>Priced Individually</strong> for each bundled product whose price must be preserved.</li></ul>Note: This message is visible to store managers only.', 'woocommerce-product-bundles' ), $product->get_title(), WC_PB()->get_resource_url( 'pricing-options' ) );
 		} elseif ( $product->contains( 'non_purchasable' ) ) {
-			$purchasable_notice_reason .= __( 'Please make sure that all products contained in this bundle have a price. WooCommerce does not allow products with a blank price to be purchased. This note cannot be viewed by customers.', 'woocommerce-product-bundles' );
+			$purchasable_notice_reason .= __( 'Please make sure that all products contained in this bundle have a price. WooCommerce does not allow products with a blank price to be purchased. Note: This message is visible to store managers only.', 'woocommerce-product-bundles' );
 		} elseif ( $product->contains( 'subscriptions' ) && class_exists( 'WC_Subscriptions_Admin' ) && 'yes' !== get_option( WC_Subscriptions_Admin::$option_prefix . '_multiple_purchase', 'no' ) ) {
-			$purchasable_notice_reason .= __( 'Please enable <strong>Mixed Checkout</strong> under <strong>WooCommerce > Settings > Subscriptions</strong>. Bundles that contain subscription-type products cannot be purchased when <strong>Mixed Checkout</strong> is disabled. This note cannot be viewed by customers.', 'woocommerce-product-bundles' );
+			$purchasable_notice_reason .= __( 'Please enable <strong>Mixed Checkout</strong> under <strong>WooCommerce > Settings > Subscriptions</strong>. Bundles that contain subscription-type products cannot be purchased when <strong>Mixed Checkout</strong> is disabled. Note: This message is visible to store managers only.', 'woocommerce-product-bundles' );
 		}
 
 		if ( $purchasable_notice_reason ) {
@@ -158,6 +158,7 @@ function wc_pb_template_bundled_item_title( $bundled_item, $bundle ) {
 		'title'        => $bundled_item->get_title(),
 		'permalink'    => $bundled_item->get_permalink(),
 		'optional'     => $bundled_item->is_optional(),
+		'title_suffix' => $bundled_item->get_optional_suffix(),
 		'bundled_item' => $bundled_item,
 		'bundle'       => $bundle
 	), false, WC_PB()->plugin_path() . '/templates/' );

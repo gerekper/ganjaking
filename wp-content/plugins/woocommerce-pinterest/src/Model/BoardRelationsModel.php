@@ -35,10 +35,21 @@ class BoardRelationsModel extends AbstractModel {
 	 *
 	 * @param string $pinterestUserId
 	 */
-	public function __construct( $pinterestUserId) {
+	public function __construct( $pinterestUserId ) {
 		parent::__construct();
 
 		$this->pinterestUserId = $pinterestUserId;
+	}
+
+	/**
+	 * Get all categories relations for current user
+	 *
+	 * @return mixed
+	 */
+	public function getAllCategoriesRelations() {
+		return $this->filterByEntityType( self::ENTITY_TYPE_CATEGORY )
+			->filterByCurrentUser()
+			->get();
 	}
 
 	/**
@@ -48,10 +59,10 @@ class BoardRelationsModel extends AbstractModel {
 	 *
 	 * @return mixed
 	 */
-	public function getByCategory( $categoryId) {
-		return $this->filterByCategory($categoryId)
-			->filterByCurrentUser()
-			->get();
+	public function getByCategory( $categoryId ) {
+		return $this->filterByCategory( $categoryId )
+					->filterByCurrentUser()
+					->get();
 	}
 
 	/**
@@ -61,8 +72,8 @@ class BoardRelationsModel extends AbstractModel {
 	 *
 	 * @return BoardRelationsModel
 	 */
-	private function filterByCategory( $categoryId) {
-		$this->where(array('entity_id' => $categoryId, 'entity_type' => self::ENTITY_TYPE_CATEGORY));
+	private function filterByCategory( $categoryId ) {
+		$this->where( array( 'entity_id' => $categoryId, 'entity_type' => self::ENTITY_TYPE_CATEGORY ) );
 
 		return $this;
 	}
@@ -73,7 +84,7 @@ class BoardRelationsModel extends AbstractModel {
 	 * @return BoardRelationsModel
 	 */
 	private function filterByCurrentUser() {
-		$this->where(array('pin_user_id' => $this->pinterestUserId));
+		$this->where( array( 'pin_user_id' => $this->pinterestUserId ) );
 
 		return $this;
 	}
@@ -87,11 +98,11 @@ class BoardRelationsModel extends AbstractModel {
 	 *
 	 * @throws PinterestModelException
 	 */
-	public function getBoardsIdsByCategoriesArray( array $categoriesArray) {
-		return $this->filterByEntityType(self::ENTITY_TYPE_CATEGORY)
-			->filterByEntitiesIds($categoriesArray)
-			->filterByCurrentUser()
-			->get('board_id', self::TYPE_COLUMN);
+	public function getBoardsIdsByCategoriesArray( array $categoriesArray ) {
+		return $this->filterByEntityType( self::ENTITY_TYPE_CATEGORY )
+					->filterByEntitiesIds( $categoriesArray )
+					->filterByCurrentUser()
+					->get( 'board_id', self::TYPE_COLUMN );
 	}
 
 	/**
@@ -103,8 +114,8 @@ class BoardRelationsModel extends AbstractModel {
 	 *
 	 * @throws PinterestModelException
 	 */
-	private function filterByEntitiesIds( array $entitiesIds) {
-		$this->in('entity_id', $entitiesIds);
+	private function filterByEntitiesIds( array $entitiesIds ) {
+		$this->in( 'entity_id', $entitiesIds );
 
 		return $this;
 	}
@@ -116,8 +127,8 @@ class BoardRelationsModel extends AbstractModel {
 	 *
 	 * @return $this
 	 */
-	private function filterByEntityType( $entityType) {
-		$this->where(array('entity_type' => $entityType));
+	private function filterByEntityType( $entityType ) {
+		$this->where( array( 'entity_type' => $entityType ) );
 
 		return $this;
 	}
@@ -131,46 +142,11 @@ class BoardRelationsModel extends AbstractModel {
 	 *
 	 * @throws PinterestModelException
 	 */
-	public function getBoardsIdsByProductId( $productId) {
-		return (array) $this->filterByEntityType(self::ENTITY_TYPE_PRODUCT)
-			->filterByEntitiesIds(array($productId))
-			->filterByCurrentUser()
-			->get('board_id', self::TYPE_COLUMN);
-	}
-
-	/**
-	 * Update category boards relations from ajax
-	 *
-	 * @param array $relations
-	 *
-	 * @throws PinterestModelException
-	 */
-	public function updateCategoryBoardsRelationsFromAjax( array $relations) {
-		$relationsToUpdate = $this->prepareCategoryBoardRelationsFromAjax($relations);
-
-		$this->updateCategoryBoardsRelations($relationsToUpdate);
-	}
-
-	/**
-	 * Prepare category board relations sent by ajax
-	 *
-	 * @param array $relations
-	 * @return array
-	 */
-	private function prepareCategoryBoardRelationsFromAjax( array $relations) {
-		$preparedRelations = array();
-
-		foreach ($relations as $boardRelations) {
-			$categoryId                     = reset($boardRelations)['cat_id'];
-			$preparedRelations[$categoryId] = array();
-
-			foreach ($boardRelations as $boardRelation) {
-				unset($boardRelation['cat_id']);
-				$preparedRelations[$categoryId][] = $boardRelation;
-			}
-		}
-
-		return $preparedRelations;
+	public function getBoardsIdsByProductId( $productId ) {
+		return (array) $this->filterByEntityType( self::ENTITY_TYPE_PRODUCT )
+							->filterByEntitiesIds( array( $productId ) )
+							->filterByCurrentUser()
+							->get( 'board_id', self::TYPE_COLUMN );
 	}
 
 	/**
@@ -180,23 +156,27 @@ class BoardRelationsModel extends AbstractModel {
 	 *
 	 * @throws PinterestModelException
 	 *
-	 * Try to improve updating logic to don't use relation_id. This would be simpler and clearer.
+	 * todo: Try to improve updating logic to don't use relation_id. This would be simpler and clearer.
 	 */
-	public function updateCategoryBoardsRelations( $relations) {
+	public function updateCategoryBoardsRelations( $relations ) {
 
-		$dataToInsert = $this->prepareCategoryRelationsToUpdate($relations);
+		$sortedRelations = $this->sortCategoryRelationsToUpdateOrDelete( $relations );
 
-		$savedRelations = array_filter(array_column($dataToInsert, 'id'));
-		$savedRelations = array_map('intval', $savedRelations);
+		$dataToInsert = $sortedRelations['toUpdate'];
 
-		$this->deleteCurrentUserCategoriesNotIn($savedRelations);
-
-		if ($dataToInsert) {
-
+		if ( $dataToInsert ) {
 			$fields = $this->getFieldsWithPlaceholders();
-			$this->replaceMultiple($fields, $dataToInsert);
+			$this->replaceMultiple( $fields, $dataToInsert );
 		}
 
+		$idsToDelete = array_filter( $sortedRelations['toDelete'] );
+
+		if ( $idsToDelete ) {
+			$this->filterByCurrentUser()
+				 ->filterByEntityType( self::ENTITY_TYPE_CATEGORY )
+				 ->in( 'id', $idsToDelete )
+				 ->deleteFiltered();
+		}
 	}
 
 	/**
@@ -207,12 +187,12 @@ class BoardRelationsModel extends AbstractModel {
 	 *
 	 * @throws PinterestModelException
 	 */
-	public function addProductBoards( $productId, array $boardsIds) {
-		$preparedProductBoardRelations = $this->prepareProductRelationsToInsert($productId, $boardsIds);
+	public function addProductBoards( $productId, array $boardsIds ) {
+		$preparedProductBoardRelations = $this->prepareProductRelationsToInsert( $productId, $boardsIds );
 
-		if ($preparedProductBoardRelations) {
+		if ( $preparedProductBoardRelations ) {
 			$fields = $this->getFieldsWithPlaceholders();
-			$this->replaceMultiple($fields, $preparedProductBoardRelations);
+			$this->replaceMultiple( $fields, $preparedProductBoardRelations );
 		}
 	}
 
@@ -224,24 +204,9 @@ class BoardRelationsModel extends AbstractModel {
 	 *
 	 * @throws PinterestModelException
 	 */
-	public function updateProductBoardsRelations( $productId, array $boardsIds) {
-		$this->deleteNotSelectedProductBoardRelations($productId, $boardsIds);
-		$this->addProductBoards($productId, $boardsIds);
-	}
-
-	/**
-	 * Delete current user categories which not present in passed array
-	 *
-	 * @param int[] $idsToLeave
-	 *
-	 * @throws PinterestModelException
-	 *
-	 */
-	private function deleteCurrentUserCategoriesNotIn( array $idsToLeave) {
-		$this->filterByCurrentUser()
-			->filterByEntityType(self::ENTITY_TYPE_CATEGORY)
-			->notIn('id', $idsToLeave)
-			->deleteFiltered();
+	public function updateProductBoardsRelations( $productId, array $boardsIds ) {
+		$this->deleteNotSelectedProductBoardRelations( $productId, $boardsIds );
+		$this->addProductBoards( $productId, $boardsIds );
 	}
 
 
@@ -253,16 +218,16 @@ class BoardRelationsModel extends AbstractModel {
 	 *
 	 * @return array
 	 */
-	private function prepareProductRelationsToInsert( $productId, array $boardsIds) {
+	private function prepareProductRelationsToInsert( $productId, array $boardsIds ) {
 		$preparedRelationsData = array();
 
-		foreach ($boardsIds as $boardId) {
+		foreach ( $boardsIds as $boardId ) {
 			$preparedRelationsData[] = array(
-				'id' => '',
+				'id'          => '',
 				'pin_user_id' => $this->pinterestUserId,
-				'entity_id' => $productId,
+				'entity_id'   => $productId,
 				'entity_type' => self::ENTITY_TYPE_PRODUCT,
-				'board_id' => $boardId
+				'board_id'    => $boardId
 			);
 		}
 
@@ -277,12 +242,12 @@ class BoardRelationsModel extends AbstractModel {
 	 *
 	 * @throws PinterestModelException
 	 */
-	private function deleteNotSelectedProductBoardRelations( $productId, array $boardsIds) {
-		$this->filterByEntityType(self::ENTITY_TYPE_PRODUCT)
-			->filterByCurrentUser()
-			->filterByEntitiesIds(array($productId))
-			->notIn('board_id', $boardsIds)
-			->deleteFiltered();
+	private function deleteNotSelectedProductBoardRelations( $productId, array $boardsIds ) {
+		$this->filterByEntityType( self::ENTITY_TYPE_PRODUCT )
+			 ->filterByCurrentUser()
+			 ->filterByEntitiesIds( array( $productId ) )
+			 ->notIn( 'board_id', $boardsIds )
+			 ->deleteFiltered();
 	}
 
 	/**
@@ -290,29 +255,32 @@ class BoardRelationsModel extends AbstractModel {
 	 *
 	 * @param array $relations
 	 *
-	 * @return array
+	 * @return array[]
 	 */
-	private function prepareCategoryRelationsToUpdate( array $relations) {
-		$preparedRelationsData = array();
+	private function sortCategoryRelationsToUpdateOrDelete( array $relations ) {
+		$preparedRelationsData = array(
+			'toUpdate' => array(),
+			'toDelete' => array()
+		);
 
-		foreach ($relations as $categoryId => $categoryBoardsData) {
-			foreach ($categoryBoardsData as $categoryBoardData) {
+		foreach ( $relations as $categoryId => $categoryBoardsData ) {
+			foreach ( $categoryBoardsData as $categoryBoardData ) {
 
-				if ( empty($categoryBoardData['board_id'])) {
-					continue;
+				if ( empty( $categoryBoardData['board_id'] ) ) {
+					$preparedRelationsData['toDelete'][] = $categoryBoardData['relation_id'];
+				} else {
+					$boardId = $categoryBoardData['board_id'];
+
+					$data = array(
+						'id'          => isset( $categoryBoardData['relation_id'] ) ? $categoryBoardData['relation_id'] : '',
+						'entity_id'   => $categoryId,
+						'entity_type' => self::ENTITY_TYPE_CATEGORY,
+						'board_id'    => $boardId,
+						'pin_user_id' => $this->pinterestUserId
+					);
+
+					$preparedRelationsData['toUpdate'][] = $data;
 				}
-
-				$boardId = $categoryBoardData['board_id'];
-
-				$data = array(
-					'id' => isset($categoryBoardData['relation_id']) ? $categoryBoardData['relation_id'] : '',
-					'entity_id' => $categoryId,
-					'entity_type' => self::ENTITY_TYPE_CATEGORY,
-					'board_id' => $boardId,
-					'pin_user_id' => $this->pinterestUserId
-				);
-
-				$preparedRelationsData[] = $data;
 			}
 		}
 
@@ -325,11 +293,12 @@ class BoardRelationsModel extends AbstractModel {
 	 * @return array
 	 */
 	private function getFieldsWithPlaceholders() {
-		return array('id' => '%d',
+		return array(
+			'id'          => '%d',
 			'pin_user_id' => '%s',
-			'entity_id' => '%d',
+			'entity_id'   => '%d',
 			'entity_type' => '%s',
-			'board_id' => '%s'
+			'board_id'    => '%s'
 		);
 	}
 
@@ -341,17 +310,17 @@ class BoardRelationsModel extends AbstractModel {
 	 *
 	 * @return int|string
 	 */
-	protected function sanitizeField( $fieldName, $value) {
-		switch ($fieldName) {
+	protected function sanitizeField( $fieldName, $value ) {
+		switch ( $fieldName ) {
 			case 'id':
 			case 'entity_id':
-				return intval($value);
+				return intval( $value );
 			case 'pin_user_id':
 			case 'entity_type':
 			case 'board_id':
-				return sanitize_key($value);
+				return sanitize_key( $value );
 			default:
-				return sanitize_text_field($value);
+				return sanitize_text_field( $value );
 		}
 	}
 }

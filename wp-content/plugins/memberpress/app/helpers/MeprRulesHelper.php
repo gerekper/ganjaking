@@ -8,12 +8,13 @@ class MeprRulesHelper
     $field_value = (isset($_POST[$field_name]))?$_POST[$field_name]:'';
     $types = MeprRule::get_types();
     ?>
-      <select name="<?php echo $field_name; ?>" id="<?php echo $field_name; ?>" class="mepr-dropdown mepr-rule-types-dropdown" onchange="<?php echo $onchange; ?>">
+      <select name="<?php echo $field_name; ?>" id="<?php echo $field_name; ?>" class="mepr-dropdown mepr-rule-types-dropdown" onchange="<?php echo $onchange; ?>" data-validation="required" data-validation-error-msg="<?php _e('Rule Type cannot be blank', 'memberpress'); ?>">
+        <option value="" <?php echo ! empty( $_GET['post'] ) ? 'selected="selected"' : ''; ?>><?php _e('- Please Select -', 'memberpress'); ?></option>
       <?php
         foreach($types as $curr_type => $curr_label)
         {
           ?>
-          <option value="<?php echo $curr_type; ?>" <?php echo (((isset($_POST[$field_name]) and $_POST[$field_name] == $curr_type) or (!isset($_POST[$field_name]) and $type == $curr_type))?' selected="selected"':''); ?>><?php echo $curr_label; ?>&nbsp;&nbsp;</option>
+          <option value="<?php echo $curr_type; ?>" <?php echo ! empty( $_GET['post'] ) && $curr_type == get_post_meta( (int) $_GET['post'], MeprRule::$mepr_type_str, true ) ? 'selected="selected"' : ''; ?>><?php echo $curr_label; ?>&nbsp;&nbsp;</option>
           <?php
         }
       ?>

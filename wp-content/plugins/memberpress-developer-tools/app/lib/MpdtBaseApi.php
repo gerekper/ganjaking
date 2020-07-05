@@ -188,6 +188,8 @@ abstract class MpdtBaseApi extends WP_REST_Controller {
       return $response;
     }
 
+    $response = $this->after_store($request, $response);
+
     $response->set_status( 200 );
 
     return $response;
@@ -323,7 +325,7 @@ abstract class MpdtBaseApi extends WP_REST_Controller {
     return $arr;
   }
 
-  // Override this to do some action after the item is created
+  // Override this to do some action before the item is created
   protected function before_create($args, $request) {
     // Nothing by default
     return $request;
@@ -331,6 +333,12 @@ abstract class MpdtBaseApi extends WP_REST_Controller {
 
   // Override this to do some action after the item is created
   protected function after_create($args, $request, $response) {
+    // Nothing by default
+    return $response;
+  }
+
+  // Override this to do some action after the item is stored (both create and update)
+  protected function after_store($request, $response) {
     // Nothing by default
     return $response;
   }

@@ -195,7 +195,7 @@ class ApiState {
 		if (! $this->isConnected('v1')) {
 			$stateMessage = __('Your account is not connected', 'woocommerce-pinterest');
 		} elseif ($this->isWaiting()) {
-			$stateMessage = __('API is temporary unavailable', 'woocommerce-pinterest');
+			$stateMessage = __('API is temporary unavailable. You\'ve reached the daily limit (100 requests), please, wait 24 hours and try again.', 'woocommerce-pinterest');
 		} elseif (! $this->hasDefaultBoard()) {
 			$stateMessage = __('Default board is not selected', 'woocommerce-pinterest');
 		} elseif (! $this->isConnected('v3')) {

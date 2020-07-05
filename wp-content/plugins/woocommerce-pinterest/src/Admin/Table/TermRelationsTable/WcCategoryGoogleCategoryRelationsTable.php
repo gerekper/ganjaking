@@ -64,16 +64,6 @@ class WcCategoryGoogleCategoryRelationsTable extends AbstractTermRelationsTable 
 		$this->categoriesModel                = $categoriesModel;
 	}
 
-	public function prepare_items() {
-		$this->_column_headers = array($this->get_columns(), array(), $this->get_sortable_columns());
-
-		$woocommerceCategories = get_terms(array(
-			'taxonomy' => 'product_cat',
-			'hide_empty' => false
-		));
-
-		$this->items = new TermsCollection($woocommerceCategories);
-	}
 
 	/**
 	 * Return columns ids and names
@@ -95,9 +85,9 @@ class WcCategoryGoogleCategoryRelationsTable extends AbstractTermRelationsTable 
 	 * @return string
 	 */
 	public function column_google_category( WP_Term $item) {
-		$formattedCategories = $this->prepareDataForGoogleCategoryCell($item->term_taxonomy_id);
+		$formattedCategories = $this->prepareDataForGoogleCategoryCell($item->term_id);
 
-		return $this->renderGoogleCategoryCell($item->term_taxonomy_id, $formattedCategories);
+		return $this->renderGoogleCategoryCell($item->term_id, $formattedCategories);
 	}
 
 	/**

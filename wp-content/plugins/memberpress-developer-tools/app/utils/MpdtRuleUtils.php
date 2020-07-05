@@ -5,6 +5,7 @@ class MpdtRuleUtils extends MpdtBaseCptUtils {
 
   public function __construct() {
     $this->map  = array(
+      'post_title'             => 'title',
       'post_content'           => false,
       'post_excerpt'           => false,
       'post_name'              => false,

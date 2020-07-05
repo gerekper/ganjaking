@@ -6,8 +6,8 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: permalinks, custom permalinks, url editor, permalinks, woocommerce permalinks
 Requires at least: 4.4.0
 Requires PHP: 5.4
-Tested up to: 5.4.1
-Stable tag: 2.2.8.6
+Tested up to: 5.4.2
+Stable tag: 2.2.8.7
 
 Permalink Manager Pro allows to easily change full URL addresses of posts, pages, custom post types, terms and WooCommerce links. You can also set different permalink formats per language or bulk change the URLs.
 
@@ -50,7 +50,7 @@ https://www.youtube.com/watch?v=KMOtAK5c7t8
 Buy <a href="https://permalinkmanager.pro?utm_source=wordpress">Permalink Manager Pro here</a>.
 
 = Translators =
-* Japaneese - Shinsaku Ikeda
+* Japanese - Shinsaku Ikeda
 
 == Installation ==
 
@@ -102,6 +102,16 @@ It is because Permalink Manager overwrites one of the core Wordpress functionali
 8.	Permalink Manager settings.
 
 == Changelog ==
+
+= 2.2.8.7 =
+* Improved breadcrumbs hook (better compatibility with WPML/Polylang)
+* Hotfix for permalinks used in language switcher on blog/posts page (WPML)
+* Hotfix for cart URL in WooCommerce's mini-cart widget (now the permalink is translated correctly when WPML/Polylang is used)
+* Improved support for WPML's Advanced Translation
+* Improved support for pagination & embed endpoints
+* Hotfix for attachments permalinks
+* Improved url_to_postid() hook
+* Added support for Dokan /edit/ endpoint
 
 = 2.2.8.6 =
 * Hotfix for Permalink_Manager_Helper_Functions::get_disabled_taxonomies() function

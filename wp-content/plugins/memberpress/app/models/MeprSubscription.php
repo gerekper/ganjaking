@@ -684,6 +684,7 @@ class MeprSubscription extends MeprBaseMetaModel implements MeprProductInterface
     if( $en('user_id',       $encols) ) { $cols['user_id'] = 'txn.user_id'; }
     if( $en('product_id',    $encols) ) { $cols['product_id'] = 'txn.product_id'; }
     if( $en('coupon_id',     $encols) ) { $cols['coupon_id'] = 'txn.coupon_id'; }
+    if( $en('coupon',        $encols) ) { $cols['coupon'] = 'c.post_title'; }
     if( $en('price',         $encols) ) { $cols['price'] = 'txn.amount'; }
     if( $en('period',        $encols) ) { $cols['period'] = $wpdb->prepare('%d',1); }
     if( $en('period_type',   $encols) ) { $cols['period_type'] = $wpdb->prepare('%s','lifetime'); }
@@ -756,6 +757,7 @@ class MeprSubscription extends MeprBaseMetaModel implements MeprProductInterface
     $joins = array();
     $joins[] = "/* IMPORTANT */ LEFT JOIN {$wpdb->users} AS u ON u.ID = txn.user_id";
     $joins[] = "/* IMPORTANT */ LEFT JOIN {$wpdb->posts} AS prd ON prd.ID = txn.product_id";
+    $joins[] = "/* IMPORTANT */ LEFT JOIN {$wpdb->posts} AS c ON c.ID = txn.coupon_id";
 
     if( $en('period_type',$encols) ) { $joins[] = $wpdb->prepare( "LEFT JOIN {$wpdb->postmeta} AS pm_period_type ON pm_period_type.post_id = prd.ID AND pm_period_type.meta_key = %s", MeprProduct::$period_type_str ); }
 
@@ -877,14 +879,14 @@ class MeprSubscription extends MeprBaseMetaModel implements MeprProductInterface
     //Check if limiting is even enabled
     if(!$this->limit_cycles) { return; }
 
-    if($this->limit_cycles_action == 'lifetime' || $this->limit_cycles_action == 'expires_at') {
+    if($this->limit_cycles_action == 'lifetime' || $this->limit_cycles_action == 'expires_after') {
       $txn = $this->latest_txn();
 
       if(!empty($txn) && $txn instanceof MeprTransaction) {
         if($this->limit_cycles_action == 'lifetime'){
           $txn->expires_at = MeprUtils::db_lifetime(); // lifetime expiration
         }
-        elseif($this->limit_cycles_action == 'expires_at'){
+        elseif($this->limit_cycles_action == 'expires_after'){
           $expires_at = $this->get_expires_at(strtotime($txn->created_at));
 
           switch($this->limit_cycles_expires_type) {
@@ -895,10 +897,10 @@ class MeprSubscription extends MeprBaseMetaModel implements MeprProductInterface
               $expires_at += MeprUtils::weeks($this->limit_cycles_expires_after);
               break;
             case 'months':
-              $expires_at += MeprUtils::months($this->limit_cycles_expires_after, $txn->created_at);
+              $expires_at += MeprUtils::months($this->limit_cycles_expires_after, strtotime($txn->created_at));
               break;
             case 'years':
-              $expires_at += MeprUtils::years($this->limit_cycles_expires_after, $txn->created_at);
+              $expires_at += MeprUtils::years($this->limit_cycles_expires_after, strtotime($txn->created_at));
           }
 
           $txn->expires_at = MeprUtils::ts_to_mysql_date($expires_at); // lifetime expiration
@@ -1210,8 +1212,8 @@ class MeprSubscription extends MeprBaseMetaModel implements MeprProductInterface
 
     // Used in monthly / yearly calcs
     $renewal_date_ts = MeprUtils::db_date_to_ts($this->renewal_base_date);
-    if($this->trial) {
-      $renewal_date_ts += MeprUtils::days($this->trial_days); // Account for trial periods
+    if($this->trial && $this->created_at == $this->renewal_base_date) {
+      $renewal_date_ts += MeprUtils::days($this->trial_days); // Account for trial periods (but not if paused & resumed with Stripe)
     }
 
     switch($this->period_type) {
@@ -1844,7 +1846,7 @@ class MeprSubscription extends MeprBaseMetaModel implements MeprProductInterface
   // SPECIFICALLY TO USE IN MEPRDB TO MIGRATE SUBSCRIPTIONS TO IT'S NEW TABLE
   public static function upgrade_attrs() {
     return array(
-      'subscr_id'           => 'CONCAT("mp-sub-",UUID_SHORT())',
+      'subscr_id'           => "CONCAT('mp-sub-',UUID_SHORT())",
       'gateway'             => 'manual',
       'user_id'             => 0,
       'product_id'          => 0,

@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Admin notices handling.
  *
  * @class    WC_PB_Admin_Notices
- * @version  5.9.1
+ * @version  6.3.0
  */
 class WC_PB_Admin_Notices {
 
@@ -49,8 +49,9 @@ class WC_PB_Admin_Notices {
 	 * @var array
 	 */
 	private static $maintenance_notice_types = array(
-		'update'  => 'update_notice',
-		'welcome' => 'welcome_notice'
+		'update'   => 'update_notice',
+		'welcome'  => 'welcome_notice',
+		'loopback' => 'loopback_notice'
 	);
 
 	/**
@@ -58,17 +59,28 @@ class WC_PB_Admin_Notices {
 	 */
 	public static function init() {
 
-		self::$maintenance_notices = get_option( 'wc_pb_maintenance_notices', array() );
+		if ( ! class_exists( 'WC_PB_Notices' ) ) {
+			require_once  WC_PB_ABSPATH . 'includes/class-wc-pb-notices.php' ;
+		}
 
-		self::$dismissed_notices = get_user_meta( get_current_user_id(), 'wc_pb_dismissed_notices', true );
-		self::$dismissed_notices = empty( self::$dismissed_notices ) ? array() : self::$dismissed_notices;
+		// Avoid duplicates for some notice types that are meant to be unique.
+		if ( ! isset( $GLOBALS[ 'sw_store' ][ 'notices_unique' ] ) ) {
+			$GLOBALS[ 'sw_store' ][ 'notices_unique' ] = array();
+		}
+
+		self::$maintenance_notices = get_option( 'wc_pb_maintenance_notices', array() );
+		self::$dismissed_notices   = get_user_meta( get_current_user_id(), 'wc_pb_dismissed_notices', true );
+		self::$dismissed_notices   = empty( self::$dismissed_notices ) ? array() : self::$dismissed_notices;
 
 		// Show meta box notices.
 		add_action( 'admin_notices', array( __CLASS__, 'output_notices' ) );
 		// Save meta box notices.
 		add_action( 'shutdown', array( __CLASS__, 'save_notices' ), 100 );
-		// Show maintenance notices.
-		add_action( 'admin_print_styles', array( __CLASS__, 'hook_maintenance_notices' ) );
+
+		if ( function_exists( 'WC' ) ) {
+			// Show maintenance notices.
+			add_action( 'admin_print_styles', array( __CLASS__, 'hook_maintenance_notices' ) );
+		}
 	}
 
 	/**
@@ -81,11 +93,22 @@ class WC_PB_Admin_Notices {
 	public static function add_notice( $text, $args, $save_notice = false ) {
 
 		if ( is_array( $args ) ) {
-			$type          = $args[ 'type' ];
-			$dismiss_class = isset( $args[ 'dismiss_class' ] ) ? $args[ 'dismiss_class' ] : false;
+			$type           = $args[ 'type' ];
+			$dismiss_class  = isset( $args[ 'dismiss_class' ] ) ? $args[ 'dismiss_class' ] : false;
+			$unique_context = isset( $args[ 'unique_context' ] ) ? $args[ 'unique_context' ] : false;
+			$save_notice    = isset( $args[ 'save_notice' ] ) ? $args[ 'save_notice' ] : $save_notice;
 		} else {
-			$type          = $args;
-			$dismiss_class = false;
+			$type           = $args;
+			$dismiss_class  = false;
+			$unique_context = false;
+		}
+
+		if ( $unique_context ) {
+			if ( self::unique_notice_exists( $unique_context ) ) {
+				return;
+			} else {
+				$GLOBALS[ 'sw_store' ][ 'notices_unique' ][] = $unique_context;
+			}
 		}
 
 		$notice = array(
@@ -99,6 +122,46 @@ class WC_PB_Admin_Notices {
 		} else {
 			self::$admin_notices[] = $notice;
 		}
+	}
+
+	/**
+	 * Checks if a notice that belongs to a the specified uniqueness context already exists.
+	 *
+	 * @since  6.3.0
+	 *
+	 * @param  string  $context
+	 * @return bool
+	 */
+	private static function unique_notice_exists( $context ) {
+		return $context && in_array( $context, $GLOBALS[ 'sw_store' ][ 'notices_unique' ] );
+	}
+
+	/**
+	 * Get a setting for a notice type.
+	 *
+	 * @since  6.3.0
+	 *
+	 * @param  string  $notice_name
+	 * @param  string  $key
+	 * @param  mixed   $default
+	 * @return array
+	 */
+	public static function get_notice_option( $notice_name, $key, $default = null ) {
+		return WC_PB_Notices::get_notice_option( $notice_name, $key, $default );
+	}
+
+	/**
+	 * Set a setting for a notice type.
+	 *
+	 * @since  6.3.0
+	 *
+	 * @param  string  $notice_name
+	 * @param  string  $key
+	 * @param  mixed   $value
+	 * @return array
+	 */
+	public static function set_notice_option( $notice_name, $key, $value ) {
+		return WC_PB_Notices::set_notice_option( $notice_name, $key, $value );
 	}
 
 	/**
@@ -126,7 +189,7 @@ class WC_PB_Admin_Notices {
 	}
 
 	/**
-	 * Save errors to an option.
+	 * Save notices to the DB.
 	 */
 	public static function save_notices() {
 		update_option( 'wc_pb_meta_box_notices', self::$meta_box_notices );
@@ -201,8 +264,8 @@ class WC_PB_Admin_Notices {
 	 *
 	 * @since  5.8.0
 	 *
-	 * @param  string   $text
-	 * @param  mixed    $args
+	 * @param  string  $text
+	 * @param  mixed   $args
 	 */
 	public static function add_dismissible_notice( $text, $args ) {
 		if ( ! isset( $args[ 'dismiss_class' ] ) || ! self::is_dismissible_notice_dismissed( $args[ 'dismiss_class' ] ) ) {
@@ -277,34 +340,35 @@ class WC_PB_Admin_Notices {
 			// Show notice to indicate that an update is in progress.
 			if ( WC_PB_Install::is_update_process_running() || WC_PB_Install::is_update_queued() ) {
 
-				$status = __( 'Your database is being updated in the background.', 'woocommerce-product-bundles' );
+				$prompt = '';
 
 				// Check if the update process is running.
 				if ( false === WC_PB_Install::is_update_process_running() ) {
-					$status .= self::get_force_update_prompt();
+					$prompt = self::get_force_update_prompt();
 				}
+
+				$status = sprintf( __( '<strong>WooCommerce Product Bundles</strong> is updating your database.%s', 'woocommerce-product-bundles' ), $prompt );
 
 			// Show a prompt to update.
 			} elseif ( false === WC_PB_Install::auto_update_enabled() && false === WC_PB_Install::is_update_incomplete() ) {
 
-				$status  = __( 'Your database needs to be updated to the latest version.', 'woocommerce-product-bundles' );
+				$status  = __( '<strong>WooCommerce Product Bundles</strong> has been updated! To keep things running smoothly, your database needs to be updated, as well.', 'woocommerce-product-bundles' );
+				$status .= '<br/>' . sprintf( __( 'Before you proceed, please take a few minutes to <a href="%s" target="_blank">learn more</a> about best practices when updating.', 'woocommerce-product-bundles' ), WC_PB()->get_resource_url( 'updating' ) );
 				$status .= self::get_trigger_update_prompt();
 
 			} elseif ( WC_PB_Install::is_update_incomplete() ) {
 
-				$status  = __( 'Database update incomplete.', 'woocommerce-product-bundles' );
-				$status .= self::get_failed_update_prompt();
+				$status = sprintf( __( '<strong>WooCommerce Product Bundles</strong> has not finished updating your database.%s', 'woocommerce-product-bundles' ), self::get_failed_update_prompt() );
 			}
 
 			if ( $status ) {
-				$notice = '<strong>' . __( 'WooCommerce Product Bundles Data Update', 'woocommerce-product-bundles' ) . '</strong> &#8211; ' . $status;
-				self::add_notice( $notice, 'native' );
+				self::add_notice( $status, 'info' );
 			}
 
 		// Show persistent notice to indicate that the update process is complete.
 		} else {
-			$notice = __( 'WooCommerce Product Bundles data update complete.', 'woocommerce-product-bundles' );
-			self::add_notice( $notice, array( 'type' => 'native', 'dismiss_class' => 'update' ) );
+			$notice = __( '<strong>WooCommerce Product Bundles</strong> database update complete. Thank you for updating to the latest version!', 'woocommerce-product-bundles' );
+			self::add_notice( $notice, array( 'type' => 'info', 'dismiss_class' => 'update' ) );
 		}
 	}
 
@@ -319,7 +383,7 @@ class WC_PB_Admin_Notices {
 		$screen_id       = $screen ? $screen->id : '';
 		$show_on_screens = array(
 			'dashboard',
-			'plugins',
+			'plugins'
 		);
 
 		// Onboarding notices should only show on the main dashboard, and on the plugins screen.
@@ -342,6 +406,101 @@ class WC_PB_Admin_Notices {
 	}
 
 	/**
+	 * Add 'loopback' notice.
+	 *
+	 * @since  6.3.0
+	 */
+	public static function loopback_notice() {
+
+		$screen          = get_current_screen();
+		$screen_id       = $screen ? $screen->id : '';
+		$show_on_screens = array(
+			'dashboard',
+			'plugins'
+		);
+
+		// Onboarding notices should only show on the main dashboard, and on the plugins screen.
+		if ( ! in_array( $screen_id, $show_on_screens, true ) ) {
+			return;
+		}
+
+		// Health check class exists?
+		if ( ! file_exists( ABSPATH . 'wp-admin/includes/class-wp-site-health.php' ) ) {
+			return;
+		}
+
+		$last_tested   = self::get_notice_option( 'loopback', 'last_tested', 0 );
+		$last_result   = self::get_notice_option( 'loopback', 'last_result', 'pass' );
+		$auto_run_test = gmdate( 'U' ) - $last_tested > DAY_IN_SECONDS;
+		$show_notice   = 'fail' === $last_result;
+
+		if ( ! function_exists( 'wc_enqueue_js' ) ) {
+			return;
+		}
+
+		wc_enqueue_js( "
+			jQuery( function( $ ) {
+
+				var auto_run_test  = " . ( $auto_run_test ? 'true' : 'false' ) . ",
+					notice         = jQuery( '.wc_pb_notice.loopback' ),
+					notice_exists  = notice.length > 0;
+
+				var do_loopback_test = function() {
+
+					if ( notice_exists && ! auto_run_test ) {
+						notice.find( 'a.wc-pb-run-again' ).addClass( 'disabled' );
+						notice.find( 'span.spinner' ).addClass( 'is-active' );
+					}
+
+					var data = {
+						action: 'woocommerce_bundles_loopback_test',
+						security: '" . wp_create_nonce( 'wc_pb_loopback_notice_nonce' ) . "'
+					};
+
+					jQuery.post( '" . WC()->ajax_url() . "', data, function( response ) {
+
+						if ( ! notice_exists || auto_run_test ) {
+							return;
+						}
+
+						if ( 'success' === response.result ) {
+							notice.html( '" . '<p>' . __( 'Loopback test passed!', 'woocommerce-product-bundles' ) . '</p>' . "' ).removeClass( 'notice-warning' ).addClass( 'notice-success' );
+						} else {
+							notice.html( '" . '<p>' . __( 'Loopback test failed!', 'woocommerce-product-bundles' ) . '</p>' . "' ).removeClass( 'notice-warning' ).addClass( 'notice-error' );
+						}
+					} );
+				};
+
+				if ( auto_run_test ) {
+					do_loopback_test();
+				}
+
+				if ( notice_exists ) {
+
+					notice.find( 'a.wc-pb-run-again' ).on( 'click', function() {
+
+						auto_run_test = false;
+
+						do_loopback_test();
+
+						return false;
+					} );
+				}
+			} );
+		" );
+
+		if ( $show_notice ) {
+
+			$notice       = __( 'Product Bundles ran a quick check-up on your site, and found that loopback requests might be failing to complete. Loopback requests are used by WooCommerce to run scheduled events, such as database upgrades. To keep your site in top shape, please ask the host or administrator of your server to look into this for you.', 'woocommerce-product-bundles' );
+			$rerun_prompt = '<p><a href="#trigger_loopback_test" class="button wc-pb-run-again">' . __( 'Repeat test', 'woocommerce-product-bundles' ) . '</a><span class="spinner" style="float:none;vertical-align:top"></span></p>';
+
+			$notice .= $rerun_prompt;
+
+			self::add_dismissible_notice( $notice, array( 'type' => 'warning', 'unique_context' => 'loopback', 'dismiss_class' => 'loopback' ) );
+		}
+	}
+
+	/**
 	 * Returns a "trigger update" notice component.
 	 *
 	 * @since  5.5.0
@@ -350,7 +509,7 @@ class WC_PB_Admin_Notices {
 	 */
 	private static function get_trigger_update_prompt() {
 		$update_url    = esc_url( wp_nonce_url( add_query_arg( 'trigger_wc_pb_db_update', true, admin_url() ), 'wc_pb_trigger_db_update_nonce', '_wc_pb_admin_nonce' ) );
-		$update_prompt = '<p><a href="' . $update_url . '" class="wc-pb-update-now button-primary">' . __( 'Run the updater', 'woocommerce' ) . '</a></p>';
+		$update_prompt = '<p><a href="' . $update_url . '" class="wc-pb-update-now button">' . __( 'Update database', 'woocommerce-product-bundles' ) . '</a></p>';
 		return $update_prompt;
 	}
 
@@ -370,8 +529,8 @@ class WC_PB_Admin_Notices {
 		if ( gmdate( 'U' ) - $update_runtime > 30 ) {
 			// Perhaps the upgrade process failed to start?
 			$fallback_url    = esc_url( wp_nonce_url( add_query_arg( 'force_wc_pb_db_update', true, admin_url() ), 'wc_pb_force_db_update_nonce', '_wc_pb_admin_nonce' ) );
-			$fallback_link   = '<a href="' . $fallback_url . '">' . __( 'run the update process manually', 'woocommerce-product-bundles' ) . '</a>';
-			$fallback_prompt = '<br/><em>' . sprintf( __( '&hellip;Taking a while? You may need to %s.', 'woocommerce-product-bundles' ), $fallback_link ) . '</em>';
+			$fallback_link   = '<a href="' . $fallback_url . '">' . __( 'run it manually', 'woocommerce-product-bundles' ) . '</a>';
+			$fallback_prompt = sprintf( __( ' The process seems to be taking a little longer than usual, so let\'s try to %s.', 'woocommerce-product-bundles' ), $fallback_link );
 		}
 
 		return $fallback_prompt;
@@ -386,15 +545,15 @@ class WC_PB_Admin_Notices {
 	 */
 	private static function get_failed_update_prompt() {
 
-		$support_url    = esc_url( WC_PB_SUPPORT_URL );
+		$support_url    = WC_PB()->get_resource_url( 'ticket-form' );
 		$support_link   = '<a href="' . $support_url . '">' . __( 'get in touch with us', 'woocommerce-product-bundles' ) . '</a>';
-		$support_prompt = '<br/><em>' . sprintf( __( 'If this message persists, please restore your database from a backup, or %s.', 'woocommerce-product-bundles' ), $support_link ) . '</em>';
+		$support_prompt = sprintf( __( ' If this message persists, please restore your database from a backup, or %s.', 'woocommerce-product-bundles' ), $support_link );
 
 		return $support_prompt;
 	}
 
 	/**
-	 * Dismisses a notice.
+	 * Dismisses a notice. Dismissible maintenance notices cannot be dismissed forever.
 	 *
 	 * @since  5.8.0
 	 *
@@ -405,6 +564,169 @@ class WC_PB_Admin_Notices {
 			return self::remove_maintenance_notice( $notice );
 		} else {
 			return self::remove_dismissible_notice( $notice );
+		}
+	}
+
+	/*
+	|--------------------------------------------------------------------------
+	| Notes for the WC Admin Inbox.
+	|--------------------------------------------------------------------------
+	*/
+
+	/**
+	 * Add note.
+	 *
+	 * @since  6.3.0
+	 *
+	 * @param  array|string  $args
+	 */
+	public static function add_note( $args ) {
+
+		if ( ! class_exists( 'Automattic\WooCommerce\Admin\Notes\WC_Admin_Notes' ) ) {
+			return;
+		}
+
+		if ( ! WC_PB_Core_Compatibility::is_wc_version_gte( '4.0' ) ) {
+			return;
+		}
+
+		if ( ! is_array( $args ) ) {
+			$args = self::get_note_args( $args );
+		}
+
+		if ( ! is_array( $args ) ) {
+			return;
+		}
+
+		$default_args = array(
+			'name'         => '',
+			'title'        => '',
+			'content'      => '',
+			'type'         => Automattic\WooCommerce\Admin\Notes\WC_Admin_Note::E_WC_ADMIN_NOTE_INFORMATIONAL,
+			'source'       => '',
+			'icon'         => '',
+			'check_plugin' => '',
+			'actions'      => array()
+		);
+
+		$args = wp_parse_args( $args, $default_args );
+
+		if ( empty( $args[ 'name' ] ) || empty( $args[ 'title' ] ) || empty( $args[ 'content' ] ) || empty( $args[ 'type' ] ) || empty( $args[ 'icon' ] ) ) {
+			return false;
+		}
+
+		// First, see if we've already created this note so we don't do it again.
+		$data_store = WC_Data_Store::load( 'admin-note' );
+		$note_ids   = $data_store->get_notes_with_name( $args[ 'name' ] );
+		if ( ! empty( $note_ids ) ) {
+			return;
+		}
+
+		// Otherwise, add the note.
+		$note = new Automattic\WooCommerce\Admin\Notes\WC_Admin_Note();
+
+		$note->set_name( $args[ 'name' ] );
+		$note->set_title( $args[ 'title' ] );
+		$note->set_content( $args[ 'content' ] );
+		$note->set_type( $args[ 'type' ] );
+
+		if ( ! method_exists( $note, 'set_image' ) ) {
+			$note->set_icon( $args[ 'icon' ] );
+		}
+
+		if ( $args[ 'source' ] ) {
+			$note->set_source( $args[ 'source' ] );
+		}
+
+		if ( is_array( $args[ 'actions' ] ) ) {
+			foreach ( $args[ 'actions' ] as $action ) {
+				if ( empty( $action[ 'name' ] ) || empty( $action[ 'label' ] ) ) {
+					continue;
+				}
+				$note->add_action( $action[ 'name' ], $action[ 'label' ], empty( $action[ 'url' ] ) ? false : $action[ 'url' ], empty( $action[ 'status' ] ) ? Automattic\WooCommerce\Admin\Notes\WC_Admin_Note::E_WC_ADMIN_NOTE_UNACTIONED : $action[ 'status' ], empty( $action[ 'primary' ] ) ? false : $action[ 'primary' ] );
+			}
+		}
+
+		// Check if plugin installed or activated.
+		if ( ! empty( $args[ 'check_plugin' ] ) ) {
+			if ( WC_PB_Notices::is_feature_plugin_installed( $args[ 'name' ] ) ) {
+				$note->set_status( Automattic\WooCommerce\Admin\Notes\WC_Admin_Note::E_WC_ADMIN_NOTE_ACTIONED );
+			}
+		}
+
+		$note->save();
+	}
+
+	/**
+	 * Get note data.
+	 *
+	 * @since 6.3.0
+	 *
+	 * @param  string  $name
+	 * @return array
+	 */
+	public static function get_note_args( $name ) {
+
+		if ( 'min-max' === $name ) {
+
+			ob_start();
+
+			?>
+			<p><?php _e( 'Want to sell cases of wine, combos of T-shirts, or cupcakes by the dozen?', 'woocommerce-product-bundles' ); ?></p>
+			<p><?php _e( 'Use the free <strong>Min/Max Items</strong> add-on to create personalized bundles with a fixed or flexible container size.', 'woocommerce-product-bundles' ); ?></p>
+			<?php
+
+			$content = ob_get_clean();
+
+			$args = array(
+				'name'         => 'wc-pb-min-max',
+				'title'        => __( 'Picking \'n mixing with Product Bundles', 'woocommerce-product-bundles' ),
+				'content'      => $content,
+				'type'         => Automattic\WooCommerce\Admin\Notes\WC_Admin_Note::E_WC_ADMIN_NOTE_INFORMATIONAL,
+				'source'       => 'woocommerce-product-bundles',
+				'icon'         => 'plugins',
+				'check_plugin' => true,
+				'actions'      => array(
+					array(
+						'name'  => 'learn-more-min-max',
+						'label' => __( 'Learn more', 'woocommerce-product-bundles' ),
+						'url'   => WC_PB()->get_resource_url( 'min-max' )
+					)
+				)
+			);
+
+			return $args;
+		}
+
+		if ( 'bulk-discounts' === $name ) {
+
+			ob_start();
+
+			?>
+			<p><?php _e( 'Did you know that you can use <strong>Product Bundles</strong> to offer bulk quantity discounts? ', 'woocommerce-product-bundles' ); ?></p>
+			<p><?php _e( 'Grab the free <strong>Bulk Discounts</strong> add-on, and offer lower prices to those who purchase more!', 'woocommerce-product-bundles' ); ?></p>
+			<?php
+
+			$content = ob_get_clean();
+
+			$args = array(
+				'name'         => 'wc-pb-bulk-discounts',
+				'title'        => __( 'Ready to start offering bulk discounts?', 'woocommerce-product-bundles' ),
+				'content'      => $content,
+				'type'         => Automattic\WooCommerce\Admin\Notes\WC_Admin_Note::E_WC_ADMIN_NOTE_INFORMATIONAL,
+				'source'       => 'woocommerce-product-bundles',
+				'icon'         => 'plugins',
+				'check_plugin' => true,
+				'actions'      => array(
+					array(
+						'name'  => 'learn-more-bulk-discounts',
+						'label' => __( 'Learn more', 'woocommerce-product-bundles' ),
+						'url'   => WC_PB()->get_resource_url( 'bulk-discounts' )
+					)
+				)
+			);
+
+			return $args;
 		}
 	}
 

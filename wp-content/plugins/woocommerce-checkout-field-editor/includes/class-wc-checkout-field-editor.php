@@ -32,6 +32,7 @@ class WC_Checkout_Field_Editor {
 		add_filter( 'woocommerce_screen_ids', array( $this, 'add_screen_id' ) );
 		add_filter( 'woocommerce_debug_tools', array( $this, 'debug_button' ) );
 		add_action( 'woocommerce_checkout_update_order_meta', array( $this, 'save_data' ), 10, 2 );
+		add_filter( 'woocommerce_default_address_fields', array( $this, 'set_default_address_field' ) );
 
 		if ( ! empty( $_GET['dismiss_welcome'] ) ) {
 			update_option( 'hide_checkout_field_editors_welcome_notice', 1 );
@@ -793,5 +794,29 @@ class WC_Checkout_Field_Editor {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Sets any default address field.
+	 *
+	 * @since 1.5.35
+	 * @param array $fields Default fields.
+	 * @return $fields Modified fields.
+	 */
+	public function set_default_address_field( $fields ) {
+		remove_filter( 'woocommerce_default_address_fields', array( $this, 'set_default_address_field' ) );
+		$tabs = array( 'billing', 'shipping' );
+
+		foreach ( $tabs as $tab ) {
+			foreach ( $this->get_fields( $tab ) as $name => $options ) {
+				if ( 'billing_address_2' === $name ) {
+					$fields['address_2']['placeholder'] = $options['placeholder'];
+				}
+			}
+		}
+
+		add_filter( 'woocommerce_default_address_fields', array( $this, 'set_default_address_field' ) );
+
+		return $fields;
 	}
 }

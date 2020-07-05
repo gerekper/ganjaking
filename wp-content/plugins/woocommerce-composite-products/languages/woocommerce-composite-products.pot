@@ -2,9 +2,9 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Composite Products 7.0.3\n"
+"Project-Id-Version: WooCommerce Composite Products 7.0.4\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
-"POT-Creation-Date: 2020-06-19 08:41:41+00:00\n"
+"POT-Creation-Date: 2020-06-26 12:41:54+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -42,59 +42,59 @@ msgstr ""
 msgid "Adjusted component line items: %s"
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin-notices.php:359
+#: includes/admin/class-wc-cp-admin-notices.php:348
 msgid "<strong>WooCommerce Composite Products</strong> is updating your database.%s"
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin-notices.php:364
+#: includes/admin/class-wc-cp-admin-notices.php:353
 msgid ""
 "<strong>WooCommerce Composite Products</strong> has been updated! To keep "
 "things running smoothly, your database needs to be updated, as well."
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin-notices.php:365
+#: includes/admin/class-wc-cp-admin-notices.php:354
 msgid ""
 "Before you proceed, please take a few minutes to <a href=\"%s\" "
 "target=\"_blank\">learn more</a> about best practices when updating."
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin-notices.php:370
+#: includes/admin/class-wc-cp-admin-notices.php:359
 msgid ""
 "<strong>WooCommerce Composite Products</strong> has not finished updating "
 "your database.%s"
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin-notices.php:379
+#: includes/admin/class-wc-cp-admin-notices.php:368
 msgid ""
 "<strong>WooCommerce Composite Products</strong> database update complete. "
 "Thank you for updating to the latest version!"
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin-notices.php:407
+#: includes/admin/class-wc-cp-admin-notices.php:396
 msgid "Ready to create your first product kit?"
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin-notices.php:408
+#: includes/admin/class-wc-cp-admin-notices.php:397
 msgid "Thank you for installing WooCommerce Composite Products."
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin-notices.php:408
+#: includes/admin/class-wc-cp-admin-notices.php:397
 msgid "Let's get started by creating your first composite product!"
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin-notices.php:409
+#: includes/admin/class-wc-cp-admin-notices.php:398
 msgid "Let's go!"
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin-notices.php:476
+#: includes/admin/class-wc-cp-admin-notices.php:465
 msgid "Loopback test passed!"
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin-notices.php:478
+#: includes/admin/class-wc-cp-admin-notices.php:467
 msgid "Loopback test failed!"
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin-notices.php:503
+#: includes/admin/class-wc-cp-admin-notices.php:492
 msgid ""
 "Composite Products ran a quick check-up on your site, and found that "
 "loopback requests might be failing to complete. Loopback requests are used "
@@ -103,39 +103,39 @@ msgid ""
 "to look into this for you."
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin-notices.php:504
+#: includes/admin/class-wc-cp-admin-notices.php:493
 msgid "Repeat test"
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin-notices.php:521
+#: includes/admin/class-wc-cp-admin-notices.php:510
 msgid "Update database"
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin-notices.php:541
+#: includes/admin/class-wc-cp-admin-notices.php:530
 msgid "run it manually"
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin-notices.php:542
+#: includes/admin/class-wc-cp-admin-notices.php:531
 msgid ""
 " The process seems to be taking a little longer than usual, so let's try to "
 "%s."
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin-notices.php:558
+#: includes/admin/class-wc-cp-admin-notices.php:547
 msgid "get in touch with us"
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin-notices.php:559
+#: includes/admin/class-wc-cp-admin-notices.php:548
 msgid ""
 " If this message persists, please restore your database from a backup, or "
 "%s."
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin-notices.php:593
+#: includes/admin/class-wc-cp-admin-notices.php:582
 msgid "Action failed. Please refresh the page and retry."
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin-notices.php:597
+#: includes/admin/class-wc-cp-admin-notices.php:586
 msgid "Cheatin&#8217; huh?"
 msgstr ""
 
@@ -957,14 +957,28 @@ msgid "Database version mismatch."
 msgstr ""
 
 #: includes/admin/views/html-admin-page-status-report.php:43
-msgid "Template overrides"
+msgid "Loopback test"
 msgstr ""
 
 #: includes/admin/views/html-admin-page-status-report.php:44
+msgid ""
+"Loopback requests are used by Composite Products to process tasks in the "
+"background."
+msgstr ""
+
+#: includes/admin/views/html-admin-page-status-report.php:53
+msgid "Loopback test failed."
+msgstr ""
+
+#: includes/admin/views/html-admin-page-status-report.php:59
+msgid "Template overrides"
+msgstr ""
+
+#: includes/admin/views/html-admin-page-status-report.php:60
 msgid "Shows any files overriding the default Composite Products templates."
 msgstr ""
 
-#: includes/admin/views/html-admin-page-status-report.php:61
+#: includes/admin/views/html-admin-page-status-report.php:77
 #. Translators: %1$s: Template name, %2$s: Template version, %3$s: Core
 #. version.
 msgid "%1$s version %2$s (out of date)"

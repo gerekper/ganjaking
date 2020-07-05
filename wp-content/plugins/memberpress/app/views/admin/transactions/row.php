@@ -78,6 +78,20 @@ if(!empty($records))
               <a href="" class="mepr_resend_txn_email" data-value="<?php echo $rec->id; ?>"><?php _e('Send Receipt', 'memberpress'); ?></a> |
               <a href="" class="mepr_send_welcome_email" data-value="<?php echo $rec->id; ?>"><?php _e('Send Welcome', 'memberpress'); ?></a> |
               <?php
+              if (class_exists('MePdfInvoicesCtrl')) {  ?>
+                <a href="
+                  <?php
+                  echo MeprUtils::admin_url(
+                    'admin-ajax.php',
+                    array( 'download_invoice', 'mepr_invoices_nonce' ),
+                    array(
+                      'action' => 'mepr_download_invoice',
+                      'txn'    => $rec->id,
+                    )
+                  );
+                  ?>
+                " target="_blank"><?php echo esc_html_x( 'PDF Invoice', 'ui', 'memberpress-pdf-invoice', 'memberpress' ); ?></a>  |
+              <?php }
               $txn = new MeprTransaction($rec->id);
               if($txn->can('process-refunds')):
               ?>

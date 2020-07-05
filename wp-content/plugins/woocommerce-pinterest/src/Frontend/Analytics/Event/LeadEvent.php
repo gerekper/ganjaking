@@ -40,6 +40,10 @@ class LeadEvent extends AbstractEvent implements EventInterface {
 	 * @return array
 	 */
 	public function getData() {
+		if ($this->data) {
+			return $this->data;
+		}
+
 		global $product;
 		$data = array();
 		if ($product instanceof WC_Product) {

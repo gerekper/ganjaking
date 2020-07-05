@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Bundle data stored as Custom Post Type. For use with the WC 2.7+ CRUD API.
  *
  * @class    WC_Product_Bundle_Data_Store_CPT
- * @version  5.10.0
+ * @version  6.3.0
  */
 class WC_Product_Bundle_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 
@@ -164,7 +164,7 @@ class WC_Product_Bundle_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 
 		// Update WC 3.6+ lookup table.
 		if ( WC_PB_Core_Compatibility::is_wc_version_gte( '3.6' ) ) {
-			if ( array_intersect( $this->updated_props, array( 'sku', 'total_sales', 'average_rating', 'stock_quantity', 'stock_status', 'manage_stock', 'downloadable', 'virtual' ) ) ) {
+			if ( array_intersect( $this->updated_props, array( 'sku', 'total_sales', 'average_rating', 'stock_quantity', 'stock_status', 'manage_stock', 'downloadable', 'virtual', 'tax_status', 'tax_class' ) ) ) {
 				$this->update_lookup_table( $product->get_id(), 'wc_product_meta_lookup' );
 			}
 		}
@@ -188,6 +188,11 @@ class WC_Product_Bundle_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 		$bundled_items_stock_status = $product->get_bundled_items_stock_status( 'edit' );
 
 		if ( update_post_meta( $id, '_wc_pb_bundled_items_stock_status', $bundled_items_stock_status ) ) {
+
+			// Update WC 3.6+ lookup table.
+			if ( WC_PB_Core_Compatibility::is_wc_version_gte( '3.6' ) ) {
+				$this->update_lookup_table( $product->get_id(), 'wc_product_meta_lookup' );
+			}
 
 			$resync_visibility = ! defined( 'WC_PB_DEBUG_STOCK_SYNC' ) && ! defined( 'WC_PB_DEBUG_STOCK_PARENT_SYNC' );
 
@@ -227,14 +232,18 @@ class WC_Product_Bundle_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 
 		if ( 'wc_product_meta_lookup' === $table ) {
 
-			$min_price_meta   = (array) get_post_meta( $id, '_price', false );
-			$max_price_meta   = (array) get_post_meta( $id, '_wc_sw_max_price', false );
+			$min_price_meta = (array) get_post_meta( $id, '_price', false );
+			$max_price_meta = (array) get_post_meta( $id, '_wc_sw_max_price', false );
+
 			$manage_stock = get_post_meta( $id, '_manage_stock', true );
 			$stock        = 'yes' === $manage_stock ? wc_stock_amount( get_post_meta( $id, '_stock', true ) ) : null;
 			$price        = wc_format_decimal( get_post_meta( $id, '_price', true ) );
 			$sale_price   = wc_format_decimal( get_post_meta( $id, '_sale_price', true ) );
 
-			return array(
+			// If the children don't have enough stock, the parent is seen as out of stock in the lookup table.
+			$stock_status = 'outofstock' === get_post_meta( $id, '_wc_pb_bundled_items_stock_status', true ) ? 'outofstock' : get_post_meta( $id, '_stock_status', true );
+
+			$data = array(
 				'product_id'     => absint( $id ),
 				'sku'            => get_post_meta( $id, '_sku', true ),
 				'virtual'        => 'yes' === get_post_meta( $id, '_virtual', true ) ? 1 : 0,
@@ -243,11 +252,20 @@ class WC_Product_Bundle_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 				'max_price'      => end( $max_price_meta ),
 				'onsale'         => $sale_price && $price === $sale_price ? 1 : 0,
 				'stock_quantity' => $stock,
-				'stock_status'   => get_post_meta( $id, '_stock_status', true ),
+				'stock_status'   => $stock_status,
 				'rating_count'   => array_sum( (array) get_post_meta( $id, '_wc_rating_count', true ) ),
 				'average_rating' => get_post_meta( $id, '_wc_average_rating', true ),
-				'total_sales'    => get_post_meta( $id, 'total_sales', true ),
+				'total_sales'    => get_post_meta( $id, 'total_sales', true )
 			);
+
+			if ( WC_PB_Core_Compatibility::is_wc_version_gte( '4.0' ) ) {
+				$data = array_merge( $data, array(
+					'tax_status' => get_post_meta( $id, '_tax_status', true ),
+					'tax_class'  => get_post_meta( $id, '_tax_class', true )
+				) );
+			}
+
+			return $data;
 		}
 
 		return array();
@@ -391,12 +409,9 @@ class WC_Product_Bundle_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 		global $wpdb;
 
 		$results = $wpdb->get_results( "
-			SELECT post.ID as id FROM {$wpdb->posts} AS post
-			LEFT JOIN {$wpdb->postmeta} AS meta ON post.ID = meta.post_id
-			WHERE post.post_type IN ( 'product', 'product_variation' )
-				AND meta.meta_key   = '_wc_pb_bundled_items_stock_status'
-				AND meta.meta_value = '$status'
-			GROUP BY post.ID;
+			SELECT meta.post_id as id FROM {$wpdb->postmeta} AS meta
+			WHERE meta.meta_key = '_wc_pb_bundled_items_stock_status' AND meta.meta_value = '$status'
+			GROUP BY meta.post_id;
 		" );
 
 		return is_array( $results ) ? wp_list_pluck( $results, 'id' ) : array();

@@ -1,6 +1,13 @@
 <?php if(!defined('ABSPATH')) {die('You are not allowed to call this page directly.');}
 
 return array(
+  'title' => array(
+    'name' => __('Title', 'memberpress-developer-tools'),
+    'type' => 'string',
+    'default' => '',
+    'required' => false,
+    'desc' => __('The title of Rule you are creating.', 'memberpress-developer-tools')
+  ),
   'rule_type' => array(
     'name' => __('Rule Type', 'memberpress-developer-tools'),
     'type' => 'string',

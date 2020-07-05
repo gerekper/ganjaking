@@ -456,7 +456,8 @@ class MeprTransaction extends MeprBaseMetaModel implements MeprProductInterface,
       'tax_class' => 'tr.tax_class',
       'tax_desc' => 'tr.tax_desc',
       'status' => 'tr.status',
-      'coupon_id' => 'tr.coupon_id'
+      'coupon_id' => 'tr.coupon_id',
+      'coupon' => 'c.post_title'
     );
 
     if(isset($params['month']) && is_numeric($params['month'])) {
@@ -525,6 +526,7 @@ class MeprTransaction extends MeprBaseMetaModel implements MeprProductInterface,
     $joins = array(
       "/* IMPORTANT */ LEFT JOIN {$wpdb->users} AS m ON tr.user_id = m.ID",
       "/* IMPORTANT */ LEFT JOIN {$wpdb->posts} AS p ON tr.product_id = p.ID",
+      "/* IMPORTANT */ LEFT JOIN {$wpdb->posts} AS c ON tr.coupon_id = c.ID",
       "/* IMPORTANT */ LEFT JOIN {$mepr_db->subscriptions} AS sub ON tr.subscription_id=sub.id",
     );
 

@@ -1,0 +1,20 @@
+#PS_MT{
+    border:1px solid black;
+    }
+
+#PS_MT #PS_HDR{
+    background-color: #808080;
+    color:#ffffff;
+}
+
+#PS_MT #PS_IR1{
+    background-color: #d3d3d3;
+}
+
+#PS_MT #PS_IR2{
+    background-color: #ffffff;
+}
+
+.leftJust{
+    text-align: left;
+}

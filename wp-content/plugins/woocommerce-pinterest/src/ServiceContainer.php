@@ -77,7 +77,7 @@ class ServiceContainer {
 	 * @return FileManager
 	 */
 	public function getFileManager() {
-		return $this->getService(FileManager::class);
+		return $this->getService( FileManager::class );
 	}
 
 	/**
@@ -86,11 +86,11 @@ class ServiceContainer {
 	 * @return AdminNotifier
 	 */
 	public function getNotifier() {
-		if (! $this->serviceExists(AdminNotifier::class)) {
-			$this->addService(AdminNotifier::class, new AdminNotifier());
+		if ( ! $this->serviceExists( AdminNotifier::class ) ) {
+			$this->addService( AdminNotifier::class, new AdminNotifier() );
 		}
 
-		return $this->getService(AdminNotifier::class);
+		return $this->getService( AdminNotifier::class );
 	}
 
 	/**
@@ -99,17 +99,17 @@ class ServiceContainer {
 	 * @return PinService
 	 */
 	public function getPinService() {
-		if (! $this->serviceExists(PinService::class)) {
+		if ( ! $this->serviceExists( PinService::class ) ) {
 			$pinModel                   = $this->getPinModel();
 			$categoryBoardRelationModel = $this->getBoardRelationModel();
 			$logger                     = $this->getLogger();
 			$notifier                   = $this->getNotifier();
 
-			$this->addService(PinService::class,
-				new PinService($pinModel, $categoryBoardRelationModel, $logger, $notifier));
+			$this->addService( PinService::class,
+				new PinService( $pinModel, $categoryBoardRelationModel, $logger, $notifier ) );
 		}
 
-		return $this->getService(PinService::class);
+		return $this->getService( PinService::class );
 	}
 
 	/**
@@ -118,11 +118,11 @@ class ServiceContainer {
 	 * @return PinModel
 	 */
 	public function getPinModel() {
-		if (! $this->serviceExists(PinModel::class)) {
-			$this->addService(PinModel::class, new PinModel($this->getApiState()->getUserId()));
+		if ( ! $this->serviceExists( PinModel::class ) ) {
+			$this->addService( PinModel::class, new PinModel( $this->getApiState()->getUserId() ) );
 		}
 
-		return $this->getService(PinModel::class);
+		return $this->getService( PinModel::class );
 	}
 
 	/**
@@ -131,13 +131,13 @@ class ServiceContainer {
 	 * @return PinDataGenerator
 	 */
 	public function getPinDataGenerator() {
-		if (! $this->serviceExists(PinDataGenerator::class)) {
-			$pinDataGenerator = new PinDataGenerator($this->getPinterestTagsController(), $this->getPinterestIntegration());
+		if ( ! $this->serviceExists( PinDataGenerator::class ) ) {
+			$pinDataGenerator = new PinDataGenerator( $this->getPinterestTagsController(), $this->getPinterestIntegration() );
 
-			$this->addService(PinDataGenerator::class, $pinDataGenerator);
+			$this->addService( PinDataGenerator::class, $pinDataGenerator );
 		}
 
-		return $this->getService(PinDataGenerator::class);
+		return $this->getService( PinDataGenerator::class );
 	}
 
 
@@ -147,12 +147,12 @@ class ServiceContainer {
 	 * @return Api
 	 */
 	public function getApi() {
-		if (! $this->serviceExists(Api::class)) {
+		if ( ! $this->serviceExists( Api::class ) ) {
 			$state = $this->getApiState();
-			$this->addService(Api::class, new Api($state));
+			$this->addService( Api::class, new Api( $state ) );
 		}
 
-		return $this->getService(Api::class);
+		return $this->getService( Api::class );
 	}
 
 	/**
@@ -161,11 +161,11 @@ class ServiceContainer {
 	 * @return ApiState
 	 */
 	public function getApiState() {
-		if (! $this->serviceExists(ApiState::class)) {
-			$this->addService(ApiState::class, new ApiState());
+		if ( ! $this->serviceExists( ApiState::class ) ) {
+			$this->addService( ApiState::class, new ApiState() );
 		}
 
-		return $this->getService(ApiState::class);
+		return $this->getService( ApiState::class );
 	}
 
 	/**
@@ -174,7 +174,7 @@ class ServiceContainer {
 	 * @return PinCreationBackgroundProcess
 	 */
 	public function getPinCreationBackgroundProcess() {
-		if (! $this->serviceExists(PinCreationBackgroundProcess::class)) {
+		if ( ! $this->serviceExists( PinCreationBackgroundProcess::class ) ) {
 
 			$this->includeWcBackgroundProcess();
 
@@ -184,11 +184,11 @@ class ServiceContainer {
 					$this->getApi(),
 					$this->getPinModel(),
 					$this->getPinDataGenerator(),
-					$this->getLogger())
+					$this->getLogger() )
 			);
 		}
 
-		return $this->getService(PinCreationBackgroundProcess::class);
+		return $this->getService( PinCreationBackgroundProcess::class );
 	}
 
 	/**
@@ -197,15 +197,15 @@ class ServiceContainer {
 	 * @return CatalogGenerationProcess
 	 */
 	public function getCatalogGenerationProcess() {
-		if (! $this->serviceExists(CatalogGenerationProcess::class)) {
+		if ( ! $this->serviceExists( CatalogGenerationProcess::class ) ) {
 
 			$this->includeWcBackgroundProcess();
 
-			$this->addService(CatalogGenerationProcess::class,
-				new CatalogGenerationProcess($this->getCatalogGenerator()));
+			$this->addService( CatalogGenerationProcess::class,
+				new CatalogGenerationProcess( $this->getCatalogGenerator() ) );
 		}
 
-		return $this->getService(CatalogGenerationProcess::class);
+		return $this->getService( CatalogGenerationProcess::class );
 	}
 
 	/**
@@ -214,16 +214,16 @@ class ServiceContainer {
 	 * @return CatalogGenerator
 	 */
 	public function getCatalogGenerator() {
-		if (! $this->serviceExists(CatalogGenerator::class)) {
-			$this->addService(CatalogGenerator::class, new CatalogGenerator($this->getCsv(), $this->getGoogleCategoriesRelationsModel()));
+		if ( ! $this->serviceExists( CatalogGenerator::class ) ) {
+			$this->addService( CatalogGenerator::class, new CatalogGenerator( $this->getCsv(), $this->getGoogleCategoriesRelationsModel() ) );
 		}
 
-		return $this->getService(CatalogGenerator::class);
+		return $this->getService( CatalogGenerator::class );
 	}
 
 	private function includeWcBackgroundProcess() {
-		if (! class_exists('WC_Background_Process', false)) {
-			include_once dirname(WC_PLUGIN_FILE) . '/includes/abstracts/class-wc-background-process.php';
+		if ( ! class_exists( 'WC_Background_Process', false ) ) {
+			include_once dirname( WC_PLUGIN_FILE ) . '/includes/abstracts/class-wc-background-process.php';
 		}
 	}
 
@@ -233,13 +233,14 @@ class ServiceContainer {
 	 * @return PinterestIntegration
 	 */
 	public function getPinterestIntegration() {
-		if (! $this->serviceExists(PinterestIntegration::class)) {
-			if ( function_exists('wc' ) && isset(wc()->integrations->get_integrations()['pinterest'])) {
+		if ( ! $this->serviceExists( PinterestIntegration::class ) ) {
+			if ( function_exists( 'wc' ) && isset( wc()->integrations->get_integrations()['pinterest'] ) ) {
 				$pinterestIntegration = wc()->integrations->get_integrations()['pinterest'];
-				$this->addService(PinterestIntegration::class, $pinterestIntegration );
+				$this->addService( PinterestIntegration::class, $pinterestIntegration );
 			}
 		}
-		return $this->getService(PinterestIntegration::class);
+
+		return $this->getService( PinterestIntegration::class );
 	}
 
 	/**
@@ -248,18 +249,18 @@ class ServiceContainer {
 	 * @return BulkActions
 	 */
 	public function getBulkActions() {
-		if (! $this->serviceExists(BulkActions::class)) {
-			$this->addService(BulkActions::class, new BulkActions(
-				$this->getFileManager(),
-				$this->getPinterestIntegration(),
-				$this->getPinService(),
-				$this->getNotifier(),
-				$this->getBoardRelationModel(),
-				$this->getPinModel())
+		if ( ! $this->serviceExists( BulkActions::class ) ) {
+			$this->addService( BulkActions::class, new BulkActions(
+					$this->getFileManager(),
+					$this->getPinterestIntegration(),
+					$this->getPinService(),
+					$this->getNotifier(),
+					$this->getBoardRelationModel(),
+					$this->getPinModel() )
 			);
 		}
 
-		return $this->getService(BulkActions::class);
+		return $this->getService( BulkActions::class );
 	}
 
 	/**
@@ -268,11 +269,11 @@ class ServiceContainer {
 	 * @return SaveButton
 	 */
 	public function getSaveButton() {
-		if (! $this->serviceExists(SaveButton::class)) {
-			$this->addService(SaveButton::class, new SaveButton($this->getFileManager(), $this->getPinterestIntegration()));
+		if ( ! $this->serviceExists( SaveButton::class ) ) {
+			$this->addService( SaveButton::class, new SaveButton( $this->getFileManager(), $this->getPinterestIntegration() ) );
 		}
 
-		return $this->getService(SaveButton::class);
+		return $this->getService( SaveButton::class );
 	}
 
 	/**
@@ -281,13 +282,13 @@ class ServiceContainer {
 	 * @return Analytics
 	 */
 	public function getAnalytics() {
-		if (! $this->serviceExists(Analytics::class)) {
+		if ( ! $this->serviceExists( Analytics::class ) ) {
 			$primaryCategoryServiceContainer = \Premmerce\PrimaryCategory\ServiceContainer::getInstance();
 			$primaryCategoryModel            = $primaryCategoryServiceContainer->getModel();
-			$this->addService(Analytics::class, new Analytics($this->getFileManager(), $this->getPinterestIntegration(), $primaryCategoryModel));
+			$this->addService( Analytics::class, new Analytics( $this->getFileManager(), $this->getPinterestIntegration(), $primaryCategoryModel ) );
 		}
 
-		return $this->getService(Analytics::class);
+		return $this->getService( Analytics::class );
 	}
 
 	/**
@@ -296,7 +297,7 @@ class ServiceContainer {
 	 * @return ProductHandler
 	 */
 	public function getProductHandler() {
-		if (! $this->serviceExists(ProductHandler::class)) {
+		if ( ! $this->serviceExists( ProductHandler::class ) ) {
 			$productHandler = new ProductHandler(
 				$this->getFileManager(),
 				$this->getPinService(),
@@ -306,10 +307,10 @@ class ServiceContainer {
 				$this->getPinterestTagsController(),
 				$this->getDescriptionPlaceholders()
 			);
-			$this->addService(ProductHandler::class, $productHandler);
+			$this->addService( ProductHandler::class, $productHandler );
 		}
 
-		return $this->getService(ProductHandler::class);
+		return $this->getService( ProductHandler::class );
 	}
 
 	/**
@@ -318,11 +319,11 @@ class ServiceContainer {
 	 * @return AuthHandler
 	 */
 	public function getAuthHandler() {
-		if (! $this->serviceExists(AuthHandler::class)) {
-			$this->addService(AuthHandler::class, new AuthHandler($this->getApiState(), $this->getPinterestIntegration()));
+		if ( ! $this->serviceExists( AuthHandler::class ) ) {
+			$this->addService( AuthHandler::class, new AuthHandler( $this->getApiState(), $this->getPinterestIntegration() ) );
 		}
 
-		return $this->getService(AuthHandler::class);
+		return $this->getService( AuthHandler::class );
 	}
 
 	/**
@@ -331,11 +332,11 @@ class ServiceContainer {
 	 * @return PinCreationTaskManager
 	 */
 	public function getPinCreationTaskManager() {
-		if (!$this->serviceExists(PinCreationTaskManager::class)) {
-			$this->addService(PinCreationTaskManager::class, new PinCreationTaskManager($this->getApiState(), $this->getPinCreationBackgroundProcess(), $this->getPinModel()));
+		if ( ! $this->serviceExists( PinCreationTaskManager::class ) ) {
+			$this->addService( PinCreationTaskManager::class, new PinCreationTaskManager( $this->getApiState(), $this->getPinCreationBackgroundProcess(), $this->getPinModel() ) );
 		}
 
-		return $this->getService(PinCreationTaskManager::class);
+		return $this->getService( PinCreationTaskManager::class );
 	}
 
 	/**
@@ -344,11 +345,11 @@ class ServiceContainer {
 	 * @return CatalogGenerationTaskManager
 	 */
 	public function getCatalogGenerationTaskManager() {
-		if (! $this->serviceExists(CatalogGenerationTaskManager::class)) {
-			$this->addService(CatalogGenerationTaskManager::class, new CatalogGenerationTaskManager($this->getCatalogGenerationProcess(), $this->getCatalogGenerator()));
+		if ( ! $this->serviceExists( CatalogGenerationTaskManager::class ) ) {
+			$this->addService( CatalogGenerationTaskManager::class, new CatalogGenerationTaskManager( $this->getCatalogGenerationProcess(), $this->getCatalogGenerator() ) );
 		}
 
-		return $this->getService(CatalogGenerationTaskManager::class);
+		return $this->getService( CatalogGenerationTaskManager::class );
 	}
 
 	/**
@@ -357,11 +358,11 @@ class ServiceContainer {
 	 * @return Pins
 	 */
 	public function getPins() {
-		if (! $this->serviceExists(Pins::class)) {
-			$this->addService(Pins::class, new Pins($this->getFileManager(), $this->getApiState(), $this->getPinService(), $this->getNotifier()));
+		if ( ! $this->serviceExists( Pins::class ) ) {
+			$this->addService( Pins::class, new Pins( $this->getFileManager(), $this->getApiState(), $this->getPinService(), $this->getNotifier() ) );
 		}
 
-		return $this->getService(Pins::class);
+		return $this->getService( Pins::class );
 	}
 
 	/**
@@ -370,13 +371,13 @@ class ServiceContainer {
 	 * @return PinterestTagsRepository
 	 */
 	public function getPinterestTagsRepository() {
-		if (! $this->serviceExists(PinterestTagsRepository::class)) {
+		if ( ! $this->serviceExists( PinterestTagsRepository::class ) ) {
 
-			$pinterestTagsRepository = new PinterestTagsRepository($this->getPinterestTagsToCategoriesMapper());
-			$this->addService(PinterestTagsRepository::class, $pinterestTagsRepository);
+			$pinterestTagsRepository = new PinterestTagsRepository( $this->getPinterestTagsToCategoriesMapper() );
+			$this->addService( PinterestTagsRepository::class, $pinterestTagsRepository );
 		}
 
-		return $this->getService(PinterestTagsRepository::class);
+		return $this->getService( PinterestTagsRepository::class );
 	}
 
 	/**
@@ -385,11 +386,11 @@ class ServiceContainer {
 	 * @return PinterestTagsToCategoriesMapper
 	 */
 	public function getPinterestTagsToCategoriesMapper() {
-		if (! $this->serviceExists(PinterestTagsToCategoriesMapper::class)) {
-			$this->addService(PinterestTagsToCategoriesMapper::class, new PinterestTagsToCategoriesMapper());
+		if ( ! $this->serviceExists( PinterestTagsToCategoriesMapper::class ) ) {
+			$this->addService( PinterestTagsToCategoriesMapper::class, new PinterestTagsToCategoriesMapper() );
 		}
 
-		return $this->getService(PinterestTagsToCategoriesMapper::class);
+		return $this->getService( PinterestTagsToCategoriesMapper::class );
 	}
 
 	/**
@@ -398,7 +399,7 @@ class ServiceContainer {
 	 * @return PinterestTagsController
 	 */
 	public function getPinterestTagsController() {
-		if (! $this->serviceExists(PinterestTagsController::class)) {
+		if ( ! $this->serviceExists( PinterestTagsController::class ) ) {
 			$primaryCategoryServiceContainer = \Premmerce\PrimaryCategory\ServiceContainer::getInstance();
 
 			$pinterestTagsController = new PinterestTagsController(
@@ -407,10 +408,10 @@ class ServiceContainer {
 				$primaryCategoryServiceContainer->getModel(),
 				$this->getLogger()
 			);
-			$this->addService(PinterestTagsController::class, $pinterestTagsController);
+			$this->addService( PinterestTagsController::class, $pinterestTagsController );
 		}
 
-		return $this->getService(PinterestTagsController::class);
+		return $this->getService( PinterestTagsController::class );
 	}
 
 	/**
@@ -420,14 +421,14 @@ class ServiceContainer {
 	 * @return PinsTable
 	 */
 	public function getPinsTable() {
-		if (! $this->serviceExists(PinsTable::class)) {
+		if ( ! $this->serviceExists( PinsTable::class ) ) {
 
 			$this->includeWpListTable();
 
-			$this->addService(PinsTable::class, new PinsTable($this->getFileManager(), $this->getPinModel(), $this->getPinterestIntegration()));
+			$this->addService( PinsTable::class, new PinsTable( $this->getFileManager(), $this->getPinModel(), $this->getPinterestIntegration() ) );
 		}
 
-		return $this->getService(PinsTable::class);
+		return $this->getService( PinsTable::class );
 	}
 
 	/**
@@ -436,17 +437,17 @@ class ServiceContainer {
 	 * @return WcCategoryPinterestBoardRelationsTable
 	 */
 	public function getCategoryBoardTable() {
-		if (! $this->serviceExists(WcCategoryPinterestBoardRelationsTable::class)) {
+		if ( ! $this->serviceExists( WcCategoryPinterestBoardRelationsTable::class ) ) {
 
 			$this->includeWpListTable();
 
-			$this->addService(WcCategoryPinterestBoardRelationsTable::class, new WcCategoryPinterestBoardRelationsTable(
-				$this->getBoardRelationModel(),
-				$this->getFileManager())
+			$this->addService( WcCategoryPinterestBoardRelationsTable::class, new WcCategoryPinterestBoardRelationsTable(
+					$this->getBoardRelationModel(),
+					$this->getFileManager() )
 			);
 		}
 
-		return $this->getService(WcCategoryPinterestBoardRelationsTable::class);
+		return $this->getService( WcCategoryPinterestBoardRelationsTable::class );
 	}
 
 	private function includeWpListTable() {
@@ -460,12 +461,12 @@ class ServiceContainer {
 	 * @return BoardRelationsModel
 	 */
 	public function getBoardRelationModel() {
-		if (! $this->serviceExists(BoardRelationsModel::class)) {
+		if ( ! $this->serviceExists( BoardRelationsModel::class ) ) {
 			$pinterestUserId = $this->getApiState()->getUserId();
-			$this->addService(BoardRelationsModel::class, new BoardRelationsModel($pinterestUserId));
+			$this->addService( BoardRelationsModel::class, new BoardRelationsModel( $pinterestUserId ) );
 		}
 
-		return $this->getService(BoardRelationsModel::class);
+		return $this->getService( BoardRelationsModel::class );
 	}
 
 	/**
@@ -474,11 +475,11 @@ class ServiceContainer {
 	 * @return AdminAssets
 	 */
 	public function getAdminAssets() {
-		if (! $this->serviceExists(AdminAssets::class)) {
-			$this->addService(AdminAssets::class, new AdminAssets($this->getFileManager()));
+		if ( ! $this->serviceExists( AdminAssets::class ) ) {
+			$this->addService( AdminAssets::class, new AdminAssets( $this->getFileManager() ) );
 		}
 
-		return $this->getService(AdminAssets::class);
+		return $this->getService( AdminAssets::class );
 	}
 
 	/**
@@ -487,11 +488,15 @@ class ServiceContainer {
 	 * @return Logger
 	 */
 	public function getLogger() {
-		if (! $this->serviceExists(Logger::class)) {
-			$this->addService(Logger::class, new Logger());
+		if ( ! $this->serviceExists( Logger::class ) ) {
+
+			$options       = get_option( 'woocommerce_pinterest_settings' );
+			$debug_enabled = isset( $options['enable_debug'] ) ? 'yes' === $options['enable_debug'] : false;
+
+			$this->addService( Logger::class, new Logger( $debug_enabled ) );
 		}
 
-		return $this->getService(Logger::class);
+		return $this->getService( Logger::class );
 	}
 
 	/**
@@ -500,12 +505,12 @@ class ServiceContainer {
 	 * @return Installer
 	 */
 	public function getInstaller() {
-		if (! $this->serviceExists(Installer::class)) {
+		if ( ! $this->serviceExists( Installer::class ) ) {
 			global $wpdb;
-			$this->addService(Installer::class, new Installer($wpdb, $this->getGoogleCategoriesImporter()));
+			$this->addService( Installer::class, new Installer( $wpdb, $this->getGoogleCategoriesImporter() ) );
 		}
 
-		return $this->getService(Installer::class);
+		return $this->getService( Installer::class );
 	}
 
 	/**
@@ -514,13 +519,13 @@ class ServiceContainer {
 	 * @return GoogleCategoriesModel
 	 */
 	public function getGoogleCategoriesModel() {
-		if (! $this->serviceExists(GoogleCategoriesModel::class)) {
-			$googleCategoriesRelationModel = new GoogleCategoriesModel($this->getFileManager());
+		if ( ! $this->serviceExists( GoogleCategoriesModel::class ) ) {
+			$googleCategoriesRelationModel = new GoogleCategoriesModel( $this->getFileManager() );
 
-			$this->addService(GoogleCategoriesModel::class, $googleCategoriesRelationModel);
+			$this->addService( GoogleCategoriesModel::class, $googleCategoriesRelationModel );
 		}
 
-		return $this->getService(GoogleCategoriesModel::class);
+		return $this->getService( GoogleCategoriesModel::class );
 	}
 
 	/**
@@ -529,11 +534,11 @@ class ServiceContainer {
 	 * @return Csv;
 	 */
 	public function getCsv() {
-		if (! $this->serviceExists(Csv::class)) {
-			$this->addService(Csv::class, new Csv());
+		if ( ! $this->serviceExists( Csv::class ) ) {
+			$this->addService( Csv::class, new Csv() );
 		}
 
-		return $this->getService(Csv::class);
+		return $this->getService( Csv::class );
 	}
 
 	/**
@@ -542,14 +547,14 @@ class ServiceContainer {
 	 * @return GoogleCategoriesImporter
 	 */
 	public function getGoogleCategoriesImporter() {
-		if (! $this->serviceExists(GoogleCategoriesImporter::class)) {
-			$this->addService(GoogleCategoriesImporter::class,
-				new GoogleCategoriesImporter($this->getCsv(),
+		if ( ! $this->serviceExists( GoogleCategoriesImporter::class ) ) {
+			$this->addService( GoogleCategoriesImporter::class,
+				new GoogleCategoriesImporter( $this->getCsv(),
 					$this->getFileManager(),
-					$this->getGoogleCategoriesModel()));
+					$this->getGoogleCategoriesModel() ) );
 		}
 
-		return $this->getService(GoogleCategoriesImporter::class);
+		return $this->getService( GoogleCategoriesImporter::class );
 	}
 
 	/**
@@ -558,16 +563,16 @@ class ServiceContainer {
 	 * @return AjaxController
 	 */
 	public function getAjax() {
-		if (!$this->serviceExists(AjaxController::class)) {
-			$this->addService(AjaxController::class, new AjaxController($this->getPinterestTagsController(),
+		if ( ! $this->serviceExists( AjaxController::class ) ) {
+			$this->addService( AjaxController::class, new AjaxController( $this->getPinterestTagsController(),
 				$this->getGoogleCategoriesModel(),
 				$this->getGoogleCategoriesRelationsModel(),
 				$this->getBoardRelationModel(),
 				$this->getPinterestIntegration()
-			));
+			) );
 		}
 
-		return $this->getService(AjaxController::class);
+		return $this->getService( AjaxController::class );
 	}
 
 	/**
@@ -576,11 +581,11 @@ class ServiceContainer {
 	 * @return DescriptionPlaceholders
 	 */
 	public function getDescriptionPlaceholders() {
-		if (! $this->serviceExists(DescriptionPlaceholders::class)) {
-			$this->addService(DescriptionPlaceholders::class, new DescriptionPlaceholders());
+		if ( ! $this->serviceExists( DescriptionPlaceholders::class ) ) {
+			$this->addService( DescriptionPlaceholders::class, new DescriptionPlaceholders() );
 		}
 
-		return $this->getService(DescriptionPlaceholders::class);
+		return $this->getService( DescriptionPlaceholders::class );
 	}
 
 	/**
@@ -589,17 +594,17 @@ class ServiceContainer {
 	 * @return WcCategoryGoogleCategoryRelationsTable
 	 */
 	public function getCatalogTable() {
-		if (!$this->serviceExists(WcCategoryGoogleCategoryRelationsTable::class)) {
+		if ( ! $this->serviceExists( WcCategoryGoogleCategoryRelationsTable::class ) ) {
 
 			$this->includeWpListTable();
 
-			$this->addService(WcCategoryGoogleCategoryRelationsTable::class, new WcCategoryGoogleCategoryRelationsTable($this->getFileManager(),
+			$this->addService( WcCategoryGoogleCategoryRelationsTable::class, new WcCategoryGoogleCategoryRelationsTable( $this->getFileManager(),
 				$this->getGoogleCategoriesRelationsModel(),
 				$this->getGoogleCategoriesModel()
-			));
+			) );
 		}
 
-		return $this->getService(WcCategoryGoogleCategoryRelationsTable::class);
+		return $this->getService( WcCategoryGoogleCategoryRelationsTable::class );
 	}
 
 	/**
@@ -608,11 +613,11 @@ class ServiceContainer {
 	 * @return GoogleCategoriesRelationsModel
 	 */
 	public function getGoogleCategoriesRelationsModel() {
-		if (! $this->serviceExists(GoogleCategoriesRelationsModel::class)) {
-			$this->addService(GoogleCategoriesRelationsModel::class, new GoogleCategoriesRelationsModel($this->getGoogleCategoriesModel()));
+		if ( ! $this->serviceExists( GoogleCategoriesRelationsModel::class ) ) {
+			$this->addService( GoogleCategoriesRelationsModel::class, new GoogleCategoriesRelationsModel( $this->getGoogleCategoriesModel() ) );
 		}
 
-		return $this->getService(GoogleCategoriesRelationsModel::class);
+		return $this->getService( GoogleCategoriesRelationsModel::class );
 	}
 
 	/**
@@ -622,8 +627,8 @@ class ServiceContainer {
 	 *
 	 * @return bool
 	 */
-	public function serviceExists( $id) {
-		return isset($this->services[$id]);
+	public function serviceExists( $id ) {
+		return isset( $this->services[ $id ] );
 	}
 
 	/**
@@ -632,8 +637,8 @@ class ServiceContainer {
 	 * @param string $id
 	 * @param $service
 	 */
-	public function addService( $id, $service) {
-		$this->services[$id] = $service;
+	public function addService( $id, $service ) {
+		$this->services[ $id ] = $service;
 	}
 
 
@@ -644,9 +649,9 @@ class ServiceContainer {
 	 *
 	 * @return mixed
 	 */
-	public function getService( $id) {
-		if ($this->serviceExists($id)) {
-			return $this->services[$id];
+	public function getService( $id ) {
+		if ( $this->serviceExists( $id ) ) {
+			return $this->services[ $id ];
 		}
 	}
 }
