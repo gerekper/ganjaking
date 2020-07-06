@@ -301,6 +301,7 @@ class WC_Box_Office_Ticket {
 		$post_vars = array(
 			'{post_title}'   => $post->post_title,
 			'{post_content}' => $post->post_content,
+			'{ticket_id}'    => $this->id,
 		);
 		foreach ( $post_vars as $var => $value ) {
 			$ticket_content = str_replace( $var, $value, $ticket_content );

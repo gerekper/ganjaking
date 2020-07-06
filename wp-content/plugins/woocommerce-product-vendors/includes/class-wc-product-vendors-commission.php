@@ -114,7 +114,7 @@ class WC_Product_Vendors_Commission {
 
 		$last_id = $wpdb->insert_id;
 
-		do_action( 'wcpv_commissions_updated' );
+		do_action( 'wcpv_commissions_inserted' );
 
 		return $last_id;
 	}
@@ -283,7 +283,7 @@ class WC_Product_Vendors_Commission {
 		// also delete order post meta
 		delete_post_meta( absint( $order_id ), '_wcpv_commission_added' );
 
-		do_action( 'wcpv_commissions_updated' );
+		do_action( 'wcpv_commissions_deleted' );
 
 		return true;
 	}
@@ -310,7 +310,7 @@ class WC_Product_Vendors_Commission {
 			$order->save_meta_data();
 		}
 
-		do_action( 'wcpv_commissions_updated' );
+		do_action( 'wcpv_commissions_deleted' );
 
 		return true;
 	}

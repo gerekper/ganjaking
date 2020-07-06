@@ -548,6 +548,12 @@ html div#$optin_uuid div#$optin_css_id.moEleganceModal a.moEleganceModalclose {
   display: block;
   text-align: center
 }
+
+html div#$optin_uuid div#$optin_css_id.moEleganceModal .mo-optin-fields-wrapper .list_subscription-field:not(select),
+html div#$optin_uuid div#$optin_css_id.moEleganceModal .mo-optin-fields-wrapper .mo-optin-form-custom-field.checkbox-field,
+html div#$optin_uuid div#$optin_css_id.moEleganceModal .mo-optin-fields-wrapper .mo-optin-form-custom-field.radio-field {
+    margin-top: 0.5em;
+}
 CSS;
 
     }

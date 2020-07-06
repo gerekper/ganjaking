@@ -65,3 +65,17 @@ form.edit-ticket p.error label:first-child {
 		}
 	}
 }
+
+@media only screen and (max-width: 500px) {
+	#ticket-scan-form {
+		select#scan-action {
+			width: 100%;
+		}
+
+		input#scan-code {
+			display: block;
+			margin: 10px 0;
+			width: 100%;
+		}
+	}
+}

@@ -435,7 +435,7 @@ html div#$optin_uuid div#$optin_css_id.moEleganceModal .moElegance_note {
 html div#$optin_uuid div#$optin_css_id.moEleganceModal input.moEleganceModal_input_fields,
 html div#$optin_uuid div#$optin_css_id.moEleganceModal input.mo-optin-form-custom-field.text-field,
 html div#$optin_uuid div#$optin_css_id.moEleganceModal input.mo-optin-form-custom-field.date-field,
-html div#$optin_uuid div#$optin_css_id.moEleganceModal .mo-optin-form-custom-field.select-field,
+html div#$optin_uuid div#$optin_css_id.moEleganceModal select.mo-optin-form-custom-field,
 html div#$optin_uuid div#$optin_css_id.moEleganceModal textarea.mo-optin-form-custom-field.textarea-field {
   display: block;
   width: 100%;
@@ -497,6 +497,10 @@ html div#$optin_uuid div#$optin_css_id.moEleganceModal .mo-optin-error {
   box-sizing: border-box; 
   border: 1px solid #FF0000;
   outline: 1px solid #FF0000;
+}
+
+html div#$optin_uuid div#$optin_css_id.moEleganceModal .mo-optin-fields-wrapper .list_subscription-field:not(select) {
+    margin-top: 0.5em; 
 }
 CSS;
 

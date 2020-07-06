@@ -68,7 +68,7 @@ class WIS_Social {
 	 * Add account
 	 *
 	 */
-	public function addAccount () {
+	public function addAccount() {
 
 	}
 

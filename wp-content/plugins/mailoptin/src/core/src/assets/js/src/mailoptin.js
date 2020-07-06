@@ -970,25 +970,46 @@ define(['jquery', 'js.cookie', 'mailoptin_globals', 'pikaday', 'moModal', 'moExi
              */
             validate_optin_form_fields: function ($optin_css_id, optin_js_config, optin_container) {
 
-                var namefield_error = optin_js_config.name_missing_error;
-                var emailfield_error = optin_js_config.email_missing_error;
-                var honeypot_error = optin_js_config.honeypot_error;
-                var note_acceptance_error = optin_js_config.note_acceptance_error;
+                var namefield_error = optin_js_config.name_missing_error,
+                    emailfield_error = optin_js_config.email_missing_error,
+                    honeypot_error = optin_js_config.honeypot_error,
+                    note_acceptance_error = optin_js_config.note_acceptance_error,
+                    custom_field_required_error = optin_js_config.custom_field_required_error,
 
-                var self = this;
-                var name_field = $('#' + $optin_css_id + '_name_field:visible', optin_container);
-                var email_field = $('#' + $optin_css_id + '_email_field:visible', optin_container);
-                var acceptance_checkbox = $('#' + $optin_css_id + ' .mo-acceptance-checkbox', optin_container);
+                    self = this,
+                    name_field = $('#' + $optin_css_id + '_name_field:visible', optin_container),
+                    email_field = $('#' + $optin_css_id + '_email_field:visible', optin_container),
+                    acceptance_checkbox = $('#' + $optin_css_id + ' .mo-acceptance-checkbox', optin_container),
 
-                var honeypot_email_field = $('#' + $optin_css_id + '_honeypot_email_field', optin_container).val();
-                var honeypot_website_field = $('#' + $optin_css_id + '_honeypot_website_field', optin_container).val();
-                var response = true;
+                    honeypot_email_field = $('#' + $optin_css_id + '_honeypot_email_field', optin_container).val(),
+                    honeypot_website_field = $('#' + $optin_css_id + '_honeypot_website_field', optin_container).val(),
+                    response = true;
 
                 // Throw error if either of the honeypot fields are filled.
                 if (honeypot_email_field.length > 0 || honeypot_website_field.length > 0) {
                     self.display_optin_error.call(undefined, $optin_css_id, honeypot_error, optin_container);
                     response = false;
                 }
+
+                $('#' + $optin_css_id + ' .mo-optin-form-custom-field', optin_container).each(function () {
+                    var cache = $(this),
+                        field_id = $(this).data('field-id'),
+                        required_field_bucket = optin_js_config.required_custom_fields,
+                        cache_value = cache.val();
+
+                    if (cache.find('input[type=radio]').length > 0) {
+                        cache_value = cache.find('input[type=radio]:checked').length === 0 ? '' : cache.find('input[type=radio]:checked').val();
+                    }
+
+                    if (cache.find('input[type=checkbox]').length > 0) {
+                        cache_value = cache.find('input[type=checkbox]:checked').length === 0 ? '' : cache.find('input[type=checkbox]:checked').val();
+                    }
+
+                    if ($.inArray(field_id, required_field_bucket) !== -1 && cache_value === "") {
+                        self.display_optin_error.call(cache, $optin_css_id, custom_field_required_error, optin_container);
+                        response = false;
+                    }
+                });
 
                 // if this is an email field, validate that the email address.
                 if (email_field.length > 0) {
@@ -1005,26 +1026,6 @@ define(['jquery', 'js.cookie', 'mailoptin_globals', 'pikaday', 'moModal', 'moExi
                         response = false;
                     }
                 }
-
-                $('#' + $optin_css_id + ' .mo-optin-form-custom-field', optin_container).each(function () {
-                    var cache = $(this);
-                    var field_id = $(this).data('field-id');
-                    var required_field_bucket = optin_js_config.required_custom_fields;
-                    var cache_value = cache.val();
-
-                    if (cache.find('input[type=radio]').length > 0) {
-                        cache_value = cache.find('input[type=radio]:checked').length === 0 ? '' : cache.find('input[type=radio]:checked').val();
-                    }
-
-                    if (cache.find('input[type=checkbox]').length > 0) {
-                        cache_value = cache.find('input[type=checkbox]:checked').length === 0 ? '' : cache.find('input[type=checkbox]:checked').val();
-                    }
-
-                    if ($.inArray(field_id, required_field_bucket) !== -1 && cache_value === "") {
-                        self.display_optin_error.call(cache, $optin_css_id, optin_container);
-                        response = false;
-                    }
-                });
 
                 // we are doing a return here to ensure core validation has passed before hooked validations.
                 if (response === false) return response;

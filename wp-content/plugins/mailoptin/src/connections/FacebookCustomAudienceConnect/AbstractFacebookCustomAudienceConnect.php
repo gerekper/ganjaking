@@ -129,12 +129,12 @@ class AbstractFacebookCustomAudienceConnect extends AbstractConnect
         }
 
         $config = [
-
             // callback not needed but authifly requires it has a value
             'callback'     => MAILOPTIN_OAUTH_URL,
             'keys'         => ['id' => $fbca_app_id, 'secret' => $fbca_app_secret],
             'scope'        => 'ads_management',
-            'access_token' => $fbca_app_access_token
+            'access_token' => $fbca_app_access_token,
+            'apiVersion'   => apply_filters('mo_facebook_custom_audience_api_version', '7.0')
         ];
 
         return new Facebook($config, null, new OAuthCredentialStorage());

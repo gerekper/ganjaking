@@ -1,6 +1,6 @@
 <?php
 
-namespace WBCR\Factory_Adverts_105;
+namespace WBCR\Factory_Adverts_108;
 
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) {
@@ -65,7 +65,7 @@ class Creative_Motion_API {
 	 *
 	 * @author Alexander Kovalev <alex.kovalevv@gmail.com>
 	 * @since  1.0.1
-	 * @var \Wbcr_Factory423_Plugin
+	 * @var \Wbcr_Factory428_Plugin
 	 */
 	private $plugin;
 
@@ -77,9 +77,9 @@ class Creative_Motion_API {
 	 *
 	 * @since 1.0.0 Added
 	 *
-	 * @param \Wbcr_Factory423_Plugin $plugin_name
+	 * @param \Wbcr_Factory428_Plugin $plugin_name
 	 */
-	public function __construct( \Wbcr_Factory423_Plugin $plugin ) {
+	public function __construct( \Wbcr_Factory428_Plugin $plugin ) {
 		$this->plugin = $plugin;
 	}
 
@@ -125,7 +125,7 @@ class Creative_Motion_API {
 			return $this->do_api_request( $position );
 		}
 
-		$key = $this->plugin->getPrefix() . md5( $position . 'advert_transient_' );
+		$key = $this->plugin->getPrefix() . md5( $position . 'adverts_transient_' );
 
 		$cached = get_transient( $key );
 
@@ -133,7 +133,7 @@ class Creative_Motion_API {
 			if ( isset( $cached['error_code'] ) && isset( $cached['error'] ) ) {
 				return new \WP_Error( $cached['error_code'], $cached['error'] );
 			}
-
+			
 			return $cached;
 		}
 
@@ -147,8 +147,8 @@ class Creative_Motion_API {
 
 			return $data;
 		}
-
-		set_transient( $key, $data, $data['expires'] );
+		
+		set_transient( $key, $data, self::DEFAULT_REQUESTS_INTERVAL * HOUR_IN_SECONDS );
 
 		return $data;
 	}

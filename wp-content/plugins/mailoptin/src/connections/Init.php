@@ -49,8 +49,6 @@ class Init
         \MailOptin\NinjaFormsConnect\Connect::get_instance();
         \MailOptin\ContactForm7Connect\Connect::get_instance();
         \MailOptin\GravityFormsConnect\Connect::get_instance();
-        \MailOptin\PolylangConnect\Connect::get_instance();
-        \MailOptin\WPMLConnect\Connect::get_instance();
         \MailOptin\LeadBankConnect\Connect::get_instance();
         \MailOptin\FacebookCustomAudienceConnect\Connect::get_instance();
         GoogleAnalytics::get_instance();

@@ -134,7 +134,7 @@ class WC_Product_Vendors_Bookings {
 			$product_id = get_post_meta( $args[0], '_booking_product_id', true );
 
 			if ( ! WC_Product_Vendors_Utils::can_user_manage_product( $vendor_id, $product_id ) ) {
-				$caps = 'edit_other_vendors_wc_bookings';
+				$caps[] = 'edit_other_vendors_wc_bookings';
 			}
 		}
 
@@ -146,7 +146,7 @@ class WC_Product_Vendors_Bookings {
 			$product_id = get_post_meta( $args[0], '_booking_product_id', true );
 
 			if ( ! WC_Product_Vendors_Utils::can_user_manage_product( $vendor_id, $product_id ) ) {
-				$caps = 'delete_other_vendors_wc_bookings';
+				$caps[] = 'delete_other_vendors_wc_bookings';
 			}
 		}
 
@@ -237,7 +237,7 @@ class WC_Product_Vendors_Bookings {
 			$args = array(
 				'post_type'      => 'wc_booking',
 				'posts_per_page' => 20,
-				'post_status'    => array( 'pending', 'publish', 'future', 'private' ),
+				'post_status'    => get_wc_booking_statuses(),
 			);
 
 			$bookings = get_posts( apply_filters( 'wcpv_bookings_list_widget_args', $args ) );
@@ -278,7 +278,7 @@ class WC_Product_Vendors_Bookings {
 					<tr>
 						<td><a href="<?php echo get_edit_post_link( $booking->ID ); ?>" title="<?php esc_attr_e( 'Edit Booking', 'woocommerce-product-vendors' ); ?>"><?php printf( __( 'Booking #%d', 'woocommerce-product-vendors' ), $booking->ID ); ?></a></td>
 
-						<td><a href="<?php echo get_edit_post_link( $booking_item->get_product()->get_id() ); ?>" title="<?php esc_attr_e( 'Edit Product', 'woocommerce-product-vendors' ); ?>"><?php echo $booking_item->get_product()->post->post_title; ?></a></td>
+						<td><a href="<?php echo get_edit_post_link( $booking_item->get_product()->get_id() ); ?>" title="<?php esc_attr_e( 'Edit Product', 'woocommerce-product-vendors' ); ?>"><?php echo $booking_item->get_product()->get_name(); ?></a></td>
 
 						<td>
 							<?php

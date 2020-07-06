@@ -181,6 +181,19 @@ function wc_newsletter_subscription_is_connected() {
 }
 
 /**
+ * Gets if the newsletter provider has a list set.
+ *
+ * @since 2.9.0
+ *
+ * @return bool
+ */
+function wc_newsletter_subscription_provider_has_list() {
+	$provider = wc_newsletter_subscription_get_provider();
+
+	return ( $provider && $provider->has_list() );
+}
+
+/**
  * Disconnect the current provider.
  *
  * @since 2.8.0
@@ -206,4 +219,77 @@ function wc_newsletter_subscription_disconnect_provider() {
 	}
 
 	return false;
+}
+
+/**
+ * What type of request is this?
+ *
+ * @since 2.9.0
+ *
+ * @param string $type admin, ajax, cron, rest_api or frontend.
+ * @return bool
+ */
+function wc_newsletter_subscription_is_request( $type ) {
+	$is_request = false;
+
+	switch ( $type ) {
+		case 'admin':
+			$is_request = is_admin();
+			break;
+		case 'ajax':
+			$is_request = defined( 'DOING_AJAX' );
+			break;
+		case 'cron':
+			$is_request = defined( 'DOING_CRON' );
+			break;
+		case 'frontend':
+			$is_request = ( ! is_admin() || defined( 'DOING_AJAX' ) ) && ! defined( 'DOING_CRON' ) && ! wc_newsletter_subscription_is_request( 'rest_api' );
+			break;
+		case 'rest_api':
+			if ( ! empty( $_SERVER['REQUEST_URI'] ) ) {
+				$rest_prefix = trailingslashit( rest_get_url_prefix() );
+				$is_request  = ( false !== strpos( $_SERVER['REQUEST_URI'], $rest_prefix ) ); // phpcs:disable WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			}
+			break;
+	}
+
+	/**
+	 * Filters if the request is of the specified type.
+	 *
+	 * @since 2.9.0
+	 *
+	 * @param bool   $is_request Whether the request is of the specified type.
+	 * @param string $type       The request type.
+	 */
+	return apply_filters( 'wc_newsletter_subscription_is_request', $is_request, $type );
+}
+
+/**
+ * Gets templates passing attributes and including the file.
+ *
+ * @since 2.9.0
+ *
+ * @param string $template_name The template name.
+ * @param array  $args          Optional. The template arguments.
+ */
+function wc_newsletter_subscription_get_template( $template_name, $args = array() ) {
+	wc_get_template( $template_name, $args, '', WC_NEWSLETTER_SUBSCRIPTION_PATH . 'templates/' );
+}
+
+/**
+ * Gets if the specified plugin is active.
+ *
+ * @since 2.9.0
+ *
+ * @param string $plugin Base plugin path from plugins directory.
+ * @return bool
+ */
+function wc_newsletter_subscription_is_plugin_active( $plugin ) {
+	$active_plugins = (array) get_option( 'active_plugins', array() );
+
+	if ( is_multisite() ) {
+		$active_plugins = array_merge( $active_plugins, get_site_option( 'active_sitewide_plugins', array() ) );
+	}
+
+	return ( in_array( $plugin, $active_plugins, true ) || array_key_exists( $plugin, $active_plugins ) );
 }

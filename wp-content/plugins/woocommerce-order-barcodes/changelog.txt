@@ -1,5 +1,11 @@
 *** WooCommerce Order Barcodes Changelog ***
 
+2020-07-01 - version 1.3.19
+* Add - Filter to hide barcode from display. `woocommerce_order_barcodes_display_barcode`
+* Fix - Checkout page load performance due to large barcode images.
+* Fix - Order barcode scan not displaying invalid notices.
+* Tweak - Scan barcode form layout for mobile devices.
+
 2020-06-10 - version 1.3.18
 * Tweak - WC 4.2 compatibility.
 

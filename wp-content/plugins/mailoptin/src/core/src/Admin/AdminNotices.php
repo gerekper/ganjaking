@@ -36,6 +36,11 @@ class AdminNotices
         add_action('admin_init', array($this, 'dismiss_leave_review_notice_forever'));
     }
 
+    public function is_admin_notice_show()
+    {
+        return apply_filters('mo_ads_admin_notices_display', true);
+    }
+
     public function removable_query_args($args)
     {
         $args[] = 'email-campaign-error';
@@ -214,6 +219,8 @@ class AdminNotices
 
     public function show_woocommerce_features()
     {
+        if ( ! $this->is_admin_notice_show()) return;
+
         if ( ! PAnD::is_admin_notice_active('show_woocommerce_features-forever')) {
             return;
         }
@@ -231,6 +238,8 @@ class AdminNotices
 
     public function show_cf7_features()
     {
+        if ( ! $this->is_admin_notice_show()) return;
+
         if ( ! PAnD::is_admin_notice_active('show_cf7_features-forever')) {
             return;
         }
@@ -248,6 +257,8 @@ class AdminNotices
 
     public function show_ninja_forms_features()
     {
+        if ( ! $this->is_admin_notice_show()) return;
+
         if ( ! PAnD::is_admin_notice_active('show_ninja_forms_features-forever')) {
             return;
         }
@@ -265,6 +276,8 @@ class AdminNotices
 
     public function show_gravity_forms_features()
     {
+        if ( ! $this->is_admin_notice_show()) return;
+
         if ( ! PAnD::is_admin_notice_active('show_gravity_forms_features-forever')) {
             return;
         }
@@ -282,6 +295,8 @@ class AdminNotices
 
     public function show_wpforms_features()
     {
+        if ( ! $this->is_admin_notice_show()) return;
+
         if ( ! PAnD::is_admin_notice_active('show_wpforms_features-forever')) {
             return;
         }

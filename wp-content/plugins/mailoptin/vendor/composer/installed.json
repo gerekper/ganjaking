@@ -89,12 +89,12 @@
         "version_normalized": "1.4.3.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/collizo4sky/persist-admin-notices-dismissal.git",
+            "url": "https://github.com/w3guy/persist-admin-notices-dismissal.git",
             "reference": "2d7d8bb3cba631ad227c92296a4b675d7cbc71d7"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/collizo4sky/persist-admin-notices-dismissal/zipball/2d7d8bb3cba631ad227c92296a4b675d7cbc71d7",
+            "url": "https://api.github.com/repos/w3guy/persist-admin-notices-dismissal/zipball/2d7d8bb3cba631ad227c92296a4b675d7cbc71d7",
             "reference": "2d7d8bb3cba631ad227c92296a4b675d7cbc71d7",
             "shasum": ""
         },
@@ -420,11 +420,11 @@
     },
     {
         "name": "mailoptin/authifly",
-        "version": "0.2.1589314537",
-        "version_normalized": "0.2.1589314537.0",
+        "version": "0.2.1592823128",
+        "version_normalized": "0.2.1592823128.0",
         "dist": {
             "type": "zip",
-            "url": "https://php.fury.io/uDXRvLf8b2ywvgcokC7z/mailoptin/~/up/ver_VGq9d/mailoptinauthifly-0-2-1589314537.zip"
+            "url": "https://php.fury.io/uDXRvLf8b2ywvgcokC7z/mailoptin/~/up/ver_ULpHH/mailoptinauthifly-0-2-1592823128.zip"
         },
         "require": {
             "composer/installers": "~1.0",
@@ -465,11 +465,11 @@
     },
     {
         "name": "mailoptin/connections",
-        "version": "0.2.1589314582",
-        "version_normalized": "0.2.1589314582.0",
+        "version": "0.2.1592823175",
+        "version_normalized": "0.2.1592823175.0",
         "dist": {
             "type": "zip",
-            "url": "https://php.fury.io/uDXRvLf8b2ywvgcokC7z/mailoptin/~/up/ver_1qL4al/mailoptinconnections-0-2-1589314582.zip"
+            "url": "https://php.fury.io/uDXRvLf8b2ywvgcokC7z/mailoptin/~/up/ver_1UqnZU/mailoptinconnections-0-2-1592823175.zip"
         },
         "require": {
             "a5hleyrich/wp-background-processing": "^1.0",
@@ -531,17 +531,17 @@
     },
     {
         "name": "mailoptin/core",
-        "version": "0.1.0-alpha.1589314575",
-        "version_normalized": "0.1.0.0-alpha1589314575",
+        "version": "0.1.0-alpha.1593074576",
+        "version_normalized": "0.1.0.0-alpha1593074576",
         "source": {
             "type": "git",
             "url": "https://github.com/mailoptin/core.git",
-            "reference": "978ec30086304ae353cb23796b706ed3c233ba5c"
+            "reference": "2d5c3df2948985b1dbc9926c899d673374df3788"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/mailoptin/core/zipball/978ec30086304ae353cb23796b706ed3c233ba5c",
-            "reference": "978ec30086304ae353cb23796b706ed3c233ba5c",
+            "url": "https://api.github.com/repos/mailoptin/core/zipball/2d5c3df2948985b1dbc9926c899d673374df3788",
+            "reference": "2d5c3df2948985b1dbc9926c899d673374df3788",
             "shasum": ""
         },
         "require": {
@@ -553,7 +553,7 @@
             "pelago/emogrifier": "^1.0",
             "soundasleep/html2text": "~0.5"
         },
-        "time": "2020-05-12T19:45:51+00:00",
+        "time": "2020-06-25T08:31:54+00:00",
         "type": "wordpress-plugin",
         "installation-source": "dist",
         "autoload": {
@@ -757,17 +757,17 @@
     },
     {
         "name": "symfony/polyfill-mbstring",
-        "version": "v1.17.0",
-        "version_normalized": "1.17.0.0",
+        "version": "v1.17.1",
+        "version_normalized": "1.17.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/polyfill-mbstring.git",
-            "reference": "fa79b11539418b02fc5e1897267673ba2c19419c"
+            "reference": "7110338d81ce1cbc3e273136e4574663627037a7"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/fa79b11539418b02fc5e1897267673ba2c19419c",
-            "reference": "fa79b11539418b02fc5e1897267673ba2c19419c",
+            "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/7110338d81ce1cbc3e273136e4574663627037a7",
+            "reference": "7110338d81ce1cbc3e273136e4574663627037a7",
             "shasum": ""
         },
         "require": {
@@ -776,11 +776,15 @@
         "suggest": {
             "ext-mbstring": "For best performance"
         },
-        "time": "2020-05-12T16:47:27+00:00",
+        "time": "2020-06-06T08:46:27+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
                 "dev-master": "1.17-dev"
+            },
+            "thanks": {
+                "name": "symfony/polyfill",
+                "url": "https://github.com/symfony/polyfill"
             }
         },
         "installation-source": "dist",
@@ -832,17 +836,17 @@
     },
     {
         "name": "symfony/translation",
-        "version": "v3.4.40",
-        "version_normalized": "3.4.40.0",
+        "version": "v3.4.42",
+        "version_normalized": "3.4.42.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/translation.git",
-            "reference": "4e844362f573713e6d45949795c95a4cb6cf760d"
+            "reference": "b0cd62ef0ff7ec31b67d78d7fc818e2bda4e844f"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/translation/zipball/4e844362f573713e6d45949795c95a4cb6cf760d",
-            "reference": "4e844362f573713e6d45949795c95a4cb6cf760d",
+            "url": "https://api.github.com/repos/symfony/translation/zipball/b0cd62ef0ff7ec31b67d78d7fc818e2bda4e844f",
+            "reference": "b0cd62ef0ff7ec31b67d78d7fc818e2bda4e844f",
             "shasum": ""
         },
         "require": {
@@ -869,7 +873,7 @@
             "symfony/config": "",
             "symfony/yaml": ""
         },
-        "time": "2020-04-12T16:39:58+00:00",
+        "time": "2020-05-30T18:58:05+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {

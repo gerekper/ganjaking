@@ -728,6 +728,18 @@ form.mo-inline {
     margin: 0 -12px;
 }
 
+#poststuff .mailoptin-settings-wrap.mailoptin_connections h2.nav-tab-wrapper a {
+    padding: 13px 15px;
+}
+
+#poststuff .mailoptin-settings-wrap.mailoptin_connections h2.nav-tab-wrapper {
+    padding: 0;
+}
+
+.sendy_email_list_fields_row .all-options {
+    width: 200px;
+}
+
 /* optin popover action block */
 .mo-popover-content ul, .mo-popover-content li {
     margin: 0;

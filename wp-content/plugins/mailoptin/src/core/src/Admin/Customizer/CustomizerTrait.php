@@ -89,9 +89,7 @@ trait CustomizerTrait
             // add core media button back.
             add_action('media_buttons', 'media_buttons');
 
-            $is_switch_loader_method = Settings::instance()->switch_customizer_loader();
-
-            if ($is_switch_loader_method == 'false' && ! $this->is_ninja_form_shortcode()) {
+            if (Settings::instance()->switch_customizer_loader() != 'true' && ! $this->is_ninja_form_shortcode()) {
 
                 $wp_get_theme = wp_get_theme();
 
@@ -112,6 +110,11 @@ trait CustomizerTrait
 
                     $child_theme  = $wp_get_theme->get_stylesheet();
                     $parent_theme = $wp_get_theme->get_template();
+
+
+                    // important in fixing: Uncaught TypeError: Cannot set property '_value' of undefined
+                    // from /wp-admin/js/customize-nav-menus.min.js
+                    unset($wp_scripts->registered['customize-nav-menus']);
 
                     foreach ($wp_scripts->registered as $key => $value) {
                         $src = $value->src;

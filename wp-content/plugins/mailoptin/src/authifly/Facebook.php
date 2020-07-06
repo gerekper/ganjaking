@@ -41,7 +41,7 @@ class Facebook extends OAuth2
     /**
      * {@inheritdoc}
      */
-    protected $apiBaseUrl = 'https://graph.facebook.com/v6.0/';
+    protected $apiBaseUrl = 'https://graph.facebook.com/';
     /**
      * {@inheritdoc}
      */
@@ -60,6 +60,14 @@ class Facebook extends OAuth2
      */
     protected function initialize()
     {
+        $version = '7.0';
+
+        if ( ! empty($this->config->get('apiVersion'))) {
+            $version = $this->config->get('apiVersion');
+        }
+
+        $this->apiBaseUrl .= 'v' . $version . '/';
+
         parent::initialize();
 
         $config_access_token = $this->config->get('access_token');

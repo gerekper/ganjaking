@@ -213,7 +213,7 @@ class Gridgum extends AbstractOptinTheme
             return '#000000';
         });
 
-        add_action('customize_preview_init', function () {
+        add_action('mo_optin_customize_preview_init', function () {
             add_action('wp_footer', [$this, 'customizer_preview_js']);
         });
 
@@ -301,7 +301,7 @@ class Gridgum extends AbstractOptinTheme
                     'settings'      => $option_prefix . '[mini_headline]',
                     'editor_id'     => 'mini_headline',
                     'editor_height' => 50,
-                    'quicktags' => true,
+                    'quicktags'     => true,
                     'priority'      => 4
                 )
             )
@@ -477,7 +477,7 @@ class Gridgum extends AbstractOptinTheme
 
     public function customizer_preview_js()
     {
-        if(!\MailOptin\Core\is_mailoptin_customizer_preview()) return;
+        if ( ! \MailOptin\Core\is_mailoptin_customizer_preview()) return;
         ?>
         <script type="text/javascript">
             (function ($) {
@@ -617,7 +617,7 @@ html div#$optin_uuid div#$optin_css_id.gridgum_container .gridgum_body-inner .gr
 html div#$optin_uuid div#$optin_css_id.gridgum_container .gridgum_body-form input.gridgum_input_field, 
 html div#$optin_uuid div#$optin_css_id.gridgum_container input.mo-optin-form-custom-field.date-field, 
 html div#$optin_uuid div#$optin_css_id.gridgum_container input.mo-optin-form-custom-field.text-field,
-html div#$optin_uuid div#$optin_css_id.gridgum_container .mo-optin-form-custom-field.select-field,
+html div#$optin_uuid div#$optin_css_id.gridgum_container select.mo-optin-form-custom-field,
 html div#$optin_uuid div#$optin_css_id.gridgum_container textarea.mo-optin-form-custom-field.textarea-field {
          width: 100%;
          max-width: 100%;
@@ -695,6 +695,12 @@ html div#$optin_uuid div#$optin_css_id.gridgum_container .gridgum_note {
              font-size: 15px;
              text-align: center;
          }
+}
+
+html div#$optin_uuid div#$optin_css_id.gridgum_container .mo-optin-fields-wrapper .mo-optin-form-custom-field.checkbox-field,
+html div#$optin_uuid div#$optin_css_id.gridgum_container .mo-optin-fields-wrapper .mo-optin-form-custom-field.radio-field,
+html div#$optin_uuid div#$optin_css_id.gridgum_container .mo-optin-fields-wrapper .list_subscription-field {
+   margin-bottom: 20px;
 }
 CSS;
 

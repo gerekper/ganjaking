@@ -9,6 +9,7 @@ use MailOptin\Core\Admin\Customizer\OptinForm\CustomizerSettings;
 use MailOptin\Core\PluginSettings\Settings;
 use MailOptin\Core\RegisterScripts;
 use MailOptin\Core\Repositories\OptinCampaignsRepository;
+use function MailOptin\Core\moVar;
 
 abstract class AbstractOptinForm extends AbstractCustomizer implements OptinFormInterface
 {
@@ -62,9 +63,19 @@ abstract class AbstractOptinForm extends AbstractCustomizer implements OptinForm
             add_filter('mo_optin_form_customizer_configuration_controls', [$this, 'customizer_configuration_controls'], 10, 4);
             add_filter('mo_optin_form_customizer_output_controls', [$this, 'customizer_output_controls'], 10, 4);
 
-            add_action('customize_preview_init', array($this, 'optin_form_customizer_javascript'));
+            add_action('customize_preview_init', function () {
 
-            add_action('customize_preview_init', array(RegisterScripts::get_instance(), 'modal_scripts'));
+                if (Settings::instance()->switch_customizer_loader() != 'true') {
+                    remove_all_actions('customize_preview_init');
+                }
+
+                $this->optin_form_customizer_javascript();
+
+                RegisterScripts::get_instance()->modal_scripts();
+
+                do_action('mo_optin_customize_preview_init');
+
+            }, -1);
         }
 
         parent::__construct($optin_campaign_id);
@@ -351,6 +362,48 @@ abstract class AbstractOptinForm extends AbstractCustomizer implements OptinForm
         return $global_css;
     }
 
+    public function placeholders_input_css()
+    {
+        ob_start();
+
+        $fields = OptinCampaignsRepository::form_custom_fields($this->optin_campaign_id);
+
+        if (is_array($fields) && ! empty($fields)) {
+
+            foreach ($fields as $field) {
+                $custom_field_id = $field['cid'];
+                $color           = moVar($field, 'color', '', true);
+                $uuid            = $this->optin_campaign_uuid;
+                $optin_css_id    = $this->optin_css_id;
+
+                if (empty($color)) continue;
+                ?>
+
+                #<?= $uuid ?> #<?= $optin_css_id ?> .mo-optin-form-custom-field.field-<?= $custom_field_id ?>::-webkit-input-placeholder { color: <?= $color ?> !important; }
+                #<?= $uuid ?> #<?= $optin_css_id ?> .mo-optin-form-custom-field.field-<?= $custom_field_id ?>:-ms-input-placeholder { color: <?= $color ?> !important; }
+                #<?= $uuid ?> #<?= $optin_css_id ?> .mo-optin-form-custom-field.field-<?= $custom_field_id ?>::placeholder { color: <?= $color ?> !important; }
+
+                <?php
+            }
+        }
+        //  name and email placeholder code
+        $name_field_color  = $this->get_customizer_value('name_field_color');
+        $email_field_color = $this->get_customizer_value('email_field_color');
+        ?>
+
+        #<?= $uuid ?> #<?= $optin_css_id ?> .mo-optin-field.mo-optin-form-name-field::-webkit-input-placeholder { color: <?= $name_field_color ?> !important; }
+        #<?= $uuid ?> #<?= $optin_css_id ?> .mo-optin-field.mo-optin-form-name-field:-ms-input-placeholder { color: <?= $name_field_color ?> !important; }
+        #<?= $uuid ?> #<?= $optin_css_id ?> .mo-optin-field.mo-optin-form-name-field::placeholder { color: <?= $name_field_color ?> !important; }
+
+        #<?= $uuid ?> #<?= $optin_css_id ?> .mo-optin-field.mo-optin-form-email-field::-webkit-input-placeholder { color: <?= $email_field_color ?> !important; }
+        #<?= $uuid ?> #<?= $optin_css_id ?> .mo-optin-field.mo-optin-form-email-field:-ms-input-placeholder { color: <?= $email_field_color ?> !important; }
+        #<?= $uuid ?> #<?= $optin_css_id ?> .mo-optin-field.mo-optin-form-email-field::placeholder { color: <?= $email_field_color ?> !important; }
+
+        <?php
+
+        return ob_get_clean();
+    }
+
 
     /**
      * Global optin CSS.
@@ -375,6 +428,9 @@ abstract class AbstractOptinForm extends AbstractCustomizer implements OptinForm
         $global_css .= "div#{$optin_campaign_uuid} .mo-optin-form-wrapper label {color:inherit;font-weight: normal;margin: 0;padding:0;}";
         // remove default ios button styling
         $global_css .= "div#{$optin_campaign_uuid} div#{$optin_css_id}_container div#{$optin_css_id} input[type=submit] {-webkit-appearance: none;}";
+
+        $global_css .= "div#{$optin_campaign_uuid} div#{$optin_css_id}_container div#{$optin_css_id} input {z-index: auto;}";
+
         $global_css .= "div#{$optin_campaign_uuid}.mo-cta-button-flag .mo-optin-form-note .mo-acceptance-label {display:none;}";
 
         $optin_effect = $this->get_customizer_value('modal_effects');
@@ -545,11 +601,17 @@ abstract class AbstractOptinForm extends AbstractCustomizer implements OptinForm
                 text-decoration: underline;
         }
         
+        html div#$optin_campaign_uuid .mo-optin-form-container .mo-optin-form-wrapper .mo-optin-fields-wrapper .list_subscription-field:not(select),
+        html div#$optin_campaign_uuid .mo-optin-form-container .mo-optin-form-wrapper .mo-optin-fields-wrapper .checkbox-field,
+        html div#$optin_campaign_uuid .mo-optin-form-container .mo-optin-form-wrapper .mo-optin-fields-wrapper .radio-field,
+        html div#$optin_campaign_uuid .mo-optin-form-container .mo-optin-form-wrapper .mo-optin-fields-wrapper .select-field {
+            margin-top: 6px;
+        }
+        
         html div#$optin_campaign_uuid .mo-optin-form-container .mo-optin-form-wrapper .mo-optin-fields-wrapper .checkbox-field,
         html div#$optin_campaign_uuid .mo-optin-form-container .mo-optin-form-wrapper .mo-optin-fields-wrapper .radio-field,
         html div#$optin_campaign_uuid .mo-optin-form-container .mo-optin-form-wrapper .mo-optin-fields-wrapper .select-field {
             text-align: left;
-            margin-top: 6px;
             padding: 6px;
         }
         
@@ -566,12 +628,35 @@ abstract class AbstractOptinForm extends AbstractCustomizer implements OptinForm
             vertical-align: middle;
         }
 
-        html div#$optin_campaign_uuid .mo-optin-form-container .mo-optin-form-wrapper .mo-optin-fields-wrapper .select-field select{
+        html div#$optin_campaign_uuid .mo-optin-form-container .mo-optin-form-wrapper .mo-optin-fields-wrapper .select-field select {
             width: 100%;
+        }
+
+        html div#$optin_campaign_uuid  div#$optin_css_id .mo-optin-fields-wrapper .list_subscription-field:not(select),
+        html div#$optin_campaign_uuid  div#$optin_css_id .mo-optin-fields-wrapper .mo-optin-form-custom-field.checkbox-field,
+        html div#$optin_campaign_uuid  div#$optin_css_id .mo-optin-fields-wrapper .mo-optin-form-custom-field.radio-field {
+            padding: 0 !important;
+            border: 0 !important;
+            background: transparent !important;
+        }
+
+        html div#$optin_campaign_uuid .mo-optin-form-container .mo-optin-form-wrapper .mo-optin-fields-wrapper .list_subscription-field label {
+            display: block !important;
+            margin: 5px 0 !important;
+        }
+
+        html div#$optin_campaign_uuid .mo-optin-form-container .mo-optin-form-wrapper .mo-optin-fields-wrapper .list_subscription-field label:last-child {
+            margin: 0;
+        }
+
+        html div#$optin_campaign_uuid .mo-optin-form-container .mo-optin-form-wrapper .mo-optin-fields-wrapper .list_subscription-field input[type=checkbox] {
+            cursor: pointer;
         }
         ";
 
         $global_css .= $this->font_size_css();
+
+        $global_css .= $this->placeholders_input_css();
 
         return apply_filters('mo_optin_form_global_css', $global_css, $optin_campaign_uuid, $optin_css_id);
     }
@@ -951,12 +1036,24 @@ abstract class AbstractOptinForm extends AbstractCustomizer implements OptinForm
         if ( ! empty($note_font) && $note_font != 'inherit') {
             $webfont[] = "'$note_font'";
         }
+
         if ( ! empty($submit_button_font) && $submit_button_font != 'inherit') {
             $webfont[] = "'$submit_button_font'";
         }
+
         if (OptinCampaignsRepository::is_cta_button_active($this->optin_campaign_id)
             && ! empty($cta_button_font) && $cta_button_font != 'inherit') {
             $webfont[] = "'$cta_button_font'";
+        }
+
+        $custom_fields_fonts = array_filter(@wp_list_pluck(OptinCampaignsRepository::form_custom_fields($this->optin_campaign_id), 'font'));
+
+        if (is_array($custom_fields_fonts) && ! empty($custom_fields_fonts)) {
+            foreach ($custom_fields_fonts as $font) {
+                if ($cta_button_font != 'inherit') {
+                    $webfont[] = sprintf("'%s'", self::_remove_web_safe_font($font));
+                }
+            }
         }
 
         $webfont = apply_filters('mo_optin_form_fonts_list', $webfont, $this->optin_campaign_id);
@@ -1126,11 +1223,12 @@ abstract class AbstractOptinForm extends AbstractCustomizer implements OptinForm
             $data['schedule_timezone'] = $schedule_timezone;
         }
 
-        $data['unexpected_error']      = apply_filters('mo_optin_campaign_unexpected_error', __('Unexpected error. Please try again.', 'mailoptin'));
-        $data['email_missing_error']   = apply_filters('mo_optin_campaign_email_missing_error', __('Please enter a valid email.', 'mailoptin'));
-        $data['name_missing_error']    = apply_filters('mo_optin_campaign_name_missing_error', __('Please enter a name.', 'mailoptin'));
-        $data['note_acceptance_error'] = apply_filters('mo_optin_campaign_note_acceptance_error', $this->get_customizer_value('note_acceptance_error'));
-        $data['honeypot_error']        = apply_filters('mo_optin_campaign_honeypot_error', __('Your submission has been flagged as potential spam.', 'mailoptin'));
+        $data['unexpected_error']            = apply_filters('mo_optin_campaign_unexpected_error', __('Unexpected error. Please try again.', 'mailoptin'));
+        $data['email_missing_error']         = apply_filters('mo_optin_campaign_email_missing_error', __('Please enter a valid email.', 'mailoptin'));
+        $data['name_missing_error']          = apply_filters('mo_optin_campaign_name_missing_error', __('Please enter a name.', 'mailoptin'));
+        $data['custom_field_required_error'] = apply_filters('mo_optin_campaign_custom_field_required_error', __('A required field is empty.', 'mailoptin'));
+        $data['note_acceptance_error']       = apply_filters('mo_optin_campaign_note_acceptance_error', $this->get_customizer_value('note_acceptance_error'));
+        $data['honeypot_error']              = apply_filters('mo_optin_campaign_honeypot_error', __('Your submission has been flagged as potential spam.', 'mailoptin'));
 
         /** CTA button: navigation url support */
         if ($cta_display_only_button_status) {

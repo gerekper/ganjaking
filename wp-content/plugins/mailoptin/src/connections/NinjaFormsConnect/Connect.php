@@ -11,15 +11,8 @@ class Connect
 {
     public $state_version = 1;
 
-    /**
-     * @var string key of connection service. its important all connection name ends with "Connect"
-     */
-    public static $connectionName = 'NinjaFormsConnect';
-
     public function __construct()
     {
-        ConnectSettingsPage::get_instance();
-        add_filter('mailoptin_registered_connections', array($this, 'register_connection'));
         add_filter('ninja_forms_field_settings_groups', array($this, 'register_settings_groups'));
 
         add_filter('ninja_forms_register_actions', [$this, 'register_nf_actions']);
@@ -42,28 +35,6 @@ class Connect
         );
 
         return $groups;
-    }
-
-    /**
-     * @return bool
-     */
-    public static function is_connected()
-    {
-        return class_exists('Ninja_Forms');
-    }
-
-    /**
-     * Register EmailOctopus Connection.
-     *
-     * @param array $connections
-     *
-     * @return array
-     */
-    public function register_connection($connections)
-    {
-        $connections[self::$connectionName] = esc_html__('Ninja Forms', 'mailoptin');
-
-        return $connections;
     }
 
     public function register_nf_actions($actions)
@@ -89,7 +60,7 @@ class Connect
 
     private function generate_classes($key, $label)
     {
-        if ( ! defined('W3GUY_LOCAL')) return false;
+        //if ( ! defined('W3GUY_LOCAL')) return false;
 
         $db_saved_state = StateRepository::get_instance()->get('mo_ninjaforms_action_state');
 

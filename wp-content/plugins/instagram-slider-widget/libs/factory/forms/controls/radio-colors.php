@@ -27,9 +27,9 @@
 		exit;
 	}
 
-	if( !class_exists('Wbcr_FactoryForms421_RadioColorsControl') ) {
+	if( !class_exists('Wbcr_FactoryForms426_RadioColorsControl') ) {
 
-		class Wbcr_FactoryForms421_RadioColorsControl extends Wbcr_FactoryForms421_Control {
+		class Wbcr_FactoryForms426_RadioColorsControl extends Wbcr_FactoryForms426_Control {
 
 			public $type = 'radio-color';
 

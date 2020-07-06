@@ -460,26 +460,26 @@ html div#$optin_uuid div#$optin_css_id.mo-baremetal-container input.mo-optin-for
 html div#$optin_uuid div#$optin_css_id.mo-baremetal-container input.mo-optin-form-custom-field.text-field,
 html div#$optin_uuid div#$optin_css_id.mo-baremetal-container select.mo-optin-form-custom-field,
 html div#$optin_uuid div#$optin_css_id.mo-baremetal-container textarea.mo-optin-form-custom-field.textarea-field {
--webkit-border-radius: 0;
-border-radius: 0;
-background: #fff;
-border: 1px solid #ccc;
--webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
-margin: 0;
-padding: 8px;
-width: 100%;
-max-width: 100%;
--webkit-box-sizing: border-box;
--moz-box-sizing: border-box;
-box-sizing: border-box;
--webkit-transition: -webkit-box-shadow 0.45s, border-color 0.45s ease-in-out;
--moz-transition: -moz-box-shadow 0.45s, border-color 0.45s ease-in-out;
-transition: box-shadow 0.45s, border-color 0.45s ease-in-out;
--webkit-transition: all 0.15s linear;
--moz-transition: all 0.15s linear;
--o-transition: all 0.15s linear;
-font-size: 16px;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+    background: #fff;
+    border: 1px solid #ccc;
+    -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    margin: 0;
+    padding: 8px;
+    width: 100%;
+    max-width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-transition: -webkit-box-shadow 0.45s, border-color 0.45s ease-in-out;
+    -moz-transition: -moz-box-shadow 0.45s, border-color 0.45s ease-in-out;
+    transition: box-shadow 0.45s, border-color 0.45s ease-in-out;
+    -webkit-transition: all 0.15s linear;
+    -moz-transition: all 0.15s linear;
+    -o-transition: all 0.15s linear;
+    font-size: 16px;
 }
 
 html div#$optin_uuid div#$optin_css_id.mo-baremetal-container textarea.mo-optin-form-custom-field.textarea-field {

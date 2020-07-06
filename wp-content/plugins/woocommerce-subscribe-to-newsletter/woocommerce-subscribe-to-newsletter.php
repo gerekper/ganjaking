@@ -3,13 +3,13 @@
  * Plugin Name: WooCommerce Subscribe to Newsletter
  * Plugin URI: https://woocommerce.com/products/newsletter-subscription/
  * Description: Allow users to subscribe to your newsletter via the checkout page and via a sidebar widget. Supports MailChimp and Campaign Monitor and also MailChimp ecommerce360 tracking. Go to WooCommerce > Settings > Newsletter to configure the plugin.
- * Version: 2.8.1
+ * Version: 2.9.0
  * Author: Themesquad
  * Author URI: https://themesquad.com
  * Requires at least: 4.4
  * Tested up to: 5.4
  * WC requires at least: 2.6
- * WC tested up to: 4.2
+ * WC tested up to: 4.3
  * Woo: 18605:9b4ddf6c5bcc84c116ede70d840805fe
  *
  * Text Domain: woocommerce-subscribe-to-newsletter
@@ -69,20 +69,7 @@ if ( is_woocommerce_active() ) {
 				// Dashboard stats
 				add_action( 'wp_dashboard_setup', array( $this, 'init_dashboard' ) );
 
-				// Points and rewards
-				add_filter( 'wc_points_rewards_action_settings', array( $this, 'pw_action_settings' ) );
-				add_filter( 'wc_points_rewards_event_description', array( $this, 'pw_action_event_description' ), 10, 3 );
-				add_action( 'wc_subscribed_to_newsletter',  array( $this, 'pw_action' ) );
-				add_action( 'user_register', array( $this, 'create_account_action' ) );
-
 				// Frontend
-				add_action( 'woocommerce_after_checkout_billing_form', array( $this, 'newsletter_field' ), 5 );
-				add_action( 'woocommerce_ppe_checkout_order_review', array( $this, 'newsletter_field' ), 5 );
-				add_action( 'woocommerce_register_form', array( $this, 'newsletter_field' ), 5 );
-				add_action( 'woocommerce_checkout_order_processed', array( $this, 'process_newsletter_field' ), 5, 2 );
-				add_action( 'woocommerce_ppe_do_payaction', array( $this, 'process_ppe_newsletter_field' ), 5, 1 );
-				add_action( 'woocommerce_created_customer', array( $this, 'process_register' ), 10, 2 );
-
 				add_action( 'woocommerce_loaded', array( $this, 'load_post_wc_class' ) );
 			}
 
@@ -108,7 +95,7 @@ if ( is_woocommerce_active() ) {
 			 * @since 2.5.0
 			 */
 			public function define_constants() {
-				$this->define( 'WC_NEWSLETTER_SUBSCRIPTION_VERSION', '2.8.1' );
+				$this->define( 'WC_NEWSLETTER_SUBSCRIPTION_VERSION', '2.9.0' );
 				$this->define( 'WC_NEWSLETTER_SUBSCRIPTION_PATH', plugin_dir_path( __FILE__ ) );
 				$this->define( 'WC_NEWSLETTER_SUBSCRIPTION_URL', plugin_dir_url( __FILE__ ) );
 				$this->define( 'WC_NEWSLETTER_SUBSCRIPTION_BASENAME', plugin_basename( __FILE__ ) );
@@ -136,8 +123,18 @@ if ( is_woocommerce_active() ) {
 			public function includes() {
 				include_once WC_NEWSLETTER_SUBSCRIPTION_PATH . 'includes/wc-newsletter-subscription-functions.php';
 
-				if ( is_admin() ) {
+				if ( wc_newsletter_subscription_is_plugin_active( 'woocommerce-points-and-rewards/woocommerce-points-and-rewards.php' ) ) {
+					include_once WC_NEWSLETTER_SUBSCRIPTION_PATH . 'includes/class-wc-newsletter-subscription-points-rewards.php';
+				}
+
+				if ( wc_newsletter_subscription_is_request( 'admin' ) ) {
 					include_once WC_NEWSLETTER_SUBSCRIPTION_PATH . 'includes/admin/class-wc-newsletter-subscription-admin.php';
+				}
+
+				if ( wc_newsletter_subscription_is_request( 'frontend' ) ) {
+					include_once WC_NEWSLETTER_SUBSCRIPTION_PATH . 'includes/class-wc-newsletter-subscription-frontend-scripts.php';
+					include_once WC_NEWSLETTER_SUBSCRIPTION_PATH . 'includes/class-wc-newsletter-subscription-checkout.php';
+					include_once WC_NEWSLETTER_SUBSCRIPTION_PATH . 'includes/class-wc-newsletter-subscription-register.php';
 				}
 			}
 
@@ -218,11 +215,14 @@ if ( is_woocommerce_active() ) {
 			/**
 			 * newsletter_field function.
 			 *
-			 * @access public
+			 * @deprecated 2.9.0
+			 *
 			 * @param mixed $woocommerce_checkout
 			 * @return void
 			 */
 			public function newsletter_field( $woocommerce_checkout ) {
+				_deprecated_function( __FUNCTION__, '2.9.0', 'Moved to WC_Newsletter_Subscription_Checkout->checkout_content()' );
+
 				if ( is_user_logged_in() && get_user_meta( get_current_user_id(), '_wc_subscribed_to_newsletter', true ) ) {
 					return;
 				}
@@ -254,12 +254,14 @@ if ( is_woocommerce_active() ) {
 			/**
 			 * process_newsletter_field function.
 			 *
-			 * @access public
+			 * @deprecated 2.9.0
+			 *
 			 * @param mixed $order_id
 			 * @param mixed $posted
-			 * @return void
 			 */
 			public function process_newsletter_field( $order_id, $posted ) {
+				_deprecated_function( __FUNCTION__, '2.9.0', 'WC_Newsletter_Subscription_Checkout->process_checkout_order()' );
+
 				$provider = $this->provider();
 
 				if ( ! $provider || ! $provider->has_list() ) {
@@ -286,11 +288,13 @@ if ( is_woocommerce_active() ) {
 			/**
 			 * process_ppe_newsletter_field function.
 			 *
-			 * @access public
-			 * @param mixed $order
-			 * @return void
+			 * @deprecated 2.9.0
+			 *
+			 * @param WC_Order $order Order object.
 			 */
 			public function process_ppe_newsletter_field( $order ) {
+				_deprecated_function( __FUNCTION__, '2.9.0' );
+
 				$provider = $this->provider();
 
 				if ( ! $provider || ! $provider->has_list() ) {
@@ -311,11 +315,14 @@ if ( is_woocommerce_active() ) {
 			 * Processes register form.
 			 *
 			 * @since 2.6
+			 * @deprecated 2.9.0
 			 *
 			 * @param int   $customer_id       Customer ID.
 			 * @param array $new_customer_data Customer data.
 			 */
 			public function process_register( $customer_id, $new_customer_data ) {
+				_deprecated_function( __FUNCTION__, '2.9.0', 'WC_Newsletter_Subscription_Register->process_register()' );
+
 				$provider = $this->provider();
 
 				if ( ! $provider || ! $provider->has_list() ) {
@@ -358,14 +365,13 @@ if ( is_woocommerce_active() ) {
 
 			/**
 			 * Points and rewards
+			 *
+			 * @deprecated 2.9.0
+			 *
 			 * @return array
 			 */
 			public function pw_action_settings( $settings ) {
-				$settings[] = array(
-					'title'    => esc_html__( 'Points earned for newsletter signup', 'woocommerce-subscribe-to-newsletter' ),
-					'desc_tip' => esc_html__( 'Enter the amount of points earned when a customer signs up for a newsletter via the "Subscribe to Newsletter" extension.', 'woocommerce-subscribe-to-newsletter' ),
-					'id'       => 'wc_points_rewards_wc_newsletter_signup',
-				);
+				_deprecated_function( __FUNCTION__, '2.9', 'WC_Newsletter_Subscription_Points_Rewards->add_settings()' );
 
 				return $settings;
 			}
@@ -373,21 +379,15 @@ if ( is_woocommerce_active() ) {
 			/**
 			 * Points and rewards description
 			 *
+			 * @deprecated 2.9.0
+			 *
 			 * @param  [type] $event_description
 			 * @param  [type] $event_type
 			 * @param  [type] $event
 			 * @return [type]
 			 */
 			public function pw_action_event_description( $event_description, $event_type, $event ) {
-				$points_label = get_option( 'wc_points_rewards_points_label' );
-
-				// set the description if we know the type
-				switch ( $event_type ) {
-					case 'wc-newsletter-signup':
-						/* translators: 1: points label */
-						$event_description = sprintf( esc_html__( '%s earned for newsletter signup', 'woocommerce-subscribe-to-newsletter' ), $points_label );
-					break;
-				}
+				_deprecated_function( __FUNCTION__, '2.9', 'WC_Newsletter_Subscription_Points_Rewards->event_description()' );
 
 				return $event_description;
 			}
@@ -395,10 +395,14 @@ if ( is_woocommerce_active() ) {
 			/**
 			 * The signup action for points and rewards
 			 *
+			 * @deprecated 2.9.0
+			 *
 			 * @param  string $email
 			 * @param  int|null $user_id
 			 */
 			public function pw_action( $email, $user_id = null ) {
+				_deprecated_function( __FUNCTION__, '2.9', 'WC_Newsletter_Subscription_Points_Rewards->reward_newsletter_signup()' );
+
 				// can't give points to a user who isn't logged in
 				if ( is_user_logged_in() ) {
 					$user_id = get_current_user_id();
@@ -432,11 +436,14 @@ if ( is_woocommerce_active() ) {
 			/**
 			 * Add points to customer for creating an account
 			 *
-			 * @param  int|null $user_id
-			 *
 			 * @since 2.3.8
+			 * @deprecated 2.9.0
+			 *
+			 * @param  int|null $user_id
 			 */
 			public function create_account_action( $user_id ) {
+				_deprecated_function( __FUNCTION__, '2.9' );
+
 				if ( ! empty( $_POST['subscribe_to_newsletter'] ) ) {
 					$this->pw_action( null, $user_id );
 				}
@@ -468,7 +475,7 @@ if ( is_woocommerce_active() ) {
 					return; // They don't want to subscribe
 				}
 
-				wc_newsletter_subscription_subscribe( $$user_email );
+				wc_newsletter_subscription_subscribe( $user_email );
 			}
 
 			/**
@@ -489,7 +496,7 @@ if ( is_woocommerce_active() ) {
 			/**
 			 * Add_tab function.
 			 *
-			 * @deprecated {since}
+			 * @deprecated 2.8.0
 			 *
 			 * @param array $settings_tabs Current setting tabs.
 			 * @return array
@@ -502,7 +509,7 @@ if ( is_woocommerce_active() ) {
 			/**
 			 * Settings_tab_action function.
 			 *
-			 * @deprecated {since}
+			 * @deprecated 2.8.0
 			 */
 			public function settings_tab_action() {
 				_deprecated_function( __FUNCTION__, '2.8' );
@@ -511,7 +518,7 @@ if ( is_woocommerce_active() ) {
 			/**
 			 * Add settings fields for each tab.
 			 *
-			 * @deprecated {since}
+			 * @deprecated 2.8.0
 			 */
 			public function add_settings_fields() {
 				_deprecated_function( __FUNCTION__, '2.8' );
@@ -520,7 +527,7 @@ if ( is_woocommerce_active() ) {
 			/**
 			 * Get the tab current in view/processing.
 			 *
-			 * @deprecated {since}
+			 * @deprecated 2.8.0
 			 */
 			public function get_tab_in_view( $current_filter, $filter_base ) {
 				_deprecated_function( __FUNCTION__, '2.8' );
@@ -530,7 +537,7 @@ if ( is_woocommerce_active() ) {
 			/**
 			 * Prepare form fields to be used in the various tabs.
 			 *
-			 * @deprecated {since}
+			 * @deprecated 2.8.0
 			 */
 			public function init_form_fields() {
 				_deprecated_function( __FUNCTION__, '2.8' );
@@ -539,12 +546,11 @@ if ( is_woocommerce_active() ) {
 			/**
 			 * Save settings in a single field in the database for each tab's fields (one field per tab).
 			 *
-			 * @deprecated {since}
+			 * @deprecated 2.8.0
 			 */
 			public function save_settings() {
 				_deprecated_function( __FUNCTION__, '2.8' );
 			}
-
 		}
 
 		$GLOBALS['WC_Subscribe_To_Newsletter'] = new WC_Subscribe_To_Newsletter();

@@ -118,7 +118,7 @@ use function MailOptin\Core\moVar;
                         <option value="<?= $key ?>" <?= selected($key, $saved_require_acceptance, false) ?>><?= $value ?></option>
                     <?php endforeach; ?>
                 </select>
-                <p class="description"><?= esc_html__('Select acceptance field that must be checked before this integration is processed.', 'mailoptin') ?></p>
+                <p class="description"><?= esc_html__('Select acceptance field that must be checked before this integration is processed. This is optional.', 'mailoptin') ?></p>
             </td>
         </tr>
     <?php endif; ?>

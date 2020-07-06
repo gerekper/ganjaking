@@ -14,141 +14,141 @@ class BareMetal extends AbstractOptinTheme
         $this->init_config_filters([
                 // -- default for design sections -- //
                 [
-                    'name' => 'mo_optin_form_background_color_default',
-                    'value' => '#f0f0f0',
+                    'name'        => 'mo_optin_form_background_color_default',
+                    'value'       => '#f0f0f0',
                     'optin_class' => 'BareMetal',
-                    'optin_type' => 'inpost'
+                    'optin_type'  => 'inpost'
                 ],
 
                 [
-                    'name' => 'mo_optin_form_border_color_default',
-                    'value' => '#00cc77',
+                    'name'        => 'mo_optin_form_border_color_default',
+                    'value'       => '#00cc77',
                     'optin_class' => 'BareMetal',
-                    'optin_type' => 'inpost'
+                    'optin_type'  => 'inpost'
                 ],
 
                 // -- default for headline sections -- //
                 [
-                    'name' => 'mo_optin_form_headline_default',
-                    'value' => __("Get a little acid in your inbox", 'mailoptin'),
+                    'name'        => 'mo_optin_form_headline_default',
+                    'value'       => __("Get a little acid in your inbox", 'mailoptin'),
                     'optin_class' => 'BareMetal',
-                    'optin_type' => 'inpost'
+                    'optin_type'  => 'inpost'
                 ],
 
                 [
-                    'name' => 'mo_optin_form_headline_font_color_default',
-                    'value' => '#222222',
+                    'name'        => 'mo_optin_form_headline_font_color_default',
+                    'value'       => '#222222',
                     'optin_class' => 'BareMetal',
-                    'optin_type' => 'inpost'
+                    'optin_type'  => 'inpost'
                 ],
 
                 [
-                    'name' => 'mo_optin_form_headline_font_default',
-                    'value' => 'Glegoo',
+                    'name'        => 'mo_optin_form_headline_font_default',
+                    'value'       => 'Glegoo',
                     'optin_class' => 'BareMetal',
-                    'optin_type' => 'inpost'
+                    'optin_type'  => 'inpost'
                 ],
 
                 // -- default for description sections -- //
                 [
-                    'name' => 'mo_optin_form_description_font_default',
-                    'value' => 'Satisfy',
+                    'name'        => 'mo_optin_form_description_font_default',
+                    'value'       => 'Satisfy',
                     'optin_class' => 'BareMetal',
-                    'optin_type' => 'inpost'
+                    'optin_type'  => 'inpost'
                 ],
 
                 [
-                    'name' => 'mo_optin_form_description_default',
-                    'value' => $this->_description_content(),
+                    'name'        => 'mo_optin_form_description_default',
+                    'value'       => $this->_description_content(),
                     'optin_class' => 'BareMetal',
-                    'optin_type' => 'inpost'
+                    'optin_type'  => 'inpost'
                 ],
 
                 [
-                    'name' => 'mo_optin_form_description_font_color_default',
-                    'value' => '#000000',
+                    'name'        => 'mo_optin_form_description_font_color_default',
+                    'value'       => '#000000',
                     'optin_class' => 'BareMetal',
-                    'optin_type' => 'inpost'
+                    'optin_type'  => 'inpost'
                 ],
 
                 // -- default for fields sections -- //
                 [
-                    'name' => 'mo_optin_form_name_field_color_default',
-                    'value' => '#222222',
+                    'name'        => 'mo_optin_form_name_field_color_default',
+                    'value'       => '#222222',
                     'optin_class' => 'BareMetal',
-                    'optin_type' => 'inpost'
+                    'optin_type'  => 'inpost'
                 ],
 
                 [
-                    'name' => 'mo_optin_form_email_field_color_default',
-                    'value' => '#222222',
+                    'name'        => 'mo_optin_form_email_field_color_default',
+                    'value'       => '#222222',
                     'optin_class' => 'BareMetal',
-                    'optin_type' => 'inpost'
+                    'optin_type'  => 'inpost'
                 ],
 
                 [
-                    'name' => 'mo_optin_form_submit_button_color_default',
-                    'value' => '#ffffff',
+                    'name'        => 'mo_optin_form_submit_button_color_default',
+                    'value'       => '#ffffff',
                     'optin_class' => 'BareMetal',
-                    'optin_type' => 'inpost'
+                    'optin_type'  => 'inpost'
                 ],
 
                 [
-                    'name' => 'mo_optin_form_submit_button_background_default',
-                    'value' => '#0073b7',
+                    'name'        => 'mo_optin_form_submit_button_background_default',
+                    'value'       => '#0073b7',
                     'optin_class' => 'BareMetal',
-                    'optin_type' => 'inpost'
+                    'optin_type'  => 'inpost'
                 ],
 
                 [
-                    'name' => 'mo_optin_form_submit_button_font_default',
-                    'value' => 'Helvetica+Neue',
+                    'name'        => 'mo_optin_form_submit_button_font_default',
+                    'value'       => 'Helvetica+Neue',
                     'optin_class' => 'BareMetal',
-                    'optin_type' => 'inpost'
+                    'optin_type'  => 'inpost'
                 ],
 
                 [
-                    'name' => 'mo_optin_form_name_field_font_default',
-                    'value' => 'Consolas, Lucida Console, monospace',
+                    'name'        => 'mo_optin_form_name_field_font_default',
+                    'value'       => 'Consolas, Lucida Console, monospace',
                     'optin_class' => 'BareMetal',
-                    'optin_type' => 'inpost'
+                    'optin_type'  => 'inpost'
                 ],
 
                 [
-                    'name' => 'mo_optin_form_email_field_font_default',
-                    'value' => 'Consolas, Lucida Console, monospace',
+                    'name'        => 'mo_optin_form_email_field_font_default',
+                    'value'       => 'Consolas, Lucida Console, monospace',
                     'optin_class' => 'BareMetal',
-                    'optin_type' => 'inpost'
+                    'optin_type'  => 'inpost'
                 ],
 
                 // -- default for note sections -- //
                 [
-                    'name' => 'mo_optin_form_note_font_color_default',
-                    'value' => '#000000',
+                    'name'        => 'mo_optin_form_note_font_color_default',
+                    'value'       => '#000000',
                     'optin_class' => 'BareMetal',
-                    'optin_type' => 'inpost'
+                    'optin_type'  => 'inpost'
                 ],
 
                 [
-                    'name' => 'mo_optin_form_note_default',
-                    'value' => '<em>' . __('We promise not to spam you. You can unsubscribe at any time.', 'mailoptin') . '</em>',
+                    'name'        => 'mo_optin_form_note_default',
+                    'value'       => '<em>' . __('We promise not to spam you. You can unsubscribe at any time.', 'mailoptin') . '</em>',
                     'optin_class' => 'BareMetal',
-                    'optin_type' => 'inpost'
+                    'optin_type'  => 'inpost'
                 ],
 
                 [
-                    'name' => 'mo_optin_form_note_font_default',
-                    'value' => 'Source+Sans+Pro',
+                    'name'        => 'mo_optin_form_note_font_default',
+                    'value'       => 'Source+Sans+Pro',
                     'optin_class' => 'BareMetal',
-                    'optin_type' => 'inpost'
+                    'optin_type'  => 'inpost'
                 ],
 
                 [
-                'name' => 'mo_optin_form_headline_font_size_mobile_default',
-                'value' => 20,
-                'optin_class' => 'BareMetal',
-                'optin_type' => 'inpost'
-        ]
+                    'name'        => 'mo_optin_form_headline_font_size_mobile_default',
+                    'value'       => 20,
+                    'optin_class' => 'BareMetal',
+                    'optin_type'  => 'inpost'
+                ]
             ]
         );
 
@@ -434,7 +434,7 @@ html div#$optin_uuid div#$optin_css_id.mo-baremetal-container #{$optin_css_id}_n
 html div#$optin_uuid div#$optin_css_id.mo-baremetal-container #{$optin_css_id}_email_field,
 html div#$optin_uuid div#$optin_css_id.mo-baremetal-container input.mo-optin-form-custom-field.text-field,
 html div#$optin_uuid div#$optin_css_id.mo-baremetal-container input.mo-optin-form-custom-field.date-field,
-html div#$optin_uuid div#$optin_css_id.mo-baremetal-container .mo-optin-form-custom-field.select-field,
+html div#$optin_uuid div#$optin_css_id.mo-baremetal-container select.mo-optin-form-custom-field,
 html div#$optin_uuid div#$optin_css_id.mo-baremetal-container textarea.mo-optin-form-custom-field.textarea-field {
 -webkit-border-radius: 0;
 border-radius: 0;
@@ -522,6 +522,10 @@ box-sizing: border-box;
 
 html div#$optin_uuid div#$optin_css_id ul {
     margin: 0 0 1.6em 1.3333em;
+}
+
+html div#$optin_uuid div#$optin_css_id.mo-baremetal-container .mo-optin-fields-wrapper .list_subscription-field:not(select) {
+    margin-top: 5px;
 }
 CSS;
 

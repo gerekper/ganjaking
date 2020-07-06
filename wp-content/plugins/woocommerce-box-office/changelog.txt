@@ -1,5 +1,11 @@
 *** WooCommerce Box Office Changelog ***
 
+2020-07-01 - version 1.1.26
+* Add - `{barcode}` variable to display barcodes in ticket emails.
+* Add - Ticket ID variables to printed tickets and emails.
+* Tweak - Compatibility with WooCommerce Order Barcodes.
+* Tweak - Scan barcode form layout for mobile devices.
+
 2020-06-16 - version 1.1.25
 * Fix - When adding multiple ticket products to cart only last item retains tickets.
 

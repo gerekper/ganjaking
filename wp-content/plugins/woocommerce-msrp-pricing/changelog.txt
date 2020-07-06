@@ -1,5 +1,8 @@
 *** WooCommerce MSRP Pricing ***
 
+2020.07.02 - version 2.9.16
+* Change: WooCommerce 4.3 compatibility
+
 2020.06.12 - version 2.9.15
 * Re-release as 2.9.14 did not release cleanly
 

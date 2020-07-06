@@ -1,7 +1,7 @@
-(function($) {
-	
-	$(document).ready(function($){
+(function ($) {
 
-	}); // Document Ready
+    $(document).ready(function ($) {
+
+    }); // Document Ready
 
 })(jQuery);

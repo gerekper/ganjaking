@@ -4,7 +4,7 @@
  *
  * @author        Webcraftic <wordpress.webraftic@gmail.com>
  * @copyright (c) 02.12.2018, Webcraftic
- * @see           Wbcr_FactoryPages423_AdminPage
+ * @see           Wbcr_FactoryPages428_AdminPage
  *
  * @version       1.0.0
  */
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class WIS_Page extends Wbcr_FactoryPages423_AdminPage {
+class WIS_Page extends Wbcr_FactoryPages428_AdminPage {
 
 	/**
 	 * Name of the template to get content of. It will be based on plugins /admin/views/ dir.
@@ -28,10 +28,15 @@ class WIS_Page extends Wbcr_FactoryPages423_AdminPage {
 	 * Render and return content of the template.
 	 * /admin/views/tab-{$template_name}.php
 	 *
+	 * @param string $name
+	 * @param array $args
+	 *
 	 * @return mixed Content of the page
 	 */
-	public function render ($name = '') {
-		if($name == '')	$name = $this->template_name;
+	public function render( $name = '', $args = [] ) {
+		if ( $name == '' ) {
+			$name = $this->template_name;
+		}
 		ob_start();
 		if ( is_callable( $name ) ) {
 			echo call_user_func( $name );
@@ -47,6 +52,7 @@ class WIS_Page extends Wbcr_FactoryPages423_AdminPage {
 		if ( ! is_file( $path ) ) {
 			return '';
 		}
+		extract( $args );
 		include $path;
 		$content = ob_get_contents();
 		ob_end_clean();
@@ -57,8 +63,7 @@ class WIS_Page extends Wbcr_FactoryPages423_AdminPage {
 	/**
 	 * Show rendered template - $template_name
 	 */
-	public function indexAction()
-	{
+	public function indexAction() {
 		echo $this->render();
 	}
 

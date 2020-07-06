@@ -1,5 +1,20 @@
 *** Product Vendors Changelog ***
 
+2020-07-01 - version 2.1.37
+* Fix   - Critical error when shipping is disabled.
+
+2020-07-01 - version 2.1.36
+* Fix   - Correctly add new user capabilities for Bookings integration.
+* Fix   - Rename several redundant "wcpv_commissions_updated" hooks.
+* Tweak - Show Per-Product Shipping rules only if enabled in WooCommerce shipping settings.
+
+2020-06-23 - version 2.1.35
+* Fix   - Recent Bookings widget missing bookings on Vendor Dashboard.
+* Fix   - Ensure order item exists when displaying meta data on Commissions page.
+* Fix   - Vendor dashboard Sales Summary showing stale analytics after a sale.
+* Tweak - Hide Bookings Resources tab and Resources checkbox from vendors.
+* Tweak - Allow 0% commissions to be set on Vendor profiles.
+
 2020-06-07 - version 2.1.34
 * Fix   - Clear query arguments when using bulk actions on Commissions page.
 * Fix   - Hide admin notices for vendors.

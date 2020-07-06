@@ -435,6 +435,14 @@
             });
         });
 
+        // handle situations when field mapping view is showing and save button is clicked.
+        jQuery('#save').on('click', function (e) {
+
+            if ($('.mo-optin-map-custom-field-settings-content:visible').length > 0) {
+                $('.mo-optin-map-custom-field-close').click();
+            }
+        });
+
         // --------------------- Switch themes ----------------------------- //
 
         //Close button div html

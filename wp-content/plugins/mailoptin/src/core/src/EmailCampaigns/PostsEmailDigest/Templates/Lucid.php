@@ -167,13 +167,24 @@ class Lucid extends AbstractTemplate
 
     public function single_post_item()
     {
+        $content_remove_post_link = EmailCampaignRepository::get_merged_customizer_value($this->email_campaign_id, 'content_remove_post_link');
+
         ob_start();
-        ?>
-        <a href="{{post.url}}">
+
+        if ($content_remove_post_link == false) : ?>
+            <a href="{{post.url}}">
+                <h1 class="mo-content-title-font-size mo-content-headline-color">{{post.title}}</h1>
+                {{post.meta}}
+                <img class"mo-imgix" src="{{post.feature.image}}">
+            </a>
+        <?php endif;
+
+        if ($content_remove_post_link == true) : ?>
             <h1 class="mo-content-title-font-size mo-content-headline-color">{{post.title}}</h1>
             {{post.meta}}
             <img class"mo-imgix" src="{{post.feature.image}}">
-        </a>
+        <?php endif; ?>
+
         {{post.content}}
         <!-- Action -->
         <table class="body-action mo-content-remove-ellipsis-button" width="100%" cellpadding="0" cellspacing="0">
@@ -218,7 +229,7 @@ class Lucid extends AbstractTemplate
         $view_web_version    = apply_filters('mo_email_template_view_web_version', '<a class="webversion-label mo-header-web-version-label mo-header-web-version-color" href="{{webversion}}">[mo_header_web_version_link_label]</a>');
         $unsubscribe_link    = apply_filters('mo_email_template_unsubscribe_link', '<a class="unsubscribe mo-footer-unsubscribe-link-label mo-footer-unsubscribe-link-color" href="{{unsubscribe}}">[mo_footer_unsubscribe_link_label]</a>');
         $before_main_content = EmailCampaignRepository::get_merged_customizer_value($this->email_campaign_id, 'content_before_main_content');
-        $after_main_content = EmailCampaignRepository::get_merged_customizer_value($this->email_campaign_id, 'content_after_main_content');
+        $after_main_content  = EmailCampaignRepository::get_merged_customizer_value($this->email_campaign_id, 'content_after_main_content');
         $content             = $this->parsed_post_list();
 
         $body = <<<HTML

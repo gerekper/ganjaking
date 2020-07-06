@@ -162,6 +162,31 @@ class Lucid extends AbstractTemplate
     {
     }
 
+    public function _post_title_feature_img()
+    {
+        $content_remove_post_link = EmailCampaignRepository::get_merged_customizer_value($this->email_campaign_id, 'content_remove_post_link');
+
+        ob_start();
+
+        if ($content_remove_post_link == false) : ?>
+
+            <a href="{{post.url}}">
+                <h1 class="mo-content-title-font-size mo-content-headline-color">{{post.title}}</h1>
+                {{post.meta}}
+                <img class"mo-imgix" src="{{post.feature.image}}">
+            </a>
+        <?php endif;
+
+        if ($content_remove_post_link == true) : ?>
+
+            <h1 class="mo-content-title-font-size mo-content-headline-color">{{post.title}}</h1>
+            {{post.meta}}
+            <img class"mo-imgix" src="{{post.feature.image}}">
+        <?php endif;
+
+        return ob_get_clean();
+    }
+
     /**
      * Template body.
      *
@@ -174,7 +199,10 @@ class Lucid extends AbstractTemplate
 
         $before_main_content = EmailCampaignRepository::get_merged_customizer_value($this->email_campaign_id, 'content_before_main_content');
         $after_main_content  = EmailCampaignRepository::get_merged_customizer_value($this->email_campaign_id, 'content_after_main_content');
-        $body                = <<<HTML
+
+        $post_title_feature_img = $this->_post_title_feature_img();
+
+        $body                   = <<<HTML
   <table class="email-wrapper mo-page-bg-color" width="100%" cellpadding="0" cellspacing="0">
     <tr>
       <td align="center">
@@ -195,11 +223,7 @@ class Lucid extends AbstractTemplate
                 <tr>
                   <td class="content-cell mo-content-text-color" style="width: 570px;max-width: 570px;">
                   <div class="mo-before-main-content">$before_main_content</div>
-                    <a href="{{post.url}}">
-                    <h1 class="mo-content-title-font-size mo-content-headline-color">{{post.title}}</h1>
-                    {{post.meta}}
-                    <img class"mo-imgix" src="{{post.feature.image}}">
-                    </a>
+                    $post_title_feature_img
                     {{post.content}}
                     <!-- Action -->
                     <table class="body-action mo-content-remove-ellipsis-button" width="100%" cellpadding="0" cellspacing="0">

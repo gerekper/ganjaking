@@ -5,14 +5,14 @@
 	 *
 	 * Main options:
 	 *  name            => a name of the control
-	 *  // see FactoryForms421_DropdownControl
+	 *  // see FactoryForms426_DropdownControl
 	 * 'dropdown' => array(
 	 *    // a callback to return items or an array of items to select
 	 *      'data' => OPanda_ThemeManager::getThemes(OPanda_Items::getCurrentItemName(), 'dropdown'),
 	 *      'default' => 'default',
 	 *      'value' => 'value' // a value to show in the control
 	 *    ),
-	 * // see FactoryForms421_RadioColorsControl
+	 * // see FactoryForms426_RadioColorsControl
 	 * 'colors' => array(
 	 *   // a callback to return items or an array of items to select
 	 *   'data' => array(
@@ -37,9 +37,9 @@
 		exit;
 	}
 
-	if( !class_exists('Wbcr_FactoryForms421_DropdownAndColorsControl') ) {
+	if( !class_exists('Wbcr_FactoryForms426_DropdownAndColorsControl') ) {
 		
-		class Wbcr_FactoryForms421_DropdownAndColorsControl extends Wbcr_FactoryForms421_ComplexControl {
+		class Wbcr_FactoryForms426_DropdownAndColorsControl extends Wbcr_FactoryForms426_ComplexControl {
 
 			public $type = 'dropdown-and-colors';
 
@@ -69,8 +69,8 @@
 					'name' => $this->options['name'] . '__colors',
 				));
 
-				$this->dropdown = new Wbcr_FactoryForms421_DropdownControl($options['dropdown'], $form, $provider);
-				$this->colors = new Wbcr_FactoryForms421_RadioColorsControl($options['colors'], $form, $provider);
+				$this->dropdown = new Wbcr_FactoryForms426_DropdownControl($options['dropdown'], $form, $provider);
+				$this->colors = new Wbcr_FactoryForms426_RadioColorsControl($options['colors'], $form, $provider);
 				$this->inner_controls = array($this->dropdown, $this->colors);
 
 				$colors = $this->colors->getOption('data');

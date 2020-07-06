@@ -38,10 +38,10 @@ class WIS_AboutPage extends WIS_Page {
 	 * @param WIS_Plugin $plugin
 	 */
 	public function __construct( $plugin ) {
-		$this->id         = "about";
-		$this->menu_target= "widgets-".$plugin->getPluginName();
-		$this->page_title = __( 'About Social Slider Widget', 'instagram-slider-widget' );
-		$this->menu_title = __( 'About', 'instagram-slider-widget' );
+		$this->id            = "about";
+		$this->menu_target   = "widgets-" . $plugin->getPluginName();
+		$this->page_title    = __( 'About Social Slider Widget', 'instagram-slider-widget' );
+		$this->menu_title    = __( 'About', 'instagram-slider-widget' );
 		$this->template_name = "about";
 
 		parent::__construct( $plugin );

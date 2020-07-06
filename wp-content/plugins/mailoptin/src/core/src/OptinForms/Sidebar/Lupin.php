@@ -491,7 +491,7 @@ html div#$optin_uuid div#$optin_css_id.lupinSidebar-container .lupinSidebar-form
 html div#$optin_uuid div#$optin_css_id.lupinSidebar-container input.lupinSidebar-input,
 html div#$optin_uuid div#$optin_css_id.lupinSidebar-container input.mo-optin-form-custom-field.text-field,
 html div#$optin_uuid div#$optin_css_id.lupinSidebar-container input.mo-optin-form-custom-field.date-field,
-html div#$optin_uuid div#$optin_css_id.lupinSidebar-container .mo-optin-form-custom-field.select-field,
+html div#$optin_uuid div#$optin_css_id.lupinSidebar-container select.mo-optin-form-custom-field,
 html div#$optin_uuid div#$optin_css_id.lupinSidebar-container textarea.mo-optin-form-custom-field.textarea-field {
          display: block;
          width: 100%;
@@ -567,6 +567,14 @@ html div#$optin_uuid div#$optin_css_id.lupinSidebar-container .mo-optin-error {
          -moz-box-sizing: border-box;
          box-sizing: border-box;
          border: 1px solid #FF0000;
+}
+
+html div#$optin_uuid div#$optin_css_id.lupinSidebar-container .mo-optin-fields-wrapper .list_subscription-field {
+   margin-top: 10px;
+}
+
+html div#$optin_uuid div#$optin_css_id.lupinSidebar-container .mo-optin-fields-wrapper select.list_subscription-field {
+   margin-top: 5px;
 }
 CSS;
 

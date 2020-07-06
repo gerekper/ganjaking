@@ -43,11 +43,17 @@ class Email_Campaign_List extends \WP_List_Table
      */
     public function get_email_campaigns($per_page, $current_page = 1, $campaign_type = '')
     {
+        $per_page     = absint($per_page);
+        $current_page = absint($current_page);
+
         $offset = ($current_page - 1) * $per_page;
         $sql    = "SELECT * FROM {$this->table}";
+        $args   = [];
+
         if ( ! empty($campaign_type)) {
-            $campaign_type = esc_sql($campaign_type);
-            $sql           .= "  WHERE campaign_type = '$campaign_type'";
+            $sql    .= "  WHERE campaign_type = %s";
+            $args[] = sanitize_text_field($campaign_type);
+
         } else {
             $sql .= sprintf("  WHERE campaign_type IN ('%s', '%s')",
                 ER::NEW_PUBLISH_POST,
@@ -57,14 +63,19 @@ class Email_Campaign_List extends \WP_List_Table
 
         $sql .= "  ORDER BY id DESC";
 
-        $sql .= " LIMIT $per_page";
+        $sql .= " LIMIT %d";
+
+        $args[] = $per_page;
+
         if ($current_page > 1) {
-            $sql .= "  OFFSET $offset";
+            $sql    .= "  OFFSET %d";
+            $args[] = $offset;
         }
 
-        $result = $this->wpdb->get_results($sql, 'ARRAY_A');
-
-        return $result;
+        return $this->wpdb->get_results(
+            $this->wpdb->prepare($sql, $args),
+            'ARRAY_A'
+        );
     }
 
 

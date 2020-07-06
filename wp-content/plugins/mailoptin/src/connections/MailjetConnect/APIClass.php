@@ -106,6 +106,7 @@ class APIClass
             'IsDeleted' => false
 
         ];
+
         $lists = $this->make_request('contactslist', $args, 'get');
 
         return wp_list_pluck($lists->Data, 'Name', 'ID');

@@ -47,9 +47,6 @@ class WC_Box_Office_Assets {
 	public function enqueue_scripts( $force = false ) {
 		if ( wcbo_is_my_ticket_page() || $force ) {
 
-			// Register images loaded plugin.
-			wp_register_script( 'imagesloaded', esc_url( WCBO()->assets_url ) . 'js/lib/imagesloaded.pkgd' . WCBO()->script_suffix . '.js', array( 'jquery' ), '3.1.8' );
-
 			// Load JS for ticket edit page.
 			wp_register_script( 'woocommerce-box-office-frontend', esc_url( WCBO()->assets_url ) . 'js/frontend' . WCBO()->script_suffix . '.js', array( 'jquery', 'imagesloaded' ), WCBO()->_version );
 			wp_enqueue_script( 'woocommerce-box-office-frontend' );

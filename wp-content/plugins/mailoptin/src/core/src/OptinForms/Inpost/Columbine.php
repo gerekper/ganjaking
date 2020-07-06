@@ -186,7 +186,7 @@ class Columbine extends AbstractOptinTheme
             return '#555555';
         });
 
-        add_action('customize_preview_init', function () {
+        add_action('mo_optin_customize_preview_init', function () {
             add_action('wp_footer', [$this, 'customizer_preview_js']);
         });
 
@@ -631,8 +631,8 @@ html div#$optin_uuid div#$optin_css_id.columbine-container div.columbine-two-col
 html div#$optin_uuid div#$optin_css_id.columbine-container input.columbine-input,
 html div#$optin_uuid div#$optin_css_id.columbine-container input.mo-optin-form-custom-field.date-field,
 html div#$optin_uuid div#$optin_css_id.columbine-container input.mo-optin-form-custom-field.text-field,
-html div#$optin_uuid div#$optin_css_id.columbine-container .mo-optin-form-custom-field.select-field,
-html div#$optin_uuid div#$optin_css_id.columbine-container textarea.mo-optin-form-custom-field.textarea-field {
+html div#$optin_uuid div#$optin_css_id.columbine-container select.mo-optin-form-custom-field,
+html div#$optin_uuid div#$optin_css_id.columbine-container textarea.mo-optin-form-custom-field {
          background-color: #ffffff;
          width: 100%;
          display: block;

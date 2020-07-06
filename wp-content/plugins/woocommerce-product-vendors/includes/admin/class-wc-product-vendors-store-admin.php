@@ -395,7 +395,7 @@ class WC_Product_Vendors_Store_Admin {
 		$logo                 = ! empty( $vendor_data['logo'] ) ? $vendor_data['logo'] : '';
 		$profile              = ! empty( $vendor_data['profile'] ) ? $vendor_data['profile'] : '';
 		$email                = ! empty( $vendor_data['email'] ) ? $vendor_data['email'] : '';
-		$commission           = ! empty( $vendor_data['commission'] ) ? $vendor_data['commission'] : '';
+		$commission           = is_numeric( $vendor_data['commission'] ) ? $vendor_data['commission'] : '';
 		$commission_type      = ! empty( $vendor_data['commission_type'] ) ? $vendor_data['commission_type'] : 'percentage';
 		$instant_payout       = ! empty( $vendor_data['instant_payout'] ) ? $vendor_data['instant_payout'] : 'no';
 		$paypal               = ! empty( $vendor_data['paypal'] ) ? $vendor_data['paypal'] : '';
@@ -921,9 +921,13 @@ class WC_Product_Vendors_Store_Admin {
 					'desc'     => __( 'Enter a default commission that works globally for all vendors as a fallback if commission is not set per vendor level.  Enter a positive number.', 'woocommerce-product-vendors' ),
 					'id'       => 'wcpv_vendor_settings_default_commission',
 					'default'  => '0',
-					'type'     => 'text',
+					'type'     => 'number',
 					'desc_tip' => true,
 					'autoload' => false,
+					'custom_attributes' => array(
+						'step' => 'any',
+						'min'  => '0',
+					),
 				),
 
 				array(

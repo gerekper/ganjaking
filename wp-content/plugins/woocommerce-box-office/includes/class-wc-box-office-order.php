@@ -130,8 +130,6 @@ class WC_Box_Office_Order {
 			$ticket = new WC_Box_Office_Ticket( $ticket_data );
 			$ticket->create( 'pending' );
 
-			// Store ticket ID for barcode image that's posted from checkout
-			// form.
 			wc_add_order_item_meta(
 				$item_id,
 				sprintf( '_ticket_id_for_%1$s_%2$s', $ticket_meta['key'], $index ),
@@ -513,8 +511,7 @@ class WC_Box_Office_Order {
 	 * Create barcode fields in chekcout form.
 	 *
 	 * The fields contain 2 * N fields, where N is number of purchased tickets.
-	 * Each field represent barcode text and image for a ticket. Barcode image
-	 * is sent as base64-encoded data in which the image is generated via JS.
+	 * Each field represent barcode text for a ticket.
 	 *
 	 * @since 1.1.1
 	 */
@@ -524,47 +521,14 @@ class WC_Box_Office_Order {
 		}
 
 		$fields = $this->_get_barcode_fields_for_checkout();
+
 		if ( empty( $fields ) ) {
 			return;
 		}
 
-		$el_target = 'object'; // Target element which contains the barcode or qrcode.
-		$el_attr   = 'data';   // Target element attribute which contains the data.
-
-		if ( 'qr' === WC_Order_Barcodes()->barcode_type ) {
-			$el_target = 'img';
-			$el_attr   = 'src';
-		}
-
-		$js = '';
-		echo '<div id="ticket-barcodes">';
 		foreach ( $fields as $key => $field ) {
 			foreach ( $field as $f ) {
-				$id           = str_replace( array( '][', '[', ']' ), array( '-', '-', '' ), $f['image'] );
-				$container_id = $id . '-container';
-
-				echo sprintf( '<div id="%s" style="display: none"></div>', $container_id );
-
 				$barcode_text = WCBO()->components->ticket_barcode->generate_barcode_text_for_ticket();
-
-				$js .= WCBO()->components->ticket_barcode->get_js( array(
-					'container' => '#' . $container_id,
-					'text'      => $barcode_text,
-				) );
-
-				$js .= sprintf(
-					'$( "#%1$s" ).val( $( "#%2$s %3$s" ).attr( "%4$s" ) );',
-					$id,
-					$container_id,
-					$el_target,
-					$el_attr
-				);
-
-				echo sprintf(
-					'<input type="hidden" name="%s" id="%s" />',
-					esc_attr( $f['image'] ),
-					esc_attr( $id )
-				);
 
 				echo sprintf(
 					'<input type="hidden" name="%1$s" value="%2$s" />',
@@ -572,11 +536,6 @@ class WC_Box_Office_Order {
 					esc_attr( $barcode_text )
 				);
 			}
-		}
-		echo '</div>';
-
-		if ( ! empty( $js ) ) {
-			wc_enqueue_js( $js );
 		}
 	}
 
@@ -600,7 +559,6 @@ class WC_Box_Office_Order {
 			$fields[ $ticket_key ] = array();
 			foreach ( $values['ticket']['fields'] as $idx => $__ ) {
 				$fields[ $ticket_key ][ $idx ] = array(
-					'image' => sprintf( 'ticket_barcodes[%1$s][%2$s][image]', $ticket_key, $idx ),
 					'text'  => sprintf( 'ticket_barcodes[%1$s][%2$s][text]', $ticket_key, $idx ),
 				);
 			}
@@ -612,7 +570,7 @@ class WC_Box_Office_Order {
 	/**
 	 * Maybe process barcode fields.
 	 *
-	 * This will process barcode text and image injected in checkout form.
+	 * This will process barcode text injected in checkout form.
 	 * Barcode data will be saved as ticket meta.
 	 *
 	 * @since 1.1.1
@@ -636,7 +594,6 @@ class WC_Box_Office_Order {
 				}
 
 				update_post_meta( $ticket_id, '_barcode_text', $barcode['text'] );
-				update_post_meta( $ticket_id, '_barcode_image', $barcode['image'] );
 			}
 		}
 	}

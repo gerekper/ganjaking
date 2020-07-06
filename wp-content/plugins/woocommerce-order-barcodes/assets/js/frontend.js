@@ -1,53 +1,55 @@
-jQuery( document ).ready( function () {
+const OrderBarcode = function() {
+	const form          = document.querySelector( '#barcode-scan-form form' );
+	const loader        = document.getElementById( 'barcode-scan-loader' );
+	const input         = document.querySelector( '#barcode-scan-form input#scan-code' );
+	const displayResult = document.getElementById( 'barcode-scan-result' );
 
-	// Focus on barcode input field
-	jQuery( '#barcode-scan-form input#scan-code' ).focus( function() {
-		jQuery( this ).select();
-	});
+	// Focus on barcode input field.
+	input.focus();
 
-	// Detect if USB scanner has been used and submit automatically
-	jQuery( '#barcode-scan-form input#scan-code' ).scannerDetection( function() {
-		jQuery( '#barcode-scan-form form' ).submit();
-	});
+	form.addEventListener( 'submit', ( event ) => {
+		event.preventDefault();
 
-	// Handle form submission
-	jQuery( '#barcode-scan-form form' ).submit( function(e) {
-		e.preventDefault();
+		// Show the loader.
+		loader.style.display = 'block';
 
-		// Show loading text
-		jQuery( '#barcode-scan-loader' ).show();
+		// Empty existing results.
+		displayResult.innerHTML = '';
 
-		// Empty existing results
-		jQuery( '#barcode-scan-result' ).html('');
+		const inputAction = document.querySelector( '#barcode-scan-form #scan-action' ).value;
+		const request     = new XMLHttpRequest();
 
-		var input = jQuery( '#barcode-scan-form input#scan-code' ).val();
-		var input_action = jQuery( '#barcode-scan-form #scan-action' ).val();
+		request.open( 'POST', wc_order_barcodes.ajaxurl, true );
+		request.setRequestHeader( 'Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8' );
+		request.setRequestHeader( 'X-Requested-With', 'XMLHttpRequest' );
+		request.onreadystatechange = function() {
+			if ( this.readyState === XMLHttpRequest.DONE && 200 === this.status ) {
+				// Focus on barcode input field.
+				input.focus();
 
-		jQuery.post(
-			wc_order_barcodes.ajaxurl,
-			{
-				action: 'scan_barcode',
-				barcode_input: input,
-				scan_action: input_action,
-				woocommerce_order_barcodes_scan_nonce: wc_order_barcodes.scan_nonce
-			}
-		).done( function( response ) {
+				if ( ! request.response ) {
+					return;
+				}
 
-			// Focus on barcode input field
-			jQuery( '#barcode-scan-form input#scan-code' ).focus();
+				// Hide the loader.
+				loader.style.display = 'none';
 
-			if( ! response ) {
-				return;
+				// Display response.
+				displayResult.innerHTML = request.response;
 			}
 
-			// Hide loading text
-			jQuery( '#barcode-scan-loader' ).hide();
+			return;
+		}
 
-			// Display response
-			jQuery( '#barcode-scan-result' ).html( response );
+		request.send( encodeURI( 'action=scan_barcode&barcode_input=' + input.value + '&scan_action=' + inputAction + '&woocommerce_order_barcodes_scan_nonce=' + wc_order_barcodes.scan_nonce ) );
+	} );
 
-		});
+	onScan.attachTo( document, {
+		reactToPaste: false,
+		onScan: function( sCode, iQty ) {
+			form.dispatchEvent( new Event( 'submit' ) );
+		}
+	} );
+};
 
-	});
-
-});
+window.onload = OrderBarcode;

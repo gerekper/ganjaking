@@ -192,16 +192,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</td>
 </tr>
 
-<tr class="form-field">
-	<th scope="row" valign="top"><label for="wcpv-per-product-shipping"><?php esc_html_e( 'Show Per Product Shipping Rules', 'woocommerce-product-vendors' ); ?></label></th>
+<?php if ( WC_Product_Vendors_Utils::is_wcpv_per_product_shipping_enabled() ) { ?>
+	<tr class="form-field">
+		<th scope="row" valign="top"><label for="wcpv-per-product-shipping"><?php esc_html_e( 'Show Per Product Shipping Rules', 'woocommerce-product-vendors' ); ?></label></th>
 
-	<td>
-		<input type="checkbox" id="wcpv-per-product-shipping" name="vendor_data[per_product_shipping]" <?php checked( 'yes', $per_product_shipping ); ?> />
+		<td>
+			<input type="checkbox" id="wcpv-per-product-shipping" name="vendor_data[per_product_shipping]" <?php checked( 'yes', $per_product_shipping ); ?> />
 
-		<p><?php esc_html_e( 'When enabled, vendor can edit per product shipping rules.', 'woocommerce-product-vendors' ); ?></p>
-	</td>
+			<p><?php esc_html_e( 'When enabled, vendor can edit per product shipping rules.', 'woocommerce-product-vendors' ); ?></p>
+		</td>
 
-</tr>
+	</tr>
+<?php } ?>
 
 <tr class="form-field">
 	<th scope="row" valign="top"><label for="wcpv-enable-bookings"><?php esc_html_e( 'Enable Bookings Feature', 'woocommerce-product-vendors' ); ?></label></th>

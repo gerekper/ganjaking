@@ -2,6 +2,7 @@
 
 namespace MailOptin\Core\EmailCampaigns;
 
+use MailOptin\Core\PluginSettings\Settings;
 use WP_Post;
 use MailOptin\Core\Admin\Customizer\EmailCampaign\Customizer;
 use MailOptin\Core\Admin\Customizer\EmailCampaign\AbstractCustomizer;
@@ -63,7 +64,17 @@ abstract class AbstractTemplate extends AbstractCustomizer implements TemplateIn
             add_filter('mailoptin_template_customizer_content_controls', array($this, 'customizer_content_controls'), 10, 4);
             add_filter('mailoptin_template_customizer_footer_controls', array($this, 'customizer_footer_controls'), 10, 4);
 
-            add_action('customize_preview_init', array($this, 'email_template_customizer_javascript'), 99);
+            add_action('customize_preview_init', function () {
+
+                if (Settings::instance()->switch_customizer_loader() != 'true') {
+                    remove_all_actions('customize_preview_init');
+                }
+
+                $this->email_template_customizer_javascript();
+
+                do_action('mo_email_campaign_customize_preview_init');
+
+            }, -1);
         }
 
         parent::__construct($email_campaign_id);
@@ -247,7 +258,7 @@ abstract class AbstractTemplate extends AbstractCustomizer implements TemplateIn
         $content_ellipsis_button_text_color       = $this->content_ellipsis_button_text_color();
         $content_body_font_size                   = absint($this->content_body_font_size());
         $content_text_color                       = $this->content_text_color();
-        $content_headline_color                       = $this->content_headline_color();
+        $content_headline_color                   = $this->content_headline_color();
 
         $footer_removal                = ($this->footer_removal() === true) ? 'display:none' : '';
         $header_removal                = ($this->header_removal() === true) ? 'display:none' : '';

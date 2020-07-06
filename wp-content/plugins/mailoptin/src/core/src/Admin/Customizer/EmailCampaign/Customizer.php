@@ -5,6 +5,7 @@ namespace MailOptin\Core\Admin\Customizer\EmailCampaign;
 use MailOptin\Core\Admin\Customizer\CustomControls\WP_Customize_Submit_Button_Control;
 use MailOptin\Core\Admin\Customizer\CustomizerTrait;
 use MailOptin\Core\Admin\Customizer\UpsellCustomizerSection;
+use MailOptin\Core\PluginSettings\Settings;
 use MailOptin\Core\Repositories\EmailCampaignMeta;
 use MailOptin\Core\Repositories\EmailCampaignRepository;
 use MailOptin\Core\Repositories\EmailCampaignRepository as ER;
@@ -106,7 +107,7 @@ class Customizer
             // Remove all customizer panels.
             add_action('customize_panel_active', '__return_false');
 
-            add_action('customize_register', array($this, 'register_campaign_customizer'));
+            add_action('customize_register', array($this, 'register_campaign_customizer'), -1);
 
             // save edited email campaign title
             add_action('customize_save', array($this, 'save_email_campaign_title'));
@@ -209,8 +210,8 @@ class Customizer
         $title = EmailCampaignRepository::get_email_campaign_name($this->email_campaign_id);
         ?>
         <div id="mo-change-name-html" style="display: none">
-            <input id="motitleinput" type="text" value="<?=$title?>">
-            <input type="submit" id="mosavetitle" class="button button-primary" data-processing-label="<?=esc_html__('Updating...', 'mailoptin')?>" value="<?=esc_html__('Update', 'mailoptin');?>">
+            <input id="motitleinput" type="text" value="<?= $title ?>">
+            <input type="submit" id="mosavetitle" class="button button-primary" data-processing-label="<?= esc_html__('Updating...', 'mailoptin') ?>" value="<?= esc_html__('Update', 'mailoptin'); ?>">
         </div>
         <?php
     }
@@ -259,7 +260,7 @@ class Customizer
         }
 
         // source: https://stackoverflow.com/a/35957563/2648410
-        $last_mapping  = array_values(array_slice($mappings, -1))[0];
+        $last_mapping = array_values(array_slice($mappings, -1))[0];
 
         $css_selectors = '';
         foreach ($mappings as $mapping) {
@@ -491,6 +492,10 @@ class Customizer
      */
     public function register_campaign_customizer($wp_customize)
     {
+        if (Settings::instance()->switch_customizer_loader() != 'true') {
+            remove_all_actions('customize_register'); // improve compatibility with hestia, generatepress themes etc
+        }
+
         $email_campaign_id = absint($_REQUEST['mailoptin_email_campaign_id']);
 
         $option_prefix = $this->campaign_settings . '[' . $email_campaign_id . ']';

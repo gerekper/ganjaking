@@ -21,6 +21,7 @@ class OptinCampaigns extends AbstractSettingsPage
         add_action('admin_menu', array($this, 'register_settings_page'));
 
         add_filter('set-screen-option', array($this, 'set_screen'), 10, 3);
+        add_filter('set_screen_option_optin_forms_per_page', array($this, 'set_screen'), 10, 3);
     }
 
     public function register_settings_page()
@@ -111,7 +112,11 @@ class OptinCampaigns extends AbstractSettingsPage
      */
     public function set_screen($status, $option, $value)
     {
-        return $value;
+        if ('optin_forms_per_page' == $option) {
+            return $value;
+        }
+
+        return $status;
     }
 
     /**

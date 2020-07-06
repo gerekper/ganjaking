@@ -339,7 +339,7 @@ class CustomizerSettings extends AbstractCustomizer
                 'name_field_color'       => array(
                     'default'   => $this->customizer_defaults['name_field_color'],
                     'type'      => 'option',
-                    'transport' => 'postMessage',
+                    'transport' => 'refresh',
                 ),
                 'name_field_background'  => array(
                     'default'   => $this->customizer_defaults['name_field_background'],
@@ -367,7 +367,7 @@ class CustomizerSettings extends AbstractCustomizer
                 'email_field_color'       => array(
                     'default'   => $this->customizer_defaults['email_field_color'],
                     'type'      => 'option',
-                    'transport' => 'postMessage',
+                    'transport' => 'refresh',
                 ),
                 'email_field_background'  => array(
                     'default'   => $this->customizer_defaults['email_field_background'],

@@ -15,16 +15,16 @@
 	}
 
 	// creating a license manager for each plugin created via the factory
-	add_action('wbcr_factory_forms_421_plugin_created', 'wbcr_factory_forms_421_plugin_created');
+	add_action('wbcr_factory_forms_426_plugin_created', 'wbcr_factory_forms_426_plugin_created');
 
-	function wbcr_factory_forms_421_plugin_created($plugin)
+	function wbcr_factory_forms_426_plugin_created($plugin)
 	{
-		$plugin->forms = new Wbcr_FactoryForms421_Manager($plugin);
+		$plugin->forms = new Wbcr_FactoryForms426_Manager($plugin);
 	}
 
-	if( !class_exists('Wbcr_FactoryForms421_Manager') ) {
+	if( !class_exists('Wbcr_FactoryForms426_Manager') ) {
 
-		class Wbcr_FactoryForms421_Manager {
+		class Wbcr_FactoryForms426_Manager {
 
 			// ----------------------------------------------------
 			// Static fields and methods
@@ -57,7 +57,7 @@
 			/**
 			 * Registers a set of new controls.
 			 *
-			 * @see FactoryForms421_Form::registerControl()
+			 * @see FactoryForms426_Form::registerControl()
 			 *
 			 * @since 1.0.0
 			 * @return void
@@ -95,7 +95,7 @@
 			/**
 			 * Registers a set of new holder controls.
 			 *
-			 * @see FactoryForms421_Form::registerHolder()
+			 * @see FactoryForms426_Form::registerHolder()
 			 *
 			 * @since 1.0.0
 			 * @return void
@@ -129,7 +129,7 @@
 			/**
 			 * Registers a set of new custom form elements.
 			 *
-			 * @see FactoryForms421_Form::registerCustomElement()
+			 * @see FactoryForms426_Form::registerCustomElement()
 			 *
 			 * @since 1.0.0
 			 * @return void
@@ -180,11 +180,11 @@
 			public static $controls_registered = false;
 		}
 	}
-	if( !class_exists('Wbcr_FactoryForms421_Form') ) {
+	if( !class_exists('Wbcr_FactoryForms426_Form') ) {
 		/**
 		 * An abstraction for forms.
 		 */
-		class Wbcr_FactoryForms421_Form {
+		class Wbcr_FactoryForms426_Form {
 
 			// ----------------------------------------------------
 			// Object fields and methods
@@ -194,7 +194,7 @@
 			 * A value provider of the form that is used to save and load values.
 			 *
 			 * @since 1.0.0
-			 * @var Wbcr_IFactoryForms421_ValueProvider
+			 * @var Wbcr_IFactoryForms426_ValueProvider
 			 */
 			private $provider;
 
@@ -245,7 +245,7 @@
 			 * A current form layout used to render a form.
 			 *
 			 * @since 1.0.0
-			 * @var Wbcr_FactoryForms421_FormLayout
+			 * @var Wbcr_FactoryForms426_FormLayout
 			 */
 			public $layout;
 
@@ -261,20 +261,20 @@
 			 *
 			 * @since 1.0.0
 			 * @param array $options
-			 * @param Wbcr_Factory423_Plugin $plugin
+			 * @param Wbcr_Factory428_Plugin $plugin
 			 */
-			public function __construct(array $options = array(), Wbcr_Factory423_Plugin $plugin)
+			public function __construct(array $options = array(), Wbcr_Factory428_Plugin $plugin)
 			{
 				// register controls once, when the first form is created
-				if( !Wbcr_FactoryForms421_Manager::$controls_registered ) {
+				if( !Wbcr_FactoryForms426_Manager::$controls_registered ) {
 
-					do_action('wbcr_factory_forms_421_register_controls', $plugin);
+					do_action('wbcr_factory_forms_426_register_controls', $plugin);
 
 					//if( !empty($plugin) ) {
-					do_action('wbcr_factory_forms_421_register_controls_' . $plugin->getPluginName(), $plugin);
+					do_action('wbcr_factory_forms_426_register_controls_' . $plugin->getPluginName(), $plugin);
 					//}
 
-					Wbcr_FactoryForms421_Manager::$controls_registered = true;
+					Wbcr_FactoryForms426_Manager::$controls_registered = true;
 				}
 
 				$this->scope = isset($options['scope']) ? $options['scope'] : null;
@@ -289,14 +289,14 @@
 					$this->form_layout = 'bootstrap-3';
 				}
 
-				Wbcr_FactoryForms421_Manager::$temper = 'flat';
+				Wbcr_FactoryForms426_Manager::$temper = 'flat';
 			}
 
 			/**
 			 * Sets a provider for the control.
 			 *
 			 * @since 1.0.0
-			 * @param Wbcr_IFactoryForms421_ValueProvider $provider
+			 * @param Wbcr_IFactoryForms426_ValueProvider $provider
 			 * @return void
 			 */
 			public function setProvider($provider)
@@ -332,14 +332,14 @@
 			 */
 			public function getItems()
 			{
-				return apply_filters('wbcr_factory_423_form_items', $this->items, $this->name);
+				return apply_filters('wbcr_factory_428_form_items', $this->items, $this->name);
 			}
 
 			/**
 			 * Returns form controls (control objects).
 			 *
 			 * @since 1.0.0
-			 * @return Wbcr_FactoryForms421_Control[]
+			 * @return Wbcr_FactoryForms426_Control[]
 			 */
 			public function getControls()
 			{
@@ -355,7 +355,7 @@
 			 * Builds a form items to the control objects ready to use.
 			 *
 			 * @param null $holder
-			 * @return Wbcr_FactoryForms421_Control[]
+			 * @return Wbcr_FactoryForms426_Control[]
 			 */
 
 			public function createControls($holder = null)
@@ -395,7 +395,7 @@
 			 *
 			 * @since 1.0.0
 			 * @param array $item Item data.
-			 * @return Wbcr_FactoryForms421_FormElement|null A form element.
+			 * @return Wbcr_FactoryForms426_FormElement|null A form element.
 			 */
 			public function createElement($item)
 			{
@@ -417,7 +417,7 @@
 			 *
 			 * @since 1.0.0
 			 * @param mixed[] $item Data of items.
-			 * @return Wbcr_FactoryForms421_FormElement[] Created elements.
+			 * @return Wbcr_FactoryForms426_FormElement[] Created elements.
 			 */
 			public function createElements($items = array())
 			{
@@ -433,7 +433,7 @@
 			 *
 			 * @since 1.0.0
 			 * @param array $item Item data.
-			 * @return Wbcr_FactoryForms421_Control A control object.
+			 * @return Wbcr_FactoryForms426_Control A control object.
 			 */
 			public function createControl($item)
 			{
@@ -441,7 +441,7 @@
 
 				if( is_array($item) ) {
 
-					$control_data = Wbcr_FactoryForms421_Manager::$registered_controls[$item['type']];
+					$control_data = Wbcr_FactoryForms426_Manager::$registered_controls[$item['type']];
 
 					require_once($control_data['include']);
 
@@ -465,7 +465,7 @@
 			 *
 			 * @since 1.0.0
 			 * @param array $item Item data.
-			 * @return Wbcr_FactoryForms421_Holder A control holder object.
+			 * @return Wbcr_FactoryForms426_Holder A control holder object.
 			 */
 			public function createHolder($item)
 			{
@@ -473,7 +473,7 @@
 
 				if( is_array($item) ) {
 
-					$holderData = Wbcr_FactoryForms421_Manager::$registered_holders[$item['type']];
+					$holderData = Wbcr_FactoryForms426_Manager::$registered_holders[$item['type']];
 					require_once($holderData['include']);
 
 					$object = new $holderData['class']($item, $this);
@@ -491,7 +491,7 @@
 			 *
 			 * @since 1.0.0
 			 * @param mixed $item Item data.
-			 * @return Wbcr_FactoryForms421_FormElement A custom form element object.
+			 * @return Wbcr_FactoryForms426_FormElement A custom form element object.
 			 */
 			public function createCustomElement($item)
 			{
@@ -499,7 +499,7 @@
 
 				if( is_array($item) ) {
 
-					$data = Wbcr_FactoryForms421_Manager::$registered_custom_elements[$item['type']];
+					$data = Wbcr_FactoryForms426_Manager::$registered_custom_elements[$item['type']];
 					require_once($data['include']);
 
 					$options = $item;
@@ -523,12 +523,12 @@
 			public function html($options = array())
 			{
 
-				if( !isset(Wbcr_FactoryForms421_Manager::$form_layouts[$this->form_layout]) ) {
+				if( !isset(Wbcr_FactoryForms426_Manager::$form_layouts[$this->form_layout]) ) {
 					die(sprintf('[ERROR] The form layout %s was not found.', $this->form_layout));
 				}
 
 				// include a render code
-				$layout_data = Wbcr_FactoryForms421_Manager::$form_layouts[$this->form_layout];
+				$layout_data = Wbcr_FactoryForms426_Manager::$form_layouts[$this->form_layout];
 				require_once($layout_data['include']);
 
 				$this->connectAssets();
@@ -552,7 +552,7 @@
 			{
 
 				$this->connectAssetsForItems();
-				$layout_data = Wbcr_FactoryForms421_Manager::$form_layouts[$this->form_layout];
+				$layout_data = Wbcr_FactoryForms426_Manager::$form_layouts[$this->form_layout];
 
 				if( $layout_data['name'] == 'default' ) {
 					if( isset($layout_data['style']) ) {
@@ -602,9 +602,9 @@
 
 				$haystack = array();
 				if( self::isControl($type) ) {
-					$haystack = Wbcr_FactoryForms421_Manager::$registered_controls;
+					$haystack = Wbcr_FactoryForms426_Manager::$registered_controls;
 				} elseif( self::isControlHolder($type) ) {
-					$haystack = Wbcr_FactoryForms421_Manager::$registered_holders;
+					$haystack = Wbcr_FactoryForms426_Manager::$registered_holders;
 				}
 
 				if( isset($haystack[$type]) ) {
@@ -660,7 +660,7 @@
 			 */
 			public static function isControl($item)
 			{
-				return isset(Wbcr_FactoryForms421_Manager::$registered_controls[$item['type']]);
+				return isset(Wbcr_FactoryForms426_Manager::$registered_controls[$item['type']]);
 			}
 
 			/**
@@ -672,7 +672,7 @@
 			 */
 			public static function isControlHolder($item)
 			{
-				return isset(Wbcr_FactoryForms421_Manager::$registered_holders[$item['type']]);
+				return isset(Wbcr_FactoryForms426_Manager::$registered_holders[$item['type']]);
 			}
 
 			/**
@@ -684,7 +684,7 @@
 			 */
 			public static function isCustomElement($item)
 			{
-				return isset(Wbcr_FactoryForms421_Manager::$registered_custom_elements[$item['type']]);
+				return isset(Wbcr_FactoryForms426_Manager::$registered_custom_elements[$item['type']]);
 			}
 		}
 	}

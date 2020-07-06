@@ -133,11 +133,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<p><?php esc_html_e( 'Set the local timezone.', 'woocommerce-product-vendors' ); ?></p>
 	</div>
 
-	<div class="form-field term-per-product-shipping">
-		<label for="wcpv-per-product-shipping"><input type="checkbox" id="wcpv-per-product-shipping" name="vendor_data[per_product_shipping]" /> <?php esc_html_e( 'Show Per Product Shipping Rules', 'woocommerce-product-vendors' ); ?></label>
+	<?php if ( WC_Product_Vendors_Utils::is_wcpv_per_product_shipping_enabled() ) { ?>
+		<div class="form-field term-per-product-shipping">
+			<label for="wcpv-per-product-shipping"><input type="checkbox" id="wcpv-per-product-shipping" name="vendor_data[per_product_shipping]" /> <?php esc_html_e( 'Show Per Product Shipping Rules', 'woocommerce-product-vendors' ); ?></label>
 
-		<p><?php esc_html_e( 'When enabled, vendor can edit per product shipping rules.', 'woocommerce-product-vendors' ); ?></p>
-	</div>
+			<p><?php esc_html_e( 'When enabled, vendor can edit per product shipping rules.', 'woocommerce-product-vendors' ); ?></p>
+		</div>
+	<?php } ?>
 
 	<div class="form-field term-bookings">
 		<label for="wcpv-enable-bookings"><input type="checkbox" id="wcpv-enable-bookings" name="vendor_data[enable_bookings]" /> <?php esc_html_e( 'Enable Bookings Feature', 'woocommerce-product-vendors' ); ?></label>

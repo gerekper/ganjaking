@@ -68,6 +68,8 @@ class WC_Product_Vendors_Per_Product_Shipping_Admin {
 		return true;
 	}
 
+
+
 	/**
 	 * Adds shipping rules table to product edit page variation
 	 *
@@ -78,6 +80,10 @@ class WC_Product_Vendors_Per_Product_Shipping_Admin {
 	 * @return bool
 	 */
 	public function add_shipping_rules_table_variation( $loop, $variation_data, $variation ) {
+		if ( ! WC_Product_Vendors_Utils::is_wcpv_per_product_shipping_enabled() ) {
+			return;
+		}
+
 		$vendor_data = WC_Product_Vendors_Utils::get_vendor_data_from_user();
 
 		if ( $vendor_data && 'no' === $vendor_data['per_product_shipping'] ) {
@@ -103,6 +109,10 @@ class WC_Product_Vendors_Per_Product_Shipping_Admin {
 	 * @return bool
 	 */
 	public function add_shipping_rules_table( $post_id = 0 ) {
+		if ( ! WC_Product_Vendors_Utils::is_wcpv_per_product_shipping_enabled() ) {
+			return;
+		}
+
 		$vendor_data = WC_Product_Vendors_Utils::get_vendor_data_from_user();
 
 		if ( $vendor_data && 'no' === $vendor_data['per_product_shipping'] ) {

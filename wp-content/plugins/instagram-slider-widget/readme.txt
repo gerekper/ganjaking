@@ -103,6 +103,20 @@ If you don't use an account in the widget, go to the plugin settings and add an 
 10. Highlight
 
 == Changelog ==
+= 1.7.9 =
+* Fix a problem with a long page load with a widget (Mandatory update!)
+
+= 1.7.8 =
+* Redesign Widgets plugin page
+* Add ability to create demo widgets
+
+= 1.7.7 =
+* Fixed '50 years ago'
+* Added a message about missing widgets
+
+= 1.7.6 =
+* Minor fixes
+
 = 1.7.5 =
 * Fixed delete empty account
 * Compatible with PHP 7.4

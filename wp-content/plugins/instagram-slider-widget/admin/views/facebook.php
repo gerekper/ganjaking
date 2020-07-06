@@ -1,32 +1,33 @@
 <?php
-$args = array(
-    "app_id"        => WIS_FACEBOOK_CLIENT_ID,
-    "state"         => $current_url
+$args         = array(
+	"app_id" => WIS_FACEBOOK_CLIENT_ID,
+	"state"  => $current_url
 );
 $autorize_url = "https://instagram.cm-wp.com/facebook/?" . http_build_query( $args );
-$accounts = WIS_Plugin::app()->getPopulateOption( WIS_FACEBOOK_ACCOUNT_PROFILES_OPTION_NAME, array() );
+$accounts     = WIS_Plugin::app()->getPopulateOption( WIS_FACEBOOK_ACCOUNT_PROFILES_OPTION_NAME, array() );
 ?>
-<div class="factory-bootstrap-424 factory-fontawesome-000">
+<div class="factory-bootstrap-429 factory-fontawesome-000">
     <div class="row">
         <div class="col-md-9">
             <div class="row">
                 <div class="col-md-12">
                     <div id="wis-add-account-button" class="">
 						<?php
-						if ( count( $accounts ) && !WIS_Plugin::app()->is_premium()) : ?>
+						if ( count( $accounts ) && ! WIS_Plugin::app()->is_premium() ) : ?>
                             <span class="wis-btn-facebook-account btn-instagram-account-disabled">
-                                <?php _e('Add Account','instagram-slider-widget')?></span>
-                            <span class="instagram-account-pro"><?php echo sprintf( __( "More accounts in <a href='%s'>PRO version</a>", 'instagram-slider-widget' ), WIS_Plugin::app()->get_support()->get_pricing_url(true, "wis_settings") );?></span>
+                                <?php _e( 'Add Account', 'instagram-slider-widget' ) ?></span>
+                            <span class="instagram-account-pro"><?php echo sprintf( __( "More accounts in <a href='%s'>PRO version</a>", 'instagram-slider-widget' ), WIS_Plugin::app()->get_support()->get_pricing_url( true, "wis_settings" ) ); ?></span>
 						<?php else: ?>
-                            <a class="wis-btn-facebook-account" target="_self" href="<?php echo $autorize_url; ?>" title="Add Account">
-								<?php _e('Add Account','instagram-slider-widget')?>
+                            <a class="wis-btn-facebook-account" target="_self" href="<?php echo $autorize_url; ?>"
+                               title="Add Account">
+								<?php _e( 'Add Account', 'instagram-slider-widget' ) ?>
                             </a>
                             <span style="float: none; margin-top: 0;" class="spinner" id="wis-spinner"> </span>
 						<?php endif; ?>
                     </div>
-                    <div class="wis-help-text"><?php echo sprintf( __( "After adding an account, go to the <a href='%s'>widget settings</a> and change the \"Search Facebook for\" setting to Account", 'instagram-slider-widget' ), admin_url('widgets.php')) ?></div>
+                    <div class="wis-help-text"><?php echo sprintf( __( "After adding an account, go to the <a href='%s'>widget settings</a> and change the \"Search Facebook for\" setting to Account", 'instagram-slider-widget' ), admin_url( 'widgets.php' ) ) ?></div>
 					<?php
-					if ( count( $accounts )) :
+					if ( count( $accounts ) ) :
 						?>
                         <br>
                         <table class="widefat wis-table">
@@ -83,9 +84,8 @@ $accounts = WIS_Plugin::app()->getPopulateOption( WIS_FACEBOOK_ACCOUNT_PROFILES_
         <div class="col-md-3">
             <div id="wis-dashboard-widget" class="wis-right-widget">
 				<?php
-				if(!WIS_Plugin::app()->is_premium())
-				{
-					WIS_Plugin::app()->get_adverts_manager()->render_placement( 'right_sidebar');
+				if ( ! WIS_Plugin::app()->is_premium() ) {
+					WIS_Plugin::app()->get_adverts_manager()->render_placement( 'right_sidebar' );
 				}
 				?>
             </div>

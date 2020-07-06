@@ -22,7 +22,7 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 	 *
 	 * @var string
 	 */
-	public static $version = '2.4.6';
+	public static $version = '2.5.0';
 
 	/**
 	 * The required WooCommerce version
@@ -192,24 +192,19 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 		if ( ! empty ( $gift_data ) ) {
 			
 			foreach ( $gift_data as $gift_id => $data ) {
-				
-				$defaults = array (
-					'product_id' => 0,
-					'quantity' => 1,
-					'variation_id' => 0
-					);
-					
-				$data = apply_filters( 'woocommerce_free_gift_coupon_apply_coupon_data', wp_parse_args( $data, $defaults ), $coupon_code );
-		
-				if ( $data['product_id'] > 0 ) {
+						
+				$data = apply_filters( 'woocommerce_free_gift_coupon_apply_coupon_data', $data, $coupon_code );
+
+				if ( $data['product_id'] > 0 && isset( $data['data'] ) && $data['data'] instanceof WC_Product && $data['data']->is_purchasable() ) { 
 					$key = WC()->cart->add_to_cart( 
 						$data['product_id'],
 						$data['quantity'],
 						$data['variation_id'],
-						array(), 
+						$data['variation'], 
 						array(
-							'free_gift' => $coupon_code,
+							'free_gift'    => $coupon_code,
 							'fgc_quantity' => isset( $data['quantity'] ) && $data['quantity'] > 0 ? intval( $data['quantity'] ) : 1,
+							'fgc_type'     => $data['data'] instanceof WC_Product_Variable ? 'variable' : 'not-variable',
 						)
 					);
 				}
@@ -252,7 +247,12 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 			$cart_item['data']->set_regular_price( 0 );
 			$cart_item['data']->set_sale_price( 0 );
 		}
-			
+
+		// Strictly enforce original quantity.
+		if ( ! empty ( $cart_item['fgc_quantity'] ) ) {
+			$cart_item['quantity'] = $cart_item['fgc_quantity'];
+		}
+
 		return $cart_item;
 	}
 
@@ -269,8 +269,12 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 		if ( ! empty( $values['free_gift'] ) ) {
 			$cart_item['free_gift'] = $values['free_gift'];
 
-			if ( ! empty ( $values['quantity'] ) ) {
-				$cart_item['fgc_quantity'] = $values['quantity'];
+			if ( ! empty ( $values['fgc_quantity'] ) ) {
+				$cart_item['fgc_quantity'] = $values['fgc_quantity'];
+			}
+
+			if ( ! empty ( $values['fgc_type'] ) ) {
+				$cart_item['fgc_type'] = $values['fgc_type'];
 			}
 			$cart_item = self::add_cart_item( $cart_item );
 		}
@@ -551,7 +555,7 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 	 * Get Free Gift Data from a coupon's ID.
 	 *
 	 * @param   mixed $code int coupon ID  | str coupon code
-	 * @param   bool $add_titles add product titles
+	 * @param   bool $add_titles add product titles - Deprecated 2.5.0
 	 * @return	array
 	 * @since   2.0.0
 	 */
@@ -566,19 +570,38 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 		$coupon = new WC_Coupon( $code );
 		
 		if ( ! is_wp_error( $coupon ) && self::is_supported_gift_coupon_type( $coupon->get_discount_type() ) ) {
+			
 			$coupon_meta = $coupon->get_meta( '_wc_free_gift_coupon_data' );
+
 			// Only return meta if it is an array, since coupon meta can be null, which results in an empty model in the JS collection.
 			$gift_data = is_array( $coupon_meta ) ? $coupon_meta : array();
-		}
 
-		// Get the title of each product.
-		if ( $add_titles && ! empty( $gift_data ) ) {
 			foreach ( $gift_data as $gift_id => $gift ) {
 
 				$gift_product = wc_get_product( $gift_id );
 
-				if ( is_a( $gift_product, 'WC_Product' ) ) {
+				$defaults = array (
+					'product_id'   => 0,
+					'quantity'     => 1,
+					'variation_id' => 0,
+					'variation'    => array(),
+					'data'         => $gift_product, // The product object is always passed now.
+					'title'        => '',
+				);
+
+				$gift_data[$gift_id] = wp_parse_args( $gift, $defaults );
+		
+
+				if ( $gift_product instanceof WC_Product ) {
+
+					// Add variation attributes.
+					if ( $gift_product->get_parent_id() > 0 && is_callable( array( $gift_product, 'get_variation_attributes' ) ) ) { 
+						$gift_data[$gift_id]['variation'] = $gift_product->get_variation_attributes();
+					}
+
+					// Get the title of each product.
 					$gift_data[$gift_id]['title'] = $gift_product->get_formatted_name();
+
 				}
 			}
 		}

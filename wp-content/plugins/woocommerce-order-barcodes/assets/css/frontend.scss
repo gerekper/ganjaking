@@ -43,7 +43,21 @@
 		box-shadow: none;
 		border-radius: 0;
 	}
+
 	span {
 		font-size: 110%;
+	}
+}
+@media only screen and (max-width: 500px) {
+	#barcode-scan-form {
+		select#scan-action {
+			width: 100%;
+		}
+
+		input#scan-code {
+			display: block;
+			margin: 10px 0;
+			width: 100%;
+		}
 	}
 }

@@ -27,7 +27,7 @@ class WIS_SettingsPage extends WIS_Page {
 	 * Mainly used to navigate between pages.
 	 *
 	 * @since 1.0.0
-	 * @see   FactoryPages423_AdminPage
+	 * @see   FactoryPages428_AdminPage
 	 *
 	 * @var string
 	 */
@@ -103,12 +103,12 @@ class WIS_SettingsPage extends WIS_Page {
 	 * @param WIS_Plugin $plugin
 	 */
 	public function __construct( $plugin ) {
-		$this->id         = "settings";
-		$this->page_title = __( 'Settings of Social Slider Widget', 'instagram-slider-widget' );
-		$this->menu_title = __( 'Settings', 'instagram-slider-widget' );
-		$this->menu_target= "widgets-".$plugin->getPluginName();
-		$this->menu_icon = '~/admin/assets/img/wis.png';
-		$this->capabilitiy = "manage_options";
+		$this->id            = "settings";
+		$this->page_title    = __( 'Settings of Social Slider Widget', 'instagram-slider-widget' );
+		$this->menu_title    = __( 'Settings', 'instagram-slider-widget' );
+		$this->menu_target   = "widgets-" . $plugin->getPluginName();
+		$this->menu_icon     = '~/admin/assets/img/wis.png';
+		$this->capabilitiy   = "manage_options";
 		$this->template_name = "settings";
 
 		parent::__construct( $plugin );
@@ -134,23 +134,22 @@ class WIS_SettingsPage extends WIS_Page {
 	}
 
 	public function indexAction() {
-		wp_enqueue_style( 'wis-tabs-style', WIS_PLUGIN_URL.'/admin/assets/css/component.css', array(), WIS_PLUGIN_VERSION );
-		if(isset($_GET['tab']) && !empty($_GET['tab']))
-        {
-            switch($_GET['tab'])
-            {
-                case "instagram":
-                    $this->instagram();
-                    break;
-                case "facebook":
-                	WIS_FacebookSlider::app()->FACEBOOK->tabAction();
-                    break;
-                case "youtube":
-	                $this->youtube();
-                    break;
-            }
-        }
-		else $this->instagram();
+		wp_enqueue_style( 'wis-tabs-style', WIS_PLUGIN_URL . '/admin/assets/css/component.css', array(), WIS_PLUGIN_VERSION );
+		if ( isset( $_GET['tab'] ) && ! empty( $_GET['tab'] ) ) {
+			switch ( $_GET['tab'] ) {
+				case "instagram":
+					$this->instagram();
+					break;
+				case "facebook":
+					WIS_FacebookSlider::app()->FACEBOOK->tabAction();
+					break;
+				case "youtube":
+					$this->youtube();
+					break;
+			}
+		} else {
+			$this->instagram();
+		}
 
 		parent::indexAction();
 	}
@@ -159,40 +158,38 @@ class WIS_SettingsPage extends WIS_Page {
 	 * Логика на вкладке Инстаграма
 	 */
 	public function instagram() {
-        if(isset( $_GET['type'] ) && $_GET['type'] == 'business') {
-            if ( isset( $_GET['token_error'] ) ) {
-	            echo '<div class="notice notice-error"><p>' . $_GET['token_error'] . '</p></div>';
-                $_SERVER['REQUEST_URI'] = str_replace( '#_', '', remove_query_arg( 'token_error' ) );
-            } else {
-                if ( isset( $_GET['access_token'] ) ) {
-                    $token                  = $_GET['access_token'];
-                    $result                 = WIS_InstagramSlider::app()->update_account_profiles( $token, true );
-                    $_SERVER['REQUEST_URI'] = remove_query_arg( 'access_token' );
-                    ?>
+		if ( isset( $_GET['type'] ) && $_GET['type'] == 'business' ) {
+			if ( isset( $_GET['token_error'] ) ) {
+				echo '<div class="notice notice-error"><p>' . $_GET['token_error'] . '</p></div>';
+				$_SERVER['REQUEST_URI'] = str_replace( '#_', '', remove_query_arg( 'token_error' ) );
+			} else {
+				if ( isset( $_GET['access_token'] ) ) {
+					$token                  = $_GET['access_token'];
+					$result                 = WIS_InstagramSlider::app()->update_account_profiles( $token, true );
+					$_SERVER['REQUEST_URI'] = remove_query_arg( 'access_token' );
+					?>
                     <div id="wis_accounts_modal" class="wis_accounts_modal">
                         <div class="wis_modal_header">
                             Choose Account:
                         </div>
                         <div class="wis_modal_content">
-                            <?php echo $result[0]; ?>
+							<?php echo $result[0]; ?>
                         </div>
                     </div>
                     <div id="wis_modal_overlay" class="wis_modal_overlay"></div>
                     <span class="wis-overlay-spinner is-active">&nbsp;</span>
-                    <?php
-                }
-            }
-        }
-		else
-		{
+					<?php
+				}
+			}
+		} else {
 			if ( isset( $_GET['token_error'] ) ) {
 				echo '<div class="notice notice-error"><p>' . $_GET['token_error'] . '</p></div>';
-				$_SERVER['REQUEST_URI'] = str_replace( '#_', '', remove_query_arg( 'token_error' ));
+				$_SERVER['REQUEST_URI'] = str_replace( '#_', '', remove_query_arg( 'token_error' ) );
 			} else {
 				if ( isset( $_GET['access_token'] ) ) {
-					$token = $_GET['access_token'];
-					$result = WIS_InstagramSlider::app()->update_account_profiles( $token );
-					$_SERVER['REQUEST_URI'] = str_replace( '#_', '', remove_query_arg( 'access_token' ));
+					$token                  = $_GET['access_token'];
+					$result                 = WIS_InstagramSlider::app()->update_account_profiles( $token );
+					$_SERVER['REQUEST_URI'] = str_replace( '#_', '', remove_query_arg( 'access_token' ) );
 				}
 			}
 		}

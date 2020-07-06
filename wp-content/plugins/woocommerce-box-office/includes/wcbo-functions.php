@@ -496,9 +496,19 @@ function wc_box_office_get_ticket_email_contacts( $ticket_id ) {
  * @return string Parsed content
  */
 function wc_box_office_get_parsed_ticket_content( $ticket_id, $content ) {
+	$barcode_obj = new WC_Box_Office_Ticket_Barcode();
+
+	if ( $barcode_obj->is_available() ) {
+		$barcode = WC_Order_Barcodes()->display_barcode( $ticket_id );
+		$content = str_replace( '{barcode}', $barcode, $content );
+	}
+
 	// Parse link var '{ticket_link}'.
 	$ticket_link = wcbo_get_my_ticket_url( $ticket_id );
 	$content     = str_replace( '{ticket_link}', $ticket_link, $content );
+
+	// Parse ticket id '{ticket_id}'.
+	$content = str_replace( '{ticket_id}', $ticket_id, $content );
 
 	// Parse link var '{ticket_token}'.
 	$ticket_token = get_post_meta( $ticket_id, '_token', true );

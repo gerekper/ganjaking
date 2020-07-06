@@ -1,11 +1,11 @@
 ﻿=== Popup, Optin Form, Email Newsletters for Mailchimp, AWeber, HubSpot - MailOptin ===
 Contributors: properfraction, Collizo4sky
 Donate link: https://mailoptin.io/pricing/
-Tags: popup, form, newsletter, zoho, mailchimp, aweber, constant contact, campaignmonitor, campaign monitor, convertkit, forms, contact form, wpforms, wpform, cf7, contact form 7, ninja forms, gravity forms, activecampaign, drip, sendy, hubspot, mailerlite, sendinblue, klaviyo, mailjet, ontraport, constantcontact, verticalresponse, vertical response, zoho, zoho crm, zoho campaigns, moosend, godaddy, getgist, sendlane, myemma, mailster, getresponse, autoresponder, wpml, woocommerce, lightbox, crm, modal, emailoctopus, pop up, email, exit intent, ninja form
+Tags: popup, form, newsletter, zoho, mailchimp, aweber, constant contact, campaignmonitor, campaign monitor, convertkit, forms, contact form, wpforms, wpform, cf7, contact form 7, ninja forms, gravity forms, activecampaign, drip, sendy, hubspot, mailerlite, sendinblue, klaviyo, mailjet, ontraport, constantcontact, verticalresponse, vertical response, zoho, sendgrid, zoho crm, zoho campaigns, moosend, godaddy, getgist, sendlane, myemma, mailster, getresponse, autoresponder, wpml, woocommerce, lightbox, crm, modal, emailoctopus, pop up, email, exit intent, ninja form
 Requires at least: 4.6
 Requires PHP: 5.6
 Tested up to: 5.4
-Stable tag: 1.2.28.0
+Stable tag: 1.2.29.2
 License: GPL-2.0+
 
 Use form to convert visitors into email subscribers & keep them engaged with newsletters. Mailchimp, AWeber, ActiveCampaign, ConvertKit, Campaign Monitor, Constant Contact, CRM etc.
@@ -39,7 +39,7 @@ All our forms are GDPR compliant.
 
 MailOptin works out of the box with all popular email marketing software providers and CRM including:
 
-Mailchimp, AWeber, Constant Contact, Campaign Monitor, Sendy, Mailerlite, MailPoet, ConvertKit, ActiveCampaign, Drip, Sendinblue, EmailOctopus, HubSpot, Ontraport CRM, Mailjet, Klaviyo, Sendlane, Mailster, Moosend, Gist, VerticalResponse, Zoho CRM, Zoho Campaigns, Emma, GoDaddy Email Marketing, GetResponse, GetResponse360.
+Mailchimp, AWeber, Constant Contact, Campaign Monitor, Sendy, Mailerlite, MailPoet, ConvertKit, ActiveCampaign, Drip, Sendinblue, EmailOctopus, HubSpot, Ontraport CRM, Mailjet, Klaviyo, Sendlane, Mailster, Moosend, Gist, VerticalResponse, Zoho CRM, Zoho Campaigns, Emma, SendGrid Email Marketing, GoDaddy Email Marketing, GetResponse, GetResponse360.
 
 [MailOptin premium](https://mailoptin.io/pricing?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) allows you to build hyper segmented list and increase email automation possibilities with its deep integration with Mailchimp groups & interests and lead tagging available in AWeber, Drip, ConvertKit, ActiveCampaign etc.
 
@@ -171,11 +171,19 @@ Yes, MailOptin has full translation and localization support via the mailoptin t
 
 == Changelog ==
 
-= 1.2.28.0 =
-* Added Gravity Forms integration.
-* Added SendGrid email marketing integration.
-* DB Query solidification.
-* Added option to use post excerpt instead of post content in email automation.
-* Added filter to delete leads after unsubscription.
+= 1.2.29.2 =
+* Fixed screen option pagination saving bug caused by WP 5.4.2.
+* Further DB Query solidification.
+
+= 1.2.29.1 =
+* Fixed fatal error in cases where controls were missing when opening the customizer.
+* Fixed bug where clicking save changes button doesn't save field mapping data.
+* Added filter to disable admin notice ads.
+* More improvements to themes compatibility.
+
+= 1.2.29.0 =
+* Added email list selection support. Visitors and users can now select lists to subscribe to (premium).
+* Fixed error causing builder not to change state after saving.
+* Fixed issue where specifying google font for custom fields wasn't working.
 
 See the [changelog file](https://plugins.svn.wordpress.org/mailoptin/trunk/changelog.txt) for full change log information.

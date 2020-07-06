@@ -12,12 +12,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @copyright (c) 2019 Webraftic Ltd
  * @version       1.0
  */
-
-class WIS_Plugin extends Wbcr_Factory423_Plugin {
+class WIS_Plugin extends Wbcr_Factory428_Plugin {
 
 	/**
 	 * @see self::app()
-	 * @var Wbcr_Factory423_Plugin
+	 * @var Wbcr_Factory428_Plugin
 	 */
 	private static $app;
 
@@ -35,7 +34,7 @@ class WIS_Plugin extends Wbcr_Factory423_Plugin {
 	 * Используется для получения настроек плагина, информации о плагине, для доступа к вспомогательным
 	 * классам.
 	 *
-	 * @return Wbcr_Factory423_Plugin
+	 * @return Wbcr_Factory428_Plugin
 	 */
 	public static function app() {
 		return self::$app;
@@ -48,7 +47,7 @@ class WIS_Plugin extends Wbcr_Factory423_Plugin {
 	 *
 	 * @return $class
 	 */
-	public static function social($class) {
+	public static function social( $class ) {
 		return new $class;
 	}
 
@@ -59,7 +58,7 @@ class WIS_Plugin extends Wbcr_Factory423_Plugin {
 	 * Подробнее о свойстве $app см. self::app()
 	 *
 	 * @param string $plugin_path
-	 * @param array  $data
+	 * @param array $data
 	 *
 	 * @throws Exception
 	 */
@@ -77,9 +76,7 @@ class WIS_Plugin extends Wbcr_Factory423_Plugin {
 
 			//Подключение файла проверки лицензии
 			require( WIS_PLUGIN_DIR . '/admin/ajax/check-license.php' );
-		}
-		else
-		{
+		} else {
 			$this->front_scripts();
 		}
 
@@ -110,14 +107,13 @@ class WIS_Plugin extends Wbcr_Factory423_Plugin {
 	/**
 	 * Код для админки
 	 */
-	private function admin_scripts()
-	{
+	private function admin_scripts() {
 		// Регистрация страниц
 		$this->register_pages();
 
-		add_action( 'admin_enqueue_scripts', [$this, 'admin_enqueue_assets'] );
-		add_action( 'admin_notices', [ $this, 'new_api_admin_notice'] );
-		add_action( 'admin_notices', [ $this, 'check_token_admin_notice'] );
+		add_action( 'admin_enqueue_scripts', [ $this, 'admin_enqueue_assets' ] );
+		add_action( 'admin_notices', [ $this, 'new_api_admin_notice' ] );
+		add_action( 'admin_notices', [ $this, 'check_token_admin_notice' ] );
 	}
 
 	/**
@@ -131,29 +127,27 @@ class WIS_Plugin extends Wbcr_Factory423_Plugin {
 	 * Код для фронтенда
 	 */
 	private function front_scripts() {
-		add_action( 'wp_enqueue_scripts', [$this, 'enqueue_assets'] );
+		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_assets' ] );
 	}
 
-	public function admin_enqueue_assets($hook_suffix)
-	{
-		wp_enqueue_style( 'jr-insta-admin-styles', WIS_PLUGIN_URL.'/admin/assets/css/jr-insta-admin.css', array(), WIS_PLUGIN_VERSION );
-		wp_enqueue_script( 'jr-insta-admin-script', WIS_PLUGIN_URL.'/admin/assets/js/jr-insta-admin.js',  array( 'jquery' ), WIS_PLUGIN_VERSION, true );
-		wp_localize_script('jr-insta-admin-script', 'wis', array(
-			'nonce' => wp_create_nonce('wis_nonce'),
-			'remove_account' => __('Are you sure want to delete this account?', 'instagram-slider-widget'),
-		));
-		wp_enqueue_script( 'jr-tinymce-button', WIS_PLUGIN_URL.'/admin/assets/js/tinymce_button.js',  array( 'jquery' ), WIS_PLUGIN_VERSION, false );
+	public function admin_enqueue_assets( $hook_suffix ) {
+		wp_enqueue_style( 'jr-insta-admin-styles', WIS_PLUGIN_URL . '/admin/assets/css/jr-insta-admin.css', array(), WIS_PLUGIN_VERSION );
+		wp_enqueue_script( 'jr-insta-admin-script', WIS_PLUGIN_URL . '/admin/assets/js/jr-insta-admin.js', array( 'jquery' ), WIS_PLUGIN_VERSION, true );
+		wp_localize_script( 'jr-insta-admin-script', 'wis', array(
+			'nonce'          => wp_create_nonce( 'wis_nonce' ),
+			'remove_account' => __( 'Are you sure want to delete this account?', 'instagram-slider-widget' ),
+		) );
+		wp_enqueue_script( 'jr-tinymce-button', WIS_PLUGIN_URL . '/admin/assets/js/tinymce_button.js', array( 'jquery' ), WIS_PLUGIN_VERSION, false );
 		$wis_shortcodes = $this->get_isw_widgets();
-		wp_localize_script('jr-tinymce-button', 'wis_shortcodes', $wis_shortcodes);
-		wp_localize_script('jr-insta-admin-script', 'add_account_nonce', array(
-			'nonce' => wp_create_nonce("addAccountByToken"),
-		));
+		wp_localize_script( 'jr-tinymce-button', 'wis_shortcodes', $wis_shortcodes );
+		wp_localize_script( 'jr-insta-admin-script', 'add_account_nonce', array(
+			'nonce' => wp_create_nonce( "addAccountByToken" ),
+		) );
 
 	}
 
-	public function enqueue_assets()
-	{
-		wp_enqueue_style( 'jr-insta-styles', WIS_PLUGIN_URL.'/assets/css/jr-insta.css', array(), WIS_PLUGIN_VERSION );
+	public function enqueue_assets() {
+		wp_enqueue_style( 'jr-insta-styles', WIS_PLUGIN_URL . '/assets/css/jr-insta.css', array(), WIS_PLUGIN_VERSION );
 	}
 
 	/**
@@ -161,16 +155,13 @@ class WIS_Plugin extends Wbcr_Factory423_Plugin {
 	 *
 	 * @return bool
 	 */
-	public function is_premium()
-	{
-		if(
-			$this->premium->is_active() &&
-			$this->premium->is_activate()
-			//&& is_plugin_active( "{$this->premium->get_setting('slug')}/{$this->premium->get_setting('slug')}.php" )
-		)
+	public function is_premium() {
+		if ( $this->premium->is_active() && $this->premium->is_activate() //&& is_plugin_active( "{$this->premium->get_setting('slug')}/{$this->premium->get_setting('slug')}.php" )
+		) {
 			return true;
-		else
+		} else {
 			return false;
+		}
 	}
 
 	/**
@@ -178,17 +169,16 @@ class WIS_Plugin extends Wbcr_Factory423_Plugin {
 	 *
 	 * @return array
 	 */
-	public function get_isw_widgets()
-	{
+	public function get_isw_widgets() {
 		$settings = WIS_InstagramSlider::app()->get_settings();
-		$result = array();
-		foreach ($settings as $key => $widget)
-		{
+		$result   = array();
+		foreach ( $settings as $key => $widget ) {
 			$result[] = array(
 				'title' => $widget['title'],
-				'id' => $key,
+				'id'    => $key,
 			);
 		}
+
 		return $result;
 	}
 
@@ -196,27 +186,27 @@ class WIS_Plugin extends Wbcr_Factory423_Plugin {
 	 * Выводит нотис о том, что изменилось в новой версии
 	 *
 	 */
-	public function new_api_admin_notice()
-	{
-		$text = "";
+	public function new_api_admin_notice() {
+		$text     = "";
 		$accounts = $this->getOption( 'account_profiles', array() );
-		if(count($accounts)) {
+		if ( count( $accounts ) ) {
 			foreach ( $accounts as $account ) {
 				if ( strlen( $account['token'] ) < 55 ) {
 					$text .= "<p><b>@" . $account['username'] . "</b></p>";
 				}
 			}
 		}
-		if(!empty($text)) {
+		if ( ! empty( $text ) ) {
 			?>
-			<div class="notice notice-info is-dismissible">
-				<p>
-					<b>Social Slider Widget:</b><br>
-					The plugin has moved to the new Instagram Basic Display API.<br>
-					To make your widgets work again, reconnect your instagram accounts in the plugin settings.
-					<a href="https://cm-wp.com/important-update-social-slider-widget/" class="">Read more about the changes</a>
-				</p>
-			</div>
+            <div class="notice notice-info is-dismissible">
+                <p>
+                    <b>Social Slider Widget:</b><br>
+                    The plugin has moved to the new Instagram Basic Display API.<br>
+                    To make your widgets work again, reconnect your instagram accounts in the plugin settings.
+                    <a href="https://cm-wp.com/important-update-social-slider-widget/" class="">Read more about the
+                        changes</a>
+                </p>
+            </div>
 			<?php
 		}
 	}
@@ -225,22 +215,19 @@ class WIS_Plugin extends Wbcr_Factory423_Plugin {
 	 * Выводит нотис о том, что нужно обновить токены
 	 *
 	 */
-	public function check_token_admin_notice()
-	{
-		$text = "";
+	public function check_token_admin_notice() {
+		$text     = "";
 		$accounts = $this->getOption( 'account_profiles', array() );
-		if(count($accounts)) {
+		if ( count( $accounts ) ) {
 			foreach ( $accounts as $account ) {
 				if ( strlen( $account['token'] ) < 55 ) {
 					$text .= "<p><b>@" . $account['username'] . "</b></p>";
 				}
 			}
 		}
-		if(!empty($text)) {
+		if ( ! empty( $text ) ) {
 			echo '<div class="notice notice-warning">
-					<p><b>Social Slider Widget:</b><br>You need to reconnect this accounts in the <a href="'.admin_url("admin.php?page=settings-wisw&tab=instagram").'">plugin settings</a>'.
-				        $text.
-			        '</p>
+					<p><b>Social Slider Widget:</b><br>You need to reconnect this accounts in the <a href="' . admin_url( "admin.php?page=settings-wisw&tab=instagram" ) . '">plugin settings</a>' . $text . '</p>
 				  </div>';
 		}
 	}

@@ -45,9 +45,11 @@ abstract class AbstractSettingsPage
                 <a rel="noopener" href="https://mailoptin.io/docs/" target="_blank">
                     <span class="dashicons dashicons-book"></span> <?= __('Documentation', 'mailoptin'); ?>
                 </a>
-                <a rel="noopener" href="https://mailoptin.io/submit-ticket/" target="_blank">
-                    <span class="dashicons dashicons-admin-users"></span> <?= __('Request Support', 'mailoptin'); ?>
-                </a>
+                <?php if (defined('MAILOPTIN_DETACH_LIBSODIUM')) : ?>
+                    <a rel="noopener" href="https://mailoptin.io/submit-ticket/" target="_blank">
+                        <span class="dashicons dashicons-admin-users"></span> <?= __('Request Support', 'mailoptin'); ?>
+                    </a>
+                <?php endif; ?>
             </div>
             <div class="clear"></div>
         </div>
@@ -70,11 +72,11 @@ abstract class AbstractSettingsPage
     /**
      * Adds admin body class to all admin pages created by the plugin.
      *
-     * @since 0.1.0
-     *
-     * @param  string $classes Space-separated list of CSS classes.
+     * @param string $classes Space-separated list of CSS classes.
      *
      * @return string Filtered body classes.
+     * @since 0.1.0
+     *
      */
     public function add_admin_body_class($classes)
     {

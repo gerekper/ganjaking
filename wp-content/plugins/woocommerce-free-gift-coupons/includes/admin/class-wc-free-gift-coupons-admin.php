@@ -20,7 +20,7 @@ class WC_Free_Gift_Coupons_Admin {
 	 * 
 	 * @var string
 	 */
-	public static $version = '2.4.6';
+	public static $version = '2.5.0';
 
 	/**
 	 * Initialize
@@ -77,7 +77,7 @@ class WC_Free_Gift_Coupons_Admin {
 
 		$translation_array = array(
 				'coupon_types' => wp_json_encode( WC_Free_Gift_Coupons::get_gift_coupon_types() ),
-				'free_gifts' => array_values( WC_Free_Gift_Coupons::get_gift_data( intval( $coupon_id ), true ) )
+				'free_gifts' => array_values( WC_Free_Gift_Coupons::get_gift_data( intval( $coupon_id ) ) )
 			);
 
 		wp_localize_script( 'woocommerce_free_gift_coupon_meta', 'woocommerce_free_gift_coupon_meta_i18n', $translation_array );		

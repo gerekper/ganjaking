@@ -1,5 +1,29 @@
 ﻿== Changelog ==
 
+= 1.2.29.2 =
+* Fixed screen option pagination saving bug caused by WP 5.4.2.
+* Further DB Query solidification.
+
+= 1.2.29.1 =
+* Fixed fatal error in cases where controls were missing when opening the customizer.
+* Fixed bug where clicking save changes button doesn't save field mapping data.
+* Added filter to disable admin notice ads.
+* More improvements to themes compatibility.
+
+= 1.2.29.0 =
+* Added email list selection support. Visitors and users can now select lists to subscribe to (premium).
+* Fixed error causing builder not to change state after saving.
+* Fixed issue where specifying google font for custom fields wasn't working.
+
+= 1.2.28.2 =
+* Added option to disable linking to post article in post email automation.
+* Improve compatibility with hestia, generatepress and many other themes.
+* Fixed a weird z-index issue on optin forms.
+* Fixed bug where spam CF7 submissions were saved to ESP.
+
+= 1.2.28.1 =
+* Fixed fatal error caused by missing Ninja Forms integration class.
+
 = 1.2.28.0 =
 * Added Gravity Forms integration.
 * Added SendGrid email marketing integration.

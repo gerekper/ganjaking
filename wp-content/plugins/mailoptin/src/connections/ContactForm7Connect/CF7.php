@@ -15,7 +15,7 @@ class CF7
     {
         add_filter('wpcf7_editor_panels', [$this, 'add_panel']);
         add_action('wpcf7_after_save', [$this, 'save_settings']);
-        add_action('wpcf7_submit', [$this, 'process_form'], 1);
+        add_action('wpcf7_submit', [$this, 'process_form'], 1, 2);
 
         add_action('admin_enqueue_scripts', [$this, 'select2_enqueue']);
         add_action('admin_footer', [$this, 'js_script']);
@@ -30,8 +30,12 @@ class CF7
     /**
      * @param \WPCF7_ContactForm $contact_form
      */
-    public function process_form($contact_form)
+    public function process_form($contact_form, $result)
     {
+        if (empty($result['status']) || ! in_array($result['status'], ['mail_sent', 'mail_failed'])) {
+            return;
+        }
+
         $contact_form_id = $contact_form->id();
         $obj             = \WPCF7_Submission::get_instance();
         $posted_data     = $obj->get_posted_data();

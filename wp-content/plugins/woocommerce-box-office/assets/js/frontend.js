@@ -1,68 +1,55 @@
-jQuery( document ).ready( function ($) {
+const BoxOffice = function() {
+	const form          = document.querySelector( '#ticket-scan-form form' );
+	const loader        = document.getElementById( 'ticket-scan-loader' );
+	const input         = document.querySelector( '#ticket-scan-form input#scan-code' );
+	const displayResult = document.getElementById( 'ticket-scan-result' );
 
-	if( $( '#ticket-print-content-container' ).length ) {
+	// Focus on barcode input field.
+	input.focus();
 
-		var ticket = $( '#ticket-print-content-container' ).html();
+	form.addEventListener( 'submit', ( event ) => {
+		event.preventDefault();
 
-		$( 'body' ).empty();
-		$( 'body' ).html( ticket );
+		// Show the loader.
+		loader.style.display = 'block';
 
-		imagesLoaded( '#ticket-print-content', function() {
-			window.print();
-		} );
-	}
+		// Empty existing results.
+		displayResult.innerHTML = '';
 
-	if( $( '#ticket-scan-form' ).length ) {
+		const inputAction = document.querySelector( '#ticket-scan-form #scan-action' ).value;
+		const request     = new XMLHttpRequest();
 
-		// Focus on barcode input field
-		$( '#ticket-scan-form input#scan-code' ).focus( function() {
-			$( this ).select();
-		});
+		request.open( 'POST', wc_box_office.ajaxurl, true );
+		request.setRequestHeader( 'Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8' );
+		request.setRequestHeader( 'X-Requested-With', 'XMLHttpRequest' );
+		request.onreadystatechange = function() {
+			if ( this.readyState === XMLHttpRequest.DONE && 200 === this.status ) {
+				// Focus on barcode input field.
+				input.focus();
 
-		// Detect if USB scanner has been used and submit automatically
-		$( '#ticket-scan-form input#scan-code' ).scannerDetection( function() {
-			$( '#ticket-scan-form form' ).submit();
-		});
-
-		// Handle form submission
-		$( '#ticket-scan-form form' ).submit( function(e) {
-			e.preventDefault();
-
-			// Show loading text
-			$( '#ticket-scan-loader' ).show();
-
-			// Empty existing results
-			$( '#ticket-scan-result' ).html('');
-
-			var input = $( '#ticket-scan-form input#scan-code' ).val();
-			var input_action = $( '#ticket-scan-form #scan-action' ).val();
-
-			$.post(
-				wc_order_barcodes.ajaxurl,
-				{
-					action: 'scan_ticket',
-					barcode_input: input,
-					scan_action: input_action,
-					woocommerce_box_office_scan_nonce: wc_box_office.scan_nonce
-				}
-			).done( function( response ) {
-
-				// Focus on ticket barcode input field
-				$( '#ticket-scan-form input#scan-code' ).focus();
-
-				if( ! response ) {
+				if ( ! request.response ) {
 					return;
 				}
 
-				// Hide loading text
-				$( '#ticket-scan-loader' ).hide();
+				// Hide the loader.
+				loader.style.display = 'none';
 
-				// Display response
-				$( '#ticket-scan-result' ).html( response );
+				// Display response.
+				displayResult.innerHTML = request.response;
+			}
 
-			});
+			return;
+		}
 
-		});
-	}
+		request.send( encodeURI( 'action=scan_ticket&barcode_input=' + input.value + '&scan_action=' + inputAction + '&woocommerce_box_office_scan_nonce=' + wc_box_office.scan_nonce ) );
+	} );
 
-});
+	onScan.attachTo( document, {
+		reactToPaste: false,
+		onScan: function( sCode, iQty ) {
+			form.dispatchEvent( new Event( 'submit' ) );
+		}
+	} );
+};
+
+window.onload = BoxOffice;

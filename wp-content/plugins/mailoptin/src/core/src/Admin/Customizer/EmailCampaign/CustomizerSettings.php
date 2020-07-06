@@ -190,10 +190,10 @@ class CustomizerSettings extends AbstractCustomizer
                     'transport'         => 'refresh',
                     'sanitize_callback' => 'absint',
                 ],
-                'post_content_type'             => [
-                    'default'           => $this->customizer_defaults['post_content_type'],
-                    'type'              => 'option',
-                    'transport'         => 'refresh'
+                'post_content_type'               => [
+                    'default'   => $this->customizer_defaults['post_content_type'],
+                    'type'      => 'option',
+                    'transport' => 'refresh'
                 ],
                 'post_content_length'             => [
                     'default'           => $this->customizer_defaults['post_content_length'],
@@ -445,7 +445,7 @@ class CustomizerSettings extends AbstractCustomizer
                     'type'      => 'option',
                     'transport' => 'postMessage',
                 ),
-                'content_headline_color'                       => array(
+                'content_headline_color'                   => array(
                     'default'   => $this->customizer_defaults['content_headline_color'],
                     'type'      => 'option',
                     'transport' => 'postMessage',
@@ -457,6 +457,11 @@ class CustomizerSettings extends AbstractCustomizer
                 ),
                 'content_post_meta'                        => array(
                     'default'   => $this->customizer_defaults['content_post_meta'],
+                    'type'      => 'option',
+                    'transport' => 'refresh',
+                ),
+                'content_remove_post_link'                 => array(
+                    'default'   => $this->customizer_defaults['content_remove_post_link'],
                     'type'      => 'option',
                     'transport' => 'refresh',
                 ),

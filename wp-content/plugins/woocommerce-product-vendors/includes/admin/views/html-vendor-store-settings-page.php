@@ -76,7 +76,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<th scope="row" valign="top"><label for="wcpv-vendor-commission"><?php esc_html_e( 'Commission', 'woocommerce-product-vendors' ); ?></label></th>
 
 					<td>
-						<input type="text" disabled="disabled" value="<?php echo esc_attr( $vendor_commission ); ?>" />
+						<input type="number" disabled="disabled" value="<?php echo esc_attr( $vendor_commission ); ?>" step="any" min="0" />
 
 						<p><?php esc_html_e( 'Default commission you will receive per product sale. Please note product level commission can override this.  Check your product to confirm.', 'woocommerce-product-vendors' ); ?></p>
 					</td>

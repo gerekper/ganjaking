@@ -47,6 +47,8 @@ class WC_Product_Vendors_Order {
 
 		add_action( 'woocommerce_product_vendors_paypal_webhook_trigger', array( $this, 'process_paypal_webhook' ) );
 
+		add_action( 'woocommerce_payment_complete', array( $this, 'payment_complete' ) );
+
 		$this->log = new WC_Logger();
 
 		return true;
@@ -460,5 +462,16 @@ class WC_Product_Vendors_Order {
 		}
 
 		$this->commission->delete_by_order_id( $order_id );
+	}
+
+	/**
+	 * On payment complete do additional processes.
+	 *
+	 * @since 2.1.35
+	 * @param int $order_id ID of the order.
+	 * @return void
+	 */
+	public function payment_complete( $order_id ) {
+		WC_Product_Vendors_Utils::clear_reports_transients();
 	}
 }

@@ -82,12 +82,12 @@ if ( ! class_exists( 'Wbcr_Factory_Compatibility' ) ) {
 
 			if ( ! $this->isPhpCompatibility() ) {
 				$has_one     = true;
-				$notice_text .= '- ' . sprintf( __( 'You need to update the PHP version to %s or higher!', 'wbcr_factory_423' ), $this->required_php_version ) . '<br>';
+				$notice_text .= '- ' . sprintf( __( 'You need to update the PHP version to %s or higher!', 'wbcr_factory_428' ), $this->required_php_version ) . '<br>';
 			}
 
 			if ( ! $this->isWpCompatibility() ) {
 				$has_one     = true;
-				$notice_text .= '- ' . sprintf( __( 'You need to update WordPress to %s or higher!', 'wbcr_factory_423' ), $this->required_wp_version ) . '<br>';
+				$notice_text .= '- ' . sprintf( __( 'You need to update WordPress to %s or higher!', 'wbcr_factory_428' ), $this->required_wp_version ) . '<br>';
 			}
 
 			if ( $has_one ) {

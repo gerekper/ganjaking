@@ -17,11 +17,33 @@ class Newsletter extends AbstractSettingsPage
     public function __construct()
     {
         add_action('mailoptin_register_email_campaign_settings_page', [$this, 'init']);
+
+        add_filter('set-screen-option', array($this, 'set_screen'), 10, 3);
+        add_filter('set_screen_option_newsletters_per_page', array($this, 'set_screen'), 10, 3);
+
     }
 
     public function init($hook)
     {
         add_action("load-$hook", array($this, 'screen_option'));
+    }
+
+    /**
+     * Save screen option.
+     *
+     * @param string $status
+     * @param string $option
+     * @param string $value
+     *
+     * @return mixed
+     */
+    public function set_screen($status, $option, $value)
+    {
+        if ('newsletters_per_page' == $option) {
+            return $value;
+        }
+
+        return $status;
     }
 
     /**
@@ -45,7 +67,7 @@ class Newsletter extends AbstractSettingsPage
      */
     public function screen_option()
     {
-        if (isset($_GET['page'],$_GET['view']) && $_GET['page'] == MAILOPTIN_EMAIL_CAMPAIGNS_SETTINGS_SLUG && $_GET['view'] == MAILOPTIN_EMAIL_NEWSLETTERS_SETTINGS_SLUG) {
+        if (isset($_GET['page'], $_GET['view']) && $_GET['page'] == MAILOPTIN_EMAIL_CAMPAIGNS_SETTINGS_SLUG && $_GET['view'] == MAILOPTIN_EMAIL_NEWSLETTERS_SETTINGS_SLUG) {
 
             $option = 'per_page';
             $args   = array(
@@ -53,6 +75,7 @@ class Newsletter extends AbstractSettingsPage
                 'default' => 10,
                 'option'  => 'newsletters_per_page',
             );
+
             add_screen_option($option, $args);
 
             $this->newsletter_instance = Newsletter_List::get_instance();

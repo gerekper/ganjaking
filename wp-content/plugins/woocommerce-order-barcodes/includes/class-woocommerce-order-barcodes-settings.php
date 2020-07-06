@@ -145,15 +145,11 @@ class WooCommerce_Order_Barcodes_Settings {
 
 				// Set defaults
 				if ( empty( $colours['foreground'] ) ) $colours['foreground'] = '#000000';
-				if ( empty( $colours['background'] ) ) $colours['background'] = '#FFFFFF';
 
 				$wc_settings_general = new WC_Settings_General();
 
-
 				// Show colour selection inputs
 	    		$wc_settings_general->color_picker( __( 'Foreground', 'woocommerce-order-barcodes' ), 'wc_order_barcodes_colours_foreground', $colours['foreground'], __( 'Barcode image and text color', 'woocommerce-order-barcodes' ) );
-	    		$wc_settings_general->color_picker( __( 'Background', 'woocommerce-order-barcodes' ), 'wc_order_barcodes_colours_background', $colours['background'], __( 'Barcode background color', 'woocommerce-order-barcodes' ) );
-
 		    ?></td>
 		</tr><?php
 	} // End colour_settings ()
@@ -166,16 +162,14 @@ class WooCommerce_Order_Barcodes_Settings {
 	 */
 	public function colour_settings_save () {
 
-		if ( isset( $_POST['wc_order_barcodes_colours_foreground'] ) || isset( $_POST['wc_order_barcodes_colours_background'] ) ) {
+		if ( isset( $_POST['wc_order_barcodes_colours_foreground'] ) ) {
 
 			// Get posted settings
-			$foreground = ( isset( $_POST['wc_order_barcodes_colours_foreground'] ) && ! empty( $_POST['wc_order_barcodes_colours_foreground'] ) ) ? wc_format_hex( $_POST['wc_order_barcodes_colours_foreground'] ) : '';
-			$background = ( isset( $_POST['wc_order_barcodes_colours_background'] ) && ! empty( $_POST['wc_order_barcodes_colours_background'] ) ) ? wc_format_hex( $_POST['wc_order_barcodes_colours_background'] ) : '';
+			$foreground = ( isset( $_POST['wc_order_barcodes_colours_foreground'] ) ) ? wc_format_hex( $_POST['wc_order_barcodes_colours_foreground'] ) : '';
 
 			// Set settings array
 			$colours = array(
-				'foreground' => $foreground,
-				'background' => $background,
+				'foreground' => $foreground
 			);
 
 			// Save settings

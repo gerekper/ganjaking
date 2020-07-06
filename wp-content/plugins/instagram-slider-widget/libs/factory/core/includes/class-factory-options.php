@@ -1,6 +1,6 @@
 <?php
 
-namespace WBCR\Factory_423;
+namespace WBCR\Factory_428;
 
 // Exit if accessed directly
 use Exception;
@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Трейт используется для расширения базового класса плагина Wbcr_Factory423_Base, позволяя работать с опциями плагина.
+ * Трейт используется для расширения базового класса плагина Wbcr_Factory428_Base, позволяя работать с опциями плагина.
  *
  * Этот трейт является оберткой для Wordpress функций get_option, get_site_option, update_option, update_site_option,
  * delete_option, delete_site_option. Основная задача была получать, обновлять, удалять опции без использования префиксов,

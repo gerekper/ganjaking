@@ -85,6 +85,12 @@
 				<span class="ticket-label-variables"></span>
 			</p>
 			<p>
+				<?php esc_html_e( 'To insert ticket ID use: ', 'woocommerce-box-office' ); ?>
+				<span class="ticket-id-var">
+					<a href="#"><code>{ticket_id}</code></a>
+				</span>
+			</p>
+			<p>
 				<?php esc_html_e( 'You can also use this ticket product variables: ', 'woocommerce-box-office' ); ?>
 				<span class="ticket-post-vars">
 					<a href="#"><code>{post_title}</code></a>
@@ -131,6 +137,25 @@
 					<a href="#"><code>{ticket_link}</code></a>
 				</span>
 			</p>
+			<p>
+				<?php esc_html_e( 'To insert ticket ID use: ', 'woocommerce-box-office' ); ?>
+				<span class="ticket-id-var">
+					<a href="#"><code>{ticket_id}</code></a>
+				</span>
+			</p>
+			<?php
+			$barcode_obj = new WC_Box_Office_Ticket_Barcode();
+			if ( $barcode_obj->is_available() ) {
+			?>
+			<p>
+				<?php esc_html_e( 'To insert barcode use: ', 'woocommerce-box-office' ); ?>
+				<span class="ticket-barcode-var">
+					<a href="#"><code>{barcode}</code></a>
+				</span>
+			</p>
+			<?php
+			}
+			?>
 			<p>
 				<?php esc_html_e( 'To insert ticket token use: ', 'woocommerce-box-office' ); ?>
 				<span class="ticket-token-var">

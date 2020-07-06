@@ -4,4 +4,6 @@ Thank you so much for purchasing a ticket and hope to see you soon at our event.
 
 {ticket_link}
 
+Ticket ID: {ticket_id}
+
 Let us know if you have any questions!

@@ -44,7 +44,6 @@ class Connections extends AbstractSettingsPage
 
     public function register_settings_page()
     {
-
         add_submenu_page(
             MAILOPTIN_SETTINGS_SETTINGS_SLUG,
             __('Integrations - MailOptin', 'mailoptin'),
@@ -85,6 +84,11 @@ class Connections extends AbstractSettingsPage
                         </a>
                     </li>
                     <li>
+                        <a href="<?php echo $crm_url; ?>" class="<?php echo $crm_menu_active; ?>">
+                            <?php _e('CRM', 'mailoptin'); ?>
+                        </a>
+                    </li>
+                    <li>
                         <a href="<?php echo $social_url; ?>" class="<?php echo $social_menu_active; ?>">
                             <?php _e('Social', 'mailoptin'); ?>
                         </a>
@@ -94,20 +98,51 @@ class Connections extends AbstractSettingsPage
                         <a href="<?php echo $analytics_url; ?>" class="<?php echo $analytics_menu_active; ?>">
                             <?php _e('Analytics', 'mailoptin'); ?>
                         </a></li>
-                    <li>
-                        <a href="<?php echo $crm_url; ?>" class="<?php echo $crm_menu_active; ?>">
-                            <?php _e('CRM', 'mailoptin'); ?>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="<?php echo $other_url; ?>" class="<?php echo $other_menu_active; ?>">
-                            <?php _e('Other', 'mailoptin'); ?>
-                        </a>
-                    </li>
                 </ul>
             </div>
         </div>
         <?php
+    }
+
+    public function sidebar_metaboxes()
+    {
+        $boxes = [
+            [
+                'title'   => esc_html__('Form Plugins Integration'),
+                'content' => sprintf(__('MailOptin integrates with popular WordPress form plugins to help save all contacts and subscribers from your forms submissions to your email marketing software and CRM.
+                <p><a href="%s" target="_blank">Gravity Forms integration</a></p>
+                <p><a href="%s" target="_blank">Contact Form 7 integration</a></p>
+                <p><a href="%s" target="_blank">WPForms integration</a></p>
+                <p><a href="%s" target="_blank">Ninja Forms integration</a></p>
+                <p><a href="%s" target="_blank">Elementor Forms integration</a></p>
+                '),
+                    'https://mailoptin.io/article/gravity-forms-mailchimp-aweber-more/?utm_source=wp_dashboard&utm_medium=integration_metabox&utm_campaign=gravity_forms',
+                    'https://mailoptin.io/article/contact-form-7-mailchimp-aweber-more/?utm_source=wp_dashboard&utm_medium=integration_metabox&utm_campaign=cf7',
+                    'https://mailoptin.io/article/wpforms-email-marketing-crm/?utm_source=wp_dashboard&utm_medium=integration_metabox&utm_campaign=wpforms',
+                    'https://mailoptin.io/article/ninja-forms-mailchimp-aweber-more/?utm_source=wp_dashboard&utm_medium=integration_metabox&utm_campaign=ninja_forms',
+                    'https://mailoptin.io/article/elementor-form-integration/?utm_source=wp_dashboard&utm_medium=integration_metabox&utm_campaign=elementor_forms'
+
+                )
+            ],
+            [
+                'title'   => esc_html__('Other Plugins Integration'),
+                'content' => sprintf(__('MailOptin also integrates with the following plugins.
+                <p><a href="%s" target="_blank">Polylang, WPML & Weglot for multilingual support</a></p>
+                '),
+                    'https://mailoptin.io/article/create-multilingual-optin-campaigns/?utm_source=wp_dashboard&utm_medium=integration_metabox&utm_campaign=gravity_forms'
+
+                )
+            ]
+        ];
+
+        foreach ($boxes as $box) :
+            ?>
+            <div class="postbox">
+                <h2 class="hndle is-non-sortable"><span><?= $box['title'] ?></span></h2>
+                <div class="inside"><?= $box['content'] ?></div>
+            </div>
+        <?php
+        endforeach;
     }
 
     public function settings_admin_page_callback()
@@ -151,16 +186,31 @@ class Connections extends AbstractSettingsPage
             settings_errors('wp_csa_notice');
             echo '<div class="wrap">';
             $instance->settings_page_heading();
-            $this->filter_sub_menu();
 
             if ( ! empty($connection_args)) {
-                echo '<div class="mailoptin-settings-wrap" data-option-name="' . MAILOPTIN_CONNECTIONS_DB_OPTION_NAME . '">';
+                ?>
+                <div id="poststuff">
+                <div id="post-body" class="metabox-holder columns-2">
+                <div id="post-body-content" style="position: relative;">
+                <?php
+                $this->filter_sub_menu();
+                echo '<div class="mailoptin-settings-wrap ' . MAILOPTIN_CONNECTIONS_DB_OPTION_NAME . '" data-option-name="' . MAILOPTIN_CONNECTIONS_DB_OPTION_NAME . '">';
                 echo '<h2 class="nav-tab-wrapper">' . $nav_tabs . '</h2>';
                 echo '<div class="metabox-holder mailoptin-tab-settings">';
                 echo '<form method="post">';
                 $instance->nonce_field();
                 echo $tab_content_area;
                 echo '</form>';
+                echo '</div>';
+                echo '</div>';
+                echo '</div>';
+                ?>
+                <div id="postbox-container-1" class="postbox-container">
+                    <div id="side-sortables" class="meta-box-sortables ui-sortable">
+                        <?php $this->sidebar_metaboxes(); ?>
+                    </div>
+                </div>
+                <?php
                 echo '</div>';
                 echo '</div>';
                 echo '</div>';

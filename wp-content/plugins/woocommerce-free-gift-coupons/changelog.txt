@@ -1,5 +1,10 @@
 === WooCommerce Free Gift Coupons ===
 
+2020.06.30 - version 2.5.0
+* New: Revise `get_gift_data()` to always include product object in 'data' key.
+* New: Only attempt to add the free gift to the cart if it is purchasable.
+* New: Even strict enforcement of quantity of gift in cart, which will help integration with mini-extensions.
+
 2020.06.09 - version 2.4.6
 * Fix: Correct build process to reduce plugin file size.
 

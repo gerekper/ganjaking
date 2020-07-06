@@ -190,7 +190,7 @@ class OptinConversionsRepository extends AbstractRepository
         if ( ! is_null($limit)) {
             $offset = ($offset - 1) * $limit;
             if ($offset > 1) {
-                $sql .= "  OFFSET %s";
+                $sql .= "  OFFSET %d";
 
                 $replacements[] = $offset;
             }

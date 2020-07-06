@@ -5,7 +5,9 @@ namespace MailOptin\Core\OptinForms;
 
 use MailOptin\Core\Admin\Customizer\CustomControls\ControlsHelpers;
 use MailOptin\Core\PluginSettings\Settings;
+use MailOptin\Core\Repositories\ConnectionsRepository;
 use MailOptin\Core\Repositories\OptinCampaignsRepository;
+use function MailOptin\Core\moVar;
 
 abstract class AbstractOptinTheme extends AbstractOptinForm
 {
@@ -1049,7 +1051,6 @@ abstract class AbstractOptinTheme extends AbstractOptinForm
 
                     $data_attr = sprintf('data-field-id="%s"', $field_id);
 
-
                     $html .= apply_filters('mo_optin_form_custom_field_output', '', $field_type, $field, $atts);
 
                     switch ($field_type) {
@@ -1058,6 +1059,12 @@ abstract class AbstractOptinTheme extends AbstractOptinForm
                             $html .= $atts['tag_start'];
                             $html .= "<input $data_attr id=\"$id\" class=\"$class\" style=\"$style\" type=\"text\" placeholder=\"$placeholder\" name=\"$field_id\">";
                             $html .= $atts['tag_end'];
+                            break;
+                        case 'hidden':
+                            $value = moVar($field, 'hidden_value', '', true);
+                            $html  .= $atts['tag_start'];
+                            $html  .= "<input $data_attr id=\"$id\" class=\"$class\" style=\"display:none\" type=\"hidden\" value=\"$value\" name=\"$field_id\">";
+                            $html  .= $atts['tag_end'];
                             break;
                         case 'textarea':
                             $html .= $atts['tag_start'];
@@ -1095,9 +1102,10 @@ abstract class AbstractOptinTheme extends AbstractOptinForm
                             $html .= "</div>" . $atts['tag_end'];
                             break;
                         case 'select':
-                            $html .= $atts['tag_start'];
-                            $html .= "<select name=\"$field_id\" $data_attr class=\"$class\" id=\"$id\" style=\"$style\">";
-                            $html .= "<option value='' selected='selected'>$placeholder</option>";
+                            $placeholder = ! empty($placeholder) ? $placeholder : esc_html__('Select...', 'mailoptin');
+                            $html        .= $atts['tag_start'];
+                            $html        .= "<select name=\"$field_id\" $data_attr class=\"$class\" id=\"$id\" style=\"$style\">";
+                            $html        .= "<option value='' selected='selected'>$placeholder</option>";
                             //Display options
                             foreach ($options as $option) {
                                 $option = esc_attr(trim($option));
@@ -1107,6 +1115,63 @@ abstract class AbstractOptinTheme extends AbstractOptinForm
                                 $html .= "<option value=\"$option\" >$option</option>";
                             }
                             $html .= "</select>" . $atts['tag_end'];
+                            break;
+                        case 'list_subscription':
+                            $display_type = moVar($field, 'list_subscription_display_type', 'checkbox', true);
+                            $integration  = moVar($field, 'list_subscription_integration');
+
+                            $name_attribute = 'mo-list-subscription';
+
+                            $integration_email_list = ConnectionsRepository::connection_email_list($integration);
+
+                            if (empty($integration) || empty($integration_email_list)) return '';
+
+                            $options         = moVar($field, 'list_subscription_lists', [], true);
+                            $alignment_style = sprintf("text-align: %s;", moVar($field, 'list_subscription_alignment', 'left', true));
+                            $style           .= $alignment_style;
+
+                            $html .= $atts['tag_start'];
+                            $html .= sprintf('<input type="hidden" name="mo-list-subscription-integration" value="%s">', $integration);
+                            switch ($display_type) {
+                                case 'checkbox':
+                                    if (is_array($options) && ! empty($options)) {
+                                        $html .= sprintf('<div %s class="%s" style="%s" id="%s">', $data_attr, $class, $style, $id);
+                                        $html .= "<div class='mo-checkbox-title' style='$alignment_style'>$placeholder</div>";
+
+                                        foreach ($options as $option) {
+                                            $html .= sprintf('<label class="mo-list-subscription-checkbox" style="%s">', $alignment_style);
+                                            $html .= sprintf('<input style="%s" type="checkbox" name="%s[]" value="%s"> %s', $style, $name_attribute, $option, $integration_email_list[$option]);
+                                            $html .= '</label>';
+                                        }
+                                        $html .= '</div>';
+                                    }
+                                    break;
+                                case 'radio':
+                                    if (is_array($options) && ! empty($options)) {
+                                        $html .= sprintf('<div %s class="%s" style="%s" id="%s">', $data_attr, $class, $style, $id);
+                                        $html .= "<div class='mo-radio-title' style='$alignment_style'>$placeholder</div>";
+                                        foreach ($options as $option) {
+                                            $html .= sprintf('<label class="mo-list-subscription-checkbox" style="%s">', $alignment_style);
+                                            $html .= sprintf('<input style="%s" type="radio" name="%s" value="%s"> %s', $style, $name_attribute, $option, $integration_email_list[$option]);
+                                            $html .= '</label>';
+                                        }
+                                        $html .= '</div>';
+                                    }
+                                    break;
+                                case 'select':
+                                    if (is_array($options) && ! empty($options)) {
+                                        $placeholder = ! empty($placeholder) ? $placeholder : esc_html__('Select...', 'mailoptin');
+                                        $html        .= "<select name=\"$name_attribute\" $data_attr class=\"$class\" id=\"$id\" style=\"$style\">";
+                                        $html        .= "<option value='' selected='selected'>$placeholder</option>";
+                                        foreach ($options as $option) {
+                                            $html .= sprintf('<option value="%s">%s</option>', $option, $integration_email_list[$option]);
+                                        }
+                                        $html .= '</select>';
+                                    }
+                                    break;
+                            }
+
+                            $html .= $atts['tag_end'];
                             break;
                     }
                 }

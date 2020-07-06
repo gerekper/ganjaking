@@ -508,7 +508,7 @@ class WC_Product_Vendors_Store_Admin_Commission_List extends WP_List_Table {
 					if ( version_compare( WC_VERSION, '3.0.0', '>=' ) ) {
 						$order_item = WC_Order_Factory::get_order_item( $item->order_item_id );
 						
-						if ( $metadata = $order_item->get_formatted_meta_data() ) {
+						if ( $order_item && $metadata = $order_item->get_formatted_meta_data() ) {
 							foreach ( $metadata as $meta_id => $meta ) {
 								// Skip hidden core fields
 								if ( in_array( $meta->key, apply_filters( 'wcpv_hidden_order_itemmeta', array(

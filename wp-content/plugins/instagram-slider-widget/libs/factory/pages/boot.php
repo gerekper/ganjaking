@@ -10,34 +10,34 @@
  */
 
 // Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ) {
+if( !defined('ABSPATH') ) {
 	exit;
 }
 
 // module provides function only for the admin area
-if ( ! is_admin() ) {
+if( !is_admin() ) {
 	return;
 }
 
-if ( defined( 'FACTORY_PAGES_423_LOADED' ) ) {
+if( defined('FACTORY_PAGES_428_LOADED') ) {
 	return;
 }
 
-define( 'FACTORY_PAGES_423_LOADED', true );
+define('FACTORY_PAGES_428_LOADED', true);
 
-define( 'FACTORY_PAGES_423_VERSION', '4.2.3' );
+define('FACTORY_PAGES_428_VERSION', '4.2.8');
 
-define( 'FACTORY_PAGES_423_DIR', dirname( __FILE__ ) );
-define( 'FACTORY_PAGES_423_URL', plugins_url( null, __FILE__ ) );
+define('FACTORY_PAGES_428_DIR', dirname(__FILE__));
+define('FACTORY_PAGES_428_URL', plugins_url(null, __FILE__));
 
-if ( ! defined( 'FACTORY_FLAT_ADMIN' ) ) {
-	define( 'FACTORY_FLAT_ADMIN', true );
+if( !defined('FACTORY_FLAT_ADMIN') ) {
+	define('FACTORY_FLAT_ADMIN', true);
 }
 
-load_plugin_textdomain( 'wbcr_factory_pages_423', false, dirname( plugin_basename( __FILE__ ) ) . '/langs' );
+load_plugin_textdomain('wbcr_factory_pages_428', false, dirname(plugin_basename(__FILE__)) . '/langs');
 
-require( FACTORY_PAGES_423_DIR . '/pages.php' );
-require( FACTORY_PAGES_423_DIR . '/includes/page.class.php' );
-require( FACTORY_PAGES_423_DIR . '/includes/admin-page.class.php' );
-require( FACTORY_PAGES_423_DIR . '/templates/impressive-page.class.php' );
+require(FACTORY_PAGES_428_DIR . '/pages.php');
+require(FACTORY_PAGES_428_DIR . '/includes/page.class.php');
+require(FACTORY_PAGES_428_DIR . '/includes/admin-page.class.php');
+require(FACTORY_PAGES_428_DIR . '/templates/impressive-page.class.php');
 

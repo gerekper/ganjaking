@@ -99,7 +99,7 @@ class WC_FGC_Smart_Coupons_Compatibility {
 	public static function smart_coupon_description( $description, $coupon ) {
 		if ( $coupon->is_type( 'free_gift' ) ) {
 			
-			$gift_data = WC_Free_Gift_Coupons::get_gift_data( $coupon->get_id(), true );
+			$gift_data = WC_Free_Gift_Coupons::get_gift_data( $coupon->get_id() );
 
 			if ( count( $gift_data ) === 1 ) {
 				$product_titles = implode( ', ', wp_list_pluck( $gift_data, 'title' ) );

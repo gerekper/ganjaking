@@ -63,6 +63,7 @@ class AjaxHandler
             'customizer_get_templates'                 => false,
             'customizer_set_template'                  => false,
             'ecb_fetch_post_type_posts'                => false,
+            'list_subscription_integration_lists'      => false,
         );
 
         foreach ($ajax_events as $ajax_event => $nopriv) {
@@ -713,6 +714,7 @@ class AjaxHandler
 
         $response = self::do_optin_conversion($builder);
 
+
         wp_send_json($response);
     }
 
@@ -847,14 +849,45 @@ class AjaxHandler
         }
 
         $responses = [];
+
         if (is_array($integrations) && ! empty($integrations)) {
+
             foreach ($integrations as $integration) {
+
                 $conversion_data->payload['integration_data'] = $integration;
-                $responses[]                                  = self::add_lead_to_connection(
-                    $integration['connection_service'],
-                    isset($integration['connection_email_list']) ? $integration['connection_email_list'] : '',
-                    $conversion_data
-                );
+
+                // list subscription shim starts here
+                $ls_integration = moVar($conversion_data->payload, 'mo-list-subscription-integration');
+                $ls_lists       = moVar($conversion_data->payload, 'mo-list-subscription');
+
+                if ( ! empty($ls_integration) && ! empty($ls_lists) && $ls_integration == $integration['connection_service']) {
+
+                    if (is_array($ls_lists)) {
+                        foreach ($ls_lists as $ls_list) {
+                            $responses[] = self::add_lead_to_connection(
+                                $integration['connection_service'],
+                                $ls_list,
+                                $conversion_data
+                            );
+                        }
+                    } else {
+                        $responses[] = self::add_lead_to_connection(
+                            $integration['connection_service'],
+                            $ls_lists,
+                            $conversion_data
+                        );
+                    }
+
+                    // list subscription shim ends here
+
+                } else {
+
+                    $responses[] = self::add_lead_to_connection(
+                        $integration['connection_service'],
+                        isset($integration['connection_email_list']) ? $integration['connection_email_list'] : '',
+                        $conversion_data
+                    );
+                }
             }
         }
 
@@ -898,10 +931,7 @@ class AjaxHandler
 
         $no_email_provider_or_list_error = self::no_email_provider_or_list_error();
 
-        $connection_fqn_class = ConnectionFactory::get_fqn_class($connection_service);
-
-        if (empty($connection_service) || empty($connection_email_list)
-        ) {
+        if (empty($connection_service) || empty($connection_email_list)) {
             AbstractConnect::send_optin_error_email($optin_campaign_id, $no_email_provider_or_list_error);
 
             return AbstractConnect::ajax_failure($no_email_provider_or_list_error);
@@ -1170,6 +1200,23 @@ class AjaxHandler
         $optin_campaign_id = sanitize_text_field($_POST['optin_id']);
         $notification      = sanitize_text_field($_POST['notification']);
         (new StateRepository())->set($notification, absint($optin_campaign_id));
+    }
+
+    public function list_subscription_integration_lists()
+    {
+        check_ajax_referer('customizer-fetch-email-list', 'security');
+
+        if ( ! current_user_has_privilege()) {
+            exit;
+        }
+
+        $integration = sanitize_text_field($_POST['integration']);
+
+        $email_list = ConnectionsRepository::connection_email_list($integration);
+
+        wp_send_json_success($email_list);
+
+        wp_die();
     }
 
     /**

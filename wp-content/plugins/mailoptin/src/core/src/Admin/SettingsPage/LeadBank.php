@@ -13,7 +13,6 @@ class LeadBank extends AbstractSettingsPage
 
     public function register_settings_page()
     {
-
         $hook = add_submenu_page(
             MAILOPTIN_SETTINGS_SETTINGS_SLUG,
             __('Leads (Submissions) - MailOptin', 'mailoptin'),
@@ -32,11 +31,11 @@ class LeadBank extends AbstractSettingsPage
     public function screen_option()
     {
         $option = 'per_page';
-        $args   = array(
+        $args   = [
             'label'   => __('Leads', 'mailoptin'),
-            'default' => 8,
+            'default' => 10,
             'option'  => 'conversions_per_page',
-        );
+        ];
 
         add_screen_option($option, $args);
 

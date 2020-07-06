@@ -15,6 +15,7 @@
 
                     //Remove any previous click event handlers on the field type select field and reattach
                     var field = this;
+
                     var maybeHideOptionsField = function () {
                         var field_type = $(field).find('.mo-optin-fields-field').val();
                         var with_options = ["checkbox", "select", "radio"];
@@ -22,6 +23,38 @@
                             $(field).find(".field_options.mo-fields-block").hide();
                         } else {
                             $(field).find(".field_options.mo-fields-block").show();
+                        }
+                    };
+
+                    var maybeHideListSubscriptionFields = function () {
+                        var field_type = $(field).find('.mo-optin-fields-field').val();
+                        if (field_type === 'list_subscription') {
+                            $(field).find(".list_subscription_integration.mo-fields-block").show();
+                            $(field).find(".list_subscription_lists.mo-fields-block").show();
+                            $(field).find(".list_subscription_display_type.mo-fields-block").show();
+                            $(field).find(".list_subscription_alignment.mo-fields-block").show();
+                        } else {
+                            $(field).find(".list_subscription_integration.mo-fields-block").hide();
+                            $(field).find(".list_subscription_lists.mo-fields-block").hide();
+                            $(field).find(".list_subscription_display_type.mo-fields-block").hide();
+                            $(field).find(".list_subscription_alignment.mo-fields-block").hide();
+                        }
+                    };
+
+                    var maybeHideHiddenValueField = function () {
+                        var field_type = $(field).find('.mo-optin-fields-field').val();
+                        if (field_type === 'hidden') {
+                            $(field).find(".hidden_value.mo-fields-block").show();
+                            $(field).find(".color.mo-fields-block").hide();
+                            $(field).find(".background.mo-fields-block").hide();
+                            $(field).find(".font.mo-fields-block").hide();
+                            $(field).find(".field_required.mo-fields-block").hide();
+                        } else {
+                            $(field).find(".hidden_value.mo-fields-block").hide();
+                            $(field).find(".color.mo-fields-block").show();
+                            $(field).find(".background.mo-fields-block").show();
+                            $(field).find(".font.mo-fields-block").show();
+                            $(field).find(".field_required.mo-fields-block").show();
                         }
                     };
 
@@ -66,6 +99,8 @@
 
                     maybeHideOptionsField();
                     maybeHideRecaptchaField();
+                    maybeHideHiddenValueField();
+                    maybeHideListSubscriptionFields();
 
                     $(this)
                         .find('.mo-optin-fields-field')
@@ -73,6 +108,8 @@
                         .on('change.mo_field', function () {
                             maybeHideOptionsField();
                             maybeHideRecaptchaField();
+                            maybeHideHiddenValueField();
+                            maybeHideListSubscriptionFields();
                         });
 
                     var widget_title_obj = $(this).find('.mo-fields-widget-title h3');
@@ -82,6 +119,55 @@
                         // I didnt do ++index because i dont want the new index copy to index variable.
                         widget_title_obj.text(mailoptin_globals.custom_field_label.replace('{ID}', index + 1));
                     }
+                });
+            };
+
+            var fetch_list_subscription_integration_lists = function () {
+
+                var update_options_select = function (newOptions, $el) {
+                    if (_.isEmpty(newOptions)) newOptions = {}; // in case it's an empty array
+
+                    $el.empty(); // remove old options
+                    $.each(newOptions, function (key, value) {
+                        $el.append($("<option></option>")
+                            .attr("value", key).text(value));
+                    });
+
+                    $el.trigger('chosen:updated');
+                };
+
+                $(document).on('change', '[name=list_subscription_integration]', function () {
+
+                    var list_options = {},
+                        selected_integration = this.value,
+                        obj = $(this).parents('.mo-fields-widget-form'),
+                        $el = obj.find('select[name=list_subscription_lists]');
+
+                    if (selected_integration !== '') {
+
+                        $('.mo-list-subscription-spinner', obj).css('visibility', 'visible');
+
+                        $.post(ajaxurl, {
+                            action: 'mailoptin_list_subscription_integration_lists',
+                            integration: selected_integration,
+                            security: $("input[data-customize-setting-link*='[ajax_nonce]']").val()
+                        }, function (response) {
+                            console.log(response);
+                            if ('success' in response && response.success === true) {
+                                list_options = response.data;
+                            }
+
+
+                            update_options_select(list_options, $el);
+
+                            $('.mo-list-subscription-spinner', obj).css('visibility', 'hidden');
+
+                        });
+
+                        return;
+                    }
+
+                    update_options_select(list_options, $el);
                 });
             };
 
@@ -232,6 +318,8 @@
                     }
                 });
             };
+
+            fetch_list_subscription_integration_lists();
 
             contextual_display_init();
             sortable_init();

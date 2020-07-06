@@ -70,6 +70,7 @@ class CustomizerControls
                     'content_before_main_content',
                     'content_after_main_content',
                     'content_post_meta',
+                    'content_remove_post_link',
                     'content_remove_post_body',
                     'content_remove_feature_image',
                     'default_image_url',
@@ -442,7 +443,7 @@ class CustomizerControls
             );
         }
 
-        if(ER::is_code_your_own_template($this->customizerClassInstance->email_campaign_id)) {
+        if (ER::is_code_your_own_template($this->customizerClassInstance->email_campaign_id)) {
             unset($campaign_settings_controls['post_content_type']);
         }
 
@@ -1257,6 +1258,16 @@ HTML;
                             ),
                             'priority' => 23
                         )
+                    )
+                ),
+                'content_remove_post_link'                 => new WP_Customize_Toggle_Control(
+                    $this->wp_customize,
+                    $this->option_prefix . '[content_remove_post_link]',
+                    array(
+                        'label'    => esc_html__('Remove Title & Image Link to Post', 'mailoptin'),
+                        'section'  => $this->customizerClassInstance->campaign_content_section_id,
+                        'settings' => $this->option_prefix . '[content_remove_post_link]',
+                        'priority' => 24
                     )
                 ),
                 'content_remove_post_body'                 => new WP_Customize_Toggle_Control(

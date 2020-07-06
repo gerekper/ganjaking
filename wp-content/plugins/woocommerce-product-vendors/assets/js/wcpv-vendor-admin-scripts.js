@@ -9,11 +9,6 @@ jQuery( document ).ready( function( $ ) {
 			} else if ( 'booking' === $( 'select#product-type' ).val() ) {
 				$( '.show_if_booking' ).show();
 			}
-
-			// remove bookings resources panel
-			$( 'li.bookings_tab.bookings_resources_tab' ).hide();
-			$( '#bookings_resources' ).hide();
-			$( '#_wc_booking_has_resources' ).parent( 'label' ).hide();
 		},
 
 		init: function() {

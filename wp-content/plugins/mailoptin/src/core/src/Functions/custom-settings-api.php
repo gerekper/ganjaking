@@ -929,7 +929,7 @@ public function _header($section_title, $args = array())
             $this->do_settings_errors();
             settings_errors('wp_csa_notice');
             $this->settings_page_tab();
-            echo '<div class="mailoptin-settings-wrap" data-option-name="' . $option_name . '">';
+            echo '<div class="mailoptin-settings-wrap ' . $option_name . '" data-option-name="' . $option_name . '">';
             if ( ! empty($nav_tabs)) {
                 echo '<h2 class="nav-tab-wrapper">' . $nav_tabs . '</h2>';
             }

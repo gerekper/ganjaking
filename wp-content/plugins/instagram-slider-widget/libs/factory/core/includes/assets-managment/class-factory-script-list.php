@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @since 1.0.0
  */
-class Wbcr_Factory423_ScriptList extends Wbcr_Factory423_AssetsList {
+class Wbcr_Factory428_ScriptList extends Wbcr_Factory428_AssetsList {
 
 	public $localize_data = [];
 	public $use_ajax = false;
@@ -149,7 +149,7 @@ class Wbcr_Factory423_ScriptList extends Wbcr_Factory423_AssetsList {
 	 * @param string $varname
 	 * @param string $data
 	 *
-	 * @return Wbcr_Factory423_ScriptList $this
+	 * @return Wbcr_Factory428_ScriptList $this
 	 */
 	public function localize( $varname, $data ) {
 		$bindTo = count( $this->all ) == 0 ? null : end( $this->all );
@@ -158,7 +158,8 @@ class Wbcr_Factory423_ScriptList extends Wbcr_Factory423_AssetsList {
 			return $this;
 		}
 
-		$this->localize_data[ $bindTo ] = [ $varname, $data ];
+		$handle  = ! empty( $bindTo['handle'] ) ? $bindTo['handle'] : $bindTo['file_url'];
+		$this->localize_data[ $handle ] = [ $varname, $data ];
 
 		return $this;
 	}

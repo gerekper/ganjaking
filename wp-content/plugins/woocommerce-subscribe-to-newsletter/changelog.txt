@@ -1,5 +1,13 @@
 *** Subscribe to Newsletter Changelog ***
 
+2020-07-01 - version 2.9.0
+* Tweak - Moved the subscription field after the terms and conditions in the checkout form.
+* Tweak - Hidden the tag (optional) from the subscription field.
+* Tweak - Use WooCommerce templates to output the content in the checkout and register forms.
+* Tweak - Remove the service provider credentials when uninstalling the extension.
+* Tweak - Tested compatibility with WC 4.3.
+* Fix - Fixed compatibility with PayPal Express Checkout.
+
 2020-06-01 - version 2.8.1
 * Tweak - Tested compatibility with WC 4.2.
 

@@ -52,7 +52,7 @@ class WIS_LicensePage extends WIS_Page {
 
 	/**
 	 * @since 2.0.7
-	 * @var \WBCR\Factory_423\Premium\Provider
+	 * @var \WBCR\Factory_428\Premium\Provider
 	 */
 	protected $premium;
 
@@ -70,7 +70,7 @@ class WIS_LicensePage extends WIS_Page {
 
 	/**
 	 * @since 2.0.7
-	 * @var \WBCR\Factory_423\Premium\Interfaces\License
+	 * @var \WBCR\Factory_428\Premium\Interfaces\License
 	 */
 	protected $premium_license;
 
@@ -81,17 +81,17 @@ class WIS_LicensePage extends WIS_Page {
 	 * {@inheritdoc}
 	 * @param WIS_Plugin $plugin
 	 */
-	public function __construct ( $plugin ) {
+	public function __construct( $plugin ) {
 		$this->plugin = $plugin;
 
 		parent::__construct( $plugin );
 
-		$this->id             = 'license';
-		$this->menu_title     = '<span style="color:#f18500">'.__( 'License', 'instagram-slider-widget' ).'</span>';
-		$this->page_title = __( 'License of Social Slider Widget', 'instagram-slider-widget' );
+		$this->id            = 'license';
+		$this->menu_title    = '<span style="color:#f18500">' . __( 'License', 'instagram-slider-widget' ) . '</span>';
+		$this->page_title    = __( 'License of Social Slider Widget', 'instagram-slider-widget' );
 		$this->template_name = "license";
-		$this->menu_target= "widgets-".$plugin->getPluginName();
-		$this->capabilitiy = "manage_options";
+		$this->menu_target   = "widgets-" . $plugin->getPluginName();
+		$this->capabilitiy   = "manage_options";
 
 		$this->premium                  = WIS_Plugin::app()->premium;
 		$this->is_premium               = $this->premium->is_activate();
@@ -103,7 +103,7 @@ class WIS_LicensePage extends WIS_Page {
 	/**
 	 * [MAGIC] Magic method that configures assets for a page.
 	 */
-	public function assets ( $scripts, $styles ) {
+	public function assets( $scripts, $styles ) {
 		parent::assets( $scripts, $styles );
 
 		$this->styles->add( WIS_PLUGIN_URL . '/admin/assets/css/license-manager.css' );
@@ -122,14 +122,14 @@ class WIS_LicensePage extends WIS_Page {
 	 *
 	 * @return string Before content.
 	 */
-	protected function get_plan_description () {
+	protected function get_plan_description() {
 		return '';
 	}
 
 	/**
 	 * @return string
 	 */
-	protected function get_hidden_license_key () {
+	protected function get_hidden_license_key() {
 		if ( ! $this->is_premium ) {
 			return '';
 		}
@@ -140,7 +140,7 @@ class WIS_LicensePage extends WIS_Page {
 	/**
 	 * @return string
 	 */
-	protected function get_plan () {
+	protected function get_plan() {
 		if ( ! $this->is_premium ) {
 			return 'free';
 		}
@@ -151,14 +151,14 @@ class WIS_LicensePage extends WIS_Page {
 	/**
 	 * @return mixed
 	 */
-	protected function get_expiration_days () {
+	protected function get_expiration_days() {
 		return $this->premium_license->get_expiration_time( 'days' );
 	}
 
 	/**
 	 * @return string
 	 */
-	protected function get_billing_cycle_readable () {
+	protected function get_billing_cycle_readable() {
 		if ( ! $this->is_premium ) {
 			return '';
 		}
@@ -184,7 +184,7 @@ class WIS_LicensePage extends WIS_Page {
 	 *
 	 * @return string
 	 */
-	protected function get_license_type () {
+	protected function get_license_type() {
 		if ( ! $this->is_premium ) {
 			return 'free';
 		}
