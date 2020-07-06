@@ -1,8 +1,8 @@
 <?php
 defined( 'ABSPATH' ) || exit;
 
-$rocket_cookie_hash = 'b6a2ba32b6f7777b02af51e930bb9afe';
-$rocket_logged_in_cookie = 'wordpress_logged_in_b6a2ba32b6f7777b02af51e930bb9afe';
+$rocket_cookie_hash = '7e6819ddde90a2b65fa18698fb0fd22f';
+$rocket_logged_in_cookie = 'wordpress_logged_in_7e6819ddde90a2b65fa18698fb0fd22f';
 $rocket_cache_mobile_files_tablet = 'desktop';
 $rocket_cache_mobile = 1;
 $rocket_cache_reject_uri = '/(.+/)?feed/?.+/?|/(?:.+/)?embed/|/checkout/(.*)|/cart/|/my-account/(.*)|/wc-api/v(.*)|/(index\.php/)?wp\-json(/.*|$)';
