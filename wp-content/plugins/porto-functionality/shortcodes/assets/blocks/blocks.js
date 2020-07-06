@@ -4550,7 +4550,7 @@ function _makeConsumableArray(arr) {
 				el( SelectControl, {
 					label: __('Order by'),
 					value: attrs.orderby,
-					options: [{ label: __('Date'), value: 'date' }, { label: __('Price'), value: 'price' },{ label: __('Rating'), value: 'rating' },{ label: __('Total Sales'), value: 'total_sales' },{ label: __('Popularity'), value: 'popularity' },{ label: __('ID'), value: 'ID' }, { label: __('Author'), value: 'author' }, { label: __('Title'), value: 'title' }, { label: __('Modified'), value: 'modified' }, { label: __('Random'), value: 'rand' }, { label: __('Comment count'), value: 'comment_count' }, { label: __('Menu order'), value: 'menu_order' }],
+					options: [{ label: __('Date'), value: 'date' }, { label: __('Price'), value: 'price' },{ label: __('Rating'), value: 'rating' },{ label: __('Total Sales'), value: 'total_sales' },{ label: __('Popularity'), value: 'popularity' },{ label: __('ID'), value: 'id' }, { label: __('Title'), value: 'title' }, { label: __('Random'), value: 'rand' }, { label: __('Menu order'), value: 'menu_order' }],
 					onChange: ( value ) => { setAttributes( { orderby: value } ); },
 				} ),
 				attrs.orderby != 'rating' && el( SelectControl, {
@@ -4879,8 +4879,8 @@ function _makeConsumableArray(arr) {
 			categories: { type: 'array', default: [] },
 			status: { type: 'string' },
 			count: { type: 'int' },
-			orderby: { type: 'string', default: 'date' },
-			order: { type: 'string', default: 'desc' },
+			orderby: { type: 'string' },
+			order: { type: 'string' },
 			columns: { type: 'int', default: 4 },
 			columns_mobile: { type: 'string' },
 			column_width: { type: 'string' },
@@ -5858,6 +5858,7 @@ function _makeConsumableArray(arr) {
 			let classes = '';
 			if ( 'grid' == attrs.view ) {
 				classes += ' columns-' + attrs.columns + ' ' + attrs.view;
+				classes += ' pcols-ls-2 pcols-xs-' + Math.min( 3, attrs.columns ) + ' pcols-lg-' + attrs.columns;
 			} else if ( 'products-slider' == attrs.view ) {
 				classes += ' products-slider owl-carousel pcols-lg-' + attrs.columns;
 				if (attrs.navigation) {
@@ -5895,7 +5896,7 @@ function _makeConsumableArray(arr) {
 				),
 				el(
 					'ul',
-					{ className: 'products products-container posts-container' + classes + ' ' + category_view },
+					{ className: 'products products-container' + classes + ' ' + category_view },
 					this.state.categoriesList.map(function (cat, index) {
 						let image = null, item_class = '';
 						if (cat.image && cat.image.catalog_src) {
@@ -5983,8 +5984,8 @@ function _makeConsumableArray(arr) {
 			text_position: { type: 'string', default: 'middle-center' },
 			overlay_bg_opacity: { type: 'int', default: 15 },
 			text_color: { type: 'string', default: 'light' },
-			orderby: { type: 'string' },
-			order: { type: 'string', default: 'desc' },
+			orderby: { type: 'string', default: 'name' },
+			order: { type: 'string', default: 'asc' },
 			hide_empty: { type: 'boolean' },
 			parent: { type: 'string' },
 			ids: { type: 'string' },

@@ -1,10 +1,22 @@
 <?php
 global $porto_settings, $porto_settings_optimize;
-if ( ! empty( $porto_settings['mobile-panel-type'] ) || 'overlay' == $porto_settings['menu-type'] ) {
+
+if ( ! empty( $porto_settings['mobile-panel-type'] ) ) {
 	return;
 }
 
 $header_type = porto_get_header_type();
+if ( 'overlay' == $porto_settings['menu-type'] ) {
+	if ( empty( $header_type ) ) {
+		global $porto_menu_wrap;
+		if ( empty( $porto_menu_wrap ) ) {
+			return;
+		}
+	} elseif ( ! in_array( (int) $header_type, array( 1, 4, 9, 13, 14, 17 ) ) ) {
+		return;
+	}
+}
+
 $is_preset   = porto_header_type_is_preset();
 ?>
 

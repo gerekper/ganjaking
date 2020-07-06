@@ -88,7 +88,7 @@ function porto_load_ultimate_heading_shortcode() {
 					'heading'    => __( 'Font Weight', 'porto-functionality' ),
 					'param_name' => 'main_heading_font_weight',
 					'value'      => array(
-						__( 'Default', 'porto' ) => '',
+						__( 'Default', 'porto-functionality' ) => '',
 						'100'                    => '100',
 						'200'                    => '200',
 						'300'                    => '300',
@@ -200,7 +200,7 @@ function porto_load_ultimate_heading_shortcode() {
 					'heading'    => __( 'Font Weight', 'porto-functionality' ),
 					'param_name' => 'sub_heading_font_weight',
 					'value'      => array(
-						__( 'Default', 'porto' ) => '',
+						__( 'Default', 'porto-functionality' ) => '',
 						'100'                    => '100',
 						'200'                    => '200',
 						'300'                    => '300',

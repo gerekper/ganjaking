@@ -1285,6 +1285,10 @@ jQuery(document).ready(function($) {
                 css += '#side-nav-panel .accordion-menu li.menu-item > a, #side-nav-panel .menu-custom-block a{color:' + value['regular'] + '}';
             } else {
                 css += '#nav-panel .accordion-menu li.menu-item > a, #nav-panel .accordion-menu .arrow, #nav-panel .menu-custom-block a{color:' + value['regular'] + '}';
+                var skinColor = wp.customize.instance('porto_settings[skin-color]').get();
+                if (skinColor) {
+                    css += '#nav-panel .accordion-menu > li.menu-item > a, #nav-panel .accordion-menu > li.menu-item > .arrow{color:' + skinColor + '}';
+                }
             }
             if (value['hover']) {
                 if ('side' == panelType) {

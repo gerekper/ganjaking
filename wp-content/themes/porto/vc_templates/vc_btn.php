@@ -133,6 +133,10 @@ if ( 'true' === $button_block && 'inline' !== $align ) {
 	$button_classes[] = 'vc_btn3-block';
 }
 
+if ( isset( $el_cls ) && $el_cls ) {
+	$button_classes[] = trim( $el_cls );
+}
+
 if ( 'true' === $add_icon ) {
 	$button_classes[] = 'vc_btn3-icon-' . $i_align;
 	vc_icon_element_fonts_enqueue( $i_type );
@@ -350,6 +354,49 @@ if ( $button_classes ) {
 			$styles[] = vc_get_css_color( 'color', $custom_text );
 		}
 	}
+}
+
+if ( isset( $btn_fs ) && $btn_fs ) {
+	$unit = trim( preg_replace( '/[0-9.]/', '', $btn_fs ) );
+	if ( ! $unit ) {
+		$btn_fs .= 'px';
+	}
+	$styles[] = 'font-size:' . $btn_fs . ';';
+}
+if ( isset( $btn_fw ) && $btn_fw ) {
+	$styles[] = 'font-weight:' . $btn_fw . ';';
+}
+if ( isset( $btn_ls ) && $btn_ls ) {
+	$unit = trim( preg_replace( '/[0-9.-]/', '', $btn_ls ) );
+	if ( ! $unit ) {
+		$btn_ls .= 'px';
+	}
+	$styles[] = 'letter-spacing:' . $btn_ls . ';';
+}
+if ( ( isset( $btn_px ) && $btn_px ) && ( isset( $btn_py ) && $btn_py ) ) {
+	$unit = trim( preg_replace( '/[0-9.]/', '', $btn_px ) );
+	if ( ! $unit ) {
+		$btn_px .= 'px';
+	}
+	$unit = trim( preg_replace( '/[0-9.]/', '', $btn_py ) );
+	if ( ! $unit ) {
+		$btn_py .= 'px';
+	}
+	$styles[] = 'padding:' . $btn_py . ' ' . $btn_px . ';';
+} elseif ( isset( $btn_px ) && $btn_px ) {
+	$unit = trim( preg_replace( '/[0-9.]/', '', $btn_px ) );
+	if ( ! $unit ) {
+		$btn_px .= 'px';
+	}
+	$styles[] = 'padding-left:' . $btn_px . ';';
+	$styles[] = 'padding-right:' . $btn_px . ';';
+} elseif ( isset( $btn_py ) && $btn_py ) {
+	$unit = trim( preg_replace( '/[0-9.]/', '', $btn_py ) );
+	if ( ! $unit ) {
+		$btn_py .= 'px';
+	}
+	$styles[] = 'padding-top:' . $btn_py . ';';
+	$styles[] = 'padding-bottom:' . $btn_py . ';';
 }
 
 if ( ! empty( $styles ) ) {

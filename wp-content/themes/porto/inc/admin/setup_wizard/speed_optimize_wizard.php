@@ -855,6 +855,12 @@ if ( ! class_exists( 'Porto_Speed_Optimize_Wizard' ) ) {
 			if ( ! class_exists( 'WPBMap' ) ) {
 				if ( class_exists( 'PortoShortcodesClass' ) ) {
 					$shortcode_list = array_merge( PortoShortcodesClass::$shortcodes, PortoShortcodesClass::$woo_shortcodes );
+					if ( defined( 'ELEMENTOR_VERSION' ) ) {
+						// Includes Elementor widgets
+						$shortcode_list = array_merge( $shortcode_list, array(
+							'porto_circular_bar',
+						) );
+					}
 				}
 			} else {
 				$all_vc_shortcodes = WPBMap::getAllShortCodes();
@@ -1056,6 +1062,7 @@ if ( ! class_exists( 'Porto_Speed_Optimize_Wizard' ) ) {
 						'porto_members',
 						'porto_recent_members',
 						'porto_price_box',
+						'porto_circular_bar',
 					);
 					$widgets = array_diff( $widgets, $used );
 					foreach ( $widgets as $widget ) {

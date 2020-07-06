@@ -40,7 +40,7 @@ class Porto_Elementor_Portfolio_Widget extends \Elementor\Widget_Base {
 	}
 
 	protected function _register_controls() {
-		$order_by_values  = array_slice( porto_vc_woo_order_by(), 1 );
+		$order_by_values  = array_slice( porto_vc_order_by(), 1 );
 		$order_way_values = array_slice( porto_vc_woo_order_way(), 1 );
 
 		$this->start_controls_section(
@@ -482,6 +482,9 @@ class Porto_Elementor_Portfolio_Widget extends \Elementor\Widget_Base {
 		$atts = $this->get_settings_for_display();
 
 		if ( $template = porto_shortcode_template( 'porto_portfolios' ) ) {
+			if ( ! empty( $atts['spacing']['size'] ) ) {
+				$atts['spacing'] = $atts['spacing']['size'];
+			}
 			if ( ! empty( $atts['number']['size'] ) ) {
 				$atts['number'] = $atts['number']['size'];
 			}

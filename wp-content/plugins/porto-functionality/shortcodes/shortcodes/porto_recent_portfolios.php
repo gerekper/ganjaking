@@ -113,6 +113,12 @@ function porto_load_recent_portfolios_shortcode() {
 				),
 				array(
 					'type'       => 'textfield',
+					'heading'     => __( 'Portfolio IDs', 'porto-functionality' ),
+					'description' => __( 'comma separated list of portfolio ids', 'porto-functionality' ),
+					'param_name'  => 'post_in',
+				),
+				array(
+					'type'       => 'textfield',
 					'heading'    => __( 'Items to show on Desktop', 'porto-functionality' ),
 					'param_name' => 'items_desktop',
 					'value'      => '4',

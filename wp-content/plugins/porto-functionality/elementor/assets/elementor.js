@@ -194,7 +194,7 @@ jQuery(document).ready(function($) {
 				}
 			});
 
-			var porto_widgets = ['porto_blog.default', 'wp-widget-recent_posts-widget.default', 'wp-widget-recent_portfolios-widget.default', 'porto_products.default', 'porto_product_categories.default', 'porto_recent_posts.default', 'shortcode.default', 'porto_portfolios.default', 'porto_button.default', 'porto_ultimate_heading.default', 'porto_recent_members.default'];
+			var porto_widgets = ['porto_blog.default', 'wp-widget-recent_posts-widget.default', 'wp-widget-recent_portfolios-widget.default', 'porto_products.default', 'porto_product_categories.default', 'porto_recent_posts.default', 'shortcode.default', 'porto_portfolios.default', 'porto_button.default', 'porto_ultimate_heading.default', 'porto_recent_members.default', 'porto_recent_portfolios.default', 'porto_circular_bar.default'];
 			$.each(porto_widgets, function(key, element_name) {
 				elementorFrontend.hooks.addAction('frontend/element_ready/' + element_name, function($obj) {
 					var $iso_obj = $obj.find('[data-plugin-masonry]').length ? $obj.find('[data-plugin-masonry]') : $obj.find('.posts-masonry .posts-container:not(.manual)');

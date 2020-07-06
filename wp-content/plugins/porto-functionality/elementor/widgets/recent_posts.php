@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Porto Elementor Posts Slide Widget
+ * Porto Elementor Posts Slider Widget
  *
  * Porto Element widget to display posts slider.
  *

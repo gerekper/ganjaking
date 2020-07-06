@@ -1308,7 +1308,7 @@ if ( ! function_exists( 'porto_action_lazyload_menu' ) ) :
 			if ( 'mobile_menu' == $_POST['menu_type'] || $on_pageload ) {
 				global $porto_settings;
 				get_template_part( 'header/mobile_menu' );
-				if ( isset( $porto_settings['mobile-panel-type'] ) && 'side' === $porto_settings['mobile-panel-type'] && 'overlay' != $porto_settings['menu-type'] ) {
+				if ( isset( $porto_settings['mobile-panel-type'] ) && 'side' === $porto_settings['mobile-panel-type'] ) {
 					get_template_part( 'panel' );
 				}
 			}

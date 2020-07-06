@@ -510,6 +510,20 @@ function porto_css() {
 		wp_enqueue_style( 'elementor-icons' );
 		wp_enqueue_style( 'elementor-animations' );
 		wp_enqueue_style( 'elementor-frontend' );
+
+		if ( isset( \Elementor\Plugin::$instance ) ) {
+			add_action(
+				'wp_footer',
+				function() {
+					try {
+						wp_enqueue_script( 'elementor-frontend' );
+						$settings = \Elementor\Plugin::$instance->frontend->get_settings();
+						\Elementor\Utils::print_js_config( 'elementor-frontend', 'elementorFrontendConfig', $settings );
+					} catch ( Exception $e ) {
+					}
+				}
+			);
+		}
 	}
 
 	wp_enqueue_style( 'bootstrap' );
@@ -744,7 +758,7 @@ function porto_scripts() {
 		wp_enqueue_script( 'porto-theme' );
 
 		if ( function_exists( 'vc_is_inline' ) && vc_is_inline() ) {
-			wp_enqueue_script( 'porto-vc-frontend-eidtor', PORTO_JS . '/admin/vc-frontend-editor.js', array( 'porto-theme' ), PORTO_VERSION, true );
+			wp_enqueue_script( 'porto-vc-frontend-editor', PORTO_JS . '/admin/vc-frontend-editor.js', array( 'porto-theme' ), PORTO_VERSION, true );
 		}
 
 		wp_register_script( 'porto-theme-async', PORTO_JS . '/theme-async' . $min_suffix . '.js', array( 'jquery', 'porto-theme' ), PORTO_VERSION, true );

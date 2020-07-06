@@ -354,36 +354,40 @@ if ( (int) $b['grid-gutter-width'] > $max_spacing_mobile ) :
 	}
 	<?php
 	endif;
-?>
 
-.container-fluid .vc_row.vc_column-gap-1 { padding-left: <?php echo (int) $b['grid-gutter-width'] - 0.5; ?>px; padding-right: <?php echo (int) $b['grid-gutter-width'] - 0.5; ?>px }
-.container-fluid .vc_row.vc_column-gap-2 { padding-left: <?php echo (int) $b['grid-gutter-width'] - 1; ?>px; padding-right: <?php echo (int) $b['grid-gutter-width'] - 1; ?>px }
-.container-fluid .vc_row.vc_column-gap-3 { padding-left: <?php echo (int) $b['grid-gutter-width'] - 1.5; ?>px; padding-right: <?php echo (int) $b['grid-gutter-width'] - 1.5; ?>px }
-.container-fluid .vc_row.vc_column-gap-4 { padding-left: <?php echo (int) $b['grid-gutter-width'] - 2; ?>px; padding-right: <?php echo (int) $b['grid-gutter-width'] - 2; ?>px }
-.container-fluid .vc_row.vc_column-gap-5 { padding-left: <?php echo (int) $b['grid-gutter-width'] - 2.5; ?>px; padding-right: <?php echo (int) $b['grid-gutter-width'] - 2.5; ?>px }
-.container-fluid .vc_row.vc_column-gap-10 { padding-left: <?php echo (int) $b['grid-gutter-width'] - 5; ?>px; padding-right: <?php echo (int) $b['grid-gutter-width'] - 5; ?>px }
-.container-fluid .vc_row.vc_column-gap-15 { padding-left: <?php echo (int) $b['grid-gutter-width'] - 7.5; ?>px; padding-right: <?php echo (int) $b['grid-gutter-width'] - 7.5; ?>px }
-.container-fluid .vc_row.vc_column-gap-20 { padding-left: <?php echo (int) $b['grid-gutter-width'] - 10; ?>px; padding-right: <?php echo (int) $b['grid-gutter-width'] - 10; ?>px }
-.container-fluid .vc_row.vc_column-gap-25 { padding-left: <?php echo (int) $b['grid-gutter-width'] - 12.5; ?>px; padding-right: <?php echo (int) $b['grid-gutter-width'] - 12.5; ?>px }
-.container-fluid .vc_row.vc_column-gap-30 { padding-left: <?php echo (int) $b['grid-gutter-width'] - 15; ?>px; padding-right: <?php echo (int) $b['grid-gutter-width'] - 15; ?>px }
-<?php if ( $b['grid-gutter-width'] >= 17.5 ) : ?>
-	.container-fluid .vc_row.vc_column-gap-35 { padding-left: <?php echo (int) $b['grid-gutter-width'] - 17.5; ?>px; padding-right: <?php echo (int) $b['grid-gutter-width'] - 17.5; ?>px }
-<?php else : ?>
-	.container-fluid .vc_row.vc_column-gap-35 { padding-left: 0; padding-right: 0; }
-<?php endif; ?>
-.container-fluid .vc_row .vc_row { padding-left: 0; padding-right: 0; margin-left: -<?php echo (int) $b['grid-gutter-width'] / 2; ?>px; margin-right: -<?php echo (int) $b['grid-gutter-width'] / 2; ?>px; }
-.container-fluid .vc_row .vc_row.vc_column-gap-1 { margin-left: -0.5px; margin-right: -0.5px }
-.container-fluid .vc_row .vc_row.vc_column-gap-2 { margin-left: -1px; margin-right: -1px }
-.container-fluid .vc_row .vc_row.vc_column-gap-3 { margin-left: -1.5px; margin-right: -1.5px }
-.container-fluid .vc_row .vc_row.vc_column-gap-4 { margin-left: -2px; margin-right: -2px }
-.container-fluid .vc_row .vc_row.vc_column-gap-5 { margin-left: -2.5px; margin-right: -2.5px }
-.container-fluid .vc_row .vc_row.vc_column-gap-10 { margin-left: -5px; margin-right: -5px }
-.container-fluid .vc_row .vc_row.vc_column-gap-15 { margin-left: -7.5px; margin-right: -7.5px }
-.container-fluid .vc_row .vc_row.vc_column-gap-20 { margin-left: -10px; margin-right: -10px }
-.container-fluid .vc_row .vc_row.vc_column-gap-25 { margin-left: -12.5px; margin-right: -12.5px }
-.container-fluid .vc_row .vc_row.vc_column-gap-30 { margin-left: -15px; margin-right: -15px }
-.container-fluid .vc_row .vc_row.vc_column-gap-35 { margin-left: -17.5px; margin-right: -17.5px }
-/*.container-fluid .ads-container.vc_row { margin-left: 0 !important; margin-right: 0 !important; }*/
+if ( defined( 'WPB_VC_VERSION' ) ) :
+	?>
+	.container-fluid .vc_row.vc_column-gap-1 { padding-left: <?php echo (int) $b['grid-gutter-width'] - 0.5; ?>px; padding-right: <?php echo (int) $b['grid-gutter-width'] - 0.5; ?>px }
+	.container-fluid .vc_row.vc_column-gap-2 { padding-left: <?php echo (int) $b['grid-gutter-width'] - 1; ?>px; padding-right: <?php echo (int) $b['grid-gutter-width'] - 1; ?>px }
+	.container-fluid .vc_row.vc_column-gap-3 { padding-left: <?php echo (int) $b['grid-gutter-width'] - 1.5; ?>px; padding-right: <?php echo (int) $b['grid-gutter-width'] - 1.5; ?>px }
+	.container-fluid .vc_row.vc_column-gap-4 { padding-left: <?php echo (int) $b['grid-gutter-width'] - 2; ?>px; padding-right: <?php echo (int) $b['grid-gutter-width'] - 2; ?>px }
+	.container-fluid .vc_row.vc_column-gap-5 { padding-left: <?php echo (int) $b['grid-gutter-width'] - 2.5; ?>px; padding-right: <?php echo (int) $b['grid-gutter-width'] - 2.5; ?>px }
+	.container-fluid .vc_row.vc_column-gap-10 { padding-left: <?php echo (int) $b['grid-gutter-width'] - 5; ?>px; padding-right: <?php echo (int) $b['grid-gutter-width'] - 5; ?>px }
+	.container-fluid .vc_row.vc_column-gap-15 { padding-left: <?php echo (int) $b['grid-gutter-width'] - 7.5; ?>px; padding-right: <?php echo (int) $b['grid-gutter-width'] - 7.5; ?>px }
+	.container-fluid .vc_row.vc_column-gap-20 { padding-left: <?php echo (int) $b['grid-gutter-width'] - 10; ?>px; padding-right: <?php echo (int) $b['grid-gutter-width'] - 10; ?>px }
+	.container-fluid .vc_row.vc_column-gap-25 { padding-left: <?php echo (int) $b['grid-gutter-width'] - 12.5; ?>px; padding-right: <?php echo (int) $b['grid-gutter-width'] - 12.5; ?>px }
+	.container-fluid .vc_row.vc_column-gap-30 { padding-left: <?php echo (int) $b['grid-gutter-width'] - 15; ?>px; padding-right: <?php echo (int) $b['grid-gutter-width'] - 15; ?>px }
+	<?php if ( $b['grid-gutter-width'] >= 17.5 ) : ?>
+		.container-fluid .vc_row.vc_column-gap-35 { padding-left: <?php echo (int) $b['grid-gutter-width'] - 17.5; ?>px; padding-right: <?php echo (int) $b['grid-gutter-width'] - 17.5; ?>px }
+	<?php else : ?>
+		.container-fluid .vc_row.vc_column-gap-35 { padding-left: 0; padding-right: 0; }
+	<?php endif; ?>
+	.container-fluid .vc_row .vc_row { padding-left: 0; padding-right: 0; margin-left: -<?php echo (int) $b['grid-gutter-width'] / 2; ?>px; margin-right: -<?php echo (int) $b['grid-gutter-width'] / 2; ?>px; }
+	.container-fluid .vc_row .vc_row.vc_column-gap-1 { margin-left: -0.5px; margin-right: -0.5px }
+	.container-fluid .vc_row .vc_row.vc_column-gap-2 { margin-left: -1px; margin-right: -1px }
+	.container-fluid .vc_row .vc_row.vc_column-gap-3 { margin-left: -1.5px; margin-right: -1.5px }
+	.container-fluid .vc_row .vc_row.vc_column-gap-4 { margin-left: -2px; margin-right: -2px }
+	.container-fluid .vc_row .vc_row.vc_column-gap-5 { margin-left: -2.5px; margin-right: -2.5px }
+	.container-fluid .vc_row .vc_row.vc_column-gap-10 { margin-left: -5px; margin-right: -5px }
+	.container-fluid .vc_row .vc_row.vc_column-gap-15 { margin-left: -7.5px; margin-right: -7.5px }
+	.container-fluid .vc_row .vc_row.vc_column-gap-20 { margin-left: -10px; margin-right: -10px }
+	.container-fluid .vc_row .vc_row.vc_column-gap-25 { margin-left: -12.5px; margin-right: -12.5px }
+	.container-fluid .vc_row .vc_row.vc_column-gap-30 { margin-left: -15px; margin-right: -15px }
+	.container-fluid .vc_row .vc_row.vc_column-gap-35 { margin-left: -17.5px; margin-right: -17.5px }
+	/*.container-fluid .ads-container.vc_row { margin-left: 0 !important; margin-right: 0 !important; }*/
+	<?php
+	endif;
+?>
 @media (max-width: 991px) {
 	.container,
 	.container-fluid .vc_row .porto-map-section .container,
@@ -1585,6 +1589,10 @@ body.boxed .portfolio-ajax-modal .vc_row[data-vc-stretch-content],
 
 /*------ Screen Large Variable ------- */
 @media (min-width: <?php echo (int) ( $b['container-width'] + $b['grid-gutter-width'] ); ?>px) {
+	.ccols-xl-2 > * {
+		flex: 0 0 50%;
+		max-width: 50%;
+	}
 	.ccols-xl-3 > * {
 		flex: 0 0 33.3333%;
 		max-width: 33.3333%;
@@ -6061,7 +6069,8 @@ article.post .post-date .sticky,
 	.elementor-column-wrap > .porto-carousel,
 	.elementor-column-wrap .porto-sicon-box,
 	.elementor-column-wrap .porto-u-heading,
-	.porto-u-heading p:last-child { margin-bottom: 0 }
+	.porto-u-heading p:last-child,
+	.elementor-column-wrap .circular-bar { margin-bottom: 0 }
 	.porto-carousel .elementor-column,
 	.elementor-column-wrap > .porto-carousel { width: 100% }
 	.porto-carousel .elementor-section.elementor-section-boxed > .elementor-container { margin: 0; max-width: 100%; }

@@ -30,6 +30,6 @@ if ( ( ( class_exists( 'Vc_Manager' ) && ( ( is_admin() && ( 'post.php' == $GLOB
 }
 
 // Pre Order
-if ( isset( $porto_settings['woo-pre-order'] ) && $porto_settings['woo-pre-order'] ) {
+if ( class_exists( 'Woocommerce' ) && isset( $porto_settings['woo-pre-order'] ) && $porto_settings['woo-pre-order'] ) {
 	require PORTO_LIB . '/lib/woocommerce-pre-order/init.php';
 }

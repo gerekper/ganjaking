@@ -355,7 +355,7 @@
 						if ($el.find('.product-col').get(0)) {
 							portoCalcSliderButtonsPosition($slider_wrapper, $el.find('.product-col').css('padding-left'));
 						}
-						$el.find('.cloned .porto-lazyload:not(.lazy-load-loaded)').themePluginLazyLoad();
+						//$el.find('.cloned .porto-lazyload:not(.lazy-load-loaded)').themePluginLazyLoad();
 					},
 					touchDrag: (count == 1) ? false : true,
 					mouseDrag: (count == 1) ? false : true
@@ -1546,7 +1546,7 @@
 								lazyLoad: true,
 								center: centerItem,
 								onInitialized : function() {
-									$this.find('.cloned .porto-lazyload:not(.lazy-load-loaded)').themePluginLazyLoad();
+									//$this.find('.cloned .porto-lazyload:not(.lazy-load-loaded)').themePluginLazyLoad();
 									if (theme.product_zoom && (!('ontouchstart' in document) || (('ontouchstart' in document) && theme.product_zoom_mobile))) {
 										$this.find('img').each(function() {
 											var $this = $(this);

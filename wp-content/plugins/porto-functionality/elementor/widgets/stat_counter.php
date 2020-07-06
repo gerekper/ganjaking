@@ -471,6 +471,37 @@ class Porto_Elementor_Stat_Counter_Widget extends \Elementor\Widget_Base {
 			)
 		);
 
+		$this->add_control(
+			'wrap_margin_bottom',
+			array(
+				'type'        => Controls_Manager::SLIDER,
+				'label'       => __( 'Margin Bottom', 'porto-functionality' ),
+				'range'       => array(
+					'px'  => array(
+						'step' => 1,
+						'min'  => 0,
+						'max'  => 100,
+					),
+					'rem' => array(
+						'step' => 0.1,
+						'min'  => 0,
+						'max'  => 5,
+					),
+				),
+				'default'     => array(
+					'unit' => 'px',
+				),
+				'size_units'  => array(
+					'px',
+					'rem',
+				),
+				'description' => __( 'Default is 35px.', 'porto-functionality' ),
+				'selectors'   => array(
+					'{{WRAPPER}} .stats-block' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
 		$this->end_controls_section();
 	}
 

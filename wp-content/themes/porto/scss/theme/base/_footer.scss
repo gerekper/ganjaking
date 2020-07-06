@@ -1,5 +1,4 @@
 /* #Footer */
-
 .footer-wrapper {
     &.wide {
         .container {
@@ -32,7 +31,7 @@
     }
 
     form {
-        opacity: 0.85;
+        opacity: .85;
     }
 
     ul.list {
@@ -44,22 +43,22 @@
     .footer-ribbon {
         position: absolute;
         top: 0;
-        margin: -16px 0 0 0;
-        padding: 10px 20px 6px 20px;
+        margin: -16px 0 0;
+        padding: 10px 20px 6px;
         color: #fff;
         font-size: 1.6em;
         z-index: 101;
 
         &:before {
-            #{$right}: 100%;
-            border-#{$right}: 10px solid #646464;
-            border-top: 16px solid transparent;
             content: "";
             display: block;
             height: 0;
             position: absolute;
             top: 0;
             width: 7px;
+            #{$right}: 100%;
+            border-#{$right}: 10px solid #646464;
+            border-top: 16px solid transparent;
         }
     }
 
@@ -93,45 +92,31 @@
         font-size: 0.9em;
 
         .container {
-            display: table;
-            table-layout: fixed;
+            display: -webkit-flex; display: flex;
+            -webkit-align-items: center; align-items: center;
+            justify-content: space-between;
             @media #{$screen-normal} {
                 display: block;
             }
             > div {
-                display: table-cell;
-                vertical-align: middle;
+                -webkit-flex: 1; flex: 1;
                 @media #{$screen-normal} {
-                    display: block;
+                    padding: 10px 0;
+                    text-align: $left;
                 }
             }
         }
         .footer-left {
             padding: side-values(10px 8px 10px 0);
             text-align: $left;
-            @media #{$screen-normal} {
-                padding: 10px 0;
-            }
-            width: 100%;
         }
         .footer-center {
             padding: 10px 8px;
             text-align: center;
-            width: 100%;
-            @media #{$screen-normal} {
-                padding: 10px 0;
-                width: auto;
-                text-align: $left;
-            }
         }
         .footer-right {
             padding: side-values(10px 0 10px 8px);
             text-align: $right;
-            @media #{$screen-normal} {
-                padding: 10px 0;
-                text-align: $left;
-            }
-            width: 100%;
         }
     }
 
@@ -237,9 +222,9 @@
                 }
             }
 
-            &:first-child {
+            /*&:first-child {
                 margin-#{$right}: 0;
-            }
+            }*/
         }
 
         .footer-right {
@@ -249,9 +234,9 @@
                 }
             }
 
-            &:first-child {
+            /*&:first-child {
                 margin-#{$left}: 0;
-            }
+            }*/
         }
 
         .tooltip {
@@ -265,7 +250,7 @@
     &.fixed {
         #footer {
             padding-top: 0;
-            background: transparent;
+            background: none;
 
             .footer-bottom {
                 padding: 0;
@@ -274,38 +259,21 @@
                     display: none;
                 }
 
-                .container {
-                    display: table;
-                    > div {
-                        padding-top: 8px;
-                        padding-bottom: 8px;
-                        display: table-cell;
-                        float: none;
-
-                        @media #{$screen-normal} {
-                            &.footer-center {
-                                display: none;
-                            }
-                        }
-                        @media #{$screen-small} {
-                            &.footer-right {
-                                display: none;
-                            }
-                            &.footer-left {
-                                text-align: center;
-                            }
-                        }
+                @media #{$screen-normal} {
+                    .footer-center {
+                        display: none;
+                    }
+                }
+                @media #{$screen-small} {
+                    .footer-right {
+                        display: none;
+                    }
+                    .footer-left {
+                        text-align: center;
                     }
                 }
             }
         }
-    }
-    &.fixed {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        z-index: 10;
     }
 
     .post-item-small h5 {
@@ -330,10 +298,14 @@
     }
 }
 
-.footer-reveal {
+.footer-reveal, .footer-wrapper.fixed {
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
+    z-index: 10;
+}
+
+.footer-reveal {
     z-index: -10;
 }

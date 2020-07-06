@@ -255,7 +255,7 @@ class Porto_Elementor_Button_Widget extends \Elementor\Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'label'     => __( 'Hover Text Color', 'porto-functionality' ),
 				'selectors' => array(
-					'{{WRAPPER}} .btn:hover' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .btn:hover, {{WRAPPER}} .btn:focus, {{WRAPPER}} .btn:active' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -266,7 +266,7 @@ class Porto_Elementor_Button_Widget extends \Elementor\Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'label'     => __( 'Hover Background Color', 'porto-functionality' ),
 				'selectors' => array(
-					'{{WRAPPER}} .btn:hover' => 'background-color: {{VALUE}};',
+					'{{WRAPPER}} .btn:hover, {{WRAPPER}} .btn:focus, {{WRAPPER}} .btn:active' => 'background-color: {{VALUE}};',
 				),
 			)
 		);
@@ -277,7 +277,7 @@ class Porto_Elementor_Button_Widget extends \Elementor\Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'label'     => __( 'Hover Border Color', 'porto-functionality' ),
 				'selectors' => array(
-					'{{WRAPPER}} .btn:hover' => 'border-color: {{VALUE}};',
+					'{{WRAPPER}} .btn:hover, {{WRAPPER}} .btn:focus, {{WRAPPER}} .btn:active' => 'border-color: {{VALUE}};',
 				),
 			)
 		);

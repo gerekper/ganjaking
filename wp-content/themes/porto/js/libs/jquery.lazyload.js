@@ -39,7 +39,7 @@
             var counter = 0;
             elements.each(function(index) {
                 var $this = $(this);
-                if (!$this.length) {
+                if (!$this.length || $this.hasClass('lazy-load-loaded')) {
                     delete elements[index];
                     return;
                 }

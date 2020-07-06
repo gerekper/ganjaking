@@ -2396,6 +2396,76 @@ function porto_load_shortcodes() {
 		vc_add_param(
 			'vc_btn',
 			array(
+				'type'       => 'textfield',
+				'heading'    => __( 'Font Size', 'porto' ),
+				'param_name' => 'btn_fs',
+				'value'      => '',
+				'group'      => $section_group,
+			)
+		);
+		vc_add_param(
+			'vc_btn',
+			array(
+				'type'       => 'dropdown',
+				'heading'    => __( 'Font Weight', 'porto' ),
+				'param_name' => 'btn_fw',
+				'std'        => '',
+				'value'      => array(
+					__( 'Default', 'porto' ) => '',
+					'100'                    => '100',
+					'200'                    => '200',
+					'300'                    => '300',
+					'400'                    => '400',
+					'500'                    => '500',
+					'600'                    => '600',
+					'700'                    => '700',
+					'800'                    => '800',
+					'900'                    => '900',
+				),
+				'group'      => $section_group,
+			)
+		);
+		vc_add_param(
+			'vc_btn',
+			array(
+				'type'       => 'textfield',
+				'heading'    => __( 'Letter Spacing', 'porto' ),
+				'param_name' => 'btn_ls',
+				'value'      => '',
+				'group'      => $section_group,
+			)
+		);
+		vc_add_param(
+			'vc_btn',
+			array(
+				'type'        => 'textfield',
+				'heading'     => __( 'Button Left / Right Padding', 'porto-functionality' ),
+				'param_name'  => 'btn_px',
+				'group'       => $section_group,
+			)
+		);
+		vc_add_param(
+			'vc_btn',
+			array(
+				'type'        => 'textfield',
+				'heading'     => __( 'Button Top / Bottom Padding', 'porto-functionality' ),
+				'param_name'  => 'btn_py',
+				'group'       => $section_group,
+			)
+		);
+		vc_add_param(
+			'vc_btn',
+			array(
+				'type'       => 'textfield',
+				'heading'    => __( 'Extra Class', 'porto' ),
+				'param_name' => 'el_cls',
+				'value'      => '',
+				'group'      => $section_group,
+			)
+		);
+		vc_add_param(
+			'vc_btn',
+			array(
 				'type'       => 'checkbox',
 				'heading'    => __( 'Show as Label', 'porto' ),
 				'param_name' => 'label',

@@ -23,6 +23,8 @@ if ( ! class_exists( 'Porto_Elementor_Init' ) ) :
 			'members',
 			'recent_members',
 			'pricing_table',
+			'recent_portfolios',
+			'circular_bar',
 		);
 
 		private $woo_widgets = array(

@@ -26,7 +26,7 @@ function porto_load_blog_shortcode() {
 	$animation_duration = porto_vc_animation_duration();
 	$animation_delay    = porto_vc_animation_delay();
 	$custom_class       = porto_vc_custom_class();
-	$order_by_values    = porto_vc_woo_order_by();
+	$order_by_values    = porto_vc_order_by();
 	$order_way_values   = porto_vc_woo_order_way();
 	$slider_options     = porto_vc_product_slider_fields();
 

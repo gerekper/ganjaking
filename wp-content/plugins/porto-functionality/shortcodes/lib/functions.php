@@ -532,24 +532,36 @@ if ( ! function_exists( 'porto_sh_commons' ) ) {
 function porto_vc_woo_order_by() {
 	return array(
 		'',
-		__( 'Date', 'js_composer' )               => 'date',
-		__( 'ID', 'js_composer' )                 => 'ID',
-		__( 'Author', 'js_composer' )             => 'author',
-		__( 'Title', 'js_composer' )              => 'title',
-		__( 'Modified', 'js_composer' )           => 'modified',
-		__( 'Random', 'js_composer' )             => 'rand',
-		__( 'Comment count', 'js_composer' )      => 'comment_count',
-		__( 'Menu order', 'js_composer' )         => 'menu_order',
-		__( 'Popularity', 'porto-functionality' ) => 'popularity',
-		__( 'Rating', 'porto-functionality' )     => 'rating',
+		esc_html__( 'Date', 'porto-functionality' )       => 'date',
+		esc_html__( 'ID', 'porto-functionality' )         => 'id',
+		esc_html__( 'Menu order', 'porto-functionality' ) => 'menu_order',
+		esc_html__( 'Title', 'porto-functionality' )      => 'title',
+		esc_html__( 'Random', 'porto-functionality' )     => 'rand',
+		esc_html__( 'Price', 'porto-functionality' )      => 'price',
+		esc_html__( 'Popularity', 'porto-functionality' ) => 'popularity',
+		esc_html__( 'Rating', 'porto-functionality' )     => 'rating',
+	);
+}
+
+function porto_vc_order_by() {
+	return array(
+		'',
+		esc_html__( 'Date', 'porto-functionality' )       => 'date',
+		esc_html__( 'ID', 'porto-functionality' )         => 'ID',
+		esc_html__( 'Author', 'porto-functionality' )     => 'author',
+		esc_html__( 'Title', 'porto-functionality' )      => 'title',
+		esc_html__( 'Modified', 'porto-functionality' )   => 'modified',
+		esc_html__( 'Random', 'porto-functionality' )     => 'rand',
+		esc_html__( 'Comment count', 'porto-functionality' ) => 'comment_count',
+		esc_html__( 'Menu order', 'porto-functionality' ) => 'menu_order',
 	);
 }
 
 function porto_vc_woo_order_way() {
 	return array(
 		'',
-		__( 'Descending', 'js_composer' ) => 'DESC',
-		__( 'Ascending', 'js_composer' )  => 'ASC',
+		__( 'Descending', 'porto-functionality' ) => 'DESC',
+		__( 'Ascending', 'porto-functionality' )  => 'ASC',
 	);
 }
 

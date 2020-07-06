@@ -80,7 +80,7 @@
             });
 
             var wheelEvent = 'onwheel' in document ? 'wheel' : document.onmousewheel !== undefined ? 'mousewheel' : 'DOMMouseScroll';
-            if( $(window).width() < 992 ) {
+            if( $(window).width() < 992 || 'ontouchstart' in window || navigator.msMaxTouchPoints ) {
                 wheelEvent = 'onwheel' in document ? 'wheel touchend' : document.onmousewheel !== undefined ? 'mousewheel touchend' : 'DOMMouseScroll touchend';
             }
 
@@ -90,7 +90,7 @@
                 }
 
                 var wheelDirection = e.originalEvent.wheelDelta == undefined ? e.originalEvent.deltaY > 0 : e.originalEvent.wheelDelta < 0;
-                if( $(window).width() < 992 && $('html').hasClass('touch')) {
+                if( e.type && 'touchend' == e.type ) {
                     touchendY = event.changedTouches && event.changedTouches.length ? event.changedTouches[0].screenY : event.originalEvent.touches[0].screenY;;
 
                     if( touchendY <= touchstartY ) {

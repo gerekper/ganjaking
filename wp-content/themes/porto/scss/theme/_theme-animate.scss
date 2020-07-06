@@ -660,3 +660,16 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 		background-position: 0% 50%;
 	}
 }
+
+@keyframes slideInLeft {
+	0% {
+		transform: translateX(-100%);
+		visibility: visible
+	}
+	100% {
+		transform: translateX(0)
+	}
+}
+.slideInLeft {
+	animation-name: slideInLeft
+}

@@ -128,7 +128,7 @@ $wrapper        = porto_get_wrapper_type();
 
 <?php
 
-if ( isset( $porto_settings['mobile-panel-type'] ) && 'side' === $porto_settings['mobile-panel-type'] && 'overlay' != $porto_settings['menu-type'] ) {
+if ( isset( $porto_settings['mobile-panel-type'] ) && 'side' === $porto_settings['mobile-panel-type'] ) {
 	// navigation panel
 	get_template_part( 'panel' );
 }

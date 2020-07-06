@@ -285,7 +285,7 @@ class Porto_Elementor_Pricing_Table_Widget extends \Elementor\Widget_Base {
 			'size',
 			array(
 				'type'    => Controls_Manager::SELECT,
-				'label'   => __( 'Size', 'porto' ),
+				'label'   => __( 'Size', 'porto-functionality' ),
 				'options' => array_combine( array_values( porto_sh_commons( 'price_boxes_size' ) ), array_keys( porto_sh_commons( 'price_boxes_size' ) ) ),
 			)
 		);
@@ -294,7 +294,7 @@ class Porto_Elementor_Pricing_Table_Widget extends \Elementor\Widget_Base {
 			'border',
 			array(
 				'type'    => Controls_Manager::SWITCHER,
-				'label'   => __( 'Show Border', 'porto' ),
+				'label'   => __( 'Show Border', 'porto-functionality' ),
 				'default' => 'yes',
 			)
 		);

@@ -33,8 +33,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @var $this WPBakeryShortCode_Vc_Pie
  */
 $title = $output = '';
-$atts  = $this->convertOldColorsToNew( $atts );
-$atts  = vc_map_get_attributes( $this->getShortcode(), $atts );
+if ( defined( 'WPB_VC_VERSION' ) ) {
+	$atts = $this->convertOldColorsToNew( $atts );
+	$atts = vc_map_get_attributes( $this->getShortcode(), $atts );
+}
 extract( $atts );
 
 if ( 'default' == $type ) {
@@ -119,15 +121,20 @@ if ( 'default' == $type ) {
 	$options                        = json_encode( $options );
 
 	//data-label-value="' . esc_attr( $label_value ) . '"
-
-	$el_class = $this->getExtraClass( $el_class );
+	$css_class = 'circular-bar center';
 	if ( $view ) {
-		$el_class .= ' ' . $view;
+		$css_class .= ' ' . $view;
 	}
 	if ( $view_size ) {
-		$el_class .= ' circular-bar-' . $view_size;
+		$css_class .= ' circular-bar-' . $view_size;
 	}
-	$css_class   = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, 'circular-bar center ' . vc_shortcode_custom_css_class( $css, ' ' ) . $this->getExtraClass( $el_class ), $this->settings['base'], $atts );
+	if ( defined( 'WPB_VC_VERSION' ) ) {
+		$el_class = $this->getExtraClass( $el_class );
+		if ( $el_class ) {
+			$css_class .= ' ' . $el_class;
+		}
+		$css_class = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, $css_class . ' ' . vc_shortcode_custom_css_class( $css, ' ' ), $this->settings['base'], $atts );
+	}
 	$output      = '<div class= "' . esc_attr( $css_class ) . '">';
 		$output .= '<div class="circular-bar-chart" data-percent="' . esc_attr( $value ) . '" data-plugin-options="' . esc_attr( $options ) . '" style="height:' . esc_attr( $size ) . 'px">';
 	if ( 'only-icon' == $view && $icon ) {

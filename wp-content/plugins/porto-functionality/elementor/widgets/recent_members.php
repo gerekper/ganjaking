@@ -40,8 +40,6 @@ class Porto_Elementor_Recent_Members_Widget extends \Elementor\Widget_Base {
 	}
 
 	protected function _register_controls() {
-		$order_by_values  = array_slice( porto_vc_woo_order_by(), 1 );
-		$order_way_values = array_slice( porto_vc_woo_order_way(), 1 );
 
 		$this->start_controls_section(
 			'section_members',
@@ -66,9 +64,6 @@ class Porto_Elementor_Recent_Members_Widget extends \Elementor\Widget_Base {
 				'type'      => Controls_Manager::SELECT,
 				'default'   => 'classic',
 				'options'   => array_combine( array_values( porto_sh_commons( 'member_view' ) ), array_keys( porto_sh_commons( 'member_view' ) ) ),
-				'condition' => array(
-					'style' => array( '' ),
-				),
 			)
 		);
 
@@ -88,9 +83,6 @@ class Porto_Elementor_Recent_Members_Widget extends \Elementor\Widget_Base {
 				'type'      => Controls_Manager::SWITCHER,
 				'label'     => __( 'Show Overview', 'porto-functionality' ),
 				'default'   => 'yes',
-				'condition' => array(
-					'style' => array( '' ),
-				),
 			)
 		);
 

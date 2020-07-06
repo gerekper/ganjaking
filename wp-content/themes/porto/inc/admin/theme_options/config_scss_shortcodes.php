@@ -125,6 +125,10 @@ $grid-gutter-space: <?php echo (int) $porto_settings['grid-gutter-width']; ?> !d
 	<?php if ( ! in_array( 'vc_column_text', $unused_shortcode_list ) ) : ?>
 	@import "theme/shortcodes/vc_text_column";
 	<?php endif; ?>
+<?php elseif ( defined( 'ELEMENTOR_VERSION' ) ) : ?>
+	<?php if ( ! in_array( 'porto_circular_bar', $unused_shortcode_list ) ) : ?>
+	@import "theme/shortcodes/vc_pie";
+	<?php endif; ?>
 <?php endif; ?>
 
 <?php if ( class_exists( 'Woocommerce' ) && ! in_array( 'porto_one_page_category_products', $unused_shortcode_list ) ) : ?>

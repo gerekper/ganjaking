@@ -991,7 +991,7 @@ function porto_elementor_column_custom_control( $self, $args ) {
 			'label'       => __( 'Center Item', 'porto-functionality' ),
 			'description' => __( 'This will add "center" class to the center item.', 'porto-functionality' ),
 			'condition'   => array(
-				'as_param' => 'carousel',
+				'as_banner_layer' => 'carousel',
 			),
 		)
 	);

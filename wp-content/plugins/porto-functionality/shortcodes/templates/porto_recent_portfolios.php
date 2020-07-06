@@ -13,6 +13,7 @@ extract(
 			'thumb_bg'           => '',
 			'thumb_image'        => '',
 			'number'             => 8,
+			'post_in'            => '',
 			'cats'               => '',
 			'cat'                => '',
 			'items_desktop'      => 4,
@@ -23,6 +24,7 @@ extract(
 			'show_nav'           => false,
 			'show_nav_hover'     => false,
 			'nav_pos'            => '',
+			'nav_pos2'           => '',
 			'nav_type'           => '',
 			'show_dots'          => false,
 			'dots_style'         => '',
@@ -46,6 +48,9 @@ if ( $slider_config ) {
 	if ( $show_nav ) {
 		if ( $nav_pos ) {
 			$carousel_class .= ' ' . $nav_pos;
+		}
+		if ( ( empty( $nav_pos ) || 'nav-center-images-only' == $nav_pos ) && $nav_pos2 ) {
+			$carousel_class .= ' ' . $nav_pos2;
 		}
 		if ( $nav_type ) {
 			$carousel_class .= ' ' . $nav_type;
@@ -93,6 +98,11 @@ if ( $cats ) {
 			'terms'    => $cat,
 		),
 	);
+}
+
+if ( $post_in ) {
+	$args['post__in'] = explode( ',', $post_in );
+	$args['orderby']  = 'post__in';
 }
 
 $posts = new WP_Query( $args );
