@@ -50,7 +50,7 @@ if ( isset( $_POST ) && ! empty( $_POST['save_addon'] ) || ! empty( $_GET['edit'
 							$terms = get_terms( 'product_cat', array( 'hide_empty' => 0 ) );
 
 							foreach ( $terms as $term ) {
-								echo '<option value="' . $term->term_id . '" ' . selected( in_array( $term->term_id, $objects ), true, false ) . '>' . $term->name . '</option>';
+								echo '<option value="' . esc_attr( $term->term_id ) . '" ' . selected( in_array( $term->term_id, $objects ), true, false ) . '>' . esc_html( $term->name ) . '</option>';
 							}
 							?>
 						</optgroup>
@@ -98,6 +98,6 @@ if ( isset( $_POST ) && ! empty( $_POST['save_addon'] ) || ! empty( $_GET['edit'
 			}
 
 			$( '.wc-enhanced-select' ).val( values ).trigger( 'change.select2' );
-		} ); 
+		} );
 	} );
 </script>

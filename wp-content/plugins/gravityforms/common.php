@@ -488,11 +488,11 @@ class GFCommon {
 
 				if ( $group_label ) {
 					?>
-					<optgroup label="<?php echo $group_label; ?>">
+					<optgroup label="<?php esc_attr_e( $group_label ); ?>">
 				<?php } ?>
 
 				<?php foreach ( $tags as $tag ) { ?>
-					<option value="<?php echo $tag['tag']; ?>"><?php echo $tag['label']; ?></option>
+					<option value="<?php esc_attr_e( $tag['tag'] ); ?>"><?php esc_html_e( $tag['label'] ); ?></option>
 					<?php
 				}
 				if ( $group_label ) {
@@ -2685,7 +2685,6 @@ Content-Type: text/html;
 		$version_info = array( 'is_valid_key' => '1', 'version' => '', 'url' => '', 'is_error' => '0' );
 		return $version_info;
 
-
 		$version_info = get_option( 'gform_version_info' );
 		if ( ! $cache ) {
 			$version_info = null;
@@ -2732,8 +2731,7 @@ Content-Type: text/html;
 			}
 
 			$version_info['timestamp'] = time();
-$version_info = json_decode( $raw_response['body'], true );
-$version_info['is_valid_key'] = '1';
+
 			// Caching response.
 			update_option( 'gform_version_info', $version_info, false ); //caching version info
 		}

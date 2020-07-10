@@ -1,5 +1,10 @@
 *** WooCommerce Drip Changelog ***
 
+2020-07-07 - version 1.2.21
+* Fix - Removed logging to debug.log.
+* Tweak - When customer updates email in WC account, also update Drip user email.
+* Tweak - When email is updated in user profile, also update Drip user email.
+
 2020-06-10 - version 1.2.20
 * Tweak - WC 4.2 compatibility.
 

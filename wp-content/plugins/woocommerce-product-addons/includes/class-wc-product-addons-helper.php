@@ -294,6 +294,27 @@ class WC_Product_Addons_Helper {
 	}
 
 	/**
+	 * Checks if file exceeds upload size limit.
+	 *
+	 * @since 3.0.33
+	 * @param  array $post_file File from $_FILES.
+	 * @return bool             True if over size limit.
+	 */
+	public static function is_filesize_over_limit( $post_file ) {
+		$php_size_upload_errors = array( 1, 2 );
+
+		if ( ! empty( $post_file['error'] ) && in_array( $post_file['error'], $php_size_upload_errors, true ) ) {
+			return true;
+		}
+
+		if ( ! self::can_upload( $post_file['size'] ) ) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
 	 * Get the placeholder image URL for image swatch
 	 * with no selection.
 	 *

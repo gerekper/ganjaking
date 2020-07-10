@@ -65,7 +65,7 @@ class WC_Points_Rewards_Discount {
 
 		// Discount calculation is much simpler now. We just add a fixed_cart coupon
 		// to the cart with the amount determined by available points.
-		$amount = WC_Points_Rewards_Cart_Checkout::get_discount_for_redeeming_points( true );
+		$amount = WC_Points_Rewards_Cart_Checkout::get_discount_for_redeeming_points( true, null, false, $code );
 		$data   = array(
 			'id'                         => true,
 			'type'                       => 'fixed_cart',

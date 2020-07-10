@@ -5,6 +5,10 @@
  * @package WPSEO\Premium
  */
 
+use Yoast\WP\SEO\Integrations\Blocks\Siblings_Block;
+use Yoast\WP\SEO\Integrations\Blocks\Subpages_Block;
+use Yoast\WP\SEO\Repositories\Indexable_Repository;
+
 if ( ! defined( 'WPSEO_VERSION' ) ) {
 	header( 'HTTP/1.0 403 Forbidden' );
 	die;
@@ -35,7 +39,7 @@ class WPSEO_Premium {
 	 *
 	 * @var string
 	 */
-	const PLUGIN_VERSION_NAME = '14.4.1';
+	const PLUGIN_VERSION_NAME = '14.5';
 
 	/**
 	 * Machine readable version for determining whether an upgrade is needed.
@@ -123,6 +127,8 @@ class WPSEO_Premium {
 					new WPSEO_Premium_Prominent_Words_Support()
 				)
 			),
+			'siblings-block'                         => new Siblings_Block( YoastSEO()->classes->get( Indexable_Repository::class ) ),
+			'subpages-block'                         => new Subpages_Block( YoastSEO()->classes->get( Indexable_Repository::class ) ),
 		];
 
 		if ( WPSEO_Options::get( 'enable_cornerstone_content' ) ) {

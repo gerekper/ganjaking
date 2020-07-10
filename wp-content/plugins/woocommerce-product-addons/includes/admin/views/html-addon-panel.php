@@ -57,4 +57,5 @@ $has_addons = ( ! empty( $product_addons ) && 0 < count( $product_addons ) ) ? '
 			</p>
 		</div>
 	<?php endif; ?>
+	<?php do_action( 'woocommerce_product_addons_panel_end' ); ?>
 </div>

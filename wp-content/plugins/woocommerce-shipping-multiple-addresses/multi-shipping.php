@@ -309,7 +309,6 @@ function woocommerce_multi_shipping_init() {
 
 			if ( WC_MS_Compatibility::is_wc_version_gte( '2.3' ) ) {
 				$product_ids = array_filter( array_map( 'absint', $settings['excluded_products'] ) );
-				$json_ids    = array();
 
 				foreach ( $product_ids as $product_id ) {
 					$product = wc_get_product( $product_id );
@@ -332,37 +331,27 @@ function woocommerce_multi_shipping_init() {
 				$html .= '<td class="forminp">' . "\n";
 				$html .= '<fieldset><legend class="screen-reader-text"><span>' . wp_kses_post( $data['title'] ) . '</span></legend>' . "\n";
 
-				if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
-					$html .= '<input
-								type="hidden"
-								data-multiple="true"
-								id="' . esc_attr( $this->plugin_id . $this->id . '_' . $key ) . '"
-								name="'. esc_attr( $this->plugin_id . $this->id . '_' . $key ) .'[]"
-								class="wcms-product-search"
-								data-placeholder="'. esc_attr__('Search for a product&hellip;', 'wc_shipping_multiple_address') .'"
-								style="width: 400px"
-								value="'. implode( ',', array_keys( $json_ids ) ) .'"
-								data-selected="'. $json_ids_data .'"
-							>';
-				} else {
-					$html .= '<select
-								multiple="multiple"
-								id="' . esc_attr( $this->plugin_id . $this->id . '_' . $key ) . '"
-								name="'. esc_attr( $this->plugin_id . $this->id . '_' . $key ) .'[]"
-								class="wcms-product-search"
-								data-placeholder="'. esc_attr__('Search for a product&hellip;', 'wc_shipping_multiple_address') .'"
-								style="width: 400px"
-							>' . "\n";
+				$html .= '<select
+							multiple="multiple"
+							id="' . esc_attr( $this->plugin_id . $this->id . '_' . $key ) . '"
+							name="' . esc_attr( $this->plugin_id . $this->id . '_' . $key ) . '[]"
+							class="wcms-product-search"
+							data-placeholder="' . esc_attr__( 'Search for a product&hellip;', 'wc_shipping_multiple_address' ) . '"
+							style="width: 400px"
+						>' . "\n";
 
-					foreach ( $json_ids as $id => $name ) {
-						$html .= "<option value=\"$id\" selected=\"selected\">" . esc_html( $name ) . "</option>" . "\n";
-					}
+				foreach ( $product_ids as $product_id ) {
+					$product      = wc_get_product( $product_id );
+					$product_name = $product ? htmlspecialchars( wp_kses_post( $product->get_formatted_name() ) ) : '';
 
-					$html .= '</select>' . "\n";
+					$html .= '<option value="' . esc_attr( $product_id ) . '" selected="selected">' . esc_html( $product_name ) . '</option>' . "\n";
 				}
 
-				if ( $description )
+				$html .= '</select>' . "\n";
+
+				if ( $description ) {
 					$html .= ' <p class="description">' . wp_kses_post( $description ) . '</p>' . "\n";
+				}
 
 				$html .= '</fieldset>';
 				$html .= '</td>' . "\n";
@@ -495,13 +484,13 @@ function woocommerce_multi_shipping_init() {
 						}
 						?>
 
-						<div class="datepicker-div" style="float: right; width: 350px;"></div>
+						<div class="datepicker-div" style="float: left; width: 350px;"></div>
 
 						<div style="float: left; width: 350px;">
 							<div style="display: inline-block; width: 300px;">
 								<select class="wc-enhanced-select excluded-list show-if-checkout-datepicker" id="<?php echo esc_attr( $this->plugin_id . $this->id . '_' . $key ); ?>" name="<?php echo esc_attr( $this->plugin_id . $this->id . '_' . $key ); ?>[]" multiple>
-									<?php foreach ( $excludes as $date ): ?>
-										<option selected value="<?php echo $date; ?>"><?php echo $date; ?></option>
+									<?php foreach ( $excludes as $date ) : ?>
+										<option selected value="<?php echo esc_attr( $date ); ?>"><?php echo esc_html( $date ); ?></option>
 									<?php endforeach; ?>
 								</select>
 							</div>
@@ -516,18 +505,18 @@ function woocommerce_multi_shipping_init() {
 		}
 
 		function save_settings( $settings ) {
-			$settings['email_subject']          = (isset($_POST['woocommerce_multiple_shipping_email_subject'])) ? $_POST['woocommerce_multiple_shipping_email_subject'] : '';
-			$settings['email_message']          = (isset($_POST['woocommerce_multiple_shipping_email_message'])) ? $_POST['woocommerce_multiple_shipping_email_message'] : '';
-			$settings['excluded_categories']    = (isset($_POST['woocommerce_multiple_shipping_excluded_categories'])) ? $_POST['woocommerce_multiple_shipping_excluded_categories'] : array();
+			$settings['email_subject']       = isset( $_POST['woocommerce_multiple_shipping_email_subject'] ) ? $_POST['woocommerce_multiple_shipping_email_subject'] : '';
+			$settings['email_message']       = isset( $_POST['woocommerce_multiple_shipping_email_message'] ) ? $_POST['woocommerce_multiple_shipping_email_message'] : '';
+			$settings['excluded_categories'] = isset( $_POST['woocommerce_multiple_shipping_excluded_categories'] ) ? array_filter( array_map( 'absint', $_POST['woocommerce_multiple_shipping_excluded_categories'] ) ) : array();
 
-			$products   = array();
-			$key        = 'woocommerce_multiple_shipping_excluded_products';
-			if ( !empty($_POST[ $key ]) ) {
+			$products = array();
+			$key      = 'woocommerce_multiple_shipping_excluded_products';
+			if ( ! empty( $_POST[ $key ] ) ) {
 
-				if ( !empty($_POST[ $key ][0]) && strpos( $_POST[ $key ][0], ',' ) !== false ) {
+				if ( ! empty( $_POST[ $key ][0] ) && strpos( $_POST[ $key ][0], ',' ) !== false ) {
 					$products = array_filter( explode( ',', $_POST[ $key ][0] ) );
 				} else {
-					$products = $_POST[ $key ];
+					$products = array_filter( array_map( 'absint', $_POST[ $key ] ) );
 				}
 
 			}

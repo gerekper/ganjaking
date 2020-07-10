@@ -58,13 +58,10 @@ jQuery(document).ready(function($) {
 
 				// Remove formatting
 				original_price = original_price.replace( wc_currency_converter_params.currency_format_symbol, '' );
-				original_price = original_price.replace( wc_currency_converter_params.thousand_sep, '' );
+				original_price = original_price.split( wc_currency_converter_params.thousand_sep ).join( '' );
 				original_price = original_price.replace( wc_currency_converter_params.decimal_sep, '.' );
 				original_price = original_price.replace(/[^0-9\.]/g, '');
 				original_price = parseFloat( original_price );
-
-				// Log Conversions
-				// console.log( original_price );
 
 				// Store original price
 				jQuery(this).attr("data-price", original_price);
@@ -133,7 +130,7 @@ jQuery(document).ready(function($) {
 
 			// Remove formatting
 			price = price.replace( wc_currency_converter_params.currency_format_symbol, '' );
-			price = price.replace( wc_currency_converter_params.thousand_sep, '' );
+			price = price.split( wc_currency_converter_params.thousand_sep ).join( '' );
 			price = price.replace( wc_currency_converter_params.decimal_sep, '.' );
 			price = price.replace(/[^0-9\.]/g, '');
 			price = parseFloat( price );
@@ -166,7 +163,7 @@ jQuery(document).ready(function($) {
 
 				original_price = "" + values[1];
 				original_price = original_price.replace( wc_currency_converter_params.currency_format_symbol, '' );
-				original_price = original_price.replace( wc_currency_converter_params.thousand_sep, '' );
+				original_price = original_price.split( wc_currency_converter_params.thousand_sep ).join( '' );
 				original_price = original_price.replace( wc_currency_converter_params.decimal_sep, '.' );
 				original_price = original_price.replace(/[^0-9\.]/g, '');
 				original_price = parseFloat( original_price );
@@ -175,7 +172,7 @@ jQuery(document).ready(function($) {
 
 				original_price = "" + values[0];
 				original_price = original_price.replace( wc_currency_converter_params.currency_format_symbol, '' );
-				original_price = original_price.replace( wc_currency_converter_params.thousand_sep, '' );
+				original_price = original_price.split( wc_currency_converter_params.thousand_sep ).join( '' );
 				original_price = original_price.replace( wc_currency_converter_params.decimal_sep, '.' );
 				original_price = original_price.replace(/[^0-9\.]/g, '');
 				original_price = parseFloat( original_price );

@@ -223,22 +223,6 @@ class GFAutoUpgrade {
 		$version_info = $this->get_version_info( $this->_slug, ! $force_check );
 
 		$plugin_file = $this->_path;
-		$upgrade_url = wp_nonce_url( 'update.php?action=upgrade-plugin&amp;plugin=' . urlencode( $plugin_file ), 'upgrade-plugin_' . $plugin_file );
-
-		
-		$updates[] = array(
-			'name'              => esc_html( $this->_title ),
-			'is_valid_key'      => rgar( $version_info, 'is_valid_key' ),
-			'path'              => $this->_path,
-			'slug'              => $this->_slug,
-			'latest_version'    => $version_info['version'],
-			'installed_version' => $this->_version,
-			'upgrade_url'       => $upgrade_url,
-			'download_url'      => $version_info['url'],
-			'version_icon'      => $version_icon,
-			'version_message'   => $version_message,
-		);
-
 		return $updates;
 
 	}

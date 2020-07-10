@@ -99,17 +99,22 @@ On success, the complete newly created group object is returned. The returned ad
 	],
 	"fields": [
 		{
-			"name": "Custom Text",
-			"description": "Custom Text Description",
-			"type": "custom",
+			"name": "Addon name",
+			"title_format": "label",
+			"description_enable": 1,
+			"description": "Addon description",
+			"type": "custom_text",
+			"display": "select",
 			"position": 0,
 			"required": 1,
-			"options": [
-				{
-				"label": "Custom Text 1",
-				"price": 9.95
-				}
-			]
+			"restrictions": 0,
+			"restrictions_type": "any_text",
+			"adjust_price": 1,
+			"price_type": "flat_fee",
+			"price": "10",
+			"min": 0,
+			"max": 0,
+			"options": []
 		}
 	]
 }
@@ -241,33 +246,65 @@ NOTE: Only works for global add-on groups.
 
 ```
 - type: (string, required) one of the following
+    - `multiple_choice` : Multiple choice
     - `checkbox` : Checkboxes 
-    - `custom` : Custom input (text) - Any Text
+    - `custom_text` : Custom input (text) - Any Text
     - `custom_textarea` : Custom input (textarea)
-    - `custom_price` : Additional custom price input
-    - `custom_letters_only` : Custom input (text) - Only Letters
-    - `custom_digits_only` : Custom input (text) - Only Numbers
-    - `custom_letters_or_digits` Custom input (text) - Only Letters and Numbers
-    - `custom_email` : Custom input (text) - Email Address
     - `file_upload` : File upload
+	- `custom_price`: Custom price
     - `input_multiplier` : Additional price multiplier
-    - `radiobutton` : Radio buttons
-    - `select` : Select box
+	- `Heading` : Heading
+- display: (string, required, relevant for multiple_choice type ) one of the following
+    - `select` : Dropdowns
+    - `radiobutton` : Radio buttons 
+    - `images` : Images
 - name: (string, required) the name to display on the front-end for this add-on
+- title_format: (string, required) one of the following
+    - `label` : Default display 
+    - `Heading` : Heading
+    - `hide` : Hide addon name
+- description_enabled: (boolean, required) whether or not the description is displayed
 - description: (string, required - can be empty) the description, if any, to display on the front-end; defaults to empty string
 - required: (boolean, required) whether or not the customer must choose/complete at least one option from the add-on; defaults to false
+- position: (integer, required - can be 0) display position of the addon in the group
+- restrictions: (boolean, required, relevant for custom_text) whether or not input text is restricted,
+- restrictions_type": (string, required) restrictions on input text. One of the following
+    - `any_text` 
+    - `only_letters`
+    - `only_numbers`
+    - `only_letters_numbers`
+    - `email`
+- adjust_price: (boolean, required) whether or not price is adjusted
+- price_type: (string, required) one of the following
+    - `flat_fee` 
+    - `quantity_based`
+    - `percentage_based`
+- price: (string with numeric value, required - can be empty, not relevant for heading, checkbox and multiple_choice) Addon price
+- min: (integer, relevant for custom_text, custom_textarea, custom_price and input_multiplier) Minimun range on customer input
+- max: (integer, relevant for custom_text, custom_textarea, custom_price and input_multiplier) Maximum range on customer input
 - options: (array, required)
 ```
 
 For example:
 
 ```
-[
+"fields": [
 	{
-		"type": "checkbox",
-		"name": "Special Engraving Font',
-		"description": "Upgrade from the standard font (Arial) to a special one.",
-		"required": false,
+		"name": "Add a text to engrave",
+		"title_format": "label",
+		"description_enable": 1,
+		"description": "Text will be engraved on the back",
+		"type": "custom_text",
+		"display": "select",
+		"position": 0,
+		"required": 1,
+		"restrictions": 0,
+		"restrictions_type": "any_text",
+		"adjust_price": 1,
+		"price_type": "flat_fee",
+		"price": "10",
+		"min": 0,
+		"max": 0,
 		"options": []
 	}
 ]
@@ -283,222 +320,45 @@ For example:
 - `label` (string, optional)
 - `price` (price, optional)
     - the price to charge when the option is selected
+- price_type: (string, required) one of the following
+    - `flat_fee` 
+    - `quantity_based`
+    - `percentage_based`
+
 
 **Sample Option**
 ```
 {
-	label: 'Comic Sans Font',
-	price: 1.00,
+    "label": "option1",
+    "price": "5",
+    "price_type": "flat_fee"
 }
 ```
 
-### Custom Input - Text (custom type)
-
-- `label` (string, optional)
-- `price` (price, optional)
-    - the price to charge when the option has text entered
-- `min` (integer, optional)
-    - set to minimum number of characters required
-    - set to '' to have no minimum
-- `max` (integer, optional)
-    - set to maximum number of characters allowed
-    - set to '' to have no maximum
-
-**Sample Option**
-```
-{
-	label: 'Enter a custom message to be printed on your shirt, up to 40 characters',
-	price: 10.00,
-	min: 0,
-	max: 40
-}
-```
-
-### Custom Input - Text area (custom_textarea type)
-
-- `label` (string, optional)
-- `price` (price, optional)
-    - the price to charge when the option has text entered
-- `min` (integer, optional)
-    - set to minimum number of characters required
-    - set to '' to have no minimum
-- `max` (integer, optional)
-    - set to maximum number of characters allowed
-    - set to '' to have no maximum
-
-**Sample Option**
-```
-{
-	label: 'Enter a custom message to be printed on your shirt, up to 40 characters',
-	price: 10.00,
-	min: 0,
-	max: 40
-}
-```
-
-### Additional Custom Price Input (custom_price type)
-
-- `label` (string, optional)
-- `min` (price, optional)
-    - set to minimum price customer can input (e.g. 1.00), or
-    - set to '' to have no minimum
-- `max` (price, optional)
-    - set to maximum price customer can input (e.g. 10.00), or
-    - set to '' to have no maximum
-
-**Sample Option**
-```
-{
-	label: 'Add $1 for each additional blank card you'd like up to ten cards',
-	min: 0,
-	max: 10
-}
-```
-
-#### Custom Input - Only Letters (custom_letters_only type)
-
-- `label` (string, optional)
-- `price` (price, optional)
-    - the price to charge when the option has text entered
-- `min` (integer, optional)
-    - set to minimum number of characters required
-    - set to '' to have no minimum
-- `max` (integer, optional)
-    - set to maximum number of characters allowed
-    - set to '' to have no maximum
-
-**Sample Option**
-```
-{
-	label: 'Enter a custom message to be printed on your shirt, up to 40 characters',
-	price: 10.00,
-	min: 0,
-	max: 40
-}
-```
-
-### Custom Input - Only Numbers (custom_digits_only type)
-
-- `label` (string, optional)
-- `price` (price, optional)
-    - the price to charge when the option has text entered
-- `min` (integer, optional)
-    - set to minimum number of characters required
-    - set to '' to have no minimum
-- `max` (integer, optional)
-    - set to maximum number of characters allowed
-    - set to '' to have no maximum
-
-**Sample Option**
-```
-{
-	label: 'Enter a zip code for special monitoring for $10 a month',
-	price: 10.00,
-	min: 6,
-	max: 6
-}
-```
-
-### Custom Input - Only Numbers and Letters (custom_letters_or_digits type)
-
-- `label` (string, optional)
-- `price` (price, optional)
-    - the price to charge when the option has text entered
-- `min` (integer, optional)
-    - set to minimum number of characters required
-    - set to '' to have no minimum
-- `max` (integer, optional)
-    - set to maximum number of characters allowed
-    - set to '' to have no maximum
-
-**Sample Option**
-```
-{
-	label: 'Enter a custom message to be printed on your shirt, up to 40 characters',
-	price: 10.00,
-	min: 0,
-	max: 40
-}
-```
-
-### Custom Input - Email Address (custom_email type)
-
-- `label` (string, optional)
-- `price` (price, optional)
-    - the price to charge when the option has an email address entered
-
-**Sample Option**
-```
-{
-	label: 'Enter an email address to get notifications automatically for just $10',
-	price: 10.00,
-}
-```
-
-### File Upload (file_upload type)
-
-- `label` (string, optional)
-- `price` (price, optional)
-    - the price to charge when a file is attached
-
-**Sample Option**
-```
-{
-	label: 'Add a custom photo to your coffee mug for just $5',
-	price: 5.00
-}
-```
-
-### Additional Price Multiplier (input_multiplier type)
+### Images (multiple_choice type)
 
 - `label` (string, optional)
 - `price` (price, optional)
     - the price to charge when the option is selected
-- `min` (integer, optional)
-    - set to minimum multiplier the customer can input (e.g. 1), or
-    - set to '' to have no minimum
-- `max` (integer, optional)
-    - set to maximum multiplier the customer can input (e.g. 10), or
-    - set to '' to have no maximum
+- `image` (image_id, optional)
+- price_type: (string, required) one of the following
+    - `flat_fee` 
+    - `quantity_based`
+    - `percentage_based`
 
-**Sample Option**
+
+**Sample Options**
 ```
 {
-	label: 'Add up to ten additional cards at $1 each',
-	price: 1.00,
-	min: 0,
-	max: 10
+    "label": "option image 1",
+    "price": "5",
+	"image": 2040,
+    "price_type": "flat_fee"
 }
-```
-
-### Radio Buttons (radiobutton type)
-
-- `label` (string, optional)
-- `price` (price, optional)
-    - the price to charge when that radio button is selected
-
-NOTE: Usually you will have two or more radiobutton options in an addon
-
-**Sample Option**
-```
 {
-	label: 'Comic Sans',
-	price: 5.00
-}
-```
-
-### Select Box (select type)
-
-- `label` (string, optional)
-- `price` (price, optional)
-    - the price to charge when that option is selected
-
-NOTE: Usually you will have two or more selectbox options in an addon
-
-**Sample Option**
-```
-{
-	label: 'Comic Sans',
-	price: 5.00
+    "label": "option image 2",
+    "price": "10",
+	"image": 2033,
+    "price_type": "flat_fee"
 }
 ```

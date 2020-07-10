@@ -20,13 +20,13 @@ class WC_Store_Catalog_PDF_Download_Admin {
 		self::$_this = $this;
 
 		add_filter( 'woocommerce_get_sections_products', array( $this, 'add_settings_section' ) );
-		
+
 		add_filter( 'woocommerce_get_settings_products', array( $this, 'add_settings' ), 10, 2 );
 
 		add_action( 'woocommerce_settings_save_products', array( $this, 'save_settings' ) );
 
 		add_action( 'woocommerce_admin_field_woocommerce_store_catalog_pdf_download_settings', array( $this, 'get_settings' ) );
-		
+
 		add_action( 'woocommerce_system_status_report', array( $this, 'render_debug_fields' ) );
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'load_scripts' ) );
@@ -59,7 +59,7 @@ class WC_Store_Catalog_PDF_Download_Admin {
 
 		// load script only on settings products tab
 		if ( $screen->base === 'woocommerce_page_wc-settings' && isset( $_GET['tab'] ) && $_GET['tab'] === 'products' ) {
-			wp_enqueue_script( 'wc-store-catalog-pdf-download-admin-js', plugins_url( 'assets/js/admin' . $suffix . '.js', dirname( __FILE__ ) ) );			
+			wp_enqueue_script( 'wc-store-catalog-pdf-download-admin-js', plugins_url( 'assets/js/admin' . $suffix . '.js', dirname( __FILE__ ) ) );
 
 			wp_enqueue_media();
 
@@ -72,7 +72,7 @@ class WC_Store_Catalog_PDF_Download_Admin {
 				'removePDF'       => __( 'Are you sure you want to remove this PDF?', 'woocommerce-store-catalog-pdf-download' ),
 				'previewLinkText' => __( 'Custom PDF Preview Link', 'woocommerce-store-catalog-pdf-download' ),
 			);
-			
+
 			wp_localize_script( 'wc-store-catalog-pdf-download-admin-js', 'wc_store_catalog_pdf_download_admin_local', $localized_vars );
 
 			wp_enqueue_style( 'wc-store-catalog-pdf-download-admin-css', plugins_url( 'assets/css/admin-styles.css', dirname( __FILE__ ) ) );
@@ -130,7 +130,7 @@ class WC_Store_Catalog_PDF_Download_Admin {
 	 * @param string $current_section current section name
 	 * @return array $settings
 	 */
-	public function get_settings() { 
+	public function get_settings() {
 		global $current_section;
 
 		if ( 'wc_store_catalog_pdf_download' !== $current_section ) {
@@ -138,21 +138,21 @@ class WC_Store_Catalog_PDF_Download_Admin {
 		}
 
 		$help_icon   = esc_url( WC()->plugin_url() ) . '/assets/images/help.png';
-		
+
 		$custom_pdf  = get_option( 'wc_store_catalog_pdf_download_custom_pdf', '' );
-		
+
 		$logo        = get_option( 'wc_store_catalog_pdf_download_logo', '' );
-		
+
 		$show_header = get_option( 'wc_store_catalog_pdf_download_show_header', 'no' );
-		
+
 		$header_text = get_option( 'wc_store_catalog_pdf_download_header_text', '' );
-		
+
 		$show_footer = get_option( 'wc_store_catalog_pdf_download_show_footer', 'no' );
-		
+
 		$footer_text = get_option( 'wc_store_catalog_pdf_download_footer_text', '' );
-		
+
 		$layout      = get_option( 'wc_store_catalog_pdf_download_layout', 'list' );
-		
+
 		$link_label  = get_option( 'wc_store_catalog_pdf_download_link_label', __( 'Download Catalog', 'woocommerce-store-catalog-pdf-download' ) );
 
 		$hide_header_text = '';
@@ -172,7 +172,7 @@ class WC_Store_Catalog_PDF_Download_Admin {
 
 		if ( ! empty( $custom_pdf ) ) {
 			$custom_pdf_url = wp_get_attachment_url( $custom_pdf );
-			
+
 		} else {
 			$custom_pdf_url = '';
 			$hide_remove_pdf_link = 'display:none;';
@@ -189,23 +189,23 @@ class WC_Store_Catalog_PDF_Download_Admin {
 			$hide_preview_image = ' hide';
 		}
 		?>
-		<h3><?php _e( 'Store Catalog PDF', 'woocommerce-store-catalog-pdf-download' ); ?></h3>
-		
-		<h4><?php _e( 'Ready-made PDF', 'woocommerce-store-catalog-pdf-download' ); ?></h4>
-		
+		<h3><?php esc_html_e( 'Store Catalog PDF', 'woocommerce-store-catalog-pdf-download' ); ?></h3>
+
+		<h4><?php esc_html_e( 'Ready-made PDF', 'woocommerce-store-catalog-pdf-download' ); ?></h4>
+
 		<table class="form-table">
 			<tbody>
 				<tr valign="top">
-					<th class="titledesc" scope="row"><?php _e( 'Custom PDF', 'woocommerce-store-catalog-pdf-download' ); ?><img class="help_tip" data-tip="<?php echo wc_sanitize_tooltip( __( 'Upload a ready made PDF of your store.', 'woocommerce-store-catalog-pdf-download' ) ); ?>" src="<?php echo $help_icon; ?>" height="16" width="16" /></th>
+					<th class="titledesc" scope="row"><?php esc_html_e( 'Custom PDF', 'woocommerce-store-catalog-pdf-download' ); ?><img class="help_tip" data-tip="<?php echo wc_sanitize_tooltip( __( 'Upload a ready made PDF of your store.', 'woocommerce-store-catalog-pdf-download' ) ); ?>" src="<?php echo esc_url( $help_icon ); ?>" height="16" width="16" /></th>
 
-					<td class="forminp"><a href="#" class="wc-store-catalog-pdf-download-upload-custom-pdf button"><?php _e( 'Upload Custom PDF', 'woocommerce-store-catalog-pdf-download' ); ?></a><p class="description"><?php _e( 'Optional: This is to be used with the shortcode to display a ready made PDF', 'woocommerce-store-catalog-pdf-download' ); ?></p>
-						
+					<td class="forminp"><a href="#" class="wc-store-catalog-pdf-download-upload-custom-pdf button"><?php esc_html_e( 'Upload Custom PDF', 'woocommerce-store-catalog-pdf-download' ); ?></a><p class="description"><?php esc_html_e( 'Optional: This is to be used with the shortcode to display a ready made PDF', 'woocommerce-store-catalog-pdf-download' ); ?></p>
+
 						<input type="hidden" name="wc_store_catalog_pdf_download_custom_pdf" value="<?php echo esc_attr( $custom_pdf ); ?>" id="wc_store_catalog_pdf_download_custom_pdf" />
-						
+
 						<br />
 
 						<?php if ( $custom_pdf ) { ?>
-							<a href="<?php echo esc_url( $custom_pdf_url ); ?>" target="_blank" class="custom-pdf-preview"><?php _e( 'Custom PDF Preview Link', 'woocommerce-store-catalog-pdf-download' ); ?></a>
+							<a href="<?php echo esc_url( $custom_pdf_url ); ?>" target="_blank" class="custom-pdf-preview"><?php esc_html_e( 'Custom PDF Preview Link', 'woocommerce-store-catalog-pdf-download' ); ?></a>
 
 						<?php } else { ?>
 							<a href="#" target="_blank" class="custom-pdf-preview"></a>
@@ -218,19 +218,19 @@ class WC_Store_Catalog_PDF_Download_Admin {
 			</tbody>
 		</table>
 
-		<h4><?php _e( 'PDF Generator', 'woocommerce-store-catalog-pdf-download' ); ?></h4>
+		<h4><?php esc_html_e( 'PDF Generator', 'woocommerce-store-catalog-pdf-download' ); ?></h4>
 
 		<table class="form-table">
 			<tbody>
 				<tr valign="top">
-					<th class="titledesc" scope="row"><?php _e( 'Company Logo', 'woocommerce-store-catalog-pdf-download' ); ?><img class="help_tip" data-tip="<?php echo wc_sanitize_tooltip( __( 'Upload a logo to be shown at the top of the PDF.', 'woocommerce-store-catalog-pdf-download' ) ); ?>" src="<?php echo $help_icon; ?>" height="16" width="16" /></th>
+					<th class="titledesc" scope="row"><?php esc_html_e( 'Company Logo', 'woocommerce-store-catalog-pdf-download' ); ?><img class="help_tip" data-tip="<?php echo wc_sanitize_tooltip( __( 'Upload a logo to be shown at the top of the PDF.', 'woocommerce-store-catalog-pdf-download' ) ); ?>" src="<?php echo esc_url( $help_icon ); ?>" height="16" width="16" /></th>
 
-					<td class="forminp"><a href="#" class="wc-store-catalog-pdf-download-upload-logo button"><?php _e( 'Upload Logo', 'woocommerce-store-catalog-pdf-download' ); ?></a>
-						
+					<td class="forminp"><a href="#" class="wc-store-catalog-pdf-download-upload-logo button"><?php esc_html_e( 'Upload Logo', 'woocommerce-store-catalog-pdf-download' ); ?></a>
+
 						<input type="hidden" name="wc_store_catalog_pdf_download_logo" value="<?php echo esc_attr( $logo ); ?>" id="wc_store_catalog_pdf_download_logo" />
-						
+
 						<br />
-						
+
 						<?php if ( is_array( $logo_image_url ) && ! empty( $logo_image_url ) ) { ?>
 							<img src="<?php echo esc_url( $logo_image_url[0] ); ?>" class="logo-preview-image" />
 
@@ -238,53 +238,53 @@ class WC_Store_Catalog_PDF_Download_Admin {
 							<img src="" class="logo-preview-image<?php echo esc_attr( $hide_preview_image ); ?>" />
 
 						<?php } ?>
-						
+
 						<a href="#" class="remove-image dashicons dashicons-no" style="<?php echo esc_attr( $hide_remove_image_link ); ?>" title="<?php esc_attr_e( 'Click to remove image', 'woocommerce-store-catalog-pdf-download' ); ?>"></a>
 					</td>
 				</tr>
 
 				<tr valign="top">
-					<th class="titledesc" scope="row"><?php _e( 'PDF Header', 'woocommerce-store-catalog-pdf-download' ); ?></th>
+					<th class="titledesc" scope="row"><?php esc_html_e( 'PDF Header', 'woocommerce-store-catalog-pdf-download' ); ?></th>
 					<td class="forminp">
-						<label for="show-header"><input type="checkbox" id="show-header" name="wc_store_catalog_pdf_download_show_header" <?php checked( $show_header, 'yes' ); ?> /> <?php _e( 'Show Header', 'woocommerce-store-catalog-pdf-download' ); ?></label>
-						<p class="description"><?php _e( 'Enabling this option will show a header information at the top of the PDF such as any intro verbiage.', 'woocommerce-store-catalog-pdf-download' ); ?></p>
+						<label for="show-header"><input type="checkbox" id="show-header" name="wc_store_catalog_pdf_download_show_header" <?php checked( $show_header, 'yes' ); ?> /> <?php esc_html_e( 'Show Header', 'woocommerce-store-catalog-pdf-download' ); ?></label>
+						<p class="description"><?php esc_html_e( 'Enabling this option will show a header information at the top of the PDF such as any intro verbiage.', 'woocommerce-store-catalog-pdf-download' ); ?></p>
 					</td>
 				</tr>
 
 				<tr valign="top" class="header-text-row" style="<?php echo esc_attr( $hide_header_text ); ?>">
-					<th class="titledesc" scope="row"><?php _e( 'PDF Header Text', 'woocommerce-store-catalog-pdf-download' ); ?></th>
+					<th class="titledesc" scope="row"><?php esc_html_e( 'PDF Header Text', 'woocommerce-store-catalog-pdf-download' ); ?></th>
 					<td class="forminp">
 						<p><textarea name="wc_store_catalog_pdf_download_header_text" style="width:100%;height:200px;"><?php echo wp_kses_post( $header_text ); ?></textarea></p>
 					</td>
 				</tr>
 
 				<tr valign="top">
-					<th class="titledesc" scope="row"><?php _e( 'PDF Footer', 'woocommerce-store-catalog-pdf-download' ); ?></th>
+					<th class="titledesc" scope="row"><?php esc_html_e( 'PDF Footer', 'woocommerce-store-catalog-pdf-download' ); ?></th>
 					<td class="forminp">
-						<label for="show-footer"><input type="checkbox" id="show-footer" name="wc_store_catalog_pdf_download_show_footer" <?php checked( $show_footer, 'yes' ); ?> /> <?php _e( 'Show Footer', 'woocommerce-store-catalog-pdf-download' ); ?></label>
-						<p class="description"><?php _e( 'Enabling this option will show a footer information at the bottom of the PDF such as foot notes or any outro verbiage.', 'woocommerce-store-catalog-pdf-download' ); ?></p>
+						<label for="show-footer"><input type="checkbox" id="show-footer" name="wc_store_catalog_pdf_download_show_footer" <?php checked( $show_footer, 'yes' ); ?> /> <?php esc_html_e( 'Show Footer', 'woocommerce-store-catalog-pdf-download' ); ?></label>
+						<p class="description"><?php esc_html_e( 'Enabling this option will show a footer information at the bottom of the PDF such as foot notes or any outro verbiage.', 'woocommerce-store-catalog-pdf-download' ); ?></p>
 					</td>
 				</tr>
 
 				<tr valign="top" class="footer-text-row" style="<?php echo esc_attr( $hide_footer_text ); ?>">
-					<th class="titledesc" scope="row"><?php _e( 'PDF Footer Text', 'woocommerce-store-catalog-pdf-download' ); ?></th>
+					<th class="titledesc" scope="row"><?php esc_html_e( 'PDF Footer Text', 'woocommerce-store-catalog-pdf-download' ); ?></th>
 					<td class="forminp">
 						<p><textarea name="wc_store_catalog_pdf_download_footer_text" style="width:100%;height:200px;"><?php echo wp_kses_post( $footer_text ); ?></textarea></p>
 					</td>
 				</tr>
 
 				<tr valign="top">
-					<th class="titledesc" scope="row"><?php _e( 'PDF Layout Format', 'woocommerce-store-catalog-pdf-download' ); ?><img class="help_tip" data-tip="<?php echo wc_sanitize_tooltip( __( 'Set how you want the PDF layout format to display for category products.', 'woocommerce-store-catalog-pdf-download' ) ); ?>" src="<?php echo $help_icon; ?>" height="16" width="16" /></th>
+					<th class="titledesc" scope="row"><?php esc_html_e( 'PDF Layout Format', 'woocommerce-store-catalog-pdf-download' ); ?><img class="help_tip" data-tip="<?php echo wc_sanitize_tooltip( __( 'Set how you want the PDF layout format to display for category products.', 'woocommerce-store-catalog-pdf-download' ) ); ?>" src="<?php echo esc_url( $help_icon ); ?>" height="16" width="16" /></th>
 					<td class="forminp">
 						<select name="wc_store_catalog_pdf_download_layout" class="wc-enhanced-select">
-							<option value="list" <?php selected( $layout, 'list' ); ?>><?php _e( 'List Format', 'woocommerce-store-catalog-pdf-download' ); ?></option>
-							<option value="grid" <?php selected( $layout, 'grid' ); ?>><?php _e( 'Grid Format', 'woocommerce-store-catalog-pdf-download' ); ?></option>
+							<option value="list" <?php selected( $layout, 'list' ); ?>><?php esc_html_e( 'List Format', 'woocommerce-store-catalog-pdf-download' ); ?></option>
+							<option value="grid" <?php selected( $layout, 'grid' ); ?>><?php esc_html_e( 'Grid Format', 'woocommerce-store-catalog-pdf-download' ); ?></option>
 						</select>
 					</td>
 				</tr>
 
 				<tr valign="top">
-					<th class="titledesc" scope="row"><?php _e( 'Download Link Label', 'woocommerce-store-catalog-pdf-download' ); ?><img class="help_tip" data-tip="<?php echo wc_sanitize_tooltip( __( 'Set the text you want to display next to the download icon.', 'woocommerce-store-catalog-pdf-download' ) ); ?>" src="<?php echo $help_icon; ?>" height="16" width="16" /></th>
+					<th class="titledesc" scope="row"><?php esc_html_e( 'Download Link Label', 'woocommerce-store-catalog-pdf-download' ); ?><img class="help_tip" data-tip="<?php echo wc_sanitize_tooltip( __( 'Set the text you want to display next to the download icon.', 'woocommerce-store-catalog-pdf-download' ) ); ?>" src="<?php echo esc_url( $help_icon ); ?>" height="16" width="16" /></th>
 					<td class="forminp">
 						<input type="text" name="wc_store_catalog_pdf_download_link_label" value="<?php echo esc_attr( $link_label ); ?>" />
 					</td>
@@ -310,7 +310,7 @@ class WC_Store_Catalog_PDF_Download_Admin {
 		if ( 'wc_store_catalog_pdf_download' !== $current_section ) {
 			return;
 		}
-				
+
 		if ( isset( $_POST['wc_store_catalog_pdf_download_custom_pdf'] ) ) {
 			$custom_pdf = sanitize_text_field( $_POST['wc_store_catalog_pdf_download_custom_pdf'] );
 			update_option( 'wc_store_catalog_pdf_download_custom_pdf', $custom_pdf );
@@ -326,7 +326,7 @@ class WC_Store_Catalog_PDF_Download_Admin {
 
 		} else {
 			update_option( 'wc_store_catalog_pdf_download_show_header', 'no' );
-		}	
+		}
 
 		if ( isset( $_POST['wc_store_catalog_pdf_download_header_text'] ) ) {
 			$header_text = wp_kses_post( $_POST['wc_store_catalog_pdf_download_header_text'] );
@@ -338,7 +338,7 @@ class WC_Store_Catalog_PDF_Download_Admin {
 
 		} else {
 			update_option( 'wc_store_catalog_pdf_download_show_footer', 'no' );
-		}	
+		}
 
 		if ( isset( $_POST['wc_store_catalog_pdf_download_footer_text'] ) ) {
 			$footer_text = wp_kses_post( $_POST['wc_store_catalog_pdf_download_footer_text'] );
@@ -367,7 +367,7 @@ class WC_Store_Catalog_PDF_Download_Admin {
 	 * @return bool
 	 */
 	public function render_debug_fields() {
-	?>	
+	?>
 		<table class="wc_status_table widefat" cellspacing="0" id="status">
 			<thead>
 				<tr>
@@ -380,7 +380,7 @@ class WC_Store_Catalog_PDF_Download_Admin {
 					<th><?php _e( 'Present', 'woocommerce-store-catalog-pdf-download' ); ?></th>
 				</tr>
 			</thead>
-			
+
 			<tbody>
 				<tr>
 					<td data-export-label="System Temp Directory"><?php _e( 'System Temp Directory', 'woocommerce-store-catalog-pdf-download' ); ?></td>
@@ -390,7 +390,7 @@ class WC_Store_Catalog_PDF_Download_Admin {
 
 				<tr>
 					<?php
-						$upload_dir = wp_upload_dir(); 
+						$upload_dir = wp_upload_dir();
 			    		$pdf_path = $upload_dir['basedir'] . '/woocommerce-store-catalog-pdf-download/';
 					?>
 					<td data-export-label="Upload Directory"><?php _e( 'Upload Directory', 'woocommerce-store-catalog-pdf-download' ); ?></td>
@@ -457,7 +457,7 @@ class WC_Store_Catalog_PDF_Download_Admin {
 	<?php
 
 	return true;
-	}	
+	}
 }
 
 new WC_Store_Catalog_PDF_Download_Admin();

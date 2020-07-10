@@ -11,29 +11,21 @@
 
             <p>
                 <select name="search_key" id="search_key">
-                    <option value="order_id"><?php _e('Order Number', 'wc_warranty'); ?></option>
-                    <option value="customer"><?php _e('Customer Name or Email', 'wc_warranty'); ?></option>
+                    <option value="order_id"><?php esc_html_e( 'Order Number', 'wc_warranty' ); ?></option>
+                    <option value="customer"><?php esc_html_e( 'Customer Name or Email', 'wc_warranty' ); ?></option>
                 </select>
 
                 <input type="text" name="search_term" id="search_term" value="" class="short" />
-                <?php if ( version_compare( WC_VERSION, '3.0', '<' ) ): ?>
-                    <input
-                        type="hidden"
-                        id="select2_search_term"
-                        data-placeholder="<?php _e('Search for a customer...', 'wc_warranty'); ?>"
-                        style="width: 400px; display: inline-block !important;" />
-                <?php else: ?>
-                    <select
-                        id="search_users"
-                        class="wc-user-search"
-                        name="search_term"
-                        multiple="multiple"
-                        placeholder="<?php _e('Search for a customer...', 'wc_warranty'); ?>"
-                        style="width: 400px;">
-                    </select>
-                <?php endif; ?>
+				<select
+					id="search_users"
+					class="wc-user-search"
+					name="search_term"
+					multiple="multiple"
+					placeholder="<?php esc_attr_e( 'Search for a customer&hellip;', 'wc_warranty' ); ?>"
+					style="width: 400px;">
+				</select>
 
-                <input type="submit" id="order_search_button" class="button-primary" value="<?php _e('Search', 'wc_warranty'); ?>" />
+                <input type="submit" id="order_search_button" class="button-primary" value="<?php esc_attr_e( 'Search', 'wc_warranty' ); ?>" />
             </p>
         </form>
     </div>
@@ -43,7 +35,7 @@
 
 <?php if ( $searched && empty($orders) ): ?>
     <div class="error"><p><?php _e('No orders found', 'wc_warranty'); ?></p></div>
-<?php endif; ?>  
+<?php endif; ?>
 
 <?php if ( !empty($orders) ): ?>
     <table class="wp-list-table widefat fixed warranty" cellspacing="0">

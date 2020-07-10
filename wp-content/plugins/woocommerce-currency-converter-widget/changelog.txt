@@ -1,5 +1,8 @@
 *** Currency Converter Changelog ***
 
+2020-07-07 - version 1.6.22
+* Fix - Wrong conversion for amounts with multiple thousands separators.
+
 2020-06-10 - version 1.6.21
 * Tweak - WC 4.2 compatibility.
 

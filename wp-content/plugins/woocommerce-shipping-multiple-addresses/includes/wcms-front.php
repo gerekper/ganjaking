@@ -126,38 +126,37 @@ class WC_MS_Front {
 		wp_enqueue_script( 'modernizr', plugins_url( 'js/modernizr.js', WC_Ship_Multiple::FILE ) );
 		wp_enqueue_script( 'multiple_shipping_checkout', plugins_url( 'js/woocommerce-checkout.js', WC_Ship_Multiple::FILE ), array( 'woocommerce', 'jquery-ui-draggable', 'jquery-ui-droppable', 'jquery-ui-mouse' ) );
 
-		if ( function_exists( 'wc_add_notice' ) ) {
-			wp_localize_script( 'multiple_shipping_checkout', 'WCMS', apply_filters( 'wc_ms_multiple_shipping_checkout_locale', array(
-					// URL to wp-admin/admin-ajax.php to process the request
-					'ajaxurl'   => admin_url( 'admin-ajax.php' ),
-					'base_url'  => plugins_url( '', WC_Ship_Multiple::FILE ),
-					'wc_url'    => WC()->plugin_url(),
-					'countries' => wp_json_encode( array_merge( WC()->countries->get_allowed_country_states(), WC()->countries->get_shipping_country_states() ) ),
+		wp_localize_script(
+			'multiple_shipping_checkout',
+			'WCMS',
+			apply_filters(
+				'wc_ms_multiple_shipping_checkout_locale',
+				array(
+					// URL to wp-admin/admin-ajax.php to process the request.
+					'ajaxurl'           => admin_url( 'admin-ajax.php' ),
+					'base_url'          => plugins_url( '', WC_Ship_Multiple::FILE ),
+					'wc_url'            => WC()->plugin_url(),
+					'countries'         => wp_json_encode( array_merge( WC()->countries->get_allowed_country_states(), WC()->countries->get_shipping_country_states() ) ),
 					'select_state_text' => esc_attr__( 'Select an option&hellip;', 'wc_shipping_multiple_address' ),
-			) ) );
+				)
+			)
+		);
 
-			if ( WC_MS_Compatibility::is_wc_version_gte( '2.3' ) ) {
-				wp_enqueue_script( 'select2', '//cdnjs.cloudflare.com/ajax/libs/select2/3.5.2/select2.min.js', array( 'jquery' ), '3.5.2' );
-				wp_enqueue_style( 'select2', '//cdnjs.cloudflare.com/ajax/libs/select2/3.5.2/select2.min.css', array(), '3.5.2' );
-			}
-
-			wp_register_script( 'wcms-country-select', plugins_url( 'js/country-select.js', WC_Ship_Multiple::FILE ), array( 'jquery' ), WC_VERSION, true );
-			wp_localize_script( 'wcms-country-select', 'wcms_country_select_params', apply_filters( 'wc_country_select_params', array(
-				'countries'              => wp_json_encode( array_merge( WC()->countries->get_allowed_country_states(), WC()->countries->get_shipping_country_states() ) ),
-				'i18n_select_state_text' => esc_attr__( 'Select an option&hellip;', 'wc_shipping_multiple_address' ),
-			) ) );
-			wp_enqueue_script('wcms-country-select');
-
-		} else {
-
-			wp_localize_script( 'multiple_shipping_checkout', 'WCMS', array(
-				// URL to wp-admin/admin-ajax.php to process the request
-				'ajaxurl'   => admin_url( 'admin-ajax.php' ),
-				'base_url'  => plugins_url( '', WC_Ship_Multiple::FILE ),
-				'wc_url'    => WC()->plugin_url(),
-				'countries' => wp_json_encode( WC()->countries->get_allowed_country_states() ),
-				'select_state_text' => esc_attr__( 'Select an option&hellip;', 'wc_shipping_multiple_address' ),
-			) );
+		if ( ! is_checkout() ) {
+			wp_register_script( 'wcms-country-select', plugins_url( 'js/country-select.js', WC_Ship_Multiple::FILE ), array( 'jquery', 'selectWoo', 'select2' ), WC_SHIPPING_MULTIPLE_ADDRESSES_VERSION, true );
+			wp_localize_script(
+				'wcms-country-select',
+				'wcms_country_select_params',
+				apply_filters(
+					'wc_country_select_params',
+					array(
+						'countries'              => wp_json_encode( array_merge( WC()->countries->get_allowed_country_states(), WC()->countries->get_shipping_country_states() ) ),
+						'i18n_select_state_text' => esc_attr__( 'Select an option&hellip;', 'wc_shipping_multiple_address' ),
+					)
+				)
+			);
+			wp_enqueue_script( 'wcms-country-select' );
+			wp_enqueue_style( 'select2', WC()->plugin_url() . '/assets/css/select2.css', array(), WC_VERSION );
 		}
 
 		wp_enqueue_style( 'multiple_shipping_styles', plugins_url( 'css/front.css', WC_Ship_Multiple::FILE ) );
@@ -484,7 +483,7 @@ class WC_MS_Front {
 			}
 
 			$default_address = $this->wcms->address_book->get_user_default_address( $user->ID );
-			
+
 			if ( $default_address['address_1'] && $default_address['postcode'] ) {
 				array_unshift( $addresses, $default_address );
 			}

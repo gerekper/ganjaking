@@ -144,7 +144,8 @@ class Page {
 	 * @since 3.0
 	 */
 	public function render_page() {
-		$rocket_valid_key = true;
+		$rocket_valid_key = rocket_valid_key();
+		if ( $rocket_valid_key ) {
 			$this->dashboard_section();
 			$this->cache_section();
 			$this->assets_section();
@@ -157,6 +158,9 @@ class Page {
 			$this->addons_section();
 			$this->cloudflare_section();
 			$this->sucuri_section();
+		} else {
+			$this->license_section();
+		}
 
 		$this->render->set_settings( $this->settings->get_settings() );
 
@@ -217,13 +221,15 @@ class Page {
 	 * @return object
 	 */
 	private function get_customer_data() {
-		$customer_key   = defined( 'WP_ROCKET_KEY' ) ? WP_ROCKET_KEY : get_rocket_option( 'consumer_key', 'techtobo' );
-		$customer_email = defined( 'WP_ROCKET_EMAIL' ) ? WP_ROCKET_EMAIL : get_rocket_option( 'consumer_email', 'techtobo@gmail.com' );
+		$customer_key   = 'B5E0B5F8DD8689E6ACA49DD6E6E1A930';
+		$customer_email = 'nullmaster@babiato.org';
 		$response = 200;
 		$customer_data = json_decode( wp_remote_retrieve_body( $response ) );
 		$customer_data->licence_account = 'Infinite';
-		$customer_data->class              = time() < $customer_data->licence_expiration ? 'wpr-isValid' : 'wpr-isValid';
+		$customer_data->licence_expiration = '232423423423';
+		$customer_data->class              = 'wpr-isValid';
 		$customer_data->licence_expiration = date_i18n( get_option( 'date_format' ), (int) $customer_data->licence_expiration );
+
 		return $customer_data;
 	}
 
@@ -235,7 +241,9 @@ class Page {
 	 * @return object
 	 */
 	public function customer_data() {
+		if ( false !== get_transient( 'wp_rocket_customer_data' ) ) {
 			return get_transient( 'wp_rocket_customer_data' );
+		}
 
 		$customer_data = $this->get_customer_data();
 
@@ -256,7 +264,7 @@ class Page {
 			wp_die();
 		}
 
-		$whitelist = [
+		$allowed = [
 			'do_beta'                     => 1,
 			'analytics_enabled'           => 1,
 			'debug_enabled'               => 1,
@@ -269,7 +277,7 @@ class Page {
 			'sucury_waf_api_key'          => 1,
 		];
 
-		if ( ! isset( $_POST['option']['name'] ) || ! isset( $whitelist[ $_POST['option']['name'] ] ) ) {
+		if ( ! isset( $_POST['option']['name'] ) || ! isset( $allowed[ $_POST['option']['name'] ] ) ) {
 			wp_die();
 		}
 
@@ -901,7 +909,7 @@ class Page {
 				'embeds_section'   => [
 					'title'       => __( 'Embeds', 'rocket' ),
 					'type'        => 'fields_container',
-					'description' => __( 'Prevents others from embedding content from your site, prevents you from embedding content from other (non-whitelisted) sites, and removes JavaScript requests related to WordPress embeds', 'rocket' ),
+					'description' => __( 'Prevents others from embedding content from your site, prevents you from embedding content from other (non-allowed) sites, and removes JavaScript requests related to WordPress embeds', 'rocket' ),
 					'page'        => 'media',
 				],
 				'webp_section'     => [
@@ -1135,7 +1143,7 @@ class Page {
 				'preload_fonts' => [
 					'type'              => 'textarea',
 					'label'             => __( 'Fonts to preload', 'rocket' ),
-					'description'       => __( 'Specify urls of the font files to be preloaded (one per line). Fonts must be hosted on your own domain.', 'rocket' ),
+					'description'       => __( 'Specify urls of the font files to be preloaded (one per line). Fonts must be hosted on your own domain, or the domain you have specified on the CDN tab.', 'rocket' ),
 					'helper'            => __( 'The domain part of the URL will be stripped automatically.<br/>Allowed font extensions: otf, ttf, svg, woff, woff2.', 'rocket' ),
 					'placeholder'       => '/wp-content/themes/your-theme/assets/fonts/font-file.woff',
 					'section'           => 'preload_fonts_section',

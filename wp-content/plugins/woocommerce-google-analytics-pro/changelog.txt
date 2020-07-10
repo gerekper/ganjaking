@@ -1,5 +1,8 @@
 *** WooCommerce Google Analytics Pro ***
 
+2020.07.07 - version 1.8.14
+ * Fix - Fix JavaScript error when jQuery is loaded in the footer or not loaded in the page
+
 2020.06.18 - version 1.8.13
  * Fix - Prevent activated subscription event from being tracked twice
 

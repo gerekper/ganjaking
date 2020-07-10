@@ -263,9 +263,9 @@ class WC_Google_Analytics_Pro_Integration extends Framework\SV_WC_Tracking_Integ
 			if ( 'undefined' !== typeof <?php echo $this->get_ga_function_name(); ?> ) {
 				trackEvents();
 			} else {
-				$( document ).on( 'wc_google_analytics_pro_loaded', trackEvents );
+				// avoid using jQuery in case it's not available when this script is loaded
+				document.addEventListener( 'wc_google_analytics_pro_loaded', trackEvents );
 			}
-
 		})();
 		<?php
 
@@ -342,6 +342,10 @@ window.wc_ga_pro.findDuplicateTrackingCodes = function() {
 	    pageviewHitCount     = 0,
 	    reportResultsTimeout = null;
 
+	// return early if jQuery is not available
+	if ( 'undefined' === typeof jQuery ) {
+		return;
+	}
 
 	/**
 	 * Update all modified trackers to use their original sendHitTask functions.
@@ -500,7 +504,15 @@ window.wc_ga_pro.findDuplicateTrackingCodes = function() {
 	do_action( 'wc_google_analytics_pro_after_tracking_code_setup', $this->get_ga_function_name(), $this->get_tracking_id() );
 	?>
 
-	jQuery( document ).trigger( 'wc_google_analytics_pro_loaded' );
+	(function() {
+
+		// trigger an event the old-fashioned way to avoid a jQuery dependency and still support IE
+		var event = document.createEvent( 'Event' );
+
+		event.initEvent( 'wc_google_analytics_pro_loaded', true, true );
+
+		document.dispatchEvent( event );
+	})();
 </script>
 		<?php
 		/**

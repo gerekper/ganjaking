@@ -71,9 +71,9 @@ defined( 'ABSPATH' ) || exit;
 				<div class="wpr-flex wpr-flex--egal">
 					<div>
 						<span class="wpr-title3"><?php esc_html_e( 'License', 'rocket' ); ?></span>
-						<span class="wpr-infoAccount wpr-isValid" id="wpr-account-data"><?php echo esc_html( 'Infinite' ); ?></span><br>
+						<span class="wpr-infoAccount wpr-isValid" id="wpr-account-data"><?php echo esc_html( $data['customer_data']->licence_account ); ?></span><br>
 						<span class="wpr-title3"><?php esc_html_e( 'Expiration Date', 'rocket' ); ?></span>
-						<span class="wpr-infoAccount wpr-isValid" id="wpr-expiration-data"><?php echo esc_html( 'July 24, 2091' ); ?></span>
+						<span class="wpr-infoAccount <?php echo esc_attr( $data['customer_data']->class ); ?>" id="wpr-expiration-data"><?php echo esc_html( $data['customer_data']->licence_expiration ); ?></span>
 					</div>
 					<div>
 						<?php

@@ -179,69 +179,60 @@ class WC_Report_Campaigns extends WC_Admin_Report {
         return $widgets;
     }
 
-    /**
-     * Product selection
-     * @return void
-     */
-    public function coupons_widget() {
+	/**
+	 * Product selection.
+	 *
+	 * @return void
+	 */
+	public function coupons_widget() {
 
-        // get campaigns
-        $campaign_options = $this->get_campaigns();
+		// Get campaigns.
+		$campaign_options = $this->get_campaigns();
 
-        // if we have campaigns then print the form to narrow them down
-        if ( $campaign_options ) : ?>
-            <form method="GET">
-                <p>
-                    <label for="campaign"><?php _e( 'Campaign:', 'wc_coupon_campaigns' ); ?></label> <select name="campaign" id="campaign" class="wc-enhanced-select chosen_select"><?php echo $campaign_options; ?></select>
-                </p>
-                <p>
-                    <input type="submit" class="button" value="<?php _e( 'Show', 'wc_coupon_campaigns' ); ?>" />
-                </p>
-                <input type="hidden" name="range" value="<?php if ( ! empty( $_GET['range'] ) ) echo esc_attr( $_GET['range'] ) ?>" />
-                <input type="hidden" name="start_date" value="<?php if ( ! empty( $_GET['start_date'] ) ) echo esc_attr( $_GET['start_date'] ) ?>" />
-                <input type="hidden" name="end_date" value="<?php if ( ! empty( $_GET['end_date'] ) ) echo esc_attr( $_GET['end_date'] ) ?>" />
-                <input type="hidden" name="page" value="<?php if ( ! empty( $_GET['page'] ) ) echo esc_attr( $_GET['page'] ) ?>" />
-                <input type="hidden" name="tab" value="<?php if ( ! empty( $_GET['tab'] ) ) echo esc_attr( $_GET['tab'] ) ?>" />
-                <?php
-	            if ( version_compare( WOOCOMMERCE_VERSION, '2.3', '<' ) ) {
-					?>
-	                <script type="text/javascript">
-	                    jQuery(function() {
-	                        jQuery('select.chosen_select').chosen();
-	                    });
-	                </script>
-					<?php
-				}
-				?>
-                </p>
-            </form>
-        <?php else : ?>
-            <span><?php _e( 'No campaigns found', 'wc_coupon_campaigns' ); ?></span>
-        <?php endif;
-    }
+		// If we have campaigns then print the form to narrow them down.
+		if ( $campaign_options ) : ?>
+			<form method="GET">
+				<p>
+					<label for="campaign"><?php esc_html_e( 'Campaign:', 'wc_coupon_campaigns' ); ?></label> <select name="campaign" id="campaign" class="wc-enhanced-select"><?php echo $campaign_options; ?></select>
+				</p>
+				<p>
+					<input type="submit" class="button" value="<?php esc_attr_e( 'Show', 'wc_coupon_campaigns' ); ?>" />
+				</p>
+				<input type="hidden" name="range" value="<?php if ( ! empty( $_GET['range'] ) ) echo esc_attr( $_GET['range'] ) ?>" />
+				<input type="hidden" name="start_date" value="<?php if ( ! empty( $_GET['start_date'] ) ) echo esc_attr( $_GET['start_date'] ) ?>" />
+				<input type="hidden" name="end_date" value="<?php if ( ! empty( $_GET['end_date'] ) ) echo esc_attr( $_GET['end_date'] ) ?>" />
+				<input type="hidden" name="page" value="<?php if ( ! empty( $_GET['page'] ) ) echo esc_attr( $_GET['page'] ) ?>" />
+				<input type="hidden" name="tab" value="<?php if ( ! empty( $_GET['tab'] ) ) echo esc_attr( $_GET['tab'] ) ?>" />
+			</form>
+		<?php else : ?>
+			<span><?php esc_html_e( 'No campaigns found', 'wc_coupon_campaigns' ); ?></span>
+		<?php endif;
+	}
 
-    /**
-     * Get the campaigns
-     * @return mixed
-     */
-    public function get_campaigns( ) {
+	/**
+	 * Get the campaigns.
+	 *
+	 * @return mixed
+	 */
+	public function get_campaigns() {
 
-        // get the campaigns
-        $campaign_args = array(
-            'orderby'    => 'name',
-            'order'      => 'ASC',
-            'hide_empty' => false
-        );
-        $campaigns = get_terms( $this->taxonomy, $campaign_args );
+		// Get the campaigns.
+		$campaign_args = array(
+			'orderby'    => 'name',
+			'order'      => 'ASC',
+			'hide_empty' => false,
+		);
 
-        // create options for select box
-        $campaign_options = '<option value="0">No campaign selected</option>';
-        foreach( $campaigns as $campaign ) {
-            $campaign_options .= '<option value="' . $campaign->term_id . '"' . selected( $campaign->term_id, $this->selected_campaign, false ) . '>' . $campaign->name . '</option>';
-        }
+		$campaigns = get_terms( $this->taxonomy, $campaign_args );
 
-        return $campaign_options;
-    }
+		// Create options for select box.
+		$campaign_options = '<option value="0">' . esc_html__( 'No campaign selected', 'wc_coupon_campaigns' ) . '</option>';
+		foreach ( $campaigns as $campaign ) {
+			$campaign_options .= '<option value="' . esc_attr( $campaign->term_id ) . '"' . selected( $campaign->term_id, $this->selected_campaign, false ) . '>' . esc_html( $campaign->name ) . '</option>';
+		}
+
+		return $campaign_options;
+	}
 
     /**
      * Output an export link

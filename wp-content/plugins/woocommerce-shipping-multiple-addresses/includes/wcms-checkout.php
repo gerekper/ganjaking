@@ -216,33 +216,31 @@ class WC_MS_Checkout {
         }
     }
 
-    public function render_user_addresses_dropdown() {
+	public function render_user_addresses_dropdown() {
 
-        //if ( !$this->wcms->cart_is_eligible_for_multi_shipping() ) {
-            $addresses = $this->wcms->address_book->get_user_addresses( wp_get_current_user() );
+		$addresses = $this->wcms->address_book->get_user_addresses( wp_get_current_user() );
 
-            if ( count( $addresses ) ):
-                ?>
-                <p id="ms_shipping_addresses_field" class="form-row form-row-wide ms-addresses-field">
-                    <label class=""><?php _e('Stored Addresses', 'wc_shipping_multiple_address'); ?></label>
-                    <select class="" id="ms_addresses">
-                        <option value=""><?php _e('Select an address to use...', 'wc_shipping_multiple_address'); ?></option>
-                        <?php
-                        foreach ( $addresses as $key => $address ) {
-                            $formatted_address = $address['shipping_first_name'] .' '. $address['shipping_last_name'] .', '. $address['shipping_address_1'] .', '. $address['shipping_city'];
-                            echo '<option value="'. $key .'"';
-                            foreach ( $address as $key => $value ) {
-                                echo ' data-'. $key .'="'. esc_attr( $value ) .'"';
-                            }
-                            echo '>'. $formatted_address .'</option>';
-                        }
-                        ?>
-                    </select>
-                </p>
-            <?php
-            endif;
-        //}
-    }
+		if ( count( $addresses ) ) :
+	?>
+		<p id="ms_shipping_addresses_field" class="form-row form-row-wide ms-addresses-field">
+			<label><?php esc_html_e( 'Stored Addresses', 'wc_shipping_multiple_address' ); ?></label>
+			<select id="ms_addresses">
+				<option value=""><?php esc_html_e( 'Select an address to use&hellip;', 'wc_shipping_multiple_address' ); ?></option>
+				<?php
+					foreach ( $addresses as $key => $address ) {
+						$formatted_address = $address['shipping_first_name'] . ' ' . $address['shipping_last_name'] . ', ' . $address['shipping_address_1'] . ', ' . $address['shipping_city'];
+						echo '<option value="' . esc_attr( $key ) . '"';
+						foreach ( $address as $key => $value ) {
+							echo ' data-' . esc_attr( $key ) . '="' . esc_attr( $value ) . '"';
+						}
+						echo '>' . esc_html( $formatted_address ) . '</option>';
+					}
+				?>
+			</select>
+		</p>
+	<?php
+		endif;
+	}
 
     public function before_checkout_form() {
         if ( ! $this->wcms->cart->cart_has_multi_shipping() && WC()->cart->needs_shipping() ) {

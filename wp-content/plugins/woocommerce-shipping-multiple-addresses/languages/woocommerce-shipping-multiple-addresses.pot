@@ -2,11 +2,11 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Ship to Multiple Addresses 3.6.19\n"
+"Project-Id-Version: WooCommerce Ship to Multiple Addresses 3.6.20\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-shipping-multiple-"
 "addresses\n"
-"POT-Creation-Date: 2020-06-16 13:28:51+00:00\n"
+"POT-Creation-Date: 2020-07-07 09:22:14+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -106,8 +106,8 @@ msgstr ""
 msgid "Save Address"
 msgstr ""
 
-#: includes/wcms-admin.php:58 includes/wcms-front.php:136
-#: includes/wcms-front.php:147 includes/wcms-front.php:159
+#: includes/wcms-admin.php:58 includes/wcms-front.php:140
+#: includes/wcms-front.php:154
 msgid "Select an option&hellip;"
 msgstr ""
 
@@ -160,65 +160,65 @@ msgstr ""
 msgid "Modify/Add Address"
 msgstr ""
 
-#: includes/wcms-checkout.php:227
+#: includes/wcms-checkout.php:226
 msgid "Stored Addresses"
 msgstr ""
 
-#: includes/wcms-checkout.php:229
-msgid "Select an address to use..."
+#: includes/wcms-checkout.php:228
+msgid "Select an address to use&hellip;"
 msgstr ""
 
-#: includes/wcms-checkout.php:448 includes/wcms-checkout.php:450
+#: includes/wcms-checkout.php:446 includes/wcms-checkout.php:448
 msgid "One or more items has no shipping address."
 msgstr ""
 
-#: includes/wcms-front.php:252
+#: includes/wcms-front.php:251
 msgid ""
 "This order ships to multiple addresses.  <a class=\"button\" "
 "href=\"%s\">View Addresses</a>"
 msgstr ""
 
-#: includes/wcms-front.php:310
+#: includes/wcms-front.php:309
 msgid "Shipping address %d"
 msgstr ""
 
-#: includes/wcms-front.php:420
+#: includes/wcms-front.php:419
 msgid "%s is a required field."
 msgstr ""
 
-#: includes/wcms-front.php:437
+#: includes/wcms-front.php:436
 msgid "Please enter a valid postcode / ZIP."
 msgstr ""
 
-#: includes/wcms-front.php:446
+#: includes/wcms-front.php:445
 msgid "%s is not a valid phone number."
 msgstr ""
 
-#: includes/wcms-front.php:453
+#: includes/wcms-front.php:452
 msgid "%s is not a valid email address."
 msgstr ""
 
-#: includes/wcms-front.php:480
+#: includes/wcms-front.php:479
 msgid "Address added successfully."
 msgstr ""
 
-#: includes/wcms-front.php:483
+#: includes/wcms-front.php:482
 msgid "Address changed successfully."
 msgstr ""
 
-#: includes/wcms-front.php:555
+#: includes/wcms-front.php:554
 msgid "Delete address"
 msgstr ""
 
-#: includes/wcms-front.php:573
+#: includes/wcms-front.php:572
 msgid "Deleted address"
 msgstr ""
 
-#: includes/wcms-front.php:575
+#: includes/wcms-front.php:574
 msgid "Address could not be found"
 msgstr ""
 
-#: includes/wcms-front.php:593
+#: includes/wcms-front.php:592
 msgid "Add address"
 msgstr ""
 
@@ -625,11 +625,11 @@ msgstr ""
 msgid "Message"
 msgstr ""
 
-#: multi-shipping.php:342 multi-shipping.php:353 multi-shipping.php:381
+#: multi-shipping.php:339 multi-shipping.php:370
 msgid "Search for a product&hellip;"
 msgstr ""
 
-#: multi-shipping.php:438
+#: multi-shipping.php:427
 msgid "Select categories&hellip;"
 msgstr ""
 

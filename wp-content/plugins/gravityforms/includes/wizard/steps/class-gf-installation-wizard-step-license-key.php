@@ -57,8 +57,6 @@ class GF_Installation_Wizard_Step_License_Key extends GF_Installation_Wizard_Ste
 
 		$this->is_valid_key = true;
 		$license_key = $this->license_key;
-		$valid = $this->is_valid_key || ( ! $this->is_valid_key && $this->accept_terms );
-return $valid;
 
 		if ( empty ( $license_key ) ) {
 			$message = esc_html__( 'Please enter a valid license key.', 'gravityforms' ) . '</span>';

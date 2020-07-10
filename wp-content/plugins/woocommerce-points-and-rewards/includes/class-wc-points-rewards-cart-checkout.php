@@ -568,11 +568,12 @@ class WC_Points_Rewards_Cart_Checkout {
 	 *
 	 * @since 1.0.0
 	 * @version 1.6.5
-	 * @param bool  $applying                  To indicate if this method is called during application of the points.
-	 * @param float $existing_discount_amounts Total amount for existing discount for items in cart.
-	 * @param bool  $for_display               Whether to generate discount amount for message display purposes or for the actual discount.
+	 * @param bool   $applying                  To indicate if this method is called during application of the points.
+	 * @param float  $existing_discount_amounts Total amount for existing discount for items in cart.
+	 * @param bool   $for_display               Whether to generate discount amount for message display purposes or for the actual discount.
+	 * @param string $code                      Coupon code, used to check if this coupon was already applied in the process.
 	 */
-	public static function get_discount_for_redeeming_points( $applying = false, $existing_discount_amounts = null, $for_display = false ) {
+	public static function get_discount_for_redeeming_points( $applying = false, $existing_discount_amounts = null, $for_display = false, $code = null ) {
 		// get the value of the user's point balance
 		$available_user_discount = WC_Points_Rewards_Manager::get_users_points_value( get_current_user_id() );
 
@@ -656,6 +657,15 @@ class WC_Points_Rewards_Cart_Checkout {
 			$existing_discount_amounts = version_compare( WC_VERSION, '3.0.0', '<' )
 				? WC()->cart->discount_total
 				: WC()->cart->get_cart_discount_total();
+		}
+
+		/*
+		 * If during calculation process this discount was already applied then we need to remove its amount
+		 * from the total discounts in cart to not obscure the calculations.
+		 */
+		if ( ! is_null( $code ) ) {
+			$discount_from_the_coupon   = WC()->cart->get_coupon_discount_amount( $code );
+			$existing_discount_amounts -= $discount_from_the_coupon;
 		}
 
 		// if the available discount is greater than the order total, make the discount equal to the order total less any other discounts

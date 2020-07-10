@@ -242,13 +242,13 @@ $generated_i18n_strings = array(
 	// Reference: js/src/help-scout-beacon.js:208
 	__( 'When you click OK we will open our HelpScout beacon where you can find answers to your questions. This beacon will load our support data and also potentially set cookies.', 'wordpress-seo' ),
 
-	// Reference: js/src/inline-links/edit-link.js:109
+	// Reference: js/src/inline-links/edit-link.js:110
 	__( 'Link removed.', 'wordpress-seo' ),
 
-	// Reference: js/src/inline-links/edit-link.js:136
+	// Reference: js/src/inline-links/edit-link.js:137
 	__( 'Unlink', 'wordpress-seo' ),
 
-	// Reference: js/src/inline-links/edit-link.js:27
+	// Reference: js/src/inline-links/edit-link.js:28
 	__( 'Link', 'wordpress-seo' ),
 
 	// Reference: js/src/inline-links/inline.js:175
@@ -285,7 +285,7 @@ $generated_i18n_strings = array(
 	__( 'Frequently Asked Questions', 'wordpress-seo' ),
 
 	// Reference: js/src/structured-data-blocks/faq/block.js:29
-	// Reference: js/src/structured-data-blocks/how-to/block.js:57
+	// Reference: js/src/structured-data-blocks/how-to/block.js:56
 	__( 'Schema', 'wordpress-seo' ),
 
 	// Reference: js/src/structured-data-blocks/faq/components/FAQ.js:158
@@ -316,13 +316,13 @@ $generated_i18n_strings = array(
 	// Reference: js/src/structured-data-blocks/how-to/components/HowToStep.js:178
 	__( 'Add image', 'wordpress-seo' ),
 
-	// Reference: js/src/structured-data-blocks/how-to/block.js:51
+	// Reference: js/src/structured-data-blocks/how-to/block.js:50
 	__( 'Create a How-to guide in an SEO-friendly way. You can only use one How-to block per post.', 'wordpress-seo' ),
 
-	// Reference: js/src/structured-data-blocks/how-to/block.js:55
+	// Reference: js/src/structured-data-blocks/how-to/block.js:54
 	__( 'How-to', 'wordpress-seo' ),
 
-	// Reference: js/src/structured-data-blocks/how-to/block.js:56
+	// Reference: js/src/structured-data-blocks/how-to/block.js:55
 	__( 'How to', 'wordpress-seo' ),
 
 	// Reference: js/src/structured-data-blocks/how-to/components/HowTo.js:227

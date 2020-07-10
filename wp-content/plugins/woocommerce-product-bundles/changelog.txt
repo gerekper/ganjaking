@@ -1,5 +1,9 @@
 *** WooCommerce Product Bundles ***
 
+2020.07.07 - version 6.3.1
+* Fix - Prevent 'WC_PB_Admin_Notices' from adding messages to the Inbox when WooCommerce Admin is disabled.
+* Fix - Declared support for WooCommerce 4.3.
+
 2020.06.26 - version 6.3.0
 * Feature - Added free Product Bundles mini-extension recommendations in the WooCommerce Inbox.
 * Feature - Check if the server is able to perform loopback requests and display a warning if the test fails.

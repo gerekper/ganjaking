@@ -746,6 +746,7 @@ class WC_Product_Vendors_Store_Admin {
 	 * @return bool
 	 */
 	public function render_commission_page() {
+		$this->maybe_render_bulk_update_notifications();
 		$commissions_list = new WC_Product_Vendors_Store_Admin_Commission_List( new WC_Product_Vendors_Commission( new WC_Product_Vendors_PayPal_MassPay ) );
 
 		$commissions_list->prepare_items();
@@ -770,6 +771,26 @@ class WC_Product_Vendors_Store_Admin {
 		</div>
 	<?php
 		return true;
+	}
+
+	/**
+	 * After performing bulk updates, show a notification to the admin.
+	 *
+	 * @since  2.1.38
+	 * @return void
+	 */
+	private function maybe_render_bulk_update_notifications() {
+		if ( ! empty( $_REQUEST['processed'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$processed               = intval( $_REQUEST['processed'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$items_processed_message = sprintf( _n( '%d item processed.', '%d items processed', $processed, 'woocommerce-product-vendors' ), $processed );
+			WC_Admin_Settings::add_message( $items_processed_message );
+
+			if ( ! empty( $_REQUEST['pay'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+				$paid_status_message = esc_html__( 'Paid status will be updated in a few minutes.', 'woocommerce-product-vendors' );
+				WC_Admin_Settings::add_message( $paid_status_message );
+			}
+			WC_Admin_Settings::show_messages();
+		}
 	}
 
 	/**

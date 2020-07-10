@@ -1,5 +1,9 @@
 *** WooCommerce Points and Rewards Changelog ***
 
+2020-07-07 - version 1.6.34
+* Fix - Escape output for selectWoo fields.
+* Fix - Fix integration with automated taxes plugins.
+
 2020-06-10 - version 1.6.33
 * Fix - Stop using legacy filter to solve rounding issues.
 * Tweak - WC 4.2 compatibility.

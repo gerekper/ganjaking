@@ -45,6 +45,9 @@ If you’re using the Advanced Notifications extension make sure you disable the
 
 == Changelog ==
 
+2020.07.07 - version 2.1.23
+* Fix: updated language.pot file
+
 2020.06.19 - version 2.1.22
 * Patch Fix: Rollback to avoid mailouts being unintentionally sent to users on bundled products with last version
 * Fix: Bundled product creation sometimes duplicating products
@@ -134,7 +137,7 @@ If you’re using the Advanced Notifications extension make sure you disable the
 * Fix: Waitlist notices not showing on event pages
 
 2019.06.25 - Version 2.1.2
-* Fix: Waitlist not showing for bundle products with only optional bundled products 
+* Fix: Waitlist not showing for bundle products with only optional bundled products
 
 2019.06.21 - Version 2.1.1
 * Fix: waitlist not showing for "instock" grouped products
@@ -151,7 +154,7 @@ If you’re using the Advanced Notifications extension make sure you disable the
 * Fix: waitlist elements not showing on all archive pages
 
 2019.05.29
-* Fix: js targetting and removing elements outside of plugin scope 
+* Fix: js targetting and removing elements outside of plugin scope
 * Fix error on new waitlist signup email header & footer
 
 2019.03.29

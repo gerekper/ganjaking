@@ -13,14 +13,14 @@
         <tr>
             <td><?php echo $status->name; ?></td>
             <td>
-                <select name="permission[<?php echo $slug; ?>][]" class="multi-select2" multiple data-placeholder="All Managers and Administrators" style="width: 500px;">
-                    <?php
-                    foreach ($all_permitted_users as $user):
-                        $selected = (isset($permissions[$slug]) && in_array($user->ID, $permissions[$slug])) ? true : false;
-                        ?>
-                        <option value="<?php echo $user->ID; ?>" <?php selected(true, $selected, true); ?>><?php echo $user->display_name; ?></option>
-                    <?php endforeach; ?>
-                </select>
+				<select name="permission[<?php echo esc_attr( $slug ); ?>][]" class="multi-select2" multiple data-placeholder="All Managers and Administrators" style="width: 500px;">
+					<?php
+					foreach ( $all_permitted_users as $user ) :
+						$selected = ( isset( $permissions[ $slug ] ) && in_array( $user->ID, $permissions[ $slug ] ) ) ? true : false;
+						?>
+						<option value="<?php echo esc_attr( $user->ID ); ?>" <?php selected( true, $selected, true ); ?>><?php echo esc_html( $user->display_name ); ?></option>
+					<?php endforeach; ?>
+				</select>
             </td>
         </tr>
     <?php endforeach; ?>
@@ -30,5 +30,5 @@
     table.permissions-table.widefat th, table.permissions-table.widefat td {overflow: visible;}
 </style>
 <script type="text/javascript">
-    jQuery("select.multi-select2").select2();
+	jQuery( 'select.multi-select2' ).selectWoo();
 </script>

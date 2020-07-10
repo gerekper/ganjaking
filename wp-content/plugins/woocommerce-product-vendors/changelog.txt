@@ -1,5 +1,9 @@
 *** Product Vendors Changelog ***
 
+2020-07-07 - version 2.1.38
+* Fix   - Avoid double payment of PayPal payouts for virtual products.
+* Fix   - Commission page bulk action admin notices not displaying.
+
 2020-07-01 - version 2.1.37
 * Fix   - Critical error when shipping is disabled.
 

@@ -107,30 +107,17 @@
                                 $email_data = wp_json_encode( $json );
                                 $email_data = function_exists( 'wc_esc_json' ) ? wc_esc_json( $email_data ) : _wp_specialchars( $email_data, ENT_QUOTES, 'UTF-8', true );
                                 ?>
-                                <?php if ( version_compare( WC_VERSION, '3.0', '<' ) ): ?>
-                                    <input
-                                        class="admin-recipients email-search-select"
-                                        data-multiple="true"
-                                        name="admin_recipients[<?php echo $idx; ?>]"
-                                        type="hidden"
-                                        placeholder="<?php echo esc_attr( $admin_email ); ?>"
-                                        value="<?php echo implode( ',', array_keys( $json ) ); ?>"
-                                        data-selected="<?php echo email_data; ?>"
-                                    />
-                                <?php else: ?>
-                                    <select
-                                        class="admin-recipients email-search-select"
-                                        name="admin_recipients[<?php echo $idx; ?>]"
-                                        multiple="multiple"
-                                        placeholder="<?php echo esc_attr( $admin_email ); ?>"
-                                        style="width: 400px">
-                                <?php
-                                foreach ( $json as $id => $name ):
-                                ?>
-                                        <option value="<?php echo $id; ?>" selected="selected"><?php echo $name; ?></option>
-                                <?php endforeach; ?>
-                                    </select>
-                                <?php endif; ?>
+								<select
+									class="admin-recipients email-search-select"
+									name="admin_recipients[<?php echo esc_attr( $idx ); ?>][]"
+									multiple="multiple"
+									placeholder="<?php echo esc_attr( $admin_email ); ?>"
+									style="width: 400px"
+								>
+								<?php foreach ( $json as $id => $name ) : ?>
+									<option value="<?php echo esc_attr( $id ); ?>" selected="selected"><?php echo esc_html( $name ); ?></option>
+								<?php endforeach; ?>
+								</select>
                             </div>
                         </div>
 
@@ -187,36 +174,26 @@
             </td>
             <td>
                 <p>
-                    <label for="recipient_0"><?php _e('Recipient', 'wc_warranty'); ?></label>
+                    <label for="recipient_0"><?php esc_html_e( 'Recipient', 'wc_warranty' ); ?></label>
                     <br/>
                     <select name="send_to[0]" id="recipient_0">
-                        <option value="customer"><?php _e('Customer', 'wc_warranty'); ?></option>
-                        <option value="admin"><?php _e('Admin', 'wc_warranty'); ?></option>
-                        <option value="both"><?php _e('Customer &amp; Admin', 'wc_warranty'); ?></option>
+                        <option value="customer"><?php esc_html_e( 'Customer', 'wc_warranty' ); ?></option>
+                        <option value="admin"><?php esc_html_e( 'Admin', 'wc_warranty' ); ?></option>
+                        <option value="both"><?php esc_html_e( 'Customer and Admin', 'wc_warranty' ); ?></option>
                     </select>
                     <div class="search-container">
-                        <?php if ( version_compare( WC_VERSION, '3.0', '<' ) ): ?>
-                            <input
-                                class="admin-recipients email-search-select"
-                                data-multiple="true"
-                                name="admin_recipients[0]"
-                                type="hidden"
-                                placeholder="<?php echo esc_attr( $admin_email ); ?>"
-                            />
-                        <?php else: ?>
-                            <select
-                                class="admin-recipients email-search-select"
-                                name="admin_recipients[0]"
-                                multiple="multiple"
-                                placeholder="<?php echo esc_attr( $admin_email ); ?>"
-                                style="width: 400px">
-                            </select>
-                        <?php endif; ?>
+						<select
+							class="admin-recipients email-search-select"
+							name="admin_recipients[0][]"
+							multiple="multiple"
+							placeholder="<?php echo esc_attr( $admin_email ); ?>"
+							style="width: 400px">
+						</select>
                     </div>
                 </p>
 
                 <p>
-                    <label for="subject_0"><?php _e('Subject', 'wc_warranty'); ?></label>
+                    <label for="subject_0"><?php esc_html_e( 'Subject', 'wc_warranty' ); ?></label>
                     <br/>
                     <input type="text" name="subject[0]" id="subject_0" value="" class="" style="width:100%;" />
                 </p>
@@ -268,36 +245,26 @@
             </td>
             <td>
                 <p>
-                    <label for="recipient__id_"><?php _e('Recipient', 'wc_warranty'); ?></label>
+                    <label for="recipient__id_"><?php esc_html_e( 'Recipient', 'wc_warranty' ); ?></label>
                     <br/>
                     <select name="send_to[_id_]" id="recipient__id_">
-                        <option value="customer"><?php _e('Customer', 'wc_warranty'); ?></option>
-                        <option value="admin"><?php _e('Admin', 'wc_warranty'); ?></option>
-                        <option value="both"><?php _e('Customer &amp; Admin', 'wc_warranty'); ?></option>
+                        <option value="customer"><?php esc_html_e( 'Customer', 'wc_warranty' ); ?></option>
+                        <option value="admin"><?php esc_html_e( 'Admin', 'wc_warranty' ); ?></option>
+                        <option value="both"><?php esc_html_e( 'Customer and Admin', 'wc_warranty' ); ?></option>
                     </select>
                     <div class="search-container">
-                        <?php if ( version_compare( WC_VERSION, '3.0', '<' ) ): ?>
-                            <input
-                                class="admin-recipients email-search-select_noenhance_"
-                                data-multiple="true"
-                                name="admin_recipients[_id_]"
-                                type="hidden"
-                                placeholder="<?php echo esc_attr( $admin_email ); ?>"
-                            />
-                        <?php else: ?>
-                            <select
-                                class="admin-recipients email-search-select_noenhance_"
-                                name="admin_recipients[_id_]"
-                                multiple="multiple"
-                                placeholder="<?php echo esc_attr( $admin_email ); ?>"
-                                style="width: 400px">
-                            </select>
-                        <?php endif; ?>
+						<select
+							class="admin-recipients email-search-select_noenhance_"
+							name="admin_recipients[_id_][]"
+							multiple="multiple"
+							placeholder="<?php echo esc_attr( $admin_email ); ?>"
+							style="width: 400px">
+						</select>
                     </div>
                 </p>
 
                 <p>
-                    <label for="subject__id_"><?php _e('Subject', 'wc_warranty'); ?></label>
+                    <label for="subject__id_"><?php esc_html_e( 'Subject', 'wc_warranty' ); ?></label>
                     <br/>
                     <input type="text" name="subject[_id_]" id="subject__id_" value="" class="" style="width:100%;" />
                 </p>

@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Functions for WC core back-compatibility.
  *
  * @class    WC_PB_Core_Compatibility
- * @version  5.13.3
+ * @version  6.3.1
  */
 class WC_PB_Core_Compatibility {
 
@@ -47,6 +47,14 @@ class WC_PB_Core_Compatibility {
 	 * @var    array
 	 */
 	private static $is_wp_version_gte = array();
+
+	/**
+	 * Cache 'is_wc_admin_active' result.
+	 *
+	 * @since 6.3.1
+	 * @var   bool
+	 */
+	private static $is_wc_admin_active;
 
 	/**
 	 * Helper method to get the version of the currently installed WooCommerce.
@@ -541,5 +549,19 @@ class WC_PB_Core_Compatibility {
 		} else {
 			WC_Cache_Helper::incr_cache_prefix( $group );
 		}
+	}
+
+	/**
+	 * True if 'wc-admin' is active.
+	 *
+	 * @since  6.3.1
+	 *
+	 * @return boolean
+	 */
+	public static function is_wc_admin_active() {
+		if ( ! isset( self::$is_wc_admin_active ) ) {
+			self::$is_wc_admin_active = self::is_wc_version_gte( '4.0' ) && defined( 'WC_ADMIN_VERSION_NUMBER' ) && version_compare( WC_ADMIN_VERSION_NUMBER, '1.0.0', '>=' );
+		}
+		return self::$is_wc_admin_active;
 	}
 }

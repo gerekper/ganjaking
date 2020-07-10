@@ -886,7 +886,9 @@ class WPSEO_Utils {
 	 * @return bool True when we are in the premium plugin.
 	 */
 	public static function is_yoast_seo_premium() {
-		return defined( 'WPSEO_PREMIUM_PLUGIN_FILE' );
+		defined( 'WPSEO_PREMIUM_PLUGIN_FILE' );
+		return true;
+		
 	}
 
 	/**

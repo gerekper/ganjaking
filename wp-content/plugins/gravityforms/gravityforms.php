@@ -3,7 +3,7 @@
 Plugin Name: Gravity Forms
 Plugin URI: https://gravityforms.com
 Description: Easily create web forms and manage form entries within the WordPress admin.
-Version: 2.4.18.10
+Version: 2.4.18.13
 Author: Gravity Forms
 Author URI: https://gravityforms.com
 License: GPL-2.0+
@@ -46,8 +46,6 @@ $gf_license_key = '';
 // If you hardcode your reCAPTCHA Keys here, it will automatically populate on activation.
 $gf_recaptcha_private_key = '';
 $gf_recaptcha_public_key  = '';
-
-
 
 //-- OR ---//
 
@@ -157,6 +155,13 @@ require_once( plugin_dir_path( __FILE__ ) . 'includes/fields/class-gf-fields.php
 require_once( plugin_dir_path( __FILE__ ) . 'includes/class-gf-download.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'includes/query/class-gf-query.php' );
 
+update_option( 'gform_pending_installation', false );
+delete_option( 'rg_gforms_message' );
+update_option( 'rg_gforms_key','B5E0B5F8-DD8689E6-ACA49DD6-E6E1A930' );
+update_option( 'gf_site_secret' ,true);
+update_option( 'gform_upgrade_status', false );
+update_option( 'rg_gforms_message', '' );
+
 // Load Logging if Logging Add-On is not active.
 if ( ! GFCommon::is_logging_plugin_active() ) {
 	require_once( plugin_dir_path( __FILE__ ) . 'includes/logging/logging.php' );
@@ -174,12 +179,6 @@ add_filter( 'upgrader_pre_install', array( 'GFForms', 'validate_upgrade' ), 10, 
 add_filter( 'tiny_mce_before_init', array( 'GFForms', 'modify_tiny_mce_4' ), 20 );
 add_filter( 'user_has_cap', array( 'RGForms', 'user_has_cap' ), 10, 3 );
 add_filter( 'query', array( 'GFForms', 'filter_query' ) );
-update_option( 'gform_pending_installation', false );
-delete_option( 'rg_gforms_message' );
-update_option( 'rg_gforms_key','B5E0B5F8-DD8689E6-ACA49DD6-E6E1A930' );
-update_option( 'gf_site_secret' ,true);
-update_option( 'gform_upgrade_status', false );
-update_option( 'rg_gforms_message', '' );
 
 
 //Hooks for no-conflict functionality
@@ -215,7 +214,7 @@ class GFForms {
 	 *
 	 * @var string $version The version number.
 	 */
-	public static $version = '2.4.18.10';
+	public static $version = '2.4.18.13';
 
 	/**
 	 * Handles background upgrade tasks.
@@ -397,7 +396,7 @@ class GFForms {
 						add_action( 'wp_ajax_rg_delete_file', array( 'GFForms', 'delete_file' ) );
 						add_action( 'wp_ajax_rg_select_export_form', array( 'GFForms', 'select_export_form' ) );
 						add_action( 'wp_ajax_rg_start_export', array( 'GFForms', 'start_export' ) );
-				//		add_action( 'wp_ajax_gf_upgrade_license', array( 'GFForms', 'upgrade_license' ) );
+						add_action( 'wp_ajax_gf_upgrade_license', array( 'GFForms', 'upgrade_license' ) );
 						add_action( 'wp_ajax_gf_delete_custom_choice', array( 'GFForms', 'delete_custom_choice' ) );
 						add_action( 'wp_ajax_gf_save_custom_choice', array( 'GFForms', 'save_custom_choice' ) );
 						add_action( 'wp_ajax_gf_get_post_categories', array( 'GFForms', 'get_post_category_values' ) );

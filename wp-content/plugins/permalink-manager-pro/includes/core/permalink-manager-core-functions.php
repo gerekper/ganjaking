@@ -744,7 +744,7 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 		}
  	}
 
- 	function adjust_canonical_redirect() {
+	function adjust_canonical_redirect() {
  		global $permalink_manager_options, $permalink_manager_uris, $wp, $wp_rewrite;
 
 		// Adjust rewrite settings for trailing slashes
@@ -761,7 +761,7 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 
 		// Check if any endpoint is called (fix for feed and similar endpoints)
 		foreach($endpoints_array as $endpoint) {
-			if(!empty($wp->query_vars[$endpoint])) {
+			if(!empty($wp->query_vars[$endpoint]) && $endpoint !== 'attachment') {
 				$wp->query_vars['do_not_redirect'] = 1;
 				break;
 			}
@@ -777,16 +777,21 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 			}
 		}
 
- 		if(empty($permalink_manager_options['general']['canonical_redirect']) || !empty($wp->query_vars['do_not_redirect'])) {
+ 		if(empty($permalink_manager_options['general']['canonical_redirect'])) {
  			remove_action('template_redirect', 'redirect_canonical');
- 			add_filter('wpml_is_redirected', '__return_false', 99, 2);
- 			add_filter('pll_check_canonical_url', '__return_false', 99, 2);
  		}
 
-		if(empty($permalink_manager_options['general']['old_slug_redirect']) || !empty($wp->query_vars['do_not_redirect'])) {
+		if(empty($permalink_manager_options['general']['old_slug_redirect'])) {
 			remove_action('template_redirect', 'wp_old_slug_redirect');
 		}
 
+		if(!empty($wp->query_vars['do_not_redirect'])) {
+			remove_action('template_redirect', 'seopress_category_redirect', 1);
+			remove_action('template_redirect', 'wp_old_slug_redirect');
+			remove_action('template_redirect', 'redirect_canonical');
+			add_filter('wpml_is_redirected', '__return_false', 99, 2);
+			add_filter('pll_check_canonical_url', '__return_false', 99, 2);
+		}
  	}
 
 	/**

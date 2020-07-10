@@ -414,16 +414,6 @@
             "log",
             "logging",
             "psr-3"
-        ],
-        "funding": [
-            {
-                "url": "https://github.com/Seldaek",
-                "type": "github"
-            },
-            {
-                "url": "https://tidelift.com/funding/github/packagist/monolog/monolog",
-                "type": "tidelift"
-            }
         ]
     },
     {
@@ -574,17 +564,17 @@
     },
     {
         "name": "wp-media/rocket-lazyload-common",
-        "version": "v2.5.10",
-        "version_normalized": "2.5.10.0",
+        "version": "v2.5.11",
+        "version_normalized": "2.5.11.0",
         "source": {
             "type": "git",
             "url": "https://github.com/wp-media/rocket-lazyload-common.git",
-            "reference": "fde493535ca389882484327af32c99c839d2527f"
+            "reference": "736a90fc9f651d6e56dde5047c10f5b6ac4af106"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/wp-media/rocket-lazyload-common/zipball/fde493535ca389882484327af32c99c839d2527f",
-            "reference": "fde493535ca389882484327af32c99c839d2527f",
+            "url": "https://api.github.com/repos/wp-media/rocket-lazyload-common/zipball/736a90fc9f651d6e56dde5047c10f5b6ac4af106",
+            "reference": "736a90fc9f651d6e56dde5047c10f5b6ac4af106",
             "shasum": ""
         },
         "require": {
@@ -602,7 +592,7 @@
             "symfony/yaml": "2.8.*",
             "wp-coding-standards/wpcs": "^2.0.0"
         },
-        "time": "2020-05-26T19:34:18+00:00",
+        "time": "2020-07-07T18:43:49+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {

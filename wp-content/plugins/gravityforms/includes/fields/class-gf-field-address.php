@@ -333,12 +333,13 @@ class GF_Field_Address extends GF_Field {
 		$copy_values_option = '';
 		$input_style        = '';
 		if ( ( $this->enableCopyValuesOption || $is_form_editor ) && ! $is_entry_detail ) {
+			$copy_values_label      = esc_html( $this->copyValuesOptionLabel );
 			$copy_values_style      = $is_form_editor && ! $this->enableCopyValuesOption ? "style='display:none;'" : '';
 			$copy_values_is_checked = isset( $value[$this->id . '_copy_values_activated'] ) ? $value[$this->id . '_copy_values_activated'] == true : $this->copyValuesOptionDefault == true;
 			$copy_values_checked    = checked( true, $copy_values_is_checked, false );
 			$copy_values_option     = "<div id='{$field_id}_copy_values_option_container' class='copy_values_option_container' {$copy_values_style}>
                                         <input type='checkbox' id='{$field_id}_copy_values_activated' class='copy_values_activated' value='1' name='input_{$id}_copy_values_activated' {$disabled_text} {$copy_values_checked}/>
-                                        <label for='{$field_id}_copy_values_activated' id='{$field_id}_copy_values_option_label' class='copy_values_option_label inline'>{$this->copyValuesOptionLabel}</label>
+                                        <label for='{$field_id}_copy_values_activated' id='{$field_id}_copy_values_option_label' class='copy_values_option_label inline'>{$copy_values_label}</label>
                                     </div>";
 			if ( $copy_values_is_checked ) {
 				$input_style = "style='display:none;'";
@@ -1375,6 +1376,10 @@ class GF_Field_Address extends GF_Field {
 
 		if ( $this->defaultProvince ) {
 			$this->defaultProvince = wp_strip_all_tags( $this->defaultProvince );
+		}
+
+		if ( $this->copyValuesOptionLabel ) {
+			$this->copyValuesOptionLabel = wp_strip_all_tags( $this->copyValuesOptionLabel );
 		}
 
 	}

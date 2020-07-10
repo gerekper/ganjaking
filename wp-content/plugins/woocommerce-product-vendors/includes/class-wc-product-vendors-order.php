@@ -30,12 +30,16 @@ class WC_Product_Vendors_Order {
 		$this->commission = $commission;
 
 		// process the order
-		add_action( 'woocommerce_order_status_processing', array( $this, 'process' ) );
-		add_action( 'woocommerce_order_status_processing', array( $this, 'maybe_complete_order' ), 20, 1 );
-		add_action( 'woocommerce_order_status_completed', array( $this, 'process' ) );
-		add_action( 'woocommerce_order_status_on-hold', array( $this, 'process' ) );
+
+		add_action( 'woocommerce_order_status_on-hold_to_processing', array( $this, 'process' ) );
+		add_action( 'woocommerce_order_status_on-hold_to_completed', array( $this, 'process' ) );
+		add_action( 'woocommerce_order_status_pending_to_processing', array( $this, 'process' ) );
+		add_action( 'woocommerce_order_status_pending_to_completed', array( $this, 'process' ) );
 		add_action( 'woocommerce_bookings_create_booking_page_add_order_item', array( $this, 'process' ) );
+
 		add_action( 'delete_post', array( $this, 'remove_affected_commissions' ) );
+		add_action( 'woocommerce_order_status_pending_to_processing', array( $this, 'maybe_complete_order' ), 20, 1 );
+		add_action( 'woocommerce_order_status_on-hold_to_processing', array( $this, 'maybe_complete_order' ), 20, 1 );
 
 		add_action( 'wcpv_commission_added', array( $this, 'add_commission_order_note' ) );
 

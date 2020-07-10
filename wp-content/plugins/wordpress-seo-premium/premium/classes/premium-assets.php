@@ -65,7 +65,7 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 				'dependencies' => [],
 			],
 			[
-				'name'         => WPSEO_Admin_Asset_Manager::PREFIX . 'premium-metabox',
+				'name'         => 'yoast-seo-premium-metabox',
 				'path'         => 'assets/js/dist/',
 				'filename'     => 'wp-seo-premium-metabox-' . $version . WPSEO_CSSJS_SUFFIX . '.js',
 				'dependencies' => [
@@ -125,6 +125,18 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 					'wp-plugins',
 				],
 			],
+			[
+				'name'         => 'wp-seo-premium-dynamic-blocks',
+				'path'         => 'assets/js/dist/',
+				'filename'     => 'dynamic-blocks-' . $version . WPSEO_CSSJS_SUFFIX . '.js',
+				'dependencies' => [
+					'wp-blocks',
+					'wp-server-side-render',
+					'wp-data',
+					'wp-dom-ready',
+					'lodash',
+				],
+			],
 		];
 	}
 
@@ -177,11 +189,14 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 			$url = 'http://localhost:8081/' . $script['filename'];
 		}
 
+		$in_footer = isset( $script['in_footer'] ) ? $script['in_footer'] : false;
+
 		wp_register_script(
 			$script['name'],
 			$url,
 			$script['dependencies'],
-			WPSEO_VERSION
+			WPSEO_VERSION,
+			$in_footer
 		);
 	}
 

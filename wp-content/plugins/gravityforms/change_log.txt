@@ -1,3 +1,15 @@
+### 2.4.18.13
+- Added the [gform_field_size_choices](https://docs.gravityforms.com/gform_field_size_choices/) filter allowing the choices for the Field Size setting in the form editor to be customized.
+
+
+### 2.4.18.12
+- Fixed an issue where the empty form validation error is applied to unsuitable fields such as HTML and Section.
+
+
+### 2.4.18.11
+- Added security enhancements.
+
+
 ### 2.4.18.10
 - Updated recommended minimum PHP version on the System Status page to 7.3, matching the WordPress recommendation.
 - Updated minimum WordPress version on the System Status page to 5.3.

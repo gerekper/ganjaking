@@ -372,10 +372,15 @@ jQuery( function( $ ) {
 
 						if ( has_subscription_plans ) {
 
-							var $selected_plan = $subscription_plans.find( 'input:checked' );
+							var satt = $cart.data( 'satt_script' );
 
-							if ( $selected_plan.val() ) {
-								$subscription_details = $selected_plan.parent().find( '.subscription-details' );
+							if ( satt && satt.schemes_model.get_active_scheme_key() ) {
+
+								var $selected_plan = $subscription_plans.find( 'input:checked' );
+
+								if ( $selected_plan.val() ) {
+									$subscription_details = $selected_plan.parent().find( '.subscription-details' );
+								}
 							}
 
 						} else if ( $cart.parent().find( '.subscription-details' ).length ) {

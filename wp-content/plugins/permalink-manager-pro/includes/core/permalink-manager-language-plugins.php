@@ -440,7 +440,7 @@ class Permalink_Manager_Language_Plugins extends Permalink_Manager_Class {
 
 			// Replace translate endpoint with its original name
 			foreach($endpoint_translations as $endpoint) {
-				if(isset($request[$endpoint->translated_endpoint])) {
+				if(isset($request[$endpoint->translated_endpoint]) && ($endpoint->endpoint !== $endpoint->translated_endpoint)) {
 					$request[$endpoint->endpoint] = $request[$endpoint->translated_endpoint];
 					unset($request[$endpoint->translated_endpoint]);
 				}

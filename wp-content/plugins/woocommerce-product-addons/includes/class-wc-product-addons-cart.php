@@ -540,7 +540,7 @@ class WC_Product_Addons_Cart {
 				} elseif ( 'percentage_based' !== $addon['price_type'] && $addon['price'] && apply_filters( 'woocommerce_addons_add_price_to_name', '__return_true' ) ) {
 					$name .= ' (' . wc_price( WC_Product_Addons_Helper::get_product_addon_price_for_display( $addon['price'], $cart_item['data'], true ) ) . ')';
 				} else {
-					$_product = new WC_Product( $cart_item['product_id'] );
+					$_product = wc_get_product( $cart_item['product_id'] );
 					$_product->set_price( $price * ( $addon['price'] / 100 ) );
 					$name .= ' (' . WC()->cart->get_product_price( $_product ) . ')';
 				}

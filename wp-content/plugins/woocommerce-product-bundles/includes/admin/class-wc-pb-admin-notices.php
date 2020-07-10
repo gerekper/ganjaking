@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Admin notices handling.
  *
  * @class    WC_PB_Admin_Notices
- * @version  6.3.0
+ * @version  6.3.1
  */
 class WC_PB_Admin_Notices {
 
@@ -582,11 +582,15 @@ class WC_PB_Admin_Notices {
 	 */
 	public static function add_note( $args ) {
 
-		if ( ! class_exists( 'Automattic\WooCommerce\Admin\Notes\WC_Admin_Notes' ) ) {
+		if ( ! class_exists( 'WC_PB_Core_Compatibility' ) ) {
+			require_once  WC_PB_ABSPATH . 'includes/compatibility/core/class-wc-pb-core-compatibility.php' ;
+		}
+
+		if ( ! WC_PB_Core_Compatibility::is_wc_admin_active() ) {
 			return;
 		}
 
-		if ( ! WC_PB_Core_Compatibility::is_wc_version_gte( '4.0' ) ) {
+		if ( ! class_exists( 'Automattic\WooCommerce\Admin\Notes\WC_Admin_Notes' ) ) {
 			return;
 		}
 

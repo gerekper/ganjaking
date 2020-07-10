@@ -38,6 +38,8 @@ if ( ! class_exists( 'WC_Drip_Subscriptions' ) ) {
 				add_action( 'woocommerce_register_form', array( $this, 'subscribe_field' ), 5 );
 				add_action( 'woocommerce_checkout_order_processed', array( $this, 'process_checkout_form' ), 5, 2 );
 				add_action( 'woocommerce_created_customer', array( $this, 'process_register_form' ), 5, 3 );
+				add_action( 'woocommerce_customer_save_address', array( $this, 'customer_save_address' ) );
+				add_action( 'profile_update', array( $this, 'profile_update' ) );
 			}
 
 		}
@@ -233,6 +235,94 @@ if ( ! class_exists( 'WC_Drip_Subscriptions' ) ) {
 			return wcdrip_get_settings();
 		}
 
-	}
+		/**
+		 * Update the user email in Drip.
+		 *
+		 * @since 1.2.21
+		 * @param string $subscriber_id ID of the subscriber on Drip.
+		 * @param string $new_email The new email we want to change.
+		 * @return void
+		 */
+		protected function update_email( $subscriber_id, $new_email ) {
+			$wrapper = wcdrip_get_settings();
 
+			if ( empty( $wrapper['api_key'] ) || empty( $wrapper['account'] ) ) {
+				return;
+			}
+
+			$api_key    = $wrapper['api_key'];
+			$wcdrip_api = new Drip_Api( $api_key );
+
+			$params = array(
+				'account_id' => $wrapper['account'],
+				'email'      => $subscriber_id,
+				'new_email'  => $new_email,
+			);
+
+			wcdrip_log( sprintf( '%s: Update subscriber from API with params: %s', __METHOD__, print_r( $params, true ) ) );
+			$wcdrip_api->create_or_update_subscriber( $params );
+		}
+
+		/**
+		 * Updates the Drip user's email when it is updated in WC.
+		 *
+		 * @since 1.2.21
+		 * @param int $user_id ID of the user in context.
+		 * @return void
+		 */
+		public function customer_save_address( $user_id ) {
+			if ( ! $user_id ) {
+				return;
+			}
+
+			// Need to get the subscriber's email from usermeta.
+			$subscriber_ids = get_user_meta( $user_id, '_wcdrip_subscribed', true );
+			$new_email      = get_user_meta( $user_id, 'billing_email', true );
+
+			if ( ! $subscriber_ids || ! $new_email ) {
+				return;
+			}
+
+			// No changes, abort.
+			if ( in_array( $new_email, $subscriber_ids ) ) {
+				return;
+			}
+
+			try {
+				$this->update_email( $subscriber_ids[0], $new_email );
+				update_user_meta( $user_id, '_wcdrip_subscribed', array( $new_email ) );
+			} catch ( Exception $e ) {
+				wcdrip_log( sprintf( '%s: Update subscriber failed with params: %s', __METHOD__, print_r( $params, true ) ) );
+			}
+		}
+
+		/**
+		 * Updates the Drip user's email when it is updated in user profile.
+		 *
+		 * @since 1.2.21
+		 * @param int $user_id ID of the user in context.
+		 * @return void
+		 */
+		public function profile_update( $user_id ) {
+			// Need to get the subscriber's email from usermeta.
+			$subscriber_ids = get_user_meta( $user_id, '_wcdrip_subscribed', true );
+			$new_email      = isset( $_POST['billing_email'] ) ? wc_clean( wp_unslash( $_POST['billing_email'] ) ) : '';
+
+			if ( ! $subscriber_ids || ! $new_email ) {
+				return;
+			}
+
+			// No changes, abort.
+			if ( in_array( $new_email, $subscriber_ids ) ) {
+				return;
+			}
+
+			try {
+				$this->update_email( $subscriber_ids[0], $new_email );
+				update_user_meta( $user_id, '_wcdrip_subscribed', array( $new_email ) );
+			} catch ( Exception $e ) {
+				wcdrip_log( sprintf( '%s: Update subscriber failed with params: %s', __METHOD__, print_r( $params, true ) ) );
+			}
+		}
+	}
 }

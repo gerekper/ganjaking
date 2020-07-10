@@ -22,10 +22,10 @@
                 else
                     selected( $option_value, $key );
 
-                ?>><?php echo $val ?></option>
+                ?>><?php echo esc_html( $val ); ?></option>
             <?php
             }
             ?>
-        </select> <?php echo $description; ?>
+        </select> <?php echo esc_html( $description ); ?>
     </td>
 </tr>

@@ -30,7 +30,7 @@ class WC_Product_Addons_Field_File_Upload extends WC_Product_Addons_Field {
 			}
 		}
 
-		if ( ! empty( $_FILES[ $field_name ] ) && ! WC_Product_Addons_Helper::can_upload( $_FILES[ $field_name ]['size'] ) ) {
+		if ( ! empty( $_FILES[ $field_name ] ) && WC_Product_Addons_Helper::is_filesize_over_limit( $_FILES[ $field_name ] ) ) {
 			return new WP_Error( 'error', __( 'Filesize exceeds the limit.', 'woocommerce-product-addons' ) );
 		}
 

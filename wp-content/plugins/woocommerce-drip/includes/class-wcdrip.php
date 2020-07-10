@@ -34,12 +34,7 @@ if ( ! class_exists( 'WC_Drip_Init' ) ) {
 
 			// Add Drip Tracking Code to Footer through enqueue/localize script
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts') );
-
-			// Load plugin text domain
-			add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
-
 		}
-
 
 		/**
 		 * Start the Class when called
@@ -60,7 +55,6 @@ if ( ! class_exists( 'WC_Drip_Init' ) ) {
 
 		}
 
-
 		/**
 		 * Add Drip Tracking Code to Footer
 		 *
@@ -80,35 +74,10 @@ if ( ! class_exists( 'WC_Drip_Init' ) ) {
 			$account = $wrapper['account'];
 
 			if ( $account ) {
-
 				$account_id = array( 'account_id' => $account );
 				wp_localize_script( 'drip-js', 'wcdrip', $account_id );
 				wp_enqueue_script( 'drip-js' );
-
 			}
-
 		}
-
-
-		/**
-		 * Load plugin textdomain for i18n
-		 * @TODO Add Languages base files
-		 *
-		 * @package  WooCommerce Drip
-		 * @author   Bryce <bryce@bryce.se>
-		 * @since    1.0.0
-		 */
-
-		public function load_plugin_textdomain() {
-
-			$domain = 'woocommerce-drip';
-			$locale = apply_filters( 'plugin_locale', get_locale(), $domain );
-
-			load_textdomain( $domain, trailingslashit( WP_LANG_DIR ) . $domain . '/' . $domain . '-' . $locale . '.mo' );
-			load_plugin_textdomain( $domain, FALSE, basename( plugin_dir_path( dirname( __FILE__ ) ) ) . '/languages/' );
-
-		}
-
 	}
-
 }

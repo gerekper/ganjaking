@@ -113,7 +113,7 @@ class WPSEO_Premium_Metabox implements WPSEO_WordPress_Integration {
 		}
 
 		// Use an extra level in the array to preserve booleans. WordPress sanitizes scalar values in the first level of the array.
-		wp_localize_script( WPSEO_Admin_Asset_Manager::PREFIX . 'premium-metabox', 'wpseoPremiumMetaboxData', [ 'data' => $data ] );
+		wp_localize_script( 'yoast-seo-premium-metabox', 'wpseoPremiumMetaboxData', [ 'data' => $data ] );
 	}
 
 	/**

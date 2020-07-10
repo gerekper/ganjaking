@@ -51,7 +51,6 @@ return array(
     'WP_Rocket\\Subscriber\\Media\\Webp_Subscriber' => $baseDir . '/inc/classes/subscriber/Media/class-webp-subscriber.php',
     'WP_Rocket\\Subscriber\\Optimization\\Buffer_Subscriber' => $baseDir . '/inc/classes/subscriber/Optimization/class-buffer-subscriber.php',
     'WP_Rocket\\Subscriber\\Optimization\\Dequeue_JQuery_Migrate_Subscriber' => $baseDir . '/inc/classes/subscriber/Optimization/class-dequeue-jquery-migrate-subscriber.php',
-    'WP_Rocket\\Subscriber\\Optimization\\IE_Conditionals_Subscriber' => $baseDir . '/inc/classes/subscriber/Optimization/class-ie-conditionals-subscriber.php',
     'WP_Rocket\\Subscriber\\Optimization\\Minify_HTML_Subscriber' => $baseDir . '/inc/classes/subscriber/Optimization/class-minify-html-subscriber.php',
     'WP_Rocket\\Subscriber\\Plugin\\Capabilities_Subscriber' => $baseDir . '/inc/classes/subscriber/Plugin/class-capabilities-subscriber.php',
     'WP_Rocket\\Subscriber\\Plugin\\Information_Subscriber' => $baseDir . '/inc/classes/subscriber/Plugin/class-information-subscriber.php',

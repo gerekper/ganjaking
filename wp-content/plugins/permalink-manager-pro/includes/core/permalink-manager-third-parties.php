@@ -107,6 +107,7 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 		// 13. bbPress
 		if(class_exists('bbPress')) {
 			add_filter('permalink_manager_endpoints', array($this, 'bbpress_endpoints'), 9);
+			add_action('wp', array($this, 'bbpress_detect_endpoints'), 0);
 		}
 
 		// 14. Dokan
@@ -813,7 +814,7 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 
 			if(!empty($listing_type)) {
 				$listing_type = Permalink_Manager_Helper_Functions::sanitize_title($listing_type, true);
-				$default_uri = str_replace(array('%listing-type%', '%listing_type%'), $listing_type, $default_uri);
+				$default_uri = str_replace(array('%listing-type-slug%', '%listing_type_slug%'), $listing_type, $default_uri);
 			}
 		}
 
@@ -901,6 +902,24 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 		// $bbpress_endpoints[] = bbp_get_paged_slug();
 
 		return ($all) ? $endpoints . "|" . implode("|", $bbpress_endpoints) : $bbpress_endpoints;
+	}
+
+	function bbpress_detect_endpoints() {
+		global $wp_query;
+
+		if(!empty($wp_query->query)) {
+			$edit_endpoint = bbp_get_edit_slug();
+
+			if(isset($wp_query->query[$edit_endpoint])) {
+				if(isset($wp_query->query['forum'])) {
+					$wp_query->bbp_is_forum_edit = true;
+				} else if(isset($wp_query->query['topic'])) {
+					$wp_query->bbp_is_topic_edit = true;
+				} else if(isset($wp_query->query['reply'])) {
+					$wp_query->bbp_is_reply_edit = true;
+				}
+			}
+		}
 	}
 
 	/**

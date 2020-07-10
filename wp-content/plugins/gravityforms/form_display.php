@@ -1749,6 +1749,19 @@ class GFFormDisplay {
 		GFCommon::send_form_submission_notifications( $form, $lead );
 	}
 
+	/**
+	 * Determines if the current form submission is valid.
+	 *
+	 * @since unknown
+	 * @since 2.4.19 Updated to use GFFormDisplay::is_field_validation_supported().
+	 *
+	 * @param array $form                   The form being processed.
+	 * @param array $field_values           The dynamic population parameter names and values.
+	 * @param int   $page_number            The current page number.
+	 * @param int   $failed_validation_page The page number which has failed validation.
+	 *
+	 * @return bool
+	 */
 	public static function validate( &$form, $field_values, $page_number = 0, &$failed_validation_page = 0 ) {
 
 		$form = gf_apply_filters( array( 'gform_pre_validation', $form['id'] ), $form );
@@ -1778,6 +1791,10 @@ class GFFormDisplay {
 		foreach ( $form['fields'] as &$field ) {
 			/* @var GF_Field $field */
 
+			if ( ! self::is_field_validation_supported( $field ) ) {
+				continue;
+			}
+
 			// If a page number is specified, only validates fields that are on current page
 			$field_in_other_page = $page_number > 0 && $field->pageNumber != $page_number;
 
@@ -1785,11 +1802,6 @@ class GFFormDisplay {
 			$validate_duplicate_feature = $field->noDuplicates && $page_number > 0 && $field->pageNumber <= $page_number;
 
 			if ( $field_in_other_page && ! $is_last_page && ! $validate_duplicate_feature ) {
-				continue;
-			}
-
-			// Don't validate fields with a visibility of administrative or hidden.
-			if ( $field->is_administrative() || $field->visibility === 'hidden' ) {
 				continue;
 			}
 
@@ -1851,6 +1863,10 @@ class GFFormDisplay {
 
 		if ( $is_valid && $is_last_page && self::is_form_empty( $form ) ) {
 			foreach ( $form['fields'] as &$field ) {
+				if ( ! self::is_field_validation_supported( $field ) ) {
+					continue;
+				}
+
 				$field->failed_validation  = true;
 				$field->validation_message = esc_html__( 'At least one field must be filled out', 'gravityforms' );
 				$is_valid                  = false;
@@ -1863,13 +1879,38 @@ class GFFormDisplay {
 		$form                   = $validation_result['form'];
 		$failed_validation_page = $validation_result['failed_validation_page'];
 
-    		return $is_valid;
+		return $is_valid;
 	}
 
+	/**
+	 * Determines if the supplied field is suitable for validation.
+	 *
+	 * @since 2.4.19
+	 *
+	 * @param GF_Field $field The field being processed.
+	 *
+	 * @return bool
+	 */
+	public static function is_field_validation_supported( $field ) {
+		$invalid_types = array( 'html', 'page', 'section' );
+
+		return ! ( in_array( $field->type, $invalid_types ) || $field->is_administrative() || $field->visibility === 'hidden' );
+	}
+
+	/**
+	 * Determines if the current form submission is empty.
+	 *
+	 * @since unknown
+	 * @since 2.4.19 Updated to use GFFormDisplay::is_field_validation_supported().
+	 *
+	 * @param array $form The form being processed.
+	 *
+	 * @return bool
+	 */
 	public static function is_form_empty( $form ) {
 
 		foreach ( $form['fields'] as $field ) {
-			if ( ! self::is_empty( $field, $form['id'] ) && ! $field->is_field_hidden ) {
+			if ( self::is_field_validation_supported( $field ) && ! $field->is_field_hidden && ! self::is_empty( $field, $form['id'] ) ) {
 				return false;
 			}
 		}

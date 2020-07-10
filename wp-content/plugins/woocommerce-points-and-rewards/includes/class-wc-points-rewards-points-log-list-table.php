@@ -285,12 +285,12 @@ class WC_Points_Rewards_Points_Log_List_Table extends WP_List_Table {
 			<?php } ?>
 
 			<select id="dropdown_event_types" name="_event_type" class="wc-enhanced-select" style="width:200px">
-				<option value=""><?php _e( 'Show All Event Types', 'woocommerce-points-and-rewards' ) ?></option>
+				<option value=""><?php esc_html_e( 'Show All Event Types', 'woocommerce-points-and-rewards' ); ?></option>
 				<?php
 				foreach ( WC_Points_Rewards_Points_Log::get_event_types() as $event_type ) :
 					echo '<option value="' . esc_attr( $event_type->type ) . '" ' .
 						selected( $event_type->type, isset( $_GET['_event_type'] ) ? $_GET['_event_type'] : null, false ) .
-						'>' . esc_html( sprintf( "%s (%d)", $event_type->name, $event_type->count ) ) . '</option>';
+						'>' . esc_html( sprintf( '%s (%d)', $event_type->name, $event_type->count ) ) . '</option>';
 				endforeach;
 				?>
 			</select>
@@ -326,19 +326,22 @@ class WC_Points_Rewards_Points_Log_List_Table extends WP_List_Table {
 		$date = isset( $_GET['date'] ) ? (int) $_GET['date'] : 0;
 		?>
 		<select id="dropdown_dates" name='date' class="wc-enhanced-select" style="width:200px">
-			<option<?php selected( $date, 0 ); ?> value='0'><?php _e( 'Show all Event Dates', 'woocommerce-points-and-rewards' ); ?></option>
+			<option<?php selected( $date, 0 ); ?> value='0'><?php esc_html_e( 'Show all Event Dates', 'woocommerce-points-and-rewards' ); ?></option>
 			<?php
 			foreach ( $months as $arc_row ) {
-				if ( 0 == $arc_row->year )
+				if ( 0 == $arc_row->year ) {
 					continue;
+				}
 
 				$month = zeroise( $arc_row->month, 2 );
-				$year = $arc_row->year;
+				$year  = $arc_row->year;
 
-				printf( "<option %s value='%s'>%s</option>\n",
+				printf(
+					"<option %s value='%s'>%s</option>\n",
 					selected( $date, $year . $month, false ),
 					esc_attr( $arc_row->year . $month ),
-					sprintf( __( '%1$s %2$d', 'woocommerce-points-and-rewards' ), $wp_locale->get_month( $month ), $year )
+					/* translators: %1$s month, %2$d year */
+					esc_html( sprintf( __( '%1$s %2$d', 'woocommerce-points-and-rewards' ), $wp_locale->get_month( $month ), $year ) )
 				);
 			}
 			?>

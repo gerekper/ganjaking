@@ -123,6 +123,29 @@ class WC_Product_Addons_Group_Validator {
 	}
 
 	/**
+	 * Validates that the passed argument is a valid price type. Used in validation schemas.
+	 *
+	 * @since 3.0.34.
+	 *
+	 * @param string $arg The data to validate.
+	 * @throws Exception  If the passed data is not a valid price type.
+	 * @return true
+	 */
+	protected static function is_valid_price_type( $arg ) {
+		$supported_types = array(
+			'flat_fee',
+			'quantity_based',
+			'percentage_based',
+		);
+
+		if ( ! in_array( $arg, $supported_types, true ) ) {
+			throw new Exception( 'Not a valid price type.' );
+		}
+
+		return true;
+	}
+
+	/**
 	 * Validates that the passed argument is a NON EMPTY string. Used in validation schemas.
 	 *
 	 * @since 2.9.0
@@ -299,13 +322,25 @@ class WC_Product_Addons_Group_Validator {
 				'required' => true,
 				'validator' => 'is_non_empty_string'
 			),
+			'title_format' => array(
+				'required' => true,
+				'validator' => 'is_non_empty_string'
+			),
 			'description' => array(
 				'required' => true,
 				'validator' => 'is_string'
 			),
+			'description_enable' => array(
+				'required' => true,
+				'validator' => 'is_zero_or_one'
+			),
 			'type' => array(
 				'required' => true,
 				'validator' => 'is_field_type'
+			),
+			'display' => array(
+				'required' => true,
+				'validator' => 'is_string'
 			),
 			'position' => array(
 				'required' => true,
@@ -318,6 +353,34 @@ class WC_Product_Addons_Group_Validator {
 			'required' => array(
 				'required' => true,
 				'validator' => 'is_zero_or_one'
+			),
+			'restrictions' => array(
+				'required' => true,
+				'validator' => 'is_zero_or_one'
+			),
+			'restrictions_type' => array(
+				'required' => true,
+				'validator' => 'is_string'
+			),
+			'adjust_price' => array(
+				'required' => true,
+				'validator' => 'is_zero_or_one'
+			),
+			'price_type' => array(
+				'required' => true,
+				'validator' => 'is_valid_price_type'
+			),
+			'price' => array(
+				'required' => true,
+				'validator' => 'is_empty_or_numeric'
+			),
+			'min' => array(
+				'required' => true,
+				'validator' => 'is_empty_or_integer'
+			),
+			'max' => array(
+				'required' => true,
+				'validator' => 'is_empty_or_integer'
 			)
 		);
 
@@ -326,17 +389,10 @@ class WC_Product_Addons_Group_Validator {
 			// (If not, this is going to blow up anyways and we'll catch that.)
 			$options_validator = 'is_array_of_basic_options';
 			if ( array_key_exists( 'type', $field ) ) {
-				switch( $field['type'] ) {
-					case 'custom':
-					case 'custom_textarea':
-					case 'custom_letters_only':
-					case 'custom_digits_only':
-					case 'custom_letters_or_digits':
-					$options_validator = 'is_array_of_options_with_optional_integer_limits';
-						break;
-					case 'custom_price':
-					case 'input_multiplier':
-					$options_validator = 'is_array_of_options_with_optional_float_limits';
+				switch ( $field['type'] ) {
+					case 'checkbox':
+					case 'multiple_choice':
+						$options_validator = 'is_array_of_options_with_optional_integer_limits';
 						break;
 				}
 			}
@@ -361,9 +417,20 @@ class WC_Product_Addons_Group_Validator {
 	 */
 	protected static function is_field_type( $arg ) {
 		$supported_types = array(
-			'checkbox', 'multiple_choice', 'custom', 'custom_textarea', 'custom_price', 'custom_letters_only',
-			'custom_digits_only', 'custom_letters_or_digits', 'custom_email', 'input_multiplier', 'select',
-			'file_upload'
+			'checkbox',
+			'multiple_choice',
+			'custom', // legacy.
+			'custom_text',
+			'custom_textarea',
+			'custom_price',
+			'custom_letters_only', // legacy.
+			'custom_digits_only', // legacy.
+			'custom_letters_or_digits', // legacy.
+			'custom_email', // legacy.
+			'input_multiplier',
+			'select',
+			'file_upload',
+			'heading',
 		);
 
 		if ( ! in_array( $arg, $supported_types ) ) {
@@ -389,14 +456,30 @@ class WC_Product_Addons_Group_Validator {
 		}
 
 		$schema = array(
-			'label' => array(
-				'required' => true,
-				'validator' => 'is_non_empty_string'
+			'label'      => array(
+				'required'  => false,
+				'validator' => 'is_string',
 			),
-			'price' => array(
+			'price'      => array(
+				'required'  => false,
+				'validator' => 'is_empty_or_numeric',
+			),
+			'price_type' => array(
 				'required' => false,
-				'validator' => 'is_empty_or_numeric'
-			)
+				'validator' => 'is_valid_price_type',
+			),
+			'image'      => array(
+				'required'  => false,
+				'validator' => 'is_string',
+			),
+			'min'        => array(
+				'required'  => false,
+				'validator' => 'is_empty_or_integer',
+			),
+			'max'       => array(
+				'required' => false,
+				'validator' => 'is_empty_or_integer',
+			),
 		);
 
 		foreach ( $arg as $option ) {
@@ -423,21 +506,29 @@ class WC_Product_Addons_Group_Validator {
 
 		$schema = array(
 			'label' => array(
-				'required' => true,
-				'validator' => 'is_non_empty_string'
+				'required'  => true,
+				'validator' => 'is_non_empty_string',
 			),
 			'price' => array(
-				'required' => false,
-				'validator' => 'is_empty_or_numeric'
+				'required'  => false,
+				'validator' => 'is_empty_or_numeric',
+			),
+			'image' => array(
+				'required'  => true,
+				'validator' => 'is_string',
+			),
+			'price_type' => array(
+				'required'  => true,
+				'validator' => 'is_valid_price_type',
 			),
 			'min' => array(
-				'required' => false,
-				'validator' => 'is_empty_or_integer'
+				'required'  => false,
+				'validator' => 'is_empty_or_integer',
 			),
 			'max' => array(
 				'required' => false,
-				'validator' => 'is_empty_or_integer'
-			)
+				'validator' => 'is_empty_or_integer',
+			),
 		);
 
 		foreach ( $arg as $option ) {
@@ -464,21 +555,29 @@ class WC_Product_Addons_Group_Validator {
 
 		$schema = array(
 			'label' => array(
-				'required' => true,
-				'validator' => 'is_non_empty_string'
+				'required'  => true,
+				'validator' => 'is_non_empty_string',
 			),
 			'price' => array(
+				'required'  => false,
+				'validator' => 'is_empty_or_numeric',
+			),
+			'image' => array(
 				'required' => false,
-				'validator' => 'is_empty_or_numeric'
+				'validator' => 'is_string',
+			),
+			'price_type' => array(
+				'required'  => false,
+				'validator' => 'is_valid_price_type',
 			),
 			'min' => array(
-				'required' => false,
-				'validator' => 'is_empty_or_numeric'
+				'required'  => false,
+				'validator' => 'is_empty_or_numeric',
 			),
 			'max' => array(
-				'required' => false,
-				'validator' => 'is_empty_or_numeric'
-			)
+				'required'  => false,
+				'validator' => 'is_empty_or_numeric',
+			),
 		);
 
 		foreach ( $arg as $option ) {

@@ -2,8 +2,8 @@
 /**
  * Plugin Name: WooCommerce Cart Add-Ons
  * Plugin URI: https://woocommerce.com/products/cart-add-ons/
- * Description: Adds the ability to define and display any product or variation based upon the products added to the cart by the user. Use widgets to display these recommendations in the sidebar, use <strong>&lt;?php if (function_exists('sfn_display_cart_addons')) sfn_display_cart_addons(); ?&gt;</strong> to show these recommendation anywhere in your theme, or select [display-addons] shortcode.
- * Version: 1.5.29
+ * Description: A tool for driving incremental and impulse purchases once customers are in the shopping cart. It extends the concept of upsells and cross-sells at the product level, and engages your customers at the moment they are most likely to increase spending.
+ * Version: 1.5.30
  * Author: WooCommerce
  * WC tested up to: 4.2
  * Author URI: https://woocommerce.com/
@@ -33,7 +33,7 @@
  **/
 load_plugin_textdomain( 'sfn_cart_addons', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
-define( 'WC_CART_ADDONS_VERSION', '1.5.29' ); // WRCS: DEFINED_VERSION.
+define( 'WC_CART_ADDONS_VERSION', '1.5.30' ); // WRCS: DEFINED_VERSION.
 
 class SFN_Cart_Addons {
 
@@ -143,12 +143,12 @@ class SFN_Cart_Addons {
 		global $woocommerce;
 
 		if ( isset( $_GET['page'] ) && 'sfn-cart-addons' === $_GET['page'] ) {
-			wp_enqueue_style( 'sfn-cart-addons', plugins_url( 'assets/css/settings.css', __FILE__ ) );
+			wp_enqueue_style( 'sfn-cart-addons', plugins_url( 'assets/css/settings.css', __FILE__ ), array(), WC_CART_ADDONS_VERSION );
 
 			$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
 			if ( ! wp_script_is( 'sfn-product-search', 'registered' ) ) {
-				wp_register_script( 'sfn-product-search', plugins_url( 'assets/js/product-search' . $suffix . '.js', __FILE__ ), array( 'jquery' ) );
+				wp_register_script( 'sfn-product-search', plugins_url( 'assets/js/product-search' . $suffix . '.js', __FILE__ ), array( 'jquery', 'selectWoo' ), WC_CART_ADDONS_VERSION, true );
 			}
 
 			wp_enqueue_script( 'sfn-product-search' );
@@ -157,7 +157,6 @@ class SFN_Cart_Addons {
 				'sfn_product_search',
 				array(
 					'security' => wp_create_nonce( 'search-products' ),
-					'bwc'      => version_compare( WC_VERSION, '3.0', '<' ),
 				)
 			);
 
@@ -166,24 +165,10 @@ class SFN_Cart_Addons {
 				'search_products'     => __( 'Search for a product &hellip;', 'sfn_cart_addons' ),
 			);
 
-			wp_enqueue_script( 'cart_addons_settings', plugins_url( 'assets/js/settings' . $suffix . '.js', __FILE__ ), array( 'jquery' ) );
+			wp_enqueue_script( 'cart_addons_settings', plugins_url( 'assets/js/settings' . $suffix . '.js', __FILE__ ), array( 'jquery', 'jquery-ui-sortable', 'jquery-ui-core' ), WC_CART_ADDONS_VERSION, true );
 			wp_localize_script( 'cart_addons_settings', 'cart_addons_settings', $cart_addons_settings );
 
-			wp_enqueue_script( 'jquery-ui-sortable' );
-			wp_enqueue_script( 'jquery-ui-core', null, array( 'jquery' ) );
-
-			?>
-			<style type="text/css">
-			.chzn-choices li.search-field .default {
-				width: auto !important;
-			}
-
-			.chzn-container-multi .chzn-choices .search-field input { height: auto !important; }
-			</style>
-			<?php
-
-			wp_enqueue_style( 'woocommerce_admin_styles', $woocommerce->plugin_url() . '/assets/css/admin.css' );
-			wp_enqueue_style( 'jquery-ui-css', '//ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/themes/base/jquery-ui.css' );
+			wp_enqueue_style( 'woocommerce_admin_styles', $woocommerce->plugin_url() . '/assets/css/admin.css', array(), WC_CART_ADDONS_VERSION );
 		}
 	}
 

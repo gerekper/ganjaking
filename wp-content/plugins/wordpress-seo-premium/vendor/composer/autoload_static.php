@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitc64045eda638dfa68e1048e9e759ecc3
+class ComposerStaticInit64f094750d319f4b5dcf0fab4a52528c
 {
     public static $prefixLengthsPsr4 = array (
         'C' => 
@@ -220,8 +220,6 @@ class ComposerStaticInitc64045eda638dfa68e1048e9e759ecc3
         'WPSEO_Config_Field_Success_Message' => __DIR__ . '/../..' . '/admin/config-ui/fields/class-field-success-message.php',
         'WPSEO_Config_Field_Suggestions' => __DIR__ . '/../..' . '/admin/config-ui/fields/class-field-suggestions.php',
         'WPSEO_Config_Field_Title_Intro' => __DIR__ . '/../..' . '/admin/config-ui/fields/class-field-title-intro.php',
-        'WPSEO_Config_Field_Upsell_Configuration_Service' => __DIR__ . '/../..' . '/admin/config-ui/fields/class-field-upsell-configuration-service.php',
-        'WPSEO_Config_Field_Upsell_Site_Review' => __DIR__ . '/../..' . '/admin/config-ui/fields/class-field-upsell-site-review.php',
         'WPSEO_Configuration_Components' => __DIR__ . '/../..' . '/admin/config-ui/class-configuration-components.php',
         'WPSEO_Configuration_Endpoint' => __DIR__ . '/../..' . '/admin/config-ui/class-configuration-endpoint.php',
         'WPSEO_Configuration_Notifier' => __DIR__ . '/../..' . '/admin/notifiers/class-configuration-notifier.php',
@@ -581,7 +579,6 @@ class ComposerStaticInitc64045eda638dfa68e1048e9e759ecc3
         'WPSEO_Statistic_Integration' => __DIR__ . '/../..' . '/admin/statistics/class-statistics-integration.php',
         'WPSEO_Statistics' => __DIR__ . '/../..' . '/inc/class-wpseo-statistics.php',
         'WPSEO_Statistics_Service' => __DIR__ . '/../..' . '/admin/statistics/class-statistics-service.php',
-        'WPSEO_Structured_Data_Blocks' => __DIR__ . '/../..' . '/inc/class-structured-data-blocks.php',
         'WPSEO_Submenu_Capability_Normalize' => __DIR__ . '/../..' . '/admin/menu/class-submenu-capability-normalize.php',
         'WPSEO_Submenu_Hider' => __DIR__ . '/../..' . '/deprecated/class-submenu-hider.php',
         'WPSEO_Suggested_Plugins' => __DIR__ . '/../..' . '/admin/class-suggested-plugins.php',
@@ -757,6 +754,7 @@ class ComposerStaticInitc64045eda638dfa68e1048e9e759ecc3
         'Yoast\\WP\\Lib\\Model' => __DIR__ . '/../..' . '/lib/model.php',
         'Yoast\\WP\\Lib\\ORM' => __DIR__ . '/../..' . '/lib/orm.php',
         'Yoast\\WP\\SEO\\Actions\\Indexables\\Indexable_Head_Action' => __DIR__ . '/../..' . '/src/actions/indexables/indexable-head-action.php',
+        'Yoast\\WP\\SEO\\Actions\\Indexation\\Indexable_Complete_Indexation_Action' => __DIR__ . '/../..' . '/src/actions/indexables/indexable-complete-indexation-action.php',
         'Yoast\\WP\\SEO\\Actions\\Indexation\\Indexable_General_Indexation_Action' => __DIR__ . '/../..' . '/src/actions/indexation/indexable-general-indexation-action.php',
         'Yoast\\WP\\SEO\\Actions\\Indexation\\Indexable_Post_Indexation_Action' => __DIR__ . '/../..' . '/src/actions/indexation/indexable-post-indexation-action.php',
         'Yoast\\WP\\SEO\\Actions\\Indexation\\Indexable_Post_Type_Archive_Indexation_Action' => __DIR__ . '/../..' . '/src/actions/indexation/indexable-post-type-archive-indexation-action.php',
@@ -799,6 +797,7 @@ class ComposerStaticInitc64045eda638dfa68e1048e9e759ecc3
         'Yoast\\WP\\SEO\\Config\\Migrations\\AddIndexableObjectIdAndTypeIndex' => __DIR__ . '/../..' . '/src/config/migrations/20200430075614_AddIndexableObjectIdAndTypeIndex.php',
         'Yoast\\WP\\SEO\\Config\\Migrations\\BreadcrumbTitleAndHierarchyReset' => __DIR__ . '/../..' . '/src/config/migrations/20200428123747_BreadcrumbTitleAndHierarchyReset.php',
         'Yoast\\WP\\SEO\\Config\\Migrations\\ClearIndexableTables' => __DIR__ . '/../..' . '/src/config/migrations/20200430150130_ClearIndexableTables.php',
+        'Yoast\\WP\\SEO\\Config\\Migrations\\CreateIndexableSubpagesIndex' => __DIR__ . '/../..' . '/src/config/migrations/20200702141921_CreateIndexableSubpagesIndex.php',
         'Yoast\\WP\\SEO\\Config\\Migrations\\DeleteDuplicateIndexables' => __DIR__ . '/../..' . '/src/config/migrations/20200507054848_DeleteDuplicateIndexables.php',
         'Yoast\\WP\\SEO\\Config\\Migrations\\ExpandIndexableColumnLengths' => __DIR__ . '/../..' . '/src/config/migrations/20200428194858_ExpandIndexableColumnLengths.php',
         'Yoast\\WP\\SEO\\Config\\Migrations\\ResetIndexableHierarchyTable' => __DIR__ . '/../..' . '/src/config/migrations/20200513133401_ResetIndexableHierarchyTable.php',
@@ -860,7 +859,13 @@ class ComposerStaticInitc64045eda638dfa68e1048e9e759ecc3
         'Yoast\\WP\\SEO\\Initializers\\Migration_Runner' => __DIR__ . '/../..' . '/src/initializers/migration-runner.php',
         'Yoast\\WP\\SEO\\Integrations\\Admin\\Indexation_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/indexation-integration.php',
         'Yoast\\WP\\SEO\\Integrations\\Admin\\Migration_Error_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/migration-error-integration.php',
+        'Yoast\\WP\\SEO\\Integrations\\Blocks\\Dynamic_Block' => __DIR__ . '/../..' . '/src/integrations/blocks/abstract-dynamic-block.php',
+        'Yoast\\WP\\SEO\\Integrations\\Blocks\\Internal_Linking_Category' => __DIR__ . '/../..' . '/src/integrations/blocks/block-categories.php',
+        'Yoast\\WP\\SEO\\Integrations\\Blocks\\Siblings_Block' => __DIR__ . '/../..' . '/premium/classes/blocks/siblings-block.php',
+        'Yoast\\WP\\SEO\\Integrations\\Blocks\\Structured_Data_Blocks' => __DIR__ . '/../..' . '/src/integrations/blocks/structured-data-blocks.php',
+        'Yoast\\WP\\SEO\\Integrations\\Blocks\\Subpages_Block' => __DIR__ . '/../..' . '/premium/classes/blocks/subpages-block.php',
         'Yoast\\WP\\SEO\\Integrations\\Breadcrumbs_Integration' => __DIR__ . '/../..' . '/src/integrations/breadcrumbs-integration.php',
+        'Yoast\\WP\\SEO\\Integrations\\Disable_Core_Sitemaps' => __DIR__ . '/../..' . '/src/integrations/disable-core-sitemaps.php',
         'Yoast\\WP\\SEO\\Integrations\\Front_End\\Backwards_Compatibility' => __DIR__ . '/../..' . '/src/integrations/front-end/backwards-compatibility.php',
         'Yoast\\WP\\SEO\\Integrations\\Front_End\\Category_Term_Description' => __DIR__ . '/../..' . '/src/integrations/front-end/category-term-description.php',
         'Yoast\\WP\\SEO\\Integrations\\Front_End\\Comment_Link_Fixer' => __DIR__ . '/../..' . '/src/integrations/front-end/comment-link-fixer.php',
@@ -955,6 +960,7 @@ class ComposerStaticInitc64045eda638dfa68e1048e9e759ecc3
         'Yoast\\WP\\SEO\\Presenters\\Twitter\\Image_Presenter' => __DIR__ . '/../..' . '/src/presenters/twitter/image-presenter.php',
         'Yoast\\WP\\SEO\\Presenters\\Twitter\\Site_Presenter' => __DIR__ . '/../..' . '/src/presenters/twitter/site-presenter.php',
         'Yoast\\WP\\SEO\\Presenters\\Twitter\\Title_Presenter' => __DIR__ . '/../..' . '/src/presenters/twitter/title-presenter.php',
+        'Yoast\\WP\\SEO\\Presenters\\Url_List_Presenter' => __DIR__ . '/../..' . '/src/presenters/url-list-presenter.php',
         'Yoast\\WP\\SEO\\Presenters\\Webmaster\\Baidu_Presenter' => __DIR__ . '/../..' . '/src/presenters/webmaster/baidu-presenter.php',
         'Yoast\\WP\\SEO\\Presenters\\Webmaster\\Bing_Presenter' => __DIR__ . '/../..' . '/src/presenters/webmaster/bing-presenter.php',
         'Yoast\\WP\\SEO\\Presenters\\Webmaster\\Google_Presenter' => __DIR__ . '/../..' . '/src/presenters/webmaster/google-presenter.php',
@@ -1017,9 +1023,9 @@ class ComposerStaticInitc64045eda638dfa68e1048e9e759ecc3
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitc64045eda638dfa68e1048e9e759ecc3::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitc64045eda638dfa68e1048e9e759ecc3::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitc64045eda638dfa68e1048e9e759ecc3::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit64f094750d319f4b5dcf0fab4a52528c::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit64f094750d319f4b5dcf0fab4a52528c::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit64f094750d319f4b5dcf0fab4a52528c::$classMap;
 
         }, null, ClassLoader::class);
     }

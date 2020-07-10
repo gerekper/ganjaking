@@ -61,7 +61,7 @@ jQuery( function( $ ) {
                         quietMillis: 250,
                         data: function( term, page ) {
                             return {
-                                term:     user_email_search.isLessThanWC30 ? term : term.term,
+                                term:     term.term,
                                 action:   $( this ).data( 'action' ) || 'warranty_user_search',
                                 security: wc_enhanced_select_params.search_customers_nonce
                             };
@@ -71,7 +71,7 @@ jQuery( function( $ ) {
                             if ( data ) {
                                 $.each( data, function( id, text ) {
                                     terms.push( { id: id, text: text } );
-                                });
+                                } );
                             }
                             return { results: terms };
                         },
@@ -79,41 +79,17 @@ jQuery( function( $ ) {
                     }
                 };
 
-                if ( user_email_search.isLessThanWC30 ) {
-                    if ( $( this ).data( 'multiple' ) === true ) {
-                        select2_args.multiple = true;
-                        select2_args.initSelection = function( element, callback ) {
-                            var data     = $.parseJSON( element.attr( 'data-selected' ) );
-                            var selected = [];
-
-                            $( element.val().split( ',' ) ).each( function( i, val ) {
-                                selected.push( { id: val, text: data[ val ] } );
-                            });
-                            return callback( selected );
-                        };
-                        select2_args.formatSelection = function( data ) {
-                            return '<div class="selected-option" data-id="' + data.id + '">' + data.text + '</div>';
-                        };
-                    } else {
-                        select2_args.multiple = false;
-                        select2_args.initSelection = function( element, callback ) {
-                            var data = {id: element.val(), text: element.attr( 'data-selected' )};
-                            return callback( data );
-                        };
-                    }
-                }
-
                 select2_args = $.extend( select2_args, getEnhancedSelectFormatString() );
 
-                $( this ).select2( select2_args ).addClass( 'enhanced' );
-            });
+                $( this ).selectWoo( select2_args ).addClass( 'enhanced' );
+            } );
 
-            $(".email-search-select").filter(":not(.enhanced)").each( function() {
+            $( '.email-search-select' ).filter( ':not(.enhanced)' ).each( function() {
                 var select2_args = {
-                    allowClear:  jQuery( this ).data( 'allow_clear' ) ? true : false,
-                    placeholder: jQuery( this ).data( 'placeholder' ),
-                    dropdownAutoWidth: 'true',
-                    minimumInputLength: jQuery( this ).data( 'minimum_input_length' ) ? jQuery( this ).data( 'minimum_input_length' ) : '3',
+                    allowClear:         $( this ).data( 'allow_clear' ) ? true : false,
+                    placeholder:        $( this ).data( 'placeholder' ),
+                    dropdownAutoWidth:  'true',
+                    minimumInputLength: $( this ).data( 'minimum_input_length' ) ? $( this ).data( 'minimum_input_length' ) : '3',
                     escapeMarkup: function( m ) {
                         return m;
                     },
@@ -123,16 +99,16 @@ jQuery( function( $ ) {
                         quietMillis: 250,
                         data: function( term, page ) {
                             return {
-                                term:     user_email_search.isLessThanWC30 ? term : term.term,
-                                action:   jQuery( this ).data( 'action' ) || 'warranty_search_for_email'
+                                term:   term.term,
+                                action: $( this ).data( 'action' ) || 'warranty_search_for_email'
                             };
                         },
                         processResults: function( data, page ) {
                             var terms = [];
                             if ( data ) {
-                                jQuery.each( data, function( id, text ) {
+                                $.each( data, function( id, text ) {
                                     terms.push( { id: id, text: text } );
-                                });
+                                } );
                             }
                             return { results: terms };
                         },
@@ -140,36 +116,10 @@ jQuery( function( $ ) {
                     }
                 };
 
-                if ( user_email_search.isLessThanWC30 ) {
-                    select2_args.ajax.results = select2_args.ajax.processResults;
-
-                    if ( jQuery( this ).data( 'multiple' ) === true ) {
-                        select2_args.multiple = true;
-                        select2_args.initSelection = function( element, callback ) {
-                            var data     = jQuery.parseJSON( element.attr( 'data-selected' ) );
-                            var selected = [];
-
-                            jQuery( element.val().split( "," ) ).each( function( i, val ) {
-                                selected.push( { id: val, text: data[ val ] } );
-                            });
-                            return callback( selected );
-                        };
-                        select2_args.formatSelection = function( data ) {
-                            return '<div class="selected-option" data-id="' + data.id + '">' + data.text + '</div>';
-                        };
-                    } else {
-                        select2_args.multiple = false;
-                        select2_args.initSelection = function( element, callback ) {
-                            var data = {id: element.val(), text: element.attr( 'data-selected' )};
-                            return callback( data );
-                        };
-                    }
-                }
-
-                jQuery(this).select2(select2_args).addClass( 'enhanced' );
+                $( this ).selectWoo( select2_args ).addClass( 'enhanced' );
             } );
-        })
+        } )
 
         .trigger( 'wc-enhanced-select-init' );
 
-});
+} );

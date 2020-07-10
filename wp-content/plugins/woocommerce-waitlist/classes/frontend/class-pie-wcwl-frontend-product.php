@@ -422,7 +422,7 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Product' ) ) {
 			$this->toggle_waitlist_no_product_message_text      = __( 'You must select at least one product for which to update the waitlist', 'woocommerce-waitlist' );
 			$this->toggle_waitlist_ambiguous_error_message_text = __( 'Something seems to have gone awry. Are you trying to mess with the fabric of the universe?', 'woocommerce-waitlist' );
 			$this->join_waitlist_invalid_email_message_text     = __( 'You must provide a valid email address to join the waitlist for this product', 'woocommerce-waitlist' );
-			$this->users_must_register_and_login_message_text   = sprintf( __( 'You must register to use the waitlist feature. Please %slogin or create an account%s', 'woocommerce-waitlist' ), '<a href="' . wc_get_page_permalink( 'myaccount' ) . '">', '</a>' );
+			$this->users_must_register_and_login_message_text   = sprintf( __( 'You must register to use the waitlist feature. Please %1$slogin or create an account%2$s', 'woocommerce-waitlist' ), '<a href="' . wc_get_page_permalink( 'myaccount' ) . '">', '</a>' );
 			$this->grouped_product_message_text                 = __( "Check the box alongside any Out of Stock products and update the waitlist to be emailed when those products become available", 'woocommerce-waitlist' );
 			$this->no_user_grouped_product_message_text         = __( "Check the box alongside any Out of Stock products, enter your email address and join the waitlist to be notified when those products become available", 'woocommerce-waitlist' );
 			$this->grouped_product_joined_message_text          = __( 'You have updated the selected waitlist/s', 'woocommerce-waitlist' );

@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: WooCommerce Coupon Campaigns & Tracking
- * Version: 1.1.12
+ * Version: 1.1.13
  * Plugin URI: https://woocommerce.com/products/woocommerce-coupon-campaigns/.
  * Description: Provides the ability to group coupons into campaigns - also offers better tracking and reporting of coupons as well as a bulk coupon generation tool.
  * Author: WooCommerce

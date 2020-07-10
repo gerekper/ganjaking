@@ -772,17 +772,23 @@ class WC_Product_Vendors_Store_Admin_Commission_List extends WP_List_Table {
 			$processed++;
 		}
 
-		echo '<div class="notice-success notice"><p>' . sprintf( _n( '%d item processed.', '%d items processed', $processed, 'woocommerce-product-vendors' ), $processed ) . '</p></div>';
-
-		if ( 'pay' === $this->current_action() ) {
-			echo '<div class="notice-success notice"><p>' . esc_html__( 'Paid status will be updated in a few minutes.', 'woocommerce-product-vendors' ) . '</p></div>';
-		}
-
+		
 		WC_Product_Vendors_Utils::clear_reports_transients();
 		WC_Product_Vendors_Utils::update_order_item_meta( $order_item_id );
 
 		do_action( 'wcpv_commission_list_bulk_action' );
-		wp_safe_redirect( wp_get_referer() ? remove_query_arg( array( 'action', '_wpnonce' ), wp_get_referer() ) : admin_url() . 'admin.php?page=wcpv-commissions' );
+
+		// Remove query args to prevent the resubmission of actions like paying commission.
+		$redirect_url = wp_get_referer() ? remove_query_arg( array( 'action', '_wpnonce' ), wp_get_referer() ) : admin_url() . 'admin.php?page=wcpv-commissions';
+		// Add query args to display notice of successful bulk action.
+		$redirect_url = add_query_arg( 'processed', $processed, $redirect_url );
+
+		if ( 'pay' === $this->current_action() ) {
+			$redirect_url = add_query_arg( 'pay', true, $redirect_url );
+		}
+
+		wp_safe_redirect( esc_url_raw( $redirect_url ) );
+		exit;
 	}
 
 	/**

@@ -496,36 +496,41 @@ jQuery(document).ready(function($) {
 
     }).change();
 
-    $("#ms_addresses").change(function() {
-        var selected = $("#ms_addresses option:selected");
-        var data     = selected.data();
+	$( '#ms_addresses' ).change( function() {
+		var selected = $( '#ms_addresses option:selected' );
+		var data     = selected.data();
+		var state    = '';
 
-        if ( selected.val() == "" ) {
-            // #204 Resetting the shipping fields causes WC to load the methods for the default shipping zone
-            /*$(".woocommerce-shipping-fields input[name^=shipping_]:visible").each(function() {
-                $(this).val("");
-            });
+		if ( selected.val() == '' ) {
+			return;
+		}
 
-            $("#shipping_country").change();*/
-            return;
-        }
+		for ( var prop in data ) {
+			if ( 'shipping_' == prop.substr( 0, 9 ) ) {
 
-        for ( var prop in data ) {
-            if ( 'shipping_' == prop.substr(0, 9) ) {
+				// Save state value for changing later.
+				if ( 'shipping_state' == prop ) {
+					state = data[ prop ];
+				} else {
+					if ( $( '.woocommerce-shipping-fields #' + prop ).length ) {
+						$( '.woocommerce-shipping-fields #' + prop ).val( data[ prop ] ).change();
+					}
 
-                if ( $(".woocommerce-shipping-fields #"+ prop).length ) {
-                    $(".woocommerce-shipping-fields #"+ prop).val( data[prop] );
-                }
+					if ( $( '.wcms-address-form .shipping_address #' + prop ).length ) {
+						$( '.wcms-address-form .shipping_address #' + prop ).val( data[ prop ] ).change();
+					}
+				}
+			}
+		}
 
-                if ( $( '.wcms-address-form .shipping_address #' + prop ).length ) {
-                    $( '.wcms-address-form .shipping_address #' + prop ).val( data[prop] ).change();
-                }
+		// Register state change after country changes.
+		$( 'body' ).one( 'country_to_state_changed', function() {
+			$( '.woocommerce-shipping-fields #shipping_state' ).val( state ).change();
+			$( '.wcms-address-form .shipping_address #shipping_state' ).val( state ).change();
+		} );
+		$( '.woocommerce-shipping-fields #shipping_country, .wcms-address-form .shipping_address #shipping_country' ).change();
 
-            }
-        }
-        $(".woocommerce-shipping-fields #shipping_country").change();
-
-    }).change();
+	} ).change();
 
     if ( $('#addresses_container').length ) {
         $('#addresses_container').masonry({
