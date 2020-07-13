@@ -1,3 +1,6 @@
+/*
+* Copyright: (C) 2013 - 2020 José Conti
+*/
 jQuery(document).ready(function($) {
 	$('.js-woo-allowed-users-settings').select2({
 		ajax: {

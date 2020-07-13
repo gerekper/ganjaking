@@ -289,14 +289,14 @@ function wc_af_add_settings() {
                         'id'       => 'wc_settings_' . self::SETTINGS_NAMESPACE . '_custom_email',
                         'css'         => 'display: block;'
                     ),
-                    /*array(
+                    array(
                         'name'        => __( 'Email Whitelist', 'woocommerce-anti-fraud' ),
                         'type'        => 'textarea',
                         'desc'        => __( "Above automated actions don't apply to orders from customers with email addresses entered here. Enter one email address per line.", 'woocommerce-anti-fraud '),
                         'id'          => 'wc_settings_' . self::SETTINGS_NAMESPACE . '_whitelist',
                         'css'         => 'width:100%; height: 100px;',
                         'default'     => '',
-                    ),   */
+                    ),   
                     array( 
                         'type' => 'sectionend', 
                         'id' => 'wc_af_general_settings' 

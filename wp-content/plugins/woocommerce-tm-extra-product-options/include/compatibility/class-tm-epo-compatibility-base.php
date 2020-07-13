@@ -96,6 +96,8 @@ final class THEMECOMPLETE_EPO_COMPATIBILITY_base {
 		THEMECOMPLETE_EPO_CP_fpd::instance();
 		// Food Online Premium for WooCommerce
 		THEMECOMPLETE_EPO_CP_fop::instance();
+		// ATUM Inventory Management for WooCommerce
+		THEMECOMPLETE_EPO_CP_atum::instance();
 
 	}
 

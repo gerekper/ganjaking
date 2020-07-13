@@ -131,15 +131,15 @@ class FrontendWalker extends WalkerNavMenu {
 
 		$gm_thumb_settings = $this->gmGetThumbSettings( $item );
 
+		$headerStyle = intval( $groovyMenuSettings['header']['style'] );
 
 		if ( 1 === $depth && $this->isMegaMenu && ! $show_in_mobile ) {
 
 			global $groovyMenuSettings;
 			$styles          = new GroovyMenuStyle();
-			$headerStyle     = intval( $groovyMenuSettings['header']['style'] );
 			$is_title_as_url = $groovyMenuSettings['megamenuTitleAsLink'];
 
-			if ( $headerStyle && in_array( $headerStyle, array( 2, 3 ), true ) ) {
+			if ( $headerStyle && in_array( $headerStyle, array( 2, 3, 5 ), true ) ) {
 
 				$gridClass = 'mobile-grid-100 grid-100';
 
@@ -433,6 +433,8 @@ class FrontendWalker extends WalkerNavMenu {
 			}
 
 			$classes[] = 'gm-menu-item';
+			$classes[] = 'gm-menu-item--lvl-' . $depth;
+
 			if ( $this->hasChildren( $classes ) ) {
 				$classes[] = 'gm-dropdown';
 			}
@@ -517,7 +519,7 @@ class FrontendWalker extends WalkerNavMenu {
 				);
 
 				if ( $this->getIcon( $item ) ) {
-					if ( 0 === $depth && intval( $groovyMenuSettings['header']['style'] ) === 4 ) {
+					if ( 0 === $depth && in_array( $headerStyle, array( 4 ), true ) ) {
 						$item_output .= '<span class="gm-menu-item__icon ' . $this->getIcon( $item ) . '"></span>';
 					} else {
 						$badge['left'] .= '<span class="gm-menu-item__icon ' . $this->getIcon( $item ) . '"></span>';

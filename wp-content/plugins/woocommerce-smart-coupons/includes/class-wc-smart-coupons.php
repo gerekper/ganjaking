@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.2.1
+ * @version     1.2.2
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -3410,11 +3410,14 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 		 * Get coupon display styles
 		 *
 		 * @param  string $style_name The style name.
+		 * @param  array  $args Additional arguments.
 		 * @return string
 		 */
-		public function get_coupon_styles( $style_name = '' ) {
+		public function get_coupon_styles( $style_name = '', $args = array() ) {
 
 			$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+
+			$is_email = ( ! empty( $args['is_email'] ) ) ? $args['is_email'] : 'no';
 
 			$all_styles = $this->get_wc_sc_coupon_styles();
 
@@ -3452,7 +3455,11 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 
 			$styles = ob_get_clean();
 
-			return apply_filters( 'wc_sc_get_coupon_styles', $styles, $style_name );
+			if ( 'yes' === $is_email ) {
+				$styles = str_replace( array( ':before', ':hover', ':focus', ':active' ), array( '-pseudo-before', '-pseudo-hover', '-pseudo-focus', '-pseudo-active' ), $styles );
+			}
+
+			return apply_filters( 'wc_sc_get_coupon_styles', $styles, $style_name, $args );
 
 		}
 

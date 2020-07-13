@@ -716,7 +716,7 @@ class THEMECOMPLETE_EPO_Display {
 
 		// global options before local
 		foreach ( $global_prices['before'] as $priorities ) {
-			foreach ( $priorities as $field ) {
+			foreach ( $priorities as $gid => $field ) {
 				$args    = array(
 					'tabindex'        => $tabindex,
 					'unit_counter'    => $unit_counter,
@@ -724,6 +724,7 @@ class THEMECOMPLETE_EPO_Display {
 					'element_counter' => $element_counter,
 					'_currency'       => $_currency,
 					'product_id'      => $product_id,
+					'gid'      => $gid,
 				);
 				$_return = $this->get_builder_display( $field, 'before', $args, $form_prefix, $dummy_prefix );
 				extract( $_return, EXTR_OVERWRITE );
@@ -743,7 +744,7 @@ class THEMECOMPLETE_EPO_Display {
 
 		// global options after local
 		foreach ( $global_prices['after'] as $priorities ) {
-			foreach ( $priorities as $field ) {
+			foreach ( $priorities as $gid => $field ) {
 				$args    = array(
 					'tabindex'        => $tabindex,
 					'unit_counter'    => $unit_counter,
@@ -751,6 +752,7 @@ class THEMECOMPLETE_EPO_Display {
 					'element_counter' => $element_counter,
 					'_currency'       => $_currency,
 					'product_id'      => $product_id,
+					'gid'      => $gid,
 				);
 				$_return = $this->get_builder_display( $field, 'after', $args, $form_prefix, $dummy_prefix );
 				extract( $_return, EXTR_OVERWRITE );
@@ -896,6 +898,7 @@ class THEMECOMPLETE_EPO_Display {
 		$element_counter = $args['element_counter'];
 		$_currency       = $args['_currency'];
 		$product_id      = $args['product_id'];
+		$gid      		 = isset($args['gid'])?$args['gid']:'0';
 
 		$element_type_counter = array();
 
@@ -903,7 +906,7 @@ class THEMECOMPLETE_EPO_Display {
 		if ( isset( $field['sections'] ) && is_array( $field['sections'] ) ) {
 
 			$args = array(
-				'field_id' => 'tm-epo-field-' . $unit_counter,
+				'field_id' => 'tm-epo-field-' . $gid . '-'. $unit_counter,
 			);
 			wc_get_template(
 				'tm-builder-start.php',

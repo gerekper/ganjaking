@@ -1,10 +1,14 @@
+/*
+* Copyright: (C) 2013 - 2020 José Conti
+*/
 mark.order-status.status-redsys-pre.tips, mark.order-status.status-redsys-pre {
-    background: #F4B350;
-    color: #ffffff;
+	background: #F4B350;
+	color: #ffffff;
 }
+
 mark.order-status.status-redsys-residentp.tips, mark.order-status.status-redsys-residentp {
-    background: #AEA8D3;
-    color: #674172;
+	background: #AEA8D3;
+	color: #674172;
 }
 
 .redsysnotice {

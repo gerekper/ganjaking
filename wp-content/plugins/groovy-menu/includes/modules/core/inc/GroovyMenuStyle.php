@@ -191,6 +191,13 @@ if ( ! class_exists( 'GroovyMenuStyle' ) ) {
 											$saved_value = $_val;
 										}
 									}
+
+									// bugfix.
+									if ( ! empty( $saved_value['style'] ) && in_array( $saved_value['style'], [ 3, 4, 5 ], true ) ) {
+										if ( ! empty( $saved_value['align'] ) && 'center' === $saved_value['align'] ) {
+											$saved_value['align'] = 'left';
+										}
+									}
 								}
 
 								if ( isset( $value['type'] ) && in_array( $value['type'], $exclude_types, true ) ) {
@@ -459,17 +466,21 @@ if ( ! class_exists( 'GroovyMenuStyle' ) ) {
 				$classes_navbar[] = $custom_css_class;
 			}
 
+			$header_style = 1;
+
 			// Header types.
 			if ( ! empty( $settings['header'] ) ) {
+
+				$header_style = empty( $settings['header']['style'] ) ? 1 : intval( $settings['header']['style'] );
 
 				if ( ! empty( $settings['header']['align'] ) ) {
 					$classes_navbar[] = 'gm-navbar--align-' . $settings['header']['align'];
 				}
 
 				if ( ! empty( $settings['header']['style'] ) && ! empty( $settings['header']['align'] ) ) {
-					$classes_navbar[] = 'gm-navbar--style-' . $settings['header']['style'];
+					$classes_navbar[] = 'gm-navbar--style-' . $header_style;
 
-					if ( $settings['header']['style'] === 1 && $settings['header']['align'] !== 'center' ) {
+					if ( $header_style === 1 && $settings['header']['align'] !== 'center' ) {
 						$classes_navbar[] = 'gm-top-links-align-' . $settings['topLvlLinkAlign'];
 					}
 
@@ -479,7 +490,7 @@ if ( ! class_exists( 'GroovyMenuStyle' ) ) {
 					$classes_navbar[] = 'gm-navbar--toolbar-' . $settings['header']['toolbar'];
 				}
 
-				if ( 1 === $settings['header']['style'] ) {
+				if ( 1 === $header_style ) {
 					if ( isset( $settings['showDividerBetweenMenuLinks'] ) && $settings['showDividerBetweenMenuLinks'] ) {
 						$classes_navbar[] = 'gm-navbar--has-divider';
 					}
@@ -487,15 +498,15 @@ if ( ! class_exists( 'GroovyMenuStyle' ) ) {
 
 			}
 
-			if ( isset( $settings['shadow'] ) && $settings['shadow'] && 3 !== $settings['header']['style'] ) {
+			if ( isset( $settings['shadow'] ) && $settings['shadow'] && ! in_array( $header_style, array( 3, 5 ), true ) ) {
 				$classes_navbar[] = 'gm-navbar--has-shadow';
 			}
 
-			if ( isset( $settings['shadowSticky'] ) && $settings['shadowSticky'] && 3 !== $settings['header']['style'] ) {
+			if ( isset( $settings['shadowSticky'] ) && $settings['shadowSticky'] && ! in_array( $header_style, array( 3, 5 ), true ) ) {
 				$classes_navbar[] = 'gm-navbar--has-shadow-sticky';
 			}
 
-			if ( isset( $settings['shadowDropdown'] ) && $settings['shadowDropdown'] && 3 !== $settings['header']['style'] ) {
+			if ( isset( $settings['shadowDropdown'] ) && $settings['shadowDropdown'] && ! in_array( $header_style, array( 3, 5 ), true ) ) {
 				$classes_navbar[] = 'gm-navbar--has-shadow-dropdown';
 			}
 

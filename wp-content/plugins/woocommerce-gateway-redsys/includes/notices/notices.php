@@ -1,15 +1,24 @@
 <?php
 
+/*
+* Copyright: (C) 2013 - 2020 José Conti
+*/
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
+/*
+* Copyright: (C) 2013 - 2020 José Conti
+*/
 function redsys_woocommerce_gateway_redsys_init_check() {
 	$class   = 'error';
 	$message = '<span class="dashicons dashicons-dismiss"></span>' . ' ' . __( 'WARNING: Please, deactivate my WooCommerce Redsys Gateway Light version before activate WooCommerce Gateway Redsys (by Jos&eacute; Conti & WooCommerce.com).', 'woocommerce-redsys' );
 	echo '<div class="' . esc_attr( $class ) . '"> <p>' . esc_html( $message ) . '</p></div>';
 }
 
+/*
+* Copyright: (C) 2013 - 2020 José Conti
+*/
 function redsys_admin_notice_lite_version() {
 	if ( is_plugin_active( 'woo-redsys-gateway-light/woocommerce-redsys.php' ) ) {
 		add_action( 'admin_notices', 'redsys_woocommerce_gateway_redsys_init_check' );
@@ -17,51 +26,62 @@ function redsys_admin_notice_lite_version() {
 }
 add_action( 'admin_init', 'redsys_admin_notice_lite_version', 0 );
 
-require_once REDSYS_PLUGIN_PATH . 'includes/persist-admin-notices-dismissal.php';
+/*
+* Copyright: (C) 2013 - 2020 José Conti
+*/
+function redsys_add_notice_intalled_new() {
 
-add_action( 'admin_init', array( 'PAnD', 'init' ) );
+	$hide = get_option( 'hide-install-redsys-notice' );
 
-function redsys_ask_for_twitt() {
-
-	if ( ! PAnD::is_admin_notice_active( 'notice-redsys-ask-for-twitt-forever' ) ) {
-		return;
+	if ( 'yes' !== $hide ) {
+		if ( isset( $_REQUEST['redsys-hide-install'] ) &&  'hide-install-redsys' === $_REQUEST['redsys-hide-install'] ) {
+			$nonce = sanitize_text_field( $_REQUEST['_redsys_hide_install_nonce'] );
+			if ( wp_verify_nonce( $nonce, 'redsys_hide_install_nonce' ) ) {
+				update_option( 'hide-install-redsys-notice', 'yes' );
+			}
+		} else {
+			?>
+			<div id="message" class="updated woocommerce-message woocommerce-redsys-messages">
+				<div class="logo-redsys-notice">
+					<img src="<?php echo REDSYS_PLUGIN_URL; ?>assets/images/redsys-woo-notice.png" alt="Logo Plugn Redsys" height="100" width="100">
+				</div>
+				<div class="contenido-redsys-notice">
+					<a class="woocommerce-message-close notice-dismiss" style="top:0;" href="<?php echo esc_url( wp_nonce_url( add_query_arg( 'redsys-hide-install', 'hide-install-redsys' ), 'redsys_hide_install_nonce', '_redsys_hide_install_nonce' ) ); ?>"><?php esc_html_e( 'Before Dismiss it, read it plase', 'woocommerce-redsys' ); ?></a>
+					<p>
+					    <h3>
+						    <?php esc_html_e( 'Thank you for purchase WooCommerce Redsys Gateway', 'woocommerce-redsys' ); ?>
+						</h3>
+					</p>
+					<p>
+						<!--
+						¿Vas a tener los cojones de modificar esto?
+						
+						Si te da vergÜenza, dame una parte de tus benegicios para contribuir al desarrollo como dicta el el esítitu de la GPL en vez de eliminar y modificar estas líneas, ya que estás hundiendo el desarrollo
+						
+						-->
+						<?php printf( __( 'This plugin is developed by José Conti. It can only be purchased and downloaded from WooCommerce.com. If you have paid for it in another site, the owner of that site is earning money at my expense and at yours without valuing the effort I put in the development Doing so is against the GPL, as much as there are people who say it is legal and permissible. I invite you to <a href="%1$s" target="_blank">read this entry</a> so you know what the GPL is.', 'woocommerce-redsys' ), REDSYS_GPL ); ?>
+					</p>
+					<p>
+					<?php esc_html_e( 'Please, at the slightest problem in the activation or configuration open a ticket for me to help you.', 'woocommerce-redsys' ); ?>
+					</p>
+					<p>
+					<?php esc_html_e( 'I can install and configure the Redsys plugin for you, it goes with the price of the license you purchased at WooCommerce.com', 'woocommerce-redsys' ); ?>
+					</p>
+					<p class="submit">
+						<a href="<?php echo REDSYS_TICKET; ?>" class="button-primary" target="_blank"><?php esc_html_e( 'Open a ticket NOW for help with installation', 'woocommerce-redsys' );  ?></a>
+						<a href="<?php echo admin_url(); ?>admin.php?page=wc-addons&section=helper" class="button-primary" target="_blank"><?php esc_html_e( 'Connect your Site for get future extension updates', 'woocommerce-redsys' );  ?></a>
+						<a href="<?php echo REDSYS_GPL; ?>" class="button-primary" target="_blank"><?php esc_html_e( 'Learn what is GPL', 'woocommerce-redsys' );  ?></a>
+					</p>
+				</div>
+			</div>
+		<?php }
 	}
-
-	$activation_date = get_option( 'redsys-woocommerce-redsys-twitt' );
-
-	if ( ! $activation_date ) {
-		update_option( 'redsys-woocommerce-redsys-twitt', time() );
-		$activation_date = get_option( 'redsys-woocommerce-redsys-twitt' );
-	}
-	$activation_date_30 = $activation_date + ( 30 * 24 * 60 * 60 );
-
-	if ( time() > $activation_date_30 ) {
-		$class   = 'notice notice-info is-dismissible';
-		$message = '<a href="https://twitter.com/home?status=Utilizo%20el%20plugin%20premium%20de%20%23Redsys%20de%20WooCommerce%5B.%5Dcom%20de%20%40josecontic.%0ATiene%20todas%20las%20opciones%20posible%20de%20configuraci%C3%B3n%20para%20utilizar%20Redsys%20al%20l%C3%ADmite.%0A%C3%89chale%20un%20ojo%0Ahttps%3A//woocommerce.com/products/redsys-gateway/" target="_blank">Twitter</a> and/or <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//woocommerce.com/products/redsys-gateway/" target="_blank">Facebook</a>';
-		printf( '<div data-dismissible="notice-redsys-ask-for-twitt-forever" class="%1$s"><p>', esc_attr( $class ) );
-		printf( __( '<p>You\'ve been using WooCommerce.com&apos;s Redsys plugin for over 30 days. I would greatly appreciate it if you could share your experience on %s.</p><p>Thanks a lot!</p>', 'woocommerce-redsys' ), $message );
-		echo '</p></div>';
-	}
-
 }
-add_action( 'admin_notices', 'redsys_ask_for_twitt' );
+add_action( 'admin_notices', 'redsys_add_notice_intalled_new' );
 
-function redsys_woo_help_admin_notice() {
-	if ( ! PAnD::is_admin_notice_active( 'redsys-woo-help-admin-notice-forever' ) ) {
-		return;
-	}
-
-	$class = 'notice notice-info is-dismissible';
-	$message = '<a href="https://woocommerce.com/my-account/create-a-ticket/" target="_blank">WooCommerce.com</a>';
-
-
-	printf( '<div data-dismissible="redsys-woo-help-admin-notice-forever" class="%1$s"><p>', esc_attr( $class ) );
-	printf( __( '<p><strong>PLEASE READ THIS:</strong> Thank you very much for purchasing the Redsys extension from WooCommerce.com.</p><p>Before closing this notice, wait until you test the plugin and everything works. If your orders are kept on waiting for Redsys payment, please open a ticket in %s Support (select "Help with my Extensions" - "Redsys Gateway"), it has solution and it is not the fault of the plugin.</p><p>You can contact me 7 days a week and I&apos;ll get back to you. If you give me the access data, I can fix your installation without problems.</p><p>If you wish, you can contact in Spanish, since I, Jos&eacute; Conti, give the support directly from the plugin.</p><p>Some options may not work if they have not been activated in Redsys. If something doesn&apos;t work for you, like 1-click payment, preauthorizations, etc, they must be activated first by Redsys. Check it out or contact me through the WooCommerce.com for help.</p><p>Read everything that is written under each configuration option, it is very important in some of them.</p><p>Thanks a lot</p><p>Jos&eacute; Conti</p>', 'woocommerce-redsys' ), $message );
-	echo '</p></div>';
-}
-
-add_action( 'admin_notices', 'redsys_woo_help_admin_notice' );
-
+/*
+* Copyright: (C) 2013 - 2020 José Conti
+*/
 function redsys_add_notice_new_version() {
 
 	$version = get_option( 'hide-new-version-redsys-notice' );
@@ -92,6 +112,7 @@ function redsys_add_notice_new_version() {
 						<a href="<?php echo REDSYS_POST_UPDATE_URL; ?>" class="button-primary" target="_blank"><?php esc_html_e( 'Discover the improvements', 'woocommerce-redsys' );  ?></a>
 						<a href="<?php echo REDSYS_REVIEW; ?>" class="button-primary" target="_blank"><?php esc_html_e( 'Leave a review', 'woocommerce-redsys' );  ?></a>
 						<a href="<?php echo REDSYS_TELEGRAM_SIGNUP; ?>" class="button-primary" target="_blank"><?php esc_html_e( 'Sign up for the Telegram channel', 'woocommerce-redsys' );  ?></a>
+						<a href="<?php echo REDSYS_GPL; ?>" class="button-primary" target="_blank"><?php esc_html_e( 'Learn what is GPL', 'woocommerce-redsys' );  ?></a>
 					</p>
 				</div>
 			</div>
@@ -100,6 +121,9 @@ function redsys_add_notice_new_version() {
 }
 add_action( 'admin_notices', 'redsys_add_notice_new_version' );
 
+/*
+* Copyright: (C) 2013 - 2020 José Conti
+*/
 function redsys_installation_notice() {
 
 	$action = get_option( 'hide-installation-notice-redsys-notice' );
@@ -139,6 +163,9 @@ function redsys_installation_notice() {
 
 //add_action( 'admin_notices', 'redsys_installation_notice' );
 
+/*
+* Copyright: (C) 2013 - 2020 José Conti
+*/
 function redsys_deprecated_authorization() {
 	
 	$is_enabled = WCRed()->get_redsys_option( 'preauthorization', 'redsys' );
@@ -151,6 +178,9 @@ function redsys_deprecated_authorization() {
 
 add_action( 'admin_notices', 'redsys_deprecated_authorization' );
 
+/*
+* Copyright: (C) 2013 - 2020 José Conti
+*/
 function redsys_notice_style() {
 	wp_register_style( 'redsys_notice_css', REDSYS_PLUGIN_URL . 'assets/css/redsys-notice.css', false, REDSYS_VERSION );
 	wp_enqueue_style( 'redsys_notice_css' );

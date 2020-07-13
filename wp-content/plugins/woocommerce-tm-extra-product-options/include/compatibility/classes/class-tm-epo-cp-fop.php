@@ -4,7 +4,7 @@
  *
  * This class is responsible for providing compatibility with
  * Food Online Premium for WooCommerce
- * (https://arosoft.se/)
+ * https://arosoft.se/
  *
  * @package Extra Product Options/Compatibility
  * @version 5.0.12

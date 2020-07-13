@@ -1775,14 +1775,18 @@ final class THEMECOMPLETE_Extra_Product_Options {
 					$symbol = apply_filters( 'wc_epo_price_in_dropdown_plus_sign', "+" );
 				}
 
-				global $product;
-				if ( $product && wc_tax_enabled() ) {
+				global $product, $associated_product;
+				$current_product = $product;
+				if (!$product && $associated_product){
+					$current_product = $associated_product;
+				}
+				if ( $current_product && wc_tax_enabled() ) {
 					$tax_display_mode = get_option( 'woocommerce_tax_display_shop' );
 
 					if ( $tax_display_mode == 'excl' ) {
-						$display_price = themecomplete_get_price_excluding_tax( $product, array( 'price' => $display_price ) );
+						$display_price = themecomplete_get_price_excluding_tax( $current_product, array( 'price' => $display_price ) );
 					} else {
-						$display_price = themecomplete_get_price_including_tax( $product, array( 'price' => $display_price ) );
+						$display_price = themecomplete_get_price_including_tax( $current_product, array( 'price' => $display_price ) );
 					}
 				}
 
@@ -3217,6 +3221,9 @@ final class THEMECOMPLETE_Extra_Product_Options {
 				} else {
 					$use_original_builder = TRUE;
 				}
+			} elseif ($identifier === "variations"){
+				$index = 0;
+				$use_wpml = TRUE;
 			}
 		}
 
@@ -4059,6 +4066,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 				}
 
 				$current_builder = themecomplete_get_post_meta( $price->ID, 'tm_meta_wpml', TRUE );
+
 				if ( ! $current_builder ) {
 					$current_builder = array();
 				} else {
@@ -5115,7 +5123,6 @@ final class THEMECOMPLETE_Extra_Product_Options {
 											$variation_element_id = $this->cpf_single_variation_element_id[ $element_uniqueid ] = $this->get_builder_element( $_prefix . 'uniqid', $builder, $current_builder, $current_counter, THEMECOMPLETE_EPO_HELPER()->tm_uniqid(), $wpml_element_fields, $current_element, "", $element_uniqueid );
 											$variation_section_id = $this->cpf_single_variation_section_id[ $element_uniqueid ] = $global_epos[ $priority ][ $tmcp_id ]['sections'][ $_s ]['sections_uniqid'];
 										}
-
 										$product_epos_uniqids[] = $element_uniqueid;
 										if ( in_array( $_new_type, array( 'select', 'radio', 'checkbox' ) ) ) {
 											$product_epos_choices[ $element_uniqueid ] = array_keys( $_rules_type );
@@ -5261,11 +5268,14 @@ final class THEMECOMPLETE_Extra_Product_Options {
 													'quantity_step'          => $this->get_builder_element( $_prefix . 'quantity_step', $builder, $current_builder, $current_counter, "", $wpml_element_fields, $current_element, "", $element_uniqueid ),
 													'quantity_default_value' => $this->get_builder_element( $_prefix . 'quantity_default_value', $builder, $current_builder, $current_counter, "", $wpml_element_fields, $current_element, "", $element_uniqueid ),
 
-													'mode'                 => $this->get_builder_element( $_prefix . 'mode', $builder, $current_builder, $current_counter, "", $wpml_element_fields, $current_element, "", $element_uniqueid ),
-													'layout_mode'          => $this->get_builder_element( $_prefix . 'layout_mode', $builder, $current_builder, $current_counter, "", $wpml_element_fields, $current_element, "", $element_uniqueid ),
-													'categoryids'          => $this->get_builder_element( $_prefix . 'categoryids', $builder, $current_builder, $current_counter, "", $wpml_element_fields, $current_element, "", $element_uniqueid ),
-													'productids'           => $this->get_builder_element( $_prefix . 'productids', $builder, $current_builder, $current_counter, "", $wpml_element_fields, $current_element, "", $element_uniqueid ),
-													'priced_individually'  => $this->get_builder_element( $_prefix . 'priced_individually', $builder, $current_builder, $current_counter, "", $wpml_element_fields, $current_element, "", $element_uniqueid ),
+													'mode'                   => $this->get_builder_element( $_prefix . 'mode', $builder, $current_builder, $current_counter, "", $wpml_element_fields, $current_element, "", $element_uniqueid ),
+													'layout_mode'            => $this->get_builder_element( $_prefix . 'layout_mode', $builder, $current_builder, $current_counter, "", $wpml_element_fields, $current_element, "", $element_uniqueid ),
+													'categoryids'            => $this->get_builder_element( $_prefix . 'categoryids', $builder, $current_builder, $current_counter, "", $wpml_element_fields, $current_element, "", $element_uniqueid ),
+													'productids'             => $this->get_builder_element( $_prefix . 'productids', $builder, $current_builder, $current_counter, "", $wpml_element_fields, $current_element, "", $element_uniqueid ),
+													'priced_individually'    => $this->get_builder_element( $_prefix . 'priced_individually', $builder, $current_builder, $current_counter, "", $wpml_element_fields, $current_element, "", $element_uniqueid ),
+													'order'                  => $this->get_builder_element( $_prefix . 'order', $builder, $current_builder, $current_counter, "", $wpml_element_fields, $current_element, "", $element_uniqueid ),
+													'orderby'                => $this->get_builder_element( $_prefix . 'orderby', $builder, $current_builder, $current_counter, "", $wpml_element_fields, $current_element, "", $element_uniqueid ),
+
 													'shipped_individually' => $this->get_builder_element( $_prefix . 'shipped_individually', $builder, $current_builder, $current_counter, "", $wpml_element_fields, $current_element, "", $element_uniqueid ),
 													'maintain_weight'      => $this->get_builder_element( $_prefix . 'maintain_weight', $builder, $current_builder, $current_counter, "", $wpml_element_fields, $current_element, "", $element_uniqueid ),
 													'discount'             => $this->get_builder_element( $_prefix . 'discount', $builder, $current_builder, $current_counter, "", $wpml_element_fields, $current_element, "", $element_uniqueid ),

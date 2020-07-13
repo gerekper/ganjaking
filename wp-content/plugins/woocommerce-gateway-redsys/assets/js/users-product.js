@@ -1,3 +1,6 @@
+/*
+* Copyright: (C) 2013 - 2020 José Conti
+*/
 jQuery(document).ready(function($) {
 	$('.js-redsys-users').select2({
 		placeholder: 'Allowed  users'

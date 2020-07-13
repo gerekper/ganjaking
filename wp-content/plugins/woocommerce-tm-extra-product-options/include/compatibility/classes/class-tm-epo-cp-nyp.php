@@ -3,7 +3,8 @@
  * Compatibility class
  *
  * This class is responsible for providing compatibility with
- * Name Your Price (https://woocommerce.com/products/name-your-price/)
+ * Name Your Price 
+ * https://woocommerce.com/products/name-your-price/
  *
  * @package Extra Product Options/Compatibility
  * @version 4.9

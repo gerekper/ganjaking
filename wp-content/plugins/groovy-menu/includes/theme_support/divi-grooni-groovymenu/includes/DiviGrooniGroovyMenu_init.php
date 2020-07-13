@@ -29,7 +29,7 @@ if ( ! class_exists( 'DiviGrooniGroovyMenu_Init' ) ) {
 		 *
 		 * @var string
 		 */
-		public $version = '1.0.3';
+		public $version = '1.0.4';
 
 		/**
 		 * DiviGrooniGroovyMenu_Init constructor.

@@ -71,7 +71,7 @@ if ( ! class_exists( 'WC_SC_Global_Coupons' ) ) {
 				$wpdb->delete( $wpdb->prefix . 'options', array( 'option_name' => 'sc_display_global_coupons' ) ); // WPCS: cache ok, db call ok.
 				$wpdb->query( // phpcs:ignore
 					$wpdb->prepare(
-						"INSERT INTO {$wpdb->prefix}options (option_name, option_value, autoload)
+						"REPLACE INTO {$wpdb->prefix}options (option_name, option_value, autoload)
 							SELECT %s,
 								GROUP_CONCAT(id SEPARATOR ','),
 								%s

@@ -145,12 +145,13 @@ class THEMECOMPLETE_EPO_FIELDS_product extends THEMECOMPLETE_EPO_FIELDS {
 				'post_status'         => 'publish',
 				'ignore_sticky_posts' => 1,
 				'nopaging'            => TRUE,
-				'order'               => 'desc',
+				'order'               => 'asc',
 				'fields'              => 'ids',
 				'meta_query'          => array()
 			);
 
 			if ( $args['mode'] === 'products' ) {
+
 				$query['post_type'] = array( 'product', 'product_variation' );
 				$query['post__in']  = array_values( $data['productids'] );
 
@@ -198,8 +199,21 @@ class THEMECOMPLETE_EPO_FIELDS_product extends THEMECOMPLETE_EPO_FIELDS {
 			} else {
 
 				if ( is_array( $args['orderby'] ) ) {
-					$query['orderby'] = $args['orderby']['orderby'];
-					$query['order']   = $args['orderby']['order'];
+					if ($args['orderby']['orderby'] !== "none"){
+						$query['orderby'] = $args['orderby']['orderby'];
+						$query['order']   = $args['orderby']['order'];
+						if (isset($args['orderby']['meta_key'])){
+							$query['meta_key']   = $args['orderby']['meta_key'];
+						}
+					} else {
+						if ( $args['mode'] === 'products' ) {
+							// Preserve post ID order given (WC>=3.5)
+							$query['orderby'] = 'post__in';
+						} elseif ( $args['mode'] === 'categories' ) {
+							// Order by date and title
+							$query['orderby'] = 'date title';
+						}
+					}
 				} else {
 					$query['orderby'] = $args['orderby'];
 				}
@@ -310,6 +324,8 @@ class THEMECOMPLETE_EPO_FIELDS_product extends THEMECOMPLETE_EPO_FIELDS {
 		$mode                = isset( $element['mode'] ) ? $element['mode'] : "";
 		$uniqid              = isset( $element['uniqid'] ) ? $element['uniqid'] : "";
 		$priced_individually = isset( $element['priced_individually'] ) ? $element['priced_individually'] : "";
+		$order = isset( $element['order'] ) ? $element['order'] : "";
+		$orderby = isset( $element['orderby'] ) ? $element['orderby'] : "";
 
 		if ($mode === "product"){
 			$layout_mode = "hidden";
@@ -428,11 +444,24 @@ class THEMECOMPLETE_EPO_FIELDS_product extends THEMECOMPLETE_EPO_FIELDS {
 			"productids"  => $productids,
 		);
 
+		$_orderby = FALSE;
+		if ($order && $orderby){
+			$_orderby = array(
+				'order' => strtoupper( $order ),
+				'orderby' => $orderby,
+			);
+			if ($orderby === "baseprice"){
+				$_orderby['orderby'] = "meta_value_num";
+				$_orderby['meta_key'] = "_price";
+			}
+		}
+
 		$product_id_array = $this->fetch_ids( $data, array(
 			"per_page"   => FALSE,
 			"mode"       => $mode,
 			"default"    => $get_default_value,
 			"product_id" => $args['product_id'],
+			"orderby"    => $_orderby,
 		) );
 
 		foreach ( $product_id_array["posts"] as $key => $product_id ) {

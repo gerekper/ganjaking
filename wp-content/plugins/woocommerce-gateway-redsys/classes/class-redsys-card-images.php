@@ -1,7 +1,13 @@
 <?php
-	
+
+/**
+* Copyright: (C) 2013 - 2020 José Conti
+*/
 class Redsys_Card_Images extends WP_Widget {
 	
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	public function __construct() {
 		$options = array(
 			'classname'   => 'redsys_credit_card_widget',
@@ -13,6 +19,9 @@ class Redsys_Card_Images extends WP_Widget {
 		);
 	}
 	
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	public function widget( $args, $instance ) {
 		// Define the widget
 		$title = $instance['title'];
@@ -28,6 +37,9 @@ class Redsys_Card_Images extends WP_Widget {
 		echo $args['after_widget'];
 	}
 	
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	public function form( $instance ) {
 		
 		if ( isset( $instance[ 'title' ] ) ) {
@@ -43,6 +55,9 @@ class Redsys_Card_Images extends WP_Widget {
 		<?php
 	}
 	
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	public function update( $new_instance, $old_instance ) {
 		
 		$instance            = array();
@@ -51,6 +66,9 @@ class Redsys_Card_Images extends WP_Widget {
 	}
 }
 // Register the widget
+/**
+* Copyright: (C) 2013 - 2020 José Conti
+*/
 function redsys_register_card_image_widget() {
 	register_widget( 'Redsys_Card_Images' );
 }

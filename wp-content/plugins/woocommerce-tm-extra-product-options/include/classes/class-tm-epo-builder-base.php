@@ -1264,6 +1264,7 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 					       "tags"        => array(
 						       "data-placeholder" => esc_attr( 'Search for a product ...', 'woocommerce-tm-extra-product-options' ),
 						       "data-action"      => "woocommerce_json_search_products_and_variations",
+						       "data-sortable"    => "true",
 						       "class"            => "wc-product-search product-products-selector",
 						       "id"               => "builder_product_productids",
 						       "name"             => "tm_meta[tmfbuilder][product_productids][]"
@@ -1275,6 +1276,62 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 						       ".product-mode" => array(
 							       "operator" => "is",
 							       "value"    => array("products", "product"),
+						       ),
+					       ),
+				       ),
+
+				       array(
+					       "id"          => "product_orderby",
+					       "wpmldisable" => 1,
+					       "default"     => "ID",
+					       "type"        => "select",
+					       "tags"        => array(
+						       "data-placeholder" => esc_attr( 'Choose a value', 'woocommerce-tm-extra-product-options' ),
+						       "class"            => "enhanced-dropdown product-orderby",
+						       "id"               => "builder_product_orderby",
+						       "name"             => "tm_meta[tmfbuilder][product_orderby][]"
+					       ),
+					       "options"          => array(
+						       array( "text" => esc_html__( "Default", 'woocommerce-tm-extra-product-options' ), "value" => "none" ),
+						       array( "text" => esc_html__( "Base price", 'woocommerce-tm-extra-product-options' ), "value" => "baseprice" ),
+						       array( "text" => esc_html__( "ID", 'woocommerce-tm-extra-product-options' ), "value" => "ID" ),
+						       array( "text" => esc_html__( "Title", 'woocommerce-tm-extra-product-options' ), "value" => "title" ),
+						       array( "text" => esc_html__( "Date", 'woocommerce-tm-extra-product-options' ), "value" => "date" ),
+						       array( "text" => esc_html__( "Name", 'woocommerce-tm-extra-product-options' ), "value" => "name" ),
+						       array( "text" => esc_html__( "Menu Order", 'woocommerce-tm-extra-product-options' ), "value" => "menu_order" ),
+						       array( "text" => esc_html__( "Random", 'woocommerce-tm-extra-product-options' ), "value" => "rand" ),
+					       ),
+					       "label"       => esc_html__( "Order by", 'woocommerce-tm-extra-product-options' ),
+					       "desc"        => esc_html__( "Select the parameter which the products will be sorted by.", 'woocommerce-tm-extra-product-options' ),
+					       "required"    => array(
+						       ".product-mode" => array(
+							       "operator" => "isnot",
+							       "value"    => "product",
+						       ),
+					       ),
+				       ),
+
+				       array(
+					       "id"               => "product_order",
+					       "wpmldisable"      => 1,
+					       "default"          => "asc",
+					       "message0x0_class" => "tm-epo-switch-wrapper",
+					       "type"             => "radio",
+					       "tags"             => array( "class" => "product-order", "id" => "builder_product_order", "name" => "tm_meta[tmfbuilder][product_order][]" ),
+					       "options"          => array(
+						       array( "text" => esc_html__( "Ascending", 'woocommerce-tm-extra-product-options' ), "value" => "asc" ),
+						       array( "text" => esc_html__( "Descending", 'woocommerce-tm-extra-product-options' ), "value" => "desc" ),
+					       ),
+					       "label"            => esc_html__( "Order", 'woocommerce-tm-extra-product-options' ),
+					       "desc"             => esc_html__( "Select the sorting order of the products.", 'woocommerce-tm-extra-product-options' ),
+					       "required"    => array(
+						       ".product-mode" => array(
+							       "operator" => "isnot",
+							       "value"    => "product",
+						       ),
+						       ".product-orderby" => array(
+							       "operator" => "isnot",
+							       "value"    => "none",
 						       ),
 					       ),
 				       ),

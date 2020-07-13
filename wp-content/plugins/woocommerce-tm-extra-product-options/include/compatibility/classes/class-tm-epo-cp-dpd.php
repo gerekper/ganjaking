@@ -3,7 +3,8 @@
  * Compatibility class
  *
  * This class is responsible for providing compatibility with
- * WooCommerce Dynamic Pricing & Discounts (https://codecanyon.net/item/woocommerce-dynamic-pricing-discounts/7119279)
+ * WooCommerce Dynamic Pricing & Discounts 
+ * https://codecanyon.net/item/woocommerce-dynamic-pricing-discounts/7119279
  *
  * @package Extra Product Options/Compatibility
  * @version 4.9
@@ -808,7 +809,11 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 			$float_original_price_to_display = floatval( $cart_item['tm_epo_product_price_with_options'] );
 		}
 
-		if ( isset( $float_price_to_display ) && isset( $float_original_price_to_display ) && $float_price_to_display === $float_original_price_to_display ) {
+		if ( 
+			isset( $float_price_to_display ) && 
+			isset( $float_original_price_to_display ) && 
+			(strval($float_price_to_display) == strval($float_original_price_to_display))
+		) {
 			return $item_price;
 		}
 

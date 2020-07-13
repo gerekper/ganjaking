@@ -203,6 +203,13 @@ class THEMECOMPLETE_EPO_FIELDS_radio extends THEMECOMPLETE_EPO_FIELDS {
 		$label_mode            = '';
 		$changes_product_image = empty( $element['changes_product_image'] ) ? "" : $element['changes_product_image'];
 
+		if (THEMECOMPLETE_EPO()->tm_epo_global_image_mode === "relative"){
+			$image  = wp_make_link_relative($image);
+			$imagec  = wp_make_link_relative($imagec);
+			$imagep  = wp_make_link_relative($imagep);
+			$imagel  = wp_make_link_relative($imagel);
+		}	
+		
 		$url = isset( $element['url'][ $args['field_counter'] ] ) ? $element['url'][ $args['field_counter'] ] : "";
 
 		if ( empty( $image ) ) {

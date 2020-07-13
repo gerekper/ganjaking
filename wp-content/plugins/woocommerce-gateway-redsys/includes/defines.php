@@ -1,5 +1,9 @@
 <?php
 
+/*
+* Copyright: (C) 2013 - 2020 José Conti
+*/
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }

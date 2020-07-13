@@ -3,7 +3,8 @@
  * Compatibility class
  *
  * This class is responsible for providing compatibility with
- * ElasticPress (https://wordpress.org/plugins/elasticpress/)
+ * ElasticPress 
+ * https://wordpress.org/plugins/elasticpress/
  *
  * @package Extra Product Options/Compatibility
  * @version 4.9

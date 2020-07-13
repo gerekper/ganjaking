@@ -1,126 +1,114 @@
-/*! nouislider - 13.1.5 - 4/24/2019 */
+/*! nouislider - 14.5.0 - 5/11/2020 */
 /* Functional styling;
  * These styles are required for noUiSlider to function.
  * You don't need to change these rules to apply your design.
  */
 .noUi-target,
 .noUi-target * {
-	-webkit-touch-callout: none;
-	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-	-webkit-user-select: none;
-	-ms-touch-action: none;
-	touch-action: none;
-	-ms-user-select: none;
-	-moz-user-select: none;
-	user-select: none;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-user-select: none;
+  -ms-touch-action: none;
+  touch-action: none;
+  -ms-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
-
 .noUi-target {
-	position: relative;
-	direction: ltr;
+  position: relative;
 }
-
 .noUi-base,
 .noUi-connects {
-	width: 100%;
-	height: 100%;
-	position: relative;
-	z-index: 1;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 1;
 }
-
 /* Wrapper for all connect elements.
  */
 .noUi-connects {
-	overflow: hidden;
-	z-index: 0;
+  overflow: hidden;
+  z-index: 0;
 }
-
 .noUi-connect,
 .noUi-origin {
-	will-change: transform;
-	position: absolute;
-	z-index: 1;
-	top: 0;
-	left: 0;
-	height: 100%;
-	width: 100%;
-	-ms-transform-origin: 0 0;
-	-webkit-transform-origin: 0 0;
-	-webkit-transform-style: preserve-3d;
-	transform-origin: 0 0;
-	transform-style: flat;
+  will-change: transform;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  -ms-transform-origin: 0 0;
+  -webkit-transform-origin: 0 0;
+  -webkit-transform-style: preserve-3d;
+  transform-origin: 0 0;
+  transform-style: flat;
 }
-
+.noUi-connect {
+  height: 100%;
+  width: 100%;
+}
+.noUi-origin {
+  height: 10%;
+  width: 10%;
+}
 /* Offset direction
  */
-html:not([dir="rtl"]) .noUi-horizontal .noUi-origin {
-	left: auto;
-	right: 0;
+.noUi-txt-dir-rtl.noUi-horizontal .noUi-origin {
+  left: 0;
+  right: auto;
 }
-
 /* Give origins 0 height/width so they don't interfere with clicking the
  * connect elements.
  */
 .noUi-vertical .noUi-origin {
-	width: 0;
+  width: 0;
 }
-
 .noUi-horizontal .noUi-origin {
-	height: 0;
+  height: 0;
 }
-
 .noUi-handle {
-	-webkit-backface-visibility: hidden;
-	backface-visibility: hidden;
-	position: absolute;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  position: absolute;
 }
-
 .noUi-touch-area {
-	height: 100%;
-	width: 100%;
+  height: 100%;
+  width: 100%;
 }
-
 .noUi-state-tap .noUi-connect,
 .noUi-state-tap .noUi-origin {
-	-webkit-transition: transform 0.3s;
-	transition: transform 0.3s;
+  -webkit-transition: transform 0.3s;
+  transition: transform 0.3s;
 }
-
 .noUi-state-drag * {
-	cursor: inherit !important;
+  cursor: inherit !important;
 }
-
 /* Slider size and handle placement;
  */
 .noUi-horizontal {
 	height: 3px;
 }
-
 .noUi-horizontal .noUi-handle {
 	width: 20px;
 	height: 20px;
 	right: -10px;
 	top: -10px;
-
 }
-
 .noUi-vertical {
-	width: 18px;
+  width: 18px;
 }
-
 .noUi-vertical .noUi-handle {
-	width: 28px;
-	height: 34px;
-	left: -6px;
-	top: -17px;
+  width: 28px;
+  height: 34px;
+  right: -6px;
+  top: -17px;
 }
-
-html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
-	left: auto;
+.noUi-txt-dir-rtl.noUi-horizontal .noUi-handle {
+  left: -17px;
+  right: auto;
 }
-
 /* Styling;
  * Giving the connect element a border radius causes issues with using transform: scale
  */
@@ -130,25 +118,20 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
 	border: 0;
 	box-shadow: none;
 }
-
 .noUi-connects {
-	border-radius: 3px;
+  border-radius: 3px;
 }
-
 .noUi-connect {
-	background: #3FB8AF;
+  background: #3FB8AF;
 }
-
 /* Handles and cursors;
  */
 .noUi-draggable {
-	cursor: ew-resize;
+  cursor: ew-resize;
 }
-
 .noUi-vertical .noUi-draggable {
-	cursor: ns-resize;
+  cursor: ns-resize;
 }
-
 .noUi-handle {
 	border: 0;
 	border-radius: 50%;
@@ -156,7 +139,6 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
 	cursor: pointer;
 	box-shadow: none;
 }
-
 .noUi-active.noUi-handle {
 	box-shadow: none;
 	width: 16px;
@@ -164,7 +146,6 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
 	right: -8px;
 	top: -6px;
 }
-
 /* Handle stripes;
  */
 .noUi-handle:before,
@@ -175,167 +156,154 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
 
 .noUi-vertical .noUi-handle:before,
 .noUi-vertical .noUi-handle:after {
-	width: 14px;
-	height: 1px;
-	left: 6px;
-	top: 14px;
+  width: 14px;
+  height: 1px;
+  left: 6px;
+  top: 14px;
 }
-
 .noUi-vertical .noUi-handle:after {
-	top: 17px;
+  top: 17px;
 }
-
 /* Disabled state;
  */
 [disabled] .noUi-connect {
-	background: #B8B8B8;
+  background: #B8B8B8;
 }
-
 [disabled].noUi-target,
 [disabled].noUi-handle,
 [disabled] .noUi-handle {
-	cursor: not-allowed;
+  cursor: not-allowed;
 }
-
 /* Base;
  *
  */
 .noUi-pips,
 .noUi-pips * {
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
-
 .noUi-pips {
-	position: absolute;
-	color: #999;
+  position: absolute;
+  color: #999;
 }
-
 /* Values;
  *
  */
 .noUi-value {
-	position: absolute;
-	white-space: nowrap;
-	text-align: center;
+  position: absolute;
+  white-space: nowrap;
+  text-align: center;
 	font-size: 0.8em;
 	margin-top: 0.8em;
 }
-
 .noUi-value-sub {
-	color: #ccc;
-	font-size: 10px;
+  color: #ccc;
+  font-size: 10px;
 	margin-top: 0.6em;
 }
-
 /* Markings;
  *
  */
 .noUi-marker {
-	position: absolute;
-	background: #CCC;
+  position: absolute;
+  background: #CCC;
 }
-
 .noUi-marker-sub {
-	background: #AAA;
+  background: #AAA;
 }
-
 .noUi-marker-large {
-	background: #AAA;
+  background: #AAA;
 }
-
 /* Horizontal layout;
  *
  */
 .noUi-pips-horizontal {
-	padding: 10px 0;
-	height: 80px;
-	top: 100%;
-	left: 0;
-	width: 100%;
+  padding: 10px 0;
+  height: 80px;
+  top: 100%;
+  left: 0;
+  width: 100%;
 }
-
 .noUi-value-horizontal {
-	-webkit-transform: translate(-50%, 50%);
-	transform: translate(-50%, 50%);
+  -webkit-transform: translate(-50%, 50%);
+  transform: translate(-50%, 50%);
 }
-
 .noUi-rtl .noUi-value-horizontal {
-	-webkit-transform: translate(50%, 50%);
-	transform: translate(50%, 50%);
+  -webkit-transform: translate(50%, 50%);
+  transform: translate(50%, 50%);
 }
-
 .noUi-marker-horizontal.noUi-marker {
-	margin-left: -1px;
+  margin-left: -1px;
 	width: 1px;
-	height: 5px;
+  height: 5px;
 }
-
 .noUi-marker-horizontal.noUi-marker-sub {
-	height: 10px;
+  height: 10px;
 }
-
 .noUi-marker-horizontal.noUi-marker-large {
-	height: 15px;
+  height: 15px;
 }
-
 /* Vertical layout;
  *
  */
 .noUi-pips-vertical {
-	padding: 0 10px;
-	height: 100%;
-	top: 0;
-	left: 100%;
+  padding: 0 10px;
+  height: 100%;
+  top: 0;
+  left: 100%;
 }
-
 .noUi-value-vertical {
-	-webkit-transform: translate(0, -50%);
-	transform: translate(0, -50%);
-	padding-left: 25px;
+  -webkit-transform: translate(0, -50%);
+  transform: translate(0, -50%);
+  padding-left: 25px;
 }
-
 .noUi-rtl .noUi-value-vertical {
-	-webkit-transform: translate(0, 50%);
-	transform: translate(0, 50%);
+  -webkit-transform: translate(0, 50%);
+  transform: translate(0, 50%);
 }
-
 .noUi-marker-vertical.noUi-marker {
-	width: 5px;
-	height: 2px;
-	margin-top: -1px;
+  width: 5px;
+  height: 2px;
+  margin-top: -1px;
 }
-
 .noUi-marker-vertical.noUi-marker-sub {
-	width: 10px;
+  width: 10px;
 }
-
 .noUi-marker-vertical.noUi-marker-large {
-	width: 15px;
+  width: 15px;
 }
-
 .noUi-tooltip {
-	display: block;
-	position: absolute;
-	border: 1px solid #D9D9D9;
-	border-radius: 3px;
-	background: #fff;
-	color: #000;
-	padding: 5px;
-	text-align: center;
-	white-space: nowrap;
+  display: block;
+  position: absolute;
+  border: 1px solid #D9D9D9;
+  border-radius: 3px;
+  background: #fff;
+  color: #000;
+  padding: 5px;
+  text-align: center;
+  white-space: nowrap;
 }
-
 .noUi-horizontal .noUi-tooltip {
-	-webkit-transform: translate(-50%, 0);
-	transform: translate(-50%, 0);
-	left: 50%;
-	bottom: 120%;
+  -webkit-transform: translate(-50%, 0);
+  transform: translate(-50%, 0);
+  left: 50%;
+  bottom: 120%;
 }
-
 .noUi-vertical .noUi-tooltip {
-	-webkit-transform: translate(0, -50%);
-	transform: translate(0, -50%);
-	top: 50%;
-	right: 120%;
+  -webkit-transform: translate(0, -50%);
+  transform: translate(0, -50%);
+  top: 50%;
+  right: 120%;
+}
+.noUi-horizontal .noUi-origin > .noUi-tooltip {
+  -webkit-transform: translate(50%, 0);
+  transform: translate(50%, 0);
+  left: auto;
+  bottom: 10px;
+}
+.noUi-vertical .noUi-origin > .noUi-tooltip {
+  -webkit-transform: translate(0, -18px);
+  transform: translate(0, -18px);
+  top: auto;
+  right: 28px;
 }

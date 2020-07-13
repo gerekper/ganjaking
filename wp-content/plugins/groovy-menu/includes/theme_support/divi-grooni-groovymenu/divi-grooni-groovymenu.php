@@ -3,7 +3,7 @@
 Plugin Name: Divi Grooni Groovymenu
 Plugin URI:  https://groovymenu.grooni.com
 Description: add module with Groovy Menu plugin
-Version:     1.0.3
+Version:     1.0.4
 Author:      grooni.com
 Author URI:  https://grooni.com
 License:     GPL2

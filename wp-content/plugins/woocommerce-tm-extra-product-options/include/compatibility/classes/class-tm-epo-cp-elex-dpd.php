@@ -3,7 +3,8 @@
  * Compatibility class
  *
  * This class is responsible for providing compatibility with
- * WooCommerce Dynamic Pricing & Discounts (https://codecanyon.net/item/woocommerce-dynamic-pricing-discounts/7119279)
+ * WooCommerce Dynamic Pricing & Discounts 
+ * https://codecanyon.net/item/woocommerce-dynamic-pricing-discounts/7119279
  *
  * @package Extra Product Options/Compatibility
  * @version 4.9

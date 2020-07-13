@@ -3,7 +3,8 @@
  * Compatibility class
  *
  * This class is responsible for providing compatibility with
- * WooDeposits - Woocommerce partial payments and deposits plugin (http://webatix.com/)
+ * WooDeposits - Woocommerce partial payments and deposits plugin 
+ * http://webatix.com/
  *
  * The particular plugin is not currently in development
  * and this compatibility may be removed in a future update.

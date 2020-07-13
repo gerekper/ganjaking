@@ -20,11 +20,15 @@ class WalkerHelper extends WalkerNavMenu {
 	 */
 	public function __construct() {
 
+		$lic_opt = get_option( GROOVY_MENU_DB_VER_OPTION . '__lic' );
+
 		// Save navigation menu item options.
 		add_action( 'wp_ajax_gm_save_menu_item_options', array( $this, 'save_menu_item_options' ) );
 
-		// Add the menu style button to the menu fields.
-		add_action( 'wp_nav_menu_item_custom_fields', array( $this, 'add_menu_button_fields' ), 10, 4 );
+		if ( $lic_opt ) {
+			// Add the menu style button to the menu fields.
+			add_action( 'wp_nav_menu_item_custom_fields', array( $this, 'add_menu_button_fields' ), 10, 4 );
+		}
 
 	}
 

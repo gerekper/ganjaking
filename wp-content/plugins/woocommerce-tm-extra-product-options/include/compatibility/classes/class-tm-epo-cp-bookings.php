@@ -3,7 +3,8 @@
  * Compatibility class
  *
  * This class is responsible for providing compatibility with
- * WooCommerce Bookings (https://woocommerce.com/products/woocommerce-bookings/)
+ * WooCommerce Bookings 
+ * https://woocommerce.com/products/woocommerce-bookings/
  *
  * @package Extra Product Options/Compatibility
  * @version 4.9

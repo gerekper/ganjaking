@@ -3,7 +3,8 @@
  * Compatibility class
  *
  * This class is responsible for providing compatibility with
- * The SEO Framework (https://wordpress.org/plugins/autodescription/)
+ * The SEO Framework 
+ * https://wordpress.org/plugins/autodescription/
  *
  * @package Extra Product Options/Compatibility
  * @version 4.9

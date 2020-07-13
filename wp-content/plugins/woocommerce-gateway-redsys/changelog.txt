@@ -1,5 +1,21 @@
 *** Redsys Gateway Change Log ***
 
+2020.07.09 - version 9.2.0
+
+* NEW: Now there is a Gateway for Direct Debit so you can use plugns for Gateway Logic for use it.
+* NEW: Now you can customize the button text at the checkout by Gateway
+* NEW: Now you can customize the button colors at the checkout by Gateway
+* NEW: Added Redsys authorization number to Thank you page. Activate from Redsys (by José Conti)
+* Removed dimisible Scripts
+* Fixed: Missing default inSite Logo at the checkout
+* Fixed: Fatal error at Redsys Endpoint when Subscriptions don't save token is active.
+* Fixed: Fixed an error with MasterPass End Point.
+* Fixed: authorize preauthorizartions error if Redsys (by José Conti) is empty.
+* Fixed: Many annotations in preauthorizations order.
+* Fixed: Compatibility with Custom User Registration Fields for WooCommerce
+* Declared compatibility with WooCommerce 4.3
+* Updated po/mo files
+
 2020.06.10 - version 9.1.1
 
 * Fixed: Forgot to add InSite file.

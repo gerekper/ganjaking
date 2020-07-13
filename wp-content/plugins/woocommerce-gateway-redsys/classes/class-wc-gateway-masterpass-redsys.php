@@ -1,4 +1,8 @@
 <?php
+
+/**
+* Copyright: (C) 2013 - 2020 José Conti
+*/
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
@@ -6,7 +10,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
 * Gateway class
 */
-
+/**
+* Copyright: (C) 2013 - 2020 José Conti
+*/
 class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 	var $notify_url;
 
@@ -16,7 +22,9 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 	* @access public
 	* @return void
 	*/
-
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	public function __construct() {
 		global $woocommerce;
 
@@ -35,7 +43,7 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 		$this->testmode           = $this->get_option( 'testmode' );
 		$this->method_title       = __( 'MasterPass (by José Conti)', 'woocommerce-redsys' );
 		$this->method_description = __( 'MasterPass works redirecting customers to MasterPass.', 'woocommerce-redsys' );
-		$this->notify_url         = add_query_arg( 'wc-api', 'WC_Gateway_masterpassredsys', home_url( '/' ) );
+		$this->notify_url         = add_query_arg( 'wc-api', 'WC_Gateway_' . $this->id, home_url( '/' ) );
 
 		// Load the settings.
 		$this->init_form_fields();
@@ -52,14 +60,17 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 		$this->masterpasslanguage = $this->get_option( 'masterpasslanguage' );
 		$this->woomasterpassurlko = $this->get_option( 'woomasterpassurlko' );
 		$this->commercename       = $this->get_option( 'woomasterpasscomercename' );
+		$this->buttoncheckout     = $this->get_option( 'buttoncheckout' );
+		$this->butonbgcolor       = $this->get_option( 'butonbgcolor' );
+		$this->butontextcolor     = $this->get_option( 'butontextcolor' );
 		$this->log                = new WC_Logger();
 
 		// Actions
-		add_action( 'valid-masterpass-standard-ipn-request', array( $this, 'successful_request' ) );
-		add_action( 'woocommerce_receipt_masterpass', array( $this, 'receipt_page' ) );
+		add_action( 'valid-' . $this->id . '-standard-ipn-request', array( $this, 'successful_request' ) );
+		add_action( 'woocommerce_receipt_' . $this->id, array( $this, 'receipt_page' ) );
 		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
 		// Payment listener/API hook
-		add_action( 'woocommerce_api_WC_Gateway_MasterPass_Redsys', array( $this, 'check_ipn_response' ) );
+		add_action( 'woocommerce_api_wc_gateway_' . $this->id, array( $this, 'check_ipn_response' ) );
 		add_action( 'woocommerce_before_checkout_form', array( $this, 'warning_checkout_test_mode_masterpass' ) );
 		if ( ! $this->is_valid_for_use() ) {
 			$this->enabled = false;
@@ -70,6 +81,9 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 	*
 	* @access public
 	* @return bool
+	*/
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
 	*/
 	function is_valid_for_use() {
 		
@@ -86,6 +100,9 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 	* Admin Panel Options
 	*
 	* @since 1.0.0
+	*/
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
 	*/
 	public function admin_options() {
 			?>
@@ -123,6 +140,9 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 	* @access public
 	* @return void
 	*/
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function init_form_fields() {
 		$this->form_fields = array(
 			'enabled'            => array(
@@ -143,6 +163,23 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 				'type'        => 'textarea',
 				'description' => __( 'This controls the description which the user sees during checkout.', 'woocommerce-redsys' ),
 				'default'     => __( 'Pay via MasterPass; you can pay with your credit card.', 'woocommerce-redsys' ),
+			),
+			'buttoncheckout'      => array(
+				'title'       => __( 'Button Checkout Text', 'woocommerce-redsys' ),
+				'type'        => 'text',
+				'description' => __( 'Add the button text at the checkout.', 'woocommerce-redsys' ),
+			),
+			'butonbgcolor'          => array(
+				'title'       => __( 'Button Color Background', 'woocommerce-redsys' ),
+				'type'        => 'text',
+				'description' => __( 'This if button Color Background Place Order at Checkout', 'woocommerce-redsys' ),
+				'class'       => 'colorpick',
+			),
+			'butontextcolor'          => array(
+				'title'       => __( 'Color text Button', 'woocommerce-redsys' ),
+				'type'        => 'text',
+				'description' => __( 'This if button text color Place Order at Checkout', 'woocommerce-redsys' ),
+				'class'       => 'colorpick',
 			),
 			'commercename'       => array(
 				'title'       => __( 'Commerce Name', 'woocommerce-redsys' ),
@@ -200,6 +237,9 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 		}
 	}
 
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function get_error_by_code( $error_code ) {
 		
 		if ( 'yes' === $this->debug ) {
@@ -241,7 +281,9 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 			return false;
 		}
 	}
-	
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function get_currencies() {
 		
 		if ( 'yes' === $this->debug ) {
@@ -281,7 +323,9 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 	* @param mixed $order
 	* @return array
 	*/
-
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function get_masterpass_args( $order ) {
 		global $woocommerce;
 
@@ -347,6 +391,9 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 	* @param mixed $order_id
 	* @return string
 	*/
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function generate_masterpass_form( $order_id ) {
 		global $woocommerce;
 		
@@ -390,6 +437,9 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 	* @param int $order_id
 	* @return array
 	*/
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function process_payment( $order_id ) {
 		
 		$order = new WC_Order( $order_id );
@@ -405,6 +455,9 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 	* @access public
 	* @return void
 	*/
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function receipt_page( $order ) {
 		echo '<p>'.__( 'Thank you for your order, please click the button below to pay with MasterPass.', 'woocommerce-redsys' ).'</p>';
 		echo $this->generate_masterpass_form( $order );
@@ -413,6 +466,9 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 	/**
 	* Check redsys IPN validity
 	**/
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function check_ipn_request_is_valid() {
 		global $woocommerce;
 		
@@ -463,13 +519,16 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 	* @access public
 	* @return void
 	*/
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function check_ipn_response() {
 		
 		@ob_clean();
 		$_POST = stripslashes_deep( $_POST );
 		if ( $this->check_ipn_request_is_valid() ) {
 			header( 'HTTP/1.1 200 OK' );
-			do_action( "valid-masterpass-standard-ipn-request", $_POST );
+			do_action( 'valid-' . $this->id . '-standard-ipn-request', $_POST );
 		} else {
 			wp_die( 'MasterPass Notification Request Failure' );
 		}
@@ -481,6 +540,9 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 	* @access public
 	* @param array $posted
 	* @return void
+	*/
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
 	*/
 	function successful_request( $posted ) {
 		global $woocommerce;
@@ -607,11 +669,16 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 	* @param mixed $posted
 	* @return void
 	*/
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function get_masterpass_order( $order_id ) {
 		$order = new WC_Order( $order_id );
 		return $order;
 	}
-
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	public function warning_checkout_test_mode_masterpass() {
 		if ( 'yes' === $this->testmode  && WCRed()->is_gateway_enabled( $this->id ) ) {
 			echo '<div class="checkout-message" style="
@@ -629,7 +696,9 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 		}
 	}
 }
-
+/**
+* Copyright: (C) 2013 - 2020 José Conti
+*/
 function woocommerce_add_gateway_masterpass_gateway( $methods ) {
 	$methods[] = 'WC_Gateway_MasterPass_Redsys';
 	return $methods;

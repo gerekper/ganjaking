@@ -4,7 +4,7 @@
  *
  * This class is responsible for providing compatibility with
  * Woocommerce Add to cart Ajax for variable products
- * (http://www.rcreators.com/woocommerce-ajax-add-to-cart-variable-products )
+ * http://www.rcreators.com/woocommerce-ajax-add-to-cart-variable-products
  *
  * @package Extra Product Options/Compatibility
  * @version 4.9

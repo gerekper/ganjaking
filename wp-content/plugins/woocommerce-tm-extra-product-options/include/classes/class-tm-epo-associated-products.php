@@ -246,6 +246,8 @@ class THEMECOMPLETE_EPO_Associated_Products {
 	public function wc_epo_associated_product_display( $product, $uniqid, $per_product_pricing = FALSE, $discount = "", $discount_type = "" ) {
 
 		if ( $product ) {
+			global $associated_product;
+			$associated_product = $product;
 			$product_id = themecomplete_get_id($product);
 			if (!$per_product_pricing){
 				$per_product_pricing = 0;
@@ -360,9 +362,11 @@ class THEMECOMPLETE_EPO_Associated_Products {
 
 								$packages[ $package_key ]['contents'][ $cart_item_key ] = array_merge( $cart_item_data, $main_product_totals );
 
-								if ( $associated_weight > 0 ) {
+								if ( $associated_weight > 0 ) {								
 									$main_product_weight = $main_product->get_weight( 'edit' );
-									$main_product->set_weight( (double) $main_product_weight + $associated_weight / $main_product_qty );
+									$assoc_weight = (double) $main_product_weight + $associated_weight / $main_product_qty;
+									$main_product->set_weight( $assoc_weight );
+									WC()->cart->cart_contents[$cart_item_key]["data"]->set_weight( $assoc_weight, 'edit');
 								}
 
 								$packages[ $package_key ]['contents'][ $cart_item_key ]['data'] = $main_product;

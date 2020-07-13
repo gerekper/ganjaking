@@ -20,7 +20,7 @@ class WC_AF_Paypal_Email extends WC_Email {
 		$this->description = __( 'Notice about PayPal verification.', 'woocommerce-anti-fraud' );
 
 		$this->order = $order;
-		$this->order_id = version_compare( WC_VERSION, '3.0', '<' ) ? $order->id : $order->id;
+		$this->order_id = version_compare( WC_VERSION, '3.0', '<' ) ? $order->id : $order->get_id();
 		
 		$this->score = $score;
 		$this->email_template = get_option('wc_settings_anti_fraud_paypal_email_format');
@@ -42,7 +42,7 @@ class WC_AF_Paypal_Email extends WC_Email {
 		$this->heading = __( 'PayPal Verification notification of order #{order_id}', 'woocommerce-anti-fraud' );
 
 		// Set recipients
-		$this->recipient = apply_filters( 'wc_anti_fraud_email_recipient', $this->order->billing_email );
+		$this->recipient = apply_filters( 'wc_anti_fraud_email_recipient', $this->order->get_billing_email() );
 
 		// Set the template base path
 		$this->template_base = plugin_dir_path( WooCommerce_Anti_Fraud::get_plugin_file() ) . 'templates/';

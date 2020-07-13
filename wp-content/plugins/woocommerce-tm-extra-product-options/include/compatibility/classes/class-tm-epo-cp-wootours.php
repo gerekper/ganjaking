@@ -4,7 +4,7 @@
  *
  * This class is responsible for providing compatibility with
  * WooTour - WooCommerce Travel Tour Booking
- * (https://codecanyon.net/item/wootour-woocommerce-travel-tour-and-appointment-booking/19404740)
+ * https://codecanyon.net/item/wootour-woocommerce-travel-tour-and-appointment-booking/19404740
  *
  * @package Extra Product Options/Compatibility
  * @version 4.9

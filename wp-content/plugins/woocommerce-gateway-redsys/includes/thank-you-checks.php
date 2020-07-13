@@ -1,4 +1,8 @@
 <?php
+	
+/*
+* Copyright: (C) 2013 - 2020 José Conti
+*/
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
@@ -45,6 +49,9 @@ function redsys_change_order_received_text( $text, $order ) {
 }
 add_filter( 'woocommerce_thankyou_order_received_text', 'redsys_change_order_received_text', 20, 2 );
 
+/*
+* Copyright: (C) 2013 - 2020 José Conti
+*/
 function redsys_send_warning_email_thankyou_page( $order_id ) {
 
 	$admin_url    = admin_url();

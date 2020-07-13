@@ -3,7 +3,8 @@
  * Compatibility class
  *
  * This class is responsible for providing compatibility with
- * Store Exporter Deluxe for WooCommerce (https://www.visser.com.au/solutions/woocommerce-export/)
+ * Store Exporter Deluxe for WooCommerce 
+ * https://www.visser.com.au/solutions/woocommerce-export/
  *
  * @package Extra Product Options/Compatibility
  * @version 4.9

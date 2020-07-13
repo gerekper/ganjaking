@@ -1573,6 +1573,8 @@
         var variationIdSelector = "input[name^='variation_id']";
         var $variationId;
 
+        variationsForm = $.epoAPI.applyFilter("tm_variation_check_match_variationsForm", variationsForm, epoId, productId, $element);
+
         if (variationsForm.length === 0) {
             return false;
         }
@@ -4385,6 +4387,7 @@
             .addClass("tcowl-carousel")
             .tmowlCarousel({
 
+                rtl: TMEPOJS.isRTL === "1",
                 dots: false,
                 nav: true,
                 items: 1,
@@ -7086,7 +7089,7 @@
             jWindow.trigger("cpflogicdone");
         }
 
-        if (isTrigger===undefined){
+        if (isTrigger===undefined && TMEPOJS.tm_epo_global_product_element_scroll === "yes"){
             jWindow.tcScrollTo(thisVariableProductContainer, 200, $.epoAPI.math.toFloat(TMEPOJS.tm_epo_global_product_element_scroll_offset));
         }        
 
@@ -7188,7 +7191,7 @@
             }
 
             field = $(this);
-            formatted_price = tm_set_price(field.find("option:selected").data("price"), totalsHolder, false, false, field);
+            formatted_price = tm_set_price(field.find("option:selected").data("price"), totalsHolder, true, false, field);
             original_formatted_price = tm_set_price(field.find("option:selected").data("original_price"), totalsHolder, false, false, field);
             e_tip = field.closest(".tmcp-field-wrap").find(".tc-tooltip");
             e_description = field.closest(".tmcp-field-wrap").find(".tc-inline-description");
@@ -7815,6 +7818,7 @@
             var skip = false;
             var isTrigger = 1000;
             var qtyalt;
+            var associatedSetter = $this;
 
             if ((data && data.forced === 2)) {
                 return;
@@ -7874,6 +7878,7 @@
                 }
             } else if ($this.is("select")) {
                 selected = $this.children(":selected");
+                associatedSetter = selected;
                 value = $this.val();
                 type = selected.attr("data-type");
                 $this.closest(".cpf_hide_element").find(".tc-epo-element-product-li-container").removeClass("tm-hidden");
@@ -7886,6 +7891,15 @@
 
             if (!value) {
                 variableProductContainers.addClass("tm-hidden");
+
+                associatedSetter.data("associated_price_set", 1);
+                associatedSetter.data("price_set", 1);
+                associatedSetter.data("raw_price", 0);
+                associatedSetter.data("raw_original_price", 0);
+                associatedSetter.data("price", 0);
+                associatedSetter.data("original_price", 0);
+                tm_force_update_price(associatedSetter.closest(".tmcp-field-wrap").find(".tc-price").not(tcAPI.associatedEpoSelector + " .tc-price"), 0, "", 0, "");
+
                 return;
             }
 

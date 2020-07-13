@@ -40,7 +40,6 @@ class WC_MNM_OPC_Compatibility {
 
 		// Enqueue script.
 		wp_enqueue_script( 'wc-add-to-cart-mnm' );
-		wp_enqueue_style( 'wc-mnm-styles' );
 
 		if ( $product->is_purchasable() ) {
 

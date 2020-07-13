@@ -3,7 +3,8 @@
  * Compatibility class
  *
  * This class is responsible for providing compatibility with
- * Fancy Product Designer (https://codecanyon.net/item/fancy-product-designer-woocommercewordpress/6318393)
+ * Fancy Product Designer 
+ * https://codecanyon.net/item/fancy-product-designer-woocommercewordpress/6318393
  *
  * @package Extra Product Options/Compatibility
  * @version 4.9

@@ -1,13 +1,22 @@
 <?php
+/**
+* Copyright: (C) 2013 - 2020 José Conti
+*/
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
+/**
+* Copyright: (C) 2013 - 2020 José Conti
+*/
 class WC_Settings_Tab_Redsys_Sort_Invoices {
 
 	/**
 	 * Bootstraps the class and hooks required actions & filters.
 	 *
 	 */
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	public static function init() {
 		add_filter( 'woocommerce_settings_tabs_array', __CLASS__ . '::add_settings_tab', 50 );
 		add_action( 'woocommerce_settings_tabs_settings_tab_redsys_invoices', __CLASS__ . '::settings_tab' );
@@ -21,6 +30,9 @@ class WC_Settings_Tab_Redsys_Sort_Invoices {
 	 * @param array $settings_tabs Array of WooCommerce setting tabs & their labels, excluding the Subscription tab.
 	 * @return array $settings_tabs Array of WooCommerce setting tabs & their labels, including the Subscription tab.
 	 */
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	public static function add_settings_tab( $settings_tabs ) {
 		$settings_tabs['settings_tab_redsys_invoices'] = __( 'Sequential Invoice Numbers', 'woocommerce-redsys' );
 		return $settings_tabs;
@@ -33,6 +45,9 @@ class WC_Settings_Tab_Redsys_Sort_Invoices {
 	 * @uses woocommerce_admin_fields()
 	 * @uses self::get_settings()
 	 */
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	public static function settings_tab() {
 		woocommerce_admin_fields( self::get_settings() );
 	}
@@ -44,6 +59,9 @@ class WC_Settings_Tab_Redsys_Sort_Invoices {
 	 * @uses woocommerce_update_options()
 	 * @uses self::get_settings()
 	 */
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	public static function update_settings() {
 		woocommerce_update_options( self::get_settings() );
 	}
@@ -53,7 +71,9 @@ class WC_Settings_Tab_Redsys_Sort_Invoices {
 	*
 	* @return array Array of settings for @see woocommerce_admin_fields() function.
 	*/
-
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	public static function get_settings() {
 
 		$settings = array(
@@ -138,7 +158,9 @@ if ( 'yes' === get_option( 'wc_settings_tab_redsys_sort_invoices_is_active' ) ) 
 		add_filter( 'woocommerce_order_number', 'redsys_show_invoice_number', 10, 2 );
 	}
 }
-
+/**
+* Copyright: (C) 2013 - 2020 José Conti
+*/
 function redsys_add_invoice_number( $columns ) {
 
 	$new_column = ( is_array( $columns ) ) ? $columns : array();
@@ -154,6 +176,9 @@ function redsys_add_invoice_number( $columns ) {
 }
 
 // render the values
+/**
+* Copyright: (C) 2013 - 2020 José Conti
+*/
 function redsys_add_invoice_number_value( $column ) {
 	global $post;
 
@@ -165,6 +190,9 @@ function redsys_add_invoice_number_value( $column ) {
 }
 
 // sort invoice order colum
+/**
+* Copyright: (C) 2013 - 2020 José Conti
+*/
 function redsys_add_invoice_number_sortable_colum( $columns ) {
 
 	$custom = array(
@@ -173,6 +201,9 @@ function redsys_add_invoice_number_sortable_colum( $columns ) {
 	return wp_parse_args( $custom, $columns );
 }
 
+/**
+* Copyright: (C) 2013 - 2020 José Conti
+*/
 function redsys_sort_invoice_orders( $order_id ) {
 
 	$reset_invoice_number = get_option( 'wc_settings_tab_redsys_sort_invoices_reset_invoice_number' );
@@ -217,6 +248,9 @@ function redsys_sort_invoice_orders( $order_id ) {
 	}
 }
 
+/**
+* Copyright: (C) 2013 - 2020 José Conti
+*/
 function redsys_sort_invoice_orders_admin( $order_id ) {
 
 	$reset_invoice_number = get_option( 'wc_settings_tab_redsys_sort_invoices_reset_invoice_number' );
@@ -261,7 +295,9 @@ function redsys_sort_invoice_orders_admin( $order_id ) {
 	}
 }
 // We hook to WooCommerce payment function
-
+/**
+* Copyright: (C) 2013 - 2020 José Conti
+*/
 function redsys_add_invoice_number_to_customer_email( $order ) {
 
 	$invoice_number = redsys_check_add_invoice_number( $order );
@@ -274,6 +310,9 @@ function redsys_add_invoice_number_to_customer_email( $order ) {
 	}
 }
 
+/**
+* Copyright: (C) 2013 - 2020 José Conti
+*/
 function redsys_check_add_invoice_number( $order ) {
 	global $woocommerce, $post;
 
@@ -315,6 +354,9 @@ function redsys_check_add_invoice_number( $order ) {
 	return $final_invoice_number;
 }
 
+/**
+* Copyright: (C) 2013 - 2020 José Conti
+*/
 function redsys_show_invoice_number( $oldnumber, $order ) {
 	$preorderprefix = get_option( 'wc_settings_tab_redsys_sort_invoices_prefix_order_number' );
 	$preordersufix  = get_option( 'wc_settings_tab_redsys_sort_invoices_postfix_order_number' );
@@ -334,6 +376,10 @@ function redsys_show_invoice_number( $oldnumber, $order ) {
 	}
 	return $order;
 }
+
+/**
+* Copyright: (C) 2013 - 2020 José Conti
+*/
 function redsys_use_patterns( $string ) {
 	$Numericzero                   = preg_replace( '/(\{d\})/', date_i18n( 'd' ), $string );
 	$Numeric                       = preg_replace( '/(\{j\})/', date_i18n( 'j' ), $Numericzero );
@@ -358,6 +404,9 @@ function redsys_use_patterns( $string ) {
 	return $final;
 }
 
+/**
+* Copyright: (C) 2013 - 2020 José Conti
+*/
 function redsys_check_current_year() {
 		$current_year = date_i18n( 'Y' );
 		$saved_year   = get_option( 'redsys_saved_year' );

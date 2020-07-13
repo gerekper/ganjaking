@@ -6,7 +6,7 @@
  * @category Classes
  * @package  WooCommerce Mix and Match Products/Cart
  * @since    1.0.0
- * @version  1.9.6
+ * @version  1.9.12
  */
 
 // Exit if accessed directly.
@@ -144,8 +144,8 @@ class WC_Mix_and_Match_Cart {
 			foreach ( $cart_item_data[ 'mnm_config' ] as $item_id => $mnm_item_data ) {
 
 				$mnm_product_id     = $mnm_item_data[ 'product_id' ];
-				$mnm_variation_id   = $mnm_item_data[ 'variation_id' ];
-				$mnm_variations     = $mnm_item_data[ 'variation' ];
+				$mnm_variation_id   = isset( $mnm_item_data[ 'variation_id' ] ) ? $mnm_item_data[ 'variation_id' ] : 0;
+				$mnm_variations     = isset( $mnm_item_data[ 'variation' ] ) ? $mnm_item_data[ 'variation' ] : array();
 
 				$item_quantity      = $mnm_item_data[ 'quantity' ];
 				$mnm_quantity       = $item_quantity * $quantity;
@@ -329,23 +329,22 @@ class WC_Mix_and_Match_Cart {
 
 					foreach ( $child_items as $child_id => $child_product ) {
 
+						$child_item_quantity = intval( $posted_data[ $posted_field_name ][ $child_id ] );
+
 						// Check that a product has been selected.
-						if ( isset( $posted_data[ $posted_field_name ][ $child_id ] ) && $posted_data[ $posted_field_name ][ $child_id ] !== '' ) {
-							$child_item_quantity = intval( $posted_data[ $posted_field_name ][ $child_id ] );
+						if ( isset( $posted_data[ $posted_field_name ][ $child_id ] ) && $posted_data[ $posted_field_name ][ $child_id ] !== '' && $child_item_quantity > 0 ) {
+							$posted_config[ $child_id ] = array();
+
+							$parent_id = $child_product->get_parent_id();
+
+							$posted_config[ $child_id ][ 'mnm_child_id' ] = $child_id;
+							$posted_config[ $child_id ][ 'product_id' ]   = $parent_id > 0 ? $parent_id : $child_product->get_id();
+							$posted_config[ $child_id ][ 'variation_id' ] = $parent_id > 0 ? $child_product->get_id() : 0;
+							$posted_config[ $child_id ][ 'quantity' ]     = $child_item_quantity;
+							$posted_config[ $child_id ][ 'variation' ]    = $parent_id > 0 ? $child_product->get_variation_attributes() : array();
 						} else {
 							continue;
 						}
-
-						$posted_config[ $child_id ] = array();
-
-						$parent_id = $child_product->get_parent_id();
-
-						$posted_config[ $child_id ][ 'mnm_child_id' ] = $child_id;
-						$posted_config[ $child_id ][ 'product_id' ]   = $parent_id > 0 ? $parent_id : $child_product->get_id();
-						$posted_config[ $child_id ][ 'variation_id' ] = $parent_id > 0 ? $child_product->get_id() : 0;
-						$posted_config[ $child_id ][ 'quantity' ]     = $child_item_quantity;
-						$posted_config[ $child_id ][ 'variation' ]    = $parent_id > 0 ? $child_product->get_variation_attributes() : array();
-
 					}
 				}
 			}
@@ -1296,33 +1295,27 @@ class WC_Mix_and_Match_Cart {
 	public static function format_product_subtotal( $product, $subtotal ) {
 
 		$cart = WC()->cart;
-
 		$taxable = $product->is_taxable();
+		$product_subtotal = wc_price( $subtotal );
 
 		// Taxable.
 		if ( $taxable ) {
 
-			if ( $cart->tax_display_cart == 'excl' ) {
+			$tax_subtotal = WC_MNM_Core_Compatibility::is_wc_version_gte( '3.2' ) ? $cart->get_subtotal_tax() : $cart->tax_total;
+			
+			$cart_display_prices_including_tax = WC_MNM_Core_Compatibility::is_wc_version_gte( '3.3' ) ? $cart->display_prices_including_tax() : $cart->tax_display_cart === 'incl';
 
-				$product_subtotal = wc_price( $subtotal );
-
-				if ( $cart->prices_include_tax && $cart->tax_total > 0 ) {
-					$product_subtotal .= ' <small class="tax_label">' . WC()->countries->ex_tax_or_vat() . '</small>';
+			if ( $cart_display_prices_including_tax ) {
+				if ( ! wc_prices_include_tax() && $tax_subtotal > 0 ) {
+					$product_subtotal .= ' <small class="tax_label">' . WC()->countries->inc_tax_or_vat() . '</small>';
 				}
 
 			} else {
-
-				$product_subtotal = wc_price( $subtotal );
-
-				if ( ! $cart->prices_include_tax && $cart->tax_total > 0 ) {
-					$product_subtotal .= ' <small class="tax_label">' . WC()->countries->inc_tax_or_vat() . '</small>';
+				if ( wc_prices_include_tax() && $tax_subtotal > 0 ) {
+					$product_subtotal .= ' <small class="tax_label">' . WC()->countries->ex_tax_or_vat() . '</small>';
 				}
 			}
 
-			// Non-taxable.
-		} else {
-
-			$product_subtotal = wc_price( $subtotal );
 		}
 
 		return $product_subtotal;

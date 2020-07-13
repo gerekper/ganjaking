@@ -3,7 +3,8 @@
  * Compatibility class
  *
  * This class is responsible for providing compatibility with
- * WooCommerce Easy Booking (https://wordpress.org/plugins/woocommerce-easy-booking-system/)
+ * WooCommerce Easy Booking 
+ * https://wordpress.org/plugins/woocommerce-easy-booking-system/
  *
  * @package Extra Product Options/Compatibility
  * @version 4.9

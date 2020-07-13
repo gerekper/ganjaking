@@ -155,7 +155,6 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 			// Get the order
 			$order = wc_get_order( $order_id );
 
-			//
 			$blacklist_available = false;
 
 			$is_enable_blacklist = get_option('wc_settings_anti_fraudenable_automatic_email_blacklist');
@@ -179,6 +178,32 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 					}
 				}
 			}
+			
+			
+			$whitelist_available = false;
+
+			$is_enable_whitelist = get_option('wc_settings_anti_fraud_whitelist');
+			
+			if('' != $is_enable_whitelist){
+
+				$email_whitelist = get_option('wc_settings_anti_fraud_whitelist');
+				if('' != $email_whitelist ){
+					// String to array
+					
+					$whitelist = explode( "\n", $email_whitelist );
+					// Check if is valid array
+					if ( is_array( $whitelist ) && count( $whitelist ) > 0 ) {
+
+						// Trim items to be sure
+						foreach ( $whitelist as $k => $v ) {
+							$whitelist[$k] = trim( $v );
+						}
+
+						// Set $blacklist_available true
+						$whitelist_available = true;
+					}
+				}
+			}
 
 			// Default new status
 			$new_status = null;
@@ -197,12 +222,28 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 				$new_status = $payment_requested_status;
 			}
 
-			$is_whitelisted = true;
-
+			$is_whitelisted = false;
+			$orderemail = version_compare( WC_VERSION, '3.0', '<' ) ? $order->billing_email : $order->get_billing_email();
 			// Check if there is a valid white list and if consumer email is found in white list
-			if ( $blacklist_available && in_array( ( version_compare( WC_VERSION, '3.0', '<' ) ? $order->billing_email : $order->get_billing_email() ), $blacklist ) ) {
+			if ( $whitelist_available && in_array( ( $orderemail ), $whitelist ) ) {
 				// This order is white lsited
-				$is_whitelisted = false;
+				$is_whitelisted = true;
+				$cancel_score = get_option( 'wc_settings_anti_fraud_cancel_score' );
+				$hold_score   = get_option( 'wc_settings_anti_fraud_hold_score' );
+
+				// 0 in settings means to disable
+				$cancel_score = 0 >= intval( $cancel_score ) ? 0 : self::invert_score( $cancel_score );
+				$hold_score   = 0 >= intval( $hold_score ) ? 0 : self::invert_score( $hold_score );
+
+				update_post_meta( $order_id, 'wc_af_score', 100 );
+				update_post_meta( $order_id, 'wc_af_failed_rules', '' );
+				
+				if ( $score_points <= $cancel_score && 0 !== $cancel_score ) {
+					$new_status = 'processing'; 
+				} elseif ( $score_points <= $hold_score && 0 !== $hold_score ) {
+					$new_status = 'processing';
+				}
+				
 			} else {
 
 				$cancel_score = get_option( 'wc_settings_anti_fraud_cancel_score' );
@@ -218,7 +259,7 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 				} elseif ( $score_points <= $hold_score && 0 !== $hold_score ) {
 					$new_status = 'on-hold';
 				}
-
+				$is_whitelisted = false;
 				//Auto blacklist email with high risk
 				$enable_auto_blacklist = get_option('wc_settings_anti_fraudenable_automatic_blacklist');
 				
@@ -228,8 +269,8 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 					$existing_blacklist_emails = get_option('wc_settings_anti_fraudblacklist_emails',false);
 					$auto_blacklist_emails = explode( ",", $existing_blacklist_emails );
 					
-					if(!in_array( $order->billing_email, $auto_blacklist_emails )){
-						$existing_blacklist_emails .= ','.$order->billing_email;
+					if(!in_array( $orderemail, $auto_blacklist_emails )){
+						$existing_blacklist_emails .= ','.$orderemail;
 						
 						update_option('wc_settings_anti_fraudblacklist_emails',$existing_blacklist_emails);
 					}
@@ -269,15 +310,12 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 			$score_points = self::invert_score( $score_points );
 			$email_nofication_status = get_option('wc_af_email_notification');
 			
-			if( ( $email_nofication_status == 'yes' ) && ( $score_points > $email_score ) ){
+			if( ( $email_nofication_status == 'yes' ) && ( $score_points > $email_score ) ) {
 
 				// This is unfortunately needed in the current WooCommerce email setup
 				if ( version_compare( WC_VERSION, '2.2.11', '<=' ) ) {
-				
 					include_once( WC()->plugin_path() . '/includes/abstracts/abstract-wc-email.php' );
-					
 				} else if(version_compare( WC_VERSION, '2.2.11', '>=' ) && (version_compare( WC_VERSION, '4.0.1', '<=' ))) {
-					
 					include_once( WC()->plugin_path() . '/includes/emails/class-wc-email.php' );
 					include_once( WC()->plugin_path() . '/includes/libraries/class-emogrifier.php' );
 				}else {
@@ -289,18 +327,15 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 
 				// Send admin email
 				$data = $email->send_notification();
-
 			}
+			
 			// Check if we need to send an admin email notification
-			if ( false === $is_whitelisted ) {
+			if ( false == $is_whitelisted ) {
 				
 				// This is unfortunately needed in the current WooCommerce email setup
 				if ( version_compare( WC_VERSION, '2.2.11', '<=' ) ) {
-				
 					include_once( WC()->plugin_path() . '/includes/abstracts/abstract-wc-email.php' );
-					
 				} else if(version_compare( WC_VERSION, '2.2.11', '>=' ) && (version_compare( WC_VERSION, '4.0.1', '<=' ))) {
-					
 					include_once( WC()->plugin_path() . '/includes/emails/class-wc-email.php' );
 					include_once( WC()->plugin_path() . '/includes/libraries/class-emogrifier.php' );
 				}else {
@@ -341,19 +376,17 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 			
 			// This is unfortunately needed in the current WooCommerce email setup
 			if ( version_compare( WC_VERSION, '2.2.11', '<=' ) ) {
-				
-					include_once( WC()->plugin_path() . '/includes/abstracts/abstract-wc-email.php' );
-					
-				} else if(version_compare( WC_VERSION, '2.2.11', '>=' ) && (version_compare( WC_VERSION, '4.0.1', '<=' ))) {
-					
-					include_once( WC()->plugin_path() . '/includes/emails/class-wc-email.php' );
-					include_once( WC()->plugin_path() . '/includes/libraries/class-emogrifier.php' );
-				}else {
-					include_once( WC()->plugin_path() . '/includes/emails/class-wc-email.php' );
-				}
+				include_once( WC()->plugin_path() . '/includes/abstracts/abstract-wc-email.php' );
+			} else if(version_compare( WC_VERSION, '2.2.11', '>=' ) && (version_compare( WC_VERSION, '4.0.1', '<=' ))) {
+				include_once( WC()->plugin_path() . '/includes/emails/class-wc-email.php' );
+				include_once( WC()->plugin_path() . '/includes/libraries/class-emogrifier.php' );
+			}else {
+				include_once( WC()->plugin_path() . '/includes/emails/class-wc-email.php' );
+			}
+			$orderemail = version_compare( WC_VERSION, '3.0', '<' ) ? $order->billing_email : $order->get_billing_email() ;
 			if(get_option('wc_settings_anti_fraud_paypal_verified_address') && null != get_option('wc_settings_anti_fraud_paypal_verified_address')){
 					$verified_paypal = explode( ",", $paypal_verified_emails );
-				if(!in_array($order->billing_email,$verified_paypal) ){
+				if(!in_array($orderemail,$verified_paypal) ){
 					// Setup admin email
 					$email = new WC_AF_Paypal_Email( $order, $score_points );
 

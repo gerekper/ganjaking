@@ -1,5 +1,14 @@
 *** WooCommerce Smart Coupons Changelog ***
 
+2020.07.10 - version 4.7.7
+* New: Tested upto WooCommerce 4.3.0
+* Update: Feature to stop a running bulk generate/import coupon process
+* Update: Feature to auto-stop a running process when the bulk generate/import process gets stuck
+* Update: 2 additional attributes 'is_email' & 'is_clickable' for shortcode 'smart_coupons'
+* Update: POT file
+* Dev: Additional arguments for function get_coupon_styles
+* Dev: Filter 'wc_sc_shortcode_always_generate_coupon'
+
 2020.06.10 - version 4.7.6
 * New: Tested upto WooCommerce 4.2.0
 * New: Hook 'wc_sc_is_generated_store_credit_includes_tax' to decide whether generated store credit should include tax or not

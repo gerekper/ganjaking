@@ -3,7 +3,8 @@
  * Compatibility class
  *
  * This class is responsible for providing compatibility with
- * qTranslate X (https://wordpress.org/plugins/qtranslate-x/)
+ * qTranslate X 
+ * https://wordpress.org/plugins/qtranslate-x/
  *
  * @package Extra Product Options/Compatibility
  * @version 4.9

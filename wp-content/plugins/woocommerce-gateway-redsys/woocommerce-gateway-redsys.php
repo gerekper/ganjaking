@@ -4,22 +4,22 @@
 * Plugin Name: WooCommerce Servired/RedSys Spain Gateway
 * Plugin URI: https://woocommerce.com/products/redsys-gateway/
 * Description: Extends WooCommerce with RedSys gateway.
-* Version: 9.1.1
+* Version: 9.2.0
 * Author: José Conti
 * Author URI: https://www.joseconti.com/
 * Tested up to: 5.4
 * WC requires at least: 3.0
-* WC tested up to: 4.2
+* WC tested up to: 4.3
 * Woo: 187871:50392593e834002d8bee386333d1ed3c
 * Text Domain: woocommerce-redsys
 * Domain Path: /languages/
-* Copyright: (C) 2018 José Conti
+* Copyright: (C) 2013 - 2020 José Conti
 * License: GNU General Public License v3.0
 * License URI: http://www.gnu.org/licenses/gpl-3.0.html
 **/
 
 if ( ! defined( 'REDSYS_VERSION' ) ) {
-	define( 'REDSYS_VERSION', '9.1.1' );
+	define( 'REDSYS_VERSION', '9.2.0' );
 }
 
 if ( ! defined( 'REDSYS_PLUGIN_URL' ) ) {
@@ -31,7 +31,7 @@ if ( ! defined( 'REDSYS_PLUGIN_PATH' ) ) {
 }
 
 if ( ! defined( 'REDSYS_POST_UPDATE_URL' ) ) {
-	define( 'REDSYS_POST_UPDATE_URL', 'https://redsys.joseconti.com/2020/06/09/woocommerce-redsys-gateway-10-0-x-insite/' );
+	define( 'REDSYS_POST_UPDATE_URL', 'https://redsys.joseconti.com/2020/07/09/woocommerce-redsys-gateway-11-0-x-domiciliaciones-bancarias/' );
 }
 
 if ( ! defined( 'REDSYS_POST_PSD2_URL' ) ) {
@@ -50,10 +50,19 @@ if ( ! defined( 'REDSYS_REVIEW' ) ) {
 	define( 'REDSYS_REVIEW', 'https://woocommerce.com/sso?product=187871' );
 }
 
+if ( ! defined( 'REDSYS_TICKET' ) ) {
+	define( 'REDSYS_TICKET', 'https://woocommerce.com/my-account/create-a-ticket/' );
+}
+
+if ( ! defined( 'REDSYS_GPL' ) ) {
+	define( 'REDSYS_GPL', 'https://redsys.joseconti.com/2020/06/21/vivir-gpl-o-explotar-gpl/' );
+}
+
 require_once REDSYS_PLUGIN_PATH . 'includes/defines.php';
 
 /**
  * Required functions
+ * Copyright: (C) 2013 - 2020 José Conti
  */
 if ( ! function_exists( 'woothemes_queue_update' ) ) {
 	require_once REDSYS_PLUGIN_PATH . 'woo-includes/woo-functions.php';
@@ -85,6 +94,7 @@ add_action( 'plugins_loaded', 'woocommerce_gateway_redsys_premium_init', 0 );
 
 /**
  * Plugin updates
+ * Copyright: (C) 2013 - 2020 José Conti
  */
 woothemes_queue_update( plugin_basename( __FILE__ ), '50392593e834002d8bee386333d1ed3c', '187871' );
 function woocommerce_gateway_redsys_premium_init() {
@@ -95,6 +105,7 @@ function woocommerce_gateway_redsys_premium_init() {
 
 	/**
 	 * Localisation
+	 * Copyright: (C) 2013 - 2020 José Conti
 	 */
 	load_plugin_textdomain( 'woocommerce-redsys', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 
@@ -126,7 +137,9 @@ function woocommerce_gateway_redsys_premium_init() {
 		</tr>
 	<?php
 	}
-
+	/*
+	 * Copyright: (C) 2013 - 2020 José Conti
+	 */
 	function redsys_add_select2_to_users_test() {
 		global $current_screen;
 
@@ -134,6 +147,9 @@ function woocommerce_gateway_redsys_premium_init() {
 		wp_enqueue_script( 'redsys-select2' );
 	}
 
+	/*
+	 * Copyright: (C) 2013 - 2020 José Conti
+	 */
 	function redsys_get_users_settings_ajax_callback() {
 
 		$search = $_GET['q'];
@@ -163,7 +179,7 @@ function woocommerce_gateway_redsys_premium_init() {
 	add_action( 'wp_ajax_redsys_get_users_settings_search_users', 'redsys_get_users_settings_ajax_callback' );
 
 	/**
-	* Gateway class
+	* Copyright: (C) 2013 - 2020 José Conti
 	*/
 
 	require_once REDSYS_PLUGIN_CLASS_PATH . 'class-wc-gateway-redsys.php';
@@ -172,6 +188,9 @@ function woocommerce_gateway_redsys_premium_init() {
 		WC_Gateway_redsys::admin_notice_mcrypt_encrypt();
 	});
 	
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function woocommerce_add_gateway_redsys_gateway( $methods ) {
 		$methods[] = 'WC_Gateway_redsys';
 		return $methods;
@@ -181,6 +200,9 @@ function woocommerce_gateway_redsys_premium_init() {
 	// inlude metaboxes
 	require_once  REDSYS_PLUGIN_METABOXES_PATH . 'metaboxes.php';
 
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function redsys_add_to_cart_redirect( $checkout_url ) {
 		global $woocommerce;
 
@@ -198,6 +220,9 @@ function woocommerce_gateway_redsys_premium_init() {
 
 	require_once REDSYS_PLUGIN_STATUS_PATH . 'status.php';
 
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function redsys_preauthorized_is_editable( $editable, $order ) {
 
 		if ( 'redsys-pre' === $order->get_status() ) {
@@ -207,6 +232,9 @@ function woocommerce_gateway_redsys_premium_init() {
 	}
 	add_filter( 'wc_order_is_editable', 'redsys_preauthorized_is_editable', 10, 2 );
 
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function redsys_add_buttom_preauthorization_ok( $order ) {
 		if ( 'redsys-pre' === $order->get_status() ) {
 			echo '<button type="button" class="button redsys-confirm-preauthorization">' . esc_html__( 'Confirm Preauthorization', 'woocommerce-redsys' ) . '</button>';
@@ -216,6 +244,9 @@ function woocommerce_gateway_redsys_premium_init() {
 	}
 	add_action( 'woocommerce_order_item_add_action_buttons', 'redsys_add_buttom_preauthorization_ok' );
 
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function redsys_add_buttom_charge_deposits( $order ) {
 		if ( 'partial-payment' === $order->get_status() ) {
 			$amount = 0;
@@ -244,6 +275,9 @@ function woocommerce_gateway_redsys_premium_init() {
 	}
 	add_action( 'woocommerce_order_item_add_action_buttons', 'redsys_add_buttom_charge_deposits' );
 
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function redsys_css() {
 		global $post_type;
 
@@ -257,6 +291,9 @@ function woocommerce_gateway_redsys_premium_init() {
 	}
 	add_action( 'admin_enqueue_scripts', 'redsys_css' );
 
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function redsys_add_front_css() {
 
 		if ( is_wc_endpoint_url( 'add-payment-method' ) ) {
@@ -267,6 +304,9 @@ function woocommerce_gateway_redsys_premium_init() {
 
 
 	//public static
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function redsys_preauthorized_js() {
 		global $post;
 
@@ -290,6 +330,9 @@ function woocommerce_gateway_redsys_premium_init() {
 	}
 	add_action( 'admin_enqueue_scripts', 'redsys_preauthorized_js' );
 
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function redsys_charge_deposit_js() {
 		global $post;
 
@@ -313,6 +356,9 @@ function woocommerce_gateway_redsys_premium_init() {
 	}
 	add_action( 'admin_enqueue_scripts', 'redsys_charge_deposit_js' );
 
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function WCRed() {
 		require_once REDSYS_PLUGIN_CLASS_PATH . 'class-wc-gateway-redsys-global.php'; // Global class for global functions
 		return new WC_Gateway_Redsys_Global();
@@ -325,6 +371,7 @@ function woocommerce_gateway_redsys_premium_init() {
 	$private_product     = WCRed()->get_redsys_option( 'privateproduct', 'redsys' );
 	$sent_email_template = WCRed()->get_redsys_option( 'sentemailscustomers', 'redsys' );
 	$thankyoucheck       = WCRed()->get_redsys_option( 'sendemailthankyou', 'redsys' );
+	$thankyourecipe      = WCRed()->get_redsys_option( 'showthankyourecipe', 'redsys' );
 
 	// Adding Private Products.
 	if ( 'yes' === $private_product ) {
@@ -341,6 +388,11 @@ function woocommerce_gateway_redsys_premium_init() {
 		require_once REDSYS_PLUGIN_PATH . 'includes/thank-you-checks.php';
 	}
 	
+	// Adding Thank you Recipe
+	if ( 'yes' === $thankyourecipe ) {
+		require_once REDSYS_PLUGIN_PATH . 'includes/thank-you-receipe.php';
+	}
+	
 	// Adding all Redsys Gateways
 
 	// Adding Bizum
@@ -349,7 +401,7 @@ function woocommerce_gateway_redsys_premium_init() {
 	// Adding MasterPass.
 	require_once REDSYS_PLUGIN_CLASS_PATH . 'class-wc-gateway-masterpass-redsys.php'; // MasterPass Version 7.0
 	
-	// Adding MasterPass.
+	// Adding Preauthorizations.
 	require_once REDSYS_PLUGIN_CLASS_PATH . 'class-wc-gateway-preauthotizations-redsys.php'; // Specific Gateway for Preathorizations Version 8.0
 	
 	// Adding Redsys Bank Transfer
@@ -358,23 +410,279 @@ function woocommerce_gateway_redsys_premium_init() {
 	// Adding InSIte
 	require_once REDSYS_PLUGIN_CLASS_PATH . 'class-wc-gateway-insite-redsys.php'; // Insite version 10.0
 	
+	// Adding Direct Debit stand alone
+	require_once REDSYS_PLUGIN_CLASS_PATH . 'class-wc-gateway-direct-debit-redsys.php'; // Insite version 11.0
+	
+	// Adding Google Pay
+	//require_once REDSYS_PLUGIN_CLASS_PATH . 'class-wc-gateway-googlepay-redsys.php'; // Google Pay version 12.0
+	
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function redsys_add_actions() {
 		if ( ! is_checkout() && ! is_wc_endpoint_url() ) {
-			$redsys_class = new WC_Gateway_redsys();
+			//$redsys_class = new WC_Gateway_redsys();
 
 			// Ajax Preautorizaciones
-			add_action('wp_ajax_redsys_preauth_action', array( $redsys_class, 'redsys_preauthorized_js_callback' ) );
+			add_action('wp_ajax_redsys_preauth_action', 'WC_Gateway_Preauthorizations_Redsys::redsys_preauthorized_js_callback' );
 			// Ajax carga deposits
-			add_action('wp_ajax_redsys_charge_depo_action', array( $redsys_class, 'redsys_charge_depo_js_callback' ) );
+			add_action('wp_ajax_redsys_charge_depo_action', 'WC_Gateway_redsys::redsys_charge_depo_js_callback' );
 		}
-		$redsys_class_insite = new WC_Gateway_InSite_Redsys();
-		add_action( 'wp_ajax_check_token_insite_from_action', array( $redsys_class_insite, 'check_token_insite_from_action' ) );
-		add_action( 'wp_ajax_nopriv_check_token_insite_from_action', array( $redsys_class_insite, 'check_token_insite_from_action' ) );
+		//$redsys_class_insite = new WC_Gateway_InSite_Redsys();
+		add_action( 'wp_ajax_check_token_insite_from_action', 'WC_Gateway_InSite_Redsys::check_token_insite_from_action' );
+		add_action( 'wp_ajax_nopriv_check_token_insite_from_action', 'WC_Gateway_InSite_Redsys::check_token_insite_from_action' );
 	}
 	add_action( 'admin_init', 'redsys_add_actions' );
 	
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function redsys_woo_add_head_text() {
 		echo '<!-- This site is powered by WooCommerce Redsys Gateway v.' . REDSYS_VERSION . ' - https://woocommerce.com/products/redsys-gateway/ -->';
 	}
 	add_action( 'wp_head', 'redsys_woo_add_head_text' );
+	
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
+	function redsys_chekout_button_text( $order_button_text ) {
+
+		$chosen_payment_method = WC()->session->get('chosen_payment_method');
+
+		if ( $chosen_payment_method === 'redsys' ) {
+			$text = WCRed()->get_redsys_option( 'buttoncheckout', 'redsys' );
+			if ( ! empty ( $text ) ) {
+				$order_button_text = $text; 
+			} else {
+				$order_button_text = $order_button_text;
+			}
+		} elseif ( $chosen_payment_method === 'insite') {
+			$text = WCRed()->get_redsys_option( 'buttoncheckout', 'insite' );
+			if ( ! empty ( $text ) ) {
+				$order_button_text = $text; 
+			} else {
+				$order_button_text = $order_button_text;
+			} 
+		} elseif ( $chosen_payment_method === 'preauthorizationsredsys') {
+			$text = WCRed()->get_redsys_option( 'buttoncheckout', 'preauthorizationsredsys' );
+			if ( ! empty ( $text ) ) {
+				$order_button_text = $text; 
+			} else {
+				$order_button_text = $order_button_text;
+			}
+		} elseif ( $chosen_payment_method === 'masterpass') {
+			$text = WCRed()->get_redsys_option( 'buttoncheckout', 'masterpass' );
+			if ( ! empty ( $text ) ) {
+				$order_button_text = $text; 
+			} else {
+				$order_button_text = $order_button_text;
+			} 
+		} elseif ( $chosen_payment_method === 'redsysbank') {
+			$text = WCRed()->get_redsys_option( 'buttoncheckout', 'redsysbank' );
+			if ( ! empty ( $text ) ) {
+				$order_button_text = $text; 
+			} else {
+				$order_button_text = $order_button_text;
+			} 
+		} elseif ( $chosen_payment_method === 'bizumredsys') {
+			$text = WCRed()->get_redsys_option( 'buttoncheckout', 'bizumredsys' );
+			if ( ! empty ( $text ) ) {
+				$order_button_text = $text; 
+			} else {
+				$order_button_text = $order_button_text;
+			} 
+		} elseif ( $chosen_payment_method === 'redsysdirectdebit') {
+			$text = WCRed()->get_redsys_option( 'buttoncheckout', 'redsysdirectdebit' );
+			if ( ! empty ( $text ) ) {
+				$order_button_text = $text; 
+			} else {
+				$order_button_text = $order_button_text;
+			} 
+		}
+		?>
+		<script type="text/javascript">
+			(function($){
+				$('form.checkout').on( 'change', 'input[name^="payment_method"]', function() {
+					var t = { updateTimer: !1,  dirtyInput: !1,
+						reset_update_checkout_timer: function() {
+							clearTimeout(t.updateTimer)
+						},  trigger_update_checkout: function() {
+								t.reset_update_checkout_timer(), t.dirtyInput = !1,
+								$(document.body).trigger("update_checkout")
+							}
+						};
+						t.trigger_update_checkout();
+					});
+				}
+			)(jQuery);
+		</script>
+	<?php
+		return $order_button_text;
+	}
+	add_filter( 'woocommerce_order_button_text', 'redsys_chekout_button_text' );
+	
+	// Peronalización de los colores según la pasrela en el checkout
+		
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
+	function redsys_color_button_text( $html ) {
+
+		$chosen_payment_method = WC()->session->get('chosen_payment_method');
+
+		if ( $chosen_payment_method === 'redsys' ) {
+			$textb = WCRed()->get_redsys_option( 'butonbgcolor', 'redsys' );
+			$text  = WCRed()->get_redsys_option( 'butontextcolor', 'redsys' );
+			
+			if ( ! empty( $textb ) ) {
+				$textb = 'background-color:' . $textb . ';';
+			} else {
+				$textb = '';
+			}
+			if ( ! empty( $text ) ) {
+				$text = 'color:' . $text . ';';
+			} else {
+				$text = '';
+			}
+			
+			if ( $textb !== '' || $text !== '' ) {
+				$cssbutton = 'style="' . $textb . '' . $text . '" ';
+				$html      = str_replace( '<button type="submit"', '<button type="submit" ' . $cssbutton, $html );
+			}
+		} elseif ( $chosen_payment_method === 'insite') {
+			$textb = WCRed()->get_redsys_option( 'butonbgcolor', 'insite' );
+			$text  = WCRed()->get_redsys_option( 'butontextcolor', 'insite' );
+
+			if ( ! empty( $textb ) ) {
+				$textb = 'background-color:' . $textb . ';';
+			} else {
+				$textb = '';
+			}
+			if ( ! empty( $text ) ) {
+				$text = 'color:' . $text . ';';
+			} else {
+				$text = '';
+			}
+			
+			if ( $textb !== '' || $text !== '' ) {
+				$cssbutton = 'style="' . $textb . '' . $text . '" ';
+				$html      = str_replace( '<button type="submit"', '<button type="submit" ' . $cssbutton, $html );
+			} 
+		} elseif ( $chosen_payment_method === 'preauthorizationsredsys') {
+			$textb = WCRed()->get_redsys_option( 'butonbgcolor', 'preauthorizationsredsys' );
+			$text  = WCRed()->get_redsys_option( 'butontextcolor', 'preauthorizationsredsys' );
+
+			if ( ! empty( $textb ) ) {
+				$textb = 'background-color:' . $textb . ';';
+			} else {
+				$textb = '';
+			}
+			if ( ! empty( $text ) ) {
+				$text = 'color:' . $text . ';';
+			} else {
+				$text = '';
+			}
+			
+			if ( $textb !== '' || $text !== '' ) {
+				$cssbutton = 'style="' . $textb . '' . $text . '" ';
+				$html      = str_replace( '<button type="submit"', '<button type="submit" ' . $cssbutton, $html );
+			} 
+		} elseif ( $chosen_payment_method === 'masterpass') {
+			$textb = WCRed()->get_redsys_option( 'butonbgcolor', 'masterpass' );
+			$text  = WCRed()->get_redsys_option( 'butontextcolor', 'masterpass' );
+
+			if ( ! empty( $textb ) ) {
+				$textb = 'background-color:' . $textb . ';';
+			} else {
+				$textb = '';
+			}
+			if ( ! empty( $text ) ) {
+				$text = 'color:' . $text . ';';
+			} else {
+				$text = '';
+			}
+			
+			if ( $textb !== '' || $text !== '' ) {
+				$cssbutton = 'style="' . $textb . '' . $text . '" ';
+				$html      = str_replace( '<button type="submit"', '<button type="submit" ' . $cssbutton, $html );
+			} 
+		} elseif ( $chosen_payment_method === 'redsysbank') {
+			$textb = WCRed()->get_redsys_option( 'butonbgcolor', 'redsysbank' );
+			$text  = WCRed()->get_redsys_option( 'butontextcolor', 'redsysbank' );
+
+			if ( ! empty( $textb ) ) {
+				$textb = 'background-color:' . $textb . ';';
+			} else {
+				$textb = '';
+			}
+			if ( ! empty( $text ) ) {
+				$text = 'color:' . $text . ';';
+			} else {
+				$text = '';
+			}
+			
+			if ( $textb !== '' || $text !== '' ) {
+				$cssbutton = 'style="' . $textb . '' . $text . '" ';
+				$html      = str_replace( '<button type="submit"', '<button type="submit" ' . $cssbutton, $html );
+			} 
+		} elseif ( $chosen_payment_method === 'bizumredsys') {
+			$textb = WCRed()->get_redsys_option( 'butonbgcolor', 'bizumredsys' );
+			$text  = WCRed()->get_redsys_option( 'butontextcolor', 'bizumredsys' );
+			
+			if ( ! empty( $textb ) ) {
+				$textb = 'background-color:' . $textb . ';';
+			} else {
+				$textb = '';
+			}
+			if ( ! empty( $text ) ) {
+				$text = 'color:' . $text . ';';
+			} else {
+				$text = '';
+			}
+			
+			if ( $textb !== '' || $text !== '' ) {
+				$cssbutton = 'style="' . $textb . '' . $text . '" ';
+				$html      = str_replace( '<button type="submit"', '<button type="submit" ' . $cssbutton, $html );
+			}
+		} elseif ( $chosen_payment_method === 'redsysdirectdebit') {
+			$textb = WCRed()->get_redsys_option( 'butonbgcolor', 'redsysdirectdebit' );
+			$text  = WCRed()->get_redsys_option( 'butontextcolor', 'redsysdirectdebit' );
+			
+			if ( ! empty( $textb ) ) {
+				$textb = 'background-color:' . $textb . ';';
+			} else {
+				$textb = '';
+			}
+			if ( ! empty( $text ) ) {
+				$text = 'color:' . $text . ';';
+			} else {
+				$text = '';
+			}
+			
+			if ( $textb !== '' || $text !== '' ) {
+				$cssbutton = 'style="' . $textb . '' . $text . '" ';
+				$html      = str_replace( '<button type="submit"', '<button type="submit" ' . $cssbutton, $html );
+			}
+		}
+		?>
+		<script type="text/javascript">
+			(function($){
+				$('form.checkout').on( 'change', 'input[name^="payment_method"]', function() {
+					var t = { updateTimer: !1,  dirtyInput: !1,
+						reset_update_checkout_timer: function() {
+							clearTimeout(t.updateTimer)
+						},  trigger_update_checkout: function() {
+								t.reset_update_checkout_timer(), t.dirtyInput = !1,
+								$(document.body).trigger("update_checkout")
+							}
+						};
+						t.trigger_update_checkout();
+					});
+				}
+			)(jQuery);
+		</script>
+	<?php
+		return $html;
+	}
+	add_filter( 'woocommerce_order_button_html', 'redsys_color_button_text' );
 }

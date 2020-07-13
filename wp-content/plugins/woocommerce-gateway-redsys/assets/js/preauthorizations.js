@@ -1,3 +1,6 @@
+/*
+* Copyright: (C) 2013 - 2020 José Conti
+*/
 jQuery( function ( $ ) {
 	var redsys_buttom_confirm_pre = {
 			init: function() {

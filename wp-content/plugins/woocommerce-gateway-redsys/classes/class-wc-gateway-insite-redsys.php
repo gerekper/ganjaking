@@ -1,4 +1,8 @@
 <?php
+
+/**
+* Copyright: (C) 2013 - 2020 José Conti
+*/
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
@@ -6,7 +10,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
 * Gateway class
 */
-
+/**
+* Copyright: (C) 2013 - 2020 José Conti
+*/
 class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 	var $notify_url;
 
@@ -16,7 +22,9 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 	* @access public
 	* @return void
 	*/
-
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	public function __construct() {
 		global $woocommerce;
 
@@ -26,7 +34,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 			$logo_url   = $this->get_option( 'logo' );
 			$this->icon = apply_filters( 'woocommerce_insite_icon', $logo_url );
 		} else {
-			$this->icon = apply_filters( 'woocommerce_insite_icon', REDSYS_PLUGIN_URL . 'assets/images/bizum2.png' );
+			$this->icon = apply_filters( 'woocommerce_insite_icon', REDSYS_PLUGIN_URL . 'assets/images/redsys.png' );
 		}
 
 		$this->has_fields         = true;
@@ -64,8 +72,11 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 		$this->colortextbutton    = $this->get_option( 'colortextbutton' );
 		$this->textcolor          = $this->get_option( 'textcolor' );
 		$this->buttontext         = $this->get_option( 'buttontext' );
+		$this->buttoncheckout     = $this->get_option( 'buttoncheckout' );
+		$this->butonbgcolor       = $this->get_option( 'butonbgcolor' );
+		$this->butontextcolor     = $this->get_option( 'butontextcolor' );
 		$this->log                = new WC_Logger();
-
+		
 		// Actions
 		add_action( 'valid-insite-standard-ipn-request', array( $this, 'successful_request' ) );
 		add_action( 'woocommerce_receipt_insite', array( $this, 'receipt_page' ) );
@@ -86,6 +97,9 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 	* @access public
 	* @return bool
 	*/
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function is_valid_for_use() {
 		
 		include_once REDSYS_PLUGIN_DATA_PATH . 'allowed-currencies.php';
@@ -101,6 +115,9 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 	* Admin Panel Options
 	*
 	* @since 1.0.0
+	*/
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
 	*/
 	public function admin_options() {
 			?>
@@ -137,6 +154,9 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 	*
 	* @access public
 	* @return void
+	*/
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
 	*/
 	function init_form_fields() {
 		$this->form_fields = array(
@@ -175,6 +195,23 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 				'type'        => 'textarea',
 				'description' => __( 'This controls the description which the user sees during checkout.', 'woocommerce-redsys' ),
 				'default'     => __( 'Pay via InSite; you can pay with your credit card.', 'woocommerce-redsys' ),
+			),
+			'buttoncheckout'      => array(
+				'title'       => __( 'Button Checkout Text', 'woocommerce-redsys' ),
+				'type'        => 'text',
+				'description' => __( 'Add the button text at the checkout.', 'woocommerce-redsys' ),
+			),
+			'butonbgcolor'          => array(
+				'title'       => __( 'Button Color Background', 'woocommerce-redsys' ),
+				'type'        => 'text',
+				'description' => __( 'This if button Color Background Place Order at Checkout', 'woocommerce-redsys' ),
+				'class'       => 'colorpick',
+			),
+			'butontextcolor'          => array(
+				'title'       => __( 'Color text Button', 'woocommerce-redsys' ),
+				'type'        => 'text',
+				'description' => __( 'This if button text color Place Order at Checkout', 'woocommerce-redsys' ),
+				'class'       => 'colorpick',
 			),
 			'commercename'       => array(
 				'title'       => __( 'Commerce Name', 'woocommerce-redsys' ),
@@ -285,6 +322,9 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 		}
 	}
 
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function add_insite_redsys2() {
 		
 		if ( is_wc_endpoint_url( 'order-pay' ) ) {
@@ -298,6 +338,9 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 		}
 	}
 
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function add_insite_on_loadform() {
 		
 		if ( is_wc_endpoint_url( 'order-pay' ) ) {
@@ -312,6 +355,9 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 	* @param int $order_id
 	* @return array
 	*/
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function process_payment( $order_id ) {
 		
 		$order = new WC_Order( $order_id );
@@ -320,7 +366,9 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 			'redirect'  => $order->get_checkout_payment_url( true ),
 		);
 	}
-
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function check_token_insite_from_action() {
 		
 		if ( 'yes' === $this->debug ) {
@@ -484,6 +532,9 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 	*
 	* @access public
 	* @return void
+	*/
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
 	*/
 	function receipt_page( $order ) {
 		global $woocommerce;
@@ -888,6 +939,9 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 	/**
 	* Check redsys IPN validity
 	**/
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function check_ipn_request_is_valid() {
 		global $woocommerce;
 		
@@ -938,6 +992,9 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 	* @access public
 	* @return void
 	*/
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function check_ipn_response() {
 		
 		@ob_clean();
@@ -956,6 +1013,9 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 	* @access public
 	* @param array $posted
 	* @return void
+	*/
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
 	*/
 	function successful_request( $posted ) {
 		global $woocommerce;
@@ -1082,12 +1142,17 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 	* @param mixed $posted
 	* @return void
 	*/
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function get_insite_order( $order_id ) {
 		$order = new WC_Order( $order_id );
 		return $order;
 	}
 }
-
+/**
+* Copyright: (C) 2013 - 2020 José Conti
+*/
 function woocommerce_add_gateway_insite_gateway( $methods ) {
 	$methods[] = 'WC_Gateway_InSite_Redsys';
 	return $methods;

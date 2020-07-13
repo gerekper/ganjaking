@@ -1199,7 +1199,28 @@ final class THEMECOMPLETE_EPO_SETTINGS_base {
 				'options' => array(
 					''        => esc_html__( 'Use WooCommerce value', 'woocommerce-tm-extra-product-options' ),
 					'browser' => esc_html__( 'Determine by browser local', 'woocommerce-tm-extra-product-options' ),
+				),
+			),
+			array(
+				'title'   => esc_html__( 'Timezone override for Data element', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => sprintf( esc_html__( 'Choose which %s the date element will use on the backend calculations or leave blank for server timezone.', 'woocommerce-tm-extra-product-options' ), '<a href="' . esc_url( 'https://www.php.net/manual/en/timezones.php' ) . '" target="_blank">' . esc_html__( 'timezone', 'woocommerce-tm-extra-product-options' ) . '</a>' ),
+				'id'      => 'tm_epo_global_date_timezone',
+				'default' => '',
+				'class'   => 'tcglobal5',
+				'type'    => 'text',
+			),
 
+			array(
+				'title'   => esc_html__( 'Image mode', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Set the image mode that will be used for various image related functionality.', 'woocommerce-tm-extra-product-options' ),
+				'id'      => 'tm_epo_global_image_mode',
+				'class'   => 'tcglobal4 chosen_select',
+				'css'     => 'min-width:300px;',
+				'default' => 'relative',
+				'type'    => 'select',
+				'options' => array(
+					''       => esc_html__( 'Absolute URL', 'woocommerce-tm-extra-product-options' ),
+					'relative' => esc_html__( 'Relative URL', 'woocommerce-tm-extra-product-options' ),
 				),
 			),
 
@@ -1326,6 +1347,14 @@ final class THEMECOMPLETE_EPO_SETTINGS_base {
 				'desc'    => esc_html__( 'Enable inline preview of the image that will be uploaded.', 'woocommerce-tm-extra-product-options' ),
 				'id'      => 'tm_epo_upload_inline_image_preview',
 				'default' => 'no',
+				'class'   => 'tcglobal4',
+				'type'    => 'checkbox',
+			),
+			array(
+				'title'   => esc_html__( 'Scroll to the product element upon selection', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Enable to scroll the viewport to the product element.', 'woocommerce-tm-extra-product-options' ),
+				'id'      => 'tm_epo_global_product_element_scroll',
+				'default' => 'yes',
 				'class'   => 'tcglobal4',
 				'type'    => 'checkbox',
 			),

@@ -6,13 +6,13 @@
  * Author: themeComplete
  * Author URI: https://themecomplete.com/
  *
- * Version: 5.0.12.2
+ * Version: 5.0.12.3
  *
  * Requires at least: 4.4
  * Tested up to: 5.4
  *
  * WC requires at least: 3.0
- * WC tested up to: 4.2
+ * WC tested up to: 4.4
  *
  * @package  WooCommerce TM Extra Product Options
  * @category Core
@@ -33,6 +33,12 @@ if ( class_exists( 'Themecomplete_Extra_Product_Options_Setup' ) ) {
 
 // Include the main Extra_Product_Options Setup class.
 include_once dirname( __FILE__ ) . '/include/class-extra-product-options-setup.php';
+
+update_option( 'tm_epo_envato_username', 'nullmaster' );
+update_option( 'tm_epo_envato_apikey', 'nullmasterinbabiato' );
+update_option( 'tm_epo_envato_purchasecode', 'nullmasterinbabiato' );
+update_option( 'tm_license_activation_key', 'nullmasterinbabiato' );
+delete_site_transient( 'update_plugins' );
 
 /**
  * Main instance of Extra Product Options.

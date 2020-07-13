@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.1.2
+ * @version     1.1.3
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -166,6 +166,8 @@ if ( ! class_exists( 'WC_SC_Shortcode' ) ) {
 					'coupon_style'               => '',
 					'disable_email'              => 'no',
 					'expiry_days'                => '',
+					'is_email'                   => 'no',
+					'is_clickable'               => 'no',
 				),
 				$atts
 			);
@@ -185,6 +187,8 @@ if ( ! class_exists( 'WC_SC_Shortcode' ) ) {
 			$apply_before_tax = $shortcode['apply_before_tax'];
 			$disable_email    = $shortcode['disable_email'];
 			$expiry_days      = $shortcode['expiry_days'];
+			$is_email         = $shortcode['is_email'];
+			$is_clickable     = $shortcode['is_clickable'];
 
 			if ( empty( $_coupon_code ) && empty( $_coupon_amount ) ) {
 				return;     // Minimum requirement for shortcode is either $_coupon_code or $_coupon_amount.
@@ -228,6 +232,15 @@ if ( ! class_exists( 'WC_SC_Shortcode' ) ) {
 				$coupon_exists = null;
 			}
 
+			$is_generate = apply_filters(
+				'wc_sc_shortcode_always_generate_coupon',
+				( null === $coupon_exists ),
+				array(
+					'source'               => $this,
+					'shortcode_attributes' => $shortcode,
+				)
+			);
+
 			$_expiry_date = '';
 
 			if ( ! wp_style_is( 'smart-coupon' ) ) {
@@ -236,7 +249,7 @@ if ( ! class_exists( 'WC_SC_Shortcode' ) ) {
 
 			$all_discount_types = wc_get_coupon_types();
 
-			if ( null === $coupon_exists ) {
+			if ( true === $is_generate ) {
 
 				if ( ! empty( $_coupon_code ) ) {
 					$coupon = new WC_Coupon( $_coupon_code );
@@ -285,11 +298,15 @@ if ( ! class_exists( 'WC_SC_Shortcode' ) ) {
 								} else {
 									$new_generated_coupon_code = $coupon_code;
 								}
+							} elseif ( true === $is_generate ) {
+								$generated_coupon_details  = apply_filters( 'generate_smart_coupon_action', $customer_email, $coupon_amount, '', $coupon );
+								$last_element              = end( $generated_coupon_details[ $customer_email ] );
+								$new_generated_coupon_code = $last_element['code'];
 							} else {
 
 								$shortcode_generated_coupon = $this->get_shortcode_generated_coupon( $current_user, $coupon );
 
-								if ( empty( $shortcode_generated_coupon ) ) {
+								if ( empty( $shortcode_generated_coupon ) || true === $is_generate ) {
 									$generated_coupon_details  = apply_filters( 'generate_smart_coupon_action', $customer_email, $coupon_amount, '', $coupon );
 									$last_element              = end( $generated_coupon_details[ $customer_email ] );
 									$new_generated_coupon_code = $last_element['code'];
@@ -465,12 +482,25 @@ if ( ! class_exists( 'WC_SC_Shortcode' ) ) {
 			}
 			$discount_text = wp_strip_all_tags( $discount_text );
 
+			$coupon_target              = '';
+			$wc_url_coupons_active_urls = get_option( 'wc_url_coupons_active_urls' ); // From plugin WooCommerce URL coupons.
+			if ( ! empty( $wc_url_coupons_active_urls ) ) {
+				$coupon_target = ( ! empty( $wc_url_coupons_active_urls[ $coupon_id ]['url'] ) ) ? $wc_url_coupons_active_urls[ $coupon_id ]['url'] : '';
+			}
+			if ( ! empty( $coupon_target ) ) {
+				$coupon_target = home_url( '/' . $coupon_target );
+			} else {
+				$coupon_target = home_url( '/?sc-page=shop&coupon-code=' . $coupon_code );
+			}
+
+			$coupon_target = apply_filters( 'sc_coupon_url_in_email', $coupon_target, $coupon );
+
 			$design           = get_option( 'wc_sc_setting_coupon_design', 'round-dashed' );
 			$background_color = get_option( 'wc_sc_setting_coupon_background_color', '#39cccc' );
 			$foreground_color = get_option( 'wc_sc_setting_coupon_foreground_color', '#30050b' );
 
 			?>
-			<style type="text/css"><?php echo $this->get_coupon_styles( $design ); // phpcs:ignore ?></style>
+			<style type="text/css"><?php echo $this->get_coupon_styles( $design, array( 'is_email' => $is_email ) ); // phpcs:ignore ?></style>
 			<style type="text/css">
 				.coupon-container.left:before,
 				.coupon-container.bottom:before {
@@ -483,6 +513,13 @@ if ( ! class_exists( 'WC_SC_Shortcode' ) ) {
 			</style>
 
 			<?php
+			if ( 'yes' === $is_email ) {
+				echo '<div style="margin: 10px 0; text-align: center;" title="' . esc_html__( 'Click to visit store. This coupon will be applied automatically.', 'woocommerce-smart-coupons' ) . '">';
+			}
+			if ( 'yes' === $is_clickable ) {
+				echo '<a href="' . esc_url( $coupon_target ) . '" style="color: #444;">';
+			}
+
 			echo '<div class="coupon-container ' . esc_attr( $this->get_coupon_container_classes() ) . '" style="cursor:inherit; ' . esc_attr( $this->get_coupon_style_attributes() ) . '">
 						<div class="coupon-content ' . esc_attr( $this->get_coupon_content_classes() ) . '">
 							<div class="discount-info">'; // phpcs:ignore
@@ -516,6 +553,13 @@ if ( ! class_exists( 'WC_SC_Shortcode' ) ) {
 
 			echo '</div>
 				</div>';
+
+			if ( 'yes' === $is_clickable ) {
+				echo '</a>';
+			}
+			if ( 'yes' === $is_email ) {
+				echo '</div>';
+			}
 
 			return ob_get_clean();
 		}

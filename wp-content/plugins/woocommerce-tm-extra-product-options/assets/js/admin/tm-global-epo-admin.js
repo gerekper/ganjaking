@@ -1287,7 +1287,7 @@
                         limit1 = limit1[limit1.length - 1];
                         limit2 = limit2[0];
                         if (limit2 === undefined) {
-                            limit2 = widthStops[0];
+                            limit2 = widthStops[widthStops.length-1];
                         }
 
                         if (limit1 === undefined) {
@@ -4733,8 +4733,8 @@
 
         },
 
-        set_fields_logic: function (content) {
-
+        set_fields_logic: function (content) {           
+            
             content.find(".message0x0[data-required]").toArray().forEach(function (div) {
 
                 var required;
@@ -4747,10 +4747,8 @@
                     var operator = required[selector].operator;
                     var value = required[selector].value;
 
-                    content
-                    .on("change.required changerequired", selector, function () {
-
-                        var $this = $(this);
+                    var func = function(){
+                        var $this = $(selector);
                         var val = "";
                         var check = true;
 
@@ -4777,13 +4775,17 @@
                         } else {
                             div.addClass("tm-hidden");
                         }
+                    };
 
-                    });
-                    content.find(selector).first().trigger("changerequired");
+                    content
+                    .on("change.required changerequired", selector, func);
+
+                    func();
 
                 });
 
             });
+
         },
 
         logic_check_rules_reindex: function (el, rules, true_field_index, new_field_index, section_id, new_enabled) {

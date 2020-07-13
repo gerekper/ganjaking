@@ -324,7 +324,7 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 
 		if (
 			isset( $groovyMenuSettings['header'] ) &&
-			( in_array( intval( $groovyMenuSettings['header']['style'] ), array( 2, 3, 4 ), true ) )
+			( in_array( intval( $groovyMenuSettings['header']['style'] ), array( 2, 3, 4, 5 ), true ) )
 		) {
 			return false;
 		}
@@ -437,25 +437,46 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 	 * @return string
 	 */
 	public function getMenuBlockPostContent( $post_id ) {
-		global $post;
 		global $wp_filter;
 
 		$mm_content = '';
 
 		if ( $post_id ) {
 
-			$post_id = intval( $post_id );
-
-			$wpml_gm_menu_block_id = apply_filters( 'wpml_object_id', $post_id, 'gm_menu_block', true );
-
 			// prevent conflict with Divi theme builder.
 			if ( 'divi_builder' === GroovyMenuUtils::check_wp_builders() ) {
-				return '[' . __( 'Divi Builder Conflict Prevention', 'groovy-menu' ) . ']';
+				return '[ ' . __( 'Divi Builder Conflict Prevention', 'groovy-menu' ) . ' ]';
 			}
 
 			// prevent conflict with Avada theme / Fusion builder.
 			if ( 'fusion_builder' === GroovyMenuUtils::check_wp_builders() ) {
-				return '[' . __( 'Fusion Builder Conflict Prevention', 'groovy-menu' ) . ']';
+				return '[ ' . __( 'Fusion Builder Conflict Prevention', 'groovy-menu' ) . ' ]';
+			}
+
+			// prevent conflict with cornerstone plugin.
+			if ( isset( $_POST['cs_preview_state'] ) && isset( $_POST['_cs_nonce'] ) ) { // @codingStandardsIgnoreLine
+				return '[ ' . __( 'Cornerstone Conflict Prevention', 'groovy-menu' ) . ' ]';
+			}
+
+			if ( isset( $_GET['elementor-preview'] ) ) { // @codingStandardsIgnoreLine
+				return '[ ' . __( 'Elementor Conflict Prevention', 'groovy-menu' ) . ' ]';
+			}
+
+			if ( isset( $_GET['page_id'] ) && ! empty( $_GET['et_fb'] ) ) { // @codingStandardsIgnoreLine
+				return '[ ' . __( 'Divi builder Conflict Prevention', 'groovy-menu' ) . ' ]';
+			}
+
+
+			$post_id = intval( $post_id );
+
+			$wpml_gm_menu_block_id = apply_filters( 'wpml_object_id', $post_id, 'gm_menu_block', true );
+
+
+			// prevent conflict with Divi theme builder.
+			if ( 'on' === get_post_meta( $wpml_gm_menu_block_id, '_et_pb_use_builder', true ) ) {
+				$post = null;
+			} else {
+				global $post;
 			}
 
 			// Copy global $post exemplar.
@@ -467,28 +488,6 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 				$post = $_post; // @codingStandardsIgnoreLine
 
 				return $mm_content;
-			}
-
-			// prevent conflict with cornerstone plugin.
-			if ( isset( $_POST['cs_preview_state'] ) && isset( $_POST['_cs_nonce'] ) ) { // @codingStandardsIgnoreLine
-				// Recovery global $post exemplar.
-				$post = $_post; // @codingStandardsIgnoreLine
-
-				return '[' . __( 'Cornerstone Conflict Prevention', 'groovy-menu' ) . ']';
-			}
-
-			if ( isset( $_GET['elementor-preview'] ) ) { // @codingStandardsIgnoreLine
-				// Recovery global $post exemplar.
-				$post = $_post; // @codingStandardsIgnoreLine
-
-				return '[' . __( 'Elementor Conflict Prevention', 'groovy-menu' ) . ']';
-			}
-
-			if ( isset( $_GET['page_id'] ) && ! empty( $_GET['et_fb'] ) ) { // @codingStandardsIgnoreLine
-				// Recovery global $post exemplar.
-				$post = $_post; // @codingStandardsIgnoreLine
-
-				return '[' . __( 'Divi builder Conflict Prevention', 'groovy-menu' ) . ']';
 			}
 
 			if (
@@ -523,7 +522,7 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 
 
 			// Recovery global $post exemplar.
-			$post = $_post;
+			$post = $_post; // @codingStandardsIgnoreLine
 
 		}
 

@@ -337,7 +337,10 @@ class THEMECOMPLETE_EPO_FIELDS_date extends THEMECOMPLETE_EPO_FIELDS {
 						$posted_date = $posted_date_arr[2] . $sep . $posted_date_arr[1] . $sep . $posted_date_arr[0];
 					}
 				}
-				$date        = DateTime::createFromFormat( $date_format, $posted_date . ' 00:00:00' );
+				$date = DateTime::createFromFormat( $date_format, $posted_date . ' 00:00:00' );
+				if (!empty(THEMECOMPLETE_EPO()->tm_epo_global_date_timezone)){
+					$date = DateTime::createFromFormat( $date_format, $posted_date . ' 00:00:00', new DateTimeZone(THEMECOMPLETE_EPO()->tm_epo_global_date_timezone) );
+				}
 				$date_errors = DateTime::getLastErrors();
 
 				if ( ! empty( $date_errors['error_count'] ) ) {
@@ -388,7 +391,10 @@ class THEMECOMPLETE_EPO_FIELDS_date extends THEMECOMPLETE_EPO_FIELDS {
 					$disabled_weekdays  = $this->element['disabled_weekdays'];
 					$disabled_months    = $this->element['disabled_months'];
 
-					$now       = new DateTime( '00:00:00' );
+					$now = new DateTime( '00:00:00' );
+					if (!empty(THEMECOMPLETE_EPO()->tm_epo_global_date_timezone)){
+						$now = new DateTime( '00:00:00', new DateTimeZone(THEMECOMPLETE_EPO()->tm_epo_global_date_timezone) );
+					}
 					$now_day   = $now->format( "d" );
 					$now_month = $now->format( "m" );
 					$now_year  = $now->format( "Y" );

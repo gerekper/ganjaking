@@ -3,8 +3,10 @@
  * Compatibility class
  *
  * This class is responsible for providing compatibility with
- * 1. Aelia Currency Switcher (https://aelia.co/shop/currency-switcher-woocommerce/)
- * 2. WooCommerce Currency Switcher from realmag777 (https://codecanyon.net/item/woocommerce-currency-switcher/8085217)
+ * 1. Aelia Currency Switcher 
+ * https://aelia.co/shop/currency-switcher-woocommerce/
+ * 2. WooCommerce Currency Switcher from realmag777 
+ * https://codecanyon.net/item/woocommerce-currency-switcher/8085217
  *
  * @package Extra Product Options/Compatibility
  * @version 4.9
@@ -19,6 +21,8 @@ final class THEMECOMPLETE_EPO_CP_currency {
 	public $is_all_in_one_cc = FALSE;
 	public $is_wpml = FALSE;
 	public $is_wpml_multi_currency = FALSE;
+	public $default_to_currency = FALSE;
+	public $default_from_currency = FALSE;
 
 	/**
 	 * The single instance of the class
@@ -653,6 +657,32 @@ final class THEMECOMPLETE_EPO_CP_currency {
 
 	}
 
+	/**
+	 * Helper function
+	 *
+	 * @see get_price_in_currency
+	 */
+	public function get_default_from_currency(){
+	    if (!$this->default_from_currency) {
+	        $this->default_from_currency = get_option( 'woocommerce_currency' );
+	    }
+
+	    return $this->default_from_currency;
+	}
+
+	/**
+	 * Helper function
+	 *
+	 * @see get_price_in_currency
+	 */
+	public function get_default_to_currency(){
+	    if (!$this->default_to_currency) {
+	        $this->default_to_currency = themecomplete_get_woocommerce_currency();
+	    }
+
+	    return $this->default_to_currency;
+	}
+
 
 	/**
 	 * Basic integration with WooCommerce Currency Switcher, developed by Aelia
@@ -672,10 +702,10 @@ final class THEMECOMPLETE_EPO_CP_currency {
 	protected function get_price_in_currency( $price, $to_currency = NULL, $from_currency = NULL, $currencies = NULL, $type = NULL, $key = NULL, $attribute = NULL ) {
 
 		if ( empty( $from_currency ) ) {
-			$from_currency = get_option( 'woocommerce_currency' );
+			$from_currency = $this->get_default_from_currency();
 		}
 		if ( empty( $to_currency ) ) {
-			$to_currency = themecomplete_get_woocommerce_currency();
+			$to_currency = $this->get_default_to_currency();
 		}
 		if ( $from_currency == $to_currency ) {
 			return $price;

@@ -1,9 +1,15 @@
 <?php
 
+/*
+* Copyright: (C) 2013 - 2020 José Conti
+*/
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
+/*
+* Copyright: (C) 2013 - 2020 José Conti
+*/
 function add_redsys_meta_box() {
 	if (  WCRed()->is_redsys_order( get_the_ID() ) ) {
 		

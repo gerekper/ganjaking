@@ -241,7 +241,7 @@ class THEMECOMPLETE_EPO_Scripts {
 			$product_type = themecomplete_get_product_type( $product );
 			$is_composite = $product_type == 'composite';
 
-			if ( $is_composite || ! is_product() || in_array( "color", THEMECOMPLETE_EPO()->current_option_features ) ) {
+			if ( $is_composite || ! is_product() || in_array( "product", THEMECOMPLETE_EPO()->current_option_features ) || in_array( "color", THEMECOMPLETE_EPO()->current_option_features ) ) {
 				$css_array['spectrum'] = array(
 					'src'     => THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/css/spectrum' . $ext . '.css',
 					'deps'    => FALSE,
@@ -250,7 +250,7 @@ class THEMECOMPLETE_EPO_Scripts {
 				);
 			}
 
-			if ( $is_composite || ! is_product() || in_array( "range", THEMECOMPLETE_EPO()->current_option_features ) ) {
+			if ( $is_composite || ! is_product() || in_array( "product", THEMECOMPLETE_EPO()->current_option_features ) || in_array( "range", THEMECOMPLETE_EPO()->current_option_features ) ) {
 				$css_array['nouislider'] = array(
 					'src'     => THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/css/nouislider' . $ext . '.css',
 					'deps'    => FALSE,
@@ -259,7 +259,7 @@ class THEMECOMPLETE_EPO_Scripts {
 				);
 			}
 
-			if ( $is_composite || ! is_product() || in_array( "sectionslider", THEMECOMPLETE_EPO()->current_option_features ) ) {
+			if ( $is_composite || ! is_product() || in_array( "product", THEMECOMPLETE_EPO()->current_option_features ) || in_array( "sectionslider", THEMECOMPLETE_EPO()->current_option_features ) ) {
 				$css_array['owl-carousel2']       = array(
 					'src'     => THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/css/owl.carousel' . $ext . '.css',
 					'deps'    => FALSE,
@@ -502,6 +502,7 @@ class THEMECOMPLETE_EPO_Scripts {
 			"tm_epo_global_product_image_selector"        => THEMECOMPLETE_EPO()->tm_epo_global_product_image_selector,
 			"tm_epo_upload_inline_image_preview"          => THEMECOMPLETE_EPO()->tm_epo_upload_inline_image_preview,
 			"tm_epo_global_product_element_scroll_offset" => THEMECOMPLETE_EPO()->tm_epo_global_product_element_scroll_offset,
+			"tm_epo_global_product_element_scroll" 	      => THEMECOMPLETE_EPO()->tm_epo_global_product_element_scroll,
 			"tm_epo_global_product_image_mode"            => THEMECOMPLETE_EPO()->tm_epo_global_product_image_mode,
 			"tm_epo_global_move_out_of_stock"             => THEMECOMPLETE_EPO()->tm_epo_global_move_out_of_stock,
 			"tm_epo_progressive_display"                  => THEMECOMPLETE_EPO()->tm_epo_progressive_display,

@@ -4,7 +4,7 @@
  *
  * This class is responsible for providing compatibility with
  * Booking & Appointment Plugin for WooCommerce.
- * (https://www.tychesoftwares.com/store/premium-plugins/woocommerce-booking-plugin/)
+ * https://www.tychesoftwares.com/store/premium-plugins/woocommerce-booking-plugin/
  *
  * @package Extra Product Options/Compatibility
  * @version 4.9

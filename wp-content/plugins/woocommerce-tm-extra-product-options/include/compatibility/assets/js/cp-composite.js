@@ -102,6 +102,8 @@
         var main_product = epoObject.main_product;
         var main_cart = epoObject.main_cart;
         var manualInitEPO = epoObject.manualInitEPO;
+        var composite_add_to_cart_button;
+        var collection;
 
         if (main_product.data("tm-composite-setup")) {
             return;
@@ -305,9 +307,50 @@
 
         $(tcAPI.compositeSelector).trigger("wc-composite-component-loaded.cpf");
 
-        /* in some cases it is recommended to use the following
-         $(".composite_add_to_cart_button").off("click");
+        /* The next code is required in order to accomodate conditioanl logic
+         * otherwise hidden items are posted.
+         *
+         * The relative composite function that affects this is this.Composite_Add_To_Cart_Button_View         
          */
+        composite_add_to_cart_button = $(".composite_add_to_cart_button");
+        collection = composite_add_to_cart_button;
+        collection.each(function() {
+            var currentEl = $(this) ? $(this) : $(document);
+            var events = $._data($(this)[0], "events");
+            var isItself = $(this)[0] === composite_add_to_cart_button[0]
+            if (!events) {
+                return;
+            }
+            $.each(events, function(i, event) {
+                if (!event || i !== "click") {
+                    return;
+                }
+                $.each(event, function(j, h) {
+                    var found = false;        
+                    if (h.selector && h.selector.length > 0) {
+                        currentEl.find(h.selector).each(function () {
+                            if ($(this)[0] === composite_add_to_cart_button[0]) {
+                                found = true;
+                            }
+                        });
+                    } else if (!h.selector && isItself) {
+                        found = true;
+                    }
+
+                    if (found) {
+                        // event: i
+                        // selector: h.selector
+                        // handler: h.handler
+                        if ( h.handler.toString().indexOf("$( this ).prop( 'disabled', false );") !== -1 || 
+                            h.handler.toString().indexOf("(this).prop(\"disabled\",!1)") !== -1 ||
+                            h.handler.toString().indexOf("(this).prop('disabled',!1)") !== -1
+                            ){
+                            composite_add_to_cart_button.off(i, h.handler);
+                        }
+                    }
+                });
+            });
+        });
 
     }
 
@@ -563,6 +606,18 @@
 
     }
 
+    function tmVariationCheckMatchVariationsForm(variationsForm, epoId, productId, $element) {
+
+        var component_data = $element.closest(".component_data");
+
+        if (component_data.find(".variations").length){
+            variationsForm = $element.closest(component_data);
+        }        
+
+        return variationsForm;
+
+    }
+
     $(window).on("epo-after-init-in-timeout", function (event, epoObject) {
         if (event && epoObject && epoObject.epo) {
             bto_support(epoObject.epo);
@@ -650,6 +705,8 @@
         $.epoAPI.addFilter("tc_get_bundleid", getBundleId, 10, 2);
         $.epoAPI.addFilter("tc_alter_product_price", alterProductPrice, 10, 5);
         $.epoAPI.addFilter("tc_get_per_product_pricing", getPerProductPricing, 10, 2);
+
+        $.epoAPI.addFilter("tm_variation_check_match_variationsForm", tmVariationCheckMatchVariationsForm, 10, 4);
 
     });
 

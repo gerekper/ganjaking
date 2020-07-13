@@ -1,8 +1,12 @@
+/*
+* Copyright: (C) 2013 - 2020 José Conti
+*/
 .woocommerce-message.woocommerce-redsys-messages {
 	position: relative;
 	border-left-color: #cc99c2!important;
 	overflow: hidden;
 }
+
 .wrap.woocommerce div.updated.woocommerce-message.woocommerce-redsys-messages {
 	margin: 5px 0 15px;
 	margin-top: 10px;
@@ -20,6 +24,7 @@
 	text-shadow: 0 -1px 1px #a36597,1px 0 1px #a36597,0 1px 1px #a36597,-1px 0 1px #a36597;
 	display: inline-block;
 }
+
 .woocommerce-message.woocommerce-redsys-messages a.woocommerce-message-close {
 	position: static;
 	float: right;
@@ -29,6 +34,7 @@
 	line-height: 1.23076923;
 	text-decoration: none;
 }
+
 .notice-dismiss:before{
 	background: none;
 	color: #72777c;
@@ -42,6 +48,7 @@
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
+
 .woocommerce-message.woocommerce-redsys-messages a.woocommerce-message-close::before {
 	position: relative;
 	top: 18px;
@@ -49,6 +56,7 @@
 	-webkit-transition: all .1s ease-in-out;
 	transition: all .1s ease-in-out;
 }
+
 .woocommerce-message.woocommerce-redsys-messages a.button-primary:hover {
 	background: #a36597;
 	border-color: #a36597;

@@ -3,7 +3,8 @@
  * Compatibility class
  *
  * This class is responsible for providing compatibility with
- * Measurement Price Calculator (https://woocommerce.com/products/measurement-price-calculator/)
+ * Measurement Price Calculator 
+ * https://woocommerce.com/products/measurement-price-calculator/
  *
  * @package Extra Product Options/Compatibility
  * @version 4.9

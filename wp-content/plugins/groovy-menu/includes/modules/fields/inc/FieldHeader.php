@@ -37,6 +37,7 @@ class FieldHeader extends \GroovyMenu\FieldField {
 						<?php if ( ! $lver ) : ?>
 						<option value="3"><?php esc_html_e( 'Sidebar', 'groovy-menu' ); ?></option>
 						<option value="4"><?php esc_html_e( 'Icon sidebar', 'groovy-menu' ); ?></option>
+						<option value="5"><?php esc_html_e( 'Expanding sidebar', 'groovy-menu' ); ?></option>
 						<?php endif; ?>
 					</select>
 				</div>

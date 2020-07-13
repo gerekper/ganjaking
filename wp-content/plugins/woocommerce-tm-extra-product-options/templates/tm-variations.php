@@ -30,7 +30,7 @@ if (
 ) {
 	$variations_options = $builder['variations_options'];
 	$parse = FALSE;
-	if ($variations_builder_element_start_args["tm_element_settings"]["builder"]["variations_disabled"]){
+	if (isset($variations_builder_element_start_args["tm_element_settings"]["builder"]["variations_disabled"]) && $variations_builder_element_start_args["tm_element_settings"]["builder"]["variations_disabled"]){
 		$get_variations = count( $tm_product->get_children() ) <= apply_filters( 'woocommerce_ajax_variation_threshold', 30, $tm_product );
 		$available_variations = $get_variations ? $tm_product->get_available_variations() : false;
 		$parse = TRUE;

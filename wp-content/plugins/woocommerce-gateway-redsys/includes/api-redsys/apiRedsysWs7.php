@@ -24,7 +24,7 @@
 class RedsysAPIWs{
 
 	/******  Array de DatosEntrada ******/
-    var $vars_pay = array();
+	var $vars_pay = array();
 	
 	/******  Set parameter ******/
 	function setParameter($key,$value){

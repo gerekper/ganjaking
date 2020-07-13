@@ -214,6 +214,12 @@ class THEMECOMPLETE_EPO_FIELDS_checkbox extends THEMECOMPLETE_EPO_FIELDS {
 		$exactlimit            = empty( $element['exactlimit'] ) ? "" : $element['exactlimit'];
 		$minimumlimit          = empty( $element['minimumlimit'] ) ? "" : $element['minimumlimit'];
 
+		if (THEMECOMPLETE_EPO()->tm_epo_global_image_mode === "relative"){
+			$image  = wp_make_link_relative($image);
+			$imagec  = wp_make_link_relative($imagec);
+			$imagep  = wp_make_link_relative($imagep);
+			$imagel  = wp_make_link_relative($imagel);
+		}		
 
 		if ( empty( $image ) ) {
 			$image = '';

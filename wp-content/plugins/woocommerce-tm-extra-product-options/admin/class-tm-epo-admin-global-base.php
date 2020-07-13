@@ -221,7 +221,7 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_base {
 					}
 					$this->tm_save_meta( $post_id, $tm_meta, $old_data, $meta );
 					$json_result['message'] = esc_html__( 'Options saved!', 'woocommerce-tm-extra-product-options' );
-					$json_result['result']  = 1;
+					$json_result['result']  = 1;					
 
 				}
 			}
@@ -720,6 +720,7 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_base {
 		ksort( $actions );
 
 		return $actions;
+		
 	}
 
 	/**
@@ -728,6 +729,7 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_base {
 	 * @since 1.0
 	 */
 	public function admin_menu() {
+
 		$page_hook = add_submenu_page( 'edit.php?post_type=product', esc_html__( 'Global Extra Product Options', 'woocommerce-tm-extra-product-options' ), esc_html__( 'Global Extra Product Options', 'woocommerce-tm-extra-product-options' ), 'manage_woocommerce', THEMECOMPLETE_EPO_GLOBAL_POST_TYPE_PAGE_HOOK, array( $this, 'admin_screen' ) );
 
 		// Restrict loading scripts and functions unless we are on the plugin page

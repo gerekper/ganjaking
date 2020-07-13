@@ -15,7 +15,28 @@ jQuery(document).ready(function(){
 	        error: function(errorThrown){
 	            console.log(errorThrown);
 	        }
-	    });   
+	    });     
 	    e.preventDefault();
-	})
+	}); 
+	
+	jQuery('#wc_settings_anti_fraud_whitelist').on('focusout',function(){
+		
+		//var blacklistemail = jQuery('#wc_settings_anti_fraudblacklist_emails').val();
+		var whitelistemail = jQuery('#wc_settings_anti_fraud_whitelist').val();
+		jQuery.ajax({
+	        url: ajaxurl,
+	        type : "POST",  
+	        data: {
+	            'action':'check_blacklist_whitelist',
+				'whitelist':whitelistemail,
+	        },
+	        success:function(result) {
+	            
+	            console.log(result);
+	        },
+	        error: function(errorThrown){
+	            console.log(errorThrown);
+	        }
+	    });
+	});	
 });

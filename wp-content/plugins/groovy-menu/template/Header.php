@@ -519,8 +519,25 @@ function groovyMenu( $args = array() ) {
 	}
 	$output_html .= '<div class="gm-inner">
 				<div class="gm-inner-bg"></div>
-				<div class="gm-container">
-					<div class="gm-logo">';
+				<div class="gm-container">';
+
+	$header_style = intval( $groovyMenuSettings['header']['style'] );
+	if ( 5 === $header_style ) {
+		$output_html .= '<span class="gm-menu-btn--expanded">
+						<span class="gm-menu-btn__inner">';
+
+		$menu_icon = 'fa fa-bars';
+		if ( ! empty( $styles->getGlobal( 'misc_icons', 'menu_icon' ) ) ) {
+			$menu_icon = $styles->getGlobal( 'misc_icons', 'menu_icon' );
+		}
+
+		$output_html .= '	<i class="' . esc_attr( $menu_icon ) . '"></i>
+					</span>
+					</span>';
+	}
+
+
+	$output_html .= '<div class="gm-logo">';
 
 
 	ob_start();
@@ -551,7 +568,9 @@ function groovyMenu( $args = array() ) {
 		$logo_arr  = array();
 		$logo_html = '';
 
-		if ( intval( $groovyMenuSettings['header']['style'] ) === 4 ) {
+		$header_style = intval( $groovyMenuSettings['header']['style'] );
+
+		if ( in_array( $header_style, array( 4, 5 ), true ) ) {
 			$logo_arr['default'] = $styles->getGlobal( 'logo', 'logo_style_4' );
 		} else {
 			$logo_arr['default'] = $styles->getGlobal( 'logo', 'logo_default' );
@@ -635,9 +654,9 @@ function groovyMenu( $args = array() ) {
 
 			switch ( $key ) {
 				case 'default':
-					$additionl_class = ( intval( $groovyMenuSettings['header']['style'] ) === 4 ) ? 'header-4' : 'default';
+					$additional_class = ( in_array( $header_style, array( 4, 5 ), true ) ) ? 'header-sidebar' : 'default';
 
-					$logo_html .= '<img src="' . $img_src . '"' . $img_width . $img_height . ' class="gm-logo__img gm-logo__img-' . $additionl_class . '" alt="" />';
+					$logo_html .= '<img src="' . $img_src . '"' . $img_width . $img_height . ' class="gm-logo__img gm-logo__img-' . $additional_class . '" alt="" />';
 					break;
 
 				default:
@@ -691,6 +710,17 @@ function groovyMenu( $args = array() ) {
 	$output_html .= '	<i class="' . esc_attr( $menu_icon ) . '"></i>
 					</span>
 					</span>';
+
+
+	ob_start();
+	/**
+	 * Fires before the groovy main menu wrapper.
+	 *
+	 * @since 2.2.0
+	 */
+	do_action( 'gm_before_main_menu_nav' );
+	$output_html .= ob_get_clean();
+
 
 	$output_html .= '<div class="gm-main-menu-wrapper">
 						<nav id="gm-main-menu">';
@@ -750,6 +780,17 @@ function groovyMenu( $args = array() ) {
 	if ( $show_gm_action ) {
 
 		$output_html .= '<div class="gm-actions">';
+
+
+		ob_start();
+		/**
+		 * Fires as first groovy menu action buttons.
+		 *
+		 * @since 2.2.0
+		 */
+		do_action( 'gm_main_menu_actions_button_first' );
+		$output_html .= ob_get_clean();
+
 
 		if ( $styles->get( 'general', 'show_divider' ) ) {
 			$header_style = $styles->get( 'general', 'header' );
@@ -824,6 +865,18 @@ function groovyMenu( $args = array() ) {
 									</div>
 									';
 		}
+
+
+		ob_start();
+		/**
+		 * Fires as last groovy menu action buttons.
+		 *
+		 * @since 2.2.0
+		 */
+		do_action( 'gm_main_menu_actions_button_last' );
+		$output_html .= ob_get_clean();
+
+
 		$output_html .= '</div>';
 	}
 	$output_html .= '</div>
@@ -913,6 +966,17 @@ function groovyMenu( $args = array() ) {
 				$isFullScreen = 'fullscreen';
 			}
 
+
+			ob_start();
+			/**
+			 * Fires before groovy menu mobile search icon.
+			 *
+			 * @since 2.2.0
+			 */
+			do_action( 'gm_mobile_before_search_icon' );
+			$output_html .= ob_get_clean();
+
+
 			$output_html .= '<div class="gm-search ' . ( $isFullScreen ? 'fullscreen' : 'gm-dropdown' ) . '">
 						<i class="gm-icon ' . esc_attr( $searchIcon ) . '"></i>
 						<span class="gm-search__txt">'
@@ -933,6 +997,18 @@ function groovyMenu( $args = array() ) {
 			if ( $styles->getGlobal( 'misc_icons', 'cart_icon' ) ) {
 				$cartIcon = $styles->getGlobal( 'misc_icons', 'cart_icon' );
 			}
+
+
+			ob_start();
+			/**
+			 * Fires before groovy menu mobile minicart.
+			 *
+			 * @since 2.2.0
+			 */
+			do_action( 'gm_mobile_before_minicart' );
+			$output_html .= ob_get_clean();
+
+
 			$output_html .= '
 					<div class="gm-minicart">
 						<a href="' . get_permalink( wc_get_page_id( 'cart' ) ) . '" class="gm-minicart-link">
@@ -945,6 +1021,18 @@ function groovyMenu( $args = array() ) {
 					</div>
 					';
 		}
+
+
+		ob_start();
+		/**
+		 * Fires at the groovy menu mobile toolbar end.
+		 *
+		 * @since 2.2.0
+		 */
+		do_action( 'gm_mobile_toolbar_end' );
+		$output_html .= ob_get_clean();
+
+
 		$output_html .= '</div>';
 		$output_html .= '</div>';
 		$output_html .= '</aside>';

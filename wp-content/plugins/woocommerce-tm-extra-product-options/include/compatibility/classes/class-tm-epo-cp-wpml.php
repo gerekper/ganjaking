@@ -3,7 +3,8 @@
  * Compatibility class
  *
  * This class is responsible for providing compatibility with
- * WPML Multilingual CMS (https://wpml.org/)
+ * WPML Multilingual CMS 
+ * https://wpml.org/
  *
  * @package Extra Product Options/Compatibility
  * @version 4.9

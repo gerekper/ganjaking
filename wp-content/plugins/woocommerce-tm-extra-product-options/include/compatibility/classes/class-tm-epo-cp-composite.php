@@ -3,7 +3,8 @@
  * Compatibility class
  *
  * This class is responsible for providing compatibility with
- * WooCommerce Composite Products (https://woocommerce.com/products/composite-products/)
+ * WooCommerce Composite Products 
+ * https://woocommerce.com/products/composite-products/
  *
  * @package Extra Product Options/Compatibility
  * @version 4.9

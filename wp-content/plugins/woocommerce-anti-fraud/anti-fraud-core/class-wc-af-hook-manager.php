@@ -292,7 +292,8 @@ if ( ! class_exists( 'WC_AF_Hook_Manager' ) ) {
 				$orders = wc_get_orders( $args );
 				
 				foreach ($orders as $order){
-				    if('on-hold' == $order->status || 'processing' == $order->status || 'completed' == 'order_status'){
+					$orderstatus = $order->get_status();
+				    if('on-hold' == $orderstatus || 'processing' == $orderstatus || 'completed' == 'order_status'){
 				    	$datetime1 = new DateTime();
 						$datetime2 = new DateTime($order->get_date_created()->format('Y-m-d h:i:s'));
 						$interval = $datetime1->diff($datetime2);

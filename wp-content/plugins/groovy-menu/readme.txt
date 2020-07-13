@@ -2,7 +2,7 @@
 Contributors: Grooni
 Requires at least: 4.9.7
 Tested up to: 5.4.2
-Stable tag: 2.1.1
+Stable tag: 2.2.4
 License: Themeforest Split Licence
 License URI: -
 Tags: customizable, responsive, animation, flexible, translation ready, drop down, dropdown, dropdown menu, easy, mega dropdown menu, mega menu, megamenu, navigation, options, presets, shortcodes, widgetized, widgets
@@ -60,6 +60,30 @@ Source: https://select2.github.io/
 == Changelog ==
 
 Visit [Changelog](https://grooni.com/docs/groovy-menu/changelog/) from our [Knowledge Base](https://grooni.com/docs/groovy-menu/)
+
+= 2.2.4 =
+* Fix: New preset option "General > Mega menu > Add Mega menu columns padding". Enabled by default.
+
+= 2.2.3 =
+* Added: New option "Custom Mega menu background color".
+* Added: New option for Expanded sidebar "Submenu width".
+* Improve: Optimized the work of opening and closing drop-down menus for all types of presets. Added time delays to close dropdown menus. This will allow the site visitor to switch to adjacent drop-down menus diagonally.
+* Improve: Removed side margins for Mega menu.
+* Fix: Changes have been made to the "Expanded sidebar" preset type. The stylization errors of the action buttons and social buttons area have been fixed.
+* Fix: Added minor fixes to prevent changes to Groovy Menu styles from WordPress templates.
+* Fix: Fixed a problem in working with Divi builder. If the menu_block created using Divi builder was used in the Groovy Menu, then the link to the editor in wp-adminbar was replaced.
+
+= 2.2.2 =
+* Added: New option "Change Top level menu background color when the submenu is opened".
+* Improve: JavaScript files has been optimized. As a result, the JS file sizes has been seriously reduced. Now Groovy Menu loads faster.
+
+= 2.2.1 =
+* Fix: Fixed the flicker effect when you click on the active anchor link.
+
+= 2.2.0 =
+* Added: Added a new type of menu "Expanding sidebar".
+* Added: Added logo paddings settings for "Expanding sidebar".
+* Added: New option for the logo position " Enable fit logotype to the sidebar area" for menu type "Icon Sidebar".
 
 = 2.1.1 =
 * Improve: Added the Element (widget) for Elementor builder.

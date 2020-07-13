@@ -1,8 +1,15 @@
 <?php
+/**
+* Copyright: (C) 2013 - 2020 José Conti
+*/
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
+
+/**
+* Copyright: (C) 2013 - 2020 José Conti
+*/
 
 class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 	var $notify_url;
@@ -12,6 +19,9 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 	 * @access public
 	 * @return void
 	 */
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	public function __construct() {
 		global $woocommerce, $checkfor254;
 		$this->id = 'redsysbank';
@@ -48,6 +58,9 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 		$this->codigoswift    = $this->get_option( 'codigoswift' );
 		$this->iban           = $this->get_option( 'iban' );
 		$this->beneficiario   = $this->get_option( 'beneficiario' );
+		$this->buttoncheckout = $this->get_option( 'buttoncheckout' );
+		$this->butonbgcolor   = $this->get_option( 'butonbgcolor' );
+		$this->butontextcolor = $this->get_option( 'butontextcolor' );
 		$this->log            = new WC_Logger();
 		// Actions.
 		add_action( 'valid_redsysbank_standard_ipn_request', array( $this, 'successful_request' ) );
@@ -66,6 +79,9 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 	 * @access public
 	 * @return bool
 	 */
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function is_valid_for_use() {
 
 		if ( ! in_array( get_woocommerce_currency(), WCRed()->allowed_currencies(), true ) ) {
@@ -79,6 +95,9 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 	 *
 	 * @since 1.0.0
 	 */
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	public function admin_options() {
 		?>
 		<h3><?php esc_html_e( 'Redsys Bank Transfer', 'woocommerce-redsys' ); ?></h3>
@@ -117,6 +136,9 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 	 * @access public
 	 * @return void
 	 */
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function init_form_fields() {
 		$this->form_fields = array(
 			'enabled'        => array(
@@ -143,6 +165,23 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 				'type'        => 'text',
 				'description' => __( 'Add link to image logo.', 'woocommerce-redsys' ),
 				'desc_tip'    => true,
+			),
+			'buttoncheckout'      => array(
+				'title'       => __( 'Button Checkout Text', 'woocommerce-redsys' ),
+				'type'        => 'text',
+				'description' => __( 'Add the button text at the checkout.', 'woocommerce-redsys' ),
+			),
+			'butonbgcolor'          => array(
+				'title'       => __( 'Button Color Background', 'woocommerce-redsys' ),
+				'type'        => 'text',
+				'description' => __( 'This if button Color Background Place Order at Checkout', 'woocommerce-redsys' ),
+				'class'       => 'colorpick',
+			),
+			'butontextcolor'          => array(
+				'title'       => __( 'Color text Button', 'woocommerce-redsys' ),
+				'type'        => 'text',
+				'description' => __( 'This if button text color Place Order at Checkout', 'woocommerce-redsys' ),
+				'class'       => 'colorpick',
 			),
 			'customer'       => array(
 				'title'       => __( 'Commerce number (FUC)', 'woocommerce-redsys' ),
@@ -225,6 +264,9 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 			$this->form_fields['redsyslanguage']['options'][$redsyslanguage] = $valor;
 		}
 	}
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function get_redsys_args( $order ) {
 		global $woocommerce;
 		$order_id         = $order->get_id();
@@ -300,6 +342,9 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 	 * @param mixed $order_id
 	 * @return string
 	 */
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function generate_redsys_form( $order_id ) {
 		global $woocommerce;
 
@@ -377,6 +422,9 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 	 * @param int $order_id
 	 * @return array
 	 */
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function process_payment( $order_id ) {
 		$order = new WC_Order( $order_id );
 		return array(
@@ -390,6 +438,9 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 	 * @access public
 	 * @return void
 	 */
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function receipt_page( $order ) {
 		echo '<p>' . esc_html__( 'Thank you for your order, please click the button below to pay by Bank Transfer.', 'woocommerce-redsys' ) . '</p>';
 		echo $this->generate_redsys_form( $order );
@@ -397,6 +448,9 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 	/**
 	 * Check redsys IPN validity
 	 **/
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function check_ipn_request_is_valid() {
 		global $woocommerce;
 
@@ -446,6 +500,9 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 	 * @access public
 	 * @return void
 	 */
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function check_ipn_response() {
 		@ob_clean();
 		$_POST = stripslashes_deep( $_POST );
@@ -463,6 +520,9 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 	 * @param array $posted
 	 * @return void
 	 */
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function successful_request( $posted ) {
 		global $woocommerce;
 		$version           = sanitize_text_field( $_POST['Ds_SignatureVersion'] );
@@ -559,12 +619,17 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 	 * @param mixed $order_id
 	 * @return void
 	 */
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function get_redsys_order( $order_id ) {
 		$order = new WC_Order( $order_id );
 		return $order;
 	}
 }
-
+/**
+* Copyright: (C) 2013 - 2020 José Conti
+*/
 function woocommerce_add_gateway_bank_transfer_gateway( $methods ) {
 	$methods[] = 'WC_Gateway_Redsys_Bank_Transfer';
 	return $methods;

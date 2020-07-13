@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Anti Fraud
  * Plugin URI: https://woocommerce.com/products/woocommerce-anti-fraud/
  * Description: Score each of your transactions, checking for possible fraud, using a set of advanced scoring rules.
- * Version: 2.7.2
+ * Version: 2.7.3
  * Author: WooCommerce
  * Author URI: https://woocommerce.com/
  * License: GPL v3
@@ -26,23 +26,29 @@
  *
  * Copyright (c) 2017 WooCommerce.
 */
-
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-} // Exit if accessed directly
 /**
  * Required functions
  */
-if ( ! function_exists( 'woothemes_queue_update' ) ) {
-	require_once( plugin_dir_path( __FILE__ ) . '/woo-includes/woo-functions.php' );
-}
 
-/**
- * Plugin updates
- */
-woothemes_queue_update( plugin_basename( __FILE__ ), '955da0ce83ea5a44fc268eb185e46c41', '500217' );
+	if ( ! function_exists( 'woothemes_queue_update' ) ) {
+		require_once( plugin_dir_path( __FILE__ ) . '/woo-includes/woo-functions.php' );
+	}
+	/**
+	 * Plugin updates
+	 */
+	woothemes_queue_update( plugin_basename( __FILE__ ), '955da0ce83ea5a44fc268eb185e46c41', '500217' );
 
-define( 'WOOCOMMERCE_ANTI_FRAUD_VERSION', '2.7.2' );
+
+	if ( ! defined( 'ABSPATH' ) ) {
+		exit;
+	} // Exit if accessed directly
+
+
+
+
+
+
+	define( 'WOOCOMMERCE_ANTI_FRAUD_VERSION', '2.7.3' );
 
 class WooCommerce_Anti_Fraud {
 
@@ -93,7 +99,45 @@ class WooCommerce_Anti_Fraud {
 		add_action( 'wp_ajax_my_action',array($this, 'my_action' ));
 		add_action( 'wp_ajax_nopriv_my_action',array($this, 'my_action' ) );
 		add_action('init',array( $this,'paypal_verification' ) );
+		add_action( 'woocommerce_admin_order_data_after_order_details',array( $this, 'kia_display_order_data_in_admin' ) );
+		
+		// Ajax For whitlist email check 
+		add_action( 'wp_ajax_check_blacklist_whitelist', array($this,'check_blacklist_whitelist' ) );
+		add_action( 'wp_ajax_nopriv_check_blacklist_whitelist', array($this,'check_blacklist_whitelist' ) );
+		
 	}
+	
+    function check_blacklist_whitelist() {
+		$blocked_email = get_option('wc_settings_anti_fraudblacklist_emails');
+		$array_mail = explode(',',$blocked_email);
+		$whitelistarray = $_POST['whitelist'];
+		$expwhitearray = explode("\n",$whitelistarray);
+		$result = array_diff($array_mail, $expwhitearray);
+		$finalblocklist = implode(",",$result);
+		
+		update_option('wc_settings_anti_fraudblacklist_emails',$finalblocklist);
+
+		echo $finalblocklist;
+		die;
+		
+	} 
+
+	// display the extra data in the order admin panel
+	public function kia_display_order_data_in_admin( $order ){  
+		$blocked_email = get_option('wc_settings_anti_fraudblacklist_emails');
+		$array_mail = explode(',',$blocked_email);
+		$orderemail = $order->get_billing_email();
+		foreach($array_mail as $single){
+			if($orderemail == $single){
+				?>
+				<p class="form-field form-field-wide">
+					<?php echo '<h3 style="color:red;"><strong>' . __( 'This email id is blocked' ) . '</strong></h3>'; ?>
+				</p>
+				<?php 	
+			}
+		} 
+	}
+
 
 	/**
 	 * Check if WooCommerce is active
@@ -107,6 +151,7 @@ class WooCommerce_Anti_Fraud {
 
 		$is_active = WC_Dependencies::woocommerce_active_check();
 
+		
 		// Do the WC active check
 		if ( false === $is_active ) {
 			add_action( 'admin_notices', array( $this, 'notice_activate_wc' ) );
@@ -174,17 +219,19 @@ class WooCommerce_Anti_Fraud {
 			$order_id = base64_decode($_REQUEST['order_id']);
 			update_post_meta($order_id,'wc_af_paypal_verification',true);
 			$order = new WC_Order($order_id);
+			echo "<script type='text/javascript'>
+			alert('Your Paypal Email verified Successfully')</script>";
 			$status = $order->update_status('processing');
-			
 		}
 	}
+	
 	//TO Do Test
 	public function my_action(){
-		
 		$help_class = new WC_AF_Score_Helper;
 		$help_class->do_check($_POST['order_id']);
 		die();
 	}
+	
 	//TO DO
 	public function admin_scripts() {
 		wp_enqueue_script('cal', plugins_url( 'assets/js/cal.js', __FILE__ ) );
@@ -313,29 +360,29 @@ class WooCommerce_Anti_Fraud {
 	}
 
 	public function paypal_email_subject(){
-		return get_bloginfo( 'name' ).' Confirm your PayPal email address';
-	}
-}
-add_action('profile_update', 'sync_woocommerce_email', 10, 2) ;
-
-function sync_woocommerce_email( $user_id, $old_user_data ) {
-    $current_user = wp_get_current_user();
-
-    if ($current_user->user_email != $old_user_data->user_email) {
-        wp_update_user( array ( 'ID' => $current_user->ID, 'billing_email' => $current_user->user_email ) ) ;
-     }
-}
-//custom code for block order if email in blacklist.
-add_action( 'woocommerce_after_checkout_validation', 'misha_validate_fname_lname', 10, 2);
-function misha_validate_fname_lname( $fields, $errors ){
-	$blocked_email = get_option('wc_settings_anti_fraudblacklist_emails');
-	$array_mail = explode(',',$blocked_email);
-	foreach($array_mail as $single){
-		if($_POST[ 'billing_email' ] == $single){
-			$errors->add( 'validation', 'This email id is blocked please contact with admin' );
+			return get_bloginfo( 'name' ).' Confirm your PayPal email address';
 		}
 	}
-}
+	add_action('profile_update', 'sync_woocommerce_email', 10, 2) ;
+
+	function sync_woocommerce_email( $user_id, $old_user_data ) {
+		$current_user = wp_get_current_user();
+
+		if ($current_user->user_email != $old_user_data->user_email) {
+			wp_update_user( array ( 'ID' => $current_user->ID, 'billing_email' => $current_user->user_email ) ) ;
+		 }
+	}
+	//custom code for block order if email in blacklist.
+	add_action( 'woocommerce_after_checkout_validation', 'misha_validate_fname_lname', 10, 2);
+	function misha_validate_fname_lname( $fields, $errors ){
+		$blocked_email = get_option('wc_settings_anti_fraudblacklist_emails');
+		$array_mail = explode(',',$blocked_email);
+		foreach($array_mail as $single){
+			if($_POST[ 'billing_email' ] == $single){
+				$errors->add( 'validation', 'This email id is blocked please contact with admin' );
+			}
+		}
+	}
 
 //echo get_option('wc_af_paypal_verification');die;
 new WooCommerce_Anti_Fraud();

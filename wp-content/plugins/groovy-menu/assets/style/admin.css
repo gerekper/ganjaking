@@ -4003,7 +4003,7 @@ GROOVY MENU SELECT
   font-size: 16px; }
 
 .gm-gui__module .gm-gui__header-types__options__list .select {
-  min-width: 150px; }
+  min-width: 170px; }
 
 .select-styled {
   position: static;
@@ -4233,10 +4233,10 @@ HEADER TYPES
   background-position: 0 -568px; }
 
 .style-3-align-right .gm-gui__header-types__preview {
-  background-position: 0 -284px; }
+  background-position: right -284px; }
 
 .style-3-align-right.toolbar-true .gm-gui__header-types__preview {
-  background-position: 0 -852px; }
+  background-position: right -852px; }
 
 /* Style 4 */
 .style-4-align-left .gm-gui__header-types__preview {
@@ -4246,10 +4246,23 @@ HEADER TYPES
   background-position: 0 -1988px; }
 
 .style-4-align-right .gm-gui__header-types__preview {
-  background-position: -10px -1136px; }
+  background-position: right -1136px; }
 
 .style-4-align-right.toolbar-true .gm-gui__header-types__preview {
-  background-position: -10px -1704px; }
+  background-position: right -1704px; }
+
+/* Style 5 */
+.style-5-align-left .gm-gui__header-types__preview {
+  background-position: 0 -5964px; }
+
+.style-5-align-left.toolbar-true .gm-gui__header-types__preview {
+  background-position: 0 -6532px; }
+
+.style-5-align-right .gm-gui__header-types__preview {
+  background-position: right -5680px; }
+
+.style-5-align-right.toolbar-true .gm-gui__header-types__preview {
+  background-position: right -6248px; }
 
 /***************************************
 Hover styles

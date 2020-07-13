@@ -95,13 +95,13 @@ function checkTerminal($terminal) {
 }
 
 function generateIdLog() {
-    $vars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    $stringLength = strlen($vars);
-    $result = '';
-    for ($i = 0; $i < 20; $i++) {
-        $result .= $vars[rand(0, $stringLength - 1)];
-    }
-    return $result;
+	$vars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+	$stringLength = strlen($vars);
+	$result = '';
+	for ( $i = 0; $i < 20; $i++ ) {
+		$result .= $vars[rand(0, $stringLength - 1)];
+	}
+	return $result;
 }
 
 

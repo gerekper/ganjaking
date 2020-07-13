@@ -1,4 +1,7 @@
 <?php
+/**
+* Copyright: (C) 2013 - 2020 José Conti
+*/
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
@@ -6,14 +9,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
 * Gateway class
 */
-
+/**
+* Copyright: (C) 2013 - 2020 José Conti
+*/
 class WC_Gateway_Redsys_Global {
 	
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function get_order( $order_id ) {
 		$order = new WC_Order( $order_id );
 		return $order;
 	}
 	
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function get_ds_error() {
 
 		include_once REDSYS_PLUGIN_DATA_PATH . 'dserrors.php';
@@ -22,7 +33,9 @@ class WC_Gateway_Redsys_Global {
 		$dserrors = redsys_return_dserrors();
 		return $dserrors;
 	}
-
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function get_ds_response() {
 		
 		include_once REDSYS_PLUGIN_DATA_PATH . 'dsresponse.php';
@@ -31,7 +44,9 @@ class WC_Gateway_Redsys_Global {
 		$dsresponse = redsys_return_dsresponse();
 		return $dsresponse;
 	}
-	
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function get_msg_error() {
 
 		include_once REDSYS_PLUGIN_DATA_PATH . 'insiteerrors.php';
@@ -40,7 +55,9 @@ class WC_Gateway_Redsys_Global {
 		$msgerrors = redsys_return_insiteerrors();
 		return $msgerrors;
 	}
-	
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function is_ds_error( $error_code = null ) {
 		
 		$ds_errors = array();
@@ -58,7 +75,9 @@ class WC_Gateway_Redsys_Global {
 		}
 		return false;
 	}
-	
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function is_ds_response( $error_code = null ) {
 		
 		$ds_response  = array();
@@ -75,7 +94,9 @@ class WC_Gateway_Redsys_Global {
 		}
 		return false;
 	}
-	
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function is_msg_error( $error_code = null ) {
 		
 		$msg_errors = array();
@@ -93,7 +114,9 @@ class WC_Gateway_Redsys_Global {
 		}
 		return false;
 	}
-	
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function get_msg_error_by_code( $error_code = null ) {
 
 		$smg_errors = array();
@@ -116,7 +139,9 @@ class WC_Gateway_Redsys_Global {
 		}
 		return false;
 	}
-
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function get_error_by_code( $error_code = null ) {
 
 		$ds_errors = array();
@@ -139,7 +164,9 @@ class WC_Gateway_Redsys_Global {
 		}
 		return false;
 	}
-	
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function get_response_by_code( $error_code = null ) {
 
 		$ds_responses = array();
@@ -162,7 +189,9 @@ class WC_Gateway_Redsys_Global {
 		}
 		return false;
 	}
-	
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function is_redsys_error( $error_code = null ) {
 		
 		if ( $error_code ) {
@@ -178,7 +207,9 @@ class WC_Gateway_Redsys_Global {
 		}
 		return false;
 	}
-	
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function get_error( $error_code = null ) {
 		
 		if ( $error_code ) {
@@ -194,7 +225,9 @@ class WC_Gateway_Redsys_Global {
 		}
 		return false;
 	}
-	
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function get_error_type( $error_code = null ) {
 		
 		if ( $error_code ) {
@@ -210,7 +243,9 @@ class WC_Gateway_Redsys_Global {
 		}
 		return false;
 	}
-
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function get_currencies() {
 
 		include_once REDSYS_PLUGIN_DATA_PATH . 'currencies.php';
@@ -219,7 +254,9 @@ class WC_Gateway_Redsys_Global {
 		$currencies = redsys_return_currencies();
 		return $currencies;
 	}
-	
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function allowed_currencies() {
 		
 		include_once REDSYS_PLUGIN_DATA_PATH . 'allowed-currencies.php';
@@ -228,7 +265,9 @@ class WC_Gateway_Redsys_Global {
 		$currencies = redsys_return_allowed_currencies();
 		return $currencies;
 	}
-	
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function get_redsys_languages() {
 		
 		include_once REDSYS_PLUGIN_DATA_PATH . 'languages.php';
@@ -237,7 +276,9 @@ class WC_Gateway_Redsys_Global {
 		$languages = redsys_return_languages();
 		return $languages;
 	}
-	
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function get_redsys_wp_languages() {
 		
 		include_once REDSYS_PLUGIN_DATA_PATH . 'wplanguages.php';
@@ -246,7 +287,9 @@ class WC_Gateway_Redsys_Global {
 		$languages = redsys_return_all_languages_code();
 		return $languages;
 	}
-	
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function get_orders_type() {
 		
 		include_once REDSYS_PLUGIN_DATA_PATH . 'redsys-types.php';
@@ -255,7 +298,9 @@ class WC_Gateway_Redsys_Global {
 		$types = redsys_return_types();
 		return $types;
 	}
-	
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function get_lang_code( $lang = 'en' ) {
 		 
 		 $languages = array();
@@ -273,7 +318,9 @@ class WC_Gateway_Redsys_Global {
 			return '2';
 		}
 	}
-	
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function order_exist( $order_id ) {
 		$post_status = get_post_status( $order_id );
 		
@@ -288,7 +335,9 @@ class WC_Gateway_Redsys_Global {
 			}
 		}
 	}
-	
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function post_exist( $order_id ) {
 		$post_status = get_post_status( $order_id );
 		
@@ -298,7 +347,9 @@ class WC_Gateway_Redsys_Global {
 			return true;
 		}
 	}
-	
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function is_redsys_order( $order_id, $type = null ) {
 		
 		$post_status = $this->order_exist( $order_id );
@@ -329,7 +380,9 @@ class WC_Gateway_Redsys_Global {
 		}
 		return false;
 	}
-	
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function get_gateway( $order_id ) {
 		
 		$post_status = $this->order_exist( $order_id );
@@ -342,7 +395,9 @@ class WC_Gateway_Redsys_Global {
 			return false;
 		}
 	}
-	
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function get_order_date( $order_id ) {
 		$date_decoded = str_replace( '%2F', '/', get_post_meta( $order_id, '_payment_date_redsys', true ) );
 		if ( ! $date_decoded ) {
@@ -350,7 +405,9 @@ class WC_Gateway_Redsys_Global {
 		}
 		return $date_decoded;
 	}
-	
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function get_order_hour( $order_id ) {
 		$hour_decoded = str_replace( '%3A', ':', get_post_meta( $order_id, '_payment_hour_redsys', true ) );
 		if ( ! $hour_decoded ) {
@@ -358,7 +415,9 @@ class WC_Gateway_Redsys_Global {
 		}
 		return $hour_decoded;
 	}
-	
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function get_order_auth( $order_id ) {
 		$auth = get_post_meta( $order_id, '_authorisation_code_redsys', true );
 		if ( ! $auth ) {
@@ -366,7 +425,9 @@ class WC_Gateway_Redsys_Global {
 		}
 		return $auth;
 	}
-	
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function get_status_pending() {
 		
 		include_once REDSYS_PLUGIN_DATA_PATH . 'redsys-status-paid.php';
@@ -375,7 +436,9 @@ class WC_Gateway_Redsys_Global {
 		$status = redsys_return_status_paid();
 		return apply_filters( 'redsys_status_pending', $status );
 	}
-	
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function is_paid( $order_id ) {
 		if ( $this->order_exist( $order_id ) ) {
 			$status_paid = array();
@@ -397,7 +460,9 @@ class WC_Gateway_Redsys_Global {
 			return false;
 		}
 	}
-	
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function get_redsys_option( $option, $gateway ) {
 		
 		$options = get_option( 'woocommerce_' . $gateway . '_settings' );
@@ -414,7 +479,9 @@ class WC_Gateway_Redsys_Global {
 			return false;
 		}
 	}
-	
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function is_gateway_enabled( $gateway ) {
 		$is_enabled = $this->get_redsys_option( 'enabled', $gateway );
 		
@@ -424,7 +491,9 @@ class WC_Gateway_Redsys_Global {
 			return false;
 		}
 	}
-	
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function check_if_token_is_valid( $token_id ) {
 
 		$token     = WC_Payment_Tokens::get( $token_id );
@@ -447,7 +516,9 @@ class WC_Gateway_Redsys_Global {
 			return false;
 		}
 	}
-	
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function get_redsys_users_token() {
 		$customer_token = null;
 		if ( is_user_logged_in() ) {
@@ -464,7 +535,9 @@ class WC_Gateway_Redsys_Global {
 		}
 		return $customer_token;
 	}
-	
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function get_users_token_bulk( $user_id ) {
 		$customer_token = null;
 		$tokens = WC_Payment_Tokens::get_customer_tokens( $user_id, 'redsys' );
@@ -479,18 +552,24 @@ class WC_Gateway_Redsys_Global {
 		}
 		return $customer_token;
 	}
-	
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function clean_order_number( $ordernumber ) {
 		return substr( $ordernumber, 3 );
 	}
-	
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function prepare_order_number( $order_id ) {
 		$transaction_id   = str_pad( $order_id , 12 , '0' , STR_PAD_LEFT );
 		$transaction_id1  = mt_rand( 1, 999 ); // lets to create a random number
 		$transaction_id2  = substr_replace( $transaction_id, $transaction_id1, 0,-9 ); // new order number
 		return $transaction_id2;
 	}
-	
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function redsys_amount_format( $total ) {
 		$order_total_sign = number_format( $total, 2, '', '' );
 		return $order_total_sign;

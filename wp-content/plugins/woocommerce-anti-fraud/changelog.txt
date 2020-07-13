@@ -1,7 +1,13 @@
 *** WooCommerce Anti Fraud ***
 
+2020-07-10 version 2.7.3
+* PLUGINS-421 PLUGINS-339 Fixed Email and order status function for WC 4.0
+* PLUGINs-405 Fixed First Order Message Changed.
+* PLUGINS-348 Fixed Whitelist function issue.
+* PLUGINS-406 Paypal email verification issue.
+
 2020-05-25 version 2.7.2
-* PLUGINS-124 - Fixed verify fraud email or generated email
+* PLUGINS-124 - Fixed verify froud email or generated email
 * PLUGINS-339 - version check and alternative strategy for WC 4.0
 
 2020-02-14 version 2.7.1

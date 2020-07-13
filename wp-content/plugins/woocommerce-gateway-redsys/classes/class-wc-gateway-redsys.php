@@ -1,9 +1,13 @@
 <?php
-
+/**
+* Copyright: (C) 2013 - 2020 José Conti
+*/
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
-
+/**
+* Copyright: (C) 2013 - 2020 José Conti
+*/
 class WC_Gateway_Redsys extends WC_Payment_Gateway {
 	var $notify_url;
 	/**
@@ -12,6 +16,9 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 	 * @access public
 	 * @return void
 	 */
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	public function __construct() {
 		global $checkfor254;
 
@@ -64,12 +71,13 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		$this->bulkrefund           = $this->get_option( 'bulkrefund' );
 		$this->sendemails           = $this->get_option( 'sendemails' );
 		$this->checkoutredirect     = $this->get_option( 'checkoutredirect' );
+		$this->showthankyourecipe   = $this->get_option( 'showthankyourecipe' );
 		if ( WCRed()->is_gateway_enabled( 'preauthorizationsredsys' ) ) {
 			$this->preauthorization = 'no';
 		} else {
 			$this->preauthorization = $this->get_option( 'preauthorization' );
 		}
-		$this->redsysdirectdeb      = $this->get_option( 'redsysdirectdeb' );
+		$this->redsysdirectdeb      = 'T';
 		$this->privateproduct       = $this->get_option( 'privateproduct' );
 		$this->sentemailscustomers  = $this->get_option( 'sentemailscustomers' );
 		$this->sendemailthankyou    = $this->get_option( 'sendemailthankyou' );
@@ -79,6 +87,9 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		$this->redsysbanktransfer   = $this->get_option( 'redsysbanktransfer' );
 		$this->redirectiontime      = $this->get_option( 'redirectiontime' );
 		$this->sendemailsdscard     = $this->get_option( 'sendemailsdscard' );
+		$this->buttoncheckout       = $this->get_option( 'buttoncheckout' );
+		$this->butonbgcolor         = $this->get_option( 'butonbgcolor' );
+		$this->butontextcolor       = $this->get_option( 'butontextcolor' );
 		$this->log                  = new WC_Logger();
 		$this->supports             = array(
 			'products',
@@ -106,9 +117,9 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		add_filter( 'handle_bulk_actions-edit-shop_order', array( $this, 'redsys_bulk_actions_handler'), 10, 3 );
 		add_action( 'woocommerce_before_checkout_form', array( $this, 'warning_checkout_test_mode' ) );
 		if ( WCRed()->is_gateway_enabled( 'preauthorizationsredsys' ) ) {
-			$class_preauthorizations = new WC_Gateway_Preauthorizations_Redsys();
-			add_filter( 'bulk_actions-edit-shop_order',  array( $class_preauthorizations, 'preauthorizationsredsys_add_bulk_actions' ), 10, 1 );
-			add_filter( 'handle_bulk_actions-edit-shop_order',  array( $class_preauthorizations, 'preauthorizationsredsys_bulk_actions_handler' ),  10, 3 );
+			//$class_preauthorizations = new WC_Gateway_Preauthorizations_Redsys();
+			add_filter( 'bulk_actions-edit-shop_order', 'WC_Gateway_Preauthorizations_Redsys::preauthorizationsredsys_add_bulk_actions', 10, 1 );
+			add_filter( 'handle_bulk_actions-edit-shop_order', 'WC_Gateway_Preauthorizations_Redsys::preauthorizationsredsys_bulk_actions_handler',  10, 3 );
 		}
 
 		if ( class_exists( 'WC_Subscriptions_Order' ) ) {
@@ -119,7 +130,9 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			$this->enabled = false;
 		}
 	}
-
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	public static function admin_notice_mcrypt_encrypt() {
 		if ( version_compare( PHP_VERSION, '7.0.0', '<' ) ) {
 			if ( ! function_exists( 'mcrypt_encrypt' ) ) {
@@ -138,6 +151,9 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 	 * @access public
 	 * @return bool
 	 */
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function is_valid_for_use() {
 
 		if ( ! in_array( get_woocommerce_currency(), WCRed()->allowed_currencies(), true ) ) {
@@ -152,6 +168,9 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 	 *
 	 * @since 1.0.0
 	 */
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	public function admin_options() {
 		?>
 		<h3><?php esc_html_e( 'Servired/RedSys Spain', 'woocommerce-redsys' ); ?></h3>
@@ -200,6 +219,9 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 	 * @access public
 	 * @return void
 	 */
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function init_form_fields() {
 
 		$options    = array();
@@ -229,16 +251,12 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				'type'        => 'text',
 				'description' => __( 'If you want users to be immediately redirected to the payment gateway when they press the pay button, don\'t add anything. If you want to give them time to think about it, add the seconds in milliseconds, for example, 5 seconds are 5000 milliseconds.', 'woocommerce-redsys' ),
 			),
-			'redsysdirectdeb'      => array(
-				'title'       => __( 'Payment Type', 'woocommerce-redsys' ),
-				'type'        => 'select',
-				'description' => __( 'Select type of payment at Redsys Gateway. If you chose activate Direct debit, ensure that this option is enabled by your Bank, just select this option if all your customers have to do direct debit. If you chose Credit Card + Direct debit, you cannot use Pay with one click or Preauthorizations, so it will not be used', 'woocommerce-redsys' ),
-				'default'     => 'T',
-				'options'     => array(
-					'T'  => __( 'Credit Card', 'woocommerce-redsys' ),
-					'D'  => __( 'Direct debit', 'woocommerce-redsys' ),
-					'TD' => __( 'Credit Card + Direct debit', 'woocommerce-redsys' ),
-				),
+			'showthankyourecipe'   => array(
+				'title'       => __( 'Show Redsys Authorization Code at the Thank You Page', 'woocommerce-redsys' ),
+				'type'        => 'checkbox',
+				'description' => __( 'If you have asked the bank to redirect customers to your site after payment without them having to click on "continue", you must activate this option so that the authorization number requested by Redsys is displayed.', 'woocommerce-redsys' ),
+				'label'       => __( 'Enable Show Authorization Code', 'woocommerce-redsys' ),
+				'default'     => 'no',
 			),
 			'usetokens'            => array(
 				'title'       => __( 'Pay with One Click', 'woocommerce-redsys' ),
@@ -342,6 +360,23 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				'type'        => 'text',
 				'description' => __( 'Add link to image logo for Gateway at checkout.', 'woocommerce-redsys' ),
 				'desc_tip'    => true,
+			),
+			'buttoncheckout'      => array(
+				'title'       => __( 'Button Checkout Text', 'woocommerce-redsys' ),
+				'type'        => 'text',
+				'description' => __( 'Add the button text at the checkout.', 'woocommerce-redsys' ),
+			),
+			'butonbgcolor'          => array(
+				'title'       => __( 'Button Color Background', 'woocommerce-redsys' ),
+				'type'        => 'text',
+				'description' => __( 'This if button Color Background Place Order at Checkout', 'woocommerce-redsys' ),
+				'class'       => 'colorpick',
+			),
+			'butontextcolor'          => array(
+				'title'       => __( 'Color text Button', 'woocommerce-redsys' ),
+				'type'        => 'text',
+				'description' => __( 'This if button text color Place Order at Checkout', 'woocommerce-redsys' ),
+				'class'       => 'colorpick',
 			),
 			'customer'             => array(
 				'title'       => __( 'Commerce number (FUC)', 'woocommerce-redsys' ),
@@ -480,6 +515,9 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		}
 	}
 
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function check_user_test_mode( $userid ) {
 
 		$usertest_active = $this->testforuser;
@@ -562,6 +600,9 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		}
 	}
 
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function get_redsys_url_gateway( $user_id, $type = 'rd' ) {
 
 		if ( 'yes' === $this->testmode ) {
@@ -631,6 +672,9 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		return $url;
 	}
 
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function get_redsys_sha256( $user_id ) {
 
 		if ( 'yes' === $this->testmode ) {
@@ -705,6 +749,9 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		return $sha256;
 	}
 
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function get_redsys_args( $order ) {
 
 		if ( 'yes' === $this->debug ) {
@@ -946,6 +993,9 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		return $redsys_args;
 	}
 
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function redsys_get_tag_content( $tag, $xml ) {
 		$retorno = null;
 
@@ -963,6 +1013,9 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		return $retorno;
 	}
 
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function redsys_process_payment_token( $order_id ) {
 
 		if ( 'yes' === $this->debug ) {
@@ -1235,6 +1288,9 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 	 * @param mixed $order_id
 	 * @return string
 	 */
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function generate_redsys_form( $order_id ) {
 		global $woocommerce;
 
@@ -1319,6 +1375,9 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 	 * @param mixed $order_id
 	 * @return string
 	 */
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function generate_redsys_subscription_form( $order_id ) {
 		global $woocommerce;
 
@@ -1375,6 +1434,9 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		</form>';
 	}
 
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	public function process_subscription_payment( $order, $amount = 0 ) {
 
 		if ( 0 == $amount ) {
@@ -1677,6 +1739,9 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		}
 	}
 
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	public function doing_scheduled_subscription_payment( $amount_to_charge, $renewal_order ) {
 
 		$order_id    = $renewal_order->get_id();
@@ -2072,6 +2137,9 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 	 * @param int $order_id
 	 * @return array
 	 */
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function process_payment( $order_id ) {
 		$order = WCRed()->get_order( $order_id );
 		return array(
@@ -2085,6 +2153,9 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 	 * @access public
 	 * @return void
 	 */
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function receipt_page( $order ) {
 
 		if ( 'yes' === $this->debug ) {
@@ -2175,6 +2246,9 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Check redsys IPN validity
 	 **/
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function check_ipn_request_is_valid() {
 
 		if ( 'yes' === $this->debug ) {
@@ -2298,6 +2372,9 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 	 * @access public
 	 * @return void
 	 */
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function check_ipn_response() {
 		if ( 'yes' === $this->debug ) {
 			$this->log->add( 'redsys', ' ' );
@@ -2322,6 +2399,9 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 	 * @param array $posted
 	 * @return void
 	 */
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function successful_request( $posted ) {
 
 		if ( 'yes' === $this->debug ) {
@@ -2389,7 +2469,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			}
 		}
 
-		if ( ( class_exists( 'WC_Subscriptions_Order' ) && wcs_order_contains_subscription( $order->get_id() ) && $response  <= 99 )  || ( ( 'yes' === $this->usetokens ) && ( ! empty( $dsmerchantidenti ) ) && ( '3' !== $dstransactiontype ) && ( '2' !== $dstransactiontype ) && ( 'yes' !== $this->redsysdirectdeb ) && $response  <= 99 ) ) {
+		if ( ( class_exists( 'WC_Subscriptions_Order' ) && 'yes' !== $this->subsusetokensdisable && wcs_order_contains_subscription( $order->get_id() ) && $response  <= 99 )  || ( ( 'yes' === $this->usetokens ) && ( ! empty( $dsmerchantidenti ) ) && ( '3' !== $dstransactiontype ) && ( '2' !== $dstransactiontype ) && ( 'yes' !== $this->redsysdirectdeb ) && $response  <= 99 ) ) {
 			$dscardnumbercompl  = $miObj->getParameter( 'Ds_Card_Number' );
 			if ( '1' === $dscardbrand ) {
 				$dscardbrand = 'Visa';
@@ -2575,7 +2655,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			} else {
 				set_transient( $order->get_id() . '_redsys_collect', 'yes' );
 			}
-			if ( ( class_exists( 'WC_Subscriptions_Order' ) && wcs_order_contains_subscription( $order->get_id() ) ) || ( ( 'yes' === $this->usetokens ) && ( ! empty( $dsmerchantidenti ) ) && ( '0' === $dsmechandata || '1' === $dsmechandata ) ) ) {
+			if ( ( class_exists( 'WC_Subscriptions_Order' ) && 'yes' !== $this->subsusetokensdisable && wcs_order_contains_subscription( $order->get_id() ) ) || ( ( 'yes' === $this->usetokens ) && ( ! empty( $dsmerchantidenti ) ) && ( '0' === $dsmechandata || '1' === $dsmechandata ) ) ) {
 				$user_id = $order->get_user_id();
 				$tokens  = WC_Payment_Tokens::get_customer_tokens( $user_id, 'redsys' );
 				if ( empty( $tokens ) ) {
@@ -2921,6 +3001,9 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		}
 	}
 
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function ask_for_refund( $order_id, $transaction_id, $amount ) {
 
 		//post code to REDSYS
@@ -3064,6 +3147,9 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		return true;
 	}
 
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function check_redsys_refund( $order_id ) {
 		// check postmeta
 		$order        = WCRed()->get_order( (int) $order_id );
@@ -3082,7 +3168,9 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			return false;
 		}
 	}
-
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function ask_for_confirm_preauthorization( $order_id, $transaction_id, $amount ) {
 
 		//post code to REDSYS
@@ -3189,6 +3277,9 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		return true;
 	}
 
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function ask_for_collect_remainder( $order_id, $amount ) {
 
 		//post code to REDSYS
@@ -3304,6 +3395,9 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		return true;
 	}
 
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function check_confirm_preauth( $order_id ) {
 
 		$order         = WCRed()->get_order( (int)$order_id );
@@ -3319,6 +3413,9 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		}
 	}
 
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function check_collect_remainder( $order_id ) {
 
 		$order         = WCRed()->get_order( (int)$order_id );
@@ -3334,6 +3431,9 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		}
 	}
 
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	public static function redsys_preauthorized_js_callback() {
 		global $wpdb;
 
@@ -3399,6 +3499,9 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		wp_die();
 	}
 
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	public static function redsys_charge_depo_js_callback() {
 		global $wpdb;
 		
@@ -3496,6 +3599,9 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		wp_die();
 	}
 
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	public function process_refund( $order_id, $amount = null, $reason = '' ) {
 		// Do your refund here. Refund $amount for the order with ID $order_id _transaction_id
 		set_time_limit( 0 );
@@ -3572,6 +3678,9 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		}
 	}
 
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function redsys_add_bulk_actions( $bulk_actions ) {
 
 		if ( 'yes' === $this->bulkcharge ) {
@@ -3586,6 +3695,9 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		return $bulk_actions;
 	}
 
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	function redsys_bulk_actions_handler( $redirect_to, $doaction, $post_ids ) {
 
 		if ( 'yes' === $this->debug ) {
@@ -4093,6 +4205,9 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		}
 	}
 	
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
 	public function warning_checkout_test_mode() {
 		if ( 'yes' === $this->testmode && WCRed()->is_gateway_enabled( $this->id ) ) {
 			echo '<div class="checkout-message" style="

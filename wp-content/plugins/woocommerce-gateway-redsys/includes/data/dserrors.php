@@ -1,7 +1,13 @@
 <?php
 
+/*
+* Copyright: (C) 2013 - 2020 José Conti
+*/
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
+/*
+* Copyright: (C) 2013 - 2020 José Conti
+*/
 function redsys_return_dserrors() {
 	return array(
 		'SIS0007' => esc_html__( 'Error al desmontar el XML de entrada' , 'woocommerce-redsys' ),

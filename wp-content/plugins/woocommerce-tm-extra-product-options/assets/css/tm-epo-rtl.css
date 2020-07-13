@@ -46,3 +46,10 @@
 .tm-extra-product-options ul.tmcp-elements.use_images_container li.tmcp-field-wrap {
 	padding: 1em 0 0 0.25em;
 }
+
+.tm-extra-product-options .tm-epo-datepicker, .tm-extra-product-options .tm-epo-timepicker {
+    margin: 0 0 0 -2.5em  !important;
+    max-width: 100% !important;
+	padding-left: 2.5em !important;
+    padding-right: 1em !important;
+}

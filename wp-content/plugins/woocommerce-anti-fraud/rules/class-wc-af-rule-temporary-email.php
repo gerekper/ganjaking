@@ -179,26 +179,32 @@ class WC_AF_Rule_Temporary_Email extends WC_AF_Rule {
 		$risk = false;
 
 		// Do the regex
-		$regex_result = preg_match( "`@([a-zA-z0-9\-\_]+(?:\.[a-zA-Z]{0,5}){0,2})$`", ( version_compare( WC_VERSION, '3.0', '<' ) ? $order->billing_email : $order->get_billing_email() ), $email_domain );
-
+		$regex_result = preg_match( "`@([a-zA-z0-9\-\_]+(?:\.[a-zA-Z]{0,5}){0,2})$`", ( version_compare( WC_VERSION, '3.0', '<' ) ? $order->get_billing_email : $order->get_billing_email() ), $email_domain );
+ 
 		// Check if we've got a result
 		if ( 1 === $regex_result ) {
 
 			// Check if domain is in temporary domain array
 			if ( in_array( $email_domain[1], $temp_email_domains ) ) {
 				$risk = true;
-			}
-			$oemail = $order->billing_email;
-			$res = json_decode(file_get_contents("http://api.quickemailverification.com/v1/verify?email=$oemail&apikey=21fd6523f1d358eb368e1fd47a46006fa0ac5736b10e23564dc8c1a70b5a"));
+			} 
+			
+			$oemail = version_compare( WC_VERSION, '3.0', '<' ) ? $order->get_billing_email : $order->get_billing_email();
+			$oemail = preg_replace('/\s+/', '', $oemail);
+			$a=array("a"=>"7f132b5a9e86371b735b10d14cb6306c04ba4b67a9f6d1e2d28a25c54429","b"=>"2b5e3e331ec7961353eacacf9bff4995ddea794e562f211bb6544e0f16fe","c"=>"ba2decd8a42ea79a2c9e47705a3c6af2e3fbb7142fa8c7ab6b4f4401c94d");
+			$random_keys=array_rand($a,1);
+			$apikey = $a[$random_keys];
+			 
+			$res = json_decode(file_get_contents("https://api.quickemailverification.com/v1/verify?email=$oemail&apikey=$apikey"));
 			$data = $res->result;
 			if ( 'invalid' == $data  ) {
 				$risk = true;
 			}
-
 		}
-
 		return $risk;
 	}
+	
+	
 	//Enable rule check
 	public function is_enabled(){
 		if('yes' == $this->is_enabled){

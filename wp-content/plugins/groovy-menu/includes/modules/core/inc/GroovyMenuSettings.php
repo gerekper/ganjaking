@@ -353,11 +353,18 @@ if ( ! class_exists( 'GroovyMenuSettings' ) ) {
 
 				global $groovyMenuSettings;
 
+				$lic_opt = get_option( GROOVY_MENU_DB_VER_OPTION . '__lic' );
+
 				$args = array(
 					'id'    => 'groovy-menu-options',
 					'title' => '<span class="ab-icon groovy-icon"></span> ' . esc_html__( 'Groovy Menu', 'groovy-menu' ),
 					'href'  => get_admin_url() . 'admin.php?page=groovy_menu_settings',
 				);
+
+				if ( ! $this->lver && ! $lic_opt ) {
+					$args['href'] = get_admin_url() . 'admin.php?page=groovy_menu_welcome';
+				}
+
 				$wp_admin_bar->add_node( $args );
 
 				if ( isset( $groovyMenuSettings['preset'] ) ) {
@@ -372,6 +379,11 @@ if ( ! class_exists( 'GroovyMenuSettings' ) ) {
 					'href'   => get_admin_url() . 'admin.php?page=groovy_menu_settings&action=edit&id=' . $preset['id'],
 					'parent' => 'groovy-menu-options',
 				);
+
+				if ( ! $this->lver && ! $lic_opt ) {
+					$sub['href'] = get_admin_url() . 'admin.php?page=groovy_menu_welcome';
+				}
+
 				$wp_admin_bar->add_node( $sub );
 
 
@@ -421,6 +433,11 @@ if ( ! class_exists( 'GroovyMenuSettings' ) ) {
 					'href'   => get_admin_url() . 'edit.php?post_type=gm_menu_block',
 					'parent' => 'groovy-menu-options',
 				);
+
+				if ( ! $this->lver && ! $lic_opt ) {
+					$sub['href'] = get_admin_url() . 'admin.php?page=groovy_menu_welcome';
+				}
+
 				$wp_admin_bar->add_node( $sub );
 
 				// Add links to edit pages of Groovy Menu Block.
@@ -431,6 +448,11 @@ if ( ! class_exists( 'GroovyMenuSettings' ) ) {
 						'href'   => get_edit_post_link( $block_id, '' ),
 						'parent' => 'groovy-menu-blocks',
 					);
+
+					if ( ! $this->lver && ! $lic_opt ) {
+						$sub_block['href'] = get_admin_url() . 'admin.php?page=groovy_menu_welcome';
+					}
+
 					$wp_admin_bar->add_node( $sub_block );
 				}
 
@@ -1269,10 +1291,12 @@ if ( ! class_exists( 'GroovyMenuSettings' ) ) {
 											<?php } ?>
 
 											<p class="gm-welcome-margintop">
+												<?php if ( $supported_until ) { ?>
 												<a
 													class="gm-welcome-big-button gm-welcome-big-button--blue"
 													href="https://grooni.ticksy.com/"
 													target="_blank"><?php esc_html_e( 'Get support', 'groovy-menu' ); ?></a>
+												<?php } ?>
 												<?php if ( ! $supported_until ) { ?>
 													<a
 														class="gm-welcome-big-button gm-welcome-big-button--green gm-welcome-button--renew"
