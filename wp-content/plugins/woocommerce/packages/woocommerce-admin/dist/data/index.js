@@ -82,7 +82,7 @@ this["wc"] = this["wc"] || {}; this["wc"]["data"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 705);
+/******/ 	return __webpack_require__(__webpack_require__.s = 714);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -94,7 +94,122 @@ this["wc"] = this["wc"] || {}; this["wc"]["data"] =
 
 /***/ }),
 
-/***/ 13:
+/***/ 15:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, "a", function() { return /* binding */ _toConsumableArray; });
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/arrayLikeToArray.js
+var arrayLikeToArray = __webpack_require__(30);
+
+// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/arrayWithoutHoles.js
+
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) return Object(arrayLikeToArray["a" /* default */])(arr);
+}
+// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/iterableToArray.js
+function _iterableToArray(iter) {
+  if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);
+}
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/unsupportedIterableToArray.js
+var unsupportedIterableToArray = __webpack_require__(49);
+
+// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/nonIterableSpread.js
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js
+
+
+
+
+function _toConsumableArray(arr) {
+  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || Object(unsupportedIterableToArray["a" /* default */])(arr) || _nonIterableSpread();
+}
+
+/***/ }),
+
+/***/ 18:
+/***/ (function(module, exports) {
+
+(function() { module.exports = this["wp"]["data"]; }());
+
+/***/ }),
+
+/***/ 2:
+/***/ (function(module, exports) {
+
+(function() { module.exports = this["lodash"]; }());
+
+/***/ }),
+
+/***/ 21:
+/***/ (function(module, exports) {
+
+(function() { module.exports = this["wp"]["apiFetch"]; }());
+
+/***/ }),
+
+/***/ 27:
+/***/ (function(module, exports) {
+
+(function() { module.exports = this["wp"]["url"]; }());
+
+/***/ }),
+
+/***/ 29:
+/***/ (function(module, exports) {
+
+(function() { module.exports = this["wp"]["dataControls"]; }());
+
+/***/ }),
+
+/***/ 3:
+/***/ (function(module, exports) {
+
+(function() { module.exports = this["wp"]["i18n"]; }());
+
+/***/ }),
+
+/***/ 30:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _arrayLikeToArray; });
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+
+  return arr2;
+}
+
+/***/ }),
+
+/***/ 49:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _unsupportedIterableToArray; });
+/* harmony import */ var _arrayLikeToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(30);
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return Object(_arrayLikeToArray__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return Object(_arrayLikeToArray__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(o, minLen);
+}
+
+/***/ }),
+
+/***/ 6:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -116,115 +231,50 @@ function _defineProperty(obj, key, value) {
 
 /***/ }),
 
-/***/ 17:
+/***/ 68:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, "a", function() { return /* binding */ _toConsumableArray; });
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/arrayLikeToArray.js
-var arrayLikeToArray = __webpack_require__(37);
-
-// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/arrayWithoutHoles.js
-
-function _arrayWithoutHoles(arr) {
-  if (Array.isArray(arr)) return Object(arrayLikeToArray["a" /* default */])(arr);
-}
-// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/iterableToArray.js
-function _iterableToArray(iter) {
-  if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);
-}
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/unsupportedIterableToArray.js
-var unsupportedIterableToArray = __webpack_require__(52);
-
-// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/nonIterableSpread.js
-function _nonIterableSpread() {
-  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-}
-// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js
-
-
-
-
-function _toConsumableArray(arr) {
-  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || Object(unsupportedIterableToArray["a" /* default */])(arr) || _nonIterableSpread();
-}
-
-/***/ }),
-
-/***/ 19:
-/***/ (function(module, exports) {
-
-(function() { module.exports = this["wp"]["data"]; }());
-
-/***/ }),
-
-/***/ 2:
-/***/ (function(module, exports) {
-
-(function() { module.exports = this["lodash"]; }());
-
-/***/ }),
-
-/***/ 3:
-/***/ (function(module, exports) {
-
-(function() { module.exports = this["wp"]["i18n"]; }());
-
-/***/ }),
-
-/***/ 30:
-/***/ (function(module, exports) {
-
-(function() { module.exports = this["wp"]["url"]; }());
-
-/***/ }),
-
-/***/ 37:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _arrayLikeToArray; });
-function _arrayLikeToArray(arr, len) {
-  if (len == null || len > arr.length) len = arr.length;
-
-  for (var i = 0, arr2 = new Array(len); i < len; i++) {
-    arr2[i] = arr[i];
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _asyncToGenerator; });
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
+  try {
+    var info = gen[key](arg);
+    var value = info.value;
+  } catch (error) {
+    reject(error);
+    return;
   }
 
-  return arr2;
+  if (info.done) {
+    resolve(value);
+  } else {
+    Promise.resolve(value).then(_next, _throw);
+  }
+}
+
+function _asyncToGenerator(fn) {
+  return function () {
+    var self = this,
+        args = arguments;
+    return new Promise(function (resolve, reject) {
+      var gen = fn.apply(self, args);
+
+      function _next(value) {
+        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);
+      }
+
+      function _throw(err) {
+        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);
+      }
+
+      _next(undefined);
+    });
+  };
 }
 
 /***/ }),
 
-/***/ 52:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _unsupportedIterableToArray; });
-/* harmony import */ var _arrayLikeToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(37);
-
-function _unsupportedIterableToArray(o, minLen) {
-  if (!o) return;
-  if (typeof o === "string") return Object(_arrayLikeToArray__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(o, minLen);
-  var n = Object.prototype.toString.call(o).slice(8, -1);
-  if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(n);
-  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return Object(_arrayLikeToArray__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(o, minLen);
-}
-
-/***/ }),
-
-/***/ 57:
-/***/ (function(module, exports) {
-
-(function() { module.exports = this["wp"]["dataControls"]; }());
-
-/***/ }),
-
-/***/ 705:
+/***/ 714:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -236,7 +286,15 @@ __webpack_require__.d(__webpack_exports__, "SETTINGS_STORE_NAME", function() { r
 __webpack_require__.d(__webpack_exports__, "withSettingsHydration", function() { return /* reexport */ with_settings_hydration_withSettingsHydration; });
 __webpack_require__.d(__webpack_exports__, "useSettings", function() { return /* reexport */ use_settings_useSettings; });
 __webpack_require__.d(__webpack_exports__, "PLUGINS_STORE_NAME", function() { return /* reexport */ PLUGINS_STORE_NAME; });
+__webpack_require__.d(__webpack_exports__, "pluginNames", function() { return /* reexport */ pluginNames; });
 __webpack_require__.d(__webpack_exports__, "withPluginsHydration", function() { return /* reexport */ with_plugins_hydration_withPluginsHydration; });
+__webpack_require__.d(__webpack_exports__, "ONBOARDING_STORE_NAME", function() { return /* reexport */ ONBOARDING_STORE_NAME; });
+__webpack_require__.d(__webpack_exports__, "withOnboardingHydration", function() { return /* reexport */ with_onboarding_hydration_withOnboardingHydration; });
+__webpack_require__.d(__webpack_exports__, "USER_STORE_NAME", function() { return /* reexport */ USER_STORE_NAME; });
+__webpack_require__.d(__webpack_exports__, "withCurrentUserHydration", function() { return /* reexport */ with_current_user_hydration_withCurrentUserHydration; });
+__webpack_require__.d(__webpack_exports__, "useUserPreferences", function() { return /* reexport */ use_user_preferences_useUserPreferences; });
+__webpack_require__.d(__webpack_exports__, "OPTIONS_STORE_NAME", function() { return /* reexport */ OPTIONS_STORE_NAME; });
+__webpack_require__.d(__webpack_exports__, "withOptionsHydration", function() { return /* reexport */ with_options_hydration_withOptionsHydration; });
 
 // NAMESPACE OBJECT: ./packages/data/build-module/settings/selectors.js
 var selectors_namespaceObject = {};
@@ -287,8 +345,10 @@ __webpack_require__.d(plugins_actions_namespaceObject, "setIsRequesting", functi
 __webpack_require__.d(plugins_actions_namespaceObject, "setError", function() { return setError; });
 __webpack_require__.d(plugins_actions_namespaceObject, "updateIsJetpackConnected", function() { return actions_updateIsJetpackConnected; });
 __webpack_require__.d(plugins_actions_namespaceObject, "updateJetpackConnectUrl", function() { return updateJetpackConnectUrl; });
-__webpack_require__.d(plugins_actions_namespaceObject, "installPlugin", function() { return installPlugin; });
+__webpack_require__.d(plugins_actions_namespaceObject, "installPlugins", function() { return installPlugins; });
 __webpack_require__.d(plugins_actions_namespaceObject, "activatePlugins", function() { return activatePlugins; });
+__webpack_require__.d(plugins_actions_namespaceObject, "installAndActivatePlugins", function() { return installAndActivatePlugins; });
+__webpack_require__.d(plugins_actions_namespaceObject, "formatErrors", function() { return formatErrors; });
 
 // NAMESPACE OBJECT: ./packages/data/build-module/plugins/resolvers.js
 var plugins_resolvers_namespaceObject = {};
@@ -298,16 +358,58 @@ __webpack_require__.d(plugins_resolvers_namespaceObject, "getInstalledPlugins", 
 __webpack_require__.d(plugins_resolvers_namespaceObject, "isJetpackConnected", function() { return resolvers_isJetpackConnected; });
 __webpack_require__.d(plugins_resolvers_namespaceObject, "getJetpackConnectUrl", function() { return resolvers_getJetpackConnectUrl; });
 
+// NAMESPACE OBJECT: ./packages/data/build-module/onboarding/selectors.js
+var onboarding_selectors_namespaceObject = {};
+__webpack_require__.r(onboarding_selectors_namespaceObject);
+__webpack_require__.d(onboarding_selectors_namespaceObject, "getProfileItems", function() { return getProfileItems; });
+__webpack_require__.d(onboarding_selectors_namespaceObject, "getOnboardingError", function() { return getOnboardingError; });
+__webpack_require__.d(onboarding_selectors_namespaceObject, "isOnboardingRequesting", function() { return isOnboardingRequesting; });
+
+// NAMESPACE OBJECT: ./packages/data/build-module/onboarding/actions.js
+var onboarding_actions_namespaceObject = {};
+__webpack_require__.r(onboarding_actions_namespaceObject);
+__webpack_require__.d(onboarding_actions_namespaceObject, "setError", function() { return actions_setError; });
+__webpack_require__.d(onboarding_actions_namespaceObject, "setIsRequesting", function() { return onboarding_actions_setIsRequesting; });
+__webpack_require__.d(onboarding_actions_namespaceObject, "setProfileItems", function() { return actions_setProfileItems; });
+__webpack_require__.d(onboarding_actions_namespaceObject, "updateProfileItems", function() { return updateProfileItems; });
+
+// NAMESPACE OBJECT: ./packages/data/build-module/onboarding/resolvers.js
+var onboarding_resolvers_namespaceObject = {};
+__webpack_require__.r(onboarding_resolvers_namespaceObject);
+__webpack_require__.d(onboarding_resolvers_namespaceObject, "getProfileItems", function() { return resolvers_getProfileItems; });
+
+// NAMESPACE OBJECT: ./packages/data/build-module/options/selectors.js
+var options_selectors_namespaceObject = {};
+__webpack_require__.r(options_selectors_namespaceObject);
+__webpack_require__.d(options_selectors_namespaceObject, "getOption", function() { return getOption; });
+__webpack_require__.d(options_selectors_namespaceObject, "getOptionsRequestingError", function() { return getOptionsRequestingError; });
+__webpack_require__.d(options_selectors_namespaceObject, "isOptionsUpdating", function() { return isOptionsUpdating; });
+__webpack_require__.d(options_selectors_namespaceObject, "getOptionsUpdatingError", function() { return getOptionsUpdatingError; });
+
+// NAMESPACE OBJECT: ./packages/data/build-module/options/actions.js
+var options_actions_namespaceObject = {};
+__webpack_require__.r(options_actions_namespaceObject);
+__webpack_require__.d(options_actions_namespaceObject, "receiveOptions", function() { return actions_receiveOptions; });
+__webpack_require__.d(options_actions_namespaceObject, "setRequestingError", function() { return setRequestingError; });
+__webpack_require__.d(options_actions_namespaceObject, "setUpdatingError", function() { return setUpdatingError; });
+__webpack_require__.d(options_actions_namespaceObject, "setIsUpdating", function() { return setIsUpdating; });
+__webpack_require__.d(options_actions_namespaceObject, "updateOptions", function() { return updateOptions; });
+
+// NAMESPACE OBJECT: ./packages/data/build-module/options/resolvers.js
+var options_resolvers_namespaceObject = {};
+__webpack_require__.r(options_resolvers_namespaceObject);
+__webpack_require__.d(options_resolvers_namespaceObject, "getOption", function() { return resolvers_getOption; });
+
 // EXTERNAL MODULE: external {"this":["wp","data"]}
-var external_this_wp_data_ = __webpack_require__(19);
+var external_this_wp_data_ = __webpack_require__(18);
 
 // EXTERNAL MODULE: external {"this":["wp","dataControls"]}
-var external_this_wp_dataControls_ = __webpack_require__(57);
+var external_this_wp_dataControls_ = __webpack_require__(29);
 
 // CONCATENATED MODULE: ./packages/data/build-module/settings/constants.js
 var STORE_NAME = 'wc/admin/settings';
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 3 modules
-var toConsumableArray = __webpack_require__(17);
+var toConsumableArray = __webpack_require__(15);
 
 // CONCATENATED MODULE: ./packages/data/build-module/utils.js
 function getResourceName(prefix, identifier) {
@@ -620,7 +722,7 @@ function clearSettings() {
   };
 }
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/defineProperty.js
-var defineProperty = __webpack_require__(13);
+var defineProperty = __webpack_require__(6);
 
 // CONCATENATED MODULE: ./packages/data/build-module/settings/resolvers.js
 
@@ -778,13 +880,13 @@ var reducer_receiveSettings = function receiveSettings() {
 
   switch (type) {
     case action_types.SET_IS_REQUESTING:
-      state = _objectSpread({}, state, Object(defineProperty["a" /* default */])({}, group, _objectSpread({}, state[group], {
+      state = _objectSpread(_objectSpread({}, state), {}, Object(defineProperty["a" /* default */])({}, group, _objectSpread(_objectSpread({}, state[group]), {}, {
         isRequesting: isRequesting
       })));
       break;
 
     case action_types.CLEAR_IS_DIRTY:
-      state = _objectSpread({}, state, Object(defineProperty["a" /* default */])({}, group, _objectSpread({}, state[group], {
+      state = _objectSpread(_objectSpread({}, state), {}, Object(defineProperty["a" /* default */])({}, group, _objectSpread(_objectSpread({}, state[group]), {}, {
         dirty: []
       })));
       break;
@@ -794,13 +896,13 @@ var reducer_receiveSettings = function receiveSettings() {
       var groupIds = data ? Object.keys(data) : [];
 
       if (data === null) {
-        state = _objectSpread({}, state, Object(defineProperty["a" /* default */])({}, group, {
+        state = _objectSpread(_objectSpread({}, state), {}, Object(defineProperty["a" /* default */])({}, group, {
           data: state[group] ? state[group].data : [],
           error: error,
           lastReceived: time
         }));
       } else {
-        state = _objectSpread({}, state, Object(defineProperty["a" /* default */])({}, group, {
+        state = _objectSpread(_objectSpread({}, state), {}, Object(defineProperty["a" /* default */])({}, group, {
           data: state[group] && state[group].data ? [].concat(Object(toConsumableArray["a" /* default */])(state[group].data), Object(toConsumableArray["a" /* default */])(groupIds)) : groupIds,
           error: error,
           lastReceived: time,
@@ -840,13 +942,19 @@ var reducer_receiveSettings = function receiveSettings() {
 
 
 
-Object(external_this_wp_data_["registerStore"])(STORE_NAME, {
-  reducer: reducer,
-  actions: actions_namespaceObject,
-  controls: external_this_wp_dataControls_["controls"],
-  selectors: selectors_namespaceObject,
-  resolvers: resolvers_namespaceObject
-});
+var storeSelectors = Object(external_this_wp_data_["select"])(STORE_NAME); // @todo This is used to prevent double registration of the store due to webpack chunks.
+// The `storeSelectors` condition can be removed once this is fixed.
+
+if (!storeSelectors) {
+  Object(external_this_wp_data_["registerStore"])(STORE_NAME, {
+    reducer: reducer,
+    actions: actions_namespaceObject,
+    controls: external_this_wp_dataControls_["controls"],
+    selectors: selectors_namespaceObject,
+    resolvers: resolvers_namespaceObject
+  });
+}
+
 var SETTINGS_STORE_NAME = STORE_NAME;
 // EXTERNAL MODULE: external {"this":["wp","element"]}
 var external_this_wp_element_ = __webpack_require__(0);
@@ -976,11 +1084,11 @@ var use_settings_useSettings = function useSettings(group) {
   var updateAndPersistSettings = Object(external_this_wp_element_["useCallback"])(function (name, data) {
     updateAndPersistSettingsForGroup(group, Object(defineProperty["a" /* default */])({}, name, data));
   }, [group]);
-  return use_settings_objectSpread({
+  return use_settings_objectSpread(use_settings_objectSpread({
     settingsError: settingsError,
     isRequesting: isRequesting,
     isDirty: isDirty
-  }, requestedSettings, {
+  }, requestedSettings), {}, {
     persistSettings: persistSettings,
     updateAndPersistSettings: updateAndPersistSettings,
     updateSettings: updateSettings
@@ -1043,12 +1151,12 @@ var action_types_TYPES = {
 };
 /* harmony default export */ var plugins_action_types = (action_types_TYPES);
 // CONCATENATED MODULE: ./packages/data/build-module/plugins/actions.js
-var actions_marked = /*#__PURE__*/regeneratorRuntime.mark(installPlugin),
-    actions_marked2 = /*#__PURE__*/regeneratorRuntime.mark(activatePlugins);
+var actions_marked = /*#__PURE__*/regeneratorRuntime.mark(installPlugins),
+    actions_marked2 = /*#__PURE__*/regeneratorRuntime.mark(activatePlugins),
+    _marked3 = /*#__PURE__*/regeneratorRuntime.mark(installAndActivatePlugins);
 /**
  * External Dependencies
  */
-
 
 
 
@@ -1102,31 +1210,14 @@ function updateJetpackConnectUrl(redirectUrl, jetpackConnectUrl) {
     redirectUrl: redirectUrl
   };
 }
-
-function getPluginErrorMessage(action, plugin) {
-  var pluginName = pluginNames[plugin] || plugin;
-
-  switch (action) {
-    case 'install':
-      return Object(external_this_wp_i18n_["sprintf"])(Object(external_this_wp_i18n_["__"])('There was an error installing %s. Please try again.', 'woocommerce'), pluginName);
-
-    case 'connect':
-      return Object(external_this_wp_i18n_["sprintf"])(Object(external_this_wp_i18n_["__"])('There was an error connecting to %s. Please try again.', 'woocommerce'), pluginName);
-
-    case 'activate':
-    default:
-      return Object(external_this_wp_i18n_["sprintf"])(Object(external_this_wp_i18n_["__"])('There was an error activating %s. Please try again.', 'woocommerce'), pluginName);
-  }
-}
-
-function installPlugin(plugin) {
-  var results, errorMsg;
-  return regeneratorRuntime.wrap(function installPlugin$(_context) {
+function installPlugins(plugins) {
+  var results;
+  return regeneratorRuntime.wrap(function installPlugins$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
         case 0:
           _context.next = 2;
-          return actions_setIsRequesting('installPlugin', true);
+          return actions_setIsRequesting('installPlugins', true);
 
         case 2:
           _context.prev = 2;
@@ -1135,43 +1226,51 @@ function installPlugin(plugin) {
             path: "".concat(WC_ADMIN_NAMESPACE, "/plugins/install"),
             method: 'POST',
             data: {
-              plugin: plugin
+              plugins: plugins.join(',')
             }
           });
 
         case 5:
           results = _context.sent;
 
-          if (!(results && results.status === 'success')) {
-            _context.next = 10;
+          if (!results.data.installed.length) {
+            _context.next = 9;
             break;
           }
 
           _context.next = 9;
-          return actions_updateInstalledPlugins(null, results.slug);
+          return actions_updateInstalledPlugins(results.data.installed);
 
         case 9:
-          return _context.abrupt("return", results);
+          if (!Object.keys(results.errors.errors).length) {
+            _context.next = 11;
+            break;
+          }
 
-        case 10:
-          throw new Error();
+          throw results.errors;
+
+        case 11:
+          _context.next = 13;
+          return actions_setIsRequesting('installPlugins', false);
 
         case 13:
-          _context.prev = 13;
+          return _context.abrupt("return", results);
+
+        case 16:
+          _context.prev = 16;
           _context.t0 = _context["catch"](2);
-          errorMsg = getPluginErrorMessage('install', plugin);
-          _context.next = 18;
-          return setError('installPlugin', errorMsg);
+          _context.next = 20;
+          return setError('installPlugins', _context.t0);
 
-        case 18:
-          return _context.abrupt("return", errorMsg);
+        case 20:
+          throw formatErrors(_context.t0);
 
-        case 19:
+        case 21:
         case "end":
           return _context.stop();
       }
     }
-  }, actions_marked, null, [[2, 13]]);
+  }, actions_marked, null, [[2, 16]]);
 }
 function activatePlugins(plugins) {
   var results;
@@ -1196,45 +1295,94 @@ function activatePlugins(plugins) {
         case 5:
           results = _context2.sent;
 
-          if (!(results && results.status === 'success')) {
-            _context2.next = 10;
+          if (!results.data.activated.length) {
+            _context2.next = 9;
             break;
           }
 
           _context2.next = 9;
-          return actions_updateActivePlugins(results.activatedPlugins);
+          return actions_updateActivePlugins(results.data.activated);
 
         case 9:
-          return _context2.abrupt("return", results);
+          if (!Object.keys(results.errors.errors).length) {
+            _context2.next = 11;
+            break;
+          }
 
-        case 10:
-          throw new Error();
+          throw results.errors;
+
+        case 11:
+          _context2.next = 13;
+          return actions_setIsRequesting('activatePlugins', false);
 
         case 13:
-          _context2.prev = 13;
+          return _context2.abrupt("return", results);
+
+        case 16:
+          _context2.prev = 16;
           _context2.t0 = _context2["catch"](2);
-          _context2.next = 17;
+          _context2.next = 20;
           return setError('activatePlugins', _context2.t0);
 
-        case 17:
-          return _context2.abrupt("return", plugins.map(function (plugin) {
-            return getPluginErrorMessage('activate', plugin);
-          }));
+        case 20:
+          throw formatErrors(_context2.t0);
 
-        case 18:
+        case 21:
         case "end":
           return _context2.stop();
       }
     }
-  }, actions_marked2, null, [[2, 13]]);
+  }, actions_marked2, null, [[2, 16]]);
+}
+function installAndActivatePlugins(plugins) {
+  var activations;
+  return regeneratorRuntime.wrap(function installAndActivatePlugins$(_context3) {
+    while (1) {
+      switch (_context3.prev = _context3.next) {
+        case 0:
+          _context3.prev = 0;
+          _context3.next = 3;
+          return Object(external_this_wp_dataControls_["dispatch"])(constants_STORE_NAME, 'installPlugins', plugins);
+
+        case 3:
+          _context3.next = 5;
+          return Object(external_this_wp_dataControls_["dispatch"])(constants_STORE_NAME, 'activatePlugins', plugins);
+
+        case 5:
+          activations = _context3.sent;
+          return _context3.abrupt("return", activations);
+
+        case 9:
+          _context3.prev = 9;
+          _context3.t0 = _context3["catch"](0);
+          throw _context3.t0;
+
+        case 12:
+        case "end":
+          return _context3.stop();
+      }
+    }
+  }, _marked3, null, [[0, 9]]);
+}
+function formatErrors(response) {
+  if (response.errors) {
+    // Replace the slug with a plugin name if a constant exists.
+    Object.keys(response.errors).forEach(function (plugin) {
+      response.errors[plugin] = response.errors[plugin].map(function (pluginError) {
+        return pluginNames[plugin] ? pluginError.replace("`".concat(plugin, "`"), pluginNames[plugin]) : pluginError;
+      });
+    });
+  }
+
+  return response;
 }
 // EXTERNAL MODULE: external {"this":["wp","url"]}
-var external_this_wp_url_ = __webpack_require__(30);
+var external_this_wp_url_ = __webpack_require__(27);
 
 // CONCATENATED MODULE: ./packages/data/build-module/plugins/resolvers.js
 var plugins_resolvers_marked = /*#__PURE__*/regeneratorRuntime.mark(resolvers_getActivePlugins),
     plugins_resolvers_marked2 = /*#__PURE__*/regeneratorRuntime.mark(resolvers_getInstalledPlugins),
-    _marked3 = /*#__PURE__*/regeneratorRuntime.mark(resolvers_isJetpackConnected),
+    resolvers_marked3 = /*#__PURE__*/regeneratorRuntime.mark(resolvers_isJetpackConnected),
     _marked4 = /*#__PURE__*/regeneratorRuntime.mark(resolvers_getJetpackConnectUrl);
 /**
  * External Dependencies
@@ -1371,7 +1519,7 @@ function resolvers_isJetpackConnected() {
           return _context3.stop();
       }
     }
-  }, _marked3, null, [[2, 11]]);
+  }, resolvers_marked3, null, [[2, 11]]);
 }
 function resolvers_getJetpackConnectUrl(query) {
   var url, results;
@@ -1488,13 +1636,13 @@ var reducer_plugins = function plugins() {
 
   switch (type) {
     case plugins_action_types.UPDATE_ACTIVE_PLUGINS:
-      state = reducer_objectSpread({}, state, {
+      state = reducer_objectSpread(reducer_objectSpread({}, state), {}, {
         active: replace ? active : Object(external_lodash_["concat"])(state.active, active),
-        requesting: reducer_objectSpread({}, state.requesting, {
+        requesting: reducer_objectSpread(reducer_objectSpread({}, state.requesting), {}, {
           getActivePlugins: false,
           activatePlugins: false
         }),
-        errors: reducer_objectSpread({}, state.errors, {
+        errors: reducer_objectSpread(reducer_objectSpread({}, state.errors), {}, {
           getActivePlugins: false,
           activatePlugins: false
         })
@@ -1502,13 +1650,13 @@ var reducer_plugins = function plugins() {
       break;
 
     case plugins_action_types.UPDATE_INSTALLED_PLUGINS:
-      state = reducer_objectSpread({}, state, {
+      state = reducer_objectSpread(reducer_objectSpread({}, state), {}, {
         installed: replace ? installed : Object(external_lodash_["concat"])(state.installed, installed),
-        requesting: reducer_objectSpread({}, state.requesting, {
+        requesting: reducer_objectSpread(reducer_objectSpread({}, state.requesting), {}, {
           getInstalledPlugins: false,
           installPlugin: false
         }),
-        errors: reducer_objectSpread({}, state.errors, {
+        errors: reducer_objectSpread(reducer_objectSpread({}, state.errors), {}, {
           getInstalledPlugins: false,
           installPlugin: false
         })
@@ -1516,27 +1664,27 @@ var reducer_plugins = function plugins() {
       break;
 
     case plugins_action_types.SET_IS_REQUESTING:
-      state = reducer_objectSpread({}, state, {
-        requesting: reducer_objectSpread({}, state.requesting, Object(defineProperty["a" /* default */])({}, selector, isRequesting))
+      state = reducer_objectSpread(reducer_objectSpread({}, state), {}, {
+        requesting: reducer_objectSpread(reducer_objectSpread({}, state.requesting), {}, Object(defineProperty["a" /* default */])({}, selector, isRequesting))
       });
       break;
 
     case plugins_action_types.SET_ERROR:
-      state = reducer_objectSpread({}, state, {
-        requesting: reducer_objectSpread({}, state.requesting, Object(defineProperty["a" /* default */])({}, selector, false)),
-        errors: reducer_objectSpread({}, state.errors, Object(defineProperty["a" /* default */])({}, selector, error))
+      state = reducer_objectSpread(reducer_objectSpread({}, state), {}, {
+        requesting: reducer_objectSpread(reducer_objectSpread({}, state.requesting), {}, Object(defineProperty["a" /* default */])({}, selector, false)),
+        errors: reducer_objectSpread(reducer_objectSpread({}, state.errors), {}, Object(defineProperty["a" /* default */])({}, selector, error))
       });
       break;
 
     case plugins_action_types.UPDATE_JETPACK_CONNECTION:
-      state = reducer_objectSpread({}, state, {
+      state = reducer_objectSpread(reducer_objectSpread({}, state), {}, {
         jetpackConnection: jetpackConnection
       });
       break;
 
     case plugins_action_types.UPDATE_JETPACK_CONNECT_URL:
-      state = reducer_objectSpread({}, state, {
-        jetpackConnectUrls: reducer_objectSpread({}, state.jetpackConnectUrl, Object(defineProperty["a" /* default */])({}, redirectUrl, jetpackConnectUrl))
+      state = reducer_objectSpread(reducer_objectSpread({}, state), {}, {
+        jetpackConnectUrls: reducer_objectSpread(reducer_objectSpread({}, state.jetpackConnectUrl), {}, Object(defineProperty["a" /* default */])({}, redirectUrl, jetpackConnectUrl))
       });
   }
 
@@ -1559,13 +1707,19 @@ var reducer_plugins = function plugins() {
 
 
 
-Object(external_this_wp_data_["registerStore"])(constants_STORE_NAME, {
-  reducer: plugins_reducer,
-  actions: plugins_actions_namespaceObject,
-  controls: external_this_wp_dataControls_["controls"],
-  selectors: plugins_selectors_namespaceObject,
-  resolvers: plugins_resolvers_namespaceObject
-});
+var plugins_storeSelectors = Object(external_this_wp_data_["select"])(constants_STORE_NAME); // @todo This is used to prevent double registration of the store due to webpack chunks.
+// The `storeSelectors` condition can be removed once this is fixed.
+
+if (!plugins_storeSelectors) {
+  Object(external_this_wp_data_["registerStore"])(constants_STORE_NAME, {
+    reducer: plugins_reducer,
+    actions: plugins_actions_namespaceObject,
+    controls: external_this_wp_dataControls_["controls"],
+    selectors: plugins_selectors_namespaceObject,
+    resolvers: plugins_resolvers_namespaceObject
+  });
+}
+
 var PLUGINS_STORE_NAME = constants_STORE_NAME;
 // CONCATENATED MODULE: ./packages/data/build-module/plugins/with-plugins-hydration.js
 
@@ -1616,7 +1770,1039 @@ var with_plugins_hydration_withPluginsHydration = function withPluginsHydration(
     };
   };
 };
+// CONCATENATED MODULE: ./packages/data/build-module/onboarding/constants.js
+/**
+ * Internal dependencies
+ */
+var onboarding_constants_STORE_NAME = 'wc/admin/onboarding';
+// CONCATENATED MODULE: ./packages/data/build-module/onboarding/selectors.js
+var getProfileItems = function getProfileItems(state) {
+  return state.profileItems || {};
+};
+var getOnboardingError = function getOnboardingError(state, selector) {
+  return state.errors[selector] || false;
+};
+var isOnboardingRequesting = function isOnboardingRequesting(state, selector) {
+  return state.requesting[selector] || false;
+};
+// CONCATENATED MODULE: ./packages/data/build-module/onboarding/action-types.js
+var onboarding_action_types_TYPES = {
+  SET_PROFILE_ITEMS: 'SET_PROFILE_ITEMS',
+  SET_ERROR: 'SET_ERROR',
+  SET_IS_REQUESTING: 'SET_IS_REQUESTING'
+};
+/* harmony default export */ var onboarding_action_types = (onboarding_action_types_TYPES);
+// CONCATENATED MODULE: ./packages/data/build-module/onboarding/actions.js
+var onboarding_actions_marked = /*#__PURE__*/regeneratorRuntime.mark(updateProfileItems);
+/**
+ * External Dependencies
+ */
+
+
+
+/**
+ * Internal Dependencies
+ */
+
+
+
+function actions_setError(selector, error) {
+  return {
+    type: onboarding_action_types.SET_ERROR,
+    selector: selector,
+    error: error
+  };
+}
+function onboarding_actions_setIsRequesting(selector, isRequesting) {
+  return {
+    type: onboarding_action_types.SET_IS_REQUESTING,
+    selector: selector,
+    isRequesting: isRequesting
+  };
+}
+function actions_setProfileItems(profileItems) {
+  var replace = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+  return {
+    type: onboarding_action_types.SET_PROFILE_ITEMS,
+    profileItems: profileItems,
+    replace: replace
+  };
+}
+function updateProfileItems(items) {
+  var results;
+  return regeneratorRuntime.wrap(function updateProfileItems$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          _context.next = 2;
+          return onboarding_actions_setIsRequesting('updateProfileItems', true);
+
+        case 2:
+          _context.prev = 2;
+          _context.next = 5;
+          return Object(external_this_wp_dataControls_["apiFetch"])({
+            path: "".concat(WC_ADMIN_NAMESPACE, "/onboarding/profile"),
+            method: 'POST',
+            data: items
+          });
+
+        case 5:
+          results = _context.sent;
+
+          if (!(results && results.status === 'success')) {
+            _context.next = 12;
+            break;
+          }
+
+          _context.next = 9;
+          return actions_setProfileItems(items);
+
+        case 9:
+          _context.next = 11;
+          return onboarding_actions_setIsRequesting('updateProfileItems', false);
+
+        case 11:
+          return _context.abrupt("return", results);
+
+        case 12:
+          throw new Error();
+
+        case 15:
+          _context.prev = 15;
+          _context.t0 = _context["catch"](2);
+          _context.next = 19;
+          return actions_setError('updateProfileItems', _context.t0);
+
+        case 19:
+          _context.next = 21;
+          return onboarding_actions_setIsRequesting('updateProfileItems', false);
+
+        case 21:
+        case "end":
+          return _context.stop();
+      }
+    }
+  }, onboarding_actions_marked, null, [[2, 15]]);
+}
+// CONCATENATED MODULE: ./packages/data/build-module/onboarding/resolvers.js
+var onboarding_resolvers_marked = /*#__PURE__*/regeneratorRuntime.mark(resolvers_getProfileItems);
+/**
+ * External Dependencies
+ */
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+function resolvers_getProfileItems() {
+  var results;
+  return regeneratorRuntime.wrap(function getProfileItems$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          _context.prev = 0;
+          _context.next = 3;
+          return Object(external_this_wp_dataControls_["apiFetch"])({
+            path: WC_ADMIN_NAMESPACE + '/onboarding/profile',
+            method: 'GET'
+          });
+
+        case 3:
+          results = _context.sent;
+          _context.next = 6;
+          return actions_setProfileItems(results, true);
+
+        case 6:
+          _context.next = 12;
+          break;
+
+        case 8:
+          _context.prev = 8;
+          _context.t0 = _context["catch"](0);
+          _context.next = 12;
+          return actions_setError('getProfileItems', _context.t0);
+
+        case 12:
+        case "end":
+          return _context.stop();
+      }
+    }
+  }, onboarding_resolvers_marked, null, [[0, 8]]);
+}
+// CONCATENATED MODULE: ./packages/data/build-module/onboarding/reducer.js
+
+
+function onboarding_reducer_ownKeys(object, enumerableOnly) {
+  var keys = Object.keys(object);
+
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly) symbols = symbols.filter(function (sym) {
+      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+    });
+    keys.push.apply(keys, symbols);
+  }
+
+  return keys;
+}
+
+function onboarding_reducer_objectSpread(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+
+    if (i % 2) {
+      onboarding_reducer_ownKeys(Object(source), true).forEach(function (key) {
+        Object(defineProperty["a" /* default */])(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      onboarding_reducer_ownKeys(Object(source)).forEach(function (key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+
+  return target;
+}
+/**
+ * Internal dependencies
+ */
+
+
+
+
+var reducer_onboarding = function onboarding() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
+    profileItems: {},
+    errors: {},
+    requesting: {}
+  };
+
+  var _ref = arguments.length > 1 ? arguments[1] : undefined,
+      type = _ref.type,
+      profileItems = _ref.profileItems,
+      replace = _ref.replace,
+      error = _ref.error,
+      isRequesting = _ref.isRequesting,
+      selector = _ref.selector;
+
+  switch (type) {
+    case onboarding_action_types.SET_PROFILE_ITEMS:
+      state = onboarding_reducer_objectSpread(onboarding_reducer_objectSpread({}, state), {}, {
+        profileItems: replace ? profileItems : onboarding_reducer_objectSpread(onboarding_reducer_objectSpread({}, state.profileItems), profileItems)
+      });
+      break;
+
+    case onboarding_action_types.SET_ERROR:
+      state = onboarding_reducer_objectSpread(onboarding_reducer_objectSpread({}, state), {}, {
+        errors: onboarding_reducer_objectSpread(onboarding_reducer_objectSpread({}, state.errors), {}, Object(defineProperty["a" /* default */])({}, selector, error))
+      });
+      break;
+
+    case onboarding_action_types.SET_IS_REQUESTING:
+      state = onboarding_reducer_objectSpread(onboarding_reducer_objectSpread({}, state), {}, {
+        requesting: onboarding_reducer_objectSpread(onboarding_reducer_objectSpread({}, state.requesting), {}, Object(defineProperty["a" /* default */])({}, selector, isRequesting))
+      });
+      break;
+  }
+
+  return state;
+};
+
+/* harmony default export */ var onboarding_reducer = (reducer_onboarding);
+// CONCATENATED MODULE: ./packages/data/build-module/onboarding/index.js
+/**
+ * External dependencies
+ */
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+
+
+var onboarding_storeSelectors = Object(external_this_wp_data_["select"])(onboarding_constants_STORE_NAME); // @todo This is used to prevent double registration of the store due to webpack chunks.
+// The `storeSelectors` condition can be removed once this is fixed.
+
+if (!onboarding_storeSelectors) {
+  Object(external_this_wp_data_["registerStore"])(onboarding_constants_STORE_NAME, {
+    reducer: onboarding_reducer,
+    actions: onboarding_actions_namespaceObject,
+    controls: external_this_wp_dataControls_["controls"],
+    selectors: onboarding_selectors_namespaceObject,
+    resolvers: onboarding_resolvers_namespaceObject
+  });
+}
+
+var ONBOARDING_STORE_NAME = onboarding_constants_STORE_NAME;
+// CONCATENATED MODULE: ./packages/data/build-module/onboarding/with-onboarding-hydration.js
+
+/**
+ * External dependencies
+ */
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+var with_onboarding_hydration_withOnboardingHydration = function withOnboardingHydration(data) {
+  return function (OriginalComponent) {
+    return function (props) {
+      var onboardingRef = Object(external_this_wp_element_["useRef"])(data);
+      Object(external_this_wp_data_["useSelect"])(function (select, registry) {
+        if (!onboardingRef.current) {
+          return;
+        }
+
+        var _select = select(onboarding_constants_STORE_NAME),
+            isResolving = _select.isResolving,
+            hasFinishedResolution = _select.hasFinishedResolution;
+
+        var _registry$dispatch = registry.dispatch(onboarding_constants_STORE_NAME),
+            startResolution = _registry$dispatch.startResolution,
+            finishResolution = _registry$dispatch.finishResolution,
+            setProfileItems = _registry$dispatch.setProfileItems;
+
+        if (!isResolving('getProfileItems', []) && !hasFinishedResolution('getProfileItems', [])) {
+          startResolution('getProfileItems', []);
+          setProfileItems(onboardingRef.current, true);
+          finishResolution('getProfileItems', []);
+        }
+      }, []);
+      return Object(external_this_wp_element_["createElement"])(OriginalComponent, props);
+    };
+  };
+};
+// CONCATENATED MODULE: ./packages/data/build-module/user-preferences/constants.js
+var user_preferences_constants_STORE_NAME = 'core';
+// CONCATENATED MODULE: ./packages/data/build-module/user-preferences/index.js
+
+var USER_STORE_NAME = user_preferences_constants_STORE_NAME;
+// CONCATENATED MODULE: ./packages/data/build-module/user-preferences/with-current-user-hydration.js
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+/**
+ * Higher-order component used to hydrate current user data.
+ * 
+ * @param {Object} currentUser Current user object in the same format as the WP REST API returns.
+ */
+
+var with_current_user_hydration_withCurrentUserHydration = function withCurrentUserHydration(currentUser) {
+  return function (OriginalComponent) {
+    return function (props) {
+      var userRef = Object(external_this_wp_element_["useRef"])(currentUser); // Use currentUser to hydrate calls to @wordpress/core-data's getCurrentUser().
+
+      Object(external_this_wp_data_["useSelect"])(function (select, registry) {
+        if (!userRef.current) {
+          return;
+        }
+
+        var _select = select(user_preferences_constants_STORE_NAME),
+            isResolving = _select.isResolving,
+            hasFinishedResolution = _select.hasFinishedResolution;
+
+        var _registry$dispatch = registry.dispatch(user_preferences_constants_STORE_NAME),
+            startResolution = _registry$dispatch.startResolution,
+            finishResolution = _registry$dispatch.finishResolution,
+            receiveCurrentUser = _registry$dispatch.receiveCurrentUser;
+
+        if (!isResolving('getCurrentUser') && !hasFinishedResolution('getCurrentUser')) {
+          startResolution('getCurrentUser', []);
+          receiveCurrentUser(userRef.current);
+          finishResolution('getCurrentUser', []);
+        }
+      });
+      return Object(external_this_wp_element_["createElement"])(OriginalComponent, props);
+    };
+  };
+};
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
+var asyncToGenerator = __webpack_require__(68);
+
+// CONCATENATED MODULE: ./packages/data/build-module/user-preferences/use-user-preferences.js
+
+
+
+function use_user_preferences_ownKeys(object, enumerableOnly) {
+  var keys = Object.keys(object);
+
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly) symbols = symbols.filter(function (sym) {
+      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+    });
+    keys.push.apply(keys, symbols);
+  }
+
+  return keys;
+}
+
+function use_user_preferences_objectSpread(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+
+    if (i % 2) {
+      use_user_preferences_ownKeys(Object(source), true).forEach(function (key) {
+        Object(defineProperty["a" /* default */])(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      use_user_preferences_ownKeys(Object(source)).forEach(function (key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+
+  return target;
+}
+/**
+ * External dependencies
+ */
+
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+/**
+ * Internal dependencies
+ */
+
+
+/**
+ * Retrieve and decode the user's WooCommerce meta values.
+ *
+ * @param {Object} user WP User object.
+ * @return {Object} User's WooCommerce preferences.
+ */
+
+var use_user_preferences_getWooCommerceMeta = function getWooCommerceMeta(user) {
+  var wooMeta = user.woocommerce_meta || {};
+  var userData = Object(external_lodash_["mapValues"])(wooMeta, function (data) {
+    if (!data || data.length === 0) {
+      return '';
+    }
+
+    return JSON.parse(data);
+  });
+  return userData;
+};
+/**
+ * Custom react hook for retrieving thecurrent user's WooCommerce preferences.
+ *
+ * This is a wrapper around @wordpress/core-data's getCurrentUser() and saveUser().
+ */
+
+
+var use_user_preferences_useUserPreferences = function useUserPreferences() {
+  // Get our dispatch methods now - this can't happen inside the callback below.
+  var _useDispatch = Object(external_this_wp_data_["useDispatch"])(user_preferences_constants_STORE_NAME),
+      receiveCurrentUser = _useDispatch.receiveCurrentUser,
+      saveUser = _useDispatch.saveUser;
+
+  var _useSelect = Object(external_this_wp_data_["useSelect"])(function (select) {
+    var _select = select(user_preferences_constants_STORE_NAME),
+        getCurrentUser = _select.getCurrentUser,
+        getLastEntitySaveError = _select.getLastEntitySaveError,
+        hasStartedResolution = _select.hasStartedResolution,
+        hasFinishedResolution = _select.hasFinishedResolution; // Use getCurrentUser() to get WooCommerce meta values.
+
+
+    var user = getCurrentUser();
+    var userData = use_user_preferences_getWooCommerceMeta(user); // Create wrapper for updating user's `woocommerce_meta`.
+
+    var updateUserPrefs = /*#__PURE__*/function () {
+      var _ref = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regeneratorRuntime.mark(function _callee(userPrefs) {
+        var userDataFields, metaData, updatedUser, error, updatedUserResponse;
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                // @todo Handle unresolved getCurrentUser() here.
+                // Whitelist our meta fields.
+                userDataFields = ['categories_report_columns', 'coupons_report_columns', 'customers_report_columns', 'orders_report_columns', 'products_report_columns', 'revenue_report_columns', 'taxes_report_columns', 'variations_report_columns', 'dashboard_sections', 'dashboard_chart_type', 'dashboard_chart_interval', 'dashboard_leaderboard_rows', 'activity_panel_inbox_last_read', 'homepage_stats']; // Prep valid fields for update.
+
+                metaData = Object(external_lodash_["mapValues"])(Object(external_lodash_["pick"])(userPrefs, userDataFields), JSON.stringify);
+
+                if (!(Object.keys(metaData).length === 0)) {
+                  _context.next = 4;
+                  break;
+                }
+
+                return _context.abrupt("return", {
+                  error: new Error('No valid woocommerce_meta keys were provided for update.'),
+                  updatedUser: undefined
+                });
+
+              case 4:
+                // Optimistically propagate new woocommerce_meta to the store for instant update.
+                receiveCurrentUser(use_user_preferences_objectSpread(use_user_preferences_objectSpread({}, user), {}, {
+                  woocommerce_meta: use_user_preferences_objectSpread(use_user_preferences_objectSpread({}, user.woocommerce_meta), metaData)
+                })); // Use saveUser() to update WooCommerce meta values.
+
+                _context.next = 7;
+                return saveUser({
+                  id: user.id,
+                  woocommerce_meta: metaData
+                });
+
+              case 7:
+                updatedUser = _context.sent;
+
+                if (!(undefined === updatedUser)) {
+                  _context.next = 11;
+                  break;
+                } // Return the encountered error to the caller.
+
+
+                error = getLastEntitySaveError('root', 'user', user.id);
+                return _context.abrupt("return", {
+                  error: error,
+                  updatedUser: updatedUser
+                });
+
+              case 11:
+                // Decode the WooCommerce meta after save.
+                updatedUserResponse = use_user_preferences_objectSpread(use_user_preferences_objectSpread({}, updatedUser), {}, {
+                  woocommerce_meta: use_user_preferences_getWooCommerceMeta(updatedUser)
+                });
+                return _context.abrupt("return", {
+                  updatedUser: updatedUserResponse
+                });
+
+              case 13:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+
+      return function updateUserPrefs(_x) {
+        return _ref.apply(this, arguments);
+      };
+    }();
+
+    return {
+      isRequesting: hasStartedResolution('getCurrentUser') && !hasFinishedResolution('getCurrentUser'),
+      userPreferences: userData,
+      updateUserPreferences: updateUserPrefs
+    };
+  }),
+      isRequesting = _useSelect.isRequesting,
+      userPreferences = _useSelect.userPreferences,
+      updateUserPreferences = _useSelect.updateUserPreferences;
+
+  return use_user_preferences_objectSpread(use_user_preferences_objectSpread({
+    isRequesting: isRequesting
+  }, userPreferences), {}, {
+    updateUserPreferences: updateUserPreferences
+  });
+};
+// CONCATENATED MODULE: ./packages/data/build-module/options/constants.js
+var options_constants_STORE_NAME = 'wc/admin/options';
+// CONCATENATED MODULE: ./packages/data/build-module/options/selectors.js
+/**
+ * Get option from state tree.
+ *
+ * @param {Object} state - Reducer state
+ * @param {Array} name - Option name
+ */
+var getOption = function getOption(state, name) {
+  return state[name];
+};
+/**
+ * Determine if an options request resulted in an error.
+ *
+ * @param {Object} state - Reducer state
+ * @param {string} name - Option name
+ */
+
+var getOptionsRequestingError = function getOptionsRequestingError(state, name) {
+  return state.requestingErrors[name] || false;
+};
+/**
+ * Determine if options are being updated.
+ *
+ * @param {Object} state - Reducer state
+ */
+
+var isOptionsUpdating = function isOptionsUpdating(state) {
+  return state.isUpdating || false;
+};
+/**
+ * Determine if an options update resulted in an error.
+ *
+ * @param {Object} state - Reducer state
+ */
+
+var getOptionsUpdatingError = function getOptionsUpdatingError(state) {
+  return state.updatingError || false;
+};
+// CONCATENATED MODULE: ./packages/data/build-module/options/action-types.js
+var options_action_types_TYPES = {
+  RECEIVE_OPTIONS: 'RECEIVE_OPTIONS',
+  SET_IS_REQUESTING: 'SET_IS_REQUESTING',
+  SET_IS_UPDATING: 'SET_IS_UPDATING',
+  SET_REQUESTING_ERROR: 'SET_REQUESTING_ERROR',
+  SET_UPDATING_ERROR: 'SET_UPDATING_ERROR'
+};
+/* harmony default export */ var options_action_types = (options_action_types_TYPES);
+// CONCATENATED MODULE: ./packages/data/build-module/options/actions.js
+
+
+var options_actions_marked = /*#__PURE__*/regeneratorRuntime.mark(updateOptions);
+
+function actions_ownKeys(object, enumerableOnly) {
+  var keys = Object.keys(object);
+
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly) symbols = symbols.filter(function (sym) {
+      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+    });
+    keys.push.apply(keys, symbols);
+  }
+
+  return keys;
+}
+
+function actions_objectSpread(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+
+    if (i % 2) {
+      actions_ownKeys(Object(source), true).forEach(function (key) {
+        Object(defineProperty["a" /* default */])(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      actions_ownKeys(Object(source)).forEach(function (key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+
+  return target;
+}
+/**
+ * External Dependencies
+ */
+
+
+
+/**
+ * Internal Dependencies
+ */
+
+
+
+function actions_receiveOptions(options) {
+  return {
+    type: options_action_types.RECEIVE_OPTIONS,
+    options: options
+  };
+}
+function setRequestingError(error, name) {
+  return {
+    type: options_action_types.SET_REQUESTING_ERROR,
+    error: error,
+    name: name
+  };
+}
+function setUpdatingError(error) {
+  return {
+    type: options_action_types.SET_UPDATING_ERROR,
+    error: error
+  };
+}
+function setIsUpdating(isUpdating) {
+  return {
+    type: options_action_types.SET_IS_UPDATING,
+    isUpdating: isUpdating
+  };
+}
+function updateOptions(data) {
+  var results;
+  return regeneratorRuntime.wrap(function updateOptions$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          _context.next = 2;
+          return setIsUpdating(true);
+
+        case 2:
+          _context.next = 4;
+          return actions_receiveOptions(data);
+
+        case 4:
+          _context.prev = 4;
+          _context.next = 7;
+          return Object(external_this_wp_dataControls_["apiFetch"])({
+            path: WC_ADMIN_NAMESPACE + '/options',
+            method: 'POST',
+            data: data
+          });
+
+        case 7:
+          results = _context.sent;
+          _context.next = 10;
+          return setIsUpdating(false);
+
+        case 10:
+          return _context.abrupt("return", actions_objectSpread({
+            success: true
+          }, results));
+
+        case 13:
+          _context.prev = 13;
+          _context.t0 = _context["catch"](4);
+          _context.next = 17;
+          return setUpdatingError(_context.t0);
+
+        case 17:
+          return _context.abrupt("return", actions_objectSpread({
+            success: false
+          }, _context.t0));
+
+        case 18:
+        case "end":
+          return _context.stop();
+      }
+    }
+  }, options_actions_marked, null, [[4, 13]]);
+}
+// EXTERNAL MODULE: external {"this":["wp","apiFetch"]}
+var external_this_wp_apiFetch_ = __webpack_require__(21);
+var external_this_wp_apiFetch_default = /*#__PURE__*/__webpack_require__.n(external_this_wp_apiFetch_);
+
+// CONCATENATED MODULE: ./packages/data/build-module/options/controls.js
+
+
+function controls_ownKeys(object, enumerableOnly) {
+  var keys = Object.keys(object);
+
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly) symbols = symbols.filter(function (sym) {
+      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+    });
+    keys.push.apply(keys, symbols);
+  }
+
+  return keys;
+}
+
+function controls_objectSpread(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+
+    if (i % 2) {
+      controls_ownKeys(Object(source), true).forEach(function (key) {
+        Object(defineProperty["a" /* default */])(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      controls_ownKeys(Object(source)).forEach(function (key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+
+  return target;
+}
+/**
+ * External dependencies
+ */
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+var optionNames = [];
+var fetches = {};
+var batchFetch = function batchFetch(optionName) {
+  return {
+    type: 'BATCH_FETCH',
+    optionName: optionName
+  };
+};
+var controls = controls_objectSpread(controls_objectSpread({}, external_this_wp_dataControls_["controls"]), {}, {
+  BATCH_FETCH: function BATCH_FETCH(_ref) {
+    var optionName = _ref.optionName;
+    optionNames.push(optionName);
+    return new Promise(function (resolve) {
+      setTimeout(function () {
+        var names = optionNames.join(',');
+
+        if (fetches[names]) {
+          return fetches[names].then(function (result) {
+            resolve(result[optionName]);
+          });
+        }
+
+        var url = WC_ADMIN_NAMESPACE + '/options?options=' + names;
+        fetches[names] = external_this_wp_apiFetch_default()({
+          path: url
+        });
+        fetches[names].then(function (result) {
+          return resolve(result);
+        }); // Clear option names after all resolved;
+
+        setTimeout(function () {
+          optionNames = []; // Delete the fetch after to allow wp data to handle cache invalidation.
+
+          delete fetches[names];
+        }, 1);
+      }, 1);
+    });
+  }
+});
+// CONCATENATED MODULE: ./packages/data/build-module/options/resolvers.js
+var options_resolvers_marked = /*#__PURE__*/regeneratorRuntime.mark(resolvers_getOption);
+/**
+ * External Dependencies
+ */
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+/**
+ * Request an option value.
+ *
+ * @param {string} name - Option name
+ */
+
+function resolvers_getOption(name) {
+  var result;
+  return regeneratorRuntime.wrap(function getOption$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          _context.prev = 0;
+          _context.next = 3;
+          return batchFetch(name);
+
+        case 3:
+          result = _context.sent;
+          _context.next = 6;
+          return actions_receiveOptions(result);
+
+        case 6:
+          _context.next = 12;
+          break;
+
+        case 8:
+          _context.prev = 8;
+          _context.t0 = _context["catch"](0);
+          _context.next = 12;
+          return setRequestingError(_context.t0, name);
+
+        case 12:
+        case "end":
+          return _context.stop();
+      }
+    }
+  }, options_resolvers_marked, null, [[0, 8]]);
+}
+// CONCATENATED MODULE: ./packages/data/build-module/options/reducer.js
+
+
+function options_reducer_ownKeys(object, enumerableOnly) {
+  var keys = Object.keys(object);
+
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly) symbols = symbols.filter(function (sym) {
+      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+    });
+    keys.push.apply(keys, symbols);
+  }
+
+  return keys;
+}
+
+function options_reducer_objectSpread(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+
+    if (i % 2) {
+      options_reducer_ownKeys(Object(source), true).forEach(function (key) {
+        Object(defineProperty["a" /* default */])(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      options_reducer_ownKeys(Object(source)).forEach(function (key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+
+  return target;
+}
+/**
+ * Internal dependencies
+ */
+
+
+
+
+var reducer_optionsReducer = function optionsReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
+    isUpdating: false,
+    requestingErrors: {}
+  };
+
+  var _ref = arguments.length > 1 ? arguments[1] : undefined,
+      type = _ref.type,
+      options = _ref.options,
+      error = _ref.error,
+      isUpdating = _ref.isUpdating,
+      name = _ref.name;
+
+  switch (type) {
+    case options_action_types.RECEIVE_OPTIONS:
+      state = options_reducer_objectSpread(options_reducer_objectSpread({}, state), options);
+      break;
+
+    case options_action_types.SET_IS_UPDATING:
+      state = options_reducer_objectSpread(options_reducer_objectSpread({}, state), {}, {
+        isUpdating: isUpdating
+      });
+      break;
+
+    case options_action_types.SET_REQUESTING_ERROR:
+      state = options_reducer_objectSpread(options_reducer_objectSpread({}, state), {}, {
+        requestingErrors: Object(defineProperty["a" /* default */])({}, name, error)
+      });
+      break;
+
+    case options_action_types.SET_UPDATING_ERROR:
+      state = options_reducer_objectSpread(options_reducer_objectSpread({}, state), {}, {
+        error: error,
+        updatingError: error,
+        isUpdating: false
+      });
+      break;
+  }
+
+  return state;
+};
+
+/* harmony default export */ var options_reducer = (reducer_optionsReducer);
+// CONCATENATED MODULE: ./packages/data/build-module/options/index.js
+/**
+ * External dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+
+
+
+Object(external_this_wp_data_["registerStore"])(options_constants_STORE_NAME, {
+  reducer: options_reducer,
+  actions: options_actions_namespaceObject,
+  controls: controls,
+  selectors: options_selectors_namespaceObject,
+  resolvers: options_resolvers_namespaceObject
+});
+var OPTIONS_STORE_NAME = options_constants_STORE_NAME;
+// CONCATENATED MODULE: ./packages/data/build-module/options/with-options-hydration.js
+
+
+/**
+ * External dependencies
+ */
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+var with_options_hydration_withOptionsHydration = function withOptionsHydration(data) {
+  return function (OriginalComponent) {
+    return function (props) {
+      var dataRef = Object(external_this_wp_element_["useRef"])(data);
+      Object(external_this_wp_data_["useSelect"])(function (select, registry) {
+        if (!dataRef.current) {
+          return;
+        }
+
+        var _select = select(options_constants_STORE_NAME),
+            isResolving = _select.isResolving,
+            hasFinishedResolution = _select.hasFinishedResolution;
+
+        var _registry$dispatch = registry.dispatch(options_constants_STORE_NAME),
+            startResolution = _registry$dispatch.startResolution,
+            finishResolution = _registry$dispatch.finishResolution,
+            receiveOptions = _registry$dispatch.receiveOptions;
+
+        var names = Object.keys(dataRef.current);
+        names.forEach(function (name) {
+          if (!isResolving('getOption', [name]) && !hasFinishedResolution('getOption', [name])) {
+            startResolution('getOption', [name]);
+            receiveOptions(Object(defineProperty["a" /* default */])({}, name, dataRef.current[name]));
+            finishResolution('getOption', [name]);
+          }
+        });
+      }, []);
+      return Object(external_this_wp_element_["createElement"])(OriginalComponent, props);
+    };
+  };
+};
 // CONCATENATED MODULE: ./packages/data/build-module/index.js
+
+
+
+
+
+
+
+
 
 
 

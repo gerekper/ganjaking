@@ -11,6 +11,7 @@ return array(
     'MaxMind\\Db\\' => array($vendorDir . '/maxmind-db/reader/src/MaxMind/Db'),
     'Composer\\Installers\\' => array($vendorDir . '/composer/installers/src/Composer/Installers'),
     'Automattic\\WooCommerce\\Tests\\' => array($baseDir . '/tests/php/src'),
+    'Automattic\\WooCommerce\\Testing\\Tools\\' => array($baseDir . '/tests/Tools'),
     'Automattic\\WooCommerce\\RestApi\\' => array($baseDir . '/packages/woocommerce-rest-api/src'),
     'Automattic\\WooCommerce\\Blocks\\' => array($baseDir . '/packages/woocommerce-blocks/src'),
     'Automattic\\WooCommerce\\Admin\\' => array($baseDir . '/packages/woocommerce-admin/src'),

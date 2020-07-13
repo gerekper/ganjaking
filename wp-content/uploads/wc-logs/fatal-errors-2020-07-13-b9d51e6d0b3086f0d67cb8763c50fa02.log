@@ -16,3 +16,15 @@ Stack trace:
 #4 {main}
   thrown in /home/gerekper/web/ganjaking.asia/public_html/wp-content/plugins/wedevs-project-manager-business/core/Notifications/Emails/Daily_Digest.php on line 75
 
+2020-07-13T22:03:16+00:00 CRITICAL Uncaught Error: Call to a member function switch_to_locale() on null in /home/gerekper/web/ganjaking.asia/public_html/wp-includes/l10n.php:1596
+Stack trace:
+#0 /home/gerekper/web/ganjaking.asia/public_html/wp-admin/includes/misc.php(132): switch_to_locale()
+#1 /home/gerekper/web/ganjaking.asia/public_html/wp-content/plugins/mpc-massive/panel/extra/utils.php(44): insert_with_markers()
+#2 /home/gerekper/web/ganjaking.asia/public_html/wp-content/plugins/mpc-massive/mpc-massive.php(150): MPC_Utils::add_htaccess_rules()
+#3 /home/gerekper/web/ganjaking.asia/public_html/wp-includes/class-wp-hook.php(287): mpc_check_vc()
+#4 /home/gerekper/web/ganjaking.asia/public_html/wp-includes/class-wp-hook.php(311): WP_Hook->apply_filters()
+#5 /home/gerekper/web/ganjaking.asia/public_html/wp-includes/plugin.php(478): WP_Hook->do_action()
+#6 /home/gerekper/web/ganjaking.asia/public_html/wp-settings.php(403): do_action()
+#7 /home/gerekper/web/ganjaking.asia/public_html/wp-config.php(92): require_once('/home/gerekper/...')
+#8 /home in /home/gerekper/web/ganjaking.asia/public_html/wp-includes/l10n.php on line 1596
+

@@ -3,7 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import { registerBlockType } from '@wordpress/blocks';
-import { IconFolder } from '@woocommerce/block-components/icons';
+import { Icon, list } from '@woocommerce/icons';
 
 /**
  * Internal dependencies
@@ -15,21 +15,23 @@ import Block from './block.js';
 registerBlockType( 'woocommerce/product-categories', {
 	title: __( 'Product Categories List', 'woocommerce' ),
 	icon: {
-		src: <IconFolder />,
+		src: <Icon srcElement={ list } />,
 		foreground: '#96588a',
 	},
 	category: 'woocommerce',
 	keywords: [ __( 'WooCommerce', 'woocommerce' ) ],
 	description: __(
-		'Show your product categories as a list or dropdown.',
+		'Show all product categories as a list or dropdown.',
 		'woocommerce'
 	),
 	supports: {
 		align: [ 'wide', 'full' ],
+		html: false,
 	},
 	example: {
 		attributes: {
 			hasCount: true,
+			hasImage: false,
 		},
 	},
 	attributes: {
@@ -39,6 +41,14 @@ registerBlockType( 'woocommerce/product-categories', {
 		hasCount: {
 			type: 'boolean',
 			default: true,
+		},
+
+		/**
+		 * Whether to show the category image in each category.
+		 */
+		hasImage: {
+			type: 'boolean',
+			default: false,
 		},
 
 		/**
@@ -150,6 +160,8 @@ registerBlockType( 'woocommerce/product-categories', {
 
 	/**
 	 * Renders and manages the block.
+	 *
+	 * @param {Object} props Props to pass to block.
 	 */
 	edit( props ) {
 		return <Block { ...props } />;

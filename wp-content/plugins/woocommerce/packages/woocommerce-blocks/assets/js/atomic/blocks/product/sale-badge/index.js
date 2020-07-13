@@ -3,13 +3,13 @@
  */
 import { __ } from '@wordpress/i18n';
 import { registerBlockType } from '@wordpress/blocks';
-import { ProductSaleBadge } from '@woocommerce/atomic-components/product';
-import { IconProductOnSale } from '@woocommerce/block-components/icons';
+import { Icon, tag } from '@woocommerce/icons';
 
 /**
  * Internal dependencies
  */
 import sharedConfig from '../shared-config';
+import edit from './edit';
 
 const blockConfig = {
 	title: __( 'On-Sale Badge', 'woocommerce' ),
@@ -18,17 +18,13 @@ const blockConfig = {
 		'woocommerce'
 	),
 	icon: {
-		src: <IconProductOnSale />,
+		src: <Icon srcElement={ tag } />,
 		foreground: '#96588a',
 	},
 	supports: {
 		html: false,
 	},
-	edit( props ) {
-		const { align, product } = props.attributes;
-
-		return <ProductSaleBadge product={ product } align={ align } />;
-	},
+	edit,
 };
 
 registerBlockType( 'woocommerce/product-sale-badge', {

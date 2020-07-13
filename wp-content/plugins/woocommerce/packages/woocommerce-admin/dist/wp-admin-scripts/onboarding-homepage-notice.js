@@ -82,12 +82,12 @@ this["wc"] = this["wc"] || {}; this["wc"]["onboardingHomepageNotice"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 699);
+/******/ 	return __webpack_require__(__webpack_require__.s = 709);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 146:
+/***/ 119:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -104,7 +104,7 @@ function setup(env) {
   createDebug.disable = disable;
   createDebug.enable = enable;
   createDebug.enabled = enabled;
-  createDebug.humanize = __webpack_require__(147);
+  createDebug.humanize = __webpack_require__(120);
   Object.keys(env).forEach(function (key) {
     createDebug[key] = env[key];
   });
@@ -361,7 +361,7 @@ module.exports = setup;
 
 /***/ }),
 
-/***/ 147:
+/***/ 120:
 /***/ (function(module, exports) {
 
 /**
@@ -530,7 +530,7 @@ function plural(ms, msAbs, n, name) {
 
 /***/ }),
 
-/***/ 15:
+/***/ 17:
 /***/ (function(module, exports) {
 
 function _defineProperty(obj, key, value) {
@@ -552,14 +552,14 @@ module.exports = _defineProperty;
 
 /***/ }),
 
-/***/ 19:
+/***/ 18:
 /***/ (function(module, exports) {
 
 (function() { module.exports = this["wp"]["data"]; }());
 
 /***/ }),
 
-/***/ 26:
+/***/ 22:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -573,7 +573,7 @@ module.exports = _defineProperty;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return getSetting; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return setSetting; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return getAdminLink; });
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(43);
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(35);
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
@@ -679,7 +679,7 @@ function getAdminLink(path) {
 
 /***/ }),
 
-/***/ 43:
+/***/ 35:
 /***/ (function(module, exports) {
 
 function _typeof(obj) {
@@ -702,176 +702,7 @@ module.exports = _typeof;
 
 /***/ }),
 
-/***/ 55:
-/***/ (function(module, exports) {
-
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : {
-    "default": obj
-  };
-}
-
-module.exports = _interopRequireDefault;
-
-/***/ }),
-
-/***/ 65:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return domReady; });
-/**
- * @typedef {() => void} Callback
- *
- * TODO: Remove this typedef and inline `() => void` type.
- *
- * This typedef is used so that a descriptive type is provided in our
- * automatically generated documentation.
- *
- * An in-line type `() => void` would be preferable, but the generated
- * documentation is `null` in that case.
- *
- * @see https://github.com/WordPress/gutenberg/issues/18045
- */
-
-/**
- * Specify a function to execute when the DOM is fully loaded.
- *
- * @param {Callback} callback A function to execute after the DOM is ready.
- *
- * @example
- * ```js
- * import domReady from '@wordpress/dom-ready';
- *
- * domReady( function() {
- * 	//do something after DOM loads.
- * } );
- * ```
- *
- * @return {void}
- */
-function domReady(callback) {
-  if (document.readyState === 'complete' || // DOMContentLoaded + Images/Styles/etc loaded, so we call directly.
-  document.readyState === 'interactive' // DOMContentLoaded fires at this point, so we call directly.
-  ) {
-      return void callback();
-    } // DOMContentLoaded has not fired yet, delay callback until then.
-
-
-  document.addEventListener('DOMContentLoaded', callback);
-}
-//# sourceMappingURL=index.js.map
-
-/***/ }),
-
-/***/ 699:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(19);
-/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(65);
-/* harmony import */ var _woocommerce_wc_admin_settings__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(26);
-/* harmony import */ var lib_tracks__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(79);
-/**
- * External dependencies
- */
-
-
-
-/**
- * WooCommerce dependencies
- */
-
-
-/**
- * Internal dependencies
- */
-
-
-/**
- * Returns a promise and resolves when the post begins to publish.
- *
- * @return {Promise} Promise for overlay existence.
- */
-
-var saveStarted = function saveStarted() {
-  if (!document.querySelector('.editor-post-publish-button').classList.contains('is-busy')) {
-    var promise = new Promise(function (resolve) {
-      window.requestAnimationFrame(resolve);
-    });
-    return promise.then(function () {
-      return saveStarted();
-    });
-  }
-
-  return Promise.resolve(true);
-};
-/**
- * Returns a promise and resolves when the post has been saved and notices have shown.
- *
- * @return {Promise} Promise for overlay existence.
- */
-
-
-var saveCompleted = function saveCompleted() {
-  if (document.querySelector('.editor-post-publish-button').classList.contains('is-busy')) {
-    var promise = new Promise(function (resolve) {
-      window.requestAnimationFrame(resolve);
-    });
-    return promise.then(function () {
-      return saveCompleted();
-    });
-  }
-
-  return Promise.resolve(true);
-};
-/**
- * Displays a notice on page save and updates the hompage options.
- */
-
-
-var onboardingHomepageNotice = function onboardingHomepageNotice() {
-  var saveButton = document.querySelector('.editor-post-publish-button');
-
-  if (saveButton.classList.contains('is-clicked')) {
-    return;
-  }
-
-  saveButton.classList.add('is-clicked');
-  saveCompleted().then(function () {
-    var notificationType = document.querySelector('.components-snackbar__content') !== null ? 'snackbar' : 'default';
-    Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_0__["dispatch"])('core/notices').removeNotice('SAVE_POST_NOTICE_ID');
-    Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_0__["dispatch"])('core/notices').createSuccessNotice(Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])("🏠 Nice work creating your store's homepage!", 'woocommerce'), {
-      id: 'WOOCOMMERCE_ONBOARDING_HOME_PAGE_NOTICE',
-      type: notificationType,
-      actions: [{
-        label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Continue setup.', 'woocommerce'),
-        onClick: function onClick() {
-          Object(lib_tracks__WEBPACK_IMPORTED_MODULE_4__[/* queueRecordEvent */ "a"])('tasklist_appearance_continue_setup', {});
-          window.location = Object(_woocommerce_wc_admin_settings__WEBPACK_IMPORTED_MODULE_3__[/* getAdminLink */ "f"])('admin.php?page=wc-admin&task=appearance');
-        }
-      }]
-    });
-  });
-};
-
-Object(_wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(function () {
-  var publishButton = document.querySelector('.editor-post-publish-button');
-
-  if (publishButton) {
-    publishButton.addEventListener('click', saveStarted().then(function () {
-      return onboardingHomepageNotice();
-    }));
-  }
-});
-
-/***/ }),
-
-/***/ 72:
+/***/ 47:
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -1062,18 +893,31 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
-/***/ 79:
+/***/ 55:
+/***/ (function(module, exports) {
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {
+    "default": obj
+  };
+}
+
+module.exports = _interopRequireDefault;
+
+/***/ }),
+
+/***/ 63:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return recordEvent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return queueRecordEvent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return recordPageView; });
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(15);
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(17);
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(43);
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(35);
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var debug__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(98);
+/* harmony import */ var debug__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(87);
 /* harmony import */ var debug__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(debug__WEBPACK_IMPORTED_MODULE_2__);
 
 
@@ -1207,7 +1051,163 @@ function recordPageView(path, extraProperties) {
 
 /***/ }),
 
-/***/ 98:
+/***/ 70:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return domReady; });
+/**
+ * @typedef {() => void} Callback
+ *
+ * TODO: Remove this typedef and inline `() => void` type.
+ *
+ * This typedef is used so that a descriptive type is provided in our
+ * automatically generated documentation.
+ *
+ * An in-line type `() => void` would be preferable, but the generated
+ * documentation is `null` in that case.
+ *
+ * @see https://github.com/WordPress/gutenberg/issues/18045
+ */
+
+/**
+ * Specify a function to execute when the DOM is fully loaded.
+ *
+ * @param {Callback} callback A function to execute after the DOM is ready.
+ *
+ * @example
+ * ```js
+ * import domReady from '@wordpress/dom-ready';
+ *
+ * domReady( function() {
+ * 	//do something after DOM loads.
+ * } );
+ * ```
+ *
+ * @return {void}
+ */
+function domReady(callback) {
+  if (document.readyState === 'complete' || // DOMContentLoaded + Images/Styles/etc loaded, so we call directly.
+  document.readyState === 'interactive' // DOMContentLoaded fires at this point, so we call directly.
+  ) {
+      return void callback();
+    } // DOMContentLoaded has not fired yet, delay callback until then.
+
+
+  document.addEventListener('DOMContentLoaded', callback);
+}
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+
+/***/ 709:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(18);
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(70);
+/* harmony import */ var _woocommerce_wc_admin_settings__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(22);
+/* harmony import */ var lib_tracks__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(63);
+/**
+ * External dependencies
+ */
+
+
+
+/**
+ * WooCommerce dependencies
+ */
+
+
+/**
+ * Internal dependencies
+ */
+
+
+/**
+ * Returns a promise and resolves when the post begins to publish.
+ *
+ * @return {Promise} Promise for overlay existence.
+ */
+
+var saveStarted = function saveStarted() {
+  if (!document.querySelector('.editor-post-publish-button').classList.contains('is-busy')) {
+    var promise = new Promise(function (resolve) {
+      window.requestAnimationFrame(resolve);
+    });
+    return promise.then(function () {
+      return saveStarted();
+    });
+  }
+
+  return Promise.resolve(true);
+};
+/**
+ * Returns a promise and resolves when the post has been saved and notices have shown.
+ *
+ * @return {Promise} Promise for overlay existence.
+ */
+
+
+var saveCompleted = function saveCompleted() {
+  if (document.querySelector('.editor-post-publish-button').classList.contains('is-busy')) {
+    var promise = new Promise(function (resolve) {
+      window.requestAnimationFrame(resolve);
+    });
+    return promise.then(function () {
+      return saveCompleted();
+    });
+  }
+
+  return Promise.resolve(true);
+};
+/**
+ * Displays a notice on page save and updates the hompage options.
+ */
+
+
+var onboardingHomepageNotice = function onboardingHomepageNotice() {
+  var saveButton = document.querySelector('.editor-post-publish-button');
+
+  if (saveButton.classList.contains('is-clicked')) {
+    return;
+  }
+
+  saveButton.classList.add('is-clicked');
+  saveCompleted().then(function () {
+    var notificationType = document.querySelector('.components-snackbar__content') !== null ? 'snackbar' : 'default';
+    Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_0__["dispatch"])('core/notices').removeNotice('SAVE_POST_NOTICE_ID');
+    Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_0__["dispatch"])('core/notices').createSuccessNotice(Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])("🏠 Nice work creating your store's homepage!", 'woocommerce'), {
+      id: 'WOOCOMMERCE_ONBOARDING_HOME_PAGE_NOTICE',
+      type: notificationType,
+      actions: [{
+        label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Continue setup.', 'woocommerce'),
+        onClick: function onClick() {
+          Object(lib_tracks__WEBPACK_IMPORTED_MODULE_4__[/* queueRecordEvent */ "a"])('tasklist_appearance_continue_setup', {});
+          window.location = Object(_woocommerce_wc_admin_settings__WEBPACK_IMPORTED_MODULE_3__[/* getAdminLink */ "f"])('admin.php?page=wc-admin&task=appearance');
+        }
+      }]
+    });
+  });
+};
+
+Object(_wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(function () {
+  var publishButton = document.querySelector('.editor-post-publish-button');
+
+  if (publishButton) {
+    publishButton.addEventListener('click', saveStarted().then(function () {
+      return onboardingHomepageNotice();
+    }));
+  }
+});
+
+/***/ }),
+
+/***/ 87:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1215,7 +1215,7 @@ function recordPageView(path, extraProperties) {
 
 var _interopRequireDefault = __webpack_require__(55);
 
-var _typeof2 = _interopRequireDefault(__webpack_require__(43));
+var _typeof2 = _interopRequireDefault(__webpack_require__(35));
 
 /* eslint-env browser */
 
@@ -1379,7 +1379,7 @@ function localstorage() {
   }
 }
 
-module.exports = __webpack_require__(146)(exports);
+module.exports = __webpack_require__(119)(exports);
 var formatters = module.exports.formatters;
 /**
  * Map %j to `JSON.stringify()`, since no Web Inspectors do that by default.
@@ -1392,7 +1392,7 @@ formatters.j = function (v) {
     return '[UnexpectedJSONParseError]: ' + error.message;
   }
 };
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(72)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(47)))
 
 /***/ })
 
