@@ -969,21 +969,34 @@ if ( !function_exists( 'yith_plugin_fw_get_field' ) ) {
      * @return string|void
      */
     function yith_plugin_fw_get_field( $field, $echo = false, $show_container = true ) {
-        if ( empty( $field[ 'type' ] ) )
-            return '';
+        if ( empty( $field[ 'type' ] ) ) {
+			return '';
+		}
 
-        if ( !isset( $field[ 'value' ] ) )
-            $field[ 'value' ] = '';
+        if ( !isset( $field[ 'value' ] ) ) {
+			$field['value'] = '';
+		}
 
-        if ( !isset( $field[ 'name' ] ) )
-            $field[ 'name' ] = '';
+        if ( !isset( $field[ 'name' ] ) ) {
+			$field['name'] = '';
+		}
 
-        if ( !isset( $field[ 'custom_attributes' ] ) )
-            $field[ 'custom_attributes' ] = '';
+        if ( ! isset( $field[ 'custom_attributes' ] ) ) {
+			$field['custom_attributes'] = '';
+		}
+        elseif( is_array( $field[ 'custom_attributes' ] ) ) {
+        	// let's build custom attributes as string
+			$custom_attributes = array();
+			foreach ( $field[ 'custom_attributes' ] as $attribute => $attribute_value ) {
+				$custom_attributes[] = esc_attr( $attribute ) . '="' . esc_attr( $attribute_value ) . '"';
+			}
 
-        if ( !isset( $field[ 'default' ] ) && isset( $field[ 'std' ] ) )
-            $field[ 'default' ] = $field[ 'std' ];
+			$field['custom_attributes'] = implode( ' ', $custom_attributes );
+		}
 
+        if ( ! isset( $field[ 'default' ] ) && isset( $field[ 'std' ] ) ) {
+			$field['default'] = $field['std'];
+		}
 
         $field_template = yith_plugin_fw_get_field_template_path( $field );
 
@@ -1366,4 +1379,43 @@ if ( !function_exists( 'yith_plugin_fw_add_requirements' ) ) {
 
         }
     }
+}
+
+if ( ! function_exists( 'yith_plugin_fw_parse_dimensions' ) ) {
+	/**
+	 * Parse dimensions stored through a "dimensions" field to a key-value array
+	 * where the key will be equal to the dimension key
+	 * and the value will be equal to the value of the dimension suffixed with the unit
+	 *
+	 * @param array $values
+	 * @return array
+	 */
+	function yith_plugin_fw_parse_dimensions( $values ) {
+		$dimensions = array();
+		if ( is_array( $values ) && isset( $values['dimensions'], $values['unit'] ) && is_array( $values['dimensions'] ) ) {
+			$raw_unit = $values['unit'];
+			$unit     = 'percentage' === $raw_unit ? '%' : $raw_unit;
+			foreach ( $values['dimensions'] as $key => $value ) {
+				$dimensions[ $key ] = $value . $unit;
+			}
+		}
+
+		return $dimensions;
+	}
+}
+
+if ( ! function_exists( 'yith_plugin_fw_get_dimensions_by_option' ) ) {
+	/**
+	 * Retrieve a parsed array of dimensions by an option
+	 *
+	 * @param string     $option
+	 * @param bool|array $default
+	 *
+	 * @return array|bool
+	 */
+	function yith_plugin_fw_get_dimensions_by_option( $option, $default = false ) {
+		$dimensions = get_option( $option, false );
+
+		return ! ! $dimensions ? yith_plugin_fw_parse_dimensions( $dimensions ) : $default;
+	}
 }

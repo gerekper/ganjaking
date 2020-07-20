@@ -564,18 +564,15 @@ if ( $user_id ):
 					</p>
 
 					<p id="assignee_block">
-						<input
-							type="hidden"
-							data-allow_clear="true"
-							value=""
-							data-selected=""
-							data-placeholder="<?php esc_attr_e('Search for a user...', 'follow_up_emails'); ?>"
-							name="assignee"
+						<select
 							id="assignee"
+							name="assignee"
 							class="user-search-select"
+							data-placeholder="<?php esc_attr_e( 'Search for a user&hellip;', 'follow_up_emails' ); ?>"
+							data-allow_clear="true"
 							tabindex="-1"
 							title=""
-							>
+						></select>
 					</p>
 
 					<p class="separated">

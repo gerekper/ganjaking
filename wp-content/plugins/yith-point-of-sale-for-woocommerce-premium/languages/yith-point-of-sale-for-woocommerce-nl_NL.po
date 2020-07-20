@@ -1,21 +1,18 @@
-# Copyright (C) 2020 YITH
-# This file is distributed under the same license as the YITH Point of Sale for WooCommerce plugin.
+# Translation of YITH Point of Sale for WooCommerce in Dutch
+# This file is distributed under the same license as the YITH Point of Sale for WooCommerce package.
 msgid ""
 msgstr ""
-"Project-Id-Version: YITH Point of Sale for WooCommerce 1.0.1\n"
+"Project-Id-Version: YITH Point of Sale for WooCommerce\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-point-of-"
 "sale-for-woocommerce-premium\n"
-"POT-Creation-Date: 2020-03-03 10:11+0000\n"
-"PO-Revision-Date: 2020-03-03 11:30+0100\n"
-"Last-Translator: \n"
-"Language-Team: \n"
+"POT-Creation-Date: 2020-07-03T10:15:39+00:00\n"
+"PO-Revision-Date: 2020-06-12 11:28:29+0000\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.3\n"
-"X-Domain: yith-point-of-sale-for-woocommerce\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
 
 #. Plugin Name of the plugin
 msgid "YITH Point of Sale for WooCommerce"
@@ -64,8 +61,8 @@ msgid "Register Name"
 msgstr "Kassanaam"
 
 #: includes/admin/class.yith-pos-register-post-type-admin.php:128
-#: includes/class.yith-pos-post-types.php:100
-#: includes/class.yith-pos-post-types.php:114
+#: includes/class.yith-pos-post-types.php:101
+#: includes/class.yith-pos-post-types.php:115
 #: templates/yith-pos-store-register.php:56
 msgid "Store"
 msgstr "Winkel"
@@ -81,7 +78,7 @@ msgstr "Status"
 
 #: includes/admin/class.yith-pos-register-post-type-admin.php:131
 #: includes/admin/class.yith-pos-store-post-type-admin.php:333
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Enabled"
 msgstr "Ingeschakeld"
 
@@ -103,22 +100,22 @@ msgid "No Receipt"
 msgstr "Geen bon"
 
 #: includes/admin/class.yith-pos-register-post-type-admin.php:245
-#: includes/class.yith-pos-post-types.php:103
-#: includes/class.yith-pos-post-types.php:146
-#: includes/class.yith-pos-post-types.php:187
+#: includes/class.yith-pos-post-types.php:104
+#: includes/class.yith-pos-post-types.php:147
+#: includes/class.yith-pos-post-types.php:188
 #: plugin-options/metabox/receipt-options.php:14
 #: plugin-options/metabox/store-options.php:11
 msgid "Edit"
 msgstr "Bewerk"
 
 #: includes/admin/class.yith-pos-register-post-type-admin.php:254
-#: templates/yith-pos-store-register.php:66 dist/pos/index.js:41
+#: templates/yith-pos-store-register.php:66 dist/pos/index.js:33
 msgid "Open Register"
 msgstr "Open kassa"
 
 #. Translators: %s Payment gateway name.
 #: includes/admin/class.yith-pos-store-post-type-admin.php:111
-#: includes/class.yith-pos-admin.php:125 dist/pos/index.js:41
+#: includes/class.yith-pos-admin.php:125 dist/pos/index.js:33
 msgid "Yes"
 msgstr "Ja"
 
@@ -179,8 +176,8 @@ msgstr ""
 #: includes/admin/class.yith-pos-store-post-type-admin.php:292
 #: includes/admin/class.yith-pos-store-post-type-admin.php:332
 #: includes/class.yith-pos-admin.php:153
-#: includes/class.yith-pos-post-types.php:142
-#: includes/class.yith-pos-post-types.php:157
+#: includes/class.yith-pos-post-types.php:143
+#: includes/class.yith-pos-post-types.php:158
 #: plugin-options/metabox/store-options.php:241
 #: views/panel/store-wizard-nav.php:21 views/panel/store-wizard-summary.php:96
 msgid "Registers"
@@ -246,20 +243,20 @@ msgstr "De \"%s\" betaalmethode is momenteel ingeschakeld op YITH POS"
 #. Translators: %s Payment gateway name.
 #: includes/class.yith-pos-admin.php:128
 msgid "The \"%s\" payment method is currently disabled on YITH POS"
-msgstr "De \"%S\" betaalmethode is momenteel uitgeschakeld op YITH POS"
+msgstr "De \"%s\" betaalmethode is momenteel uitgeschakeld op YITH POS"
 
 #: includes/class.yith-pos-admin.php:145
 msgid "Dashboard"
 msgstr "Dashboard"
 
 #: includes/class.yith-pos-admin.php:149
-#: includes/class.yith-pos-post-types.php:99
+#: includes/class.yith-pos-post-types.php:100
 msgid "Stores"
 msgstr "Winkels"
 
 #: includes/class.yith-pos-admin.php:157
-#: includes/class.yith-pos-post-types.php:183
-#: includes/class.yith-pos-post-types.php:198
+#: includes/class.yith-pos-post-types.php:184
+#: includes/class.yith-pos-post-types.php:199
 msgid "Receipts"
 msgstr "Bonnen"
 
@@ -277,7 +274,7 @@ msgstr "Bezoek POS"
 msgid "VAT"
 msgstr "BTW"
 
-#: includes/class.yith-pos-admin.php:431 includes/class.yith-pos.php:278
+#: includes/class.yith-pos-admin.php:431 includes/class.yith-pos.php:276
 msgid "YITH POS"
 msgstr "YITH POS"
 
@@ -345,210 +342,211 @@ msgstr "Je moet minstens een kassa aanmaken voordat je door kan gaan"
 
 #: includes/class.yith-pos-assets.php:105
 msgid ""
-"You cannot restock items automatically for a POS order.<br />You should "
-"restock them manually after refunding the order."
+"To restock items automatically for a POS order you need WooCommerce 4.1 or "
+"greater.<br />For previous versions, you can restock them manually after "
+"refunding the order."
 msgstr ""
-"Je kunt de item voorraad niet automatisch aanvullen voor een POS bestelling. "
-"<br /> Je dient de voorraad handmatig aan te vullen na het restitueren van "
-"de bestelling."
+"Om de voorraad van de items voor een POS bestelling automatisch aan te "
+"vullen heb je WooCommerce 4.1 of hoger nodig. <br />Voor vorige versies, je "
+"kunt de voorraad handmatig aanvullen na het restitueren van een bestelling."
 
 #: includes/class.yith-pos-assets.php:117
 msgid "Are you sure you want to delete this Register?"
 msgstr "Weet je zeker dat je deze kassa wilt verwijderen?"
 
-#: includes/class.yith-pos-frontend.php:420
+#: includes/class.yith-pos-frontend.php:466
 msgid "Error: you cannot get access to this Register!"
 msgstr "Fout: je kunt geen toegang krijgen tot deze kassa!"
 
-#: includes/class.yith-pos-orders.php:90 dist/pos/index.js:41
+#: includes/class.yith-pos-orders.php:86 dist/pos/index.js:33
 msgid "Note"
 msgstr "Notitie"
 
-#: includes/class.yith-pos-post-types.php:101
 #: includes/class.yith-pos-post-types.php:102
+#: includes/class.yith-pos-post-types.php:103
 msgid "Add New Store"
 msgstr "Nieuwe winkel toevoegen"
 
-#: includes/class.yith-pos-post-types.php:104
+#: includes/class.yith-pos-post-types.php:105
 msgid "Edit Store"
 msgstr "Winkel bewerken"
 
-#: includes/class.yith-pos-post-types.php:105
+#: includes/class.yith-pos-post-types.php:106
 msgid "New Store"
 msgstr "Nieuwe winkel"
 
-#: includes/class.yith-pos-post-types.php:106
 #: includes/class.yith-pos-post-types.php:107
+#: includes/class.yith-pos-post-types.php:108
 msgid "View Store"
 msgstr "Winkel bekijken"
 
-#: includes/class.yith-pos-post-types.php:108
+#: includes/class.yith-pos-post-types.php:109
 msgid "Search Store"
 msgstr "Winkel zoeken"
-
-#: includes/class.yith-pos-post-types.php:109
-#: includes/class.yith-pos-post-types.php:152
-#: includes/class.yith-pos-post-types.php:193
-msgid "Not found"
-msgstr "Niet gevonden"
 
 #: includes/class.yith-pos-post-types.php:110
 #: includes/class.yith-pos-post-types.php:153
 #: includes/class.yith-pos-post-types.php:194
+msgid "Not found"
+msgstr "Niet gevonden"
+
+#: includes/class.yith-pos-post-types.php:111
+#: includes/class.yith-pos-post-types.php:154
+#: includes/class.yith-pos-post-types.php:195
 msgid "Not found in trash"
 msgstr "Niet gevonden in prullenbak"
 
-#: includes/class.yith-pos-post-types.php:116
+#: includes/class.yith-pos-post-types.php:117
 msgid "This is where Stores are stored."
 msgstr "Dit is waar winkels worden bewaart."
 
-#: includes/class.yith-pos-post-types.php:143
+#: includes/class.yith-pos-post-types.php:144
 #: templates/yith-pos-store-register.php:62
 #: views/fields/receipt-preview-template.php:96
 msgid "Register"
 msgstr "Kassa"
 
-#: includes/class.yith-pos-post-types.php:144
 #: includes/class.yith-pos-post-types.php:145
+#: includes/class.yith-pos-post-types.php:146
 msgid "Add New Register"
 msgstr "Nieuwe kassa toevoegen"
 
-#: includes/class.yith-pos-post-types.php:147
+#: includes/class.yith-pos-post-types.php:148
 msgid "Edit Register"
 msgstr "Kassa bewerken"
 
-#: includes/class.yith-pos-post-types.php:148
+#: includes/class.yith-pos-post-types.php:149
 msgid "New Register"
 msgstr "Nieuwe kassa"
 
-#: includes/class.yith-pos-post-types.php:149
 #: includes/class.yith-pos-post-types.php:150
+#: includes/class.yith-pos-post-types.php:151
 msgid "View Register"
 msgstr "Kassa bekijken"
 
-#: includes/class.yith-pos-post-types.php:151
+#: includes/class.yith-pos-post-types.php:152
 msgid "Search Registers"
 msgstr "Kassa zoeken"
 
-#: includes/class.yith-pos-post-types.php:159
+#: includes/class.yith-pos-post-types.php:160
 msgid "This is where Registers are stored."
 msgstr "Dit is waar kassa's worden bewaart."
 
-#: includes/class.yith-pos-post-types.php:184
-#: includes/class.yith-pos-post-types.php:442
+#: includes/class.yith-pos-post-types.php:185
+#: includes/class.yith-pos-post-types.php:443
 msgid "Receipt"
 msgstr "Bon"
 
-#: includes/class.yith-pos-post-types.php:185
 #: includes/class.yith-pos-post-types.php:186
+#: includes/class.yith-pos-post-types.php:187
 msgid "Add New Receipt"
 msgstr "Nieuwe bon toevoegen"
 
-#: includes/class.yith-pos-post-types.php:188
+#: includes/class.yith-pos-post-types.php:189
 msgid "Edit Receipt"
 msgstr "Bon bewerken"
 
-#: includes/class.yith-pos-post-types.php:189
+#: includes/class.yith-pos-post-types.php:190
 msgid "New Receipt"
 msgstr "Nieuwe bon"
 
-#: includes/class.yith-pos-post-types.php:190
 #: includes/class.yith-pos-post-types.php:191
+#: includes/class.yith-pos-post-types.php:192
 msgid "View Receipt"
 msgstr "Bon bekijken"
 
-#: includes/class.yith-pos-post-types.php:192
+#: includes/class.yith-pos-post-types.php:193
 msgid "Search Receipts"
 msgstr "Bon zoeken"
 
-#: includes/class.yith-pos-post-types.php:200
+#: includes/class.yith-pos-post-types.php:201
 msgid "This is where Receipts are stored."
 msgstr "Dit is waar bonnen worden bewaart."
 
-#: includes/class.yith-pos-post-types.php:323
 #: includes/class.yith-pos-post-types.php:324
+#: includes/class.yith-pos-post-types.php:325
 msgid "Store \"%s\" updated!"
 msgstr "Winkel \"%s\" bijgewerkt!"
 
-#: includes/class.yith-pos-post-types.php:325
+#: includes/class.yith-pos-post-types.php:326
 msgid "Congrats! You've just created your Store: %s."
 msgstr "Gefeliciteerd! Je hebt zojuist winkel: %s aangemaakt."
 
-#: includes/class.yith-pos-post-types.php:326
+#: includes/class.yith-pos-post-types.php:327
 msgid "Store \"%s\" saved!"
 msgstr "Winkel \"%s\" opgeslagen!"
 
-#: includes/class.yith-pos-post-types.php:329
 #: includes/class.yith-pos-post-types.php:330
+#: includes/class.yith-pos-post-types.php:331
 msgid "Register \"%s\" updated!"
 msgstr "Kassa \"%s\" bijgewerkt!"
 
-#: includes/class.yith-pos-post-types.php:331
+#: includes/class.yith-pos-post-types.php:332
 msgid "Congrats! You've just created your Register: %s."
 msgstr "Gefeliciteerd! Je hebt zojuist kassa: %s aangemaakt."
 
-#: includes/class.yith-pos-post-types.php:332
+#: includes/class.yith-pos-post-types.php:333
 msgid "Register \"%s\" saved!"
 msgstr "Kassa \"%s\" opgeslagen!"
 
-#: includes/class.yith-pos-post-types.php:335
 #: includes/class.yith-pos-post-types.php:336
+#: includes/class.yith-pos-post-types.php:337
 msgid "Receipt \"%s\" updated!"
 msgstr "Bon \"%s\" bijgewerkt!"
 
-#: includes/class.yith-pos-post-types.php:337
+#: includes/class.yith-pos-post-types.php:338
 msgid "Congrats! You've just created your receipt: %s."
 msgstr "Gefeliciteerd! Je hebt zojuist bon: %s aangemaakt."
 
-#: includes/class.yith-pos-post-types.php:338
+#: includes/class.yith-pos-post-types.php:339
 msgid "Receipt \"%s\" saved!"
 msgstr "Bon \"%s\" opgeslagen!"
 
-#: includes/class.yith-pos-post-types.php:368
+#: includes/class.yith-pos-post-types.php:369
 msgid "YITH POS roles and capabilities regenerated correctly!"
 msgstr "YITH POS rollen en capaciteiten juist aangemaakt!"
 
-#: includes/class.yith-pos-post-types.php:405
+#: includes/class.yith-pos-post-types.php:406
 msgctxt "User role"
 msgid "YITH POS Manager"
 msgstr "YITH POS Manager"
 
-#: includes/class.yith-pos-post-types.php:406
+#: includes/class.yith-pos-post-types.php:407
 msgctxt "User role"
 msgid "YITH POS Cashier"
 msgstr "YITH POS Kassamedewerker"
 
-#: includes/class.yith-pos-post-types.php:451
+#: includes/class.yith-pos-post-types.php:452
 msgid "receipt"
 msgstr "bon"
 
-#: includes/class.yith-pos-post-types.php:455
+#: includes/class.yith-pos-post-types.php:456
 #: plugin-options/metabox/receipt-options.php:65
 msgid "VAT:"
 msgstr "BTW:"
 
-#: includes/class.yith-pos-post-types.php:462
+#: includes/class.yith-pos-post-types.php:463
 #: plugin-options/metabox/receipt-options.php:206
 msgid "Date:"
 msgstr "Date:"
 
-#: includes/class.yith-pos-post-types.php:464
+#: includes/class.yith-pos-post-types.php:465
 #: plugin-options/metabox/receipt-options.php:225
 msgid "Order:"
 msgstr "Bestelling:"
 
-#: includes/class.yith-pos-post-types.php:466
-#: plugin-options/metabox/receipt-options.php:244 dist/pos/index.js:41
+#: includes/class.yith-pos-post-types.php:467
+#: plugin-options/metabox/receipt-options.php:244 dist/pos/index.js:33
 msgid "Customer:"
 msgstr "Klant:"
 
-#: includes/class.yith-pos-post-types.php:468
+#: includes/class.yith-pos-post-types.php:469
 #: plugin-options/metabox/receipt-options.php:263
-#: views/metabox/shop-order-pos-info-metabox.php:8 dist/pos/index.js:41
+#: views/metabox/shop-order-pos-info-metabox.php:8 dist/pos/index.js:33
 msgid "Register:"
 msgstr "Kassa:"
 
-#: includes/class.yith-pos-post-types.php:470
+#: includes/class.yith-pos-post-types.php:471
 #: plugin-options/metabox/receipt-options.php:298
 #: views/fields/receipt-preview-template.php:105
 msgid "Thanks for your purchase"
@@ -562,7 +560,7 @@ msgstr "Alleen POS resultaten"
 msgid "YITH POS template Page"
 msgstr "YITH POS template pagina"
 
-#: includes/class.yith-pos.php:267
+#: includes/class.yith-pos.php:265
 msgctxt "slug of the page"
 msgid "pos"
 msgstr "pos"
@@ -619,40 +617,40 @@ msgstr "Je hebt geen toestemming om gebruikers aan te maken"
 msgid "User #%s"
 msgstr "Gebruiker #%s"
 
-#: includes/functions.yith-pos-core.php:129
+#: includes/functions.yith-pos-core.php:134
 msgid "and other %s..."
 msgstr "en andere %s..."
 
-#: includes/functions.yith-pos-core.php:130
+#: includes/functions.yith-pos-core.php:135
 msgid "hide"
 msgstr "verbergen"
 
-#: includes/functions.yith-pos-core.php:322
+#: includes/functions.yith-pos-core.php:333
 msgid "No receipt"
 msgstr "Geen bon"
 
-#: includes/functions.yith-pos-core.php:350
-#: includes/functions.yith-pos-core.php:351
+#: includes/functions.yith-pos-core.php:361
+#: includes/functions.yith-pos-core.php:362
 msgid "Create new user"
 msgstr "Nieuwe gebruiker aanmaken"
 
-#: includes/functions.yith-pos-core.php:352
+#: includes/functions.yith-pos-core.php:363
 msgid "Close new user creation"
 msgstr "Aanmaken nieuwe gebruiker sluiten"
 
-#: includes/functions.yith-pos-core.php:353
+#: includes/functions.yith-pos-core.php:364
 msgid "Create user"
 msgstr "Gebruiker aanmaken"
 
-#: includes/functions.yith-pos-core.php:384
+#: includes/functions.yith-pos-core.php:395
 msgid "This field is required."
 msgstr "Dit veld is verplicht."
 
-#: includes/functions.yith-pos-core.php:460
+#: includes/functions.yith-pos-core.php:471
 msgid "Opened"
 msgstr "Geopend"
 
-#: includes/functions.yith-pos-core.php:461
+#: includes/functions.yith-pos-core.php:472
 msgid "Closed"
 msgstr "Gesloten"
 
@@ -912,7 +910,7 @@ msgstr ""
 "Upload je logo om de bon aan te passen. Ondersteunde formaten : gif, jpg, "
 "jpeg, png."
 
-#: plugin-options/metabox/receipt-options.php:47 dist/pos/index.js:41
+#: plugin-options/metabox/receipt-options.php:47 dist/pos/index.js:33
 msgid "Name"
 msgstr "Naam"
 
@@ -938,7 +936,7 @@ msgstr "Label voor BTW veld invoeren. Standaard: BTW"
 
 #: plugin-options/metabox/receipt-options.php:74
 #: plugin-options/metabox/store-options.php:55
-#: views/panel/store-wizard-summary.php:27 dist/pos/index.js:41
+#: views/panel/store-wizard-summary.php:27 dist/pos/index.js:33
 msgid "Address"
 msgstr "Adres"
 
@@ -957,7 +955,7 @@ msgstr "Toon of verberg de contactinformatie van de winkel in deze bon"
 
 #: plugin-options/metabox/receipt-options.php:89
 #: plugin-options/metabox/store-options.php:84
-#: views/panel/store-wizard-summary.php:31 dist/pos/index.js:41
+#: views/panel/store-wizard-summary.php:31 dist/pos/index.js:33
 msgid "Phone"
 msgstr "Telefoon"
 
@@ -1213,7 +1211,7 @@ msgstr "Bepaal of je deze kassa wil weergeven voor specifieke kassamedewerker."
 msgid "You must set at least one Cashier in Store."
 msgstr "Je moet minstens een kassamedewerker instellen in de winkel."
 
-#: plugin-options/metabox/register-options.php:90 dist/pos/index.js:41
+#: plugin-options/metabox/register-options.php:90 dist/pos/index.js:33
 msgid "All"
 msgstr "Alle"
 
@@ -1291,7 +1289,7 @@ msgstr "Compleet adres"
 msgid "Enter a street address for this store location."
 msgstr "Straat adres invoeren voor deze winkellocatie."
 
-#: plugin-options/metabox/store-options.php:64 dist/pos/index.js:41
+#: plugin-options/metabox/store-options.php:64 dist/pos/index.js:33
 msgid "City"
 msgstr "Plaats"
 
@@ -1753,7 +1751,7 @@ msgstr "Gebruikersnaam invoeren om deze gebruiker te identificeren."
 msgid "The username is required and must be unique."
 msgstr "De gebruikersnaam is verplicht en moet uniek zijn."
 
-#: views/fields/create-user.php:31 dist/pos/index.js:41
+#: views/fields/create-user.php:31 dist/pos/index.js:33
 msgid "Password"
 msgstr "Wachtwoord"
 
@@ -1801,31 +1799,31 @@ msgstr "Achternaam invoeren voor deze gebruiker."
 msgid "You need to enter a last name for this user."
 msgstr "Je moet een achternaam invoeren voor deze gebruiker."
 
-#: views/fields/receipt-preview-template.php:18 dist/pos/index.js:41
+#: views/fields/receipt-preview-template.php:18 dist/pos/index.js:33
 msgid "Phone:"
 msgstr "Telefoon:"
 
-#: views/fields/receipt-preview-template.php:21 dist/pos/index.js:41
+#: views/fields/receipt-preview-template.php:21 dist/pos/index.js:33
 msgid "Email:"
 msgstr "E-mail:"
 
-#: views/fields/receipt-preview-template.php:24 dist/pos/index.js:41
+#: views/fields/receipt-preview-template.php:24 dist/pos/index.js:33
 msgid "Fax:"
 msgstr "Fax:"
 
-#: views/fields/receipt-preview-template.php:27 dist/pos/index.js:41
+#: views/fields/receipt-preview-template.php:27 dist/pos/index.js:33
 msgid "Web:"
 msgstr "Website:"
 
-#: views/fields/receipt-preview-template.php:32 dist/pos/index.js:41
+#: views/fields/receipt-preview-template.php:32 dist/pos/index.js:33
 msgid "Facebook:"
 msgstr "Facebook:"
 
-#: views/fields/receipt-preview-template.php:35 dist/pos/index.js:41
+#: views/fields/receipt-preview-template.php:35 dist/pos/index.js:33
 msgid "Twitter:"
 msgstr "Twitter:"
 
-#: views/fields/receipt-preview-template.php:38 dist/pos/index.js:41
+#: views/fields/receipt-preview-template.php:38 dist/pos/index.js:33
 msgid "Instagram:"
 msgstr "Instagram:"
 
@@ -1840,11 +1838,11 @@ msgstr "YouTube:"
 msgid "Product"
 msgstr "Product"
 
-#: views/fields/receipt-preview-template.php:61 dist/pos/index.js:41
+#: views/fields/receipt-preview-template.php:61 dist/pos/index.js:33
 msgid "Total"
 msgstr "Totaal"
 
-#: views/fields/receipt-preview-template.php:76 dist/pos/index.js:41
+#: views/fields/receipt-preview-template.php:76 dist/pos/index.js:33
 msgid "Change"
 msgstr "Wijzig"
 
@@ -1860,8 +1858,8 @@ msgstr "Bestelling"
 msgid "Customer"
 msgstr "Klant"
 
-#: views/fields/receipt-preview-template.php:100 dist/dashboard/index.js:21
-#: dist/pos/index.js:41
+#: views/fields/receipt-preview-template.php:100 dist/dashboard/index.js:1
+#: dist/pos/index.js:33
 msgid "Cashier"
 msgstr "Kassamedewerker"
 
@@ -1909,7 +1907,7 @@ msgstr "Betaalmethoden:"
 msgid "Delete"
 msgstr "Verwijderen"
 
-#: views/metabox/store-registers-list-single.php:63 dist/pos/index.js:41
+#: views/metabox/store-registers-list-single.php:63 dist/pos/index.js:33
 msgid "Update"
 msgstr "Bijwerken"
 
@@ -2043,708 +2041,708 @@ msgstr "+ beheer voorraad voor andere winkel"
 msgid "No Store found!"
 msgstr "Geen winkel gevonden!"
 
-#: dist/dashboard/index.js:21
+#: dist/dashboard/index.js:1
 msgid "Loading..."
 msgstr "Laden..."
 
-#: dist/dashboard/index.js:21
+#: dist/dashboard/index.js:1
 msgid "All Registers"
 msgstr "Alle kassa's"
 
-#: dist/dashboard/index.js:21
+#: dist/dashboard/index.js:1
 msgid "Filter by Store"
 msgstr "Filteren op winkel"
 
-#: dist/dashboard/index.js:21
+#: dist/dashboard/index.js:1
 msgid "All Stores"
 msgstr "Alle winkels"
 
-#: dist/dashboard/index.js:21
+#: dist/dashboard/index.js:1
 msgid "Filter by Register"
 msgstr "Filteren op kassa"
 
-#: dist/dashboard/index.js:21
+#: dist/dashboard/index.js:1
 msgid "Orders"
 msgstr "Bestellingen"
 
-#: dist/dashboard/index.js:21
+#: dist/dashboard/index.js:1
 msgid "Net Sales"
 msgstr "Netto omzet"
 
-#: dist/dashboard/index.js:21
-msgid "TestString"
-msgstr "TestString"
-
-#: dist/dashboard/index.js:21
+#: dist/dashboard/index.js:1
 msgid "Average Order Value"
 msgstr "Gemiddelde waarde bestelling"
 
-#: dist/dashboard/index.js:21
+#: dist/dashboard/index.js:1
 msgid "Average Items Per Order"
 msgstr "Gemiddeld aantal items per bestelling"
 
-#: dist/dashboard/index.js:21
+#: dist/dashboard/index.js:1
 msgid "Items"
 msgstr "Items"
 
-#: dist/dashboard/index.js:21
+#: dist/dashboard/index.js:1
 msgid "New Customers"
 msgstr "Nieuwe klanten"
 
-#: dist/dashboard/index.js:21
+#: dist/dashboard/index.js:1
 msgid "Returning Customers"
 msgstr "Terugkerende klanten"
 
-#: dist/dashboard/index.js:21
+#: dist/dashboard/index.js:1
 msgid "Coupons"
 msgstr "Kortingsbonnen"
 
-#: dist/dashboard/index.js:21
+#: dist/dashboard/index.js:1
 msgid "No data for the selected date range"
 msgstr "Geen data voor het geselecteerde datumbereik"
 
-#: dist/dashboard/index.js:21
+#: dist/dashboard/index.js:1
 msgid "No data recorded for the selected time period."
 msgstr "Geen data geregistreerd voor de geselecteerde periode."
 
-#: dist/dashboard/index.js:21 dist/pos/index.js:41
+#: dist/dashboard/index.js:1 dist/pos/index.js:33
 msgid "Payment Method"
 msgstr "Betaalmethode"
 
-#: dist/dashboard/index.js:21 dist/pos/index.js:41
+#: dist/dashboard/index.js:1 dist/pos/index.js:33
 msgid "Amount"
 msgstr "Bedrag"
 
-#: dist/dashboard/index.js:21
+#: dist/dashboard/index.js:1
 msgid "Payment Methods"
 msgstr "Betaalmethoden"
 
-#: dist/dashboard/index.js:21
+#: dist/dashboard/index.js:1
 msgid "Top Cashiers"
 msgstr "Top kassamedewerkers"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Login times: "
 msgstr "Login tijden: "
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Total orders"
 msgstr "Totaal bestellingen"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Total sales"
 msgstr "Totaal verkopen"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Download CSV"
 msgstr "Download CSV"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Register Screen"
 msgstr "Registreer scherm"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Order History"
 msgstr "Bestellinggeschiedenis"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Today's profit"
 msgstr "Opbrengst van vandaag"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Manage Cash"
 msgstr "Contanten beheren"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Close register"
 msgstr "Kassa sluiten"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Store:"
 msgstr "Winkel:"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Manage Store"
 msgstr "Winkel beheren"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Switch Register"
 msgstr "Kassa wisselen"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Logout"
 msgstr "Logout"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Empty Cart"
 msgstr "Winkelwagen legen"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Add note"
 msgstr "Notitie toevoegen"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Edit note"
 msgstr "Notitie bewerken"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Add fee or discount"
 msgstr "Kosten of korting toevoegen"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Apply coupon"
 msgstr "Kortingsbon toepassen"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Shipping"
 msgstr "Verzending"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Suspend & save cart"
 msgstr "Onderbreken & winkelwagen opslaan"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Pay"
 msgstr "Betalen"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Add a note to this order"
 msgstr "Notitie toevoegen aan deze bestelling"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Add another payment option"
 msgstr "Andere betaalmethode toevoegen"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Amount paying"
 msgstr "Bedrag betalen"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
+msgid "Amount to pay"
+msgstr "Te betalen bedrag"
+
+#: dist/pos/index.js:33
 msgid "Amount type"
 msgstr "Type bedrag"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Back"
 msgstr "Terug"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Balance"
 msgstr "Saldo"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "By"
 msgstr "Voor"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Cart "
 msgstr "Winkelwagen "
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Change price per unit"
 msgstr "Prijs per unit wijzigen"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Customer "
 msgstr "Klant "
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Guest Customer "
 msgstr "Gastklant "
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Discount"
 msgstr "Korting"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Enter coupon code"
 msgstr "Kortingsbon invoeren"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Fee"
 msgstr "Kosten"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Fixed"
 msgstr "Vast"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Popular fees"
 msgstr "Populaire kosten"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Popular tendered"
 msgstr "Populair aangeboden"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "load"
 msgstr "laden"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Payment option"
 msgstr "Betaaloptie"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Pending payment"
 msgstr "Betaling in behandeling"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "product"
 msgstr "product"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "products"
 msgstr "producten"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Percentage"
 msgstr "Percentage"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Reason (optional)"
 msgstr "Reden (optie)"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Add a reason or note (optional)"
 msgstr "Reden of notitie toevoegen (optie)"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Save note"
 msgstr "Notitie opslaan"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Shipping Method"
 msgstr "Verzendmethode"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Update Total"
 msgstr "Totaal bijwerken"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Save Shipping"
 msgstr "Verzending opslaan"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Total due"
 msgstr "Totaal verschuldigd"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Total paying"
 msgstr "Totaal betalen"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Coupon usage limit has been reached."
 msgstr "Kortingsbon gebruikerslimiet is bereikt."
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "This coupon has expired."
 msgstr "Deze coupon is verlopen."
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "The minimum spend for this coupon is %s."
 msgstr "De minimum uitgave voor deze kortingsbon is %s."
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "The maximum spend for this coupon is %s."
 msgstr "De maximum uitgave voor deze kortingsbon is %s."
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Sorry, this coupon is not applicable to your cart contents."
 msgstr ""
 "Sorry, deze kortingsbon is niet toe te passen op de inhoud van je "
 "winkelwagen."
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Sorry, this coupon is not applicable to selected products."
 msgstr ""
 "Sorry, deze kortingsbon is niet toe te passen op de geselecteerde producten."
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Sorry, this coupon is not valid for sale items."
 msgstr "Sorry, deze kortingsbon is niet geldig voor uitverkoop items."
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Sorry, this coupon is not applicable to the products: %s."
 msgstr ""
 "Sorry, deze kortingsbon is niet toe te passen op de volgende producten: %s."
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Sorry, this coupon is not applicable to the categories: %s."
 msgstr ""
 "Sorry, deze kortingsbon is niet toe te passen op de volgende categorieën: %s."
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Sorry, this coupon is not usable by the current customer."
 msgstr "Sorry, deze kortingsbon is niet te gebruiken voor de volgende klant."
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Guest"
 msgstr "Gast"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Subtotal"
 msgstr "Subtotaal"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Tax"
 msgstr "Belasting"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Subtotal (incl. tax)"
 msgstr "Subtotaal (incl. btw)"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "COUPON"
 msgstr "KORTINGSBON"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "You cannot add %s \"%s\" to your cart"
 msgstr "Je kunt %s \"%s\" niet toevoegen aan je winkelwagen"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "You cannot add another \"%s\" to your cart"
 msgstr "Je kunt geen andere \"%s\" toevoegen aan je winkelwagen"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Coupon already applied!"
 msgstr "Kortingsbon is al toegepast!"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "The coupon was not applied!"
 msgstr "De kortingsbon was niet toegepast!"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Add the first product to the cart"
 msgstr "Eerste product toevoegen aan de winkelwagen"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Are you sure?"
 msgstr "Weet je het zeker?"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Cancel"
 msgstr "Annuleren"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Coupon not found"
 msgstr "Kortingsbon niet gevonden"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Discount type:"
 msgstr "Kortingstype:"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Coupon amount:"
 msgstr "Kortingsbon bedrag:"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Expiry date:"
 msgstr "Vervaldatum:"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "clear"
 msgstr "wissen"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Order #"
 msgstr "Bestelling #"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "items"
 msgstr "items"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "item"
 msgstr "item"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "orders"
 msgstr "bestellingen"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "order"
 msgstr "bestelling"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "All registers"
 msgstr "Alle kassa's"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Note: "
 msgstr "Notitie: "
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Other"
 msgstr "Andere"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Total Sales"
 msgstr "Totaal verkopen"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Youtube:"
 msgstr "Youtube:"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Order #%s"
 msgstr "Bestelling #%s"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Paid via %s on %s"
 msgstr "Betaald via %s op %s"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Print Receipt"
 msgstr "Bon afdrukken"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "< Back to register screen"
 msgstr "< terug naar kassa scherm"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Or create a new customer profile >"
 msgstr "Of nieuw klantprofiel aanmaken >"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Create a new customer profile"
 msgstr "Nieuw klantprofiel aanmaken"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Company"
 msgstr "Bedrijf"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Country"
 msgstr "Land"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Current customer"
 msgstr "Huidige klant"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Email"
 msgstr "E-mail"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Invalid email address"
 msgstr "Ongeldig e-mailadres"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "First name"
 msgstr "Voornaam"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Last name"
 msgstr "Achternaam"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Please enter 3 or more characters"
 msgstr "3 of meer tekens invoeren"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Not found the right customer?"
 msgstr "Niet de juiste klant gevonden?"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "User not found."
 msgstr "Gebruiker niet gevonden."
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Post Code"
 msgstr "Postcode"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "An account is already registered with this email address."
 msgstr "Er is ale een account geregistreerd met dit e-mailadres."
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "This field is required"
 msgstr "Dit veld is verplicht"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Save Customer"
 msgstr "Klant opslaan"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Save Shipping Address"
 msgstr "Verzendadres opslaan"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "State"
 msgstr "Staat"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Use this customer profile"
 msgstr "Gebruik dit klantprofiel"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Update customer profile"
 msgstr "Klantprofiel bijwerken"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "VAT / CIF / ID"
 msgstr "BTW / ID"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Notice: some information is missing!"
 msgstr "Notitie: er ontbreekt informatie!"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Billing %s is a required field."
 msgstr "Facturering %s is een verplicht veld."
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Billing %s are required fields."
 msgstr "Facturering %s zijn verplichte velden."
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Shipping %s is a required field."
 msgstr "Verzending %s is een verplicht veld."
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Shipping %s are required fields."
 msgstr "Verzending %s zijn verplichte velden."
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Cash in hand"
 msgstr "Contant in de hand"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Reason"
 msgstr "Reden"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Enter amount"
 msgstr "Bedrag invoeren"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Save Cash"
 msgstr "Contanten opslaan"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Cash Total"
 msgstr "Contanten totaal"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Opening times"
 msgstr "Openingstijden"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Closing time"
 msgstr "Sluitingstijd"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Add"
 msgstr "Toevoegen"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Remove"
 msgstr "Verwijderen"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Add or remove cash"
 msgstr "Contanten toevoegen of verwijderen"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Add a note (optional)"
 msgstr "Notitie toevoegen (optioneel)"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Download Report"
 msgstr "Rapport downloaden"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Close Register"
 msgstr "Kassa sluiten"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Product name: "
 msgstr "Productnaam: "
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Product category:"
 msgstr "Product categorie:"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "SKU"
 msgstr "SKU"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Tax Status:"
 msgstr "Belasting status:"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Tax Class:"
 msgstr "Belasting klasse:"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Regular price:"
 msgstr "Normale prijs:"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Stock:"
 msgstr "Voorraad:"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Quantity in stock:"
 msgstr "Hoeveelheid op voorraad:"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Sync with WooCommerce:"
 msgstr "Synchroniseren met WooCommerce:"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Disabled"
 msgstr "Uitgeschakeld"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Create product"
 msgstr "Product maken"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Taxable"
 msgstr "Belastbaar"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Shipping only"
 msgstr "Alleen verzenden"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "None"
 msgstr "Geen"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "No results found."
 msgstr "Geen resultaten gevonden."
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "add to cart"
 msgstr "toevoegen aan winkelwagen"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Inclusive"
 msgstr "Inclusief"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Exclusive"
 msgstr "Exclusief"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "No Category found."
 msgstr "Geen categorie gevonden."
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Invalid or duplicated SKU."
 msgstr "Ongeldige of gedupliceerde SKU."
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Standard"
 msgstr "Standaard"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Search a category"
 msgstr "Categorie zoeken"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid ""
 "Please enter a number. If decimal, use the decimal separator (%s). Never use "
 "thousand separators."
@@ -2752,7 +2750,7 @@ msgstr ""
 "Nummer invoeren a.u.b. Indien het een decimaal betreft, gebruik de decimaal "
 "scheider (%s). Gebruik nooit scheidingstekens voor duizendtallen."
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid ""
 "Please enter a positive number. If decimal, use the decimal separator (%s). "
 "Never use thousand separators."
@@ -2760,63 +2758,63 @@ msgstr ""
 "Positief nummer invoeren a.u.b. Indien het een decimaal betreft, gebruik de "
 "decimaal scheider (%s). Gebruik nooit scheidingstekens voor duizendtallen."
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "On sale"
 msgstr "Uitverkoop"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Featured"
 msgstr "Aanbevolen"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Add product"
 msgstr "Product toevoegen"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Scan product"
 msgstr "Product scannen"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Add cash in hand"
 msgstr "Contant in hand toevoegen"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Choose variation"
 msgstr "Kies variatie"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Variable product without variations"
 msgstr "Variabel product zonder variaties"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Error"
 msgstr "Fout"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Error: %s"
 msgstr "Fout: %s"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "OK"
 msgstr "OK"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Do you want to delete this cart and start from scratch?"
 msgstr "Wil je de winkelwagen verwijderen en vanaf 0 beginnen?"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "No, continue with this cart"
 msgstr "Nee, doorgaan met deze winkelwagen"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Suspend and save cart"
 msgstr "Onderbreken en winkelwagen opslaan"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Do you want to load the cart number #%s?"
 msgstr "Wil je het winkelwagen nummer #%s laden?"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid ""
 "You have some items in your cart. Do you want to suspend your current cart "
 "and load the cart number#%s?"
@@ -2824,141 +2822,63 @@ msgstr ""
 "Je hebt items in je winkelwagen. Wil je je winkelwagen schorsen en het "
 "winkelwagen nummer #%s laden?"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "No, keep the cart"
 msgstr "Nee, behoud de winkelwagen"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Do you want to remove the cart number #%s?"
 msgstr "Wil je het winkelwagen nummer #%s verwijderen?"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "This cart was switched with the cart number"
 msgstr "Deze winkelwagen in gewijzigd met het winkelwagen nummer"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Apply coupon to order total"
 msgstr "Coupon toepassen op totaal bestelling"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Order total"
 msgstr "Totaal bestelling"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Add fee or discount to order total"
 msgstr "Kosten of korting toevoegen aan totaal bestelling"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Set customer's profile"
 msgstr "Klantprofiel instellen"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Shipping Address"
 msgstr "Verzendadres"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Add a new product"
 msgstr "Nieuw product toevoegen"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Split Payment"
 msgstr "Betaling splitsen"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Fix your cart and try again"
 msgstr "Winkelwagen herstellen en opnieuw proberen"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Error: You are not able to do this."
 msgstr "Fout: Je kunt dit niet doen."
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Profit of"
 msgstr "Profiteer van"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgctxt "Title of Close Register modal"
 msgid "Close Register"
 msgstr "Kassa sluiten"
 
-#: dist/pos/index.js:41
+#: dist/pos/index.js:33
 msgid "Are you sure you want to log out?"
 msgstr "Weet je zeker dat je wilt uitloggen?"
-
-#~ msgid ""
-#~ "Just one more step! Click the 'resume' button to save your store. To make "
-#~ "changes you can go back now or edit these from \"Stores\" tab."
-#~ msgstr ""
-#~ "Nog maar een stap! Klik op de 'hervatten' knop om je winkel op te slaan. "
-#~ "Om wijzigingen toe te passen kun je nu teruggaan of deze gegevens "
-#~ "bewerken vanaf het \"Winkels\" tabblad."
-
-#~ msgid "Set the percentage discount presets with the number keyboard"
-#~ msgstr ""
-#~ "Bepaal de vooraf ingestelde percentage kortingen met het nummer keyboard"
-
-#~ msgid "Set the percentage discount presets with the fee and discount editor"
-#~ msgstr ""
-#~ "Bepaal het vooraf ingestelde kortingspercentage met de kosten en korting "
-#~ "editor"
-
-#~ msgid ""
-#~ "Choose how to manage the purchase of products that do not have the store"
-#~ msgstr ""
-#~ "Bepaal hoe je de aankoop van producten wilt beheren die nog niet in de "
-#~ "winkel zijn"
-
-#~ msgid "Background products grid"
-#~ msgstr "Achtergrond producten raster"
-
-#~ msgid "Background product title"
-#~ msgstr "Achtergrond product titel"
-
-#~ msgid "Background saved cart buttons"
-#~ msgstr "Achtergrond opgeslagen winkelwagen knoppen"
-
-#~ msgid "Background pay button"
-#~ msgstr "Achtergrond betalen knop"
-
-#~ msgid "Background note buttons"
-#~ msgstr "Achtergrond notitie knoppen"
-
-#~ msgid "Background header"
-#~ msgstr "Achtergrond header"
-
-#~ msgid "Login User"
-#~ msgstr "Login gebruiker"
-
-#~ msgid "Enter an username to identify this user."
-#~ msgstr "Gebruikersnaam invoeren om deze gebruikers te identificeren."
-
-#~ msgid "The login user is required and must be unique."
-#~ msgstr "De login van gebruiker is verplicht en moet uniek zijn."
-
-#~ msgid "No Store in your POS"
-#~ msgstr "Geen winkel in je POS"
-
-#~ msgid ""
-#~ "Please enter with one decimal point (%s) without thousand separators."
-#~ msgstr ""
-#~ "Invoeren met een decimaal punt (%s) zonder duizendtal scheidingstekends."
-
-#~ msgid ""
-#~ "Please enter a positive number with one decimal point (%s) without "
-#~ "thousand separators."
-#~ msgstr ""
-#~ "Een positief nummer invoeren met een decimaal punt (%s) zonder duizendtal "
-#~ "scheidingstekens."
-
-#~ msgid "Do you want to load the cart number?"
-#~ msgstr "Wil je het winkelwagen nummer laden?"
-
-#~ msgid ""
-#~ "You have some items in your cart. Do you want to suspend your current "
-#~ "cart and load the cart number?"
-#~ msgstr ""
-#~ "Je hebt enkele items in je winkelwagen. Wil je je huidige winkelwagen "
-#~ "onderbreken en het winkelwagen nummer laden?"
-
-#~ msgid "Do you want to remove the cart number?"
-#~ msgstr "Wil je het winkelwagen nummer verwijderen?"

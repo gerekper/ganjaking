@@ -8,6 +8,9 @@ $logo = get_option('yith_pos_login_logo');
 			<?php if( $logo ): ?><img  src="<?php echo $logo ?>"/><?php endif ?>
 	        <?php _e('Login', 'yith-point-of-sale-for-woocommerce') ?>
         </h1>
+
+        <?php wc_print_notices(); ?>
+        
         <form class="yith-pos-login-form" method="post">
 
 			<?php do_action( 'yith_pos_login_form_start' ); ?>

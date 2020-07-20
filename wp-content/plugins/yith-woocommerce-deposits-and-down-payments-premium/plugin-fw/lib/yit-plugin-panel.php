@@ -116,7 +116,6 @@ if ( !class_exists( 'YIT_Plugin_Panel' ) ) {
             //yith-plugin-ui
             add_action( 'yith_plugin_fw_before_yith_panel', array( $this, 'add_plugin_banner' ), 10, 1 );
             add_action( 'wp_ajax_yith_plugin_fw_save_toggle_element', array( $this, 'save_toggle_element_options' ) );
-
         }
 
 		/**
@@ -1418,6 +1417,4 @@ if ( !class_exists( 'YIT_Plugin_Panel' ) ) {
             return true;
         }
     }
-
-
 }

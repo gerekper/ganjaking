@@ -3,7 +3,7 @@
  * @var YITH_POS_Store $store
  */
 
-$title = YITH_POS_Admin()->store_post_type_admin->get_section_title( 4, $is_published );
+$title = YITH_POS_Admin()->store_post_type_admin->get_section_title( 4 );
 
 echo $title;
 ?>

@@ -92,9 +92,6 @@ return array(
 	"Net Sales" => array(
 		__( "Net Sales", 'yith-point-of-sale-for-woocommerce' ),
 	),
-	"TestString" => array(
-		__( "TestString", 'yith-point-of-sale-for-woocommerce' ),
-	),
 	"Average Order Value" => array(
 		__( "Average Order Value", 'yith-point-of-sale-for-woocommerce' ),
 	),
@@ -202,6 +199,9 @@ return array(
 	),
 	"Amount paying" => array(
 		__( "Amount paying", 'yith-point-of-sale-for-woocommerce' ),
+	),
+	"Amount to pay" => array(
+		__( "Amount to pay", 'yith-point-of-sale-for-woocommerce' ),
 	),
 	"Amount type" => array(
 		__( "Amount type", 'yith-point-of-sale-for-woocommerce' ),

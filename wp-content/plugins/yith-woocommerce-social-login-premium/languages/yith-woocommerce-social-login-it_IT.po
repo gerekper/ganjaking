@@ -5,72 +5,75 @@ msgstr ""
 "Project-Id-Version: YITH WooCommerce Social Login\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-social-login."
 "premium\n"
-"POT-Creation-Date: 2020-05-26 14:55:50+00:00\n"
+"POT-Creation-Date: 2020-07-06 15:30:48+00:00\n"
 "PO-Revision-Date: 2020-05-16 13:09:32+0000\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/2.3.1\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
 
-#: includes/class-yith-social-login-admin-premium.php:115
+#: includes/class-yith-social-login-admin-premium.php:119
+msgid ""
+"Due to Instagram Legacy API permission (\"Basic Permission\") deprecated on "
+"June 29, 2020, Instagram authentication has been removed and is no longer "
+"available."
+msgstr ""
+
+#: includes/class-yith-social-login-admin-premium.php:169
 #: templates/admin/social_network_table.php:11
 #: templates/admin/users/social-connect-profile.php:11
 #: templates/myaccount/social-connections.php:13
 msgid "Social Connections"
 msgstr "Connessioni social"
 
-#: includes/class-yith-social-login-admin-premium.php:198
+#: includes/class-yith-social-login-admin-premium.php:252
 msgid "Connections"
 msgstr "Connessioni"
 
-#: includes/class-yith-social-login-admin-premium.php:246
+#: includes/class-yith-social-login-admin-premium.php:300
 msgid "Facebook"
 msgstr "Facebook"
 
-#: includes/class-yith-social-login-admin-premium.php:247
+#: includes/class-yith-social-login-admin-premium.php:301
 msgid "Twitter"
 msgstr "Twitter"
 
-#: includes/class-yith-social-login-admin-premium.php:248
+#: includes/class-yith-social-login-admin-premium.php:302
 msgid "Google"
 msgstr "Google"
 
-#: includes/class-yith-social-login-admin-premium.php:249
+#: includes/class-yith-social-login-admin-premium.php:303
 msgid "LinkedIn"
 msgstr "LinkedIn"
 
-#: includes/class-yith-social-login-admin-premium.php:250
+#: includes/class-yith-social-login-admin-premium.php:304
 msgid "Yahoo"
 msgstr "Yahoo"
 
-#: includes/class-yith-social-login-admin-premium.php:251
+#: includes/class-yith-social-login-admin-premium.php:305
 msgid "Foursquare"
 msgstr "Foursquare"
 
-#: includes/class-yith-social-login-admin-premium.php:252
+#: includes/class-yith-social-login-admin-premium.php:306
 #: plugin-options/paypal-options.php:71
 msgid "Live"
 msgstr "Live "
 
-#: includes/class-yith-social-login-admin-premium.php:253
-msgid "Instagram"
-msgstr "Instagram"
-
-#: includes/class-yith-social-login-admin-premium.php:254
+#: includes/class-yith-social-login-admin-premium.php:308
 msgid "PayPal"
 msgstr "PayPal"
 
-#: includes/class-yith-social-login-admin-premium.php:255
+#: includes/class-yith-social-login-admin-premium.php:309
 msgid "Tumblr"
 msgstr "Tumblr"
 
-#: includes/class-yith-social-login-admin-premium.php:256
+#: includes/class-yith-social-login-admin-premium.php:310
 msgid "Vkontakte"
 msgstr "Vkontakte"
 
-#: includes/class-yith-social-login-admin-premium.php:257
+#: includes/class-yith-social-login-admin-premium.php:311
 msgid "GitHub"
 msgstr "GitHub"
 
@@ -99,7 +102,7 @@ msgstr ""
 "L'amministratore dovrebbe controllare che le credenziali siano compatibili "
 "ed eventualmente adattarle."
 
-#: includes/class-yith-social-login-admin.php:284
+#: includes/class-yith-social-login-admin.php:285
 msgid "Please, check the plugin documentation."
 msgstr "Per favore, consulta la documentazione del plugin."
 
@@ -665,3 +668,6 @@ msgstr "YITH WooCommerce Social Login Premium"
 msgctxt "Do not translate"
 msgid "YITH WooCommerce Social Login"
 msgstr "YITH WooCommerce Social Login"
+
+#~ msgid "Instagram"
+#~ msgstr "Instagram"

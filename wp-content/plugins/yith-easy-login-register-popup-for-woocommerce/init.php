@@ -3,17 +3,17 @@
  * Plugin Name: YITH Easy Login & Register Popup For WooCommerce
  * Plugin URI: https://yithemes.com/themes/plugins/yith-easy-login-register-popup-for-woocommerce/
  * Description: The <code><strong>YITH Easy Login & Register Popup For WooCommerce</strong></code> plugin lets you make the login, registration and password reset processes easier during the checkout and reducs the cart abandonment rate. <a href="https://yithemes.com/" target="_blank">Get more plugins for your e-commerce shop on <strong>YITH</strong></a>.
- * Version: 1.5.0
+ * Version: 1.5.1
  * Author: YITH
  * Author URI: https://yithemes.com/
  * Text Domain: yith-easy-login-register-popup-for-woocommerce
  * Domain Path: /languages/
  * WC requires at least: 3.4.0
- * WC tested up to: 4.1
+ * WC tested up to: 4.2
  *
  * @author  YITH
  * @package YITH Easy Login & Register Popup For WooCommerce
- * @version 1.5.0
+ * @version 1.5.1
  */
 /*  Copyright 2020  Your Inspiration Solutions  ( email: plugins@yithemes.com )
 
@@ -39,7 +39,7 @@ if ( ! function_exists( 'yith_plugin_registration_hook' ) ) {
 register_activation_hook( __FILE__, 'yith_plugin_registration_hook' );
 
 defined( 'YITH_WELRP' ) || define( 'YITH_WELRP', true );
-defined( 'YITH_WELRP_VERSION' ) || define( 'YITH_WELRP_VERSION', '1.5.0' );
+defined( 'YITH_WELRP_VERSION' ) || define( 'YITH_WELRP_VERSION', '1.5.1' );
 defined( 'YITH_WELRP_INIT' ) || define( 'YITH_WELRP_INIT', plugin_basename( __FILE__ ) );
 defined( 'YITH_WELRP_FILE' ) || define( 'YITH_WELRP_FILE', __FILE__ );
 defined( 'YITH_WELRP_URL' ) || define( 'YITH_WELRP_URL', plugin_dir_url( __FILE__ ) );
@@ -47,7 +47,7 @@ defined( 'YITH_WELRP_PATH' ) || define( 'YITH_WELRP_PATH', plugin_dir_path( __FI
 defined( 'YITH_WELRP_TEMPLATE_PATH' ) || define( 'YITH_WELRP_TEMPLATE_PATH', YITH_WELRP_PATH . 'templates/' );
 defined( 'YITH_WELRP_ASSETS_URL' ) || define( 'YITH_WELRP_ASSETS_URL', YITH_WELRP_URL . 'assets/' );
 defined( 'YITH_WELRP_SLUG' ) || define( 'YITH_WELRP_SLUG', 'yith-easy-login-register-popup-for-woocommerce' );
-defined( 'YITH_WELRP_SECRET_KEY' ) || define( 'YITH_WELRP_SECRET_KEY', '12345' );
+defined( 'YITH_WELRP_SECRET_KEY' ) || define( 'YITH_WELRP_SECRET_KEY', 'OQqviMFTug6qJiFvuPyS' );
 
 
 /* Plugin Framework Version Check */

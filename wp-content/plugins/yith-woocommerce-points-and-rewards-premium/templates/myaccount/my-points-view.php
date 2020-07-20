@@ -59,7 +59,7 @@ if ( 'yes' === get_option( 'ywpar_show_point_worth_my_account', 'yes' ) ) {
 		?>
 	</p>
 
-	<h3><?php echo wp_kses_post( apply_filters( 'ywpar_my_account_my_points_history_title', sprintf( _x( 'My %s History', 'Points label', 'yith-woocommerce-points-and-rewards' ), $singular ) ) ); ?></h3>
+	<h3><?php echo wp_kses_post( apply_filters( 'ywpar_my_account_my_points_history_title', sprintf( _x( 'My %s History', 'Points label', 'yith-woocommerce-points-and-rewards' ), $plural ) ) ); ?></h3>
 
 	<?php if ( $history ) : ?>
 		<table class="shop_table ywpar_points_rewards my_account_orders">

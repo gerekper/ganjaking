@@ -3,17 +3,17 @@
  * Plugin Name: YITH WooCommerce Customize My Account Page
  * Plugin URI: https://yithemes.com/themes/plugins/yith-woocommerce-customize-myaccount-page
  * Description: The <code><strong>YITH WooCommerce Customize My Account Page</strong></code> lets you customize the layout of the "My Account" page, adds new endpoints and manage its content easily. <a href="https://yithemes.com/" target="_blank">Get more plugins for your e-commerce shop on <strong>YITH</strong></a>.
- * Version: 2.6.3
+ * Version: 2.6.4
  * Author: YITH
  * Author URI: https://yithemes.com/
  * Text Domain: yith-woocommerce-customize-myaccount-page
  * Domain Path: /languages/
  * WC requires at least: 3.6
- * WC tested up to: 4.2
+ * WC tested up to: 4.3
  *
  * @author  YITH
  * @package YITH WooCommerce Customize My Account Page
- * @version 2.6.3
+ * @version 2.6.4
  */
 /*  Copyright 2015-2019  YITH (email : plugins@yithemes.com)
 
@@ -54,7 +54,7 @@ register_activation_hook( __FILE__, 'yith_plugin_registration_hook' );
 
 
 if ( ! defined( 'YITH_WCMAP_VERSION' ) ) {
-	define( 'YITH_WCMAP_VERSION', '2.6.3' );
+	define( 'YITH_WCMAP_VERSION', '2.6.4' );
 }
 
 if ( ! defined( 'YITH_WCMAP_PREMIUM' ) ) {

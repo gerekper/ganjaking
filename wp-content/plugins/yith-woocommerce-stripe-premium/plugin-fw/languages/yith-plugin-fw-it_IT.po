@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YITH Plugin Starter 1.0.0 Plugin FW\n"
 "Report-Msgid-Bugs-To: YITH <plugins@yithemes.com>\n"
-"POT-Creation-Date: 2020-04-23 06:38:32+00:00\n"
+"POT-Creation-Date: 2020-06-10 08:56:54+00:00\n"
 "PO-Revision-Date: 2020-04-06 10:46+0200\n"
 "Last-Translator: \n"
 "Language-Team: YIThemes <plugins@yithemes.com>\n"
@@ -202,7 +202,7 @@ msgstr "Aggiungi %s dalla immagini"
 msgid "Upload multiple files"
 msgstr "Carica file multipli"
 
-#: lib/yit-plugin-panel-wc.php:399
+#: lib/yit-plugin-panel-wc.php:403
 msgid "The changes you have made will be lost if you leave this page."
 msgstr "Perderai tutti i cambiamenti effettuati se lasci questa pagina."
 
@@ -210,16 +210,16 @@ msgstr "Perderai tutti i cambiamenti effettuati se lasci questa pagina."
 msgid "Plugin Settings"
 msgstr "Impostazioni plugin"
 
-#: lib/yit-plugin-panel.php:455 lib/yit-plugin-panel.php:458
+#: lib/yit-plugin-panel.php:454 lib/yit-plugin-panel.php:457
 msgid "How to install premium version"
 msgstr "Come installare la versione premium"
 
-#: lib/yit-plugin-panel.php:603 lib/yit-plugin-subpanel.php:151
+#: lib/yit-plugin-panel.php:602 lib/yit-plugin-subpanel.php:151
 #: templates/panel/woocommerce/woocommerce-form.php:14
 msgid "Save Changes"
 msgstr "Salva modifiche"
 
-#: lib/yit-plugin-panel.php:606 lib/yit-plugin-subpanel.php:154
+#: lib/yit-plugin-panel.php:605 lib/yit-plugin-subpanel.php:154
 #: templates/panel/woocommerce/woocommerce-form.php:17
 msgid ""
 "If you continue with this action, you will reset all options in this page."
@@ -227,69 +227,69 @@ msgstr ""
 "Se prosegui con questa azione, tutte le opzioni di questa pagina saranno "
 "reimpostate."
 
-#: lib/yit-plugin-panel.php:608 lib/yit-plugin-subpanel.php:156
+#: lib/yit-plugin-panel.php:607 lib/yit-plugin-subpanel.php:156
 msgid "Reset to default"
 msgstr "Ripristina configurazione predefinita"
 
-#: lib/yit-plugin-panel.php:609 lib/yit-plugin-subpanel.php:157
+#: lib/yit-plugin-panel.php:608 lib/yit-plugin-subpanel.php:157
 #: templates/panel/woocommerce/woocommerce-form.php:21
 msgid "Are you sure?"
 msgstr "Sei sicuro?"
 
-#: lib/yit-plugin-panel.php:807
+#: lib/yit-plugin-panel.php:806
 msgid ""
 "The element you have entered already exists. Please, enter another name."
 msgstr "L'elemento inserito esiste già. Per favore, inserisci un altro nome."
 
-#: lib/yit-plugin-panel.php:808
+#: lib/yit-plugin-panel.php:807
 msgid "Settings saved"
 msgstr "Impostazioni salvate"
 
-#: lib/yit-plugin-panel.php:809
+#: lib/yit-plugin-panel.php:808
 msgid "Settings reset"
 msgstr "Impostazioni azzerate"
 
-#: lib/yit-plugin-panel.php:810
+#: lib/yit-plugin-panel.php:809
 msgid "Element deleted correctly."
 msgstr "Elemento rimosso correttamente."
 
-#: lib/yit-plugin-panel.php:811 lib/yit-plugin-panel.php:812
+#: lib/yit-plugin-panel.php:810 lib/yit-plugin-panel.php:811
 msgid "Element updated correctly."
 msgstr "Elemento aggiornato correttamente."
 
-#: lib/yit-plugin-panel.php:813
+#: lib/yit-plugin-panel.php:812
 msgid "Database imported correctly."
 msgstr "Database importato correttamente."
 
-#: lib/yit-plugin-panel.php:814
+#: lib/yit-plugin-panel.php:813
 msgid "An error has occurred during import. Please try again."
 msgstr "Si è verificato un errore durante l'importazione. Prova di nuovo."
 
-#: lib/yit-plugin-panel.php:815
+#: lib/yit-plugin-panel.php:814
 msgid "The added file is not valid."
 msgstr "Il file aggiunto non è valido."
 
-#: lib/yit-plugin-panel.php:816
+#: lib/yit-plugin-panel.php:815
 msgid "Sorry, import is disabled."
 msgstr "Ci dispiace, l'importazione è disabilitata."
 
-#: lib/yit-plugin-panel.php:817
+#: lib/yit-plugin-panel.php:816
 msgid "Sorting successful."
 msgstr "Ordinamento effettuato con successo."
 
-#: lib/yit-plugin-panel.php:1265
+#: lib/yit-plugin-panel.php:1264
 msgid "We need your support"
 msgstr "Abbiamo bisogno del tuo sostegno"
 
-#: lib/yit-plugin-panel.php:1266
+#: lib/yit-plugin-panel.php:1265
 msgid "to keep updating and improving the plugin. Please,"
 msgstr "per poter continuare ad aggiornare e migliorare il plugin."
 
-#: lib/yit-plugin-panel.php:1268
+#: lib/yit-plugin-panel.php:1267
 msgid "help us by leaving a five-star rating"
 msgstr "Puoi darci una mano lasciando una recensione a 5 stelle"
 
-#: lib/yit-plugin-panel.php:1269
+#: lib/yit-plugin-panel.php:1268
 msgid ":) Thanks!"
 msgstr ":) Grazie!"
 
@@ -360,81 +360,177 @@ msgstr ""
 "Si è verificato un errore probabilmente causato dal feed non disponibile. "
 "Riprova più tardi."
 
-#: lib/yith-system-status.php:105
+#: lib/yith-system-status.php:111
 msgid "WordPress Version"
 msgstr "Versione di WordPress"
 
-#: lib/yith-system-status.php:106
+#: lib/yith-system-status.php:112
 msgid "WooCommerce Version"
 msgstr "Versione di WooCommerce"
 
-#: lib/yith-system-status.php:107
+#: lib/yith-system-status.php:113
 msgid "Available Memory"
 msgstr "Memoria disponibile"
 
-#: lib/yith-system-status.php:108
+#: lib/yith-system-status.php:114
 msgid "PHP Version"
 msgstr "Versione PHP"
 
-#: lib/yith-system-status.php:109
+#: lib/yith-system-status.php:115
 msgid "TLS Version"
 msgstr "Versione TLS"
 
-#: lib/yith-system-status.php:110
+#: lib/yith-system-status.php:116
 msgid "WordPress Cron"
 msgstr "Cron WordPress"
 
-#: lib/yith-system-status.php:111
+#: lib/yith-system-status.php:117
 msgid "SimpleXML"
 msgstr "SimpleXML"
 
-#: lib/yith-system-status.php:112
+#: lib/yith-system-status.php:118
 msgid "MultiByte String"
 msgstr "MultiByte String"
 
-#: lib/yith-system-status.php:113
+#: lib/yith-system-status.php:119
 msgid "ImageMagick Version"
 msgstr "Versione di ImageMagick"
 
-#: lib/yith-system-status.php:114
+#: lib/yith-system-status.php:120
 msgid "GD Library"
 msgstr "GD Library"
 
-#: lib/yith-system-status.php:115
+#: lib/yith-system-status.php:121
 msgid "Iconv Module"
 msgstr "Iconv Module"
 
-#: lib/yith-system-status.php:116
+#: lib/yith-system-status.php:122
 msgid "OPCache Save Comments"
 msgstr "OPCache Save Comments"
 
-#: lib/yith-system-status.php:117
+#: lib/yith-system-status.php:123
 msgid "URL FOpen"
 msgstr "URL FOpen"
 
-#: lib/yith-system-status.php:135 lib/yith-system-status.php:136
+#: lib/yith-system-status.php:141 lib/yith-system-status.php:142
 msgid "System Status"
 msgstr "Stato del sistema"
 
-#: lib/yith-system-status.php:179
+#: lib/yith-system-status.php:184
 msgid "YITH Plugins"
 msgstr "Plugin YITH"
 
-#: lib/yith-system-status.php:180
+#: lib/yith-system-status.php:192
 msgid "WooCommerce"
 msgstr "WooCommerce"
 
-#: lib/yith-system-status.php:297
+#: lib/yith-system-status.php:330
 msgid "Warning!"
 msgstr "Attenzione!"
 
-#: lib/yith-system-status.php:298
+#. translators: %1$s open link tag, %2$s open link tag
+#: lib/yith-system-status.php:334
+#, fuzzy
 msgid ""
-"The system check has detected some compatibility issues on your "
-"installation. %sClick here%s to know more"
+"The system check has detected some compatibility issues on your installation."
+"%1$sClick here%2$s to know more"
 msgstr ""
 "Il controllo di sistema ha individuato delle incompatibilità con la tua "
 "installazione. %sVedi qui%s per maggiori informazioni"
+
+#: lib/yith-system-status.php:473
+msgid "Enabled"
+msgstr "Abilitato"
+
+#: lib/yith-system-status.php:473
+msgid "Disabled"
+msgstr "Disabilitato"
+
+#: lib/yith-system-status.php:478
+msgid "N/A"
+msgstr "N.D."
+
+#. translators: %1$s plugin name, %2$s requirement name
+#: lib/yith-system-status.php:506
+#, fuzzy
+msgid "%1$s needs %2$s enabled"
+msgstr "%s necessita l'attivazione di %s"
+
+#. translators: %1$s plugin name, %2$s required memory amount
+#: lib/yith-system-status.php:509
+#, fuzzy
+msgid "%1$s needs at least %2$s of available memory"
+msgstr "%s necessita almeno %s di memoria disponibile"
+
+#. translators: %1$s plugin name, %2$s version number
+#: lib/yith-system-status.php:512
+#, fuzzy
+msgid "%1$s needs at least %2$s version"
+msgstr "%s necessita almeno della versione %s"
+
+#: lib/yith-system-status.php:537
+msgid ""
+"Update it to the latest version in order to benefit of all new features and "
+"security updates."
+msgstr ""
+"Aggiorna all'ultima versione per beneficiare di tutte le nuove funzionalità "
+"e degli aggiornamenti di sicurezza."
+
+#: lib/yith-system-status.php:541 lib/yith-system-status.php:547
+msgid "Contact your hosting company in order to update it."
+msgstr "Contatta il tuo servizio hosting per aggiornarlo."
+
+#: lib/yith-system-status.php:545
+#, fuzzy
+msgid "Contact your hosting company in order to install it."
+msgstr "Per attivarlo contatta il tuo servizio di hosting."
+
+#. translators: %1$s code, %2$s file name
+#: lib/yith-system-status.php:552
+#, fuzzy
+msgid "Remove %1$s from %2$s file"
+msgstr "Rimuovi %s dal file %s"
+
+#: lib/yith-system-status.php:560
+msgid "Contact your hosting company in order to enable it."
+msgstr "Per attivarlo contatta il tuo servizio di hosting."
+
+#. translators: %1$s opening link tag, %2$s closing link tag
+#: lib/yith-system-status.php:564 lib/yith-system-status.php:588
+#, fuzzy
+msgid ""
+"Read more %1$shere%2$s or contact your hosting company in order to increase "
+"it."
+msgstr ""
+"Per maggiori informazioni %s leggi questo%s oppure contatta il tuo host per "
+"un upgrade."
+
+#. translators: %s recommended memory amount
+#: lib/yith-system-status.php:585
+msgid ""
+"For optimal functioning of our plugins, we suggest setting at least %s of "
+"available memory"
+msgstr ""
+"Per il funzionamento ottimale dei nostri plugin consigliamo di impostare "
+"almeno %s della memoria disponibile"
+
+#. translators: %1$s TLS label, %2$s cURL label
+#: lib/yith-system-status.php:593
+#, fuzzy
+msgid ""
+"The system check cannot determine which %1$s version is installed because "
+"%2$s module is disabled. Ask your hosting company to enable it."
+msgstr ""
+"Non ci è stato possibile determinare quale versione <b>TLS</b> è installata "
+"in quanto il modulo <b>cURL</b> è disattivato. Chiedi al tuo servizio "
+"hosting di attivarlo."
+
+#. translators: %1$s TLS label
+#: lib/yith-system-status.php:596
+msgid ""
+"The system check cannot determine which %1$s version is installed due to a "
+"connection issue between your site and our server."
+msgstr ""
 
 #: templates/fields/ajax-customers.php:57
 msgid "Search Customers"
@@ -566,108 +662,55 @@ msgstr "(Default: <i %s></i> )"
 msgid "Reset Defaults"
 msgstr "Ripristina impostazioni iniziali"
 
-#: templates/sysinfo/system-information-panel.php:30
+#: templates/sysinfo/system-information-panel.php:39
 msgid "YITH System Information"
 msgstr "YITH System Information"
 
-#: templates/sysinfo/system-information-panel.php:38
-msgid "Site URL"
-msgstr "URL del sito"
-
-#: templates/sysinfo/system-information-panel.php:46
-msgid "Output IP Address"
-msgstr "Indirizzo IP di output"
-
-#: templates/sysinfo/system-information-panel.php:76
-msgid "Enabled"
-msgstr "Abilitato"
-
-#: templates/sysinfo/system-information-panel.php:76
-msgid "Disabled"
-msgstr "Disabilitato"
-
-#: templates/sysinfo/system-information-panel.php:82
-msgid "N/A"
-msgstr "N.D."
-
-#: templates/sysinfo/system-information-panel.php:96
-msgid "%s needs %s enabled"
-msgstr "%s necessita l'attivazione di %s"
-
-#: templates/sysinfo/system-information-panel.php:98
-msgid "%s needs at least %s of available memory"
-msgstr "%s necessita almeno %s di memoria disponibile"
-
-#: templates/sysinfo/system-information-panel.php:100
-#: templates/sysinfo/system-information-panel.php:149
-msgid ""
-"For optimal functioning of our plugins, we suggest setting at least %s of "
-"available memory"
+#: templates/sysinfo/system-information-panel.php:50
+msgid "WP debug.log file"
 msgstr ""
-"Per il funzionamento ottimale dei nostri plugin consigliamo di impostare "
-"almeno %s della memoria disponibile"
 
-#: templates/sysinfo/system-information-panel.php:102
-#: templates/sysinfo/system-information-panel.php:137
-#: templates/sysinfo/system-information-panel.php:151
-msgid ""
-"Read more %s here%s or contact your hosting company in order to increase it."
+#: templates/sysinfo/system-information-panel.php:54
+msgid "PHP error_log file"
 msgstr ""
-"Per maggiori informazioni %s leggi questo%s oppure contatta il tuo host per "
-"un upgrade."
 
-#: templates/sysinfo/system-information-panel.php:105
-msgid "%s needs at least %s version"
-msgstr "%s necessita almeno della versione %s"
-
-#: templates/sysinfo/system-information-panel.php:116
-msgid ""
-"Update it to the latest version in order to benefit of all new features and "
-"security updates."
-msgstr ""
-"Aggiorna all'ultima versione per beneficiare di tutte le nuove funzionalità "
-"e degli aggiornamenti di sicurezza."
-
-#: templates/sysinfo/system-information-panel.php:122
-msgid "Contact your hosting company in order to update it."
-msgstr "Contatta il tuo servizio hosting per aggiornarlo."
-
-#: templates/sysinfo/system-information-panel.php:126
-msgid "Remove %s from %s file"
-msgstr "Rimuovi %s dal file %s"
-
-#: templates/sysinfo/system-information-panel.php:134
-msgid "Contact your hosting company in order to enable it."
-msgstr "Per attivarlo contatta il tuo servizio di hosting."
-
-#: templates/sysinfo/system-information-panel.php:157
-msgid ""
-"We cannot determine which <b>TLS</b> version is installed because <b>cURL</"
-"b> module is disabled. Ask your hosting company to enable it."
-msgstr ""
-"Non ci è stato possibile determinare quale versione <b>TLS</b> è installata "
-"in quanto il modulo <b>cURL</b> è disattivato. Chiedi al tuo servizio "
-"hosting di attivarlo."
-
-#: templates/sysinfo/system-information-panel.php:160
-msgid ""
-"<b>ImageMagick</b> module is not installed. Ask your hosting company to "
-"install it."
-msgstr ""
-"Il modulo <b>ImageMagick</b> non è installato. Chiedi al tuo servizio di "
-"hosting di installarlo."
-
-#: templates/sysinfo/system-information-panel.php:172
-msgid "Show full PHPInfo"
-msgstr "Mostra tutto il contenuto di PHPInfo"
-
-#: templates/sysinfo/system-information-panel.php:176
+#: templates/sysinfo/system-information-panel.php:59
+#: templates/sysinfo/system-information-panel.php:83
 msgid "Back to System panel"
 msgstr "Torna al pannello di Sistema"
 
-#: templates/sysinfo/system-information-panel.php:193
+#: templates/sysinfo/system-information-panel.php:96
 msgid "Back to top"
 msgstr "Torna su"
+
+#: templates/sysinfo/system-information-panel.php:104
+msgid "Site URL"
+msgstr "URL del sito"
+
+#: templates/sysinfo/system-information-panel.php:112
+msgid "Output IP Address"
+msgstr "Indirizzo IP di output"
+
+#: templates/sysinfo/system-information-panel.php:120
+msgid "Defined WP_CACHE"
+msgstr ""
+
+#: templates/sysinfo/system-information-panel.php:123
+msgid "Yes"
+msgstr ""
+
+#: templates/sysinfo/system-information-panel.php:123
+#, fuzzy
+msgid "No"
+msgstr "Nessuno"
+
+#: templates/sysinfo/system-information-panel.php:159
+msgid "Show full PHPInfo"
+msgstr "Mostra tutto il contenuto di PHPInfo"
+
+#: templates/sysinfo/system-information-panel.php:167
+msgid "Show log files"
+msgstr ""
 
 #: yit-plugin.php:194
 msgid "License"
@@ -779,7 +822,7 @@ msgstr ""
 #: templates/fields/onoff.php:24
 msgctxt "YES/NO button: use MAX 3 characters!"
 msgid "YES"
-msgstr "SI"
+msgstr "SÌ"
 
 #: templates/fields/onoff.php:25
 msgctxt "YES/NO button: use MAX 3 characters!"
@@ -810,6 +853,13 @@ msgstr "Versione premium"
 msgctxt "Action links"
 msgid "Settings"
 msgstr "Impostazioni"
+
+#~ msgid ""
+#~ "<b>ImageMagick</b> module is not installed. Ask your hosting company to "
+#~ "install it."
+#~ msgstr ""
+#~ "Il modulo <b>ImageMagick</b> non è installato. Chiedi al tuo servizio di "
+#~ "hosting di installarlo."
 
 #~ msgctxt "ON/OFF button: use MAX 3 characters!"
 #~ msgid "ON"
@@ -1212,9 +1262,6 @@ msgstr "Impostazioni"
 
 #~ msgid "Theme Icon"
 #~ msgstr "Icona tema"
-
-#~ msgid "None"
-#~ msgstr "Nessuno"
 
 #~ msgid "Field Title"
 #~ msgstr "Titolo campo"

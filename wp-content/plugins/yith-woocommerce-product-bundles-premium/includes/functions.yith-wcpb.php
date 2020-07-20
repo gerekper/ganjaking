@@ -1,4 +1,7 @@
 <?php
+
+require_once 'functions.yith-wcpb-deprecated.php';
+
 if ( ! function_exists( 'yith_wcpb_help_tip' ) ) {
 	function yith_wcpb_help_tip( $tip, $allow_html = false ) {
 		if ( function_exists( 'wc_help_tip' ) ) {
@@ -27,7 +30,7 @@ if ( ! function_exists( 'yith_wcpb_get_allowed_product_types' ) ) {
 			unset( $types['variable'] );
 		}
 
-		return $types;
+		return apply_filters( 'yith_wcpb_allowed_product_types', $types );
 	}
 }
 
@@ -70,7 +73,7 @@ if ( ! function_exists( 'yith_wcpb_wc_dropdown_variation_attribute_options' ) ) 
 				$options    = $attributes[ $attribute ];
 			}
 
-			$html = '<select id="' . esc_attr( $id ) . '" class="' . esc_attr( $class ) . '" name="' . esc_attr( $name ) . '" data-attribute_name="attribute_' . esc_attr( sanitize_title( $attribute ) ) . '" data-show_option_none="' . ( $show_option_none ? 'yes' : 'no' ) . '">';
+			$html  = '<select id="' . esc_attr( $id ) . '" class="' . esc_attr( $class ) . '" name="' . esc_attr( $name ) . '" data-attribute_name="attribute_' . esc_attr( sanitize_title( $attribute ) ) . '" data-show_option_none="' . ( $show_option_none ? 'yes' : 'no' ) . '">';
 			$html .= '<option value="">' . esc_html( $show_option_none_text ) . '</option>';
 
 			if ( ! empty( $options ) ) {
@@ -93,7 +96,7 @@ if ( ! function_exists( 'yith_wcpb_wc_dropdown_variation_attribute_options' ) ) 
 					foreach ( $options as $option ) {
 						// This handles < 2.4.0 bw compatibility where text attributes were not sanitized.
 						$selected = sanitize_title( $args['selected'] ) === $args['selected'] ? selected( $args['selected'], sanitize_title( $option ), false ) : selected( $args['selected'], $option, false );
-						$html     .= '<option value="' . esc_attr( $option ) . '" ' . $selected . '>' . esc_html( apply_filters( 'woocommerce_variation_option_name', $option, null, $attribute, $product ) ) . '</option>';
+						$html    .= '<option value="' . esc_attr( $option ) . '" ' . $selected . '>' . esc_html( apply_filters( 'woocommerce_variation_option_name', $option, null, $attribute, $product ) ) . '</option>';
 					}
 				}
 			}
@@ -116,13 +119,24 @@ if ( ! function_exists( 'yith_wcpb_get_bundle_products_by_item' ) ) {
 		$product_id_strlen = strlen( (string) $product_id );
 		$to_search         = '"product_id";s:' . $product_id_strlen . ':"' . $product_id . '"';
 
-
 		$args = array(
 			'posts_per_page' => - 1,
 			'post_status'    => 'publish',
 			'post_type'      => 'product',
-			'meta_query'     => array( array( 'key' => '_yith_wcpb_bundle_data', 'value' => $to_search, 'compare' => 'LIKE' ) ),
-			'tax_query'      => array( array( 'taxonomy' => 'product_type', 'field' => 'slug', 'terms' => 'yith_bundle' ) ),
+			'meta_query'     => array(
+				array(
+					'key'     => '_yith_wcpb_bundle_data',
+					'value'   => $to_search,
+					'compare' => 'LIKE',
+				),
+			),
+			'tax_query'      => array(
+				array(
+					'taxonomy' => 'product_type',
+					'field'    => 'slug',
+					'terms'    => 'yith_bundle',
+				),
+			),
 			'fields'         => 'ids',
 		);
 
@@ -140,7 +154,13 @@ if ( ! function_exists( 'yith_wcpb_get_price_to_display' ) ) {
 	 * @since 1.3.2
 	 */
 	function yith_wcpb_get_price_to_display( $product, $price = '', $qty = 1 ) {
-		return (float) wc_get_price_to_display( $product, array( 'qty' => $qty, 'price' => $price ) );
+		return (float) wc_get_price_to_display(
+			$product,
+			array(
+				'qty'   => $qty,
+				'price' => $price,
+			)
+		);
 	}
 }
 

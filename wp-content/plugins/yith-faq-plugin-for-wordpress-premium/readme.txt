@@ -4,11 +4,21 @@ Contributors: yithemes
 Tags: faq, faqs, yit, yith, yithemes, e-commerce, shop, frequently asked questions
 Requires at least: 4.0
 Tested up to: 5.4
-Stable tag: 1.1.4
+Stable tag: 1.1.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 == Changelog ==
+
+= 1.1.5 - Released: 24 June 2020 =
+
+* New: FAQ block for Elementor
+* Tweak: improved admin panel and settings UX
+* Dev: code refactoring of the entire plugin
+* Update: plugin framework
+* Update: Italian language
+* Update: Spanish language
+* Update: Dutch language
 
 = 1.1.4 - Released: 29 April 2020 =
 

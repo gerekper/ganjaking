@@ -279,9 +279,8 @@ else{
 
                             $tax_percentage = $item['line_tax'] * 100 / $item['line_total'];
 
-                            $precision = '1';
+	                        echo round( $tax_percentage, 0 ) . '%'; ?>
 
-                            echo round( $tax_percentage, $precision ) . '%'; ?>
 
                         <?php else: ?>
 							<?php echo '0%'; ?>

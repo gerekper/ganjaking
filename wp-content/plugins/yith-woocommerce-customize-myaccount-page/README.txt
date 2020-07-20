@@ -1,6 +1,14 @@
 === CHANGELOG ===
 
-== Version 2.6.3 === Released on 01 Jun 2020
+== Version 2.6.4 === Released on 14 July 2020
+
+* New: Support for WooCommerce 4.3
+* New: Integration with YITH Proteo style
+* New: French translations
+* Update: Plugin framework
+* Fix: Issue on select endpoint icon
+
+== Version 2.6.3 === Released on 01 June 2020
 
 * New: Support for WooCommerce 4.2
 * Update: Plugin framework

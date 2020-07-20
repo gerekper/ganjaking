@@ -282,8 +282,11 @@ if ( ! class_exists( 'YWSON_Manager' ) ) {
 		 */
 		private function is_order_free( $order ) {
 
-			$type_free = get_option( 'ywson_free_order_type' );
+			$module    = get_option( 'ywson_free_module_settings', [] );
+			$type_free = isset( $module['order_type'] ) ? $module['order_type'] : 'order_tot';
 			$free      = true;
+
+
 			switch ( $type_free ) {
 
 				case 'order_tot' :
@@ -297,12 +300,18 @@ if ( ! class_exists( 'YWSON_Manager' ) ) {
 
 					$product_in_order = $order->get_items();
 					$free             = true;
-					foreach ( $product_in_order as $product ) {
-						if ( $product['line_total'] > 0 ) {
-							$free = false;
-							break;
+
+						foreach ( $product_in_order as $product ) {
+							/**
+							 * @var $product WC_Order_Item_Product
+							 */
+
+							if ( $product->get_subtotal( 'edit' ) > 0 ) {
+								$free = false;
+								break;
+							}
 						}
-					}
+
 					break;
 			}
 
@@ -352,12 +361,19 @@ if ( ! class_exists( 'YWSON_Manager' ) ) {
 		public function generate_sequential_order_number( $order ) {
 			$order_status = $order->get_status();
 
-			if ( ( ( 'draft' == $order_status && isset( $_REQUEST['yit_metaboxes']['ywraq_raq'] ) ) || ( 'ywraq-new' == $order_status ) || ( isset($_REQUEST['payment_method'] ) && 'yith-request-a-quote' == $_REQUEST['payment_method'] ) ) && $this->is_quote_module_active() ) {
-				$this->create_order_number( $order, 'quote' );
-			} elseif ( $this->is_free_module_active() && $this->is_order_free( $order ) ) {
-				$this->create_order_number( $order, 'free' );
-			} elseif ( $this->is_basic_module_active() ) {
-				$this->create_order_number( $order );
+			if ( ! apply_filters( 'ywson_generate_sequential_order_number', true, $order ) ) {
+				return;
+			}
+
+			$items = $order->get_items();
+			if( count( $items)>0) {
+				if ( ( ( 'draft' == $order_status && isset( $_REQUEST['yit_metaboxes']['ywraq_raq'] ) ) || ( 'ywraq-new' == $order_status ) || ( isset( $_REQUEST['payment_method'] ) && 'yith-request-a-quote' == $_REQUEST['payment_method'] ) ) && $this->is_quote_module_active() ) {
+					$this->create_order_number( $order, 'quote' );
+				} elseif ( $this->is_free_module_active() && $this->is_order_free( $order ) ) {
+					$this->create_order_number( $order, 'free' );
+				} elseif ( $this->is_basic_module_active() ) {
+					$this->create_order_number( $order );
+				}
 			}
 		}
 

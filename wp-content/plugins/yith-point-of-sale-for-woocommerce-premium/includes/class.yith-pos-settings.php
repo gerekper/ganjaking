@@ -1,5 +1,5 @@
 <?php
-! defined( 'YITH_POS' ) && exit; // Exit if accessed directly
+ ! defined( 'YITH_POS' ) && exit; // Exit if accessed directly
 
 
 if ( ! class_exists( 'YITH_POS_Settings' ) ) {
@@ -79,6 +79,7 @@ if ( ! class_exists( 'YITH_POS_Settings' ) ) {
 			if ( ! isset( $this->_settings[ $type ] ) ) {
 				$getter                   = "_get_{$type}_settings";
 				$this->_settings[ $type ] = apply_filters( 'yith_pos_components_settings', $this->$getter(), $type );
+				$this->_settings[ $type ] = apply_filters( "yith_pos_components_{$type}_settings", $this->_settings[ $type ] );
 			}
 
 			return $this->_settings[ $type ];
@@ -106,10 +107,9 @@ if ( ! class_exists( 'YITH_POS_Settings' ) ) {
 				'ajaxUrl'        => admin_url( 'admin-ajax.php' ),
 				'assetsUrl'      => YITH_POS_ASSETS_URL,
 				'paymentMethods' => array(
-					'enabledIds' => yith_pos_get_enabled_gateways_option()
-				)
+					'enabledIds' => yith_pos_get_enabled_gateways_option(),
+				),
 			);
-
 
 			return $settings;
 		}
@@ -123,16 +123,18 @@ if ( ! class_exists( 'YITH_POS_Settings' ) ) {
 			$common_settings = $this->_get_common_settings();
 
 			$settings = array(
-				'stores' => array_map( function ( $id ) {
-					return array(
-						'id'   => $id,
-						'name' => yith_pos_get_store_name( $id )
-					);
-				}, yith_pos_get_stores() ),
+				'stores' => array_map(
+					function ( $id ) {
+						return array(
+							'id'   => $id,
+							'name' => yith_pos_get_store_name( $id ),
+						);
+					},
+					yith_pos_get_stores()
+				),
 			);
 
 			$settings = array_merge( $common_settings, $settings );
-
 
 			return $settings;
 		}
@@ -147,20 +149,19 @@ if ( ! class_exists( 'YITH_POS_Settings' ) ) {
 			$settings        = $common_settings;
 
 			if ( is_yith_pos() && ( $register_id = yith_pos_register_logged_in() ) ) {
-				$register                                  = yith_pos_get_register( $register_id );
-				$register_data                             = $register->get_current_data();
-				$register_data[ 'query_options' ]          = $register->get_inclusion_query_options();
-				$register_data[ 'category_query_options' ] = $register->get_category_query_options();
-				$register_data[ 'session' ]                = YITH_POS_Register_Session::get_session_object( $register->get_current_session() );
+				$register                                = yith_pos_get_register( $register_id );
+				$register_data                           = $register->get_current_data();
+				$register_data['query_options']          = $register->get_inclusion_query_options();
+				$register_data['category_query_options'] = $register->get_category_query_options();
+				$register_data['session']                = YITH_POS_Register_Session::get_session_object( $register->get_current_session() );
 
-				if ( isset( $register_data[ 'session' ] ) ) {
-					$register_data[ 'session' ]->nonce = wp_create_nonce( 'yith-pos-register-session-update-' . $register_data[ 'session' ]->id );
+				if ( isset( $register_data['session'] ) ) {
+					$register_data['session']->nonce = wp_create_nonce( 'yith-pos-register-session-update-' . $register_data['session']->id );
 				}
 
-
-				$store                             = $register->get_store();
-				$store_data                        = $store->get_current_data();
-				$store_data[ 'formatted_address' ] = $store->get_formatted_address();
+				$store                           = $register->get_store();
+				$store_data                      = $store->get_current_data();
+				$store_data['formatted_address'] = $store->get_formatted_address();
 
 				$receipt      = $register->get_receipt();
 				$receipt_data = ! ! $receipt ? $receipt->get_current_data() : false;
@@ -174,15 +175,18 @@ if ( ! class_exists( 'YITH_POS_Settings' ) ) {
 					'user'                                => self::get_user_data(),
 					'tax'                                 => self::get_tax_data( $store ),
 					'color_scheme'                        => self::get_color_scheme(),
-					'loggerEnabled'                       => isset( $_GET[ 'logger-enabled' ] ),
+					'loggerEnabled'                       => isset( $_GET['logger-enabled'] ),
 					'addressFormat'                       => yith_pos_get_format_address( $store->get_country() ),
 					'adminUrl'                            => admin_url(),
 					'logoutUrl'                           => add_query_arg( array( 'yith-pos-user-logout' => true ), $pos_url ),
 					'registerLogoutUrl'                   => add_query_arg( array( 'yith-pos-register-logout' => true ), $pos_url ),
-					'closeRegisterUrl'                    => add_query_arg( array(
-						                                                        'yith-pos-register-close-nonce' => wp_create_nonce( 'yith-pos-register-close-' . $register_id ),
-						                                                        'register'                      => $register_id
-					                                                        ), $pos_url ),
+					'closeRegisterUrl'                    => add_query_arg(
+						array(
+							'yith-pos-register-close-nonce' => wp_create_nonce( 'yith-pos-register-close-' . $register_id ),
+							'register' => $register_id,
+						),
+						$pos_url
+					),
 					'logoUrl'                             => get_option( 'yith_pos_login_logo', '' ),
 					'numericControllerDiscountPresets'    => get_option( 'yith_pos_numeric_controller_discount_presets', array( 5, 10, 15, 20 ) ),
 					'feeAndDiscountPresets'               => get_option( 'yith_pos_fee_and_discount_presets', array( 5, 10, 15, 20, 50 ) ),
@@ -196,7 +200,8 @@ if ( ! class_exists( 'YITH_POS_Settings' ) ) {
 					'multistockCondition'                 => get_option( 'yith_pos_multistock_condition', 'allowed' ),
 					'showStockOnPOS'                      => get_option( 'yith_pos_show_stock_on_pos', 'no' ),
 					'closeModalsWhenClickingOnBackground' => get_option( 'yith_pos_close_modals_when_clicking_on_background', 'yes' ),
-					'errorMessages'                       => yith_pos_get_error_message_capabilities()
+					'errorMessages'                       => yith_pos_get_error_message_capabilities(),
+					'barcodeMeta'                         => yith_pos_get_barcode_meta(),
 				);
 
 				$settings = array_merge( $common_settings, $settings );
@@ -217,7 +222,7 @@ if ( ! class_exists( 'YITH_POS_Settings' ) ) {
 		public static function get_wc_data() {
 			$currency_code = get_woocommerce_currency();
 
-			//$payment_gateways = WC()->payment_gateways()->payment_gateways();
+			// $payment_gateways = WC()->payment_gateways()->payment_gateways();
 			$payment_gateways = yith_pos_get_active_payment_methods();
 
 			$wc_settings = array(
@@ -238,9 +243,8 @@ if ( ! class_exists( 'YITH_POS_Settings' ) ) {
 				'paymentGateways'           => $payment_gateways,
 				'paymentGatewaysIdTitle'    => wp_list_pluck( $payment_gateways, 'title', 'id' ),
 				'orderStatuses'             => wc_get_order_statuses(),
-				'autoGeneratePassword'      => get_option( 'woocommerce_registration_generate_password', 'yes' )
+				'autoGeneratePassword'      => get_option( 'woocommerce_registration_generate_password', 'yes' ),
 			);
-
 
 			return $wc_settings;
 		}
@@ -257,17 +261,17 @@ if ( ! class_exists( 'YITH_POS_Settings' ) ) {
 
 			if ( ! ! $user_data ) {
 				if ( $user_data->first_name || $user_data->last_name ) {
-					$user[ 'fullName' ] = esc_html( sprintf( _x( '%1$s %2$s', 'full name', 'woocommerce' ), ucfirst( $user_data->first_name ), ucfirst( $user_data->last_name ) ) );
+					$user['fullName'] = esc_html( sprintf( _x( '%1$s %2$s', 'full name', 'woocommerce' ), ucfirst( $user_data->first_name ), ucfirst( $user_data->last_name ) ) );
 				} else {
-					$user[ 'fullName' ] = esc_html( ucfirst( $user_data->display_name ) );
+					$user['fullName'] = esc_html( ucfirst( $user_data->display_name ) );
 				}
 
-				$user[ 'firstName' ]   = $user_data->first_name;
-				$user[ 'lastName' ]    = $user_data->last_name;
-				$user[ 'displayName' ] = $user_data->display_name;
+				$user['firstName']   = $user_data->first_name;
+				$user['lastName']    = $user_data->last_name;
+				$user['displayName'] = $user_data->display_name;
 			}
-			$user[ 'avatarURL' ] = get_avatar_url( (int) $user_id, array( 'size' => 140 ) );
-			$user[ 'posCaps' ]   = yith_pos_get_current_user_pos_capabilities();
+			$user['avatarURL'] = get_avatar_url( (int) $user_id, array( 'size' => 140 ) );
+			$user['posCaps']   = yith_pos_get_current_user_pos_capabilities();
 
 			return $user;
 		}
@@ -288,26 +292,39 @@ if ( ! class_exists( 'YITH_POS_Settings' ) ) {
 				$tax_classes_labels = WC_Tax::get_tax_classes();
 				$tax_classes[]      = '';
 				foreach ( $tax_classes as $tax_class ) {
-					$tax_classes_and_rates[ $tax_class ] = WC_Tax::find_rates( array(
-						                                                           'country'   => $store->get_country(),
-						                                                           'state'     => $store->get_state(),
-						                                                           'postcode'  => $store->get_postcode(),
-						                                                           'city'      => $store->get_city(),
-						                                                           'tax_class' => $tax_class,
-					                                                           ) );
+					$tax_classes_and_rates[ $tax_class ] = WC_Tax::find_rates(
+						array(
+							'country'   => $store->get_country(),
+							'state'     => $store->get_state(),
+							'postcode'  => $store->get_postcode(),
+							'city'      => $store->get_city(),
+							'tax_class' => $tax_class,
+						)
+					);
 				}
 			}
 
+			$show_including_tax = 'incl' === get_option( 'woocommerce_tax_display_cart' );
+
+			$showItemizedTaxInReceipt       = apply_filters( 'yith_pos_show_itemized_tax_in_receipt', false );
+			$showPriceIncludingTaxInReceipt = apply_filters( 'yith_pos_show_price_including_tax_in_receipt', $show_including_tax );
+			$showTaxRowInReceipt            = apply_filters( 'yith_pos_show_tax_row_in_receipt', wc_tax_enabled() && ! $showPriceIncludingTaxInReceipt );
+
 			$data = array(
-				'enabled'                     => wc_tax_enabled(),
-				'priceIncludesTax'            => wc_prices_include_tax(),
-				'showPriceIncludingTaxInShop' => 'incl' === get_option( 'woocommerce_tax_display_shop' ),
-				'showPriceIncludingTax'       => 'incl' === get_option( 'woocommerce_tax_display_cart' ),
-				'classesAndRates'             => $tax_classes_and_rates,
-				'classes'                     => $tax_classes,
-				'classesLabels'               => $tax_classes_labels,
-				'roundAtSubtotal'             => 'yes' === get_option( 'woocommerce_tax_round_at_subtotal' ),
-				'shippingTaxClass'            => get_option( 'woocommerce_shipping_tax_class' ),
+				'enabled'                        => wc_tax_enabled(),
+				'priceIncludesTax'               => wc_prices_include_tax(),
+				'showPriceIncludingTaxInShop'    => 'incl' === get_option( 'woocommerce_tax_display_shop' ),
+				'showPriceIncludingTax'          => $show_including_tax,
+				'classesAndRates'                => $tax_classes_and_rates,
+				'classes'                        => $tax_classes,
+				'classesLabels'                  => $tax_classes_labels,
+				'roundAtSubtotal'                => 'yes' === get_option( 'woocommerce_tax_round_at_subtotal' ),
+				'shippingTaxClass'               => get_option( 'woocommerce_shipping_tax_class' ),
+
+				// todo: add global option to change these values.
+				'showItemizedTaxInReceipt'       => $showItemizedTaxInReceipt,
+				'showPriceIncludingTaxInReceipt' => $showPriceIncludingTaxInReceipt,
+				'showTaxRowInReceipt'            => $showTaxRowInReceipt,
 			);
 
 			return $data;
@@ -338,44 +355,46 @@ if ( ! class_exists( 'YITH_POS_Settings' ) ) {
 					$hsl                            = yith_pos_hex2hsl( $color_code );
 
 					if ( in_array( $color, array( 'primary' ) ) ) {
-						$color_options[ '--dark_' . $color ]   = yith_pos_hsl2hex( array(
-							                                                           $hsl[ 0 ],
-							                                                           $hsl[ 1 ],
-							                                                           $hsl[ 2 ] * .9
-						                                                           ) );
-						$color_options[ '--darker_' . $color ] = yith_pos_hsl2hex( array(
-							                                                           $hsl[ 0 ],
-							                                                           $hsl[ 1 ],
-							                                                           $hsl[ 2 ] * .7
-						                                                           ) );
+						$color_options[ '--dark_' . $color ]   = yith_pos_hsl2hex(
+							array(
+								$hsl[0],
+								$hsl[1],
+								$hsl[2] * .9,
+							)
+						);
+						$color_options[ '--darker_' . $color ] = yith_pos_hsl2hex(
+							array(
+								$hsl[0],
+								$hsl[1],
+								$hsl[2] * .7,
+							)
+						);
 					}
-
-
 				} elseif ( strpos( $color_code, 'rgba' ) !== - 1 ) {
 					$color_options[ '--' . $color ] = $color_code;
 
-					$rgba = sscanf( $color_code, "rgba(%d, %d, %d, %f)" );
-					$hsl  = yith_pos_rgb2hsl( array( $rgba[ 0 ], $rgba[ 1 ], $rgba[ 2 ] ) );
+					$rgba = sscanf( $color_code, 'rgba(%d, %d, %d, %f)' );
+					$hsl  = yith_pos_rgb2hsl( array( $rgba[0], $rgba[1], $rgba[2] ) );
 
 					if ( in_array( $color, array( 'primary' ) ) ) {
-						$dark_rgb                              = yith_pos_hsl2rgb( array(
-							                                                           $hsl[ 0 ],
-							                                                           $hsl[ 1 ],
-							                                                           $hsl[ 2 ] * .9
-						                                                           ) );
-						$color_options[ '--dark_' . $color ]   = sprintf( 'rgba(%d, %d, %d, %f)', $dark_rgb[ 0 ], $dark_rgb[ 1 ], $dark_rgb[ 2 ], $rgba[ 3 ] );
-						$darker_rgb                            = yith_pos_hsl2rgb( array(
-							                                                           $hsl[ 0 ],
-							                                                           $hsl[ 1 ],
-							                                                           $hsl[ 2 ] * .7
-						                                                           ) );
-						$color_options[ '--darker_' . $color ] = sprintf( 'rgba(%d, %d, %d, %f)', $darker_rgb[ 0 ], $darker_rgb[ 1 ], $darker_rgb[ 2 ], $rgba[ 3 ] );
+						$dark_rgb                              = yith_pos_hsl2rgb(
+							array(
+								$hsl[0],
+								$hsl[1],
+								$hsl[2] * .9,
+							)
+						);
+						$color_options[ '--dark_' . $color ]   = sprintf( 'rgba(%d, %d, %d, %f)', $dark_rgb[0], $dark_rgb[1], $dark_rgb[2], $rgba[3] );
+						$darker_rgb                            = yith_pos_hsl2rgb(
+							array(
+								$hsl[0],
+								$hsl[1],
+								$hsl[2] * .7,
+							)
+						);
+						$color_options[ '--darker_' . $color ] = sprintf( 'rgba(%d, %d, %d, %f)', $darker_rgb[0], $darker_rgb[1], $darker_rgb[2], $rgba[3] );
 					}
-
 				}
-				/*
-
-				*/
 			}
 
 			return $color_options;

@@ -44,11 +44,6 @@ if ( ! class_exists( 'YITH_Multistep_Checkout_Admin_Premium' ) ) {
 
 			/* === Premium Options === */
 			add_filter( 'yith_wcms_admin_tabs', array( $this, 'admin_tabs' ) );
-			add_action( 'woocommerce_admin_field_yith_timeline_template_style', array(
-				$this,
-				'timeline_template_option'
-			), 10, 1 );
-			add_filter( 'yith_wcms_settings_options', array( $this, 'settings_options' ) );
 
 			/* === Enqueue Scripts === */
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ), 20 );
@@ -70,34 +65,12 @@ if ( ! class_exists( 'YITH_Multistep_Checkout_Admin_Premium' ) ) {
 		 */
 		public function admin_tabs( $free ) {
 			$premium = array(
-				'timeline'       => _x( 'Timeline and Button', 'Admin: Page title', 'yith-woocommerce-multi-step-checkout' ),
-				'order_received' => _x( '"Order Received" & "My Account" Page', 'Admin: Page title', 'yith-woocommerce-multi-step-checkout' ),
+				'steps'    => esc_html_x( 'Steps options', 'Admin: Page title', 'yith-woocommerce-multi-step-checkout' ),
+				'buttons'  => esc_html_x( 'Buttons options', 'Admin: Page title', 'yith-woocommerce-multi-step-checkout' ),
+				'thankyou' => esc_html_x( 'Pages Options', 'Admin: Page title', 'yith-woocommerce-multi-step-checkout' ),
 			);
 
 			return array_merge( $free, $premium );
-		}
-
-		/**
-		 * Custom WooCommerce Option
-		 *
-		 * @param $value The Array value
-		 *
-		 * @return Array The tabs array
-		 * @since 1.0.0
-		 * @author Andrea Grillo <andrea.grillo@yithemes.com>
-		 */
-		public function timeline_template_option( $value ) {
-			?>
-            <tr>
-                <th scope="row" class="titledesc">
-					<?php _ex( 'Preview:', 'Admin: option description', 'yith-woocommerce-multi-step-checkout' ) ?>
-                </th>
-                <td class="forminp forminp-<?php echo sanitize_title( $value['type'] ) ?>">
-                    <img style="max-width: 100%;" src="<?php echo YITH_WCMS_ASSETS_URL . 'images/multi-step.jpg' ?>"
-                         alt="<?php _ex( 'Timeline Style', 'HTML: alt attribute', 'yith-woocommerce-multi-step-checkout' ) ?>"/>
-                </td>
-            </tr>
-			<?php
 		}
 
 		/**
@@ -110,12 +83,35 @@ if ( ! class_exists( 'YITH_Multistep_Checkout_Admin_Premium' ) ) {
 		 */
 		public function enqueue_scripts() {
 			$is_plugin_panel = ! empty( $_GET['page'] ) && $_GET['page'] == $this->get_panel_page();
-			$is_timeline_tab = ! empty( $_GET['tab'] ) && 'timeline' == $_GET['tab'];
+			$current_tab     = ! empty( $_GET['tab'] ) ? $_GET['tab'] : 'steps';
+			$script_version  = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? rand() : YITH_WCMS_VERSION;
+			$prefix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
-			if ( $is_plugin_panel && $is_timeline_tab ) {
-				$css = '#yith_wcms_panel_timeline .yith-plugin-fw-upload-img-preview img {background: #807e7e;}';
+			$localize = array(
+				'current_tab' => ! empty( $_GET['tab'] ) ? $_GET['tab'] : 'steps',
+				'icons_url'  => YITH_WCMS_ASSETS_URL . 'images/icons/'
+			);
+		    wp_register_script( 'yith-wcms-admin', YITH_WCMS_ASSETS_URL . 'js/admin' . $prefix .'.js', array( 'jquery' ), $script_version, true );
+			wp_localize_script( 'yith-wcms-admin', 'yith_wcms_admin', $localize );
+
+			if ( $is_plugin_panel ) {
+				$css    = '';
 				$handle = 'yith-plugin-fw-fields';
-				wp_add_inline_style( $handle, $css );
+
+			    if( 'steps' == $current_tab || 'buttons' == $current_tab ){
+					$css .= '.yith-wcms-disabled{display:none!important} .yith-wcms-default-icon-item{margin-right: 5px; vertical-align: text-bottom;} .yith-wcms-default-icon-wrapper {text-transform: capitalize;}';
+					$css .= '#yith_wcms_timeline_template-wrapper .yith-plugin-fw-select-images__item.horizontal {width: 25%; display: inline-block;}';
+					$css .= '#yith_wcms_timeline_template-wrapper .yith-plugin-fw-select-images__list {display:block;}';
+					$css .= '#yith_wcms_timeline_template-wrapper .yith-plugin-fw-select-images__item.vertical {display: inline-block;width: calc(25% - 10px);max-height: 250px;max-width: 180px;}';
+					$css .= '@media(max-width: 768px){#yith_wcms_timeline_template-wrapper .yith-plugin-fw-select-images__item {width: auto;}}';
+					wp_enqueue_script('yith-wcms-admin' );
+				}
+
+				$css = apply_filters( 'yith_wcms_add_inline_styles', $css );
+
+				if( ! empty( $css ) ){
+					wp_add_inline_style( $handle, $css );
+				}
 			}
 		}
 
@@ -166,173 +162,6 @@ if ( ! class_exists( 'YITH_Multistep_Checkout_Admin_Premium' ) ) {
                 </td>
             </tr>
 			<?php echo ob_get_clean();
-		}
-
-		/**
-		 * @param $old
-		 *
-		 * @return array
-		 */
-		public function settings_options( $old ) {
-			$new = array(
-				'settings_options_pro_start' => array(
-					'type' => 'sectionstart',
-				),
-
-				'settings_options_pro_title' => array(
-					'title' => _x( 'AJAX validation', 'Panel: page title', 'yith-woocommerce-multi-step-checkout' ),
-					'type'  => 'title',
-					'desc'  => '',
-				),
-
-				'settings_options_pro_ajax validator' => array(
-					'title'     => _x( 'AJAX validation in Multi-step Checkout', 'Admin option: Enable plugin', 'yith-woocommerce-multi-step-checkout' ),
-					'type'      => 'yith-field',
-					'yith-type' => 'onoff',
-					'desc'      => _x( "If enabled users can't proceed to the next step if they haven't first filled in mandatory fields", 'Admin option description: Enable live validation', 'yith-woocommerce-multi-step-checkout' ),
-					'id'        => 'yith_wcms_enable_ajax_validator',
-					'default'   => 'no'
-				),
-
-				'settings_options_pro_end' => array(
-					'type' => 'sectionend',
-				),
-
-				'settings_options_last_step_start' => array(
-					'type' => 'sectionstart',
-				),
-
-				'settings_options_last_step_title' => array(
-					'title' => _x( 'Payments options', 'Panel: page title', 'yith-woocommerce-multi-step-checkout' ),
-					'type'  => 'title',
-					'desc'  => '',
-				),
-
-				'settings_options_last_step_check' => array(
-					'title'     => _x( 'Show order total amount in Payment tab', 'Admin option: Enable featrues', 'yith-woocommerce-multi-step-checkout' ),
-					'type'      => 'yith-field',
-					'yith-type' => 'onoff',
-					'id'        => 'yith_wcms_show_amount_on_payments',
-					'default'   => 'no'
-				),
-
-				'settings_options_last_step_check_text' => array(
-					'title'     => _x( 'Order total label', 'Admin option: Enable featrues', 'yith-woocommerce-multi-step-checkout' ),
-					'type'      => 'yith-field',
-					'yith-type' => 'text',
-					'desc'      => _x( 'e.g.: Order total amount: 13,00$ (includes 0,60$ VAT)', '[Admin]Option example', 'yith-woocommerce-multi-step-checkout' ),
-					'id'        => 'yith_wcms_show_amount_on_payments_text',
-					'default'   => __( 'Order total amount', 'yith-woocommerce-multi-step-checkout' ),
-					'deps'      => array(
-						'id'    => 'yith_wcms_show_amount_on_payments',
-						'value' => 'yes',
-						'type'  => 'disable'
-					),
-				),
-
-				'settings_options_last_step_end' => array(
-					'type' => 'sectionend',
-				),
-
-				'settings_options_shipping_tab_start' => array(
-					'type' => 'sectionstart',
-				),
-
-				'settings_options_shipping_tab_title' => array(
-					'title' => _x( 'Shipping step', 'Panel: option title', 'yith-woocommerce-multi-step-checkout' ),
-					'type'  => 'title',
-					'desc'  => '',
-				),
-
-				'settings_options_shipping_tab_hide' => array(
-					'title'     => _x( 'Remove shipping step', 'Admin: Option title', 'yith-woocommerce-multi-step-checkout' ),
-					'type'      => 'yith-field',
-					'yith-type' => 'onoff',
-					'id'        => 'yith_wcms_timeline_remove_shipping_step',
-					'desc'      => _x( 'Choose whether remove shipping step on checkout page (For examples, if you sell digital products without shipping)', 'Admin: option description', 'yith-woocommerce-multi-step-checkout' ),
-					'default'   => 'no',
-				),
-
-				'settings_options_shipping_tab_end' => array(
-					'type' => 'sectionend',
-				),
-
-				'settings_options_login_tab_start' => array(
-					'type' => 'sectionstart',
-				),
-
-				'settings_options_login_tab_title' => array(
-					'title' => _x( 'Login step', 'Panel: option title', 'yith-woocommerce-multi-step-checkout' ),
-					'type'  => 'title',
-					'desc'  => '',
-				),
-
-				'settings_options_login_tab_guest_checkout' => array(
-					'title'     => __( 'Enable Guest checkout', 'yith-woocommerce-multi-step-checkout' ),
-					'desc'      => __( 'Enable customers to place orders also without an account', 'yith-woocommerce-multi-step-checkout' ),
-					'id'        => 'woocommerce_enable_guest_checkout',
-					'default'   => 'yes',
-					'type'      => 'yith-field',
-					'yith-type' => 'onoff',
-				),
-
-				'settings_options_login_tab_enable_login' => array(
-					'title'     => __( 'Enable Customer login', 'yith-woocommerce-multi-step-checkout' ),
-					'desc'      => __( 'Enable customers to login with their account during the checkout', 'yith-woocommerce-multi-step-checkout' ),
-					'id'        => 'woocommerce_enable_checkout_login_reminder',
-					'default'   => 'no',
-					'type'      => 'yith-field',
-					'yith-type' => 'onoff',
-				),
-
-				'settings_options_returning_customer_information' => array(
-					'title'     => _x( 'Message for returning customers (not available for "My Account" style).', 'Admin option: text', 'yith-woocommerce-multi-step-checkout' ),
-					'type'      => 'yith-field',
-					'yith-type' => 'textarea',
-					'id'        => 'yith_wcms_form_checkout_login_message',
-					'default'   => _x( 'If you already have an account on this site, please enter your credentials below. If you don\'t have an account yet, please go to the billing step.', '[Frontend] Message for returning customer on checkout page', 'yith-woocommerce-multi-step-checkout' ),
-					'rows'      => 5,
-					'deps'      => array(
-						'id'    => 'woocommerce_enable_checkout_login_reminder',
-						'value' => 'yes',
-						'type'  => 'disable'
-					),
-				),
-
-				'settings_options_login_tab_style' => array(
-					'title'     => _x( 'Use the "My Account" login/register box', 'Admin: Option title', 'yith-woocommerce-multi-step-checkout' ),
-					'type'      => 'yith-field',
-					'yith-type' => 'onoff',
-					'id'        => 'yith_wcms_timeline_use_my_account_in_login_step',
-					'desc'      => _x( 'Enable to show the "My Account login/register" form instead of the default \'returning customer\' box', 'Admin: option description', 'yith-woocommerce-multi-step-checkout' ),
-					'default'   => 'no',
-					'deps'      => array(
-						'id'    => 'woocommerce_enable_checkout_login_reminder',
-						'value' => 'yes',
-						'type'  => 'disable'
-					),
-				),
-
-				'settings_options_login_tab_registration' => array(
-					'title'     => __( 'Enable customer registration for "My Account" Style', 'yith-woocommerce-multi-step-checkout' ),
-					'desc'      => __( 'Enable the customer registration on the login step.', 'yith-woocommerce-multi-step-checkout' ),
-					'id'        => 'woocommerce_enable_myaccount_registration',
-					'default'   => 'no',
-					'type'      => 'yith-field',
-					'yith-type' => 'onoff',
-					'deps'      => array(
-						'id'    => 'woocommerce_enable_checkout_login_reminder',
-						'value' => 'yes',
-						'type'  => 'disable'
-					),
-				),
-
-				'settings_options_login_tab_end' => array(
-					'type' => 'sectionend',
-				),
-			);
-
-			return array_merge( $old, $new );
 		}
 
 		/**
@@ -397,6 +226,28 @@ if ( ! class_exists( 'YITH_Multistep_Checkout_Admin_Premium' ) ) {
 			}
 
 			return $new_row_meta_args;
+		}
+
+		/**
+		 * Get the default icons list
+		 *
+		 * @return string[] The icons list
+		 * @since 2.0
+		 * @author Andrea Grillo <andrea.grillo@yithemes.com>
+		 */
+		public function get_default_icons_list() {
+			return array(
+				'login'     => 'login',
+				'login2'    => 'login2',
+				'billing'   => 'billing',
+				'billing2'  => 'billing2',
+				'shipping'  => 'shipping',
+				'shipping2' => 'shipping2',
+				'order'     => 'order',
+				'order2'    => 'order2',
+				'payment'   => 'payment',
+				'payment2'  => 'payment2',
+			);
 		}
 	}
 }

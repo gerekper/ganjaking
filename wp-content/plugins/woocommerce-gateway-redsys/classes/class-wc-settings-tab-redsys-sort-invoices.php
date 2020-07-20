@@ -164,14 +164,14 @@ if ( 'yes' === get_option( 'wc_settings_tab_redsys_sort_invoices_is_active' ) ) 
 function redsys_add_invoice_number( $columns ) {
 
 	$new_column = ( is_array( $columns ) ) ? $columns : array();
-	unset( $new_column['order_actions'] );
+	unset( $new_column['wc_actions'] );
 
 	//edit this for you column(s)
 	//all of your columns will be added before the actions colums
 	$new_column['invoice_number'] = __( 'Invoice Number', 'woocommerce-redsys' );
 
 	//stop editing
-	$new_column['order_actions'] = $columns['order_actions'];
+	$new_column['wc_actions'] = $columns['wc_actions'];
 	return $new_column;
 }
 

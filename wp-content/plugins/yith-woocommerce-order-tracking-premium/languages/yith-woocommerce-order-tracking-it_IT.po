@@ -7,7 +7,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/2.3.1\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
 "Language: it\n"
 "Project-Id-Version: YITH WooCommerce Order Tracking\n"
 
@@ -453,7 +453,7 @@ msgstr "Importazione riga %s. non riuscita.  \"%s\" non è un ID dell'ordine val
 msgid "The file does not exist, please try again."
 msgstr "Il file non esiste, ti preghiamo di provare nuovamente."
 
-#: class.carriers.php:1849
+#: class.carriers.php:1873
 msgctxt "no carrier selected in the order tracking metabox"
 msgid "No carrier selected"
 msgstr "Nessun corriere selezionato"

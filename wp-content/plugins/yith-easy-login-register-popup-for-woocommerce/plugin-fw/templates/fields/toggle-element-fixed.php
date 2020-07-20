@@ -10,6 +10,7 @@ $defaults = array(
     'custom_attributes' => '',
     'elements'          => [],
     'onoff_field'       => true,
+	'save_single_options' => false,
 
 );
 $field = wp_parse_args( $field, $defaults );
@@ -48,10 +49,17 @@ $value = get_option( $name, [] );
                 <?php foreach ( $elements as $element ):
                         // build correct name and id
                     $field_id         = $element['id'];
-                    $element['name']  = "{$name}[{$field_id}]";
+                    $element['name']  = false === $save_single_options ? "{$name}[{$field_id}]" : $field_id;
                     $element['id']    = "{$id}_{$field_id}";
                     // get value
-                    $element['value'] = isset( $value[ $field_id ] ) ? $value[ $field_id ] : ( isset( $element['default'] ) ? $element['default'] : '' );
+					$element['value'] = '';
+					if(  false === $save_single_options ){
+						$element['value'] = isset( $value[ $field_id ] ) ? $value[ $field_id ] : ( isset( $element['default'] ) ? $element['default'] : '' );
+					}
+
+					else {
+						$element['value'] = get_option( $field_id, $element['default'] );
+					}
                         ?>
                     <div class="yith-toggle-content-row <?php echo $element['type'] ?>">
                         <label for="<?php echo $element['id']; ?>"><?php echo $element['title']; ?></label>

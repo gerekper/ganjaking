@@ -4,11 +4,19 @@ Contributors: yithemes
 Tags: stripe, simple stripe checkout, stripe checkout, credit cards, online payment, payment, payments, recurring billing, subscribe, subscriptions, bitcoin, gateway, yithemes, woocommerce, shop, ecommerce, e-commerce
 Requires at least: 4.5
 Tested up to: 5.4
-Stable tag: 2.0.9
+Stable tag: 2.0.10
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 == Changelog ==
+
+= 2.0.10 - Released on 10 June 2020 =
+
+* New: Support for WooCommerce 4.2
+* Tweak calculate more accurately renew data for monthly plans
+* Update: plugin framework
+* Update: Stripe PHP library to version 7.37.0
+* Dev: added yith_wcstripe_capture_charge_params filter
 
 = 2.0.9 - Released on 08 May 2020 =
 

@@ -1,6 +1,7 @@
 <style>
     .yith-wcms-pro-myaccount table.shop_table ins,
-    .yith-wcms-pro-myaccount .order-info mark {
+    .yith-wcms-pro-myaccount .order-info mark, 
+    .yith-wcms-pro-myaccount mark {
         background-color: <?php echo get_option( 'yith_wcms_highlight_color' ) ?>;
     }
 

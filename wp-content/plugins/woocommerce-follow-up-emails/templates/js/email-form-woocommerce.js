@@ -365,34 +365,3 @@ function fue_get_next_condition_id() {
 
     return i;
 }
-
-jQuery(window).load(function() {
-    var $ = jQuery.noConflict();
-    /*if ( $("#storewide_type") ) {
-        $("#storewide_type").change(function() {
-            $(".product_tr, .category_tr, .excluded_category_tr").hide();
-
-            switch ( $(this).val() ) {
-
-                case 'all':
-                    $(".product_tr, .category_tr").hide();
-                    $(".excluded_category_tr").show();
-                    break;
-
-                case 'products':
-                    $(".product_tr").show();
-                    $(".category_tr").hide();
-                    $(".excluded_category_tr").hide();
-                    break;
-
-                case 'categories':
-                    $(".product_tr").hide();
-                    $(".category_tr").show();
-                    $(".excluded_category_tr").hide();
-                    break;
-
-            }
-        }).change();
-    }*/
-
-});

@@ -515,13 +515,15 @@ if ( ! class_exists( 'YITH_Delivery_Date_Shipping_Manager' ) ) {
 					}
 				}
 			} else {
-				$shipping_method = isset( $_POST['shipping_method'] ) ? current( $_POST['shipping_method'] ) : array();
+				if( !is_null(WC()->cart) && WC()->cart->needs_shipping() ) {
+					$shipping_method = isset( $_POST['shipping_method'] ) ? current( $_POST['shipping_method'] ) : array();
 
-				$option = $this->get_woocommerce_shipping_option( $shipping_method );
+					$option = $this->get_woocommerce_shipping_option( $shipping_method );
 
-				if ( is_array( $shipping_method ) || ! empty( $option['select_process_method'] ) && apply_filters('ywcdd_checkout_validation', true ) ) {
+					if ( is_array( $shipping_method ) || ! empty( $option['select_process_method'] ) && apply_filters( 'ywcdd_checkout_validation', true ) ) {
 
-					wc_add_notice( __( 'An error occurred during the checkout,  please try again', 'yith-woocommerce-delivery-date' ), 'error' );
+						wc_add_notice( __( 'An error occurred during the checkout,  please try again', 'yith-woocommerce-delivery-date' ), 'error' );
+					}
 				}
 			}
 		}

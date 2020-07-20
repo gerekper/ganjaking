@@ -483,6 +483,31 @@ if ( ! class_exists( 'YITH_WCWL' ) ) {
 		}
 
 		/**
+		 * Wrapper for \YITH_WCWL::get_wishlists, will return wishlists for current user
+		 *
+		 * @return YITH_WCWL_Wishlist[]
+		 * @since 2.0.0
+		 */
+		public function get_current_user_wishlists() {
+			$id = is_user_logged_in() ? get_current_user_id() : YITH_WCWL_Session()->get_session_id();
+
+			$lists = wp_cache_get( 'user-wishlists-' . $id, 'wishlists' );
+
+			if ( ! $lists ) {
+				$lists = YITH_WCWL_Wishlist_Factory::get_wishlists(
+					array(
+						'orderby' => 'dateadded',
+						'order' => 'ASC',
+					)
+				);
+
+				wp_cache_set( 'user-wishlists-' . $id, $lists, 'wishlists' );
+			}
+
+			return $lists;
+		}
+
+		/**
 		 * Returns details of a wishlist, searching it by wishlist id
 		 *
 		 * @param $wishlist_id int

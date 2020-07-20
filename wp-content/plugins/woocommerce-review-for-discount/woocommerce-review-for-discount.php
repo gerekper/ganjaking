@@ -3,14 +3,14 @@
  * Plugin Name: WooCommerce Review for Discount
  * Plugin URI: https://woocommerce.com/products/review-for-discount/
  * Description: Provide discounts to incentivize users who submit reviews for specific or any products
- * Version: 1.6.16
+ * Version: 1.6.17
  * Author: WooCommerce
- * Author URI: https://www.woocommerce.com/
+ * Author URI: https://woocommerce.com/
  * Text domain: wc_review_discount
  * Requires at least: 4.4
  * Tested up to: 5.3
  * WC tested up to: 4.2
- * WC requires at least: 2.6
+ * WC requires at least: 3.0
  *
  * Woo: 18671:67ae2070dd8d3f3624925857efda6117
 
@@ -50,7 +50,7 @@ function woocommerce_review_for_discount_missing_wc_notice() {
  */
 define( 'WC_REVIEW_FOR_DISCOUNT_DB_VERSION', '1.5.6' );
 
-define( 'WC_REVIEW_FOR_DISCOUNT_VERSION', '1.6.16' ); // WRCS: DEFINED_VERSION.
+define( 'WC_REVIEW_FOR_DISCOUNT_VERSION', '1.6.17' ); // WRCS: DEFINED_VERSION.
 
 register_activation_hook( __FILE__, 'woocommerce_review_for_discount_install' );
 
@@ -252,34 +252,31 @@ if ( ! class_exists( 'SFN_ReviewDiscount' ) ) :
 
 		public function admin_scripts() {
 
-			if ( empty( $_GET['page'] ) || $_GET['page'] != 'wc-review-discount' ) {
+			if ( empty( $_GET['page'] ) || 'wc-review-discount' !== $_GET['page'] ) {
 				return;
 			}
 
 			$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
-			wp_enqueue_script('select2');
+			wp_enqueue_script( 'selectWoo' );
 			wp_enqueue_style( 'woocommerce_admin_styles', WC()->plugin_url() . '/assets/css/admin.css', array(), WC_VERSION );
 			wp_enqueue_style( 'select2', WC()->plugin_url() . '/assets/css/select2.css', array(), WC_VERSION );
 
-
-			if ( !wp_script_is( 'sfn-select', 'registered' ) ) {
-				wp_register_script( 'sfn-select', plugins_url( 'assets/js/select' . $suffix . '.js', __FILE__ ), array('jquery') );
-			}
-
-			if ( !wp_script_is( 'sfn-product-search', 'registered' ) ) {
-				wp_register_script( 'sfn-product-search', plugins_url( 'assets/js/product-search' . $suffix . '.js', __FILE__ ), array('jquery') );
+			if ( ! wp_script_is( 'sfn-select', 'registered' ) ) {
+				wp_register_script( 'sfn-select', plugins_url( 'assets/js/select' . $suffix . '.js', __FILE__ ), array( 'jquery' ), WC_REVIEW_FOR_DISCOUNT_VERSION, true );
 			}
 
 			wp_enqueue_script( 'sfn-select' );
 			wp_enqueue_script( 'sfn-product-search' );
-			wp_localize_script( 'sfn-product-search', 'sfn_product_search', array(
-				'security' => wp_create_nonce("search-products"),
-				'bwc' => version_compare( WC_VERSION, '3.0', '<' ),
-			) );
+			wp_localize_script(
+				'sfn-select',
+				'sfn_select',
+				array(
+					'security' => wp_create_nonce( 'search-products' ),
+				)
+			);
 
 			wp_enqueue_script( 'jquery-ui-sortable' );
-
 		}
 
 		public function update_email() {
@@ -581,7 +578,7 @@ if ( ! class_exists( 'SFN_ReviewDiscount' ) ) :
 				foreach ( $found as $disc ) {
 					// check if coupon is set to only be sent once per email
 					$sent_num = $wpdb->get_var( $wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->prefix}wrd_sent_coupons WHERE discount_id = %d AND author_email = %s", $disc->id, $comment->comment_author_email) );
-					
+
 					if ($disc->unique_email && $sent_num > 0) continue;
 
 					// if coupon for the same product has already been sent to this customer, do nothing.

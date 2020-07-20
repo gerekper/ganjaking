@@ -4,12 +4,41 @@ Contributors: YIThemes
 Tags: gift card, gift cards, coupon, gift, discount
 Requires at least: 4.0.0
 Tested up to: 5.4
-Stable tag: 3.1.4
+Stable tag: 3.1.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Documentation: https://docs.yithemes.com/yith-woocommerce-gift-cards/
 
 == Changelog ==
+
+=  3.1.6 - Released on 09 July 2020 =
+
+* New: Support for WooCommerce 4.3
+* Tweak: Added new option to select the gift card delivery interval and a button to update the cron
+* Update: plugin framework
+* Update: plugin language
+* Fix: fixed the converted balance using WPML and the gift cards as coupons
+* Fix: fixed the converted amount using WPML and the gift cards as coupons
+* Fix: fixed the gift card not applied when the order is edited
+* Dev: move the ywgc_add_gift_card_coupons_as_negative_fees filter
+* Dev: changed delivered gift card email image into PNG format
+* Dev: added $context param to ywgc_custom_company_logo_url and ywgc_custom_header_image_url filters
+* Dev: calculate the correct VAT amount in the checkout
+* Dev: added new filter 'yith_ywgc_mpdf_directionality'
+* Dev: added new action ywgc_verify_coupon_code_condition
+* Dev: added new param to filter yith_ywgc_check_gift_card_return
+* Dev: added the ywgc_apply_gc_code_on_gc_product condition using a gift card as coupon
+* Dev: change the physical gift card info title to h5
+* Dev: fix a possible warning in the email using product addons
+* Dev: changed some wrong filter names
+* Dev: minor changes
+
+=  3.1.5 - Released on 02 June 2020 =
+
+* Fix: fix a problem with the delivery date and the format MM d, yy
+* Fix: fixed the tax calculation using coupons
+* Dev: added new filter yith_ywgc_formatted_pdf_filename
+* Dev: changed the cron interval to hourly
 
 =  3.1.4 - Released on 18 May 2020 =
 

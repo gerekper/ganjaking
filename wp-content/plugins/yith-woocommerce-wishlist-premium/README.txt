@@ -4,12 +4,34 @@ Contributors: yithemes
 Tags: wishlist, woocommerce, products, themes, yit, e-commerce, shop
 Requires at least: 4.0
 Tested up to: 5.4
-Stable tag: 3.0.10
+Stable tag: 3.0.11
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Documentation: https://yithemes.com/docs-plugins/yith-woocommerce-wishlist
 
 == Changelog ==
+
+= 3.0.11 - Released on 08 Jun 2020 =
+
+* New: support for WooCommerce 4.2
+* Update: plugin framework
+* Tweak: set minimum item quantity to 1
+* Tweak: added WordPress among blocked bot user agents
+* Tweak: make sure to finalize session when possible
+* Tweak: added link to product in wishlist mobile template
+* Fix: Prevent error if default wishlist doesn't exists
+* Fix: update button not saving items position
+* Fix: correctly applied yith_wcwl_is_wishlist_responsive filter to yith_wcwl_is_mobile function
+* Fix: wrong check over show_ask_an_estimate_button
+* Fix: avoid to use cache that cannot be invalidated (stop caching queries results, use cache for user wishlists)
+* Fix: Ask an Estimate button on mobile footer not using dedicated label option
+* Fix: additional info popup not appearing for guest users
+* Fix: clear_caches method wasnt properly cleaning cache for guest users
+* Dev: added yith_wcwl_ask_for_an_estimate_popup_text filter
+* Dev: added yith_wcwl_show_wishlist_update_button filter
+* Dev: added yith_wcwl_add_to_wishlist_icon_html filter
+* Dev: added yith_wcwl_add_to_wishlist_heading_icon_html filter
+* Dev: added yith_wcwl_add_to_wishlist_data trigger, to allow third party code change data submitted with ATW ajax call
 
 = 3.0.10 - Released on 07 May 2020 =
 

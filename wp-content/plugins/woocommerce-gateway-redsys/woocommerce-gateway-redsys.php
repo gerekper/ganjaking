@@ -4,7 +4,7 @@
 * Plugin Name: WooCommerce Servired/RedSys Spain Gateway
 * Plugin URI: https://woocommerce.com/products/redsys-gateway/
 * Description: Extends WooCommerce with RedSys gateway.
-* Version: 9.2.0
+* Version: 9.2.2
 * Author: José Conti
 * Author URI: https://www.joseconti.com/
 * Tested up to: 5.4
@@ -19,7 +19,7 @@
 **/
 
 if ( ! defined( 'REDSYS_VERSION' ) ) {
-	define( 'REDSYS_VERSION', '9.2.0' );
+	define( 'REDSYS_VERSION', '9.2.2' );
 }
 
 if ( ! defined( 'REDSYS_PLUGIN_URL' ) ) {
@@ -433,6 +433,10 @@ function woocommerce_gateway_redsys_premium_init() {
 		add_action( 'wp_ajax_nopriv_check_token_insite_from_action', 'WC_Gateway_InSite_Redsys::check_token_insite_from_action' );
 	}
 	add_action( 'admin_init', 'redsys_add_actions' );
+	add_filter( 'bulk_actions-edit-shop_order', array( 'WC_Gateway_Preauthorizations_Redsys', 'preauthorizationsredsys_add_bulk_actions' ) );
+	add_filter( 'handle_bulk_actions-edit-shop_order', array( 'WC_Gateway_Preauthorizations_Redsys', 'preauthorizationsredsys_bulk_actions_handler'), 10, 3 );
+	add_filter( 'bulk_actions-edit-shop_order',  array( 'WC_Gateway_Redsys', 'redsys_add_bulk_actions' ) );
+	//add_filter( 'handle_bulk_actions-edit-shop_order', array( 'WC_Gateway_Redsys', 'redsys_bulk_actions_handler'), 10, 3 );
 	
 	/**
 	* Copyright: (C) 2013 - 2020 José Conti

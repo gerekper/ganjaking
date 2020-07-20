@@ -284,7 +284,8 @@ if ( ! class_exists( 'YITH_WCStripe' ) ) {
 					$intent = $gateway->api->get_intent( $intent_id );
 
 					if ( $intent && $intent->status == 'requires_capture' ) {
-						$intent->capture();
+						$params = apply_filters('yith_wcstripe_capture_charge_params',null,$intent,$order);
+						$intent->capture($params);
 					}
 				} else {
 					if ( ! $transaction_id ) {

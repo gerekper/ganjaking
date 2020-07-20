@@ -83,3 +83,25 @@ p.yctpw_dummy_order_info, .yctpw_preview_dummy_order p {
 	padding: 10px;
 	cursor: pointer;
 }
+
+.yctpw-rules .form-table {
+	border: none !important
+}
+
+.yctpw-rules .yctpw_error {
+	border: 1px solid red !important;
+}
+
+.yctpw-rules .column-rid {
+	width: 25px;
+}
+
+.yctpw_false_field {
+	pointer-events: none !important;
+	border: none !important;
+	display: none !important;
+}
+
+#yctpw_rule_form .actions.bulkactions select {
+	line-height: 2;
+}

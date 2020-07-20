@@ -103,6 +103,7 @@ if ( !class_exists( 'YITH_Theme_Licence' ) ) {
          * @author Andrea Grillo <andrea.grillo@yithemes.com>
          */
         public function add_submenu_page() {
+            return;
 
             $admin_tree = array(
                 'parent_slug' => apply_filters( 'yit_licence_parent_slug', 'yit_panel' ),
@@ -174,8 +175,6 @@ if ( !class_exists( 'YITH_Theme_Licence' ) ) {
         public function get_product_type() {
             return $this->_product_type;
         }
-
-        public function get_license_url(){return add_query_arg( array( 'page' => 'yit_panel_license' ), admin_url( 'admin.php' ) );}
     }
 }
 

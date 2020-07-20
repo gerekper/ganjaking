@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the YITH WooCommerce Deposits and Down Payments package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-05-11 17:58+0200\n"
+"PO-Revision-Date: 2020-06-11 20:08+0200\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -28,15 +28,15 @@ msgstr "Actualizar métodos de envío"
 
 #: templates/shipping-calculator.php:93
 msgid "Postcode / ZIP"
-msgstr ""
+msgstr "Código postal"
 
 #: templates/shipping-calculator.php:85
 msgid "City"
-msgstr ""
+msgstr "Ciudad"
 
 #: templates/shipping-calculator.php:76
 msgid "State / County"
-msgstr ""
+msgstr "Estado / provincia"
 
 #: templates/shipping-calculator.php:63
 msgid "Select a state&hellip;"
@@ -44,7 +44,7 @@ msgstr "Selecciona un estado&hellip;"
 
 #: templates/shipping-calculator.php:57 templates/shipping-calculator.php:62
 msgid "State / county"
-msgstr ""
+msgstr "Estado / provincia"
 
 #: templates/shipping-calculator.php:39
 msgid "Select a country&hellip;"
@@ -606,7 +606,7 @@ msgstr "Ha ocurrido un error durante el procesamiento del subpedido"
 
 #: includes/class.yith-wcdp-suborders.php:429
 msgid "There was an error while processing suborder for item #%$1d (%$2s)"
-msgstr ""
+msgstr "Ha ocurrido un error mientras se procesaba el subpedido para el artículo #%$1d (%$2s)"
 
 #: includes/class.yith-wcdp-suborders.php:350
 msgid "Suborder status changed to reflect Pending payment status because parent's order status changed."
@@ -668,11 +668,11 @@ msgstr "Ver Pago Completo"
 
 #: includes/class.yith-wcdp-frontend.php:547
 msgid "%s shipping"
-msgstr ""
+msgstr "%s envío"
 
 #: includes/class.yith-wcdp-frontend.php:539
 msgid "%s subtotal"
-msgstr ""
+msgstr "%s subtotal"
 
 #: includes/class.yith-wcdp-frontend.php:475
 #: includes/class.yith-wcdp-frontend.php:609
@@ -709,7 +709,7 @@ msgstr "Depósito de pedido"
 
 #: includes/class.yith-wcdp-admin.php:629
 msgid "Note: from this box you can monitor the status of suborders concerning full payments."
-msgstr ""
+msgstr "Nota: desde esta casilla puedes controlar el estado de los subpedidos relacionados con pagos completados"
 
 #: includes/class.yith-wcdp-admin.php:629
 msgctxt "Admin: Single order page. Suborder details box"
@@ -1166,4 +1166,4 @@ msgstr "Cantidad"
 
 #: includes/admin-tables/class.yith-wcdp-category-deposits-table.php:91
 msgid "Thumbnail"
-msgstr ""
+msgstr "Miniatura"

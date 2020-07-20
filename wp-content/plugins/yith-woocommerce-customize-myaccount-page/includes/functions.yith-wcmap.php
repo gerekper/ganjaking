@@ -944,3 +944,42 @@ if ( ! function_exists( 'yith_wcmap_get_custom_css' ) ) {
 		return apply_filters( 'yith_wcmap_get_custom_css', $inline_css );
 	}
 }
+
+
+if( ! function_exists( 'yith_wocc_get_proteo_custom_style' ) ){
+    /**
+     * Get Proteo custom style
+     *
+     * @since 2.6.4
+     * @author Alessio Torrisi
+     * @return string
+     */
+    function yith_wcmap_get_proteo_custom_style(){
+
+        $button_bkg             = get_theme_mod( 'yith_proteo_button_style_1_bg_color', '#448a85' );
+        $button_color           = get_theme_mod( 'yith_proteo_button_style_1_text_color', '#ffffff' );
+        $button_bkg_h           = get_theme_mod( 'yith_proteo_button_style_1_bg_color_hover', yith_proteo_adjust_brightness( get_theme_mod( 'yith_proteo_main_color_shade', '#448a85' ), 0.2 ) );
+        $button_color_h         = get_theme_mod( 'yith_proteo_button_style_1_text_color_hover', '#ffffff' );
+        $main_color_link        = get_theme_mod( 'yith_proteo_main_color_shade', '#18BCA9' );
+        $main_color_link_h      = get_theme_mod( 'yith_proteo_general_link_hover_color', '#18BCA9' );
+
+        $proteo_style = '
+            #my-account-menu .logout a, #my-account-menu-tab .logout a {
+				color:' . $button_color . ';
+				background-color:' . $button_bkg . ';
+			}
+			#my-account-menu .logout:hover a, #my-account-menu-tab .logout:hover a {
+				color:' . $button_color_h . ';
+				background-color:' . $button_bkg_h . ';
+			}
+			.myaccount-menu li a {
+				color:' . $main_color_link . ';
+			}
+			.myaccount-menu li a:hover, .myaccount-menu li.active > a, .myaccount-menu li.is-active > a {
+				color:' . $main_color_link_h . ';
+			}';
+        ;
+
+        return $proteo_style ;
+    }
+}

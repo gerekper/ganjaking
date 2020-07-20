@@ -172,7 +172,7 @@ class YITH_COG_Report extends WP_List_Table {
 
              case 'product' :
 
-                if ( $product_type == 'variable' ) {
+                if ( $product_type == 'variable' || isset( $item['var_id'] ) && is_array( $item['var_id'] ) ) {
 
                     $item_id_array = $item['item_id'];
 
@@ -238,7 +238,7 @@ class YITH_COG_Report extends WP_List_Table {
 
             case 'total_sales':
 
-                if ( $product_type == 'variable' ) {
+                if ( $product_type == 'variable' || isset( $item['var_id'] ) && is_array( $item['var_id'] ) ) {
 
                     if ( isset( $item['var_id'] ) && is_array( $item['var_id'] ) ){
                         $variation_id_array = array_unique($item['var_id']);
@@ -280,7 +280,7 @@ class YITH_COG_Report extends WP_List_Table {
 
             case 'product_price' :
 
-                if ( $product_type == 'variable' ) {
+                if ( $product_type == 'variable' || isset( $item['var_id'] ) && is_array( $item['var_id'] ) ) {
 
                     if ( isset( $item['var_id'] ) && is_array( $item['var_id'] ) ){
                         $variation_id_array = array_unique($item['var_id']);
@@ -383,7 +383,7 @@ class YITH_COG_Report extends WP_List_Table {
 
             case 'product_total_price' :
 
-                if ( $product_type == 'variable' ) {
+                if ( $product_type == 'variable' || isset( $item['var_id'] ) && is_array( $item['var_id'] ) ) {
 
                     if ( isset( $item['var_id'] ) && is_array( $item['var_id'] ) ){
                         $variation_id_array = array_unique($item['var_id']);
@@ -488,7 +488,7 @@ class YITH_COG_Report extends WP_List_Table {
 
             case 'product_cost' :
 
-                if ( $product_type == 'variable' ) {
+                if ( $product_type == 'variable' || isset( $item['var_id'] ) && is_array( $item['var_id'] ) ) {
 
                     if ( isset( $item['var_id'] ) && is_array( $item['var_id'] ) ){
                         $variation_id_array = array_unique($item['var_id']);
@@ -571,7 +571,7 @@ class YITH_COG_Report extends WP_List_Table {
 
             case 'product_total_cost' :
 
-                if ( $product_type == 'variable' ) {
+                if ( $product_type == 'variable' || isset( $item['var_id'] ) && is_array( $item['var_id'] ) ) {
 
                     if ( isset( $item['var_id'] ) && is_array( $item['var_id'] ) ){
                         $variation_id_array = array_unique($item['var_id']);
@@ -658,7 +658,7 @@ class YITH_COG_Report extends WP_List_Table {
 
             case 'product_profit' :
 
-                if ( $product_type == 'variable' ) {
+                if ( $product_type == 'variable' || isset( $item['var_id'] ) && is_array( $item['var_id'] ) ) {
 
                     if ( isset( $item['var_id'] ) && is_array( $item['var_id'] ) ){
                         $variation_id_array = array_unique($item['var_id']);
@@ -688,7 +688,7 @@ class YITH_COG_Report extends WP_List_Table {
                             }
                         }
                     }
-                    if (isset($min_max_array)) {
+                    if (isset($min_max_array) && !empty($min_max_array)) {
                         if (min($min_max_array) == max($min_max_array)){
                             if (  get_option('yith_cog_currency_report') == 'no' ) {
                                 ?><div ><p><?php echo round( min($min_max_array), 2 ) ?></p></div><?php
@@ -775,7 +775,7 @@ class YITH_COG_Report extends WP_List_Table {
 
             case 'product_total_profit' :
 
-                if ( $product_type == 'variable' ) {
+                if ( $product_type == 'variable' || isset( $item['var_id'] ) && is_array( $item['var_id'] ) ) {
 
                     if ( isset( $item['var_id'] ) && is_array( $item['var_id'] ) ){
                         $variation_id_array = array_unique($item['var_id']);
@@ -911,7 +911,7 @@ class YITH_COG_Report extends WP_List_Table {
 
            case 'margin_percentage':
 
-                if ( $product_type == 'variable' ) {
+                if ( $product_type == 'variable' || isset( $item['var_id'] ) && is_array( $item['var_id'] ) ) {
 
                     if ( isset( $item['var_id'] ) && is_array( $item['var_id'] ) ){
                         $variation_id_array = array_unique($item['var_id']);
@@ -949,7 +949,7 @@ class YITH_COG_Report extends WP_List_Table {
                             $total_price += $variation_total_price;
                         }
                     }
-                    if ( isset($total_profit) && isset($total_price) ) {
+                    if ( isset($total_profit) && isset($total_price) && $total_price> 0 ) {
                             ?><div><p><?php echo round(($total_profit / $total_price) * 100, 2) . '%' ?></p></div><?php
                     }
                     foreach ($variation_id_array as $var_id){
@@ -1076,7 +1076,7 @@ class YITH_COG_Report extends WP_List_Table {
         return $columns;
     }
 
-    
+
     /**
      * Get items from Query.
      */
@@ -1252,7 +1252,7 @@ class YITH_COG_Report extends WP_List_Table {
             $this->items =  $aux_items;
 
             $this->max_items = count( $items_array );
-            
+
             $this->filter_by_tag( $report, $current_page, $per_page );
 
         }

@@ -35,7 +35,7 @@ $meta_products = isset( $metas['products'] ) ? $metas['products'] : array();
 	}
 
 	if ( ! empty( $additional_text ) ) {
-		echo '<p class="additional-text">' . esc_html( $additional_text ) . '</p>';
+		echo '<p class="additional-text">' . wp_kses_post( $additional_text ) . '</p>';
 	}
 	?>
 

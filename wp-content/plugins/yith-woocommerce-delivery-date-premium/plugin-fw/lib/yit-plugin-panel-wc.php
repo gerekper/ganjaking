@@ -303,6 +303,14 @@ if ( !class_exists( 'YIT_Plugin_Panel_WooCommerce' ) ) {
                 $yit_options = $this->get_main_array_options();
                 $option_key  = $this->get_current_option_key();
 
+                foreach ( $yit_options as $key => $options_list ){
+                	foreach ( $options_list as $value ){
+                		if( ! empty( $value['yith-type'] ) && 'toggle-element-fixed' == $value['yith-type'] && isset( $value['save_single_options'] ) && true === $value['save_single_options'] ){
+			                $yit_options[ $key ] = array_merge( $yit_options[ $key ] , $value['elements'] );
+		                }
+	                }
+                }
+
                 if ( version_compare( WC()->version, '2.4.0', '>=' ) ) {
                     if ( !empty( $yit_options[ $option_key ] ) ) {
                         foreach ( $yit_options[ $option_key ] as $option ) {
@@ -327,7 +335,7 @@ if ( !class_exists( 'YIT_Plugin_Panel_WooCommerce' ) ) {
                     }
                 }
 
-                woocommerce_update_options( $yit_options[ $option_key ] );
+	            woocommerce_update_options( $yit_options[ $option_key ] );
 
                 do_action( 'yit_panel_wc_after_update' );
 

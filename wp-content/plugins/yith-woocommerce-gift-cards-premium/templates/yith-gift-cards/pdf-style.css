@@ -95,3 +95,8 @@
     text-align: left;
     padding: 12px;
 }
+
+.ywgc-table-template .ywgc-expiration-message{
+  color: red;
+  text-align: center;
+}

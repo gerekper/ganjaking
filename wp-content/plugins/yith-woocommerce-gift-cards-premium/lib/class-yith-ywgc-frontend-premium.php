@@ -335,7 +335,7 @@ if ( ! class_exists ( 'YITH_YWGC_Frontend_Premium' ) ) {
 						'name'                         => esc_html__( "ENTER ADDITIONAL RECIPIENT'S NAME", 'yith-woocommerce-gift-cards' ),
 						'email'                        => esc_html__( "ENTER ADDITIONAL RECIPIENT'S EMAIL ADDRESS", 'yith-woocommerce-gift-cards' ),
 						'label_name'                   => apply_filters('ywgc_recipient_name_label',esc_html__( "Name: ", 'yith-woocommerce-gift-cards' )),
-						'label_email'                  => apply_filters('ywgc_recipient_name_label',esc_html__( "E-mail: ", 'yith-woocommerce-gift-cards' )),
+						'label_email'                  => apply_filters('ywgc_recipient_email_label',esc_html__( "E-mail: ", 'yith-woocommerce-gift-cards' )),
 						'notice_target'                => apply_filters ( 'yith_ywgc_gift_card_notice_target', 'div.ywgc_enter_code' ),
 						'add_gift_text'                => apply_filters ( 'yith_gift_card_layout_add_gift_button_text', esc_html__( "Buy gift card", 'yith-woocommerce-gift-cards' ) ),
 						'date_format'   => $date_format,

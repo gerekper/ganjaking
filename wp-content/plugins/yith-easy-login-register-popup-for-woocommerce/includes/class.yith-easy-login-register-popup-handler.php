@@ -88,9 +88,7 @@ if ( ! class_exists( 'YITH_Easy_Login_Register_Popup_Handler' ) ) {
 		public function add_ajax_handler_data( $data ) {
 			$data = array_merge( $data, [
 				'formAction' => $this->form_action,
-				'formNonce'  => wp_create_nonce( $this->form_action ),
 				'checkLogin' => $this->check_login,
-				'checkNonce' => wp_create_nonce( $this->check_login ),
 			] );
 
 			return $data;
@@ -104,7 +102,6 @@ if ( ! class_exists( 'YITH_Easy_Login_Register_Popup_Handler' ) ) {
 		 * @return void <francesco.licandro@yithemes.com>
 		 */
 		public function check_login() {
-			check_ajax_referer( $this->check_login );
 			wp_send_json_success( [
 				'logged' => is_user_logged_in(),
 			] );
@@ -119,8 +116,6 @@ if ( ! class_exists( 'YITH_Easy_Login_Register_Popup_Handler' ) ) {
 		 * @throws Exception
 		 */
 		public function handle_form_action() {
-
-			check_ajax_referer( $this->form_action );
 
 			try {
 

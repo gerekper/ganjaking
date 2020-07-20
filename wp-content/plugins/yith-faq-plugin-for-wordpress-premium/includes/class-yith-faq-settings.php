@@ -44,7 +44,7 @@ if ( ! class_exists( 'YITH_FAQ_Settings' ) ) {
 		 *
 		 * @since   1.0.0
 		 * @return  void
-		 * @author  Alberto Ruggiero
+		 * @author  Alberto Ruggiero <alberto.ruggiero@yithemes.com>
 		 */
 		private function __construct() {
 		}
@@ -57,7 +57,7 @@ if ( ! class_exists( 'YITH_FAQ_Settings' ) ) {
 		 * @param   $parent string
 		 *
 		 * @return  array
-		 * @author  Alberto Ruggiero
+		 * @author  Alberto Ruggiero <alberto.ruggiero@yithemes.com>
 		 */
 		private function get_options( $parent ) {
 
@@ -65,7 +65,7 @@ if ( ! class_exists( 'YITH_FAQ_Settings' ) ) {
 
 				$options = get_option( "yit_{$parent}_options" );
 
-				if ( $options == '' ) {
+				if ( '' === $options ) {
 					$options = array();
 					update_option( "yit_{$parent}_options", array() );
 				}
@@ -88,7 +88,7 @@ if ( ! class_exists( 'YITH_FAQ_Settings' ) ) {
 		 * @param   $default mixed
 		 *
 		 * @return  mixed
-		 * @author  Alberto Ruggiero
+		 * @author  Alberto Ruggiero <alberto.ruggiero@yithemes.com>
 		 */
 		public function get_option( $parent, $key, $default = false ) {
 			$options = $this->get_options( $parent );

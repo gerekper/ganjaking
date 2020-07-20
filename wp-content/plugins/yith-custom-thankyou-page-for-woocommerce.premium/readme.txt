@@ -4,7 +4,7 @@ Contributors: yithemes
 Tags: woocommerce, thank you page, custom thank you page, yit, yith, yithemes, woocommerce checkout, wc checkout, wc order, woocommerce order
 Requires at least: 4.0
 Tested up to: 5.4
-Stable tag: 1.2.4
+Stable tag: 1.2.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -22,6 +22,19 @@ Install the plugin and set a Custom Thank You page for your customers using a wo
 3. Activate 'YITH Custom Thank You Page for Woocommerce' from Plugins page
 
 == Changelog ==
+= 1.2.5 – Released on 03 July 2020 =
+* New: support for WooCommerce 4.3
+* New: added Rules Tab in plugin settings panel
+* New: added Section Title input text field in Social Box Tab
+* New: added Section Title input text field in UpSells Tab
+* Update: Plugin Framework
+* Update: Language Files
+* Fix: issue with product categories
+* Fix: issue with product variation parent thank you page
+* Fix: General Page setting with WPML
+* Fix: notice on PDF button as shortcode when load page not as thank you page
+* Fix: double check on social box template to avoid fatal error
+
 = 1.2.4 – Released on 26 May 2020 =
 * New: support for WooCommerce 4.2
 * Update: Plugin Framework

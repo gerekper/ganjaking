@@ -84,7 +84,7 @@
             // preview
             $upload.imgUrl.change( function () {
                 var url     = $( this ).val(),
-                    re      = new RegExp( "(http|ftp|https)://[a-zA-Z0-9@?^=%&amp;:/~+#-_.]*.(gif|jpg|jpeg|png|ico)" ),
+					re      = new RegExp( "(http|ftp|https)://[a-zA-Z0-9@?^=%&amp;:/~+#-_.]*.(gif|jpg|jpeg|png|ico|svg)" ),
                     preview = $( this ).parent().find( $upload.imgPreviewHandler ).first();
 
                 if ( preview.length < 1 ) {
@@ -383,7 +383,7 @@
                 select  = wrapper.find( 'select' ).first();
 
             if ( select.length ) {
-                select.val( key );
+                select.val( key ).trigger('yith_select_images_value_changed');
                 items.removeClass( 'yith-plugin-fw-select-images__item--selected' );
                 item.addClass( 'yith-plugin-fw-select-images__item--selected' );
             }
@@ -728,5 +728,70 @@
             $( '.select2-results' ).closest( '.select2-container' ).addClass( 'yith-plugin-fw-select2-container' );
         }
     } );
+	/**
+	 * Dimensions
+	 */
+	var fw_dimensions = {
+		selectors   : {
+			wrapper   : '.yith-plugin-fw-dimensions',
+			units     : {
+				wrapper      : '.yith-plugin-fw-dimensions__units',
+				single       : '.yith-plugin-fw-dimensions__unit',
+				value        : '.yith-plugin-fw-dimensions__unit__value',
+				selectedClass: 'yith-plugin-fw-dimensions__unit--selected'
+			},
+			linked    : {
+				button            : '.yith-plugin-fw-dimensions__linked',
+				value             : '.yith-plugin-fw-dimensions__linked__value',
+				wrapperActiveClass: 'yith-plugin-fw-dimensions--linked-active'
+			},
+			dimensions: {
+				number: '.yith-plugin-fw-dimensions__dimension__number'
+			}
+		},
+		init        : function () {
+			var self = fw_dimensions;
+			$( document ).on( 'click', self.selectors.units.single, self.unitChange );
+			$( document ).on( 'click', self.selectors.linked.button, self.linkedChange );
+			$( document ).on( 'change keyup', self.selectors.dimensions.number, self.numberChange );
+		},
+		unitChange  : function ( e ) {
+			var unit        = $( this ).closest( fw_dimensions.selectors.units.single ),
+				wrapper     = unit.closest( fw_dimensions.selectors.units.wrapper ),
+				units       = wrapper.find( fw_dimensions.selectors.units.single ),
+				valueField  = wrapper.find( fw_dimensions.selectors.units.value ).first(),
+				value       = unit.data( 'value' );
+
+			units.removeClass( fw_dimensions.selectors.units.selectedClass );
+			unit.addClass( fw_dimensions.selectors.units.selectedClass );
+			valueField.val( value );
+		},
+		linkedChange: function () {
+			var button      = $( this ).closest( fw_dimensions.selectors.linked.button ),
+				mainWrapper = button.closest( fw_dimensions.selectors.wrapper ),
+				valueField  = button.find( fw_dimensions.selectors.linked.value ),
+				value       = valueField.val();
+
+			if ( 'yes' === value ) {
+				mainWrapper.removeClass( fw_dimensions.selectors.linked.wrapperActiveClass );
+				valueField.val( 'no' );
+			} else {
+				mainWrapper.addClass( fw_dimensions.selectors.linked.wrapperActiveClass );
+				valueField.val( 'yes' );
+
+				mainWrapper.find( fw_dimensions.selectors.dimensions.number ).first().trigger( 'change' );
+			}
+		},
+		numberChange: function ( e ) {
+			var number      = $( this ).closest( fw_dimensions.selectors.dimensions.number ),
+				mainWrapper = number.closest( fw_dimensions.selectors.wrapper );
+			if ( mainWrapper.hasClass( fw_dimensions.selectors.linked.wrapperActiveClass ) ) {
+				var numbers = mainWrapper.find( fw_dimensions.selectors.dimensions.number );
+
+				numbers.val( number.val() );
+			}
+		}
+	};
+	fw_dimensions.init();
 
 } )( jQuery );

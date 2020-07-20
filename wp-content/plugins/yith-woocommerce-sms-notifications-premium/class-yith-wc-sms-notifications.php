@@ -765,7 +765,8 @@ if ( ! class_exists( 'YITH_WC_SMS_Notifications' ) ) {
 		 */
 		public function set_plugin_requirements() {
 
-			$plugin_name  = 'YITH WooCommerce SMS Notifications';
+			$plugin_data  = get_plugin_data( plugin_dir_path( __FILE__ ) . '/init.php' );
+			$plugin_name  = $plugin_data['Name'];
 			$requirements = array(
 				'min_wp_version' => '5.2.0',
 				'min_wc_version' => '4.0.0',

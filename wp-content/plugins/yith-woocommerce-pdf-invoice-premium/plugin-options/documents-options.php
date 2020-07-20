@@ -29,9 +29,6 @@ $general_options = array(
 			'desc'              => __( 'Set the format for the invoice number. Use [number], [prefix], [suffix], [year], [month] and [day] as placeholders. <b>The [number] placeholder is required</b>, if not
 specified, it will be queued to the corresponding text.', 'yith-woocommerce-pdf-invoice' ),
 			'default'           => '[prefix]/[number]/[suffix]',
-			'custom_attributes' => array(
-				'required' => 'required',
-			),
 		),
 		'credit_note_number_format'             => array(
 			'name'              => __( 'Credit note number format', 'yith-woocommerce-pdf-invoice' ),
@@ -41,9 +38,6 @@ specified, it will be queued to the corresponding text.', 'yith-woocommerce-pdf-
 			'desc'              => __( 'Set the format for the invoice number. Use [number], [prefix], [suffix], [year], [month] and [day] as placeholders. <b>The [number] placeholder is required</b>, if not
 specified, it will be queued to the corresponding text.', 'yith-woocommerce-pdf-invoice' ),
 			'default'           => '[prefix]/[number]/[suffix]',
-			'custom_attributes' => array(
-				'required' => 'required',
-			),
 		),
 		'invoice_filename_format'           => array(
 			'name'              => __( 'Invoice file name format', 'yith-woocommerce-pdf-invoice' ),
@@ -54,9 +48,6 @@ specified, it will be queued to the corresponding text.', 'yith-woocommerce-pdf-
 <b>The [number] placeholder is necessary</b>. If not specified, it will be queued to the corresponding text.', 'yith-woocommerce-pdf-invoice' ),
 			'css'               => 'width:60%;',
 			'default'           => 'Invoice_[number]',
-			'custom_attributes' => array(
-				'required' => 'required',
-			),
 		),
 		'credit_note_filename_format'           => array(
 			'name'              => __( 'Credit note file name format', 'yith-woocommerce-pdf-invoice' ),
@@ -67,9 +58,6 @@ specified, it will be queued to the corresponding text.', 'yith-woocommerce-pdf-
 placeholder is necessary</b>. If not specified, it will be queued to the corresponding text.', 'yith-woocommerce-pdf-invoice' ),
 			'css'               => 'width:60%;',
 			'default'           => 'Credit_[number]',
-			'custom_attributes' => array(
-				'required' => 'required',
-			),
 		),
 		'pro_forma_invoice_filename_format' => array(
 			'name'              => __( 'Proforma invoice file name format', 'yith-woocommerce-pdf-invoice' ),
@@ -80,9 +68,6 @@ placeholder is necessary</b>. If not specified, it will be queued to the corresp
 placeholder is necessary</b>. If not specified, it will be queued to the corresponding text.', 'yith-woocommerce-pdf-invoice' ),
 			'css'               => 'width:60%;',
 			'default'           => 'Pro_Forma_[order_number]',
-			'custom_attributes' => array(
-				'required' => 'required',
-			),
 		),
 		'packing_slip_filename_format'     => array(
 			'name'              => __( 'Packing slip file name format', 'yith-woocommerce-pdf-invoice' ),
@@ -93,9 +78,6 @@ placeholder is necessary</b>. If not specified, it will be queued to the corresp
 placeholder is necessary</b>. If not specified, it will be queued to the corresponding text.', 'yith-woocommerce-pdf-invoice' ),
 			'css'               => 'width:60%;',
 			'default'           => 'Shipping_list_[order_number]',
-			'custom_attributes' => array(
-				'required' => 'required',
-			),
 		),
 
 		'document_settings_end' => array(
@@ -115,11 +97,6 @@ placeholder is necessary</b>. If not specified, it will be queued to the corresp
                 'yith-woocommerce-pdf-invoice' ),
 			'default'           => 1,
 			'std'               => 1,
-			'custom_attributes' => array(
-				'min'      => 1,
-				'step'     => 1,
-				'required' => 'required',
-			),
 		),
 		'next_invoice_year'     => array(
 			'name'    => __( 'Billing year', 'yith-woocommerce-pdf-invoice' ),
@@ -167,11 +144,6 @@ placeholder is necessary</b>. If not specified, it will be queued to the corresp
 			 move away from automatic numeration)', 'yith-woocommerce-pdf-invoice' ),
 			'default'           => 1,
 			'std'               => 1,
-			'custom_attributes' => array(
-				'min'      => 1,
-				'step'     => 1,
-				'required' => 'required',
-			),
 		),
 		'credit_note_year'     => array(
 			'name'    => __( 'Billing year', 'yith-woocommerce-pdf-invoice' ),

@@ -45,7 +45,7 @@ if ( ! defined( 'YITH_WCAF' ) ) {
 								<?php endif; ?>
 							</select>
 
-							<button class="button" title="<?php esc_html_e( 'Apply', 'yith-woocommerce-affiliates' ); ?>">
+							<button class="button wc-reload" title="<?php esc_html_e( 'Apply', 'yith-woocommerce-affiliates' ); ?>">
 								<span><?php esc_html_e( 'Apply', 'yith-woocommerce-affiliates' ); ?></span>
 							</button>
 							<hr>
@@ -145,11 +145,6 @@ if ( ! defined( 'YITH_WCAF' ) ) {
 
 						</div>
 					</div>
-				</div>
-			</div>
-
-			<div id="postbox-container-4" class="postbox-container">
-				<div id="normal-sortables" class="meta-box-sortables ui-sortable">
 					<div id="woocommerce-order-data" class="postbox">
 						<div class="inside">
 							<div class="panel-wrap woocommerce">
@@ -204,11 +199,6 @@ if ( ! defined( 'YITH_WCAF' ) ) {
 							</div>
 						</div>
 					</div>
-				</div>
-			</div>
-
-			<div id="postbox-container-5" class="postbox-container">
-				<div id="normal-sortables" class="meta-box-sortables ui-sortable">
 					<div id="woocommerce-order-data" class="postbox">
 						<div class="inside">
 
@@ -263,11 +253,6 @@ if ( ! defined( 'YITH_WCAF' ) ) {
 							</div>
 						</div>
 					</div>
-				</div>
-			</div>
-
-			<div id="postbox-container-5" class="postbox-container">
-				<div id="normal-sortables" class="meta-box-sortables ui-sortable">
 					<div id="woocommerce-order-data" class="postbox">
 						<div class="inside">
 
@@ -302,11 +287,6 @@ if ( ! defined( 'YITH_WCAF' ) ) {
 							</div>
 						</div>
 					</div>
-				</div>
-			</div>
-
-			<div id="postbox-container-3" class="postbox-container">
-				<div id="normal-sortables" class="meta-box-sortables ui-sortable">
 					<div id="woocommerce-order-data" class="postbox">
 						<div class="inside">
 

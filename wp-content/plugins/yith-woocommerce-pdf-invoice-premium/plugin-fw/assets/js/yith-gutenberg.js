@@ -3,6 +3,7 @@
     var __ = wp.i18n.__,
         el = wp.element.createElement,
         Fragment = wp.element.Fragment,
+        PanelBody = wp.components.PanelBody,
         registerBlockType = wp.blocks.registerBlockType,
         RichText = wp.editor.RichText,
         BlockControls = wp.editor.BlockControls,

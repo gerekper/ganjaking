@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "stripe/stripe-php",
-            "version": "v7.31.0",
+            "version": "v7.37.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stripe/stripe-php.git",
-                "reference": "993b58f73572b415c476548134e71e07d96ac3f0"
+                "reference": "246871743edb26c7a7657784205218daf7d99a73"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/993b58f73572b415c476548134e71e07d96ac3f0",
-                "reference": "993b58f73572b415c476548134e71e07d96ac3f0",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/246871743edb26c7a7657784205218daf7d99a73",
+                "reference": "246871743edb26c7a7657784205218daf7d99a73",
                 "shasum": ""
             },
             "require": {
@@ -61,7 +61,7 @@
                 "payment processing",
                 "stripe"
             ],
-            "time": "2020-05-01T19:45:41+00:00"
+            "time": "2020-06-09T22:55:43+00:00"
         }
     ],
     "packages-dev": [],

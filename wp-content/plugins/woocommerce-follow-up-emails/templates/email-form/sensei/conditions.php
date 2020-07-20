@@ -3,46 +3,50 @@ $course = (!empty( $conditions[ $idx ]['courses'] ) ) ? $conditions[ $idx ]['cou
 $lesson = (!empty( $conditions[ $idx ]['lessons'] ) ) ? $conditions[ $idx ]['lessons'] : '';
 ?>
 <div class="value-courses" style="display: none; margin: 5px 0 0 45px;">
-	<?php
-	$course_ids = array_filter( array_map( 'absint', explode( ',', $course ) ) );
-	$json_ids   = array();
-
-	foreach ( $course_ids as $course_id ) {
-		$json_ids[ $course_id ] = wp_kses_post( get_the_title( $course_id ) );
-	}
-	?>
-	<input
-		type="hidden"
+	<select
 		class="ajax-select2-init"
-		name="conditions[<?php echo esc_attr( $idx ); ?>][courses]"
+		name="conditions[<?php echo esc_attr( $idx ); ?>][courses][]"
 		id="conditions_<?php echo esc_attr( $idx ); ?>_courses"
-		data-multiple="true"
-		data-placeholder="<?php esc_attr_e('Any course', 'follow_up_emails'); ?>"
-		style="width: 500px;"
-		value="<?php echo esc_attr( implode( ',', array_keys( $json_ids ) ) ); ?>"
-		data-selected="<?php echo wc_esc_json( wp_json_encode( $json_ids ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?>"
-		data-nonce="<?php echo esc_attr( wp_create_nonce("search-courses") ); ?>"
-		>
+		multiple
+		data-placeholder="<?php esc_attr_e( 'Any course', 'follow_up_emails' ); ?>"
+		data-nonce="<?php echo esc_attr( wp_create_nonce( 'search-courses' ) ); ?>"
+	>
+	<?php
+		if ( ! is_array( $course ) ) {
+			$course = explode( ',', $course );
+		}
+		$course_ids = array_filter( array_map( 'absint', $course ) );
+
+		foreach ( $course_ids as $course_id ) {
+			$course_name = htmlspecialchars( wp_kses_post( get_the_title( $course_id ) ) );
+	?>
+		<option value="<?php echo esc_attr( $course_id ); ?>" selected><?php echo esc_html( $course_name ); ?></option>
+	<?php
+		}
+	?>
+	</select>
 </div>
 <div class="value-lessons" style="display: none; margin: 5px 0 0 45px;">
-	<?php
-	$lesson_ids = array_filter( array_map( 'absint', explode( ',', $lesson ) ) );
-	$json_ids   = array();
-
-	foreach ( $lesson_ids as $lesson_id ) {
-		$json_ids[ $lesson_id ] = wp_kses_post( get_the_title( $lesson_id ) );
-	}
-	?>
-	<input
-		type="hidden"
+	<select
 		class="ajax-select2-init"
-		name="conditions[<?php echo esc_attr( $idx ); ?>][lessons]"
+		name="conditions[<?php echo esc_attr( $idx ); ?>][lessons][]"
 		id="conditions_<?php echo esc_attr( $idx ); ?>_lessons"
-		data-multiple="true"
-		data-placeholder="<?php esc_attr_e('Search for lessons...', 'follow_up_emails'); ?>"
-		style="width: 500px;"
-		value="<?php echo esc_attr( implode( ',', array_keys( $json_ids ) ) ); ?>"
-		data-selected="<?php echo wc_esc_json( wp_json_encode( $json_ids ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?>"
-		data-nonce="<?php echo esc_attr( wp_create_nonce("search-lessons") ); ?>"
-		>
+		multiple
+		data-placeholder="<?php esc_attr_e( 'Search for lessons&hellip;', 'follow_up_emails' ); ?>"
+		data-nonce="<?php echo esc_attr( wp_create_nonce( 'search-lessons' ) ); ?>"
+	>
+	<?php
+		if ( ! is_array( $lesson ) ) {
+			$lesson = explode( ',', $lesson );
+		}
+		$lesson_ids = array_filter( array_map( 'absint', $lesson ) );
+
+		foreach ( $lesson_ids as $lesson_id ) {
+			$lesson_name = htmlspecialchars( wp_kses_post( get_the_title( $lesson_id ) ) );
+	?>
+		<option value="<?php echo esc_attr( $lesson_id ); ?>" selected><?php echo esc_html( $lesson_name ); ?></option>
+	<?php
+		}
+	?>
+	</select>
 </div>

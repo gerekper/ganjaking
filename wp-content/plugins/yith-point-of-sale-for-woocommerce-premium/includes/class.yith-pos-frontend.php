@@ -1,5 +1,5 @@
 <?php
-! defined( 'YITH_POS' ) && exit; // Exit if accessed directly
+ ! defined( 'YITH_POS' ) && exit; // Exit if accessed directly
 
 
 if ( ! class_exists( 'YITH_POS_Frontend' ) ) {
@@ -33,11 +33,11 @@ if ( ! class_exists( 'YITH_POS_Frontend' ) ) {
 
 			add_filter( 'woocommerce_rest_product_object_query', array( $this, 'extends_rest_product_query' ), 10, 2 );
 
-			//search filter
+			// search filter
 			add_filter( 'woocommerce_rest_product_object_query', array( $this, 'search_product_args' ), 10, 2 );
 			add_filter( 'woocommerce_rest_product_object_query', array( $this, 'filter_product_on_sale' ), 10, 2 );
 
-			//order filter
+			// order filter
 			add_filter( 'woocommerce_rest_shop_order_object_query', array( $this, 'search_order_args' ), 10, 2 );
 
 			// add parent_categories to product variations (for coupon check)
@@ -51,10 +51,10 @@ if ( ! class_exists( 'YITH_POS_Frontend' ) ) {
 			add_filter( 'woocommerce_rest_prepare_product_variation_object', array( $this, 'rest_product_thumbnails' ), 10, 3 );
 			add_filter( 'woocommerce_rest_prepare_product_object', array( $this, 'rest_product_thumbnails' ), 10, 3 );
 
-			//customer VAT
+			// customer VAT
 			add_filter( 'woocommerce_billing_fields', array( $this, 'add_billing_vat' ) );
 
-			//internal YITH POS redirect
+			// internal YITH POS redirect
 			add_action( 'init', array( $this, 'pos_page_rewrite' ), 0 );
 			add_filter( 'option_rewrite_rules', array( $this, 'rewrite_rules' ), 1 );
 		}
@@ -69,11 +69,11 @@ if ( ! class_exists( 'YITH_POS_Frontend' ) ) {
 		 */
 		public function filter_product_on_sale( $args, $request ) {
 
-			if ( isset( $_GET[ 'yith_on_sale' ] ) ) {
-				$on_sale_ids        = wc_get_product_ids_on_sale();
-				$exclude            = isset( $_GET[ 'exclude' ] ) ? explode( ',', $_GET[ 'exclude' ] ) : array();
-				$args[ 'post__in' ] = array_diff( $on_sale_ids, $exclude );
-				unset( $args[ 'post__not_in' ] );
+			if ( isset( $_GET['yith_on_sale'] ) ) {
+				$on_sale_ids      = wc_get_product_ids_on_sale();
+				$exclude          = isset( $_GET['exclude'] ) ? explode( ',', $_GET['exclude'] ) : array();
+				$args['post__in'] = array_diff( $on_sale_ids, $exclude );
+				unset( $args['post__not_in'] );
 			}
 
 			return $args;
@@ -90,8 +90,8 @@ if ( ! class_exists( 'YITH_POS_Frontend' ) ) {
 		 */
 		public function add_custom_meta_to_order_api_response( $response, $object, $request ) {
 			if ( $object ) {
-				$data                               = $response->get_data();
-				$data[ 'multiple_payment_methods' ] = yith_pos_get_order_payment_methods( $object );
+				$data                             = $response->get_data();
+				$data['multiple_payment_methods'] = yith_pos_get_order_payment_methods( $object );
 				$response->set_data( $data );
 			}
 
@@ -118,7 +118,7 @@ if ( ! class_exists( 'YITH_POS_Frontend' ) ) {
 			$base_url           = $this->get_base_url();
 			$regex              = '^' . $base_url . '?([^/]*)';
 			$this->regex_string = $regex;
-			add_rewrite_rule( $regex, "index.php?page_id=" . $pos_page_id, 'top' );
+			add_rewrite_rule( $regex, 'index.php?page_id=' . $pos_page_id, 'top' );
 
 		}
 
@@ -129,7 +129,7 @@ if ( ! class_exists( 'YITH_POS_Frontend' ) ) {
 		 * @return mixed
 		 */
 		public function add_billing_vat( $address_fields ) {
-			$address_fields[ 'billing_vat' ] = array(
+			$address_fields['billing_vat'] = array(
 				'label'    => __( 'VAT', 'yith-point-of-sale-for-woocommerce' ),
 				'required' => false,
 				'type'     => 'text',
@@ -153,8 +153,8 @@ if ( ! class_exists( 'YITH_POS_Frontend' ) ) {
 				if ( $variable = wc_get_product( $object->get_parent_id() ) ) {
 					$categories = $this->get_taxonomy_terms( $variable );
 				}
-				$data                        = $response->get_data();
-				$data[ 'parent_categories' ] = $categories;
+				$data                      = $response->get_data();
+				$data['parent_categories'] = $categories;
 				$response->set_data( $data );
 			}
 
@@ -171,10 +171,10 @@ if ( ! class_exists( 'YITH_POS_Frontend' ) ) {
 		public function rest_product_thumbnails( $response, $object, $request ) {
 			if ( $object ) {
 				$data  = $response->get_data();
-				$image = yith_pos_rest_get_product_thumbnail( $object->get_id() );
+				$image = $object->is_type( 'variation' ) ? yith_pos_rest_get_product_thumbnail( $object->get_parent_id(), $object->get_id() ) : yith_pos_rest_get_product_thumbnail( $object->get_id() );
 
 				if ( $image ) {
-					$data[ 'yithPosImage' ] = $image;
+					$data['yithPosImage'] = $image;
 					$response->set_data( $data );
 				}
 			}
@@ -184,7 +184,7 @@ if ( ! class_exists( 'YITH_POS_Frontend' ) ) {
 
 		/**
 		 * @param            $response
-		 * @param WC_Order   $object
+		 * @param WC_Order $object
 		 * @param            $request
 		 *
 		 * @return mixed
@@ -193,30 +193,32 @@ if ( ! class_exists( 'YITH_POS_Frontend' ) ) {
 			if ( $object ) {
 				$data = $response->get_data();
 				// Item Thumbnails
-				foreach ( $data[ 'line_items' ] as &$line_item ) {
-					$variation_id                = ! empty( $line_item[ 'variation_id' ] ) ? $line_item[ 'variation_id' ] : 0;
-					$product_id                  = $line_item[ 'product_id' ];
-					$line_item[ 'yithPosImage' ] = yith_pos_rest_get_product_thumbnail( $product_id, $variation_id );
+				if ( isset( $data['line_items'] ) ) {
+					foreach ( $data['line_items'] as &$line_item ) {
+						$variation_id              = ! empty( $line_item['variation_id'] ) ? $line_item['variation_id'] : 0;
+						$product_id                = $line_item['product_id'];
+						$line_item['yithPosImage'] = yith_pos_rest_get_product_thumbnail( $product_id, $variation_id );
+					}
 				}
 
 				$info = array();
 				// Store Name
 				if ( $store_id = $object->get_meta( '_yith_pos_store' ) ) {
-					$info[ 'store_name' ] = yith_pos_get_store_name( $store_id );
+					$info['store_name'] = yith_pos_get_store_name( $store_id );
 				}
 
 				// Register Name
 				if ( $register_id = $object->get_meta( '_yith_pos_register' ) ) {
-					$info[ 'register_name' ] = yith_pos_get_register_name( $register_id );
+					$info['register_name'] = yith_pos_get_register_name( $register_id );
 				}
 
 				// Cashier Name
 				if ( $cashier_id = $object->get_meta( '_yith_pos_cashier' ) ) {
-					$info[ 'cashier_name' ] = yith_pos_get_employee_name( $cashier_id, array( 'hide_nickname' => true ) );
+					$info['cashier_name'] = yith_pos_get_employee_name( $cashier_id, array( 'hide_nickname' => true ) );
 				}
 
 				if ( $info ) {
-					$data[ 'yith_pos_data' ] = $info;
+					$data['yith_pos_data'] = $info;
 				}
 
 				$response->set_data( $data );
@@ -249,32 +251,32 @@ if ( ! class_exists( 'YITH_POS_Frontend' ) ) {
 		 * @return array
 		 */
 		public function extends_rest_product_query( $args, $request ) {
-			if ( isset( $request[ 'yith_pos_stock_status' ] ) ) {
-				$stock_statuses = explode( ',', $request[ 'yith_pos_stock_status' ] );
+			if ( isset( $request['yith_pos_stock_status'] ) ) {
+				$stock_statuses = explode( ',', $request['yith_pos_stock_status'] );
 				$meta_query     = array(
 					'key'     => '_stock_status',
 					'value'   => $stock_statuses,
 					'compare' => 'IN',
 				);
-				if ( isset( $args[ 'meta_query' ] ) ) {
-					$args[ 'meta_query' ][] = $meta_query;
+				if ( isset( $args['meta_query'] ) ) {
+					$args['meta_query'][] = $meta_query;
 				} else {
-					$args[ 'meta_query' ] = array( $meta_query );
+					$args['meta_query'] = array( $meta_query );
 				}
 			}
 
-			if ( isset( $request[ 'exclude_category' ] ) ) {
-				$stock_statuses = explode( ',', $request[ 'exclude_category' ] );
+			if ( isset( $request['exclude_category'] ) ) {
+				$stock_statuses = explode( ',', $request['exclude_category'] );
 				$tax_query      = array(
 					'taxonomy' => 'product_cat',
 					'field'    => 'term_id',
 					'terms'    => $stock_statuses,
-					'operator' => 'NOT IN'
+					'operator' => 'NOT IN',
 				);
-				if ( isset( $args[ 'tax_query' ] ) ) {
-					$args[ 'tax_query' ][] = $tax_query;
+				if ( isset( $args['tax_query'] ) ) {
+					$args['tax_query'][] = $tax_query;
 				} else {
-					$args[ 'tax_query' ] = array( $tax_query );
+					$args['tax_query'] = array( $tax_query );
 				}
 			}
 
@@ -290,38 +292,61 @@ if ( ! class_exists( 'YITH_POS_Frontend' ) ) {
 		 * @return mixed
 		 */
 		public function search_product_args( $args, $request ) {
+			global $wpdb;
 
-			if ( isset( $_GET[ 'queryName' ] ) && isset( $args[ 's' ] ) && $_GET[ 'queryName' ] === 'yith_pos_search' ) {
-				global $wpdb;
+			if ( isset( $_GET['queryName'], $_GET['barcode'], $args['s'] ) && 'yith_pos_search' === $_GET['queryName'] && 'sku' !== $_GET['barcode'] ) {
+				$is_custom_barcode_search = yith_plugin_fw_is_true( $_GET['barcode'] );
+				$include_variations       = apply_filters( 'yith_pos_search_include_variations', $is_custom_barcode_search, $args, $request );
+				$include_searching_by_sku = apply_filters( 'yith_pos_search_include_searching_by_sku', false, $args, $request );
+				$per_page                 = isset( $args['posts_per_page'] ) ? $args['posts_per_page'] : 9;
 
-				add_filter( 'pre_get_posts', array( $this, 'filter_query_post_type' ), 10 );
+				if ( $include_variations ) {
+					add_filter( 'pre_get_posts', array( $this, 'filter_query_post_type' ), 10 );
+				}
 
-				$per_page = isset( $args[ 'posts_per_page' ] ) ? $args[ 'posts_per_page' ] : 9;
-				$search   = '%' . esc_sql( $args[ 's' ] ) . '%';
-
-				if ( yith_plugin_fw_is_true( $_GET[ 'barcode' ] ) ) {
-					$barcode_meta = defined( 'YITH_YWBC_SLUG' ) ? '_ywbc_barcode_display_value' : '_sku';
-					$barcode_meta = apply_filters( 'yith_pos_barcode_custom_field', $barcode_meta );
-					$query        = $wpdb->prepare( "SELECT p.ID FROM $wpdb->posts p
-                            LEFT JOIN $wpdb->postmeta pm2 ON ( pm2.post_id = p.ID)
+				if ( $is_custom_barcode_search ) {
+					$barcode_meta = yith_pos_get_barcode_meta();
+					$search       = esc_sql( trim( $args['s'] ) );
+					$query        = $wpdb->prepare(
+						"SELECT p.ID FROM $wpdb->posts p
+                            LEFT JOIN $wpdb->postmeta pm2 ON ( pm2.post_id = p.ID AND pm2.meta_key = %s )
                             WHERE p.post_type in('product', 'product_variation') AND p.post_status = 'publish'
-                            AND  pm2.meta_key LIKE %s AND pm2.meta_value LIKE %s
-                            GROUP BY p.ID LIMIT %d", $barcode_meta, $search, $per_page );
+                            AND pm2.meta_key = %s AND pm2.meta_value = %s
+                            GROUP BY p.ID LIMIT %d",
+						$barcode_meta,
+						$barcode_meta,
+						$search,
+						$per_page
+					);
+				} elseif ( $include_variations || $include_searching_by_sku ) {
+					$search = '%' . esc_sql( $args['s'] ) . '%';
+
+					$join   = '';
+					$where  = $include_variations ? "p.post_type in ('product', 'product_variation')" : "p.post_type = 'product'";
+					$where .= " AND p.post_status = 'publish' ";
+					$limit  = $wpdb->prepare( 'LIMIT %d', $per_page );
+
+					if ( $include_searching_by_sku ) {
+						$join  .= " LEFT JOIN $wpdb->postmeta pm1 ON ( pm1.post_id = p.ID) ";
+						$where .= $wpdb->prepare( " AND ( p.post_title LIKE %s OR ( pm1.meta_key LIKE '_sku' AND pm1.meta_value LIKE %s ) ) ", $search, $search );
+					} else {
+						$where .= $wpdb->prepare( ' AND p.post_title LIKE %s ', $search );
+					}
+
+					$query = "SELECT DISTINCT p.ID FROM $wpdb->posts p {$join} WHERE {$where} {$limit}";
 				} else {
-					$query = $wpdb->prepare( "SELECT p.ID FROM $wpdb->posts p
-                            LEFT JOIN $wpdb->postmeta pm1 ON ( pm1.post_id = p.ID)
-                            WHERE p.post_type in('product', 'product_variation') AND p.post_status = 'publish'
-                            AND  p.post_title LIKE %s OR  ( pm1.meta_key LIKE '_sku' AND pm1.meta_value LIKE %s )
-                            GROUP BY p.ID LIMIT %d", $search, $search, $per_page );
+					// Use the stanrdard WooCommerce Search through REST API.
+					$query = false;
 				}
 
-				$results = $wpdb->get_col( $query );
+				if ( $query ) {
+					$results = $wpdb->get_col( $query );
 
-				if ( $results ) {
-					$args[ 'post__in' ] = $results;
-					unset( $args[ 's' ] );
+					if ( $results ) {
+						$args['post__in'] = $results;
+						unset( $args['s'] );
+					}
 				}
-
 			}
 
 			return $args;
@@ -337,21 +362,42 @@ if ( ! class_exists( 'YITH_POS_Frontend' ) ) {
 		 * @return mixed
 		 */
 		public function search_order_args( $args, $request ) {
-			if ( isset( $_GET[ 'queryName' ] ) && $_GET[ 'queryName' ] === 'yith_pos_search_orders' ) {
+			if ( isset( $_GET['queryName'] ) && $_GET['queryName'] === 'yith_pos_search_orders' ) {
 				$meta_query = array(
 					'relation' => 'AND',
 					array(
 						'key'     => '_yith_pos_order',
 						'value'   => '1',
-						'compare' => '=='
+						'compare' => '==',
+					),
+				);
+
+				isset( $_GET['store'] ) && array_push(
+					$meta_query,
+					array(
+						'key'     => '_yith_pos_store',
+						'value'   => $_GET['store'],
+						'compare' => '==',
+					)
+				);
+				isset( $_GET['register'] ) && array_push(
+					$meta_query,
+					array(
+						'key'     => '_yith_pos_register',
+						'value'   => $_GET['register'],
+						'compare' => '==',
+					)
+				);
+				isset( $_GET['cashier'] ) && array_push(
+					$meta_query,
+					array(
+						'key'     => '_yith_pos_cashier',
+						'value'   => $_GET['cashier'],
+						'compare' => '==',
 					)
 				);
 
-				isset( $_GET[ 'store' ] ) && array_push( $meta_query, array( 'key' => '_yith_pos_store', 'value' => $_GET[ 'store' ], 'compare' => '==' ) );
-				isset( $_GET[ 'register' ] ) && array_push( $meta_query, array( 'key' => '_yith_pos_register', 'value' => $_GET[ 'register' ], 'compare' => '==' ) );
-				isset( $_GET[ 'cashier' ] ) && array_push( $meta_query, array( 'key' => '_yith_pos_cashier', 'value' => $_GET[ 'cashier' ], 'compare' => '==' ) );
-
-				$args[ 'meta_query' ] = apply_filters( 'yith_pos_search_order_meta_query', $meta_query, $request );
+				$args['meta_query'] = apply_filters( 'yith_pos_search_order_meta_query', $meta_query, $request );
 			}
 
 			return $args;
@@ -363,25 +409,25 @@ if ( ! class_exists( 'YITH_POS_Frontend' ) ) {
 		 * @param $query
 		 */
 		public function filter_query_post_type( $query ) {
-			$query->query_vars[ 'post_type' ] = array( 'product', 'product_variation' );
+			$query->query_vars['post_type'] = array( 'product', 'product_variation' );
 		}
 
 
 		public function register_login_logout_handler() {
 			if ( is_yith_pos() ) {
 
-				$register_id = isset( $_POST[ 'register' ] ) ? $_POST[ 'register' ] : yith_pos_register_logged_in();
-				if ( isset( $_GET[ 'yith-pos-register-direct-login-nonce' ], $_GET[ 'register' ] ) ) {
-					$register_id = absint( $_GET[ 'register' ] );
+				$register_id = isset( $_POST['register'] ) ? $_POST['register'] : yith_pos_register_logged_in();
+				if ( isset( $_GET['yith-pos-register-direct-login-nonce'], $_GET['register'] ) ) {
+					$register_id = absint( $_GET['register'] );
 				}
-				if ( $register_id && ! isset( $_GET[ 'user-editing' ] ) && ! isset( $_GET[ 'yith-pos-take-over-nonce' ] ) ) {
+				if ( $register_id && ! isset( $_GET['user-editing'] ) && ! isset( $_GET['yith-pos-take-over-nonce'] ) ) {
 					$user_editing = yith_pos_check_register_lock( $register_id );
 					if ( $user_editing ) {
 						// another user is managing the register
 						$args = array(
 							'user-editing' => $user_editing,
 							'register'     => $register_id,
-							'store'        => isset( $_POST[ 'store' ] ) ? $_POST[ 'store' ] : ''
+							'store'        => isset( $_POST['store'] ) ? $_POST['store'] : '',
 						);
 						wp_redirect( add_query_arg( $args, yith_pos_get_pos_page_url() ) );
 						exit;
@@ -391,27 +437,27 @@ if ( ! class_exists( 'YITH_POS_Frontend' ) ) {
 				$register_id = false;
 				$redirect    = false;
 
-				if ( isset( $_POST[ 'yith-pos-register-login-nonce' ], $_POST[ 'register' ] ) && wp_verify_nonce( $_POST[ 'yith-pos-register-login-nonce' ], 'yith-pos-register-login' ) ) {
+				if ( isset( $_POST['yith-pos-register-login-nonce'], $_POST['register'] ) && wp_verify_nonce( $_POST['yith-pos-register-login-nonce'], 'yith-pos-register-login' ) ) {
 					$action      = 'login';
-					$register_id = absint( $_POST[ 'register' ] );
+					$register_id = absint( $_POST['register'] );
 					$redirect    = yith_pos_get_pos_page_url();
-				} else if ( isset( $_GET[ 'yith-pos-register-direct-login-nonce' ], $_GET[ 'register' ] ) && wp_verify_nonce( $_GET[ 'yith-pos-register-direct-login-nonce' ], 'yith-pos-register-direct-login' ) ) {
+				} elseif ( isset( $_GET['yith-pos-register-direct-login-nonce'], $_GET['register'] ) && wp_verify_nonce( $_GET['yith-pos-register-direct-login-nonce'], 'yith-pos-register-direct-login' ) ) {
 					$action      = 'direct-login';
-					$register_id = absint( $_GET[ 'register' ] );
+					$register_id = absint( $_GET['register'] );
 					$redirect    = yith_pos_get_pos_page_url();
-				} else if ( isset( $_GET[ 'yith-pos-take-over-nonce' ], $_GET[ 'register' ] ) && wp_verify_nonce( $_GET[ 'yith-pos-take-over-nonce' ], 'yith-pos-take-over' ) ) {
+				} elseif ( isset( $_GET['yith-pos-take-over-nonce'], $_GET['register'] ) && wp_verify_nonce( $_GET['yith-pos-take-over-nonce'], 'yith-pos-take-over' ) ) {
 					$action      = 'take-over';
-					$register_id = absint( $_GET[ 'register' ] );
+					$register_id = absint( $_GET['register'] );
 					$redirect    = yith_pos_get_pos_page_url();
-				} else if ( isset( $_GET[ 'yith-pos-register-close-nonce' ], $_GET[ 'register' ] ) && wp_verify_nonce( $_GET[ 'yith-pos-register-close-nonce' ], 'yith-pos-register-close-' . $_GET[ 'register' ] ) ) {
+				} elseif ( isset( $_GET['yith-pos-register-close-nonce'], $_GET['register'] ) && wp_verify_nonce( $_GET['yith-pos-register-close-nonce'], 'yith-pos-register-close-' . $_GET['register'] ) ) {
 					$action      = 'close-register';
-					$register_id = absint( $_GET[ 'register' ] );
+					$register_id = absint( $_GET['register'] );
 					// TODO: redirect to a specific page to show the report for closing register
 					$redirect = yith_pos_get_pos_page_url();
-				} else if ( ! empty( $_GET[ 'yith-pos-user-logout' ] ) ) {
+				} elseif ( ! empty( $_GET['yith-pos-user-logout'] ) ) {
 					$action   = 'logout';
 					$redirect = yith_pos_get_pos_page_url();
-				} else if ( ! empty( $_GET[ 'yith-pos-register-logout' ] ) ) {
+				} elseif ( ! empty( $_GET['yith-pos-register-logout'] ) ) {
 					$action   = 'register-logout';
 					$redirect = yith_pos_get_pos_page_url();
 				}
@@ -435,7 +481,7 @@ if ( ! class_exists( 'YITH_POS_Frontend' ) ) {
 						if ( $register_id ) {
 							yith_pos_close_register( $register_id );
 						}
-					// no break // Please DON'T break me, since I need to logout ;-)
+						// no break // Please DON'T break me, since I need to logout ;-)
 					case 'register-logout':
 					case 'logout':
 						if ( $register_id = yith_pos_register_logged_in() ) {
@@ -460,9 +506,9 @@ if ( ! class_exists( 'YITH_POS_Frontend' ) ) {
 			$settings = YITH_POS_Settings()->get_frontend_settings();
 			if ( $settings ) {
 				?>
-                <script type="text/javascript">
-                    var yithPosSettings = yithPosSettings || JSON.parse( decodeURIComponent( '<?php echo rawurlencode( wp_json_encode( $settings ) ); ?>' ) );
-                </script>
+				<script type="text/javascript">
+					var yithPosSettings = yithPosSettings || JSON.parse( decodeURIComponent( '<?php echo rawurlencode( wp_json_encode( $settings ) ); ?>' ) );
+				</script>
 				<?php
 			}
 		}

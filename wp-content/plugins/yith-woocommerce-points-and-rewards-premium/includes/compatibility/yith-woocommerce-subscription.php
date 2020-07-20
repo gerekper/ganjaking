@@ -74,6 +74,7 @@ if ( ! class_exists( 'YWPAR_Subscription' ) ) {
 
 			return 'yes' == $is_a_renew;
 		}
+
 		/**
 		 * Assign point to customer on renew order
 		 *
@@ -95,13 +96,13 @@ if ( ! class_exists( 'YWPAR_Subscription' ) ) {
 			}
 
 			if ( $subscription->fee > 0 ) {
-				$conversion    = yit_get_prop( $parent_order, '_ywpar_conversion_points' );
-				$point_earned -= (float) $subscription->fee / $conversion['money'] * $conversion['points'];
+				$conversion   = yit_get_prop( $parent_order, '_ywpar_conversion_points' );
+				$point_earned -= (float)$subscription->fee / $conversion['money'] * $conversion['points'];
 			}
 
 			if ( $point_earned > 0 ) {
 				yit_save_prop( $order, '_ywpar_points_earned', $point_earned );
-				$order->add_order_note( sprintf( _x( 'Customer earned %1$d %2$s for this purchase.', 'First placeholder: number of points; second placeholder: label of points','yith-woocommerce-points-and-rewards' ), $point_earned, YITH_WC_Points_Rewards()->get_option( 'points_label_plural' ) ), 0 );
+				$order->add_order_note( sprintf( _x( 'Customer earned %1$d %2$s for this purchase.', 'First placeholder: number of points; second placeholder: label of points', 'yith-woocommerce-points-and-rewards' ), $point_earned, YITH_WC_Points_Rewards()->get_option( 'points_label_plural' ) ), 0 );
 				YITH_WC_Points_Rewards()->add_point_to_customer( $customer, $point_earned, 'renew_order', '', $order->get_id() );
 			}
 
@@ -117,7 +118,10 @@ if ( ! class_exists( 'YWPAR_Subscription' ) ) {
 		 * @return mixed
 		 */
 		public function earn_points_on_fee( $price, $currency, $product ) {
-			if ( YITH_WC_Subscription()->is_subscription( $product ) ) {
+
+			$is_subscription = function_exists( 'ywsbs_is_subscription_product' ) ? ywsbs_is_subscription_product( $product ) : YITH_WC_Subscription()->is_subscription( $product );
+
+			if ( $is_subscription ) {
 				$signup_fee = yit_get_prop( $product, '_ywsbs_fee' );
 				if ( $signup_fee ) {
 					$price += $signup_fee;
@@ -137,13 +141,13 @@ if ( ! class_exists( 'YWPAR_Subscription' ) ) {
 		public function admin_options( $options ) {
 
 			$subscription_option = array(
-				'subscription_title'     => array(
+				'subscription_title' => array(
 					'name' => __( 'Subscription Settings', 'yith-woocommerce-points-and-rewards' ),
 					'type' => 'title',
 					'id'   => 'ywpar_subscription_title',
 				),
 
-				'earn_points_on_fee'     => array(
+				'earn_points_on_fee' => array(
 					'name'      => __( 'Earn points on subscription fee', 'yith-woocommerce-points-and-rewards' ),
 					'desc'      => '',
 					'type'      => 'yith-field',
@@ -152,7 +156,7 @@ if ( ! class_exists( 'YWPAR_Subscription' ) ) {
 					'id'        => 'ywpar_earn_points_on_fee',
 				),
 
-				'earn_points_on_renew'   => array(
+				'earn_points_on_renew' => array(
 					'name'      => __( 'Earn points on renewal orders', 'yith-woocommerce-points-and-rewards' ),
 					'desc'      => '',
 					'type'      => 'yith-field',
@@ -161,7 +165,7 @@ if ( ! class_exists( 'YWPAR_Subscription' ) ) {
 					'id'        => 'ywpar_earn_points_on_renew',
 				),
 
-				'label_renew_order'      => array(
+				'label_renew_order' => array(
 					'name'      => __( 'Renew order label', 'yith-woocommerce-points-and-rewards' ),
 					'desc'      => '',
 					'type'      => 'yith-field',

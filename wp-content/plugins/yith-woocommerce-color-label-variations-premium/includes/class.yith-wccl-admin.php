@@ -114,6 +114,7 @@ if ( ! class_exists( 'YITH_WCCL_Admin' ) ) {
 
 			// enqueue style and scripts
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+			add_action( 'admin_print_styles', [ $this, 'dequeue_scripts_styles' ], 20 );
 
 			// add description field to products attribute
 			add_action( 'admin_footer', array( $this, 'add_description_field' ) );
@@ -303,6 +304,26 @@ if ( ! class_exists( 'YITH_WCCL_Admin' ) ) {
 				wp_localize_script( 'yith-wccl-admin', 'yith_wccl_admin', array(
 					'ajaxurl' => admin_url( 'admin-ajax.php' ),
 				) );
+			}
+		}
+
+		/**
+		 * Dequeue wp-color-picker-alpha from FUSION Avada theme to fix issue with plugin colorpicker
+		 *
+		 * @since 1.10.3
+		 * @return void
+		 */
+		public function dequeue_scripts_styles() {
+			global $pagenow;
+
+			if ( ( ( 'edit-tags.php' == $pagenow || 'edit.php' == $pagenow || 'term.php' == $pagenow ) && isset( $_GET['post_type'] ) && 'product' == $_GET['post_type'] )
+				|| ( 'post.php' == $pagenow && isset( $_GET['action'] ) && $_GET['action'] == 'edit' )
+				|| ( 'post-new.php' == $pagenow && isset( $_GET['post_type'] ) && $_GET['post_type'] == 'product' )
+				|| ( isset( $_GET['tab'] ) && $_GET['tab'] == 'single-variations' ) ) {
+
+				if( defined( 'FUSION_LIBRARY_URL' ) ) {
+					wp_dequeue_script( 'wp-color-picker-alpha' );
+				}
 			}
 		}
 

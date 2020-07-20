@@ -27,13 +27,15 @@ class RedsysAPIWs{
 	var $vars_pay = array();
 	
 	/******  Set parameter ******/
-	function setParameter($key,$value){
+	function setParameter( $key, $value ) {
 		$this->vars_pay[$key]=$value;
 	}
 
 	/******  Get parameter ******/
-	function getParameter($key){
-		return $this->vars_pay[$key];
+	function getParameter( $key ) {
+		if ( isset( $this->vars_pay[$key] ) ) {
+			return $this->vars_pay[$key];
+		}
 	}
 	
 	

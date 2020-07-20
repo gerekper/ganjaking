@@ -39,6 +39,15 @@ return array(
 				'default'   => 'yes',
 			),
 
+			'socialbox_section_title'                    => array(
+				'title'     => esc_html_x( 'Section Title', 'Admin option', 'yith-custom-thankyou-page-for-woocommerce' ),
+				'type'      => 'yith-field',
+				'yith-type' => 'text',
+				'desc'      => esc_html_x( 'Title to show for this section', 'Admin option description', 'yith-custom-thankyou-page-for-woocommerce' ),
+				'id'        => 'yith_ctpw_socialbox_section_title',
+				'default'   => esc_html__( 'Share on...', 'yith-custom-thankyou-page-for-woocommerce' ),
+			),
+
 			'socialbox_enable_fb_socialbox'              => array(
 				'title'     => esc_html_x( 'Enable Facebook', 'Admin option', 'yith-custom-thankyou-page-for-woocommerce' ),
 				'type'      => 'yith-field',

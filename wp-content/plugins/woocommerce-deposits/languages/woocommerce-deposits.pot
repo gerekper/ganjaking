@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Deposits 1.5.1\n"
+"Project-Id-Version: WooCommerce Deposits 1.5.2\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-deposits\n"
-"POT-Creation-Date: 2020-06-11 15:09:13+00:00\n"
+"POT-Creation-Date: 2020-07-07 10:08:41+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -18,7 +18,7 @@ msgstr ""
 msgid "Please select a valid payment plan"
 msgstr ""
 
-#: includes/class-wc-deposits-cart-manager.php:902
+#: includes/class-wc-deposits-cart-manager.php:903
 #: includes/class-wc-deposits-plans-admin.php:136
 #: includes/class-wc-deposits-settings.php:107
 #: includes/list-tables/class-wc-deposits-plans-table.php:22
@@ -27,50 +27,50 @@ msgstr ""
 msgid "Payment Plan"
 msgstr ""
 
-#: includes/class-wc-deposits-cart-manager.php:961
+#: includes/class-wc-deposits-cart-manager.php:962
 #: includes/class-wc-deposits-order-manager.php:930
 msgid "%s payable in total"
 msgstr ""
 
-#: includes/class-wc-deposits-cart-manager.php:1024
+#: includes/class-wc-deposits-cart-manager.php:1025
 #. translators: %s: country name
 msgid "estimated for %s"
 msgstr ""
 
-#: includes/class-wc-deposits-cart-manager.php:1026
+#: includes/class-wc-deposits-cart-manager.php:1027
 #. translators: %s: tax information
 msgid "(includes %s)"
 msgstr ""
 
-#: includes/class-wc-deposits-cart-manager.php:1127
+#: includes/class-wc-deposits-cart-manager.php:1128
 #: includes/class-wc-deposits-order-manager.php:808
 msgid "(includes tax)"
 msgstr ""
 
-#: includes/class-wc-deposits-cart-manager.php:1127
+#: includes/class-wc-deposits-cart-manager.php:1128
 #: includes/class-wc-deposits-order-manager.php:808
 msgid "(excludes tax)"
 msgstr ""
 
-#: includes/class-wc-deposits-cart-manager.php:1155
 #: includes/class-wc-deposits-cart-manager.php:1156
+#: includes/class-wc-deposits-cart-manager.php:1157
 msgid "Due Today"
 msgstr ""
 
-#: includes/class-wc-deposits-cart-manager.php:1162
 #: includes/class-wc-deposits-cart-manager.php:1163
+#: includes/class-wc-deposits-cart-manager.php:1164
 #: includes/class-wc-deposits-order-manager.php:827
 msgid "Discount Applied Toward Future Payments"
 msgstr ""
 
-#: includes/class-wc-deposits-cart-manager.php:1169
 #: includes/class-wc-deposits-cart-manager.php:1170
+#: includes/class-wc-deposits-cart-manager.php:1171
 #: includes/class-wc-deposits-order-manager.php:839
 #: includes/class-wc-deposits-order-manager.php:844
 msgid "Future Payments"
 msgstr ""
 
-#: includes/class-wc-deposits-cart-manager.php:1357
+#: includes/class-wc-deposits-cart-manager.php:1356
 msgid "Select options"
 msgstr ""
 

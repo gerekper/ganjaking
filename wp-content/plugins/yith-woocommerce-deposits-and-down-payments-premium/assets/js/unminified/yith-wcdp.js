@@ -80,7 +80,7 @@ jQuery(document).ready(function($){
 
     // change shipping methods when ever a variation is selected
     form_cart
-        .on( 'found_variation', function(ev, variation){
+            .on( 'found_variation', function(ev, variation){
             var t = $(this),
                 woocommerce_variation_add_to_cart = t.find('.woocommerce-variation-add-to-cart'),
                 deposit_options = t.find( '.yith-wcdp-single-add-to-cart-fields'),

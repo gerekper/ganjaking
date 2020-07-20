@@ -4,11 +4,26 @@ Contributors: yithemes
 Tags:  affiliate, affiliate marketing, affiliate plugin, affiliate tool, affiliates, woocommerce affiliates, woocommerce referral, lead, link, marketing, money, partner, referral, referral links, referrer, sales, woocommerce, wp e-commerce, affiliate campaign, affiliate marketing, affiliate plugin, affiliate program, affiliate software, affiliate tool, track affiliates, tracking, affiliates manager, yit, yith, yithemes, yit affiliates, yith affiliates, yithemes affiliates
 Requires at least: 4.0.0
 Tested up to: 5.4
-Stable tag: 1.7.2
+Stable tag: 1.7.3
 License: GPLv2 or later
 Documentation: https://yithemes.com/docs-plugins/yith-woocommerce-affiliates
 
 == Changelog ==
+
+= 1.7.3 - Released on 09 June 2020 =
+
+* New: support for WooCommerce 4.2
+* Tweak: fixed wrong text domain for some strings
+* Tweak: improved appearance of affiliate details panel
+* Fix: losing status selection after filtering on admin views
+* Dev: added yith_wcaf_comission_table_columns filter
+* Dev: added yith_wcaf_create_item_commission filter
+* Dev: added yith_wcaf_enqueue_fontello_stylesheet filter
+* Dev: added yith_wcaf_ipn_listener_apply_custom_cainfo filter for IPN validation curl call
+* Dev: added yith_wcaf_ipn_listener_custom_cainfo filter for IPN validation curl call
+* Dev: added yith_wcaf_ipn_listener_apply_custom_httpheader filter for IPN validation curl call
+* Dev: added yith_wcaf_ipn_listener_custom_httpheader filter for IPN validation curl call
+* Dev: add second parameter on yith_wcaf_use_percentage_rates hook
 
 = 1.7.2 - Released on 08 May 2020 =
 

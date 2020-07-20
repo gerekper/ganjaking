@@ -29,6 +29,7 @@ $quote_number = apply_filters( 'ywraq_quote_number', $order_id );
 
 do_action( 'woocommerce_email_header', $email_heading, $email );
 
+echo wp_kses_post( $email_description );
 ?>
 
 

@@ -1,5 +1,13 @@
 README YITH Easy Login & Register Popup for WooCommerce
 
+=== Version 1.5.1 === Released on 3 June 2020
+
+* New: Support for WooCommerce 4.2
+* Update: Plugin framework
+* Update: Language files
+* Fix: Wrong redirect for social login in additional popup
+* Dev: New filter 'yith_welrp_guest_checkout_label'
+
 === Version 1.5.0 === Released on 5 May 2020
 
 * New: Support for WooCommerce 4.1

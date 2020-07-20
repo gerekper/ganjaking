@@ -1,23 +1,18 @@
+# Translation of YITH WooCommerce Frequently Bought Together in Italian
+# This file is distributed under the same license as the YITH WooCommerce Frequently Bought Together package.
 msgid ""
 msgstr ""
 "Project-Id-Version: YITH WooCommerce Frequently Bought Together\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/tag/init\n"
-"POT-Creation-Date: 2020-03-09 11:35:27+00:00\n"
-"PO-Revision-Date: 2020-03-17 22:42+0100\n"
-"Last-Translator: \n"
-"Language-Team: YIThemes <plugins@yithemes.com>\n"
-"Language: it_IT\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
+"frequently-bought-together-premium\n"
+"POT-Creation-Date: 2020-06-01 13:27:21+00:00\n"
+"PO-Revision-Date: 2020-04-16 12:39:15+0000\n"
+"Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.3\n"
-"X-Poedit-Basepath: .\n"
-"Plural-Forms: nplurals=2; plural=n!=1;\n"
-"X-Poedit-KeywordsList: _n:1,2;__ngettext:1,2;__ngettext_noop:1,2;_n_noop:1,2;"
-"_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;__;_e\n"
-"X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-SearchPath-0: ..\n"
-"X-Poedit-SearchPathExcluded-0: ../plugin-fw\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/2.3.1\n"
 
 #: includes/admin-tables/class.yith-wfbt-linked-table.php:41
 #: includes/admin-tables/class.yith-wfbt-products-table.php:41
@@ -83,26 +78,11 @@ msgstr "Prodotti associati"
 msgid "Slider in Wishlist"
 msgstr "Slider in wishlist"
 
-#: includes/class.yith-wfbt-admin.php:197
-msgctxt "plugin name in admin page title"
-msgid "YITH WooCommerce Frequently Bought Together"
-msgstr "YITH WooCommerce Frequently Bought Together"
-
-#: includes/class.yith-wfbt-admin.php:198
-msgctxt "plugin name in admin WP menu"
-msgid "Frequently Bought Together"
-msgstr "Frequently Bought Together"
-
 #: includes/class.yith-wfbt-admin.php:300
 msgid "Hard Crop?"
 msgstr "Ritaglia?"
 
-#: includes/class.yith-wfbt-admin.php:367
-msgctxt "tab in product data box"
-msgid "Frequently Bought Together"
-msgstr "Spesso acquistati insieme"
-
-#: includes/class.yith-wfbt-admin.php:778
+#: includes/class.yith-wfbt-admin.php:779
 msgid ""
 "You must enable coupons in order to use the plugin discount feature. Please "
 "enable it <a href=\"%s\">here.</a>"
@@ -132,35 +112,16 @@ msgstr ""
 "Spiacenti, questo prodotto non è disponibile. Per favore, scegli una "
 "combinazione diversa. "
 
-#: includes/class.yith-wfbt-frontend.php:377
-#: includes/class.yith-wfbt-frontend.php:574
+#: includes/class.yith-wfbt-frontend.php:378
+#: includes/class.yith-wfbt-frontend.php:576
 #: plugin-options/general-options.php:171
 msgid "Choose your product"
 msgstr "Scegli il tuo prodotto"
 
-#: includes/class.yith-wfbt-frontend.php:570
+#: includes/class.yith-wfbt-frontend.php:571
 #: plugin-options/general-options.php:23
 msgid "Frequently Bought Together"
 msgstr "Spesso acquistati insieme"
-
-#: includes/class.yith-wfbt.php:290
-msgctxt "[gutenberg]: block name"
-msgid "Frequently Bought Form"
-msgstr "Modulo Frequently Bought "
-
-#: includes/class.yith-wfbt.php:291
-msgctxt "[gutenberg]: block description"
-msgid ""
-"With this block you can print a product \"frequently bought together\" form."
-msgstr ""
-"Con questo blocco puoi stampare un modulo \"Spesso acquistati insieme\"."
-
-#: includes/class.yith-wfbt.php:297
-msgctxt "[gutenberg]: attributes description"
-msgid "Add the product id (leave blank to get global product value)"
-msgstr ""
-"Aggiungere l'ID prodotto (lascia vuoto per ottenere il valore globale del "
-"prodotto)"
 
 #: includes/class.yith-wfbt.php:316 includes/class.yith-wfbt.php:375
 #: includes/class.yith-wfbt.php:421
@@ -744,18 +705,6 @@ msgstr "Questo prodotto"
 msgid "Close"
 msgstr "Chiudi"
 
-#. Plugin Name of the plugin/theme
-msgid "YITH WooCommerce Frequently Bought Together Premium"
-msgstr "YITH WooCommerce Frequently Bought Together Premium"
-
-#. Plugin URI of the plugin/theme
-msgid ""
-"https://yithemes.com/themes/plugins/yith-woocommerce-frequently-bought-"
-"together/"
-msgstr ""
-"https://yithemes.com/themes/plugins/yith-woocommerce-frequently-bought-"
-"together/"
-
 #. Description of the plugin/theme
 msgid ""
 "The <code><strong>YITH WooCommerce Frequently Bought Together</strong></"
@@ -772,64 +721,52 @@ msgstr ""
 "Amazon. Scopri più plugin per il tuo <a href=\"https://yithemes.com/\" "
 "target=\"_blank\">e-commerce su <strong>YITH</strong></a>."
 
-#. Author of the plugin/theme
-msgid "YITH"
-msgstr "YITH"
+#: includes/class.yith-wfbt-admin.php:197
+msgctxt "plugin name in admin page title"
+msgid "YITH WooCommerce Frequently Bought Together"
+msgstr "YITH WooCommerce Frequently Bought Together"
 
-#. Author URI of the plugin/theme
-msgid "https://yithemes.com/"
-msgstr "https://yithemes.com/"
+#: includes/class.yith-wfbt-admin.php:198
+msgctxt "plugin name in admin WP menu"
+msgid "Frequently Bought Together"
+msgstr "Frequently Bought Together"
 
-#~ msgctxt "plugin name in admin page title"
-#~ msgid "Frequently Bought Together"
-#~ msgstr "Frequently Bought Together"
+#: includes/class.yith-wfbt-admin.php:368
+msgctxt "tab in product data box"
+msgid "Frequently Bought Together"
+msgstr "Spesso acquistati insieme"
 
-#~ msgid "Plugin Documentation"
-#~ msgstr "Documentazione plugin"
+#: includes/class.yith-wfbt.php:290
+msgctxt "[gutenberg]: block name"
+msgid "Frequently Bought Form"
+msgstr "Modulo Frequently Bought "
 
-#~ msgid "Main lists of products"
-#~ msgstr "Elenchi prodotti"
+#: includes/class.yith-wfbt.php:291
+msgctxt "[gutenberg]: block description"
+msgid ""
+"With this block you can print a product \"frequently bought together\" form."
+msgstr ""
+"Con questo blocco puoi stampare un modulo \"Spesso acquistati insieme\"."
 
-#~ msgid "linked"
-#~ msgstr "collegato"
+#: includes/class.yith-wfbt.php:297
+msgctxt "[gutenberg]: attributes description"
+msgid "Add the product id (leave blank to get global product value)"
+msgstr ""
+"Aggiungere l'ID prodotto (lascia vuoto per ottenere il valore globale del "
+"prodotto)"
 
-#~ msgid ""
-#~ "Inherit \"frequently bought products\" from original language products."
-#~ msgstr ""
-#~ "Copia i prodotti \"spesso acquistati insieme\" dai prodotti in lingua "
-#~ "originale."
+#~ msgid "https://yithemes.com/"
+#~ msgstr "https://yithemes.com/"
 
-#~ msgid "Select number of products to show in group excluded main."
-#~ msgstr ""
-#~ "Seleziona il numero di prodotti da mostrare escluso quello corrente."
-
-#~ msgid "Select number of products to show in group"
-#~ msgstr "Seleziona il numero di prodotti da mostrare nella sezione"
-
-#~ msgid ""
-#~ "This is the label shown for total price label when only one product has "
-#~ "been checked."
-#~ msgstr ""
-#~ "Inserisci qui il testo dell'etichetta mostrata per il prezzo totale "
-#~ "quando viene selezionato solo un prodotto."
-
-#~ msgid ""
-#~ "This is the label shown for total price label when two products have been "
-#~ "checked."
-#~ msgstr ""
-#~ "Inserisci qui il testo dell'etichetta mostrata per il prezzo totale "
-#~ "quando vengono selezionati due prodotti."
+#~ msgid "YITH"
+#~ msgstr "YITH"
 
 #~ msgid ""
-#~ "This is the label shown for total price label when three products have "
-#~ "been checked."
+#~ "https://yithemes.com/themes/plugins/yith-woocommerce-frequently-bought-"
+#~ "together/"
 #~ msgstr ""
-#~ "Inserisci qui il testo dell'etichetta mostrata per il prezzo totale "
-#~ "quando vengono selezionati tre prodotti."
+#~ "https://yithemes.com/themes/plugins/yith-woocommerce-frequently-bought-"
+#~ "together/"
 
-#~ msgid ""
-#~ "This is the label shown for total price label when more than two products "
-#~ "have been checked."
-#~ msgstr ""
-#~ "Inserisci qui il testo dell'etichetta mostrata per il prezzo totale "
-#~ "quando vengono selezionati più di tre prodotti."
+#~ msgid "YITH WooCommerce Frequently Bought Together Premium"
+#~ msgstr "YITH WooCommerce Frequently Bought Together Premium"

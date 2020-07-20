@@ -5,14 +5,14 @@ msgstr ""
 "Project-Id-Version: YITH WooCommerce Request a Quote\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
 "request-a-quote.premium\n"
-"POT-Creation-Date: 2020-05-26 09:57:20+00:00\n"
-"PO-Revision-Date: 2020-05-16 11:47:57+0000\n"
+"POT-Creation-Date: 2020-07-02 09:24:49+00:00\n"
+"PO-Revision-Date: 2020-06-04 13:46:04+0000\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/2.3.1\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
 
 #: includes/admin/class.yith-ywraq-exclusions-cat-table.php:77
 msgid "Thumbnail"
@@ -69,8 +69,8 @@ msgstr "Disponibile"
 #: includes/admin/class.yith-ywraq-exclusions-prod-table.php:170
 #: templates/emails/quote-table.php:46
 #: templates/emails/request-quote-table.php:54
-#: templates/myaccount/view-quote.php:174 templates/pdf/quote-table-div.php:54
-#: templates/pdf/quote-table.php:59 templates/request-quote-view.php:57
+#: templates/myaccount/view-quote.php:174 templates/pdf/quote-table-div.php:58
+#: templates/pdf/quote-table.php:60 templates/request-quote-view.php:57
 #: templates/request-quote-view.php:93 templates/request-quote-view.php:183
 msgid "Product"
 msgstr "Prodotto"
@@ -585,8 +585,8 @@ msgstr "Guarda elenco"
 #: templates/emails/plain/request-quote-table.php:30
 #: templates/emails/quote-table.php:78
 #: templates/emails/request-quote-table.php:81
-#: templates/myaccount/view-quote.php:193 templates/pdf/quote-table-div.php:84
-#: templates/pdf/quote-table.php:97 templates/request-quote-view.php:188
+#: templates/myaccount/view-quote.php:193 templates/pdf/quote-table-div.php:88
+#: templates/pdf/quote-table.php:102 templates/request-quote-view.php:188
 msgid " SKU:"
 msgstr "SKU:"
 
@@ -641,7 +641,7 @@ msgstr "Subtotale opzioni"
 
 #: includes/compatibility/yith-woocommerce-deposits-and-down-payments.php:90
 msgid "%s (of %s)"
-msgstr ""
+msgstr "%s (di %s)"
 
 #: includes/compatibility/yith-woocommerce-deposits-and-down-payments.php:92
 msgid "Pay now:"
@@ -681,7 +681,7 @@ msgstr "Richiedi un preventivo"
 msgid "[Answer to quote request]"
 msgstr "[Risposta alla richiesta di preventivo]"
 
-#: includes/emails/class.yith-ywraq-quote-status.php:201
+#: includes/emails/class.yith-ywraq-quote-status.php:203
 #: includes/emails/class.yith-ywraq-send-email-request-quote-customer.php:257
 #: includes/emails/class.yith-ywraq-send-email-request-quote.php:259
 #: includes/emails/class.yith-ywraq-send-quote-reminder.php:264
@@ -689,7 +689,7 @@ msgstr "[Risposta alla richiesta di preventivo]"
 msgid "Enable/Disable"
 msgstr "Attiva/Disattiva"
 
-#: includes/emails/class.yith-ywraq-quote-status.php:203
+#: includes/emails/class.yith-ywraq-quote-status.php:205
 #: includes/emails/class.yith-ywraq-send-email-request-quote-customer.php:259
 #: includes/emails/class.yith-ywraq-send-email-request-quote.php:261
 #: includes/emails/class.yith-ywraq-send-quote-reminder.php:266
@@ -697,7 +697,7 @@ msgstr "Attiva/Disattiva"
 msgid "Enable this email notification"
 msgstr "Abilita le notifiche per questa email"
 
-#: includes/emails/class.yith-ywraq-quote-status.php:207
+#: includes/emails/class.yith-ywraq-quote-status.php:209
 #: includes/emails/class.yith-ywraq-send-email-request-quote-customer.php:263
 #: includes/emails/class.yith-ywraq-send-email-request-quote.php:265
 #: includes/emails/class.yith-ywraq-send-quote-reminder.php:278
@@ -705,7 +705,7 @@ msgstr "Abilita le notifiche per questa email"
 msgid "\"From\" Name"
 msgstr "\"Da\" Nome"
 
-#: includes/emails/class.yith-ywraq-quote-status.php:214
+#: includes/emails/class.yith-ywraq-quote-status.php:216
 #: includes/emails/class.yith-ywraq-send-email-request-quote-customer.php:270
 #: includes/emails/class.yith-ywraq-send-email-request-quote.php:272
 #: includes/emails/class.yith-ywraq-send-quote-reminder.php:285
@@ -713,7 +713,7 @@ msgstr "\"Da\" Nome"
 msgid "\"From\" Email Address"
 msgstr "\"Da\" Indirizzo Email"
 
-#: includes/emails/class.yith-ywraq-quote-status.php:222
+#: includes/emails/class.yith-ywraq-quote-status.php:224
 #: includes/emails/class.yith-ywraq-send-email-request-quote-customer.php:277
 #: includes/emails/class.yith-ywraq-send-email-request-quote.php:279
 #: includes/emails/class.yith-ywraq-send-quote-reminder.php:292
@@ -721,7 +721,7 @@ msgstr "\"Da\" Indirizzo Email"
 msgid "Subject"
 msgstr "Oggetto"
 
-#: includes/emails/class.yith-ywraq-quote-status.php:224
+#: includes/emails/class.yith-ywraq-quote-status.php:226
 msgid ""
 "This field lets you edit email subject line. Leave it blank to use default "
 "subject text: <code>%s</code>. You can use {quote_number} as a placeholder "
@@ -731,12 +731,12 @@ msgstr ""
 "vuoto per utilizzare il testo predefinito: <code>%s</code>. Puoi utilizzare "
 "{quote_number} come segnaposto per mostrare il numero di preventivo."
 
-#: includes/emails/class.yith-ywraq-quote-status.php:230
+#: includes/emails/class.yith-ywraq-quote-status.php:232
 #: includes/emails/class.yith-ywraq-send-email-request-quote.php:286
 msgid "Recipient(s)"
 msgstr "Destinatario/i"
 
-#: includes/emails/class.yith-ywraq-quote-status.php:232
+#: includes/emails/class.yith-ywraq-quote-status.php:234
 #: includes/emails/class.yith-ywraq-send-email-request-quote.php:288
 msgid ""
 "Enter recipients (separated by commas) for this email. Defaults to <code>%s</"
@@ -745,17 +745,17 @@ msgstr ""
 "Inserisci i destinatari (separati dalla virgola) di questa email. Invia di "
 "default a <code>%s</code>"
 
-#: includes/emails/class.yith-ywraq-quote-status.php:238
+#: includes/emails/class.yith-ywraq-quote-status.php:240
 #: includes/emails/class.yith-ywraq-send-email-request-quote.php:293
 msgid "Send CC copy"
 msgstr "Invia copia in CC"
 
-#: includes/emails/class.yith-ywraq-quote-status.php:240
+#: includes/emails/class.yith-ywraq-quote-status.php:242
 #: includes/emails/class.yith-ywraq-send-email-request-quote.php:295
 msgid "Send a carbon copy to the user"
 msgstr "Invia una copia carbone all'utente"
 
-#: includes/emails/class.yith-ywraq-quote-status.php:245
+#: includes/emails/class.yith-ywraq-quote-status.php:247
 #: includes/emails/class.yith-ywraq-send-email-request-quote-customer.php:297
 #: includes/emails/class.yith-ywraq-send-email-request-quote.php:299
 #: includes/emails/class.yith-ywraq-send-quote-reminder.php:312
@@ -763,7 +763,7 @@ msgstr "Invia una copia carbone all'utente"
 msgid "Email Heading"
 msgstr "Intestazione Email"
 
-#: includes/emails/class.yith-ywraq-quote-status.php:247
+#: includes/emails/class.yith-ywraq-quote-status.php:249
 #: includes/emails/class.yith-ywraq-send-email-request-quote-customer.php:299
 #: includes/emails/class.yith-ywraq-send-email-request-quote.php:301
 #: includes/emails/class.yith-ywraq-send-quote-reminder.php:314
@@ -776,7 +776,7 @@ msgstr ""
 "notifica email. Lascia vuoto per utilizzare l'intestazione predefinita: "
 "<code>%s</code>."
 
-#: includes/emails/class.yith-ywraq-quote-status.php:253
+#: includes/emails/class.yith-ywraq-quote-status.php:255
 #: includes/emails/class.yith-ywraq-send-email-request-quote-customer.php:305
 #: includes/emails/class.yith-ywraq-send-email-request-quote.php:307
 #: includes/emails/class.yith-ywraq-send-quote-reminder.php:325
@@ -784,12 +784,12 @@ msgstr ""
 msgid "Email Description"
 msgstr "Descrizione Email"
 
-#: includes/emails/class.yith-ywraq-quote-status.php:256
+#: includes/emails/class.yith-ywraq-quote-status.php:258
 #: includes/emails/class.yith-ywraq-send-email-request-quote.php:310
 msgid "You have received a request for a quote. The request is the following:"
 msgstr "Hai ricevuto una richiesta di preventivo. La richiesta è la seguente:"
 
-#: includes/emails/class.yith-ywraq-quote-status.php:260
+#: includes/emails/class.yith-ywraq-quote-status.php:262
 #: includes/emails/class.yith-ywraq-send-email-request-quote-customer.php:311
 #: includes/emails/class.yith-ywraq-send-email-request-quote.php:325
 #: includes/emails/class.yith-ywraq-send-quote-reminder.php:331
@@ -797,7 +797,7 @@ msgstr "Hai ricevuto una richiesta di preventivo. La richiesta è la seguente:"
 msgid "Email type"
 msgstr "Tipo di email"
 
-#: includes/emails/class.yith-ywraq-quote-status.php:262
+#: includes/emails/class.yith-ywraq-quote-status.php:264
 #: includes/emails/class.yith-ywraq-send-email-request-quote-customer.php:313
 #: includes/emails/class.yith-ywraq-send-email-request-quote.php:327
 #: includes/emails/class.yith-ywraq-send-quote-reminder.php:333
@@ -1582,7 +1582,7 @@ msgstr "Attiva il caricamento in AJAX"
 
 #: plugin-options/button-options.php:235
 msgid "Load any cacheable quote item via AJAX"
-msgstr ""
+msgstr "Aggiorna i pulsanti della richiesta di preventivo per eludere la cache"
 
 #: plugin-options/button-options.php:251
 msgid "User Settings"
@@ -1932,7 +1932,6 @@ msgid "Enable Exclusion List"
 msgstr "Attiva Lista esclusione "
 
 #: plugin-options/other-options.php:26
-#, fuzzy
 msgid ""
 "By enabling the exclusion list, you can exclude the products you prefer from "
 "the plugin behavior. You can add the products you wish to be excluded from "
@@ -1940,7 +1939,7 @@ msgid ""
 "enabling this option."
 msgstr ""
 "Attivando la lista di esclusione puoi escludere i prodotti che preferisci "
-"dal comportamento del plugin. <br>Puoi aggiungere i prodotti che desideri "
+"dal comportamento del plugin. Puoi aggiungere i prodotti che desideri "
 "escludere dalle funzionalità di Request a Quote nella nuova scheda \"Lista "
 "esclusione\" subito dopo aver attivato questa opzione. "
 
@@ -2671,15 +2670,15 @@ msgstr "Rimuovi"
 msgid "Save changes"
 msgstr "Salva modifiche"
 
-#: templates/emails/change-status.php:36
+#: templates/emails/change-status.php:37
 msgid "The Proposal #%s has been accepted"
 msgstr "La proposta #%s è stata accettata"
 
-#: templates/emails/change-status.php:38
+#: templates/emails/change-status.php:39
 msgid "The Proposal #%s has been rejected."
 msgstr "La proposta #%s è stata rifiutata."
 
-#: templates/emails/change-status.php:42
+#: templates/emails/change-status.php:43
 #: templates/emails/request-quote-customer.php:55
 #: templates/emails/request-quote.php:53
 msgid "You can see details here:"
@@ -2815,13 +2814,13 @@ msgstr "Data di scadenza"
 
 #: templates/emails/quote-table.php:44
 #: templates/emails/request-quote-table.php:51
-#: templates/pdf/quote-table-div.php:51 templates/pdf/quote-table.php:54
+#: templates/pdf/quote-table-div.php:55 templates/pdf/quote-table.php:54
 msgid "Preview"
 msgstr "Anteprima"
 
 #: templates/emails/quote-table.php:47
 #: templates/emails/request-quote-table.php:56
-#: templates/pdf/quote-table-div.php:60 templates/pdf/quote-table.php:69
+#: templates/pdf/quote-table-div.php:64 templates/pdf/quote-table.php:72
 #: templates/request-quote-view.php:58 templates/request-quote-view.php:136
 #: templates/request-quote-view.php:260
 msgid "Quantity"
@@ -2829,7 +2828,7 @@ msgstr "Quantità"
 
 #: templates/emails/quote-table.php:48
 #: templates/emails/request-quote-table.php:59
-#: templates/pdf/quote-table-div.php:63 templates/pdf/quote-table.php:74
+#: templates/pdf/quote-table-div.php:67 templates/pdf/quote-table.php:78
 msgid "Subtotal"
 msgstr "Subtotale"
 
@@ -2958,7 +2957,7 @@ msgstr "Cliente"
 msgid "Date created"
 msgstr "Formato date picker"
 
-#: templates/pdf/quote-table-div.php:57 templates/pdf/quote-table.php:64
+#: templates/pdf/quote-table-div.php:61 templates/pdf/quote-table.php:66
 msgid "Unit Price"
 msgstr "Prezzo unità"
 

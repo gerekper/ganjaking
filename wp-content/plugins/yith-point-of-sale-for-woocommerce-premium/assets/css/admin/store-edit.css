@@ -122,6 +122,10 @@
     min-width : 150px;
 }
 
+.yith-pos-store-register input.select2-search__field{
+    width: 400px !important;
+}
+
 /**
  * Wizard
  */

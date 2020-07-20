@@ -4,7 +4,7 @@ Contributors: yithemes
 Tags: popoup
 Requires at least: 4.0.0
 Tested up to: 5.4
-Stable tag: 1.4.3
+Stable tag: 1.4.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -19,6 +19,10 @@ Important: First of all, you have to download and activate WooCommerce plugin, w
 YITH WooCommerce Popup will add a new tab called "WC Popup" in "YIT Plugins" menu item. There, you will find all YITH plugins with quick access to plugin setting page.
 
 == Changelog ==
+
+= 1.4.4 - Released on 7 July 2020 =
+* New: Support for WooCommerce 4.3
+* Update: Plugin framework
 
 = 1.4.3 - Released on 20 May 2020 =
 * New: Support for WooCommerce 4.2

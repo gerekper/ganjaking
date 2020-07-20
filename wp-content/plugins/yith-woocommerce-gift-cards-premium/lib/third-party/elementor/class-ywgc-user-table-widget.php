@@ -82,7 +82,7 @@ if ( ! class_exists ( 'YWGC_Elementor_User_Table_Widget' ) ) {
 
             echo ( $html ) ? $html : $settings['section-description'];
 
-            echo do_shortcode('[yith_gift_cards_user_table ]');
+            echo do_shortcode('[yith_gift_cards_user_table]');
 
             echo '</div>';
 

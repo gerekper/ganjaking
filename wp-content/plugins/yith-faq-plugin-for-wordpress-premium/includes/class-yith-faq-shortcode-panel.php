@@ -12,7 +12,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } // Exit if accessed directly
 
-
 if ( ! class_exists( 'YITH_FAQ_Shortcode_Panel' ) ) {
 
 	/**
@@ -44,17 +43,16 @@ if ( ! class_exists( 'YITH_FAQ_Shortcode_Panel' ) ) {
 		 *
 		 * @return  void
 		 * @since   1.0.0
-		 * @author  Alberto Ruggiero
+		 * @author  Alberto Ruggiero <alberto.ruggiero@yithemes.com>
 		 */
 		public function __construct( $post_type, $taxonomy ) {
 
 			$this->post_type = $post_type;
 			$this->taxonomy  = $taxonomy;
 
-			add_action( 'yith_faq_shortcode', array( $this, 'output' ) );
+			add_action( 'init', array( $this, 'add_shortcodes_button' ), 20 );
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ), 20 );
 			add_filter( 'yith_plugin_fw_icons_field_icons_' . YITH_FWP_SLUG, array( $this, 'filter_icons' ) );
-			add_action( 'admin_action_yfwp_shortcode_panel', array( $this, 'lightbox_output' ) );
 
 		}
 
@@ -65,20 +63,42 @@ if ( ! class_exists( 'YITH_FAQ_Shortcode_Panel' ) ) {
 		 *
 		 * @return  void
 		 * @since   1.0.0
-		 * @author  Alberto Ruggiero
+		 * @author  Alberto Ruggiero <alberto.ruggiero@yithemes.com>
 		 */
 		public function admin_scripts( $hook ) {
 
-			if ( $hook != 'yith-plugins_page_yith-faq-plugin-for-wordpress' && $hook != 'yith-faq-plugin-for-wordpress-shortcode' ) {
-				return;
+			if ( 'yith-plugins_page_yith-faq-plugin-for-wordpress' === $hook ) {
+				wp_enqueue_style( 'yith-faq-shortcode-panel', yit_load_css_file( YITH_FWP_ASSETS_URL . '/css/admin-panel.css' ), array(), YITH_FWP_VERSION );
+				wp_enqueue_style( 'yith-faq-shortcode-icons', yit_load_css_file( YITH_FWP_ASSETS_URL . '/css/icons.css' ), array(), YITH_FWP_VERSION );
+				wp_enqueue_script( 'yith-faq-shortcode-panel', yit_load_js_file( YITH_FWP_ASSETS_URL . '/js/admin-panel.js' ), array( 'jquery' ), YITH_FWP_VERSION, true );
 			}
 
-			wp_enqueue_style( 'yith-plugin-fw-fields' );
-			wp_enqueue_script( 'yith-plugin-fw-fields' );
-			wp_enqueue_script( 'yith-enhanced-select' );
+			global $pagenow;
 
-			wp_enqueue_style( 'yith-faq-shortcode-panel', yit_load_css_file( YITH_FWP_ASSETS_URL . '/css/yith-faq-shortcode-panel.css' ), array(), YITH_FWP_VERSION );
-			wp_enqueue_script( 'yith-faq-shortcode-panel', yit_load_js_file( YITH_FWP_ASSETS_URL . '/js/yith-faq-shortcode-panel.js' ), array( 'jquery' ), YITH_FWP_VERSION );
+			if ( ( 'post.php' === $pagenow || 'post-new.php' === $pagenow ) && $this->can_show_shortcode_buttons() ) {
+
+				wp_enqueue_style( 'yit-plugin-style' );
+				wp_enqueue_style( 'yith-plugin-fw-fields' );
+				wp_enqueue_style( 'yith-faq-shortcode-icons', yit_load_css_file( YITH_FWP_ASSETS_URL . '/css/icons.css' ), array(), YITH_FWP_VERSION );
+				wp_enqueue_style( 'yith-faq-tinymce', yit_load_css_file( YITH_FWP_ASSETS_URL . '/css/tinymce.css' ), array(), YITH_FWP_VERSION );
+
+				wp_enqueue_script( 'yit-plugin-panel' );
+				wp_enqueue_script( 'yith-plugin-fw-fields' );
+				wp_enqueue_script( 'yith-enhanced-select' );
+				wp_enqueue_script( 'yith-faq-shortcode-panel', yit_load_js_file( YITH_FWP_ASSETS_URL . '/js/admin-panel.js' ), array( 'jquery' ), YITH_FWP_VERSION, true );
+
+				wp_localize_script(
+					'yith-faq-shortcode-panel',
+					'yfwp_shortcode',
+					array(
+						'title'           => esc_html__( 'Add FAQ shortcode', 'yith-faq-plugin-for-wordpress' ),
+						'insert_btn_text' => esc_html__( 'Insert shortcode', 'yith-faq-plugin-for-wordpress' ),
+						'close_btn_text'  => esc_html__( 'Close', 'yith-faq-plugin-for-wordpress' ),
+						'content'         => $this->tinymce_output(),
+					)
+				);
+
+			}
 
 		}
 
@@ -87,266 +107,150 @@ if ( ! class_exists( 'YITH_FAQ_Shortcode_Panel' ) ) {
 		 *
 		 * @return  array
 		 * @since   1.0.0
-		 * @author  Alberto Ruggiero
+		 * @author  Alberto Ruggiero <alberto.ruggiero@yithemes.com>
 		 */
 		public function filter_icons() {
 
 			return array(
-				'FontAwesome' => array(
-					'\f067' => 'plus',
-					'\f055' => 'plus-circle',
+				'yfwp' => array(
+					'\e800' => 'plus',
+					'\e801' => 'plus-circle',
 					'\f0fe' => 'plus-square',
 					'\f196' => 'plus-square-o',
-					'\f078' => 'chevron-down',
+					'\e804' => 'chevron-down',
 					'\f13a' => 'chevron-circle-down',
-					'\f01a' => 'arrow-circle-o-down',
-					'\f063' => 'arrow-down',
+					'\e806' => 'arrow-circle-o-down',
+					'\e80a' => 'arrow-down',
 					'\f0ab' => 'arrow-circle-down',
 					'\f103' => 'angle-double-down',
 					'\f107' => 'angle-down',
-					'\f0d7' => 'caret-down',
+					'\e808' => 'caret-down',
 					'\f150' => 'caret-square-o-down',
-				)
+				),
 			);
-
-		}
-
-		/**
-		 * Outputs the shortcode creation panel
-		 *
-		 * @return  void
-		 * @since   1.0.0
-		 * @author  Alberto Ruggiero
-		 */
-		public function output() {
-
-			?>
-            <div id="wrap" class="yith-plugin-fw plugin-option yit-admin-panel-container">
-                <div class="yit-admin-panel-content-wrap">
-
-                    <h2>
-						<?php esc_html_e( 'Shortcode Creation', 'yith-faq-plugin-for-wordpress' ); ?>
-                    </h2>
-                    <table class="faq-table form-table">
-                        <tbody>
-                        <tr>
-                            <th scope="row"><label for="enable_search_box"><?php esc_html_e( 'Show search box', 'yith-faq-plugin-for-wordpress' ) ?></label></th>
-                            <td>
-								<?php
-								$args = array(
-									'id'   => 'enable_search_box',
-									'name' => 'enable_search_box',
-									'type' => 'onoff',
-								);
-
-								yith_plugin_fw_get_field( $args, true );
-								?>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><label for="enable_category_filter"><?php esc_html_e( 'Show category filters', 'yith-faq-plugin-for-wordpress' ) ?></label></th>
-                            <td>
-								<?php
-								$args = array(
-									'id'   => 'enable_category_filter',
-									'name' => 'enable_category_filter',
-									'type' => 'onoff',
-								);
-
-								yith_plugin_fw_get_field( $args, true );
-								?>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><label for="choose_style"><?php esc_html_e( 'Choose the style', 'yith-faq-plugin-for-wordpress' ) ?></label></th>
-                            <td>
-								<?php
-								$args = array(
-									'id'      => 'style',
-									'name'    => 'style',
-									'type'    => 'radio',
-									'options' => array(
-										'list'      => esc_html__( 'List', 'yith-faq-plugin-for-wordpress' ),
-										'accordion' => esc_html__( 'Accordion', 'yith-faq-plugin-for-wordpress' ),
-										'toggle'    => esc_html__( 'Toggle', 'yith-faq-plugin-for-wordpress' ),
-									),
-									'value'   => 'list',
-								);
-
-								yith_plugin_fw_get_field( $args, true );
-								?>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><label for="page_size"><?php esc_html_e( 'FAQs per page', 'yith-faq-plugin-for-wordpress' ) ?></label></th>
-                            <td>
-								<?php
-								$args = array(
-									'id'    => 'page_size',
-									'name'  => 'page_size',
-									'type'  => 'number',
-									//APPLY_FILTER: yith_faq_minimum_page : set minimum number of items in a page
-									'min'   => apply_filters( 'yith_faq_minimum_page', 5 ),
-									//APPLY_FILTER: yith_faq_maximum_page : set maximum number of items in a page
-									'max'   => apply_filters( 'yith_faq_maximum_page', 20 ),
-									'value' => '10'
-								);
-
-								yith_plugin_fw_get_field( $args, true );
-								?>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><label for="categories"><?php esc_html_e( 'Categories to display', 'yith-faq-plugin-for-wordpress' ) ?></label></th>
-                            <td>
-								<?php
-								$args = array(
-									'id'       => 'categories',
-									'name'     => 'categories',
-									'type'     => 'ajax-terms',
-									'multiple' => true,
-									'data'     => array(
-										'placeholder' => esc_html__( 'Search FAQs Categories', 'yith-faq-plugin-for-wordpress' ),
-										'taxonomy'    => $this->taxonomy
-									)
-								);
-
-								yith_plugin_fw_get_field( $args, true );
-								?>
-                                <span class="description"><?php esc_html_e( 'If left empty all categories will be displayed', 'yith-faq-plugin-for-wordpress' ) ?></span>
-                            </td>
-                        </tr>
-                        <tr id="show_icon_row">
-                            <th scope="row"><label for="show_icon"><?php esc_html_e( 'Show icon', 'yith-faq-plugin-for-wordpress' ) ?></label></th>
-                            <td>
-								<?php
-								$args = array(
-									'id'      => 'show_icon',
-									'name'    => 'show_icon',
-									'type'    => 'radio',
-									'options' => array(
-										'off'   => esc_html__( 'Off', 'yith-faq-plugin-for-wordpress' ),
-										'left'  => esc_html__( 'Left', 'yith-faq-plugin-for-wordpress' ),
-										'right' => esc_html__( 'Right', 'yith-faq-plugin-for-wordpress' ),
-									),
-									'value'   => 'right',
-								);
-
-								yith_plugin_fw_get_field( $args, true );
-								?>
-                            </td>
-                        </tr>
-                        <tr id="icon_size_row">
-                            <th scope="row"><label for="icon_size"><?php esc_html_e( 'Icon size (px)', 'yith-faq-plugin-for-wordpress' ) ?></label></th>
-                            <td>
-								<?php
-								$args = array(
-									'id'    => 'icon_size',
-									'name'  => 'icon_size',
-									'type'  => 'number',
-									'min'   => '8',
-									'max'   => '40',
-									'value' => '14'
-								);
-
-								yith_plugin_fw_get_field( $args, true );
-								?>
-                            </td>
-                        </tr>
-                        <tr id="icon_row">
-                            <th scope="row"><label for="choose_icon"><?php esc_html_e( 'Choose the icon', 'yith-faq-plugin-for-wordpress' ) ?></label></th>
-                            <td>
-								<?php
-								$args = array(
-									'id'           => 'icon',
-									'name'         => 'icon',
-									'type'         => 'icons',
-									'value'        => 'FontAwesome:plus',
-									'filter_icons' => YITH_FWP_SLUG
-								);
-
-								yith_plugin_fw_get_field( $args, true );
-								?>
-                            </td>
-                        </tr>
-                        <tr id="field_row">
-                            <th scope="row"></th>
-                            <td>
-								<?php
-								$args = array(
-									'id'                => 'shortcode',
-									'name'              => 'shortcode',
-									'type'              => 'text',
-									'value'             => '[yith_faq]',
-									'custom_attributes' => 'readonly',
-								);
-
-								yith_plugin_fw_get_field( $args, true );
-								?>
-                            </td>
-                        </tr>
-                        <tr id="button_row">
-                            <th scope="row"></th>
-                            <td>
-								<?php
-								$args = array(
-									'type'    => 'buttons',
-									'buttons' => array(
-										array(
-											'name'  => esc_html__( 'Insert Shortcode', 'yith-faq-plugin-for-wordpress' ),
-											'class' => 'button-primary insert-shortcode',
-										),
-									)
-								);
-
-								yith_plugin_fw_get_field( $args, true );
-								?>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-			<?php
 
 		}
 
 		/**
 		 * Outputs the shortcode creation panel in the lightbox
 		 *
+		 * @return  string
+		 * @since   1.0.0
+		 * @author  Alberto Ruggiero <alberto.ruggiero@yithemes.com>
+		 */
+		public function tinymce_output() {
+
+			$options = include( YITH_FWP_DIR . 'plugin-options/shortcode-options.php' );
+
+			ob_start();
+			?>
+			<div class="wrap yith-plugin-ui">
+				<div id="wrap" class="yith-plugin-fw plugin-option yit-admin-panel-container">
+					<div class="yit-admin-panel-content-wrap">
+						<table class="form-table" role="presentation">
+							<?php foreach ( $options['shortcode']['settings'] as $field ) : ?>
+								<tr>
+									<th scope="row"><label for="<?php echo $field['id']; ?>>"><?php echo $field['name']; ?></label></th>
+									<td>
+										<?php
+										YITH_FWP()->get_panel()->render_field( array( 'option' => $field ) );
+										?>
+									</td>
+								</tr>
+							<?php endforeach; ?>
+						</table>
+					</div>
+				</div>
+			</div>
+			<?php
+			return ob_get_clean();
+		}
+
+		/**
+		 * Add shortcode button to TinyMCE editor, adding filter on mce_external_plugins
+		 *
 		 * @return  void
 		 * @since   1.0.0
-		 * @author  Alberto Ruggiero
+		 * @author  Alberto Ruggiero <alberto.ruggiero@yithemes.com>
 		 */
-		public function lightbox_output() {
+		public function add_shortcodes_button() {
 
-			@header( 'Content-Type: ' . get_option( 'html_type' ) . '; charset=' . get_option( 'blog_charset' ) );
+			//APPLY_FILTER: yith_faq_instantiate_shortcode_button: check if shortcode button can be instantiated
+			if ( is_admin() || apply_filters( 'yith_faq_instantiate_shortcode_button', false ) ) {
+				add_filter( 'mce_external_plugins', array( $this, 'add_shortcodes_tinymce_plugin' ) );
+				add_filter( 'mce_buttons', array( $this, 'register_shortcodes_button' ) );
+			}
 
-			?>
-            <html xmlns="http://www.w3.org/1999/xhtml" <?php do_action( 'admin_xml_ns' ); ?> <?php language_attributes(); ?>>
-            <head>
-                <meta http-equiv="Content-Type" content="<?php bloginfo( 'html_type' ); ?>; charset=<?php echo get_option( 'blog_charset' ); ?>" />
-                <title><?php ?></title>
-                <script type="text/javascript">
-                    var ajaxurl = '<?php echo admin_url( 'admin-ajax.php' ) ?>';
-                </script>
-				<?php
-				$hook_suffix = 'yith-faq-plugin-for-wordpress-shortcode';
+		}
 
-				wp_admin_css( 'wp-admin', true );
-				do_action( 'admin_enqueue_scripts', $hook_suffix );
-				do_action( 'admin_print_styles' );
-				do_action( 'admin_print_scripts' );
-				do_action( 'admin_head' );
-				?>
+		/**
+		 * Add a script to TinyMCE script list
+		 *
+		 * @param   $plugin_array array
+		 *
+		 * @return  array
+		 * @since   1.0.0
+		 * @author  Alberto Ruggiero <alberto.ruggiero@yithemes.com>
+		 */
+		public function add_shortcodes_tinymce_plugin( $plugin_array ) {
 
-            </head>
-            <body class="shortcode-lightbox">
-			<?php $this->output(); ?>
-			<?php do_action( 'admin_print_footer_scripts' ); ?>
-            </body>
-            </html>
-			<?php
+			if ( $this->can_show_shortcode_buttons() ) {
+
+				$plugin_array['yfwp_shortcode'] = yit_load_js_file( YITH_FWP_ASSETS_URL . '/js/tinymce.js' );
+			}
+
+			return $plugin_array;
+
+		}
+
+		/**
+		 * Make TinyMCE know a new button was included in its toolbar
+		 *
+		 * @param   $buttons array
+		 *
+		 * @return  array
+		 * @since   1.0.0
+		 * @author  Alberto Ruggiero <alberto.ruggiero@yithemes.com>
+		 */
+		public function register_shortcodes_button( $buttons ) {
+
+			if ( $this->can_show_shortcode_buttons() ) {
+
+				array_push( $buttons, '|', 'yfwp_shortcode' );
+			}
+
+			return $buttons;
+
+		}
+
+		/**
+		 * Check if shortcode buttons can be shown on the edit page
+		 *
+		 * @return  boolean
+		 * @since   1.0.0
+		 * @author  Alberto Ruggiero <alberto.ruggiero@yithemes.com>
+		 */
+		public function can_show_shortcode_buttons() {
+
+			global $post;
+
+			return ( $post && ! in_array( $post->post_type, $this->get_disabled_post_types(), true ) );
+
+		}
+
+		/**
+		 * Set post types where not show the shortcode
+		 *
+		 * @return  array
+		 * @since   1.0.0
+		 * @author  Alberto Ruggiero <alberto.ruggiero@yithemes.com>
+		 */
+		public function get_disabled_post_types() {
+
+			$post_types = array( $this->post_type );
+
+			//APPLY_FILTER: yith_faq_disabled_post_types : post types where not show the FAQ shortcode button
+			return apply_filters( 'yith_faq_disabled_post_types', $post_types );
 		}
 
 	}

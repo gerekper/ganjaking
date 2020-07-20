@@ -2,6 +2,12 @@
 
 == Changelog ==
 
+= 1.1.20 - Released on 07 Jul 2020 =
+
+* New: support for WooCommerce 4.3
+* Update: plugin framework
+* Update: language files
+
 = 1.1.19 - Released on 25 May 2020 =
 
 * New: support for WooCommerce 4.2

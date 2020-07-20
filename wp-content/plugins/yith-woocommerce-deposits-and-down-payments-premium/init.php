@@ -3,13 +3,13 @@
  * Plugin Name: YITH WooCommerce Deposits and Down Payments Premium
  * Plugin URI: https://yithemes.com/themes/plugins/yith-woocommerce-deposits-and-down-payments/
  * Description: <code><strong>YITH WooCommerce Deposits and Down Payments</strong></code> allows your customers to make a deposit for the products they want to purchase and to pay the balance only at a later time, either online or in your shop. Giving your customers the possibility to book a room or to confirm a service on demand, like a party room or the reservation for a tour, has never been so easy. <a href="https://yithemes.com/" target="_blank">Get more plugins for your e-commerce on <strong>YITH</strong></a>
- * Version: 1.3.7
+ * Version: 1.3.8
  * Author: YITH
  * Author URI: https://yithemes.com/
  * Text Domain: yith-woocommerce-deposits-and-down-payments
  * Domain Path: /languages/
- * WC requires at least: 3.0.0
- * WC tested up to: 4.1
+ * WC requires at least: 4.0
+ * WC tested up to: 4.2
  *
  * @author Your Inspiration Themes
  * @package YITH WooCommerce Deposits and Down Payments
@@ -67,7 +67,7 @@ if( ! defined( 'YITH_WCDP_SLUG' ) ){
 }
 
 if( ! defined( 'YITH_WCDP_SECRET_KEY' ) ){
-	define( 'YITH_WCDP_SECRET_KEY', '12345' );
+	define( 'YITH_WCDP_SECRET_KEY', 'HYbRqbc7fBRGcswTemNi' );
 }
 
 /* Plugin Framework Version Check */

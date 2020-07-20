@@ -534,7 +534,7 @@ jQuery(document).ready(function ($) {
 
 	if (ywraq_frontend.auto_update_cart_on_quantity_change) {
 
-		$(document).on('click, change', '.product-quantity input', function (e) {
+		$(document).on('click, change', '#yith-ywrq-table-list .product-quantity input', function (e) {
 			var $t = $(this),
 				name = $t.attr('name'),
 				container = $t.closest('.quantity');

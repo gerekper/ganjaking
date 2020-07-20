@@ -33,7 +33,7 @@ $customer_quotes = wc_get_orders(
 	apply_filters( 'ywraq_my_account_my_quotes_query',
 		array(
 			'limit'       => 15,
-			'created_via' => 'ywraq',
+			'ywraq_raq' => 'yes',
 			'customer'    => get_userdata( get_current_user_id() )->user_email,
 			'status'      => array_merge( YITH_YWRAQ_Order_Request()->raq_order_status, array_keys( wc_get_order_statuses() ) ),
 		)

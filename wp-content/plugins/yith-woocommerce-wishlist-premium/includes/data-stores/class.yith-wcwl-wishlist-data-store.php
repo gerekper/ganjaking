@@ -264,6 +264,8 @@ if ( ! class_exists( 'YITH_WCWL_Wishlist_Data_Store' ) ) {
 
 			do_action( 'yith_wcwl_before_delete_wishlist', $wishlist->get_id() );
 
+			$this->clear_caches( $wishlist );
+
 			// delete wishlist and all its items.
 			$wpdb->delete( $wpdb->yith_wcwl_items, array( 'wishlist_id' => $id ) );
 			$wpdb->delete( $wpdb->yith_wcwl_wishlists, array( 'ID' => $id ) );
@@ -434,15 +436,7 @@ if ( ! class_exists( 'YITH_WCWL_Wishlist_Data_Store' ) ) {
 				$sql = $wpdb->prepare( $sql, $sql_args );
 			}
 
-			// search for cached results
-			$query_hash = md5( $sql );
-			$lists = wp_cache_get( 'queried-wishlists-' . $query_hash, 'wishlists' );
-
-			if( ! $lists ) {
-				$lists = $wpdb->get_col( $sql );
-
-				wp_cache_set( 'queried-wishlists-' . $query_hash, $lists, 'wishlists' );
-			}
+			$lists = $wpdb->get_col( $sql );
 
 			if( ! empty( $lists ) ){
 				$lists = array_map( array( 'YITH_WCWL_Wishlist_Factory', 'get_wishlist' ), $lists );
@@ -932,9 +926,20 @@ if ( ! class_exists( 'YITH_WCWL_Wishlist_Data_Store' ) ) {
 				$id = $wishlist ? $wishlist->get_id() : false;
 			}
 
+			$user_id = $wishlist ? $wishlist->get_user_id() : false;
+			$session_id = $wishlist ? $wishlist->get_session_id() : false;
+
 			wp_cache_delete( 'wishlist-items-' . $id, 'wishlists' );
 			wp_cache_delete( 'wishlist-id-' . $id, 'wishlists' );
 			wp_cache_delete( 'wishlist-token-' . $token, 'wishlists' );
+
+			if ( $user_id ) {
+				wp_cache_delete( 'user-wishlists-' . $user_id, 'wishlists' );
+			}
+
+			if ( $session_id ) {
+				wp_cache_delete( 'user-wishlists-' . $session_id, 'wishlists' );
+			}
 		}
 	}
 }

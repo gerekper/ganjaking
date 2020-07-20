@@ -42,9 +42,8 @@ class FUE_Meta_Boxes {
 			wp_enqueue_style( 'fue_email_form', FUE_TEMPLATES_URL .'/email-form.css' );
 			wp_enqueue_script( 'fue-form', plugins_url( 'templates/js/email-form.js', FUE_FILE ), array('jquery', 'jquery-tiptip'), FUE_VERSION );
 
-			// Select2
 			wp_enqueue_script( 'select2' );
-			wp_enqueue_style( 'select2', '//cdnjs.cloudflare.com/ajax/libs/select2/3.5.2/select2.css' );
+			wp_enqueue_style( 'select2' );
 
 			wp_enqueue_script('farbtastic');
 			wp_enqueue_script( 'jquery-ui-sortable' );

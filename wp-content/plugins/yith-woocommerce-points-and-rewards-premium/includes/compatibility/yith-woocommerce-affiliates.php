@@ -235,7 +235,7 @@ if ( ! class_exists( 'YWPAR_Affiliates' ) ) {
 			$order_id           = $commission['order_id'];
 			$order              = wc_get_order( $order_id );
 			$already_registered = yit_get_prop( $order, '_ywpar_affiliate_commission_registered', true );
-			if ( $affiliate && $order instanceof WC_Order && ! $already_registered ) {
+			if ( apply_filters( 'ywpar_add_affiliate_commission_points', true, $affiliate, $order, $commission ) && $affiliate && $order instanceof WC_Order && ! $already_registered ) {
 				$commission_points = yit_get_prop( $order, '_ywpar_affiliate_commission_point' );
 				yit_save_prop( $order, '_ywpar_affiliate_commission_registered', true );
 				YITH_WC_Points_Rewards()->add_point_to_customer( $affiliate['user_id'], $commission_points, 'affiliates', '', $order_id );

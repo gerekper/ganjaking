@@ -1,21 +1,41 @@
-var sfn_select = null;
-jQuery(document).ready(function($) {
+jQuery( document ).ready( function( $ ) {
 
-    // Select2 Enhancement if it exists
-    if ( $().select2 ) {
-        sfn_select = function() {
-            $(":input.chzn-select").filter(":not(.enhanced)").each( function() {
-                $(this).select2();
-            }).addClass('enhanced');
-        }
-    } else {
-        // fallback to Chosen
-        sfn_select = function() {
-            $(":input.chzn-select").filter(":not(.enhanced)").each( function() {
-                $(this).chosen();
-            }).addClass('enhanced');
-        }
-    }
+	$( '.multiple-select' ).filter( ':not(.enhanced)' ).each( function() {
+		$( this ).selectWoo();
+	} ).addClass( 'enhanced' );
 
-    sfn_select();
+	$( '.sfn-product-search' ).filter( ':not(.enhanced)' ).each( function() {
+		var select2_args = {
+			allowClear:  $( this ).data( 'allow_clear' ) ? true : false,
+			placeholder: $( this ).data( 'placeholder' ),
+			minimumInputLength: $( this ).data( 'minimum_input_length' ) ? $( this ).data( 'minimum_input_length' ) : '3',
+			escapeMarkup: function( m ) {
+				return m;
+			},
+			ajax: {
+				url:         ajaxurl,
+				dataType:    'json',
+				quietMillis: 250,
+				data: function( term, page ) {
+					return {
+						term:     term.term,
+						action:   $( this ).data( 'action' ) || 'woocommerce_json_search_products_and_variations',
+						security: sfn_select.security
+					};
+				},
+				processResults: function( data, page ) {
+					var terms = [];
+					if ( data ) {
+						$.each( data, function( id, text ) {
+							terms.push( { id: id, text: text } );
+						});
+					}
+					return { results: terms };
+				},
+				cache: true
+			}
+		};
+
+		$( this ).selectWoo( select2_args ).addClass( 'enhanced' );
+	} );
 } );

@@ -18,10 +18,11 @@ class FUE_Addon_Woocommerce_Conditions {
 	public function __construct( $wc ) {
 		$this->fue_wc = $wc;
 
-		add_action( 'fue_email_form_conditions_meta', array( $this, 'email_form_conditions'), 10, 2  );
+		add_action( 'fue_email_form_conditions_meta', array( $this, 'email_form_conditions' ), 10, 2 );
 
 		add_filter( 'fue_api_email_response', array( $this, 'normalize_conditions_output' ), 10, 2 );
 		add_filter( 'fue_api_edit_email_data', array( $this, 'normalize_conditions_input' ) );
+		add_filter( 'fue_email_pre_save', array( $this, 'convert_ids' ), 10, 2 );
 	}
 
 	/**
@@ -671,6 +672,26 @@ class FUE_Addon_Woocommerce_Conditions {
 		}
 
 		return apply_filters( 'fue_count_customer_orders', $count, $email );
+	}
+
+	/**
+	 * Convert the array of product IDs from a select2 field into CSV.
+	 *
+	 * @since 4.9.3
+	 * @param array $data     Email data fields.
+	 * @param int   $email_id Email ID.
+	 * @return array
+	 */
+	public function convert_ids( $data, $email_id ) {
+		if ( ! empty( $data['conditions'] ) && is_array( $data['conditions'] ) ) {
+			foreach ( $data['conditions'] as $key => $condition ) {
+				if ( ! empty( $condition['products'] ) && is_array( $condition['products'] ) ) {
+					$data['conditions'][ $key ]['products'] = implode( ',', array_map( 'absint', $condition['products'] ) );
+				}
+			}
+		}
+
+		return $data;
 	}
 
 }

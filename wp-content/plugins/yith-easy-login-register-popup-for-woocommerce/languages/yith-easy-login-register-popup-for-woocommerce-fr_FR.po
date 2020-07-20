@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: YITH Easy Login Register Popup for WooCommerce\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-easy-login-"
 "register-popup-for-woocommerce\n"
-"POT-Creation-Date: 2020-05-05 13:42:50+00:00\n"
+"POT-Creation-Date: 2020-06-03 09:22:14+00:00\n"
 "PO-Revision-Date: 2020-04-16 12:46:46+0000\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -38,37 +38,37 @@ msgstr "Options mot de passe oublié"
 msgid "Additional Popup"
 msgstr "Popup additionnel"
 
-#: includes/class.yith-easy-login-register-popup-handler.php:196
+#: includes/class.yith-easy-login-register-popup-handler.php:191
 msgid "Please enter a valid username or email address."
 msgstr "Merci de renseigner un nom d’utilisateur valide ou un email valide."
 
-#: includes/class.yith-easy-login-register-popup-handler.php:197
-#: includes/class.yith-easy-login-register-popup-handler.php:314
-#: includes/class.yith-easy-login-register-popup-handler.php:360
+#: includes/class.yith-easy-login-register-popup-handler.php:192
+#: includes/class.yith-easy-login-register-popup-handler.php:309
+#: includes/class.yith-easy-login-register-popup-handler.php:355
 msgid "Please enter a valid email address."
 msgstr "Merci de renseigner une adresse email valide."
 
-#: includes/class.yith-easy-login-register-popup-handler.php:230
+#: includes/class.yith-easy-login-register-popup-handler.php:225
 #: plugin-options/login-options.php:43
 msgid "Great to see you again! Enter your password to continue."
 msgstr "Ravis de vous revoir! Renseigner votre mot de passe pour continuer."
 
-#: includes/class.yith-easy-login-register-popup-handler.php:237
+#: includes/class.yith-easy-login-register-popup-handler.php:232
 #: plugin-options/register-options.php:122
 msgid "Register and proceed to checkout"
 msgstr "Créer un compte et procéder au paiement"
 
-#: includes/class.yith-easy-login-register-popup-handler.php:238
+#: includes/class.yith-easy-login-register-popup-handler.php:233
 #: plugin-options/additional-popup-options.php:47
 msgid "Register"
 msgstr "Créer un compte"
 
-#: includes/class.yith-easy-login-register-popup-handler.php:242
+#: includes/class.yith-easy-login-register-popup-handler.php:237
 #: plugin-options/register-options.php:34
 msgid "You are new here. Create your account!"
 msgstr "Vous êtes nouveau ici. Créer votre compte !"
 
-#: includes/class.yith-easy-login-register-popup-handler.php:243
+#: includes/class.yith-easy-login-register-popup-handler.php:238
 #: plugin-options/register-options.php:43
 msgid ""
 "It seems you don't have an account on [blogname] yet. But don't worry, you "
@@ -77,29 +77,29 @@ msgstr ""
 "Il semble que vous n’avez pas de compte sur [blogname] pour le moment. Mais "
 "pas de panique vous pouvez créer un compte et terminer votre commande."
 
-#: includes/class.yith-easy-login-register-popup-handler.php:265
+#: includes/class.yith-easy-login-register-popup-handler.php:260
 msgid "Password field cannot be empty."
 msgstr "Le champ mot de passe ne peut pas être vide."
 
-#: includes/class.yith-easy-login-register-popup-handler.php:292
+#: includes/class.yith-easy-login-register-popup-handler.php:287
 msgid "You have successfully logged in, great to see you again!"
 msgstr ""
 
-#: includes/class.yith-easy-login-register-popup-handler.php:317
+#: includes/class.yith-easy-login-register-popup-handler.php:312
 msgid "An account is already registered with this email."
 msgstr "Un compte est déjà enregistré avec cet email."
 
-#: includes/class.yith-easy-login-register-popup-handler.php:320
-#: includes/class.yith-easy-login-register-popup-handler.php:473
+#: includes/class.yith-easy-login-register-popup-handler.php:315
+#: includes/class.yith-easy-login-register-popup-handler.php:468
 msgid "Passwords do not match! Please try again."
 msgstr "Les mots de passe ne correspond pas. Merci de recommencer."
 
-#: includes/class.yith-easy-login-register-popup-handler.php:323
+#: includes/class.yith-easy-login-register-popup-handler.php:318
 msgid "You must accept our terms and privacy policy!"
 msgstr ""
 "Vous devez accepter nos mentions légales et politique de confidentialité!"
 
-#: includes/class.yith-easy-login-register-popup-handler.php:341
+#: includes/class.yith-easy-login-register-popup-handler.php:336
 msgid ""
 "Your account has been successfully created. Your login details have been "
 "sent to your email address."
@@ -107,30 +107,30 @@ msgstr ""
 "Votre compte a bien été crée. Les détails viennent de parvenir sur votre "
 "boite mail."
 
-#: includes/class.yith-easy-login-register-popup-handler.php:367
+#: includes/class.yith-easy-login-register-popup-handler.php:362
 msgid "Password reset is not allowed for this user"
 msgstr ""
 "La réinitialisation du mot de passe n’est pas autorisé pour cet utilisateur"
 
-#: includes/class.yith-easy-login-register-popup-handler.php:389
+#: includes/class.yith-easy-login-register-popup-handler.php:384
 msgid "A new authentication code was sent successfully to your email"
 msgstr ""
 "Un nouveau code d’authentification vient d’être envoyé avec succès sur votre "
 "adresse email"
 
-#: includes/class.yith-easy-login-register-popup-handler.php:393
+#: includes/class.yith-easy-login-register-popup-handler.php:388
 #: plugin-options/lost-password-options.php:159
 msgid "Authentication required"
 msgstr "Authentification requise"
 
-#: includes/class.yith-easy-login-register-popup-handler.php:394
+#: includes/class.yith-easy-login-register-popup-handler.php:389
 #: includes/class.yith-easy-login-register-popup.php:97
 #: plugin-options/first-step-options.php:67
 #: plugin-options/lost-password-options.php:225
 msgid "Continue"
 msgstr "Continuer"
 
-#: includes/class.yith-easy-login-register-popup-handler.php:395
+#: includes/class.yith-easy-login-register-popup-handler.php:390
 #: plugin-options/lost-password-options.php:173
 msgid ""
 "For your security we need to authenticate your request. We've sent a code to "
@@ -139,7 +139,7 @@ msgstr ""
 "Pour votre sécurité, vous avez besoin d’authentifier votre demande. Nous "
 "avons envoyé un code par mail. Merci de le renseigner ci dessous."
 
-#: includes/class.yith-easy-login-register-popup-handler.php:402
+#: includes/class.yith-easy-login-register-popup-handler.php:397
 msgid ""
 "A new password reset email has been sent to the email address of your "
 "account."
@@ -147,48 +147,48 @@ msgstr ""
 "Un nouvel email de réinitialisation du mot de passe vient d’être envoyé sur "
 "le mail lié à votre compte."
 
-#: includes/class.yith-easy-login-register-popup-handler.php:406
+#: includes/class.yith-easy-login-register-popup-handler.php:401
 #: plugin-options/lost-password-options.php:108
 msgid "Check your email"
 msgstr "Vérifiez votre boite mail"
 
-#: includes/class.yith-easy-login-register-popup-handler.php:407
+#: includes/class.yith-easy-login-register-popup-handler.php:402
 msgid ""
 "A password reset email has been sent to the email address of your account. "
 "If you did not receive it, check your spam folder or click to receive "
 "another email."
 msgstr ""
 
-#: includes/class.yith-easy-login-register-popup-handler.php:438
+#: includes/class.yith-easy-login-register-popup-handler.php:433
 msgid "Invalid code."
 msgstr "Code invalide."
 
-#: includes/class.yith-easy-login-register-popup-handler.php:442
+#: includes/class.yith-easy-login-register-popup-handler.php:437
 #: plugin-options/lost-password-options.php:315
 msgid "Save password and proceed to checkout"
 msgstr "Enregistrer le mot de passe et procéder au paiement"
 
-#: includes/class.yith-easy-login-register-popup-handler.php:443
+#: includes/class.yith-easy-login-register-popup-handler.php:438
 #: plugin-options/additional-popup-options.php:55
 msgid "Save password and access"
 msgstr "Enregistrer le mot de passe et accéder"
 
-#: includes/class.yith-easy-login-register-popup-handler.php:450
+#: includes/class.yith-easy-login-register-popup-handler.php:445
 #: plugin-options/lost-password-options.php:249
 msgid "Set a new password and login"
 msgstr "Définir un nouveau mot de passe et me connecter"
 
-#: includes/class.yith-easy-login-register-popup-handler.php:452
+#: includes/class.yith-easy-login-register-popup-handler.php:447
 #: plugin-options/lost-password-options.php:263
 msgid "Now you can set a new password for your account."
 msgstr ""
 "Maintenant vous pouvez créer un nouveau mot de passe pour votre compte."
 
-#: includes/class.yith-easy-login-register-popup-handler.php:483
+#: includes/class.yith-easy-login-register-popup-handler.php:478
 msgid "The password of your account has been changed successfully"
 msgstr ""
 
-#: includes/class.yith-easy-login-register-popup-handler.php:553
+#: includes/class.yith-easy-login-register-popup-handler.php:548
 msgid "ReCaptcha validation error. Please try again."
 msgstr ""
 
@@ -263,7 +263,7 @@ msgstr "Vous n’avez pas reçu le code? Le renvoyer"
 msgid "Resend email"
 msgstr "Renvoyer l’email"
 
-#: includes/class.yith-easy-login-register-social.php:187
+#: includes/class.yith-easy-login-register-social.php:184
 msgid "You have successfully logged in."
 msgstr "Vous êtes connecté avec succès."
 
@@ -397,7 +397,7 @@ msgctxt "plugin name in YITH menu"
 msgid "Easy Login Register Popup"
 msgstr "Easy Login Register Popup"
 
-#: includes/class.yith-easy-login-register-popup-handler.php:229
+#: includes/class.yith-easy-login-register-popup-handler.php:224
 #: plugin-options/login-options.php:34
 msgctxt "[username] is a placeholder for username."
 msgid "Welcome back, [username]!"
@@ -488,7 +488,7 @@ msgctxt "Form error message"
 msgid "An error has occurred! Invalid token."
 msgstr "Oups, nous avons une erreur! Le token est invalide."
 
-#: includes/class.yith-easy-login-register-social.php:152
+#: includes/class.yith-easy-login-register-social.php:149
 msgctxt "Form error message"
 msgid "An error has occurred! A valid email address is required."
 msgstr "Oups, nous avons une erreur! Une adresse email valide est requise."
@@ -1592,12 +1592,3 @@ msgstr "< Retour"
 msgctxt "Reset password section link"
 msgid "Forgot your password?"
 msgstr "Mot de passe oublié?"
-
-#~ msgid "https://yithemes.com/"
-#~ msgstr "https://yithemes.com/"
-
-#~ msgid "YITH"
-#~ msgstr "YITH"
-
-#~ msgid "YITH Easy Login & Register Popup For WooCommerce"
-#~ msgstr "YITH Easy Login & Register Popup pour WooCommerce"

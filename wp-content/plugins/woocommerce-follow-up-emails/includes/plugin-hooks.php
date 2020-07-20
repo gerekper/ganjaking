@@ -16,8 +16,8 @@ add_filter('clean_url',             'FUE_Admin_Controller::replace_email_form_ur
 add_filter('parent_file',           'FUE_Admin_Controller::set_active_submenu' );
 
 // settings styles and scripts
-add_action('admin_enqueue_scripts', 'FUE_Admin_Controller::register_scripts', 9);
-add_action('admin_enqueue_scripts', 'FUE_Admin_Controller::settings_scripts', 11);
+add_action( 'admin_enqueue_scripts', 'FUE_Admin_Controller::register_scripts', 11 );
+add_action( 'admin_enqueue_scripts', 'FUE_Admin_Controller::settings_scripts', 19 );
 
 // load addons
 add_action('plugins_loaded',        'Follow_Up_Emails::load_addons');

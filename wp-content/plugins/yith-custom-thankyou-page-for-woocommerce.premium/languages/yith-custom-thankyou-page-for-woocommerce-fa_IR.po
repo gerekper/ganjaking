@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Yith Custom Thank You Page for Woocommerce Premium\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-custom-"
 "thankyou-page-for-woocommerce.premium\n"
-"POT-Creation-Date: 2020-04-28 14:03:04+00:00\n"
+"POT-Creation-Date: 2020-07-02 11:37:37+00:00\n"
 "PO-Revision-Date: 2019-10-15 10:45+0100\n"
 "Last-Translator: Digerati <me@digerati.ir>\n"
 "Language-Team: Arazweb\n"
@@ -19,13 +19,178 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: plugin-fw\n"
 "X-Poedit-SearchPathExcluded-1: plugin-fw_old\n"
 
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:312
+#: includes/admin/class.yith-custom-thankyou-page-table.php:54
+msgid "Delete Selected"
+msgstr ""
+
+#: includes/admin/class.yith-custom-thankyou-page-table.php:55
+msgid "Delete All"
+msgstr ""
+
+#: includes/admin/class.yith-custom-thankyou-page-table.php:206
+msgid "Edit"
+msgstr ""
+
+#: includes/admin/class.yith-custom-thankyou-page-table.php:213
+msgid "Delete"
+msgstr ""
+
+#: includes/admin/class.yith-custom-thankyou-page-table.php:227
+msgid "Item"
+msgstr ""
+
+#: includes/admin/class.yith-custom-thankyou-page-table.php:228
+msgid "Type"
+msgstr ""
+
+#: includes/admin/class.yith-custom-thankyou-page-table.php:229
+#, fuzzy
+msgid "Custom Thank You Page/URL"
+msgstr "صفحه تشکر از پرداخت سفارشی"
+
+#: includes/admin/class.yith-custom-thankyou-page-table.php:230
+msgid "Actions"
+msgstr ""
+
+#: includes/admin/class.yith-custom-thankyou-page-table.php:383
+#: integrations/elementor/class.yctpw-upsells-widget.php:151
+#, fuzzy
+msgid "Products"
+msgstr "محصول"
+
+#: includes/admin/class.yith-custom-thankyou-page-table.php:384
+msgid "Categories"
+msgstr ""
+
+#: includes/admin/class.yith-custom-thankyou-page-table.php:385
+#, fuzzy
+msgid "Payment Methods"
+msgstr "روش پرداخت:"
+
+#: includes/admin/class.yith-custom-thankyou-page-table.php:387
+msgid "Item type"
+msgstr ""
+
+#: includes/admin/class.yith-custom-thankyou-page-table.php:389
+#, fuzzy
+msgid ""
+"Choose whether to set a Thank You page or Custom Url for products, "
+"categories or payment methods."
+msgstr ""
+"صفحه تشکر از پرداخت دلخواه خود را انتخاب کنید، باید اولویت بیشتری نسبت به "
+"دیگر صفحات (عمومی، دسته یا محصول) داشته باشد."
+
+#: includes/admin/class.yith-custom-thankyou-page-table.php:399
+#, fuzzy
+msgid "Search products"
+msgstr "انتخاب محصولات"
+
+#: includes/admin/class.yith-custom-thankyou-page-table.php:401
+#, fuzzy
+msgid "Select products"
+msgstr "انتخاب محصولات"
+
+#: includes/admin/class.yith-custom-thankyou-page-table.php:402
+#, fuzzy
+msgid "Select a product to set a Thank You Page or Custom Url."
+msgstr "یک صفحه تشکر عمومی یا لینک خارجی برای تمام محصولات انتخاب کنید"
+
+#: includes/admin/class.yith-custom-thankyou-page-table.php:410
+#, fuzzy
+msgid "Search category"
+msgstr "تعداد محصولات در هر ردیف"
+
+#: includes/admin/class.yith-custom-thankyou-page-table.php:413
+#, fuzzy
+msgid "Select categories"
+msgstr "انتخاب محصولات"
+
+#: includes/admin/class.yith-custom-thankyou-page-table.php:414
+msgid "Select which product categories to add in the exclusion list."
+msgstr ""
+
+#: includes/admin/class.yith-custom-thankyou-page-table.php:419
+#, fuzzy
+msgid "Select payment method"
+msgstr "روش پرداخت:"
+
+#: includes/admin/class.yith-custom-thankyou-page-table.php:431
+#: plugin-options/settings-options.php:49
+msgid "Custom Wordpress Page"
+msgstr "برگه وردپرس سفارشی"
+
+#: includes/admin/class.yith-custom-thankyou-page-table.php:432
+#: plugin-options/settings-options.php:50
+msgid "External URL"
+msgstr "لینک خارجی"
+
+#: includes/admin/class.yith-custom-thankyou-page-table.php:435
+msgid "Select which kind of redirect to use."
+msgstr ""
+
+#: includes/admin/class.yith-custom-thankyou-page-table.php:449
+#, fuzzy
+msgid "Write the Url"
+msgstr "اختصاص لینک"
+
+#: includes/admin/class.yith-custom-thankyou-page-table.php:451
+#: plugin-options/settings-options.php:74
+#, fuzzy
+msgid "Set the URL to redirect. Write full url for ex: https://yithemes.com/"
+msgstr "آدرس کامل لینک را وارد کنید. مثلا: https://zhaket.com/"
+
+#: includes/admin/class.yith-custom-thankyou-page-table.php:478
+#: includes/admin/class.yith-custom-thankyou-page-table.php:607
+msgid "Add Rule"
+msgstr ""
+
+#: includes/admin/class.yith-custom-thankyou-page-table.php:478
+msgid "Edit Rule"
+msgstr ""
+
+#: includes/admin/class.yith-custom-thankyou-page-table.php:498
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:383
+#: templates/ctpw_pdf/order_infos_pdf_template_order_table.php:98
+#: templates/woocommerce/yith_ctpw_table.php:92
+msgid "Product"
+msgstr "محصول"
+
+#: includes/admin/class.yith-custom-thankyou-page-table.php:510
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:382
+#, fuzzy
+msgid "Product Category"
+msgstr "تعداد محصولات در هر ردیف"
+
+#: includes/admin/class.yith-custom-thankyou-page-table.php:521
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:384
+#, fuzzy
+msgid "Payment Method"
+msgstr "روش پرداخت:"
+
+#: includes/admin/class.yith-custom-thankyou-page-table.php:543
+msgid "< Back to rules list"
+msgstr ""
+
+#: includes/admin/class.yith-custom-thankyou-page-table.php:598
+#: includes/class.yith-custom-thankyou-page-rules.php:78
+msgid "Rules"
+msgstr ""
+
+#. translators: first placeholder is the page set as Thank you page redirect,
+#. second one is the url to the Settings Tab.
+#: includes/admin/class.yith-custom-thankyou-page-table.php:620
+msgid ""
+"A General Thank You Page has been set to <b>%1$s</b>. You can change it <a "
+"href=\"%2$s\">here</a>"
+msgstr ""
+
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:324
 msgid ""
 "It seems there's no valid order to test. Please create a dummy order and set "
 "it as Completed"
 msgstr ""
 
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:366
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:378
 #, fuzzy
 msgid ""
 "Choose which custom Thank You page must have priority over others (General, "
@@ -34,166 +199,125 @@ msgstr ""
 "صفحه تشکر از پرداخت دلخواه خود را انتخاب کنید، باید اولویت بیشتری نسبت به "
 "دیگر صفحات (عمومی، دسته یا محصول) داشته باشد."
 
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:366
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:378
 msgid ""
 "If you have set different custom Thank You pages for products in the cart, "
 "select which settings should have priority over others."
 msgstr ""
 
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:366
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:378
 msgid ""
 "If you set it to Products and there are more products with different Thank "
 "You pages, the one associated with the first product in the list will be "
 "shown."
 msgstr ""
 
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:369
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:381
 #, fuzzy
 msgid "General"
 msgstr "تنظیمات عمومی"
 
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:370
-#, fuzzy
-msgid "Product Category"
-msgstr "تعداد محصولات در هر ردیف"
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:371
-#: templates/ctpw_pdf/order_infos_pdf_template_order_table.php:98
-#: templates/woocommerce/yith_ctpw_table.php:92
-msgid "Product"
-msgstr "محصول"
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:372
-#, fuzzy
-msgid "Payment Method"
-msgstr "روش پرداخت:"
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:421
-#: plugin-options/upsells-options.php:140
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:433
+#: plugin-options/upsells-options.php:149
 msgid "Title font color"
 msgstr "رنگ قلم عنوان"
 
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:430
-#: plugin-options/upsells-options.php:149
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:442
+#: plugin-options/upsells-options.php:158
 msgid "Title font size"
 msgstr "اندازه قلم عنوان"
 
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:442
-#: plugin-options/upsells-options.php:160
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:454
+#: plugin-options/upsells-options.php:169
 msgid "Title font weight"
 msgstr "نوع قلم عنوان"
 
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:472
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:484
 msgid "Delete plugin options on Uninstall"
 msgstr ""
 
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:475
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:487
 msgid ""
 "Check this option in order to delete plugin options saved in database on "
 "plugin uninstall"
 msgstr ""
 
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:541
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:696
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:553
 #, fuzzy
 msgid "Select a page&hellip;"
 msgstr "جستجو برای یک محصول &hellip;"
 
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:604
-#: plugin-options/settings-options.php:49
-msgid "Custom Wordpress Page"
-msgstr "برگه وردپرس سفارشی"
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:605
-#: plugin-options/settings-options.php:50
-msgid "External URL"
-msgstr "لینک خارجی"
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:613
-#, fuzzy
-msgid "Select the General Thank You Page or External URL"
-msgstr "یک صفحه تشکر عمومی یا لینک خارجی برای تمام محصولات انتخاب کنید"
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:630
-msgid "write full url for ex: https://yithemes.com/"
-msgstr "آدرس کامل لینک را وارد کنید. مثلا: https://zhaket.com/"
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:721
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:624
 msgid "Social Box"
 msgstr "جعبه اجتماعی"
 
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:737
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:640
 msgid "UpSells"
 msgstr "پیشنهادات دیگر (UpSells)"
 
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:753
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:656
 msgid "PDF"
 msgstr ""
 
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:769
-#, fuzzy
-msgid "Payment Methods"
-msgstr "روش پرداخت:"
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:825
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:712
 msgid "Search for a product&hellip;"
 msgstr "جستجو برای یک محصول &hellip;"
 
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:851
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:738
 msgid "Type product IDs separated by comma."
 msgstr "نوع شناسه محصول را با کاما جدا کنید."
 
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:910
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:1148
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:1220
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:797
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:1035
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:1107
 msgid "Custom Thank You Page"
 msgstr "صفحه تشکر از پرداخت سفارشی"
 
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:947
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:1043
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:1140
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:1208
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:834
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:930
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:1027
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:1095
 msgid "Custom Thank You Page or Url"
 msgstr "صفحه سفارشی تشکر از شما و یا لینک خارجی"
 
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:949
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:1045
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:1142
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:1212
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:836
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:932
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:1029
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:1099
 #, fuzzy
 msgid "Custom WordPress Page"
 msgstr "برگه وردپرس سفارشی"
 
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:950
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:960
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:1046
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:1075
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:1143
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:1170
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:1213
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:837
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:847
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:933
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:962
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:1030
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:1057
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:1100
 msgid "Custom URL"
 msgstr "لینک خارجی سفارشی"
 
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:961
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:1171
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:1251
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:848
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:1058
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:1138
 msgid "write here the full url (http://...)"
 msgstr "آدرس کامل لینک را اینجا بنویسید (http://...)"
 
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:975
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:1059
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:862
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:946
 msgid "Custom Thank You page"
 msgstr "صفحه تشکر از پرداخت سفارشی"
 
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:1060
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:947
 msgid "Select the custom Thank You page!"
 msgstr "صفحه تشکر از پرداخت سفارشی خود را انتخاب کنید!"
 
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:1078
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:965
 msgid "Write full URL ex: http://..."
 msgstr "آدرس کامل لینک را بنویسید. مثلا: http://..."
 
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:1245
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:1132
 msgid "Custom Thank You Url"
 msgstr "لینک خارجی صفحه تشکر سفارشی"
 
@@ -245,6 +369,7 @@ msgid "Support platform"
 msgstr "پلت فرم پشتیبانی"
 
 #: includes/class.yith-custom-thankyou-page-frontend-premium.php:686
+#: plugin-options/upsells-options.php:48
 msgid "You may be interested in..."
 msgstr "شما ممکن است علاقمند باشید به ..."
 
@@ -455,17 +580,17 @@ msgid "Order by"
 msgstr "سفارش بر اساس"
 
 #: integrations/elementor/class.yctpw-upsells-widget.php:127
-#: plugin-options/upsells-options.php:83
+#: plugin-options/upsells-options.php:92
 msgid "title"
 msgstr "عنوان"
 
 #: integrations/elementor/class.yctpw-upsells-widget.php:128
-#: plugin-options/upsells-options.php:84
+#: plugin-options/upsells-options.php:93
 msgid "random"
 msgstr "به طور تصادفی"
 
 #: integrations/elementor/class.yctpw-upsells-widget.php:129
-#: plugin-options/upsells-options.php:85
+#: plugin-options/upsells-options.php:94
 msgid "date"
 msgstr "تاریخ"
 
@@ -475,19 +600,14 @@ msgid "Order"
 msgstr "مرتب سازی"
 
 #: integrations/elementor/class.yctpw-upsells-widget.php:141
-#: plugin-options/upsells-options.php:101
+#: plugin-options/upsells-options.php:110
 msgid "ASC"
 msgstr ""
 
 #: integrations/elementor/class.yctpw-upsells-widget.php:142
-#: plugin-options/upsells-options.php:102
+#: plugin-options/upsells-options.php:111
 msgid "DESC"
 msgstr ""
-
-#: integrations/elementor/class.yctpw-upsells-widget.php:151
-#, fuzzy
-msgid "Products"
-msgstr "محصول"
 
 #: plugin-options/metabox/yctpw-metabox-page.php:38
 #: plugin-options/metabox/yctpw-metabox-page.php:44
@@ -506,84 +626,84 @@ msgstr "یک صفحه تشکر عمومی یا لینک خارجی برای تم
 msgid "Select the General Thank You Page for all products"
 msgstr "صفحه تشکر عمومی برای همه محصولات را انتخاب کنید."
 
-#: plugin-options/settings-options.php:74
-#, fuzzy
-msgid "Set the URL to redirect. Write full url for ex: https://yithemes.com/"
-msgstr "آدرس کامل لینک را وارد کنید. مثلا: https://zhaket.com/"
+#: plugin-options/socialbox-options.php:48
+#: templates/woocommerce/yith_ctpw_social_box.php:36
+msgid "Share on..."
+msgstr "اشتراک گذاری در ..."
 
-#: plugin-options/socialbox-options.php:100
+#: plugin-options/socialbox-options.php:109
 msgid "URL shortening service"
 msgstr "سرویس کوتاه کردن آدرس URL "
 
-#: plugin-options/socialbox-options.php:105
+#: plugin-options/socialbox-options.php:114
 msgid "None"
 msgstr "هیچ کدام"
 
-#: plugin-options/socialbox-options.php:106
+#: plugin-options/socialbox-options.php:115
 msgid "Google"
 msgstr "گوگل"
 
-#: plugin-options/socialbox-options.php:107
+#: plugin-options/socialbox-options.php:116
 msgid "Bitly"
 msgstr "Bitly"
 
-#: plugin-options/socialbox-options.php:114
+#: plugin-options/socialbox-options.php:123
 msgid "Google API Key"
 msgstr "کلید API گوگل"
 
-#: plugin-options/socialbox-options.php:124
+#: plugin-options/socialbox-options.php:133
 msgid "Bitly API Key"
 msgstr "کلید Bitly API"
 
-#: plugin-options/socialbox-options.php:150
+#: plugin-options/socialbox-options.php:159
 msgid "Box title font color"
 msgstr "رنگ قلم جعبه عنوان"
 
-#: plugin-options/socialbox-options.php:158
+#: plugin-options/socialbox-options.php:167
 msgid "Box title font size"
 msgstr "سایز قلم جعبه عنوان"
 
-#: plugin-options/socialbox-options.php:170
+#: plugin-options/socialbox-options.php:179
 msgid "Box title font weight"
 msgstr "ضخامت قلم جعبه عنوان"
 
-#: plugin-options/socialbox-options.php:184
+#: plugin-options/socialbox-options.php:193
 msgid "Social font color"
 msgstr "رنگ قلم "
 
-#: plugin-options/socialbox-options.php:192
+#: plugin-options/socialbox-options.php:201
 msgid "Social font hover color"
 msgstr "رنگ حالت هاور قلم شبکه های اجتماعی"
 
-#: plugin-options/socialbox-options.php:201
+#: plugin-options/socialbox-options.php:210
 msgid "Social font active color"
 msgstr "رنگ فعال قلم شبکه های اجتماعی"
 
-#: plugin-options/socialbox-options.php:209
+#: plugin-options/socialbox-options.php:218
 msgid "Social font active color on hover"
 msgstr "رنگ حالت فعال قلم شبکه های اجتماعی در هاور ماوس"
 
-#: plugin-options/socialbox-options.php:218
+#: plugin-options/socialbox-options.php:227
 msgid "Selected tab background color"
 msgstr "رنگ پس زمینه برگه انتخاب شده"
 
-#: plugin-options/socialbox-options.php:227
+#: plugin-options/socialbox-options.php:236
 msgid "Tab main background color"
 msgstr "رنگ پس زمینه برگه اصلی"
 
-#: plugin-options/socialbox-options.php:236
+#: plugin-options/socialbox-options.php:245
 msgid "Arrow box color"
 msgstr "رنگ جعبه جهت نما"
 
-#: plugin-options/socialbox-options.php:245
+#: plugin-options/socialbox-options.php:254
 msgid "Sharing button color"
 msgstr "رنگ دکمه به اشتراک گذاری"
 
-#: plugin-options/socialbox-options.php:254
+#: plugin-options/socialbox-options.php:263
 msgid "Sharing button font size"
 msgstr "اندازه قلم دکمه به اشتراک گذاری"
 
-#: plugin-options/socialbox-options.php:265
+#: plugin-options/socialbox-options.php:274
 msgid "Sharing button font color"
 msgstr "رنگ قلم دکمه به اشتراک گذاری"
 
@@ -695,49 +815,45 @@ msgstr "پرداخت"
 msgid "My Account"
 msgstr "حساب من"
 
-#: templates/woocommerce/yith_ctpw_social_box.php:33
-msgid "Share on..."
-msgstr "اشتراک گذاری در ..."
-
-#: templates/woocommerce/yith_ctpw_social_box.php:41
+#: templates/woocommerce/yith_ctpw_social_box.php:46
 msgid "Facebook"
 msgstr "فیس بوک"
 
-#: templates/woocommerce/yith_ctpw_social_box.php:49
+#: templates/woocommerce/yith_ctpw_social_box.php:54
 msgid "Twitter"
 msgstr "توییتر"
 
-#: templates/woocommerce/yith_ctpw_social_box.php:57
+#: templates/woocommerce/yith_ctpw_social_box.php:62
 msgid "Pinterest"
 msgstr "Pinterest"
 
-#: templates/woocommerce/yith_ctpw_social_box.php:81
-#: templates/woocommerce/yith_ctpw_social_box.php:170
-#: templates/woocommerce/yith_ctpw_social_box.php:235
+#: templates/woocommerce/yith_ctpw_social_box.php:86
+#: templates/woocommerce/yith_ctpw_social_box.php:175
+#: templates/woocommerce/yith_ctpw_social_box.php:240
 msgid "Select the product to share"
 msgstr "محصول را برای به اشتراک گذاشتن انتخاب کنید."
 
-#: templates/woocommerce/yith_ctpw_social_box.php:120
-#: templates/woocommerce/yith_ctpw_social_box.php:201
-#: templates/woocommerce/yith_ctpw_social_box.php:202
-#: templates/woocommerce/yith_ctpw_social_box.php:271
-#: templates/woocommerce/yith_ctpw_social_box.php:273
+#: templates/woocommerce/yith_ctpw_social_box.php:125
+#: templates/woocommerce/yith_ctpw_social_box.php:206
+#: templates/woocommerce/yith_ctpw_social_box.php:207
+#: templates/woocommerce/yith_ctpw_social_box.php:276
+#: templates/woocommerce/yith_ctpw_social_box.php:278
 msgid "I've just purchased: "
 msgstr "من این محصول را خریداری کردم:"
 
-#: templates/woocommerce/yith_ctpw_social_box.php:140
+#: templates/woocommerce/yith_ctpw_social_box.php:145
 msgid "Share"
 msgstr "اشتراک گذاری"
 
-#: templates/woocommerce/yith_ctpw_social_box.php:204
+#: templates/woocommerce/yith_ctpw_social_box.php:209
 msgid "characters left"
 msgstr "کاراکترهای رها شده"
 
-#: templates/woocommerce/yith_ctpw_social_box.php:206
+#: templates/woocommerce/yith_ctpw_social_box.php:211
 msgid "Tweet"
 msgstr "Tweet"
 
-#: templates/woocommerce/yith_ctpw_social_box.php:295
+#: templates/woocommerce/yith_ctpw_social_box.php:300
 msgid "Pin it"
 msgstr "Pin it"
 
@@ -751,357 +867,30 @@ msgid ""
 "\">Get more plugins for your e-commerce on <strong>YITH</strong></a>"
 msgstr ""
 
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:107
+#: includes/admin/class.yith-custom-thankyou-page-table.php:428
 #, fuzzy
-msgctxt "[gutenberg]: block name"
-msgid "Thank You Page Up-sells"
+msgctxt "Admin option"
+msgid "Thank You Page redirect"
 msgstr "صفحه سفارشی تشکر از شما و یا لینک خارجی"
 
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:156
-msgctxt "[gutenberg]: block name"
-msgid "Thank You Page Order Overview Header"
-msgstr ""
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:168
+#: includes/admin/class.yith-custom-thankyou-page-table.php:440
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:592
 #, fuzzy
-msgctxt "[gutenberg]: block name"
-msgid "Thank You Page Order Table"
-msgstr "صفحه سفارشی تشکر از شما و یا لینک خارجی"
+msgctxt "Admin option"
+msgid "Select a Page"
+msgstr "صفحه عمومی را انتخاب کنید."
 
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:180
-msgctxt "[gutenberg]: block name"
-msgid "Thank You Page Order Customers Details"
-msgstr ""
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:192
-#, fuzzy
-msgctxt "[gutenberg]: block name"
-msgid "Thank You Page Social Box"
-msgstr "فعال سازی جعبه اجتماعی"
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:241
-#, fuzzy
-msgctxt "[gutenberg]: block name"
-msgid "Thank You Page Customer Name"
-msgstr "صفحه سفارشی تشکر از شما و یا لینک خارجی"
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:263
-#, fuzzy
-msgctxt "[gutenberg]: block name"
-msgid "Thank You Page Order Number"
-msgstr "صفحه سفارشی تشکر از شما و یا لینک خارجی"
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:275
-msgctxt "[gutenberg]: block name"
-msgid "Thank You Page Order Customer E-mail"
-msgstr ""
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:108
-msgctxt "[gutenberg]: block description"
-msgid ""
-"With this block you can add Up-sells product on Custom Thank You Page...."
-msgstr ""
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:118
-msgctxt "[gutenberg]: block description"
-msgid "Columns Number"
-msgstr ""
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:129
-#, fuzzy
-msgctxt "[gutenberg]: block description"
-msgid "Order by"
-msgstr "سفارش بر اساس"
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:139
-#, fuzzy
-msgctxt "[gutenberg]: block description"
-msgid "Order"
-msgstr "مرتب سازی"
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:157
-msgctxt "[gutenberg]: block description"
-msgid "Show Order Overview Header on Custom Thank You Page...."
-msgstr ""
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:169
-#, fuzzy
-msgctxt "[gutenberg]: block description"
-msgid "Show Order Table on Custom Thank You Page...."
-msgstr "فعال کردن صفحه تشکر از پرداخت سفارشی"
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:181
-msgctxt "[gutenberg]: block description"
-msgid "Show Order Customers Details on Custom Thank You Page...."
-msgstr ""
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:193
-#, fuzzy
-msgctxt "[gutenberg]: block description"
-msgid "Show Social Box on Custom Thank You Page...."
-msgstr "فعال کردن صفحه تشکر از پرداخت سفارشی"
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:242
-#, fuzzy
-msgctxt "[gutenberg]: block description"
-msgid "Print Order Customer Name on Custom Thank You Page...."
-msgstr "فعال کردن صفحه تشکر از پرداخت سفارشی"
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:264
-#, fuzzy
-msgctxt "[gutenberg]: block description"
-msgid "Show The Order Number on Custom Thank You Page...."
-msgstr "فعال کردن صفحه تشکر از پرداخت سفارشی"
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:276
-msgctxt "[gutenberg]: block description"
-msgid "Show The Order Customer E-mail on Custom Thank You Page...."
-msgstr ""
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:112
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:161
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:173
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:185
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:197
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:246
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:268
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:280
-#, fuzzy
-msgctxt "[gutenberg]: keywords"
-msgid "Thank you page"
-msgstr "صفحه تشکر از پرداخت سفارشی"
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:113
-#, fuzzy
-msgctxt "[gutenberg]: keywords"
-msgid "Up-Sells"
-msgstr "پیشنهادات دیگر (UpSells)"
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:162
-msgctxt "[gutenberg]: keywords"
-msgid "Order Overview"
-msgstr ""
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:174
-#, fuzzy
-msgctxt "[gutenberg]: keywords"
-msgid "Order Table"
-msgstr "سفارش بر اساس"
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:186
-#, fuzzy
-msgctxt "[gutenberg]: keywords"
-msgid "Order Customer Details"
-msgstr "اطلاعات مشتری"
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:198
-msgctxt "[gutenberg]: keywords"
-msgid "Order Social Sharing"
-msgstr ""
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:247
-msgctxt "[gutenberg]: keywords"
-msgid "Order User Name"
-msgstr ""
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:269
-#, fuzzy
-msgctxt "[gutenberg]: keywords"
-msgid "Order Number"
-msgstr "سفارش بر اساس"
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:281
-#, fuzzy
-msgctxt "[gutenberg]: keywords"
-msgid "Order Customer E-mail"
-msgstr "اطلاعات مشتری"
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:131
-#, fuzzy
-msgctxt "[gutenberg]: inspector description"
-msgid "Title"
-msgstr "عنوان"
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:132
-#, fuzzy
-msgctxt "[gutenberg]: inspector description"
-msgid "Random"
-msgstr "به طور تصادفی"
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:133
-#, fuzzy
-msgctxt "[gutenberg]: inspector description"
-msgid "Date"
-msgstr "تاریخ:"
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:141
-msgctxt "[gutenberg]: inspector description"
-msgid "ASC"
-msgstr ""
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:142
-msgctxt "[gutenberg]: inspector description"
-msgid "DESC"
-msgstr ""
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:148
-#, fuzzy
-msgctxt "[gutenberg]: inspector description"
-msgid "Product to show (write the ids separated by comma)"
-msgstr "نوع شناسه محصول را با کاما جدا کنید."
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:254
-msgctxt "[gutenberg]: inspector description"
-msgid "Frist Name"
-msgstr ""
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:255
-#, fuzzy
-msgctxt "[gutenberg]: inspector description"
-msgid "First Billing Name"
-msgstr "آدرس قبض"
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:203
-#, fuzzy
-msgctxt "[gutenberg]: block field label"
-msgid "Facebook"
-msgstr "فیس بوک"
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:212
-#, fuzzy
-msgctxt "[gutenberg]: block field label"
-msgid "Twitter"
-msgstr "توییتر"
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:221
-#, fuzzy
-msgctxt "[gutenberg]: block field label"
-msgid "Google"
-msgstr "گوگل"
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:230
-#, fuzzy
-msgctxt "[gutenberg]: block field label"
-msgid "Pinterest"
-msgstr "Pinterest"
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:252
-msgctxt "[gutenberg]: block field label"
-msgid "Name Type"
-msgstr ""
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:206
-#, fuzzy
-msgctxt "[gutenberg]: Help text"
-msgid "Show facebook tab"
-msgstr "نمایش جدول سفارش"
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:207
-msgctxt "[gutenberg]: Help text"
-msgid "Hide facebook tab"
-msgstr ""
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:215
-#, fuzzy
-msgctxt "[gutenberg]: Help text"
-msgid "Show twitter tab"
-msgstr "نمایش جدول سفارش"
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:216
-msgctxt "[gutenberg]: Help text"
-msgid "Hide twitter tab"
-msgstr ""
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:224
-#, fuzzy
-msgctxt "[gutenberg]: Help text"
-msgid "Show google tab"
-msgstr "نمایش جدول سفارش"
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:225
-msgctxt "[gutenberg]: Help text"
-msgid "Hide google tab"
-msgstr ""
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:233
-#, fuzzy
-msgctxt "[gutenberg]: Help text"
-msgid "Show pinterest tab"
-msgstr "نمایش جدول سفارش"
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:234
-msgctxt "[gutenberg]: Help text"
-msgid "Hide pinterest tab"
-msgstr ""
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:357
-msgctxt "Panel: page title"
-msgid "Priority"
-msgstr "اولویت"
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:576
-#, fuzzy
-msgctxt "Panel: page title"
-msgid "Payment Methods "
-msgstr "روش پرداخت:"
-
-#: plugin-options/pdf-options.php:29
-#, fuzzy
-msgctxt "Panel: page title"
-msgid "PDF Settings "
-msgstr "تنظیمات"
-
-#: plugin-options/settings-options.php:29
-msgctxt "Panel: page title"
-msgid "General settings"
-msgstr "تنظیمات عمومی"
-
-#: plugin-options/socialbox-options.php:94
-msgctxt "Panel: page title"
-msgid "URL Shortening Settings "
-msgstr "تنظیمات کوتاه کردن آدرس URL "
-
-#: plugin-options/socialbox-options.php:144
-msgctxt "Panel: page title"
-msgid "Social Box Style "
-msgstr "سبک جعبه اجتماعی"
-
-#: plugin-options/upsells-options.php:28
-msgctxt "Panel: page title"
-msgid "UpSells Settings "
-msgstr "تنظیمات UpSells "
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:363
-msgctxt "Admin option: General Priority"
-msgid "Select General Priority to"
-msgstr "اولویت صفحه تشکر عمومی را انتخاب کنید"
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:388
-msgctxt "Section title in Settings"
-msgid "Order Details"
-msgstr "جزئیات سفارش"
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:466
-msgctxt "Section title in Settings"
-msgid "Uninstall"
-msgstr ""
-
-#: plugin-options/socialbox-options.php:28
-msgctxt "Section title in Settings"
-msgid "Social Box Settings"
-msgstr "تنظیمات جعبه اجتماعی"
-
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:394
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:406
 msgctxt "Admin option"
 msgid "Show header section"
 msgstr "نمایش قسمت سربرگ"
 
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:403
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:415
 msgctxt "Admin option"
 msgid "Show order table"
 msgstr "نمایش جدول سفارش"
 
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:412
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:424
 msgctxt "Admin option"
 msgid "Show customer details"
 msgstr "نمایش جزئیات مشتری"
@@ -1204,20 +993,25 @@ msgstr "فعال سازی جعبه اجتماعی"
 
 #: plugin-options/socialbox-options.php:43
 msgctxt "Admin option"
+msgid "Section Title"
+msgstr ""
+
+#: plugin-options/socialbox-options.php:52
+msgctxt "Admin option"
 msgid "Enable Facebook"
 msgstr "فعال سازی فیس بوک"
 
-#: plugin-options/socialbox-options.php:57
+#: plugin-options/socialbox-options.php:66
 msgctxt "Admin option"
 msgid "Enable Twitter"
 msgstr "فعال سازی توییتر"
 
-#: plugin-options/socialbox-options.php:71
+#: plugin-options/socialbox-options.php:80
 msgctxt "Admin option"
 msgid "Enable Pinterest"
 msgstr "فعال سازی Pinterest"
 
-#: plugin-options/socialbox-options.php:110
+#: plugin-options/socialbox-options.php:119
 #, fuzzy
 msgctxt "Admin option"
 msgid "Select the tool to shorten your URLs"
@@ -1228,57 +1022,391 @@ msgctxt "Admin option"
 msgid "Enable UpSelling section"
 msgstr "فعال سازی قسمت UpSelling "
 
-#: plugin-options/upsells-options.php:43
+#: plugin-options/upsells-options.php:52
 msgctxt "Admin option"
 msgid "Products per row"
 msgstr "تعداد محصولات در هر ردیف"
 
-#: plugin-options/upsells-options.php:66
+#: plugin-options/upsells-options.php:75
 msgctxt "Admin option"
 msgid "Products per page"
 msgstr "تعداد محصولات در هر صفحه"
 
-#: plugin-options/upsells-options.php:79
+#: plugin-options/upsells-options.php:88
 msgctxt "Admin option"
 msgid "Order by"
 msgstr "سفارش بر اساس"
 
-#: plugin-options/upsells-options.php:97
+#: plugin-options/upsells-options.php:106
 msgctxt "Admin option"
 msgid "Order"
 msgstr "مرتب سازی"
 
-#: plugin-options/upsells-options.php:114
+#: plugin-options/upsells-options.php:123
 msgctxt "Admin option"
 msgid "Select products"
 msgstr "انتخاب محصولات"
 
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:397
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:119
+#, fuzzy
+msgctxt "[gutenberg]: block name"
+msgid "Thank You Page Up-sells"
+msgstr "صفحه سفارشی تشکر از شما و یا لینک خارجی"
+
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:168
+msgctxt "[gutenberg]: block name"
+msgid "Thank You Page Order Overview Header"
+msgstr ""
+
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:180
+#, fuzzy
+msgctxt "[gutenberg]: block name"
+msgid "Thank You Page Order Table"
+msgstr "صفحه سفارشی تشکر از شما و یا لینک خارجی"
+
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:192
+msgctxt "[gutenberg]: block name"
+msgid "Thank You Page Order Customers Details"
+msgstr ""
+
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:204
+#, fuzzy
+msgctxt "[gutenberg]: block name"
+msgid "Thank You Page Social Box"
+msgstr "فعال سازی جعبه اجتماعی"
+
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:253
+#, fuzzy
+msgctxt "[gutenberg]: block name"
+msgid "Thank You Page Customer Name"
+msgstr "صفحه سفارشی تشکر از شما و یا لینک خارجی"
+
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:275
+#, fuzzy
+msgctxt "[gutenberg]: block name"
+msgid "Thank You Page Order Number"
+msgstr "صفحه سفارشی تشکر از شما و یا لینک خارجی"
+
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:287
+msgctxt "[gutenberg]: block name"
+msgid "Thank You Page Order Customer E-mail"
+msgstr ""
+
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:120
+msgctxt "[gutenberg]: block description"
+msgid ""
+"With this block you can add Up-sells product on Custom Thank You Page...."
+msgstr ""
+
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:130
+msgctxt "[gutenberg]: block description"
+msgid "Columns Number"
+msgstr ""
+
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:141
+#, fuzzy
+msgctxt "[gutenberg]: block description"
+msgid "Order by"
+msgstr "سفارش بر اساس"
+
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:151
+#, fuzzy
+msgctxt "[gutenberg]: block description"
+msgid "Order"
+msgstr "مرتب سازی"
+
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:169
+msgctxt "[gutenberg]: block description"
+msgid "Show Order Overview Header on Custom Thank You Page...."
+msgstr ""
+
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:181
+#, fuzzy
+msgctxt "[gutenberg]: block description"
+msgid "Show Order Table on Custom Thank You Page...."
+msgstr "فعال کردن صفحه تشکر از پرداخت سفارشی"
+
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:193
+msgctxt "[gutenberg]: block description"
+msgid "Show Order Customers Details on Custom Thank You Page...."
+msgstr ""
+
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:205
+#, fuzzy
+msgctxt "[gutenberg]: block description"
+msgid "Show Social Box on Custom Thank You Page...."
+msgstr "فعال کردن صفحه تشکر از پرداخت سفارشی"
+
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:254
+#, fuzzy
+msgctxt "[gutenberg]: block description"
+msgid "Print Order Customer Name on Custom Thank You Page...."
+msgstr "فعال کردن صفحه تشکر از پرداخت سفارشی"
+
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:276
+#, fuzzy
+msgctxt "[gutenberg]: block description"
+msgid "Show The Order Number on Custom Thank You Page...."
+msgstr "فعال کردن صفحه تشکر از پرداخت سفارشی"
+
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:288
+msgctxt "[gutenberg]: block description"
+msgid "Show The Order Customer E-mail on Custom Thank You Page...."
+msgstr ""
+
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:124
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:173
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:185
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:197
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:209
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:258
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:280
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:292
+#, fuzzy
+msgctxt "[gutenberg]: keywords"
+msgid "Thank you page"
+msgstr "صفحه تشکر از پرداخت سفارشی"
+
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:125
+#, fuzzy
+msgctxt "[gutenberg]: keywords"
+msgid "Up-Sells"
+msgstr "پیشنهادات دیگر (UpSells)"
+
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:174
+msgctxt "[gutenberg]: keywords"
+msgid "Order Overview"
+msgstr ""
+
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:186
+#, fuzzy
+msgctxt "[gutenberg]: keywords"
+msgid "Order Table"
+msgstr "سفارش بر اساس"
+
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:198
+#, fuzzy
+msgctxt "[gutenberg]: keywords"
+msgid "Order Customer Details"
+msgstr "اطلاعات مشتری"
+
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:210
+msgctxt "[gutenberg]: keywords"
+msgid "Order Social Sharing"
+msgstr ""
+
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:259
+msgctxt "[gutenberg]: keywords"
+msgid "Order User Name"
+msgstr ""
+
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:281
+#, fuzzy
+msgctxt "[gutenberg]: keywords"
+msgid "Order Number"
+msgstr "سفارش بر اساس"
+
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:293
+#, fuzzy
+msgctxt "[gutenberg]: keywords"
+msgid "Order Customer E-mail"
+msgstr "اطلاعات مشتری"
+
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:143
+#, fuzzy
+msgctxt "[gutenberg]: inspector description"
+msgid "Title"
+msgstr "عنوان"
+
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:144
+#, fuzzy
+msgctxt "[gutenberg]: inspector description"
+msgid "Random"
+msgstr "به طور تصادفی"
+
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:145
+#, fuzzy
+msgctxt "[gutenberg]: inspector description"
+msgid "Date"
+msgstr "تاریخ:"
+
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:153
+msgctxt "[gutenberg]: inspector description"
+msgid "ASC"
+msgstr ""
+
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:154
+msgctxt "[gutenberg]: inspector description"
+msgid "DESC"
+msgstr ""
+
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:160
+#, fuzzy
+msgctxt "[gutenberg]: inspector description"
+msgid "Product to show (write the ids separated by comma)"
+msgstr "نوع شناسه محصول را با کاما جدا کنید."
+
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:266
+msgctxt "[gutenberg]: inspector description"
+msgid "Frist Name"
+msgstr ""
+
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:267
+#, fuzzy
+msgctxt "[gutenberg]: inspector description"
+msgid "First Billing Name"
+msgstr "آدرس قبض"
+
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:215
+#, fuzzy
+msgctxt "[gutenberg]: block field label"
+msgid "Facebook"
+msgstr "فیس بوک"
+
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:224
+#, fuzzy
+msgctxt "[gutenberg]: block field label"
+msgid "Twitter"
+msgstr "توییتر"
+
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:233
+#, fuzzy
+msgctxt "[gutenberg]: block field label"
+msgid "Google"
+msgstr "گوگل"
+
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:242
+#, fuzzy
+msgctxt "[gutenberg]: block field label"
+msgid "Pinterest"
+msgstr "Pinterest"
+
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:264
+msgctxt "[gutenberg]: block field label"
+msgid "Name Type"
+msgstr ""
+
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:218
+#, fuzzy
+msgctxt "[gutenberg]: Help text"
+msgid "Show facebook tab"
+msgstr "نمایش جدول سفارش"
+
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:219
+msgctxt "[gutenberg]: Help text"
+msgid "Hide facebook tab"
+msgstr ""
+
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:227
+#, fuzzy
+msgctxt "[gutenberg]: Help text"
+msgid "Show twitter tab"
+msgstr "نمایش جدول سفارش"
+
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:228
+msgctxt "[gutenberg]: Help text"
+msgid "Hide twitter tab"
+msgstr ""
+
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:236
+#, fuzzy
+msgctxt "[gutenberg]: Help text"
+msgid "Show google tab"
+msgstr "نمایش جدول سفارش"
+
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:237
+msgctxt "[gutenberg]: Help text"
+msgid "Hide google tab"
+msgstr ""
+
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:245
+#, fuzzy
+msgctxt "[gutenberg]: Help text"
+msgid "Show pinterest tab"
+msgstr "نمایش جدول سفارش"
+
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:246
+msgctxt "[gutenberg]: Help text"
+msgid "Hide pinterest tab"
+msgstr ""
+
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:369
+msgctxt "Panel: page title"
+msgid "Priority"
+msgstr "اولویت"
+
+#: plugin-options/pdf-options.php:29
+#, fuzzy
+msgctxt "Panel: page title"
+msgid "PDF Settings "
+msgstr "تنظیمات"
+
+#: plugin-options/settings-options.php:29
+msgctxt "Panel: page title"
+msgid "General settings"
+msgstr "تنظیمات عمومی"
+
+#: plugin-options/socialbox-options.php:103
+msgctxt "Panel: page title"
+msgid "URL Shortening Settings "
+msgstr "تنظیمات کوتاه کردن آدرس URL "
+
+#: plugin-options/socialbox-options.php:153
+msgctxt "Panel: page title"
+msgid "Social Box Style "
+msgstr "سبک جعبه اجتماعی"
+
+#: plugin-options/upsells-options.php:28
+msgctxt "Panel: page title"
+msgid "UpSells Settings "
+msgstr "تنظیمات UpSells "
+
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:375
+msgctxt "Admin option: General Priority"
+msgid "Select General Priority to"
+msgstr "اولویت صفحه تشکر عمومی را انتخاب کنید"
+
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:400
+msgctxt "Section title in Settings"
+msgid "Order Details"
+msgstr "جزئیات سفارش"
+
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:478
+msgctxt "Section title in Settings"
+msgid "Uninstall"
+msgstr ""
+
+#: plugin-options/socialbox-options.php:28
+msgctxt "Section title in Settings"
+msgid "Social Box Settings"
+msgstr "تنظیمات جعبه اجتماعی"
+
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:409
 msgctxt "Admin option description"
 msgid "This section shows a main order details"
 msgstr "این قسمت جزئیات سفارش اصلی را نشان می دهد."
 
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:406
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:418
 msgctxt "Admin option description"
 msgid "This section shows all order details"
 msgstr "این قسمت جزئیات تمام سفارش را نشان می دهد."
 
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:415
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:427
 msgctxt "Admin option description"
 msgid "This section shows customer details"
 msgstr "این قسمت جزئیات مشتری را نشان می دهد."
 
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:426
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:438
 msgctxt "Admin option description"
 msgid "Set the sections Title Font Color"
 msgstr ""
 
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:438
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:450
 msgctxt "Admin option description"
 msgid "Set the sections Title Font Size"
 msgstr ""
 
-#: includes/class.yith-custom-thankyou-page-admin-premium.php:453
+#: includes/class.yith-custom-thankyou-page-admin-premium.php:465
 msgctxt "Admin option description"
 msgid "Set the sections Title Font Weight"
 msgstr ""
@@ -1350,15 +1478,20 @@ msgstr "برای نشان دادن بخش به اشتراک گذاری اجتم�
 
 #: plugin-options/socialbox-options.php:46
 msgctxt "Admin option description"
+msgid "Title to show for this section"
+msgstr ""
+
+#: plugin-options/socialbox-options.php:55
+msgctxt "Admin option description"
 msgid "Check this option to show Facebook sharing button"
 msgstr "این گزینه را برای نشان دادن دکمه اشتراک فیس بوک، انتخاب کنید."
 
-#: plugin-options/socialbox-options.php:60
+#: plugin-options/socialbox-options.php:69
 msgctxt "Admin option description"
 msgid "Check this option to show Twitter sharing button"
 msgstr "این گزینه را برای نشان دادن دکمه به اشتراک گذاری توییتر، انتخاب کنید."
 
-#: plugin-options/socialbox-options.php:74
+#: plugin-options/socialbox-options.php:83
 msgctxt "Admin option description"
 msgid "Check this option to show the Pinterest sharing button"
 msgstr ""
@@ -1384,10 +1517,32 @@ msgctxt "Admin option: Custom Style"
 msgid "Custom CSS"
 msgstr "css سفارشی"
 
-#: plugin-options/upsells-options.php:134
+#: plugin-options/upsells-options.php:43
+msgctxt "Admin option - UpSells title"
+msgid "Section Title"
+msgstr ""
+
+#: plugin-options/upsells-options.php:46
+msgctxt "Admin option - UpSells title description"
+msgid "Title to show for this section"
+msgstr ""
+
+#: plugin-options/upsells-options.php:143
 msgctxt "Section title"
 msgid "Style "
 msgstr "سبک"
+
+#, fuzzy
+#~ msgid "Select the General Thank You Page or External URL"
+#~ msgstr "یک صفحه تشکر عمومی یا لینک خارجی برای تمام محصولات انتخاب کنید"
+
+#~ msgid "write full url for ex: https://yithemes.com/"
+#~ msgstr "آدرس کامل لینک را وارد کنید. مثلا: https://zhaket.com/"
+
+#, fuzzy
+#~ msgctxt "Panel: page title"
+#~ msgid "Payment Methods "
+#~ msgstr "روش پرداخت:"
 
 #, fuzzy
 #~| msgctxt "yith-custom-thankyou-page-for-woocommerce"

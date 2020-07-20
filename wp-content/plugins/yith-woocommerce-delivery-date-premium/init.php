@@ -3,7 +3,7 @@
  * Plugin Name: YITH WooCommerce Delivery Date Premium
  * Plugin URI: https://yithemes.com/themes/plugins/yith-woocommerce-delivery-date/
  * Description: With <code><strong>YITH WooCommerce Delivery Date Premium</strong></code> you will allow your customers to choose the delivery date for their orders by specifying time slots and possible carriers! <a href="https://yithemes.com">Get more plugins for your e-commerce shop on <strong>YITH</strong></a>.
- * Version: 2.1.14
+ * Version: 2.1.15
  * Author: YITH
  * Author URI: https://yithemes.com/
  * Text Domain: yith-woocommerce-delivery-date
@@ -12,7 +12,7 @@
  * WC tested up to: 4.2
  * @author YITH
  * @package YITH WooCommerce Delivery Date Premium
- * @version 2.1.14
+ * @version 2.1.15
  */
 
 /*
@@ -52,7 +52,7 @@ register_activation_hook( __FILE__, 'yith_plugin_registration_hook' );
 
 //region    ****    Define constants  ****
 if( !defined( 'YITH_DELIVERY_DATE_VERSION' ) ) {
-    define( 'YITH_DELIVERY_DATE_VERSION', '2.1.14' );
+    define( 'YITH_DELIVERY_DATE_VERSION', '2.1.15' );
 }
 if( !defined( 'YITH_DELIVERY_DATE_PREMIUM' ) ) {
     define( 'YITH_DELIVERY_DATE_PREMIUM', '1' );
@@ -89,7 +89,7 @@ if( !defined( 'YITH_DELIVERY_DATE_SLUG' ) ) {
     define( 'YITH_DELIVERY_DATE_SLUG', 'yith-woocommerce-delivery-date' );
 }
 if( !defined( 'YITH_DELIVERY_DATE_SECRET_KEY' ) ) {
-    define( 'YITH_DELIVERY_DATE_SECRET_KEY', '12345' );
+    define( 'YITH_DELIVERY_DATE_SECRET_KEY', 'w5PhD7VGXngCNkMH4OUn' );
 }
 
 if( !defined( 'YITH_DELIVERY_DATE_DB_VERSION' ) ) {

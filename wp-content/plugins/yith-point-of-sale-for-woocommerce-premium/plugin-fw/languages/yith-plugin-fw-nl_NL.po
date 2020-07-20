@@ -3,16 +3,16 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: YITH Plugin Starter 1.0.0 Plugin FW\n"
-"Report-Msgid-Bugs-To: Your Inspiration Themes <plugins@yithemes.com>\n"
-"POT-Creation-Date: 2020-01-14 10:06+0000\n"
-"PO-Revision-Date: 2020-01-14 10:29+0000\n"
+"Report-Msgid-Bugs-To: YITH <plugins@yithemes.com>\n"
+"POT-Creation-Date: 2020-07-02 07:21:31+00:00\n"
+"PO-Revision-Date: 2020-04-06 15:05+0200\n"
 "Last-Translator: \n"
 "Language-Team: Your Inspiration Themes <info@yithemes.com>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.12\n"
+"X-Generator: Poedit 2.2.1\n"
 "X-Poedit-KeywordsList: __;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;"
 "_nx_noop:1,2,3c;esc_attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;"
 "esc_html_x:1,2c;_x;_ex\n"
@@ -22,107 +22,44 @@ msgstr ""
 "X-Textdomain-Support: yes\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: lib/privacy/yit-privacy.php:24
-msgctxt "Privacy Policy Guide Title"
-msgid "YITH Plugins"
-msgstr "YITH Plugins"
-
-#: lib/privacy/yit-privacy.php:59
-msgctxt "Privacy Policy Content"
-msgid ""
-"This sample language includes the basics around what personal data your "
-"store may be collecting, storing and sharing, as well as who may have access "
-"to that data. Depending on what settings are enabled and which additional "
-"plugins are used, the specific information shared by your store will vary. "
-"We recommend consulting with a lawyer when deciding what information to "
-"disclose on your privacy policy."
-msgstr ""
-"Deze voorbeeldtaal bevat de basisinformatie over de persoonlijke gegevens "
-"die je winkel mogelijk verzamelt, bewaart en deelt en wie toegang heeft tot "
-"die gegevens. Afhankelijk van welke instellingen zijn ingeschakeld en welke "
-"extra plug-ins worden gebruikt, varieert de specifieke informatie die door "
-"je winkel wordt gedeeld. We raden je aan om een advocaat te raadplegen "
-"wanneer je beslist welke informatie openbaar wordt gemaakt in je "
-"privacybeleid."
-
-#: lib/privacy/yit-privacy.php:63
-msgctxt "Privacy Policy Content"
-msgid "What we collect and store"
-msgstr "Wat we verzamelen en bewaren"
-
-#: lib/privacy/yit-privacy.php:66
-msgctxt "Privacy Policy Content"
-msgid "Who on our team has access"
-msgstr "Wie in ons team heeft toegang"
-
-#: lib/privacy/yit-privacy.php:69
-msgctxt "Privacy Policy Content"
-msgid "What we share with others"
-msgstr "Wat we delen met anderen"
-
-#: lib/privacy/yit-privacy.php:72
-msgctxt "Privacy Policy Content"
-msgid "Payments"
-msgstr "Betalingen"
-
 #: lib/yit-cpt-unlimited.php:462 lib/yit-cpt-unlimited.php:576
 #: lib/yit-cpt-unlimited.php:721 lib/yit-cpt-unlimited.php:1636
-#, php-format
 msgid "Add %s"
 msgstr "Toevoegen %s"
 
 #: lib/yit-cpt-unlimited.php:463 lib/yit-cpt-unlimited.php:577
-#, php-format
 msgid "Add New %s"
 msgstr "Nieuwe toevoegen %s"
 
 #: lib/yit-cpt-unlimited.php:464 lib/yit-cpt-unlimited.php:578
 #: lib/yit-cpt-unlimited.php:1269 lib/yit-cpt-unlimited.php:1306
-#, php-format
 msgid "Edit %s"
 msgstr "Bewerk %s"
 
 #: lib/yit-cpt-unlimited.php:465 lib/yit-cpt-unlimited.php:579
-#, php-format
 msgid "New %s"
 msgstr "Nieuwe %s"
 
 #: lib/yit-cpt-unlimited.php:466 lib/yit-cpt-unlimited.php:580
-#, php-format
 msgid "All %s"
 msgstr "Alle %s"
 
 #: lib/yit-cpt-unlimited.php:467 lib/yit-cpt-unlimited.php:581
 #: lib/yit-cpt-unlimited.php:1253 lib/yit-cpt-unlimited.php:1307
-#, php-format
 msgid "View %s"
 msgstr "Bekijk %s"
 
 #: lib/yit-cpt-unlimited.php:468 lib/yit-cpt-unlimited.php:582
-#, php-format
 msgid "Search %s"
 msgstr "Zoek %s"
 
 #: lib/yit-cpt-unlimited.php:469 lib/yit-cpt-unlimited.php:583
-#, php-format
 msgid "No %s found"
 msgstr "Geen %s gevonden"
 
 #: lib/yit-cpt-unlimited.php:470 lib/yit-cpt-unlimited.php:584
-#, php-format
 msgid "No %s found in Trash"
 msgstr "Geen %s gevonden in prullenbak"
-
-#: lib/yit-cpt-unlimited.php:627
-#, php-format
-msgctxt "taxonomy general name"
-msgid "%s Categories"
-msgstr "%s Categorieën"
-
-#: lib/yit-cpt-unlimited.php:628
-msgctxt "taxonomy singular name"
-msgid "Category"
-msgstr "Categorie"
 
 #: lib/yit-cpt-unlimited.php:629 templates/fields/ajax-terms.php:56
 msgid "Search Categories"
@@ -165,7 +102,6 @@ msgid "Categories"
 msgstr "Categorieën"
 
 #: lib/yit-cpt-unlimited.php:1044
-#, php-format
 msgid "%s Settings"
 msgstr "%s instellingen"
 
@@ -179,7 +115,6 @@ msgid "Type"
 msgstr "Type"
 
 #: lib/yit-cpt-unlimited.php:1054
-#, php-format
 msgid "Layout for this %s"
 msgstr "De lay-out hiervoor %s"
 
@@ -255,7 +190,6 @@ msgid "Quick links"
 msgstr "Snelle links"
 
 #: lib/yit-cpt-unlimited.php:1477
-#, php-format
 msgid "Show frontend of the %s"
 msgstr "Toon frontend van de %s"
 
@@ -265,7 +199,6 @@ msgid "Name"
 msgstr "Naam"
 
 #: lib/yit-cpt-unlimited.php:1635
-#, php-format
 msgid "Add %s from images"
 msgstr "Voeg %s toe vanaf afbeeldingen"
 
@@ -273,7 +206,7 @@ msgstr "Voeg %s toe vanaf afbeeldingen"
 msgid "Upload multiple files"
 msgstr "Upload meerdere bestanden"
 
-#: lib/yit-plugin-panel-wc.php:397
+#: lib/yit-plugin-panel-wc.php:403
 msgid "The changes you have made will be lost if you leave this page."
 msgstr "Als je deze pagina verlaat zullen alle wijzigingen verloren gaan."
 
@@ -281,84 +214,84 @@ msgstr "Als je deze pagina verlaat zullen alle wijzigingen verloren gaan."
 msgid "Plugin Settings"
 msgstr "Plugin instellingen"
 
-#: lib/yit-plugin-panel.php:424 lib/yit-plugin-panel.php:427
+#: lib/yit-plugin-panel.php:454 lib/yit-plugin-panel.php:457
 msgid "How to install premium version"
 msgstr "Hoe installeer ik de premium versie"
 
-#: lib/yit-plugin-panel.php:571 lib/yit-plugin-subpanel.php:151
+#: lib/yit-plugin-panel.php:617 lib/yit-plugin-subpanel.php:151
 #: templates/panel/woocommerce/woocommerce-form.php:14
 msgid "Save Changes"
 msgstr "Wijzigingen opslaan"
 
-#: lib/yit-plugin-panel.php:574 lib/yit-plugin-subpanel.php:154
+#: lib/yit-plugin-panel.php:621 lib/yit-plugin-subpanel.php:154
 #: templates/panel/woocommerce/woocommerce-form.php:17
 msgid ""
 "If you continue with this action, you will reset all options in this page."
 msgstr "Als u deze actie voortzet, zult u alle opties op deze pagina resetten."
 
-#: lib/yit-plugin-panel.php:576 lib/yit-plugin-subpanel.php:156
+#: lib/yit-plugin-panel.php:624 lib/yit-plugin-subpanel.php:156
 msgid "Reset to default"
 msgstr "Resetten naar standaard"
 
-#: lib/yit-plugin-panel.php:577 lib/yit-plugin-subpanel.php:157
+#: lib/yit-plugin-panel.php:625 lib/yit-plugin-subpanel.php:157
 #: templates/panel/woocommerce/woocommerce-form.php:21
 msgid "Are you sure?"
 msgstr "Weet u het zeker?"
 
-#: lib/yit-plugin-panel.php:775
+#: lib/yit-plugin-panel.php:823
 msgid ""
 "The element you have entered already exists. Please, enter another name."
 msgstr "Het element dat u hebt ingevoerd bestaat al. Voer een andere naam in."
 
-#: lib/yit-plugin-panel.php:776
+#: lib/yit-plugin-panel.php:824
 msgid "Settings saved"
 msgstr "Instellingen opgeslagen"
 
-#: lib/yit-plugin-panel.php:777
+#: lib/yit-plugin-panel.php:825
 msgid "Settings reset"
 msgstr "Instellingen resetten"
 
-#: lib/yit-plugin-panel.php:778
+#: lib/yit-plugin-panel.php:826
 msgid "Element deleted correctly."
 msgstr "Element succesvol verwijderd."
 
-#: lib/yit-plugin-panel.php:779 lib/yit-plugin-panel.php:780
+#: lib/yit-plugin-panel.php:827 lib/yit-plugin-panel.php:828
 msgid "Element updated correctly."
 msgstr "Element juist bijgewerkt."
 
-#: lib/yit-plugin-panel.php:781
+#: lib/yit-plugin-panel.php:829
 msgid "Database imported correctly."
 msgstr "Database juist geïmporteerd."
 
-#: lib/yit-plugin-panel.php:782
+#: lib/yit-plugin-panel.php:830
 msgid "An error has occurred during import. Please try again."
 msgstr "Er is een fout opgetreden tijdens importeren. Probeer opnieuw."
 
-#: lib/yit-plugin-panel.php:783
+#: lib/yit-plugin-panel.php:831
 msgid "The added file is not valid."
 msgstr "Het toegevoegde bestand is ongeldig."
 
-#: lib/yit-plugin-panel.php:784
+#: lib/yit-plugin-panel.php:832
 msgid "Sorry, import is disabled."
 msgstr "Sorry, importeren is uitgeschakeld."
 
-#: lib/yit-plugin-panel.php:785
+#: lib/yit-plugin-panel.php:833
 msgid "Sorting successful."
 msgstr "Sorteren succesvol."
 
-#: lib/yit-plugin-panel.php:1233
+#: lib/yit-plugin-panel.php:1281
 msgid "We need your support"
 msgstr "We hebben uw hulp nodig"
 
-#: lib/yit-plugin-panel.php:1234
+#: lib/yit-plugin-panel.php:1282
 msgid "to keep updating and improving the plugin. Please,"
 msgstr "om de plugin te blijven updaten en verbeteren. A.u.b.,"
 
-#: lib/yit-plugin-panel.php:1236
+#: lib/yit-plugin-panel.php:1284
 msgid "help us by leaving a five-star rating"
 msgstr "help ons door een vijf-sterenbeoordeling achter te laten"
 
-#: lib/yit-plugin-panel.php:1237
+#: lib/yit-plugin-panel.php:1285
 msgid ":) Thanks!"
 msgstr ":) Bedankt!"
 
@@ -429,102 +362,177 @@ msgstr ""
 "Er is een fout opgetreden, wat waarschijnlijk betekend dat de feed uit te "
 "lucht is. Probeer het later opnieuw."
 
-#: lib/yith-dashboard.php:99
-msgctxt "Plugin FW"
-msgid "View Changelog"
-msgstr "Bekijk wijzigingenlogboek"
-
-#: lib/yith-dashboard.php:100
-msgctxt "Plugin FW"
-msgid "Latest update released on"
-msgstr "Laatste update uitgebracht op"
-
-#: lib/yith-dashboard.php:143
-msgctxt "Button label"
-msgid "Close"
-msgstr "Sluiten"
-
-#: lib/yith-gutenberg.php:134
-msgctxt "[gutenberg]: Category Name"
-msgid "YITH"
-msgstr "YITH"
-
-#: lib/yith-system-status.php:97 lib/yith-system-status.php:98
-msgid "System Status"
-msgstr "Systeem Status"
-
-#: lib/yith-system-status.php:104
+#: lib/yith-system-status.php:111
 msgid "WordPress Version"
 msgstr "WordPress Versie"
 
-#: lib/yith-system-status.php:105
+#: lib/yith-system-status.php:112
 msgid "WooCommerce Version"
 msgstr "WooCommerce Versie"
 
-#: lib/yith-system-status.php:106
+#: lib/yith-system-status.php:113
 msgid "Available Memory"
 msgstr "Beschikbaar geheugen"
 
-#: lib/yith-system-status.php:107
+#: lib/yith-system-status.php:114
 msgid "PHP Version"
 msgstr "PHP Versie"
 
-#: lib/yith-system-status.php:108
+#: lib/yith-system-status.php:115
 msgid "TLS Version"
 msgstr "TLS Versie"
 
-#: lib/yith-system-status.php:109
+#: lib/yith-system-status.php:116
 msgid "WordPress Cron"
 msgstr "WordPress Cron"
 
-#: lib/yith-system-status.php:110
+#: lib/yith-system-status.php:117
 msgid "SimpleXML"
 msgstr "SimpleXML"
 
-#: lib/yith-system-status.php:111
+#: lib/yith-system-status.php:118
 msgid "MultiByte String"
 msgstr "MultiByte String"
 
-#: lib/yith-system-status.php:112
+#: lib/yith-system-status.php:119
 msgid "ImageMagick Version"
 msgstr "ImageMagick Versie"
 
-#: lib/yith-system-status.php:113
+#: lib/yith-system-status.php:120
 msgid "GD Library"
 msgstr "GD Library"
 
-#: lib/yith-system-status.php:114
+#: lib/yith-system-status.php:121
 msgid "Iconv Module"
 msgstr "Iconv Module"
 
-#: lib/yith-system-status.php:115
+#: lib/yith-system-status.php:122
 msgid "OPCache Save Comments"
 msgstr "OPCache Save Comments"
 
-#: lib/yith-system-status.php:116
+#: lib/yith-system-status.php:123
 msgid "URL FOpen"
 msgstr "URL FOpen"
 
-#: lib/yith-system-status.php:173
+#: lib/yith-system-status.php:141 lib/yith-system-status.php:142
+msgid "System Status"
+msgstr "Systeem Status"
+
+#: lib/yith-system-status.php:184
 msgid "YITH Plugins"
 msgstr "YITH Plugins"
 
-#: lib/yith-system-status.php:174
+#: lib/yith-system-status.php:192
 msgid "WooCommerce"
 msgstr "WooCommerce"
 
-#: lib/yith-system-status.php:291
+#: lib/yith-system-status.php:330
 msgid "Warning!"
 msgstr "Waarschuwing!"
 
-#: lib/yith-system-status.php:292
-#, php-format
+#. translators: %1$s open link tag, %2$s open link tag
+#: lib/yith-system-status.php:334
+#, fuzzy
 msgid ""
-"The system check has detected some compatibility issues on your "
-"installation. %sClick here%s to know more"
+"The system check has detected some compatibility issues on your installation."
+"%1$sClick here%2$s to know more"
 msgstr ""
 "Het systeem heeft enkele compatibiliteitsproblemen gevonden op uw "
 "installatie. %sKlik hier%s om meer te weten te komen"
+
+#: lib/yith-system-status.php:473
+msgid "Enabled"
+msgstr "Ingeschakeld"
+
+#: lib/yith-system-status.php:473
+msgid "Disabled"
+msgstr "Uitgeschakeld"
+
+#: lib/yith-system-status.php:478
+msgid "N/A"
+msgstr "N.V.T"
+
+#. translators: %1$s plugin name, %2$s requirement name
+#: lib/yith-system-status.php:506
+#, fuzzy
+msgid "%1$s needs %2$s enabled"
+msgstr "%s heeft nodig %s ingeschakeld"
+
+#. translators: %1$s plugin name, %2$s required memory amount
+#: lib/yith-system-status.php:509
+#, fuzzy
+msgid "%1$s needs at least %2$s of available memory"
+msgstr "%s heeft ten minste %s beschikbaar geheugen nodig"
+
+#. translators: %1$s plugin name, %2$s version number
+#: lib/yith-system-status.php:512
+#, fuzzy
+msgid "%1$s needs at least %2$s version"
+msgstr "%s heeft minstens %s versie nodig"
+
+#: lib/yith-system-status.php:537
+msgid ""
+"Update it to the latest version in order to benefit of all new features and "
+"security updates."
+msgstr ""
+"Bijwerken naar de nieuwste versie om te profiteren van alle nieuwe functies "
+"en beveiligingsupdates."
+
+#: lib/yith-system-status.php:541 lib/yith-system-status.php:547
+msgid "Contact your hosting company in order to update it."
+msgstr "Neem contact op met uw hostingmaatschappij om het bij te werken."
+
+#: lib/yith-system-status.php:545
+#, fuzzy
+msgid "Contact your hosting company in order to install it."
+msgstr "Neem contact op met uw hostingmaatschappij om dit in te schakelen."
+
+#. translators: %1$s code, %2$s file name
+#: lib/yith-system-status.php:552
+#, fuzzy
+msgid "Remove %1$s from %2$s file"
+msgstr "Verwijder %s uit %s bestand"
+
+#: lib/yith-system-status.php:560
+msgid "Contact your hosting company in order to enable it."
+msgstr "Neem contact op met uw hostingmaatschappij om dit in te schakelen."
+
+#. translators: %1$s opening link tag, %2$s closing link tag
+#: lib/yith-system-status.php:564 lib/yith-system-status.php:588
+#, fuzzy
+msgid ""
+"Read more %1$shere%2$s or contact your hosting company in order to increase "
+"it."
+msgstr ""
+"Lees %s hier%s meer, of neem contact op met uw hostingmaatschappij om het te "
+"verhogen."
+
+#. translators: %s recommended memory amount
+#: lib/yith-system-status.php:585
+msgid ""
+"For optimal functioning of our plugins, we suggest setting at least %s of "
+"available memory"
+msgstr ""
+"Voor het optimaal functioneren van de plugins, adviseren wij minstens %s "
+"beschikbaar geheugen te hebben"
+
+#. translators: %1$s TLS label, %2$s cURL label
+#: lib/yith-system-status.php:593
+#, fuzzy
+msgid ""
+"The system check cannot determine which %1$s version is installed because "
+"%2$s module is disabled. Ask your hosting company to enable it."
+msgstr ""
+"We kunnen niet bepalen welke <b>TLS</b> versie is geïnstalleerd omdat de "
+"<b>cURL</b> module is uitgeschakeld. Vraag uw hostingmaatschappij om het in "
+"te schakelen."
+
+#. translators: %1$s TLS label
+#: lib/yith-system-status.php:596
+msgid ""
+"The system check cannot determine which %1$s version is installed due to a "
+"connection issue between your site and our server."
+msgstr ""
 
 #: templates/fields/ajax-customers.php:57
 msgid "Search Customers"
@@ -532,7 +540,6 @@ msgstr "Zoek klanten"
 
 #: templates/fields/ajax-customers.php:83
 #: templates/fields/ajax-customers.php:93
-#, php-format
 msgid "%1$s (#%2$s &ndash; %3$s)"
 msgstr "%1$s (#%2$s &ndash; %3$s)"
 
@@ -600,16 +607,6 @@ msgstr "Afbeeldingen toevoegen"
 msgid "Delete"
 msgstr "Verwijderen"
 
-#: templates/fields/onoff.php:24
-msgctxt "ON/OFF button: use MAX 3 characters!"
-msgid "ON"
-msgstr "AAN"
-
-#: templates/fields/onoff.php:25
-msgctxt "ON/OFF button: use MAX 3 characters!"
-msgid "OFF"
-msgstr "UIT"
-
 #: templates/fields/select-buttons.php:21
 msgid "Add All"
 msgstr "Allen toevoegen"
@@ -656,12 +653,10 @@ msgid "Image preview"
 msgstr "Voorbeeld afbeelding"
 
 #: templates/metaboxes/types/icon-list.php:90
-#, php-format
 msgid "(Default: %s <img src=\"%s\"/>)"
 msgstr "(Default: %s <img src=\"%s\"/>)"
 
 #: templates/metaboxes/types/icon-list.php:92
-#, php-format
 msgid "(Default: <i %s></i> )"
 msgstr "(Default: <i %s></i> )"
 
@@ -669,114 +664,171 @@ msgstr "(Default: <i %s></i> )"
 msgid "Reset Defaults"
 msgstr "Herstellen naar standaard"
 
-#: templates/sysinfo/system-information-panel.php:30
+#: templates/sysinfo/system-information-panel.php:39
 msgid "YITH System Information"
 msgstr "YITH System Informatie"
 
-#: templates/sysinfo/system-information-panel.php:38
-msgid "Site URL"
-msgstr "Site URL"
-
-#: templates/sysinfo/system-information-panel.php:46
-msgid "Output IP Address"
-msgstr "Output IP Address"
-
-#: templates/sysinfo/system-information-panel.php:76
-msgid "Enabled"
-msgstr "Ingeschakeld"
-
-#: templates/sysinfo/system-information-panel.php:76
-msgid "Disabled"
-msgstr "Uitgeschakeld"
-
-#: templates/sysinfo/system-information-panel.php:82
-msgid "N/A"
-msgstr "N.V.T"
-
-#: templates/sysinfo/system-information-panel.php:96
-#, php-format
-msgid "%s needs %s enabled"
-msgstr "%s heeft nodig %s ingeschakeld"
-
-#: templates/sysinfo/system-information-panel.php:98
-#, php-format
-msgid "%s needs at least %s of available memory"
-msgstr "%s heeft ten minste %s beschikbaar geheugen nodig"
-
-#: templates/sysinfo/system-information-panel.php:100
-#: templates/sysinfo/system-information-panel.php:149
-#, php-format
-msgid ""
-"For optimal functioning of our plugins, we suggest setting at least %s of "
-"available memory"
+#: templates/sysinfo/system-information-panel.php:50
+msgid "WP debug.log file"
 msgstr ""
-"Voor het optimaal functioneren van de plugins, adviseren wij minstens %s "
-"beschikbaar geheugen te hebben"
 
-#: templates/sysinfo/system-information-panel.php:102
-#: templates/sysinfo/system-information-panel.php:137
-#: templates/sysinfo/system-information-panel.php:151
-#, php-format
-msgid ""
-"Read more %s here%s or contact your hosting company in order to increase it."
+#: templates/sysinfo/system-information-panel.php:54
+msgid "PHP error_log file"
 msgstr ""
-"Lees %s hier%s meer, of neem contact op met uw hostingmaatschappij om het te "
-"verhogen."
 
-#: templates/sysinfo/system-information-panel.php:105
-#, php-format
-msgid "%s needs at least %s version"
-msgstr "%s heeft minstens %s versie nodig"
-
-#: templates/sysinfo/system-information-panel.php:116
-msgid ""
-"Update it to the latest version in order to benefit of all new features and "
-"security updates."
-msgstr ""
-"Bijwerken naar de nieuwste versie om te profiteren van alle nieuwe functies "
-"en beveiligingsupdates."
-
-#: templates/sysinfo/system-information-panel.php:122
-msgid "Contact your hosting company in order to update it."
-msgstr "Neem contact op met uw hostingmaatschappij om het bij te werken."
-
-#: templates/sysinfo/system-information-panel.php:126
-#, php-format
-msgid "Remove %s from %s file"
-msgstr "Verwijder %s uit %s bestand"
-
-#: templates/sysinfo/system-information-panel.php:134
-msgid "Contact your hosting company in order to enable it."
-msgstr "Neem contact op met uw hostingmaatschappij om dit in te schakelen."
-
-#: templates/sysinfo/system-information-panel.php:157
-msgid ""
-"We cannot determine which <b>TLS</b> version is installed because <b>cURL</"
-"b> module is disabled. Ask your hosting company to enable it."
-msgstr ""
-"We kunnen niet bepalen welke <b>TLS</b> versie is geïnstalleerd omdat de "
-"<b>cURL</b> module is uitgeschakeld. Vraag uw hostingmaatschappij om het in "
-"te schakelen."
-
-#: templates/sysinfo/system-information-panel.php:160
-msgid ""
-"<b>ImageMagick</b> module is not installed. Ask your hosting company to "
-"install it."
-msgstr ""
-"<b>ImageMagick</b> module is niet geïnstalleerd. Vraag uw "
-"hositngmaatschappij om het te installeren."
-
-#: templates/sysinfo/system-information-panel.php:172
-msgid "Show full PHPInfo"
-msgstr "Toon volledige PHPInfo"
-
-#: templates/sysinfo/system-information-panel.php:176
+#: templates/sysinfo/system-information-panel.php:59
+#: templates/sysinfo/system-information-panel.php:83
 msgid "Back to System panel"
 msgstr "Terug naar systeempaneel"
 
-#: templates/sysinfo/system-information-panel.php:193
+#: templates/sysinfo/system-information-panel.php:96
 msgid "Back to top"
 msgstr "Terug naar boven"
+
+#: templates/sysinfo/system-information-panel.php:104
+msgid "Site URL"
+msgstr "Site URL"
+
+#: templates/sysinfo/system-information-panel.php:112
+msgid "Output IP Address"
+msgstr "Output IP Address"
+
+#: templates/sysinfo/system-information-panel.php:120
+msgid "Defined WP_CACHE"
+msgstr ""
+
+#: templates/sysinfo/system-information-panel.php:123
+msgid "Yes"
+msgstr ""
+
+#: templates/sysinfo/system-information-panel.php:123
+msgid "No"
+msgstr ""
+
+#: templates/sysinfo/system-information-panel.php:159
+msgid "Show full PHPInfo"
+msgstr "Toon volledige PHPInfo"
+
+#: templates/sysinfo/system-information-panel.php:167
+msgid "Show log files"
+msgstr ""
+
+#: yit-plugin.php:194
+msgid "License"
+msgstr "Licentie"
+
+#. Author of the plugin/theme
+#, fuzzy
+msgid "YITH"
+msgstr "YITH"
+
+#: lib/privacy/yit-privacy.php:24
+msgctxt "Privacy Policy Guide Title"
+msgid "YITH Plugins"
+msgstr "YITH Plugins"
+
+#: lib/privacy/yit-privacy.php:59
+msgctxt "Privacy Policy Content"
+msgid ""
+"This sample language includes the basics around what personal data your "
+"store may be collecting, storing and sharing, as well as who may have access "
+"to that data. Depending on what settings are enabled and which additional "
+"plugins are used, the specific information shared by your store will vary. "
+"We recommend consulting with a lawyer when deciding what information to "
+"disclose on your privacy policy."
+msgstr ""
+"Deze voorbeeldtaal bevat de basisinformatie over de persoonlijke gegevens "
+"die je winkel mogelijk verzamelt, bewaart en deelt en wie toegang heeft tot "
+"die gegevens. Afhankelijk van welke instellingen zijn ingeschakeld en welke "
+"extra plug-ins worden gebruikt, varieert de specifieke informatie die door "
+"je winkel wordt gedeeld. We raden je aan om een advocaat te raadplegen "
+"wanneer je beslist welke informatie openbaar wordt gemaakt in je "
+"privacybeleid."
+
+#: lib/privacy/yit-privacy.php:63
+msgctxt "Privacy Policy Content"
+msgid "What we collect and store"
+msgstr "Wat we verzamelen en bewaren"
+
+#: lib/privacy/yit-privacy.php:66
+msgctxt "Privacy Policy Content"
+msgid "Who on our team has access"
+msgstr "Wie in ons team heeft toegang"
+
+#: lib/privacy/yit-privacy.php:69
+msgctxt "Privacy Policy Content"
+msgid "What we share with others"
+msgstr "Wat we delen met anderen"
+
+#: lib/privacy/yit-privacy.php:72
+msgctxt "Privacy Policy Content"
+msgid "Payments"
+msgstr "Betalingen"
+
+#: lib/yit-cpt-unlimited.php:627
+msgctxt "taxonomy general name"
+msgid "%s Categories"
+msgstr "%s Categorieën"
+
+#: lib/yit-cpt-unlimited.php:628
+msgctxt "taxonomy singular name"
+msgid "Category"
+msgstr "Categorie"
+
+#: lib/yith-dashboard.php:99
+msgctxt "Plugin FW"
+msgid "View Changelog"
+msgstr "Bekijk wijzigingenlogboek"
+
+#: lib/yith-dashboard.php:100
+msgctxt "Plugin FW"
+msgid "Latest update released on"
+msgstr "Laatste update uitgebracht op"
+
+#: lib/yith-dashboard.php:143
+msgctxt "Button label"
+msgid "Close"
+msgstr "Sluiten"
+
+#: lib/yith-gutenberg.php:134
+msgctxt "[gutenberg]: Category Name"
+msgid "YITH"
+msgstr "YITH"
+
+#: templates/fields/dimensions.php:16
+msgctxt "Position in the \"Dimensions\" field"
+msgid "Top"
+msgstr ""
+
+#: templates/fields/dimensions.php:17
+msgctxt "Position in the \"Dimensions\" field"
+msgid "Right"
+msgstr ""
+
+#: templates/fields/dimensions.php:18
+msgctxt "Position in the \"Dimensions\" field"
+msgid "Bottom"
+msgstr ""
+
+#: templates/fields/dimensions.php:19
+msgctxt "Position in the \"Dimensions\" field"
+msgid "Left"
+msgstr ""
+
+#: templates/fields/dimensions.php:117
+msgctxt "Tooltip in the \"Dimensions\" field"
+msgid "Link values together"
+msgstr ""
+
+#: templates/fields/onoff.php:24
+msgctxt "YES/NO button: use MAX 3 characters!"
+msgid "YES"
+msgstr "JA"
+
+#: templates/fields/onoff.php:25
+msgctxt "YES/NO button: use MAX 3 characters!"
+msgid "NO"
+msgstr "NEE"
 
 #: yit-plugin.php:83
 msgctxt "Plugin Row Meta"
@@ -803,9 +855,20 @@ msgctxt "Action links"
 msgid "Settings"
 msgstr "Instellingen"
 
-#: yit-plugin.php:194
-msgid "License"
-msgstr "Licentie"
+#~ msgid ""
+#~ "<b>ImageMagick</b> module is not installed. Ask your hosting company to "
+#~ "install it."
+#~ msgstr ""
+#~ "<b>ImageMagick</b> module is niet geïnstalleerd. Vraag uw "
+#~ "hositngmaatschappij om het te installeren."
+
+#~ msgctxt "ON/OFF button: use MAX 3 characters!"
+#~ msgid "ON"
+#~ msgstr "AAN"
+
+#~ msgctxt "ON/OFF button: use MAX 3 characters!"
+#~ msgid "OFF"
+#~ msgstr "UIT"
 
 #~ msgid "An unexpected error occurred, please try again later. Thanks!"
 #~ msgstr ""

@@ -53,18 +53,21 @@ $labels = apply_filters( 'yith_wcms_timeline_labels', array(
     )
 );
 
-$display = apply_filters( 'yith_wcms_timeline_display', 'horizontal' );
-$remove_shipping_step = 'yes' == get_option( 'yith_wcms_timeline_remove_shipping_step', 'no' );
+$display                  = apply_filters( 'yith_wcms_timeline_display', 'horizontal' );
+$merge_billing_shipping   = 'yes' === get_option( 'yith_wcms_timeline_options_merge_billing_and_shipping_step', 'no' );
+$merge_order_info_payment = 'yes' === get_option( 'yith_wcms_timeline_options_merge_order_and_payment_step', 'no' );
+$checkout_style           = YITH_Multistep_Checkout()->frontend->get_checkout_style();
 
 $timeline_args = array(
-    'labels'                => $labels,
-    'is_user_logged_in'     => $is_user_logged_in,
-    'display'               => $display,
-    'style'                 => get_option( 'yith_wcms_timeline_template', 'text' ),
-    'remove_shipping_step'  => $remove_shipping_step
+	'labels'                   => $labels,
+	'is_user_logged_in'        => $is_user_logged_in,
+	'display'                  => $display,
+	'style'                    => $checkout_style,
+	'shipping_step_enabled'    => YITH_Multistep_Checkout()->frontend->is_step_enabled( 'shipping' ),
+	'payment_step_enabled'     => YITH_Multistep_Checkout()->frontend->is_step_enabled( 'payment' ),
+	'merge_billing_shipping'   => $merge_billing_shipping,
+	'merge_order_info_payment' => $merge_order_info_payment,
 );
-
-$timeline_template = apply_filters( 'yith_wcms_timeline_template', 'checkout-timeline.php' );
 
 $enable_nav_button = 'yes' == get_option( 'yith_wcms_nav_buttons_enabled', 'yes' );
 
@@ -74,12 +77,12 @@ $default_login_message = _x( 'If you have already registered, please, enter your
 $login_message         = apply_filters( 'yith_wcms_form_checkout_login_message', get_option( 'yith_wcms_form_checkout_login_message', $default_login_message ) );
 
 //load timeline template
-function_exists( 'yith_wcms_checkout_timeline' ) && yith_wcms_checkout_timeline( $timeline_template, $timeline_args );
+function_exists( 'yith_wcms_load_checkout_timeline' ) && yith_wcms_load_checkout_timeline( $timeline_args );
 
 do_action( 'woocommerce_before_checkout_form', $checkout );
 ?>
 
-    <div id="checkout-wrapper" class="timeline-<?php echo $display ?>">
+    <div id="checkout-wrapper" class="timeline-<?php echo $display . ' ' . $checkout_style ?>">
         <div id="checkout_coupon" class="woocommerce_checkout_coupon">
             <?php do_action( 'yith_woocommerce_checkout_coupon', $checkout ); ?>
         </div>
@@ -107,8 +110,13 @@ do_action( 'woocommerce_before_checkout_form', $checkout );
                 <div class="checkout_billing <?php echo $is_user_logged_in ? 'logged-in' : 'not-logged-in'; echo $enable_checkout_login_reminder ? ' show-login-reminder' : ' hide-login-reminder'; ?>" id="customer_billing_details">
                     <?php do_action( 'woocommerce_checkout_before_customer_details' ); ?>
                     <?php do_action( 'woocommerce_checkout_billing' ); ?>
+					<?php if( $merge_billing_shipping ) {
+						do_action( 'woocommerce_before_checkout_shipping_form', $checkout );
+						do_action( 'woocommerce_checkout_shipping' );
+						do_action( 'woocommerce_checkout_after_customer_details' );
+					}?>
                 </div>
-                <?php if( ! $remove_shipping_step ) : ?>
+                <?php if( YITH_Multistep_Checkout()->frontend->is_step_enabled( 'shipping' ) ) : ?>
                     <div class="checkout_shipping" id="customer_shipping_details">
                         <?php
                         do_action( 'woocommerce_before_checkout_shipping_form', $checkout );
@@ -126,24 +134,31 @@ do_action( 'woocommerce_before_checkout_form', $checkout );
                     <h3 id="order_review_heading"><?php _e( 'Your order', 'yith-woocommerce-multi-step-checkout' ); ?></h3>
                     <?php do_action( 'woocommerce_checkout_order_review' ); ?>
                     <?php do_action( 'yith_woocommerce_checkout_order_review' ); ?>
-                </div>
+					<?php if( $merge_order_info_payment ) {
+						do_action( 'yith_woocommerce_checkout_payment' );
+					} ?>
+				</div>
 
-                <div id="order_checkout_payment" class="yith-woocommerce-checkout-payment">
-                    <h3 id="payment_heading">
-                        <?php echo apply_filters( 'yith_wcms_payment_step_section_title', __( 'Payment', 'yith-woocommerce-multi-step-checkout' ) ); ?>
-                    </h3>
-                    <?php do_action( 'yith_woocommerce_checkout_payment' ); ?>
-                </div>
+				<?php if( YITH_Multistep_Checkout()->frontend->is_step_enabled( 'payment' ) ) : ?>
+					<div id="order_checkout_payment" class="yith-woocommerce-checkout-payment">
+						<h3 id="payment_heading">
+							<?php echo apply_filters( 'yith_wcms_payment_step_section_title', __( 'Payment', 'yith-woocommerce-multi-step-checkout' ) ); ?>
+						</h3>
+						<?php do_action( 'yith_woocommerce_checkout_payment' ); ?>
+					</div>
+				<?php endif; ?>
             </div>
 
             <?php do_action( 'woocommerce_checkout_after_order_review' ); ?>
 
         </form>
 
-        <div id="form_actions" class="<?php echo $enable_nav_button ? 'enabled' : 'disabled'; ?>" data-step="<?php echo $show_login_step ? 'login' : 'billing'; ?>">
-            <input type="button" class="<?php echo $button_class ?> prev" name="checkout_prev_step" value="<?php echo $labels['prev'] ?>" data-action="prev">
-            <span></span>
-            <input type="button" class="<?php echo $button_class ?> next" name="checkout_next_step" value="<?php echo $enable_checkout_login_reminder && ! is_user_logged_in() ? $labels['skip_login'] : $labels['next'] ?>" data-action="next">
+        <div id="form_actions" data-step="<?php echo $show_login_step ? 'login' : 'billing'; ?>">
+			<?php if( $enable_nav_button ) : ?>
+            	<input type="button" class="<?php echo $button_class ?> prev" name="checkout_prev_step" value="<?php echo $labels['prev'] ?>" data-action="prev">
+            	<span></span>
+            	<input type="button" class="<?php echo $button_class ?> next" name="checkout_next_step" value="<?php echo $enable_checkout_login_reminder && ! is_user_logged_in() ? $labels['skip_login'] : $labels['next'] ?>" data-action="next">
+			<?php endif; ?>
             <?php if( $show_back_to_cart_button ) : ?>
                 <a href="<?php echo wc_get_cart_url(); ?>" id="yith-wcms-back-to-cart-button" class="<?php echo $button_class ?>"><?php echo $labels['back_to_cart'] ?></a>
             <?php endif; ?>

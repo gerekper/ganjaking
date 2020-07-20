@@ -146,3 +146,31 @@ if ( ! function_exists( 'yith_ctpw_get_url_order_args' ) ) {
 
 	}
 }
+
+if ( ! function_exists( 'get_array_column' ) ) {
+	/**
+	 * Get column of last names from a recordset
+	 *
+	 * @param $array
+	 * @param $array_column
+	 *
+	 * @return array
+	 * @since  2.0.0
+	 * @author Alessio Torrisi
+	 *
+	 */
+	function get_array_column( $array, $array_column ) {
+		if ( function_exists( 'array_column' ) ) {
+			return array_column( $array, $array_column );
+		}
+
+		$return = array();
+		foreach ( $array as $row ) {
+			if ( isset( $row[ $array_column ] ) ) {
+				$return[] = $row[ $array_column ];
+			}
+		}
+
+		return $return;
+	}
+}

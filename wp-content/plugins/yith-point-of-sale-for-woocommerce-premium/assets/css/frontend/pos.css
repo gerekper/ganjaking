@@ -505,7 +505,7 @@ textarea:focus {
 
 .yith-pos-product-list__logo img {
     max-width  : 140px;
-    max-height : 100px;
+    max-height : 60px;
 }
 
 .yith-pos-product-list {
@@ -634,6 +634,9 @@ textarea:focus {
     z-index    : 1000;
     background : #fff;
     width      : 100%;
+    min-width  : 350px;
+    max-height : calc(100vh - 140px);
+    overflow-y : auto;
 }
 
 .yith-pos-product-list__search a.add-product-button {
@@ -763,7 +766,8 @@ span.yith-pos-product__actions-add-product:hover,
 }
 
 .yith-pos-product-category-list {
-    height : calc(100% - 122px);
+    overflow: hidden;
+    height: 100%;
 }
 
 .yith-pos-scanner-tab,
@@ -945,7 +949,8 @@ span.yith-pos-product__actions-add-product:hover,
     display               : grid;
     grid-template-columns : 60px 1fr;
     grid-template-rows    : 100%;
-    height                : calc(100% - 122px);
+    overflow: hidden;
+    height: 100%;
 }
 
 .yith-pos-product-list__go-back-wrapper {
@@ -1504,6 +1509,22 @@ span.yith-pos-product__actions-add-product:hover,
     background : rgba(255, 255, 255, 0.1);
 }
 
+.button.is-loading:before {
+    display : none;
+}
+
+.button.is-loading:after {
+    border-color : white white transparent;
+}
+
+.button.is-loading.is-loading--left:after {
+    left : 15px;
+}
+
+.button.is-loading.is-loading--right:after {
+    left : 15px;
+}
+
 .yith-pos--loading-lock:before {
     content    : '';
     position   : absolute;
@@ -1655,7 +1676,7 @@ span.yith-pos-product__actions-add-product:hover,
     display    : block;
     font-size  : 12px;
     margin-top : -3px;
-    padding    : 10px;
+    padding    : 10px 0 10px 10px;
     position   : absolute;
     right      : 0;
     top        : 50%;
@@ -4054,6 +4075,37 @@ span.yith-pos-icon-calculator {
 
     .yith-pos-header i.yith-pos-icon-store {
         margin : auto 10px;
+    }
+}
+
+@media screen and (max-width : 1023px) {
+    .yith-pos {
+        grid-template-columns : 40% 60%;
+        font-size: .9em;
+    }
+
+    .quantity {
+        transform : scale(.7);
+    }
+
+    .cart-item__qty{
+        margin-left: -30px;
+        margin-right: -30px;
+    }
+
+    .cart-saved__name, .cart-item__name {
+        width         : 80px;
+        min-width     : 80px;
+        padding-right : 28px;
+    }
+
+    .cart-item__name__title {
+        text-overflow : ellipsis;
+        overflow      : hidden;
+    }
+
+    .cart-action:not(.cart-action--pay) {
+        font-size: 10px;
     }
 }
 

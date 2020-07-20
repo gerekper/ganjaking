@@ -4,12 +4,36 @@ Contributors: yithemes
 Tags: woocommerce, order tracking, order track, order trace, delivery, carriers, shipping, ship orders, e-commerce, send product, product shipping, delivery notes, track carriers, track email, delivery note, order shipping, order, orders, shop, e commerce, ecommerce
 Requires at least: 4.6.0
 Tested up to: 5.4
-Stable tag: 1.6.4
+Stable tag: 1.6.5
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Documentation: https://docs.yithemes.com/yith-woocommerce-order-tracking/
 
 == Changelog ==
+
+= 1.6.5 - Released on 03 Jul 2020 =
+
+* New: Support for WooCommerce 4.3
+* New: added new carrier Starken
+* New: added new carrier Direct Freight Express
+* New: added new carrier Janio
+* New: added new carrier UPS Italy
+* New: added new carrier Spedire Comodo
+* New: added new carrier Quicken
+* New: added new carrier GLS IRELAND
+* New: added new carrier iVoy
+* New: added new carrier Bridge Logis
+* Update: plugin-fw
+* Update: language files
+* Update: updated The Courier Guy tracking URL
+* Update: updated Thailand Post tracking URL
+* Update: updated Spedire Comodo tracking URL
+* Update: updated DHL eCommerce tracking URL
+* Update: updated DHL Sweden tracking URL
+* Fix: fixed boolean value when formatting pickup date
+* Fix: fixed a problem with the picked up date
+* Dev: added new filter ywot_live_track_your_order_text
+* Dev: added autocomplete attribute in pickup date field
 
 = 1.6.4 - Released on 18 May 2020 =
 

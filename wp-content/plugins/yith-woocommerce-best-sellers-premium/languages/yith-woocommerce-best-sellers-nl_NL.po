@@ -5,14 +5,14 @@ msgstr ""
 "Project-Id-Version: YITH WooCommerce Best Sellers\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
 "best-sellers-premium\n"
-"POT-Creation-Date: 2020-04-29 08:34:10+00:00\n"
-"PO-Revision-Date: 2020-04-29 07:34:27+0000\n"
+"POT-Creation-Date: 2020-07-07 13:03:10+00:00\n"
+"PO-Revision-Date: 2020-06-04 20:16:17+0000\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/2.3.1\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
 
 #: includes/class.yith-wcbsl-admin-premium.php:75
 msgid "Display Options"
@@ -194,7 +194,7 @@ msgstr ""
 
 #: includes/class.yith-wcbsl-admin-premium.php:232
 msgid "Upload your custom Best Seller Seal"
-msgstr "Upload uw aangepaste bestseller zegel"
+msgstr "Upload je aangepaste bestseller zegel"
 
 #: includes/class.yith-wcbsl-admin-premium.php:236
 msgid "Position"
@@ -202,7 +202,7 @@ msgstr "Positie"
 
 #: includes/class.yith-wcbsl-admin-premium.php:238
 msgid "Select the position you want to apply to Best Seller Seals."
-msgstr "Selecteer de positie die u wilt toepassen op bestseller zegels."
+msgstr "Selecteer de positie die je wilt toepassen op bestseller zegels."
 
 #: includes/class.yith-wcbsl-admin-premium.php:241
 msgid "Before summary"
@@ -226,11 +226,11 @@ msgstr "Onder samenvatting"
 
 #: includes/class.yith-wcbsl-admin-premium.php:250
 msgid "Align"
-msgstr "In lijn"
+msgstr "Uitlijnen"
 
 #: includes/class.yith-wcbsl-admin-premium.php:252
 msgid "Select alignment you want to apply to Best Seller Seals."
-msgstr "Selecteer de uitlijning die u wilt toepassen op bestseller zegels."
+msgstr "Selecteer de uitlijning die je wilt toepassen op bestseller zegels."
 
 #: includes/class.yith-wcbsl-admin-premium.php:255
 msgid "Left"
@@ -303,7 +303,7 @@ msgid ""
 "Select Product Categories you want to display. Leave it empty for displaying "
 "all."
 msgstr ""
-"Selecteer de product categorieën die u wilt weergeven. Laat leeg om alles "
+"Selecteer de product categorieën die je wilt weergeven. Laat leeg om alles "
 "weer te geven"
 
 #: includes/class.yith-wcbsl-bestsellers-categories-widget.php:218
@@ -416,7 +416,7 @@ msgstr "toon Top %s"
 #: templates/premium/single-product/position-in-bestsellers.php:23
 #: templates/premium/single-product/position-in-bestsellers.php:28
 msgid "No. %1$s in %2$s"
-msgstr "Nr. %1$s van %2$s"
+msgstr "Nr. %1$s in %2$s"
 
 #. Description of the plugin/theme
 msgid ""
@@ -427,12 +427,12 @@ msgid ""
 "\"https://yithemes.com/\" target=\"_blank\">Get more plugins for your e-"
 "commerce shop on <strong>YITH</strong></a>"
 msgstr ""
-"<code> <strong> YITH WooCommerce Bestsellers </strong></code> stelt u in "
-"staat om best seller-producten van uw winkel te markeren. Je kunt ze laten "
-"zien op een Best Sellers-pagina of via een widget. Met de plug-in kunt u ook "
-"een bestsellers-badge op uw producten weergeven om het oog van uw klanten te "
-"vangen. <a href=\"https://yithemes.com/\" target=\"_blank\"> Download meer "
-"plug-ins voor uw e-commerceshop op <strong>YITH </strong></a>"
+"<code><strong>YITH WooCommerce Best Sellers</strong></code>  stelt je in "
+"staat om best seller-producten van je winkel te markeren. Je kunt ze laten "
+"zien op een Best Sellers-pagina of via een widget. Met de plugin kun je ook "
+"een bestsellers-badge op je producten weergeven om de aandacht van de klant "
+"te vangen. <a href=\"https://yithemes.com/\" target=\"_blank\">Verkrijg meer "
+"plugins voor je e-commerce shop op <strong>YITH</strong></a>"
 
 #: includes/class.yith-wcbsl-admin-premium.php:160
 #: templates/bestseller-badge.php:14 templates/premium/bestseller-badge.php:15

@@ -3,13 +3,13 @@
  * Plugin Name: YITH WooCommerce PDF Invoice and Shipping List Premium
  * Plugin URI: https://yithemes.com/themes/plugins/yith-woocommerce-pdf-invoice/
  * Description: <code><strong>YITH WooCommerce PDF Invoice and Shipping List</strong></code> generate PDF invoices, credit notes, pro-forma invoice and packing slip for WooCommerce orders. Set manual or automatic invoice generation, fully customizable document template and sync with your DropBox account. <a href="https://yithemes.com/" target="_blank">Get more plugins for your e-commerce shop on <strong>YITH</strong></a>.
- * Version: 2.0.14
+ * Version: 2.0.15
  * Author: YITH
  * Author URI: https://yithemes.com/
  * Text Domain: yith-woocommerce-pdf-invoice
  * Domain Path: /languages/
  * WC requires at least: 3.4.0
- * WC tested up to: 4.2
+ * WC tested up to: 4.3
  **/
 
 /*  Copyright 2013-2019  Your Inspiration Themes  (email : plugins@yithemes.com)
@@ -75,7 +75,7 @@ defined( 'YITH_YWPI_INIT' ) || define( 'YITH_YWPI_INIT', plugin_basename( __FILE
 defined( 'YITH_YWPI_PREMIUM' ) || define( 'YITH_YWPI_PREMIUM', '1' );
 defined( 'YITH_YWPI_SLUG' ) || define( 'YITH_YWPI_SLUG', 'yith-woocommerce-pdf-invoice' );
 defined( 'YITH_YWPI_SECRET_KEY' ) || define( 'YITH_YWPI_SECRET_KEY', 'gpToFMpxJ2ZT7gRSeyG8' );
-defined( 'YITH_YWPI_VERSION' ) || define( 'YITH_YWPI_VERSION', '2.0.14' );
+defined( 'YITH_YWPI_VERSION' ) || define( 'YITH_YWPI_VERSION', '2.0.15' );
 defined( 'YITH_YWPI_FILE' ) || define( 'YITH_YWPI_FILE', __FILE__ );
 defined( 'YITH_YWPI_DIR' ) || define( 'YITH_YWPI_DIR', plugin_dir_path( __FILE__ ) );
 defined( 'YITH_YWPI_URL' ) || define( 'YITH_YWPI_URL', plugins_url( '/', __FILE__ ) );

@@ -30,7 +30,7 @@ $expiration_date = !is_numeric($object->expiration) ? strtotime( $object->expira
         <tr>
             <td class="ywgc-logo-shop" colspan="2" align="<?php echo get_option( 'ywgc_shop_logo_before_alignment' ) ?>">
                 <?php if( isset( $company_logo_url ) && $company_logo_url  ) {  ?>
-                    <img src="<?php echo apply_filters( 'ywgc_custom_company_logo_url', $company_logo_url ); ?>"
+                    <img src="<?php echo apply_filters( 'ywgc_custom_company_logo_url', $company_logo_url, $context ); ?>"
                          class="ywgc-logo-shop-image"
                          alt="<?php _e( "The shop logo for the gift card", 'yith-woocommerce-gift-cards' ); ?>"
                          title="<?php _e( "The shop logo for the gift card", 'yith-woocommerce-gift-cards' ); ?>">
@@ -43,7 +43,7 @@ $expiration_date = !is_numeric($object->expiration) ? strtotime( $object->expira
 
     <?php do_action( 'yith_wcgc_template_before_main_image', $object, $context ); ?>
 
-    <?php if ( $header_image_url = apply_filters( 'ywgc_custom_header_image_url', preg_replace('/^https(?=:\/\/)/i','http',$header_image_url) ) ):
+    <?php if ( $header_image_url = apply_filters( 'ywgc_custom_header_image_url', preg_replace('/^https(?=:\/\/)/i','http',$header_image_url), $context ) ):
 
         // This add the default gift card image when the image is lost
         if ( substr($header_image_url, -strlen('/'))=== '/' )
@@ -81,7 +81,7 @@ $expiration_date = !is_numeric($object->expiration) ? strtotime( $object->expira
 
         <td class="ywgc-logo-shop" colspan="2" align="<?php echo get_option( 'ywgc_shop_logo_after_alignment' ) ?>">
             <?php if( isset( $company_logo_url ) && $company_logo_url &&  get_option( 'ywgc_shop_logo_on_gift_card_after', 'no' ) == 'yes'    ) {  ?>
-                <img src="<?php echo apply_filters( 'ywgc_custom_company_logo_url', $company_logo_url ); ?>"
+                <img src="<?php echo apply_filters( 'ywgc_custom_company_logo_url', $company_logo_url, $context ); ?>"
                      class="ywgc-logo-shop-image"
                      alt="<?php _e( "The shop logo for the gift card", 'yith-woocommerce-gift-cards' ); ?>"
                      title="<?php _e( "The shop logo for the gift card", 'yith-woocommerce-gift-cards' ); ?>">
@@ -196,7 +196,7 @@ $expiration_date = !is_numeric($object->expiration) ? strtotime( $object->expira
             <td></td>
         </tr>
         <tr>
-            <td colspan="2" style="text-align: center; color: red;" class="ywgc-expiration-message"><?php echo $expiration_message; ?></td>
+            <td colspan="2" style="text-align: center;" class="ywgc-expiration-message"><?php echo $expiration_message; ?></td>
         </tr>
     <?php endif; ?>
 

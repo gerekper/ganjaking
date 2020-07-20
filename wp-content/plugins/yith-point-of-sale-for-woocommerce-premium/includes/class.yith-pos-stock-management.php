@@ -54,15 +54,16 @@ if ( ! class_exists( 'YITH_POS_Stock_Management' ) ) {
 			add_filter( 'woocommerce_can_reduce_order_stock', array( $this, 'reduce_order_stock' ), 100, 2 );
 			add_filter( 'woocommerce_can_restore_order_stock', array( $this, 'restore_order_stock' ), 100, 2 );
 
-			add_action( 'admin_enqueue_scripts', array( $this, 'prevent_restock_items_js' ), 20 );
-			/**
-			 * todo: automatic restock items for refunds
-			 * this code is commented since a filter is missing in WooCommerce
-			 * see this Pull Request: https://github.com/woocommerce/woocommerce/pull/25257
-			 * when the filter will be added, we can de-comment this line of code
-			 * and remove the 'prevent_restock_items_js' method and JS
-			 */
-			//add_action( 'woocommerce_refund_created', array( $this, 'restock_items_on_refund' ), 10, 2 );
+			if ( version_compare( WC()->version, '4.1.0', '>=' ) ) {
+				/**
+				 * Automatically restock items for refunds
+				 * todo: the backward compatibility ('prevent_restock_items_js' method and JS) can be removed since WooCommerce 5
+				 * The 'woocommerce_can_restock_refunded_items' filter requires WooCommerce 4.1 or greater.
+				 */
+				add_filter( 'woocommerce_can_restock_refunded_items', array( $this, 'restock_items_on_refund' ), 10, 3 );
+			} else {
+				add_action( 'admin_enqueue_scripts', array( $this, 'prevent_restock_items_js' ), 20 );
+			}
 		}
 
 		public function prevent_restock_items_js() {
@@ -77,77 +78,83 @@ if ( ! class_exists( 'YITH_POS_Stock_Management' ) ) {
 		}
 
 		/**
-		 * @param WC_Order_Refund $refund
-		 * @param array           $args
+		 * Restock items on refund
+		 *
+		 * @param bool     $allowed
+		 * @param WC_Order $order
+		 * @param array    $refunded_line_items
+		 *
+		 * @return bool
 		 */
-		public function restock_items_on_refund( $refund, $args ) {
-			if ( yith_pos_is_pos_order( $args[ 'order_id' ] ) ) {
-				$order = wc_get_order( $args[ 'order_id' ] );
-				if ( $order ) {
-					$store_id = $order->get_meta( '_yith_pos_store' );
-					if ( $store_id ) {
-						$refunded_line_items = $args[ 'line_items' ];
-						$line_items          = $order->get_items();
+		public function restock_items_on_refund( $allowed, $order, $refunded_line_items ) {
+			if ( yith_pos_is_pos_order( $order ) ) {
+				$allowed  = false; // Disable the WooCommerce restock items.
+				$store_id = $order->get_meta( '_yith_pos_store' );
+				if ( $store_id ) {
+					$line_items = $order->get_items();
 
-						foreach ( $line_items as $item_id => $item ) {
-							if ( ! isset( $refunded_line_items[ $item_id ], $refunded_line_items[ $item_id ][ 'qty' ] ) ) {
-								continue;
-							}
-							$product            = $item->get_product();
-							$item_stock_reduced = $item->get_meta( '_reduced_stock', true );
-							$qty_to_refund      = $refunded_line_items[ $item_id ][ 'qty' ];
-
-							if ( ! $item_stock_reduced || ! $qty_to_refund || ! $product || ! $product->managing_stock() ) {
-								continue;
-							}
-
-							$old_stock   = $this->get_stock_amount( $product, $store_id );
-							$new_stock   = false;
-							$restored_in = false;
-							if ( $old_stock !== false && $store_id === $item->get_meta( '_yith_pos_reduced_stock_by_store' ) ) {
-								$new_stock   = $this->update_product_stock( $product, $qty_to_refund, $store_id, $old_stock, 'increase' );
-								$restored_in = 'store';
-							} elseif ( $item->get_meta( '_yith_pos_reduced_stock_by_general' ) ) {
-								$new_stock   = wc_update_product_stock( $product, $qty_to_refund, 'increase' );
-								$restored_in = 'general';
-							}
-
-							// Update _reduced_stock meta to track changes.
-							$item_stock_reduced = $item_stock_reduced - $qty_to_refund;
-
-							if ( 0 < $item_stock_reduced ) {
-								$item->update_meta_data( '_reduced_stock', $item_stock_reduced );
-								switch ( $restored_in ) {
-									case 'store':
-										$item->update_meta_data( '_yith_pos_reduced_stock_by_store_qty', $item_stock_reduced );
-										break;
-									case 'general':
-										$item->update_meta_data( '_yith_pos_reduced_stock_by_general', $item_stock_reduced );
-										break;
-								}
-							} else {
-								$item->delete_meta_data( '_reduced_stock' );
-								switch ( $restored_in ) {
-									case 'store':
-										$item->delete_meta_data( '_yith_pos_reduced_stock_by_store' );
-										$item->delete_meta_data( '_yith_pos_reduced_stock_by_store_qty' );
-										break;
-									case 'general':
-										$item->delete_meta_data( '_yith_pos_reduced_stock_by_general' );
-										break;
-								}
-							}
-
-							/* translators: 1: product ID 2: old stock level 3: new stock level */
-							$order->add_order_note( sprintf( __( 'Item #%1$s stock increased from %2$s to %3$s.', 'woocommerce' ), $product->get_id(), $old_stock, $new_stock ) );
-
-							$item->save();
-
-							do_action( 'woocommerce_restock_refunded_item', $product->get_id(), $old_stock, $new_stock, $order, $product );
+					foreach ( $line_items as $item_id => $item ) {
+						if ( ! isset( $refunded_line_items[ $item_id ], $refunded_line_items[ $item_id ][ 'qty' ] ) ) {
+							continue;
 						}
+						/** @var WC_Product $product */
+						$product            = $item->get_product();
+						$item_stock_reduced = $item->get_meta( '_reduced_stock', true );
+						$qty_to_refund      = $refunded_line_items[ $item_id ][ 'qty' ];
+
+						if ( ! $item_stock_reduced || ! $qty_to_refund || ! $product || ! $product->managing_stock() ) {
+							continue;
+						}
+
+						$old_stock   = $this->get_stock_amount( $product, $store_id );
+						$new_stock   = false;
+						$restored_in = false;
+						if ( $old_stock !== false && $store_id === $item->get_meta( '_yith_pos_reduced_stock_by_store' ) ) {
+							$new_stock   = $this->update_product_stock( $product, $qty_to_refund, $store_id, $old_stock, 'increase' );
+							$restored_in = 'store';
+						} elseif ( $item->get_meta( '_yith_pos_reduced_stock_by_general' ) ) {
+							$old_stock   = $product->get_stock_quantity();
+							$new_stock   = wc_update_product_stock( $product, $qty_to_refund, 'increase' );
+							$restored_in = 'general';
+						}
+
+						// Update _reduced_stock meta to track changes.
+						$item_stock_reduced = $item_stock_reduced - $qty_to_refund;
+
+						if ( 0 < $item_stock_reduced ) {
+							$item->update_meta_data( '_reduced_stock', $item_stock_reduced );
+							switch ( $restored_in ) {
+								case 'store':
+									$item->update_meta_data( '_yith_pos_reduced_stock_by_store_qty', $item_stock_reduced );
+									break;
+								case 'general':
+									$item->update_meta_data( '_yith_pos_reduced_stock_by_general', $item_stock_reduced );
+									break;
+							}
+						} else {
+							$item->delete_meta_data( '_reduced_stock' );
+							switch ( $restored_in ) {
+								case 'store':
+									$item->delete_meta_data( '_yith_pos_reduced_stock_by_store' );
+									$item->delete_meta_data( '_yith_pos_reduced_stock_by_store_qty' );
+									break;
+								case 'general':
+									$item->delete_meta_data( '_yith_pos_reduced_stock_by_general' );
+									break;
+							}
+						}
+
+						/* translators: 1: product ID 2: old stock level 3: new stock level */
+						$order->add_order_note( sprintf( __( 'Item #%1$s stock increased from %2$s to %3$s.', 'woocommerce' ), $product->get_id(), $old_stock, $new_stock ) );
+
+						$item->save();
+
+						do_action( 'woocommerce_restock_refunded_item', $product->get_id(), $old_stock, $new_stock, $order, $product );
 					}
 				}
 			}
+
+			return $allowed;
 		}
 
 
@@ -235,7 +242,7 @@ if ( ! class_exists( 'YITH_POS_Stock_Management' ) ) {
 				if ( $stock_amount !== false ) {
 					$new_stock  = $this->update_product_stock( $product, $qty, $store_id, $stock_amount, 'decrease' );
 					$reduced_by = 'store';
-				} elseif ( 'no' === $product->get_meta( '_yith_pos_multistock_enabled' ) || 'general' === $this->_condition ) {
+				} elseif ( 'yes' !== $product->get_meta( '_yith_pos_multistock_enabled' ) || 'general' === $this->_condition ) {
 					$new_stock  = wc_update_product_stock( $product, $qty, 'decrease' );
 					$reduced_by = 'general';
 				}
@@ -297,6 +304,10 @@ if ( ! class_exists( 'YITH_POS_Stock_Management' ) ) {
 				/** @var WC_Product $product */
 				$product            = $item->get_product();
 				$item_stock_reduced = $item->get_meta( '_reduced_stock', true );
+
+				if ( ! $product ) {
+					continue;
+				}
 
 				$product_id_with_stock = $product->get_stock_managed_by_id();
 				$product               = $product_id_with_stock !== $product->get_id() ? wc_get_product( $product_id_with_stock ) : $product;
@@ -415,8 +426,7 @@ if ( ! class_exists( 'YITH_POS_Stock_Management' ) ) {
 				return;
 			}
 
-			$is_enabled = $product->get_meta( '_yith_pos_multistock_enabled' );
-			$is_enabled = empty( $is_enabled ) ? 'no' : $is_enabled;
+			$is_enabled = 'yes' === $product->get_meta( '_yith_pos_multistock_enabled' ) ? 'yes' : 'no';
 
 			$args = array(
 				'is_enabled'         => $is_enabled,
@@ -466,8 +476,7 @@ if ( ! class_exists( 'YITH_POS_Stock_Management' ) ) {
 		 */
 		public function add_options_on_variations( $loop, $variation_data, $variation ) {
 			$variation  = wc_get_product( $variation->ID );
-			$is_enabled = $variation->get_meta( '_yith_pos_multistock_enabled' );
-			$is_enabled = empty( $is_enabled ) ? 'no' : $is_enabled;
+			$is_enabled = 'yes' === $variation->get_meta( '_yith_pos_multistock_enabled' ) ? 'yes' : 'no';
 
 			$args = array(
 				'is_enabled'         => $is_enabled,

@@ -5,10 +5,10 @@
 * Description: The <code><strong>YITH Custom ThankYou Page for Woocommerce</strong></code> shows a Thank You page to users buying in your shop. The page can be customized also per single product and allows your customers to share their purchases on social networks. Excellent to loyalize your customers and show ad-hoc marketing campaigns! <a href="https://yithemes.com/" target="_blank">Get more plugins for your e-commerce on <strong>YITH</strong></a>
 * Author: YITH
 * Text Domain: yith-custom-thankyou-page-for-woocommerce
-* Version: 1.2.4
+* Version: 1.2.5
 * Author URI: https://yithemes.com/
-* WC requires at least: 3.6
-* WC tested up to: 4.2
+* WC requires at least: 4.0
+* WC tested up to: 4.3
 */
 
 /*
@@ -50,10 +50,10 @@ if( ! function_exists( 'yit_deactive_free_version' ) ) {
 yit_deactive_free_version( 'YITH_CTPW_FREE_INIT', plugin_basename( __FILE__ ) );
 
 /* === DEFINE === */
-! defined( 'YITH_CTPW_VERSION' )            && define( 'YITH_CTPW_VERSION', '1.2.4' );
+! defined( 'YITH_CTPW_VERSION' )            && define( 'YITH_CTPW_VERSION', '1.2.5' );
 ! defined( 'YITH_CTPW_INIT' )               && define( 'YITH_CTPW_INIT', plugin_basename( __FILE__ ) );
 ! defined( 'YITH_CTPW_SLUG' )               && define( 'YITH_CTPW_SLUG', 'yith-custom-thank-you-page-for-woocommerce' );
-! defined( 'YITH_CTPW_SECRETKEY' )          && define( 'YITH_CTPW_SECRETKEY', '12345' );
+! defined( 'YITH_CTPW_SECRETKEY' )          && define( 'YITH_CTPW_SECRETKEY', 'QOmXLhDfIvADBWnAMuzk' );
 ! defined( 'YITH_CTPW_FILE' )               && define( 'YITH_CTPW_FILE', __FILE__ );
 ! defined( 'YITH_CTPW_PATH' )               && define( 'YITH_CTPW_PATH', plugin_dir_path( __FILE__ ) );
 ! defined( 'YITH_CTPW_URL' )                && define( 'YITH_CTPW_URL', plugins_url( '/', __FILE__ ) );

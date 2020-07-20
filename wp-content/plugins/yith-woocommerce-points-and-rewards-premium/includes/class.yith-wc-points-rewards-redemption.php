@@ -226,7 +226,7 @@ if ( ! class_exists( 'YITH_WC_Points_Rewards_Redemption' ) ) {
 		 */
 		public function clear_current_coupon( $coupon_code ) {
 			$current_coupon = $this->get_current_coupon();
-			if ( $current_coupon instanceof WC_Coupon && $current_coupon->get_code() == $coupon_code ) {
+			if ( $current_coupon instanceof WC_Coupon && $current_coupon->get_code() == $coupon_code  && apply_filters('ywpar_clear_current_coupon', true ) ) {
 				$current_coupon->delete();
 			}
 		}

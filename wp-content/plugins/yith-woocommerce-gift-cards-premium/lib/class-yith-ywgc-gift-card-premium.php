@@ -399,6 +399,16 @@ if ( ! class_exists( 'YWGC_Gift_Card_Premium' ) ) {
                         'key'   => self::META_SEND_DATE,
                         'value' => '',
                     ),
+	                array(
+		                'key'   => self::META_IS_DIGITAL,
+		                'value' => '1',
+		                'compare' => '=',
+	                ),
+	                array(
+		                'key'     => self::META_RECIPIENT_EMAIL,
+		                'value'   => '',
+		                'compare' => '!=',
+	        ),
                 ),
 
                 'post_type'      => YWGC_CUSTOM_POST_TYPE_NAME,
@@ -406,7 +416,6 @@ if ( ! class_exists( 'YWGC_Gift_Card_Premium' ) ) {
                 'post_status'    => 'publish',
                 'posts_per_page' => - 1,
             );
-
 
             return get_posts( $args );
         }
@@ -438,14 +447,13 @@ if ( ! class_exists( 'YWGC_Gift_Card_Premium' ) ) {
                 update_post_meta( $this->ID, self::META_SEND_DATE, $this->delivery_send_date );
             }
             else{
-
                 $delivery_date_format = date_i18n ( $date_format, time() );
                 update_post_meta( $this->ID, '_ywgc_delivery_date_formatted', $delivery_date_format );
             }
 
             update_post_meta( $this->ID, self::META_HAS_CUSTOM_DESIGN, $this->has_custom_design );
 
-            $expiration_in_timestamp = strtotime( $this->expiration ) != '' ? strtotime( $this->expiration ) : $this->expiration;
+            $expiration_in_timestamp = $this->expiration;
 
             $expiration_date_format = $this->expiration != '0' ? date_i18n ( $date_format, $this->expiration ) : '';
 

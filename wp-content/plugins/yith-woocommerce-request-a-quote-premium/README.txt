@@ -4,11 +4,22 @@ Contributors: yithemes
 Tags: request a quote, quote, yithemes, message, woocommerce, shop, ecommerce, e-commerce
 Requires at least: 4.0
 Tested up to: 5.4
-Stable tag: 2.3.4
+Stable tag: 2.3.5
 
 The YITH Woocommerce Request A Quote plugin lets your customers ask for an estimate of a list of products they are interested into.
 
 == Changelog ==
+
+= 2.3.5 – Released on 2 Jul 2020 =
+New: Support for WooCommerce 4.3
+Tweak: Replaced default form email regex with the same used by WooCommerce
+Update: Plugin Framework
+Fix: Vendor's sub-quotes not visible in my-account
+Fix: Fixed add to quote for grouped products
+Fix: Fixed ajax update only on RAQ page
+Fix: Fixed the widget list quote
+Fix: Added email description field on Accepted/rejected Quote email
+Fix: Fixed some style issues in PDF templates
 
 = 2.3.4 – Released on 26 May 2020 =
 New: Support for WooCommerce 4.2
@@ -16,7 +27,6 @@ Update: Plugin Framework
 Fix: Fixed escaping issues
 Fix: Fixed BCC email field
 Fix: Fixed YITH WooCommerce Minimum Maximum Quantity conflict
-
 
 = 2.3.3 – Released on 4 May 2020 =
 New: Support for WooCommerce 4.1

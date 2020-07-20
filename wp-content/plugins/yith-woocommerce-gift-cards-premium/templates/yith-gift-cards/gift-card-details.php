@@ -41,7 +41,7 @@ $is_gift_this_product = !($product instanceof WC_Product_Gift_Card);
         </div>
 
         <div class="ywgc-recipient-email">
-            <label for="ywgc-recipient-email"><?php echo apply_filters('ywgc_recipient_name_label',esc_html__( "Email: ", 'yith-woocommerce-gift-cards' )); ?></label>
+            <label for="ywgc-recipient-email"><?php echo apply_filters('ywgc_recipient_email_label',esc_html__( "Email: ", 'yith-woocommerce-gift-cards' )); ?></label>
             <input type="email" id="ywgc-recipient-email" name="ywgc-recipient-email[]" <?php echo ( $mandatory_recipient && ! $is_gift_this_product ) ? 'required' : ''; ?>
                    class="ywgc-recipient yith_wc_gift_card_input_recipient_details" placeholder="<?php _e( "Enter the recipient's email address", 'yith-woocommerce-gift-cards' ); ?>"/>
         </div>

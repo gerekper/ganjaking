@@ -4,11 +4,15 @@ Contributors: yithemes
 Tags: woocommerce, products, themes, yit, yith, yithemes, e-commerce, shop, sms, notifications, text message, sms notifications, orders
 Requires at least: 4.0
 Tested up to: 5.4
-Stable tag: 1.4.6
+Stable tag: 1.4.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 == Changelog===
+
+= 1.4.7 – Released: 02 July 2020 =
+* New: Support for WooCommerce 4.3
+* Update: plugin framework
 
 = 1.4.6 – Released: 27 May 2020 =
 * New: Support for WooCommerce 4.2

@@ -210,9 +210,12 @@ function CheckCodiceFiscale(codice_fiscale)
 
 function validate_ssn_field( field,value )
 {
-
-    var err = CheckCodiceFiscale(value);
-    if( err != '' ){
-        alert("Il codice fiscale inserito non è corretto");
+    var receiver_type = jQuery( 'input[name=billing_receiver_type]:checked' ).val();
+    if( receiver_type === 'private' ){
+        var err = CheckCodiceFiscale(value);
+        if( err != '' ){
+            alert("Il codice fiscale inserito non è corretto");
+        }
     }
+
 }

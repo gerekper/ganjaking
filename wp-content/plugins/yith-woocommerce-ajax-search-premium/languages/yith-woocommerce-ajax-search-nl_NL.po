@@ -4,15 +4,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YITH WooCommerce Ajax Search\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
-"ajax-search-premium\n"
-"POT-Creation-Date: 2020-05-25 12:28:00+00:00\n"
-"PO-Revision-Date: 2020-05-08 16:02:14+0000\n"
+"ajax-search.premium\n"
+"POT-Creation-Date: 2020-07-03 07:00:19+00:00\n"
+"PO-Revision-Date: 2020-06-08 18:04:09+0000\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/2.3.1\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
 
 #: includes/class.yith-wcas-admin.php:97
 msgid "Settings"
@@ -26,35 +26,35 @@ msgstr "Zoeken"
 msgid "Output"
 msgstr "Output"
 
-#: includes/class.yith-wcas.php:642
+#: includes/class.yith-wcas.php:652
 msgid "sale"
 msgstr "uitverkoop"
 
-#: includes/class.yith-wcas.php:646
+#: includes/class.yith-wcas.php:656
 msgid "Out of stock"
 msgstr "Niet voorradig"
 
-#: includes/class.yith-wcas.php:650
+#: includes/class.yith-wcas.php:660
 msgid "featured"
-msgstr "featured"
+msgstr "aanbevolen"
 
-#: includes/class.yith-wcas.php:714 plugin-options/output-options.php:295
+#: includes/class.yith-wcas.php:724 plugin-options/output-options.php:295
 msgid "No results"
 msgstr "Geen resulaten"
 
-#: includes/class.yith-wcas.php:1108
+#: includes/class.yith-wcas.php:1118
 msgid "Search in product brands"
 msgstr "Zoeken in product merken"
 
-#: includes/class.yith-wcas.php:1109
+#: includes/class.yith-wcas.php:1119
 msgid "Extend search in product brands"
 msgstr "Zoektocht uitbreiden in product merken"
 
-#: includes/class.yith-wcas.php:1160
+#: includes/class.yith-wcas.php:1170
 msgid "Search by vendor"
 msgstr "Zoeken op verkoper"
 
-#: includes/class.yith-wcas.php:1161
+#: includes/class.yith-wcas.php:1171
 msgid "Extend search in vendors' products"
 msgstr "Zoektocht uitbreiden in verkopers' producten"
 
@@ -82,7 +82,7 @@ msgstr "Template"
 #: includes/compatibility/elementor/class.yith-wcas-search-form-elementor.php:102
 #: plugin-options/output-options.php:50
 msgid "Default"
-msgstr "Default"
+msgstr "Standaard"
 
 #: includes/compatibility/elementor/class.yith-wcas-search-form-elementor.php:103
 #: plugin-options/output-options.php:51
@@ -95,7 +95,7 @@ msgstr "Klasse"
 
 #: includes/widgets/class.yith-wcas-ajax-search.php:29
 msgid "An Ajax Search box for products only."
-msgstr "Een Ajax zoek veld voor uitsluitend producten."
+msgstr "Een Ajax zoek veld uitsluitend voor producten."
 
 #: includes/widgets/class.yith-wcas-ajax-search.php:31
 msgid "YITH WooCommerce Ajax Product Search"
@@ -107,11 +107,11 @@ msgstr "Titel:"
 
 #: includes/widgets/class.yith-wcas-ajax-search.php:116
 msgid "Template wide"
-msgstr "Sjabloon breedte"
+msgstr "Template breedte"
 
 #: includes/widgets/class.yith-wcas-ajax-search.php:121
 msgid "Filters above"
-msgstr "Filters boven"
+msgstr "Filters hierboven"
 
 #: init.php:68
 msgid ""
@@ -127,15 +127,15 @@ msgstr "Output Opties"
 
 #: plugin-options/output-options.php:27
 msgid "Show thumbnail"
-msgstr "Toon Thumbnail"
+msgstr "Thumbnail tonen"
 
 #: plugin-options/output-options.php:28
 msgid "Choose if you want show thumbnail and position"
-msgstr "Kies als u de thumbnail en positie wilt weergeven"
+msgstr "Bepaal of je de thumbnail en positie wilt weergeven"
 
 #: plugin-options/output-options.php:35
 msgid "Hide thumbnail"
-msgstr "Verberg thumbnail"
+msgstr "Thumbnail verbergen"
 
 #: plugin-options/output-options.php:36
 msgid "Show on the Left"
@@ -147,7 +147,7 @@ msgstr "Toon rechts"
 
 #: plugin-options/output-options.php:42
 msgid "Search form default template"
-msgstr "Zoekformulier default sjabloon"
+msgstr "Zoekformulier standaard sjabloon"
 
 #: plugin-options/output-options.php:43
 msgid "This option can be overridden by shortcode or widget"
@@ -183,11 +183,11 @@ msgstr "Prijs:"
 
 #: plugin-options/output-options.php:82
 msgid "Include Product Variation"
-msgstr ""
+msgstr "Productvariaties invoegen"
 
 #: plugin-options/output-options.php:83
 msgid "Choose if include or not the product variations in the search results"
-msgstr ""
+msgstr "Bepaal of je productvariaties wilt invoegen in de zoekresultaten"
 
 #: plugin-options/output-options.php:90
 msgid "Loader"
@@ -203,7 +203,7 @@ msgstr "Uitverkoop en aanbevolen badges"
 
 #: plugin-options/output-options.php:110
 msgid "Show sale badge"
-msgstr "Toon uitverkoop badge"
+msgstr "Uitverkoop badge tonen"
 
 #: plugin-options/output-options.php:111
 msgid "Show sale badge if the product is on sale"
@@ -211,12 +211,12 @@ msgstr "Toon uitverkoop badge als het product in de uitverkoop is"
 
 #: plugin-options/output-options.php:119
 msgid "Sale badge background color"
-msgstr "Uitverkoop badge achtergrondkleur"
+msgstr "Achtergrondkleur uitverkoop badge"
 
 #: plugin-options/output-options.php:126 plugin-options/output-options.php:155
 #: plugin-options/output-options.php:184
 msgid "Default color"
-msgstr "Default kleur"
+msgstr "Standaardkleur"
 
 #: plugin-options/output-options.php:131 plugin-options/output-options.php:160
 #: plugin-options/output-options.php:189
@@ -225,23 +225,23 @@ msgstr "Hover kleur"
 
 #: plugin-options/output-options.php:139
 msgid "Show out of stock badge"
-msgstr "Toon niet op voorraad badge"
+msgstr "Niet op voorraad badge tonen"
 
 #: plugin-options/output-options.php:148
 msgid "Out of stock badge background color"
-msgstr "Niet op voorraad badge achtergrondkleur"
+msgstr "Achtergrondkleur niet op voorraad badge"
 
 #: plugin-options/output-options.php:168
 msgid "Show featured badge"
-msgstr "Toon featured badge"
+msgstr "Aanbevolen badge tonen"
 
 #: plugin-options/output-options.php:177
 msgid "Featured badge background color"
-msgstr "Featured badge achtergrondkleur"
+msgstr "Achtergrondkleur aanbevolen badge"
 
 #: plugin-options/output-options.php:197
 msgid "Hide featured bagde if the product is on sale"
-msgstr "Verberg featured badge als product in de uitverkoop is"
+msgstr "Verberg aanbevolen badge als product in de uitverkoop is"
 
 #: plugin-options/output-options.php:211
 msgid "Title & Excerpt"
@@ -309,7 +309,7 @@ msgstr "Kies element types om te zoeken"
 
 #: plugin-options/search-options.php:31
 msgid "Choose if you want to extend search also to posts and pages"
-msgstr "Bepaal of u het zoeken wilt uitbreiden naar posts en pagina's"
+msgstr "Bepaal of je het zoeken wilt uitbreiden naar posts en pagina's"
 
 #: plugin-options/search-options.php:38
 #: templates/yith-woocommerce-ajax-search-wide.php:28
@@ -415,15 +415,15 @@ msgstr "(uren)"
 
 #: plugin-options/search-options.php:151
 msgid "Order Options"
-msgstr "Order opties"
+msgstr "Volgorde opties"
 
 #: plugin-options/search-options.php:158
 msgid "Enable order by post type"
-msgstr "Inschakelen sorteren op post type"
+msgstr "Sorteren op post type inschakelen"
 
 #: plugin-options/search-options.php:167
 msgid "Show first: "
-msgstr "Toon eerst: "
+msgstr "Eerst tonen:"
 
 #: plugin-options/search-options.php:174
 msgid "Product"
@@ -460,7 +460,7 @@ msgid ""
 "Extend search functionality so that search includes also sku. Attention: "
 "this feature may slow down the search process on some servers."
 msgstr ""
-"Zoek optie uitbreiden zodat sku inclusief is. Let op: deze feature kan het "
+"Zoek optie uitbreiden zodat sku inclusief is. Let op: deze functie kan het "
 "zoekproces vertragen in bepaalde servers."
 
 #: plugin-options/search-options.php:217
@@ -518,16 +518,16 @@ msgstr "Maximum aantal resultaten weergegeven in het auto suggestie veld."
 
 #: plugin-options/settings-options.php:79
 msgid "Additional Features"
-msgstr "Aanvullende features"
+msgstr "Aanvullende opties"
 
 #: plugin-options/settings-options.php:80
 msgid ""
 "If these options are not showed, your theme may not support these features. "
 "Please, contact the developer of theme to implement them."
 msgstr ""
-"Als deze opties niet worden weergegeven, dan kan het zijn dat uw theme deze "
-"features wellicht niet ondersteund. Neem contact op met uw Theme "
-"ontwikkelaar om ze te implementeren."
+"Als deze opties niet worden weergegeven, dan kan het zijn dat je thema deze "
+"opties wellicht niet ondersteund. Neem contact op met je thema ontwikkelaar "
+"om ze te implementeren."
 
 #: plugin-options/settings-options.php:86
 msgid "Show filter for search fields"
@@ -538,8 +538,8 @@ msgid ""
 "Show filter for search fields (it allows searching the Whole site or only "
 "among products)"
 msgstr ""
-"Toon filter voor zoekvelden (staat toe dat in de hele site gezocht wordt of "
-"uitsluiten in producten)"
+"Filter tonen voor zoekvelden (laat je zoeken in de gehele site of of alleen "
+"binnen producten)"
 
 #: plugin-options/settings-options.php:95
 msgid "Show the category list"
@@ -548,7 +548,8 @@ msgstr "Toon de categorielijst"
 #: plugin-options/settings-options.php:96
 msgid "This option lets you decide to show the categories dropdown"
 msgstr ""
-"Deze optie laat u bepalen of u de categorieën wilt weergeven in dropdown"
+"Deze optie laat je bepalen of je de categorieën wilt weergeven in een "
+"dropdown"
 
 #: plugin-options/settings-options.php:105
 msgid "Categories to show"
@@ -558,8 +559,8 @@ msgstr "Categorieën om weer te geven"
 msgid ""
 "This option lets you decide to show all the categories or only the main ones"
 msgstr ""
-"Met deze optie bepaalt u of u alle categorieën wilt weergeven of uitsluitend "
-"de hoofdcategorieën"
+"Met deze optie bepaal je of je alle categorieën of uitsluitend de "
+"hoofdcategorieën wilt weergeven"
 
 #: plugin-options/settings-options.php:113
 msgid "Main Categories"
@@ -587,7 +588,7 @@ msgstr ""
 "Dankzij <strong> Ajax Search </strong>, kunnen gebruikers de inhoud waarin "
 "zij geïnteresseerd zijn snel vinden, zonder tijd te verspillen in het "
 "doorzoeken van pagina's. <a href=\"https://yithemes.com/\" target=\"_blank"
-"\">Verkrijg meer plugins voor je e-commerce shop on <strong>YITH</strong></"
+"\">Verkrijg meer plugins voor je e-commerce winkel op <strong>YITH</strong></"
 "a>."
 
 #: includes/class.yith-wcas-admin.php:105
@@ -623,12 +624,12 @@ msgstr "Zoeken"
 #: plugin-options/gutenberg/blocks.php:30
 msgctxt "[gutenberg]: show or hide the thumbnail"
 msgid "Template"
-msgstr "Sjabloon"
+msgstr "Template"
 
 #: plugin-options/gutenberg/blocks.php:33
 msgctxt "[gutenberg]: Help to show thumbnail"
 msgid "Default"
-msgstr "Default"
+msgstr "Standaard"
 
 #: plugin-options/gutenberg/blocks.php:34
 msgctxt "[gutenberg]: Help to hide thumbnail"

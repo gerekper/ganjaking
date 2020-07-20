@@ -106,6 +106,61 @@ jQuery(document).ready(function ($) {
 
 
 
+  $(document).on('click', '.ywgc_update_cron_button', function (e) {
+    e.preventDefault();
+
+    var interval =  $( this ).parent().parent().parent().find( "[data-dep-target='ywgc_delivery_mode'] " );
+    var radio_hourly = interval.find( '#ywgc_delivery_mode-hourly');
+
+    var hour_option =  $( this ).parent().parent().parent().find( "[data-dep-target='ywgc_delivery_hour'] " );
+    var hour = hour_option.find( '#ywgc_delivery_hour').val();
+
+
+    if ( radio_hourly.prop('checked') ){
+      var interval_mode = 'hourly';
+    }
+    else{
+      var interval_mode = 'daily';
+    }
+
+
+    var block_zone = $( this ).parent().parent();
+
+    block_zone.block({message: null, overlayCSS: {background: "#f1f1f1", opacity: .7}});
+
+    var data = {
+      security: ywgc_data.gift_card_nonce,
+      interval_mode: interval_mode,
+      hour: hour,
+      action: 'ywgc_update_cron'
+    };
+
+    $.ajax({
+      type: 'POST',
+      url: ywgc_data.ajax_url,
+      data: data,
+      dataType: 'html',
+      success: function (response) {
+        block_zone.unblock();
+        console.log('Cron Updated!');
+      },
+      error: function (response) {
+        block_zone.unblock();
+        console.log("ERROR");
+        console.log(response);
+      }
+    });
+
+
+
+  });
+
+
+
+
+
+
+
 
 
 

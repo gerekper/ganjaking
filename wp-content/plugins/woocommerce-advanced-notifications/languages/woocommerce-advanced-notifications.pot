@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Advanced Notifications 1.2.25\n"
+"Project-Id-Version: WooCommerce Advanced Notifications 1.2.26\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-advanced-notifications\n"
-"POT-Creation-Date: 2020-06-10 11:39:12+00:00\n"
+"POT-Creation-Date: 2020-07-07 09:35:52+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -25,68 +25,68 @@ msgid "Advanced Notifications"
 msgstr ""
 
 #: includes/class-wc-advanced-notifications-admin.php:41
-#: includes/class-wc-advanced-notifications-admin.php:112
+#: includes/class-wc-advanced-notifications-admin.php:107
 #: includes/views/admin-screen-edit.php:59 includes/views/admin-screen.php:4
 msgid "Notifications"
 msgstr ""
 
-#: includes/class-wc-advanced-notifications-admin.php:84
+#: includes/class-wc-advanced-notifications-admin.php:79
 #: includes/class-wc-advanced-notifications-table.php:176
 msgid "Notification Types"
 msgstr ""
 
-#: includes/class-wc-advanced-notifications-admin.php:85
+#: includes/class-wc-advanced-notifications-admin.php:80
 #: includes/class-wc-advanced-notifications-table.php:177
 msgid "Triggers"
 msgstr ""
 
-#: includes/class-wc-advanced-notifications-admin.php:86
+#: includes/class-wc-advanced-notifications-admin.php:81
 #: includes/class-wc-advanced-notifications-table.php:178
 msgid "Plain text?"
 msgstr ""
 
-#: includes/class-wc-advanced-notifications-admin.php:87
+#: includes/class-wc-advanced-notifications-admin.php:82
 #: includes/class-wc-advanced-notifications-table.php:179
 msgid "Prices?"
 msgstr ""
 
-#: includes/class-wc-advanced-notifications-admin.php:88
+#: includes/class-wc-advanced-notifications-admin.php:83
 #: includes/class-wc-advanced-notifications-table.php:180
 msgid "Totals?"
 msgstr ""
 
-#: includes/class-wc-advanced-notifications-admin.php:89
+#: includes/class-wc-advanced-notifications-admin.php:84
 #: includes/class-wc-advanced-notifications-table.php:181
 msgid "Sent count"
 msgstr ""
 
-#: includes/class-wc-advanced-notifications-admin.php:113
+#: includes/class-wc-advanced-notifications-admin.php:108
 msgid "Choose recipients for this product&hellip;"
 msgstr ""
 
-#: includes/class-wc-advanced-notifications-admin.php:183
-#: includes/class-wc-advanced-notifications-admin.php:236
+#: includes/class-wc-advanced-notifications-admin.php:178
+#: includes/class-wc-advanced-notifications-admin.php:231
 msgid "Notification deleted successfully"
 msgstr ""
 
-#: includes/class-wc-advanced-notifications-admin.php:197
-#: includes/class-wc-advanced-notifications-admin.php:221
-#: includes/class-wc-advanced-notifications-admin.php:232
+#: includes/class-wc-advanced-notifications-admin.php:192
+#: includes/class-wc-advanced-notifications-admin.php:216
+#: includes/class-wc-advanced-notifications-admin.php:227
 msgid "Notification saved successfully"
 msgstr ""
 
-#: includes/class-wc-advanced-notifications-admin.php:300
-#: includes/class-wc-advanced-notifications-admin.php:389
+#: includes/class-wc-advanced-notifications-admin.php:295
+#: includes/class-wc-advanced-notifications-admin.php:384
 msgid "Recipient name is a required field"
 msgstr ""
 
-#: includes/class-wc-advanced-notifications-admin.php:304
-#: includes/class-wc-advanced-notifications-admin.php:393
+#: includes/class-wc-advanced-notifications-admin.php:299
+#: includes/class-wc-advanced-notifications-admin.php:388
 msgid "Recipient email is a required field"
 msgstr ""
 
-#: includes/class-wc-advanced-notifications-admin.php:311
-#: includes/class-wc-advanced-notifications-admin.php:400
+#: includes/class-wc-advanced-notifications-admin.php:306
+#: includes/class-wc-advanced-notifications-admin.php:395
 msgid "A recipient email is invalid:"
 msgstr ""
 
@@ -357,38 +357,39 @@ msgstr ""
 msgid "Class:"
 msgstr ""
 
-#: includes/views/admin-screen-edit.php:121
+#: includes/views/admin-screen-edit.php:124
+#. translators: %s Product edit URL.
 msgid ""
 "Here you can enable global or product notifications. Define recipients for "
 "categories and shipping classes here. You can define per-product "
 "notifications later by <a href=\"%s\">editing a product</a>."
 msgstr ""
 
-#: includes/views/admin-screen-edit.php:126
+#: includes/views/admin-screen-edit.php:131
 msgid "Prices"
 msgstr ""
 
-#: includes/views/admin-screen-edit.php:129
+#: includes/views/admin-screen-edit.php:134
 msgid "Include prices"
 msgstr ""
 
-#: includes/views/admin-screen-edit.php:130
+#: includes/views/admin-screen-edit.php:135
 msgid "Enable this to include product prices in the notification emails."
 msgstr ""
 
-#: includes/views/admin-screen-edit.php:135
+#: includes/views/admin-screen-edit.php:140
 msgid "Totals"
 msgstr ""
 
-#: includes/views/admin-screen-edit.php:138
+#: includes/views/admin-screen-edit.php:143
 msgid "Include order totals"
 msgstr ""
 
-#: includes/views/admin-screen-edit.php:139
+#: includes/views/admin-screen-edit.php:144
 msgid "Enable this to include order totals in the notification emails."
 msgstr ""
 
-#: includes/views/admin-screen-edit.php:144
+#: includes/views/admin-screen-edit.php:149
 msgid "Save changes"
 msgstr ""
 
@@ -452,7 +453,7 @@ msgstr ""
 msgid "Order #%s has been refunded."
 msgstr ""
 
-#: woocommerce-advanced-notifications.php:49
+#: woocommerce-advanced-notifications.php:51
 #. translators: %s: WooCommerce link
 msgid "WooCommerce Advanced Notifications requires %s to be installed and active."
 msgstr ""

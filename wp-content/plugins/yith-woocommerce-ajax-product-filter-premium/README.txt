@@ -5,11 +5,18 @@ Tags: woocommerce, widget, ajax, ajax filtered nav, ajax navigation, ajax filter
 Requires at least: 4.0
 Tested up to: 5.4
 
-Stable tag: 3.11.0
+Stable tag: 3.11.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 == Changelog =
+
+= 3.11.1 - Released on 22 June 2020  =
+
+* New: Support for WooCommerce 4.3
+* Update: plugin framework
+* Fix: Security issues on form submit in admin area
+* Fix: SortBy Widget doesn't work in search page
 
 = 3.11.0 - Released on 01 June 2020  =
 

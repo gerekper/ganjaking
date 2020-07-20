@@ -561,8 +561,9 @@ class WC_Deposits_Cart_Manager {
 
 			$deposit_type = WC_Deposits_Product_Manager::get_deposit_type( $cart_item['product_id'] ); // fixed or percent or plan
 			$item_tax = 0;
-			//Calculate tax for coupon will be used for adjustment of totals
-			if( 'taxable' === $cart_item['data']->get_tax_status() ) {
+
+			// Calculate tax for coupon will be used for adjustment of totals.
+			if ( wc_tax_enabled() && 'taxable' === $cart_item['data']->get_tax_status() ) {
 				$tax_rates = WC_Tax::get_rates( $cart_item['data']->get_tax_class(), WC()->cart->get_customer() );
 				$item_tax = array_sum( WC_Tax::calc_tax( $discount, $tax_rates, 'yes' === get_option( 'woocommerce_prices_include_tax' ) ) );
 			}
@@ -1260,39 +1261,37 @@ class WC_Deposits_Cart_Manager {
 				$deposit_amount_excluding_tax = $this->get_price_excluding_tax( $cart_item['data'], array( 'qty' => $cart_item['quantity'], 'price' => $deposit_amount ) );
 				$deposit_amount_including_tax = $this->get_price_including_tax( $cart_item['data'], array( 'qty' => $cart_item['quantity'], 'price' => $deposit_amount ) );
 			}
-			// Next, add up any deferred discounts for the item
-			$deferred_discount_amount = 0;
-			$deferred_discounts = WC()->session->get( 'deposits_deferred_discounts', array() );
 
-			// We cannot use the cart_item_key provided since it differs from the one we use to store the discount
+			// We cannot use the cart_item_key provided since it differs from the one we use to store the discount.
 			$search_key = self::generate_cart_id( $cart_item );
-			if ( array_key_exists( $search_key, $deferred_discounts ) ) {
-				foreach ( $deferred_discounts[ $search_key ] as $coupon_id => $discount_amount ) {
-					$deferred_discount_amount += $discount_amount; // line quantity, not just a unit
-				}
-			}
 
-
+			// Retrieve present and deferred discounts for the item.
+			$deferred_discounts       = WC()->session->get( 'deposits_deferred_discounts', array() );
+			$present_discounts        = WC()->session->get( 'deposits_present_discounts', array() );
+			$deferred_discount_amount = isset( $deferred_discounts[ $search_key ] ) ? array_sum( $deferred_discounts[ $search_key ] ) : 0;
+			$present_discount_amount  = isset( $present_discounts[ $search_key ] ) ? array_sum( $present_discounts[ $search_key ] ) : 0;
 
 			// Adjust values to represent proper total and subtotal after applied discounts.
-			if( $_WC32plus ) {
+			if ( $_WC32plus ) {
 				$discount_tax = $this->calculate_deferred_and_present_discount_tax( $search_key );
 				$deferred_discount_tax_amount = $discount_tax['deferred'];
-				if( 'no' === get_option( 'woocommerce_prices_include_tax' ) ) {
+
+				if ( 'no' === get_option( 'woocommerce_prices_include_tax' ) ) {
 					$deferred_discount_amount_excluding_tax = $deferred_discount_amount;
-					$deferred_discount_amount += $deferred_discount_tax_amount;
+					$deferred_discount_amount              += $deferred_discount_tax_amount;
 				} else {
 					$deferred_discount_amount_excluding_tax = $deferred_discount_amount - $deferred_discount_tax_amount;
 				}
-			$deposit_ratio = $deposit_amount_including_tax / $full_amount_including_tax;
-			$item->set_total( $values['line_total'] * $deposit_ratio );
-			$item->set_subtotal( $values['line_subtotal'] * $deposit_ratio );
-			$taxes = $item->get_taxes();
-			$scale = function ( $tax ) use ( $deposit_ratio ) { return $tax * $deposit_ratio; };
-			$taxes['subtotal'] = array_map( $scale, $taxes['subtotal'] );
-			$taxes['total'] = array_map( $scale, $taxes['total'] );
-			$item->set_taxes( $taxes );
-		}
+
+				$deposit_ratio = $deposit_amount_including_tax / $full_amount_including_tax;
+				$item->set_total( ( $values['line_subtotal'] * $deposit_ratio ) - $present_discount_amount );
+				$item->set_subtotal( $values['line_subtotal'] * $deposit_ratio );
+				$taxes             = $item->get_taxes();
+				$scale             = function ( $tax ) use ( $deposit_ratio ) { return $tax * $deposit_ratio; };
+				$taxes['subtotal'] = array_map( $scale, $taxes['subtotal'] );
+				$taxes['total']    = array_map( $scale, $taxes['total'] );
+				$item->set_taxes( $taxes );
+			}
 
 			$item->add_meta_data( '_is_deposit', 'yes' );
 			$item->add_meta_data( '_deposit_full_amount', $full_amount_including_tax ); // line quantity, not just a unit

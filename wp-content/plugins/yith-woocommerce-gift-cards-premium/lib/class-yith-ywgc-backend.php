@@ -1059,7 +1059,7 @@ if ( ! class_exists ( 'YITH_YWGC_Backend' ) ) {
                     }
 					else{
                         try {
-                            $usage_expiration      = get_option ( 'ywgc_usage_expiration', "" );
+                            $usage_expiration      = apply_filters( 'ywgc_usage_expiration_in_months', get_option ( 'ywgc_usage_expiration', "" ), $gift_card, $product_id );
                             $start_usage_date      = $gift_card->delivery_date ? $gift_card->delivery_date : current_time('timestamp');
                             $gift_card->expiration = $usage_expiration != 0 ? strtotime ( "+$usage_expiration month", $start_usage_date ) : 0;
                         } catch ( Exception $e ) {

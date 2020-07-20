@@ -3,13 +3,13 @@
 * Plugin Name: YITH Cost of Goods for WooCommerce
 * Plugin URI: https://yithemes.com/themes/plugins/yith-woocommerce-cost-of-goods/
 * Description: <code><strong>YITH Cost of Goods for WooCommerce</strong></code> let you know the profits of your sales subtracting the costs from your revenue. You can check a detailed report to know the different amounts that are handled in your sales.   <a href="https://yithemes.com/" target="_blank">Get more plugins for your e-commerce shop on <strong>YITH</strong></a>
-* Version: 1.2.2
+* Version: 1.2.4
 * Author: YITH
 * Author URI: https://yithemes.com/
 * Text Domain: yith-cost-of-goods-for-woocommerce
 * Domain Path: /languages/
 * WC requires at least: 3.2.0
-* WC tested up to: 4.1
+* WC tested up to: 4.3
 **/
 
 /*
@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 } // Exit if accessed directly
 
 /* === DEFINE === */
-! defined( 'YITH_COG_VERSION' )       && define( 'YITH_COG_VERSION', '1.2.2' );
+! defined( 'YITH_COG_VERSION' )       && define( 'YITH_COG_VERSION', '1.2.4' );
 ! defined( 'YITH_COG_INIT' )     && define( 'YITH_COG_INIT', plugin_basename( __FILE__ ) );
 ! defined( 'YITH_COG_SLUG' )         && define( 'YITH_COG_SLUG', 'yith-cost-of-goods-for-woocommerce' );
 ! defined( 'YITH_COG_FILE' )         && define( 'YITH_COG_FILE', __FILE__ );
@@ -34,7 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 ! defined( 'YITH_COG_TEMPLATE_PATH' ) && define( 'YITH_COG_TEMPLATE_PATH', YITH_COG_PATH . '/templates/' );
 ! defined( 'YITH_COG_OPTIONS_PATH' )  && define( 'YITH_COG_OPTIONS_PATH', YITH_COG_PATH . 'panel' );
 ! defined( 'YITH_COG_PREMIUM' )          && define( 'YITH_COG_PREMIUM', '1' );
-! defined( 'YITH_COG_SECRETKEY' )        && define( 'YITH_COG_SECRETKEY', '12345' );
+! defined( 'YITH_COG_SECRETKEY' )        && define( 'YITH_COG_SECRETKEY', 'tybx6AqZnSmknZzQJ2xK' );
 
 
 /* Plugin Framework Version Check */

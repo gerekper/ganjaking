@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the YITH WooCommerce Deposits and Down Payments package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-05-11 17:59+0200\n"
+"PO-Revision-Date: 2020-06-11 20:08+0200\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -28,15 +28,15 @@ msgstr "Update verzendmethoden"
 
 #: templates/shipping-calculator.php:93
 msgid "Postcode / ZIP"
-msgstr ""
+msgstr "Postcode"
 
 #: templates/shipping-calculator.php:85
 msgid "City"
-msgstr ""
+msgstr "Woonplaats"
 
 #: templates/shipping-calculator.php:76
 msgid "State / County"
-msgstr ""
+msgstr "Land/Staat"
 
 #: templates/shipping-calculator.php:63
 msgid "Select a state&hellip;"
@@ -44,7 +44,7 @@ msgstr "Selecteer een staat&hellip;"
 
 #: templates/shipping-calculator.php:57 templates/shipping-calculator.php:62
 msgid "State / county"
-msgstr ""
+msgstr "Land/Staat"
 
 #: templates/shipping-calculator.php:39
 msgid "Select a country&hellip;"
@@ -408,11 +408,11 @@ msgstr "%s is ingeschakeld maar niet effectief. Het vereist WooCommerce om te we
 
 #: includes/emails/class.yith-wcdp-customer-deposit-expiring-email.php:216
 msgid "This field lets you modify the main content of the text email. You can use the following placeholders: <code>{order_id}</code> <code>{order_date}</code> <code>{order_state}</code> <code>{customer_name}</code> <code>{customer_login}</code> <code>{customer_email}</code> <code>{suborder_list}</code> <code>{suborder_table}</code> <code>{expiration_date}</code> <code>{days_before_expiration}</code>"
-msgstr ""
+msgstr "Via deze velden kun je de hoofd inhoud van de e-mail aanpassen. Je kunt gebruik maken van de volgende invulvelden: <code>{order_id}</code> <code>{order_date}</code> <code>{order_state}</code> <code>{customer_name}</code> <code>{customer_login}</code> <code>{customer_email}</code> <code>{suborder_list}</code> <code>{suborder_table}</code> <code>{expiration_date}</code> <code>{days_before_expiration}</code>"
 
 #: includes/emails/class.yith-wcdp-customer-deposit-expiring-email.php:206
 msgid "This field lets you modify the main content of the HTML email. You can use the following placeholders: <code>{order_id}</code> <code>{order_date}</code> <code>{order_state}</code> <code>{customer_name}</code> <code>{customer_login}</code> <code>{customer_email}</code> <code>{suborder_list}</code> <code>{suborder_table}</code> <code>{expiration_date}</code> <code>{days_before_expiration}</code>"
-msgstr ""
+msgstr "Via deze velden kunt je de hoofd inhoud van de HTML e-mail aanpassen. Je kunt gebruik maken van de volgende invulvelden: <code>{order_id}</code> <code>{order_date}</code> <code>{order_state}</code> <code>{customer_name}</code> <code>{customer_login}</code> <code>{customer_email}</code> <code>{suborder_list}</code> <code>{suborder_table}</code> <code>{expiration_date}</code> <code>{days_before_expiration}</code>"
 
 #: includes/emails/class.yith-wcdp-customer-deposit-expiring-email.php:191
 msgid "This controls the main heading contained in the notification email. Leave it blank to use the default heading: <code>%s</code>."
@@ -462,6 +462,10 @@ msgid ""
 "\n"
 "{deposit_list}"
 msgstr ""
+"Hallo, je bestelling #{order_number} wordt op dit moment verwerkt, de huidige status is {order_status}.\n"
+"De volgende aanbetaling kan al worden voldaan:\n"
+"\n"
+"{deposit_list}"
 
 #: includes/emails/class.yith-wcdp-customer-deposit-created-email.php:160
 msgid "This field lets you modify the main content of the text email. You can use the following placeholders: <code>{order_id}</code> <code>{order_date}</code> <code>{order_state}</code> <code>{customer_name}</code> <code>{customer_login}</code> <code>{customer_email}</code> <code>{suborder_list}</code> <code>{suborder_table}</code>"
@@ -498,6 +502,10 @@ msgid ""
 "\n"
 "{deposit_list}"
 msgstr ""
+"Hallo, je bestelling #{order_number} wordt op dit moment verwerkt, de huidige status is {order_status}.\n"
+"De volgende aanbetaling kan al worden voldaan:\n"
+"\n"
+"{deposit_list}"
 
 #: includes/emails/class.yith-wcdp-customer-deposit-created-email.php:45
 msgid ""
@@ -598,7 +606,7 @@ msgstr "Er is een fout opgetreden bij het verwerken van de sub-bestelling"
 
 #: includes/class.yith-wcdp-suborders.php:429
 msgid "There was an error while processing suborder for item #%$1d (%$2s)"
-msgstr ""
+msgstr "Er is een fout opgetreden tijdens het verwerken van sub-bestelling voor item #%$1d (%$2s)"
 
 #: includes/class.yith-wcdp-suborders.php:350
 msgid "Suborder status changed to reflect Pending payment status because parent's order status changed."
@@ -660,11 +668,11 @@ msgstr "Bekijk volledige betaling"
 
 #: includes/class.yith-wcdp-frontend.php:547
 msgid "%s shipping"
-msgstr ""
+msgstr "%s verzending"
 
 #: includes/class.yith-wcdp-frontend.php:539
 msgid "%s subtotal"
-msgstr ""
+msgstr "%s subtotaal"
 
 #: includes/class.yith-wcdp-frontend.php:475
 #: includes/class.yith-wcdp-frontend.php:609
@@ -701,7 +709,7 @@ msgstr "Aanbetaling order"
 
 #: includes/class.yith-wcdp-admin.php:629
 msgid "Note: from this box you can monitor the status of suborders concerning full payments."
-msgstr ""
+msgstr "Notitie: vanaf dit blok kun je de status van sub-bestellingen controleren met betrekking tot volledige betalingen."
 
 #: includes/class.yith-wcdp-admin.php:629
 msgctxt "Admin: Single order page. Suborder details box"
@@ -1158,4 +1166,4 @@ msgstr "Bedrag"
 
 #: includes/admin-tables/class.yith-wcdp-category-deposits-table.php:91
 msgid "Thumbnail"
-msgstr ""
+msgstr "Thumbnail"

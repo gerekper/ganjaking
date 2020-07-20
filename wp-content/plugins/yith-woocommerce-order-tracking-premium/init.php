@@ -3,13 +3,13 @@
 Plugin Name: YITH WooCommerce Order Tracking Premium
 Plugin URI: https://yithemes.com/themes/plugins/yith-woocommerce-order-tracking/
 Description: With <code><strong>YITH WooCommerce Order Tracking Premium</strong></code> you can easy manage the order tracking information for WooCommerce orders. Select shipping company from a huge list of international carriers and let your customers track their orders with dynamically created track urls. <a href="https://yithemes.com/" target="_blank">Get more plugins for your e-commerce shop on <strong>YITH</strong></a>.
-Version: 1.6.4
+Version: 1.6.5
 Author: YITH
 Author URI: http://yithemes.com/
 Text Domain: yith-woocommerce-order-tracking
 Domain Path: /languages/
 WC requires at least: 3.2.0
-WC tested up to: 4.2
+WC tested up to: 4.3
 */
 
 //region    ****    Check if prerequisites are satisfied before enabling and using current plugin
@@ -54,7 +54,7 @@ defined( 'YITH_YWOT_INIT' ) || define( 'YITH_YWOT_INIT', plugin_basename( __FILE
 defined( 'YITH_YWOT_PREMIUM' ) || define( 'YITH_YWOT_PREMIUM', '1' );
 defined( 'YITH_YWOT_SLUG' ) || define( 'YITH_YWOT_SLUG', 'yith-woocommerce-order-tracking' );
 defined( 'YITH_YWOT_SECRET_KEY' ) || define( 'YITH_YWOT_SECRET_KEY', 'SD7S8bCFVCWOQjxutYoW' );
-defined( 'YITH_YWOT_VERSION' ) || define( 'YITH_YWOT_VERSION', '1.6.4' );
+defined( 'YITH_YWOT_VERSION' ) || define( 'YITH_YWOT_VERSION', '1.6.5' );
 defined( 'YITH_YWOT_FILE' ) || define( 'YITH_YWOT_FILE', __FILE__ );
 defined( 'YITH_YWOT_DIR' ) || define( 'YITH_YWOT_DIR', plugin_dir_path( __FILE__ ) );
 defined( 'YITH_YWOT_URL' ) || define( 'YITH_YWOT_URL', plugins_url( '/', __FILE__ ) );

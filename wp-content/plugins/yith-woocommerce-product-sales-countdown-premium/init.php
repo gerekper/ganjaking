@@ -5,10 +5,10 @@
  * Description: <code><strong>YITH WooCommerce Product Countdown</strong></code> allows you to leverage on the urgency principle on your products, creating time-based offers that will be highlighted by a dynamic countdown. The perfect solution if you want to create tempting offers and automatically. <a href="https://yithemes.com/" target="_blank">Get more plugins for your e-commerce shop on <strong>YITH</strong></a>
  * Author: YITH
  * Text Domain: yith-woocommerce-product-countdown
- * Version: 1.4.1
+ * Version: 1.4.3
  * Author URI: https://yithemes.com/
- * WC requires at least: 3.8.0
- * WC tested up to: 4.1
+ * WC requires at least: 4.0.0
+ * WC tested up to: 4.3.x
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -34,7 +34,7 @@ if ( ! function_exists( 'yit_deactive_free_version' ) ) {
 yit_deactive_free_version( 'YWPC_FREE_INIT', plugin_basename( __FILE__ ) );
 
 if ( ! defined( 'YWPC_VERSION' ) ) {
-	define( 'YWPC_VERSION', '1.4.1' );
+	define( 'YWPC_VERSION', '1.4.3' );
 }
 
 if ( ! defined( 'YWPC_INIT' ) ) {

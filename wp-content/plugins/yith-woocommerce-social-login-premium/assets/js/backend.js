@@ -74,4 +74,15 @@ function labelFormatter(label, series) {
 	return "<div style='font-size:8pt; text-align:center; padding:2px; color:white;'>" + label + "<br/>" + Math.round(series.percent) + "%</div>";
 }
 
+	$( '#ywsl_instagram_notice' ).each( function() {
+		var $setting = $( this );
+
+		$setting.find( '.notice-dismiss' ).on( 'click', function() {
+			$.ajax( {
+				type: 'head',
+				url: window.location.href + '&ywsl_instagram_dismiss=' + $setting.data( 'nonce' ),
+			} );
+		} );
+	} );
+
 });

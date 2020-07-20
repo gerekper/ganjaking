@@ -95,8 +95,9 @@ class IpnListener {
 
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
-        curl_setopt($ch, CURLOPT_CAINFO,
-            dirname(__FILE__)."/cert/api_cert_chain.crt");
+        if ( apply_filters( 'yith_wcaf_ipn_listener_apply_custom_cainfo', true ) ) {
+	        curl_setopt($ch, CURLOPT_CAINFO, apply_filters( 'yith_wcaf_ipn_listener_custom_cainfo', dirname(__FILE__)."/cert/api_cert_chain.crt" ) );
+        }
         curl_setopt($ch, CURLOPT_URL, $uri);
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $encoded_data);
@@ -105,9 +106,13 @@ class IpnListener {
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HEADER, true);
 
+	    if ( apply_filters( 'yith_wcaf_ipn_listener_apply_custom_httpheader', true ) ) {
+		    curl_setopt( $ch, CURLOPT_HTTPHEADER, apply_filters( 'yith_wcaf_ipn_listener_custom_httpheader', array( 'Connection: Close', 'User-Agent: yith-useragent' ) ) );
+	    }
         if ($this->force_ssl_v4) {
             curl_setopt($ch, CURLOPT_SSLVERSION, 4);
         }
+
 
         $this->response = curl_exec($ch);
         $this->response_status = strval(curl_getinfo($ch, CURLINFO_HTTP_CODE));

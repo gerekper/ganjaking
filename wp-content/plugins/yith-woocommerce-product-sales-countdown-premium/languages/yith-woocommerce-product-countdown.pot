@@ -2,11 +2,11 @@
 # This file is distributed under the same license as the YITH WooCommerce Product Countdown Premium package.
 msgid ""
 msgstr ""
-"Project-Id-Version: YITH WooCommerce Product Countdown Premium 1.4.1\n"
+"Project-Id-Version: YITH WooCommerce Product Countdown Premium 1.4.3\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/yith-woocommerce-product-sales-"
 "countdown.premium\n"
-"POT-Creation-Date: 2020-05-03 06:56:57+00:00\n"
+"POT-Creation-Date: 2020-07-09 21:34:22+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"

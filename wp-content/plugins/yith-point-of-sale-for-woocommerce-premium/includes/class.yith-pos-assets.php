@@ -102,7 +102,7 @@ if ( ! class_exists( 'YITH_POS_Assets' ) ) {
 				'register-description'  => __( 'Here you can manage all the Registers of the Stores', 'yith-point-of-sale-for-woocommerce' ),
 				'receipt-description'   => __( 'Here you can manage all the Receipt Templates', 'yith-point-of-sale-for-woocommerce' ),
 				'one_register_required' => __( 'You need to create at least one Register before proceeding', 'yith-point-of-sale-for-woocommerce' ),
-				'restock_not_allowed'   => __( 'You cannot restock items automatically for a POS order.<br />You should restock them manually after refunding the order.', 'yith-point-of-sale-for-woocommerce' )
+				'restock_not_allowed'   => __( 'To restock items automatically for a POS order you need WooCommerce 4.1 or greater.<br />For previous versions, you can restock them manually after refunding the order.', 'yith-point-of-sale-for-woocommerce' )
 			);
 
 			wp_localize_script( 'yith-pos-admin', 'admin_i18n', $admin_i18n );
@@ -127,6 +127,10 @@ if ( ! class_exists( 'YITH_POS_Assets' ) ) {
 			$version = $this->_get_script_version();
 			$suffix  = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
+			if (class_exists('YIT_Assets')){
+				YIT_Assets::instance()->register_styles_and_scripts();
+			}
+
 			wp_register_style( 'yith-pos-open-sans', '//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800&display=swap' );
 
 			wp_register_style( 'yith-pos-font', YITH_POS_ASSETS_URL . '/css/frontend/font.css', array(), $version );
@@ -134,7 +138,10 @@ if ( ! class_exists( 'YITH_POS_Assets' ) ) {
 			wp_register_style( 'yith-pos-frontend', YITH_POS_ASSETS_URL . '/css/frontend/pos.css', array(), $version );
 			wp_register_style( 'yith-pos-login', YITH_POS_ASSETS_URL . '/css/frontend/login.css', array('yith-pos-font'), $version );
 
-			$pos_deps = array( 'wp-api-fetch', 'wp-components', 'wp-element', 'wp-hooks', 'wp-i18n', 'wp-data' );
+			wp_register_style( 'yith-pos-rtl', YITH_POS_ASSETS_URL . '/css/frontend/pos-rtl.css', array(), $version );
+
+
+			$pos_deps = array( 'wp-api-fetch', 'wp-components', 'wp-element', 'wp-hooks', 'wp-i18n', 'wp-data', 'wp-date' );
 			wp_register_script( 'yith-pos-frontend', YITH_POS_REACT_URL . '/pos/index.js', $pos_deps, $version, true );
 
 			wp_register_script( 'yith-pos-register-login', YITH_POS_ASSETS_URL . '/js/register-login' . $suffix . '.js', array( 'jquery' ), $version, true );
@@ -213,6 +220,7 @@ if ( ! class_exists( 'YITH_POS_Assets' ) ) {
 					yith_pos_enqueue_style( 'yith-pos-frontend' );
 					yith_pos_enqueue_script( 'yith-pos-frontend' );
 				} else {
+					yith_pos_enqueue_style( 'yith-plugin-fw-fields' );
 					yith_pos_enqueue_style( 'yith-pos-login' );
 					$pos_login = $this->get_login_style();
 					wp_add_inline_style( 'yith-pos-login', $pos_login );
@@ -222,6 +230,10 @@ if ( ! class_exists( 'YITH_POS_Assets' ) ) {
 				if ( function_exists( 'wp_set_script_translations' ) ) {
 					wp_set_script_translations( 'yith-pos-frontend', 'yith-point-of-sale-for-woocommerce', YITH_POS_DIR . 'languages' );
 
+				}
+
+				if ( is_rtl() ) {
+					yith_pos_enqueue_style( 'yith-pos-rtl' );
 				}
 			}
 		}

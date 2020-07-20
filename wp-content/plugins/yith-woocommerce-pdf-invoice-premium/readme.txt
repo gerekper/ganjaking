@@ -4,12 +4,27 @@ Contributors: yithemes
 Tags: woocommerce, orders, woocommerce order, pdf, invoice, pdf invoice, delivery note, pdf invoices, automatic invoice, download, download invoice, bill order, billing, automatic billing, order invoice, billing invoice, new order, processing order, shipping list, shipping document, delivery, packing slip, transport document,  delivery, shipping, order, shop, shop invoice, customer, sell, invoices, email invoice, packing slips
 Requires at least: 4.0
 Tested up to: 5.4
-Stable tag: 2.0.14
+Stable tag: 2.0.15
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Documentation: https://docs.yithemes.com/yith-woocommerce-pdf-invoice
 
 == Changelog ==
+
+= 2.0.15 - Released on 03 Jul 2020 =
+
+* New: Support for WooCommerce 4.3
+* Tweak: validate SSN field only for private customers (Electronic Invoice)
+* Update: plugin-fw
+* Update: language files
+* Fix: fixed displayed warnings in the plugin settings
+* Fix: ssn error message showed always
+* Dev: added new filter yith_ywpi_ssn_field_placeholder
+* Dev: added new filter yith_ywpi_vat_field_placeholder
+* Dev: changes the fee tax precision
+* Dev: added new filter ywpi_invoice_information_url
+* Dev: added new filter ywpi_dropbox_folder
+* Dev: added the extension param in some functions
 
 = 2.0.14 - Released on 22 May 2020 =
 

@@ -91,7 +91,7 @@ if ( ! class_exists( 'YITH_WC_Product_Countdown' ) ) {
 			// register plugin to licence/update system
 			add_action( 'wp_loaded', array( $this, 'register_plugin_for_activation' ), 99 );
 			add_action( 'admin_init', array( $this, 'register_plugin_for_updates' ) );
-
+			add_action( 'init', array( $this, 'set_plugin_requirements' ), 20 );
 			add_action( 'admin_menu', array( $this, 'add_menu_page' ), 5 );
 
 			// Include required files
@@ -2440,6 +2440,24 @@ if ( ! class_exists( 'YITH_WC_Product_Countdown' ) ) {
 				require_once( 'plugin-fw/lib/yit-upgrade.php' );
 			}
 			YIT_Upgrade()->register( YWPC_SLUG, YWPC_INIT );
+		}
+
+		/**
+		 * Add Plugin Requirements
+		 *
+		 * @return  void
+		 * @since   1.0.0
+		 * @author  Alberto Ruggiero <alberto.ruggiero@yithemes.com>
+		 */
+		public function set_plugin_requirements() {
+
+			$plugin_data  = get_plugin_data( plugin_dir_path( __FILE__ ) . '/init.php' );
+			$plugin_name  = $plugin_data['Name'];
+			$requirements = array(
+				'min_wp_version' => '5.2.0',
+				'min_wc_version' => '4.0.0',
+			);
+			yith_plugin_fw_add_requirements( $plugin_name, $requirements );
 		}
 
 	}

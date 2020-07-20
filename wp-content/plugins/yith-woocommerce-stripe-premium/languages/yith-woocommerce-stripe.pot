@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YITH WooCommerce Stripe Premium\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/init\n"
-"POT-Creation-Date: 2020-05-08 16:28+0200\n"
+"POT-Creation-Date: 2020-06-10 16:46+0200\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -203,7 +203,7 @@ msgid ""
 msgstr ""
 
 #: includes/class-yith-stripe-gateway-addons.php:174
-#: includes/class-yith-stripe-gateway-addons.php:835
+#: includes/class-yith-stripe-gateway-addons.php:862
 #, php-format
 msgid "Error while processing renew payment: %s"
 msgstr ""
@@ -232,9 +232,9 @@ msgid "Stripe Credit Card Refund Failed with message: \"%s\""
 msgstr ""
 
 #: includes/class-yith-stripe-gateway-addons.php:380
-#: includes/class-yith-stripe-gateway-addons.php:830
-#: includes/class-yith-stripe-gateway-addons.php:842
-#: includes/class-yith-stripe-gateway-addons.php:853
+#: includes/class-yith-stripe-gateway-addons.php:857
+#: includes/class-yith-stripe-gateway-addons.php:869
+#: includes/class-yith-stripe-gateway-addons.php:880
 #: includes/class-yith-stripe-gateway-advanced.php:455
 #: includes/class-yith-stripe-gateway-advanced.php:576
 #: includes/class-yith-stripe-gateway-advanced.php:588
@@ -248,27 +248,27 @@ msgid ""
 "selecting another payment method"
 msgstr ""
 
-#: includes/class-yith-stripe-gateway-addons.php:658
-#: includes/class-yith-stripe-gateway-addons.php:672
+#: includes/class-yith-stripe-gateway-addons.php:685
+#: includes/class-yith-stripe-gateway-addons.php:699
 #, php-format
 msgid "Error while cancelling subscription %s"
 msgstr ""
 
-#: includes/class-yith-stripe-gateway-addons.php:714
+#: includes/class-yith-stripe-gateway-addons.php:741
 msgid ""
 "Sorry, the minimum allowed order total is 0.50 to use this payment method."
 msgstr ""
 
-#: includes/class-yith-stripe-gateway-addons.php:732
+#: includes/class-yith-stripe-gateway-addons.php:759
 #, php-format
 msgid "Couldn't find any valid Stripe Customer ID for order #%d"
 msgstr ""
 
-#: includes/class-yith-stripe-gateway-addons.php:780
+#: includes/class-yith-stripe-gateway-addons.php:807
 msgid "Sorry, we couldn't find any valid payment method for your renew."
 msgstr ""
 
-#: includes/class-yith-stripe-gateway-addons.php:790
+#: includes/class-yith-stripe-gateway-addons.php:817
 #: includes/class-yith-stripe-gateway-advanced.php:597
 #: includes/class-yith-stripe-gateway-advanced.php:1217
 #: includes/class-yith-stripe-gateway.php:375
@@ -277,19 +277,19 @@ msgstr ""
 msgid "%s - Order %s"
 msgstr ""
 
-#: includes/class-yith-stripe-gateway-addons.php:825
-#: includes/class-yith-stripe-gateway-addons.php:851
+#: includes/class-yith-stripe-gateway-addons.php:852
+#: includes/class-yith-stripe-gateway-addons.php:878
 msgid "Please, validate your payment method before proceeding further"
 msgstr ""
 
-#: includes/class-yith-stripe-gateway-addons.php:866
+#: includes/class-yith-stripe-gateway-addons.php:893
 #: includes/class-yith-stripe-gateway-advanced.php:623
 #: includes/class-yith-stripe-gateway.php:390
 #, php-format
 msgid "Stripe payment approved (ID: %s)"
 msgstr ""
 
-#: includes/class-yith-stripe-gateway-addons.php:1069
+#: includes/class-yith-stripe-gateway-addons.php:1096
 #, php-format
 msgid " - %s days trialing"
 msgstr ""
@@ -1233,11 +1233,11 @@ msgstr ""
 msgid "YSBS - Webhook Failed payment"
 msgstr ""
 
-#: includes/class-yith-stripe.php:297
+#: includes/class-yith-stripe.php:298
 msgid "Stripe Credit Card Charge failed because the Transaction ID is missing."
 msgstr ""
 
-#: includes/class-yith-stripe.php:310
+#: includes/class-yith-stripe.php:311
 #, php-format
 msgid "Stripe Error - Charge not captured. %s"
 msgstr ""

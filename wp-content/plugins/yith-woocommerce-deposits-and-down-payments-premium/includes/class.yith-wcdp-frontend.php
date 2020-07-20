@@ -541,11 +541,11 @@ if ( ! class_exists( 'YITH_WCDP_Frontend' ) ) {
 			</tr>
 			<?php
 
-			if ( ! empty( $totals['shipping_total'] ) ):
+			if ( ! empty( $totals['balance_shipping'] ) ):
 				?>
 				<tr class="balance-shipping-total">
 					<th <?php echo "email" == $context ? "class='td' colspan=2" : "" ?>><?php echo sprintf( __( '%s shipping', 'yith-woocommerce-deposits' ), apply_filters( 'yith_wcdp_balance_filter', __( 'Balance', 'yith-woocommerce-deposits-and-down-payments' ) ) ); ?></th>
-					<td <?php echo "email" == $context ? "class='td'" : "" ?>><?php echo wc_price( $totals['shipping_total'] ); ?></td>
+					<td <?php echo "email" == $context ? "class='td'" : "" ?>><?php echo wc_price( $totals['balance_shipping'] ); ?></td>
 				</tr>
 			<?php
 			endif;
@@ -734,9 +734,11 @@ if ( ! class_exists( 'YITH_WCDP_Frontend' ) ) {
 			$support_cart   = YITH_WCDP()->get_support_cart();
 			$main_cart      = WC()->cart;
 			$cart_contents  = $main_cart->cart_contents;
+			$cart_coupons   = $main_cart->get_coupons();
 			$has_deposits   = false;
 			$grand_total    = 0;
 			$shipping_total = 0;
+			$fees_total     = 0;
 			$balance_type   = get_option( 'yith_wcdp_balance_type', 'multiple' );
 			$packages       = array();
 
@@ -769,6 +771,17 @@ if ( ! class_exists( 'YITH_WCDP_Frontend' ) ) {
 			if ( ! empty( $packages ) ) {
 				foreach ( $packages as $package ) {
 					$support_cart->populate( $package );
+
+					// apply coupons (when required and possible).
+					if ( apply_filters( 'yith_wcdp_propagate_coupons', false ) && ! empty( $cart_coupons ) ) {
+						foreach ( $cart_coupons as $code => $coupon ) {
+							if ( apply_filters( 'yith_wcdp_propagate_coupon', true, $code ) ) {
+								WC()->cart->add_discount( $code );
+							}
+						}
+						wc_clear_notices();
+					}
+
 					$grand_total    += $support_cart->get_total( 'edit' );
 					$shipping_total += $support_cart->get_shipping_total() + $support_cart->get_shipping_tax();
 					$support_cart->empty_cart();
@@ -782,15 +795,16 @@ if ( ! class_exists( 'YITH_WCDP_Frontend' ) ) {
 			 */
 			WC()->cart = $main_cart;
 
-			// Main cart total.
+			// Main cart totals.
 			$main_cart->calculate_totals();
 			$main_cart_total = $main_cart->get_total( 'edit' );
+			$main_cart_shipping = $main_cart->get_shipping_total() + $main_cart->get_shipping_tax();
 
 			if ( $has_deposits && $grand_total ) {
 				// Coupons.
 				$applied_coupons = $main_cart->get_coupon_discount_totals();
 
-				if ( array( $applied_coupons ) && ! empty( $applied_coupons ) ) {
+				if ( array( $applied_coupons ) && ! empty( $applied_coupons ) && ! apply_filters( 'yith_wcdp_propagate_coupons', false ) ) {
 
 					$coupon_amount = array_sum( array_values( $applied_coupons ) );
 
@@ -805,17 +819,22 @@ if ( ! class_exists( 'YITH_WCDP_Frontend' ) ) {
 				}
 
 				// Fees.
-				$fees = $main_cart->get_fee_total();
+				$fees_total = $main_cart->get_fee_total();
 			}
 
+			// Balances totals.
+			$balance_shipping = $shipping_total - $main_cart_shipping;
+			$balance_total = ! empty( $grand_total ) ? $grand_total - $main_cart_total - $balance_shipping : 0;
+
 			$this->_grand_totals = array(
-				'total'          => $grand_total,
-				'balance'        => ! empty( $grand_total ) ? $grand_total - $main_cart_total - $shipping_total : 0,
-				'coupons'        => isset( $applied_coupons ) ? $applied_coupons : 0,
-				'fees'           => isset( $fees ) ? $fees : 0,
-				'shipping_total' => $shipping_total,
-				'has_deposits'   => $has_deposits,
-				'packages'       => $packages,
+				'total'            => $grand_total,
+				'balance'          => $balance_total,
+				'coupons'          => isset( $applied_coupons ) ? $applied_coupons : 0,
+				'fees'             => $fees_total,
+				'balance_shipping' => $balance_shipping,
+				'shipping_total'   => $shipping_total,
+				'has_deposits'     => $has_deposits,
+				'packages'         => $packages,
 			);
 
 			return $this->_grand_totals;

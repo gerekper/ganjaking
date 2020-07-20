@@ -190,4 +190,28 @@ jQuery( function ( $ ) {
         wrap.prepend( notices );
     }
 
+
+    // TAB MENU AND SUB TABS
+    var active_subnav = $(document).find('.yith-nav-sub-tab.nav-tab-active');
+
+    if( active_subnav.length > 0 ){
+        // WP page
+        var  mainWrapper = $(document).find('.yith-plugin-fw-wp-page-wrapper');
+        if( mainWrapper.length === 0 ){
+            mainWrapper = $(document).find('#wpbody-content > .yith-plugin-ui');
+        }
+
+
+        if( mainWrapper ){
+            var wrap = mainWrapper.find('.wrap');
+            wrap.wrap('<div class="wrap subnav-wrap"></div>');
+
+        }
+    }
+
+    var nav_subtav = $(document).find('.nav-tab-wrapper .nav-subtav');
+    if( nav_subtav.length > 0 ){
+        $(document).find('.nav-tab-wrapper').addClass('with-submenu');
+    }
+
 } );

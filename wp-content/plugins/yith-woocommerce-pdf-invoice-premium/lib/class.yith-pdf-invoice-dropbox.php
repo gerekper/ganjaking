@@ -110,7 +110,7 @@ if ( ! class_exists( 'YITH_PDF_Invoice_DropBox' ) ) {
 			if ( file_exists( $document->get_full_path() ) ) {
 
 				$doc_full_path	= $document->get_full_path();
-				$doc_folder		= ywpi_get_option( 'ywpi_dropbox_folder' );
+				$doc_folder		= apply_filters( 'ywpi_dropbox_folder', ywpi_get_option( 'ywpi_dropbox_folder' ), $document );
 				$doc_path		= $document->save_path;
 				$file 			= file_get_contents( $doc_full_path );
                 $date_val       = strtotime( yit_get_prop( $document->order, 'order_date' ) );

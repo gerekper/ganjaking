@@ -403,7 +403,7 @@ if ( ! class_exists( 'YITH_WCAF_Commissions_Table_Premium' ) ) {
 				'actions'             => __( 'Actions', 'yith-woocommerce-affiliates' )
 			);
 
-			return $columns;
+			return apply_filters('yith_wcaf_comission_table_columns',$columns);
 		}
 
 		/**

@@ -350,6 +350,95 @@ jQuery(
 					}
 				)
 
+				/* Rules Tab */
+				const rules_tab = $('.yctpw-rules');
+				const item_type = rules_tab.find('select#item_type');
+				item_type.on('change', function(){
+					switch ( $(this).val() ) {
+						case 'product':
+							rules_tab.find('.product_id').show();
+							rules_tab.find('.category_id').hide();
+							rules_tab.find('.payment_method').hide();
+							break;
+						case 'product_category':
+							rules_tab.find('.category_id').show();
+							rules_tab.find('.product_id').hide();
+							rules_tab.find('.payment_method').hide();
+							break;
+						case 'payment_method':
+							rules_tab.find('.category_id').hide();
+							rules_tab.find('.product_id').hide();
+							rules_tab.find('.payment_method').show();
+							break;
+
+					}
+
+				});
+				item_type.trigger( 'change' );
+
+				const page_url = rules_tab.find('#yith_ctpw_general_page_or_url');
+				page_url.on( 'change', function() {
+					switch ( $(this).val() ) {
+						case 'ctpw_page':
+							rules_tab.find('.yith_thankyou_page').show();
+							rules_tab.find('.yith_thankyou_url').hide();
+
+							break;
+						case 'ctpw_url':
+							rules_tab.find('.yith_thankyou_url').show();
+							rules_tab.find('.yith_thankyou_page').hide();
+							break;
+
+					}
+				});
+				page_url.trigger('change');
+
+				/* save button */
+				const save_button = $('.yctpw-rules #yctpw_save_button');
+				save_button.on('click', function(e) {
+					var error = false;
+					const item_type = $('.yctpw-rules #item_type').val();
+					e.preventDefault();
+
+					const product_id = $('.yctpw-rules #product_id');
+					if ( 'product' === item_type && ( '' === product_id.val() || null === product_id.val() ) ) {
+						error = true;
+						product_id.next().addClass('yctpw_error');
+					} else {
+						product_id.next().removeClass('yctpw_error');
+					}
+
+					const category_id = $('.yctpw-rules #category_id');
+					if ( 'category' === item_type && ( '' === category_id.val() || null === category_id.val() ) ) {
+						error = true;
+						category_id.next().addClass('yctpw_error');
+					} else {
+						category_id.next().removeClass('yctpw_error');
+					}
+
+					const rule_type = $('.yctpw-rules #yith_ctpw_general_page_or_url').val();
+					const page = $('.yctpw-rules #yith_thankyou_page');
+
+					if ( 'ctpw_page' === rule_type && ( 0 === page.val() || '0' === page.val() ) ) {
+						page.addClass('yctpw_error');
+						error = true;
+					} else {
+						page.removeClass('yctpw_error');
+					}
+
+					const url = $('.yctpw-rules #yith_thankyou_url');
+					if ( 'ctpw_url' === rule_type && '' === url.val() ) {
+						url.addClass('yctpw_error');
+						error = true;
+					} else {
+						url.removeClass('yctpw_error');
+					}
+
+					if ( error === false ) {
+						$('.yctpw-rules form#form').submit();
+					}
+
+				});
 			}
 		) // end document ready.
 	}

@@ -5,14 +5,14 @@ msgstr ""
 "Project-Id-Version: YITH WooCommerce Badge Management\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
 "badge-management-premium\n"
-"POT-Creation-Date: 2020-05-20 12:43:59+00:00\n"
+"POT-Creation-Date: 2020-07-03 07:49:30+00:00\n"
 "PO-Revision-Date: 2020-05-14 20:15:33+0000\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/2.3.1\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
 
 #: badge-styles/advanced-badge-styles.php:560
 #: badge-styles/advanced-badge-styles.php:807
@@ -702,32 +702,32 @@ msgctxt "Admin:title of column in products table"
 msgid "Badge"
 msgstr "Insignia"
 
-#: templates/advanced_sale_badges.php:116
+#: templates/advanced_sale_badges.php:121
 msgctxt "Text in badge: preserve lenght"
 msgid "On Sale"
 msgstr "En descuento"
 
-#: templates/advanced_sale_badges.php:117
+#: templates/advanced_sale_badges.php:122
 msgctxt "Text in badge: preserve lenght"
 msgid "Off"
 msgstr "Desc"
 
-#: templates/advanced_sale_badges.php:119
+#: templates/advanced_sale_badges.php:124
 msgctxt "Text in badge: preserve lenght"
 msgid "Save"
 msgstr "Ahorra"
 
-#: templates/advanced_sale_badges.php:121
+#: templates/advanced_sale_badges.php:126
 msgctxt "Text in badge: preserve lenght"
 msgid "Sale!"
 msgstr "¡En descuento!"
 
-#: templates/advanced_sale_badges.php:120
+#: templates/advanced_sale_badges.php:125
 msgctxt "Text in badge(preserve lenght): Save $9"
 msgid "%1$s %2$s"
 msgstr "%1$s %2$s"
 
-#: templates/advanced_sale_badges.php:122
+#: templates/advanced_sale_badges.php:127
 msgctxt "Text in badge(preserve lenght): 9 $"
 msgid "%1$s%2$s"
 msgstr "%1$s%2$s"

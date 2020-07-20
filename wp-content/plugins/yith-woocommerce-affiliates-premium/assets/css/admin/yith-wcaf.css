@@ -750,3 +750,19 @@
     border: 1px solid #ddd;
     box-sizing: border-box;
 }
+
+.yith-plugins_page_yith_wcaf_panel #post-body.columns-2 #postbox-container-1{
+    margin-right: 0;
+}
+
+.yith-plugins_page_yith_wcaf_panel #postbox-container-2 {
+    width: calc(100% - 300px);
+}
+
+.yith-plugins_page_yith_wcaf_panel #yith_wcaf_affiliate_actions select{
+    width: calc( 100% - 35px);
+}
+
+.yith-plugins_page_yith_wcaf_panel #yith_wcaf_affiliate_actions hr{
+    margin: 10px -15px;
+}

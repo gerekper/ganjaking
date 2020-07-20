@@ -114,7 +114,9 @@ if ( ! class_exists( 'YITH_Custom_Thankyou_Page_Frontend_Premium' ) ) {
 			// APPLY_FILTER: yith_ctpw_pdf_button_shortcode: Enable pdf buttons hortcode: value can be yes or no.
 			$pdf_shortcode_active = apply_filters( 'yith_ctpw_pdf_button_shortcode', get_option( 'yith_ctpw_enable_pdf_as_shortcode', 'no' ) );
 			if ( class_exists( 'YITH_Custom_Thankyou_Page_PDF' ) && ( 'no' !== $pdf_active || 'no' !== $pdf_shortcode_active ) ) {
-				$this->YITH_PDF = YITH_Custom_Thankyou_Page_PDF::instance();
+				if ( isset( $_GET['ctpw'] ) ) {
+					$this->YITH_PDF = YITH_Custom_Thankyou_Page_PDF::instance();
+				}
 			}
 
 			// call the parent __construct.
@@ -192,7 +194,7 @@ if ( ! class_exists( 'YITH_Custom_Thankyou_Page_Frontend_Premium' ) ) {
 
 				// if the general page is set as external URL we redirect to it and return.
 				if ( get_option( 'yith_ctpw_general_page_or_url' ) === 'ctpw_url' ) {
-					wp_safe_redirect( $general_page );
+					wp_redirect( $general_page );
 					exit();
 				}
 
@@ -209,7 +211,7 @@ if ( ! class_exists( 'YITH_Custom_Thankyou_Page_Frontend_Premium' ) ) {
 
 				// APPLY_FILTER: yith_ctpw_url_redirect: Manage the url redirect: @param string $redirect.
 				$redirect = apply_filters( 'yith_ctpw_url_redirect', $redirect );
-				wp_safe_redirect( $redirect );
+				wp_redirect( $redirect );
 
 				exit();
 
@@ -258,7 +260,7 @@ if ( ! class_exists( 'YITH_Custom_Thankyou_Page_Frontend_Premium' ) ) {
 					if ( 'ctpw_url' === $sel_page_url_var_p ) {
 						$sel_var_page_p = trim( get_post_meta( $_product->get_parent_id(), 'yith_ctpw_product_thankyou_url', true ) );
 					} else {
-						$sel_var_page_p = get_post_meta( $_product->get_parent_id(), 'yith_product_thankyou_page_variation', true );
+						$sel_var_page_p = get_post_meta( $_product->get_parent_id(), 'yith_product_thankyou_page', true );
 					}
 
 					// then check for variation.
@@ -296,7 +298,7 @@ if ( ! class_exists( 'YITH_Custom_Thankyou_Page_Frontend_Premium' ) ) {
 					// this is needed to check of the current product is a variation or not
 					// because if it is a variation we cannot get the categories so we will use the parent id.
 					$parent_id = wp_get_post_parent_id( $_product->get_id() );
-					if ( '' !== $parent_id ) {
+					if ( '' !== $parent_id && 0 !== intval( $parent_id ) ) {
 						$cats = get_the_terms( $parent_id, 'product_cat' );
 					} else {
 						$cats = get_the_terms( $_product->get_id(), 'product_cat' );
@@ -379,11 +381,10 @@ if ( ! class_exists( 'YITH_Custom_Thankyou_Page_Frontend_Premium' ) ) {
 				$selected_thankyou_page = $payment_page;
 			}
 
-
 			// if we have a selected page or an external url, redirect to it.
 			if ( 0 !== $selected_thankyou_page || '' !== $selected_thankyou_page ) {
 				if ( strlen( stristr( $selected_thankyou_page, 'http' ) ) > 0 ) {
-					wp_safe_redirect( $selected_thankyou_page );
+					wp_redirect( $selected_thankyou_page );
 					exit();
 				} else {
 					/* WPML compatibility - get page id translated if exists for current language */
@@ -401,7 +402,7 @@ if ( ! class_exists( 'YITH_Custom_Thankyou_Page_Frontend_Premium' ) ) {
 					$redirect .= 'order-received=' . absint( $order ) . '&key=' . $order_key . '&ctpw=' . $selected_thankyou_page;
 
 					$redirect = apply_filters( 'yith_ctpw_url_redirect', $redirect );
-					wp_safe_redirect( $redirect );
+					wp_redirect( $redirect );
 					exit();
 				}
 			}
@@ -682,8 +683,9 @@ if ( ! class_exists( 'YITH_Custom_Thankyou_Page_Frontend_Premium' ) ) {
 			// title.
 			$before_content  = '<style>#ctpw_upsells > h2 {' . $f_color . ' ' . $f_size . ' ' . $f_weight . '} </style>';
 			$before_content .= '<div id="ctpw_upsells">';
+			$default_title   = ( '' === trim( get_option('yith_ctpw_upsells_section_title','') ) ) ? esc_html__( 'You may be interested in...', 'yith-custom-thankyou-page-for-woocommerce' ) : get_option('yith_ctpw_upsells_section_title','');
 			// APPLY_FILTER ctwp_upsells_title: change the upsells section title.
-			$before_content .= '<h2>' . apply_filters( 'ctwp_upsells_title', esc_html__( 'You may be interested in...', 'yith-custom-thankyou-page-for-woocommerce' ) ) . '</h2>';
+			$before_content .= '<h2>' . apply_filters( 'ctwp_upsells_title', $default_title ) . '</h2>';
 
 			$after_content = '</div>';
 
@@ -928,7 +930,7 @@ if ( ! class_exists( 'YITH_Custom_Thankyou_Page_Frontend_Premium' ) ) {
 			if ( count( $thanks ) > 0 ) {
 				if ( in_array( $page_slug, $thanks ) && ! isset( $_GET['ctpw'] ) ) { //phpcs:ignore
 					// APPLY_FILTER yith_ctpw_redirect_on_block: url to redirect if Thank you page is loaded not after order received.
-					exit( wp_safe_redirect( apply_filters( 'yith_ctpw_redirect_on_block', home_url() ), 301 ) );
+					exit( wp_redirect( apply_filters( 'yith_ctpw_redirect_on_block', home_url() ), 301 ) );
 				}
 			}
 

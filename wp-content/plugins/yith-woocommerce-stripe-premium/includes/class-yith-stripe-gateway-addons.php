@@ -592,11 +592,38 @@ if ( ! class_exists( 'YITH_WCStripe_Gateway_Addons' ) ) {
 					// create subscriptions
 					if ( $subscriptions = yit_get_prop( $order, 'subscriptions', true ) ) {
 						foreach ( array_map( 'intval', $subscriptions ) as $subscription_id ) {
-							$subscription       = ywsbs_get_subscription( $subscription_id );
-							$plan               = $this->get_plan( $subscription, $order );
-							$interval           = $subscription->price_time_option;
-							$interval_count     = $subscription->price_is_per;
-							$first_payment_time = strtotime( "+{$interval_count} {$interval}" );
+							$subscription   = ywsbs_get_subscription( $subscription_id );
+							$plan           = $this->get_plan( $subscription, $order );
+							$interval       = $subscription->price_time_option;
+							$interval_count = $subscription->price_is_per;
+
+							// if interval is month, we need some extra care:
+							// check https://stripe.com/docs/billing/subscriptions/billing-cycle for reference.
+							if ( 'months' === $interval ) {
+								$current_day   = date( 'j' );
+								$current_month = date( 'n' );
+								$current_year  = date( 'Y' );
+
+								$next_month = $current_month + $interval_count;
+
+								if ( $next_month > 12 ) {
+									$year_increase = floor( $next_month / 12 );
+
+									$next_month = $next_month % 12;
+									$next_year  = $current_year + $year_increase;
+								} else {
+									$next_year  = $current_year;
+								}
+
+								$last_day_target_month = date( 'T', strtotime( "{$next_year}-{$next_month}-01" ) );
+
+								$next_day = $current_day > $last_day_target_month ? $last_day_target_month : $current_day;
+
+								$first_payment_time = strtotime( "{$next_year}-{$next_month}-{$next_day}" );
+							} else {
+								$first_payment_time = strtotime( "+{$interval_count} {$interval}" );
+							}
+
 							$first_payment_days = apply_filters( 'yith_wcstripe_first_payment_time', ( $first_payment_time - time() ) / DAY_IN_SECONDS, $subscription, $first_payment_time, $order );
 
 							// create subscription on stripe; set billing cycle to start after one interval

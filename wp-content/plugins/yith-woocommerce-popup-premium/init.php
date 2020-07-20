@@ -3,13 +3,13 @@
 * Plugin Name: YITH WooCommerce Popup Premium
 * Plugin URI: https://yithemes.com/themes/plugins/yith-woocommerce-popup
 * Description: <code><strong>YITH WooCommerce Popup</strong></code> allows creating and handling elegant popup windows in your online store. You have full control over the settings and the graphical layout and you'll be able to show them to your users based on specific actions they might carry out, like leaving the page (exit intent), loading the page or after following an external link and so on. <a href="https://yithemes.com/" target="_blank">Get more plugins for your e-commerce shop on <strong>YITH</strong></a>.
-* Version: 1.4.3
+* Version: 1.4.4
 * Author: YITH
 * Author URI: https://yithemes.com/
 * Text Domain: yith-woocommerce-popup
 * Domain Path: /languages/
 * WC requires at least: 3.0.0
-* WC tested up to: 4.2.0
+* WC tested up to: 4.3.0
 **/
 
 
@@ -30,7 +30,7 @@ if ( ! function_exists( 'is_plugin_active' ) ) {
 if ( defined( 'YITH_YPOP_VERSION' ) ) {
 	return;
 } else {
-	define( 'YITH_YPOP_VERSION', '1.4.3' );
+	define( 'YITH_YPOP_VERSION', '1.4.4' );
 }
 
 if ( ! defined( 'YITH_YPOP_PREMIUM_INIT' ) ) {

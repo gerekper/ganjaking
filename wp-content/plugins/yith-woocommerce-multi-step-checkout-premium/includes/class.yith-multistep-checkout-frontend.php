@@ -147,9 +147,12 @@ if ( ! class_exists( 'YITH_Multistep_Checkout_Frontend' ) ) {
                     'checkout_login_reminder_enabled' => 'yes' == get_option( 'woocommerce_enable_checkout_login_reminder', 'yes' ) ? true : false
                 );
                 wp_enqueue_style( $main_style_handle );
+
                 //Add step separator for text style
-	            $step_separator = sprintf( '#checkout_timeline.horizontal.text li:not(:last-child) .timeline-wrapper:after{content: "%s";}', get_option( 'yith_wcms_text_step_separator', '/' ) );
-	            wp_add_inline_style( $main_style_handle, $step_separator );
+	            if( 'yes' == get_option( 'yith_wcms_text_step_separator_onoff', 'yes' ) ){
+		            $step_separator = sprintf( '#checkout_timeline.horizontal.text li:not(:last-child) .timeline-wrapper:after{content: "%s";}', get_option( 'yith_wcms_text_step_separator', '/' ) );
+		            wp_add_inline_style( $main_style_handle, $step_separator );
+	            }
 
                 wp_enqueue_script( 'yith-wcms-step' );
                 wp_localize_script( 'yith-wcms-step', 'yith_wcms_free', $to_localize );
@@ -193,5 +196,30 @@ if ( ! class_exists( 'YITH_Multistep_Checkout_Frontend' ) ) {
             $value['use_iframes'] = 'no';
             return $value;
         }
+
+	    /**
+	     * Get the checkout style
+	     *
+	     * @author Andrea Grillo <andrea.grillo@yithemes.com>
+	     * @since  2.0
+	     *
+	     * @return string checkout style
+	     */
+	    public function get_checkout_style(){
+		    return get_option( 'yith_wcms_timeline_template', 'text' );
+	    }
+
+	    /**
+	     * Check if a step is enabled
+	     *
+	     * @var string $step the step to check
+	     * @author Andrea Grillo <andrea.grillo@yithemes.com>
+	     * @since  2.0
+	     *
+	     * @return bool true if enabled, false otherwise
+	     */
+	    public function is_step_enabled( $step ){
+		    return true;
+	    }
     }
 }

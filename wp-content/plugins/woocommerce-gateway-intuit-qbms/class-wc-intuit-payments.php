@@ -42,7 +42,7 @@ class WC_Intuit_Payments extends Framework\SV_WC_Payment_Gateway_Plugin {
 
 
 	/** string the plugin version number */
-	const VERSION = '2.7.4';
+	const VERSION = '2.7.5';
 
 	/** string the plugin id */
 	const PLUGIN_ID = 'intuit_payments';

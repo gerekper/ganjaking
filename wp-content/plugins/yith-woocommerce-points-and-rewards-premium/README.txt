@@ -26,9 +26,20 @@ Important: First of all, you have to download and activate WooCommerce plugin, w
 
 == Changelog ==
 
+= Version 1.8.0 - Released on 2 Jul 2020 =
+New: Support for WooCommerce 4.3
+New: Support for YITH Subscription 2.0
+Tweak: Firing rules rewriting only on Myaccount section
+Tweak: Added Points endpoint label for breadcrumbs
+Update: Plugin Framework
+Update: Language Files
+Fix: Fixed points label on my account order view
+Dev: Added filter 'ywpar_prevent_extra_points' and 'ywpar_add_affiliate_commission_points'
+Dev: Added filter ywpar_clear_current_coupon for compatibility with WooCommerce Subscriptions
+
 = Version 1.7.9 - Released on 26 May 2020 =
 New: Support for WooCommerce 4.2
-New: Added integration with YITH WooCommerce Account Funds
+New: Added point settings inside YITH WooCommerce Account Funds products
 New: Added new option to show a message for Checkout Threshold - Extra Points
 Update: Plugin Framework
 Fix: issue with updating options

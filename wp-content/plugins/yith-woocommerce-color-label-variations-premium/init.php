@@ -3,17 +3,17 @@
  * Plugin Name: YITH WooCommerce Color and Label Variations Premium
  * Plugin URI: https://yithemes.com/themes/plugins/yith-woocommerce-color-and-label-variations/
  * Description: The <code><strong>YITH WooCommerce Color and Label Variations</strong></code> allows you to customize the drop-down select of your variable products and buy product variations directly from shop pages. A must-have for every e-commerce. <a href="https://yithemes.com/" target="_blank">Get more plugins for your e-commerce shop on <strong>YITH</strong></a>.
- * Version: 1.10.2
+ * Version: 1.10.3
  * Author: YITH
  * Author URI: https://yithemes.com/
  * Text Domain: yith-woocommerce-color-label-variations
  * Domain Path: /languages/
  * WC requires at least: 3.7
- * WC tested up to: 4.1
+ * WC tested up to: 4.3
  *
  * @author  YITH
  * @package YITH WooCommerce Color and Label Variations Premium
- * @version 1.10.2
+ * @version 1.10.3
  */
 /*  Copyright 2015-2020  YITH  (email : plugins@yithemes.com)
 
@@ -64,7 +64,7 @@ if ( ! function_exists( 'yit_deactive_free_version' ) ) {
 yit_deactive_free_version( 'YITH_WCCL_FREE_INIT', plugin_basename( __FILE__ ) );
 
 if ( ! defined( 'YITH_WCCL_VERSION' ) ) {
-	define( 'YITH_WCCL_VERSION', '1.10.2' );
+	define( 'YITH_WCCL_VERSION', '1.10.3' );
 }
 
 if ( ! defined( 'YITH_WCCL' ) ) {
@@ -104,7 +104,7 @@ if ( ! defined( 'YITH_WCCL_SLUG' ) ) {
 }
 
 if ( ! defined( 'YITH_WCCL_SECRET_KEY' ) ) {
-	define( 'YITH_WCCL_SECRET_KEY', '12345' );
+	define( 'YITH_WCCL_SECRET_KEY', 'bnmQwc5wUlnX24pgLm8I' );
 }
 
 if ( ! defined( 'YITH_WCCL_DB_VERSION' ) ) {

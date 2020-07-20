@@ -2,30 +2,30 @@
 # This file is distributed under the same license as the YITH WooCommerce Order Tracking package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-04-15 20:12:53+0000\n"
+"PO-Revision-Date: 2020-06-18 12:47:58+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/2.3.1\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
 "Language: es\n"
 "Project-Id-Version: YITH WooCommerce Order Tracking\n"
 
 #: third-party/elementor/class-ywot-check-tracking-info-widget.php:65
 msgid "Write a description here"
-msgstr ""
+msgstr "Escribe una descripción aquí"
 
 #: third-party/elementor/class-ywot-check-tracking-info-widget.php:62
 msgid "Form description"
-msgstr ""
+msgstr "Descripción del formulario"
 
 #: third-party/elementor/class-ywot-check-tracking-info-widget.php:53
 msgid "Content"
-msgstr ""
+msgstr "Contenido"
 
 #: third-party/elementor/class-ywot-check-tracking-info-widget.php:28
 msgid "YITH Check Order Tracking Info"
-msgstr ""
+msgstr "YITH Seguimiento del pedido"
 
 #. Author URI of the plugin/theme
 msgid "http://yithemes.com/"
@@ -453,7 +453,7 @@ msgstr "Fallo al importar fila %s. \"%s\" no es un ID de pedido válido."
 msgid "The file does not exist, please try again."
 msgstr "El archivo no existe, por favor, inténtalo de nuevo."
 
-#: class.carriers.php:1849
+#: class.carriers.php:1873
 msgctxt "no carrier selected in the order tracking metabox"
 msgid "No carrier selected"
 msgstr "No se ha seleccionado transportista"

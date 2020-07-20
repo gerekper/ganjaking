@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the YITH WooCommerce Mailchimp package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-05-12 12:16+0200\n"
+"PO-Revision-Date: 2020-06-11 18:46+0200\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -111,7 +111,7 @@ msgstr "Liste & Gruppi"
 
 #: templates/admin/types/advanced-integration-item.php:22
 msgid "Options Set #%d"
-msgstr ""
+msgstr "Set opzioni #%d"
 
 #: templates/admin/types/advanced-integration-item.php:18
 msgid "remove"
@@ -983,127 +983,127 @@ msgstr "%s è attivo ma non operativo. Il suo funzionamento richiede WooCommerce
 #: includes/widget/elementor/class.yith-wcmc-elementor-subscription-form.php:347
 msgctxt "Elementor control label"
 msgid "Button border hover color"
-msgstr ""
+msgstr "Colore bordo del pulsante al passaggio del mouse"
 
 #: includes/widget/elementor/class.yith-wcmc-elementor-subscription-form.php:338
 msgctxt "Elementor control label"
 msgid "Button text hover color"
-msgstr ""
+msgstr "Colore testo del pulsante al passaggio del mouse"
 
 #: includes/widget/elementor/class.yith-wcmc-elementor-subscription-form.php:329
 msgctxt "Elementor control label"
 msgid "Button background hover color"
-msgstr ""
+msgstr "Colore sfondo del pulsante al passaggio del mouse"
 
 #: includes/widget/elementor/class.yith-wcmc-elementor-subscription-form.php:320
 msgctxt "Elementor control label"
 msgid "Button border color"
-msgstr ""
+msgstr "Colore bordo del pulsante"
 
 #: includes/widget/elementor/class.yith-wcmc-elementor-subscription-form.php:311
 msgctxt "Elementor control label"
 msgid "Button text color"
-msgstr ""
+msgstr "Colore testo del pulsante"
 
 #: includes/widget/elementor/class.yith-wcmc-elementor-subscription-form.php:302
 msgctxt "Elementor control label"
 msgid "Button background color"
-msgstr ""
+msgstr "Colore sfondo del pulsante"
 
 #: includes/widget/elementor/class.yith-wcmc-elementor-subscription-form.php:289
 msgctxt "Elementor control label"
 msgid "Round Corners for \"Subscribe\" Button"
-msgstr ""
+msgstr "Angoli arrotondati per il pulsante \"Iscriviti\""
 
 #: includes/widget/elementor/class.yith-wcmc-elementor-subscription-form.php:276
 msgctxt "Elementor control label"
 msgid "Enable custom CSS"
-msgstr ""
+msgstr "Attiva CSS personalizzato"
 
 #: includes/widget/elementor/class.yith-wcmc-elementor-subscription-form.php:268
 msgctxt "Elementor section title"
 msgid "Style"
-msgstr ""
+msgstr "Stile"
 
 #: includes/widget/elementor/class.yith-wcmc-elementor-subscription-form.php:257
 msgctxt "Elementor control label"
 msgid "Fields (list of LABEL,MERGE_VAR separated by special token |)"
-msgstr ""
+msgstr "Campi (lista di LABEL,MERGE_VAR separati da |)"
 
 #: includes/widget/elementor/class.yith-wcmc-elementor-subscription-form.php:248
 msgctxt "Elementor control label"
 msgid "Show the following interest groups (list of GROUP_ID-INTEREST_ID separated by special token #%,%#)"
-msgstr ""
+msgstr "Mostra i gruppi di interesse seguenti (lista di GROUP_ID-INTEREST_ID separati da #%,%#)"
 
 #: includes/widget/elementor/class.yith-wcmc-elementor-subscription-form.php:239
 msgctxt "Elementor control label"
 msgid "Auto-subscribe interest groups (list of GROUP_ID-INTEREST_ID separated by special token #%,%#)"
-msgstr ""
+msgstr "Iscrizione automatica ai gruppi di interesse (lista di GROUP_ID-INTEREST_ID separati da #%,%#)"
 
 #: includes/widget/elementor/class.yith-wcmc-elementor-subscription-form.php:230
 msgctxt "Elementor control label"
 msgid "MailChimp list"
-msgstr ""
+msgstr "Lista MailChimp"
 
 #: includes/widget/elementor/class.yith-wcmc-elementor-subscription-form.php:222
 msgctxt "Elementor section title"
 msgid "Mailchimp Settings"
-msgstr ""
+msgstr "Impostazioni MailChimp"
 
 #: includes/widget/elementor/class.yith-wcmc-elementor-subscription-form.php:207
 msgctxt "Elementor control label"
 msgid "Update existing"
-msgstr ""
+msgstr "Aggiorna esistenti"
 
 #: includes/widget/elementor/class.yith-wcmc-elementor-subscription-form.php:194
 msgctxt "Elementor control label"
 msgid "Double Opt-in"
-msgstr ""
+msgstr "Doppio opt-in"
 
 #: includes/widget/elementor/class.yith-wcmc-elementor-subscription-form.php:181
 msgctxt "Elementor control label"
 msgid "Email type"
-msgstr ""
+msgstr "Tipo email"
 
 #: includes/widget/elementor/class.yith-wcmc-elementor-subscription-form.php:168
 msgctxt "Elementor control label"
 msgid "Hide form after registration"
-msgstr ""
+msgstr "Nascondi il form dopo la registrazione"
 
 #: includes/widget/elementor/class.yith-wcmc-elementor-subscription-form.php:157
 msgctxt "Elementor control label"
 msgid "Privacy field label"
-msgstr ""
+msgstr "Etichetta campo Privacy"
 
 #: includes/widget/elementor/class.yith-wcmc-elementor-subscription-form.php:144
 msgctxt "Elementor control label"
 msgid "Show privacy checkbox"
-msgstr ""
+msgstr "Mostra checkbox per la privacy"
 
 #: includes/widget/elementor/class.yith-wcmc-elementor-subscription-form.php:133
 msgctxt "Elementor control label"
 msgid "\"Successfully Registered\" message"
-msgstr ""
+msgstr "Messaggio di \"Iscrizione effettuata con successo\""
 
 #: includes/widget/elementor/class.yith-wcmc-elementor-subscription-form.php:122
 msgctxt "Elementor control label"
 msgid "\"Submit\" button label"
-msgstr ""
+msgstr "Etichetta pulsante \"Invia\""
 
 #: includes/widget/elementor/class.yith-wcmc-elementor-subscription-form.php:111
 msgctxt "Elementor control label"
 msgid "Title"
-msgstr ""
+msgstr "Titolo"
 
 #: includes/widget/elementor/class.yith-wcmc-elementor-subscription-form.php:103
 msgctxt "Elementor section title"
 msgid "General"
-msgstr ""
+msgstr "Generale"
 
 #: includes/widget/elementor/class.yith-wcmc-elementor-subscription-form.php:40
 msgctxt "Elementor widget name"
 msgid "YITH MailChimp Subscrption Form"
-msgstr ""
+msgstr "YITH MailChimp Subscrption Form"
 
 #: includes/libraries/class-wc-background-process.php:173
 msgid "Every %d minutes"
@@ -1296,15 +1296,15 @@ msgstr "Tentativo di sincronizzazione: %s"
 
 #: includes/class.yith-wcmc-store.php:453
 msgid "Current synchronization status:"
-msgstr ""
+msgstr "Stato sincronizzazione corrente:"
 
 #: includes/class.yith-wcmc-store.php:450
 msgid "Synchronization complete"
-msgstr ""
+msgstr "Sincronizzazione completata"
 
 #: includes/class.yith-wcmc-store.php:437
 msgid "<b>%s</b> %s/%s (%s%%)"
-msgstr ""
+msgstr "<b>%s</b> %s/%s (%s%%)"
 
 #: includes/class.yith-wcmc-store.php:399
 msgid "Your store is currently being synced! This may take a while, but won't affect performance of your store. You can keep track of the status of the operation in this page"
@@ -1562,7 +1562,7 @@ msgstr "Etichetta campo Privacy"
 #: includes/class.yith-wcmc-premium.php:1227
 #: includes/widget/elementor/class.yith-wcmc-elementor-subscription-form.php:148
 msgid "Hide privacy checkbox"
-msgstr ""
+msgstr "Nascondi checkbox per la privacy"
 
 #: includes/class.yith-wcmc-premium.php:1225
 #: includes/class.yith-wcmc-premium.php:1228
@@ -1750,7 +1750,7 @@ msgstr "Nome del metodo di spedizione"
 
 #: includes/class.yith-wcmc-admin-premium.php:491
 msgid "Complete address (only to use with Address type field)"
-msgstr ""
+msgstr "Completa indirizzo (da usare solo con il campo di tipo Indirizzo)"
 
 #: includes/class.yith-wcmc-admin-premium.php:360
 msgid "Advanced options"

@@ -103,10 +103,7 @@ if ( ! class_exists( 'YITH_Multistep_Checkout_Admin' ) ) {
 	        $plugin_description = __( 'Split checkout process into more steps', 'yith-woocommerce-multi-step-checkout' );
 
 
-            $admin_tabs = apply_filters( 'yith_wcms_admin_tabs', array(
-                    'settings'      => __( 'Settings', 'yith-woocommerce-multi-step-checkout' ),
-                )
-            );
+            $admin_tabs = apply_filters( 'yith_wcms_admin_tabs', array() );
 
             if( $this->show_premium_landing ){
                 $admin_tabs['premium'] = __( 'Premium Version', 'yith-woocommerce-multi-step-checkout' );

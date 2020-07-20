@@ -33,11 +33,7 @@ if ( ! class_exists( 'YITH_POS_Orders' ) ) {
 			add_action( 'woocommerce_order_item_display_meta_key', array( $this, 'order_item_meta_label' ), 10, 1 );
 			add_action( 'woocommerce_payment_complete_order_status', array( $this, 'filter_order_status' ), 10, 3 );
 
-			/**
-			 * this filter is not yet included in WooCommerce
-			 * it was requested in Pull Request #25727
-			 * @see https://github.com/woocommerce/woocommerce/pull/25727
-			 */
+			// The 'woocommerce_order_get_tax_location' filter requires WooCommerce 4.1 or greater.
 			add_filter( 'woocommerce_order_get_tax_location', array( $this, 'order_tax_location_based_on_store_location' ), 10, 2 );
 		}
 

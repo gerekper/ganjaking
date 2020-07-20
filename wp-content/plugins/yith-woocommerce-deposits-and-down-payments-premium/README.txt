@@ -2,14 +2,22 @@
 
 Contributors: yithemes
 Tags:  deposits, deposits and down payments, down payments, down payment, deposit, woocommerce deposits, woocommerce down payments, rate, amount, full payment, balance, backorder, sales, woocommerce, wp e-commerce
-Requires at least: 4.0.0
+Requires at least: 4.5.0
 Tested up to: 5.4
-Stable tag: 1.3.7
+Stable tag: 1.3.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Documentation: https://yithemes.com/docs-plugins/yith-woocommerce-deposits-and-down-payments
 
 == Changelog ==
+
+= 1.3.8 - Released on 11 June 2020 =
+
+* New: support for WooCommerce 4.2
+* Update: plugin framework
+* Tweak: improved grand total calculation, when propagating coupons
+* Fix: issue with balance totals calculation, when both deposit and balance have shippings
+* Dev: new filters to show deposit in product_page shortcode
 
 = 1.3.7 - Released on 11 May 2020 =
 

@@ -76,6 +76,22 @@ $recipient_delivery_options = array(
             'desc'    => esc_html__( 'Allow your customers to choose a delivery date for the virtual gift card (option not available for physical gift cards delivered at home).', 'yith-woocommerce-gift-cards' ),
             'default' => 'no',
         ),
+        'ywgc_delivery_mode'      => array(
+	        'name'    => esc_html__( 'Choose an interval to send the scheduled gift cards', 'yith-woocommerce-gift-cards' ),
+	        'type'    => 'yith-field',
+	        'yith-type' => 'radio',
+	        'id'      => 'ywgc_delivery_mode',
+	        'desc'    => esc_html__( 'Select the interval to execute the scheduled gift card delivery.', 'yith-woocommerce-gift-cards' ),
+	        'options' => array(
+		        'hourly' => esc_html__( "Hourly", 'yith-woocommerce-gift-cards'),
+		        'daily' => esc_html__( "Daily", 'yith-woocommerce-gift-cards'),
+	        ),
+	        'default' => 'hourly',
+	        'deps'      => array(
+		        'id'    => 'ywgc_enable_send_later',
+		        'value' => 'yes',
+	        )
+        ),
         'ywgc_delivery_hour'      => array(
             'name'    => esc_html__( 'Choose a default delivery time for gift cards', 'yith-woocommerce-gift-cards' ),
             'type'    => 'yith-field',
@@ -85,9 +101,18 @@ $recipient_delivery_options = array(
             'custom_attributes' => "placeholder='00:00'",
             'default' => '00:00',
             'deps'      => array(
-                'id'    => 'ywgc_enable_send_later',
-                'value' => 'yes',
+                'id'    => 'ywgc_delivery_mode',
+                'value' => 'daily',
             )
+        ),
+        'ywgc_update_cron_button'    => array(
+	        'type'  =>'update-cron',
+	        'desc' => __('Click the button to update the Cron Job that delivers the scheduled gift cards.', 'yith-woocommerce-barcodes' ),
+	        'id'    =>  'ywgc_update_cron_button',
+	        'deps'      => array(
+		        'id'    => 'ywgc_enable_send_later',
+		        'value' => 'yes',
+	        )
         ),
         'ywgc_recipient_info_title'          => array(
             'name'    => esc_html__( 'Title for the “Recipient info” section', 'yith-woocommerce-gift-cards' ),

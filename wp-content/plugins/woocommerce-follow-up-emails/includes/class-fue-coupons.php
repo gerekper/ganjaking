@@ -17,7 +17,8 @@ class FUE_Coupons {
 		add_action( 'fue_menu', array( $this, 'menu' ), 20 );
 
 		// Settings styles and scripts.
-		add_action( 'admin_enqueue_scripts', array( $this, 'settings_scripts' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'settings_scripts' ), 20 );
+		add_action( 'admin_enqueue_scripts', array( $this, 'before_settings_scripts' ), 9 );
 
 		add_action( 'fue_settings_notification', array( $this, 'print_notifications' ) );
 
@@ -45,6 +46,16 @@ class FUE_Coupons {
 	}
 
 	/**
+	 * Load the necessary scripts and styles before WooCommerce loads scripts.
+	 */
+	public function before_settings_scripts() {
+
+		if ( isset( $_GET['page'] ) && 'followup-emails-coupons' === $_GET['page'] ) {
+			wp_enqueue_script( 'woocommerce_admin' );
+		}
+	}
+
+	/**
 	 * Load the necessary scripts and styles
 	 */
 	public function settings_scripts() {
@@ -53,7 +64,6 @@ class FUE_Coupons {
 			wp_enqueue_script( 'select2' );
 			wp_enqueue_style( 'select2' );
 
-			wp_enqueue_script( 'woocommerce_admin' );
 			wp_enqueue_script( 'farbtastic' );
 			wp_enqueue_script( 'jquery-ui-datepicker', null, array( 'jquery-ui-core' ) );
 			wp_enqueue_script( 'jquery-tiptip' );
@@ -550,13 +560,21 @@ class FUE_Coupons {
 		);
 
 		if ( ! empty( $_POST['product_ids'] ) ) {
-			$data['product_ids'] = sanitize_text_field( wp_unslash( $_POST['product_ids'] ) );
+			if ( is_array( $_POST['product_ids'] ) ) {
+				$data['product_ids'] = implode( ',', array_map( 'absint', $_POST['product_ids'] ) );
+			} else {
+				$data['product_ids'] = sanitize_text_field( wp_unslash( $_POST['product_ids'] ) );
+			}
 		} else {
 			$data['product_ids'] = '';
 		}
 
 		if ( ! empty( $_POST['exclude_product_ids'] ) ) {
-			$data['exclude_product_ids'] = sanitize_text_field( wp_unslash( $_POST['exclude_product_ids'] ) );
+			if ( is_array( $_POST['exclude_product_ids'] ) ) {
+				$data['exclude_product_ids'] = implode( ',', array_map( 'absint', $_POST['exclude_product_ids'] ) );
+			} else {
+				$data['exclude_product_ids'] = sanitize_text_field( wp_unslash( $_POST['exclude_product_ids'] ) );
+			}
 		} else {
 			$data['exclude_product_ids'] = '';
 		}

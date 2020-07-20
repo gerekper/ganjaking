@@ -40,7 +40,6 @@ if ( ! class_exists( 'YITH_Sequential_Order_Number_Admin' ) ) {
 			add_action( 'wp_ajax_import_old_order_number', array( $this, 'import_old_order_number' ) );
 
 			add_filter( 'woocommerce_shop_order_search_fields', array( $this, 'add_custom_search_fields' ) );
-			add_filter('yith_mv_order_list_query_args', array($this,'get_parent_order_id'), 20, 1 );
 
 			//Add compatibility with Quick Export
 			add_filter( 'yith_quick_export_orders_columns_order', array(

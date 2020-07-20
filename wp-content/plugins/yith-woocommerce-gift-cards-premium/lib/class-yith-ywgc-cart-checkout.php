@@ -198,9 +198,9 @@ if ( ! class_exists( 'YITH_YWGC_Cart_Checkout' ) ) {
 				add_action( 'init', array( $this, 'ywgc_apply_gift_card_on_coupon_form' ) );
 			}
 
-			if ( apply_filters( 'ywgc_add_gift_card_coupons_as_negative_fees', false ) ){
-				add_action( 'woocommerce_checkout_order_processed', array($this,'add_item_fee'));
-			}
+
+			add_action( 'woocommerce_checkout_order_processed', array($this,'add_item_fee'));
+
 
 		}
 
@@ -234,15 +234,44 @@ if ( ! class_exists( 'YITH_YWGC_Cart_Checkout' ) ) {
 
 			$gift_card = YITH_YWGC()->get_gift_card_by_code( $code );
 
+			if ( apply_filters( 'ywgc_verify_coupon_code_condition', false, $return_val, $code ) ){
+				return $return_val;
+			}
+
+			if ( $gift_card->exists() && get_option( 'ywgc_apply_gc_code_on_gc_product', 'no' )  == 'yes' && is_cart() ){
+
+				$items = WC()->cart->get_cart();
+
+				foreach ( $items as $cart_item_key => $values ) {
+					$product = $values['data'];
+
+					if ( $product->get_type() == 'gift-card' ){
+						wc_add_notice( esc_html__( 'It is not possible to add a gift card code when the cart contains a gift card product', 'yith-woocommerce-gift-cards'), 'error' );
+
+						return $return_val;
+					}
+				}
+			}
+
+
 			if ( ! $gift_card instanceof YWGC_Gift_Card_Premium ) {
 				return $return_val;
 			}
 
+			$amount = $gift_card->get_balance();
+
+			global $woocommerce_wpml;
+
+			if ( $woocommerce_wpml && $woocommerce_wpml->multi_currency ) {
+				$amount = apply_filters( 'wcml_raw_price_amount', $amount );
+			}
+
+
 			if ( $gift_card->ID && $gift_card->get_balance() > 0 && $gift_card->is_enabled() ) {
 				$temp_coupon_array = apply_filters( 'ywgc_temp_coupon_array' , array(
 					'discount_type' => 'fixed_cart',
-					'coupon_amount' => $gift_card->get_balance(),
-					'amount'        => $gift_card->get_balance(),
+					'coupon_amount' => $amount,
+					'amount'        => $amount,
 					'id'            => true,
 				), $gift_card );
 
@@ -269,6 +298,12 @@ if ( ! class_exists( 'YITH_YWGC_Cart_Checkout' ) ) {
 			$gift = YITH_YWGC()->get_gift_card_by_code( $code );
 
 			$total_discount_amount = $discount_amount + $discount_amount_tax;
+
+			global $woocommerce_wpml;
+
+			if ( $woocommerce_wpml && $woocommerce_wpml->multi_currency ) {
+				$total_discount_amount = YWGC_WPML::get_instance()->convert_to_base_currency($total_discount_amount);
+			}
 
 			if ( $gift instanceof YWGC_Gift_Card_Premium ) {
 
@@ -339,15 +374,15 @@ if ( ! class_exists( 'YITH_YWGC_Cart_Checkout' ) ) {
 					/////////// tax calculation
 
 					$new_tax_value = 0;
-
 					foreach ( $cart->get_tax_totals() as $tax_object ){
 
 						$rate = WC_Tax::get_rate_percent($tax_object->tax_rate_id);
 
-						$rate_formatted = '0.' . str_replace('%', '', $rate);
+						$rate_formatted = '1.' . str_replace('%', '', $rate);
 
-						$new_tax_value += (float)$rate_formatted * (float)$new_total;
+						$total_without_tax = (float)$new_total / (float)$rate_formatted;
 
+						$new_tax_value += $new_total - $total_without_tax ;
 					}
 
 					///////// Apply all the taxes to the total, and delete it from the shipping and the fees
@@ -364,7 +399,7 @@ if ( ! class_exists( 'YITH_YWGC_Cart_Checkout' ) ) {
 							$cart->set_cart_contents_taxes(array($line_tax_data_key => $new_tax_value));
 
 							$cart->set_total_tax($new_tax_value);
-							$cart->set_subtotal_tax($new_tax_value);
+//							$cart->set_subtotal_tax($new_tax_value);
 
 							//Necessary to display a zero tax in the order page
 							$cart->cart_contents[ $cart_item_key ]["line_tax_data"]["total"][ $line_tax_data_key ] = $new_tax_value;
@@ -373,7 +408,12 @@ if ( ! class_exists( 'YITH_YWGC_Cart_Checkout' ) ) {
 						}
 
 						foreach ( $cart->get_shipping_taxes() as $cart_shipping_taxes_key => $cart_shipping_taxes_value) {
+
 							$shipping_taxes_key[] = $cart_shipping_taxes_key;
+
+							$shipping_total = $cart->get_shipping_total() + $cart_shipping_taxes_value;
+							$cart->set_shipping_total( $shipping_total );
+
 							$cart->set_shipping_tax(0);
 							$cart->set_shipping_taxes(array($cart_shipping_taxes_key => 0));
 
@@ -773,7 +813,11 @@ if ( ! class_exists( 'YITH_YWGC_Cart_Checkout' ) ) {
 
 						$tax_percentage = round(($cart_total_tax_aux * 100 ) / $cart_total_aux );
 
-						$new_tax = round( ( $tax_percentage * $new_cart_total ) / 100 , wc_get_rounding_precision() );
+						$rate_formatted = '1.' . $tax_percentage;
+
+						$amount_to_substract =  ($new_cart_total / $rate_formatted );
+
+						$new_tax = $new_cart_total - $amount_to_substract;
 
 						foreach ( $cart->get_cart_contents() as $cart_item_key => $values ) {
 
@@ -785,10 +829,7 @@ if ( ! class_exists( 'YITH_YWGC_Cart_Checkout' ) ) {
 							}
 
 							foreach ( $cart->get_shipping_taxes() as $cart_shipping_taxes_key => $cart_shipping_taxes_value) {
-								$cart->set_shipping_total(0);
-								$cart->set_shipping_tax(0);
 								$cart->set_shipping_taxes(array($cart_shipping_taxes_key => 0));
-
 							}
 						}
 
@@ -937,7 +978,12 @@ if ( ! class_exists( 'YITH_YWGC_Cart_Checkout' ) ) {
 		 */
 		public function add_item_fee($order_id) {
 
-			$order = wc_get_order($order_id);
+			if ( apply_filters( 'ywgc_add_gift_card_coupons_as_negative_fees', true ) ){
+				return;
+			}
+
+
+				$order = wc_get_order($order_id);
 
 			$total_coupons_amount = 0;
 			$total_coupons_amount_tax = 0;
@@ -987,18 +1033,27 @@ if ( ! class_exists( 'YITH_YWGC_Cart_Checkout' ) ) {
 					$coupon_code = $coupon->get_code();
 					$gift = YITH_YWGC()->get_gift_card_by_code( $coupon_code );
 
-					if ($gift->exists())
+
+					if ($gift->exists()){
+						$gift->register_order( $order->get_id() );
 						$order->remove_coupon($coupon_code);
+					}
+
 				}
+
+				$shipping_aux_total = $order->get_shipping_total() + $order->get_shipping_tax();
 
 				foreach( $order->get_items( 'tax' ) as $item_id => $item_tax ){
 					wc_update_order_item_meta( $item_id, 'tax_amount', $aux_cart_tax );
 					wc_update_order_item_meta( $item_id, 'shipping_tax_amount', '0' );
 				}
 
+
 				update_post_meta($order->get_id(), '_ywgc_aux_cart_total_tax', $aux_cart_tax );
 				update_post_meta($order->get_id(), '_order_tax', $aux_cart_tax );
 				update_post_meta($order->get_id(), '_order_shipping_tax', '0' );
+				update_post_meta($order->get_id(), '_order_shipping', $shipping_aux_total );
+
 
 			}
 
@@ -1173,19 +1228,27 @@ if ( ! class_exists( 'YITH_YWGC_Cart_Checkout' ) ) {
 				$delivery_date = isset( $_REQUEST['ywgc-delivery-date'] ) ? $_REQUEST['ywgc-delivery-date'] : '';
 
 				if ( $delivery_date != '' && is_string($delivery_date) && !is_bool( $delivery_date ) ) {
-					$search  = array( '.', ', ', '/', ' ', ',', 'MM', 'yy', 'mm', 'dd' );
-					$replace = array( '-', '-', '-', '-', '-', 'M', 'y', 'm', 'd' );
-
-					$date_formatted = str_replace( $search, $replace, $delivery_date );
 
 					$saved_format           = get_option( 'ywgc_plugin_date_format_option', 'yy-mm-dd' );
-					$saved_format_formatted = str_replace( $search, $replace, $saved_format );
 
-					$delivery_date = 'mm/dd/yy' !== $saved_format ? date( $saved_format_formatted, strtotime( $date_formatted ) ) : date( $saved_format_formatted, strtotime( $delivery_date ) );
-
-					if ( $delivery_date = DateTime::createFromFormat( $saved_format_formatted, $delivery_date ) ) {
-						$delivery_date = $delivery_date->getTimestamp();
+					if ( $saved_format == 'MM d, yy'){
+						$delivery_date = strtotime($delivery_date);
 					}
+					else{
+						$search  = array( '.', ', ', '/', ' ', ',', 'MM', 'yy', 'mm', 'dd' );
+						$replace = array( '-', '-', '-', '-', '-', 'M', 'y', 'm', 'd' );
+
+						$date_formatted = str_replace( $search, $replace, $delivery_date );
+
+						$saved_format_formatted = str_replace( $search, $replace, $saved_format );
+
+						$delivery_date = 'mm/dd/yy' !== $saved_format ? date( $saved_format_formatted, strtotime( $date_formatted ) ) : date( $saved_format_formatted, strtotime( $delivery_date ) );
+
+						if ( $delivery_date = DateTime::createFromFormat( $saved_format_formatted, $delivery_date ) ) {
+							$delivery_date = $delivery_date->getTimestamp();
+						}
+					}
+
 				}
 
 				$postdated = $delivery_date != '' ? true : false;

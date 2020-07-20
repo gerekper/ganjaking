@@ -1,0 +1,2909 @@
+# Translation of YITH Point of Sale for WooCommerce in Greek
+# This file is distributed under the same license as the YITH Point of Sale for WooCommerce package.
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH Point of Sale for WooCommerce\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-point-of-"
+"sale-for-woocommerce-premium\n"
+"POT-Creation-Date: 2020-07-03T10:15:39+00:00\n"
+"PO-Revision-Date: 2020-06-26 14:34:40+0000\n"
+"Language: el_GR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
+
+#. Plugin Name of the plugin
+msgid "YITH Point of Sale for WooCommerce"
+msgstr "YITH Point of Sale for WooCommerce"
+
+#. Plugin URI of the plugin
+msgid "https://yithemes.com/themes/plugins/yith-point-of-sale-for-woocommerce"
+msgstr "https://yithemes.com/themes/plugins/yith-point-of-sale-for-woocommerce"
+
+#. Description of the plugin
+msgid ""
+"<code><strong>YITH Point of Sale for WooCommerce</strong></code> allows you "
+"to turn your WooCommerce installation into an easy to use and powerful cash "
+"register for each type of store or business. <a href=\"https://yithemes.com/"
+"\" target=\"_blank\">Get more plugins for your e-commerce shop on "
+"<strong>YITH</strong></a>"
+msgstr ""
+"To <code><strong>YITH Point of Sale for WooCommerce</strong></code> σας "
+"επιτρέπει να μετατρέψετε την εγκατάσταση WooCommerce σας σε μια εύχρηστη και "
+"δυναμική ταμειακή μηχανή για κάθε τύπο καταστήματος ή επιχείρησης. <a href="
+"\"https://yithemes.com/\" target=\"_blank\">Βρείτε περισσότερα πρόσθετα για "
+"το ηλεκτρονικό σας κατάστημα στο <strong>YITH</strong></a>"
+
+#. Author of the plugin
+msgid "YITH"
+msgstr "YITH"
+
+#. Author URI of the plugin
+msgid "https://yithemes.com/"
+msgstr "https://yithemes.com/"
+
+#: includes/admin/class.yith-pos-receipt-post-type-admin.php:75
+msgid "Registers with this template"
+msgstr "Ταμεία με αυτό το πρότυπο"
+
+#: includes/admin/class.yith-pos-register-post-type-admin.php:95
+msgid "Filter by store"
+msgstr "Ταξινόμηση κατα κατάστημα"
+
+#: includes/admin/class.yith-pos-register-post-type-admin.php:104
+msgid "Filter by status"
+msgstr "Ταξινόμηση κατα κατάσταση"
+
+#: includes/admin/class.yith-pos-register-post-type-admin.php:127
+msgid "Register Name"
+msgstr "Όνομα Ταμείου"
+
+#: includes/admin/class.yith-pos-register-post-type-admin.php:128
+#: includes/class.yith-pos-post-types.php:101
+#: includes/class.yith-pos-post-types.php:115
+#: templates/yith-pos-store-register.php:56
+msgid "Store"
+msgstr "Κατάστημα"
+
+#: includes/admin/class.yith-pos-register-post-type-admin.php:129
+#: includes/admin/class.yith-pos-store-post-type-admin.php:284
+msgid "Info"
+msgstr "Πληροφορίες"
+
+#: includes/admin/class.yith-pos-register-post-type-admin.php:130
+msgid "Status"
+msgstr "Κατάσταση"
+
+#: includes/admin/class.yith-pos-register-post-type-admin.php:131
+#: includes/admin/class.yith-pos-store-post-type-admin.php:333
+#: dist/pos/index.js:33
+msgid "Enabled"
+msgstr "Ενεργοποιημένο"
+
+#: includes/admin/class.yith-pos-register-post-type-admin.php:158
+#: views/panel/store-wizard-summary.php:107
+msgid "Guest Register"
+msgstr "Ταμείο Επισκέπτη"
+
+#: includes/admin/class.yith-pos-register-post-type-admin.php:158
+msgid "Standard Register"
+msgstr "Κανονική Εγγραφή"
+
+#: includes/admin/class.yith-pos-register-post-type-admin.php:162
+msgid "Receipt: %s"
+msgstr "Απόδειξη: %s"
+
+#: includes/admin/class.yith-pos-register-post-type-admin.php:164
+msgid "No Receipt"
+msgstr "Χωρίς Απόδειξη"
+
+#: includes/admin/class.yith-pos-register-post-type-admin.php:245
+#: includes/class.yith-pos-post-types.php:104
+#: includes/class.yith-pos-post-types.php:147
+#: includes/class.yith-pos-post-types.php:188
+#: plugin-options/metabox/receipt-options.php:14
+#: plugin-options/metabox/store-options.php:11
+msgid "Edit"
+msgstr "Επεξεργασία"
+
+#: includes/admin/class.yith-pos-register-post-type-admin.php:254
+#: templates/yith-pos-store-register.php:66 dist/pos/index.js:33
+msgid "Open Register"
+msgstr "Ανοιχτή Εγγραφή"
+
+#. Translators: %s Payment gateway name.
+#: includes/admin/class.yith-pos-store-post-type-admin.php:111
+#: includes/class.yith-pos-admin.php:125 dist/pos/index.js:33
+msgid "Yes"
+msgstr "Ναι"
+
+#. Translators: %s Payment gateway name.
+#: includes/admin/class.yith-pos-store-post-type-admin.php:112
+#: includes/class.yith-pos-admin.php:128
+msgid "No"
+msgstr "Όχι"
+
+#: includes/admin/class.yith-pos-store-post-type-admin.php:116
+msgid "Filter by enabled status"
+msgstr "Ταξινόμηση κατα ενεργοποιημένο κατάστημα"
+
+#: includes/admin/class.yith-pos-store-post-type-admin.php:284
+msgid "Step 1: Store Info"
+msgstr "Βήμα 1ο: Πληροφορίες Καταστήματος"
+
+#: includes/admin/class.yith-pos-store-post-type-admin.php:285
+#: includes/admin/class.yith-pos-store-post-type-admin.php:293
+msgid "General store info"
+msgstr "Γενικές πληροφορίες καταστήματος"
+
+#: includes/admin/class.yith-pos-store-post-type-admin.php:285
+msgid ""
+"Enter the store details including the address, contact information and "
+"social accounts"
+msgstr ""
+"Εισάγετε τα στοιχεία του καταστήματος συμπεριλαμβανομένης της διεύθυνσης, "
+"πληροφοριών επικοινωνίας και κοινωνικών λογαριασμών"
+
+#: includes/admin/class.yith-pos-store-post-type-admin.php:288
+#: includes/admin/class.yith-pos-store-post-type-admin.php:331
+#: plugin-options/metabox/store-options.php:144
+#: views/panel/store-wizard-nav.php:16 views/panel/store-wizard-summary.php:75
+msgid "Employees"
+msgstr "Υπάλληλοι"
+
+#: includes/admin/class.yith-pos-store-post-type-admin.php:288
+msgid "Step 2: Employees"
+msgstr "Βήμα 2: Υπάλληλοι"
+
+#: includes/admin/class.yith-pos-store-post-type-admin.php:289
+msgid ""
+"Set the employees (managers and cashiers) for this store<br/>You can choose "
+"your cashiers from the users already registered in this site or create new "
+"cashiers"
+msgstr ""
+"Ορισμός των υπαλλήλων (μάνατζερ και ταμίες) για αυτό το κατάστημα<br/"
+">Μπορείτε να επιλέξετε τους ταμίες σας από τους χρήστες που έχουν ήδη "
+"εγγραφεί σε αυτό το site ή να δημιουργήσετε νέους ταμίες"
+
+#: includes/admin/class.yith-pos-store-post-type-admin.php:289
+msgid ""
+"Assign a manager to manage all registers and add cashiers to each of them"
+msgstr ""
+"Αναθέστε σε ένα μάνατζερ την διαχείριση όλων των ταμείων και προσθέστε "
+"ταμίες σε κάθε μια από αυτές"
+
+#: includes/admin/class.yith-pos-store-post-type-admin.php:292
+#: includes/admin/class.yith-pos-store-post-type-admin.php:332
+#: includes/class.yith-pos-admin.php:153
+#: includes/class.yith-pos-post-types.php:143
+#: includes/class.yith-pos-post-types.php:158
+#: plugin-options/metabox/store-options.php:241
+#: views/panel/store-wizard-nav.php:21 views/panel/store-wizard-summary.php:96
+msgid "Registers"
+msgstr "Ταμεία"
+
+#: includes/admin/class.yith-pos-store-post-type-admin.php:292
+msgid "Step 3: Registers"
+msgstr "Βήμα 3: Ταμεία"
+
+#: includes/admin/class.yith-pos-store-post-type-admin.php:293
+msgid ""
+"Create at least one register for this store.<br/>You can set the visibility "
+"of each register to hide/show to some users"
+msgstr ""
+"Δημιουργήστε τουλάχιστον ένα ταμείο για αυτό το κατάστημα.<br/>Μπορείτε να "
+"ορίσετε την ορατότητα κάθε ταμείου για απόκρυψη/εμφάνιση σε ορισμένους "
+"χρήστες"
+
+#: includes/admin/class.yith-pos-store-post-type-admin.php:296
+msgid "Resume"
+msgstr "Συνέχεια"
+
+#: includes/admin/class.yith-pos-store-post-type-admin.php:297
+msgid ""
+"Just one more step! Click the \"Save Store\" button to save your store. To "
+"make changes you can go back now or edit these from \"Stores\" tab."
+msgstr ""
+"Μένει ένα ακόμη βήμα! Κάντε κλικ στο κουμπί “Αποθήκευση Καταστήματος” για να "
+"αποθηκεύσετε το κατάστημά σας. Για να δημιουργήσετε αλλαγές μπορείτε να πάτε "
+"πίσω τώρα ή να τις επεξεργαστείτε από την καρτέλα “Καταστήματα”."
+
+#: includes/admin/class.yith-pos-store-post-type-admin.php:330
+#: plugin-options/metabox/store-options.php:42
+#: views/fields/receipt-preview-template.php:8
+#: views/panel/store-wizard-summary.php:19
+msgid "Store Name"
+msgstr "Όνομα Καταστήματος"
+
+#: includes/admin/class.yith-pos-store-post-type-admin.php:356
+#: views/panel/store-wizard-summary.php:77
+msgid "Managers"
+msgstr "Μάνατζερ"
+
+#: includes/admin/class.yith-pos-store-post-type-admin.php:361
+#: plugin-options/metabox/store-options.php:199
+#: views/panel/store-wizard-summary.php:86
+msgid "Cashiers"
+msgstr "Ταμίες"
+
+#: includes/admin/class.yith-pos-store-post-type-admin.php:446
+msgid "Show Registers"
+msgstr "Εμφάνιση Ταμείων"
+
+#: includes/class.yith-pos-admin.php:97 includes/class.yith-pos-admin.php:99
+msgid "Enabled on YITH POS"
+msgstr "Ενεργοποιημένο στο YITH POS"
+
+#. Translators: %s Payment gateway name.
+#: includes/class.yith-pos-admin.php:125
+msgid "The \"%s\" payment method is currently enabled on YITH POS"
+msgstr "Η μέθοδος πληρωμής “%s” έχει πλέον ενεργοποιηθεί στο YITH POS"
+
+#. Translators: %s Payment gateway name.
+#: includes/class.yith-pos-admin.php:128
+msgid "The \"%s\" payment method is currently disabled on YITH POS"
+msgstr "Η μέθοδος πληρωμής “%s” έχει πλέον απενεργοποιηθεί στο YITH POS"
+
+#: includes/class.yith-pos-admin.php:145
+msgid "Dashboard"
+msgstr "Πίνακας Ελέγχου"
+
+#: includes/class.yith-pos-admin.php:149
+#: includes/class.yith-pos-post-types.php:100
+msgid "Stores"
+msgstr "Καταστήματα"
+
+#: includes/class.yith-pos-admin.php:157
+#: includes/class.yith-pos-post-types.php:184
+#: includes/class.yith-pos-post-types.php:199
+msgid "Receipts"
+msgstr "Αποδείξεις"
+
+#: includes/class.yith-pos-admin.php:161
+msgid "Customization"
+msgstr "Προσαρμογή"
+
+#: includes/class.yith-pos-admin.php:390
+msgid "Visit POS"
+msgstr "Επίσκεψη στο POS"
+
+#: includes/class.yith-pos-admin.php:401 includes/class.yith-pos-admin.php:413
+#: includes/class.yith-pos-frontend.php:133
+#: views/fields/receipt-preview-template.php:11
+msgid "VAT"
+msgstr "ΦΠΑ"
+
+#: includes/class.yith-pos-admin.php:431 includes/class.yith-pos.php:276
+msgid "YITH POS"
+msgstr "YITH POS"
+
+#: includes/class.yith-pos-admin.php:432
+msgid "Online"
+msgstr "Ενεργός"
+
+#: includes/class.yith-pos-admin.php:435
+msgid "Filter by YITH POS or online"
+msgstr "Ταξινόμηση κατα YITH POS ή κατα ενεργός"
+
+#: includes/class.yith-pos-admin.php:507
+msgid "POS Info"
+msgstr "Πληροφορίες POS"
+
+#: includes/class.yith-pos-admin.php:513
+msgid "Settings"
+msgstr "Ρυθμίσεις"
+
+#: includes/class.yith-pos-ajax.php:108
+msgid "Error: Store #%s not found"
+msgstr "Σφάλμα: Δεν βρέθηκε κατάστημα #%s"
+
+#: includes/class.yith-pos-ajax.php:113 includes/class.yith-pos-ajax.php:139
+#: includes/class.yith-pos-ajax.php:164 includes/class.yith-pos-ajax.php:206
+#: includes/class.yith-pos-ajax.php:243 includes/class.yith-pos-ajax.php:280
+msgid "Error: Invalid request. Try again!"
+msgstr "Σφάλμα: Μη έγκυρο αίτημα. Προσπαθήστε ξανά!"
+
+#: includes/class.yith-pos-ajax.php:134
+msgid "Error: Register #%s not found"
+msgstr "Σφάλμα: Δεν βρέθηκε ταμείο #%s"
+
+#: includes/class.yith-pos-ajax.php:258
+msgid "Register updated correctly!"
+msgstr "Το ταμείο ενημερώθηκε επιτυχώς!"
+
+#: includes/class.yith-pos-ajax.php:262
+msgid "Error: Something had gone wrong. Please try again!"
+msgstr "Σφάλμα: Κάτι δεν πήγε καλά. Παρακαλώ προσπαθήστε ξανά!"
+
+#: includes/class.yith-pos-ajax.php:267 includes/class.yith-pos-ajax.php:291
+msgid "Error: Register #%s not found. Please try again!"
+msgstr "Σφάλμα: Δεν βρέθηκε το ταμείο #%s. Παρακαλώ προσπαθήστε ξανά!"
+
+#: includes/class.yith-pos-ajax.php:359
+msgid "No cashiers found for the selected Store."
+msgstr "Δεν βρέθηκαν ταμίες για το επιλεγμένο Κατάστημα."
+
+#: includes/class.yith-pos-assets.php:101
+msgid "Here you can create, edit and manage all the Stores."
+msgstr ""
+"Εδώ μπορείτε να δημιουργήσετε, επεξεργαστείτε και διαχειριστείτε όλα τα "
+"Καταστήματα."
+
+#: includes/class.yith-pos-assets.php:102
+msgid "Here you can manage all the Registers of the Stores"
+msgstr "Εδώ μπορείτε να διαχειριστείτε όλα τα Ταμεία των Καταστημάτων"
+
+#: includes/class.yith-pos-assets.php:103
+msgid "Here you can manage all the Receipt Templates"
+msgstr "Εδώ μπορείτε να διαχειριστείτε όλα τα Πρότυπα Αποδείξεων"
+
+#: includes/class.yith-pos-assets.php:104
+msgid "You need to create at least one Register before proceeding"
+msgstr "Πρέπει να χρησιμοποιήσετε τουλάχιστον ένα Ταμείο πριν συνεχίσετε"
+
+#: includes/class.yith-pos-assets.php:105
+msgid ""
+"To restock items automatically for a POS order you need WooCommerce 4.1 or "
+"greater.<br />For previous versions, you can restock them manually after "
+"refunding the order."
+msgstr ""
+"Για αυτόματη επαναφορά αποθέματος για μια παραγγελία POS χρειάζεστε "
+"WooCommerce 4.1 ή μεγαλύτερη.<br />Για προηγούμενες εκδόσεις, μπορείτε να "
+"επαναφέρετε στο απόθεμα χειροκίνητα μετά την επιστροφή της παραγγελίας."
+
+#: includes/class.yith-pos-assets.php:117
+msgid "Are you sure you want to delete this Register?"
+msgstr "Είστε σίγουρος ότι θέλετε να διαγράψετε αυτό το Ταμείο;"
+
+#: includes/class.yith-pos-frontend.php:466
+msgid "Error: you cannot get access to this Register!"
+msgstr "Σφάλμα: δεν μπορείτε να έχετε πρόσβαση σε αυτό το Ταμείο!"
+
+#: includes/class.yith-pos-orders.php:86 dist/pos/index.js:33
+msgid "Note"
+msgstr "Σημείωση"
+
+#: includes/class.yith-pos-post-types.php:102
+#: includes/class.yith-pos-post-types.php:103
+msgid "Add New Store"
+msgstr "Προσθήκη Νέου Καταστήματος"
+
+#: includes/class.yith-pos-post-types.php:105
+msgid "Edit Store"
+msgstr "Επεξεργασία Καταστήματος"
+
+#: includes/class.yith-pos-post-types.php:106
+msgid "New Store"
+msgstr "Νέο Κατάστημα"
+
+#: includes/class.yith-pos-post-types.php:107
+#: includes/class.yith-pos-post-types.php:108
+msgid "View Store"
+msgstr "Εμφάνιση Καταστήματος"
+
+#: includes/class.yith-pos-post-types.php:109
+msgid "Search Store"
+msgstr "Αναζήτηση Καταστήματος"
+
+#: includes/class.yith-pos-post-types.php:110
+#: includes/class.yith-pos-post-types.php:153
+#: includes/class.yith-pos-post-types.php:194
+msgid "Not found"
+msgstr "Δεν βρέθηκε"
+
+#: includes/class.yith-pos-post-types.php:111
+#: includes/class.yith-pos-post-types.php:154
+#: includes/class.yith-pos-post-types.php:195
+msgid "Not found in trash"
+msgstr "Δεν βρέθηκε στον κάδο ανακύκλωσης"
+
+#: includes/class.yith-pos-post-types.php:117
+msgid "This is where Stores are stored."
+msgstr "Εδώ αποθηκεύονται τα Καταστήματα."
+
+#: includes/class.yith-pos-post-types.php:144
+#: templates/yith-pos-store-register.php:62
+#: views/fields/receipt-preview-template.php:96
+msgid "Register"
+msgstr "Ταμείο"
+
+#: includes/class.yith-pos-post-types.php:145
+#: includes/class.yith-pos-post-types.php:146
+msgid "Add New Register"
+msgstr "Προσθήκη Νέου Ταμείου"
+
+#: includes/class.yith-pos-post-types.php:148
+msgid "Edit Register"
+msgstr "Επεξεργασία Ταμείου"
+
+#: includes/class.yith-pos-post-types.php:149
+msgid "New Register"
+msgstr "Νέο Ταμείο"
+
+#: includes/class.yith-pos-post-types.php:150
+#: includes/class.yith-pos-post-types.php:151
+msgid "View Register"
+msgstr "Προβολή Ταμείου"
+
+#: includes/class.yith-pos-post-types.php:152
+msgid "Search Registers"
+msgstr "Αναζήτηση Ταμείου"
+
+#: includes/class.yith-pos-post-types.php:160
+msgid "This is where Registers are stored."
+msgstr "Εδώ αποθηκεύονται τα Ταμεία."
+
+#: includes/class.yith-pos-post-types.php:185
+#: includes/class.yith-pos-post-types.php:443
+msgid "Receipt"
+msgstr "Απόδειξη"
+
+#: includes/class.yith-pos-post-types.php:186
+#: includes/class.yith-pos-post-types.php:187
+msgid "Add New Receipt"
+msgstr "Προσθήκη Νέας Απόδειξης"
+
+#: includes/class.yith-pos-post-types.php:189
+msgid "Edit Receipt"
+msgstr "Επεξεργασία Απόδειξης"
+
+#: includes/class.yith-pos-post-types.php:190
+msgid "New Receipt"
+msgstr "Νέα Απόδειξη"
+
+#: includes/class.yith-pos-post-types.php:191
+#: includes/class.yith-pos-post-types.php:192
+msgid "View Receipt"
+msgstr "Προβολή Απόδειξης"
+
+#: includes/class.yith-pos-post-types.php:193
+msgid "Search Receipts"
+msgstr "Αναζήτηση Αποδείξεων"
+
+#: includes/class.yith-pos-post-types.php:201
+msgid "This is where Receipts are stored."
+msgstr "Εδώ αποθηκεύονται οι Αποδείξεις."
+
+#: includes/class.yith-pos-post-types.php:324
+#: includes/class.yith-pos-post-types.php:325
+msgid "Store \"%s\" updated!"
+msgstr "Το Κατάστημα “%s” ενημερώθηκε!"
+
+#: includes/class.yith-pos-post-types.php:326
+msgid "Congrats! You've just created your Store: %s."
+msgstr "Συγχαρητήρια! Μόλις δημιουργήσατε το Κατάστημά σας: %s."
+
+#: includes/class.yith-pos-post-types.php:327
+msgid "Store \"%s\" saved!"
+msgstr "Το Κατάστημα “%s” αποθηκεύτηκε!"
+
+#: includes/class.yith-pos-post-types.php:330
+#: includes/class.yith-pos-post-types.php:331
+msgid "Register \"%s\" updated!"
+msgstr "Η εγγραφή “%s” ενημερώθηκε!"
+
+#: includes/class.yith-pos-post-types.php:332
+msgid "Congrats! You've just created your Register: %s."
+msgstr "Συγχαρητήρια! Μόλις δημιουργήσατε το Ταμείο σας: %s."
+
+#: includes/class.yith-pos-post-types.php:333
+msgid "Register \"%s\" saved!"
+msgstr "Το Ταμείο “%s” αποθηκεύτηκε!"
+
+#: includes/class.yith-pos-post-types.php:336
+#: includes/class.yith-pos-post-types.php:337
+msgid "Receipt \"%s\" updated!"
+msgstr "Η απόδειξη “%s” ενημερώθηκε!"
+
+#: includes/class.yith-pos-post-types.php:338
+msgid "Congrats! You've just created your receipt: %s."
+msgstr "Συγχαρητήρια! Μόλις δημιουργήσατε την απόδειξή σας: %s."
+
+#: includes/class.yith-pos-post-types.php:339
+msgid "Receipt \"%s\" saved!"
+msgstr "Η απόδειξη “%s” αποθηκεύτηκε!"
+
+#: includes/class.yith-pos-post-types.php:369
+msgid "YITH POS roles and capabilities regenerated correctly!"
+msgstr "Οι ρόλοι και δυνατότητες YITH POS αναδημιουργήθηκαν επιτυχώς!"
+
+#: includes/class.yith-pos-post-types.php:406
+msgctxt "User role"
+msgid "YITH POS Manager"
+msgstr "YITH POS Μάνατζερ"
+
+#: includes/class.yith-pos-post-types.php:407
+msgctxt "User role"
+msgid "YITH POS Cashier"
+msgstr "YITH POS Ταμίας"
+
+#: includes/class.yith-pos-post-types.php:452
+msgid "receipt"
+msgstr "απόδειξη"
+
+#: includes/class.yith-pos-post-types.php:456
+#: plugin-options/metabox/receipt-options.php:65
+msgid "VAT:"
+msgstr "ΦΠΑ:"
+
+#: includes/class.yith-pos-post-types.php:463
+#: plugin-options/metabox/receipt-options.php:206
+msgid "Date:"
+msgstr "Ημερομηνία:"
+
+#: includes/class.yith-pos-post-types.php:465
+#: plugin-options/metabox/receipt-options.php:225
+msgid "Order:"
+msgstr "Παραγγελία:"
+
+#: includes/class.yith-pos-post-types.php:467
+#: plugin-options/metabox/receipt-options.php:244 dist/pos/index.js:33
+msgid "Customer:"
+msgstr "Πελάτης:"
+
+#: includes/class.yith-pos-post-types.php:469
+#: plugin-options/metabox/receipt-options.php:263
+#: views/metabox/shop-order-pos-info-metabox.php:8 dist/pos/index.js:33
+msgid "Register:"
+msgstr "Ταμείο:"
+
+#: includes/class.yith-pos-post-types.php:471
+#: plugin-options/metabox/receipt-options.php:298
+#: views/fields/receipt-preview-template.php:105
+msgid "Thanks for your purchase"
+msgstr "Ευχαριστούμε για την αγορά σας"
+
+#: includes/class.yith-pos-products.php:55
+msgid "POS results only"
+msgstr "Μόνο αποτελέσματα POS"
+
+#: includes/class.yith-pos.php:66
+msgid "YITH POS template Page"
+msgstr "Σελίδα προτύπου YITH POS"
+
+#: includes/class.yith-pos.php:265
+msgctxt "slug of the page"
+msgid "pos"
+msgstr "pos"
+
+#: includes/functions.yith-pos-caps.php:148
+msgid "You do not have permission to view products"
+msgstr "Δεν έχετε άδεια για προβολή προϊόντων"
+
+#: includes/functions.yith-pos-caps.php:149
+msgid "You do not have permission to create products"
+msgstr "Δεν έχετε άδεια για δημιουργία προϊόντων"
+
+#: includes/functions.yith-pos-caps.php:150
+msgid "You do not have permission to view product categories"
+msgstr "Δεν έχετε άδεια για προβολή κατηγοριών προϊόντος"
+
+#: includes/functions.yith-pos-caps.php:151
+msgid "You do not have permission to create orders"
+msgstr "Δεν έχετε άδεια να δημιουργήσετε παραγγελίες"
+
+#: includes/functions.yith-pos-caps.php:152
+msgid "You do not have permission to see orders"
+msgstr "Δεν έχετε άδεια για προβολή παραγγελιών"
+
+#: includes/functions.yith-pos-caps.php:153
+msgid "You do not have permission to manage POS"
+msgstr "Δεν έχετε άδεια για διαχείριση POS"
+
+#: includes/functions.yith-pos-caps.php:154
+msgid "You do not have permission to view reports"
+msgstr "Δεν έχετε άδεια για προβολή αναφορών"
+
+#: includes/functions.yith-pos-caps.php:155
+msgid "You do not have permission to view coupons"
+msgstr "Δεν έχετε άδεια για προβολή κουπονιών"
+
+#: includes/functions.yith-pos-caps.php:156
+msgid "You do not have permission to use POS"
+msgstr "Δεν έχετε άδεια για να χρησιμοποιήσετε το POS"
+
+#: includes/functions.yith-pos-caps.php:157
+msgid "You do not have permission to view users"
+msgstr "Δεν έχετε άδεια για προβολή χρηστών"
+
+#: includes/functions.yith-pos-caps.php:158
+msgid "You do not have permission to edit users"
+msgstr "Δεν έχετε άδεια για επεξεργασία χρηστών"
+
+#: includes/functions.yith-pos-caps.php:159
+msgid "You do not have permission to create users"
+msgstr "Δεν έχετε άδεια για δημιουργία χρηστών"
+
+#: includes/functions.yith-pos-core.php:59
+msgid "User #%s"
+msgstr "Χρήστης #%s"
+
+#: includes/functions.yith-pos-core.php:134
+msgid "and other %s..."
+msgstr "και άλλο %s…"
+
+#: includes/functions.yith-pos-core.php:135
+msgid "hide"
+msgstr "απόκρυψη"
+
+#: includes/functions.yith-pos-core.php:333
+msgid "No receipt"
+msgstr "Χωρίς απόδειξη"
+
+#: includes/functions.yith-pos-core.php:361
+#: includes/functions.yith-pos-core.php:362
+msgid "Create new user"
+msgstr "Δημιουργία νέου χρήστη"
+
+#: includes/functions.yith-pos-core.php:363
+msgid "Close new user creation"
+msgstr "Κλείσιμο δημιουργίας νέου χρήστη"
+
+#: includes/functions.yith-pos-core.php:364
+msgid "Create user"
+msgstr "Δημιουργία χρήστη"
+
+#: includes/functions.yith-pos-core.php:395
+msgid "This field is required."
+msgstr "Αυτό το πεδίο είναι απαιτούμενο."
+
+#: includes/functions.yith-pos-core.php:471
+msgid "Opened"
+msgstr "Ανοιχτό"
+
+#: includes/functions.yith-pos-core.php:472
+msgid "Closed"
+msgstr "Κλειστό"
+
+#: includes/gateways/class.yith-pos-payment-gateway-cache.php:24
+#: includes/gateways/class.yith-pos-payment-gateway-cache.php:61
+#: views/fields/receipt-preview-template.php:70
+msgid "Cash"
+msgstr "Μετρητά"
+
+#: includes/gateways/class.yith-pos-payment-gateway-cache.php:25
+msgid "Allow cash payments."
+msgstr "Επιτρέψτε πληρωμές με μετρητά."
+
+#: includes/gateways/class.yith-pos-payment-gateway-cache.php:51
+#: includes/gateways/class.yith-pos-payment-gateway-chip-pin.php:49
+msgid "Enable/Disable"
+msgstr "Ενεργοποίηση/Απενεργοποίηση"
+
+#: includes/gateways/class.yith-pos-payment-gateway-cache.php:53
+#: includes/gateways/class.yith-pos-payment-gateway-chip-pin.php:51
+msgid "This is a required payment"
+msgstr "Αυτή η πληρωμή είναι απαιτούμενη"
+
+#: includes/gateways/class.yith-pos-payment-gateway-cache.php:58
+#: includes/gateways/class.yith-pos-payment-gateway-chip-pin.php:56
+msgid "Title"
+msgstr "Τίτλος"
+
+#: includes/gateways/class.yith-pos-payment-gateway-cache.php:60
+#: includes/gateways/class.yith-pos-payment-gateway-chip-pin.php:58
+msgid "This is the title for the Cash Payment."
+msgstr "Αυτός είναι ο τίτλος για την Πληρωμή με Μετρητά."
+
+#: includes/gateways/class.yith-pos-payment-gateway-cache.php:65
+#: includes/gateways/class.yith-pos-payment-gateway-chip-pin.php:63
+msgid "Description"
+msgstr "Περιγραφή"
+
+#: includes/gateways/class.yith-pos-payment-gateway-cache.php:67
+#: includes/gateways/class.yith-pos-payment-gateway-cache.php:68
+#: includes/gateways/class.yith-pos-payment-gateway-chip-pin.php:65
+#: includes/gateways/class.yith-pos-payment-gateway-chip-pin.php:66
+msgid "This payment method is for YITH Point of Sale for WooCommerce."
+msgstr ""
+"Αυτή η μέθοδος πληρωμής είναι για το YITH Point of Sale for WooCommerce."
+
+#: includes/gateways/class.yith-pos-payment-gateway-cache.php:72
+msgid "Instructions"
+msgstr "Οδηγίες"
+
+#: includes/gateways/class.yith-pos-payment-gateway-cache.php:74
+msgid "No instructions."
+msgstr "Χωρίς οδηγίες."
+
+#: includes/gateways/class.yith-pos-payment-gateway-cache.php:94
+msgid "Paid via Cash"
+msgstr "Πληρώθηκε με Μετρητά"
+
+#: includes/gateways/class.yith-pos-payment-gateway-chip-pin.php:25
+#: includes/gateways/class.yith-pos-payment-gateway-chip-pin.php:59
+msgid "Chip and Pin"
+msgstr "Chip and Pin"
+
+#: includes/gateways/class.yith-pos-payment-gateway-chip-pin.php:26
+msgid "Allow Credit Card payments."
+msgstr "Επιτρέψτε πληρωμές με Πιστωτική Κάρτα."
+
+#: includes/gateways/class.yith-pos-payment-gateway-chip-pin.php:84
+msgid "Paid by Credit Card"
+msgstr "Πληρώθηκε με Πιστωτική Κάρτα"
+
+#: includes/rest-api/Controllers/Version1/class.yith-pos-wc-rest-registers-controller.php:59
+msgid "Unique identifier for the resource."
+msgstr "Μοναδικό αναγνωριστικό για την πηγή."
+
+#: includes/rest-api/Controllers/Version1/class.yith-pos-wc-rest-registers-controller.php:140
+msgid "Unique identifier for the object."
+msgstr "Μοναδικό αναγνωριστικό για το αντικείμενο."
+
+#: includes/rest-api/Controllers/Version1/class.yith-pos-wc-rest-registers-controller.php:146
+msgid "Register Name."
+msgstr "Όνομα Ταμείου."
+
+#: includes/rest-api/Reports/Cashiers/Controller.php:68
+#: includes/rest-api/Reports/PaymentMethods/Controller.php:67
+msgid "Invalid response from data store."
+msgstr "Μη έγκυρη απάντηση από αποθήκη δεδομένων."
+
+#: includes/rest-api/Reports/Cashiers/Controller.php:142
+msgid "Cashier ID."
+msgstr "ID Ταμεία."
+
+#: includes/rest-api/Reports/Cashiers/Controller.php:148
+msgid "Amount of items sold."
+msgstr "Ποσότητα αντικειμένων που πουλήθηκαν."
+
+#: includes/rest-api/Reports/Cashiers/Controller.php:154
+msgid "Total Sales."
+msgstr "Συνολικές Πωλήσεις."
+
+#: includes/rest-api/Reports/Cashiers/Controller.php:160
+#: includes/rest-api/Reports/PaymentMethods/Controller.php:157
+msgid "Number of orders."
+msgstr "Αριθμός παραγγελιών."
+
+#: includes/rest-api/Reports/Cashiers/Controller.php:166
+msgid "Number of products."
+msgstr "Αριθμός προϊόντων."
+
+#: includes/rest-api/Reports/Cashiers/Controller.php:176
+msgid "Cashier's name."
+msgstr "Όνομα ταμία."
+
+#: includes/rest-api/Reports/Cashiers/Controller.php:194
+#: includes/rest-api/Reports/PaymentMethods/Controller.php:183
+msgid "Current page of the collection."
+msgstr "Τρέχουσα σελίδα συλλογής."
+
+#: includes/rest-api/Reports/Cashiers/Controller.php:202
+#: includes/rest-api/Reports/PaymentMethods/Controller.php:191
+msgid "Maximum number of items to be returned in result set."
+msgstr "Μέγιστος αριθμός αντικειμένων για επιστροφή στο σύνολο αποτελεσμάτων."
+
+#: includes/rest-api/Reports/Cashiers/Controller.php:211
+#: includes/rest-api/Reports/PaymentMethods/Controller.php:200
+msgid ""
+"Limit response to resources published after a given ISO8601 compliant date."
+msgstr ""
+"Περιορίστε την απάντηση σε πηγές δημοσιευμένες μετά από συγκεκριμένη ISO8601 "
+"σύμφωνη ημερομηνία."
+
+#: includes/rest-api/Reports/Cashiers/Controller.php:217
+#: includes/rest-api/Reports/PaymentMethods/Controller.php:206
+msgid ""
+"Limit response to resources published before a given ISO8601 compliant date."
+msgstr ""
+"Περιορίστε την απάντηση σε πηγές δημοσιευμένες πριν από συγκεκριμένη ISO8601 "
+"σύμφωνη ημερομηνία."
+
+#: includes/rest-api/Reports/Cashiers/Controller.php:223
+#: includes/rest-api/Reports/PaymentMethods/Controller.php:212
+msgid "Order sort attribute ascending or descending."
+msgstr "Σειρά ταξινόμησης χαρακτηριστικών ανοδική ή καθοδική."
+
+#: includes/rest-api/Reports/Cashiers/Controller.php:230
+#: includes/rest-api/Reports/PaymentMethods/Controller.php:219
+msgid "Sort collection by object attribute."
+msgstr "Ταξινόμηση συλλογής κατα χαρακτηριστικό αντικειμένου."
+
+#: includes/rest-api/Reports/Cashiers/Controller.php:249
+#: includes/rest-api/Reports/PaymentMethods/Controller.php:229
+msgid "Time interval to use for buckets in the returned data."
+msgstr ""
+"Χρονικό διάστημα που μπορούν να χρησιμοποιηθούν buckets στα επιστρεφόμενα "
+"δεδομένα."
+
+#: includes/rest-api/Reports/Cashiers/Controller.php:263
+#: includes/rest-api/Reports/PaymentMethods/Controller.php:243
+msgid "Limit result set to items that have the specified order status."
+msgstr ""
+"Περιορίστε το σύνολο αποτελεσμάτων σε αντικείμενα που έχουν την συγκεκριμένη "
+"κατάσταση παραγγελίας."
+
+#: includes/rest-api/Reports/Cashiers/Controller.php:273
+#: includes/rest-api/Reports/PaymentMethods/Controller.php:253
+msgid "Limit result set to items that don't have the specified order status."
+msgstr ""
+"Περιορίστε το σύνολο αποτελεσμάτων σε αντικείμενα που δεν έχουν την "
+"συγκεκριμένη κατάσταση παραγγελίας."
+
+#: includes/rest-api/Reports/Cashiers/Controller.php:283
+msgid "Limit result set to all items that have the specified cashier."
+msgstr ""
+"Περιορίστε το σύνολο αποτελεσμάτων σε όλα τα αντικείμενα που έχουν τον "
+"συγκεκριμένο ταμία."
+
+#: includes/rest-api/Reports/Cashiers/Controller.php:292
+msgid "Add additional info about each cashier to the report."
+msgstr "Πρόσθεση επιπλέον πληροφοριών για κάθε ταμία στην αναφορά."
+
+#: includes/rest-api/Reports/Cashiers/Controller.php:300
+#: includes/rest-api/Reports/PaymentMethods/Controller.php:272
+msgid "The Register."
+msgstr "Το Ταμείο."
+
+#: includes/rest-api/Reports/Cashiers/Controller.php:307
+#: includes/rest-api/Reports/PaymentMethods/Controller.php:279
+msgid "The Store."
+msgstr "Το Κατάστημα."
+
+#: includes/rest-api/Reports/Cashiers/DataStore.php:219
+#: includes/rest-api/Reports/PaymentMethods/DataStore.php:249
+msgid "Sorry, fetching data failed."
+msgstr "Λυπούμαστε, η λήψη δεδομένων απέτυχε."
+
+#: includes/rest-api/Reports/PaymentMethods/Controller.php:145
+msgid "Payment Method."
+msgstr "Μέθοδος Πληρωμής."
+
+#: includes/rest-api/Reports/PaymentMethods/Controller.php:151
+msgid "Payment Method Name."
+msgstr "Όνομα Μεθόδου Πληρωμής."
+
+#: includes/rest-api/Reports/PaymentMethods/Controller.php:163
+msgid "Amount."
+msgstr "Ποσό."
+
+#: includes/rest-api/Reports/PaymentMethods/Controller.php:264
+msgid "Include payment methods with no sale."
+msgstr "Περιλαμβάνετε μεθόδους πληρωμής χωρίς πωλήσεις."
+
+#: init.php:45
+msgid ""
+"%s is enabled but not effective. It requires WooCommerce in order to work."
+msgstr ""
+"%s είναι ενεργοποιημένο αλλά αναποτελεσματικό. Απαιτείται WooCommerce για τη "
+"σωστή λειτουργία."
+
+#: plugin-options/metabox/receipt-options.php:7
+msgid "Update Receipt"
+msgstr "Ενημέρωση Απόδειξης"
+
+#: plugin-options/metabox/receipt-options.php:8
+msgid "Move to trash"
+msgstr "Μεταφορά σε διαγραμμένα"
+
+#: plugin-options/metabox/receipt-options.php:10
+msgid "Save Receipt"
+msgstr "Αποθήκευση Απόδειξης"
+
+#: plugin-options/metabox/receipt-options.php:21
+msgid "General"
+msgstr "Γενικά"
+
+#: plugin-options/metabox/receipt-options.php:25
+msgid "General Settings"
+msgstr "Γενικές Ρυθμίσεις"
+
+#: plugin-options/metabox/receipt-options.php:29
+msgid "Receipt name"
+msgstr "Όνομα Απόδειξης"
+
+#: plugin-options/metabox/receipt-options.php:30
+msgid "Enter a name to identify this receipt template"
+msgstr "Ορίστε ένα όνομα για να αναγνωρίζετε αυτό το πρότυπο απόδειξης"
+
+#: plugin-options/metabox/receipt-options.php:32
+msgid "The receipt name is required."
+msgstr "Απαιτείται όνομα απόδειξης."
+
+#: plugin-options/metabox/receipt-options.php:36
+msgid "Receipt Header"
+msgstr "Επικεφαλίδα Απόδειξης"
+
+#: plugin-options/metabox/receipt-options.php:40
+msgid "Logo"
+msgstr "Λογότυπο"
+
+#: plugin-options/metabox/receipt-options.php:43
+msgid ""
+"Upload your logo to customize the receipt. Supported image formats : gif, "
+"jpg, jpeg, png."
+msgstr ""
+"Ανεβάστε το λογότυπό σας για να προσαρμόσετε την απόδειξη. Μορφές εικόνας "
+"που υποστηρίζονται : gif, jpg, jpeg, png."
+
+#: plugin-options/metabox/receipt-options.php:47 dist/pos/index.js:33
+msgid "Name"
+msgstr "Όνομα"
+
+#: plugin-options/metabox/receipt-options.php:49
+msgid "Show or hide the Store name in this receipt"
+msgstr "Εμφάνιση ή απόκρυψη ονόματος Καταστήματος σε αυτή την απόδειξη"
+
+#: plugin-options/metabox/receipt-options.php:55
+msgid "Show VAT"
+msgstr "Εμφάνιση ΦΠΑ"
+
+#: plugin-options/metabox/receipt-options.php:57
+msgid "Show or hide the VAT number in this receipt"
+msgstr "Εμφάνιση ή απόκρυψη αριθμού ΦΠΑ σε αυτή την απόδειξη"
+
+#: plugin-options/metabox/receipt-options.php:62
+msgid "VAT label"
+msgstr "Επιγραφή ΦΠΑ"
+
+#: plugin-options/metabox/receipt-options.php:63
+msgid "Enter the label for VAT field. Default: VAT"
+msgstr "Ορίστε την επιγραφή για το πεδίο ΦΠΑ. Προεπιλεγμένο: ΦΠΑ"
+
+#: plugin-options/metabox/receipt-options.php:74
+#: plugin-options/metabox/store-options.php:55
+#: views/panel/store-wizard-summary.php:27 dist/pos/index.js:33
+msgid "Address"
+msgstr "Διεύθυνση"
+
+#: plugin-options/metabox/receipt-options.php:75
+msgid "Show or hide the Address of the store in this receipt"
+msgstr "Εμφάνιση ή απόκρυψη Διεύθυνσης καταστήματος σε αυτή την απόδειξη"
+
+#: plugin-options/metabox/receipt-options.php:81
+#: plugin-options/metabox/store-options.php:80
+msgid "Contact Info"
+msgstr "Πληροφορίες Επικοινωνίας"
+
+#: plugin-options/metabox/receipt-options.php:82
+msgid "Show or hide the Contact Info of the store in this receipt"
+msgstr ""
+"Εμφάνιση ή απόκρυψη Πληροφοριών Επικοινωνίας καταστήματος σε αυτή την "
+"απόδειξη"
+
+#: plugin-options/metabox/receipt-options.php:89
+#: plugin-options/metabox/store-options.php:84
+#: views/panel/store-wizard-summary.php:31 dist/pos/index.js:33
+msgid "Phone"
+msgstr "Αριθμός τηλεφώνου"
+
+#: plugin-options/metabox/receipt-options.php:101
+#: plugin-options/metabox/store-options.php:96
+#: views/panel/store-wizard-summary.php:39
+msgid "E-mail"
+msgstr "E-mail"
+
+#: plugin-options/metabox/receipt-options.php:113
+#: plugin-options/metabox/store-options.php:90
+#: views/panel/store-wizard-summary.php:35
+msgid "Fax"
+msgstr "Fax"
+
+#: plugin-options/metabox/receipt-options.php:126
+#: plugin-options/metabox/store-options.php:102
+#: views/panel/store-wizard-summary.php:43
+msgid "Website"
+msgstr "Ιστοσελίδα"
+
+#: plugin-options/metabox/receipt-options.php:136
+msgid "Socials"
+msgstr "Κοινωνικά δίκτυα"
+
+#: plugin-options/metabox/receipt-options.php:137
+msgid "Show or hide the socials of the store in this receipt"
+msgstr ""
+"Εμφάνιση ή απόκρυψη των κοινωνικών δικτύων του καταστήματος σε αυτή την "
+"απόδειξη"
+
+#: plugin-options/metabox/receipt-options.php:144
+#: plugin-options/metabox/store-options.php:112
+#: views/panel/store-wizard-summary.php:47
+msgid "Facebook"
+msgstr "Facebook"
+
+#: plugin-options/metabox/receipt-options.php:156
+#: plugin-options/metabox/store-options.php:118
+#: views/panel/store-wizard-summary.php:51
+msgid "Twitter"
+msgstr "Twitter"
+
+#: plugin-options/metabox/receipt-options.php:168
+#: plugin-options/metabox/store-options.php:124
+#: views/panel/store-wizard-summary.php:55
+msgid "Instagram"
+msgstr "Instagram"
+
+#: plugin-options/metabox/receipt-options.php:181
+#: plugin-options/metabox/store-options.php:130
+#: views/panel/store-wizard-summary.php:59
+msgid "Youtube"
+msgstr "Youtube"
+
+#: plugin-options/metabox/receipt-options.php:192
+msgid "Order Info"
+msgstr "Πληροφορίες Παραγγελίας"
+
+#: plugin-options/metabox/receipt-options.php:196
+msgid "Show Order Date"
+msgstr "Εμφάνιση Ημερομηνίας Παραγγελίας"
+
+#: plugin-options/metabox/receipt-options.php:197
+msgid "Show or hide the order date in this receipt"
+msgstr "Εμφάνιση ή απόκρυψη της ημερομηνίας παραγγελίας σε αυτή την απόδειξη"
+
+#: plugin-options/metabox/receipt-options.php:203
+msgid "Order Date label"
+msgstr "Επιγραφή Ημερομηνίας Παραγγελίας"
+
+#: plugin-options/metabox/receipt-options.php:204
+msgid "Enter the label for Order Date field"
+msgstr "Ορίστε την επιγραφή για το πεδίο Ημερομηνίας Παραγγελίας"
+
+#: plugin-options/metabox/receipt-options.php:215
+msgid "Show Order Number"
+msgstr "Εμφάνιση Αριθμού Παραγγελίας"
+
+#: plugin-options/metabox/receipt-options.php:216
+msgid "Show or hide the order number in this receipt"
+msgstr "Εμφάνιση ή απόκρυψη αριθμού παραγγελίας σε αυτή την απόδειξη"
+
+#: plugin-options/metabox/receipt-options.php:222
+msgid "Order Number label"
+msgstr "Επιγραφή Αριθμού Παραγγελίας"
+
+#: plugin-options/metabox/receipt-options.php:223
+msgid "Enter the label for Order Number field"
+msgstr "Ορίστε την επιγραφή για το πεδίο Αριθμού Παραγγελίας"
+
+#: plugin-options/metabox/receipt-options.php:234
+msgid "Show Customer Name"
+msgstr "Εμφάνιση Ονόματος Πελάτη"
+
+#: plugin-options/metabox/receipt-options.php:235
+msgid ""
+"Show or hide the customer name in this receipt (not available in guest "
+"register)"
+msgstr ""
+"Εμφάνιση ή απόκρυψη ονόματος πελάτη σε αυτή την απόδειξη (δεν είναι "
+"διαθέσιμο στην εγγραφή επισκεπτών)"
+
+#: plugin-options/metabox/receipt-options.php:241
+msgid "Customer label"
+msgstr "Επιγραφή πελάτη"
+
+#: plugin-options/metabox/receipt-options.php:242
+msgid "Enter the label for Customer field"
+msgstr "Ορίστε την επιγραφή για το πεδίο Πελάτη"
+
+#: plugin-options/metabox/receipt-options.php:253
+msgid "Show Register Name"
+msgstr "Εμφάνιση Ονόματος Ταμείου"
+
+#: plugin-options/metabox/receipt-options.php:254
+msgid ""
+"Show or hide the cashiers name in this receipt (not available in guest "
+"register)"
+msgstr ""
+"Εμφάνιση ή απόκρυψη του ονόματος ταμεία σε αυτή την απόδειξη (δεν είναι "
+"διαθέσιμο στο ταμείο επισκεπτών)"
+
+#: plugin-options/metabox/receipt-options.php:260
+msgid "Register label"
+msgstr "Επιγραφή Ταμείου"
+
+#: plugin-options/metabox/receipt-options.php:261
+msgid "Enter the label for Register field"
+msgstr "Ορίστε την επιγραφή για το πεδίο Ταμείου"
+
+#: plugin-options/metabox/receipt-options.php:272
+msgid "Show Cashier Name"
+msgstr "Εμφάνιση Ονόματος Ταμία"
+
+#: plugin-options/metabox/receipt-options.php:273
+msgid ""
+"Show or hide the cashier name in this receipt (not available in guest "
+"register)"
+msgstr ""
+"Εμφάνιση ή απόκρυψη του ονόματος ταμία σε αυτή την απόδειξη (δεν είναι "
+"διαθέσιμο στο ταμείο επισκεπτών)"
+
+#: plugin-options/metabox/receipt-options.php:279
+msgid "Cashier label"
+msgstr "Επιγραφή Ταμία"
+
+#: plugin-options/metabox/receipt-options.php:280
+msgid "Enter the label for Cashier field"
+msgstr "Ορίστε την επιγραφή για το πεδίο Ταμία"
+
+#: plugin-options/metabox/receipt-options.php:282
+#: views/metabox/shop-order-pos-info-metabox.php:13
+msgid "Cashier:"
+msgstr "Ταμίας:"
+
+#: plugin-options/metabox/receipt-options.php:292
+msgid "Receipt footer"
+msgstr "Υποσέλιδο απόδειξης"
+
+#: plugin-options/metabox/receipt-options.php:296
+msgid "Footer text"
+msgstr "Κείμενο υποσέλιδου"
+
+#: plugin-options/metabox/receipt-options.php:297
+msgid "Enter optional text for footer area in receipt template"
+msgstr ""
+"Ορίστε προαιρετικό κείμενο για την περιοχή υποσέλιδου στο πρότυπο απόδειξης"
+
+#: plugin-options/metabox/receipt-options.php:311
+msgid "Receipt Preview"
+msgstr "Προεπισκόπηση Απόδειξης"
+
+#: plugin-options/metabox/receipt-options.php:318
+msgid "Print Preview"
+msgstr "Εκτύπωση Προεπισκόπησης"
+
+#: plugin-options/metabox/receipt-options.php:332
+msgid "Print Example"
+msgstr "Εκτύπωση Παραδείγματος"
+
+#: plugin-options/metabox/register-options.php:14
+msgid "Register name"
+msgstr "Όνομα ταμείου"
+
+#: plugin-options/metabox/register-options.php:15
+msgid "Enter a name to identify this Register."
+msgstr "Ορίστε ένα όνομα για να αναγνωρίζετε αυτό το Ταμείο."
+
+#: plugin-options/metabox/register-options.php:18
+msgid "The Register name is required."
+msgstr "Απαιτείται όνομα Ταμείου."
+
+#: plugin-options/metabox/register-options.php:25
+msgid "Scan barcodes"
+msgstr "Σάρωση γραμμοκώδικα"
+
+#: plugin-options/metabox/register-options.php:26
+msgid ""
+"If enabled, products can be added to the cart by scanning their barcodes."
+msgstr ""
+"Αν ενεργοποιηθεί, τα προϊόντα θα προστίθενται στο καλάθι σαρώνοντας τους "
+"γραμμοκώδικες τους."
+
+#: plugin-options/metabox/register-options.php:37
+#: plugin-options/settings-options.php:90
+msgid "Payment methods"
+msgstr "Μέθοδοι πληρωμής"
+
+#: plugin-options/metabox/register-options.php:44
+msgid "Select products to show"
+msgstr "Επιλέξτε προϊόντα προς εμφάνιση"
+
+#: plugin-options/metabox/register-options.php:47
+msgid "All products"
+msgstr "Όλα τα προϊόντα"
+
+#: plugin-options/metabox/register-options.php:48
+msgid "Specific products / product categories"
+msgstr "Συγκεκριμένα προϊόντα / κατηγορίες προϊόντων"
+
+#: plugin-options/metabox/register-options.php:73
+msgid "In Register dashboard show"
+msgstr "Στον πίνακα ελέγχου Ταμείου να εμφανίζονται"
+
+#: plugin-options/metabox/register-options.php:75
+msgid ""
+"Set Categories > Products if you want to show your product categories and "
+"the products of each category in your Register dashboard."
+msgstr ""
+"Ορίστε Κατηγορίες > Προϊόντα αν θέλετε να εμφανίζετε τις κατηγορίες "
+"προϊόντων σας και τα προϊόντα κάθε κατηγορίας στον πίνακα ελέγχου Ταμείου."
+
+#: plugin-options/metabox/register-options.php:76
+msgid ""
+"Set Only Products if you want to show just your products without categories"
+msgstr ""
+"Ορίστε Μόνο Προϊόντα αν θέλετε να εμφανίζετε μόνο τα προϊόντα σας χωρίς "
+"κατηγορίες"
+
+#: plugin-options/metabox/register-options.php:79
+msgid "Categories > Products"
+msgstr "Κατηγορίες > Προϊόντα"
+
+#: plugin-options/metabox/register-options.php:80
+msgid "Only products"
+msgstr "Μόνο προϊόντα"
+
+#: plugin-options/metabox/register-options.php:86
+msgid "Register visibility"
+msgstr "Ορατότητα εγγραφής"
+
+#: plugin-options/metabox/register-options.php:88
+msgid "Set if you want to show this Register for specific Cashiers."
+msgstr ""
+"Ορίστε αν θέλετε να εμφανίζετε αυτό το Ταμείο σε συγκεκριμένους Ταμίες."
+
+#: plugin-options/metabox/register-options.php:88
+msgid "You must set at least one Cashier in Store."
+msgstr "Πρέπει να ορίσετε τουλάχιστον ένα Ταμία στο Κατάστημα."
+
+#: plugin-options/metabox/register-options.php:90 dist/pos/index.js:33
+msgid "All"
+msgstr "Όλοι"
+
+#: plugin-options/metabox/register-options.php:91
+msgid "Hide / Show to specific Cashiers"
+msgstr "Απόκρυψη / Εμφάνιση σε συγκεκριμένους Ταμίες"
+
+#: plugin-options/metabox/register-options.php:94
+msgid "You must add at least one Cashier to activate this option"
+msgstr ""
+"Πρέπει να προσθέσετε τουλάχιστον ένα Ταμία για να ενεργοποιήσετε την επιλογή"
+
+#: plugin-options/metabox/register-options.php:107
+msgid "Enable receipts"
+msgstr "Ενεργοποίηση αποδείξεων"
+
+#: plugin-options/metabox/register-options.php:115
+msgid "Enable Register closing report"
+msgstr "Ενεργοποίηση αναφοράς κλεισίματος Εγγραφής"
+
+#: plugin-options/metabox/register-options.php:116
+msgid ""
+"If enabled, the Cashier will see the final report before closing the "
+"Register."
+msgstr ""
+"Αν ενεργοποιηθεί, ο Ταμίας θα δει την τελική αναφορά πριν κλείσει το Ταμείο."
+
+#: plugin-options/metabox/register-options.php:122
+msgid "Enable Register final notes"
+msgstr "Ενεργοποίηση τελικών σημειώσεων Ταμείου"
+
+#: plugin-options/metabox/register-options.php:123
+msgid ""
+"If enabled, the Cashier will be able to add notes before closing the "
+"Register."
+msgstr ""
+"Αν ενεργοποιηθεί, ο Ταμίας θα μπορεί να προσθέσει σημειώσεις πριν κλείσει το "
+"Ταμείο."
+
+#: plugin-options/metabox/store-options.php:8
+msgid "Save"
+msgstr "Αποθήκευση"
+
+#: plugin-options/metabox/store-options.php:18
+msgid "Store Info"
+msgstr "Πληροφορίες Καταστήματος"
+
+#: plugin-options/metabox/store-options.php:38
+msgid "General Info"
+msgstr "Γενικές Πληροφορίες"
+
+#: plugin-options/metabox/store-options.php:45
+msgid "Enter a name to identify this store."
+msgstr "Ορίστε ένα όνομα για να αναγνωρίζετε αυτό το κατάστημα."
+
+#: plugin-options/metabox/store-options.php:46
+msgid "The store name is required"
+msgstr "Απαιτείται όνομα καταστήματος"
+
+#: plugin-options/metabox/store-options.php:50
+#: views/panel/store-wizard-summary.php:23
+msgid "VAT Number"
+msgstr "Αριθμός ΦΠΑ"
+
+#: plugin-options/metabox/store-options.php:52
+msgid "Enter a VAT number for this store."
+msgstr "Ορίστε αριθμό ΦΠΑ για αυτό το κατάστημα."
+
+#: plugin-options/metabox/store-options.php:59
+msgid "Full Address"
+msgstr "Πλήρης Διεύθυνση"
+
+#: plugin-options/metabox/store-options.php:60
+msgid "Enter a street address for this store location."
+msgstr "Ορίστε διεύθυνση οδού για την τοποθεσία καταστήματος."
+
+#: plugin-options/metabox/store-options.php:64 dist/pos/index.js:33
+msgid "City"
+msgstr "Πόλη"
+
+#: plugin-options/metabox/store-options.php:65
+msgid "Enter the city in which this store is located."
+msgstr "Ορίστε πόλη στην οποία βρίσκεται το κατάστημα."
+
+#: plugin-options/metabox/store-options.php:69
+msgid "Country / State"
+msgstr "Χώρα / Νομός"
+
+#: plugin-options/metabox/store-options.php:70
+msgid "Enter the Country / State / Province in which this store is located."
+msgstr "Ορίστε την Χώρα / Νομό / Επαρχία όπου βρίσκεται το κατάστημα."
+
+#: plugin-options/metabox/store-options.php:75
+msgid "Postcode / ZIP"
+msgstr "Ταχυδρομικός κώδικας / ZIP"
+
+#: plugin-options/metabox/store-options.php:76
+msgid "Enter the postal code of this address."
+msgstr "Ορίστε ταχυδρομικό κώδικα για αυτή τη διεύθυνση."
+
+#: plugin-options/metabox/store-options.php:85
+msgid "Enter the phone number of this store."
+msgstr "Ορίστε αριθμό τηλεφώνου για αυτό το κατάστημα."
+
+#: plugin-options/metabox/store-options.php:91
+msgid "Enter the fax number of this store."
+msgstr "Ορίστε αριθμό fax για αυτό το κατάστημα."
+
+#: plugin-options/metabox/store-options.php:97
+msgid "Enter the e-mail address of this store."
+msgstr "Ορίστε διεύθυνση ηλεκτρονικού ταχυδρομείου για αυτό το κατάστημα."
+
+#: plugin-options/metabox/store-options.php:99
+msgid "Please provide a valid email address"
+msgstr "Παρακαλώ διαθέστε έγκυρη διεύθυνση ηλεκτρονικού ταχυδρομείου"
+
+#: plugin-options/metabox/store-options.php:103
+msgid "Enter the website url of this store."
+msgstr "Ορίστε το URL ιστοσελίδας του καταστήματος."
+
+#: plugin-options/metabox/store-options.php:105
+msgid "Please provide a valid website url"
+msgstr "Παρακαλώ διαθέστε έγκυρο URL ιστοσελίδας"
+
+#: plugin-options/metabox/store-options.php:108
+msgid "Social"
+msgstr "Κοινωνικά Δίκτυα"
+
+#: plugin-options/metabox/store-options.php:113
+msgid "Enter the Facebook url of this store."
+msgstr "Ορίστε το URL Facebook του καταστήματος."
+
+#: plugin-options/metabox/store-options.php:119
+msgid "Enter the Twitter ID or username of this store."
+msgstr "Ορίστε το ID ή όνομα χρήστη Twitter του καταστήματος."
+
+#: plugin-options/metabox/store-options.php:125
+msgid "Enter the Instagram ID or username of this store."
+msgstr "Ορίστε το ID ή όνομα χρήστη Instagram του καταστήματος."
+
+#: plugin-options/metabox/store-options.php:131
+msgid "Enter the Youtube username for this store."
+msgstr "Ορίστε το όνομα χρήστη Youtube του καταστήματος."
+
+#: plugin-options/metabox/store-options.php:160
+msgid "Managers "
+msgstr "Μάνατζερ "
+
+#: plugin-options/metabox/store-options.php:165
+msgid ""
+"A <strong>manager</strong> has full access to all registers and "
+"functionalities, assigned to this store.<br/>Please note, that <strong>you "
+"have to assign at least one manager</strong> before proceeding to the next "
+"step."
+msgstr ""
+"Ένας <strong>μάνατζερ</strong> έχει πλήρη πρόσβαση σε όλα τα ταμεία και "
+"λειτουργικότητες που έχουν ανατεθεί στο κατάστημα.<br/>Παρακαλώ, σημειώστε "
+"ότι <strong>πρέπει να αναθέσετε τουλάχιστον ένα μάνατζερ</strong> πριν "
+"προχωρήσετε στο επόμενο βήμα."
+
+#: plugin-options/metabox/store-options.php:170
+msgid "Choose managers from your \"Users\" list"
+msgstr "Επιλέξτε μάνατζερ από την λίστα “Χρηστών” σας"
+
+#: plugin-options/metabox/store-options.php:174
+#: plugin-options/metabox/store-options.php:211
+msgid "Remove All"
+msgstr "Αφαίρεση Όλων"
+
+#: plugin-options/metabox/store-options.php:174
+msgid "Click and type at least 1 letter to search and add a user as a manager."
+msgstr ""
+"Κάντε κλικ και πληκτρολογήστε τουλάχιστον 1 γράμμα για αναζήτηση και "
+"πρόσθεση ενός χρήστη ως μάνατζερ."
+
+#: plugin-options/metabox/store-options.php:174
+msgid ""
+"<strong>Note:</strong> a Contributor and a Subscriber can not be added as "
+"Manager."
+msgstr ""
+"<strong>Σημείωση:</strong> Συνεργάτης και Συνδρομητής δεν είναι δυνατό να "
+"προστεθούν ως Μάνατζερ."
+
+#: plugin-options/metabox/store-options.php:178
+msgid "Search Managers"
+msgstr "Αναζήτηση Μάνατζερ"
+
+#: plugin-options/metabox/store-options.php:179
+msgid "You have to set at least one manager to proceed to next step"
+msgstr ""
+"Πρέπει να ορίσετε τουλάχιστον ένα μάνατζερ για να προχωρήσετε στο επόμενο "
+"βήμα"
+
+#: plugin-options/metabox/store-options.php:187
+msgid "Do you need to setup a new manager profile?"
+msgstr "Θέλετε να διαμορφώσετε ένα νέο προφίλ μάνατζερ;"
+
+#: plugin-options/metabox/store-options.php:189
+msgid "Create new manager"
+msgstr "Δημιουργία νέου μάνατζερ"
+
+#: plugin-options/metabox/store-options.php:190
+msgid "Close new manager creation"
+msgstr "Κλείσιμο δημιουργίας νέου μάνατζερ"
+
+#: plugin-options/metabox/store-options.php:191
+msgid "Create new store manager"
+msgstr "Δημιουργία νέου μάνατζερ καταστήματος"
+
+#: plugin-options/metabox/store-options.php:192
+msgid "Create manager"
+msgstr "Δημιουργία μάνατζερ"
+
+#: plugin-options/metabox/store-options.php:204
+msgid ""
+"<p class=\"section-description\">A <strong>Cashier</strong> might have "
+"limited access to the store Registers (e.g. being allowed to use only "
+"Register 1, but not Register 2). You can set these limits when adding a "
+"register.</p>"
+msgstr ""
+"<p class=\"section-description\">Ο <strong>Ταμίας</strong> ίσως έχει "
+"περιορισμένη πρόσβαση στα Ταμεία του καταστήματος (π.χ να του επιτρέπεται να "
+"χρησιμοποιήσει μόνο το Ταμείο 1, αλλά όχι το Ταμείο 2). Μπορείτε να ορίσετε "
+"αυτά τα όρια κατα την πρόσθεση ενός ταμείου.</p>"
+
+#: plugin-options/metabox/store-options.php:208
+msgid "Choose Cashiers from your \"Users\" list"
+msgstr "Επιλέξτε Ταμίες από την λίστα “Χρηστών” σας"
+
+#: plugin-options/metabox/store-options.php:211
+msgid ""
+"Click and type at least 3 letters to search and add a user as a manager."
+msgstr ""
+"Κάντε κλικ και πληκτρολογήστε τουλάχιστον 3 γράμματα για αναζήτηση και "
+"πρόσθεση ενός χρήστη ως μάνατζερ."
+
+#: plugin-options/metabox/store-options.php:211
+msgid ""
+"<strong>Note:</strong> a Contributor and a Subscriber can not be added as "
+"cashiers."
+msgstr ""
+"<strong>Σημείωση:</strong> Συνεργάτης και Συνδρομητής δεν είναι δυνατό να "
+"προστεθούν ως ταμίες."
+
+#: plugin-options/metabox/store-options.php:215
+msgid "Search Cashiers"
+msgstr "Αναζήτηση Ταμίων"
+
+#: plugin-options/metabox/store-options.php:216
+msgid "You have to set at least one Cashier to proceed to the next step"
+msgstr ""
+"Πρέπει να ορίσετε τουλάχιστον ένα Ταμία για να προχωρήσετε στο επόμενο βήμα"
+
+#: plugin-options/metabox/store-options.php:223
+msgid "Do you need to set up a new Cashier profile?"
+msgstr "Θέλετε να διαμορφώσετε ένα νέο προφίλ Ταμία;"
+
+#: plugin-options/metabox/store-options.php:225
+msgid "Create new Cashier"
+msgstr "Δημιουργία νέου Ταμία"
+
+#: plugin-options/metabox/store-options.php:226
+#: plugin-options/metabox/store-options.php:227
+msgid "Create new store Cashier"
+msgstr "Δημιουργία νέου Ταμία καταστήματος"
+
+#: plugin-options/metabox/store-options.php:228
+msgid "Create cashier"
+msgstr "Δημιουργία ταμία"
+
+#: plugin-options/settings-options.php:20
+msgctxt "Panel: page title"
+msgid "General Settings"
+msgstr "Γενικές Ρυθμίσεις"
+
+#: plugin-options/settings-options.php:25
+msgid "Enable sound effect"
+msgstr "Ενεργοποίηση εφέ ήχου"
+
+#: plugin-options/settings-options.php:26
+msgid "Enable or disable the sound effect when a product is added to cart"
+msgstr ""
+"Ενεργοποίηση ή απενεργοποίηση του εφέ ήχου όταν ένα προϊόν προστίθεται στο "
+"καλάθι"
+
+#: plugin-options/settings-options.php:33
+msgid "Close popup windows when clicking on the background"
+msgstr "Κλείσιμο παραθύρων popup όταν κάνετε κλικ στο φόντο"
+
+#: plugin-options/settings-options.php:34
+msgid ""
+"If enabled, all popup windows will be closed by clicking on the background"
+msgstr ""
+"Αν ενεργοποιηθεί, όλα τα παράθυρα popup θα κλείνουν κάνοντας κλικ στο φόντο"
+
+#: plugin-options/settings-options.php:45
+#: plugin-options/settings-options.php:49
+msgid "Login page"
+msgstr "Σελίδα σύνδεσης"
+
+#: plugin-options/settings-options.php:50
+msgid "Select the page of login"
+msgstr "Επιλέξτε την σελίδα σύνδεσης"
+
+#: plugin-options/settings-options.php:57
+msgid "Login logo"
+msgstr "Λογότυπο σύνδεσης"
+
+#: plugin-options/settings-options.php:58
+msgid "Select logo for login form"
+msgstr "Επιλέξτε λογότυπο για τη φόρμα σύνδεσης"
+
+#: plugin-options/settings-options.php:65
+msgid "Login background image"
+msgstr "Εικόνα φόντου σύνδεσης"
+
+#: plugin-options/settings-options.php:66
+msgid "Select image for background login page"
+msgstr "Επιλέξτε εικόνα για το φόντου σελίδας σύνδεσης"
+
+#: plugin-options/settings-options.php:72
+msgid "Login background color"
+msgstr "Χρώμα φόντου σύνδεσης"
+
+#: plugin-options/settings-options.php:73
+msgid "Select the background color for login page"
+msgstr "Επιλέξτε το χρώμα φόντου της σελίδας σύνδεσης"
+
+#: plugin-options/settings-options.php:83
+msgid "Payment method settings"
+msgstr "Ρυθμίσεις μεθόδου πληρωμής"
+
+#: plugin-options/settings-options.php:91
+msgid ""
+"Select the global payment methods. These methods can be overridden for every "
+"single Register."
+msgstr ""
+"Επιλέξτε τις γενικές μεθόδους πληρωμής. Οι μέθοδοι μπορούν να παρακαμφθούν "
+"για κάθε Ταμείο."
+
+#: plugin-options/settings-options.php:100
+msgid "Preset settings"
+msgstr "Προρύθμιση ρυθμίσεων"
+
+#: plugin-options/settings-options.php:108
+msgid "Number Keyboard presets"
+msgstr "Προεπιλογές Αριθμητικού Πληκτρολογίου"
+
+#: plugin-options/settings-options.php:109
+msgid "Set the percentage discount presets within the number keyboard"
+msgstr ""
+"Ορίστε τις προεπιλογές της επί τοις εκατό έκπτωσης μέσα στο αριθμητικό "
+"πληκτρολόγιο"
+
+#: plugin-options/settings-options.php:121
+msgid "Fee and Discount presets"
+msgstr "Προεπιλογές Χρέωσης και Έκπτωσης"
+
+#: plugin-options/settings-options.php:122
+msgid "Set the percentage discount presets within the fee and discount editor"
+msgstr ""
+"Ορίστε τις προεπιλογές της επί τοις εκατό έκπτωσης μέσα στον επεξεργαστή "
+"χρέωσης και έκπτωσης"
+
+#: plugin-options/settings-options.php:135
+msgid "Stock Management"
+msgstr "Διαχείριση Αποθέματος"
+
+#: plugin-options/settings-options.php:140
+msgid "Show stock on register"
+msgstr "Εμφάνιση αποθέματος στο ταμείο"
+
+#: plugin-options/settings-options.php:141
+msgid "Choose if to show the stock count on the register"
+msgstr "Επιλέξτε αν θέλετε να εμφανίζετε τον αριθμό αποθέματος στο ταμείο"
+
+#: plugin-options/settings-options.php:149
+msgid "Enable multistock"
+msgstr "Ενεργοποίηση multistock"
+
+#: plugin-options/settings-options.php:150
+msgid "Choose if enable or disable the multistock option"
+msgstr ""
+"Επιλέξτε αν θέλετε να ενεργοποιήσετε ή απενεργοποιήσετε την επιλογή "
+"multistock"
+
+#: plugin-options/settings-options.php:158
+msgid "Products of a store without stock are"
+msgstr "Τα προϊόντα ενός καταστήματος χωρίς απόθεμα είναι"
+
+#: plugin-options/settings-options.php:160
+msgid ""
+"Choose how to manage the purchase of products when no stock value has been "
+"set for a specific store."
+msgstr ""
+"Επιλέξτε πώς να διαχειρίζεστε την αγορά προϊόντων όταν δεν έχει οριστεί αξία "
+"αποθέματος για το συγκεκριμένο κατάστημα."
+
+#: plugin-options/settings-options.php:161
+msgid ""
+"When you enable the multi-stock option, you'll have to set the product stock "
+"for every store. If one of the store stock is not specified, then, this "
+"settings will apply."
+msgstr ""
+"Ενεργοποιώντας την επιλογή multi-stock, θα πρέπει να ορίσετε το απόθεμα "
+"προϊόντος για κάθε κατάστημα. Αν κάποιο από το απόθεμα καταστήματος δεν έχει "
+"προσδιοριστεί, τότε, θα εφαρμοστούν αυτές οι ρυθμίσεις."
+
+#: plugin-options/settings-options.php:167
+msgid "purchasable without stock management"
+msgstr "προς πώληση χωρίς διαχείριση αποθέματος"
+
+#: plugin-options/settings-options.php:168
+msgid "purchasable from the general stock"
+msgstr "προς πώληση από το γενικό απόθεμα"
+
+#: plugin-options/settings-options.php:169
+msgid "non-purchasable"
+msgstr "δεν πωλείται"
+
+#: plugin-options/settings-options.php:184
+msgid "Color Settings"
+msgstr "Ρυθμίσεις Χρώματος"
+
+#: plugin-options/settings-options.php:188
+msgid "Primary color"
+msgstr "Βασικό χρώμα"
+
+#: plugin-options/settings-options.php:189
+msgid "Select the primary color for Registers"
+msgstr "Επιλέξτε το βασικό χρώμα για τα Ταμεία"
+
+#: plugin-options/settings-options.php:196
+msgid "Secondary color"
+msgstr "Δευτερεύον χρώμα"
+
+#: plugin-options/settings-options.php:197
+msgid "Select the secondary color for Registers"
+msgstr "Επιλέξτε το δευτερεύον χρώμα για τα Ταμεία"
+
+#: plugin-options/settings-options.php:204
+msgid "Products grid background"
+msgstr "Φόντο πλέγματος προϊόντων"
+
+#: plugin-options/settings-options.php:205
+msgid "Select the background color for products grid"
+msgstr "Επιλέξτε χρώμα φόντου για το πλέγμα προϊόντων"
+
+#: plugin-options/settings-options.php:212
+msgid "Product title background"
+msgstr "Φόντο τίτλου προϊόντων"
+
+#: plugin-options/settings-options.php:213
+msgid "Select the background color for product title"
+msgstr "Επιλέξτε χρώμα φόντου για τον τίτλο προϊόντος"
+
+#: plugin-options/settings-options.php:220
+msgid "Saved cart buttons background"
+msgstr "Φόντο κουμπιών αποθηκευμένου καλαθιού"
+
+#: plugin-options/settings-options.php:221
+msgid "Select the background color for saved cart buttons"
+msgstr "Επιλέξτε το χρώμα φόντου για τα κουμπιά αποθηκευμένου καλαθιού"
+
+#: plugin-options/settings-options.php:228
+msgid "Pay button background"
+msgstr "Φόντο κουμπιού πληρωμής"
+
+#: plugin-options/settings-options.php:229
+msgid "Select the background color for pay button"
+msgstr "Επιλέξτε το χρώμα φόντου για το κουμπί πληρωμής"
+
+#: plugin-options/settings-options.php:236
+msgid "Note buttons background"
+msgstr "Φόντο κουμπιών σημείωσης"
+
+#: plugin-options/settings-options.php:237
+msgid "Select the background color for note button"
+msgstr "Επιλέξτε το χρώμα φόντου για το κουμπί σημείωσης"
+
+#: plugin-options/settings-options.php:244
+msgid "Header background"
+msgstr "Φόντο επικεφαλίδας"
+
+#: plugin-options/settings-options.php:245
+msgid "Select the background color for header"
+msgstr "Επιλέξτε το χρώμα φόντου επικεφαλίδας"
+
+#: templates/yith-pos-login.php:9
+msgid "Login"
+msgstr "Σύνδεση"
+
+#: templates/yith-pos-page.php:36
+msgid ""
+"You are using an outdated browser; please update your browser or use a new "
+"generation web browser!"
+msgstr ""
+"Χρησιμοποιείτε μη ενημερωμένο πλοηγό. Παρακαλώ κάντε ενημέρωση πλοηγού ή "
+"χρησιμοποιείστε πλοηγό τελευταίας τεχνολογίας!"
+
+#: templates/yith-pos-store-register.php:10
+msgid "Sorry, you are not allowed to see this content"
+msgstr "Λυπούμαστε, δεν έχετε πρόσβαση σε αυτό το περιεχόμενο"
+
+#: templates/yith-pos-store-register.php:23
+msgid "Choose Store and Register"
+msgstr "Επιλέξτε Κατάστημα και Ταμείο"
+
+#: templates/yith-pos-store-register.php:33
+msgid "Take over %s"
+msgstr "Αναλάβετε %s"
+
+#: templates/yith-pos-store-register.php:35
+msgid "%s is currently in use by %s."
+msgstr "%s αυτή τη στιγμή χρησιμοποιείται από %s."
+
+#: templates/yith-pos-store-register.php:39
+msgid "Choose another Register or %s"
+msgstr "Επιλέξτε άλλο ένα Ταμείο ή %s"
+
+#: templates/yith-pos-store-register.php:50
+msgid "Choose a Store"
+msgstr "Επιλέξτε Κατάστημα"
+
+#: templates/yith-pos-store-register.php:60
+msgid "Choose a Register"
+msgstr "Επιλέξτε ένα Ταμείο"
+
+#: views/fields/create-user.php:19
+msgid "Username"
+msgstr "Όνομα Χρήστη"
+
+#: views/fields/create-user.php:22
+msgid "Enter a username to identify this user."
+msgstr "Ορίστε ένα όνομα χρήστη για να αναγνωρίζετε αυτόν τον χρήστη."
+
+#: views/fields/create-user.php:24
+msgid "The username is required and must be unique."
+msgstr "Το όνομα χρήστη είναι απαραίτητο και πρέπει να είναι μοναδικό."
+
+#: views/fields/create-user.php:31 dist/pos/index.js:33
+msgid "Password"
+msgstr "Κωδικός πρόσβασης"
+
+#: views/fields/create-user.php:34
+msgid "Enter a password for this user."
+msgstr "Ορίστε ένα κωδικό πρόσβασης για αυτόν τον χρήστη."
+
+#: views/fields/create-user.php:36
+msgid "You need to set a password to the user."
+msgstr "Πρέπει να ορίσετε ένα κωδικό πρόσβασης στον χρήστη."
+
+#: views/fields/create-user.php:43
+msgid "User Email"
+msgstr "Email Χρήστη"
+
+#: views/fields/create-user.php:46
+msgid "Enter the e-mail address of this user."
+msgstr "Ορίστε διεύθυνση ηλεκτρονικού ταχυδρομείου χρήστη."
+
+#: views/fields/create-user.php:48
+msgid "Enter a valid email. Must be unique for each user."
+msgstr "Ορίστε ένα έγκυρο email. Πρέπει να είναι μοναδικό για κάθε χρήστη."
+
+#: views/fields/create-user.php:55
+msgid "First Name"
+msgstr "Όνομα"
+
+#: views/fields/create-user.php:58
+msgid "Enter the first name of this user."
+msgstr "Ορίστε το όνομα χρήστη."
+
+#: views/fields/create-user.php:60
+msgid "You need to enter a name for this user."
+msgstr "Πρέπει να ορίσετε ένα όνομα στον χρήστη."
+
+#: views/fields/create-user.php:67
+msgid "Last Name"
+msgstr "Επώνυμο"
+
+#: views/fields/create-user.php:70
+msgid "Enter the last name of this user."
+msgstr "Ορίστε το επώνυμο χρήστη."
+
+#: views/fields/create-user.php:72
+msgid "You need to enter a last name for this user."
+msgstr "Πρέπει να ορίσετε ένα επώνυμο στον χρήστη."
+
+#: views/fields/receipt-preview-template.php:18 dist/pos/index.js:33
+msgid "Phone:"
+msgstr "Τηλέφωνο:"
+
+#: views/fields/receipt-preview-template.php:21 dist/pos/index.js:33
+msgid "Email:"
+msgstr "Email:"
+
+#: views/fields/receipt-preview-template.php:24 dist/pos/index.js:33
+msgid "Fax:"
+msgstr "Fax:"
+
+#: views/fields/receipt-preview-template.php:27 dist/pos/index.js:33
+msgid "Web:"
+msgstr "Web:"
+
+#: views/fields/receipt-preview-template.php:32 dist/pos/index.js:33
+msgid "Facebook:"
+msgstr "Facebook:"
+
+#: views/fields/receipt-preview-template.php:35 dist/pos/index.js:33
+msgid "Twitter:"
+msgstr "Twitter:"
+
+#: views/fields/receipt-preview-template.php:38 dist/pos/index.js:33
+msgid "Instagram:"
+msgstr "Instagram:"
+
+#: views/fields/receipt-preview-template.php:42
+msgid "YouTube:"
+msgstr "YouTube:"
+
+#: views/fields/receipt-preview-template.php:49
+#: views/fields/receipt-preview-template.php:51
+#: views/fields/receipt-preview-template.php:53
+#: views/fields/receipt-preview-template.php:55
+msgid "Product"
+msgstr "Προϊόν"
+
+#: views/fields/receipt-preview-template.php:61 dist/pos/index.js:33
+msgid "Total"
+msgstr "Σύνολο"
+
+#: views/fields/receipt-preview-template.php:76 dist/pos/index.js:33
+msgid "Change"
+msgstr "Υπόλοιπο"
+
+#: views/fields/receipt-preview-template.php:85
+msgid "Date"
+msgstr "Ημερομηνία"
+
+#: views/fields/receipt-preview-template.php:88
+msgid "Order"
+msgstr "Παραγγελία"
+
+#: views/fields/receipt-preview-template.php:92
+msgid "Customer"
+msgstr "Πελάτης"
+
+#: views/fields/receipt-preview-template.php:100 dist/dashboard/index.js:1
+#: dist/pos/index.js:33
+msgid "Cashier"
+msgstr "Ταμίας"
+
+#: views/fields/show-cashiers.php:38
+msgid "Show Register to"
+msgstr "Εμφάνιση Ταμείου σε"
+
+#: views/fields/show-cashiers.php:39
+msgid "Hide Register to"
+msgstr "Απόκρυψη Ταμείου σε"
+
+#: views/fields/show-cashiers.php:49
+msgid "Select a Cashier"
+msgstr "Επιλέξτε Ταμία"
+
+#: views/fields/show-categories.php:29
+msgid "Search Category"
+msgstr "Αναζήτηση Κατηγορίας"
+
+#: views/fields/show-categories.php:38
+msgid "Category to"
+msgstr "Κατηγορία σε"
+
+#: views/fields/show-categories.php:47 views/fields/show-products.php:20
+msgid "Include"
+msgstr "Περιλαμβάνετε"
+
+#: views/fields/show-categories.php:48 views/fields/show-products.php:21
+msgid "Exclude"
+msgstr "Αποκλείστε"
+
+#: views/fields/show-products.php:12
+msgid "Product to"
+msgstr "Προϊόν σε"
+
+#: views/metabox/shop-order-pos-info-metabox.php:3
+msgid "Order made in store:"
+msgstr "Παραγγελία ολοκληρώθηκε στο κατάστημα:"
+
+#: views/metabox/shop-order-pos-info-metabox.php:22
+msgid "Payment methods:"
+msgstr "Μέθοδοι πληρωμής:"
+
+#: views/metabox/store-registers-list-single.php:62
+msgid "Delete"
+msgstr "Διαγραφή"
+
+#: views/metabox/store-registers-list-single.php:63 dist/pos/index.js:33
+msgid "Update"
+msgstr "Ενημέρωση"
+
+#: views/metabox/store-registers-list-single.php:64
+msgid "Create"
+msgstr "Δημιουργία"
+
+#: views/metabox/store-registers-list.php:11
+msgid "Registers of this store"
+msgstr "Ταμεία αυτού του καταστήματος"
+
+#: views/metabox/store-registers-list.php:35
+msgid "Create new Register"
+msgstr "Δημιουργία νέου Ταμείου"
+
+#: views/metabox/store-registers-list.php:36
+msgid "Close new Register creation"
+msgstr "Κλείσιμο δημιουργίας νέου Ταμείου"
+
+#: views/metabox/store-registers-list.php:37
+msgid "Create new register"
+msgstr "Δημιουργία νέου ταμείου"
+
+#: views/panel/create-your-first-store.php:9
+msgid "Thanks for choosing %s!"
+msgstr "Ευχαριστούμε που επιλέξατε %s!"
+
+#: views/panel/create-your-first-store.php:10
+msgid ""
+"Now, the first step is to create a Store: after that, you will be able to "
+"use our powerful Register to sell your products."
+msgstr ""
+"Τώρα, το πρώτο βήμα είναι η δημιουργία ενός Καταστήματος: μετά από αυτό, θα "
+"μπορείτε να χρησιμοποιήσετε το ισχυρό μας Ταμείο για την πώληση των "
+"προϊόντων σας."
+
+#: views/panel/create-your-first-store.php:16
+msgid "Create your first store"
+msgstr "Δημιουργήστε το πρώτο σας κατάστημα"
+
+#: views/panel/dashboard.php:16
+msgid "%s requires %s plugin to show reports!"
+msgstr "Το %s χρειάζεται το πρόσθετο %s για να εμφανίσει τις αναφορές!"
+
+#: views/panel/dashboard.php:31
+msgid "Activate WooCommerce Admin"
+msgstr "Ενεργοποίηση WooCommerce Admin"
+
+#: views/panel/dashboard.php:33
+msgid "You are using an outdated version of WooCommerce Admin"
+msgstr "Χρησιμοποιείτε μη ενημερωμένη έκδοση του WooCommerce Admin"
+
+#: views/panel/dashboard.php:38
+msgid "Update WooCommerce Admin"
+msgstr "Ενημέρωση WooCommerce Admin"
+
+#: views/panel/dashboard.php:44
+msgid "Install WooCommerce Admin"
+msgstr "Εγκατάσταση WooCommerce Admin"
+
+#: views/panel/store-wizard-nav.php:10
+msgid "Step 1"
+msgstr "Βήμα 1"
+
+#: views/panel/store-wizard-nav.php:11 views/panel/store-wizard-summary.php:13
+msgid "Store info"
+msgstr "Πληροφορίες καταστήματος"
+
+#: views/panel/store-wizard-nav.php:15
+msgid "Step 2"
+msgstr "Βήμα 2"
+
+#: views/panel/store-wizard-nav.php:20
+msgid "Step 3"
+msgstr "Βήμα 3"
+
+#: views/panel/store-wizard-nav.php:26
+msgid "Step 4"
+msgstr "Βήμα 4"
+
+#: views/panel/store-wizard-nav.php:27
+#: views/panel/store-wizard-pagination.php:12
+msgid "Save Store"
+msgstr "Αποθήκευση Καταστήματος"
+
+#: views/panel/store-wizard-pagination.php:6
+msgid "Back to step %s"
+msgstr "Πίσω στην βήμα %s"
+
+#: views/panel/store-wizard-pagination.php:7
+msgid "Proceed to step %s"
+msgstr "Προχωρήστε στο βήμα %s"
+
+#: views/product/product-data-inventory.php:11
+msgid "POS Inventory"
+msgstr "Αποθήκη POS"
+
+#: views/product/product-data-inventory.php:14
+msgid "To enable the multistock, it is necessary activate the option in "
+msgstr ""
+"Για να ενεργοποιήσετε το multistock, πρέπει να ενεργοποιήσετε την επιλογή "
+"στο "
+
+#: views/product/product-data-inventory.php:14
+msgid "YITH > Point of Sale > Customization > Enable multistock"
+msgstr "YITH > Point of Sale > Προσαρμογή > Ενεργοποίηση multistock"
+
+#: views/product/product-data-inventory.php:17
+msgid "Enable Multi Stock in POS"
+msgstr "Ενεργοποίηση Multi Stock στο POS"
+
+#: views/product/product-data-inventory.php:29
+msgid "In store"
+msgstr "Στο κατάστημα"
+
+#: views/product/product-data-inventory.php:45
+#: views/product/product-data-inventory.php:76
+msgid "Select Store"
+msgstr "Επιλογή Καταστήματος"
+
+#: views/product/product-data-inventory.php:53
+msgid "set a stock of: "
+msgstr "ορίστε απόθεμα: "
+
+#: views/product/product-data-inventory.php:57
+msgid "units"
+msgstr "μονάδες"
+
+#: views/product/product-data-inventory.php:67
+msgid "+ manage stock for another store"
+msgstr "+ διαχειριστείτε το απόθεμα για ένα άλλο κατάστημα"
+
+#: views/product/product-data-inventory.php:93
+msgid "No Store found!"
+msgstr "Δεν Βρέθηκε Κατάστημα!"
+
+#: dist/dashboard/index.js:1
+msgid "Loading..."
+msgstr "Φορτώνει…"
+
+#: dist/dashboard/index.js:1
+msgid "All Registers"
+msgstr "Όλα τα Ταμεία"
+
+#: dist/dashboard/index.js:1
+msgid "Filter by Store"
+msgstr "Ταξινόμηση κατα Κατάστημα"
+
+#: dist/dashboard/index.js:1
+msgid "All Stores"
+msgstr "Όλα τα Καταστήματα"
+
+#: dist/dashboard/index.js:1
+msgid "Filter by Register"
+msgstr "Ταξινόμηση κατά Ταμείο"
+
+#: dist/dashboard/index.js:1
+msgid "Orders"
+msgstr "Παραγγελίες"
+
+#: dist/dashboard/index.js:1
+msgid "Net Sales"
+msgstr "Καθαρές Πωλήσεις"
+
+#: dist/dashboard/index.js:1
+msgid "Average Order Value"
+msgstr "Μέση Αξία Παραγγελίας"
+
+#: dist/dashboard/index.js:1
+msgid "Average Items Per Order"
+msgstr "Μέσος Όρος Αντικειμένων ανά Παραγγελία"
+
+#: dist/dashboard/index.js:1
+msgid "Items"
+msgstr "Αντικείμενα"
+
+#: dist/dashboard/index.js:1
+msgid "New Customers"
+msgstr "Νέοι Πελάτες"
+
+#: dist/dashboard/index.js:1
+msgid "Returning Customers"
+msgstr "Πελάτες που Επιστρέφουν"
+
+#: dist/dashboard/index.js:1
+msgid "Coupons"
+msgstr "Κουπόνια"
+
+#: dist/dashboard/index.js:1
+msgid "No data for the selected date range"
+msgstr "Δεν υπάρχουν δεδομένα για το επιλεγμένο εύρος ημερομηνίας"
+
+#: dist/dashboard/index.js:1
+msgid "No data recorded for the selected time period."
+msgstr ""
+"Δεν υπάρχουν καταγεγραμμένα δεδομένα για την επιλεγμένη χρονική περίοδο."
+
+#: dist/dashboard/index.js:1 dist/pos/index.js:33
+msgid "Payment Method"
+msgstr "Μέθοδος Πληρωμής"
+
+#: dist/dashboard/index.js:1 dist/pos/index.js:33
+msgid "Amount"
+msgstr "Ποσό"
+
+#: dist/dashboard/index.js:1
+msgid "Payment Methods"
+msgstr "Μέθοδοι Πληρωμής"
+
+#: dist/dashboard/index.js:1
+msgid "Top Cashiers"
+msgstr "Κορυφαίοι Ταμίες"
+
+#: dist/pos/index.js:33
+msgid "Login times: "
+msgstr "Ώρες σύνδεσης: "
+
+#: dist/pos/index.js:33
+msgid "Total orders"
+msgstr "Συνολικές παραγγελίες"
+
+#: dist/pos/index.js:33
+msgid "Total sales"
+msgstr "Συνολικές πωλήσεις"
+
+#: dist/pos/index.js:33
+msgid "Download CSV"
+msgstr "Κατεβάστε το CSV"
+
+#: dist/pos/index.js:33
+msgid "Register Screen"
+msgstr "Οθόνη Ταμείου"
+
+#: dist/pos/index.js:33
+msgid "Order History"
+msgstr "Ιστορικό Παραγγελίας"
+
+#: dist/pos/index.js:33
+msgid "Today's profit"
+msgstr "Σημερινό κέρδος"
+
+#: dist/pos/index.js:33
+msgid "Manage Cash"
+msgstr "Διαχείριση Μετρητών"
+
+#: dist/pos/index.js:33
+msgid "Close register"
+msgstr "Κλείσιμο ταμείου"
+
+#: dist/pos/index.js:33
+msgid "Store:"
+msgstr "Κατάστημα:"
+
+#: dist/pos/index.js:33
+msgid "Manage Store"
+msgstr "Διαχείριση Καταστήματος"
+
+#: dist/pos/index.js:33
+msgid "Switch Register"
+msgstr "Εναλλαγή Ταμείου"
+
+#: dist/pos/index.js:33
+msgid "Logout"
+msgstr "Αποσύνδεση"
+
+#: dist/pos/index.js:33
+msgid "Empty Cart"
+msgstr "Καλάθι Άδειο"
+
+#: dist/pos/index.js:33
+msgid "Add note"
+msgstr "Προσθέστε σημείωση"
+
+#: dist/pos/index.js:33
+msgid "Edit note"
+msgstr "Επεξεργασία σημείωσης"
+
+#: dist/pos/index.js:33
+msgid "Add fee or discount"
+msgstr "Πρόσθεση χρέωσης ή έκπτωσης"
+
+#: dist/pos/index.js:33
+msgid "Apply coupon"
+msgstr "Εφαρμογή κουπονιού"
+
+#: dist/pos/index.js:33
+msgid "Shipping"
+msgstr "Αποστολή"
+
+#: dist/pos/index.js:33
+msgid "Suspend & save cart"
+msgstr "Αναστολή & αποθήκευση καλαθιού"
+
+#: dist/pos/index.js:33
+msgid "Pay"
+msgstr "Πληρωμή"
+
+#: dist/pos/index.js:33
+msgid "Add a note to this order"
+msgstr "Προσθέστε σημείωση σε αυτή τη παραγγελία"
+
+#: dist/pos/index.js:33
+msgid "Add another payment option"
+msgstr "Προσθέστε άλλη μια επιλογή πληρωμής"
+
+#: dist/pos/index.js:33
+msgid "Amount paying"
+msgstr "Ποσό προς πληρωμή"
+
+#: dist/pos/index.js:33
+msgid "Amount to pay"
+msgstr "Ποσό προς πληρωμή"
+
+#: dist/pos/index.js:33
+msgid "Amount type"
+msgstr "Τύπος ποσού"
+
+#: dist/pos/index.js:33
+msgid "Back"
+msgstr "Πίσω"
+
+#: dist/pos/index.js:33
+msgid "Balance"
+msgstr "Διαφορά"
+
+#: dist/pos/index.js:33
+msgid "By"
+msgstr "Κατα"
+
+#: dist/pos/index.js:33
+msgid "Cart "
+msgstr "Καλάθι "
+
+#: dist/pos/index.js:33
+msgid "Change price per unit"
+msgstr "Αλλαγή τιμής ανά μονάδα"
+
+#: dist/pos/index.js:33
+msgid "Customer "
+msgstr "Πελάτης "
+
+#: dist/pos/index.js:33
+msgid "Guest Customer "
+msgstr "Επισκέπτης "
+
+#: dist/pos/index.js:33
+msgid "Discount"
+msgstr "Έκπτωση"
+
+#: dist/pos/index.js:33
+msgid "Enter coupon code"
+msgstr "Εισάγετε κωδικό κουπονιού"
+
+#: dist/pos/index.js:33
+msgid "Fee"
+msgstr "Χρέωση"
+
+#: dist/pos/index.js:33
+msgid "Fixed"
+msgstr "Σταθερή"
+
+#: dist/pos/index.js:33
+msgid "Popular fees"
+msgstr "Δημοφιλή τέλη"
+
+#: dist/pos/index.js:33
+msgid "Popular tendered"
+msgstr "Δημοφιλείς προσφορές"
+
+#: dist/pos/index.js:33
+msgid "load"
+msgstr "φόρτωση"
+
+#: dist/pos/index.js:33
+msgid "Payment option"
+msgstr "Επιλογή πληρωμής"
+
+#: dist/pos/index.js:33
+msgid "Pending payment"
+msgstr "Πληρωμή σε αναμονή"
+
+#: dist/pos/index.js:33
+msgid "product"
+msgstr "προϊόν"
+
+#: dist/pos/index.js:33
+msgid "products"
+msgstr "προϊόντα"
+
+#: dist/pos/index.js:33
+msgid "Percentage"
+msgstr "Ποσοστό"
+
+#: dist/pos/index.js:33
+msgid "Reason (optional)"
+msgstr "Αιτία (προαιρετικό)"
+
+#: dist/pos/index.js:33
+msgid "Add a reason or note (optional)"
+msgstr "Προσθέστε αιτία ή σημείωση (προαιρετικό)"
+
+#: dist/pos/index.js:33
+msgid "Save note"
+msgstr "Αποθήκευση Σημείωσης"
+
+#: dist/pos/index.js:33
+msgid "Shipping Method"
+msgstr "Μέθοδος Αποστολής"
+
+#: dist/pos/index.js:33
+msgid "Update Total"
+msgstr "Ενημέρωση Συνόλου"
+
+#: dist/pos/index.js:33
+msgid "Save Shipping"
+msgstr "Αποθήκευση Αποστολής"
+
+#: dist/pos/index.js:33
+msgid "Total due"
+msgstr "Πληρωτέο σύνολο"
+
+#: dist/pos/index.js:33
+msgid "Total paying"
+msgstr "Σύνολο προς πληρωμή"
+
+#: dist/pos/index.js:33
+msgid "Coupon usage limit has been reached."
+msgstr "Έχετε φτάσει το όριο χρήσης κουπονιού."
+
+#: dist/pos/index.js:33
+msgid "This coupon has expired."
+msgstr "Το κουπόνι έχει λήξει."
+
+#: dist/pos/index.js:33
+msgid "The minimum spend for this coupon is %s."
+msgstr "Το ελάχιστο ποσό που μπορείτε να ξοδέψετε με αυτό το κουπόνι είναι %s."
+
+#: dist/pos/index.js:33
+msgid "The maximum spend for this coupon is %s."
+msgstr "Το μέγιστο ποσό που μπορείτε να ξοδέψετε με αυτό το κουπόνι είναι %s."
+
+#: dist/pos/index.js:33
+msgid "Sorry, this coupon is not applicable to your cart contents."
+msgstr ""
+"Λυπούμαστε, αυτό το κουπόνι δεν μπορεί να εφαρμοστεί στα περιεχόμενα "
+"καλαθιού σας."
+
+#: dist/pos/index.js:33
+msgid "Sorry, this coupon is not applicable to selected products."
+msgstr ""
+"Λυπούμαστε, αυτό το κουπόνι δεν μπορεί να εφαρμοστεί στα επιλεγμένα προϊόντα."
+
+#: dist/pos/index.js:33
+msgid "Sorry, this coupon is not valid for sale items."
+msgstr ""
+"Λυπούμαστε, αυτό το κουπόνι δεν είναι έγκυρο για αντικείμενα σε προσφορά."
+
+#: dist/pos/index.js:33
+msgid "Sorry, this coupon is not applicable to the products: %s."
+msgstr "Λυπούμαστε, αυτό το κουπόνι δεν μπορεί να εφαρμοστεί στα προϊόντα: %s."
+
+#: dist/pos/index.js:33
+msgid "Sorry, this coupon is not applicable to the categories: %s."
+msgstr ""
+"Λυπούμαστε, αυτό το κουπόνι δεν μπορεί να εφαρμοστεί στις κατηγορίες: %s."
+
+#: dist/pos/index.js:33
+msgid "Sorry, this coupon is not usable by the current customer."
+msgstr ""
+"Λυπούμαστε, αυτό το κουπόνι δεν μπορεί να χρησιμοποιηθεί από τον "
+"συγκεκριμένο πελάτη."
+
+#: dist/pos/index.js:33
+msgid "Guest"
+msgstr "Επισκέπτης"
+
+#: dist/pos/index.js:33
+msgid "Subtotal"
+msgstr "Υποσύνολο"
+
+#: dist/pos/index.js:33
+msgid "Tax"
+msgstr "Φόρος"
+
+#: dist/pos/index.js:33
+msgid "Subtotal (incl. tax)"
+msgstr "Υποσύνολο (περ. φόρο)"
+
+#: dist/pos/index.js:33
+msgid "COUPON"
+msgstr "ΚΟΥΠΟΝΙ"
+
+#: dist/pos/index.js:33
+msgid "You cannot add %s \"%s\" to your cart"
+msgstr "Δεν μπορείτε να προσθέσετε %s “%s” στο καλάθι σας"
+
+#: dist/pos/index.js:33
+msgid "You cannot add another \"%s\" to your cart"
+msgstr "Δεν μπορείτε να προσθέσετε “%s” στο καλάθι σας"
+
+#: dist/pos/index.js:33
+msgid "Coupon already applied!"
+msgstr "Το κουπόνι έχει ήδη εφαρμοστεί!"
+
+#: dist/pos/index.js:33
+msgid "The coupon was not applied!"
+msgstr "Το κουπόνι δεν εφαρμόστηκε!"
+
+#: dist/pos/index.js:33
+msgid "Add the first product to the cart"
+msgstr "Προσθέστε το πρώτο προϊόν στο καλάθι"
+
+#: dist/pos/index.js:33
+msgid "Are you sure?"
+msgstr "Είστε σίγουρος;"
+
+#: dist/pos/index.js:33
+msgid "Cancel"
+msgstr "Ακύρωση"
+
+#: dist/pos/index.js:33
+msgid "Coupon not found"
+msgstr "Το κουπόνι δεν βρέθηκε"
+
+#: dist/pos/index.js:33
+msgid "Discount type:"
+msgstr "Τύπος έκπτωσης:"
+
+#: dist/pos/index.js:33
+msgid "Coupon amount:"
+msgstr "Ποσό κουπονιού:"
+
+#: dist/pos/index.js:33
+msgid "Expiry date:"
+msgstr "Ημερομηνία λήξης:"
+
+#: dist/pos/index.js:33
+msgid "clear"
+msgstr "καθαρισμός"
+
+#: dist/pos/index.js:33
+msgid "Order #"
+msgstr "Παραγγελία #"
+
+#: dist/pos/index.js:33
+msgid "items"
+msgstr "αντικείμενα"
+
+#: dist/pos/index.js:33
+msgid "item"
+msgstr "αντικείμενο"
+
+#: dist/pos/index.js:33
+msgid "orders"
+msgstr "παραγγελίες"
+
+#: dist/pos/index.js:33
+msgid "order"
+msgstr "παραγγελία"
+
+#: dist/pos/index.js:33
+msgid "All registers"
+msgstr "Όλα τα ταμεία"
+
+#: dist/pos/index.js:33
+msgid "Note: "
+msgstr "Σημείωση: "
+
+#: dist/pos/index.js:33
+msgid "Other"
+msgstr "Άλλο"
+
+#: dist/pos/index.js:33
+msgid "Total Sales"
+msgstr "Συνολικές πωλήσεις"
+
+#: dist/pos/index.js:33
+msgid "Youtube:"
+msgstr "YouTube:"
+
+#: dist/pos/index.js:33
+msgid "Order #%s"
+msgstr "Παραγγελία #%s"
+
+#: dist/pos/index.js:33
+msgid "Paid via %s on %s"
+msgstr "Πληρώθηκε μέσω %s σε %s"
+
+#: dist/pos/index.js:33
+msgid "Print Receipt"
+msgstr "Εκτύπωση Απόδειξης"
+
+#: dist/pos/index.js:33
+msgid "< Back to register screen"
+msgstr "< Πίσω στην οθόνη ταμείου"
+
+#: dist/pos/index.js:33
+msgid "Or create a new customer profile >"
+msgstr "Ή δημιουργήστε νέο προφίλ πελάτη >"
+
+#: dist/pos/index.js:33
+msgid "Create a new customer profile"
+msgstr "Δημιουργήστε νέο προφίλ πελάτη"
+
+#: dist/pos/index.js:33
+msgid "Company"
+msgstr "Εταιρεία"
+
+#: dist/pos/index.js:33
+msgid "Country"
+msgstr "Χώρα"
+
+#: dist/pos/index.js:33
+msgid "Current customer"
+msgstr "Τρέχων πελάτης"
+
+#: dist/pos/index.js:33
+msgid "Email"
+msgstr "Email"
+
+#: dist/pos/index.js:33
+msgid "Invalid email address"
+msgstr "Μη έγκυρη διεύθυνση email"
+
+#: dist/pos/index.js:33
+msgid "First name"
+msgstr "Όνομα"
+
+#: dist/pos/index.js:33
+msgid "Last name"
+msgstr "Επώνυμο"
+
+#: dist/pos/index.js:33
+msgid "Please enter 3 or more characters"
+msgstr "Παρακαλώ πληκτρολογήστε 3 ή περισσότερους χαρακτήρες"
+
+#: dist/pos/index.js:33
+msgid "Not found the right customer?"
+msgstr "Δεν βρήκατε τον σωστό πελάτη;"
+
+#: dist/pos/index.js:33
+msgid "User not found."
+msgstr "Δεν βρέθηκε χρήστης."
+
+#: dist/pos/index.js:33
+msgid "Post Code"
+msgstr "Ταχυδρομικός Κώδικας"
+
+#: dist/pos/index.js:33
+msgid "An account is already registered with this email address."
+msgstr "Ένας λογαριασμός είναι ήδη εγγεγραμμένος με αυτή τη διεύθυνση email."
+
+#: dist/pos/index.js:33
+msgid "This field is required"
+msgstr "Αυτό το πεδίο είναι απαιτούμενο"
+
+#: dist/pos/index.js:33
+msgid "Save Customer"
+msgstr "Αποθήκευση Πελάτη"
+
+#: dist/pos/index.js:33
+msgid "Save Shipping Address"
+msgstr "Αποθήκευση Διεύθυνση Αποστολής"
+
+#: dist/pos/index.js:33
+msgid "State"
+msgstr "Νομός"
+
+#: dist/pos/index.js:33
+msgid "Use this customer profile"
+msgstr "Χρησιμοποιείστε αυτό το προφίλ πελάτη"
+
+#: dist/pos/index.js:33
+msgid "Update customer profile"
+msgstr "Ενημέρωση προφίλ πελάτη"
+
+#: dist/pos/index.js:33
+msgid "VAT / CIF / ID"
+msgstr "VAT / CIF / ID"
+
+#: dist/pos/index.js:33
+msgid "Notice: some information is missing!"
+msgstr "Σημείωση: λείπει κάποια πληροφορία!"
+
+#: dist/pos/index.js:33
+msgid "Billing %s is a required field."
+msgstr "Χρέωση %s είναι απαιτούμενο πεδίο."
+
+#: dist/pos/index.js:33
+msgid "Billing %s are required fields."
+msgstr "Χρέωση %s είναι απαιτούμενα πεδία."
+
+#: dist/pos/index.js:33
+msgid "Shipping %s is a required field."
+msgstr "Αποστολή %s είναι απαιτούμενο πεδίο."
+
+#: dist/pos/index.js:33
+msgid "Shipping %s are required fields."
+msgstr "Αποστολή %s είναι απαιτούμενα πεδία."
+
+#: dist/pos/index.js:33
+msgid "Cash in hand"
+msgstr "Cash in hand"
+
+#: dist/pos/index.js:33
+msgid "Reason"
+msgstr "Αιτία"
+
+#: dist/pos/index.js:33
+msgid "Enter amount"
+msgstr "Εισάγετε ποσό"
+
+#: dist/pos/index.js:33
+msgid "Save Cash"
+msgstr "Αποθήκευση Μετρητών"
+
+#: dist/pos/index.js:33
+msgid "Cash Total"
+msgstr "Σύνολο Μετρητών"
+
+#: dist/pos/index.js:33
+msgid "Opening times"
+msgstr "Ώρες λειτουργίας"
+
+#: dist/pos/index.js:33
+msgid "Closing time"
+msgstr "Ώρα κλεισίματος"
+
+#: dist/pos/index.js:33
+msgid "Add"
+msgstr "Προσθήκη"
+
+#: dist/pos/index.js:33
+msgid "Remove"
+msgstr "Αφαίρεση"
+
+#: dist/pos/index.js:33
+msgid "Add or remove cash"
+msgstr "Πρόσθεση ή αφαίρεση μετρητών"
+
+#: dist/pos/index.js:33
+msgid "Add a note (optional)"
+msgstr "Προσθήκη σημείωσης (προαιρετικό)"
+
+#: dist/pos/index.js:33
+msgid "Download Report"
+msgstr "Κατέβασμα Αναφοράς"
+
+#: dist/pos/index.js:33
+msgid "Close Register"
+msgstr "Κλείσιμο Ταμείου"
+
+#: dist/pos/index.js:33
+msgid "Product name: "
+msgstr "Όνομα προϊόντος: "
+
+#: dist/pos/index.js:33
+msgid "Product category:"
+msgstr "Κατηγορία προϊόντος:"
+
+#: dist/pos/index.js:33
+msgid "SKU"
+msgstr "SKU"
+
+#: dist/pos/index.js:33
+msgid "Tax Status:"
+msgstr "Κατάσταση Φόρου:"
+
+#: dist/pos/index.js:33
+msgid "Tax Class:"
+msgstr "Κλάση Φόρου:"
+
+#: dist/pos/index.js:33
+msgid "Regular price:"
+msgstr "Κανονική τιμή:"
+
+#: dist/pos/index.js:33
+msgid "Stock:"
+msgstr "Απόθεμα:"
+
+#: dist/pos/index.js:33
+msgid "Quantity in stock:"
+msgstr "Ποσότητα στο απόθεμα:"
+
+#: dist/pos/index.js:33
+msgid "Sync with WooCommerce:"
+msgstr "Sync με WooCommerce:"
+
+#: dist/pos/index.js:33
+msgid "Disabled"
+msgstr "Απενεργοποιημένο"
+
+#: dist/pos/index.js:33
+msgid "Create product"
+msgstr "Δημιουργία προϊόντος"
+
+#: dist/pos/index.js:33
+msgid "Taxable"
+msgstr "Φορολογήσιμο"
+
+#: dist/pos/index.js:33
+msgid "Shipping only"
+msgstr "Μόνο αποστολή"
+
+#: dist/pos/index.js:33
+msgid "None"
+msgstr "Κανένα"
+
+#: dist/pos/index.js:33
+msgid "No results found."
+msgstr "Δεν βρέθηκαν αποτελέσματα."
+
+#: dist/pos/index.js:33
+msgid "add to cart"
+msgstr "προσθήκη στο καλάθι"
+
+#: dist/pos/index.js:33
+msgid "Inclusive"
+msgstr "Συμπεριλαμβάνεται"
+
+#: dist/pos/index.js:33
+msgid "Exclusive"
+msgstr "Δεν συμπερυλαμβάνεται"
+
+#: dist/pos/index.js:33
+msgid "No Category found."
+msgstr "Δεν βρέθηκε Κατηγορία."
+
+#: dist/pos/index.js:33
+msgid "Invalid or duplicated SKU."
+msgstr "Μη έγκυρο ή αντίγραφο SKU."
+
+#: dist/pos/index.js:33
+msgid "Standard"
+msgstr "Κανονικό"
+
+#: dist/pos/index.js:33
+msgid "Search a category"
+msgstr "Αναζήτηση κατηγορίας"
+
+#: dist/pos/index.js:33
+msgid ""
+"Please enter a number. If decimal, use the decimal separator (%s). Never use "
+"thousand separators."
+msgstr ""
+"Παρακαλώ εισάγετε έναν αριθμό. Αν είναι δεκαδικός, χρησιμοποιείστε το "
+"διαχωριστή δεκαδικών(%s). Μην χρησιμοποιείτε ποτέ διαχωριστή τετραψήφιων."
+
+#: dist/pos/index.js:33
+msgid ""
+"Please enter a positive number. If decimal, use the decimal separator (%s). "
+"Never use thousand separators."
+msgstr ""
+"Παρακαλώ εισάγετε θετικό αριθμό. Αν είναι δεκαδικός, χρησιμοποιείστε τον "
+"διαχωριστή δεκαδικών (%s). Μην χρησιμοποιείτε ποτέ διαχωριστή τετραψήφιων."
+
+#: dist/pos/index.js:33
+msgid "On sale"
+msgstr "Σε προσφορά"
+
+#: dist/pos/index.js:33
+msgid "Featured"
+msgstr "Επιλεγμένα"
+
+#: dist/pos/index.js:33
+msgid "Add product"
+msgstr "Πρόσθεση προϊόντος"
+
+#: dist/pos/index.js:33
+msgid "Scan product"
+msgstr "Σάρωση προϊόντος"
+
+#: dist/pos/index.js:33
+msgid "Add cash in hand"
+msgstr "Προσθήκη cash in hand"
+
+#: dist/pos/index.js:33
+msgid "Choose variation"
+msgstr "Επιλογή παραλλαγής"
+
+#: dist/pos/index.js:33
+msgid "Variable product without variations"
+msgstr "Μεταβλητό προϊόν χωρίς παραλλαγές"
+
+#: dist/pos/index.js:33
+msgid "Error"
+msgstr "Σφάλμα"
+
+#: dist/pos/index.js:33
+msgid "Error: %s"
+msgstr "Σφάλμα: %s"
+
+#: dist/pos/index.js:33
+msgid "OK"
+msgstr "OK"
+
+#: dist/pos/index.js:33
+msgid "Do you want to delete this cart and start from scratch?"
+msgstr "Θέλετε να διαγράψετε αυτό το καλάθι και να ξεκινήσετε από την αρχή;"
+
+#: dist/pos/index.js:33
+msgid "No, continue with this cart"
+msgstr "Όχι, συνέχεια με αυτό το καλάθι"
+
+#: dist/pos/index.js:33
+msgid "Suspend and save cart"
+msgstr "Αναστολή και αποθήκευση καλαθιού"
+
+#: dist/pos/index.js:33
+msgid "Do you want to load the cart number #%s?"
+msgstr "Θέλετε να φορτώσετε τον αριθμό καλαθιού #%s;"
+
+#: dist/pos/index.js:33
+msgid ""
+"You have some items in your cart. Do you want to suspend your current cart "
+"and load the cart number#%s?"
+msgstr ""
+"Έχετε ορισμένα αντικείμενα στο καλάθι σας. Θέλετε να κάνετε αναστολή του "
+"τρέχοντος καλαθιού και φόρτωση τον αριθμό καλαθιού#%s;"
+
+#: dist/pos/index.js:33
+msgid "No, keep the cart"
+msgstr "Όχι, κρατήστε το καλάθι"
+
+#: dist/pos/index.js:33
+msgid "Do you want to remove the cart number #%s?"
+msgstr "Θέλετε να αφαιρέσετε τον αριθμό καλαθιού #%s;"
+
+#: dist/pos/index.js:33
+msgid "This cart was switched with the cart number"
+msgstr "Αυτό το καλάθι εναλλάχθηκε με τον αριθμό καλαθιού"
+
+#: dist/pos/index.js:33
+msgid "Apply coupon to order total"
+msgstr "Εφαρμογή κουπονιού στο σύνολο παραγγελίας"
+
+#: dist/pos/index.js:33
+msgid "Order total"
+msgstr "Σύνολο παραγγελίας"
+
+#: dist/pos/index.js:33
+msgid "Add fee or discount to order total"
+msgstr "Πρόσθεση χρέωσης ή έκπτωσης στο σύνολο παραγγελίας"
+
+#: dist/pos/index.js:33
+msgid "Set customer's profile"
+msgstr "Ορίστε προφίλ πελάτη"
+
+#: dist/pos/index.js:33
+msgid "Shipping Address"
+msgstr "Διεύθυνση Αποστολής"
+
+#: dist/pos/index.js:33
+msgid "Add a new product"
+msgstr "Προσθήκη νέου προϊόντος"
+
+#: dist/pos/index.js:33
+msgid "Split Payment"
+msgstr "Διαχωρισμός Πληρωμής"
+
+#: dist/pos/index.js:33
+msgid "Fix your cart and try again"
+msgstr "Ρυθμίστε το καλάθι σας και προσπαθήστε ξανά"
+
+#: dist/pos/index.js:33
+msgid "Error: You are not able to do this."
+msgstr "Σφάλμα: Η ενέργεια δεν είναι δυνατή."
+
+#: dist/pos/index.js:33
+msgid "Profit of"
+msgstr "Κέρδος από"
+
+#: dist/pos/index.js:33
+msgctxt "Title of Close Register modal"
+msgid "Close Register"
+msgstr "Κλείσιμο Ταμείου"
+
+#: dist/pos/index.js:33
+msgid "Are you sure you want to log out?"
+msgstr "Είστε σίγουρος ότι θέλετε να κάνετε απενεργοποίηση;"

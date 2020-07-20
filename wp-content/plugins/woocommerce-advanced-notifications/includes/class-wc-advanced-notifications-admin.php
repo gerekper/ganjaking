@@ -48,15 +48,10 @@ class WC_Advanced_Notifications_Admin {
 	}
 
 	/**
-	 * admin_enqueue function.
+	 * Admin enqueue function.
 	 */
-	function admin_enqueue() {
-		if ( version_compare( WOOCOMMERCE_VERSION, '2.3.0', '<' ) ) {
-			wp_enqueue_script( 'woocommerce_admin' );
-			wp_enqueue_script( 'chosen' );
-		}
-
-		wp_enqueue_style( 'notifications_css', plugins_url( 'assets/css/admin.css' , dirname( __FILE__ ) ) );
+	public function admin_enqueue() {
+		wp_enqueue_style( 'notifications_css', plugins_url( 'assets/css/admin.css', __DIR__ ), array(), WC_ADVANCED_NOTIFICATIONS_VERSION );
 	}
 
 	/**
@@ -109,12 +104,12 @@ class WC_Advanced_Notifications_Admin {
 		$triggers = $wpdb->get_col( "SELECT notification_id FROM {$wpdb->prefix}advanced_notification_triggers WHERE object_id = " . absint( $post->ID ) . " AND object_type = 'product';" );
 		?>
 		<p class="form-field">
-			<label><?php _e( 'Notifications', 'woocommerce-advanced-notifications' ); ?></label>
-			<select id="notification_recipients" name="notification_recipients[]" multiple="multiple" style="width:300px;" data-placeholder="<?php _e('Choose recipients for this product&hellip;', 'woocommerce-advanced-notifications'); ?>" class="wc-enhanced-select chosen_select">
+			<label><?php esc_html_e( 'Notifications', 'woocommerce-advanced-notifications' ); ?></label>
+			<select id="notification_recipients" name="notification_recipients[]" multiple="multiple" style="width:300px;" data-placeholder="<?php esc_attr_e( 'Choose recipients for this product&hellip;', 'woocommerce-advanced-notifications' ); ?>" class="wc-enhanced-select">
 				<?php
-					foreach ( $notifications as $notification ) {
-						echo '<option value="' . $notification->notification_id . '" ' . selected( in_array( $notification->notification_id, $triggers ), true, false ) . '>' . $notification->recipient_name . '</option>';
-					}
+				foreach ( $notifications as $notification ) {
+					echo '<option value="' . esc_attr( $notification->notification_id ) . '" ' . selected( in_array( $notification->notification_id, $triggers, true ), true, false ) . '>' . esc_html( $notification->recipient_name ) . '</option>';
+				}
 				?>
 			</select>
 		</p>

@@ -198,46 +198,40 @@ jQuery(document).ready(function($){
         return false;
     });
 
-    $(":input.user-search-select").filter(":not(.enhanced)").each( function() {
+	jQuery( ':input.user-search-select' ).filter( ':not(.enhanced)' ).each( function() {
         var select2_args = {
             allowClear:  jQuery( this ).data( 'allow_clear' ) ? true : false,
-            placeholder: jQuery( this ).data( 'placeholder' ),
-            dropdownAutoWidth: 'true',
-            minimumInputLength: jQuery( this ).data( 'minimum_input_length' ) ? jQuery( this ).data( 'minimum_input_length' ) : '3',
+			placeholder: jQuery( this ).data( 'placeholder' ),
+			width:       'style',
+            minimumInputLength: jQuery( this ).data( 'minimum_input_length' ) ? jQuery( this ).data( 'minimum_input_length' ) : 3,
             escapeMarkup: function( m ) {
                 return m;
-            },
-            ajax: {
-                url:         ajaxurl,
-                dataType:    'json',
-                quietMillis: 250,
-                data: function( term, page ) {
+			},
+			ajax: {
+				url:         ajaxurl,
+				dataType:    'json',
+				quietMillis: 250,
+				data: function( params ) {
                     return {
-                        term:     term,
-                        action:   'fue_admin_search'
+                        term:   params.term,
+                        action: jQuery( this ).data( 'action' ) || 'fue_admin_search',
+                        nonce:  jQuery( this ).data( 'nonce' ) || FUE.nonce
                     };
-                },
-                results: function( data, page ) {
-                    var terms = [];
-                    if ( data ) {
-                        jQuery.each( data, function( id, text ) {
-                            terms.push( { id: id, text: text } );
-                        });
-                    }
-                    return { results: terms };
-                },
-                cache: true
-            }
+				},
+				processResults: function( data ) {
+					var terms = [];
+					if ( data ) {
+						jQuery.each( data, function( id, text ) {
+							terms.push( { id: id, text: text } );
+						} );
+					}
+					return { results: terms };
+				},
+				cache: true
+			},
         };
 
-        select2_args.multiple = false;
-        select2_args.initSelection = function( element, callback ) {
-            var data = {id: element.val(), text: element.attr( 'data-selected' )};
-            return callback( data );
-        };
-
-
-        jQuery(this).select2(select2_args).addClass( 'enhanced' );
+        jQuery( this ).select2( select2_args ).addClass( 'enhanced' );
     } );
 
     $("#assign_reminder").change(function() {

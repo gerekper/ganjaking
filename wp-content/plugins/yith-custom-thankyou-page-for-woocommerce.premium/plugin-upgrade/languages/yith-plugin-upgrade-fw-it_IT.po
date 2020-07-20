@@ -5,14 +5,14 @@ msgstr ""
 "Project-Id-Version: YITH Plugin Starter 1.0.0 Plugin FW\n"
 "Report-Msgid-Bugs-To: Your Inspiration Themes <plugins@yithemes.com>\n"
 "POT-Creation-Date: 2020-03-27 11:17+0100\n"
-"PO-Revision-Date: 2020-03-27 11:17+0100\n"
+"PO-Revision-Date: 2020-06-23 23:28+0200\n"
 "Last-Translator: \n"
 "Language-Team: YIThemes <plugins@yithemes.com>\n"
 "Language: it_IT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2\n"
+"X-Generator: Poedit 2.2.3\n"
 "X-Poedit-KeywordsList: __;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;"
 "_nx_noop:1,2,3c;esc_attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;"
 "esc_html_x:1,2c\n"
@@ -44,6 +44,11 @@ msgid ""
 "the issue. If the problem persists please submit a support ticket and we "
 "will be happy to help you."
 msgstr ""
+"Impossibile contattare il server remoto: questo accade quando ci sono "
+"problemi di connessione con i nostri server. Normalmente basta riprovare "
+"dopo alcuni minuti per far sì che funzioni correttamente. Se il problema "
+"persiste, ti preghiamo di aprire un ticket di assistenza e saremo lieti di "
+"poterti aiutare."
 
 #: lib/yit-licence.php:210
 msgid "email address"
@@ -59,13 +64,11 @@ msgstr "Sei sicuro di voler disattivare la licenza per questo sito?"
 
 #: lib/yit-licence.php:213 lib/yit-licence.php:214
 #: templates/panel/activation/activation-panel.php:61
-#, fuzzy
-#| msgid "YIT Plugins"
 msgctxt "Form Label"
 msgid "Plugin"
 msgid_plural "Choose the plugin"
-msgstr[0] "YIT Plugins"
-msgstr[1] "YIT Plugins"
+msgstr[0] "Plugin"
+msgstr[1] "Scegli il plugin"
 
 #: lib/yit-licence.php:846
 msgid "Invalid Request"
@@ -80,8 +83,6 @@ msgid "Software has been deactivated"
 msgstr "Il software è stato disattivato"
 
 #: lib/yit-licence.php:849
-#, fuzzy
-#| msgid "Maximum number of activations exceeded"
 msgid "Maximum number of license activations reached"
 msgstr "Hai raggiunto il numero massimo di attivazioni"
 
@@ -98,20 +99,16 @@ msgid "License key has expired"
 msgstr "La chiave di licenza è scaduta"
 
 #: lib/yit-licence.php:853
-#, fuzzy
-#| msgid "License key has been banned"
 msgid "License key has been revoked"
 msgstr "La chiave di licenza è stata bloccata"
 
 #: lib/yit-licence.php:854
-#, fuzzy
-#| msgid "Current product is not included in your YITH Club Subscription key"
 msgid "This product is not included in your YITH Club Subscription Plan"
-msgstr "Questo prodotto non è incluso nella tua licenze YITH Club Subscription"
+msgstr "Questo prodotto non è incluso nella tua licenza YITH Club Subscription"
 
 #: lib/yit-licence.php:855
 msgid "Great"
-msgstr "Grande!"
+msgstr "Ben fatto"
 
 #: lib/yit-licence.php:855
 msgid "License successfully activated"
@@ -331,24 +328,16 @@ msgstr ""
 "\"My licenses\"."
 
 #: templates/panel/activation/activation-panel.php:31
-#, fuzzy
-#| msgctxt ""
-#| "[Part of]: Warning! You didn't set license key for the following products:"
-#| "[Plugins List] which means you're missing out on updates and support. "
-#| "Enter your license key, please."
-#| msgid "Enter your license key"
 msgctxt "Page Title"
 msgid "Activate your licenses"
-msgstr "Inserisci la tua chiave di licenza"
+msgstr "Attiva le tue licenze"
 
 #: templates/panel/activation/activation-panel.php:35
 msgctxt "License section message"
 msgid "Your licenses are active."
-msgstr ""
+msgstr "Le tue licenze sono attive."
 
 #: templates/panel/activation/activation-panel.php:42
-#, fuzzy
-#| msgid "Are you having issues with the license activation?"
 msgctxt ""
 "[Part of]: Are you having issues with the license activation? Read this "
 "article"
@@ -365,139 +354,105 @@ msgstr "Leggi questo articolo"
 #: templates/panel/activation/activation-panel.php:82
 msgctxt "Link on activation license panel"
 msgid "E-mail account with YITH"
-msgstr ""
+msgstr "L'email del tuo account su YITH"
 
 #: templates/panel/activation/activation-panel.php:84
 msgctxt "Link on activation license panel"
 msgid "or create a new account"
-msgstr ""
+msgstr "oppure crea un nuovo account"
 
 #: templates/panel/activation/activation-panel.php:89
 msgctxt "Placeholder"
 msgid "Enter the e-mail address for this license"
-msgstr ""
+msgstr "Inserisci l'indirizzo email per questa licenza"
 
 #: templates/panel/activation/activation-panel.php:98
-#, fuzzy
-#| msgid "license key"
 msgctxt "Link on activation license panel"
 msgid "License key"
-msgstr "chiave di licenza"
+msgstr "Chiave di licenza"
 
 #: templates/panel/activation/activation-panel.php:100
 msgctxt "Link on activation license panel"
 msgid "Where to find it ?"
-msgstr ""
+msgstr "Dove posso trovarlo?"
 
 #: templates/panel/activation/activation-panel.php:105
-#, fuzzy
-#| msgctxt ""
-#| "[Part of]: Warning! You didn't set license key for the following products:"
-#| "[Plugins List] which means you're missing out on updates and support. "
-#| "Enter your license key, please."
-#| msgid "Enter your license key"
 msgctxt "Placeholder"
 msgid "Enter the license key"
 msgstr "Inserisci la tua chiave di licenza"
 
 #: templates/panel/activation/activation-panel.php:109
-#, fuzzy
-#| msgid "Activate"
 msgctxt "Button Label"
 msgid "Activate"
 msgstr "Attiva"
 
 #: templates/panel/activation/activation-panel.php:125
-#, fuzzy
-#| msgid "License Activation"
 msgctxt "Section Title"
 msgid "Licenses Activated"
-msgstr "Attivazione licenza"
+msgstr "Licenze attivate"
 
 #: templates/panel/activation/activation-panel.php:129
-#, fuzzy
-#| msgid "Software has been deactivated"
 msgctxt "License section message"
 msgid "No licenses have been activated."
-msgstr "Il software è stato disattivato"
+msgstr "Non è stata attivata nessuna licenza."
 
 #: templates/panel/activation/activation-panel.php:135
 msgid ""
 "If you've already renewed a license and the expiry date is not updated, "
 "click to update."
 msgstr ""
+"Se hai già rinnovato la licenza e la data di scadenza non è aggiornata, "
+"premi il pulsante per aggiornarla."
 
 #: templates/panel/activation/activation-panel.php:136
-#, fuzzy
-#| msgid "Check expiry date"
 msgctxt "button label"
 msgid "Update Expiry Dates"
-msgstr "Controlla la data di scadenza"
+msgstr "Aggiorna le date di scadenza"
 
 #: templates/panel/activation/activation-panel.php:147
-#, fuzzy
-#| msgid "License Activation"
 msgid "Licenses Activated"
-msgstr "Attivazione licenza"
+msgstr "Licenze attivate"
 
 #: templates/panel/activation/activation-panel.php:150
-#, fuzzy
-#| msgid "License"
 msgctxt "Table Field"
 msgid "License:"
-msgstr "Chiave di licenza"
+msgstr "Licenza:"
 
 #: templates/panel/activation/activation-panel.php:151
-#, fuzzy
-#| msgid "Email"
 msgctxt "Table Field"
 msgid "Email:"
-msgstr "Email"
+msgstr "Email:"
 
 #: templates/panel/activation/activation-panel.php:152
-#, fuzzy
-#| msgid "License Key"
 msgctxt "Table Field"
 msgid "License Key:"
-msgstr "Chiave di licenza"
+msgstr "Chiave di licenza:"
 
 #: templates/panel/activation/activation-panel.php:153
-#, fuzzy
-#| msgid "License Key"
 msgctxt "Table Field"
 msgid "Licenses used:"
-msgstr "Chiave di licenza"
+msgstr "Licenze utilizzate:"
 
 #: templates/panel/activation/activation-panel.php:154
-#, fuzzy
-#| msgid "Expires"
 msgctxt "Table Field"
 msgid "Expires on:"
-msgstr "Scadenza"
+msgstr "Scadenza:"
 
 #: templates/panel/activation/activation-row.php:4
-#, fuzzy
-#| msgid "License"
 msgid "License:"
-msgstr "Chiave di licenza"
+msgstr "Licenza:"
 
 #: templates/panel/activation/activation-row.php:8
-#, fuzzy
-#| msgid "Email"
 msgid "Email:"
-msgstr "Email"
+msgstr "Email:"
 
 #: templates/panel/activation/activation-row.php:37
-#, fuzzy
-#| msgid "License Key"
 msgid "License Key:"
-msgstr "Chiave di licenza"
+msgstr "Chiave di licenza:"
 
 #: templates/panel/activation/activation-row.php:41
-#, fuzzy
-#| msgid "License Key"
 msgid "Licenses used:"
-msgstr "Chiave di licenza"
+msgstr "Licenze utilizzate:"
 
 #: templates/panel/activation/activation-row.php:43
 #, php-format
@@ -505,42 +460,30 @@ msgid "%1s out of %2s"
 msgstr "%1s di %2s"
 
 #: templates/panel/activation/activation-row.php:57
-#, fuzzy
-#| msgid "Expired"
 msgctxt "License status"
 msgid "expired"
-msgstr "Non più valido"
+msgstr "scaduta"
 
 #: templates/panel/activation/activation-row.php:60
-#, fuzzy
-#| msgid "Banned"
 msgctxt "License status"
 msgid "banned"
-msgstr "Bloccato"
+msgstr "bloccata"
 
 #: templates/panel/activation/activation-row.php:69
-#, fuzzy
-#| msgid "Expires"
 msgid "Expires on:"
-msgstr "Scadenza"
+msgstr "Scadenza:"
 
 #: templates/panel/activation/activation-row.php:79
-#, fuzzy
-#| msgid "Renew"
 msgctxt "button label"
 msgid "renew"
 msgstr "Rinnova"
 
 #: templates/panel/activation/activation-row.php:84
-#, fuzzy
-#| msgid "Renew license"
 msgctxt "this is a short text for a link"
 msgid "Or get a new license"
-msgstr "Rinnova la licenza"
+msgstr "Oppure acquista una nuova licenza"
 
 #: templates/panel/activation/activation-row.php:100
-#, fuzzy
-#| msgid "Remove"
 msgctxt "Button label"
 msgid "Remove"
 msgstr "Rimuovi"

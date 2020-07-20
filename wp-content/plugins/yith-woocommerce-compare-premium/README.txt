@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 2.3.23 = Released on 03 June 2020
+
+* New: Support for WooCommerce 4.2
+* Update: Plugin framework
+* Update: Language files
+
 = 2.3.22 = Released on 29 April 2020
 
 * Fix: Missing required file

@@ -1,0 +1,26 @@
+.yit-icons-manager-text,
+.yit-icons-manager-actions {
+	display: none;
+}
+
+ul.yit-icons-manager-list {
+	height: auto;
+	overflow: hidden;
+}
+
+.yit-icons-manager-wrapper {
+	display: inline-block;
+	max-width: 100%;
+	width: auto;
+}
+
+ul.yit-icons-manager-list li {
+	height: 40px;
+	width: 40px;
+	padding-top: 9px;
+	font-size: 18px;
+}
+
+.yit-icons-manager-list-wrapper {
+	margin: 0;
+}

@@ -3,16 +3,16 @@
  * Plugin Name: YITH WooCommerce Sequential Order Number Premium
  * Plugin URI:https://yithemes.com/themes/plugins/yith-woocommerce-sequential-order-number
  * Description: <code><strong>YITH WooCommerce Sequential Order Number Premium</strong></code> allows you to create sequential numbers for your orders! You can add a prefix and suffix to your orders! <a href ="https://yithemes.com">Get more plugins for your e-commerce shop on <strong>YITH</strong></a>
- * Version: 1.2.1
+ * Version: 1.2.3
  * Author: YITH
  * Author URI: https://yithemes.com/
- * WC requires at least: 3.4.0
- * WC tested up to: 4.2
+ * WC requires at least: 4.0.0
+ * WC tested up to: 4.3
  * Text Domain: yith-woocommerce-sequential-order-number
  * Domain Path: /languages/
  * @author Your Inspiration Themes
  * @package YITH WooCommerce Sequential Order Number
- * @version 1.2.1
+ * @version 1.2.3
  */
 
 /*
@@ -32,6 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) {
             <p><?php _e( 'YITH WooCommerce Sequential Order Numbers is enabled but not effective. It requires WooCommerce in order to work.', 'yith-woocommerce-sequential-order-number' ); ?></p>
         </div>
     <?php
+
     }
 
 
@@ -42,7 +43,7 @@ yit_deactive_free_version( 'YWSON_FREE_INIT', plugin_basename( __FILE__ ) );
 
 
 if ( !defined( 'YWSON_VERSION' ) ) {
-    define( 'YWSON_VERSION', '1.2.1' );
+    define( 'YWSON_VERSION', '1.2.3' );
 }
 
 if ( ! defined( 'YWSON_PREMIUM' ) ) {

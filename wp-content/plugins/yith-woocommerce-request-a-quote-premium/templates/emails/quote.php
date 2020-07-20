@@ -83,7 +83,7 @@ if ( function_exists( 'wc_format_datetime' ) ) {
 $after_list = yit_get_prop( $order, '_ywraq_request_response_after', true );
 if ( '' !== $after_list ) :
 	?>
-	<p><?php echo esc_html( apply_filters( 'ywraq_quote_after_list', nl2br( $after_list ), $order_id ) ); ?></p>
+	<p><?php echo wp_kses_post( apply_filters( 'ywraq_quote_after_list', nl2br( $after_list ), $order_id ) ); ?></p>
 <?php endif; ?>
 
 <?php

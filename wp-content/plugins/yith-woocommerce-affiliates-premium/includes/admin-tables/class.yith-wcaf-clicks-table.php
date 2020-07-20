@@ -342,8 +342,9 @@ if ( ! class_exists( 'YITH_WCAF_Clicks_Table' ) ) {
 			}
 
 			// retrieve other query args
-			$from = isset( $_REQUEST['_from'] ) ? $_REQUEST['_from'] : false;
-			$to   = isset( $_REQUEST['_to'] ) ? $_REQUEST['_to'] : false;
+			$from        = isset( $_REQUEST['_from'] ) ? $_REQUEST['_from'] : false;
+			$to          = isset( $_REQUEST['_to'] ) ? $_REQUEST['_to'] : false;
+			$post_status = isset( $_REQUEST['status'] ) ? $_REQUEST['status'] : false;
 
 			// set need reset if "Reset" button must be shown
 			if ( $user_id || $from || $to ) {
@@ -361,6 +362,7 @@ if ( ! class_exists( 'YITH_WCAF_Clicks_Table' ) ) {
 			?>
 			<input style="min-width: 200px; vertical-align:middle;" class="date-picker" type="text" name="_from" value="<?php echo esc_attr( $from ) ?>" placeholder="<?php _e( 'From:', 'yith-woocommerce-affiliates' ) ?>"/>
 			<input style="min-width: 200px; vertical-align:middle;" class="date-picker" type="text" name="_to" value="<?php echo esc_attr( $to ) ?>" placeholder="<?php _e( 'To:', 'yith-woocommerce-affiliates' ) ?>"/>
+			<input type="hidden" name="status" class="post_status_page" value="<?php echo ! empty( $post_status ) ? esc_attr( $post_status ) : 'all'; ?>" />
 			<?php
 			submit_button( __( 'Filter', 'yith-woocommerce-affiliates' ), 'button', 'filter_action', false, array( 'id' => 'post-query-submit' ) );
 
@@ -383,7 +385,7 @@ if ( ! class_exists( 'YITH_WCAF_Clicks_Table' ) ) {
 
 			$query_arg = array();
 
-			if ( ! empty( $_GET['status'] ) && $_GET['status'] == 'converted' ) {
+			if ( ! empty( $_REQUEST['status'] ) && $_REQUEST['status'] == 'converted' ) {
 				$query_arg['converted'] = 'yes';
 			}
 

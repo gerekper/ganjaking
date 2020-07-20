@@ -110,8 +110,11 @@ class FUE_Addon_Woocommerce_Mailer {
 		} elseif ( 'customer' === $send_type ) {
 			// Individual email addresses.
 			if ( count( $post['recipients'] ) > 0 ) {
-				foreach ( explode( ',', $post['recipients'][0] ) as $key ) {
-					$data   = explode( '|', $key );
+				if ( ! is_array( $post['recipients'] ) ) {
+					$post['recipients'] = explode( ',', $post['recipients'][0] );
+				}
+				foreach ( $post['recipients'] as $key ) {
+					$data = explode( '|', $key );
 
 					if ( 3 === count($data) ) {
 						$value = array($data[0], $data[1], $data[2]);

@@ -617,7 +617,7 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 					<select id="dropdown_customers" style="width: 250px;" class="wc-customer-search" name="_customer_user" data-placeholder="<?php esc_attr_e( 'Search for a customer&hellip;', 'wc-pre-orders' ); ?>">
 						<?php
 							if ( ! empty( $_GET['_customer_user'] ) ) {
-								echo '<option value="' . esc_attr( $user_id ) . '">' . wp_kses_post( $user_string ) . '</option>';						
+								echo '<option value="' . esc_attr( $user_id ) . '">' . wp_kses_post( $user_string ) . '</option>';
 							}
 						?>
 					</select>
@@ -629,7 +629,7 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 					<select id="dropdown_products" class="wc-product-search" style="width: 250px;" name="_product" data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'wc-pre-orders' ); ?>" data-action="woocommerce_json_search_products_and_variations">
 						<?php
 							if ( ! empty( $_GET['_product'] ) ) {
-								echo '<option value="' . esc_attr( $product_id ) . '">' . wp_kses_post( $product_name ) . '</option>';						
+								echo '<option value="' . esc_attr( $product_id ) . '">' . wp_kses_post( $product_name ) . '</option>';
 							}
 						?>
 					</select>
@@ -765,11 +765,12 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 		$availability_date = isset( $_GET['availability_date'] ) ? (int) $_GET['availability_date'] : 0;
 		?>
 		<select id="dropdown_availability_dates" name="availability_date" class="wc-enhanced-select" style="width: 250px;">
-			<option<?php selected( $availability_date, 0 ); ?> value='0'><?php _e( 'Show all Availability Dates', 'wc-pre-orders' ); ?></option>
+			<option<?php selected( $availability_date, 0 ); ?> value='0'><?php esc_html_e( 'Show all Availability Dates', 'wc-pre-orders' ); ?></option>
 			<?php
 			foreach ( $months as $arc_row ) {
-				if ( 0 == $arc_row->year )
+				if ( 0 == $arc_row->year ) {
 					continue;
+				}
 
 				$month = zeroise( $arc_row->month, 2 );
 				$year = $arc_row->year;
@@ -777,7 +778,8 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 				printf( "<option %s value='%s'>%s</option>\n",
 					selected( $availability_date, $year . $month, false ),
 					esc_attr( $arc_row->year . $month ),
-					sprintf( __( '%1$s %2$d' ), $wp_locale->get_month( $month ), $year )
+					/* translators: %1$s month, %2$d year */
+					esc_html( sprintf( __( '%1$s %2$d', 'wc-pre-orders' ), $wp_locale->get_month( $month ), $year ) )
 				);
 			}
 			?>

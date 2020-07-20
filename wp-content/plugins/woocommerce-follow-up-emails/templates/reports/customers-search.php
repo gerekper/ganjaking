@@ -317,22 +317,20 @@ class FUE_Reports_Customers_Table extends WP_List_Table {
 					$user_string = esc_html( $user->display_name ) . ' (#' . absint( $user->ID ) .')';
 				}
 			}
-			?>
+		?>
 			<div class="alignleft actions">
-			<input
-				type="hidden"
-				data-allow_clear="true"
-				value="<?php echo esc_attr( $user_id ); ?>"
-				data-selected="<?php echo esc_attr( $user_string ); ?>"
-				data-placeholder="<?php esc_attr_e('Search for a customer...', 'follow_up_emails'); ?>"
-				name="_customer_user"
-				class="user-search-select"
-				tabindex="-1"
-				title=""
-				data-nonce="<?php echo esc_attr( wp_create_nonce( 'customer_search' ) ); ?>"
-				>
-			<?php submit_button( __( 'Search' ), 'button', false, false, array( 'id' => 'post-query-submit' ) ); ?>
-			</div><?php
+				<select
+					name="_customer_user"
+					class="user-search-select"
+					data-placeholder="<?php esc_attr_e( 'Search for a customer&hellip;', 'follow_up_emails' ); ?>"
+					data-nonce="<?php echo esc_attr( wp_create_nonce( 'customer_search' ) ); ?>"
+					data-allow_clear="true"
+					tabindex="-1"
+					title=""
+				></select>
+				<?php submit_button( __( 'Search' ), 'button', false, false, array( 'id' => 'post-query-submit' ) ); ?>
+			</div>
+		<?php
 		}
 	}
 }
@@ -346,20 +344,20 @@ $table->prepare_items();
 	th#last_order_date {width: 15%;}
 </style>
 <div class="wrap">
-	<h2><?php esc_html_e('Customer Data Manager', 'follow_up_emails'); ?></h2>
+	<h2><?php esc_html_e( 'Customer Data Manager', 'follow_up_emails' ); ?></h2>
 
 	<form action="" method="get">
 		<?php $table->display(); ?>
 	</form>
 </div>
 <script>
-	jQuery(document).ready(function($) {
-		$(":input.user-search-select").filter(":not(.enhanced)").each( function() {
+	jQuery( document ).ready( function( $ ) {
+		jQuery( ':input.user-search-select' ).filter( ':not(.enhanced)' ).each( function() {
 			var select2_args = {
 				allowClear:  jQuery( this ).data( 'allow_clear' ) ? true : false,
 				placeholder: jQuery( this ).data( 'placeholder' ),
-				dropdownAutoWidth: 'true',
-				minimumInputLength: jQuery( this ).data( 'minimum_input_length' ) ? jQuery( this ).data( 'minimum_input_length' ) : '3',
+				width:       '100%',
+				minimumInputLength: jQuery( this ).data( 'minimum_input_length' ) ? jQuery( this ).data( 'minimum_input_length' ) : 3,
 				escapeMarkup: function( m ) {
 					return m;
 				},
@@ -367,34 +365,27 @@ $table->prepare_items();
 					url:         ajaxurl,
 					dataType:    'json',
 					quietMillis: 250,
-					data: function( term, page ) {
+					data: function( params ) {
 						return {
-							term:     term,
-							action:   jQuery( this ).data( 'action' ) || 'fue_user_search',
-							nonce: jQuery( this ).data( 'nonce' )
+							term:   params.term,
+							action: jQuery( this ).data( 'action' ) || 'fue_user_search',
+							nonce:  jQuery( this ).data( 'nonce' ) || FUE.nonce
 						};
 					},
-					results: function( data, page ) {
+					processResults: function( data ) {
 						var terms = [];
 						if ( data ) {
 							jQuery.each( data, function( id, text ) {
 								terms.push( { id: id, text: text } );
-							});
+							} );
 						}
 						return { results: terms };
 					},
 					cache: true
-				}
+				},
 			};
 
-			select2_args.multiple = false;
-			select2_args.initSelection = function( element, callback ) {
-				var data = {id: element.val(), text: element.attr( 'data-selected' )};
-				return callback( data );
-			};
-
-
-			jQuery(this).select2(select2_args).addClass( 'enhanced' );
+			jQuery( this ).select2( select2_args ).addClass( 'enhanced' );
 		} );
-	});
+	} );
 </script>

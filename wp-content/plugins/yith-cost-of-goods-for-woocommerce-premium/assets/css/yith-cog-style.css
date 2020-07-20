@@ -12,3 +12,7 @@ input#yith_cog_set_pagination_report_table,
 input#yith_cog_set_pagination_stock_table{
     width: 4em;
 }
+
+.wp-list-table th#cost{
+  width: 10%;
+}

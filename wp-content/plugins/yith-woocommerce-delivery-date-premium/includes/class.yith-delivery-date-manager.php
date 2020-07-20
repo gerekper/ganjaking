@@ -386,7 +386,7 @@ if ( ! class_exists( 'YITH_Delivery_Date_Manager' ) ) {
 					'wc-completed'
 				) );
 
-				$query   = "SELECT COUNT( DISTINCT  p.ID) AS total_order FROM wp_posts as p INNER JOIN wp_postmeta as m1 ON p.ID=m1.post_id INNER JOIN wp_postmeta as m2 ON p.ID = m2.post_id  INNER JOIN wp_postmeta as m3 ON p.ID = m3.post_id INNER JOIN wp_postmeta AS m4 WHERE(
+				$query   = "SELECT COUNT( DISTINCT  p.ID) AS total_order FROM {$wpdb->posts} as p INNER JOIN {$wpdb->postmeta} as m1 ON p.ID=m1.post_id INNER JOIN {$wpdb->postmeta} as m2 ON p.ID = m2.post_id  INNER JOIN {$wpdb->postmeta} as m3 ON p.ID = m3.post_id INNER JOIN {$wpdb->postmeta} AS m4 WHERE(
 						    p.post_type = 'shop_order' AND p.post_status IN ('" . implode( "','", $order_status ) . "') AND
 						    (m1.meta_key = 'ywcdd_order_delivery_date' AND m1.meta_value = %s ) AND
 						    (m2.meta_key = 'ywcdd_order_slot_from' AND m2.meta_value = %s ) AND
@@ -398,7 +398,8 @@ if ( ! class_exists( 'YITH_Delivery_Date_Manager' ) ) {
 
 				$result = $wpdb->get_var($query);
 
-				if( ($slot['max_order']<$result ) ){
+				if( ($slot['max_order']-$result )<=0 ){
+
 					$is_lockout = true;
 				}
 

@@ -34,7 +34,7 @@ if ( ! class_exists( 'YITH_WCDP' ) ) {
 		 * @const string
 		 * @since 1.0.0
 		 */
-		const YITH_WCDP_VERSION = '1.3.7';
+		const YITH_WCDP_VERSION = '1.3.8';
 
 		/**
 		 * Single instance of support cart

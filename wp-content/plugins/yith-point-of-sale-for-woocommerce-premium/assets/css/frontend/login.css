@@ -195,3 +195,91 @@ input {
 #yith-pos-store-register-form a {
     color : #09adaa;
 }
+
+/**
+ * WooCommerce Notices
+ */
+ .woocommerce-error,.woocommerce-info,.woocommerce-message {
+    position      : relative;
+    padding       : 15px 15px 15px 45px;
+    color         : #4d4b4b;
+    margin : 15px 20px;
+    border-radius : 5px;
+    background    : #f6f6f6;
+    border        : 1px solid #4d4b4b33;
+    font-size     : 14px;
+    text-align    : left;
+}
+
+.woocommerce-error::before,.woocommerce-info::before,.woocommerce-message::before {
+    content     : "\e922";
+    color       : inherit;
+    position    : absolute;
+    top         : 50%;
+    left        : 13px;
+    font-family : 'yith-icon';
+    font-size   : 21px;
+    transform   : translateY(-50%);
+    font-weight : 400;
+}
+
+.woocommerce-error .button,.woocommerce-info .button,.woocommerce-message .button {
+    color: #fff;
+    padding: 5px 12px;
+    float: right;
+    border-radius: 3px;
+    text-decoration: none;
+}
+
+.woocommerce-error a,.woocommerce-info a,.woocommerce-message a {
+    color: inherit;
+    font-weight: 700;
+}
+
+.woocommerce-error li,.woocommerce-info li,.woocommerce-message li {
+    list-style: none outside!important;
+    padding-left: 0!important;
+    margin-left: 0!important
+}
+
+.woocommerce-message {
+    background-color : #f7fbe9;
+    color            : #7b9424;
+    border-color     : #98aa3655;
+}
+
+.woocommerce-message::before {
+    content : '\e921';
+}
+
+.woocommerce-info {
+    background-color : #e9f3fb;
+    color            : #1e85be;
+    border-color     : #3669aa55;
+}
+
+.woocommerce-info::before {
+    content : '\e922';
+}
+
+.woocommerce-error {
+    background-color : #ffe5e5;
+    color            : #c21111;
+    border-color     : #e1161644;
+}
+
+.woocommerce-error::before {
+    content : '\e923';
+}
+
+.woocommerce-error .button{
+    background-color            : #c21111;
+}
+
+.woocommerce-message .button{
+    background-color            : #7b9424;
+}
+
+.woocommerce-info .button{
+    background-color            : #1e85be;
+}

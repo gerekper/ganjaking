@@ -42,7 +42,7 @@ if ( ! class_exists( 'YITH_FAQ_Post_Type' ) ) {
 		 *
 		 * @return  void
 		 * @since   1.0.0
-		 * @author  Alberto Ruggiero
+		 * @author  Alberto Ruggiero <alberto.ruggiero@yithemes.com>
 		 */
 		public function __construct( $post_type, $taxonomy ) {
 
@@ -53,10 +53,9 @@ if ( ! class_exists( 'YITH_FAQ_Post_Type' ) ) {
 			add_filter( "views_edit-{$this->post_type}", array( $this, 'set_views' ), 10, 1 );
 			add_filter( "manage_{$this->post_type}_posts_columns", array( $this, 'set_custom_columns' ) );
 			add_action( "manage_{$this->post_type}_posts_custom_column", array( $this, 'render_custom_columns' ), 10, 2 );
-			add_filter( 'post_row_actions', array( $this, 'set_row_actions' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ), 20 );
 			add_action( 'wp_ajax_yfwp_enable_switch', array( $this, 'enable_faq' ) );
-			add_action( 'wp_ajax_ywfp_order_faqs', array( $this, 'order_faqs' ) );
+			add_action( 'wp_ajax_yfwp_order_faqs', array( $this, 'order_faqs' ) );
 			add_action( 'admin_init', array( $this, 'refresh_order' ) );
 			add_action( 'pre_get_posts', array( $this, 'order_faqs_backend' ) );
 
@@ -67,7 +66,7 @@ if ( ! class_exists( 'YITH_FAQ_Post_Type' ) ) {
 		 *
 		 * @return  void
 		 * @since   1.0.0
-		 * @author  Alberto Ruggiero
+		 * @author  Alberto Ruggiero <alberto.ruggiero@yithemes.com>
 		 */
 		public function admin_scripts() {
 
@@ -77,18 +76,18 @@ if ( ! class_exists( 'YITH_FAQ_Post_Type' ) ) {
 				$screen = get_current_screen();
 			}
 
-			if ( ! $screen || $screen->post_type != $this->post_type ) {
+			if ( ! $screen || $screen->post_type !== $this->post_type ) {
 				return;
 			}
 
 			wp_enqueue_style( 'yith-plugin-fw-fields' );
-			wp_enqueue_style( 'yith-faq-post-type', yit_load_css_file( YITH_FWP_ASSETS_URL . '/css/yith-faq-post-type.css' ), array(), YITH_FWP_VERSION );
+			wp_enqueue_style( 'yith-faq-post-type', yit_load_css_file( YITH_FWP_ASSETS_URL . '/css/faq-post-type.css' ), array(), YITH_FWP_VERSION );
 			wp_enqueue_script( 'yith-plugin-fw-fields' );
-			wp_enqueue_script( 'yith-faq-post-type', yit_load_js_file( YITH_FWP_ASSETS_URL . '/js/yith-faq-post-type.js' ), array( 'jquery', 'jquery-ui-sortable' ), YITH_FWP_VERSION );
+			wp_enqueue_script( 'yith-faq-post-type', yit_load_js_file( YITH_FWP_ASSETS_URL . '/js/faq-post-type.js' ), array( 'jquery', 'jquery-ui-sortable', 'jquery-blockui' ), YITH_FWP_VERSION );
 
 			$params = array(
 				'ajax_url'    => admin_url( 'admin-ajax.php' ),
-				'is_order_by' => isset( $_GET['orderby'] )
+				'is_order_by' => isset( $_GET['orderby'] ),
 			);
 
 			wp_localize_script( 'yith-faq-post-type', 'yith_faq_post_type', $params );
@@ -100,7 +99,7 @@ if ( ! class_exists( 'YITH_FAQ_Post_Type' ) ) {
 		 *
 		 * @return  void
 		 * @since   1.0.0
-		 * @author  Alberto Ruggiero
+		 * @author  Alberto Ruggiero <alberto.ruggiero@yithemes.com>
 		 */
 		public function add_faq_post_type() {
 
@@ -122,8 +121,8 @@ if ( ! class_exists( 'YITH_FAQ_Post_Type' ) ) {
 				'publicly_queryable'  => false,
 				'show_ui'             => true,
 				'query_var'           => false,
-				//APPLY_FILTER: yith_fwp_rewrite: change the slug for rewrite rules
-				'rewrite'             => array( 'slug' => apply_filters( 'yith_fwp_rewrite', 'yith_faq' ) ),
+				//APPLY_FILTER: yith_faq_rewrite: change the slug for rewrite rules
+				'rewrite'             => array( 'slug' => apply_filters( 'yith_faq_rewrite', 'yith_faq' ) ),
 				'capability_type'     => 'post',
 				'menu_icon'           => 'dashicons-list-view',
 				'has_archive'         => true,
@@ -137,45 +136,32 @@ if ( ! class_exists( 'YITH_FAQ_Post_Type' ) ) {
 
 			register_post_type( $this->post_type, $args );
 
-			//APPLY_FILTER: yith_fwp_needs_flushing: enable flushing of rewrite rules
-			if ( apply_filters( 'yith_fwp_needs_flushing', false ) == true ) {
+			//APPLY_FILTER: yith_faq_needs_flushing: enable flushing of rewrite rules
+			if ( apply_filters( 'yith_faq_needs_flushing', false ) === true ) {
 				flush_rewrite_rules();
 			}
 
 		}
 
 		/**
-		 * Set row actions
-		 *
-		 * @param   $actions array
-		 *
-		 * @return  array
-		 * @since   1.0.0
-		 * @author  Alberto Ruggiero
-		 */
-		public function set_row_actions( $actions ) {
-
-			global $post;
-			if ( $post->post_type == $this->post_type ) {
-				unset( $actions['inline hide-if-no-js'] );
-			}
-
-			return $actions;
-
-		}
-
-		/**
 		 * Set custom columns
 		 *
-		 * @param   $columns array
-		 *
 		 * @return  array
 		 * @since   1.0.0
-		 * @author  Alberto Ruggiero
+		 * @author  Alberto Ruggiero <alberto.ruggiero@yithemes.com>
 		 */
-		public function set_custom_columns( $columns ) {
+		public function set_custom_columns() {
 
-			return array_merge( array_slice( $columns, 0, 3, true ), array( 'enable' => esc_html__( 'Off/On', 'yith-faq-plugin-for-wordpress' ) ), array_slice( $columns, 3, count( $columns ) - 1, true ) );
+			$columns = array(
+				'drag'                  => '',
+				'cb'                    => '<input type="checkbox" />',
+				'title'                 => esc_html__( 'Title', 'yith-faq-plugin-for-wordpress' ),
+				'taxonomy-yith_faq_cat' => esc_html__( 'Categories', 'yith-faq-plugin-for-wordpress' ),
+				'enable'                => esc_html__( 'Off/On', 'yith-faq-plugin-for-wordpress' ),
+				'date'                  => esc_html__( 'Date', 'yith-faq-plugin-for-wordpress' ),
+			);
+
+			return $columns;
 
 		}
 
@@ -187,15 +173,15 @@ if ( ! class_exists( 'YITH_FAQ_Post_Type' ) ) {
 		 *
 		 * @return  void
 		 * @since   1.0.0
-		 * @author  Alberto Ruggiero
+		 * @author  Alberto Ruggiero <alberto.ruggiero@yithemes.com>
 		 */
 		public function render_custom_columns( $column, $post_id ) {
 
-			if ( 'enable' == $column ) {
+			if ( 'enable' === $column ) {
 
 				global $post;
 
-				$enabled = $post->post_status != 'draft' ? 'yes' : 'no';
+				$enabled = 'draft' !== $post->post_status ? 'yes' : 'no';
 
 				$args = array(
 					'id'    => 'enable_' . $post_id,
@@ -205,6 +191,8 @@ if ( ! class_exists( 'YITH_FAQ_Post_Type' ) ) {
 				);
 
 				yith_plugin_fw_get_field( $args, true );
+			} elseif ( 'drag' === $column ) {
+				echo '<i class="dashicons-before dashicons-menu-alt2"></i>';
 			}
 
 		}
@@ -216,7 +204,7 @@ if ( ! class_exists( 'YITH_FAQ_Post_Type' ) ) {
 		 *
 		 * @return  array
 		 * @since   1.0.0
-		 * @author  Alberto Ruggiero
+		 * @author  Alberto Ruggiero <alberto.ruggiero@yithemes.com>
 		 */
 		public function set_views( $views ) {
 
@@ -235,25 +223,32 @@ if ( ! class_exists( 'YITH_FAQ_Post_Type' ) ) {
 		 *
 		 * @return  void
 		 * @since   1.0.0
-		 * @author  Alberto Ruggiero
+		 * @author  Alberto Ruggiero <alberto.ruggiero@yithemes.com>
 		 */
 		public function enable_faq() {
 
 			try {
 
 				$faq_id = $_POST['faq_id'];
-				$value  = $_POST['enabled'] != 'no' ? 'publish' : 'draft';
+				$value  = 'no' !== $_POST['enabled'] ? 'publish' : 'draft';
 
-				wp_update_post( array(
-					                'ID'          => $faq_id,
-					                'post_status' => $value
-				                ) );
+				wp_update_post(
+					array(
+						'ID'          => $faq_id,
+						'post_status' => $value,
+					)
+				);
 
-				wp_send_json( array( 'success' => true, ) );
+				wp_send_json( array( 'success' => true ) );
 
 			} catch ( Exception $e ) {
 
-				wp_send_json( array( 'success' => false, 'error' => $e->getMessage() ) );
+				wp_send_json(
+					array(
+						'success' => false,
+						'error'   => $e->getMessage(),
+					)
+				);
 
 			}
 
@@ -264,32 +259,36 @@ if ( ! class_exists( 'YITH_FAQ_Post_Type' ) ) {
 		 *
 		 * @return  void
 		 * @since   1.0.0
-		 * @author  Alberto Ruggiero
+		 * @author  Alberto Ruggiero <alberto.ruggiero@yithemes.com>
 		 */
 		public function refresh_order() {
 			global $wpdb;
 
-			$result = $wpdb->get_results( "
-					SELECT COUNT(*) AS count, 
+			// phpcs:disable
+			$result = $wpdb->get_results(
+				"SELECT COUNT(*) AS count, 
 					MAX(menu_order) AS max,
 					MIN(menu_order) AS min 
 					FROM $wpdb->posts 
 					WHERE post_type = '" . $this->post_type . "' 
-					AND post_status IN ('publish', 'pending', 'draft', 'private', 'future')
-				" );
+					AND post_status IN ('publish', 'pending', 'draft', 'private', 'future')"
+			);
+			// phpcs:enable
 
-			if ( $result[0]->count == 0 || $result[0]->count == $result[0]->max ) {
+			if ( 0 === (int) $result[0]->count || $result[0]->count === $result[0]->max ) {
 				return;
 			}
 
-			$results = $wpdb->get_results( "
-					SELECT ID 
+			// phpcs:disable
+			$results = $wpdb->get_results(
+				"SELECT ID 
 					FROM $wpdb->posts 
 					WHERE post_type = '" . $this->post_type . "' 
 					AND post_status IN ('publish', 'pending', 'draft', 'private', 'future') 
-					ORDER BY menu_order ASC
-				" );
+					ORDER BY menu_order ASC"
+			);
 
+			// phpcs:enable
 			foreach ( $results as $key => $result ) {
 				$wpdb->update( $wpdb->posts, array( 'menu_order' => $key + 1 ), array( 'ID' => $result->ID ) );
 			}
@@ -301,7 +300,7 @@ if ( ! class_exists( 'YITH_FAQ_Post_Type' ) ) {
 		 *
 		 * @return  void
 		 * @since   1.0.0
-		 * @author  Alberto Ruggiero
+		 * @author  Alberto Ruggiero <alberto.ruggiero@yithemes.com>
 		 */
 		public function order_faqs() {
 			global $wpdb;
@@ -343,17 +342,16 @@ if ( ! class_exists( 'YITH_FAQ_Post_Type' ) ) {
 		 *
 		 * @return  void
 		 * @since   1.0.0
-		 * @author  Alberto Ruggiero
+		 * @author  Alberto Ruggiero <alberto.ruggiero@yithemes.com>
 		 */
 		public function order_faqs_backend( $wp_query ) {
 
 			if ( is_admin() ) {
 
-				if ( isset( $wp_query->query['post_type'] ) && ( $wp_query->query['post_type'] == $this->post_type ) && ! isset( $_GET['orderby'] ) ) {
+				if ( isset( $wp_query->query['post_type'] ) && ( $wp_query->query['post_type'] === $this->post_type ) && ! isset( $_GET['orderby'] ) ) {
 					$wp_query->set( 'orderby', 'menu_order' );
 					$wp_query->set( 'order', 'ASC' );
 				}
-
 			}
 
 		}

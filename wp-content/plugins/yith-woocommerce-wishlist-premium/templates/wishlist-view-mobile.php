@@ -4,7 +4,7 @@
  *
  * @author  Your Inspiration Themes
  * @package YITH WooCommerce Wishlist
- * @version 3.0.0
+ * @version 3.0.11
  */
 
 /**
@@ -76,7 +76,11 @@ if ( ! defined( 'YITH_WCWL' ) ) {
 
 						<div class="item-details">
 							<div class="product-name">
-								<h3><?php echo esc_html( apply_filters( 'woocommerce_in_cartproduct_obj_title', $product->get_title(), $product ) ); ?></h3>
+								<h3>
+									<a href="<?php echo esc_url( get_permalink( apply_filters( 'woocommerce_in_cart_product', $item->get_product_id() ) ) ); ?>">
+										<?php echo esc_html( apply_filters( 'woocommerce_in_cartproduct_obj_title', $product->get_title(), $product ) ); ?>
+									</a>
+								</h3>
 								<?php do_action( 'yith_wcwl_table_after_product_name', $item ); ?>
 							</div>
 

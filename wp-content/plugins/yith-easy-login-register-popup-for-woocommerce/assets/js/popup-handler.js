@@ -57,7 +57,7 @@
 
     if( json && json.type == 'back_forward' ) {
         // check user logged in on back_forward navigation type to avoid cache issues
-        doRequest(yith_welrp.checkLogin, {_ajax_nonce: yith_welrp.checkNonce, context: "frontend"})
+        doRequest(yith_welrp.checkLogin, {context: "frontend"})
             .done((response) => {
                 logged_in = response.logged;
             });
@@ -355,7 +355,6 @@
         data.push(
             { name: "origin", value: window.location.pathname },
             { name: "additional", value: object.additional ? 1 : 0 },
-            { name: "_ajax_nonce", value: yith_welrp.formNonce },
             { name: "context", value: "frontend" }
         );
 
@@ -425,7 +424,7 @@
         var object  = this,
             data    = [
                 { name: "origin", value: window.location.pathname },
-                { name: "_ajax_nonce", value: yith_welrp.socialNonce },
+                { name: "additional", value: object.additional ? 1 : 0 },
                 { name: "context", value: "frontend" },
                 { name: "token", value: token },
                 { name: "social", value: social }

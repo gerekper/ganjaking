@@ -3,13 +3,13 @@
  * Plugin Name: YITH WooCommerce Gift Cards Premium
  * Plugin URI: https://yithemes.com/themes/plugins/yith-woocommerce-gift-cards
  * Description: <code><strong>YITH WooCommerce Gift Card</strong></code> allows your users to purchase and give gift cards. In this way, you will increase the spread of your brand, your sales, and average spend, especially during the holidays. <a href="https://yithemes.com/" target="_blank">Get more plugins for your e-commerce shop on <strong>YITH</strong></a>.
- * Version: 3.1.4
+ * Version: 3.1.6
  * Author: YITH
  * Author URI: https://yithemes.com/
  * Text Domain: yith-woocommerce-gift-cards
  * Domain Path: /languages/
  * WC requires at least: 3.3.0
- * WC tested up to: 4.1
+ * WC tested up to: 4.3
  **/
 
 /*  Copyright 2013-2018  Your Inspiration Themes  (email : plugins@yithemes.com)
@@ -64,13 +64,13 @@ register_activation_hook( __FILE__, 'yith_plugin_registration_hook' );
 
 defined( 'YITH_YWGC_PREMIUM' ) || define( 'YITH_YWGC_PREMIUM', '1' );
 defined( 'YITH_YWGC_SLUG' ) || define( 'YITH_YWGC_SLUG', 'yith-woocommerce-gift-cards' );
-defined( 'YITH_YWGC_SECRET_KEY' ) || define( 'YITH_YWGC_SECRET_KEY', '12345' );
+defined( 'YITH_YWGC_SECRET_KEY' ) || define( 'YITH_YWGC_SECRET_KEY', 'GcGTnx2i0Qdavxe9b9by' );
 
 defined( 'YITH_YWGC_PLUGIN_NAME' ) || define( 'YITH_YWGC_PLUGIN_NAME', 'YITH WooCommerce Gift Cards' );
 defined( 'YITH_YWGC_INIT' ) || define( 'YITH_YWGC_INIT', plugin_basename( __FILE__ ) );
 
-defined( 'YITH_YWGC_VERSION' ) || define( 'YITH_YWGC_VERSION', '3.1.4' );
-defined( 'YITH_YWGC_ENQUEUE_VERSION' ) || define( 'YITH_YWGC_ENQUEUE_VERSION', '3.1.1.3' );
+defined( 'YITH_YWGC_VERSION' ) || define( 'YITH_YWGC_VERSION', '3.1.6' );
+defined( 'YITH_YWGC_ENQUEUE_VERSION' ) || define( 'YITH_YWGC_ENQUEUE_VERSION', '3.1.6.1' );
 
 defined( 'YITH_YWGC_DB_CURRENT_VERSION' ) || define( 'YITH_YWGC_DB_CURRENT_VERSION', '1.0.3' );
 defined( 'YITH_YWGC_FILE' ) || define( 'YITH_YWGC_FILE', __FILE__ );

@@ -5,8 +5,8 @@ msgstr ""
 "Project-Id-Version: YITH WooCommerce Color And Label Variations\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
 "color-label-variations-premium\n"
-"POT-Creation-Date: 2020-04-22 20:46:31+00:00\n"
-"PO-Revision-Date: 2020-04-16 09:02:26+0000\n"
+"POT-Creation-Date: 2020-06-01 14:56:10+00:00\n"
+"PO-Revision-Date: 2020-05-13 10:39:42+0000\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -14,30 +14,30 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: GlotPress/2.3.1\n"
 
-#: includes/class.yith-wccl-admin.php:190
+#: includes/class.yith-wccl-admin.php:191
 msgid "Settings"
 msgstr "Impostazioni"
 
-#: includes/class.yith-wccl-admin.php:191
+#: includes/class.yith-wccl-admin.php:192
 msgid "Single Variations"
 msgstr "Singole variazioni "
 
-#: includes/class.yith-wccl-admin.php:197
+#: includes/class.yith-wccl-admin.php:198
 msgid "YITH WooCommerce Color and Label Variations"
 msgstr "YITH WooCommerce Color and Label Variations "
 
-#: includes/class.yith-wccl-admin.php:198
+#: includes/class.yith-wccl-admin.php:199
 msgid "Color and Label Variations"
 msgstr "Color and Label Variations"
 
-#: includes/class.yith-wccl-admin.php:482
-#: includes/class.yith-wccl-admin.php:511
-#: includes/class.yith-wccl-admin.php:814
+#: includes/class.yith-wccl-admin.php:503
+#: includes/class.yith-wccl-admin.php:532
+#: includes/class.yith-wccl-admin.php:835
 msgid "Tooltip"
 msgstr "Tooltip"
 
-#: includes/class.yith-wccl-admin.php:483
-#: includes/class.yith-wccl-admin.php:512
+#: includes/class.yith-wccl-admin.php:504
+#: includes/class.yith-wccl-admin.php:533
 msgid ""
 "Use this placeholder {show_image} to show the image on tooltip. Only "
 "available for image type"
@@ -45,58 +45,59 @@ msgstr ""
 "Utilizza questo segnaposto {show_image} per mostrare l'immagine nel tooltip. "
 "Disponibile solo per tipo immagine"
 
-#: includes/class.yith-wccl-admin.php:629
-#: includes/class.yith-wccl-admin.php:807
+#: includes/class.yith-wccl-admin.php:650
+#: includes/class.yith-wccl-admin.php:828
 msgid "Value"
 msgstr "Valore"
 
-#: includes/class.yith-wccl-admin.php:716
+#: includes/class.yith-wccl-admin.php:737
 msgid "Select terms"
 msgstr "Seleziona termini"
 
-#: includes/class.yith-wccl-admin.php:728
+#: includes/class.yith-wccl-admin.php:749
 msgid "Select all"
 msgstr "Seleziona tutto"
 
-#: includes/class.yith-wccl-admin.php:730
+#: includes/class.yith-wccl-admin.php:751
 msgid "Select none"
 msgstr "Deseleziona tutto"
 
-#: includes/class.yith-wccl-admin.php:732
+#: includes/class.yith-wccl-admin.php:753
 msgid "Add new"
 msgstr "Aggiungi nuovo"
 
-#: includes/class.yith-wccl-admin.php:795
+#: includes/class.yith-wccl-admin.php:816
 msgid "Create new attribute term"
 msgstr "Crea nuovo termine  attributo"
 
-#: includes/class.yith-wccl-admin.php:800
+#: includes/class.yith-wccl-admin.php:821
 msgid "Name"
 msgstr "Nome"
 
-#: includes/class.yith-wccl-admin.php:803
+#: includes/class.yith-wccl-admin.php:824
 msgid "Slug"
 msgstr "Slug"
 
-#: includes/class.yith-wccl-admin.php:847
+#: includes/class.yith-wccl-admin.php:868
 msgid "A value is required for this term"
 msgstr "È necessario inserire un valore per questo termine"
 
-#: includes/class.yith-wccl-admin.php:937
+#: includes/class.yith-wccl-admin.php:958
 msgid "Enable this option to show this variation in archive pages"
-msgstr ""
+msgstr "Attiva questa opzione per mostrare la variazione nelle pagine archivio"
 
-#: includes/class.yith-wccl-admin.php:938
+#: includes/class.yith-wccl-admin.php:959
 msgid "Show in archive pages?"
-msgstr ""
+msgstr "Mostrare nelle pagine archivio?"
 
-#: includes/class.yith-wccl-admin.php:962
+#: includes/class.yith-wccl-admin.php:983
 msgid "Hide in archive pages?"
-msgstr ""
+msgstr "Nascondere nelle pagine archivio?"
 
-#: includes/class.yith-wccl-admin.php:963
+#: includes/class.yith-wccl-admin.php:984
 msgid "Virtual products are intangible and are not shipped."
 msgstr ""
+"I prodotti virtuali, in quanto non materiali, non sono soggetti a spedizione."
 
 #: includes/class.yith-wccl-frontend.php:192
 msgid "View Cart"
@@ -360,24 +361,8 @@ msgstr ""
 "per ogni e-commerce. <a href=\"https://yithemes.com/\" target=\"_blank"
 "\">Ottieni più plugin per il tuo e-commerce su <strong>YITH</strong></a>."
 
-#: includes/class.yith-wccl-admin.php:910
+#: includes/class.yith-wccl-admin.php:931
 #: templates/admin/variation-gallery.php:22
 msgctxt "label for remove single image from variation gallery"
 msgid "Remove image"
 msgstr "Rimuovi immagine"
-
-#~ msgid "https://yithemes.com/"
-#~ msgstr "https://yithemes.com/"
-
-#~ msgid "YITH"
-#~ msgstr "YITH"
-
-#~ msgid ""
-#~ "https://yithemes.com/themes/plugins/yith-woocommerce-color-and-label-"
-#~ "variations/"
-#~ msgstr ""
-#~ "https://yithemes.com/themes/plugins/yith-woocommerce-color-and-label-"
-#~ "variations/"
-
-#~ msgid "YITH WooCommerce Color and Label Variations Premium"
-#~ msgstr "YITH WooCommerce Color and Label Variations Premium"

@@ -3,13 +3,13 @@
  * Plugin Name: YITH WooCommerce Mailchimp Premium
  * Plugin URI: https://yithemes.com/themes/plugins/yith-woocommerce-mailchimp/
  * Description: <code><strong>YITH WooCommerce Mailchimp</strong></code> allows you to manage and create forms to register to MailChimp lists, helping you to outline users through tags and groups in a dynamic way. You will have a perfect system to send emails with a percentage of conversion higher than the average. <a href="https://yithemes.com/" target="_blank">Get more plugins for your e-commerce on <strong>YITH</strong></a>
- * Version: 2.1.6
+ * Version: 2.1.7
  * Author: YITH
  * Author URI: https://yithemes.com/
  * Text Domain: yith-woocommerce-mailchimp
  * Domain Path: /languages/
- * WC requires at least: 3.8.0
- * WC tested up to: 4.1
+ * WC requires at least: 4.0.0
+ * WC tested up to: 4.2
  *
  * @author Your Inspiration Themes
  * @package YITH WooCommerce Mailchimp
@@ -46,7 +46,7 @@ if ( ! defined( 'YITH_WCMC' ) ) {
 }
 
 if ( ! defined( 'YITH_WCMC_VERSION' ) ) {
-	define( 'YITH_WCMC_VERSION', '2.1.6' );
+	define( 'YITH_WCMC_VERSION', '2.1.7' );
 }
 
 if( ! defined( 'YITH_WCMC_DB_VERSION' ) ){

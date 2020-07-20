@@ -64,9 +64,6 @@ class FUE_Addon_Woocommerce_Admin {
 		// email form custom fields
 		add_action( 'fue_email_form_before_message', array($this, 'custom_fields_form') );
 
-		// clean up products before saving the email
-		add_filter( 'fue_email_pre_save', array($this, 'cleanup_product_ids'), 10, 2 );
-
 		// importing of existing orders to the email queue
 		add_filter( 'fue_after_save_email', array($this, 'schedule_email_order_import') );
 
@@ -414,20 +411,6 @@ class FUE_Addon_Woocommerce_Admin {
 		}
 
 		include FUE_TEMPLATES_DIR .'/email-form/woocommerce/remove-emails-status-option.php';
-	}
-
-	/**
-	 * Convert the CSV of product IDs into an array
-	 * @param array $data
-	 * @param int $email_id
-	 * @return array
-	 */
-	public function cleanup_product_ids( $data, $email_id ) {
-		if ( !empty( $data['meta']['excluded_customers_products'] ) ) {
-			$data['meta']['excluded_customers_products'] = array_filter( array_map( 'intval', explode( ',', $data['meta']['excluded_customers_products'] ) ) );
-		}
-
-		return $data;
 	}
 
 	/**

@@ -99,7 +99,7 @@ if ( ! class_exists( 'YITH_Easy_Login_Register_Popup' ) ) {
 					'login_placeholder'        => $this->get_placeholder(),
 					'continue_as_guest'        => ! WC()->checkout()->is_registration_required(),
 					'continue_as_guest_text'   => __( 'Don\'t want to register now?', 'yith-easy-login-register-popup-for-woocommerce' ),
-					'continue_as_guest_button' => __( 'Guest Checkout', 'yith-easy-login-register-popup-for-woocommerce' ),
+					'continue_as_guest_button' => apply_filters( 'yith_welrp_guest_checkout_label', __( 'Guest Checkout', 'yith-easy-login-register-popup-for-woocommerce' ) ),
 				] ),
 				WC()->template_path() . '/yith-welrp',
 				YITH_WELRP_TEMPLATE_PATH

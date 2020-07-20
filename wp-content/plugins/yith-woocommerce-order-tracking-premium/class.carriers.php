@@ -538,7 +538,7 @@ if ( ! class_exists( 'Carriers' ) ) {
 				),
 				'THAILAND_POST'     => array(
 					'name'      => 'Thailand Post',
-					'track_url' => 'http://track.thailandpost.co.th/tracking/default.aspx',
+					'track_url' => ' https://track.thailandpost.co.th/?trackNumber=[TRACK_CODE]',
 				),
 				'CHILEXPRESS'       => array(
 					'name'      => 'Chilexpress',
@@ -770,18 +770,7 @@ if ( ! class_exists( 'Carriers' ) ) {
 				),
 				'COURIER_GUY'       => array(
 					'name'      => 'The Courier Guy',
-					'track_url' => 'http://tracking.parcelperfect.com/waybill.php',
-					'form'      => '<form name="COURIER_GUY" action="http://tracking.parcelperfect.com/waybill.php" method="post">
-									<input name="ppCust" value="119" type="hidden">
-									<input name="linkcust1" value="0" type="hidden">
-									<input name="linkcust2" value="0" type="hidden">
-									<input name="linkcust3" value="0" type="hidden">
-									<input name="userName" value="" type="hidden">
-									<input name="accArray" value="" type="hidden">
-									<input name="validUser" value="1" type="hidden">
-									<input name="DBHost" value="127.0.0.1:/pperfect/sqldata/ppweb.gdb" type="hidden">
-									<input name="waybill" value="[TRACK_CODE]" type="hidden">
-									</form>',
+					'track_url' => 'https://thecourierguy.pperfect.com/',
 				),
 				'CTT_EXPRESSO'      => array(
 					'name'      => 'CTT Expresso (Portugal)',
@@ -888,7 +877,7 @@ if ( ! class_exists( 'Carriers' ) ) {
 				),
 				'DHL_SWE'           => array(
 					'name'      => 'DHL Sweden',
-					'track_url' => 'https://www.logistics.dhl/se-sv/home/tracking/tracking-express.html?tracking-id=[TRACK_CODE]',
+					'track_url' => 'https://www.dhl.com/se-sv/home/tracking/tracking-freight.html?tracking-id=[TRACK_CODE]',
 				),
 				'POST_PARCELS'      => array(
 					'name'      => 'iPostParcels.com',
@@ -1647,7 +1636,7 @@ if ( ! class_exists( 'Carriers' ) ) {
                 ),
                 'DHL_ECOMMERCE'     => array(
                     'name'      => 'DHL eCommerce',
-                    'track_url' => 'https://ecommerceportal.dhl.com/track/',
+                    'track_url' => 'https://www.dhl.com/global-en/home/tracking/tracking-ecommerce.html?tracking-id=[TRACK_CODE]',
                 ),
                 'PICKUPP'     => array(
                     'name'      => 'pickupp',
@@ -1813,7 +1802,42 @@ if ( ! class_exists( 'Carriers' ) ) {
 					'name'      => 'ITALGLO Delivery',
 					'track_url' => '[TRACK_CODE]',
 				),
-
+				'STARKEN_CHILE' => array(
+					'name'      => 'Starken',
+					'track_url' => 'http://www.starken.cl/seguimiento?codigo=[TRACK_CODE]',
+				),
+				'DIRECT__FREIGHT_EXPRESS' => array(
+					'name'      => 'Direct Freight Express',
+					'track_url' => 'https://www.directfreight.com.au/',
+				),
+				'JANIO' => array(
+					'name'      => 'Janio',
+					'track_url' => 'https://tracker.janio.asia/[TRACK_CODE]',
+				),
+				'UPS_ITALY' => array(
+					'name'      => 'UPS Italy',
+					'track_url' => 'https://www.ups.com/track?loc=it_IT&tracknum=[TRACK_CODE]%0D%0A&requester=WT/',
+				),
+				'SPEDIRE_COMODO' => array(
+					'name'      => 'Spedire Comodo',
+					'track_url' => 'https://www.spedirecomodo.it/Tracking/GetTracking#TrackingNumber=[TRACK_CODE]',
+				),
+				'QUICKEN' => array(
+					'name'      => 'Quicken',
+					'track_url' => 'https://www.quiken.mx/rastreo?num=[TRACK_CODE]',
+				),
+				'GLS_IRELAND' => array(
+					'name' => 'GLS IRELAND',
+					'track_url' => 'https://gls-group.eu/IE/en/parcel-tracking?match=[TRACK_CODE]'
+				),
+				'IVOY' => array(
+					'name' => 'iVoy',
+					'track_url' => 'https://v2.ivoy.mx/client/app/track/package/'
+				),
+				'BRIDGE_LOGIS' => array(
+					'name' => 'Bridge Logis',
+					'track_url' => 'https://system.bridgelogis.kr/search/Tracking?mode=2&invoiceNo=[TRACK_CODE]'
+				),
 			);
 
 			$carriers = apply_filters( 'yith_ywot_carrier_list', $carriers );

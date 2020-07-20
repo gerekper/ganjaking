@@ -5,10 +5,10 @@
  * Description: <code><strong>YITH WooCommerce SMS Notifications</strong></code> allows you to be always updated about the orders submitted in your store even if you're not in front of your computer. The plugin sends SMS texts to your and/or your customer's phone number automatically every time there's a new order or change in the order status. <a href="https://yithemes.com/" target="_blank">Get more plugins for your e-commerce shop on <strong>YITH</strong></a>
  * Author: YITH
  * Text Domain: yith-woocommerce-sms-notifications
- * Version: 1.4.6
+ * Version: 1.4.7
  * Author URI: https://yithemes.com/
  * WC requires at least: 4.0.0
- * WC tested up to: 4.2.x
+ * WC tested up to: 4.3.x
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -28,7 +28,7 @@ function ywsn_install_woocommerce_premium_admin_notice() {
 }
 
 if ( ! defined( 'YWSN_VERSION' ) ) {
-	define( 'YWSN_VERSION', '1.4.6' );
+	define( 'YWSN_VERSION', '1.4.7' );
 }
 
 if ( ! defined( 'YWSN_INIT' ) ) {

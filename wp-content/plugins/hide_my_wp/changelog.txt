@@ -1,0 +1,14 @@
+<h3>6.2.0 (July 10, 2020)</h3>
+<ul>
+	<li>Support for hide Elementor page builder</li>
+	<li>Hide Online Detectors option</li>
+	<li>Allow Specific Countries</li>
+	<li>Export settings to a file</li>
+	<li>Improve ip lookup service</li>
+	<li>Blocked IPs Listing with options to whitelist & delete</li>
+	<li>Bug: "Open Wizard" link is incorrect when wp-admin path is renamed</li>
+	<li>Bug: Plugin version incorrect</li>
+	<li>Bug: Conflict with WP Rocket plugin</li>
+	<li>Bug: High privacy breaks the site</li>
+	<li>Deprecated: Replace `_wpnonce` option</li>
+</ul>

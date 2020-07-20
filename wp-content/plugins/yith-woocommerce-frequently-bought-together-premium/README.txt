@@ -1,5 +1,12 @@
 == Changelog ==
 
+== 1.6.2 == Released on 01 June 2020
+
+* New: Support for WooCommerce 4.2
+* Update: Plugin framework
+* Update: Italian language
+* Fix: Allow html in form additional text
+
 == 1.6.1 == Released on 23 April 2020
 
 * New: Support for WooCommerce 4.1.0

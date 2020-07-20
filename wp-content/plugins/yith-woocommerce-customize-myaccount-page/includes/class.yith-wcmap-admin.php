@@ -75,7 +75,7 @@ if ( ! class_exists( 'YITH_WCMAP_Admin' ) ) {
 
 			add_action( 'admin_menu', array( $this, 'register_panel' ), 5 );
 
-			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ), 20 );
 
 			//Add action links
 			add_filter( 'plugin_action_links_' . plugin_basename( YITH_WCMAP_DIR . '/' . basename( YITH_WCMAP_FILE ) ), array( $this, 'action_links' ) );
@@ -125,6 +125,9 @@ if ( ! class_exists( 'YITH_WCMAP_Admin' ) ) {
 
 				// enqueue select2 script registered by WooCommerce
 				wp_enqueue_script( 'select2' );
+				if( isset( $_GET['tab'] ) && 'endpoints' === $_GET['tab'] ) {
+					wp_dequeue_script( 'wc-enhanced-select' );
+				}
 
 				wp_localize_script( 'yith_wcmap', 'ywcmap', array(
 					'ajaxurl'      => admin_url( 'admin-ajax.php' ),

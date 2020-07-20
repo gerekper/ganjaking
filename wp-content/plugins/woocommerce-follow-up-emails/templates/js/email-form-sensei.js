@@ -42,10 +42,10 @@ jQuery( function ( $ ) {
                         return;
                     }
 
-                    var data = $("#course_id").select2("data");
-                    var el_id = $(this).attr("id").replace('s2id_', '');
+                    var data = $( '#course_id.enhanced' ).select2( 'data' );
+                    var el_id = $( this ).attr( 'id' ).replace( 's2id_', '' );
 
-                    $("#"+ el_id).select2("data", data);
+                    $( '#' + el_id + '.enhanced' ).select2( 'data', data );
                 });
                 $(this).parents('fieldset').find('.value-courses :input').attr('readonly', true);
             } else {
@@ -67,7 +67,7 @@ jQuery( function ( $ ) {
             if ( $("#course_id").val() != "" ) {
 
                 $(this).parents('fieldset').find('.value-lessons .ajax_select2_lessons').each(function() {
-                    var data = $("#course_id").select2("data");
+                    var data = $( '#course_id.enhanced').select2( 'data' );
                     var el_id = $(this).attr("id").replace('s2id_', '');
 
                     $("#"+ el_id).data("filter", '{"course_id": '+ $("#course_id").val() +'}');
@@ -198,63 +198,40 @@ jQuery(document).ready(function( $ ) {
 
 (function($) {
     init_sensei_search = function() {
-        $(":input.sensei-search").filter(":not(.enhanced)").each( function() {
-            var select2_args = {
-                allowClear:  true,
-                placeholder: jQuery( this ).data( 'placeholder' ),
-                dropdownAutoWidth: 'true',
-                minimumInputLength: jQuery( this ).data( 'minimum_input_length' ) ? jQuery( this ).data( 'minimum_input_length' ) : '3',
-                escapeMarkup: function( m ) {
-                    return m;
-                },
-                ajax: {
-                    url:         ajaxurl,
-                    dataType:    'json',
-                    quietMillis: 250,
-                    data: function( term, page ) {
-                        return {
-                            term:     term,
-                            action:   jQuery( this ).data( 'action' ),
-                            security: jQuery( this ).data( 'nonce' )
-                        };
-                    },
-                    results: function( data, page ) {
-                        var terms = [];
-                        if ( data ) {
-                            jQuery.each( data, function( id, text ) {
-                                terms.push( { id: id, text: text } );
-                            });
-                        }
-                        return { results: terms };
-                    },
-                    cache: true
-                }
-            };
+		jQuery( ':input.sensei-search' ).filter( ':not(.enhanced)' ).each( function() {
+			var select2_args = {
+				allowClear:  jQuery( this ).data( 'allow_clear' ) ? true : false,
+				placeholder: jQuery( this ).data( 'placeholder' ),
+				width:       '100%',
+				minimumInputLength: jQuery( this ).data( 'minimum_input_length' ) ? jQuery( this ).data( 'minimum_input_length' ) : 3,
+				escapeMarkup: function( m ) {
+					return m;
+				},
+				ajax: {
+					url:         ajaxurl,
+					dataType:    'json',
+					quietMillis: 250,
+					data: function( params ) {
+						return {
+							term:     params.term,
+							action:   jQuery( this ).data( 'action' ),
+							security: jQuery( this ).data( 'nonce' ),
+						};
+					},
+					processResults: function( data ) {
+						var terms = [];
+						if ( data ) {
+							jQuery.each( data, function( id, text ) {
+								terms.push( { id: id, text: text } );
+							} );
+						}
+						return { results: terms };
+					},
+					cache: true
+				},
+			};
 
-            if ( jQuery( this ).data( 'multiple' ) === true ) {
-                select2_args.multiple = true;
-                select2_args.initSelection = function( element, callback ) {
-                    var data     = jQuery.parseJSON( element.attr( 'data-selected' ) );
-                    var selected = [];
-
-                    jQuery( element.val().split( "," ) ).each( function( i, val ) {
-                        selected.push( { id: val, text: data[ val ] } );
-                    });
-                    return callback( selected );
-                };
-                select2_args.formatSelection = function( data ) {
-                    return '<div class="selected-option" data-id="' + data.id + '">' + data.text + '</div>';
-                };
-            } else {
-                select2_args.multiple = false;
-                select2_args.initSelection = function( element, callback ) {
-                    var data = {id: element.val(), text: element.attr( 'data-selected' )};
-                    return callback( data );
-                };
-            }
-
-
-            jQuery(this).select2(select2_args).addClass( 'enhanced' );
-        } );
+			jQuery( this ).select2( select2_args ).addClass( 'enhanced' );
+		} );
     }
 }(jQuery));

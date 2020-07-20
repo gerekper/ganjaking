@@ -55,7 +55,7 @@ if ( ! class_exists( 'YITH_WCPB_Frontend_Premium' ) ) {
 			add_filter( 'woocommerce_cart_item_thumbnail', array( $this, 'woocommerce_cart_item_thumbnail' ), 10, 3 );
 			add_filter( 'woocommerce_cart_item_visible', array( $this, 'woocommerce_cart_item_visible' ), 10, 2 );
 			add_filter( 'woocommerce_checkout_cart_item_visible', array( $this, 'woocommerce_cart_item_visible' ), 10, 2 );
-			add_filter( 'woocommerce_widget_cart_item_visible', array( $this, 'woocommerce_cart_item_visible', ), 10, 2 );
+			add_filter( 'woocommerce_widget_cart_item_visible', array( $this, 'woocommerce_cart_item_visible' ), 10, 2 );
 			add_filter( 'woocommerce_order_item_visible', array( $this, 'woocommerce_cart_item_visible' ), 10, 2 );
 			add_filter( 'woocommerce_cart_item_name', array( $this, 'woocommerce_cart_item_name' ), 10, 3 );
 
@@ -135,11 +135,14 @@ if ( ! class_exists( 'YITH_WCPB_Frontend_Premium' ) ) {
 				foreach ( $order_items as $order_item ) {
 					if ( isset( $order_item['bundled_by'] ) && $bundle_key === $order_item['bundled_by'] ) {
 						if ( function_exists( 'wc_display_item_downloads' ) ) {
-							wc_display_item_downloads( $order_item, array(
-								'before'    => '<br /><small>',
-								'after'     => '</small>',
-								'separator' => '</small><br /><small>',
-							) );
+							wc_display_item_downloads(
+								$order_item,
+								array(
+									'before'    => '<br /><small>',
+									'after'     => '</small>',
+									'separator' => '</small><br /><small>',
+								)
+							);
 						} else {
 							$order->display_item_downloads( $order_item );
 						}
@@ -167,7 +170,6 @@ if ( ! class_exists( 'YITH_WCPB_Frontend_Premium' ) ) {
 
 					return $coupon->is_valid_for_product( $bundle, $bundle_cart_item );
 				}
-
 			}
 
 			return $valid;
@@ -204,19 +206,19 @@ if ( ! class_exists( 'YITH_WCPB_Frontend_Premium' ) ) {
 						if ( isset( $cart_contents[ $bundled_item_key ] ) ) {
 							$bundled_item = $cart_contents[ $bundled_item_key ];
 							if ( isset( $bundled_item['line_total'] ) ) {
-								$line_total                 += $bundled_item['line_total'];
+								$line_total                += $bundled_item['line_total'];
 								$bundled_item['line_total'] = 0;
 							}
 							if ( isset( $bundled_item['line_subtotal'] ) ) {
-								$line_subtotal                 += $bundled_item['line_subtotal'];
+								$line_subtotal                += $bundled_item['line_subtotal'];
 								$bundled_item['line_subtotal'] = 0;
 							}
 							if ( isset( $bundled_item['line_tax'] ) ) {
-								$line_tax                 += $bundled_item['line_tax'];
+								$line_tax                += $bundled_item['line_tax'];
 								$bundled_item['line_tax'] = 0;
 							}
 							if ( isset( $bundled_item['line_subtotal_tax'] ) ) {
-								$line_subtotal_tax                 += $bundled_item['line_subtotal_tax'];
+								$line_subtotal_tax                += $bundled_item['line_subtotal_tax'];
 								$bundled_item['line_subtotal_tax'] = 0;
 							}
 							if ( isset( $bundled_item['line_tax_data'] ) ) {
@@ -377,11 +379,12 @@ if ( ! class_exists( 'YITH_WCPB_Frontend_Premium' ) ) {
 				$title_attributes_text   = wc_get_formatted_variation( $_product, true, $include_attribute_names );
 				$separator               = ! empty( $title_attributes_text ) ? ' &ndash; ' : '';
 
-				$custom_title = apply_filters( 'woocommerce_product_variation_title',
-											   $title_base_text . $separator . $title_attributes_text,
-											   $_product,
-											   $title_base_text,
-											   $title_attributes_text
+				$custom_title = apply_filters(
+					'woocommerce_product_variation_title',
+					$title_base_text . $separator . $title_attributes_text,
+					$_product,
+					$title_base_text,
+					$title_attributes_text
 				);
 			}
 
@@ -403,12 +406,17 @@ if ( ! class_exists( 'YITH_WCPB_Frontend_Premium' ) ) {
 			/** @var WC_Product_Yith_Bundle $product */
 			global $product;
 			$bundled_items = $product->get_bundled_items();
-			wc_get_template( 'single-product/add-to-cart/yith-bundle.php', array(
-				'available_variations' => $product->get_available_bundle_variations(),
-				'attributes'           => $product->get_bundle_variation_attributes(),
-				'selected_attributes'  => $product->get_selected_bundle_variation_attributes(),
-				'bundled_items'        => $bundled_items,
-			), '', YITH_WCPB_TEMPLATE_PATH . '/premium/' );
+			wc_get_template(
+				'single-product/add-to-cart/yith-bundle.php',
+				array(
+					'available_variations' => $product->get_available_bundle_variations(),
+					'attributes'           => $product->get_bundle_variation_attributes(),
+					'selected_attributes'  => $product->get_selected_bundle_variation_attributes(),
+					'bundled_items'        => $bundled_items,
+				),
+				'',
+				YITH_WCPB_TEMPLATE_PATH . '/premium/'
+			);
 		}
 
 
@@ -446,12 +454,12 @@ if ( ! class_exists( 'YITH_WCPB_Frontend_Premium' ) ) {
 						continue;
 					}
 
-					$bundled_optional_checked = isset ( $bundle_add_to_cart_params[ 'yith_bundle_optional_' . $bundled_item_id ] ) ? true : false;
+					$bundled_optional_checked = isset( $bundle_add_to_cart_params[ 'yith_bundle_optional_' . $bundled_item_id ] ) ? true : false;
 					if ( $bundled_item->is_optional() && ! $bundled_optional_checked ) {
 						continue;
 					}
 
-					$bundled_product_quantity = isset ( $bundle_add_to_cart_params[ 'yith_bundle_quantity_' . $bundled_item_id ] ) ? absint( $bundle_add_to_cart_params[ 'yith_bundle_quantity_' . $bundled_item_id ] ) : $bundled_item->get_quantity();
+					$bundled_product_quantity = isset( $bundle_add_to_cart_params[ 'yith_bundle_quantity_' . $bundled_item_id ] ) ? absint( $bundle_add_to_cart_params[ 'yith_bundle_quantity_' . $bundled_item_id ] ) : $bundled_item->get_quantity();
 
 					if ( ! $bundled_product_quantity ) {
 						continue;
@@ -478,7 +486,7 @@ if ( ! class_exists( 'YITH_WCPB_Frontend_Premium' ) ) {
 						}
 
 						$attr_stamp = array();
-						$attributes = ( array ) maybe_unserialize( yit_get_prop( $bundled_item_product, '_product_attributes', true ) );
+						$attributes = (array) maybe_unserialize( yit_get_prop( $bundled_item_product, '_product_attributes', true ) );
 
 						foreach ( $attributes as $attribute ) {
 							if ( ! empty( $attribute['is_variation'] ) ) {
@@ -505,11 +513,9 @@ if ( ! class_exists( 'YITH_WCPB_Frontend_Premium' ) ) {
 						}
 						$cartstamp[ $bundled_item_id ]['attributes'] = $attr_stamp;
 
-
 						if ( isset( $bundle_add_to_cart_params[ 'yith_bundle_variation_id_' . $bundled_item_id ] ) ) {
 							$cartstamp[ $bundled_item_id ]['variation_id'] = $bundle_add_to_cart_params[ 'yith_bundle_variation_id_' . $bundled_item_id ];
 						}
-
 					}
 
 					$cartstamp[ $bundled_item_id ] = apply_filters( 'woocommerce_yith_bundled_item_cart_item_identifier', $cartstamp[ $bundled_item_id ], $bundled_item_id );
@@ -604,11 +610,13 @@ if ( ! class_exists( 'YITH_WCPB_Frontend_Premium' ) ) {
 							'cart_item'        => $cart_item,
 							'bundle_cart_item' => $cart_contents[ $bundle_cart_key ],
 						);
-						$discount             = apply_filters( 'yith_wcpb_bundled_item_calculated_discount', $discount,
-															   $cart_item['discount'],
-															   $cart_item['data']->get_regular_price(),
-															   $cart_item['data']->get_id(),
-															   $discount_filter_args
+						$discount             = apply_filters(
+							'yith_wcpb_bundled_item_calculated_discount',
+							$discount,
+							$cart_item['discount'],
+							$cart_item['data']->get_regular_price(),
+							$cart_item['data']->get_id(),
+							$discount_filter_args
 						);
 						$price                = floatval( $cart_item['data']->get_regular_price() ) - $discount;
 						$price                = yith_wcpb_round_bundled_item_price( $price );
@@ -684,11 +692,13 @@ if ( ! class_exists( 'YITH_WCPB_Frontend_Premium' ) ) {
 							'cart_item'        => $cart_item,
 							'bundle_cart_item' => $cart_contents[ $bundle_cart_key ],
 						);
-						$discount             = (float) apply_filters( 'yith_wcpb_bundled_item_calculated_discount', $discount,
-																	   isset( $cart_item['discount'] ) ? $cart_item['discount'] : 0,
-																	   $cart_item['data']->get_regular_price(),
-																	   $cart_item['data']->get_id(),
-																	   $discount_filter_args
+						$discount             = (float) apply_filters(
+							'yith_wcpb_bundled_item_calculated_discount',
+							$discount,
+							isset( $cart_item['discount'] ) ? $cart_item['discount'] : 0,
+							$cart_item['data']->get_regular_price(),
+							$cart_item['data']->get_id(),
+							$discount_filter_args
 						);
 						$price                = $cart_item['data']->get_regular_price() - $discount;
 						$price                = yith_wcpb_round_bundled_item_price( $price );
@@ -765,11 +775,13 @@ if ( ! class_exists( 'YITH_WCPB_Frontend_Premium' ) ) {
 						'cart_item'        => $item_values,
 						'bundle_cart_item' => $cart_item,
 					);
-					$discount             = (float) apply_filters( 'yith_wcpb_bundled_item_calculated_discount', $discount,
-																   isset( $item_values['discount'] ) ? $item_values['discount'] : 0,
-																   $product->get_regular_price(),
-																   $product->get_id(),
-																   $discount_filter_args
+					$discount             = (float) apply_filters(
+						'yith_wcpb_bundled_item_calculated_discount',
+						$discount,
+						isset( $item_values['discount'] ) ? $item_values['discount'] : 0,
+						$product->get_regular_price(),
+						$product->get_id(),
+						$discount_filter_args
 					);
 					$bundled_item_price   = ( $product->get_regular_price() - $discount ) * $item_quantity;
 					$bundled_item_price   = yith_wcpb_get_price_to_display( $product, $bundled_item_price );
@@ -832,11 +844,13 @@ if ( ! class_exists( 'YITH_WCPB_Frontend_Premium' ) ) {
 							'cart_item'        => $item_values,
 							'bundle_cart_item' => $cart_item,
 						);
-						$discount             = apply_filters( 'yith_wcpb_bundled_item_calculated_discount', $discount,
-															   isset( $item_values['discount'] ) ? $item_values['discount'] : 0,
-															   $product->get_regular_price(),
-															   $product->get_id(),
-															   $discount_filter_args
+						$discount             = apply_filters(
+							'yith_wcpb_bundled_item_calculated_discount',
+							$discount,
+							isset( $item_values['discount'] ) ? $item_values['discount'] : 0,
+							$product->get_regular_price(),
+							$product->get_id(),
+							$discount_filter_args
 						);
 						$bundled_item_price   = ( $product->get_regular_price() - $discount ) * absint( $item_values['quantity'] );
 						$bundled_item_price   = yith_wcpb_get_price_to_display( $product, $bundled_item_price );
@@ -847,7 +861,6 @@ if ( ! class_exists( 'YITH_WCPB_Frontend_Premium' ) ) {
 					$subtotal = $this->format_product_subtotal( $cart_item['data'], $bundle_price );
 					$subtotal = apply_filters( 'yith_wcpb_bundle_pip_bundled_items_subtotal', $subtotal, $cart_item, $bundle_price );
 				}
-
 			}
 
 			do_action( 'yith_wcpb_after_bundle_bundles_item_subtotal' );
@@ -872,7 +885,6 @@ if ( ! class_exists( 'YITH_WCPB_Frontend_Premium' ) ) {
 					if ( $cart->prices_include_tax && $cart->tax_total > 0 ) {
 						$product_subtotal .= ' <small class="tax_label">' . WC()->countries->ex_tax_or_vat() . '</small>';
 					}
-
 				} else {
 					$product_subtotal = wc_price( $subtotal );
 					if ( ! $cart->prices_include_tax && $cart->tax_total > 0 ) {
@@ -909,9 +921,9 @@ if ( ! class_exists( 'YITH_WCPB_Frontend_Premium' ) ) {
 		 * @param        $add_flag
 		 * @param        $product_id
 		 * @param        $product_quantity
-		 * @param string $variation_id
-		 * @param array  $variations
-		 * @param array  $cart_item_data
+		 * @param string           $variation_id
+		 * @param array            $variations
+		 * @param array            $cart_item_data
 		 *
 		 * @access public
 		 * @return bool
@@ -921,14 +933,13 @@ if ( ! class_exists( 'YITH_WCPB_Frontend_Premium' ) ) {
 		public function woocommerce_add_to_cart_validation( $add_flag, $product_id, $product_quantity, $variation_id = '', $variations = array(), $cart_item_data = array() ) {
 			$product = wc_get_product( $product_id );
 
-			if ( $product && $product->is_type( "yith_bundle" ) ) {
+			if ( $product && $product->is_type( 'yith_bundle' ) ) {
 				/**@var WC_Product_Yith_Bundle $product */
 				if ( get_option( 'woocommerce_manage_stock' ) == 'yes' ) {
 
 					$bundled_items = $product->get_bundled_items();
 					if ( $bundled_items ) {
 						$bundle_add_to_cart_params = isset( $cart_item_data['yith-bundle-add-to-cart-params'] ) ? $cart_item_data['yith-bundle-add-to-cart-params'] : $_REQUEST;
-
 
 						foreach ( $bundled_items as $bundled_item ) {
 							/** @var YITH_WC_Bundled_Item $bundled_item */
@@ -995,7 +1006,6 @@ if ( ! class_exists( 'YITH_WCPB_Frontend_Premium' ) ) {
 
 										return false;
 									}
-
 								} else {
 									wc_add_notice( sprintf( __( '&quot;%1$s&quot; cannot be added to the cart. Please choose an option for &quot;%2$s&quot;&hellip;', 'yith-woocommerce-product-bundles' ), get_the_title( $product_id ), $bundled_item->product->get_title() ), 'error' );
 
@@ -1019,7 +1029,7 @@ if ( ! class_exists( 'YITH_WCPB_Frontend_Premium' ) ) {
 					}
 				}
 
-				//check quantity (Min Max bundled items)
+				// check quantity (Min Max bundled items)
 				$min          = absint( $product->get_advanced_options( 'min' ) );
 				$max          = absint( $product->get_advanced_options( 'max' ) );
 				$min_distinct = absint( $product->get_advanced_options( 'min_distinct' ) );
@@ -1038,7 +1048,7 @@ if ( ! class_exists( 'YITH_WCPB_Frontend_Premium' ) ) {
 								continue;
 							}
 
-							$bundled_item_quantity = isset ( $_REQUEST[ 'yith_bundle_quantity_' . $bundled_item->item_id ] ) ? absint( $_REQUEST[ 'yith_bundle_quantity_' . $bundled_item->item_id ] ) : $bundled_item->get_quantity();
+							$bundled_item_quantity = isset( $_REQUEST[ 'yith_bundle_quantity_' . $bundled_item->item_id ] ) ? absint( $_REQUEST[ 'yith_bundle_quantity_' . $bundled_item->item_id ] ) : $bundled_item->get_quantity();
 
 							if ( ! $bundled_item_quantity ) {
 								continue;
@@ -1081,7 +1091,6 @@ if ( ! class_exists( 'YITH_WCPB_Frontend_Premium' ) ) {
 						return false;
 					}
 				}
-
 			}
 
 			return $add_flag;
@@ -1199,7 +1208,6 @@ if ( ! class_exists( 'YITH_WCPB_Frontend_Premium' ) ) {
 		}
 
 		public function woocommerce_cart_shipping_packages( $packages ) {
-
 			if ( ! empty( $packages ) ) {
 				$items_to_remove_from_packages = array();
 				foreach ( $packages as $package_key => $package ) {
@@ -1209,12 +1217,44 @@ if ( ! class_exists( 'YITH_WCPB_Frontend_Premium' ) ) {
 								$bundle = clone $cart_item_data['data'];
 
 								if ( ! $bundle->non_bundled_shipping ) {
+									$line_total        = 0;
+									$line_subtotal     = 0;
+									$line_tax          = 0;
+									$line_subtotal_tax = 0;
+									$line_tax_data     = array(
+										'total'    => array(),
+										'subtotal' => array(),
+									);
+
 									foreach ( $cart_item_data['bundled_items'] as $child_item_key ) {
 										$items_to_remove_from_packages[] = $child_item_key;
 										if ( isset( $package['contents'][ $child_item_key ] ) ) {
+											$item = $package['contents'][ $child_item_key ];
+
+											$line_total += isset($item['line_total']) ? $item['line_total'] : 0;
+											$line_subtotal += isset($item['line_subtotal']) ? $item['line_subtotal'] : 0;
+											$line_tax += isset($item['line_tax']) ? $item['line_tax'] : 0;
+											$line_subtotal_tax += isset($item['line_subtotal_tax']) ? $item['line_subtotal_tax'] : 0;
+
+											if ( isset( $item['line_tax_data'] ) ) {
+												$_tax_data = $item['line_tax_data'];
+												foreach ( $_tax_data as $type => $values ) {
+													foreach ( $values as $t_index => $t_value ) {
+														$line_tax_data[ $type ][ $t_index ] = isset( $line_tax_data[ $type ][ $t_index ] ) ? $line_tax_data[ $type ][ $t_index ] + $t_value : $t_value;
+													}
+												}
+											}
+
 											unset( $packages[ $package_key ]['contents'][ $child_item_key ] );
 										}
 									}
+
+									$packages[ $package_key ]['contents'][ $cart_item ]['line_tax']          = $line_tax;
+									$packages[ $package_key ]['contents'][ $cart_item ]['line_subtotal_tax'] = $line_subtotal_tax;
+									$packages[ $package_key ]['contents'][ $cart_item ]['line_tax_data']     = $line_tax_data;
+									$packages[ $package_key ]['contents'][ $cart_item ]['line_total']        = $line_total;
+									$packages[ $package_key ]['contents'][ $cart_item ]['line_subtotal']     = $line_subtotal;
+
 								} else {
 									// SINGULAR SHIPPING
 									if ( isset( $cart_item_data['yith_parent'] ) ) {
@@ -1229,7 +1269,6 @@ if ( ! class_exists( 'YITH_WCPB_Frontend_Premium' ) ) {
 						}
 					}
 				}
-
 
 				if ( $items_to_remove_from_packages ) {
 					foreach ( $packages as $package_key => $package ) {
@@ -1250,29 +1289,37 @@ if ( ! class_exists( 'YITH_WCPB_Frontend_Premium' ) ) {
 		public function enqueue_scripts() {
 			parent::enqueue_scripts();
 
-			$yith_wcpb_params = apply_filters( 'yith_wcpb_frontend_js_params', array(
-				'price_handler_parent'     => '.product',
-				'price_handler'            => '.price',
-				'price_handler_parent_alt' => '.summary',
-				'price_handler_alt'        => '.price',
-				'price_handler_only_first' => true,
-				'update_price_on_load'     => 'yes',
-				'photoswipe_enabled'       => get_option( 'yith-wcpb-photoswipe-for-bundled-images', 'yes' ),
-				'i18n'                     => array(
-					'variation_selection_needed' => esc_attr__( 'Please select some product options before adding this product to your cart.', 'yith-woocommerce-product-bundles' ),
-					'out_of_stock_item_selected' => esc_attr__( 'Sorry, you selected an out-of-stock item. Please choose a different combination.', 'yith-woocommerce-product-bundles' ),
-				),
-			) );
+			$yith_wcpb_params = apply_filters(
+				'yith_wcpb_frontend_js_params',
+				array(
+					'price_handler_parent'     => '.product',
+					'price_handler'            => '.price',
+					'price_handler_parent_alt' => '.summary',
+					'price_handler_alt'        => '.price',
+					'price_handler_only_first' => true,
+					'update_price_on_load'     => 'yes',
+					'photoswipe_enabled'       => get_option( 'yith-wcpb-photoswipe-for-bundled-images', 'yes' ),
+					'i18n'                     => array(
+						'variation_selection_needed' => esc_attr__( 'Please select some product options before adding this product to your cart.', 'yith-woocommerce-product-bundles' ),
+						'out_of_stock_item_selected' => esc_attr__( 'Sorry, you selected an out-of-stock item. Please choose a different combination.', 'yith-woocommerce-product-bundles' ),
+					),
+				)
+			);
 
-			wp_enqueue_script( 'yith_wcpb_bundle_frontend_add_to_cart', yit_load_js_file( YITH_WCPB_ASSETS_URL . '/js/frontend_add_to_cart.js' ), array(
-				'jquery',
-				'wc-add-to-cart-variation',
-			), YITH_WCPB_VERSION, true );
+			wp_enqueue_script(
+				'yith_wcpb_bundle_frontend_add_to_cart',
+				yit_load_js_file( YITH_WCPB_ASSETS_URL . '/js/frontend_add_to_cart.js' ),
+				array(
+					'jquery',
+					'wc-add-to-cart-variation',
+				),
+				YITH_WCPB_VERSION,
+				true
+			);
 
 			wp_localize_script( 'yith_wcpb_bundle_frontend_add_to_cart', 'ajax_obj', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
 
 			wp_localize_script( 'yith_wcpb_bundle_frontend_add_to_cart', 'yith_wcpb_params', $yith_wcpb_params );
-
 
 		}
 

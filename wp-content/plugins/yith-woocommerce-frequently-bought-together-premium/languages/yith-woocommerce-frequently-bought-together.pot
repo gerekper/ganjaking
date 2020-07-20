@@ -1,17 +1,20 @@
-# Copyright (C) 2020 YITH WooCommerce Frequently Bought Together Premium
+# Copyright (C) 2020 YITH
 # This file is distributed under the same license as the YITH WooCommerce Frequently Bought Together Premium package.
 msgid ""
 msgstr ""
 "Project-Id-Version: YITH WooCommerce Frequently Bought Together Premium "
-"1.6.0\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/tag/init\n"
-"POT-Creation-Date: 2020-03-09 11:35:27+00:00\n"
+"1.6.2\n"
+"Report-Msgid-Bugs-To: "
+"https://wordpress.org/support/plugin/yith-woocommerce-frequently-bought-"
+"together-premium\n"
+"POT-Creation-Date: 2020-06-01 13:27:21+00:00\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: grunt-wp-i18n 1.0.3\n"
 
 #: includes/admin-tables/class.yith-wfbt-linked-table.php:41
 #: includes/admin-tables/class.yith-wfbt-products-table.php:41
@@ -77,26 +80,11 @@ msgstr ""
 msgid "Slider in Wishlist"
 msgstr ""
 
-#: includes/class.yith-wfbt-admin.php:197
-msgctxt "plugin name in admin page title"
-msgid "YITH WooCommerce Frequently Bought Together"
-msgstr ""
-
-#: includes/class.yith-wfbt-admin.php:198
-msgctxt "plugin name in admin WP menu"
-msgid "Frequently Bought Together"
-msgstr ""
-
 #: includes/class.yith-wfbt-admin.php:300
 msgid "Hard Crop?"
 msgstr ""
 
-#: includes/class.yith-wfbt-admin.php:367
-msgctxt "tab in product data box"
-msgid "Frequently Bought Together"
-msgstr ""
-
-#: includes/class.yith-wfbt-admin.php:778
+#: includes/class.yith-wfbt-admin.php:779
 msgid ""
 "You must enable coupons in order to use the plugin discount feature. Please "
 "enable it <a href=\"%s\">here.</a>"
@@ -109,40 +97,22 @@ msgid ""
 msgstr ""
 
 #: includes/class.yith-wfbt-frontend.php:181
-msgid ""
-"Please select some product options before adding this product to your cart."
+msgid "Please select some product options before adding this product to your cart."
 msgstr ""
 
 #: includes/class.yith-wfbt-frontend.php:182
-msgid ""
-"Sorry, this product is unavailable. Please choose a different combination."
+msgid "Sorry, this product is unavailable. Please choose a different combination."
 msgstr ""
 
-#: includes/class.yith-wfbt-frontend.php:377
-#: includes/class.yith-wfbt-frontend.php:574
+#: includes/class.yith-wfbt-frontend.php:378
+#: includes/class.yith-wfbt-frontend.php:576
 #: plugin-options/general-options.php:171
 msgid "Choose your product"
 msgstr ""
 
-#: includes/class.yith-wfbt-frontend.php:570
+#: includes/class.yith-wfbt-frontend.php:571
 #: plugin-options/general-options.php:23
 msgid "Frequently Bought Together"
-msgstr ""
-
-#: includes/class.yith-wfbt.php:290
-msgctxt "[gutenberg]: block name"
-msgid "Frequently Bought Form"
-msgstr ""
-
-#: includes/class.yith-wfbt.php:291
-msgctxt "[gutenberg]: block description"
-msgid ""
-"With this block you can print a product \"frequently bought together\" form."
-msgstr ""
-
-#: includes/class.yith-wfbt.php:297
-msgctxt "[gutenberg]: attributes description"
-msgid "Add the product id (leave blank to get global product value)"
 msgstr ""
 
 #: includes/class.yith-wfbt.php:316 includes/class.yith-wfbt.php:375
@@ -151,8 +121,7 @@ msgid "Frequently Bought Together Data"
 msgstr ""
 
 #: includes/functions.yith-wfbt.php:119
-msgid ""
-"Spend at least %s for %s or more products of this group and get a %s off."
+msgid "Spend at least %s for %s or more products of this group and get a %s off."
 msgstr ""
 
 #: includes/functions.yith-wfbt.php:121
@@ -305,8 +274,8 @@ msgstr ""
 
 #: plugin-options/general-options.php:132
 msgid ""
-"This is the label shown for \"Add to cart\" button when only one product has "
-"been checked."
+"This is the label shown for \"Add to cart\" button when only one product "
+"has been checked."
 msgstr ""
 
 #: plugin-options/general-options.php:135
@@ -370,8 +339,7 @@ msgid "Popup title"
 msgstr ""
 
 #: plugin-options/general-options.php:177
-msgid ""
-"This is the title of the popup where users can select the product variation"
+msgid "This is the title of the popup where users can select the product variation"
 msgstr ""
 
 #: plugin-options/general-options.php:180
@@ -455,8 +423,7 @@ msgid "Vendor Products"
 msgstr ""
 
 #: plugin-options/general-options.php:277
-msgid ""
-"Allow vendor also add products of other vendors to frequently bought form."
+msgid "Allow vendor also add products of other vendors to frequently bought form."
 msgstr ""
 
 #: plugin-options/product-data-options.php:11
@@ -567,8 +534,8 @@ msgstr ""
 
 #: plugin-options/product-data-options.php:110
 msgid ""
-"Set a minimum chosen products referred only to this group (subtotal) allowed "
-"to use the discount. Cannot be less then 2."
+"Set a minimum chosen products referred only to this group (subtotal) "
+"allowed to use the discount. Cannot be less then 2."
 msgstr ""
 
 #: plugin-options/slider-options.php:11
@@ -681,30 +648,42 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
-#. Plugin Name of the plugin/theme
-msgid "YITH WooCommerce Frequently Bought Together Premium"
-msgstr ""
-
-#. Plugin URI of the plugin/theme
-msgid ""
-"https://yithemes.com/themes/plugins/yith-woocommerce-frequently-bought-"
-"together/"
-msgstr ""
-
 #. Description of the plugin/theme
 msgid ""
-"The <code><strong>YITH WooCommerce Frequently Bought Together</strong></"
-"code> allows increasing the average spent of your store by showing a box "
-"with the products purchased together more frequently. In this way, users are "
-"encouraged to add more products to their cart just like on Amazon. <a href="
-"\"https://yithemes.com/\" target=\"_blank\">Get more plugins for your e-"
-"commerce shop on <strong>YITH</strong></a>."
+"The <code><strong>YITH WooCommerce Frequently Bought "
+"Together</strong></code> allows increasing the average spent of your store "
+"by showing a box with the products purchased together more frequently. In "
+"this way, users are encouraged to add more products to their cart just like "
+"on Amazon. <a href=\"https://yithemes.com/\" target=\"_blank\">Get more "
+"plugins for your e-commerce shop on <strong>YITH</strong></a>."
 msgstr ""
 
-#. Author of the plugin/theme
-msgid "YITH"
+#: includes/class.yith-wfbt-admin.php:197
+msgctxt "plugin name in admin page title"
+msgid "YITH WooCommerce Frequently Bought Together"
 msgstr ""
 
-#. Author URI of the plugin/theme
-msgid "https://yithemes.com/"
+#: includes/class.yith-wfbt-admin.php:198
+msgctxt "plugin name in admin WP menu"
+msgid "Frequently Bought Together"
+msgstr ""
+
+#: includes/class.yith-wfbt-admin.php:368
+msgctxt "tab in product data box"
+msgid "Frequently Bought Together"
+msgstr ""
+
+#: includes/class.yith-wfbt.php:290
+msgctxt "[gutenberg]: block name"
+msgid "Frequently Bought Form"
+msgstr ""
+
+#: includes/class.yith-wfbt.php:291
+msgctxt "[gutenberg]: block description"
+msgid "With this block you can print a product \"frequently bought together\" form."
+msgstr ""
+
+#: includes/class.yith-wfbt.php:297
+msgctxt "[gutenberg]: attributes description"
+msgid "Add the product id (leave blank to get global product value)"
 msgstr ""

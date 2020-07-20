@@ -2,6 +2,19 @@
 
 == Changelog ==
 
+= 1.3.9 - Released on 03 Jul 2020 =
+
+* New: support for WooCommerce 4.3
+* Update: plugin framework
+* Update: language files
+* Fix: added bundle product line prices in shipping packages to prevent issues with plugins handling shipping methods
+* Dev: added yith_wcpb_add_label filter
+* Dev: added yith_wcpb_after_bundled_item_title action
+* Dev: added yith_wcpb_bundled_item_quantity_input_step filter
+* Dev: added yith_wcpb_bundled_item_quantity_input_min filter
+* Dev: added yith_wcpb_bundled_item_quantity_input_max filter
+* Dev: added yith_wcpb_allowed_product_types filter
+
 = 1.3.8 - Released on 21 May 2020 =
 
 * New: support for WooCommerce 4.2

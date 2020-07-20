@@ -1,5 +1,8 @@
 *** WooCommerce Intuit QBMS Gateway Changelog ***
 
+2020.07.14 - version 2.7.5
+ * Fix - Prevent JavaScript error triggered when a different payment method is being used and a required field is left empty
+
 2020.06.02 - version 2.7.4
  * Fix - Prevent JavaScript error triggered when different versions of the SkyVerge plugin framework are used at the same time
  * Fix - Address possible JavaScript errors at checkout originating from a previous version of the payment form handler script being cached

@@ -3,17 +3,17 @@
  * Plugin Name: YITH Product Size Charts for WooCommerce Premium
  * Plugin URI: https://yithemes.com/docs-plugins/yith-product-size-charts-for-woocommerce/
  * Description: <code><strong>YITH Product Size Charts for WooCommerce</strong></code> allows adding a table or a detailed and customizable chart with all the information about your product sizes. Perfect to get rid of the objections about size, weight, dimension, etc. made by users when purchasing. <a href="https://yithemes.com/" target="_blank">Get more plugins for your e-commerce shop on <strong>YITH</strong></a>
- * Version: 1.1.19
+ * Version: 1.1.20
  * Author: YITH
  * Author URI: https://yithemes.com/
  * Text Domain: yith-product-size-charts-for-woocommerce
  * Domain Path: /languages/
  * WC requires at least: 3.0.0
- * WC tested up to: 4.2.x
+ * WC tested up to: 4.3.x
  *
  * @author  yithemes
  * @package YITH Product Size Charts for WooCommerce Premium
- * @version 1.1.19
+ * @version 1.1.20
  */
 /*  Copyright 2015  Your Inspiration Themes  (email : plugins@yithemes.com)
 
@@ -61,7 +61,7 @@ register_activation_hook( __FILE__, 'yith_plugin_registration_hook' );
 
 
 if ( ! defined( 'YITH_WCPSC_VERSION' ) ) {
-	define( 'YITH_WCPSC_VERSION', '1.1.19' );
+	define( 'YITH_WCPSC_VERSION', '1.1.20' );
 }
 
 if ( ! defined( 'YITH_WCPSC_PREMIUM' ) ) {
@@ -105,7 +105,7 @@ if ( ! defined( 'YITH_WCPSC_SLUG' ) ) {
 }
 
 if ( ! defined( 'YITH_WCPSC_SECRET_KEY' ) ) {
-	define( 'YITH_WCPSC_SECRET_KEY', '12345' );
+	define( 'YITH_WCPSC_SECRET_KEY', 'oVY8LFJeITOEAJikkLw6' );
 }
 
 function yith_wcpsc_pr_init() {

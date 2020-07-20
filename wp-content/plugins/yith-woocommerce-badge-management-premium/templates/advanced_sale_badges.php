@@ -9,8 +9,10 @@ $saved_display     = true;
 $saved_money       = 0;
 $saved_money_float = 0;
 $sale_percentage   = 0;
+$sale_percentage_float   = 0;
 if ( 'preview' === $product_id ) {
 	$sale_percentage   = 50;
+	$sale_percentage_float   = 50;
 	$saved_money       = 15;
 	$saved_money_float = 15;
 } else {
@@ -31,7 +33,7 @@ if ( 'preview' === $product_id ) {
 			$regular = floatval( $child->get_regular_price() );
 			if ( $price > 0 && $regular > 0 ) {
 				$current_saved_money     = $regular - $price;
-				$current_sale_percentage = intval( round( ( $regular - $price ) / $regular * 100 ) );
+				$current_sale_percentage = ( $regular - $price ) / $regular * 100;
 			} else {
 				$current_saved_money     = 0;
 				$current_sale_percentage = 0;
@@ -47,19 +49,19 @@ if ( 'preview' === $product_id ) {
 		$show_in_variables = get_option( 'yith-wcbm-show-advanced-badge-in-variable-products', 'same' );
 
 		if ( count( $unique_sale_percentage ) == 1 ) {
-			$sale_percentage = $sale_percentage_array[0];
+			$sale_percentage_float = $sale_percentage_array[0];
 		} else {
 			switch ( $show_in_variables ) {
 				case 'min':
-					$sale_percentage = min( $sale_percentage_array );
+					$sale_percentage_float = min( $sale_percentage_array );
 					break;
 				case 'max':
-					$sale_percentage = max( $sale_percentage_array );
+					$sale_percentage_float = max( $sale_percentage_array );
 
 					break;
 				default:
 					// the badge will be shown only if the discount percentage will be the same for all variations
-					$sale_percentage = 0;
+					$sale_percentage_float = 0;
 					break;
 			}
 		}
@@ -86,15 +88,17 @@ if ( 'preview' === $product_id ) {
 		$price         = floatval( $product->get_price() );
 		$regular_price = floatval( $product->get_regular_price() );
 		if ( $regular_price != 0 ) {
-			$sale_percentage = intval( round( ( $regular_price - $price ) / $regular_price * 100 ) );
+			$sale_percentage_float = ( $regular_price - $price ) / $regular_price * 100;
 		} else {
-			$sale_percentage = 0;
+			$sale_percentage_float = 0;
 		}
 		$saved_money_float = $regular_price - $price;
 		$saved_money       = absint( round( $saved_money_float ) );
 	}
 	$saved_money = $saved_money ? yit_get_display_price( $product, $saved_money ) : 0;
 }
+
+$sale_percentage = intval( round( $sale_percentage_float ) );
 
 $args              = array( 'decimals' => 0 );
 $saved             = strip_tags( wc_price( $saved_money, $args ) );
@@ -107,6 +111,7 @@ $badge_info         = (object) apply_filters( 'yith_wcbm_advanced_badge_info', a
 	'advanced_badge'    => $advanced_badge,
 	'display_class'     => $display_class,
 	'sale_percentage'   => $sale_percentage,
+	'sale_percentage_float'   => $sale_percentage_float,
 	'saved_display'     => $saved_display,
 	'saved_money'       => $saved_money,
 	'saved_money_float' => $saved_money_float,

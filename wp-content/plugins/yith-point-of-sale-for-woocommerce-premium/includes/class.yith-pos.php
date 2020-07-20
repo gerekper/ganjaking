@@ -67,8 +67,6 @@ if ( ! class_exists( 'YITH_POS' ) ) {
 			);
 			add_action( 'init', array( $this, 'add_pos_page' ) );
 			add_filter( 'template_include', array( $this, 'view_pos_template' ) );
-
-			YITH_POS_Post_Types::maybe_regenerate_roles_and_caps();
 		}
 
 

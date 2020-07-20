@@ -18,6 +18,8 @@ if ( !function_exists( 'wp_editor' ) ) :
 else:
     extract( $field );
 
+	$classes = isset( $classes ) ? ' '.$classes : '';
+
     $editor_args = wp_parse_args( $field, array(
         'wpautop'       => true, // use wpautop?
         'media_buttons' => true, // show insert/upload button(s)
@@ -32,7 +34,7 @@ else:
         'quicktags'     => true // load Quicktags, can be used to pass settings directly to Quicktags using an array()
     ) );
     ?>
-    <div class="editor" <?php echo $custom_attributes ?>
+    <div class="editor<?php echo $classes ?>" <?php echo $custom_attributes ?>
         <?php if ( isset( $data ) ) echo yith_plugin_fw_html_data_to_string( $data ); ?>><?php wp_editor( $value, $id, $editor_args ); ?></div>
 
 <?php endif; ?>

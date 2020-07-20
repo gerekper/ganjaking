@@ -1209,6 +1209,10 @@ span.select2.select2-container.select2-container--default.yith-plugin-fw-select2
     font-size        : 13px;
 }
 
+.wc-wp-version-gte-53 .yith-plugin-ui .select2-container .select2-selection--single .select2-selection__arrow{
+    background-image: none;
+}
+
 .yith-plugin-ui .select2-container--default .select2-selection--single .select2-selection__arrow:before {
     content     : "\e900";
     font-family : 'yith-icon' !important;
@@ -1427,8 +1431,9 @@ span.select2.select2-container.select2-container--default.yith-plugin-fw-select2
 .yith-plugin-ui .yith-plugin-fw-onoff-container input + span {
     border           : 1px solid #d8d8d8;
     background-color : #fff;
-    width            : 60px;
+    width            : 58px;
     height           : 24px;
+    line-height      :14px;
 }
 
 .yith-plugin-ui .yith-plugin-fw-onoff-container input + span:before {
@@ -1465,7 +1470,7 @@ span.select2.select2-container.select2-container--default.yith-plugin-fw-select2
 .yith-plugin-ui .yith-plugin-fw-onoff-container input:checked + span:before,
 .yith-plugin-ui.yith-plugin-fw-onoff-container input.onoffchecked + span:before {
     background-color : #98aa36;
-    left             : 41px;
+    left: 38px;
 }
 
 .yith-plugin-ui .yith-plugin-fw-onoff-container input:checked + span:after,

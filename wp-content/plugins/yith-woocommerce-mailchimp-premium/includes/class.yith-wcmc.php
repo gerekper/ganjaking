@@ -1111,7 +1111,7 @@ if ( ! class_exists( 'YITH_WCMC' ) ) {
 			}
 
 			// return if subscription checkbox is printed, but not submitted
-			if ( $show_checkbox && $submitted_value == 'no' ) {
+			if ( apply_filters( 'yith_wcmc_subscribe_on_completed', $show_checkbox && $submitted_value == 'no', $order_id ) ) {
 				return false;
 			}
 

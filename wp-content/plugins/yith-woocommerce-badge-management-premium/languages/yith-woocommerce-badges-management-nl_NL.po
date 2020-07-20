@@ -5,14 +5,14 @@ msgstr ""
 "Project-Id-Version: YITH WooCommerce Badge Management\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
 "badge-management-premium\n"
-"POT-Creation-Date: 2020-05-20 12:43:59+00:00\n"
-"PO-Revision-Date: 2020-04-16 20:30:04+0000\n"
+"POT-Creation-Date: 2020-07-03 07:49:30+00:00\n"
+"PO-Revision-Date: 2020-06-15 18:09:50+0000\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/2.3.1\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
 
 #: badge-styles/advanced-badge-styles.php:560
 #: badge-styles/advanced-badge-styles.php:807
@@ -70,12 +70,12 @@ msgstr "Badges"
 
 #: includes/class-yith-wcbm-admin.php:139
 msgid "No badge to duplicate has been supplied!"
-msgstr "Er is geen badge geleverd om te dupliceren."
+msgstr "Er is geen badge aangeleverd om te dupliceren."
 
 #. translators: %s: Badge ID.
 #: includes/class-yith-wcbm-admin.php:150
 msgid "Error while duplicating badge: badge #%s not found"
-msgstr "Error tijdens het dupliceren van de badge: badge #%s niet gevonden"
+msgstr "Fout tijdens het dupliceren van de badge: badge #%s niet gevonden"
 
 #: includes/class-yith-wcbm-admin.php:156
 msgid "Copy"
@@ -164,11 +164,11 @@ msgstr "Badge niet gevonden in prullenbak"
 
 #: includes/compatibility/class-yith-wcbm-auctions-compatibility.php:91
 msgid "Auctions"
-msgstr "Veiling"
+msgstr "Veilingen"
 
 #: includes/compatibility/class-yith-wcbm-dynamic-pricing-compatibility.php:105
 msgid "Dynamic Pricing"
-msgstr "Dynamic pricing"
+msgstr "Dynamische prijzen"
 
 #: includes/compatibility/class-yith-wcbm-wpml-compatibility.php:66
 msgid "Default Language: %s"
@@ -280,7 +280,7 @@ msgstr "Selecteer de afbeelding badge"
 #: includes/functions.yith-wcbm-premium.php:270
 #: includes/functions.yith-wcbm-premium.php:550
 msgid "Upload"
-msgstr "Upload"
+msgstr "Uploaden"
 
 #: includes/functions.yith-wcbm-premium.php:281
 msgid "Select the Advanced Badge"
@@ -416,7 +416,7 @@ msgstr "Gebruik Slepen en Droppen voor positie"
 
 #: includes/functions.yith-wcbm-premium.php:549
 msgid "Upload Custom Image"
-msgstr "Upload aangepaste afbeelding"
+msgstr "Aangepaste afbeelding uploaden"
 
 #: init.php:50
 msgid ""
@@ -440,22 +440,22 @@ msgstr "Verberg \"In uitverkoop\" badge"
 #: plugin-options/settings-options.php:24
 msgid "Select to hide the default Woocommerce \"On sale\" badge."
 msgstr ""
-"Selecteer om de default WooCommerce \"In Uitverkoop\" badge te verbergen"
+"Selecteer om de standaard WooCommerce \"In Uitverkoop\" badge te verbergen"
 
 #: plugin-options/advanced-options.php:29
 #: plugin-options/settings-options.php:29
 msgid "Hide in sidebars"
-msgstr "Verberg in sidebars"
+msgstr "Verberg in zijbalken"
 
 #: plugin-options/advanced-options.php:31
 #: plugin-options/settings-options.php:31
 msgid "Select to hide the badges in sidebars and widgets."
-msgstr "Selecteer om de badges te verbergen in sidebars en widgets."
+msgstr "Selecteer om de badges te verbergen in zijbalk en widgets."
 
 #: plugin-options/advanced-options.php:37
 #: plugin-options/settings-options.php:36
 msgid "Product Badge overrides default on sale badge"
-msgstr "Product badge overschrijft default in uitverkoop badge"
+msgstr "Product badge overschrijft standaard in uitverkoop badge"
 
 #: plugin-options/advanced-options.php:39
 #: plugin-options/settings-options.php:38
@@ -463,12 +463,12 @@ msgid ""
 "Select if you want to hide WooCommerce default \"On Sale\" badge when the "
 "product has another badge"
 msgstr ""
-"Selecteer als u de WooCommerce default \"In Uitverkoop\" badge wilt "
+"Selecteer als je de WooCommerce default \"In Uitverkoop\" badge wilt "
 "verbergen, als het product een andere badge heeft"
 
 #: plugin-options/advanced-options.php:45
 msgid "Enable Shop Manager to edit these options"
-msgstr "Shop manager inschakelen om deze opties te bewerken"
+msgstr "Winkelmanager inschakelen om deze opties te bewerken"
 
 #: plugin-options/advanced-options.php:53
 msgid "Mobile Breakpoint"
@@ -493,11 +493,11 @@ msgstr "Nee"
 #: plugin-options/advanced-options.php:69
 #: plugin-options/advanced-options.php:191
 msgid "Single Product"
-msgstr "Enkel product"
+msgstr "Single product"
 
 #: plugin-options/advanced-options.php:70
 msgid "Single Product Image"
-msgstr "Enkel product afbeelding"
+msgstr "Single product afbeelding"
 
 #: plugin-options/advanced-options.php:71
 msgid "Shop Page"
@@ -513,7 +513,7 @@ msgstr "Forceer positionering timeout"
 
 #: plugin-options/advanced-options.php:80
 msgid "Number of milliseconds before force positioning"
-msgstr "Aantal milliseconden voor geforceerde positionering"
+msgstr "Aantal milliseconden vóór geforceerde positionering"
 
 #: plugin-options/advanced-options.php:90
 msgid "Force Positioning On Scrolling in Mobile"
@@ -530,11 +530,11 @@ msgstr "Automatische badges"
 
 #: plugin-options/advanced-options.php:114
 msgid "Recent products Badge"
-msgstr "Recente product badges"
+msgstr "Recente producten badges"
 
 #: plugin-options/advanced-options.php:118
 msgid "Select the badge you want to apply to all recent products."
-msgstr "Selecteer de badge die u wilt toepassen op alle recente producten"
+msgstr "Selecteer de badge die je wilt toepassen op alle recente producten"
 
 #: plugin-options/advanced-options.php:125
 msgid "Recent products - newer than"
@@ -645,23 +645,23 @@ msgstr "Selecteer de badge voor alle producten van categorie %s"
 
 #: plugin-options/dynamic-pricing-options.php:31
 msgid "Dynamic Pricing Settings"
-msgstr "Dynamic Pricing Instellingen"
+msgstr "Dynamische prijs Instellingen"
 
 #: plugin-options/dynamic-pricing-options.php:32
 msgid ""
 "Select the Badge for Dynamic Pricing Rules. Please Note: you should create "
 "rules in %s before"
 msgstr ""
-"Selecteer de badge voor Dynamic Pricing Regels. Let op: u moet eerst de "
-"regels in %s creëeren"
+"Selecteer de badge voor dynamische prijsregels. Let op: je moet eerst de "
+"regels in %s aanmaken"
 
 #: plugin-options/dynamic-pricing-options.php:36
 msgid "Dynamic Pricing Badges"
-msgstr "Dynamic Pricing Badges"
+msgstr "Dynamische prijs badges"
 
 #: plugin-options/dynamic-pricing-options.php:50
 msgid "Select the Badge for all products of Dynamic Pricing Rule %s"
-msgstr "Selecteer de badges voor alle producten van Dynamic Pricing Rule %s"
+msgstr "Selecteer de badges voor alle producten met dynamische prijsregel %s"
 
 #: plugin-options/shipping-class-options.php:30
 msgid "Select the Badge for all products of shipping class \"%s\""
@@ -681,44 +681,44 @@ msgid ""
 "target=\"_blank\">Get more plugins for your e-commerce shop on <strong>YITH</"
 "strong></a>"
 msgstr ""
-"<code><strong>YITH WooCommerce Badge Management</strong></code> allows you "
-"to highlight your products through custom badges, that show offers, "
-"discounts, and so on. You can use text badges, CSS badges, image badges and "
-"advanced badges to attract your customers. <a href=\"https://yithemes.com/\" "
-"target=\"_blank\">Get more plugins for your e-commerce shop on <strong>YITH</"
-"strong></a>"
+"<code><strong>YITH WooCommerce Badge Management</strong></code> laat je je "
+"producten benadrukken via op maat gemaakte badges die, aanbiedingen tonen, "
+"kortingen tonen etc. Je kunt gebruik maken van tekst badges, CSS badges, "
+"afbeelding badges en geavanceerde badges om klanten te trekken. <a href="
+"\"https://yithemes.com/\" target=\"_blank\">Verkrijg meer plugins voor je e-"
+"commerce winkel op <strong>YITH</strong></a>"
 
 #: includes/class-yith-wcbm-admin-premium.php:391
 msgctxt "Admin:title of column in products table"
 msgid "Badge"
 msgstr "Badge"
 
-#: templates/advanced_sale_badges.php:116
+#: templates/advanced_sale_badges.php:121
 msgctxt "Text in badge: preserve lenght"
 msgid "On Sale"
 msgstr "In uitverkoop"
 
-#: templates/advanced_sale_badges.php:117
+#: templates/advanced_sale_badges.php:122
 msgctxt "Text in badge: preserve lenght"
 msgid "Off"
 msgstr "Uit"
 
-#: templates/advanced_sale_badges.php:119
+#: templates/advanced_sale_badges.php:124
 msgctxt "Text in badge: preserve lenght"
 msgid "Save"
 msgstr "Opslaan"
 
-#: templates/advanced_sale_badges.php:121
+#: templates/advanced_sale_badges.php:126
 msgctxt "Text in badge: preserve lenght"
 msgid "Sale!"
 msgstr "Uitverkoop!"
 
-#: templates/advanced_sale_badges.php:120
+#: templates/advanced_sale_badges.php:125
 msgctxt "Text in badge(preserve lenght): Save $9"
 msgid "%1$s %2$s"
 msgstr "%1$s %2$s"
 
-#: templates/advanced_sale_badges.php:122
+#: templates/advanced_sale_badges.php:127
 msgctxt "Text in badge(preserve lenght): 9 $"
 msgid "%1$s%2$s"
 msgstr "%1$s%2$s"

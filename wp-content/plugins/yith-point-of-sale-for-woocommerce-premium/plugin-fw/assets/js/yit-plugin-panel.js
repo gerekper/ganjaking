@@ -15,20 +15,28 @@ jQuery( function ( $ ) {
         var field = '#' + t.data( 'dep-target' ),
             dep   = '#' + t.data( 'dep-id' ),
             value = t.data( 'dep-value' ),
-            type  = t.data( 'dep-type' );
+            type  = t.data( 'dep-type' ),
+            event = 'change',
+            wrapper = $( dep + '-wrapper' ),
+            field_type = wrapper.data( 'type' );
+
+        if( field_type === 'select-images' ){
+          event = 'yith_select_images_value_changed';
+        }
 
         dependencies_handler( field, dep, value.toString(), type );
 
-        $( dep ).on( 'change', function () {
+        $( dep ).on( event, function () {
             dependencies_handler( field, dep, value.toString(), type );
-        } ).change();
+        } ).trigger( event );
+
     } );
 
     //Handle dependencies.
     function dependencies_handler( id, deps, values, type ) {
         var result = true;
         //Single dependency
-        if ( typeof( deps ) == 'string' ) {
+        if ( typeof ( deps ) == 'string' ) {
             if ( deps.substr( 0, 6 ) == ':radio' ) {
                 deps = deps + ':checked';
             }
@@ -39,10 +47,13 @@ jQuery( function ( $ ) {
                 var thisCheck = $( deps );
                 if ( thisCheck.is( ':checked' ) ) {
                     val = 'yes';
-                }
-                else {
+                } else {
                     val = 'no';
                 }
+            }
+
+            if( $( deps + '-wrapper' ).data( 'type' ) === 'select-images' ){
+              val = $( deps + '-wrapper' ).find( 'select' ).first().val();
             }
 
             values = values.split( ',' );
@@ -50,8 +61,7 @@ jQuery( function ( $ ) {
             for ( var i = 0; i < values.length; i++ ) {
                 if ( val != values[ i ] ) {
                     result = false;
-                }
-                else {
+                } else {
                     result = true;
                     break;
                 }
@@ -69,7 +79,7 @@ jQuery( function ( $ ) {
         var types = type.split( '-' ), j;
         for ( j in types ) {
             var current_type = types[ j ];
-            
+
             if ( !result ) {
                 switch ( current_type ) {
                     case 'disable':
@@ -79,14 +89,21 @@ jQuery( function ( $ ) {
                     case 'hideme':
                         $current_field.hide();
                         break;
+                    case 'fadeInOut':
+                    case 'fadeOut':
+                        $current_container.hide( 500 );
+                        break;
+                    case 'fadeIn':
+                        $current_container.hide();
+                        break;
                     default:
-                        if( ! $current_container.hasClass('fade-in')){
+                        if ( !$current_container.hasClass( 'fade-in' ) ) {
                             $current_container.hide();
-                            $current_container.css({'opacity':'0'});
-                        }else{
-                            $current_container.fadeTo("slow" , 0, function(){
-                                $(this).hide().removeClass('fade-in');
-                            });
+                            $current_container.css( { 'opacity': '0' } );
+                        } else {
+                            $current_container.fadeTo( "slow", 0, function () {
+                                $( this ).hide().removeClass( 'fade-in' );
+                            } );
                         }
 
                 }
@@ -100,9 +117,16 @@ jQuery( function ( $ ) {
                     case 'hideme':
                         $current_field.show();
                         break;
+                    case 'fadeInOut':
+                    case 'fadeIn':
+                        $current_container.show( 500 );
+                        break;
+                    case 'fadeOut':
+                        $current_container.show();
+                        break;
                     default:
                         $current_container.show();
-                        $current_container.fadeTo("slow" , 1).addClass('fade-in');
+                        $current_container.fadeTo( "slow", 1 ).addClass( 'fade-in' );
                 }
             }
         }
@@ -127,7 +151,7 @@ jQuery( function ( $ ) {
                                                 value[ $( this ).data( 'list' ) ] = options;
                                             } );
 
-                                            input.val( (JSON.stringify( value )).replace( /[\\"']/g, '\\$&' ).replace( /\u0000/g, '\\0' ) );
+                                            input.val( ( JSON.stringify( value ) ).replace( /[\\"']/g, '\\$&' ).replace( /\u0000/g, '\\0' ) );
                                         }
                                     } ).disableSelection();
     } );
@@ -166,4 +190,27 @@ jQuery( function ( $ ) {
         wrap.prepend( notices );
     }
 
+
+    // TAB MENU AND SUB TABS
+    var active_subnav = $(document).find( '.yith-nav-sub-tab.nav-tab-active' );
+
+    if( active_subnav.length ){
+        // WP page
+        var  mainWrapper = $(document).find( '.yith-plugin-fw-wp-page-wrapper' );
+        if( ! mainWrapper.length ){
+            mainWrapper = $(document).find( '#wpbody-content > .yith-plugin-ui' );
+        }
+
+        if( mainWrapper ){
+            // serach first for deafult wrap
+            var wrap = mainWrapper.find( '.yit-admin-panel-content-wrap' );
+            if( wrap.length ) {
+                wrap.addClass( 'has-subnav' );
+            }
+            else {
+                // try to wrap a generic wrap div in main wrapper
+                mainWrapper.find('.wrap').wrap('<div class="wrap subnav-wrap"></div>');
+            }
+        }
+    }
 } );

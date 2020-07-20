@@ -303,6 +303,14 @@ if ( !class_exists( 'YIT_Plugin_Panel_WooCommerce' ) ) {
                 $yit_options = $this->get_main_array_options();
                 $option_key  = $this->get_current_option_key();
 
+                foreach ( $yit_options as $key => $options_list ){
+                	foreach ( $options_list as $value ){
+                		if( ! empty( $value['yith-type'] ) && 'toggle-element-fixed' == $value['yith-type'] && isset( $value['save_single_options'] ) && true === $value['save_single_options'] ){
+			                $yit_options[ $key ] = array_merge( $yit_options[ $key ] , $value['elements'] );
+		                }
+	                }
+                }
+
                 if ( version_compare( WC()->version, '2.4.0', '>=' ) ) {
                     if ( !empty( $yit_options[ $option_key ] ) ) {
                         foreach ( $yit_options[ $option_key ] as $option ) {
@@ -327,7 +335,7 @@ if ( !class_exists( 'YIT_Plugin_Panel_WooCommerce' ) ) {
                     }
                 }
 
-                woocommerce_update_options( $yit_options[ $option_key ] );
+	            woocommerce_update_options( $yit_options[ $option_key ] );
 
                 do_action( 'yit_panel_wc_after_update' );
 
@@ -460,25 +468,26 @@ if ( !class_exists( 'YIT_Plugin_Panel_WooCommerce' ) ) {
             delete_option( 'yit_plugin_fw_panel_wc_default_options_set' );
         }
 
-        /**
-         * Add the WooCommerce body class in plugin panel page
-         *
-         * @param array $admin_body_classes The body classes
-         * @return array Filtered body classes
-         * @author Andrea Grillo <andrea.grillo@yithemes.com>
-         * @since  2.0
-         */
-        public static function admin_body_class( $admin_body_classes ) {
-            global $pagenow;
+		/**
+		 * Add the WooCommerce body class in plugin panel page
+		 *
+		 * @param string $admin_body_classes The body classes.
+		 * @return string Filtered body classes
+		 * @author Andrea Grillo <andrea.grillo@yithemes.com>
+		 * @since  2.0
+		 */
+		public static function admin_body_class( $admin_body_classes ) {
+			global $pagenow;
 
-	        $assets_screen_ids = (array) apply_filters( 'yith_plugin_fw_wc_panel_screen_ids_for_assets', array() );
+			$assets_screen_ids = (array) apply_filters( 'yith_plugin_fw_wc_panel_screen_ids_for_assets', array() );
 
+			if ( ( 'admin.php' == $pagenow && ( strpos( get_current_screen()->id, 'yith-plugins_page' ) !== false || in_array( get_current_screen()->id, $assets_screen_ids ) ) ) ) {
+				$admin_body_classes = substr_count( $admin_body_classes, self::$body_class ) == 0 ? $admin_body_classes . self::$body_class : $admin_body_classes;
+				$admin_body_classes = substr_count( $admin_body_classes, 'woocommerce' ) == 0 ? $admin_body_classes . ' woocommerce ' : $admin_body_classes;
+			}
 
-	        if ( ( 'admin.php' == $pagenow && ( strpos( get_current_screen()->id, 'yith-plugins_page' ) !== false || in_array( get_current_screen()->id, $assets_screen_ids ) ) ) )
-                $admin_body_classes = substr_count( $admin_body_classes, self::$body_class ) == 0 ? $admin_body_classes . self::$body_class : $admin_body_classes;
-
-            return 'admin.php' == $pagenow && substr_count( $admin_body_classes, 'woocommerce' ) == 0 ? $admin_body_classes .= ' woocommerce ' : $admin_body_classes;
-        }
+			return $admin_body_classes;
+		}
 
         /**
          * Maybe unserialize panel data

@@ -2,11 +2,15 @@
 Contributors: yithemes
 Requires at least: 3.5.1
 Tested up to: 5.4
-Stable tag: 2.1.14
+Stable tag: 2.1.15
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Documentation: https://yithemes.com/docs-plugins/yith-woocommerce-delivery-date/
 == Changelog ==
+= 2.1.15 - Released on 01 June 2020 =
+* Fix: Timeslot not lockout properly
+* Update: Plugin Framework
+
 = 2.1.14 - Released on 23 May 2020 =
 * Fix: Fatal error require_once( 'class.yith-delivery-date.php' );
 * Update: Plugin Framework

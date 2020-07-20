@@ -5,14 +5,14 @@ msgstr ""
 "Project-Id-Version: YITH WooCommerce Points and Rewards\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
 "points-and-rewards.premium\n"
-"POT-Creation-Date: 2020-05-26 14:41:38+00:00\n"
+"POT-Creation-Date: 2020-07-02 07:33:58+00:00\n"
 "PO-Revision-Date: 2020-05-08 14:09:59+0000\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: GlotPress/2.3.1\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
 
 #: includes/admin/yith-wc-points-rewards-customer-history-view.php:45
 #: includes/admin/yith-wc-points-rewards-customers-view.php:38
@@ -115,9 +115,9 @@ msgid "Points and Rewards"
 msgstr "Points et récompenses"
 
 #: includes/class.yith-wc-points-rewards-admin.php:283
-#: includes/class.yith-wc-points-rewards-frontend.php:858
-#: includes/class.yith-wc-points-rewards-frontend.php:872
-#: includes/class.yith-wc-points-rewards-frontend.php:919
+#: includes/class.yith-wc-points-rewards-frontend.php:871
+#: includes/class.yith-wc-points-rewards-frontend.php:885
+#: includes/class.yith-wc-points-rewards-frontend.php:932
 msgid "Date of birth"
 msgstr "Date de naissance"
 
@@ -422,22 +422,23 @@ msgstr ""
 msgid "Reviews"
 msgstr "Avis"
 
-#: includes/class.yith-wc-points-rewards-frontend.php:262
+#: includes/class.yith-wc-points-rewards-frontend.php:254
+#: includes/class.yith-wc-points-rewards-frontend.php:272
 #: includes/widgets/class.yith-wc-points-rewards-widget.php:124
 #: plugin-options/general-options.php:87
 msgid "My Points"
 msgstr "Mes points"
 
-#: includes/class.yith-wc-points-rewards-frontend.php:373
+#: includes/class.yith-wc-points-rewards-frontend.php:384
 #: plugin-options/extra-points-options.php:155
 msgid "Checkout total thresholds"
 msgstr ""
 
-#: includes/class.yith-wc-points-rewards-frontend.php:391
+#: includes/class.yith-wc-points-rewards-frontend.php:402
 msgid "Order Amount"
 msgstr ""
 
-#: includes/class.yith-wc-points-rewards-frontend.php:391
+#: includes/class.yith-wc-points-rewards-frontend.php:402
 #: plugin-options/extra-points-options.php:279
 #: plugin-options/labels-options.php:36
 #: templates/panel/types/options-conversion.php:45
@@ -448,11 +449,11 @@ msgstr ""
 msgid "Points"
 msgstr "Points"
 
-#: includes/class.yith-wc-points-rewards-frontend.php:704
+#: includes/class.yith-wc-points-rewards-frontend.php:717
 msgid "The minimum value to reedem is "
 msgstr "La valeur minimale de remboursement est "
 
-#: includes/class.yith-wc-points-rewards-frontend.php:861
+#: includes/class.yith-wc-points-rewards-frontend.php:874
 msgid ""
 "If you need to change the Birthdate, please contact the website "
 "administrator."
@@ -572,23 +573,23 @@ msgstr "Suppression de la Commission"
 msgid "Order refunded"
 msgstr "Commande remboursée"
 
-#: includes/compatibility/yith-woocommerce-subscription.php:141
+#: includes/compatibility/yith-woocommerce-subscription.php:145
 msgid "Subscription Settings"
 msgstr "Réglages des souscriptions"
 
-#: includes/compatibility/yith-woocommerce-subscription.php:147
+#: includes/compatibility/yith-woocommerce-subscription.php:151
 msgid "Earn points on subscription fee"
 msgstr "Gagnez des points sur les frais d’abonnement"
 
-#: includes/compatibility/yith-woocommerce-subscription.php:156
+#: includes/compatibility/yith-woocommerce-subscription.php:160
 msgid "Earn points on renewal orders"
 msgstr "Gagnez des points sur les commandes de réabonnements"
 
-#: includes/compatibility/yith-woocommerce-subscription.php:165
+#: includes/compatibility/yith-woocommerce-subscription.php:169
 msgid "Renew order label"
 msgstr "Renouveler l’étiquette de commande"
 
-#: includes/compatibility/yith-woocommerce-subscription.php:169
+#: includes/compatibility/yith-woocommerce-subscription.php:173
 msgid "Renew order"
 msgstr "Renouveler la commande"
 
@@ -700,7 +701,8 @@ msgid "Order Processing"
 msgstr "Traitement des commandes"
 
 #: includes/functions.yith-wc-points-rewards.php:942
-msgid "Points earned:"
+#, fuzzy
+msgid " earned:"
 msgstr "Points gagnés:"
 
 #: includes/functions.yith-wc-points-rewards.php:947
@@ -1905,7 +1907,7 @@ msgstr[0] "<strong>%d</strong> la commande a été mise à jour"
 msgstr[1] "<strong>%d</strong> les commandes ont été mises à jour"
 
 #: includes/class.yith-wc-points-rewards-earning.php:616
-#: includes/compatibility/yith-woocommerce-subscription.php:104
+#: includes/compatibility/yith-woocommerce-subscription.php:105
 msgctxt ""
 "First placeholder: number of points; second placeholder: label of points"
 msgid "Customer earned %1$d %2$s for this purchase."

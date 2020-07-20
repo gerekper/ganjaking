@@ -24,6 +24,10 @@ if ( in_array( 'all', $columns, true ) ) {
 	$columns_n = count( $columns );
 }
 
+if ( get_option( 'ywraq_show_preview' ) === 'yes' && !in_array( 'thumbnail', $columns, true ) ) {
+ ++$columns_n;
+}
+
 if ( function_exists( 'icl_get_languages' ) ) {
 	global $sitepress;
 	$lang = yit_get_prop( $order, 'wpml_language', true );

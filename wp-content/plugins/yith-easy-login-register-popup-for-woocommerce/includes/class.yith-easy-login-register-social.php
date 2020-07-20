@@ -86,7 +86,6 @@ if ( ! class_exists( 'YITH_Easy_Login_Register_Social' ) ) {
 		 */
 		public function maybe_add_social_data( $data ) {
 			$data['socialAction']            = $data['socialAction'] ?? $this->social_action;
-			$data['socialNonce']             = $data['socialNonce'] ?? wp_create_nonce( $this->social_action );
 			$data[ $this->social . 'AppID' ] = $this->app_id;
 			return $data;
 		}
@@ -119,8 +118,6 @@ if ( ! class_exists( 'YITH_Easy_Login_Register_Social' ) ) {
 		 * @throws Exception
 		 */
 		public function handle_social_action() {
-
-			check_ajax_referer( $this->social_action );
 
 			try {
 

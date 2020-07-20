@@ -26,6 +26,15 @@ if ( ! class_exists( 'YITH_Custom_Thankyou_Page_Admin_Premium' ) ) {
 	class YITH_Custom_Thankyou_Page_Admin_Premium extends YITH_Custom_Thankyou_Page_Admin {
 
 		/**
+		 * Main Class Instance
+		 *
+		 * @var YITH_Custom_Thankyou_Page
+		 * @since 1.0.0
+		 * @access protected
+		 */
+		protected static $_instance = null;
+
+		/**
 		 * WooCommerce Version.
 		 *
 		 * @var string
@@ -59,12 +68,15 @@ if ( ! class_exists( 'YITH_Custom_Thankyou_Page_Admin_Premium' ) ) {
 			add_filter( 'yith_ctpw_admin_tabs', array( $this, 'socialbox_options' ) );
 			add_filter( 'yith_ctpw_admin_tabs', array( $this, 'upsells_options' ) );
 			add_filter( 'yith_ctpw_admin_tabs', array( $this, 'pdf_options' ) );
-			add_filter( 'yith_ctpw_admin_tabs', array( $this, 'payment_gateways_options' ) );
+
+			/* load Rules Table */
+			if ( ! class_exists( 'YITH_Custom_Thankyou_Page_Rules' ) ) {
+				require_once YITH_CTPW_PATH . 'includes/class.yith-custom-thankyou-page-rules.php';
+				YITH_CTPW_RULES();
+			}
 
 			// add custom page select in main Settings Panel.
 			add_action( 'woocommerce_admin_field_yctpw_single_select_page', array( $this, 'add_settings_single_select_page' ) );
-			// add payment gateways list in Payment Gateways Tab.
-			add_filter( 'yith_ctpw_payment_gateways_fields', array( $this, 'yith_ctpw_add_payment_gateways_fields' ) );
 			// add custom page select in Payment Gateways Panel.
 			add_action( 'woocommerce_admin_field_yctpw_single_select_page_payments', array( $this, 'yctpw_single_select_page_payments' ) );
 			// load search for products field in Upsells tab.
@@ -88,7 +100,7 @@ if ( ! class_exists( 'YITH_Custom_Thankyou_Page_Admin_Premium' ) ) {
 
 			/* load the class for the Page Preview */
 			if ( ! class_exists( 'YITH_Custom_Thankyou_Page_Preview' ) && apply_filters( 'yctpw_enable_page_preview', true ) && get_option( 'yith_ctpw_enable', 'no' ) === 'yes' ) {
-				require_once( YITH_CTPW_PATH . 'includes/class.yith-custom-thankyou-page-preview.php' );
+				require_once YITH_CTPW_PATH . 'includes/class.yith-custom-thankyou-page-preview.php';
 				$this->YITH_CTPW_PREVIEW = YITH_Custom_Thankyou_Page_Preview::instance();
 			}
 
@@ -555,91 +567,6 @@ if ( ! class_exists( 'YITH_Custom_Thankyou_Page_Admin_Premium' ) ) {
 		}
 
 		/**
-		 * Add payment gateways list in Payment Gateways Tab
-		 *
-		 * @param array $fields field arguments from settings panel.
-		 *
-		 * @return array
-		 * @since 1.0.9
-		 * @author Armando Liccardo <armando.liccardo@yithemes.com>
-		 */
-		public function yith_ctpw_add_payment_gateways_fields( $fields ) {
-			$installed_payment_methods = WC()->payment_gateways->payment_gateways();
-
-			$payment_gateways_fields = array(
-				// general.
-				'ctpw_payment_gateways_options_start' => array(
-					'type' => 'sectionstart',
-				),
-
-				'ctpw_payment_gateways_options_title' => array(
-					'title' => _x( 'Payment Methods ', 'Panel: page title', 'yith-custom-thankyou-page-for-woocommerce' ),
-					'type'  => 'title',
-					'desc'  => '',
-				),
-
-				'ctpw_payment_gateways_options_end'   => array(
-					'type' => 'sectionend',
-				),
-			);
-
-
-			foreach ( $installed_payment_methods as $paymentg ) {
-
-				$payment_gateways_fields[ 'ctpw_payment_gateways_start_' . $paymentg->id ] = array(
-					'type' => 'sectionstart',
-				);
-
-				$payment_gateways_fields[ 'ctpw_payment_gateways_start_' . $paymentg->id . '_title' ] = array(
-					'title' => $paymentg->id,
-					'type'  => 'title',
-					'desc'  => '',
-				);
-
-				$payment_gateways_fields[ 'ctpw_payment_gateways_page_url_' . $paymentg->id ] = array(
-					'title'             => $paymentg->title,
-					'type'              => 'select',
-					'id'                => 'yith_ctpw_general_page_or_url_' . $paymentg->id,
-					'options'           => array(
-						'ctpw_page' => esc_html__( 'Custom Wordpress Page', 'yith-custom-thankyou-page-for-woocommerce' ),
-						'ctpw_url'  => esc_html__( 'External URL', 'yith-custom-thankyou-page-for-woocommerce' ),
-					),
-					'default'           => 'ctpw_page',
-					'class'             => 'yith_ctpw_general_page_or_url',
-					'custom_attributes' => array(
-						'ctpw_pg_id' => $paymentg->id,
-					),
-					'css'               => 'min-width:300px;',
-					'desc'              => esc_html__( 'Select the General Thank You Page or External URL', 'yith-custom-thankyou-page-for-woocommerce' ),
-				);
-
-				$payment_gateways_fields[ 'ctpw_payment_gateways_thankyou_page_' . $paymentg->id ] = array(
-					'type'        => 'yctpw_single_select_page_payments',
-					'id'          => 'yith_ctpw_page_for_' . $paymentg->id,
-					'sort_column' => 'title',
-					'class'       => 'wc-enhanced-select-nostd',
-					'css'         => 'min-width:300px;',
-
-				);
-
-				$payment_gateways_fields[ 'ctpw_payment_gateways_thankyou_url_' . $paymentg->id ] = array(
-					'type'  => 'text',
-					'id'    => 'yith_ctpw_url_for_' . $paymentg->id,
-					'class' => 'yith_ctpw_general_page_url',
-					'css'   => 'min-width:300px;',
-					'desc'  => esc_html__( 'write full url for ex: https://yithemes.com/', 'yith-custom-thankyou-page-for-woocommerce' ),
-				);
-
-				$payment_gateways_fields[ 'ctpw_payment_gateways_ends_' . $paymentg->id ] = array(
-					'type' => 'sectionend',
-				);
-			}
-
-
-			return array_merge( $fields, $payment_gateways_fields );
-		}
-
-		/**
 		 * Add Custom Page Select field in Payments Gateways Panel
 		 *
 		 * @param array $args field args.
@@ -653,59 +580,35 @@ if ( ! class_exists( 'YITH_Custom_Thankyou_Page_Admin_Premium' ) ) {
 			// get previous saved custom page id.
 			$ctpw_selected_page_id = ( get_option( $args['id'], true ) ) ? get_option( $args['id'], true ) : 0;
 
+			/* prepare pages list */
+			$pages = array( '0' => 'none' );
+			$pages = $pages + yith_ctpw_list_all_pages();
+
+			/* array field */
+			$field = array(
+				'id'      => $args['id'],
+				'name'    => $args['id'],
+				'type'    => 'select',
+				'title'   => esc_html_x( 'Select a Page', 'Admin option', 'yith-custom-thankyou-page-for-woocommerce' ),
+				'options' => $pages,
+			);
+
+			/* selected page */
+			if ( 0 !== $ctpw_selected_page_id || '0' !== $ctpw_selected_page_id ) {
+				$field['value'] = $ctpw_selected_page_id;
+			}
 			?>
 			<tr valign="top" class="yith_payment_gateways_select_page">
 				<th scope="row" class="titledesc">
 					<label><?php echo esc_html( $args['title'] ); ?><?php echo $args['desc_tip']; // phpcs:ignore XSS. ?></label>
 				</th>
-			<td class="forminp">
+				<td class="forminp forminp-select">
 			<?php
-				// get woocommerce pages ids to exclude them from list.
-				$avoid_pages = apply_filters(
-					'yctpw_avoid_pages',
-					array(
-						get_option( 'woocommerce_checkout_page_id' ),
-						get_option( 'woocommerce_cart_page_id' ),
-						get_option( 'woocommerce_shop_page_id' ),
-						get_option( 'woocommerce_myaccount_page_id' ),
-					)
-				);
-				// args to get pages.
-				$ddargs = array(
-					'name'             => $args['id'],
-					'id'               => $args['id'],
-					'sort_order'       => 'asc',
-					'sort_column'      => 'post_title',
-					'hierarchical'     => 1,
-					'exclude'          => $avoid_pages,
-					'show_option_none' => ' ',
-					'class'            => $args['class'],
-					'echo'             => false,
-					'selected'         => $ctpw_selected_page_id,
-					'post_status'      => 'publish',
-					'include'          => '',
-					'authors'          => '',
-					'child_of'         => 0,
-					'parent'           => - 1,
-					'exclude_tree'     => '',
-					'number'           => '',
-					'offset'           => 0,
-					'post_type'        => 'page',
-				);
-				// print the select.
-				echo str_replace( ' id=', " data-placeholder='" . esc_attr__( 'Select a page&hellip;', 'woocommerce' ) . "' style='" . $args['css'] . "' class='" . $args['class'] . "' id=", wp_dropdown_pages( $ddargs ) ); // phpcs:ignore XSS.
-				echo $args['desc_tip']; // phpcs:ignore XSS.
-				?>
+					yith_plugin_fw_get_field( $field, true );
+			?>
 			</td>
 			</tr>
-			<?php
-			if ( wp_script_is( 'select2', 'registered' ) && wp_script_is( 'select2', 'enqueued' ) ) {
-				?>
-				<script type="text/javascript">
-					jQuery('#yith_product_thankyou_page').select2();
-				</script>
 				<?php
-			}
 		}
 
 		/**
@@ -751,22 +654,6 @@ if ( ! class_exists( 'YITH_Custom_Thankyou_Page_Admin_Premium' ) ) {
 		 */
 		public function pdf_options( $panels ) {
 			$pdf_p  = array( 'pdf' => esc_html__( 'PDF', 'yith-custom-thankyou-page-for-woocommerce' ) );
-			$panels = array_merge( $panels, $pdf_p );
-
-			return $panels;
-		}
-
-		/**
-		 * Add Payment Gateways settings panel
-		 *
-		 * @param array $panels .
-		 *
-		 * @return array
-		 * @since 1.0.8
-		 * @author Armando Liccardo <armando.liccardo@yithemes.com>
-		 */
-		public function payment_gateways_options( $panels ) {
-			$pdf_p  = array( 'payment_gateways' => esc_html__( 'Payment Methods', 'yith-custom-thankyou-page-for-woocommerce' ) );
 			$panels = array_merge( $panels, $pdf_p );
 
 			return $panels;
@@ -1223,7 +1110,7 @@ if ( ! class_exists( 'YITH_Custom_Thankyou_Page_Admin_Premium' ) ) {
 				<select style="min-width: 250px;" name="yith_ctpw_product_cat_thankyou_page" id="yith_ctpw_product_cat_thankyou_page" class="yith_ctpw_product_cat_thankyou_page">
 				<?php
 				foreach ( $pages as $p_index => $p_name ) {
-					$selected = ( $ctpw_selected_page_id === $p_index ) ? 'selected' : '';
+					$selected = ( intval($ctpw_selected_page_id ) === $p_index ) ? 'selected' : '';
 					echo '<option value="' . $p_index . '" ' . $selected . ' >' . $p_name . '</option>'; //phpcs:ignore XSS.
 				}
 				?>
@@ -1326,6 +1213,23 @@ if ( ! class_exists( 'YITH_Custom_Thankyou_Page_Admin_Premium' ) ) {
 			$links = yith_add_action_links( $links, $this->_panel_page, true );
 
 			return $links;
+		}
+
+		/**
+		 * Main plugin Instance
+		 *
+		 * @return YITH_Custom_Thankyou_Page Admin Premium
+		 * @author Armando Liccardo <armando.liccardo@yithemes.com>
+		 * @since 1.0.0
+		 */
+		public static function instance() {
+
+			if ( is_null( self::$_instance ) ) {
+				self::$_instance = new self();
+			}
+
+			return self::$_instance;
+
 		}
 
 

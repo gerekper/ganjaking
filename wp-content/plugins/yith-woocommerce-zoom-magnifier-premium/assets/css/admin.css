@@ -1,0 +1,20 @@
+.yith_woocommerce_slider { 
+	width: 300px; 
+	float: left 
+}
+.yith_woocommerce_slider_value {
+	margin-top: -5px; 
+	margin-left: 10px; 
+	width: 50px; 
+	float: left; 
+	text-align: center; 
+	font-weight: bold;
+}
+
+.yith_banner {
+    margin-top: 10px;
+}
+
+#eg-wrap .select_fake {/* solve back-end conflict with Essential Grid */
+    height: 24px;
+}

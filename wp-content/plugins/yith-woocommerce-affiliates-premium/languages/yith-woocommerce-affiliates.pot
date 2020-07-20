@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YITH WooCommerce Affiliates Premium\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/init\n"
-"POT-Creation-Date: 2020-05-08 14:31+0200\n"
+"POT-Creation-Date: 2020-06-09 18:42+0200\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -23,7 +23,7 @@ msgstr ""
 #: includes/admin-tables/class.yith-wcaf-product-stat-table.php:209
 #: includes/class.yith-wcaf-admin.php:74
 #: includes/class.yith-wcaf-affiliate-handler-premium.php:184
-#: includes/class.yith-wcaf-commission-handler.php:1870
+#: includes/class.yith-wcaf-commission-handler.php:1874
 #: includes/class.yith-wcaf.php:453 plugin-options/settings-options.php:287
 #: templates/admin/referral-commissions-metabox-premium.php:71
 #: templates/admin/referral-commissions-metabox.php:70
@@ -74,7 +74,7 @@ msgstr ""
 #: includes/admin-tables/class.yith-wcaf-affiliates-table.php:169
 #: includes/admin-tables/class.yith-wcaf-commissions-table-premium.php:401
 #: includes/admin-tables/class.yith-wcaf-commissions-table.php:380
-#: includes/class.yith-wcaf-commission-handler.php:1915
+#: includes/class.yith-wcaf-commission-handler.php:1919
 #: includes/class.yith-wcaf-payment-handler-premium.php:176
 #: templates/emails/admin-paid-commission-email.php:28
 #: templates/emails/customer-paid-commission-email.php:28
@@ -148,13 +148,13 @@ msgstr ""
 #: includes/admin-tables/class.yith-wcaf-payments-table-premium.php:121
 #: includes/admin-tables/class.yith-wcaf-payments-table.php:231
 #: includes/class.yith-wcaf-affiliate-handler.php:1678
-#: includes/class.yith-wcaf-commission-handler.php:1904
+#: includes/class.yith-wcaf-commission-handler.php:1908
 #: includes/class.yith-wcaf-payment-handler.php:1069
 #: includes/class.yith-wcaf-privacy.php:676
 #: includes/class.yith-wcaf-privacy.php:732
 #: includes/class.yith-wcaf-privacy.php:800
-#: templates/admin/affiliate-panel-detail.php:176
-#: templates/admin/affiliate-panel-detail.php:235
+#: templates/admin/affiliate-panel-detail.php:171
+#: templates/admin/affiliate-panel-detail.php:225
 #: templates/admin/commission-panel-detail.php:63
 #: templates/admin/referral-commissions-metabox-premium.php:42
 #: templates/admin/referral-commissions-metabox.php:41
@@ -196,8 +196,8 @@ msgstr ""
 #: includes/admin-tables/class.yith-wcaf-user-rates-table.php:145
 #: includes/class.yith-wcaf-affiliate-handler.php:1682
 #: includes/class.yith-wcaf-affiliate-handler.php:1980
-#: includes/class.yith-wcaf-commission-handler.php:1913
-#: templates/admin/affiliate-panel-detail.php:180
+#: includes/class.yith-wcaf-commission-handler.php:1917
+#: templates/admin/affiliate-panel-detail.php:175
 #: templates/admin/commission-panel-detail.php:536
 #: templates/admin/referral-commissions-metabox-premium.php:44
 #: templates/admin/referral-commissions-metabox.php:43
@@ -217,7 +217,7 @@ msgstr ""
 #: includes/admin-tables/class.yith-wcaf-commissions-table-premium.php:398
 #: includes/admin-tables/class.yith-wcaf-product-stat-table.php:210
 #: includes/class.yith-wcaf-affiliate-handler.php:1684
-#: includes/class.yith-wcaf-commission-handler.php:1912
+#: includes/class.yith-wcaf-commission-handler.php:1916
 msgid "Refunds"
 msgstr ""
 
@@ -382,7 +382,7 @@ msgstr ""
 #: includes/admin-tables/class.yith-wcaf-commissions-table-premium.php:392
 #: includes/admin-tables/class.yith-wcaf-commissions-table.php:373
 #: includes/class.yith-wcaf-click-handler-premium.php:234
-#: includes/class.yith-wcaf-commission-handler.php:1906
+#: includes/class.yith-wcaf-commission-handler.php:1910
 msgid "Order"
 msgstr ""
 
@@ -400,9 +400,9 @@ msgstr ""
 #: includes/admin-tables/class.yith-wcaf-commissions-table-premium.php:402
 #: includes/admin-tables/class.yith-wcaf-commissions-table.php:381
 #: includes/class.yith-wcaf-click-handler-premium.php:237
-#: includes/class.yith-wcaf-commission-handler.php:1916
+#: includes/class.yith-wcaf-commission-handler.php:1920
 #: includes/class.yith-wcaf-privacy.php:803
-#: templates/admin/affiliate-panel-detail.php:177
+#: templates/admin/affiliate-panel-detail.php:172
 #: templates/admin/payment-panel-detail.php:350
 #: templates/shortcodes/dashboard-clicks.php:59
 #: templates/shortcodes/dashboard-commissions.php:63
@@ -415,13 +415,13 @@ msgstr ""
 msgid "Conversion time"
 msgstr ""
 
-#: includes/admin-tables/class.yith-wcaf-clicks-table.php:356
-#: includes/admin-tables/class.yith-wcaf-commissions-table.php:565
+#: includes/admin-tables/class.yith-wcaf-clicks-table.php:357
+#: includes/admin-tables/class.yith-wcaf-commissions-table.php:566
 msgid "Select a user"
 msgstr ""
 
-#: includes/admin-tables/class.yith-wcaf-clicks-table.php:362
-#: includes/admin-tables/class.yith-wcaf-commissions-table.php:571
+#: includes/admin-tables/class.yith-wcaf-clicks-table.php:363
+#: includes/admin-tables/class.yith-wcaf-commissions-table.php:572
 #: includes/admin-tables/class.yith-wcaf-payments-table.php:339
 #: templates/admin/stat-panel-general-premium.php:28
 #: templates/admin/stat-panel-general.php:28
@@ -432,8 +432,8 @@ msgstr ""
 msgid "From:"
 msgstr ""
 
-#: includes/admin-tables/class.yith-wcaf-clicks-table.php:363
-#: includes/admin-tables/class.yith-wcaf-commissions-table.php:572
+#: includes/admin-tables/class.yith-wcaf-clicks-table.php:364
+#: includes/admin-tables/class.yith-wcaf-commissions-table.php:573
 #: includes/admin-tables/class.yith-wcaf-payments-table.php:340
 #: templates/admin/stat-panel-general-premium.php:29
 #: templates/admin/stat-panel-general.php:29
@@ -444,9 +444,9 @@ msgstr ""
 msgid "To:"
 msgstr ""
 
-#: includes/admin-tables/class.yith-wcaf-clicks-table.php:365
-#: includes/admin-tables/class.yith-wcaf-commissions-table.php:574
-#: includes/admin-tables/class.yith-wcaf-payments-table.php:342
+#: includes/admin-tables/class.yith-wcaf-clicks-table.php:367
+#: includes/admin-tables/class.yith-wcaf-commissions-table.php:576
+#: includes/admin-tables/class.yith-wcaf-payments-table.php:343
 #: templates/admin/stat-panel-general-premium.php:41
 #: templates/admin/stat-panel-general.php:30
 #: templates/shortcodes/dashboard-clicks.php:47
@@ -455,9 +455,9 @@ msgstr ""
 msgid "Filter"
 msgstr ""
 
-#: includes/admin-tables/class.yith-wcaf-clicks-table.php:371
-#: includes/admin-tables/class.yith-wcaf-commissions-table.php:580
-#: includes/admin-tables/class.yith-wcaf-payments-table.php:348
+#: includes/admin-tables/class.yith-wcaf-clicks-table.php:373
+#: includes/admin-tables/class.yith-wcaf-commissions-table.php:582
+#: includes/admin-tables/class.yith-wcaf-payments-table.php:349
 #: templates/admin/stat-panel-general-premium.php:43
 #: templates/admin/stat-panel-general.php:32
 #: templates/shortcodes/dashboard-clicks.php:49
@@ -500,12 +500,12 @@ msgstr ""
 #: includes/admin-tables/class.yith-wcaf-payments-table.php:232
 #: includes/class.yith-wcaf-affiliate-handler.php:1680
 #: includes/class.yith-wcaf-click-handler-premium.php:232
-#: includes/class.yith-wcaf-commission-handler.php:1905
+#: includes/class.yith-wcaf-commission-handler.php:1909
 #: includes/class.yith-wcaf-payment-handler.php:1068
 #: includes/class.yith-wcaf-privacy.php:677
 #: includes/class.yith-wcaf-privacy.php:733
-#: templates/admin/affiliate-panel-detail.php:178
-#: templates/admin/affiliate-panel-detail.php:236
+#: templates/admin/affiliate-panel-detail.php:173
+#: templates/admin/affiliate-panel-detail.php:226
 #: templates/admin/commission-panel-detail.php:65
 #: templates/admin/commission-panel-detail.php:223
 #: templates/admin/payment-panel-detail.php:160
@@ -521,7 +521,7 @@ msgstr ""
 
 #: includes/admin-tables/class.yith-wcaf-commissions-table-premium.php:393
 #: includes/admin-tables/class.yith-wcaf-commissions-table.php:374
-#: includes/class.yith-wcaf-commission-handler.php:1907
+#: includes/class.yith-wcaf-commission-handler.php:1911
 msgid "User"
 msgstr ""
 
@@ -529,9 +529,9 @@ msgstr ""
 #: includes/admin-tables/class.yith-wcaf-commissions-table.php:375
 #: includes/admin-tables/class.yith-wcaf-product-rates-table.php:153
 #: includes/admin-tables/class.yith-wcaf-product-stat-table.php:208
-#: includes/class.yith-wcaf-commission-handler.php:1908
+#: includes/class.yith-wcaf-commission-handler.php:1912
 #: includes/class.yith-wcaf-privacy.php:679
-#: templates/admin/affiliate-panel-detail.php:179
+#: templates/admin/affiliate-panel-detail.php:174
 #: templates/emails/commissions-table.php:34
 #: templates/shortcodes/dashboard-commissions.php:69
 msgid "Product"
@@ -539,19 +539,19 @@ msgstr ""
 
 #: includes/admin-tables/class.yith-wcaf-commissions-table-premium.php:395
 #: includes/admin-tables/class.yith-wcaf-commissions-table.php:376
-#: includes/class.yith-wcaf-commission-handler.php:1909
+#: includes/class.yith-wcaf-commission-handler.php:1913
 msgid "Category"
 msgstr ""
 
 #: includes/admin-tables/class.yith-wcaf-commissions-table-premium.php:396
 #: includes/admin-tables/class.yith-wcaf-commissions-table.php:377
-#: includes/class.yith-wcaf-commission-handler.php:1910
+#: includes/class.yith-wcaf-commission-handler.php:1914
 #: templates/emails/commissions-table.php:35
 msgid "Total"
 msgstr ""
 
 #: includes/admin-tables/class.yith-wcaf-commissions-table-premium.php:397
-#: includes/class.yith-wcaf-commission-handler.php:1911
+#: includes/class.yith-wcaf-commission-handler.php:1915
 msgid "Discounts"
 msgstr ""
 
@@ -630,7 +630,7 @@ msgstr ""
 msgid "Trash"
 msgstr ""
 
-#: includes/admin-tables/class.yith-wcaf-commissions-table.php:556
+#: includes/admin-tables/class.yith-wcaf-commissions-table.php:557
 msgid "Select a product"
 msgstr ""
 
@@ -653,12 +653,12 @@ msgstr ""
 
 #: includes/admin-tables/class.yith-wcaf-payments-table-premium.php:124
 #: includes/admin-tables/class.yith-wcaf-payments-table.php:235
-#: includes/class.yith-wcaf-commission-handler.php:1914
+#: includes/class.yith-wcaf-commission-handler.php:1918
 #: includes/class.yith-wcaf-payment-handler.php:1072
 #: includes/class.yith-wcaf-privacy.php:681
 #: includes/class.yith-wcaf-privacy.php:737
-#: templates/admin/affiliate-panel-detail.php:181
-#: templates/admin/affiliate-panel-detail.php:237
+#: templates/admin/affiliate-panel-detail.php:176
+#: templates/admin/affiliate-panel-detail.php:227
 #: templates/admin/commission-panel-detail.php:68
 #: templates/admin/referral-commissions-metabox-premium.php:45
 #: templates/admin/referral-commissions-metabox.php:44
@@ -672,14 +672,14 @@ msgstr ""
 #: includes/admin-tables/class.yith-wcaf-payments-table-premium.php:125
 #: includes/admin-tables/class.yith-wcaf-payments-table.php:236
 #: includes/class.yith-wcaf-payment-handler.php:1073
-#: templates/admin/affiliate-panel-detail.php:238
+#: templates/admin/affiliate-panel-detail.php:228
 #: templates/shortcodes/dashboard-payments.php:68
 msgid "Created at"
 msgstr ""
 
 #: includes/admin-tables/class.yith-wcaf-payments-table-premium.php:126
 #: includes/class.yith-wcaf-payment-handler.php:1074
-#: templates/admin/affiliate-panel-detail.php:239
+#: templates/admin/affiliate-panel-detail.php:229
 #: templates/admin/payment-panel-detail.php:170
 #: templates/shortcodes/dashboard-payments.php:71
 msgid "Completed at"
@@ -703,7 +703,7 @@ msgstr ""
 msgid "Change status to on hold"
 msgstr ""
 
-#: includes/admin-tables/class.yith-wcaf-payments-table.php:332
+#: includes/admin-tables/class.yith-wcaf-payments-table.php:333
 #: includes/class.yith-wcaf-affiliate-handler-premium.php:847
 #: templates/admin/referral-commissions-metabox-premium.php:97
 #: templates/admin/stat-panel-general-premium.php:35
@@ -1248,7 +1248,7 @@ msgid "Conv. Rate"
 msgstr ""
 
 #: includes/class.yith-wcaf-affiliate-handler.php:1690
-#: includes/class.yith-wcaf-commission-handler.php:1917
+#: includes/class.yith-wcaf-commission-handler.php:1921
 #: templates/admin/affiliate-panel-detail.php:40
 #: templates/admin/commission-panel-detail.php:40
 #: templates/admin/payment-panel-detail.php:39
@@ -1498,22 +1498,22 @@ msgstr ""
 msgid "Trashed"
 msgstr ""
 
-#: includes/class.yith-wcaf-commission-handler.php:588
+#: includes/class.yith-wcaf-commission-handler.php:592
 #, php-format
 msgid "Refunded %s due to refund #%s creation"
 msgstr ""
 
-#: includes/class.yith-wcaf-commission-handler.php:626
+#: includes/class.yith-wcaf-commission-handler.php:630
 #, php-format
 msgid "Restored %s due to refund #%s deletion"
 msgstr ""
 
-#: includes/class.yith-wcaf-commission-handler.php:787
+#: includes/class.yith-wcaf-commission-handler.php:791
 #, php-format
 msgid "%s restored this item; system automatically assigned %s status"
 msgstr ""
 
-#: includes/class.yith-wcaf-commission-handler.php:958
+#: includes/class.yith-wcaf-commission-handler.php:962
 #: includes/class.yith-wcaf-payment-handler.php:299
 #: templates/admin/commission-panel-detail.php:148
 #: templates/admin/payment-panel-detail.php:99
@@ -1521,19 +1521,19 @@ msgstr ""
 msgid "added on %1$s at %2$s"
 msgstr ""
 
-#: includes/class.yith-wcaf-commission-handler.php:959
+#: includes/class.yith-wcaf-commission-handler.php:963
 #: includes/class.yith-wcaf-payment-handler.php:300
 #: templates/admin/commission-panel-detail.php:149
 #: templates/admin/payment-panel-detail.php:100
 msgid "Delete note"
 msgstr ""
 
-#: includes/class.yith-wcaf-commission-handler.php:1987
+#: includes/class.yith-wcaf-commission-handler.php:1991
 #, php-format
 msgid "Moved to trash by %s"
 msgstr ""
 
-#: includes/class.yith-wcaf-commission-handler.php:2039
+#: includes/class.yith-wcaf-commission-handler.php:2043
 msgid "Referral Commissions"
 msgstr ""
 
@@ -2370,6 +2370,11 @@ msgstr ""
 #: includes/class.yith-wcaf.php:154
 msgctxt "enhanced select"
 msgid "Searching&hellip;"
+msgstr ""
+
+#: includes/class.yith-wcaf.php:155
+msgctxt "alert message"
+msgid "Url copied"
 msgstr ""
 
 #: includes/class.yith-wcaf.php:243
@@ -3280,35 +3285,35 @@ msgstr ""
 msgid "Active balance:"
 msgstr ""
 
-#: templates/admin/affiliate-panel-detail.php:167
+#: templates/admin/affiliate-panel-detail.php:162
 msgid "Last affiliate commissions"
 msgstr ""
 
-#: templates/admin/affiliate-panel-detail.php:168
+#: templates/admin/affiliate-panel-detail.php:163
 msgid "See all commissions"
 msgstr ""
 
-#: templates/admin/affiliate-panel-detail.php:201
+#: templates/admin/affiliate-panel-detail.php:196
 msgid "No commission registered yet"
 msgstr ""
 
-#: templates/admin/affiliate-panel-detail.php:226
+#: templates/admin/affiliate-panel-detail.php:216
 msgid "Last affiliate payments"
 msgstr ""
 
-#: templates/admin/affiliate-panel-detail.php:227
+#: templates/admin/affiliate-panel-detail.php:217
 msgid "See all payments"
 msgstr ""
 
-#: templates/admin/affiliate-panel-detail.php:260
+#: templates/admin/affiliate-panel-detail.php:250
 msgid "No payment registered yet"
 msgstr ""
 
-#: templates/admin/affiliate-panel-detail.php:277
+#: templates/admin/affiliate-panel-detail.php:262
 msgid "Affiliate associated users"
 msgstr ""
 
-#: templates/admin/affiliate-panel-detail.php:299
+#: templates/admin/affiliate-panel-detail.php:284
 msgid "No user registered yet"
 msgstr ""
 

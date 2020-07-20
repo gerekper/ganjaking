@@ -679,6 +679,11 @@
 
         if( typeof Flatsome != 'undefined' ){
             Flatsome.attach( $( '.product-gallery' ) );
+            // foce zoom button to work
+            $( '.zoom-button' ).click( function ( ev ) {
+                ev.preventDefault();
+                $( '.product-gallery-slider' ) .find( '.is-selected a' ).click();
+            });
         }
     });
 

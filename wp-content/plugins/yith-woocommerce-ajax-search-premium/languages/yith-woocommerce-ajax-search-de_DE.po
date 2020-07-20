@@ -4,15 +4,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YITH WooCommerce Ajax Search\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
-"ajax-search-premium\n"
-"POT-Creation-Date: 2020-05-25 12:28:00+00:00\n"
+"ajax-search.premium\n"
+"POT-Creation-Date: 2020-07-03 07:00:19+00:00\n"
 "PO-Revision-Date: 2020-04-28 09:35:07+0000\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/2.3.1\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
 
 #: includes/class.yith-wcas-admin.php:97
 msgid "Settings"
@@ -26,35 +26,35 @@ msgstr "Suche"
 msgid "Output"
 msgstr "Ausgabe"
 
-#: includes/class.yith-wcas.php:642
+#: includes/class.yith-wcas.php:652
 msgid "sale"
 msgstr "Verkauf"
 
-#: includes/class.yith-wcas.php:646
+#: includes/class.yith-wcas.php:656
 msgid "Out of stock"
 msgstr "Nicht vorrätig"
 
-#: includes/class.yith-wcas.php:650
+#: includes/class.yith-wcas.php:660
 msgid "featured"
 msgstr "empfohlen"
 
-#: includes/class.yith-wcas.php:714 plugin-options/output-options.php:295
+#: includes/class.yith-wcas.php:724 plugin-options/output-options.php:295
 msgid "No results"
 msgstr "Keine Ergebnisse"
 
-#: includes/class.yith-wcas.php:1108
+#: includes/class.yith-wcas.php:1118
 msgid "Search in product brands"
 msgstr "Durchsuche Marken"
 
-#: includes/class.yith-wcas.php:1109
+#: includes/class.yith-wcas.php:1119
 msgid "Extend search in product brands"
 msgstr "Erweitert die Suche und durchsucht Marken"
 
-#: includes/class.yith-wcas.php:1160
+#: includes/class.yith-wcas.php:1170
 msgid "Search by vendor"
 msgstr "Nach Lieferanten suchen"
 
-#: includes/class.yith-wcas.php:1161
+#: includes/class.yith-wcas.php:1171
 msgid "Extend search in vendors' products"
 msgstr "Erweiterte Suche in Verkäufer Produkte"
 

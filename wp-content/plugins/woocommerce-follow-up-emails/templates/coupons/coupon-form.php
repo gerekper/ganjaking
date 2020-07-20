@@ -150,93 +150,82 @@ else
 
 										<div class="options_group">
 											<p class="form-field">
-												<label for="product_ids"><?php esc_html_e('Products', 'follow_up_emails'); ?></label>
-												<?php
-												if ( !is_array( $data['products']) ) {
-													$data['products'] = explode( ',', $data['products'] );
-												}
-
-												$product_ids    = array_filter( array_map( 'absint', $data['products'] ) );
-												$json_ids       = array();
-
-												foreach ( $product_ids as $product_id ) {
-													$product = WC_FUE_Compatibility::wc_get_product( $product_id );
-													if ( ! $product ) {
-														continue;
-													}
-													$json_ids[ $product_id ] = wp_kses_post( $product->get_formatted_name() );
-												}
-												?>
-												<input
-													type="hidden"
+												<label for="product_ids"><?php esc_html_e( 'Products', 'follow_up_emails' ); ?></label>
+												<select
 													id="product_ids"
-													name="product_ids"
+													name="product_ids[]"
 													class="ajax_select2_products_and_variations"
-													data-multiple="true"
-													data-placeholder="Search for a product..."
-													style="width: 400px"
-													value="<?php echo esc_attr( implode( ',', array_keys( $json_ids ) ) ); ?>"
-													data-selected="<?php echo wc_esc_json( wp_json_encode( $json_ids ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?>"
-													>
+													multiple
+													data-placeholder="<?php esc_attr_e( 'Search for products&hellip;', 'follow_up_emails' ); ?>"
+												>
+												<?php
+													if ( ! is_array( $data['products'] ) ) {
+														$data['products'] = explode( ',', $data['products'] );
+													}
+													$product_ids = array_filter( array_map( 'absint', $data['products'] ) );
 
-												<span class="description"><?php esc_html_e('Products which need to be in the cart to use this coupon or, for &quot;Product Discounts&quot;, which products are discounted.', 'follow_up_emails'); ?></span>
+													foreach ( $product_ids as $product_id ) {
+														$product      = WC_FUE_Compatibility::wc_get_product( $product_id );
+														$product_name = $product ? htmlspecialchars( wp_kses_post( $product->get_formatted_name() ) ) : '';
+												?>
+													<option value="<?php echo esc_attr( $product_id ); ?>" selected><?php echo esc_html( $product_name ); ?></option>
+												<?php
+													}
+												?>
+												</select>
+												<span class="description"><?php esc_html_e( 'Products which need to be in the cart to use this coupon or, for &quot;Product Discounts&quot;, which products are discounted.', 'follow_up_emails' ); ?></span>
 											</p>
 											<p class="form-field">
-												<label for="exclude_product_ids"><?php esc_html_e('Exclude Products', 'follow_up_emails'); ?></label>
-												<?php
-												if ( !is_array( $data['exclude_products'] ) ) {
-													$data['exclude_products'] = explode( ',', $data['exclude_products'] );
-												}
-												$product_ids    = array_filter( array_map( 'absint', $data['exclude_products'] ) );
-												$json_ids       = array();
-
-												foreach ( $product_ids as $product_id ) {
-													$product = WC_FUE_Compatibility::wc_get_product( $product_id );
-													if ( ! $product ) {
-														continue;
-													}
-													$json_ids[ $product_id ] = wp_kses_post( $product->get_formatted_name() );
-												}
-												?>
-												<input
-													type="text"
+												<label for="exclude_product_ids"><?php esc_html_e( 'Exclude Products', 'follow_up_emails' ); ?></label>
+												<select
 													id="exclude_product_ids"
-													name="exclude_product_ids"
+													name="exclude_product_ids[]"
 													class="ajax_select2_products_and_variations"
-													data-multiple="true"
-													data-placeholder="Search for a product..."
-													style="width: 400px"
-													value="<?php echo esc_attr( implode( ',', array_keys( $json_ids ) ) ); ?>"
-													data-selected="<?php echo esc_attr( wp_json_encode( $json_ids ) ); ?>"
-													>
+													multiple
+													data-placeholder="<?php esc_attr_e( 'Search for products&hellip;', 'follow_up_emails' ); ?>"
+												>
+												<?php
+													if ( ! is_array( $data['exclude_products'] ) ) {
+														$data['exclude_products'] = explode( ',', $data['exclude_products'] );
+													}
+													$product_ids = array_filter( array_map( 'absint', $data['exclude_products'] ) );
 
-												<span class="description"><?php esc_html_e('Products which must not be in the cart to use this coupon or, for &quot;Product Discounts&quot;, which products are not discounted.', 'follow_up_emails'); ?></span>
+													foreach ( $product_ids as $product_id ) {
+														$product      = WC_FUE_Compatibility::wc_get_product( $product_id );
+														$product_name = $product ? htmlspecialchars( wp_kses_post( $product->get_formatted_name() ) ) : '';
+												?>
+													<option value="<?php echo esc_attr( $product_id ); ?>" selected><?php echo esc_html( $product_name ); ?></option>
+												<?php
+													}
+												?>
+												</select>
+												<span class="description"><?php esc_html_e( 'Products which must not be in the cart to use this coupon or, for &quot;Product Discounts&quot;, which products are not discounted.', 'follow_up_emails' ); ?></span>
 											</p>
 										</div>
 										<div class="options_group">
 											<p class="form-field">
-												<label for="product_categories"><?php esc_html_e('Product Categories', 'follow_up_emails'); ?></label>
-												<select id="product_categories" name="product_categories[]" class="select2" multiple="multiple" data-placeholder="Any category" style="width: 400px">
+												<label for="product_categories"><?php esc_html_e( 'Product Categories', 'follow_up_emails' ); ?></label>
+												<select id="product_categories" name="product_categories[]" class="select2" multiple="multiple" data-placeholder="Any category" style="width: 100%">
 													<?php
-													foreach ($categories as $category):
-														$selected = (!in_array($category->term_id, $data['categories'])) ? '' : 'selected';
+													foreach ($categories as $category) :
+														$selected = ( ! in_array( $category->term_id, $data['categories'] ) ) ? '' : 'selected';
 														?>
-														<option value="<?php echo esc_attr($category->term_id); ?>" <?php echo esc_attr( $selected ); ?>><?php echo esc_html($category->name); ?></option>
+														<option value="<?php echo esc_attr( $category->term_id ); ?>" <?php echo esc_attr( $selected ); ?>><?php echo esc_html( $category->name ); ?></option>
 													<?php endforeach; ?>
 												</select>
-												<span class="description"><?php esc_html_e('A product must be in this category for the coupon to remain valid or, for &quot;Product Discounts&quot;, products in these categories will be discounted.', 'follow_up_emails'); ?></span>
+												<span class="description"><?php esc_html_e( 'A product must be in this category for the coupon to remain valid or, for &quot;Product Discounts&quot;, products in these categories will be discounted.', 'follow_up_emails' ); ?></span>
 											</p>
 											<p class="form-field">
-												<label for="exclude_product_categories"><?php esc_html_e('Exclude Categories', 'follow_up_emails'); ?></label>
-												<select id="exclude_product_categories" name="exclude_product_categories[]" class="select2" multiple="multiple" data-placeholder="No categories" style="width: 400px">
+												<label for="exclude_product_categories"><?php esc_html_e( 'Exclude Categories', 'follow_up_emails' ); ?></label>
+												<select id="exclude_product_categories" name="exclude_product_categories[]" class="select2" multiple="multiple" data-placeholder="No categories" style="width: 100%">
 													<?php
-													foreach ($categories as $category):
-														$selected = (!in_array($category->term_id, $data['exclude_categories'])) ? '' : 'selected';
+													foreach ($categories as $category) :
+														$selected = ( ! in_array( $category->term_id, $data['exclude_categories'] ) ) ? '' : 'selected';
 														?>
-														<option value="<?php echo esc_attr($category->term_id); ?>" <?php echo esc_attr( $selected ); ?>><?php echo esc_html($category->name); ?></option>
+														<option value="<?php echo esc_attr( $category->term_id ); ?>" <?php echo esc_attr( $selected ); ?>><?php echo esc_html( $category->name ); ?></option>
 													<?php endforeach; ?>
 												</select>
-												<span class="description"><?php esc_html_e('Product must not be in this category for the coupon to remain valid or, for &quot;Product Discounts&quot;, products in these categories will not be discounted.', 'follow_up_emails'); ?></span>
+												<span class="description"><?php esc_html_e( 'Product must not be in this category for the coupon to remain valid or, for &quot;Product Discounts&quot;, products in these categories will not be discounted.', 'follow_up_emails' ); ?></span>
 											</p>
 										</div>
 									</div>
@@ -297,11 +286,12 @@ else
 			jQuery("#prefix").val(jQuery(this).val());
 		});
 
-		jQuery(":input.ajax_select2_products_and_variations").filter( ':not(.enhanced)' ).each( function() {
+		jQuery( ':input.ajax_select2_products_and_variations' ).filter( ':not(.enhanced)' ).each( function() {
 			var select2_args = {
-				allowClear:  $( this ).data( 'allow_clear' ) ? true : false,
-				placeholder: $( this ).data( 'placeholder' ),
-				minimumInputLength: $( this ).data( 'minimum_input_length' ) ? $( this ).data( 'minimum_input_length' ) : '3',
+				allowClear:  jQuery( this ).data( 'allow_clear' ) ? true : false,
+				placeholder: jQuery( this ).data( 'placeholder' ),
+				width:       '100%',
+				minimumInputLength: jQuery( this ).data( 'minimum_input_length' ) ? jQuery( this ).data( 'minimum_input_length' ) : 3,
 				escapeMarkup: function( m ) {
 					return m;
 				},
@@ -309,50 +299,27 @@ else
 					url:         ajaxurl,
 					dataType:    'json',
 					quietMillis: 250,
-					data: function( term, page ) {
+					data: function( params ) {
 						return {
-							term:     term,
-							action:   'woocommerce_json_search_products_and_variations',
-							security: '<?php echo esc_js( wp_create_nonce("search-products") ); ?>'
+							term:     params.term,
+							action:   jQuery( this ).data( 'action' ) || 'woocommerce_json_search_products_and_variations',
+							security: '<?php echo esc_js( wp_create_nonce( 'search-products' ) ); ?>',
 						};
 					},
-					results: function( data, page ) {
-						var terms = [];
+					processResults: function( data ) {
+						var products = [];
 						if ( data ) {
-							$.each( data, function( id, text ) {
-								terms.push( { id: id, text: text } );
-							});
+							jQuery.each( data, function( id, text ) {
+								products.push( { id: id, text: text } );
+							} );
 						}
-						return { results: terms };
+						return { results: products };
 					},
 					cache: true
-				}
+				},
 			};
 
-			if ( $( this ).data( 'multiple' ) === true ) {
-				select2_args.multiple = true;
-				select2_args.initSelection = function( element, callback ) {
-					var data     = $.parseJSON( element.attr( 'data-selected' ) );
-					var selected = [];
-
-					$( element.val().split( "," ) ).each( function( i, val ) {
-						selected.push( { id: val, text: data[ val ] } );
-					});
-					return callback( selected );
-				};
-				select2_args.formatSelection = function( data ) {
-					return '<div class="selected-option" data-id="' + data.id + '">' + data.text + '</div>';
-				};
-			} else {
-				select2_args.multiple = false;
-				select2_args.initSelection = function( element, callback ) {
-					var data = {id: element.val(), text: element.attr( 'data-selected' )};
-					return callback( data );
-				};
-			}
-
-
-			jQuery(this).select2(select2_args);
+			jQuery( this ).select2( select2_args ).addClass( 'enhanced' );
 		} );
 
 		jQuery(":input.select2").select2().addClass( 'enhanced' );

@@ -3,17 +3,17 @@
  * Plugin Name: YITH WooCommerce Best Sellers Premium
  * Plugin URI: https://yithemes.com/themes/plugins/yith-woocommerce-best-sellers/
  * Description: <code><strong>YITH WooCommerce Best Sellers</strong></code> allows you to highlight best seller products of your store. You can show them on a Best Sellers page or through a widget. The plugin also allows you to show a Best Sellers badge on your products to catch your customers’ eye. <a href="https://yithemes.com/" target="_blank">Get more plugins for your e-commerce shop on <strong>YITH</strong></a>
- * Version: 1.1.17
+ * Version: 1.1.19
  * Author: YITH
  * Author URI: https://yithemes.com/
  * Text Domain: yith-woocommerce-best-sellers
  * Domain Path: /languages/
  * WC requires at least: 3.0.0
- * WC tested up to: 4.1.x
+ * WC tested up to: 4.3.x
  *
  * @author  yithemes
  * @package YITH WooCommerce Best Sellers Premium
- * @version 1.1.17
+ * @version 1.1.19
  */
 /*  Copyright 2015  Your Inspiration Themes  (email : plugins@yithemes.com)
 
@@ -61,7 +61,7 @@ register_activation_hook( __FILE__, 'yith_plugin_registration_hook' );
 
 
 if ( ! defined( 'YITH_WCBSL_VERSION' ) ) {
-	define( 'YITH_WCBSL_VERSION', '1.1.17' );
+	define( 'YITH_WCBSL_VERSION', '1.1.19' );
 }
 
 if ( ! defined( 'YITH_WCBSL_PREMIUM' ) ) {

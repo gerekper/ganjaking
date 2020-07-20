@@ -19,9 +19,9 @@ $date_format = apply_filters('yith_wcgc_date_format','Y-m-d');
 <div class="gift-card-content-editor step-content">
 
     <?php if ( 'yes' == get_option('ywgc_ask_sender_name_physical', 'no') ) : ?>
-        <label for="ywgc-sender-info-title">
-            <?php echo get_option( 'ywgc_sender_info_title' , esc_html__( "YOUR INFO", 'yith-woocommerce-gift-cards') ); ;?>
-        </label>
+	    <h5 class="ywgc-sender-info-title">
+		    <?php echo get_option( 'ywgc_sender_info_title' , esc_html__( "YOUR INFO", 'yith-woocommerce-gift-cards') ); ;?>
+	    </h5>
 
         <div class="ywgc-sender-name">
             <label for="ywgc-sender-name"><?php echo apply_filters('ywgc_sender_name_label',esc_html__( "Name: ", 'yith-woocommerce-gift-cards' )); ?></label>

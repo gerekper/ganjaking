@@ -5,14 +5,14 @@ msgstr ""
 "Project-Id-Version: YITH Product Size Charts for WooCommerce\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-product-size-"
 "charts-for-woocommerce-premium\n"
-"POT-Creation-Date: 2020-05-25 14:07:58+00:00\n"
-"PO-Revision-Date: 2020-04-28 08:37:47+0000\n"
+"POT-Creation-Date: 2020-07-07 12:56:59+00:00\n"
+"PO-Revision-Date: 2020-06-22 20:42:36+0000\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/2.3.1\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
 
 #: includes/class.yith-wcpsc-admin-premium.php:94
 msgid "Shortcode"
@@ -166,11 +166,11 @@ msgstr "Crea la tua tabella misure"
 
 #: includes/class.yith-wcpsc-admin.php:353
 msgid "%s allows you to create custom size charts."
-msgstr ""
+msgstr "%s ti permette di creare delle tabelle misure personalizzate. "
 
 #: includes/class.yith-wcpsc-admin.php:354
 msgid "Go to %s menu."
-msgstr ""
+msgstr "Vai al menu %s."
 
 #: includes/class.yith-wcpsc-admin.php:355 includes/class.yith-wcpsc.php:71
 msgid "Size Charts"
@@ -178,11 +178,11 @@ msgstr "Tabelle misure"
 
 #: includes/class.yith-wcpsc-admin.php:356
 msgid "Create your Size Chart and assign it to a product."
-msgstr ""
+msgstr "Crea la tua tabella misure ed assegnala ad un prodotto."
 
 #: includes/class.yith-wcpsc-admin.php:357
 msgid "It will be visible on detail page of the selected product."
-msgstr ""
+msgstr "Sarà visibile nella pagina dettaglio del prodotto selezionato."
 
 #: includes/class.yith-wcpsc-free-to-premium-importer.php:63
 msgid "All size charts updated correctly!"

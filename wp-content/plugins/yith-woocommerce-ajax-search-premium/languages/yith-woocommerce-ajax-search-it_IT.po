@@ -4,15 +4,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YITH WooCommerce Ajax Search\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
-"ajax-search-premium\n"
-"POT-Creation-Date: 2020-05-25 12:28:00+00:00\n"
-"PO-Revision-Date: 2020-05-11 17:44:44+0000\n"
+"ajax-search.premium\n"
+"POT-Creation-Date: 2020-07-03 07:00:19+00:00\n"
+"PO-Revision-Date: 2020-06-25 14:51:18+0000\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/2.3.1\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
 
 #: includes/class.yith-wcas-admin.php:97
 msgid "Settings"
@@ -26,35 +26,35 @@ msgstr "Cerca"
 msgid "Output"
 msgstr "Risultati di ricerca"
 
-#: includes/class.yith-wcas.php:642
+#: includes/class.yith-wcas.php:652
 msgid "sale"
 msgstr "in saldo"
 
-#: includes/class.yith-wcas.php:646
+#: includes/class.yith-wcas.php:656
 msgid "Out of stock"
 msgstr "Prodotto esaurito"
 
-#: includes/class.yith-wcas.php:650
+#: includes/class.yith-wcas.php:660
 msgid "featured"
 msgstr "in evidenza"
 
-#: includes/class.yith-wcas.php:714 plugin-options/output-options.php:295
+#: includes/class.yith-wcas.php:724 plugin-options/output-options.php:295
 msgid "No results"
 msgstr "Nessun risultato"
 
-#: includes/class.yith-wcas.php:1108
+#: includes/class.yith-wcas.php:1118
 msgid "Search in product brands"
 msgstr "Cerca nei brand dei prodotti"
 
-#: includes/class.yith-wcas.php:1109
+#: includes/class.yith-wcas.php:1119
 msgid "Extend search in product brands"
 msgstr "Estendi la ricerca ai brand dei prodotti"
 
-#: includes/class.yith-wcas.php:1160
+#: includes/class.yith-wcas.php:1170
 msgid "Search by vendor"
 msgstr "Ricerca per venditore"
 
-#: includes/class.yith-wcas.php:1161
+#: includes/class.yith-wcas.php:1171
 msgid "Extend search in vendors' products"
 msgstr "Estendi la ricerca ai prodotti dei venditori"
 
@@ -183,11 +183,13 @@ msgstr "Prezzo:"
 
 #: plugin-options/output-options.php:82
 msgid "Include Product Variation"
-msgstr ""
+msgstr "Includi variazioni del prodotto"
 
 #: plugin-options/output-options.php:83
 msgid "Choose if include or not the product variations in the search results"
 msgstr ""
+"Scegli se includere o meno le variazioni del prodotto nei risultati di "
+"ricerca"
 
 #: plugin-options/output-options.php:90
 msgid "Loader"

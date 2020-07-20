@@ -15,13 +15,21 @@ jQuery( function ( $ ) {
         var field = '#' + t.data( 'dep-target' ),
             dep   = '#' + t.data( 'dep-id' ),
             value = t.data( 'dep-value' ),
-            type  = t.data( 'dep-type' );
+            type  = t.data( 'dep-type' ),
+            event = 'change',
+            wrapper = $( dep + '-wrapper' ),
+            field_type = wrapper.data( 'type' );
+
+        if( field_type === 'select-images' ){
+          event = 'yith_select_images_value_changed';
+        }
 
         dependencies_handler( field, dep, value.toString(), type );
 
-        $( dep ).on( 'change', function () {
+        $( dep ).on( event, function () {
             dependencies_handler( field, dep, value.toString(), type );
-        } ).change();
+        } ).trigger( event );
+
     } );
 
     //Handle dependencies.
@@ -42,6 +50,10 @@ jQuery( function ( $ ) {
                 } else {
                     val = 'no';
                 }
+            }
+
+            if( $( deps + '-wrapper' ).data( 'type' ) === 'select-images' ){
+              val = $( deps + '-wrapper' ).find( 'select' ).first().val();
             }
 
             values = values.split( ',' );

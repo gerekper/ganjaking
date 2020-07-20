@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the YITH WooCommerce Deposits and Down Payments package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-05-11 17:59+0200\n"
+"PO-Revision-Date: 2020-06-11 20:08+0200\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -28,11 +28,11 @@ msgstr "Aggiorna i metodi di spedizione"
 
 #: templates/shipping-calculator.php:93
 msgid "Postcode / ZIP"
-msgstr ""
+msgstr "Codice postale/ZIP"
 
 #: templates/shipping-calculator.php:85
 msgid "City"
-msgstr ""
+msgstr "Città"
 
 #: templates/shipping-calculator.php:76
 msgid "State / County"
@@ -606,7 +606,7 @@ msgstr "Si è verificato un errore durante l'elaborazione del sottordine "
 
 #: includes/class.yith-wcdp-suborders.php:429
 msgid "There was an error while processing suborder for item #%$1d (%$2s)"
-msgstr ""
+msgstr "Si è verificato un errore durante l'elaborazione del sottordine per l'articolo #%$1d (%$2s)"
 
 #: includes/class.yith-wcdp-suborders.php:350
 msgid "Suborder status changed to reflect Pending payment status because parent's order status changed."
@@ -709,7 +709,7 @@ msgstr "Ordine di deposito"
 
 #: includes/class.yith-wcdp-admin.php:629
 msgid "Note: from this box you can monitor the status of suborders concerning full payments."
-msgstr ""
+msgstr "Nota: da questa box puoi controllare lo stato dei sottordini relativi ai pagamenti del saldo."
 
 #: includes/class.yith-wcdp-admin.php:629
 msgctxt "Admin: Single order page. Suborder details box"
@@ -1166,4 +1166,4 @@ msgstr "Importo "
 
 #: includes/admin-tables/class.yith-wcdp-category-deposits-table.php:91
 msgid "Thumbnail"
-msgstr ""
+msgstr "Miniatura"

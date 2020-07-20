@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the YITH WooCommerce Stripe package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-05-08 16:51+0200\n"
+"PO-Revision-Date: 2020-06-10 16:49+0200\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1205,7 +1205,7 @@ msgstr "Maintenir le mode de test"
 
 #: includes/class-yith-stripe-admin.php:187
 msgid "The base URL has been changed, so YITH WooCommerce Stripe has been switched to <b>Test Mode</b> to prevent any unexpected transaction on the new URL.<br/>Choose what to do now:"
-msgstr ""
+msgstr "L’URL de base a été modifiée, de sorte que YITH WooCommerce Stripe a été commuté en <b>mode test</b> pour éviter toute transaction imprévue sur la nouvelle URL.<br/>Choisissez ce qu’il faut faire maintenant:"
 
 #: includes/class-yith-stripe-admin.php:136
 msgid "Changelog (current version %s)"

@@ -4,11 +4,18 @@ Contributors: yithemes
 Tags: ajax, search, woocommerce, products, themes, yit, e-commerce, shop, results
 Requires at least: 4.0.0
 Tested up to: 5.4
-Stable tag: 1.7.10
+Stable tag: 1.7.11
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 == Changelog ==
+= 1.7.11 - Released on 4 Jul 2020 =
+* New: Support for WooCommerce 4.3
+* Update: Plugin framework
+* Update: Language file
+* Fix: Fixed issue with WPML
+* Fix: Fixed issue with shop pagination
+
 = 1.7.10 - Released on 25 May 2020 =
 * New: Option to include the product variation in the search result
 * Update: Plugin framework

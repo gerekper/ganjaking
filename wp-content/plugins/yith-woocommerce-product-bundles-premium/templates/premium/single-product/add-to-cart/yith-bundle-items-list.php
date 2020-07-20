@@ -37,12 +37,13 @@ if ( $bundled_items ) {
 		$bundle_product_id = $bundled_item->get_wpml_product_id_current_language();
 		$bundled_product   = wc_get_product( $bundle_product_id );
 		$bundled_post      = get_post( yit_get_base_product_id( $bundled_product ) );
-		$quantity          = $bundled_item->get_quantity();    //FREE
+		$quantity          = $bundled_item->get_quantity();    // FREE
 		$hide_thumbnail    = $bundled_item->hide_thumbnail;
 		$hidden            = $bundled_item->is_hidden();
 		$bundled_item_id   = $bundled_item->item_id;
-		$min_qty           = $bundled_item->min_quantity;
-		$max_qty           = $bundled_item->max_quantity;
+		$step_qty          = apply_filters( 'yith_wcpb_bundled_item_quantity_input_step', 1, $bundled_product, $bundled_item );
+		$min_qty           = apply_filters( 'yith_wcpb_bundled_item_quantity_input_min', $bundled_item->min_quantity, $bundled_product, $bundled_item );
+		$max_qty           = apply_filters( 'yith_wcpb_bundled_item_quantity_input_max', $bundled_item->max_quantity, $bundled_product, $bundled_item );
 		$item_id           = $bundled_item->item_id;
 		$title             = ! empty( $bundled_item->title ) ? $bundled_item->title : $bundled_post->post_title;
 		$description       = ! empty( $bundled_item->description ) ? $bundled_item->description : apply_filters( 'yith_wcpb_default_bundle_item_description', $bundled_post->post_excerpt );
@@ -80,12 +81,11 @@ if ( $bundled_items ) {
 
 					$b_attributes = $attributes[ $bundled_item_id ];
 					foreach ( $b_attributes as $name => $options ) {
-						$input_name = "yith_bundle_attribute_" . sanitize_title( $name ) . '_' . $bundled_item_id;
+						$input_name = 'yith_bundle_attribute_' . sanitize_title( $name ) . '_' . $bundled_item_id;
 						$value      = isset( $default_selection[ $name ] ) ? $default_selection[ $name ] : 0;
 
 						echo "<input type='hidden' name='$input_name' value='$value' />";
 					}
-
 				}
 			}
 			continue;
@@ -112,13 +112,13 @@ if ( $bundled_items ) {
 		$bundled_item_classes = apply_filters( 'yith_wcpb_bundled_item_classes', array( 'product', 'yith-wcpb-product-bundled-item' ), $bundled_item, $product );
 		$bundled_item_classes = implode( ' ', $bundled_item_classes );
 		?>
-        <tr class="<?php echo $bundled_item_classes ?>"
-            data-is-purchasable="<?php echo $bundled_product->is_purchasable() ? '1' : '0' ?>"
-            data-min-quantity="<?php echo $min_qty ?>"
-            data-max-quantity="<?php echo $max_qty ?>"
-        >
-            <td class="yith-wcpb-product-bundled-item-image">
-                <div class="yith-wcpb-product-bundled-item-image-wrapper">
+		<tr class="<?php echo $bundled_item_classes; ?>"
+			data-is-purchasable="<?php echo $bundled_product->is_purchasable() ? '1' : '0'; ?>"
+			data-min-quantity="<?php echo $min_qty; ?>"
+			data-max-quantity="<?php echo $max_qty; ?>"
+		>
+			<td class="yith-wcpb-product-bundled-item-image">
+				<div class="yith-wcpb-product-bundled-item-image-wrapper">
 					<?php
 					if ( ! $hide_thumbnail ) {
 						$post_thumbnail_id = $bundled_product->get_image_id();
@@ -131,7 +131,7 @@ if ( $bundled_items ) {
 						}
 					}
 					?>
-                </div>
+				</div>
 				<?php
 				if ( apply_filters( 'yith_wcpb_show_bundled_items_prices', true, $bundled_item, $product ) ) {
 					if ( ! $bundled_item->has_variables() || apply_filters( 'yith_wcpb_bundled_item_show_default_price_for_variables', true ) ) {
@@ -140,23 +140,23 @@ if ( $bundled_items ) {
 
 						if ( ! $per_items_pricing ) {
 							?>
-                            <div class="price" data-default-del="<?php echo $my_price_max_html_data ?>" data-default-ins="">
-                                <del><span class="amount"><?php echo wc_price( $my_price_max ) ?></span></del>
-                            </div>
+							<div class="price" data-default-del="<?php echo $my_price_max_html_data; ?>" data-default-ins="">
+								<del><span class="amount"><?php echo wc_price( $my_price_max ); ?></span></del>
+							</div>
 							<?php
 						} else {
 							if ( $my_price_max > $my_price ) {
 								?>
-                                <div class="price" data-default-del="<?php echo $my_price_max_html_data ?>" data-default-ins="<?php echo $my_price_html_data ?>">
-                                    <del><span class="amount"><?php echo wc_price( $my_price_max ) ?></span></del>
-                                    <ins><span class="amount"><?php echo wc_price( $my_price ) ?></span></ins>
-                                </div>
+								<div class="price" data-default-del="<?php echo $my_price_max_html_data; ?>" data-default-ins="<?php echo $my_price_html_data; ?>">
+									<del><span class="amount"><?php echo wc_price( $my_price_max ); ?></span></del>
+									<ins><span class="amount"><?php echo wc_price( $my_price ); ?></span></ins>
+								</div>
 								<?php
 							} else {
 								?>
-                                <div class="price" data-default-del="" data-default-ins="<?php echo $my_price_html_data ?>">
-                                    <ins><span class="amount"><?php echo wc_price( $my_price ) ?></span></ins>
-                                </div>
+								<div class="price" data-default-del="" data-default-ins="<?php echo $my_price_html_data; ?>">
+									<ins><span class="amount"><?php echo wc_price( $my_price ); ?></span></ins>
+								</div>
 								<?php
 							}
 						}
@@ -164,32 +164,37 @@ if ( $bundled_items ) {
 				}
 				?>
 
-            </td>
-            <td class="yith-wcpb-product-bundled-item-data">
+			</td>
+			<td class="yith-wcpb-product-bundled-item-data">
 
-                <h3 class="yith-wcpb-product-bundled-item-data__title">
-					<?php if ( $bundled_product->is_visible() ): ?>
-                        <a href="<?php echo $bundled_product->get_permalink() ?>" class="<?php echo $quick_view_for_bundled_items ? 'yith-wcqv-button' : '' ?>" data-product_id="<?php echo $bundled_product->get_id() ?>">
-							<?php echo $item_title ?>
-                        </a>
-					<?php else: ?>
-						<?php echo $item_title ?>
+				<h3 class="yith-wcpb-product-bundled-item-data__title">
+					<?php if ( $bundled_product->is_visible() ) : ?>
+						<a href="<?php echo $bundled_product->get_permalink(); ?>" class="<?php echo $quick_view_for_bundled_items ? 'yith-wcqv-button' : ''; ?>" data-product_id="<?php echo $bundled_product->get_id(); ?>">
+							<?php echo $item_title; ?>
+						</a>
+					<?php else : ?>
+						<?php echo $item_title; ?>
 					<?php endif; ?>
-                </h3>
+				</h3>
 
-                <div class="yith-wcpb-product-bundled-item-data__description"><?php echo do_shortcode( $description ); ?></div>
+                <?php do_action( 'yith_wcpb_after_bundled_item_title', $bundled_item ); ?>
 
-				<?php if ( $optional && ! $bundled_item->has_variables() ) : $_id = "yith_bundle_{$bundle_product_id}optional_{$item_id}"; ?>
-                    <div class="yith-wcpb-product-bundled-item-data__optional yith-wcpb-bundled-optional-wrapper">
-                        <input type="checkbox" name="yith_bundle_optional_<?php echo $item_id ?>"
-                               id="<?php echo $_id ?>"
-                               class="yith-wcpb-bundled-optional" data-item-id="<?php echo $item_id ?>">
-						<?php if ( ! $per_items_pricing || !apply_filters( 'yith_wcpb_show_bundled_items_prices', true, $bundled_item, $product ) ) : ?>
-                            <label for="<?php echo $_id ?>"><?php _e( 'Add', 'yith-woocommerce-product-bundles' ); ?></label>
+				<div class="yith-wcpb-product-bundled-item-data__description"><?php echo do_shortcode( $description ); ?></div>
+
+				<?php
+				if ( $optional && ! $bundled_item->has_variables() ) :
+					$_id = "yith_bundle_{$bundle_product_id}optional_{$item_id}";
+					?>
+					<div class="yith-wcpb-product-bundled-item-data__optional yith-wcpb-bundled-optional-wrapper">
+						<input type="checkbox" name="yith_bundle_optional_<?php echo $item_id; ?>"
+							   id="<?php echo $_id; ?>"
+							   class="yith-wcpb-bundled-optional" data-item-id="<?php echo $item_id; ?>">
+						<?php if ( ! $per_items_pricing || ! apply_filters( 'yith_wcpb_show_bundled_items_prices', true, $bundled_item, $product ) ) : ?>
+							<label for="<?php echo $_id; ?>"><?php echo apply_filters( 'yith_wcpb_add_label', __( 'Add', 'yith-woocommerce-product-bundles' ) ); ?></label>
 						<?php else : ?>
-                            <label for="<?php echo $_id ?>"><?php echo sprintf( __( 'Add for %s', 'yith-woocommerce-product-bundles' ), wc_price( $my_price ) ); ?></label>
+							<label for="<?php echo $_id; ?>"><?php echo sprintf( __( 'Add for %s', 'yith-woocommerce-product-bundles' ), wc_price( $my_price ) ); ?></label>
 						<?php endif; ?>
-                    </div>
+					</div>
 				<?php endif; ?>
 
 				<?php
@@ -197,31 +202,34 @@ if ( $bundled_items ) {
 					$b_attributes   = $attributes[ $bundled_item_id ];
 					$attribute_keys = array_keys( $b_attributes );
 					?>
-                    <div class="yith-wcpb-product-bundled-item-data__variations_form bundled_item_cart_content variations_form"
-                         data-optional="<?php echo( $bundled_item->is_optional() ? 1 : 0 ); ?>"
-                         data-type="<?php echo $bundled_product->get_type(); ?>"
-                         data-product_variations="<?php echo esc_attr( json_encode( $available_variations[ $bundled_item_id ] ) ); ?>"
-                         data-bundled_item_id="<?php echo $bundled_item->item_id; ?>"
-                         data-product_id="<?php echo $product->get_id() . str_replace( '_', '', $bundled_item->item_id ); ?>"
-                         data-bundle_id="<?php echo $product->get_id(); ?>">
+					<div class="yith-wcpb-product-bundled-item-data__variations_form bundled_item_cart_content variations_form"
+						 data-optional="<?php echo( $bundled_item->is_optional() ? 1 : 0 ); ?>"
+						 data-type="<?php echo $bundled_product->get_type(); ?>"
+						 data-product_variations="<?php echo esc_attr( json_encode( $available_variations[ $bundled_item_id ] ) ); ?>"
+						 data-bundled_item_id="<?php echo $bundled_item->item_id; ?>"
+						 data-product_id="<?php echo $bundled_product->get_id(); ?>"
+						 data-bundle_id="<?php echo $product->get_id(); ?>">
 
-                        <input name="yith_bundle_variation_id_<?php echo $bundled_item_id ?>" class="variation_id"
-                               value="" type="hidden" data-item-id="<?php echo $bundled_item_id ?>">
-						<?php if ( $optional ) : $_id = "yith_bundle_{$bundle_product_id}optional_{$item_id}"; ?>
-                            <div class="yith-wcpb-product-bundled-item-data__optional yith-wcpb-bundled-optional-wrapper">
-                                <input type="checkbox" name="yith_bundle_optional_<?php echo $item_id ?>"
-                                       id="<?php echo $_id ?>"
-                                       class="yith-wcpb-bundled-optional" data-item-id="<?php echo $item_id ?>">
-                                <label for="<?php echo $_id ?>"><?php _e( 'Add', 'yith-woocommerce-product-bundles' ); ?></label>
-                            </div>
+						<input name="yith_bundle_variation_id_<?php echo $bundled_item_id; ?>" class="variation_id"
+							   value="" type="hidden" data-item-id="<?php echo $bundled_item_id; ?>">
+						<?php
+						if ( $optional ) :
+							$_id = "yith_bundle_{$bundle_product_id}optional_{$item_id}";
+							?>
+							<div class="yith-wcpb-product-bundled-item-data__optional yith-wcpb-bundled-optional-wrapper">
+								<input type="checkbox" name="yith_bundle_optional_<?php echo $item_id; ?>"
+									   id="<?php echo $_id; ?>"
+									   class="yith-wcpb-bundled-optional" data-item-id="<?php echo $item_id; ?>">
+								<label for="<?php echo $_id; ?>"><?php echo apply_filters( 'yith_wcpb_add_label', __( 'Add', 'yith-woocommerce-product-bundles' ) );; ?></label>
+							</div>
 						<?php endif; ?>
 
-                        <table class="variations" cellspacing="0">
-                            <tbody>
+						<table class="variations" cellspacing="0">
+							<tbody>
 							<?php foreach ( $b_attributes as $name => $options ) : ?>
-                                <tr>
-                                    <td class="label"><label for="<?php echo sanitize_title( $name ); ?>"><?php echo wc_attribute_label( $name ); ?></label></td>
-                                    <td class="value">
+								<tr>
+									<td class="label"><label for="<?php echo sanitize_title( $name ); ?>"><?php echo wc_attribute_label( $name ); ?></label></td>
+									<td class="value">
 										<?php
 										$identifier = 'yith_bundle_attribute_' . sanitize_title( $name ) . '_' . $bundled_item_id;
 
@@ -237,65 +245,67 @@ if ( $bundled_items ) {
 											$selected_value = YITH_WCPB()->compatibility->wpml->get_wpml_term_slug_current_language( $selected_value, $name );
 										}
 
-										yith_wcpb_wc_dropdown_variation_attribute_options( array(
-											                                                   'id'        => esc_attr( $identifier ),
-											                                                   'name'      => $identifier,
-											                                                   'class'     => 'yith-wcpb-select-for-variables',
-											                                                   'options'   => $options,
-											                                                   'attribute' => $name,
-											                                                   'product'   => $bundled_product,
-											                                                   'selected'  => $selected_value,
-										                                                   ) );
+										yith_wcpb_wc_dropdown_variation_attribute_options(
+											array(
+												'id'       => esc_attr( $identifier ),
+												'name'     => $identifier,
+												'class'    => 'yith-wcpb-select-for-variables',
+												'options'  => $options,
+												'attribute' => $name,
+												'product'  => $bundled_product,
+												'selected' => $selected_value,
+											)
+										);
 										echo end( $attribute_keys ) === $name ? wp_kses_post( apply_filters( 'woocommerce_reset_variations_link', '<a class="reset_variations" href="#">' . esc_html__( 'Clear', 'woocommerce' ) . '</a>' ) ) : '';
 										?>
-                                    </td>
-                                </tr>
+									</td>
+								</tr>
 							<?php endforeach; ?>
-                            </tbody>
-                        </table>
+							</tbody>
+						</table>
 
-                        <div class="single_variation_wrap bundled_item_wrap" style="display:none;">
-                            <div class="single_variation bundled_item_cart_details"></div>
+						<div class="single_variation_wrap bundled_item_wrap" style="display:none;">
+							<div class="single_variation bundled_item_cart_details"></div>
 
-                            <div class="yith-wcpb-product-bundled-item-data__quantity">
+							<div class="yith-wcpb-product-bundled-item-data__quantity">
 								<?php if ( $min_qty < $max_qty ) { ?>
-                                    <input step="1" min="<?php echo $min_qty ?>" max="<?php echo $max_qty ?>"
-                                           name="yith_bundle_quantity_<?php echo $item_id ?>"
-                                           value="<?php echo $initial_quantity ?>"
-                                           data-item-id="<?php echo $item_id ?>"
-                                           title="Qty" class="yith-wcpb-bundled-quantity" size="4"
-                                           type="number">
+									<input step="<?php echo $step_qty; ?>" min="<?php echo $min_qty; ?>" max="<?php echo $max_qty; ?>"
+										   name="yith_bundle_quantity_<?php echo $item_id; ?>"
+										   value="<?php echo $initial_quantity; ?>"
+										   data-item-id="<?php echo $item_id; ?>"
+										   title="Qty" class="yith-wcpb-bundled-quantity" size="4"
+										   type="number">
 								<?php } else { ?>
-                                    <input class="yith-wcpb-bundled-quantity"
-                                           name="yith_bundle_quantity_<?php echo $item_id ?>" value="<?php echo $initial_quantity ?>"
-                                           type="hidden"
-                                           data-item-id="<?php echo $item_id ?>">
+									<input class="yith-wcpb-bundled-quantity"
+										   name="yith_bundle_quantity_<?php echo $item_id; ?>" value="<?php echo $initial_quantity; ?>"
+										   type="hidden"
+										   data-item-id="<?php echo $item_id; ?>">
 								<?php } ?>
-                            </div>
+							</div>
 							<?php do_action( 'yith_wcpb_after_bundled_item_quantity_input', $bundled_item, $min_qty, $max_qty ); ?>
 
 
-                        </div>
+						</div>
 
-                    </div>
+					</div>
 					<?php
 				}
 				?>
 
 				<?php if ( ! $bundled_item->has_variables() ) { ?>
-                    <div class="yith-wcpb-product-bundled-item-data__quantity">
+					<div class="yith-wcpb-product-bundled-item-data__quantity">
 						<?php if ( $min_qty < $max_qty ) { ?>
-                            <input step="1" min="<?php echo $min_qty ?>" max="<?php echo $max_qty ?>"
-                                   name="yith_bundle_quantity_<?php echo $item_id ?>" value="<?php echo $initial_quantity ?>"
-                                   title="Qty"
-                                   data-item-id="<?php echo $item_id ?>"
-                                   class="yith-wcpb-bundled-quantity" size="4" type="number">
+							<input step="<?php echo $step_qty; ?>" min="<?php echo $min_qty; ?>" max="<?php echo $max_qty; ?>"
+								   name="yith_bundle_quantity_<?php echo $item_id; ?>" value="<?php echo $initial_quantity; ?>"
+								   title="Qty"
+								   data-item-id="<?php echo $item_id; ?>"
+								   class="yith-wcpb-bundled-quantity" size="4" type="number">
 						<?php } else { ?>
-                            <input name="yith_bundle_quantity_<?php echo $item_id ?>" value="<?php echo $initial_quantity ?>"
-                                   type="hidden" class="yith-wcpb-bundled-quantity"
-                                   data-item-id="<?php echo $item_id ?>">
+							<input name="yith_bundle_quantity_<?php echo $item_id; ?>" value="<?php echo $initial_quantity; ?>"
+								   type="hidden" class="yith-wcpb-bundled-quantity"
+								   data-item-id="<?php echo $item_id; ?>">
 						<?php } ?>
-                    </div>
+					</div>
 
 					<?php do_action( 'yith_wcpb_after_bundled_item_quantity_input', $bundled_item, $min_qty, $max_qty ); ?>
 
@@ -307,8 +317,8 @@ if ( $bundled_items ) {
 					?>
 
 				<?php } ?>
-            </td>
-        </tr>
+			</td>
+		</tr>
 		<?php
 	}
 	echo '</table>';

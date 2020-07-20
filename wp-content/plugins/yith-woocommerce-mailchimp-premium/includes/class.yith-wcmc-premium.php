@@ -434,7 +434,7 @@ if ( ! class_exists( 'YITH_WCMC_Premium' ) ) {
 				}
 
 				// handling for Checkout Manager custom fields
-				if ( function_exists( 'ywccp_is_custom_field' ) && ywccp_is_custom_field( $field['checkout'] ) ) {
+				if ( function_exists( 'ywccp_is_custom_field' ) && ywccp_is_custom_field( $field['checkout'] ) || apply_filters('yith_wcmc_handle_checkout_manager_custom_fields', false ) ) {
 					$field_value = yit_get_prop( $order, '_' . $field['checkout'], true );
 				}
 
@@ -837,7 +837,7 @@ if ( ! class_exists( 'YITH_WCMC_Premium' ) ) {
 			);
 
 			//manage groups
-			$selected_groups = get_option( 'yith_wcmc_register_mailchimp_groups', array() );
+			$selected_groups = apply_filters('yith_wcmc_register_mailchimp_groups_registration_form', get_option( 'yith_wcmc_register_mailchimp_groups', array() ) ) ;
 			$group_structure = $this->_create_group_structure( $selected_groups );
 
 			if ( ! empty( $group_structure ) ) {

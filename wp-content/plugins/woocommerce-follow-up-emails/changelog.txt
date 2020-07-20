@@ -1,5 +1,8 @@
 *** WooCommerce Follow-Up Emails ***
 
+2020-07-01 - version 4.9.3
+* Update - Convert select2 fields to use version loaded by WooCommerce.
+
 2020-06-05 - version 4.9.2
 * Fix - Variable first purchase emails not being sent.
 * Fix - Record conversion only after a payment completed successfully.

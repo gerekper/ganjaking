@@ -2,10 +2,10 @@
 # This file is distributed under the same license as the YITH WooCommerce Delivery Date Premium package.
 msgid ""
 msgstr ""
-"Project-Id-Version: YITH WooCommerce Delivery Date Premium 2.1.14\n"
+"Project-Id-Version: YITH WooCommerce Delivery Date Premium 2.1.15\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/yith-woocommerce-delivery-date-premium\n"
-"POT-Creation-Date: 2020-05-23 08:10:09+00:00\n"
+"POT-Creation-Date: 2020-06-01 11:04:19+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -215,7 +215,7 @@ msgstr ""
 #: includes/class.yith-delivery-date-frontend-product-table.php:465
 #: includes/post-type/class.yith-delivery-date-carrier.php:120
 #: includes/shipping/class.yith-delivery-date-shipping-manager.php:492
-#: includes/shipping/class.yith-delivery-date-shipping-manager.php:610
+#: includes/shipping/class.yith-delivery-date-shipping-manager.php:612
 #: plugin-options/general-calendar-options.php:56
 #: templates/meta-boxes/order-delivery-details-meta-box.php:23
 #: templates/meta-boxes/order-delivery-details-meta-box.php:150
@@ -286,7 +286,7 @@ msgstr ""
 #: includes/class.yith-delivery-date-frontend-product-table.php:237
 #: includes/class.yith-delivery-date-frontend-product-table.php:304
 #: includes/shipping/class.yith-delivery-date-shipping-manager.php:496
-#: includes/shipping/class.yith-delivery-date-shipping-manager.php:618
+#: includes/shipping/class.yith-delivery-date-shipping-manager.php:620
 #: templates/meta-boxes/order-delivery-details-meta-box.php:31
 #: templates/woocommerce/checkout/delivery-date-select-date.php:32
 #: templates/woocommerce/pdf/delivery-date-info.php:24
@@ -314,7 +314,7 @@ msgid "Choose a date"
 msgstr ""
 
 #: includes/class.yith-delivery-date-order-manager.php:51
-#: includes/shipping/class.yith-delivery-date-shipping-manager.php:606
+#: includes/shipping/class.yith-delivery-date-shipping-manager.php:608
 msgid "Delivery Details"
 msgstr ""
 
@@ -643,7 +643,7 @@ msgid "Fee"
 msgstr ""
 
 #: includes/shipping/class.yith-delivery-date-shipping-manager.php:484
-#: includes/shipping/class.yith-delivery-date-shipping-manager.php:524
+#: includes/shipping/class.yith-delivery-date-shipping-manager.php:525
 msgid "An error occurred during the checkout,  please try again"
 msgstr ""
 
@@ -654,7 +654,7 @@ msgid "is a required field."
 msgstr ""
 
 #: includes/shipping/class.yith-delivery-date-shipping-manager.php:502
-#: includes/shipping/class.yith-delivery-date-shipping-manager.php:622
+#: includes/shipping/class.yith-delivery-date-shipping-manager.php:624
 #: templates/meta-boxes/carrier-time-slot-meta-boxes-options.php:16
 #: templates/meta-boxes/order-delivery-details-meta-box.php:35
 #: templates/woocommerce/checkout/delivery-date-select-timeslot.php:13
@@ -1648,13 +1648,13 @@ msgctxt "to time"
 msgid "To"
 msgstr ""
 
-#: includes/shipping/class.yith-delivery-date-shipping-manager.php:614
+#: includes/shipping/class.yith-delivery-date-shipping-manager.php:616
 #: templates/woocommerce/pdf/delivery-date-info.php:20
 msgctxt "[Part of]: Shipping Date within 20th March 2019"
 msgid "Shipping Date"
 msgstr ""
 
-#: includes/shipping/class.yith-delivery-date-shipping-manager.php:615
+#: includes/shipping/class.yith-delivery-date-shipping-manager.php:617
 #: templates/woocommerce/pdf/delivery-date-info.php:21
 msgctxt "[Part of]: Shipping Date within 20th March 2019"
 msgid "within"

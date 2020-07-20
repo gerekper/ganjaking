@@ -39,6 +39,15 @@ return array(
 				'default'   => 'yes',
 			),
 
+			'ctpw_upsells_section_title'                  => array(
+				'title'     => esc_html_x( 'Section Title', 'Admin option - UpSells title', 'yith-custom-thankyou-page-for-woocommerce' ),
+				'type'      => 'yith-field',
+				'yith-type' => 'text',
+				'desc'      => esc_html_x( 'Title to show for this section', 'Admin option - UpSells title description', 'yith-custom-thankyou-page-for-woocommerce' ),
+				'id'        => 'yith_ctpw_upsells_section_title',
+				'default'   => esc_html__( 'You may be interested in...', 'yith-custom-thankyou-page-for-woocommerce' ),
+			),
+
 			'ctpw_upsells_options_columns'                => array(
 				'title'     => esc_html_x( 'Products per row', 'Admin option', 'yith-custom-thankyou-page-for-woocommerce' ),
 				'type'      => 'yith-field',

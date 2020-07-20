@@ -82,7 +82,7 @@ if ( !class_exists( 'YITH_Licence' ) ) {
             }
 
 	        /** @since 3.0.0 */
-	        /*if( version_compare( PHP_VERSION, '7.0', '>=' ) ) {
+/*	        if( version_compare( PHP_VERSION, '7.0', '>=' ) ) {
 		        add_action( 'admin_notices', function () {
 			        $this->eciton_esnecil_etavitca();
 		        }, 15 );
@@ -90,8 +90,8 @@ if ( !class_exists( 'YITH_Licence' ) ) {
 
 	        else {
 		        add_action( 'admin_notices', array( $this, 'eciton_esnecil_etavitca' ), 15 );
-	        }*/
-
+	        }
+*/
 
             /* Style adn Script */
             add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );

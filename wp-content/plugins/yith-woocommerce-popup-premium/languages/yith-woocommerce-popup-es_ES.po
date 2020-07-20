@@ -5,18 +5,18 @@ msgstr ""
 "Project-Id-Version: YITH WooCommerce Popup\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
 "popup.premium\n"
-"POT-Creation-Date: 2020-05-20 13:55:27+00:00\n"
-"PO-Revision-Date: 2020-04-23 07:04:55+0000\n"
+"POT-Creation-Date: 2020-07-07 12:30:52+00:00\n"
+"PO-Revision-Date: 2020-05-30 21:15:06+0000\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/2.3.1\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
 
 #: includes/class-yith-popup-admin.php:256
 msgid "Popups"
-msgstr ""
+msgstr "Ventanas emergentes"
 
 #: includes/class-yith-popup-admin.php:257
 msgid "Settings"
@@ -93,7 +93,7 @@ msgstr "No encontrado"
 
 #: includes/class-yith-popup.php:120
 msgid "Not found in Trash"
-msgstr "No encontrado en la papelera"
+msgstr "No encontrado en la Papelera"
 
 #: includes/class-yith-popup.php:123
 msgid "yith_popup"
@@ -128,7 +128,7 @@ msgid ""
 "popup showing or not."
 msgstr ""
 "También usamos cookies para recopilar lo que el usuario elige sobre mantener "
-"el popup mostrándose o no."
+"el la ventana emergente mostrándose o no."
 
 #: includes/class.yith-popup-privacy-dpa.php:36
 msgid ""
@@ -187,6 +187,9 @@ msgid ""
 "need help to create a valid API Key, refer to this <a href=\"http://help."
 "madmimi.com/where-can-i-find-my-api-key/\">tutorial</a>"
 msgstr ""
+"La clave API de Mad Mimi, usada para conectar WordPress al servicio de "
+"Mailchimp. Si necesitas ayuda para crear una clave API válida, consulta el "
+"<a href=\"http://help.madmimi.com/where-can-i-find-my-api-key/\">tutorial</a>"
 
 #: includes/newsletter-integration/MadMimi.php:205
 msgid "Mad Mimi List"
@@ -285,12 +288,13 @@ msgstr "Esta campo no siempre se usa. Depende del estilo del formulario."
 #: includes/newsletter-integration/Wysija.php:204
 msgid "<span class=\"success\">Email successfully registered</span>"
 msgstr ""
+"<span class=\"success\">Correo electrónico de 'registrado con éxito'</span>"
 
 #: includes/newsletter-integration/MadMimi.php:412
 #: includes/newsletter-integration/Mailchimp.php:469
 #: includes/newsletter-integration/Wysija.php:207
 msgid "<span class=\"error\">Ops! Something went wrong</span>"
-msgstr ""
+msgstr "<span class=\"error\">¡Ups! Algo ha ido mal</span>"
 
 #: includes/newsletter-integration/MadMimi.php:416
 #: includes/newsletter-integration/Mailchimp.php:473
@@ -298,6 +302,8 @@ msgstr ""
 msgid ""
 "<span class=\"notice\">Ops! You have to use a valid email address</span>"
 msgstr ""
+"<span class=\"notice\">¡Ups! Debes usar una dirección de correo electrónico "
+"válida</span>"
 
 #: includes/newsletter-integration/Mailchimp.php:155
 msgid "Mailchimp API Key"
@@ -309,6 +315,10 @@ msgid ""
 "If you need help to create a valid API Key, refer to this <a href=\"http://"
 "kb.mailchimp.com/article/where-can-i-find-my-api-key\">tutorial</a>"
 msgstr ""
+"La clave API de MailChimp, usada para conectar WordPress al servicio de "
+"Mailchimp. Si necesitas ayuda para crear una clave API válida, por favor, "
+"consulta el <a href=\"http://kb.mailchimp.com/article/where-can-i-find-my-"
+"api-key\">tutorial</a>"
 
 #: includes/newsletter-integration/Mailchimp.php:165
 msgid "Mailchimp List"
@@ -452,7 +462,7 @@ msgid ""
 "To use this feature, YIT Contact Form or Contact Form 7 must be installed "
 "and activated."
 msgstr ""
-"Para usar esta carcterística, YIT Contact Form o Contact Form 7 debe estar "
+"Para usar esta característica, YIT Contact Form o Contact Form 7 debe estar "
 "instalado y activado."
 
 #: plugin-options/metabox/ypop_metabox.php:75
@@ -462,7 +472,7 @@ msgstr "Texto"
 #: plugin-options/metabox/ypop_metabox.php:76
 #: plugin-options/metabox/ypop_metabox.php:1510
 msgid "Newsletter"
-msgstr "Noticias"
+msgstr "Boletín"
 
 #: plugin-options/metabox/ypop_metabox.php:77
 #: plugin-options/metabox/ypop_metabox.php:1672
@@ -472,7 +482,7 @@ msgstr "Formulario"
 #: plugin-options/metabox/ypop_metabox.php:78
 #: plugin-options/metabox/ypop_metabox.php:1679
 msgid "Social network"
-msgstr "Red social"
+msgstr "Redes sociales"
 
 #: plugin-options/metabox/ypop_metabox.php:82
 #: plugin-options/metabox/ypop_metabox.php:1795
@@ -637,7 +647,7 @@ msgstr "Altura"
 #: plugin-options/metabox/ypop_metabox.php:1173
 msgid "Select the height of the popup. Leave 0 to set it automatically"
 msgstr ""
-"Selecciona la altura de l ventana emergente. Deja 0 para establecerla "
+"Selecciona la altura de la ventana emergente. Deja 0 para establecerla "
 "automáticamente"
 
 #: plugin-options/metabox/ypop_metabox.php:378
@@ -736,7 +746,7 @@ msgstr "Marcador de posición"
 #: plugin-options/metabox/ypop_metabox.php:1103
 #: plugin-options/metabox/ypop_metabox.php:1282
 msgid "Background color for submit button"
-msgstr "Color de fondo para botón de enviar"
+msgstr "Color de fondo para botón Enviar"
 
 #: plugin-options/metabox/ypop_metabox.php:446
 #: plugin-options/metabox/ypop_metabox.php:644
@@ -745,7 +755,7 @@ msgstr "Color de fondo para botón de enviar"
 #: plugin-options/metabox/ypop_metabox.php:1104
 #: plugin-options/metabox/ypop_metabox.php:1283
 msgid "Select the background color for submit button"
-msgstr "Selecciona el color de fondo para el botón de enviar"
+msgstr "Selecciona el color de fondo para el botón Enviar"
 
 #: plugin-options/metabox/ypop_metabox.php:455
 #: plugin-options/metabox/ypop_metabox.php:653
@@ -753,7 +763,7 @@ msgstr "Selecciona el color de fondo para el botón de enviar"
 #: plugin-options/metabox/ypop_metabox.php:1113
 #: plugin-options/metabox/ypop_metabox.php:1292
 msgid "Background color on hover for submit button"
-msgstr "Color de fondo al pasar el ratón sobre el botón enviar"
+msgstr "Color de fondo del botón Enviar al pasar el cursor"
 
 #: plugin-options/metabox/ypop_metabox.php:456
 #: plugin-options/metabox/ypop_metabox.php:654
@@ -762,7 +772,7 @@ msgstr "Color de fondo al pasar el ratón sobre el botón enviar"
 #: plugin-options/metabox/ypop_metabox.php:1114
 #: plugin-options/metabox/ypop_metabox.php:1293
 msgid "Select the background color on hover for submit button"
-msgstr "Seleccionar color de fondo al pasar el ratón sobre el botón de enviar"
+msgstr "Seleccionar color de fondo del botón Enviar al pasar el cursor"
 
 #: plugin-options/metabox/ypop_metabox.php:465
 #: plugin-options/metabox/ypop_metabox.php:663
@@ -808,11 +818,11 @@ msgstr "Selecciona el color para los enlaces"
 #: plugin-options/metabox/ypop_metabox.php:900
 #: plugin-options/metabox/ypop_metabox.php:1047
 msgid "Content link hover color"
-msgstr "Color al pasar el ratón por sobre el enlace de contenido"
+msgstr "Color de contenido del enlace al pasar el cursor"
 
 #: plugin-options/metabox/ypop_metabox.php:557
 msgid "Select the color on hover for the link"
-msgstr "Selecciona el color al pasar el ratón sobre el enlace"
+msgstr "Selecciona el color del enlace al pasar el cursor"
 
 #: plugin-options/metabox/ypop_metabox.php:576
 #: plugin-options/metabox/ypop_metabox.php:1077
@@ -851,7 +861,7 @@ msgstr "Selecciona la imagen de fondo"
 #: plugin-options/metabox/ypop_metabox.php:755
 #: plugin-options/metabox/ypop_metabox.php:1048
 msgid "Select the color on hover for the links"
-msgstr "Selecciona el color al pasar el ratón sobre los enlaces"
+msgstr "Selecciona el color de los enlaces al pasar el cursor"
 
 #: plugin-options/metabox/ypop_metabox.php:764
 #: plugin-options/metabox/ypop_metabox.php:910
@@ -876,11 +886,11 @@ msgstr "Selecciona el color para los enlaces"
 
 #: plugin-options/metabox/ypop_metabox.php:901
 msgid "Select the color on hover for links"
-msgstr "Selecciona el color al pasar el ratón sobre los enlaces"
+msgstr "Selecciona el color de los enlaces al pasar el cusor"
 
 #: plugin-options/metabox/ypop_metabox.php:945
 msgid "Background color on hoverfor submit button"
-msgstr "Color de fondo al pasar el ratón sobre el botón enviar"
+msgstr "Color de fondo del botón Enviar al pasar el cursor"
 
 #: plugin-options/metabox/ypop_metabox.php:1026
 msgid "Border color"
@@ -908,12 +918,12 @@ msgstr "Seleccionar el color para el enlace en el lado izquierdo"
 
 #: plugin-options/metabox/ypop_metabox.php:1204
 msgid "Content link hover color on the left side "
-msgstr "Color al pasar el ratón sobre el enlace en el lado izquierdo"
+msgstr "Color del enlace en el lado izquierdo al pasar el cursor"
 
 #: plugin-options/metabox/ypop_metabox.php:1205
 msgid "Select the color for the link on hover on the left side"
 msgstr ""
-"Seleccionar el color al pasar el ratón sobre el enlace para el lado izquierdo"
+"Seleccionar el color del enlace para el lado izquierdo al pasar el cursor"
 
 #: plugin-options/metabox/ypop_metabox.php:1214
 msgid "Text color on the left side"
@@ -941,13 +951,11 @@ msgstr "Seleccionar el color para el enlace en el lado derecho"
 
 #: plugin-options/metabox/ypop_metabox.php:1245
 msgid "Content link hover color on the right side"
-msgstr ""
-"Color al pasar el ratón sobre del enlace de contenido en el lado derecho"
+msgstr "Color del enlace de contenido en el lado derecho al pasar el cursor"
 
 #: plugin-options/metabox/ypop_metabox.php:1246
 msgid "Select the color for the link on hover on the right side"
-msgstr ""
-"Seleccionar el color al pasar el ratón sobre el enlace en el lado derecho"
+msgstr "Seleccionar el color del enlace en el lado derecho al pasar el cursor"
 
 #: plugin-options/metabox/ypop_metabox.php:1255
 msgid "Text color on the right side"
@@ -971,11 +979,11 @@ msgstr "Establece tu icono"
 
 #: plugin-options/metabox/ypop_metabox.php:1323
 msgid "Background color for \"Hide\" text area"
-msgstr "Color de fondo para el área de texto de ‘’Ocultar’’"
+msgstr "Color de fondo para 'Ocultar' área de texto"
 
 #: plugin-options/metabox/ypop_metabox.php:1324
 msgid "Select the background color for \"Hide\" text area"
-msgstr "Seleccionar el color de fondo para el are de texto de ‘’Ocultar’’"
+msgstr "Seleccionar el color de fondo para 'Ocultar' área de texto"
 
 #: plugin-options/metabox/ypop_metabox.php:1329
 msgid "Text color for \"Hide\" text"
@@ -1366,10 +1374,12 @@ msgid ""
 "Attention: You should create a new popup to set this option. <a href=\"%s"
 "\">Create a new popup</a>"
 msgstr ""
+"Atención: Debes crear una nueva ventana emergente para establecer esta "
+"opción. <a href=\"%s\">Crear una nueva ventana emergente</a>"
 
 #: plugin-options/settings-options.php:7
 msgid "Select the popup that you want to show as default"
-msgstr "Selecciona la ventana emergente que quieres mostrar por defecto"
+msgstr "Selecciona la ventana emergente predeterminada que quieres mostrar"
 
 #: plugin-options/settings-options.php:17
 msgid "General Settings"
@@ -1381,7 +1391,7 @@ msgstr "Activar ventana emergente"
 
 #: plugin-options/settings-options.php:39
 msgid "Enable Popup in Mobile Device"
-msgstr "Activar ventana emergente en teléfono móvil"
+msgstr "Activar ventana emergente en dispositivos móviles"
 
 #: plugin-options/settings-options.php:46
 msgid "Show on all pages"
@@ -1502,12 +1512,12 @@ msgstr ""
 #: includes/class-yith-popup-admin.php:267
 msgctxt "Plugin name. Do not translate."
 msgid "YITH WooCommerce Popup"
-msgstr ""
+msgstr "YITH WooCommerce Popup"
 
 #: includes/class-yith-popup-admin.php:268
 msgctxt "Plugin name. Do not translate."
 msgid "Popup"
-msgstr ""
+msgstr "Popup"
 
 #: includes/class-yith-popup.php:108
 msgctxt "Post Type General Name"

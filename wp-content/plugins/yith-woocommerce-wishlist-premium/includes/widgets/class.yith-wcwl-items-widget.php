@@ -76,7 +76,7 @@ if( ! class_exists( 'YITH_WCWL_Items_Widget' ) ) {
 			$default_wishlist = YITH_WCWL_Wishlist_Factory::get_default_wishlist();
 			$default_wishlist_url = $default_wishlist ? $default_wishlist->get_url() : YITH_WCWL()->get_wishlist_url();
 			$multi_wishlist_enabled = YITH_WCWL()->is_multi_wishlist_enabled();
-			$wishlists = YITH_WCWL()->get_wishlists( array( 'orderby' => 'dateadded', 'order' => 'ASC' ) );
+			$wishlists = YITH_WCWL()->get_current_user_wishlists();
 			$wishlist_url = ( count( $wishlists ) > 1 && $multi_wishlist_enabled ) ? YITH_WCWL()->get_wishlist_url( 'manage' ) : $default_wishlist_url;
 
 			$icon = get_option( 'yith_wcwl_add_to_wishlist_icon' );
@@ -94,7 +94,7 @@ if( ! class_exists( 'YITH_WCWL_Items_Widget' ) ) {
 				'fragments_options' => $fragments_options,
 				'products' => $products,
 				'items' => $items,
-				'wishlist_url' => 'yes' == $instance['show_default_only'] ? $default_wishlist->get_url() : $wishlist_url,
+				'wishlist_url' => 'yes' == $instance['show_default_only'] ? $default_wishlist_url : $wishlist_url,
 				'multi_wishlist_enabled' => $multi_wishlist_enabled,
 				'add_all_to_cart_url' => wp_nonce_url( add_query_arg( 'add_all_to_cart', 1, $instance['current_url'] ), 'yith_wcwl_edit_wishlist_action', 'yith_wcwl_edit_wishlist' ),
 				'default_wishlist' => $default_wishlist,

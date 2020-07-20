@@ -1,5 +1,6 @@
 <wpml-config>
 <admin-texts>
   <key name="yith_ctpw_pdf_button_label" />
+  <key name="yith_ctpw_general_page" />
 </admin-texts>
 </wpml-config>

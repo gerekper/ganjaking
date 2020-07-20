@@ -599,8 +599,8 @@ if ( ! class_exists( 'YITH_WooCommerce_Order_Tracking_Premium' ) ) {
                     <input style="width: 100%" type="text" class="date-picker-field" id="ywot_pick_up_date"
                            name="ywot_pick_up_date"
                            placeholder="<?php _e( 'Enter pick up date', 'yith-woocommerce-order-tracking' ); ?>"
-                           value="<?php echo $data->get_pickup_date() ? date_format( date_create( $data->get_pickup_date() ), get_option( 'date_format', 'F j, Y' ) ) : '' ?>"
-                           pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" />
+                           value="<?php echo $data->get_pickup_date() ?>"
+                           pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" autocomplete="off" />
                 </p>
 
                 <p>
@@ -641,7 +641,7 @@ if ( ! class_exists( 'YITH_WooCommerce_Order_Tracking_Premium' ) ) {
             $message    =  ('email' == $output) ? $this->get_picked_up_message( $order, $pattern,1 ) : $this->get_picked_up_message( $order, $pattern ) ;
             $track_form = $this->get_tracking_post_form( $order );
             $url        = $this->get_track_url( $order );
-            $text       = __( "Live track your order", 'yith-woocommerce-order-tracking' );
+            $text       = apply_filters( 'ywot_live_track_your_order_text' , __( "Live track your order", 'yith-woocommerce-order-tracking' ) );
 
             if ( 'email' == $output ) {
                 if ( ! empty( $track_form ) ) {
@@ -706,7 +706,7 @@ if ( ! class_exists( 'YITH_WooCommerce_Order_Tracking_Premium' ) ) {
             if ( 0 != $is_suborder ){
                 $order = wc_get_order( $is_suborder );
             }
-            
+
             $data = YITH_Tracking_Data::get( $order );
 
             if ( ! isset( $pattern ) || ( 0 == strlen( $pattern ) ) ) {
@@ -1117,14 +1117,14 @@ if ( ! class_exists( 'YITH_WooCommerce_Order_Tracking_Premium' ) ) {
                 $tracking_link = $this->get_track_url($order);
 
                 if ( $carrier_name && $tracking_code && $pickup_date ){
-
+					$formatted_pickup_date = ! is_bool( $pickup_date ) ? date_format(date_create($pickup_date), get_option('date_format', 'F j, Y')) : '';
                     $html = '
                 <div>
                     <span>'. __( 'Carrier: ', 'yith-woocommerce-order-tracking' ) . $carrier_name . '</span>
                     <br>
                     <a href="'. $tracking_link .'">' . __( 'Tracking number: ', 'yith-woocommerce-order-tracking' ) . $tracking_code . '</a>
                     <br>
-                    <span>' . __( 'Pickup date: ', 'yith-woocommerce-order-tracking' ) . date_format(date_create($pickup_date), get_option('date_format', 'F j, Y')) . '</span>
+                    <span>' . __( 'Pickup date: ', 'yith-woocommerce-order-tracking' ) . $formatted_pickup_date . '</span>
                 </div>';
                 }
                 else{

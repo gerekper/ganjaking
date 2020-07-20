@@ -506,7 +506,7 @@ if ( ! class_exists( 'YITH_WCAF_Affiliate_Premium' ) ) {
 			if ( ! empty( $_POST['referrer_token'] ) && $token = wc_clean( $_POST['referrer_token'] ) ) {
 
 				if ( ! YITH_WCAF_Affiliate_Handler()->is_valid_token( $token ) ) {
-					wc_add_notice( apply_filters( 'yith_wcaf_invalid_token_error_message', __( 'The affiliate code you provided is not valid; please, double check it!', 'yith-wcaf' ) ), 'error' );
+					wc_add_notice( apply_filters( 'yith_wcaf_invalid_token_error_message', __( 'The affiliate code you provided is not valid; please, double check it!', 'yith-woocommerce-affiliates' ) ), 'error' );
 				} else {
 					wc_add_notice( apply_filters( 'yith_wcaf_valid_token_success_message', __( 'Thanks! We will give this user special thanks!', 'yith-woocommerce-affiliates' ) ), 'success' );
 
@@ -525,7 +525,7 @@ if ( ! class_exists( 'YITH_WCAF_Affiliate_Premium' ) ) {
 					}
 				}
 			} else {
-				wc_add_notice( apply_filters( 'yith_wcaf_missing_token_error_message', __( 'Please, enter the affiliate code', 'yith-wcaf' ) ), 'error' );
+				wc_add_notice( apply_filters( 'yith_wcaf_missing_token_error_message', __( 'Please, enter the affiliate code', 'yith-woocommerce-affiliates' ) ), 'error' );
 			}
 
 			wc_print_notices();

@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the YITH WooCommerce Wishlist package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-05-07 14:41+0200\n"
+"PO-Revision-Date: 2020-06-08 18:12+0200\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -16,73 +16,73 @@ msgstr ""
 
 #: ../templates/wishlist-view-modern.php:135
 msgid "Unit Price:"
-msgstr ""
+msgstr "Prezzo unitario:"
 
 #: ../templates/wishlist-manage-modern.php:121
 msgid "This wishlist is empty.<br/>Add some item soon!"
-msgstr ""
+msgstr "Questa lista dei desideri è vuota.<br/>Aggiungi subito degli articoli!"
 
 #. translators: 1. Number of emails sent per hours.
 #: ../templates/admin/promotion-wizard.php:120
 msgid "In order to avoid overloading your server, we will send %d emails every hour. This will take some time; please relax and wait for the operation to complete ;)"
-msgstr ""
+msgstr "Per evitare che il tuo server vada in sovraccarico invieremo %d ogni ora. Questo impiegherà un po' di tempo, quindi riposati e attendi che l'operazione venga completata ;)"
 
 #: ../plugin-options/wishlist_page-options.php:229
 msgid "My wishlist"
-msgstr ""
+msgstr "La mia lista dei desideri"
 
 #: ../plugin-options/lists-options.php:32
 msgid "Search list"
-msgstr ""
+msgstr "Cerca lista"
 
 #: ../plugin-options/add_to_wishlist-options.php:25
 msgid "After product is added to wishlist"
-msgstr ""
+msgstr "Dopo che il prodotto è stato aggiunto alla lista dei desideri"
 
 #: ../includes/widgets/elementor/class.yith-wcwl-elementor-wishlist.php:123
 msgctxt "yith-woocommerce-wishlist"
 msgid "Items per page"
-msgstr ""
+msgstr "Articoli per pagina"
 
 #: ../includes/widgets/elementor/class.yith-wcwl-elementor-wishlist.php:110
 msgctxt "Elementor control label"
 msgid "Paginate items"
-msgstr ""
+msgstr "Paginazione degli articoli"
 
 #: ../includes/widgets/elementor/class.yith-wcwl-elementor-wishlist.php:102
 msgctxt "Elementor section title"
 msgid "Pagination"
-msgstr ""
+msgstr "Paginazione"
 
 #: ../includes/widgets/elementor/class.yith-wcwl-elementor-wishlist.php:90
 msgctxt "Elementor control label"
 msgid "Wishlist ID"
-msgstr ""
+msgstr "ID lista dei desideri"
 
 #: ../includes/widgets/elementor/class.yith-wcwl-elementor-wishlist.php:82
 msgctxt "Elementor section title"
 msgid "Wishlist"
-msgstr ""
+msgstr "Lista dei desideri"
 
 #: ../includes/widgets/elementor/class.yith-wcwl-elementor-wishlist.php:40
 msgctxt "Elementor widget name"
 msgid "YITH Wishlist"
-msgstr ""
+msgstr "YITH Wishlist"
 
 #: ../includes/widgets/elementor/class.yith-wcwl-elementor-add-to-wishlist.php:181
 msgctxt "Elementor control label"
 msgid "Additional CSS classes for the button"
-msgstr ""
+msgstr "Classi CSS aggiuntive per il pulsante"
 
 #: ../includes/widgets/elementor/class.yith-wcwl-elementor-add-to-wishlist.php:171
 msgctxt "Elementor control label"
 msgid "Icon for the button"
-msgstr ""
+msgstr "Icona per il pulsante"
 
 #: ../includes/widgets/elementor/class.yith-wcwl-elementor-add-to-wishlist.php:161
 msgctxt "Elementor control label"
 msgid "URL of the wishlist page"
-msgstr ""
+msgstr "URL della pagina Lista dei desideri"
 
 #: ../includes/widgets/elementor/class.yith-wcwl-elementor-add-to-wishlist.php:153
 msgctxt "Elementor section title"
@@ -91,46 +91,46 @@ msgstr ""
 
 #: ../includes/widgets/elementor/class.yith-wcwl-elementor-add-to-wishlist.php:144
 msgid "Product added to wishlist"
-msgstr ""
+msgstr "Prodotto aggiunto alla lista"
 
 #: ../includes/widgets/elementor/class.yith-wcwl-elementor-add-to-wishlist.php:141
 msgctxt "Elementor control label"
 msgid "\"Product added to wishlist\" label"
-msgstr ""
+msgstr "Etichetta \"Prodotto aggiunto alla lista\""
 
 #: ../includes/widgets/elementor/class.yith-wcwl-elementor-add-to-wishlist.php:134
 msgid "Product already in wishlist"
-msgstr ""
+msgstr "Prodotto già presente nella lista"
 
 #: ../includes/widgets/elementor/class.yith-wcwl-elementor-add-to-wishlist.php:131
 msgctxt "Elementor control label"
 msgid "\"Product already in wishlist\" label"
-msgstr ""
+msgstr "Etichetta \"Prodotto già presente nella lista\""
 
 #: ../includes/widgets/elementor/class.yith-wcwl-elementor-add-to-wishlist.php:121
 msgctxt "Elementor control label"
 msgid "\"Browse wishlist\" label"
-msgstr ""
+msgstr "Etichetta \"Vedi lista dei desideri\""
 
 #: ../includes/widgets/elementor/class.yith-wcwl-elementor-add-to-wishlist.php:111
 msgctxt "Elementor control label"
 msgid "Button label"
-msgstr ""
+msgstr "Etichetta del pulsante"
 
 #: ../includes/widgets/elementor/class.yith-wcwl-elementor-add-to-wishlist.php:103
 msgctxt "Elementor section title"
 msgid "Labels"
-msgstr ""
+msgstr "Etichette"
 
 #: ../includes/widgets/elementor/class.yith-wcwl-elementor-add-to-wishlist.php:91
 msgctxt "Elementor control label"
 msgid "Product ID"
-msgstr ""
+msgstr "ID prodotto"
 
 #: ../includes/widgets/elementor/class.yith-wcwl-elementor-add-to-wishlist.php:83
 msgctxt "Elementor section title"
 msgid "Product"
-msgstr ""
+msgstr "Prodotto"
 
 #: ../includes/widgets/elementor/class.yith-wcwl-elementor-add-to-wishlist.php:40
 msgctxt "Elementor widget name"
@@ -142,27 +142,27 @@ msgstr ""
 #: ../includes/class.yith-wcwl-premium.php:161,
 #: ../includes/class.yith-wcwl-premium.php:200
 msgid "There was an error while processing your request; please, try later"
-msgstr ""
+msgstr "Si è verificato un errore durante l'elaborazione della tua richiesta. Per favore, riprova più tardi"
 
 #: ../includes/class.yith-wcwl-admin.php:126
 msgid "Wishlist Page"
-msgstr ""
+msgstr "Pagina Lista dei desideri"
 
 #: ../includes/class.yith-wcwl-admin-premium.php:572
 msgid "Search a wishlist"
-msgstr ""
+msgstr "Cerca una lista dei desideri"
 
 #: ../includes/class.yith-wcwl-admin-premium.php:303
 msgid "Leave the modal open"
-msgstr ""
+msgstr "Lascia la finestra modale aperta"
 
 #: ../includes/class.yith-wcwl-admin-premium.php:302
 msgid "Automatically close the modal"
-msgstr ""
+msgstr "Chiudi automaticamente la finestra modale"
 
 #: ../includes/class.yith-wcwl-admin-premium.php:292
 msgid "Choose what should happen to the modal, when a product is added to the list."
-msgstr ""
+msgstr "Scegli il comportamento della finestra modale quando un prodotto è stato aggiunto alla lista."
 
 #: ../templates/wishlist-widget-items.php:107
 msgid "View your wishlist &rsaquo;"
@@ -197,38 +197,38 @@ msgid "Product name"
 msgstr "Nome prodotto"
 
 #: ../templates/wishlist-view-images.php:218,
-#: ../templates/wishlist-view-mobile.php:224,
-#: ../templates/wishlist-view-modern.php:217,
+#: ../templates/wishlist-view-mobile.php:228,
+#: ../templates/wishlist-view-modern.php:215,
 #: ../templates/wishlist-view.php:155, ../templates/wishlist-view.php:287
 msgid "Remove this product"
 msgstr "Rimuovi questo prodotto"
 
 #: ../templates/wishlist-view-images.php:210,
-#: ../templates/wishlist-view-mobile.php:216,
-#: ../templates/wishlist-view-modern.php:209,
+#: ../templates/wishlist-view-mobile.php:220,
+#: ../templates/wishlist-view-modern.php:207,
 #: ../templates/wishlist-view.php:277
 msgid "Move to another list &rsaquo;"
 msgstr "Sposta in un'altra lista &rsaquo;"
 
 #: ../templates/wishlist-view-images.php:170,
-#: ../templates/wishlist-view-mobile.php:175,
+#: ../templates/wishlist-view-mobile.php:179,
 #: ../templates/wishlist-view-modern.php:169
 msgid "Stock:"
 msgstr "Disponibilità in magazzino:"
 
 #: ../templates/wishlist-view-images.php:155,
-#: ../templates/wishlist-view-mobile.php:160,
+#: ../templates/wishlist-view-mobile.php:164,
 #: ../templates/wishlist-view-modern.php:154
 msgid "Quantity:"
 msgstr "Quantità:"
 
 #: ../templates/wishlist-view-images.php:136,
-#: ../templates/wishlist-view-mobile.php:133
+#: ../templates/wishlist-view-mobile.php:137
 msgid "Price:"
 msgstr "Prezzo:"
 
 #: ../templates/wishlist-view-images.php:125,
-#: ../templates/wishlist-view-mobile.php:122,
+#: ../templates/wishlist-view-mobile.php:126,
 #: ../templates/wishlist-view-modern.php:124
 msgid "Added on:"
 msgstr "Aggiunto il:"
@@ -246,29 +246,29 @@ msgstr "Annulla"
 msgid "Edit title"
 msgstr "Modifica titolo"
 
-#: ../templates/wishlist-view-footer-mobile.php:77,
+#: ../templates/wishlist-view-footer-mobile.php:78,
 #: ../templates/wishlist-view-footer.php:99,
 #: ../templates/wishlist-widget-items.php:111
 msgid "Add all to cart"
 msgstr "Aggiungi tutti al carrello"
 
-#: ../templates/wishlist-view-footer-mobile.php:63,
+#: ../templates/wishlist-view-footer-mobile.php:64,
 #: ../templates/wishlist-view-footer.php:69
 msgid "Apply"
 msgstr "Applica"
 
 #. translators: 1. Wishlist formatted name.
-#: ../templates/wishlist-view-footer-mobile.php:59,
+#: ../templates/wishlist-view-footer-mobile.php:60,
 #: ../templates/wishlist-view-footer.php:63
 msgid "Move to %s"
 msgstr "Sposta in %s"
 
-#: ../templates/wishlist-view-footer-mobile.php:46,
+#: ../templates/wishlist-view-footer-mobile.php:47,
 #: ../templates/wishlist-view-footer.php:47
 msgid "Remove from wishlist"
 msgstr "Rimuovi dalla lista"
 
-#: ../templates/wishlist-view-footer-mobile.php:41,
+#: ../templates/wishlist-view-footer-mobile.php:42,
 #: ../templates/wishlist-view-footer.php:42
 msgid "Apply this action to all the selected items:"
 msgstr "Applica a tutti gli articoli selezionati:"
@@ -287,7 +287,7 @@ msgstr "Inserisci un nome utente o un indirizzo email"
 
 #: ../templates/wishlist-popup-move.php:40
 msgid "This item is already in the <b>%s wishlist</b>.<br/>You can move it in another list:"
-msgstr ""
+msgstr "Questo prodotto si trova già nella tua <b>lista %s</b>.<br/>Puoi spostarlo in un'altra lista:"
 
 #: ../templates/wishlist-popup-ask-an-estimate.php:40
 msgid "Your email"
@@ -302,9 +302,9 @@ msgid "Ask for an estimate for this list"
 msgstr "Richiedi un preventivo per questa lista"
 
 #: ../templates/wishlist-pdf.php:200,
-#: ../templates/wishlist-view-images.php:231,
-#: ../templates/wishlist-view-mobile.php:234,
-#: ../templates/wishlist-view-modern.php:230,
+#: ../templates/wishlist-view-images.php:235,
+#: ../templates/wishlist-view-mobile.php:238,
+#: ../templates/wishlist-view-modern.php:232,
 #: ../templates/wishlist-view.php:307
 msgid "No products added to the wishlist"
 msgstr "Non è stato ancora aggiunto nessun prodotto alla lista"
@@ -316,7 +316,7 @@ msgstr "Aggiunto il: %s"
 
 #: ../templates/wishlist-pdf.php:180,
 #: ../templates/wishlist-view-images.php:173,
-#: ../templates/wishlist-view-mobile.php:178,
+#: ../templates/wishlist-view-mobile.php:182,
 #: ../templates/wishlist-view-modern.php:172,
 #: ../templates/wishlist-view.php:224
 msgid "In Stock"
@@ -324,7 +324,7 @@ msgstr "Disponibile"
 
 #: ../templates/wishlist-pdf.php:180,
 #: ../templates/wishlist-view-images.php:173,
-#: ../templates/wishlist-view-mobile.php:178,
+#: ../templates/wishlist-view-mobile.php:182,
 #: ../templates/wishlist-view-modern.php:172,
 #: ../templates/wishlist-view.php:224
 msgid "Out of stock"
@@ -390,7 +390,7 @@ msgstr "%d articoli"
 msgid "Items:"
 msgstr "Articoli:"
 
-#: ../templates/wishlist-view-footer-mobile.php:71,
+#: ../templates/wishlist-view-footer-mobile.php:72,
 #: ../templates/wishlist-view-footer.php:77
 msgid "Update"
 msgstr "Aggiorna"
@@ -571,7 +571,7 @@ msgstr "rimuovi"
 #: ../templates/add-to-wishlist-move.php:122,
 #: ../templates/wishlist-popup-move.php:62,
 #: ../templates/wishlist-view-images.php:191,
-#: ../templates/wishlist-view-mobile.php:197,
+#: ../templates/wishlist-view-mobile.php:201,
 #: ../templates/wishlist-view-modern.php:190,
 #: ../templates/wishlist-view.php:257
 msgid "Move"
@@ -589,7 +589,7 @@ msgstr "Crea una nuova lista"
 
 #: ../templates/add-to-wishlist-move.php:74
 msgid "This item is already in the <b>%s wishlist</b>.<br/>You can move it to another list:"
-msgstr ""
+msgstr "Questo prodotto si trova già nella tua <b>lista %s</b>.<br/>Puoi spostarlo in un'altra lista:"
 
 #: ../includes/class.yith-wcwl-ajax-handler.php:67,
 #: ../templates/add-to-wishlist-move.php:48,
@@ -1050,7 +1050,7 @@ msgstr "Email 'Prodotto nuovamente disponibile'"
 
 #: ../plugin-options/promotion_email-options.php:113
 msgid "This field lets you modify the main content of the text email. You can use the following placeholders: <code>{user_name}</code> <code>{user_email}</code> <code>{user_first_name}</code> <code>{user_last_name}</code> <code>{product_name}</code> <code>{product_price}</code> <code>{coupon_code}</code> <code>{coupon_amount}</code> <code>{coupon_value}</code> <code>{product_url}</code> <code>{add_to_cart_url}</code>"
-msgstr ""
+msgstr "Questo campo ti permette di modificare il corpo dell'email in formato testuale. Puoi utilizzare i seguenti segnaposto: <code>{user_name}</code> <code>{user_email}</code> <code>{user_first_name}</code> <code>{user_last_name}</code> <code>{product_name}</code> <code>{product_price}</code> <code>{coupon_code}</code> <code>{coupon_amount}</code> <code>{coupon_value}</code> <code>{product_url}</code> <code>{add_to_cart_url}</code>"
 
 #: ../plugin-options/promotion_email-options.php:112,
 #: ../plugin-options/promotion_email-options.php:204,
@@ -1060,7 +1060,7 @@ msgstr "Contenuto email testuale"
 
 #: ../plugin-options/promotion_email-options.php:100
 msgid "This field lets you modify the main content of the HTML email. You can use the following placeholders: <code>{user_name}</code> <code>{user_email}</code> <code>{user_first_name}</code> <code>{user_last_name}</code> <code>{product_image}</code> <code>{product_name}</code> <code>{product_price}</code> <code>{coupon_code}</code> <code>{coupon_amount}</code> <code>{product_url}</code> <code>{add_to_cart_url}</code>"
-msgstr ""
+msgstr "Questo campo ti permette di modificare il corpo dell'email in formato HTML. Puoi utilizzare i seguenti segnaposto: <code>{user_name}</code> <code>{user_email}</code> <code>{user_first_name}</code> <code>{user_last_name}</code> <code>{product_image}</code> <code>{product_name}</code> <code>{product_price}</code> <code>{coupon_code}</code> <code>{coupon_amount}</code> <code>{product_url}</code> <code>{add_to_cart_url}</code>"
 
 #: ../plugin-options/promotion_email-options.php:92
 msgid "Enter the mail subject line. Leave blank to use the default subject: \"<i>A product of your wishlist is on sale</i>\""
@@ -1898,8 +1898,8 @@ msgstr "avete aggiunto questo prodotto alla lista dei desideri"
 #: ../includes/functions.yith-wcwl.php:224
 msgid "You and %s user"
 msgid_plural "You and %d users"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Tu e %s utente"
+msgstr[1] "Tu e altri %d utenti"
 
 #: ../includes/functions.yith-wcwl.php:220
 msgid "to add this item in wishlist"
@@ -1919,8 +1919,8 @@ msgstr[1] "hanno aggiunto questo prodotto alla propria lista"
 #: ../includes/functions.yith-wcwl.php:216
 msgid "%d user"
 msgid_plural "%d users"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d utente"
+msgstr[1] "%d utenti"
 
 #: ../includes/emails/class.yith-wcwl-promotion-email.php:412
 msgid ""
@@ -2336,7 +2336,7 @@ msgstr "Condividi su WhatsApp"
 #: ../includes/class.yith-wcwl-shortcode.php:493,
 #: ../includes/class.yith-wcwl-shortcode.php:495
 msgid "My wishlist on "
-msgstr ""
+msgstr "La mia lista dei desideri su"
 
 #: ../includes/class.yith-wcwl-shortcode.php:480
 msgid "Share via email"
@@ -2435,21 +2435,21 @@ msgctxt "[gutenberg]: block name"
 msgid "YITH Add to wishlist"
 msgstr "YITH Aggiungi alla lista dei desideri"
 
-#: ../includes/class.yith-wcwl-shortcode-premium.php:432,
+#: ../includes/class.yith-wcwl-shortcode-premium.php:444,
 #: ../templates/wishlist-popup-move.php:36
 msgid "Move to another wishlist"
 msgstr "Sposta in un'altra lista"
 
-#: ../includes/class.yith-wcwl-shortcode-premium.php:430
+#: ../includes/class.yith-wcwl-shortcode-premium.php:442
 msgid "Move &rsaquo;"
 msgstr "Sposta &rsaquo;"
 
-#: ../includes/class.yith-wcwl-shortcode-premium.php:425,
+#: ../includes/class.yith-wcwl-shortcode-premium.php:437,
 #: ../includes/class.yith-wcwl-shortcode.php:606
 msgid "Remove from list"
 msgstr "Rimuovi dalla lista"
 
-#: ../includes/class.yith-wcwl-shortcode-premium.php:383
+#: ../includes/class.yith-wcwl-shortcode-premium.php:395
 msgid "Select a wishlist"
 msgstr "Seleziona una lista dei desideri"
 
@@ -2560,7 +2560,7 @@ msgstr "lista-dei-desideri"
 #: ../includes/class.yith-wcwl-frontend.php:645,
 #: ../includes/class.yith-wcwl-shortcode.php:237,
 #: ../plugin-options/wishlist_page-options.php:237,
-#: ../templates/wishlist-view-footer-mobile.php:43,
+#: ../templates/wishlist-view-footer-mobile.php:44,
 #: ../templates/wishlist-view-footer.php:44
 msgid "Add to cart"
 msgstr "Aggiungi al carrello"
@@ -3049,7 +3049,7 @@ msgstr "Effettua l'%login_anchor% per poter utilizzare tutte le funzionalità de
 
 #: ../includes/class.yith-wcwl-admin-premium.php:234
 msgid "Enter the message to ask unauthenticated users to login so they will be able to use the multi-wishlist feature.<br/>Use the placeholder %login_anchor% (set up the text in the following option) to add an anchor and redirect users to the Login page."
-msgstr ""
+msgstr "Inserisci il messaggio da mostrare ai clienti non autenticati per invitarli ad effettuare l'accesso e usufruire della funzionalità 'Liste multiple'.<br/>Utilizza il segnaposto %login_anchor% (vedi opzione seguente per impostarne il testo) per inserire un'ancora e reindirizzare i clienti alla pagina di login."
 
 #: ../includes/class.yith-wcwl-admin-premium.php:232
 msgid "Login message for non-authenticated users"
@@ -3149,11 +3149,10 @@ msgid "Promotional"
 msgstr "Promozioni"
 
 #: ../includes/class.yith-wcwl-admin-premium.php:123,
-#: ../includes/class.yith-wcwl-shortcode-premium.php:137,
-#: ../includes/class.yith-wcwl-shortcode-premium.php:154,
+#: ../includes/class.yith-wcwl-shortcode-premium.php:139,
+#: ../includes/class.yith-wcwl-shortcode-premium.php:155,
 #: ../plugin-options/ask_an_estimate-options.php:18,
-#: ../plugin-options/ask_an_estimate-options.php:220,
-#: ../templates/wishlist-view-footer-mobile.php:87
+#: ../plugin-options/ask_an_estimate-options.php:220
 msgid "Ask for an estimate"
 msgstr "Richiedi un preventivo"
 

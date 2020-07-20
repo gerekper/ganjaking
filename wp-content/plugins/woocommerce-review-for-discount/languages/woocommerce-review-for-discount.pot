@@ -2,10 +2,10 @@
 # This file is distributed under the same license as the WooCommerce Review for Discount package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Review for Discount 1.6.16\n"
+"Project-Id-Version: WooCommerce Review for Discount 1.6.17\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-review-for-discount\n"
-"POT-Creation-Date: 2020-06-10 12:07:34+00:00\n"
+"POT-Creation-Date: 2020-07-07 09:27:24+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -228,33 +228,33 @@ msgstr ""
 msgid "Products"
 msgstr ""
 
-#: form.php:160 form.php:181
-msgid "Search for a product..."
+#: form.php:158
+msgid "Search for a product&hellip;"
 msgstr ""
 
-#: form.php:202
+#: form.php:174
 msgid "Product categories"
 msgstr ""
 
-#: form.php:203
-msgid "Search for a category..."
+#: form.php:175
+msgid "Search for a category&hellip;"
 msgstr ""
 
-#: form.php:213
+#: form.php:183
 msgid "Limit coupon validity"
 msgstr ""
 
-#: form.php:215
+#: form.php:185
 msgid ""
 "Checking this box will also limit the usage of the coupon to the "
 "products/categories defined above."
 msgstr ""
 
-#: form.php:237
+#: form.php:207
 msgid "Create Discount"
 msgstr ""
 
-#: form.php:241
+#: form.php:211
 msgid "Update Discount"
 msgstr ""
 
@@ -357,13 +357,13 @@ msgid ""
 "discounts from our store:"
 msgstr ""
 
-#: woocommerce-review-for-discount.php:790
-#: woocommerce-review-for-discount.php:853
+#: woocommerce-review-for-discount.php:787
+#: woocommerce-review-for-discount.php:850
 msgid "You already have a discount for %s."
 msgstr ""
 
-#: woocommerce-review-for-discount.php:803
-#: woocommerce-review-for-discount.php:867
+#: woocommerce-review-for-discount.php:800
+#: woocommerce-review-for-discount.php:864
 msgid "You already have a discount for the category: %s."
 msgstr ""
 
@@ -386,5 +386,5 @@ msgid "WooCommerce"
 msgstr ""
 
 #. Author URI of the plugin/theme
-msgid "https://www.woocommerce.com/"
+msgid "https://woocommerce.com/"
 msgstr ""

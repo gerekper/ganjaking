@@ -452,24 +452,30 @@ class FUE_Sending_Queue_List_Table extends WP_List_Table {
 			$user_string = esc_html( $user->display_name ) . ' (#' . absint( $user->ID ) . ' &ndash; ' . esc_html( $user->user_email ) . ')';
 		}
 
-		if ( 'top' == $which ) { ?>
+		if ( 'top' == $which ) {
+	?>
 			<div class="alignleft actions">
-				<select id="dropdown_per_page" name="_items_per_page" class="select2">
-					<option value="20" <?php selected( 20, $per_page ); ?>><?php esc_html_e('Show 20 per page', 'follow_up_emails'); ?></option>
-					<option value="50" <?php selected( 50, $per_page ); ?>><?php esc_html_e('Show 50 per page', 'follow_up_emails'); ?></option>
-					<option value="100" <?php selected( 100, $per_page ); ?>><?php esc_html_e('Show 100 per page', 'follow_up_emails'); ?></option>
-					<option value="200" <?php selected( 200, $per_page ); ?>><?php esc_html_e('Show 200 per page', 'follow_up_emails'); ?></option>
+				<select id="dropdown_per_page" name="_items_per_page">
+					<option value="20" <?php selected( 20, $per_page ); ?>><?php esc_html_e( 'Show 20 per page', 'follow_up_emails' ); ?></option>
+					<option value="50" <?php selected( 50, $per_page ); ?>><?php esc_html_e( 'Show 50 per page', 'follow_up_emails' ); ?></option>
+					<option value="100" <?php selected( 100, $per_page ); ?>><?php esc_html_e( 'Show 100 per page', 'follow_up_emails' ); ?></option>
+					<option value="200" <?php selected( 200, $per_page ); ?>><?php esc_html_e( 'Show 200 per page', 'follow_up_emails' ); ?></option>
 				</select>
 
-				<input type="hidden" class="fue-customer-search" name="_customer_user" data-placeholder="<?php esc_attr_e( 'Search for a customer&hellip;', 'woocommerce' ); ?>" data-selected="<?php echo esc_attr( $user_string ); ?>" value="<?php echo esc_attr( $user_id ); ?>" data-allow_clear="true" data-nonce="<?php echo esc_attr( wp_create_nonce( 'customer_search' ) ); ?>" />
+				<select class="fue-customer-search" name="_customer_user" data-placeholder="<?php esc_attr_e( 'Search for a customer&hellip;', 'follow_up_emails' ); ?>" data-allow_clear="true" data-nonce="<?php echo esc_attr( wp_create_nonce( 'customer_search' ) ); ?>">
+				<?php if ( ! empty( $user_id ) ) : ?>
+					<option value="<?php echo esc_attr( $user_id ); ?>"><?php echo esc_attr( $user_string ); ?></option>
+				<?php endif; ?>
+				</select>
 
-				<?php
+			<?php
 				submit_button( __( 'Filter' ), 'button', false, false, array( 'id' => 'post-query-submit' ) );
 				submit_button( __( 'Delete ALL', 'follow_up_emails' ), 'button', 'fue_delete_all', false, array( 'id' => 'delete-all-submit' ) );
 
-				do_action('fue_scheduled_events_extra_tablenav');
-				?>
-			</div><?php
+				do_action( 'fue_scheduled_events_extra_tablenav' );
+			?>
+			</div>
+	<?php
 		}
 	}
 

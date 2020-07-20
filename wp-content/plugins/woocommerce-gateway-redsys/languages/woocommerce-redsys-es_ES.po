@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: WooCommerde Redsys Gateway\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-07-09 17:26+0200\n"
-"PO-Revision-Date: 2020-07-09 17:55+0200\n"
+"PO-Revision-Date: 2020-07-12 15:00+0200\n"
 "Last-Translator: José Conti <j.conti@joseconti.com>\n"
 "Language-Team: José Conti https://www.joseconti.com\n"
 "Language: es_ES\n"
@@ -124,10 +124,8 @@ msgid "Enable/Disable"
 msgstr "Activar/Desactivar"
 
 #: ../classes/class-wc-gateway-bizum-redsys.php:159
-#, fuzzy
-#| msgid "Enable BBVA"
 msgid "Enable Bizum"
-msgstr "Activar BBVA"
+msgstr "Activar Bizum"
 
 #: ../classes/class-wc-gateway-bizum-redsys.php:163
 #: ../classes/class-wc-gateway-direct-debit-redsys.php:162
@@ -1039,8 +1037,6 @@ msgstr ""
 
 #: ../classes/class-wc-gateway-direct-debit-redsys.php:96
 #: ../classes/class-wc-gateway-direct-debit-redsys.php:165
-#, fuzzy
-#| msgid "Direct debit"
 msgid "Direct Debit"
 msgstr "Domiciliación bancaria"
 
@@ -1049,10 +1045,8 @@ msgid "Direct Debit works by sending the user to Direct Debit Gateway"
 msgstr ""
 
 #: ../classes/class-wc-gateway-direct-debit-redsys.php:158
-#, fuzzy
-#| msgid "Direct debit"
 msgid "Enable Direct Debit"
-msgstr "Domiciliación bancaria"
+msgstr "Activar domiciliación bancaria"
 
 #: ../classes/class-wc-gateway-direct-debit-redsys.php:172
 #, fuzzy
@@ -1087,10 +1081,8 @@ msgstr ""
 "realizar su pedido."
 
 #: ../classes/class-wc-gateway-direct-debit-redsys.php:609
-#, fuzzy
-#| msgid "Direct debit"
 msgid "Pay with Direct Debit"
-msgstr "Domiciliación bancaria"
+msgstr "Pagar mediante domiciliación bancaria"
 
 #: ../classes/class-wc-gateway-direct-debit-redsys.php:641
 #, fuzzy
@@ -1309,20 +1301,17 @@ msgstr ""
 "unos pocos datos aumentando el ratio de ventas."
 
 #: ../classes/class-wc-gateway-insite-redsys.php:166
-#, fuzzy
-#| msgid "Enable Iupay"
 msgid "Enable InSite"
-msgstr "Activar Iupay"
+msgstr "Activar InSite"
 
 #: ../classes/class-wc-gateway-insite-redsys.php:180
 msgid "Secure EMV3DS"
 msgstr ""
 
 #: ../classes/class-wc-gateway-insite-redsys.php:182
-#, fuzzy
 #| msgid "Enable Iupay"
 msgid "Enable EMV3DS"
-msgstr "Activar Iupay"
+msgstr "Activar EMV3DS"
 
 #: ../classes/class-wc-gateway-insite-redsys.php:184
 msgid "Enable EMV3DS if you needed"
@@ -1453,10 +1442,8 @@ msgid "Pay Now"
 msgstr ""
 
 #: ../classes/class-wc-gateway-insite-redsys.php:1132
-#, fuzzy
-#| msgid "Cancelled by Iupay"
 msgid "Cancelled by InSite"
-msgstr "Cancelado por Iupay"
+msgstr "Cancelado por InSite"
 
 #: ../classes/class-wc-gateway-insite-redsys.php:1133
 #, fuzzy
@@ -1668,10 +1655,8 @@ msgstr "Activar pago con 1 clic sin abandonar la tienda"
 
 #: ../classes/class-wc-gateway-preauthotizations-redsys.php:261
 #: ../classes/class-wc-gateway-redsys.php:290
-#, fuzzy
-#| msgid "Add Bulk Action Immediate Charge"
 msgid "Add Bulk Action Refunds"
-msgstr "Añade la acción en lote «Cargo inmediato en Redsys»"
+msgstr "Añade la acción en lote de devoluciones"
 
 #: ../classes/class-wc-gateway-preauthotizations-redsys.php:263
 #: ../classes/class-wc-gateway-redsys.php:292
@@ -1682,10 +1667,8 @@ msgstr ""
 
 #: ../classes/class-wc-gateway-preauthotizations-redsys.php:264
 #: ../classes/class-wc-gateway-redsys.php:293
-#, fuzzy
-#| msgid "Enable Bulk Action Immediate Charge"
 msgid "Enable Bulk Action Refunds"
-msgstr "Activar la acción en lote «Cargo inmediato en Redsys»"
+msgstr "Activar la acción en lote de devolución"
 
 #: ../classes/class-wc-gateway-preauthotizations-redsys.php:268
 #: ../classes/class-wc-gateway-redsys.php:297
@@ -2553,10 +2536,8 @@ msgid ""
 msgstr ""
 
 #: ../classes/class-wc-gateway-redsys.php:258
-#, fuzzy
-#| msgid "Authorization Code : "
 msgid "Enable Show Authorization Code"
-msgstr "Código de autorización: "
+msgstr "Activar Mostrar número de autorización"
 
 #: ../classes/class-wc-gateway-redsys.php:283
 msgid "Add Bulk Action Immediate Charge"

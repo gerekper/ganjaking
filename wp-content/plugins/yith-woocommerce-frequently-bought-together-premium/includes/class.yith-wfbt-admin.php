@@ -318,7 +318,8 @@ if ( ! class_exists( 'YITH_WFBT_Admin' ) ) {
 
 			if ( isset( $post ) && get_post_type( $post->ID ) == 'product' ) {
 
-				wp_enqueue_script( 'yith-wfbt-admin', YITH_WFBT_ASSETS_URL . '/js/yith-wfbt-admin.js', array( 'jquery' ), false, true );
+				$suffix      = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+				wp_enqueue_script( 'yith-wfbt-admin', YITH_WFBT_ASSETS_URL . '/js/yith-wfbt-admin'.$suffix.'.js', array( 'jquery' ), false, true );
 
 				wp_localize_script( 'yith-wfbt-admin', 'yith_wfbt', array(
 					'ajaxurl' => admin_url( 'admin-ajax.php' ),

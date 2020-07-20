@@ -52,26 +52,31 @@ if ( ! is_array( $columns ) ) {
 			<?php if ( get_option( 'ywraq_show_preview' ) === 'yes' || in_array( 'all', $columns, true ) || in_array( 'thumbnail', $columns, true ) ) : ?>
 				<th scope="col" style="text-align:left; border: 1px solid #eee;">
 					<?php esc_html_e( 'Preview', 'yith-woocommerce-request-a-quote' ); ?>
+					<?php ++$colspan; ?>
 				</th>
 			<?php endif ?>
 			<?php if ( in_array( 'all', $columns, true ) || in_array( 'product_name', $columns, true ) ) : ?>
 				<th scope="col" style="text-align:left; border: 1px solid #eee;">
 					<?php esc_html_e( 'Product', 'yith-woocommerce-request-a-quote' ); ?>
+					<?php ++$colspan; ?>
 				</th>
 			<?php endif ?>
 			<?php if ( in_array( 'all', $columns, true ) || in_array( 'unit_price', $columns, true ) ) : ?>
 				<th scope="col" style="text-align:left; border: 1px solid #eee;">
 					<?php esc_html_e( 'Unit Price', 'yith-woocommerce-request-a-quote' ); ?>
+					<?php ++$colspan; ?>
 				</th>
 			<?php endif ?>
 			<?php if ( in_array( 'all', $columns, true ) || in_array( 'quantity', $columns, true ) ) : ?>
 				<th scope="col" style="text-align:left; border: 1px solid #eee;">
 					<?php esc_html_e( 'Quantity', 'yith-woocommerce-request-a-quote' ); ?>
+					<?php ++$colspan; ?>
 				</th>
 			<?php endif ?>
 			<?php if ( in_array( 'all', $columns, true ) || in_array( 'product_subtotal', $columns, true ) ) : ?>
 				<th scope="col" style="text-align:left; border: 1px solid #eee;">
 					<?php esc_html_e( 'Subtotal', 'yith-woocommerce-request-a-quote' ); ?>
+					<?php ++$colspan; ?>
 				</th>
 			<?php endif ?>
 		</tr>
@@ -122,7 +127,6 @@ if ( ! is_array( $columns ) ) {
 							}
 							$thumbnail = sprintf( '<img src="%s" style="max-width:100px;"/>', $thumbnail_url );
 
-							++$colspan;
 							if ( ! $_product->is_visible() ) {
 								echo $thumbnail; //phpcs:ignore
 							} else {
@@ -136,7 +140,6 @@ if ( ! is_array( $columns ) ) {
 						<td scope="col" style="text-align:left; border-left: 1px solid #eee">
 							<?php
 							echo esc_html( $title );
-							++$colspan;
 							?>
 							<small>
 								<?php
@@ -150,15 +153,12 @@ if ( ! is_array( $columns ) ) {
 						</td>
 					<?php endif ?>
 					<?php if ( in_array( 'all', $columns, true ) || in_array( 'unit_price', $columns, true ) ) : ?>
-						<?php ++$colspan; ?>
 						<td scope="col" style="text-align:center;"><?php echo wp_kses_post( $unit_price ); ?></td>
 					<?php endif ?>
 					<?php if ( in_array( 'all', $columns, true ) || in_array( 'quantity', $columns, true ) ) : ?>
-						<?php ++$colspan; ?>
 						<td scope="col" style="text-align:center;"><?php echo esc_html( $item['qty'] ); ?></td>
 					<?php endif ?>
 					<?php if ( in_array( 'all', $columns, true ) || in_array( 'product_subtotal', $columns, true ) ) : ?>
-						<?php ++$colspan; ?>
 						<td scope="col" class="last-col" style="text-align:right;  border-right: 1px solid #eee">
 							<?php echo wp_kses_post( apply_filters( 'ywraq_quote_subtotal_item', ywraq_formatted_line_total( $order, $item ), $item['line_total'], $_product ) ); ?>
 						</td>

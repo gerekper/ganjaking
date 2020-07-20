@@ -469,183 +469,116 @@ function init_select2_fields() {
         jQuery( this ).select2( select2_args).addClass( 'enhanced' );
     });
 
-    jQuery(":input.ajax_select2_products_and_variations").filter( ':not(.enhanced)' ).each( function() {
+    jQuery( ':input.ajax_select2_products_and_variations' ).filter( ':not(.enhanced)' ).each( function() {
         var select2_args = {
             allowClear:  jQuery( this ).data( 'allow_clear' ) ? true : false,
-            placeholder: jQuery( this ).data( 'placeholder' ),
-            dropdownAutoWidth: 'true',
-            minimumInputLength: jQuery( this ).data( 'minimum_input_length' ) ? jQuery( this ).data( 'minimum_input_length' ) : '3',
+			placeholder: jQuery( this ).data( 'placeholder' ),
+			width:       '100%',
+            minimumInputLength: jQuery( this ).data( 'minimum_input_length' ) ? jQuery( this ).data( 'minimum_input_length' ) : 3,
             escapeMarkup: function( m ) {
                 return m;
-            },
-            ajax: {
-                url:         ajaxurl,
-                dataType:    'json',
-                quietMillis: 250,
-                data: function( term, page ) {
-                    return {
-                        term:     term,
-                        action:   jQuery( this ).data( 'action' ) || 'woocommerce_json_search_products_and_variations',
-                        security: FUE.nonce
-                    };
-                },
-                results: function( data, page ) {
-                    var terms = [];
-                    if ( data ) {
-                        jQuery.each( data, function( id, text ) {
-                            terms.push( { id: id, text: text } );
-                        });
-                    }
-                    return { results: terms };
-                },
-                cache: true
-            }
+			},
+			ajax: {
+				url:         ajaxurl,
+				dataType:    'json',
+				quietMillis: 250,
+				data: function( params ) {
+					return {
+						term:     params.term,
+						action:   jQuery( this ).data( 'action' ) || 'woocommerce_json_search_products_and_variations',
+						security: FUE.nonce,
+					};
+				},
+				processResults: function( data ) {
+					var terms = [];
+					if ( data ) {
+						jQuery.each( data, function( id, text ) {
+							terms.push( { id: id, text: text } );
+						} );
+					}
+					return { results: terms };
+				},
+				cache: true
+			},
         };
 
-        if ( jQuery( this ).data( 'multiple' ) === true ) {
-            select2_args.multiple = true;
-            select2_args.initSelection = function( element, callback ) {
-                var data     = jQuery.parseJSON( element.attr( 'data-selected' ) );
-                var selected = [];
-
-                jQuery( element.val().split( "," ) ).each( function( i, val ) {
-                    selected.push( { id: val, text: data[ val ] } );
-                });
-                return callback( selected );
-            };
-            select2_args.formatSelection = function( data ) {
-                return '<div class="selected-option" data-id="' + data.id + '">' + data.text + '</div>';
-            };
-        } else {
-            select2_args.multiple = false;
-            select2_args.initSelection = function( element, callback ) {
-                var data = {id: element.val(), text: element.attr( 'data-selected' )};
-                return callback( data );
-            };
-        }
-
-
-        jQuery(this).select2(select2_args).addClass( 'enhanced' );
+        jQuery( this ).select2( select2_args ).addClass( 'enhanced' );
     } );
 
-    jQuery(":input.ajax_select2_courses").filter( ':not(.enhanced)' ).each( function() {
+	jQuery( ':input.ajax_select2_courses' ).filter( ':not(.enhanced)' ).each( function() {
         var select2_args = {
             allowClear:  jQuery( this ).data( 'allow_clear' ) ? true : false,
-            placeholder: jQuery( this ).data( 'placeholder' ),
-            dropdownAutoWidth: 'true',
-            minimumInputLength: jQuery( this ).data( 'minimum_input_length' ) ? jQuery( this ).data( 'minimum_input_length' ) : '3',
+			placeholder: jQuery( this ).data( 'placeholder' ),
+			width:       '100%',
+            minimumInputLength: jQuery( this ).data( 'minimum_input_length' ) ? jQuery( this ).data( 'minimum_input_length' ) : 3,
             escapeMarkup: function( m ) {
                 return m;
-            },
-            ajax: {
-                url:         ajaxurl,
-                dataType:    'json',
-                quietMillis: 250,
-                data: function( term, page ) {
+			},
+			ajax: {
+				url:         ajaxurl,
+				dataType:    'json',
+				quietMillis: 250,
+				data: function( params ) {
                     return {
-                        term:     term,
+                        term:     params.term,
                         filters:  jQuery( this ).data( 'filter' ) || '',
                         action:   jQuery( this ).data( 'action' ) || 'fue_sensei_search_courses',
                         security: jQuery( this ).data( 'nonce' ) || FUE.nonce
                     };
-                },
-                results: function( data, page ) {
-                    var terms = [];
-                    if ( data ) {
-                        jQuery.each( data, function( id, text ) {
-                            terms.push( { id: id, text: text } );
-                        });
-                    }
-                    return { results: terms };
-                },
-                cache: true
-            }
+
+				},
+				processResults: function( data ) {
+					var terms = [];
+					if ( data ) {
+						jQuery.each( data, function( id, text ) {
+							terms.push( { id: id, text: text } );
+						} );
+					}
+					return { results: terms };
+				},
+				cache: true
+			},
         };
 
-        if ( jQuery( this ).data( 'multiple' ) === true ) {
-            select2_args.multiple = true;
-            select2_args.initSelection = function( element, callback ) {
-                var data     = jQuery.parseJSON( element.attr( 'data-selected' ) );
-                var selected = [];
-
-                jQuery( element.val().split( "," ) ).each( function( i, val ) {
-                    selected.push( { id: val, text: data[ val ] } );
-                });
-                return callback( selected );
-            };
-            select2_args.formatSelection = function( data ) {
-                return '<div class="selected-option" data-id="' + data.id + '">' + data.text + '</div>';
-            };
-        } else {
-            select2_args.multiple = false;
-            select2_args.initSelection = function( element, callback ) {
-                var data = {id: element.val(), text: element.attr( 'data-selected' )};
-                return callback( data );
-            };
-        }
-
-
-        jQuery(this).select2(select2_args).addClass( 'enhanced' );
+        jQuery( this ).select2( select2_args ).addClass( 'enhanced' );
     } );
 
-    jQuery(":input.ajax_select2_lessons").filter( ':not(.enhanced)' ).each( function() {
+	jQuery( ':input.ajax_select2_lessons' ).filter( ':not(.enhanced)' ).each( function() {
         var select2_args = {
             allowClear:  jQuery( this ).data( 'allow_clear' ) ? true : false,
-            placeholder: jQuery( this ).data( 'placeholder' ),
-            dropdownAutoWidth: 'true',
-            minimumInputLength: jQuery( this ).data( 'minimum_input_length' ) ? jQuery( this ).data( 'minimum_input_length' ) : '3',
+			placeholder: jQuery( this ).data( 'placeholder' ),
+			width:       '100%',
+            minimumInputLength: jQuery( this ).data( 'minimum_input_length' ) ? jQuery( this ).data( 'minimum_input_length' ) : 3,
             escapeMarkup: function( m ) {
                 return m;
-            },
-            ajax: {
-                url:         ajaxurl,
-                dataType:    'json',
-                quietMillis: 250,
-                data: function( term, page ) {
+			},
+			ajax: {
+				url:         ajaxurl,
+				dataType:    'json',
+				quietMillis: 250,
+				data: function( params ) {
                     return {
-                        term:     term,
+                        term:     params.term,
                         filters:  jQuery( this ).data( 'filter' ) || '',
                         action:   jQuery( this ).data( 'action' ) || 'fue_sensei_search_lessons',
                         security: jQuery( this ).data( 'nonce' ) || FUE.nonce
                     };
-                },
-                results: function( data, page ) {
-                    var terms = [];
-                    if ( data ) {
-                        jQuery.each( data, function( id, text ) {
-                            terms.push( { id: id, text: text } );
-                        });
-                    }
-                    return { results: terms };
-                },
-                cache: true
-            }
+
+				},
+				processResults: function( data ) {
+					var terms = [];
+					if ( data ) {
+						jQuery.each( data, function( id, text ) {
+							terms.push( { id: id, text: text } );
+						} );
+					}
+					return { results: terms };
+				},
+				cache: true
+			},
         };
 
-        if ( jQuery( this ).data( 'multiple' ) === true ) {
-            select2_args.multiple = true;
-            select2_args.initSelection = function( element, callback ) {
-                var data     = jQuery.parseJSON( element.attr( 'data-selected' ) );
-                var selected = [];
-
-                jQuery( element.val().split( "," ) ).each( function( i, val ) {
-                    selected.push( { id: val, text: data[ val ] } );
-                });
-                return callback( selected );
-            };
-            select2_args.formatSelection = function( data ) {
-                return '<div class="selected-option" data-id="' + data.id + '">' + data.text + '</div>';
-            };
-        } else {
-            select2_args.multiple = false;
-            select2_args.initSelection = function( element, callback ) {
-                var data = {id: element.val(), text: element.attr( 'data-selected' )};
-                return callback( data );
-            };
-        }
-
-
-        jQuery(this).select2(select2_args).addClass( 'enhanced' );
+        jQuery( this ).select2( select2_args ).addClass( 'enhanced' );
     } );
 
 	if ( typeof init_fue_product_search === "function" ) {

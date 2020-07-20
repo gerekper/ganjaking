@@ -708,7 +708,7 @@ if ( ! class_exists ( 'YITH_Electronic_Invoice' ) ) {
             }elseif( $data['billing_country'] == 'IT' && isset($data['billing_vat_ssn']) ){
 
                 // Check if SSn is valid
-                if( !$data['billing_vat_ssn'] == '' && !preg_match('/^[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]$/i',$data['billing_vat_ssn'] )){
+                if( !$data['billing_vat_ssn'] == '' && $data['billing_receiver_type'] != 'organization' && !preg_match('/^[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]$/i',$data['billing_vat_ssn'] )){
 
                     $message = $this->receiver_wrong_ssn_message;
                     $errors->add( 'validation', $message );

@@ -147,6 +147,10 @@ if ( ! class_exists( 'YITH_YWGC_Backend_Premium' ) ) {
 			add_action( 'wp_ajax_nopriv_ywgc_toggle_enabled_action', array( $this, 'ywgc_toggle_enabled_action' ) );
 
 
+			add_action( 'wp_ajax_ywgc_update_cron', array( $this, 'ywgc_update_cron' ) );
+			add_action( 'wp_ajax_nopriv_ywgc_update_cron', array( $this, 'ywgc_update_cron' ) );
+
+
 //            add_action( 'add_tag_form', array( $this, 'ywgc_edit_design_category_form' ) );
 
 			add_action( 'add_meta_boxes' ,  array( $this, 'ywgc_remove_product_meta_boxes' ), 40 );
@@ -154,8 +158,9 @@ if ( ! class_exists( 'YITH_YWGC_Backend_Premium' ) ) {
 			// Hidde the item meta in the order
 			add_filter('woocommerce_hidden_order_itemmeta', array( $this, 'ywgc_hidden_order_item_meta' ), 10, 1);
 
-
 			add_filter( 'woocommerce_order_get_tax_totals', array( $this, 'ywgc_recalculate_tax_totals' ), 10, 2 );
+
+//			add_filter( 'woocommerce_order_get_total', array( $this, 'ywgc_recalculate_totals' ), 10, 2 );
 
 
 		}
@@ -764,45 +769,15 @@ if ( ! class_exists( 'YITH_YWGC_Backend_Premium' ) ) {
 			if (! $used_gift_cards )
 				return;
 
-			$cart_subtotal     = 0;
-			$cart_total        = 0;
-			$fee_total         = 0;
-			$cart_subtotal_tax = 0;
-			$cart_total_tax    = 0;
-
-			$and_taxes = yit_get_prop( $order,'prices_include_tax' );
-
-			if ( $and_taxes && apply_filters('yith_ywgc_update_totals_calculate_taxes',true) ) {
-				$order->calculate_taxes();
-			}
-
-			// line items
-			foreach ( $order->get_items() as $item ) {
-				$cart_subtotal     += $item->get_subtotal();
-				$cart_total        += $item->get_total();
-				$cart_subtotal_tax += $item->get_subtotal_tax();
-				$cart_total_tax    += $item->get_total_tax();
-			}
-
+			$order_total = $order->get_total();
 			$applied_gift_card_amount = yit_get_prop( $order,'_ywgc_applied_gift_cards_totals' );
 
-			if ( !empty($applied_gift_card_amount) ){
-				$cart_total -= $applied_gift_card_amount;
-			}
+			$updated_total = $order_total - $applied_gift_card_amount;
 
-			$order->calculate_shipping();
+			$order->set_total( $updated_total );
 
-			foreach ( $order->get_fees() as $item ) {
-				$fee_total += $item->get_total();
-			}
-
-			$grand_total = round( $cart_total + $fee_total + $order->get_shipping_total() + $order->get_cart_tax() + $order->get_shipping_tax(), wc_get_price_decimals() );
-
-			$order->set_discount_total( $cart_subtotal - $cart_total );
-			$order->set_discount_tax( $cart_subtotal_tax - $cart_total_tax );
-			$order->set_total( $grand_total );
+			$order->apply_changes();
 			$order->save();
-
 		}
 
 
@@ -1035,6 +1010,30 @@ if ( ! class_exists( 'YITH_YWGC_Backend_Premium' ) ) {
 
 		}
 
+		public function ywgc_update_cron(){
+
+			if ( $_POST['interval_mode'] == 'hourly' ){
+
+				update_option( 'ywgc_delivery_mode', 'hourly' );
+
+				wp_clear_scheduled_hook ( 'ywgc_start_gift_cards_sending' );
+
+				wp_schedule_event( time() , 'hourly', 'ywgc_start_gift_cards_sending' );
+
+			}
+			else{
+
+				update_option( 'ywgc_delivery_mode', 'daily' );
+				update_option( 'ywgc_delivery_hour', $_POST['hour'] );
+
+				$hour = strtotime( get_option( 'ywgc_delivery_hour', '00:00' ) );
+				wp_clear_scheduled_hook ( 'ywgc_start_gift_cards_sending' );
+
+				wp_schedule_event(strtotime('-' . get_option( 'gmt_offset' ) . ' hours', $hour ) , 'daily', 'ywgc_start_gift_cards_sending' );
+			}
+
+		}
+
 		public function ywgc_recalculate_tax_totals( $tax_totals , $order ){
 
 
@@ -1081,6 +1080,26 @@ if ( ! class_exists( 'YITH_YWGC_Backend_Premium' ) ) {
 			}
 
 		}
+
+		public function ywgc_recalculate_totals( $total, $order ){
+
+			$used_gift_cards = yit_get_prop( $order, '_ywgc_applied_gift_cards', true);
+
+			if ( ! $used_gift_cards )
+				return $total;
+
+			$order_total = get_post_meta( $order->get_id(), '_order_total', true);
+
+			$applied_gift_card_amount = yit_get_prop( $order,'_ywgc_applied_gift_cards_totals' );
+
+			$updated_total = (float)$order_total - (float)$applied_gift_card_amount;
+
+			$total = $updated_total;
+
+			return $total;
+
+		}
+
 
 
 	}

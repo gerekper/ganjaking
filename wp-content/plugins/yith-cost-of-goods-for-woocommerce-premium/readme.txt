@@ -4,7 +4,7 @@ Contributors: yithemes
 Tags: cost of goods, woocommerce, products, themes, yit, e-commerce, shop, plugins
 Requires at least: 4.0.0
 Tested up to: 5.4
-Stable tag: 1.2.2
+Stable tag: 1.2.4
 
 Licence: GPLv2 or later
 Licence URI: http://www.gnu.org/licences/gpl-2.0.html
@@ -12,6 +12,18 @@ Documentation: https://docs.yithemes.com/yith-cost-of-goods-for-woocommerce
 
 
 == Changelog ==
+
+= 1.2.4 - Released on 06 July 2020 =
+
+* New: Support for WooCommerce 4.3
+* Update: plugin framework
+
+= 1.2.3 - Released on 03 June 2020 =
+
+* New: Support for WooCommerce 4.2
+* Update: plugin framework
+* Update: .pot file
+* Dev: added a check in the case the product changes his type after an order is made
 
 = 1.2.2 - Released on 05 May 2020 =
 

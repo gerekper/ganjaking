@@ -20,7 +20,7 @@ if ( ! class_exists( 'YITH_FAQ_Taxonomy' ) ) {
 	 *
 	 * @class   YITH_FAQ_Taxonomy
 	 * @since   1.0.0
-	 * @author  Alberto Ruggiero
+	 * @author  Alberto Ruggiero <alberto.ruggiero@yithemes.com>
 	 *
 	 */
 	class YITH_FAQ_Taxonomy {
@@ -44,7 +44,7 @@ if ( ! class_exists( 'YITH_FAQ_Taxonomy' ) ) {
 		 * @param   $post_type string
 		 *
 		 * @return  void
-		 * @author  Alberto Ruggiero
+		 * @author  Alberto Ruggiero <alberto.ruggiero@yithemes.com>
 		 */
 		public function __construct( $post_type, $taxonomy ) {
 
@@ -60,7 +60,7 @@ if ( ! class_exists( 'YITH_FAQ_Taxonomy' ) ) {
 		 *
 		 * @since   1.0.0
 		 * @return  void
-		 * @author  Alberto Ruggiero
+		 * @author  Alberto Ruggiero <alberto.ruggiero@yithemes.com>
 		 */
 		public function add_faq_taxonomy() {
 

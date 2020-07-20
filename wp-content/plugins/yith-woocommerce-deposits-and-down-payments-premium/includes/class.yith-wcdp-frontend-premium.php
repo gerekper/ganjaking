@@ -97,7 +97,7 @@ if ( ! class_exists( 'YITH_WCDP_Frontend_Premium' ) ) {
 		public function add_single_add_deposit_button() {
 			global $post;
 
-			if ( ! is_product() && $post && false === strpos( $post->post_content, '[product_page' ) ) {
+			if ( ! is_product() && $post && apply_filters( 'yith_wcdp_deposit_post_content', false === strpos( $post->post_content, '[product_page' ), $post ) ) {
 				return;
 			}
 
@@ -107,7 +107,8 @@ if ( ! class_exists( 'YITH_WCDP_Frontend_Premium' ) ) {
 
 			if ( ! is_product() ) {
 				$shortcode_matches = array();
-				preg_match( '/.*\[product_page.*id="([0-9]*)".*\].*/', $post->post_content, $shortcode_matches );
+				$post_content = apply_filters( 'yith_wcdp_post_content', $post->post_content, $post );
+				preg_match( '/.*\[product_page.*id="([0-9]*)".*\].*/',$post_content, $shortcode_matches );
 				$product_id = isset( $shortcode_matches[1] ) ? $shortcode_matches[1] : false;
 			} else {
 				$product_id = $post->ID;
@@ -154,13 +155,14 @@ if ( ! class_exists( 'YITH_WCDP_Frontend_Premium' ) ) {
 			global $post;
 			$template = '';
 
-			if ( ! is_product() && $post && false === strpos( $post->post_content, '[product_page' ) ) {
+			if ( ! is_product() && $post && apply_filters( 'yith_wcdp_deposit_post_content', false === strpos( $post->post_content, '[product_page' ), $post ) ) {
 				return $template;
 			}
 
 			if ( ! is_product() && $post ) {
 				$shortcode_matches = array();
-				preg_match( '/.*\[product_page.*id="([0-9]*)".*\].*/', $post->post_content, $shortcode_matches );
+				$post_content = apply_filters( 'yith_wcdp_post_content', $post->post_content, $post );
+				preg_match( '/.*\[product_page.*id="([0-9]*)".*\].*/', $post_content, $shortcode_matches );
 				$product_id = isset( $shortcode_matches[1] ) ? $shortcode_matches[1] : false;
 			} else {
 				$product_id = $post->ID;

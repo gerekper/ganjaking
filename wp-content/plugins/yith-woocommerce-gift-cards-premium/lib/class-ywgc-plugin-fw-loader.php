@@ -92,6 +92,9 @@ if ( ! class_exists( 'YWGC_Plugin_FW_Loader' ) ) {
              */
             $this->licence_activation();
 
+	        add_action( 'woocommerce_admin_field_update-cron', array( $this, 'show_update_cron_field' ) );
+
+
         }
 
         /**
@@ -112,7 +115,21 @@ if ( ! class_exists( 'YWGC_Plugin_FW_Loader' ) ) {
             }
         }
 
-        /**
+	    /**
+	     * show the custom woocommerce field
+	     * @since 3.1.15
+	     *
+	     * @param array $option
+	     */
+	    public function show_update_cron_field( $option ) {
+
+		    $option['option'] = $option;
+
+		    wc_get_template( '/admin/update-cron.php', $option, '', YITH_YWGC_TEMPLATES_DIR );
+	    }
+
+
+	    /**
          * Add a panel under YITH Plugins tab
          *
          * @return   void

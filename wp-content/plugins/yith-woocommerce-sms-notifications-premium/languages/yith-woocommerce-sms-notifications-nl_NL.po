@@ -5,14 +5,14 @@ msgstr ""
 "Project-Id-Version: YITH WooCommerce SMS Notifications\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
 "sms-notifications.premium\n"
-"POT-Creation-Date: 2020-05-27 08:32:42+00:00\n"
-"PO-Revision-Date: 2020-05-15 12:42:38+0000\n"
+"POT-Creation-Date: 2020-07-02 14:34:57+00:00\n"
+"PO-Revision-Date: 2020-06-12 12:01:09+0000\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/2.3.1\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
 
 #: class-yith-wc-sms-notifications.php:264
 msgid "Message sent successfully!"
@@ -125,11 +125,11 @@ msgstr "Factuurnaam"
 
 #: includes/functions-ywsn.php:266
 msgid "Billing first name"
-msgstr ""
+msgstr "Voornaam factuur"
 
 #: includes/functions-ywsn.php:267
 msgid "Billing last name"
-msgstr ""
+msgstr "Achternaam factuur"
 
 #: includes/functions-ywsn.php:268
 msgid "Shipping name"
@@ -137,11 +137,11 @@ msgstr "Verzend naam"
 
 #: includes/functions-ywsn.php:269
 msgid "Shipping first name"
-msgstr ""
+msgstr "Voornaam ontvanger"
 
 #: includes/functions-ywsn.php:270
 msgid "Shipping last name"
-msgstr ""
+msgstr "Achternaam ontvanger"
 
 #: includes/functions-ywsn.php:271
 msgid "Shipping method"

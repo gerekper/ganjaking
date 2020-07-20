@@ -126,7 +126,9 @@ function yith_wcan_attributes_table( $type, $attribute, $id, $name, $values = ar
             $return = sprintf( '<table><tr><th>%s</th><th>%s</th></tr>', __( 'Term', 'yith-woocommerce-ajax-navigation' ), __( 'Labels', 'yith-woocommerce-ajax-navigation' ) );
 
             foreach ( $terms as $term ) {
-                $return .= "<tr><td><label for='{$id}{$term->term_id}'>{$term->name}</label></td><td><input type='text' id='{$id}{$term->term_id}' name='{$name}[labels][{$term->term_id}]' value='" . ( isset( $values[$term->term_id] ) ? $values[$term->term_id] : '' ) . "' size='3' /></td></tr>";
+            	if( $term instanceof WP_Term){
+		            $return .= "<tr><td><label for='{$id}{$term->term_id}'>{$term->name}</label></td><td><input type='text' id='{$id}{$term->term_id}' name='{$name}[labels][{$term->term_id}]' value='" . ( isset( $values[$term->term_id] ) ? $values[$term->term_id] : '' ) . "' size='3' /></td></tr>";
+	            }
             }
 
             $return .= '</table>';
@@ -447,7 +449,7 @@ if ( ! function_exists( 'yit_get_filter_args' ) ) {
         extract( $args );
 
         $filter_value = array();
-        $regexs       = array( '/^filter_[a-zA-Z0-9]/', '/^query_type_[a-zA-Z0-9]/', '/product_tag/', '/product_cat/', '/source_id/', '/source_tax/' );
+        $regexs       = array( '/^filter_[a-zA-Z0-9]/', '/^query_type_[a-zA-Z0-9]/', '/product_tag/', '/product_cat/', '/source_id/', '/source_tax/', '/s/' );
 
         /* Support to YITH WooCommerce Brands */
         if ( yith_wcan_brands_enabled() ) {
@@ -558,28 +560,23 @@ if ( ! function_exists( 'yit_get_woocommerce_layered_nav_link' ) ) {
      * @since    1.4
      * @author Andrea Grillo <andrea.grillo@yithemes.com>
      */
-    function yit_get_woocommerce_layered_nav_link() {
-        $return = false;
-        $term = $source_id  = ! empty( $_GET['source_id'] ) ? $_GET['source_id'] : '';
-        $taxonomy = $source_tax = ! empty( $_GET['source_tax'] ) ? $_GET['source_tax'] : '';
+	function yit_get_woocommerce_layered_nav_link() {
+		$return   = false;
+		$term     = $source_id = ! empty( $_GET['source_id'] ) ? $_GET['source_id'] : '';
+		$taxonomy = $source_tax = ! empty( $_GET['source_tax'] ) ? $_GET['source_tax'] : '';
 
-        if ( defined( 'SHOP_IS_ON_FRONT' ) || ( is_shop() && ! is_product_category() ) ) {
-            $return             = get_post_type_archive_link( 'product' );
-            return apply_filters( 'yith_wcan_untrailingslashit', false ) && is_string( $return ) ? untrailingslashit( $return ) : $return;
-        }
+		if ( defined( 'SHOP_IS_ON_FRONT' ) || ( is_shop() && ! is_product_category() ) ) {
+			$return = get_post_type_archive_link( 'product' );
+		} elseif ( ! is_shop() && is_product_category( $source_id ) && false ) {
+			$return = get_term_link( get_queried_object()->slug, 'product_cat' );
+		} else {
+			$return = get_post_type_archive_link( 'product' );
+		}
 
-        elseif ( ! is_shop() && is_product_category( $source_id ) && false ) {
-            $return = get_term_link( get_queried_object()->slug, 'product_cat' );
-            return apply_filters( 'yith_wcan_untrailingslashit', false ) && is_string( $return ) ? untrailingslashit( $return ) : $return;
-        }
+		$return = apply_filters( 'yith_wcan_untrailingslashit', false ) && is_string( $return ) ? untrailingslashit( $return ) : $return;
 
-        else {
-            $return = get_post_type_archive_link( 'product' );
-            return apply_filters( 'yith_wcan_untrailingslashit', false ) && is_string( $return ) ? untrailingslashit( $return ) : $return;
-        }
-
-        return $return;
-    }
+		return apply_filters( 'yith_wcan_get_woocommerce_layered_nav_link', $return );
+	}
 }
 
 if ( ! function_exists( 'yit_wcan_localize_terms' ) ) {

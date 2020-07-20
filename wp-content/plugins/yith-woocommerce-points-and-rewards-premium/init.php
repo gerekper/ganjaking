@@ -3,13 +3,13 @@
  * Plugin Name: YITH WooCommerce Points and Rewards Premium
  * Plugin URI: https://yithemes.com/themes/plugins/yith-woocommerce-points-and-rewards/
  * Description: With <code><strong>YITH WooCommerce Points and Rewards</strong></code> you can start a rewarding program with points to gain your customers' loyalty. Your customers will be able to use their points to get discounts. It's a perfect marketing strategy for your store. <a href="https://yithemes.com/" target="_blank">Get more plugins for your e-commerce shop on <strong>YITH</strong></a>.
- * Version: 1.7.9
+ * Version: 1.8.0
  * Author: YITH
  * Author URI: https://yithemes.com/
  * Text Domain: yith-woocommerce-points-and-rewards
  * Domain Path: /languages/
- * WC requires at least: 3.0.0
- * WC tested up to: 4.2.0
+ * WC requires at least: 3.8.0
+ * WC tested up to: 4.3.0
  **/
 
 /*
@@ -44,7 +44,7 @@ yit_maybe_plugin_fw_loader( YITH_YWPAR_DIR );
 
 // Define constants ________________________________________.
 
-! defined( 'YITH_YWPAR_VERSION' ) && define( 'YITH_YWPAR_VERSION', '1.7.9' );
+! defined( 'YITH_YWPAR_VERSION' ) && define( 'YITH_YWPAR_VERSION', '1.8.0' );
 ! defined( 'YITH_YWPAR_PREMIUM' ) && define( 'YITH_YWPAR_PREMIUM', plugin_basename( __FILE__ ) );
 ! defined( 'YITH_YWPAR_INIT' ) && define( 'YITH_YWPAR_INIT', plugin_basename( __FILE__ ) );
 ! defined( 'YITH_YWPAR_FILE' ) && define( 'YITH_YWPAR_FILE', __FILE__ );
@@ -53,7 +53,7 @@ yit_maybe_plugin_fw_loader( YITH_YWPAR_DIR );
 ! defined( 'YITH_YWPAR_TEMPLATE_PATH' ) && define( 'YITH_YWPAR_TEMPLATE_PATH', YITH_YWPAR_DIR . 'templates' );
 ! defined( 'YITH_YWPAR_INC' ) && define( 'YITH_YWPAR_INC', YITH_YWPAR_DIR . '/includes/' );
 ! defined( 'YITH_YWPAR_SLUG' ) && define( 'YITH_YWPAR_SLUG', 'yith-woocommerce-points-and-rewards' );
-! defined( 'YITH_YWPAR_SECRET_KEY' ) && define( 'YITH_YWPAR_SECRET_KEY', '12345' );
+! defined( 'YITH_YWPAR_SECRET_KEY' ) && define( 'YITH_YWPAR_SECRET_KEY', 'BtvfSnvcDK1ZB1lgvJbY' );
 
 if ( ! defined( 'YITH_YWPAR_SUFFIX' ) ) {
 	$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';

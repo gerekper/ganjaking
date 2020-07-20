@@ -6,16 +6,16 @@
  * Author: YITH
  * Text Domain: yith-point-of-sale-for-woocommerce
  * Domain Path: /languages/
- * Version: 1.0.2
+ * Version: 1.0.5
  * Author URI: https://yithemes.com/
  * Requires at least: 5.0
  * Tested up to: 5.4.x
  * WC requires at least: 3.8.0
- * WC tested up to: 4.0.x
+ * WC tested up to: 4.3.x
  *
  * @author  yithemes
  * @package YITH Point of Sale for WooCommerce
- * @version 1.0.2
+ * @version 1.0.5
  * =.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=
  * Copyright 2015 Your Inspiration Themes  (email : plugins@yithemes.com)
  * This source file is subject to the GNU GENERAL PUBLIC LICENSE (GPL 3.0)
@@ -48,7 +48,7 @@ if ( ! function_exists( 'yith_pos_install_woocommerce_admin_notice' ) ) {
 	}
 }
 ! defined( 'YITH_POS' ) && define( 'YITH_POS', true );
-! defined( 'YITH_POS_VERSION' ) && define( 'YITH_POS_VERSION', '1.0.2' );
+! defined( 'YITH_POS_VERSION' ) && define( 'YITH_POS_VERSION', '1.0.5' );
 ! defined( 'YITH_POS_INIT' ) && define( 'YITH_POS_INIT', plugin_basename( __FILE__ ) );
 ! defined( 'YITH_POS_FILE' ) && define( 'YITH_POS_FILE', __FILE__ );
 ! defined( 'YITH_POS_URL' ) && define( 'YITH_POS_URL', plugins_url( '/', __FILE__ ) );
@@ -61,7 +61,7 @@ if ( ! function_exists( 'yith_pos_install_woocommerce_admin_notice' ) ) {
 ! defined( 'YITH_POS_VIEWS_PATH' ) && define( 'YITH_POS_VIEWS_PATH', YITH_POS_DIR . 'views/' );
 ! defined( 'YITH_POS_INCLUDES_PATH' ) && define( 'YITH_POS_INCLUDES_PATH', YITH_POS_DIR . '/includes/' );
 ! defined( 'YITH_POS_SLUG' ) && define( 'YITH_POS_SLUG', 'yith-point-of-sale-for-woocommerce' );
-! defined( 'YITH_POS_SECRET_KEY' ) && define( 'YITH_POS_SECRET_KEY', '1415b451be1a13c283ba771ea52d38bb' );
+! defined( 'YITH_POS_SECRET_KEY' ) && define( 'YITH_POS_SECRET_KEY', 'O7qviMFTu56qJiHvjPyS' );
 ! defined( 'YITH_POS_PLUGIN_NAME' ) && define( 'YITH_POS_PLUGIN_NAME', 'YITH Point of Sale for WooCommerce' );
 if ( ! defined( 'YITH_POS_COOKIEHASH' ) ) {
 	$site_url = get_site_option( 'siteurl' );

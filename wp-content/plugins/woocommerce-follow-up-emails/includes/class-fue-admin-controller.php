@@ -422,12 +422,17 @@ class FUE_Admin_Controller {
 			wp_register_script( 'jquery-blockui', FUE_URL . '/templates/js/jquery-blockui/jquery.blockUI.min.js', array( 'jquery' ), FUE_VERSION, true );
 		}
 
-		// select2.
+		// select2 (when WooCommerce is not installed).
 		if ( ! wp_script_is( 'select2', 'registered' ) ) {
-			wp_register_script( 'select2', '//cdnjs.cloudflare.com/ajax/libs/select2/3.5.2/select2.min.js', array( 'jquery' ), '3.5.2' );
-			wp_register_style( 'select2', '//cdnjs.cloudflare.com/ajax/libs/select2/3.5.2/select2.css' );
-			wp_register_style( 'select2-fue', plugins_url( 'templates/select2.css', FUE_FILE ), array(), '3.5.2' );
+			wp_register_script( 'select2', '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js', array( 'jquery' ), '4.0.13', false );
+			wp_register_style( 'select2', '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.css', array(), '4.0.13' );
 		}
+
+		// Register select styles on non WooCommerce pages.
+		if ( class_exists( 'WooCommerce' ) && ! wp_style_is( 'select2', 'registered' ) ) {
+			wp_register_style( 'select2', WC()->plugin_url() . '/assets/css/select2.css', array(), WC_VERSION );
+		}
+
 	}
 
 	/**
@@ -452,6 +457,8 @@ class FUE_Admin_Controller {
 			wp_enqueue_script( 'thickbox' );
 			wp_enqueue_script( 'editor' );
 
+			wp_enqueue_script( 'select2' );
+			wp_enqueue_style( 'select2' );
 			wp_enqueue_style( 'thickbox' );
 
 			wp_enqueue_script( 'jquery-tiptip' );
@@ -505,7 +512,7 @@ class FUE_Admin_Controller {
 
 		if ( in_array( $page, array( 'followup-emails-queue', 'followup-emails-settings', 'followup-emails', 'followup-emails-subscribers', 'followup-emails-reports-customers' ) ) ) {
 			wp_enqueue_script( 'select2' );
-			wp_enqueue_style( 'select2-fue', plugins_url( 'templates/select2.css', FUE_FILE ), array(), '3.5.2' );
+			wp_enqueue_style( 'select2' );
 			wp_enqueue_script( 'jquery-tiptip' );
 
 			if ( isset( $_GET['tab'] ) ) { //phpcs:ignore WordPress.Security.NonceVerification.Recommended

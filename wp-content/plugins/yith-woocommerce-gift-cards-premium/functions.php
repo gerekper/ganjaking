@@ -75,7 +75,7 @@ if ( ! function_exists( 'ywgc_get_order_item_giftcards' ) ) {
 
 		/*
 		 * Let third party plugin to change the $order_item_id
-		 * 
+		 *
 		 * @since 1.3.7
 		 */
 		$order_item_id = apply_filters( 'yith_get_order_item_gift_cards', $order_item_id );
@@ -177,7 +177,7 @@ if ( ! function_exists( 'ywgc_disallow_gift_cards_with_same_title' ) ) {
 		$post_id     = $post->ID;
 
         do_action('yith_ywgc_before_disallow_gift_cards_with_same_title_query', $post_id, $messages );
-        
+
         if (get_post_type($post_id) !== 'gift_card' || (get_post_type($post_id) == 'gift_card' && $title == '')) {
             return $messages;
         }
@@ -308,8 +308,6 @@ function yith_wcgc_convert_date_picker_dates(){
     }
 }
 
-
-
 /**
  * Make a backup of the database
  */
@@ -389,10 +387,10 @@ function ywgc_get_attachment_id_from_url( $attachment_url = '' ) {
 
         $attachment_url = str_replace( $upload_dir_paths['baseurl'] . '/', '', $attachment_url );
 
-        $attachment_id = $wpdb->get_var( $wpdb->prepare( "SELECT wposts.ID FROM $wpdb->posts wposts, $wpdb->postmeta wpostmeta 
-                          WHERE wposts.ID = wpostmeta.post_id 
-                          AND wpostmeta.meta_key = '_wp_attached_file' 
-                          AND wpostmeta.meta_value = '%s' 
+        $attachment_id = $wpdb->get_var( $wpdb->prepare( "SELECT wposts.ID FROM $wpdb->posts wposts, $wpdb->postmeta wpostmeta
+                          WHERE wposts.ID = wpostmeta.post_id
+                          AND wpostmeta.meta_key = '_wp_attached_file'
+                          AND wpostmeta.meta_value = '%s'
                           AND wposts.post_type = 'attachment'", $attachment_url ) );
     }
 

@@ -4,11 +4,21 @@ Contributors: yithemes
 Tags: woocommerce, products, themes, yit, yith, e-commerce, shop, count down, countdown, countdown clock, countdown timer, countdown widget, counter, counter clock, date countdown, date time, date timer, datetime, days until
 Requires at least: 4.0
 Tested up to: 5.4
-Stable tag: 1.4.1
+Stable tag: 1.4.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 == Changelog ==
+
+= 1.4.3 - Released on 09 July 2020 =
+
+* New: Support for WooCommerce 4.3
+* Update: plugin framework
+
+= 1.4.2 - Released on 27 May 2020 =
+
+* New: Support for WooCommerce 4.2
+* Update: plugin framework
 
 = 1.4.1 - Released on 29 April 2020 =
 

@@ -229,7 +229,7 @@ if ( ! class_exists( 'YITH_WCWL_Form_Handler_Premium' ) ) {
 				$wishlists[] = $wishlist;
 			}
 			else{
-				$wishlists = YITH_WCWL()->get_wishlists( array( 'orderby' => 'dateadded', 'order' => 'ASC' ) );
+				$wishlists = YITH_WCWL()->get_current_user_wishlists();
 			}
 
 			$remove_after_add_to_cart = 'yes' == get_option( 'yith_wcwl_remove_after_add_to_cart' );

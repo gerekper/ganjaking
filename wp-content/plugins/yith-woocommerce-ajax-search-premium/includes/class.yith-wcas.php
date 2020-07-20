@@ -21,16 +21,16 @@ if ( ! class_exists( 'YITH_WCAS' ) ) {
 		/**
 		 * Plugin version
 		 *
-		 * @var string
 		 * @since 1.0.0
+		 * @var string
 		 */
 		public $version = YITH_WCAS_VERSION;
 
 		/**
 		 * Plugin object.
 		 *
-		 * @var string
 		 * @since 1.0.0
+		 * @var string
 		 */
 		public $obj = null;
 
@@ -125,8 +125,8 @@ if ( ! class_exists( 'YITH_WCAS' ) ) {
 			// register shortcode.
 			add_shortcode( 'yith_woocommerce_ajax_search', array( $this, 'add_woo_ajax_search_shortcode' ) );
 
-			if ( defined('ELEMENTOR_VERSION') ) {
-				require_once( YITH_WCAS_DIR . 'includes/compatibility/elementor/class.yith-wcas-elementor.php');
+			if ( defined( 'ELEMENTOR_VERSION' ) ) {
+				require_once( YITH_WCAS_DIR . 'includes/compatibility/elementor/class.yith-wcas-elementor.php' );
 			}
 
 			return $this->obj;
@@ -152,7 +152,7 @@ if ( ! class_exists( 'YITH_WCAS' ) ) {
 			$this->search_options = apply_filters(
 				'yith_wcas_search_params',
 				array(
-					'search_by_title'        => apply_filters( 'yith_wcas_search_in_title', get_option( 'yith_wcas_search_in_title', 'yes' ) ),
+					'search_by_title'          => apply_filters( 'yith_wcas_search_in_title', get_option( 'yith_wcas_search_in_title', 'yes' ) ),
 					'search_by_excerpt'        => apply_filters( 'yith_wcas_search_in_excerpt', get_option( 'yith_wcas_search_in_excerpt' ) ),
 					'search_by_content'        => apply_filters( 'yith_wcas_search_in_content', get_option( 'yith_wcas_search_in_content' ) ),
 					'search_by_cat'            => apply_filters( 'yith_wcas_search_in_product_categories', get_option( 'yith_wcas_search_in_product_categories' ) ),
@@ -261,7 +261,7 @@ if ( ! class_exists( 'YITH_WCAS' ) ) {
 			}
 
 			$product_visibility_term_ids = wc_get_product_visibility_term_ids();
-			$join                       .= " LEFT JOIN {$wpdb->term_relationships} tr_v ON {$wpdb->posts}.ID = tr_v.object_id LEFT JOIN {$wpdb->term_taxonomy} tt_v ON ( tt_v.term_taxonomy_id=tr_v.term_taxonomy_id AND tt_v.taxonomy LIKE 'product_visibility' AND tt_v.term_taxonomy_id NOT IN ( " . $product_visibility_term_ids['exclude-from-search'] . " ) ) LEFT JOIN {$wpdb->terms} tm_v ON tm_v.term_id = tt_v.term_id";
+			$join                        .= " LEFT JOIN {$wpdb->term_relationships} tr_v ON {$wpdb->posts}.ID = tr_v.object_id LEFT JOIN {$wpdb->term_taxonomy} tt_v ON ( tt_v.term_taxonomy_id=tr_v.term_taxonomy_id AND tt_v.taxonomy LIKE 'product_visibility' AND tt_v.term_taxonomy_id NOT IN ( " . $product_visibility_term_ids['exclude-from-search'] . " ) ) LEFT JOIN {$wpdb->terms} tm_v ON tm_v.term_id = tt_v.term_id";
 
 			if ( '' !== $this->search_options['search_by_cf'] ) {
 				$join .= " LEFT JOIN {$wpdb->postmeta} as cf1 ON ( {$wpdb->posts}.ID = cf1.post_id AND cf1.meta_key IN ('{$this->search_options['search_by_cf']}' ) ) ";
@@ -277,7 +277,7 @@ if ( ! class_exists( 'YITH_WCAS' ) ) {
 		/**
 		 * Extend search query
 		 *
-		 * @param   string $where WHERE string.
+		 * @param string $where WHERE string.
 		 *
 		 * @return string
 		 */
@@ -286,8 +286,8 @@ if ( ! class_exists( 'YITH_WCAS' ) ) {
 			global $wpdb;
 
 			$terms = array();
-			$where = ( !$this->ajax ) ? $where : '';
 
+			//	$where
 			if ( 'yes' === $this->search_options['search_by_cat'] ) {
 				if ( 'product' === $this->post_type ) {
 					$terms[] = 'product_cat';
@@ -329,6 +329,15 @@ if ( ! class_exists( 'YITH_WCAS' ) ) {
 
 			$reverse = $this->search_options['reverse'];
 
+			$product_visibility_term_ids = wc_get_product_visibility_term_ids();
+			$where                       = " AND (
+				{$wpdb->posts}.ID NOT IN (
+				SELECT object_id
+				FROM {$wpdb->term_relationships}
+				WHERE term_taxonomy_id IN (" . $product_visibility_term_ids['exclude-from-search'] . ")
+			)
+) AND {$wpdb->posts}.post_status = 'publish' ";
+
 			$where .= ' AND (';
 
 			if ( $this->search_options['like'] ) {
@@ -338,7 +347,7 @@ if ( ! class_exists( 'YITH_WCAS' ) ) {
 				if ( 'yes' === $this->search_options['search_by_title'] ) {
 					$where .= "  ( LOWER( {$wpdb->posts}.post_title ) LIKE '" . $this->search_string . "') ";
 					$where .= $reverse ? " OR ( LOWER( {$wpdb->posts}.post_title ) LIKE '" . $this->search_reverse_string . "') )" : '';
-				}else{
+				} else {
 					$where .= " 1=2 ";
 				}
 
@@ -371,7 +380,7 @@ if ( ! class_exists( 'YITH_WCAS' ) ) {
 				if ( 'yes' === $this->search_options['search_by_title'] ) {
 					$where .= "  ( LOWER( {$wpdb->posts}.post_title ) REGEXP  '" . $this->search_string . "') ";
 					$where .= $reverse ? " OR ( LOWER( {$wpdb->posts}.post_title ) REGEXP '" . $this->search_reverse_string . "') )" : '';
-				}else{
+				} else {
 					$where .= " 1=2 ";
 				}
 
@@ -402,20 +411,20 @@ if ( ! class_exists( 'YITH_WCAS' ) ) {
 			}
 
 			$allowed_post_type = array(
-				'product'
+				'product',
 			);
 
-			if( 'any' == get_option('yith_wcas_default_research','product')){
+			if ( 'any' == get_option( 'yith_wcas_default_research', 'product' ) ) {
 
-				$allowed_post_type = array_merge( $allowed_post_type, array('post','page'));
+				$allowed_post_type = array_merge( $allowed_post_type, array( 'post', 'page' ) );
 			}
 
-			if( 'yes' ==  get_option('yith_wcas_include_variations','no' ) ){
+			if ( 'yes' == get_option( 'yith_wcas_include_variations', 'no' ) ) {
 				$allowed_post_type[] = 'product_variation';
 			}
 
-			$where .= " AND {$wpdb->posts}.post_type IN ('".implode("','", $allowed_post_type )."' )";
-			
+			$where .= " AND {$wpdb->posts}.post_type IN ('" . implode( "','", $allowed_post_type ) . "' )";
+
 			$where = apply_filters( 'yith_wcas_search_where', $where, $this->search_string );
 
 			return $where;
@@ -499,6 +508,7 @@ if ( ! class_exists( 'YITH_WCAS' ) ) {
 		public function get_ajax() {
 			return $this->ajax;
 		}
+
 		/**
 		 * Perform jax search products
 		 */
@@ -512,7 +522,7 @@ if ( ! class_exists( 'YITH_WCAS' ) ) {
 			$this->search_string = apply_filters( 'yith_wcas_ajax_lower_search_query', $this->search_string, $this->search_string );
 
 			$have_results   = true;
-			$transient_name = 'ywcas_' . ( isset( $_REQUEST['lang'] ) ? sanitize_text_field( $_REQUEST['lang']  )  . '_' : '' ) . $this->search_string;
+			$transient_name = 'ywcas_' . ( isset( $_REQUEST['lang'] ) ? sanitize_text_field( $_REQUEST['lang'] ) . '_' : '' ) . $this->search_string;
 			if ( 'no' === $transient_enabled || false === ( $suggestions = get_transient( $transient_name ) ) ) {
 
 				// get the order by filter.
@@ -562,7 +572,7 @@ if ( ! class_exists( 'YITH_WCAS' ) ) {
 					}
 				}
 
-				add_filter( 'posts_where', array( $this, 'extend_search_where' ) );
+				add_filter( 'posts_where', array( $this, 'extend_search_where' ), 9 );
 				add_filter( 'posts_join', array( $this, 'extend_search_join' ) );
 				add_filter( 'posts_clauses', array( $this, 'search_posts_clauses' ), 10 );
 				if ( apply_filters( 'yith_wcas_apply_orderby_filter', true, $args ) ) {
@@ -591,7 +601,7 @@ if ( ! class_exists( 'YITH_WCAS' ) ) {
 						$args['post__in'] = array_diff( $product_in, $is_posts );
 
 						if ( $args['post__in'] ) {
-							remove_filter( 'posts_where', array( $this, 'extend_search_where' ) );
+							remove_filter( 'posts_where', array( $this, 'extend_search_where' ), 9 );
 							remove_filter( 'posts_join', array( $this, 'extend_search_join' ) );
 							remove_filter( 'posts_clauses', array( $this, 'search_posts_clauses' ) );
 							remove_filter( 'posts_orderby', array( $this, 'search_post_orderby' ) );
@@ -609,7 +619,7 @@ if ( ! class_exists( 'YITH_WCAS' ) ) {
 					$i            = 0;
 					$ids          = array();
 					foreach ( $results as $post ) {
-						if ( $i === intval($max_number) ) {
+						if ( $i === intval( $max_number ) ) {
 							break;
 						}
 						if ( ! in_array( $post->ID, $ids ) ) {
@@ -768,7 +778,7 @@ if ( ! class_exists( 'YITH_WCAS' ) ) {
 
 				set_query_var( 's', $this->search_string );
 				add_filter( 'posts_join', array( $this, 'search_post_join' ) );
-				add_filter( 'posts_where', array( $this, 'search_post_where' ) );
+				add_filter( 'posts_where', array( $this, 'search_post_where' ), 9 );
 				if ( ! isset( $_GET['orderby'] ) ) {
 					add_filter( 'posts_orderby', array( $this, 'search_post_orderby' ) );
 				}
@@ -813,11 +823,11 @@ if ( ! class_exists( 'YITH_WCAS' ) ) {
 		 */
 		public function search_post_where( $where ) {
 
-			if ( '' !== $where && apply_filters('yith_ajax_search_change_where', true ) ) {
+			if ( '' !== $where && apply_filters( 'yith_ajax_search_change_where', true ) ) {
 				$where_array = array_filter( array_map( 'trim', explode( 'AND', $where ) ) );
 				$where_array = apply_filters( 'yith_ajax_search_change_where_array', $where_array );
-				$ands = $where_array;
-				$where = '';
+				$ands        = $where_array;
+				$where       = '';
 				foreach ( $ands as $key => $value ) {
 					if ( strpos( $value, 'post_content' ) !== false ) {
 						unset( $where_array[ $key ] );
@@ -828,8 +838,8 @@ if ( ! class_exists( 'YITH_WCAS' ) ) {
 			}
 
 			global $wpdb;
-			$this->ajax= true;
-			$where = $this->extend_search_where( $where );
+			$this->ajax = true;
+			$where      = $this->extend_search_where( $where );
 
 			/* search by sku */
 			$product_by_sku = $this->extend_to_sku();
@@ -861,10 +871,10 @@ if ( ! class_exists( 'YITH_WCAS' ) ) {
 		 * Return a list of product id if the option search by sku is active
 		 *
 		 * @return array
-		 * @internal param bool $only_visible
-		 *
 		 * @since    1.3.0
 		 * @author   Emanuela Castorina
+		 * @internal param bool $only_visible
+		 *
 		 */
 		public function extend_to_sku() {
 
@@ -872,7 +882,7 @@ if ( ! class_exists( 'YITH_WCAS' ) ) {
 
 			$this->remove_pre_get_posts();
 
-			remove_filter( 'posts_where', array( $this, 'extend_search_where' ) );
+			remove_filter( 'posts_where', array( $this, 'extend_search_where' ), 9 );
 			remove_filter( 'posts_join', array( $this, 'extend_search_join' ) );
 			remove_filter( 'posts_groupby', array( $this, 'search_posts_clauses' ) );
 			remove_filter( 'posts_orderby', array( $this, 'search_post_orderby' ) );
@@ -996,8 +1006,8 @@ if ( ! class_exists( 'YITH_WCAS' ) ) {
 		/**
 		 * Parse the search order
 		 *
-		 * @param   string $s             Query string.
-		 * @param   array  $search_terms  Terms od search.
+		 * @param string $s            Query string.
+		 * @param array  $search_terms Terms od search.
 		 *
 		 * @return string
 		 *
@@ -1027,8 +1037,8 @@ if ( ! class_exists( 'YITH_WCAS' ) ) {
 
 					$num_terms = count( $search_orderby_title );
 
-					$like            = '%' . $wpdb->esc_like( $s ) . '%';
-					$like2           = $wpdb->esc_like( $s ) . '%';
+					$like           = '%' . $wpdb->esc_like( $s ) . '%';
+					$like2          = $wpdb->esc_like( $s ) . '%';
 					$search_orderby .= '(CASE ';
 					// sentence match in 'post_title'.
 					$search_orderby .= $wpdb->prepare( "WHEN $wpdb->posts.post_title LIKE %s THEN 1 ", $like2 );
@@ -1078,7 +1088,7 @@ if ( ! class_exists( 'YITH_WCAS' ) ) {
 			global $wp_the_query;
 			if ( ! is_admin() && ! empty( $wp_the_query->query_vars['s'] ) && ! ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
 				remove_filter( 'posts_join', array( $this, 'search_post_join' ) );
-				remove_filter( 'posts_where', array( $this, 'search_post_where' ) );
+				remove_filter( 'posts_where', array( $this, 'search_post_where' ), 9 );
 				add_filter( 'posts_groupby', array( $this, 'search_posts_clauses' ) );
 				remove_action( 'pre_get_posts', array( $this, 'pre_get_posts' ) );
 			}
@@ -1173,7 +1183,7 @@ if ( ! class_exists( 'YITH_WCAS' ) ) {
 		/**
 		 * Filters search params, to add brands to search
 		 *
-		 * @param mixed $search_params  Original array of params.
+		 * @param mixed $search_params Original array of params.
 		 *
 		 * @return mixed Filtered array of params.
 		 *

@@ -146,19 +146,12 @@ if ( ! class_exists ( 'YITH_YWGC_Emails' ) ) {
                 $send_date = current_time ( 'timestamp', 0 );
 			}
 
-			// retrieve gift card to be sent for specific date
-			$gift_card_ids = YWGC_Gift_Card_Premium::get_postdated_gift_cards ( $send_date, '=' );
-
+			$gift_card_ids = YWGC_Gift_Card_Premium::get_postdated_gift_cards ( $send_date );
+			
 			foreach ( $gift_card_ids as $gift_card_id ) {
 				$this->send_gift_card_email ( $gift_card_id );
 			}
 
-			// Do a check for scheduled gift cards not sent in previous days
-			$gift_card_ids = YWGC_Gift_Card_Premium::get_postdated_gift_cards ( $send_date, '<' );
-
-			foreach ( $gift_card_ids as $gift_card_id ) {
-				$this->send_gift_card_email ( $gift_card_id );
-			}
 		}
 
 		/**

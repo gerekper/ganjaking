@@ -1,5 +1,36 @@
 # Changelog
 
+## 7.37.0 - 2020-06-09
+* [#950](https://github.com/stripe/stripe-php/pull/950) Add support for `id_npwp` and `my_frp` as `type` on `TaxId`
+
+## 7.36.2 - 2020-06-03
+* [#946](https://github.com/stripe/stripe-php/pull/946) Update PHPDoc
+
+## 7.36.1 - 2020-05-28
+* [#938](https://github.com/stripe/stripe-php/pull/938) Remove extra array_keys() call.
+* [#942](https://github.com/stripe/stripe-php/pull/942) fix autopagination for service methods
+
+## 7.36.0 - 2020-05-21
+* [#937](https://github.com/stripe/stripe-php/pull/937) Add support for `ae_trn`, `cl_tin` and `sa_vat` as `type` on `TaxId`
+
+## 7.35.0 - 2020-05-20
+* [#936](https://github.com/stripe/stripe-php/pull/936) Add `anticipation_repayment` as a `type` on `BalanceTransaction`
+
+## 7.34.0 - 2020-05-18
+* [#934](https://github.com/stripe/stripe-php/pull/934) Add support for `issuing_dispute` as a `type` on `BalanceTransaction`
+
+## 7.33.1 - 2020-05-15
+* [#933](https://github.com/stripe/stripe-php/pull/933) Services bugfix: convert nested null params to empty strings
+
+## 7.33.0 - 2020-05-14
+* [#771](https://github.com/stripe/stripe-php/pull/771) Introduce client/services API
+
+## 7.32.1 - 2020-05-13
+* [#932](https://github.com/stripe/stripe-php/pull/932) Fix multiple PHPDoc
+
+## 7.32.0 - 2020-05-11
+* [#931](https://github.com/stripe/stripe-php/pull/931) Add support for the `LineItem` resource and APIs
+
 ## 7.31.0 - 2020-05-01
 * [#927](https://github.com/stripe/stripe-php/pull/927) Add support for new tax IDs
 

@@ -46,16 +46,14 @@ if ( ! function_exists( 'yith_wcms_checkout_timeline' ) ) {
      * It's possible to overwrite the template from theme.
      * Put your custom template in woocommerce/product-vendors folder
      *
-     * @param        $filename  The filename
      * @param array  $args      The template args
      *
      * @use  wc_get_template()
      * @since    1.0
      * @return void
      */
-    function yith_wcms_checkout_timeline( $filename, $args ) {
-
-        $filename           = apply_filters( 'yith_wcms_checkout_timeline_template', $filename );
+    function yith_wcms_load_checkout_timeline( $args ) {
+        $filename           = apply_filters( 'yith_wcms_timeline_template', yith_wcms_timeline_template( $args['style'] ) );
         $section            = 'woocommerce/checkout';
         $template_name      = $section . '/' . $filename;
         $template_path      = WC()->template_path() . 'multi-step/';
@@ -100,5 +98,42 @@ if( ! function_exists( 'yith_wcms_login_form' ) ){
 				'hidden'   => false
 			)
 		);
+	}
+}
+
+if( ! function_exists( 'yith_wcms_step_use_icon' ) ){
+	/**
+	 * Check if current step use icon or not
+	 *
+	 * @param $step string current step
+	 *
+	 * @return bool|string false if the current step don't use icon or the icon type if the current step use it
+	 *
+	 * @author Andrea Grillo <andrea.grillo@yithemes.com>
+	 * @since 2.0.0
+	 */
+	function yith_wcms_step_use_icon( $step ){
+		$use_icon = get_option( 'yith_wcms_use_icon_' . $step, 'default-icon' );
+		$use_icon = 'no-icon' === $use_icon ? false : $use_icon;
+		return $use_icon;
+	}
+}
+
+if ( ! function_exists( 'yith_wcms_timeline_template' ) ) {
+	/**
+	 * Check if current step use icon or not
+	 *
+	 * @param $style string the current checkout style
+	 *
+	 * @return string timeline template file to load
+	 *
+	 * @author Andrea Grillo <andrea.grillo@yithemes.com>
+	 * @since 2.0.0
+	 */
+	function yith_wcms_timeline_template( $style ) {
+		$custom_template = apply_filters( 'yith_wcms_use_custom_timeline_template', array(), $style );
+		$template        = in_array( $style, $custom_template ) ? "checkout-timeline-{$style}.php" : "checkout-timeline.php";
+
+		return $template;
 	}
 }

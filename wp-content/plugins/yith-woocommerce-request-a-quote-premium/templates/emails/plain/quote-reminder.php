@@ -57,7 +57,7 @@ if ( 'no' !== get_option( 'ywraq_show_reject_link' ) ) {
 $after_list = yit_get_prop( $order, '_ywraq_request_response_after', true );
 
 if ( '' !== $after_list ) {
-	echo esc_html( apply_filters( 'ywraq_quote_after_list', $after_list, $raq_data['order-id'] ) ) . "\n\n";
+	echo wp_kses_post( apply_filters( 'ywraq_quote_after_list', $after_list, $raq_data['order-id'] ) ) . "\n\n";
 }
 
 $user_name       = yit_get_prop( $order, 'ywraq_customer_name', true );

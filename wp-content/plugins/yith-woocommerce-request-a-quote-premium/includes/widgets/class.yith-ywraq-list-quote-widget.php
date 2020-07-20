@@ -94,7 +94,7 @@ if ( ! class_exists( 'YITH_YWRAQ_List_Quote_Widget' ) ) {
 				'widget_type'     => $instance['widget_type'],
 			);
 
-			echo '<div class="yith-ywraq-list-widget-wrapper" data-instance="' . http_build_query( $instance ) . '">';
+			echo '<div class="yith-ywraq-list-widget-wrapper" data-instance="' . http_build_query( $args ) . '">';
 			wc_get_template( 'widgets/quote-list.php', $args, '', YITH_YWRAQ_TEMPLATE_PATH . '/' );
 			echo '</div>';
 			echo $after_widget;

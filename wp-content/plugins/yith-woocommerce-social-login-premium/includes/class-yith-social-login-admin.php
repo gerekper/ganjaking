@@ -100,10 +100,10 @@ if ( ! class_exists( 'YITH_WC_Social_Login_Admin' ) ) {
 		 * @since  1.0.0
 		 */
 		public function enqueue_styles_scripts() {
-
+			$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+			wp_register_script( 'yith_ywsl_admin', YITH_YWSL_ASSETS_URL . '/js/backend' . $suffix . '.js', array( 'jquery' ), YITH_YWSL_VERSION, true );
 			if ( ( isset( $_GET['page'] ) && $_GET['page'] === $this->_panel_page ) || ( isset( $_GET['report'] ) && $_GET['report'] === 'social_login' ) ) {
-				$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-				wp_enqueue_script( 'yith_ywsl_admin', YITH_YWSL_ASSETS_URL . '/js/backend' . $suffix . '.js', array( 'jquery' ), YITH_YWSL_VERSION, true );
+				wp_enqueue_script( 'yith_ywsl_admin' );
 				wp_enqueue_style( 'yith_ywsl_backend', YITH_YWSL_ASSETS_URL . '/css/backend.css' );
 			}
 		}
@@ -138,7 +138,7 @@ if ( ! class_exists( 'YITH_WC_Social_Login_Admin' ) ) {
 			}
 
 			$admin_tabs = apply_filters( 'ywsl_admin_tabs', array(
-				'settings' => __( 'Settings', 'yith-woocommerce-social-login' )
+				'settings' => __( 'Settings', 'yith-woocommerce-social-login' ),
 			) );
 
 			if ( defined( 'YITH_YWSL_FREE_INIT' ) ) {
@@ -281,19 +281,20 @@ if ( ! class_exists( 'YITH_WC_Social_Login_Admin' ) ) {
 					</p>
 
 					<p>
-						<a href="https://docs.yithemes.com/yith-woocommerce-social-login/premium-version-settings/google-configuration-settings/" target="_blank"><?php echo __( 'Please, check the plugin documentation.', 'yith-woocommerce-social-login' ) ?></a>
+						<a href="https://docs.yithemes.com/yith-woocommerce-social-login/premium-version-settings/google-configuration-settings/"
+							target="_blank"><?php echo __( 'Please, check the plugin documentation.', 'yith-woocommerce-social-login' ) ?></a>
 					</p>
 				</div>
 				<script>
-					( function ( $ ) {
-						$( '.ywsl-dismiss-google-check' ).on( 'click', '.notice-dismiss', function () {
-							jQuery.post( "<?php echo admin_url( 'admin-ajax.php' ); ?>", {
-								action        : "ywsl_dismiss_google_plus_notice",
+					(function ($) {
+						$('.ywsl-dismiss-google-check').on('click', '.notice-dismiss', function () {
+							jQuery.post("<?php echo admin_url( 'admin-ajax.php' ); ?>", {
+								action: "ywsl_dismiss_google_plus_notice",
 								dismiss_action: "ywsl_dismiss_google_check",
-								nonce         : "<?php echo esc_js( wp_create_nonce( 'ywsl_dismiss_google_check' ) ); ?>"
-							} );
-						} );
-					} )( jQuery );
+								nonce: "<?php echo esc_js( wp_create_nonce( 'ywsl_dismiss_google_check' ) ); ?>"
+							});
+						});
+					})(jQuery);
 				</script>
 				<?php
 			}

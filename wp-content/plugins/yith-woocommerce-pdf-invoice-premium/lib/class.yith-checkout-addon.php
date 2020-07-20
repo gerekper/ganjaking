@@ -175,10 +175,11 @@ if ( ! class_exists ( 'YITH_Checkout_Addon' ) ) {
 				$is_required                      = apply_filters( 'yith_ywpi_ssn_is_required_option', 'yes' ) == get_option ( 'ask_ssn_number_required', 'no' );
 
 				$fields[ $this->ssn_number_text ] = array(
-					'label'    => apply_filters( 'yith_ywpi_ssn_field_text',  esc_html__( 'SSN', 'yith-woocommerce-pdf-invoice' ) ),
-					'required' => $is_required,
-					'class'    => array( 'form-row-wide' ),
-					'clear'    => 1,
+					'label'       => apply_filters( 'yith_ywpi_ssn_field_text', esc_html__( 'SSN', 'yith-woocommerce-pdf-invoice' ) ),
+					'required'    => $is_required,
+					'class'       => array( 'form-row-wide' ),
+					'clear'       => 1,
+					'placeholder' => apply_filters( 'yith_ywpi_ssn_field_placeholder', esc_html__( 'SSN', 'yith-woocommerce-pdf-invoice' ) ),
 				);
 			}
 
@@ -194,10 +195,11 @@ if ( ! class_exists ( 'YITH_Checkout_Addon' ) ) {
                     $is_required   = apply_filters( 'yith_ywpi_vat_number_is_required_option', 'yes' ) == get_option ( 'ask_vat_number_required', 'no' );
 
 					$fields[ $this->vat_number_text ] = array(
-                        'label'    => apply_filters( 'yith_ywpi_vat_field_text',  esc_html__( 'VAT', 'yith-woocommerce-pdf-invoice' ) ),
-						'required' => $is_required,
-						'class'    => array( 'form-row-wide' ),
-						'clear'    => 1,
+						'label'       => apply_filters( 'yith_ywpi_vat_field_text', esc_html__( 'VAT', 'yith-woocommerce-pdf-invoice' ) ),
+						'required'    => $is_required,
+						'class'       => array( 'form-row-wide' ),
+						'clear'       => 1,
+						'placeholder' => apply_filters( 'yith_ywpi_vat_field_placeholder', esc_html__( 'VAT', 'yith-woocommerce-pdf-invoice' ) ),
 					);
 				}
 

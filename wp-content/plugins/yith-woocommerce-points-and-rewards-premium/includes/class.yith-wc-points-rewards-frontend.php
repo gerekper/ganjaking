@@ -8,9 +8,9 @@ if ( ! defined( 'ABSPATH' ) || ! defined( 'YITH_YWPAR_VERSION' ) ) {
  * Implements features of YITH WooCommerce Points and Rewards Frontend
  *
  * @class   YITH_WC_Points_Rewards_Frontend
- * @package YITH WooCommerce Points and Rewards
  * @since   1.0.0
  * @author  YITH
+ * @package YITH WooCommerce Points and Rewards
  */
 if ( ! class_exists( 'YITH_WC_Points_Rewards_Frontend' ) ) {
 
@@ -116,7 +116,6 @@ if ( ! class_exists( 'YITH_WC_Points_Rewards_Frontend' ) ) {
 		}
 
 
-
 		/**
 		 * Show messages on cart or checkout page if the options are enabled
 		 */
@@ -198,8 +197,14 @@ if ( ! class_exists( 'YITH_WC_Points_Rewards_Frontend' ) ) {
 				WC()->query->query_vars[ $this->endpoint ] = $this->endpoint;
 				add_filter( 'option_rewrite_rules', array( $this, 'rewrite_rules' ), 1 );
 				add_action( 'woocommerce_account_' . $this->endpoint . '_endpoint', array( $this, 'add_endpoint' ) );
+				add_filter( 'woocommerce_endpoint_' . $this->endpoint . '_title', array( $this, 'load_endpoint_title' ) );
+
 				add_filter( 'woocommerce_account_menu_items', array( $this, 'ywpar_add_points_menu_items' ), 20 );
-				function_exists( 'get_home_path' ) && flush_rewrite_rules();
+
+				global $post;
+				if ( $post && wc_get_page_id( 'myaccount' ) === $post->ID ) {
+					function_exists( 'get_home_path' ) && flush_rewrite_rules();
+				}
 
 				if ( defined( 'YITH_PROTEO_VERSION' ) ) {
 					add_filter( 'yith_proteo_myaccount_custom_icon', array( $this, 'customize_my_account_proteo_icon' ), 10, 2 );
@@ -229,10 +234,11 @@ if ( ! class_exists( 'YITH_WC_Points_Rewards_Frontend' ) ) {
 		 * Check if the permalink should be flushed.
 		 *
 		 * @param $rules
+		 *
 		 * @return bool
 		 */
 		public function rewrite_rules( $rules ) {
-			return isset( $rules[ "(.?.+?)/{$this->endpoint}(/(.*))?/?$" ] ) ? $rules : false;
+			return isset( $rules["(.?.+?)/{$this->endpoint}(/(.*))?/?$"] ) ? $rules : false;
 		}
 
 
@@ -242,6 +248,10 @@ if ( ! class_exists( 'YITH_WC_Points_Rewards_Frontend' ) ) {
 		public function add_endpoint() {
 			$shortcode = '[ywpar_my_account_points]';
 			echo is_callable( 'apply_shortcodes' ) ? apply_shortcodes( $shortcode ) : do_shortcode( $shortcode ); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		}
+
+		public function load_endpoint_title( $title ) {
+			return YITH_WC_Points_Rewards()->get_option( 'my_account_page_label', esc_html__( 'My Points', 'yith-woocommerce-points-and-rewards' ) );
 		}
 
 		/**
@@ -300,12 +310,12 @@ if ( ! class_exists( 'YITH_WC_Points_Rewards_Frontend' ) ) {
 		/**
 		 * Add message in single product page
 		 *
-		 * @since   1.0.0
-		 * @author  Emanuela Castorina
-		 *
 		 * @param $atts
 		 *
 		 * @return string
+		 * @since   1.0.0
+		 * @author  Emanuela Castorina
+		 *
 		 */
 		public function show_single_product_message( $atts ) {
 
@@ -363,14 +373,15 @@ if ( ! class_exists( 'YITH_WC_Points_Rewards_Frontend' ) ) {
 		 * Shortcode to show the Checkout Thresholds Extra Points Message
 		 *
 		 * @param array $atts shortcode params.
+		 *
+		 * @return  string
 		 * @since   1.7.9
 		 * @author  Armando Liccardo
-		 * @return  string
 		 */
 		public function show_checkout_thresholds_message( $atts ) {
-			$atts       = shortcode_atts(
+			$atts = shortcode_atts(
 				array(
-					'title' => esc_html__('Checkout total thresholds','yith-woocommerce-points-and-rewards'),
+					'title' => esc_html__( 'Checkout total thresholds', 'yith-woocommerce-points-and-rewards' ),
 				),
 				$atts
 			);
@@ -378,47 +389,49 @@ if ( ! class_exists( 'YITH_WC_Points_Rewards_Frontend' ) ) {
 			$message = "";
 
 			$checkout_thresholds = YITH_WC_Points_Rewards()->get_option( 'checkout_threshold_exp' );
-			$thresholds = $checkout_thresholds['list'];
+			$thresholds          = $checkout_thresholds['list'];
 			array_multisort( array_column( $thresholds, 'number' ), SORT_DESC, $thresholds );
 			if ( isset( $thresholds ) && ! empty( $thresholds ) ) {
 				ob_start();
 				echo '<div id="yith-par-message-checkout_threshold" class="woocommerce-cart-notice woocommerce-info">';
-				if ( trim($atts['title']) !== '' ) {
+				if ( trim( $atts['title'] ) !== '' ) {
 					echo '<p><strong>' . $atts['title'] . '</strong></p>';
 				}
-				do_action('ywpar_checkout_thresholds_message_before' );
+				do_action( 'ywpar_checkout_thresholds_message_before' );
 				echo '<table>';
-				echo '<thead><tr><th>' . esc_html__('Order Amount','yith-woocommerce-points-and-rewards') . '</th><th>' . esc_html__('Points','yith-woocommerce-points-and-rewards') . '</th></tr></thead>';
+				echo '<thead><tr><th>' . esc_html__( 'Order Amount', 'yith-woocommerce-points-and-rewards' ) . '</th><th>' . esc_html__( 'Points', 'yith-woocommerce-points-and-rewards' ) . '</th></tr></thead>';
 				echo '<tbody>';
 				foreach ( $thresholds as $checkout_threshold ) {
-					echo '<tr><td>' . wc_price( $checkout_threshold['number'] ). '</td><td>' . $checkout_threshold['points'] . '</td></tr>';
+					echo '<tr><td>' . wc_price( $checkout_threshold['number'] ) . '</td><td>' . $checkout_threshold['points'] . '</td></tr>';
 				}
 				echo '</tbody></table>';
-				do_action('ywpar_checkout_thresholds_message_after' );
+				do_action( 'ywpar_checkout_thresholds_message_after' );
 				echo '</div>';
 				$message = ob_get_clean();
 			}
 
 			return $message;
 		}
+
 		/**
 		 * Print the Checkout Thresholds Extra Points Message
 		 *
+		 * @return  void
 		 * @since   1.7.9
 		 * @author  Armando Liccardo
-		 * @return  void
 		 */
 		public function print_checkout_threshold() {
 			$shortcode = '[yith_checkout_thresholds_message]';
 			echo is_callable( 'apply_shortcodes' ) ? apply_shortcodes( $shortcode ) : do_shortcode( $shortcode ); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 		}
+
 		/**
 		 * Set the position where display the message in single product
 		 *
+		 * @return  void
 		 * @since   1.0.0
 		 * @author  Emanuela Castorina
-		 * @return  void
 		 */
 		public function show_single_product_message_position() {
 
@@ -461,9 +474,9 @@ if ( ! class_exists( 'YITH_WC_Points_Rewards_Frontend' ) ) {
 		/**
 		 * Set the position where display the message in loop
 		 *
+		 * @return  void
 		 * @since   1.0.0
 		 * @author  Emanuela Castorina
-		 * @return  void
 		 */
 		public function show_single_loop_position() {
 			// APPLY_FILTER : ywpar_loop_position: filtering the position where show the message in the loop
@@ -476,9 +489,9 @@ if ( ! class_exists( 'YITH_WC_Points_Rewards_Frontend' ) ) {
 		/**
 		 * Print a message in loop
 		 *
+		 * @return  void
 		 * @since   1.0.0
 		 * @author  Emanuela Castorina
-		 * @return  void
 		 */
 		public function print_messages_in_loop() {
 			global $product;
@@ -498,11 +511,11 @@ if ( ! class_exists( 'YITH_WC_Points_Rewards_Frontend' ) ) {
 		/**
 		 * Return the message with the placeholder replaced.
 		 *
-		 * @param $product        WC_Product
-		 * @param $message        string
-		 * @param $product_points int
+		 * @param      $product        WC_Product
+		 * @param      $message        string
+		 * @param      $product_points int
 		 *
-		 * @param bool                      $loop
+		 * @param bool $loop
 		 *
 		 * @return mixed
 		 */
@@ -529,9 +542,9 @@ if ( ! class_exists( 'YITH_WC_Points_Rewards_Frontend' ) ) {
 		/**
 		 * Print a message in cart/checkout page or in my account pay order page.
 		 *
+		 * @return  void
 		 * @since   1.0.0
 		 * @author  Emanuela Castorina
-		 * @return  void
 		 */
 		public function print_messages_in_cart() {
 
@@ -544,7 +557,7 @@ if ( ! class_exists( 'YITH_WC_Points_Rewards_Frontend' ) ) {
 				}
 			}
 
-			$message = $this->get_cart_message( $points_earned );
+			$message      = $this->get_cart_message( $points_earned );
 			$message_type = 'earn';
 			if ( ! empty( $message ) ) {
 				// APPLY_FILTER : yith_par_messages_class: filtering the classes of messages in cart/checkout
@@ -565,12 +578,12 @@ if ( ! class_exists( 'YITH_WC_Points_Rewards_Frontend' ) ) {
 		/**
 		 * Return the message to show on cart or checkout for point to earn.
 		 *
-		 * @since   1.1.3
-		 * @author  Andrea Frascaspata
-		 *
 		 * @param int $total_points
 		 *
 		 * @return string
+		 * @since   1.1.3
+		 * @author  Andrea Frascaspata
+		 *
 		 */
 		private function get_cart_message( $total_points = 0 ) {
 
@@ -619,13 +632,13 @@ if ( ! class_exists( 'YITH_WC_Points_Rewards_Frontend' ) ) {
 		/**
 		 * Print rewards message in cart/checkout page
 		 *
+		 * @return  void
 		 * @since   1.0.0
 		 * @author  Emanuela Castorina
-		 * @return  void
 		 */
 		public function print_rewards_message_in_cart() {
 
-			$coupons = WC()->cart->get_applied_coupons();
+			$coupons      = WC()->cart->get_applied_coupons();
 			$message_type = 'reward';
 
 			// the message will not showed if the coupon is just applied to cart
@@ -652,9 +665,9 @@ if ( ! class_exists( 'YITH_WC_Points_Rewards_Frontend' ) ) {
 		}
 
 		/**
+		 * @return mixed|string|void
 		 * @since   1.1.3
 		 * @author  Andrea Frascaspata
-		 * @return mixed|string|void
 		 */
 		private function get_rewards_message() {
 			// DO_ACTION : ywpar_before_rewards_message : action triggered before the rewards message
@@ -703,23 +716,23 @@ if ( ! class_exists( 'YITH_WC_Points_Rewards_Frontend' ) ) {
 						// APPLY_FILTER : ywpar_min_value_to_reedem_error_msg: change the error message that appears on trying to use less points than the ones needed as minimum
 						$min_value_to_reedem_error_msg = apply_filters( 'ywpar_min_value_to_reedem_error_msg', __( 'The minimum value to reedem is ', 'yith-woocommerce-points-and-rewards' ) . $minimum_points_to_redeem, $minimum_points_to_redeem );
 
-						$before_ywpar_points_max = apply_filters('ywpar_before_ywpar-points-max','');
-						$after_ywpar_points_max = apply_filters('ywpar_after_ywpar-points-max','');
-						$max_points_formatted = apply_filters( 'ywpar_max_points_formatted', $max_points );
-						$message              = str_replace( '{points_label}', $plural, $message );
-						$message              = str_replace( '{max_discount}', wc_price( $max_discount ), $message );
-						$message              = str_replace( '{points}', $max_points_formatted, $message );
-						$message             .= ' <a class="ywpar-button-message">' . YITH_WC_Points_Rewards()->get_option( 'label_apply_discounts' ) . '</a>';
-						$message             .= '<div class="clear"></div><div class="ywpar_apply_discounts_container"><form class="ywpar_apply_discounts" method="post">' . wp_nonce_field( 'ywpar_apply_discounts', 'ywpar_input_points_nonce' ) . '
+						$before_ywpar_points_max = apply_filters( 'ywpar_before_ywpar-points-max', '' );
+						$after_ywpar_points_max  = apply_filters( 'ywpar_after_ywpar-points-max', '' );
+						$max_points_formatted    = apply_filters( 'ywpar_max_points_formatted', $max_points );
+						$message                 = str_replace( '{points_label}', $plural, $message );
+						$message                 = str_replace( '{max_discount}', wc_price( $max_discount ), $message );
+						$message                 = str_replace( '{points}', $max_points_formatted, $message );
+						$message                 .= ' <a class="ywpar-button-message">' . YITH_WC_Points_Rewards()->get_option( 'label_apply_discounts' ) . '</a>';
+						$message                 .= '<div class="clear"></div><div class="ywpar_apply_discounts_container"><form class="ywpar_apply_discounts" method="post">' . wp_nonce_field( 'ywpar_apply_discounts', 'ywpar_input_points_nonce' ) . '
                                     <input type="hidden" name="ywpar_points_max" value="' . $max_points . '">
                                     <input type="hidden" name="ywpar_max_discount" value="' . $max_discount_2 . '">
                                     <input type="hidden" name="ywpar_rate_method" value="fixed">
-                                    '. $before_ywpar_points_max .'
+                                    ' . $before_ywpar_points_max . '
                                     <p class="form-row form-row-first">
                                         <input type="text" min="' . $minimum_points_to_redeem . '" name="ywpar_input_points" class="input-text"  id="ywpar-points-max" value="' . $max_points . '">
                                         <input type="hidden" name="ywpar_input_points_check" id="ywpar_input_points_check" value="0">
                                     </p>
-                                    '. $after_ywpar_points_max .'
+                                    ' . $after_ywpar_points_max . '
                                     <p class="form-row form-row-last">
                                         <input type="submit" class="button" name="ywpar_apply_discounts" id="ywpar_apply_discounts" value="' . YITH_WC_Points_Rewards()->get_option( 'label_apply_discounts' ) . '">
                                     </p>
@@ -730,10 +743,10 @@ if ( ! class_exists( 'YITH_WC_Points_Rewards_Frontend' ) ) {
 					} elseif ( YITH_WC_Points_Rewards()->get_option( 'conversion_rate_method' ) == 'percentage' ) {
 						$max_points_formatted = apply_filters( 'ywpar_max_points_formatted', $max_points );
 
-						$message  = str_replace( '{points_label}', $plural, $message );
-						$message  = str_replace( '{max_discount}', wc_price( $max_discount ), $message );
-						$message  = str_replace( '{max_percentual_discount}', $max_percentual_discount . '%', $message );
-						$message  = str_replace( '{points}', $max_points_formatted, $message );
+						$message = str_replace( '{points_label}', $plural, $message );
+						$message = str_replace( '{max_discount}', wc_price( $max_discount ), $message );
+						$message = str_replace( '{max_percentual_discount}', $max_percentual_discount . '%', $message );
+						$message = str_replace( '{points}', $max_points_formatted, $message );
 						$message .= ' <a class="ywpar-button-message ywpar-button-percentage-discount">' . YITH_WC_Points_Rewards()->get_option( 'label_apply_discounts' ) . '</a>';
 						$message .= '<div class="ywpar_apply_discounts_container"><form class="ywpar_apply_discounts" method="post">' . wp_nonce_field( 'ywpar_apply_discounts', 'ywpar_input_points_nonce' ) . '
                                      <input type="hidden" name="ywpar_points_max" value="' . $max_points . '">
@@ -771,9 +784,9 @@ if ( ! class_exists( 'YITH_WC_Points_Rewards_Frontend' ) ) {
 		/**
 		 * Shortcode my account points
 		 *
+		 * @return string
 		 * @since  1.1.3
 		 * @author Francesco Licandro
-		 * @return string
 		 */
 		public function shortcode_my_account_points() {
 			if ( ! YITH_WC_Points_Rewards()->is_enabled() || ! YITH_WC_Points_Rewards()->is_user_enabled() ) {
@@ -789,9 +802,9 @@ if ( ! class_exists( 'YITH_WC_Points_Rewards_Frontend' ) ) {
 		/**
 		 * Add points section to my-account page
 		 *
+		 * @return  void
 		 * @since   1.0.0
 		 * @author  Emanuela Castorina
-		 * @return  void
 		 */
 		public function my_account_points() {
 			$shortcode = '[ywpar_my_account_points]';
@@ -823,10 +836,10 @@ if ( ! class_exists( 'YITH_WC_Points_Rewards_Frontend' ) ) {
 		/**
 		 * Add customer birth date field to edit account page
 		 *
-		 * @since   1.0.0
 		 * @return  void
-		 * @author  Alberto Ruggiero
 		 * @throws Exception
+		 * @since   1.0.0
+		 * @author  Alberto Ruggiero
 		 */
 		public function add_birthday_field() {
 
@@ -893,11 +906,11 @@ if ( ! class_exists( 'YITH_WC_Points_Rewards_Frontend' ) ) {
 		/**
 		 * Add customer birth date field to checkout process
 		 *
-		 * @since   1.0.0
-		 *
 		 * @param   $fields
 		 *
 		 * @return  array
+		 * @since   1.0.0
+		 *
 		 * @author  Alberto Ruggiero
 		 */
 		public function add_birthday_field_checkout( $fields ) {
@@ -928,7 +941,7 @@ if ( ! class_exists( 'YITH_WC_Points_Rewards_Frontend' ) ) {
 				);
 
 				if ( apply_filters( 'ywpar_required_birthday', '' ) == 'required' ) {
-					$fields[ $section ]['yith_birthday']['label']                        .= ' <abbr class="required" title="required">*</abbr>';
+					$fields[ $section ]['yith_birthday']['label']                         .= ' <abbr class="required" title="required">*</abbr>';
 					$fields[ $section ]['yith_birthday']['custom_attributes']['required'] = 'required';
 				}
 			}

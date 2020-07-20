@@ -165,18 +165,20 @@ class FUE_Subscribers_Lists_List_Table extends WP_List_Table {
 	 */
 	protected function extra_tablenav( $which ) {
 		$per_page = get_option( 'fue_subscribers_lists_list_table_per_page', 20 );
-		if ( 'top' == $which ) { ?>
+		if ( 'top' == $which ) {
+	?>
 			<div class="alignleft actions">
-			<select id="dropdown_per_page" name="_items_per_page" class="select2">
-				<option value="20" <?php selected( 20, $per_page ); ?>><?php esc_html_e('Show 20 per page', 'follow_up_emails'); ?></option>
-				<option value="50" <?php selected( 50, $per_page ); ?>><?php esc_html_e('Show 50 per page', 'follow_up_emails'); ?></option>
-				<option value="100" <?php selected( 100, $per_page ); ?>><?php esc_html_e('Show 100 per page', 'follow_up_emails'); ?></option>
-				<option value="200" <?php selected( 200, $per_page ); ?>><?php esc_html_e('Show 200 per page', 'follow_up_emails'); ?></option>
+			<select id="dropdown_per_page" name="_items_per_page">
+				<option value="20" <?php selected( 20, $per_page ); ?>><?php esc_html_e( 'Show 20 per page', 'follow_up_emails' ); ?></option>
+				<option value="50" <?php selected( 50, $per_page ); ?>><?php esc_html_e( 'Show 50 per page', 'follow_up_emails' ); ?></option>
+				<option value="100" <?php selected( 100, $per_page ); ?>><?php esc_html_e( 'Show 100 per page', 'follow_up_emails' ); ?></option>
+				<option value="200" <?php selected( 200, $per_page ); ?>><?php esc_html_e( 'Show 200 per page', 'follow_up_emails' ); ?></option>
 			</select>
 			<?php submit_button( esc_html__( 'Show' ), 'button', false, false, array( 'id' => 'post-query-submit' ) ); ?>
 
 			<?php submit_button( esc_html__( 'Delete ALL', 'follow_up_emails' ), 'button', 'fue_delete_all_lists', false, array( 'id' => 'delete-all-submit' ) ); ?>
-			</div><?php
+			</div>
+	<?php
 		}
 	}
 

@@ -127,6 +127,7 @@ if ( !class_exists( 'YITH_YWRAQ_Quote_Status' ) ) {
 		    wc_get_template( $this->template_html, array(
 			    'order'         => $this->order,
 			    'email_heading' => $this->get_heading(),
+			    'email_description' => $this->get_option( 'email-description' ),
 			    'status'        => $this->status,
 			    'reason'        => $this->reason,
 			    'sent_to_admin' => true,
@@ -148,6 +149,7 @@ if ( !class_exists( 'YITH_YWRAQ_Quote_Status' ) ) {
 		    wc_get_template( $this->template_plain, array(
 			    'order'         => $this->order,
 			    'email_heading' => $this->get_heading(),
+			    'email_description' => $this->get_option( 'email-description' ),
 			    'status'        => $this->status,
 			    'reason'        => $this->reason,
 			    'sent_to_admin' => true,

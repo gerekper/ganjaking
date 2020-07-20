@@ -505,14 +505,14 @@ if ( ! class_exists( 'YITH_Request_Quote' ) ) {
 					if ( is_array( $product_raq['quantity'] ) ) {
 
 						foreach ( $product_raq['quantity'] as $item_id => $quantity ) {
-							if ( ! $this->exists( $item_id ) && 0 !== $quantity ) {
+							if ( ! $this->exists( $item_id ) &&  !empty( $quantity ) ) {
 								$raq = array(
 									'product_id' => $item_id,
 									'quantity'   => $quantity,
 								);
 
 								$raq = apply_filters( 'ywraq_add_item', $raq, $product_raq );
-								
+
 								$this->raq_content[ apply_filters( 'ywraq_quote_item_id', md5( $item_id ), $product_raq ) ] = $raq;
 							}
 						}

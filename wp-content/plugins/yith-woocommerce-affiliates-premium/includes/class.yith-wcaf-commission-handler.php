@@ -304,6 +304,10 @@ if ( ! class_exists( 'YITH_WCAF_Commission_Handler' ) ) {
 						'created_at'   => apply_filters( 'yith_wcaf_create_order_commission_use_current_date', true ) ? current_time( 'mysql' ) : yit_get_prop( $order, 'order_date' )
 					);
 
+					if ( ! apply_filters( 'yith_wcaf_create_item_commission', true, $item, $item_id, $product_id, $commission_args ) ) {
+						continue;
+					}
+
 					$old_id = wc_get_order_item_meta( $item_id, '_yith_wcaf_commission_id', true );
 
 					if ( $old_id ) {
@@ -816,7 +820,7 @@ if ( ! class_exists( 'YITH_WCAF_Commission_Handler' ) ) {
 				return 0;
 			}
 
-			$use_percentage_rates = apply_filters( 'yith_wcaf_use_percentage_rates', true );
+			$use_percentage_rates = apply_filters( 'yith_wcaf_use_percentage_rates', true, $order );
 
 			// Get total amount for commission
 			if ( $use_percentage_rates ) {

@@ -18,9 +18,9 @@
 			}
 		}
 		?>
-		<select id="downloadable_file" name="meta[downloadable_file]" class="select2" data-placeholder="<?php esc_attr_e('Select file&hellip;', 'follow_up_emails'); ?>" style="width:400px;">
+		<select id="downloadable_file" name="meta[downloadable_file]" class="select2" data-placeholder="<?php esc_attr_e( 'Select file&hellip;', 'follow_up_emails' ); ?>" style="width:100%;">
 			<option></option>
-			<?php foreach ( $files as $key => $file ): ?>
+			<?php foreach ( $files as $key => $file ) : ?>
 			<option value="<?php echo esc_attr( $key ); ?>" <?php selected( $selected, $key ); ?>><?php echo esc_html( $file ); ?></option>
 			<?php endforeach; ?>
 		</select>

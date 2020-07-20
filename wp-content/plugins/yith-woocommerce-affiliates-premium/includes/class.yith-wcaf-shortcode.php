@@ -333,7 +333,7 @@ if ( ! class_exists( 'YITH_WCAF_Shortcode' ) ) {
 				'share_enabled' => $share_enabled,
 			);
 			if ( $share_enabled ) {
-				$share_title           = apply_filters( 'yith_wcaf_socials_share_title', __( 'Share on:', 'yith-woocommerce-wishlist' ) );
+				$share_title           = apply_filters( 'yith_wcaf_socials_share_title', __( 'Share on:', 'yith-woocommerce-affiliates' ) );
 				$share_link_url        = $generated_url;
 				$share_links_title     = apply_filters( 'plugin_text', urlencode( get_option( 'yith_wcaf_socials_title' ) ) );
 				$share_twitter_summary = urlencode( str_replace( '%referral_url%', '', get_option( 'yith_wcaf_socials_text' ) ) );

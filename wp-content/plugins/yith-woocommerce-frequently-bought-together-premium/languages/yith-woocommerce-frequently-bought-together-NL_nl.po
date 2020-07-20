@@ -1,23 +1,18 @@
+# Translation of YITH WooCommerce Frequently Bought Together in Dutch
+# This file is distributed under the same license as the YITH WooCommerce Frequently Bought Together package.
 msgid ""
 msgstr ""
 "Project-Id-Version: YITH WooCommerce Frequently Bought Together\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/tag/init\n"
-"POT-Creation-Date: 2020-03-09 11:35:27+00:00\n"
-"PO-Revision-Date: 2019-12-24 13:17+0000\n"
-"Last-Translator: \n"
-"Language-Team: YIThemes <plugins@yithemes.com>\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
+"frequently-bought-together-premium\n"
+"POT-Creation-Date: 2020-06-01 13:27:21+00:00\n"
+"PO-Revision-Date: 2020-05-04 17:52:30+0000\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.12\n"
-"X-Poedit-Basepath: .\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Poedit-KeywordsList: _e;_n:1,2;__ngettext:1,2;__ngettext_noop:1,2;"
-"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;__\n"
-"X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-SearchPath-0: ..\n"
-"X-Poedit-SearchPathExcluded-0: ../plugin-fw\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/2.3.1\n"
 
 #: includes/admin-tables/class.yith-wfbt-linked-table.php:41
 #: includes/admin-tables/class.yith-wfbt-products-table.php:41
@@ -83,26 +78,11 @@ msgstr "Gelinkte producten"
 msgid "Slider in Wishlist"
 msgstr "Schuifregelaar in Wishlist"
 
-#: includes/class.yith-wfbt-admin.php:197
-msgctxt "plugin name in admin page title"
-msgid "YITH WooCommerce Frequently Bought Together"
-msgstr "YITH WooCommerce Frequently Bought Together"
-
-#: includes/class.yith-wfbt-admin.php:198
-msgctxt "plugin name in admin WP menu"
-msgid "Frequently Bought Together"
-msgstr "Frequently Bought Together"
-
 #: includes/class.yith-wfbt-admin.php:300
 msgid "Hard Crop?"
 msgstr "Harde Crop?"
 
-#: includes/class.yith-wfbt-admin.php:367
-msgctxt "tab in product data box"
-msgid "Frequently Bought Together"
-msgstr "Frequently Bought Together"
-
-#: includes/class.yith-wfbt-admin.php:778
+#: includes/class.yith-wfbt-admin.php:779
 msgid ""
 "You must enable coupons in order to use the plugin discount feature. Please "
 "enable it <a href=\"%s\">here.</a>"
@@ -130,35 +110,16 @@ msgid ""
 "Sorry, this product is unavailable. Please choose a different combination."
 msgstr "Sorry, dit product is niet beschikbaar. Probeer een andere combinatie."
 
-#: includes/class.yith-wfbt-frontend.php:377
-#: includes/class.yith-wfbt-frontend.php:574
+#: includes/class.yith-wfbt-frontend.php:378
+#: includes/class.yith-wfbt-frontend.php:576
 #: plugin-options/general-options.php:171
 msgid "Choose your product"
 msgstr "Kies je product"
 
-#: includes/class.yith-wfbt-frontend.php:570
+#: includes/class.yith-wfbt-frontend.php:571
 #: plugin-options/general-options.php:23
 msgid "Frequently Bought Together"
 msgstr "Veelvuldig Samen Gekocht"
-
-#: includes/class.yith-wfbt.php:290
-msgctxt "[gutenberg]: block name"
-msgid "Frequently Bought Form"
-msgstr "Vaak samen gekocht forumlier"
-
-#: includes/class.yith-wfbt.php:291
-msgctxt "[gutenberg]: block description"
-msgid ""
-"With this block you can print a product \"frequently bought together\" form."
-msgstr ""
-"In dit blok kunt u het \"frequently bought together\" formulier weergeven."
-
-#: includes/class.yith-wfbt.php:297
-msgctxt "[gutenberg]: attributes description"
-msgid "Add the product id (leave blank to get global product value)"
-msgstr ""
-"Voeg de product id toe (laat leeg om een algemene productwaarde te "
-"verkrijgen)"
 
 #: includes/class.yith-wfbt.php:316 includes/class.yith-wfbt.php:375
 #: includes/class.yith-wfbt.php:421
@@ -491,7 +452,7 @@ msgstr "Kopieer \"vaak samen gekocht\" producten uit originele taalproducten."
 
 #: plugin-options/general-options.php:268
 msgid "YITH WooCommerce Multi Vendor Options"
-msgstr ""
+msgstr "YITH WooCommerce Multi Vendor opties"
 
 #: plugin-options/general-options.php:274
 msgid "Vendor Products"
@@ -509,32 +470,29 @@ msgid "Select default variation"
 msgstr "Selecteer standaard variatie"
 
 #: plugin-options/product-data-options.php:19
-#, fuzzy
 msgid "Products type"
-msgstr "Productnaam"
+msgstr "Producttype"
 
 #: plugin-options/product-data-options.php:20
-#, fuzzy
 msgid "Choose which products you want to use as frequently bought products"
-msgstr "Gebruik gerelateerde producten als vaak samen gekochte producten."
+msgstr ""
+"Bepaal welke producten je wilt gebruiken als 'vaak samen gekochte' producten"
 
 #: plugin-options/product-data-options.php:23
-#, fuzzy
 msgid "Use related"
-msgstr "Gebruik gerelateerde producten"
+msgstr "Gebruik gerelateerde"
 
 #: plugin-options/product-data-options.php:24
 msgid "Use cross-sells"
-msgstr ""
+msgstr "Gebruik cross-sells"
 
 #: plugin-options/product-data-options.php:25
 msgid "Use up-sells"
-msgstr ""
+msgstr "Gebruik up-sells"
 
 #: plugin-options/product-data-options.php:26
-#, fuzzy
 msgid "Custom products"
-msgstr "Lijst met producten"
+msgstr "Aangepaste producten"
 
 #: plugin-options/product-data-options.php:31
 msgid "Select products"
@@ -744,18 +702,6 @@ msgstr "Dit Product"
 msgid "Close"
 msgstr "Sluiten"
 
-#. Plugin Name of the plugin/theme
-msgid "YITH WooCommerce Frequently Bought Together Premium"
-msgstr "YITH WooCommerce Frequently Bought Together Premium"
-
-#. Plugin URI of the plugin/theme
-msgid ""
-"https://yithemes.com/themes/plugins/yith-woocommerce-frequently-bought-"
-"together/"
-msgstr ""
-"https://yithemes.com/themes/plugins/yith-woocommerce-frequently-bought-"
-"together/"
-
 #. Description of the plugin/theme
 msgid ""
 "The <code><strong>YITH WooCommerce Frequently Bought Together</strong></"
@@ -769,27 +715,55 @@ msgstr ""
 "maakt het verhogen van de gemiddelde besteed van uw winkel door het tonen "
 "van een doos met de producten bij elkaar gekocht vaker. Op deze wijze, "
 "worden de gebruikers aangemoedigd om meer producten aan hun kar enkel als op "
-"Amazonië toe te voegen. < a href = \"https://yithemes.com/\" target = "
-"\"_blank\" > Haal meer plugins voor uw e-commerce shop op <strong> YITH </"
-"strong> </a>."
+"Amazonië toe te voegen. <a href=\"https://yithemes.com/\" target=\"_blank\"> "
+"Haal meer plugins voor uw e-commerce shop op <strong> YITH </strong> </a>."
 
-#. Author of the plugin/theme
-msgid "YITH"
-msgstr "YITH"
+#: includes/class.yith-wfbt-admin.php:197
+msgctxt "plugin name in admin page title"
+msgid "YITH WooCommerce Frequently Bought Together"
+msgstr "YITH WooCommerce Frequently Bought Together"
 
-#. Author URI of the plugin/theme
-msgid "https://yithemes.com/"
-msgstr "https://yithemes.com/"
+#: includes/class.yith-wfbt-admin.php:198
+msgctxt "plugin name in admin WP menu"
+msgid "Frequently Bought Together"
+msgstr "Frequently Bought Together"
 
-#~ msgctxt "plugin name in admin page title"
-#~ msgid "Frequently Bought Together"
-#~ msgstr "Frequently Bought Together"
+#: includes/class.yith-wfbt-admin.php:368
+msgctxt "tab in product data box"
+msgid "Frequently Bought Together"
+msgstr "Frequently Bought Together"
 
-#~ msgid "Plugin Documentation"
-#~ msgstr "Plugin Documentatie"
+#: includes/class.yith-wfbt.php:290
+msgctxt "[gutenberg]: block name"
+msgid "Frequently Bought Form"
+msgstr "Vaak samen gekocht forumlier"
 
-#~ msgid "Main lists of products"
-#~ msgstr "Hoofdlijst met producten"
+#: includes/class.yith-wfbt.php:291
+msgctxt "[gutenberg]: block description"
+msgid ""
+"With this block you can print a product \"frequently bought together\" form."
+msgstr ""
+"In dit blok kunt u het \"frequently bought together\" formulier weergeven."
 
-#~ msgid "linked"
-#~ msgstr "gekoppeld"
+#: includes/class.yith-wfbt.php:297
+msgctxt "[gutenberg]: attributes description"
+msgid "Add the product id (leave blank to get global product value)"
+msgstr ""
+"Voeg de product id toe (laat leeg om een algemene productwaarde te "
+"verkrijgen)"
+
+#~ msgid "https://yithemes.com/"
+#~ msgstr "https://yithemes.com/"
+
+#~ msgid "YITH"
+#~ msgstr "YITH"
+
+#~ msgid ""
+#~ "https://yithemes.com/themes/plugins/yith-woocommerce-frequently-bought-"
+#~ "together/"
+#~ msgstr ""
+#~ "https://yithemes.com/themes/plugins/yith-woocommerce-frequently-bought-"
+#~ "together/"
+
+#~ msgid "YITH WooCommerce Frequently Bought Together Premium"
+#~ msgstr "YITH WooCommerce Frequently Bought Together Premium"

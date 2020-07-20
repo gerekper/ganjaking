@@ -183,8 +183,16 @@ $pdf_font = apply_filters( 'pdf_font_family', '"dejavu sans"' );
 			width: 75%
 		}
 
+		.totals_value.width-4 {
+			width: 25%
+		}
+		
 		.raq-totals .colspan4 {
 			width: 80%
+		}
+		
+		.totals_value.width-4 {
+			width: 20%
 		}
 
 		.raq-totals .totals_label {
@@ -207,7 +215,10 @@ $pdf_font = apply_filters( 'pdf_font_family', '"dejavu sans"' );
 			margin: 0;
 		}
 
-
+		.quote-table.raq-items li > ul > li, .quote-table.raq-totals ul li  {
+			overflow: hidden !important;
+			word-break: break-all
+		}
 			<?php
 			endif;
 		?>

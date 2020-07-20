@@ -286,16 +286,21 @@ class WooCommerce_Order_Barcodes {
 
 		// Generate correctly formatted HTML for email
 		ob_start(); ?>
-<table cellspacing="0" cellpadding="0" border="0" style="width:100%;border:0;text-align:center;margin-top:20px;margin-bottom:20px;">
-	<tbody>
-		<tr>
-			<td style="text-align:center;vertical-align:middle;word-wrap:normal;">
-				<?php echo $this->display_barcode( $order_id ); ?>
-			</td>
-		</tr>
-	</tbody>
-</table>
-<?php
+		<table cellspacing="0" cellpadding="0" border="0" style="width:100%;border:0;text-align:center;margin-top:20px;margin-bottom:20px;">
+			<tbody>
+				<tr>
+					<td style="text-align:center;vertical-align:middle;word-wrap:normal;">
+						<?php echo $this->display_barcode( $order_id ); ?>
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align:center;vertical-align:middle;word-wrap:normal;">
+						<?php echo '<a href="' . esc_url( $order->get_checkout_order_received_url() ) . '" target="_blank">' . esc_html__( 'View the barcode in your browser', 'woocommerce-order-barcodes' ) . '</a>'; ?>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<?php
 		// Get after text
 		$email = ob_get_clean();
 
@@ -386,7 +391,7 @@ class WooCommerce_Order_Barcodes {
 		$dns1d->setStorPath( $upload_dir['path'] . '/cache/' );
 		$dns2d->setStorPath( $upload_dir['path'] . '/cache/' );
 		$foreground_color = $this->barcode_colours['foreground'];
-		$barcode = '<div class="woocommerce-order-barcodes-container" style="text-align:center;justify-content: center;display:grid;margin-top:5px;">';
+		$barcode          = '<div class="woocommerce-order-barcodes-container" style="text-align:center;justify-content: center;display:grid;margin-top:5px;">';
 
 		// Generate barcode image based on string and selected type.
 		switch ( $this->barcode_type ) {
@@ -758,7 +763,7 @@ class WooCommerce_Order_Barcodes {
 	 * @since   1.0.0
 	 * @return  void
 	 */
-	public function get_barcode_image() {
+	public function get_barcode_image( ) {
 		if ( empty( $_GET['wc_barcode'] ) ) {
 			return;
 		}

@@ -3,13 +3,13 @@
 Plugin Name: YITH WooCommerce Social Login Premium
 Plugin URI: https://yithemes.com/themes/plugins/yith-woocommerce-social-login/
 Description: <code><strong>YITH WooCommerce Social Login</strong></code> allows your users and customers to register and log into your store using one of their favourite social networks, like Facebook, Google, Twitter etc. Perfect for speeding up the login process on your e-commerce shop. <a href="https://yithemes.com/" target="_blank">Get more plugins for your e-commerce shop on <strong>YITH</strong></a>.
-Version: 1.5.0
+Version: 1.6.0
 Author: YITH
 Author URI: https://yithemes.com/
 Text Domain: yith-woocommerce-social-login
 Domain Path: /languages/
 WC requires at least: 3.0.0
-WC tested up to: 4.2.0
+WC tested up to: 4.3.0
 */
 
 /*
@@ -63,7 +63,7 @@ if ( ! function_exists( 'yith_ywsl_install_woocommerce_admin_notice' ) ) {
 if ( defined( 'YITH_YWSL_VERSION' ) ) {
 	return;
 } else {
-	define( 'YITH_YWSL_VERSION', '1.5.0' );
+	define( 'YITH_YWSL_VERSION', '1.6.0' );
 }
 
 if ( ! defined( 'YITH_YWSL_PREMIUM' ) ) {

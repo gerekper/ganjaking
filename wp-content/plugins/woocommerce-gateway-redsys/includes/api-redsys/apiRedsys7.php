@@ -33,7 +33,9 @@ class RedsysAPI{
 
 	/******  Get parameter ******/
 	function getParameter($key){
-		return $this->vars_pay[$key];
+		if ( isset( $this->vars_pay[$key] ) ) {
+			return $this->vars_pay[$key];
+		}
 	}
 	
 	

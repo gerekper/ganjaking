@@ -12,7 +12,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } // Exit if accessed directly
 
-
 return array(
 	'color' => array(
 
@@ -20,11 +19,11 @@ return array(
 		'home'     => array(
 			array(
 				'name' => esc_html__( 'Color Settings', 'yith-faq-plugin-for-wordpress' ),
-				'type' => 'title'
+				'type' => 'title',
 			),
 			array(
-				'type' => 'close'
-			)
+				'type' => 'close',
+			),
 		),
 		/* =================== END SKIN =================== */
 
@@ -45,7 +44,7 @@ return array(
 				'std'  => '#B0B0B0',
 				'deps' => array(
 					'ids'    => 'customize-search',
-					'values' => 'yes'
+					'values' => 'yes',
 				),
 			),
 			array(
@@ -56,7 +55,7 @@ return array(
 				'std'  => '#FFFFFF',
 				'deps' => array(
 					'ids'    => 'customize-search',
-					'values' => 'yes'
+					'values' => 'yes',
 				),
 			),
 			array(
@@ -67,7 +66,7 @@ return array(
 				'std'  => '#FFFFFF',
 				'deps' => array(
 					'ids'    => 'customize-search',
-					'values' => 'yes'
+					'values' => 'yes',
 				),
 			),
 			array(
@@ -78,7 +77,7 @@ return array(
 				'std'  => '#B0B0B0',
 				'deps' => array(
 					'ids'    => 'customize-search',
-					'values' => 'yes'
+					'values' => 'yes',
 				),
 			),
 			array(
@@ -96,7 +95,7 @@ return array(
 				'std'  => '#FFFFFF',
 				'deps' => array(
 					'ids'    => 'customize-category',
-					'values' => 'yes'
+					'values' => 'yes',
 				),
 			),
 			array(
@@ -107,7 +106,7 @@ return array(
 				'std'  => '#B0B0B0',
 				'deps' => array(
 					'ids'    => 'customize-category',
-					'values' => 'yes'
+					'values' => 'yes',
 				),
 			),
 			array(
@@ -118,7 +117,7 @@ return array(
 				'std'  => '#B0B0B0',
 				'deps' => array(
 					'ids'    => 'customize-category',
-					'values' => 'yes'
+					'values' => 'yes',
 				),
 			),
 			array(
@@ -129,7 +128,7 @@ return array(
 				'std'  => '#FFFFFF',
 				'deps' => array(
 					'ids'    => 'customize-category',
-					'values' => 'yes'
+					'values' => 'yes',
 				),
 			),
 			array(
@@ -147,7 +146,7 @@ return array(
 				'std'  => '#FFFFFF',
 				'deps' => array(
 					'ids'    => 'customize-navigation',
-					'values' => 'yes'
+					'values' => 'yes',
 				),
 			),
 			array(
@@ -158,7 +157,7 @@ return array(
 				'std'  => '#B0B0B0',
 				'deps' => array(
 					'ids'    => 'customize-navigation',
-					'values' => 'yes'
+					'values' => 'yes',
 				),
 			),
 			array(
@@ -169,7 +168,7 @@ return array(
 				'std'  => '#B0B0B0',
 				'deps' => array(
 					'ids'    => 'customize-navigation',
-					'values' => 'yes'
+					'values' => 'yes',
 				),
 			),
 			array(
@@ -180,7 +179,7 @@ return array(
 				'std'  => '#FFFFFF',
 				'deps' => array(
 					'ids'    => 'customize-navigation',
-					'values' => 'yes'
+					'values' => 'yes',
 				),
 			),
 			array(
@@ -198,7 +197,7 @@ return array(
 				'std'  => '#B0B0B0',
 				'deps' => array(
 					'ids'    => 'customize-icons',
-					'values' => 'yes'
+					'values' => 'yes',
 				),
 			),
 			array(
@@ -209,7 +208,7 @@ return array(
 				'std'  => '#FFFFFF',
 				'deps' => array(
 					'ids'    => 'customize-icons',
-					'values' => 'yes'
+					'values' => 'yes',
 				),
 			),
 			array(
@@ -227,7 +226,7 @@ return array(
 				'std'  => '#B0B0B0',
 				'deps' => array(
 					'ids'    => 'customize-link',
-					'values' => 'yes'
+					'values' => 'yes',
 				),
 			),
 			array(
@@ -238,7 +237,7 @@ return array(
 				'std'  => '#FFFFFF',
 				'deps' => array(
 					'ids'    => 'customize-link',
-					'values' => 'yes'
+					'values' => 'yes',
 				),
 			),
 			array(
@@ -249,7 +248,7 @@ return array(
 				'std'  => '#FFFFFF',
 				'deps' => array(
 					'ids'    => 'customize-link',
-					'values' => 'yes'
+					'values' => 'yes',
 				),
 			),
 			array(
@@ -260,9 +259,9 @@ return array(
 				'std'  => '#B0B0B0',
 				'deps' => array(
 					'ids'    => 'customize-link',
-					'values' => 'yes'
+					'values' => 'yes',
 				),
 			),
 		),
-	)
+	),
 );

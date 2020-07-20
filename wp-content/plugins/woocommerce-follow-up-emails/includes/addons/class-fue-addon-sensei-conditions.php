@@ -13,10 +13,11 @@ class FUE_Addon_Sensei_Conditions {
 	public function __construct( $fue_sensei ) {
 		$this->fue_sensei = $fue_sensei;
 
-		add_action( 'fue_email_form_conditions_meta', array( $this, 'email_form_conditions'), 10, 2  );
+		add_action( 'fue_email_form_conditions_meta', array( $this, 'email_form_conditions' ), 10, 2 );
 
 		add_filter( 'fue_api_email_response', array( $this, 'normalize_conditions_output' ), 10, 2 );
 		add_filter( 'fue_api_edit_email_data', array( $this, 'normalize_conditions_input' ) );
+		add_filter( 'fue_email_pre_save', array( $this, 'convert_ids' ), 10, 2 );
 	}
 
 	/**
@@ -384,6 +385,29 @@ class FUE_Addon_Sensei_Conditions {
 		$email_data['requirements'] = $normalized;
 
 		return $email_data;
+	}
+
+	/**
+	 * Convert the array of course and lesson IDs from a select2 field into CSV.
+	 *
+	 * @since 4.9.3
+	 * @param array $data     Email data fields.
+	 * @param int   $email_id Email ID.
+	 * @return array
+	 */
+	public function convert_ids( $data, $email_id ) {
+		if ( ! empty( $data['conditions'] ) && is_array( $data['conditions'] ) ) {
+			foreach ( $data['conditions'] as $key => $condition ) {
+				if ( ! empty( $condition['courses'] ) && is_array( $condition['courses'] ) ) {
+					$data['conditions'][ $key ]['courses'] = implode( ',', array_map( 'absint', $condition['courses'] ) );
+				}
+				if ( ! empty( $condition['lessons'] ) && is_array( $condition['lessons'] ) ) {
+					$data['conditions'][ $key ]['lessons'] = implode( ',', array_map( 'absint', $condition['lessons'] ) );
+				}
+			}
+		}
+
+		return $data;
 	}
 
 }

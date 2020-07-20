@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the YITH WooCommerce Mailchimp package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-05-12 12:16+0200\n"
+"PO-Revision-Date: 2020-06-11 18:46+0200\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -111,7 +111,7 @@ msgstr "Lijst & Groepen"
 
 #: templates/admin/types/advanced-integration-item.php:22
 msgid "Options Set #%d"
-msgstr ""
+msgstr "Ingestelde opties #%d"
 
 #: templates/admin/types/advanced-integration-item.php:18
 msgid "remove"
@@ -397,7 +397,7 @@ msgstr "Aangepaste css"
 
 #: plugin-options/widget-options.php:26
 msgid "Set here the options for <b>YITH MailChimp Subscription Form</b> widget; use the widget in you sidebars, by selecting it from <a href=\"%s\">Appearance > Widgets</a>"
-msgstr ""
+msgstr "Stel hier de opties in voor de <b> YITH MailChimp Subscription Formulier </b> widget; gebruik de widget in je zij-balken, door deze te selecteren in <a href=\"%s\"> Uiterlijk> Widgets </a>"
 
 #: plugin-options/widget-options.php:24
 msgid "Widget Options"
@@ -650,7 +650,7 @@ msgstr "Selecteer een titel voor het nieuwsbriefabonnement"
 
 #: plugin-options/shortcode-options.php:26
 msgid "Insert <b>[yith_wcmc_subscription_form]</b> shortcode in your pages, to print a subscription form; set here the options for your form"
-msgstr ""
+msgstr "De <b> [yith_wcmc_subscription_form] </b> shortcode invoeren in je pagina's om een abonnementsformulier af te drukken; stel hier de opties voor je formulier in"
 
 #: plugin-options/shortcode-options.php:24
 msgid "Shortcode Options"
@@ -931,7 +931,7 @@ msgstr "Abonneer u op onze coole nieuwsbrief"
 #: plugin-options/checkout-options.php:51
 #: plugin-options/register-options.php:47
 msgid "Enter here the label you want to use for the \"Newsletter subscription\" checkbox. Use <code>%privacy_policy%</code> to add a link to your store privacy policy page"
-msgstr ""
+msgstr "Voer hier het label in dat je wilt gebruiken voor het keuzevakje 'nieuwsbrief abonnement '. Gebruik <code>%privacy_policy%</code> om een link toe te voegen aan de privacy beleid pagina van je winkel"
 
 #: plugin-options/checkout-options.php:49
 #: plugin-options/register-options.php:45
@@ -983,127 +983,127 @@ msgstr "%s is ingeschakeld maar niet effectief. Het vereist WooCommerce om te we
 #: includes/widget/elementor/class.yith-wcmc-elementor-subscription-form.php:347
 msgctxt "Elementor control label"
 msgid "Button border hover color"
-msgstr ""
+msgstr "Kleur knoprand bij hoveren"
 
 #: includes/widget/elementor/class.yith-wcmc-elementor-subscription-form.php:338
 msgctxt "Elementor control label"
 msgid "Button text hover color"
-msgstr ""
+msgstr "Tekstkleur knop bij hoveren"
 
 #: includes/widget/elementor/class.yith-wcmc-elementor-subscription-form.php:329
 msgctxt "Elementor control label"
 msgid "Button background hover color"
-msgstr ""
+msgstr "Achtergrond kleur knop bij hoveren"
 
 #: includes/widget/elementor/class.yith-wcmc-elementor-subscription-form.php:320
 msgctxt "Elementor control label"
 msgid "Button border color"
-msgstr ""
+msgstr "Randkleur knop"
 
 #: includes/widget/elementor/class.yith-wcmc-elementor-subscription-form.php:311
 msgctxt "Elementor control label"
 msgid "Button text color"
-msgstr ""
+msgstr "Tekstkleur knop"
 
 #: includes/widget/elementor/class.yith-wcmc-elementor-subscription-form.php:302
 msgctxt "Elementor control label"
 msgid "Button background color"
-msgstr ""
+msgstr "Achtergrondkleur knop"
 
 #: includes/widget/elementor/class.yith-wcmc-elementor-subscription-form.php:289
 msgctxt "Elementor control label"
 msgid "Round Corners for \"Subscribe\" Button"
-msgstr ""
+msgstr "Ronde hoeken voor 'Inschrijven' knop"
 
 #: includes/widget/elementor/class.yith-wcmc-elementor-subscription-form.php:276
 msgctxt "Elementor control label"
 msgid "Enable custom CSS"
-msgstr ""
+msgstr "Aangepaste CSS inschakelen"
 
 #: includes/widget/elementor/class.yith-wcmc-elementor-subscription-form.php:268
 msgctxt "Elementor section title"
 msgid "Style"
-msgstr ""
+msgstr "Stijl"
 
 #: includes/widget/elementor/class.yith-wcmc-elementor-subscription-form.php:257
 msgctxt "Elementor control label"
 msgid "Fields (list of LABEL,MERGE_VAR separated by special token |)"
-msgstr ""
+msgstr "Velden (Lijst met LABEL,MERGE_VAR gescheiden door speciaal teken |)"
 
 #: includes/widget/elementor/class.yith-wcmc-elementor-subscription-form.php:248
 msgctxt "Elementor control label"
 msgid "Show the following interest groups (list of GROUP_ID-INTEREST_ID separated by special token #%,%#)"
-msgstr ""
+msgstr "Toon de volgende belangengroep (Lijst met GROUP_ID-INTEREST_ID gescheiden door speciaal teken #%,%#)"
 
 #: includes/widget/elementor/class.yith-wcmc-elementor-subscription-form.php:239
 msgctxt "Elementor control label"
 msgid "Auto-subscribe interest groups (list of GROUP_ID-INTEREST_ID separated by special token #%,%#)"
-msgstr ""
+msgstr "Belangengroepen automatisch inschrijven (Lijst met GROUP_ID-INTEREST_ID gescheiden door speciaal teken #%,%#)"
 
 #: includes/widget/elementor/class.yith-wcmc-elementor-subscription-form.php:230
 msgctxt "Elementor control label"
 msgid "MailChimp list"
-msgstr ""
+msgstr "MailChimp lijst"
 
 #: includes/widget/elementor/class.yith-wcmc-elementor-subscription-form.php:222
 msgctxt "Elementor section title"
 msgid "Mailchimp Settings"
-msgstr ""
+msgstr "Mailchimp Instellingen"
 
 #: includes/widget/elementor/class.yith-wcmc-elementor-subscription-form.php:207
 msgctxt "Elementor control label"
 msgid "Update existing"
-msgstr ""
+msgstr "Bestaande bijwerken"
 
 #: includes/widget/elementor/class.yith-wcmc-elementor-subscription-form.php:194
 msgctxt "Elementor control label"
 msgid "Double Opt-in"
-msgstr ""
+msgstr "Dubbele opt-in"
 
 #: includes/widget/elementor/class.yith-wcmc-elementor-subscription-form.php:181
 msgctxt "Elementor control label"
 msgid "Email type"
-msgstr ""
+msgstr "E-mail type"
 
 #: includes/widget/elementor/class.yith-wcmc-elementor-subscription-form.php:168
 msgctxt "Elementor control label"
 msgid "Hide form after registration"
-msgstr ""
+msgstr "Formulier verbergen na registratie"
 
 #: includes/widget/elementor/class.yith-wcmc-elementor-subscription-form.php:157
 msgctxt "Elementor control label"
 msgid "Privacy field label"
-msgstr ""
+msgstr "Privacy veld label"
 
 #: includes/widget/elementor/class.yith-wcmc-elementor-subscription-form.php:144
 msgctxt "Elementor control label"
 msgid "Show privacy checkbox"
-msgstr ""
+msgstr "Toon privacy keuzevakje"
 
 #: includes/widget/elementor/class.yith-wcmc-elementor-subscription-form.php:133
 msgctxt "Elementor control label"
 msgid "\"Successfully Registered\" message"
-msgstr ""
+msgstr "\"Succesvol geregistreerd\" bericht"
 
 #: includes/widget/elementor/class.yith-wcmc-elementor-subscription-form.php:122
 msgctxt "Elementor control label"
 msgid "\"Submit\" button label"
-msgstr ""
+msgstr "\"Indienen\" knop label"
 
 #: includes/widget/elementor/class.yith-wcmc-elementor-subscription-form.php:111
 msgctxt "Elementor control label"
 msgid "Title"
-msgstr ""
+msgstr "Titel"
 
 #: includes/widget/elementor/class.yith-wcmc-elementor-subscription-form.php:103
 msgctxt "Elementor section title"
 msgid "General"
-msgstr ""
+msgstr "Algemeen"
 
 #: includes/widget/elementor/class.yith-wcmc-elementor-subscription-form.php:40
 msgctxt "Elementor widget name"
 msgid "YITH MailChimp Subscrption Form"
-msgstr ""
+msgstr "YITH MailChimp Subscrption Formulier"
 
 #: includes/libraries/class-wc-background-process.php:173
 msgid "Every %d minutes"
@@ -1138,7 +1138,7 @@ msgstr "E-mail"
 
 #: includes/class.yith-wcmc-widget.php:47
 msgid "You can customize options for <b>Mailchimp Subscription Form</b> widget from YITH WooCommerce Mailchimp <a href=\"%s\">admin page</a>"
-msgstr ""
+msgstr "Je kunt de opties aanpassen voor de <b> Mailchimp-abonnementsformulier</b> widget van YITH WooCommerce Mailchimp <a href=\"%s\"> beheerderspagina </a>"
 
 #: includes/class.yith-wcmc-widget.php:33
 msgid "YITH Mailchimp Subscription Form"
@@ -1296,15 +1296,15 @@ msgstr "Sync actie poging gedaan: %s"
 
 #: includes/class.yith-wcmc-store.php:453
 msgid "Current synchronization status:"
-msgstr ""
+msgstr "Huidige synchronisatie status:"
 
 #: includes/class.yith-wcmc-store.php:450
 msgid "Synchronization complete"
-msgstr ""
+msgstr "Synchronisatie voltooid"
 
 #: includes/class.yith-wcmc-store.php:437
 msgid "<b>%s</b> %s/%s (%s%%)"
-msgstr ""
+msgstr "<b>%s</b> %s/%s (%s%%)"
 
 #: includes/class.yith-wcmc-store.php:399
 msgid "Your store is currently being synced! This may take a while, but won't affect performance of your store. You can keep track of the status of the operation in this page"
@@ -1348,7 +1348,7 @@ msgstr "YITH MailChimp Subscribed lijsten"
 
 #: includes/class.yith-wcmc-privacy.php:85
 msgid "Please see the <a href=\"https://mailchimp.com/legal/privacy/\">MailChimp Privacy Policy</a> for more details."
-msgstr ""
+msgstr "Bekijk de <a href=\"https://mailchimp.com/legal/privacy/\">MailChimp Privacy Policy</a> voor meer details."
 
 #: includes/class.yith-wcmc-privacy.php:84
 msgid "We contact MailChimp in order to subscribe users and retrieve information about lists and groups. When processing subscriptions, some of your data will be passed to MailChimp, including information required to target your account, such as the billing information and the product(s) you’re purchasing."
@@ -1562,7 +1562,7 @@ msgstr "Privacy veld label"
 #: includes/class.yith-wcmc-premium.php:1227
 #: includes/widget/elementor/class.yith-wcmc-elementor-subscription-form.php:148
 msgid "Hide privacy checkbox"
-msgstr ""
+msgstr "Privacy keuzevakje verbergen"
 
 #: includes/class.yith-wcmc-premium.php:1225
 #: includes/class.yith-wcmc-premium.php:1228
@@ -1574,7 +1574,7 @@ msgstr "Weergeef privacy checkbox"
 #: includes/class.yith-wcmc-premium.php:1220
 #: plugin-options/shortcode-options.php:49 plugin-options/widget-options.php:49
 msgid "\"Successfully Registered\" message"
-msgstr ""
+msgstr "\"Succesvol geregistreerd\" bericht"
 
 #: includes/class.yith-wcmc-premium.php:1215
 #: plugin-options/shortcode-options.php:40 plugin-options/widget-options.php:40
@@ -1750,7 +1750,7 @@ msgstr "Naam verzendmethode"
 
 #: includes/class.yith-wcmc-admin-premium.php:491
 msgid "Complete address (only to use with Address type field)"
-msgstr ""
+msgstr "Volledig adres (alleen te gebruiken bij adres type veld)"
 
 #: includes/class.yith-wcmc-admin-premium.php:360
 msgid "Advanced options"

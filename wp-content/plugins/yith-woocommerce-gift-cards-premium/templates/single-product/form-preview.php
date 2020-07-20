@@ -25,11 +25,11 @@ if ( ! defined( 'ABSPATH' ) ) {
         <div class="ywgc-form-preview-from-to-container">
 
             <?php if ( 'yes' == get_option('ywgc_ask_sender_name' , 'yes' ) ) : ?>
-                <span class="ywgc-form-preview-from"><?php echo esc_html__( 'From: ', 'yith-woocommerce-gift-cards' ); ?></span>
+                <span class="ywgc-form-preview-from"><?php echo apply_filters( "ywgc_form_preview_from_text",  esc_html__( 'From: ', 'yith-woocommerce-gift-cards' ) ); ?></span>
                 <span class="ywgc-form-preview-from-content"></span>
             <?php endif; ?>
             <br>
-            <span class="ywgc-form-preview-to"><?php echo esc_html__( 'To: ', 'yith-woocommerce-gift-cards' ); ?></span>
+            <span class="ywgc-form-preview-to"><?php echo apply_filters( "ywgc_form_preview_to_text", esc_html__( 'To: ', 'yith-woocommerce-gift-cards' ) ); ?></span>
             <span class="ywgc-form-preview-to-content"></span>
         </div>
 

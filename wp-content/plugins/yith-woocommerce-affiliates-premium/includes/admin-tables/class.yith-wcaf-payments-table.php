@@ -320,6 +320,7 @@ if ( ! class_exists( 'YITH_WCAF_Payments_Table' ) ) {
 
 			$from = isset( $_REQUEST['_from'] ) ? $_REQUEST['_from'] : false;
 			$to   = isset( $_REQUEST['_to'] ) ? $_REQUEST['_to'] : false;
+			$post_status = isset( $_REQUEST['status'] ) ? $_REQUEST['status'] : false;
 
 			if ( $user_id || $from || $to ) {
 				$need_reset = true;
@@ -334,10 +335,10 @@ if ( ! class_exists( 'YITH_WCAF_Payments_Table' ) ) {
 				'style'            => 'min-width: 200px; vertical-align:middle;',
 				'value'            => $user_id
 			) );
-
 			?>
 			<input style="min-width: 200px; vertical-align:middle;" class="date-picker" type="text" name="_from" value="<?php echo esc_attr( $from ) ?>" placeholder="<?php _e( 'From:', 'yith-woocommerce-affiliates' ) ?>"/>
 			<input style="min-width: 200px; vertical-align:middle;" class="date-picker" type="text" name="_to" value="<?php echo esc_attr( $to ) ?>" placeholder="<?php _e( 'To:', 'yith-woocommerce-affiliates' ) ?>"/>
+			<input type="hidden" name="status" class="post_status_page" value="<?php echo ! empty( $post_status ) ? esc_attr( $post_status ) : 'all'; ?>" />
 			<?php
 			submit_button( __( 'Filter', 'yith-woocommerce-affiliates' ), 'button', 'filter_action', false, array( 'id' => 'post-query-submit' ) );
 
@@ -359,9 +360,8 @@ if ( ! class_exists( 'YITH_WCAF_Payments_Table' ) ) {
 			global $wpdb;
 
 			$query_arg = array();
-
-			if ( ! empty( $_GET['status'] ) && $_GET['status'] != 'all' ) {
-				$query_arg['status'] = $_GET['status'];
+			if ( ! empty( $_REQUEST['status'] ) && $_REQUEST['status'] != 'all' ) {
+				$query_arg['status'] = $_REQUEST['status'];
 			}
 
 			if ( ! empty( $_REQUEST['_affiliate_id'] ) ) {

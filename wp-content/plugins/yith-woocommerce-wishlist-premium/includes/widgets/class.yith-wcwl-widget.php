@@ -53,7 +53,7 @@ if( !class_exists( 'YITH_WCWL_Widget' ) ) {
 				'wishlist_url' => YITH_WCWL()->get_wishlist_url(),
 				'instance' => $instance,
 				'fragment_options' => $fragment_options,
-				'users_wishlists' => YITH_WCWL()->get_wishlists( array( 'orderby' => 'dateadded', 'order' => 'ASC' ) ),
+				'users_wishlists' => YITH_WCWL()->get_current_user_wishlists(),
 				'multi_wishlist_enabled' => YITH_WCWL()->is_multi_wishlist_enabled(),
 				'default_wishlist_title' => $default_wishlist_title,
 				'create_page_title' => $create_page_title,

@@ -1,4 +1,4 @@
-ctpw_url_field<?php
+<?php
 /**
  * Order Social Box Template
  *
@@ -17,7 +17,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( ( isset( $_GET['ctpw'] ) && '' !== $_GET['ctpw'] && isset( $_GET['order-received'] ) ) ) { //phpcs:ignore WordPress.Security.NonceVerification.Recommended
 	$order = wc_get_order( intval( $_GET['order-received'] ) ); //phpcs:ignore
 } else {
-	$order = wc_get_order( $social_box_info['order'] );//phpcs:ignore
+	if( isset( $social_box_info['order'] ) ) {
+		$order = wc_get_order( $social_box_info['order'] );//phpcs:ignore
+	} else {
+		return;
+	}
 }
 
 // DO_ACTION yith_ctpw_before_social_box: hook before the social box.
@@ -29,8 +33,9 @@ do_action( 'yith_ctpw_before_social_box' );
 
 		<h2>
 			<?php
+			$default_title = ( '' === trim( get_option( 'yith_ctpw_socialbox_section_title' ) ) ) ? esc_html__( 'Share on...', 'yith-custom-thankyou-page-for-woocommerce' ) : get_option( 'yith_ctpw_socialbox_section_title' );
 			// APPLY_FILTER ctpw_sharebox_title: change the title of Share Box.
-			echo wp_kses_post( apply_filters( 'ctpw_sharebox_title', esc_html__( 'Share on...', 'yith-custom-thankyou-page-for-woocommerce' ) ) );
+			echo wp_kses_post( apply_filters( 'ctpw_sharebox_title', $default_title ) );
 			?>
 		</h2>
 		<?php /* socials tabs */ ?>

@@ -33,7 +33,7 @@ if ( ! class_exists( 'YITH_WCAF' ) ) {
 		 * @const string
 		 * @since 1.0.0
 		 */
-		const YITH_WCAF_VERSION = '1.7.2';
+		const YITH_WCAF_VERSION = '1.7.3';
 
 		/**
 		 * Plugin DB version
@@ -152,7 +152,7 @@ if ( ! class_exists( 'YITH_WCAF' ) ) {
 						'select2_i18n_selection_too_long_n' => _x( 'You can only select %qty% items', 'enhanced select', 'woocommerce' ),
 						'select2_i18n_load_more'            => _x( 'Loading more results&hellip;', 'enhanced select', 'woocommerce' ),
 						'select2_i18n_searching'            => _x( 'Searching&hellip;', 'enhanced select', 'woocommerce' ),
-						'link_copied_message'               => _X( 'Url copied', 'alert message', 'yith-woocommerce-affiliates' ),
+						'link_copied_message'               => _x( 'Url copied', 'alert message', 'yith-woocommerce-affiliates' ),
 					),
 					'ajax_url'              => admin_url( 'admin-ajax.php' ),
 					'set_cookie_via_ajax'   => 'yes' === get_option( 'yith_wcaf_referral_cookie_ajax_set', 'no' ),
@@ -183,7 +183,7 @@ if ( ! class_exists( 'YITH_WCAF' ) ) {
 			 *
 			 * @since 1.6.5
 			 */
-			if ( isset( $wp->query_vars['generate-link'] ) || ( $post instanceof WP_Post && strpos( $post->post_content, '[yith_wcaf_link_generator' ) !== false ) ) {
+			if ( isset( $wp->query_vars['generate-link'] ) || apply_filters('yith_wcaf_enqueue_fontello_stylesheet', ( $post instanceof WP_Post && strpos( $post->post_content, '[yith_wcaf_link_generator' ) !== false ), $post, $wp )  ) {
 				wp_enqueue_style( 'yith-wcaf-fontello' );
 			}
 

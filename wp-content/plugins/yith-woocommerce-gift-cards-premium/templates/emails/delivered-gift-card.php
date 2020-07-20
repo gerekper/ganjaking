@@ -18,7 +18,7 @@ if ( ! defined ( 'ABSPATH' ) ) {
 
 <div class="ywgc-delivered-gift-card-image-container">
 
-	<img class="ywgc-delivered-gift-card-image" src="<?php echo YITH_YWGC_ASSETS_IMAGES_URL . 'delivered-gift-card.svg'?>" alt="">
+	<img class="ywgc-delivered-gift-card-image" src="<?php echo YITH_YWGC_ASSETS_IMAGES_URL . 'delivered-gift-card.png'?>" alt="">
 
 </div>
 

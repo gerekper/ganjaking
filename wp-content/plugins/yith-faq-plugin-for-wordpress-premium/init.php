@@ -5,7 +5,7 @@
  * Description: <code><strong>YITH FAQ Plugin for WordPress</strong></code> allows entering an efficient FAQ system on any page of your WordPress or WooCommerce based website. You can also add custom FAQs for any page. <a href="https://yithemes.com/" target="_blank">Get more plugins for your e-commerce shop on <strong>YITH</strong></a>
  * Author: YITH
  * Text Domain: yith-faq-plugin-for-wordpress
- * Version: 1.1.4
+ * Version: 1.1.5
  * Author URI: https://yithemes.com/
  * WC tested up to: x.x.x
  */
@@ -19,7 +19,7 @@ if ( ! function_exists( 'is_plugin_active' ) ) {
 }
 
 if ( ! defined( 'YITH_FWP_VERSION' ) ) {
-	define( 'YITH_FWP_VERSION', '1.1.4' );
+	define( 'YITH_FWP_VERSION', '1.1.5' );
 }
 
 if ( ! defined( 'YITH_FWP_INIT' ) ) {
@@ -31,7 +31,7 @@ if ( ! defined( 'YITH_FWP_SLUG' ) ) {
 }
 
 if ( ! defined( 'YITH_FWP_SECRET_KEY' ) ) {
-	define( 'YITH_FWP_SECRET_KEY', '12345' );
+	define( 'YITH_FWP_SECRET_KEY', 'It5GLd4OgQYdE8MntVGj' );
 }
 
 if ( ! defined( 'YITH_FWP_PREMIUM' ) ) {
@@ -95,19 +95,18 @@ register_activation_hook( __FILE__, 'yith_plugin_registration_hook' );
 if ( ! function_exists( 'YITH_FWP' ) ) {
 
 	/**
-	 * Unique access to instance of YITH_FAQ_Plugin_for_Wordpress
+	 * Unique access to instance of YITH_FAQ_Plugin_For_WordPress
 	 *
+	 * @return  YITH_FAQ_Plugin_For_WordPress
 	 * @since   1.0.0
-	 * @return  YITH_FAQ_Plugin_for_Wordpress
-	 * @author  Alberto Ruggiero
+	 * @author  Alberto Ruggiero <alberto.ruggiero@yithemes.com>
 	 */
-	function YITH_FWP() {
+	function YITH_FWP() { //phpcs:ignore
 
 		// Load required classes and functions
-		require_once( YITH_FWP_DIR . 'class.yith-faq-plugin-for-wordpress.php' );
+		require_once( YITH_FWP_DIR . 'class-yith-faq-plugin-for-wordpress.php' );
 
-		return YITH_FAQ_Plugin_for_Wordpress::get_instance();
+		return YITH_FAQ_Plugin_For_WordPress::get_instance();
 
 	}
-
 }

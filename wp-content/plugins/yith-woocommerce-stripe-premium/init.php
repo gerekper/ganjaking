@@ -3,13 +3,13 @@
  * Plugin Name: YITH WooCommerce Stripe Premium
  * Plugin URI: https://yithemes.com/themes/plugins/yith-woocommerce-stripe/
  * Description: <code><strong>YITH WooCommerce Stripe</strong></code> allows your users to pay with credit card thanks to the integration with Stripe, a powerful and flexible payment gateway. It lets you get payments with credit card and assures your users of the reliability of an international partner. <a href="https://yithemes.com/" target="_blank">Get more plugins for your e-commerce on <strong>YITH</strong></a>
- * Version: 2.0.9
+ * Version: 2.0.10
  * Author: YITH
  * Author URI: https://yithemes.com/
  * Text Domain: yith-woocommerce-stripe
  * Domain Path: /languages
  * WC requires at least: 2.4.0
- * WC tested up to: 4.1
+ * WC tested up to: 4.2
  *
  * @author Your Inspiration Themes
  * @package YITH WooCommerce Stripe
@@ -73,7 +73,7 @@ if ( ! defined( 'YITH_WCSTRIPE_PREMIUM' ) ) {
 if ( defined( 'YITH_WCSTRIPE_VERSION' ) ) {
 	return;
 }else{
-	define( 'YITH_WCSTRIPE_VERSION', '2.0.9' );
+	define( 'YITH_WCSTRIPE_VERSION', '2.0.10' );
 }
 
 if( ! defined( 'YITH_WCSTRIPE_API_VERSION' ) ){

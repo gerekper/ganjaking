@@ -47,7 +47,7 @@ if ( ! function_exists( 'yith_pos_get_employee_name' ) ) {
 		$user_info = get_userdata( $user_id );
 		if ( $user_info ) {
 			if ( $user_info->first_name || $user_info->last_name ) {
-				if ( $options[ 'hide_nickname' ] ) {
+				if ( $options['hide_nickname'] ) {
 					$name = esc_html( sprintf( _x( '%1$s %2$s', 'full name', 'woocommerce' ), ucfirst( $user_info->first_name ), ucfirst( $user_info->last_name ) ) );
 				} else {
 					$name = esc_html( sprintf( _x( '%1$s %2$s (%3$s)', 'full name', 'woocommerce' ), ucfirst( $user_info->first_name ), ucfirst( $user_info->last_name ), $user_info->nickname ) );
@@ -77,7 +77,12 @@ if ( ! function_exists( 'yith_pos_get_employees' ) ) {
 
 		$employees = array();
 		if ( is_null( $store ) ) {
-			$user_query = new WP_User_Query( array( 'role' => 'yith_pos_' . $role, 'fields' => 'ID' ) );
+			$user_query = new WP_User_Query(
+				array(
+					'role'   => 'yith_pos_' . $role,
+					'fields' => 'ID',
+				)
+			);
 			$employees  = $user_query->get_results();
 		} else {
 			$store_obj = yith_pos_get_store( $store );
@@ -99,12 +104,12 @@ if ( ! function_exists( 'yith_pos_admin_screen_ids' ) ) {
 	 */
 	function yith_pos_admin_screen_ids() {
 		$screen_ids = array(
-			'yith-plugins_page_yith_pos_panel'
+			'yith-plugins_page_yith_pos_panel',
 		);
 		$post_types = array(
 			YITH_POS_Post_Types::$store,
 			YITH_POS_Post_Types::$receipt,
-			YITH_POS_Post_Types::$register
+			YITH_POS_Post_Types::$register,
 		);
 		foreach ( $post_types as $post_type ) {
 			$screen_ids[] = $post_type;
@@ -131,11 +136,11 @@ if ( ! function_exists( 'yith_pos_compact_list' ) ) {
 		);
 		$args              = wp_parse_args( $args, $defaults );
 		$total             = count( $items );
-		$limit             = absint( $args[ 'limit' ] );
+		$limit             = absint( $args['limit'] );
 		$hidden            = max( 0, $total - $limit );
-		$class             = $args[ 'class' ];
-		$show_more_message = sprintf( $args[ 'show_more_message' ], $hidden );
-		$hide_more_message = $args[ 'hide_more_message' ];
+		$class             = $args['class'];
+		$show_more_message = sprintf( $args['show_more_message'], $hidden );
+		$hide_more_message = $args['hide_more_message'];
 
 		echo "<div class='yith-pos-compact-list {$class}' data-total='{$total}' data-limit='{$limit}' data-show-more-message='{$show_more_message}' data-hide-more-message='{$hide_more_message}'>";
 		$index = 1;
@@ -149,12 +154,12 @@ if ( ! function_exists( 'yith_pos_compact_list' ) ) {
 			$index ++;
 		}
 		if ( $hidden ) {
-			echo "</div>";
+			echo '</div>';
 			echo "<div class='clear'></div>";
 			echo "<span class='yith-pos-compact-list__show-more'>{$show_more_message}<span class='yith-icon yith-icon-arrow_down'></span></span>";
 			echo "<span class='yith-pos-compact-list__hide-more'>{$hide_more_message}<span class='yith-icon yith-icon-arrow_up'></span></span>";
 		}
-		echo "</div>";
+		echo '</div>';
 	}
 }
 
@@ -167,12 +172,12 @@ if ( ! function_exists( 'yith_pos_get_current_post_type' ) ) {
 	function yith_pos_get_current_post_type() {
 		global $pagenow;
 		$post_type = '';
-		if ( isset( $_POST[ 'post_type' ] ) ) {
-			$post_type = $_POST[ 'post_type' ];
-		} elseif ( isset( $_GET[ 'post' ] ) ) {
-			$post_type = get_post_type( $_GET[ 'post' ] );
-		} elseif ( 'post-new.php' === $pagenow && isset( $_GET[ 'post_type' ] ) ) {
-			$post_type = $_GET[ 'post_type' ];
+		if ( isset( $_POST['post_type'] ) ) {
+			$post_type = $_POST['post_type'];
+		} elseif ( isset( $_GET['post'] ) ) {
+			$post_type = get_post_type( $_GET['post'] );
+		} elseif ( 'post-new.php' === $pagenow && isset( $_GET['post_type'] ) ) {
+			$post_type = $_GET['post_type'];
 		}
 
 		return apply_filters( 'yith_pos_current_post_type', $post_type );
@@ -205,10 +210,10 @@ if ( ! function_exists( 'yith_pos_get_stores' ) ) {
 
 		$args = wp_parse_args( $args, $defaults );
 
-		$return_stores = 'stores' === $args[ 'fields' ];
+		$return_stores = 'stores' === $args['fields'];
 
 		if ( $return_stores ) {
-			$args[ 'fields' ] = 'ids';
+			$args['fields'] = 'ids';
 		}
 
 		$stores = get_posts( $args );
@@ -243,10 +248,10 @@ if ( ! function_exists( 'yith_pos_get_registers' ) ) {
 		);
 
 		$args             = wp_parse_args( $args, $defaults );
-		$return_registers = 'registers' === $args[ 'fields' ];
+		$return_registers = 'registers' === $args['fields'];
 
 		if ( $return_registers ) {
-			$args[ 'fields' ] = 'ids';
+			$args['fields'] = 'ids';
 		}
 
 		$registers = get_posts( $args );
@@ -296,12 +301,18 @@ if ( ! function_exists( 'yith_post_rest_get_register_list' ) ) {
 	 * @return array
 	 */
 	function yith_post_rest_get_register_list( $object, $field_name, $request ) {
-		$registers = yith_pos_get_registers_by_store( $object[ 'id' ] );
+		$registers = yith_pos_get_registers_by_store( $object['id'] );
 
 		$register_list = array();
 		if ( $registers ) {
 			foreach ( $registers as $register ) {
-				array_push( $register_list, array( 'id' => $register->get_id(), 'name' => $register->get_name() ) );
+				array_push(
+					$register_list,
+					array(
+						'id'   => $register->get_id(),
+						'name' => $register->get_name(),
+					)
+				);
 			}
 		}
 
@@ -316,7 +327,7 @@ if ( ! function_exists( 'yith_pos_get_receipts_options' ) ) {
 	function yith_pos_get_receipts_options() {
 		$args = array(
 			'posts_per_page' => - 1,
-			'post_type'      => YITH_POS_Post_Types::$receipt
+			'post_type'      => YITH_POS_Post_Types::$receipt,
 		);
 
 		$receipts = array( '' => __( 'No receipt', 'yith-point-of-sale-for-woocommerce' ) );
@@ -346,7 +357,7 @@ if ( ! function_exists( 'yith_pos_create_user_form' ) ) {
 		static $form_id = 0;
 		$form_id ++;
 
-		$defaults          = array(
+		$defaults        = array(
 			'title'               => __( 'Create new user', 'yith-point-of-sale-for-woocommerce' ),
 			'button_text'         => __( 'Create new user', 'yith-point-of-sale-for-woocommerce' ),
 			'button_close_text'   => __( 'Close new user creation', 'yith-point-of-sale-for-woocommerce' ),
@@ -354,9 +365,9 @@ if ( ! function_exists( 'yith_pos_create_user_form' ) ) {
 			'user_type'           => '',
 			'select2_to_populate' => '',
 		);
-		$args              = wp_parse_args( $args, $defaults );
-		$html              = '';
-		$args[ 'form_id' ] = $form_id;
+		$args            = wp_parse_args( $args, $defaults );
+		$html            = '';
+		$args['form_id'] = $form_id;
 
 		if ( current_user_can( 'create_users' ) ) {
 			ob_start();
@@ -430,7 +441,7 @@ if ( ! function_exists( 'yith_pos_get_post_edit_link_html' ) ) {
 			return "<a href='{$link}'>{$name}</a>";
 		}
 
-		return "";
+		return '';
 	}
 }
 
@@ -611,7 +622,6 @@ if ( ! function_exists( 'yith_pos_maybe_remove_user_role' ) ) {
 				$user->remove_role( 'yith_pos_' . $role );
 				count( $user->roles ) == 0 && $user->add_role( 'customer' );
 			}
-
 		}
 	}
 }
@@ -622,8 +632,8 @@ if ( ! function_exists( 'yith_pos_get_format_address' ) ) {
 		$address_formats = WC()->countries->get_address_formats();
 		if ( isset( $address_formats[ $country ] ) ) {
 			$format = $address_formats[ $country ];
-		} elseif ( isset( $address_formats[ 'default' ] ) ) {
-			$format = $address_formats[ 'default' ];
+		} elseif ( isset( $address_formats['default'] ) ) {
+			$format = $address_formats['default'];
 		}
 
 		return $format;
@@ -638,10 +648,13 @@ if ( ! function_exists( 'yith_pos_get_required_gateways' ) ) {
 	 */
 	function yith_pos_get_required_gateways() {
 
-		$required_gateways = apply_filters( 'yith_pos_required_gateways', array(
-			'yith_pos_cash_gateway',
-			'yith_pos_chip_pin_gateway'
-		) );
+		$required_gateways = apply_filters(
+			'yith_pos_required_gateways',
+			array(
+				'yith_pos_cash_gateway',
+				'yith_pos_chip_pin_gateway',
+			)
+		);
 
 		return $required_gateways;
 	}
@@ -717,7 +730,6 @@ if ( ! function_exists( 'yith_pos_get_active_payment_methods' ) ) {
 			}
 		}
 
-
 		return $active_payments;
 	}
 }
@@ -743,7 +755,7 @@ if ( ! function_exists( 'yith_pos_get_order_payment_methods' ) ) {
 						$payment_method    = str_replace( '_yith_pos_gateway_', '', $meta->key );
 						$payment_methods[] = (object) array(
 							'paymentMethod' => $payment_method,
-							'amount'        => $meta->value
+							'amount'        => $meta->value,
 						);
 					}
 				}
@@ -766,25 +778,24 @@ if ( ! function_exists( 'yith_pos_validate_hex' ) ) {
 	 */
 	function yith_pos_validate_hex( $hex ) {
 		// Complete patterns like #ffffff or #fff
-		if ( preg_match( "/^#([0-9a-fA-F]{6})$/", $hex ) || preg_match( "/^#([0-9a-fA-F]{3})$/", $hex ) ) {
+		if ( preg_match( '/^#([0-9a-fA-F]{6})$/', $hex ) || preg_match( '/^#([0-9a-fA-F]{3})$/', $hex ) ) {
 			// Remove #
 			$hex = substr( $hex, 1 );
 		}
 
 		// Complete patterns without # like ffffff or 000000
-		if ( preg_match( "/^([0-9a-fA-F]{6})$/", $hex ) ) {
+		if ( preg_match( '/^([0-9a-fA-F]{6})$/', $hex ) ) {
 			return $hex;
 		}
 
 		// Short patterns without # like fff or 000
-		if ( preg_match( "/^([0-9a-f]{3})$/", $hex ) ) {
+		if ( preg_match( '/^([0-9a-f]{3})$/', $hex ) ) {
 			// Spread to 6 digits
 			return substr( $hex, 0, 1 ) . substr( $hex, 0, 1 ) . substr( $hex, 1, 1 ) . substr( $hex, 1, 1 ) . substr( $hex, 2, 1 ) . substr( $hex, 2, 1 );
 		}
 
 		return false;
 	}
-
 }
 
 if ( ! function_exists( 'yith_pos_hex2hsl' ) ) {
@@ -797,15 +808,15 @@ if ( ! function_exists( 'yith_pos_hex2hsl' ) ) {
 	 * @return array
 	 */
 	function yith_pos_hex2hsl( $hex ) {
-		//Validate Hex Input
+		// Validate Hex Input
 		$hex = yith_pos_validate_hex( $hex );
 
 		// Split input by color
 		$hex = str_split( $hex, 2 );
 		// Convert color values to value between 0 and 1
-		$r = ( hexdec( $hex[ 0 ] ) ) / 255;
-		$g = ( hexdec( $hex[ 1 ] ) ) / 255;
-		$b = ( hexdec( $hex[ 2 ] ) ) / 255;
+		$r = ( hexdec( $hex[0] ) ) / 255;
+		$g = ( hexdec( $hex[1] ) ) / 255;
+		$b = ( hexdec( $hex[2] ) ) / 255;
 
 		return yith_pos_rgb2hsl( array( $r, $g, $b ) );
 	}
@@ -897,15 +908,15 @@ if ( ! function_exists( 'yith_pos_hsl2rgb' ) ) {
 
 			if ( $h_ >= 0 && $h_ < 1 ) {
 				$rgb = array( ( $chroma + $m ), ( $x + $m ), $m );
-			} else if ( $h_ >= 1 && $h_ < 2 ) {
+			} elseif ( $h_ >= 1 && $h_ < 2 ) {
 				$rgb = array( ( $x + $m ), ( $chroma + $m ), $m );
-			} else if ( $h_ >= 2 && $h_ < 3 ) {
+			} elseif ( $h_ >= 2 && $h_ < 3 ) {
 				$rgb = array( $m, ( $chroma + $m ), ( $x + $m ) );
-			} else if ( $h_ >= 3 && $h_ < 4 ) {
+			} elseif ( $h_ >= 3 && $h_ < 4 ) {
 				$rgb = array( $m, ( $x + $m ), ( $chroma + $m ) );
-			} else if ( $h_ >= 4 && $h_ < 5 ) {
+			} elseif ( $h_ >= 4 && $h_ < 5 ) {
 				$rgb = array( ( $x + $m ), $m, ( $chroma + $m ) );
-			} else if ( $h_ >= 5 && $h_ < 6 ) {
+			} elseif ( $h_ >= 5 && $h_ < 6 ) {
 				$rgb = array( ( $chroma + $m ), $m, ( $x + $m ) );
 			}
 		}
@@ -924,11 +935,11 @@ if ( ! function_exists( 'yith_pos_rgb2hex' ) ) {
 	 */
 	function yith_pos_rgb2hex( $rgb ) {
 		list( $r, $g, $b ) = $rgb;
-		$r = round( 255 * $r );
-		$g = round( 255 * $g );
-		$b = round( 255 * $b );
+		$r                 = round( 255 * $r );
+		$g                 = round( 255 * $g );
+		$b                 = round( 255 * $b );
 
-		return "#" . sprintf( "%02X", $r ) . sprintf( "%02X", $g ) . sprintf( "%02X", $b );
+		return '#' . sprintf( '%02X', $r ) . sprintf( '%02X', $g ) . sprintf( '%02X', $b );
 	}
 }
 
@@ -1048,5 +1059,18 @@ if ( ! function_exists( 'yith_pos_rest_get_product_thumbnail' ) ) {
 		}
 
 		return apply_filters( 'yith_pos_rest_get_product_thumbnail', $image, $product_id, $variation_id );
+	}
+}
+
+if ( ! function_exists( 'yith_pos_get_barcode_meta' ) ) {
+	/**
+	 * Return the barcode beta
+	 *
+	 * @return string
+	 */
+	function yith_pos_get_barcode_meta() {
+		$meta = defined( 'YITH_YWBC_SLUG' ) ? '_ywbc_barcode_display_value' : '_sku';
+		$meta = apply_filters( 'yith_pos_barcode_custom_field', $meta );
+		return $meta;
 	}
 }

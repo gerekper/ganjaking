@@ -1,5 +1,8 @@
 *** WooCommerce Deposits Changelog ***
 
+2020-07-07 - version 1.5.2
+* Fix - Adjust line item total when discount is used with a fixed deposit.
+
 2020-06-10 - version 1.5.1
 * Fix - Use WooCommerce e2e environment.
 * Tweak - WC 4.2 compatibility.

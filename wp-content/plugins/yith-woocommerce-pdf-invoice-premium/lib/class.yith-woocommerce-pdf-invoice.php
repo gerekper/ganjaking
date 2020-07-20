@@ -652,7 +652,7 @@ if ( ! class_exists( 'YITH_WooCommerce_Pdf_Invoice' ) ) {
 				return;
 			}
 
-			$url = $this->get_action_url( 'view', 'invoice', yit_get_prop( $order, 'id' ) );
+			$url = apply_filters( 'ywpi_invoice_information_url', $this->get_action_url( 'view', 'invoice', yit_get_prop( $order, 'id' ) ), $order );
 
 			$is_receipt = get_post_meta( yit_get_prop( $order, 'id' ), '_billing_invoice_type' , true );
 
@@ -1330,7 +1330,7 @@ if ( ! class_exists( 'YITH_WooCommerce_Pdf_Invoice' ) ) {
             if ( $document instanceof YITH_Shipping ) {
                 $customer_details = ywpi_get_option( 'ywpi_packing_slip_footer', '' );
             }
-            
+
 	        $customer_details = str_replace( '|', '-', $customer_details );
 
             return $this->replace_customer_details_pattern( $customer_details, $order_id );
@@ -1344,7 +1344,7 @@ if ( ! class_exists( 'YITH_WooCommerce_Pdf_Invoice' ) ) {
 		 *
 		 * @return string
 		 */
-		private function create_storing_folder( $document ) {
+		private function create_storing_folder( $document, $extension = 'pdf' ) {
 
 			/* Create folders for storing documents */
 			$folder_path = get_option( 'ywpi_invoice_folder_format' );
@@ -1391,7 +1391,7 @@ if ( ! class_exists( 'YITH_WooCommerce_Pdf_Invoice' ) ) {
 				),
 				$folder_path );
 
-			$folder_path = apply_filters( 'ywpi_storing_folder', $folder_path, $document );
+			$folder_path = apply_filters( 'ywpi_storing_folder', $folder_path, $document, $extension );
 
 			if ( ! file_exists( YITH_YWPI_DOCUMENT_SAVE_DIR . $folder_path ) ) {
 				wp_mkdir_p( YITH_YWPI_DOCUMENT_SAVE_DIR . $folder_path );
@@ -1430,7 +1430,7 @@ if ( ! class_exists( 'YITH_WooCommerce_Pdf_Invoice' ) ) {
             $content = $this->generate_template( $document, $extension );
 
 
-            $document->save_folder = $this->create_storing_folder( $document );
+            $document->save_folder = $this->create_storing_folder( $document, $extension );
 
             $document->save_path   = sprintf( "%s.%s", $this->get_document_filename( $document, $extension ), $extension );
 

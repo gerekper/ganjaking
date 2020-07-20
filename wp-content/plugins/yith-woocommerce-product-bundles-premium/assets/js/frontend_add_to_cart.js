@@ -228,6 +228,8 @@ jQuery( function ( $ ) {
 
                 $price.html( variation.price_html.replace( 'price', 'amount' ) );
                 $real_price.html( variation.display_regular_price_html );
+
+                $(document).trigger('yith_wcpb_found_variation_after', [$(this), variation]);
             } )
                 .on( 'reset_data', function () {
                     var $current_product   = $( this ).closest( '.product' ),

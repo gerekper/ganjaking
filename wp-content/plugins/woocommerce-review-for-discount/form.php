@@ -149,62 +149,32 @@
 												</p>
 
 												<p class="form-field">
-													<label for="product_ids"><?php _e('Products', 'wc_review_discount'); ?></label>
-													<?php if ( version_compare( WC_VERSION, '3.0', '<' ) ): ?>
-														<input
-															type="hidden"
-															class="sfn-product-search"
-															id="product_ids"
-															name="product_ids"
-															data-multiple="true"
-															data-placeholder="<?php _e('Search for a product...', 'wc_review_discount'); ?>"
-															style="width: 500px;"
-															value="<?php
-															$product_ids    = array_filter( array_map( 'absint', $discount['products'] ) );
-															$json_ids       = array();
+													<label for="product_ids"><?php esc_html_e( 'Products', 'wc_review_discount' ); ?></label>
+													<select
+														class="sfn-product-search"
+														id="product_ids"
+														name="product_ids[]"
+														multiple="multiple"
+														data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'wc_review_discount' ); ?>"
+														style="width: 100%;"
+													>
+													<?php
+														$product_ids = array_filter( array_map( 'absint', $discount['products'] ) );
 
-															foreach ( $product_ids as $product_id ) {
-																$product = wc_get_product( $product_id );
-																$json_ids[ $product_id ] = wp_kses_post( $product->get_formatted_name() );
-															}
-
-															echo implode( ',', array_keys( $json_ids ) );
-															$json_ids = function_exists( 'wc_esc_json' ) ? wc_esc_json( wp_json_encode( $json_ids ) ) : _wp_specialchars( wp_json_encode( $json_ids ), ENT_QUOTES, 'UTF-8', true );
-															?>"
-															data-selected="<?php echo $json_ids; ?>">
-													<?php else: ?>
-														<select
-															class="sfn-product-search"
-															id="product_ids"
-															name="product_ids[]"
-															multiple="multiple"
-															data-placeholder="<?php _e('Search for a product...', 'wc_review_discount'); ?>"
-															style="width: 500px;">
-															<?php
-															$product_ids    = array_filter( array_map( 'absint', $discount['products'] ) );
-															$json_ids       = array();
-
-															foreach ( $product_ids as $product_id ) {
-																$product = wc_get_product( $product_id );
-																$json_ids[ $product_id ] = wp_kses_post( $product->get_formatted_name() );
-															}
-
-															foreach ( $json_ids as $product_id => $product_name ):
-																?>
-																<option value="<?php echo $product_id; ?>" selected="selected"><?php echo $product_name; ?></option>
-															<?php endforeach; ?>
-
-														</select>
-													<?php endif; ?>
+														foreach ( $product_ids as $product_id ) :
+															$product      = wc_get_product( $product_id );
+															$product_name = $product ? htmlspecialchars( wp_kses_post( $product->get_formatted_name() ) ) : '';
+													?>
+														<option value="<?php echo esc_attr( $product_id ); ?>" selected="selected"><?php echo esc_html( $product_name ); ?></option>
+													<?php endforeach; ?>
+													</select>
 												</p>
 
 												<p class="form-field">
-													<label for="product_cats"><?php _e('Product categories', 'wc_review_discount'); ?></label>
-													<select id="product_cats" name="product_cats[]" class="chzn-select" multiple="multiple" data-placeholder="<?php _e('Search for a category...', 'wc_review_discount'); ?>" style="width:500px;">
-														<?php
-														foreach ($cats as $cat):
-															?>
-															<option value="<?php echo $cat->term_id; ?>" <?php selected( true, in_array( $cat->term_id, $discount['categories'] ) ); ?>><?php echo $cat->name; ?></option>
+													<label for="product_cats"><?php esc_html_e( 'Product categories', 'wc_review_discount' ); ?></label>
+													<select id="product_cats" name="product_cats[]" class="multiple-select" multiple="multiple" data-placeholder="<?php esc_attr_e( 'Search for a category&hellip;', 'wc_review_discount' ); ?>" style="width:100%;">
+														<?php foreach ( $cats as $category ) : ?>
+															<option value="<?php echo esc_attr( $category->term_id ); ?>" <?php selected( true, in_array( $category->term_id, $discount['categories'] ) ); ?>><?php echo esc_html( $category->name ); ?></option>
 														<?php endforeach; ?>
 													</select>
 												</p>

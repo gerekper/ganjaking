@@ -71,6 +71,7 @@ if ( ! class_exists( 'YITH_POS_Post_Types' ) ) {
 
 			// Regenerate roles and capabilities
 			add_action( 'init', array( __CLASS__, 'regenerate_roles_and_capabilities' ) );
+			add_action( 'init', array( __CLASS__, 'maybe_regenerate_roles_and_caps' ) );
 		}
 
 		/**

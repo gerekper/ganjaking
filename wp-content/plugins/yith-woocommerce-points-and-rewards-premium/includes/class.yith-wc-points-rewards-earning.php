@@ -1024,7 +1024,7 @@ if ( ! class_exists( 'YITH_WC_Points_Rewards_Earning' ) ) {
 		 */
 		public function extra_points( $types, $user_id, $order_id = 0 ) {
 
-			if ( empty( $types ) || empty( $user_id ) || ! YITH_WC_Points_Rewards()->is_user_enabled( 'earn', $user_id ) ) {
+			if ( empty( $types ) || empty( $user_id ) || ! YITH_WC_Points_Rewards()->is_user_enabled( 'earn', $user_id ) || apply_filters( 'ywpar_prevent_extra_points', false, $types, $user_id, $order_id ) ) {
 				return false;
 			}
 

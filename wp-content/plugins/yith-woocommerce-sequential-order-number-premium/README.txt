@@ -4,12 +4,20 @@ Contributors: yithemes
 Tags: order, woocommerce, numeration, order number, orders, shop, yith, yit, yithemes
 Requires at least: 3.5.1
 Tested up to: 5.4
-Stable tag: 1.2.1
+Stable tag: 1.2.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Documentation:
 
 == Changelog ==
+= 1.2.3 - Released on 02 July 2020 =
+* New: Support for WooCommerce 4.3
+* Update: Plugin Framework
+= 1.2.2 - Released on 03 June 2020 =
+* Update: Plugin Framework
+* Fix: Vendors can't search order by ID
+* Fix: The sequential order number was not correctly generated for free orders
+
 = 1.2.1 - Released on 26 May 2020 =
 * New: Support for WooCommerce 4.2
 * Update: Plugin Framework

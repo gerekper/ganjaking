@@ -210,7 +210,7 @@ if ( ! class_exists( 'YITH_WCWL_Wishlist_Item' ) ) {
 		 * @return int Quantity
 		 */
 		public function get_quantity( $context = 'view' ) {
-			return intval( $this->get_prop( 'quantity', $context ) );
+			return max( 1, intval( $this->get_prop( 'quantity', $context ) ) );
 		}
 
 		/**

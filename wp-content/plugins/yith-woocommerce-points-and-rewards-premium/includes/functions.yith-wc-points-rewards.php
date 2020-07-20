@@ -937,14 +937,14 @@ if ( ! function_exists( 'ywpar_add_order_points_summary' ) ) {
 		$message        = '';
 		$point_earned   = get_post_meta( $order->get_id(), '_ywpar_points_earned', 1 );
 		$point_redeemed = get_post_meta( $order->get_id(), '_ywpar_redemped_points', 1 );
-
+		$plural   = YITH_WC_Points_Rewards()->get_option( 'points_label_plural' );
 		if ( $point_earned ) {
-			$message = sprintf( '<strong>%s</strong> <span>%d</span>', esc_html( __( 'Points earned:', 'yith-woocommerce-points-and-rewards' ) ), esc_html( $point_earned ) );
+			$message = sprintf( '<strong>%s %s</strong> <span>%d</span>', esc_html($plural), esc_html( __( ' earned:', 'yith-woocommerce-points-and-rewards' ) ), esc_html( $point_earned ) );
 		}
 
 		if ( $point_redeemed ) {
 			$message .= $message ? '<br>' : '';
-			$message .= sprintf( '<strong>%s</strong> <span>%d</span>', esc_html( __( 'Points used:', 'yith-woocommerce-points-and-rewards' ) ), esc_html( $point_redeemed ) );
+			$message .= sprintf( '<strong>%s %s</strong> <span>%d</span>', esc_html($plural), esc_html( __( 'Points used:', 'yith-woocommerce-points-and-rewards' ) ), esc_html( $point_redeemed ) );
 		}
 
 		echo apply_filters( 'ywpar_add_order_points_summary', $message ? '<p class="ywpar-order-point-summary">' . $message . '</p>' : '', $order, $point_earned, $point_redeemed ); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped

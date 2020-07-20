@@ -5,15 +5,15 @@ msgstr ""
 "Project-Id-Version: YITH WooCommerce Request a Quote\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
 "request-a-quote.premium\n"
-"POT-Creation-Date: 2020-05-26 09:57:20+00:00\n"
+"POT-Creation-Date: 2020-07-02 09:24:49+00:00\n"
 "PO-Revision-Date: 2020-03-30 08:46:07+0000\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: GlotPress/2.3.1\n"
+"Plural-Forms: nplurals=3; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : ((n % "
+"10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14)) ? 1 : 2);\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
 
 #: includes/admin/class.yith-ywraq-exclusions-cat-table.php:77
 msgid "Thumbnail"
@@ -70,8 +70,8 @@ msgstr ""
 #: includes/admin/class.yith-ywraq-exclusions-prod-table.php:170
 #: templates/emails/quote-table.php:46
 #: templates/emails/request-quote-table.php:54
-#: templates/myaccount/view-quote.php:174 templates/pdf/quote-table-div.php:54
-#: templates/pdf/quote-table.php:59 templates/request-quote-view.php:57
+#: templates/myaccount/view-quote.php:174 templates/pdf/quote-table-div.php:58
+#: templates/pdf/quote-table.php:60 templates/request-quote-view.php:57
 #: templates/request-quote-view.php:93 templates/request-quote-view.php:183
 msgid "Product"
 msgstr "Товар"
@@ -556,8 +556,8 @@ msgstr "Перейти к списку"
 #: templates/emails/plain/request-quote-table.php:30
 #: templates/emails/quote-table.php:78
 #: templates/emails/request-quote-table.php:81
-#: templates/myaccount/view-quote.php:193 templates/pdf/quote-table-div.php:84
-#: templates/pdf/quote-table.php:97 templates/request-quote-view.php:188
+#: templates/myaccount/view-quote.php:193 templates/pdf/quote-table-div.php:88
+#: templates/pdf/quote-table.php:102 templates/request-quote-view.php:188
 msgid " SKU:"
 msgstr ""
 
@@ -650,7 +650,7 @@ msgstr "Заказать цены"
 msgid "[Answer to quote request]"
 msgstr "[Ответить на запрос цен]"
 
-#: includes/emails/class.yith-ywraq-quote-status.php:201
+#: includes/emails/class.yith-ywraq-quote-status.php:203
 #: includes/emails/class.yith-ywraq-send-email-request-quote-customer.php:257
 #: includes/emails/class.yith-ywraq-send-email-request-quote.php:259
 #: includes/emails/class.yith-ywraq-send-quote-reminder.php:264
@@ -658,7 +658,7 @@ msgstr "[Ответить на запрос цен]"
 msgid "Enable/Disable"
 msgstr "Включить/Отключить"
 
-#: includes/emails/class.yith-ywraq-quote-status.php:203
+#: includes/emails/class.yith-ywraq-quote-status.php:205
 #: includes/emails/class.yith-ywraq-send-email-request-quote-customer.php:259
 #: includes/emails/class.yith-ywraq-send-email-request-quote.php:261
 #: includes/emails/class.yith-ywraq-send-quote-reminder.php:266
@@ -666,7 +666,7 @@ msgstr "Включить/Отключить"
 msgid "Enable this email notification"
 msgstr "Включить это e-mail оповещение"
 
-#: includes/emails/class.yith-ywraq-quote-status.php:207
+#: includes/emails/class.yith-ywraq-quote-status.php:209
 #: includes/emails/class.yith-ywraq-send-email-request-quote-customer.php:263
 #: includes/emails/class.yith-ywraq-send-email-request-quote.php:265
 #: includes/emails/class.yith-ywraq-send-quote-reminder.php:278
@@ -674,7 +674,7 @@ msgstr "Включить это e-mail оповещение"
 msgid "\"From\" Name"
 msgstr "Имя \"От\""
 
-#: includes/emails/class.yith-ywraq-quote-status.php:214
+#: includes/emails/class.yith-ywraq-quote-status.php:216
 #: includes/emails/class.yith-ywraq-send-email-request-quote-customer.php:270
 #: includes/emails/class.yith-ywraq-send-email-request-quote.php:272
 #: includes/emails/class.yith-ywraq-send-quote-reminder.php:285
@@ -682,7 +682,7 @@ msgstr "Имя \"От\""
 msgid "\"From\" Email Address"
 msgstr "E-mail \"От\""
 
-#: includes/emails/class.yith-ywraq-quote-status.php:222
+#: includes/emails/class.yith-ywraq-quote-status.php:224
 #: includes/emails/class.yith-ywraq-send-email-request-quote-customer.php:277
 #: includes/emails/class.yith-ywraq-send-email-request-quote.php:279
 #: includes/emails/class.yith-ywraq-send-quote-reminder.php:292
@@ -690,7 +690,7 @@ msgstr "E-mail \"От\""
 msgid "Subject"
 msgstr "Тема"
 
-#: includes/emails/class.yith-ywraq-quote-status.php:224
+#: includes/emails/class.yith-ywraq-quote-status.php:226
 msgid ""
 "This field lets you edit email subject line. Leave it blank to use default "
 "subject text: <code>%s</code>. You can use {quote_number} as a placeholder "
@@ -700,12 +700,12 @@ msgstr ""
 "использовать текст темы по умолчанию <code>%s</code>. Можно также "
 "использовать {quote_number}, чтобы показывать номер запроса."
 
-#: includes/emails/class.yith-ywraq-quote-status.php:230
+#: includes/emails/class.yith-ywraq-quote-status.php:232
 #: includes/emails/class.yith-ywraq-send-email-request-quote.php:286
 msgid "Recipient(s)"
 msgstr "Получатель(-и)"
 
-#: includes/emails/class.yith-ywraq-quote-status.php:232
+#: includes/emails/class.yith-ywraq-quote-status.php:234
 #: includes/emails/class.yith-ywraq-send-email-request-quote.php:288
 msgid ""
 "Enter recipients (separated by commas) for this email. Defaults to <code>%s</"
@@ -714,17 +714,17 @@ msgstr ""
 "Введите получателей (разделяйте запятой) для этого письма. По умолчанию "
 "<code>%s</code>"
 
-#: includes/emails/class.yith-ywraq-quote-status.php:238
+#: includes/emails/class.yith-ywraq-quote-status.php:240
 #: includes/emails/class.yith-ywraq-send-email-request-quote.php:293
 msgid "Send CC copy"
 msgstr "Отправить копию"
 
-#: includes/emails/class.yith-ywraq-quote-status.php:240
+#: includes/emails/class.yith-ywraq-quote-status.php:242
 #: includes/emails/class.yith-ywraq-send-email-request-quote.php:295
 msgid "Send a carbon copy to the user"
 msgstr "Отправить копию пользователю"
 
-#: includes/emails/class.yith-ywraq-quote-status.php:245
+#: includes/emails/class.yith-ywraq-quote-status.php:247
 #: includes/emails/class.yith-ywraq-send-email-request-quote-customer.php:297
 #: includes/emails/class.yith-ywraq-send-email-request-quote.php:299
 #: includes/emails/class.yith-ywraq-send-quote-reminder.php:312
@@ -732,7 +732,7 @@ msgstr "Отправить копию пользователю"
 msgid "Email Heading"
 msgstr "Заголовок письма"
 
-#: includes/emails/class.yith-ywraq-quote-status.php:247
+#: includes/emails/class.yith-ywraq-quote-status.php:249
 #: includes/emails/class.yith-ywraq-send-email-request-quote-customer.php:299
 #: includes/emails/class.yith-ywraq-send-email-request-quote.php:301
 #: includes/emails/class.yith-ywraq-send-quote-reminder.php:314
@@ -744,7 +744,7 @@ msgstr ""
 "Это поле позволяет редактировать тему e-mail уведомления. Оставьте его "
 "пустым, чтобы использовать текст темы по умолчанию <code>%s</code>."
 
-#: includes/emails/class.yith-ywraq-quote-status.php:253
+#: includes/emails/class.yith-ywraq-quote-status.php:255
 #: includes/emails/class.yith-ywraq-send-email-request-quote-customer.php:305
 #: includes/emails/class.yith-ywraq-send-email-request-quote.php:307
 #: includes/emails/class.yith-ywraq-send-quote-reminder.php:325
@@ -752,12 +752,12 @@ msgstr ""
 msgid "Email Description"
 msgstr "Содержимое письма"
 
-#: includes/emails/class.yith-ywraq-quote-status.php:256
+#: includes/emails/class.yith-ywraq-quote-status.php:258
 #: includes/emails/class.yith-ywraq-send-email-request-quote.php:310
 msgid "You have received a request for a quote. The request is the following:"
 msgstr "На ваш запрос цен был дан ответ. Запрос:"
 
-#: includes/emails/class.yith-ywraq-quote-status.php:260
+#: includes/emails/class.yith-ywraq-quote-status.php:262
 #: includes/emails/class.yith-ywraq-send-email-request-quote-customer.php:311
 #: includes/emails/class.yith-ywraq-send-email-request-quote.php:325
 #: includes/emails/class.yith-ywraq-send-quote-reminder.php:331
@@ -765,7 +765,7 @@ msgstr "На ваш запрос цен был дан ответ. Запрос:"
 msgid "Email type"
 msgstr "Тип письма"
 
-#: includes/emails/class.yith-ywraq-quote-status.php:262
+#: includes/emails/class.yith-ywraq-quote-status.php:264
 #: includes/emails/class.yith-ywraq-send-email-request-quote-customer.php:313
 #: includes/emails/class.yith-ywraq-send-email-request-quote.php:327
 #: includes/emails/class.yith-ywraq-send-quote-reminder.php:333
@@ -2512,15 +2512,15 @@ msgstr ""
 msgid "Save changes"
 msgstr ""
 
-#: templates/emails/change-status.php:36
+#: templates/emails/change-status.php:37
 msgid "The Proposal #%s has been accepted"
 msgstr "Предложение #%s было принято"
 
-#: templates/emails/change-status.php:38
+#: templates/emails/change-status.php:39
 msgid "The Proposal #%s has been rejected."
 msgstr ""
 
-#: templates/emails/change-status.php:42
+#: templates/emails/change-status.php:43
 #: templates/emails/request-quote-customer.php:55
 #: templates/emails/request-quote.php:53
 msgid "You can see details here:"
@@ -2656,13 +2656,13 @@ msgstr "Истечёт"
 
 #: templates/emails/quote-table.php:44
 #: templates/emails/request-quote-table.php:51
-#: templates/pdf/quote-table-div.php:51 templates/pdf/quote-table.php:54
+#: templates/pdf/quote-table-div.php:55 templates/pdf/quote-table.php:54
 msgid "Preview"
 msgstr "Предпросмотр"
 
 #: templates/emails/quote-table.php:47
 #: templates/emails/request-quote-table.php:56
-#: templates/pdf/quote-table-div.php:60 templates/pdf/quote-table.php:69
+#: templates/pdf/quote-table-div.php:64 templates/pdf/quote-table.php:72
 #: templates/request-quote-view.php:58 templates/request-quote-view.php:136
 #: templates/request-quote-view.php:260
 msgid "Quantity"
@@ -2670,7 +2670,7 @@ msgstr "Количество"
 
 #: templates/emails/quote-table.php:48
 #: templates/emails/request-quote-table.php:59
-#: templates/pdf/quote-table-div.php:63 templates/pdf/quote-table.php:74
+#: templates/pdf/quote-table-div.php:67 templates/pdf/quote-table.php:78
 msgid "Subtotal"
 msgstr "Подытог"
 
@@ -2799,7 +2799,7 @@ msgstr "Клиент"
 msgid "Date created"
 msgstr ""
 
-#: templates/pdf/quote-table-div.php:57 templates/pdf/quote-table.php:64
+#: templates/pdf/quote-table-div.php:61 templates/pdf/quote-table.php:66
 msgid "Unit Price"
 msgstr "Цена товара"
 

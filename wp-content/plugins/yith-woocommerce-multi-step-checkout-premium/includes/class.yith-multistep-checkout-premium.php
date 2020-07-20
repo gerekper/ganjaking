@@ -34,25 +34,35 @@ if ( ! class_exists( 'YITH_Multistep_Checkout_Premium' ) ) {
          */
         public $sizes = array();
 
-        public function __construct(){
-            // init image sizes array
-            $this->sizes = array(
-                'yith_wcms_timeline_style1' => array(
-                    'width'  => 39,
-                    'height' => 39,
-                    'crop'   => true
-                ),
-                'yith_wcms_timeline_style2' => array(
-                    'width'  => 18,
-                    'height' => 18,
-                    'crop'   => true
-                ),
-                'yith_wcms_timeline_style3' => array(
-                    'width'  => 25,
-                    'height' => 25,
-                    'crop'   => true
-                )
-            );
+		public function __construct() {
+			// init image sizes array
+			$this->sizes = array(
+				'yith_wcms_timeline_style1' => array(
+					'width'  => 39,
+					'height' => 39,
+					'crop'   => true
+				),
+				'yith_wcms_timeline_style2' => array(
+					'width'  => 18,
+					'height' => 18,
+					'crop'   => true
+				),
+				'yith_wcms_timeline_style3' => array(
+					'width'  => 25,
+					'height' => 25,
+					'crop'   => true
+				),
+				'yith_wcms_timeline_style4_horizontal' => array(
+					'width'  => 80,
+					'height' => 75,
+					'crop'   => true
+				),
+				'yith_wcms_timeline_style4_vertical' => array(
+					'width'  => 45,
+					'height' => 40,
+					'crop'   => true
+				),
+			);
 
             /* === Premium Initializzation === */
             add_filter( 'yith_wcms_require_class', array( $this, 'load_premium_classes' ) );

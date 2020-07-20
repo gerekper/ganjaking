@@ -4,11 +4,35 @@ Contributors: yithemes
 Tags: woocommerce, multi-step checkout, yith, checkout
 Requires at least: 4.0
 Tested up to: 5.4
-Stable tag: 1.9.3
+Stable tag: 2.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 == Changelog ==
+
+= 2.0.0 - Released on 01 July 2020 = 
+
+* New: Support for WooCommerce 4.3
+* New: Plugin options panel layout
+* New: Checkout style
+* New: Checkout style on mobile
+* New: SVG Icons set
+* New: Ability to choose a different style for mobile
+* New: Ability to merge billing and shipping in a single step
+* New: Ability to merge order info and payment in a single step
+* New: Ability to show icons and step numbers for all steps
+* New: Layout options for text style
+* New: Option to save the checkout fields when users leaves the checkout page
+* New: Choose to hide or set a default or a custom icon, to identify each step
+* New: Set the checkout page width in relation to the width of the steps timeline
+* Update: Plugin framework
+* Update: Language files
+* Fix: Minor layout issues with selectWoo library
+* Fix: Unable to go to the next step if 'create account' option is unchecked
+* Fix: Dashicons not available on frontend for not logged-in users
+* Fix: Layout issues in Style 2 and Style 3 on mobile view
+* Dev: yith_wcmv_have_mobile_timeline to check if current style have a dedicated mobile timeline
+* Dev: yith_wcmv_max_mobile_width to filter the max-width value for mobile device
 
 = 1.9.3 - Released on 28 May 2020 =
 

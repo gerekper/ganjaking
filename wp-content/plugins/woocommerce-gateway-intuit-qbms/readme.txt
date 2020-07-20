@@ -3,7 +3,7 @@ Author: skyverge
 Tags: woocommerce
 Requires PHP: 5.6
 Requires at least: 4.4
-Tested up to: 5.4.1
+Tested up to: 5.4.2
 
 Accept credit cards in WooCommerce with the Intuit Payments or Legacy QBMS gateway
 

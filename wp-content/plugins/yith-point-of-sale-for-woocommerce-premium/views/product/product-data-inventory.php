@@ -1,7 +1,7 @@
 <?php
 /**
  * @var bool $multistock_enabled
- * @var bool  $is_enabled
+ * @var string  $is_enabled is enabled? Values: yes | no
  * @var array $multistock
  */
 $stores = yith_pos_get_stores( array( 'fields' => 'stores' ) );

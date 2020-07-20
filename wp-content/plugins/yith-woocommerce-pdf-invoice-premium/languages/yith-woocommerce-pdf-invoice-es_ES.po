@@ -7,7 +7,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/2.3.1\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
 "Language: es\n"
 "Project-Id-Version: YITH WooCommerce PDF Invoice and Shipping List\n"
 
@@ -155,7 +155,7 @@ msgid "Total"
 msgstr "Total"
 
 #: templates/yith-pdf-invoice/credit-note-details-with-products.php:44
-#: templates/yith-pdf-invoice/invoice-details.php:317
+#: templates/yith-pdf-invoice/invoice-details.php:316
 #: templates/yith-pdf-invoice/receipt-totals.php:41
 msgid "Shipping"
 msgstr "Envío"
@@ -697,15 +697,15 @@ msgstr "Nombre de la empresa"
 msgid "Template settings"
 msgstr "Ajustes de plantilla"
 
-#: plugin-options/general-options.php:240
+#: plugin-options/general-options.php:237
 msgid "Choose the name of the Dropbox folder where to save the files."
 msgstr "Elige el nombre para la carpeta de Dropbox donde se guardan todos los archivos."
 
-#: plugin-options/general-options.php:233
+#: plugin-options/general-options.php:230
 msgid "Set automatic document backup to Dropbox."
 msgstr "Establecer copia de seguridad de documentos automática en Dropbox."
 
-#: plugin-options/general-options.php:232
+#: plugin-options/general-options.php:229
 msgid "Authorize Dropbox"
 msgstr "Autorizar Dropbox"
 
@@ -937,31 +937,31 @@ msgstr "Modo de vista previa"
 msgid "Generating documents"
 msgstr "Generando documentos"
 
-#: plugin-options/documents-options.php:209
+#: plugin-options/documents-options.php:181
 #: plugin-options/electronic-invoice-options.php:365
-#: plugin-options/general-options.php:248
+#: plugin-options/general-options.php:245
 #: plugin-options/template-options.php:600
 #: plugin-options/vendor-options.php:169
 msgid "We recommend verifying carefully the correct data provided to generate the invoice. The plugin's authors refuse any responsibility about possible mistakes or shortcomings when generating invoices."
 msgstr "Recomendamos comprobar cuidadosamente la información proporcionada para generar la factura. Los autores del plugin niegan cualquier responsabilidad sobre posibles errores o defectos al generar las facturas."
 
-#: plugin-options/documents-options.php:195
+#: plugin-options/documents-options.php:167
 msgid "Set a text to be used as a suffix to the credit note number. Leave it blank if no suffix has to be used"
 msgstr "Establece un texto para usar como sufijo del número de la factura rectificativa. Déjalo en blanco para no usar sufijo"
 
-#: plugin-options/documents-options.php:191
+#: plugin-options/documents-options.php:163
 msgid "Credit note suffix"
 msgstr "Sufijo de la factura rectificativa"
 
-#: plugin-options/documents-options.php:187
+#: plugin-options/documents-options.php:159
 msgid "Set a text to be used as a prefix to the credit note number. Leave it blank if no prefix has to be used"
 msgstr "Establece un texto para usar como prefijo del número de la factura rectificativa. Déjalo en blanco para no usar prefijo"
 
-#: plugin-options/documents-options.php:183
+#: plugin-options/documents-options.php:155
 msgid "Credit note prefix"
 msgstr "Prefijo de la factura rectificativa"
 
-#: plugin-options/documents-options.php:166
+#: plugin-options/documents-options.php:143
 msgid ""
 "Choose the number for the next credit note (use this option if you want to\n"
 "\t\t\t move away from automatic numeration)"
@@ -969,50 +969,50 @@ msgstr ""
 "Elige el número para la siguiente factura rectificativa (usa esta opción si quieres\n"
 "\t\t\t apartarte de la numeración automática)"
 
-#: plugin-options/documents-options.php:162
+#: plugin-options/documents-options.php:139
 msgid "Next credit note number"
 msgstr "Próximo número de factura rectificativa"
 
-#: plugin-options/documents-options.php:158
+#: plugin-options/documents-options.php:135
 msgid "Credit note number"
 msgstr "Número de la factura rectificativa"
 
-#: plugin-options/documents-options.php:151
-#: plugin-options/documents-options.php:203
+#: plugin-options/documents-options.php:128
+#: plugin-options/documents-options.php:175
 #: plugin-options/vendor-options.php:77
 msgid "Set restart from 1 on 1st January."
 msgstr "Establece el reinicio desde 1 el 1 de enero."
 
-#: plugin-options/documents-options.php:147
-#: plugin-options/documents-options.php:199
+#: plugin-options/documents-options.php:124
+#: plugin-options/documents-options.php:171
 #: plugin-options/vendor-options.php:74
 msgid "Reset on 1st January"
 msgstr "Reiniciar el 1 de enero"
 
-#: plugin-options/documents-options.php:143
+#: plugin-options/documents-options.php:120
 msgid "Set a text to be added as a suffix to the invoice number. Leave it blank if no suffix has to be used"
 msgstr "Escribe un texto para añadirlo como sufijo al número de factura. Déjalo en blanco para no usar sufijo"
 
-#: plugin-options/documents-options.php:139
+#: plugin-options/documents-options.php:116
 #: plugin-options/vendor-options.php:55
 msgid "Invoice suffix"
 msgstr "Sufijo de factura"
 
-#: plugin-options/documents-options.php:135
+#: plugin-options/documents-options.php:112
 msgid "Set a text to be added as a prefix to the invoice number. Leave it blank if no prefix has to be used"
 msgstr "Escribe un texto para añadirlo como prefijo al número de factura. Déjalo en blanco para no usar prefijo"
 
-#: plugin-options/documents-options.php:131
+#: plugin-options/documents-options.php:108
 #: plugin-options/vendor-options.php:48
 msgid "Invoice prefix"
 msgstr "Prefijo de factura"
 
-#: plugin-options/documents-options.php:125
-#: plugin-options/documents-options.php:177
+#: plugin-options/documents-options.php:102
+#: plugin-options/documents-options.php:149
 msgid "Billing year"
 msgstr "Año de facturación"
 
-#: plugin-options/documents-options.php:113
+#: plugin-options/documents-options.php:95
 msgid ""
 "Choose the invoice number for the next invoice (use this option if you want to\n"
 "\t\t\t move away from automatic numeration)."
@@ -1020,17 +1020,16 @@ msgstr ""
 "Elige el número de factura para la siguiente factura (usa esta opción si quieres\n"
 "\t\t\t apartarte de la numeración automática)."
 
-#: plugin-options/documents-options.php:109
-#: plugin-options/vendor-options.php:29
+#: plugin-options/documents-options.php:91 plugin-options/vendor-options.php:29
 msgid "Next invoice number"
 msgstr "Número de la próxima factura"
 
-#: plugin-options/documents-options.php:105
+#: plugin-options/documents-options.php:87
 #: templates/yith-pdf-invoice/document-data-credit-note.php:28
 msgid "Invoice number"
 msgstr "Número de factura"
 
-#: plugin-options/documents-options.php:92
+#: plugin-options/documents-options.php:77
 msgid ""
 "Set the format for the packing slip file name. Use [order_number], [year], [month], [day] as placeholders. <b>The [order_number]\n"
 "placeholder is necessary</b>. If not specified, it will be queued to the corresponding text."
@@ -1038,11 +1037,11 @@ msgstr ""
 "Establece el formato de nombre de archivo del albarán de entrega. Utiliza [order_number], [year], [month], [day] como marcadores de\n"
 "posición. <b> El marcador de posición [order_number] es obligatorio</b>. Si no se especifica, se pondrá en cola al texto correspondiente."
 
-#: plugin-options/documents-options.php:88
+#: plugin-options/documents-options.php:73
 msgid "Packing slip file name format"
 msgstr "Formato del nombre de archivo de albarán de entrega"
 
-#: plugin-options/documents-options.php:79
+#: plugin-options/documents-options.php:67
 msgid ""
 "Set the format for the proforma file name. Use [order_number], [year], [month], [day] as placeholders. <b>The [order_number]\n"
 "placeholder is necessary</b>. If not specified, it will be queued to the corresponding text."
@@ -1050,11 +1049,11 @@ msgstr ""
 "Define el formato para el nombre del archivo proforma. Utiliza [order_number], [year], [month], [day] como marcadores de posición. <b>El marcador de posición [order_number]\n"
 " es obligatorio</b>. Si no se especifica, se pondrá en cola al texto correspondiente."
 
-#: plugin-options/documents-options.php:75
+#: plugin-options/documents-options.php:63
 msgid "Proforma invoice file name format"
 msgstr "Formato de nombre de archivo de facturas proforma"
 
-#: plugin-options/documents-options.php:66
+#: plugin-options/documents-options.php:57
 msgid ""
 "Set the format for the credit note file name. Use [number], [prefix], [suffix], [year], [month], [day] as placeholders. <b>The [number]\n"
 "placeholder is necessary</b>. If not specified, it will be queued to the corresponding text."
@@ -1062,26 +1061,26 @@ msgstr ""
 "Establece el formato del nombre de archivo de la factura rectificativa. Utiliza [number], [prefix], [suffix], [year], [month], [day] como marcadores\n"
 "de posición. <b>El marcador de posición [number] es obligatorio</b>. Si no se especifica, se pondrá en cola al texto correspondiente."
 
-#: plugin-options/documents-options.php:62
+#: plugin-options/documents-options.php:53
 msgid "Credit note file name format"
 msgstr "Formato de nombre de archivo de la factura rectificativa"
 
-#: plugin-options/documents-options.php:53
+#: plugin-options/documents-options.php:47
 msgid ""
 "Set the format for the invoice file name. Use [number], [prefix], [suffix], [year], [month], [day] as placeholders.\n"
 "<b>The [number] placeholder is necessary</b>. If not specified, it will be queued to the corresponding text."
 msgstr ""
 
-#: plugin-options/documents-options.php:49
+#: plugin-options/documents-options.php:43
 msgid "Invoice file name format"
 msgstr "Formato de nombre de archivo de factura"
 
-#: plugin-options/documents-options.php:37
+#: plugin-options/documents-options.php:34
 msgid "Credit note number format"
 msgstr "Formato de número de factura rectificativa"
 
 #: plugin-options/documents-options.php:29
-#: plugin-options/documents-options.php:41
+#: plugin-options/documents-options.php:38
 msgid ""
 "Set the format for the invoice number. Use [number], [prefix], [suffix], [year], [month] and [day] as placeholders. <b>The [number] placeholder is required</b>, if not\n"
 "specified, it will be queued to the corresponding text."
@@ -1342,7 +1341,7 @@ msgstr "YITH PDF Invoice"
 msgid "Choose the name of the Dropbox folder where to save the files"
 msgstr "Elige el nombre de la carpeta de Dropbox donde guardar los archivos"
 
-#: lib/class.yith-ywpi-backend.php:144 plugin-options/general-options.php:239
+#: lib/class.yith-ywpi-backend.php:144 plugin-options/general-options.php:236
 msgid "Dropbox folder"
 msgstr "Carpeta de Dropbox"
 
@@ -1485,13 +1484,13 @@ msgstr "Generar albarán"
 msgid "Generate Invoices"
 msgstr "Generar facturas"
 
-#: lib/class.yith-checkout-addon.php:420
+#: lib/class.yith-checkout-addon.php:422
 #: lib/class.yith-woocommerce-pdf-invoice-premium.php:178
 #: lib/class.yith-ywpi-backend.php:395
 msgid "Receipt"
 msgstr "Recibo"
 
-#: lib/class.yith-checkout-addon.php:419
+#: lib/class.yith-checkout-addon.php:421
 #: lib/class.yith-woocommerce-pdf-invoice-premium.php:358
 #: lib/class.yith-woocommerce-pdf-invoice.php:378
 #: lib/class.yith-woocommerce-pdf-invoice.php:1189
@@ -1499,18 +1498,20 @@ msgstr "Recibo"
 msgid "Invoice"
 msgstr "Factura"
 
-#: lib/class.yith-checkout-addon.php:412
+#: lib/class.yith-checkout-addon.php:414
 msgid "Invoice type"
 msgstr "Tipo de factura"
 
-#: lib/class.yith-checkout-addon.php:197 lib/class.yith-checkout-addon.php:275
-#: lib/class.yith-checkout-addon.php:392 lib/class.yith-checkout-addon.php:449
+#: lib/class.yith-checkout-addon.php:198 lib/class.yith-checkout-addon.php:202
+#: lib/class.yith-checkout-addon.php:277 lib/class.yith-checkout-addon.php:394
+#: lib/class.yith-checkout-addon.php:451
 #: lib/class.yith-woocommerce-pdf-invoice-privacy.php:115
 msgid "VAT"
 msgstr "CIF"
 
-#: lib/class.yith-checkout-addon.php:178 lib/class.yith-checkout-addon.php:260
-#: lib/class.yith-checkout-addon.php:384 lib/class.yith-checkout-addon.php:442
+#: lib/class.yith-checkout-addon.php:178 lib/class.yith-checkout-addon.php:182
+#: lib/class.yith-checkout-addon.php:262 lib/class.yith-checkout-addon.php:386
+#: lib/class.yith-checkout-addon.php:444
 #: lib/class.yith-woocommerce-pdf-invoice-privacy.php:114
 msgid "SSN"
 msgstr "DNI"

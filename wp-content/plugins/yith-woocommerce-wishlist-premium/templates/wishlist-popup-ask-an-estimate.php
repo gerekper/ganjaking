@@ -23,19 +23,19 @@ if ( ! defined( 'YITH_WCWL' ) ) {
 ?>
 
 <div id="ask_an_estimate_popup">
-	<form action="<?php echo esc_url( $ask_estimate_url ) ?>" method="post" class="wishlist-ask-an-estimate-popup">
+	<form action="<?php echo esc_url( $ask_estimate_url ); ?>" method="post" class="wishlist-ask-an-estimate-popup">
 		<div class="yith-wcwl-popup-content">
-			<?php if ( apply_filters( 'yith_wcwl_show_popup_heading_icon_instead_of_title', true, 'fa-envelope-open-o' ) ): ?>
+			<?php if ( apply_filters( 'yith_wcwl_show_popup_heading_icon_instead_of_title', true, 'fa-envelope-open-o' ) ) : ?>
 				<i class="fa <?php echo esc_attr( apply_filters( 'yith_wcwl_ask_and_estimate_popup_heading_icon_class', 'fa-envelope-open-o' ) ); ?> heading-icon"></i>
-			<?php else: ?>
+			<?php else : ?>
 				<h3><?php esc_html_e( 'Ask for an estimate for this list', 'yith-woocommerce-wishlist' ); ?></h3>
 			<?php endif; ?>
 
 			<p class="popup-description">
-				<?php esc_html_e( 'Ask for an estimate for this list:', 'yith-woocommerce-wishlist' ); ?>
+				<?php echo esc_html( apply_filters( 'yith_wcwl_ask_for_an_estimate_popup_text', __( 'Ask for an estimate for this list:', 'yith-woocommerce-wishlist' ) ) ); ?>
 			</p>
 
-			<?php if ( ! is_user_logged_in() ): ?>
+			<?php if ( ! is_user_logged_in() ) : ?>
 				<p class="form-row form-row-wide">
 					<label for="reply_email"><?php echo esc_html( apply_filters( 'yith_wcwl_ask_estimate_reply_mail_label', __( 'Your email', 'yith-woocommerce-wishlist' ) ) ); ?></label>
 					<input type="email" value="" name="reply_email" id="reply_email">
@@ -50,12 +50,14 @@ if ( ! defined( 'YITH_WCWL' ) ) {
 			}
 			?>
 
-			<p class="form-row form-row-wide">
-				<?php if ( ! empty( $additional_info_label ) ): ?>
-					<label for="additional_notes"><?php echo esc_html( $additional_info_label ); ?></label>
-				<?php endif; ?>
-				<textarea id="additional_notes" name="additional_notes"></textarea>
-			</p>
+			<?php if ( $additional_info ) : ?>
+				<p class="form-row form-row-wide">
+					<?php if ( ! empty( $additional_info_label ) ) : ?>
+						<label for="additional_notes"><?php echo esc_html( $additional_info_label ); ?></label>
+					<?php endif; ?>
+					<textarea id="additional_notes" name="additional_notes"></textarea>
+				</p>
+			<?php endif; ?>
 		</div>
 
 		<div class="yith-wcwl-popup-footer">

@@ -5,28 +5,28 @@ msgstr ""
 "Project-Id-Version: YITH WooCommerce Sequential Order Number\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
 "sequential-order-number-premium\n"
-"POT-Creation-Date: 2020-05-26 14:04:04+00:00\n"
+"POT-Creation-Date: 2020-07-02 14:04:39+00:00\n"
 "PO-Revision-Date: 2020-05-15 12:26:12+0000\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/2.3.1\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
 
-#: includes/class.yith-sequential-order-number-admin.php:156
+#: includes/class.yith-sequential-order-number-admin.php:155
 msgid "Modules"
 msgstr "Modules"
 
-#: includes/class.yith-sequential-order-number-admin.php:157
+#: includes/class.yith-sequential-order-number-admin.php:156
 msgid "Tools"
 msgstr "Instrumenten"
 
-#: includes/class.yith-sequential-order-number-admin.php:164
+#: includes/class.yith-sequential-order-number-admin.php:163
 msgid "Sequential Order Number"
 msgstr "Opeenvolgend Ordernummer"
 
-#: includes/class.yith-sequential-order-number-admin.php:262
+#: includes/class.yith-sequential-order-number-admin.php:261
 msgid "Order imported"
 msgid_plural "Orders imported"
 msgstr[0] "Geïmporteerde bestelling"
@@ -277,19 +277,3 @@ msgctxt ""
 "1.5.6 or later is activated"
 msgid "This option is available if"
 msgstr "Deze optie is beschikbaar indien"
-
-#~ msgid "https://yithemes.com/"
-#~ msgstr "https://yithemes.com/"
-
-#~ msgid "YITH"
-#~ msgstr "YITH"
-
-#~ msgid ""
-#~ "https://yithemes.com/themes/plugins/yith-woocommerce-sequential-order-"
-#~ "number"
-#~ msgstr ""
-#~ "https://yithemes.com/themes/plugins/yith-woocommerce-sequential-order-"
-#~ "number"
-
-#~ msgid "YITH WooCommerce Sequential Order Number Premium"
-#~ msgstr "YITH WooCommerce Sequential Order Number Premium"

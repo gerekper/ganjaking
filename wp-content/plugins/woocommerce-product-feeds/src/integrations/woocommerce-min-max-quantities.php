@@ -20,6 +20,9 @@ class WoocommerceMinMaxQuantities {
 	 * @return mixed
 	 */
 	public function multiply_out_by_minimum_quantities( $feed_item, $wc_product ) {
+		if ( ! apply_filters( 'woocommerce_gpf_integration_minmax', true ) ) {
+			return $feed_item;
+		}
 		// Get the relevant minimum quantity & group by settings.
 		if ( $feed_item->specific_id !== $feed_item->general_id ) {
 			$min_max_rules = get_post_meta( $feed_item->specific_id, 'min_max_rules', true );

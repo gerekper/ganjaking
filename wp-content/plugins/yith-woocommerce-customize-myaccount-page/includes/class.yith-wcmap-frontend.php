@@ -129,6 +129,9 @@ if ( ! class_exists( 'YITH_WCMAP_Frontend' ) ) {
 
 			// Prevent redirect to dashboard in Customize section using Smart Email plugin
 			add_filter( 'yith_wcmap_no_redirect_to_default', array( $this, 'fix_issue_with_smartemail_plugin' ) );
+
+            // YITH Proteo Style
+            add_filter( 'yith_wcmap_get_custom_css', array( $this, 'add_proteo_style' ) );
 		}
 
 		/**
@@ -881,5 +884,18 @@ if ( ! class_exists( 'YITH_WCMAP_Frontend' ) ) {
 		public function is_my_account() {
 			return $this->_is_myaccount;
 		}
+
+
+        /**
+         * Add custom style for YITH Proteo theme
+         * @param $style
+         * @return mixed
+         */
+        public function add_proteo_style( $style ){
+            if ( defined( 'YITH_PROTEO_VERSION' ) )
+                $style = yith_wcmap_get_proteo_custom_style();
+
+            return $style;
+        }
 	}
 }

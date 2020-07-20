@@ -8,239 +8,167 @@
  * http://www.gnu.org/licenses/gpl-3.0.txt
  */
 
+$default_marketplace           = 'yith';
 $to_active_products            = $this->get_to_active_products();
 $activated_products            = $this->get_activated_products();
 $no_active_products            = $this->get_no_active_licence_key();
-$expired_products              = isset( $no_active_products[ '106' ] ) ? $no_active_products[ '106' ] : array();
-$banned_products               = isset( $no_active_products[ '107' ] ) ? $no_active_products[ '107' ] : array();
+$expired_products              = isset( $no_active_products['106'] ) ? $no_active_products['106'] : array();
+$banned_products               = isset( $no_active_products['107'] ) ? $no_active_products['107'] : array();
 $notice                        = isset( $notice ) ? $notice : '';
-$notice_class                  = !empty( $notice ) ? 'notice notice-success visible' : 'notice notice-success';
+$notice_class                  = ! empty( $notice ) ? 'yith-notice notice-success visible' : 'yith-notice notice-success';
 $num_members_products_activate = $this->get_number_of_membership_products();
-$debug                         = isset( $_REQUEST[ 'yith-license-debug' ] ) ? $_REQUEST[ 'yith-license-debug' ] : false;
+$debug                         = isset( $_REQUEST['yith-license-debug'] ) ? $_REQUEST['yith-license-debug'] : false;
+$renew_url                     = 'https://yithemes.com/my-account/my-subscriptions/';
+$to_active_products_count      = count( $to_active_products );
 ?>
 
-<div class="yit-container product-licence-activation">
-    <h2><?php _e( 'YITH License Activation', 'yith-plugin-upgrade-fw' ) ?></h2>
-	<?php if ( !empty( $activated_products ) ) : ?>
-    <div class="licence-check-section">
-        <h3><?php _e( 'License expiry date', 'yith-plugin-upgrade-fw' ); ?></h3>
-        <form method="post" id="licence-check-update" action="<?php echo admin_url( 'admin-ajax.php' ) ?>">
-            <span class="licence-label" style="display: block;">
-                <?php _e( 'If you have renewed your product license key and the expiry date does not appear up-to-date, please, click on the button <em>Check Expiry Date</em> below and it will update.', 'yith-plugin-upgrade-fw' ); ?>
-            </span>
-            <input type="hidden" name="action" value="yith_update_licence_information-<?php echo $this->get_product_type(); ?>"/>
-            <input type="submit" name="submit" value="<?php _e( 'Check expiry date', 'yith-plugin-upgrade-fw' ) ?>" class="button-licence licence-check"/>
-            <div class="spinner"></div>
-        </form>
-    </div>
-    <?php endif; ?>
-
-    <div id="yith-licence-notice" class="<?php echo $notice_class ?>">
-        <p class="yith-licence-notice-message"><?php echo $notice ?></p>
-    </div>
-
+<div class="yit-container product-licence-activation yith-plugin-ui">
+    <h2 id="yith-page-title"><?php esc_html_e( 'YITH License Activation', 'yith-plugin-upgrade-fw' ) ?></h2>
     <!-- To Active Products -->
 
-    <?php if ( !empty( $to_active_products ) ) : ?>
+    <div class="to-active-wrapper">
         <h3 id="products-to-active" class="to-active">
-            <?php echo _n( 'Product to activate', 'Products to activate', count( $to_active_products ), 'yith-plugin-upgrade-fw' ) ?>
+			<?php echo esc_html_x( 'Activate your licenses', 'Page Title', 'yith-plugin-upgrade-fw' ); ?>
             <span class="spinner"></span>
         </h3>
-        <p id="yith-licence-issue-how-to"><?php printf( '%s <a href="%s" target="_blank">%s</a>.', __( 'Are you having issues with the license activation?', 'yith-plugin-upgrade-fw' ), '//support.yithemes.com/hc/en-us/articles/360012568594-License-activation-issues', _x( 'Read this article', '[Part of]: Are you having issues with the license activation? Read this article', 'yith-plugin-upgrade-fw' ) )?></p>
-        <div class="to-active-wrapper">
-            <?php foreach ( $to_active_products as $init => $info ) : ?>
-                <form class="to-active-form" method="post" id="<?php echo $info[ 'product_id' ] ?>" action="<?php echo admin_url( 'admin-ajax.php' ) ?>">
-                    <?php if ( $debug ): ?>
-                        <input type="hidden" name="debug" value="<?php echo $debug ?>"/>
-                    <?php endif ?>
-                    <table class="to-active-table">
-                        <tbody>
-                        <tr class="product-row">
-                            <td class="product-name">
-                                <?php echo $this->display_product_name( $info[ 'Name' ] ) ?>
-                            </td>
-                            <td>
-                                <input type="text" name="email" placeholder="<?php _ex( "Your email on yithemes.com", 'Placeholder', 'yith-plugin-upgrade-fw' ); ?>" value="" class="user-email"/>
-                            </td>
-                            <td>
-                                <input type="text" name="licence_key" placeholder="<?php _ex( 'License Key', 'Placeholder', 'yith-plugin-upgrade-fw' ); ?>" value="" class="licence-key"/>
-                            </td>
-                            <td class="activate-button">
-                                <input type="submit" name="submit" value="<?php _e( 'Activate', 'yith-plugin-upgrade-fw' ) ?>" class="button-licence licence-activation" data-formid="<?php echo $info[ 'product_id' ] ?>"/>
-                            </td>
-                        </tr>
-                        <input type="hidden" name="action" value="yith_activate-<?php echo $this->get_product_type(); ?>"/>
-                        <input type="hidden" name="product_init" value="<?php echo $init ?>"/>
-                        </tbody>
-                    </table>
-                    <div class="message-wrapper">
-                        <span class="message arrow-left"></span>
-                    </div>
-                </form>
-            <?php endforeach; ?>
+        <span id="yith-no-license-to-enabled-message" class="<?php echo empty( $to_active_products ) ? 'yith-license-visible' : 'yith-license-hide'; ?>">
+            <?php echo esc_html_x( "Your licenses are active.", 'License section message', 'yith-plugin-upgrade-fw' );  ?>
+        </span>
+        <div id="yith-license-from-wrapper" class="<?php echo empty( $to_active_products ) ? 'yith-license-hide' : 'yith-license-visible'; ?>">
+            <p id="yith-licence-issue-how-to">
+		        <?php
+		        $how_to = sprintf(
+			        '%s <a href="%s" target="_blank"  rel="nofollow noopener">%s</a>.',
+			        esc_html_x( 'Are you having issues with the license activation?', '[Part of]: Are you having issues with the license activation? Read this article', 'yith-plugin-upgrade-fw' ),
+			        esc_html( '//support.yithemes.com/hc/en-us/articles/360012568594-License-activation-issues' ),
+			        esc_html_x( 'Read this article', '[Part of]: Are you having issues with the license activation? Read this article', 'yith-plugin-upgrade-fw' )
+		        );
+		        echo $how_to; //@codingStandardsIgnoreLine
+		        ?>
+            </p>
+            <form
+                    id="yith-license-activation"
+                    class="to-active-form count-<?php echo $to_active_products_count; ?>"
+                    method="post"
+                    action="<?php echo esc_html( admin_url( 'admin-ajax.php' ) ); ?>"
+                    data-count="<?php echo $to_active_products_count;?>" >
+		        <?php if ( $debug ): ?>
+                    <input type="hidden" name="debug" value="<?php echo $debug ?>"/>
+		        <?php endif ?>
+                <div class="to-active-table">
+                    <p class="yith-license-form-row product-name yith-products-list-wrapper">
+                        <label for="yith-products-list" class="yith-select-plugin">
+					        <?php echo esc_html( _nx( 'Plugin', 'Choose the plugin', $to_active_products_count, 'Form Label', 'yith-plugin-upgrade-fw' ) ); ?>
+                        </label>
+                        <select
+                                <?php if( $to_active_products_count == 1 ) { echo 'disabled="disabled"'; } ?>
+                                autocomplete="off"
+                                id="yith-products-list"
+                                name="product_name"
+                                class="wc-enhanced-select yith-products-list"
+                        >
+					        <?php foreach ( $to_active_products as $init => $info ) : ?>
+                                <option data-textdomain="<?php echo $info['TextDomain']; ?>"
+                                        data-init="<?php echo $init; ?>"
+                                        data-marketplace="<?php echo $info['marketplace'] ?>"><?php echo $this->display_product_name( $info['Name'] ) ?></option>
+					        <?php endforeach; ?>
+                        </select>
+                        <span class="error-message product"></span>
+                    </p>
+                    <p class="yith-license-form-row yith-account-email-wrapper">
+                        <label for="yith-account-email" class="yith-email">
+					        <?php
+					        $new_email_url = sprintf( '%s: (<a href="%s" target="_blank" rel="nofollow noopener" tabindex="-1">%s</a>)',
+						        esc_html_x( 'E-mail account with YITH', 'Link on activation license panel', 'yith-plugin-upgrade-fw' ),
+						        'https://yithemes.com/register/',
+						        esc_html_x( 'or create a new account', 'Link on activation license panel', 'yith-plugin-upgrade-fw' ) );
+					        echo $new_email_url; //@codingStandardsIgnoreLine
+					        ?>
+                        </label>
+                        <input type="text" id="yith-account-email" autocomplete="off" name="email"
+                               placeholder="<?php _ex( 'Enter the e-mail address for this license', 'Placeholder', 'yith-plugin-upgrade-fw' ) ?>"
+                               value="" class="user-email"/>
+                        <span class="error-message email"></span>
+                    </p>
+                    <p class="yith-license-form-row yith-licence-key-wrapper">
+                        <label for="yith-licence-key" class="yith-license-key">
+		                    <?php
+		                    $find_license_key_url = sprintf(
+			                    '%s: <a href="%s" target="_blank" rel="nofollow noopener" tabindex="-1">%s</a>',
+			                    esc_html_x( 'License key', 'Link on activation license panel', 'yith-plugin-upgrade-fw' ),
+			                    $renew_url,
+			                    esc_html_x( 'Where to find it ?', 'Link on activation license panel', 'yith-plugin-upgrade-fw' ) );
+		                    echo $find_license_key_url; //@codingStandardsIgnoreLine
+		                    ?>
+                        </label>
+                        <input type="text" autocomplete="off" name="licence_key" maxlength="36"
+                               placeholder="<?php echo esc_html_x( 'Enter the license key', 'Placeholder', 'yith-plugin-upgrade-fw' ); ?>"
+                               value="" class="licence-key" id="yith-licence-key"/>
+                        <input type="submit"
+                               name="submit"
+                               value="<?php echo esc_html_x( 'Activate', 'Button Label', 'yith-plugin-upgrade-fw' ); ?>"
+                               class="button-primary button-licence licence-activation"
+                               data-formid="yith-license-activation"/>
+                        <span class="error-message license-key"></span>
+                    </p>
+                    <input type="hidden" name="action" value="yith_activate-<?php echo $this->get_product_type(); ?>"/>
+                    <input type="hidden" name="product_init" id="product_init" value=""/>
+                    <input type="hidden" name="marketplace" id="marketplace" value=""/>
+                </div>
+            </form>
         </div>
-    <?php endif; ?>
-
+    </div>
     <!-- Activated Products -->
 
-    <?php if ( !empty( $activated_products ) ) : ?>
+    <div id="activated-product-wrapper">
         <h3 id="activated-products">
-            <?php _e( 'Activated', 'yith-plugin-upgrade-fw' ) ?>
+            <?php echo esc_html_x( 'Licenses Activated', 'Section Title', 'yith-plugin-upgrade-fw' ) ?>
             <span class="spinner"></span>
         </h3>
-        <table class="activated-table">
-            <thead>
-            <tr>
-                <th><?php _e( 'Product Name', 'yith-plugin-upgrade-fw' ) ?></th>
-                <?php if ( $this->show_extra_info ) : ?>
-                    <th><?php _e( 'Email', 'yith-plugin-upgrade-fw' ) ?></th>
-                    <th><?php _e( 'License Key', 'yith-plugin-upgrade-fw' ) ?></th>
-                <?php endif; ?>
-
-                <th><?php _e( 'Expires', 'yith-plugin-upgrade-fw' ) ?></th>
-
-                <?php if ( $this->show_extra_info ) : ?>
-                    <th><?php _e( 'Remaining', 'yith-plugin-upgrade-fw' ) ?></th>
-                    <?php if ( $num_members_products_activate ) : ?>
-                        <th><?php _e( 'Club Subscription', 'yith-plugin-upgrade-fw' ) ?></th>
-                    <?php endif; ?>
-                <?php endif; ?>
-
-                <th id="yith-licence-actions"><span class="dashicons dashicons-admin-generic"></span></th>
-            </tr>
-            </thead>
-            <tbody>
-            <?php foreach ( $activated_products as $init => $info ) : ?>
+        <span id="no-license-enabled-message" class="<?php echo empty( $activated_products ) && empty( $expired_products ) && empty( $banned_products ) ? 'yith-license-visible' : 'yith-license-hide'; ?>">
+            <?php echo esc_html_x( "No licenses have been activated.", 'License section message', 'yith-plugin-upgrade-fw' ); ?>
+        </span>
+        <div id="licence-check-section-wrapper" class="<?php echo ! empty( $activated_products ) || ! empty( $expired_products ) || ! empty( $banned_products ) ? 'yith-license-visible' : 'yith-license-hide'; ?>">
+            <div class="licence-check-section">
+                <form method="post" id="licence-check-update" action="<?php echo esc_html( admin_url( 'admin-ajax.php' ) ); ?>">
+                <span class="licence-label" style="display: block;">
+                    <label for=""><?php esc_html_e( "If you've already renewed a license and the expiry date is not updated, click to update.", 'yith-plugin-upgrade-fw' ); ?></label>
+                    <input type="submit" name="submit" value="<?php echo esc_html_x( 'Update Expiry Dates', 'button label', 'yith-plugin-upgrade-fw' ) ?>" class="button-primary button-licence licence-check" id="yith-licence-check-btn"/>
+                    <div class="spinner"></div>
+                </span>
+                    <input type="hidden" name="action" value="yith_update_licence_information-<?php echo $this->get_product_type(); ?>"/>
+                </form>
+                <div id="yith-licence-notice-wrapper">
+                    <div id="yith-licence-notice" class="<?php echo $notice_class ?>">
+                        <p class="yith-licence-notice-message"><?php echo $notice ?></p>
+                    </div>
+                </div>
+            </p>
+            <table id="yith-enabled-license" class="activated-table" summary="<?php esc_html_e( 'Licenses Activated', 'yith-plugin-upgrade-fw' )?>">
+                <thead>
                 <tr>
-                    <td class="product-name">
-                        <?php echo $this->display_product_name( $info[ 'Name' ] ) ?>
-                    </td>
-
-                    <?php if ( $this->show_extra_info ) : ?>
-                        <td class="product-licence-email">
-                            <?php echo $info[ 'licence' ][ 'email' ] ?>
-                        </td>
-                        <td class="product-licence-key">
-                            <?php echo $info[ 'licence' ][ 'licence_key' ] ?>
-                        </td>
-                    <?php endif; ?>
-
-                    <td class="product-licence-expires">
-                        <?php echo date( "F j, Y", $info[ 'licence' ][ 'licence_expires' ] ); ?>
-                    </td>
-
-                    <?php if ( $this->show_extra_info ) : ?>
-                        <td class="product-licence-remaining">
-                            <?php printf( __( '%1s out of %2s', 'yith-plugin-upgrade-fw' ), $info[ 'licence' ][ 'activation_remaining' ], $info[ 'licence' ][ 'activation_limit' ] ); ?>
-                        </td>
-                        <?php if ( $num_members_products_activate ) : ?>
-                            <td class="product-licence-membership">
-                                <span class="dashicons dashicons-<?php echo $info[ 'licence' ][ 'is_membership' ] ? 'yes' : 'no-alt' ?>"></span>
-                            </td>
-                        <?php endif; ?>
-                    <?php endif; ?>
-
-                    <td>
-                        <a class="button-licence licence-deactive"
-                           href="#"
-                           data-licence-email="<?php echo $info[ 'licence' ][ 'email' ] ?>"
-                           data-licence-key="<?php echo $info[ 'licence' ][ 'licence_key' ] ?>"
-                           data-product-init="<?php echo $init ?>"
-                           data-action="yith_deactivate-<?php echo $this->get_product_type(); ?>">
-                            <?php _e( 'Deactivate', 'yith-plugin-upgrade-fw' ) ?>
-                        </a>
-
-                        <?php if ( !$info[ 'licence' ][ 'is_membership' ] && $this->show_renew_button ) : ?>
-                            <a class="button-licence licence-renew" href="<?php echo esc_url( $this->get_renewing_uri( $info[ 'licence' ][ 'licence_key' ] ) ) ?>" target="_blank">
-                                <?php _e( 'Renew', 'yith-plugin-upgrade-fw' ) ?>
-                            </a>
-                        <?php endif; ?>
-                    </td>
+                    <th class="plugin"><?php echo esc_html_x( 'License:', 'Table Field', 'yith-plugin-upgrade-fw' ) ?></th>
+                    <th class="email"><?php echo esc_html_x( 'Email:', 'Table Field', 'yith-plugin-upgrade-fw' ) ?></th>
+                    <th class="license-key"><?php echo esc_html_x( 'License Key:', 'Table Field', 'yith-plugin-upgrade-fw' ) ?></th>
+                    <th class="remaining"><?php echo esc_html_x( 'Licenses used:', 'Table Field', 'yith-plugin-upgrade-fw' ) ?></th>
+                    <th class="expire-on"><?php echo esc_html_x( 'Expires on:', 'Table Field', 'yith-plugin-upgrade-fw' ) ?></th>
+                    <th id="yith-licence-actions"></th>
                 </tr>
-            <?php endforeach; ?>
-            </tbody>
-        </table>
-    <?php endif; ?>
+                </thead>
+                <tbody>
+		        <?php
+		        $products = array_merge( $activated_products, $expired_products, $banned_products );
+		        foreach ( $products as $init => $info ) :
+			        $license_info_default = array( 'marketplace' => 'yith' );
+			        $info['licence']      = wp_parse_args( $info['licence'], $license_info_default );
+			        $info['init']         = $init;
+			        $this->show_activation_row( $info );
+			        ?>
+		        <?php endforeach; ?>
+                </tbody>
+                <tfoot></tfoot>
+            </table>
+        </div>
 
-    <!-- Banned Products -->
-
-    <?php if ( !empty( $banned_products ) ) : ?>
-        <h3><?php _e( 'Banned', 'yith-plugin-upgrade-fw' ) ?></h3>
-        <table class="expired-table">
-            <thead>
-            <tr>
-                <th><?php _e( 'Product Name', 'yith-plugin-upgrade-fw' ) ?></th>
-                <?php if ( $this->show_extra_info ) : ?>
-                    <th><?php _e( 'Email', 'yith-plugin-upgrade-fw' ) ?></th>
-                    <th><?php _e( 'License Key', 'yith-plugin-upgrade-fw' ) ?></th>
-                <?php endif; ?>
-            </tr>
-            </thead>
-            <tbody>
-            <?php foreach ( $banned_products as $init => $info ) : ?>
-                <tr>
-                    <td class="product-name">
-                        <?php echo $this->display_product_name( $info[ 'Name' ] ) ?>
-                    </td>
-                    <?php if ( $this->show_extra_info ) : ?>
-                        <td class="product-licence-email"><?php echo $info[ 'licence' ][ 'email' ] ?></td>
-                        <td class="product-licence-key"><?php echo $info[ 'licence' ][ 'licence_key' ] ?></td>
-                    <?php endif; ?>
-                </tr>
-            <?php endforeach; ?>
-            </tbody>
-        </table>
-    <?php endif; ?>
-
-    <!-- Expired Products -->
-
-    <?php if ( !empty( $expired_products ) ) : ?>
-        <h3><?php _e( 'Expired', 'yith-plugin-upgrade-fw' ) ?></h3>
-        <table class="expired-table">
-            <thead>
-            <tr>
-                <th><?php _e( 'Product Name', 'yith-plugin-upgrade-fw' ) ?></th>
-
-                <?php if ( $this->show_extra_info ) : ?>
-                    <th><?php _e( 'Email', 'yith-plugin-upgrade-fw' ) ?></th>
-                    <th><?php _e( 'License Key', 'yith-plugin-upgrade-fw' ) ?></th>
-                <?php endif; ?>
-
-                <th><?php _e( 'Expires', 'yith-plugin-upgrade-fw' ) ?></th>
-
-                <?php if ( $this->show_renew_button ) : ?>
-                    <th><?php _e( 'Renew', 'yith-plugin-upgrade-fw' ) ?></th>
-                <?php endif; ?>
-            </tr>
-            </thead>
-            <tbody>
-            <?php foreach ( $expired_products as $init => $info ) : ?>
-                <tr>
-                    <td class="product-name">
-                        <?php echo $this->display_product_name( $info[ 'Name' ] ) ?>
-                    </td>
-
-                    <?php if ( $this->show_extra_info ) : ?>
-                        <td class="product-licence-email"><?php echo $info[ 'licence' ][ 'email' ] ?></td>
-                        <td class="product-licence-key"><?php echo $info[ 'licence' ][ 'licence_key' ] ?></td>
-                    <?php endif; ?>
-
-                    <td class="product-licence-expires"><?php echo date( "F j, Y", $info[ 'licence' ][ 'licence_expires' ] ); ?></td>
-
-                    <?php if ( $this->show_renew_button ) : ?>
-                        <td>
-                            <a class="button-licence licence-renew" href="<?php echo $this->get_renewing_uri( $info[ 'licence' ][ 'licence_key' ] ) ?>" target="_blank">
-                                <?php if ( $info[ 'licence' ][ 'is_membership' ] ) : ?>
-                                    <?php _e( 'Order again', 'yith-plugin-upgrade-fw' ) ?>
-                                <?php else : ?>
-                                    <?php __( 'Renew license', 'yith-plugin-upgrade-fw' ) ?>
-                                <?php endif; ?>
-                            </a>
-                        </td>
-                    <?php endif; ?>
-                </tr>
-            <?php endforeach; ?>
-            </tbody>
-        </table>
-    <?php endif; ?>
+    </div>
 </div>

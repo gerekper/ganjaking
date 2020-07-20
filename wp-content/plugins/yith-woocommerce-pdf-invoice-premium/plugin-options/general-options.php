@@ -223,9 +223,6 @@ $general_options = array(
             'id' => 'ywpi_show_delivery_info',
             'desc' => __('Show the delivery details when using the <a target="_blank" href="https://yithemes.com/themes/plugins/yith-woocommerce-delivery-date/">YITH WooCommerce Delivery Date</a> plugin.', 'yith-woocommerce-pdf-invoice'),
             'default' => 'no',
-            'custom_attributes' => defined('YITH_DELIVERY_DATE_VERSION') && version_compare(YITH_DELIVERY_DATE_VERSION, '1.0.10', '>=') ? false : array(
-                'disabled' => 'disabled',
-            ),
         ),
 
         'dropbox' => array(
