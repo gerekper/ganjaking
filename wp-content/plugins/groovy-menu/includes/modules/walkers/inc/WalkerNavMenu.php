@@ -490,6 +490,7 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 				return $mm_content;
 			}
 
+			// Beaver builder.
 			if (
 				class_exists( '\FLBuilder' ) &&
 				class_exists( '\FLBuilderModel' ) &&

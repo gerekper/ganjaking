@@ -2,7 +2,7 @@
 Contributors: Grooni
 Requires at least: 4.9.7
 Tested up to: 5.4.2
-Stable tag: 2.2.4
+Stable tag: 2.2.5.2
 License: Themeforest Split Licence
 License URI: -
 Tags: customizable, responsive, animation, flexible, translation ready, drop down, dropdown, dropdown menu, easy, mega dropdown menu, mega menu, megamenu, navigation, options, presets, shortcodes, widgetized, widgets
@@ -61,17 +61,35 @@ Source: https://select2.github.io/
 
 Visit [Changelog](https://grooni.com/docs/groovy-menu/changelog/) from our [Knowledge Base](https://grooni.com/docs/groovy-menu/)
 
+= 2.2.5.2 =
+* HotFix: Fixed dropdown behavior when "Show submenu - On click" option is enabled.
+* Fix: Added minor changes in CSS styles, that is allowed to resolve an issue when the submenu is out of the screen.
+
+= 2.2.5.1 =
+* HotFix: Fixed calculation of the height for a scroll object. That occurs in some cases when the "Submenu appearance style": "Animate from bottom" preset setting was active.
+
+= 2.2.5 =
+* Added: Added new feature the "Scrollbar". That allows scrolling for long lists of submenus and mega menus.
+* Improve: "Expanded sidebar": Icons for the first menu level now are always centered relative to the initial width of the sidebar.
+* Improve: "Expanded sidebar": Right side menu type are to display menu item items from right to left now.
+* Improve: The "Submenu hover style" option is now available for all menu types except Minimalistic.
+
+= 2.2.4.1 =
+* HotFix: Fixed issue with buttons in Woo mini cart.
+
 = 2.2.4 =
-* Fix: New preset option "General > Mega menu > Add Mega menu columns padding". Enabled by default.
+* Fix: New option "General > Mega menu > Add Mega menu columns padding". Enabled by default.
 
 = 2.2.3 =
-* Added: New option "Custom Mega menu background color".
+* Fix: The issue with overlapped mega menu blocks
+* Fix: If the menu block created using Divi builder has been assign in the menu the link to the editor in wp-adminbar was replaced.
+* Fix: Added minor fixes that help in some cases prevent changes Groovy Menu styles through WordPress templates.
+* Fix: Some issues that appeared in the type of menu "Expanded sidebar" have been fixed.
+* Improve: Optimized opening/closing submenus and mega menus for all types of menu. Added time delays to close dropdown menus. This will allow the site visitors to improve the experience with menu interaction and move on smoothly to adjacent drop-down menus diagonally.
+* Improve: Removed side paddings for Mega menu.
+* Improve: Settings for "Submenu" and "Mega menu" has been moved into own sections
+* Added: New option "Mega menu background color".
 * Added: New option for Expanded sidebar "Submenu width".
-* Improve: Optimized the work of opening and closing drop-down menus for all types of presets. Added time delays to close dropdown menus. This will allow the site visitor to switch to adjacent drop-down menus diagonally.
-* Improve: Removed side margins for Mega menu.
-* Fix: Changes have been made to the "Expanded sidebar" preset type. The stylization errors of the action buttons and social buttons area have been fixed.
-* Fix: Added minor fixes to prevent changes to Groovy Menu styles from WordPress templates.
-* Fix: Fixed a problem in working with Divi builder. If the menu_block created using Divi builder was used in the Groovy Menu, then the link to the editor in wp-adminbar was replaced.
 
 = 2.2.2 =
 * Added: New option "Change Top level menu background color when the submenu is opened".
@@ -83,7 +101,7 @@ Visit [Changelog](https://grooni.com/docs/groovy-menu/changelog/) from our [Know
 = 2.2.0 =
 * Added: Added a new type of menu "Expanding sidebar".
 * Added: Added logo paddings settings for "Expanding sidebar".
-* Added: New option for the logo position " Enable fit logotype to the sidebar area" for menu type "Icon Sidebar".
+* Added: New option for the logo position "Enable fit logotype to the sidebar area" for menu type "Icon Sidebar".
 
 = 2.1.1 =
 * Improve: Added the Element (widget) for Elementor builder.

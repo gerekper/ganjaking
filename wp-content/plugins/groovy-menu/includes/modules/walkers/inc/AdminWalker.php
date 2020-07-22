@@ -46,7 +46,7 @@ class AdminWalker extends WalkerNavMenu {
 		add_filter( 'wp_edit_nav_menu_walker', '\GroovyMenu\AdminWalker::get_edit_walker', $admin_walker_priority, 2 );
 		add_filter( 'wp_setup_nav_menu_item', '\GroovyMenu\AdminWalker::setup_fields' );
 
-		// Disable. Ajax modal options work.
+		// That Disable. Because Ajax modal options work.
 		//add_action( 'wp_update_nav_menu_item', '\GroovyMenu\AdminWalker::update_fields', 10, 2 );
 	}
 

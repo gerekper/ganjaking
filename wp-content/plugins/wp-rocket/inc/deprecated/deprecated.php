@@ -676,10 +676,11 @@ function rocket_insert_critical_css() {
  *
  * @since 2.10
  * @deprecated 2.11
+ * @see WP_Rocket\Engine\CriticalPath\CriticalCSSSubscriber->insert_load_css()
  * @author Remy Perona
  */
 function rocket_insert_load_css() {
-	_deprecated_function( __FUNCTION__, '2.11' );
+	_deprecated_function( __FUNCTION__, '2.11', 'WP_Rocket\Engine\CriticalPath\CriticalCSSSubscriber->insert_load_css()' );
 }
 
 if ( ! function_exists( 'rocket_lazyload_async_script' ) ) {
@@ -1227,10 +1228,6 @@ if ( ! function_exists( 'rocket_settings_callback' ) ) {
 
 		if ( isset( $_FILES['import'] ) && 0 !== $_FILES['import']['size'] && $settings = rocket_handle_settings_import( $_FILES['import'], 'wp-rocket', $inputs ) ) {
 			$inputs = $settings;
-		}
-
-		if ( ! rocket_valid_key() ) {
-			$checked = rocket_check_key();
 		}
 
 		if ( isset( $checked ) && is_array( $checked ) ) {

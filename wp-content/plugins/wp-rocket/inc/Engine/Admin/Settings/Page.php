@@ -144,8 +144,7 @@ class Page {
 	 * @since 3.0
 	 */
 	public function render_page() {
-		$rocket_valid_key = rocket_valid_key();
-		if ( $rocket_valid_key ) {
+		$rocket_valid_key = true;
 			$this->dashboard_section();
 			$this->cache_section();
 			$this->assets_section();
@@ -158,9 +157,6 @@ class Page {
 			$this->addons_section();
 			$this->cloudflare_section();
 			$this->sucuri_section();
-		} else {
-			$this->license_section();
-		}
 
 		$this->render->set_settings( $this->settings->get_settings() );
 
@@ -221,15 +217,13 @@ class Page {
 	 * @return object
 	 */
 	private function get_customer_data() {
-		$customer_key   = 'B5E0B5F8DD8689E6ACA49DD6E6E1A930';
-		$customer_email = 'nullmaster@babiato.org';
+		$customer_key   = defined( 'WP_ROCKET_KEY' ) ? WP_ROCKET_KEY : get_rocket_option( 'consumer_key', 'techtobo' );
+		$customer_email = defined( 'WP_ROCKET_EMAIL' ) ? WP_ROCKET_EMAIL : get_rocket_option( 'consumer_email', 'techtobo@gmail.com' );
 		$response = 200;
 		$customer_data = json_decode( wp_remote_retrieve_body( $response ) );
 		$customer_data->licence_account = 'Infinite';
-		$customer_data->licence_expiration = '232423423423';
-		$customer_data->class              = 'wpr-isValid';
+		$customer_data->class              = time() < $customer_data->licence_expiration ? 'wpr-isValid' : 'wpr-isValid';
 		$customer_data->licence_expiration = date_i18n( get_option( 'date_format' ), (int) $customer_data->licence_expiration );
-
 		return $customer_data;
 	}
 
@@ -241,9 +235,7 @@ class Page {
 	 * @return object
 	 */
 	public function customer_data() {
-		if ( false !== get_transient( 'wp_rocket_customer_data' ) ) {
 			return get_transient( 'wp_rocket_customer_data' );
-		}
 
 		$customer_data = $this->get_customer_data();
 

@@ -534,6 +534,11 @@ if ( ! class_exists( 'GroovyMenuStyle' ) ) {
 				$classes_navbar[] = 'gm-hide-on-mobile';
 			}
 
+			// Scrollbar.
+			if ( isset( $settings['scrollbarEnable'] ) && $settings['scrollbarEnable'] ) {
+				$classes_navbar[] = 'gm-dropdown-with-scrollbar';
+			}
+
 			return $classes_navbar;
 
 		}

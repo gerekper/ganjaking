@@ -2759,7 +2759,8 @@ body {
 .gm-navbar .gm-plain-list-menu-wrapper > .gm-plain-list-menu {
   list-style: none;
   padding: 0 0 0 0;
-  line-height: initial; }
+  line-height: initial;
+  position: initial; }
 
 .gm-wrapper {
   z-index: 999; }
@@ -2912,7 +2913,8 @@ GROOVY SEARCH
   padding: 0;
   font-size: 19px;
   color: #fff;
-  line-height: 1; }
+  line-height: 1;
+  margin: 0; }
 
 .gm-search__fullscreen-container .gm-search__close {
   position: absolute;
@@ -2956,7 +2958,8 @@ GROOVY SEARCH
   background-color: transparent;
   font-size: 16px;
   font-weight: 600;
-  border-radius: 0; }
+  border-radius: 0;
+  margin: 0; }
 
 .gm-search:not(.fullscreen) .gm-search-btn {
   transition: background-color linear 0.2s;
@@ -3294,6 +3297,12 @@ DROPDOWN HOVER STYLES
 .gm-dropdown-hover-style-shift-right .mega-gm-dropdown .gm-dropdown-menu .gm-menu-item__link::before {
   left: 0; }
 
+.gm-dropdown-hover-style-shift-right.gm-dropdown-with-scrollbar .gm-dropdown-menu .gm-menu-item > .gm-menu-item__link::before {
+  left: 0; }
+
+.gm-dropdown-hover-style-shift-right.gm-navbar--style-3 .gm-dropdown-menu .gm-menu-item > .gm-menu-item__link::before, .gm-dropdown-hover-style-shift-right.gm-navbar--style-5 .gm-dropdown-menu .gm-menu-item > .gm-menu-item__link::before {
+  left: 32px; }
+
 [dir='rtl'] .gm-dropdown-hover-style-shift-right .gm-dropdown-menu .gm-menu-item {
   overflow: hidden; }
 
@@ -3365,6 +3374,19 @@ NAVBAR GENERAL STYLES
   width: auto;
   max-width: none;
   max-height: none; }
+
+.gm-navbar .menu-item {
+  display: block;
+  width: auto;
+  max-width: inherit;
+  height: auto;
+  padding: inherit;
+  margin: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: none; }
 
 .gm-inner {
   position: relative;
@@ -3551,11 +3573,31 @@ NAVBAR GENERAL STYLES
   display: flex;
   align-items: center; }
 
-.gm-dropdown-menu .ps__rail-y {
+/* bugfix: For sub-submenus that climb out of the right side of the screen and, on some WP Themes, they call the horizontal scroll of the browser when opening the first level submenu. */
+.gm-navbar .gm-navbar-nav > .gm-dropdown:not(.gm-open) .gm-dropdown-menu-wrapper {
+  display: none; }
+
+.gm-navbar .gm-navbar-nav > .gm-dropdown:hover .gm-dropdown-menu-wrapper {
+  display: block; }
+
+.gm-navbar .gm-navbar-nav > .gm-dropdown .gm-dropdown-menu .gm-dropdown-submenu:not(.gm-open) .gm-dropdown-menu-wrapper {
+  display: none; }
+
+.gm-navbar .gm-navbar-nav > .gm-dropdown .gm-dropdown-menu .gm-dropdown-submenu:hover > .gm-dropdown-menu-wrapper {
+  display: block; }
+
+.gm-dropdown-with-scrollbar .gm-dropdown-menu .ps__rail-y {
   top: 0 !important; }
 
+.gm-dropdown-with-scrollbar .gm-dropdown-menu .ps__thumb-y {
+  border-radius: 2px; }
+
 .gm-dropdown-menu.ps {
-  overflow: visible !important; }
+  overflow: hidden !important;
+  touch-action: auto; }
+
+.gm-dropdown-hover-style-shift-right.gm-dropdown-with-scrollbar .gm-dropdown-menu .gm-menu-item > .gm-menu-item__link {
+  position: relative; }
 
 /* rtl:begin:ignore */
 [dir='rtl'] .gm-main-menu-wrapper .gm-dropdown-menu .ps__rail-y {

@@ -476,6 +476,7 @@ return array(
 				'range'       => array( 100, 500 ),
 				'default'     => 230,
 				'unit'        => 'px',
+				'condition' => array( 'header.style', 'in', array( '1', '2', '3', '4' ) ),
 			),
 			'hide_dropdown_bg'                             => array(
 				'title'       => esc_html__( 'Hide background image at submenu', 'groovy-menu' ),
@@ -561,7 +562,7 @@ return array(
 					'shift-right' => esc_html__( 'Shift right', 'groovy-menu' ),
 				),
 				'default'   => 'default',
-				'condition' => array( 'header.style', 'in', array( '1' ) ),
+				'condition' => array( 'header.style', 'in', array( '1', '3', '4', '5' ) ),
 			),
 			'dropdown_appearance_style'                    => array(
 				'title'     => esc_html__( 'Submenu appearance style', 'groovy-menu' ),
@@ -845,6 +846,17 @@ return array(
 				'type'      => 'checkbox',
 				'default'   => false,
 				'condition' => array( 'header.style', 'in', array( '1' ) ),
+			),
+			'scrollbar_group' => array(
+				'title'     => esc_html__( 'Scrollbar', 'groovy-menu' ),
+				'type'      => 'group',
+				'serialize' => false,
+			),
+			'scrollbar_enable' => array(
+				'title'     => esc_html__( 'Enable scrollbar', 'groovy-menu' ),
+				'type'      => 'checkbox',
+				'default'   => false,
+				'description' => esc_html__( 'Enable scrolling for long lists of submenus and mega menus', 'groovy-menu' ),
 			),
 			'logo_group'                                   => array(
 				'title'     => esc_html__( 'Logo', 'groovy-menu' ),
@@ -1332,15 +1344,6 @@ return array(
 				'type'        => 'number',
 				'range'       => array( 1, 128 ),
 				'default'     => 32,
-				'unit'        => 'px',
-				'condition'   => array( 'header.style', 'in', array( '5' ) ),
-			),
-			'sidebar_expanding_menu_first_level_margin'    => array(
-				'title'       => esc_html__( 'Indent from the edge of the screen', 'groovy-menu' ),
-				'description' => esc_html__( 'first menu level', 'groovy-menu' ),
-				'type'        => 'number',
-				'range'       => array( - 1000, 1000 ),
-				'default'     => 24,
 				'unit'        => 'px',
 				'condition'   => array( 'header.style', 'in', array( '5' ) ),
 			),

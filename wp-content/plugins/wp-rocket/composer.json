@@ -52,7 +52,7 @@
 		"phpunit/phpunit": "^5.7 || ^7",
 		"roave/security-advisories": "dev-master",
 		"szepeviktor/phpstan-wordpress": "^0.5.0",
-		"woocommerce/woocommerce": "^3.9.3",
+		"woocommerce/woocommerce": "^3.8",
 		"wp-coding-standards/wpcs": "^2",
 		"wp-media/phpunit": "^1.0",
 		"wpackagist-plugin/amp": "^1.1.4",
@@ -79,10 +79,7 @@
 	"autoload-dev": {
 		"psr-4": {
 			"WP_Rocket\\Tests\\": "tests/"
-		},
-		"files": [
-			"tests/Fixtures/inc/Engine/CriticalPath/content/load-content.php"
-		]
+		}
 	},
 	"extra": {
 		"installer-paths": {
