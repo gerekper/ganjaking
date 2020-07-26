@@ -5,14 +5,14 @@ msgstr ""
 "Project-Id-Version: YITH WooCommerce Minimum Maximum Quantity\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
 "minimum-maximum-quantity.premium\n"
-"POT-Creation-Date: 2020-05-27 13:47:50+00:00\n"
+"POT-Creation-Date: 2020-07-08 20:24:38+00:00\n"
 "PO-Revision-Date: 2020-05-11 15:09:32+0000\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/2.3.1\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
 
 #: class.yith-wc-min-max-qty.php:229
 msgid "General Settings"
@@ -223,6 +223,7 @@ msgid "Minimum spend restriction"
 msgstr "Minimum uitgaven beperking"
 
 #: class.yith-wc-min-max-qty.php:1178 class.yith-wc-min-max-qty.php:1346
+#: plugin-options/general-options.php:172
 #: plugin-options/general-options.php:353
 #: plugin-options/general-options.php:449
 #: templates/admin/ywmmq-categories-bulk-ops.php:499
@@ -448,7 +449,6 @@ msgid "Maximum number of items in cart. Set zero for no restrictions."
 msgstr "Maximum aantal items in winkelwagen. Vul nul in voor geen beperkingen."
 
 #: plugin-options/general-options.php:135
-#: plugin-options/general-options.php:172
 #: plugin-options/general-options.php:258
 #: templates/admin/ywmmq-products-bulk-ops.php:422
 msgid "Quantity groups of"
@@ -474,12 +474,11 @@ msgstr ""
 "Minimum uitgaven voor items in winkelwagen. Zet op nul voor geen restricties."
 
 #: plugin-options/general-options.php:175
-msgid ""
-"Allow your users to purchase products only in groups of x items (e.g. The "
-"cart can contains items only in groups of 6)"
+#: plugin-options/general-options.php:356
+#: plugin-options/general-options.php:452
+msgid "Maximum spend for items in cart. Set zero for no restrictions."
 msgstr ""
-"Laat je gebruikers alleen producten kopen in groepen van x items (vb. de "
-"winkelwagen kan alleen items in groepen van 6 bevatten)"
+"Maximum uitgave voor items in winkelwagen. Zet op 0 voor geen restricties."
 
 #: plugin-options/general-options.php:187
 msgid "Include shipping rates and relative fees."
@@ -549,12 +548,6 @@ msgstr ""
 #: plugin-options/general-options.php:330
 msgid "Enable category spend restrictions"
 msgstr "Categorie uitgave restricties inschakelen"
-
-#: plugin-options/general-options.php:356
-#: plugin-options/general-options.php:452
-msgid "Maximum spend for items in cart. Set zero for no restrictions."
-msgstr ""
-"Maximum uitgave voor items in winkelwagen. Zet op 0 voor geen restricties."
 
 #: plugin-options/general-options.php:376
 msgid "Enable tag quantity restrictions"
@@ -1325,3 +1318,10 @@ msgstr "Laat gebruikers uitsluiten producten in groepen selecteren van"
 msgctxt "[single product page - variations]"
 msgid "Allow users to select product variations only in groups of"
 msgstr "Laat gebruikers uitsluiten producten in groepen selecteren van"
+
+#~ msgid ""
+#~ "Allow your users to purchase products only in groups of x items (e.g. The "
+#~ "cart can contains items only in groups of 6)"
+#~ msgstr ""
+#~ "Laat je gebruikers alleen producten kopen in groepen van x items (vb. de "
+#~ "winkelwagen kan alleen items in groepen van 6 bevatten)"

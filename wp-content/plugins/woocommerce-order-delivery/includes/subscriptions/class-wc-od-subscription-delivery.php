@@ -30,7 +30,6 @@ if ( ! class_exists( 'WC_OD_Subscription_Delivery' ) ) {
 
 			// Edit Delivery hooks.
 			add_filter( 'the_title', array( $this, 'edit_delivery_title' ) );
-			add_filter( 'wc_get_template', array( $this, 'edit_delivery_template' ), 10, 4 );
 			add_action( 'woocommerce_account_edit-delivery_endpoint', array( $this, 'edit_delivery_content' ) );
 			add_action( 'wp_ajax_wc_od_refresh_subscription_delivery_content', array( $this, 'refresh_delivery_content' ) );
 			add_action( 'template_redirect', array( $this, 'save_delivery' ) );
@@ -73,11 +72,15 @@ if ( ! class_exists( 'WC_OD_Subscription_Delivery' ) ) {
 		 * @since 1.3.0
 		 */
 		public function enqueue_scripts() {
-			if ( wc_od_is_edit_delivery_endpoint() ) {
-				wc_od_enqueue_datepicker( 'subscription' );
-				wp_enqueue_script( 'wc-od-subscription', WC_OD_URL . 'assets/js/wc-od-subscription.js', array( 'woocommerce', 'wc-od-datepicker' ), WC_OD_VERSION, true );
-				wp_localize_script( 'wc-od-subscription', 'wc_od_subscription_l10n', $this->get_calendar_settings( wc_od_get_current_subscription_id() ) );
+			if ( ! wc_od_is_edit_delivery_endpoint() ) {
+				return;
 			}
+
+			$suffix = wc_od_get_scripts_suffix();
+
+			wc_od_enqueue_datepicker( 'subscription' );
+			wp_enqueue_script( 'wc-od-subscription', WC_OD_URL . "assets/js/wc-od-subscription{$suffix}.js", array( 'woocommerce', 'wc-od-datepicker' ), WC_OD_VERSION, true );
+			wp_localize_script( 'wc-od-subscription', 'wc_od_subscription_l10n', $this->get_calendar_settings( wc_od_get_current_subscription_id() ) );
 		}
 
 		/**
@@ -119,7 +122,7 @@ if ( ! class_exists( 'WC_OD_Subscription_Delivery' ) ) {
 		public function view_subscription_actions( $actions, $subscription ) {
 			if ( wc_od_subscription_has_delivery_preferences( $subscription ) ) {
 				$actions['change_delivery'] = array(
-					'url'  => wc_od_edit_delivery_endpoint( wc_od_get_order_prop( $subscription, 'id' ) ),
+					'url'  => wc_od_edit_delivery_endpoint( $subscription->get_id() ),
 					'name' => __( 'Change Delivery', 'woocommerce-order-delivery' ),
 				);
 			}
@@ -135,11 +138,7 @@ if ( ! class_exists( 'WC_OD_Subscription_Delivery' ) ) {
 		 * @param string $template_name The template name.
 		 */
 		public function insert_delivery_content( $template_name ) {
-			if ( 'myaccount/view-subscription.php' === $template_name ||
-				( 'myaccount/my-account.php' === $template_name && version_compare( WC()->version, '2.6', '<' ) &&
-					wcs_is_view_subscription_page()
-				)
-			) {
+			if ( 'myaccount/view-subscription.php' === $template_name ) {
 				$this->view_subscription_delivery_content();
 			}
 		}
@@ -165,12 +164,12 @@ if ( ! class_exists( 'WC_OD_Subscription_Delivery' ) ) {
 			$delivery_date = false;
 
 			if ( wc_od_subscription_needs_delivery_date( $subscription ) ) {
-				$delivery_date = wc_od_get_order_meta( $subscription, '_delivery_date' );
+				$delivery_date = $subscription->get_meta( '_delivery_date' );
 
 				if ( $delivery_date ) {
 					$args['delivery_date'] = wc_od_localize_date( $delivery_date );
 
-					$time_frame = wc_od_get_order_meta( $subscription, '_delivery_time_frame' );
+					$time_frame = $subscription->get_meta( '_delivery_time_frame' );
 
 					if ( $time_frame ) {
 						$args['delivery_time_frame'] = wc_od_get_time_frame_for_date( $delivery_date, $time_frame );
@@ -179,11 +178,17 @@ if ( ! class_exists( 'WC_OD_Subscription_Delivery' ) ) {
 			}
 
 			if ( ! $delivery_date ) {
+				$shipping_method = wc_od_get_order_shipping_method( $subscription );
+				$range           = WC_OD_Delivery_Ranges::get_range_matching_shipping_method( $shipping_method );
+
 				$args = array_merge(
 					$args,
 					array(
 						'shipping_date'  => wc_od_localize_date( wc_od_get_subscription_first_shipping_date( $subscription_id ) ),
-						'delivery_range' => WC_OD()->settings()->get_setting( 'delivery_range' ),
+						'delivery_range' => array(
+							'min' => $range->get_from(),
+							'max' => $range->get_to(),
+						),
 					)
 				);
 			}
@@ -219,6 +224,7 @@ if ( ! class_exists( 'WC_OD_Subscription_Delivery' ) ) {
 		 * Backward compatibility with WC 2.5.
 		 *
 		 * @since 1.3.0
+		 * @deprecated 1.7.0
 		 *
 		 * @param string $located       The template location.
 		 * @param string $template_name The template name.
@@ -227,9 +233,7 @@ if ( ! class_exists( 'WC_OD_Subscription_Delivery' ) ) {
 		 * @return string The template location.
 		 */
 		public function edit_delivery_template( $located, $template_name, $args, $template_path ) {
-			if ( 'myaccount/my-account.php' == $template_name && wc_od_is_edit_delivery_endpoint() && version_compare( WC()->version, '2.6', '<' ) ) {
-				$located = wc_locate_template( 'myaccount/edit-delivery.php', $template_path, WC_OD_PATH . 'templates/' );
-			}
+			wc_deprecated_function( __FUNCTION__, '1.7.0' );
 
 			return $located;
 		}
@@ -352,7 +356,7 @@ if ( ! class_exists( 'WC_OD_Subscription_Delivery' ) ) {
 
 				// Sanitize and save the fields.
 				foreach ( $fields as $key => $field ) {
-					$previous_values[ $key ] = wc_od_get_order_meta( $subscription, "_{$key}" );
+					$previous_values[ $key ] = $subscription->get_meta( "_{$key}" );
 
 					/**
 					 * Sanitize the subscription delivery field.
@@ -467,7 +471,7 @@ if ( ! class_exists( 'WC_OD_Subscription_Delivery' ) ) {
 				}
 
 				$clean_value[ $index ] = array(
-					'enabled'    => wc_od_bool_to_string( $enabled ),
+					'enabled'    => wc_bool_to_string( $enabled ),
 					'time_frame' => $time_frame,
 				);
 			}
@@ -487,7 +491,7 @@ if ( ! class_exists( 'WC_OD_Subscription_Delivery' ) ) {
 		public function updated_subscription_delivery( $values, $previous, $subscription ) {
 			if ( $values['delivery_date'] !== $previous['delivery_date'] ) {
 				$delivery_details = wc_od_localize_date( $values['delivery_date'] );
-				$time_frame_id    = wc_od_get_order_meta( $subscription, '_delivery_time_frame' );
+				$time_frame_id    = $subscription->get_meta( '_delivery_time_frame' );
 
 				if ( $time_frame_id ) {
 					$time_frame = wc_od_get_time_frame_for_date( $values['delivery_date'], $time_frame_id );

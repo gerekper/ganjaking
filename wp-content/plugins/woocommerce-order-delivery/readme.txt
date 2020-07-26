@@ -3,11 +3,11 @@ Contributors: woocommerce, themesquad
 Tags: woocommerce, delivery, date
 Requires at least: 4.4
 Tested up to: 5.4
-Stable tag: 1.6.8
+Stable tag: 1.7.0
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
-WC requires at least: 2.6
-WC tested up to: 4.2
+WC requires at least: 3.0
+WC tested up to: 4.3
 Woo: 976514:beaa91b8098712860ec7335d3dca61c0
 
 Choose a delivery date during checkout for the order.
@@ -48,12 +48,14 @@ With the capture of the date delivery, you can process the orders more efficient
 
 Visit our [Product page](http://docs.woocommerce.com/document/woocommerce-order-delivery/) to read the documentation and get support.
 
-== Screenshots ==
-
-1. Checkout page with the shipping and delivery information.
-2. Choosing a delivery date in the checkout page.
-
 == Changelog ==
+
+= 1.7.0 July 23, 2020 =
+* Feature - Define different delivery ranges for shipping methods.
+* Tweak - Enqueue minified Javascript files.
+* Tweak - Tested compatibility with WC 4.3.
+* Fix - Fixed wrong text-domain for some translatable strings.
+* Dev - Set the minimum requirements to WP 4.4 and WC 3.0.
 
 = 1.6.8 June 02, 2020 =
 * Tweak - Tested compatibility with WC 4.2.
@@ -185,7 +187,7 @@ Visit our [Product page](http://docs.woocommerce.com/document/woocommerce-order-
 * Tweak - Removed the delivery date field placeholder by default.
 * Tweak - Use the first delivery date as placeholder in the delivery date field when the date is auto-generated.
 * Fix - Fixed 'required field' validation on virtual products.
-* Dev - Set the minimum requirements to WP 4.1+ and WC 2.6+.
+* Dev - Set the minimum requirements to WP 4.4+ and WC 2.6+.
 * Dev - All the checkout content is loaded and refreshed as order-review fragments by AJAX.
 
 = 1.3.2 - May 23, 2018 =
@@ -279,5 +281,5 @@ Visit our [Product page](http://docs.woocommerce.com/document/woocommerce-order-
 
 == Upgrade Notice ==
 
-= 1.6 =
-1.6 is a major update. It is important that you make backups and ensure you have installed WC 2.6+, and optionally, WooCommerce Subscriptions 2.2+ before upgrading.
+= 1.7 =
+1.7 is a major update. It is important that you make backups and ensure you have installed WC 3.0+, and optionally, WooCommerce Subscriptions 2.2+ before upgrading.

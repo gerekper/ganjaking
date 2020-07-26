@@ -39,7 +39,7 @@ class WPSEO_Premium {
 	 *
 	 * @var string
 	 */
-	const PLUGIN_VERSION_NAME = '14.5';
+	const PLUGIN_VERSION_NAME = '14.6.1';
 
 	/**
 	 * Machine readable version for determining whether an upgrade is needed.
@@ -72,11 +72,6 @@ class WPSEO_Premium {
 
 		// Create the upload directory.
 		WPSEO_Redirect_File_Util::create_upload_dir();
-
-		// Make sure the notice will be given at install.
-		require_once WPSEO_PREMIUM_PATH . 'classes/premium-prominent-words-recalculation-notifier.php';
-		$recalculation_notifier = new WPSEO_Premium_Prominent_Words_Recalculation_Notifier();
-		$recalculation_notifier->manage_notification();
 	}
 
 	/**

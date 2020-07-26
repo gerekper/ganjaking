@@ -136,13 +136,12 @@ class WC_Instagram_Admin {
 	public function enqueue_scripts() {
 		$screen_id       = wc_instagram_get_current_screen_id();
 		$is_setting_page = wc_instagram_is_settings_page();
+		$suffix          = wc_instagram_get_scripts_suffix();
 
 		if ( $is_setting_page || 'product' === $screen_id ) {
 			wp_enqueue_style( 'wc-instagram-admin', WC_INSTAGRAM_URL . 'assets/css/admin.css', array(), WC_INSTAGRAM_VERSION );
 
 			if ( $is_setting_page ) {
-				$suffix = wc_instagram_get_scripts_suffix();
-
 				wp_register_script( 'wc-instagram-subset-fields', WC_INSTAGRAM_URL . "assets/js/admin/subset-fields{$suffix}.js", array( 'jquery' ), WC_INSTAGRAM_VERSION, true );
 				wp_register_script( 'wc-instagram-editable-url', WC_INSTAGRAM_URL . "assets/js/admin/editable-url{$suffix}.js", array( 'jquery-tiptip', 'wc-clipboard' ), WC_INSTAGRAM_VERSION, true );
 				wp_localize_script(

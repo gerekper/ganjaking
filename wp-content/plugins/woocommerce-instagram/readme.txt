@@ -3,11 +3,11 @@ Contributors: woocommerce, themesquad
 Tags: woocommerce, instagram, hashtag, product, showcase
 Requires at least: 4.4
 Tested up to: 5.4
-Stable tag: 3.2.0
+Stable tag: 3.3.0
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 WC requires at least: 3.2
-WC tested up to: 4.2
+WC tested up to: 4.3
 Woo: 260061:ecaa2080668997daf396b8f8a50d891a
 
 Connect your store with Instagram. Upload your product catalog to Instagram and showcase how your customers are using them.
@@ -29,6 +29,11 @@ Visit our [product page](https://woocommerce.com/products/woocommerce-instagram/
 For help setting up and configuring the extension please refer to our [user guide](https://docs.woocommerce.com/document/woocommerce-instagram/).
 
 == Changelog ==
+
+= 3.3.0 July 20, 2020 =
+* Feature - Include the Google product category in the product catalogs.
+* Tweak - Tested compatibility with WC 4.3.
+* Fix - Fixed the values of the product brand and condition for product variations in the catalogs.
 
 = 3.2.0 June 15, 2020 =
 * Feature - Include all the product images in the catalog.

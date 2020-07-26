@@ -1,5 +1,19 @@
 == Changelog ==
 
+== 1.7.0 == Released on 16 July 2020
+
+* New: Support for WooCommerce 4.3
+* New: Admin panel layout and style
+* Update: Plugin framework
+* Update: Language files
+* Fix: Prevent conflict issue with YITH WooCommerce Surveys
+* Fix: Get parent data for translated products with WPML
+* Fix: Discount issue with WPML
+* Fix: Set default variation for variable products in form
+* Fix: Compatibility issue with YITH Proteo theme
+* Fix: Avoid multiple modal for variable products
+* Tweak: Trigger for update form on show_variations
+
 == 1.6.2 == Released on 01 June 2020
 
 * New: Support for WooCommerce 4.2

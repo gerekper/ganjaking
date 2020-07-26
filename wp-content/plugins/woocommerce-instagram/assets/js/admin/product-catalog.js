@@ -34,6 +34,7 @@
 				$( '#mainform .woocommerce-save-button' ).after( this.$deleteLink );
 			}
 
+			this.initGoogleProductCategorySelects();
 			this.bindEvents();
 		},
 
@@ -101,6 +102,10 @@
 					}
 				});
 			}
+
+			$( '.form-table' ).on( 'change', '.wc-instagram-gpc-select', function() {
+				that.loadCategorySelect( $( this ).val() );
+			});
 		},
 
 		/**
@@ -164,6 +169,53 @@
 				( 'specific' === subset.option && -1 !== subset.values.indexOf( needle ) ) ||
 				( 'all_except' === subset.option && -1 === subset.values.indexOf( needle ) )
 			);
+		},
+
+		initGoogleProductCategorySelects: function( ) {
+			$( '.wc-instagram-gpc-select:not(.select2-hidden-accessible)' ).select2( { width: 'auto' } );
+		},
+
+		updateHiddenInput: function ( category_id ) {
+			$( '#product_google_category' ).val( category_id );
+		},
+
+		loadCategorySelect: function(category_id ) {
+			var self = this;
+
+			// Use the parent category if none is provided.
+			if ( ! category_id ) {
+				$( '.wc-instagram-gpc-select' ).each(function () {
+					var value = $( this ).val();
+
+					if ( '' !== value ) {
+						category_id = value;
+					} else {
+						// Only loop till a empty value is find.
+						return false;
+					}
+				});
+			}
+
+			this.updateHiddenInput( category_id );
+
+			$.post( window.wc_instagram_product_catalog_params.ajax_url, {
+				action: 'refresh_google_product_category_field',
+				_wpnonce: window.wc_instagram_product_catalog_params.nonce,
+				catalog_id: window.wc_instagram_product_catalog_params.catalog_id,
+				category_id: category_id
+			})
+			.done( function( result ) {
+				if ( ! result.success ) {
+					return;
+				}
+
+				var $tr = $( '.wc-instagram-gpc-select' ).first().closest( 'tr' );
+
+				if ( $tr.length ) {
+					$tr.replaceWith( result.data.output );
+					self.initGoogleProductCategorySelects();
+				}
+			});
 		}
 	};
 

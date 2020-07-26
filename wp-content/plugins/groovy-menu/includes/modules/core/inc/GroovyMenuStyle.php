@@ -182,6 +182,13 @@ if ( ! class_exists( 'GroovyMenuStyle' ) ) {
 									$saved_value = empty( $saved_value ) ? false : true;
 								} elseif ( isset( $value['type'] ) && 'number' === $value['type'] ) {
 									$saved_value = intval( $saved_value );
+
+									// bugfix.
+									if ( ! empty( $value['range'] ) && isset( $value['range'][0] ) ) {
+										if ( $saved_value < intval( $value['range'][0] ) && isset( $value['default'] ) ) {
+											$saved_value = intval( $value['default'] );
+										}
+									}
 								}
 
 								if ( isset( $value['type'] ) && 'header' === $value['type'] ) {

@@ -352,6 +352,7 @@ jQuery.fn.wc_get_bundle_script = function() {
 			 */
 
 			this.bind_event_handlers();
+			this.viewport_resized();
 
 			/**
 			 * Init Bundled Items.
@@ -672,17 +673,41 @@ jQuery.fn.wc_get_bundle_script = function() {
 		};
 
 		/**
+		 * Handler for viewport resizing.
+		 */
+		this.viewport_resized = function() {
+
+			var form_width = this.$bundle_form.width();
+
+			if ( form_width <= wc_bundle_params.responsive_breakpoint ) {
+				this.$bundle_form.addClass( 'small_width' );
+			} else {
+				this.$bundle_form.removeClass( 'small_width' );
+			}
+		}
+
+		/**
 		 * Attach bundle-level event handlers.
 		 */
 		this.bind_event_handlers = function() {
 
-			if ( bundle.has_addons() ) {
+			// Add responsive class to bundle form.
+			$( window ).resize( function() {
 
+				clearTimeout( bundle.viewport_resize_timer );
+
+				bundle.viewport_resize_timer = setTimeout( function() {
+					bundle.viewport_resized();
+				}, 50 );
+			} );
+
+			// PAO compatibility.
+			if ( bundle.has_addons() ) {
 				bundle.$bundle_data.on( 'updated_addons', bundle.updated_addons_handler );
 			}
 
+			// CP compatibility.
 			if ( bundle.is_composited() ) {
-
 				bundle.$bundle_quantity.on( 'input change', function() {
 					bundle.update_bundle();
 				} );
@@ -690,6 +715,7 @@ jQuery.fn.wc_get_bundle_script = function() {
 
 			this.$bundle_data
 
+				// NYP compatibility.
 				.on( 'woocommerce-nyp-updated-item', function( event ) {
 
 					if ( bundle.$nyp.is( ':visible' ) ) {
@@ -794,7 +820,29 @@ jQuery.fn.wc_get_bundle_script = function() {
 
 					if ( $( this ).is( ':checked' ) ) {
 
-						bundled_item.$bundled_item_content.slideDown( 200 );
+						bundled_item.$bundled_item_content.css( {
+							height:   '',
+							display: 'block',
+							position: 'absolute',
+						} );
+
+						var height = bundled_item.$bundled_item_content.get( 0 ).getBoundingClientRect().height;
+
+						if ( typeof height === 'undefined' ) {
+							height = bundled_item.$bundled_item_content.outerHeight();
+						}
+
+						bundled_item.$bundled_item_content.css( {
+							height:   '',
+							position: '',
+							display:  'none'
+						} );
+
+						if ( height ) {
+							bundled_item.$bundled_item_content.addClass( 'bundled_item_cart_content--populated' );
+							bundled_item.$bundled_item_content.slideDown( 200 );
+						}
+
 						bundled_item.set_selected( true );
 
 						// Tabular mini-extension compat.
@@ -1019,7 +1067,7 @@ jQuery.fn.wc_get_bundle_script = function() {
 
 			bundle.update_bundle_timer = setTimeout( function() {
 				bundle.update_bundle_task( triggered_by );
-			}, 10 );
+			}, 5 );
 		};
 
 		/**
@@ -1154,7 +1202,7 @@ jQuery.fn.wc_get_bundle_script = function() {
 				// Hide validation messages.
 				setTimeout( function() {
 					bundle.$bundle_error.slideUp( 200 );
-				}, 10 );
+				}, 1 );
 
 				bundle.$bundle_wrap.trigger( 'woocommerce-product-bundle-show' );
 
@@ -1238,7 +1286,7 @@ jQuery.fn.wc_get_bundle_script = function() {
 			bundle.$bundle_error_content.html( messages.html() );
 			setTimeout( function() {
 				bundle.$bundle_error.slideDown( 200 );
-			}, 10 );
+			}, 1 );
 			bundle.$bundle_button.find( 'button' ).addClass( 'disabled' );
 
 			bundle.$bundle_wrap.trigger( 'woocommerce-product-bundle-hide' );
@@ -1544,7 +1592,7 @@ jQuery.fn.wc_get_bundle_script = function() {
 
 			bundle.update_price_timer = setTimeout( function() {
 				bundle.updated_totals_task();
-			}, 10 );
+			}, 5 );
 		};
 
 		/**

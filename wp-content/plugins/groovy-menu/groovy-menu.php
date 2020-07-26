@@ -1,7 +1,7 @@
 <?php defined( 'ABSPATH' ) || die( 'This script cannot be accessed directly.' );
 /*
 Plugin Name: Groovy Menu
-Version: 2.2.5.2
+Version: 2.2.6
 Description: Groovy menu is a modern adjustable and flexible menu designed for creating mobile-friendly menus with a lot of options.
 Plugin URI: https://groovymenu.grooni.com/
 Author: Grooni
@@ -11,7 +11,7 @@ Domain Path: /languages/
 */
 
 
-define( 'GROOVY_MENU_VERSION', '2.2.5.2' );
+define( 'GROOVY_MENU_VERSION', '2.2.6' );
 define( 'GROOVY_MENU_DB_VER_OPTION', 'groovy_menu_db_version' );
 define( 'GROOVY_MENU_PREFIX_WIM', 'groovy-menu-wim' );
 define( 'GROOVY_MENU_DIR', plugin_dir_path( __FILE__ ) );
@@ -24,17 +24,6 @@ if ( ! defined( 'AUTH_COOKIE' ) && function_exists( 'is_multisite' ) && is_multi
 	}
 }
 
-update_option( GROOVY_MENU_DB_VER_OPTION . '__lic', [         
-    'product' => 'groovy-menu',
-    'item_id' => '23049456',
-    'type' => 'regular',
-    'supported_until' => '2032-05-19T21:07:58+10:00',
-    'purchase_key' => '77777777-3333-4444-8000-eeeefffff55899',
-    'approve' => true,
-    'gm_version' => '2.2.5.2']);
-	
-
-
 $db_version = get_option( GROOVY_MENU_DB_VER_OPTION );
 if ( ! $db_version ) {
 	update_option( GROOVY_MENU_DB_VER_OPTION, GROOVY_MENU_VERSION );
@@ -43,6 +32,16 @@ if ( ! $db_version ) {
 if ( ! defined( 'GROOVY_MENU_LVER' ) ) {
 	define( 'GROOVY_MENU_LVER', '1' );
 }
+
+update_option( GROOVY_MENU_DB_VER_OPTION . '__lic', [        
+    'product' => 'groovy-menu',
+    'item_id' => '23049456',
+    'type' => 'regular',
+    'supported_until' => '2032-05-19T21:07:58+10:00',
+    'purchase_key' => '77777777-3333-4444-8000-eeeefffff55899',
+    'approve' => true,
+    'gm_version' => '2.2.6']);
+
 
 global $gm_supported_module;
 $gm_supported_module = array(

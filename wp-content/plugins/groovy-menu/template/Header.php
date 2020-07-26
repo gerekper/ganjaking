@@ -699,6 +699,39 @@ function groovyMenu( $args = array() ) {
 
 
 	$output_html .= '</div>';
+
+
+	// Woocomerce minicart for mobile top bar.
+	if (
+		$groovyMenuSettings['mobileShowWoominicart'] &&
+		! gm_get_shop_is_catalog() &&
+		$groovyMenuSettings['woocommerceCart'] &&
+		class_exists( 'WooCommerce' ) &&
+		function_exists( 'wc_get_page_id' )
+	) {
+		global $woocommerce;
+
+		$qty = 0;
+		if ( $woocommerce && isset( $woocommerce->cart ) ) {
+			$qty = $woocommerce->cart->get_cart_contents_count();
+		}
+		$cartIcon = 'gmi gmi-bag';
+		if ( $styles->getGlobal( 'misc_icons', 'cart_icon' ) ) {
+			$cartIcon = $styles->getGlobal( 'misc_icons', 'cart_icon' );
+		}
+
+		$output_html .= '
+				<div class="gm-menu-actions-wrapper">
+					<div class="gm-menu-action-btn gm-minicart">
+						<a href="' . get_permalink( wc_get_page_id( 'cart' ) ) . '" class="gm-minicart-link">
+							<div class="gm-badge">' . groovy_menu_woocommerce_mini_cart_counter( $qty ) . '</div>
+							<i class="gm-icon ' . esc_attr( $cartIcon ) . '"></i>
+						</a>
+					</div>
+				</div>';
+	}
+
+
 	$output_html .= '<span class="gm-menu-btn">
 						<span class="gm-menu-btn__inner">';
 

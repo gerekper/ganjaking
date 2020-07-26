@@ -91,7 +91,8 @@ class WC_OD_Admin_Field_Delivery_Days extends WC_OD_Admin_Field_Table {
 	 * @param array $data The row data.
 	 */
 	public function output_column_status( $row, $data ) {
-		$enabled = wc_od_string_to_bool( $data['enabled'] );
+		$enabled = wc_string_to_bool( $data['enabled'] );
+		$label   = ( $enabled ? __( 'Yes', 'woocommerce-order-delivery' ) : __( 'No', 'woocommerce-order-delivery' ) );
 
 		echo '<label class="wc-od-input-toggle">';
 
@@ -101,14 +102,10 @@ class WC_OD_Admin_Field_Delivery_Days extends WC_OD_Admin_Field_Table {
 			checked( $enabled, true, false )
 		);
 
-		$class  = ( version_compare( WC()->version, '3.0', '<' ) ? 'status-' : 'woocommerce-input-toggle woocommerce-input-toggle--' );
+		$class  = 'woocommerce-input-toggle woocommerce-input-toggle--';
 		$class .= ( $enabled ? 'enabled' : 'disabled' );
 
-		printf(
-			'<span class="%1$s">%2$s</span>',
-			esc_attr( $class ),
-			( $enabled ? esc_html__( 'Yes', 'woocommerce' ) : esc_html__( 'No', 'woocommerce' ) )
-		);
+		printf( '<span class="%1$s">%2$s</span>', esc_attr( $class ), esc_html( $label ) );
 
 		echo '</label>';
 	}
@@ -169,11 +166,13 @@ class WC_OD_Admin_Field_Delivery_Days extends WC_OD_Admin_Field_Table {
 	 * @param array $data The row data.
 	 */
 	public function output_column_action( $row, $data ) {
+		$label = ( wc_string_to_bool( $data['enabled'] ) ? __( 'Manage', 'woocommerce-order-delivery' ) : __( 'Set Up', 'woocommerce-order-delivery' ) );
+
 		printf(
 			'<a class="button alignright" href="%1$s">%2$s</a>',
 			esc_url( $this->get_row_url( $row ) ),
-			esc_html( wc_od_string_to_bool( $data['enabled'] ) ? __( 'Manage', 'woocommerce' ) : __( 'Set Up', 'woocommerce' ) )
-		); // WPCS: XSS ok.
+			esc_html( $label )
+		);
 	}
 
 	/**

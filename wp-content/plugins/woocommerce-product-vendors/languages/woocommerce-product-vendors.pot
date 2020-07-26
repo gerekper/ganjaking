@@ -2,10 +2,10 @@
 # This file is distributed under the same license as the WooCommerce Product Vendors package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Product Vendors 2.1.38\n"
+"Project-Id-Version: WooCommerce Product Vendors 2.1.39\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-product-vendors\n"
-"POT-Creation-Date: 2020-07-07 09:40:36+00:00\n"
+"POT-Creation-Date: 2020-07-22 07:25:59+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1319,14 +1319,16 @@ msgstr ""
 #: includes/admin/views/html-create-vendor-fields-page.php:51
 #: includes/admin/views/html-edit-vendor-fields-page.php:72
 #: includes/admin/views/html-vendor-store-settings-page.php:56
-msgid "Vendor Email"
+msgid "Vendor Email(required)"
 msgstr ""
 
 #: includes/admin/views/html-create-vendor-fields-page.php:54
+#: includes/admin/views/html-edit-vendor-fields-page.php:77
+#: includes/admin/views/html-vendor-store-settings-page.php:61
 msgid ""
-"Enter the email for this vendor.  This is the email where all notifications "
-"are sent such as new orders and customer inquiries.  You may enter more "
-"than one email separating each with a comma."
+"All notifications will be sent to this email address, including new orders "
+"and customer inquiries. Add multiple email addresses by separating them "
+"with a comma."
 msgstr ""
 
 #: includes/admin/views/html-create-vendor-fields-page.php:58
@@ -1494,13 +1496,6 @@ msgstr ""
 msgid "Enter the public vendor profile your store's customers will see."
 msgstr ""
 
-#: includes/admin/views/html-edit-vendor-fields-page.php:77
-msgid ""
-"Enter the email for this vendor. This is the email where all notifications "
-"are sent such as new orders and customer inquiries.  You may enter more "
-"than one email separating each with a comma."
-msgstr ""
-
 #: includes/admin/views/html-edit-vendor-fields-page.php:111
 msgid ""
 "This is the commission amount the vendor will receive. Product level "
@@ -1567,13 +1562,6 @@ msgstr ""
 
 #: includes/admin/views/html-vendor-store-settings-page.php:51
 msgid "Enter a public vendor profile that store customers will see."
-msgstr ""
-
-#: includes/admin/views/html-vendor-store-settings-page.php:61
-msgid ""
-"This is the email where all notifications such as new orders, and customer "
-"inquiries are sent. You may enter more than one email, separating each with "
-"a comma."
 msgstr ""
 
 #: includes/admin/views/html-vendor-store-settings-page.php:71

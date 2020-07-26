@@ -53,7 +53,7 @@ if ( ! class_exists( 'WC_OD_Utils' ) ) {
 		 * @return string The WooCommerce version.
 		 */
 		public static function get_woocommerce_version() {
-			_deprecated_function( __METHOD__, '1.1.0', 'WC_VERSION or WC()->version' );
+			wc_deprecated_function( __METHOD__, '1.1.0', 'WC_VERSION or WC()->version' );
 
 			return WC()->version;
 		}
@@ -67,7 +67,7 @@ if ( ! class_exists( 'WC_OD_Utils' ) ) {
 		 * @return string The menu slug for the WooCommerce settings page.
 		 */
 		public static function get_woocommerce_settings_page_slug() {
-			_deprecated_function( __METHOD__, '1.4.0' );
+			wc_deprecated_function( __METHOD__, '1.4.0' );
 
 			return 'wc-settings';
 		}
@@ -81,7 +81,7 @@ if ( ! class_exists( 'WC_OD_Utils' ) ) {
 		 * @return string The section slug for the shipping options.
 		 */
 		public static function get_shipping_options_section_slug() {
-			_deprecated_function( __METHOD__, '1.4.0' );
+			wc_deprecated_function( __METHOD__, '1.4.0' );
 
 			return 'options';
 		}

@@ -408,7 +408,8 @@ function wc_pb_template_bundled_item_product_details( $bundled_item, $bundle ) {
 			wc_get_template( 'single-product/bundled-item-optional.php', array(
 				'quantity'             => $bundled_item->get_quantity(),
 				'bundled_item'         => $bundled_item,
-				'bundle_fields_prefix' => $bundle_fields_prefix
+				'bundle_fields_prefix' => $bundle_fields_prefix,
+				'availability_html'    => false === $bundled_item->is_in_stock() ? $bundled_item->get_availability_html() : ''
 			), false, WC_PB()->plugin_path() . '/templates/' );
 		}
 

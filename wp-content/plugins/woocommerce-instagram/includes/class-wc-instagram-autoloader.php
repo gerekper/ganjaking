@@ -66,14 +66,15 @@ if ( ! class_exists( 'WC_Instagram_Autoloader' ) ) {
 			$autoload = apply_filters(
 				'wc_instagram_autoload',
 				array(
-					'wc_instagram_admin_field_'           => $this->include_path . 'admin/fields/',
-					'wc_instagram_admin_'                 => $this->include_path . 'admin/',
-					'wc_instagram_api_node'               => $this->include_path . 'api/nodes/',
-					'wc_instagram_api'                    => $this->include_path . 'api/',
-					'wc_instagram_product_catalog_format' => $this->include_path . 'product-catalog/formats/',
-					'wc_instagram_product_catalog_item'   => $this->include_path . 'product-catalog/items/',
-					'wc_instagram_product_catalog'        => $this->include_path . 'product-catalog/',
-					'wc_instagram_'                       => $this->include_path,
+					'wc_instagram_admin_field_'            => $this->include_path . 'admin/fields/',
+					'wc_instagram_admin_'                  => $this->include_path . 'admin/',
+					'wc_instagram_api_node'                => $this->include_path . 'api/nodes/',
+					'wc_instagram_api'                     => $this->include_path . 'api/',
+					'wc_instagram_product_catalog_format'  => $this->include_path . 'product-catalog/formats/',
+					'wc_instagram_product_catalog_item'    => $this->include_path . 'product-catalog/items/',
+					'wc_instagram_product_catalog'         => $this->include_path . 'product-catalog/',
+					'wc_instagram_google_product_category' => $this->include_path . 'product-catalog/',
+					'wc_instagram_'                        => $this->include_path,
 				)
 			);
 

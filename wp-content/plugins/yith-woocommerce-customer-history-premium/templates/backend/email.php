@@ -48,16 +48,7 @@ if ( $email_id > 0 ) {
 <div id="yith-woocommerce-customer-history">
     <div id="email" class="wrap">
 
-        <h1>
-            <?php echo __( 'Email', 'yith-woocommerce-customer-history' ); ?>
-            <a href="admin.php?page=yith-wcch-email.php" class="page-title-action"><?php echo __( 'Send new email', 'yith-woocommerce-customer-history' ); ?></a>
-        </h1>
-
-        <!--<p><?php // echo __( 'Set default "Sender" name and email values in <a href="admin.php?page=yith-wcch-settings.php">plugin settings</a>.', 'yith-woocommerce-customer-history' ); ?></p>-->
-
         <?php if ( $email_id > 0 ) : ?>
-
-            <hr />
 
             <p>
                 <span style="display: inline-block; width: 100px;"><?php echo __( 'From', 'yith-woocommerce-customer-history' ); ?>:</span> <strong><?php echo $sender_name . ' (' . $sender_email . ')'; ?></strong><br />
@@ -71,10 +62,12 @@ if ( $email_id > 0 ) {
 
             <form id="group-form" action="admin.php" method="get">
 
-                <input type="hidden" name="page" value="yith-wcch-email.php">
+                <input type="hidden" name="page" value="yith_wcch_panel">
+                <input type="hidden" name="panel_page" value="email">
+                <input type="hidden" name="tab" value="emails">
                 <input type="hidden" name="act" value="send">
 
-                <table class="form-table">
+                <table class="form-table" style="border: 0;">
                     <tbody>
                         <!--
                         <tr>
@@ -99,7 +92,17 @@ if ( $email_id > 0 ) {
                             <td>
                                 <select name="user_id" class="user-select2">
                                     <!-- <option value="0">-</option> -->
-                                    <?php foreach ( get_users() as $key => $value ) { echo '<option value="' . $value->ID . '" ' . ( isset( $_GET['customer_id'] ) && $_GET['customer_id'] == $value->ID ? ' selected="selected"' : '' ) . '>' . $value->display_name . ' (' . $value->user_email . ')</option>'; } ?>
+                                    <?php
+                                        $args = array(
+                                            'role'    => 'customer',
+                                            'orderby' => 'user_nicename',
+                                            'order'   => 'ASC',
+                                            'number'   => '10000',
+                                        );
+                                        foreach ( get_users( $args) as $key => $value ) {
+                                            echo '<option value="' . $value->ID . '" ' . ( isset( $_GET['customer_id'] ) && $_GET['customer_id'] == $value->ID ? ' selected="selected"' : '' ) . '>' . $value->display_name . ' (' . $value->user_email . ')</option>';
+                                        }
+                                    ?>
                                 </select>
                             </td>
                         </tr>
@@ -124,6 +127,10 @@ if ( $email_id > 0 ) {
 
     </div>
 </div>
+
+<style type="text/css">
+    .yith-plugin-ui .form-table th { width: 100px !important; }
+</style>
 
 <script type="text/javascript">
     jQuery(".user-select2").select2();

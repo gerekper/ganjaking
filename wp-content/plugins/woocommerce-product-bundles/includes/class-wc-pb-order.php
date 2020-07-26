@@ -121,6 +121,7 @@ class WC_PB_Order {
 			return false;
 		}
 
+		$bundle              = wc_get_product( $order_item->get_product_id() );
 		$configuration       = $order_item->get_meta( '_stamp', true );
 		$bundled_order_items = wc_pb_get_bundled_order_items( $order_item, $order );
 
@@ -148,7 +149,8 @@ class WC_PB_Order {
 			$configuration[ $bundled_item_id ][ 'quantity' ] = $bundled_order_item_qty / $order_item->get_quantity();
 		}
 
-		return $configuration;
+		// Finally, parse the configuration to add data for any new bundled items.
+		return $bundle ? WC_PB()->cart->parse_bundle_configuration( $bundle, $configuration ) : $configuration;
 	}
 
 	/**

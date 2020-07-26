@@ -123,6 +123,11 @@ class WC_CSP_Admin {
 	 */
 	private function includes() {
 
+		// Product Import/Export.
+		if ( WC_CSP_Core_Compatibility::is_wc_version_gte( '3.1' ) ) {
+			require_once( 'class-wc-csp-product-import-export.php' );
+		}
+
 		// Notices.
 		require_once( 'class-wc-csp-admin-notices.php' );
 

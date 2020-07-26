@@ -60,7 +60,6 @@ if ( ! class_exists( 'YITH_WFBT_Frontend' ) ) {
 		 */
 		public $actionVariationsDialogContent = 'yith_wfbt_load_variations_dialog_content';
 
-
 		/**
 		 * Returns single instance of the class
 		 *
@@ -100,6 +99,8 @@ if ( ! class_exists( 'YITH_WFBT_Frontend' ) ) {
 			add_action( 'wc_ajax_' . $this->actionVariationsDialogContent, array( $this, 'load_variations_dialog' ) );
 			add_action( 'wp_ajax_nopriv_' . $this->actionVariationsDialogContent, array( $this, 'load_variations_dialog' ) );
 
+			// prevent issue with YITH WooCommerce Surveys
+            add_filter( 'yith_wc_survey_prevent_display_form', array( $this, 'yith_wc_survey_prevent_display_form' ), 10, 1 );
 		}
 
 		/**
@@ -123,8 +124,11 @@ if ( ! class_exists( 'YITH_WFBT_Frontend' ) ) {
 
 			wp_register_style( 'yith-wfbt-style', $stylesheet );
 			wp_register_script( 'yith-wfbt', YITH_WFBT_ASSETS_URL . '/js/yith-wfbt' . $suffix . '.js', array( 'jquery', 'jquery-blockui' ), $this->version, true );
-			wp_register_style( 'yith-wfbt-query-dialog-style', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css' );
-			wp_register_script( 'yith-wfbt-query-dialog', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js', array( 'jquery' ), $this->version, true );
+
+			if( ! defined( 'YITH_PROTEO_VERSION' ) ) {
+				wp_register_style( 'yith-wfbt-query-dialog-style', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css' );
+				wp_register_script( 'yith-wfbt-query-dialog', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js', array( 'jquery' ), false, true );
+			}
 
 			// register script for carousel
 			wp_register_style( 'yith-wfbt-carousel-style', YITH_WFBT_ASSETS_URL . '/css/owl.carousel.css' );
@@ -280,7 +284,7 @@ if ( ! class_exists( 'YITH_WFBT_Frontend' ) ) {
 			// if group is empty
 			// first get group of original product
 			$original_product = $original_product_id = false;
-			if ( empty( $group ) && function_exists( 'wpml_object_id_filter' ) && get_option( 'yith-wcfbt-wpml-association', 'yes' ) == 'yes' && function_exists( 'get_default_language' ) ) {
+			if ( empty( $group ) && function_exists( 'wpml_object_id_filter' ) && get_option( 'yith-wcfbt-wpml-association', 'yes' ) == 'yes' && method_exists( $sitepress, 'get_default_language' ) ) {
 				$original_product_id = wpml_object_id_filter( $product_id, 'product', true, $sitepress->get_default_language() );
 				$original_product    = wc_get_product( $original_product_id );
 				$metas               = yith_wfbt_get_meta( $original_product );
@@ -322,39 +326,65 @@ if ( ! class_exists( 'YITH_WFBT_Frontend' ) ) {
 			if ( $product instanceof WC_Product_Variable ) {
 				$n_variable_products++;
 			}
-			$index          = 0;
+
 			$total          = apply_filters( 'yith_wfbt_price_to_display', wc_get_price_to_display( empty( $variation ) ? $product : $variation ), $product, $variation );
 			$total_discount = null;
 
-			foreach ( $group as $the_id ) {
-				if ( $index >= $num ) {
+			do {
+
+				if( empty( $group ) ) { // exit if group is empty!
 					break;
 				}
+
+				$the_id = array_shift( $group );
 				$the_id = function_exists( 'wpml_object_id_filter' ) ? wpml_object_id_filter( $the_id, 'product', false ) : $the_id;
-				if ( is_null( $the_id ) ) {
+				if ( empty( $the_id ) ) {
 					continue;
 				}
-				$current = wc_get_product( $the_id );
+
+				$current 				= wc_get_product( $the_id );
+				$current_variation_id	= false;
 
 				if ( ! $this->can_be_added( $current ) ) {
 					continue;
 				}
+
+				if ( $current->is_type( 'variable' ) ) {
+					// try to get variation default if available
+					$default_attributes = array();
+					foreach ( $current->get_default_attributes() as $attribute_key => $attribute_value ) {
+						$default_attributes[ 'attribute_' . $attribute_key ] = $attribute_value;
+					}
+
+					// try to find the variation id based on default attributes
+					if( ! empty( $default_attributes ) ) {
+						$data_store   			= WC_Data_Store::load( 'product' );
+						$current_variation_id 	= $data_store->find_matching_product_variation( $current, $default_attributes );
+					}
+
+					// if variation exists and can be added use it else get the variable
+					if( ! empty( $current_variation_id ) && $this->can_be_added( $current_variation_id ) ) {
+						$current = wc_get_product( $current_variation_id );
+					} else {
+						$n_variable_products++;
+					}
+				}
+
+				// increase total
+				! $current->is_type( 'variable' ) && $total += apply_filters( 'yith_wfbt_price_to_display', wc_get_price_to_display( $current ), $current, null );
 				// add to main array
 				$products[] = $current;
 
-				if ( $current instanceof WC_Product_Variable ) {
-					$n_variable_products++;
-				} else {
-					$total += apply_filters( 'yith_wfbt_price_to_display', wc_get_price_to_display( $current ), $current, null );
-					$index++;
-				}
+			} while( count( $products ) < $num + 1 );
 
-			}
 			$products     = apply_filters( 'yith_wfbt_filter_group_products_front', $products );
+			if( empty( $products ) ){
+				return;
+			}
 			$num_products = count( $products ) - $n_variable_products;
 
 			// calculate discount if main product is selected
-			$discount = floatval( $this->discount->get_discount_amount( $product, $products, null, $total ) );
+            $discount = isset( $original_product ) ? floatval( $this->discount->get_discount_amount( $original_product, $products, null, $total ) ) : floatval( $this->discount->get_discount_amount( $product, $products, null, $total ) );
 			$discount && $total_discount = ( $total - $discount );
 
 			$total_discount = apply_filters( 'yith_wfbt_total_discount', $total_discount );
@@ -362,6 +392,11 @@ if ( ! class_exists( 'YITH_WFBT_Frontend' ) ) {
 			// set labels
 			$label       = $this->get_label_option( 'button', $num_products );
 			$label_total = $this->get_label_option( 'total', $num_products );
+
+			// add modal
+			if( ! has_action( 'wp_footer', array( $this, 'add_variation_modal' ) ) ) {
+				add_action( 'wp_footer', array( $this, 'add_variation_modal' ) );
+			}
 
 			wc_get_template( 'yith-wfbt-form.php', array(
 				'main_product_id'    => $product_id,
@@ -375,7 +410,7 @@ if ( ! class_exists( 'YITH_WFBT_Frontend' ) ) {
 				'total_discount'     => $total_discount,
 				'is_empty'           => $metas['show_unchecked'] == 'yes',
 				'show_unchecked'     => $metas['show_unchecked'] == 'yes',
-				'popup_button_label' => get_option( 'yith-wfbt-open-popup-button-label', __( 'Choose your product', 'yith-woocommerce-frequently-bought-together' ) ),
+				'popup_button_label' => get_option( 'yith-wfbt-open-popup-button-label', __( 'View options >', 'yith-woocommerce-frequently-bought-together' ) ),
 			), '', YITH_WFBT_DIR . 'templates/' );
 
 			wp_reset_postdata();
@@ -573,7 +608,7 @@ if ( ! class_exists( 'YITH_WFBT_Frontend' ) ) {
 				'total_discount'     => $total_discount,
                 'is_empty'           => ! $num_products,
 				'show_unchecked'     => false,
-				'popup_button_label' => get_option( 'yith-wfbt-open-popup-button-label', __( 'Choose your product', 'yith-woocommerce-frequently-bought-together' ) ),
+				'popup_button_label' => get_option( 'yith-wfbt-open-popup-button-label', __( 'View options >', 'yith-woocommerce-frequently-bought-together' ) ),
 			), '', YITH_WFBT_DIR . 'templates/' );
 
 			echo ob_get_clean(); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped
@@ -615,6 +650,31 @@ if ( ! class_exists( 'YITH_WFBT_Frontend' ) ) {
 			}
 
 			die();
+		}
+
+        /**
+         * Prevent conflict issue with YITH WooCommerce Surveys
+         * @return bool
+         */
+		public function yith_wc_survey_prevent_display_form( $prevent_form ){
+            if( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'yith_wfbt_load_variations_dialog_content' ) {
+				$prevent_form = true;
+			}
+            return $prevent_form;
+        }
+
+        /**
+		 * Add variation modal on footer if needed
+		 *
+		 * @since 2.0.0
+		 * @author Francesco Licandro
+		 */
+        public function add_variation_modal() {
+        	?>
+			<div id="yith-wfbt-modal" class="modal">
+				<a href="#" rel="modal:close"><?php esc_html_e( 'Close', 'yith-woocommerce-frequently-bought-together' ); ?></a>
+			</div>
+			<?php
 		}
 	}
 }

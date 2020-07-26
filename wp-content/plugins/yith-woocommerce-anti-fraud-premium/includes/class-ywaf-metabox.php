@@ -18,23 +18,23 @@ if ( ! class_exists( 'YWAF_Metabox' ) ) {
 	 * Shows Meta Box in order's details page
 	 *
 	 * @class   YWAF_Metabox
-	 * @package Yithemes
 	 * @since   1.0.0
 	 * @author  Your Inspiration Themes
 	 *
+	 * @package Yithemes
 	 */
 	class YWAF_Metabox {
 
 		/**
 		 * Constructor
 		 *
-		 * @since   1.0.0
 		 * @return  void
+		 * @since   1.0.0
 		 * @author  Alberto Ruggiero
 		 */
 		public function __construct() {
 
-			if ( get_option( 'ywaf_enable_plugin' ) == 'yes' ) {
+			if ( get_option( 'ywaf_enable_plugin' ) === 'yes' ) {
 
 				add_action( 'add_meta_boxes', array( $this, 'add_metabox' ) );
 
@@ -45,8 +45,8 @@ if ( ! class_exists( 'YWAF_Metabox' ) ) {
 		/**
 		 * Add a metabox on product page
 		 *
-		 * @since   1.0.0
 		 * @return  void
+		 * @since   1.0.0
 		 * @author  Alberto Ruggiero
 		 */
 		public function add_metabox() {
@@ -62,8 +62,8 @@ if ( ! class_exists( 'YWAF_Metabox' ) ) {
 		 *
 		 * The function to be called to output the meta box in product details page.
 		 *
-		 * @since   1.0.0
 		 * @return  void
+		 * @since   1.0.0
 		 * @author  Alberto Ruggiero
 		 */
 		public function output() {
@@ -75,7 +75,7 @@ if ( ! class_exists( 'YWAF_Metabox' ) ) {
 			$order_id = $_GET['post'];
 			$order    = wc_get_order( $order_id );
 
-			$is_deposit = ( $order->get_created_via() == 'yith_wcdp_balance_order' );
+			$is_deposit = ( 'yith_wcdp_balance_order' === $order->get_created_via() );
 
 			if ( $is_deposit ) {
 				return;
@@ -85,75 +85,68 @@ if ( ! class_exists( 'YWAF_Metabox' ) ) {
 
 			?>
 
-            <div class="ywaf-risk-container ywaf-premium">
+			<div class="ywaf-risk-container ywaf-premium">
 
 				<?php if ( $risk_factor ) : ?>
 
 					<?php $data = YITH_WAF()->get_risk_level( $risk_factor['score'] ); ?>
 
-                    <div class="ywaf-risk-container-knob">
-                        <div>
-                            <label style="background: <?php echo $data['color'] ?>" for="ywaf_risk"><?php echo $risk_factor['score'] ?>%
-                                <span><?php echo $data['tip'] ?></span></label>
-                            <input
-                                id="ywaf_risk"
-                                data-fgColor="<?php echo $data['color'] ?>"
-                                data-bgColor="#b5b5b6"
-                                data-thickness=".25"
-                                data-displayInput="false"
-                                data-readOnly="true"
-                                data-width="200"
-                                value="<?php echo $risk_factor['score'] ?>"
-                            />
-                        </div>
+					<div class="ywaf-risk-container-knob">
+						<div>
+							<label style="background: <?php echo $data['color']; ?>" for="ywaf_risk"><?php echo $risk_factor['score']; ?>%
+								<span><?php echo $data['tip']; ?></span></label>
+							<input
+								id="ywaf_risk"
+								data-fgColor="<?php echo $data['color']; ?>"
+								data-bgColor="#b5b5b6"
+								data-thickness=".25"
+								data-displayInput="false"
+								data-readOnly="true"
+								data-width="200"
+								value="<?php echo $risk_factor['score']; ?>"
+							/>
+						</div>
 
-                    </div>
+					</div>
 
-                    <div class="ywaf-rules">
+					<div class="ywaf-rules">
 
 						<?php if ( ! empty( $risk_factor['failed_rules'] ) ) : ?>
 
-                            <div class="ywaf-failed">
-                                <ul>
-									<?php foreach ( $risk_factor['failed_rules'] as $failed_rule ) : ?>
+							<div class="ywaf-failed">
+								<ul>
+									<?php
+									foreach ( $risk_factor['failed_rules'] as $failed_rule ) {
+										$this->print_rule_messages( $failed_rule, $order );
+									}
+									?>
+								</ul>
+							</div>
 
-										<?php if ( class_exists( $failed_rule ) ) : ?>
+						<?php else : ?>
 
-											<?php $rule = new $failed_rule; ?>
+							<div class="ywaf-success">
 
-                                            <li><?php echo $rule->get_message(); ?></li>
+								<?php _e( 'Order check was successful!', 'yith-woocommerce-anti-fraud' ); ?>
 
-										<?php endif; ?>
-
-									<?php endforeach; ?>
-
-                                </ul>
-                            </div>
-
-						<?php else: ?>
-
-                            <div class="ywaf-success">
-
-								<?php _e( 'Order check was successful!', 'yith-woocommerce-anti-fraud' ) ?>
-
-                            </div>
+							</div>
 
 						<?php endif; ?>
 
-                        <div class="ywaf-nocheck">
-                            <p>
-                                <button type="button" class="button button-primary ywaf-repeat-check"><?php _e( 'Repeat Check!', 'yith-woocommerce-anti-fraud' ) ?></button>
-                            </p>
-                        </div>
+						<div class="ywaf-nocheck">
+							<p>
+								<button type="button" class="button button-primary ywaf-repeat-check"><?php _e( 'Repeat Check!', 'yith-woocommerce-anti-fraud' ); ?></button>
+							</p>
+						</div>
 
-                    </div>
+					</div>
 
-                    <div class="ywaf-clear"></div>
+					<div class="ywaf-clear"></div>
 
-				<?php else: ?>
+				<?php else : ?>
 
-                    <div class="ywaf-rules">
-                        <div class="ywaf-nocheck">
+					<div class="ywaf-rules">
+						<div class="ywaf-nocheck">
 
 							<?php
 
@@ -162,42 +155,70 @@ if ( ! class_exists( 'YWAF_Metabox' ) ) {
 
 							?>
 
-							<?php if ( $check_status == 'process' && ! $paypal_status == 'process' ) : ?>
+							<?php if ( 'process' === $check_status && 'process' === ! $paypal_status ) : ?>
 
-                                <p>
+								<p>
 									<?php _e( 'This order is currently in queue for a fraud risk check.', 'yith-woocommerce-anti-fraud' ); ?>
-                                </p>
+								</p>
 
-							<?php elseif ( $paypal_status == 'process' ): ?>
+							<?php elseif ( 'process' === $paypal_status ) : ?>
 
-                                <p>
+								<p>
 									<?php _e( 'This order is currently waiting for a PayPal verification.', 'yith-woocommerce-anti-fraud' ); ?>
-                                </p>
+								</p>
 
-                                <p>
-                                    <button type="button" class="button button-primary ywaf-repeat-check"><?php _e( 'Re-send verification request', 'yith-woocommerce-anti-fraud' ) ?></button>
-                                </p>
+								<p>
+									<button type="button" class="button button-primary ywaf-repeat-check"><?php _e( 'Re-send verification request', 'yith-woocommerce-anti-fraud' ); ?></button>
+								</p>
 
-							<?php else: ?>
+							<?php else : ?>
 
-                                <p>
-									<?php _e( 'Press the button to start a fraud risk check', 'yith-woocommerce-anti-fraud' ) ?>
-                                </p>
-                                <p>
-                                    <button type="button" class="button button-primary ywaf-start-check"><?php _e( 'Start checking!', 'yith-woocommerce-anti-fraud' ) ?></button>
-                                </p>
+								<p>
+									<?php _e( 'Press the button to start a fraud risk check', 'yith-woocommerce-anti-fraud' ); ?>
+								</p>
+								<p>
+									<button type="button" class="button button-primary ywaf-start-check"><?php _e( 'Start checking!', 'yith-woocommerce-anti-fraud' ); ?></button>
+								</p>
 
 							<?php endif; ?>
 
-                        </div>
-                    </div>
+						</div>
+					</div>
 
 				<?php endif; ?>
 
-            </div>
+			</div>
 
 			<?php
 
+		}
+
+		/**
+		 * Sets messages for failed rules
+		 *
+		 * @param   $failed_rule string
+		 * @param   $order       WC_Order
+		 *
+		 * @return  void
+		 * @since   1.0.0
+		 * @author  Alberto Ruggiero
+		 */
+		public function print_rule_messages( $failed_rule, $order ) {
+			if ( class_exists( $failed_rule ) ) {
+
+				$rule    = new $failed_rule;
+				$message = $rule->get_message();
+
+				switch ( $failed_rule ) {
+					case 'YWAF_IP_Country':
+						$message .= ' <a target="_blank" href="http://ip-api.com/xml/' . $order->get_customer_ip_address() . '">' . esc_html__( 'See Geolocation data', 'yith-woocommerce-anti-fraud' ) . '</a>';
+						break;
+
+				}
+				?>
+				<li><?php echo $message; ?></li>
+				<?php
+			}
 		}
 
 	}

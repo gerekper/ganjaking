@@ -5,14 +5,14 @@ msgstr ""
 "Project-Id-Version: YITH WooCommerce Minimum Maximum Quantity\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
 "minimum-maximum-quantity.premium\n"
-"POT-Creation-Date: 2020-05-27 13:47:50+00:00\n"
+"POT-Creation-Date: 2020-07-08 20:24:38+00:00\n"
 "PO-Revision-Date: 2020-04-29 16:47:15+0000\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/2.3.1\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
 
 #: class.yith-wc-min-max-qty.php:229
 msgid "General Settings"
@@ -223,6 +223,7 @@ msgid "Minimum spend restriction"
 msgstr "Restricción de mínimo de gasto"
 
 #: class.yith-wc-min-max-qty.php:1178 class.yith-wc-min-max-qty.php:1346
+#: plugin-options/general-options.php:172
 #: plugin-options/general-options.php:353
 #: plugin-options/general-options.php:449
 #: templates/admin/ywmmq-categories-bulk-ops.php:499
@@ -452,7 +453,6 @@ msgstr ""
 "restricciones."
 
 #: plugin-options/general-options.php:135
-#: plugin-options/general-options.php:172
 #: plugin-options/general-options.php:258
 #: templates/admin/ywmmq-products-bulk-ops.php:422
 msgid "Quantity groups of"
@@ -477,10 +477,12 @@ msgstr ""
 "para ninguna restricción."
 
 #: plugin-options/general-options.php:175
-msgid ""
-"Allow your users to purchase products only in groups of x items (e.g. The "
-"cart can contains items only in groups of 6)"
+#: plugin-options/general-options.php:356
+#: plugin-options/general-options.php:452
+msgid "Maximum spend for items in cart. Set zero for no restrictions."
 msgstr ""
+"Máximo gasto para los artículos en el carrito. Establece 0 para ninguna "
+"restricción."
 
 #: plugin-options/general-options.php:187
 msgid "Include shipping rates and relative fees."
@@ -550,13 +552,6 @@ msgstr ""
 #: plugin-options/general-options.php:330
 msgid "Enable category spend restrictions"
 msgstr "Habilitar restricciones de gasto por categoría"
-
-#: plugin-options/general-options.php:356
-#: plugin-options/general-options.php:452
-msgid "Maximum spend for items in cart. Set zero for no restrictions."
-msgstr ""
-"Máximo gasto para los artículos en el carrito. Establece 0 para ninguna "
-"restricción."
 
 #: plugin-options/general-options.php:376
 msgid "Enable tag quantity restrictions"

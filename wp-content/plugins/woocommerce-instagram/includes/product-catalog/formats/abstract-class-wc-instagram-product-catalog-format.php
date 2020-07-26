@@ -204,6 +204,7 @@ abstract class WC_Instagram_Product_Catalog_Format {
 			'mpn'                       => 'esc_attr',
 			'brand'                     => 'esc_html',
 			'additional_image_link'     => 'esc_url',
+			'google_product_category'   => 'esc_attr',
 		);
 
 		if ( $product_item && ! $product_item instanceof WC_Instagram_Product_Catalog_Item_Variation ) {
@@ -284,6 +285,9 @@ abstract class WC_Instagram_Product_Catalog_Format {
 				break;
 			case 'condition':
 				$value = ( $product_item->get_condition() ? $product_item->get_condition() : $product_catalog->get_condition() );
+				break;
+			case 'google_product_category':
+				$value = ( $product_item->get_google_product_category() ? $product_item->get_google_product_category() : $product_catalog->get_google_product_category() );
 				break;
 			case 'description':
 				$value = '';

@@ -22,14 +22,14 @@ function wc_od_field_wrapper( $field ) {
 	// Description handling.
 	if ( true === $field['desc_tip'] ) {
 		$field['desc_tip'] = $field['desc'];
-		$field['desc'] = '';
+		$field['desc']     = '';
+	} else {
+		$field['desc'] = wp_kses_post( $field['desc'] );
 	}
-
-	$field['desc'] = wp_kses_post( $field['desc'] );
 
 	// Custom attributes handling.
 	$custom_attributes = array();
-	if ( !empty( $field['custom_attributes'] ) && is_array( $field['custom_attributes'] ) ) {
+	if ( ! empty( $field['custom_attributes'] ) && is_array( $field['custom_attributes'] ) ) {
 		foreach ( $field['custom_attributes'] as $attribute => $attribute_value ) {
 			$custom_attributes[] = esc_attr( $attribute ) . '="' . esc_attr( $attribute_value ) . '"';
 		}
@@ -38,35 +38,40 @@ function wc_od_field_wrapper( $field ) {
 	$field['custom_attributes'] = $custom_attributes;
 
 	// Tooltips position was changed in WC 3.4.
-	$tooltip_html = ( $field['desc_tip'] ? wc_help_tip( $field['desc_tip'], true ) : '' );
-	$tooltip_in_label = version_compare( WC()->version, '3.4', '>=' );
-
-	/**
-	 * Filters the function used for output the field content within a wrapper.
-	 *
-	 * @since 1.0.0
-	 * @param callable $callable The callable function.
-	 * @param array    $field    The field data.
-	 */
-	$callback = apply_filters( 'wc_od_field_wrapper_callback', "{$field['type']}_field", $field );
+	$tip_html     = ( $field['desc_tip'] ? wc_help_tip( $field['desc_tip'], true ) : '' );
+	$tip_in_label = version_compare( WC()->version, '3.4', '>=' );
 	?>
 	<tr valign="top">
 		<th scope="row" class="titledesc">
 			<?php
-				printf('<label for="%1$s">%2$s%3$s</label>%4$s',
-					esc_attr( $field['id'] ),
-					esc_html( $field['title'] ),
-					( $tooltip_in_label ? $tooltip_html : '' ),
-					( $tooltip_in_label ? '' : $tooltip_html )
-				);
+			printf(
+				'<label for="%1$s">%2$s%3$s</label>',
+				esc_attr( $field['id'] ),
+				esc_html( $field['title'] ),
+				( $tip_in_label ? " {$tip_html}" : '' ) // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			);
+
+			if ( ! $tip_in_label ) :
+				echo $tip_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			endif;
 			?>
 		</th>
-		<td class="forminp forminp-<?php echo sanitize_title( $field['type'] ) ?>">
-		<?php
+		<td class="forminp forminp-<?php echo esc_attr( $field['type'] ); ?>">
+			<?php
+			/**
+			 * Filters the function used for output the field content within a wrapper.
+			 *
+			 * @since 1.0.0
+			 *
+			 * @param callable $callable The callable function.
+			 * @param array    $field    The field data.
+			 */
+			$callback = apply_filters( 'wc_od_field_wrapper_callback', "{$field['type']}_field", $field );
+
 			if ( $callback && is_callable( $callback ) ) :
 				call_user_func( $callback, $field );
 			endif;
-		?>
+			?>
 		</td>
 	</tr>
 	<?php
@@ -86,7 +91,7 @@ function wc_od_shipping_days_field( $field ) {
 	<fieldset>
 	<?php foreach ( $shipping_days as $key => $data ) : ?>
 		<label for="<?php echo esc_attr( "{$field_id}_{$key}" ); ?>" style="display:inline-block;width:125px;">
-		<input id="<?php echo esc_attr( "{$field_id}_{$key}" ); ?>" type="checkbox" name="<?php echo esc_attr( $field_id . "[{$key}][enabled]" ); ?>" <?php checked( wc_od_string_to_bool( $data['enabled'] ), true ); ?> />
+		<input id="<?php echo esc_attr( "{$field_id}_{$key}" ); ?>" type="checkbox" name="<?php echo esc_attr( $field_id . "[{$key}][enabled]" ); ?>" <?php checked( wc_string_to_bool( $data['enabled'] ), true ); ?> />
 		<?php echo wp_kses_post( $week_days[ $key ] ); ?></label>
 
 		<?php $limit_id = wc_od_maybe_prefix( "shipping_days_time_{$key}" ); ?>

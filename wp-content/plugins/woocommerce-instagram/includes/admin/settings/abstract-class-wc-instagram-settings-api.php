@@ -111,7 +111,7 @@ if ( ! class_exists( 'WC_Instagram_Settings_API', false ) ) {
 		 * @return array|false An array with the form field data. False otherwise.
 		 */
 		public function get_form_field( $key ) {
-			if ( ! empty( $this->form_fields ) ) {
+			if ( empty( $this->form_fields ) ) {
 				$this->init_form_fields();
 			}
 
@@ -462,6 +462,33 @@ if ( ! class_exists( 'WC_Instagram_Settings_API', false ) ) {
 		}
 
 		/**
+		 * Generate Hidden Input HTML.
+		 *
+		 * @param string $key Field key.
+		 * @param array  $data Field data.
+		 * @since  1.0.0
+		 * @return string
+		 */
+		public function generate_hidden_html( $key, $data ) {
+			$field_key = $this->get_field_key( $key );
+			$defaults  = array(
+				'disabled'          => false,
+				'class'             => '',
+				'type'              => 'hidden',
+				'custom_attributes' => array(),
+			);
+
+			$data = wp_parse_args( $data, $defaults );
+
+			ob_start();
+			?>
+            <input class="input-text regular-input <?php echo esc_attr( $data['class'] ); ?>" type="<?php echo esc_attr( $data['type'] ); ?>" name="<?php echo esc_attr( $field_key ); ?>" id="<?php echo esc_attr( $field_key ); ?>" value="<?php echo esc_attr( $this->get_option( $key ) ); ?>" <?php disabled( $data['disabled'], true ); ?> <?php echo $this->get_custom_attribute_html( $data ); // phpcs:ignore Standard.Category.SniffName.ErrorCode. ?> />
+			<?php
+
+			return ob_get_clean();
+		}
+
+		/**
 		 * Outputs the HTML at the start of a field.
 		 *
 		 * @since 3.0.0
@@ -479,14 +506,26 @@ if ( ! class_exists( 'WC_Instagram_Settings_API', false ) ) {
 				)
 			);
 
-			$field_key = $this->get_field_key( $key );
+			$field_key    = $this->get_field_key( $key );
+			$tip_in_label = version_compare( WC_VERSION, '3.4', '>=' );
+			$tip_html     = $this->get_tooltip_html( $data );
 			?>
 			<tr valign="top">
 				<th scope="row" class="titledesc">
-					<label for="<?php echo esc_attr( $field_key ); ?>"><?php echo wp_kses_post( $data['title'] ); ?></label>
-					<?php echo wp_kses_post( $this->get_tooltip_html( $data ) ); ?>
+					<?php
+					if ( ! $tip_in_label ) :
+						echo $tip_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+					endif;
+
+					printf(
+						'<label for="%1$s">%2$s%3$s</label>',
+						esc_attr( $field_key ),
+						wp_kses_post( $data['title'] ),
+						( $tip_in_label ? " {$tip_html}" : '' ) // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+					);
+					?>
 				</th>
-				<td class="forminp">
+				<td class="forminp forminp-<?php echo esc_attr( $data['type'] ); ?>">
 					<fieldset>
 						<legend class="screen-reader-text"><span><?php echo wp_kses_post( $data['title'] ); ?></span></legend>
 			<?php

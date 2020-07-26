@@ -85,7 +85,7 @@ function wc_od_get_delivery_day_status( $delivery_day, $args = array(), $context
 	$status = $delivery_day->get_enabled();
 
 	if ( $delivery_day->is_enabled() && $args['shipping_method'] ) {
-		$status = wc_od_bool_to_string( $delivery_day->validate_shipping_method( $args['shipping_method'] ) );
+		$status = wc_bool_to_string( $delivery_day->validate_shipping_method( $args['shipping_method'] ) );
 	}
 
 	/**

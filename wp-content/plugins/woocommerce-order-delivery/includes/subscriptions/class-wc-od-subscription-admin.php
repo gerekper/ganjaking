@@ -38,12 +38,14 @@ if ( ! class_exists( 'WC_OD_Subscription_Admin' ) ) {
 		 * @since 1.5.0
 		 */
 		public function admin_scripts() {
-			$screen_id = wc_od_get_current_screen_id();
-
-			if ( 'shop_subscription' === $screen_id ) {
-				wp_enqueue_style( 'wc-od-admin', WC_OD_URL . 'assets/css/wc-od-admin.css', array( 'woocommerce_admin_styles' ), WC_OD_VERSION );
-				wp_enqueue_script( 'wc-od-admin-meta-boxes-subscription', WC_OD_URL . 'assets/js/admin/meta-boxes-subscription.js', array(), WC_OD_VERSION, true );
+			if ( 'shop_subscription' !== wc_od_get_current_screen_id() ) {
+				return;
 			}
+
+			$suffix = wc_od_get_scripts_suffix();
+
+			wp_enqueue_style( 'wc-od-admin', WC_OD_URL . 'assets/css/wc-od-admin.css', array( 'woocommerce_admin_styles' ), WC_OD_VERSION );
+			wp_enqueue_script( 'wc-od-admin-meta-boxes-subscription', WC_OD_URL . "assets/js/admin/meta-boxes-subscription{$suffix}.js", array(), WC_OD_VERSION, true );
 		}
 
 		/**
@@ -89,11 +91,11 @@ if ( ! class_exists( 'WC_OD_Subscription_Admin' ) ) {
 			 * Skip if the subscription is not being updated manually by the merchant.
 			 * Processed in `WC_OD_Subscriptions->subscription_date_updated()`.
 			 */
-			if ( ! wc_od_is_save_request_for_order( wc_od_get_order_prop( $subscription, 'id' ) ) ) {
+			if ( ! wc_od_is_save_request_for_order( $subscription->get_id() ) ) {
 				return;
 			}
 
-			$delivery_date        = wc_od_get_order_meta( $subscription, '_delivery_date' );
+			$delivery_date        = $subscription->get_meta( '_delivery_date' );
 			$posted_delivery_date = ( isset( $_POST['_delivery_date'] ) ? wc_clean( wp_unslash( $_POST['_delivery_date'] ) ) : '' ); // WPCS: sanitization ok.
 
 			// No delivery date or modified manually by the merchant.
@@ -114,7 +116,7 @@ if ( ! class_exists( 'WC_OD_Subscription_Admin' ) ) {
 			wc_od_update_subscription_delivery_time_frame( $subscription );
 
 			// $subscription doesn't have the updated delivery date, so we pass the ID to fetch the subscription object again.
-			$subscription_id   = wc_od_get_order_prop( $subscription, 'id' );
+			$subscription_id   = $subscription->get_id();
 			$new_delivery_date = wc_od_get_order_meta( $subscription_id, '_delivery_date' );
 
 			// Adds an internal note to the subscription to notify to the merchant.
@@ -149,7 +151,7 @@ if ( ! class_exists( 'WC_OD_Subscription_Admin' ) ) {
 		 * @param string          $date_type    The date type.
 		 */
 		public function subscription_date_deleted( $subscription, $date_type ) {
-			_deprecated_function( __METHOD__, '1.5.5', 'WC_OD_Subscriptions->subscription_date_deleted()' );
+			wc_deprecated_function( __METHOD__, '1.5.5', 'WC_OD_Subscriptions->subscription_date_deleted()' );
 		}
 
 		/**
@@ -163,7 +165,7 @@ if ( ! class_exists( 'WC_OD_Subscription_Admin' ) ) {
 		 * @return array
 		 */
 		public function subscription_details_fields( $fields, $order ) {
-			_deprecated_function( __METHOD__, '1.5.0' );
+			wc_deprecated_function( __METHOD__, '1.5.0' );
 
 			return $fields;
 		}
@@ -178,7 +180,7 @@ if ( ! class_exists( 'WC_OD_Subscription_Admin' ) ) {
 		 * @return string The field label.
 		 */
 		public function delivery_date_field_label( $label ) {
-			_deprecated_function( __METHOD__, '1.4.0' );
+			wc_deprecated_function( __METHOD__, '1.4.0' );
 
 			return $label;
 		}
@@ -192,7 +194,7 @@ if ( ! class_exists( 'WC_OD_Subscription_Admin' ) ) {
 		 * @param WC_Order $order The order instance.
 		 */
 		public function subscription_delivery_preferences( $order ) {
-			_deprecated_function( __METHOD__, '1.5.0' );
+			wc_deprecated_function( __METHOD__, '1.5.0' );
 		}
 	}
 }

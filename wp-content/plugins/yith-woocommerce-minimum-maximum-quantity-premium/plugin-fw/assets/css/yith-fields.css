@@ -22,6 +22,12 @@
     width   : 100%;
 }
 
+.yith-plugin-fw-field-wrapper .yith-inline-fields > div {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
 .yith-plugin-fw-field-wrapper span.desc {
     display : block;
     width   : 100%;
@@ -724,6 +730,7 @@ YITH UI
     font-size        : 15px;
     padding          : 7px 20px;
     border           : 0;
+    transition: background-color 0.3s linear;
 }
 
 .yith-plugin-ui .nav-tab:first-child {
@@ -732,6 +739,10 @@ YITH UI
 
 .yith-plugin-ui .nav-tab.yith-premium {
     background-color : #be421c;
+}
+.yith-plugin-ui .yith-nav-tab-wrapper .yith-plugin-fw-tab-element:hover > a.nav-tab:not(.nav-tab-active),
+.yith-plugin-ui .yith-nav-tab-wrapper .nav-tab:not(.nav-tab-active):hover{
+    background-color:#207a92;
 }
 
 .yith-plugin-ui .nav-tab-active {
@@ -780,7 +791,7 @@ YITH UI
 
 #wpwrap .yith-plugin-ui h2.nav-tab-wrapper, #wpbody-content .yith-plugin-ui h2.nav-tab-wrapper {
     border           : 0;
-    border-bottom    : 1px solid #ccc;
+    /* border-bottom    : 1px solid #ccc; */
     margin-right     : 15px;
     margin-bottom    : 0;
     background-color : transparent;
@@ -1207,6 +1218,10 @@ span.select2.select2-container.select2-container--default.yith-plugin-fw-select2
     padding          : 3px 11px;
     border-color     : #4e8ba2;
     font-size        : 13px;
+}
+
+.wc-wp-version-gte-53 .yith-plugin-ui .select2-container .select2-selection--single .select2-selection__arrow{
+    background-image: none;
 }
 
 .yith-plugin-ui .select2-container--default .select2-selection--single .select2-selection__arrow:before {

@@ -234,20 +234,21 @@
         obj.$select.each( function() {
             var t               = $(this),
                 current_attr    = obj.$attr[ this.name ],
+                decoded_name    = decodeURIComponent( this.name ),
                 select_box      = t.parent().find( '.select_box' ),
                 current_option  = [];
 
             if( typeof current_attr == 'undefined' ) {
-                current_attr = obj.$attr[ decodeURIComponent( this.name ) ];
+                current_attr = obj.$attr[ decoded_name ];
             }
 
             // Add description
-            if ( yith_wccl_general.description && ! obj.$is_loop && ! obj.$wrapper.length && ! obj.$form.find( '.description_' + this.name ).length
+            if ( yith_wccl_general.description && ! obj.$is_loop && ! obj.$wrapper.length && ! obj.$form.find( '.description_' + decoded_name ).length
                  && typeof current_attr != 'undefined' && current_attr.descr ) {
                 if( $(this).closest('tr').length ) {
-                    $(this).closest('tr').after( '<tr class="description_' + this.name + '"><td colspan="2">' + current_attr.descr + '</td></tr>' );
+                    $(this).closest('tr').after( '<tr class="description_' + decoded_name + '"><td colspan="2">' + current_attr.descr + '</td></tr>' );
                 } else {
-                    $(this).parent().append( '<p class="description_' + this.name + '">' + current_attr.descr + '</p>' );
+                    $(this).parent().append( '<p class="description_' + decoded_name + '">' + current_attr.descr + '</p>' );
                 }
             }
 
@@ -551,7 +552,6 @@
                 obj.$xhr = null;
 
                 $(document).trigger( 'yith_wccl_product_gallery_loaded' );
-                $(window).trigger( 'resize' );
             }
         });
     }
@@ -680,6 +680,11 @@
 
         if( typeof Flatsome != 'undefined' ){
             Flatsome.attach( $( '.product-gallery' ) );
+            // foce zoom button to work
+            $( '.zoom-button' ).click( function ( ev ) {
+                ev.preventDefault();
+                $( '.product-gallery-slider' ) .find( '.is-selected a' ).click();
+            });
         }
     });
 

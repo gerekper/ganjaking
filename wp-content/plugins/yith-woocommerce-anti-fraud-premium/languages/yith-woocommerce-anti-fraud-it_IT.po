@@ -5,107 +5,107 @@ msgstr ""
 "Project-Id-Version: YITH WooCommerce Anti-Fraud\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
 "anti-fraud.premium\n"
-"POT-Creation-Date: 2020-04-28 21:20:23+00:00\n"
-"PO-Revision-Date: 2020-04-23 16:01:58+0000\n"
+"POT-Creation-Date: 2020-07-02 13:54:58+00:00\n"
+"PO-Revision-Date: 2020-06-25 14:53:16+0000\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/2.3.1\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
 
-#: class.yith-wc-anti-fraud.php:363
+#: class.yith-wc-anti-fraud.php:364
 msgid "Fraud risk check in progress."
 msgstr "Controllo del rischio frode in corso."
 
-#: class.yith-wc-anti-fraud.php:395
+#: class.yith-wc-anti-fraud.php:396
 msgid "Fraud risk check completed."
 msgstr "Controllo del rischio frode completato."
 
-#: class.yith-wc-anti-fraud.php:492 class.yith-wc-anti-fraud.php:585
+#: class.yith-wc-anti-fraud.php:493 class.yith-wc-anti-fraud.php:586
 msgid "Fraud risk check not passed. Fraud risk is high!"
 msgstr "Controllo del rischio frode non superato. Il rischio di frode è alto!"
 
-#: class.yith-wc-anti-fraud.php:529
+#: class.yith-wc-anti-fraud.php:530
 msgid "No check performed"
 msgstr "Nessun controllo effettuato"
 
-#: class.yith-wc-anti-fraud.php:539
+#: class.yith-wc-anti-fraud.php:540
 msgid "High Risk"
 msgstr "Rischio Alto"
 
-#: class.yith-wc-anti-fraud.php:547
+#: class.yith-wc-anti-fraud.php:548
 msgid "Medium Risk"
 msgstr "Rischio Medio"
 
-#: class.yith-wc-anti-fraud.php:555
+#: class.yith-wc-anti-fraud.php:556
 msgid "Low Risk"
 msgstr "Rischio Basso"
 
-#: class.yith-wc-anti-fraud.php:591
+#: class.yith-wc-anti-fraud.php:592
 msgid "Fraud risk check passed with medium fraud risk."
 msgstr "Controllo del rischio frode superato con livello di rischio medio."
 
-#: class.yith-wc-anti-fraud.php:605
+#: class.yith-wc-anti-fraud.php:606
 msgid "Fraud risk check passed with low fraud risk"
 msgstr "Controllo del rischio frode superato con livello di rischio basso"
 
-#: class.yith-wc-anti-fraud.php:855 includes/rules/class-ywaf-paypal.php:95
+#: class.yith-wc-anti-fraud.php:856 includes/rules/class-ywaf-paypal.php:95
 msgid "Waiting for PayPal verification."
 msgstr "In attesa della verifica di PayPal"
 
-#: class.yith-wc-anti-fraud.php:860 includes/rules/class-ywaf-paypal.php:86
+#: class.yith-wc-anti-fraud.php:861 includes/rules/class-ywaf-paypal.php:86
 msgid "Waiting for PayPal transaction data."
 msgstr "In attesa dei dati della transazione PayPal."
 
-#: class.yith-wc-anti-fraud.php:865
+#: class.yith-wc-anti-fraud.php:866
 msgid "PayPal verification failed."
 msgstr "Verifica di PayPal fallita"
 
-#: class.yith-wc-anti-fraud.php:1185
+#: class.yith-wc-anti-fraud.php:1186
 msgid "General Settings"
 msgstr "Impostazioni Generali"
 
-#: class.yith-wc-anti-fraud.php:1186
-msgid "Emails Blacklist Settings"
-msgstr ""
-
 #: class.yith-wc-anti-fraud.php:1187
-msgid "Addresses Blacklist Settings"
-msgstr ""
+msgid "Emails Blacklist Settings"
+msgstr "Impostazioni email blacklist"
 
 #: class.yith-wc-anti-fraud.php:1188
+msgid "Addresses Blacklist Settings"
+msgstr "Impostazioni indirizzi blacklist"
+
+#: class.yith-wc-anti-fraud.php:1189
 msgid "PayPal Settings"
 msgstr "Impostazioni di PayPal"
 
-#: class.yith-wc-anti-fraud.php:1268
+#: class.yith-wc-anti-fraud.php:1269
 msgid ""
 "You must activate at least one rule to monitor your orders against fraud."
 msgstr ""
 "Devi attivare almeno una regola per monitorare I tuoi ordini contro le frodi."
 
-#: class.yith-wc-anti-fraud.php:1287 includes/class-ywaf-metabox.php:55
+#: class.yith-wc-anti-fraud.php:1288 includes/class-ywaf-metabox.php:55
 msgid "Fraud Risk Level"
 msgstr "Livello del rischio di frode"
 
-#: class.yith-wc-anti-fraud.php:1351
+#: class.yith-wc-anti-fraud.php:1352
 msgid "Repeat fraud risk check"
 msgstr "Ripeti il controllo del rischio frode"
 
-#: class.yith-wc-anti-fraud.php:1351
+#: class.yith-wc-anti-fraud.php:1352
 msgid "Start fraud risk check"
 msgstr "Inizia il controllo del rischio frode"
 
-#: class.yith-wc-anti-fraud.php:1484
+#: class.yith-wc-anti-fraud.php:1485
 msgid "PayPal email address has been successfully checked!"
 msgstr "L'indirizzo email collegato a PayPal è stato verificato correttamente!"
 
-#: class.yith-wc-anti-fraud.php:1523 class.yith-wc-anti-fraud.php:1544
-#: class.yith-wc-anti-fraud.php:1559
+#: class.yith-wc-anti-fraud.php:1524 class.yith-wc-anti-fraud.php:1545
+#: class.yith-wc-anti-fraud.php:1560
 msgid "Order Status"
 msgstr "Stato dell' ordine"
 
-#: class.yith-wc-anti-fraud.php:1526
+#: class.yith-wc-anti-fraud.php:1527
 msgid ""
 "In order to complete the order, you have to complete your verification "
 "process by clicking on the link we sent to your PayPal email address."
@@ -114,7 +114,7 @@ msgstr ""
 "autenticazione facendo clic sul link che abbiamo inviato all'indirizzo email "
 "collegato al tuo account PayPal."
 
-#: class.yith-wc-anti-fraud.php:1529
+#: class.yith-wc-anti-fraud.php:1530
 msgid ""
 "If you have not received the verification email, you can ask for a new by "
 "clicking the following button"
@@ -122,11 +122,11 @@ msgstr ""
 "Se non hai ricevuto l'email di verifica, puoi richiederne un'altra facendo "
 "clic su questo pulsante"
 
-#: class.yith-wc-anti-fraud.php:1533
+#: class.yith-wc-anti-fraud.php:1534
 msgid "Re-send email"
 msgstr "Re-invia email"
 
-#: class.yith-wc-anti-fraud.php:1547
+#: class.yith-wc-anti-fraud.php:1548
 msgid ""
 "We could not verify your PayPal email address and therefore your order has "
 "been cancelled. If you think an error has occurred, contact our customer "
@@ -136,7 +136,7 @@ msgstr ""
 "PayPal e di conseguenza il tuo ordine è stato annullato. Se pensi possa "
 "essersi verificato un errore, contatta il nostro servizio di assistenza."
 
-#: class.yith-wc-anti-fraud.php:1562
+#: class.yith-wc-anti-fraud.php:1563
 msgid ""
 "The order has not passed anti-fraud tests, therefore it has been cancelled. "
 "If you think an error has occurred, contact our customer service."
@@ -145,7 +145,7 @@ msgstr ""
 "annullato. Se pensi possa essersi verificato un errore, contatta il nostro "
 "servizio di assistenza."
 
-#: class.yith-wc-anti-fraud.php:1577
+#: class.yith-wc-anti-fraud.php:1578
 msgid ""
 "Files cannot be downloaded because the PayPal verification for this order "
 "has failed!"
@@ -153,7 +153,7 @@ msgstr ""
 "I file non possono essere scaricati perché la verifica PayPal per questo "
 "ordine non è riuscita!"
 
-#: class.yith-wc-anti-fraud.php:1579
+#: class.yith-wc-anti-fraud.php:1580
 msgid ""
 "Files cannot be downloaded because there is a pending PayPal verification "
 "for this order."
@@ -161,11 +161,11 @@ msgstr ""
 "I file non possono essere scaricati perché in attesa di verifica PayPal per "
 "questo ordine."
 
-#: class.yith-wc-anti-fraud.php:1620
+#: class.yith-wc-anti-fraud.php:1621
 msgid "#%s"
 msgstr "#%s"
 
-#: class.yith-wc-anti-fraud.php:1623
+#: class.yith-wc-anti-fraud.php:1624
 msgid ""
 "This file cannot be downloaded because the PayPal verification for the order "
 "%s has failed!"
@@ -173,7 +173,7 @@ msgstr ""
 "Questo file non può essere scaricato perché la verifica PayPal per l'ordine "
 "%s non è riuscita!"
 
-#: class.yith-wc-anti-fraud.php:1625
+#: class.yith-wc-anti-fraud.php:1626
 msgid ""
 "This file cannot be downloaded because there is a pending PayPal "
 "verification for the order %s."
@@ -204,13 +204,15 @@ msgstr "Controllo Anti-Fraud"
 
 #: includes/class-ywaf-admin-notification-email.php:224
 msgid "Recipient(s)"
-msgstr ""
+msgstr "Destinatari"
 
 #: includes/class-ywaf-admin-notification-email.php:227
 msgid ""
 "Enter recipients (comma separated) for this email. Defaults to <code>%s</"
 "code>"
 msgstr ""
+"Inserisci i destinatari, separati dalla virgola, per questa email.  "
+"Predefinito: <code>%s</code>"
 
 #: includes/class-ywaf-admin-notification-email.php:233
 #: includes/class-ywaf-paypal-email.php:260
@@ -220,44 +222,48 @@ msgstr "Tipo di email"
 #: includes/class-ywaf-admin-notification-email.php:237
 #: includes/class-ywaf-paypal-email.php:264
 msgid "Choose which format of email to send."
-msgstr ""
+msgstr "Scegli il formato dell'email da inviare. "
 
 #: includes/class-ywaf-ajax.php:115
 msgid "Email was sent successfully! Please check your mailbox"
 msgstr "Email inviata con successo! Controlla la tua casella di posta"
 
-#: includes/class-ywaf-metabox.php:137
+#: includes/class-ywaf-metabox.php:130
 msgid "Order check was successful!"
 msgstr "Il controllo dell'ordine è stato verificato correttamente!"
 
-#: includes/class-ywaf-metabox.php:145
+#: includes/class-ywaf-metabox.php:138
 msgid "Repeat Check!"
 msgstr "Ripeti il controllo!"
 
-#: includes/class-ywaf-metabox.php:168
+#: includes/class-ywaf-metabox.php:161
 msgid "This order is currently in queue for a fraud risk check."
 msgstr ""
 "L'ordine è momentaneamente in coda per un controllo sul rischio di frode."
 
-#: includes/class-ywaf-metabox.php:174
+#: includes/class-ywaf-metabox.php:167
 msgid "This order is currently waiting for a PayPal verification."
 msgstr "Questo ordine è in attesa di verifica da parte di PayPal."
 
-#: includes/class-ywaf-metabox.php:178
+#: includes/class-ywaf-metabox.php:171
 msgid "Re-send verification request"
 msgstr "Reinvia richiesta di verifica"
 
-#: includes/class-ywaf-metabox.php:184
+#: includes/class-ywaf-metabox.php:177
 msgid "Press the button to start a fraud risk check"
 msgstr "Premi il pulsante per iniziare il controllo sul rischio di frode"
 
-#: includes/class-ywaf-metabox.php:187
+#: includes/class-ywaf-metabox.php:180
 msgid "Start checking!"
 msgstr "Inizia il controllo!"
 
+#: includes/class-ywaf-metabox.php:214
+msgid "See Geolocation data"
+msgstr "Vedi dati geolocalizzazione"
+
 #: includes/class-ywaf-paypal-email.php:47
 msgid "Anti-Fraud PayPal Verification"
-msgstr ""
+msgstr "Verifica antifrode di PayPal"
 
 #: includes/class-ywaf-paypal-email.php:238
 msgid "Email subject"
@@ -266,7 +272,7 @@ msgstr "Oggetto email"
 #: includes/class-ywaf-paypal-email.php:240
 #: includes/class-ywaf-paypal-email.php:249
 msgid "Available placeholders: %s"
-msgstr ""
+msgstr "Segnaposto disponibili: %s"
 
 #: includes/class-ywaf-paypal-email.php:242
 msgid "[{site_title}] Confirm your PayPal email address"
@@ -318,7 +324,7 @@ msgstr "L'indirizzo email è verificato"
 
 #: includes/rules/class-ywaf-address-blacklist.php:42
 msgid "Billing and/or shipping address is blacklisted!"
-msgstr ""
+msgstr "L'indirizzo di fatturazione e/o spedizione è nella blacklist!"
 
 #: includes/rules/class-ywaf-addresses-matching.php:37
 msgid "Billing address and shipping address do not match."
@@ -394,19 +400,19 @@ msgstr "Ogni 5 minuti"
 
 #: plugin-options/address-blacklist-options.php:20
 msgid "Addresses blacklist settings"
-msgstr ""
+msgstr "Impostazioni indirizzi in blacklist"
 
 #: plugin-options/address-blacklist-options.php:24
 msgid "Enable address blacklist"
-msgstr ""
+msgstr "Abilita la blacklist per gli indirizzi"
 
 #: plugin-options/address-blacklist-options.php:31
 msgid "Percentage of similarity"
-msgstr ""
+msgstr "Percentuale di somiglianza"
 
 #: plugin-options/address-blacklist-options.php:32
 msgid "Similarity threshold with stored addresses"
-msgstr ""
+msgstr "Soglia di somiglianza con gli indirizzi memorizzati"
 
 #: plugin-options/address-blacklist-options.php:39
 #: plugin-options/blacklist-options.php:31
@@ -418,14 +424,17 @@ msgid ""
 "Add billing and shipping addresses of orders reported with a high risk of "
 "fraud to blacklist automatically"
 msgstr ""
+"Aggiungi immediatamente alla blacklist gli indirizzi di fatturazione e "
+"spedizione degli ordini segnalati come ad alto rischio di frode"
 
 #: plugin-options/address-blacklist-options.php:52
 msgid "Blacklisted addresses"
-msgstr ""
+msgstr "Indirizzi in blacklist"
 
 #: plugin-options/address-blacklist-options.php:56
 msgid "The following billing and/or shipping addresses are not safe."
 msgstr ""
+"Gli indirizzi di fatturazione e/o spedizione seguenti non sono sicuri. "
 
 #: plugin-options/address-blacklist-options.php:57
 #: plugin-options/blacklist-options.php:50
@@ -435,7 +444,7 @@ msgstr "Inserisci un indirizzo email&hellip;"
 
 #: plugin-options/blacklist-options.php:20
 msgid "Email blacklist settings"
-msgstr ""
+msgstr "Impostazioni email blacklist"
 
 #: plugin-options/blacklist-options.php:24
 msgid "Enable email blacklist"
@@ -482,7 +491,7 @@ msgstr ""
 
 #: plugin-options/general-options.php:199
 msgid "Edit the admin email options"
-msgstr ""
+msgstr "Modifica le opzioni email dell'amministratore"
 
 #: plugin-options/general-options.php:213
 msgid "Settings for risk thresholds"
@@ -498,28 +507,34 @@ msgstr "Soglia del livello di rischio alto"
 
 #: plugin-options/general-options.php:241
 msgid "Check for high risk at checkout"
-msgstr ""
+msgstr "Verifica di rischio alto al checkout"
 
 #: plugin-options/general-options.php:245
 msgid ""
 "Check for high risk order before validating checkout. If there's an high "
 "risk the order will be immediately cancelled"
 msgstr ""
+"Controllo di ordine ad alto rischio prima della validazione del checkout. "
+"Gli ordini a rischio alto saranno annullati immediatamente"
 
 #: plugin-options/general-options.php:249
 msgid "Error message"
-msgstr ""
+msgstr "Messaggio di errore"
 
 #: plugin-options/general-options.php:252
 msgid ""
 "The message that the customer will display in case of validation failure"
 msgstr ""
+"Il messaggio che verrà mostrato al cliente nel caso di validazione non "
+"riuscita"
 
 #: plugin-options/general-options.php:254
 msgid ""
 "Sorry, your order cannot be processed. If the issue persists please contact "
 "us."
 msgstr ""
+"Spiacenti, non è stato possibile elaborare il tuo ordine. Se il problema "
+"persiste, ti invitiamo a contattarci."
 
 #: plugin-options/general-options.php:269
 msgid "Rule settings"
@@ -559,6 +574,8 @@ msgid ""
 "- you can change it from 1 to 20 depending on the weight you want to "
 "designate)"
 msgstr ""
+"Peso della singola regola nel calcolo totale del rischio. (Valore normale: "
+"10 - puoi cambiare il valore da 1 a 20 in base al peso che vuoi assegnare)"
 
 #: plugin-options/general-options.php:301
 msgid "Enable international order check"
@@ -692,7 +709,7 @@ msgstr ""
 
 #: plugin-options/paypal-options.php:48
 msgid "Edit the PayPal email options"
-msgstr ""
+msgstr "Modifica le opzioni dell'email PayPal"
 
 #: plugin-options/paypal-options.php:58
 msgid "Time span before further attempts"
@@ -728,35 +745,35 @@ msgstr "Indirizzi email verificati"
 
 #: templates/admin/ywaf-address-list.php:24
 msgid "Address 1"
-msgstr ""
+msgstr "Indirizzo 1"
 
 #: templates/admin/ywaf-address-list.php:25
 msgid "Address 2"
-msgstr ""
+msgstr "Indirizzo 2"
 
 #: templates/admin/ywaf-address-list.php:26
 msgid "City"
-msgstr ""
+msgstr "Città"
 
 #: templates/admin/ywaf-address-list.php:27
 msgid "Postcode"
-msgstr ""
+msgstr "Codice postale"
 
 #: templates/admin/ywaf-address-list.php:28
 msgid "Country code"
-msgstr ""
+msgstr "Paese"
 
 #: templates/admin/ywaf-address-list.php:29
 msgid "State/Province code"
-msgstr ""
+msgstr "Provincia"
 
 #: templates/admin/ywaf-address-list.php:58
 msgid "Add new address"
-msgstr ""
+msgstr "Aggiungi nuovo indirizzo"
 
 #: templates/admin/ywaf-address-list.php:60
 msgid "Remove selected address(es)"
-msgstr ""
+msgstr "Elimina gli indirizzi selezionati"
 
 #: templates/emails/admin-email.php:47
 #: templates/emails/plain/admin-email.php:33
@@ -817,7 +834,7 @@ msgstr ""
 "com/\" target=\"_blank\">Scopri più plugin per il tuo e-commerce su "
 "<strong>YITH</strong></a>"
 
-#: class.yith-wc-anti-fraud.php:1194
+#: class.yith-wc-anti-fraud.php:1195
 msgctxt "plugin name in admin page title"
 msgid "Anti-Fraud"
 msgstr "Anti-Fraud"

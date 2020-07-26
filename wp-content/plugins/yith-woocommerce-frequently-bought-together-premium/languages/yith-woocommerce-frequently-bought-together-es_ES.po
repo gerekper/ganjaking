@@ -5,84 +5,67 @@ msgstr ""
 "Project-Id-Version: YITH WooCommerce Frequently Bought Together\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
 "frequently-bought-together-premium\n"
-"POT-Creation-Date: 2020-06-01 13:27:21+00:00\n"
+"POT-Creation-Date: 2020-07-16 12:59:32+00:00\n"
 "PO-Revision-Date: 2020-05-30 17:37:23+0000\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/2.3.1\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
 
-#: includes/admin-tables/class.yith-wfbt-linked-table.php:41
 #: includes/admin-tables/class.yith-wfbt-products-table.php:41
 msgid "Product"
 msgstr "Producto"
 
-#: includes/admin-tables/class.yith-wfbt-linked-table.php:42
-msgid "Variation"
-msgstr "Variación"
-
-#: includes/admin-tables/class.yith-wfbt-linked-table.php:43
 #: includes/admin-tables/class.yith-wfbt-products-table.php:42
-msgid "Thumbnail"
-msgstr "Miniatura"
+#, fuzzy
+msgid "Linked products"
+msgstr "Productos relacionados"
 
-#: includes/admin-tables/class.yith-wfbt-linked-table.php:44
-msgid "Stock Status"
-msgstr "Estado de stock"
-
-#: includes/admin-tables/class.yith-wfbt-linked-table.php:45
-#: includes/admin-tables/class.yith-wfbt-products-table.php:44
+#: includes/admin-tables/class.yith-wfbt-products-table.php:43
 msgid "Actions"
 msgstr "Acciones"
 
-#: includes/admin-tables/class.yith-wfbt-linked-table.php:77
-#: includes/admin-tables/class.yith-wfbt-products-table.php:76
+#: includes/admin-tables/class.yith-wfbt-products-table.php:70
 msgid "Edit product"
 msgstr "Editar producto"
 
-#: includes/admin-tables/class.yith-wfbt-linked-table.php:129
-#: includes/admin-tables/class.yith-wfbt-linked-table.php:156
-#: includes/admin-tables/class.yith-wfbt-products-table.php:143
-msgid "Delete"
-msgstr "Borrar"
-
-#: includes/admin-tables/class.yith-wfbt-linked-table.php:253
-#: includes/admin-tables/class.yith-wfbt-products-table.php:242
-msgid "No items found."
-msgstr "No se han encontrado artículos."
-
-#: includes/admin-tables/class.yith-wfbt-products-table.php:43
-msgid "Amount of linked products"
-msgstr "Cantidad de productos relacionados"
-
-#: includes/admin-tables/class.yith-wfbt-products-table.php:105
+#: includes/admin-tables/class.yith-wfbt-products-table.php:100
 msgid "Delete All"
 msgstr "Borrar todo"
 
-#: includes/admin-tables/class.yith-wfbt-products-table.php:114
-msgid "View Linked"
-msgstr "Ver relacionados"
+#: includes/admin-tables/class.yith-wfbt-products-table.php:127
+msgid "Delete"
+msgstr "Borrar"
 
-#: includes/class.yith-wfbt-admin.php:186
+#: includes/admin-tables/class.yith-wfbt-products-table.php:226
+msgid "No items found."
+msgstr "No se han encontrado artículos."
+
+#: includes/class.yith-wfbt-admin.php:176
 msgid "Settings"
 msgstr "Ajustes"
 
-#: includes/class.yith-wfbt-admin.php:187
+#: includes/class.yith-wfbt-admin.php:177
+#, fuzzy
+msgid "Label & Style"
+msgstr "Opciones de etiquetas y estilo"
+
+#: includes/class.yith-wfbt-admin.php:178
 #: includes/compatibility/yith-woocommerce-product-vendors.php:135
 msgid "Linked Products"
 msgstr "Productos relacionados"
 
-#: includes/class.yith-wfbt-admin.php:191
+#: includes/class.yith-wfbt-admin.php:182
 msgid "Slider in Wishlist"
 msgstr "Slider en la Lista de deseos"
 
-#: includes/class.yith-wfbt-admin.php:300
+#: includes/class.yith-wfbt-admin.php:291
 msgid "Hard Crop?"
 msgstr "¿Recortar?"
 
-#: includes/class.yith-wfbt-admin.php:779
+#: includes/class.yith-wfbt-admin.php:786
 msgid ""
 "You must enable coupons in order to use the plugin discount feature. Please "
 "enable it <a href=\"%s\">here.</a>"
@@ -90,7 +73,7 @@ msgstr ""
 "Debes activar los cupones para poder usar la característica de descuento del "
 "plugin. Por favor, actívalo <a href=\"%s\">aquí.</a>"
 
-#: includes/class.yith-wfbt-frontend.php:180
+#: includes/class.yith-wfbt-frontend.php:184
 msgid ""
 "Sorry, no products matched your selection. Please choose a different "
 "combination."
@@ -98,30 +81,35 @@ msgstr ""
 "Lo siento, no hay productos que coincidan con tu selección. Por favor, "
 "escoge una diferente combinación."
 
-#: includes/class.yith-wfbt-frontend.php:181
+#: includes/class.yith-wfbt-frontend.php:185
 msgid ""
 "Please select some product options before adding this product to your cart."
 msgstr ""
 "Por favor, selecciona algunas opciones de producto antes de añadir este "
 "producto a tu carrito."
 
-#: includes/class.yith-wfbt-frontend.php:182
+#: includes/class.yith-wfbt-frontend.php:186
 msgid ""
 "Sorry, this product is unavailable. Please choose a different combination."
 msgstr ""
 "Lo siento, este producto no está disponible. Por favor, elige una "
 "combinación diferente."
 
-#: includes/class.yith-wfbt-frontend.php:378
-#: includes/class.yith-wfbt-frontend.php:576
-#: plugin-options/general-options.php:171
-msgid "Choose your product"
-msgstr "Elige tu producto"
+#: includes/class.yith-wfbt-frontend.php:413
+#: includes/class.yith-wfbt-frontend.php:611
+#: plugin-options/label-style-options.php:95
+#, fuzzy
+msgid "View options >"
+msgstr "Opciones del Slider"
 
-#: includes/class.yith-wfbt-frontend.php:571
+#: includes/class.yith-wfbt-frontend.php:606
 #: plugin-options/general-options.php:23
 msgid "Frequently Bought Together"
 msgstr "Comprados juntos con frecuencia"
+
+#: includes/class.yith-wfbt-frontend.php:675
+msgid "Close"
+msgstr "Cerrar"
 
 #: includes/class.yith-wfbt.php:316 includes/class.yith-wfbt.php:375
 #: includes/class.yith-wfbt.php:421
@@ -227,231 +215,15 @@ msgstr "Imagen de carga"
 msgid "Upload a custom loading image."
 msgstr "Sube una imagen de carga personalizada."
 
-#: plugin-options/general-options.php:87
-msgid "Labels and Style Options"
-msgstr "Opciones de etiquetas y estilo"
-
-#: plugin-options/general-options.php:95
-msgid "Total label for single product"
-msgstr "Etiqueta de total para un solo producto"
-
-#: plugin-options/general-options.php:96
-msgid ""
-"This is the text shown for total price label when only one product has been "
-"checked."
-msgstr ""
-"Este es el texto que se muestra para la etiqueta de precio total cuando sólo "
-"se ha marcado un producto."
-
-#: plugin-options/general-options.php:99
-msgid "Price"
-msgstr "Precio"
-
-#: plugin-options/general-options.php:104
-msgid "Total label for double products"
-msgstr "Etiqueta de total para dos productos"
-
-#: plugin-options/general-options.php:105
-msgid ""
-"This is the text shown for total price label when two products have been "
-"checked."
-msgstr ""
-"Este es el texto que se muestra para la etiqueta de precio total cuando se "
-"han marcado dos productos."
-
-#: plugin-options/general-options.php:108
-msgid "Price for both"
-msgstr "Precio de ambos"
-
-#: plugin-options/general-options.php:113
-msgid "Total label for three products"
-msgstr "Etiqueta de total para tres productos"
-
-#: plugin-options/general-options.php:114
-msgid ""
-"This is the text shown for total price label when three products have been "
-"checked."
-msgstr ""
-"Este es el texto que se muestra para la etiqueta del precio total cuando se "
-"han marcado los tres productos."
-
-#: plugin-options/general-options.php:117
-msgid "Price for all three"
-msgstr "Precio de los tres"
-
-#: plugin-options/general-options.php:122
-msgid "Total label for multiple products"
-msgstr "Etiqueta de total para múltiples productos"
-
-#: plugin-options/general-options.php:123
-msgid ""
-"This is the label shown for total price label when more than three products "
-"have been checked."
-msgstr ""
-"Esta es la etiqueta que se muestra para el precio total cuando se han "
-"marcado más de tres productos."
-
-#: plugin-options/general-options.php:126
-msgid "Price for all"
-msgstr "Precio de todos"
-
-#: plugin-options/general-options.php:131
-msgid "Button label for single product"
-msgstr "Etiqueta del botón para un solo producto"
-
-#: plugin-options/general-options.php:132
-msgid ""
-"This is the label shown for \"Add to cart\" button when only one product has "
-"been checked."
-msgstr ""
-"Esta es la etiqueta que se muestra en el botón \"Añadir al carrito\" cuando "
-"sólo se ha marcado un producto."
-
-#: plugin-options/general-options.php:135
-msgid "Add to Cart"
-msgstr "Añadir al carrito"
-
-#: plugin-options/general-options.php:140
-msgid "Button label for two products"
-msgstr "Etiqueta del botón para dos productos"
-
-#: plugin-options/general-options.php:141
-msgid ""
-"This is the label shown for \"Add to cart\" button when two products have "
-"been checked."
-msgstr ""
-"Esta es la etiqueta que se muestra para el botón \"Añadir al carrito\" "
-"cuando se han marcado dos productos."
-
-#: plugin-options/general-options.php:144
-msgid "Add both to Cart"
-msgstr "Añadir ambos al carrito"
-
-#: plugin-options/general-options.php:149
-msgid "Button label for three products"
-msgstr "Etiqueta del botón para tres productos"
-
-#: plugin-options/general-options.php:150
-msgid ""
-"This is the label shown for \"Add to cart\" button when three products have "
-"been checked."
-msgstr ""
-"Esta es la etiqueta que se muestra para el botón de \"Añadir al carrito\" "
-"cuando se han marcado tres productos."
-
-#: plugin-options/general-options.php:153
-msgid "Add all three to Cart"
-msgstr "Añadir los tres al carrito"
-
-#: plugin-options/general-options.php:158
-msgid "Button label for multiple products"
-msgstr "Etiqueta del botón para múltiples productos"
-
-#: plugin-options/general-options.php:159
-msgid ""
-"This is the label shown for \"Add to cart\" button when more than two "
-"products have been checked."
-msgstr ""
-"Esta es la etiqueta que se muestra en el botón \"Añadir al carrito\" cuando "
-"se han marcado más de dos productos."
-
-#: plugin-options/general-options.php:162
-msgid "Add all to Cart"
-msgstr "Añadir todo al carrito"
-
-#: plugin-options/general-options.php:167
-msgid "Variation pick button label"
-msgstr "Etiqueta de botón Escoger variación"
-
-#: plugin-options/general-options.php:168
-msgid ""
-"This is the text of the button that opens the popup to select the product "
-"variation"
-msgstr ""
-"Este es el texto del botón que abre la ventana emergente para seleccionar la "
-"variación de producto"
-
-#: plugin-options/general-options.php:176
-msgid "Popup title"
-msgstr "Título del ventana emergente"
-
-#: plugin-options/general-options.php:177
-msgid ""
-"This is the title of the popup where users can select the product variation"
-msgstr ""
-"Este es el título de la ventana emergente donde los usuarios pueden "
-"selecciona la variación de producto"
-
-#: plugin-options/general-options.php:180
-#: templates/yith-wfbt-dialog-variations.php:14
-msgid "Choose the product"
-msgstr "Elige el producto"
-
-#: plugin-options/general-options.php:185
-msgid "Popup button label"
-msgstr "Etiqueta de botón de la ventana emergente"
-
-#: plugin-options/general-options.php:186
-msgid "This is the text of the \"Add to cart\" button in the popup"
-msgstr ""
-"Este es el texto del botón ‘’Añadir al carrito’’ en la ventana emergente"
-
-#: plugin-options/general-options.php:189
-#: templates/yith-wfbt-dialog-variations.php:15
-msgid "Add product"
-msgstr "Añadir producto"
-
-#: plugin-options/general-options.php:194
-msgid "Form Background Color"
-msgstr "Color de fondo del formulario"
-
-#: plugin-options/general-options.php:195
-msgid "Select background color for Frequently Bought form"
-msgstr ""
-"Selecciona el color de fondo del formulario de Comprados juntos con "
-"frecuencia"
-
-#: plugin-options/general-options.php:203
-msgid "Button Color"
-msgstr "Color del botón"
-
-#: plugin-options/general-options.php:204
-msgid "Select button background color"
-msgstr "Seleccionar color de fondo del botón"
-
-#: plugin-options/general-options.php:212
-msgid "Button Hover Color"
-msgstr "Color del botón en hover"
-
-#: plugin-options/general-options.php:213
-msgid "Select button background hover color"
-msgstr "Selecciona un color de fondo en hover para el botón"
-
-#: plugin-options/general-options.php:221
-msgid "Button Text Color"
-msgstr "Color del texto del botón"
-
-#: plugin-options/general-options.php:222
-msgid "Select button text color"
-msgstr "Selecciona el color del texto del botón en hover"
-
-#: plugin-options/general-options.php:230
-msgid "Button Text Hover Color"
-msgstr "Color del texto del botón en hover"
-
-#: plugin-options/general-options.php:231
-msgid "Select button text hover color"
-msgstr "Selecciona el color del texto del botón en hover"
-
-#: plugin-options/general-options.php:247
+#: plugin-options/general-options.php:90
 msgid "WPML Options"
 msgstr "Opciones WPML"
 
-#: plugin-options/general-options.php:253
+#: plugin-options/general-options.php:96
 msgid "WPML Associated Products"
 msgstr "Productos asociados WPML"
 
-#: plugin-options/general-options.php:256
+#: plugin-options/general-options.php:99
 msgid ""
 "Inherit \"frequently bought together\" products from original language "
 "products."
@@ -459,20 +231,237 @@ msgstr ""
 "Heredar productos \"comparados frecuentemente juntos“ a partir de productos "
 "de idiomas originales."
 
-#: plugin-options/general-options.php:268
+#: plugin-options/general-options.php:111
 msgid "YITH WooCommerce Multi Vendor Options"
 msgstr "Opciones de YITH WooCommerce Multi Vendor"
 
-#: plugin-options/general-options.php:274
+#: plugin-options/general-options.php:117
 msgid "Vendor Products"
 msgstr "Productos de los vendedores"
 
-#: plugin-options/general-options.php:277
+#: plugin-options/general-options.php:120
 msgid ""
 "Allow vendor also add products of other vendors to frequently bought form."
 msgstr ""
 "Permitir al vendedor añadir también productos de otros vendedores al "
 "formulario de frecuentemente comprados."
+
+#: plugin-options/label-style-options.php:11
+#, fuzzy
+msgid "Label and Style Options"
+msgstr "Opciones de etiquetas y estilo"
+
+#: plugin-options/label-style-options.php:19
+msgid "Total label for single product"
+msgstr "Etiqueta de total para un solo producto"
+
+#: plugin-options/label-style-options.php:20
+msgid ""
+"This is the text shown for total price label when only one product has been "
+"checked."
+msgstr ""
+"Este es el texto que se muestra para la etiqueta de precio total cuando sólo "
+"se ha marcado un producto."
+
+#: plugin-options/label-style-options.php:23
+msgid "Price"
+msgstr "Precio"
+
+#: plugin-options/label-style-options.php:28
+msgid "Total label for double products"
+msgstr "Etiqueta de total para dos productos"
+
+#: plugin-options/label-style-options.php:29
+msgid ""
+"This is the text shown for total price label when two products have been "
+"checked."
+msgstr ""
+"Este es el texto que se muestra para la etiqueta de precio total cuando se "
+"han marcado dos productos."
+
+#: plugin-options/label-style-options.php:32
+msgid "Price for both"
+msgstr "Precio de ambos"
+
+#: plugin-options/label-style-options.php:37
+msgid "Total label for three products"
+msgstr "Etiqueta de total para tres productos"
+
+#: plugin-options/label-style-options.php:38
+msgid ""
+"This is the text shown for total price label when three products have been "
+"checked."
+msgstr ""
+"Este es el texto que se muestra para la etiqueta del precio total cuando se "
+"han marcado los tres productos."
+
+#: plugin-options/label-style-options.php:41
+msgid "Price for all three"
+msgstr "Precio de los tres"
+
+#: plugin-options/label-style-options.php:46
+msgid "Total label for multiple products"
+msgstr "Etiqueta de total para múltiples productos"
+
+#: plugin-options/label-style-options.php:47
+msgid ""
+"This is the label shown for total price label when more than three products "
+"have been checked."
+msgstr ""
+"Esta es la etiqueta que se muestra para el precio total cuando se han "
+"marcado más de tres productos."
+
+#: plugin-options/label-style-options.php:50
+msgid "Price for all"
+msgstr "Precio de todos"
+
+#: plugin-options/label-style-options.php:55
+msgid "Button label for single product"
+msgstr "Etiqueta del botón para un solo producto"
+
+#: plugin-options/label-style-options.php:56
+msgid ""
+"This is the label shown for \"Add to cart\" button when only one product has "
+"been checked."
+msgstr ""
+"Esta es la etiqueta que se muestra en el botón \"Añadir al carrito\" cuando "
+"sólo se ha marcado un producto."
+
+#: plugin-options/label-style-options.php:59
+msgid "Add to Cart"
+msgstr "Añadir al carrito"
+
+#: plugin-options/label-style-options.php:64
+msgid "Button label for two products"
+msgstr "Etiqueta del botón para dos productos"
+
+#: plugin-options/label-style-options.php:65
+msgid ""
+"This is the label shown for \"Add to cart\" button when two products have "
+"been checked."
+msgstr ""
+"Esta es la etiqueta que se muestra para el botón \"Añadir al carrito\" "
+"cuando se han marcado dos productos."
+
+#: plugin-options/label-style-options.php:68
+msgid "Add both to Cart"
+msgstr "Añadir ambos al carrito"
+
+#: plugin-options/label-style-options.php:73
+msgid "Button label for three products"
+msgstr "Etiqueta del botón para tres productos"
+
+#: plugin-options/label-style-options.php:74
+msgid ""
+"This is the label shown for \"Add to cart\" button when three products have "
+"been checked."
+msgstr ""
+"Esta es la etiqueta que se muestra para el botón de \"Añadir al carrito\" "
+"cuando se han marcado tres productos."
+
+#: plugin-options/label-style-options.php:77
+msgid "Add all three to Cart"
+msgstr "Añadir los tres al carrito"
+
+#: plugin-options/label-style-options.php:82
+msgid "Button label for multiple products"
+msgstr "Etiqueta del botón para múltiples productos"
+
+#: plugin-options/label-style-options.php:83
+msgid ""
+"This is the label shown for \"Add to cart\" button when more than two "
+"products have been checked."
+msgstr ""
+"Esta es la etiqueta que se muestra en el botón \"Añadir al carrito\" cuando "
+"se han marcado más de dos productos."
+
+#: plugin-options/label-style-options.php:86
+msgid "Add all to Cart"
+msgstr "Añadir todo al carrito"
+
+#: plugin-options/label-style-options.php:91
+msgid "Variation pick button label"
+msgstr "Etiqueta de botón Escoger variación"
+
+#: plugin-options/label-style-options.php:92
+msgid ""
+"This is the text of the button that opens the popup to select the product "
+"variation"
+msgstr ""
+"Este es el texto del botón que abre la ventana emergente para seleccionar la "
+"variación de producto"
+
+#: plugin-options/label-style-options.php:100
+msgid "Popup title"
+msgstr "Título del ventana emergente"
+
+#: plugin-options/label-style-options.php:101
+msgid ""
+"This is the title of the popup where users can select the product variation"
+msgstr ""
+"Este es el título de la ventana emergente donde los usuarios pueden "
+"selecciona la variación de producto"
+
+#: plugin-options/label-style-options.php:104
+#: templates/yith-wfbt-dialog-variations.php:14
+msgid "Choose the product"
+msgstr "Elige el producto"
+
+#: plugin-options/label-style-options.php:109
+msgid "Popup button label"
+msgstr "Etiqueta de botón de la ventana emergente"
+
+#: plugin-options/label-style-options.php:110
+msgid "This is the text of the \"Add to cart\" button in the popup"
+msgstr ""
+"Este es el texto del botón ‘’Añadir al carrito’’ en la ventana emergente"
+
+#: plugin-options/label-style-options.php:113
+#: templates/yith-wfbt-dialog-variations.php:15
+msgid "Add product"
+msgstr "Añadir producto"
+
+#: plugin-options/label-style-options.php:118
+msgid "Form Background Color"
+msgstr "Color de fondo del formulario"
+
+#: plugin-options/label-style-options.php:119
+msgid "Select background color for Frequently Bought form"
+msgstr ""
+"Selecciona el color de fondo del formulario de Comprados juntos con "
+"frecuencia"
+
+#: plugin-options/label-style-options.php:127
+msgid "Button Color"
+msgstr "Color del botón"
+
+#: plugin-options/label-style-options.php:128
+msgid "Select button background color"
+msgstr "Seleccionar color de fondo del botón"
+
+#: plugin-options/label-style-options.php:136
+msgid "Button Hover Color"
+msgstr "Color del botón en hover"
+
+#: plugin-options/label-style-options.php:137
+msgid "Select button background hover color"
+msgstr "Selecciona un color de fondo en hover para el botón"
+
+#: plugin-options/label-style-options.php:145
+msgid "Button Text Color"
+msgstr "Color del texto del botón"
+
+#: plugin-options/label-style-options.php:146
+msgid "Select button text color"
+msgstr "Selecciona el color del texto del botón en hover"
+
+#: plugin-options/label-style-options.php:154
+msgid "Button Text Hover Color"
+msgstr "Color del texto del botón en hover"
+
+#: plugin-options/label-style-options.php:155
+msgid "Select button text hover color"
+msgstr "Selecciona el color del texto del botón en hover"
 
 #: plugin-options/product-data-options.php:11
 msgid "Select default variation"
@@ -681,19 +670,7 @@ msgstr "Selecciona al menos un producto que tiene que borrarse."
 msgid "Selected products have been removed."
 msgstr "Los productos seleccionados tienen que borrarse."
 
-#: templates/admin/data-table.php:37
-msgid "Linked products for %s"
-msgstr "Productos relacionados con %s"
-
 #: templates/admin/data-table.php:46
-msgid "Go back to main list of products"
-msgstr "Volver a la lista principal de productos"
-
-#: templates/admin/data-table.php:48
-msgid "List of products"
-msgstr "Lista de productos"
-
-#: templates/admin/data-table.php:70
 msgid "Search Product"
 msgstr "Buscar producto"
 
@@ -701,13 +678,9 @@ msgstr "Buscar producto"
 msgid "Search for a product&hellip;"
 msgstr "Buscar un producto&hellip;"
 
-#: templates/yith-wfbt-form.php:106
+#: templates/yith-wfbt-form.php:113
 msgid "This Product"
 msgstr "Este producto"
-
-#: templates/yith-wfbt-form.php:132
-msgid "Close"
-msgstr "Cerrar"
 
 #. Description of the plugin/theme
 msgid ""
@@ -725,17 +698,23 @@ msgstr ""
 "Amazon. <a href=\"https://yithemes.com/\" target=\"_blank\">Obtén más "
 "plugins para tu comercio electrónico en <strong>YITH</strong></a>."
 
-#: includes/class.yith-wfbt-admin.php:197
+#: includes/class.yith-wfbt-admin.php:188
 msgctxt "plugin name in admin page title"
 msgid "YITH WooCommerce Frequently Bought Together"
 msgstr "YITH WooCommerce Frequently Bought Together"
 
-#: includes/class.yith-wfbt-admin.php:198
+#: includes/class.yith-wfbt-admin.php:189
 msgctxt "plugin name in admin WP menu"
 msgid "Frequently Bought Together"
 msgstr "Frequently Bought Together"
 
-#: includes/class.yith-wfbt-admin.php:368
+#: includes/class.yith-wfbt-admin.php:330
+#, fuzzy
+msgctxt "Delete single linked product"
+msgid "Delete"
+msgstr "Borrar"
+
+#: includes/class.yith-wfbt-admin.php:366
 msgctxt "tab in product data box"
 msgid "Frequently Bought Together"
 msgstr "Frequently Bought Together"
@@ -775,3 +754,30 @@ msgstr ""
 
 #~ msgid "YITH WooCommerce Frequently Bought Together Premium"
 #~ msgstr "YITH WooCommerce Frequently Bought Together Premium"
+
+#~ msgid "List of products"
+#~ msgstr "Lista de productos"
+
+#~ msgid "Go back to main list of products"
+#~ msgstr "Volver a la lista principal de productos"
+
+#~ msgid "Linked products for %s"
+#~ msgstr "Productos relacionados con %s"
+
+#~ msgid "Choose your product"
+#~ msgstr "Elige tu producto"
+
+#~ msgid "View Linked"
+#~ msgstr "Ver relacionados"
+
+#~ msgid "Amount of linked products"
+#~ msgstr "Cantidad de productos relacionados"
+
+#~ msgid "Stock Status"
+#~ msgstr "Estado de stock"
+
+#~ msgid "Thumbnail"
+#~ msgstr "Miniatura"
+
+#~ msgid "Variation"
+#~ msgstr "Variación"

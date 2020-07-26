@@ -1886,15 +1886,21 @@ class GFFormDisplay {
 	 * Determines if the supplied field is suitable for validation.
 	 *
 	 * @since 2.4.19
+	 * @since 2.4.20 Added the second param.
 	 *
-	 * @param GF_Field $field The field being processed.
+	 * @param GF_Field $field           The field being processed.
+	 * @param bool     $type_check_only Indicates if only the field type property should be evaluated.
 	 *
 	 * @return bool
 	 */
-	public static function is_field_validation_supported( $field ) {
-		$invalid_types = array( 'html', 'page', 'section' );
+	public static function is_field_validation_supported( $field, $type_check_only = false ) {
+		$is_valid_type = ! in_array( $field->type, array( 'html', 'page', 'section' ) );
 
-		return ! ( in_array( $field->type, $invalid_types ) || $field->is_administrative() || $field->visibility === 'hidden' );
+		if ( ! $is_valid_type || $type_check_only ) {
+			return $is_valid_type;
+		}
+
+		return ! ( $field->is_administrative() || $field->visibility === 'hidden' );
 	}
 
 	/**
@@ -1910,7 +1916,7 @@ class GFFormDisplay {
 	public static function is_form_empty( $form ) {
 
 		foreach ( $form['fields'] as $field ) {
-			if ( self::is_field_validation_supported( $field ) && ! $field->is_field_hidden && ! self::is_empty( $field, $form['id'] ) ) {
+			if ( self::is_field_validation_supported( $field, true ) && ! $field->is_field_hidden && ! self::is_empty( $field, $form['id'] ) ) {
 				return false;
 			}
 		}

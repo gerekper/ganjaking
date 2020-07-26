@@ -2718,8 +2718,20 @@ body {
   box-sizing: border-box; }
 
 .gm-navbar a,
+.gm-navbar a:hover,
+.gm-navbar a:focus,
+.gm-navbar a:active,
+.gm-navbar a:visited,
 .gm-main-menu-wrapper a,
-.gm-navigation-drawer a {
+.gm-main-menu-wrapper a:hover,
+.gm-main-menu-wrapper a:focus,
+.gm-main-menu-wrapper a:active,
+.gm-main-menu-wrapper a:visited,
+.gm-navigation-drawer a,
+.gm-navigation-drawer a:hover,
+.gm-navigation-drawer a:focus,
+.gm-navigation-drawer a:active,
+.gm-navigation-drawer a:visited {
   text-decoration: none;
   transition: none; }
 
@@ -3039,6 +3051,29 @@ GROOVY CART
 
 .gm-main-menu-wrapper .gm-minicart-icon-wrapper > .gm-minicart__txt {
   font-size: 11px; }
+
+.gm-menu-actions-wrapper .gm-minicart {
+  margin: auto 0; }
+
+.gm-menu-actions-wrapper .gm-minicart > .gm-minicart-link {
+  position: relative;
+  font-size: 18px; }
+
+.gm-menu-actions-wrapper .gm-minicart > .gm-minicart-link .gm-badge > .gm-cart-counter {
+  position: absolute;
+  top: -16px;
+  right: -28px;
+  display: block;
+  width: 26px;
+  height: 26px;
+  transition: top 0.2s;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 26px; }
+
+.gm-menu-actions-wrapper .gm-minicart > .gm-minicart-link .gm-badge > .gm-cart-counter:empty {
+  display: none; }
 
 .gm-navbar--align-right .gm-main-menu-wrapper .gm-minicart .gm-minicart-dropdown {
   position: absolute;
@@ -3387,6 +3422,10 @@ NAVBAR GENERAL STYLES
   font-size: 100%;
   vertical-align: baseline;
   background: none; }
+
+.gm-navbar .gm-menu-actions-wrapper {
+  display: flex;
+  margin: 0 32px; }
 
 .gm-inner {
   position: relative;

@@ -725,8 +725,6 @@ jQuery(document).ready(function ($) {
                         $new_image = $current_image.attr('src');
                     }
 
-                    console.log( 'new_image: ' + $new_image );
-
                 } else { // Add-on image
                     $current_image = current_group_container.find('.ywapo_product_option_image > img');
 

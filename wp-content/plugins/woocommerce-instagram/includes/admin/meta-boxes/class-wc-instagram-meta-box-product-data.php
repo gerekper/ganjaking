@@ -21,9 +21,36 @@ class WC_Instagram_Meta_Box_Product_Data {
 	 * @since 2.0.0
 	 */
 	public function __construct() {
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 		add_filter( 'woocommerce_product_data_tabs', array( $this, 'product_data_tabs' ) );
 		add_action( 'woocommerce_product_data_panels', array( $this, 'product_data_panels' ) );
 		add_action( 'woocommerce_process_product_meta', array( $this, 'save_product_data' ), 15 );
+		add_action( 'wp_ajax_refresh_google_product_category_metabox_field', array( $this, 'refresh_google_product_category_field' ) );
+	}
+
+	/**
+	 * Enqueue scripts.
+	 *
+	 * @since 3.3.0
+	 */
+	public function enqueue_scripts() {
+		$screen_id = wc_instagram_get_current_screen_id();
+
+		if ( 'product' !== $screen_id ) {
+			return;
+		}
+
+		$suffix = wc_instagram_get_scripts_suffix();
+
+		wp_enqueue_script( 'wc-instagram-admin-meta-boxes-product', WC_INSTAGRAM_URL . "assets/js/admin/meta-boxes-product{$suffix}.js", array( 'jquery', 'select2' ), WC_INSTAGRAM_VERSION, true );
+		wp_localize_script(
+			'wc-instagram-admin-meta-boxes-product',
+			'wc_instagram_admin_meta_boxes_product_params',
+			array(
+				'ajax_url' => admin_url( 'admin-ajax.php' ),
+				'nonce'    => wp_create_nonce( 'refresh_google_product_category_metabox_field' ),
+			)
+		);
 	}
 
 	/**
@@ -66,6 +93,14 @@ class WC_Instagram_Meta_Box_Product_Data {
 	 * @since 2.0.0
 	 */
 	public function product_data_panels() {
+		$post_id = get_the_ID();
+
+		$category_id = get_post_meta( $post_id, '_instagram_google_product_category', true );
+
+		if ( '' === $category_id ) {
+			$category_id = false;
+		}
+
 		include 'views/html-product-data-instagram.php';
 	}
 
@@ -118,7 +153,7 @@ class WC_Instagram_Meta_Box_Product_Data {
 		}
 
 		// Save product properties.
-		$props = array( 'brand', 'condition', 'images_option' );
+		$props = array( 'brand', 'condition', 'images_option', 'google_product_category' );
 
 		foreach ( $props as $prop ) {
 			$key   = "_instagram_{$prop}";
@@ -130,6 +165,20 @@ class WC_Instagram_Meta_Box_Product_Data {
 				delete_post_meta( $post_id, $key );
 			}
 		}
+	}
+
+	/**
+	 * Handles AJAX request for refresh_google_product_category_field action.
+	 *
+	 * @since 3.3.0
+	 */
+	public function refresh_google_product_category_field() {
+		check_ajax_referer( 'refresh_google_product_category_metabox_field' );
+
+		$category_id = ! empty( $_POST['category_id'] ) ? wc_clean( wp_unslash( $_POST['category_id'] ) ) : null;
+		$html        = WC_Instagram_Admin_Field_Google_Product_Categories::render( $category_id );
+
+		wp_send_json_success( array( 'output' => $html ) );
 	}
 }
 

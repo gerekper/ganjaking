@@ -3,6 +3,19 @@
 defined( 'ABSPATH' ) or exit;
 
 /*
+ *  Users
+ */
+
+$panel_page = isset( $_REQUEST['panel_page'] ) ? $_REQUEST['panel_page'] : '';
+if ( $panel_page == 'others' ) {
+	include YITH_WCCH_TEMPLATE_PATH . '/backend/users.php';
+	die();
+} else if ( $panel_page == 'customer' ) {
+	include YITH_WCCH_TEMPLATE_PATH . '/backend/customer.php';
+	die();
+}
+
+/*
  *  Customers
  */
 
@@ -37,7 +50,7 @@ foreach ( $users as $key => $user ) {
 		'post_parent' => '0',
 	) );
 	$order_count = count( $orders_array[ $user->ID ] );
-	if ( get_option('yith-wcch-hide_users_with_no_orders') && ! $order_count > 0 ) { unset( $users[$key] ); }
+	if ( get_option('yith-wcch-hide_users_with_no_orders') == 'yes' && ! $order_count > 0 ) { unset( $users[$key] ); }
 }
 
 ?>
@@ -45,22 +58,19 @@ foreach ( $users as $key => $user ) {
 <div id="yith-woocommerce-customer-history">
 	<div id="customers" class="wrap">
 
-		<h1><?php echo __( 'Customers', 'yith-woocommerce-customer-history' ); ?></h1>
-
 		<form action="" class="search-box" style="float: right;">
+			<input type="hidden" name="page" value="yith_wcch_panel">
+			<input type="hidden" name="tab" value="users">
 			<label class="screen-reader-text" for="user-search-input"><?php echo __( 'Search Customer', 'yith-woocommerce-customer-history' ); ?>:</label>
-			<input type="hidden" name="page" value="yith-wcch-customers.php">
 			<input type="search" id="user-search-input" name="s" value="<?php echo $search; ?>">
 			<input type="submit" id="search-submit" class="button" value="<?php echo __( 'Search Customer', 'yith-woocommerce-customer-history' ); ?>">
 		</form>
 
-		<p><?php echo __( 'Complete customers list.', 'yith-woocommerce-customer-history' ); ?></p>
-
 		<div class="tablenav top">
 			<ul class="subsubsub" style="margin-top: 4px;">
-				<li class="customers"><a href="admin.php?page=yith-wcch-customers.php" class="current"><?php echo __( 'Customers', 'yith-woocommerce-customer-history' ); ?></a> |</li>
-				<li class="users"><a href="admin.php?page=yith-wcch-users.php"><?php echo __( 'Other Users', 'yith-woocommerce-customer-history' ); ?></a> |</li>
-				<li class="guestr"><a href="admin.php?page=yith-wcch-customer.php&user_id=0"><?php echo __( 'Guest Users', 'yith-woocommerce-customer-history' ); ?></a></li>
+				<li class="customers"><a href="admin.php?page=yith_wcch_panel&tab=users" class="current"><?php echo __( 'Customers', 'yith-woocommerce-customer-history' ); ?></a> |</li>
+				<li class="users"><a href="admin.php?page=yith_wcch_panel&tab=users&panel_page=others"><?php echo __( 'Other Users', 'yith-woocommerce-customer-history' ); ?></a> |</li>
+				<li class="guestr"><a href="admin.php?page=yith_wcch_panel&tab=users&panel_page=customer&user_id=0"><?php echo __( 'Guest Users', 'yith-woocommerce-customer-history' ); ?></a></li>
 			</ul>
 			<div class="tablenav-pages">
 				<div class="pagination-links">
@@ -100,7 +110,7 @@ foreach ( $users as $key => $user ) {
 				<?php if ( apply_filters( 'yith_wcch_show_customer_orders_sku_list', false ) ) : ?>
 					<th><?php echo __( 'SKU', 'yith-woocommerce-customer-history' ); ?></th>
 				<?php endif; ?>
-				<th style="width: 240px;"><?php echo __( 'Actions', 'yith-woocommerce-customer-history' ); ?></th>
+				<th style="width: 150px;"><?php echo __( 'Actions', 'yith-woocommerce-customer-history' ); ?></th>
 			</tr>
 
 			<?php
@@ -179,13 +189,17 @@ foreach ( $users as $key => $user ) {
 						</td>
 					<?php endif; ?>
 					<td>
-						<a href="admin.php?page=yith-wcch-customer.php&user_id=<?php echo esc_html( $user->ID ); ?>" class="button"><strong><i class="fa fa-eye" aria-hidden="true"></i> <?php echo __( 'View', 'yith-woocommerce-customer-history' ); ?></strong></a>
-						<a href="admin.php?page=yith-wcch-email.php&customer_id=<?php echo $user->ID; ?>" class="button"><strong><i class="fa fa-envelope" aria-hidden="true"></i> <?php echo __( 'Email', 'yith-woocommerce-customer-history' ); ?></strong></a>
-						<?php 
-                        if ( !is_multisite() && get_current_user_id() != $user->ID && current_user_can( 'delete_user', $user->ID ) )
-                            echo "<a class='submitdelete button' href='" . wp_nonce_url( "users.php?action=delete&amp;user=$user->ID", 'bulk-users' ) . "'><strong><i class=\"fa fa-ban\" aria-hidden=\"true\"></i> " . __( 'Delete', 'yith-woocommerce-customer-history' ) . "</strong></a>";
-                        if ( is_multisite() && get_current_user_id() != $user->ID && current_user_can( 'remove_user', $user->ID ) )
-                            echo "<a class='submitdelete button' href='" . wp_nonce_url( "users.php?action=remove&amp;user=$user->ID", 'bulk-users' ) . "'><strong><i class=\"fa fa-ban\" aria-hidden=\"true\"></i> " . __( 'Remove', 'yith-woocommerce-customer-history' ) . "</strong></a>";
+						<a href="admin.php?page=yith_wcch_panel&tab=users&panel_page=customer&user_id=<?php echo esc_html( $user->ID ); ?>" class="button"><strong><i class="fa fa-eye" aria-hidden="true"></i> <?php echo __( 'View', 'yith-woocommerce-customer-history' ); ?></strong></a>
+						<a href="admin.php?page=yith_wcch_panel&tab=emails&panel_page=email&customer_id=<?php echo $user->ID; ?>" class="button"><strong><i class="fa fa-envelope" aria-hidden="true"></i> <?php echo __( 'Email', 'yith-woocommerce-customer-history' ); ?></strong></a>
+						<?php
+						/*
+                        if ( ! is_multisite() && get_current_user_id() != $user->ID && current_user_can( 'delete_user', $user->ID ) ) {
+                            echo "<a class='submitdelete button' href='" . wp_nonce_url( "admin.php?page=yith_wcch_panel&tab=users&action=delete&amp;user=$user->ID", 'bulk-users' ) . "'><strong><i class=\"fa fa-ban\" aria-hidden=\"true\"></i> " . __( 'Delete', 'yith-woocommerce-customer-history' ) . "</strong></a>";
+                        }
+                        if ( is_multisite() && get_current_user_id() != $user->ID && current_user_can( 'remove_user', $user->ID ) ) {
+                            echo "<a class='submitdelete button' href='" . wp_nonce_url( "admin.php?page=yith_wcch_panel&tab=users&action=remove&amp;user=$user->ID", 'bulk-users' ) . "'><strong><i class=\"fa fa-ban\" aria-hidden=\"true\"></i> " . __( 'Remove', 'yith-woocommerce-customer-history' ) . "</strong></a>";
+                        }
+                        */
                         ?>
 					</td>
 				</tr>

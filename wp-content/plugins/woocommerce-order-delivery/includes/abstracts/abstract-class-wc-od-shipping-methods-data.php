@@ -2,7 +2,7 @@
 /**
  * Abstract data class which includes shipping methods.
  *
- * @package WC_OD/Classes
+ * @package WC_OD/Abstracts
  * @since   1.6.0
  */
 

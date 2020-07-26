@@ -73,7 +73,7 @@ function wc_od_update_150_settings_bool_values_to_string() {
 
 		if ( $value ) {
 			foreach ( $value as $key => $data ) {
-				$value[ $key ]['enabled'] = wc_od_bool_to_string( $data['enabled'] );
+				$value[ $key ]['enabled'] = wc_bool_to_string( $data['enabled'] );
 			}
 
 			update_option( $setting, $value );
@@ -98,7 +98,7 @@ function wc_od_update_150_subscriptions_bool_values_to_string() {
 
 		if ( $value ) {
 			foreach ( $value as $key => $data ) {
-				$value[ $key ]['enabled'] = wc_od_bool_to_string( $data['enabled'] );
+				$value[ $key ]['enabled'] = wc_bool_to_string( $data['enabled'] );
 			}
 
 			update_post_meta( $meta->post_id, $meta->meta_key, $value );

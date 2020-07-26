@@ -28,7 +28,7 @@ if ( ! class_exists( 'WC_OD_Delivery_Event' ) ) {
 		 * @param mixed $timezone The event timezone.
 		 */
 		public function __construct( $args, $timezone = null ) {
-			_deprecated_function( 'WC_OD_Delivery_Event::__construct', '1.2.0', 'WC_OD_Event_Delivery' );
+			wc_deprecated_function( 'WC_OD_Delivery_Event::__construct', '1.2.0', 'WC_OD_Event_Delivery' );
 
 			parent::__construct( $args, $timezone );
 		}

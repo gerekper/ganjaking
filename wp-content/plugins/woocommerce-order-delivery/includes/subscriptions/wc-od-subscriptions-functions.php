@@ -93,7 +93,7 @@ function wc_od_user_has_subscription_delivery_caps( $the_subscription, $user = n
 		$user = wp_get_current_user();
 	}
 
-	$has_caps = user_can( $user, 'view_order', wc_od_get_order_prop( $subscription, 'id' ) );
+	$has_caps = user_can( $user, 'view_order', $subscription->get_id() );
 
 	/**
 	 * Filter if the user has the capabilities to work with the subscription delivery.
@@ -135,7 +135,7 @@ function wc_od_subscription_needs_delivery_details( $the_subscription ) {
 		$shipping_method = wc_od_get_order_shipping_method( $subscription );
 
 		if ( 0 === strpos( $shipping_method, 'local_pickup' ) ) {
-			$needs_details = wc_od_string_to_bool( WC_OD()->settings()->get_setting( 'enable_local_pickup' ) );
+			$needs_details = wc_string_to_bool( WC_OD()->settings()->get_setting( 'enable_local_pickup' ) );
 		} else {
 			$needs_details = $subscription->needs_shipping_address();
 		}
@@ -200,8 +200,8 @@ function wc_od_subscription_has_delivery_preferences( $the_subscription ) {
 
 	$has_preferences = (
 		wc_od_subscription_needs_delivery_date( $subscription ) &&
-		'day' !== wc_od_get_order_prop( $subscription, 'billing_period' ) &&
-		wc_od_get_order_meta( $subscription, '_delivery_date' ) // Disabled if there is no delivery date.
+		'day' !== $subscription->get_billing_period() &&
+		$subscription->get_meta( '_delivery_date' ) // Disabled if there is no delivery date.
 	);
 
 	/**
@@ -292,7 +292,7 @@ function wc_od_get_subscription_preferred_delivery_days( $the_subscription ) {
 	}
 
 	$delivery_days  = wc_od_get_subscription_delivery_days( $subscription );
-	$preferred_days = wc_od_get_order_meta( $subscription, '_delivery_days' );
+	$preferred_days = $subscription->get_meta( '_delivery_days' );
 
 	if ( ! empty( $preferred_days ) ) {
 		// Merge the subscription preferred days with the global delivery days.
@@ -342,8 +342,8 @@ function wc_od_get_subscription_preferred_delivery_days( $the_subscription ) {
 function wc_od_get_subscription_max_delivery_date( $the_subscription ) {
 	$subscription = wc_od_get_subscription( $the_subscription );
 
-	$billing_interval = wc_od_get_order_prop( $subscription, 'billing_interval' );
-	$billing_period   = wc_od_get_order_prop( $subscription, 'billing_period' );
+	$billing_interval = $subscription->get_billing_interval();
+	$billing_period   = $subscription->get_billing_period();
 	$next_payment     = $subscription->get_time( 'next_payment', 'site' );
 
 	/*
@@ -361,7 +361,7 @@ function wc_od_get_subscription_max_delivery_date( $the_subscription ) {
 	 */
 	if (
 		$max_delivery_timestamp < $timestamp ||
-		! wc_od_string_to_bool( WC_OD()->settings()->get_setting( 'subscriptions_limit_to_billing_interval' ) )
+		! wc_string_to_bool( WC_OD()->settings()->get_setting( 'subscriptions_limit_to_billing_interval' ) )
 	) {
 		$timestamp = $max_delivery_timestamp;
 	}
@@ -418,8 +418,8 @@ function wc_od_get_subscription_delivery_date_args( $the_subscription ) {
 				'type'         => 'delivery',
 				'start'        => date( 'Y-m-d', $start_timestamp ),
 				'end'          => date( 'Y-m-d', $end_timestamp ),
-				'country'      => wc_od_get_order_prop( $subscription, 'shipping_country' ),
-				'state'        => wc_od_get_order_prop( $subscription, 'shipping_state' ),
+				'country'      => $subscription->get_shipping_country(),
+				'state'        => $subscription->get_shipping_state(),
 			),
 		),
 		$subscription
@@ -515,7 +515,7 @@ function wc_od_get_subscription_first_delivery_date( $the_subscription ) {
  */
 function wc_od_setup_subscription_delivery_preferences( $the_subscription ) {
 	$subscription = wc_od_get_subscription( $the_subscription );
-	$time_frame   = wc_od_get_order_meta( $subscription, '_delivery_time_frame', true );
+	$time_frame   = $subscription->get_meta( '_delivery_time_frame' );
 
 	if ( ! $time_frame ) {
 		return;
@@ -579,8 +579,8 @@ function wc_od_update_subscription_delivery_date( $the_subscription ) {
 							'end_date'           => $end_timestamp,
 							'disabled_days_args' => array(
 								'type'    => 'delivery',
-								'country' => wc_od_get_order_prop( $subscription, 'shipping_country' ),
-								'state'   => wc_od_get_order_prop( $subscription, 'shipping_state' ),
+								'country' => $subscription->get_shipping_country(),
+								'state'   => $subscription->get_shipping_state(),
 							),
 						),
 						'subscription'
@@ -649,7 +649,7 @@ function wc_od_update_subscription_delivery_time_frame( $the_subscription ) {
 		return;
 	}
 
-	$delivery_date = wc_od_get_order_meta( $subscription, '_delivery_date' );
+	$delivery_date = $subscription->get_meta( '_delivery_date' );
 	$time_frame    = false;
 
 	if ( $delivery_date ) {
@@ -664,7 +664,7 @@ function wc_od_update_subscription_delivery_time_frame( $the_subscription ) {
 
 		// Assign the best delivery time frame for the delivery date.
 		if ( ! $time_frames->is_empty() ) {
-			$delivery_days = wc_od_get_order_meta( $subscription, '_delivery_days' );
+			$delivery_days = $subscription->get_meta( '_delivery_days' );
 			$wday          = date( 'w', wc_od_get_timestamp( $delivery_date ) );
 
 			// Use the preferred delivery time frame.
@@ -905,7 +905,7 @@ function wc_od_subscription_delivery_days_field( $field, $key, $args, $value ) {
 
 					<td class="<?php echo esc_attr( "{$class['cell']}-enabled" ); ?>" data-title="<?php echo esc_attr( $columns['enabled'] ); ?>">
 						<?php
-						$checked = ( $enabled && ( ! isset( $value[ $index ] ) || wc_od_string_to_bool( $value[ $index ]['enabled'] ) ) );
+						$checked = ( $enabled && ( ! isset( $value[ $index ] ) || wc_string_to_bool( $value[ $index ]['enabled'] ) ) );
 
 						printf(
 							'<input type="checkbox" name="%1$s" value="1" %2$s %3$s />',

@@ -137,11 +137,7 @@ function wc_od_delivery_modal_content() {
 		<div class="half-column columns">
 			<div class="column-wrap">
 				<label for="states"><?php _e( 'States', 'woocommerce-order-delivery' ); ?></label>
-				<?php if ( version_compare( WC()->version, '3.0', '<' ) ) : ?>
-					<input id="states" name="states" type="hidden" data-placeholder="<?php _e( 'Select the states&hellip;', 'woocommerce-order-delivery' ); ?>" value="" />
-				<?php else : ?>
-					<select id="states" name="states" data-placeholder="<?php _e( 'Select the states&hellip;', 'woocommerce-order-delivery' ); ?>"></select>
-				<?php endif; ?>
+				<select id="states" name="states" data-placeholder="<?php _e( 'Select the states&hellip;', 'woocommerce-order-delivery' ); ?>"></select>
 			</div>
 		</div>
 	</div>

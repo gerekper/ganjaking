@@ -18,6 +18,13 @@ class WPSEO_Addon_Manager {
 	const SITE_INFORMATION_TRANSIENT = 'wpseo_site_information';
 
 	/**
+	 * Holds the name of the transient.
+	 *
+	 * @var string
+	 */
+	const SITE_INFORMATION_TRANSIENT_QUICK = 'wpseo_site_information_quick';
+
+	/**
 	 * Holds the slug for YoastSEO free.
 	 *
 	 * @var string
@@ -182,15 +189,6 @@ class WPSEO_Addon_Manager {
 	 */
 	public function has_valid_subscription( $slug ) {
 		return true;
-
-		$subscription = $this->get_subscription( $slug );
-
-		// An non-existing subscription is never valid.
-		if ( $subscription === false ) {
-			return false;
-		}
-
-		return ! $this->has_subscription_expired( $subscription );
 	}
 
 	/**
@@ -240,7 +238,7 @@ class WPSEO_Addon_Manager {
 	 * @return bool Has the plugin expired.
 	 */
 	protected function has_subscription_expired( $subscription ) {
-		return ( strtotime( $subscription->expiry_date ) - time() ) < 0;
+		return false;
 	}
 
 	/**
@@ -347,15 +345,16 @@ class WPSEO_Addon_Manager {
 
 		// Force re-check on license & dashboard pages.
 		$current_page = $this->get_current_page();
+
 		// Check whether the licenses are valid or whether we need to show notifications.
-		$exclude_cache = ( $current_page === 'wpseo_licenses' || $current_page === 'wpseo_dashboard' );
+		$quick = ( $current_page === 'wpseo_licenses' || $current_page === 'wpseo_dashboard' );
 
 		// Also do a fresh request on Plugins & Core Update pages.
-		$exclude_cache = $exclude_cache || $pagenow === 'plugins.php';
-		$exclude_cache = $exclude_cache || $pagenow === 'update-core.php';
+		$quick = $quick || $pagenow === 'plugins.php';
+		$quick = $quick || $pagenow === 'update-core.php';
 
-		if ( $exclude_cache ) {
-			return false;
+		if ( $quick ) {
+			return get_transient( self::SITE_INFORMATION_TRANSIENT_QUICK );
 		}
 
 		return get_transient( self::SITE_INFORMATION_TRANSIENT );
@@ -383,6 +382,7 @@ class WPSEO_Addon_Manager {
 	 */
 	protected function set_site_information_transient( $site_information ) {
 		set_transient( self::SITE_INFORMATION_TRANSIENT, $site_information, DAY_IN_SECONDS );
+		set_transient( self::SITE_INFORMATION_TRANSIENT_QUICK, $site_information, 60 );
 	}
 
 	/**
@@ -393,6 +393,9 @@ class WPSEO_Addon_Manager {
 	 * @return array The plugins.
 	 */
 	protected function get_plugins() {
+		if ( ! function_exists( 'get_plugins' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/plugin.php';
+		}
 		return get_plugins();
 	}
 

@@ -169,10 +169,10 @@ return array(
 			'custom_attributes' => 'min="0" required'
 		),
 		'ywmmq_cart_maximum_value'            => array(
-			'name'              => __( 'Quantity groups of', 'yith-woocommerce-minimum-maximum-quantity' ),
+			'name'              => __( 'Maximum spend restriction', 'yith-woocommerce-minimum-maximum-quantity' ),
 			'type'              => 'yith-field',
 			'yith-type'         => 'text',
-			'desc'              => __( 'Allow your users to purchase products only in groups of x items (e.g. The cart can contains items only in groups of 6)', 'yith-woocommerce-minimum-maximum-quantity' ),
+			'desc'              => __( 'Maximum spend for items in cart. Set zero for no restrictions.', 'yith-woocommerce-minimum-maximum-quantity' ),
 			'id'                => 'ywmmq_cart_maximum_value',
 			'default'           => '0',
 			'class'             => 'wc_input_price',

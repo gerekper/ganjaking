@@ -2682,9 +2682,9 @@ Content-Type: text/html;
 	}
 
 	public static function get_version_info( $cache = true ) {
+	
 		$version_info = array( 'is_valid_key' => '1', 'version' => '', 'url' => '', 'is_error' => '0' );
 		return $version_info;
-
 		$version_info = get_option( 'gform_version_info' );
 		if ( ! $cache ) {
 			$version_info = null;
@@ -3921,7 +3921,17 @@ Content-Type: text/html;
 		return array( 'name' => $name, 'price' => $price );
 	}
 
+	/**
+	 * Prints or enqueues form scripts and processes shortcodes found in the supplied content.
+	 *
+	 * @since unknown
+	 *
+	 * @param string $content The content to be processed.
+	 *
+	 * @return string
+	 */
 	public static function gform_do_shortcode( $content ) {
+		require_once self::get_base_path() . '/form_display.php';
 
 		$is_ajax = false;
 		$forms   = GFFormDisplay::get_embedded_forms( $content, $is_ajax );
@@ -4837,6 +4847,24 @@ Content-Type: text/html;
 			$gf_vars['addressTypes']       = $address_field->get_address_types( $form['id'] );
 			$gf_vars['defaultAddressType'] = $address_field->get_default_address_type( $form['id'] );
 
+		}
+
+		$prefixes = array_unique( array_filter( array(
+			__( 'Mr.', 'gravityforms' ),
+			__( 'Mrs.', 'gravityforms' ),
+			__( 'Miss', 'gravityforms' ),
+			__( 'Ms.', 'gravityforms' ),
+			__( 'Dr.', 'gravityforms' ),
+			__( 'Prof.', 'gravityforms' ),
+			__( 'Rev.', 'gravityforms' ),
+		) ) );
+		sort( $prefixes );
+
+		$gf_vars['nameFieldDefaultPrefixes'] = array();
+		foreach ( $prefixes as $prefix ) {
+			$prefix = wp_strip_all_tags( $prefix );
+
+			$gf_vars['nameFieldDefaultPrefixes'][] = array( 'text' => $prefix, 'value' => $prefix );
 		}
 
 		$gf_vars_json = 'var gf_vars = ' . json_encode( $gf_vars ) . ';';

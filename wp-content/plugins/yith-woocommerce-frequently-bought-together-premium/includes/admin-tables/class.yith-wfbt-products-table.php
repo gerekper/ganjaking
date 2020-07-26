@@ -39,8 +39,7 @@ if( ! class_exists( 'YITH_WFBT_Products_Table' ) ) {
             $columns = array(
                 'cb'        => '<input type="checkbox" />',
                 'product'   => __( 'Product', 'yith-woocommerce-frequently-bought-together' ),
-                'thumb'     => __( 'Thumbnail', 'yith-woocommerce-frequently-bought-together' ),
-                'linked'    => __( 'Amount of linked products', 'yith-woocommerce-frequently-bought-together' ),
+                'linked'    => __( 'Linked products', 'yith-woocommerce-frequently-bought-together' ),
                 'actions'   => __( 'Actions', 'yith-woocommerce-frequently-bought-together' )
             );
 
@@ -67,30 +66,26 @@ if( ! class_exists( 'YITH_WFBT_Products_Table' ) ) {
             switch ( $column_name ) {
 
                 case 'product':
-                    $product_query_args = array(
-                        'post'   => yit_get_base_product_id( $product ),
-                        'action' => 'edit'
-                    );
-                    $product_url        = add_query_arg( $product_query_args, admin_url( 'post.php' ) );
+                    $product_url        = get_edit_post_link( yit_get_base_product_id( $product ) );
+					$product_name		= sprintf( '<strong><a class="tips" target="_blank" href="%s" data-tip="%s">%s</a></strong>', esc_url( $product_url ), __( 'Edit product', 'yith-woocommerce-waiting-list' ), $product->get_title() );
 
-                    return sprintf( '<strong><a class="tips" target="_blank" href="%s" data-tip="%s">%s</a></strong>', esc_url( $product_url ), __( 'Edit product', 'yith-woocommerce-waiting-list' ), $product->get_title() );
-                    break;
-
-                case 'thumb' :
-                    return $product->get_image();
+                    return '<div class="product-image">' . $product->get_image( 'thumbnail' ) . '</div>' . '<div class="product-name">' . $product_name . '</div>';
                     break;
 
                 case 'linked' :
 
-                    $view_query_args = array(
-                        'page'      => $_GET['page'],
-                        'tab'       => $_GET['tab'],
-                        'view'      => 'linked',
-                        'post_id'   => $rec['product_id']
-                    );
-                    $view_url   = add_query_arg( $view_query_args, admin_url( 'admin.php' ) );
+                	$return_html = '';
+                	foreach ( $rec['products'] as $product_id ) {
+                		$product = wc_get_product( $product_id );
+                		if( ! $product ) {
+                			continue;
+						}
 
-                    return '<a href="' . esc_url( $view_url ) . '">' . count( $rec['products'] ) . '</a>';
+                		$edit_url 		= get_edit_post_link( yit_get_base_product_id( $product ) );
+                		$return_html 	.= sprintf( '<div class="linked-product" data-product_id="%d" data-linked_id="%d"><strong><a href="%s" target="_blank">%s</a><strong></div>', intval( $rec['product_id'] ), intval( $product_id ), $edit_url, $product->get_title() );
+					}
+
+                    return $return_html;
                     break;
 
                 case 'actions':
@@ -102,18 +97,7 @@ if( ! class_exists( 'YITH_WFBT_Products_Table' ) ) {
                         'id'     => $rec['product_id']
                     );
                     $delete_url        = add_query_arg( $delete_query_args, admin_url( 'admin.php' ) );
-                    $actions_button    = '<a href="' . esc_url( $delete_url ) . '" class="button">' . __( 'Delete All', 'yith-woocommerce-frequently-bought-together' ) . '</a>';
-
-                    $view_query_args = array(
-                        'page'      => $_GET['page'],
-                        'tab'       => $_GET['tab'],
-                        'view'      => 'linked',
-                        'post_id'   => $rec['product_id']
-                    );
-                    $view_url        = add_query_arg( $view_query_args, admin_url( 'admin.php' ) );
-                    $actions_button .= '<a href="' . esc_url( $view_url ) . '" class="button">' . __( 'View Linked', 'yith-woocommerce-frequently-bought-together' ) . '</a>';
-
-                    return $actions_button;
+                    return '<a href="' . esc_url( $delete_url ) . '" class="button">' . __( 'Delete All', 'yith-woocommerce-frequently-bought-together' ) . '</a>';
                     break;
             }
 

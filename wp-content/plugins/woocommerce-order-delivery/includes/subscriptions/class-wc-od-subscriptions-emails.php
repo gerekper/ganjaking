@@ -88,7 +88,7 @@ if ( ! class_exists( 'WC_OD_Subscriptions_Emails' ) ) {
 
 			// It's a subscription.
 			if ( wcs_is_subscription( $order ) ) {
-				$subscription_ids = array( wc_od_get_order_prop( $order, 'id' ) );
+				$subscription_ids = array( $order->get_id() );
 			} else {
 				// The order may contain more than one subscription.
 				$subscription_ids = array_keys( wcs_get_subscriptions_for_order( $order, array( 'order_type' => 'any' ) ) );

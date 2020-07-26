@@ -21,7 +21,7 @@ defined( 'ABSPATH' ) || exit;
 function wc_od_get_time_frame( $time_frame, $deprecated = null ) {
 	// Backward compatibility.
 	if ( ! is_null( $deprecated ) ) {
-		_deprecated_argument( 'id', '1.6.0', 'Use the function wc_od_get_time_frame_for_date().' );
+		wc_deprecated_argument( 'id', '1.6.0', 'Use the function wc_od_get_time_frame_for_date().' );
 
 		$time_frame = wc_od_get_time_frame_for_date( $time_frame, $deprecated );
 

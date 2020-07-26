@@ -2,10 +2,10 @@
 # This file is distributed under the same license as the YITH WooCommerce Anti-Fraud Premium package.
 msgid ""
 msgstr ""
-"Project-Id-Version: YITH WooCommerce Anti-Fraud Premium 1.3.0\n"
+"Project-Id-Version: YITH WooCommerce Anti-Fraud Premium 1.3.2\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/yith-woocommerce-anti-fraud.premium\n"
-"POT-Creation-Date: 2020-04-28 21:20:23+00:00\n"
+"POT-Creation-Date: 2020-07-02 13:54:58+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -14,147 +14,147 @@ msgstr ""
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "X-Generator: grunt-wp-i18n 1.0.3\n"
 
-#: class.yith-wc-anti-fraud.php:363
+#: class.yith-wc-anti-fraud.php:364
 msgid "Fraud risk check in progress."
 msgstr ""
 
-#: class.yith-wc-anti-fraud.php:395
+#: class.yith-wc-anti-fraud.php:396
 msgid "Fraud risk check completed."
 msgstr ""
 
-#: class.yith-wc-anti-fraud.php:492 class.yith-wc-anti-fraud.php:585
+#: class.yith-wc-anti-fraud.php:493 class.yith-wc-anti-fraud.php:586
 msgid "Fraud risk check not passed. Fraud risk is high!"
 msgstr ""
 
-#: class.yith-wc-anti-fraud.php:529
+#: class.yith-wc-anti-fraud.php:530
 msgid "No check performed"
 msgstr ""
 
-#: class.yith-wc-anti-fraud.php:539
+#: class.yith-wc-anti-fraud.php:540
 msgid "High Risk"
 msgstr ""
 
-#: class.yith-wc-anti-fraud.php:547
+#: class.yith-wc-anti-fraud.php:548
 msgid "Medium Risk"
 msgstr ""
 
-#: class.yith-wc-anti-fraud.php:555
+#: class.yith-wc-anti-fraud.php:556
 msgid "Low Risk"
 msgstr ""
 
-#: class.yith-wc-anti-fraud.php:591
+#: class.yith-wc-anti-fraud.php:592
 msgid "Fraud risk check passed with medium fraud risk."
 msgstr ""
 
-#: class.yith-wc-anti-fraud.php:605
+#: class.yith-wc-anti-fraud.php:606
 msgid "Fraud risk check passed with low fraud risk"
 msgstr ""
 
-#: class.yith-wc-anti-fraud.php:855 includes/rules/class-ywaf-paypal.php:95
+#: class.yith-wc-anti-fraud.php:856 includes/rules/class-ywaf-paypal.php:95
 msgid "Waiting for PayPal verification."
 msgstr ""
 
-#: class.yith-wc-anti-fraud.php:860 includes/rules/class-ywaf-paypal.php:86
+#: class.yith-wc-anti-fraud.php:861 includes/rules/class-ywaf-paypal.php:86
 msgid "Waiting for PayPal transaction data."
 msgstr ""
 
-#: class.yith-wc-anti-fraud.php:865
+#: class.yith-wc-anti-fraud.php:866
 msgid "PayPal verification failed."
 msgstr ""
 
-#: class.yith-wc-anti-fraud.php:1185
+#: class.yith-wc-anti-fraud.php:1186
 msgid "General Settings"
 msgstr ""
 
-#: class.yith-wc-anti-fraud.php:1186
+#: class.yith-wc-anti-fraud.php:1187
 msgid "Emails Blacklist Settings"
 msgstr ""
 
-#: class.yith-wc-anti-fraud.php:1187
+#: class.yith-wc-anti-fraud.php:1188
 msgid "Addresses Blacklist Settings"
 msgstr ""
 
-#: class.yith-wc-anti-fraud.php:1188
+#: class.yith-wc-anti-fraud.php:1189
 msgid "PayPal Settings"
 msgstr ""
 
-#: class.yith-wc-anti-fraud.php:1268
+#: class.yith-wc-anti-fraud.php:1269
 msgid "You must activate at least one rule to monitor your orders against fraud."
 msgstr ""
 
-#: class.yith-wc-anti-fraud.php:1287 includes/class-ywaf-metabox.php:55
+#: class.yith-wc-anti-fraud.php:1288 includes/class-ywaf-metabox.php:55
 msgid "Fraud Risk Level"
 msgstr ""
 
-#: class.yith-wc-anti-fraud.php:1351
+#: class.yith-wc-anti-fraud.php:1352
 msgid "Repeat fraud risk check"
 msgstr ""
 
-#: class.yith-wc-anti-fraud.php:1351
+#: class.yith-wc-anti-fraud.php:1352
 msgid "Start fraud risk check"
 msgstr ""
 
-#: class.yith-wc-anti-fraud.php:1484
+#: class.yith-wc-anti-fraud.php:1485
 msgid "PayPal email address has been successfully checked!"
 msgstr ""
 
-#: class.yith-wc-anti-fraud.php:1523 class.yith-wc-anti-fraud.php:1544
-#: class.yith-wc-anti-fraud.php:1559
+#: class.yith-wc-anti-fraud.php:1524 class.yith-wc-anti-fraud.php:1545
+#: class.yith-wc-anti-fraud.php:1560
 msgid "Order Status"
 msgstr ""
 
-#: class.yith-wc-anti-fraud.php:1526
+#: class.yith-wc-anti-fraud.php:1527
 msgid ""
 "In order to complete the order, you have to complete your verification "
 "process by clicking on the link we sent to your PayPal email address."
 msgstr ""
 
-#: class.yith-wc-anti-fraud.php:1529
+#: class.yith-wc-anti-fraud.php:1530
 msgid ""
 "If you have not received the verification email, you can ask for a new by "
 "clicking the following button"
 msgstr ""
 
-#: class.yith-wc-anti-fraud.php:1533
+#: class.yith-wc-anti-fraud.php:1534
 msgid "Re-send email"
 msgstr ""
 
-#: class.yith-wc-anti-fraud.php:1547
+#: class.yith-wc-anti-fraud.php:1548
 msgid ""
 "We could not verify your PayPal email address and therefore your order has "
 "been cancelled. If you think an error has occurred, contact our customer "
 "service."
 msgstr ""
 
-#: class.yith-wc-anti-fraud.php:1562
+#: class.yith-wc-anti-fraud.php:1563
 msgid ""
 "The order has not passed anti-fraud tests, therefore it has been cancelled. "
 "If you think an error has occurred, contact our customer service."
 msgstr ""
 
-#: class.yith-wc-anti-fraud.php:1577
+#: class.yith-wc-anti-fraud.php:1578
 msgid ""
 "Files cannot be downloaded because the PayPal verification for this order "
 "has failed!"
 msgstr ""
 
-#: class.yith-wc-anti-fraud.php:1579
+#: class.yith-wc-anti-fraud.php:1580
 msgid ""
 "Files cannot be downloaded because there is a pending PayPal verification "
 "for this order."
 msgstr ""
 
-#: class.yith-wc-anti-fraud.php:1620
+#: class.yith-wc-anti-fraud.php:1621
 msgid "#%s"
 msgstr ""
 
-#: class.yith-wc-anti-fraud.php:1623
+#: class.yith-wc-anti-fraud.php:1624
 msgid ""
 "This file cannot be downloaded because the PayPal verification for the "
 "order %s has failed!"
 msgstr ""
 
-#: class.yith-wc-anti-fraud.php:1625
+#: class.yith-wc-anti-fraud.php:1626
 msgid ""
 "This file cannot be downloaded because there is a pending PayPal "
 "verification for the order %s."
@@ -203,32 +203,36 @@ msgstr ""
 msgid "Email was sent successfully! Please check your mailbox"
 msgstr ""
 
-#: includes/class-ywaf-metabox.php:137
+#: includes/class-ywaf-metabox.php:130
 msgid "Order check was successful!"
 msgstr ""
 
-#: includes/class-ywaf-metabox.php:145
+#: includes/class-ywaf-metabox.php:138
 msgid "Repeat Check!"
 msgstr ""
 
-#: includes/class-ywaf-metabox.php:168
+#: includes/class-ywaf-metabox.php:161
 msgid "This order is currently in queue for a fraud risk check."
 msgstr ""
 
-#: includes/class-ywaf-metabox.php:174
+#: includes/class-ywaf-metabox.php:167
 msgid "This order is currently waiting for a PayPal verification."
 msgstr ""
 
-#: includes/class-ywaf-metabox.php:178
+#: includes/class-ywaf-metabox.php:171
 msgid "Re-send verification request"
 msgstr ""
 
-#: includes/class-ywaf-metabox.php:184
+#: includes/class-ywaf-metabox.php:177
 msgid "Press the button to start a fraud risk check"
 msgstr ""
 
-#: includes/class-ywaf-metabox.php:187
+#: includes/class-ywaf-metabox.php:180
 msgid "Start checking!"
+msgstr ""
+
+#: includes/class-ywaf-metabox.php:214
+msgid "See Geolocation data"
 msgstr ""
 
 #: includes/class-ywaf-paypal-email.php:47
@@ -741,7 +745,7 @@ msgid ""
 "<strong>YITH</strong></a>"
 msgstr ""
 
-#: class.yith-wc-anti-fraud.php:1194
+#: class.yith-wc-anti-fraud.php:1195
 msgctxt "plugin name in admin page title"
 msgid "Anti-Fraud"
 msgstr ""

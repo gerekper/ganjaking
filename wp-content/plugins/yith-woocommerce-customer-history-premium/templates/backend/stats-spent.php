@@ -38,29 +38,26 @@ arsort( $spent );
 <div id="yith-woocommerce-customer-history">
     <div id="statistics" class="wrap">
 
-        <h1><?php echo __( 'Statistics', 'yith-woocommerce-customer-history' ); ?></h1>
-        <p><?php echo __( 'Check your shop statistics.', 'yith-woocommerce-customer-history' ); ?></p>
-
         <div class="tablenav top">
             <ul class="subsubsub" style="margin-top: 4px;">
-                <li class="stats"><a href="admin.php?page=yith-wcch-stats.php"><?php echo __( 'Site Pages', 'yith-woocommerce-customer-history' ); ?></a> |</li>
-                <li class="searches"><a href="admin.php?page=yith-wcch-stats-searches.php"><?php echo __( 'Searches', 'yith-woocommerce-customer-history' ); ?></a> |</li>
-                <li class="spent"><a href="admin.php?page=yith-wcch-stats-spent.php" class="current"><?php echo __( 'Total spent by user', 'yith-woocommerce-customer-history' ); ?></a></li>
+                <li class="stats"><a href="admin.php?page=yith_wcch_panel&tab=stats"><?php echo __( 'Site Pages', 'yith-woocommerce-customer-history' ); ?></a> |</li>
+                <li class="searches"><a href="admin.php?page=yith_wcch_panel&tab=stats&panel_page=searches"><?php echo __( 'Searches', 'yith-woocommerce-customer-history' ); ?></a> |</li>
+                <li class="spent"><a href="admin.php?page=yith_wcch_panel&tab=stats&panel_page=spent" class="current"><?php echo __( 'Total spent by user', 'yith-woocommerce-customer-history' ); ?></a></li>
             </ul>
             <div class="tablenav-pages">
                 <div class="pagination-links">
                     <?php echo __( 'Total', 'yith-woocommerce-customer-history' ) . ': ' . $num_users; ?> &nbsp; | &nbsp;
                     <?php echo __( 'Page', 'yith-woocommerce-customer-history' ) . ': ' . $page . ' of ' . $max_pages; ?> &nbsp;
                     <?php if ( $page > 1 ) : ?>
-                    <a class="prev-page" href="admin.php?page=yith-wcch-stats-spent.php&p=1"><span aria-hidden="true">‹‹</span></a>
-                    <a class="prev-page" href="admin.php?page=yith-wcch-stats-spent.php&p=<?php echo $page - 1; ?>"><span aria-hidden="true">‹</span></a>
+                    <a class="prev-page" href="admin.php?page=yith_wcch_panel&tab=stats&panel_page=spent&p=1"><span aria-hidden="true">‹‹</span></a>
+                    <a class="prev-page" href="admin.php?page=yith_wcch_panel&tab=stats&panel_page=spent&p=<?php echo $page - 1; ?>"><span aria-hidden="true">‹</span></a>
                     <?php else : ?>
                     <span class="tablenav-pages-navspan" aria-hidden="true">‹‹</span>
                     <span class="tablenav-pages-navspan" aria-hidden="true">‹</span>
                     <?php endif; ?>
                     <?php if ( $page < $max_pages ) : ?>
-                    <a class="next-page" href="admin.php?page=yith-wcch-stats-spent.php&p=<?php echo $page + 1; ?>"><span aria-hidden="true">›</span></a>
-                    <a class="next-page" href="admin.php?page=yith-wcch-stats-spent.php&p=<?php echo $max_pages; ?>"><span aria-hidden="true">››</span></a>
+                    <a class="next-page" href="admin.php?page=yith_wcch_panel&tab=stats&panel_page=spent&p=<?php echo $page + 1; ?>"><span aria-hidden="true">›</span></a>
+                    <a class="next-page" href="admin.php?page=yith_wcch_panel&tab=stats&panel_page=spent&p=<?php echo $max_pages; ?>"><span aria-hidden="true">››</span></a>
                     <?php else : ?>
                     <span class="tablenav-pages-navspan" aria-hidden="true">›</span>
                     <span class="tablenav-pages-navspan" aria-hidden="true">››</span>
@@ -92,15 +89,15 @@ arsort( $spent );
                     <?php echo __( 'Total', 'yith-woocommerce-customer-history' ) . ': ' . $num_users; ?> &nbsp; | &nbsp;
                     <?php echo __( 'Page', 'yith-woocommerce-customer-history' ) . ': ' . $page . ' of ' . $max_pages; ?> &nbsp;
                     <?php if ( $page > 1 ) : ?>
-                    <a class="prev-page" href="admin.php?page=yith-wcch-stats-spent.php&p=1"><span aria-hidden="true">‹‹</span></a>
-                    <a class="prev-page" href="admin.php?page=yith-wcch-stats-spent.php&p=<?php echo $page - 1; ?>"><span aria-hidden="true">‹</span></a>
+                    <a class="prev-page" href="admin.php?page=yith_wcch_panel&tab=stats&panel_page=spent&p=1"><span aria-hidden="true">‹‹</span></a>
+                    <a class="prev-page" href="admin.php?page=yith_wcch_panel&tab=stats&panel_page=spent&p=<?php echo $page - 1; ?>"><span aria-hidden="true">‹</span></a>
                     <?php else : ?>
                     <span class="tablenav-pages-navspan" aria-hidden="true">‹‹</span>
                     <span class="tablenav-pages-navspan" aria-hidden="true">‹</span>
                     <?php endif; ?>
                     <?php if ( $page < $max_pages ) : ?>
-                    <a class="next-page" href="admin.php?page=yith-wcch-stats-spent.php&p=<?php echo $page + 1; ?>"><span aria-hidden="true">›</span></a>
-                    <a class="next-page" href="admin.php?page=yith-wcch-stats-spent.php&p=<?php echo $max_pages; ?>"><span aria-hidden="true">››</span></a>
+                    <a class="next-page" href="admin.php?page=yith_wcch_panel&tab=stats&panel_page=spent&p=<?php echo $page + 1; ?>"><span aria-hidden="true">›</span></a>
+                    <a class="next-page" href="admin.php?page=yith_wcch_panel&tab=stats&panel_page=spent&p=<?php echo $max_pages; ?>"><span aria-hidden="true">››</span></a>
                     <?php else : ?>
                     <span class="tablenav-pages-navspan" aria-hidden="true">›</span>
                     <span class="tablenav-pages-navspan" aria-hidden="true">››</span>

@@ -9,17 +9,16 @@ jQuery(function( $ ) {
 
 	var WC_OD_Settings = {
 		init: function() {
-			var $timepickers = $( '.timepicker' ),
+			var $timepickers   = $( '.timepicker' ),
 			    $eventCalendar = $( '.wc-od-calendar-field' );
 
 			// Init timepickers
 			if ( $timepickers.length ) {
-				$( '.timepicker' ).timepicker( { timeFormat: 'H:i', maxTime: '23:59' } );
+				$timepickers.timepicker( { timeFormat: 'H:i', maxTime: '23:59' } );
 			}
 
 			this.deliveryCheckoutOptionsToggle();
 			this.statusToggle();
-			this.madeSortable();
 			this.shippingMethodsFieldsToggle();
 
 			if ( $eventCalendar.length && $.isFunction( $.fn.WC_OD_Calendar ) ) {
@@ -62,9 +61,17 @@ jQuery(function( $ ) {
 				}
 			});
 		},
+
+		/**
+		 * Backward compatibility.
+		 *
+		 * This code has been moved to table-fields.js.
+		 *
+		 * @deprecated {version}
+		 */
 		madeSortable: function() {
 			$( 'table.wc-od-field-table.sortable tbody' ).sortable({
-				items: 'tr',
+				items: 'tr:not(.unsortable)',
 				cursor: 'move',
 				axis: 'y',
 				handle: 'td.sort',

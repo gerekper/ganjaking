@@ -4,7 +4,7 @@
  *
  * Handles generic data interaction which is implemented by different classes.
  *
- * @package WC_OD/Classes
+ * @package WC_OD/Abstracts
  * @since   1.6.0
  */
 

@@ -1,5 +1,10 @@
 *** WooCommerce Instagram Changelog ***
 
+2020-07-20 - version 3.3.0
+* Feature - Include the Google product category in the product catalogs.
+* Tweak - Tested compatibility with WC 4.3.
+* Fix - Fixed the values of the product brand and condition for product variations in the catalogs.
+
 2020-06-15 - version 3.2.0
 * Feature - Include all the product images in the catalog.
 * Fix - Fixed the default value of the field used as the product description in the product catalogs.

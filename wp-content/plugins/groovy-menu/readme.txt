@@ -2,7 +2,7 @@
 Contributors: Grooni
 Requires at least: 4.9.7
 Tested up to: 5.4.2
-Stable tag: 2.2.5.2
+Stable tag: 2.2.6
 License: Themeforest Split Licence
 License URI: -
 Tags: customizable, responsive, animation, flexible, translation ready, drop down, dropdown, dropdown menu, easy, mega dropdown menu, mega menu, megamenu, navigation, options, presets, shortcodes, widgetized, widgets
@@ -60,6 +60,16 @@ Source: https://select2.github.io/
 == Changelog ==
 
 Visit [Changelog](https://grooni.com/docs/groovy-menu/changelog/) from our [Knowledge Base](https://grooni.com/docs/groovy-menu/)
+
+= 2.2.6 =
+* Added: Added option "Mobile menu" - "Show Woo minicart" that will be enable to show the Woocomerce minicart on the mobile.
+* Fix: Fixed bug with "Submenu appearance style" - "Animate from bottom".
+* Fix: Bug with "Change Top level menu background color" when submenu is opened", there were cases when the color did not return to the default after closing all submenus.
+* Fix: Added default styles for all menu links that remove the underline style for links in all states as hover, active, focus, visited.
+
+= 2.2.5.3 =
+* HotFix: Added an additional check of the preset options for number type in order to exclude operations with values ​​outside the minimum and maximum values.  This also improves compatibility with presets created in the earlier versions of Groovy Menu Free.
+* Fix: Preventing early closing of dropdown items for search and Woocomerce minicart.
 
 = 2.2.5.2 =
 * HotFix: Fixed dropdown behavior when "Show submenu - On click" option is enabled.

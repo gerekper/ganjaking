@@ -5,14 +5,14 @@ msgstr ""
 "Project-Id-Version: YITH WooCommerce Membership\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
 "membership-premium\n"
-"POT-Creation-Date: 2020-05-26 14:47:27+00:00\n"
+"POT-Creation-Date: 2020-07-03 10:49:21+00:00\n"
 "PO-Revision-Date: 2020-04-28 07:39:37+0000\n"
 "Language: fa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: GlotPress/2.3.1\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
 
 #: includes/admin/class.yith-wcmbs-admin-profile-premium.php:65
 msgid "Filter by membership plan"
@@ -670,11 +670,13 @@ msgstr "شما نمی توانید به این محتوا دسترسی پیدا 
 msgid "This product needs one credit,"
 msgid_plural "This product needs %s credits,"
 msgstr[0] ""
+msgstr[1] ""
 
 #: includes/class.yith-wcmbs-products-manager.php:228
 msgid "but you have only one credit!"
 msgid_plural "but you have only %s credits!"
 msgstr[0] ""
+msgstr[1] ""
 
 #: includes/class.yith-wcmbs-products-manager.php:230
 #: includes/class.yith-wcmbs-products-manager.php:338
@@ -740,6 +742,7 @@ msgstr "شورت کدها"
 msgid "Locked Download: unlock it using one credit!"
 msgid_plural "Locked Download: unlock it using %s credits!"
 msgstr[0] ""
+msgstr[1] ""
 
 #: includes/class.yith-wcmbs-shortcodes.php:533
 msgid "You don't have any membership without a subscription plan yet."
@@ -1087,6 +1090,7 @@ msgstr "منقضی شده"
 msgid "1 item"
 msgid_plural "%s items"
 msgstr[0] ""
+msgstr[1] ""
 
 #: includes/reports/class.yith-wcmbs-download-reports-by-user-table.php:34
 #: templates/premium/reports/download-reports-downloads-details-by-user.php:47
@@ -1441,6 +1445,7 @@ msgstr "تاریخ قابلیت دسترسی : %s"
 msgid "available after %s day since the beginning of the membership"
 msgid_plural "available after %s days since the beginning of the membership"
 msgstr[0] ""
+msgstr[1] ""
 
 #: templates/premium/media/restrict_access.php:12
 #: templates/premium/metaboxes/restrict_access.php:12
@@ -1523,6 +1528,7 @@ msgstr "برداشتن آیتم از طرح"
 msgid "Delay Time: %s day"
 msgid_plural "Delay Time: %s days"
 msgstr[0] ""
+msgstr[1] ""
 
 #: templates/premium/metaboxes/plan_item_order.php:141
 msgid "Edit item"

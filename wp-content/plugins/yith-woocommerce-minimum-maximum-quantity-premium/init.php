@@ -5,7 +5,7 @@
  * Description: <code><strong>YITH WooCommerce Minimum Maximum Quantity</strong></code> allows setting up a minimum or maximum amount or number of items in cart (for each product or order) as a necessary condition to make a purchase on your e-commerce store. <a href="https://yithemes.com/" target="_blank">Get more plugins for your e-commerce shop on <strong>YITH</strong></a>
  * Author: YITH
  * Text Domain: yith-woocommerce-minimum-maximum-quantity
- * Version: 1.4.9
+ * Version: 1.5.0
  * Author URI: https://yithemes.com/
  * WC requires at least: 4.0.0
  * WC tested up to: 4.2.x
@@ -34,7 +34,7 @@ if ( ! function_exists( 'yit_deactive_free_version' ) ) {
 yit_deactive_free_version( 'YWMMQ_FREE_INIT', plugin_basename( __FILE__ ) );
 
 if ( ! defined( 'YWMMQ_VERSION' ) ) {
-	define( 'YWMMQ_VERSION', '1.4.9' );
+	define( 'YWMMQ_VERSION', '1.5.0' );
 }
 
 if ( ! defined( 'YWMMQ_INIT' ) ) {

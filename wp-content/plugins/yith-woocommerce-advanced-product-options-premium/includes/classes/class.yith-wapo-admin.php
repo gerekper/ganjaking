@@ -870,7 +870,7 @@ if ( ! class_exists( 'YITH_WAPO_Admin' ) ) {
 		 */
 		private static function get_product_variations_chosen_list( $item_id ) {
 			// If variations haven't already been recovered
-			if ( ! is_array( self::$variations_chosen_list[ $item_id ] ) || ! count( self::$variations_chosen_list[ $item_id ] ) > 0 ) {
+			if ( ! isset( self::$variations_chosen_list[ $item_id ] ) || ! is_array( self::$variations_chosen_list[ $item_id ] ) || ! count( self::$variations_chosen_list[ $item_id ] ) > 0 ) {
 				$variations = array();
 				if ( $item_id ) {
 					$args = array(

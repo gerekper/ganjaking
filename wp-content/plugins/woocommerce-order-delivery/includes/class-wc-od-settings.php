@@ -119,6 +119,7 @@ class WC_OD_Settings extends WC_OD_Singleton {
 					'min' => 1,
 					'max' => 10,
 				),
+				'delivery_ranges'          => array(),
 				'checkout_delivery_option' => 'calendar',
 				'delivery_days'            => array(
 					array( // Sunday.

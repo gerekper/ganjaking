@@ -43,7 +43,13 @@ if ( ! class_exists( 'WC_OD_Order_Details' ) ) {
 		 * @param int $order_id The order ID.
 		 */
 		public function order_details( $order_id ) {
-			$delivery_date = wc_od_get_order_meta( $order_id, '_delivery_date' );
+			$order = wc_get_order( $order_id );
+
+			if ( ! $order ) {
+				return;
+			}
+
+			$delivery_date = $order->get_meta( '_delivery_date' );
 
 			if ( $delivery_date ) {
 				$delivery_date_i18n = wc_od_localize_date( $delivery_date );
@@ -53,7 +59,7 @@ if ( ! class_exists( 'WC_OD_Order_Details' ) ) {
 						array(
 							'title'               => __( 'Delivery details', 'woocommerce-order-delivery' ),
 							'delivery_date'       => $delivery_date_i18n,
-							'delivery_time_frame' => wc_od_get_order_meta( $order_id, '_delivery_time_frame' ),
+							'delivery_time_frame' => $order->get_meta( '_delivery_time_frame' ),
 							'order_id'            => $order_id,
 						)
 					);
@@ -72,7 +78,7 @@ if ( ! class_exists( 'WC_OD_Order_Details' ) ) {
 		 * @return string The email subject.
 		 */
 		public function capture_order( $email_subject ) {
-			_deprecated_function( __METHOD__, '1.1.0' );
+			wc_deprecated_function( __METHOD__, '1.1.0' );
 
 			return $email_subject;
 		}
@@ -84,7 +90,7 @@ if ( ! class_exists( 'WC_OD_Order_Details' ) ) {
 		 * @deprecated 1.4.1
 		 */
 		public function email_footer() {
-			_deprecated_function( __METHOD__, '1.4.1', 'Moved to WC_OD_Emails->delivery_details()' );
+			wc_deprecated_function( __METHOD__, '1.4.1', 'Moved to WC_OD_Emails->delivery_details()' );
 		}
 
 	}

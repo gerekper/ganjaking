@@ -5,10 +5,10 @@
  * Description: <code><strong>YITH WooCommerce Coupon Email System</strong></code> allows sending one or more coupons based on specific rules to your customers automatically. You could, for example, send a coupon code to all customers who register to your store or to those who reach a certain number of orders in your shop and so on. It's perfect to encourage your users to buy again and again from you. <a href="https://yithemes.com/" target="_blank">Get more plugins for your e-commerce shop on <strong>YITH</strong></a>
  * Author: YITH
  * Text Domain: yith-woocommerce-coupon-email-system
- * Version: 1.4.4
+ * Version: 1.4.5
  * Author URI: https://yithemes.com/
  * WC requires at least: 4.0.0
- * WC tested up to: 4.2.x
+ * WC tested up to: 4.3.x
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -28,7 +28,7 @@ function ywces_install_woocommerce_premium_admin_notice() {
 }
 
 if ( ! defined( 'YWCES_VERSION' ) ) {
-	define( 'YWCES_VERSION', '1.4.4' );
+	define( 'YWCES_VERSION', '1.4.5' );
 }
 
 if ( ! defined( 'YWCES_INIT' ) ) {
@@ -40,7 +40,7 @@ if ( ! defined( 'YWCES_SLUG' ) ) {
 }
 
 if ( ! defined( 'YWCES_SECRET_KEY' ) ) {
-	define( 'YWCES_SECRET_KEY', '12345' );
+	define( 'YWCES_SECRET_KEY', 'CNXB489Tb1oktD6rIx99' );
 }
 
 if ( ! defined( 'YWCES_PREMIUM' ) ) {

@@ -67,7 +67,7 @@ if ( ! class_exists( 'WC_OD_Subscriptions_Checkout' ) ) {
 			if ( $renewal ) {
 				$max_delivery_date = wc_od_get_subscription_max_delivery_date( $renewal['subscription_renewal']['subscription_id'] );
 				$max_delivery_days = ( ( $max_delivery_date - wc_od_get_local_date() ) / DAY_IN_SECONDS );
-			} elseif ( wc_od_string_to_bool( WC_OD()->settings()->get_setting( 'subscriptions_limit_to_billing_interval' ) ) ) {
+			} elseif ( wc_string_to_bool( WC_OD()->settings()->get_setting( 'subscriptions_limit_to_billing_interval' ) ) ) {
 				$period = wc_od_get_min_subscription_period_in_cart();
 
 				if ( $period ) {

@@ -26,7 +26,7 @@ defined( 'ABSPATH' ) || exit;
 		<p><?php echo wp_kses_post( __( 'We will try our best to deliver your order on the specified date.', 'woocommerce-order-delivery' ) ); ?></p>
 
 		<?php
-		$fields = wc_od_get_checkout_fields( 'delivery' );
+		$fields = $checkout->get_checkout_fields( 'delivery' );
 
 		foreach ( $fields as $key => $field ) :
 			woocommerce_form_field( $key, $field, $checkout->get_value( $key ) );

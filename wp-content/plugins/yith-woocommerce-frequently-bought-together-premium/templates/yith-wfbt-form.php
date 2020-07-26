@@ -25,8 +25,10 @@ if ( ! isset( $products ) ) {
 $url           = ! is_null( $product ) ? $product->get_permalink() : '';
 $url           = add_query_arg( 'action', 'yith_bought_together', $url );
 $url           = wp_nonce_url( $url, 'yith_bought_together' );
+
 $metas         = yith_wfbt_get_meta( $product );
 $meta_products = isset( $metas['products'] ) ? $metas['products'] : array();
+
 ?>
 
 <div class="yith-wfbt-section woocommerce">
@@ -84,10 +86,15 @@ $meta_products = isset( $metas['products'] ) ? $metas['products'] : array();
 		<ul class="yith-wfbt-items">
 			<?php $j                 = 0;
 			foreach ( $products as $product ) :
-				$product_id = $product->get_id();
-				$is_variable         = $product instanceof WC_Product_Variable;
-				$is_choise_variation = $product instanceof WC_Product_Variation && in_array( $product->get_parent_id(), $meta_products ) ? true : false;
-				$variable_product_id = $is_variable ? $product_id : $product->get_parent_id();
+				$product_id 			= $product->get_id();
+				$is_variable			= $product->is_type( 'variable' );
+				$is_variation			= $product->is_type( 'variation' );
+				$variable_product_id 	= $is_variable ? $product_id : $product->get_parent_id();
+
+				$variations_modal	= false;
+				if( $is_variable || ( $is_variation && in_array( $product->get_parent_id(), $meta_products ) ) ) {
+					$variations_modal = true;
+				}
 				?>
 				<li class="yith-wfbt-item <?php echo $is_variable ? 'choise-variation' : ''; ?>">
 					<label for="offeringID_<?php echo esc_attr( $j ); ?>">
@@ -113,9 +120,8 @@ $meta_products = isset( $metas['products'] ) ? $metas['products'] : array();
 
 						- <span class="price"><?php echo $product->get_price_html(); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped ?></span>
 
-						<?php if ( $is_variable || $is_choise_variation ): ?>
-							<button class="yith-wfbt-open-modal"
-								data-product_id="<?php echo esc_attr( $variable_product_id ); ?>"><?php echo esc_html( $popup_button_label ); ?></button>
+						<?php if ( $variations_modal ) : ?>
+							<a href="#" class="yith-wfbt-open-modal" data-product_id="<?php echo esc_attr( $variable_product_id ); ?>"><?php echo esc_html( $popup_button_label ); ?></a>
 						<?php endif; ?>
 
 					</label>
@@ -126,8 +132,4 @@ $meta_products = isset( $metas['products'] ) ? $metas['products'] : array();
 
 		<input type="hidden" name="yith-wfbt-main-product" value="<?php echo esc_attr( $main_product_id ); ?>">
 	</form>
-</div>
-
-<div id="yith-wfbt-modal" class="modal">
-	<a href="#" rel="modal:close"><?php esc_html_e( 'Close', 'yith-woocommerce-frequently-bought-together' ) ?></a>
 </div>

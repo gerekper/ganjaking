@@ -58,12 +58,7 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 			add_filter( 'woocommerce_update_order_review_fragments', array( $this, 'checkout_fragments' ) );
 			add_action( 'woocommerce_checkout_shipping', array( $this, 'checkout_content' ), 99 );
 			add_action( 'woocommerce_after_checkout_validation', array( $this, 'checkout_validation' ) );
-
-			if ( version_compare( WC()->version, '3.0', '<' ) ) {
-				add_action( 'woocommerce_checkout_update_order_meta', array( $this, 'update_order_meta' ) );
-			} else {
-				add_action( 'woocommerce_checkout_create_order', array( $this, 'update_order_meta' ) );
-			}
+			add_action( 'woocommerce_checkout_create_order', array( $this, 'update_order_meta' ) );
 		}
 
 		/**
@@ -104,7 +99,7 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 			global $wcms;
 
 			$needs_details = ( is_checkout() && WC()->cart->needs_shipping() &&
-				( ! $this->is_local_pickup() || wc_od_string_to_bool( WC_OD()->settings()->get_setting( 'enable_local_pickup' ) ) ) &&
+				( ! $this->is_local_pickup() || wc_string_to_bool( WC_OD()->settings()->get_setting( 'enable_local_pickup' ) ) ) &&
 				( ! $wcms || ! $wcms->cart->cart_has_multi_shipping() )
 			);
 
@@ -152,8 +147,10 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 				return;
 			}
 
+			$suffix = wc_od_get_scripts_suffix();
+
 			wc_od_enqueue_datepicker( 'checkout' );
-			wp_enqueue_script( 'wc-od-checkout', WC_OD_URL . 'assets/js/wc-od-checkout.js', array( 'jquery', 'wc-od-datepicker' ), WC_OD_VERSION, true );
+			wp_enqueue_script( 'wc-od-checkout', WC_OD_URL . "assets/js/wc-od-checkout{$suffix}.js", array( 'jquery', 'wc-od-datepicker' ), WC_OD_VERSION, true );
 		}
 
 		/**
@@ -234,7 +231,7 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 		 * @return mixed
 		 */
 		public function checkout_get_value( $value, $input ) {
-			// We cannot use the 'wc_od_get_checkout_fields' function due to nested calls.
+			// We cannot use the method 'WC_Checkout->get_checkout_fields()' due to nested calls.
 			if ( 0 === strpos( $input, 'delivery_' ) ) {
 				$value = wc_od_get_posted_data( $input );
 			}
@@ -283,6 +280,9 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 				)
 			);
 
+			$shipping_method = $this->get_shipping_method();
+			$range           = WC_OD_Delivery_Ranges::get_range_matching_shipping_method( $shipping_method );
+
 			/**
 			 * Filter the arguments used by the checkout/form-delivery-date.php template.
 			 *
@@ -299,7 +299,10 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 					'delivery_date_field' => woocommerce_form_field( 'delivery_date', $delivery_date_field_args, $checkout->get_value( 'delivery_date' ) ),
 					'delivery_option'     => WC_OD()->settings()->get_setting( 'checkout_delivery_option' ),
 					'shipping_date'       => wc_od_localize_date( $this->get_first_shipping_date() ),
-					'delivery_range'      => WC_OD()->settings()->get_setting( 'delivery_range' ),
+					'delivery_range'      => array(
+						'min' => $range->get_from(),
+						'max' => $range->get_to(),
+					),
 				)
 			);
 
@@ -424,7 +427,7 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 			}
 
 			$checkout = WC()->checkout();
-			$fields   = wc_od_get_checkout_fields( 'delivery' );
+			$fields   = $checkout->get_checkout_fields( 'delivery' );
 
 			foreach ( $fields as $field_id => $field ) {
 				/**
@@ -485,7 +488,7 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 		 * @return boolean True if the delivery date is valid. False otherwise.
 		 */
 		public function validate_delivery_day( $valid ) {
-			_deprecated_function( __METHOD__, '1.1.0' );
+			wc_deprecated_function( __METHOD__, '1.1.0' );
 
 			return $valid;
 		}
@@ -500,7 +503,7 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 		 * @return boolean True if the delivery date is valid. False otherwise.
 		 */
 		public function validate_minimum_days( $valid ) {
-			_deprecated_function( __METHOD__, '1.1.0' );
+			wc_deprecated_function( __METHOD__, '1.1.0' );
 
 			return $valid;
 		}
@@ -515,7 +518,7 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 		 * @return boolean True if the delivery date is valid. False otherwise.
 		 */
 		public function validate_maximum_days( $valid ) {
-			_deprecated_function( __METHOD__, '1.1.0' );
+			wc_deprecated_function( __METHOD__, '1.1.0' );
 
 			return $valid;
 		}
@@ -530,7 +533,7 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 		 * @return boolean True if the delivery date is valid. False otherwise.
 		 */
 		public function validate_no_events( $valid ) {
-			_deprecated_function( __METHOD__, '1.1.0' );
+			wc_deprecated_function( __METHOD__, '1.1.0' );
 
 			return $valid;
 		}
@@ -629,13 +632,18 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 		/**
 		 * Saves the order delivery date during checkout.
 		 *
-		 * Accepts a post object since 1.1.0 to add compatibility with WC 3.0+.
-		 *
 		 * @since 1.0.0
+		 * @since 1.1.0 Accepts a WC_Order as parameter.
+		 * @since 1.7.0 Doesn't accept an Order ID as parameter.
 		 *
-		 * @param mixed $the_order Post object or post ID of the order.
+		 * @param WC_Order $order Order object.
 		 */
-		public function update_order_meta( $the_order ) {
+		public function update_order_meta( $order ) {
+			if ( ! $order instanceof WC_Order ) {
+				wc_doing_it_wrong( __FUNCTION__, 'Expected a WC_Order object.', '1.7.0' );
+				return;
+			}
+
 			if ( ! $this->needs_date() ) {
 				return;
 			}
@@ -644,17 +652,17 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 			$shipping_date = $this->get_order_shipping_date( $delivery_date );
 
 			if ( $delivery_date ) {
-				wc_od_update_order_meta( $the_order, '_delivery_date', $delivery_date, false );
+				$order->update_meta_data( '_delivery_date', $delivery_date );
 
 				$time_frame = $this->get_order_time_frame( $delivery_date );
 
 				if ( $time_frame ) {
-					wc_od_update_order_meta( $the_order, '_delivery_time_frame', $time_frame, false );
+					$order->update_meta_data( '_delivery_time_frame', $time_frame );
 				}
 			}
 
 			if ( $shipping_date ) {
-				wc_od_update_order_meta( $the_order, '_shipping_date', $shipping_date, false );
+				$order->update_meta_data( '_shipping_date', $shipping_date );
 			}
 		}
 

@@ -93,31 +93,51 @@ if ( ! class_exists( 'WC_OD_Emails' ) ) {
 		 * @param WC_Email $email         Optional. The email instance.
 		 */
 		public function delivery_details( $order, $sent_to_admin = false, $plain_text = false, $email = null ) {
-			// Check if it's the email template preview.
-			if ( ! $email ) {
+			$delivery_date = $order->get_meta( '_delivery_date' );
+
+			if ( ! $delivery_date ) {
 				return;
 			}
 
-			/**
-			 * Filter the emails that will have the delivery information.
-			 *
-			 * @since 1.1.0
-			 *
-			 * @param array $email_ids An array with the email ids.
-			 */
-			$email_ids = apply_filters(
-				'wc_od_emails_with_delivery_details',
-				array(
-					'new_order',
-					'customer_note',
-					'customer_on_hold_order',
-					'customer_processing_order',
-					'customer_completed_order',
-					'customer_invoice',
-				)
-			);
+			$has_delivery = false;
 
-			if ( ! in_array( $email->id, $email_ids, true ) || ! $delivery_date = wc_od_get_order_meta( $order, '_delivery_date' ) ) {
+			if ( $email instanceof WC_Email ) {
+				/**
+				 * Filters the emails that will have the delivery information.
+				 *
+				 * @since 1.1.0
+				 *
+				 * @param array $email_ids An array with the email ids.
+				 */
+				$email_ids = apply_filters(
+					'wc_od_emails_with_delivery_details',
+					array(
+						'new_order',
+						'customer_note',
+						'customer_on_hold_order',
+						'customer_processing_order',
+						'customer_completed_order',
+						'customer_invoice',
+					)
+				);
+
+				if ( in_array( $email->id, $email_ids, true ) ) {
+					$has_delivery = true;
+				}
+			}
+
+			/**
+			 * Filters if the email should include the delivery information.
+			 *
+			 * @since 1.7.0
+			 *
+			 * @param bool     $has_delivery  Whether to include the delivery details.
+			 * @param WC_Email $email         The email instance.
+			 * @param WC_Order $order         Order instance.
+			 */
+			$has_delivery = apply_filters( 'wc_od_email_has_delivery_details', $has_delivery, $email, $order );
+
+			if ( ! $has_delivery ) {
 				return;
 			}
 
@@ -137,7 +157,7 @@ if ( ! class_exists( 'WC_OD_Emails' ) ) {
 					array(
 						'title'               => __( 'Delivery details', 'woocommerce-order-delivery' ),
 						'delivery_date'       => $delivery_date_i18n,
-						'delivery_time_frame' => wc_od_get_order_meta( $order, '_delivery_time_frame' ),
+						'delivery_time_frame' => $order->get_meta( '_delivery_time_frame' ),
 						'order'               => $order,
 						'sent_to_admin'       => $sent_to_admin,
 						'plain_text'          => $plain_text,

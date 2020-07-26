@@ -333,7 +333,7 @@ if ( ! class_exists( 'WC_OD_Install' ) ) {
 		 * @return array The filtered plugin links.
 		 */
 		public static function plugin_action_links( $links ) {
-			_deprecated_function( __METHOD__, '1.6.0', 'Moved to WC_OD_Admin->plugin_action_links()' );
+			wc_deprecated_function( __METHOD__, '1.6.0', 'Moved to WC_OD_Admin->plugin_action_links()' );
 
 			return $links;
 		}
@@ -350,7 +350,7 @@ if ( ! class_exists( 'WC_OD_Install' ) ) {
 		 * @return array
 		 */
 		public static function plugin_row_meta( $links, $file ) {
-			_deprecated_function( __METHOD__, '1.6.0', 'Moved to WC_OD_Admin->plugin_row_meta()' );
+			wc_deprecated_function( __METHOD__, '1.6.0', 'Moved to WC_OD_Admin->plugin_row_meta()' );
 
 			return $links;
 		}

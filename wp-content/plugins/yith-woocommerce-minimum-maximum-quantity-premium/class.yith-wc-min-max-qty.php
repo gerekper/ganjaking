@@ -144,7 +144,7 @@ if ( ! class_exists( 'YITH_WC_Min_Max_Qty' ) ) {
 
 			}
 
-			if ( ! is_admin() || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
+			if ( ! is_admin() || ( ( defined( 'DOING_AJAX' ) && DOING_AJAX ) && isset( $_POST['action'] ) && $_POST['action'] !== 'woocommerce_add_order_item' ) ) {
 				add_action( 'wp', array( $this, 'ywmmq_cart_validation' ) );
 				add_action( 'woocommerce_after_checkout_validation', array( $this, 'ywmmq_checkout_validation' ), 10, 2 );
 				add_action( 'wp_enqueue_scripts', array( $this, 'frontend_scripts' ) );
@@ -3180,9 +3180,9 @@ if ( ! class_exists( 'YITH_WC_Min_Max_Qty' ) ) {
 			if ( $cart_limit['min'] != 0 || $cart_limit['max'] != 0 ) {
 
 				if ( $this->contents_type == 'cart' ) {
-					if ( ! defined( 'WOOCOMMERCE_CART' ) ) {
+					/*if ( ! defined( 'WOOCOMMERCE_CART' ) ) {
 						define( 'WOOCOMMERCE_CART', true );
-					}
+					}*/
 					WC()->cart->calculate_totals();
 				}
 

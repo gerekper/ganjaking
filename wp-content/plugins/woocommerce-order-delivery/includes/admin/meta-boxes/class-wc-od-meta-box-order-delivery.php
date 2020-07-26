@@ -121,7 +121,7 @@ class WC_OD_Meta_Box_Order_Delivery {
 
 		// Process the delivery_date field.
 		$posted_delivery_date  = ( isset( $_POST['_delivery_date'] ) ? wc_clean( wp_unslash( $_POST['_delivery_date'] ) ) : '' ); // WPCS: CSRF ok, sanitization ok.
-		$delivery_date_changed = ( (string) wc_od_get_order_meta( $order_id, '_delivery_date' ) !== $posted_delivery_date );
+		$delivery_date_changed = ( (string) $order->get_meta( '_delivery_date' ) !== $posted_delivery_date );
 
 		if ( $posted_delivery_date ) {
 			wc_od_update_order_meta( $order_id, '_delivery_date', $posted_delivery_date, true );
@@ -139,14 +139,14 @@ class WC_OD_Meta_Box_Order_Delivery {
 
 		// Process the shipping_date field.
 		$posted_shipping_date  = ( isset( $_POST['_shipping_date'] ) ? wc_clean( wp_unslash( $_POST['_shipping_date'] ) ) : '' ); // WPCS: CSRF ok, sanitization ok.
-		$shipping_date_changed = ( (string) wc_od_get_order_meta( $order_id, '_shipping_date' ) !== $posted_shipping_date );
+		$shipping_date_changed = ( (string) $order->get_meta( '_shipping_date' ) !== $posted_shipping_date );
 
 		// Shipping date not changed manually by the merchant.
 		if ( ! $shipping_date_changed && $delivery_date_changed ) {
 			if ( $posted_delivery_date ) {
 				// This info is updated in the WC_Meta_Box_Order_Data::save() method with priority 40.
-				$shipping_country = ( isset( $_POST['_shipping_country'] ) ? wc_clean( wp_unslash( $_POST['_shipping_country'] ) ) : wc_od_get_order_prop( $order, 'shipping_country' ) ); // WPCS: CSRF ok, sanitization ok.
-				$shipping_state   = ( isset( $_POST['_shipping_state'] ) ? wc_clean( wp_unslash( $_POST['_shipping_state'] ) ) : wc_od_get_order_prop( $order, 'shipping_state' ) ); // WPCS: CSRF ok, sanitization ok.
+				$shipping_country = ( isset( $_POST['_shipping_country'] ) ? wc_clean( wp_unslash( $_POST['_shipping_country'] ) ) : $order->get_shipping_country() ); // phpcs:ignore WordPress.Security.NonceVerification
+				$shipping_state   = ( isset( $_POST['_shipping_state'] ) ? wc_clean( wp_unslash( $_POST['_shipping_state'] ) ) : $order->get_shipping_state() ); // phpcs:ignore WordPress.Security.NonceVerification
 
 				// Re-calculate the shipping date.
 				$posted_shipping_date = wc_od_get_last_shipping_date(

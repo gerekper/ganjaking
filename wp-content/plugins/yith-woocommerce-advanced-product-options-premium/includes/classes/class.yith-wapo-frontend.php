@@ -1292,6 +1292,11 @@ if ( ! class_exists( 'YITH_WAPO_Frontend' ) ) {
 			if ( ! empty( $values['yith_wapo_options'] ) ) {
 				$cart_item['yith_wapo_options'] = $values['yith_wapo_options'];
 				$cart_item                      = $this->add_cart_item( $cart_item );
+
+				if( isset( $cart_item['ywsbs-subscription-info'] ) ){
+					$cart_item['ywsbs-subscription-info']['recurring_price'] = $cart_item['data']->get_price();
+				}
+				
 			}
 
 			return $cart_item;
@@ -1574,6 +1579,10 @@ if ( ! class_exists( 'YITH_WAPO_Frontend' ) ) {
 			// Returns the price including or excluding tax, based on the 'woocommerce_tax_display_shop' setting.
 			$product_display_price = yit_get_display_price( $product, $price );
 
+			if ( apply_filters( 'yith_wapo_display_price_without_tax', false ) ) {
+				$product_display_price = floatval( money_format( '%.2n', $price ) );
+			}
+
 			if ( $price != 0 ) {
 
 				switch ( $price_type ) {
@@ -1600,6 +1609,7 @@ if ( ! class_exists( 'YITH_WAPO_Frontend' ) ) {
 							$product_price        = defined( 'YWCRBP_PREMIUM' ) ? $product_object->get_price() : $product_object_price;
 							$product_final_price  = ( $use_display ? yit_get_display_price( $product_object ) : $product_price );
 						}
+                        $product_final_price = apply_filters( 'yith_wapo_product_final_price', $price, $price_type, $product_object  );
 						$price_calculated = ( ( $product_final_price / 100 ) * $price ) + $price_fixed;
 						break;
 
@@ -1910,7 +1920,7 @@ if ( ! class_exists( 'YITH_WAPO_Frontend' ) ) {
 
 					$tax_inc = get_option( 'woocommerce_prices_include_tax' ) === 'yes';
 
-					if ( wc_tax_enabled() && $tax_inc ) {
+					if ( wc_tax_enabled() && $tax_inc && apply_filters( 'yith_wapo_display_price_without_tax', false ) ) {
 						$subtotal = $item['item_meta']['_line_total'][0] + $item['item_meta']['_line_tax'][0];
 
 					} else {

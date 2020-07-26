@@ -15,13 +15,21 @@ jQuery( function ( $ ) {
         var field = '#' + t.data( 'dep-target' ),
             dep   = '#' + t.data( 'dep-id' ),
             value = t.data( 'dep-value' ),
-            type  = t.data( 'dep-type' );
+            type  = t.data( 'dep-type' ),
+            event = 'change',
+            wrapper = $( dep + '-wrapper' ),
+            field_type = wrapper.data( 'type' );
+
+        if( field_type === 'select-images' ){
+          event = 'yith_select_images_value_changed';
+        }
 
         dependencies_handler( field, dep, value.toString(), type );
 
-        $( dep ).on( 'change', function () {
+        $( dep ).on( event, function () {
             dependencies_handler( field, dep, value.toString(), type );
-        } ).change();
+        } ).trigger( event );
+
     } );
 
     //Handle dependencies.
@@ -42,6 +50,10 @@ jQuery( function ( $ ) {
                 } else {
                     val = 'no';
                 }
+            }
+
+            if( $( deps + '-wrapper' ).data( 'type' ) === 'select-images' ){
+              val = $( deps + '-wrapper' ).find( 'select' ).first().val();
             }
 
             values = values.split( ',' );
@@ -178,4 +190,27 @@ jQuery( function ( $ ) {
         wrap.prepend( notices );
     }
 
+
+    // TAB MENU AND SUB TABS
+    var active_subnav = $(document).find( '.yith-nav-sub-tab.nav-tab-active' );
+
+    if( active_subnav.length ){
+        // WP page
+        var  mainWrapper = $(document).find( '.yith-plugin-fw-wp-page-wrapper' );
+        if( ! mainWrapper.length ){
+            mainWrapper = $(document).find( '#wpbody-content > .yith-plugin-ui' );
+        }
+
+        if( mainWrapper ){
+            // serach first for deafult wrap
+            var wrap = mainWrapper.find( '.yit-admin-panel-content-wrap' );
+            if( wrap.length ) {
+                wrap.addClass( 'has-subnav' );
+            }
+            else {
+                // try to wrap a generic wrap div in main wrapper
+                mainWrapper.find('.wrap').wrap('<div class="wrap subnav-wrap"></div>');
+            }
+        }
+    }
 } );

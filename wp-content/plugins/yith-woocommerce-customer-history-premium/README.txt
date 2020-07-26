@@ -4,11 +4,18 @@ Contributors: yithemes
 Tags: woocommerce, customers, history, orders, emails
 Requires at least: 4.5
 Tested up to: 5.4
-Stable tag: 1.1.17
+Stable tag: 1.1.18
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 == Changelog ==
+
+= 1.1.18 – Released on 15 Jul 2020 =
+
+* New: Support for WooCommerce 4.3
+* New: Panel design
+* Update: YIT Plugin Framework
+* Fix: Minor bugs
 
 = 1.1.17 – Released on 03 Jun 2020 =
 

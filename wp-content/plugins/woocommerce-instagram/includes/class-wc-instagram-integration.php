@@ -60,6 +60,14 @@ class WC_Instagram_Integration extends WC_Integration {
 			}
 		}
 
+		if ( wc_instagram_is_request( 'ajax' ) && isset( $_POST['catalog_id'] ) ) {
+			include_once 'admin/settings/class-wc-instagram-settings-product-catalog.php';
+
+			$catalog_id         = (string) wc_clean( wp_unslash( $_POST['catalog_id'] ) );
+			$this->settings_api = new WC_Instagram_Settings_Product_Catalog( $catalog_id );
+			return;
+		}
+
 		include_once 'admin/settings/class-wc-instagram-settings-general.php';
 		$this->settings_api = new WC_Instagram_Settings_General();
 		// phpcs:enable WordPress.Security.NonceVerification

@@ -10,6 +10,7 @@
  *
  * @param {jQuery} $ The jQuery instance.
  */
+/* global ajaxurl */
 jQuery(function( $ ) {
 
 	'use strict';
@@ -187,7 +188,7 @@ jQuery(function( $ ) {
 
 					self.$modalForm.find( '.actions .delete' ).click(function( event ) {
 						event.preventDefault();
-						if ( confirm( self.options.modalTexts['delete'] ) ) {
+						if ( window.confirm( self.options.modalTexts['delete'] ) ) {
 							if ( self.currentEvent ) {
 								self.eventAction( 'delete', self.getEventData( self.currentEvent ) );
 							}
@@ -280,7 +281,7 @@ jQuery(function( $ ) {
 							callback( response.event );
 						}
 					} else if ( 'error' === response.status ) {
-						alert( response.message );
+						window.alert( response.message );
 					}
 				}
 			});
@@ -373,7 +374,7 @@ jQuery(function( $ ) {
 	};
 
 	// Extends the WC_OD_Calendar
-	$.WC_OD_Delivery_Calendar = function( options, element ) {
+	$.WC_OD_Delivery_Calendar = function() {
 		var defaults = {
 			countryStates: []
 		};

@@ -44,7 +44,7 @@ $social_icon_path      .= $use_mini_social_icons ? '-mini/' : '/';
 
 $social_icon_path = apply_filters( 'yith_wcet_social_icon_path', $social_icon_path, $use_mini_social_icons, $current_email, 'header' );
 
-$custom_logo = apply_filters( 'yith_wcet_header_custom_logo', false );
+$custom_logo = apply_filters( 'yith_wcet_header_custom_logo', false, $template );
 
 
 $social_icons            = yith_wcet_get_socials();

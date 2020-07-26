@@ -5,146 +5,147 @@ msgstr ""
 "Project-Id-Version: YITH WooCommerce Anti-Fraud\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
 "anti-fraud.premium\n"
-"POT-Creation-Date: 2020-04-28 21:20:23+00:00\n"
-"PO-Revision-Date: 2020-04-23 16:02:47+0000\n"
+"POT-Creation-Date: 2020-07-02 13:54:58+00:00\n"
+"PO-Revision-Date: 2020-06-08 20:55:46+0000\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/2.3.1\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
 
-#: class.yith-wc-anti-fraud.php:363
+#: class.yith-wc-anti-fraud.php:364
 msgid "Fraud risk check in progress."
 msgstr "Controle frauderisico in uitvoering"
 
-#: class.yith-wc-anti-fraud.php:395
+#: class.yith-wc-anti-fraud.php:396
 msgid "Fraud risk check completed."
 msgstr "Controle frauderisico afgerond."
 
-#: class.yith-wc-anti-fraud.php:492 class.yith-wc-anti-fraud.php:585
+#: class.yith-wc-anti-fraud.php:493 class.yith-wc-anti-fraud.php:586
 msgid "Fraud risk check not passed. Fraud risk is high!"
 msgstr "Controle frauderisico niet geslaagd. Frauderisico is hoog!"
 
-#: class.yith-wc-anti-fraud.php:529
+#: class.yith-wc-anti-fraud.php:530
 msgid "No check performed"
-msgstr "Geen check uitgevoerd"
+msgstr "Geen controle uitgevoerd"
 
-#: class.yith-wc-anti-fraud.php:539
+#: class.yith-wc-anti-fraud.php:540
 msgid "High Risk"
 msgstr "Hoog Risico"
 
-#: class.yith-wc-anti-fraud.php:547
+#: class.yith-wc-anti-fraud.php:548
 msgid "Medium Risk"
 msgstr "Gemiddeld risico"
 
-#: class.yith-wc-anti-fraud.php:555
+#: class.yith-wc-anti-fraud.php:556
 msgid "Low Risk"
 msgstr "Laag risico"
 
-#: class.yith-wc-anti-fraud.php:591
+#: class.yith-wc-anti-fraud.php:592
 msgid "Fraud risk check passed with medium fraud risk."
 msgstr "Controle frauderisico geslaagd met gemiddeld frauderisico."
 
-#: class.yith-wc-anti-fraud.php:605
+#: class.yith-wc-anti-fraud.php:606
 msgid "Fraud risk check passed with low fraud risk"
 msgstr "Controle frauderisico geslaagd met laag frauderisico"
 
-#: class.yith-wc-anti-fraud.php:855 includes/rules/class-ywaf-paypal.php:95
+#: class.yith-wc-anti-fraud.php:856 includes/rules/class-ywaf-paypal.php:95
 msgid "Waiting for PayPal verification."
 msgstr "Wachten op PayPal verificatie."
 
-#: class.yith-wc-anti-fraud.php:860 includes/rules/class-ywaf-paypal.php:86
+#: class.yith-wc-anti-fraud.php:861 includes/rules/class-ywaf-paypal.php:86
 msgid "Waiting for PayPal transaction data."
 msgstr "Wachten op PayPal transactiegegevens."
 
-#: class.yith-wc-anti-fraud.php:865
+#: class.yith-wc-anti-fraud.php:866
 msgid "PayPal verification failed."
 msgstr "PayPal verificatie mislukt."
 
-#: class.yith-wc-anti-fraud.php:1185
+#: class.yith-wc-anti-fraud.php:1186
 msgid "General Settings"
 msgstr "Algemene instellingen"
 
-#: class.yith-wc-anti-fraud.php:1186
-msgid "Emails Blacklist Settings"
-msgstr ""
-
 #: class.yith-wc-anti-fraud.php:1187
-msgid "Addresses Blacklist Settings"
-msgstr ""
+msgid "Emails Blacklist Settings"
+msgstr "Instellingen zwarte lijst e-mails"
 
 #: class.yith-wc-anti-fraud.php:1188
+msgid "Addresses Blacklist Settings"
+msgstr "Instellingen zwarte lijst adressen"
+
+#: class.yith-wc-anti-fraud.php:1189
 msgid "PayPal Settings"
 msgstr "PayPal Instellingen"
 
-#: class.yith-wc-anti-fraud.php:1268
+#: class.yith-wc-anti-fraud.php:1269
 msgid ""
 "You must activate at least one rule to monitor your orders against fraud."
 msgstr ""
-"U moet minstens een regel activeren, om uw orders te bewaken tegen fraude."
+"Je moet minstens een regel activeren, om je bestellingen te bewaken tegen "
+"fraude."
 
-#: class.yith-wc-anti-fraud.php:1287 includes/class-ywaf-metabox.php:55
+#: class.yith-wc-anti-fraud.php:1288 includes/class-ywaf-metabox.php:55
 msgid "Fraud Risk Level"
 msgstr "Frauderisico niveau"
 
-#: class.yith-wc-anti-fraud.php:1351
+#: class.yith-wc-anti-fraud.php:1352
 msgid "Repeat fraud risk check"
 msgstr "Controle frauderisico herhalen"
 
-#: class.yith-wc-anti-fraud.php:1351
+#: class.yith-wc-anti-fraud.php:1352
 msgid "Start fraud risk check"
 msgstr "Start controle frauderisico"
 
-#: class.yith-wc-anti-fraud.php:1484
+#: class.yith-wc-anti-fraud.php:1485
 msgid "PayPal email address has been successfully checked!"
 msgstr "E-mailadres PayPal is succesvol gecontroleerd!"
 
-#: class.yith-wc-anti-fraud.php:1523 class.yith-wc-anti-fraud.php:1544
-#: class.yith-wc-anti-fraud.php:1559
+#: class.yith-wc-anti-fraud.php:1524 class.yith-wc-anti-fraud.php:1545
+#: class.yith-wc-anti-fraud.php:1560
 msgid "Order Status"
-msgstr "Order status"
+msgstr "Bestelling status"
 
-#: class.yith-wc-anti-fraud.php:1526
+#: class.yith-wc-anti-fraud.php:1527
 msgid ""
 "In order to complete the order, you have to complete your verification "
 "process by clicking on the link we sent to your PayPal email address."
 msgstr ""
-"Om de order af te ronden, moet u het verificatieproces afronden door op de "
-"link te klikken die is verstuurd naar uw PayPal e-mailadres."
+"Om de bestelling af te ronden, moet je het verificatieproces afronden door "
+"op de link te klikken die is verstuurd naar je PayPal e-mailadres."
 
-#: class.yith-wc-anti-fraud.php:1529
+#: class.yith-wc-anti-fraud.php:1530
 msgid ""
 "If you have not received the verification email, you can ask for a new by "
 "clicking the following button"
 msgstr ""
-"Indien u de verificatie e-mail niet heeft ontvangen, kunt u een nieuwe "
+"Indien je de verificatie e-mail niet heeft ontvangen, kun je een nieuwe "
 "opvragen door op de volgende link te klikken"
 
-#: class.yith-wc-anti-fraud.php:1533
+#: class.yith-wc-anti-fraud.php:1534
 msgid "Re-send email"
 msgstr "Verstuur e-mail opnieuw"
 
-#: class.yith-wc-anti-fraud.php:1547
+#: class.yith-wc-anti-fraud.php:1548
 msgid ""
 "We could not verify your PayPal email address and therefore your order has "
 "been cancelled. If you think an error has occurred, contact our customer "
 "service."
 msgstr ""
-"We hebben uw PayPay e-mailadres niet kunnen verifiëren, om deze reden is uw "
-"order geannuleerd. Als u van mening bent dat zich een fout heeft voorgedaan, "
-"neem dan contact op met onze klantenservice."
+"We hebben je PayPay e-mailadres niet kunnen verifiëren, om deze reden is je "
+"bestelling geannuleerd. Als je van mening bent dat zich een fout heeft "
+"voorgedaan, neem dan contact op met onze klantenservice."
 
-#: class.yith-wc-anti-fraud.php:1562
+#: class.yith-wc-anti-fraud.php:1563
 msgid ""
 "The order has not passed anti-fraud tests, therefore it has been cancelled. "
 "If you think an error has occurred, contact our customer service."
 msgstr ""
-"De anti-fraude test voor uw order is niet geslaagd, om deze reden is uw "
-"order geannuleerd. Als u van mening bent dat zich een fout heeft voorgedaan, "
-"neem dan contact op met onze klantenservice."
+"De anti-fraude test voor je bestelling is niet geslaagd, om deze reden is je "
+"bestelling geannuleerd. Als je van mening bent dat zich een fout heeft "
+"voorgedaan, neem dan contact op met onze klantenservice."
 
-#: class.yith-wc-anti-fraud.php:1577
+#: class.yith-wc-anti-fraud.php:1578
 msgid ""
 "Files cannot be downloaded because the PayPal verification for this order "
 "has failed!"
@@ -152,37 +153,37 @@ msgstr ""
 "Bestanden kunnen niet worden gedownload omdat de PayPal-verificatie voor "
 "deze bestelling is mislukt!"
 
-#: class.yith-wc-anti-fraud.php:1579
+#: class.yith-wc-anti-fraud.php:1580
 msgid ""
 "Files cannot be downloaded because there is a pending PayPal verification "
 "for this order."
 msgstr ""
 "Bestanden kunnen niet worden gedownload omdat er een PayPal-verificatie is "
-"aangevraagd voor deze order."
+"aangevraagd voor deze bestelling."
 
-#: class.yith-wc-anti-fraud.php:1620
+#: class.yith-wc-anti-fraud.php:1621
 msgid "#%s"
 msgstr "#%s"
 
-#: class.yith-wc-anti-fraud.php:1623
+#: class.yith-wc-anti-fraud.php:1624
 msgid ""
 "This file cannot be downloaded because the PayPal verification for the order "
 "%s has failed!"
 msgstr ""
-"Dit bestand kan niet worden gedownload omdat de PayPal-verificatie voor de "
-"order %s is mislukt!"
+"Dit bestand kan niet worden gedownload omdat de PayPal-verificatie voor "
+"bestelling %s is mislukt!"
 
-#: class.yith-wc-anti-fraud.php:1625
+#: class.yith-wc-anti-fraud.php:1626
 msgid ""
 "This file cannot be downloaded because there is a pending PayPal "
 "verification for the order %s."
 msgstr ""
 "Dit bestand kan niet worden gedownload omdat er een PayPal-verificatie in "
-"behandeling is voor de order %s."
+"behandeling is voor bestelling %s."
 
 #: includes/class-ywaf-admin-notification-email.php:40
 msgid "Anti-Fraud Admin Notification"
-msgstr "Anti-Fraude Admin Notificatie"
+msgstr "Anti-Fraude beheerder Notificatie"
 
 #: includes/class-ywaf-admin-notification-email.php:41
 #: includes/class-ywaf-paypal-email.php:46
@@ -191,11 +192,11 @@ msgid ""
 "suspicious purchases made in your e-commerce site."
 msgstr ""
 "YITH WooCommerce Anti-Fraude is de beste manier om alle verdachte aankopen "
-"gemaakt in uw webwinkel, in kaart te brengen."
+"gemaakt in je webwinkel, in kaart te brengen."
 
 #: includes/class-ywaf-admin-notification-email.php:94
 msgid "[{site_title}] Anti-fraud checks on order #{order_number}"
-msgstr "[{site_title}] Antie-fraude controles van orders #{order_number}"
+msgstr "[{site_title}] Anti-fraude controles van bestelling#{order_number}"
 
 #: includes/class-ywaf-admin-notification-email.php:104
 msgid "Anti-Fraud check"
@@ -203,13 +204,15 @@ msgstr "Anti-Fraude controle"
 
 #: includes/class-ywaf-admin-notification-email.php:224
 msgid "Recipient(s)"
-msgstr ""
+msgstr "Ontvanger(s)"
 
 #: includes/class-ywaf-admin-notification-email.php:227
 msgid ""
 "Enter recipients (comma separated) for this email. Defaults to <code>%s</"
 "code>"
 msgstr ""
+"Ontvangers invoeren (gescheiden door komma) voor deze e-mail. Standaard "
+"<code>%s</code>"
 
 #: includes/class-ywaf-admin-notification-email.php:233
 #: includes/class-ywaf-paypal-email.php:260
@@ -219,44 +222,49 @@ msgstr "E-mail type"
 #: includes/class-ywaf-admin-notification-email.php:237
 #: includes/class-ywaf-paypal-email.php:264
 msgid "Choose which format of email to send."
-msgstr ""
+msgstr "Bepaal in welk formaat je de e-mail wilt sturen"
 
 #: includes/class-ywaf-ajax.php:115
 msgid "Email was sent successfully! Please check your mailbox"
-msgstr "E-mail is succesvol verstuurd! Controleer uw mailbox"
+msgstr "E-mail is succesvol verstuurd! Controleer je mailbox"
 
-#: includes/class-ywaf-metabox.php:137
+#: includes/class-ywaf-metabox.php:130
 msgid "Order check was successful!"
 msgstr "Order controle was succesvol!"
 
-#: includes/class-ywaf-metabox.php:145
+#: includes/class-ywaf-metabox.php:138
 msgid "Repeat Check!"
 msgstr "Herhaal controle!"
 
-#: includes/class-ywaf-metabox.php:168
+#: includes/class-ywaf-metabox.php:161
 msgid "This order is currently in queue for a fraud risk check."
 msgstr ""
-"Deze order staat momenteel in de wachtrij voor een frauderisico controle."
+"Deze bestelling staat momenteel in de wachtrij voor een frauderisico "
+"controle."
 
-#: includes/class-ywaf-metabox.php:174
+#: includes/class-ywaf-metabox.php:167
 msgid "This order is currently waiting for a PayPal verification."
-msgstr "De order wacht momenteel op een PayPal verificatie."
+msgstr "Deze bestelling wacht momenteel op een PayPal verificatie."
 
-#: includes/class-ywaf-metabox.php:178
+#: includes/class-ywaf-metabox.php:171
 msgid "Re-send verification request"
-msgstr "Verstuur verificatie verzoek opnieuw"
+msgstr "Verificatie verzoek opnieuw versturen"
 
-#: includes/class-ywaf-metabox.php:184
+#: includes/class-ywaf-metabox.php:177
 msgid "Press the button to start a fraud risk check"
 msgstr "Druk op de knop om een frauderisico controle te starten"
 
-#: includes/class-ywaf-metabox.php:187
+#: includes/class-ywaf-metabox.php:180
 msgid "Start checking!"
 msgstr "Start controle!"
 
+#: includes/class-ywaf-metabox.php:214
+msgid "See Geolocation data"
+msgstr "Bekijk geo-lokalisatie gegevens"
+
 #: includes/class-ywaf-paypal-email.php:47
 msgid "Anti-Fraud PayPal Verification"
-msgstr ""
+msgstr "Anti fraude PayPal verificatie"
 
 #: includes/class-ywaf-paypal-email.php:238
 msgid "Email subject"
@@ -265,11 +273,11 @@ msgstr "Onderwerp e-mail"
 #: includes/class-ywaf-paypal-email.php:240
 #: includes/class-ywaf-paypal-email.php:249
 msgid "Available placeholders: %s"
-msgstr ""
+msgstr "Beschikbare invulvelden: %s"
 
 #: includes/class-ywaf-paypal-email.php:242
 msgid "[{site_title}] Confirm your PayPal email address"
-msgstr "[{site_title}] bevestig uw PayPal e-mailadres"
+msgstr "[{site_title}] bevestig je PayPal e-mailadres"
 
 #: includes/class-ywaf-paypal-email.php:247
 msgid "Email body"
@@ -286,10 +294,10 @@ msgid ""
 "and email us to {site_email} for having your money back."
 msgstr ""
 "Hoi!\n"
-"We hebben uw order van {site_title} ontvangen, maar om deze af te ronden "
-"moeten wij uw PayPal e-mailadres verifiëren.\n"
+"We hebben je bestelling van {site_title} ontvangen, maar om deze af te "
+"ronden moeten wij je PayPal e-mailadres verifiëren.\n"
 "\n"
-"Indien u geen order heeft geplaatst of aankoop heeft gedaan, neemt u dan "
+"Indien je geen bestelling hebt geplaatst of aankoop hebt gedaan, neem dan "
 "direct contact op met PayPal support service\n"
 "en stuur een e-mail naar {site_email} voor een restitutie."
 
@@ -317,7 +325,7 @@ msgstr "Het e-mail adres is geverifieerd"
 
 #: includes/rules/class-ywaf-address-blacklist.php:42
 msgid "Billing and/or shipping address is blacklisted!"
-msgstr ""
+msgstr "Factuuradres en/of verzendadres staat op zwarte lijst!"
 
 #: includes/rules/class-ywaf-addresses-matching.php:37
 msgid "Billing address and shipping address do not match."
@@ -325,39 +333,40 @@ msgstr "Factuuradres en verzendadres komen niet overeen."
 
 #: includes/rules/class-ywaf-first-order.php:37
 msgid "This is the first order by this user."
-msgstr "Dit is de eerste order van deze gebruiker."
+msgstr "Dit is de eerste bestelling van deze gebruiker."
 
 #: includes/rules/class-ywaf-high-amount-fixed.php:41
 msgid "This order amount is bigger than %s."
-msgstr "Het orderbedrag is groter dan %s."
+msgstr "Het bestelbedrag is groter dan %s."
 
 #: includes/rules/class-ywaf-high-amount.php:41
 msgid ""
 "This order amount is %s times bigger than the total average for orders in "
 "your site."
 msgstr ""
-"Het orderbedrag is %s maal groter dan het totaal gemiddelde voor orders in "
-"uw website."
+"Het bestelbedrag is %s keer groter dan het totaal gemiddelde voor "
+"bestellingen in je website."
 
 #: includes/rules/class-ywaf-international-order.php:37
 msgid "This is an international order."
-msgstr "Dit is een internationale order."
+msgstr "Dit is een internationale bestelling."
 
 #: includes/rules/class-ywaf-ip-country.php:37
 msgid "Customer IP address does not match the given billing country."
-msgstr "IP adres klant komt niet overeen met het gegeven factuurland."
+msgstr "IP adres van klant komt niet overeen met het gegeven factuurland."
 
 #: includes/rules/class-ywaf-ip-multiple-details.php:42
 msgid ""
 "Orders with multiple billing information have been made from the same IP "
 "address in %s days."
 msgstr ""
-"Orders met verschillende factuurinformatie zijn gemaakt vanaf hetzelfde IP "
-"adres in %s dagen."
+"Bestellingen met verschillende factuurinformatie zijn geplaatst vanaf "
+"hetzelfde IP adres binnen %s dagen."
 
 #: includes/rules/class-ywaf-many-attempts.php:44
 msgid "More than %s orders have been placed in %s hours from this IP address."
-msgstr "Meer dan %s orders zijn geplaatst in %s uur vanaf dit IP adres."
+msgstr ""
+"Er zijn meer dan %s bestellingen geplaatst binnen %s uur vanaf dit IP adres."
 
 #: includes/rules/class-ywaf-paypal.php:42
 msgid "PayPal email address has not been verified!"
@@ -365,11 +374,11 @@ msgstr "PayPal e-mailadres is niet geverifieerd!"
 
 #: includes/rules/class-ywaf-proxy.php:37
 msgid "Order placed from behind a proxy."
-msgstr "Order geplaatst via een proxy."
+msgstr "Bestelling geplaatst via een proxy."
 
 #: includes/rules/class-ywaf-risk-country.php:43
 msgid "Order coming from an unsafe country."
-msgstr "Order komt uit een onveilig land."
+msgstr "Bestelling komt uit een onveilig land."
 
 #: includes/rules/class-ywaf-suspicious-email.php:41
 msgid "The billing email address used for the order has a suspicious domain."
@@ -391,19 +400,19 @@ msgstr "Een keer elke 5 minuten"
 
 #: plugin-options/address-blacklist-options.php:20
 msgid "Addresses blacklist settings"
-msgstr ""
+msgstr "Instellingen zwarte lijst adressen"
 
 #: plugin-options/address-blacklist-options.php:24
 msgid "Enable address blacklist"
-msgstr ""
+msgstr "Zwarte lijst adres inschakelen"
 
 #: plugin-options/address-blacklist-options.php:31
 msgid "Percentage of similarity"
-msgstr ""
+msgstr "Procentuele overeenkomst"
 
 #: plugin-options/address-blacklist-options.php:32
 msgid "Similarity threshold with stored addresses"
-msgstr ""
+msgstr "Overeenkomst drempel met opgeslagen adressen"
 
 #: plugin-options/address-blacklist-options.php:39
 #: plugin-options/blacklist-options.php:31
@@ -415,24 +424,26 @@ msgid ""
 "Add billing and shipping addresses of orders reported with a high risk of "
 "fraud to blacklist automatically"
 msgstr ""
+"Factuur- en verzendadressen toevoegen van bestellingen met een hoog fraude "
+"risico melding, die automatisch naar de zwarte lijst gaan"
 
 #: plugin-options/address-blacklist-options.php:52
 msgid "Blacklisted addresses"
-msgstr ""
+msgstr "Adressen op de zwarte lijst"
 
 #: plugin-options/address-blacklist-options.php:56
 msgid "The following billing and/or shipping addresses are not safe."
-msgstr ""
+msgstr "De volgende factuur- en/of verzendadressen zijn niet veilig."
 
 #: plugin-options/address-blacklist-options.php:57
 #: plugin-options/blacklist-options.php:50
 #: plugin-options/paypal-options.php:102
 msgid "Enter an email address&hellip;"
-msgstr "Voer een e-mailadres in&hellip;"
+msgstr "E-mailadres invoeren&hellip;"
 
 #: plugin-options/blacklist-options.php:20
 msgid "Email blacklist settings"
-msgstr ""
+msgstr "Instellingen zwarte lijst e-mail"
 
 #: plugin-options/blacklist-options.php:24
 msgid "Enable email blacklist"
@@ -443,7 +454,7 @@ msgid ""
 "Add email addresses of orders reported with a high risk of fraud to "
 "blacklist automatically"
 msgstr ""
-"Voeg automatisch emailadressen toe aan de zwarte lijst, van orders "
+"E-mailadressen automatisch toevoegen aan de zwarte lijst, van bestellingen "
 "geregistreerd met een hoog fraude risico"
 
 #: plugin-options/blacklist-options.php:44
@@ -464,11 +475,11 @@ msgstr "YITH WooCommerce Anti-Fraude inschakelen"
 
 #: plugin-options/general-options.php:184
 msgid "Admin email settings"
-msgstr "Admin e-mail instellingen"
+msgstr "beheerder e-mail instellingen"
 
 #: plugin-options/general-options.php:188
 msgid "Enable admin email notification"
-msgstr "Schakel admin e-mail notificatie in"
+msgstr "Admin e-mail notificatie inschakelen"
 
 #: plugin-options/general-options.php:189
 msgid ""
@@ -479,7 +490,7 @@ msgstr ""
 
 #: plugin-options/general-options.php:199
 msgid "Edit the admin email options"
-msgstr ""
+msgstr "Bewerkt de beheerder e-mailopties"
 
 #: plugin-options/general-options.php:213
 msgid "Settings for risk thresholds"
@@ -495,28 +506,32 @@ msgstr "Hoog risico drempel"
 
 #: plugin-options/general-options.php:241
 msgid "Check for high risk at checkout"
-msgstr ""
+msgstr "Controleer op hoog risico bij checkout"
 
 #: plugin-options/general-options.php:245
 msgid ""
 "Check for high risk order before validating checkout. If there's an high "
 "risk the order will be immediately cancelled"
 msgstr ""
+"Controleer bestelling op hoog risico voordat je de checkout valideert. Bij "
+"een hoog risico wordt de bestelling direct geannuleerd"
 
 #: plugin-options/general-options.php:249
 msgid "Error message"
-msgstr ""
+msgstr "Fout bericht"
 
 #: plugin-options/general-options.php:252
 msgid ""
 "The message that the customer will display in case of validation failure"
-msgstr ""
+msgstr "Het bericht dat de klant zal zien, wanneer een validatie fout optreed."
 
 #: plugin-options/general-options.php:254
 msgid ""
 "Sorry, your order cannot be processed. If the issue persists please contact "
 "us."
 msgstr ""
+"Sorry, je bestelling kan niet worden verwerkt. Als het probleem zich blijft "
+"voortdoen, neem a.u.b. contact met ons op."
 
 #: plugin-options/general-options.php:269
 msgid "Rule settings"
@@ -524,7 +539,7 @@ msgstr "Regel instellingen"
 
 #: plugin-options/general-options.php:274
 msgid "Enable first order check"
-msgstr "Inschakelen eerste order controle"
+msgstr "Eerste bestelling controle inschakelen"
 
 #: plugin-options/general-options.php:282
 #: plugin-options/general-options.php:309
@@ -538,7 +553,7 @@ msgstr "Inschakelen eerste order controle"
 #: plugin-options/general-options.php:589
 #: plugin-options/general-options.php:651
 msgid "Rule weight"
-msgstr "Regel gewicht"
+msgstr "Gewicht regel"
 
 #: plugin-options/general-options.php:286
 #: plugin-options/general-options.php:313
@@ -556,18 +571,21 @@ msgid ""
 "- you can change it from 1 to 20 depending on the weight you want to "
 "designate)"
 msgstr ""
+"Gewicht van een enkele regel in de totaalberekening van risico´s (Normale "
+"waarde: 10 - je kunt het wijzigen van 1 tot 20 afhankelijk van het gewicht "
+"dat je wilt toewijzen)"
 
 #: plugin-options/general-options.php:301
 msgid "Enable international order check"
-msgstr "Inschakelen internationale order controle"
+msgstr "Internationale order controle inschakelen"
 
 #: plugin-options/general-options.php:328
 msgid "Enable IP geolocation check"
-msgstr "Inschakelen IP geolocatie controle"
+msgstr "IP geolocatie controle inschakelen"
 
 #: plugin-options/general-options.php:355
 msgid "Enable Billing and Shipping address check"
-msgstr "Inschakelen factuuradres en verzendadres controle"
+msgstr "Factuuradres en verzendadres controle inschakelen"
 
 #: plugin-options/general-options.php:382
 msgid "Enable proxy check"
@@ -575,7 +593,7 @@ msgstr "Proxy controle inschakelen"
 
 #: plugin-options/general-options.php:409
 msgid "Enable suspicious email domain check"
-msgstr "Inschakelen verdachte e-maildomein controle"
+msgstr "Verdachte e-maildomein controle inschakelen"
 
 #: plugin-options/general-options.php:435
 msgid "Suspicious domains"
@@ -595,7 +613,7 @@ msgstr "Voer een domein in&hellip;"
 
 #: plugin-options/general-options.php:450
 msgid "Enable unsafe country check"
-msgstr "Inschakelen onveilig land controle"
+msgstr "Onveilig land controle inschakelen"
 
 #: plugin-options/general-options.php:476
 msgid "Define unsafe countries"
@@ -607,30 +625,30 @@ msgstr "Zoeken naar land&hellip;"
 
 #: plugin-options/general-options.php:481
 msgid "Enter here the countries that you consider unsafe"
-msgstr "Voer hier de landen in die u beschouwt als onveilig"
+msgstr "Hier landen invoeren die je als onveilig beschouwt"
 
 #: plugin-options/general-options.php:492
 msgid "Enable order amount check (for orders exceeding average order amount)"
 msgstr ""
-"Inschakelen orderbedrag controle (voor orders die het gemiddelde orderbedrag "
-"overschrijden)"
+"Controle op bestelbedrag inschakelen (voor bestellingen die het gemiddelde "
+"bestelbedrag overschrijden)"
 
 #: plugin-options/general-options.php:518
 msgid "Average multiplier"
-msgstr "Medium vermenigvuldiger"
+msgstr "Gemiddelde vermenigvuldiger"
 
 #: plugin-options/general-options.php:522
 msgid ""
 "Total order amount accepted (expressed as multiplier of average order amount)"
 msgstr ""
-"Totaal orderbedrag geaccepteerd (uitgedrukt als vermenigvuldiger van "
-"gemiddeld orderbedrag)"
+"Totaal bestelbedrag geaccepteerd (uitgedrukt als vermenigvuldiger van "
+"gemiddeld bestelbedrag)"
 
 #: plugin-options/general-options.php:537
 msgid ""
 "Enable order amount check (for orders exceeding the below specified amount)"
 msgstr ""
-"Inschakelen orderbedrag controle (voor orders die het hieronder "
+"Bestelbedrag controle inschakelen (voor bestellingen die het hieronder "
 "gespecificeerde bedrag overschrijden)"
 
 #: plugin-options/general-options.php:563
@@ -639,11 +657,11 @@ msgstr "Bedrag limiet (%s)"
 
 #: plugin-options/general-options.php:568
 msgid "Total order amount accepted. Set zero for no limit."
-msgstr "Totaal orderbedrag geaccepteerd. Zet op nul voor geen limiet."
+msgstr "Totaal bestelling bedrag geaccepteerd. Zet op nul voor geen limiet."
 
 #: plugin-options/general-options.php:581
 msgid "Enable check for attempt count"
-msgstr "Inschakelen controle voor pogingen telling"
+msgstr "Controle voor tellen van pogingen inschakelen"
 
 #: plugin-options/general-options.php:607
 msgid "Time span to check"
@@ -655,14 +673,14 @@ msgstr "Tijdspanne (uren) om te controleren"
 
 #: plugin-options/general-options.php:625
 msgid "Maximum number of orders per time span"
-msgstr "Maximaal aantal orders per tijdspanne"
+msgstr "Maximaal aantal bestellingen per tijdspanne"
 
 #: plugin-options/general-options.php:629
 msgid ""
 "Maximum number of orders that a user can make in the specified time span"
 msgstr ""
-"Maximum aantal orders die een gebruiker kan plaatsen in een gespecificeerde "
-"tijdspanne"
+"Maximum aantal bestellingen die een gebruiker kan plaatsen in een "
+"gespecificeerde tijdspanne"
 
 #: plugin-options/general-options.php:644
 msgid "Enable IP multiple details check"
@@ -688,7 +706,7 @@ msgstr ""
 
 #: plugin-options/paypal-options.php:48
 msgid "Edit the PayPal email options"
-msgstr ""
+msgstr "Bewerk de PayPal e-mail opties"
 
 #: plugin-options/paypal-options.php:58
 msgid "Time span before further attempts"
@@ -700,19 +718,19 @@ msgid ""
 "is still waiting for verification"
 msgstr ""
 "Aantal dagen dat moet passeren voordat een andere e-mail wordt verzonden, "
-"als de order nog steeds wacht op verificatie"
+"als de bestelling nog steeds wacht op verificatie"
 
 #: plugin-options/paypal-options.php:77
 msgid "Time span before the orders are cancelled"
-msgstr "Tijdspanne voor orders worden geannuleerd"
+msgstr "Tijdspanne voordat bestellingen worden geannuleerd"
 
 #: plugin-options/paypal-options.php:81
 msgid ""
 "Number of days that have to pass before deleting the order if it is not "
 "verified"
 msgstr ""
-"Aantal dagen dat moet passeren voordat een niet geverifieerde order wordt "
-"verwijderd"
+"Aantal dagen dat moet passeren voordat een niet geverifieerde bestelling "
+"wordt verwijderd"
 
 #: plugin-options/paypal-options.php:96
 msgid "PayPal verified addresses"
@@ -724,35 +742,35 @@ msgstr "Geverifieerde e-mail adressen"
 
 #: templates/admin/ywaf-address-list.php:24
 msgid "Address 1"
-msgstr ""
+msgstr "Adres 1"
 
 #: templates/admin/ywaf-address-list.php:25
 msgid "Address 2"
-msgstr ""
+msgstr "Adres 2"
 
 #: templates/admin/ywaf-address-list.php:26
 msgid "City"
-msgstr ""
+msgstr "Plaats"
 
 #: templates/admin/ywaf-address-list.php:27
 msgid "Postcode"
-msgstr ""
+msgstr "Postcode"
 
 #: templates/admin/ywaf-address-list.php:28
 msgid "Country code"
-msgstr ""
+msgstr "Landcode"
 
 #: templates/admin/ywaf-address-list.php:29
 msgid "State/Province code"
-msgstr ""
+msgstr "Staat/provincie code"
 
 #: templates/admin/ywaf-address-list.php:58
 msgid "Add new address"
-msgstr ""
+msgstr "Nieuw adres toevoegen"
 
 #: templates/admin/ywaf-address-list.php:60
 msgid "Remove selected address(es)"
-msgstr ""
+msgstr "Geselecteerde adres(sen) verwijderen"
 
 #: templates/emails/admin-email.php:47
 #: templates/emails/plain/admin-email.php:33
@@ -760,8 +778,8 @@ msgid ""
 "Anti-fraud checks on order %s failed. Returned risk percentage is %s and "
 "therefore the order has been cancelled."
 msgstr ""
-"Anti-fraude controle van order %s is mislukt. Teruggekomen risicopercentage "
-"is %s en daarom is de order geannuleerd."
+"Anti-fraude controle van bestelling %s is mislukt. Teruggekomen "
+"risicopercentage is %s en daarom is de bestelling geannuleerd."
 
 #: templates/emails/admin-email.php:52
 #: templates/emails/plain/admin-email.php:38
@@ -769,19 +787,20 @@ msgid ""
 "Anti-fraud checks on order %s returned a %s risk percentage and the order is "
 "now \"on hold\"."
 msgstr ""
-"Anti-fraude controles van order %s zijn teruggekomen met een "
-"risicopercentage van %s de order is nu \"on hold\"."
+"Anti-fraude controles van bestelling %s zijn teruggekomen met een "
+"risicopercentage van %s de bestelling staat nu \"in de wacht\"."
 
 #: templates/emails/admin-email.php:57
 #: templates/emails/plain/admin-email.php:43
 msgid "Order %s has successfully passed selected anti-fraud checks"
 msgstr ""
-"Order %s heeft met succes de geselecteerde anti-fraude controles gehaald"
+"Bestelling %s heeft met succes de geselecteerde anti-fraude controles "
+"doorstaan"
 
 #: templates/emails/admin-email.php:69
 #: templates/emails/plain/admin-email.php:49
 msgid "Summary of anti-fraud checks on this order:"
-msgstr "Opsomming van anti-fraude controles in deze order:"
+msgstr "Opsomming van anti-fraude controles in deze bestelling:"
 
 #: templates/emails/paypal-email.php:45
 msgid ""
@@ -806,15 +825,15 @@ msgid ""
 "to keep safe from frauds. <a href=\"https://yithemes.com/\" target=\"_blank"
 "\">Get more plugins for your e-commerce shop on <strong>YITH</strong></a>"
 msgstr ""
-"<code><strong>YITH WooCommerce Anti-Fraud</strong></code>kunt verhogen van "
-"het beveiligingsniveau van uw bestellingen en voorkomen van aankopen die "
-"overeenkomen met bepaalde specifieke voorwaarden, zoals meerdere aankopen "
-"vanuit hetzelfde IP-adres of aankopen met een te hoog bedrag, enzovoort. "
-"Meer informatie over hoe om te beschermen tegen fraude. <a href=\"https://"
-"yithemes.com/\" target=\"_blank\">Krijg meer plugins voor uw e-commerce shop "
-"op <strong>YITH</strong> </a>"
+"<code><strong>YITH WooCommerce Anti-Fraud</strong></code> Laat je het "
+"veiligheidsniveau van je bestellingen verhogen en voorkomt het plaatsen van "
+"aankopen die aan bepaalde voorwaarden voldoen, zoals meerdere aankopen van "
+"hetzelfde IP adres of een te hoog aankoop bedrag. Leer meer over het "
+"beschermen van je winkel tegen fraude. <a href=\"https://yithemes.com/\" "
+"target=\"_blank\">Verkrijg meer plugins voor je e-commerce winkel op "
+"<strong>YITH</strong></a>"
 
-#: class.yith-wc-anti-fraud.php:1194
+#: class.yith-wc-anti-fraud.php:1195
 msgctxt "plugin name in admin page title"
 msgid "Anti-Fraud"
 msgstr "Anti-fraude"
@@ -828,8 +847,8 @@ msgstr "YITH WooCommerce Anti-Fraud"
 msgctxt "Privacy Policy Content"
 msgid "Note: this text applies only if “Blacklist” option has been enabled."
 msgstr ""
-"Opmerking: deze tekst is alleen van toepassing als de optie \"Zwarte lijst\" "
-"is ingeschakeld."
+"Let op: deze tekst is alleen van toepassing als de optie \"Zwarte lijst\" is "
+"ingeschakeld."
 
 #: includes/class-ywaf-privacy.php:31
 msgctxt "Privacy Policy Content"
@@ -840,7 +859,7 @@ msgid ""
 "during the checkout will be added to the black list and any future purchase "
 "with that email will be prevented.\n"
 msgstr ""
-"Aan het einde van het betalingsproces voert de plug-in een aantal controles "
+"Aan het einde van het betalingsproces voert de plugin een aantal controles "
 "uit op de informatie die wordt verstrekt tijdens het afrekenen, om eventuele "
 "frauduleuze aankopen op te sporen. Als het frauderisico groot is, wordt het "
 "e-mailadres dat tijdens het afrekenen is opgegeven, aan de zwarte lijst "
@@ -851,7 +870,7 @@ msgstr ""
 msgctxt "Privacy Policy Content"
 msgid "Note: this text applies only if “PayPal” option is enabled."
 msgstr ""
-"Opmerking: deze tekst is alleen van toepassing als de optie \"PayPal\" is "
+"Let op: deze tekst is alleen van toepassing als de optie \"PayPal\" is "
 "ingeschakeld."
 
 #: includes/class-ywaf-privacy.php:34
@@ -866,14 +885,13 @@ msgid ""
 "again decided by the admin, the admin will be warned of a potential risk."
 msgstr ""
 "Aan het einde van het betalingsproces via PayPal wordt een e-mail verzonden "
-"naar het e-mailadres dat is gebruikt voor de betaling met de "
-"bevestigingslink. Zodra de e-mail is bevestigd, wordt deze toegevoegd aan "
-"een speciale lijst met geverifieerde adressen en worden er geen andere e-"
-"mails verzonden. Als de gebruiker het e-mailadres niet binnen een bepaald "
-"aantal dagen bevestigd door de beheerder bevestigt, wordt een tweede e-mail "
-"verzonden. Als de e-mail niet binnen deze tweede termijn wordt bevestigd, "
-"opnieuw bepaald door de beheerder, wordt de beheerder gewaarschuwd voor een "
-"mogelijk risico."
+"naar het e-mailadres dat is gebruikt voor de betaling met de bevestiging-"
+"link. Zodra de e-mail is bevestigd, wordt deze toegevoegd aan een speciale "
+"lijst met geverifieerde adressen en worden er geen andere e-mails verzonden. "
+"Als de gebruiker het e-mailadres niet bevestigd binnen de, door de beheerder "
+"gestelde aantal dagen, wordt een tweede e-mail verzonden. Als de e-mail niet "
+"binnen deze tweede, door beheerder bepaalde termijn, wordt bevestigd, wordt "
+"de beheerder gewaarschuwd voor een mogelijk risico."
 
 #: includes/class-ywaf-privacy.php:44
 msgctxt "Privacy Policy Content"
@@ -881,16 +899,16 @@ msgid ""
 "Members of our team have access to the information you provide us. For "
 "example, both Administrators and Shop Managers can access:"
 msgstr ""
-"Leden van ons team hebben toegang tot de informatie die u bij ons heeft "
-"opgegeven. Zowel Beheerders als Winkelmanagers hebben bijvoorbeeld toegang "
+"Leden van ons team hebben toegang tot de informatie die je bij ons hebt "
+"opgegeven. Zowel beheerders als winkelmanagers hebben bijvoorbeeld toegang "
 "tot:"
 
 #: includes/class-ywaf-privacy.php:45
 msgctxt "Privacy Policy Content"
 msgid "the list of blocked emails"
-msgstr "De lijst van geblokte emails"
+msgstr "De lijst met geblokkeerde e-mails"
 
 #: includes/class-ywaf-privacy.php:46
 msgctxt "Privacy Policy Content"
 msgid "the list of verified PayPal email addresses"
-msgstr "Geverifieerde PayPal e-mail adressen"
+msgstr "Lijst met geverifieerde PayPal e-mailadressen"

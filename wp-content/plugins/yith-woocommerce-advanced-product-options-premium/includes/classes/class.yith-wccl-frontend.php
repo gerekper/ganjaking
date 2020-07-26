@@ -282,7 +282,7 @@ if ( ! class_exists( 'YITH_WCCL_Frontend' ) ) {
 			) );
 
 			ob_start();
-			wc_get_template( 'yith-wccl-variable-loop.php', $template_args, '', YITH_WCCL_DIR . 'templates/' );
+			wc_get_template( 'yith-wccl-variable-loop.php', $template_args, '', YITH_WAPO_DIR . 'templates/' );
 			$form = ob_get_contents();
 			ob_end_clean();
 

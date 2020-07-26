@@ -15,6 +15,7 @@ require 'wc-od-time-frames-functions.php';
 require 'wc-od-shipping-methods-functions.php';
 require 'wc-od-shipping-delivery-functions.php';
 require 'wc-od-order-functions.php';
+require 'wc-od-deprecated-functions.php';
 
 /**
  * Gets the value of the query string argument.
@@ -93,28 +94,17 @@ function wc_od_get_posted_data( $key, $default = null ) {
 }
 
 /**
- * Gets the plugin prefix.
- *
- * Note: The prefix is used for the settings Ids.
- *
- * @since 1.1.0
- *
- * @return string The plugin prefix.
- */
-function wc_od_get_prefix() {
-	return 'wc_od_';
-}
-
-/**
  * Removes the plugin prefix from the beginning of the string.
  *
  * @since 1.0.0
+ * @since 1.7.0 Added `$prefix` parameter.
+ *
  * @param string $string The string to parse.
+ * @param string $prefix Optional. The prefix to remove from. Default 'wc_od_'.
  * @return string The parsed string.
  */
-function wc_od_no_prefix( $string ) {
-	$prefix = wc_od_get_prefix();
-	if ( $prefix === substr( $string, 0, strlen( $prefix ) ) ) {
+function wc_od_no_prefix( $string, $prefix = 'wc_od_' ) {
+	if ( ! empty( $prefix ) && substr( $string, 0, strlen( $prefix ) ) === $prefix ) {
 		$string = substr( $string, strlen( $prefix ) );
 	}
 
@@ -125,14 +115,27 @@ function wc_od_no_prefix( $string ) {
  * Maybe adds the plugin prefix to the beginning of the string.
  *
  * @since 1.0.0
+ * @since 1.7.0 Added `$prefix` parameter.
+ *
  * @param string $string The string to parse.
+ * @param string $prefix Optional. The prefix to remove from. Default 'wc_od_'.
  * @return string The parsed string.
  */
-function wc_od_maybe_prefix( $string ) {
-	$prefix = wc_od_get_prefix();
+function wc_od_maybe_prefix( $string, $prefix = 'wc_od_' ) {
 	$string = wc_od_no_prefix( $string );
 
 	return $prefix . $string;
+}
+
+/**
+ * Gets the suffix for the script filenames.
+ *
+ * @since 1.7.0
+ *
+ * @return string The scripts suffix.
+ */
+function wc_od_get_scripts_suffix() {
+	return ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min' );
 }
 
 /**
@@ -145,6 +148,50 @@ function wc_od_maybe_prefix( $string ) {
  */
 function wc_od_get_template( $template_name, $args = array() ) {
 	wc_get_template( $template_name, $args, WC()->template_path(), WC_OD_PATH . 'templates/' );
+}
+
+/**
+ * Logs a message.
+ *
+ * @since 1.4.0
+ *
+ * @param string         $message The message to log.
+ * @param string         $level   The level.
+ * @param string         $handle  Optional. The log handlers.
+ * @param WC_Logger|null $logger  Optional. The logger instance.
+ */
+function wc_od_log( $message, $level = 'notice', $handle = 'wc_od', $logger = null ) {
+	if ( ! $logger ) {
+		$logger = wc_get_logger();
+	}
+
+	if ( method_exists( $logger, $level ) ) {
+		call_user_func( array( $logger, $level ), $message, array( 'source' => $handle ) );
+	} else {
+		$logger->add( $handle, $message );
+	}
+}
+
+/**
+ * Gets the HTML markup for the specified attributes.
+ *
+ * @since 1.7.0
+ *
+ * @param array $attributes An array with pairs [key => value].
+ * @return string
+ */
+function wc_od_get_attrs_html( $attributes ) {
+	$attribute_strings = array();
+
+	foreach ( $attributes as $key => $value ) {
+		if ( 'class' === $key && is_array( $value ) ) {
+			$value = join( ' ', $value );
+		}
+
+		$attribute_strings[] = esc_attr( $key ) . '="' . esc_attr( $value ) . '"';
+	}
+
+	return implode( ' ', $attribute_strings );
 }
 
 /**
@@ -164,7 +211,7 @@ function wc_od_add_order_note( $order, $note, $is_customer_note = 0, $added_by_u
 	$note_id = $order->add_order_note( $note, $is_customer_note );
 
 	if ( $note_id ) {
-		$type = get_post_type( wc_od_get_order_prop( $order, 'id' ) );
+		$type = get_post_type( $order->get_id() );
 
 		/**
 		 * Fired after to add a note to the order.
@@ -181,14 +228,14 @@ function wc_od_add_order_note( $order, $note, $is_customer_note = 0, $added_by_u
 
 
 /**
- * Gets the week days in a pair index => label.
+ * Gets the weekdays in a pair index => label.
  *
  * @since 1.0.0
  * @since 1.5.0 Added `$format` parameter.
  *
  * @global WP_Locale $wp_locale The WP_Locale instance.
  *
- * @param string $format Optional. The weekdays format. Allowed: abbrev, initial.
+ * @param string $format Optional. The weekdays format. Allowed: abbrev, initial, empty. Default: empty.
  * @return array The week days.
  */
 function wc_od_get_week_days( $format = '' ) {
@@ -203,6 +250,21 @@ function wc_od_get_week_days( $format = '' ) {
 	}
 
 	return $weekdays;
+}
+
+/**
+ * Gets the weekday name.
+ *
+ * @since 1.7.0
+ *
+ * @param int    $number The weekday number.
+ * @param string $format Optional. The weekday format. Allowed: abbrev, initial, empty. Default: empty.
+ * @return string
+ */
+function wc_od_get_weekday( $number, $format = '' ) {
+	$weekdays = wc_od_get_week_days( $format );
+
+	return ( isset( $weekdays[ $number ] ) ? $weekdays[ $number ] : '' );
 }
 
 /**
@@ -512,7 +574,7 @@ function wc_od_get_date_format( $context = 'php' ) {
 		$date_format = str_replace( array_keys( $format_conversion ), array_values( $format_conversion ), $date_format );
 	} elseif ( 'admin' === $context ) {
 		// Use the same format as the 'date' column.
-		$format = ( version_compare( WC()->version, '3.3', '<' ) ? get_option( 'date_format' ) : __( 'M j, Y', 'woocommerce' ) );
+		$format = ( version_compare( WC()->version, '3.3', '<' ) ? get_option( 'date_format' ) : __( 'M j, Y', 'woocommerce-order-delivery' ) );
 
 		/** This filter is documented in woocommerce/includes/admin/class-wc-admin-post-types.php up to WC 3.2 */
 		/** This filter is documented in woocommerce/includes/admin/list-tables/class-wc-admin-list-table-orders.php for WC 3.3+ */
@@ -709,7 +771,9 @@ function wc_od_enqueue_datepicker( $context = '' ) {
 		wp_enqueue_script( 'bootstrap-datepicker-l10n', $datepicker_locale, array( 'jquery', 'bootstrap-datepicker' ), '1.9.0', true );
 	}
 
-	wp_enqueue_script( 'wc-od-datepicker', WC_OD_URL . 'assets/js/wc-od-datepicker.js', array( 'jquery', 'bootstrap-datepicker' ), WC_OD_VERSION, true );
+	$suffix = wc_od_get_scripts_suffix();
+
+	wp_enqueue_script( 'wc-od-datepicker', WC_OD_URL . "assets/js/wc-od-datepicker{$suffix}.js", array( 'jquery', 'bootstrap-datepicker' ), WC_OD_VERSION, true );
 
 	/**
 	 * Enqueue scripts after the datepicker scripts.

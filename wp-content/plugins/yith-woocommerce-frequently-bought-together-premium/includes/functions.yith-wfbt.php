@@ -46,7 +46,7 @@ if ( ! function_exists( 'yith_wfbt_get_meta' ) ) {
 			'default_variation'     => '',
 			'products_type'         => 'custom',
 			'products'              => array(),
-			'num_visible'           => '',
+			'num_visible'           => '2',
 			'show_unchecked'        => 'no',
 			'additional_text'       => '',
 			'discount_type'         => 'percentage',

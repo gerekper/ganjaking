@@ -1,5 +1,12 @@
 == Changelog ==
 
+= 1.3.27 - Released on 03 Jul 2020 =
+
+* New: support for WooCommerce 4.3
+* Update: plugin framework
+* Update: language files
+* Dev: added parameter to yith_wcet_header_custom_logo filter 
+
 = 1.3.26 - Released on 21 May 2020 =
 
 * New: support for WooCommerce 4.2

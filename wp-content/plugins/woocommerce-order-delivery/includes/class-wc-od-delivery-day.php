@@ -75,7 +75,7 @@ class WC_OD_Delivery_Day extends WC_OD_Shipping_Methods_Data {
 	 * @return string
 	 */
 	public function get_enabled() {
-		return wc_od_bool_to_string( $this->get_prop( 'enabled' ) );
+		return wc_bool_to_string( $this->get_prop( 'enabled' ) );
 	}
 
 	/**
@@ -108,7 +108,7 @@ class WC_OD_Delivery_Day extends WC_OD_Shipping_Methods_Data {
 	 * @param string $enabled The status.
 	 */
 	public function set_enabled( $enabled ) {
-		$this->set_prop( 'enabled', wc_od_bool_to_string( $enabled ) );
+		$this->set_prop( 'enabled', wc_bool_to_string( $enabled ) );
 	}
 
 	/**
@@ -152,7 +152,7 @@ class WC_OD_Delivery_Day extends WC_OD_Shipping_Methods_Data {
 	 * @return bool
 	 */
 	public function is_enabled() {
-		return wc_od_string_to_bool( $this->get_enabled() );
+		return wc_string_to_bool( $this->get_enabled() );
 	}
 
 	/**

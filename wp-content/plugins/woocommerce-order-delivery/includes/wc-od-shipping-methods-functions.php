@@ -108,11 +108,11 @@ function wc_od_get_shipping_methods_choices() {
 
 		// Add the shipping methods of the current zone.
 		foreach ( $zone['shipping_methods'] as $method_id => $method ) {
-			if ( ! wc_od_string_to_bool( $method->enabled ) ) {
+			if ( ! wc_string_to_bool( $method->enabled ) ) {
 				continue;
 			}
 
-			$value = $method->id . ':' . $method->instance_id;
+			$value = wc_od_shipping_method_choice_value( $method );
 			$label = '&nbsp;&nbsp; ' . wc_od_shipping_method_choice_label( $value );
 
 			$choices[ $value ] = $label;
@@ -141,6 +141,22 @@ function wc_od_get_shipping_methods_choices() {
 	 * @param array $choices The choices.
 	 */
 	return apply_filters( 'wc_od_get_shipping_methods_choices', $choices );
+}
+
+/**
+ * Gets the choice value for the specified shipping method.
+ *
+ * @since 1.7.0
+ *
+ * @param WC_Shipping_Method $method The shipping method instance.
+ * @return string
+ */
+function wc_od_shipping_method_choice_value( $method ) {
+	if ( ! $method instanceof WC_Shipping_Method ) {
+		return '';
+	}
+
+	return ( $method->id . ':' . $method->instance_id );
 }
 
 /**
@@ -234,7 +250,7 @@ function wc_od_expand_shipping_methods( $shipping_methods ) {
 				$zone_methods = $zone->get_shipping_methods( true );
 
 				foreach ( $zone_methods as $method ) {
-					$expanded_methods[] = $method->id . ':' . $method->instance_id;
+					$expanded_methods[] = wc_od_shipping_method_choice_value( $method );
 				}
 			}
 		} elseif ( 0 === strpos( $shipping_method, 'table_rate' ) ) {
@@ -370,7 +386,7 @@ function wc_od_get_order_shipping_method( $the_order ) {
 		return false;
 	}
 
-	$cache_key       = 'wc_od_order_shipping_method_' . wc_od_get_order_prop( $order, 'id' );
+	$cache_key       = 'wc_od_order_shipping_method_' . $order->get_id();
 	$shipping_method = wp_cache_get( $cache_key, 'shipping_methods' );
 
 	if ( false !== $shipping_method ) {

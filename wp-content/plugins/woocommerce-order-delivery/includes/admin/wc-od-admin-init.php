@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
  * @deprecated 1.6.0
  */
 function wc_od_admin_init() {
-	_deprecated_function( 'wc_od_admin_init', '1.6.0' );
+	wc_deprecated_function( 'wc_od_admin_init', '1.6.0' );
 }
 
 /**
@@ -192,7 +192,7 @@ add_filter( 'posts_orderby', 'wc_od_admin_posts_orderby_date', 10, 2 );
  * @param WC_Order $order The order.
  */
 function wc_od_admin_order_data_after_order_details( $order ) {
-	_deprecated_function( 'wc_od_admin_order_data_after_order_details', '1.5.0' );
+	wc_deprecated_function( 'wc_od_admin_order_data_after_order_details', '1.5.0' );
 }
 
 /**

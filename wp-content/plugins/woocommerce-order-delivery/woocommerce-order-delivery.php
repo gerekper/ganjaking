@@ -3,13 +3,13 @@
  * Plugin Name: WooCommerce Order Delivery
  * Plugin URI: https://woocommerce.com/products/woocommerce-order-delivery/
  * Description: Choose a delivery date during checkout for the order.
- * Version: 1.6.8
+ * Version: 1.7.0
  * Author: Themesquad
  * Author URI: https://themesquad.com/
  * Requires at least: 4.4
  * Tested up to: 5.4
- * WC requires at least: 2.6
- * WC tested up to: 4.2
+ * WC requires at least: 3.0
+ * WC tested up to: 4.3
  * Woo: 976514:beaa91b8098712860ec7335d3dca61c0
  *
  * Text Domain: woocommerce-order-delivery
@@ -40,7 +40,7 @@ woothemes_queue_update( plugin_basename( __FILE__ ), 'beaa91b8098712860ec7335d3d
 /**
  * Check if WooCommerce is active and the minimum requirements are satisfied.
  */
-if ( ! is_woocommerce_active() || version_compare( get_option( 'woocommerce_db_version' ), '2.6', '<' ) ) {
+if ( ! is_woocommerce_active() || version_compare( get_option( 'woocommerce_db_version' ), '3.0', '<' ) ) {
 	add_action( 'admin_notices', 'wc_od_requirements_notice' );
 	return;
 }
@@ -54,7 +54,7 @@ function wc_od_requirements_notice() {
 	if ( current_user_can( 'activate_plugins' ) ) :
 		if ( is_woocommerce_active() ) :
 			/* translators: %s: WooCommerce version */
-			$message = sprintf( __( '<strong>WooCommerce Order Delivery</strong> requires WooCommerce %s or higher.', 'woocommerce-order-delivery' ), '2.6' );
+			$message = sprintf( __( '<strong>WooCommerce Order Delivery</strong> requires WooCommerce %s or higher.', 'woocommerce-order-delivery' ), '3.0' );
 		else :
 			$message = __( '<strong>WooCommerce Order Delivery</strong> requires WooCommerce to be activated to work.', 'woocommerce-order-delivery' );
 		endif;
@@ -84,7 +84,7 @@ if ( ! class_exists( 'WC_Order_Delivery' ) ) {
 		 *
 		 * @var string
 		 */
-		public $version = '1.6.8';
+		public $version = '1.7.0';
 
 
 		/**
@@ -139,24 +139,24 @@ if ( ! class_exists( 'WC_Order_Delivery' ) ) {
 		public function __get( $key ) {
 			switch ( $key ) {
 				case 'dir_path':
-					_deprecated_argument( 'WC_Order_Delivery->dir_path', '1.1.0', 'This property is deprecated and will be removed in future releases. Use the constant WC_OD_PATH instead.' );
+					wc_deprecated_argument( 'WC_Order_Delivery->dir_path', '1.1.0', 'This property is deprecated and will be removed in future releases. Use the constant WC_OD_PATH instead.' );
 					return WC_OD_PATH;
 
 				case 'dir_url':
-					_deprecated_argument( 'WC_Order_Delivery->dir_url', '1.1.0', 'This property is deprecated and will be removed in future releases. Use the constant WC_OD_URL instead.' );
+					wc_deprecated_argument( 'WC_Order_Delivery->dir_url', '1.1.0', 'This property is deprecated and will be removed in future releases. Use the constant WC_OD_URL instead.' );
 					return WC_OD_URL;
 
 				case 'date_format':
-					_deprecated_argument( 'WC_Order_Delivery->date_format', '1.1.0', 'This property is deprecated and will be removed in future releases. Use the function wc_od_get_date_format() instead.' );
+					wc_deprecated_argument( 'WC_Order_Delivery->date_format', '1.1.0', 'This property is deprecated and will be removed in future releases. Use the function wc_od_get_date_format() instead.' );
 					return wc_od_get_date_format( 'php' );
 
 				case 'date_format_js':
-					_deprecated_argument( 'WC_Order_Delivery->date_format', '1.1.0', 'This property is deprecated and will be removed in future releases. Use the function wc_od_get_date_format() instead.' );
+					wc_deprecated_argument( 'WC_Order_Delivery->date_format', '1.1.0', 'This property is deprecated and will be removed in future releases. Use the function wc_od_get_date_format() instead.' );
 					return wc_od_get_date_format( 'js' );
 
 				case 'prefix':
-					_deprecated_argument( 'WC_Order_Delivery->prefix', '1.1.0', 'This property is deprecated and will be removed in future releases. Use the function wc_od_get_prefix() instead.' );
-					return wc_od_get_prefix();
+					wc_deprecated_argument( 'WC_Order_Delivery->prefix', '1.1.0', 'This property is deprecated and will be removed in future releases.' );
+					return 'wc_od_';
 			}
 		}
 
@@ -204,6 +204,9 @@ if ( ! class_exists( 'WC_Order_Delivery' ) ) {
 
 			// Init.
 			add_action( 'plugins_loaded', array( $this, 'init' ) );
+
+			// Data stores.
+			add_filter( 'woocommerce_data_stores', array( $this, 'register_data_stores' ) );
 		}
 
 		/**
@@ -223,13 +226,27 @@ if ( ! class_exists( 'WC_Order_Delivery' ) ) {
 		}
 
 		/**
+		 * Register data stores.
+		 *
+		 * @since {version}
+		 *
+		 * @param array $stores Data stores.
+		 * @return array
+		 */
+		public function register_data_stores( $stores ) {
+			$stores['delivery_range'] = 'WC_OD_Data_Store_Delivery_Range';
+
+			return $stores;
+		}
+
+		/**
 		 * Displays an admin notice when the WooCommerce plugin is not active.
 		 *
 		 * @since 1.0.0
 		 * @deprecated 1.4.1
 		 */
 		public function woocommerce_not_active() {
-			_deprecated_function( __METHOD__, '1.4.1', 'This method is deprecated and will be removed in future releases.' );
+			wc_deprecated_function( __METHOD__, '1.4.1', 'This method is deprecated and will be removed in future releases.' );
 		}
 
 		/**
@@ -242,7 +259,7 @@ if ( ! class_exists( 'WC_Order_Delivery' ) ) {
 		 * @return array The filtered plugin links.
 		 */
 		public function action_links( $links ) {
-			_deprecated_function( __METHOD__, '1.2.0', 'This method is deprecated and will be removed in future releases. Use the method WC_OD_Install::plugin_action_links instead.' );
+			wc_deprecated_function( __METHOD__, '1.2.0', 'This method is deprecated and will be removed in future releases. Use the method WC_OD_Install::plugin_action_links instead.' );
 
 			return $links;
 		}

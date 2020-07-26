@@ -30,13 +30,13 @@ function wc_od_get_order( $the_order ) {
  * @return false|int A timestamp representing the last date to ship the order. False on failure.
  */
 function wc_od_get_order_last_shipping_date( $the_order, $context = '' ) {
-	$order_id = wc_od_get_order_prop( $the_order, 'id' );
+	$order = wc_od_get_order( $the_order );
 
-	if ( ! $order_id ) {
+	if ( ! $order ) {
 		return false;
 	}
 
-	$delivery_date = wc_od_get_order_meta( $order_id, '_delivery_date' );
+	$delivery_date = $order->get_meta( '_delivery_date' );
 
 	// No delivery date or expired.
 	if ( ! $delivery_date || $delivery_date < wc_od_get_local_date( false ) ) {
@@ -45,11 +45,11 @@ function wc_od_get_order_last_shipping_date( $the_order, $context = '' ) {
 
 	$args = array(
 		'delivery_date'               => $delivery_date,
-		'shipping_method'             => wc_od_get_order_shipping_method( $order_id ),
+		'shipping_method'             => wc_od_get_order_shipping_method( $order ),
 		'disabled_delivery_days_args' => array(
 			'type'    => 'delivery',
-			'country' => wc_od_get_order_prop( $order_id, 'shipping_country' ),
-			'state'   => wc_od_get_order_prop( $order_id, 'shipping_state' ),
+			'country' => $order->get_shipping_country(),
+			'state'   => $order->get_shipping_state(),
 		),
 	);
 
@@ -62,7 +62,7 @@ function wc_od_get_order_last_shipping_date( $the_order, $context = '' ) {
 	 * @param int    $order_id The order ID.
 	 * @param string $context  The context.
 	 */
-	$args = apply_filters( 'wc_od_get_order_last_shipping_date_args', $args, $order_id, $context );
+	$args = apply_filters( 'wc_od_get_order_last_shipping_date_args', $args, $order->get_id(), $context );
 
 	return wc_od_get_last_shipping_date( $args, $context );
 }

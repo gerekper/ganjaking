@@ -36,6 +36,7 @@ class WC_Instagram_Product_Catalog extends WC_Instagram_Data {
 		'group_id_format'             => '{parent_id}',
 		'mpn_format'                  => '{product_id}',
 		'brand'                       => '',
+		'google_product_category'     => '',
 		'condition'                   => 'new',
 		'images_option'               => 'all',
 		'include_variations'          => true,
@@ -86,11 +87,12 @@ class WC_Instagram_Product_Catalog extends WC_Instagram_Data {
 		$data = $this->parse_taxes( $data );
 
 		$rename_data = array(
-			'product_id'            => 'id_format',
-			'product_group_id'      => 'group_id_format',
-			'product_brand'         => 'brand',
-			'product_condition'     => 'condition',
-			'product_images_option' => 'images_option',
+			'product_id'              => 'id_format',
+			'product_group_id'        => 'group_id_format',
+			'product_brand'           => 'brand',
+			'product_google_category' => 'google_product_category',
+			'product_condition'       => 'condition',
+			'product_images_option'   => 'images_option',
 		);
 
 		foreach ( $rename_data as $key => $replacement ) {
@@ -285,6 +287,17 @@ class WC_Instagram_Product_Catalog extends WC_Instagram_Data {
 	 */
 	public function get_brand() {
 		return $this->get_prop( 'brand' );
+	}
+
+	/**
+	 * Gets the google_product_category value of the products.
+	 *
+	 * @since 3.3.0
+	 *
+	 * @return string
+	 */
+	public function get_google_product_category() {
+		return $this->get_prop( 'google_product_category' );
 	}
 
 	/**

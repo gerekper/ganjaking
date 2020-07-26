@@ -17,7 +17,7 @@ if ( ! class_exists( 'WC_OD_Admin_Settings' ) ) {
 		/**
 		 * The settings API instance.
 		 *
-		 * @var WC_Settings_API
+		 * @var WC_OD_Settings_API
 		 */
 		protected $settings_api;
 
@@ -76,9 +76,7 @@ if ( ! class_exists( 'WC_OD_Admin_Settings' ) ) {
 			add_action( 'woocommerce_admin_field_wc_od_calendar', 'wc_od_calendar_field' );
 
 			// Custom fields sanitize.
-			add_filter( 'woocommerce_admin_settings_sanitize_option_wc_od_shipping_days', array( $this, 'sanitize_field' ), 10, 2 );
-			add_filter( 'woocommerce_admin_settings_sanitize_option_wc_od_delivery_days', array( $this, 'sanitize_field' ), 10, 2 );
-			add_filter( 'woocommerce_admin_settings_sanitize_option_wc_od_day_range', array( $this, 'sanitize_field' ), 10, 2 );
+			add_filter( 'woocommerce_admin_settings_sanitize_option', array( $this, 'sanitize_field' ), 10, 2 );
 		}
 
 		/**
@@ -147,55 +145,72 @@ if ( ! class_exists( 'WC_OD_Admin_Settings' ) ) {
 				return;
 			}
 
+			// phpcs:disable WordPress.Security.NonceVerification
+			if ( 'delivery_range' === $current_section ) {
+				$range_id = ( isset( $_GET['range_id'] ) ? wc_clean( wp_unslash( $_GET['range_id'] ) ) : 'new' );
+
+				$this->settings_api = new WC_OD_Settings_Delivery_Range( $range_id );
+				return;
+			}
+
 			$day_id = false;
 
 			if ( isset( $_GET['day_id'] ) ) {
-				$day_id = (int) wc_clean( wp_unslash( $_GET['day_id'] ) );  // WPCS: CSRF ok.
+				$day_id = (int) wc_clean( wp_unslash( $_GET['day_id'] ) );
 				$day_id = ( $day_id >= 0 && $day_id <= 6 ? $day_id : false );
 			}
 
 			if ( 'delivery_day' === $current_section && false !== $day_id ) {
-				include_once 'settings/class-wc-od-settings-delivery-day.php';
 				$this->settings_api = new WC_OD_Settings_Delivery_Day( $day_id );
 			} elseif ( 'time_frame' === $current_section ) {
 				if ( isset( $_GET['frame_id'] ) && false !== $day_id ) {
-					$frame_id = (string) wc_clean( wp_unslash( $_GET['frame_id'] ) ); // WPCS: CSRF ok.
-					include_once 'settings/class-wc-od-settings-delivery-day-time-frame.php';
+					$frame_id = (string) wc_clean( wp_unslash( $_GET['frame_id'] ) );
+
 					$this->settings_api = new WC_OD_Settings_Delivery_Day_Time_Frame( $day_id, $frame_id );
 				} else {
-					include_once 'settings/class-wc-od-settings-delivery-days-time-frame.php';
 					$this->settings_api = new WC_OD_Settings_Delivery_Days_Time_Frame();
 				}
 			}
+			// phpcs:enable WordPress.Security.NonceVerification
 		}
 
 		/**
 		 * Enqueues the settings scripts.
 		 *
 		 * @since 1.0.0
+		 *
+		 * @global string $current_section The current section.
 		 */
 		public function enqueue_scripts() {
-			if ( $this->is_shipping_tab() ) {
-				if ( $this->is_calendar_section() ) {
-					wp_enqueue_style( 'fullcalendar', WC_OD_URL . 'assets/css/lib/fullcalendar.css', array(), '2.3.0' );
-					wp_enqueue_style( 'tooltipster', WC_OD_URL . 'assets/css/lib/tooltipster.css', array(), '3.3.0' );
+			global $current_section;
 
-					wp_enqueue_script( 'jquery-ui-dialog' );
-					wp_enqueue_script( 'tooltipster', WC_OD_URL . 'assets/js/lib/jquery.tooltipster.min.js', array( 'jquery' ), '3.3.0', true );
-					wp_enqueue_script( 'moment', WC_OD_URL . 'assets/js/lib/moment.min.js', array(), '2.9.0', true );
-					wp_enqueue_script( 'fullcalendar', WC_OD_URL . 'assets/js/lib/fullcalendar.min.js', array( 'jquery', 'moment' ), '2.3.0', true );
-
-					wc_od_enqueue_datepicker( 'settings' );
-					wp_enqueue_script( 'wc-od-calendar', WC_OD_URL . 'assets/js/wc-od-calendar.js', array( 'jquery', 'wc-od-datepicker' ), WC_OD_VERSION, true );
-				}
-
-				wp_enqueue_style( 'jquery-timepicker', WC_OD_URL . 'assets/css/lib/jquery.timepicker.css', array(), '1.11.15' );
-				wp_enqueue_script( 'jquery-timepicker', WC_OD_URL . 'assets/js/lib/jquery.timepicker.min.js', array( 'jquery' ), '1.11.15', true );
-
-				wp_enqueue_style( 'wc-od-settings', WC_OD_URL . 'assets/css/wc-od-settings.css', array(), WC_OD_VERSION );
-				wp_enqueue_script( 'wc-od-settings', WC_OD_URL . 'assets/js/wc-od-settings.js', array( 'jquery' ), WC_OD_VERSION, true );
-				wp_localize_script( 'wc-od-settings', 'wc_od_settings_l10n', $this->localize_settings_script() );
+			if ( ! $this->is_shipping_tab() ) {
+				return;
 			}
+
+			$suffix = wc_od_get_scripts_suffix();
+
+			if ( $this->is_calendar_section() ) {
+				wp_enqueue_style( 'fullcalendar', WC_OD_URL . 'assets/css/lib/fullcalendar.css', array(), '2.3.0' );
+				wp_enqueue_style( 'tooltipster', WC_OD_URL . 'assets/css/lib/tooltipster.css', array(), '3.3.0' );
+
+				wp_enqueue_script( 'jquery-ui-dialog' );
+				wp_enqueue_script( 'tooltipster', WC_OD_URL . 'assets/js/lib/jquery.tooltipster.min.js', array( 'jquery' ), '3.3.0', true );
+				wp_enqueue_script( 'moment', WC_OD_URL . 'assets/js/lib/moment.min.js', array(), '2.9.0', true );
+				wp_enqueue_script( 'fullcalendar', WC_OD_URL . 'assets/js/lib/fullcalendar.min.js', array( 'jquery', 'moment' ), '2.3.0', true );
+
+				wc_od_enqueue_datepicker( 'settings' );
+				wp_enqueue_script( 'wc-od-calendar', WC_OD_URL . "assets/js/wc-od-calendar{$suffix}.js", array( 'jquery', 'wc-od-datepicker' ), WC_OD_VERSION, true );
+			} elseif ( in_array( $current_section, array( 'options', 'delivery_day' ), true ) ) {
+				wp_enqueue_script( 'wc-od-table-fields', WC_OD_URL . "assets/js/admin/table-fields{$suffix}.js", array( 'jquery' ), WC_OD_VERSION, true );
+			}
+
+			wp_enqueue_style( 'jquery-timepicker', WC_OD_URL . 'assets/css/lib/jquery.timepicker.css', array(), '1.11.15' );
+			wp_enqueue_script( 'jquery-timepicker', WC_OD_URL . 'assets/js/lib/jquery.timepicker.min.js', array( 'jquery' ), '1.11.15', true );
+
+			wp_enqueue_style( 'wc-od-settings', WC_OD_URL . 'assets/css/wc-od-settings.css', array(), WC_OD_VERSION );
+			wp_enqueue_script( 'wc-od-settings', WC_OD_URL . "assets/js/wc-od-settings{$suffix}.js", array( 'jquery' ), WC_OD_VERSION, true );
+			wp_localize_script( 'wc-od-settings', 'wc_od_settings_l10n', $this->localize_settings_script() );
 		}
 
 		/**
@@ -299,7 +314,7 @@ if ( ! class_exists( 'WC_OD_Admin_Settings' ) ) {
 			global $current_section;
 
 			// Clear the default shipping settings.
-			if ( $this->settings_api instanceof WC_Settings_API ) {
+			if ( $this->settings_api instanceof WC_OD_Settings_API ) {
 				return array();
 			}
 
@@ -377,17 +392,12 @@ if ( ! class_exists( 'WC_OD_Admin_Settings' ) ) {
 					),
 
 					array(
-						'id'                => wc_od_maybe_prefix( 'delivery_range' ),
-						'title'             => __( 'Delivery range', 'woocommerce-order-delivery' ),
-						'desc'              => __( 'Interval of days it takes your shipping company to deliver an order after submitting the order to them.', 'woocommerce-order-delivery' ),
-						'type'              => 'wc_od_day_range',
-						'default'           => WC_OD()->settings()->get_default( 'delivery_range' ),
-						'css'               => 'width:50px;vertical-align:middle;',
-						'desc_tip'          => true,
-						'custom_attributes' => array(
-							'min'  => 0,
-							'step' => 1,
-						),
+						'id'       => wc_od_maybe_prefix( 'delivery_ranges' ),
+						'title'    => __( 'Delivery ranges', 'woocommerce-order-delivery' ),
+						'desc'     => __( 'Define different delivery ranges.', 'woocommerce-order-delivery' ),
+						'type'     => 'wc_od_table',
+						'value'    => WC_OD()->settings()->get_setting( 'delivery_ranges' ),
+						'desc_tip' => true,
 					),
 
 					array(
@@ -529,7 +539,7 @@ if ( ! class_exists( 'WC_OD_Admin_Settings' ) ) {
 		public function output() {
 			global $current_section, $hide_save_button;
 
-			if ( $this->settings_api instanceof WC_Settings_API ) {
+			if ( $this->settings_api instanceof WC_OD_Settings_API ) {
 				$this->settings_api->admin_options();
 			} elseif ( $this->is_calendar_section() ) {
 				// Hide the save button for the calendar sections.
@@ -551,24 +561,26 @@ if ( ! class_exists( 'WC_OD_Admin_Settings' ) ) {
 		 * @return mixed The sanitized value.
 		 */
 		public function sanitize_field( $value, $setting ) {
-			$setting_id    = wc_od_no_prefix( $setting['id'] );
-			$setting_value = $value;
+			$setting_type = wc_od_no_prefix( $setting['type'] );
 
-			switch ( $setting_id ) {
+			switch ( $setting_type ) {
 				case 'shipping_days':
 				case 'delivery_days':
+					$setting_id      = wc_od_no_prefix( $setting['id'] );
 					$previous_value  = WC_OD()->settings()->get_setting( $setting_id );
-					$days_data       = is_array( $setting_value ) ? $setting_value : array();
+					$days_data       = is_array( $value ) ? $value : array();
 					$clean_days_data = array();
 
 					foreach ( $previous_value as $key => $data ) {
 						$day_data = ( isset( $days_data[ $key ] ) ? $days_data[ $key ] : array() );
+
 						$clean_day_data = array(
-							'enabled' => wc_od_bool_to_string( ( isset( $day_data['enabled'] ) && $day_data['enabled'] ) ),
+							'enabled' => wc_bool_to_string( ( isset( $day_data['enabled'] ) && $day_data['enabled'] ) ),
 						);
 
 						if ( 'shipping_days' === $setting_id ) {
 							$time = ( ( isset( $day_data['time'] ) && $day_data['time'] ) ? $day_data['time'] : '' );
+
 							$clean_day_data['time'] = wc_od_sanitize_time( $time );
 						}
 
@@ -581,20 +593,27 @@ if ( ! class_exists( 'WC_OD_Admin_Settings' ) ) {
 						$error_key = ( 'shipping_days' === $setting_id ? 'shipping_days_empty' : 'delivery_days_empty' );
 						$this->add_setting_error( $error_key );
 					} else {
-						$setting_value = $clean_days_data;
+						$value = $clean_days_data;
 					}
 					break;
-				case 'delivery_range':
-					if ( is_null( $setting_value ) ) {
-						$setting_value = array(
+				case 'day_range':
+					if ( null === $value ) {
+						$value = array(
 							'min' => 0,
 							'max' => 0,
 						);
 					} else {
-						$setting_value = array(
-							'min' => ( isset( $setting_value['min'] ) ? absint( $setting_value['min'] ) : 0 ),
-							'max' => ( isset( $setting_value['max'] ) ? absint( $setting_value['max'] ) : 0 ),
+						$value = array(
+							'min' => ( isset( $value['min'] ) ? absint( $value['min'] ) : 0 ),
+							'max' => ( isset( $value['max'] ) ? absint( $value['max'] ) : 0 ),
 						);
+					}
+					break;
+				case 'table':
+					$instance = wc_od_get_table_field( $setting );
+
+					if ( $instance ) {
+						$value = $instance->sanitize_field( $value );
 					}
 					break;
 			}
@@ -604,7 +623,7 @@ if ( ! class_exists( 'WC_OD_Admin_Settings' ) ) {
 				return null;
 			}
 
-			return $setting_value;
+			return $value;
 		}
 
 		/**
@@ -613,8 +632,14 @@ if ( ! class_exists( 'WC_OD_Admin_Settings' ) ) {
 		 * @since 1.5.0
 		 */
 		public function save() {
-			if ( $this->settings_api instanceof WC_Settings_API ) {
-				$this->settings_api->process_admin_options();
+			if ( ! $this->settings_api instanceof WC_OD_Settings_API ) {
+				return;
+			}
+
+			$saved = $this->settings_api->process_admin_options();
+
+			if ( $saved ) {
+				$this->settings_api->maybe_redirect();
 			}
 		}
 
@@ -629,7 +654,7 @@ if ( ! class_exists( 'WC_OD_Admin_Settings' ) ) {
 		 * @param array $setting The setting data.
 		 */
 		public function save_field( $setting ) {
-			_deprecated_function( __METHOD__, '1.1.0' );
+			wc_deprecated_function( __METHOD__, '1.1.0' );
 		}
 
 		/**

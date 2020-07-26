@@ -293,7 +293,7 @@ function wc_od_validate_delivery_date( $date, $args = array(), $context = '' ) {
 			$status = $delivery_day['enabled'];
 		}
 
-		$valid = wc_od_string_to_bool( $status );
+		$valid = wc_string_to_bool( $status );
 	}
 
 	// Validate disabled days.
@@ -388,7 +388,7 @@ function wc_od_get_first_shipping_date( $args = array(), $context = '' ) {
 		$timestamp = strtotime( "{$days_for_shipping} days", $initial );
 
 		// The day is available for shipping.
-		if ( wc_od_string_to_bool( $args['shipping_days'][ $wday ]['enabled'] ) && ! wc_od_is_disabled_day( $timestamp, $args['disabled_days_args'], $context ) ) {
+		if ( wc_string_to_bool( $args['shipping_days'][ $wday ]['enabled'] ) && ! wc_od_is_disabled_day( $timestamp, $args['disabled_days_args'], $context ) ) {
 			// Decrease the minimum working days by default.
 			$min_working_days--;
 
@@ -429,6 +429,7 @@ function wc_od_get_first_shipping_date( $args = array(), $context = '' ) {
  *
  * @since 1.4.0
  * @since 1.5.0 Added `shipping_method` parameter to `$args`.
+ * @since 1.7.0 Deprecated the parameter `delivery_range` from `$args`.
  *
  * @param array  $args    Optional. The arguments used to calculate the date.
  * @param string $context Optional. The context.
@@ -439,7 +440,7 @@ function wc_od_get_last_shipping_date( $args = array(), $context = '' ) {
 		'shipping_method'             => false,
 		'shipping_days'               => WC_OD()->settings()->get_setting( 'shipping_days' ),
 		'delivery_days'               => WC_OD()->settings()->get_setting( 'delivery_days' ),
-		'delivery_range'              => WC_OD()->settings()->get_setting( 'delivery_range' ),
+		'delivery_range'              => array(),
 		'delivery_date'               => wc_od_get_local_date( false ), // Accept strings or timestamps.
 		'end_date'                    => wc_od_get_local_date( false ), // The minimum date to look for a valid date. Today as default.
 		'disabled_shipping_days_args' => array( // Arguments used by the wc_od_disabled_days() function.
@@ -482,9 +483,23 @@ function wc_od_get_last_shipping_date( $args = array(), $context = '' ) {
 		return false;
 	}
 
+	if ( ! empty( $args['delivery_range'] ) ) {
+		wc_doing_it_wrong( __FUNCTION__, 'The parameter "delivery_range" is deprecated.', '1.7.0' );
+
+		$delivery_range = new WC_OD_Delivery_Range();
+		$delivery_range->set_props(
+			array(
+				'from' => $args['delivery_range']['min'],
+				'to'   => $args['delivery_range']['max'],
+			)
+		);
+	} else {
+		$delivery_range = WC_OD_Delivery_Ranges::get_range_matching_shipping_method( $args['shipping_method'] );
+	}
+
 	$days_for_delivery = 0;
 	$wday              = intval( date( 'w', $delivery_timestamp ) );
-	$min_delivery_days = intval( $args['delivery_range']['min'] );
+	$min_delivery_days = $delivery_range->get_from();
 	$deadline          = wc_od_get_timestamp( $args['end_date'] );
 
 	// Calculate the statuses only for the default delivery days.
@@ -505,11 +520,11 @@ function wc_od_get_last_shipping_date( $args = array(), $context = '' ) {
 
 		// Need to reduce the minimum delivery days to zero before check the shipping date.
 		if ( 0 < $min_delivery_days ) {
-			if ( wc_od_string_to_bool( $delivery_days_status[ $wday ] ) && ! wc_od_is_disabled_day( $timestamp, $args['disabled_delivery_days_args'], $context ) ) {
+			if ( wc_string_to_bool( $delivery_days_status[ $wday ] ) && ! wc_od_is_disabled_day( $timestamp, $args['disabled_delivery_days_args'], $context ) ) {
 				$min_delivery_days--;
 			}
 			// Check shipping day availability.
-		} elseif ( wc_od_string_to_bool( $args['shipping_days'][ $wday ]['enabled'] ) && ! wc_od_is_disabled_day( $timestamp, $args['disabled_shipping_days_args'], $context ) ) {
+		} elseif ( wc_string_to_bool( $args['shipping_days'][ $wday ]['enabled'] ) && ! wc_od_is_disabled_day( $timestamp, $args['disabled_shipping_days_args'], $context ) ) {
 			$last_shipping_date = $timestamp;
 		}
 
@@ -534,6 +549,7 @@ function wc_od_get_last_shipping_date( $args = array(), $context = '' ) {
  *
  * @since 1.1.0
  * @since 1.5.0 Added `shipping_method` parameter to `$args`. Set the default value `end_date` to the setting value `max_delivery_days`.
+ * @since 1.7.0 Deprecated the parameter `delivery_range` from `$args`.
  *
  * @param array  $args    Optional. The arguments used to calculate the date.
  * @param string $context Optional. The context.
@@ -544,7 +560,7 @@ function wc_od_get_first_delivery_date( $args = array(), $context = '' ) {
 		'shipping_date'      => '', // Accept strings or timestamps.
 		'shipping_method'    => false,
 		'delivery_days'      => WC_OD()->settings()->get_setting( 'delivery_days' ),
-		'delivery_range'     => WC_OD()->settings()->get_setting( 'delivery_range' ),
+		'delivery_range'     => array(),
 		'end_date'           => strtotime( ( WC_OD()->settings()->get_setting( 'max_delivery_days' ) + 1 ) . ' days', wc_od_get_local_date() ), // The maximum date (Non-inclusive) to look for a valid date.
 		'disabled_days_args' => array( // Arguments used by the wc_od_disabled_days() function.
 			'type'    => 'delivery',
@@ -591,11 +607,25 @@ function wc_od_get_first_delivery_date( $args = array(), $context = '' ) {
 		return false;
 	}
 
+	if ( ! empty( $args['delivery_range'] ) ) {
+		wc_doing_it_wrong( __FUNCTION__, 'The parameter "delivery_range" is deprecated.', '1.7.0' );
+
+		$delivery_range = new WC_OD_Delivery_Range();
+		$delivery_range->set_props(
+			array(
+				'from' => $args['delivery_range']['min'],
+				'to'   => $args['delivery_range']['max'],
+			)
+		);
+	} else {
+		$delivery_range = WC_OD_Delivery_Ranges::get_range_matching_shipping_method( $args['shipping_method'] );
+	}
+
 	$deadline = wc_od_get_timestamp( $args['end_date'] );
 	$wday     = date( 'w', $shipping_timestamp );
 
 	$days_for_delivery = 0;
-	$min_delivery_days = intval( $args['delivery_range']['min'] );
+	$min_delivery_days = $delivery_range->get_from();
 
 	// Calculate the statuses only for the default delivery days.
 	if ( $args['delivery_days'] === $defaults['delivery_days'] ) {
@@ -618,7 +648,7 @@ function wc_od_get_first_delivery_date( $args = array(), $context = '' ) {
 		 * We do not deliver this day because it is disabled. But it is a working day for the shipping carrier.
 		 */
 		if (
-			( wc_od_string_to_bool( $delivery_days_status[ $wday ] ) || ( $shipping_timestamp === $timestamp && 0 < $min_delivery_days ) ) &&
+			( wc_string_to_bool( $delivery_days_status[ $wday ] ) || ( $shipping_timestamp === $timestamp && 0 < $min_delivery_days ) ) &&
 			! wc_od_is_disabled_day( $timestamp, $args['disabled_days_args'], $context ) // The day isn't disabled for delivery.
 		) {
 			// Decrease the minimum delivery days.
@@ -718,7 +748,7 @@ function wc_od_get_next_delivery_date( $args = array(), $context = '' ) {
 		$timestamp = strtotime( "{$next_days} days", $delivery_timestamp );
 		$wday      = date( 'w', $timestamp );
 
-		if ( wc_od_string_to_bool( $delivery_days_status[ $wday ] ) && ! wc_od_is_disabled_day( $timestamp, $args['disabled_days_args'], $context ) ) {
+		if ( wc_string_to_bool( $delivery_days_status[ $wday ] ) && ! wc_od_is_disabled_day( $timestamp, $args['disabled_days_args'], $context ) ) {
 			$next_delivery_date = $timestamp;
 		}
 

@@ -23,6 +23,15 @@ class WC_Instagram_Product_Catalog_Item_Variation extends WC_Instagram_Product_C
 	protected $parent;
 
 	/**
+	 * Returns the parent product to work with. Use this method to obtain the postmeta data.
+	 *
+	 * @{inheritdoc}
+	 */
+	protected function get_target() {
+		return $this->get_parent();
+	}
+
+	/**
 	 * Gets the parent product.
 	 *
 	 * @since 3.0.1

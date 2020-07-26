@@ -101,7 +101,7 @@ class WC_OD_Background_Updater extends WP_Background_Process {
 	 * @return string|bool
 	 */
 	protected function task( $callback ) {
-		$logger = wc_od_get_logger();
+		$logger = wc_get_logger();
 
 		include_once dirname( __FILE__ ) . '/wc-od-update-functions.php';
 

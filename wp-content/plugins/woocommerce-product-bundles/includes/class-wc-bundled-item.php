@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * The bunded item class is a product container that initializes and holds pricing, availability and variation/attribute-related data for a bundled product.
  *
  * @class    WC_Bundled_Item
- * @version  6.3.0
+ * @version  6.3.2
  */
 class WC_Bundled_Item {
 
@@ -522,11 +522,11 @@ class WC_Bundled_Item {
 		$this->data->update_meta( 'max_stock', $this->max_stock );
 
 		// Save changes if the bundle exists in the DB.
-		if ( ! defined( 'WC_PB_DEBUG_STOCK_SYNC' ) && $this->get_bundle_id() ) {
+		if ( ! defined( 'WC_PB_DEBUG_STOCK_SYNC' ) && $this->get_bundle_id() && ! doing_action( 'woocommerce_process_product_meta' ) ) {
 
 			$bundle = $this->get_bundle();
 
-			if ( $bundle && $bundle->is_type( 'bundle' ) && $bundle->get_type() === $bundle->get_data_store_type() ) {
+			if ( $bundle && $bundle->is_type( 'bundle' ) && $bundle->get_type() === $bundle->get_data_store_type() && ! $bundle->has_bundled_data_item_changes() ) {
 				$this->data->save();
 			}
 		}

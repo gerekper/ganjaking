@@ -12,6 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $input_classes = array( 'ywapo_input ywapo_input_' . $type, 'ywapo_price_'.esc_attr( $price_type ) );
+$input_classes_string = 'ywapo_input ywapo_input_' . $type . ' ywapo_price_' . esc_attr( $price_type );
 
 $value = ( $checked ? $key : '' );
 
@@ -29,7 +30,7 @@ echo sprintf( '%s<input data-typeid="%s" data-price="%s" data-pricetype="%s" dat
 	$key,
 	esc_attr( $value ),
 	( $checked ? 'checked' : '' ),
-	implode( ' ', $input_classes ),
+	$input_classes_string,
 	$min_html,
 	$max_html,
 	$disabled,

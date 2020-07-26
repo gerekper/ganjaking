@@ -2,8 +2,14 @@
 
 defined( 'ABSPATH' ) or exit;
 
+$panel_page = isset( $_REQUEST['panel_page'] ) ? $_REQUEST['panel_page'] : '';
+if ( $panel_page == 'email' ) {
+    include YITH_WCCH_TEMPLATE_PATH . '/backend/email.php';
+    die();
+}
+
 /*
- *	Customers
+ *	E-mails
  */
 
 global $wpdb; ?>
@@ -11,10 +17,7 @@ global $wpdb; ?>
 <div id="yith-woocommerce-customer-history">
 	<div id="emails" class="wrap">
 
-		<h1>
-			<?php echo __( 'Emails', 'yith-woocommerce-customer-history' ); ?>
-            <a href="admin.php?page=yith-wcch-email.php" class="page-title-action"><?php echo __( 'Send new email', 'yith-woocommerce-customer-history' ); ?></a>
-        </h1>
+        <a href="admin.php?page=yith_wcch_panel&panel_page=email&tab=emails" class="page-title-action"><?php echo __( 'Send new email', 'yith-woocommerce-customer-history' ); ?></a>
 
 		<p><?php echo __( 'Complete emails list.', 'yith-woocommerce-customer-history' ); ?></p>
 
@@ -53,7 +56,7 @@ global $wpdb; ?>
 						<td><a href="admin.php?page=yith-wcch-customer.php&user_id=<?php echo esc_html( $user->ID ); ?>"><?php echo esc_html( $user->display_name ); ?></a></td>
 						<td><?php echo $subject; ?></td>
 						<td><?php echo $content; ?></td>
-						<td><a href="admin.php?page=yith-wcch-email.php&email_id=<?php echo $value->id; ?>" class="button"><strong><i class="fa fa-eye" aria-hidden="true"></i> <?php echo __( 'View', 'yith-woocommerce-customer-history' ); ?></strong></a></td>
+						<td><a href="admin.php?page=yith_wcch_panel&panel_page=email&tab=emails&email_id=<?php echo $value->id; ?>" class="button"><strong><i class="fa fa-eye" aria-hidden="true"></i> <?php echo __( 'View', 'yith-woocommerce-customer-history' ); ?></strong></a></td>
 					</tr>
 
 				<?php endforeach; ?>

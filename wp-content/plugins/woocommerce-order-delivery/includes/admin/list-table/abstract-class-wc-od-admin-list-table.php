@@ -180,7 +180,7 @@ abstract class WC_OD_Admin_List_Table {
 					esc_attr( $year . $month ),
 					selected( $selected, $year . $month, false ),
 					/* translators: 1: month name, 2: 4-digit year */
-					esc_html( sprintf( __( '%1$s %2$d' ), $wp_locale->get_month( $month ), $year ) )
+					esc_html( sprintf( _x( '%1$s %2$d', 'filter orders by date range', 'woocommerce-order-delivery' ), $wp_locale->get_month( $month ), $year ) )
 				);
 			endforeach;
 			?>

@@ -54,9 +54,7 @@ class WC_OD_Admin_Notices {
 	 */
 	public static function add_notice( $name, $notice_html = '' ) {
 		if ( ! empty( $notice_html ) ) {
-			if ( method_exists( 'WC_Admin_Notices', 'add_custom_notice' ) ) {
-				WC_Admin_Notices::add_custom_notice( $name, $notice_html );
-			}
+			WC_Admin_Notices::add_custom_notice( $name, $notice_html );
 		} else {
 			self::$notices = array_unique( array_merge( self::get_notices(), array( $name ) ) );
 		}

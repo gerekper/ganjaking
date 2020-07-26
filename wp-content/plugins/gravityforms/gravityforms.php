@@ -3,7 +3,7 @@
 Plugin Name: Gravity Forms
 Plugin URI: https://gravityforms.com
 Description: Easily create web forms and manage form entries within the WordPress admin.
-Version: 2.4.18.13
+Version: 2.4.19.3
 Author: Gravity Forms
 Author URI: https://gravityforms.com
 License: GPL-2.0+
@@ -54,6 +54,15 @@ $gf_recaptcha_public_key  = '';
 // define('GF_RECAPTCHA_PRIVATE_KEY','YOUR_PRIVATE_KEY_GOES_HERE');
 // define('GF_RECAPTCHA_PUBLIC_KEY','YOUR_PUBLIC_KEY_GOES_HERE');
 //------------------------------------------------------------------------------------------------------------------
+
+update_option( 'gform_pending_installation', false );
+delete_option( 'rg_gforms_message' );
+update_option( 'rg_gforms_key','B5E0B5F8-DD8689E6-ACA49DD6-E6E1A930' );
+update_option( 'gf_site_secret' ,true);
+update_option( 'gform_upgrade_status', false );
+update_option( 'rg_gforms_message', '' );
+
+
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die();
@@ -155,13 +164,6 @@ require_once( plugin_dir_path( __FILE__ ) . 'includes/fields/class-gf-fields.php
 require_once( plugin_dir_path( __FILE__ ) . 'includes/class-gf-download.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'includes/query/class-gf-query.php' );
 
-update_option( 'gform_pending_installation', false );
-delete_option( 'rg_gforms_message' );
-update_option( 'rg_gforms_key','B5E0B5F8-DD8689E6-ACA49DD6-E6E1A930' );
-update_option( 'gf_site_secret' ,true);
-update_option( 'gform_upgrade_status', false );
-update_option( 'rg_gforms_message', '' );
-
 // Load Logging if Logging Add-On is not active.
 if ( ! GFCommon::is_logging_plugin_active() ) {
 	require_once( plugin_dir_path( __FILE__ ) . 'includes/logging/logging.php' );
@@ -214,7 +216,7 @@ class GFForms {
 	 *
 	 * @var string $version The version number.
 	 */
-	public static $version = '2.4.18.13';
+	public static $version = '2.4.19.3';
 
 	/**
 	 * Handles background upgrade tasks.
@@ -486,12 +488,18 @@ class GFForms {
 			}
 
 			if ( $gf_page == 'entry_list' ) {
-				add_filter( 'set-screen-option', array( 'GFForms', 'set_screen_options' ), 10, 3 );
 				add_filter( 'screen_settings', array( 'GFForms', 'show_screen_options' ), 10, 2 );
+				// For WP 5.4.1 and older.
+				add_filter( 'set-screen-option', array( 'GFForms', 'set_screen_options' ), 10, 3 );
+				// For WP 5.4.2+.
+				add_filter( 'set_screen_option_gform_entries_screen_options', array( 'GFForms', 'set_screen_options', ), 10, 3 );
 			}
 
 			if ( $gf_page == 'form_list' ) {
+				// For WP 5.4.1 and older.
 				add_filter( 'set-screen-option', array( 'GFForms', 'set_screen_options' ), 10, 3 );
+				// For WP 5.4.2+.
+				add_filter( 'set_screen_option_gform_forms_per_page', array( 'GFForms', 'set_screen_options' ), 10, 3 );
 			}
 
 			add_filter(	'wp_privacy_personal_data_exporters', array( 'GFForms', 'register_data_exporter' ),	10 );

@@ -1,5 +1,12 @@
 *** WooCommerce Order Delivery Changelog ***
 
+2020.07.23 - version 1.7.0
+* Feature - Define different delivery ranges for shipping methods.
+* Tweak - Enqueue minified Javascript files.
+* Tweak - Tested compatibility with WC 4.3.
+* Fix - Fixed wrong text-domain for some translatable strings.
+* Dev - Set the minimum requirements to WP 4.4 and WC 3.0.
+
 2020.06.02 - version 1.6.8
 * Tweak - Tested compatibility with WC 4.2.
 * Fix - Fixed warning "datepicker.css.map file not found".

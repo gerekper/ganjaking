@@ -2,6 +2,16 @@
 defined( 'ABSPATH' ) or exit;
 
 /*
+ *  Trash
+ */
+
+$panel_page = isset( $_REQUEST['panel_page'] ) ? $_REQUEST['panel_page'] : '';
+if ( $panel_page == 'trash' ) {
+    include YITH_WCCH_TEMPLATE_PATH . '/backend/trash.php';
+    die();
+}
+
+/*
  *  Sessions
  */
 
@@ -10,7 +20,7 @@ add_thickbox();
 
 if ( isset( $_GET['act'] ) && $_GET['act'] == 'hide' && isset( $_GET['id'] ) && $_GET['id'] > 0 ) {
     $result = $wpdb->query( "UPDATE {$wpdb->prefix}yith_wcch_sessions SET del='1' WHERE id='" . $_GET['id'] . "'" );
-    if ( $result ) : ?><div class="notice notice-success is-dismissible"><p><?php echo __( 'Your session was deleted, you can find it in <a href="admin.php?page=yith-wcch-trash.php">' . __( 'trash', 'yith-woocommerce-customer-history' ) . '</a>', 'yith-woocommerce-customer-history' ); ?></p></div><?php endif;
+    if ( $result ) : ?><div class="notice notice-success is-dismissible"><p><?php echo __( 'Your session was deleted, you can find it in <a href="admin.php?page=yith_wcch_panel&panel_page=trash&tab=sessions">' . __( 'trash', 'yith-woocommerce-customer-history' ) . '</a>', 'yith-woocommerce-customer-history' ); ?></p></div><?php endif;
 }
 
 $page = isset( $_GET['p'] ) && $_GET['p'] > 1 ? $_GET['p'] : 1;
@@ -30,29 +40,26 @@ $trash_rows = $wpdb->get_var( "SELECT COUNT(id) FROM {$wpdb->prefix}yith_wcch_se
 <div id="yith-woocommerce-customer-history">
     <div id="sessions" class="wrap">
 
-        <h1><?php echo __( 'Sessions', 'yith-woocommerce-customer-history' ) . ( $user_id > 0 ? ' <small>(user #' . $user_id . ')</small>' : '' ); ?></h1>
-        <p><?php echo __( 'Complete sessions list.', 'yith-woocommerce-customer-history' ); ?></p>
-
         <div class="tablenav top">
             <a href="" class="button"><i class="fa fa-refresh" aria-hidden="true" style="margin-right: 0px;"></i> <?php echo __( 'Check for new Sessions', 'yith-woocommerce-customer-history' ); ?></a>
             <ul class="subsubsub" style="margin: 1px 0px 0px 10px; display: inline-block; float: none;">
-                <li class="sessions"><a href="admin.php?page=yith-wcch-sessions.php&user_id=<?php echo $user_id; ?>" class="current"><?php echo __( 'Sessions', 'yith-woocommerce-customer-history' ); ?></a> |</li>
-                <li class="trash"><a href="admin.php?page=yith-wcch-trash.php&user_id=<?php echo $user_id; ?>" style="padding-right: 0;"><?php echo __( 'Trash', 'yith-woocommerce-customer-history' ); ?></a> (<?php echo $trash_rows; ?>)</li>
+                <li class="sessions"><a href="admin.php?page=yith_wcch_panel&tab=sessions&user_id=<?php echo $user_id; ?>" class="current"><?php echo __( 'Sessions', 'yith-woocommerce-customer-history' ); ?></a> |</li>
+                <li class="trash"><a href="admin.php?page=yith_wcch_panel&panel_page=trash&tab=sessions" style="padding-right: 0;"><?php echo __( 'Trash', 'yith-woocommerce-customer-history' ); ?></a> (<?php echo $trash_rows; ?>)</li>
             </ul>
             <div class="tablenav-pages">
                 <div class="pagination-links">
                     <?php echo __( 'Total', 'yith-woocommerce-customer-history' ) . ': ' . $num_rows; ?> &nbsp; | &nbsp;
                     <?php echo __( 'Page', 'yith-woocommerce-customer-history' ) . ': ' . $page . ' of ' . $max_pages; ?> &nbsp;
                     <?php if ( $page > 1 ) : ?>
-                    <a class="prev-page" href="admin.php?page=yith-wcch-sessions.php&user_id=<?php echo $user_id; ?>&p=1"><span aria-hidden="true">‹‹</span></a>
-                    <a class="prev-page" href="admin.php?page=yith-wcch-sessions.php&user_id=<?php echo $user_id; ?>&p=<?php echo $page - 1; ?>"><span aria-hidden="true">‹</span></a>
+                    <a class="prev-page" href="admin.php?page=yith_wcch_panel&tab=sessions&user_id=<?php echo $user_id; ?>&p=1"><span aria-hidden="true">‹‹</span></a>
+                    <a class="prev-page" href="admin.php?page=yith_wcch_panel&tab=sessions&user_id=<?php echo $user_id; ?>&p=<?php echo $page - 1; ?>"><span aria-hidden="true">‹</span></a>
                     <?php else : ?>
                     <span class="tablenav-pages-navspan" aria-hidden="true">‹‹</span>
                     <span class="tablenav-pages-navspan" aria-hidden="true">‹</span>
                     <?php endif; ?>
                     <?php if ( $page < $max_pages ) : ?>
-                    <a class="next-page" href="admin.php?page=yith-wcch-sessions.php&user_id=<?php echo $user_id; ?>&p=<?php echo $page + 1; ?>"><span aria-hidden="true">›</span></a>
-                    <a class="next-page" href="admin.php?page=yith-wcch-sessions.php&user_id=<?php echo $user_id; ?>&p=<?php echo $max_pages; ?>"><span aria-hidden="true">››</span></a>
+                    <a class="next-page" href="admin.php?page=yith_wcch_panel&tab=sessions&user_id=<?php echo $user_id; ?>&p=<?php echo $page + 1; ?>"><span aria-hidden="true">›</span></a>
+                    <a class="next-page" href="admin.php?page=yith_wcch_panel&tab=sessions&user_id=<?php echo $user_id; ?>&p=<?php echo $max_pages; ?>"><span aria-hidden="true">››</span></a>
                     <?php else : ?>
                     <span class="tablenav-pages-navspan" aria-hidden="true">›</span>
                     <span class="tablenav-pages-navspan" aria-hidden="true">››</span>
@@ -123,7 +130,7 @@ $trash_rows = $wpdb->get_var( "SELECT COUNT(id) FROM {$wpdb->prefix}yith_wcch_se
 
                     } else if ( strpos( $value->url, 'OT::' ) == 1 ) {
 
-                        if ( get_option( 'yith-wcch-show_bot_sessions' ) ) {
+                        if ( get_option( 'yith-wcch-show_bot_sessions' ) == 'yes' ) {
                             $is_session_action = true;
                             $url_array = explode( '::', $value->url );
                             $url = '<a href="">' . get_site_url() . '/' . $url_array[2] . '</a><br /><i class="fa fa-bullseye" aria-hidden="true" style="margin-right: 5px; "></i> ' . $url_array[1] . '<a>';
@@ -143,7 +150,7 @@ $trash_rows = $wpdb->get_var( "SELECT COUNT(id) FROM {$wpdb->prefix}yith_wcch_se
                                 <?php if ( $user == NULL ) : echo '<i class="fa fa-user-secret" aria-hidden="true" style="margin-right: 5px;"></i> ' . __( 'Guest', 'yith-woocommerce-customer-history' ); ?>
                                 <?php elseif ( $user == 'bot' ) : echo '<i class="fa fa-user-secret" aria-hidden="true" style="margin-right: 5px;"></i> ' . __( 'Bot', 'yith-woocommerce-customer-history' ); else : ?>
                                     <i class="fa fa-user" aria-hidden="true" style="margin-right: 5px;"></i>
-                                    <a href="admin.php?page=yith-wcch-customer.php&user_id=<?php echo esc_html( $user->ID ); ?>">
+                                    <a href="admin.php?page=yith_wcch_panel&tab=users&panel_page=customer&user_id=<?php echo esc_html( $user->ID ); ?>">
                                         <?php echo ( $user->first_name != '' || $user->last_name != '' ) ? $user->first_name . ' ' . $user->last_name : $user->user_nicename; ?>
                                     </a>
                                 <?php endif; ?>
@@ -165,7 +172,7 @@ $trash_rows = $wpdb->get_var( "SELECT COUNT(id) FROM {$wpdb->prefix}yith_wcch_se
                                 <?php else : ?>
                                     <a href="<?php echo $url; ?>?KeepThis=true&TB_iframe=true&modal=false" onclick="return false;" class="thickbox button"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                 <?php endif; ?>
-                                <a href="admin.php?page=yith-wcch-sessions.php&act=hide&id=<?php echo $value->id; ?>" class="button"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                <a href="admin.php?page=yith_wcch_panel&tab=sessions&act=hide&id=<?php echo $value->id; ?>" class="button"><i class="fa fa-trash" aria-hidden="true"></i></a>
                             </td>
                         </tr>
 
@@ -181,15 +188,15 @@ $trash_rows = $wpdb->get_var( "SELECT COUNT(id) FROM {$wpdb->prefix}yith_wcch_se
                     <?php echo __( 'Total', 'yith-woocommerce-customer-history' ) . ': ' . $num_rows; ?> &nbsp; | &nbsp;
                     <?php echo __( 'Page', 'yith-woocommerce-customer-history' ) . ': ' . $page . ' of ' . $max_pages; ?> &nbsp;
                     <?php if ( $page > 1 ) : ?>
-                    <a class="prev-page" href="admin.php?page=yith-wcch-sessions.php&user_id=<?php echo $user_id; ?>&p=1"><span aria-hidden="true">‹‹</span></a>
-                    <a class="prev-page" href="admin.php?page=yith-wcch-sessions.php&user_id=<?php echo $user_id; ?>&p=<?php echo $page - 1; ?>"><span aria-hidden="true">‹</span></a>
+                    <a class="prev-page" href="admin.php?page=yith_wcch_panel&tab=sessions&user_id=<?php echo $user_id; ?>&p=1"><span aria-hidden="true">‹‹</span></a>
+                    <a class="prev-page" href="admin.php?page=yith_wcch_panel&tab=sessions&user_id=<?php echo $user_id; ?>&p=<?php echo $page - 1; ?>"><span aria-hidden="true">‹</span></a>
                     <?php else : ?>
                     <span class="tablenav-pages-navspan" aria-hidden="true">‹‹</span>
                     <span class="tablenav-pages-navspan" aria-hidden="true">‹</span>
                     <?php endif; ?>
                     <?php if ( $page < $max_pages ) : ?>
-                    <a class="next-page" href="admin.php?page=yith-wcch-sessions.php&user_id=<?php echo $user_id; ?>&p=<?php echo $page + 1; ?>"><span aria-hidden="true">›</span></a>
-                    <a class="next-page" href="admin.php?page=yith-wcch-sessions.php&user_id=<?php echo $user_id; ?>&p=<?php echo $max_pages; ?>"><span aria-hidden="true">››</span></a>
+                    <a class="next-page" href="admin.php?page=yith_wcch_panel&tab=sessions&user_id=<?php echo $user_id; ?>&p=<?php echo $page + 1; ?>"><span aria-hidden="true">›</span></a>
+                    <a class="next-page" href="admin.php?page=yith_wcch_panel&tab=sessions&user_id=<?php echo $user_id; ?>&p=<?php echo $max_pages; ?>"><span aria-hidden="true">››</span></a>
                     <?php else : ?>
                     <span class="tablenav-pages-navspan" aria-hidden="true">›</span>
                     <span class="tablenav-pages-navspan" aria-hidden="true">››</span>

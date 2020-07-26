@@ -824,6 +824,12 @@ if ( ! class_exists( 'YITH_WooCommerce_Catalog_Mode_Premium' ) ) {
 
 			global $post;
 
+			if ( 'woodmart' === ywctm_get_theme_name() ) {
+				if ( isset( $GLOBALS['woodmart_loop']['is_quick_view'] ) && 'quick-view' === $GLOBALS['woodmart_loop']['is_quick_view'] ) {
+					return;
+				}
+			}
+
 			$enabled = apply_filters( 'ywctm_get_vendor_option', get_option( 'ywctm_inquiry_form_enabled', 'hidden' ), $post->ID, 'ywctm_inquiry_form_enabled' );
 			$in_desc = apply_filters( 'ywctm_get_vendor_option', get_option( 'ywctm_inquiry_form_where_show', 'tab' ), $post->ID, 'ywctm_inquiry_form_where_show' );
 
@@ -966,7 +972,12 @@ if ( ! class_exists( 'YITH_WooCommerce_Catalog_Mode_Premium' ) ) {
 		public function print_inquiry_form_shortcode() {
 
 			ob_start();
-			$this->inquiry_form_shortcode();
+
+			$show_form = apply_filters( 'ywctm_get_exclusion', ( 'exclusion' !== $enabled ), $post->ID, 'inquiry_form' );
+
+			if ( $show_form ) {
+				$this->inquiry_form_shortcode();
+			}
 
 			return ob_get_clean();
 		}
@@ -1326,57 +1337,6 @@ if ( ! class_exists( 'YITH_WooCommerce_Catalog_Mode_Premium' ) ) {
 		}
 
 		/**
-		 * Hide add to cart button in quick view
-		 *
-		 * @return  void
-		 * @since   1.0.7
-		 * @author  Francesco Licandro
-		 */
-		public function hide_add_to_cart_quick_view() {
-
-			if ( $this->check_hide_add_cart( true ) ) {
-
-				$hide_variations = get_option( 'ywctm_hide_variations' );
-				$args            = array(
-					'form.cart button.single_add_to_cart_button',
-				);
-
-				$theme_name = ywctm_get_theme_name();
-
-				if ( 'oceanwp' === $theme_name ) {
-					$args[] = 'form.cart';
-				}
-
-				if ( ! class_exists( 'YITH_YWRAQ_Frontend' ) || ( ( class_exists( 'YITH_Request_Quote_Premium' ) ) && ! YITH_Request_Quote_Premium()->check_user_type() ) ) {
-					$args[] = 'form.cart .quantity';
-				}
-
-				if ( 'yes' === $hide_variations ) {
-
-					$args[] = 'table.variations';
-					$args[] = 'form.variations_form';
-					$args[] = '.single_variation_wrap .variations_button';
-
-				}
-
-				//APPLY_FILTERS: ywctm_cart_widget_classes: CSS selector of add to cart buttons
-				$classes = implode( ', ', apply_filters( 'ywctm_catalog_classes', $args ) );
-
-				ob_start();
-				?>
-				<style type="text/css">
-					<?php echo $classes; ?>
-					{
-						display: none !important
-					}
-				</style>
-				<?php
-				echo ob_get_clean();
-			}
-
-		}
-
-		/**
 		 * Themes Integration
 		 *
 		 * @return  void
@@ -1405,7 +1365,13 @@ if ( ! class_exists( 'YITH_WooCommerce_Catalog_Mode_Premium' ) ) {
 					add_filter( 'ywctm_modify_woocommerce_after_shop_loop_item', '__return_false' );
 					break;
 				case 'avada':
+				case 'electro':
 					add_filter( 'ywctm_modify_woocommerce_after_shop_loop_item', '__return_false' );
+					break;
+				case 'woodmart':
+					add_action( 'woocommerce_before_add_to_cart_button', array( $this, 'hide_add_to_cart_quick_view' ) );
+					add_action( 'woocommerce_before_add_to_cart_button', array( $this, 'hide_price_quick_view' ) );
+					add_filter( 'ywctm_ajax_admin_check', '__return_false' );
 					break;
 			}
 

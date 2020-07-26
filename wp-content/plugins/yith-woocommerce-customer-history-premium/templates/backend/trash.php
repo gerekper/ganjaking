@@ -10,7 +10,12 @@ add_thickbox();
 
 if ( isset( $_GET['act'] ) && $_GET['act'] == 'show' && isset( $_GET['id'] ) && $_GET['id'] > 0 ) {
     $result = $wpdb->query( "UPDATE {$wpdb->prefix}yith_wcch_sessions SET del='0' WHERE id='" . $_GET['id'] . "'" );
-    if ( $result ) : ?><div class="notice notice-success is-dismissible"><p><?php echo __( 'Your session was restored, you can find it in <a href="admin.php?page=yith-wcch-sessions.php">' . __( 'sessions', 'yith-woocommerce-customer-history' ) . ' list</a>', 'yith-woocommerce-customer-history' ); ?></p></div><? endif;
+    if ( $result ) {
+
+        echo '<div class="notice notice-success is-dismissible"><p>';
+        echo 'Your session was restored, you can find it in <a href="admin.php?page=yith_wcch_panel&tab=sessions">sessions list</a>';
+        echo '</p></div>';
+    }
 }
 
 $page = isset( $_GET['p'] ) && $_GET['p'] > 1 ? $_GET['p'] : 1;
@@ -29,13 +34,10 @@ $max_pages = ceil( $num_rows / $results_per_page );
 <div id="yith-woocommerce-customer-history">
     <div id="sessions" class="wrap">
 
-        <h1><?php echo __( 'Trash', 'yith-woocommerce-customer-history' ) . ( $user_id > 0 ? ' <small>(user #' . $user_id . ')</small>' : '' ); ?></h1>
-        <p><?php echo __( 'All the sessions that you have deleted.', 'yith-woocommerce-customer-history' ); ?></p>
-
         <div class="tablenav top">
             <ul class="subsubsub" style="margin-top: 4px; display: inline-block; float: none;">
-                <li class="sessions"><a href="admin.php?page=yith-wcch-sessions.php&user_id=<?php echo $user_id; ?>"><?php echo __( 'Sessions', 'yith-woocommerce-customer-history' ); ?></a> |</li>
-                <li class="trash"><a href="admin.php?page=yith-wcch-trash.php&user_id=<?php echo $user_id; ?>" class="current"><?php echo __( 'Trash', 'yith-woocommerce-customer-history' ); ?></a></li>
+                <li class="sessions"><a href="admin.php?page=yith_wcch_panel&tab=sessions"><?php echo __( 'Sessions', 'yith-woocommerce-customer-history' ); ?></a> |</li>
+                <li class="trash"><a href="admin.php?page=yith_wcch_panel&panel_page=trash&tab=sessions" class="current"><?php echo __( 'Trash', 'yith-woocommerce-customer-history' ); ?></a></li>
             </ul>
             <div class="tablenav-pages">
                 <div class="pagination-links">
@@ -120,7 +122,7 @@ $max_pages = ceil( $num_rows / $results_per_page );
                     <tr class="<?php echo ( isset( $user->caps['administrator'] ) && $user->caps['administrator'] ? 'admin' : '' ) . ' ' . $tr_class; ?>">
                         <td class="user">
                             <?php if ( $user == NULL ) : echo __( 'Guest', 'yith-woocommerce-customer-history' ); else : ?>
-                                <a href="admin.php?page=yith-wcch-customer.php&user_id=<?php echo esc_html( $user->ID ); ?>">
+                                <a href="admin.php?page=yith_wcch_panel&tab=users&panel_page=customer&user_id=<?php echo esc_html( $user->ID ); ?>">
                                     <?php echo ( $user->first_name != '' || $user->last_name != '' ) ? $user->first_name . ' ' . $user->last_name : $user->user_nicename; ?>
                                 </a>
                             <?php endif; ?>
@@ -138,7 +140,7 @@ $max_pages = ceil( $num_rows / $results_per_page );
                             <?php else : ?>
                                 <a href="<?php echo $url; ?>?KeepThis=true&TB_iframe=true&modal=false" onclick="return false;" class="thickbox button"><i class="fa fa-eye" aria-hidden="true"></i></a>
                             <?php endif; ?>
-                            <a href="admin.php?page=yith-wcch-trash.php&act=show&id=<?php echo $value->id; ?>" class="button"><i class="fa fa-undo" aria-hidden="true"></i></a>
+                            <a href="admin.php?page=yith_wcch_panel&tab=sessions&panel_page=trash&act=show&id=<?php echo $value->id; ?>" class="button"><i class="fa fa-undo" aria-hidden="true"></i></a>
                         </td>
                     </tr>
 

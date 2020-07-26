@@ -10,10 +10,6 @@
 	'use strict';
 
 	$(function() {
-		$( '.time_frames' ).on( 'click', 'tbody tr a.wc-od-time-frame-delete', function( event ) {
-			event.preventDefault();
-
-			$( this ).closest( 'tr' ).remove();
-		});
+		// The code for deleting a time frame row is handled in table-fields.js now.
 	});
 })( jQuery );

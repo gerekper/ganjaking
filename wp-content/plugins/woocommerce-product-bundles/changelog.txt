@@ -1,5 +1,17 @@
 *** WooCommerce Product Bundles ***
 
+2020.07.22 - version 6.3.3
+* Tweak - Added responsive styles. 380px form-width breakpoint is editable using the 'woocommerce_bundle_front_end_params' filter.
+* Tweak - Made various small styling tweaks in Product Bundle pages.
+* Tweak - Added styles for basic improved compatibility with the Astra and Flatsome themes.
+* Tweak - Backfill current bundled item data in bundle configurations extracted from orders.
+
+2020.07.15 - version 6.3.2
+* Fix - Prevented stock meta form saving while 'woocommerce_process_product_meta' is running. Should prevent some edge-case issues with duplicate bundled items.
+* Tweak - Consider if customer is tax exempt when formatting cart item display prices.
+* Tweak - It is now possible to calculate and display the quantity of remaining bundles based on the availability of the bundled product with the lowest stock (bundles with static quantities only). To enable, use: add_filter( 'woocommerce_bundle_display_bundled_items_stock_quantity', '__return_true' );
+* Tweak - Dropped the use of debug options - please use debug constants instead. See 'WC_Bundles::define_constants'.
+
 2020.07.07 - version 6.3.1
 * Fix - Prevent 'WC_PB_Admin_Notices' from adding messages to the Inbox when WooCommerce Admin is disabled.
 * Fix - Declared support for WooCommerce 4.3.

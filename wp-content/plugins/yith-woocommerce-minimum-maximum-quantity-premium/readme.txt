@@ -4,13 +4,18 @@ Contributors: yithemes
 Tags: woocommerce, products, themes, yit, yith, yithemes, e-commerce, shop, minimum quantity, maximum quantity
 Requires at least: 4.0
 Tested up to: 5.4
-Stable tag: 1.4.9
+Stable tag: 1.5.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 YITH WooCommerce Minimum Maximum Quantity allows you to set a minimum and/or maximum quantity for purchases in your shop
 
 == Changelog ==
+
+= 1.5.0 - Released on 08 July 2020 =
+
+* New: Support for WooCommerce 4.3
+* Update: plugin framework
 
 = 1.4.9 - Released on 27 May 2020 =
 

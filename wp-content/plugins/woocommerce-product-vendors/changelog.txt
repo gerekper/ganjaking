@@ -1,5 +1,9 @@
 *** Product Vendors Changelog ***
 
+2020-07-22 - version 2.1.39
+* Tweak - Set Vendor Email field to required and add validation.
+* Tweak - Improve clarity of Vendor Email input field description.
+
 2020-07-07 - version 2.1.38
 * Fix   - Avoid double payment of PayPal payouts for virtual products.
 * Fix   - Commission page bulk action admin notices not displaying.

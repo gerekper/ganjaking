@@ -152,7 +152,7 @@ class WC_OD_Admin_List_Table_Orders extends WC_OD_Admin_List_Table {
 			return false;
 		}
 
-		$delivery_date = wc_od_get_order_meta( $order, '_delivery_date' );
+		$delivery_date = $order->get_meta( '_delivery_date' );
 
 		// No delivery date or expired.
 		if ( ! $delivery_date || $delivery_date < wc_od_get_local_date( false ) ) {
@@ -160,8 +160,8 @@ class WC_OD_Admin_List_Table_Orders extends WC_OD_Admin_List_Table {
 		}
 
 		$updated           = false;
-		$shipping_date     = wc_od_get_order_meta( $order, '_shipping_date' );
-		$new_shipping_date = wc_od_get_order_last_shipping_date( $order_id, 'bulk-action' );
+		$shipping_date     = $order->get_meta( '_shipping_date' );
+		$new_shipping_date = wc_od_get_order_last_shipping_date( $order, 'bulk-action' );
 
 		if ( $new_shipping_date ) {
 			$new_shipping_date = wc_od_localize_date( $new_shipping_date, 'Y-m-d' );

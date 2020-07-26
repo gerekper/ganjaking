@@ -4,7 +4,7 @@
  * Plugin Name: YITH WooCommerce Customer History Premium
  * Plugin URI: https://yithemes.com/themes/plugins/yith-woocommerce-customer-history/
  * Description: <code><strong>YITH WooCommerce Customer History Premium</strong></code> allows analyzing customers' behavior while visiting your e-commerce, the products they view and the ones they are more interested in. <a href="https://yithemes.com/" target="_blank">Get more plugins for your e-commerce shop on <strong>YITH</strong></a>
- * Version: 1.1.17
+ * Version: 1.1.18
  * Author: YITH
  * Author URI: https://yithemes.com/
  * Text Domain: yith-woocommerce-customer-history
@@ -14,7 +14,7 @@
  * Requires at least: 4.5
  * Tested up to: 5.4
  * WC requires at least: 3.0
- * WC tested up to: 4.2
+ * WC tested up to: 4.3
  *
  * @author  YITH
  * @package YITH WooCommerce Product Add-ons
@@ -54,7 +54,9 @@ if ( ! function_exists( 'yith_wcch_install_premium_woocommerce_admin_notice' ) )
     }
 }
 
-if ( ! function_exists( 'yith_plugin_registration_hook' ) ) { require_once 'plugin-fw/yit-plugin-registration-hook.php'; }
+if ( ! function_exists( 'yith_plugin_registration_hook' ) ) {
+    require_once 'plugin-fw/yit-plugin-registration-hook.php';
+}
 register_activation_hook( __FILE__, 'yith_plugin_registration_hook' );
 
 /*
@@ -74,7 +76,7 @@ yit_deactive_free_version( 'YITH_WCCL_FREE_INIT', plugin_basename( __FILE__ ) );
 ! defined( 'YITH_WCCH_TEMPLATE_PATH' )          && define( 'YITH_WCCH_TEMPLATE_PATH', YITH_WCCH_DIR . 'templates' );
 ! defined( 'YITH_WCCH_TEMPLATE_FRONTEND_PATH' ) && define( 'YITH_WCCH_TEMPLATE_FRONTEND_PATH', YITH_WCCH_TEMPLATE_PATH . '/frontend/' );
 ! defined( 'YITH_WCCH_ASSETS_URL' )             && define( 'YITH_WCCH_ASSETS_URL', YITH_WCCH_URL . 'assets' );
-! defined( 'YITH_WCCH_VERSION' )                && define( 'YITH_WCCH_VERSION', '1.1.17' );
+! defined( 'YITH_WCCH_VERSION' )                && define( 'YITH_WCCH_VERSION', '1.1.18' );
 ! defined( 'YITH_WCCH_DB_VERSION' )             && define( 'YITH_WCCH_DB_VERSION', '1.1.5' );
 ! defined( 'YITH_WCCH_PREMIUM' )                && define( 'YITH_WCCH_PREMIUM', true );
 ! defined( 'YITH_WCCH_FILE' )                   && define( 'YITH_WCCH_FILE', __FILE__ );
@@ -87,7 +89,9 @@ yit_deactive_free_version( 'YITH_WCCL_FREE_INIT', plugin_basename( __FILE__ ) );
  *  Plugin Framework Version Check
  */
 
-if ( ! function_exists( 'yit_maybe_plugin_fw_loader' ) && file_exists( YITH_WCCH_DIR . 'plugin-fw/init.php' ) ) { require_once( YITH_WCCH_DIR . 'plugin-fw/init.php' ); }
+if ( ! function_exists( 'yit_maybe_plugin_fw_loader' ) && file_exists( YITH_WCCH_DIR . 'plugin-fw/init.php' ) ) {
+    require_once( YITH_WCCH_DIR . 'plugin-fw/init.php' );
+}
 yit_maybe_plugin_fw_loader( YITH_WCCH_DIR );
 
 if ( ! function_exists( 'YITH_WCCH' ) ) {

@@ -10,6 +10,11 @@ if ( ! class_exists( 'YITH_WCCH_Admin' ) ) {
 
     class YITH_WCCH_Admin {
 
+        /**
+         * @var string panel page
+         */
+        protected $_panel_page = 'yith_wcch_panel';
+
         /*
          *  Constructor
          */
@@ -20,9 +25,21 @@ if ( ! class_exists( 'YITH_WCCH_Admin' ) ) {
              *  Hooks
              */
 
-            add_action( 'admin_menu', array( &$this, 'admin_menu' ) );
+            // add_action( 'admin_menu', array( &$this, 'admin_menu' ) );
+            add_action( 'admin_menu', array( $this, 'register_panel' ), 5 );
             add_action( 'admin_enqueue_scripts', array( &$this, 'admin_enqueue_scripts' ), 1 );
             add_action( 'add_meta_boxes', array( &$this, 'yith_wcch_add_meta_boxes'), 100 );
+            add_filter( 'plugin_action_links_' . plugin_basename( YITH_WCCH_DIR . '/' . basename( YITH_WCCH_FILE ) ), array( $this, 'action_links' ) );
+
+            /*
+             *  YITH Panel Custom Tabs
+             */
+            add_action( 'yith_test_plugin_print_users_tab', array( $this, 'print_users_tab' ), 10, 1 );
+            add_action( 'yith_test_plugin_print_sessions_tab', array( $this, 'print_sessions_tab' ), 10, 1 );
+            add_action( 'yith_test_plugin_print_searches_tab', array( $this, 'print_searches_tab' ), 10, 1 );
+            add_action( 'yith_test_plugin_print_emails_tab', array( $this, 'print_emails_tab' ), 10, 1 );
+            add_action( 'yith_test_plugin_print_stats_tab', array( $this, 'print_stats_tab' ), 10, 1 );
+            add_action( 'yith_test_plugin_print_extra_tab', array( $this, 'print_extra_tab' ), 10, 1 );
 
         }
 
@@ -62,7 +79,7 @@ if ( ! class_exists( 'YITH_WCCH_Admin' ) ) {
 
             $capability = 'manage_woocommerce';
 
-            add_menu_page( 'Customer History', 'Customer History', $capability, 'yith-wcch-customers.php', array( $this, 'admin_customers' ), 'dashicons-pressthis', '55.5' );
+            add_menu_page( 'Customer History (OLD)', 'Customer History (OLD)', $capability, 'yith-wcch-customers.php', array( $this, 'admin_customers' ), 'dashicons-pressthis', '55.5' );
 
             add_submenu_page( 'yith-wcch-customers.php', __( 'Customers & Users', 'yith-woocommerce-customer-history' ), __( 'Customers & Users', 'yith-woocommerce-customer-history' ), $capability, 'yith-wcch-customers.php', array( $this, 'admin_customers' ) );
             add_submenu_page( '', __( 'Customer', 'yith-woocommerce-customer-history' ), __( 'Customer', 'yith-woocommerce-customer-history' ), $capability, 'yith-wcch-customer.php', array( $this, 'admin_customer' ) );
@@ -82,9 +99,65 @@ if ( ! class_exists( 'YITH_WCCH_Admin' ) ) {
             if( ! isset( $admin_page_hooks['yith_plugin_panel'] ) ){
                 add_menu_page( 'yith_plugin_panel', __( 'YITH Plugins', 'yith-plugin-fw' ), 'manage_woocommerce', 'yith_plugin_panel', NULL, YIT_CORE_PLUGIN_URL . '/assets/images/yithemes-icon.png', '62.32' );
             }
-            add_submenu_page( 'yith_plugin_panel', __( 'Customer History', 'yith-woocommerce-customer-history' ), __( 'Customer History', 'yith-woocommerce-customer-history' ), $capability, 'yith-wcch-customers.php', array( $this, 'admin_customers' ) );
+            add_submenu_page( 'yith_plugin_panel', __( 'Customer History (OLD)', 'yith-woocommerce-customer-history' ), __( 'Customer History (OLD)', 'yith-woocommerce-customer-history' ), $capability, 'yith-wcch-customers.php', array( $this, 'admin_customers' ) );
             remove_submenu_page( 'yith_plugin_panel', 'yith_plugin_panel' );
             
+        }
+
+        /**
+         * Action Links
+         */
+        public function action_links( $links ) {
+            $links = yith_add_action_links( $links, $this->_panel_page, true );
+            return $links;
+        }
+
+        /**
+         * Add a panel under YITH Plugins tab
+         *
+         * @since    1.0
+         * @author   Andrea Grillo <andrea.grillo@yithemes.com>
+         * @use      /Yit_Plugin_Panel class
+         * @return   void
+         * @see      plugin-fw/lib/yit-plugin-panel.php
+         */
+        public function register_panel() {
+
+            if ( ! empty( $this->_panel ) ) {
+                return;
+            }
+
+            $admin_tabs = array(
+                'general'           => __( 'Settings', 'yith-woocommerce-customer-history' ),
+                'users' => __( 'Users', 'yith-woocommerce-customer-history' ),
+                'sessions' => __( 'Sessions', 'yith-woocommerce-customer-history' ),
+                'searches' => __( 'Searches', 'yith-woocommerce-customer-history' ),
+                'emails' => __( 'E-mails', 'yith-woocommerce-customer-history' ),
+                'stats' => __( 'Stats', 'yith-woocommerce-customer-history' ),
+                'extra' => __( 'Import/Export', 'yith-woocommerce-customer-history' ),
+            );
+
+            $args = array(
+                'create_menu_page' => true,
+                'parent_slug'      => '',
+                'page_title'       => __( 'YITH WooCommerce Customer History', 'yith-woocommerce-customer-history' ),
+                'menu_title'       => __( 'Customer History', 'yith-woocommerce-customer-history' ),
+                'capability'       => 'manage_options',
+                'parent'           => '',
+                'parent_page'      => 'yith_plugin_panel',
+                'page'             => $this->_panel_page,
+                'admin-tabs'       => apply_filters( 'yith-wcch-admin-tabs', $admin_tabs ),
+                'options-path'     => YITH_WCCH_DIR . '/plugin-options',
+                'class'            => yith_set_wrapper_class(),
+            );
+
+            /* === Fixed: not updated theme  === */
+            if ( ! class_exists( 'YIT_Plugin_Panel_WooCommerce' ) ) {
+                require_once( YITH_WCCH_DIR . '/plugin-fw/lib/yit-plugin-panel-wc.php' );
+            }
+
+            $this->_panel = new YIT_Plugin_Panel_WooCommerce( $args );
+
         }
 
         /*
@@ -165,6 +238,42 @@ if ( ! class_exists( 'YITH_WCCH_Admin' ) ) {
             } else {
                 echo __( 'No orders for this user', 'yith-woocommerce-customer-history' );
             }
+        }
+
+
+        /*
+         *  NEW TABS
+         */
+
+        public function print_users_tab() {
+            echo '<div class="yith-plugin-fw-panel-custom-tab-container"><h2>Users</h2><div>';
+            include YITH_WCCH_TEMPLATE_PATH . '/backend/customers.php';
+            echo '</div></div>';
+        }
+        public function print_sessions_tab() {
+            echo '<div class="yith-plugin-fw-panel-custom-tab-container"><h2>Sessions</h2><div>';
+            include YITH_WCCH_TEMPLATE_PATH . '/backend/sessions.php';
+            echo '</div></div>';
+        }
+        public function print_searches_tab() {
+            echo '<div class="yith-plugin-fw-panel-custom-tab-container"><h2>Searches</h2><div>';
+            include YITH_WCCH_TEMPLATE_PATH . '/backend/searches.php';
+            echo '</div></div>';
+        }
+        public function print_emails_tab() {
+            echo '<div class="yith-plugin-fw-panel-custom-tab-container"><h2>E-mails</h2><div>';
+            include YITH_WCCH_TEMPLATE_PATH . '/backend/emails.php';
+            echo '</div></div>';
+        }
+        public function print_stats_tab() {
+            echo '<div class="yith-plugin-fw-panel-custom-tab-container"><h2>Stats</h2><div>';
+            include YITH_WCCH_TEMPLATE_PATH . '/backend/stats.php';
+            echo '</div></div>';
+        }
+        public function print_extra_tab() {
+            echo '<div class="yith-plugin-fw-panel-custom-tab-container"><h2>Stats</h2><div>';
+            include YITH_WCCH_TEMPLATE_PATH . '/backend/settings.php';
+            echo '</div></div>';
         }
 
     }

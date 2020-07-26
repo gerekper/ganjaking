@@ -123,8 +123,8 @@ if ( ! class_exists( 'YITH_WooCommerce_Catalog_Mode' ) ) {
 		public function include_files() {
 
 			//Check if options should be upgraded
-			$update_path = YWCTM_DIR . 'includes/actions/update-' . YWCTM_VERSION . '/ywctm-install.php';
-			if ( ( version_compare( YWCTM_VERSION, get_option( 'ywctm_update_version' ), '>' ) || YWCTM_VERSION === get_transient( 'ywctm_prune_settings' ) ) && file_exists( $update_path ) ) {
+			$update_path = YWCTM_DIR . 'includes/actions/update-2.0.0/ywctm-install.php';
+			if ( ( '' === get_option( 'ywctm_update_version' ) || YWCTM_VERSION === get_transient( 'ywctm_prune_settings' ) ) && file_exists( $update_path ) ) {
 				include_once( $update_path );
 			}
 
@@ -779,6 +779,56 @@ if ( ! class_exists( 'YITH_WooCommerce_Catalog_Mode' ) ) {
 
 		}
 
+		/**
+		 * Hide add to cart button in quick view
+		 *
+		 * @return  void
+		 * @since   1.0.7
+		 * @author  Francesco Licandro
+		 */
+		public function hide_add_to_cart_quick_view() {
+
+			if ( $this->check_hide_add_cart( true ) ) {
+
+				$hide_variations = get_option( 'ywctm_hide_variations' );
+				$args            = array(
+					'form.cart button.single_add_to_cart_button',
+				);
+
+				$theme_name = ywctm_get_theme_name();
+
+				if ( 'oceanwp' === $theme_name ) {
+					$args[] = 'form.cart';
+				}
+
+				if ( ! class_exists( 'YITH_YWRAQ_Frontend' ) || ( ( class_exists( 'YITH_Request_Quote_Premium' ) ) && ! YITH_Request_Quote_Premium()->check_user_type() ) ) {
+					$args[] = 'form.cart .quantity';
+				}
+
+				if ( 'yes' === $hide_variations ) {
+
+					$args[] = 'table.variations';
+					$args[] = 'form.variations_form';
+					$args[] = '.single_variation_wrap .variations_button';
+
+				}
+
+				//APPLY_FILTERS: ywctm_cart_widget_classes: CSS selector of add to cart buttons
+				$classes = implode( ', ', apply_filters( 'ywctm_catalog_classes', $args ) );
+
+				ob_start();
+				?>
+				<style type="text/css">
+					<?php echo $classes; ?>
+					{
+						display: none !important
+					}
+				</style>
+				<?php
+				echo ob_get_clean();
+			}
+
+		}
 
 		/**
 		 * YITH FRAMEWORK

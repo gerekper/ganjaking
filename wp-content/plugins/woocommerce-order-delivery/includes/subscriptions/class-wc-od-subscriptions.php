@@ -83,7 +83,7 @@ if ( ! class_exists( 'WC_OD_Subscriptions' ) ) {
 		 * @return int The maximum delivery days.
 		 */
 		public function checkout_max_delivery_days( $max_delivery_days ) {
-			_deprecated_function( __METHOD__, '1.5.5', 'Moved to WC_OD_Subscriptions_Checkout->max_delivery_days()' );
+			wc_deprecated_function( __METHOD__, '1.5.5', 'Moved to WC_OD_Subscriptions_Checkout->max_delivery_days()' );
 
 			return $max_delivery_days;
 		}
@@ -97,7 +97,7 @@ if ( ! class_exists( 'WC_OD_Subscriptions' ) ) {
 		 * @param WC_Subscription $subscription The subscription instance.
 		 */
 		public function setup_delivery_preferences( $subscription ) {
-			_deprecated_function( __METHOD__, '1.5.5', 'wc_od_setup_subscription_delivery_preferences' );
+			wc_deprecated_function( __METHOD__, '1.5.5', 'wc_od_setup_subscription_delivery_preferences' );
 		}
 
 		/**
@@ -108,13 +108,11 @@ if ( ! class_exists( 'WC_OD_Subscriptions' ) ) {
 		 * @param WC_Subscription $subscription The subscription instance.
 		 */
 		public function process_subscription( $subscription ) {
-			$subscription_id = wc_od_get_order_prop( $subscription, 'id' );
-
 			/*
 			 * Skip if the subscription is being updated manually by the merchant.
 			 * Processed in `WC_OD_Subscription_Admin->subscription_date_updated()`.
 			 */
-			if ( wc_od_is_save_request_for_order( $subscription_id ) ) {
+			if ( wc_od_is_save_request_for_order( $subscription->get_id() ) ) {
 				return;
 			}
 
@@ -125,7 +123,7 @@ if ( ! class_exists( 'WC_OD_Subscriptions' ) ) {
 			if ( defined( 'WOOCOMMERCE_CHECKOUT' ) ) {
 				$cart_item = wcs_cart_contains_renewal();
 
-				if ( ! $cart_item || $subscription_id !== $cart_item['subscription_renewal']['subscription_id'] ) {
+				if ( ! $cart_item || $subscription->get_id() !== $cart_item['subscription_renewal']['subscription_id'] ) {
 					return;
 				}
 			}
@@ -177,7 +175,7 @@ if ( ! class_exists( 'WC_OD_Subscriptions' ) ) {
 			}
 
 			// Disable the save process of the meta box 'woocommerce-subscription-delivery' to avoid overwrite the value.
-			if ( wc_od_is_save_request_for_order( wc_od_get_order_prop( $subscription, 'id' ) ) ) {
+			if ( wc_od_is_save_request_for_order( $subscription->get_id() ) ) {
 				remove_action( 'woocommerce_process_shop_order_meta', 'WC_OD_Meta_Box_Subscription_Delivery::save', 20 );
 			}
 
@@ -315,13 +313,13 @@ if ( ! class_exists( 'WC_OD_Subscriptions' ) ) {
 		 * @param WC_Order $order The order instance.
 		 */
 		public function update_order_time_frame( $order ) {
-			$delivery_date = wc_od_get_order_meta( $order, '_delivery_date' );
+			$delivery_date = $order->get_meta( '_delivery_date' );
 
 			if ( ! $delivery_date ) {
 				return;
 			}
 
-			$time_frame_id = wc_od_get_order_meta( $order, '_delivery_time_frame' );
+			$time_frame_id = $order->get_meta( '_delivery_time_frame' );
 
 			if ( $time_frame_id ) {
 				$time_frame = wc_od_get_time_frame_for_date( $delivery_date, $time_frame_id );
@@ -358,7 +356,13 @@ if ( ! class_exists( 'WC_OD_Subscriptions' ) ) {
 		 * @param int $order_id The order Id.
 		 */
 		public function validate_order_delivery_date( $order_id ) {
-			$delivery_date = wc_od_get_order_meta( $order_id, '_delivery_date' );
+			$order = wc_get_order( $order_id );
+
+			if ( ! $order ) {
+				return;
+			}
+
+			$delivery_date = $order->get_meta( '_delivery_date' );
 
 			// Delivery date not found during the subscription renewal or removed manually by the merchant.
 			if ( ! $delivery_date ) {
@@ -368,11 +372,11 @@ if ( ! class_exists( 'WC_OD_Subscriptions' ) ) {
 			// The 'next_payment' date is not up to date at this point, so we cannot use the 'end_date' parameter here.
 			$args = array(
 				'order_id'           => $order_id,
-				'shipping_method'    => wc_od_get_order_shipping_method( $order_id ),
+				'shipping_method'    => wc_od_get_order_shipping_method( $order ),
 				'disabled_days_args' => array(
 					'type'     => 'delivery',
-					'country'  => wc_od_get_order_prop( $order_id, 'shipping_country' ),
-					'state'    => wc_od_get_order_prop( $order_id, 'shipping_state' ),
+					'country'  => $order->get_shipping_country(),
+					'state'    => $order->get_shipping_state(),
 					'order_id' => $order_id,
 				),
 			);
@@ -465,7 +469,7 @@ if ( ! class_exists( 'WC_OD_Subscriptions' ) ) {
 		 * @return array An array with the email IDs.
 		 */
 		public function register_subscription_emails( $email_ids ) {
-			_deprecated_function( __METHOD__, '1.4.1', 'Moved to WC_OD_Subscriptions_Emails->emails_with_delivery_details()' );
+			wc_deprecated_function( __METHOD__, '1.4.1', 'Moved to WC_OD_Subscriptions_Emails->emails_with_delivery_details()' );
 
 			return $email_ids;
 		}
@@ -479,7 +483,7 @@ if ( ! class_exists( 'WC_OD_Subscriptions' ) ) {
 		 * @param array $args The arguments.
 		 */
 		public function email_after_delivery_details( $args ) {
-			_deprecated_function( __METHOD__, '1.4.1', 'Moved to WC_OD_Subscriptions_Emails->delivery_details()' );
+			wc_deprecated_function( __METHOD__, '1.4.1', 'Moved to WC_OD_Subscriptions_Emails->delivery_details()' );
 		}
 
 	}

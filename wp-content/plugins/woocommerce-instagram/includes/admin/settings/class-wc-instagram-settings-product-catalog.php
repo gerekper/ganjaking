@@ -39,6 +39,8 @@ if ( ! class_exists( 'WC_Instagram_Settings_Product_Catalog', false ) ) {
 
 			$this->catalog_id = $catalog_id;
 
+			add_action( 'wp_ajax_refresh_google_product_category_field', array( $this, 'refresh_google_product_category_field' ) );
+
 			parent::__construct();
 		}
 
@@ -97,6 +99,7 @@ if ( ! class_exists( 'WC_Instagram_Settings_Product_Catalog', false ) ) {
 					'catalog_url'  => wc_instagram_get_product_catalog_url( '{slug}' ),
 					'tax_based_on' => get_option( 'woocommerce_tax_based_on' ),
 					'delete_link'  => $this->get_delete_link_html(),
+					'nonce'        => wp_create_nonce( 'refresh_google_product_category_field' ),
 				)
 			);
 		}
@@ -376,6 +379,12 @@ if ( ! class_exists( 'WC_Instagram_Settings_Product_Catalog', false ) ) {
 							'featured' => _x( 'Featured image', 'setting option', 'woocommerce-instagram' ),
 						),
 					),
+					'product_google_category'     => array(
+						'title'       => _x( 'Google Product Category', 'setting title', 'woocommerce-instagram' ),
+						'desc_tip'    => _x( 'Default Google Product Category.', 'setting desc', 'woocommerce-instagram' ),
+						'description' => _x( 'This option can be set per product.', 'setting desc', 'woocommerce-instagram' ),
+						'type'        => 'google_product_category',
+					),
 				)
 			);
 		}
@@ -463,6 +472,111 @@ if ( ! class_exists( 'WC_Instagram_Settings_Product_Catalog', false ) ) {
 			$data['custom_attributes']['data-action']   = 'woocommerce_json_search_products' . ( $variations ? '_and_variations' : '' );
 
 			return $this->generate_multiselect_html( $key, $data );
+		}
+
+		/**
+		 * Generates the HTML for a 'google_product_category' field.
+		 *
+		 * @since 3.3.0
+		 *
+		 * @param string $key  Key of the field in the settings array.
+		 * @param array  $data The prebuilt data to construct the selects.
+		 * @return false|string
+		 */
+		public function generate_google_product_category_html( $key, $data ) {
+			$field_key = $this->get_field_key( $key );
+			$defaults  = array(
+				'title'             => '',
+				'class'             => '',
+				'css'               => '',
+				'placeholder'       => '',
+				'desc_tip'          => false,
+				'description'       => '',
+				'custom_attributes' => array(),
+				'value'             => $this->get_option( $key, 0 ),
+			);
+
+			$data      = wp_parse_args( $data, $defaults );
+			$selects   = WC_Instagram_Google_Product_Categories::get_parents( $data['value'] );
+			$selects[] = $data['value'];
+
+			ob_start();
+			$this->output_field_start( $key, $data );
+
+			foreach ( $selects as $index => $select ) :
+				$placeholder = ( $index ? __( 'Select a subcategory &hellip;', 'woocommerce-instagram' ) : __( 'Select a category &hellip;', 'woocommerce-instagram' ) );
+				$options     = WC_Instagram_Google_Product_Categories::get_sibling_titles( $select );
+				$options     = array( '' => $placeholder ) + $options;
+
+				echo '<span class="wc-instagram-gpc-select-wrapper">';
+				$this->output_select_field(
+					array(
+						'class'   => 'wc-enhanced-select wc-instagram-gpc-select ' . $data['class'],
+						'css'     => $data['css'],
+						'options' => $options,
+						'value'   => $select,
+					)
+				);
+				echo '</span>';
+			endforeach;
+
+			$selected_value_children = WC_Instagram_Google_Product_Categories::get_children( $data['value'] );
+
+			if ( ! empty( $selected_value_children ) ) :
+				$options = array( '' => __( 'Select a subcategory &hellip;', 'woocommerce-instagram' ) ) + WC_Instagram_Google_Product_Categories::get_titles( $selected_value_children );
+
+				echo '<span class="wc-instagram-gpc-select-wrapper">';
+				$this->output_select_field(
+					array(
+						'class'   => 'wc-enhanced-select wc-instagram-gpc-select ' . $data['class'],
+						'css'     => $data['css'],
+						'options' => $options,
+					)
+				);
+				echo '</span>';
+			endif;
+
+			printf(
+				'<input type="hidden" id="%1$s" name="%1$s" value="%2$s" />',
+				esc_attr( $field_key ),
+				esc_attr( $data['value'] )
+			);
+
+			$this->output_field_end( $key, $data );
+
+			return ob_get_clean();
+		}
+
+		/**
+		 * Outputs a select field.
+		 *
+		 * @since 3.3.0
+		 *
+		 * @param array $data The select data.
+		 */
+		protected function output_select_field( $data ) {
+			$data = wp_parse_args(
+				$data,
+				array(
+					'class'   => '',
+					'css'     => '',
+					'value'   => '',
+					'options' => array(),
+				)
+			);
+
+			printf(
+				'<select class="select %1$s" style="%2$s" %3$s>',
+				esc_attr( $data['class'] ),
+				esc_attr( $data['css'] ),
+				$this->get_custom_attribute_html( $data ) // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			);
+			?>
+			<?php foreach ( $data['options'] as $option_key => $option_value ) : ?>
+				<option value="<?php echo esc_attr( $option_key ); ?>" <?php selected( (string) $option_key, esc_attr( $data['value'] ) ); ?>><?php echo esc_html( $option_value ); ?></option>
+			<?php endforeach; ?>
+			</select>
+			<?php
 		}
 
 		/**
@@ -573,6 +687,24 @@ if ( ! class_exists( 'WC_Instagram_Settings_Product_Catalog', false ) ) {
 				wp_safe_redirect( wc_instagram_get_settings_url( $params ) );
 				exit;
 			}
+		}
+
+		/**
+		 * Refreshes the content for the 'google_product_category' field.
+		 *
+		 * @since 3.3.0
+		 */
+		public function refresh_google_product_category_field() {
+			check_ajax_referer( 'refresh_google_product_category_field' );
+
+			$category_id = ( ! empty( $_POST['category_id'] ) ? wc_clean( wp_unslash( $_POST['category_id'] ) ) : '' );
+
+			$data          = $this->get_form_field( 'product_google_category' );
+			$data['value'] = $category_id;
+
+			$html = $this->generate_google_product_category_html( 'product_google_category', $data );
+
+			wp_send_json_success( array( 'output' => $html ) );
 		}
 	}
 }

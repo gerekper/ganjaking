@@ -66,7 +66,7 @@ if ( ! class_exists( 'WC_OD_Email_Order_Note' ) ) {
 			if ( $note && is_a( $order, 'WC_Order' ) ) {
 				$this->object = $order;
 				$this->note   = $note;
-				$this->setPlaceholder( 'order_date', wc_od_localize_date( wc_od_get_order_prop( $this->object, 'date_created' ) ) );
+				$this->setPlaceholder( 'order_date', wc_od_localize_date( $this->object->get_date_created() ) );
 				$this->setPlaceholder( 'order_number', $this->object->get_order_number() );
 			}
 

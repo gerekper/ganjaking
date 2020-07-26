@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundle display functions and filters.
  *
  * @class    WC_PB_Display
- * @version  6.2.4
+ * @version  6.3.3
  */
 class WC_PB_Display {
 
@@ -37,6 +37,12 @@ class WC_PB_Display {
 	 * @var integer
 	 */
 	private $grid_layout_pos = 1;
+
+	/**
+	 * Runtime cache.
+	 * @var bool
+	 */
+	private $display_cart_prices_incl_tax;
 
 	/**
 	 * The single instance of the class.
@@ -220,6 +226,7 @@ class WC_PB_Display {
 			'i18n_unavailable_text'        => __( 'This product is currently unavailable.', 'woocommerce-product-bundles' ),
 			'i18n_validation_alert'        => __( 'Please resolve all pending issues before adding this product to your cart.', 'woocommerce-product-bundles' ),
 			'i18n_zero_qty_error'          => __( 'Please choose at least 1 item.', 'woocommerce-product-bundles' ),
+			'responsive_breakpoint'        => 380,
 			'currency_symbol'              => get_woocommerce_currency_symbol(),
 			'currency_position'            => esc_attr( stripslashes( get_option( 'woocommerce_currency_pos' ) ) ),
 			'currency_format_num_decimals' => wc_get_price_decimals(),
@@ -418,6 +425,22 @@ class WC_PB_Display {
 	*/
 
 	/**
+	 * Back-compat wrapper for 'WC_Cart::display_price_including_tax'.
+	 *
+	 * @since  6.3.2
+	 *
+	 * @return string
+	 */
+	private function display_cart_prices_including_tax() {
+
+		if ( is_null( $this->display_cart_prices_incl_tax ) ) {
+			$this->display_cart_prices_incl_tax = WC_PB_Core_Compatibility::is_wc_version_gte( '3.3' ) ? WC()->cart->display_prices_including_tax() : ( 'incl' === get_option( 'woocommerce_tax_display_cart' ) );
+		}
+
+		return $this->display_cart_prices_incl_tax;
+	}
+
+	/**
 	 * Outputs a formatted subtotal.
 	 *
 	 * @param  WC_Product  $product
@@ -434,7 +457,7 @@ class WC_PB_Display {
 
 			$tax_subtotal = WC_PB_Core_Compatibility::is_wc_version_gte( '3.2' ) ? $cart->get_subtotal_tax() : $cart->tax_total;
 
-			if ( 'excl' === get_option( 'woocommerce_tax_display_cart' ) ) {
+			if ( ! $this->display_cart_prices_including_tax() ) {
 
 				if ( wc_prices_include_tax() && $tax_subtotal > 0 ) {
 					$formatted_subtotal .= ' <small class="tax_label">' . WC()->countries->ex_tax_or_vat() . '</small>';
@@ -556,8 +579,7 @@ class WC_PB_Display {
 
 			if ( $aggregate_prices ) {
 
-				$tax_display_cart    = get_option( 'woocommerce_tax_display_cart' );
-				$calc_type           = 'excl' === $tax_display_cart ? 'excl_tax' : 'incl_tax';
+				$calc_type           = ! $this->display_cart_prices_including_tax() ? 'excl_tax' : 'incl_tax';
 				$bundle_price        = WC_PB_Product_Prices::get_product_price( $cart_item[ 'data' ], array( 'price' => $cart_item[ 'data' ]->get_price(), 'calc' => $calc_type ) );
 				$bundled_cart_items  = wc_pb_get_bundled_cart_items( $cart_item, WC()->cart->cart_contents );
 				$bundled_items_price = 0.0;
@@ -685,8 +707,7 @@ class WC_PB_Display {
 
 			if ( $aggregate_subtotals ) {
 
-				$tax_display_cart    = get_option( 'woocommerce_tax_display_cart' );
-				$calc_type           = 'excl' === $tax_display_cart ? 'excl_tax' : 'incl_tax';
+				$calc_type           = ! $this->display_cart_prices_including_tax() ? 'excl_tax' : 'incl_tax';
 				$bundle_price        = WC_PB_Product_Prices::get_product_price( $cart_item[ 'data' ], array( 'price' => $cart_item[ 'data' ]->get_price(), 'calc' => $calc_type, 'qty' => $cart_item[ 'quantity' ] ) );
 				$bundled_cart_items  = wc_pb_get_bundled_cart_items( $cart_item, WC()->cart->cart_contents );
 				$bundled_items_price = 0.0;
@@ -1047,7 +1068,21 @@ class WC_PB_Display {
 			if ( $bundled_item = $bundle_container_item[ 'data' ]->get_bundled_item( $bundled_item_id) ) {
 
 				if ( false === $bundled_item->is_thumbnail_visible() ) {
-					$image = '';
+
+					$is_faked_parent_item = false;
+
+					if ( WC_Product_Bundle::group_mode_has( $bundle_container_item[ 'data' ]->get_group_mode(), 'faked_parent_item' ) ) {
+
+						$bundled_cart_item_keys = wc_pb_get_bundled_cart_items( $bundle_container_item, false, true );
+
+						if ( ! empty( $bundled_cart_item_keys ) && current( $bundled_cart_item_keys ) === $cart_item_key ) {
+							$is_faked_parent_item = true;
+						}
+					}
+
+					if ( ! $is_faked_parent_item ) {
+						$image = '';
+					}
 				}
 			}
 		}

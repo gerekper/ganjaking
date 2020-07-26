@@ -3,12 +3,19 @@
 Contributors: yithemes
 Tags: woocommerce, woocommerce product add-ons, woocommerce product add ons, woocommerce advanced product option, product add ons, product add-ons, option, radio, checkbox, text, woocommerce product addons
 Requires at least: 4.5
-Tested up to: 5.4.1
-Stable tag: 1.5.27
+Tested up to: 5.4
+Stable tag: 1.5.28
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 == Changelog ==
+
+= 1.5.28 – Released on 15 Jul 2020 =
+
+* New: Support for WooCommerce 4.3
+* Dev: new filter 'yith_wapo_product_final_price'
+* Update: YITH Plugin Framework
+* Fix: Minor bugs
 
 = 1.5.27 – Released on 03 Jun 2020 =
 

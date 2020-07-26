@@ -5,6 +5,7 @@
  * @since   1.5.0
  */
 
+/* global woocommerce_params */
 ;(function( $, wc ) {
 
 	'use strict';

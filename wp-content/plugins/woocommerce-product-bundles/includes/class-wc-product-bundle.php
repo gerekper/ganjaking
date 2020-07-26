@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundle Class.
  *
  * @class    WC_Product_Bundle
- * @version  6.2.5
+ * @version  6.3.2
  */
 class WC_Product_Bundle extends WC_Product {
 
@@ -171,6 +171,7 @@ class WC_Product_Bundle extends WC_Product {
 			'on_backorder'                      => false,
 			'subscriptions'                     => false,
 			'subscriptions_priced_individually' => false,
+			'subscriptions_priced_variably'     => false,
 			'multiple_subscriptions'            => false,
 			'nyp'                               => false,
 			'non_purchasable'                   => false,
@@ -181,7 +182,7 @@ class WC_Product_Bundle extends WC_Product {
 			'sold_individually'                 => false,
 			'discounted'                        => false,
 			'discounted_mandatory'              => false,
-			'priced_indefinitely'               => false,
+			'configurable_quantities'           => false,
 			'hidden'                            => false,
 			'visible'                           => false
 		);
@@ -238,7 +239,7 @@ class WC_Product_Bundle extends WC_Product {
 				$max_quantity = $bundled_item->get_quantity( 'max', array( 'context' => 'sync' ) );
 
 				if ( $min_quantity !== $max_quantity ) {
-					$this->contains[ 'priced_indefinitely' ] = true;
+					$this->contains[ 'configurable_quantities' ] = true;
 				}
 
 				if ( $bundled_item->is_sold_individually() ) {
@@ -248,8 +249,8 @@ class WC_Product_Bundle extends WC_Product {
 				}
 
 				if ( $bundled_item->is_optional() ) {
-					$this->contains[ 'optional' ]            = true;
-					$this->contains[ 'priced_indefinitely' ] = true;
+					$this->contains[ 'optional' ]                = true;
+					$this->contains[ 'configurable_quantities' ] = true;
 				} elseif ( $min_quantity > 0 ) {
 					$this->contains[ 'mandatory' ] = true;
 				}
@@ -293,10 +294,10 @@ class WC_Product_Bundle extends WC_Product {
 					}
 
 					// If it's a variable sub with a variable price, show 'From:' string before Bundle price.
-					if ( ! $this->contains[ 'priced_indefinitely' ] && $bundled_item->is_variable_subscription() ) {
+					if ( $bundled_item->is_variable_subscription() ) {
 						$bundled_item->add_price_filters();
 						if ( $bundled_item->product->get_variation_price( 'min' ) !== $bundled_item->product->get_variation_price( 'max' ) || $bundled_item->product->get_meta( '_min_variation_period', true ) !== $bundled_item->product->get_meta( '_max_variation_period', true ) || $bundled_item->product->get_meta( '_min_variation_period_interval', true ) !== $bundled_item->product->get_meta( '_max_variation_period_interval', true ) ) {
-							$this->contains[ 'priced_indefinitely' ] = true;
+							$this->contains[ 'subscriptions_priced_variably' ] = true;
 						}
 						$bundled_item->remove_price_filters();
 					}
@@ -1058,7 +1059,7 @@ class WC_Product_Bundle extends WC_Product {
 				$price = apply_filters( 'woocommerce_bundle_empty_price_html', '', $this );
 			} else {
 
-				$has_indefinite_max_price = $this->contains( 'priced_indefinitely' ) || INF === $this->get_max_raw_price();
+				$has_indefinite_max_price = $this->contains( 'configurable_quantities' ) || $this->contains( 'subscriptions_priced_variably' ) || INF === $this->get_max_raw_price();
 
 				/**
 				 * 'woocommerce_bundle_force_old_style_price_html' filter.
@@ -1186,15 +1187,43 @@ class WC_Product_Bundle extends WC_Product {
 
 		$availability = parent::get_availability();
 
+		// If a child does not have enough stock, let people know.
 		if ( parent::is_in_stock() && $this->contains( 'out_of_stock' ) ) {
 
 			$availability[ 'availability' ] = __( 'Insufficient stock', 'woocommerce-product-bundles' );
 			$availability[ 'class' ]        = 'out-of-stock';
 
+		// If a child is on backorder, the parent should appear to be on backorder, too.
 		} elseif ( parent::is_in_stock() && $this->contains( 'on_backorder' ) ) {
 
 			$availability[ 'availability' ] = __( 'Available on backorder', 'woocommerce' );
 			$availability[ 'class' ]        = 'available-on-backorder';
+
+		// Add remaining quantity data if the quantities of the children are static, and at least one child exists that manages stock and displays quantity in the availability string.
+		} elseif ( ! $this->contains( 'configurable_quantities' ) && 'no_amount' !== ( $stock_format = get_option( 'woocommerce_stock_format' ) ) && apply_filters( 'woocommerce_bundle_display_bundled_items_stock_quantity', $this->managing_stock(), $this ) ) {
+
+			$bundled_items_stock_quantity = '';
+
+			foreach ( $this->get_bundled_items() as $bundled_item ) {
+
+				$bundled_item_stock_quantity = $bundled_item->get_max_stock();
+				$bundled_item_stock_quantity = '' === $bundled_item_stock_quantity ? '' : floor( $bundled_item->get_max_stock() / $bundled_item->get_quantity( 'min' ) );
+
+				if ( '' !== $bundled_item_stock_quantity ) {
+					$bundled_items_stock_quantity = ( '' === $bundled_items_stock_quantity || $bundled_item_stock_quantity < $bundled_items_stock_quantity ) ? $bundled_item_stock_quantity : $bundled_items_stock_quantity;
+				}
+			}
+
+			// Only override if not managing stock, or if the container level quantity is higher than the items level quantity.
+			if ( '' !== $bundled_items_stock_quantity && ( ! $this->managing_stock() || $this->get_stock_quantity() > $bundled_items_stock_quantity ) ) {
+
+				// Hack time: We want to reuse 'wc_format_stock_for_display' to keep things dry here.
+				$this->bundled_items_stock_quantity = $bundled_items_stock_quantity;
+
+				add_filter( 'woocommerce_product_get_stock_quantity', array( $this, 'filter_stock_quantity' ), 1000 );
+				$availability[ 'availability' ] = wc_format_stock_for_display( $this );
+				remove_filter( 'woocommerce_product_get_stock_quantity', array( $this, 'filter_stock_quantity' ), 1000 );
+			}
 		}
 
 		return apply_filters( 'woocommerce_get_bundle_availability', $availability, $this );
@@ -1940,6 +1969,17 @@ class WC_Product_Bundle extends WC_Product {
 	*/
 
 	/**
+	 * Equivalent of 'get_changes', but boolean and for bundled data items only.
+	 *
+	 * @since  6.3.2
+	 *
+	 * @return boolean
+	 */
+	public function has_bundled_data_item_changes() {
+		return $this->bundled_data_items_save_pending;
+	}
+
+	/**
 	 * Getter of bundle 'contains' properties.
 	 *
 	 * @since  5.0.0
@@ -2058,6 +2098,11 @@ class WC_Product_Bundle extends WC_Product {
 
 		} else {
 			$this->sync();
+		}
+
+		// Back-compat.
+		if ( 'priced_indefinitely' === $key ) {
+			return $this->contains[ 'configurable_quantities' ] || $this->contains[ 'subscriptions_priced_variably' ];
 		}
 
 		return isset( $this->contains[ $key ] ) ? $this->contains[ $key ] : null;
@@ -2450,6 +2495,16 @@ class WC_Product_Bundle extends WC_Product {
 			$this->bundled_data_items_save_pending = false;
 			$this->load_defaults();
 		}
+	}
+
+	/*
+	|--------------------------------------------------------------------------
+	| Callbacks.
+	|--------------------------------------------------------------------------
+	*/
+
+	public function filter_stock_quantity( $qty ) {
+		return $this->bundled_items_stock_quantity;
 	}
 
 	/*

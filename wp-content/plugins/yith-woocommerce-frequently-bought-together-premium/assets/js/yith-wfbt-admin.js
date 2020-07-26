@@ -26,8 +26,8 @@ jQuery(document).ready(function($) {
             type: 'POST',
             url: yith_wfbt.ajaxurl,
             data: {
-                action     : 'yith_update_variation_list',
-                'productID': yith_wfbt.postID
+                action   : 'yith_update_variation_list',
+                productID: yith_wfbt.postID
             },
             dataType: 'html',
             success: function( res ){

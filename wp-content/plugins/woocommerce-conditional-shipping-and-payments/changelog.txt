@@ -1,5 +1,9 @@
 *** WooCommerce Conditional Shipping and Payments ***
 
+2020.07.15 - version 1.8.2
+* Important - Declared compatibility with WooCommerce 4.3.
+* Feature - Added support for importing/exporting product-level Restrictions via the WooCommerce Importer/Exporter tool.
+
 2020.05.28 - version 1.8.1
 * Important - Declared compatibility with WooCommerce 4.2.
 * Tweak - List complete trees in Category condition dropdowns.

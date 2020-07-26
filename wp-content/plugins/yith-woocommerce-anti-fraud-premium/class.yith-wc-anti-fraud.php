@@ -16,9 +16,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Main class
  *
  * @class   YITH_WC_Anti_Fraud
- * @package Yithemes
  * @since   1.0.0
  * @author  Your Inspiration Themes
+ * @package Yithemes
  */
 
 if ( ! class_exists( 'YITH_WC_Anti_Fraud' ) ) {
@@ -28,16 +28,16 @@ if ( ! class_exists( 'YITH_WC_Anti_Fraud' ) ) {
 		/**
 		 * Single instance of the class
 		 *
-		 * @var \YITH_WC_Anti_Fraud
 		 * @since 1.0.0
+		 * @var \YITH_WC_Anti_Fraud
 		 */
 		protected static $instance;
 
 		/**
 		 * Panel object
 		 *
-		 * @var     /Yit_Plugin_Panel object
 		 * @since   1.0.0
+		 * @var     /Yit_Plugin_Panel object
 		 * @see     plugin-fw/lib/yit-plugin-panel.php
 		 */
 		protected $_panel = null;
@@ -88,8 +88,8 @@ if ( ! class_exists( 'YITH_WC_Anti_Fraud' ) ) {
 		/**
 		 * Constructor
 		 *
-		 * @since   1.0.0
 		 * @return  void
+		 * @since   1.0.0
 		 * @author  Alberto Ruggiero
 		 */
 		public function __construct() {
@@ -104,6 +104,7 @@ if ( ! class_exists( 'YITH_WC_Anti_Fraud' ) ) {
 			add_filter( 'yith_show_plugin_row_meta', array( $this, 'plugin_row_meta' ), 10, 5 );
 			add_action( 'admin_menu', array( $this, 'add_menu_page' ), 5 );
 			add_filter( 'yith_plugin_fw_get_field_template_path', array( $this, 'add_custom_fields' ), 10, 2 );
+			add_action( 'init', array( $this, 'set_plugin_requirements' ), 20 );
 
 			// register plugin to licence/update system
 			add_action( 'wp_loaded', array( $this, 'register_plugin_for_activation' ), 99 );
@@ -161,8 +162,8 @@ if ( ! class_exists( 'YITH_WC_Anti_Fraud' ) ) {
 		/**
 		 * Files inclusion
 		 *
-		 * @since   1.0.0
 		 * @return  void
+		 * @since   1.0.0
 		 * @author  Alberto Ruggiero
 		 */
 		private function includes() {
@@ -196,12 +197,12 @@ if ( ! class_exists( 'YITH_WC_Anti_Fraud' ) ) {
 		/**
 		 * Initialize custom fields
 		 *
-		 * @since   1.2.2
-		 *
 		 * @param   $path  string
 		 * @param   $field array
 		 *
 		 * @return  string
+		 * @since   1.2.2
+		 *
 		 * @author  Alberto Ruggiero
 		 */
 		public function add_custom_fields( $path, $field ) {
@@ -221,8 +222,8 @@ if ( ! class_exists( 'YITH_WC_Anti_Fraud' ) ) {
 		/**
 		 * Get Anti-Fraud rules
 		 *
-		 * @since   1.0.0
 		 * @return  array
+		 * @since   1.0.0
 		 * @author  Alberto Ruggiero
 		 */
 		public function get_ywaf_rules() {
@@ -281,8 +282,8 @@ if ( ! class_exists( 'YITH_WC_Anti_Fraud' ) ) {
 		/**
 		 * Get Anti-Fraud thresholds
 		 *
-		 * @since   1.0.0
 		 * @return  array
+		 * @since   1.0.0
 		 * @author  Alberto Ruggiero
 		 */
 		public function get_ywaf_thresholds() {
@@ -299,13 +300,13 @@ if ( ! class_exists( 'YITH_WC_Anti_Fraud' ) ) {
 		/**
 		 * On change order status perform a fraud check
 		 *
-		 * @since   1.0.0
-		 *
 		 * @param   $id         integer
 		 * @param   $old_status string
 		 * @param   $new_status string
 		 *
 		 * @return  void
+		 * @since   1.0.0
+		 *
 		 * @author  Alberto Ruggiero
 		 */
 		public function start_order_check( $id, $old_status, $new_status ) {
@@ -323,12 +324,12 @@ if ( ! class_exists( 'YITH_WC_Anti_Fraud' ) ) {
 		/**
 		 * Set fraud check
 		 *
-		 * @since   1.0.0
-		 *
 		 * @param   $order_id integer
 		 * @param   $repeat   boolean
 		 *
 		 * @return  void
+		 * @since   1.0.0
+		 *
 		 * @author  Alberto Ruggiero
 		 */
 		public function set_fraud_check( $order_id, $repeat = false ) {
@@ -373,11 +374,11 @@ if ( ! class_exists( 'YITH_WC_Anti_Fraud' ) ) {
 		/**
 		 * Process fraud check
 		 *
-		 * @since   1.0.0
-		 *
 		 * @param   $order WC_Order
 		 *
 		 * @return  void
+		 * @since   1.0.0
+		 *
 		 * @author  Alberto Ruggiero
 		 */
 		public function process_fraud_check( $order = null ) {
@@ -413,11 +414,11 @@ if ( ! class_exists( 'YITH_WC_Anti_Fraud' ) ) {
 		/**
 		 * Calculate risk score for the order
 		 *
-		 * @since   1.1.2
-		 *
 		 * @param   $order WC_Order
 		 *
 		 * @return  array Map with risk_score and failed_rules params
+		 * @since   1.1.2
+		 *
 		 * @author  Alberto Ruggiero
 		 */
 		public function calculate_risk_score( $order ) {
@@ -464,12 +465,12 @@ if ( ! class_exists( 'YITH_WC_Anti_Fraud' ) ) {
 		/**
 		 * Process fraud check at checkout
 		 *
-		 * @since   1.0.0
-		 *
 		 * @param   $order_id integer
 		 *
-		 * @throws  Exception
 		 * @return  void
+		 * @throws  Exception
+		 * @since   1.0.0
+		 *
 		 * @author  Alberto Ruggiero
 		 */
 		public function check_status_on_checkout( $order_id ) {
@@ -508,11 +509,11 @@ if ( ! class_exists( 'YITH_WC_Anti_Fraud' ) ) {
 		/**
 		 * Set risk level
 		 *
-		 * @since   1.0.0
-		 *
 		 * @param   $risk_points integer
 		 *
 		 * @return  array
+		 * @since   1.0.0
+		 *
 		 * @author  Alberto Ruggiero
 		 */
 		public function get_risk_level( $risk_points ) {
@@ -565,13 +566,13 @@ if ( ! class_exists( 'YITH_WC_Anti_Fraud' ) ) {
 		/**
 		 * Set custom order status
 		 *
-		 * @since   1.0.0
-		 *
 		 * @param   $order_status array
 		 * @param   $risk_score   integer
 		 * @param   $order        WC_Order
 		 *
 		 * @return  array
+		 * @since   1.0.0
+		 *
 		 * @author  Alberto Ruggiero
 		 *
 		 */
@@ -614,11 +615,11 @@ if ( ! class_exists( 'YITH_WC_Anti_Fraud' ) ) {
 		/**
 		 * Check if billing email is in blacklist
 		 *
-		 * @since   1.0.0
-		 *
 		 * @param   $order  WC_Order
 		 *
 		 * @return  bool
+		 * @since   1.0.0
+		 *
 		 * @author  Alberto Ruggiero
 		 */
 		public function check_blacklist( $order ) {
@@ -644,11 +645,11 @@ if ( ! class_exists( 'YITH_WC_Anti_Fraud' ) ) {
 		/**
 		 * Check if billing or shipping address is in blacklist
 		 *
-		 * @since   1.0.0
-		 *
 		 * @param   $order  WC_Order
 		 *
 		 * @return  bool
+		 * @since   1.0.0
+		 *
 		 * @author  Alberto Ruggiero
 		 */
 		public function check_address_blacklist( $order ) {
@@ -674,12 +675,12 @@ if ( ! class_exists( 'YITH_WC_Anti_Fraud' ) ) {
 		/**
 		 * Add billing email in blacklist
 		 *
-		 * @since   1.0.0
-		 *
 		 * @param   $order       WC_Order
 		 * @param   $risk_score  integer
 		 *
 		 * @return  void
+		 * @since   1.0.0
+		 *
 		 * @author  Alberto Ruggiero
 		 */
 		public function add_email_to_blacklist( $order, $risk_score ) {
@@ -701,12 +702,12 @@ if ( ! class_exists( 'YITH_WC_Anti_Fraud' ) ) {
 		/**
 		 * Add address in blacklist
 		 *
-		 * @since   1.0.0
-		 *
 		 * @param   $order       WC_Order
 		 * @param   $risk_score  integer
 		 *
 		 * @return  void
+		 * @since   1.0.0
+		 *
 		 * @author  Alberto Ruggiero
 		 */
 		public function add_address_to_blacklist( $order, $risk_score ) {
@@ -728,12 +729,12 @@ if ( ! class_exists( 'YITH_WC_Anti_Fraud' ) ) {
 		/**
 		 * Send email to administrator
 		 *
-		 * @since   1.0.5
-		 *
 		 * @param   $order       WC_Order
 		 * @param   $risk_score  integer
 		 *
 		 * @return  void
+		 * @since   1.0.5
+		 *
 		 * @author  Alberto Ruggiero
 		 */
 		public function send_admin_mail( $order, $risk_score ) {
@@ -749,13 +750,13 @@ if ( ! class_exists( 'YITH_WC_Anti_Fraud' ) ) {
 		/**
 		 * Check if paypal orders as On-Hold
 		 *
-		 * @since   1.0.0
-		 *
 		 * @param   $status   string
 		 * @param   $order_id integer
 		 * @param   $order    WC_Order
 		 *
 		 * @return  bool
+		 * @since   1.0.0
+		 *
 		 * @author  Alberto Ruggiero
 		 */
 		public function set_paypal_order_onhold( $status, $order_id, $order ) {
@@ -803,12 +804,12 @@ if ( ! class_exists( 'YITH_WC_Anti_Fraud' ) ) {
 		/**
 		 * Check if paypal email is verified
 		 *
-		 * @since   1.0.0
-		 *
 		 * @param   $result boolean
 		 * @param   $order  WC_Order
 		 *
 		 * @return  bool
+		 * @since   1.0.0
+		 *
 		 * @author  Alberto Ruggiero
 		 */
 		public function check_paypal( $result, $order ) {
@@ -835,11 +836,11 @@ if ( ! class_exists( 'YITH_WC_Anti_Fraud' ) ) {
 		/**
 		 * Custom status for PayPal verification pending
 		 *
-		 * @since   1.0.0
-		 *
 		 * @param   $value string
 		 *
 		 * @return  string
+		 * @since   1.0.0
+		 *
 		 * @author  Alberto Ruggiero
 		 */
 		public function paypal_status( $value ) {
@@ -875,11 +876,11 @@ if ( ! class_exists( 'YITH_WC_Anti_Fraud' ) ) {
 		/**
 		 * Add the YWAF_PayPal_Verify and YWAF_Admin_Notification classes to WooCommerce mail classes
 		 *
-		 * @since   1.0.0
-		 *
 		 * @param   $email_classes array
 		 *
 		 * @return  array
+		 * @since   1.0.0
+		 *
 		 * @author  Alberto Ruggiero
 		 */
 		public function paypal_mail( $email_classes ) {
@@ -893,11 +894,11 @@ if ( ! class_exists( 'YITH_WC_Anti_Fraud' ) ) {
 		/**
 		 * Send PayPal verification email
 		 *
-		 * @since   1.0.0
-		 *
 		 * @param   $order WC_Order
 		 *
 		 * @return  void
+		 * @since   1.0.0
+		 *
 		 * @author  Alberto Ruggiero
 		 */
 		public function paypal_mail_send( $order ) {
@@ -927,8 +928,8 @@ if ( ! class_exists( 'YITH_WC_Anti_Fraud' ) ) {
 		/**
 		 * Daily check of orders waiting paypal verification
 		 *
-		 * @since   1.0.0
 		 * @return  void
+		 * @since   1.0.0
 		 * @author  Alberto Ruggiero
 		 */
 		public function paypal_cron() {
@@ -1003,8 +1004,8 @@ if ( ! class_exists( 'YITH_WC_Anti_Fraud' ) ) {
 		/**
 		 * Daily check of orders waiting paypal verification
 		 *
-		 * @since   1.0.0
 		 * @return  void
+		 * @since   1.0.0
 		 * @author  Alberto Ruggiero
 		 */
 		public function paypal_data_cron() {
@@ -1044,11 +1045,11 @@ if ( ! class_exists( 'YITH_WC_Anti_Fraud' ) ) {
 		/**
 		 * Set custom where condition
 		 *
-		 * @since   1.0.0
-		 *
 		 * @param   $where string
 		 *
 		 * @return  string
+		 * @since   1.0.0
+		 *
 		 * @author  Alberto Ruggiero
 		 */
 		public function paypal_waiting_where( $where = '' ) {
@@ -1065,11 +1066,11 @@ if ( ! class_exists( 'YITH_WC_Anti_Fraud' ) ) {
 		/**
 		 * Set custom where condition
 		 *
-		 * @since   1.0.0
-		 *
 		 * @param   $where string
 		 *
 		 * @return  string
+		 * @since   1.0.0
+		 *
 		 * @author  Alberto Ruggiero
 		 */
 		public function paypal_cancel_where( $where = '' ) {
@@ -1085,11 +1086,11 @@ if ( ! class_exists( 'YITH_WC_Anti_Fraud' ) ) {
 		/**
 		 * Get Payer address for PayPal check
 		 *
-		 * @since   1.0.0
-		 *
 		 * @param   $posted array
 		 *
 		 * @return  void
+		 * @since   1.0.0
+		 *
 		 * @author  Alberto Ruggiero
 		 */
 		public function get_paypal_payer_address( $posted ) {
@@ -1140,11 +1141,11 @@ if ( ! class_exists( 'YITH_WC_Anti_Fraud' ) ) {
 		/**
 		 * If is active YITH WooCommerce Email Templates, add YWAF to list
 		 *
-		 * @since   1.0.0
-		 *
 		 * @param   $templates array
 		 *
 		 * @return  array
+		 * @since   1.0.0
+		 *
 		 * @author  Alberto Ruggiero
 		 */
 		public function add_yith_wcet_template( $templates ) {
@@ -1169,8 +1170,8 @@ if ( ! class_exists( 'YITH_WC_Anti_Fraud' ) ) {
 		/**
 		 * Add a panel under YITH Plugins tab
 		 *
-		 * @since   1.0.0
 		 * @return  void
+		 * @since   1.0.0
 		 * @author  Alberto Ruggiero
 		 * @use     /Yit_Plugin_Panel class
 		 * @see     plugin-fw/lib/yit-plugin-panel.php
@@ -1209,8 +1210,8 @@ if ( ! class_exists( 'YITH_WC_Anti_Fraud' ) ) {
 		/**
 		 * Enqueue script file
 		 *
-		 * @since   1.0.0
 		 * @return  void
+		 * @since   1.0.0
 		 * @author  Alberto Ruggiero
 		 */
 		public function enqueue_scripts_admin() {
@@ -1244,8 +1245,8 @@ if ( ! class_exists( 'YITH_WC_Anti_Fraud' ) ) {
 		/**
 		 * Advise if no rule is active
 		 *
-		 * @since   1.0.0
 		 * @return  void
+		 * @since   1.0.0
 		 * @author  Alberto Ruggiero
 		 */
 		public function admin_notices() {
@@ -1263,11 +1264,11 @@ if ( ! class_exists( 'YITH_WC_Anti_Fraud' ) ) {
 			}
 
 			if ( $active_rules === 0 && get_option( 'ywaf_email_blacklist_enable' ) != 'yes' && get_option( 'ywaf_paypal_enable' ) != 'yes' && get_option( 'ywaf_address_blacklist_enable' ) != 'yes' ): ?>
-                <div class="error">
-                    <p>
+				<div class="error">
+					<p>
 						<?php _e( 'You must activate at least one rule to monitor your orders against fraud.', 'yith-woocommerce-anti-fraud' ); ?>
-                    </p>
-                </div>
+					</p>
+				</div>
 			<?php endif;
 
 		}
@@ -1275,11 +1276,11 @@ if ( ! class_exists( 'YITH_WC_Anti_Fraud' ) ) {
 		/**
 		 * Add the order fraud risk column
 		 *
-		 * @since   1.0.0
-		 *
 		 * @param   $columns array
 		 *
 		 * @return  array
+		 * @since   1.0.0
+		 *
 		 * @author  Alberto Ruggiero
 		 */
 		public function add_ywaf_column( $columns ) {
@@ -1295,11 +1296,11 @@ if ( ! class_exists( 'YITH_WC_Anti_Fraud' ) ) {
 		/**
 		 * Render the order fraud risk column
 		 *
-		 * @since   1.0.0
-		 *
 		 * @param   $column string
 		 *
 		 * @return  void
+		 * @since   1.0.0
+		 *
 		 * @author  Alberto Ruggiero
 		 */
 		public function render_ywaf_column( $column ) {
@@ -1337,12 +1338,12 @@ if ( ! class_exists( 'YITH_WC_Anti_Fraud' ) ) {
 		/**
 		 * Add fraud check button to order table
 		 *
-		 * @since   1.0.0
-		 *
 		 * @param   $actions array
 		 * @param   $order   WC_Order
 		 *
 		 * @return  array
+		 * @since   1.0.0
+		 *
 		 * @author  Alberto Ruggiero
 		 */
 		public function table_action( $actions, $order ) {
@@ -1371,11 +1372,11 @@ if ( ! class_exists( 'YITH_WC_Anti_Fraud' ) ) {
 		/**
 		 * Sanitize empty array
 		 *
-		 * @since   1.1.1
-		 *
 		 * @param   $value array
 		 *
 		 * @return  array
+		 * @since   1.1.1
+		 *
 		 * @author  Alberto Ruggiero
 		 */
 		public function sanitize_empty_array( $value ) {
@@ -1385,11 +1386,11 @@ if ( ! class_exists( 'YITH_WC_Anti_Fraud' ) ) {
 		/**
 		 * Sanitize address array
 		 *
-		 * @since   1.2.4
-		 *
 		 * @param   $value array
 		 *
 		 * @return  array
+		 * @since   1.2.4
+		 *
 		 * @author  Alberto Ruggiero
 		 */
 		public function sanitize_address_field( $value ) {
@@ -1411,8 +1412,8 @@ if ( ! class_exists( 'YITH_WC_Anti_Fraud' ) ) {
 		/**
 		 * Enqueue script file
 		 *
-		 * @since   1.0.0
 		 * @return  void
+		 * @since   1.0.0
 		 * @author  Alberto Ruggiero
 		 */
 		public function enqueue_scripts_frontend() {
@@ -1436,8 +1437,8 @@ if ( ! class_exists( 'YITH_WC_Anti_Fraud' ) ) {
 		/**
 		 * Verify paypal email address and proceed to anti-fraud check
 		 *
-		 * @since   1.0.0
 		 * @return  void
+		 * @since   1.0.0
 		 * @author  Alberto Ruggiero
 		 */
 		public function verify_paypal_code() {
@@ -1497,11 +1498,11 @@ if ( ! class_exists( 'YITH_WC_Anti_Fraud' ) ) {
 		/**
 		 * Show info for order status
 		 *
-		 * @since   1.0.0
-		 *
 		 * @param   $order_id integer
 		 *
 		 * @return  void
+		 * @since   1.0.0
+		 *
 		 * @author  Alberto Ruggiero
 		 */
 		public function view_order( $order_id ) {
@@ -1519,19 +1520,19 @@ if ( ! class_exists( 'YITH_WC_Anti_Fraud' ) ) {
 
 					?>
 
-                    <h2>
+					<h2>
 						<?php _e( 'Order Status', 'yith-woocommerce-anti-fraud' ); ?>
-                    </h2>
-                    <p>
+					</h2>
+					<p>
 						<?php _e( 'In order to complete the order, you have to complete your verification process by clicking on the link we sent to your PayPal email address.', 'yith-woocommerce-anti-fraud' ) ?>
-                    </p>
-                    <p>
+					</p>
+					<p>
 						<?php _e( 'If you have not received the verification email, you can ask for a new by clicking the following button', 'yith-woocommerce-anti-fraud' ) ?>
-                    </p>
-                    <p>
-                        <input type="hidden" id="ywcc_order_id" value="<?php echo $order->get_id(); ?>" />
-                        <button type="button" class="button button-primary ywaf-resend-email"><?php _e( 'Re-send email', 'yith-woocommerce-anti-fraud' ) ?></button>
-                    </p>
+					</p>
+					<p>
+						<input type="hidden" id="ywcc_order_id" value="<?php echo $order->get_id(); ?>" />
+						<button type="button" class="button button-primary ywaf-resend-email"><?php _e( 'Re-send email', 'yith-woocommerce-anti-fraud' ) ?></button>
+					</p>
 					<?php
 
 					break;
@@ -1540,12 +1541,12 @@ if ( ! class_exists( 'YITH_WC_Anti_Fraud' ) ) {
 
 					?>
 
-                    <h2>
+					<h2>
 						<?php _e( 'Order Status', 'yith-woocommerce-anti-fraud' ); ?>
-                    </h2>
-                    <p>
+					</h2>
+					<p>
 						<?php _e( 'We could not verify your PayPal email address and therefore your order has been cancelled. If you think an error has occurred, contact our customer service.', 'yith-woocommerce-anti-fraud' ) ?>
-                    </p>
+					</p>
 
 					<?php
 
@@ -1555,12 +1556,12 @@ if ( ! class_exists( 'YITH_WC_Anti_Fraud' ) ) {
 
 					?>
 
-                    <h2>
+					<h2>
 						<?php _e( 'Order Status', 'yith-woocommerce-anti-fraud' ); ?>
-                    </h2>
-                    <p>
+					</h2>
+					<p>
 						<?php _e( 'The order has not passed anti-fraud tests, therefore it has been cancelled. If you think an error has occurred, contact our customer service.', 'yith-woocommerce-anti-fraud' ) ?>
-                    </p>
+					</p>
 
 					<?php
 
@@ -1588,8 +1589,6 @@ if ( ! class_exists( 'YITH_WC_Anti_Fraud' ) ) {
 		/**
 		 * Alter links if user cannot download
 		 *
-		 * @since   1.0.0
-		 *
 		 * @param   $user_email  string
 		 * @param   $order_key   string
 		 * @param   $product_id  integer
@@ -1598,6 +1597,8 @@ if ( ! class_exists( 'YITH_WC_Anti_Fraud' ) ) {
 		 * @param   $order_id    integer
 		 *
 		 * @return  void
+		 * @since   1.0.0
+		 *
 		 * @author  Alberto Ruggiero
 		 */
 		public function prevent_download( $user_email, $order_key, $product_id, $user_id, $download_id, $order_id ) {
@@ -1640,8 +1641,8 @@ if ( ! class_exists( 'YITH_WC_Anti_Fraud' ) ) {
 		/**
 		 * Load plugin framework
 		 *
-		 * @since   1.0.0
 		 * @return  void
+		 * @since   1.0.0
 		 * @author  Andrea Grillo
 		 * <andrea.grillo@yithemes.com>
 		 */
@@ -1660,8 +1661,6 @@ if ( ! class_exists( 'YITH_WC_Anti_Fraud' ) ) {
 		 *
 		 * add the action links to plugin admin page
 		 *
-		 * @since   1.0.0
-		 *
 		 * @param   $new_row_meta_args array
 		 * @param   $plugin_meta       string
 		 * @param   $plugin_file       string
@@ -1670,6 +1669,8 @@ if ( ! class_exists( 'YITH_WC_Anti_Fraud' ) ) {
 		 * @param   $init_file         string
 		 *
 		 * @return  array
+		 * @since   1.0.0
+		 *
 		 * @author  Andrea Grillo <andrea.grillo@yithemes.com>
 		 * @use     plugin_row_meta
 		 */
@@ -1688,11 +1689,12 @@ if ( ! class_exists( 'YITH_WC_Anti_Fraud' ) ) {
 		 * Action Links
 		 *
 		 * add the action links to plugin admin page
-		 * @since   1.0.0
 		 *
 		 * @param   $links | links plugin array
 		 *
 		 * @return  mixed
+		 * @since   1.0.0
+		 *
 		 * @author  Andrea Grillo <andrea.grillo@yithemes.com>
 		 * @use     plugin_action_links_{$plugin_file_name}
 		 */
@@ -1705,8 +1707,8 @@ if ( ! class_exists( 'YITH_WC_Anti_Fraud' ) ) {
 		/**
 		 * Register plugins for activation tab
 		 *
-		 * @since   2.0.0
 		 * @return  void
+		 * @since   2.0.0
 		 * @author  Andrea Grillo <andrea.grillo@yithemes.com>
 		 */
 		public function register_plugin_for_activation() {
@@ -1720,8 +1722,8 @@ if ( ! class_exists( 'YITH_WC_Anti_Fraud' ) ) {
 		/**
 		 * Register privacy text
 		 *
-		 * @since   1.0.0
 		 * @return  void
+		 * @since   1.0.0
 		 * @author  Alberto Ruggiero
 		 */
 		public function include_privacy_text() {
@@ -1731,8 +1733,8 @@ if ( ! class_exists( 'YITH_WC_Anti_Fraud' ) ) {
 		/**
 		 * Register plugins for update tab
 		 *
-		 * @since   2.0.0
 		 * @return  void
+		 * @since   2.0.0
 		 * @author  Andrea Grillo <andrea.grillo@yithemes.com>
 		 */
 		public function register_plugin_for_updates() {
@@ -1742,6 +1744,24 @@ if ( ! class_exists( 'YITH_WC_Anti_Fraud' ) ) {
 			YIT_Upgrade()->register( YWAF_SLUG, YWAF_INIT );
 		}
 
+		/**
+		 * Add Plugin Requirements
+		 *
+		 * @return  void
+		 * @since   1.0.0
+		 * @author  Alberto Ruggiero <alberto.ruggiero@yithemes.com>
+		 */
+		public function set_plugin_requirements() {
+
+			$plugin_data  = get_plugin_data( plugin_dir_path( __FILE__ ) . '/init.php' );
+			$plugin_name  = $plugin_data['Name'];
+			$requirements = array(
+				'min_wp_version'  => '5.2.0',
+				'min_wc_version'  => '4.0.0',
+				'wp_cron_enabled' => true,
+			);
+			yith_plugin_fw_add_requirements( $plugin_name, $requirements );
+		}
 
 	}
 

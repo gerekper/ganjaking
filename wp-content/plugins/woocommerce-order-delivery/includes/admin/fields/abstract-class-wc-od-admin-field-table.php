@@ -120,6 +120,87 @@ abstract class WC_OD_Admin_Field_Table {
 	}
 
 	/**
+	 * Gets the column by key.
+	 *
+	 * @since 1.7.0
+	 *
+	 * @param string $column The column key.
+	 * @return array
+	 */
+	public function get_column( $column ) {
+		return ( isset( $this->columns[ $column ] ) ? $this->columns[ $column ] : array() );
+	}
+
+	/**
+	 * Gets the HTML attributes for a specific column.
+	 *
+	 * @since 1.7.0
+	 *
+	 * @param string $column The column key.
+	 * @return array
+	 */
+	public function get_column_attrs( $column ) {
+		$data  = $this->get_column( $column );
+		$attrs = array(
+			'class' => array( $column ),
+		);
+
+		if ( isset( $data['width'] ) ) {
+			$attrs['width'] = $data['width'];
+		}
+
+		return $attrs;
+	}
+
+	/**
+	 * Gets the HTML attributes for a specific row.
+	 *
+	 * @since 1.7.0
+	 *
+	 * @param mixed $row The row index.
+	 * @return array
+	 */
+	public function get_row_attrs( $row ) {
+		return array();
+	}
+
+	/**
+	 * Gets the columns for a specific row.
+	 *
+	 * @since 1.7.0
+	 *
+	 * @param mixed $row The row index.
+	 * @return array
+	 */
+	public function get_row_columns( $row ) {
+		return $this->columns;
+	}
+
+	/**
+	 * Gets the row data.
+	 *
+	 * @since 1.7.0
+	 *
+	 * @param mixed $row The row index.
+	 * @return array
+	 */
+	public function get_row_data( $row ) {
+		return ( isset( $this->data[ $row ] ) ? $this->data[ $row ] : array() );
+	}
+
+	/**
+	 * Gets the row actions.
+	 *
+	 * @since 1.7.0
+	 *
+	 * @param mixed $row The row index.
+	 * @return array
+	 */
+	public function get_row_actions( $row ) {
+		return array();
+	}
+
+	/**
 	 * Gets the classes used in the table HTML tag.
 	 *
 	 * @since 1.5.0
@@ -151,8 +232,8 @@ abstract class WC_OD_Admin_Field_Table {
 			<thead>
 				<tr>
 					<?php
-					foreach ( $this->columns as $key => $column ) :
-						$this->output_column_heading( $key );
+					foreach ( $this->columns as $column => $data ) :
+						$this->output_column_heading( $column );
 					endforeach;
 					?>
 				</tr>
@@ -162,8 +243,8 @@ abstract class WC_OD_Admin_Field_Table {
 				if ( empty( $this->data ) ) :
 					$this->output_blank_row();
 				else :
-					foreach ( $this->data as $index => $data ) :
-						$this->output_row( $index );
+					foreach ( $this->data as $row => $data ) :
+						$this->output_row( $row );
 					endforeach;
 				endif;
 				?>
@@ -178,15 +259,15 @@ abstract class WC_OD_Admin_Field_Table {
 	 *
 	 * @since 1.5.0
 	 *
-	 * @param string $key The column key.
+	 * @param string $column The column key.
 	 */
-	public function output_column_heading( $key ) {
-		$column = $this->columns[ $key ];
+	public function output_column_heading( $column ) {
+		$data = $this->columns[ $column ];
 
 		printf(
 			'<th class="%1$s">%2$s</th>',
-			esc_attr( $key ),
-			esc_html( $column['label'] )
+			esc_attr( $column ),
+			esc_html( $data['label'] )
 		);
 	}
 
@@ -202,16 +283,49 @@ abstract class WC_OD_Admin_Field_Table {
 	 *
 	 * @since 1.5.0
 	 *
-	 * @param mixed $index The row index.
+	 * @param mixed $row The row index.
 	 */
-	public function output_row( $index ) {
-		echo '<tr>';
+	public function output_row( $row ) {
+		$attrs   = $this->get_row_attrs( $row );
+		$columns = $this->get_row_columns( $row );
 
-		foreach ( $this->columns as $key => $column ) :
-			$this->output_column( $index, $key );
+		echo '<tr ' . wc_od_get_attrs_html( $attrs ) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+
+		foreach ( $columns as $column => $data ) :
+			$this->output_column( $row, $column );
 		endforeach;
 
 		echo '</tr>';
+	}
+
+	/**
+	 * Outputs the row actions.
+	 *
+	 * @since 1.7.0
+	 *
+	 * @param mixed $row The row index.
+	 */
+	public function output_row_actions( $row ) {
+		$actions = $this->get_row_actions( $row );
+
+		if ( empty( $actions ) ) {
+			return;
+		}
+
+		$action_strings = array();
+
+		foreach ( $actions as $key => $action ) {
+			$action_strings[] = sprintf(
+				'<a class="%1$s" href="%2$s">%3$s</a>',
+				esc_attr( $key ),
+				esc_url( $action['url'] ),
+				esc_html( $action['label'] )
+			);
+		}
+
+		echo '<div class="row-actions">';
+		echo join( ' | ', $action_strings ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo '</div>';
 	}
 
 	/**
@@ -223,28 +337,19 @@ abstract class WC_OD_Admin_Field_Table {
 	 * @param string $column The column key.
 	 */
 	public function output_column( $row, $column ) {
-		$method_name = 'output_column_' . $column;
-		$column_data = $this->columns[ $column ];
-		$attrs       = '';
+		$attrs = $this->get_column_attrs( $column );
+		$data  = $this->get_row_data( $row );
 
-		if ( isset( $column_data['width'] ) ) {
-			$attrs = ' width="' . esc_attr( $column_data['width'] ) . '"';
-		}
+		echo '<td ' . wc_od_get_attrs_html( $attrs ) . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
-		printf(
-			'<td class="%1$s" %2$s>',
-			esc_attr( $column ),
-			$attrs
-		); // WPCS: XSS ok.
-
-		if ( isset( $this->data[ $row ] ) ) :
+		if ( ! empty( $data ) ) :
+			$method_name = 'output_column_' . $column;
 
 			if ( method_exists( $this, $method_name ) ) :
-				call_user_func( array( $this, $method_name ), $row, $this->data[ $row ] );
-			elseif ( isset( $this->data[ $row ][ $column ] ) ) :
-				echo esc_html( $this->data[ $row ][ $column ] );
+				call_user_func( array( $this, $method_name ), $row, $data );
+			elseif ( isset( $data[ $column ] ) ) :
+				echo esc_html( $data[ $column ] );
 			endif;
-
 		endif;
 
 		echo '</td>';
@@ -255,7 +360,7 @@ abstract class WC_OD_Admin_Field_Table {
 	 *
 	 * @since 1.5.0
 	 *
-	 * @param int $row The row index.
+	 * @param mixed $row The row index.
 	 */
 	public function output_column_sort( $row ) {
 		printf(
@@ -281,6 +386,7 @@ abstract class WC_OD_Admin_Field_Table {
 	 * @return mixed
 	 */
 	public function sanitize_field( $value ) {
+		$field_value     = ( isset( $this->field['value'] ) ? $this->field['value'] : array() );
 		$sanitized_value = array();
 
 		// The table is empty.
@@ -293,7 +399,7 @@ abstract class WC_OD_Admin_Field_Table {
 				unset( $data['order'] );
 			}
 
-			$sanitized_value[ $key ] = array_merge( $this->data[ $key ], $data );
+			$sanitized_value[ $key ] = array_merge( $field_value[ $key ], $data );
 		}
 
 		return $sanitized_value;

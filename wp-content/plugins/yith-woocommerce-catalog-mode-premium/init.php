@@ -5,10 +5,10 @@
  * Description: <code><strong>YITH WooCommerce Catalog Mode</strong></code> allows hiding product prices, cart and checkout from your store and turning it into a performing product catalogue. You will be able to adjust your catalogue settings as you prefer based on your requirements. <a href="https://yithemes.com/" target="_blank">Get more plugins for your e-commerce shop on <strong>YITH</strong></a>
  * Author: YITH
  * Text Domain: yith-woocommerce-catalog-mode
- * Version: 2.0.5
+ * Version: 2.0.8
  * Author URI: https://yithemes.com/
  * WC requires at least: 4.0.0
- * WC tested up to: 4.2.x
+ * WC tested up to: 4.3.x
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -43,10 +43,10 @@ if ( function_exists( 'yith_deactive_jetpack_module' ) ) {
 	yith_deactive_jetpack_module( $yith_jetpack_1, 'YWCTM_PREMIUM', plugin_basename( __FILE__ ) );
 }
 
-! defined( 'YWCTM_VERSION' ) && define( 'YWCTM_VERSION', '2.0.4' );
+! defined( 'YWCTM_VERSION' ) && define( 'YWCTM_VERSION', '2.0.8' );
 ! defined( 'YWCTM_INIT' ) && define( 'YWCTM_INIT', plugin_basename( __FILE__ ) );
 ! defined( 'YWCTM_SLUG' ) && define( 'YWCTM_SLUG', 'yith-woocommerce-catalog-mode' );
-! defined( 'YWCTM_SECRET_KEY' ) && define( 'YWCTM_SECRET_KEY', '12345' );
+! defined( 'YWCTM_SECRET_KEY' ) && define( 'YWCTM_SECRET_KEY', '8KywmSzFxgb5m0SFKMac' );
 ! defined( 'YWCTM_PREMIUM' ) && define( 'YWCTM_PREMIUM', '1' );
 ! defined( 'YWCTM_FILE' ) && define( 'YWCTM_FILE', __FILE__ );
 ! defined( 'YWCTM_DIR' ) && define( 'YWCTM_DIR', plugin_dir_path( __FILE__ ) );

@@ -98,7 +98,7 @@ class WPSEO_Premium_Metabox implements WPSEO_WordPress_Integration {
 			'seoAnalysisEnabled' => $analysis_seo->is_enabled(),
 			'licensedURL'        => WPSEO_Utils::get_home_url(),
 			'languageBeacon'     => [
-				'show'           => in_array( $locale, [ 'fr_FR', 'fr_CA', 'fr_BE', 'ru_RU', 'it_IT' ], true ),
+				'show'           => in_array( $locale, [ 'fr_FR', 'fr_CA', 'fr_BE', 'ru_RU', 'it_IT', 'id_ID', 'pt_PT', 'pt_BR', 'pt_AO' ], true ),
 				'id'             => '1060600e-401f-4e6a-88b2-47429e942e74',
 				'name'           => trim( $current_user->user_firstname . ' ' . $current_user->user_lastname ),
 				'email'          => $current_user->user_email,

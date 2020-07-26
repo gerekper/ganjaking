@@ -5,69 +5,69 @@ msgstr ""
 "Project-Id-Version: YITH WooCommerce Coupon Email System\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
 "coupon-email-system.premium\n"
-"POT-Creation-Date: 2020-05-27 13:15:06+00:00\n"
+"POT-Creation-Date: 2020-07-09 21:24:46+00:00\n"
 "PO-Revision-Date: 2020-05-13 18:47:14+0000\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/2.3.1\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
 
-#: class.yith-wc-coupon-email-system.php:326
+#: class.yith-wc-coupon-email-system.php:339
 msgid "General Settings"
 msgstr "Ajustes Generales"
 
-#: class.yith-wc-coupon-email-system.php:329
+#: class.yith-wc-coupon-email-system.php:342
 msgid "Vendors Settings"
 msgstr "Ajustes de Vendedores"
 
-#: class.yith-wc-coupon-email-system.php:333
+#: class.yith-wc-coupon-email-system.php:346
 #: templates/admin/acceptance-table.php:197
 msgid "Coupons Acceptance"
 msgstr "Aceptación de cupones"
 
-#: class.yith-wc-coupon-email-system.php:336
+#: class.yith-wc-coupon-email-system.php:349
 #: plugin-options/mandrill-options.php:18
 msgid "Mandrill Settings"
 msgstr "Ajustes de Mandrill"
 
-#: class.yith-wc-coupon-email-system.php:337
+#: class.yith-wc-coupon-email-system.php:350
 #: includes/class-ywces-multivendor.php:117
 msgid "How To"
 msgstr "Instrucciones"
 
-#: class.yith-wc-coupon-email-system.php:342
-#: class.yith-wc-coupon-email-system.php:880
+#: class.yith-wc-coupon-email-system.php:355
+#: class.yith-wc-coupon-email-system.php:893
 #: includes/class-ywces-coupon-email.php:52
 #: includes/class-ywces-multivendor.php:123 includes/functions.ywces.php:30
 #: includes/functions.ywces.php:86
 msgid "Coupon Email System"
 msgstr "Coupon Email System"
 
-#: class.yith-wc-coupon-email-system.php:385
+#: class.yith-wc-coupon-email-system.php:398
 #: templates/admin/class-ywces-custom-send.php:99
 msgid "Sending test email..."
 msgstr "Enviando correo electrónico de prueba..."
 
-#: class.yith-wc-coupon-email-system.php:386
+#: class.yith-wc-coupon-email-system.php:399
 msgid "Test email has been sent successfully!"
 msgstr "¡Correo de prueba enviado con éxito!"
 
-#: class.yith-wc-coupon-email-system.php:387
+#: class.yith-wc-coupon-email-system.php:400
 msgid "Please insert a valid email address"
 msgstr "Por favor, introduce una dirección de correo electrónico válida"
 
-#: class.yith-wc-coupon-email-system.php:388
+#: class.yith-wc-coupon-email-system.php:401
 msgid "You need to set at least a threshold to send a test email"
 msgstr ""
 "Debes establecer al menos un valor límite para enviar un correo de prueba"
 
-#: class.yith-wc-coupon-email-system.php:389
+#: class.yith-wc-coupon-email-system.php:402
 msgid "Please select at least a product"
 msgstr "Por favor, selecciona al menos un producto"
 
-#: class.yith-wc-coupon-email-system.php:390
+#: class.yith-wc-coupon-email-system.php:403
 msgid ""
 "You need to select at least the amount/percentage of a coupon to send it in "
 "a test email"
@@ -75,11 +75,11 @@ msgstr ""
 "Debes seleccionar al menos la cantidad/porcentaje del cupón que será enviado "
 "en el correo electrónico de prueba"
 
-#: class.yith-wc-coupon-email-system.php:391
+#: class.yith-wc-coupon-email-system.php:404
 msgid "Please specify the number of days"
 msgstr "Por favor, especifica el número de días."
 
-#: class.yith-wc-coupon-email-system.php:411
+#: class.yith-wc-coupon-email-system.php:424
 msgid ""
 "In order to use some of the features of YITH WooCommerce Coupon Email System "
 "you need to create at least one coupon"
@@ -87,25 +87,25 @@ msgstr ""
 "Para usar algunas de las características de YITH WooCommerce Coupon Email "
 "System debes crear al menos un cupón"
 
-#: class.yith-wc-coupon-email-system.php:415
+#: class.yith-wc-coupon-email-system.php:428
 msgid "Please enter Mandrill API Key for YITH WooCommerce Coupon Email System"
 msgstr ""
 "Por favor, introduce la clave API de Mandrill para YITH WooCommerce Coupon "
 "Email System"
 
-#: class.yith-wc-coupon-email-system.php:422
+#: class.yith-wc-coupon-email-system.php:435
 #: includes/class-ywces-multivendor.php:192
 msgid "You need to select a coupon to send one for a new user registration."
 msgstr ""
 "Debes seleccionar el cupón que será enviado cuando un nuevo usuario se "
 "registra."
 
-#: class.yith-wc-coupon-email-system.php:432
+#: class.yith-wc-coupon-email-system.php:445
 #: includes/class-ywces-multivendor.php:202
 msgid "You need to select a coupon to send one for a new first purchase."
 msgstr "Debes seleccionar un cupón que será enviado por la primera compra."
 
-#: class.yith-wc-coupon-email-system.php:442
+#: class.yith-wc-coupon-email-system.php:455
 #: includes/class-ywces-multivendor.php:212
 msgid ""
 "You need to set a threshold to send a coupon once a user reaches a specific "
@@ -114,7 +114,7 @@ msgstr ""
 "Debes seleccionar un valor límite para el cupón que será enviado una vez que "
 "el usuario alcance un número específico de compras."
 
-#: class.yith-wc-coupon-email-system.php:460
+#: class.yith-wc-coupon-email-system.php:473
 #: includes/class-ywces-multivendor.php:232
 msgid ""
 "You need to set a coupon for each threshold to send one when users reach a "
@@ -123,7 +123,7 @@ msgstr ""
 "Debes seleccionar un cupón que será enviado para cada valor límite cuando "
 "los usuarios alcanzan un número específico de compras."
 
-#: class.yith-wc-coupon-email-system.php:471
+#: class.yith-wc-coupon-email-system.php:484
 #: includes/class-ywces-multivendor.php:244
 msgid ""
 "You need to set a threshold to send a coupon once a user reaches a specific "
@@ -132,7 +132,7 @@ msgstr ""
 "Debes seleccionar un valor límite para el cupón que será enviado una vez que "
 "un usuario alcanza una cantidad específica gastada."
 
-#: class.yith-wc-coupon-email-system.php:490
+#: class.yith-wc-coupon-email-system.php:503
 #: includes/class-ywces-multivendor.php:264
 msgid ""
 "You need to set a coupon for each threshold to send one when users reach a "
@@ -141,14 +141,14 @@ msgstr ""
 "Debes seleccionar un cupón para cada valor límite que será enviado cuando "
 "los usuarios alcanzan un valor de cantidad gastada específico."
 
-#: class.yith-wc-coupon-email-system.php:501
+#: class.yith-wc-coupon-email-system.php:514
 #: includes/class-ywces-multivendor.php:276
 msgid ""
 "You need to select at least one product to send a coupon once purchased."
 msgstr ""
 "Debes seleccionar al menos un producto para enviar un cupón una vez comprado."
 
-#: class.yith-wc-coupon-email-system.php:509
+#: class.yith-wc-coupon-email-system.php:522
 #: includes/class-ywces-multivendor.php:284
 msgid ""
 "You need to select at least the amount/percentage of a coupon to send it for "
@@ -157,7 +157,7 @@ msgstr ""
 "Debes seleccionar al menos la cantidad/porcentaje del cupón que será enviado "
 "por la compra de un producto específico."
 
-#: class.yith-wc-coupon-email-system.php:521
+#: class.yith-wc-coupon-email-system.php:534
 #: includes/class-ywces-multivendor.php:296
 msgid ""
 "You need to select at least the amount/percentage of a coupon to send it for "
@@ -166,7 +166,7 @@ msgstr ""
 "Debes seleccionar al menos la cantidad/porcentaje del cupón que será enviado "
 "por el cumpleaños de un usuario."
 
-#: class.yith-wc-coupon-email-system.php:533
+#: class.yith-wc-coupon-email-system.php:546
 #: includes/class-ywces-multivendor.php:308
 msgid ""
 "You need to select at least the amount/percentage of a coupon to send it "
@@ -175,11 +175,11 @@ msgstr ""
 "Debes seleccionar al menos la cantidad/porcentaje del cupón que será enviado "
 "tras un número específico de días desde el último pedido."
 
-#: class.yith-wc-coupon-email-system.php:740
+#: class.yith-wc-coupon-email-system.php:753
 msgid "Placeholder reference"
 msgstr "Referencia de marcador de posición"
 
-#: class.yith-wc-coupon-email-system.php:749
+#: class.yith-wc-coupon-email-system.php:762
 msgid ""
 "Replaced with the description of the given coupon. This placeholder must be "
 "included."
@@ -187,100 +187,100 @@ msgstr ""
 "Se sustituye por la descripción del cupón. Este marcador de posición debe "
 "incluirse."
 
-#: class.yith-wc-coupon-email-system.php:757
+#: class.yith-wc-coupon-email-system.php:770
 msgid "Replaced with the site title"
 msgstr "Se sustituye por el título del sitio"
 
-#: class.yith-wc-coupon-email-system.php:765
+#: class.yith-wc-coupon-email-system.php:778
 msgid "Replaced with the customer's name"
 msgstr "Se sustituye por el nombre del cliente"
 
-#: class.yith-wc-coupon-email-system.php:773
+#: class.yith-wc-coupon-email-system.php:786
 msgid "Replaced with the customer's last name"
 msgstr "Se sustituye por los apellidos del cliente"
 
-#: class.yith-wc-coupon-email-system.php:781
+#: class.yith-wc-coupon-email-system.php:794
 msgid "Replaced with the customer's email"
 msgstr "Se sustituye por el correo electrónico del cliente"
 
-#: class.yith-wc-coupon-email-system.php:789
+#: class.yith-wc-coupon-email-system.php:802
 msgid "Replaced with the date of the order"
 msgstr "Se sustituye por la fecha del pedido"
 
-#: class.yith-wc-coupon-email-system.php:800
+#: class.yith-wc-coupon-email-system.php:813
 msgid "Replaced with the number of purchases"
 msgstr "Se sustituye por el número de compras"
 
-#: class.yith-wc-coupon-email-system.php:808
+#: class.yith-wc-coupon-email-system.php:821
 msgid "Replaced with the amount of money spent by the customer"
 msgstr "Se sustituye por la cantidad de dinero gastada por el cliente"
 
-#: class.yith-wc-coupon-email-system.php:816
+#: class.yith-wc-coupon-email-system.php:829
 msgid "Replaced with the spent amount of money"
 msgstr "Se sustituye por la cantidad de dinero gastada"
 
-#: class.yith-wc-coupon-email-system.php:824
+#: class.yith-wc-coupon-email-system.php:837
 msgid "Replaced with the number of days since last purchase"
 msgstr "Se sustituye por el número de días desde la última compra"
 
-#: class.yith-wc-coupon-email-system.php:832
+#: class.yith-wc-coupon-email-system.php:845
 msgid "Replaced with the name of a purchased product"
 msgstr "Se sustituye por el nombre del producto comprado"
 
-#: class.yith-wc-coupon-email-system.php:842
+#: class.yith-wc-coupon-email-system.php:855
 msgid "Replaced with the name of the vendor"
 msgstr "Se sustituye por el nombre del vendedor"
 
-#: class.yith-wc-coupon-email-system.php:884
-#: class.yith-wc-coupon-email-system.php:1777
-#: class.yith-wc-coupon-email-system.php:1823
+#: class.yith-wc-coupon-email-system.php:897
+#: class.yith-wc-coupon-email-system.php:1790
+#: class.yith-wc-coupon-email-system.php:1836
 msgid "Birth date"
 msgstr "Fecha de nacimiento"
 
-#: class.yith-wc-coupon-email-system.php:1513
+#: class.yith-wc-coupon-email-system.php:1526
 #: plugin-options/general-options.php:513
 #: plugin-options/vendor/vendor-options.php:452
 msgid "On a specific number of days from the last purchase"
 msgstr "Tras un número de días específico desde la última compra"
 
-#: class.yith-wc-coupon-email-system.php:1517
+#: class.yith-wc-coupon-email-system.php:1530
 #: plugin-options/general-options.php:445
 #: plugin-options/vendor/vendor-options.php:382
 msgid "On customer birthday"
 msgstr "En el cumpleaños del cliente"
 
-#: class.yith-wc-coupon-email-system.php:1521
+#: class.yith-wc-coupon-email-system.php:1534
 #: plugin-options/general-options.php:366
 #: plugin-options/vendor/vendor-options.php:301
 msgid "On specific product purchase"
 msgstr "En la compra de un producto específico"
 
-#: class.yith-wc-coupon-email-system.php:1687
+#: class.yith-wc-coupon-email-system.php:1700
 msgid "YYYY-MM-DD"
 msgstr "AAAA-MM-DD"
 
-#: class.yith-wc-coupon-email-system.php:1688
+#: class.yith-wc-coupon-email-system.php:1701
 msgid "YYYY/MM/DD"
 msgstr "AAAA/MM/DD"
 
-#: class.yith-wc-coupon-email-system.php:1689
+#: class.yith-wc-coupon-email-system.php:1702
 msgid "MM-DD-YYYY"
 msgstr "MM-DD-AAAA"
 
-#: class.yith-wc-coupon-email-system.php:1690
+#: class.yith-wc-coupon-email-system.php:1703
 msgid "MM/DD/YYYY"
 msgstr "MM/DD/AAAA"
 
-#: class.yith-wc-coupon-email-system.php:1691
+#: class.yith-wc-coupon-email-system.php:1704
 msgid "DD-MM-YYYY"
 msgstr "DD-MM-AAAA"
 
-#: class.yith-wc-coupon-email-system.php:1692
+#: class.yith-wc-coupon-email-system.php:1705
 msgid "DD/MM/YYYY"
 msgstr "DD/MM/AAAA"
 
-#: class.yith-wc-coupon-email-system.php:1923
-#: class.yith-wc-coupon-email-system.php:1961
+#: class.yith-wc-coupon-email-system.php:1936
+#: class.yith-wc-coupon-email-system.php:1974
 msgid "I accept to receive coupons via email"
 msgstr "Acepto recibir cupones vía correo electrónico"
 

@@ -4,11 +4,27 @@ Contributors: yithemes
 Tags: woocommerce, products, themes, yit, yith, e-commerce, shop, catalog mode, catalogue mode, remove add to cart, ask for price, ask price, asking for price, asking price, button remove, call, call for price, call me, call us, contact, email, hide add to cart, hide price
 Requires at least: 4.0
 Tested up to: 5.4
-Stable tag: 2.0.5
+Stable tag: 2.0.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 == Changelog ==
+
+= 2.0.8 - Released: 08 July 2020 =
+
+* New: Support for WooCommerce 4.3
+* New: Support for Woodmart theme
+* Update: plugin framework
+
+= 2.0.7 - Released: 09 June 2020 =
+
+* Fix: issues with settings migration
+* Update: plugin framework
+
+= 2.0.6 - Released: 09 June 2020 =
+
+* Fix: issues with settings migration
+* Update: plugin framework
 
 = 2.0.5 - Released: 27 May 2020 =
 

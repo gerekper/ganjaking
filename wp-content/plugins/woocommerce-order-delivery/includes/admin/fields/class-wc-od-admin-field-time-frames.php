@@ -126,38 +126,38 @@ class WC_OD_Admin_Field_Time_Frames extends WC_OD_Admin_Field_Table {
 	}
 
 	/**
-	 * Outputs the action links for a row.
+	 * Gets the row actions.
 	 *
-	 * @since 1.5.0
+	 * @since 1.7.0
 	 *
-	 * @param int $row The row index.
+	 * @param mixed $row The row index.
+	 * @return array
 	 */
-	public function row_actions( $row ) {
-		$actions = array(
+	public function get_row_actions( $row ) {
+		return array(
 			'settings' => array(
-				'label' => _x( 'Edit', 'time frame row action', 'woocommerce-order-delivery' ),
+				'label' => __( 'Edit', 'woocommerce-order-delivery' ),
 				'url'   => $this->get_row_url( $row ),
 			),
 			'delete'   => array(
-				'label' => _x( 'Delete', 'time frame row action', 'woocommerce-order-delivery' ),
+				'label' => __( 'Delete', 'woocommerce-order-delivery' ),
 				'url'   => '#',
 			),
 		);
+	}
 
-		$action_strings = array();
+	/**
+	 * Outputs the action links for a row.
+	 *
+	 * @since 1.5.0
+	 * @deprecated 1.7.0
+	 *
+	 * @param mixed $row The row index.
+	 */
+	public function row_actions( $row ) {
+		wc_deprecated_function( __FUNCTION__, '1.7.0', 'WC_OD_Admin_Field_Table->output_row_actions()' );
 
-		foreach ( $actions as $key => $action ) {
-			$action_strings[] = sprintf(
-				'<a class="wc-od-time-frame-%1$s" href="%2$s">%3$s</a>',
-				esc_attr( $key ),
-				esc_url( $action['url'] ),
-				esc_html( $action['label'] )
-			);
-		}
-
-		echo '<div class="row-actions">';
-		echo join( ' | ', $action_strings ); // WPCS: XSS ok.
-		echo '</div>';
+		$this->output_row_actions( $row );
 	}
 
 	/**
@@ -175,7 +175,7 @@ class WC_OD_Admin_Field_Time_Frames extends WC_OD_Admin_Field_Table {
 			esc_html( $data['title'] )
 		);
 
-		$this->row_actions( $row );
+		$this->output_row_actions( $row );
 	}
 
 	/**

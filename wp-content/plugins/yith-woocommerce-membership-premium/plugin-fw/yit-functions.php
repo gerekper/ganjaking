@@ -969,21 +969,34 @@ if ( !function_exists( 'yith_plugin_fw_get_field' ) ) {
      * @return string|void
      */
     function yith_plugin_fw_get_field( $field, $echo = false, $show_container = true ) {
-        if ( empty( $field[ 'type' ] ) )
-            return '';
+        if ( empty( $field[ 'type' ] ) ) {
+			return '';
+		}
 
-        if ( !isset( $field[ 'value' ] ) )
-            $field[ 'value' ] = '';
+        if ( !isset( $field[ 'value' ] ) ) {
+			$field['value'] = '';
+		}
 
-        if ( !isset( $field[ 'name' ] ) )
-            $field[ 'name' ] = '';
+        if ( !isset( $field[ 'name' ] ) ) {
+			$field['name'] = '';
+		}
 
-        if ( !isset( $field[ 'custom_attributes' ] ) )
-            $field[ 'custom_attributes' ] = '';
+        if ( ! isset( $field[ 'custom_attributes' ] ) ) {
+			$field['custom_attributes'] = '';
+		}
+        elseif( is_array( $field[ 'custom_attributes' ] ) ) {
+        	// let's build custom attributes as string
+			$custom_attributes = array();
+			foreach ( $field[ 'custom_attributes' ] as $attribute => $attribute_value ) {
+				$custom_attributes[] = esc_attr( $attribute ) . '="' . esc_attr( $attribute_value ) . '"';
+			}
 
-        if ( !isset( $field[ 'default' ] ) && isset( $field[ 'std' ] ) )
-            $field[ 'default' ] = $field[ 'std' ];
+			$field['custom_attributes'] = implode( ' ', $custom_attributes );
+		}
 
+        if ( ! isset( $field[ 'default' ] ) && isset( $field[ 'std' ] ) ) {
+			$field['default'] = $field['std'];
+		}
 
         $field_template = yith_plugin_fw_get_field_template_path( $field );
 

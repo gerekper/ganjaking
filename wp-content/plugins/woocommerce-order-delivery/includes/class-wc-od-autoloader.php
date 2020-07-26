@@ -17,6 +17,15 @@ if ( ! class_exists( 'WC_OD_Autoloader' ) ) {
 	class WC_OD_Autoloader {
 
 		/**
+		 * Path to the includes directory.
+		 *
+		 * @since 1.7.0
+		 *
+		 * @var string
+		 */
+		private $include_path = '';
+
+		/**
 		 * Constructor.
 		 *
 		 * @since 1.1.0
@@ -27,6 +36,8 @@ if ( ! class_exists( 'WC_OD_Autoloader' ) ) {
 			}
 
 			spl_autoload_register( array( $this, 'autoload' ) );
+
+			$this->include_path = WC_OD_PATH . 'includes/';
 		}
 
 		/**
@@ -38,7 +49,12 @@ if ( ! class_exists( 'WC_OD_Autoloader' ) ) {
 		 */
 		public function autoload( $class ) {
 			$class = strtolower( $class );
-			$file  = $this->get_file_name_from_class( $class );
+
+			if ( 0 !== strpos( $class, 'wc_od_' ) ) {
+				return;
+			}
+
+			$file = $this->get_file_name_from_class( $class );
 
 			/**
 			 * Filters the autoload classes.
@@ -50,17 +66,19 @@ if ( ! class_exists( 'WC_OD_Autoloader' ) ) {
 			$autoload = apply_filters(
 				'wc_od_autoload',
 				array(
-					'wc_od_admin_field_' => WC_OD_PATH . 'includes/admin/fields/',
-					'wc_od_meta_box_'    => WC_OD_PATH . 'includes/admin/meta-boxes/',
-					'wc_od_collection'   => WC_OD_PATH . 'includes/collections/',
-					'wc_od_event'        => WC_OD_PATH . 'includes/events/',
-					'wc_od_'             => WC_OD_PATH . 'includes/',
+					'wc_od_settings_'    => $this->include_path . 'admin/settings/',
+					'wc_od_meta_box_'    => $this->include_path . 'admin/meta-boxes/',
+					'wc_od_admin_field_' => $this->include_path . 'admin/fields/',
+					'wc_od_admin_'       => $this->include_path . 'admin/',
+					'wc_od_collection'   => $this->include_path . 'collections/',
+					'wc_od_event'        => $this->include_path . 'events/',
+					'wc_od_data_store'   => $this->include_path . 'data-stores/',
+					'wc_od_'             => $this->include_path,
 				)
 			);
 
 			foreach ( $autoload as $prefix => $path ) {
-				if ( 0 === strpos( $class, $prefix ) ) {
-					$this->load_file( $path . $file );
+				if ( 0 === strpos( $class, $prefix ) && $this->load_file( $path . $file ) ) {
 					break;
 				}
 			}

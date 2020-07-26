@@ -1,0 +1,228 @@
+/**
+ * Settings styles
+ *
+ * @package WC_OD
+ * @since   1.0.0
+ */
+
+.wc-od-input-toggle {
+	position: relative;
+	display: inline-block;
+
+	input {
+		display: none;
+	}
+}
+
+.wc-od-field-table {
+	position: relative;
+
+	th, td {
+		display: table-cell;
+		padding: 1em;
+		vertical-align: top;
+		font-size: 14px;
+		line-height: 24px;
+		background-color: #fff;
+	}
+
+	tbody {
+		tr {
+			.row-actions {
+				position: relative;
+
+				a[class$="delete"] {
+					color: red;
+				}
+			}
+
+			&:hover {
+				.row-actions {
+					position: static;
+				}
+			}
+		}
+	}
+
+	td.sort,
+	td.worldwide, {
+		font-size: 15px;
+		text-align: center;
+
+		&::before {
+			float: left;
+			display: block;
+			width: 17px;
+			height: 100%;
+			font-family: Dashicons;
+			text-align: center;
+			line-height: 24px;
+			color: #999;
+		}
+	}
+
+	td.sort {
+		cursor: move;
+
+		&::before {
+			content: '\f333';
+		}
+	}
+
+	td.worldwide {
+		&::before {
+			content: '\f319';
+		}
+	}
+}
+
+.time_frames,
+.wc_od_delivery_days {
+	&.wc-od-field-table {
+		tr:nth-child(even) {
+			td {
+				background-color: #f9f9f9;
+			}
+		}
+	}
+
+}
+
+.wc_od_delivery_ranges {
+	tbody {
+		tr {
+			td {
+				border-top: 2px solid #f9f9f9;
+			}
+
+			&:last-child {
+				td {
+					background-color: #f9f9f9;
+					border-top: 2px solid #e1e1e1;
+				}
+			}
+
+			&:first-child {
+				td {
+					border-top: 0;
+				}
+			}
+		}
+	}
+}
+
+.wc-od-time-frames-blank-row {
+	td {
+		padding: 1.5em 2em;
+	}
+
+	p {
+		margin-top: 8px;
+
+		&:first-child {
+			margin-top: 0;
+		}
+	}
+}
+
+.clearfix:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}
+.row {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	&:before, &:after {
+		content: " ";
+		display: table;
+	}
+	&:after {
+		clear: both;
+	}
+	.columns {
+		position: relative;
+		float: left;
+		margin: 10px 0;
+	}
+	.full-column {
+		width: 100%;
+	}
+	.half-column {
+		width: 50%;
+	}
+	.column-wrap {
+		padding: 0 10px;
+	}
+}
+
+/* Calendar field */
+.wc-od-calendar-field {
+	max-width: 1040px;
+	.fc-view-container {
+		background-color: #fff;
+	}
+	.fc-event:hover {
+		cursor: pointer;
+	}
+}
+
+/* Event modal */
+.ui-widget-overlay {
+	background: #000 !important;
+}
+.wc-od-dialog {
+	.ui-dialog-titlebar {
+		padding: .3em 1em;
+		font-size: 13px;
+	}
+	.ui-dialog-titlebar-close {
+		display: none;
+	}
+}
+.wp-dialog .ui-dialog-content.event-modal {
+	padding: 10px;
+	.column-wrap {
+		label {
+			display: block;
+			margin-bottom: 5px;
+		}
+		input,
+		select {
+			width: 100%;
+		}
+		input[type="submit"] {
+			width: auto;
+		}
+	}
+	.actions {
+		.cancel {
+			margin-left: 5px;
+		}
+		.delete {
+			float: right;
+			margin-top: 4px;
+			color: red;
+		}
+	}
+}
+
+/* Tooltipster */
+.tooltipster-content {
+	.title {
+		margin: 5px 0;
+		text-align: center;
+		color: #fff;
+	}
+	label {
+		font-weight: bold;
+		line-height: 20px;
+	}
+	span {
+		display: block;
+	}
+}

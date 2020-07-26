@@ -17,7 +17,7 @@ extract( $field );
 $class      = isset( $class ) ? $class : 'yith-plugin-fw-select-images';
 $wrapper_id = $id . '-wrapper';
 ?>
-<div id="<?php echo $wrapper_id ?>" class="yith-plugin-fw-select-images__wrapper">
+<div id="<?php echo $wrapper_id ?>" class="yith-plugin-fw-select-images__wrapper" data-type="select-images">
 
     <select id="<?php echo $id ?>"
             name="<?php echo $name ?>"
@@ -41,7 +41,7 @@ $wrapper_id = $id . '-wrapper';
                 $selected_class = 'yith-plugin-fw-select-images__item--selected';
                 $current_class = $key === $value ? $selected_class : '';
                 ?>
-                <li class="yith-plugin-fw-select-images__item <?php echo $current_class ?>" data-key="<?php echo $key ?>" <?php echo $img_data; ?>>
+                <li class="yith-plugin-fw-select-images__item <?php echo $current_class ?>" data-type="select-images-item" data-key="<?php echo $key ?>" <?php echo $img_data; ?>>
                     <?php if ( $label ) : ?>
                         <div class="yith-plugin-fw-select-images__item__label"><?php echo $label ?></div>
                     <?php endif; ?>

@@ -35,9 +35,6 @@
 
 					display: inline-block;
 					text-decoration: inherit;
-					width: 1em;
-					text-align: center;
-					line-height: 1;
 
 					-webkit-font-smoothing: antialiased;
 					-moz-osx-font-smoothing: grayscale;
@@ -159,4 +156,9 @@
 		margin-left: 10px;
 		text-decoration: none;
 	}
+}
+
+.wc-instagram-gpc-select-wrapper {
+	display: block;
+	margin-bottom: 1em;
 }

@@ -83,10 +83,13 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 				],
 			],
 			[
-				'name'         => 'yoast-social-preview',
+				'name'         => 'yoast-social-metadata-previews',
 				'path'         => 'assets/js/dist/',
-				'filename'     => 'yoast-premium-social-preview-' . $version . WPSEO_CSSJS_SUFFIX . '.js',
-				'dependencies' => [ 'jquery', 'jquery-ui-core', 'yoast-seo-premium-commons', WPSEO_Admin_Asset_Manager::PREFIX . 'analysis' ],
+				'filename'     => 'yoast-premium-social-metadata-previews-' . $version . WPSEO_CSSJS_SUFFIX . '.js',
+				'in_footer'    => true,
+				'dependencies' => [
+					'wp-plugins',
+				],
 			],
 			[
 				'name'         => 'wp-seo-premium-custom-fields-plugin',
@@ -155,20 +158,6 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 				'name'         => WPSEO_Admin_Asset_Manager::PREFIX . 'premium-metabox',
 				'source'       => 'assets/css/dist/premium-metabox-' . $version . '.css',
 				'dependencies' => [],
-			],
-			[
-				'name'         => 'yoast-social-preview-css',
-				'source'       => 'assets/dist/social_preview/yoast-social-preview-390.min.css',
-				'dependencies' => [
-					WPSEO_Admin_Asset_Manager::PREFIX . 'metabox-css',
-				],
-			],
-			[
-				'name'         => 'yoast-premium-social-preview',
-				'source'       => 'assets/css/dist/premium-social-preview-' . $version . '.css',
-				'dependencies' => [
-					WPSEO_Admin_Asset_Manager::PREFIX . 'metabox-css',
-				],
 			],
 		];
 	}

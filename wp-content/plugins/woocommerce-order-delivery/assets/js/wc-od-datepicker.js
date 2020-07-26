@@ -100,7 +100,7 @@
 		update: function() {
 			var datepicker = this.getDatepicker();
 
-			datepicker['update'].apply( datepicker, arguments );
+			datepicker.update.apply( datepicker, arguments );
 		},
 
 		_getOption: function( name ) {

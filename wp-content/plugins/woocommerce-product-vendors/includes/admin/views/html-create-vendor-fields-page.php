@@ -48,10 +48,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</div>
 
 	<div class="form-field term-email">
-		<label for="wcpv-vendor-email"><?php esc_html_e( 'Vendor Email', 'woocommerce-product-vendors' ); ?></label>
-		<input type="text" name="vendor_data[email]" value="" />
+		<label for="wcpv-vendor-email"><?php esc_html_e( 'Vendor Email(required)', 'woocommerce-product-vendors' ); ?></label>
+		<input type="email" name="vendor_data[email]" value="" required aria-required="true" />
 
-		<p><?php esc_html_e( 'Enter the email for this vendor.  This is the email where all notifications are sent such as new orders and customer inquiries.  You may enter more than one email separating each with a comma.', 'woocommerce-product-vendors' ); ?></p>
+		<p><?php esc_html_e( 'All notifications will be sent to this email address, including new orders and customer inquiries. Add multiple email addresses by separating them with a comma.', 'woocommerce-product-vendors' ); ?></p>
 	</div>
 
 	<div class="form-field term-admins">

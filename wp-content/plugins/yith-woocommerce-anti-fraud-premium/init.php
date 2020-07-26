@@ -5,10 +5,10 @@
  * Description: <code><strong>YITH WooCommerce Anti-Fraud</strong></code> allows increasing the security level of your orders and prevent purchases that match with some specific conditions, such as multiple purchases coming from the same IP address or purchases with too high an amount and so on. Learn more about how to keep safe from frauds. <a href="https://yithemes.com/" target="_blank">Get more plugins for your e-commerce shop on <strong>YITH</strong></a>
  * Author: YITH
  * Text Domain: yith-woocommerce-anti-fraud
- * Version: 1.3.0
+ * Version: 1.3.2
  * Author URI: https://yithemes.com/
- * WC requires at least: 3.9.0
- * WC tested up to: 4.1.x
+ * WC requires at least: 4.0.0
+ * WC tested up to: 4.3.x
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -34,7 +34,7 @@ if ( ! function_exists( 'yit_deactive_free_version' ) ) {
 yit_deactive_free_version( 'YWAF_FREE_INIT', plugin_basename( __FILE__ ) );
 
 if ( ! defined( 'YWAF_VERSION' ) ) {
-	define( 'YWAF_VERSION', '1.3.0' );
+	define( 'YWAF_VERSION', '1.3.2' );
 }
 
 if ( ! defined( 'YWAF_INIT' ) ) {

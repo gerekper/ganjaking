@@ -78,7 +78,7 @@ class YITH_WCMBS_Orders_Premium extends YITH_WCMBS_Orders {
                  * Subscription plugin will manage the membership activation
                  */
                 if ( YITH_WCMBS_Compatibility::has_plugin( 'subscription' ) ) {
-                    if ( YITH_WC_Subscription()->is_subscription( $id ) ) {
+                    if ( function_exists('ywsbs_is_subscription_product') ? ywsbs_is_subscription_product( $id ) : YITH_WC_Subscription()->is_subscription( $id ) ) {
                         continue;
                     }
                 }

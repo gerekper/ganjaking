@@ -142,6 +142,10 @@ if ( ! class_exists( 'YITH_WFBT_Discount' ) ) {
 
 			empty( $data ) && $data = $this->get_product_data( $product );
 
+			if( empty( $data ) ) {
+				return false;
+			}
+
 			$discount_perc = isset( $data['discount_percentage'] ) ? intval( $data['discount_percentage'] ) : 0;
 
 			// check for type
@@ -343,7 +347,7 @@ if ( ! class_exists( 'YITH_WFBT_Discount' ) ) {
 		 * @return array
 		 */
 		public function get_product_data( $product ) {
-			if ( $product->is_type( 'variation' ) ) {
+			if ( $product instanceof WC_Product && $product->is_type( 'variation' ) ) {
 				$product = wc_get_product( $product->get_parent_id() );
 			}
 

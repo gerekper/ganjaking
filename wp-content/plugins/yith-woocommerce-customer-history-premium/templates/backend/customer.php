@@ -21,16 +21,12 @@ add_thickbox();
 
         <div id="customer" class="wrap">
 
-            <?php if ( $user_id > 0 ) : ?>
-                <h1><?php echo __( 'Customer', 'yith-woocommerce-customer-history' ); ?></h1>
-            <?php else : ?>
-                <h1><?php echo __( 'Guest users', 'yith-woocommerce-customer-history' ); ?></h1>
-
+            <?php if ( $user_id == 0 ) : ?>
                 <div class="tablenav top">
                     <ul class="subsubsub" style="margin-top: 4px;">
-                        <li class="customers"><a href="admin.php?page=yith-wcch-customers.php"><?php echo __( 'Customers', 'yith-woocommerce-customer-history' ); ?></a> |</li>
-                        <li class="users"><a href="admin.php?page=yith-wcch-users.php"><?php echo __( 'Other Users', 'yith-woocommerce-customer-history' ); ?></a> |</li>
-                        <li class="guestr"><a href="admin.php?page=yith-wcch-customer.php&user_id=0" class="current"><?php echo __( 'Guest Users', 'yith-woocommerce-customer-history' ); ?></a></li>
+                        <li class="customers"><a href="admin.php?page=yith_wcch_panel&tab=users"><?php echo __( 'Customers', 'yith-woocommerce-customer-history' ); ?></a> |</li>
+                <li class="users"><a href="admin.php?page=yith_wcch_panel&tab=users&panel_page=others"><?php echo __( 'Other Users', 'yith-woocommerce-customer-history' ); ?></a> |</li>
+                <li class="guestr"><a href="admin.php?page=yith_wcch_panel&tab=users&panel_page=customer&user_id=0" class="current"><?php echo __( 'Guest Users', 'yith-woocommerce-customer-history' ); ?></a></li>
                     </ul>
                 </div>
             <?php endif; ?>
@@ -163,7 +159,7 @@ add_thickbox();
 
             ?>
 
-            <h2><i class="fa fa-shopping-bag" aria-hidden="true"></i><?php echo __( 'Latest Orders', 'yith-woocommerce-customer-history' ); ?></h2>
+            <h3><i class="fa fa-shopping-bag" aria-hidden="true"></i><?php echo __( 'Latest Orders', 'yith-woocommerce-customer-history' ); ?></h3>
 
             <table class="wp-list-table widefat fixed striped posts">
                 <tr>
@@ -202,7 +198,7 @@ add_thickbox();
 
             <?php if ( $user_id > 0 ) : ?>
 
-                <h2><i class="fa fa-search" aria-hidden="true"></i><?php echo __( 'Search History', 'yith-woocommerce-customer-history' ); ?></h2>
+                <h3><i class="fa fa-search" aria-hidden="true"></i><?php echo __( 'Search History', 'yith-woocommerce-customer-history' ); ?></h3>
                 (<a href="admin.php?page=yith-wcch-searches.php&user_id=<?php echo $user->ID; ?>"><?php echo __( 'Complete History', 'yith-woocommerce-customer-history' ); ?></a>)
 
                 <table class="wp-list-table widefat fixed striped posts">
@@ -230,7 +226,7 @@ add_thickbox();
 
                 </table>
 
-                <h2><i class="fa fa-eye" aria-hidden="true"></i><?php echo __( 'Sessions History', 'yith-woocommerce-customer-history' ); ?></h2>
+                <h3><i class="fa fa-eye" aria-hidden="true"></i><?php echo __( 'Sessions History', 'yith-woocommerce-customer-history' ); ?></h3>
                 (<a href="admin.php?page=yith-wcch-sessions.php&user_id=<?php echo $user->ID; ?>"><?php echo __( 'Complete History', 'yith-woocommerce-customer-history' ); ?></a>)
 
                 <table class="wp-list-table widefat fixed striped posts">

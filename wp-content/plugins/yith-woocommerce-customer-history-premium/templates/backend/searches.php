@@ -24,9 +24,6 @@ $max_pages = ceil( $num_rows / $results_per_page );
 <div id="yith-woocommerce-customer-history">
     <div id="searches" class="wrap">
 
-        <h1><?php echo __( 'Searches', 'yith-woocommerce-customer-history' ); ?></h1>
-        <p><?php echo __( 'Complete searches list.', 'yith-woocommerce-customer-history' ); ?></p>
-
         <div class="tablenav top">
             <a href="" class="button"><i class="fa fa-repeat" aria-hidden="true" style="margin-right: 0px;"></i> <?php echo __( 'Check for new Searches', 'yith-woocommerce-customer-history' ); ?></a>
             <div class="tablenav-pages">
@@ -34,15 +31,15 @@ $max_pages = ceil( $num_rows / $results_per_page );
                     <?php echo __( 'Total', 'yith-woocommerce-customer-history' ) . ': ' . $num_rows; ?> &nbsp; | &nbsp;
                     <?php echo __( 'Page', 'yith-woocommerce-customer-history' ) . ': ' . $page . ' of ' . $max_pages; ?> &nbsp;
                     <?php if ( $page > 1 ) : ?>
-                    <a class="prev-page" href="admin.php?page=yith-wcch-searches.php&user_id=<?php echo $user_id; ?>&p=1"><span aria-hidden="true">‹‹</span></a>
-                    <a class="prev-page" href="admin.php?page=yith-wcch-searches.php&user_id=<?php echo $user_id; ?>&p=<?php echo $page - 1; ?>"><span aria-hidden="true">‹</span></a>
+                    <a class="prev-page" href="admin.php?page=yith_wcch_panel&tab=searches&user_id=<?php echo $user_id; ?>&p=1"><span aria-hidden="true">‹‹</span></a>
+                    <a class="prev-page" href="admin.php?page=yith_wcch_panel&tab=searches&user_id=<?php echo $user_id; ?>&p=<?php echo $page - 1; ?>"><span aria-hidden="true">‹</span></a>
                     <?php else : ?>
                     <span class="tablenav-pages-navspan" aria-hidden="true">‹‹</span>
                     <span class="tablenav-pages-navspan" aria-hidden="true">‹</span>
                     <?php endif; ?>
                     <?php if ( $page < $max_pages ) : ?>
-                    <a class="next-page" href="admin.php?page=yith-wcch-searches.php&user_id=<?php echo $user_id; ?>&p=<?php echo $page + 1; ?>"><span aria-hidden="true">›</span></a>
-                    <a class="next-page" href="admin.php?page=yith-wcch-searches.php&user_id=<?php echo $user_id; ?>&p=<?php echo $max_pages; ?>"><span aria-hidden="true">››</span></a>
+                    <a class="next-page" href="admin.php?page=yith_wcch_panel&tab=searches&user_id=<?php echo $user_id; ?>&p=<?php echo $page + 1; ?>"><span aria-hidden="true">›</span></a>
+                    <a class="next-page" href="admin.php?page=yith_wcch_panel&tab=searches&user_id=<?php echo $user_id; ?>&p=<?php echo $max_pages; ?>"><span aria-hidden="true">››</span></a>
                     <?php else : ?>
                     <span class="tablenav-pages-navspan" aria-hidden="true">›</span>
                     <span class="tablenav-pages-navspan" aria-hidden="true">››</span>
@@ -105,15 +102,15 @@ $max_pages = ceil( $num_rows / $results_per_page );
                     <?php echo __( 'Total', 'yith-woocommerce-customer-history' ) . ': ' . $num_rows; ?> &nbsp; | &nbsp;
                     <?php echo __( 'Page', 'yith-woocommerce-customer-history' ) . ' ' . $page . ' of ' . $max_pages; ?> &nbsp;
                     <?php if ( $page > 1 ) : ?>
-                    <a class="prev-page" href="admin.php?page=yith-wcch-searches.php&user_id=<?php echo $user_id; ?>&p=1"><span aria-hidden="true">‹‹</span></a>
-                    <a class="prev-page" href="admin.php?page=yith-wcch-searches.php&user_id=<?php echo $user_id; ?>&p=<?php echo $page - 1; ?>"><span aria-hidden="true">‹</span></a>
+                    <a class="prev-page" href="admin.php?page=yith_wcch_panel&tab=searches&user_id=<?php echo $user_id; ?>&p=1"><span aria-hidden="true">‹‹</span></a>
+                    <a class="prev-page" href="admin.php?page=yith_wcch_panel&tab=searches&user_id=<?php echo $user_id; ?>&p=<?php echo $page - 1; ?>"><span aria-hidden="true">‹</span></a>
                     <?php else : ?>
                     <span class="tablenav-pages-navspan" aria-hidden="true">‹‹</span>
                     <span class="tablenav-pages-navspan" aria-hidden="true">‹</span>
                     <?php endif; ?>
                     <?php if ( $page < $max_pages ) : ?>
-                    <a class="next-page" href="admin.php?page=yith-wcch-searches.php&user_id=<?php echo $user_id; ?>&p=<?php echo $page + 1; ?>"><span aria-hidden="true">›</span></a>
-                    <a class="next-page" href="admin.php?page=yith-wcch-searches.php&user_id=<?php echo $user_id; ?>&p=<?php echo $max_pages; ?>"><span aria-hidden="true">››</span></a>
+                    <a class="next-page" href="admin.php?page=yith_wcch_panel&tab=searches&user_id=<?php echo $user_id; ?>&p=<?php echo $page + 1; ?>"><span aria-hidden="true">›</span></a>
+                    <a class="next-page" href="admin.php?page=yith_wcch_panel&tab=searches&user_id=<?php echo $user_id; ?>&p=<?php echo $max_pages; ?>"><span aria-hidden="true">››</span></a>
                     <?php else : ?>
                     <span class="tablenav-pages-navspan" aria-hidden="true">›</span>
                     <span class="tablenav-pages-navspan" aria-hidden="true">››</span>

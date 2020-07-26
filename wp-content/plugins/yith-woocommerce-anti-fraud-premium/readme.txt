@@ -4,11 +4,21 @@ Contributors: yithemes
 Tags: woocommerce, products, themes, yit, yith, yithemes, e-commerce, shop, anti-fraud, fraud risk,
 Requires at least: 4.0
 Tested up to: 5.4
-Stable tag: 1.3.0
+Stable tag: 1.3.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 == Changelog==
+
+= 1.3.1 - Released: 02 July 2020 =
+
+* New: Support for WooCommerce 4.3
+* Update: plugin framework
+
+= 1.3.1 - Released: 27 May 2020 =
+
+* New: Support for WooCommerce 4.2
+* Update: plugin framework
 
 = 1.3.0 - Released: 23 April 2020 =
 

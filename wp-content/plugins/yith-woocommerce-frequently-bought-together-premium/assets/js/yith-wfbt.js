@@ -9,7 +9,8 @@
 jQuery(document).ready(function($) {
     "use strict";
 
-    var update_form = function( form, wrap, variation_id ){
+    var is_variation_modal_opened   = false,
+        update_form                 = function( form, wrap, variation_id ){
         var input       = form.find('.yith-wfbt-items input'),
             group       = [],
             unchecked   = [];
@@ -58,8 +59,8 @@ jQuery(document).ready(function($) {
     });
 
 
-    $( 'form.variations_form.cart' ).on( 'show_variation', function( ev, data ){
-        if( ! data.is_in_stock ){
+    $( document ).on( 'show_variation', '.variations_form', function( ev, data ){
+        if( is_variation_modal_opened || ! data.is_in_stock ){
             return;
         }
         update_form( $('.yith-wfbt-form'), $('.yith-wfbt-section' ), data.variation_id );
@@ -130,6 +131,9 @@ jQuery(document).ready(function($) {
             },
             dataType: 'html',
             success: function( response ) {
+                // set global variable
+                is_variation_modal_opened = true;
+
                 selectVariationsModal.html( response );
                 form.unblock();
                 selectVariationsModal.modal();
@@ -175,10 +179,16 @@ jQuery(document).ready(function($) {
         var variationId = $('input[name="yith-wfbt-variation-id"]').val(),
             mainProductId = $('input[name="yith-wfbt-main-product-id"]').val(),
             form = $('.yith-wfbt-form');
+
         $.modal.close();
         form.find('input[data-variable_product_id='+ mainProductId +']').prop( "disabled", false ).prop('checked',true).val(variationId);
-        $('#yith-wfbt-modal').remove();
         update_form( form, $('.yith-wfbt-section' ), 0 );
+    });
+
+    // empty modal on close to prevent issue
+    $(document).on( 'modal:after-close', function() {
+        is_variation_modal_opened = false;
+        $('#yith-wfbt-modal').html('');
     });
 
 });

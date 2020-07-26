@@ -3,17 +3,17 @@
  * Plugin Name: YITH WooCommerce Email Templates Premium
  * Plugin URI: https://yithemes.com/themes/plugins/yith-woocommerce-email-templates/
  * Description: <code><strong>YITH WooCommerce Email Templates</strong></code> allows you to easily stylize WooCommerce email templates. You can customize colors, set a logo, social icons, custom links and so on to make them look more professional. <a href="https://yithemes.com/" target="_blank">Get more plugins for your e-commerce shop on <strong>YITH</strong></a>
- * Version: 1.3.26
+ * Version: 1.3.27
  * Author: YITH
  * Author URI: https://yithemes.com/
  * Text Domain: yith-woocommerce-email-templates
  * Domain Path: /languages/
  * WC requires at least: 3.0.0
- * WC tested up to: 4.2.x
+ * WC tested up to: 4.3.x
  *
  * @author  YITH
  * @package YITH WooCommerce Email Templates Premium
- * @version 1.3.26
+ * @version 1.3.27
  */
 /*  Copyright 2015  Your Inspiration Themes  (email : plugins@yithemes.com)
 
@@ -61,7 +61,7 @@ register_activation_hook( __FILE__, 'yith_plugin_registration_hook' );
 
 
 if ( !defined( 'YITH_WCET_VERSION' ) ) {
-    define( 'YITH_WCET_VERSION', '1.3.26' );
+    define( 'YITH_WCET_VERSION', '1.3.27' );
 }
 
 if ( !defined( 'YITH_WCET_PREMIUM' ) ) {
@@ -105,7 +105,7 @@ if ( !defined( 'YITH_WCET_SLUG' ) ) {
 }
 
 if ( !defined( 'YITH_WCET_SECRET_KEY' ) ) {
-    define( 'YITH_WCET_SECRET_KEY', '12345' );
+    define( 'YITH_WCET_SECRET_KEY', '5dylgkpXWkuILKJVSFAv' );
 }
 
 if ( !defined( 'YITH_WCET_TEMPLATE_EMAIL_PATH' ) ) {

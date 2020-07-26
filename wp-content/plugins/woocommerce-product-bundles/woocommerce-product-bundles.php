@@ -3,7 +3,7 @@
 * Plugin Name: WooCommerce Product Bundles
 * Plugin URI: https://woocommerce.com/products/product-bundles/
 * Description: Offer product bundles, bulk discount packages and assembled products.
-* Version: 6.3.1
+* Version: 6.3.3
 * Author: SomewhereWarm
 * Author URI: https://somewherewarm.com/
 *
@@ -34,11 +34,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Main plugin class.
  *
  * @class    WC_Bundles
- * @version  6.3.1
+ * @version  6.3.3
  */
 class WC_Bundles {
 
-	public $version  = '6.3.1';
+	public $version  = '6.3.3';
 	public $required = '3.1.0';
 
 	/**
@@ -225,7 +225,23 @@ class WC_Bundles {
 		$this->maybe_define_constant( 'WC_PB_SUPPORT_URL', 'https://woocommerce.com/my-account/marketplace-ticket-form/' );
 		$this->maybe_define_constant( 'WC_PB_ABSPATH', trailingslashit( plugin_dir_path( __FILE__ ) ) );
 
-		if ( 'yes' === get_option( 'woocommerce_product_bundles_debug_stock_sync', null ) || 'yes' === get_option( 'woocommerce_product_bundles_debug_stock_cache', null ) || defined( 'WC_PB_DEBUG_STOCK_CACHE' ) ) {
+		/*
+		 * Available debug constants:
+		 *
+		 * 'WC_PB_DEBUG_STOCK_CACHE' - Used to disable bundled item stock caching.
+		 *
+		 * 'WC_PB_DEBUG_STOCK_SYNC' - Used to disable bundled item stock syncing in the background.
+		 *
+		 * 'WC_PB_DEBUG_STOCK_PARENT_SYNC' - Used to disable stock status and visibility syncing for bundle containers.
+		 *
+		 * 'WC_PB_DEBUG_TRANSIENTS' - Used to disable transients caching.
+		 *
+		 * 'WC_PB_DEBUG_OBJECT_CACHE' - Used to disable object caching.
+		 *
+		 * 'WC_PB_DEBUG_RUNTIME_CACHE' - Used to disable runtime object caching.
+		 */
+
+		if ( defined( 'WC_PB_DEBUG_STOCK_CACHE' ) ) {
 			/**
 			 * 'WC_PB_DEBUG_STOCK_SYNC' constant.
 			 *
@@ -234,40 +250,13 @@ class WC_Bundles {
 			$this->maybe_define_constant( 'WC_PB_DEBUG_STOCK_SYNC', true );
 		}
 
-		if ( 'yes' === get_option( 'woocommerce_product_bundles_debug_stock_parent_sync', null ) || defined( 'WC_PB_DEBUG_STOCK_SYNC' ) ) {
+		if ( defined( 'WC_PB_DEBUG_STOCK_SYNC' ) ) {
 			/**
 			 * 'WC_PB_DEBUG_STOCK_PARENT_SYNC' constant.
 			 *
 			 * Used to disable stock status and visibility syncing for bundles.
 			 */
 			$this->maybe_define_constant( 'WC_PB_DEBUG_STOCK_PARENT_SYNC', true );
-		}
-
-		if ( 'yes' === get_option( 'woocommerce_product_bundles_debug_transients', null ) ) {
-			/**
-			 * 'WC_PB_DEBUG_TRANSIENTS' constant.
-			 *
-			 * Used to disable transients caching at plugin level.
-			 */
-			$this->maybe_define_constant( 'WC_PB_DEBUG_TRANSIENTS', true );
-		}
-
-		if ( 'yes' === get_option( 'woocommerce_product_bundles_debug_object_cache', null ) ) {
-			/**
-			 * 'WC_PB_DEBUG_OBJECT_CACHE' constant.
-			 *
-			 * Used to disable object caching at plugin level.
-			 */
-			$this->maybe_define_constant( 'WC_PB_DEBUG_OBJECT_CACHE', true );
-		}
-
-		if ( 'yes' === get_option( 'woocommerce_product_bundles_debug_runtime_cache', null ) ) {
-			/**
-			 * 'WC_PB_DEBUG_RUNTIME_CACHE' constant.
-			 *
-			 * Used to disable runtime object caching at plugin level.
-			 */
-			$this->maybe_define_constant( 'WC_PB_DEBUG_RUNTIME_CACHE', true );
 		}
 	}
 

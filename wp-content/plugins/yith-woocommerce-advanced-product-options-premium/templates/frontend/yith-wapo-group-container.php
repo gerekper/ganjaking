@@ -62,16 +62,16 @@ if ( get_option( 'woocommerce_price_display_suffix' ) ) {
 		>
 		<table>
 			<tr class="ywapo_tr_product_base_price">
-				<td><?php echo apply_filters( 'yith_wapo_product_price_label', __( 'Product price' , 'yith-woocommerce-product-add-ons' ) ); ?></td>
-				<td><div class="yith_wapo_group_product_price_total"><span class="price amount"></span><?php echo $price_suffix; ?></div></td>
+				<td data-nosnippet><?php echo apply_filters( 'yith_wapo_product_price_label', __( 'Product price' , 'yith-woocommerce-product-add-ons' ) ); ?></td>
+				<td data-nosnippet><div class="yith_wapo_group_product_price_total"><span class="price amount"></span><?php echo $price_suffix; ?></div></td>
 			</tr>
 			<tr class="ywapo_tr_additional_options">
-				<td><?php echo apply_filters( 'yith_wapo_options_total_label', __( 'Additional options total:' , 'yith-woocommerce-product-add-ons' ) ); ?></td>
-				<td><div class="yith_wapo_group_option_total"><span class="price amount"></span><?php echo $price_suffix; ?></div></td>
+				<td data-nosnippet><?php echo apply_filters( 'yith_wapo_options_total_label', __( 'Additional options total:' , 'yith-woocommerce-product-add-ons' ) ); ?></td>
+				<td data-nosnippet><div class="yith_wapo_group_option_total"><span class="price amount"></span><?php echo $price_suffix; ?></div></td>
 			</tr>
 			<tr class="ywapo_tr_order_totals">
-				<td><?php echo apply_filters( 'yith_wapo_order_total_label', __( 'Order total:' , 'yith-woocommerce-product-add-ons' ) ); ?></td>
-				<td><div class="yith_wapo_group_final_total"><span class="price amount"></span><?php echo $price_suffix; ?></div></td>
+				<td data-nosnippet><?php echo apply_filters( 'yith_wapo_order_total_label', __( 'Order total:' , 'yith-woocommerce-product-add-ons' ) ); ?></td>
+				<td data-nosnippet><div class="yith_wapo_group_final_total"><span class="price amount"></span><?php echo $price_suffix; ?></div></td>
 			</tr>
 		</table>
 	</div>

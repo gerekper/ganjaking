@@ -267,7 +267,20 @@ if ( ! class_exists( 'YITH_WC_Coupon_Email_System' ) ) {
 				array(
 					'post_type'   => 'shop_coupon',
 					'post_status' => 'publish',
-					'numberposts' => - 1
+					'numberposts' => - 1,
+					'meta_query'  => array(
+						'relation' => 'OR',
+						array(
+							'key'     => 'generated_by',
+							'value'   => 'ywces',
+							'compare' => '!=',
+						),
+						array(
+							'key'     => 'generated_by',
+							'compare' => 'NOT EXISTS',
+							'value'   => 'ywces',
+						),
+					),
 				)
 			);
 

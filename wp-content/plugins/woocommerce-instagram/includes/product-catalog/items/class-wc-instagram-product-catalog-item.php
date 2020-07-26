@@ -47,6 +47,17 @@ class WC_Instagram_Product_Catalog_Item {
 	}
 
 	/**
+	 * Gets the product object to work with. Use this method to obtain the postmeta needed in the catalog.
+	 *
+	 * @since 3.3.0
+	 *
+	 * @return WC_Product
+	 */
+	protected function get_target() {
+		return $this->product;
+	}
+
+	/**
 	 * Gets the product object.
 	 *
 	 * @since 3.0.0
@@ -166,14 +177,15 @@ class WC_Instagram_Product_Catalog_Item {
 	 * @return string
 	 */
 	public function get_condition() {
-		$condition = $this->get_product()->get_meta( '_instagram_condition' );
+		$condition = $this->get_target()->get_meta( '_instagram_condition' );
 
 		/**
 		 * Filters the product's condition.
 		 *
 		 * @since 3.0.0
 		 *
-		 * @param WC_Product $product Product object.
+		 * @param string     $condition The product's condition.
+		 * @param WC_Product $product   Product object.
 		 */
 		return apply_filters( 'wc_instagram_product_condition', $condition, $this->get_product() );
 	}
@@ -186,16 +198,38 @@ class WC_Instagram_Product_Catalog_Item {
 	 * @return string
 	 */
 	public function get_brand() {
-		$brand = $this->get_product()->get_meta( '_instagram_brand' );
+		$brand = $this->get_target()->get_meta( '_instagram_brand' );
 
 		/**
 		 * Filters the product's brand.
 		 *
 		 * @since 3.0.0
 		 *
+		 * @param string     $brand   The product's brand.
 		 * @param WC_Product $product Product object.
 		 */
 		return apply_filters( 'wc_instagram_product_brand', $brand, $this->get_product() );
+	}
+
+	/**
+	 * Gets the product's google_product_category value.
+	 *
+	 * @since 3.3.0
+	 *
+	 * @return string
+	 */
+	public function get_google_product_category() {
+		$category_id = $this->get_target()->get_meta( '_instagram_google_product_category' );
+
+		/**
+		 * Filters the product's google_product_category value.
+		 *
+		 * @since 3.3.0
+		 *
+		 * @param int        $category_id The Google product category ID.
+		 * @param WC_Product $product     Product object.
+		 */
+		return apply_filters( 'wc_instagram_product_google_product_category', $category_id, $this->get_product() );
 	}
 
 	/**
@@ -206,7 +240,7 @@ class WC_Instagram_Product_Catalog_Item {
 	 * @return string
 	 */
 	public function get_images_option() {
-		$option = $this->get_product()->get_meta( '_instagram_images_option' );
+		$option = $this->get_target()->get_meta( '_instagram_images_option' );
 
 		/**
 		 * Filters which product images to include in the catalog.
@@ -227,7 +261,6 @@ class WC_Instagram_Product_Catalog_Item {
 	 * @return string
 	 */
 	public function get_image_link() {
-		$image    = '';
 		$image_id = $this->get_product()->get_image_id();
 
 		if ( ! $image_id && $this->get_product()->get_parent_id() ) {
@@ -238,13 +271,7 @@ class WC_Instagram_Product_Catalog_Item {
 			}
 		}
 
-		if ( $image_id ) {
-			$attachment = wp_get_attachment_image_src( $image_id, 'post_thumbnail' );
-
-			if ( $attachment ) {
-				$image = $attachment[0];
-			}
-		}
+		$image = ( $image_id ? wp_get_attachment_image_url( $image_id ) : '' );
 
 		return ( $image ? $image : wc_placeholder_img_src() );
 	}

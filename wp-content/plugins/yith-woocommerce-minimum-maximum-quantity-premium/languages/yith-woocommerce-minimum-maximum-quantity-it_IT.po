@@ -5,14 +5,14 @@ msgstr ""
 "Project-Id-Version: YITH WooCommerce Minimum Maximum Quantity\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
 "minimum-maximum-quantity.premium\n"
-"POT-Creation-Date: 2020-05-27 13:47:50+00:00\n"
+"POT-Creation-Date: 2020-07-08 20:24:38+00:00\n"
 "PO-Revision-Date: 2020-05-06 15:08:07+0000\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/2.3.1\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
 
 #: class.yith-wc-min-max-qty.php:229
 msgid "General Settings"
@@ -223,6 +223,7 @@ msgid "Minimum spend restriction"
 msgstr "Restrizioni spesa minima"
 
 #: class.yith-wc-min-max-qty.php:1178 class.yith-wc-min-max-qty.php:1346
+#: plugin-options/general-options.php:172
 #: plugin-options/general-options.php:353
 #: plugin-options/general-options.php:449
 #: templates/admin/ywmmq-categories-bulk-ops.php:499
@@ -451,7 +452,6 @@ msgstr ""
 "restrizioni."
 
 #: plugin-options/general-options.php:135
-#: plugin-options/general-options.php:172
 #: plugin-options/general-options.php:258
 #: templates/admin/ywmmq-products-bulk-ops.php:422
 msgid "Quantity groups of"
@@ -478,12 +478,12 @@ msgstr ""
 "restrizioni."
 
 #: plugin-options/general-options.php:175
-msgid ""
-"Allow your users to purchase products only in groups of x items (e.g. The "
-"cart can contains items only in groups of 6)"
+#: plugin-options/general-options.php:356
+#: plugin-options/general-options.php:452
+msgid "Maximum spend for items in cart. Set zero for no restrictions."
 msgstr ""
-"Permetti agli utenti di acquistare i prodotti solo in gruppi di X unità (es. "
-"il carrello può contenere prodotti solo in gruppi di 6)"
+"Massimo di spesa per gli articoli nel carrello. Imposta zero per non "
+"applicare restrizioni."
 
 #: plugin-options/general-options.php:187
 msgid "Include shipping rates and relative fees."
@@ -553,13 +553,6 @@ msgstr ""
 #: plugin-options/general-options.php:330
 msgid "Enable category spend restrictions"
 msgstr "Abilita restrizioni spesa per categoria"
-
-#: plugin-options/general-options.php:356
-#: plugin-options/general-options.php:452
-msgid "Maximum spend for items in cart. Set zero for no restrictions."
-msgstr ""
-"Massimo di spesa per gli articoli nel carrello. Imposta zero per non "
-"applicare restrizioni."
 
 #: plugin-options/general-options.php:376
 msgid "Enable tag quantity restrictions"
@@ -1333,3 +1326,10 @@ msgctxt "[single product page - variations]"
 msgid "Allow users to select product variations only in groups of"
 msgstr ""
 "Permetti agli utenti di selezionare le variazioni prodotto solo in gruppi di"
+
+#~ msgid ""
+#~ "Allow your users to purchase products only in groups of x items (e.g. The "
+#~ "cart can contains items only in groups of 6)"
+#~ msgstr ""
+#~ "Permetti agli utenti di acquistare i prodotti solo in gruppi di X unità "
+#~ "(es. il carrello può contenere prodotti solo in gruppi di 6)"

@@ -27,7 +27,7 @@ final class WC_Instagram extends WC_Instagram_Singleton {
 	 *
 	 * @var string
 	 */
-	public $version = '3.2.0';
+	public $version = '3.3.0';
 
 	/**
 	 * Constructor.
@@ -91,12 +91,11 @@ final class WC_Instagram extends WC_Instagram_Singleton {
 		include_once WC_INSTAGRAM_PATH . 'includes/class-wc-instagram-router.php';
 		include_once WC_INSTAGRAM_PATH . 'includes/class-wc-instagram-install.php';
 
-		if ( is_admin() ) {
+		if ( wc_instagram_is_request( 'admin' ) ) {
 			include_once WC_INSTAGRAM_PATH . 'includes/admin/class-wc-instagram-admin.php';
 		}
 
-		// It's frontend.
-		if ( ( ! is_admin() || defined( 'DOING_AJAX' ) ) && ! defined( 'DOING_CRON' ) && ! defined( 'REST_REQUEST' ) ) {
+		if ( wc_instagram_is_request( 'frontend' ) ) {
 			include_once WC_INSTAGRAM_PATH . 'includes/wc-instagram-template-hooks.php';
 		}
 	}
