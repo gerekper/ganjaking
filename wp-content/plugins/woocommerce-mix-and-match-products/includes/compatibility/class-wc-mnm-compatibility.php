@@ -130,6 +130,10 @@ class WC_Mix_and_Match_Compatibility {
 		// Shipstation integration.
 		$module_paths[ 'shipstation' ] = 'modules/class-wc-mnm-shipstation-compatibility.php';
 
+		if ( class_exists( 'CoCart' ) || defined( 'COCART_VERSION' ) ) {
+			$module_paths[ 'cocart' ] = 'modules/class-wc-mnm-cocart-compatibility.php';
+		}
+
 		/**
 		 * 'wc_mnm_compatibility_modules' filter.
 		 *

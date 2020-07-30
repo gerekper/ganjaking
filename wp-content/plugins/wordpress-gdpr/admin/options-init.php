@@ -31,6 +31,7 @@ if (! class_exists('Redux')) {
         $pages = get_posts( array(
             'post_type' => 'page',
             'numberposts' => -1,
+            'suppress_filters' => true,
         ) );
 
         foreach ($pages as $page) {
@@ -47,7 +48,7 @@ if (! class_exists('Redux')) {
         'use_cdn' => true,
         'dev_mode' => false,
         'display_name' => __('WordPress GDPR', 'wordpress-gdpr'),
-        'display_version' => '1.9.2',
+        'display_version' => '1.9.3',
         'page_title' => __('WordPress GDPR', 'wordpress-gdpr'),
         'update_notice' => true,
         'intro_text' => '',
@@ -150,7 +151,7 @@ if (! class_exists('Redux')) {
         'fields'     => array(
             array(
                 'id'       => 'enable',
-                'type'     => 'checkbox',
+                'type'     => 'switch',
                 'title'    => __('Enable', 'wordpress-gdpr'),
                 'default'  => '1',
             ),
@@ -253,7 +254,7 @@ if (! class_exists('Redux')) {
         'fields'     => array(
             array(
                 'id'       => 'popupEnable',
-                'type'     => 'checkbox',
+                'type'     => 'switch',
                 'title'    => __('Enable Popup', 'wordpress-gdpr'),
                 'default'  => '1',
             ),
@@ -432,7 +433,7 @@ if (! class_exists('Redux')) {
             ),
             array(
                 'id'       => 'privacySettingsTriggerEnable',
-                'type'     => 'checkbox',
+                'type'     => 'switch',
                 'title'    => __('Enable the Privacy Settings Trigger', 'wordpress-gdpr'),
                 'default'  => '1',
             ),
@@ -551,7 +552,7 @@ if (! class_exists('Redux')) {
             ),
             array(
                 'id'       => 'privacySettingsPopupEnable',
-                'type'     => 'checkbox',
+                'type'     => 'switch',
                 'title'    => __('Enable the Privacy Settings Popup', 'wordpress-gdpr'),
                 'default'  => '1',
             ),
@@ -636,7 +637,7 @@ if (! class_exists('Redux')) {
         'fields'     => array(
             array(
                 'id'       => 'privacyCenterEnable',
-                'type'     => 'checkbox',
+                'type'     => 'switch',
                 'title'    => __('Enable Privacy Center', 'wordpress-gdpr'),
                 'subtitle' => __('Enable Privacy Center', 'wordpress-gdpr'),
                 'default'  => '1',
@@ -691,7 +692,7 @@ if (! class_exists('Redux')) {
         'fields'     => array(
             array(
                 'id'       => 'contactDPOEnable',
-                'type'     => 'checkbox',
+                'type'     => 'switch',
                 'title'    => __('Enable Contact DPO', 'wordpress-gdpr'),
                 'subtitle' => __('Enable Data Privacy Officer Contact form.', 'wordpress-gdpr'),
                 'default'  => '1',
@@ -738,7 +739,7 @@ if (! class_exists('Redux')) {
         'fields'     => array(
             array(
                 'id'       => 'cookiePolicyEnable',
-                'type'     => 'checkbox',
+                'type'     => 'switch',
                 'title'    => __('Enable Cookie Policy', 'wordpress-gdpr'),
                 'subtitle' => __('Enable Cookie Policy Page', 'wordpress-gdpr'),
                 'default'  => '1',
@@ -761,7 +762,7 @@ if (! class_exists('Redux')) {
         'fields'     => array(
             array(
                 'id'       => 'dataBreachEnable',
-                'type'     => 'checkbox',
+                'type'     => 'switch',
                 'title'    => __('Enable Data Breach', 'wordpress-gdpr'),
                 'subtitle' => __('Enable Data Breach form.', 'wordpress-gdpr'),
                 'default'  => '1',
@@ -814,7 +815,7 @@ if (! class_exists('Redux')) {
         'fields'     => array(
             array(
                 'id'       => 'dataRectificationEnable',
-                'type'     => 'checkbox',
+                'type'     => 'switch',
                 'title'    => __('Enable Data Rectification', 'wordpress-gdpr'),
                 'subtitle' => __('Enable Data Rectification form.', 'wordpress-gdpr'),
                 'default'  => '1',
@@ -861,7 +862,7 @@ if (! class_exists('Redux')) {
         'fields'     => array(
             array(
                 'id'       => 'dataRetentionEnable',
-                'type'     => 'checkbox',
+                'type'     => 'switch',
                 'title'    => __('Enable Data Retention', 'wordpress-gdpr'),
                 'subtitle' => __('Enable Data Retention.', 'wordpress-gdpr'),
                 'default'  => '0',
@@ -895,7 +896,7 @@ if (! class_exists('Redux')) {
         'fields'     => array(
             array(
                 'id'       => 'disclaimerEnable',
-                'type'     => 'checkbox',
+                'type'     => 'switch',
                 'title'    => __('Enable Disclaimer', 'wordpress-gdpr'),
                 'subtitle' => __('Enable Disclaimer form.', 'wordpress-gdpr'),
                 'default'  => '1',
@@ -918,7 +919,7 @@ if (! class_exists('Redux')) {
         'fields'     => array(
             array(
                 'id'       => 'DMCAEnable',
-                'type'     => 'checkbox',
+                'type'     => 'switch',
                 'title'    => __('Enable DMCA', 'wordpress-gdpr'),
                 'subtitle' => __('Enable DMCA form.', 'wordpress-gdpr'),
                 'default'  => '0',
@@ -942,7 +943,7 @@ if (! class_exists('Redux')) {
         'fields'     => array(
             array(
                 'id'       => 'forgetMeEnable',
-                'type'     => 'checkbox',
+                'type'     => 'switch',
                 'title'    => __('Enable Forget Me', 'wordpress-gdpr'),
                 'subtitle' => __('Enable Forget Me form.', 'wordpress-gdpr'),
                 'default'  => '1',
@@ -1023,7 +1024,7 @@ if (! class_exists('Redux')) {
         'fields'     => array(
             array(
                 'id'       => 'imprintEnable',
-                'type'     => 'checkbox',
+                'type'     => 'switch',
                 'title'    => __('Enable Imprint', 'wordpress-gdpr'),
                 'subtitle' => __('Enable Imprint Page', 'wordpress-gdpr'),
                 'default'  => '1',
@@ -1050,7 +1051,7 @@ if (! class_exists('Redux')) {
         'fields'     => array(
             array(
                 'id'       => 'integrationsComments',
-                'type'     => 'checkbox',
+                'type'     => 'switch',
                 'title'    => __('Enable Comments', 'wordpress-gdpr'),
                 'subtitle' => __('Activated this will add a checkbox to comment form to accept your privay policy.', 'wordpress-gdpr'),
                 'default'  => '0',
@@ -1081,7 +1082,7 @@ if (! class_exists('Redux')) {
             ),
             array(
                 'id'       => 'integrationsWooCommerce',
-                'type'     => 'checkbox',
+                'type'     => 'switch',
                 'title'    => __('Enable WooCommerce', 'wordpress-gdpr'),
                 'subtitle' => __('Activated this will add a checkbox to the checkout, registration and product review form to accept your privay policy. It also adds a menu item to the my account page for the privacy center. In addtion to this make sure you have setup a terms and conditions page in WooCommerce settings. With WooCommerce Version 3.4. you may not need this anymore', 'wordpress-gdpr'),
                 'default'  => '0',
@@ -1136,7 +1137,7 @@ if (! class_exists('Redux')) {
             ),
             array(
                 'id'       => 'integrationsBuddyPress',
-                'type'     => 'checkbox',
+                'type'     => 'switch',
                 'title'    => __('Enable BuddyPress', 'wordpress-gdpr'),
                 'subtitle' => __('This will add checkbox to BuddyPress Account registration form.', 'wordpress-gdpr'),
                 'default'  => '0',
@@ -1159,14 +1160,14 @@ if (! class_exists('Redux')) {
             ),
             array(
                 'id'       => 'integrationsCF7',
-                'type'     => 'checkbox',
+                'type'     => 'switch',
                 'title'    => __('Enable CF7', 'wordpress-gdpr'),
                 'subtitle' => __('Make sure you add a checkbox to your forms to accept privacy policy.', 'wordpress-gdpr'),
                 'default'  => '0',
             ),
             array(
                 'id'       => 'integrationsFlamingoDB',
-                'type'     => 'checkbox',
+                'type'     => 'switch',
                 'title'    => __('Enable Flamingo DB (Deprecated)', 'wordpress-gdpr'),
                 'subtitle' => __('No longer needed with CF7 Version 5.0.3 - <a target="_blank" href="https://plugins.db-dzine.com/wordpress-gdpr/documentation/faq/cf7/">see here</a>. This will depending on the opt-in checkbox setting save data or not.', 'wordpress-gdpr'),
                 'default'  => '0',
@@ -1189,7 +1190,7 @@ if (! class_exists('Redux')) {
             ),
             array(
                 'id'       => 'integrationsQuform',
-                'type'     => 'checkbox',
+                'type'     => 'switch',
                 'title'    => __('Enable Quform', 'wordpress-gdpr'),
                 'subtitle' => __('This will add Quform entries to data export. Checkbox needs to be added to each form manually.', 'wordpress-gdpr'),
                 'default'  => '0',
@@ -1204,7 +1205,7 @@ if (! class_exists('Redux')) {
             ),
             array(
                 'id'       => 'integrationsFormidable',
-                'type'     => 'checkbox',
+                'type'     => 'switch',
                 'title'    => __('Enable Formidable', 'wordpress-gdpr'),
                 'subtitle' => __('This will add Formidable entries to data export. Checkbox needs to be added to each form manually.', 'wordpress-gdpr'),
                 'default'  => '0',
@@ -1219,7 +1220,7 @@ if (! class_exists('Redux')) {
             ),
             array(
                 'id'       => 'integrationsGravityForms',
-                'type'     => 'checkbox',
+                'type'     => 'switch',
                 'title'    => __('Enable GravityForms', 'wordpress-gdpr'),
                 'subtitle' => __('This will add Gravity Forms entries to data export & removes IP saving. Checkbox needs to be added to each form manually.', 'wordpress-gdpr'),
                 'default'  => '0',
@@ -1234,7 +1235,7 @@ if (! class_exists('Redux')) {
             ),
             array(
                 'id'       => 'integrationsMailster',
-                'type'     => 'checkbox',
+                'type'     => 'switch',
                 'title'    => __('Enable Mailster', 'wordpress-gdpr'),
                 'subtitle' => __('Activate our Mailster Integration.', 'wordpress-gdpr'),
                 'default'  => '0',
@@ -1249,7 +1250,7 @@ if (! class_exists('Redux')) {
             ),
             array(
                 'id'       => 'integrationsPixelYourSite',
-                'type'     => 'checkbox',
+                'type'     => 'switch',
                 'title'    => __('Enable PixelYourSite', 'wordpress-gdpr'),
                 'subtitle' => __('Disable PixelYourSite Loading if no service found. Make sure you add a service and check the pixelyoursite checkbox. This does not work with caching due to PixelYourSite plugin.', 'wordpress-gdpr'),
                 'default'  => '0',
@@ -1280,7 +1281,7 @@ if (! class_exists('Redux')) {
         'fields'     => array(
             array(
                 'id'       => 'mediaCreditsEnable',
-                'type'     => 'checkbox',
+                'type'     => 'switch',
                 'title'    => __('Enable Media Credits', 'wordpress-gdpr'),
                 'subtitle' => __('Enable Media Credits page where you can inform about image + author + license etc.', 'wordpress-gdpr'),
                 'default'  => '1',
@@ -1303,7 +1304,7 @@ if (! class_exists('Redux')) {
         'fields'     => array(
             array(
                 'id'       => 'privacyPolicyEnable',
-                'type'     => 'checkbox',
+                'type'     => 'switch',
                 'title'    => __('Enable Privacy Policy', 'wordpress-gdpr'),
                 'subtitle' => __('Enable Privacy Policy', 'wordpress-gdpr'),
                 'default'  => '1',
@@ -1322,6 +1323,7 @@ if (! class_exists('Redux')) {
                 'title'    => __('Show Accept Checkbox', 'wordpress-gdpr'),
                 'subtitle' => __('Place the following Shortcode at the bottom of your privacy policy: [wordpress_gdpr_privacy_policy_accept]', 'wordpress-gdpr'),
                 'default'  => '0',
+                'required' => array('privacyPolicyEnable','equals','1'),
             ),
             array(
                 'id'       => 'privacyPolicyAcceptText',
@@ -1342,7 +1344,7 @@ if (! class_exists('Redux')) {
         'fields'     => array(
             array(
                 'id'       => 'privacyPolicyUpdateEnable',
-                'type'     => 'checkbox',
+                'type'     => 'switch',
                 'title'    => __('Enable Privacy Policy Update', 'wordpress-gdpr'),
                 'subtitle' => __('Enable Privacy Policy Update form.', 'wordpress-gdpr'),
                 'default'  => '1',
@@ -1406,7 +1408,7 @@ if (! class_exists('Redux')) {
         'fields'     => array(
             array(
                 'id'       => 'requestDataEnable',
-                'type'     => 'checkbox',
+                'type'     => 'switch',
                 'title'    => __('Enable Request Data', 'wordpress-gdpr'),
                 'subtitle' => __('Enable Request Data form.', 'wordpress-gdpr'),
                 'default'  => '1',
@@ -1649,7 +1651,7 @@ if (! class_exists('Redux')) {
         'fields'     => array(
             array(
                 'id'       => 'termsConditionsEnable',
-                'type'     => 'checkbox',
+                'type'     => 'switch',
                 'title'    => __('Enable Terms & Conditions', 'wordpress-gdpr'),
                 'subtitle' => __('Enable Terms & Conditions form.', 'wordpress-gdpr'),
                 'default'  => '1',
@@ -1687,7 +1689,7 @@ if (! class_exists('Redux')) {
         'fields'     => array(
             array(
                 'id'       => 'unsubscribeEnable',
-                'type'     => 'checkbox',
+                'type'     => 'switch',
                 'title'    => __('Enable Unsubscribe', 'wordpress-gdpr'),
                 'subtitle' => __('Enable Unsubscribe', 'wordpress-gdpr'),
                 'default'  => '1',
@@ -1711,21 +1713,21 @@ if (! class_exists('Redux')) {
         'fields'     => array(
             array(
                 'id'       => 'geoIP',
-                'type'     => 'checkbox',
+                'type'     => 'switch',
                 'title'    => __('Use GEO IP to show Popup only for EU', 'wordpress-gdpr'),
                 'subtitle' => __('Use with caution - users surfing with a proxy might be wrong targeted.', 'wordpress-gdpr'),
                 'default'  => '0',
             ),
             array(
                 'id'       => 'useWPCoreFunctions',
-                'type'     => 'checkbox',
+                'type'     => 'switch',
                 'title'    => __('Use WP Core Functions (req. WP 4.9.6 or Higher!)', 'wordpress-gdpr'),
                 'subtitle'    => __('Only check this option, if you are on WP 4.9.6 or later. We will then use the WP Core functions for Data Export & Erasing. Our built-in GDPR Requests Menu will be removed.', 'wordpress-gdpr'),
                 'default'  => '0',
             ),
             array(
                 'id'       => 'useCookieWhitelist',
-                'type'     => 'checkbox',
+                'type'     => 'switch',
                 'title'    => __('Use Cookie Whitelist', 'wordpress-gdpr'),
                 'subtitle'    => __('If enabled our plugin will remove all cookies, that are not allowed by a certain service. If disabled all cookies will only be removed on decline.', 'wordpress-gdpr'),
                 'default'  => '0',

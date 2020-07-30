@@ -13,7 +13,7 @@ class Date extends Model\CustomField {
 			return false;
 		}
 
-		return date( 'Ymd', $timestamp );
+		return date( 'Y-m-d', $timestamp );
 	}
 
 	public function get_view_settings() {

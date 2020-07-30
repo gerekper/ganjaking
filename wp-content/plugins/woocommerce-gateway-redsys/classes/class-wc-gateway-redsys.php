@@ -3501,7 +3501,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		if ( ! is_admin() ) {
 			return;
 		}
-		
+		$redsys_depo     = new WC_Gateway_redsys();
 		set_time_limit( 0 );
 		$order_id         = intval( $_POST['order_id'] );
 		$order            = WCRed()->get_order( $order_id );
@@ -3524,19 +3524,19 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		$order_total_sign = WCRed()->redsys_amount_format( $order->get_total() );
 		$transaction_id   = get_post_meta( $order_id, '_payment_order_number_redsys', true );
 
-		if ( 'yes' === $this->debug ) {
-				$this->log->add( 'redsys', __( 'First step for collect remainder for order #: ', 'woocommerce-redsys' ) . $order_id );
+		if ( 'yes' === $redsys_depo->debug ) {
+				$redsys_depo->log->add( 'redsys', __( 'First step for collect remainder for order #: ', 'woocommerce-redsys' ) . $order_id );
 		}
 
 		if ( ! empty( $transaction_id ) ) {
-			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'redsys', __( 'Checking for collect remainder for for order #: ', 'woocommerce-redsys' ) . $order_id );
+			if ( 'yes' === $redsys_depo->debug ) {
+				$redsys_depo->log->add( 'redsys', __( 'Checking for collect remainder for for order #: ', 'woocommerce-redsys' ) . $order_id );
 			}
 			$confirm_collect_remainder = $this->ask_for_collect_remainder( $order_id, $order_total_sign );
 			if ( ! $confirm_collect_remainder ) {
 
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'redsys', __( 'Error Collecting Remainder', 'woocommerce-redsys' ) );
+				if ( 'yes' === $redsys_depo->debug ) {
+					$redsys_depo->log->add( 'redsys', __( 'Error Collecting Remainder', 'woocommerce-redsys' ) );
 				}
 				$confirm_result = __( 'There was an error collecting remainder', 'woocommerce-redsys' );
 			} else {
@@ -3549,25 +3549,25 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 
 				@ob_clean();
 
-				if ( 'yes' === $this->debug && $result ) {
-					$this->log->add( 'redsys', __( 'Confirming Collecting Remainder = true ', 'woocommerce-redsys' ) );
+				if ( 'yes' === $redsys_depo->debug && $result ) {
+					$redsys_depo->log->add( 'redsys', __( 'Confirming Collecting Remainder = true ', 'woocommerce-redsys' ) );
 				}
 
-				if ( 'yes' === $this->debug && ! $result ) {
-					$this->log->add( 'redsys', __( 'Confirming Collecting Remainder = false ', 'woocommerce-redsys' ) );
+				if ( 'yes' === $redsys_depo->debug && ! $result ) {
+					$redsys_depo->log->add( 'redsys', __( 'Confirming Collecting Remainder = false ', 'woocommerce-redsys' ) );
 				}
 
 				if ( $result ) {
 					delete_transient( $order_id . '_redsys_collect' );
 					$confirm_result = __( 'Successfully Collected Remainder', 'woocommerce-redsys' );
-					$this->log->add( 'redsys', __( 'Deleted transcient _redsys_collect', 'woocommerce-redsys' ) );
+					$redsys_depo->log->add( 'redsys', __( 'Deleted transcient _redsys_collect', 'woocommerce-redsys' ) );
 
 					foreach( $order->get_items() as $order_item_id => $order_item ) {
 
-						if ( 'yes' === $this->debug && $order_item_id ) {
-							$this->log->add( 'redsys', 'Item ID: ' . $order_item_id );
+						if ( 'yes' === $redsys_depo->debug && $order_item_id ) {
+							$redsys_depo->log->add( 'redsys', 'Item ID: ' . $order_item_id );
 						} else {
-							$this->log->add( 'redsys', 'No Item ID?' );
+							$redsys_depo->log->add( 'redsys', 'No Item ID?' );
 						}
 						wc_add_order_item_meta( $order_item_id, '_remaining_balance_paid', 1 );
 					}
@@ -3575,15 +3575,15 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 					$order->update_status( 'completed', __( 'Order Completed', 'woocommerce-redsys' ) );
 
 				} else {
-					if ( 'yes' === $this->debug && $result ) {
-						$this->log->add( 'redsys', __( 'Failed Collecting Remainder, please try again', 'woocommerce-redsys' ) );
+					if ( 'yes' === $redsys_depo->debug && $result ) {
+						$redsys_depo->log->add( 'redsys', __( 'Failed Collecting Remainder, please try again', 'woocommerce-redsys' ) );
 					}
 					$confirm_result = __( 'Failed Collecting Remainder, please try again', 'woocommerce-redsys' );
 				}
 			}
 		} else {
-			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'redsys', __( 'Failed Collecting Remainder: No transaction ID', 'woocommerce-redsys' ) );
+			if ( 'yes' === $redsys_depo->debug ) {
+				$redsys_depo->log->add( 'redsys', __( 'Failed Collecting Remainder: No transaction ID', 'woocommerce-redsys' ) );
 			}
 			$confirm_result = __( 'Confirm Collecting Remainder: No transaction ID', 'woocommerce-redsys' );
 		}

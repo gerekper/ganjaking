@@ -70,7 +70,7 @@ class TermName extends AC\Helper\Select\Formatter {
 			$label = $this->get_label( get_term_by( 'id', $term->parent, $term->taxonomy ) ) . ' > ' . $label;
 		}
 
-		return $label;
+		return (string) apply_filters( 'acp/select/formatter/term_name', $label, $term );
 	}
 
 }

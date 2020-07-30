@@ -28,10 +28,10 @@ class WoocommerceProductVendors {
 		// Fetch the per-product shipping rules.
 		$rules = $wpdb->get_results(
 			$wpdb->prepare(
-				"SELECT *
-                   FROM " . WC_PRODUCT_VENDORS_PER_PRODUCT_SHIPPING_TABLE . "
+				'SELECT *
+                   FROM ' . WC_PRODUCT_VENDORS_PER_PRODUCT_SHIPPING_TABLE . '
                   WHERE product_id = %d
-               ORDER BY rule_order",
+               ORDER BY rule_order',
 				$product->get_id()
 			)
 		);

@@ -1,5 +1,12 @@
 *** WooCommerce Pinterest Changelog ***
 
+2020-07-16- version 2.1.7
+ * Add product_id to AddToCart Event
+ * Fix minor bugs
+ 
+2020-06-27- version 2.1.6
+ * Fix catalog bug
+ 
 2020-06-23- version 2.1.5
  * Added Enhanced Match Events
  * Fix catalog bug

@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Class WoocommerceGpfFeedItem
+ *
+ * @SuppressWarnings(PHPMD.ShortVariable)
+ */
 class WoocommerceGpfFeedItem {
 
 	/**
@@ -22,6 +27,16 @@ class WoocommerceGpfFeedItem {
 	 * @var string
 	 */
 	private $feed_format;
+
+	/**
+	 * @var WoocommerceGpfCommon
+	 */
+	private $common;
+
+	/**
+	 * @var WoocommerceGpfDebugService
+	 */
+	protected $debug;
 
 	/**
 	 * Image style to be used when generated the image URLs.
@@ -86,13 +101,6 @@ class WoocommerceGpfFeedItem {
 	 * @var int
 	 */
 	private $general_id;
-
-	/**
-	 * Required instance of WoocommerceGpfCommon.
-	 *
-	 * @var WoocommerceGpfCommon
-	 */
-	private $woocommerce_gpf_common;
 
 	/**
 	 * Additional elements that apply to this item.
@@ -259,9 +267,11 @@ class WoocommerceGpfFeedItem {
 	 *
 	 * Store dependencies.
 	 *
+	 * @param WoocommerceGpfCommon $woocommerce_gpf_common
 	 * @param WC_Product $specific_product The specific product being output.
 	 * @param WC_Product $general_product The "general" product being processed.
 	 * @param string $feed_format The feed format being output.
+	 * @param WoocommerceGpfDebugService $debug
 	 * @param [type]     $woocommerce_gpf_common The WoocommerceGpfCommon instance.
 	 * @param bool $calculate_prices
 	 */
@@ -269,13 +279,15 @@ class WoocommerceGpfFeedItem {
 		WC_Product $specific_product,
 		WC_Product $general_product,
 		$feed_format = 'all',
-		$woocommerce_gpf_common,
+		WoocommerceGpfCommon $woocommerce_gpf_common,
+		WoocommerceGpfDebugService $debug,
 		$calculate_prices = true
 	) {
 		$this->specific_product        = $specific_product;
 		$this->general_product         = $general_product;
 		$this->feed_format             = $feed_format;
-		$this->woocommerce_gpf_common  = $woocommerce_gpf_common;
+		$this->common                  = $woocommerce_gpf_common;
+		$this->debug                   = $debug;
 		$this->additional_images       = array();
 		$this->image_style             = apply_filters(
 			'woocommerce_gpf_image_style',
@@ -317,7 +329,7 @@ class WoocommerceGpfFeedItem {
 	 * @return bool True if the product should be excluded. False otherwise.
 	 */
 	public static function should_exclude( $wc_product, $feed_format ) {
-		$excluded   = false;
+		$excluded = false;
 		// Check to see if the product is set as Hidden within WooCommerce.
 		if ( 'hidden' === $wc_product->get_catalog_visibility() ) {
 			$excluded = true;
@@ -331,17 +343,18 @@ class WoocommerceGpfFeedItem {
 			$excluded = true;
 		}
 		if ( $wc_product instanceof WC_Product_Variation ) {
-			$id = $wc_product->get_parent_id();
+			$parent_id = $wc_product->get_parent_id();
+
 			return apply_filters(
 				'woocommerce_gpf_exclude_variation',
-				apply_filters( 'woocommerce_gpf_exclude_product', $excluded, $id, $feed_format ),
+				apply_filters( 'woocommerce_gpf_exclude_product', $excluded, $parent_id, $feed_format ),
 				$wc_product->get_id(),
 				$feed_format
 			);
 		} else {
-			$id = $wc_product->get_id();
+			$parent_id = $wc_product->get_id();
 
-			return apply_filters( 'woocommerce_gpf_exclude_product', $excluded, $id, $feed_format );
+			return apply_filters( 'woocommerce_gpf_exclude_product', $excluded, $parent_id, $feed_format );
 		}
 	}
 
@@ -443,13 +456,13 @@ class WoocommerceGpfFeedItem {
 			$this->descriptions['variation'] = $this->specific_product->get_description();
 		}
 		// Work out which description to use.
-		$prepopulations     = $this->woocommerce_gpf_common->get_prepopulations();
+		$prepopulations     = $this->common->get_prepopulations();
 		$description_option = ! empty( $prepopulations['description'] ) ?
 			$prepopulations['description'] :
 			'description:varfull';
 
 		// Support for legacy woocommerce_gpf_description_type filter.
-		if ( $this->description_type === 'short' ) {
+		if ( 'short' === $this->description_type ) {
 			$description_option = 'description:varshort';
 		}
 
@@ -506,10 +519,25 @@ class WoocommerceGpfFeedItem {
 				break;
 		}
 
-		return apply_filters(
+		$description = apply_filters(
 			'the_content',
 			$description
 		);
+
+		// Strip out invalid unicode.
+		$description = preg_replace(
+			'/[\x00-\x08\x0B\x0C\x0E-\x1F\x80-\x9F]/u',
+			'',
+			$description
+		);
+
+		// Strip SCRIPT and STYLE tags INCLUDING their content. Taken from wp_strip_all_tags().
+		$description = preg_replace( '@<(script|style)[^>]*?>.*?</\\1>@si', '', $description );
+
+		// Strip out HTML comments.
+		$description = preg_replace( '/<!--(.|\s)*?-->/', '', $description );
+
+		return $description;
 	}
 
 	/**
@@ -524,6 +552,11 @@ class WoocommerceGpfFeedItem {
 		$prices = $this->generate_prices_for_product();
 		// Adjust the price if there are cheaper child products.
 		$prices = $this->adjust_prices_for_children( $prices );
+
+		// phpcs:disable WordPress.PHP.DevelopmentFunctions.error_log_var_export
+		$this->debug->log( 'Prices calculated for %d are: %s', [ $this->specific_id, var_export( $prices, 1 ) ] );
+		// phpcs:enable
+
 		// Set the prices into the object.
 		$this->sale_price_ex_tax     = $prices['sale_price_ex_tax'];
 		$this->sale_price_inc_tax    = $prices['sale_price_inc_tax'];
@@ -580,22 +613,65 @@ class WoocommerceGpfFeedItem {
 			$prices['regular_price_ex_tax']  = wc_get_price_excluding_tax( $product, array( 'price' => $regular_price ) );
 			$prices['regular_price_inc_tax'] = wc_get_price_including_tax( $product, array( 'price' => $regular_price ) );
 		}
-
 		// Grab the sale price of the base product. Some plugins (Dyanmic
 		// pricing as an example) filter the active price, but not the sale
 		// price. If the active price < the regular price treat it as a sale
 		// price.
 		$sale_price   = $product->get_sale_price();
 		$active_price = $product->get_price();
+
+		// phpcs:disable WordPress.PHP.DevelopmentFunctions.error_log_var_export
+		$this->debug->log(
+			'get_regular_price() for %d is: %s',
+			[
+				$product->get_id(),
+				var_export( $regular_price, 1 ),
+			]
+		);
+		$this->debug->log( 'get_sale_price() for %d is: %s', [ $product->get_id(), var_export( $sale_price, 1 ) ] );
+		$this->debug->log( 'get_active_price() for %d is: %s', [ $product->get_id(), var_export( $active_price, 1 ) ] );
+		// phpcs:enable
+
 		if ( ( empty( $sale_price ) && $active_price < $regular_price ) ||
-		     ( ! empty( $sale_price ) && $active_price < $sale_price ) ) {
+			 ( ! empty( $sale_price ) && $active_price < $sale_price ) ) {
 			$sale_price = $active_price;
 		}
 		if ( '' !== $sale_price ) {
-			$prices['sale_price_ex_tax']  = wc_get_price_excluding_tax( $product, array( 'price' => $sale_price ) );
-			$prices['sale_price_inc_tax'] = wc_get_price_including_tax( $product, array( 'price' => $sale_price ) );
+			$prices['sale_price_ex_tax']     = wc_get_price_excluding_tax( $product, array( 'price' => $sale_price ) );
+			$prices['sale_price_inc_tax']    = wc_get_price_including_tax( $product, array( 'price' => $sale_price ) );
 			$prices['sale_price_start_date'] = $product->get_date_on_sale_from();
 			$prices['sale_price_end_date']   = $product->get_date_on_sale_to();
+		}
+
+		// If the sale price dates no longer apply, make sure we don't include a sale price.
+		$now = new \WC_DateTime();
+		if ( ! empty( $prices['sale_price_end_date'] ) && $prices['sale_price_end_date'] < $now ) {
+			$prices['sale_price_end_date']   = null;
+			$prices['sale_price_start_date'] = null;
+			$prices['sale_price_ex_tax']     = null;
+			$prices['sale_price_inc_tax']    = null;
+		}
+		// If we have a sale end date in the future, but no start date, set the start date to now()
+		if ( ! empty( $prices['sale_price_end_date'] ) &&
+			 $prices['sale_price_end_date'] > $now &&
+			 empty( $prices['sale_price_start_date'] )
+		) {
+			$prices['sale_price_start_date'] = $now;
+		}
+		// If we have a sale start date in the past, but no end date, do not include the start date.
+		if ( ! empty( $prices['sale_price_start_date'] ) &&
+			 $prices['sale_price_start_date'] < $now &&
+			 empty( $prices['sale_price_end_date'] )
+		) {
+			$prices['sale_price_start_date'] = null;
+		}
+		// If we have a start date in the future, but no end date, assume a one-day sale.
+		if ( ! empty( $prices['sale_price_start_date'] ) &&
+			 $prices['sale_price_start_date'] > $now &&
+			 empty( $prices['sale_price_end_date'] )
+		) {
+			$prices['sale_price_end_date'] = clone $prices['sale_price_start_date'];
+			$prices['sale_price_end_date']->add( new DateInterval( 'P1D' ) );
 		}
 
 		// Populate a "price", using the sale price if there is one, the actual price if not.
@@ -701,7 +777,7 @@ class WoocommerceGpfFeedItem {
 				continue;
 			}
 			$child_prices = $this->generate_prices_for_product( $child_product );
-			if ( ( 0 == $current_prices['price_inc_tax'] ) && ( $child_prices['price_inc_tax'] > 0 ) ) {
+			if ( ( 0 === (int) $current_prices['price_inc_tax'] ) && ( (int) $child_prices['price_inc_tax'] > 0 ) ) {
 				$current_prices = $child_prices;
 			} elseif ( ( $child_prices['price_inc_tax'] > 0 ) && ( $child_prices['price_inc_tax'] < $current_prices['price_inc_tax'] ) ) {
 				$current_prices = $child_prices;
@@ -742,18 +818,17 @@ class WoocommerceGpfFeedItem {
 		if ( ! empty( $product_values ) ) {
 			foreach ( $product_values as $key => $value ) {
 				// Deal with fields that can have multiple, comma separated values
-				if ( isset( $this->woocommerce_gpf_common->product_fields[ $key ]['multiple'] ) && $this->woocommerce_gpf_common->product_fields[ $key ]['multiple'] && ! is_array( $value ) ) {
+				if ( isset( $this->common->product_fields[ $key ]['multiple'] ) && $this->common->product_fields[ $key ]['multiple'] && ! is_array( $value ) ) {
 					$value = explode( ',', $value );
 				}
 				$elements[ $key ] = (array) $value;
 				// Deal with fields that should be output in the Google feed as a single concatenated set of values
-				if ( ! empty ( $this->woocommerce_gpf_common->product_fields[ $key ]['google_single_output'] ) ) {
-					$elements[ $key ] = array(
-						implode(
-							$this->woocommerce_gpf_common->product_fields[ $key ]['google_single_output'],
-							$elements[ $key ]
-						)
+				if ( ! empty( $this->common->product_fields[ $key ]['google_single_output'] ) ) {
+					$values           = implode(
+						$this->common->product_fields[ $key ]['google_single_output'],
+						$elements[ $key ]
 					);
+					$elements[ $key ] = array( $values );
 				}
 			}
 		}
@@ -769,11 +844,11 @@ class WoocommerceGpfFeedItem {
 	 */
 	private function get_shipping_dimension( $dimension ) {
 		if ( 'width' !== $dimension &&
-		     'length' !== $dimension &&
-		     'height' !== $dimension ) {
+			 'length' !== $dimension &&
+			 'height' !== $dimension ) {
 			return null;
 		}
-		$function = 'get_' . $dimension;
+		$function    = 'get_' . $dimension;
 		$measurement = $this->specific_product->{$function}();
 		if ( empty( $measurement ) ) {
 			return null;
@@ -832,13 +907,13 @@ class WoocommerceGpfFeedItem {
 	 */
 	private function all_or_nothing_shipping_elements() {
 		if ( empty( $this->additional_elements['shipping_width'] ) &&
-		     empty( $this->additional_elements['shipping_length'] ) &&
-		     empty( $this->additional_elements['shipping_height'] ) ) {
+			 empty( $this->additional_elements['shipping_length'] ) &&
+			 empty( $this->additional_elements['shipping_height'] ) ) {
 			return;
 		}
 		if ( empty( $this->additional_elements['shipping_width'] ) ||
-		     empty( $this->additional_elements['shipping_length'] ) ||
-		     empty( $this->additional_elements['shipping_height'] ) ) {
+			 empty( $this->additional_elements['shipping_length'] ) ||
+			 empty( $this->additional_elements['shipping_height'] ) ) {
 			unset( $this->additional_elements['shipping_length'] );
 			unset( $this->additional_elements['shipping_width'] );
 			unset( $this->additional_elements['shipping_height'] );
@@ -889,7 +964,7 @@ class WoocommerceGpfFeedItem {
 			if ( ! empty( $product_gallery_images ) ) {
 				$product_gallery_images = explode( ',', $product_gallery_images );
 				foreach ( $product_gallery_images as $product_gallery_image_id ) {
-					if ( in_array( $product_gallery_image_id, $excluded_ids ) ) {
+					if ( in_array( $product_gallery_image_id, $excluded_ids, true ) ) {
 						// Skip it if we've already processed it.
 						continue;
 					}
@@ -904,7 +979,7 @@ class WoocommerceGpfFeedItem {
 			if ( $this->is_variation ) {
 				$images = wp_cache_get( 'children_' . $product_id, 'woocommerce_gpf', false, $found );
 			}
-			if ( $found === false ) {
+			if ( false === $found ) {
 				$images = get_children(
 					array(
 						'post_parent'    => $product_id,
@@ -922,7 +997,7 @@ class WoocommerceGpfFeedItem {
 
 			if ( is_array( $images ) && count( $images ) ) {
 				foreach ( $images as $image ) {
-					if ( in_array( $image->ID, $excluded_ids ) ) {
+					if ( in_array( $image->ID, $excluded_ids, true ) ) {
 						continue;
 					}
 					$full_image_src            = wp_get_attachment_image_src( $image->ID, $this->image_style, false );
@@ -935,7 +1010,7 @@ class WoocommerceGpfFeedItem {
 		// Filter out the main image from the additional image array.
 		foreach ( $this->additional_images as $key => $image_url ) {
 			if ( $image_url === $this->image_link ) {
-				unset ( $this->additional_images[ $key ] );
+				unset( $this->additional_images[ $key ] );
 			}
 		}
 	}
@@ -961,11 +1036,12 @@ class WoocommerceGpfFeedItem {
 			$variation_values         = $this->get_specific_values_for_product( 'specific' );
 			$variation_prepopulations = $this->get_prepopulations_for_product( 'specific' );
 		} else {
-			$variation_values = $variation_prepopulations = array();
+			$variation_values         = array();
+			$variation_prepopulations = array();
 		}
 
-		$category_values = $this->woocommerce_gpf_common->get_category_values_for_product( $this->general_id );
-		$store_values    = $this->woocommerce_gpf_common->get_store_default_values();
+		$category_values = $this->common->get_category_values_for_product( $this->general_id );
+		$store_values    = $this->common->get_store_default_values();
 
 		// If child.specific then use that
 		// elseif parent.specific then use that
@@ -982,10 +1058,10 @@ class WoocommerceGpfFeedItem {
 			$variation_values
 		);
 		if ( 'all' !== $this->feed_format ) {
-			$calculated = $this->woocommerce_gpf_common->remove_other_feeds( $calculated, $this->feed_format );
+			$calculated = $this->common->remove_other_feeds( $calculated, $this->feed_format );
 		}
 
-		return $this->woocommerce_gpf_common->limit_max_values( $calculated );
+		return $this->common->limit_max_values( $calculated );
 	}
 
 	/**
@@ -1005,7 +1081,7 @@ class WoocommerceGpfFeedItem {
 			return array();
 		}
 
-		return $this->woocommerce_gpf_common->remove_blanks( $product_settings );
+		return $this->common->remove_blanks( $product_settings );
 	}
 
 	/**
@@ -1015,7 +1091,7 @@ class WoocommerceGpfFeedItem {
 	 */
 	private function get_prepopulations_for_product( $which_product ) {
 		$results        = array();
-		$prepopulations = $this->woocommerce_gpf_common->get_prepopulations();
+		$prepopulations = $this->common->get_prepopulations();
 		if ( empty( $prepopulations ) ) {
 			return $results;
 		}
@@ -1029,7 +1105,7 @@ class WoocommerceGpfFeedItem {
 			}
 		}
 
-		return $this->woocommerce_gpf_common->remove_blanks( $results );
+		return $this->common->remove_blanks( $results );
 	}
 
 	/**
@@ -1041,8 +1117,10 @@ class WoocommerceGpfFeedItem {
 	 * @return array                The prepopulated value for this product.
 	 */
 	private function get_prepopulate_value_for_product( $prepopulate, $which_product ) {
-		$result = array();
+
 		list( $type, $value ) = explode( ':', $prepopulate );
+
+		$result = array();
 		switch ( $type ) {
 			case 'tax':
 				$result = $this->get_tax_prepopulate_value_for_product( $value, $which_product );
@@ -1077,15 +1155,15 @@ class WoocommerceGpfFeedItem {
 
 		// Check $fq_method is valid.
 		if ( is_null( $prepopulation_options ) ) {
-			global $woocommerce_gpf_common;
-			$prepopulation_options = $woocommerce_gpf_common->get_prepopulate_options();
+			$prepopulation_options = $this->common->get_prepopulate_options();
 		}
-		if ( ! in_array( $prepopulate, array_keys( $prepopulation_options, true ) ) ) {
+		if ( ! in_array( $prepopulate, array_keys( $prepopulation_options ), true ) ) {
 			return '';
 		}
 
 		// Call the specific method.
 		$fq_method = str_replace( 'method:', '', $prepopulate );
+
 		list( $class, $method ) = explode( '::', $fq_method );
 
 		return call_user_func( array( $class, $method ), $product );
@@ -1168,7 +1246,7 @@ class WoocommerceGpfFeedItem {
 		if ( ! $product ) {
 			return array();
 		}
-		if ( 'sku' == $field ) {
+		if ( 'sku' === $field ) {
 			$sku = $product->get_sku();
 			if ( ! empty( $sku ) ) {
 				return array( $sku );
@@ -1244,15 +1322,17 @@ class WoocommerceGpfFeedItem {
 	 * @param $address
 	 *
 	 * @return array
+	 *
+	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
 	public function set_taxable_address_to_base( $address ) {
-		$wc = WC();
+		$wc_class = WC();
 
 		return array(
-			$wc->countries->get_base_country(),
-			$wc->countries->get_base_state(),
-			$wc->countries->get_base_postcode(),
-			$wc->countries->get_base_city(),
+			$wc_class->countries->get_base_country(),
+			$wc_class->countries->get_base_state(),
+			$wc_class->countries->get_base_postcode(),
+			$wc_class->countries->get_base_city(),
 		);
 	}
 }

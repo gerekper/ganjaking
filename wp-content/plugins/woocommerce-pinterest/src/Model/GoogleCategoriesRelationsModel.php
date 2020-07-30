@@ -42,6 +42,8 @@ class GoogleCategoriesRelationsModel extends AbstractModel {
 	 * @param WC_Product $product
 	 *
 	 * @return string
+	 *
+	 * @throws PinterestModelException
 	 */
 	public function getGoogleCategoryIdByProduct( WC_Product $product) {
 		$woocommerceProductCategory = $this->getProductCategoryIdToGetGoogleCategoryFrom($product);
@@ -54,21 +56,37 @@ class GoogleCategoriesRelationsModel extends AbstractModel {
 	 * Get product category id which will be used to get Google category id
 	 *
 	 * @param WC_Product $product
+	 *
 	 * @return int
+	 *
+	 * @throws PinterestModelException
 	 */
 	public function getProductCategoryIdToGetGoogleCategoryFrom( WC_Product $product) {
-		$productToGetCategoryFrom = $product->is_type('variation') ? wc_get_product($product->get_parent_id()) : $product;
+		$productToGetCategoryFrom = $product;
+
+		if ($product->is_type('variation')) {
+			$productToGetCategoryFrom = wc_get_product($product->get_parent_id());
+			if (!$productToGetCategoryFrom) {
+				throw new PinterestModelException(
+					sprintf(
+						'Cannot get parent product of variation %s. Possible orphaned variation. This product will not be added to the catalog.',
+						$product->get_id()
+					));
+			}
+
+
+		}
 
 		$categoryId = $productToGetCategoryFrom->get_meta(PrimaryCategoryModel::PRIMARY_CATEGORY_META_FIELD_KEY);
 
-		if (! $categoryId && PinterestPluginUtils::isYoastActive()) {
-			$yoastPrimaryCategory = new \WPSEO_Primary_Term('product_cat', $productToGetCategoryFrom->get_id() );
+		if (!$categoryId && PinterestPluginUtils::isYoastActive()) {
+			$yoastPrimaryCategory = new \WPSEO_Primary_Term('product_cat', $productToGetCategoryFrom->get_id());
 			$categoryId           = $yoastPrimaryCategory->get_primary_term();
 		}
 
-		if (! $categoryId) {
+		if (!$categoryId) {
 			$productCategories = wc_get_product_term_ids($productToGetCategoryFrom->get_id(), 'product_cat');
-			$categoryId = reset($productCategories);
+			$categoryId 	   = reset($productCategories);
 		}
 
 		return (int) $categoryId;

@@ -21,5 +21,6 @@ function redsys_return_types() {
 		'insite',
 		'preauthorizationsredsys',
 		'directdebitredsys',
+		'webserviceredsys',
 	);
 }

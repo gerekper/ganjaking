@@ -41,9 +41,9 @@ class WoocommercePrfGoogle {
 	 * Store the template loader for future use.
 	 * Set the escaping callback in the template loader appropriately.
 	 *
-	 * @param [type] $template_loader [description]
+	 * @param WoocommerceGpfTemplateLoader $template_loader
 	 */
-	public function __construct( $template_loader ) {
+	public function __construct( WoocommerceGpfTemplateLoader $template_loader ) {
 		$this->tpl = $template_loader;
 	}
 
@@ -68,7 +68,7 @@ class WoocommercePrfGoogle {
 	/**
 	 * Render an individual item in the XML feed.
 	 *
-	 * @param  array $item Array of item values
+	 * @param array $item Array of item values
 	 *
 	 * @return bool
 	 */
@@ -83,10 +83,8 @@ class WoocommercePrfGoogle {
 			'product_name'      => $this->cdata_wrap( $item['product_name'] ),
 			'review_rating'     => $this->cdata_wrap( $item['review_rating'] ),
 			'collection_method' => $this->cdata_wrap( $item['collection_method'] ),
-
-			'reviewer'    => $this->render_reviewer( $item['reviewer_id'] ),
-			'product_ids' => $this->render_product_ids( $item ),
-
+			'reviewer'          => $this->render_reviewer( $item['reviewer_id'] ),
+			'product_ids'       => $this->render_product_ids( $item ),
 			'review_timestamp'  => $item['review_timestamp'],
 			'name_is_anonymous' => $item['name_is_anonymous'] ? 'true' : 'false',
 		);
@@ -123,7 +121,7 @@ class WoocommercePrfGoogle {
 	/**
 	 * Return a reviewer tagset, or empty string if tag should not be output.
 	 *
-	 * @param  int $user_id The user ID to reference in the tag. Non positive int values will
+	 * @param int $user_id The user ID to reference in the tag. Non positive int values will
 	 *                           cause no tag to be output and an empty string to be returned.
 	 *
 	 * @return string            The tag to be output.
@@ -134,16 +132,16 @@ class WoocommercePrfGoogle {
 		}
 
 		return $this->tpl->get_template_with_variables(
-			'woo-prf', 'google-xml-reviewer-id', array(
-				'reviewer_id' => $this->cdata_wrap( (int) $user_id ),
-			)
+			'woo-prf',
+			'google-xml-reviewer-id',
+			array( 'reviewer_id' => $this->cdata_wrap( (int) $user_id ) )
 		);
 	}
 
 	/**
 	 * Return the <product_ids> tag, or empty string of the tag should not be output.
 	 *
-	 * @param  array $item The feed item.
+	 * @param array $item The feed item.
 	 *
 	 * @return string               The tag to be output.
 	 */
@@ -160,7 +158,7 @@ class WoocommercePrfGoogle {
 	/**
 	 * Render the GTINS tag for a product, or an empty string if none available.
 	 *
-	 * @param  array $item The feed item array.
+	 * @param array $item The feed item array.
 	 *
 	 * @return string                 The GTINS tag, or empty string.
 	 */
@@ -179,7 +177,7 @@ class WoocommercePrfGoogle {
 	/**
 	 * Render the MPNS tag for a product, or an empty string if none available.
 	 *
-	 * @param  array $item The feed item array.
+	 * @param array $item The feed item array.
 	 *
 	 * @return string                 The MPNS tag, or empty string.
 	 */
@@ -198,7 +196,7 @@ class WoocommercePrfGoogle {
 	/**
 	 * Render the brands tag for a product, or an empty string if none available.
 	 *
-	 * @param  array $item The feed item array.
+	 * @param array $item The feed item array.
 	 *
 	 * @return string                 The brands tag, or empty string.
 	 */
@@ -208,7 +206,7 @@ class WoocommercePrfGoogle {
 		}
 		$brands = '';
 		foreach ( $item['brands'] as $brand ) {
-			$brands .= $this->tpl->get_template_with_variables( 'woo-prf', 'google-xml-brand', [ 'brand' => $this->cdata_wrap($brand) ] );
+			$brands .= $this->tpl->get_template_with_variables( 'woo-prf', 'google-xml-brand', [ 'brand' => $this->cdata_wrap( $brand ) ] );
 		}
 
 		return $this->tpl->get_template_with_variables( 'woo-prf', 'google-xml-brands', [ 'brands' => $brands ] );
@@ -218,7 +216,7 @@ class WoocommercePrfGoogle {
 	/**
 	 * Render the SKUs tag for a product, or an empty string if none available.
 	 *
-	 * @param  array $item The feed item array.
+	 * @param array $item The feed item array.
 	 *
 	 * @return string                 The SKUs tag, or empty string.
 	 */

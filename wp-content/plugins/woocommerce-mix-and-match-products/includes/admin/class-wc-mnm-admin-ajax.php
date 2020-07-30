@@ -185,9 +185,13 @@ class WC_MNM_Admin_Ajax {
 			if ( is_wp_error( $added_to_order ) ) {
 
 				$message = __( 'The submitted configuration is invalid.', 'woocommerce-mix-and-match-products' );
-				$data    = $added_to_order->get_error_data();
+				$data    = $added_to_order->get_error_data( 'wc_mnm_container_configuration_invalid' );
 
-				$notice = isset( $data[ 'notices' ] ) ? html_entity_decode( current( $data[ 'notices' ] ) ) : '';
+				$notice = '';
+				if ( isset( $data[ 'notices' ] ) ) {
+					$notices = current( $data[ 'notices' ] );
+					$notice = isset( $notices['notice'] ) ? html_entity_decode( $notices['notice'] ) : '';
+				}
 
 				if ( $notice ) {
 					// translators: %1$s is "The submitted configuration is invalid" %2$s is the error reason.

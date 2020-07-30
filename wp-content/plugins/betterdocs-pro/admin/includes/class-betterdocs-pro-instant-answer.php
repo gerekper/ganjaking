@@ -3,6 +3,9 @@
  * BetterDocs_Pro_IA class
  */
 class BetterDocs_Pro_IA {
+
+    const DEV_MODE = false;
+
     /**
      * BetterDocs_Pro_IA instance
      * @var BetterDocs_Pro_IA
@@ -63,17 +66,19 @@ class BetterDocs_Pro_IA {
                     return;
                 }
             }
-            wp_enqueue_style( 
-                'betterdocs-instant-answer', 
-                BETTERDOCS_PRO_PUBLIC_URL . 'modules/instant-answer.css', 
-                array(),  BETTERDOCS_PRO_VERSION, 'all'
-            );
+            if( ! self::DEV_MODE ) {
+                wp_enqueue_style( 
+                    'betterdocs-instant-answer', 
+                    BETTERDOCS_PRO_PUBLIC_URL . 'modules/instant-answer.css', 
+                    array(),  BETTERDOCS_PRO_VERSION, 'all'
+                );
+            }
 
             wp_add_inline_style( 'betterdocs-instant-answer', $this->inline_style() );
 
             wp_enqueue_script( 
                 'betterdocs-instant-answer', 
-                BETTERDOCS_PRO_PUBLIC_URL . 'modules/instant-answer.js', 
+                self::DEV_MODE ? BETTERDOCS_PRO_PUBLIC_URL . 'instant-answer/lib/bundle.js' : BETTERDOCS_PRO_PUBLIC_URL . 'modules/instant-answer.js',
                 array('wp-i18n', 'wp-element', 'wp-hooks', 'wp-util', 'wp-components'), BETTERDOCS_PRO_VERSION, true 
             );
             $enable_instant_answer = BetterDocs_DB::get_settings('enable_disable');
@@ -96,6 +101,7 @@ class BetterDocs_Pro_IA {
 
         if( $this->setNempty( 'ia_accent_color', $settings ) ) {
             $css .= '.betterdocs-conversation-container, .betterdocs-footer-wrapper, .betterdocs-launcher, .betterdocs-ask-wrapper .betterdocs-ask-submit{background-color:' . $settings['ia_accent_color'] . '}';
+            $css .= '.betterdocs-footer-wrapper .bd-ia-feedback-wrap, .betterdocs-footer-wrapper .bd-ia-feedback-response{background-color:' . $settings['ia_accent_color'] . '}';
             $css .= '.betterdocs-header-wrapper .betterdocs-header .inner-container.betterdocs-active-answer .toggle:first-of-type > p, .betterdocs-header-wrapper .betterdocs-header .inner-container.betterdocs-active-ask .toggle:last-of-type > p{color:' . $settings['ia_accent_color'] . '}';
             $css .= '.betterdocs-header-wrapper .betterdocs-header .inner-container.betterdocs-active-answer .toggle:first-of-type svg, .betterdocs-header-wrapper .betterdocs-header .inner-container.betterdocs-active-ask .toggle:last-of-type svg{fill:' . $settings['ia_accent_color'] . '}';
         }
@@ -105,11 +111,11 @@ class BetterDocs_Pro_IA {
         }
 
         if( $this->setNempty( 'ia_luncher_bg', $settings ) ) {
-            $css .= '.betterdocs-widget-container .betterdocs-launcher {background-color:' . $settings['ia_luncher_bg'] . '}';
+            $css .= '.betterdocs-launcher[type=button], .betterdocs-launcher[type=button]:focus {background-color:' . $settings['ia_luncher_bg'] . '}';
         }
         
         if( $this->setNempty( 'ia_luncher_bg_hover', $settings ) ) {
-            $css .= '.betterdocs-widget-container .betterdocs-launcher:hover {background-color:' . $settings['ia_luncher_bg_hover'] . '}';
+            $css .= '.betterdocs-launcher[type=button]:hover {background-color:' . $settings['ia_luncher_bg_hover'] . '}';
         }
 
         if( $this->setNempty( 'ia_heading_color', $settings ) ) {
@@ -129,7 +135,7 @@ class BetterDocs_Pro_IA {
         }
 
         if( $this->setNempty( 'ia_searchbox_bg', $settings ) ) {
-            $css .= '.betterdocs-search-bar, .MuiPaper-root, .betterdocs-search-bar .betterdocs-search-wrap .betterdocs-search-container input{background-color:' . $settings['ia_searchbox_bg'] . '}';
+            $css .= '.betterdocs-search-wrap.MuiPaper-root, .betterdocs-search-bar .betterdocs-search-wrap .betterdocs-search-container input{background-color:' . $settings['ia_searchbox_bg'] . '}';
         }
 
         if( $this->setNempty( 'ia_searchbox_text', $settings ) ) {
@@ -137,7 +143,7 @@ class BetterDocs_Pro_IA {
         }
 
         if( $this->setNempty( 'ia_searchbox_icon_color', $settings ) ) {
-            $css .= '.betterdocs-search-icon{fill:' . $settings['ia_searchbox_icon_color'] . '}';
+            $css .= '.betterdocs-search-bar .betterdocs-search-wrap .betterdocs-search-icon {fill:' . $settings['ia_searchbox_icon_color'] . '}';
         }
 
         if( $this->setNempty( 'iac_article_bg', $settings ) ) {
@@ -176,9 +182,25 @@ class BetterDocs_Pro_IA {
             $css .= '.betterdocs-footer-wrapper .betterdocs-footer-emo > div { width:' . ( intval( $settings['ia_feedback_icon_size'] ) * 2 ) . 'px; height: '. ( intval( $settings['ia_feedback_icon_size'] ) * 2 ) .'px}';
             $css .= '.betterdocs-footer-wrapper .betterdocs-emo { width:' . $settings['ia_feedback_icon_size'] . 'px; height: '. $settings['ia_feedback_icon_size'] .'px}';
         }
+
+        if( $this->setNempty( 'ia_response_icon_size', $settings ) ) {
+            $css .= '.betterdocs-footer-wrapper .bd-ia-feedback-response .feedback-success-icon {width: '.$settings['ia_response_icon_size'].'px}';
+        }
+
+        if( $this->setNempty('ia_response_icon_color', $settings) ) {
+            $css .= '.betterdocs-footer-wrapper .bd-ia-feedback-response .feedback-success-icon {fill: '.$settings['ia_response_icon_color'].'}';
+        }
+
+        if( $this->setNempty( 'ia_response_title_size', $settings ) ) {
+            $css .= '.betterdocs-footer-wrapper .bd-ia-feedback-response .feedback-success-title {font-size: '.$settings['ia_response_title_size'].'px}';
+        }
+
+        if( $this->setNempty('ia_response_title_color', $settings) ) {
+            $css .= '.betterdocs-footer-wrapper .bd-ia-feedback-response .feedback-success-title {color: '.$settings['ia_response_title_color'].'}';
+        }
         
         if( $this->setNempty( 'ia_ask_bg_color', $settings ) ) {
-            $css .= '.betterdocs-ask-wrapper input:not([type="submit"]), .betterdocs-ask-wrapper textarea, .betterdocs-ask-wrapper .betterdocs-ask-submit { background-color: '.  $settings['ia_ask_bg_color'] .'}';
+            $css .= '.betterdocs-tab-ask .betterdocs-ask-wrapper input[type="text"], .betterdocs-tab-ask .betterdocs-ask-wrapper input[type="email"], .betterdocs-tab-ask .betterdocs-ask-wrapper textarea { background-color: '.  $settings['ia_ask_bg_color'] .'}';
         }     
 
         if( $this->setNempty( 'ia_ask_send_button_bg', $settings ) ) {
@@ -216,9 +238,9 @@ class BetterDocs_Pro_IA {
      */
     public function jsObject( $settings ) {
         $url = $this->make_url( $settings );
-        $search_url = $this->make_url( $settings, 'true' );
+        
 
-        $answer_settings = $chat_settings = $launcher_settings = $thanks_settings = $branding_settings = array();
+        $search_settings = $answer_settings = $chat_settings = $launcher_settings = $thanks_settings = $branding_settings = $response_settings = array();
 
         $answer_tab_title    = $this->setNempty( 'answer_tab_title', $settings ) ? $settings['answer_tab_title'] : __( 'Answer', 'betterdocs-pro' );
         $answer_tab_subtitle = $this->setNempty( 'answer_tab_subtitle', $settings ) ? $settings['answer_tab_subtitle'] : __( 'Instant Answer', 'betterdocs-pro' );
@@ -244,10 +266,31 @@ class BetterDocs_Pro_IA {
         if( ! empty( $launcher_close_icon ) && ! empty( $launcher_close_icon['url'] ) ) {
             $launcher_settings['close_icon'] = $launcher_close_icon['url'];
         }
+
+        $search_switch = $this->setNempty( 'search_visibility_switch', $settings ) ? $settings['search_visibility_switch'] : [];
+        if( ! empty( $search_switch ) && $search_switch === '1' ) {
+            $search_settings['show'] = false;
+        }
+
+        $search_url = $this->make_url( $settings, 'true' );
+        $search_settings['SEARCH_URL'] = $search_url;
+
+        $search_placeholder = $this->setNempty( 'search_placeholder_text', $settings ) ? $settings['search_placeholder_text'] : __( 'Search...', 'betterdocs-pro' );
+        $search_settings['SEARCH_PLACEHOLDER'] = $search_placeholder;
         
+        $answer_tab_switch = $this->setNempty( 'answer_tab_visibility_switch', $settings ) ? $settings['answer_tab_visibility_switch'] : [];
+        if( ! empty( $answer_tab_switch ) && $answer_tab_switch === '1' ) {
+            $answer_settings['show'] = false;
+        }
+
         $answer_tab_icon   = $this->setNempty( 'answer_tab_icon', $settings ) ? $settings['answer_tab_icon'] : [];
         if( ! empty( $answer_tab_icon ) && ! empty( $answer_tab_icon['url'] ) ) {
             $answer_settings['icon'] = $answer_tab_icon['url'];
+        }
+
+        $chat_tab_switch = $this->setNempty( 'chat_tab_visibility_switch', $settings ) ? $settings['chat_tab_visibility_switch'] : [];
+        if( ! empty( $chat_tab_switch ) && $chat_tab_switch === '1' ) {
+            $chat_settings['show'] = false;
         }
 
         $chat_tab_icon   = $this->setNempty( 'chat_tab_icon', $settings ) ? $settings['chat_tab_icon'] : [];
@@ -260,6 +303,19 @@ class BetterDocs_Pro_IA {
             $branding_settings['show'] = false;
         }
 
+        $disable_response   = $this->setNempty( 'disable_response', $settings ) ? $settings['disable_response'] : [];
+        if( ! empty( $disable_response ) && $disable_response === '1' ) {
+            $response_settings['show'] = false;
+        }
+
+        $response_settings['title'] = $this->setNempty( 'response_title', $settings ) ? $settings['response_title'] : __( 'Thanks for the feedback', 'betterdocs-pro' );
+
+        $disable_response_icon   = $this->setNempty( 'disable_response_icon', $settings ) ? $settings['disable_response_icon'] : [];
+        if( ! empty( $disable_response_icon ) && $disable_response_icon === '1' ) {
+            $response_settings['icon']['show'] = false;
+        }
+        
+
         $answer_settings['label'] = $answer_tab_title;
         $answer_settings['subtitle'] = $answer_tab_subtitle;
         
@@ -270,18 +326,19 @@ class BetterDocs_Pro_IA {
         $disable_reaction = $this->setNempty( 'disable_reaction', $settings ) ? $this->bdocs_settings['disable_reaction'] : '';
         $reaction = $disable_reaction == 1 ? false : true;
         $reaction_title = $this->setNempty( 'reaction_title', $settings ) ? $this->bdocs_settings['reaction_title'] : esc_html__('How did you feel?','betterdocs-pro');
+
         $instant_answer = array(
             'CHAT' => $chat_settings,
             'ANSWER' => $answer_settings,
             'URL' => $url,
-            'SEARCH_URL' => $search_url,
-            'SEARCH_PLACEHOLDER' => esc_html__('Search','betterdocs-pro'),
+            'SEARCH'    => $search_settings,
             'FEEDBACK' => array(
                 'DISPLAY' => $reaction,
                 'SUCCESS' => esc_html__('Thanks for your feedback','betterdocs-pro'),
                 'TEXT'    => $reaction_title,
                 'URL'     => home_url() . '?rest_route=/betterdocs/feedback',
             ),
+            'RESPONSE'  => $response_settings,
             'ASKFORM' => array(
                 'NAME'     => esc_html__('Name','betterdocs-pro'),
                 'EMAIL'    => esc_html__('Email Address','betterdocs-pro'),
@@ -563,6 +620,54 @@ class BetterDocs_Pro_IA {
                                     'label'    => __('Instant Answer Close Icon' , 'betterdocs-pro'),
                                     'priority' => 2,
                                 ),
+                                'search_visibility_switch'  => array(
+                                    'type' => 'checkbox',
+                                    'label' => __('Disable Search', 'betterdocs-pro'),
+                                    'priority' => 2,
+                                    'hide'    => [
+                                        1 => [
+                                            'fields'    => [
+                                                'search_placeholder_text'
+                                            ]
+                                        ]
+                                    ],
+                                    'dependency'    => [
+                                        0 => [
+                                            'fields'    => [
+                                                'search_placeholder_text'
+                                            ]
+                                        ]
+                                    ]
+                                ),
+                                'search_placeholder_text' => array(
+                                    'type'     => 'text',
+                                    'label'    => __('Search Placeholder' , 'betterdocs-pro'),
+                                    'priority' => 2,
+                                    'default'  => __( 'Search...', 'betterdocs-pro' )
+                                ),
+                                'answer_tab_visibility_switch' => array(
+                                    'type' => 'checkbox',
+                                    'label' => __('Disable Answer Tab', 'betterdocs-pro'),
+                                    'priority' => 3,
+                                    'hide'    => [
+                                        1 => [
+                                            'fields'    => [
+                                                'answer_tab_icon',
+                                                'answer_tab_title',
+                                                'answer_tab_subtitle'
+                                            ]
+                                        ]
+                                    ],
+                                    'dependency'    => [
+                                        0 => [
+                                            'fields'    => [
+                                                'answer_tab_icon',
+                                                'answer_tab_title',
+                                                'answer_tab_subtitle'
+                                            ]
+                                        ]
+                                    ]
+                                ),
                                 'answer_tab_icon' => array(
                                     'type'     => 'media',
                                     'label'    => __('Instant Answer Tab Icon' , 'betterdocs-pro'),
@@ -579,6 +684,31 @@ class BetterDocs_Pro_IA {
                                     'label'    => __('Instant Answer Tab Subtitle' , 'betterdocs-pro'),
                                     'priority' => 5,
                                     'default'  => __( 'Instant Answer', 'betterdocs-pro' )
+                                ),
+                                'chat_tab_visibility_switch' => array(
+                                    'type' => 'checkbox',
+                                    'label' => __('Disable Chat Tab', 'betterdocs-pro'),
+                                    'priority' => 6,
+                                    'hide'  => [
+                                        1   => [
+                                            'fields'    => [
+                                                'chat_tab_icon',
+                                                'chat_tab_title',
+                                                'chat_subtitle_one',
+                                                'chat_subtitle_two'
+                                            ]
+                                        ]
+                                    ],
+                                    'dependency'    => [
+                                        0   => [
+                                            'fields'    => [
+                                                'chat_tab_icon',
+                                                'chat_tab_title',
+                                                'chat_subtitle_one',
+                                                'chat_subtitle_two'
+                                            ]
+                                        ]
+                                    ]
                                 ),
                                 'chat_tab_icon' => array(
                                     'type'     => 'media',
@@ -605,8 +735,36 @@ class BetterDocs_Pro_IA {
                                 ),
                                 'disable_reaction' => array(
                                     'type'     => 'checkbox',
-                                    'label'    => __('Disabled Reaction' , 'betterdocs-pro'),
+                                    'label'    => __('Disable Reaction' , 'betterdocs-pro'),
                                     'priority' => 10,
+                                    'hide'      => [
+                                        1   => [
+                                            'fields'    => [
+                                                'reaction_title',
+                                                'disable_response',
+                                                'response_title',
+                                                'disable_response_icon',
+                                                'ia_response_icon_size',
+                                                'ia_response_icon_color',
+                                                'ia_response_title_size',
+                                                'ia_response_title_color'
+                                            ]
+                                        ]
+                                    ],
+                                    'dependency'    => [
+                                        0 => [
+                                            'fields'    => [
+                                                'reaction_title',
+                                                'disable_response',
+                                                'response_title',
+                                                'disable_response_icon',
+                                                'ia_response_icon_size',
+                                                'ia_response_icon_color',
+                                                'ia_response_title_size',
+                                                'ia_response_title_color'
+                                            ]
+                                        ]
+                                    ]
                                 ),
                                 'reaction_title' => array(
                                     'type'     => 'text',
@@ -614,9 +772,49 @@ class BetterDocs_Pro_IA {
                                     'priority' => 11,
                                     'default'  => __( 'How did you feel?', 'betterdocs-pro' )
                                 ),
+                                'disable_response' => array(
+                                    'type'     => 'checkbox',
+                                    'label'    => __('Disable Response' , 'betterdocs-pro'),
+                                    'priority' => 10,
+                                    'hide'  => [
+                                        1   => [
+                                            'fields'    => [
+                                                'response_title',
+                                                'disable_response_icon',
+                                                'ia_response_icon_size',
+                                                'ia_response_icon_color',
+                                                'ia_response_title_size',
+                                                'ia_response_title_color'
+                                            ]
+                                        ]
+                                    ],
+                                    'dependency'    => [
+                                        0   => [
+                                            'fields'    => [
+                                                'response_title',
+                                                'disable_response_icon',
+                                                'ia_response_icon_size',
+                                                'ia_response_icon_color',
+                                                'ia_response_title_size',
+                                                'ia_response_title_color'
+                                            ]
+                                        ]
+                                    ]
+                                ),
+                                'response_title' => array(
+                                    'type'     => 'text',
+                                    'label'    => __('Response Title' , 'betterdocs-pro'),
+                                    'priority' => 11,
+                                    'default'  => __( 'Thanks for the feedback', 'betterdocs-pro' )
+                                ),
+                                'disable_response_icon' => array(
+                                    'type'     => 'checkbox',
+                                    'label'    => __('Disable Response Icon' , 'betterdocs-pro'),
+                                    'priority' => 10,
+                                ),
                                 'disable_branding' => array(
                                     'type'     => 'checkbox',
-                                    'label'    => __('Disabled Branding' , 'betterdocs-pro'),
+                                    'label'    => __('Disable Branding' , 'betterdocs-pro'),
                                     'priority' => 12,
                                 ),
                                 'chat_position' => array(
@@ -701,11 +899,6 @@ class BetterDocs_Pro_IA {
                                     'label'       => __('Search Box Foreground Color' , 'betterdocs-pro'),
                                     'priority'    => 2,
                                 ),
-                                'ia_searchbox_button' => array(
-                                    'type'        => 'colorpicker',
-                                    'label'       => __('Search Box Button Hover BG Color' , 'betterdocs-pro'),
-                                    'priority'    => 2,
-                                ),
                                 'iac_article_bg' => array(
                                     'type'        => 'colorpicker',
                                     'label'       => __('Article Card Background' , 'betterdocs-pro'),
@@ -732,7 +925,7 @@ class BetterDocs_Pro_IA {
                                     'priority'    => 5
                                 ),
                                 'ia_feedback_title_size' => array(
-                                    'type'        => 'text',
+                                    'type'        => 'number',
                                     'label'       => __('Feedback Title Size' , 'betterdocs-pro'),
                                     'priority'    => 5
                                 ),
@@ -749,6 +942,26 @@ class BetterDocs_Pro_IA {
                                 'ia_feedback_icon_color' => array(
                                     'type'        => 'colorpicker',
                                     'label'       => __('Feedback Icon Color' , 'betterdocs-pro'),
+                                    'priority'    => 5
+                                ),
+                                'ia_response_icon_size' => array(
+                                    'type'        => 'number',
+                                    'label'       => __('Response Icon Size' , 'betterdocs-pro'),
+                                    'priority'    => 5
+                                ),
+                                'ia_response_icon_color' => array(
+                                    'type'        => 'colorpicker',
+                                    'label'       => __('Response Icon Color' , 'betterdocs-pro'),
+                                    'priority'    => 5
+                                ),
+                                'ia_response_title_size' => array(
+                                    'type'        => 'number',
+                                    'label'       => __('Response Title Size' , 'betterdocs-pro'),
+                                    'priority'    => 5
+                                ),
+                                'ia_response_title_color' => array(
+                                    'type'        => 'colorpicker',
+                                    'label'       => __('Response Title Color' , 'betterdocs-pro'),
                                     'priority'    => 5
                                 ),
                                 'ia_ask_bg_color' => array(
@@ -967,7 +1180,8 @@ class BetterDocs_Pro_IA {
     }
 
     public function register_api_endpoint() {
-        remove_filter('rest_pre_serve_request', 'rest_send_cors_headers');
+        // FIXME: Incase if we need to remove default cors header from WP itself.
+        // remove_filter('rest_pre_serve_request', 'rest_send_cors_headers');
         register_rest_route( $this->namespace, '/ask', array(
             'methods'   => 'POST',
             'callback'  => array( $this, 'send_asked_mail' ),

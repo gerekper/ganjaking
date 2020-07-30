@@ -2,10 +2,6 @@
 
 class WoocommerceGpfFeedGoogleLocalProducts extends WoocommerceGpfFeedGoogle {
 
-	public function __construct() {
-		parent::__construct();
-	}
-
 	/*
 	 * Output the "title" element in the feed intro.
 	 */
@@ -22,7 +18,7 @@ class WoocommerceGpfFeedGoogleLocalProducts extends WoocommerceGpfFeedGoogle {
 	 */
 	protected function generate_item_id( $feed_item ) {
 		return '      <g:itemid>' . $feed_item->guid . "</g:itemid>\n" .
-		       '      <g:webitemid>' . $feed_item->guid . "</g:webitemid>\n";
+			   '      <g:webitemid>' . $feed_item->guid . "</g:webitemid>\n";
 	}
 
 	/**

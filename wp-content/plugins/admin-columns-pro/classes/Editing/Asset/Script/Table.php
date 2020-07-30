@@ -4,10 +4,8 @@ namespace ACP\Editing\Asset\Script;
 
 use AC\Asset\Location;
 use AC\Asset\Script;
-use AC\Column;
 use AC\ListScreen;
-use ACP\Editing\Editable;
-use ACP\Editing\HideOnScreen;
+use AC\Request;
 use ACP\Editing\Preference;
 use WP_List_Table;
 
@@ -19,41 +17,47 @@ final class Table extends Script {
 	private $list_screen;
 
 	/**
-	 * @var Column[]
+	 * @var array
 	 */
-	private $editable_columns;
+	private $editable_data;
 
 	/**
 	 * @var Preference\EditState
 	 */
 	private $edit_state;
 
+	/**
+	 * @var Request
+	 */
+	private $request;
+
 	public function __construct(
 		$handle,
 		Location $location,
 		ListScreen $list_screen,
-		array $editable_columns,
-		Preference\EditState $edit_state
+		array $editable_data,
+		Preference\EditState $edit_state,
+		Request $request
 	) {
 		parent::__construct( $handle, $location, [ 'jquery' ] );
 
 		$this->list_screen = $list_screen;
-		$this->editable_columns = $editable_columns;
+		$this->editable_data = $editable_data;
 		$this->edit_state = $edit_state;
+		$this->request = $request;
 	}
 
 	public function register() {
-		/** @var WP_List_Table $wp_list_table */
-		global $wp_list_table;
-
 		parent::register();
+
+		global $wp_list_table;
 
 		$total_items = $wp_list_table instanceof WP_List_Table
 			? $wp_list_table->get_pagination_arg( 'total_items' )
 			: false;
 
 		// Allow JS to access the column data for this list screen on the edit page
-		wp_localize_script( $this->get_handle(), 'ACP_Editing_Columns', $this->get_editable_data() );
+		wp_localize_script( $this->get_handle(), 'ACP_Editing_Columns', $this->editable_data );
 		wp_localize_script( $this->get_handle(), 'ACP_Editing', [
 			'inline_edit' => [
 				'persistent' => $this->is_persistent_editing(),
@@ -90,6 +94,7 @@ final class Table extends Script {
 				'add'           => __( 'Add', 'codepress-admin-columns' ),
 				'remove'        => __( 'Remove', 'codepress-admin-columns' ),
 				'bulk_edit'     => [
+					'bulk_edit' => __( 'Bulk Edit', 'codepress-admin-columns' ),
 					'selecting' => [
 						'select_all'    => __( 'Select all {0} entries', 'codepress-admin-columns' ),
 						'selected'      => __( '<strong>{0} entries</strong> selected for Bulk Edit.', 'codepress-admin-columns' ),
@@ -112,82 +117,6 @@ final class Table extends Script {
 				],
 			],
 		] );
-	}
-
-	/**
-	 * @return array
-	 */
-	private function get_editable_data() {
-		$editable_data = [];
-
-		foreach ( $this->editable_columns as $column ) {
-			if ( ! $column instanceof Editable ) {
-				continue;
-			}
-
-			$data = $column->editing()->get_view_settings();
-
-			$data = apply_filters( 'acp/editing/view_settings', $data, $column );
-			$data = apply_filters( 'acp/editing/view_settings/' . $column->get_type(), $data, $column );
-
-			if ( false === $data ) {
-				continue;
-			}
-
-			if ( isset( $data['options'] ) ) {
-				$data['options'] = $this->format_js( $data['options'] );
-			}
-
-			$is_bulk_editable = $column->editing()->is_bulk_edit_active();
-
-			if ( ( new HideOnScreen\BulkEdit() )->is_hidden( $this->list_screen ) ) {
-				$is_bulk_editable = false;
-			}
-
-			if ( $is_bulk_editable ) {
-				$is_bulk_editable = (bool) apply_filters( 'acp/editing/bulk/active', $is_bulk_editable, $this->list_screen );
-			}
-
-			$is_inline_editable = $column->editing()->is_active();
-
-			if ( ( new HideOnScreen\InlineEdit() )->is_hidden( $this->list_screen ) ) {
-				$is_inline_editable = false;
-			}
-
-			$editable_data[ $column->get_name() ] = [
-				'type'        => $column->get_type(),
-				'editable'    => $data,
-				'inline_edit' => $is_inline_editable,
-				'bulk_edit'   => $is_bulk_editable,
-			];
-		}
-
-		return $editable_data;
-	}
-
-	/**
-	 * @param $list
-	 *
-	 * @return array
-	 */
-	private function format_js( $list ) {
-		$options = [];
-
-		if ( $list ) {
-			foreach ( $list as $index => $option ) {
-				if ( is_array( $option ) && isset( $option['options'] ) ) {
-					$option['options'] = $this->format_js( $option['options'] );
-					$options[] = $option;
-				} else if ( is_scalar( $option ) ) {
-					$options[] = [
-						'value' => $index,
-						'label' => html_entity_decode( $option ),
-					];
-				}
-			}
-		}
-
-		return $options;
 	}
 
 	private function is_persistent_editing() {

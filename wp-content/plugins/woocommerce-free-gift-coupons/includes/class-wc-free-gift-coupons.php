@@ -22,7 +22,7 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 	 *
 	 * @var string
 	 */
-	public static $version = '2.5.0';
+	public static $version = '2.5.2';
 
 	/**
 	 * The required WooCommerce version
@@ -43,24 +43,6 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 
 		// Make translation-ready.
 		add_action( 'init', array( __CLASS__, 'load_textdomain_files' ) );
-
-		// Check we're running the required version of WC.
-		if ( ! self::wc_is_version( self::$required_woo ) ) {
-			/* translators: %1$s: Opening link tag, %2$s: Closing link tag, %3$s: Required version of WooCommerce */
-			$notice = sprintf( __( '<strong>WooCommerce Free Gift Coupons is inactive.</strong> The %1$sWooCommerce plugin%2$s must be active and at least version %3$s for Free Gift Coupons to function. Please upgrade or activate WooCommerce.', 'wc_free_gift_coupons' ), '<a href="http://wordpress.org/extend/plugins/woocommerce/">', '</a>', self::$required_woo );
-			include_once  'admin/class-wc-free-gift-coupons-admin-notices.php' ;
-			WC_Free_Gift_Coupons_Admin_Notices::add_notice( $notice, 'error' );
-			return false;
-		}
-
-		// PHP version check.
-		if ( ! function_exists( 'phpversion' ) || version_compare( phpversion(), '5.6.20', '<' ) ) {
-			/* translators: %1$s: Opening link tag, %2$s: Closing link tag, %3$s: Required version of PHP */
-			$notice = sprintf( __( 'WooCommerce Free Gift Coupons requires at least PHP <strong>%1$s</strong>. Learn <a href="%2$s">how to update PHP</a>.', 'wc_free_gift_coupons' ), '5.6.20', 'https://docs.woocommerce.com/document/how-to-update-your-php-version/' );
-			include_once  'admin/class-wc-free-gift-coupons-admin-notices.php' ;
-			WC_Free_Gift_Coupons_Admin_Notices::add_notice( $notice, 'error' );
-			return false;
-		}
 
 		// Add the free_gift coupon type.
 		add_filter( 'woocommerce_coupon_discount_types', array( __CLASS__, 'discount_types' ) );

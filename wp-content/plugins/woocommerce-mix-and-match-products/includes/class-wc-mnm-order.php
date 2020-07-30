@@ -253,18 +253,29 @@ class WC_Mix_and_Match_Order {
 						if( apply_filters( 'woocommerce_mnm_order_item_legacy_part_of_meta', false, $child_order_item ) ) {
 							// Use "Purchased with" to imply that item is physically shipped separately from its container.
 							// Use "Part of" to imply that item is physically assembled or packaged in its container.
-							$part_of_meta_name = $needs_shipping ? __( 'Purchased with', 'woocommerce-mix-and-match-products' ) : __( 'Part of', 'woocommerce-mix-and-match-products' );
+							$part_of_meta_name = $child_product->needs_shipping() ? 'mnm_purchased_with' : 'mnm_part_of';
 
-							/**
-							 * "Part Of" Meta Name.
-							 *
-							 * @param  string   	  $part_of_meta_name
-							 * @param  array          $cart_item_values
-				 			 * @param  string         $cart_item_key
-							 */	
-							$part_of_meta_name = apply_filters( 'woocommerce_mnm_order_item_part_of_meta_name', $part_of_meta_name, $cart_item_values, $cart_item_key );
 
-							$child_order_item->add_meta_data( $part_of_meta_name, $container->get_title(), true );
+							if ( has_filter( 'woocommerce_mnm_order_item_part_of_meta_name' ) ) {
+
+								$msg = __( 'woocommerce_mnm_order_item_part_of_meta_name filter is deprecated. You should filter the meta label via woocommerce_order_item_display_meta_key instead.', 'woocommerce-mix-and-match-products' );
+								wc_doing_it_wrong( 'woocommerce_mnm_order_item_part_of_meta_name', $msg, '1.10.0' );
+
+								/**
+								 * "Part Of" Meta Name.
+								 *
+								 * @param  string   	  $part_of_meta_name
+								 * @param  array          $cart_item_values
+					 			 * @param  string         $cart_item_key
+								 */	
+								$part_of_meta_name = apply_filters( 'woocommerce_mnm_order_item_part_of_meta_name', $part_of_meta_name, $cart_item_values, $cart_item_key );
+
+							}
+
+							if ( $part_of_meta_name ) {
+								$child_order_item->add_meta_data( $part_of_meta_name, $container->get_title(), true );
+							}
+	
 						}
 
 						// If any children need processing, the container needs processing. Mimic mnm_items_need_processing without cart.
@@ -350,7 +361,8 @@ class WC_Mix_and_Match_Order {
 				$container_size_meta_value = apply_filters( 'woocommerce_mnm_order_item_container_size_meta_value', $container_size_meta_value, $container_order_item->get_id(), $child_item_args, $child_item_hash );
 
 				if ( $container_size_meta_value ) {
-					$container_order_item->add_meta_data( __( 'Container size', 'woocommerce-mix-and-match-products' ), $container_size_meta_value, true );
+					$container_order_item->add_meta_data( 'mnm_container_size', $container_size_meta_value, true );
+					//$container_order_item->add_meta_data( __( 'Container size', 'woocommerce-mix-and-match-products' ), $container_size_meta_value, true );
 				}
 
 				$container_order_item->add_meta_data( '_mnm_config', $configuration, true );
@@ -971,20 +983,28 @@ class WC_Mix_and_Match_Order {
 				/*
 				 * Version 1.5.0 stops saving this string by default, set filter to true to continue saving/displaying it.
 				 */
-				if( apply_filters( 'woocommerce_mnm_order_item_legacy_part_of_meta', false, $order_item ) ) {
+				if ( apply_filters( 'woocommerce_mnm_order_item_legacy_part_of_meta', false, $order_item ) ) {
 					// Use "Purchased with" to imply that item is physically shipped separately from its container.
 					// Use "Part of" to imply that item is physically assembled or packaged in its container.
-					$part_of_meta_name = $needs_shipping ? __( 'Purchased with', 'woocommerce-mix-and-match-products' ) : __( 'Part of', 'woocommerce-mix-and-match-products' );
+					$part_of_meta_name = $needs_shipping ? 'mnm_purchased_with' : 'mnm_part_of';
+
 				}
 
-				/**
-				 * "Part Of" Meta Name.
-				 *
-				 * @param  string   	  $part_of_meta_name
-				 * @param  array          $cart_item_values
-	 			 * @param  string         $cart_item_key
-				 */	
-				$part_of_meta_name = apply_filters( 'woocommerce_mnm_order_item_part_of_meta_name', $part_of_meta_name, $cart_item_values, $cart_item_key );
+				if ( has_filter( 'woocommerce_mnm_order_item_part_of_meta_name' ) ) {
+
+					$msg = __( 'woocommerce_mnm_order_item_part_of_meta_name filter is deprecated. You should filter the meta label via woocommerce_order_item_display_meta_key instead.', 'woocommerce-mix-and-match-products' );
+					wc_doing_it_wrong( 'woocommerce_mnm_order_item_part_of_meta_name', $msg, '1.10.0' );
+
+					/**
+					 * "Part Of" Meta Name.
+					 *
+					 * @param  string   	  $part_of_meta_name
+					 * @param  array          $cart_item_values
+		 			 * @param  string         $cart_item_key
+					 */	
+					$part_of_meta_name = apply_filters( 'woocommerce_mnm_order_item_part_of_meta_name', $part_of_meta_name, $cart_item_values, $cart_item_key );
+
+				}
 
 				if ( $part_of_meta_name ) {
 					$order_item->add_meta_data( $part_of_meta_name, $container[ 'data' ]->get_title(), true );
@@ -1022,7 +1042,7 @@ class WC_Mix_and_Match_Order {
 			$container_size_meta_value = apply_filters( 'woocommerce_mnm_order_item_container_size_meta_value', $container_size_meta_value, $order_item->get_id(), $cart_item_values, $cart_item_key );
 
 			if ( $container_size_meta_value ) {
-				$order_item->add_meta_data( __( 'Container size', 'woocommerce-mix-and-match-products' ), $container_size_meta_value, true );
+				$order_item->add_meta_data( 'mnm_container_size', $container_size_meta_value, true );
 			}
 
 			$order_item->add_meta_data( '_mnm_config', $cart_item_values[ 'mnm_config' ], true );

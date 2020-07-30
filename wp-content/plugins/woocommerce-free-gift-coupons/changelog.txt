@@ -1,5 +1,11 @@
 === WooCommerce Free Gift Coupons ===
 
+2020.07.22 - version 2.5.2
+* Fix: Move environment testing to before including any other files. Fixes fatal error when WooCommerce is not active.
+
+2020.07.09 - version 2.5.1
+* Update: Tested against WooCommerce 4.3.0.
+
 2020.06.30 - version 2.5.0
 * New: Revise `get_gift_data()` to always include product object in 'data' key.
 * New: Only attempt to add the free gift to the cart if it is purchasable.

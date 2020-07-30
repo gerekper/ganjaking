@@ -4,9 +4,6 @@ namespace ACP\Search\Middleware;
 
 class Rules {
 
-	/**
-	 * @inheritDoc
-	 */
 	public function __invoke( array $rules ) {
 		$mapping = (object) [
 			'operator'   => new Mapping\Operator(),

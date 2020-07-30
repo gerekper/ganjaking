@@ -789,6 +789,14 @@ if ( ! class_exists( 'RSAdvancedSetting' ) ) {
                     ) ,
                 ) ,
                 array(
+                    'name'    => __( 'Set the Hook Priority to display Redeemed Points Label in Cart & Checkout' , SRP_LOCALE ) ,
+                    'id'      => 'rs_change_coupon_priority_value' ,
+                    'std'     => '1' ,
+                    'default' => '1' ,
+                    'type'    => 'number' ,
+                    'newids'  => 'rs_change_coupon_priority_value' ,
+                ) ,
+                array(
                     'name'     => __( 'Load SUMO Reward Points Script/Styles in' , SRP_LOCALE ) ,
                     'desc'     => __( 'For Footer of the Site Option is experimental why because if your theme doesn\'t contain wp_footer hook then it won\'t work' , SRP_LOCALE ) ,
                     'id'       => 'rs_load_script_styles' ,

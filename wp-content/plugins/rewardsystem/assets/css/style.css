@@ -172,28 +172,28 @@ a.rs_custom_social_icon_a:hover{
     text-decoration: none !important;
 }
 a.rs_custom_social_icon_a .rs_custom_fblike_button,a.rs_custom_social_icon_a rs_custom_fblike_button:hover{
-    background:#3b5998 url('../../../rewardsystem/assets/images/facebook_like_icon.png') no-repeat 7px center !important;
+    background:#3b5998 url('../../../rewardsystem/assets/images/facebook_like_icon.png') no-repeat 7px center ;
 }
 a.rs_custom_social_icon_a .rs_custom_fbshare_button,a.rs_custom_social_icon_a rs_custom_fbshare_button:hover{
-    background:#3b5998 url('../../../rewardsystem/assets/images/facebook_icon.png') no-repeat 7px center !important;
+    background:#3b5998 url('../../../rewardsystem/assets/images/facebook_icon.png') no-repeat 7px center ;
 }
 a.rs_custom_social_icon_a .rs_custom_tweet_button,a.rs_custom_social_icon_a rs_custom_tweet_button:hover{
-    background:#38A1F3 url('../../../rewardsystem/assets/images/twitter_icon.png') no-repeat 7px center !important;
+    background:#38A1F3 url('../../../rewardsystem/assets/images/twitter_icon.png') no-repeat 7px center ;
 }
 a.rs_custom_social_icon_a .rs_custom_tweetfollow_button,a.rs_custom_social_icon_a rs_custom_tweetfollow_button:hover{
-    background:#38A1F3 url('../../../rewardsystem/assets/images/twitter_icon.png') no-repeat 7px center !important;
+    background:#38A1F3 url('../../../rewardsystem/assets/images/twitter_icon.png') no-repeat 7px center ;
 }
 a.rs_custom_social_icon_a .rs_custom_gplus_button,a.rs_custom_social_icon_a rs_custom_gplus_button:hover{
-    background:#DD4B39 url('../../../rewardsystem/assets/images/google_plus_icon.png') no-repeat 7px center !important;
+    background:#DD4B39 url('../../../rewardsystem/assets/images/google_plus_icon.png') no-repeat 7px center ;
 }
 a.rs_custom_social_icon_a .rs_custom_vklike_button,a.rs_custom_social_icon_a rs_custom_vklike_button:hover{
-    background:#4c75a3 url('../../../rewardsystem/assets/images/vk_icon.png') no-repeat 7px center !important;
+    background:#4c75a3 url('../../../rewardsystem/assets/images/vk_icon.png') no-repeat 7px center ;
 }
 a.rs_custom_social_icon_a .rs_custom_instagram_button,a.rs_custom_social_icon_a rs_custom_instagram_button:hover{
-    background:#c32aa3 url('../../../rewardsystem/assets/images/instagram_icon.png') no-repeat 7px center !important;
+    background:#c32aa3 url('../../../rewardsystem/assets/images/instagram_icon.png') no-repeat 7px center ;
 }
 a.rs_custom_social_icon_a .rs_custom_ok_button,a.rs_custom_social_icon_a rs_custom_ok_button:hover{
-    background:#ed812b url('../../../rewardsystem/assets/images/ok_ru_icon.png') no-repeat 7px center !important;
+    background:#ed812b url('../../../rewardsystem/assets/images/ok_ru_icon.png') no-repeat 7px center ;
 }
 /*Custom Button CSS - End*/
 

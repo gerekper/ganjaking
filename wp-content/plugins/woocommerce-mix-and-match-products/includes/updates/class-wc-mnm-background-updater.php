@@ -99,10 +99,10 @@ class WC_MNM_Background_Updater extends WP_Background_Process {
 	/**
 	 * Is the updater queue empty?
 	 *
-	 * @return bool
+	 * @return boolean
 	 */
-	public function is_updating() {
-		return false === $this->is_queue_empty();
+	public function is_update_queued() {
+		return ! empty( $this->data ) || false === $this->is_queue_empty();
 	}
 
 	/**
@@ -167,6 +167,9 @@ class WC_MNM_Background_Updater extends WP_Background_Process {
 			wc_get_logger()->log( 'info', $message, 'wc_mnm_db_updates' );
 
 		} else {
+
+			$result = false; 
+
 			wc_get_logger()->log( 'notice', sprintf( '- Could not find %s callback.', $callback ), 'wc_mnm_db_updates' );
 		}
 
@@ -179,5 +182,17 @@ class WC_MNM_Background_Updater extends WP_Background_Process {
 	protected function complete() {
 		WC_MNM_Install::update_complete();
 		parent::complete();
+	}
+
+
+	/**
+	 * Is the updater queue empty?
+	 *
+	 * @deprecated 1.10.0
+	 * @return bool
+	 */
+	public function is_updating() {
+		wc_deprecated_function( 'WC_Mix_and_Match::is_updating()', '1.10.0', 'Function renamed to is_updated_queued.' );
+		return $this->is_update_queued();
 	}
 }

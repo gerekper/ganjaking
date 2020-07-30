@@ -76,22 +76,6 @@ abstract class Model extends ACP\Model {
 	}
 
 	/**
-	 * @return bool
-	 */
-	public function is_bulk_edit_active() {
-		$settings = $this->get_view_settings();
-
-		// Bulk editable by default. Bulk editing is active if its not set or not false.
-		$is_bulk_editable = ! isset( $settings[ self::VIEW_BULK_EDITABLE ] ) || false !== $settings[ self::VIEW_BULK_EDITABLE ];
-
-		if ( $is_bulk_editable ) {
-			$is_bulk_editable = (bool) apply_filters( 'acp/editing/bulk-edit-active', $is_bulk_editable, $this->column );
-		}
-
-		return $is_bulk_editable;
-	}
-
-	/**
 	 * DB value used for storing the edited data
 	 *
 	 * @param int $id

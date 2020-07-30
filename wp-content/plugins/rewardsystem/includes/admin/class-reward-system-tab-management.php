@@ -14,9 +14,19 @@ if ( ! class_exists( 'RSTabManagement' ) ) {
 
         public static function init() {
             add_action( 'admin_menu' , array( __CLASS__ , 'add_submenu_woocommerce' ) ) ;
+
             if ( isset( $_GET[ 'page' ] ) && $_GET[ 'page' ] == 'rewardsystem_callback' ) {
+
+                // Filter works for WP Version <= 5.4.1.
                 add_filter( 'set-screen-option' , array( __CLASS__ , 'rs_set_screen_option_value' ) , 10 , 3 ) ;
+
+                // Filter works for WP Version >= 5.4.2.
+                $option_names = rs_get_screen_option_names() ;
+                foreach ( $option_names as $option_name ) {
+                    add_filter( 'set_screen_option_' . $option_name , array( __CLASS__ , 'rs_set_screen_option_value' ) , 10 , 3 ) ;
+                }
             }
+
             add_filter( 'plugin_action_links_' . SRP_PLUGIN_BASENAME , array( __CLASS__ , 'rs_plugin_action' ) ) ;
             add_filter( 'plugin_row_meta' , array( __CLASS__ , 'rs_plugin_row_meta' ) , 10 , 2 ) ;
             add_action( 'woocommerce_sections_fprsmodules' , array( __CLASS__ , 'rs_function_to_get_subtab' ) ) ;
@@ -138,6 +148,7 @@ if ( ! class_exists( 'RSTabManagement' ) ) {
             self::rs_initialize_bg_process( 'fp_bg_process_to_bulk_update_point_price' , 'bulk_update_point_price' ) ;
             self::rs_initialize_bg_process( 'fp_bg_process_to_generate_voucher_code' , 'generate_voucher_code' ) ;
             self::rs_initialize_bg_process( 'fp_bg_process_to_export_log' , 'export_log' ) ;
+            self::rs_initialize_bg_process( 'fp_bg_process_to_update_earned_points' , 'update_earned_points' ) ;
             /* Initialize Background Process - End */
 
             // Reset Settings

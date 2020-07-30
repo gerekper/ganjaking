@@ -35,9 +35,10 @@ final class Table extends Script {
 		parent::register();
 
 		wp_localize_script( 'aca-search-table', 'ac_search', [
-			'rules'   => json_decode( $this->request->get( 'ac-rules-raw' ) ),
-			'filters' => $this->filters,
-			'i18n'    => [
+			'rules'          => json_decode( $this->request->get( 'ac-rules-raw' ) ),
+			'filters'        => $this->filters,
+			'url_parameters' => $this->request->get_query()->all(),
+			'i18n'           => [
 				'select'     => _x( 'Select', 'select placeholder', 'codepress-admin-columns' ),
 				'add_filter' => __( 'Add Filter', 'codepress-admin-columns' ),
 				'days_ago'   => __( 'days ago', 'codepress-admin-columns' ),

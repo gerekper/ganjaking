@@ -357,6 +357,11 @@ body.toplevel_page_betterdocs-admin {
     font-size: 12px;
     box-shadow: none;
 }
+.betterdocs-header-button #dashboard-select-kb {
+    border: 1px solid #15c7a4;
+    padding: 5px 24px 5px 8px;
+    font-size: 12px;
+}
 
 /* Dark Mode */
 

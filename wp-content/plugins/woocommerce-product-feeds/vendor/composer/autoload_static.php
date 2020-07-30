@@ -4,14 +4,28 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitb2434bfeb83cb87a238de65a7375c24b
+class ComposerStaticInitf19a4c147da2b1d9947bf879b279f91b
 {
-    public static $prefixesPsr0 = array (
-        'x' => 
+    public static $prefixLengthsPsr4 = array (
+        'P' => 
         array (
-            'xrstf\\Composer52' => 
+            'Psr\\Container\\' => 14,
+        ),
+    );
+
+    public static $prefixDirsPsr4 = array (
+        'Psr\\Container\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/container/src',
+        ),
+    );
+
+    public static $prefixesPsr0 = array (
+        'P' => 
+        array (
+            'Pimple' => 
             array (
-                0 => __DIR__ . '/..' . '/xrstf/composer-php52/lib',
+                0 => __DIR__ . '/..' . '/pimple/pimple/src',
             ),
         ),
     );
@@ -24,15 +38,17 @@ class ComposerStaticInitb2434bfeb83cb87a238de65a7375c24b
         'MockWpTaxonomy' => __DIR__ . '/../..' . '/tests/unit/mocks/MockWpTaxonomy.php',
         'MockWpTerm' => __DIR__ . '/../..' . '/tests/unit/mocks/MockWpTerm.php',
         'WC_Product' => __DIR__ . '/../..' . '/tests/unit/mocks/MockWcProduct.php',
-        'WP_Async_Request' => __DIR__ . '/..' . '/a5hleyrich/wp-background-processing/classes/wp-async-request.php',
-        'WP_Background_Process' => __DIR__ . '/..' . '/a5hleyrich/wp-background-processing/classes/wp-background-process.php',
         'WP_Post' => __DIR__ . '/../..' . '/tests/unit/mocks/MockWpPost.php',
         'WoocommerceCostOfGoods' => __DIR__ . '/../..' . '/src/integrations/woocommerce-cost-of-goods.php',
-        'WoocommerceGpfAbstractCacheRebuildJob' => __DIR__ . '/../..' . '/src/gpf/woocommerce-gpf-abstract-cache-rebuild-job.php',
+        'WoocommerceGpfAbstractCacheRebuildBatchJob' => __DIR__ . '/../..' . '/src/cache/woocommerce-gpf-abstract-cache-rebuild-batch-job.php',
+        'WoocommerceGpfAbstractCacheRebuildJob' => __DIR__ . '/../..' . '/src/cache/woocommerce-gpf-abstract-cache-rebuild-job.php',
         'WoocommerceGpfAdmin' => __DIR__ . '/../..' . '/src/gpf/woocommerce-gpf-admin.php',
-        'WoocommerceGpfCache' => __DIR__ . '/../..' . '/src/common/woocommerce-gpf-cache.php',
-        'WoocommerceGpfCacheInvalidator' => __DIR__ . '/../..' . '/src/gpf/woocommerce-gpf-cache-invalidator.php',
+        'WoocommerceGpfCache' => __DIR__ . '/../..' . '/src/cache/woocommerce-gpf-cache.php',
+        'WoocommerceGpfCacheInvalidator' => __DIR__ . '/../..' . '/src/cache/woocommerce-gpf-cache-invalidator.php',
+        'WoocommerceGpfCacheStatus' => __DIR__ . '/../..' . '/src/cache/woocommerce-gpf-cache-status.php',
+        'WoocommerceGpfClearAllJob' => __DIR__ . '/../..' . '/src/cache/woocommerce-gpf-cache-clear-all-job.php',
         'WoocommerceGpfCommon' => __DIR__ . '/../..' . '/src/gpf/woocommerce-gpf-common.php',
+        'WoocommerceGpfDebugService' => __DIR__ . '/../..' . '/src/common/woocommerce-gpf-debug-service.php',
         'WoocommerceGpfFeed' => __DIR__ . '/../..' . '/src/gpf/woocommerce-gpf-feed.php',
         'WoocommerceGpfFeedBing' => __DIR__ . '/../..' . '/src/gpf/woocommerce-gpf-feed-bing.php',
         'WoocommerceGpfFeedGoogle' => __DIR__ . '/../..' . '/src/gpf/woocommerce-gpf-feed-google.php',
@@ -44,9 +60,9 @@ class ComposerStaticInitb2434bfeb83cb87a238de65a7375c24b
         'WoocommerceGpfImportExportIntegration' => __DIR__ . '/../..' . '/src/common/woocommerce-gpf-import-export-integration.php',
         'WoocommerceGpfMocks' => __DIR__ . '/../..' . '/tests/unit/mocks/WoocommerceGpfMocks.php',
         'WoocommerceGpfMulticurrency' => __DIR__ . '/../..' . '/src/integrations/woocommerce-gpf-multicurrency.php',
-        'WoocommerceGpfRebuildAllJob' => __DIR__ . '/../..' . '/src/gpf/woocommerce-gpf-cache-rebuild-all-job.php',
-        'WoocommerceGpfRebuildProductJob' => __DIR__ . '/../..' . '/src/gpf/woocommerce-gpf-cache-rebuild-product-job.php',
-        'WoocommerceGpfRebuildTermJob' => __DIR__ . '/../..' . '/src/gpf/woocommerce-gpf-cache-rebuild-term-job.php',
+        'WoocommerceGpfRebuildComplexJob' => __DIR__ . '/../..' . '/src/cache/woocommerce-gpf-cache-rebuild-complex-job.php',
+        'WoocommerceGpfRebuildProductJob' => __DIR__ . '/../..' . '/src/cache/woocommerce-gpf-cache-rebuild-product-job.php',
+        'WoocommerceGpfRebuildSimpleJob' => __DIR__ . '/../..' . '/src/cache/woocommerce-gpf-cache-rebuild-simple-job.php',
         'WoocommerceGpfRestApi' => __DIR__ . '/../..' . '/src/common/woocommerce-gpf-rest-api.php',
         'WoocommerceGpfStatusReport' => __DIR__ . '/../..' . '/src/common/woocommerce-gpf-status-report.php',
         'WoocommerceGpfStructuredData' => __DIR__ . '/../..' . '/src/gpf/woocommerce-gpf-structured-data.php',
@@ -62,14 +78,19 @@ class ComposerStaticInitb2434bfeb83cb87a238de65a7375c24b
         'WoocommercePrfGoogle' => __DIR__ . '/../..' . '/src/prf/woocommerce-prf-google.php',
         'WoocommercePrfGoogleReviewFeed' => __DIR__ . '/../..' . '/src/prf/woocommerce-prf-google-review-feed.php',
         'WoocommercePrfGoogleReviewProductInfo' => __DIR__ . '/../..' . '/src/prf/woocommerce-prf-google-review-product-info.php',
+        'WoocommerceProductFeedsIntegrationManager' => __DIR__ . '/../..' . '/src/common/woocommerce-product-feeds-integration-manager.php',
+        'WoocommerceProductFeedsMain' => __DIR__ . '/../..' . '/src/woocommerce-product-feeds-main.php',
+        'WoocommerceProductFeedsTermDepthRepository' => __DIR__ . '/../..' . '/src/common/woocommerce-product-feeds-term-depth-repository.php',
         'WoocommerceProductVendors' => __DIR__ . '/../..' . '/src/integrations/woocommerce-product-vendors.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixesPsr0 = ComposerStaticInitb2434bfeb83cb87a238de65a7375c24b::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitb2434bfeb83cb87a238de65a7375c24b::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitf19a4c147da2b1d9947bf879b279f91b::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitf19a4c147da2b1d9947bf879b279f91b::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitf19a4c147da2b1d9947bf879b279f91b::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitf19a4c147da2b1d9947bf879b279f91b::$classMap;
 
         }, null, ClassLoader::class);
     }

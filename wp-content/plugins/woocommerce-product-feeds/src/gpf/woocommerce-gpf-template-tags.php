@@ -57,6 +57,8 @@ class WoocommerceGpfTemplateTags {
 	 * @param  WP_Post $the_post  The post to get the value from. Leave blank to use the global $post object
 	 *
 	 * @return array              Array of the values for the element on the requested post.
+	 *
+	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
 	public static function get_element_values( $element, $common, WP_Post $the_post = null ) {
 		global $post;

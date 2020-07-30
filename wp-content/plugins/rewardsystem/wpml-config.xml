@@ -1,323 +1,860 @@
 <wpml-config>
     <admin-texts>
-        <key name="rs_free_product_message_info" />        
+
+	<!-- General-->
+
+	<!-- Member Level Message Settings-->
+        <key name="rs_free_product_message_info" /> 
+	<key name= "rs_free_product_quantity_message_info"/>       
         <key name="rs_free_product_msg_caption" />
-        <key name="rs_message_in_shop_page_for_simple" />
-        <key name="rs_message_for_single_product_point_rule" />
-        <key name="rs_message_in_single_product_page" />
-        <key name="rs_message_for_single_product_variation" />
-        <key name="rs_message_for_variation_products" />
-        <key name="rs_success_coupon_message" />
-        <key name="rs_message_for_guest_in_cart" />
-        <key name="rs_message_product_in_cart" />
-        <key name="rs_message_total_price_in_cart" />
-        <key name="rs_message_user_points_in_cart" />
-        <key name="rs_message_user_points_redeemed_in_cart" />
-        <key name="rs_message_for_guest_in_checkout" />
-        <key name="rs_message_product_in_checkout" />
-        <key name="rs_message_total_price_in_checkout" />
-        <key name="rs_message_user_points_in_checkout" />
-        <key name="rs_message_user_points_redeemed_in_checkout" />
-        <key name="rs_message_payment_gateway_reward_points" />
-        <key name="rs_errmsg_for_max_discount_type" />
-        <key name="rs_errmsg_for_redeeming_in_order" />
-        <key name="rs_unsubscribe_link_for_email" />
-        <key name="rs_redeeming_button_option_message" />
-        <key name="rs_min_points_first_redeem_error_message" />
-        <key name="rs_min_points_after_first_error" />
-        <key name="rs_minimum_redeem_point_error_message" />
-        <key name="rs_min_cart_total_redeem_error" />
-        <key name="rs_redeem_field_caption" />
-        <key name="rs_redeem_field_placeholder" />
-        <key name="rs_redeem_field_submit_button_caption" />
-        <key name="rs_redeem_empty_error_message" />
-        <key name="rs_redeem_character_error_message" />
-        <key name="rs_redeem_max_error_message" />
-        <key name="rs_current_points_empty_error_message" />
-        <key name="rs_coupon_label_message" />
-        <key name="rs_reedming_field_label_checkout" />
-        <key name="rs_reedming_field_link_label_checkout" />
-        <key name="rs_errmsg_when_other_products_added_to_cart_page" />
-        <key name="rs_redeeming_button_option_message_checkout" />
-        <key name="rs_my_nominee_title" />
-        <key name="rs_unsub_field_caption" />
-        <key name="rs_my_cashback_title" />
-        <key name="rs_my_cashback_sno_label" />
-        <key name="rs_my_cashback_userid_label" />
-        <key name="rs_my_cashback_requested_label" />
-        <key name="rs_my_cashback_status_label" />
-        <key name="rs_my_rewards_title" />
-        <key name="rs_my_rewards_total" />
-        <key name="rs_my_rewards_sno_label" />
-        <key name="rs_my_rewards_userid_label" />
-        <key name="rs_my_rewards_rewarder_label" />
-        <key name="rs_my_rewards_points_earned_label" />
-        <key name="rs_my_rewards_redeem_points_label" />
-        <key name="rs_my_rewards_total_points_label" />
-        <key name="rs_my_rewards_date_label" />
-        <key name="rs_my_rewards_points_expired_label" />
-        <key name="rs_my_rewards_friend_name_label" />
-        <key name="rs_my_rewards_friend_email_label" />
-        <key name="rs_my_rewards_friend_subject_label" />
-        <key name="rs_my_rewards_friend_message_label" />
-        <key name="rs_friend_referral_link" />
-        <key name="rs_my_rewards_friend_name_placeholder" />
-        <key name="rs_my_rewards_friend_email_placeholder" />
-        <key name="rs_my_rewards_friend_email_subject_placeholder" />
-        <key name="rs_my_rewards_friend_email_message_placeholder" />
-        <key name="rs_my_rewards_friend_name_error_message" />
-        <key name="rs_my_rewards_friend_email_error_message" />
-        <key name="rs_my_rewards_friend_email_is_not_valid" />
-        <key name="rs_my_rewards_email_subject_error_message" />
-        <key name="rs_my_rewards_email_message_error_message" />
-        <key name="rs_social_message_for_facebook" />
-        <key name="rs_social_message_for_twitter" />
-        <key name="rs_social_message_for_google_plus" />
-        <key name="rs_social_message_for_vk" />
-        <key name="rs_succcess_message_for_facebook_like" />
-        <key name="rs_unsucccess_message_for_facebook_unlike" />
-        <key name="rs_succcess_message_for_google_share" />
-        <key name="rs_unsucccess_message_for_google_unshare" />
-        <key name="rs_succcess_message_for_twitter_share" />
-        <key name="rs_unsucccess_message_for_twitter_unshare" />
-        <key name="rs_succcess_message_for_vk" />
-        <key name="rs_unsucccess_message_for_vk" />
-        <key name="rs_msg_for_earned_points" />
-        <key name="rs_msg_for_redeem_points" />
-        <key name="rs_voucher_redeem_empty_error" />
-        <key name="rs_voucher_redeem_success_message" />
-        <key name="rs_voucher_code_expired_error_message" />
-        <key name="rs_invalid_voucher_code_error_message" />
-        <key name="rs_redeem_voucher_login_link_label" />
-        <key name="rs_voucher_redeem_guest_error_message" />
-        <key name="rs_voucher_code_used_error_message" />
-        <key name="rs_banned_user_redeem_voucher_error" />
-        <key name="rs_encashing_points_label" />
-        <key name="rs_encashing_reason_label" />
-        <key name="rs_encashing_payment_method_label" />
-        <key name="rs_encashing_payment_paypal_label" />
-        <key name="rs_encashing_payment_custom_label" />
-        <key name="rs_encashing_submit_button_label" />
-        <key name="rs_message_for_guest_encashing" />
-        <key name="rs_encashing_login_link_label" />
-        <key name="rs_message_for_banned_users_encashing" />
-        <key name="rs_message_users_nopoints_encashing" />
-        <key name="rs_message_encashing_request_submitted" />
-        <key name="rs_encashing_paypal_custom_notes" />
-        <key name="rs_error_message_points_empty_encash" />
-        <key name="rs_error_message_points_number_val_encash" />
-        <key name="rs_error_message_points_greater_than_earnpoints" />
-        <key name="rs_error_message_currentpoints_less_than_minimum_points" />
-        <key name="rs_error_message_points_lesser_than_minimum_points" />
-        <key name="rs_error_message_reason_encash_empty" />
-        <key name="rs_error_message_paypal_email_empty" />
-        <key name="rs_error_message_paypal_email_wrong" />
-        <key name="rs_error_custom_payment_field_empty" />
-        <key name="rs_coupon_applied_reward_success" />
-        <key name="_rs_localize_referral_reward_points_for_purchase" />
-        <key name="_rs_localize_reward_points_for_login" />
-        <key name="_rs_localize_product_purchase_reward_points" />
-        <key name="_rs_localize_points_earned_for_purchase_main" />
-        <key name="_rs_localize_points_redeemed_towards_purchase" />
-        <key name="_rs_localize_points_earned_for_registration" />
-        <key name="_rs_localize_points_earned_for_referral_registration" />
-        <key name="_rs_localize_points_earned_for_product_review" />
-        <key name="_rs_log_revise_referral_product_purchase" />
-        <key name="_rs_log_revise_product_purchase" />
-        <key name="_rs_log_revise_product_purchase_main" />
-        <key name="_rs_log_revise_points_redeemed_towards_purchase" />
-        <key name="_rs_localize_referral_account_signup_points_revised" />
-        <key name="_rs_localize_revise_points_for_referral_purchase" />
-        <key name="_rs_localize_reward_for_facebook_like" />
-        <key name="_rs_localize_reward_for_twitter_tweet" />
-        <key name="_rs_localize_reward_for_google_plus" />
-        <key name="_rs_localize_reward_for_vk" />
-        <key name="_rs_localize_reward_for_facebook_like_revised" />
-        <key name="_rs_localize_reward_for_google_plus_revised" />
-        <key name="_rs_localize_reward_for_vk_like_revised" />
-        <key name="_rs_localize_reward_for_payment_gateway_message" />
-        <key name="_rs_localize_revise_reward_for_payment_gateway_message" />
-        <key name="_rs_localize_voucher_code_usage_log_message" />
-        <key name="_rs_localize_buying_reward_points_log" />
-        <key name="_rs_localize_coupon_reward_points_log" />
-        <key name="_rs_localize_max_earning_points_log" />
-        <key name="_rs_reward_points_gateway_log_localizaation" />
-        <key name="_rs_localize_points_to_cash_log" />
-        <key name="_rs_localize_points_to_cash_log_revised" />
-        <key name="_rs_localize_points_to_cash_log_in_my_cashback_table" />
-        <key name="_rs_localize_log_for_nominee" />
-        <key name="_rs_localize_log_for_nominated_user" />
-        <key name="_rs_localize_log_for_import_add" />
-        <key name="_rs_localize_log_for_import_override" />
-        <key name="rs_errmsg_for_normal_product_with_point_price" />        
-        <key name="rs_errmsg_for_point_price_product_with_normal" />
-        <key name="rs_errmsg_for_point_price_product_with_same" />
-        <key name="rs_total_earned_point_caption" />
-        <key name="rs_minimum_redeem_point_error_message_for_button_type" />
-        <key name="rs_maximum_redeem_point_error_message_for_button_type" />
-        <key name="rs_minimum_and_maximum_redeem_point_error_message_for_buttontype" />
-        <key name="rs_minimum_and_maximum_redeem_point_error_message" />
-        <key name="rs_maximum_redeem_point_error_message" />
-        <key name="rs_minimum_redeem_point_error_message" />
-        <key name="rs_total_earned_point_caption_checkout" />
-        <key name="rs_label_for_point_value" />
-        <key name="rs_local_price_points_for_product" />
-        <key name="rs_coupon_applied_individual_error_msg" />
-        <key name="rs_min_cart_total_for_earning_error_message" />
-        <key name="rs_show_hide_generate_referral_message_text" />
-        <key name="rs_iagree_error_message" />
-        <key name="_rs_localize_points_earned_for_post" />
-        <key name="_rs_localize_points_earned_for_page_review" />
-        <key name="_rs_localize_points_earned_for_post_review" />
-        <key name="_rs_localize_points_to_send_log_revised" />
-        <key name="_rs_localize_log_for_sender" />
-        <key name="_rs_localize_log_for_reciver" />
-        <key name="rs_total_send_points_request" />
-        <key name="rs_err_when_point_greater_than_limit" />
-        <key name="rs_points_to_send_request" />
-        <key name="rs_select_user_label" />
-        <key name="rs_select_points_submit_label" />
-        <key name="rs_message_send_point_request_submitted" />
-        <key name="rs_err_when_point_field_empty" />
-        <key name="rs_err_for_empty_user" />
-        <key name="rs_err_when_point_is_not_number" />
-        <key name="rs_my_nominee_title_in_checkout" />
-        <key name="rs_global_reward_percent" />
-        <key name="rs_global_reward_points" />
-        <key name="rs_minimum_cart_total_for_earning" />
-        <key name="rs_maximum_cart_total_for_earning" />
-        <key name="rs_max_cart_total_for_earning_error_message" />
-        <key name="rs_custom_message_for_points_cart" />
-        <key name="rs_custom_message_for_points_checkout" />
-        <key name="rs_total_earned_point_caption_thank_you" />
-        <key name="rs_message_for_single_product_point_rule" />
-        <key name= "rs_message_for_single_product_point_rule_referral"  />
-        <key name= "rs_message_in_single_product_page_related_products"  />
-        <key name= "rs_buy_point_message_in_product_page_for_simple"  />
-        <key name= "rs_message_for_variation_products_referral"/>
-        <key name= "rs_buy_point_message_in_product_page_for_variable"/>
-        <key name= "rs_message_for_product_review"/>
-        <key name= "rs_message_for_booking_product"/>
-        <key name= "rs_buy_point_message_in_shop_page_for_simple"/>
-        <key name= "rs_buy_point_message_in_shop_page_for_variable"/>
-        <key name= "rs_message_in_custom_shop_page_for_simple"/>
-        <key name= "rs_buy_point_message_in_custom_shop_page_for_simple"/>
-        <key name= "rs_message_for_custom_shop_variation"/>
-        <key name= "rs_buy_point_message_in_custom_shop_page_for_variable"/>
-        <key name= "rs_buy_point_message_product_in_cart"/>
-        <key name= "rs_referral_point_message_product_in_cart"/>
-        <key name= "rs_referral_point_message_product_in_checkout"/>
-        <key name= "rs_buy_point_message_product_in_checkout"/>
-        <key name= "rs_remove_redeem_points_message"/>
-        <key name= "rs_errmsg_for_coupon_in_order"/>
-        <key name= "rs_errmsg_for_redeem_in_point_price_prt"/>
-        <key name= "rs_msg_for_redeem_when_tax_enabled"/>
-        <key name= "rs_my_rewards_reward_for_label"/>
-        <key name= "rs_my_rewards_total_shortcode"/>
-        <key name= "rs_my_rewards_title_shortcode"/>
-        <key name= "rs_my_rewards_sno_label_shortcode"/>
-        <key name= "rs_my_rewards_userid_label_shortcode"/>
-        <key name= "rs_my_rewards_rewarder_label_shortcode"/>
-        <key name= "rs_my_rewards_points_earned_label_shortcode"/>
-        <key name= "rs_my_rewards_redeem_points_label_shortcode"/>
-        <key name= "rs_my_rewards_total_points_label_shortcode"/>
-        <key name= "rs_my_rewards_date_label_shortcode"/>
-        <key name= "rs_my_rewards_points_expired_label_shortcode"/>
-        <key name= "rs_message_shortcode_guest_display"/>
-        <key name= "rs_message_shortcode_login_name"/>
-        <key name= "rs_label_shortcode"/>
-        <key name= "rs_msg_for_account_signup"/>
-        <key name= "rs_msg_for_product_review"/>
-        <key name= "rs_msg_for_post_review"/>
-        <key name= "rs_msg_for_page_comment"/>
-        <key name= "rs_msg_for_page_comment"/>
-        <key name=  "rs_msg_for_page_comment"/>
-        <key name= "rs_msg_for_daily_login"/>
-        <key name= "rs_msg_for_product_puchase"/>
-        <key name= "rs_msg_for_buying_reward_points"/>
-        <key name= "rs_msg_for_referral_system_product_purcase"/>
-        <key name= "rs_msg_for_referral_system_login"/>
-        <key name= "rs_msg_for_getting_refer_product_purchase"/>
-        <key name= "rs_msg_for_social_promotion"/>
-        <key name= "rs_msg_for_social_promotion_for_post"/>
-        <key name= "rs_message_user_points_for_sign_up"/>
-        <key name= "rs_message_user_points_for_daily_login"/>
-        <key name= "rs_message_user_points_for_page_comment"/>
-        <key name= "rs_message_user_points_for_blog_creation"/>
-        <key name= "rs_message_user_points_for_blog_comment"/>
-        <key name= "error_payment_gateway"/>
-        <key name= "woocommerce_reward_gateway_title"/>
-        <key name= "woocommerce_reward_gateway_description"/>
-        <key name= "woocommerce_reward_gateway_error_payment_gateway"/>
-        <key name= "woocommerce_reward_gateway_error_message_for_payment_gateway"/>
-        <key name= "rs_msg_for_restricted_user"/>                                                     
-        <key name= "rs_generate_link_label"/>    
-        <key name= "rs_generate_link_sno_label"/> 
-        <key name= "rs_generate_link_date_label"/>   
-        <key name= "rs_generate_link_referrallink_label"/>
-        <key name= "rs_generate_link_social_label"/>
-        <key name= "rs_generate_link_action_label"/>
-        <key name= "rs_generate_link_button_label"/>
-        <key name= "rs_my_referral_link_button_label"/>
-        <key name= "rs_facebook_title"/>
-        <key name= "rs_facebook_description"/>
-        <key name= "rs_my_referal_sno_label"/>
-        <key name= "rs_my_referal_userid_label"/>
-        <key name= "rs_my_total_referal_points_label"/>
-        <key name= "rs_referal_table_title_shortcode"/>
-        <key name= "rs_my_referal_sno_label_shortcode"/>
-        <key name= "rs_my_referal_userid_label_shortcode"/>
-        <key name= "rs_my_total_referal_points_label_shortcode"/>
-        <key name= "rs_refer_friend_iagreecaption_link"/>
-        <key name= "rs_refer_friend_termscondition_caption"/>
-        <key name= "rs_my_reward_content_title"/>
-        <key name= "rs_referal_table_title"/>
-        <key name= "rs_total_points_for_cashback_request"/>
-        <key name= "rs_my_cashback_title_shortcode"/>
-        <key name= "rs_my_cashback_sno_label_shortcode"/>
-        <key name= "rs_my_cashback_userid_label_shortcode"/>
-        <key name= "rs_my_cashback_requested_label_shortcode"/>
-        <key name= "rs_my_cashback_status_label_shortcode"/>
-        <key name= "rs_social_message_for_facebook_share"/>
-        <key name= "rs_succcess_message_for_facebook_share"/>
-	<key name= "rs_unsucccess_message_for_facebook_share"/>
-	<key name= "rs_social_message_for_twitter_follow"/>
-	<key name= "rs_succcess_message_for_twitter_follow"/>
-	<key name= "rs_unsucccess_message_for_twitter_unfollow"/>
-	<key name= "rs_social_message_for_instagram"/>
-	<key name= "rs_succcess_message_for_instagram"/>
-	<key name= "rs_unsucccess_message_for_instagram"/>
-	<key name= "rs_social_message_for_ok_follow"/>
-	<key name= "rs_succcess_message_for_ok_follow"/>
-	<key name= "rs_unsucccess_message_for_ok_unfollow"/>
-	<key name= "rs_max_cart_total_redeem_error"/>
-	<key name= "rs_auto_redeem_not_applicable_error_message"/>
-	<key name= "rs_redeem_your_gift_voucher_label"/>
-	<key name= "rs_redeem_your_gift_voucher_placeholder"/>
-	<key name= "rs_redeem_gift_voucher_button_label"/>
-	<key name= "rs_my_nominee_title_shortcode"/>
-	<key name= "_rs_localize_referral_reward_points_for_purchase_gettin_referred"/>
-	<key name= "_rs_localize_referral_reward_points_gettin_referred"/>
-	<key name= "_rs_localize_reward_for_using_subscription"/>
-	<key name= "_rs_localize_reward_for_facebook_share"/>
-	<key name= "_rs_localize_reward_for_twitter_follow"/>
-	<key name= "_rs_localize_reward_for_instagram"/>
-	<key name= "_rs_localize_reward_for_ok_follow"/>
-	<key name= "_rs_localize_points_earned_for_product_creation"/>
-	<key name= "_rs_log_revise_getting_referred_product_purchase"/>
-	<key name= "_rs_localize_revise_points_for_getting_referred_purchase"/>
-	<key name= "_rs_localize_log_for_sender_after_submit"/>
-	<key name= "rs_msg_in_reg_page"/>
-	<key name= "rs_msg_in_acc_page_when_checked"/>
-	<key name= "rs_msg_in_acc_page_when_unchecked"/>
-	<key name= "rs_log_for_first_purchase_points"/>
-	<key name= "rs_log_for_revised_first_purchase_points"/>
-        <key name= "rs_allow_user_to_request_prefilled_subject"/>
-        <key name= "rs_subject_field"/>
-        <key name= "rs_show_or_hide_message_for_customshop"/>
-        <key name="rs_show_or_hide_date_filter"/>
-	<key name="rs_heading_field"/>
-        <key name="rs_reason_for_send_points_user"/>
+	<key name="rs_point_to_reach_next_level"/>
+	<!-- Member Level Message Settings-->
+
+	<!-- Reward Points Earning Threshold Settings-->
+	<key name="rs_mail_subject_for_reaching_maximum_threshold"/>
+	<key name="rs_mail_message_for_reaching_maximum_threshold"/>
+	<!-- Reward Points Earning Threshold Settings-->
+
+	<!-- General-->
+
+	<!-- Modules-->
+
+	<!-- Product Purchase Module-->
+
+	<!-- Product Purchase Reward Points Restrictions-->
+	<key name="rs_min_cart_total_for_earning_error_message"/> 
+	<key name="rs_max_cart_total_for_earning_error_message"/>
+	<!-- Product Purchase Reward Points Restrictions-->
+
+	<!-- Message Settings in Cart, Checkout and Thank You Page-->
+	<key name="rs_total_earned_point_caption"/> 
+	<key name="rs_custom_message_for_points_cart"/> 
+	<key name="rs_total_earned_point_caption_checkout"/> 
+	<key name="rs_custom_message_for_points_checkout"/> 
+	<key name="rs_total_earned_point_caption_thank_you"/> 
+	<key name="rs_custom_message_for_points_thankyou"/> 
+	<!-- Message Settings in Cart, Checkout and Thank You Page-->
+
+	<!-- Message Settings in Edit Order Page-->
+	<key name="rs_msg_for_earned_points"/> 
+	<!-- Message Settings in Edit Order Page-->
+
+	<!-- Product Purchase Module-->
+
+	<!-- Referral System Module-->
+
+	<!-- Referral Sign up Reward Points-->
+	<key name="rs_email_subject_referral_signup" />
+	<key name="rs_email_message_referral_signup" />
+        <key name="rs_email_subject_getting_referred" />
+	<key name="rs_email_message_getting_referred"/>
+	<!-- Referral Sign up Reward Points-->
+
+	<!-- Generate Referral Link Settings-->
+	<key name="rs_msg_for_restricted_user" />
+	<key name="rs_generate_link_label" />
+        <key name="rs_generate_link_sno_label" />
+	<key name="rs_generate_link_date_label"/>
+	<key name="rs_generate_link_referrallink_label"/>
+	<key name="rs_generate_link_social_label"/>
+	<key name="rs_generate_link_action_label"/>
+	<key name="rs_generate_link_hover_label"/>
+	<key name="rs_generate_link_button_label"/>
+	<key name="rs_my_referral_link_button_label"/>
+	<key name="rs_static_generate_link"/>
+	<key name="rs_generate_link_action_label"/>
+	<key name ="rs_prefill_generate_link"/>
+	<key name ="rs_facebook_title"/>
+	<key name ="rs_facebook_description"/>
+	<!-- Generate Referral Link Settings-->
+
+	<!-- Referrer Label Settings-->
+	<key name="rs_show_hide_generate_referral_message_text" />
+	<!-- Referrer Label Settings-->
+
+	<!-- My Referral Table Label Settings-->
+	<key name="rs_referal_table_title" />
+	<key name="rs_my_referal_sno_label" />
+	<key name="rs_my_referal_userid_label" />
+	<key name="rs_referral_email_ids" />
+	<key name="rs_my_total_referal_points_label" />
+	<key name="rs_referal_table_title_shortcode" />
+	<key name="rs_my_referal_sno_label_shortcode" />
+	<key name="rs_my_referal_userid_label_shortcode" />
+	<key name="rs_referral_email_ids_shortcode" />
+	<key name="rs_my_total_referal_points_label_shortcode" />
+	<!-- My Referral Table Label Settings-->
+
+	<!-- Refer a Friend Form Settings-->
+	<key name="rs_my_rewards_friend_name_label" />
+	<key name="rs_my_rewards_friend_name_placeholder" />
+	<key name="rs_my_rewards_friend_email_label" />
+	<key name="rs_my_rewards_friend_email_placeholder" />
+	<key name="rs_my_rewards_friend_subject_label" />
+	<key name="rs_my_rewards_friend_email_subject_placeholder" />
+	<key name="rs_my_rewards_friend_message_label" />
+	<key name="rs_my_rewards_friend_email_message_placeholder" />
+	<key name="rs_subject_field" />
+	<key name="rs_heading_field" />
+	<key name="rs_referral_link_refer_a_friend_form"/>
+	<key name="rs_friend_referral_link"/>
+	<key name="rs_refer_friend_iagreecaption_link"/>
+	<key name="rs_refer_friend_termscondition_caption"/>
+	<key name="rs_refer_friend_termscondition_url"/>
+	<!-- Refer a Friend Form Settings-->
+
+	<!-- Error Message Settings for Refer a Friend Form -->
+	<key name="rs_my_rewards_friend_name_error_message" />
+	<key name="rs_my_rewards_friend_email_error_message" />
+	<key name="rs_my_rewards_friend_email_is_not_valid" />
+	<key name="rs_my_rewards_email_subject_error_message" />
+	<key name ="rs_iagree_error_message"/>
+	<!-- Error Message Settings for Refer a Friend Form -->
+
+	<!-- Referral System Module-->
+
+	<!-- Reward Points Payment Gateway Module-->
+
+	<!-- Error Message Settings for Refer a Friend Form -->
+	<key name="rs_errmsg_when_other_products_added_to_cart_page" />
+	<!-- Error Message Settings for Refer a Friend Form -->
+
+	<!-- Reward Points Payment Gateway Module-->
+
+
+	<!--Send Points Module-->
+
+	<!-- Send Point(s) Form Settings -->
+	<key name="rs_total_send_points_request" />
+	<key name="rs_points_to_send_request"/>
+	<key name="rs_select_user_label"/>
+	<key name="rs_select_user_placeholder"/>
+	<key name="rs_reason_for_send_points"/>
+	<key name="rs_select_points_submit_label"/>
+	<key name="rs_message_send_point_request_submitted"/>
+	<key name="rs_message_send_point_request_submitted_for_auto"/>
+	<key name="rs_err_when_point_greater_than_limit"/>
+	<key name="rs_send_points_username_field_label"/>
+	<key name="rs_send_points_username_placeholder"/>
+	<!-- Send Point(s) Form Settings -->
+
+	<!-- Email Notifications for Send Points -->
+	<key name="rs_email_subject_for_send_points_notification_admin" />
+	<key name="rs_email_message_for_send_points_notification_admin"/>
+	<key name="rs_email_subject_for_send_points_confirmation"/>
+	<key name="rs_email_message_for_send_points_confirmation"/>	
+	<key name="rs_email_subject_for_send_points"/>
+	<key name="rs_email_message_for_send_points"/>
+	<!-- Email Notifications for Send Points -->
+
+	<!-- Error Message(s) for Send Point(s) Form -->
+	<key name="rs_err_when_point_field_empty" />
+	<key name="rs_msg_when_user_have_no_points"/>
+	<key name="rs_error_msg_when_points_is_more"/>
+	<key name="rs_err_for_empty_user"/>	
+	<key name="rs_err_for_empty_reason_user"/>
+	<key name="rs_err_when_point_is_not_number"/>
+	<key name="rs_username_empty_error_message"/>
+	<key name="rs_invalid_username_error_message"/>
+	<key name="rs_restricted_username_error_message"/>
+	<!-- Error Message(s) for Send Point(s) Form -->
+
+	<!-- Send Points Module-->
+
+	<!-- Point URL Module-->
+
+	<!-- Email Settings -->
+	<key name="rs_email_subject_point_url" />
+	<key name="rs_email_message_point_url"/>
+	<!-- Email Settings -->
+
+	<!-- Success Message Settings -->
+	<key name="rs_success_message_for_pointurl" />
+	<key name="rs_message_for_pointurl"/>
+	<!-- Success Message Settings -->
+
+	<!-- Error Message Settings -->
+	<key name="failure_msg_for_accessed_url" />
+	<key name="failure_msg_for_expired_url"/>
+	<key name="failure_msg_for_count_exceed"/>
+	<!-- Error Message Settings -->
+
+	<!-- Point URL Module-->
+
+	<!-- Nominee Module-->
+
+	<!-- Nominee Settings for Product Purchase in Checkout Page -->
+	<key name="rs_my_nominee_title_in_checkout" />
+	<!-- Nominee Settings for Product Purchase in Checkout Page -->
+
+	<!-- Nominee Settings for Product Purchase in My Account Page -->
+	<key name="rs_my_nominee_title" />
+	<key name="rs_my_nominee_title_shortcode" />
+	<!-- Nominee Settings for Product Purchase in My Account Page -->
+
+	<!-- Nominee Module-->
+
+	<!-- Cashback Module-->
+
+	<!-- Cashback Settings -->
+	<key name="rs_total_points_for_cashback_request" />
+	<key name="rs_encashing_points_label" />
+	<key name="rs_encashing_reason_label"/>
+	<key name="rs_encashing_payment_method_label"/>
+	<key name="rs_encashing_payment_paypal_label"/>
+	<key name="rs_encashing_payment_custom_label"/>
+	<key name="rs_encashing_submit_button_label"/>
+	<!-- Cashback Settings -->
+
+	<!-- Google reCAPTCHA Settings -->
+	<key name="rs_google_recaptcha_label" />
+	<key name="rs_encashing_points_label" />
+	<!-- Google reCAPTCHA Settings -->
+
+	<!-- Email Notification for Cashback -->
+	<key name="rs_email_subject_message_for_cashback" />
+	<key name="rs_email_message_for_cashback" />
+	<!-- Email Notification for Cashback -->
+
+	<!-- My Cashback Table Label Settings -->
+	<key name="rs_my_cashback_title" />
+	<key name="rs_my_cashback_sno_label" />
+	<key name="rs_my_cashback_userid_label" />
+	<key name="rs_my_cashback_requested_label" />
+	<key name="rs_my_cashback_status_label" />
+	<key name="rs_my_cashback_sno_label_shortcode" />
+	<key name="rs_my_cashback_requested_label_shortcode" />
+	<key name="rs_my_cashback_userid_label_shortcode" />
+	<key name="rs_my_cashback_status_label_shortcode"/>
+	<!-- My Cashback Table Label Settings -->
+
+	<!-- Message Settings -->
+	<key name="rs_message_for_guest_encashing" />
+	<key name="rs_message_for_banned_users_encashing" />
+	<key name="rs_message_users_nopoints_encashing" />
+	<key name="rs_message_encashing_request_submitted" />
+	<!-- Message Settings -->
+
+	<!-- CSV Settings (Export CSV for Paypal Mass Payment) -->
+	<key name="rs_encashing_paypal_custom_notes" />
+	<!-- CSV Settings (Export CSV for Paypal Mass Payment) -->
+
+	<!-- Error Message Settings -->
+	<key name="rs_error_message_points_empty_encash" />
+	<key name="rs_error_message_points_number_val_encash" />
+	<key name="rs_error_message_points_greater_than_earnpoints" />
+	<key name="rs_error_message_currentpoints_less_than_minimum_points"/>
+	<key name="rs_error_message_points_lesser_than_minimum_points"/>
+	<key name="rs_error_message_reason_encash_empty"/>
+	<key name="rs_error_message_paypal_email_empty"/>
+	<key name="rs_error_message_paypal_email_wrong"/>
+	<key name="rs_error_custom_payment_field_empty"/>
+	<key name="rs_error_recaptcha_field_empty"/>
+	<!-- Error Message Settings -->
+
+	<!-- Cashback Module-->
+
+	<!-- SMS Module-->
+
+	<!-- Phone Number Field for SMS Notification  -->
+	<key name="rs_ph_no_field_label_registration" />
+	<key name="rs_ph_no_validationerror_emptyfield" />
+	<!-- Phone Number Field for SMS Notification -->
+
+	<!-- SMS Notification Settings  -->
+	<key name="rs_points_sms_content_for_earning" />
+	<key name="rs_points_sms_content_for_redeeming" />
+	<key name="rs_send_sms_earning_points_content_for_actions"/>
+	<!-- SMS Notification Settings -->
+
+	<!-- SMS Module-->
+
+	<!-- Gift Voucher Module-->
+
+	<!-- Gift Voucher Redeem Field Settings -->
+	<key name="rs_redeem_your_gift_voucher_label" />
+	<key name="rs_redeem_your_gift_voucher_placeholder" />
+	<key name="rs_redeem_gift_voucher_button_label"/>
+	<!-- Gift Voucher Redeem Field Settings -->
+
+	<!-- Email Settings  -->
+	<key name="rs_email_subject_gift_voucher" />
+	<key name="rs_email_message_gift_voucher" />
+	<!-- Email Settings -->
+
+	<!-- Gift Voucher Message Settings  -->
+	<key name="rs_voucher_redeem_empty_error" />
+	<key name="rs_voucher_redeem_success_message" />
+	<key name="rs_voucher_code_expired_error_message" />
+	<key name="rs_invalid_voucher_code_error_message" />
+	<key name="rs_redeem_voucher_login_link_label" />
+	<key name="rs_voucher_redeem_guest_error_message"/>
+	<key name="rs_voucher_code_used_error_message"/>
+	<key name="rs_banned_user_redeem_voucher_error"/>
+	<!-- Gift Voucher Message Settings -->
+
+	<!-- Voucher Code Form Customization  -->
+	<key name="rs_reward_code_field_caption" />
+	<key name="rs_reward_code_field_placeholder" />
+	<key name="rs_reward_code_submit_field_caption" />
+	<!-- Voucher Code Form Customization -->
+
+	<!-- Current Balance Message Customization  -->
+	<key name="rs_current_available_balance_caption" />
+	<!-- Current Balance Message Customization -->
+
+	<!-- Gift Voucher Module-->
+
+	<!-- Email Template for Expire Module-->
+
+	<!-- Email Templates Settings for Expire -->
+	<key name="rs_email_expired_name" />
+	<key name="rs_subject_expired" />
+	<key name="rs_email_expired_template_edit"/>
+	<!-- Email Templates Settings for Expire -->
+
+	<!-- Email Template for Expire Module-->
+
+	<!-- Email Module-->
+
+	<!-- Email Settings -->
+	<key name="rs_email_subject_threshold_points" />
+	<key name="rs_email_message_threshold_points" />
+	<!-- Email Settings -->
+
+	<!-- Unsubscribe Settings -->
+	<key name="rs_subject_for_user_unsubscribe" />
+	<key name="rs_message_for_user_unsubscribe" />
+	<!-- Unsubscribe Settings -->
+
+	<!-- Email Templates Settings -->
+	<key name="rs_template_name" />
+	<key name="rs_subject" />
+	<key name="rs_email_template_new"/>
+	<!-- Email Templates Settings -->
+
+	<!-- Email Module-->
+
+	<!-- Point Price Module-->
+
+	<!-- Point Priced Products Global Settings -->
+	<key name="rs_label_for_point_value" />
+	<!-- Point Priced Products Global Settings -->
+
+	<!-- Point Price Module-->
+	
+	<!-- Action Reward Module-->
+
+	<!-- Signup Reward Points -->
+	<key name="rs_email_subject_account_signup" />
+	<key name="rs_email_message_account_signup"/>
+	<!-- Signup Reward Points -->
+
+	<!-- Product Review Reward Points -->
+	<key name="rs_email_subject_product_review" />
+	<key name="rs_email_message_product_review"/>
+	<!-- Product Review Reward Points -->
+
+	<!-- Blog Post Reward Points -->
+	<key name="rs_email_subject_blog_post_create" />
+	<key name="rs_email_message_blog_post_create"/>
+	<key name="rs_email_subject_blog_post_comment"/>
+	<key name="rs_email_message_blog_post_comment"/>
+	<!-- Blog Post Reward Points -->
+
+	<!-- Page Comment Reward Points -->
+	<key name="rs_email_subject_page_comment" />
+	<key name="rs_email_message_page_comment"/>
+	<!-- Page Comment Reward Points -->
+
+	<!-- Daily Login Reward Points Settings -->
+	<key name="rs_email_subject_login" />
+	<key name="rs_email_message_login"/>
+	<!-- Daily Login Reward Points Settings -->
+
+	<!-- Payment Gateway Reward Points Settings -->
+	<key name="rs_email_subject_payment_gateway" />
+	<key name="rs_email_message_payment_gateway"/>
+	<!-- Payment Gateway Reward Points Settings -->
+
+	<!-- WooCommerce Coupon Usage Reward Points -->
+	<key name="rs_email_subject_coupon_reward" />
+	<key name="rs_email_message_coupon_reward"/>
+	<key name="rs_coupon_applied_reward_success"/>
+	<!-- WooCommerce Coupon Usage Reward Points -->
+
+	<!-- Action Reward Module-->
+
+	<!-- Redeeming Points Module-->
+
+	<!-- Redeeming Settings for Cart Page -->
+	<key name="rs_redeeming_button_option_message" />
+	<!-- Redeeming Settings for Cart Page -->
+
+	<!-- Redeeming Settings for Checkout Page -->
+	<key name="rs_reedming_field_label_checkout" />
+	<key name="rs_reedming_field_link_label_checkout" />
+	<key name="rs_redeeming_button_option_message_checkout"/>
+	<!-- Redeeming Settings for Checkout Page -->
+
+	<!-- Redeeming Settings for Cart and Checkout Page -->
+	<key name="rs_redeem_field_caption" />
+	<key name="rs_redeem_field_placeholder" />
+	<key name="rs_redeem_field_submit_button_caption"/>
+	<key name="rs_coupon_label_message"/>
+	<!-- Redeeming Settings for Cart and Checkout Page -->
+
+	<!-- Redeeming Restriction -->
+	<key name="rs_redeeming_message_restrict_for_sale_price_product" />
+	<key name="rs_min_points_first_redeem_error_message" />
+	<key name="rs_min_points_after_first_error"/>
+	<key name="rs_min_cart_total_redeem_error"/>
+	<key name="rs_coupon_applied_individual_error_msg"/>
+	<!-- Redeeming Restriction -->
+
+	<!-- Message Settings in Edit Order Page -->
+	<key name="rs_msg_for_redeem_points" />
+	<!-- Message Settings in Edit Order Page -->
+
+	<!-- Error Message Settings for Redeeming Field -->
+	<key name="rs_minimum_redeem_point_error_message" />
+	<key name="rs_maximum_redeem_point_error_message"/>
+	<key name="rs_minimum_and_maximum_redeem_point_error_message"/>
+	<key name="rs_minimum_redeem_point_error_message_for_button_type"/>
+	<key name="rs_maximum_redeem_point_error_message_for_button_type"/>
+	<key name="rs_minimum_and_maximum_redeem_point_error_message_for_buttontype"/>
+	<key name="rs_redeem_empty_error_message"/>
+	<key name="rs_redeem_character_error_message"/>
+	<key name="rs_redeem_max_error_message"/>
+	<key name="rs_current_points_empty_error_message"/>
+	<key name="rs_auto_redeem_not_applicable_error_message"/>
+	<!-- Error Message Settings for Redeeming Field -->
+
+	<!-- Message Settings in Edit Order Page -->
+	<key name="rs_msg_for_redeem_points" />
+	<!-- Message Settings in Edit Order Page -->
+
+	<!-- Redeeming Points Module-->
+
+	<!-- Social Reward Points Module-->
+
+	<!-- Facebook Like & Share Button Settings -->
+	<key name="rs_email_subject_facebook_like" />
+	<key name="rs_email_subject_post_fb_like" />
+	<key name="rs_email_message_post_fb_like" />
+	<key name="rs_email_message_facebook_like"/>
+	<key name="rs_social_message_for_facebook"/>
+	<key name="rs_succcess_message_for_facebook_like"/>
+	<key name="rs_unsucccess_message_for_facebook_unlike"/>
+	<key name="rs_email_subject_facebook_share"/>
+	<key name="rs_email_message_facebook_share"/>
+	<key name="rs_email_subject_post_fb_share"/>
+	<key name="rs_email_message_post_fb_share"/>
+	<key name="rs_social_message_for_facebook_share"/>
+	<key name="rs_succcess_message_for_facebook_share"/>
+	<key name="rs_unsucccess_message_for_facebook_share"/>
+	<key name="rs_fbshare_button_label"/>
+	<!-- Facebook Like & Share Button Settings -->
+
+	<!-- Twitter Tweet & Follow Button Settings -->
+	<key name="rs_email_subject_twitter_tweet" />
+	<key name="rs_email_message_twitter_tweet" />
+	<key name="rs_email_subject_post_tweet" />
+	<key name="rs_email_message_post_tweet" />
+	<key name="rs_social_message_for_twitter"/>
+	<key name="rs_succcess_message_for_twitter_share"/>
+	<key name="rs_unsucccess_message_for_twitter_unshare"/>
+	<key name="rs_email_subject_twitter_follow"/>
+	<key name="rs_email_message_twitter_follow"/>
+	<key name="rs_email_subject_post_follow"/>
+	<key name="rs_email_message_post_follow"/>
+	<key name="rs_social_message_for_twitter_follow"/>
+	<key name="rs_succcess_message_for_twitter_follow"/>
+	<key name="rs_unsucccess_message_for_twitter_unfollow"/>
+	<key name="rs_global_social_twitter_profile_name"/>
+	<!-- Twitter Tweet & Follow Button Settings -->
+
+	<!-- Instagram Button Settings -->
+	<key name="rs_instagram_profile_name" />
+	<key name="rs_email_subject_instagram" />
+	<key name="rs_email_message_instagram" />
+	<key name="rs_email_subject_post_instagram" />
+	<key name="rs_email_message_post_instagram" />
+	<key name="rs_social_message_for_instagram" />
+	<key name="rs_succcess_message_for_instagram" />
+	<key name="rs_unsucccess_message_for_instagram" />
+	<!-- Instagram Button Settings -->
+
+	<!-- VK.Com Button Settings -->
+	<key name="rs_email_subject_vk" />
+	<key name="rs_email_message_vk" />
+	<key name="rs_email_subject_post_vk" />
+	<key name="rs_email_message_post_vk" />
+	<key name="rs_social_message_for_vk" />
+	<key name="rs_succcess_message_for_vk" />
+	<key name="rs_unsucccess_message_for_vk" />
+	<!-- VK.Com Button Settings -->
+
+	<!-- Google+1 Button Settings -->
+	<key name="rs_email_subject_google" />
+	<key name="rs_email_message_google" />
+	<key name="rs_email_subject_post_gplus" />
+	<key name="rs_email_message_post_gplus" />
+	<key name="rs_social_message_for_google_plus" />
+	<key name="rs_succcess_message_for_google_share" />
+	<key name="rs_unsucccess_message_for_google_unshare" />
+	<!-- Google+1 Button Settings -->
+
+	<!-- OK.ru Button Settings -->
+	<key name="rs_email_subject_ok" />
+	<key name="rs_email_message_ok" />
+	<key name="rs_email_subject_post_ok_ru" />
+	<key name="rs_email_message_post_ok_ru" />
+	<key name="rs_social_message_for_ok_follow" />
+	<key name="rs_succcess_message_for_ok_follow" />
+	<key name="rs_unsucccess_message_for_ok_unfollow" />
+	<!-- OK.ru Button Settings -->
+
+	<!-- Social Reward Points Restriction Settings -->
+	<key name="rs_restriction_message_for_fblike" />
+	<key name="rs_restriction_message_for_fbshare" />
+	<key name="rs_restriction_message_for_tweet" />
+	<key name="rs_restriction_message_for_twitter_follow" />
+	<key name="rs_restriction_message_for_instagram" />
+	<key name="rs_restriction_message_for_vk" />
+	<key name="rs_restriction_message_for_gplus" />
+	<key name="rs_restriction_message_for_ok"/>
+	<!-- Social Reward Points Restriction Settings -->
+
+	<!-- Social Reward Points Module-->
+
+	<!-- Modules-->
+
+	<!-- Add/Remove Points-->
+
+	<!-- Add/Remove Reward Points Settings -->
+	<key name="rs_reward_addremove_reason" />
+	<key name="rs_email_subject_message" />
+	<key name="rs_email_message" />
+	<key name="rs_email_subject_for_remove" />
+	<key name="rs_email_message_for_remove" />
+	<!-- Add/Remove Reward Points Settings -->
+
+	<!-- Add/Remove Points-->
+
+	<!-- Advanced-->
+
+	<!-- Advanced Settings -->
+	<key name="rs_msg_in_reg_page" />
+	<key name="rs_msg_in_acc_page_when_checked" />
+	<key name="rs_msg_in_acc_page_when_unchecked" />
+	<key name="rs_alert_msg_in_acc_page_when_checked" />
+	<key name="rs_alert_msg_in_acc_page_when_unchecked" />
+	<!-- Advanced Settings -->
+
+	<!-- My Account Menu Page Show/Hide Settings -->
+	<key name="rs_my_reward_content_title" />
+	<key name="rs_my_reward_url_title" />
+	<!-- My Account Menu Page Show/Hide Settings -->
+
+	<!-- Advanced-->
+
+	<!-- Messages-->
+
+	<!-- Shop and Category Page Message Settings -->
+	<key name="rs_message_in_shop_page_for_simple" />
+	<key name="rs_msg_for_fixed_cart_total_based_product_purchase_in_shop" />
+	<key name="rs_msg_for_percent_cart_total_based_product_purchase_in_shop" />
+	<key name="rs_buy_point_message_in_shop_page_for_simple" />
+	<key name="rs_buy_point_message_in_shop_page_for_variable" />
+	<!-- Shop and Category Page Message Settings -->
+
+	<!-- Custom Page Message Settings -->
+	<key name="rs_message_in_custom_shop_page_for_simple" />
+	<key name="rs_message_for_custom_shop_variation" />
+	<key name="rs_buy_point_message_in_custom_shop_page_for_simple" />
+	<key name="rs_buy_point_message_in_custom_shop_page_for_variable" />
+	<!-- Custom Page Message Settings -->
+
+	<!-- Single Product Page Message Settings -->
+	<key name="rs_message_for_single_product_point_rule" />
+	<key name="rs_message_in_single_product_page" />
+	<key name="rs_message_in_single_product_page_related_products" />
+	<key name="rs_message_for_single_product_variation" />
+	<key name="rs_message_for_variation_products"/>
+	<key name="rs_message_in_variable_related_products"/>
+	<key name="rs_msg_for_fixed_cart_total_based_product_purchase"/>
+	<key name="rs_msg_for_percent_cart_total_based_product_purchase"/>
+	<key name ="rs_buy_point_message_for_single_product_point_rule"/>
+	<key name ="rs_buy_point_message_in_product_page_for_simple"/>
+	<key name="rs_buy_point_message_for_variation_products"/>
+	<key name="rs_buy_point_message_in_product_page_for_variable"/>
+	<key name="rs_message_for_single_product_point_rule_referral"/>
+	<key name="rs_message_for_variation_products_referral"/>
+	<key name="rs_message_for_product_review"/>
+	<!-- Single Product Page Message Settings -->
+
+	<!-- Cart Page Message Settings -->
+	<key name="rs_message_for_guest_in_cart" />
+	<key name="rs_message_product_in_cart" />
+	<key name="rs_message_total_price_in_cart" />
+	<key name="rs_msg_for_cart_total_based_points" />
+	<key name="rs_buy_point_message_product_in_cart"/>
+	<key name="rs_referral_point_message_product_in_cart"/>
+	<key name="rs_message_user_points_in_cart"/>
+	<key name="rs_message_user_points_redeemed_in_cart"/>
+	<!-- Cart Page Message Settings -->
+
+	<!-- Checkout Page Message Settings -->
+	<key name="rs_message_for_guest_in_checkout" />
+	<key name="rs_message_product_in_checkout" />
+	<key name="rs_message_total_price_in_checkout" />
+	<key name="rs_msg_for_cart_total_based_points_in_checkout" />
+	<key name="rs_referral_point_message_product_in_checkout"/>
+	<key name="rs_buy_point_message_product_in_checkout"/>
+	<key name="rs_message_user_points_in_checkout"/>
+	<key name="rs_message_user_points_redeemed_in_checkout"/>
+	<key name="rs_message_payment_gateway_reward_points"/>
+	<key name="rs_restriction_msg_for_selected_gateway"/>
+	<!-- Checkout Page Message Settings -->
+
+	<!-- Cart and Checkout Page Message Settings -->
+	<key name="rs_message_for_first_purchase" />
+	<key name="rs_success_coupon_message" />
+	<key name="rs_automatic_success_coupon_message" />
+	<key name="rs_remove_redeem_points_message" />
+	<key name="rs_errmsg_for_max_discount_type"/>
+	<key name="rs_errmsg_for_redeeming_in_order"/>
+	<key name="rs_errmsg_for_coupon_in_order"/>
+	<key name="rs_errmsg_for_redeem_in_point_price_prt"/>
+	<key name="rs_msg_for_redeem_when_tax_enabled"/>
+	<!-- Cart and Checkout Page Message Settings -->
+
+	<!-- My Reward Table Customization Settings -->
+	<key name="rs_my_rewards_total" />
+	<key name="rs_my_rewards_title" />
+	<key name="rs_my_rewards_sno_label" />
+	<key name="rs_my_rewards_userid_label" />
+	<key name="rs_my_rewards_reward_for_label"/>
+	<key name="rs_my_rewards_points_earned_label"/>
+	<key name="rs_my_rewards_redeem_points_label"/>
+	<key name="rs_my_rewards_total_points_label"/>
+	<key name="rs_my_rewards_date_label"/>
+	<key name="rs_my_rewards_points_expired_label"/>
+	<key name="rs_my_rewards_total_shortcode"/>
+	<key name="rs_my_rewards_title_shortcode"/>
+	<key name="rs_my_rewards_sno_label_shortcode"/>
+	<key name="rs_my_rewards_userid_label_shortcode"/>
+	<key name="rs_my_rewards_rewarder_label_shortcode"/>
+	<key name="rs_my_rewards_points_earned_label_shortcode"/>
+	<key name="rs_my_rewards_redeem_points_label_shortcode"/>
+	<key name="rs_my_rewards_total_points_label_shortcode"/>
+	<key name="rs_my_rewards_date_label_shortcode"/>
+	<key name="rs_my_rewards_points_expired_label_shortcode"/>
+	<!-- My Reward Table Customization Settings -->
+
+	<!-- Guest Message Settings -->
+	<key name="rs_message_shortcode_guest_display" />
+	<key name="rs_message_shortcode_login_name" />
+	<key name="rs_label_shortcode" />
+	<!-- Guest Message Settings -->
+
+	<!-- Unsubscription Link Text Settings -->
+	<key name="rs_unsubscribe_link_for_email" />
+	<!-- Unsubscription Link Text Settings -->
+
+	<!-- Cart Error Message Settings -->
+	<key name="rs_errmsg_for_normal_product_with_point_price" />
+	<key name="rs_errmsg_for_point_price_product_with_normal" />
+	<key name="rs_errmsg_for_point_price_product_with_same" />
+	<key name="rs_point_price_product_added_to_cart_guest_errmsg"/>
+	<!-- Cart Error Message Settings -->
+
+	<!-- Action Points Message Settings -->
+	<key name="rs_msg_for_account_signup" />
+	<key name="rs_msg_for_product_review" />
+	<key name="rs_msg_for_post_creation" />
+	<key name="rs_msg_for_post_review" />
+	<key name="rs_msg_for_page_comment"/>
+	<key name="rs_msg_for_create_product"/>
+	<key name="rs_msg_for_daily_login"/>
+	<key name="rs_msg_for_product_puchase"/>
+	<key name="rs_msg_for_buying_reward_points"/>
+	<key name= "rs_msg_for_referral_system_product_purcase"/>
+	<key name="rs_msg_for_referral_system_login"/>
+	<key name="rs_msg_for_getting_refer_product_purchase"/>
+	<key name="rs_msg_for_social_promotion"/>
+	<key name="rs_msg_for_social_promotion_for_post"/>
+	<!-- Action Points Message Settings -->
+
+	<!-- Signup/Login Message Settings -->
+	<key name="rs_message_user_points_for_sign_up" />
+	<key name="rs_message_user_points_for_daily_login" />
+	<!-- Signup/Login Message Settings -->
+
+	<!-- Page Comment Message Settings -->
+	<key name="rs_message_user_points_for_page_comment" />
+	<!-- Page Comment Message Settings -->
+
+	<!-- Blog Post Create/Blog Post Comment Message Settings -->
+	<key name="rs_message_user_points_for_blog_creation" />
+	<key name="rs_message_user_points_for_blog_comment" />
+	<!-- Blog Post Create/Blog Post Comment Message Settings -->
+
+	<!-- Messages-->
+
+	<!-- Localization-->
+
+	<!-- Registration Reward Points Log Settings -->
+	<key name="_rs_localize_points_earned_for_registration" />
+	<key name="_rs_localize_points_earned_for_referral_registration" />
+	<!-- Registration Reward Points Log Settings -->
+
+	<!-- First Purchase Points Log Settings -->
+	<key name="rs_log_for_first_purchase_points" />
+	<key name="rs_log_for_revised_first_purchase_points"/>
+	<!-- First Purchase Points Log Settings -->
+
+	<!-- Product Purchase Reward Points Log Settings -->
+	<key name="_rs_localize_product_purchase_reward_points" />
+	<key name="_rs_localize_points_earned_for_purchase_main" />
+	<key name="_rs_localize_points_earned_for_purchase_based_on_cart_total_for_master_log"/>
+	<key name="_rs_localize_points_earned_for_purchase_based_on_cart_total"/>
+	<key name="rs_log_for_product_purchase_when_overidded"/>
+	<!-- Product Purchase Reward Points Log Settings -->
+
+	<!-- Referral Reward Points Log Settings -->
+	<key name="_rs_localize_referral_reward_points_for_purchase" />
+	<key name="_rs_localize_referral_reward_points_for_purchase_gettin_referred" />
+	<key name="_rs_localize_referral_reward_points_gettin_referred"/>
+	<!-- Referral Reward Points Log Settings -->
+
+	<!-- Reward Points Redeemed Log Settings -->
+	<key name="_rs_localize_points_redeemed_towards_purchase" />
+	<!-- Reward Points Redeemed Log Settings -->
+
+	<!-- Reward Points for Payment Gateway Usage Log Settings -->
+	<key name="_rs_localize_reward_for_payment_gateway_message" />
+	<key name="_rs_localize_revise_reward_for_payment_gateway_message"/>
+	<!-- Reward Points for Payment Gateway Usage Log Settings -->
+
+	<!-- SUMO Reward Points Payment Gateway Log Settings -->
+	<key name="_rs_reward_points_gateway_log_localizaation" />
+	<key name="_rs_localize_reward_for_using_subscription"/>
+	<!-- SUMO Reward Points Payment Gateway Log Settings -->
+
+	<!-- Social Reward Points Log Settings -->
+	<key name="_rs_localize_reward_for_facebook_like" />
+	<key name="_rs_localize_reward_for_facebook_share"/>
+	<key name="_rs_localize_reward_for_twitter_tweet"/>
+	<key name="_rs_localize_reward_for_twitter_follow"/>
+	<key name="_rs_localize_reward_for_google_plus"/>
+	<key name="_rs_localize_reward_for_vk"/>	
+	<key name="_rs_localize_reward_for_instagram"/>
+	<key name="_rs_localize_reward_for_ok_follow"/>
+	<!-- Social Reward Points Log Settings -->
+
+	<!-- Product Review Reward Points Log Settings -->
+	<key name="_rs_localize_points_earned_for_product_review" />
+	<!-- Product Review Reward Points Log Settings -->
+
+	<!-- Blog Post Creation Reward Points Log Settings -->
+	<key name="_rs_localize_points_earned_for_post" />
+	<!-- Blog Post Creation Reward Points Log Settings -->
+
+	<!-- Blog Post Comment Reward Points Log Settings -->
+	<key name="_rs_localize_points_earned_for_post_review" />
+	<!-- Blog Post Comment Reward Points Log Settings -->
+
+	<!-- Product Creation Reward Points Log Settings -->
+	<key name="_rs_localize_points_earned_for_product_creation" />
+	<!-- Product Creation Reward Points Log Settings -->
+
+	<!-- Page Comment Reward Points Log Settings -->
+	<key name="_rs_localize_points_earned_for_page_review" />
+	<!-- Page Comment Reward Points Log Settings -->
+
+	<!-- Daily Login Reward Points Log Settings -->
+	<key name="_rs_localize_reward_points_for_login" />
+	<!-- Daily Login Reward Points Log Settings -->
+
+	<!-- Buying Reward Points Log Settings -->
+	<key name="_rs_localize_buying_reward_points_log" />
+	<!-- Buying Reward Points Log Settings -->
+
+	<!-- Buying Reward Points Log Settings -->
+	<key name="_rs_localize_buying_reward_points_log" />
+	<!-- Buying Reward Points Log Settings -->
+
+	<!-- Product Purchase Reward Points Revised Log Settings -->
+	<key name="_rs_log_revise_product_purchase" />
+	<key name="_rs_log_revise_product_purchase_main" />
+	<key name="_rs_log_revise_buy_points_main" />
+	<key name="_rs_log_revise_for_product_purchase_based_on_cart_total" />
+	<key name ="_rs_log_revise_for_product_purchase_based_on_cart_total_in_my_reward"/>
+	<!-- Product Purchase Reward Points Revised Log Settings -->
+
+	<!-- Referral Product Purchase Reward Points Revised Log Settings -->
+	<key name="_rs_log_revise_referral_product_purchase" />
+	<!-- Referral Product Purchase Reward Points Revised Log Settings -->
+
+	<!-- Redeemed Reward Points Revised Log Settings -->
+	<key name="_rs_log_revise_points_redeemed_towards_purchase" />
+	<!-- Redeemed Reward Points Revised Log Settings -->
+
+	<!-- Getting Referred Reward Points for Product Purchase Revised Log settings -->
+	<key name="_rs_log_revise_getting_referred_product_purchase" />
+	<!-- Getting Referred Reward Points for Product Purchase Revised Log settings -->
+
+	<!-- Referral Registration Points Revised upon Account Deletion Log Settings -->
+	<key name="_rs_localize_referral_account_signup_points_revised" />
+	<key name="_rs_localize_revise_points_for_referral_purchase" />
+	<key name="_rs_localize_revise_points_for_getting_referred_purchase" />
+	<!-- Referral Registration Points Revised upon Account Deletion Log Settings -->
+
+	<!-- Social Reward Points Revised Log Settings -->
+	<key name="_rs_localize_reward_for_facebook_like_revised" />
+	<key name="_rs_localize_reward_for_google_plus_revised" />
+	<key name="_rs_localize_reward_for_vk_like_revised" />
+	<!-- Social Reward Points Revised Log Settings -->
+
+	<!-- Send Points Log Settings -->
+	<key name="_rs_localize_log_for_reciver" />
+	<key name="_rs_localize_log_for_sender" />
+	<key name="_rs_localize_log_for_sender_after_submit" />
+	<key name="_rs_localize_points_to_send_log_revised"/>
+	<!-- Send Points Log Settings -->
+
+	<!-- Voucher Code Log Settings -->
+	<key name="_rs_localize_voucher_code_usage_log_message" />
+	<!-- Voucher Code Log Settings -->
+
+	<!-- Coupon Reward Points Log Settings -->
+	<key name="_rs_localize_coupon_reward_points_log" />
+	<!-- Coupon Reward Points Log Settings -->	
+
+	<!-- Reward Points Earning Threshold Log Settings -->
+	<key name="_rs_localize_max_earning_points_log" />
+	<!-- Reward Points Earning Threshold Log Settings -->	
+
+	<!-- Cashback Log Settings -->
+	<key name="_rs_localize_points_to_cash_log" />
+	<key name="_rs_localize_points_to_cash_log_revised" />
+	<key name="_rs_localize_points_to_cash_log_in_my_cashback_table" />
+	<!-- Cashback Log Settings -->	
+
+	<!-- Nominee Log Settings -->
+	<key name="_rs_localize_log_for_nominee" />
+	<key name="_rs_localize_log_for_nominated_user" />
+	<!-- Nominee Log Settings -->	
+
+	<!-- Import/Export Log Settings -->
+	<key name="_rs_localize_log_for_import_add" />
+	<key name="_rs_localize_log_for_import_override" />
+	<!-- Import/Export Log Settings -->
+
+	<!-- Localization-->
+
     </admin-texts>
 </wpml-config>
 

@@ -39,10 +39,11 @@ get_header();
         <aside  id="betterdocs-sidebar-left" class="betterdocs-full-sidebar-left">
             <div data-simplebar class="betterdocs-sidebar-content">
 				<?php 
-				$enable_sidebar_cat_list = BetterDocs_DB::get_settings('enable_sidebar_cat_list');
-				if($enable_sidebar_cat_list == 1){
-					echo do_shortcode( '[betterdocs_category_grid icon=0 post_counter=0 sidebar_list="true" posts_per_grid="-1"]' );
-				}
+					if ( BetterDocs_Multiple_Kb::$enable == 1 ) {
+						echo do_shortcode( '[betterdocs_category_grid icon=0 post_counter=0 sidebar_list="true" posts_per_grid="-1" multiple_knowledge_base=true]' );
+					} else {
+						echo do_shortcode( '[betterdocs_category_grid icon=0 post_counter=0 sidebar_list="true" posts_per_grid="-1"]' );
+					}
                 ?>
 			</div>
 		</aside><!-- #sidebar -->

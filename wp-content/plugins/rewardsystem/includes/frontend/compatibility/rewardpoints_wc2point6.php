@@ -84,19 +84,11 @@ if ( ! class_exists( 'FP_Reward_Points_WC_2P6' ) ) {
                             $getpointprice = max( $data ) ;
                     }
                     $finalpointprice = round_off_type( $getpointprice ) ;
-                    $label           = get_option( 'rs_label_for_point_value' ) ;
-                    $labelposition   = get_option( 'rs_sufix_prefix_point_price_label' ) ;
-                    $pixel           = get_option( 'rs_pixel_val' ) ;
-                    $replace         = str_replace( "/" , "" , $label ) ;
 
-                    if ( $labelposition == '1' ) {
-                        $pointpricemessage = "{$replace}<span style='margin-left:{$pixel}px;'>{$getpointprice}</span>" ;
-                    } else {
-                        $pointpricemessage = "{$getpointprice}<span style='margin-left:{$pixel}px;'>{$replace}</span>" ;
-                    }
+                    $pointpricemessage = display_point_price_value( $getpointprice ) ;
+
                     $label1 = '/' ;
                     if ( $finalpointprice == '0' || $finalpointprice == '' ) {
-                        $label           = '' ;
                         $finalpointprice = '' ;
                         $label1          = '' ;
                     }

@@ -332,7 +332,7 @@ if ( ! class_exists( 'RewardPointsOrder' ) ) {
                 if ( srp_check_is_array( $UsedCoupons ) ) {
                     $productidss               = empty( $variationid ) ? $productid : $variationid ;
                     $modified_point_list       = get_post_meta( $order_id , 'points_for_current_order' , true ) ;
-                    $productlevelrewardpointss = ( $payment_price == 0 ) ? $modified_point_list[ $productidss ] : $payment_price ;
+                    $productlevelrewardpointss = ( $payment_price == 0 ) ? ( ! empty( $modified_point_list[ $productidss ] ) ? $modified_point_list[ $productidss ] : 0 ) : $payment_price ;
                     if ( $minimum_cart_total != '' && $minimum_cart_total != 0 ) {
                         if ( $order_total < $minimum_cart_total )
                             $productlevelrewardpointss = 0 ;
@@ -615,8 +615,15 @@ if ( ! class_exists( 'RewardPointsOrder' ) ) {
             $user_name      = ! empty( $valuestoinsert[ 'referred_id' ] ) ? get_user_by( 'id' , $valuestoinsert[ 'referred_id' ] )->user_login : '' ;
             $pointstoinsert = ($valuestoinsert[ 'event_slug' ] == 'MAP') ? $valuestoinsert[ 'pointstoinsert' ] : RSMemberFunction::earn_points_percentage( $user_id , ( float ) $valuestoinsert[ 'pointstoinsert' ] ) ;
 
-            if ( $valuestoinsert[ 'event_slug' ] == 'PFFP' )
+            if ( $valuestoinsert[ 'event_slug' ] == 'PFFP' ) {
                 update_post_meta( $this->order_id , 'rs_first_purchase_points' , $pointstoinsert ) ;
+            }
+
+            // Update Referrer points after discounts meta.
+            if ( 'yes' === get_option( 'rs_referral_points_after_discounts' ) && 'PPRRP' == $valuestoinsert[ 'event_slug' ] ) {
+                $ProductId = ! empty( $valuestoinsert[ 'variation_id' ] ) ? $valuestoinsert[ 'variation_id' ] : $valuestoinsert[ 'product_id' ] ;
+                update_post_meta( $this->order_id , 'rs_referrer_points_after_discounts' , array( $ProductId => $pointstoinsert ) ) ;
+            }
 
             $table_args = array(
                 'user_id'           => $user_id ,
@@ -638,11 +645,6 @@ if ( ! class_exists( 'RewardPointsOrder' ) ) {
             RSPointExpiry::record_the_points( $table_args ) ;
             $to         = get_user_by( 'id' , $user_id )->user_email ;
             rs_send_mail_for_actions( $to , $valuestoinsert[ 'event_slug' ] , $pointstoinsert , $user_name , $this->order_id ) ;
-            $no_of_days = days_from_point_expiry_email() ;
-            if ( get_option( 'rs_email_template_expire_activated' ) == "yes" && $no_of_days != 0 && $date != 999999999999 ) {
-                $date_to_send_mail = strtotime( '-' . $no_of_days . 'days' , $date ) ;
-                wp_schedule_single_event( $date_to_send_mail , 'rs_send_mail_before_expiry' ) ;
-            }
         }
 
         public function points_management( $earned_points , $redeemed_points , $event_slug , $user_id ) {

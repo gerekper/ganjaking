@@ -4,6 +4,7 @@ namespace ACP\Column\CustomField;
 
 use AC\Settings\Column\CustomFieldType;
 use ACP\Search\Comparison\Meta;
+use LogicException;
 
 class SearchComparisonFactory {
 
@@ -11,10 +12,11 @@ class SearchComparisonFactory {
 	 * @param string $type
 	 * @param string $meta_key
 	 * @param string $meta_type
+	 * @param array  $args
 	 *
 	 * @return Meta|false
 	 */
-	public static function create( $type, $meta_key, $meta_type ) {
+	public static function create( $type, $meta_key, $meta_type, array $args = [] ) {
 
 		switch ( $type ) {
 
@@ -27,7 +29,11 @@ class SearchComparisonFactory {
 			case CustomFieldType::TYPE_COUNT :
 				return false;
 			case CustomFieldType::TYPE_DATE :
-				return new Meta\Text( $meta_key, $meta_type );
+				if ( ! isset( $args['date_format'] ) ) {
+					throw new LogicException( 'Missing date_format.' );
+				}
+
+				return Meta\DateFactory::create( $args['date_format'], $meta_key, $meta_type );
 			case CustomFieldType::TYPE_TEXT :
 				return new Meta\Text( $meta_key, $meta_type );
 			case CustomFieldType::TYPE_NON_EMPTY :

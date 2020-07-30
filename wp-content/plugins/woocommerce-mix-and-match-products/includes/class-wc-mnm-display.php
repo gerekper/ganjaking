@@ -77,6 +77,10 @@ class WC_Mix_and_Match_Display {
 
 		// Stop displaying the "Part of" meta key in Order Tables, ex: My Account and Emails
 		add_filter( 'woocommerce_order_item_get_formatted_meta_data', array( $this, 'remove_part_of_meta_key_from_display' ), 10, 2 );
+
+		// Display label for mnm_container_size order item meta.
+		add_filter( 'woocommerce_order_item_display_meta_key', array( $this, 'order_item_meta_label' ), 10, 3 );
+
 	}
 
 	/*-----------------------------------------------------------------------------------*/
@@ -330,7 +334,22 @@ class WC_Mix_and_Match_Display {
 		 *
 		 * @param  array $params
 		 */
-		$params = apply_filters( 'woocommerce_mnm_add_to_cart_parameters', array(
+		$params = $this->get_add_to_cart_parameters( $trim_zeros );
+
+		wp_localize_script( 'wc-add-to-cart-mnm', 'wc_mnm_params', $params );
+
+	}
+
+	/**
+	 * Returns Add to Cart Parameters.
+	 *
+	 * @access public
+	 * @static
+	 * @param  bool $trim_zeros
+	 * @return array
+	 */
+	public static function get_add_to_cart_parameters( $trim_zeros ) {
+		return apply_filters( 'woocommerce_mnm_add_to_cart_parameters', array(
 			'addons_three_support'               => defined( 'WC_PRODUCT_ADDONS_VERSION' ) && version_compare( WC_PRODUCT_ADDONS_VERSION, '3.0', '>=' ) ? 'yes' : 'no',
 			'i18n_total'                         => __( 'Total: ', 'woocommerce-mix-and-match-products' ),
 			'i18n_subtotal'                      => __( 'Subtotal: ', 'woocommerce-mix-and-match-products' ),
@@ -374,11 +393,7 @@ class WC_Mix_and_Match_Display {
 			'tax_display_shop'                   => esc_attr( get_option( 'woocommerce_tax_display_shop' ) ),
 			'calc_taxes'                         => esc_attr( get_option( 'woocommerce_calc_taxes' ) ),
 			'photoswipe_enabled'                 => current_theme_supports( 'wc-product-gallery-lightbox' ) ? 'yes' : 'no',
-			)
-		);
-
-		wp_localize_script( 'wc-add-to-cart-mnm', 'wc_mnm_params', $params );
-
+		) );
 	}
 
 	/**
@@ -430,6 +445,30 @@ class WC_Mix_and_Match_Display {
 			$formatted_meta = wp_list_filter( $formatted_meta, array( 'key' => __( 'Part of', 'woocommerce-mix-and-match-products' ) ), 'NOT' );
 		}
 		return $formatted_meta;
+	}
+
+	/**
+	 * Display mnm_container_size meta as Container size.
+	 * 
+	 * @param  string $display_key The front-end label for the meta key.
+	 * @param  obj $meta Meta object with key and value properties.
+	 * @param  WC_Order_Item $order_item
+	 * @return  array
+	 */
+	public function order_item_meta_label( $display_key, $meta, $order_item ) {
+
+		switch ( $meta->key ) {
+			case 'mnm_container_size':
+				$display_key = __( 'Container size', 'woocommerce-mix-and-match-products' );
+				break;
+			case 'mnm_part_of':
+				$display_key = __( 'Part of', 'woocommerce-mix-and-match-products' );
+				break;
+			case 'mnm_purchased_with':
+				$display_key = __( 'Purchased with', 'woocommerce-mix-and-match-products' );
+				break;
+		}
+		return $display_key;
 	}
 
 } // End class.

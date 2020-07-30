@@ -29,11 +29,15 @@ class Switcher implements Registrable {
 	}
 
 	private function add_filter_args_to_url( $link ) {
-		if ( $post_status = filter_input( INPUT_GET, 'post_status', FILTER_SANITIZE_STRING ) ) {
+		$post_status = filter_input( INPUT_GET, 'post_status', FILTER_SANITIZE_STRING );
+
+		if ( $post_status ) {
 			$link = add_query_arg( [ 'post_status' => $post_status ], $link );
 		}
 
-		if ( $author = filter_input( INPUT_GET, 'author', FILTER_SANITIZE_STRING ) ) {
+		$author = filter_input( INPUT_GET, 'author', FILTER_SANITIZE_STRING );
+
+		if ( $author ) {
 			$link = add_query_arg( [ 'author' => $author ], $link );
 		}
 

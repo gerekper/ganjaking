@@ -202,31 +202,15 @@ class WP_List_Table_for_View_Log extends WP_List_Table {
                     $earnpoints   = round_off_type( $earnpoints ) ;
                     $redeempoints = get_option( 'rs_enable_round_off_type_for_calculation' ) == 'yes' ? $redeempoints : round_off_type( $redeempoints ) ;
 
-                    $DisplayFormat = get_option( 'rs_dispaly_time_format' ) ;
-                    if ( get_option( 'rs_hide_time_format' ) == 'yes' ) {
-                        $DateFormat = ($DisplayFormat == '1') ? "d-m-Y" : get_option( 'date_format' ) ;
-                    } else {
-                        $DateFormat = ($DisplayFormat == '1') ? "d-m-Y h:i:s A" : get_option( 'date_format' ) . ' ' . get_option( 'time_format' ) ;
-                    }
-
-                    $CheckPoint = $values[ 'checkpoints' ] ;
-                    if ( $CheckPoint == 'IMPOVR' || $CheckPoint == 'IMPADD' ) {
-                        $GMTExpDate = $values[ 'expirydate' ] + get_option( 'gmt_offset' ) * HOUR_IN_SECONDS ;
-                        $ExpDate    = $values[ 'expirydate' ] != 999999999999 ? date_i18n( $DateFormat , ( float ) $GMTExpDate ) : '-' ;
-                    } else {
-                        $ExpDate = $values[ 'expirydate' ] != 999999999999 ? date_i18n( $DateFormat , ( float ) $values[ 'expirydate' ] ) : '-' ;
-                    }
-
-                    $ExpDate = ($ExpDate != '-') ? strftime( $ExpDate ) : '-' ;
-                    $data[]  = array(
+                    $data[] = array(
                         'sno'             => $i ,
                         'user_name'       => $getuserbyid->user_login ,
                         'reward_for'      => $eventname ,
                         'earned_points'   => $earnpoints ,
                         'redeemed_points' => $redeempoints ,
                         'total_points'    => $totalpoints != '' ? round_off_type( $totalpoints ) : '0' ,
-                        'log_date'        => date_display_format( $values ) ,
-                        'expiry_date'     => $ExpDate ,
+                        'log_date'        => date_display_format( $values[ 'earneddate' ] ) ,
+                        'expiry_date'     => 999999999999 != $values[ 'expirydate' ] ? date_display_format( $values[ 'expirydate' ] ) : '-' ,
                             ) ;
                     $i ++ ;
                 }

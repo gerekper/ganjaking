@@ -8,7 +8,7 @@
  * @category Core
  * @package  WooCommerce Mix and Match Products/Update
  * @since    1.2.0
- * @version  1.2.0
+ * @version  1.10.0
  */
 
 // Exit if accessed directly.
@@ -108,4 +108,105 @@ function wc_mnm_update_120_main( $updater ) {
 			}
 		}
 	}
+}
+
+
+/**
+ * Patch product meta for Version 1.10.0.
+ *
+ * @param obj $updater The background updater class object.
+ */
+function wc_mnm_update_1x10_product_meta( $updater ) {
+
+	global $wpdb;
+
+	// Grab post ids to update.
+	$containers = $wpdb->get_results( "
+		SELECT DISTINCT posts.ID AS container_id FROM {$wpdb->posts} AS posts
+		LEFT OUTER JOIN {$wpdb->postmeta} AS postmeta ON posts.ID = postmeta.post_id AND postmeta.meta_key = '_mnm_data'
+		WHERE posts.post_type = 'product'
+		AND postmeta.meta_value IS NOT NULL
+	" );
+
+	if ( ! empty( $containers ) ) {
+		foreach ( $containers as $index => $container ) {
+
+			// Make sure we are nowhere close to memory & PHP timeout limits - check state every 20 migrated products.
+			if ( $index % 20 === 19 ) {
+				if ( $updater->time_exceeded() || $updater->memory_exceeded() ) {
+					return -1;
+				}
+			}
+
+			$container_id = (int) $container->container_id;
+
+			// Fix contents array
+			$contents = get_post_meta( $container_id, '_mnm_data', true );
+			$new_contents = array();
+
+			if ( is_array( $contents ) ) {
+
+				$counter = 0;
+
+				foreach ( $contents as $id => $data ) {
+
+					$parent_id = wp_get_post_parent_id( $id );
+
+					$new_contents[$id]['child_id']     = intval( $id );
+					$new_contents[$id]['product_id']   = $parent_id > 0 ? $parent_id : $id;
+					$new_contents[$id]['variation_id'] = $parent_id > 0 ? $id : 0;
+
+				}
+
+			}
+
+			update_post_meta( $container_id, '_mnm_data', $new_contents );
+
+		}
+	}
+}
+
+
+/**
+ * Switch container size meta key from translated string.
+ *
+ * @since  1.10.0
+ */
+function wc_mnm_update_1x10_order_item_meta() {
+
+	global $wpdb;
+
+	// Update "Container size" meta key.
+	$meta_ids = $wpdb->update(
+		$wpdb->prefix . 'woocommerce_order_itemmeta',
+		array( 'meta_key' => 'mnm_container_size' ),
+		array( 'meta_key' => __( 'Container size', 'woocommerce-mix-and-match-products' )
+		)
+	);
+
+	// Update "Part of"  meta key.
+	$meta_ids = $wpdb->update(
+		$wpdb->prefix . 'woocommerce_order_itemmeta',
+		array( 'meta_key' => 'mnm_part_of' ),
+		array( 'meta_key' => __( 'Part of', 'woocommerce-mix-and-match-products' )
+		)
+	);
+
+	// Update "Purchased with" meta key.
+	$meta_ids = $wpdb->update(
+		$wpdb->prefix . 'woocommerce_order_itemmeta',
+		array( 'meta_key' => 'mnm_purchased_with' ),
+		array( 'meta_key' => __( 'Purchased with', 'woocommerce-mix-and-match-products' )
+		)
+	);
+	
+}
+
+/**
+ * Update DB Version
+ *
+ * @since  1.10.0
+ */
+function wc_mnm_update_1x10_db_version() {
+	WC_MNM_Install::update_db_version( '1.10.0' );
 }

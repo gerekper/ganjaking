@@ -415,11 +415,15 @@ class WC_MNM_Meta_Box_Product_Data {
 
 						$mnm_product = wc_get_product( $mnm_id );
 
-						if ( ! in_array( $mnm_product->get_type(), WC_Mix_and_Match_Helpers::get_supported_product_types() ) || ( $mnm_product->is_type( 'variation' ) && ! WC_MNM_Core_Compatibility::has_all_attributes_set( $mnm_product ) ) ) {
+						if( ! WC_Mix_and_Match_Helpers::is_child_supported_product_type( $mnm_product ) ) {
 							$unsupported_error = true;
 						} else {
+
 							// Product-specific data, such as discounts, or min/max quantities in container may be included later on.
-							$mnm_contents_data[ $mnm_id ][ 'product_id' ] = $mnm_product->get_id();
+							$mnm_contents_data[ $mnm_id ][ 'child_id' ]     = $mnm_product->get_id();
+							$mnm_contents_data[ $mnm_id ][ 'product_id' ]   = $mnm_product->get_parent_id() > 0 ? $mnm_product->get_parent_id() : $mnm_product->get_id();
+							$mnm_contents_data[ $mnm_id ][ 'variation_id' ] = $mnm_product->get_parent_id() ? $mnm_product->get_id() : 0;
+
 						}
 					}
 

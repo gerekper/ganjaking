@@ -4,13 +4,12 @@ namespace ACP\Search\Controller;
 
 use AC;
 use AC\Exception;
-use AC\ListScreenRepository\Storage;
+use AC\ListScreenRepository;
 use AC\Preferences;
 use AC\Request;
 use AC\Response;
 use AC\Type\ListScreenId;
 use ACP\Controller;
-use ACP\Search;
 use ACP\Search\Segments;
 
 class Segment extends Controller {
@@ -21,42 +20,29 @@ class Segment extends Controller {
 	protected $list_screen;
 
 	/**
-	 * @var Search\Middleware\Rules
-	 */
-	protected $rules;
-
-	/**
 	 * @var Segments
 	 */
 	protected $segments;
 
-	public function __construct( Storage $storage, Request $request, Search\Middleware\Rules $rules ) {
+	public function __construct( ListScreenRepository\Storage $storage, Request $request ) {
 		parent::__construct( $request );
 
 		$id = $request->get( 'layout' );
 
 		if ( ListScreenId::is_valid_id( $id ) ) {
 			$this->list_screen = $storage->find( new ListScreenId( $id ) );
-		} else {
-			$this->list_screen = AC\ListScreenTypes::instance()->get_list_screen_by_key( $request->get( 'list_screen' ) );
 		}
 
 		if ( ! $this->list_screen instanceof AC\ListScreen ) {
 			throw Exception\RequestException::parameters_invalid();
 		}
 
-		$layout_id = $this->list_screen->get_layout_id();
-
-		$this->rules = $rules;
 		$this->segments = new Segments(
-			new Preferences\Site( sprintf( 'search_segments_%s', $layout_id ? $layout_id : $this->list_screen->get_key() ) )
+			new Preferences\Site( 'segments_' . $id )
 		);
 	}
 
-	/**
-	 * @param array $data
-	 */
-	protected function handle_segments_response( $data = [] ) {
+	protected function handle_segments_response( array $data = [] ) {
 		$response = new Response\Json();
 
 		$errors = [
@@ -82,14 +68,18 @@ class Segment extends Controller {
 	 * @return array
 	 */
 	protected function get_segment_response( Segments\Segment $segment ) {
-		$rules = $this->rules;
+		$query_string = array_merge( $segment->get_value( 'url_parameters' ), [
+			'ac-segment' => $segment->get_name(),
+		] );
+
+		foreach ( $query_string as $k => $v ) {
+			$query_string[ $k ] = is_array( $v )
+				? urlencode_deep( $v )
+				: urlencode( $v );
+		}
+
 		$url = add_query_arg(
-			[
-				'ac-rules'   => urlencode( json_encode( $rules( (array) $segment->get_value( 'rules' ) ) ) ),
-				'order'      => $segment->get_value( 'order' ),
-				'orderby'    => $segment->get_value( 'orderby' ),
-				'ac-segment' => urlencode( $segment->get_name() ),
-			],
+			$query_string,
 			$this->list_screen->get_screen_link()
 		);
 
@@ -116,24 +106,27 @@ class Segment extends Controller {
 		$data = filter_var_array(
 			$this->request->get_parameters()->all(),
 			[
-				'name'    => FILTER_SANITIZE_STRING,
-				'rules'   => [
-					'filter' => FILTER_DEFAULT,
-					'flags'  => FILTER_REQUIRE_ARRAY,
-				],
-				'order'   => FILTER_SANITIZE_STRING,
-				'orderby' => FILTER_SANITIZE_STRING,
+				'name'                     => FILTER_SANITIZE_STRING,
+				'query_string'             => FILTER_DEFAULT,
+				'whitelisted_query_string' => FILTER_DEFAULT,
 			]
 		);
 
-		$segment = new Segments\Segment(
-			$data['name'],
-			[
-				'rules'   => $data['rules'],
-				'order'   => $data['order'],
-				'orderby' => $data['orderby'],
-			]
-		);
+		parse_str( $data['query_string'], $url_parameters );
+		parse_str( $data['whitelisted_query_string'], $whitelisted_url_parameters );
+
+		foreach ( $whitelisted_url_parameters as $whitelisted_url_parameter => $placeholder ) {
+			if ( ! isset( $url_parameters[ $whitelisted_url_parameter ] ) ) {
+				continue;
+			}
+
+			$whitelisted_url_parameters[ $whitelisted_url_parameter ] = $url_parameters[ $whitelisted_url_parameter ];
+		}
+
+		$segment = new Segments\Segment( $data['name'], [
+			'rules'          => $data['rules'],
+			'url_parameters' => $whitelisted_url_parameters,
+		] );
 
 		$this->segments
 			->add_segment( $segment )

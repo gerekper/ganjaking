@@ -20,7 +20,7 @@ class WC_Free_Gift_Coupons_Admin {
 	 * 
 	 * @var string
 	 */
-	public static $version = '2.5.0';
+	public static $version = '2.5.2';
 
 	/**
 	 * Initialize

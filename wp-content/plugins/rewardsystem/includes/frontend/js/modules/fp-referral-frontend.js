@@ -4,7 +4,10 @@
 jQuery( function ( $ ) {
     var RSReferralFrontend = {
         init : function ( ) {
-            this.table_as_footable() ;
+            if ( '1' == fp_referral_frontend_params.enqueue_footable) {
+              this.table_as_footable() ;
+            }
+            
             this.initialize_fb_buttons( ) ;
             this.initialize_twitter_buttons( ) ;
             this.initialize_gplus_lang() ;

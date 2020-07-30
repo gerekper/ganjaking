@@ -44,6 +44,7 @@ class WoocommerceGpfYoastWoocommerceSeo {
 	public function render_prepopulation_descriptions( $description, $key ) {
 		if ( ! empty( $this->list[ $key ] ) ) {
 			return sprintf(
+				// Translators: %s is the field name.
 				__( '%s from Yoast WooCommerce SEO', 'woocommerce_gpf' ),
 				$this->list[ $key ]
 			);
@@ -52,6 +53,13 @@ class WoocommerceGpfYoastWoocommerceSeo {
 		return $description;
 	}
 
+	/**
+	 * @param $product
+	 *
+	 * @return array
+	 *
+	 * phpcs:disable WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid
+	 */
 	public static function getGtin( $product ) {
 		$meta = get_post_meta( $product->get_id(), 'wpseo_global_identifier_values', true );
 		if ( ! empty( $meta['isbn'] ) ) {
@@ -69,7 +77,7 @@ class WoocommerceGpfYoastWoocommerceSeo {
 		if ( ! empty( $meta['gtin14'] ) ) {
 			$meta_value = $meta['gtin14'];
 		}
-		if ( ! empty ( $meta_value ) ) {
+		if ( ! empty( $meta_value ) ) {
 			return [ $meta_value ];
 		}
 
@@ -78,7 +86,7 @@ class WoocommerceGpfYoastWoocommerceSeo {
 
 	public static function getGtin8( $product ) {
 		$meta = get_post_meta( $product->get_id(), 'wpseo_global_identifier_values', true );
-		if ( ! empty ( $meta['gtin8'] ) ) {
+		if ( ! empty( $meta['gtin8'] ) ) {
 			return [ $meta['gtin8'] ];
 		}
 
@@ -87,7 +95,7 @@ class WoocommerceGpfYoastWoocommerceSeo {
 
 	public static function getGtin12( $product ) {
 		$meta = get_post_meta( $product->get_id(), 'wpseo_global_identifier_values', true );
-		if ( ! empty ( $meta['gtin12'] ) ) {
+		if ( ! empty( $meta['gtin12'] ) ) {
 			return [ $meta['gtin12'] ];
 		}
 
@@ -96,7 +104,7 @@ class WoocommerceGpfYoastWoocommerceSeo {
 
 	public static function getGtin13( $product ) {
 		$meta = get_post_meta( $product->get_id(), 'wpseo_global_identifier_values', true );
-		if ( ! empty ( $meta['gtin13'] ) ) {
+		if ( ! empty( $meta['gtin13'] ) ) {
 			return [ $meta['gtin13'] ];
 		}
 
@@ -105,7 +113,7 @@ class WoocommerceGpfYoastWoocommerceSeo {
 
 	public static function getGtin14( $product ) {
 		$meta = get_post_meta( $product->get_id(), 'wpseo_global_identifier_values', true );
-		if ( ! empty ( $meta['gtin14'] ) ) {
+		if ( ! empty( $meta['gtin14'] ) ) {
 			return [ $meta['gtin14'] ];
 		}
 
@@ -114,7 +122,7 @@ class WoocommerceGpfYoastWoocommerceSeo {
 
 	public static function getIsbn( $product ) {
 		$meta = get_post_meta( $product->get_id(), 'wpseo_global_identifier_values', true );
-		if ( ! empty ( $meta['isbn'] ) ) {
+		if ( ! empty( $meta['isbn'] ) ) {
 			return [ $meta['isbn'] ];
 		}
 
@@ -123,7 +131,7 @@ class WoocommerceGpfYoastWoocommerceSeo {
 
 	public static function getMpn( $product ) {
 		$meta = get_post_meta( $product->get_id(), 'wpseo_global_identifier_values', true );
-		if ( ! empty ( $meta['mpn'] ) ) {
+		if ( ! empty( $meta['mpn'] ) ) {
 			return [ $meta['mpn'] ];
 		}
 

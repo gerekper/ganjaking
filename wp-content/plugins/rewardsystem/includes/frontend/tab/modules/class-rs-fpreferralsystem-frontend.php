@@ -267,12 +267,13 @@ if ( ! class_exists( 'RSFunctionForReferralSystem' ) ) {
         /* Display the list of generated link */
 
         public static function list_of_generated_link() {
-            wp_enqueue_script( 'fp_referral_frontend' , SRP_PLUGIN_DIR_URL . "includes/frontend/js/modules/fp-referral-frontend.js" , array( 'jquery' , 'wp_reward_footable' , 'wp_reward_footable_sort' , 'wp_reward_footable_paging' , 'wp_reward_footable_filter' ) , SRP_VERSION ) ;
+            wp_enqueue_script( 'fp_referral_frontend' , SRP_PLUGIN_DIR_URL . "includes/frontend/js/modules/fp-referral-frontend.js" , array( 'jquery' ) , SRP_VERSION ) ;
             $LocalizedScript = array(
-                'ajaxurl'        => SRP_ADMIN_AJAX_URL ,
-                'buttonlanguage' => get_option( 'rs_language_selection_for_button' ) ,
-                'wplanguage'     => get_option( 'WPLANG' ) ,
-                'fbappid'        => get_option( 'rs_facebook_application_id' ) ,
+                'ajaxurl'          => SRP_ADMIN_AJAX_URL ,
+                'buttonlanguage'   => get_option( 'rs_language_selection_for_button' ) ,
+                'wplanguage'       => get_option( 'WPLANG' ) ,
+                'fbappid'          => get_option( 'rs_facebook_application_id' ) ,
+                'enqueue_footable' => get_option( 'rs_enable_footable_js' , '1' ) ,
                     ) ;
             wp_localize_script( 'fp_referral_frontend' , 'fp_referral_frontend_params' , $LocalizedScript ) ;
             ?>
@@ -362,10 +363,11 @@ if ( ! class_exists( 'RSFunctionForReferralSystem' ) ) {
         public static function static_url_table( $referralperson ) {
             wp_enqueue_script( 'fp_referral_frontend' , SRP_PLUGIN_DIR_URL . "includes/frontend/js/modules/fp-referral-frontend.js" , array( 'jquery' ) , SRP_VERSION ) ;
             $LocalizedScript = array(
-                'ajaxurl'        => SRP_ADMIN_AJAX_URL ,
-                'buttonlanguage' => get_option( 'rs_language_selection_for_button' ) ,
-                'wplanguage'     => get_option( 'WPLANG' ) ,
-                'fbappid'        => get_option( 'rs_facebook_application_id' ) ,
+                'ajaxurl'          => SRP_ADMIN_AJAX_URL ,
+                'buttonlanguage'   => get_option( 'rs_language_selection_for_button' ) ,
+                'wplanguage'       => get_option( 'WPLANG' ) ,
+                'fbappid'          => get_option( 'rs_facebook_application_id' ) ,
+                'enqueue_footable' => get_option( 'rs_enable_footable_js' , '1' ) ,
                     ) ;
             wp_localize_script( 'fp_referral_frontend' , 'fp_referral_frontend_params' , $LocalizedScript ) ;
             $query           = (get_option( 'rs_restrict_referral_points_for_same_ip' ) == 'yes') ? array( 'ref' => $referralperson , 'ip' => base64_encode( get_referrer_ip_address() ) ) : array( 'ref' => $referralperson ) ;
@@ -606,7 +608,7 @@ if ( ! class_exists( 'RSFunctionForReferralSystem' ) ) {
 
         /* Assign Global Value($referral_pointsnew) */
 
-        public static function referrel_points_for_product_in_cart( $UserId ) {
+        public static function referrel_points_for_product_in_cart( $UserId , $member_level = true ) {
             $referral_pointsnew = array() ;
             $BanType            = check_banning_type( $UserId ) ;
             if ( $BanType == 'earningonly' || $BanType == 'both' )
@@ -625,7 +627,7 @@ if ( ! class_exists( 'RSFunctionForReferralSystem' ) ) {
                     'referred_user' => $UserId ,
                         ) ;
                 $Points    = check_level_of_enable_reward_point( $args ) ;
-                $Points    = RSMemberFunction::earn_points_percentage( $UserId , ( float ) $Points ) ;
+                $Points    = $member_level ? RSMemberFunction::earn_points_percentage( $UserId , ( float ) $Points ) : ( float ) $Points ;
                 $ProductId = ! empty( $value[ 'variation_id' ] ) ? $value[ 'variation_id' ] : $value[ 'product_id' ] ;
 
                 $referral_pointsnew[ $ProductId ] = $Points ;
@@ -644,21 +646,17 @@ if ( ! class_exists( 'RSFunctionForReferralSystem' ) ) {
                 return $referrer_points ;
             }
 
-            if ( srp_check_is_array( $referrer_points ) && ! array_filter( $referrer_points ) ) {
+            if ( ! srp_check_is_array( $referrer_points ) || ! array_filter( ( array ) $referrer_points ) ) {
                 return $referrer_points ;
             }
 
-            $Points = array() ;
+            $ModifiedPoints = array() ;
 
             foreach ( $referrer_points as $ProductId => $Point ) {
-                $ModifiedPoints = RSFrontendAssets::coupon_points_conversion( $ProductId , $Point , $args ) ;
-                if ( ! empty( $ModifiedPoints ) ) {
-                    $points_after_discounts = RSMemberFunction::earn_points_percentage( $args[ 'referred_user' ] , ( float ) $ModifiedPoints ) ;
-                    $Points[ $ProductId ]   = floatval( $points_after_discounts ) ;
-                }
+                $ModifiedPoints[ $ProductId ] = ( float ) RSFrontendAssets::coupon_points_conversion( $ProductId , $Point , $args ) ;
             }
 
-            return $Points ;
+            return $ModifiedPoints ;
         }
 
         /* Display Referral Product Purchase message in Cart/Checkout for Product */
@@ -784,18 +782,16 @@ if ( ! class_exists( 'RSFunctionForReferralSystem' ) ) {
         /* After First Purchase Referral Registration Points */
 
         public static function award_referral_registration_points_after_first_purchase( $user_id , $refuserid ) {
-            $ReferralRegPoints      = RSMemberFunction::earn_points_percentage( $refuserid , ( float ) get_option( 'rs_referral_reward_signup' ) ) ;
             $mainpoints             = array() ;
-            $mainpoints[ $user_id ] = array( 'userid' => $user_id , 'refuserid' => $refuserid , 'refpoints' => $ReferralRegPoints ) ;
+            $mainpoints[ $user_id ] = array( 'userid' => $user_id , 'refuserid' => $refuserid , 'refpoints' => ( float ) get_option( 'rs_referral_reward_signup' ) ) ;
             update_user_meta( $user_id , 'srp_data_for_reg_points' , $mainpoints ) ;
         }
 
         /* After First Purchase Getting Referred Referral Registration Points */
 
         public static function award_getting_referred_points_after_first_purchase( $user_id , $refuserid ) {
-            $Point                  = RSMemberFunction::earn_points_percentage( $refuserid , ( float ) get_option( 'rs_referral_reward_getting_refer' ) ) ;
             $mainpoints             = array() ;
-            $mainpoints[ $user_id ] = array( 'userid' => $user_id , 'refpoints' => $Point ) ;
+            $mainpoints[ $user_id ] = array( 'userid' => $user_id , 'refpoints' => ( float ) get_option( 'rs_referral_reward_getting_refer' ) ) ;
             update_user_meta( $user_id , 'srp_data_for_get_referred_reg_points' , $mainpoints ) ;
         }
 

@@ -45,7 +45,9 @@ class CustomField extends AC\Column\CustomField
 	 * @return Search\Comparison\Meta|false
 	 */
 	public function search() {
-		return SearchComparisonFactory::create( $this->get_field_type(), $this->get_meta_key(), $this->get_meta_type() );
+		return SearchComparisonFactory::create( $this->get_field_type(), $this->get_meta_key(), $this->get_meta_type(), [
+			'date_format' => apply_filters( 'acp/custom_field/stored_date_format', Search\Comparison\Meta\DateFactory::FORMAT_DATETIME, $this ),
+		] );
 	}
 
 	/**

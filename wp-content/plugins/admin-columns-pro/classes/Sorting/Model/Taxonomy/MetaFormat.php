@@ -62,13 +62,7 @@ class MetaFormat extends AbstractModel {
 		$values = [];
 
 		foreach ( $results as $object ) {
-			if ( is_serialized( $object->value ) ) {
-				foreach ( unserialize( $object->value ) as $_value ) {
-					$values[ $object->id ][] = $this->formatter->format_value( $_value );
-				}
-			} else {
-				$values[ $object->id ][] = $this->formatter->format_value( $object->value );
-			}
+			$values[ $object->id ][] = $this->formatter->format_value( $object->value );
 		}
 
 		foreach ( $values as $id => $meta_values ) {

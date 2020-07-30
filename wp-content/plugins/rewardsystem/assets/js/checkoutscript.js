@@ -26,7 +26,8 @@ jQuery( function ( $ ) {
                         $form.slideUp() ;
 
                         $( document.body ).trigger( 'update_checkout' , { update_shipping_method : false } ) ;
-                        location.reload() ;
+                        // Commented in V25.3 because on applying coupon, loading occurs causes coupon messages not shown properly.
+                        // location.reload() ;
                     }
                 } ,
                 dataType : 'html'

@@ -18,7 +18,7 @@ class Name extends AC\Column\User\Name
 	}
 
 	public function export() {
-		return new Export\Model\User\Name( $this );
+		return new Export\Model\User\FullName( $this );
 	}
 
 	public function search() {

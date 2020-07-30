@@ -406,14 +406,16 @@ if ( ! class_exists( 'RSRedeemingModule' ) ) {
                 ) ,
                 array(
                     'name'     => __( 'Redeemed Points will be deducted when the Order Status reaches' , SRP_LOCALE ) ,
-                    'desc'     => __( 'This option controls when the points redeemed in order should be deducted from user\'s account' , SRP_LOCALE ) ,
+                    'desc'     => __( 'Points will deduct from the account only when the order status matches with any one of the statuses selected in this field & the deducted points for the corresponding order will add back to the account when the status change to any other that is not selected in this field.
+<br><br><b>Example:</b><br>
+Selected only "Pending Payment, On-Hold, Processing & Completed" statuses in this field so that points will be deducted from the account once the order status reached any one of the selected statuses. The deducted points will be added back to the account when changed to any other status(ex. Canceled/Refunded/Failed).' , SRP_LOCALE ) ,
                     'id'       => 'rs_order_status_control_redeem' ,
                     'std'      => array( 'completed' , 'pending' , 'processing' , 'on-hold' ) ,
                     'default'  => array( 'completed' , 'pending' , 'processing' , 'on-hold' ) ,
                     'type'     => 'multiselect' ,
                     'options'  => $newcombinedarray ,
                     'newids'   => 'rs_order_status_control_redeem' ,
-                    'desc_tip' => true ,
+                    'desc_tip' => false ,
                 ) ,
                 array( 'type' => 'sectionend' , 'id' => 'rs_redeeming_status_setting' ) ,
                 array(
@@ -795,7 +797,7 @@ if ( ! class_exists( 'RSRedeemingModule' ) ) {
                     'id'   => '_rs_cart_remaining_setting'
                 ) ,
                 array(
-                    'name'     => __( 'Redeeming/WooCommerce Coupon Field display' , SRP_LOCALE ) ,
+                    'name'     => __( 'Redeeming/WooCommerce Coupon Field display on cart & checkout' , SRP_LOCALE ) ,
                     'id'       => 'rs_show_hide_redeem_field' ,
                     'css'      => '' ,
                     'std'      => '1' ,
@@ -804,10 +806,10 @@ if ( ! class_exists( 'RSRedeemingModule' ) ) {
                     'newids'   => 'rs_show_hide_redeem_field' ,
                     'options'  => array(
                         '1' => __( 'Display Both' , SRP_LOCALE ) ,
-                        '2' => __( 'Hide coupon' , SRP_LOCALE ) ,
-                        '3' => __( 'Hide Redeem' , SRP_LOCALE ) ,
+                        '2' => __( 'Hide WooCommerce Coupon Field' , SRP_LOCALE ) ,
+                        '3' => __( 'Hide Redeeming Points Field' , SRP_LOCALE ) ,
                         '4' => __( 'Hide Both' , SRP_LOCALE ) ,
-                        '5' => __( 'Hide one when use' , SRP_LOCALE )
+                        '5' => __( 'Hide one when coupon/point is used' , SRP_LOCALE )
                     ) ,
                     'desc_tip' => true ,
                 ) ,

@@ -2,7 +2,7 @@
 Contributors: premmerce
 Tags: pinterest, woocommerce pinterest, pin products, social, social media
 Requires at least: 4.8
-Stable tag: 2.1.5
+Stable tag: 2.1.7
 Tested up to: 5.4
 Requires PHP: 5.6
 License: GPLv2 or later
@@ -190,3 +190,16 @@ Release Date: June 23, 2020
 * Added Enhanced Match Events
 * Fix catalog bug
 * Fix Checkout Event bug
+
+= 2.1.6 =
+
+Release Date: June 27, 2020
+
+* Fix catalog bug
+
+= 2.1.7 =
+
+Release Date: July 16, 2020
+
+* Add product_id to AddToCart Event
+* Fix minor bugs

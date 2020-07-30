@@ -1,5 +1,13 @@
 # Changelog
 ======
+1.9.3
+======
+- NEW:	WPML suppress filters
+- NEW:	Improved admin panel
+- FIX:	Updated Bot Regular expression to avoid cumultative layout shift issue
+		https://imgur.com/a/UqarMvG
+
+======
 1.9.2
 ======
 - NEW:	Renamed GDPR Users to Consent Log

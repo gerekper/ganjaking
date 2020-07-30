@@ -155,7 +155,7 @@ function user_selection_field( $field_id , $field_label , $getuser ) {
                 <label for="<?php echo $field_id ; ?>"><?php _e( $field_label , SRP_LOCALE ) ; ?></label>
             </th>
             <td>
-                <select name="<?php echo $field_id ; ?>[]" style="width:343px;" multiple="multiple" id="<?php echo $field_id ; ?>" class="short <?php echo $field_id ; ?>" <?php if ( $field_id == 'rs_select_user_to_unsubscribe' ) { ?>data-exclude='<?php echo json_encode( rs_common_exclude_particular_user() ) ; ?>' <?php } ?>>
+                <select name="<?php echo $field_id ; ?>[]" style="width:343px;" multiple="multiple" id="<?php echo $field_id ; ?>" class="short <?php echo $field_id ; ?>" data-exclude='<?php echo json_encode( rs_exclude_particular_users($field_id) ) ; ?>'>
                     <?php
                     $json_ids = array() ;
                     if ( $getuser != "" ) {
@@ -185,7 +185,7 @@ function user_selection_field( $field_id , $field_label , $getuser ) {
                     <label for="<?php echo $field_id ; ?>"><?php _e( $field_label , SRP_LOCALE ) ; ?></label>
                 </th>
                 <td>
-                    <select multiple="multiple"  class="wc-customer-search"  name="<?php echo $field_id ; ?>[]" id="<?php echo $field_id ; ?>" data-placeholder="<?php _e( 'Search Users' , SRP_LOCALE ) ; ?>" <?php if ( $field_id == 'rs_select_user_to_unsubscribe' ) { ?>data-exclude='<?php echo json_encode( rs_common_exclude_particular_user() ) ; ?>' <?php } ?>>
+                    <select multiple="multiple"  class="wc-customer-search"  name="<?php echo $field_id ; ?>[]" id="<?php echo $field_id ; ?>" data-placeholder="<?php _e( 'Search Users' , SRP_LOCALE ) ; ?>" data-exclude='<?php echo json_encode( rs_exclude_particular_users($field_id) ) ; ?>'>
                         <?php
                         $json_ids = array() ;
                         if ( $getuser != "" ) {
@@ -216,7 +216,7 @@ function user_selection_field( $field_id , $field_label , $getuser ) {
                     <label for="<?php echo $field_id ; ?>"><?php _e( $field_label , SRP_LOCALE ) ; ?></label>
                 </th>
                 <td>
-                    <input type="hidden" class="wc-customer-search" name="<?php echo $field_id ; ?>" id="<?php echo $field_id ; ?>" data-multiple="true" <?php if ( $field_id == 'rs_select_user_to_unsubscribe' ) { ?>data-exclude='<?php echo json_encode( rs_common_exclude_particular_user() ) ; ?>' <?php } ?> data-placeholder="<?php _e( 'Search Users' , SRP_LOCALE ) ; ?>" data-selected="<?php
+                    <input type="hidden" class="wc-customer-search" name="<?php echo $field_id ; ?>" id="<?php echo $field_id ; ?>" data-multiple="true" data-exclude='<?php echo json_encode( rs_exclude_particular_users($field_id) ) ; ?>' data-placeholder="<?php _e( 'Search Users' , SRP_LOCALE ) ; ?>" data-selected="<?php
                     $json_ids = array() ;
                     if ( $getuser != "" ) {
                         $listofuser = $getuser ;
@@ -237,17 +237,6 @@ function user_selection_field( $field_id , $field_label , $getuser ) {
             <?php
         }
     }
-}
-
-function rs_common_exclude_particular_user() {
-    $args    = array(
-        'fields'       => 'ids' ,
-        'meta_key'     => 'unsub_value' ,
-        'meta_value'   => 'yes' ,
-        'meta_compare' => '=' ,
-            ) ;
-    $user_id = get_users( $args ) ;
-    return $user_id ;
 }
 
 function rs_function_to_add_field_for_product_select( $field_id , $field_label , $getproducts ) {

@@ -123,6 +123,15 @@ if ( ! class_exists( 'RSReset' ) ) {
                     'default' => 'no' ,
                 ) ,
                 array(
+                    'name'    => __( 'Reset recorded entries in \'rsrecordstable\' at DB' , SRP_LOCALE ) ,
+                    'type'    => 'checkbox' ,
+                    'id'      => 'rs_reset_record_log_table' ,
+                    'newids'  => 'rs_reset_record_log_table' ,
+                    'class'   => 'rs_reset_record_log_table' ,
+                    'std'     => 'no' ,
+                    'default' => 'no' ,
+                ) ,
+                array(
                     'type' => 'reset_data_button' ,
                 ) ,
                 array( 'type' => 'sectionend' , 'id' => '_rs_reset_setting' ) ,

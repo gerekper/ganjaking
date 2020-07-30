@@ -1,6 +1,10 @@
 <?php
 
 class WoocommercePrfGoogleReviewFeed {
+	/**
+	 * @var WoocommercePrfGoogle
+	 */
+	protected $woocommerce_prf_google;
 
 	/**
 	 * The type of feed being generated.
@@ -28,8 +32,22 @@ class WoocommercePrfGoogleReviewFeed {
 	 * Constructor.
 	 *
 	 * Registers the hooks needed to generate the feed.
+	 *
+	 * @param WoocommerceGpfCache $woocommerce_gpf_cache
+	 * @param WoocommercePrfGoogle $woocommerce_prf_google
+	 * @param WoocommercePrfGoogleReviewProductInfo $google_review_product_info
 	 */
-	public function __construct() {
+	public function __construct(
+		WoocommerceGpfCache $woocommerce_gpf_cache,
+		WoocommercePrfGoogle $woocommerce_prf_google,
+		WoocommercePrfGoogleReviewProductInfo $google_review_product_info
+	) {
+		$this->cache                  = $woocommerce_gpf_cache;
+		$this->product_info_generator = $google_review_product_info;
+		$this->woocommerce_prf_google = $woocommerce_prf_google;
+	}
+
+	public function initialise() {
 		// Register permalink style endpoints so we can make this work on WPEngine.com
 		add_action( 'template_redirect', array( $this, 'maybe_render_feed' ), 99 );
 	}
@@ -45,7 +63,7 @@ class WoocommercePrfGoogleReviewFeed {
 			switch ( $wp_query->query_vars['woocommerce_gpf'] ) {
 				case 'googlereview':
 					$this->feed_type = 'googlereview';
-					$this->feed      = new WoocommercePrfGoogle( new WoocommerceGpfTemplateLoader() );
+					$this->feed      = $this->woocommerce_prf_google;
 					break;
 			}
 		}
@@ -94,8 +112,6 @@ class WoocommercePrfGoogleReviewFeed {
 
 		global $wp_query, $_wp_using_ext_object_cache;
 
-		$this->cache                  = new WoocommerceGpfCache();
-		$this->product_info_generator = new WoocommercePrfGoogleReviewProductInfo();
 		if ( $this->cache->is_enabled() ) {
 			$chunk_size = 100;
 		} else {
@@ -181,7 +197,7 @@ class WoocommercePrfGoogleReviewFeed {
 		while ( $review_count ) {
 			foreach ( $reviews as $review ) {
 				// Skip reviews with no content.
-				if ( empty( trim( strip_tags( $review->comment_content ) ) ) ) {
+				if ( empty( trim( wp_strip_all_tags( $review->comment_content ) ) ) ) {
 					continue;
 				}
 				// Skip reviews with no rating.
@@ -227,7 +243,7 @@ class WoocommercePrfGoogleReviewFeed {
 		$feed_item['review_id']         = $item->comment_ID;
 		$feed_item['review_timestamp']  = $item->comment_date_gmt;
 		$feed_item['review_timestamp']  = substr( $item->comment_date_gmt, 0, 10 ) . 'T';
-		$feed_item['review_timestamp']  .= substr( $item->comment_date_gmt, 11, 8 ) . 'Z';
+		$feed_item['review_timestamp'] .= substr( $item->comment_date_gmt, 11, 8 ) . 'Z';
 		$feed_item['review_content']    = $item->comment_content;
 		$feed_item['product_id']        = $item->comment_post_ID;
 		$feed_item['product_url']       = get_the_permalink( $item->comment_post_ID );

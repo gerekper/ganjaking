@@ -27,6 +27,7 @@ if ( ! class_exists( 'RS_Main_Function_for_Background_Process' ) ) {
         public static $update_point_price_for_product ;
         public static $generate_voucher_codes ;
         public static $export_log_for_user ;
+        public static $update_earned_points ;
 
         public static function init() {
             if ( self::fp_rs_upgrade_file_exists() ) {
@@ -53,6 +54,7 @@ if ( ! class_exists( 'RS_Main_Function_for_Background_Process' ) ) {
                     'update-for-category'                  => 'RS_Update_for_Category' ,
                     'update-for-simple-product'            => 'RS_Update_for_Simple_Product' ,
                     'update-for-variable-product'          => 'RS_Update_for_Variable_Product' ,
+                    'update-earned-points'                 => 'RS_Update_Earned_Points' ,
                         ) ;
 
                 foreach ( $background_process as $key => $classname ) {
@@ -78,7 +80,8 @@ if ( ! class_exists( 'RS_Main_Function_for_Background_Process' ) ) {
                     'bulk_update_for_buying_points' ,
                     'bulk_update_for_point_price' ,
                     'generate_voucher_codes' ,
-                    'export_log_for_user'
+                    'export_log_for_user' ,
+                    'rs_update_earned_points_for_user'
                         ) ;
 
                 foreach ( $actions as $function_name ) {
@@ -123,6 +126,7 @@ if ( ! class_exists( 'RS_Main_Function_for_Background_Process' ) ) {
                 self::$update_point_price_for_product   = new RS_Bulk_Update_for_Point_Price() ;
                 self::$generate_voucher_codes           = new RS_Generate_Voucher_Codes() ;
                 self::$export_log_for_user              = new RS_Export_Log() ;
+                self::$update_earned_points             = new RS_Update_Earned_Points() ;
             }
             add_action( 'admin_head' , array( __CLASS__ , 'rs_display_notice_in_top' ) ) ;
         }
@@ -1359,6 +1363,46 @@ if ( ! class_exists( 'RS_Main_Function_for_Background_Process' ) ) {
                 return true ;
 
             return false ;
+        }
+
+        public static function rs_update_earned_points_for_user() {
+
+            if ( ! isset( $_GET[ 'page' ] ) ) {
+                return ;
+            }
+
+            if ( isset( $_GET[ 'page' ] ) && 'sumo-reward-points-welcome-page' != $_GET[ 'page' ] ) {
+                return ;
+            }
+
+            if ( 'yes' == get_option( 'rs_points_update_success' ) ) {
+                return ;
+            }
+
+            delete_option( 'rs_earned_points_background_updater_offset' ) ;
+            self::callback_to_update_earned_points() ;
+            $redirect_url = esc_url_raw( add_query_arg( array( 'page' => 'rewardsystem_callback' , 'fp_bg_process_to_update_earned_points' => 'yes' ) , SRP_ADMIN_URL ) ) ;
+            wp_safe_redirect( $redirect_url ) ;
+        }
+
+        public static function callback_to_update_earned_points( $offset = 0 , $limit = 1000 ) {
+            global $wpdb ;
+            $ids = $wpdb->get_results( "SELECT DISTINCT ID FROM {$wpdb->users} as p INNER JOIN {$wpdb->usermeta} as p1 ON p.ID=p1.user_id WHERE p1.meta_key = 'rs_expired_points_before_delete' AND p1.meta_value > '0' LIMIT $offset,$limit" ) ;
+            if ( is_array( $ids ) && ! empty( $ids ) ) {
+                foreach ( $ids as $id ) {
+                    self::$update_earned_points->push_to_queue( $id->ID ) ;
+                }
+            } else {
+                self::$update_earned_points->push_to_queue( 'no_users' ) ;
+            }
+
+            update_option( 'rs_earned_points_background_updater_offset' , $limit + $offset ) ;
+
+            if ( $offset == 0 )
+                FP_WooCommerce_Log::log( 'Earned Points Update Started' ) ;
+
+            self::$rs_progress_bar->fp_increase_progress( 50 ) ;
+            self::$update_earned_points->save()->dispatch() ;
         }
 
     }

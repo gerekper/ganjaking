@@ -70,7 +70,7 @@ if ( ! class_exists( 'RS_Refresh_Points_For_User' ) ) {
                 return ;
 
             foreach ( $GetExpiredPoints as $ExpiredPoints ) {
-                $wpdb->update( $table_name , array( 'expiredpoints' => $ExpiredPoints[ 'earnedpoints' ] - $ExpiredPoints[ 'usedpoints' ] ) , array( 'id' => $eacharray[ 'id' ] ) ) ;
+                $wpdb->update( $table_name , array( 'expiredpoints' => $ExpiredPoints[ 'earnedpoints' ] - $ExpiredPoints[ 'usedpoints' ] ) , array( 'id' => $ExpiredPoints[ 'id' ] ) ) ;
             }
         }
 

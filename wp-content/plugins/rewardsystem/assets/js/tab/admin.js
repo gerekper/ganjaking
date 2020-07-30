@@ -743,6 +743,21 @@ jQuery( function () {
         } ) ;
         /*Show or Hide for Approval Type - End*/
 
+        jQuery( '#rs_send_points_user_selection_field' ).closest( 'tr' ).show() ;
+        jQuery( '#rs_send_points_user_selection_field' ).change( function () {
+            if ( jQuery( '#rs_send_points_user_selection_field' ).val() == '1' ) {
+                jQuery( '#rs_select_user_label' ).closest( 'tr' ).show( ) ;
+                jQuery( '#rs_select_user_placeholder' ).closest( 'tr' ).show( ) ;
+                jQuery( '#rs_send_points_username_field_label' ).closest( 'tr' ).hide( ) ;
+                jQuery( '#rs_send_points_username_placeholder' ).closest( 'tr' ).hide( ) ;
+            } else {
+                jQuery( '#rs_select_user_label' ).closest( 'tr' ).hide( ) ;
+                jQuery( '#rs_select_user_placeholder' ).closest( 'tr' ).hide( ) ;
+                jQuery( '#rs_send_points_username_field_label' ).closest( 'tr' ).show( ) ;
+                jQuery( '#rs_send_points_username_placeholder' ).closest( 'tr' ).show( ) ;
+            }
+        } ) ;
+
     } else {
         jQuery( '#rs_select_send_points_user_type' ).closest( 'tr' ).hide() ;
         jQuery( '#rs_select_users_list_for_send_point' ).parent().parent().hide() ;
@@ -760,6 +775,11 @@ jQuery( function () {
         jQuery( '#rs_message_send_point_request_submitted_for_auto' ).parent().parent().hide() ;
         jQuery( '#rs_reason_for_send_points' ).closest( 'tr' ).hide() ;
         jQuery( '#rs_reason_for_send_points_user' ).closest( 'tr' ).hide() ;
+        jQuery( '#rs_send_points_user_selection_field' ).closest( 'tr' ).hide() ;
+        jQuery( '#rs_select_user_label' ).closest( 'tr' ).hide() ;
+        jQuery( '#rs_select_user_placeholder' ).closest( 'tr' ).hide() ;
+        jQuery( '#rs_send_points_username_field_label' ).closest( 'tr' ).hide() ;
+        jQuery( '#rs_send_points_username_placeholder' ).closest( 'tr' ).hide() ;
     }
 
     jQuery( '#rs_enable_msg_for_send_point' ).change( function () {
@@ -829,6 +849,20 @@ jQuery( function () {
             jQuery( '#rs_reason_for_send_points' ).closest( 'tr' ).show() ;
             jQuery( '#rs_reason_for_send_points_user' ).closest( 'tr' ).show() ;
 
+            jQuery( '#rs_send_points_user_selection_field' ).closest( 'tr' ).show() ;
+            jQuery( '#rs_send_points_user_selection_field' ).change( function () {
+                if ( jQuery( '#rs_send_points_user_selection_field' ).val() == '1' ) {
+                    jQuery( '#rs_select_user_label' ).closest( 'tr' ).show( ) ;
+                    jQuery( '#rs_select_user_placeholder' ).closest( 'tr' ).show( ) ;
+                    jQuery( '#rs_send_points_username_field_label' ).closest( 'tr' ).hide( ) ;
+                    jQuery( '#rs_send_points_username_placeholder' ).closest( 'tr' ).hide( ) ;
+                } else {
+                    jQuery( '#rs_select_user_label' ).closest( 'tr' ).hide( ) ;
+                    jQuery( '#rs_select_user_placeholder' ).closest( 'tr' ).hide( ) ;
+                    jQuery( '#rs_send_points_username_field_label' ).closest( 'tr' ).show( ) ;
+                    jQuery( '#rs_send_points_username_placeholder' ).closest( 'tr' ).show( ) ;
+                }
+            } ) ;
         } else {
             jQuery( '#rs_select_send_points_user_type' ).closest( 'tr' ).hide() ;
             jQuery( '#rs_select_users_list_for_send_point' ).parent().parent().hide() ;
@@ -846,6 +880,12 @@ jQuery( function () {
             jQuery( '#rs_message_send_point_request_submitted_for_auto' ).parent().parent().hide() ;
             jQuery( '#rs_reason_for_send_points' ).closest( 'tr' ).hide() ;
             jQuery( '#rs_reason_for_send_points_user' ).closest( 'tr' ).hide() ;
+
+            jQuery( '#rs_send_points_user_selection_field' ).closest( 'tr' ).hide() ;
+            jQuery( '#rs_select_user_label' ).closest( 'tr' ).hide() ;
+            jQuery( '#rs_select_user_placeholder' ).closest( 'tr' ).hide() ;
+            jQuery( '#rs_send_points_username_field_label' ).closest( 'tr' ).hide() ;
+            jQuery( '#rs_send_points_username_placeholder' ).closest( 'tr' ).hide() ;
         }
     } ) ;
 

@@ -93,11 +93,10 @@ class BulkActions {
 	 * Save product data after bulk edit
 	 *
 	 * @param int $postId
-	 * @param WP_Post $post
 	 *
 	 * @throws PinterestModelException
 	 */
-	public function updateProductsBoardsBulkEdit( $postId, WP_Post $post) {
+	public function updateProductsBoardsBulkEdit( $postId ) {
 
 		$isBulkEdit = null !== filter_input(INPUT_GET, 'woocommerce_bulk_edit', FILTER_SANITIZE_STRING);
 		$boards     = filter_input(INPUT_GET, 'pinterest_board', FILTER_SANITIZE_STRING, FILTER_REQUIRE_ARRAY);
@@ -106,7 +105,6 @@ class BulkActions {
 			&& 'product' === filter_input(INPUT_GET, 'post_type', FILTER_SANITIZE_STRING)
 			&& $boards
 		) {
-
 			$this->boardRelationsModel->addProductBoards($postId, $boards);
 			$this->pinService->addProductPinsToNewBoards($postId, $boards);
 		}

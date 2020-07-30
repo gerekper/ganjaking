@@ -6,7 +6,7 @@
  * @category Classes
  * @package  WooCommerce Mix and Match Products/Classes/Products
  * @since    1.0.0
- * @version  1.7.0
+ * @version  1.10.0
  */
 
 // Exit if accessed directly.
@@ -278,7 +278,11 @@ class WC_Product_Mix_and_Match extends WC_Product {
 	 */
 	public function get_discount( $context = 'any' ) {
 		$value = $this->get_prop( 'discount', $context );
-		return in_array( $context, array( 'view', 'sync' ) ) && $this->is_priced_per_product() && '' !== $value ? (double) $value : $value;
+			
+		if ( 'edit' !== $context ) {
+			$value = floatval( $this->is_priced_per_product() ? $value : 0 );
+		}
+		return $value;
 	}
 
 
@@ -489,10 +493,39 @@ class WC_Product_Mix_and_Match extends WC_Product {
 	 *
 	 * @since  1.2.0
 	 *
-	 * @param  string  $value
+	 * @param  array  $value
 	 */
 	public function set_contents( $value ) {
-		$this->set_prop( 'contents', array_map( 'absint', ( array ) $value ) );
+
+		$new_contents = array();
+
+		if ( is_array( $value ) ) {
+
+			foreach( $value as $id => $data ) {
+
+				$child_item   = array();
+				$product_id   = $variation_id = 0;
+
+				$product_id   = isset( $data['product_id'] ) ? intval( $data['product_id'] ) : 0;
+				$variation_id = isset( $data['variation_id'] ) ? intval( $data['variation_id'] ) : 0;
+				$child_id     = $variation_id > 0 ? $variation_id : $product_id;
+
+				// Maintain compatibility while waiting for upgrade routine. 
+				if ( 0 === $child_id && $id > 0 ) {
+					$child_id = $id;
+				}
+
+				if ( $child_id > 0 ) {
+					$new_contents[$child_id]['child_id']     = $child_id;
+					$new_contents[$child_id]['product_id']   = $product_id;
+					$new_contents[$child_id]['variation_id'] = $variation_id;
+				}
+
+			}
+
+		}
+
+		$this->set_prop( 'contents', $new_contents );
 	}
 
 	/*
@@ -562,7 +595,9 @@ class WC_Product_Mix_and_Match extends WC_Product {
 	 */
 	public function get_children() {
 
-		if ( ! is_array( $this->children ) ) {
+		$this->children = WC_Mix_and_Match_Helpers::cache_get( 'child_products_' . $this->get_id() );
+
+		if ( null === $this->children ) {
 
 			$this->children = array();
 
@@ -583,15 +618,20 @@ class WC_Product_Mix_and_Match extends WC_Product {
 				}
 			}
 
+			/**
+			 * Container's children.
+			 *
+			 * @param  array			  $children
+			 * @param  obj WC_Product 	  $this
+		 	*/
+			$this->children = apply_filters( 'woocommerce_mnm_get_children', $this->children, $this );
+
+			WC_Mix_and_Match_Helpers::cache_set( 'child_products_' . $this->get_id(), $this->children );
+
 		}
 
-		/**
-		 * Container's children.
-		 *
-		 * @param  array			  $children
-		 * @param  obj WC_Product 	  $this
-	 	*/
-		return apply_filters( 'woocommerce_mnm_get_children', $this->children, $this );
+		return $this->children;
+
 	}
 
 	/**

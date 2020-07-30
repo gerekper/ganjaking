@@ -65,8 +65,8 @@ class Yoast_WooCommerce_SEO {
 			add_filter( 'wpseo_submenu_pages', [ $this, 'add_submenu_pages' ] );
 			add_action( 'admin_print_styles', [ $this, 'config_page_styles' ] );
 
-			// Products tab columns.
-			add_filter( 'manage_product_posts_columns', [ $this, 'column_heading' ], 11, 1 );
+			// Hide the Yoast SEO columns in the Product table by default, except the SEO score column.
+			add_action( 'current_screen', [ $this, 'set_yoast_columns_hidden_by_default' ] );
 
 			// Move Woo box above SEO box.
 			add_action( 'admin_footer', [ $this, 'footer_js' ] );
@@ -529,16 +529,45 @@ class Yoast_WooCommerce_SEO {
 	}
 
 	/**
-	 * Removes the Yoast SEO columns in the edit products page.
+	 * Hides the Yoast SEO columns in the Product table by default, except the SEO score one.
 	 *
-	 * @since 1.0
+	 * @param WP_Screen $current_screen Current WP_Screen object.
 	 *
-	 * @param array $columns List of registered columns.
-	 *
-	 * @return array Array with the filtered columns.
+	 * @return void
 	 */
-	public function column_heading( $columns ) {
-		$keys_to_remove = [
+	public function set_yoast_columns_hidden_by_default( $current_screen ) {
+		// Don't do anything if we're not not on the edit products page.
+		if ( $current_screen->id !== 'edit-product' ) {
+			return;
+		}
+
+		$yoast_hidden_columns_old_defaults = [
+			'wpseo-title',
+			'wpseo-metadesc',
+			'wpseo-focuskw',
+		];
+
+		$user_id                   = get_current_user_id();
+		$user_hidden_columns       = get_hidden_columns( $current_screen );
+		$user_hidden_yoast_columns = array_filter( $user_hidden_columns, [ $this, 'filter_yoast_columns' ] );
+		$is_old_default            = (
+			count( $yoast_hidden_columns_old_defaults ) === count( $user_hidden_yoast_columns )
+			&& count( array_diff( $yoast_hidden_columns_old_defaults, $user_hidden_yoast_columns ) ) === 0
+			&& count( array_diff( $user_hidden_yoast_columns, $yoast_hidden_columns_old_defaults ) ) === 0
+		);
+
+		// Don't do anything if the Yoast hidden columns old defaults have been changed by the user.
+		if ( ! $is_old_default ) {
+			update_user_option( $user_id, 'wpseo_woo_columns_hidden_default', '1', true );
+			return;
+		}
+
+		// Don't do anything if the new defaults have already been set.
+		if ( get_user_option( 'wpseo_woo_columns_hidden_default', $user_id ) === '1' ) {
+			return;
+		}
+
+		$yoast_hidden_columns = [
 			'wpseo-title',
 			'wpseo-metadesc',
 			'wpseo-focuskw',
@@ -546,15 +575,25 @@ class Yoast_WooCommerce_SEO {
 		];
 
 		if ( class_exists( 'WPSEO_Link_Columns' ) ) {
-			$keys_to_remove[] = 'wpseo-' . WPSEO_Link_Columns::COLUMN_LINKS;
-			$keys_to_remove[] = 'wpseo-' . WPSEO_Link_Columns::COLUMN_LINKED;
+			$yoast_hidden_columns[] = 'wpseo-' . WPSEO_Link_Columns::COLUMN_LINKS;
+			$yoast_hidden_columns[] = 'wpseo-' . WPSEO_Link_Columns::COLUMN_LINKED;
 		}
 
-		foreach ( $keys_to_remove as $key_to_remove ) {
-			unset( $columns[ $key_to_remove ] );
-		}
+		$hidden_columns = array_merge( $user_hidden_columns, $yoast_hidden_columns );
 
-		return $columns;
+		update_user_option( $user_id, 'manageedit-productcolumnshidden', $hidden_columns, true );
+		update_user_option( $user_id, 'wpseo_woo_columns_hidden_default', '1', true );
+	}
+
+	/**
+	 * Filter the Yoast columns from the user hidden columns.
+	 *
+	 * @param string $column The user hidden column identifier.
+	 *
+	 * @return bool Whether or not the column is a Yoast column.
+	 */
+	private function filter_yoast_columns( $column ) {
+		return strpos( $column, 'wpseo-' ) === 0;
 	}
 
 	/**

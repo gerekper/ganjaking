@@ -37,13 +37,19 @@ class WoocommerceGpfFeedGoogle extends WoocommerceGpfFeed {
 	 * Constructor. Grab the settings, and add filters if we have stuff to do
 	 *
 	 * @access public
+	 *
+	 * @param WoocommerceGpfCommon $woocommerce_gpf_common
+	 * @param WoocommerceGpfDebugService $debug
 	 */
-	public function __construct() {
-		parent::__construct();
+	public function __construct(
+		WoocommerceGpfCommon $woocommerce_gpf_common,
+		WoocommerceGpfDebugService $debug
+	) {
+		parent::__construct( $woocommerce_gpf_common, $debug );
 		$this->store_info->feed_url = add_query_arg( 'woocommerce_gpf', 'google', $this->store_info->feed_url_base );
 		if ( ! empty( $this->store_info->base_country ) ) {
 			if ( 'US' === substr( $this->store_info->base_country, 0, 2 ) ||
-			     'CA' === substr( $this->store_info->base_country, 0, 2 ) ) {
+				 'CA' === substr( $this->store_info->base_country, 0, 2 ) ) {
 				$this->tax_excluded = true;
 				if ( 'US' === substr( $this->store_info->base_country, 0, 2 ) ) {
 					$this->tax_attribute = true;
@@ -88,10 +94,10 @@ class WoocommerceGpfFeedGoogle extends WoocommerceGpfFeed {
 	 * Generate a simple list of field and max length from the field config array.
 	 *
 	 * @return array  Array of max lengths, keyed on field name.
+	 *
+	 * * @SuppressWarnings(PHPMD.UndefinedVariable)
 	 */
 	private function get_field_max_lengths() {
-
-		global $woocommerce_gpf_common;
 
 		static $max_lengths = array();
 		if ( ! empty( $max_lengths ) ) {
@@ -101,7 +107,7 @@ class WoocommerceGpfFeedGoogle extends WoocommerceGpfFeed {
 		$max_lengths['title']       = 150;
 		$max_lengths['description'] = 5000;
 		// Max lengths for non-core fields
-		foreach ( $woocommerce_gpf_common->product_fields as $field_name => $field_config ) {
+		foreach ( $this->woocommerce_gpf_common->product_fields as $field_name => $field_config ) {
 			if ( isset( $field_config['google_len'] ) ) {
 				$max_lengths[ $field_name ] = $field_config['google_len'];
 			}
@@ -132,9 +138,9 @@ class WoocommerceGpfFeedGoogle extends WoocommerceGpfFeed {
 	/**
 	 * Figure out if the item has the identifiers it requires
 	 *
-	 * @param  object $item The item being rendered
+	 * @param object $item The item being rendered
 	 *
-	 * @return boolean       True if the item doens't need identifiers, or has the required
+	 * @return boolean       True if the item doesn't need identifiers, or has the required
 	 *                       identifiers. False if not.
 	 */
 	private function has_identifier( $item ) {
@@ -142,7 +148,7 @@ class WoocommerceGpfFeedGoogle extends WoocommerceGpfFeed {
 			return false;
 		}
 		if ( empty( $item->additional_elements['gtin'] ) &&
-		     empty( $item->additional_elements['mpn'] ) ) {
+			 empty( $item->additional_elements['mpn'] ) ) {
 			return false;
 		}
 
@@ -155,7 +161,7 @@ class WoocommerceGpfFeedGoogle extends WoocommerceGpfFeed {
 	 *
 	 * @access public
 	 */
-	function render_header() {
+	public function render_header() {
 		$this->startts  = microtime( true );
 		$this->startmem = memory_get_peak_usage();
 		header( 'Content-Type: application/xml; charset=UTF-8' );
@@ -181,13 +187,14 @@ class WoocommerceGpfFeedGoogle extends WoocommerceGpfFeed {
 	 *
 	 * @access public
 	 *
-	 * @param  object $feed_item The information about the item.
+	 * @param object $feed_item The information about the item.
 	 *
 	 * @return  string             The rendered output for this item.
 	 */
-	function render_item( $feed_item ) {
+	public function render_item( $feed_item ) {
 		// Google do not allow free items in the feed.
 		if ( empty( $feed_item->price_inc_tax ) ) {
+			$this->debug->log( 'Empty price for %d, skipping...', [ $feed_item->specific_id ] );
 			return '';
 		}
 		// Google do not allow items without images.
@@ -195,26 +202,18 @@ class WoocommerceGpfFeedGoogle extends WoocommerceGpfFeed {
 			return '';
 		}
 		// Remove non-printable UTF-8 / CDATA escaping
-		$title               = preg_replace(
+		$title = preg_replace(
 			'/[\x00-\x08\x0B\x0C\x0E-\x1F\x80-\x9F]/u',
 			'',
 			$feed_item->title
 		);
-		$title               = str_replace( ']]>', ']]]]><![CDATA[>', $title );
-		$product_description = preg_replace(
-			'/[\x00-\x08\x0B\x0C\x0E-\x1F\x80-\x9F]/u',
-			'',
-			$feed_item->description
-		);
+		$title = str_replace( ']]>', ']]]]><![CDATA[>', $title );
 
-		// Strip SCRIPT and STYLE tags INCLUDING their content. Taken from wp_strip_all_tags().
-		$product_description = preg_replace( '@<(script|style)[^>]*?>.*?</\\1>@si', '', $product_description );
 		// Strip out any disallowed tags, preserving their contents.
-		$product_description = wp_kses( $product_description, $this->allowed_description_markup );
+		$product_description = wp_kses( $feed_item->description, $this->allowed_description_markup );
 		$product_description = str_replace( ']]>', ']]]]><![CDATA[>', $product_description );
 
-
-		$output = '';
+		$output  = '';
 		$output .= "    <item>\n";
 		$output .= $this->generate_item_id( $feed_item );
 		if ( isset( $this->settings['send_item_group_id'] ) && 'on' === $this->settings['send_item_group_id'] ) {
@@ -234,7 +233,7 @@ class WoocommerceGpfFeedGoogle extends WoocommerceGpfFeed {
 		if ( apply_filters( 'woocommerce_gpf_google_additional_images', true ) ) {
 			foreach ( $feed_item->additional_images as $image_url ) {
 				// Google limit the number of additional images to 10
-				if ( 10 == $cnt ) {
+				if ( 10 === $cnt ) {
 					break;
 				}
 				$output .= '      <g:additional_image_link><![CDATA[' . $image_url . "]]></g:additional_image_link>\n";
@@ -272,7 +271,7 @@ class WoocommerceGpfFeedGoogle extends WoocommerceGpfFeed {
 					}
 					if ( 'availability_date' === $element_name ) {
 						if ( strlen( $element_value ) === 10 ) {
-							$tz_offset     = get_option( 'gmt_offset' );
+							$tz_offset      = get_option( 'gmt_offset' );
 							$element_value .= 'T00:00:00' . sprintf( '%+03d', $tz_offset ) . '00';
 						}
 					}
@@ -332,7 +331,7 @@ class WoocommerceGpfFeedGoogle extends WoocommerceGpfFeed {
 	/**
 	 * Render the applicable price elements.
 	 *
-	 * @param  object $feed_item The feed item to be rendered.
+	 * @param object $feed_item The feed item to be rendered.
 	 */
 	protected function render_prices( $feed_item ) {
 
@@ -362,22 +361,11 @@ class WoocommerceGpfFeedGoogle extends WoocommerceGpfFeed {
 
 		// Include start / end dates if provided.
 		if ( ! empty( $feed_item->sale_price_start_date ) &&
-		     ! empty( $feed_item->sale_price_end_date ) ) {
-			if ( is_object( $feed_item->sale_price_start_date ) ) {
-				// WC >= 3.0
-				$effective_date = (string) $feed_item->sale_price_start_date;
-				$effective_date .= '/';
-				$effective_date .= (string) $feed_item->sale_price_end_date;
-			} else {
-				// WC < 3.0
-				$offset         = get_option( 'gmt_offset' );
-				$offset_string  = sprintf( '%+03d', $offset );
-				$offset_string  .= sprintf( '%02d', ( $offset - floor( $offset ) ) * 60 );
-				$effective_date = date( 'Y-m-d\TH:i', $feed_item->sale_price_start_date ) . $offset_string;
-				$effective_date .= '/';
-				$effective_date .= date( 'Y-m-d\TH:i', $feed_item->sale_price_end_date ) . $offset_string;
-			}
-			$output .= '      <g:sale_price_effective_date>' . $effective_date . '</g:sale_price_effective_date>';
+			 ! empty( $feed_item->sale_price_end_date ) ) {
+			$effective_date  = (string) $feed_item->sale_price_start_date;
+			$effective_date .= '/';
+			$effective_date .= (string) $feed_item->sale_price_end_date;
+			$output         .= '      <g:sale_price_effective_date>' . $effective_date . '</g:sale_price_effective_date>';
 		}
 
 		return $output;
@@ -388,25 +376,23 @@ class WoocommerceGpfFeedGoogle extends WoocommerceGpfFeed {
 	 *
 	 * @access public
 	 */
-	function render_footer() {
+	public function render_footer() {
 		global $wpdb;
+
+		// Debug feed performance.
 		$this->endts  = microtime( true );
 		$this->endmem = memory_get_peak_usage();
-		// Dump out queries before we exit
-		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-			if ( defined( 'SAVEQUERIES' ) && SAVEQUERIES ) {
-				echo '<!-- Total queries:  ' . str_pad( count( $wpdb->queries ), 7, ' ', STR_PAD_LEFT ) . ' -->';
-				echo '<!--                         -->';
-			}
-			$startmem = round( $this->startmem / 1024 / 1024, 2 );
-			$endmem   = round( $this->endmem / 1024 / 1024, 2 );
-			$memusage = round( ( $this->endmem - $this->startmem ) / 1024 / 1024, 2 );
-			echo '<!-- Duration:      ' . str_pad( round( $this->endts - $this->startts, 2 ), 7, ' ', STR_PAD_LEFT ) . 's -->';
-			echo '<!--                         -->';
-			echo '<!-- Start mem:    ' . str_pad( $startmem, 7, ' ', STR_PAD_LEFT ) . 'MB -->';
-			echo '<!-- End mem:      ' . str_pad( $endmem, 7, ' ', STR_PAD_LEFT ) . 'MB -->';
-			echo '<!-- Memory usage: ' . str_pad( $memusage, 7, ' ', STR_PAD_LEFT ) . 'MB -->';
+		$startmem     = round( $this->startmem / 1024 / 1024, 2 );
+		$endmem       = round( $this->endmem / 1024 / 1024, 2 );
+		$memusage     = round( ( $this->endmem - $this->startmem ) / 1024 / 1024, 2 );
+		if ( defined( 'SAVEQUERIES' ) && SAVEQUERIES ) {
+			$this->debug->log( 'Total queries:  %d', [ count( $wpdb->queries ) ] );
 		}
+		$this->debug->log( 'Duration:     %s', [ str_pad( round( $this->endts - $this->startts, 2 ), 7, ' ', STR_PAD_LEFT ) . 's' ] );
+		$this->debug->log( 'Start mem:    %s', [ str_pad( $startmem, 7, ' ', STR_PAD_LEFT ) . 'MB' ] );
+		$this->debug->log( 'End mem:      %s', [ str_pad( $endmem, 7, ' ', STR_PAD_LEFT ) . 'MB' ] );
+		$this->debug->log( 'Memory usage: %s', [ str_pad( $memusage, 7, ' ', STR_PAD_LEFT ) . 'MB' ] );
+
 		echo "  </channel>\n";
 		echo '</rss>';
 		exit();
@@ -438,11 +424,12 @@ class WoocommerceGpfFeedGoogle extends WoocommerceGpfFeed {
 	 * @return string
 	 */
 	protected function generate_link( $feed_item ) {
-		$escaped_url         = apply_filters(
+		$escaped_url = apply_filters(
 			'woocommerce_gpf_feed_item_escaped_url',
 			esc_url( $feed_item->purchase_link ),
 			$feed_item
 		);
+
 		return '      <link>' . $escaped_url . "</link>\n";
 	}
 }

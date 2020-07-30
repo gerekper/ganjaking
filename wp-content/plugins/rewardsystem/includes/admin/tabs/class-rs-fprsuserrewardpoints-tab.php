@@ -118,17 +118,25 @@ if ( ! class_exists( 'RSUserRewardPoints' ) ) {
                 $PointsData    = new RS_Points_Data( $UserId ) ;
                 $Points        = $PointsData->total_available_points() ;
                 $PointsEntered = isset( $_POST[ 'rs_points' ] ) ? $_POST[ 'rs_points' ] : 0 ;
+                $reason        = isset( $_POST[ 'reason_in_detail' ] ) ? $_POST[ 'reason_in_detail' ] : '' ;
                 $table_args    = array(
                     'user_id'           => $UserId ,
                     'pointstoinsert'    => $PointsEntered ,
                     'checkpoints'       => isset( $_POST[ 'rs_add_points_for_user' ] ) ? 'MAURP' : 'MRURP' ,
                     'totalearnedpoints' => $PointsEntered ,
-                    'reason'            => isset( $_POST[ 'reason_in_detail' ] ) ? $_POST[ 'reason_in_detail' ] : '' ,
+                    'reason'            => $reason ,
                         ) ;
+
                 if ( isset( $_POST[ 'rs_add_points_for_user' ] ) ) {
-                    RSPointExpiry::insert_earning_points( $table_args ) ;
-                    RSPointExpiry::record_the_points( $table_args ) ;
+                    if ( 'yes' == get_option( 'rs_enable_disable_max_earning_points_for_user' ) ) {
+                        $object = new RewardPointsOrder( 0 , 'no' ) ;
+                        $object->check_point_restriction( $PointsEntered , 0 , 'MAURP' , $UserId , '' , '' , '' , '' , $reason ) ;
+                    } else {
+                        RSPointExpiry::insert_earning_points( $table_args ) ;
+                        RSPointExpiry::record_the_points( $table_args ) ;
+                    }
                 }
+
                 if ( isset( $_POST[ 'rs_remove_point_for_user' ] ) ) {
                     if ( $PointsEntered <= $Points ) {
                         RSPointExpiry::perform_calculation_with_expiry( $PointsEntered , $UserId ) ;
@@ -168,10 +176,11 @@ if ( ! class_exists( 'RSUserRewardPoints' ) ) {
                     </tr>
                     <tr valign="top">
                         <td>
-                            <input type='submit' name='rs_add_points_for_user' class='button-primary' value='<?php _e( 'Add Points' , SRP_LOCALE ) ; ?>' />
+                            <input type='submit' name='rs_add_points_for_user' class='button-primary rs_add_point_for_user' value='<?php _e( 'Add Points' , SRP_LOCALE ) ; ?>' />
+                            <input type='hidden' id ="rs_selected_user_id" value='<?php echo esc_html( $UserId ) ; ?>'>
                         </td>
                         <td style="width:10px;">
-                            <input type='submit' name='rs_remove_point_for_user' id='rs_remove_point_for_user' class='button-primary' value='<?php _e( 'Remove Points' , SRP_LOCALE ) ; ?>' />
+                            <input type='submit' name='rs_remove_point_for_user' class='button-primary rs_remove_point_for_user' value='<?php _e( 'Remove Points' , SRP_LOCALE ) ; ?>' />
                         </td>
                         <td>
                             <a href="<?php echo remove_query_arg( array( 'edit' , 'saved' ) , get_permalink() ) ; ?>">

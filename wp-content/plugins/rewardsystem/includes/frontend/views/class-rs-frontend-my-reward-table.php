@@ -1,5 +1,5 @@
 <?php
-if( ! defined( 'ABSPATH' ) ) {
+if ( ! defined( 'ABSPATH' ) ) {
     exit ; // Exit if accessed directly
 }
 
@@ -8,7 +8,7 @@ if( ! defined( 'ABSPATH' ) ) {
  */
 ?>
 <form class="rs-my-reward-table-form" method ='POST'>
-    <?php if( '1' == get_option( 'rs_show_or_hide_date_filter' ) && $AvailablePoints ) { ?>
+    <?php if ( '1' == get_option( 'rs_show_or_hide_date_filter' ) && $AvailablePoints ) { ?>
         <table class="rs-my-reward-date-filter">
             <tbody>
                 <tr>
@@ -62,7 +62,7 @@ if( ! defined( 'ABSPATH' ) ) {
                     </td>
                 </tr>
                 <?php
-                if( isset( $_REQUEST[ 'rs_duration_type' ] ) && '0' != $_REQUEST[ 'rs_duration_type' ] ) {
+                if ( isset( $_REQUEST[ 'rs_duration_type' ] ) && '0' != $_REQUEST[ 'rs_duration_type' ] ) {
                     ?>
                     <tr>
                         <td class="rs-earned-points-label">
@@ -97,14 +97,14 @@ if( ! defined( 'ABSPATH' ) ) {
     <table class = "my_reward_table demo shop_table my_account_orders table-bordered" data-filter = "#filters" data-page-size="5" data-page-previous-text = "prev" data-filter-text-only = "true" data-page-next-text = "next">
         <thead>
             <tr>
-                <?php if( $TableData[ "sno" ] == '1' ) : ?>
+                <?php if ( $TableData[ "sno" ] == '1' ) : ?>
                     <th data-toggle=true data-sort-initial =true ><?php echo $TableData[ "label_sno" ] ; ?></th>
                     <?php
                 endif ;
 
                 $i = 1 ;
-                foreach( $SortedColumn as $Column ) {
-                    if( $TableData[ $Column ] == '1' ) {
+                foreach ( $SortedColumn as $Column ) {
+                    if ( $TableData[ $Column ] == '1' ) {
                         $data_hide = $i > 2 ? 'phone,tablet' : '' ;
                         ?>
                         <th data-hide="<?php echo $data_hide ; ?>"><?php echo $TableData[ "label_$Column" ] ; ?></th>
@@ -117,18 +117,18 @@ if( ! defined( 'ABSPATH' ) ) {
         </thead>
         <tbody>
             <?php
-            if( $TableData[ 'points_log_sort' ] == '1' )
+            if ( $TableData[ 'points_log_sort' ] == '1' )
                 krsort( $UserLog , SORT_NUMERIC ) ;
 
             $i = 1 ;
-            foreach( $UserLog as $Log ) {
-                if( ! srp_check_is_array( $Log ) )
+            foreach ( $UserLog as $Log ) {
+                if ( ! srp_check_is_array( $Log ) )
                     continue ;
 
                 $CheckPoint = $Log[ 'checkpoints' ] ;
-                if( isset( $Log[ 'earnedpoints' ] ) && ! empty( $Log[ 'checkpoints' ] ) ) {
+                if ( isset( $Log[ 'earnedpoints' ] ) && ! empty( $Log[ 'checkpoints' ] ) ) {
                     $Points         = empty( $Log[ 'earnedpoints' ] ) ? 0 : round_off_type( $Log[ 'earnedpoints' ] ) ;
-                    $RedeemedPoints = empty( $Log[ 'redeempoints' ] ) ? 0 : (get_option( 'rs_enable_round_off_type_for_calculation' ) == 'yes') ? $Log[ 'redeempoints' ] : round_off_type( $Log[ 'redeempoints' ] ) ;
+                    $RedeemedPoints = empty( $Log[ 'redeempoints' ] ) ? 0 : ((get_option( 'rs_enable_round_off_type_for_calculation' ) == 'yes') ? $Log[ 'redeempoints' ] : round_off_type( $Log[ 'redeempoints' ] )) ;
                     $TotalPoints    = empty( $Log[ 'totalpoints' ] ) ? 0 : round_off_type( $Log[ 'totalpoints' ] ) ;
                     $Username       = get_user_meta( $Log[ 'userid' ] , 'nickname' , true ) ;
                     $RefUsername    = get_user_meta( $Log[ 'refuserid' ] , 'nickname' , true ) ;
@@ -136,47 +136,31 @@ if( ! defined( 'ABSPATH' ) ) {
                     $Reason         = RSPointExpiry::msg_for_log( false , true , true , $Log[ 'earnedpoints' ] , $CheckPoint , $Log[ 'productid' ] , $Log[ 'orderid' ] , $Log[ 'variationid' ] , $Log[ 'userid' ] , $RefUsername , $Log[ 'reasonindetail' ] , $Log[ 'redeempoints' ] , false , $NomineeName , $Username , $Log[ 'nomineepoints' ] ) ;
                 } else {
                     $Points         = empty( $Log[ 'points_earned_order' ] ) ? 0 : round_off_type( $Log[ 'points_earned_order' ] ) ;
-                    $RedeemedPoints = empty( $Log[ 'points_redeemed' ] ) ? 0 : (get_option( 'rs_enable_round_off_type_for_calculation' ) == 'yes') ? $Log[ 'points_redeemed' ] : round_off_type( $Log[ 'points_redeemed' ] ) ;
+                    $RedeemedPoints = empty( $Log[ 'points_redeemed' ] ) ? 0 : ((get_option( 'rs_enable_round_off_type_for_calculation' ) == 'yes') ? $Log[ 'points_redeemed' ] : round_off_type( $Log[ 'points_redeemed' ] )) ;
                     $TotalPoints    = empty( $Log[ 'totalpoints' ] ) ? 0 : round_off_type( $Log[ 'totalpoints' ] ) ;
                     $Reason         = empty( $Log[ 'rewarder_for_frontend' ] ) ? 0 : $Log[ 'rewarder_for_frontend' ] ;
                 }
 
-                $DisplayFormat = get_option( 'rs_dispaly_time_format' ) ;
-                if( get_option( 'rs_hide_time_format' ) == 'yes' ) {
-                    $DateFormat = ($DisplayFormat == '1') ? "d-m-Y" : get_option( 'date_format' ) ;
-                } else {
-                    $DateFormat = ($DisplayFormat == '1') ? "d-m-Y h:i:s A" : get_option( 'date_format' ) . ' ' . get_option( 'time_format' ) ;
-                }
-
-                if( $CheckPoint == 'IMPOVR' || $CheckPoint == 'IMPADD' ) {
-                    $GMTExpDate = $Log[ 'expirydate' ] + get_option( 'gmt_offset' ) * HOUR_IN_SECONDS ;
-                    $ExpDate    = $Log[ 'expirydate' ] != 999999999999 ? date_i18n( $DateFormat , ( float ) $GMTExpDate ) : '-' ;
-                } else {
-                    $ExpDate = $Log[ 'expirydate' ] != 999999999999 ? date_i18n( $DateFormat , ( float ) $Log[ 'expirydate' ] ) : '-' ;
-                }
-                $ExpDate = ($ExpDate != '-') ? strftime( $ExpDate ) : '-' ;
-
-                if( (($Points != 0) && ($RedeemedPoints != 0)) || ((($Points != 0) && ($RedeemedPoints == 0)) || (($Points == 0) && ($RedeemedPoints != 0))) || ( ! empty( $Reason )) ) {
-                    $EarnedDate          = date_display_format( $Log ) ;
+                if ( (($Points != 0) && ($RedeemedPoints != 0)) || ((($Points != 0) && ($RedeemedPoints == 0)) || (($Points == 0) && ($RedeemedPoints != 0))) || ( ! empty( $Reason )) ) {
                     $DefaultColumnValues = array(
                         'sno'             => $i ,
-                        'points_expiry'   => $ExpDate ,
+                        'points_expiry'   => 999999999999 != $Log[ 'expirydate' ] ? date_display_format( $Log[ 'expirydate' ] ) : '-' ,
                         'username'        => $Username ,
                         'reward_for'      => $Reason ,
                         'earned_points'   => $Points ,
                         'redeemed_points' => $RedeemedPoints ,
                         'total_points'    => $TotalPoints ,
-                        'earned_date'     => $EarnedDate ,
+                        'earned_date'     => date_display_format( $Log[ 'earneddate' ] ) ,
                             ) ;
                     ?>
                     <tr>
-                        <?php if( $TableData[ 'sno' ] == '1' ) { ?>
+                        <?php if ( $TableData[ 'sno' ] == '1' ) { ?>
                             <td data-value="<?php echo $DefaultColumnValues[ 'sno' ] ; ?>"><?php echo $DefaultColumnValues[ 'sno' ] ; ?></td>
                             <?php
                         }
 
-                        foreach( $SortedColumn as $Column ) {
-                            if( $TableData[ $Column ] == '1' ) {
+                        foreach ( $SortedColumn as $Column ) {
+                            if ( $TableData[ $Column ] == '1' ) {
                                 ?>
                                 <td><?php echo $DefaultColumnValues[ $Column ] ; ?></td>
                                 <?php

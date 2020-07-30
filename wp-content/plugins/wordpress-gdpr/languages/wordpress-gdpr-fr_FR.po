@@ -3,16 +3,16 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-06-30 18:24+0000\n"
-"PO-Revision-Date: 2019-06-30 18:24+0000\n"
+"PO-Revision-Date: 2020-05-13 16:42+0200\n"
 "Language-Team: French (France)\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Loco https://localise.biz/\n"
+"X-Generator: Poedit 2.3.1\n"
 "Last-Translator: WeLaunch <support@dev.welaunch.io>\n"
 "Language: fr_FR\n"
-"X-Loco-Version: 2.3.0; wp-5.2.1"
+"X-Loco-Version: 2.3.0; wp-5.2.1\n"
 
 #: wordpress-gdpr.php:90
 msgid ""
@@ -293,8 +293,8 @@ msgid ""
 "Then check this option."
 msgstr ""
 "Installer et Activer le <a href=\"https://wordpress.org/plugins/invisible-"
-"recaptcha/\" target=\"_blank\">plugin Recaptcha invisible à partir d'ici</a> "
-". Ensuite, cochez cette option."
+"recaptcha/\" target=\"_blank\">plugin Recaptcha invisible à partir d'ici</"
+"a> . Ensuite, cochez cette option."
 
 #: admin/options-init.php:155
 msgid "Allow all Cookies for all users visiting first time"
@@ -305,18 +305,22 @@ msgstr ""
 #: admin/options-init.php:156
 msgid "This allows all cookies until a user opts out himself."
 msgstr ""
-"Cela autorise tous les cookies jusqu'à ce qu’un utilisateur les sélectionne "
-"lui-même."
+"Cela permet à tous les biscuits jusqu'à ce qu’un utilisateur choisit lui-"
+"même la sélection."
 
 #: admin/options-init.php:163
 msgid "Allow all Cookies for users continue visiting your site"
 msgstr ""
+"Autoriser tous les cookies pour que les utilisateurs continue à visiter "
+"votre site"
 
 #: admin/options-init.php:164
 msgid ""
 "When a user makes no decision, but continues to browse on your site all "
 "cookies will be enabled."
 msgstr ""
+"Lorsqu’un utilisateur ne prend aucune décision, mais continue à naviguer sur "
+"votre site, tous les cookies seront activés."
 
 #: admin/options-init.php:171
 msgid "Allow all Cookies for logged in users"
@@ -330,27 +334,30 @@ msgstr ""
 
 #: admin/options-init.php:179
 msgid "Use Font Awesome 5"
-msgstr ""
+msgstr "Utilisez Font Awesome 5"
 
 #: admin/options-init.php:180
 msgid "This will disable font awesome 4 to load."
-msgstr ""
+msgstr "Cela désactivera le chargement de la police Awesome 4."
 
 #: admin/options-init.php:187
 msgid "Font Awesome Prefix"
-msgstr ""
+msgstr "Préfixe Awesome Font"
 
 #: admin/options-init.php:188
 msgid "Choose fas if you use free, otherwise you can use fal or far"
 msgstr ""
+"Choisissez fas si vous utilisez gratuitement, sinon vous pouvez utiliser fal "
+"ou far"
 
 #: admin/options-init.php:195
 msgid "Load Font Awesome 5 Free"
-msgstr ""
+msgstr "Charger la police Awesome 5 gratuitement"
 
 #: admin/options-init.php:196
 msgid "If your theme does not load it, our plugin will load it when checked."
 msgstr ""
+"Si votre thème ne le charge pas, notre plugin le chargera une fois vérifié."
 
 #: admin/options-init.php:203
 msgid "Cookie Lifetime."
@@ -407,9 +414,9 @@ msgid ""
 "We use cookies to give you the best online experience. By agreeing you "
 "accept the use of cookies in accordance with our cookie policy."
 msgstr ""
-"Nous utilisons des cookies pour vous offrir la meilleure expérience en ligne."
-" En acceptant, vous acceptez l'utilisation de cookies conformément à notre "
-"politique de confidentialité des cookies."
+"Nous utilisons des cookies pour vous offrir la meilleure expérience en "
+"ligne. En acceptant, vous acceptez l'utilisation de cookies conformément à "
+"notre politique de confidentialité des cookies."
 
 #: admin/options-init.php:258
 msgid "Popup Agree Text"
@@ -573,11 +580,11 @@ msgstr "En bas à droite"
 
 #: admin/options-init.php:455
 msgid "Privacy Settings texts"
-msgstr ""
+msgstr "Textes Paramètres de confidentialité"
 
 #: admin/options-init.php:456
 msgid "Set up your privacy settings texts here."
-msgstr ""
+msgstr "Configurez vos paramètres de confidentialité ici."
 
 #: admin/options-init.php:472
 msgid "Popup Title"
@@ -599,7 +606,7 @@ msgstr ""
 
 #: admin/options-init.php:491
 msgid "Popup Privacy Policy Text"
-msgstr "Popup Politique de confidentialité Texte"
+msgstr "Texte du Popup de la Politique de confidentialité"
 
 #: admin/options-init.php:493 admin/options-init.php:1279
 #: admin/class-wordpress-gdpr-install-pages.php:150
@@ -611,31 +618,35 @@ msgstr "Politique de confidentialité"
 
 #: admin/options-init.php:505
 msgid "Privacy Settings Shortcode"
-msgstr ""
+msgstr "Shortcode des Paramètres de confidentialité"
 
 #: admin/options-init.php:506
 msgid "Use Shortcode instead of popup."
-msgstr ""
+msgstr "Utilisez le Shortcode au lieu de popup."
 
 #: admin/options-init.php:512
 msgid "Use Privacy Settings Shortcode"
-msgstr ""
+msgstr "Utiliser le Shortcode comme Paramètres de confidentialité"
 
 #: admin/options-init.php:513
 msgid ""
 "If enabled you need to add the following shortcode to a new page: "
 "[wordpress_gdpr_privacy_settings]."
 msgstr ""
+"Si activé, vous devez ajouter le shortcode suivant à une nouvelle page: "
+"[wordpress_gdpr_privacy_settings]."
 
 #: admin/options-init.php:519
 msgid "Privacy Settings Page"
-msgstr ""
+msgstr "Page des Paramètres de confidentialité"
 
 #: admin/options-init.php:520
 msgid ""
 "Set the page you created with the shortcode above here. Trigger and Privacy "
 "center will link there."
 msgstr ""
+"Réglez la page que vous avez créée avec le shortcode ci-dessus ici. Le "
+"centre de déclenchement et de confidentialité y sera relié."
 
 #: admin/options-init.php:527
 msgid "Privacy Settings Modal"
@@ -647,7 +658,7 @@ msgstr "Configurez votre fenêtre modale des paramètres de confidentialité ici
 
 #: admin/options-init.php:534
 msgid "Enable the Privacy Settings Popup"
-msgstr ""
+msgstr "Activez les paramètres de confidentialité en Popup"
 
 #: admin/options-init.php:588
 msgid "Popup Close Icon"
@@ -686,6 +697,8 @@ msgid ""
 "If you have enabled to use WP Core Functions in advanced settings this is no "
 "longer needed."
 msgstr ""
+"Si vous avez activé l’utilisation de WP Core Functions dans des paramètres "
+"avancés, cela n’est plus nécessaire."
 
 #: admin/options-init.php:648
 msgid "Confirmation Email Subject"
@@ -693,7 +706,7 @@ msgstr "Sujet du mail de confirmation"
 
 #: admin/options-init.php:649
 msgid "Subject of the confirmation Email."
-msgstr "Sujet de la confirmation Email."
+msgstr "Sujet de la confirmation de l'email."
 
 #: admin/options-init.php:650
 msgid "GDPR - Confirm your Request"
@@ -716,8 +729,8 @@ msgstr ""
 msgid ""
 "Dear %s,\n"
 "                                <br><br>\n"
-"                                we have received your %s. If this is correct,"
-" please click on the link below. Otherwise ignore this email!"
+"                                we have received your %s. If this is "
+"correct, please click on the link below. Otherwise ignore this email!"
 msgstr ""
 "Bonjour %s,\n"
 "                                <br><br>\n"
@@ -800,23 +813,23 @@ msgstr "Violation des données"
 
 #: admin/options-init.php:744
 msgid "Enable Data Breach"
-msgstr "Activer la violation de données"
+msgstr "Activer la violation des données"
 
 #: admin/options-init.php:745
 msgid "Enable Data Breach form."
-msgstr "Activer le formulaire de violation de données."
+msgstr "Activer le formulaire de violation des données."
 
 #: admin/options-init.php:751
 msgid "Data Breach from Email"
-msgstr "Violation de données par Email"
+msgstr "Violation des données par Email"
 
 #: admin/options-init.php:752
 msgid "The FROM Email used for data breach issues."
-msgstr "L'email FROM est utilisé avec des problèmes de violation de données."
+msgstr "L'email FROM est utilisé avec des problèmes de violation des données."
 
 #: admin/options-init.php:759
 msgid "Data Breach Email Subject"
-msgstr "Sujet de l'Email de violation de données"
+msgstr "Sujet de l'Email de violation des données"
 
 #: admin/options-init.php:760 admin/options-init.php:981
 #: admin/options-init.php:1341
@@ -829,11 +842,11 @@ msgstr "RGPD - Violation des données"
 
 #: admin/options-init.php:767
 msgid "Data Breach Email Text"
-msgstr "Texte de violation de données"
+msgstr "Texte de violation des données"
 
 #: admin/options-init.php:768
 msgid "Text of the Email regarding a data breach.."
-msgstr "Texte de l'e-mail concernant une violation de données."
+msgstr "Texte de l'e-mail concernant une violation des données."
 
 #: admin/options-init.php:769
 #, php-format
@@ -881,11 +894,11 @@ msgstr "Activer la rectification des données"
 
 #: admin/options-init.php:798
 msgid "Enable Data Rectification form."
-msgstr "Activer le formulaire de rectification de données."
+msgstr "Activer le formulaire de rectification des données."
 
 #: admin/options-init.php:804
 msgid "Data Rectification Page"
-msgstr "Rectification de données"
+msgstr "Page de Rectification des données"
 
 #: admin/options-init.php:805
 msgid "Shortcode: [wordpress_gdpr_data_rectification]"
@@ -893,7 +906,7 @@ msgstr "Shortcode : [wordpress_gdpr_data_rectification]"
 
 #: admin/options-init.php:820
 msgid "Data Rectification Email"
-msgstr "Email de Rectification de données"
+msgstr "Email de Rectification des données"
 
 #: admin/options-init.php:828
 msgid "Data Rectification Email Subject"
@@ -901,11 +914,11 @@ msgstr "Sujet de l'Email des données à Rectifier"
 
 #: admin/options-init.php:829
 msgid "Subject of the Data Rectification contact Email."
-msgstr "Objet de la Rectification de données contact Email."
+msgstr "Objet de la Rectification des données contact Email."
 
 #: admin/options-init.php:830
 msgid "GDPR - New Request for Data Rectification"
-msgstr "RGPD - Nouvelle requête pour la Rectification de données"
+msgstr "RGPD - Nouvelle requête pour la Rectification des données"
 
 #: admin/options-init.php:837
 msgid "Data Retention"
@@ -1036,7 +1049,7 @@ msgstr ""
 
 #: admin/options-init.php:980
 msgid "Forget me Deleted Email Subject"
-msgstr "Sujet de l'email lors de la suppression de Oubliez-moi"
+msgstr "Sujet de l'email lors de la suppression du Droit à l'oubli"
 
 #: admin/options-init.php:982
 msgid "GDPR - Your Data has been Deleted"
@@ -1104,13 +1117,13 @@ msgstr ""
 
 #: admin/options-init.php:1040
 msgid "Only registered users can comment"
-msgstr ""
+msgstr "Seuls les utilisateurs enregistrés peuvent commenter"
 
 #: admin/options-init.php:1041
 msgid ""
-"Either you go to settings > discussions and check \"Users must be "
-"registered\" or you activate this setting here. If you do not do this, user "
-"deletion & export will not work, because no accounts are created!"
+"Either you go to settings > discussions and check \"Users must be registered"
+"\" or you activate this setting here. If you do not do this, user deletion & "
+"export will not work, because no accounts are created!"
 msgstr ""
 "Soit vous allez dans les paramètres> discussions et cochez \"Les "
 "utilisateurs doivent être enregistrés\" ou vous activez ce paramètre ici. Si "
@@ -1274,14 +1287,19 @@ msgstr ""
 
 #: admin/options-init.php:1149
 msgid "Enable Flamingo DB (Deprecated)"
-msgstr ""
+msgstr "Activez Flamingo DB (Déprécié)"
 
 #: admin/options-init.php:1150
 msgid ""
-"No longer needed with CF7 Version 5.0.3 - <a target=\"_blank\" href=\"https:"
-"//plugins.db-dzine.com/wordpress-gdpr/documentation/faq/cf7/\">see here</a>. "
-"This will depending on the opt-in checkbox setting save data or not."
+"No longer needed with CF7 Version 5.0.3 - <a target=\"_blank\" href="
+"\"https://plugins.db-dzine.com/wordpress-gdpr/documentation/faq/cf7/\">see "
+"here</a>. This will depending on the opt-in checkbox setting save data or "
+"not."
 msgstr ""
+"N’est plus nécessaire avec CF7 Version 5.0.3 - <a target=\"_blank\" href="
+"\"https://plugins.db-dzine.com/wordpress-gdpr/documentation/faq/cf7/\">voir "
+"ici</a>. Cela dépendra de l’opt-in paramètre de la boîte de contrôle pour "
+"enregistrer des données ou non."
 
 #: admin/options-init.php:1156
 msgid "Opt-In Field name"
@@ -1336,7 +1354,7 @@ msgid ""
 "This will add Formidable entries to data export. Checkbox needs to be added "
 "to each form manually."
 msgstr ""
-"Ceci ajoutera les entrées Fromidable pour exporter des données. La Case à "
+"Ceci ajoutera les entrées Formidable pour exporter des données. La Case à "
 "cocher doit être ajoutée manuellement à chaque formulaire."
 
 #: admin/options-init.php:1194
@@ -1357,6 +1375,9 @@ msgid ""
 "This will add Gravity Forms entries to data export & removes IP saving. "
 "Checkbox needs to be added to each form manually."
 msgstr ""
+"Cela ajoutera des entrées des formulaires de Gravity Forms à l’exportation "
+"de données et supprimera IP de sauvegarde. La case à cocher doit être "
+"ajoutée manuellement à chaque formulaire."
 
 #: admin/options-init.php:1209
 msgid "Delete GravityForms Records"
@@ -1548,15 +1569,14 @@ msgstr "Pseudonymisation"
 #: admin/options-init.php:1375
 msgid ""
 "Pseudonymization is not mandatory by GDPR. It might be a good improvement, "
-"but also can risk in data loss. <a href=\"https://plugins.db-dzine."
-"com/wordpress-gdpr/documentation/faq/pseudonymization/\" target=\"_blank\">"
-"Please read more here</a>."
+"but also can risk in data loss. <a href=\"https://plugins.db-dzine.com/"
+"wordpress-gdpr/documentation/faq/pseudonymization/\" target=\"_blank"
+"\">Please read more here</a>."
 msgstr ""
 "La pseudonymisation n'est pas obligatoire pour le RGPD. Cela pourrait être "
-"une bonne amélioration, mais vous risquer de perdre des données. <a "
-"href=\"https://plugins.db-dzine.com/wordpress-"
-"gdpr/documentation/faq/pseudonymization/\" target=\"_blank\">S'il vous plaît "
-"lire plus ici</a> ."
+"une bonne amélioration, mais vous risquer de perdre des données. <a href="
+"\"https://plugins.db-dzine.com/wordpress-gdpr/documentation/faq/"
+"pseudonymization/\" target=\"_blank\">S'il vous plaît lire plus ici</a> ."
 
 #: admin/options-init.php:1382
 msgid "Request Data Archive"
@@ -1568,11 +1588,11 @@ msgstr "Activer les données de la requête"
 
 #: admin/options-init.php:1390
 msgid "Enable Request Data form."
-msgstr "Activer le formulaire de demande de données."
+msgstr "Activer le formulaire de demande des données."
 
 #: admin/options-init.php:1396
 msgid "Request Data Archive Page"
-msgstr "Demande d'archive de données"
+msgstr "Demande d'archive des données"
 
 #: admin/options-init.php:1397
 msgid "Shortcode: [wordpress_gdpr_request_data]"
@@ -1600,7 +1620,7 @@ msgstr "Au lieu de JSON, les données seront exportées en tant que table html."
 
 #: admin/options-init.php:1430
 msgid "Request Data Export Email Subject"
-msgstr "Demande d'exportation de données sujet"
+msgstr "Demande d'exportation des données sujet"
 
 #: admin/options-init.php:1431
 msgid "Subject of the Email notification."
@@ -1612,11 +1632,11 @@ msgstr "RGPD - Vos données utilisateur sont prêtes"
 
 #: admin/options-init.php:1438
 msgid "Request Data Export Email Text"
-msgstr "Demande d'exportation par Email de données"
+msgstr "Demande d'exportation par Email des données"
 
 #: admin/options-init.php:1439
 msgid "Text of the Email data export."
-msgstr "Texte de l'Email pour l'exportation de données."
+msgstr "Texte de l'Email pour l'exportation des données."
 
 #: admin/options-init.php:1440
 #, php-format
@@ -1649,8 +1669,8 @@ msgstr "Personnalisé les Cookies autorisés"
 #: admin/options-init.php:1464
 msgid "Put your technically required cookies here - separated by COMMA (,)."
 msgstr ""
-"Mettez vos cookies techniquement nécessaires ici - séparés par une virgule (,"
-")."
+"Mettez vos cookies techniquement nécessaires ici - séparés par une virgule "
+"(,)."
 
 #: admin/options-init.php:1470
 msgid "Enable Cloudlfare"
@@ -1658,9 +1678,9 @@ msgstr "Activer Cloudlfare"
 
 #: admin/options-init.php:1471
 msgid ""
-"If you use Cloudlfare enable this. <a href=\"https://support.cloudflare."
-"com/hc/en-us/articles/200170156-What-does-the-Cloudflare-cfduid-cookie-do-\">"
-"See here about __cfduid cookie</a>."
+"If you use Cloudlfare enable this. <a href=\"https://support.cloudflare.com/"
+"hc/en-us/articles/200170156-What-does-the-Cloudflare-cfduid-cookie-do-\">See "
+"here about __cfduid cookie</a>."
 msgstr ""
 "Si vous utilisez Cloudlfare, activez ceci. <a href=\"https://support."
 "cloudflare.com/hc/en-us/articles/200170156-What-does-the-Cloudflare-cfduid-"
@@ -1832,7 +1852,7 @@ msgstr "Acceptation du texte des Termes & Conditions"
 
 #: admin/options-init.php:1655
 msgid "Text for users to agree on Terms & Conditions."
-msgstr "Texte pour les utilisateurs qui ont acceptés les Termes et Conditions"
+msgstr "Texte pour les utilisateurs qui ont acceptés les Termes et Conditions."
 
 #: admin/options-init.php:1656
 msgid "I’ve read and accept the Terms & Conditions."
@@ -1854,9 +1874,9 @@ msgstr "Page de désinscription"
 #: admin/options-init.php:1678
 msgid ""
 "Add your unsubscribe Form here! For <a target=\"_blank\" href=\"https://kb."
-"mailchimp.com/lists/signup-forms/find-the-unsubscribe-link-for-your-list\">"
-"Mailchimp see here how to setup a Mailchimp Unsuscribe form</a>. This can be "
-"embedded via iFrame."
+"mailchimp.com/lists/signup-forms/find-the-unsubscribe-link-for-your-list"
+"\">Mailchimp see here how to setup a Mailchimp Unsuscribe form</a>. This can "
+"be embedded via iFrame."
 msgstr ""
 "Ajoutez votre formulaire de désabonnement ici! Pour <a target=\"_blank\" "
 "href=\"https://kb.mailchimp.com/lists/signup-forms/find-the-unsubscribe-link-"
@@ -2149,7 +2169,7 @@ msgstr "Besoin d'être désactivé"
 
 #: admin/class-wordpress-gdpr-services.php:241
 msgid "Enabled by Default"
-msgstr ""
+msgstr "Activé par défaut"
 
 #: admin/class-wordpress-gdpr-services.php:252
 msgid "Is PixelYourSite Service?"
@@ -2174,7 +2194,7 @@ msgstr "Corps du Script"
 #: admin/class-wordpress-gdpr-users.php:60
 #: admin/class-wordpress-gdpr-users.php:61
 msgid "GDPR Users"
-msgstr ""
+msgstr "Utilisateurs GDPR"
 
 #: admin/class-wordpress-gdpr-users.php:101
 msgid "Username"
@@ -2203,7 +2223,7 @@ msgstr "Vous devez accepter notre politique de confidentialité."
 
 #: public/class-wordpress-gdpr-public.php:81
 msgid "You must accept our Terms and Conditions."
-msgstr ""
+msgstr "Vous devez accepter nos Conditions générales."
 
 #: public/class-wordpress-gdpr-public.php:121
 #: public/class-wordpress-gdpr-public-deprecated.php:282
@@ -2374,7 +2394,7 @@ msgstr "AdSense"
 
 #: public/class-wordpress-gdpr-privacy-settings.php:193
 msgid "Privacy Settings saved!"
-msgstr ""
+msgstr "Paramètres de confidentialité sauvegardés !"
 
 #: public/class-wordpress-gdpr-privacy-settings.php:240
 msgid "Decline all Services"
@@ -2386,7 +2406,7 @@ msgstr "Accepter tous les services"
 
 #: public/class-wordpress-gdpr-forms.php:49
 msgid "Forget Me Request"
-msgstr "Demande de Droit à l'oubli"
+msgstr "Demande du Droit à l'oubli"
 
 #: public/class-wordpress-gdpr-forms.php:57
 msgid "DPO Contact Request"
@@ -2490,7 +2510,7 @@ msgstr "Non"
 
 #: public/class-wordpress-gdpr-forms.php:345
 msgid "Your First Name (*)"
-msgstr "Votre prénom"
+msgstr "Votre prénom (*)"
 
 #: public/class-wordpress-gdpr-forms.php:361
 msgid "Your Last Name (*)"
@@ -2498,7 +2518,7 @@ msgstr "Votre nom de famille (*)"
 
 #: public/class-wordpress-gdpr-forms.php:377
 msgid "Your Email (*)"
-msgstr "Votre Email"
+msgstr "Votre Email (*)"
 
 #: public/class-wordpress-gdpr-forms.php:393
 msgid "Your message (*)"
@@ -2530,12 +2550,12 @@ msgstr "EU-DSVGO, plugin de conformité RGPD"
 
 #. URI of the plugin
 msgid "https://welaunch.io/plugins/wordpress-gdpr/"
-msgstr ""
+msgstr "https://welaunch.io/plugins/wordpress-gdpr/"
 
 #. Author of the plugin
 msgid "weLaunch"
-msgstr ""
+msgstr "weLaunch"
 
 #. Author URI of the plugin
 msgid "https://welaunch.io"
-msgstr ""
+msgstr "https://welaunch.io"

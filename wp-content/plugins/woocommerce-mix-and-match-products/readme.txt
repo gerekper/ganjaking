@@ -3,7 +3,7 @@ Contributors: helgatheviking, SomewhereWarm
 Tags: woocommerce, product, container
 Requires at least: 4.0
 Tested up to: 5.3.0
-Stable tag: 1.9.13
+Stable tag: 1.10.0
 WC requires at least: 3.1.0
 WC tested up to: 3.7.0
 License: GPLv3

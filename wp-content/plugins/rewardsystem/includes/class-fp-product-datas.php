@@ -88,6 +88,7 @@ if ( ! function_exists( 'srp_product_filter_for_quick_setup' ) ) {
 if ( ! function_exists( 'srp_include_tax_with_price' ) ) {
 
     function srp_include_tax_with_price() {
+
         if ( get_option( 'woocommerce_calc_taxes' ) == 'no' )
             return true ;
 
@@ -113,9 +114,9 @@ if ( ! function_exists( 'get_regular_price' ) ) {
         $payment_price_frontend = get_payment_data_for_payment_plan( $productid ) ;
 
         if ( ! is_shop() && ! is_product() && ! is_cart() && ! is_product_category() && ! is_cart() && ! is_checkout() ) {
-            if ( ((is_object( $item )) || (srp_check_is_array( $item ))) && srp_include_tax_with_price() ) {
+            if ( ((is_object( $item )) || (srp_check_is_array( $item )) ) ) {
                 $line_subtotal     = isset( $item[ 'line_subtotal' ] ) ? $item[ 'line_subtotal' ] : 0 ;
-                $line_subtotal_tax = isset( $item[ 'line_subtotal_tax' ] ) ? $item[ 'line_subtotal_tax' ] : 0 ;
+                $line_subtotal_tax = (srp_include_tax_with_price() && isset( $item[ 'line_subtotal_tax' ] )) ? $item[ 'line_subtotal_tax' ] : 0 ;
                 if ( isset( $item[ 'qty' ] ) && ! $line_subtotal ) {
                     if ( ! empty( $variationid ) )
                         $ProductObj = new WC_Product_Variation( $variationid ) ;

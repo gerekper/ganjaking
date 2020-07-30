@@ -53,6 +53,10 @@ class PrimaryTaxonomy extends AC\Column\Meta
 		return new Export\Model\StrippedValue( $this );
 	}
 
+	public function is_valid() {
+		return AC\MetaType::POST === $this->get_meta_type();
+	}
+
 	/**
 	 * @return string
 	 */

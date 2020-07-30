@@ -51,6 +51,9 @@ class Betterdocs_Pro_Admin {
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
+		if ( BetterDocs_Multiple_Kb::$enable == 1 ) {
+			add_action( 'betterdocs_admin_menu', array( $this, 'add_multiple_kb_menu' ) );
+		}
 		add_action( 'wp_ajax_update_doc_cat_order', array( $this, 'update_doc_cat_order' ) );
 		add_action( 'wp_ajax_update_doc_order_by_category', array( $this, 'update_doc_order_by_category' ) );
 		add_action( 'wp_ajax_update_docs_term', array( $this, 'update_docs_term' ) );
@@ -174,6 +177,27 @@ class Betterdocs_Pro_Admin {
 					<div class="betterdocs-header-button">
 						<a href="edit.php?post_type=docs&bdocs_view=classic" class="betterdocs-button betterdocs-button-secondary"><?php _e( 'Switch to Classic UI', 'betterdocs-pro' ); ?></a>
 						<a href="post-new.php?post_type=docs" class="betterdocs-button betterdocs-button-primary"><?php _e( 'Add New Article', 'betterdocs-pro' ); ?></a>
+						<?php if ( BetterDocs_Multiple_Kb::$enable == 1 ) { ?>
+						<select name="dashboard-select-kb" id="dashboard-select-kb" onchange="javascript:location.href = 'admin.php?page=betterdocs-admin&knowledgebase=' + this.value;">
+							<option value="all"><?php esc_html_e( 'All Knowledge Base', 'betterdocs' ) ?></option>
+							<?php 
+							$terms_object = array(
+								'taxonomy' => 'knowledge_base',
+								'hide_empty' => true,
+								'parent' => 0
+							);
+
+							$taxonomy_objects = get_terms($terms_object);
+							if ( $taxonomy_objects && ! is_wp_error( $taxonomy_objects ) ) :
+								foreach ( $taxonomy_objects as $term ) :
+									$selected = ( isset($_GET['knowledgebase'] ) && $term->slug == $_GET['knowledgebase']) ? ' selected' : '';
+									echo '<option value="' . $term->slug . '"' . $selected . '>' . $term->name . '</option>';
+								endforeach;
+							endif;
+
+							?>
+						</select>
+						<?php } ?>
 					</div>
 					<div class="betterdocs-switch-mode">
 					  <label for='betterdocs-mode-toggle'>
@@ -206,18 +230,43 @@ class Betterdocs_Pro_Admin {
 	}
 
 	public function betterdocs_admin_display(){
-		$terms = get_terms(array(
+		$terms_object = array(
 			'taxonomy' => 'doc_category',
 			'orderby' => 'meta_value_num',
 			'meta_key' => 'doc_category_order',
 			'order' => 'ASC',
 			'hide_empty' => false,
-		));
+		);
+		if ( BetterDocs_Multiple_Kb::$enable == 1 && isset( $_GET['knowledgebase'] ) && $_GET['knowledgebase'] !== 'all' ) {
+			$terms_object['meta_query'] = array( 
+				array(
+					'key'       => 'doc_category_knowledge_base',
+					'value'     => $_GET['knowledgebase'],
+					'compare'   => 'LIKE'
+				)
+			);
+		}
+		$terms = get_terms($terms_object);
 		if( file_exists( BETTERDOCS_PRO_ADMIN_DIR_PATH . 'partials/betterdocs-pro-admin-sorting-display.php' ) ) {
             return include_once BETTERDOCS_PRO_ADMIN_DIR_PATH . 'partials/betterdocs-pro-admin-sorting-display.php';
         }
 	}
 
+	/**
+     * This method is responsible for adding multiple KB in Menu
+     * @return void
+     */
+
+    public function add_multiple_kb_menu( $pages ) {
+
+        $pages['edit-tags.php?taxonomy=knowledge_base&post_type=docs'] = array(
+			'title'      => __('Multiple KB', 'betterdocs-pro'),
+			'callback'   => ''
+        );
+
+        return $pages;
+	}
+	
 	public function highlight_admin_menu( $parent_file ){
 		global $current_screen;
 		if( $current_screen->post_type === 'docs' ) {
@@ -225,8 +274,11 @@ class Betterdocs_Pro_Admin {
 		}
         return $parent_file;
 	}
-	public function highlight_admin_submenu( $parent_file, $submenu_file ){
+
+	public function highlight_admin_submenu( $parent_file, $submenu_file ) {
+
 		global $current_screen, $pagenow;
+
         if ( $current_screen->post_type == 'docs' ) {
             if ( $pagenow == 'post.php' ) {
                 $submenu_file = 'betterdocs-admin';
@@ -239,6 +291,9 @@ class Betterdocs_Pro_Admin {
 			}
 			if( $current_screen->id === 'edit-doc_tag' ) {
 				$submenu_file = 'edit-tags.php?taxonomy=doc_tag&post_type=docs';
+			}
+			if( $current_screen->id === 'edit-knowledge_base' ) {
+				$submenu_file = 'edit-tags.php?taxonomy=knowledge_base&post_type=docs';
 			}
 		}
 		if( 'betterdocs_page_betterdocs-settings' == $current_screen->id ) {

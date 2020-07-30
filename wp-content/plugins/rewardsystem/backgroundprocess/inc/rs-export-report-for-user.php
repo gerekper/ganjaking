@@ -69,111 +69,75 @@ if ( ! class_exists( 'RS_Export_Report_For_User' ) ) {
                 $EarnPoints   = get_option( 'export_earn_points' ) ;
                 $RedeemPoints = get_option( 'export_redeem_points' ) ;
                 $TotalPoints  = get_option( 'export_total_points' ) ;
-                $PointsData   = new RS_Points_data( $UserId ) ;
-                $default_log  = array(
-                    array(
-                        'orderid'               => '' ,
-                        'userid'                => $UserId ,
-                        'points_earned_order'   => '0' ,
-                        'points_redeemed'       => '0' ,
-                        'points_value'          => '0' ,
-                        'before_order_points'   => '0' ,
-                        'totalpoints'           => $PointsData->total_available_points() ,
-                        'date'                  => date( 'Y-m-d' ) ,
-                        'rewarder_for'          => '' ,
-                        'rewarder_for_frontend' => ''
-                    ) ) ;
+
+                $total_user_points = array() ;
+
+                $PointsData  = new RS_Points_data( $UserId ) ;
+
                 if ( $DateType == '1' ) {
-                    $overall_log = $wpdb->get_results( "SELECT * FROM $table_name WHERE userid = $UserId" , ARRAY_A ) ;
+                    $earned_points = $wpdb->get_col( $wpdb->prepare( "SELECT SUM(earnedpoints) FROM $table_name WHERE userid = %d" , $UserId ) ) ;
+                    $redeem_points = $wpdb->get_col( $wpdb->prepare( "SELECT SUM(redeempoints) FROM $table_name WHERE userid = %d" , $UserId ) ) ;
                 } else {
-                    $StartTime   = strtotime( get_option( 'selected_report_start_date' ) . ' ' . '00:00:00' ) ;
-                    $EndTime     = strtotime( get_option( 'selected_report_end_date' ) . ' ' . '23:59:00' ) ;
-                    $overall_log = $wpdb->get_results( "SELECT * FROM $table_name WHERE userid = $UserId AND earneddate >= $StartTime AND earneddate <= $EndTime" , ARRAY_A ) ;
+                    $StartTime     = strtotime( get_option( 'selected_report_start_date' ) . ' ' . '00:00:00' ) ;
+                    $EndTime       = strtotime( get_option( 'selected_report_end_date' ) . ' ' . '23:59:00' ) ;
+                    $earned_points = $wpdb->get_col( $wpdb->prepare( "SELECT SUM(earnedpoints) FROM $table_name WHERE userid = %d AND earneddate >= %d AND earneddate <= %d" , $UserId , $StartTime , $EndTime ) ) ;
+                    $redeem_points = $wpdb->get_col( $wpdb->prepare( "SELECT SUM(redeempoints) FROM $table_name WHERE userid = %dAND earneddate >= %d AND earneddate <= %d" , $UserId , $StartTime , $EndTime ) ) ;
                 }
-                $overall_log = $overall_log + ( array ) get_user_meta( $UserId , '_my_points_log' , true ) ;
 
-                ksort( $overall_log , SORT_NUMERIC ) ;
+                $total_user_points[ $UserId ] = array( array_sum( $earned_points ) , array_sum( $redeem_points ) ) ;
 
-                $overall_log = srp_check_is_array( $overall_log ) ? $overall_log : $default_log ;
-                $overall_log = array_values( array_filter( $overall_log ) ) ;
-                if ( srp_check_is_array( $overall_log ) ) {
-                    $Data              = array() ;
-                    $earned_points     = array() ;
-                    $redeem_points     = array() ;
-                    $total_points      = array() ;
-                    $total_user_points = array() ;
-                    $earnedpoints      = 0 ;
-                    $redeempoints      = 0 ;
-                    foreach ( $overall_log as $log ) {
-                        if ( ! isset( $log[ 'userid' ] ) )
-                            continue ;
+                $TotalPointsEarned = $PointsData->total_available_points() ;
 
-                        $LogUserId = $log[ 'userid' ] ;
-
-                        $earnedpoints += isset( $log[ 'earnedpoints' ] ) ? $log[ 'earnedpoints' ] : (isset( $log[ 'points_earned_order' ] ) ? $log[ 'points_earned_order' ] : 0) ;
-
-                        $redeempoints += isset( $log[ 'redeempoints' ] ) ? $log[ 'redeempoints' ] : (isset( $log[ 'points_redeemed' ] ) ? isset( $log[ 'points_redeemed' ] ) : 0) ;
-
-                        $earned_points[ $LogUserId ] = $earnedpoints ;
-
-                        $redeem_points[ $LogUserId ] = $redeempoints ;
-
-                        $total_points[ $LogUserId ] = isset( $log[ 'totalpoints' ] ) ? $log[ 'totalpoints' ] : 0 ;
-
-                        $total_user_points[ $LogUserId ] = array( $earned_points[ $LogUserId ] , $redeem_points[ $LogUserId ] , $total_points[ $LogUserId ] ) ;
-                    }
-
-                    if ( srp_check_is_array( $total_user_points ) ) {
-                        foreach ( $total_user_points as $Id => $Points ) {
-                            $PointsEarned      = round_off_type( $Points[ 0 ] ) ;
-                            $PointsRedeemed    = round_off_type( $Points[ 1 ] ) ;
-                            $TotalPointsEarned = round_off_type( $Points[ 2 ] ) ;
-                            $UserName          = get_user_by( 'id' , $Id )->user_login ;
-                            if ( ($EarnPoints == '0') && ($RedeemPoints == '0') && ($TotalPoints == '0') ) {
-                                $Heading = "Username,Earned Points,Redeemed Points,Total Points" . "\n" ;
-                                $Data[]  = array( $UserName , $PointsEarned , $PointsRedeemed , $TotalPointsEarned ) ;
-                                update_option( 'heading' , $Heading ) ;
-                            }
-                            if ( ($EarnPoints == '1') && ($RedeemPoints == '0') && ($TotalPoints == '0') ) {
-                                $Heading = "Username,Earned Points" . "\n" ;
-                                $Data[]  = array( $UserName , $PointsEarned ) ;
-                                update_option( 'heading' , $Heading ) ;
-                            }
-                            if ( ($EarnPoints == '0') && ($RedeemPoints == '1') && ($TotalPoints == '0') ) {
-                                $Heading = "Username,Redeemed Points" . "\n" ;
-                                $Data[]  = array( $UserName , $PointsRedeemed ) ;
-                                update_option( 'heading' , $Heading ) ;
-                            }
-                            if ( ($EarnPoints == '0') && ($RedeemPoints == '0') && ($TotalPoints == '1') ) {
-                                $Heading = "Username,Total Points" . "\n" ;
-                                $Data[]  = array( $UserName , $TotalPointsEarned ) ;
-                                update_option( 'heading' , $Heading ) ;
-                            }
-                            if ( ($EarnPoints == '1') && ($RedeemPoints == '1') && ($TotalPoints == '0') ) {
-                                $Heading = "Username,Earned Points,Redeemed Points" . "\n" ;
-                                $Data[]  = array( $UserName , $PointsEarned , $PointsRedeemed ) ;
-                                update_option( 'heading' , $Heading ) ;
-                            }
-                            if ( ($EarnPoints == '1') && ($RedeemPoints == '0') && ($TotalPoints == '1') ) {
-                                $Heading = "Username,Earned Points,Total Points" . "\n" ;
-                                $Data[]  = array( $UserName , $PointsEarned , $TotalPointsEarned ) ;
-                                update_option( 'heading' , $Heading ) ;
-                            }
-                            if ( ($EarnPoints == '0') && ($RedeemPoints == '1') && ($TotalPoints == '1') ) {
-                                $Heading = "Username,Redeemed Points,Total Points" . "\n" ;
-                                $Data[]  = array( $UserName , $PointsRedeemed , $TotalPointsEarned ) ;
-                                update_option( 'heading' , $Heading ) ;
-                            }
-                            if ( ($EarnPoints == '1') && ($RedeemPoints == '1') && ($TotalPoints == '1') ) {
-                                $Heading = "Username,Earned Points,Redeemed Points,Total Points" . "\n" ;
-                                $Data[]  = array( $UserName , $PointsEarned , $PointsRedeemed , $TotalPointsEarned ) ;
-                                update_option( 'heading' , $Heading ) ;
-                            }
+                if ( srp_check_is_array( $total_user_points ) ) {
+                    $Data = array() ;
+                    foreach ( $total_user_points as $Id => $Points ) {
+                        $PointsEarned   = round_off_type( $Points[ 0 ] ) ;
+                        $PointsRedeemed = round_off_type( $Points[ 1 ] ) ;
+                        $UserName       = get_user_by( 'id' , $Id )->user_login ;
+                        if ( ($EarnPoints == '0') && ($RedeemPoints == '0') && ($TotalPoints == '0') ) {
+                            $Heading = "Username,Total Earned Points,Total Redeemed Points,Available Points" . "\n" ;
+                            $Data[]  = array( $UserName , $PointsEarned , $PointsRedeemed , $TotalPointsEarned ) ;
+                            update_option( 'heading' , $Heading ) ;
                         }
-                        $OldData   = ( array ) get_option( 'rs_export_report' ) ;
-                        $MergeData = array_merge( $OldData , $Data ) ;
-                        update_option( 'rs_export_report' , $MergeData ) ;
+                        if ( ($EarnPoints == '1') && ($RedeemPoints == '0') && ($TotalPoints == '0') ) {
+                            $Heading = "Username,Total Earned Points" . "\n" ;
+                            $Data[]  = array( $UserName , $PointsEarned ) ;
+                            update_option( 'heading' , $Heading ) ;
+                        }
+                        if ( ($EarnPoints == '0') && ($RedeemPoints == '1') && ($TotalPoints == '0') ) {
+                            $Heading = "Username,Total Redeemed Points" . "\n" ;
+                            $Data[]  = array( $UserName , $PointsRedeemed ) ;
+                            update_option( 'heading' , $Heading ) ;
+                        }
+                        if ( ($EarnPoints == '0') && ($RedeemPoints == '0') && ($TotalPoints == '1') ) {
+                            $Heading = "Username,Available Points" . "\n" ;
+                            $Data[]  = array( $UserName , $TotalPointsEarned ) ;
+                            update_option( 'heading' , $Heading ) ;
+                        }
+                        if ( ($EarnPoints == '1') && ($RedeemPoints == '1') && ($TotalPoints == '0') ) {
+                            $Heading = "Username,Total Earned Points,Total Redeemed Points" . "\n" ;
+                            $Data[]  = array( $UserName , $PointsEarned , $PointsRedeemed ) ;
+                            update_option( 'heading' , $Heading ) ;
+                        }
+                        if ( ($EarnPoints == '1') && ($RedeemPoints == '0') && ($TotalPoints == '1') ) {
+                            $Heading = "Username,Total Earned Points,Available Points" . "\n" ;
+                            $Data[]  = array( $UserName , $PointsEarned , $TotalPointsEarned ) ;
+                            update_option( 'heading' , $Heading ) ;
+                        }
+                        if ( ($EarnPoints == '0') && ($RedeemPoints == '1') && ($TotalPoints == '1') ) {
+                            $Heading = "Username,Total Redeemed Points,Available Points" . "\n" ;
+                            $Data[]  = array( $UserName , $PointsRedeemed , $TotalPointsEarned ) ;
+                            update_option( 'heading' , $Heading ) ;
+                        }
+                        if ( ($EarnPoints == '1') && ($RedeemPoints == '1') && ($TotalPoints == '1') ) {
+                            $Heading = "Username,Total Earned Points,Total Redeemed Points,Available Points" . "\n" ;
+                            $Data[]  = array( $UserName , $PointsEarned , $PointsRedeemed , $TotalPointsEarned ) ;
+                            update_option( 'heading' , $Heading ) ;
+                        }
                     }
+                    $OldData   = ( array ) get_option( 'rs_export_report' ) ;
+                    $MergeData = array_merge( $OldData , $Data ) ;
+                    update_option( 'rs_export_report' , $MergeData ) ;
                 }
             }
         }

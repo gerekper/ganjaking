@@ -51,7 +51,7 @@ if ( ! class_exists( 'RS_Export_Log' ) ) {
             }
             $SlicedArray = array_slice( $UserId , $offset , 1000 ) ;
             if ( srp_check_is_array( $SlicedArray ) ) {
-                RS_Main_Function_for_Background_Process::callback_to_log_report_for_user( $offset ) ;
+                RS_Main_Function_for_Background_Process::callback_to_export_log_for_user( $offset ) ;
                 RS_Main_Function_for_Background_Process::$rs_progress_bar->fp_increase_progress( 75 ) ;
             } else {
                 RS_Main_Function_for_Background_Process::$rs_progress_bar->fp_increase_progress( 100 ) ;
@@ -92,7 +92,7 @@ if ( ! class_exists( 'RS_Export_Log' ) ) {
                             'user_name' => $username ,
                             'points'    => empty( $earnpoints ) ? $redeempoints : $earnpoints ,
                             'event'     => $eventname ,
-                            'date'      => date_display_format( $values ) ,
+                            'date'      => date_display_format( $values[ 'earneddate' ] ) ,
                                 ) ;
                     }
                 }

@@ -12,9 +12,11 @@ class WoocommercePrfGoogleReviewProductInfo {
 	 * WoocommercePrfGoogleReviewProductInfo constructor.
 	 *
 	 * Instantiate a cache item.
+	 *
+	 * @param WoocommerceGpfCache $woocommerce_gpf_cache
 	 */
-	public function __construct() {
-		$this->cache = new WoocommerceGpfCache();
+	public function __construct( WoocommerceGpfCache $woocommerce_gpf_cache ) {
+		$this->cache = $woocommerce_gpf_cache;
 	}
 
 	/**
@@ -97,6 +99,7 @@ class WoocommercePrfGoogleReviewProductInfo {
 				array();
 		}
 		$product_info['skus'][] = 'woocommerce_gpf_' . $product_id;
+
 		return $product_info;
 	}
 
@@ -118,16 +121,16 @@ class WoocommercePrfGoogleReviewProductInfo {
 		$product   = wc_get_product( $product_id );
 		$child_ids = $product->get_children();
 		foreach ( $child_ids as $child_id ) {
-			$child_info   = $this->get_product_info_simple( $child_id );
+			$child_info           = $this->get_product_info_simple( $child_id );
 			$child_info['skus'][] = 'woocommerce_gpf_' . $child_id;
-			$product_info = array_merge_recursive( $product_info, $child_info );
-			$product_info = array_map( 'array_unique', $product_info );
+			$product_info         = array_merge_recursive( $product_info, $child_info );
+			$product_info         = array_map( 'array_unique', $product_info );
 		}
 
-		$parent_info  = $this->get_product_info_simple( $product_id );
-		$product_info = array_merge_recursive( $product_info, $parent_info );
+		$parent_info            = $this->get_product_info_simple( $product_id );
+		$product_info           = array_merge_recursive( $product_info, $parent_info );
 		$product_info['skus'][] = 'woocommerce_gpf_' . $product_id;
-		$product_info = array_map( 'array_unique', $product_info );
+		$product_info           = array_map( 'array_unique', $product_info );
 
 		return $product_info;
 	}

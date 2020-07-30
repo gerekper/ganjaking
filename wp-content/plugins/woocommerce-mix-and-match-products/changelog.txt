@@ -1,5 +1,14 @@
 *** WooCommerce Mix and Match Products Changelog***
 
+2020.07.24 - version 1.10.0
+* IMPORTANT: Includes a Database update so please make a database backup before proceeding.
+* New: REST API support for Mix and Match properties in product and order responses.
+* New: Compatibility with CoCart plugin. Props @seb86!
+* Dev: Change boot method so that `class_exists('WC_Mix_and_Match')` reliably determines if the plugin is active.
+* Dev: Deprecate woocommerce_mnm_order_item_part_of_meta_name filter
+* Dev: Change "Container size", "Part of", and "Purchased with" order item meta keys to "mnm_container_size", "mnm_part_of", and "mnm_purchased_with"
+* Fix: Repair mnm_data meta data save routine.
+
 2020.07.09 - version 1.9.13
 * Fix: Update plugin header with tested up to WooCommerce 4.3.0.
 

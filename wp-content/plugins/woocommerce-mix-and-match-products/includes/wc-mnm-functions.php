@@ -16,6 +16,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Returns the main instance of WC_Mix_and_Match to prevent the need to use globals.
+ *
+ * @return WooCommerce
+ */
+function WC_Mix_and_Match() { // phpcs:ignore WordPress.NamingConventions.ValidFunctionName.FunctionNameInvalid
+	return WC_Mix_and_Match::instance();
+}
+
+
 /*---------------*/
 /*  Frontend.    */
 /*---------------*/
@@ -271,7 +281,7 @@ function wc_mnm_get_order_item_container( $child_order_item, $order = false, $re
 				}
 
 			} else {
-				$msg = 'get_order() is not callable on the supplied $order_item. No $order object given.';
+				$msg = __( 'get_order() is not callable on the supplied $order_item. No $order object given.', 'woocommerce-mix-and-match-products' );
 				wc_doing_it_wrong( __FUNCTION__ . '()', $msg, '1.3.0' );
 			}
 		}
@@ -321,7 +331,7 @@ function wc_mnm_get_child_order_items( $container_order_item, $order = false, $r
 				}
 
 			} else {
-				$msg = 'get_order() is not callable on the supplied $order_item. No $order object given.';
+				$msg = __( 'get_order() is not callable on the supplied $order_item. No $order object given.', 'woocommerce-mix-and-match-products' );
 				wc_doing_it_wrong( __FUNCTION__ . '()', $msg, '5.3.0' );
 			}
 		}

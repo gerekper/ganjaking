@@ -112,7 +112,7 @@ class AddToCartEvent extends AbstractEvent implements EventInterface {
 			return $this->data;
 		}
 
-		return $this->fired() ? array( 'product_id' => $this->productId, 'quantity' => $this->quantity ) : array();
+		return $this->fired() ? array( 'product_id' => $this->productId, 'quantity' => $this->quantity, 'currency' => get_woocommerce_currency() ) : array();
 	}
 
 	/**

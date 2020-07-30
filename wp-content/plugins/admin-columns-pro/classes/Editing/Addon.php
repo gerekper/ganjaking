@@ -4,12 +4,8 @@ namespace ACP\Editing;
 
 use AC;
 use AC\Asset\Location;
-use AC\Asset\Style;
 use AC\ListScreenRepository\Storage;
 use ACP;
-use ACP\Editing\Ajax\EditableRowsFactory;
-use ACP\Editing\Ajax\TableRowsFactory;
-use ACP\Editing\Asset\Script;
 use ACP\Editing\Controller;
 use ACP\Editing\Preference\EditState;
 
@@ -66,66 +62,26 @@ class Addon implements AC\Registrable {
 	/**
 	 * @param AC\ListScreen $list_screen
 	 */
-	public function register_table_screen( $list_screen ) {
-		$editable_columns = $this->get_editable_columns( $list_screen );
-
-		// Don't register anything when no column in configured to be editable
-		if ( empty( $editable_columns ) ) {
+	public function register_table_screen( AC\ListScreen $list_screen ) {
+		if ( ! $list_screen instanceof ListScreen ) {
 			return;
 		}
 
-		$edit_state = new EditState();
+		$editable_data = ( new EditableDataFactory() )->create( $list_screen );
 
-		$assets = [
-			new Style( 'acp-editing-table', $this->location->with_suffix( 'assets/editing/css/table.css' ) ),
-			new Script\Table(
-				'acp-editing-table',
-				$this->location->with_suffix( 'assets/editing/js/table.js' ),
-				$list_screen,
-				$editable_columns,
-				$edit_state
-			),
-		];
+		if ( ! $editable_data ) {
+			return;
+		}
 
-		$table_screen = new TableScreen( $list_screen, $assets, $edit_state );
+		$table_screen = new TableScreen(
+			$list_screen,
+			$editable_data,
+			$this->location,
+			new EditState(),
+			$this->request
+		);
+
 		$table_screen->register();
-
-		$table_rows = TableRowsFactory::create( $this->request, $list_screen );
-
-		if ( $table_rows && $table_rows->is_request() ) {
-			$table_rows->register();
-		}
-
-		$editable_rows = EditableRowsFactory::create( $this->request, $list_screen );
-
-		if ( $editable_rows && $editable_rows->is_request() ) {
-			$editable_rows->register();
-		}
-	}
-
-	/**
-	 * @param AC\ListScreen $list_screen
-	 *
-	 * @return array
-	 */
-	private function get_editable_columns( AC\ListScreen $list_screen ) {
-		$editable_columns = [];
-
-		foreach ( $list_screen->get_columns() as $column ) {
-			if ( ! $column instanceof Editable ) {
-				continue;
-			}
-
-			$model = $column->editing();
-
-			if ( ! $model ) {
-				continue;
-			}
-
-			$editable_columns[ $column->get_name() ] = $column;
-		}
-
-		return $editable_columns;
 	}
 
 	/**

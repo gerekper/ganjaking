@@ -724,6 +724,19 @@ if ( ! class_exists( 'FP_Rewardsystem_Admin_Ajax' ) ) {
                 }
                 if ( $ResetReferrallog == '1' )
                     delete_option( 'rs_referral_log' , true ) ;
+
+                $reset_record_table_log = isset( $_POST[ 'resetrecordlogtable' ] ) ? wc_clean( wp_unslash( $_POST[ 'resetrecordlogtable' ] ) ) : '' ;
+                $reset_type             = isset( $_POST[ 'resetdatafor' ] ) ? wc_clean( wp_unslash( $_POST[ 'resetdatafor' ] ) ) : wc_clean( wp_unslash( $_POST[ 'resetdatafor' ] ) ) ;
+                $UserIDs                = ! is_array( $_POST[ 'rsselectedusers' ] ) ? explode( ',' , wc_clean( wp_unslash( $_POST[ 'rsselectedusers' ] ) ) ) : wc_clean( wp_unslash( $_POST[ 'rsselectedusers' ] ) ) ;
+
+                if ( '1' == $reset_type ) {
+                    $wpdb->query( "TRUNCATE TABLE $PointsLogTable" ) ;
+                } else {
+                    if ( srp_check_is_array( array_filter( ( array ) ( $UserIDs ) ) ) && $reset_record_table_log ) {
+                        $wpdb->query( "DELETE FROM $PointsTable WHERE userid IN ($UserIDs)" ) ;
+                    }
+                }
+
                 wp_send_json_success( array( 'content' => $OrderId ) ) ;
             } catch ( Exception $e ) {
                 wp_send_json_error( array( 'error' => $e->getMessage() ) ) ;
@@ -804,23 +817,44 @@ if ( ! class_exists( 'FP_Rewardsystem_Admin_Ajax' ) ) {
         public static function send_points_data() {
             check_ajax_referer( 'fp-send-points-data' , 'sumo_security' ) ;
 
-            if ( ! isset( $_POST ) || ! isset( $_POST[ 'points' ] ) || ! isset( $_POST[ 'receiverid' ] ) || ($_POST[ 'receiverid' ] == '' ) )
+            if ( ! isset( $_POST ) || ! isset( $_POST[ 'points' ] ) || ! isset( $_POST[ 'receiver_info' ] ) || ($_POST[ 'receiver_info' ] == '' ) )
                 throw new exception( __( 'Invalid Request' , SRP_LOCALE ) ) ;
 
             try {
                 global $wpdb ;
                 global $woocommerce ;
-                $ApprovalType      = get_option( 'rs_request_approval_type' ) ;
-                $SenderId          = $_POST[ 'senderid' ] ;
-                $SenderEmail       = get_userdata( $SenderId )->user_email ;
-                $SenderName        = $_POST[ 'sendername' ] ;
-                $Points            = $_POST[ 'points' ] ;
-                $ReceiverId        = $_POST[ 'receiverid' ] ;
-                $ReceiverName      = get_userdata( $ReceiverId )->user_login ;
-                $ReceiverFirstName = get_userdata( $ReceiverId )->first_name ;
-                $ReceiverLastName  = get_userdata( $ReceiverId )->last_name ;
-                $ReceiverEmail     = get_userdata( $ReceiverId )->user_email ;
-                $Status            = ( $ApprovalType == '1' ) ? $_POST[ 'status' ] : 'Paid' ;
+                $ApprovalType  = get_option( 'rs_request_approval_type' ) ;
+                $SenderId      = $_POST[ 'senderid' ] ;
+                $SenderEmail   = get_userdata( $SenderId )->user_email ;
+                $SenderName    = $_POST[ 'sendername' ] ;
+                $Points        = $_POST[ 'points' ] ;
+                $Receiver_info = $_POST[ 'receiver_info' ] ;
+
+                if ( '1' == get_option( 'rs_send_points_user_selection_field' , 1 ) ) {
+                    $user = get_user_by( 'ID' , $Receiver_info ) ;
+                } else {
+                    $user = is_object( get_user_by( 'login' , $Receiver_info ) ) ? get_user_by( 'login' , $Receiver_info ) : get_user_by( 'email' , $Receiver_info ) ;
+                }
+
+                if ( ! is_object( $user ) ) {
+                    throw new Exception( 'invalid_username_error' ) ;
+                }
+
+                $ReceiverId = $user->ID ;
+                if ( get_current_user_id() == $ReceiverId ) {
+                    throw new Exception( esc_html__( 'Invalid User' , SRP_LOCALE ) ) ;
+                }
+
+                if ( '2' == get_option( 'rs_select_send_points_user_type' ) && ! in_array( $ReceiverId , ( array ) get_option( 'rs_select_users_list_for_send_point' ) ) ) {
+                    throw new Exception( 'restricted_username_error' ) ;
+                }
+
+                $ReceiverName      = $user->user_login ;
+                $ReceiverFirstName = $user->first_name ;
+                $ReceiverLastName  = $user->last_name ;
+                $ReceiverEmail     = $user->user_email ;
+
+                $Status = ( $ApprovalType == '1' ) ? $_POST[ 'status' ] : 'Paid' ;
                 update_option( 'rs_reason_for_send_points_mail' , $_POST[ 'reason' ] ) ;
                 if ( get_option( 'rs_mail_for_send_points_notification_admin' ) == 'yes' ) {
                     $Email_subject = get_option( 'rs_email_subject_for_send_points_notification_admin' ) ;

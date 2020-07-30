@@ -17,7 +17,7 @@ if ( ! class_exists( 'RSInstall' ) ) {
 
             add_action( 'rscronjob' , array( __CLASS__ , 'send_mail_based_on_cron' ) ) ;
 
-            add_action( 'rs_send_mail_before_expiry' , array( __CLASS__ , 'send_mail_before_point_expire' ) ) ;
+            add_action( 'rs_send_mail_before_expiry' , array( __CLASS__ , 'point_expiry_cron_callback' ) ) ;
 
             add_action( 'rs_restrict_product_purchase_for_time' , array( __CLASS__ , 'award_product_purchase_points_based_on_cron' ) , 10 , 1 ) ;
         }
@@ -83,39 +83,76 @@ if ( ! class_exists( 'RSInstall' ) ) {
                 award_points_for_product_purchase_based_on_cron( $order_id ) ;
         }
 
-        /* Send Mail before Points Expire */
+        /* Point Expiry Cron callback. */
 
-        public static function send_mail_before_point_expire() {
-            if ( get_option( 'rs_email_template_expire_activated' ) != "yes" )
+        public function point_expiry_cron_callback() {
+
+            if ( 'yes' != get_option( 'rs_email_template_expire_activated' ) ) {
                 return ;
+            }
+
+            $TemplateName = get_option( 'rs_select_template' ) ;
+            if ( empty( $TemplateName ) ) {
+                return ;
+            }
+
+            $no_of_days = ( int ) days_from_point_expiry_email() ;
+            if ( ! $no_of_days ) {
+                return ;
+            }
 
             global $wpdb ;
-            $TemplateName = get_option( 'rs_select_template' ) ;
-            if ( empty( $TemplateName ) )
+            $tablename = $wpdb->prefix . 'rs_expiredpoints_email' ;
+            $templates = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $tablename WHERE template_name=%s AND rs_status='ACTIVE'" , $TemplateName ) , ARRAY_A ) ;
+            if ( ! srp_check_is_array( $templates ) ) {
                 return ;
+            }
 
-            $TableName = $wpdb->prefix . 'rs_expiredpoints_email' ;
-            $Templates = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $TableName WHERE template_name=%s AND rs_status='ACTIVE'" , $TemplateName ) , ARRAY_A ) ;
-            if ( ! srp_check_is_array( $Templates ) )
+            $table_name         = $wpdb->prefix . 'rspointexpiry' ;
+            $overall_point_data = $wpdb->get_results( $wpdb->prepare( "SELECT * , SUM(earnedpoints) as points FROM $table_name WHERE expirydate > %d AND expirydate NOT IN(999999999999) AND expiredpoints IN(0) GROUP BY expirydate" , time() ) , ARRAY_A ) ;
+            if ( ! srp_check_is_array( $overall_point_data ) ) {
                 return ;
+            }
 
-            $table_name = $wpdb->prefix . 'rspointexpiry' ;
-            foreach ( get_users() as $users ) {
-                $userid = $users->ID ;
-                if ( get_user_meta( $userid , 'unsub_value' , true ) == 'yes' )
+            $timestamp = array() ;
+
+            foreach ( $overall_point_data as $value ) {
+
+                $expiry_date = isset( $value[ 'expirydate' ] ) ? absint( $value[ 'expirydate' ] ) : 0 ;
+                $user_id     = isset( $value[ 'userid' ] ) ? absint( $value[ 'userid' ] ) : 0 ;
+
+                if ( ! $expiry_date || ! $user_id ) {
                     continue ;
+                }
 
-                $pointsdata = $wpdb->get_results( $wpdb->prepare( "SELECT * , SUM(earnedpoints) as points FROM $table_name WHERE expirydate > %d  AND expirydate NOT IN(999999999999) AND expiredpoints IN(0) AND userid = %d Group By expirydate" , time() , $userid ) , ARRAY_A ) ;
-                if ( empty( $pointsdata ) )
+                if ( 'yes' == get_user_meta( $user_id , 'unsub_value' , true ) ) {
                     continue ;
+                }
 
-                self::send_mail( $pointsdata , $userid , $Templates ) ;
+                $date_to_send_mail = strtotime( '-' . $no_of_days . 'days' , $expiry_date ) ;
+                if ( in_array( $date_to_send_mail , ( array ) get_option( 'rs_point_expiry_email_send_based_on_date' ) ) ) {
+                    continue ;
+                }
+
+                if ( time() >= $date_to_send_mail ) {
+
+                    $timestamp[]     = $date_to_send_mail ;
+                    $user_point_data = $wpdb->get_results( $wpdb->prepare( "SELECT *,SUM(earnedpoints) as points FROM $table_name WHERE expirydate > %d  AND expirydate NOT IN(999999999999) AND expiredpoints IN(0) AND userid = %d GROUP BY expirydate " , time() , $user_id ) , ARRAY_A ) ;
+                    self::send_mail( $user_point_data , $user_id , $templates ) ;
+                }
+            }
+
+            if ( srp_check_is_array( $timestamp ) ) {
+                $timestamp = array_merge( $timestamp , ( array ) get_option( 'rs_check_expiry_email_send_based_on_date' ) ) ;
+                update_option( 'rs_point_expiry_email_send_based_on_date' , $timestamp ) ;
             }
         }
 
         public static function send_mail( $newdata , $userid , $Templates ) {
-            if ( ! srp_check_is_array( $newdata ) )
+
+            if ( ! srp_check_is_array( $newdata ) ) {
                 return ;
+            }
 
             $user              = get_userdata( $userid ) ;
             $user_wmpl_lang    = empty( $user_wmpl_lang ) ? 'en' : get_user_meta( $userid , 'rs_wpml_lang' , true ) ;
@@ -488,7 +525,7 @@ if ( ! class_exists( 'RSInstall' ) ) {
         public static function send_mail_based_on_cron() {
             if ( get_option( 'rs_email_activated' ) != "yes" )
                 return ;
-            
+
             global $wpdb ;
             $tablename       = $wpdb->prefix . 'rs_templates_email' ;
             $email_templates = $wpdb->get_results( "SELECT * FROM $tablename" ) ; //all email templates
@@ -504,13 +541,12 @@ if ( ! class_exists( 'RSInstall' ) ) {
 
                 $SiteUrl = "<a href=" . site_url() . ">" . site_url() . "</a>" ;
                 if ( $emails->mailsendingoptions == '1' ) { //Send Mail Only Once
-                    
                     $maindata = ( int ) get_option( 'rscheckcronsafter' ) + 1 ;
                     update_option( 'rscheckcronsafter' , $maindata ) ;
 
                     if ( get_option( 'rscheckcronsafter' ) > 1 )
                         continue ;
-                
+
                     if ( $emails->sendmail_options == '1' ) { //Send Mail for All User
                         foreach ( get_users() as $myuser ) {
                             if ( get_user_meta( $myuser->ID , 'unsub_value' , true ) == 'yes' )
@@ -606,13 +642,13 @@ if ( ! class_exists( 'RSInstall' ) ) {
             $user              = get_userdata( $userid ) ;
             $user_wmpl_lang    = empty( get_user_meta( $userid , 'rs_wpml_lang' , true ) ) ? 'en' : get_user_meta( $userid , 'rs_wpml_lang' , true ) ;
             $subject           = RSWPMLSupport::fp_wpml_text( 'rs_template_' . $emails->id . '_subject' , $user_wmpl_lang , $emails->subject ) ;
-            $PointsValue       = redeem_point_conversion( $userpoint , $userid ) ;
+            $PointsValue       = redeem_point_conversion( $userpoint , $userid , 'price') ;
             $PointsValue       = srp_formatted_price( round_off_type( $PointsValue ) ) ;
-            $referral_url      = get_option('rs_referral_link_refer_a_friend_form')!= '' ? get_option('rs_referral_link_refer_a_friend_form'): site_url();
+            $referral_url      = get_option( 'rs_referral_link_refer_a_friend_form' ) != '' ? get_option( 'rs_referral_link_refer_a_friend_form' ) : site_url() ;
             $site_referral_url = get_option( 'rs_restrict_referral_points_for_same_ip' ) == 'yes' ? esc_url_raw( add_query_arg( array( 'ref' => $user->user_login , 'ip' => base64_encode( get_referrer_ip_address() ) ) , $referral_url ) ) : esc_url_raw( add_query_arg( array( 'ref' => $user->user_login ) , $referral_url ) ) ;
-            $site_referral_url = get_option( 'rs_referral_activated' ) =='yes' ? "<a href=" . $site_referral_url . ">" . $site_referral_url . "</a>"   : '';
+            $site_referral_url = get_option( 'rs_referral_activated' ) == 'yes' ? "<a href=" . $site_referral_url . ">" . $site_referral_url . "</a>" : '' ;
             $message           = RSWPMLSupport::fp_wpml_text( 'rs_template_' . $emails->id . '_message' , $user_wmpl_lang , $emails->message ) ;
-            $message           = str_replace( array( '{rssitelink}' , '{rsfirstname}' , '{rslastname}' , '{site_referral_url}' , '{rspoints}' , '{rs_points_in_currency}' ) , array( $SiteUrl , $user->user_firstname , $user->user_lastname , $site_referral_url , $userpoint , $userpoint . '(' . $PointsValue . ')' ) , $message ) ;
+            $message           = str_replace( array( '{rssitelink}' , '{rsfirstname}' , '{rslastname}' , '{site_referral_url}' , '{rspoints}' , '{rs_points_in_currency}' ) , array( $SiteUrl , $user->user_firstname , $user->user_lastname , $site_referral_url , $userpoint , $PointsValue ) , $message ) ;
             $message           = do_shortcode( $message ) ; //shortcode feature
             if ( $emails->sender_opt == 'local' ) {
                 FPRewardSystem::$rs_from_email_address = $emails->from_email ;

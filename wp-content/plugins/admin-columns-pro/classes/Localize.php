@@ -45,6 +45,9 @@ class Localize implements Registrable {
 	/**
 	 * Do no use `load_plugin_textdomain()` because it could prevent
 	 * pro languages from loading when core translation files are found.
+	 *
+	 * @param string $language_dir
+	 * @param string $local
 	 */
 	private function load_textdomain( $language_dir, $local ) {
 		$mofile = sprintf(

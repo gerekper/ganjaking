@@ -1,5 +1,14 @@
 *** Redsys Gateway Change Log ***
 
+2020.07.24 - version 9.3.0
+
+* Added new languages
+* Added more priority to WCRed() function
+
+2020.07.16 - version 9.2.3
+
+* Fixed InSite.
+
 2020.07.13 - version 9.2.2
 
 * Fixed Charge Orders Bulk Action.

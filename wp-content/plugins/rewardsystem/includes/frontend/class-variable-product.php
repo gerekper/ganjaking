@@ -60,8 +60,8 @@ if ( ! class_exists( 'RSFunctionforVariableProduct' ) ) {
                 add_action( 'woocommerce_after_add_to_cart_form' , array( __CLASS__ , 'display_buying_points_msg_for_variable_product' ) ) ;
             }
 
-            /* Commented in V24.3.5 */
-//            add_filter( 'woocommerce_get_price_html' , array( __CLASS__ , 'display_variation_price' ) , 10 , 2 ) ;
+            /* Filter for to alter variation range for only point price products */
+            add_filter( 'woocommerce_get_price_html' , array( __CLASS__ , 'display_variation_price' ) , 10 , 2 ) ;
 
             add_filter( 'woocommerce_get_price_html' , array( __CLASS__ , 'display_buying_point_msg_for_variation' ) , 9999 , 2 ) ;
 
@@ -236,28 +236,38 @@ if ( ! class_exists( 'RSFunctionforVariableProduct' ) ) {
                 if ( get_option( 'rs_enable_disable_point_priceing' ) == 2 )
                     return $price ;
 
-                if ( get_option( 'rs_point_price_visibility' ) == '2' )
+                if ( get_option( 'rs_point_price_visibility' ) == '2' && !is_user_logged_in() )
                     return $price ;
 
                 $id = product_id_from_obj( $ProductObj ) ;
 
+                $display_only_points = true ;
+
                 $gettheproducts = srp_product_object( $id ) ;
                 if ( is_object( $gettheproducts ) && check_if_variable_product( $gettheproducts ) ) {
                     $variation_ids = get_variation_id( $id ) ;
-                    if ( ! srp_check_is_array( $variation_ids ) )
+                    if ( ! srp_check_is_array( $variation_ids ) ) {
                         return $price ;
+                    }
 
                     foreach ( $variation_ids as $eachvariation ) {
-                        if ( check_display_price_type( $eachvariation ) != '2' )
+                        if ( check_display_price_type( $eachvariation ) != '2' ) {
+                            $display_only_points = false ;
                             continue ;
+                        }
 
                         $enable = calculate_point_price_for_products( $eachvariation ) ;
-                        if ( empty( $enable[ $eachvariation ] ) )
+                        if ( empty( $enable[ $eachvariation ] ) ) {
+                            $display_only_points = false ;
                             continue ;
-
-                        $price = '' ;
+                        }
                     }
                 }
+
+                if ( $display_only_points && 'variable' == $ProductObj->get_type()) {
+                    $price = '' ;
+                }
+
                 return $price ;
             }
             return $price ;

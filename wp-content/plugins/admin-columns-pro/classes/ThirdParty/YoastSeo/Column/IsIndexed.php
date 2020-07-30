@@ -2,6 +2,7 @@
 
 namespace ACP\ThirdParty\YoastSeo\Column;
 
+use AC;
 use AC\Column;
 use ACP\Editing;
 use ACP\Search;
@@ -12,9 +13,9 @@ class IsIndexed extends Column\Meta
 	implements Editing\Editable, Search\Searchable {
 
 	public function __construct() {
-		$this->set_group( 'yoast-seo' );
-		$this->set_label( 'Is Indexed' );
-		$this->set_type( 'column-yoast_is_indexed' );
+		$this->set_group( 'yoast-seo' )
+		     ->set_label( 'Is Indexed' )
+		     ->set_type( 'column-yoast_is_indexed' );
 	}
 
 	public function get_value( $id ) {
@@ -33,6 +34,10 @@ class IsIndexed extends Column\Meta
 			default :
 				return '';
 		}
+	}
+
+	public function is_valid() {
+		return AC\MetaType::POST === $this->get_meta_type();
 	}
 
 	private function get_default_post_type_index() {

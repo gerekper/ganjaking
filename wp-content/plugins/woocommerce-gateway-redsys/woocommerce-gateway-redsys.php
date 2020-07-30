@@ -4,7 +4,7 @@
 * Plugin Name: WooCommerce Servired/RedSys Spain Gateway
 * Plugin URI: https://woocommerce.com/products/redsys-gateway/
 * Description: Extends WooCommerce with RedSys gateway.
-* Version: 9.2.2
+* Version: 9.3.0
 * Author: José Conti
 * Author URI: https://www.joseconti.com/
 * Tested up to: 5.4
@@ -19,7 +19,7 @@
 **/
 
 if ( ! defined( 'REDSYS_VERSION' ) ) {
-	define( 'REDSYS_VERSION', '9.2.2' );
+	define( 'REDSYS_VERSION', '9.3.0' );
 }
 
 if ( ! defined( 'REDSYS_PLUGIN_URL' ) ) {
@@ -31,7 +31,7 @@ if ( ! defined( 'REDSYS_PLUGIN_PATH' ) ) {
 }
 
 if ( ! defined( 'REDSYS_POST_UPDATE_URL' ) ) {
-	define( 'REDSYS_POST_UPDATE_URL', 'https://redsys.joseconti.com/2020/07/09/woocommerce-redsys-gateway-11-0-x-domiciliaciones-bancarias/' );
+	define( 'REDSYS_POST_UPDATE_URL', 'https://redsys.joseconti.com/2020/07/24/woocommerce-redsys-gateway-11-1-x/' );
 }
 
 if ( ! defined( 'REDSYS_POST_PSD2_URL' ) ) {
@@ -66,6 +66,14 @@ require_once REDSYS_PLUGIN_PATH . 'includes/defines.php';
  */
 if ( ! function_exists( 'woothemes_queue_update' ) ) {
 	require_once REDSYS_PLUGIN_PATH . 'woo-includes/woo-functions.php';
+}
+
+/**
+* Copyright: (C) 2013 - 2020 José Conti
+*/
+function WCRed() {
+	require_once REDSYS_PLUGIN_CLASS_PATH . 'class-wc-gateway-redsys-global.php'; // Global class for global functions
+	return new WC_Gateway_Redsys_Global();
 }
 
 require_once REDSYS_PLUGIN_NOTICE_PATH . 'notices.php';
@@ -356,14 +364,6 @@ function woocommerce_gateway_redsys_premium_init() {
 	}
 	add_action( 'admin_enqueue_scripts', 'redsys_charge_deposit_js' );
 
-	/**
-	* Copyright: (C) 2013 - 2020 José Conti
-	*/
-	function WCRed() {
-		require_once REDSYS_PLUGIN_CLASS_PATH . 'class-wc-gateway-redsys-global.php'; // Global class for global functions
-		return new WC_Gateway_Redsys_Global();
-	}
-
 	$redsys_options = get_option( 'woocommerce_redsys_settings' );
 
 	// Adding all Redsys Gateways
@@ -424,13 +424,13 @@ function woocommerce_gateway_redsys_premium_init() {
 			//$redsys_class = new WC_Gateway_redsys();
 
 			// Ajax Preautorizaciones
-			add_action('wp_ajax_redsys_preauth_action', 'WC_Gateway_Preauthorizations_Redsys::redsys_preauthorized_js_callback' );
+			add_action('wp_ajax_redsys_preauth_action', array( 'WC_Gateway_Preauthorizations_Redsys', 'redsys_preauthorized_js_callback' ) );
 			// Ajax carga deposits
-			add_action('wp_ajax_redsys_charge_depo_action', 'WC_Gateway_redsys::redsys_charge_depo_js_callback' );
+			add_action('wp_ajax_redsys_charge_depo_action', array( 'WC_Gateway_redsys', 'redsys_charge_depo_js_callback' ) );
 		}
 		//$redsys_class_insite = new WC_Gateway_InSite_Redsys();
-		add_action( 'wp_ajax_check_token_insite_from_action', 'WC_Gateway_InSite_Redsys::check_token_insite_from_action' );
-		add_action( 'wp_ajax_nopriv_check_token_insite_from_action', 'WC_Gateway_InSite_Redsys::check_token_insite_from_action' );
+		add_action( 'wp_ajax_check_token_insite_from_action',  array( 'WC_Gateway_InSite_Redsys', 'check_token_insite_from_action' ) );
+		add_action( 'wp_ajax_nopriv_check_token_insite_from_action', array( 'WC_Gateway_InSite_Redsys', 'check_token_insite_from_action' ) );
 	}
 	add_action( 'admin_init', 'redsys_add_actions' );
 	add_filter( 'bulk_actions-edit-shop_order', array( 'WC_Gateway_Preauthorizations_Redsys', 'preauthorizationsredsys_add_bulk_actions' ) );

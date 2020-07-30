@@ -546,7 +546,7 @@ if ( ! class_exists( 'RSMessage' ) ) {
                 array(
                     'type' => 'title' ,
                     'id'   => 'rs_gift_icon_for_product' ,
-                    'desc' => '<h3>Gift Icon Uploder - Simple/Variable</h3><br><br>'
+                    'desc' => '<h3>Gift Icon Uploader - Simple/Variable</h3><br><br>'
                 ) ,
                 array(
                     'name'    => __( 'Enable Gift Icon Uploader' , SRP_LOCALE ) ,
@@ -2738,6 +2738,15 @@ if ( ! class_exists( 'RSMessage' ) ) {
                     'type'    => 'textarea' ,
                     'newids'  => 'rs_errmsg_for_point_price_product_with_same' ,
                     'class'   => 'rs_errmsg_for_point_price_product_with_same' ,
+                ) ,
+                array(
+                    'name'    => __( 'Error Message displayed in product page when guest users try to add point price product to cart' , SRP_LOCALE ) ,
+                    'id'      => 'rs_point_price_product_added_to_cart_guest_errmsg' ,
+                    'std'     => 'Only registered users can purchase this product. Click the link to create an account ([loginlink]).' ,
+                    'default' => 'Only registered users can purchase this product. Click the link to create an account ([loginlink]).' ,
+                    'type'    => 'textarea' ,
+                    'newids'  => 'rs_point_price_product_added_to_cart_guest_errmsg' ,
+                    'class'   => 'rs_point_price_product_added_to_cart_guest_errmsg' ,
                 ) ,
                 array( 'type' => 'sectionend' , 'id' => '_rs_cart_error_msg' ) ,
                 array(

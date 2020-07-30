@@ -45,6 +45,17 @@
 			});	
 		}
 		wp.customize.bind( 'ready', function() {
+			wp.customize( 'betterdocs_multikb_layout_select', function( setting ) {
+				customizer_controls_show_pro(setting,'betterdocs_doc_page_cat_icon_size_layout2','layout-1');
+				customizer_controls_show_pro(setting,'betterdocs_doc_page_item_count_color_layout2','layout-1,layout-2');
+				customizer_controls_show_pro(setting,'betterdocs_doc_page_cat_desc','layout-1');
+				customizer_controls_show_pro(setting,'betterdocs_doc_page_column_bg_color2','layout-1,layout-2');
+				customizer_controls_show_pro(setting,'betterdocs_doc_page_column_content_space','layout-1,layout-2');
+				customizer_controls_show_pro(setting,'betterdocs_doc_page_column_content_space_image','layout-1,layout-2');
+				customizer_controls_show_pro(setting,'betterdocs_doc_page_column_content_space_title','layout-1,layout-2');
+				customizer_controls_show_pro(setting,'betterdocs_doc_page_column_content_space_desc','layout-1,layout-2');
+				customizer_controls_show_pro(setting,'betterdocs_doc_page_column_content_space_counter','layout-1,layout-2');
+			});
 			wp.customize( 'betterdocs_docs_layout_select', function( setting ) {
 				customizer_controls_show_pro(setting,'betterdocs_doc_page_cat_title_font_size2','layout-4');
 				customizer_controls_show_pro(setting,'betterdocs_doc_page_cat_icon_size_l_3_4','layout-3,layout-4');

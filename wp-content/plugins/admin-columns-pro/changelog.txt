@@ -1,5 +1,35 @@
 == Changelog ==
 
+= 5.2.3 =
+Release Date: July 28th, 2020
+
+* [Fixed] Editing issue for Custom Field column (text) when inline edit feature for custom field was disabled
+
+= 5.2.2 =
+Release Date: July 28th, 2020
+
+* [Fixed] Prevent a critical error on the ajax call for column settings that were never stored
+* [Fixed] Added the Bulk Edit setting for the Custom Field that was missing for the default and text types
+* [Improved] The Inline Edit toggle button not always shows the correct state when using the persistent editing hook `acp/editing/persistent`
+* [Updated] Admin Columns Core changes ( 4.1.9 )
+    * [Improved] The column label translation support for WPML was updated and works again for the latest version of WPML
+
+= 5.2.1 =
+Release Date: July 21st, 2020
+
+* [Improved] Make the button 'Bulk Edit' on top of the table translatable
+* [Improved] Sorting on the taxonomy column now also works with 'Show all results'
+* [Improved] With horizontal scrolling enabled the horizontal offset is preserved when refreshing the page
+* [Improved] The small icons shown next to the column name on the column settings page are now aligned
+* [Added] Added the ability to sort, edit and filter the "Author Slug" and "Full Name" columns on the users table
+* [Added] Added the ability to sort and filter the "Full Name" column on the users table
+* [Added] New hook `acp/select/formatter/user_name` to alter the displayed user results from the filter select2 dropdown
+* [Added] New hook `acp/select/formatter/post_title` to alter the displayed post results from the filter select2 dropdown
+* [Added] New hook `acp/select/formatter/term_name` to alter the displayed term results from the filter select2 dropdown
+* [Updated] Admin Columns Core changes ( 4.1.8 )
+    * [Added] New columns for the Users table: Fullname, Author Slug and Username / Login.
+    * [Fixed] CSS conflict on overview pages where post type is 'Modal'
+
 = 5.2 =
 Release Date: June 9th, 2020
 

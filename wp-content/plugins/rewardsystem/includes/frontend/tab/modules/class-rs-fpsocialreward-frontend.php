@@ -285,7 +285,8 @@ if ( ! class_exists( 'RSFunctionForSocialRewards' ) ) {
 
             if ( ! $product_filter )
                 return ;
-
+            
+            $array_social = array();
             if ( get_option( 'rs_global_show_hide_facebook_like_button' ) == '1' ) {
                 $array_social[ 'fb_like' ] = "show" ;
             }
@@ -343,7 +344,7 @@ if ( ! class_exists( 'RSFunctionForSocialRewards' ) ) {
             <?php echo get_option( 'rs_social_custom_css' ) ; ?>
             </style>
 
-            <?php if ( count( $array_social ) < 6 ) { ?>
+            <?php if ( srp_check_is_array($array_social) && count( $array_social ) < 6 ) { ?>
                 <table class="rs_social_sharing_buttons" style="display:<?php echo get_option( 'rs_social_button_position_troubleshoot' ) ; ?>">
                     <?php if ( get_option( 'rs_display_position_social_buttons' ) == '1' ) { ?>
                         <tr>
@@ -548,16 +549,18 @@ if ( ! class_exists( 'RSFunctionForSocialRewards' ) ) {
         }
 
         public static function fb_like_button() {
+            $custom_url = get_option( 'rs_global_social_facebook_url_custom' ) ;
             if ( get_option( 'rs_social_button_like' ) == 1 ) {
                 ?>
                 <td>
-                    <div class="fb-like" data-size="<?php echo get_option( 'rs_facebook_like_icon_size' ) ; ?>" data-href="<?php echo get_option( 'rs_global_social_facebook_url' ) == '1' ? get_permalink() : get_option( 'rs_global_social_facebook_url_custom' ) ; ?>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></div>
+                    <div class="fb-like" data-size="<?php echo get_option( 'rs_facebook_like_icon_size' ) ; ?>" data-href="<?php echo get_option( 'rs_global_social_facebook_url' ) == '1' ? get_permalink() : $custom_url ; ?>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></div>
                 </td>
                 <?php
             } else {
+                $fb_like_url = '1' == get_option( 'rs_global_social_facebook_url' , '1' ) ? 'http://www.facebook.com/login.php' : ('' != $custom_url ? $custom_url : 'http://www.facebook.com/login.php') ;
                 ?>
                 <td>
-                    <a class="rs_custom_social_icon_a fb_like_a" href="http://www.facebook.com/login.php" onClick = "window.open( this.href , 'like' , 'toolbar=0,status=0,width=580,height=325' ) ;return false ;"><input type="button" value="<?php _e( 'FB Like' , SRP_LOCALE ) ; ?>" class="rs_custom_fblike_button"/></a>
+                    <a class="rs_custom_social_icon_a fb_like_a" href="<?php echo esc_url( $fb_like_url ) ; ?>" onClick = "window.open( this.href , 'like' , 'toolbar=0,status=0,width=580,height=325' ) ;return false ;"><input type="button" value="<?php _e( 'FB Like' , SRP_LOCALE ) ; ?>" class="rs_custom_fblike_button"/></a>
                 </td>
                 <?php
             }
@@ -662,8 +665,8 @@ if ( ! class_exists( 'RSFunctionForSocialRewards' ) ) {
                 <td>
                     <div id="google-plus-one"> 
                         <a href="https://plus.google.com/share?url=<?php echo $url ; ?>" id='google-plus-one' class="google-plus-one fp_gplus_share" target='_blank' onclick="javascript:window.open( this.href ,
-                                        '' , 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600' ) ;
-                                return false ;"><img src="https://www.gstatic.com/images/icons/gplus-32.png" alt="Share on Google+"/></a>
+                                                        '' , 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600' ) ;
+                                                return false ;"><img src="https://www.gstatic.com/images/icons/gplus-32.png" alt="Share on Google+"/></a>
                     </div>
                 </td>
                 <?php
@@ -671,7 +674,7 @@ if ( ! class_exists( 'RSFunctionForSocialRewards' ) ) {
                 ?>
                 <td>
                     <a class="rs_custom_social_icon_a" href="https://plus.google.com/share?url=<?php echo $url ; ?>" target='_blank' onclick="javascript:window.open( this.href , '' , 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600' ) ;
-                            return false ;"><input type="button" value="<?php _e( 'G PLus' , SRP_LOCALE ) ; ?>" class="rs_custom_gplus_button"/></a>
+                                            return false ;"><input type="button" value="<?php _e( 'G PLus' , SRP_LOCALE ) ; ?>" class="rs_custom_gplus_button"/></a>
                 </td>
                 <?php
             }
@@ -690,7 +693,7 @@ if ( ! class_exists( 'RSFunctionForSocialRewards' ) ) {
                 ?>
                 <td>
                     <a class="rs_custom_social_icon_a" href="https://ok.ru/" target='_blank' onclick="javascript:window.open( this.href , '' , 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600' ) ;
-                            return false ;"><input type="button" value="<?php _e( 'OK.ru' , SRP_LOCALE ) ; ?>" class="rs_custom_ok_button"/></a>
+                                            return false ;"><input type="button" value="<?php _e( 'OK.ru' , SRP_LOCALE ) ; ?>" class="rs_custom_ok_button"/></a>
                 </td>
                 <?php
             }

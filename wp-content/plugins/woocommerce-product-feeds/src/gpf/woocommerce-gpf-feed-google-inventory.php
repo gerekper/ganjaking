@@ -12,16 +12,22 @@ class WoocommerceGpfFeedGoogleInventory extends WoocommerceGpfFeed {
 	 * Constructor. Grab the settings, and add filters if we have stuff to do
 	 *
 	 * @access public
+	 *
+	 * @param WoocommerceGpfCommon $woocommerce_gpf_common
+	 * @param WoocommerceGpfDebugService $debug
 	 */
-	function __construct() {
-		parent::__construct();
+	public function __construct(
+		WoocommerceGpfCommon $woocommerce_gpf_common,
+		WoocommerceGpfDebugService $debug
+	) {
+		parent::__construct( $woocommerce_gpf_common, $debug );
 		$this->store_info->feed_url = add_query_arg( 'woocommerce_gpf', 'googleinventory', $this->store_info->feed_url_base );
 		if ( ! empty( $this->store_info->base_country ) ) {
-			if ( 'US' == substr( $this->store_info->base_country, 0, 2 ) ||
-				 'CA' == substr( $this->store_info->base_country, 0, 2 ) ||
-				 'IN' == substr( $this->store_info->base_country, 0, 2 ) ) {
+			if ( 'US' === substr( $this->store_info->base_country, 0, 2 ) ||
+				 'CA' === substr( $this->store_info->base_country, 0, 2 ) ||
+				 'IN' === substr( $this->store_info->base_country, 0, 2 ) ) {
 				$this->tax_excluded = true;
-				if ( 'US' == substr( $this->store_info->base_country, 0, 2 ) ) {
+				if ( 'US' === substr( $this->store_info->base_country, 0, 2 ) ) {
 					$this->tax_attribute = true;
 				}
 			}
@@ -33,7 +39,7 @@ class WoocommerceGpfFeedGoogleInventory extends WoocommerceGpfFeed {
 	 *
 	 * @access public
 	 */
-	function render_header() {
+	public function render_header() {
 
 		header( 'Content-Type: application/xml; charset=UTF-8' );
 		if ( isset( $_REQUEST['feeddownload'] ) ) {
@@ -59,9 +65,10 @@ class WoocommerceGpfFeedGoogleInventory extends WoocommerceGpfFeed {
 	 * Generate the output for an individual item
 	 *
 	 * @access public
-	 * @param  object $feed_item The information about the item
+	 *
+	 * @param object $feed_item The information about the item
 	 */
-	function render_item( $feed_item ) {
+	public function render_item( $feed_item ) {
 		// Google do not allow free items in the feed.
 		if ( empty( $feed_item->price_inc_tax ) ) {
 			return '';
@@ -75,10 +82,10 @@ class WoocommerceGpfFeedGoogleInventory extends WoocommerceGpfFeed {
 		if ( count( $feed_item->additional_elements ) ) {
 			foreach ( $feed_item->additional_elements as $element_name => $element_values ) {
 				foreach ( $element_values as $element_value ) {
-					if ( 'availability' == $element_name ) {
+					if ( 'availability' === $element_name ) {
 						// Google no longer supports "available for order". Mapped this to "in stock" as per
 						// specification update September 2014.
-						if ( 'available for order' == $element_value ) {
+						if ( 'available for order' === $element_value ) {
 							$element_value = 'in stock';
 						}
 						// Only send a value if the product is in stock
@@ -86,8 +93,8 @@ class WoocommerceGpfFeedGoogleInventory extends WoocommerceGpfFeed {
 							$element_value = 'out of stock';
 						}
 					}
-					if ( 'identifier_exists' == $element_name ) {
-						if ( 'included' == $element_value ) {
+					if ( 'identifier_exists' === $element_name ) {
+						if ( 'included' === $element_value ) {
 							if ( ! $this->has_identifier( $feed_item ) ) {
 								$output .= ' <g:identifier_exists>FALSE</g:identifier_exists>';
 							}
@@ -96,8 +103,8 @@ class WoocommerceGpfFeedGoogleInventory extends WoocommerceGpfFeed {
 							continue;
 						}
 					}
-					if ( 'availability_date' == $element_name ) {
-						if ( strlen( $element_value ) == 10 ) {
+					if ( 'availability_date' === $element_name ) {
+						if ( strlen( $element_value ) === 10 ) {
 							$tz_offset      = get_option( 'gmt_offset' );
 							$element_value .= 'T00:00:00' . sprintf( '%+03d', $tz_offset ) . '00';
 						}
@@ -110,13 +117,14 @@ class WoocommerceGpfFeedGoogleInventory extends WoocommerceGpfFeed {
 		}
 
 		$output .= "    </item>\n";
+
 		return $output;
 	}
 
 	/**
 	 * Render the applicable price elements.
 	 *
-	 * @param  object $feed_item The feed item to be rendered.
+	 * @param object $feed_item The feed item to be rendered.
 	 */
 	private function render_prices( $feed_item ) {
 
@@ -145,24 +153,12 @@ class WoocommerceGpfFeedGoogleInventory extends WoocommerceGpfFeed {
 
 		// Include start / end dates if provided.
 		if ( ! empty( $feed_item->sale_price_start_date ) &&
-		     ! empty( $feed_item->sale_price_end_date ) ) {
-			if ( is_object( $feed_item->sale_price_start_date ) ) {
-				// WC >= 3.0
-				$effective_date = (string) $feed_item->sale_price_start_date;
-				$effective_date .= '/';
-				$effective_date .= (string) $feed_item->sale_price_end_date;
-			} else {
-				// WC < 3.0
-				$offset         = get_option( 'gmt_offset' );
-				$offset_string  = sprintf( '%+03d', $offset );
-				$offset_string  .= sprintf( '%02d', ( $offset - floor( $offset ) ) * 60 );
-				$effective_date = date( 'Y-m-d\TH:i', $feed_item->sale_price_start_date ) . $offset_string;
-				$effective_date .= '/';
-				$effective_date .= date( 'Y-m-d\TH:i', $feed_item->sale_price_end_date ) . $offset_string;
-			}
-			$output .= '      <g:sale_price_effective_date>' . $effective_date . '</g:sale_price_effective_date>';
+			 ! empty( $feed_item->sale_price_end_date ) ) {
+			$effective_date  = (string) $feed_item->sale_price_start_date;
+			$effective_date .= '/';
+			$effective_date .= (string) $feed_item->sale_price_end_date;
+			$output         .= '      <g:sale_price_effective_date>' . $effective_date . '</g:sale_price_effective_date>';
 		}
-
 
 		return $output;
 	}
@@ -172,7 +168,7 @@ class WoocommerceGpfFeedGoogleInventory extends WoocommerceGpfFeed {
 	 *
 	 * @access public
 	 */
-	function render_footer() {
+	public function render_footer() {
 		echo "  </channel>\n";
 		echo '</rss>';
 		exit();

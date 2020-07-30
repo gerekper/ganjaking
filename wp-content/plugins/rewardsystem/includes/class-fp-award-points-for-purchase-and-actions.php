@@ -29,7 +29,7 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 
             add_action( 'woocommerce_checkout_update_order_meta' , array( __CLASS__ , 'delete_cookie_for_user_and_guest' ) , 10 , 2 ) ;
 
-            add_action( 'woocommerce_order_status_' . get_option( 'rs_order_status_after_gateway_purchase' ) , array( __CLASS__ , 'redeem_points_for_reward_gateway' ) , 1 ) ;
+            add_action( 'woocommerce_order_status_' . get_option( 'rs_order_status_after_gateway_purchase' , 'completed' ) , array( __CLASS__ , 'redeem_points_for_reward_gateway' ) , 1 ) ;
 
             $order_status_control = get_option( 'rs_list_other_status' ) ;
             if ( is_array( $order_status_control ) && ! empty( $order_status_control ) ) {
@@ -80,6 +80,8 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
             add_action( 'wp_head' , array( __CLASS__ , 'check_if_expiry' ) ) ;
 
             add_action( 'wp_head' , array( __CLASS__ , 'delete_if_used' ) ) ;
+
+            add_action( 'wp_head' , array( __CLASS__ , 'delete_if_expired' ) ) ;
 
             add_action( 'admin_init' , array( __CLASS__ , 'update_order_status' ) , 9999 ) ;
 
@@ -912,9 +914,9 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
                         RS_Referral_Log::update_referral_log( $refuserid , $UserId , $refregpoints , array_filter( ( array ) $previouslog ) ) ;
                         update_user_meta( $UserId , '_rs_i_referred_by' , $refuserid ) ;
                     }
-                    
+
                     do_action( 'fp_signup_points_for_referrer' , $refuserid , $UserId , $refregpoints ) ;
-                    
+
                     add_user_meta( $UserId , 'rs_referrer_regpoints_awarded' , '1' ) ;
                 }
             }
@@ -950,9 +952,9 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
                 $valuestoinsert = array( 'pointstoinsert' => $refregpoints , 'event_slug' => 'RRPGR' , 'user_id' => $UserId , 'referred_id' => $refuserid , 'totalearnedpoints' => $refregpoints ) ;
                 $new_obj->total_points_management( $valuestoinsert ) ;
             }
-            
+
             do_action( 'fp_signup_points_for_getting_referred' , $refuserid , $UserId , $refregpoints ) ;
-            
+
             add_user_meta( $UserId , '_points_awarded_get_refer' , '1' ) ;
             add_user_meta( $UserId , 'rs_after_first_purchase_get_refer' , 'yes' ) ;
         }
@@ -992,24 +994,46 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
             $table_name = $wpdb->prefix . 'rspointexpiry' ;
             $userid     = get_current_user_id() ;
             $Data       = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $table_name WHERE earnedpoints=usedpoints and expiredpoints IN(0) and userid = %d" , $userid ) , ARRAY_A ) ;
+
             if ( srp_check_is_array( $Data ) ) {
-                $totalearnpoints   = 0 ;
-                $totalredeempoints = 0 ;
+
+                $totalearnedpoints = $wpdb->get_col( $wpdb->prepare( "SELECT SUM(earnedpoints) FROM $table_name WHERE earnedpoints=usedpoints and expiredpoints IN(0) and userid = %d" , $userid ) ) ;
+                $totalusedpoints   = $wpdb->get_col( $wpdb->prepare( "SELECT SUM(usedpoints) FROM $table_name WHERE earnedpoints=usedpoints and expiredpoints IN(0) and userid = %d" , $userid ) ) ;
+
+                $earned_points_before_delete = array_sum( $totalearnedpoints ) + ( float ) get_user_meta( $userid , 'rs_earned_points_before_delete' , true ) ;
+                $used_points_before_delete   = array_sum( $totalusedpoints ) + ( float ) get_user_meta( $userid , 'rs_redeem_points_before_delete' , true ) ;
+
+                update_user_meta( $userid , 'rs_earned_points_before_delete' , $earned_points_before_delete ) ;
+                update_user_meta( $userid , 'rs_redeem_points_before_delete' , $used_points_before_delete ) ;
+
                 foreach ( $Data as $eacharray ) {
-                    $totalearnpoints   += isset( $eacharray[ 'earnedpoints' ] ) ? ( float ) $eacharray[ 'earnedpoints' ] : 0 ;
-                    $totalredeempoints += isset( $eacharray[ 'usedpoints' ] ) ? ( float ) $eacharray[ 'usedpoints' ] : 0 ;
-                    update_user_meta( $userid , 'rs_earned_points_before_delete' , $totalearnpoints ) ;
-                    update_user_meta( $userid , 'rs_redeem_points_before_delete' , $totalredeempoints ) ;
                     $wpdb->delete( $table_name , array( 'id' => $eacharray[ 'id' ] ) ) ;
                 }
             }
-            $getdata = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $table_name WHERE earnedpoints=(usedpoints+expiredpoints) and expiredpoints NOT IN(0) and userid = %d" , $userid ) , ARRAY_A ) ;
-            if ( srp_check_is_array( $getdata ) ) {
-                $totalexpiredpoints = 0 ;
-                foreach ( $getdata as $array ) {
-                    $totalexpiredpoints += isset( $array[ 'expiredpoints' ] ) ? ( float ) $array[ 'expiredpoints' ] : 0 ;
-                    update_user_meta( $userid , 'rs_expired_points_before_delete' , $totalexpiredpoints ) ;
-                    $wpdb->delete( $table_name , array( 'id' => $array[ 'id' ] ) ) ;
+        }
+
+        public static function delete_if_expired() {
+            global $wpdb ;
+            $table_name = $wpdb->prefix . 'rspointexpiry' ;
+            $userid     = get_current_user_id() ;
+            $Data       = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $table_name WHERE earnedpoints=(usedpoints+expiredpoints) and expiredpoints NOT IN(0) and userid = %d" , $userid ) , ARRAY_A ) ;
+
+            if ( srp_check_is_array( $Data ) ) {
+
+                $totalearnedpoints  = $wpdb->get_col( $wpdb->prepare( "SELECT SUM(earnedpoints) FROM $table_name WHERE earnedpoints=(usedpoints+expiredpoints) and expiredpoints NOT IN(0) and userid = %d" , $userid ) ) ;
+                $totalusedpoints    = $wpdb->get_col( $wpdb->prepare( "SELECT SUM(usedpoints) FROM $table_name WHERE earnedpoints=(usedpoints+expiredpoints) and expiredpoints NOT IN(0) and userid = %d" , $userid ) ) ;
+                $totalexpiredpoints = $wpdb->get_col( $wpdb->prepare( "SELECT SUM(expiredpoints) FROM $table_name WHERE earnedpoints=(usedpoints+expiredpoints) and expiredpoints NOT IN(0) and userid = %d" , $userid ) ) ;
+
+                $earned_points_before_delete  = array_sum( $totalearnedpoints ) + ( float ) get_user_meta( $userid , 'rs_earned_points_before_delete' , true ) ;
+                $used_points_before_delete    = array_sum( $totalusedpoints ) + ( float ) get_user_meta( $userid , 'rs_redeem_points_before_delete' , true ) ;
+                $expired_points_before_delete = array_sum( $totalexpiredpoints ) + ( float ) get_user_meta( $userid , 'rs_expired_points_before_delete' , true ) ;
+
+                update_user_meta( $userid , 'rs_earned_points_before_delete' , $earned_points_before_delete ) ;
+                update_user_meta( $userid , 'rs_redeem_points_before_delete' , $used_points_before_delete ) ;
+                update_user_meta( $userid , 'rs_expired_points_before_delete' , $expired_points_before_delete ) ;
+
+                foreach ( $Data as $eacharray ) {
+                    $wpdb->delete( $table_name , array( 'id' => $eacharray[ 'id' ] ) ) ;
                 }
             }
         }
@@ -1136,11 +1160,14 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
                 'nomineepoints'            => $nomineepoints
             ) ) ;
 
-            if ( $checkpoints == 'RRP' || $checkpoints == 'RRRP' || $checkpoints == 'RRPGR' ) {
+            if ( $checkpoints == 'RRP' || $checkpoints == 'RRPGR' ) {
                 $to        = get_user_by( 'id' , $user_id )->user_email ;
                 $user_name = get_user_by( 'id' , $user_id )->user_login ;
                 rs_send_mail_for_actions( $to , $checkpoints , $earned_points , $user_name ) ;
             }
+
+            // Added action in V24.8.2.
+            do_action( 'fp_reward_points_after_recorded' , $user_id , $earned_points , $usedpoints ) ;
         }
 
         public static function perform_calculation_with_expiry( $redeempoints , $UserId ) {
@@ -1238,7 +1265,7 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
                     if ( get_option( 'rs_revise_redeem_points_occur_once' . $order_id ) != '1' ) {
                         $getcouponid   = get_user_meta( $orderuserid , 'redeemcouponids' , true ) ;
                         $currentamount = get_post_meta( $getcouponid , 'coupon_amount' , true ) ;
-                        $tax_value     = isset( $value[ 'discount_tax' ] ) ? $value[ 'discount_tax' ] : 0 ;
+                        $tax_value     = ('yes' == get_option( 'woocommerce_prices_include_tax' ) && isset( $value[ 'discount_tax' ] )) ? $value[ 'discount_tax' ] : 0 ;
                         $discount_amnt = $value[ 'discount_amount' ] + $tax_value ;
                         if ( $currentamount < $value[ 'discount_amount' ] )
                             continue ;
@@ -1562,6 +1589,7 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
             $vieworderlink1         = esc_url_raw( add_query_arg( 'view-subscription' , $orderid , $myaccountlink ) ) ;
             $vieworderlinkforfront1 = '<a href="' . $vieworderlink1 . '">#' . $orderid . '</a>' ;
             $payment_method_title   = get_post_meta( $orderid , '_payment_method' , true ) ;
+            $gateway_title          = ! empty( $payment_method_title ) ? get_payment_gateway_title( $payment_method_title ) : '' ;
             switch ( $checkpoints ) {
                 case 'RPFAC':
                     return get_option( 'rs_reward_log_for_affiliate' ) ;
@@ -1575,7 +1603,7 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
                     return $Msg ;
                     break ;
                 case 'RPG' :
-                    $Msg = str_replace( '{payment_title}' , $payment_method_title , get_option( '_rs_localize_reward_for_payment_gateway_message' ) ) ;
+                    $Msg = str_replace( '{payment_title}' , $gateway_title , get_option( '_rs_localize_reward_for_payment_gateway_message' ) ) ;
                     return $Msg ;
                     break ;
                 case 'PPRPBCT':
@@ -1762,7 +1790,7 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
                     break ;
 
                 case 'RVPFRPG':
-                    $Msg       = str_replace( '{payment_title}' , $payment_method_title , get_option( '_rs_localize_revise_reward_for_payment_gateway_message' ) ) ;
+                    $Msg       = str_replace( '{payment_title}' , $gateway_title , get_option( '_rs_localize_revise_reward_for_payment_gateway_message' ) ) ;
                     return $Msg ;
                     break ;
                 case 'RVPFPPRP':
@@ -1979,7 +2007,7 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
 
             // Update Postmeta for Referrer points after Discounts.
             if ( 'yes' === get_option( 'rs_referral_points_after_discounts' ) ) {
-                $points_after_discounts = RSFunctionForReferralSystem::referrel_points_for_product_in_cart( $myid ) ;
+                $points_after_discounts = RSFunctionForReferralSystem::referrel_points_for_product_in_cart( $myid , false ) ;
                 if ( srp_check_is_array( $points_after_discounts ) ) {
                     update_post_meta( $order_id , 'rs_referrer_points_after_discounts' , $points_after_discounts ) ;
                 }
@@ -2184,6 +2212,7 @@ if ( ! class_exists( 'RSPointExpiry' ) ) {
                 'pointstoinsert' => $Points ,
                 'checkpoints'    => 'MAP' ,
                 'date'           => $date ,
+                'reason'         => $reason ,
                     ) ;
             self::insert_earning_points( $table_args ) ;
             self::record_the_points( $table_args ) ;

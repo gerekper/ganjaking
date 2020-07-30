@@ -1,5 +1,17 @@
 *** WooCommerce Google Product Feed Changelog ***
 
+2020.07.27 - version 9.0.0
+* New: Support for pickup_method and pickup_sla in product feed for Local Product Ads
+* Change: Feed item caching uses WooCommerce's action scheduler for background processing
+* Change: Prefer more specific categories when calculating category-based values
+* Change: Improved remote debug capabilities
+* Change: Improvements to when sale prices are sent to take account of different effective date scenarios
+* Change: Add setting link to WordPress plugins page for easier discovery
+* Change: Strip HTML comments from product descriptions in the feed
+* Change: Add list of enabled feeds to the status report
+* Change: Mark Google Local Product Feed as legacy (standard Product Feed can be used in its place)
+* Fix: PHP warning sometimes generated when saving category data
+
 2020.07.09 - version 8.1.4
 * New: Various new filters
 

@@ -290,12 +290,7 @@ class WooCommerce_Order_Barcodes {
 			<tbody>
 				<tr>
 					<td style="text-align:center;vertical-align:middle;word-wrap:normal;">
-						<?php echo $this->display_barcode( $order_id ); ?>
-					</td>
-				</tr>
-				<tr>
-					<td style="text-align:center;vertical-align:middle;word-wrap:normal;">
-						<?php echo '<a href="' . esc_url( $order->get_checkout_order_received_url() ) . '" target="_blank">' . esc_html__( 'View the barcode in your browser', 'woocommerce-order-barcodes' ) . '</a>'; ?>
+						<?php echo $this->display_barcode( $order_id, true ); ?>
 					</td>
 				</tr>
 			</tbody>
@@ -324,7 +319,11 @@ class WooCommerce_Order_Barcodes {
 
 		$order_id = $order->get_id();
 
-		echo $this->display_barcode( $order_id );
+		$barcode  = '<div class="woocommerce-order-barcodes-container" style="text-align:center;">';
+		$barcode .= $this->display_barcode( $order_id, true );
+		$barcode .= '</div>';
+
+		echo $barcode;
 	}
 
 	/**
@@ -366,14 +365,14 @@ class WooCommerce_Order_Barcodes {
 
 	/**
 	 * Display barcode as an image
-	 * @since   1.0.0
-	 * @param   integer $order_id Order ID
-	 * @param   string  $before   Markup/text to display before barcode
-	 * @param   string  $after    Markup/text to display after barcode
-	 * @param   boolean $echo     Whether to echo out the barcode or just return it
-	 * @return  string $barcode   The generated barcode.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param integer $order_id Order ID.
+	 * @param boolean $image    Display as an image (default false).
+	 * @return string The generated barcode.
 	 */
-	public function display_barcode( $order_id = 0 ) {
+	public function display_barcode( $order_id = 0, $image = false ) {
 		if ( ! $order_id ) {
 			return;
 		}
@@ -383,6 +382,12 @@ class WooCommerce_Order_Barcodes {
 
 		if ( ! $barcode_text ) {
 			return;
+		}
+
+		// Return an image (for emails and frontend order view).
+		if ( $image ) {
+			$barcode_url = $this->barcode_url( $order_id );
+			return '<img src="' . esc_url( $barcode_url ) . '" title="' . __( 'Barcode', 'woocommerce-order-barcodes' ) . '" alt="' . __( 'Barcode', 'woocommerce-order-barcodes' ) . '" style="display:inline;border:0;max-width:100%" /><br/><span style="color:' . $this->barcode_colours['foreground'] . ';font-family:monospace;">' . $barcode_text . '</span>';
 		}
 
 		$upload_dir = wp_upload_dir();
@@ -402,14 +407,14 @@ class WooCommerce_Order_Barcodes {
 				$barcode .= $dns2d->getBarcodeHTML( $barcode_text, 'QRCODE', 5, 5, $foreground_color );
 				break;
 			case 'code39':
-				$barcode .= $dns1d->getBarcodeHTML( $barcode_text, 'C39', 1, 33, $foreground_color );
+				$barcode .= $dns1d->getBarcodeHTML( $barcode_text, 'C39', 1, 48, $foreground_color );
 				break;
 			case 'code93':
-				$barcode .= $dns1d->getBarcodeHTML( $barcode_text, 'C93', 1, 33, $foreground_color );
+				$barcode .= $dns1d->getBarcodeHTML( $barcode_text, 'C93', 1, 48, $foreground_color );
 				break;
 			case 'code128':
 			default:
-				$barcode .= $dns1d->getBarcodeHTML( $barcode_text, 'C128', 1, 33, $foreground_color );
+				$barcode .= $dns1d->getBarcodeHTML( $barcode_text, 'C128', 1, 48, $foreground_color );
 				break;
 		}
 
@@ -418,6 +423,25 @@ class WooCommerce_Order_Barcodes {
 		$barcode .= '</div>';
 
 		return $barcode;
+	}
+
+	/**
+	 * Get the URL for a given order's barcode
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param  integer $order_id Order ID.
+	 * @return string  URL for barcode.
+	 */
+	public function barcode_url( $order_id = 0 ) {
+
+		if ( ! $order_id ) {
+			return;
+		}
+
+		// Get barcode text.
+		$barcode_text = get_post_meta( $order_id, '_barcode_text', true );
+		return trailingslashit( get_site_url() ) . '?wc_barcode=' . $barcode_text;
 	}
 
 	/**
@@ -759,11 +783,10 @@ class WooCommerce_Order_Barcodes {
 	/**
 	 * Get barcode image.
 	 *
-	 * @todo This method can be removed in the future as we no longer support image links.
 	 * @since   1.0.0
 	 * @return  void
 	 */
-	public function get_barcode_image( ) {
+	public function get_barcode_image() {
 		if ( empty( $_GET['wc_barcode'] ) ) {
 			return;
 		}
@@ -794,31 +817,31 @@ class WooCommerce_Order_Barcodes {
 			}
 		}
 
-		$upload_dir = wp_upload_dir();
-		$dns1d = new DNS1D();
-		$dns2d = new DNS2D();
+		$foreground  = $this->hex_to_rgb( $this->barcode_colours['foreground'] );
+		$barcode_img = '';
+		$upload_dir  = wp_upload_dir();
+		$dns1d       = new DNS1D();
+		$dns2d       = new DNS2D();
 		$dns1d->setStorPath( $upload_dir['path'] . '/cache/' );
 		$dns2d->setStorPath( $upload_dir['path'] . '/cache/' );
-		$foreground_color = $this->barcode_colours['foreground'];
-		$barcode_img = '';
 
 		// Generate barcode image based on string and selected type.
 		switch ( $this->barcode_type ) {
 			case 'datamatrix':
-				$barcode_img = $dns2d->getBarcodePNG( $barcode, 'DATAMATRIX', 6, 6, array( 105, 105, 105 ) );
+				$barcode_img = $dns2d->getBarcodePNG( $barcode, 'DATAMATRIX', 6, 6, $foreground );
 				break;
 			case 'qr':
-				$barcode_img = $dns2d->getBarcodePNG( $barcode, 'QRCODE', 6, 6, array( 105, 105, 105 ) );
+				$barcode_img = $dns2d->getBarcodePNG( $barcode, 'QRCODE', 6, 6, $foreground );
 				break;
 			case 'code39':
-				$barcode_img = $dns1d->getBarcodePNG( $barcode, 'C39', 1, 33, array( 105, 105, 105 ) );
+				$barcode_img = $dns1d->getBarcodePNG( $barcode, 'C39', 1, 48, $foreground );
 				break;
 			case 'code93':
-				$barcode_img = $dns1d->getBarcodePNG( $barcode, 'C93', 1, 33, array( 105, 105, 105 ) );
+				$barcode_img = $dns1d->getBarcodePNG( $barcode, 'C93', 1, 48, $foreground );
 				break;
 			case 'code128':
 			default:
-				$barcode_img = $dns1d->getBarcodePNG( $barcode, 'C128', 1, 33, array( 105, 105, 105 ) );
+				$barcode_img = $dns1d->getBarcodePNG( $barcode, 'C128', 1, 48, $foreground );
 				break;
 		}
 
@@ -837,6 +860,27 @@ class WooCommerce_Order_Barcodes {
 		header( 'Content-Type: image/png' );
 
 		exit( $barcode_img );
+	}
+
+	/**
+	 * Convert hexidecimal colour to RGB.
+	 *
+	 * @since 1.3.21
+	 *
+	 * @param string $hex Hexidecimal colour code.
+	 * @return array RGB colours.
+	 */
+	private function hex_to_rgb( $hex ) {
+		$hex = ltrim( $hex, '#' );
+		switch ( strlen( $hex ) ) {
+			case 3:
+				list( $r, $g, $b ) = sscanf( $hex, '%1s%1s%1s' );
+				return array( hexdec( "$r$r" ), hexdec( "$g$g" ), hexdec( "$b$b" ) );
+			case 6:
+				return array_map( 'hexdec', sscanf( $hex, '%2s%2s%2s' ) );
+		}
+
+		return array( 0, 0, 0 ); // Default black.
 	}
 
 	/**

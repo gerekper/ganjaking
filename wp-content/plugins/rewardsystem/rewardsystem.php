@@ -4,10 +4,10 @@
  * Plugin Name: SUMO Reward Points
  * Plugin URI:
  * Description: SUMO Reward Points is a WooCommerce Loyalty Reward System using which you can Reward your Customers using Reward Points for Purchasing Products, Writing Reviews, Sign up on your site etc
- * Version:24.7
+ * Version:25.3
  * Author: Fantastic Plugins
  * Author URI:http://fantasticplugins.com
- * WC tested up to: 4.0.1
+ * WC tested up to: 4.3.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -20,7 +20,7 @@ if ( ! class_exists( 'FPRewardSystem' ) ) {
          * Version
          */
 
-        public $version = '24.7' ;
+        public $version = '25.3' ;
 
         /*
          * Single Instance of the class
@@ -85,9 +85,13 @@ if ( ! class_exists( 'FPRewardSystem' ) ) {
             //Compatability for GDPR Compliance
             include_once('includes/gdpr/class-srp-privacy.php') ;
 
+            // Set Email Template cron job.
             add_filter( 'cron_schedules' , array( $this , 'set_up_rs_cron' ) ) ;
-
             self::create_cron_job() ;
+
+            // Set Point Expiry Cron
+            add_filter( 'cron_schedules' , array( $this , 'set_point_expiry_cron' ) ) ;
+            $this->create_point_expiry_cron() ;
 
             include_once('includes/class-rs-install.php') ;
             include_once('woocommerce-log/class-fp-woocommerce-log.php') ;
@@ -208,6 +212,7 @@ if ( ! class_exists( 'FPRewardSystem' ) ) {
             include_once('includes/class_wpml_support.php') ;
             include_once('includes/class-fp-common-functions.php') ;
             include_once('includes/class-fp-product-datas.php') ;
+            include_once('includes/class-rs-date-time.php') ;
 
             include_once('includes/class-rs-points-data.php') ;
 
@@ -305,6 +310,37 @@ if ( ! class_exists( 'FPRewardSystem' ) ) {
                 wp_schedule_event( time() , 'rshourly' , 'rscronjob' ) ;
         }
 
+        /*
+         * Set point expiry cron.
+         */
+
+        public function set_point_expiry_cron( $schedules ) {
+
+            $schedules[ 'rs_hourly' ] = array(
+                'interval' => 3600 ,
+                'display'  => 'RS Hourly'
+                    ) ;
+
+            return $schedules ;
+        }
+
+        /*
+         * Create point expiry cron.
+         */
+
+        public function create_point_expiry_cron() {
+
+            if ( wp_next_scheduled( 'rs_send_mail_before_expiry' ) ) {
+                return ;
+            }
+
+            if ( "yes" == get_option( 'rs_email_template_expire_activated' ) ) {
+                wp_schedule_event( time() , 'rs_hourly' , 'rs_send_mail_before_expiry' ) ;
+            } else {
+                wp_unschedule_event( time() , 'rs_hourly' , 'rs_send_mail_before_expiry' ) ;
+            }
+        }
+
         public function rewardgateway() {
             if ( get_option( 'rs_gateway_activated' ) == 'yes' ) {
                 include('includes/admin/class_rewardgateway.php') ;
@@ -339,6 +375,19 @@ if ( ! class_exists( 'FPRewardSystem' ) ) {
          */
 
         public function rs_translate_file() {
+
+            if ( function_exists( 'determine_locale' ) ) {
+                $locale = determine_locale() ;
+            } else {
+                $locale = is_admin() ? get_user_locale() : get_locale() ;
+            }
+
+            $locale = apply_filters( 'plugin_locale' , $locale , SRP_LOCALE ) ;
+
+            unload_textdomain( SRP_LOCALE ) ;
+
+            load_textdomain( SRP_LOCALE , WP_LANG_DIR . '/rewardsystem/rewardsystem-' . $locale . '.mo' ) ;
+
             load_plugin_textdomain( SRP_LOCALE , false , dirname( plugin_basename( __FILE__ ) ) . '/languages' ) ;
         }
 

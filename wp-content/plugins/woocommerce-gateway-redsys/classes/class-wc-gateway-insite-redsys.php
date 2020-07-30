@@ -369,23 +369,25 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 	/**
 	* Copyright: (C) 2013 - 2020 José Conti
 	*/
-	function check_token_insite_from_action() {
+	public static function check_token_insite_from_action() {
 		
-		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'insite', ' ' );
-			$this->log->add( 'insite', '/******************************/' );
-			$this->log->add( 'insite', '  Llega a la función de InSite    ' );
-			$this->log->add( 'insite', '/******************************/' );
-			$this->log->add( 'insite', ' ' );
-			$this->log->add( 'insite', 'El token que hay que enviar a Redsys es:' . $_POST['token'] );
-			$this->log->add( 'insite', 'El Order ID que hay que enviar a Redsys es:' . $_POST['order_id'] );
+		$redsys_insite = new WC_Gateway_InSite_Redsys();
+		
+		if ( 'yes' === $redsys_insite->debug ) {
+			$redsys_insite->log->add( 'insite', ' ' );
+			$redsys_insite->log->add( 'insite', '/******************************/' );
+			$redsys_insite->log->add( 'insite', '  Llega a la función de InSite    ' );
+			$redsys_insite->log->add( 'insite', '/******************************/' );
+			$redsys_insite->log->add( 'insite', ' ' );
+			$redsys_insite->log->add( 'insite', 'El token que hay que enviar a Redsys es:' . $_POST['token'] );
+			$redsys_insite->log->add( 'insite', 'El Order ID que hay que enviar a Redsys es:' . $_POST['order_id'] );
 		}
 		$currency_codes   = WCRed()->get_currencies();
-		$customer         = $this->customer;
-		$terminal         = $this->terminal;
+		$customer         = $redsys_insite->customer;
+		$terminal         = $redsys_insite->terminal;
 		$currency         = $currency_codes[ get_woocommerce_currency() ];
 		$transaction_type = '0';
-		$final_notify_url = $this->notify_url;
+		$final_notify_url = $redsys_insite->notify_url;
 		$redsys_token     = esc_html( $_POST['token'] );
 		$order_id         = intval( $_POST['order_id'] );
 		$merchan_name     = get_post_meta( $order_id, '_billing_first_name', true );
@@ -394,7 +396,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 		$order            = WCRed()->get_order( $order_id );
 		$amount           = $order->get_total();
 		$redsys_amount    = WCRed()->redsys_amount_format( $amount );
-		$secretsha256     = $this->secretsha256;
+		$secretsha256     = $redsys_insite->secretsha256;
 		$merchant_module  = 'WooCommerce_Redsys_Gateway_' . REDSYS_VERSION . '_WooCommerce.com';
 		$emv3ds           = '{"threeDSInfo":"AuthenticationData",
 							"protocolVersion":"1.0.2",
@@ -405,26 +407,26 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 		
 		set_transient( $order_id . '_insite_token', $redsys_token, 46000 );
 		
-		if ( 'yes' === $this->testmode ) {
-			$redsys_adr = $this->testurlws;
+		if ( 'yes' === $redsys_insite->testmode ) {
+			$redsys_adr = $redsys_insite->testurlws;
 		} else {
-			$redsys_adr = $this->liveurlws;
+			$redsys_adr = $redsys_insite->liveurlws;
 		}
 		
-		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'insite', ' ' );
-			$this->log->add( 'insite', '$customer:' . $customer );
-			$this->log->add( 'insite', '$terminal: ' . $terminal );
-			$this->log->add( 'insite', '$currency: ' . $currency );
-			$this->log->add( 'insite', '$transaction_type: ' . $transaction_type );
-			$this->log->add( 'insite', '$redsys_amount: ' . $redsys_amount );
-			$this->log->add( 'insite', '$redsys_order_id: ' . $redsys_order_id );
-			$this->log->add( 'insite', '$redsys_token: ' . $redsys_token );
-			$this->log->add( 'insite', '$final_notify_url: ' . $final_notify_url );
-			$this->log->add( 'insite', '$merchan_name: ' . $merchan_name );
-			$this->log->add( 'insite', '$merchant_lastnme: ' . $merchant_lastnme );
-			$this->log->add( 'insite', '$redsys_adr: ' . $redsys_adr );
-			$this->log->add( 'insite', '$secretsha256: ' . $secretsha256 );
+		if ( 'yes' === $redsys_insite->debug ) {
+			$redsys_insite->log->add( 'insite', ' ' );
+			$redsys_insite->log->add( 'insite', '$customer:' . $customer );
+			$redsys_insite->log->add( 'insite', '$terminal: ' . $terminal );
+			$redsys_insite->log->add( 'insite', '$currency: ' . $currency );
+			$redsys_insite->log->add( 'insite', '$transaction_type: ' . $transaction_type );
+			$redsys_insite->log->add( 'insite', '$redsys_amount: ' . $redsys_amount );
+			$redsys_insite->log->add( 'insite', '$redsys_order_id: ' . $redsys_order_id );
+			$redsys_insite->log->add( 'insite', '$redsys_token: ' . $redsys_token );
+			$redsys_insite->log->add( 'insite', '$final_notify_url: ' . $final_notify_url );
+			$redsys_insite->log->add( 'insite', '$merchan_name: ' . $merchan_name );
+			$redsys_insite->log->add( 'insite', '$merchant_lastnme: ' . $merchant_lastnme );
+			$redsys_insite->log->add( 'insite', '$redsys_adr: ' . $redsys_adr );
+			$redsys_insite->log->add( 'insite', '$secretsha256: ' . $secretsha256 );
 		}
 		
 		$miObj = new RedsysAPI();
@@ -440,7 +442,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 		$miObj->setParameter( "DS_MERCHANT_MERCHANTURL", $final_notify_url );
 		$miObj->setParameter( "DS_MERCHANT_TITULAR", $merchan_name . ' ' . $merchant_lastnme );
 		
-		if ( 'yes' === $this->secure3ds ) {
+		if ( 'yes' === $redsys_insite->secure3ds ) {
 			$miObj->setParameter("DS_MERCHANT_EMV3DS", json_decode( $emv3ds, true ) );
 		}
 
@@ -449,8 +451,8 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 		$params    = $miObj->createMerchantParameters();
 		$signature = $miObj->createMerchantSignature( $secretsha256 );
 
-		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'insite', __( 'Next Step, Call', 'woocommerce-redsys' ) );
+		if ( 'yes' === $redsys_insite->debug ) {
+			$redsys_insite->log->add( 'insite', __( 'Next Step, Call', 'woocommerce-redsys' ) );
 		}
 		$response = wp_remote_post(
 			$redsys_adr,
@@ -470,11 +472,11 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 		$response_body = wp_remote_retrieve_body( $response );
 		$result        = json_decode( $response_body );
 
-		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'insite', '$response_body: ' . $response_body );
-			$this->log->add( 'insite', 'Ds_SignatureVersion: ' . $result->Ds_SignatureVersion );
-			$this->log->add( 'insite', 'Ds_MerchantParameters: ' . $result->Ds_MerchantParameters );
-			$this->log->add( 'insite', 'Ds_Signature: ' . $result->Ds_Signature );
+		if ( 'yes' === $redsys_insite->debug ) {
+			$redsys_insite->log->add( 'insite', '$response_body: ' . $response_body );
+			$redsys_insite->log->add( 'insite', 'Ds_SignatureVersion: ' . $result->Ds_SignatureVersion );
+			$redsys_insite->log->add( 'insite', 'Ds_MerchantParameters: ' . $result->Ds_MerchantParameters );
+			$redsys_insite->log->add( 'insite', 'Ds_Signature: ' . $result->Ds_Signature );
 		}
 		
 		$decodec            = $miObj->decodeMerchantParameters( $result->Ds_MerchantParameters );
@@ -482,18 +484,18 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 		$decodec_array      = json_decode( $decodec );
 		$signatureCalculada = $miObj->createMerchantSignatureNotif( $secretsha256, $result->Ds_MerchantParameters ); 
 		
-		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'insite', '$response: ' . $response );
-			$this->log->add( 'insite', '$decodec_array: ' . print_r( $decodec_array, true ) );
-			$this->log->add( 'insite', '$signatureCalculada: ' . $signatureCalculada );
-			$this->log->add( 'insite', '$codigoRespuesta: ' . $codigoRespuesta );
-			$this->log->add( 'insite', 'Ds_Signature: ' . $result->Ds_Signature );
-			$this->log->add( 'insite', 'print_r: ' . print_r( $result, true ) );
+		if ( 'yes' === $redsys_insite->debug ) {
+			$redsys_insite->log->add( 'insite', '$response: ' . $response );
+			$redsys_insite->log->add( 'insite', '$decodec_array: ' . print_r( $decodec_array, true ) );
+			$redsys_insite->log->add( 'insite', '$signatureCalculada: ' . $signatureCalculada );
+			$redsys_insite->log->add( 'insite', '$codigoRespuesta: ' . $codigoRespuesta );
+			$redsys_insite->log->add( 'insite', 'Ds_Signature: ' . $result->Ds_Signature );
+			$redsys_insite->log->add( 'insite', 'print_r: ' . print_r( $result, true ) );
 		}
 		
 		if ( $signatureCalculada === $result->Ds_Signature ) { // Signature OK
 			
-			if ( 'yes' === $this->secure3ds ) { // Is notsecure
+			if ( 'yes' === $redsys_insite->secure3ds ) { // Is notsecure
 			
 				$threedsinfo = $decodec_array->Ds_EMV3DS->threeDSInfo;
 				
@@ -501,10 +503,10 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 					$acsurl = $decodec_array->Ds_EMV3DS->acsURL;
 					$pareq  = $decodec_array->Ds_EMV3DS->PAReq;
 					$md     = $decodec_array->Ds_EMV3DS->MD;
-					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'insite', '$acsurl: ' . $acsurl );
-						$this->log->add( 'insite', '$pareq: ' . $pareq );
-						$this->log->add( 'insite', '$md: ' . $md );
+					if ( 'yes' === $redsys_insite->debug ) {
+						$redsys_insite->log->add( 'insite', '$acsurl: ' . $acsurl );
+						$redsys_insite->log->add( 'insite', '$pareq: ' . $pareq );
+						$redsys_insite->log->add( 'insite', '$md: ' . $md );
 					}
 					set_transient( $order_id . '_insite_acsurl', $acsurl, 36000 );
 					set_transient( $order_id . '_insite_pareq', $pareq, 36000 );

@@ -23,6 +23,8 @@ class ProductsUpdate extends Request {
 	}
 
 	/**
+	 * @param Plugins $plugins
+	 *
 	 * @return array
 	 */
 	public function format_versions( Plugins $plugins ) {

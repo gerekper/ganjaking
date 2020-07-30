@@ -3401,6 +3401,7 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 	public static function redsys_charge_depo_js_callback() {
 		global $wpdb;
 		
+		$redsys_depo     = new WC_Gateway_Preauthorizations_Redsys();
 		if ( ! is_admin() ) {
 			return;
 		}

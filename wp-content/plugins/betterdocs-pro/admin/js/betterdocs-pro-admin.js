@@ -12,6 +12,10 @@
 						'property' : 'background-color',
 					},
 					{
+						'selector': '.betterdocs-footer-wrapper .bd-ia-feedback-wrap, .betterdocs-footer-wrapper .bd-ia-feedback-response',
+						'property' : 'background-color'
+					},
+					{
 						'selector' : '.betterdocs-header-wrapper .betterdocs-header .inner-container.betterdocs-active-answer .toggle:first-of-type > p, .betterdocs-header-wrapper .betterdocs-header .inner-container.betterdocs-active-ask .toggle:last-of-type > p',
 						'property' : 'color',
 					},
@@ -74,7 +78,7 @@
 				'id' : '#ia_searchbox_bg',
 				'settings' : [
 					{
-						'selector' : '.betterdocs-search-bar, .MuiPaper-root, .betterdocs-search-bar .betterdocs-search-wrap .betterdocs-search-container input',
+						'selector' : '.betterdocs-search-wrap.MuiPaper-root, .betterdocs-search-bar .betterdocs-search-wrap .betterdocs-search-container input',
 						'property' : 'background-color',
 					}
 				]
@@ -92,7 +96,7 @@
 				'id' : '#ia_searchbox_icon_color',
 				'settings' : [
 					{
-						'selector' : '.betterdocs-search-icon',
+						'selector' : '.betterdocs-search-bar .betterdocs-search-wrap .betterdocs-search-icon',
 						'property' : 'fill',
 					}
 				]
@@ -200,10 +204,48 @@
 				]
 			},
 			{
+				'id': '#ia_response_icon_size',
+				'suffix' : 'px',
+				'settings': [
+					{
+						'selector'	: '.betterdocs-footer-wrapper .bd-ia-feedback-response .feedback-success-icon',
+						'property' : 'width'
+					}
+				]
+			},
+			{
+				'id': '#ia_response_icon_color',
+				'settings': [
+					{
+						'selector'	: '.betterdocs-footer-wrapper .bd-ia-feedback-response .feedback-success-icon',
+						'property' : 'fill'
+					}
+				]
+			},
+			{
+				'id': '#ia_response_title_size',
+				'suffix' : 'px',
+				'settings': [
+					{
+						'selector'	: '.betterdocs-footer-wrapper .bd-ia-feedback-response .feedback-success-title',
+						'property' : 'font-size'
+					}
+				]
+			},
+			{
+				'id': '#ia_response_title_color',
+				'settings': [
+					{
+						'selector'	: '.betterdocs-footer-wrapper .bd-ia-feedback-response .feedback-success-title',
+						'property' : 'color'
+					}
+				]
+			},
+			{
 				'id' : '#ia_ask_bg_color',
 				'settings' : [
 					{
-						'selector' : '.betterdocs-ask-wrapper input:not([type="submit"]), .betterdocs-ask-wrapper textarea',
+						'selector' : '.betterdocs-tab-ask .betterdocs-ask-wrapper input[type="text"], .betterdocs-tab-ask .betterdocs-ask-wrapper input[type="email"], .betterdocs-tab-ask .betterdocs-ask-wrapper textarea',
 						'property' : 'background-color',
 					},
 					{
@@ -222,6 +264,24 @@
 					{
 						'selector' : '.betterdocs-ask-wrapper .betterdocs-attach-button',
 						'property' : 'fill',
+					}
+				]
+			},
+			{
+				'id': '#ia_luncher_bg',
+				'settings': [
+					{
+						'selector': '.betterdocs-launcher[type=button], .betterdocs-launcher[type=button]:focus',
+						'property': 'background-color'
+					}
+				]
+			},
+			{
+				'id': '#ia_luncher_bg_hover',
+				'settings': [
+					{
+						'selector': '.betterdocs-launcher[type=button]:hover',
+						'property': 'background-color'
 					}
 				]
 			}
@@ -254,7 +314,6 @@
 
 	var copyCross = new ClipboardJS('.betterdocs-copy-button');
 	copyCross.on('success', function(e) {
-		console.log( e, this );
 		e.trigger.innerText ='Copied';
 		e.clearSelection(), $(e.trigger).addClass("copied"), setTimeout(function() {
 			e.trigger.innerText ='Copy Snippet';
@@ -413,6 +472,34 @@
 				});
 			}
 		}
+
+		// Disable tabs condition for IA
+		var chatTab = $('#chat_tab_visibility_switch'),
+			ansTab = $('#answer_tab_visibility_switch'),
+			chatTabDependency = ['chat_tab_icon', 'chat_tab_title', 'chat_subtitle_one', 'chat_subtitle_two'],
+			ansTabDependency = [ 'answer_tab_icon', 'answer_tab_title', 'answer_tab_subtitle' ];
+
+		chatTab.prop('checked') === true && ansTab.prop('checked') === true ? ansTab.prop('checked', false) : null;
+
+		ansTab.on('click', function() {
+			if(chatTab.prop('checked') === true && $(this).prop('checked') === true) {
+				chatTab.prop('checked', false);
+
+				chatTabDependency.map( function(handle) {
+					$('#betterdocs-meta-'+handle).css('display', 'table-row');
+				});
+			}
+		});
+
+		chatTab.on('click', function() {
+			if(ansTab.prop('checked') === true && $(this).prop('checked') === true) {
+				ansTab.prop('checked', false);
+
+				ansTabDependency.map( function(handle) {
+					$('#betterdocs-meta-'+handle).css('display', 'table-row');
+				});
+			}
+		});
 
 	});
 

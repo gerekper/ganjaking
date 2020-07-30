@@ -23,21 +23,19 @@ jQuery(function ($) {
                 }
 
                 if (response.userEmail !== undefined && response.isEnhancedMatchEnabled) {
-
                     try {
                         pintrk('load', response.tagId, {em: response.userEmail});
                     } catch (e) {
 
                     }
-
                 }
 
                 pintrk('track', 'AddToCart', {
                     value: parseFloat(response.price),
                     order_quantity: data.quantity,
                     currency: response.currency,
+                    product_id: data.product_id,
                 });
-
             },
             dataType: 'json'
         });

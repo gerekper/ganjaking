@@ -6,11 +6,23 @@
 class WoocommerceGpfImportExportIntegration {
 
 	/**
-	 * Constructor.
+	 * @var WoocommerceGpfCommon
+	 */
+	protected $woocommerce_gpf_common;
+
+	/**
+	 * WoocommerceGpfImportExportIntegration constructor.
 	 *
+	 * @param WoocommerceGpfCommon $woocommerce_gpf_common
+	 */
+	public function __construct( WoocommerceGpfCommon $woocommerce_gpf_common ) {
+		$this->woocommerce_gpf_common = $woocommerce_gpf_common;
+	}
+
+	/**
 	 * Attach to the relevant hooks to integrate with the importer / exporter.
 	 */
-	public function __construct() {
+	public function initialise() {
 		// Export filters.
 		add_filter( 'woocommerce_product_export_column_names', array( $this, 'add_columns' ) );
 		add_filter( 'woocommerce_product_export_product_default_columns', array( $this, 'add_columns' ) );
@@ -65,11 +77,11 @@ class WoocommerceGpfImportExportIntegration {
 	 * @return array   Array of GPF columns with appropriate keys.
 	 */
 	private function generate_column_list() {
-		global $woocommerce_gpf_common;
-		$fields = wp_list_pluck( $woocommerce_gpf_common->product_fields, 'desc' );
+		$fields = wp_list_pluck( $this->woocommerce_gpf_common->product_fields, 'desc' );
 		// Remove description from the list since it's not set-able against products.
-		unset($fields['description']);
+		unset( $fields['description'] );
 		foreach ( $fields as $key => $value ) {
+			// Translators: Placeholder is the name of the feed field
 			$fields[ 'gpf_' . $key ] = sprintf( __( 'Google product feed: %s', 'woocommerce_gpf' ), $value );
 			unset( $fields[ $key ] );
 		}
@@ -114,14 +126,15 @@ class WoocommerceGpfImportExportIntegration {
 	 * Extracts the field name from the method name invoked, and uses
 	 * get_product_gpf_value to retrieve the relevant field.
 	 *
-	 * @param  string  $method  The method name attempted to be called.
-	 * @param  array   $args    The args passed to the method.
+	 * @param string $method The method name attempted to be called.
+	 * @param array $args The args passed to the method.
 	 *
 	 * @return string           The value for the relevant field.
+	 * @throws Exception
 	 */
 	public function __call( $method, $args ) {
 		if ( stripos( $method, 'render_column_gpf_' ) !== 0 ) {
-			throw new \Exception( 'Invalid method on ' . __CLASS__ );
+			throw new Exception( 'Invalid method on ' . __CLASS__ );
 		}
 		$field = str_replace( 'render_column_gpf_', '', $method );
 		return $this->get_product_gpf_value( $field, $args[1] );

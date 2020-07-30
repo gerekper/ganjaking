@@ -12,12 +12,16 @@ class Text extends Model\CustomField {
 		$setting = $this->column->get_setting( 'edit' );
 
 		return [
-			'type' => $setting->get_editable_type(),
+			'type' => $setting ? $setting->get_editable_type() : 'text',
 		];
 	}
 
 	public function register_settings() {
-		$this->column->add_setting( new Settings\Excerpt( $this->column ) );
+		parent::register_settings();
+
+		if ( $this->is_editing_enabled() ) {
+			$this->column->add_setting( new Settings\Excerpt( $this->column ) );
+		}
 	}
 
 }

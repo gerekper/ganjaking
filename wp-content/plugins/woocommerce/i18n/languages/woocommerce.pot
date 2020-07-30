@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the WooCommerce plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce 4.3.0\n"
+"Project-Id-Version: WooCommerce 4.3.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-07-08T17:23:14+00:00\n"
+"POT-Creation-Date: 2020-07-21T10:45:30+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: woocommerce\n"
@@ -12913,7 +12913,7 @@ msgstr ""
 #: packages/woocommerce-admin/src/Notes/WC_Admin_Notes_Order_Milestones.php:241
 #: packages/woocommerce-admin/src/Notes/WC_Admin_Notes_Real_Time_Order_Alerts.php:57
 #: packages/woocommerce-admin/src/Notes/WC_Admin_Notes_Start_Dropshipping_Business.php:75
-#: packages/woocommerce-admin/src/Notes/WC_Admin_Notes_WooCommerce_Payments.php:105
+#: packages/woocommerce-admin/src/Notes/WC_Admin_Notes_WooCommerce_Payments.php:108
 #: packages/woocommerce-admin/dist/chunks/6.8a01ef3df76cbe04b5e5.js:1449
 #: packages/woocommerce-admin/dist/chunks/6.8a01ef3df76cbe04b5e5.js:1463
 #: packages/woocommerce-admin/dist/chunks/7.b903e02ec5fc910e7c73.js:600
@@ -26691,64 +26691,64 @@ msgid "Default Date Range"
 msgstr ""
 
 #: packages/woocommerce-admin/src/Notes/DataStore.php:127
-msgid "Invalid data store for admin note."
+msgid "Invalid admin note"
 msgstr ""
 
-#: packages/woocommerce-admin/src/Notes/WC_Admin_Note.php:341
+#: packages/woocommerce-admin/src/Notes/WC_Admin_Note.php:342
 msgid "The admin note name prop cannot be empty."
 msgstr ""
 
-#: packages/woocommerce-admin/src/Notes/WC_Admin_Note.php:354
+#: packages/woocommerce-admin/src/Notes/WC_Admin_Note.php:355
 msgid "The admin note type prop cannot be empty."
 msgstr ""
 
 #. translators: %s: admin note type.
-#: packages/woocommerce-admin/src/Notes/WC_Admin_Note.php:362
+#: packages/woocommerce-admin/src/Notes/WC_Admin_Note.php:363
 msgid "The admin note type prop (%s) is not one of the supported types."
 msgstr ""
 
-#: packages/woocommerce-admin/src/Notes/WC_Admin_Note.php:378
+#: packages/woocommerce-admin/src/Notes/WC_Admin_Note.php:379
 msgid "The admin note locale prop cannot be empty."
 msgstr ""
 
-#: packages/woocommerce-admin/src/Notes/WC_Admin_Note.php:391
+#: packages/woocommerce-admin/src/Notes/WC_Admin_Note.php:392
 msgid "The admin note title prop cannot be empty."
 msgstr ""
 
-#: packages/woocommerce-admin/src/Notes/WC_Admin_Note.php:431
+#: packages/woocommerce-admin/src/Notes/WC_Admin_Note.php:432
 msgid "The admin note content prop cannot be empty."
 msgstr ""
 
-#: packages/woocommerce-admin/src/Notes/WC_Admin_Note.php:448
+#: packages/woocommerce-admin/src/Notes/WC_Admin_Note.php:449
 msgid "The admin note content_data prop must be an instance of stdClass."
 msgstr ""
 
-#: packages/woocommerce-admin/src/Notes/WC_Admin_Note.php:461
+#: packages/woocommerce-admin/src/Notes/WC_Admin_Note.php:462
 msgid "The admin note status prop cannot be empty."
 msgstr ""
 
 #. translators: %s: admin note status property.
-#: packages/woocommerce-admin/src/Notes/WC_Admin_Note.php:469
+#: packages/woocommerce-admin/src/Notes/WC_Admin_Note.php:470
 msgid "The admin note status prop (%s) is not one of the supported statuses."
 msgstr ""
 
-#: packages/woocommerce-admin/src/Notes/WC_Admin_Note.php:485
+#: packages/woocommerce-admin/src/Notes/WC_Admin_Note.php:486
 msgid "The admin note source prop cannot be empty."
 msgstr ""
 
-#: packages/woocommerce-admin/src/Notes/WC_Admin_Note.php:498
+#: packages/woocommerce-admin/src/Notes/WC_Admin_Note.php:499
 msgid "The admin note date prop cannot be empty."
 msgstr ""
 
-#: packages/woocommerce-admin/src/Notes/WC_Admin_Note.php:543
+#: packages/woocommerce-admin/src/Notes/WC_Admin_Note.php:544
 msgid "The admin note layout has a wrong prop value."
 msgstr ""
 
-#: packages/woocommerce-admin/src/Notes/WC_Admin_Note.php:582
+#: packages/woocommerce-admin/src/Notes/WC_Admin_Note.php:583
 msgid "The admin note action name prop cannot be empty."
 msgstr ""
 
-#: packages/woocommerce-admin/src/Notes/WC_Admin_Note.php:586
+#: packages/woocommerce-admin/src/Notes/WC_Admin_Note.php:587
 msgid "The admin note action label prop cannot be empty."
 msgstr ""
 
@@ -26826,15 +26826,15 @@ msgstr ""
 msgid "Share feedback"
 msgstr ""
 
-#: packages/woocommerce-admin/src/Notes/WC_Admin_Notes_Historical_Data.php:72
+#: packages/woocommerce-admin/src/Notes/WC_Admin_Notes_Historical_Data.php:76
 msgid "WooCommerce Admin: Historical Analytics Data"
 msgstr ""
 
-#: packages/woocommerce-admin/src/Notes/WC_Admin_Notes_Historical_Data.php:73
+#: packages/woocommerce-admin/src/Notes/WC_Admin_Notes_Historical_Data.php:77
 msgid "To view your historical analytics data, you must process your existing orders and customers."
 msgstr ""
 
-#: packages/woocommerce-admin/src/Notes/WC_Admin_Notes_Historical_Data.php:81
+#: packages/woocommerce-admin/src/Notes/WC_Admin_Notes_Historical_Data.php:85
 msgid "Get Started"
 msgstr ""
 
@@ -27025,15 +27025,15 @@ msgstr ""
 msgid "Activate usage tracking"
 msgstr ""
 
-#: packages/woocommerce-admin/src/Notes/WC_Admin_Notes_WooCommerce_Payments.php:99
+#: packages/woocommerce-admin/src/Notes/WC_Admin_Notes_WooCommerce_Payments.php:102
 msgid "Try the new way to get paid"
 msgstr ""
 
-#: packages/woocommerce-admin/src/Notes/WC_Admin_Notes_WooCommerce_Payments.php:100
+#: packages/woocommerce-admin/src/Notes/WC_Admin_Notes_WooCommerce_Payments.php:103
 msgid "Securely accept credit and debit cards on your site. Manage transactions without leaving your WordPress dashboard. Only with WooCommerce Payments."
 msgstr ""
 
-#: packages/woocommerce-admin/src/Notes/WC_Admin_Notes_WooCommerce_Payments.php:106
+#: packages/woocommerce-admin/src/Notes/WC_Admin_Notes_WooCommerce_Payments.php:109
 msgid "Install now"
 msgstr ""
 
@@ -27155,27 +27155,27 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. Translators: %1$s is the install command, %2$s is the build command, %3$s is the watch command.
-#: packages/woocommerce-blocks/src/Domain/Bootstrap.php:119
+#: packages/woocommerce-blocks/src/Domain/Bootstrap.php:120
 msgid "WooCommerce Blocks development mode requires files to be built. From the plugin directory, run %1$s to install dependencies, %2$s to build the files or %3$s to build the files and watch for changes."
 msgstr ""
 
-#. Translators: %1$s table name, %2$s database user, %3$s database name.
-#: packages/woocommerce-blocks/src/Installer.php:114
-msgid "WooCommerce %1$s table creation failed. Does the %2$s user have CREATE privileges on the %3$s database?"
-msgstr ""
-
-#: packages/woocommerce-blocks/src/Library.php:123
-#: packages/woocommerce-blocks/src/Library.php:135
+#: packages/woocommerce-blocks/src/Domain/Services/DraftOrders.php:100
+#: packages/woocommerce-blocks/src/Domain/Services/DraftOrders.php:114
 msgctxt "Order status"
 msgid "Draft"
 msgstr ""
 
 #. translators: %s: number of orders
-#: packages/woocommerce-blocks/src/Library.php:141
+#: packages/woocommerce-blocks/src/Domain/Services/DraftOrders.php:120
 msgid "Drafts <span class=\"count\">(%s)</span>"
 msgid_plural "Drafts <span class=\"count\">(%s)</span>"
 msgstr[0] ""
 msgstr[1] ""
+
+#. Translators: %1$s table name, %2$s database user, %3$s database name.
+#: packages/woocommerce-blocks/src/Installer.php:113
+msgid "WooCommerce %1$s table creation failed. Does the %2$s user have CREATE privileges on the %3$s database?"
+msgstr ""
 
 #: packages/woocommerce-blocks/src/Payments/Integrations/Stripe.php:216
 msgid "Mastercard"

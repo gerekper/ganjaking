@@ -97,25 +97,13 @@ if ( ! class_exists( 'RSPointPriceFrontend' ) ) {
         }
 
         public static function point_price_value( $item , $PointPriceType , $IndividualPointsForProduct ) {
-            $PointPriceLabel     = get_option( 'rs_label_for_point_value' ) ;
-            $PixelValue          = get_option( 'rs_pixel_val' ) != '' ? get_option( 'rs_pixel_val' ) : 1 ;
             $PointsAfterRoundOff = round_off_type( $IndividualPointsForProduct ) ;
             if ( $PointPriceType == '1' ) { //Currency & Point Pricing
-                if ( get_option( 'rs_sufix_prefix_point_price_label' ) == '1' ) {
-                    $ProductPriceToDisplay = "{$PointPriceLabel}<span style='margin-left:{$PixelValue}px;'>{$IndividualPointsForProduct}</span>" ;
-                } else {
-                    $RemoveSlashIfExist    = str_replace( "/" , "" , $PointPriceLabel ) ;
-                    $ProductPriceToDisplay = '/' . "{$IndividualPointsForProduct}<span style='margin-left:{$PixelValue}px;'>{$RemoveSlashIfExist}</span>" ;
-                }
-                $product_price = wc_price( $item[ 'data' ]->get_price() ) . $ProductPriceToDisplay ;
+                $ProductPriceToDisplay = display_point_price_value( $IndividualPointsForProduct , true ) ;
+                $product_price         = wc_price( $item[ 'data' ]->get_price() ) . $ProductPriceToDisplay ;
                 return $product_price ;
             } else {  //Only Point Price
-                $RemoveSlashIfExist = str_replace( "/" , "" , $PointPriceLabel ) ;
-                if ( get_option( 'rs_sufix_prefix_point_price_label' ) == '1' ) {
-                    $product_price = "{$RemoveSlashIfExist}<span style='margin-left:{$PixelValue}px;'>{$IndividualPointsForProduct}</span>" ;
-                } else {
-                    $product_price = "{$IndividualPointsForProduct}<span style='margin-left:{$PixelValue}px;'>{$RemoveSlashIfExist}</span>" ;
-                }
+                $product_price = display_point_price_value( $IndividualPointsForProduct ) ;
                 return $product_price ;
             }
         }
@@ -135,9 +123,8 @@ if ( ! class_exists( 'RSPointPriceFrontend' ) ) {
             if ( $Gateway != 'reward_gateway' )
                 return $line_total ;
 
-            $Points          = array() ;
-            $OtherValue      = array() ;
-            $PointPriceLabel = str_replace( "/" , "" , get_option( 'rs_label_for_point_value' ) ) ;
+            $Points     = array() ;
+            $OtherValue = array() ;
             foreach ( $order->get_items()as $item ) {
                 $ProductId            = ! empty( $item[ 'variation_id' ] ) ? $item[ 'variation_id' ] : $item[ 'product_id' ] ;
                 $PointPriceData       = calculate_point_price_for_products( $ProductId ) ;
@@ -148,12 +135,8 @@ if ( ! class_exists( 'RSPointPriceFrontend' ) ) {
                     $Points[] = redeem_point_conversion( $item[ 'line_subtotal' ] , $OrderObj[ 'order_userid' ] ) ;
                 }
             }
-            $TotalPoints = round_off_type( array_sum( $Points ) ) + $order->get_total_shipping() + $order->get_shipping_tax() ;
-            if ( get_option( 'rs_sufix_prefix_point_price_label' ) == '1' ) {
-                $product_price = "{$PointPriceLabel}<span style='margin-left:{'" . get_option( 'rs_pixel_val' ) . "'}px;'>{$TotalPoints}</span>" ;
-            } else {
-                $product_price = "{$TotalPoints}<span style='margin-left:{'" . get_option( 'rs_pixel_val' ) . "'}px;'>{$PointPriceLabel}</span>" ;
-            }
+            $TotalPoints   = round_off_type( array_sum( $Points ) ) ;
+            $product_price = display_point_price_value( $TotalPoints ) ;
             return $product_price ;
         }
 
@@ -172,18 +155,14 @@ if ( ! class_exists( 'RSPointPriceFrontend' ) ) {
             if ( $Gateway != 'reward_gateway' )
                 return $line_total ;
 
-            $ProductId       = ! empty( $id[ 'variation_id' ] ) ? $id[ 'variation_id' ] : $id[ 'product_id' ] ;
-            $PointPriceLabel = str_replace( "/" , "" , get_option( 'rs_label_for_point_value' ) ) ;
-            $PointPriceData  = calculate_point_price_for_products( $ProductId ) ;
+            $ProductId      = ! empty( $id[ 'variation_id' ] ) ? $id[ 'variation_id' ] : $id[ 'product_id' ] ;
+            $PointPriceData = calculate_point_price_for_products( $ProductId ) ;
             if ( ! empty( $PointPriceData[ $ProductId ] ) ) {
-                $Points = $PointPriceData[ $ProductId ] * $id[ 'qty' ] ;
-                if ( get_option( 'rs_sufix_prefix_point_price_label' ) == '1' ) {
-                    $product_price = "{$PointPriceLabel}<span style='margin-left:{'" . get_option( 'rs_pixel_val' ) . "'}px;'>{$Points}</span>" ;
-                } else {
-                    $product_price = "{$Points}<span style='margin-left:{'" . get_option( 'rs_pixel_val' ) . "'}px;'>{$PointPriceLabel}</span>" ;
-                }
+                $Points        = $PointPriceData[ $ProductId ] * $id[ 'qty' ] ;
+                $product_price = display_point_price_value( $Points ) ;
             } else {
-                $Points = redeem_point_conversion( $id[ 'line_subtotal' ] , $OrderObj[ 'order_userid' ] ) ;
+                $PointPriceLabel = str_replace( "/" , "" , get_option( 'rs_label_for_point_value' ) ) ;
+                $Points          = redeem_point_conversion( $id[ 'line_subtotal' ] , $OrderObj[ 'order_userid' ] ) ;
                 if ( get_option( 'rs_sufix_prefix_point_price_label' ) == '1' ) {
                     $product_price = '<span style="margin-left:10px;">' . $PointPriceLabel . '</span>' . $Points ;
                 } else {
@@ -287,24 +266,12 @@ if ( ! class_exists( 'RSPointPriceFrontend' ) ) {
             }
             $CurrencyPointPriceAmnt = array_sum( $CurrencyPointPriceValue ) ;
             if ( ! empty( $CurrencyPointPriceAmnt ) ) {
-                $replace = str_replace( "/" , "" , get_option( 'rs_label_for_point_value' ) ) ;
-                $pixel   = get_option( 'rs_pixel_val' ) ;
-                if ( get_option( 'rs_sufix_prefix_point_price_label' ) == '1' ) {
-                    $TotalAmount = "/{$replace}<span style='margin-left:{$pixel}px;'>{$CurrencyPointPriceAmnt}</span>" ;
-                } else {
-                    $TotalAmount = "/{$CurrencyPointPriceAmnt}<span style='margin-left:{$pixel}px;'>{$replace}</span>" ;
-                }
-                return $CartSubTotal . $TotalAmount ;
+                $PointPrice = display_point_price_value( $CurrencyPointPriceAmnt ) ;
+                return $CartSubTotal . "/$PointPrice" ;
             }
             $OnlyPointPriceAmnt = array_sum( $OnlyPointPriceValue ) ;
             if ( ! empty( $OnlyPointPriceAmnt ) ) {
-                $replace = str_replace( "/" , "" , get_option( 'rs_label_for_point_value' ) ) ;
-                $pixel   = get_option( 'rs_pixel_val' ) ;
-                if ( get_option( 'rs_sufix_prefix_point_price_label' ) == '1' ) {
-                    $CartSubTotal = "{$replace}<span style='margin-left:{$pixel}px;'>{$OnlyPointPriceAmnt}</span>" ;
-                } else {
-                    $CartSubTotal = "{$OnlyPointPriceAmnt}<span style='margin-left:{$pixel}px;'>{$replace}</span>" ;
-                }
+                $CartSubTotal = display_point_price_value( $OnlyPointPriceAmnt ) ;
                 return $CartSubTotal ;
             }
             return $CartSubTotal ;
@@ -377,14 +344,7 @@ if ( ! class_exists( 'RSPointPriceFrontend' ) ) {
             $TotalPoint                = (array_sum( $ItemPointsTotal ) + redeem_point_conversion( $TotalPointConversionValue , get_current_user_id() )) - $CouponAmount ;
             $TotalPointsWithTax        = $TotalPoint + $ShippingConversionValue + $FeeAmnt ;
             $TotalPointAfterRoundOff   = round_off_type( $TotalPointsWithTax ) ;
-            $PixelValue                = get_option( 'rs_pixel_val' ) != '' ? get_option( 'rs_pixel_val' ) : 1 ;
-            $PointPriceLabel           = get_option( 'rs_label_for_point_value' ) ;
-            if ( get_option( 'rs_sufix_prefix_point_price_label' ) == '1' ) {
-                $CartTotalToDisplay = "{$PointPriceLabel}<span style='margin-left:{$PixelValue}px;'>{$TotalPointAfterRoundOff}</span>" ;
-            } else {
-                $RemoveSlashIfExist = str_replace( "/" , "" , $PointPriceLabel ) ;
-                $CartTotalToDisplay = '/' . "{$TotalPointAfterRoundOff}<span style='margin-left:{$PixelValue}px;'>{$RemoveSlashIfExist}</span>" ;
-            }
+            $CartTotalToDisplay        = display_point_price_value( $TotalPointAfterRoundOff , true ) ;
 
             if ( in_array( "yes" , $EnablePointPriceforSimple ) || in_array( "1" , $EnablePointPriceForVariable ) || in_array( "1" , $EnablePointPriceValue ) ) {
                 if ( in_array( '2' , $PointPriceType ) ) {
@@ -444,13 +404,7 @@ if ( ! class_exists( 'RSPointPriceFrontend' ) ) {
             if ( ! empty( $CheckIfEnable[ $VariationId ] ) )
                 return $Price ;
 
-            $replace = str_replace( "/" , "" , get_option( 'rs_label_for_point_value' ) ) ;
-            $pixel   = get_option( 'rs_pixel_val' ) ;
-            if ( get_option( 'rs_sufix_prefix_point_price_label' ) == '1' ) {
-                $Price = "{$replace}<span style='margin-left:{$pixel}px;'>{$CheckIfEnable[ $VariationId ]}</span>" ;
-            } else {
-                $Price = "{$CheckIfEnable[ $VariationId ]}<span style='margin-left:{$pixel}px;'>{$replace}</span>" ;
-            }
+            $Price = display_point_price_value( $CheckIfEnable[ $VariationId ] ) ;
             return $Price ;
         }
 
@@ -495,8 +449,8 @@ if ( ! class_exists( 'RSPointPriceFrontend' ) ) {
                 return $valid ;
 
             $ProductIdAdded = isset( $variation_id ) ? $variation_id : $product_id ;
-            if ( ! is_user_logged_in() && self::check_is_point_pricing_enable( $ProductIdAdded ) ) {
-                wc_add_notice( __( 'Please signup to purchase this Product' , SRP_LOCALE ) , 'error' ) ;
+            if ( ! is_user_logged_in() && check_display_price_type( $ProductIdAdded ) ) {
+                wc_add_notice( do_shortcode( get_option( 'rs_point_price_product_added_to_cart_guest_errmsg' , 'Only registered users can purchase this product. Click the link to create an account ([loginlink]).' ) ) , 'error' ) ;
                 return ;
             }
 
@@ -551,7 +505,7 @@ if ( ! class_exists( 'RSPointPriceFrontend' ) ) {
                 }
             } else if ( check_display_price_type( $ProductId ) == '' ) {
                 if ( check_display_price_type( $ProductIdAdded ) == '2' ) {
-                    wc_add_notice( get_option( 'rs_errmsg_for_normal_product_with_point_price' ) , 'error' ) ;
+                    wc_add_notice( get_option( 'rs_errmsg_for_point_price_product_with_normal' ) , 'error' ) ;
                     return false ;
                 }
             } else if ( check_display_price_type( $ProductIdAdded ) == '2' ) {

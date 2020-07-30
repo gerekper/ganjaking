@@ -303,13 +303,13 @@ if ( ! function_exists( 'check_if_referral_is_restricted' ) ) {
             }
         } elseif ( $UserSelectionType == '4' ) {
             if ( srp_check_is_array( get_option( 'rs_select_users_role_for_show_referral_link' ) ) ) {
-                $inc_role = array_intersect( $UserRole , get_option( 'rs_select_users_role_for_show_referral_link' ) ) ;
+                $inc_role = array_intersect( ( array ) $UserRole , ( array ) get_option( 'rs_select_users_role_for_show_referral_link' ) ) ;
                 if ( srp_check_is_array( $inc_role ) )
                     return true ;
             }
         } else {
             if ( srp_check_is_array( get_option( 'rs_select_exclude_users_role_for_show_referral_link' ) ) ) {
-                $exc_role = array_intersect( $UserRole , get_option( 'rs_select_exclude_users_role_for_show_referral_link' ) ) ;
+                $exc_role = array_intersect( ( array ) $UserRole , ( array ) get_option( 'rs_select_exclude_users_role_for_show_referral_link' ) ) ;
                 if ( ! srp_check_is_array( $exc_role ) )
                     return true ;
             }
@@ -887,6 +887,14 @@ if ( ! function_exists( 'rs_send_mail_for_actions' ) ) {
             if ( $event_slug == 'RRRP' ) {
                 $subject = get_option( 'rs_email_subject_referral_signup' ) ;
                 $message = str_replace( '[rs_earned_points]' , $earned_point , str_replace( '[rs_user_name]' , $user_name , str_replace( '[rs_available_points]' , $total_earned_point , get_option( 'rs_email_message_referral_signup' ) ) ) ) ;
+
+                if ( $order_id ) {
+                    $user_id = get_post_meta( $order_id , '_referrer_name' , true ) ;
+                    $user    = get_user_by( 'ID' , $user_id ) ;
+                    if ( is_object( $user ) ) {
+                        $message = str_replace( array( '[rs_referrer_name]' , '[rs_referrer_email_id]' ) , array( $user->user_login , $user->user_email ) , $message ) ;
+                    }
+                }
             }
         }
         //  Referral Reward Points Getting Referred
@@ -1045,16 +1053,18 @@ if ( ! function_exists( 'currency_value_for_available_points' ) ) {
 
 if ( ! function_exists( 'date_display_format' ) ) {
 
-    function date_display_format( $values ) {
-        $gmtdate = is_numeric( $values[ 'earneddate' ] ) ? $values[ 'earneddate' ] + ( int ) get_option( 'gmt_offset' ) * HOUR_IN_SECONDS : $values[ 'earneddate' ] ;
+    function date_display_format( $date ) {
+
+        $gmtdate = is_numeric( $date ) ? ( int ) $date + (( float ) get_option( 'gmt_offset' ) * HOUR_IN_SECONDS ) : $date ;
         if ( get_option( 'rs_dispaly_time_format' ) == '1' ) {
-            $update_start_date = is_numeric( $values[ 'earneddate' ] ) ? date_i18n( "d-m-Y h:i:s A" , $gmtdate ) : $values[ 'earneddate' ] ;
+            $update_start_date = is_numeric( $date ) ? date_i18n( "d-m-Y H:i:s A" , $gmtdate ) : $date ;
         } else {
             $timeformat        = get_option( 'time_format' ) ;
             $dateformat        = get_option( 'date_format' ) . ' ' . $timeformat ;
-            $update_start_date = is_numeric( $values[ 'earneddate' ] ) ? date_i18n( $dateformat , $gmtdate ) : $values[ 'earneddate' ] ;
+            $update_start_date = is_numeric( $date ) ? date_i18n( $dateformat , $gmtdate ) : $date ;
             $update_start_date = strftime( $update_start_date ) ;
         }
+
         return $update_start_date ;
     }
 
@@ -2407,16 +2417,12 @@ function point_price_format_for_booking_product( $format_price , $booking_price 
 
     if ( get_post_meta( $product_id , '_rewardsystem_enable_point_price' , true ) == 'yes' && get_option( 'rs_enable_product_category_level_for_points_price' ) == 'yes' ) {
         $point_price_label = get_option( 'rs_label_for_point_value' ) ;
-        $pixel             = get_option( 'rs_pixel_val' ) ;
         $price             = calculate_point_price_for_products( $product_id ) ;
         if ( get_post_meta( $product_id , '_rewardsystem_enable_point_price_type' , true ) == 2 ) {
             return $price[ $product_id ] . $point_price_label ;
         } else {
-            if ( get_option( 'rs_sufix_prefix_point_price_label' ) == 2 ) {
-                return $format_price . '/' . "{$price[ $product_id ]}<span style='margin-left:{$pixel}px;'>{$point_price_label}</span>" ;
-            } else {
-                return $format_price . '/' . "{$point_price_label}<span style='margin-left:{$pixel}px;'>{$price[ $product_id ]}</span>" ;
-            }
+            $PointPrice = display_point_price_value( $price[ $product_id ] ) ;
+            return $format_price . '/' . $PointPrice ;
         }
     }
     return $format_price ;
@@ -2480,6 +2486,7 @@ if ( ! function_exists( 'order_total_in_order_detail' ) ) {
 
         $OrderObj = srp_order_obj( $order ) ;
         $Gateway  = get_post_meta( $OrderObj[ 'order_id' ] , '_payment_method' , true ) ;
+        $user_id  = $OrderObj[ 'order_userid' ] ;
         if ( $Gateway != 'reward_gateway' )
             return $total ;
 
@@ -2493,7 +2500,6 @@ if ( ! function_exists( 'order_total_in_order_detail' ) ) {
         $CouponAmnt     = array_sum( $DiscountAmnt ) ;
         $tax_display    = get_option( 'woocommerce_tax_display_cart' ) ;
         $excl_tax_total = ($tax_display == "excl") ? $order->get_total_tax() : 0 ;
-        $ReplaceLabel   = str_replace( "/" , "" , get_option( 'rs_label_for_point_value' ) ) ;
         foreach ( $order->get_items()as $item ) {
             $ProductId             = ! empty( $item[ 'variation_id' ] ) ? $item[ 'variation_id' ] : $item[ 'product_id' ] ;
             $PointPriceData        = calculate_point_price_for_products( $ProductId ) ;
@@ -2506,7 +2512,7 @@ if ( ! function_exists( 'order_total_in_order_detail' ) ) {
                 } else {
                     $LineTotal = $item[ 'line_subtotal' ] ;
                 }
-                $OtherValue[] = redeem_point_conversion( $LineTotal , $OrderObj[ 'order_userid' ] ) ;
+                $OtherValue[] = redeem_point_conversion( $LineTotal , $user_id ) ;
             }
         }
 
@@ -2519,14 +2525,10 @@ if ( ! function_exists( 'order_total_in_order_detail' ) ) {
                 $fee_total += $item_fee->get_total() ;
             }
         }
-        $TotalPoints  = array_sum( $Points ) + array_sum( $OtherValue ) - $CouponAmnt ;
-        $shipping_tax = $tax_display == 'excl' ? $order->get_total_shipping() : $order->get_total_shipping() + $order->get_shipping_tax() ;
-        $TotalPoints  = round_off_type( $TotalPoints ) + $shipping_tax + $excl_tax_total + $fee_total ;
-        if ( get_option( 'rs_sufix_prefix_point_price_label' ) == '1' ) {
-            $product_price = "{$ReplaceLabel}<span style='margin-left:{'" . get_option( 'rs_pixel_val' ) . "'}px;'>{$TotalPoints}</span>" ;
-        } else {
-            $product_price = "{$TotalPoints}<span style='margin-left:{'" . get_option( 'rs_pixel_val' ) . "'}px;'>{$ReplaceLabel}</span>" ;
-        }
+        $TotalPoints   = array_sum( $Points ) + array_sum( $OtherValue ) - $CouponAmnt ;
+        $shipping_tax  = $tax_display == 'excl' ? $order->get_total_shipping() : $order->get_total_shipping() + $order->get_shipping_tax() ;
+        $TotalPoints   = round_off_type( $TotalPoints ) + redeem_point_conversion( $shipping_tax , $user_id ) + redeem_point_conversion( $excl_tax_total , $user_id ) + redeem_point_conversion( $fee_total , $user_id ) ;
+        $product_price = display_point_price_value( $TotalPoints ) ;
         return $product_price ;
     }
 
@@ -2765,7 +2767,7 @@ if ( ! function_exists( 'rs_get_referrer_email_info_in_order' ) ) {
     function rs_get_referrer_email_info_in_order( $order_id , $message ) {
 
         $referred_id = get_post_meta( $order_id , '_referrer_name' , true ) ;
-        if ( ! referred_id )
+        if ( ! $referred_id )
             return $message ;
 
         $UserInfo = get_user_by( 'id' , $referred_id ) ;
@@ -2943,6 +2945,145 @@ if ( ! function_exists( 'check_if_user_already_purchase' ) ) {
             return true ;
 
         return false ;
+    }
+
+}
+
+if ( ! function_exists( 'display_point_price_value' ) ) {
+
+    function display_point_price_value( $Points , $Slash = false ) {
+
+        $Label = get_option( 'rs_label_for_point_value' ) ;
+
+        if ( get_option( 'rs_sufix_prefix_point_price_label' ) == '1' ) {
+            $PointPrice = $Label . '<span style="margin-left:' . get_option( 'rs_pixel_val' ) . 'px;">' . $Points . '</span>' ;
+        } else {
+            if ( $Slash ) {
+                $RemoveSlashIfExist = str_replace( "/" , "" , $Label ) ;
+                $PointPrice         = '/' . $Points . '<span style="margin-left:' . get_option( 'rs_pixel_val' ) . 'px;">' . $RemoveSlashIfExist . '</span>' ;
+            } else {
+                $PointPrice = $Points . '<span style="margin-left:' . get_option( 'rs_pixel_val' ) . 'px;">' . $Label . '</span>' ;
+            }
+        }
+
+        return $PointPrice ;
+    }
+
+}
+
+if ( ! function_exists( 'get_payment_gateway_title' ) ) {
+
+    function get_payment_gateway_title( $gateway_id ) {
+        if ( $gateway_id != 'reward_gateway' ) {
+            return '' ;
+        }
+
+        $wc_gateways        = new WC_Payment_Gateways() ;
+        $available_gateways = $wc_gateways->get_available_payment_gateways() ;
+        $available_gateways = isset( $available_gateways[ $gateway_id ] ) ? $available_gateways[ $gateway_id ] : '' ;
+        $gateway_title      = is_object( $available_gateways ) ? $available_gateways->get_title() : '' ;
+        return $gateway_title ;
+    }
+
+}
+
+if ( ! function_exists( 'rs_get_template' ) ) {
+
+    /**
+     *  Get template.
+     * */
+    function rs_get_template( $template_name , $args = array() ) {
+
+        $plugin_path = SRP_PLUGIN_PATH . '/templates/' ;
+
+        wc_get_template( $template_name , $args , 'rewardsystem/' , $plugin_path ) ;
+    }
+
+}
+
+if ( ! function_exists( 'rs_get_endpoint_url' ) ) {
+
+    /**
+     * Get endpoint URL .
+     */
+    function rs_get_endpoint_url( $query_args , $page = false , $permalink = '' ) {
+
+        if ( ! $permalink ) {
+            $permalink = get_permalink() ;
+        }
+
+        $url = trailingslashit( $permalink ) ;
+
+        if ( $page ) {
+            $query_args = array_merge( $query_args , array( 'page_no' => $page ) ) ;
+        }
+
+        return add_query_arg( $query_args , $url ) ;
+    }
+
+}
+
+if ( ! function_exists( 'rs_exclude_particular_users' ) ) {
+
+    /**
+     * Exclude particular users.
+     *
+     * @return array	 
+     */
+    function rs_exclude_particular_users( $field_id ) {
+
+        $unsubscribe_user_ids             = $restrict_user_ids_to_earn_reward = array() ;
+
+        switch ( $field_id ) {
+
+            case 'rs_select_user_to_unsubscribe':
+                $args                 = array(
+                    'fields'       => 'ids' ,
+                    'meta_key'     => 'unsub_value' ,
+                    'meta_value'   => 'yes' ,
+                    'meta_compare' => '=' ,
+                        ) ;
+                $unsubscribe_user_ids = get_users( $args ) ;
+                break ;
+
+            case 'rs_select_to_include_customers' :
+            case 'rs_select_to_exclude_customers' :
+                $args                             = array(
+                    'fields'       => 'ids' ,
+                    'meta_key'     => 'allow_user_to_earn_reward_points' ,
+                    'meta_value'   => 'yes' ,
+                    'meta_compare' => '!=' ,
+                        ) ;
+                $restrict_user_ids_to_earn_reward = ('yes' == get_option( 'rs_enable_reward_program' ) ) ? get_users( $args ) : array() ;
+                break ;
+        }
+
+        return array_merge( $unsubscribe_user_ids , $restrict_user_ids_to_earn_reward ) ;
+    }
+
+}
+
+if( ! function_exists( 'rs_get_screen_option_names' ) ) {
+
+    /**
+     * Get screen options names.
+     *
+     * @return array
+     */
+    function rs_get_screen_option_names() {
+
+        $option_names = array(
+            'fpgiftvoucher' ,
+            'fprsmasterlog' ,
+            'fpnominee' ,
+            'fpreferralsystem' ,
+            'fprsuserrewardpoints' ,
+            'fppointurl' ,
+            'fpsendpoints' ,
+            'fprsmodules'
+                ) ;
+
+        return apply_filters( 'rs_screen_option_names' , $option_names ) ;
     }
 
 }

@@ -2,9 +2,9 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Free Gift Coupons 2.5.0\n"
+"Project-Id-Version: WooCommerce Free Gift Coupons 2.5.2\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/tickets/\n"
-"POT-Creation-Date: 2020-06-30 19:55:24+00:00\n"
+"POT-Creation-Date: 2020-07-22 15:22:01+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -116,44 +116,27 @@ msgstr ""
 msgid "Support"
 msgstr ""
 
-#: includes/class-wc-free-gift-coupons.php:50
-#. translators: %1$s: Opening link tag, %2$s: Closing link tag, %3$s: Required
-#. version of WooCommerce
-msgid ""
-"<strong>WooCommerce Free Gift Coupons is inactive.</strong> The "
-"%1$sWooCommerce plugin%2$s must be active and at least version %3$s for "
-"Free Gift Coupons to function. Please upgrade or activate WooCommerce."
-msgstr ""
-
-#: includes/class-wc-free-gift-coupons.php:59
-#. translators: %1$s: Opening link tag, %2$s: Closing link tag, %3$s: Required
-#. version of PHP
-msgid ""
-"WooCommerce Free Gift Coupons requires at least PHP <strong>%1$s</strong>. "
-"Learn <a href=\"%2$s\">how to update PHP</a>."
-msgstr ""
-
-#: includes/class-wc-free-gift-coupons.php:163
+#: includes/class-wc-free-gift-coupons.php:145
 #. translators: %s: Required version of WooCommerce
 msgid ""
 "WooCommerce Free Gift Coupons requires at least WooCommerce %s in order to "
 "function. Please upgrade WooCommerce."
 msgstr ""
 
-#: includes/class-wc-free-gift-coupons.php:175
+#: includes/class-wc-free-gift-coupons.php:157
 msgid "Free Gift"
 msgstr ""
 
-#: includes/class-wc-free-gift-coupons.php:305
+#: includes/class-wc-free-gift-coupons.php:287
 #. Translators: %s Product title.
 msgid "You are not allowed to modify the quantity of your %s gift."
 msgstr ""
 
-#: includes/class-wc-free-gift-coupons.php:376
+#: includes/class-wc-free-gift-coupons.php:358
 msgid "A gift item which is no longer available was removed from your cart."
 msgstr ""
 
-#: includes/class-wc-free-gift-coupons.php:419
+#: includes/class-wc-free-gift-coupons.php:401
 msgid "Free!"
 msgstr ""
 
@@ -176,6 +159,23 @@ msgstr ""
 
 #: includes/compatibility/modules/class-wc-fgc-smart-coupons-compatibility.php:127
 msgid "Free Gift!"
+msgstr ""
+
+#: woocommerce-free-gift-coupons.php:47
+#. translators: %1$s: Opening link tag, %2$s: Closing link tag, %3$s: Required
+#. version of WooCommerce
+msgid ""
+"<strong>WooCommerce Free Gift Coupons is inactive.</strong> The "
+"%1$sWooCommerce plugin%2$s must be active and at least version %3$s for "
+"Free Gift Coupons to function. Please upgrade or activate WooCommerce."
+msgstr ""
+
+#: woocommerce-free-gift-coupons.php:56
+#. translators: %1$s: Opening link tag, %2$s: Closing link tag, %3$s: Required
+#. version of PHP
+msgid ""
+"WooCommerce Free Gift Coupons requires at least PHP <strong>%1$s</strong>. "
+"Learn <a href=\"%2$s\">how to update PHP</a>."
 msgstr ""
 
 #. Plugin Name of the plugin/theme

@@ -1,4 +1,9 @@
 *** WooCommerce Order Barcodes Changelog ***
+
+2020-07-22 - version 1.3.21
+* Fix - Show barcode as image in emails and on frontend pages.
+* Tweak - Remove email link for viewing barcode in browser.
+
 2020-07-14 - version 1.3.20
 * Fix - Add link to order in email.
 

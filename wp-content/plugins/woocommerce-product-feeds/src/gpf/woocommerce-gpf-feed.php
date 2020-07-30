@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Feed base case.
  *
@@ -21,14 +22,30 @@ abstract class WoocommerceGpfFeed {
 	protected $store_info;
 
 	/**
+	 * @var WoocommerceGpfCommon
+	 */
+	protected $woocommerce_gpf_common;
+
+	/**
+	 * @var WoocommerceGpfDebugService
+	 */
+	protected $debug;
+
+	/**
 	 * Constructor.
 	 * Grab the settings, and set up the store info object
 	 *
 	 * @access public
+	 *
+	 * @param WoocommerceGpfCommon $woocommerce_gpf_common
+	 * @param WoocommerceGpfDebugService $debug
 	 */
-	function __construct() {
-
-		$woocommerce = wc();
+	public function __construct(
+		WoocommerceGpfCommon $woocommerce_gpf_common,
+		WoocommerceGpfDebugService $debug
+	) {
+		$this->woocommerce_gpf_common = $woocommerce_gpf_common;
+		$this->debug                  = $debug;
 
 		$this->settings = get_option( 'woocommerce_gpf_config' );
 
@@ -38,7 +55,7 @@ abstract class WoocommerceGpfFeed {
 		$this->store_info->blog_name     = get_option( 'blogname' );
 		$this->store_info->currency      = get_woocommerce_currency();
 		$this->store_info->weight_units  = get_option( 'woocommerce_weight_unit' );
-		$this->store_info->base_country  = $woocommerce->countries->get_base_country();
+		$this->store_info->base_country  = wc()->countries->get_base_country();
 
 		$this->store_info = apply_filters( 'woocommerce_gpf_store_info', $this->store_info );
 	}
@@ -47,7 +64,9 @@ abstract class WoocommerceGpfFeed {
 	 * Helper function used to output an escaped value for use in a CSV
 	 *
 	 * @access protected
-	 * @param  string $string The string to be escaped
+	 *
+	 * @param string $string The string to be escaped
+	 *
 	 * @return string         The escaped string
 	 */
 	protected function csvescape( $string ) {
@@ -82,9 +101,9 @@ abstract class WoocommerceGpfFeed {
 	 */
 	protected function tsvescape( $string, $charset_convert = true ) {
 
-		$string     = html_entity_decode( $string, ENT_HTML401 | ENT_QUOTES ); // Convert any HTML entities
-		if ($charset_convert) {
-			$string     = iconv(
+		$string = html_entity_decode( $string, ENT_HTML401 | ENT_QUOTES ); // Convert any HTML entities
+		if ( $charset_convert ) {
+			$string = iconv(
 				'UTF-8',
 				'ASCII//TRANSLIT//IGNORE',
 				$string
@@ -104,6 +123,7 @@ abstract class WoocommerceGpfFeed {
 		if ( stristr( $string, apply_filters( 'woocommerce_gpf_tsv_separator', "\t" ) ) && ! $doneescape ) {
 			$string = "\"$string\"";
 		}
+
 		return apply_filters( 'woocommerce_gpf_tsv_escape_string', $string );
 	}
 
@@ -119,6 +139,7 @@ abstract class WoocommerceGpfFeed {
 	 * Override this to generate the output for an individual item
 	 *
 	 * @access public
+	 *
 	 * @param $item object Item object
 	 */
 	abstract public function render_item( $item );
@@ -128,6 +149,7 @@ abstract class WoocommerceGpfFeed {
 	 * Opening XML declarations, CSV header rows etc.
 	 *
 	 * @access public
+	 *
 	 * @param  $store_info object Object containing information about the store
 	 */
 	abstract public function render_footer();

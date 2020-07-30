@@ -4,9 +4,9 @@ Donate link: https://wpdeveloper.net
 Tags: knowledge base, docs, documentation, documents, faq page, doc, knowledge, table of content, TOC, knowledgebase, faqs, doc page, best documentation plugin, support, customer support
 Requires at least: 4.0
 Tested up to: 5.4
-Stable tag: 1.2.8
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Stable tag: 1.3.0
+License: GPLv3 or later
+License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 A better documentation and knowledgebase plugin for WordPress
 
@@ -90,6 +90,13 @@ Yes, it will work with any standard WordPress theme.
 
 
 == Changelog ==
+
+= 1.3.0 - 27/07/2020 =
+- Added: Multiple Knowledge Base
+- Improved: Instant Answer U/I & Coding Structure
+- Fixed: Instant Answer Submit button not working when used on External website
+- Fixed: Instant Answer Place holder data not working
+- Few minor bugfix and improvements
 
 = 1.2.8 - 10/06/2020 =
 - Fixed: 'WP is not defined' error when using Instant Answers in external website

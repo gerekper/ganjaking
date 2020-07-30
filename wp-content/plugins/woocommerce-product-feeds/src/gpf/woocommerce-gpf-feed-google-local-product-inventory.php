@@ -2,10 +2,6 @@
 
 class WoocommerceGpfFeedGoogleLocalProductInventory extends WoocommerceGpfFeedGoogle {
 
-	public function __construct() {
-		parent::__construct();
-	}
-
 	/*
 	 * Output the "title" element in the feed intro.
 	 */
@@ -33,22 +29,22 @@ class WoocommerceGpfFeedGoogleLocalProductInventory extends WoocommerceGpfFeedGo
 	 *
 	 * @return  string             The rendered output for this item.
 	 */
-	function render_item( $feed_item ) {
+	public function render_item( $feed_item ) {
 		// Google do not allow free items in the feed.
 		if ( empty( $feed_item->price_inc_tax ) ) {
 			return '';
 		}
-		$output         = '';
-		$output         .= "    <item>\n";
-		$output         .= $this->generate_item_id( $feed_item );
-		$output         .= $this->render_prices( $feed_item );
+		$output  = '';
+		$output .= "    <item>\n";
+		$output .= $this->generate_item_id( $feed_item );
+		$output .= $this->render_prices( $feed_item );
 
 		// Shop code
-		$shop_code = !empty( $this->settings['shop_code'] ) ?
+		$shop_code = ! empty( $this->settings['shop_code'] ) ?
 			$this->settings['shop_code'] :
 			'shop_001';
 		$shop_code = apply_filters( 'woocommerce_gpf_googlelocalproductinventory_store_code', $shop_code, $feed_item );
-		$output         .= '<g:store_code>' . $shop_code . '</g:store_code>';
+		$output   .= '<g:store_code>' . $shop_code . '</g:store_code>';
 
 		// Stock quantity
 		$stock_quantity = ! empty( $feed_item->stock_quantity ) ?

@@ -335,14 +335,17 @@ if ( ! class_exists( 'RSGeneralTabSetting' ) ) {
                 ) ,
                 array(
                     'name'     => __( 'Reward Points will be awarded when Order Status reaches' , SRP_LOCALE ) ,
-                    'desc'     => __( 'Here you can set Reward Points should awarded on which Status of Order' , SRP_LOCALE ) ,
+                    'desc'     => __( 'Points will award only when the order status matches with any one of the statuses selected in this field & the earned points for the corresponding order will revise from the account when the status change to any other that is not selected in this field.
+<br><br>
+<b>Example:</b><br>
+Selected only "Processing" status in this field so that points will award once the order status reached to processing. The given points will be revised from the account when changed to any other status(ex. Completed/Canceled).' , SRP_LOCALE ) ,
                     'id'       => 'rs_order_status_control' ,
                     'std'      => array( 'completed' ) ,
                     'default'  => array( 'completed' ) ,
                     'type'     => 'multiselect' ,
                     'options'  => $newcombinedarray ,
                     'newids'   => 'rs_order_status_control' ,
-                    'desc_tip' => true ,
+                    'desc_tip' => false ,
                 ) ,
                 array( 'type' => 'sectionend' , 'id' => 'rs_product_purchase_status_settings' ) ,
                 array(

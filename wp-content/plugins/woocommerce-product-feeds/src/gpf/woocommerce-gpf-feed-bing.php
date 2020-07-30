@@ -1,4 +1,5 @@
 <?php
+
 /**
  * woocommerce-gpf-feed-bing.php
  *
@@ -12,11 +13,17 @@ class WoocommerceGpfFeedBing extends WoocommerceGpfFeed {
 	 * Constructor. Grab the settings, and add filters if we have stuff to do
 	 *
 	 * @access public
+	 *
+	 * @param WoocommerceGpfCommon $woocommerce_gpf_common
+	 * @param WoocommerceGpfDebugService $debug
 	 */
-	function __construct() {
-		parent::__construct();
+	public function __construct(
+		WoocommerceGpfCommon $woocommerce_gpf_common,
+		WoocommerceGpfDebugService $debug
+	) {
+		parent::__construct( $woocommerce_gpf_common, $debug );
 		$this->store_info->feed_url = add_query_arg( 'woocommerce_gpf', 'bing', $this->store_info->feed_url_base );
-		// Bing doesn't like forreign chars
+		// Bing doesn't like foreign chars
 		$this->old_locale = get_locale();
 	}
 
@@ -28,10 +35,12 @@ class WoocommerceGpfFeedBing extends WoocommerceGpfFeed {
 	private function include_tax() {
 		if ( in_array(
 			$this->store_info->base_country,
-			array( 'GB', 'AU', 'DE', 'FR' )
+			array( 'GB', 'AU', 'DE', 'FR' ),
+			true
 		) ) {
 			return true;
 		}
+
 		return false;
 	}
 
@@ -106,15 +115,16 @@ class WoocommerceGpfFeedBing extends WoocommerceGpfFeed {
 	 * Helper function used to output a value in a warnings-safe way
 	 *
 	 * @access public
-	 * @param  object $feed_item The information about the item
-	 * @param  string $key       The particular attribute to output
+	 *
+	 * @param object $feed_item The information about the item
+	 * @param string $key The particular attribute to output
 	 *
 	 * @return                   The output for this element.
 	 */
 	private function output_element( &$feed_item, $key ) {
-		$output = '';
+		$output          = '';
 		$convert_charset = true;
-		if ($key === 'brand') {
+		if ( 'brand' === $key ) {
 			$convert_charset = false;
 		}
 		if ( isset( $this->settings['product_fields'][ $key ] ) ) {
@@ -124,6 +134,7 @@ class WoocommerceGpfFeedBing extends WoocommerceGpfFeed {
 				$output .= "\t";
 			}
 		}
+
 		return $output;
 	}
 
@@ -131,9 +142,10 @@ class WoocommerceGpfFeedBing extends WoocommerceGpfFeed {
 	 * Generate the output for an individual item
 	 *
 	 * @access public
-	 * @param  object $feed_item The information about the item
+	 *
+	 * @param object $feed_item The information about the item
 	 */
-	function render_item( $feed_item ) {
+	public function render_item( $feed_item ) {
 
 		if ( empty( $feed_item->price_inc_tax ) ) {
 			return '';
@@ -231,6 +243,7 @@ class WoocommerceGpfFeedBing extends WoocommerceGpfFeed {
 		$output .= $this->output_element( $feed_item, 'shippingcountryserviceprice' );
 
 		$output .= "\r\n";
+
 		return $output;
 	}
 

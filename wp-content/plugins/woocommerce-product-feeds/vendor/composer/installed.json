@@ -1,73 +1,142 @@
 [
     {
-        "name": "a5hleyrich/wp-background-processing",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
+        "name": "pimple/pimple",
+        "version": "v3.3.0",
+        "version_normalized": "3.3.0.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/A5hleyRich/wp-background-processing.git",
-            "reference": "1f070aab5058dbaf45d5435a343033ddd8a641b1"
+            "url": "https://github.com/silexphp/Pimple.git",
+            "reference": "e55d12f9d6a0e7f9c85992b73df1267f46279930"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/A5hleyRich/wp-background-processing/zipball/1f070aab5058dbaf45d5435a343033ddd8a641b1",
-            "reference": "1f070aab5058dbaf45d5435a343033ddd8a641b1",
+            "url": "https://api.github.com/repos/silexphp/Pimple/zipball/e55d12f9d6a0e7f9c85992b73df1267f46279930",
+            "reference": "e55d12f9d6a0e7f9c85992b73df1267f46279930",
             "shasum": ""
         },
         "require": {
-            "php": ">=5.2"
+            "php": "^7.2.5",
+            "psr/container": "^1.0"
         },
-        "time": "2018-02-12T09:24:05+00:00",
-        "type": "library",
-        "installation-source": "source",
-        "autoload": {
-            "classmap": [
-                "classes/"
-            ]
+        "require-dev": {
+            "symfony/phpunit-bridge": "^3.4|^4.4|^5.0"
         },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "GPL-2.0-only"
-        ],
-        "authors": [
-            {
-                "name": "Ashley Rich",
-                "email": "hello@ashleyrich.com"
-            }
-        ],
-        "description": "WP Background Processing can be used to fire off non-blocking asynchronous requests or as a background processing tool, allowing you to queue tasks."
-    },
-    {
-        "name": "xrstf/composer-php52",
-        "version": "v1.0.20",
-        "version_normalized": "1.0.20.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/composer-php52/composer-php52.git",
-            "reference": "bd41459d5e27df8d33057842b32377c39e97a5a8"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/composer-php52/composer-php52/zipball/bd41459d5e27df8d33057842b32377c39e97a5a8",
-            "reference": "bd41459d5e27df8d33057842b32377c39e97a5a8",
-            "shasum": ""
-        },
-        "time": "2016-04-16T21:52:24+00:00",
+        "time": "2020-03-03T09:12:48+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-default": "1.x-dev"
+                "dev-master": "3.3.x-dev"
             }
         },
         "installation-source": "dist",
         "autoload": {
             "psr-0": {
-                "xrstf\\Composer52": "lib/"
+                "Pimple": "src/"
             }
         },
         "notification-url": "https://packagist.org/downloads/",
         "license": [
             "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com"
+            }
+        ],
+        "description": "Pimple, a simple Dependency Injection Container",
+        "homepage": "https://pimple.symfony.com",
+        "keywords": [
+            "container",
+            "dependency injection"
         ]
+    },
+    {
+        "name": "psr/container",
+        "version": "1.0.0",
+        "version_normalized": "1.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/php-fig/container.git",
+            "reference": "b7ce3b176482dbbc1245ebf52b181af44c2cf55f"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/php-fig/container/zipball/b7ce3b176482dbbc1245ebf52b181af44c2cf55f",
+            "reference": "b7ce3b176482dbbc1245ebf52b181af44c2cf55f",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.0"
+        },
+        "time": "2017-02-14T16:28:37+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Psr\\Container\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "PHP-FIG",
+                "homepage": "http://www.php-fig.org/"
+            }
+        ],
+        "description": "Common Container Interface (PHP FIG PSR-11)",
+        "homepage": "https://github.com/php-fig/container",
+        "keywords": [
+            "PSR-11",
+            "container",
+            "container-interface",
+            "container-interop",
+            "psr"
+        ]
+    },
+    {
+        "name": "woocommerce/action-scheduler",
+        "version": "3.1.6",
+        "version_normalized": "3.1.6.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/woocommerce/action-scheduler.git",
+            "reference": "275d0ba54b1c263dfc62688de2fa9a25a373edf8"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/woocommerce/action-scheduler/zipball/275d0ba54b1c263dfc62688de2fa9a25a373edf8",
+            "reference": "275d0ba54b1c263dfc62688de2fa9a25a373edf8",
+            "shasum": ""
+        },
+        "require-dev": {
+            "phpunit/phpunit": "^5.6",
+            "woocommerce/woocommerce-sniffs": "0.0.8",
+            "wp-cli/wp-cli": "~1.5.1"
+        },
+        "time": "2020-05-12T16:22:33+00:00",
+        "type": "wordpress-plugin",
+        "extra": {
+            "scripts-description": {
+                "test": "Run unit tests",
+                "phpcs": "Analyze code against the WordPress coding standards with PHP_CodeSniffer",
+                "phpcbf": "Fix coding standards warnings/errors automatically with PHP Code Beautifier"
+            }
+        },
+        "installation-source": "dist",
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "GPL-3.0-or-later"
+        ],
+        "description": "Action Scheduler for WordPress and WooCommerce",
+        "homepage": "https://actionscheduler.org/"
     }
 ]

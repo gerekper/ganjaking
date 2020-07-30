@@ -166,9 +166,9 @@ if ( ! class_exists( 'RSReportsInCsv' ) ) {
                     <label for="rs_export_report_pointtype_option"><?php _e( 'Export User Points based on' , SRP_LOCALE ) ; ?></label>
                 </th>
                 <td class="forminp forminp-select">
-                    <input type="checkbox" class="rs_export_report_pointtype_option" value="1" name="rs_export_report_pointtype_option_earning" id="rs_export_report_pointtype_option_earning" >Earning Points</input>
-                    <input type="checkbox" class="rs_export_report_pointtype_option" value="1" name="rs_export_report_pointtype_option_redeeming" id="rs_export_report_pointtype_option_redeeming" >Redeeming Points</input>
-                    <input type="checkbox" class="rs_export_report_pointtype_option" value="1" name="rs_export_report_pointtype_option_total" id="rs_export_report_pointtype_option_total" checked="checked">Total Points</input>
+                    <input type="checkbox" class="rs_export_report_pointtype_option" value="1" name="rs_export_report_pointtype_option_earning" id="rs_export_report_pointtype_option_earning" /><?php _e( 'Total Earned Points' , SRP_LOCALE ) ; ?>
+                    <input type="checkbox" class="rs_export_report_pointtype_option" value="1" name="rs_export_report_pointtype_option_redeeming" id="rs_export_report_pointtype_option_redeeming" /><?php _e( 'Total Redeemed Points' , SRP_LOCALE ) ; ?>
+                    <input type="checkbox" class="rs_export_report_pointtype_option" value="1" name="rs_export_report_pointtype_option_total" id="rs_export_report_pointtype_option_total" checked="checked" /><?php _e( 'Available Points' , SRP_LOCALE ) ; ?>
                 </td>
             </tr>
             <tr valign ="top">

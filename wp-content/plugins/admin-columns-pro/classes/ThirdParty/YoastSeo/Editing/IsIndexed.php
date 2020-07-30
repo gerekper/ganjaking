@@ -27,8 +27,8 @@ class IsIndexed extends Editing\Model\Meta {
 			'type'    => 'select',
 			'options' => [
 				0 => sprintf( __( 'Default for %s, currently: %s', 'codepress-admin-columns' ), $labels->name, $currently ),
-				1 => __( 'Yes' ),
-				2 => __( 'No' ),
+				1 => __( 'No' ),
+				2 => __( 'Yes' ),
 			],
 		];
 	}

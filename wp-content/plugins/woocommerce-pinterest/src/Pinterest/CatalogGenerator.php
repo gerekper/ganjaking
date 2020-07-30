@@ -5,6 +5,7 @@ namespace Premmerce\WooCommercePinterest\Pinterest;
 
 use ParseCsv\Csv;
 use Premmerce\WooCommercePinterest\Model\GoogleCategoriesRelationsModel;
+use Premmerce\WooCommercePinterest\Model\PinterestModelException;
 use Premmerce\WooCommercePinterest\PinterestException;
 use Premmerce\WooCommercePinterest\ServiceContainer;
 use Premmerce\WooCommercePinterest\Task\CatalogGenerationTaskManager;
@@ -45,6 +46,7 @@ class CatalogGenerator {
 	 * @param $productId
 	 *
 	 * @throws PinterestException
+	 * @throws PinterestModelException
 	 */
 	public function exportProductDataToCatalog( $productId) {
 		$catalogContent      = $this->prepareCsvRow($productId);
@@ -138,13 +140,14 @@ class CatalogGenerator {
 	}
 
 
-
 	/**
 	 * Prepare single scv row
 	 *
 	 * @param $productId
 	 *
 	 * @return array
+	 *
+	 * @throws PinterestModelException
 	 */
 	private function prepareCsvRow( $productId) {
 		$product = wc_get_product($productId);
@@ -160,6 +163,8 @@ class CatalogGenerator {
 	 * @param WC_Product $product
 	 *
 	 * @return array
+	 *
+	 * @throws PinterestModelException
 	 */
 	private function prepareRowFromProduct( WC_Product $product) {
 		$fields  = array_merge($this->getRequiredFields(), $this->getOptionalFields());

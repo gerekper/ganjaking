@@ -161,9 +161,6 @@ if ( ! class_exists( 'RSFunctionforSimpleProduct' ) ) {
             global $woocommerce ;
             global $woocommerce_loop ;
             $related_product     = false ;
-            $point_price_info    = get_option( 'rs_label_for_point_value' ) ;
-            $labelposition       = get_option( 'rs_sufix_prefix_point_price_label' ) ;
-            $pixel               = get_option( 'rs_pixel_val' ) ;
             $point_price_display = '' ;
             $id                  = product_id_from_obj( $ProductObj ) ;
             $pdt_type            = srp_product_type( $id ) ;
@@ -180,9 +177,8 @@ if ( ! class_exists( 'RSFunctionforSimpleProduct' ) ) {
                 if ( srp_check_is_array( $variation_ids ) && block_points_for_salepriced_product( $variation_ids[ 0 ] , 0 ) == 'yes' )
                     return $price ;
 
-                $varpointss        = srp_check_is_array( $variation_ids ) ? self::rewardpoints_of_variation( $variation_ids[ 0 ] , $id ) : '' ;
-                $pointmin          = self::get_point_price( $id ) ;
-                $point_price_label = str_replace( "/" , "" , $point_price_info ) ;
+                $varpointss = srp_check_is_array( $variation_ids ) ? self::rewardpoints_of_variation( $variation_ids[ 0 ] , $id ) : '' ;
+                $pointmin   = self::get_point_price( $id ) ;
                 if ( ! empty( $pointmin ) && $bool == true ) {
                     $displaymin = min( $pointmin ) ;
                     $displaymax = max( $pointmin ) ;
@@ -191,17 +187,12 @@ if ( ! class_exists( 'RSFunctionforSimpleProduct' ) ) {
                         $point_price_display = '' ;
                     } else {
                         if ( $displaymin == $displaymax ) {
-                            if ( $labelposition == '1' ) {
-                                $point_price_display = $display . "{$point_price_label}<span style='margin-left:{$pixel}px;'>{$displaymin}</span>" ;
-                            } else {
-                                $point_price_display = $display . "{$displaymin}<span style='margin-left:{$pixel}px;'>{$point_price_label}</span>" ;
-                            }
+                            $PointPrice          = display_point_price_value( $displaymin ) ;
+                            $point_price_display = $display . $PointPrice ;
                         } else {
-                            if ( $labelposition == '1' ) {
-                                $point_price_display = $display . "{$point_price_label}<span style='margin-left:{$pixel}px;'>{$displaymin}</span>" . '-' . "{$point_price_label}<span style='margin-left:{$pixel}px;'>{$displaymax}</span>" ;
-                            } else {
-                                $point_price_display = $display . "{$displaymin}<span style='margin-left:{$pixel}px;'>{$point_price_label}</span>" . '-' . "{$displaymax}<span style='margin-left:{$pixel}px;'>{$point_price_label}</span>" ;
-                            }
+                            $MinPointPrice       = display_point_price_value( $displaymin ) ;
+                            $MaxPointPrice       = display_point_price_value( $displaymax ) ;
+                            $point_price_display = $display . $MinPointPrice . '-' . $MaxPointPrice ;
                         }
                     }
                 }
@@ -239,7 +230,7 @@ if ( ! class_exists( 'RSFunctionforSimpleProduct' ) ) {
                         $varpointss    = srp_check_is_array( $variation_ids ) ? self::rewardpoints_of_variation( $variation_ids[ 0 ] , $post->ID ) : '' ;
                         if ( $varpointss != '' ) {
                             $earnmessage = str_replace( '[variationrewardpoints]' , round_off_type( $varpointss ) , get_option( 'rs_message_in_variable_related_products' ) ) ;
-                            return self::rs_function_to_get_msg_with_gift_icon_for_variable( $earnmessage , $price , $point_price_display ) ;
+                            return self::rs_function_to_get_msg_with_gift_icon_for_variable( $earnmessage , $price , $point_price_display , true ) ;
                         }
                     }
                     if ( $related_product == false && $bool == true ) {
@@ -276,13 +267,8 @@ if ( ! class_exists( 'RSFunctionforSimpleProduct' ) ) {
                 $point_price          = empty( $enabled_point_price ) ? 0 : round_off_type( $enabled_point_price ) ;
                 $point_price_type     = check_display_price_type( $id ) ;
                 $enable_reward_points = get_post_meta( $id , '_rewardsystemcheckboxvalue' , true ) ;
-                $replace              = str_replace( "/" , "" , $point_price_info ) ;
                 if ( $point_price != 0 && $bool == true ) {
-                    if ( $labelposition == '1' ) {
-                        $point_price_info = "{$point_price_info}<span style='margin-left:{$pixel}px;'>{$point_price}</span>" ;
-                    } else {
-                        $point_price_info = '/' . "{$point_price}<span style='margin-left:{$pixel}px;'>{$replace}</span>" ;
-                    }
+                    $point_price_info = display_point_price_value( $point_price , true ) ;
                 } else {
                     $point_price_info = $price ;
                 }
@@ -461,7 +447,7 @@ if ( ! class_exists( 'RSFunctionforSimpleProduct' ) ) {
             return $earnpoint_msg_in_shop ;
         }
 
-        public static function rs_function_to_get_msg_with_gift_icon_for_variable( $earnmessage , $price , $point_price_display ) {
+        public static function rs_function_to_get_msg_with_gift_icon_for_variable( $earnmessage , $price , $point_price_display , $related_product = false ) {
             $image = "<img class='gift_icon' src=" . get_option( 'rs_image_url_upload' ) . " style='width:16px;height:16px;display:inline;' />&nbsp;" ;
             if ( $earnmessage != '' ) {
                 $break = '<br>' ;
@@ -474,6 +460,8 @@ if ( ! class_exists( 'RSFunctionforSimpleProduct' ) ) {
                     $break = '<br>' ;
             }
 
+            $classname = ($related_product) ? 'variablerelatedmessage' : 'variableshopmessage' ;
+
             $VisibilityForPointPrice = (get_option( 'rs_point_price_visibility' ) == 1) ? true : is_user_logged_in() ;
             if ( get_option( '_rs_enable_disable_gift_icon' ) == '1' ) {
                 if ( get_option( 'rs_enable_disable_point_priceing' ) == '1' && get_option( 'rs_point_price_activated' ) == 'yes' && $VisibilityForPointPrice ) {
@@ -482,13 +470,13 @@ if ( ! class_exists( 'RSFunctionforSimpleProduct' ) ) {
                             if ( get_option( 'rs_enable_product_category_level_for_product_purchase' ) == 'no' && get_option( 'rs_award_points_for_cart_or_product_total' ) == '2' ) {
                                 return $image . $break . $price . $point_price_display ;
                             } else {
-                                return $image . "<span class='variableshopmessage'>" . $earnmessage . "</span>" . $break . $price . $point_price_display ;
+                                return $image . "<span class='$classname'>" . $earnmessage . "</span>" . $break . $price . $point_price_display ;
                             }
                         } else {
                             if ( get_option( 'rs_enable_product_category_level_for_product_purchase' ) == 'no' && get_option( 'rs_award_points_for_cart_or_product_total' ) == '2' ) {
                                 return $price . $point_price_display . '<br>' . $image ;
                             } else {
-                                return $price . $point_price_display . '<br>' . $image . "<span class='variableshopmessage'>" . $earnmessage . "</span>" ;
+                                return $price . $point_price_display . '<br>' . $image . "<span class='$classname'>" . $earnmessage . "</span>" ;
                             }
                         }
                     } else {
@@ -496,13 +484,13 @@ if ( ! class_exists( 'RSFunctionforSimpleProduct' ) ) {
                             if ( get_option( 'rs_enable_product_category_level_for_product_purchase' ) == 'no' && get_option( 'rs_award_points_for_cart_or_product_total' ) == '2' ) {
                                 return $break . $price . $point_price_display ;
                             } else {
-                                return "<span class='variableshopmessage'>" . $earnmessage . "</span>" . $break . $price . $point_price_display ;
+                                return "<span class='$classname'>" . $earnmessage . "</span>" . $break . $price . $point_price_display ;
                             }
                         } else {
                             if ( get_option( 'rs_enable_product_category_level_for_product_purchase' ) == 'no' && get_option( 'rs_award_points_for_cart_or_product_total' ) == '2' ) {
                                 return $price . $point_price_display . $break ;
                             } else {
-                                return $price . $point_price_display . $break . "<span class='variableshopmessage'>" . $earnmessage . "</span>" ;
+                                return $price . $point_price_display . $break . "<span class='$classname'>" . $earnmessage . "</span>" ;
                             }
                         }
                     }
@@ -512,15 +500,15 @@ if ( ! class_exists( 'RSFunctionforSimpleProduct' ) ) {
 
                     if ( get_option( 'rs_image_url_upload' ) != '' ) {
                         if ( get_option( 'rs_message_position_in_single_product_page_for_variable_products' ) == '1' ) {
-                            return $image . "<span class='variableshopmessage'>" . $earnmessage . "</span>" . $break . $price ;
+                            return $image . "<span class='$classname'>" . $earnmessage . "</span>" . $break . $price ;
                         } else {
-                            return $price . '<br>' . $image . "<span class='variableshopmessage'>" . $earnmessage . "</span>" ;
+                            return $price . '<br>' . $image . "<span class='$classname'>" . $earnmessage . "</span>" ;
                         }
                     } else {
                         if ( get_option( 'rs_message_position_in_single_product_page_for_variable_products' ) == '1' ) {
-                            return "<span class='variableshopmessage'>" . $earnmessage . "</span>" . $break . $price ;
+                            return "<span class='$classname'>" . $earnmessage . "</span>" . $break . $price ;
                         } else {
-                            return $price . $break . "<span class='variableshopmessage'>" . $earnmessage . "</span>" ;
+                            return $price . $break . "<span class='$classname'>" . $earnmessage . "</span>" ;
                         }
                     }
                 }
@@ -531,13 +519,13 @@ if ( ! class_exists( 'RSFunctionforSimpleProduct' ) ) {
                             if ( get_option( 'rs_enable_product_category_level_for_product_purchase' ) == 'no' && get_option( 'rs_award_points_for_cart_or_product_total' ) == '2' ) {
                                 return $break . $price . $point_price_display ;
                             } else {
-                                return "<span class='variableshopmessage'>" . $earnmessage . "</span>" . $break . $price . $point_price_display ;
+                                return "<span class='$classname'>" . $earnmessage . "</span>" . $break . $price . $point_price_display ;
                             }
                         } else {
                             if ( get_option( 'rs_enable_product_category_level_for_product_purchase' ) == 'no' && get_option( 'rs_award_points_for_cart_or_product_total' ) == '2' ) {
                                 return $price . $point_price_display . $break ;
                             } else {
-                                return $price . $point_price_display . $break . "<span class='variableshopmessage'>" . $earnmessage . "</span>" ;
+                                return $price . $point_price_display . $break . "<span class='$classname'>" . $earnmessage . "</span>" ;
                             }
                         }
                     } else {
@@ -545,9 +533,9 @@ if ( ! class_exists( 'RSFunctionforSimpleProduct' ) ) {
                             return $price ;
 
                         if ( get_option( 'rs_message_position_in_single_product_page_for_variable_products' ) == '1' ) {
-                            return "<span class='variableshopmessage'>" . $earnmessage . "</span>" . $break . $price ;
+                            return "<span class='$classname'>" . $earnmessage . "</span>" . $break . $price ;
                         } else {
-                            return $price . $break . "<span class='variableshopmessage'>" . $earnmessage . "</span>" ;
+                            return $price . $break . "<span class='$classname'>" . $earnmessage . "</span>" ;
                         }
                     }
                 } else if ( is_shop() || is_product_category() || is_page() || is_tax( 'pwb-brand' ) ) {
@@ -557,15 +545,15 @@ if ( ! class_exists( 'RSFunctionforSimpleProduct' ) ) {
                         } else {
                             if ( get_option( 'rs_msg_position_for_var_products_in_shop_page' ) == '1' ) {
                                 if ( $point_price_display ) {
-                                    return $point_price_display . $break . "<span class='variableshopmessage'>" . $earnmessage . "</span>" . $break . $price ;
+                                    return $point_price_display . $break . "<span class='$classname'>" . $earnmessage . "</span>" . $break . $price ;
                                 } else {
-                                    return "<span class='variableshopmessage'>" . $earnmessage . "</span>" . $break . $price ;
+                                    return "<span class='$classname'>" . $earnmessage . "</span>" . $break . $price ;
                                 }
                             } else {
                                 if ( $point_price_display ) {
-                                    return $price . $point_price_display . $break . "<span class='variableshopmessage'>" . $earnmessage . "</span>" ;
+                                    return $price . $point_price_display . $break . "<span class='$classname'>" . $earnmessage . "</span>" ;
                                 } else {
-                                    return $price . $break . "<span class='variableshopmessage'>" . $earnmessage . "</span>" ;
+                                    return $price . $break . "<span class='$classname'>" . $earnmessage . "</span>" ;
                                 }
                             }
                         }
@@ -574,9 +562,9 @@ if ( ! class_exists( 'RSFunctionforSimpleProduct' ) ) {
                             return $price ;
 
                         if ( get_option( 'rs_msg_position_for_var_products_in_shop_page' ) == '1' ) {
-                            return "<span class='variableshopmessage'>" . $earnmessage . "</span>" . $break . $price ;
+                            return "<span class='$classname'>" . $earnmessage . "</span>" . $break . $price ;
                         } else {
-                            return $price . $break . "<span class='variableshopmessage'>" . $earnmessage . "</span>" ;
+                            return $price . $break . "<span class='$classname'>" . $earnmessage . "</span>" ;
                         }
                     }
                 }
@@ -847,33 +835,17 @@ if ( ! class_exists( 'RSFunctionforSimpleProduct' ) ) {
                 return $price ;
             } else {
                 if ( get_option( 'rs_enable_disable_point_priceing' ) == '1' ) {
-                    $pixel                  = get_option( 'rs_pixel_val' ) ;
-                    $enabledpoints          = calculate_point_price_for_products( $ProductId ) ;
-                    $point_price            = $enabledpoints[ $ProductId ] ;
-                    $point_price_info       = get_option( 'rs_label_for_point_value' ) ;
-                    $typeofprice            = check_display_price_type( $ProductId ) ;
-                    $labelposition          = get_option( 'rs_sufix_prefix_point_price_label' ) ;
-                    $point_price_visibility = get_option( 'rs_point_price_visibility' ) ;
+                    $enabledpoints = calculate_point_price_for_products( $ProductId ) ;
+                    $point_price   = $enabledpoints[ $ProductId ] ;
+                    $typeofprice   = check_display_price_type( $ProductId ) ;
                     if ( $typeofprice == '2' ) {
                         $point_price = round_off_type( $point_price ) ;
-                        $replace     = str_replace( "/" , "" , $point_price_info ) ;
-
-                        if ( $labelposition == '1' ) {
-                            $totalamount = "{$replace}<span style='margin-left:{$pixel}px;'>{$point_price}</span>" ;
-                        } else {
-                            $totalamount = "{$point_price}<span style='margin-left:{$pixel}px;'>{$replace}</span>" ;
-                        }
+                        $totalamount = display_point_price_value( $point_price ) ;
                         return $totalamount ;
                     } else {
                         if ( $point_price != '' ) {
                             $point_price = round_off_type( $point_price ) ;
-
-                            if ( $labelposition == '1' ) {
-                                $totalamount = "{$point_price_info}<span style='margin-left:{$pixel}px;'>{$point_price}</span>" ;
-                            } else {
-                                $replace     = str_replace( "/" , "" , $point_price_info ) ;
-                                $totalamount = '/' . "{$point_price}<span style='margin-left:{$pixel}px;'>{$replace}</span>" ;
-                            }
+                            $totalamount = display_point_price_value( $point_price , true ) ;
                             return $price . '<span class="point_price_label">' . $totalamount ;
                         } else {
                             return $price ;
@@ -895,6 +867,10 @@ if ( ! class_exists( 'RSFunctionforSimpleProduct' ) ) {
         }
 
         public static function is_in_stock( $ProductObj ) {
+
+            if ( ! is_object( $ProductObj ) ) {
+                return false ;
+            }
 
             $bool = $ProductObj->is_in_stock() ;
 

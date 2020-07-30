@@ -31,7 +31,7 @@ class Comparison extends Statement {
 	}
 
 	/**
-	 * @inheritDoc
+	 * @return string
 	 */
 	protected function get_statement() {
 		return sprintf( '%s %s ?',

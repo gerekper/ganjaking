@@ -17,7 +17,7 @@ class Roles implements FormatValue {
 	public function format_value( $value ) {
 		$caps = maybe_unserialize( $value );
 
-		if ( ! $caps ) {
+		if ( ! $caps || ! is_array( $caps ) ) {
 			return false;
 		}
 

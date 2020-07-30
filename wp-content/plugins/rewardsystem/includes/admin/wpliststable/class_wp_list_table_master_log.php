@@ -83,7 +83,7 @@ class WP_List_Table_for_Master_Log extends WP_List_Table {
                     'user_name' => $getuserbyid->user_login ,
                     'points'    => round_off_type( $total ) ,
                     'event'     => $eventname == '' ? '-' : $eventname ,
-                    'date'      => date_display_format( $values ) ,
+                    'date'      => date_display_format( $values[ 'earneddate' ]  ) ,
                         ) ;
                 $i ++ ;
             }
@@ -154,7 +154,7 @@ class WP_List_Table_for_Master_Log extends WP_List_Table {
                         'user_name' => $getuserbyid->user_login ,
                         'points'    => round_off_type( $total ) ,
                         'event'     => $eventname == '' ? '-' : $eventname ,
-                        'date'      => date_display_format( $values ) ,
+                        'date'      => date_display_format( $values[ 'earneddate' ]  ) ,
                             ) ;
                 }
                 $i ++ ;

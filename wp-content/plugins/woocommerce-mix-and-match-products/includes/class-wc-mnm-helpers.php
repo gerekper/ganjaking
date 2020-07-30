@@ -81,6 +81,18 @@ class WC_Mix_and_Match_Helpers {
 		return apply_filters( 'woocommerce_mnm_supported_products', array( 'simple', 'variation' ) );
 	}
 
+	/**
+	 * Check if child is supported type.
+	 *
+	 * @since  1.10.0
+	 *
+	 * @param  WC_Product $product
+	 * @return  boolean
+	 */
+	public static function is_child_supported_product_type( $product ) {
+		return in_array( $product->get_type(), self::get_supported_product_types() ) || ( $product->is_type( 'variation' ) && WC_MNM_Core_Compatibility::has_all_attributes_set( $product ) );
+	}
+
 	/*-----------------------------------------------------------------------------------*/
 	/* Deprecated Functions */
 	/*-----------------------------------------------------------------------------------*/

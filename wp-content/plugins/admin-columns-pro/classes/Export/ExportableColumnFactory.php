@@ -17,6 +17,8 @@ class ExportableColumnFactory {
 	}
 
 	/**
+	 * @param array $exclude_columns
+	 *
 	 * @return Column[]
 	 */
 	public function create( $exclude_columns = [] ) {

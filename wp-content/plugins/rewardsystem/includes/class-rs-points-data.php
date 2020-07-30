@@ -56,20 +56,17 @@ if ( ! class_exists( 'RS_Points_Data' ) ) {
 
             global $wpdb ;
             $PointsTable = $wpdb->prefix . "rspointexpiry" ;
-            $TotalPoints = $wpdb->get_results( $wpdb->prepare( "SELECT SUM(earnedpoints) as availablepoints FROM $PointsTable WHERE earnedpoints NOT IN(0) and userid = %d" , $this->id ) , ARRAY_A ) ;
+            $TotalPoints = $wpdb->get_col( $wpdb->prepare( "SELECT SUM(earnedpoints) FROM $PointsTable WHERE earnedpoints NOT IN(0) and userid = %d" , $this->id ) ) ;
 
             if ( ! srp_check_is_array( $TotalPoints ) )
                 return 0 ;
 
             $DeletedPoints               = get_user_meta( $this->id , 'rs_earned_points_before_delete' , true ) ;
             $PointsInOldMeta             = get_user_meta( $this->id , 'rs_user_total_earned_points' , true ) ;
-            $ExpiredPoints               = get_user_meta( $this->id , 'rs_expired_points_before_delete' , true ) ;
             $PointsInOldVersion          = get_user_meta( $this->id , '_my_reward_points' , true ) ;
             $RemainingPointsInOldVersion = ( $PointsInOldMeta > $PointsInOldVersion ) ? ( float ) $PointsInOldMeta - ( float ) $PointsInOldVersion : 0 ;
 
-            foreach ( $TotalPoints as $Points ) {
-                $Point = $Points[ 'availablepoints' ] + ( float ) $DeletedPoints + ( float ) $RemainingPointsInOldVersion + ( float ) $ExpiredPoints ;
-            }
+            $Point = array_sum( $TotalPoints ) + ( float ) $DeletedPoints + ( float ) $RemainingPointsInOldVersion ;
 
             self::$total_earned[ $this->id ] = round_off_type( $Point ) ;
             return self::$total_earned[ $this->id ] ;
@@ -86,13 +83,11 @@ if ( ! class_exists( 'RS_Points_Data' ) ) {
 
             global $wpdb ;
             $PointsTable     = $wpdb->prefix . 'rspointexpiry' ;
-            $AvailablePoints = $wpdb->get_results( $wpdb->prepare( "SELECT SUM((earnedpoints-usedpoints)) as availablepoints FROM $PointsTable WHERE earnedpoints-usedpoints NOT IN(0) and expiredpoints IN(0) and userid = %d" , $this->id ) , ARRAY_A ) ;
+            $AvailablePoints = $wpdb->get_col( $wpdb->prepare( "SELECT SUM((earnedpoints-usedpoints)) FROM $PointsTable WHERE earnedpoints-usedpoints NOT IN(0) and expiredpoints IN(0) and userid = %d" , $this->id ) ) ;
             if ( ! srp_check_is_array( $AvailablePoints ) )
                 return 0 ;
 
-            foreach ( $AvailablePoints as $Points ) {
-                $Point = ! empty( $Points[ 'availablepoints' ] ) ? $Points[ 'availablepoints' ] : 0 ;
-            }
+            $Point = array_sum( $AvailablePoints ) ;
 
             self::$available_points[ $this->id ] = round_off_type( $Point ) ;
             return self::$available_points[ $this->id ] ;
@@ -106,13 +101,11 @@ if ( ! class_exists( 'RS_Points_Data' ) ) {
 
             global $wpdb ;
             $PointsTable     = $wpdb->prefix . 'rspointexpiry' ;
-            $AvailablePoints = $wpdb->get_results( $wpdb->prepare( "SELECT SUM((earnedpoints-usedpoints)) as availablepoints FROM $PointsTable WHERE earnedpoints-usedpoints NOT IN(0) and expiredpoints IN(0) and userid = %d" , $this->id ) , ARRAY_A ) ;
+            $AvailablePoints = $wpdb->get_col( $wpdb->prepare( "SELECT SUM((earnedpoints-usedpoints)) FROM $PointsTable WHERE earnedpoints-usedpoints NOT IN(0) and expiredpoints IN(0) and userid = %d" , $this->id ) ) ;
             if ( ! srp_check_is_array( $AvailablePoints ) )
                 return 0 ;
 
-            foreach ( $AvailablePoints as $Points ) {
-                $Point = ! empty( $Points[ 'availablepoints' ] ) ? $Points[ 'availablepoints' ] : 0 ;
-            }
+            $Point = array_sum( $AvailablePoints ) ;
 
             $ConvertedRate = redeem_point_conversion( $Point , $this->id , 'price' ) ;
             return srp_formatted_price( round_off_type_for_currency( $ConvertedRate ) ) ;
@@ -129,15 +122,13 @@ if ( ! class_exists( 'RS_Points_Data' ) ) {
 
             global $wpdb ;
             $PointsTable    = $wpdb->prefix . "rspointexpiry" ;
-            $RedeemedPoints = $wpdb->get_results( $wpdb->prepare( "SELECT SUM(usedpoints) as redeemedpoints FROM $PointsTable WHERE usedpoints NOT IN(0) and userid=%d" , $this->id ) , ARRAY_A ) ;
+            $RedeemedPoints = $wpdb->get_col( $wpdb->prepare( "SELECT SUM(usedpoints) FROM $PointsTable WHERE usedpoints NOT IN(0) and userid=%d" , $this->id ) ) ;
             if ( ! srp_check_is_array( $RedeemedPoints ) )
                 return 0 ;
 
-            foreach ( $RedeemedPoints as $Points ) {
-                $PointsinOlderVersion = self::redeemed_points_in_older_version() ;
-                $DeletedPoints        = ( float ) get_user_meta( $this->id , 'rs_redeem_points_before_delete' , true ) ;
-                $Point                = $Points[ 'redeemedpoints' ] + $PointsinOlderVersion + $DeletedPoints ;
-            }
+            $PointsinOlderVersion = self::redeemed_points_in_older_version() ;
+            $DeletedPoints        = ( float ) get_user_meta( $this->id , 'rs_redeem_points_before_delete' , true ) ;
+            $Point                = array_sum( $RedeemedPoints ) + $PointsinOlderVersion + $DeletedPoints ;
 
             self::$total_redeemed[ $this->id ] = round_off_type( $Point ) ;
             return self::$total_redeemed[ $this->id ] ;
@@ -170,16 +161,15 @@ if ( ! class_exists( 'RS_Points_Data' ) ) {
 
             global $wpdb ;
             $PointsTable   = $wpdb->prefix . "rspointexpiry" ;
-            $ExpiredPoints = $wpdb->get_results( $wpdb->prepare( "SELECT SUM(expiredpoints) as expiredpoints FROM $PointsTable WHERE expiredpoints NOT IN(0) and userid=%d" , $this->id ) , ARRAY_A ) ;
+            $ExpiredPoints = $wpdb->get_col( $wpdb->prepare( "SELECT SUM(expiredpoints) FROM $PointsTable WHERE expiredpoints NOT IN(0) and userid=%d" , $this->id ) ) ;
             if ( ! srp_check_is_array( $ExpiredPoints ) )
                 return 0 ;
 
-            foreach ( $ExpiredPoints as $Points ) {
-                $DeletedPoints = ( float ) get_user_meta( $this->id , 'rs_expired_points_before_delete' , true ) ;
-                $Point         = $Points[ 'expiredpoints' ] + $DeletedPoints ;
-            }
+            $DeletedPoints = ( float ) get_user_meta( $this->id , 'rs_expired_points_before_delete' , true ) ;
+            $Point         = array_sum( $ExpiredPoints ) + $DeletedPoints ;
 
             self::$expired_points[ $this->id ] = round_off_type( $Point ) ;
+
             return self::$expired_points[ $this->id ] ;
         }
 

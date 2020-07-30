@@ -32,7 +32,7 @@ class PostTitle extends AC\Helper\Select\Formatter {
 			$label = sprintf( __( '#%d (no title)' ), $post->ID );
 		}
 
-		return $label;
+		return (string) apply_filters( 'acp/select/formatter/post_title', $label, $post );
 	}
 
 }

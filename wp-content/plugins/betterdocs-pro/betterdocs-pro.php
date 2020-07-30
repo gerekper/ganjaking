@@ -10,11 +10,11 @@
  * Plugin Name:       BetterDocs Pro
  * Plugin URI:        https:/betterdocs.co
  * Description:       A better documentation and knowledgebase plugin for WordPress
- * Version:           1.2.8
+ * Version:           1.3.0
  * Author:            WPDeveloper
  * Author URI:        https://wpdeveloper.net
- * License:           GPL-2.0+
- * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
+ * License:           GPL-3.0+
+ * License URI:       http://www.gnu.org/licenses/gpl-3.0.txt
  * Text Domain:       betterdocs-pro
  * Domain Path:       /languages
  */
@@ -27,7 +27,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Currently plugin version.
  */
-define( 'BETTERDOCS_PRO_VERSION', '1.2.8' );
+define( 'BETTERDOCS_PRO_VERSION', '1.3.0' );
 //define( 'BETTERDOCS_PRO_PUBLIC_URL', plugins_url( '/', __FILE__ ) );
 define( 'BETTERDOCS_PRO_URL', plugin_dir_url( __FILE__ ) );
 define( 'BETTERDOCS_PRO_PUBLIC_URL', BETTERDOCS_PRO_URL . 'public/' );

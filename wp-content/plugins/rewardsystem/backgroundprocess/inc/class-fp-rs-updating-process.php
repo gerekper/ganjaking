@@ -102,6 +102,10 @@ if ( ! class_exists( 'FP_Updating_Process_for_RS' ) ) {
                 $url           = add_query_arg( array( 'page' => 'rewardsystem_callback' , 'tab' => 'fprsmodules' , 'section' => 'fpgiftvoucher' ) , SRP_ADMIN_URL ) ;
                 $processingmsg = __( 'Voucher Code generation is under Process...' , SRP_LOCALE ) ;
                 $responsemsg   = __( 'Voucher Code generated Successfully.' , SRP_LOCALE ) ;
+            } elseif ( $Method == 'update_earned_points' ) {
+                $url           = add_query_arg( array( 'page' => 'sumo-reward-points-welcome-page' ) , SRP_ADMIN_URL ) ;
+                $processingmsg = __( 'Updating earned points is under Process...' , SRP_LOCALE ) ;
+                $responsemsg   = __( 'Earned Points updated Successfully.' , SRP_LOCALE ) ;
             } else {
                 $url           = add_query_arg( array( 'page' => 'rewardsystem_callback' , 'tab' => 'fprsadvanced' ) , SRP_ADMIN_URL ) ;
                 $processingmsg = __( 'Applying Points for Previous Order is under Process...' , SRP_LOCALE ) ;

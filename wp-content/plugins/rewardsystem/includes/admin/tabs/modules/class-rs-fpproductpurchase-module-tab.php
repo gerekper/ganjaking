@@ -90,7 +90,7 @@ if ( ! class_exists( 'RSProductPurchaseModule' ) ) {
                         'yes' => __( 'Advanced Setup (Global,Category and Product Level wil be enabled)' , SRP_LOCALE ) ,
                     ) ,
                     'desc_tip' => true ,
-                    'desc'     => __( 'Quick Setup - Global Level will be enabled<br>Advanced Setup - Global,Category and Product Level wil be enabled' , SRP_LOCALE )
+                    'desc'     => __( 'Quick Setup - Points can be configured to products in a single action<br>Advanced Setup - Points can be configured to products based on Product Level/Category Level/Global Level' , SRP_LOCALE )
                 ) ,
                 array(
                     'name'    => __( 'Earning Points Type' , SRP_LOCALE ) ,
@@ -207,9 +207,16 @@ if ( ! class_exists( 'RSProductPurchaseModule' ) ) {
                     'std'         => '2' ,
                     'default'     => '2' ,
                     'placeholder' => '' ,
-                    'desc_tip'    => true ,
-                    'desc'        => __( 'Global Settings will be considered when Product and Category Settings are Enabled and Values are Empty. '
-                            . 'Priority Order is Product Settings, Category Settings and Global Settings in the Same Order.' , SRP_LOCALE ) ,
+                    'desc_tip'    => false ,
+                    'desc'        => __( '<b>Quick Setup</b><br> - To assign points to your products, you should enable the "Global Level Reward Points" option, select the reward type & set the points value based on your needs.
+<br><br>
+<b>Advanced Setup </b><br>
+- It is not mandatory to enable the "Global Level Reward Points" option. You can configure the points to your products either on the Product Level/Category Level/Global Level.
+<br>
+- Product Purchase settings should be enabled on product level & don\'t set the points there if you wish to assign the points through the Global Level.
+<br><br>
+<b>Note:</b>
+Earning Points Conversion Settings given in the General Settings will consider only when you choose the Reward Type as Percentage of Product Price.' , SRP_LOCALE ) ,
                     'newids'      => 'rs_global_enable_disable_sumo_reward' ,
                     'type'        => 'select' ,
                     'options'     => array(

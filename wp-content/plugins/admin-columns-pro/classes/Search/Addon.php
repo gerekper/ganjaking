@@ -5,12 +5,13 @@ namespace ACP\Search;
 use AC;
 use AC\Asset\Location;
 use AC\ListScreenRepository\Storage;
+use AC\Registrable;
 use ACP;
 use ACP\Search\Controller\Comparison;
 use ACP\Search\Controller\Segment;
 use ACP\Settings\ListScreen\HideOnScreenCollection;
 
-final class Addon implements AC\Registrable {
+final class Addon implements Registrable {
 
 	/**
 	 * @var Storage
@@ -87,8 +88,7 @@ final class Addon implements AC\Registrable {
 	public function segment_request() {
 		$segment = new Segment(
 			$this->storage,
-			$this->request,
-			new Middleware\Rules()
+			$this->request
 		);
 
 		$segment->dispatch( $this->request->get( 'method' ) );
@@ -104,6 +104,8 @@ final class Addon implements AC\Registrable {
 	}
 
 	/**
+	 * @param AC\ListScreen $list_screen
+	 *
 	 * @return bool
 	 */
 	private function is_smart_filters_hidden( AC\ListScreen $list_screen ) {
@@ -123,9 +125,9 @@ final class Addon implements AC\Registrable {
 	 * @param AC\ListScreen $list_screen
 	 */
 	public function table_screen_request( AC\ListScreen $list_screen ) {
-		if ( $this->is_filters_hidden( $list_screen )
-		     || $this->is_smart_filters_hidden( $list_screen )
-		     || ! $this->is_active( $list_screen ) ) {
+		if ( $this->hide_filters->is_hidden( $list_screen ) ||
+		     $this->hide_smart_filters->is_hidden( $list_screen ) ||
+		     ! $this->is_active( $list_screen ) ) {
 			return;
 		}
 

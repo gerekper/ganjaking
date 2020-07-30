@@ -7,18 +7,15 @@ if ( ! class_exists( 'RSRedeemingFrontend' ) ) {
     class RSRedeemingFrontend {
 
         public static function init() {
-            add_action( 'wp_loaded' , array( __CLASS__ , 'redeem_points_for_user_automatically' ) , 10 ) ;
+
+            add_action( 'wp' , array( __CLASS__ , 'redeem_points_for_user_automatically' ) ) ;
 
             add_action( 'wp_head' , array( __CLASS__ , 'redeem_point_for_user' ) ) ;
 
-            if ( WC_VERSION >= ( float ) '3.7.0' ) {
-                add_action( 'woocommerce_remove_cart_item' , array( __CLASS__ , 'trash_sumo_coupon_if_cart_empty' ) , 10 , 2 ) ;
-            } else {
-                //For newer version of Woocommerce (i.e) Version > 2.3.0;
-                add_action( 'woocommerce_cart_item_removed' , array( __CLASS__ , 'trash_sumo_coupon_if_cart_empty' ) , 10 , 2 ) ;
-                //For older version of Woocommerce (i.e) Version < 2.3.0;
-                add_action( 'woocommerce_before_cart_item_quantity_zero' , array( __CLASS__ , 'trash_sumo_coupon_if_cart_empty' ) , 10 , 2 ) ;
-            }
+            // Trash Redeeming Coupons when cart is empty.
+            add_action( 'woocommerce_cart_is_empty' , array( __CLASS__ , 'trash_sumo_coupon_if_cart_empty' ) , 10 ) ;
+            // Trash Redeeming Coupons when coupon is removed .
+            add_action( 'woocommerce_removed_coupon' , array( __CLASS__ , 'trash_sumo_coupon_is_removed' ) , 10 , 1 ) ;
 
             add_action( 'woocommerce_checkout_update_order_meta' , array( __CLASS__ , 'trash_sumo_coupon_if_order_placed' ) , 10 , 2 ) ;
 
@@ -59,7 +56,7 @@ if ( ! class_exists( 'RSRedeemingFrontend' ) ) {
             }
             add_action( 'woocommerce_before_checkout_form' , array( __CLASS__ , 'messages_for_redeeming' ) ) ;
 
-            add_filter( 'woocommerce_cart_totals_coupon_label' , array( __CLASS__ , 'change_coupon_label' ) , 1 , 2 ) ;
+            add_filter( 'woocommerce_cart_totals_coupon_label' , array( __CLASS__ , 'change_coupon_label' ) , get_option( 'rs_change_coupon_priority_value' , 1 ) , 2 ) ;
 
             add_filter( 'woocommerce_coupons_enabled' , array( __CLASS__ , 'hide_coupon_field_on_checkout' ) ) ;
 
@@ -74,17 +71,46 @@ if ( ! class_exists( 'RSRedeemingFrontend' ) ) {
             add_filter( 'woocommerce_available_payment_gateways' , array( __CLASS__ , 'unset_gateways_for_excluded_product_to_redeem' ) , 10 , 1 ) ;
         }
 
-        /* Trash Applied SUMO Coupons if Cart Empty */
+        /*
+         * Trash Sumo Coupons when it is removed.
+         * */
 
-        public static function trash_sumo_coupon_if_cart_empty( $cart_item_key , $cart_object ) {
-            if ( WC()->cart->is_empty() ) {
-                $CouponId = get_user_meta( get_current_user_id() , 'redeemcouponids' , true ) ;
-                if ( ! empty( $CouponId ) )
-                    wp_trash_post( $CouponId ) ;
+        public static function trash_sumo_coupon_is_removed( $coupon_code ) {
 
-                $CouponId = get_user_meta( get_current_user_id() , 'auto_redeemcoupon_ids' , true ) ;
-                if ( ! empty( $CouponId ) )
-                    wp_trash_post( $CouponId ) ;
+            $UserInfo = get_user_by( 'id' , get_current_user_id() ) ;
+            if ( ! is_object( $UserInfo ) ) {
+                return ;
+            }
+
+            $Redeem     = 'sumo_' . strtolower( "$UserInfo->user_login" ) ;
+            $AutoRedeem = 'auto_redeem_' . strtolower( "$UserInfo->user_login" ) ;
+
+            if ( $Redeem == $coupon_code || $AutoRedeem == $coupon_code ) {
+                $coupon = new WC_Coupon( $coupon_code ) ;
+                if ( is_object( $coupon ) ) {
+                    wp_trash_post( $coupon->get_id() ) ;
+                }
+            }
+        }
+
+        /*
+         *  Trash SUMO Coupons if Cart is Empty.
+         * */
+
+        public static function trash_sumo_coupon_if_cart_empty() {
+
+            if ( ! WC()->cart->is_empty() ) {
+                return ;
+            }
+
+            $CouponId = get_user_meta( get_current_user_id() , 'redeemcouponids' , true ) ;
+            if ( ! empty( $CouponId ) ) {
+                wp_trash_post( $CouponId ) ;
+            }
+
+            $CouponId = get_user_meta( get_current_user_id() , 'auto_redeemcoupon_ids' , true ) ;
+            if ( ! empty( $CouponId ) ) {
+                wp_trash_post( $CouponId ) ;
             }
         }
 
@@ -339,7 +365,7 @@ if ( ! class_exists( 'RSRedeemingFrontend' ) ) {
                                                 </div>
                                             <?php endif ; ?>
 
-                                            <?php echo get_option( 'rs_reedming_field_label_checkout' ) ; ?> 
+                                            <?php echo wp_kses_post( do_shortcode( get_option( 'rs_reedming_field_label_checkout' ) ) ) ; ?> 
                                             <a href="javascript:void(0)" class="redeemit"> <?php echo get_option( 'rs_reedming_field_link_label_checkout' ) ; ?></a>
                                         </div>
                                     </div>
@@ -649,8 +675,13 @@ if ( ! class_exists( 'RSRedeemingFrontend' ) ) {
         /* Auto Redeeming in Cart and Checkout */
 
         public static function redeem_points_for_user_automatically() {
+
             if ( ! is_user_logged_in() )
                 return ;
+
+            if ( ! is_object( WC()->cart ) ) {
+                return ;
+            }
 
             if ( empty( WC()->cart->get_cart_contents_count() ) ) {
                 WC()->session->set( 'auto_redeemcoupon' , 'yes' ) ;
@@ -1347,6 +1378,9 @@ if ( ! class_exists( 'RSRedeemingFrontend' ) ) {
         public static function msg_when_tax_enabled() {
 
             if ( ! is_user_logged_in() )
+                return ;
+            
+             if ( check_if_pointprice_product_exist_in_cart() )
                 return ;
 
             if ( get_option( 'woocommerce_calc_taxes' ) == 'yes' && get_option( 'rs_show_hide_message_notice_for_redeeming' ) == '1' ) {

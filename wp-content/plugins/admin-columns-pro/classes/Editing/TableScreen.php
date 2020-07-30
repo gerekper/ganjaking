@@ -3,9 +3,12 @@
 namespace ACP\Editing;
 
 use AC;
-use AC\Asset\Enqueueable;
-use AC\Preferences;
+use AC\Asset\Location;
+use AC\Asset\Style;
 use ACP\Editing;
+use ACP\Editing\Ajax\EditableRowsFactory;
+use ACP\Editing\Ajax\TableRowsFactory;
+use ACP\Editing\Preference\EditState;
 use LogicException;
 
 class TableScreen implements AC\Registrable {
@@ -16,9 +19,14 @@ class TableScreen implements AC\Registrable {
 	protected $list_screen;
 
 	/**
-	 * @var Enqueueable[]
+	 * @var array
 	 */
-	protected $assets;
+	private $editable_data;
+
+	/**
+	 * @var AC\Asset\Location\Absolute
+	 */
+	protected $location;
 
 	/**
 	 * @var Preference\EditState
@@ -26,29 +34,59 @@ class TableScreen implements AC\Registrable {
 	protected $edit_state;
 
 	/**
-	 * @param AC\ListScreen    $list_screen
-	 * @param Enqueueable[]    $assets
-	 * @param Preferences\Site $editing_state
+	 * @var AC\Request
 	 */
-	public function __construct( AC\ListScreen $list_screen, array $assets, Preference\EditState $edit_state ) {
+	private $request;
+
+	public function __construct(
+		AC\ListScreen $list_screen,
+		array $editable_data,
+		Location\Absolute $location,
+		EditState $edit_state,
+		AC\Request $request
+	) {
 		if ( ! $list_screen instanceof Editing\ListScreen ) {
 			throw new LogicException( 'ListScreen should be of type Editing\ListScreen.' );
 		}
 
 		$this->list_screen = $list_screen;
-		$this->assets = $assets;
+		$this->editable_data = $editable_data;
+		$this->location = $location;
 		$this->edit_state = $edit_state;
+		$this->request = $request;
 	}
 
 	public function register() {
 		add_action( 'ac/table_scripts', [ $this, 'scripts' ] );
 		add_action( 'ac/table/actions', [ $this, 'edit_button' ] );
+
+		// Register request handlers
+		$table_rows = TableRowsFactory::create( $this->request, $this->list_screen );
+
+		if ( $table_rows && $table_rows->is_request() ) {
+			$table_rows->register();
+		}
+
+		$editable_rows = EditableRowsFactory::create( $this->request, $this->list_screen );
+
+		if ( $editable_rows && $editable_rows->is_request() ) {
+			$editable_rows->register();
+		}
 	}
 
 	public function scripts() {
-		foreach ( $this->assets as $asset ) {
-			$asset->enqueue();
-		}
+		$style = new Style( 'acp-editing-table', $this->location->with_suffix( 'assets/editing/css/table.css' ) );
+		$style->enqueue();
+
+		$script = new Asset\Script\Table(
+			'acp-editing-table',
+			$this->location->with_suffix( 'assets/editing/js/table.js' ),
+			$this->list_screen,
+			$this->editable_data,
+			$this->edit_state,
+			$this->request
+		);
+		$script->enqueue();
 
 		// Select 2
 		wp_enqueue_script( 'ac-select2' );
@@ -72,19 +110,12 @@ class TableScreen implements AC\Registrable {
 		if ( ! $this->list_screen->has_id() ) {
 			return;
 		}
-		?>
-		<label class="ac-table-button -toggle -iedit">
-			<span class="ac-toggle">
-				<input type="checkbox" value="1" id="acp-enable-editing" <?php checked( $this->edit_state->is_active( $this->list_screen->get_key() ) ); ?>>
-				<span class="ac-toggle__switch">
-					<svg class="ac-toggle__switch__on" width="2" height="6" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2 6"><path fill="#fff" d="M0 0h2v6H0z"></path></svg>
-					<svg class="ac-toggle__switch__off" width="6" height="6" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 6 6"><path fill="#fff" d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path></svg>
-					<span class="ac-toggle__switch__track"></span>
-				</span>
-				<?php _e( 'Inline Edit', 'codepress-admin-columns' ); ?>
-			</span>
-		</label>
-		<?php
+
+		$view = new AC\View( [
+			'is_active' => $this->edit_state->is_active( $this->list_screen->get_key() ),
+		] );
+
+		echo $view->set_template( 'table/edit-button' );
 	}
 
 }

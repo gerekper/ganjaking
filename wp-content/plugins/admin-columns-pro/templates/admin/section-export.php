@@ -10,8 +10,8 @@ use ACP\Storage\ListScreen\SerializerTypes;
 	</div>
 	<div class="ac-section__body">
 		<p>
-			<?= __( 'Select the columns settings you would like to export.', 'codepress-admin-columns' ) ?>
-			<?= __( 'The result is a JSON file that can be imported in any WordPress install that uses Admin Columns Pro.', 'codepress-admin-columns' ) ?>
+			<?= __( 'Select the columns settings you would like to export.', 'codepress-admin-columns' ); ?>
+			<?= __( 'The result is a JSON file that can be imported in any WordPress install that uses Admin Columns Pro.', 'codepress-admin-columns' ); ?>
 		</p>
 
 		<form method="POST">
@@ -19,7 +19,15 @@ use ACP\Storage\ListScreen\SerializerTypes;
 			<input type="hidden" name="action" value="<?= Export\Request::ACTION ?>">
 			<input type="hidden" name="encoder" value="<?= SerializerTypes::JSON ?>">
 			<?= $this->table->render() ?>
-			<button class="button button-primary" data-export="<?= SerializerTypes::JSON ?>"><?php _e( 'Export To JSON', 'codepress-admin-columns' ); ?></button>
+			<div style="display: flex;">
+				<button class="button button-primary" data-export="<?= SerializerTypes::JSON ?>"><?php _e( 'Export To JSON', 'codepress-admin-columns' ); ?></button>
+				<p class="php-export">
+					<?= __( 'Looking for PHP Export?', 'codepress-admin-columns' ); ?>
+					<a target="_blank" href="<?= ac_get_site_url( 'documentation/local-storage' ); ?>">
+						<?= sprintf( __( 'Read about its successor: %s', 'codepress-admin-columns' ), __( 'Local Storage', 'codepress-admin-columns' ) ); ?>
+					</a>
+				</p>
+			</div>
 		</form>
 	</div>
 </div>

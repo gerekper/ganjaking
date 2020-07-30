@@ -36,7 +36,13 @@ get_header();
 		<?php if($enable_sidebar_cat_list == 1){ ?>
 		<aside id="betterdocs-sidebar-left" class="betterdocs-full-sidebar-left">
             <div data-simplebar class="betterdocs-sidebar-content">
-				<?php echo do_shortcode( '[betterdocs_category_list]' ); ?>
+				<?php 
+					if ( BetterDocs_Multiple_Kb::$enable == 1 ) {
+						echo do_shortcode( '[betterdocs_category_list multiple_knowledge_base=true]' );
+					} else {
+						echo do_shortcode( '[betterdocs_category_list]' );
+					}
+                ?>
 			</div>
 		</aside><!-- #sidebar -->
 		<?php } ?>

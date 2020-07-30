@@ -186,7 +186,16 @@ class WC_Mix_and_Match_Admin {
 	 * @props to ProsPress
 	 */
 	public static function render_system_status_items() {
-		$debug_data   = array();
+		$debug_data = array(
+			'version'    => array(
+				'name'      => _x( 'Version', 'label for the system staus page', 'woocommerce-mix-and-match-products' ),
+				'note'      => get_option( 'wc_mix_and_match_version', null ),
+			),
+			'db_version' => array(
+				'name'      => _x( 'Database Version', 'label for the system staus page', 'woocommerce-mix-and-match-products' ),
+				'note'      => get_option( 'wc_mix_and_match_db_version', null ),
+			),
+		);
 
 		$theme_overrides = self::get_theme_overrides();
 		$debug_data['mnm_theme_overrides'] = array(
@@ -273,7 +282,7 @@ class WC_Mix_and_Match_Admin {
 		if ( $file == WC_Mix_and_Match()->plugin_basename() ) {
 			$row_meta = array(
 				'docs'    => '<a href="https://docs.woocommerce.com/document/woocommerce-mix-and-match-products/">' . __( 'Documentation', 'woocommerce-mix-and-match-products' ) . '</a>',
-				'support' => '<a href="https://woocommerce.com/my-account/tickets/">' . __( 'Support', 'woocommerce-mix-and-match-products' ) . '</a>',
+				'support' => '<a href="' . esc_url( WC_MNM_SUPPORT_URL )  . '">' . __( 'Support', 'woocommerce-mix-and-match-products' ) . '</a>',
 			);
 
 			$links = array_merge( $links, $row_meta );

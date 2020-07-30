@@ -62,6 +62,7 @@ jQuery( function ( $ ) {
                     resetpreviousorder : $( '#rs_reset_previous_order' ).filter( ":checked" ).val() ,
                     resetreferrallog : $( '#rs_reset_referral_log_table' ).filter( ":checked" ).val() ,
                     resetmanualreferral : $( '#rs_reset_manual_referral_link' ).filter( ":checked" ).val() ,
+                    resetrecordlogtable : $( '#rs_reset_record_log_table' ).filter( ":checked" ).val() ,
                     sumo_security : fp_reset_module_params.rs_reset_data_for_user
                 } ) ;
                 $.post( fp_reset_module_params.ajaxurl , dataparam , function ( response ) {

@@ -104,8 +104,8 @@ if ( ! class_exists( 'FPRewardSystemEncashTabList' ) ) {
         function get_bulk_actions() {
             $actions = array(
                 'encash_application_delete' => __( 'Delete' , SRP_LOCALE ) ,
-                'rspaid'                    => __( 'Mark as Paid' , SRP_LOCALE ) ,
-                'rsdue'                     => __( 'Mark as Due' , SRP_LOCALE ) ,
+                'rspaid'                    => __( 'Mark as Approve' , SRP_LOCALE ) ,
+                'rsdue'                     => __( 'Mark as Reject' , SRP_LOCALE ) ,
                     ) ;
             return $actions ;
         }

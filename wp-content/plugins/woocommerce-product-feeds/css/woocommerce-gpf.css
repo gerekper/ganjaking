@@ -1,5 +1,18 @@
-.woocommerce_gpf_intro_support_info, .woocommerce_gpf_intro_cache_status {
+.woocommerce_gpf_intro_support_info {
+    width: 15%;
+}
+.woocommerce_gpf_intro_cache_status {
     width: 20%;
+}
+@media screen and (max-width: 1300px) {
+    .woocommerce_gpf_intro_support_info {
+        width: 20%;
+    }
+    .woocommerce_gpf_intro_cache_status {
+        width: 25%;
+    }
+}
+.woocommerce_gpf_intro_support_info, .woocommerce_gpf_intro_cache_status {
     background-color: #fff;
     padding: 0 1em;
     margin-left: 2em;
@@ -31,15 +44,7 @@
     }
 }
 
-.woocommerce_gpf_intro_second ul ul {
-    margin-top: 0.5em;
-}
-
-.woocommerce_gpf_intro_second > ul > li {
-    margin-top: 1.5em;
-}
-
-.woocommerce_gpf_settings hr {
+.gpf-field-heading {
     clear: both;
 }
 
@@ -99,4 +104,25 @@
 input[type="checkbox"].woocommerce_gpf_field_selector_mandatory {
     display: none;
     font-size: 500%;
+}
+
+.woocommerce_gpf_cache_rebuild_notice {
+    color: darkgreen;
+}
+
+.feed-non-legacy+.feed-legacy {
+    padding-top: 0.8em;
+}
+
+.feed-legacy {
+    font-size: smaller;
+    color: #777;
+}
+
+p.feed-non-legacy span {
+    padding-left: 1.8em;
+}
+
+p.feed-legacy span {
+    padding-left: 2.3em;
 }

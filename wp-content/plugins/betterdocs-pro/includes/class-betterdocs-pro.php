@@ -29,6 +29,8 @@
  */
 class Betterdocs_Pro {
 
+	public $multiple_kb = '';
+
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
 	 * the plugin.
@@ -79,6 +81,8 @@ class Betterdocs_Pro {
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 
+		$this->multiple_kb = $this->get_multiple_kb();
+
 	}
 
 	/**
@@ -104,6 +108,10 @@ class Betterdocs_Pro {
 		 * core plugin.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-betterdocs-pro-loader.php';
+		/**
+		 * Extend post type Class
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-multiple-kb.php';
 		/**
 		 * Role Management Class
 		 */
@@ -240,5 +248,12 @@ class Betterdocs_Pro {
 	public function get_version() {
 		return $this->version;
 	}
+
+	public static function get_multiple_kb() {
+
+        $get_multiple_kb = BetterDocs_DB::get_settings('multiple_kb');
+        $multiple_kb = apply_filters( 'betterdocs_get_multiple_kb', $get_multiple_kb );
+        return $multiple_kb;
+    }
 
 }

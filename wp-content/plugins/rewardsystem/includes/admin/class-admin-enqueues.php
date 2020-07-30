@@ -232,10 +232,14 @@ if ( ! class_exists( 'RSAdminEnqueues' ) ) {
             $PointsData      = new RS_Points_Data( $UserId ) ;
             $Points          = $PointsData->total_available_points() ;
             $localize_script = array(
-                'ajaxurl'          => SRP_ADMIN_AJAX_URL ,
-                'fp_wc_version'    => WC_VERSION ,
-                'available_points' => $Points ,
-                'hide_filter'      => (isset( $_GET[ 'view' ] ) || isset( $_GET[ 'edit' ] ))
+                'ajaxurl'                              => SRP_ADMIN_AJAX_URL ,
+                'fp_wc_version'                        => WC_VERSION ,
+                'available_points'                     => $Points ,
+                'restrict_user'                        => ('yes' == get_option( 'rs_enable_reward_program' ) ) ? get_user_meta( $UserId , 'allow_user_to_earn_reward_points' , true ) : '' ,
+                'restrict_add_points_error_message'    => esc_html__( 'As of now, this user is not involved in the reward program. Hence, you cannot add points to this user account.' , SRP_LOCALE ) ,
+                'restrict_remove_points_error_message' => esc_html__( 'As of now, this user is not involved in the reward program. Hence, you cannot remove points from this user account.' , SRP_LOCALE ) ,
+                'restrict_user_points_nonce'           => wp_create_nonce( 'srp-restrict-user-points-nonce' ) ,
+                'hide_filter'                          => (isset( $_GET[ 'view' ] ) || isset( $_GET[ 'edit' ] ))
                     ) ;
             wp_enqueue_script( 'fp_userrewardpoints_tab' , SRP_PLUGIN_DIR_URL . "assets/js/tab/fp-userrewardpoints-tab.js" , array( 'jquery' ) , SRP_VERSION ) ;
             wp_localize_script( 'fp_userrewardpoints_tab' , 'fp_userrewardpoints_tab_params' , $localize_script ) ;

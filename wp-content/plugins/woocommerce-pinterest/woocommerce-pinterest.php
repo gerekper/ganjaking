@@ -9,7 +9,7 @@ use Premmerce\WooCommercePinterest\Installer\Installer;
  * Plugin Name:       Pinterest for WooCommerce
  * Plugin URI:        https://premmerce.com/woocommerce-pinterest/
  * Description:       Track Conversions, Rich Pins product data and bulk creation and editing of Pins
- * Version:           2.1.5
+ * Version:           2.1.7
  * Author:            premmerce
  * Author URI:        https://premmerce.com
  * License:           GPL-2.0+
@@ -18,7 +18,7 @@ use Premmerce\WooCommercePinterest\Installer\Installer;
  * Domain Path:       /languages
  *
  * WC requires at least: 3.5
- * WC tested up to: 4.2.0
+ * WC tested up to: 4.3.0
  *
  * Woo: 4596443:2d20474ebd307aae8c752b60a48c5b0c
  */

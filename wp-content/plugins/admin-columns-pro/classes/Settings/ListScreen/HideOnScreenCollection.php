@@ -50,7 +50,7 @@ class HideOnScreenCollection {
 	}
 
 	/**
-	 * @param HideOnScreen[] $groups
+	 * @param array $items
 	 *
 	 * @return array
 	 */

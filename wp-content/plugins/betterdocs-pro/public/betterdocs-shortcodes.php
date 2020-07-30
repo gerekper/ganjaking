@@ -75,28 +75,13 @@ function betterdocs_category_box_l3( $atts, $content = null ) {
 			'category' => 'doc_category',
 			'column' => '',
 			'nested_subcategory' => '',
-			'terms' => ''
+			'terms' => '',
+			'multiple_knowledge_base' => false
 		),
 		$atts
 	);
 
-	$terms_object = array(
-		'taxonomy' => $get_args['category'],
-		'orderby' => 'name',
-		'hide_empty' => true,
-		'parent' => 0
-	);
-
-	if ( $nested_subcategory == 1 || $get_args['nested_subcategory'] === "true" || $get_args['terms'] ) {
-		unset($terms_object['parent']);
-	}
-
-	if ( $get_args['terms'] ) {
-		$terms_object['include'] = explode(',', $get_args['terms']);
-		$terms_object['orderby'] = 'include';
-	}
-
-	$taxonomy_objects = get_terms($terms_object);
+	$taxonomy_objects = BetterDocs_Helper::taxonomy_object( $get_args['multiple_knowledge_base'], $get_args['terms']);
 
 	if ( $taxonomy_objects && ! is_wp_error( $taxonomy_objects ) ) :
 		$class = ['betterdocs-categories-wrap betterdocs-category-box betterdocs-category-box-pro pro-layout-3 ash-bg layout-flex'];
@@ -117,14 +102,178 @@ function betterdocs_category_box_l3( $atts, $content = null ) {
 
 				// set active category class in single page	
 				$wrap_class = 'docs-single-cat-wrap';
+
+				$term_permalink = BetterDocs_Helper::term_permalink( $get_args['category'], $term->slug );
 			?>
-				<a href="<?php echo get_term_link( $term->slug, $get_args['category'] ) ?>" class="<?php echo esc_attr($wrap_class) ?>">
+				<a href="<?php echo esc_url( $term_permalink ) ?>" class="<?php echo esc_attr($wrap_class) ?>">
 					<?php
 					$cat_icon_id = get_term_meta( $term_id, 'doc_category_image-id', true);
 					if($cat_icon_id){
 						echo wp_get_attachment_image ( $cat_icon_id, 'thumbnail' );
 					} else {
 						echo '<img class="docs-cat-icon" src="'.BETTERDOCS_ADMIN_URL.'assets/img/betterdocs-cat-icon.svg" alt="">';
+					}
+					echo '<div class="title-count">';
+					echo '<h3 class="docs-cat-title">'.$term->name.'</h3>';
+					echo wp_sprintf('<span>%s ' . __('articles', 'betterdocs-pro').'</span>', $term->count);
+					echo '</div>';
+					?>	
+				</a>
+			<?php
+			}
+		}
+		?>
+	</div>
+	<?php
+	endif;
+	return ob_get_clean();
+}
+
+/**
+ * Manage multiple docs
+ * *
+ * *
+ * @param int $atts Get attributes for the categories.
+ * @param int $content Get content to category.
+ */
+add_shortcode( 'betterdocs_multiple_kb', 'betterdocs_multiple_kb' );
+function betterdocs_multiple_kb( $atts, $content = null ) {
+	ob_start();
+
+	$column_number = BetterDocs_DB::get_settings('column_number');
+	$get_args = shortcode_atts (
+		array (
+            'post_type' => 'docs',
+			'taxonomy' => 'knowledge_base',
+			'column' => '',
+			'terms' => ''
+		),
+		$atts
+	);
+
+	$terms_object = array(
+		'taxonomy' => $get_args['taxonomy'],
+		'hide_empty' => true,
+		'parent' => 0
+	);
+
+	$taxonomy_objects = get_terms( $terms_object );
+
+	if ( $taxonomy_objects && ! is_wp_error( $taxonomy_objects ) ) :
+		$class = ['betterdocs-categories-wrap betterdocs-category-box layout-2 ash-bg'];
+		$class[] = 'layout-flex';
+		if(isset($get_args['column']) && $get_args['column'] == true && is_numeric($get_args['column'])){
+			$class[] = 'docs-col-'.$get_args['column'];
+		}else{
+			$class[] = 'docs-col-'.$column_number;
+		}
+
+	?>
+	<div class="<?php echo implode(' ',$class) ?>">
+		<?php
+		
+		// display category grid by order
+		foreach ( $taxonomy_objects as $term ) {
+			
+			$term_id = $term->term_id;
+			
+			if ( $term->count != 0 ) {
+
+				// set active category class in single page	
+				$wrap_class = 'docs-single-cat-wrap';
+			?>
+				<a href="<?php echo get_term_link( $term->slug, $get_args['taxonomy'] ) ?>" class="<?php echo esc_attr($wrap_class) ?>">
+					<?php
+					$cat_icon_id = get_term_meta( $term_id, 'doc_category_image-id', true);
+					if($cat_icon_id){
+						echo wp_get_attachment_image ( $cat_icon_id, 'thumbnail' );
+					} else {
+						echo '<img class="docs-cat-icon" src="'.BETTERDOCS_ADMIN_URL.'assets/img/betterdocs-cat-icon.svg" alt="">';
+					}
+					echo '<h3 class="docs-cat-title">'.$term->name.'</h3>';
+					$cat_desc = get_theme_mod('betterdocs_doc_page_cat_desc');
+					if($cat_desc == true){
+						echo '<p class="cat-description">'.$term->description.'</p>';
+					}
+					echo wp_sprintf('<span>%s ' . __('articles', 'betterdocs').'</span>', $term->count);
+					?>	
+				</a>
+			<?php
+			}
+		}
+		?>
+	</div>
+	<?php
+	endif;
+	return ob_get_clean();
+}
+
+/**
+ * multiple kb layout 2
+ * *
+ * *
+ * @param int $atts Get attributes for the categories.
+ * @param int $content Get content to category.
+ */
+add_shortcode( 'betterdocs_multiple_kb_2', 'betterdocs_multiple_kb_2' );
+function betterdocs_multiple_kb_2( $atts, $content = null ) {
+	ob_start();
+
+	$column_number = BetterDocs_DB::get_settings('column_number');
+	$get_args = shortcode_atts(
+		array(
+            'post_type' => 'docs',
+			'taxonomy' => 'knowledge_base',
+			'column' => '',
+			'terms' => ''
+		),
+		$atts
+	);
+
+	$terms_object = array(
+		'taxonomy' => $get_args['taxonomy'],
+		'hide_empty' => true,
+		'parent' => 0
+	);
+
+	$taxonomy_objects = get_terms( $terms_object );
+
+	if ( $taxonomy_objects && ! is_wp_error( $taxonomy_objects ) ) :
+		$class = ['betterdocs-categories-wrap betterdocs-category-box betterdocs-category-box-pro pro-layout-3 ash-bg layout-flex'];
+		$class[] = 'layout-flex';
+		if(isset($get_args['column']) && $get_args['column'] == true && is_numeric($get_args['column'])){
+			$class[] = 'docs-col-'.$get_args['column'];
+		}else{
+			$class[] = 'docs-col-'.$column_number;
+		}
+
+	?>
+	<div class="<?php echo implode(' ',$class) ?>">
+		<?php
+		// display category grid by order
+		foreach ( $taxonomy_objects as $term ) {
+
+			$term_id = $term->term_id;
+			
+			if ( $term->count != 0 ) {
+
+				// set active category class in single page	
+				$wrap_class = 'docs-single-cat-wrap';
+
+			?>
+				<a href="<?php echo get_term_link( $term->slug, $get_args['taxonomy'] ) ?>" class="<?php echo esc_attr($wrap_class) ?>">
+					<?php
+
+					$cat_icon_id = get_term_meta( $term_id, 'doc_category_image-id', true);
+
+					if( $cat_icon_id ) {
+
+						echo wp_get_attachment_image ( $cat_icon_id, 'thumbnail' );
+
+					} else {
+
+						echo '<img class="docs-cat-icon" src="'.BETTERDOCS_ADMIN_URL.'assets/img/betterdocs-cat-icon.svg" alt="">';
+					
 					}
 					echo '<div class="title-count">';
 					echo '<h3 class="docs-cat-title">'.$term->name.'</h3>';
@@ -171,28 +320,16 @@ function betterdocs_category_grid_2( $atts, $content = null ) {
 			'column' => '',
 			'posts' => '',
 			'nested_subcategory' => '',
-			'terms' => ''
+			'terms' => '',
+			'multiple_knowledge_base' => ''
 		),
 		$atts
 	);
 
-	$terms_object = array(
-		'taxonomy' => $get_args['category'],
-		'orderby' => 'name', 
-		'hide_empty' => true,
-		'parent' => 0
-	);
-
-	if ( $get_args['terms'] ) {
-		unset($terms_object['parent']);
-		$terms_object['include'] = explode(',', $get_args['terms']);
-		$terms_object['orderby'] = 'include';
-	}
-
-	$taxonomy_objects = get_terms($terms_object);
+	$taxonomy_objects = BetterDocs_Helper::taxonomy_object( $get_args['multiple_knowledge_base'], $get_args['terms'] );
 
 	if ( $taxonomy_objects && ! is_wp_error( $taxonomy_objects ) ) :
-		$class = ['betterdocs-categories-wrap category-grid white-bg'];
+		$class = ['betterdocs-categories-wrap category-grid pro-layout-4 white-bg'];
 		if(!is_singular('docs') && !is_tax('doc_category') && !is_tax('doc_tag')){
 			$class[] = 'layout-flex';
 			if(isset($get_args['column']) && $get_args['column'] == true && is_numeric($get_args['column'])){
@@ -214,6 +351,7 @@ function betterdocs_category_grid_2( $atts, $content = null ) {
 			$category_id = '';
 			$page_cat = '';
 		}
+		
 
 		$taxonomy_first_row = array_slice($taxonomy_objects, 0, $column_number);
 		$taxonomy_all = array_slice($taxonomy_objects, $column_number);
@@ -221,7 +359,10 @@ function betterdocs_category_grid_2( $atts, $content = null ) {
 		echo '<div class="betterdocs-categories-wrap wrap-top-row layout-flex">';
 		foreach ( $taxonomy_first_row as $term ) {
 			if ( '0' == ( $term->count && $term->parent ) ) {
-				echo '<a href="'.get_term_link( $term->slug, $get_args['category'] ).'" class="docs-single-cat-wrap docs-cat-list-2 docs-cat-list-2-box">';
+
+				$term_permalink = BetterDocs_Helper::term_permalink( $get_args['category'], $term->slug );
+
+				echo '<a href="' . esc_url( $term_permalink ) . '" class="docs-single-cat-wrap docs-cat-list-2 docs-cat-list-2-box">';
 				echo '<div class="docs-cat-list-2-box-content">';
 					$term_id = $term->term_id;	
 					$cat_icon_id = get_term_meta( $term_id, 'doc_category_image-id', true);
@@ -242,39 +383,28 @@ function betterdocs_category_grid_2( $atts, $content = null ) {
 
 		// display category grid by order
 		foreach ( $taxonomy_all as $term ) {
-			if ( '0' == ( $term->count && $term->parent ) ) {
+
 				$term_id = $term->term_id;
+				$term_slug = $term->slug;
+
+				$term_permalink = BetterDocs_Helper::term_permalink( $get_args['category'], $term_slug );
 			?>
 				<div class="docs-single-cat-wrap docs-cat-list-2 docs-cat-list-2-items">
 					<div class="docs-cat-title-wrap">
-						<a href="<?php echo get_term_link( $term->slug, $get_args['category'] ) ?>"><h3 class="docs-cat-title"><?php echo $term->name ?></h3></a>
+						<a href="<?php echo esc_url( $term_permalink ) ?>"><h3 class="docs-cat-title"><?php echo $term->name ?></h3></a>
 					</div>
 					<div class="docs-item-container">
 						<?php 
-							$args = array(
-								'post_type'   => $get_args['post_type'],
-								'post_status' => 'publish',
-								'tax_query' => array(
-									array(
-										'taxonomy' => $get_args['category'],
-										'field'    => 'slug',
-										'terms'    => $term->slug,
-										'operator'          => 'AND',
-            							'include_children'  => false
-									),
-								),
-							);
-							if(isset($get_args['posts']) && $get_args['posts'] == true && is_numeric($get_args['posts'])){
-								$posts_number = $get_args['posts'];
-							}
-							$args['posts_per_page'] = $posts_number;
 
-							if($alphabetically_order_post == 1) {
-								$args['orderby'] = 'title';
-								$args['order'] = 'ASC';
+							if(isset($get_args['posts_per_grid']) && $get_args['posts_per_grid'] == true && is_numeric($get_args['posts_per_grid'])){
+								$posts_per_grid = $get_args['posts_per_grid'];
+							} else {
+								$posts_per_grid = $posts_number;
 							}
 
-							$args = apply_filters( 'betterdocs_articles_args', $args, $term->term_id );
+							$list_args = BetterDocs_Helper::list_query_arg( $get_args['post_type'], $get_args['multiple_knowledge_base'], $term_slug, $posts_per_grid, $alphabetically_order_post );
+
+							$args = apply_filters( 'betterdocs_articles_args', $list_args, $term->term_id );
 						
 							$post_query = new WP_Query( $args );
 							if ( $post_query->have_posts() ) :
@@ -285,7 +415,7 @@ function betterdocs_category_grid_2( $atts, $content = null ) {
 									if($page_cat === get_the_ID()){
 										$attr[] = 'class="active"';
 									}
-									echo '<li><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="0.86em" height="1em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 1536 1792"><path d="M1468 380q28 28 48 76t20 88v1152q0 40-28 68t-68 28H96q-40 0-68-28t-28-68V96q0-40 28-68T96 0h896q40 0 88 20t76 48zm-444-244v376h376q-10-29-22-41l-313-313q-12-12-41-22zm384 1528V640H992q-40 0-68-28t-28-68V128H128v1536h1280zM384 800q0-14 9-23t23-9h704q14 0 23 9t9 23v64q0 14-9 23t-23 9H416q-14 0-23-9t-9-23v-64zm736 224q14 0 23 9t9 23v64q0 14-9 23t-23 9H416q-14 0-23-9t-9-23v-64q0-14 9-23t23-9h704zm0 256q14 0 23 9t9 23v64q0 14-9 23t-23 9H416q-14 0-23-9t-9-23v-64q0-14 9-23t23-9h704z" fill="#626262"/></svg><a '.implode(' ',$attr).'>'.get_the_title().'</a></li>';
+									echo '<li>'. BetterDocs_Helper::list_svg() .'<a '.implode(' ',$attr).'>'.get_the_title().'</a></li>';
 								endwhile;
 								
 								echo '</ul>';
@@ -294,21 +424,16 @@ function betterdocs_category_grid_2( $atts, $content = null ) {
 							wp_reset_query();
 
 							// Sub category query
-							if($nested_subcategory == 1 || $get_args['nested_subcategory'] === "true") {
+							if ( ( $nested_subcategory == 1 || $get_args['nested_subcategory'] == true ) && $get_args['nested_subcategory'] != "false") {
 
-								if ( $get_args['nested_subcategory'] === "false" ) {
-									return;
-								}
+								$sub_categories = BetterDocs_Helper::child_taxonomy_terms( $term_id, $get_args['multiple_knowledge_base'] );
 
-								$taxonomies = array('doc_category');
-								$sub_taxonomies = array('parent' => $term->term_id,'orderby' => 'name');
-								$sub_categories = get_terms($taxonomies, $sub_taxonomies);
 								if($sub_categories){
 									
 									foreach($sub_categories as $sub_category) {
 										echo '<span class="docs-sub-cat-title">
-										<svg class="toggle-arrow arrow-right" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="0.48em" height="1em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 608 1280"><g transform="translate(608 0) scale(-1 1)"><path d="M595 288q0 13-10 23L192 704l393 393q10 10 10 23t-10 23l-50 50q-10 10-23 10t-23-10L23 727q-10-10-10-23t10-23l466-466q10-10 23-10t23 10l50 50q10 10 10 23z"/></g></svg>
-										<svg class="toggle-arrow arrow-down" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="0.8em" height="1em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 1024 1280"><path d="M1011 480q0 13-10 23L535 969q-10 10-23 10t-23-10L23 503q-10-10-10-23t10-23l50-50q10-10 23-10t23 10l393 393l393-393q10-10 23-10t23 10l50 50q10 10 10 23z"/></svg>
+										' . BetterDocs_Helper::arrow_right_svg() . '
+										' . BetterDocs_Helper::arrow_down_svg() . '
 										<a href="#">'.$sub_category->name.'</a></span>';
 										echo '<ul class="docs-sub-cat">';
 										$sub_args = array(
@@ -329,12 +454,13 @@ function betterdocs_category_grid_2( $atts, $content = null ) {
 											$sub_args['order'] = 'ASC';
 										}
 										$sub_args['posts_per_page'] = -1;
+										
 										$sub_args = apply_filters( 'betterdocs_sub_cat_articles_args', $sub_args, $sub_category->term_id );
 										$sub_post_query = new WP_Query( $sub_args );
 										if ( $sub_post_query->have_posts() ) :
 											while ( $sub_post_query->have_posts() ) : $sub_post_query->the_post();
 												$sub_attr = ['href="'.get_the_permalink().'"'];
-												echo '<li class="sub-list"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="0.86em" height="1em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 1536 1792"><path d="M1468 380q28 28 48 76t20 88v1152q0 40-28 68t-68 28H96q-40 0-68-28t-28-68V96q0-40 28-68T96 0h896q40 0 88 20t76 48zm-444-244v376h376q-10-29-22-41l-313-313q-12-12-41-22zm384 1528V640H992q-40 0-68-28t-28-68V128H128v1536h1280zM384 800q0-14 9-23t23-9h704q14 0 23 9t9 23v64q0 14-9 23t-23 9H416q-14 0-23-9t-9-23v-64zm736 224q14 0 23 9t9 23v64q0 14-9 23t-23 9H416q-14 0-23-9t-9-23v-64q0-14 9-23t23-9h704zm0 256q14 0 23 9t9 23v64q0 14-9 23t-23 9H416q-14 0-23-9t-9-23v-64q0-14 9-23t23-9h704z"/></svg><a '.implode(' ',$sub_attr).'>'.get_the_title().'</a></li>';
+												echo '<li class="sub-list">'. BetterDocs_Helper::list_svg() .'<a '.implode(' ',$sub_attr).'>'.get_the_title().'</a></li>';
 											endwhile;
 										endif;
 										wp_reset_query();
@@ -351,7 +477,6 @@ function betterdocs_category_grid_2( $atts, $content = null ) {
 					</div>
 				</div>
 			<?php
-			}
 		}
 		?>
 	</div>
@@ -359,6 +484,7 @@ function betterdocs_category_grid_2( $atts, $content = null ) {
 	endif;
 	return ob_get_clean();
 }
+
 /* Describe what the code snippet does so you can remember later on */
 //add_action('wp_head', 'betterdocs_helpshelf_integration');
 function betterdocs_helpshelf_integration(){

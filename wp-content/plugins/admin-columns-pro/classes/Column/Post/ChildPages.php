@@ -15,7 +15,6 @@ class ChildPages extends AC\Column
 		$this->set_label( __( 'Child Pages', 'codepress-admin-columns' ) );
 	}
 
-	// Display
 	public function get_value( $post_id ) {
 		$titles = [];
 

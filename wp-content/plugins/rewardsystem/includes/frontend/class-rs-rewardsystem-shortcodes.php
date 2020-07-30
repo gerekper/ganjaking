@@ -1390,7 +1390,7 @@ if ( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
 
             $CouponAmnt     = get_option( 'woocommerce_tax_display_cart' ) == 'incl' ? ($CouponAmnt + $TaxAmnt) : $CouponAmnt ;
             $ConvertedValue = redeem_point_conversion( $CouponAmnt , get_current_user_id() ) ;
-            $ConvertedValue = ($tag == 'redeemeduserpoints') ? $ConvertedValue : (($ConvertedValue > $Points) ? $Points : $ConvertedValue) ;
+            $ConvertedValue = (($ConvertedValue > $Points) ? $Points : $ConvertedValue) ;
             $ConvertedValue = ($tag == 'redeemeduserpoints') ? (($Points >= $ConvertedValue) ? ($Points - $ConvertedValue) : $ConvertedValue) : $ConvertedValue ;
             return get_option( 'rs_enable_round_off_type_for_calculation' ) == 'yes' ? $ConvertedValue : round_off_type( $ConvertedValue ) ;
         }
@@ -1736,7 +1736,7 @@ if ( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
             ob_start() ;
             $PointsData = new RS_Points_Data( get_current_user_id() ) ;
             $Points     = $PointsData->total_available_points() ;
-            echo get_option( 'rs_my_rewards_total' ) . " " . round_off_type( number_format( ( float ) $Points , 2 , '.' , '' ) ) . "</h4><br>" ;
+            echo get_option( 'rs_my_rewards_total' ) . " " . round_off_type( number_format( ( float ) $Points , 2 , '.' , '' ) ) . "</h4>" ;
             return ob_get_clean() ;
         }
 
@@ -1798,20 +1798,30 @@ if ( ! class_exists( 'RS_Rewardsystem_Shortcodes' ) ) {
                         </td>
                     </tr>
                     <tr>
-                        <th>
-                            <label><?php echo get_option( "rs_select_user_label" ) ; ?></label>
-                        </th>
-                        <td style="border:none;padding: 6px 10px 6px 10px;">
-                            <?php
-                            global $woocommerce ;
-                            if ( ( float ) $woocommerce->version < ( float ) '3.0' ) {
-                                ?>
-                                <input id="select_user_ids" type="text" placeholder="<?php echo get_option( 'rs_select_user_placeholder' ) ; ?>" style="font-size:14px;min-width:250px !important;height:30px !important;"/>
-                            <?php } else { ?>
-                                <select id="select_user_ids" name="select_user_ids"  data-placeholder="<?php echo get_option( 'rs_select_user_placeholder' ) ; ?>" style="min-width:250px !important;height:30px !important;" data-allow_clear="true" ></select>
-                            <?php } ?>
-                            <div class = "error_empty_user" ></div>
-                        </td>
+                        <?php if ( '1' == get_option( 'rs_send_points_user_selection_field' , 1 ) ) : ?>
+                            <th>
+                                <label><?php echo get_option( "rs_select_user_label" ) ; ?></label>
+                            </th>
+                            <td style="border:none;padding: 6px 10px 6px 10px;">
+                                <?php
+                                global $woocommerce ;
+                                if ( ( float ) $woocommerce->version < ( float ) '3.0' ) {
+                                    ?>
+                                    <input id="select_user_ids" type="text" placeholder="<?php echo get_option( 'rs_select_user_placeholder' ) ; ?>" style="font-size:14px;min-width:250px !important;height:30px !important;"/>
+                                <?php } else { ?>
+                                    <select id="select_user_ids" name="select_user_ids"  data-placeholder="<?php echo get_option( 'rs_select_user_placeholder' ) ; ?>" style="min-width:250px !important;height:30px !important;" data-allow_clear="true" ></select>
+                                <?php } ?>
+                                <div class = "error_empty_user" ></div>
+                            </td>
+                        <?php else: ?>
+                            <th>
+                                <label><?php echo wp_kses_post( get_option( "rs_send_points_username_field_label" ) ) ; ?></label>
+                            </th>
+                            <td style="border:none;padding: 6px 10px 6px 10px;">
+                                <input type ="text" placeholder="<?php echo esc_attr( get_option( 'rs_send_points_username_placeholder' ) ) ; ?>" class ="rs_user_name_field" style="min-width:250px !important;height:30px !important;">
+                                <div class = "error_empty_user" ></div>
+                            </td>
+                        <?php endif ; ?>
                     </tr>
                     <tr>
                         <th>

@@ -8,15 +8,30 @@
         <?php 
             global $wpdb;
             $output = '';
+
             if( is_array( $terms ) && ! empty( $terms ) ) {
                 foreach( $terms as $term ) {
-                    $xTra_QL = '';
+                    $xTra_QL = $xTra_Term_QL = '';
                     $docs_order = rtrim(get_term_meta( $term->term_id, '_docs_order', true ), ',');
                     if( ! empty( $docs_order ) ) {
                         $xTra_QL = " ORDER BY FIELD(ID, $docs_order)";
                     }
+
+                    /**
+                     * for a single knowledge base article.
+                     */
+                    if( isset( $_GET['knowledgebase'] ) && ! empty( $_GET['knowledgebase'] ) && $_GET['knowledgebase'] !== 'all' ) {
+                        $kb_term = get_term_by('slug', trim( $_GET['knowledgebase'] ), 'knowledge_base');
+                        $kb_term_id = $kb_term->term_id;
+                        $xTra_Term_QL = " AND object_id IN ( SELECT object_id AS post_id FROM $wpdb->term_relationships WHERE term_taxonomy_id = $kb_term_id )";
+                    }
+
                     $query = $wpdb->prepare(
-                        "SELECT post_title AS title, ID, post_status  FROM $wpdb->posts WHERE post_type = %s AND ( ( post_status = %s ) OR ( post_status = %s ) OR ( post_status = %s ) ) AND ID IN ( SELECT object_id AS post_id FROM $wpdb->term_relationships WHERE term_taxonomy_id = %s )$xTra_QL",
+                        "SELECT post_title AS title, ID, post_status  FROM $wpdb->posts
+                        WHERE post_type = %s
+                        AND ( ( post_status = %s ) OR ( post_status = %s ) OR ( post_status = %s ) )
+                        AND ID IN ( SELECT object_id AS post_id FROM $wpdb->term_relationships
+                        WHERE term_taxonomy_id = %s $xTra_Term_QL )$xTra_QL",
                         array (
                             'docs',
                             'publish',
@@ -25,6 +40,29 @@
                             $term->term_id
                         )
                     );
+
+                    // $kbslug = $_GET['knowledgebase'];
+                    // $kb_term = get_term_by('slug', $kbslug, 'knowledge_base');
+                    // $kb_term_id = $kb_term->term_id;
+                    // $query = $wpdb->prepare(
+                    //     "SELECT post_title AS title, ID, post_status  FROM $wpdb->posts
+                    //     WHERE post_type = %s
+                    //     AND ( ( post_status = %s ) OR ( post_status = %s ) OR ( post_status = %s ) )
+                    //     AND ID IN ( SELECT object_id AS post_id FROM $wpdb->term_relationships
+                    //     WHERE term_taxonomy_id = %s )$xTra_QL
+                    //     ",
+                    //     array (
+                    //         'docs',
+                    //         'publish',
+                    //         'draft',
+                    //         'pending',
+                    //         $term->term_id,
+                    //         // $kb_term_id
+                    //     )
+                    // );
+
+                    
+
                     $results = $wpdb->get_results( $query );
 
                     

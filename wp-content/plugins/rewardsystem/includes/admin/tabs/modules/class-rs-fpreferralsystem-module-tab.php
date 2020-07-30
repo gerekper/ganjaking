@@ -48,6 +48,8 @@ if ( ! class_exists( 'RSReferralSystemModule' ) ) {
             add_action( 'rs_display_save_button_fpreferralsystem' , array( 'RSTabManagement' , 'rs_display_save_button' ) ) ;
 
             add_action( 'rs_display_reset_button_fpreferralsystem' , array( 'RSTabManagement' , 'rs_display_reset_button' ) ) ;
+
+            add_filter( 'rs_alter_manual_referral_link_rules' , array( __CLASS__ , 'manual_referral_link_user_search_filter' ) ) ;
         }
 
         /*
@@ -1814,10 +1816,6 @@ if ( ! class_exists( 'RSReferralSystemModule' ) ) {
             } else {
                 update_option( 'rs_fbshare_image_url_upload' , '' ) ;
             }
-            if ( isset( $_POST[ 'rewards_dynamic_rule_manual' ] ) ) {
-                $reward_dynamic_rule_manual = array_values( $_POST[ 'rewards_dynamic_rule_manual' ] ) ;
-                update_option( 'rewards_dynamic_rule_manual' , $reward_dynamic_rule_manual ) ;
-            }
             if ( isset( $_POST[ 'rs_referral_module_checkbox' ] ) ) {
                 update_option( 'rs_referral_activated' , $_POST[ 'rs_referral_module_checkbox' ] ) ;
             } else {
@@ -1833,10 +1831,24 @@ if ( ! class_exists( 'RSReferralSystemModule' ) ) {
             } else {
                 update_option( 'rs_exclude_products_for_referral_product_purchase' , '' ) ;
             }
+
             if ( isset( $_POST[ 'rewards_dynamic_rule_manual' ] ) ) {
-                update_option( 'rewards_dynamic_rule_manual' , $_POST[ 'rewards_dynamic_rule_manual' ] ) ;
-            } else {
-                update_option( 'rewards_dynamic_rule_manual' , '' ) ;
+
+                $manual_link_rules = get_option( 'rewards_dynamic_rule_manual' , array() ) ;
+                foreach ( $_POST[ 'rewards_dynamic_rule_manual' ] as $key => $values ) {
+
+                    $manual_link_rules[ $key ] = $values ;
+
+                    if ( isset( $_POST[ 'rs_removed_link_rule' ][ $key ] ) ) {
+                        if ( 'yes' == $_POST[ 'rs_removed_link_rule' ][ $key ] ) {
+                            $manual_link_rules[ $key ] = '' ;
+                        }
+                    }
+                }
+
+                $manual_link_rules = ( array_values( array_filter( ( array ) $manual_link_rules ) ) ) ;
+
+                update_option( 'rewards_dynamic_rule_manual' , $manual_link_rules ) ;
             }
         }
 
@@ -1925,124 +1937,28 @@ if ( ! class_exists( 'RSReferralSystemModule' ) ) {
             <?php
             echo rs_common_ajax_function_to_select_user( 'rs_manual_linking_referer' ) ;
             echo rs_common_ajax_function_to_select_user( 'rs_manual_linking_referral' ) ;
+
+            $per_page = RSTabManagement::rs_get_value_for_no_of_item_perpage( get_current_user_id() , get_current_screen() ) ;
+
+            $manual_link_rules = apply_filters( 'rs_alter_manual_referral_link_rules' , ( array ) get_option( 'rewards_dynamic_rule_manual' , array() ) ) ;
+            // Search User filter.
+            $searched_user     = isset( $_REQUEST[ 'rs_search_user' ] ) ? sanitize_title( $_REQUEST[ 'rs_search_user' ] ) : '' ;
+
+            if ( ! $searched_user ) {
+                $chunk_rules             = array_chunk( $manual_link_rules , $per_page ) ;
+                $current_page            = isset( $_REQUEST[ 'page_no' ] ) ? wc_clean( wp_unslash( absint( $_REQUEST[ 'page_no' ] ) ) ) : '1' ;
+                $rules_based_on_per_page = isset( $chunk_rules[ $current_page - 1 ] ) ? $chunk_rules[ $current_page - 1 ] : array() ;
+            } else {
+                $rules_based_on_per_page = $manual_link_rules ;
+                $current_page            = 1 ;
+            }
+
+            $page_count = ceil( count( $manual_link_rules ) / $per_page ) ;
+            $query_args = array( 'page' => 'rewardsystem_callback' , 'tab' => 'fprsmodules' , 'section' => 'fpreferralsystem' ) ;
+
+            // Display Manual Referral link Rules.
+            include SRP_PLUGIN_PATH . '/includes/admin/views/manual-referral-link-rules.php' ;
             ?>
-            <table class="widefat fixed rsdynamicrulecreation_manual" cellspacing="0">
-                <thead>
-                    <tr>
-
-                        <th class="manage-column column-columnname" scope="col"><?php _e( 'Referrer Username' , SRP_LOCALE ) ; ?></th>
-                        <th class="manage-column column-columnname" scope="col"><?php _e( 'Buyer Username' , SRP_LOCALE ) ; ?></th>
-                        <th class="manage-column column-columnname-link" scope="col"><?php _e( 'Linking Type' , SRP_LOCALE ) ; ?></th>
-                        <th class="manage-column column-columnname num" scope="col"><?php _e( 'Remove Linking' , SRP_LOCALE ) ; ?></th>
-                    </tr>
-                </thead>
-
-                <tfoot>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td class="manage-column column-columnname num" scope="col"> <span class="add button-primary"><?php _e( 'Add Linking' , SRP_LOCALE ) ; ?></span></td>
-                    </tr>
-                    <tr>
-
-                        <th class="manage-column column-columnname" scope="col"><?php _e( 'Referrer Username' , SRP_LOCALE ) ; ?></th>
-                        <th class="manage-column column-columnname" scope="col"><?php _e( 'Buyer Username' , SRP_LOCALE ) ; ?></th>
-                        <th class="manage-column column-columnname-link" scope="col"><?php _e( 'Linking Type' , SRP_LOCALE ) ; ?></th>
-                        <th class="manage-column column-columnname num" scope="col"><?php _e( 'Add Linking' , SRP_LOCALE ) ; ?></th>
-
-                    </tr>
-                </tfoot>
-
-                <tbody id="here">
-                    <?php
-                    $reward_dynamic_rule_manual = get_option( 'rewards_dynamic_rule_manual' ) ;
-                    $i                          = 0 ;
-                    if ( is_array( $reward_dynamic_rule_manual ) ) {
-                        foreach ( $reward_dynamic_rule_manual as $rewards_dynamic_rule ) {
-                            if ( $rewards_dynamic_rule[ 'referer' ] != '' && $rewards_dynamic_rule[ 'refferal' ] != '' ) {
-                                ?>
-                                <tr>
-                                    <td class="column-columnname">
-                                        <?php if ( ( float ) $woocommerce->version <= ( float ) ('2.2.0') ) { ?>
-                                            <select name="rewards_dynamic_rule_manual[<?php echo $i ; ?>][referer]" class="short rs_manual_linking_referer">
-                                                <?php
-                                                $user = get_user_by( 'id' , absint( $rewards_dynamic_rule[ 'referer' ] ) ) ;
-                                                echo '<option value="' . absint( $user->ID ) . '" ' ;
-                                                selected( 1 , 1 ) ;
-                                                echo '>' . esc_html( $user->display_name ) . ' (#' . absint( $user->ID ) . ' &ndash; ' . esc_html( $user->user_email ) . ')</option>' ;
-                                                ?>
-                                            </select>
-                                            <?php
-                                        } else {
-                                            $user_id     = absint( $rewards_dynamic_rule[ 'referer' ] ) ;
-                                            $user        = get_user_by( 'id' , $user_id ) ;
-                                            $user_string = esc_html( $user->display_name ) . ' (#' . absint( $user->ID ) . ' &ndash; ' . esc_html( $user->user_email ) . ')' ;
-                                            if ( ( float ) $woocommerce->version >= ( float ) ('3.0.0') ) {
-                                                ?>
-                                                <select multiple="multiple"  class="wc-customer-search" name="rewards_dynamic_rule_manual[<?php echo $i ; ?>][referer]" data-placeholder="<?php _e( 'Search Users' , SRP_LOCALE ) ; ?>" >
-                                                    <option value="<?php echo $user_id ; ?>" selected="selected"><?php echo esc_attr( $user_string ) ; ?><option>
-                                                </select>
-                                            <?php } else {
-                                                ?>
-                                                <input type="hidden" class="wc-customer-search" name="rewards_dynamic_rule_manual[<?php echo $i ; ?>][referer]" data-placeholder="<?php _e( 'Search for a customer' , SRP_LOCALE ) ; ?>" data-selected="<?php echo esc_attr( $user_string ) ; ?>" value="<?php echo $user_id ; ?>" data-allow_clear="true" />
-                                                <?php
-                                            }
-                                        }
-                                        ?>
-                                    </td>
-                                    <td class="column-columnname">
-                                        <?php if ( ( float ) $woocommerce->version <= ( float ) ('2.2.0') ) { ?>
-                                            <select name="rewards_dynamic_rule_manual[<?php echo $i ; ?>][refferal]" class="short rs_manual_linking_referral">
-                                                <?php
-                                                $user = get_user_by( 'id' , absint( $rewards_dynamic_rule[ 'refferal' ] ) ) ;
-                                                echo '<option value="' . absint( $user->ID ) . '" ' ;
-                                                selected( 1 , 1 ) ;
-                                                echo '>' . esc_html( $user->display_name ) . ' (#' . absint( $user->ID ) . ' &ndash; ' . esc_html( $user->user_email ) . ')</option>' ;
-                                                ?>
-                                            </select>
-                                        <?php } else { ?>
-                                            <?php
-                                            $user_id     = absint( $rewards_dynamic_rule[ 'refferal' ] ) ;
-                                            $user        = get_user_by( 'id' , $user_id ) ;
-                                            $user_string = esc_html( $user->display_name ) . ' (#' . absint( $user->ID ) . ' &ndash; ' . esc_html( $user->user_email ) . ')' ;
-                                            if ( ( float ) $woocommerce->version >= ( float ) ('3.0.0') ) {
-                                                ?>
-                                                <select multiple="multiple"  class="wc-customer-search" name="rewards_dynamic_rule_manual[<?php echo $i ; ?>][refferal]" data-placeholder="<?php _e( 'Search Users' , SRP_LOCALE ) ; ?>" >
-                                                    <option value="<?php echo $user_id ; ?>" selected="selected"><?php echo esc_attr( $user_string ) ; ?><option>
-                                                </select>
-                                            <?php } else { ?>
-                                                <input type="hidden" class="wc-customer-search" name="rewards_dynamic_rule_manual[<?php echo $i ; ?>][refferal]" data-placeholder="<?php _e( 'Search for a customer' , SRP_LOCALE ) ; ?>" data-selected="<?php echo esc_attr( $user_string ) ; ?>" value="<?php echo $user_id ; ?>" data-allow_clear="true" />
-                                                <?php
-                                            }
-                                        }
-                                        ?>
-                                    </td>
-                                    <td class="column-columnname-link">    <?php
-                                        if ( @$rewards_dynamic_rule[ 'type' ] != '' ) {
-                                            ?>
-                                            <span> <b>Automatic</b></span>
-                                            <?php
-                                        } else {
-                                            ?>
-                                            <span> <b>Manual</b></span>
-                                            <?php
-                                        }
-                                        ?>
-                                        <input type="hidden" value="<?php echo @$rewards_dynamic_rule[ 'type' ] ; ?>" name="rewards_dynamic_rule_manual[<?php echo $i ; ?>][type]"/>
-                                    </td>
-                                    <td class="column-columnname num">
-                                        <span class="remove button-secondary"><?php _e( 'Remove Linking' , SRP_LOCALE ) ; ?></span>
-                                    </td>
-                                </tr>
-                                <?php
-                                $i = $i + 1 ;
-                            }
-                        }
-                    }
-                    ?>
-                </tbody>
-            </table>
             <script>
                 jQuery( document ).ready( function () {
                     var countrewards_dynamic_rule = <?php echo $i ; ?> ;
@@ -2119,9 +2035,12 @@ if ( ! class_exists( 'RSReferralSystemModule' ) ) {
                         return false ;
                     } ) ;
                     jQuery( document ).on( 'click' , '.remove' , function () {
-                        jQuery( this ).parent().parent().remove() ;
+                        jQuery( this ).parent().parent().hide() ;
+                        var $row = jQuery( this ).closest( 'tr' ).data( 'row' ) ;
+                        jQuery( this ).closest( 'tr' ).find( 'span.rs_removed_rule' ).append( '<input type="hidden" name="rs_removed_link_rule[' + $row + ']" value="yes">' ) ;
                     } ) ;
-                } ) ;</script>
+                } ) ;
+            </script>
 
             <?php
         }
@@ -2172,6 +2091,43 @@ if ( ! class_exists( 'RSReferralSystemModule' ) ) {
             $field_label = "Exclude Product(s)" ;
             $getproducts = get_option( 'rs_exclude_products_for_referral_product_purchase' ) ;
             echo rs_function_to_add_field_for_product_select( $field_id , $field_label , $getproducts ) ;
+        }
+
+        /*
+         * Manual refferal user search filter.
+         */
+
+        public static function manual_referral_link_user_search_filter( $manual_link_rules ) {
+
+            if ( ! srp_check_is_array( $manual_link_rules ) ) {
+                return array() ;
+            }
+
+            if ( ! isset( $_REQUEST[ 'rs_search_user_action' ] ) ) {
+                return $manual_link_rules ;
+            }
+
+            $searched_user = isset( $_REQUEST[ 'rs_search_user' ] ) ? sanitize_text_field( $_REQUEST[ 'rs_search_user' ] ) : '' ;
+            if ( ! $searched_user ) {
+                return $manual_link_rules ;
+            }
+
+            $user    = is_object( get_user_by( 'ID' , $searched_user ) ) ? get_user_by( 'ID' , $searched_user ) : get_user_by( 'login' , $searched_user ) ;
+            $user    = is_object( $user ) ? $user : get_user_by( 'email' , $searched_user ) ;
+            $user_id = is_object( $user ) ? $user->ID : false ;
+            if ( ! $user_id ) {
+                return array() ;
+            }
+
+            foreach ( $manual_link_rules as $key => $values ) {
+                if ( isset( $values[ "referer" ] , $values[ "refferal" ] ) && $user_id == $values[ "referer" ] || $user_id == $values[ "refferal" ] ) {
+                    $manual_link_rules[ $key ] = $values ;
+                } else {
+                    $manual_link_rules[ $key ] = '' ;
+                }
+            }
+
+            return array_filter( $manual_link_rules ) ;
         }
 
     }

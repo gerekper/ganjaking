@@ -30,8 +30,10 @@ if ( ! isset( $debug_data ) || ! is_array( $debug_data ) ) {
 			$mark = $data['mark'];
 		} elseif ( isset( $data['success'] ) && $data['success'] ) {
 			$mark = 'yes';
-		} else {
+		} elseif ( isset( $data['error'] ) && $data['error'] ) {
 			$mark = 'error';
+		} else {
+			$mark = '';
 		}
 
 		// Use mark_icon key if available, otherwise set based on $mark
@@ -51,12 +53,19 @@ if ( ! isset( $debug_data ) || ! is_array( $debug_data ) ) {
 				<?php
 				// If this isn't theme overrides, keep it simple.
 				if ( 'mnm_theme_overrides' !== $section ) {
-					?>
-					<mark class="<?php echo esc_html( $mark ) ?>">
-						<span class="dashicons dashicons-<?php echo esc_attr( $mark_icon ) ?>"></span>
-					</mark>
-					<?php echo wp_kses_data( $data['note'] ); ?>
-					<?php
+					
+					if ( isset( $data['note'] ) ) {
+						if ( empty( $mark ) ) {
+							echo wp_kses_post( $data['note'] );
+						} else { ?>
+							<mark class="<?php echo esc_html( $mark ) ?>"><?php
+							if ( $mark_icon ) {
+								echo '<span class="dashicons dashicons-' . esc_attr( $mark_icon ) . '"></span> ';
+							}
+							echo wp_kses_post( $data['note'] );?>
+							</mark><?php
+						}
+					}
 					continue;
 				}
 

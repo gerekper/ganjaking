@@ -155,7 +155,7 @@ function init_reward_gateway_class() {
             }
 
             $order->payment_complete() ;
-            $order_status = get_option( 'rs_order_status_after_gateway_purchase' ) ;
+            $order_status = get_option( 'rs_order_status_after_gateway_purchase' , 'completed' ) ;
 
             $order->update_status( $order_status ) ;
             //Reduce Stock Levels
@@ -202,7 +202,7 @@ function init_reward_gateway_class() {
                         $PointPriceTax[]   = $item[ 'line_subtotal_tax' ] ;
                 } else {
                     $Price[] = get_post_meta( $product_id , '_price' , true ) ;
-                    if( 'incl' == $tax_display ) {
+                    if ( 'incl' == $tax_display ) {
                         $LineTotal[] = $item[ 'line_subtotal' ] + $item[ 'line_subtotal_tax' ] ;
                     } else {
                         $LineTotal[] = $item[ 'line_subtotal' ] ;
@@ -212,10 +212,20 @@ function init_reward_gateway_class() {
             $ShippingCost = $tax_display == 'incl' ? $woocommerce->shipping->shipping_total + array_sum( $woocommerce->shipping->shipping_taxes ) : $woocommerce->shipping->shipping_total ;
             $CouponAmnt   = array() ;
 
+            $user       = get_user_by( 'ID' , get_current_user_id() ) ;
+            $Username   = is_object( $user ) ? $user->user_login : '' ;
+            $Redeem     = 'sumo_' . strtolower( "$Username" ) ;
+            $AutoRedeem = 'auto_redeem_' . strtolower( "$Username" ) ;
+
+            $redeeming_coupon = 0 ;
             if ( srp_check_is_array( $woocommerce->cart->get_applied_coupons() ) ) {
                 foreach ( $woocommerce->cart->get_applied_coupons() as $Coupon ) {
                     $CouponObj    = new WC_Coupon( $Coupon ) ;
                     $CouponAmnt[] = ( float ) $woocommerce->version >= ( float ) '3.0' ? $CouponObj->get_amount() : $CouponObj->coupon_amount ;
+
+                    if ( $Coupon == $Redeem || $Coupon == $AutoRedeem ) {
+                        $redeeming_coupon = ( float ) $woocommerce->version >= ( float ) '3.0' ? $CouponObj->get_amount() : $CouponObj->coupon_amount ;
+                    }
                 }
             }
             $BalancePoints  = $ShippingCost + array_sum( $LineTotal ) + array_sum( $PointPriceTax ) ;
@@ -226,6 +236,8 @@ function init_reward_gateway_class() {
             /* Compatible with YITH WooCommerce Gift Cards Premium for Calculating Order Total */
             $yith_gift_value = get_yith_gift_card_value() ;
             $redeemedpoints  = $yith_gift_value != 0 ? $redeemedpoints - $yith_gift_value : $redeemedpoints ;
+
+            $Points = $Points != 0 ? $Points - $redeeming_coupon : $Points ;
 
             if ( $Points < $redeemedpoints ) {
                 $error_msg    = $this->get_option( 'error_payment_gateway' ) ;
@@ -271,16 +283,16 @@ function init_reward_gateway_class() {
         $fee_total       = 0 ;
         $tax_display     = get_option( 'woocommerce_tax_display_cart' ) ;
 
-        foreach( $order->get_items() as $item ) {
+        foreach ( $order->get_items() as $item ) {
             $product_id     = ! empty( $item[ 'variation_id' ] ) ? $item[ 'variation_id' ] : $item[ 'product_id' ] ;
             $bundledproduct = isset( $item[ '_bundled_by' ] ) ? $item[ '_bundled_by' ] : 0 ;
             $enable         = calculate_point_price_for_products( $product_id ) ;
             if ( ! empty( $enable[ $product_id ] ) && $bundledproduct == null ) {
                 $PointPriceValue[] = $enable[ $product_id ] * $item[ 'qty' ] ;
-                if( $tax_display == 'incl' )
+                if ( $tax_display == 'incl' )
                     $PointPriceTax[]   = $item[ 'line_subtotal_tax' ] ;
             } else {
-                if( 'incl' == $tax_display ) {
+                if ( 'incl' == $tax_display ) {
                     $LineTotal[] = $item[ 'line_subtotal' ] + $item[ 'line_subtotal_tax' ] ;
                 } else {
                     $LineTotal[] = $item[ 'line_subtotal' ] ;
@@ -289,8 +301,8 @@ function init_reward_gateway_class() {
         }
 
         // The fee total amount
-        foreach( $order->get_items( 'fee' ) as $item_fee ) {
-            if( 'incl' == $tax_display ) {
+        foreach ( $order->get_items( 'fee' ) as $item_fee ) {
+            if ( 'incl' == $tax_display ) {
                 $fee_total = $fee_total + $item_fee->get_total() + $item_fee->get_total_tax() ;
             } else {
                 $fee_total += $item_fee->get_total() ;

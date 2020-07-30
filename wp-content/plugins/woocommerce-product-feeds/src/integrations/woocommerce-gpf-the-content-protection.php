@@ -5,6 +5,7 @@
  *
  * Avoid issues with extensions that abuse the_content filter
  */
+// phpcs:disable WordPress.WP.GlobalVariablesOverride.Prohibited
 class WoocommerceGpfTheContentProtection {
 
 	/**
@@ -40,6 +41,8 @@ class WoocommerceGpfTheContentProtection {
 	 * @param $general_id int Unused.
 	 *
 	 * @return mixed
+	 *
+	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
 	public function after_processing( $description, $specific_id, $general_id ) {
 		global $post, $gpf_original_post;

@@ -28,15 +28,18 @@ class WoocommerceCostOfGoods {
 	 * @param $wc_product
 	 *
 	 * @return string
+	 *
+	 * phpcs:disable WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid
 	 */
 	public static function getCostPrice( $wc_product ) {
 		$cost_price = WC_COG_Product::get_cost( $wc_product );
-		if ( $cost_price === '' ) {
+		if ( '' === $cost_price ) {
 			return '';
 		}
 		$price_string = number_format( (float) $cost_price, 2, '.', '' );
 
 		return $price_string . ' ' . get_woocommerce_currency();
 	}
+	// phpcs:enable WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid
 }
 
