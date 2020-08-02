@@ -12,26 +12,40 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
+$ageLimitToEnter = $options['age_limit_to_enter'];
+$ageLimitToSell  = $options['age_limit_to_sell'];
+
 // DEFINE THIS VARIABLE WITH USER CHOICE FOR SKIN
 // eg.
 $ct_form_skin       = $options['form_shape'];
 $ct_form_skin_class = ( strlen( $ct_form_skin ) > 0 ) ? ' ' . $ct_form_skin : '';
 $ct_page_link       = get_permalink();
+
+$unsusbcribe_subheader = ct_ultimate_gdpr_get_value('unsubscribe_subheader', $options, esc_html__( 'Below, you can browse services which sign up users to newsletters. Check services which newsletters you wish to be unsubscribed from. The subscription will stop immediately.', 'ct-ultimate-gdpr' ), false);
+$defaultDateTime = isset($options['age_date_array']['date']) ? strtotime($options['age_date_array']['date']) : strtotime($options['age_placeholder']);
+
 ?>
 
 <div class="ct-ultimate-gdpr-container ct-ultimate-gdpr-my-account <?php echo esc_attr( $ct_form_skin_class ); ?>">
-	
+
 	<?php if ( isset( $options['notices'] ) ) : ?>
 		<?php foreach ( $options['notices'] as $notice ) : ?>
 
             <div class="notice-info notice">
 				<?php echo esc_html( $notice ); ?>
             </div>
-		
+
 		<?php endforeach; endif; ?>
 
     <div id="tabs">
         <ul>
+            <?php if ( $options['age_enabled'] ): ?>
+                <li>
+                    <a href="#tabs-5">
+                        <?php echo esc_html__( 'Age Verification', 'ct-ultimate-gdpr' ); ?>
+                    </a>
+                </li>
+            <?php endif; ?>
             <li>
                 <a href="#tabs-1">
 					<?php echo esc_html__( 'Personal Data Access', 'ct-ultimate-gdpr' ); ?>
@@ -55,6 +69,49 @@ $ct_page_link       = get_permalink();
                 </li>
 			<?php endif; ?>
         </ul>
+
+        <?php if ( $options['age_enabled'] ): ?>
+
+            <div id="tabs-5">
+
+                <form id="ct_ultimate_gdpr_age_set_date" method="post">
+
+                    <div class="ct-headerContent">
+                        <?php echo sprintf(esc_html__('You need to be at least %s years old to enter this website', 'ct-ultimate-gdpr'), $ageLimitToEnter); ?>
+                    </div>
+
+                    <label for="ct-ultimate-gdpr-age-date"><?php echo esc_html__('Date of birth', 'ct-ultimate-gdpr'); ?></label>
+                    <input type="date" id="ct-ultimate-gdpr-age-date" name="ct-ultimate-gdpr-age-date" required
+                           value="<?php echo date('Y-m-d', $defaultDateTime); ?>"
+                           min="1900-01-01" max="<?php echo date('Y-m-d'); ?>"
+                    >
+
+                    <?php if (!empty($options['age_is_user_underage'])): ?>
+
+                        <br>
+                        <div class="ct-headerContent">
+                            <?php echo esc_html__('Parent or guard authorization.', 'ct-ultimate-gdpr'); ?> <?php echo sprintf(esc_html__('Your guard needs to be at least %s years old.', 'ct-ultimate-gdpr'), $ageLimitToSell); ?>
+
+                        </div>
+
+                        <label for="ct-ultimate-gdpr-age-guard-name"><?php echo esc_html__('Name', 'ct-ultimate-gdpr'); ?></label>
+                        <input type="text" id="ct-ultimate-gdpr-age-guard-name" name="ct-ultimate-gdpr-age-guard-name" value="<?php echo esc_html(isset($options['age_date_array']['guard_name']) ? $options['age_date_array']['guard_name'] : ''); ?>"/>
+
+                        <label for="ct-ultimate-gdpr-age-guard-date"><?php echo esc_html__('Date of birth', 'ct-ultimate-gdpr'); ?></label>
+                        <input type="date" id="ct-ultimate-gdpr-age-guard-date" name="ct-ultimate-gdpr-age-guard-date" required
+                               value="<?php echo date('Y-m-d', isset($options['age_date_array']['guard_date']) ? strtotime($options['age_date_array']['guard_date']) : time()); ?>"
+                               min="1900-01-01" max="<?php echo date('Y-m-d'); ?>"
+                        >
+
+                    <?php endif; ?>
+
+                    <input type="submit" name="ct-ultimate-gdpr-age-submit"
+                           value="<?php echo esc_html__("Submit", 'ct-ultimate-gdpr'); ?>">
+
+                </form>
+            </div>
+
+        <?php endif; ?>
 
         <div id="tabs-1">
 
@@ -82,7 +139,7 @@ $ct_page_link       = get_permalink();
 						?>
                         <input type="email" name="ct-ultimate-gdpr-email" value="" required="">
 					<?php endif; ?>
-				
+
 				<?php if ( $options['recaptcha_key'] ) : ?>
                     <div class="g-recaptcha" data-sitekey="<?php echo esc_attr( $options['recaptcha_key'] ); ?>"></div>
 				<?php endif; ?>
@@ -96,22 +153,23 @@ $ct_page_link       = get_permalink();
 
         <div id="tabs-2">
             <div class="ct-headerContent">
-				<?php echo esc_html__( 'Below, you can browse services which collects your personal data on this website. Check services you wish to be forgotten by. This will send a request to the website admin. You will be notified by email once this is done."', 'ct-ultimate-gdpr' ); ?>
+                <?php echo ( $options['my_account_disclaimer'] )? "<p>".esc_html__($options['my_account_disclaimer'], 'ct-ultimate-ccpa')."</p>":""; ?>
+                <?php echo esc_html__( 'Below, you can browse services which collects your personal data on this website. Check services you wish to be forgotten by. This will send a request to the website admin. You will be notified by email once this is done."', 'ct-ultimate-gdpr' ); ?>
             </div>
 
             <form id="ct-ultimate-gdpr-forget" method="post">
 
                 <div class="ct-ultimate-gdpr-services-list">
-					
+
 					<?php
-						
+
 						/** @var CT_Ultimate_GDPR_Service_Abstract $service */
 						foreach ( $options['services'] as $service ):
-							
+
 							if ( ! $service->is_forgettable() ) {
 								continue;
 							}
-							
+
 							?>
                             <div class="ct-ultimate-gdpr-service-options">
                                 <div class="ct-ultimate-gdpr-service-option">
@@ -120,12 +178,12 @@ $ct_page_link       = get_permalink();
                                     <span class="ct-checkbox"></span>
                                 </div>
                                 <div class="ct-ultimate-gdpr-service-details">
-                                    <div class="ct-ultimate-gdpr-service-title"><?php echo esc_html( $service->get_service_name() ); ?></div>
-                                    <div class="ct-ultimate-gdpr-service-description"><?php echo esc_html( $service->get_description() ); ?></div>
+                                    <div class="ct-ultimate-gdpr-service-title"><?php echo esc_html__( $service->get_service_name(), 'ct-ultimate-gdpr' ); ?></div>
+                                    <div class="ct-ultimate-gdpr-service-description"><?php echo esc_html__( $service->get_description(), 'ct-ultimate-gdpr' ); ?></div>
                                 </div>
                             </div>
-						
-						
+
+
 						<?php endforeach; ?>
 
 
@@ -153,7 +211,7 @@ $ct_page_link       = get_permalink();
 							?>
                             <input type="email" name="ct-ultimate-gdpr-email" value="" required="">
 						<?php endif; ?>
-					
+
 					<?php if ( $options['recaptcha_key'] ) : ?>
                         <div class="g-recaptcha"
                              data-sitekey="<?php echo esc_attr( $options['recaptcha_key'] ); ?>"></div>
@@ -233,7 +291,7 @@ $ct_page_link       = get_permalink();
 						?>
                         <input type="email" name="ct-ultimate-gdpr-email" value="" required="">
 					<?php endif; ?>
-				
+
 				<?php if ( $options['recaptcha_key'] ) : ?>
                     <div class="g-recaptcha" data-sitekey="<?php echo esc_attr( $options['recaptcha_key'] ); ?>"></div>
 				<?php endif; ?>
@@ -249,7 +307,8 @@ $ct_page_link       = get_permalink();
 		<?php if ( $options['unsubscribe_hide_unsubscribe_tab'] != "on" ): ?>
             <div id="tabs-4">
                 <div class="ct-headerContent">
-					<?php echo esc_html__( 'Below, you can browse services which sign up users to newsletters. Check services which newsletters you wish to be unsubscribed from. The subscription will stop immediately.', 'ct-ultimate-gdpr' ); ?>
+                    <?php echo ( $options['my_account_disclaimer'] )? "<p>".esc_html__($options['my_account_disclaimer'], 'ct-ultimate-ccpa')."</p>":""; ?>
+                    <?php echo $unsusbcribe_subheader; ?>
                 </div>
                 <form id="ct-ultimate-gdpr-unsubscribe" method="post">
                     <div class="ct-ultimate-gdpr-services-list">
@@ -267,8 +326,8 @@ $ct_page_link       = get_permalink();
                                         <span class="ct-checkbox"></span>
                                     </div>
                                     <div class="ct-ultimate-gdpr-service-details">
-                                        <div class="ct-ultimate-gdpr-service-title"><?php echo esc_html( $service->get_service_name() ); ?></div>
-                                        <div class="ct-ultimate-gdpr-service-description"><?php echo esc_html( $service->get_description() ); ?></div>
+                                        <div class="ct-ultimate-gdpr-service-title"><?php echo esc_html__( $service->get_service_name(), 'ct-ultimate-gdpr' ); ?></div>
+                                        <div class="ct-ultimate-gdpr-service-description"><?php echo esc_html__( $service->get_description(), 'ct-ultimate-gdpr'  ); ?></div>
                                     </div>
                                 </div>
 							<?php endforeach; ?>

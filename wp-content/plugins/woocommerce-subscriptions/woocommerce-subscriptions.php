@@ -5,7 +5,7 @@
  * Description: Sell products and services with recurring payments in your WooCommerce Store.
  * Author: WooCommerce
  * Author URI: https://woocommerce.com/
- * Version: 3.0.5
+ * Version: 3.0.6
  *
  * WC requires at least: 3.0.9
  * WC tested up to: 4.2
@@ -26,9 +26,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @package		WooCommerce Subscriptions
- * @author		WooCommerce.
- * @since		1.0
+ * @package WooCommerce Subscriptions
+ * @author  WooCommerce.
+ * @since   1.0
  */
 
 /**
@@ -119,7 +119,7 @@ class WC_Subscriptions {
 
 	public static $plugin_file = __FILE__;
 
-	public static $version = '3.0.5';
+	public static $version = '3.0.6';
 
 	public static $wc_minimum_supported_version = '3.0';
 
@@ -202,7 +202,7 @@ class WC_Subscriptions {
 		self::$scheduler = new $scheduler_class();
 	}
 
-	 /**
+	/**
 	 * Get customer's order details via ajax.
 	 */
 	public static function get_customer_orders() {
@@ -214,7 +214,13 @@ class WC_Subscriptions {
 
 		$user_id = absint( $_POST['user_id'] );
 
-		$orders = wc_get_orders( array( 'customer' => $user_id, 'post_type' => 'shop_order', 'posts_per_page' => '-1' ) );
+		$orders = wc_get_orders(
+			array(
+				'customer'       => $user_id,
+				'post_type'      => 'shop_order',
+				'posts_per_page' => '-1',
+			)
+		);
 
 		$customer_orders = array();
 		foreach ( $orders as $order ) {
@@ -253,7 +259,7 @@ class WC_Subscriptions {
 			apply_filters( 'woocommerce_register_post_type_subscription',
 				array(
 					// register_post_type() params
-					'labels'              => array(
+					'labels'                           => array(
 						'name'               => __( 'Subscriptions', 'woocommerce-subscriptions' ),
 						'singular_name'      => __( 'Subscription', 'woocommerce-subscriptions' ),
 						'add_new'            => _x( 'Add Subscription', 'custom post type setting', 'woocommerce-subscriptions' ),
@@ -269,20 +275,20 @@ class WC_Subscriptions {
 						'parent'             => _x( 'Parent Subscriptions', 'custom post type setting', 'woocommerce-subscriptions' ),
 						'menu_name'          => __( 'Subscriptions', 'woocommerce-subscriptions' ),
 					),
-					'description'         => __( 'This is where subscriptions are stored.', 'woocommerce-subscriptions' ),
-					'public'              => false,
-					'show_ui'             => true,
-					'capability_type'     => 'shop_order',
-					'map_meta_cap'        => true,
-					'publicly_queryable'  => false,
-					'exclude_from_search' => true,
-					'show_in_menu'        => current_user_can( 'manage_woocommerce' ) ? 'woocommerce' : true,
-					'hierarchical'        => false,
-					'show_in_nav_menus'   => false,
-					'rewrite'             => false,
-					'query_var'           => false,
-					'supports'            => array( 'title', 'comments', 'custom-fields' ),
-					'has_archive'         => false,
+					'description'                      => __( 'This is where subscriptions are stored.', 'woocommerce-subscriptions' ),
+					'public'                           => false,
+					'show_ui'                          => true,
+					'capability_type'                  => 'shop_order',
+					'map_meta_cap'                     => true,
+					'publicly_queryable'               => false,
+					'exclude_from_search'              => true,
+					'show_in_menu'                     => current_user_can( 'manage_woocommerce' ) ? 'woocommerce' : true,
+					'hierarchical'                     => false,
+					'show_in_nav_menus'                => false,
+					'rewrite'                          => false,
+					'query_var'                        => false,
+					'supports'                         => array( 'title', 'comments', 'custom-fields' ),
+					'has_archive'                      => false,
 
 					// wc_register_order_type() params
 					'exclude_from_orders_screen'       => true,
@@ -431,7 +437,17 @@ class WC_Subscriptions {
 
 		$subscriptions = array_slice( $all_subscriptions, ( $current_page - 1 ) * $posts_per_page, $posts_per_page );
 
-		wc_get_template( 'myaccount/my-subscriptions.php', array( 'subscriptions' => $subscriptions, 'current_page' => $current_page, 'max_num_pages' => $max_num_pages, 'paginate' => true ), '', plugin_dir_path( __FILE__ ) . 'templates/' );
+		wc_get_template(
+			'myaccount/my-subscriptions.php',
+			array(
+				'subscriptions' => $subscriptions,
+				'current_page'  => $current_page,
+				'max_num_pages' => $max_num_pages,
+				'paginate'      => true,
+			),
+			'',
+			plugin_dir_path( __FILE__ ) . 'templates/'
+		);
 	}
 
 	/**
@@ -689,13 +705,22 @@ class WC_Subscriptions {
 			$admin_notice_content = '';
 
 			if ( ! is_woocommerce_active() ) {
-				$install_url = wp_nonce_url( add_query_arg( array( 'action' => 'install-plugin', 'plugin' => 'woocommerce' ), admin_url( 'update.php' ) ), 'install-plugin_woocommerce' );
+				$install_url = wp_nonce_url(
+					add_query_arg(
+						array(
+							'action' => 'install-plugin',
+							'plugin' => 'woocommerce',
+						),
+						admin_url( 'update.php' )
+					),
+					'install-plugin_woocommerce'
+				);
 
 				// translators: 1$-2$: opening and closing <strong> tags, 3$-4$: link tags, takes to woocommerce plugin on wp.org, 5$-6$: opening and closing link tags, leads to plugins.php in admin
-				$admin_notice_content = sprintf( esc_html__( '%1$sWooCommerce Subscriptions is inactive.%2$s The %3$sWooCommerce plugin%4$s must be active for WooCommerce Subscriptions to work. Please %5$sinstall & activate WooCommerce &raquo;%6$s',  'woocommerce-subscriptions' ), '<strong>', '</strong>', '<a href="http://wordpress.org/extend/plugins/woocommerce/">', '</a>', '<a href="' .  esc_url( $install_url ) . '">', '</a>' );
+				$admin_notice_content = sprintf( esc_html__( '%1$sWooCommerce Subscriptions is inactive.%2$s The %3$sWooCommerce plugin%4$s must be active for WooCommerce Subscriptions to work. Please %5$sinstall & activate WooCommerce &raquo;%6$s', 'woocommerce-subscriptions' ), '<strong>', '</strong>', '<a href="http://wordpress.org/extend/plugins/woocommerce/">', '</a>', '<a href="' . esc_url( $install_url ) . '">', '</a>' );
 			} elseif ( version_compare( get_option( 'woocommerce_db_version' ), self::$wc_minimum_supported_version, '<' ) ) {
 				// translators: 1$-2$: opening and closing <strong> tags, 3$: minimum supported WooCommerce version, 4$-5$: opening and closing link tags, leads to plugin admin
-				$admin_notice_content = sprintf( esc_html__( '%1$sWooCommerce Subscriptions is inactive.%2$s This version of Subscriptions requires WooCommerce %3$s or newer. Please %4$supdate WooCommerce to version %3$s or newer &raquo;%5$s', 'woocommerce-subscriptions' ), '<strong>', '</strong>', self::$wc_minimum_supported_version,'<a href="' . esc_url( admin_url( 'plugins.php' ) ) . '">', '</a>' );
+				$admin_notice_content = sprintf( esc_html__( '%1$sWooCommerce Subscriptions is inactive.%2$s This version of Subscriptions requires WooCommerce %3$s or newer. Please %4$supdate WooCommerce to version %3$s or newer &raquo;%5$s', 'woocommerce-subscriptions' ), '<strong>', '</strong>', self::$wc_minimum_supported_version, '<a href="' . esc_url( admin_url( 'plugins.php' ) ) . '">', '</a>' );
 			}
 
 			if ( $admin_notice_content ) {
@@ -927,13 +952,13 @@ class WC_Subscriptions {
 	 * and in what order those subscriptions should be returned.
 	 *
 	 * @param array $args A set of name value pairs to determine the return value.
-	 *		'subscriptions_per_page' The number of subscriptions to return. Set to -1 for unlimited. Default 10.
-	 *		'offset' An optional number of subscription to displace or pass over. Default 0.
-	 *		'orderby' The field which the subscriptions should be ordered by. Can be 'start_date', 'expiry_date', 'end_date', 'status', 'name' or 'order_id'. Defaults to 'start_date'.
-	 *		'order' The order of the values returned. Can be 'ASC' or 'DESC'. Defaults to 'DESC'
-	 *		'customer_id' The user ID of a customer on the site.
-	 *		'product_id' The post ID of a WC_Product_Subscription, WC_Product_Variable_Subscription or WC_Product_Subscription_Variation object
-	 *		'subscription_status' Any valid subscription status. Can be 'any', 'active', 'cancelled', 'suspended', 'expired', 'pending' or 'trash'. Defaults to 'any'.
+	 *   'subscriptions_per_page' The number of subscriptions to return. Set to -1 for unlimited. Default 10.
+	 *   'offset' An optional number of subscription to displace or pass over. Default 0.
+	 *   'orderby' The field which the subscriptions should be ordered by. Can be 'start_date', 'expiry_date', 'end_date', 'status', 'name' or 'order_id'. Defaults to 'start_date'.
+	 *   'order' The order of the values returned. Can be 'ASC' or 'DESC'. Defaults to 'DESC'
+	 *   'customer_id' The user ID of a customer on the site.
+	 *   'product_id' The post ID of a WC_Product_Subscription, WC_Product_Variable_Subscription or WC_Product_Subscription_Variation object
+	 *   'subscription_status' Any valid subscription status. Can be 'any', 'active', 'cancelled', 'suspended', 'expired', 'pending' or 'trash'. Defaults to 'any'.
 	 * @return array Subscription details in 'subscription_key' => 'subscription_details' form.
 	 * @since 1.4
 	 */
@@ -942,26 +967,26 @@ class WC_Subscriptions {
 		if ( isset( $args['orderby'] ) ) {
 			// Although most of these weren't public orderby values, they were used internally so may have been used by developers
 			switch ( $args['orderby'] ) {
-				case '_subscription_status' :
+				case '_subscription_status':
 					_deprecated_argument( __METHOD__, '2.0', 'The "_subscription_status" orderby value is deprecated. Use "status" instead.' );
 					$args['orderby'] = 'status';
 					break;
-				case '_subscription_start_date' :
+				case '_subscription_start_date':
 					_deprecated_argument( __METHOD__, '2.0', 'The "_subscription_start_date" orderby value is deprecated. Use "start_date" instead.' );
 					$args['orderby'] = 'start_date';
 					break;
-				case 'expiry_date' :
-				case '_subscription_expiry_date' :
-				case '_subscription_end_date' :
+				case 'expiry_date':
+				case '_subscription_expiry_date':
+				case '_subscription_end_date':
 					_deprecated_argument( __METHOD__, '2.0', 'The expiry date orderby value is deprecated. Use "end_date" instead.' );
 					$args['orderby'] = 'end_date';
 					break;
-				case 'trial_expiry_date' :
-				case '_subscription_trial_expiry_date' :
+				case 'trial_expiry_date':
+				case '_subscription_trial_expiry_date':
 					_deprecated_argument( __METHOD__, '2.0', 'The trial expiry date orderby value is deprecated. Use "trial_end_date" instead.' );
 					$args['orderby'] = 'trial_end_date';
 					break;
-				case 'name' :
+				case 'name':
 					_deprecated_argument( __METHOD__, '2.0', 'The "name" orderby value is deprecated - subscriptions no longer have just one name as they may contain multiple items.' );
 					break;
 			}

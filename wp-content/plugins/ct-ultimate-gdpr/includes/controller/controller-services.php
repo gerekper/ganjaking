@@ -268,7 +268,18 @@ class CT_Ultimate_GDPR_Controller_Services extends CT_Ultimate_GDPR_Controller_A
 			} else {
 				$cookies_to_block[ $cookie_type ] = $cookie_name;
 			}
-			$cookies_to_block = apply_filters( "ct_ultimate_gdpr_service_{$this->get_id()}_cookies_to_block", $cookies_to_block );
+
+			// check if cookie group contains 'private data' to block it for underaged users
+            $is_private_data = get_post_meta($post->ID, 'private_data', true);
+            if ($is_private_data && ct_ultimate_gdpr_should_age_block_features()){
+                if ( isset( $cookies_to_block[ CT_Ultimate_GDPR_Model_Group::LEVEL_PRIVATE_DATA ] ) ) {
+                    $cookies_to_block[ CT_Ultimate_GDPR_Model_Group::LEVEL_PRIVATE_DATA ] = array_merge( $cookies_to_block[ $cookie_type ], $cookie_name );
+                } else {
+                    $cookies_to_block[CT_Ultimate_GDPR_Model_Group::LEVEL_PRIVATE_DATA] = $cookie_name;
+                }
+            }
+
+            $cookies_to_block = apply_filters( "ct_ultimate_gdpr_service_{$this->get_id()}_cookies_to_block", $cookies_to_block );
 			
 			if ( isset( $cookies[ $cookie_type ] ) && is_array( $cookies[ $cookie_type ] ) && isset( $cookies_to_block[ $cookie_type ] ) && is_array( $cookies_to_block[ $cookie_type ] ) ) {
 				$cookies[ $cookie_type ] = array_merge( $cookies[ $cookie_type ], $cookies_to_block[ $cookie_type ] );

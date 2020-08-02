@@ -39,6 +39,9 @@ class WC_pdf_admin_functions {
     	add_filter( 'handle_bulk_actions-edit-shop_order', array( $this, 'handle_create_email_invoice' ), 10, 3 );
     	add_filter( 'handle_bulk_actions-edit-shop_order', array( $this, 'handle_email_invoice' ), 10, 3 );
 
+    	// Action Scheduler 
+    	add_action( 'woocommerce_pdf_invoice_create_email_invoice', array( __CLASS__, 'action_scheduler_create_email_invoice' ), 10, 2 );
+
     	// Filters for order list
     	// Remove Subsriptions drop down if necessary
     	if( class_exists('WC_Subscriptions_Order') ) {
@@ -47,6 +50,9 @@ class WC_pdf_admin_functions {
 
     	// Add dropdown to admin orders screen to filter on order type
 		// add_action( 'restrict_manage_posts', array( $this, 'restrict_manage_post_types' ), 50 );
+		
+		// Add invoice number to order search
+		add_filter( 'woocommerce_shop_order_search_fields', array( $this, 'add_pdf_invoice_number_to_order_search' ) );
 
     }
 
@@ -261,38 +267,44 @@ class WC_pdf_admin_functions {
 
 		// Bail out if this is not the pdf_update_invoice_meta.
 		if ( $action === 'pdf_create_email_invoice' ) {
+			$args = array(
+				'ids' => $ids,
+			);
 
-			require_once( 'class-pdf-send-pdf-class.php' );
-
-			$ids = array_map( 'absint', $ids );
-
-			// Sort Order IDs lowest to highest
-			sort( $ids );
-
-			foreach ( $ids as $id ) {
-
-				if ( get_post_meta( $id, '_invoice_number', TRUE ) == '' ) {
-					// Crreate the invoice
-                    WC_pdf_functions::woocommerce_completed_order_create_invoice( $id );
-                }
-                
-                // To stop the email being sent use the filter
-                // add_filter( 'pdf_invoice_bulk_send_invoice', 'remove_pdf_invoice_bulk_send_invoice' );
-                // function remove_pdf_invoice_bulk_send_invoice() {
-                // 	return false;
-                // }
-                $send_email = apply_filters( 'pdf_invoice_bulk_send_invoice', true );
-
-                if( $send_email ) {
-                	$order = new WC_Order( $id );
-					WC()->mailer()->emails['PDF_Invoice_Customer_PDF_Invoice']->trigger( $id, $order );
-				}
-
-			}
-
+			WC()->queue()->add( 'woocommerce_pdf_invoice_create_email_invoice', array( $args ), 'pdf_invoice' );
 		}
 
 		return esc_url_raw( $redirect_to );
+
+	}
+
+	public static function action_scheduler_create_email_invoice( $args = NULL, $group = '' ) {
+
+		require_once( 'class-pdf-send-pdf-class.php' );
+
+		// Sort Order IDs lowest to highest
+		sort( $args['ids'] );
+
+		foreach ( $args['ids'] as $order_id ) {
+
+			if ( get_post_meta( $order_id, '_invoice_number', TRUE ) == '' ) {
+				// Crreate the invoice
+                WC_pdf_functions::woocommerce_completed_order_create_invoice( $order_id );
+            }
+            
+            // To stop the email being sent use the filter
+            // add_filter( 'pdf_invoice_bulk_send_invoice', 'remove_pdf_invoice_bulk_send_invoice' );
+            // function remove_pdf_invoice_bulk_send_invoice() {
+            // 	return false;
+            // }
+            $send_email = apply_filters( 'pdf_invoice_bulk_send_invoice', true );
+
+            if( $send_email ) {
+            	$order = new WC_Order( $order_id );
+				WC()->mailer()->emails['PDF_Invoice_Customer_PDF_Invoice']->trigger( $order_id, $order );
+			}
+
+		}
 
 	}
 
@@ -637,6 +649,18 @@ class WC_pdf_admin_functions {
 		}
 
 		return $vars;
+	}
+
+	/**
+	 * [add_pdf_invoice_number_to_order_search description]
+	 * @param [type] $search_items [description]
+	 */
+	public static function add_pdf_invoice_number_to_order_search( $search_items ) {
+
+		$search_items[] = '_invoice_number';
+		$search_items[] = '_invoice_number_display';
+
+		return $search_items;
 	}
 
 

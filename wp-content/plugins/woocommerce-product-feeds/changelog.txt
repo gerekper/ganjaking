@@ -1,5 +1,8 @@
 *** WooCommerce Google Product Feed Changelog ***
 
+2020.07.30 - version 9.0.1
+* Fix: Fix issue where "Hide product from feed" didn't save correctly
+
 2020.07.27 - version 9.0.0
 * New: Support for pickup_method and pickup_sla in product feed for Local Product Ads
 * Change: Feed item caching uses WooCommerce's action scheduler for background processing

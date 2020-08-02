@@ -3,7 +3,7 @@ Contributors: woocommerce, themesquad
 Tags: woocommerce, instagram, hashtag, product, showcase
 Requires at least: 4.4
 Tested up to: 5.4
-Stable tag: 3.3.0
+Stable tag: 3.3.1
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 WC requires at least: 3.2
@@ -29,6 +29,9 @@ Visit our [product page](https://woocommerce.com/products/woocommerce-instagram/
 For help setting up and configuring the extension please refer to our [user guide](https://docs.woocommerce.com/document/woocommerce-instagram/).
 
 == Changelog ==
+
+= 3.3.1 July 28, 2020 =
+* Tweak - Use the full-size image instead of the thumbnail as the primary image in the catalog products.
 
 = 3.3.0 July 20, 2020 =
 * Feature - Include the Google product category in the product catalogs.

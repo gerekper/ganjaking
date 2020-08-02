@@ -388,13 +388,16 @@ class CT_Ultimate_GDPR_Controller_Policy extends CT_Ultimate_GDPR_Controller_Abs
 
 		if ( is_user_logged_in() ) {
 
-			if ( current_user_can( 'administrator' ) && ! $this->get_option( 'policy_require_administrator' ) ) {
-				return false;
-			}
+            if ( current_user_can( 'administrator' ) && ! $this->get_option( 'policy_require_administrator' ) ) {
 
-			if ( ! $this->get_option( 'policy_require_users' ) ) {
-				return false;
-			}
+                return false;
+
+            }else{
+
+                if( !current_user_can( 'administrator' ) && ! $this->get_option( 'policy_require_users' )){
+                    return false;
+                }
+            }
 
 		} else {
 
@@ -420,7 +423,7 @@ class CT_Ultimate_GDPR_Controller_Policy extends CT_Ultimate_GDPR_Controller_Abs
 	 *
 	 */
 	private function schedule_redirect() {
-		$priority = CT_Ultimate_GDPR_Model_Redirect::PRIORITY_STANDARD + ( $this->get_option( 'policy_redirect_first' ) ? - 1 : 1 );
+		$priority = CT_Ultimate_GDPR_Model_Redirect::PRIORITY_STANDARD + ( $this->get_option( 'policy_redirect_first' ) ? 1 : -1 );
 		$url      = $this->get_custom_target_page() ? $this->get_custom_target_page() : get_permalink( $this->get_target_page_id() );
 		new CT_Ultimate_GDPR_Model_Redirect(
 			$url,

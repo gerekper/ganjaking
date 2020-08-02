@@ -1,12 +1,12 @@
-# Copyright (C) 2018 Ultimate GDPR
-# This file is distributed under the same license as the Ultimate GDPR package.
+# Copyright (C) 2018 Ultimate GDPR & CCPA
+# This file is distributed under the same license as the Ultimate GDPR & CCPA package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Ultimate GDPR 1.6.4\n"
+"Project-Id-Version: Ultimate GDPR & CCPA\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/ct-ultimate-gdpr\n"
 "POT-Creation-Date: 2019-03-26T15:39:02+00:00\n"
 "PO-Revision-Date: 2019-03-26 17:04+0000\n"
-"Last-Translator: Create IT <m.stepnowska@createit.pl>\n"
+"Last-Translator: Create IT\n"
 "Language-Team: Hungarian\n"
 "Language: hu-HU\n"
 "MIME-Version: 1.0\n"
@@ -31,8 +31,8 @@ msgstr ""
 #: includes/views/admin/admin-terms.php:22 
 #: includes/controller/controller-admin.php:508 
 #: includes/controller/controller-admin.php:509
-msgid "Ultimate GDPR"
-msgstr "Ultimate GDPR"
+msgid "Ultimate GDPR & CCPA"
+msgstr "Ultimate GDPR & CCPA"
 
 #. Description of the plugin/theme
 msgid ""
@@ -259,8 +259,8 @@ msgid "Collects user data"
 msgstr "Felhasználói adatok összegyűjtése"
 
 #: includes/views/admin/admin-plugins.php:44
-msgid "Compatible with Ultimate GDPR"
-msgstr "Kompatibilis az Ultimate GDPR-el"
+msgid "Compatible with Ultimate GDPR & CCPA"
+msgstr "Kompatibilis az Ultimate GDPR & CCPA"
 
 #: includes/views/admin/admin-plugins.php:94 
 #: includes/views/admin/admin-plugins.php:112 
@@ -1203,12 +1203,12 @@ msgstr ""
 
 #: includes/service/service-google-analytics.php:73
 msgid ""
-"Please note that even when enabled, Ultimate GDPR will still block Google "
+"Please note that even when enabled, Ultimate GDPR & CCPA will still block Google "
 "Analytics without user consent. If you would like to track anonymously users "
 "without accepting cookies, please <a href='%s' target='_blank'>read more "
 "here</a>."
 msgstr ""
-"Felhívjuk a figyelmét arra, hogy ha engedélyezve van, az Ultimate GDPR "
+"Felhívjuk a figyelmét arra, hogy ha engedélyezve van, az Ultimate GDPR & CCPA "
 "továbbra is blokkolja a Google Analytics szolgáltatást a felhasználó "
 "beleegyezése nélkül. Ha névtelen felhasználókat szeretne követni a cookie-k "
 "elfogadása nélkül, <a href='%s' target='_blank'> további információkat itt "
@@ -1659,8 +1659,8 @@ msgid "Recaptcha error!"
 msgstr "Recaptcha hiba!"
 
 #: includes/controller/controller-data-access.php:189
-msgid "[Ultimate GDPR] New Data Access request"
-msgstr "[Ultimate GDPR] Új adathozzáférési kérelem"
+msgid "[Ultimate GDPR & CCPA] New Data Access request"
+msgstr "[Ultimate GDPR & CCPA] Új adathozzáférési kérelem"
 
 #: includes/controller/controller-data-access.php:191
 msgid "There is a new data access request from email %s. See details at %s"
@@ -1715,8 +1715,8 @@ msgid "Mail content"
 msgstr "Email tartalma"
 
 #: includes/controller/controller-data-access.php:649
-msgid "[Ultimate GDPR] Data request results from %s"
-msgstr "[Ultimate GDPR] Adathozzáférés eredményei %s-tól"
+msgid "[Ultimate GDPR & CCPA] Data request results from %s"
+msgstr "[Ultimate GDPR & CCPA] Adathozzáférés eredményei %s-tól"
 
 #: includes/controller/controller-data-access.php:650
 msgid "Please find data attached"
@@ -2676,8 +2676,8 @@ msgid "Your request was successfully confirmed."
 msgstr "Kérelmét sikeresen megerősítettük."
 
 #: includes/controller/controller-rectification.php:142
-msgid "[Ultimate GDPR] New Data Rectification request from %s"
-msgstr "[Ultimate GDPR] Új adat helyesbítési kérelem %s -tól"
+msgid "[Ultimate GDPR & CCPA] New Data Rectification request from %s"
+msgstr "[Ultimate GDPR & CCPA] Új adat helyesbítési kérelem %s -tól"
 
 #: includes/controller/controller-rectification.php:150
 msgid ""
@@ -2695,8 +2695,8 @@ msgstr ""
 "kapcsolatba az adminisztrátorral."
 
 #: includes/controller/controller-rectification.php:213
-msgid "[Ultimate GDPR] Please confirm your data rectification request from %s"
-msgstr "[Ultimate GDPR] Kérjük erősítse meg adat helyesbítési kérelmét %s -tól"
+msgid "[Ultimate GDPR & CCPA] Please confirm your data rectification request from %s"
+msgstr "[Ultimate GDPR & CCPA] Kérjük erősítse meg adat helyesbítési kérelmét %s -tól"
 
 #: includes/controller/controller-rectification.php:527
 msgid "Data Rectification settings"
@@ -2722,16 +2722,16 @@ msgstr "Felhasználó e-mail tartalma"
 #: includes/controller/controller-forgotten.php:719 
 #: includes/controller/controller-unsubscribe.php:653
 msgid ""
-"Set custom URL to the page containing Ultimate GDPR shortcode as the email "
+"Set custom URL to the page containing Ultimate GDPR & CCPA shortcode as the email "
 "confirmation target page (or leave empty for autodetect)"
 msgstr ""
-"Állítson be egyéni URL-t az Ultimate GDPR shortcode-t tartalmazó oldalnak, "
+"Állítson be egyéni URL-t az Ultimate GDPR & CCPA shortcode-t tartalmazó oldalnak, "
 "mint e-mail megerősítési céloldalának (vagy hagyja üresen az automatikus "
 "észleléshez)"
 
 #: includes/controller/controller-rectification.php:647
-msgid "[Ultimate GDPR] Data rectification notice from %s"
-msgstr "[Ultimate GDPR] Adat helyesbítési értesítő %s - tól"
+msgid "[Ultimate GDPR & CCPA] Data rectification notice from %s"
+msgstr "[Ultimate GDPR & CCPA] Adat helyesbítési értesítő %s - tól"
 
 #: includes/controller/controller-rectification.php:648
 msgid "Your data has been rectified"
@@ -2980,8 +2980,8 @@ msgid "Collect user emails from services"
 msgstr "Felhasználói e-mailek gyűjtése a szolgáltatásokból"
 
 #: includes/controller/controller-breach.php:223
-msgid "[Ultimate GDPR] Data breach information from %s"
-msgstr "[Ultimate GDPR] Adatsérülési információk %s-től"
+msgid "[Ultimate GDPR & CCPA] Data breach information from %s"
+msgstr "[Ultimate GDPR & CCPA] Adatsérülési információk %s-től"
 
 #: includes/controller/controller-breach.php:226
 msgid "There was a data breach on our page..."
@@ -3065,8 +3065,8 @@ msgstr "WordPress Adatvédelmi oldal"
 
 #: includes/controller/controller-forgotten.php:110 
 #: includes/controller/controller-forgotten.php:345
-msgid "[Ultimate GDPR] New Right To Be Forgotten request from %s"
-msgstr "[Ultimate GDPR] Új Felejtéshez való jog kérelem %s - tól"
+msgid "[Ultimate GDPR & CCPA] New Right To Be Forgotten request from %s"
+msgstr "[Ultimate GDPR & CCPA] Új Felejtéshez való jog kérelem %s - tól"
 
 #: includes/controller/controller-forgotten.php:129 
 #: includes/controller/controller-forgotten.php:353
@@ -3077,18 +3077,18 @@ msgstr ""
 "a részleteket itt: %s"
 
 #: includes/controller/controller-forgotten.php:259
-msgid "[Ultimate GDPR] Please confirm request to be forgotten from %s"
-msgstr "[Ultimate GDPR] Kérjük erősítse meg kérelmet az elfelejtéshez %s"
+msgid "[Ultimate GDPR & CCPA] Please confirm request to be forgotten from %s"
+msgstr "[Ultimate GDPR & CCPA] Kérjük erősítse meg kérelmet az elfelejtéshez %s"
 
 #: includes/controller/controller-forgotten.php:513
-msgid "[Ultimate GDPR] Emails were sent to the following users: %s"
+msgid "[Ultimate GDPR & CCPA] Emails were sent to the following users: %s"
 msgstr ""
-"[Ultimate GDPR] Az e-maileket elküldtünk a következő felhasználóknak: %s"
+"[Ultimate GDPR & CCPA] Az e-maileket elküldtünk a következő felhasználóknak: %s"
 
 #: includes/controller/controller-forgotten.php:551
-msgid "[Ultimate GDPR] The following emails were removed from list: %s"
+msgid "[Ultimate GDPR & CCPA] The following emails were removed from list: %s"
 msgstr ""
-"[Ultimate GDPR] A következő e-mail címeket eltávolítottuk a listáról: %s"
+"[Ultimate GDPR & CCPA] A következő e-mail címeket eltávolítottuk a listáról: %s"
 
 #: includes/controller/controller-forgotten.php:584 
 #: includes/controller/controller-unsubscribe.php:487
@@ -3100,8 +3100,8 @@ msgid "There was an error forgetting %s service: %s"
 msgstr "Hiba lépett fel a %s szolgáltatás elfelejtésében: %s"
 
 #: includes/controller/controller-forgotten.php:629
-msgid "[Ultimate GDPR] Services data were removed"
-msgstr "[Ultimate GDPR] Szolgáltatási adatok eltávolítva"
+msgid "[Ultimate GDPR & CCPA] Services data were removed"
+msgstr "[Ultimate GDPR & CCPA] Szolgáltatási adatok eltávolítva"
 
 #. ID
 #: includes/controller/controller-forgotten.php:645
@@ -3165,8 +3165,8 @@ msgstr "Lapos forma"
 
 #: includes/controller/controller-forgotten.php:911 
 #: includes/controller/controller-forgotten.php:912
-msgid "[Ultimate GDPR] Your data has been forgotten"
-msgstr "[Ultimate GDPR] Adatai elfelejtve"
+msgid "[Ultimate GDPR & CCPA] Your data has been forgotten"
+msgstr "[Ultimate GDPR & CCPA] Adatai elfelejtve"
 
 #: includes/controller/controller-unsubscribe.php:143
 msgid "There is a new Unsubscribe request from email %s. See details at %s"
@@ -3174,9 +3174,9 @@ msgstr "Új leiratkozási kérelem van a (z) %s e-mailben. A részletek itt: %s"
 
 #: includes/controller/controller-unsubscribe.php:232
 msgid ""
-"[Ultimate GDPR] Please confirm request to be unsubscribed from %s newsletters"
+"[Ultimate GDPR & CCPA] Please confirm request to be unsubscribed from %s newsletters"
 msgstr ""
-"[Ultimate GDPR] Kérjük, erősítse meg, hogy leiratkozzon a %s hírlevelekről"
+"[Ultimate GDPR & CCPA] Kérjük, erősítse meg, hogy leiratkozzon a %s hírlevelekről"
 
 #: includes/controller/controller-unsubscribe.php:507
 msgid "There was an error unsubscribing %s from %s service: %s"
@@ -3184,8 +3184,8 @@ msgstr ""
 "Hiba történt a (z) %s szolgáltatás %s szolgáltatásának leiratkozásáról: %s"
 
 #: includes/controller/controller-unsubscribe.php:533
-msgid "[Ultimate GDPR] Unsubscription finished!"
-msgstr "[Ultimate GDPR] A feliratkozás befejeződött!"
+msgid "[Ultimate GDPR & CCPA] Unsubscription finished!"
+msgstr "[Ultimate GDPR & CCPA] A feliratkozás befejeződött!"
 
 #. ID
 #: includes/controller/controller-unsubscribe.php:595
@@ -3213,8 +3213,8 @@ msgstr ""
 "akik megerősítették e-mailjüket"
 
 #: includes/controller/controller-unsubscribe.php:787
-msgid "[Ultimate GDPR] Unsubscribe notice from %s"
-msgstr "[Ultimate GDPR] Leiratkozás a %s -ról"
+msgid "[Ultimate GDPR & CCPA] Unsubscribe notice from %s"
+msgstr "[Ultimate GDPR & CCPA] Leiratkozás a %s -ról"
 
 #: includes/controller/controller-unsubscribe.php:788
 msgid "Your have been unsubscribed"

@@ -11,20 +11,9 @@ class ComposerStaticInit6cd39ad071973d12e23974cf675cdc17
         array (
             'OomphInc\\ComposerInstallersExtender\\' => 36,
         ),
-        'M' => 
-        array (
-            'MaxMind\\WebService\\' => 19,
-            'MaxMind\\Exception\\' => 18,
-            'MaxMind\\Db\\' => 11,
-        ),
-        'G' => 
-        array (
-            'GeoIp2\\' => 7,
-        ),
         'C' => 
         array (
             'Composer\\Installers\\' => 20,
-            'Composer\\CaBundle\\' => 18,
         ),
     );
 
@@ -33,29 +22,9 @@ class ComposerStaticInit6cd39ad071973d12e23974cf675cdc17
         array (
             0 => __DIR__ . '/..' . '/oomphinc/composer-installers-extender/src',
         ),
-        'MaxMind\\WebService\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/maxmind/web-service-common/src/WebService',
-        ),
-        'MaxMind\\Exception\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/maxmind/web-service-common/src/Exception',
-        ),
-        'MaxMind\\Db\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/maxmind-db/reader/src/MaxMind/Db',
-        ),
-        'GeoIp2\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/geoip2/geoip2/src',
-        ),
         'Composer\\Installers\\' => 
         array (
             0 => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers',
-        ),
-        'Composer\\CaBundle\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/composer/ca-bundle/src',
         ),
     );
 
@@ -63,6 +32,7 @@ class ComposerStaticInit6cd39ad071973d12e23974cf675cdc17
         'CT_Ultimate_CCPA_Service_Interface' => __DIR__ . '/../..' . '/includes/service/service-ccpa-interface.php',
         'CT_Ultimate_GDPR_Controller_Abstract' => __DIR__ . '/../..' . '/includes/controller/controller-abstract.php',
         'CT_Ultimate_GDPR_Controller_Admin' => __DIR__ . '/../..' . '/includes/controller/controller-admin.php',
+        'CT_Ultimate_GDPR_Controller_Age' => __DIR__ . '/../..' . '/includes/controller/controller-age.php',
         'CT_Ultimate_GDPR_Controller_Breach' => __DIR__ . '/../..' . '/includes/controller/controller-breach.php',
         'CT_Ultimate_GDPR_Controller_Cookie' => __DIR__ . '/../..' . '/includes/controller/controller-cookie.php',
         'CT_Ultimate_GDPR_Controller_Data_Access' => __DIR__ . '/../..' . '/includes/controller/controller-data-access.php',
@@ -118,6 +88,7 @@ class ComposerStaticInit6cd39ad071973d12e23974cf675cdc17
         'CT_Ultimate_GDPR_Service_Order_Delivery_Date_For_Woocommerce' => __DIR__ . '/../..' . '/includes/service/service-order-delivery-date-for-woocommerce.php',
         'CT_Ultimate_GDPR_Service_Polylang' => __DIR__ . '/../..' . '/includes/service/service-polylang.php',
         'CT_Ultimate_GDPR_Service_Quform' => __DIR__ . '/../..' . '/includes/service/service-quform.php',
+        'CT_Ultimate_GDPR_Service_Sell_Personal_Data' => __DIR__ . '/../..' . '/includes/service/service-sell-personal-data.php',
         'CT_Ultimate_GDPR_Service_Ultimate_Member' => __DIR__ . '/../..' . '/includes/service/service-ultimate-member.php',
         'CT_Ultimate_GDPR_Service_WPForms_Lite' => __DIR__ . '/../..' . '/includes/service/service-wpforms-lite.php',
         'CT_Ultimate_GDPR_Service_WP_Comments' => __DIR__ . '/../..' . '/includes/service/service-wp-comments.php',
@@ -140,6 +111,7 @@ class ComposerStaticInit6cd39ad071973d12e23974cf675cdc17
         'CT_Ultimate_GDPR_Shortcode_Protection' => __DIR__ . '/../..' . '/includes/shortcode/shortcode-protection.php',
         'CT_Ultimate_GDPR_Shortcode_Terms_Accept' => __DIR__ . '/../..' . '/includes/shortcode/shortcode-terms-accept.php',
         'CT_Ultimate_GDPR_Update_Legacy_Options' => __DIR__ . '/../..' . '/includes/update/update-legacy-options.php',
+        'IP2Location\\Database' => __DIR__ . '/..' . '/ip2location/ip2location-php/IP2Location.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

@@ -940,7 +940,7 @@ class WoocommerceGpfAdmin {
 			$variables['checked'] = ' checked="checked"';
 		}
 		$variables['hide_product_text'] = __( 'Hide this product from the feed', 'woocommerce_gpf' );
-		if ( is_null( $loop_idx ) ) {
+		if ( ! is_null( $loop_idx ) ) {
 			$variables['loop_idx'] = '[' . $loop_idx . ']';
 			$variables['loop_num'] = $loop_idx;
 		} else {

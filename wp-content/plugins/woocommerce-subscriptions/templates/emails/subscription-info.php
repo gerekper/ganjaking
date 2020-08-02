@@ -46,7 +46,7 @@ $is_parent_order       = wcs_order_contains_subscription( $order, 'parent' );
 	<?php endforeach; ?>
 </tbody>
 </table>
-<?php if ( $has_automatic_renewal && ! $is_admin_email ) {
+<?php if ( $has_automatic_renewal && ! $is_admin_email && $subscription->get_time( 'next_payment' ) > 0 ) {
 	if ( count( $subscriptions ) === 1 ) {
 		$subscription   = reset( $subscriptions );
 		$my_account_url = $subscription->get_view_order_url();

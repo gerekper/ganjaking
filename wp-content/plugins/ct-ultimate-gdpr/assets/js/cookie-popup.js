@@ -106,44 +106,53 @@ jQuery(document).ready(function ($) {
 
     }
 
-    function isConsentValid() {
+    function dateToAge(date) {
+        const msDiff = Date.now() - date.getTime();
+        const diffDate = new Date(msDiff);
+
+        return Math.abs(diffDate.getUTCFullYear() - 1970);
+    }
+
+    function shouldDisplayPopup() {
 
         // on some setups php is unable to grab cookie in backend, then check in js below
         if (ct_ultimate_gdpr_cookie.consent) {
-            return true;
+            return false;
         }
 
-        var cookieValue = getCookie('ct-ultimate-gdpr-cookie');
+        const consentCookieValue = getCookie('ct-ultimate-gdpr-cookie');
 
         //fix for old version of the plugin
-        if(cookieValue){
-            var myCookieIsFromOldVersion = (cookieValue.indexOf("consent") !== -1);
+        if(consentCookieValue){
+            var myCookieIsFromOldVersion = (consentCookieValue.indexOf("consent") !== -1);
             if(myCookieIsFromOldVersion){
                 document.cookie = "ct-ultimate-gdpr-cookie" + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-                return  false;
+                return true;
             }
         }
 
-        var cookieObject = cookieValue ? JSON.parse(atob(decodeURIComponent(cookieValue))) : {};
+        var cookieObject = consentCookieValue ? JSON.parse(atob(decodeURIComponent(consentCookieValue))) : {};
 
         //checking for latest/legacy expire_time js implementation
         if (cookieObject.consent_expire_time) {
-            return cookieObject.consent_expire_time > +new Date / 1000;
+            return cookieObject.consent_expire_time < +new Date / 1000;
         } else if (cookieObject.expire_time) {
-            return cookieObject.expire_time > +new Date / 1000;
+            return cookieObject.expire_time < +new Date / 1000;
         } else {
-            return false;
+            return true;
         }
 
     }
 
-    // hide popup and show small gear icon if user already given consent
-    if (isConsentValid()) {
-        hidePopup();
-    } else {
-        showPopup();
-        $('body').removeClass("ct-ultimate-gdpr-cookie-bottomPanel-padding");
-        $('body').removeClass("ct-ultimate-gdpr-cookie-topPanel-padding");
+    function maybeShowPopup(e) {
+        // hide popup and show small gear icon if user already given consent
+        if (shouldDisplayPopup()) {
+            showPopup();
+            $('body').removeClass("ct-ultimate-gdpr-cookie-bottomPanel-padding");
+            $('body').removeClass("ct-ultimate-gdpr-cookie-topPanel-padding");
+        } else {
+            hidePopup();
+        }
     }
 
     function setJsCookie(consent_level) {
@@ -523,4 +532,6 @@ jQuery(document).ready(function ($) {
         $('.ct-ultimate-gdpr-cookie-bottomPanel-padding').css('padding-bottom', cookiePopupHeight);
     });
 
+    $(document).on('ct-age-clicked', maybeShowPopup);
+    maybeShowPopup();
 });

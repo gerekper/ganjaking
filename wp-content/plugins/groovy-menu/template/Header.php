@@ -631,6 +631,7 @@ function groovyMenu( $args = array() ) {
 			$img_src    = $img;
 			$img_width  = '';
 			$img_height = '';
+			$img_alt    = '';
 
 			$filetype = wp_check_filetype( $img );
 
@@ -652,15 +653,21 @@ function groovyMenu( $args = array() ) {
 				$img_src = $img_src_wpml;
 			}
 
+			// Image Alt attribute.
+			if ( $groovyMenuSettings['logoShowAlt'] ) {
+				$img_alt = $groovyMenuSettings['logoShowTitleAsAlt'] ? get_the_title( $attach_id ) : get_post_meta( $attach_id, '_wp_attachment_image_alt', true );
+				$img_alt = esc_attr( $img_alt );
+			}
+
 			switch ( $key ) {
 				case 'default':
 					$additional_class = ( in_array( $header_style, array( 4, 5 ), true ) ) ? 'header-sidebar' : 'default';
 
-					$logo_html .= '<img src="' . $img_src . '"' . $img_width . $img_height . ' class="gm-logo__img gm-logo__img-' . $additional_class . '" alt="" />';
+					$logo_html .= '<img src="' . $img_src . '"' . $img_width . $img_height . ' class="gm-logo__img gm-logo__img-' . $additional_class . '" alt="' . $img_alt . '" />';
 					break;
 
 				default:
-					$logo_html .= '<img src="' . $img_src . '"' . $img_width . $img_height . ' class="gm-logo__img gm-logo__img-' . $key . '" alt="" />';
+					$logo_html .= '<img src="' . $img_src . '"' . $img_width . $img_height . ' class="gm-logo__img gm-logo__img-' . $key . '" alt="' . $img_alt . '" />';
 					break;
 			}
 		}

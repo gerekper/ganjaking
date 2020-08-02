@@ -4,11 +4,11 @@
  *
  * Mirrors a few functions in the WC_Cart class to work for subscriptions.
  *
- * @package		WooCommerce Subscriptions
- * @subpackage	WC_Subscriptions_Cart
- * @category	Class
- * @author		Brent Shepherd
- * @since		1.0
+ * @package WooCommerce Subscriptions
+ * @subpackage WC_Subscriptions_Cart
+ * @category Class
+ * @author Brent Shepherd
+ * @since 1.0
  */
 class WC_Subscriptions_Cart {
 
@@ -45,14 +45,14 @@ class WC_Subscriptions_Cart {
 	 *
 	 * @since 2.0.18
 	 */
-	 private static $shipping_rates = array();
+	private static $shipping_rates = array();
 
-	 /**
+	/**
 	 * A cache of the current recurring cart being calculated
 	 *
 	 * @since 2.0.20
 	 */
-	 private static $cached_recurring_cart = null;
+	private static $cached_recurring_cart = null;
 
 	/**
 	 * Bootstraps the class and hooks required actions & filters.
@@ -71,14 +71,17 @@ class WC_Subscriptions_Cart {
 		// Remove any subscriptions with a free trial from the initial shipping packages
 		add_filter( 'woocommerce_cart_shipping_packages', __CLASS__ . '::set_cart_shipping_packages', -10, 1 );
 
+		// Subscriptions with a free trial need extra handling to support the COD gateway
+		add_filter( 'woocommerce_available_payment_gateways', __CLASS__ . '::check_cod_gateway_for_free_trials' );
+
 		// Display Formatted Totals
 		add_filter( 'woocommerce_cart_product_subtotal', __CLASS__ . '::get_formatted_product_subtotal', 11, 4 );
 
 		// Sometimes, even if the order total is $0, the cart still needs payment
-		add_filter( 'woocommerce_cart_needs_payment', __CLASS__ . '::cart_needs_payment' , 10, 2 );
+		add_filter( 'woocommerce_cart_needs_payment', __CLASS__ . '::cart_needs_payment', 10, 2 );
 
 		// Make sure cart product prices correctly include/exclude taxes
-		add_filter( 'woocommerce_cart_product_price', __CLASS__ . '::cart_product_price' , 10, 2 );
+		add_filter( 'woocommerce_cart_product_price', __CLASS__ . '::cart_product_price', 10, 2 );
 
 		// Display grouped recurring amounts after order totals on the cart/checkout pages
 		add_action( 'woocommerce_cart_totals_after_order_total', __CLASS__ . '::display_recurring_totals' );
@@ -103,8 +106,8 @@ class WC_Subscriptions_Cart {
 		add_filter( 'woocommerce_shipping_packages', __CLASS__ . '::reset_shipping_method_counts', 1000, 1 );
 
 		// When WooCommerce determines the taxable address only return pick up shipping methods chosen for the recurring cart being calculated.
-		add_filter( 'woocommerce_local_pickup_methods', __CLASS__ . '::filter_recurring_cart_chosen_shipping_method', 100 ,1 );
-		add_filter( 'wc_shipping_local_pickup_plus_chosen_shipping_methods', __CLASS__ . '::filter_recurring_cart_chosen_shipping_method', 10 ,1 );
+		add_filter( 'woocommerce_local_pickup_methods', __CLASS__ . '::filter_recurring_cart_chosen_shipping_method', 100, 1 );
+		add_filter( 'wc_shipping_local_pickup_plus_chosen_shipping_methods', __CLASS__ . '::filter_recurring_cart_chosen_shipping_method', 10, 1 );
 
 		// Validate chosen recurring shipping methods
 		add_action( 'woocommerce_after_checkout_validation', __CLASS__ . '::validate_recurring_shipping_methods' );
@@ -182,10 +185,10 @@ class WC_Subscriptions_Cart {
 
 		if ( WC_Subscriptions_Product::is_subscription( $product ) ) {
 			switch ( $handler ) {
-				case 'variable-subscription' :
+				case 'variable-subscription':
 					$handler = 'variable';
 					break;
-				case 'subscription' :
+				case 'subscription':
 					$handler = 'simple';
 					break;
 			}
@@ -282,6 +285,7 @@ class WC_Subscriptions_Cart {
 
 		// Back up the shipping method. Chances are WC is going to wipe the chosen_shipping_methods data
 		WC()->session->set( 'wcs_shipping_methods', WC()->session->get( 'chosen_shipping_methods', array() ) );
+		WC()->session->set( 'wcs_shipping_method_counts', WC()->session->get( 'shipping_method_counts', array() ) );
 
 		// Now let's calculate the totals for each group of subscriptions
 		self::$calculation_type = 'recurring_total';
@@ -350,6 +354,7 @@ class WC_Subscriptions_Cart {
 
 		// We no longer need our backup of shipping methods
 		unset( WC()->session->wcs_shipping_methods );
+		unset( WC()->session->shipping_method_counts );
 
 		// If there is no sign-up fee and a free trial, and no products being purchased with the subscription, we need to zero the fees for the first billing period
 		$remove_fees_from_cart = ( 0 == self::get_cart_subscription_sign_up_fee() && self::all_cart_items_have_free_trial() );
@@ -702,6 +707,50 @@ class WC_Subscriptions_Cart {
 		return $packages;
 	}
 
+	/**
+	 * Checks whether or not the COD gateway should be available on checkout when a subscription has a free trial.
+	 *
+	 * @since 3.0.6
+	 *
+	 * @param array $available_gateways The currently available payment gateways.
+	 * @return array All of the available payment gateways.
+	 */
+	public static function check_cod_gateway_for_free_trials( $available_gateways ) {
+
+		if ( ! self::cart_contains_free_trial() ) {
+			return $available_gateways;
+		}
+
+		$all_gateways = WC()->payment_gateways->payment_gateways();
+
+		if ( ! isset( $all_gateways['cod'] ) ) {
+			return $available_gateways;
+		}
+
+		$gateway = $all_gateways['cod'];
+
+		/**
+		 * Since the COD gateway supports shipping method restrictions we run into problems with free trials.
+		 * We don't make packages for free trial subscriptions and thus they have no assigned shipping
+		 * method to match against the payment gateway. We can get around this limitation by abusing
+		 * the fact that the user has to select a shipping method for the recurring cart.
+		 */
+		$packages = WC()->shipping->packages;
+		self::set_global_recurring_shipping_packages();
+
+		if ( $gateway->is_available() ) {
+			$available_gateways['cod'] = $gateway;
+		} else {
+			// Handle the case where it was previous available but the method chosen by the recurring package
+			// causes it to no longer be available.
+			unset( $available_gateways['cod'] );
+		}
+
+		WC()->shipping->packages = $packages;
+
+		return $available_gateways;
+	}
+
 	/* Formatted Totals Functions */
 
 	/**
@@ -727,14 +776,16 @@ class WC_Subscriptions_Cart {
 			// And get the appropriate sign up fee string
 			$sign_up_fee_string = $cart->get_product_subtotal( $product, $quantity );
 
-			remove_filter( $product_price_filter,  'WC_Subscriptions_Product::get_sign_up_fee_filter', 100 );
+			remove_filter( $product_price_filter, 'WC_Subscriptions_Product::get_sign_up_fee_filter', 100 );
 
 			add_filter( 'woocommerce_cart_product_subtotal', __CLASS__ . '::get_formatted_product_subtotal', 11, 4 );
 
-			$product_subtotal = WC_Subscriptions_Product::get_price_string( $product, array(
-				'price'           => $product_subtotal,
-				'sign_up_fee'     => $sign_up_fee_string,
-				'tax_calculation' => WC()->cart->tax_display_cart,
+			$product_subtotal = WC_Subscriptions_Product::get_price_string(
+				$product,
+				array(
+					'price'           => $product_subtotal,
+					'sign_up_fee'     => $sign_up_fee_string,
+					'tax_calculation' => WC()->cart->tax_display_cart,
 				)
 			);
 
@@ -745,7 +796,7 @@ class WC_Subscriptions_Cart {
 				$product_subtotal = str_replace( WC()->countries->inc_tax_or_vat(), '', $product_subtotal ) . ' <small class="tax_label">' . WC()->countries->inc_tax_or_vat() . '</small>';
 			}
 			if ( ! empty( $ex_tax_or_vat_string ) && false !== strpos( $product_subtotal, $ex_tax_or_vat_string ) ) {
-				$product_subtotal = str_replace( WC()->countries->ex_tax_or_vat(), '', $product_subtotal ) . ' <small class="tax_label">' .  WC()->countries->ex_tax_or_vat() . '</small>';
+				$product_subtotal = str_replace( WC()->countries->ex_tax_or_vat(), '', $product_subtotal ) . ' <small class="tax_label">' . WC()->countries->ex_tax_or_vat() . '</small>';
 			}
 
 			$product_subtotal = '<span class="subscription-price">' . $product_subtotal . '</span>';
@@ -987,7 +1038,13 @@ class WC_Subscriptions_Cart {
 	public static function cart_product_price( $price, $product ) {
 
 		if ( WC_Subscriptions_Product::is_subscription( $product ) ) {
-			$price = WC_Subscriptions_Product::get_price_string( $product, array( 'price' => $price, 'tax_calculation' => WC()->cart->tax_display_cart ) );
+			$price = WC_Subscriptions_Product::get_price_string(
+				$product,
+				array(
+					'price'           => $price,
+					'tax_calculation' => WC()->cart->tax_display_cart,
+				)
+			);
 		}
 
 		return $price;
@@ -1019,7 +1076,16 @@ class WC_Subscriptions_Cart {
 			}
 
 			if ( $carts_with_multiple_payments >= 1 ) {
-				wc_get_template( 'checkout/recurring-totals.php', array( 'shipping_methods' => $shipping_methods, 'recurring_carts' => WC()->cart->recurring_carts, 'carts_with_multiple_payments' => $carts_with_multiple_payments ), '', plugin_dir_path( WC_Subscriptions::$plugin_file ) . 'templates/' );
+				wc_get_template(
+					'checkout/recurring-totals.php',
+					array(
+						'shipping_methods'             => $shipping_methods,
+						'recurring_carts'              => WC()->cart->recurring_carts,
+						'carts_with_multiple_payments' => $carts_with_multiple_payments,
+					),
+					'',
+					plugin_dir_path( WC_Subscriptions::$plugin_file ) . 'templates/'
+				);
 			}
 
 			self::$calculation_type = 'none';
@@ -1054,17 +1120,17 @@ class WC_Subscriptions_Cart {
 
 		// First start with the billing interval and period
 		switch ( $interval ) {
-			case 1 :
+			case 1:
 				if ( 'day' == $period ) {
 					$cart_key .= 'daily'; // always gotta be one exception
 				} else {
 					$cart_key .= sprintf( '%sly', $period );
 				}
 				break;
-			case 2 :
+			case 2:
 				$cart_key .= sprintf( 'every_2nd_%s', $period );
 				break;
-			case 3 :
+			case 3:
 				$cart_key .= sprintf( 'every_3rd_%s', $period ); // or sometimes two exceptions it would seem
 				break;
 			default:
@@ -2095,7 +2161,9 @@ class WC_Subscriptions_Cart {
 			);
 		}
 
-		$args = wp_parse_args( $args, array(
+		$args = wp_parse_args(
+			$args,
+			array(
 				'include_lengths' => false,
 				'include_trial'   => true,
 			)
@@ -2247,10 +2315,12 @@ class WC_Subscriptions_Cart {
 	 */
 	public static function maybe_restore_chosen_shipping_method() {
 		$chosen_shipping_method_cache = WC()->session->get( 'wcs_shipping_methods', false );
+		$shipping_method_counts_cache = WC()->session->get( 'wcs_shipping_method_counts', false );
 		$chosen_shipping_methods      = WC()->session->get( 'chosen_shipping_methods', array() );
 
 		if ( false !== $chosen_shipping_method_cache && empty( $chosen_shipping_methods ) ) {
 			WC()->session->set( 'chosen_shipping_methods', $chosen_shipping_method_cache );
+			WC()->session->set( 'shipping_method_counts', $shipping_method_counts_cache );
 		}
 	}
 

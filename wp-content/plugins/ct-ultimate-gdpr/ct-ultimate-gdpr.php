@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Plugin Name: Ultimate GDPR
+ * Plugin Name: Ultimate GDPR & CCPA
  * Description: Complete General Data Protection Regulation compliance toolkit plugin for WordPress.
- * Version: 1.7.6
+ * Version: 2.1
  * Author URI: https://www.createit.pl
  * Author: CreateIT
  */
@@ -69,6 +69,7 @@ class CT_Ultimate_GDPR {
 		$this->logger = new CT_Ultimate_GDPR_Model_Logger();
 
 		add_action( 'init', array( $this, 'init' ) );
+        add_action( 'wp_head', array( $this, 'inline_font_styles' ), 7 );
 		add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts_action' ) );
 		add_action( 'wp', array( $this, 'controller_actions' ) );
 		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
@@ -178,6 +179,7 @@ class CT_Ultimate_GDPR {
 		foreach (
 			array(
 				new CT_Ultimate_GDPR_Controller_Cookie( $this->logger ),
+				new CT_Ultimate_GDPR_Controller_Age( $this->logger ),
 				new CT_Ultimate_GDPR_Controller_Terms( $this->logger ),
 				new CT_Ultimate_GDPR_Controller_Policy( $this->logger ),
 				new CT_Ultimate_GDPR_Controller_Forgotten( $this->logger ),
@@ -224,6 +226,13 @@ class CT_Ultimate_GDPR {
 		new CT_Ultimate_GDPR_Shortcode_Protection();
 	}
 
+    /**
+     * Inline font styles to page head
+     */
+    public function inline_font_styles() {
+        echo "<style>" . file_get_contents( ct_ultimate_gdpr_url( '/assets/css/fonts/fonts.css' ) ) . "</style>";
+    }
+
 	/**
 	 * Add scripts
 	 */
@@ -253,7 +262,7 @@ class CT_Ultimate_GDPR {
 	 *
 	 * @param $id
 	 *
-	 * @return mixed|null
+	 * @return CT_Ultimate_GDPR_Controller_Abstract|null
 	 */
 	public function get_controller_by_id( $id ) {
 		return isset( $this->controllers[ $id ] ) ? $this->controllers[ $id ] : null;

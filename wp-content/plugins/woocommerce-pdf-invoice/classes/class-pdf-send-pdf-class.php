@@ -13,10 +13,11 @@
             	$this->wc_version = get_option( 'woocommerce_version' );
 				add_action( 'init', array( $this, 'init' ) );
 
-				$woocommerce_pdf_invoice_settings = get_option( 'woocommerce_pdf_invoice_settings' );
+				// Get the PDF Invoice settings
+				$this->settings = get_option( 'woocommerce_pdf_invoice_settings' );
 
 				// Add download link if required
-				if( isset($woocommerce_pdf_invoice_settings['attachment_method']) && $woocommerce_pdf_invoice_settings['attachment_method'] != '0' ) {
+				if( isset($this->settings['attachment_method']) && $this->settings['attachment_method'] != '0' ) {
 					add_action( 'woocommerce_email_before_order_table', array( 'WC_send_pdf', 'pdf_download_link' ), 10, 4 );
 				}
 
@@ -32,12 +33,13 @@
              */
 		 	public static function pdf_attachment( $attachment = NULL, $id = NULL, $order = NULL ) {
 
+		 		$settings = get_option( 'woocommerce_pdf_invoice_settings' );
+
 		 		// Stop everything if iconv, mbstring or GD  are not loaded, prevents fatal errors
             	if ( ! extension_loaded( 'iconv' ) || ! extension_loaded( 'mbstring' ) || ! extension_loaded('gd') || ! $id || ! $order ) {
+            		self::log_pdf( "Missing PHP functions, PDF creation stopped" );
             		return $attachment;
             	}
-
-            	$settings = get_option( 'woocommerce_pdf_invoice_settings' );
 
             	// Make the array for email ids
             	$email_ids = array();
@@ -56,6 +58,8 @@
             	// Add a filter for the array
             	$email_ids = apply_filters( 'pdf_invoice_email_ids', $email_ids, $order );
 
+            	self::log_pdf( $email_ids, "Email IDs" );
+
             	if ( !empty( $email_ids ) && in_array( $id, $email_ids ) ) {
 
             		// array of "Attach a PDF Invoice to the email or include a download link?" setting where no PDF is required
@@ -63,6 +67,8 @@
 
             		// Create the PDF if required
 					if( isset( $settings['attachment_method'] ) && in_array( $settings['attachment_method'], $no_pdf_required ) ) {
+
+						self::log_pdf( "PDF not required" );
 
 					} else {
 						$pdf = WC_send_pdf::get_woocommerce_invoice( $order );
@@ -72,6 +78,8 @@
 
 	            		// Add the PDF to the attachments array
 	            		$attachment[] = $pdf;
+
+	            		self::log_pdf( "PDF attachment added" );
 					}
 	
 				}
@@ -88,9 +96,9 @@
 		 	 * @param  string  $email         [description]
 		 	 * @return [type]                 [description]
 		 	 */
-		 	public static function pdf_download_link(  $order, $sent_to_admin = false, $plain_text = false, $email = '' ) {
+		 	public static function pdf_download_link( $order, $sent_to_admin = false, $plain_text = false, $email = '' ) {
 
-		 		$settings = get_option('woocommerce_pdf_invoice_settings');
+		 		$settings = get_option( 'woocommerce_pdf_invoice_settings' );
 
 		 		$order_id   	= $order->get_id();
 		 		$download_url 	= site_url( '/?pdfid=' . $order_id . '&pdfnonce=' . wp_hash( $order->get_order_key(), 'nonce' ), 'https' );
@@ -103,6 +111,8 @@
 		 		// Replace placeholder with download URL
 		 		$placeholder_replacement = str_replace( '[[PDFINVOICEDOWNLOADURL]]', $download_link, $download_text );
 
+		 		self::log_pdf( $download_link, "PDF Email download link" );
+
 		 		echo apply_filters( 'pdf_invoice_download_invoice_link', $placeholder_replacement, $order, $order_id );
 
 		 	}
@@ -114,16 +124,16 @@
  					return array();
  				}
 
+ 				$settings = get_option( 'woocommerce_pdf_invoice_settings' );
+
 				$order_id   = $order->get_id();
 
 				$pdf = new WC_send_pdf();
-				
-				$settings = get_option('woocommerce_pdf_invoice_settings');
 
 				// Page Options
-        		$papersize 				= self::get_paper_size( $settings, $order_id );
-        		$paperorientation 		= self::get_paper_orientation( $settings, $order_id );
-        		$isHtml5ParserEnabled 	= self::get_isHtml5ParserEnabled( $settings, $order_id );
+        		$papersize 				= self::get_paper_size( $order_id );
+        		$paperorientation 		= self::get_paper_orientation( $order_id );
+        		$isHtml5ParserEnabled 	= self::get_isHtml5ParserEnabled( $order_id );
 				$customlogo				= ''; // No logo? No problem, we'll just use get_bloginfo('name')
 				$footertext				= ''; // This is the legal stuff that you should be including everywhere!
 
@@ -143,7 +153,7 @@
 				$pdftemp = WC_send_pdf::get_pdf_temp();
 
 				// Get the filename
-				$filename 	= WC_send_pdf::create_filename( $order_id, $settings );
+				$filename 	= WC_send_pdf::create_filename( $order_id );
 
 				$messagetext  = '';
 				$messagetext .= $pdf->get_woocommerce_invoice_content( $order_id );
@@ -165,8 +175,7 @@
 						'isRemoteEnabled' 			=> $pdfremoteimages,
 						'isHtml5ParserEnabled' 		=> $isHtml5ParserEnabled,
 						'enable_font_subsetting'	=> $fontsubsetting,
-						'tempDir'					=> $pdftemp,
-						'logOutputFile'				=> $pdftemp . DIRECTORY_SEPARATOR . "log.htm"
+						'tempDir'					=> $pdftemp
 				]);		
 					
 				if ( $stream && 
@@ -183,6 +192,8 @@
 					$dompdf->load_html( $messagetext );
 					$dompdf->set_paper( $papersize, $paperorientation );
 					$dompdf->render();
+
+					self::log_pdf( $filename, "PDF streaming" );
 						
 					// Output the PDF for download
 					return $dompdf->stream( $filename );
@@ -213,7 +224,11 @@
 					$invattachments = $pdftemp . '/inv' . $filename;
 						
 					// Write the PDF to the TMP directory		
-					file_put_contents( $invattachments, $dompdf->output() );
+					if( file_put_contents( $invattachments, $dompdf->output() ) ) {
+						self::log_pdf( "PDF saved to temp folder" );
+					} else {
+						self::log_pdf( "PDF NOT saved to temp folder" );
+					}
 						
 					ob_start();
 					ob_clean();
@@ -234,7 +249,11 @@
 						$termsattachments = $pdftemp . '/terms-' . $filename;
 						
 						// Write the PDF to the TMP directory		
-						file_put_contents( $termsattachments, $dompdf->output() );
+						if( file_put_contents( $termsattachments, $dompdf->output() ) ) {
+							self::log_pdf( "Terms PDF saved to temp folder" );
+						} else {
+							self::log_pdf( "Terms PDF NOT saved to temp folder" );
+						}
 					
 						$pdf = new PDFMerger;
 						
@@ -242,11 +261,18 @@
 							$pdf->addPDF( $invattachments, 'all' )
 								->addPDF( $termsattachments, 'all' )
 								->merge( 'download', $filename, $paperorientation );
-								exit;
+
+							self::log_pdf( $filename, "Invoice with terms streaming" );
+	
+							exit;
+
 						} else {
 							$pdf->addPDF( $invattachments, 'all' )
 								->addPDF( $termsattachments, 'all' )
 								->merge( 'file', $pdftemp . '/' . $filename, $paperorientation );
+
+							self::log_pdf( $filename, "Invoice with terms saved" );
+
 						}
 
 					} else {
@@ -256,10 +282,17 @@
 						if ( $stream ) {
 							$pdf->addPDF( $invattachments, 'all' )
 								->merge( 'download', $filename, $paperorientation );
-								exit;
+
+							self::log_pdf( $filename, "Invoice without terms streaming" );
+
+							exit;
+
 						} else {
 							$pdf->addPDF( $invattachments, 'all' )
 								->merge( 'file', $pdftemp . '/' . $filename, $paperorientation );
+
+							self::log_pdf( $filename, "Invoice without terms saved" );
+
 						}
 
 					}
@@ -284,9 +317,13 @@
 					$dompdf->render();
 					
 					$attachments = $pdftemp . '/' . $filename;
-					
+
 					// Write the PDF to the TMP directory		
-					file_put_contents( $attachments, $dompdf->output() );
+					if( file_put_contents( $attachments, $dompdf->output() ) ) {
+						self::log_pdf( "PDF saved to temp folder (02)" );
+					} else {
+						self::log_pdf( "PDF NOT saved to temp folder (02)" );
+					}
 		
 					// Send the file name and location to the Email
 					return 	$attachments;
@@ -301,9 +338,15 @@
 			 * @param  [Int] $order_id                         		[description]
 			 * @return [text]                                   	[description]
 			 */
-			private static function get_paper_size( $settings, $order_id ) {
+			private static function get_paper_size( $order_id ) {
+
+				$settings = get_option( 'woocommerce_pdf_invoice_settings' );
+
 				$size = isset( $settings['paper_size'] ) ? $settings['paper_size'] : "A4";
 				$size = apply_filters( 'woocommerce_pdf_invoice_paper_size', $size, $order_id );
+
+				self::log_pdf( strtolower( $size ), "Paper Size" );
+
 				return strtolower( $size );
 			}
 
@@ -313,14 +356,20 @@
 			 * @param  [Int] $order_id                         		[description]
 			 * @return [text]                                   	[description]
 			 */
-			private static function get_paper_orientation( $settings, $order_id ) {
+			private static function get_paper_orientation( $order_id ) {
+
+				$settings = get_option( 'woocommerce_pdf_invoice_settings' );
+
 				$orientation = isset( $settings['paper_orientation'] ) ? $settings['paper_orientation'] : "portrait";
 				$orientation = apply_filters( 'woocommerce_pdf_invoice_paper_orientation', $orientation, $order_id );
+
+				self::log_pdf( strtolower( $orientation ), "Paper Orientation" );
+
 				return strtolower( $orientation );
 			}
 
 			// isHtml5ParserEnabled
-			private static function get_isHtml5ParserEnabled( $settings, $order_id ) {
+			private static function get_isHtml5ParserEnabled( $order_id ) {
 				return apply_filters( 'woocommerce_pdf_invoice_isHtml5ParserEnabled', true );
 			}
 
@@ -336,23 +385,23 @@
 			 * mon
 			 * year
 			 */
-			private static function create_filename( $order_id, $woocommerce_pdf_invoice_options ) {
+			private static function create_filename( $order_id ) {
+
+				$settings = get_option( 'woocommerce_pdf_invoice_settings' );
 
 				$pdf = new WC_send_pdf();
 
 				$replace 	= array( ' ', "/", "'",'"', "--" );
 				$clean_up	= array( ',' );
-				$filename	= $woocommerce_pdf_invoice_options['pdf_filename'];
+				$filename	= $settings['pdf_filename'];
 
 				if ( $filename == '' ) {
-
 					$filename	= get_bloginfo('name') . '-' . $order_id;
-
 				} else {
 
-					$invoice_date = $pdf->get_woocommerce_pdf_date( $order_id,'completed', true, 'invoice' );
+					$invoice_date = $pdf->get_woocommerce_pdf_date( $order_id,'completed', true, 'invoice', $settings['pdf_date_format'] );
 
-					$filename	= str_replace( '{{company}}',	$woocommerce_pdf_invoice_options['pdf_company_name'] , $filename );
+					$filename	= str_replace( '{{company}}',	$settings['pdf_company_name'] , $filename );
 					$filename	= str_replace( '{{invoicedate}}', $invoice_date, $filename );
 					$filename	= str_replace( '{{invoicenumber}}',	( $pdf->get_woocommerce_pdf_invoice_num( $order_id ) ? $pdf->get_woocommerce_pdf_invoice_num( $order_id ) : $order_id ) , $filename );
 					$filename	= str_replace( '{{month}}',	date( 'F', strtotime( $invoice_date ) ) , $filename );
@@ -367,6 +416,8 @@
 
 				// Filter the filename
 				$filename 	= apply_filters( 'pdf_output_filename', $filename, $order_id );
+
+				self::log_pdf( strtolower( $filename ), "PDF create_filename" );
 
 				return $filename;
 
@@ -431,6 +482,8 @@
 
                 }
 
+                self::log_pdf( $pdftemp, "PDF get_pdf_temp" );
+
                 return $pdftemp;
 
 		 	}
@@ -441,12 +494,11 @@
 			 * @return [type]           [description]
 			 */
 			function get_woocommerce_invoice_content( $order_id ) {
-				global $woocommerce;
+
+				$settings = get_option( 'woocommerce_pdf_invoice_settings' );
 
 				// WPML
 				do_action( 'before_invoice_content', $order_id );
-
-				$settings = get_option( 'woocommerce_pdf_invoice_settings' );
 				
 				if (!$order_id) return;	
 				$order 			   = new WC_Order( $order_id );
@@ -488,9 +540,9 @@
 				do_action( 'woocommerce_pdf_invoice_before_pdf_content', $order );
 		
 				// REPLACE ALL TEMPLATE TAGS WITH REAL CONTENT
-				$content = str_replace(	'[[PDFFONTFAMILY]]', 						self::get_fontfamily( $order_id, $settings ),								$content );
-				$content = str_replace( '[[PDFCURRENCYSYMBOLFONT]]', 				self::get_currency_fontfamily( $order_id, $settings ),						$content );
-				$content = str_replace(	'[[PDFLOGO]]', 								self::get_pdf_logo( $order_id, $settings ), 			 					$content );
+				$content = str_replace(	'[[PDFFONTFAMILY]]', 						self::get_fontfamily( $order_id ),											$content );
+				$content = str_replace( '[[PDFCURRENCYSYMBOLFONT]]', 				self::get_currency_fontfamily( $order_id ),									$content );
+				$content = str_replace(	'[[PDFLOGO]]', 								self::get_pdf_logo( $order_id ), 			 								$content );
 
 				$content = str_replace(	'[[PDFCOMPANYNAME]]', 						self::get_invoice_companyname( $order_id, $settings ),						$content );
 				$content = str_replace(	'[[PDFCOMPANYDETAILS]]', 					self::get_invoice_companydetails( $order_id, $settings ), 					$content );
@@ -512,10 +564,10 @@
 				$content = str_replace(	'[[PDFORDERENUM]]', 						self::get_invoice_display_order_number( $order ), 							$content );
 
 				$content = str_replace(	'[[PDFINVOICEDATEHEADING]]', 				self::get_pdf_template_invoice_date_text( $order ), 	 					$content );
-				$content = str_replace(	'[[PDFINVOICEDATE]]', 						self::get_invoice_display_date( $order_id,'completed', false, 'invoice' ), 	$content );
+				$content = str_replace(	'[[PDFINVOICEDATE]]', 						self::get_invoice_display_date( $order_id,'completed', false, 'invoice', $settings['pdf_date_format'] ), 	$content );
 
 				$content = str_replace(	'[[PDFORDERDATEHEADING]]', 					self::get_pdf_template_order_date_text( $order ), 	 						$content );
-				$content = str_replace(	'[[PDFORDERDATE]]', 						self::get_invoice_display_date( $order_id,'ordered', false, 'order' ), 		$content );
+				$content = str_replace(	'[[PDFORDERDATE]]', 						self::get_invoice_display_date( $order_id,'ordered', false, 'order', $settings['pdf_date_format'] ), 		$content );
 				
 				$content = str_replace(	'[[PDFINVOICE_BILLINGDETAILS_HEADING]]',	self::get_pdf_billing_details_heading( $order ), 	 						$content );
 				$content = str_replace(	'[[PDFBILLINGADDRESS]]', 					self::get_invoice_billing_address( $order ),  								$content );
@@ -553,17 +605,17 @@
 				$content = str_replace(	'[[PDFINVOICE_PRICEINC_HEADING]]', 			self::get_pdf_priceinc_heading( $order ), 									$content );
 				$content = str_replace(	'[[PDFINVOICE_TOTALINC_HEADING]]', 			self::get_pdf_totalinc_heading( $order ), 									$content );
 
-				$content = str_replace(	'[[PDFINVOICE_REGISTEREDNAME_HEADING]]', 	self::get_pdf_template_registered_name_text( $order, $settings ), 			$content );
-				$content = str_replace(	'[[PDFINVOICE_REGISTEREDOFFICE_HEADING]]', 	self::get_pdf_template_registered_office_text( $order, $settings ), 		$content );
-				$content = str_replace(	'[[PDFINVOICE_COMPANYNUMBER_HEADING]]', 	self::get_pdf_template_company_number_text( $order, $settings ), 			$content );
-				$content = str_replace(	'[[PDFINVOICE_VATNUMBER_HEADING]]', 		self::get_pdf_template_vat_number_text( $order, $settings ), 				$content );
+				$content = str_replace(	'[[PDFINVOICE_REGISTEREDNAME_HEADING]]', 	self::get_pdf_template_registered_name_text( $order, $settings ), 						$content );
+				$content = str_replace(	'[[PDFINVOICE_REGISTEREDOFFICE_HEADING]]', 	self::get_pdf_template_registered_office_text( $order, $settings ), 					$content );
+				$content = str_replace(	'[[PDFINVOICE_COMPANYNUMBER_HEADING]]', 	self::get_pdf_template_company_number_text( $order, $settings ), 						$content );
+				$content = str_replace(	'[[PDFINVOICE_VATNUMBER_HEADING]]', 		self::get_pdf_template_vat_number_text( $order, $settings ), 							$content );
 
 				$content = str_replace(	'[[PDFBARCODES]]', 							self::get_barcode( $order_id ), 			 								$content );
 				$content = str_replace(	'[[PDFBILLINGVATNUMBER]]', 					self::get_vat_number( $order_id ), 		 									$content );
 
 				if( preg_match('/ORDERDETAILS(.*?)ENDORDERDETAILS/', $content, $match) == 1 ) {
 					$template_order_details = WC_send_pdf::get_pdf_template_invoice_order_details( $order, $match );
-					$content = preg_replace( '/ORDERDETAILS(.*?)ENDORDERDETAILS/', WC_send_pdf::get_pdf_template_invoice_order_details( $order, $match ), $content );
+					$content = preg_replace( '/ORDERDETAILS(.*?)ENDORDERDETAILS/', $template_order_details, $content );
 				}
 
 				// Allow the content to be filtered
@@ -582,7 +634,10 @@
 			 * @param  [type] $order_id [description]
 			 * @return [type]           [description]
 			 */
-			public static function get_fontfamily( $order_id, $settings ) {
+			public static function get_fontfamily( $order_id ) {
+
+				$settings = get_option( 'woocommerce_pdf_invoice_settings' );
+
 				$fontfamily = apply_filters( 'pdf_invoice_default_font_family', '"DejaVu Sans", "DejaVu Sans Mono", "DejaVu", sans-serif, monospace', $order_id );
 
 				if( isset($settings['pdf_font']) && $settings['pdf_font'] != "" && $settings['pdf_font'] != "Default" ) {
@@ -598,7 +653,9 @@
 			 * @param  [type] $order_id [description]
 			 * @return [type]           [description]
 			 */
-			public static function get_currency_fontfamily( $order_id, $settings ) {
+			public static function get_currency_fontfamily( $order_id ) {
+
+				$settings = get_option( 'woocommerce_pdf_invoice_settings' );
 
 				$currency_font_css = '';
 
@@ -631,6 +688,7 @@
 							    }";
 					}
 				*/
+			
 				return apply_filters( 'pdf_invoice_currency_symbol_font_css', $currency_font_css, $order_id );
 
 			}
@@ -640,22 +698,24 @@
 			 * @param  {int} $order_id  [WooCommerce Order ID]
 			 * @return {text}          [field required from order/settings]
 			 */
-			public static function get_pdf_logo( $order_id, $settings ) {
+			public static function get_pdf_logo( $order_id ) {
+
+				$settings = get_option( 'woocommerce_pdf_invoice_settings' );
 
 				// Get the logo
 				$pdflogo = $settings['logo_file'];
 
-				if ( $pdflogo ) :
+				if ( $pdflogo && $pdflogo != '' ) {
 
 					// Replace the URL with the file structure
 					// Required whn the Remote Logo option is set to "no"
-					$pdflogo = str_replace( site_url(), ABSPATH, $pdflogo );
-
+					$wp_upload_dir 	= wp_upload_dir();
+					$pdflogo 		= str_replace( $wp_upload_dir['baseurl'], $wp_upload_dir['basedir'], $pdflogo );
 
 					$logo = '<img src="' . $pdflogo . '" alt="' . get_bloginfo('name') . '" />';				
-				else :
+				} else {
 					$logo = '<h1>' . get_bloginfo('name') . '</h1>';	
-				endif;
+				}
 
 				return apply_filters( 'pdf_invoice_display_logo', $logo, $order_id );
 
@@ -923,12 +983,10 @@
 			 * @param  [type] $usedate  [description]
 			 * @return [type]           [description]
 			 */
-			public static function get_invoice_display_date( $order_id, $usedate, $sendsomething = false, $display_date = 'invoice' ) {
+			public static function get_invoice_display_date( $order_id, $usedate, $sendsomething = false, $display_date = 'invoice', $date_format ) {
 				global $woocommerce;
 
-				$order 	 						 = new WC_Order( $order_id );
-				$woocommerce_pdf_invoice_options = get_option( 'woocommerce_pdf_invoice_settings' );
-				$date_format 					 = $woocommerce_pdf_invoice_options['pdf_date_format'];
+				$order 			= new WC_Order( $order_id );
 
 				// Invoice Date : Use Invoice date from order meta if available
 				if( get_post_meta( $order_id, '_invoice_date', TRUE ) && $display_date == 'invoice' ) {
@@ -1015,7 +1073,7 @@
 					$billing_vat_number = __( 'VAT Number : ', 'woocommerce-pdf-invoice' ) . get_post_meta( $order_id,'vat_number',TRUE );
 				}
 
-				return apply_filters( 'pdf_invoice_billing_email', $billing_vat_number, $order_id );
+				return apply_filters( 'pdf_invoice_billing_vat_number', $billing_vat_number, $order_id );
 			}
 
 			/**
@@ -1024,7 +1082,14 @@
 			 * @return [type]        [description]
 			 */
 			public static function get_invoice_shipping_address( $order ) {
-				return apply_filters( 'pdf_invoice_shipping_address', $order->get_formatted_shipping_address(), $order );
+
+				$return = apply_filters( 'pdf_invoice_shipping_address', $order->get_formatted_shipping_address(), $order );
+
+				if( !isset( $return ) || $return == '' ) {
+					$return = '';
+				}
+				return $return;
+
 			}
 
 			/**
@@ -1239,13 +1304,13 @@
 			 * identifier : column width : column title
 			 *
 			 * ORDERDETAILS 
-			 * 	quantity:5:Qty:, 
-			 * 	product:50:Description:, 
-			 * 	priceex:9:Price Ex:, 
-			 * 	totalex:9:Total Ex:, 
-			 * 	tax:7:Tax:, 
-			 * 	priceinc:10:Price Inc:, 
-			 * 	totalinc:10:Total Inc: 
+			 * 	quantity:5:Qty:left:, 
+			 * 	product:50:Description:left:, 
+			 * 	priceex:9:Price Ex:left:, 
+			 * 	totalex:9:Total Ex:left:, 
+			 * 	tax:7:Tax:left:, 
+			 * 	priceinc:10:Price Inc:left:, 
+			 * 	totalinc:10:Total Inc:left:
 			 * ENDORDERDETAILS
 			 * 
 			 * @param  [type] $order [description]
@@ -1263,7 +1328,8 @@
 							<tr>';
 						    foreach( $fields AS $field ) {
 				    			$output = explode( ':', $field );
-				    			$return .= '<th align="left" class="pdforderdetails_heading" width="'.$output[1].'%">' . ucwords( $output[2] ) . '</th>';
+				    			$align 	= strtolower( trim($output[3]) );
+				    			$return .= '<th align="'.$align.'" class="pdforderdetails_heading" width="'.$output[1].'%">' . ucwords( $output[2] ) . '</th>';
 				    		}		
 				$return .= '</tr>
 							</thead>';
@@ -1289,8 +1355,9 @@
 				    			$output 	= explode( ':', $field );
 				    			$width 		= strtolower( trim($output[1]) );
 				    			$identifier = strtolower( trim($output[0]) );
+				    			$align 		= strtolower( trim($output[3]) );
 
-				    			$return .= '<td align="left" width="'.$output[1].'%" class="pdforderdetails_cell ' .$odd_even_cell_class. '">';
+				    			$return .= '<td align="'.$align.'" width="'.$output[1].'%" class="pdforderdetails_cell ' .$odd_even_cell_class. '">';
 
 								switch ( $identifier ) {
 									case "counter":
@@ -1575,12 +1642,10 @@
 			 * @param  [type] $usedate  [description]
 			 * @return [type]           [description]
 			 */
-			public static function get_woocommerce_pdf_date( $order_id, $usedate, $sendsomething = false, $display_date = 'invoice' ) {
+			public static function get_woocommerce_pdf_date( $order_id, $usedate, $sendsomething = false, $display_date = 'invoice', $date_format ) {
 				global $woocommerce;
 
-				$order 	 						 = new WC_Order( $order_id );
-				$woocommerce_pdf_invoice_options = get_option( 'woocommerce_pdf_invoice_settings' );
-				$date_format 					 = $woocommerce_pdf_invoice_options['pdf_date_format'];
+				$order 	 		= new WC_Order( $order_id );
 
 				// Invoice Date : Use Invoice date from order meta if available
 				if( get_post_meta( $order_id, '_invoice_date', TRUE ) && $display_date == 'invoice' ) {
@@ -1681,15 +1746,12 @@
 			 * Get the order notes for the template
 			 */			
 			function get_pdf_order_note( $order_id ) {
-				global $woocommerce;
-				$woocommerce_pdf_invoice_options = get_option( 'woocommerce_pdf_invoice_settings' );
 				
 				if (!$order_id) return;	
-				$order 			= new WC_Order( $order_id );
-				// WooCommerce 3.0 compatibility 
-        		$customer_note  = is_callable( array( $order, 'get_customer_note' ) ) ? $order->get_customer_note() : $order->customer_note;
 
-				$output = '';
+				$order 			= new WC_Order( $order_id ); 
+        		$customer_note  = $order->get_customer_note();
+				$output 		= '';
 				
 				if( $customer_note ) {
 					$output = '<h3>' . __('Note:', 'woocommerce-pdf-invoice') . '</h3>' . wpautop( wptexturize( $customer_note ) );
@@ -1703,11 +1765,10 @@
 			 * Get the order subtotal for the template
 			 */
 			function get_pdf_order_subtotal( $order_id ) {
-				global $woocommerce;
-				$woocommerce_pdf_invoice_options = get_option( 'woocommerce_pdf_invoice_settings' );
 				
-				if (!$order_id) return;	
-				$order = new WC_Order( $order_id );
+				if (!$order_id) return;
+
+				$order 	= new WC_Order( $order_id );
 				$output = '';
 
 				$output = 	'<tr>' .
@@ -1723,10 +1784,9 @@
 			 * Get the order shipping total for the template
 			 */
 			function get_pdf_order_shipping( $order_id ) {
-				global $woocommerce;
-				$woocommerce_pdf_invoice_options = get_option( 'woocommerce_pdf_invoice_settings' );
 				
 				if (!$order_id) return;	
+
 				$order = new WC_Order( $order_id );
 				$output = '';
 				
@@ -1744,9 +1804,9 @@
 			 * Show coupons used
 			 */
 			function pdf_coupons_used( $order_id ) {
-				global $woocommerce;
 
 				if (!$order_id) return;	
+
 				$order = new WC_Order( $order_id );
 
 				$output = '';
@@ -1782,12 +1842,10 @@
 			 * Get the order discount for the template
 			 */
 			function get_pdf_order_discount( $order_id ) {
-				global $woocommerce;
-				$woocommerce_pdf_invoice_options = get_option( 'woocommerce_pdf_invoice_settings' );
 				
 				if (!$order_id) return;	
-				$order = new WC_Order( $order_id );
 
+				$order 			= new WC_Order( $order_id );
 				$order_discount = $order->get_total_discount();
 
 				$output 	= '';
@@ -1810,15 +1868,10 @@
 			 * Get the tax for the template
 			 */
 			function get_pdf_order_tax( $order_id ) {
-				global $woocommerce;
-				$woocommerce_pdf_invoice_options = get_option( 'woocommerce_pdf_invoice_settings' );
-				
+
 				if (!$order_id) return;	
-				$order = new WC_Order( $order_id );
 
-				// Check WC version - changes for WC 3.0.0
-				$pre_wc_30 		= version_compare( WC_VERSION, '3.0', '<' );
-
+				$order 	= new WC_Order( $order_id );
 				$output = '';
 
 				if ( $order->get_total_tax()>0 ) {
@@ -1828,14 +1881,13 @@
 					if ( count( $tax_items ) > 1 ) {
 
 						foreach ( $tax_items as $tax_item ) {
-							$tax_item_amount = $pre_wc_30 ? woocommerce_price( $tax_item->amount ) : wc_price( $tax_item->amount );
 							$output .=  '<tr>' .
 										'<td align="right">' . esc_html( $tax_item->label ) . '</td>' .
-										'<td align="right">' . $tax_item_amount . '</td>' .
+										'<td align="right">' . wc_price( $tax_item->amount ) . '</td>' .
 										'</tr>' ;
 						}
 
-						$total_tax = $pre_wc_30 ? woocommerce_price( $order->get_total_tax() ) : wc_price( $order->get_total_tax() );
+						$total_tax = wc_price( $order->get_total_tax() );
 
 						$output .=  '<tr>' .
 									'<td align="right">' . __('Total Tax', 'woocommerce-pdf-invoice') . '</td>' .
@@ -1846,15 +1898,13 @@
 
 						foreach ( $tax_items as $tax_item ) {
 
-							$tax_item_amount = $pre_wc_30 ? woocommerce_price( $tax_item->amount ) : wc_price( $tax_item->amount );
 							$output .=  '<tr>' .
 										'<td align="right">' . esc_html( $tax_item->label ) . '</td>' .
-										'<td align="right">' . $tax_item_amount . '</td>' .
+										'<td align="right">' . wc_price( $tax_item->amount ) . '</td>' .
 										'</tr>' ;
 						}
 
 					}
-
 
 				}
 
@@ -1869,22 +1919,18 @@
 			 * @return [type]           [description]
 			 */
 			function get_pdf_order_total( $order_id ) {
-				global $woocommerce;
-				$woocommerce_pdf_invoice_options = get_option( 'woocommerce_pdf_invoice_settings' );
-
+				
 				if (!$order_id) return;	
-				$order = new WC_Order( $order_id );
 
-				// Check WC version - changes for WC 3.0.0
-				$pre_wc_30 		= version_compare( WC_VERSION, '3.0', '<' );
-				$order_total = $pre_wc_30 ? woocommerce_price( $order->order_total ) : wc_price( $order->get_total() );
+				$order = new WC_Order( $order_id );
 
 				$output =  	'<tr>' .
 							'<td align="right">' .
 							'<strong>' . __('Grand Total', 'woocommerce-pdf-invoice') . '</strong></td>' .
-							'<td align="right"><strong>' . $order_total . '</strong></td>' .
+							'<td align="right"><strong>' . wc_price( $order->get_total() ) . '</strong></td>' .
 							'</tr>' ;
 				$output = apply_filters( 'pdf_template_order_total' , $output, $order_id );
+
 				return $output;
 			}
 
@@ -1895,42 +1941,46 @@
 			 * @return [type]           [description]
 			 */
 			function get_pdf_order_totals( $order_id ) {
-				global $woocommerce;
 
 				if (!$order_id) return;	
-				$order = new WC_Order( $order_id );
 
-				// Check WC version - changes for WC 3.0.0
-				$pre_wc_30 		= version_compare( WC_VERSION, '3.0', '<' );
-				$order_currency = $order->get_currency();
+				$order 				= new WC_Order( $order_id );
+				$order_currency 	= $order->get_currency();
+				$order_item_totals 	= $order->get_order_item_totals();
 
-				$order_item_totals = $order->get_order_item_totals();
- 
 				unset( $order_item_totals['payment_method'] );
 
 				$output = '';
 
-				foreach ( $order_item_totals as $order_item_total ) {
+				foreach ( $order_item_totals as $key => $value ) {
 
-					$output .=  '<tr>' .
-								'<td align="right">' .
-								'<strong>' . $order_item_total['label'] . '</strong></td>' .
-								'<td align="right"><strong>' . $order_item_total['value'] . '</strong></td>' .
-								'</tr>' ;
+					$pdf_invoice_display_coupons = apply_filters( 'pdf_invoice_display_coupons', false, $order );
+
+					if( $key === 'discount' && $pdf_invoice_display_coupons ) {
+						$output .= $this->get_pdf_order_discount( $order_id );
+					} else {
+
+						$output .=  '<tr class="pdfordertotals_row">' .
+									'<td align="right" class="pdfordertotals_cell">' .
+									'<strong>' . $value['label'] . '</strong></td>' .
+									'<td align="right" class="pdfordertotals_cell"><strong>' . $value['value'] . '</strong></td>' .
+									'</tr>' ;
+					}
 
 				}
 
 				if( $order->get_total_refunded() > 0 ) {
 
-					$output .=  '<tr>' .
-								'<td align="right">' .
+					$output .=  '<tr class="pdfordertotals_row">' .
+								'<td align="right" class="pdfordertotals_cell">' .
 								'<strong>Amount Refunded:</strong></td>' .
-								'<td align="right"><strong>' . wc_price( $order->get_total_refunded(), array( 'currency' => $order_currency ) ) . '</strong></td>' .
+								'<td align="right" class="pdfordertotals_cell"><strong>' . wc_price( $order->get_total_refunded(), array( 'currency' => $order_currency ) ) . '</strong></td>' .
 								'</tr>' ;
 								
 				}
 
 				$output = apply_filters( 'pdf_template_order_totals' , $output, $order_id );
+
 				return $output;
 
 			}
@@ -2248,9 +2298,9 @@
 			 * @return [type]           [description]
 			 */
 			function get_woocommerce_invoice_terms( $page_id = 0, $order_id = 0 ) {
-				global $woocommerce;
-				$settings = get_option( 'woocommerce_pdf_invoice_settings' );
 
+				$settings = get_option( 'woocommerce_pdf_invoice_settings' );
+				
 				/**
 				 * Filter the $page_id for reasons
 				 */
@@ -2278,8 +2328,8 @@
 				$id		 = $page_id; 
 				$post 	 = get_post( $id );  
 				
-				$content = str_replace(	'[[TERMSTITLE]]', 						$post->post_title,  													$content );
-				$content = str_replace(	'[[TERMS]]', 							$post->post_content,													$content );
+				$content = str_replace(	'[[TERMSTITLE]]', 						$post->post_title,  										$content );
+				$content = str_replace(	'[[TERMS]]', 							$post->post_content,										$content );
 
 				$content = str_replace(	'[[PDFREGISTEREDNAME]]', 				self::get_invoice_registeredname( $order_id, $settings ), 				$content );
 				$content = str_replace(	'[[PDFREGISTEREDADDRESS]]', 			self::get_invoice_registeredaddress( $order_id, $settings ),			$content );
@@ -2357,6 +2407,28 @@
 
 		 	}
 */
+
+            /**
+             * [log_pdf description]
+             * @param  [type]  $tolog [description]
+             * @param  [type]  $title [description]
+             * @param  boolean $start [description]
+             * @return [type]         [description]
+             */
+            private static function log_pdf( $tolog, $title = NULL, $start = FALSE ) {
+
+            	$settings = get_option( 'woocommerce_pdf_invoice_settings' );
+
+		  		if( isset( $settings["pdf_debug"] ) && $settings["pdf_debug"] == "true" ) {
+		  			// Load PDF Dbugging
+		  			if( !class_exists( 'WC_pdf_debug') ) {
+		  				include( 'class-pdf-debug.php' );
+		  			}
+		  			WC_pdf_debug::pdf_debug( $tolog, 'WC_PDF_Invoice_transaction_log', $title, $start );
+				}
+
+			}
+
 			 /**
 			  * Send a test PDF from the PDF Debugging settings
 			  */

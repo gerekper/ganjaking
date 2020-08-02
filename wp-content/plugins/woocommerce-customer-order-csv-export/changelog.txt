@@ -1,5 +1,9 @@
 *** WooCommerce Customer/Order/Coupon Export Changelog ***
 
+2020.07.28 - version 5.0.14
+ * Fix - Escape quotes in the export name field
+ * Fix - Hide start date and end date fields when Export Type is set to Coupon in the Manual Export
+
 2020.06.04 - version 5.0.13
  * Fix - Address a potential PHP fatal error when exporting coupons that are configured to exclude some products, but the products no longer exist
 

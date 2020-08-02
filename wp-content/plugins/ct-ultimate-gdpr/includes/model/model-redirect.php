@@ -10,6 +10,11 @@ class CT_Ultimate_GDPR_Model_Redirect {
 	 */
 	const PRIORITY_STANDARD = 100;
 
+    /**
+     *
+     */
+    const PRIORITY_HIGH = 200;
+
 	/**
 	 * @var array
 	 */
@@ -19,10 +24,30 @@ class CT_Ultimate_GDPR_Model_Redirect {
 	 * Perform redirect
 	 */
 	public static function redirect() {
-		$index = min( array_keys( self::$stack ) );
-		$url =  self::$stack[ $index ];
-		$url && apply_filters( 'ct_ultimate_gdpr_redirect', true, $url, self::$stack ) && wp_redirect( $url ) && exit;
+
+        $index = max(array_keys(self::$stack));
+        $url   = self::$stack[$index];
+
+        if( $url == get_permalink() ){
+            return;
+        }
+
+        $url && apply_filters( 'ct_ultimate_gdpr_redirect', true, $url, self::$stack, $index ) && wp_redirect( $url ) && exit;
 	}
+
+    /**
+     * @return string
+     */
+    public static function get_scheduled_redirection_url()
+    {
+        if (!self::$stack) {
+            return '';
+        }
+
+        $index = max(array_keys(self::$stack));
+        $url   = self::$stack[$index];
+        return $url;
+    }
 
 	/**
 	 * CT_Ultimate_GDPR_Model_Redirect constructor.

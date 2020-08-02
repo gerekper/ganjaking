@@ -25,6 +25,10 @@ class CT_Ultimate_GDPR_Model_Group {
 	 *
 	 */
 	const LEVEL_TARGETTING = 5;
+	/**
+	 *
+	 */
+	const LEVEL_PRIVATE_DATA = 6;
 
 	/**
 	 * @var array

@@ -1,5 +1,18 @@
 *** WooCommerce Subscriptions Changelog ***
 
+2020-07-29 - version 3.0.6
+* Tweak: Add placeholder explanation for the upcoming recurring report. PR#3655
+* Tweak: Add a link to QuickForget.com in the IPN error notice. PR#3744
+* Fix: Fix COD gateway availability for trial subscriptions. PR#3740
+* Fix: Fetch customer error notice messages on the change payment method page in WC post 3.9 version compatible way. PR#3730
+* Fix: Don't reduce stock for items added to a subscription manually via admin screen. PR#3725
+* Fix: Only display the automatic renewal note in emails when there's a next payment. PR#3679
+* Fix: Use the interval to calculate first payment date for synced products. Fixes an issue that caused a purchase outside the sync grace period to not account for the subscription interval. PR#3303
+* Dev: Add two new action hooks before and after change payment submit button. PR#3718
+* Dev: Add a new helper function wcs_trial_has_passed(). PR#3289
+* Dev: Replace uses of cal_days_in_month() with a date() equivalent. PR#3734
+* Dev: Make various changes to improve coding standards. PRs#3748, #3749, #3753
+
 2020-06-16 - version 3.0.5
 * Fix: Ensure the mixed checkout setting correctly prevents mixed carts after customer login. PR#3696
 * Fix: Translate the automatic subscription recurring note in emails. PR#3684

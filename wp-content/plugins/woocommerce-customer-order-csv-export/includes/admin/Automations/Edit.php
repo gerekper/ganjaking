@@ -645,7 +645,7 @@ class Edit {
 				throw new Framework\SV_WC_Plugin_Exception( __( 'Please refresh the page and retry.', 'woocommerce-customer-order-csv-export' ) );
 			}
 
-			$name = sanitize_text_field( Framework\SV_WC_Helper::get_post( 'name' ) );
+			$name = stripslashes( sanitize_text_field( Framework\SV_WC_Helper::get_post( 'name' ) ) );
 
 			if ( ! $name || ! is_string( $name ) ) {
 				throw new Framework\SV_WC_Plugin_Exception( __( 'A name is required.', 'woocommerce-customer-order-csv-export' ) );
@@ -672,7 +672,7 @@ class Edit {
 			}
 
 			if ( $filename = Framework\SV_WC_Helper::get_post( "{$output_type}_{$export_type}_filename" ) ) {
-				$automation->set_filename( sanitize_text_field( $filename ) );
+				$automation->set_filename( stripslashes( sanitize_text_field( $filename ) ) );
 			}
 
 			if ( $format = Framework\SV_WC_Helper::get_post( "{$output_type}_{$export_type}_format" ) ) {

@@ -58,19 +58,34 @@
 			global $woocommerce;
 
 			$data = get_post_custom( $post->id );
+
+			$pdf_invoice_download_link = add_query_arg( array(
+							    'post' 			=> $post->ID,
+							    'action' 		=> 'edit',
+							    'pdf_method' 	=> 'download',
+							    'pdfid' 		=> $post->ID,
+							), admin_url( 'post.php' ) ); 
+
+			$pdf_invoice_email_link = add_query_arg( array(
+							    'post' 			=> $post->ID,
+							    'action' 		=> 'edit',
+							    'pdf_method' 	=> 'email',
+							    'pdfid' 		=> $post->ID,
+							), admin_url( 'post.php' ) ); 
+
 			?>
 			<div class="invoice_details_group">
-				<ul class="totals">
+				<ul>
 		
-					<li class="left">
-						<label><?php _e( 'Invoice Number:', 'woocommerce-pdf-invoice' ); ?></label>
+					<li class="left"><p>
+						<?php _e( 'Invoice Number:', 'woocommerce-pdf-invoice' ); ?>
 						<?php if ( get_post_meta( $post->ID, '_invoice_number_display', TRUE ) ) 
 								echo get_post_meta( $post->ID, '_invoice_number_display', TRUE ); ?>
-					</li>
+					</p></li>
 		
-					<li class="right">
-						<label><?php _e( 'Invoice Date:', 'woocommerce-pdf-invoice' ); ?></label>
-						<?php 
+					<li class="left"><p>
+						<?php _e( 'Invoice Date:', 'woocommerce-pdf-invoice' ); ?>
+						<?php
 						if ( get_post_meta( $post->ID, '_invoice_date', TRUE ) ) :
 						
 							$woocommerce_pdf_invoice_options = get_option( 'woocommerce_pdf_invoice_settings' );
@@ -96,10 +111,14 @@
 						endif;
 
 						?>
-					</li>
+					</p></li>
 	                
-	                <li class="left">
-						<a class="pdf_invoice_metabox_download_invoice" href="<?php echo $_SERVER['REQUEST_URI'] ?>&pdf_method=download&pdfid=<?php echo $post->ID ?>"><?php _e( 'Download Invoice', 'woocommerce-pdf-invoice' ); ?></a>
+	                <li>
+						<p><a class="pdf_invoice_metabox_download_invoice" href="<?php echo $pdf_invoice_download_link ?>"><?php _e( 'Download Invoice', 'woocommerce-pdf-invoice' ); ?></a></p>
+					</li>
+
+					<li>
+						<p><a class="pdf_invoice_metabox_send_invoice" href="<?php echo $pdf_invoice_email_link ?>"><?php _e( 'Email Invoice', 'woocommerce-pdf-invoice' ); ?></a></p>
 					</li>
 
 				</ul>
@@ -116,11 +135,51 @@
 
 			if ( is_admin() && isset( $_GET['pdfid'] ) ) {
 
-				$orderid = stripslashes( $_GET['pdfid'] );
-				$order   = new WC_Order($orderid);
+				$order_id 	= stripslashes( $_GET['pdfid'] );
+				$order   	= new WC_Order($order_id);
+
+				$sendback = add_query_arg( array(
+							    'post' 			=> $order_id,
+							    'action' 		=> 'edit'
+							), admin_url( 'post.php' ) ); 
 
 				if( isset( $_GET['pdf_method']) && $_GET['pdf_method'] == 'download' ) {
-					echo WC_send_pdf::get_woocommerce_invoice( $order , 'false' );
+
+					// Add order note
+					$order->add_order_note( __( "Invoice downloaded manually.", 'woocommerce-pdf-invoice' ), false, true );
+
+					// Change the post saved message.
+					add_filter( 'redirect_post_location', array( __CLASS__, 'set_pdf_downloaded_message' ) );
+
+					$sendback = add_query_arg( array(
+							    'message' 		=> '54'
+							), $sendback );
+
+					echo WC_send_pdf::get_woocommerce_invoice( $order , TRUE );
+
+					wp_redirect( $sendback );
+					exit;
+
+				}
+
+				if( isset( $_GET['pdf_method']) && $_GET['pdf_method'] == 'email' ) {
+
+					// Send the 'Resend Invoice', complete with PDF invoice!
+					WC()->mailer()->emails['PDF_Invoice_Customer_PDF_Invoice']->trigger( $order_id, $order );
+
+					// Add order note
+					$order->add_order_note( __( "Invoice emailed to customer manually.", 'woocommerce-pdf-invoice' ), false, true );
+
+					// Change the post saved message.
+					add_filter( 'redirect_post_location', array( __CLASS__, 'set_email_sent_message' ) );
+
+					$sendback = add_query_arg( array(
+							    'message' 		=> '51'
+							), $sendback );
+
+					wp_redirect( $sendback );
+					exit;
+
 				}
 
 			}
@@ -161,7 +220,6 @@
 		 */
 		public static function email_invoice_per_order( $order ) {
 
-
 			if( !is_null( $order) && is_object($order) ) {
 
 				$order_id = $order->get_id();
@@ -190,6 +248,9 @@
 
 			// Add order note
 			$order->add_order_note( __( "Invoice created manually.", 'woocommerce-pdf-invoice' ), false, true );
+
+			// Change the post saved message.
+			add_filter( 'redirect_post_location', array( __CLASS__, 'set_pdf_created_message' ) );
 		}
 
 	    /**
@@ -219,6 +280,9 @@
 			// Add order note
 			$order->add_order_note( __("Invoice deleted. <br/>Previous details : ", 'woocommerce-pdf-invoice' ) . '<br />' . $ordernote, false, true );
 
+			// Change the post saved message.
+			add_filter( 'redirect_post_location', array( __CLASS__, 'set_pdf_deleted_message' ) );
+
 		}
 
 		/**
@@ -230,12 +294,39 @@
 		}
 
 		/**
+		 * [set_pdf_deleted_message description]
+		 * @param [type] $location [description]
+		 */
+		public static function set_pdf_deleted_message( $location ) {
+			return add_query_arg( 'message', 52, $location );
+		}
+
+		/**
+		 * [set_pdf_created_message description]
+		 * @param [type] $location [description]
+		 */
+		public static function set_pdf_created_message( $location ) {
+			return add_query_arg( 'message', 53, $location );
+		}
+
+		/**
+		 * [set_pdf_downloaded_message description]
+		 * @param [type] $location [description]
+		 */
+		public static function set_pdf_downloaded_message( $location ) {
+			return add_query_arg( 'message', 54, $location );
+		}
+
+		/**
 		 * [post_updated_messages description]
 		 * @param  [type] $messages [description]
 		 * @return [type]           [description]
 		 */
 		public static function post_updated_messages( $messages ) {
-			$messages['shop_order'][51] =  __( 'Order updated and PDF invoice emailed.', 'woocommerce-pdf-invoice' );
+			$messages['shop_order'][51] =  __( 'PDF invoice emailed to customer.', 'woocommerce-pdf-invoice' );
+			$messages['shop_order'][52] =  __( 'PDF invoice deleted.', 'woocommerce-pdf-invoice' );
+			$messages['shop_order'][53] =  __( 'PDF invoice created manually.', 'woocommerce-pdf-invoice' );
+			$messages['shop_order'][54] =  __( 'PDF invoice downloaded.', 'woocommerce-pdf-invoice' );
 			return $messages;
 		}
 

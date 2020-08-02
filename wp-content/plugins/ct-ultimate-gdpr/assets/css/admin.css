@@ -68,7 +68,8 @@ body[class*="ct-ultimate-gdpr"] {
   border-color: #e8e8e8;
   border-style: solid;
   border-width: 0 0 2px;
-  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+          box-shadow: none !important;
   font-style: italic;
   margin-bottom: 10px;
   padding: 10px 15px;
@@ -132,6 +133,7 @@ body[class*="ct-ultimate-gdpr"] {
   display: block;
   line-height: 42px;
   text-align: center;
+  -webkit-transition: all .5s;
   transition: all .5s;
 }
 
@@ -305,23 +307,22 @@ body[class*="ct-ultimate-gdpr"] {
   width: 100%;
 }
 
+[class*="ct-ultimate-gdpr"] .form-table select {
+  background: #fff;
+}
+
+[class*="ct-ultimate-gdpr"] .form-table th,
+[class*="ct-ultimate-gdpr"] .form-table td {
+  padding: 20px;
+}
+
 [class*="ct-ultimate-gdpr"] .form-table th {
   font-weight: 400;
   min-width: 260px;
-  padding: 0;
-}
-
-[class*="ct-ultimate-gdpr"] .form-table td {
-  padding-bottom: 25px;
 }
 
 @media screen and (min-width: 812px) {
-  [class*="ct-ultimate-gdpr"] .form-table th {
-    padding-right: 40px;
-    padding-top: 25px;
-  }
   [class*="ct-ultimate-gdpr"] .form-table td {
-    padding: 25px 0 48px;
     vertical-align: top;
   }
 }
@@ -434,13 +435,15 @@ body[class*="ct-ultimate-gdpr"] {
 
 [class*="ct-ultimate-gdpr"] .ct-ultimate-gdpr-wrap .card-columns {
   -webkit-column-count: 1;
-  column-count: 1;
+  -moz-column-count: 1;
+       column-count: 1;
 }
 
 @media (min-width: 1366px) {
   [class*="ct-ultimate-gdpr"] .ct-ultimate-gdpr-wrap .card-columns {
     -webkit-column-count: 2;
-    column-count: 2;
+    -moz-column-count: 2;
+         column-count: 2;
   }
 }
 
@@ -882,6 +885,17 @@ body[class*="ct-ultimate-gdpr"] {
   color: #fff;
 }
 
+.ultimate-gdpr_page_ct-ultimate-gdpr-age .ct-ultimate-gdpr-wrap .form-table th,
+.ultimate-gdpr_page_ct-ultimate-gdpr-age .ct-ultimate-gdpr-wrap .form-table td,
+.toplevel_page_ct-ultimate-gdpr .ct-ultimate-gdpr-wrap .form-table th,
+.toplevel_page_ct-ultimate-gdpr .ct-ultimate-gdpr-wrap .form-table td {
+  padding: 20px;
+}
+
+[class*="ct-ultimate-gdpr-services"] .card .card-body {
+  padding: 0;
+}
+
 #ct-ultimate-gdpr-cookies-scanner {
   display: none;
   position: fixed;
@@ -894,7 +908,8 @@ body[class*="ct-ultimate-gdpr"] {
   background-color: black;
   background-color: rgba(0, 0, 0, 0.7);
   overflow: auto;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 .ct-ultimate-gdpr-cookies-scanner-content {
@@ -1016,11 +1031,16 @@ body[class*="ct-ultimate-gdpr"] {
   border-radius: 50%;
   background: transparent;
   padding: 0;
-  transform: rotate(0deg);
-  animation-name: loading;
-  animation-duration: 3s;
-  animation-iteration-count: infinite;
-  box-sizing: content-box;
+  -webkit-transform: rotate(0deg);
+          transform: rotate(0deg);
+  -webkit-animation-name: loading;
+          animation-name: loading;
+  -webkit-animation-duration: 3s;
+          animation-duration: 3s;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
 }
 
 .ct-ultimate-gdpr__ProgressBar::after {
@@ -1031,9 +1051,11 @@ body[class*="ct-ultimate-gdpr"] {
   left: 50%;
   width: 90px;
   height: 90px;
-  transform: translate(-50%, -50%) rotate(0deg);
+  -webkit-transform: translate(-50%, -50%) rotate(0deg);
+          transform: translate(-50%, -50%) rotate(0deg);
   background: url("images/gdpr-bee.png");
-  box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
 }
 
 .ct-ultimate-gdpr-cookies-scanner__Close {
@@ -1043,11 +1065,24 @@ body[class*="ct-ultimate-gdpr"] {
   cursor: pointer;
 }
 
-@keyframes loading {
+@-webkit-keyframes loading {
   from {
-    transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
   }
   to {
-    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes loading {
+  from {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
   }
 }

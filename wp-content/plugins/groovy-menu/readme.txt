@@ -2,7 +2,7 @@
 Contributors: Grooni
 Requires at least: 4.9.7
 Tested up to: 5.4.2
-Stable tag: 2.2.6
+Stable tag: 2.2.8
 License: Themeforest Split Licence
 License URI: -
 Tags: customizable, responsive, animation, flexible, translation ready, drop down, dropdown, dropdown menu, easy, mega dropdown menu, mega menu, megamenu, navigation, options, presets, shortcodes, widgetized, widgets
@@ -60,6 +60,22 @@ Source: https://select2.github.io/
 == Changelog ==
 
 Visit [Changelog](https://grooni.com/docs/groovy-menu/changelog/) from our [Knowledge Base](https://grooni.com/docs/groovy-menu/)
+
+= 2.2.8 =
+* Fix: Increased priority of CSS rules for links in menu items. It is prevents color overwriting when Groovy Menu is integrated using the Divi builder.
+* Fix: Fixed cart opening issue that appears when quickly move mouse between the menu item and the cart icon.
+* Fix: Added changes to the styles for the mini cart.  Most styles now have the! Important property. These changes are aimed at preventing overwriting styles of cart by the theme styles.
+* Added: Added the opportunity to enable scrollbar for Minimalistic menu type.
+
+= 2.2.7.1 =
+* HotFix: Fixed an issue with appearance the mega menu content that created with Divi builder, which occurred on Woocommerce product pages only.
+
+= 2.2.7 =
+* Added: SEO improvements. Added the ability to select the alt text for the logo.
+* Improve: Added "Fade in out" effect for "Submenu appearance style".
+* Improve: Setting "Submenu appearance style" is now available for all menu types except Minimalistic.
+* Fix: Added the fadeout effect for submenus "Submenu appearance style" - "Animate from bottom" that has missed at GM 2.2.5.2
+* Fix: The "Submenu hover style" - "Shift right" setting has been fixed for the Expanding sidebar menu on the right.
 
 = 2.2.6 =
 * Added: Added option "Mobile menu" - "Show Woo minicart" that will be enable to show the Woocomerce minicart on the mobile.

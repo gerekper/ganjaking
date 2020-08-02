@@ -83,10 +83,11 @@ abstract class Export_Format_Definition {
 
 		$this->export_type      = $args['export_type'];
 		$this->output_type      = $args['output_type'];
-		$this->name             = $args['name'];
+		$this->name             = stripslashes( $args['name'] );
 		$this->key              = $args['key'];
-		$this->mapping          = is_array( $args['mapping'] ) ? $args['mapping'] : [];
 		$this->include_all_meta = (bool) $args['include_all_meta'];
+
+		$this->set_mapping( $args['mapping'] );
 	}
 
 
@@ -139,6 +140,25 @@ abstract class Export_Format_Definition {
 
 
 	/**
+	 * Sets column mapping (for custom formats).
+	 *
+	 * @since 5.0.14
+	 *
+	 * @param $mapping
+	 */
+	public function set_mapping( $mapping ) {
+
+		$this->mapping = is_array( $mapping ) ? $mapping : [];
+
+		foreach ( array_keys( $this->mapping ) as $i ) {
+			if ( array_key_exists( 'name', $this->mapping[ $i ] ) ) {
+				$this->mapping[ $i ]['name'] = stripslashes( $this->mapping[ $i ]['name'] );
+			}
+		}
+	}
+
+
+	/**
 	 * Gets column mapping (for custom formats).
 	 *
 	 * @since 5.0.0
@@ -146,6 +166,7 @@ abstract class Export_Format_Definition {
 	 * @return array
 	 */
 	public function get_mapping() {
+
 		return $this->mapping;
 	}
 

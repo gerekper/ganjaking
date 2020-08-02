@@ -3109,20 +3109,18 @@ GROOVY CART
 
 .gm-main-menu-wrapper .gm-minicart-dropdown .woocommerce-mini-cart-item {
   position: relative;
-  padding-bottom: 15px;
-  padding-left: 80px;
+  padding: 6px 0 6px 80px;
   min-height: 85px;
   box-sizing: content-box;
   line-height: 1.5; }
 
 .gm-main-menu-wrapper .gm-minicart-dropdown .woocommerce-mini-cart-item:not(:last-of-type) {
-  margin-bottom: 20px !important; }
+  margin-bottom: 2px !important; }
 
 .gm-main-menu-wrapper .gm-minicart-dropdown .woocommerce-mini-cart-item .remove {
   position: absolute;
   right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 27px;
   width: 20px;
   height: 20px;
   text-align: center;
@@ -3139,7 +3137,7 @@ GROOVY CART
 .gm-main-menu-wrapper .gm-minicart-dropdown .woocommerce-mini-cart-item a:not(.remove) img {
   width: 68px;
   position: absolute;
-  top: 0;
+  top: 6px;
   left: 0; }
 
 .gm-main-menu-wrapper .gm-minicart-dropdown .woocommerce-mini-cart-item > img {
@@ -3179,14 +3177,17 @@ GROOVY CART
   flex-direction: column; }
 
 .gm-main-menu-wrapper .gm-minicart-dropdown .woocommerce-mini-cart__buttons a {
-  margin-bottom: 15px;
-  padding: 10px 20px;
-  line-height: 1.5;
-  width: 100%; }
+  margin: 0 0 15px 0 !important;
+  padding: 10px 20px !important;
+  line-height: 1.5 !important;
+  width: 100% !important; }
+
+.gm-main-menu-wrapper .gm-minicart-dropdown .woocommerce-mini-cart__buttons a::after {
+  display: none !important; }
 
 .gm-main-menu-wrapper .gm-minicart-dropdown .woocommerce-mini-cart__buttons .button {
   text-transform: uppercase;
-  text-align: center; }
+  text-align: center !important; }
 
 .gm-main-menu-wrapper .gm-minicart-dropdown .woocommerce-mini-cart__total {
   margin-top: 0;
@@ -3343,6 +3344,11 @@ DROPDOWN HOVER STYLES
 
 [dir='rtl'] .gm-dropdown-hover-style-shift-right .gm-dropdown-menu .gm-menu-item__link::before {
   content: '\f177'; }
+
+.gm-dropdown-appearance-fade-in-out .gm-main-menu-wrapper .gm-dropdown.gm-minicart .gm-dropdown-menu,
+.gm-dropdown-appearance-fade-in-out .gm-main-menu-wrapper .gm-dropdown .gm-dropdown-menu-wrapper,
+.gm-dropdown-appearance-fade-in-out .gm-main-menu-wrapper .gm-dropdown .gm-dropdown-menu-wrapper .gm-dropdown-menu {
+  transition: opacity 0.16s cubic-bezier(1, 0, 1, 1), visibility 0.16s cubic-bezier(1, 0, 1, 1); }
 
 /***************************************
 MEGA DROPDOWN
@@ -3613,13 +3619,13 @@ NAVBAR GENERAL STYLES
   align-items: center; }
 
 /* bugfix: For sub-submenus that climb out of the right side of the screen and, on some WP Themes, they call the horizontal scroll of the browser when opening the first level submenu. */
-.gm-navbar .gm-navbar-nav > .gm-dropdown:not(.gm-open) .gm-dropdown-menu-wrapper {
+.gm-navbar .gm-navbar-nav > .gm-dropdown:not(.gm-opened-before) .gm-dropdown-menu-wrapper {
   display: none; }
 
 .gm-navbar .gm-navbar-nav > .gm-dropdown:hover .gm-dropdown-menu-wrapper {
   display: block; }
 
-.gm-navbar .gm-navbar-nav > .gm-dropdown .gm-dropdown-menu .gm-dropdown-submenu:not(.gm-open) .gm-dropdown-menu-wrapper {
+.gm-navbar .gm-navbar-nav > .gm-dropdown .gm-dropdown-menu .gm-dropdown-submenu:not(.gm-opened-before) .gm-dropdown-menu-wrapper {
   display: none; }
 
 .gm-navbar .gm-navbar-nav > .gm-dropdown .gm-dropdown-menu .gm-dropdown-submenu:hover > .gm-dropdown-menu-wrapper {
@@ -3630,6 +3636,9 @@ NAVBAR GENERAL STYLES
 
 .gm-dropdown-with-scrollbar .gm-dropdown-menu .ps__thumb-y {
   border-radius: 2px; }
+
+.gm-dropdown-with-scrollbar .mega-gm-dropdown .gm-dropdown-menu .ps__rail-y {
+  z-index: 100; }
 
 .gm-dropdown-menu.ps {
   overflow: hidden !important;

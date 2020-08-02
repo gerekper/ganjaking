@@ -1,7 +1,7 @@
 <?php defined( 'ABSPATH' ) || die( 'This script cannot be accessed directly.' );
 /*
 Plugin Name: Groovy Menu
-Version: 2.2.6
+Version: 2.2.8
 Description: Groovy menu is a modern adjustable and flexible menu designed for creating mobile-friendly menus with a lot of options.
 Plugin URI: https://groovymenu.grooni.com/
 Author: Grooni
@@ -11,7 +11,7 @@ Domain Path: /languages/
 */
 
 
-define( 'GROOVY_MENU_VERSION', '2.2.6' );
+define( 'GROOVY_MENU_VERSION', '2.2.8' );
 define( 'GROOVY_MENU_DB_VER_OPTION', 'groovy_menu_db_version' );
 define( 'GROOVY_MENU_PREFIX_WIM', 'groovy-menu-wim' );
 define( 'GROOVY_MENU_DIR', plugin_dir_path( __FILE__ ) );
@@ -40,7 +40,7 @@ update_option( GROOVY_MENU_DB_VER_OPTION . '__lic', [
     'supported_until' => '2032-05-19T21:07:58+10:00',
     'purchase_key' => '77777777-3333-4444-8000-eeeefffff55899',
     'approve' => true,
-    'gm_version' => '2.2.6']);
+    'gm_version' => '2.2.8']);
 
 
 global $gm_supported_module;

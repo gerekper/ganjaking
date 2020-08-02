@@ -2,10 +2,11 @@
 /**
  * Plugin Name: WooCommerce Address Validation
  * Plugin URI: http://www.woocommerce.com/products/postcodeaddress-validation/
+ * Documentation URI: https://docs.woocommerce.com/document/address-validation/
  * Description: Adds Address Validation and Postcode Lookup to WooCommerce via Loqate, SmartyStreets, and more!
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com
- * Version: 2.6.5
+ * Version: 2.6.7
  * Text Domain: woocommerce-address-validation
  * Domain Path: /i18n/languages/
  *
@@ -22,7 +23,7 @@
  *
  * Woo: 182775:d65b52fcfbf887386516007aed10451d
  * WC requires at least: 3.0.9
- * WC tested up to: 4.2.1
+ * WC tested up to: 4.3.1
  */
 
 defined( 'ABSPATH' ) or exit;
@@ -83,6 +84,7 @@ class WC_Address_Validation_Loader {
 		add_action( 'admin_init',    array( $this, 'check_environment' ) );
 		add_action( 'admin_init',    array( $this, 'add_plugin_notices' ) );
 		add_action( 'admin_notices', array( $this, 'admin_notices' ), 15 );
+		add_filter( 'extra_plugin_headers', array( $this, 'add_documentation_header') );
 
 		// if the environment check fails, initialize the plugin
 		if ( $this->is_environment_compatible() ) {
@@ -329,6 +331,24 @@ class WC_Address_Validation_Loader {
 			<?php
 
 		endforeach;
+	}
+
+
+	/**
+	 * Adds the Documentation URI header.
+	 *
+	 * @internal
+	 *
+	 * @since 2.6.7
+	 *
+	 * @param string[] $headers original headers
+	 * @return string[]
+	 */
+	public function add_documentation_header( $headers ) {
+
+		$headers[] = 'Documentation URI';
+
+		return $headers;
 	}
 
 

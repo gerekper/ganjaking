@@ -40,7 +40,7 @@ foreach ( $subscriptions as $subscription ) {
 
 	echo "\n\n";
 }
-if ( $has_automatic_renewal && ! $is_admin_email ) {
+if ( $has_automatic_renewal && ! $is_admin_email && $subscription->get_time( 'next_payment' ) > 0 ) {
 	if ( count( $subscriptions ) === 1 ) {
 		$subscription   = reset( $subscriptions );
 		$my_account_url = $subscription->get_view_order_url();

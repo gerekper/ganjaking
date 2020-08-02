@@ -271,7 +271,7 @@ class WC_Instagram_Product_Catalog_Item {
 			}
 		}
 
-		$image = ( $image_id ? wp_get_attachment_image_url( $image_id ) : '' );
+		$image = ( $image_id ? wp_get_attachment_url( $image_id ) : '' );
 
 		return ( $image ? $image : wc_placeholder_img_src() );
 	}

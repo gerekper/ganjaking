@@ -18,7 +18,7 @@
             <img src="<?php echo ct_ultimate_gdpr_url() . '/assets/css/images/branding.jpg' ?>">
         </div>
         <div class="text">
-            <div class="ct-ultimate-gdpr-plugin-name"><?php echo esc_html__( 'Ultimate GDPR', 'ct-ultimate-gdpr' ); ?></div>
+            <div class="ct-ultimate-gdpr-plugin-name"><?php echo esc_html__( 'Ultimate GDPR & CCPA', 'ct-ultimate-gdpr' ); ?></div>
             <div class="settings"><?php echo esc_html__( 'Settings', 'ct-ultimate-gdpr' ); ?></div>
         </div>
     </div>
@@ -41,7 +41,7 @@
             <tr>
                 <th><?php echo esc_html__( 'Plugin', 'ct-ultimate-gdpr' ); ?></th>
                 <th><?php echo esc_html__( 'Collects user data', 'ct-ultimate-gdpr' ); ?></th>
-                <th><?php echo esc_html__( 'Compatible with Ultimate GDPR', 'ct-ultimate-gdpr' ); ?></th>
+                <th><?php echo esc_html__( 'Compatible with Ultimate GDPR & CCPA', 'ct-ultimate-gdpr' ); ?></th>
             </tr>
             </thead>
             <tbody>

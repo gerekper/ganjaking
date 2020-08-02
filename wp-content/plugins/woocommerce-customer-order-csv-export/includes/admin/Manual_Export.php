@@ -266,6 +266,7 @@ class Manual_Export {
 			'start_date' => [
 				'id'   => 'start_date',
 				'name' => __( 'Start date', 'woocommerce-customer-order-csv-export' ),
+				'class' => 'js-output-type-field show_if_csv show_if_xml js-export-type-field show_if_orders show_if_customers',
 				'desc' => __( 'Start date of customers or orders to include in the exported file, in the format <code>YYYY-MM-DD.</code>', 'woocommerce-customer-order-csv-export' ),
 				'type' => 'text',
 			],
@@ -273,6 +274,7 @@ class Manual_Export {
 			'end_date' => [
 				'id'   => 'end_date',
 				'name' => __( 'End date', 'woocommerce-customer-order-csv-export' ),
+				'class' => 'js-output-type-field show_if_csv show_if_xml js-export-type-field show_if_orders show_if_customers',
 				'desc' => __( 'End date of customers or orders to include in the exported file, in the format <code>YYYY-MM-DD.</code>', 'woocommerce-customer-order-csv-export' ),
 				'type' => 'text',
 			],

@@ -64,7 +64,13 @@ class CT_Ultimate_GDPR_Shortcode_Privacy_Policy {
 			$can_be_blocked = get_post_meta( $post->ID, 'can_be_blocked', true );
 			$session_or_persistent = get_post_meta( $post->ID, 'session_or_persistent', true );
 			$expiry_time_int = get_post_meta( $post->ID, 'expiry_time', true );
-			$expiry_time = is_numeric( $expiry_time_int ) ? ct_ultimate_gdpr_date( $expiry_time_int ) : $expiry_time_int ? $expiry_time_int : '';
+
+            if(is_numeric(  $expiry_time_int  ) ){
+                $expiry_time = ct_ultimate_gdpr_date( $expiry_time_int );
+            }else{
+                $expiry_time = ' ';
+            }
+
 			$purpose = get_post_meta( $post->ID, 'purpose', true );
 			if( $display_single_cookies ) {
 				$cookie_names = array_filter( array_map( 'trim', explode( ',', $cookie_names_str ) ) );

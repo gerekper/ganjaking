@@ -45,9 +45,19 @@ table.pdfsetup .pdfheaderrow {
 	font-weight: bold;
 }
 
-h3#dompdf-config {
+h3.dompdf-config {
 	margin:20px 0px;
 	border-bottom:1px dotted #666;
+}
+
+.dompgf-debugging-table th {
+	text-align: left;
+}
+
+.dompgf-debugging-table input[type=submit] {
+	text-align: left !important;
+	padding: 20px 5px !important;
+	font-size:20pt;
 }
 
 /* WC 2.1 Icons */

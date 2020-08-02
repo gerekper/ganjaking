@@ -567,12 +567,13 @@ return array(
 			'dropdown_appearance_style'                    => array(
 				'title'     => esc_html__( 'Submenu appearance style', 'groovy-menu' ),
 				'type'      => 'select',
-				'options'   => array(
+				'options' => array(
 					'default'             => esc_html__( 'Default', 'groovy-menu' ),
+					'fade-in-out'         => esc_html__( 'Fade in out', 'groovy-menu' ),
 					'animate-from-bottom' => esc_html__( 'Animate from bottom', 'groovy-menu' ),
 				),
 				'default'   => 'default',
-				'condition' => array( 'header.style', 'in', array( '1' ) ),
+				'condition' => array( 'header.style', 'in', array( '1', '3', '4', '5' ) ),
 			),
 			'submenu_border_start'                         => array(
 				'title' => esc_html__( 'Submenu bottom border', 'groovy-menu' ),
@@ -976,6 +977,23 @@ return array(
 				'default'   => 44,
 				'unit'      => 'px',
 				'condition' => array( array( 'logo_type', '==', 'img' ) ),
+			),
+			'logo_show_alt'          => array(
+				'title'       => esc_html__( 'Show Alternative text for logo', 'groovy-menu' ) . ' (' . esc_html__( 'Alt attribute', 'groovy-menu' ) . ')',
+				'type'        => 'checkbox',
+				'default'     => false,
+				'description' => esc_html__( 'This attribute is editable in the WordPress media library.', 'groovy-menu' ) . ' ' . esc_html__( 'If there is no alternative text, then the attribute will be displayed empty.', 'groovy-menu' ),
+				'condition'   => array( array( 'logo_type', '==', 'img' ) ),
+			),
+			'logo_show_title_as_alt' => array(
+				'title'       => esc_html__( 'Show Title as Alternative text', 'groovy-menu' ) . ' (' . esc_html__( 'Alt attribute', 'groovy-menu' ) . ')',
+				'type'        => 'checkbox',
+				'default'     => false,
+				'description' => esc_html__( 'This attribute is editable in the WordPress media library.', 'groovy-menu' ),
+				'condition'   => array(
+					array( 'logo_type', '==', 'img' ),
+					array( 'logo_show_alt', '==', true ),
+				),
 			),
 			'use_alt_logo_at_top'                          => array(
 				'title'     => esc_html__( 'Switch default logo to alternative', 'groovy-menu' ),

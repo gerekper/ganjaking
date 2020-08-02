@@ -1,5 +1,11 @@
 *** WooCommerce Address Validation Changelog ***
 
+2020.07.29 - version 2.6.7
+ * Misc - Add the Documentation URL to the extra plugin headers
+
+2020.07.29 - version 2.6.6
+ * Misc - Add Documentation URL to the plugin header
+
 2020.06.23 - version 2.6.5
  * Tweak - Improve address data parsing for PostcodeSoftware.net integrations
 

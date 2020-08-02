@@ -18,7 +18,7 @@
             <img src="<?php echo ct_ultimate_gdpr_url() . '/assets/css/images/branding.jpg' ?>">
         </div>
         <div class="text">
-            <div class="ct-ultimate-gdpr-plugin-name"><?php echo esc_html__( 'Ultimate GDPR', 'ct-ultimate-gdpr' ); ?></div>
+            <div class="ct-ultimate-gdpr-plugin-name"><?php echo esc_html__( 'Ultimate GDPR & CCPA', 'ct-ultimate-gdpr' ); ?></div>
             <div class="settings"><?php echo esc_html__( 'Settings', 'ct-ultimate-gdpr' ); ?></div>
         </div>
     </div>
@@ -242,7 +242,6 @@
                     ?>
 
                     <div class="ct-ultimate-gdpr-msg-clone-static-caution ct-ultimate-gdpr-inner-wrap ct-ultimate-gdpr-width ct-submit-section">
-                        <p><?php echo esc_html__( "Press 'Save changes' before downloading logs if you changed any options", "ct-ultimate-gdpr" ); ?></p>
                         <?php
                         submit_button();
                         ?>

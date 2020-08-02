@@ -27,7 +27,7 @@ final class WC_Instagram extends WC_Instagram_Singleton {
 	 *
 	 * @var string
 	 */
-	public $version = '3.3.0';
+	public $version = '3.3.1';
 
 	/**
 	 * Constructor.

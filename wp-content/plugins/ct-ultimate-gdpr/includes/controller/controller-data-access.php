@@ -186,7 +186,7 @@ class CT_Ultimate_GDPR_Controller_Data_Access extends CT_Ultimate_GDPR_Controlle
 		if ( $notify_mail ) {
 			wp_mail(
 				$notify_mail,
-				esc_html__( "[Ultimate GDPR] New Data Access request", 'ct-ultimate-gdpr' ),
+				esc_html__( "[Ultimate GDPR & CCPA] New Data Access request", 'ct-ultimate-gdpr' ),
 				sprintf(
 					esc_html__( "There is a new data access request from email %s. See details at %s", 'ct-ultimate-gdpr' ),
 					$email,
@@ -646,7 +646,7 @@ class CT_Ultimate_GDPR_Controller_Data_Access extends CT_Ultimate_GDPR_Controlle
 
 		return apply_filters( "ct_ultimate_gdpr_controller_{$this->get_id()}_default_options", array(
 			'dataaccess_notify_email'   => get_bloginfo( 'admin_email' ),
-			'dataaccess_mail_title'     => sprintf( esc_html__( "[Ultimate GDPR] Data request results from %s", 'ct-ultimate-gdpr' ), get_bloginfo( 'name' ) ),
+			'dataaccess_mail_title'     => sprintf( esc_html__( "[Ultimate GDPR & CCPA] Data request results from %s", 'ct-ultimate-gdpr' ), get_bloginfo( 'name' ) ),
 			'dataaccess_mail_content'   => sprintf( esc_html__( "Please find data attached", 'ct-ultimate-gdpr' ) ),
 		) );
 

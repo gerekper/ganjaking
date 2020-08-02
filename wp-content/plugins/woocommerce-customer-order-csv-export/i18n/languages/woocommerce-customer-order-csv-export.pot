@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Customer/Order/Coupon Export 5.0.13\n"
+"Project-Id-Version: WooCommerce Customer/Order/Coupon Export 5.0.14\n"
 "Report-Msgid-Bugs-To: "
 "https://woocommerce.com/my-account/marketplace-ticket-form/\n"
-"POT-Creation-Date: 2020-06-04 10:43:24+00:00\n"
+"POT-Creation-Date: 2020-07-28 14:22:14+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -613,12 +613,12 @@ msgstr ""
 msgid "Leave blank to export orders with any products."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:331 includes/admin/Manual_Export.php:290
+#: includes/admin/Automations/Edit.php:331 includes/admin/Manual_Export.php:292
 #: includes/admin/views/html-export-modals.php:272
 msgid "Add order notes"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:332 includes/admin/Manual_Export.php:291
+#: includes/admin/Automations/Edit.php:332 includes/admin/Manual_Export.php:293
 #: includes/admin/views/html-export-modals.php:222
 msgid "Enable to add a note to exported orders."
 msgstr ""
@@ -1027,35 +1027,35 @@ msgstr ""
 msgid "Start date"
 msgstr ""
 
-#: includes/admin/Manual_Export.php:269
+#: includes/admin/Manual_Export.php:270
 msgid ""
 "Start date of customers or orders to include in the exported file, in the "
 "format <code>YYYY-MM-DD.</code>"
 msgstr ""
 
-#: includes/admin/Manual_Export.php:275
+#: includes/admin/Manual_Export.php:276
 msgid "End date"
 msgstr ""
 
-#: includes/admin/Manual_Export.php:276
+#: includes/admin/Manual_Export.php:278
 msgid ""
 "End date of customers or orders to include in the exported file, in the "
 "format <code>YYYY-MM-DD.</code>"
 msgstr ""
 
-#: includes/admin/Manual_Export.php:305
+#: includes/admin/Manual_Export.php:307
 msgid "Subscriptions options"
 msgstr ""
 
-#: includes/admin/Manual_Export.php:311
+#: includes/admin/Manual_Export.php:313
 msgid "Export subscriptions orders only"
 msgstr ""
 
-#: includes/admin/Manual_Export.php:312
+#: includes/admin/Manual_Export.php:314
 msgid "Export subscription orders"
 msgstr ""
 
-#: includes/admin/Manual_Export.php:320
+#: includes/admin/Manual_Export.php:322
 msgid "Export renewal orders"
 msgstr ""
 

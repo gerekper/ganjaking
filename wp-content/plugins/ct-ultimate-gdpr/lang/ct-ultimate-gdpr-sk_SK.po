@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Ultimate GDPR 1.6.4\n"
+"Project-Id-Version: Ultimate GDPR & CCPA\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/ct-ultimate-gdpr\n"
 "POT-Creation-Date: 2019-03-26T15:39:02+00:00\n"
 "PO-Revision-Date: 2019-03-26 17:05+0000\n"
@@ -29,8 +29,8 @@ msgstr ""
 #: includes/views/admin/admin-terms.php:22 
 #: includes/controller/controller-admin.php:508 
 #: includes/controller/controller-admin.php:509
-msgid "Ultimate GDPR"
-msgstr "Ultimate GDPR"
+msgid "Ultimate GDPR & CCPA"
+msgstr "Ultimate GDPR & CCPA"
 
 #. Description of the plugin/theme
 msgid ""
@@ -257,8 +257,8 @@ msgid "Collects user data"
 msgstr "Zhromažďuje užívateľské dáta"
 
 #: includes/views/admin/admin-plugins.php:44
-msgid "Compatible with Ultimate GDPR"
-msgstr "Kompatibilné s Ultimate GDPR"
+msgid "Compatible with Ultimate GDPR & CCPA"
+msgstr "Kompatibilné s Ultimate GDPR & CCPA"
 
 #: includes/views/admin/admin-plugins.php:94 
 #: includes/views/admin/admin-plugins.php:112 
@@ -1187,12 +1187,12 @@ msgstr ""
 
 #: includes/service/service-google-analytics.php:73
 msgid ""
-"Please note that even when enabled, Ultimate GDPR will still block Google "
+"Please note that even when enabled, Ultimate GDPR & CCPA will still block Google "
 "Analytics without user consent. If you would like to track anonymously users "
 "without accepting cookies, please <a href='%s' target='_blank'>read more "
 "here</a>."
 msgstr ""
-"Upozorňujeme, že dokonca aj vtedy, keď bude povolené, služba Ultimate GDPR "
+"Upozorňujeme, že dokonca aj vtedy, keď bude povolené, služba Ultimate GDPR & CCPA "
 "bude naďalej blokovať službu Google Analytics bez súhlasu používateľa. Ak "
 "chcete anonymne sledovať používateľov bez akceptovania súborov cookie, <a "
 "href='%s' target='_blank'> prečítajte si viac informácií tu </a>."
@@ -1618,8 +1618,8 @@ msgid "Recaptcha error!"
 msgstr "ReCAPTCHA chyba!"
 
 #: includes/controller/controller-data-access.php:189
-msgid "[Ultimate GDPR] New Data Access request"
-msgstr "[Ultimate GDPR] Nová žiadosť o prístup k dátam"
+msgid "[Ultimate GDPR & CCPA] New Data Access request"
+msgstr "[Ultimate GDPR & CCPA] Nová žiadosť o prístup k dátam"
 
 #: includes/controller/controller-data-access.php:191
 msgid "There is a new data access request from email %s. See details at %s"
@@ -1674,8 +1674,8 @@ msgid "Mail content"
 msgstr "Text emailu"
 
 #: includes/controller/controller-data-access.php:649
-msgid "[Ultimate GDPR] Data request results from %s"
-msgstr "[Ultimate GDPR] Výsledok požiadavky na dáta od %s"
+msgid "[Ultimate GDPR & CCPA] Data request results from %s"
+msgstr "[Ultimate GDPR & CCPA] Výsledok požiadavky na dáta od %s"
 
 #: includes/controller/controller-data-access.php:650
 msgid "Please find data attached"
@@ -2620,8 +2620,8 @@ msgid "Your request was successfully confirmed."
 msgstr "Vaša žiadosť bola úspešne potvrdená."
 
 #: includes/controller/controller-rectification.php:142
-msgid "[Ultimate GDPR] New Data Rectification request from %s"
-msgstr "[Ultimate GDPR] Nová žiadosť o opravu dát od %s"
+msgid "[Ultimate GDPR & CCPA] New Data Rectification request from %s"
+msgstr "[Ultimate GDPR & CCPA] Nová žiadosť o opravu dát od %s"
 
 #: includes/controller/controller-rectification.php:150
 msgid ""
@@ -2638,8 +2638,8 @@ msgstr ""
 "administrátora."
 
 #: includes/controller/controller-rectification.php:213
-msgid "[Ultimate GDPR] Please confirm your data rectification request from %s"
-msgstr "[Ultimate GDPR] Potvrďte prosím požiadavku na opravu dát z %s"
+msgid "[Ultimate GDPR & CCPA] Please confirm your data rectification request from %s"
+msgstr "[Ultimate GDPR & CCPA] Potvrďte prosím požiadavku na opravu dát z %s"
 
 #: includes/controller/controller-rectification.php:527
 msgid "Data Rectification settings"
@@ -2665,7 +2665,7 @@ msgstr "Text emailu"
 #: includes/controller/controller-forgotten.php:719 
 #: includes/controller/controller-unsubscribe.php:653
 msgid ""
-"Set custom URL to the page containing Ultimate GDPR shortcode as the email "
+"Set custom URL to the page containing Ultimate GDPR & CCPA shortcode as the email "
 "confirmation target page (or leave empty for autodetect)"
 msgstr ""
 "Nastavte vlastnú webovú adresu na stránku obsahujúcu konečný krátky kód GDPR "
@@ -2673,8 +2673,8 @@ msgstr ""
 "automatické rozpoznanie)"
 
 #: includes/controller/controller-rectification.php:647
-msgid "[Ultimate GDPR] Data rectification notice from %s"
-msgstr "[Ultimate GDPR] Oznámenie o oprave dát z %s"
+msgid "[Ultimate GDPR & CCPA] Data rectification notice from %s"
+msgstr "[Ultimate GDPR & CCPA] Oznámenie o oprave dát z %s"
 
 #: includes/controller/controller-rectification.php:648
 msgid "Your data has been rectified"
@@ -2920,8 +2920,8 @@ msgid "Collect user emails from services"
 msgstr "Vyberte služby, ktorých sa únik dát týka"
 
 #: includes/controller/controller-breach.php:223
-msgid "[Ultimate GDPR] Data breach information from %s"
-msgstr "[Ultimate GDPR] Informácia o úniku dát z %s"
+msgid "[Ultimate GDPR & CCPA] Data breach information from %s"
+msgstr "[Ultimate GDPR & CCPA] Informácia o úniku dát z %s"
 
 #: includes/controller/controller-breach.php:226
 msgid "There was a data breach on our page..."
@@ -3006,8 +3006,8 @@ msgstr "WordPress stránka ochrany súkromia"
 
 #: includes/controller/controller-forgotten.php:110 
 #: includes/controller/controller-forgotten.php:345
-msgid "[Ultimate GDPR] New Right To Be Forgotten request from %s"
-msgstr "[Ultimate GDPR] Nová požiadavka na zmazanie od %s"
+msgid "[Ultimate GDPR & CCPA] New Right To Be Forgotten request from %s"
+msgstr "[Ultimate GDPR & CCPA] Nová požiadavka na zmazanie od %s"
 
 #: includes/controller/controller-forgotten.php:129 
 #: includes/controller/controller-forgotten.php:353
@@ -3017,16 +3017,16 @@ msgstr ""
 "K dispozícii je nová žiadosť o zabudnutie emailu %s. Podrobnosti viď %s"
 
 #: includes/controller/controller-forgotten.php:259
-msgid "[Ultimate GDPR] Please confirm request to be forgotten from %s"
-msgstr "[Ultimate GDPR] Potvrďte žiadosť Požiadavky na zmazanie z %s"
+msgid "[Ultimate GDPR & CCPA] Please confirm request to be forgotten from %s"
+msgstr "[Ultimate GDPR & CCPA] Potvrďte žiadosť Požiadavky na zmazanie z %s"
 
 #: includes/controller/controller-forgotten.php:513
-msgid "[Ultimate GDPR] Emails were sent to the following users: %s"
-msgstr "[Ultimate GDPR] Emaily boli odoslané nasledujúcim užívateľom: %s"
+msgid "[Ultimate GDPR & CCPA] Emails were sent to the following users: %s"
+msgstr "[Ultimate GDPR & CCPA] Emaily boli odoslané nasledujúcim užívateľom: %s"
 
 #: includes/controller/controller-forgotten.php:551
-msgid "[Ultimate GDPR] The following emails were removed from list: %s"
-msgstr "[Ultimate GDPR] Nasledujúce emaily boli zo zoznamu odstránené: %s"
+msgid "[Ultimate GDPR & CCPA] The following emails were removed from list: %s"
+msgstr "[Ultimate GDPR & CCPA] Nasledujúce emaily boli zo zoznamu odstránené: %s"
 
 #: includes/controller/controller-forgotten.php:584 
 #: includes/controller/controller-unsubscribe.php:487
@@ -3038,8 +3038,8 @@ msgid "There was an error forgetting %s service: %s"
 msgstr "Pri požiadavke na zabudnutie služby %s došlo k chybe: %s"
 
 #: includes/controller/controller-forgotten.php:629
-msgid "[Ultimate GDPR] Services data were removed"
-msgstr "[Ultimate GDPR] Údaje o službách boli odstránené"
+msgid "[Ultimate GDPR & CCPA] Services data were removed"
+msgstr "[Ultimate GDPR & CCPA] Údaje o službách boli odstránené"
 
 #. ID
 #: includes/controller/controller-forgotten.php:645
@@ -3099,8 +3099,8 @@ msgstr "Formát na záložkách"
 
 #: includes/controller/controller-forgotten.php:911 
 #: includes/controller/controller-forgotten.php:912
-msgid "[Ultimate GDPR] Your data has been forgotten"
-msgstr "[Ultimate GDPR] Vaše údaje boli zmazané"
+msgid "[Ultimate GDPR & CCPA] Your data has been forgotten"
+msgstr "[Ultimate GDPR & CCPA] Vaše údaje boli zmazané"
 
 #: includes/controller/controller-unsubscribe.php:143
 msgid "There is a new Unsubscribe request from email %s. See details at %s"
@@ -3110,16 +3110,16 @@ msgstr ""
 
 #: includes/controller/controller-unsubscribe.php:232
 msgid ""
-"[Ultimate GDPR] Please confirm request to be unsubscribed from %s newsletters"
-msgstr "[Ultimate GDPR] Potvrďte žiadosť o odhlásenie od bulletinov %s"
+"[Ultimate GDPR & CCPA] Please confirm request to be unsubscribed from %s newsletters"
+msgstr "[Ultimate GDPR & CCPA] Potvrďte žiadosť o odhlásenie od bulletinov %s"
 
 #: includes/controller/controller-unsubscribe.php:507
 msgid "There was an error unsubscribing %s from %s service: %s"
 msgstr "Pri odstraňovaní %s z %s služby sa vyskytla chyba: %s"
 
 #: includes/controller/controller-unsubscribe.php:533
-msgid "[Ultimate GDPR] Unsubscription finished!"
-msgstr "[Ultimate GDPR] Odhlásenie bolo dokončené!"
+msgid "[Ultimate GDPR & CCPA] Unsubscription finished!"
+msgstr "[Ultimate GDPR & CCPA] Odhlásenie bolo dokončené!"
 
 #. ID
 #: includes/controller/controller-unsubscribe.php:595
@@ -3145,8 +3145,8 @@ msgstr ""
 "mail"
 
 #: includes/controller/controller-unsubscribe.php:787
-msgid "[Ultimate GDPR] Unsubscribe notice from %s"
-msgstr "[Ultimate GDPR] Zrušenie upozornenia od %s"
+msgid "[Ultimate GDPR & CCPA] Unsubscribe notice from %s"
+msgstr "[Ultimate GDPR & CCPA] Zrušenie upozornenia od %s"
 
 #: includes/controller/controller-unsubscribe.php:788
 msgid "Your have been unsubscribed"

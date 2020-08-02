@@ -134,7 +134,7 @@ class CT_Ultimate_GDPR_Controller_Unsubscribe extends CT_Ultimate_GDPR_Controlle
 			
 			$subject = apply_filters(
 				'ct_ultimate_gdpr_controller_unsubscribe_request_admin_mail_subject',
-				'[Ultimate GDPR] New Unsubscribe request'
+				'[Ultimate GDPR & CCPA] New Unsubscribe request'
 			);
 			
 			$message = apply_filters(
@@ -229,7 +229,7 @@ class CT_Ultimate_GDPR_Controller_Unsubscribe extends CT_Ultimate_GDPR_Controlle
 		
 		ct_ultimate_gdpr_send_confirm_mail(
 			$email,
-			sprintf( esc_html__( '[Ultimate GDPR] Please confirm request to be unsubscribed from %s newsletters', 'ct-ultimate-gdpr' ), get_bloginfo( 'name' ) ),
+			sprintf( esc_html__( '[Ultimate GDPR & CCPA] Please confirm request to be unsubscribed from %s newsletters', 'ct-ultimate-gdpr' ), get_bloginfo( 'name' ) ),
 			$this->get_id(),
 			$request_data['date'],
 			$target_url
@@ -530,7 +530,7 @@ class CT_Ultimate_GDPR_Controller_Unsubscribe extends CT_Ultimate_GDPR_Controlle
 		$this->add_view_option(
 			'notices',
 			array(
-				esc_html__( "[Ultimate GDPR] Unsubscription finished!", 'ct-ultimate-gdpr' ),
+				esc_html__( "[Ultimate GDPR & CCPA] Unsubscription finished!", 'ct-ultimate-gdpr' ),
 			)
 		);
 		
@@ -650,12 +650,20 @@ class CT_Ultimate_GDPR_Controller_Unsubscribe extends CT_Ultimate_GDPR_Controlle
 			
 			add_settings_field(
 				'unsubscribe_target_page', // ID
-				esc_html__( "Set custom URL to the page containing Ultimate GDPR shortcode as the email confirmation target page (or leave empty for autodetect)", 'ct-ultimate-gdpr' ), // Title
+				esc_html__( "Set custom URL to the page containing Ultimate GDPR & CCPA shortcode as the email confirmation target page (or leave empty for autodetect)", 'ct-ultimate-gdpr' ), // Title
 				array( $this, 'render_field_unsubscribe_target_page' ), // Callback
 				$this->get_id(), // Page
 				$this->get_id() // Section
 			);
 			
+			add_settings_field(
+				'unsubscribe_subheader', // ID
+				esc_html__( "Enter custom subheader for 'Unsubscribe' tab in 'my account' shortcode (or leave empty for default content)", 'ct-ultimate-gdpr' ), // Title
+				array( $this, 'render_field_unsubscribe_subheader' ), // Callback
+				$this->get_id(), // Page
+				$this->get_id() // Section
+			);
+
 		}
 		
 	}
@@ -743,7 +751,26 @@ class CT_Ultimate_GDPR_Controller_Unsubscribe extends CT_Ultimate_GDPR_Controlle
 		);
 		
 	}
-	
+
+    /**
+     *
+     */
+    public function render_field_unsubscribe_subheader() {
+
+        $admin      = CT_Ultimate_GDPR::instance()->get_admin_controller();
+        $field_name = $admin->get_field_name( __FUNCTION__ );
+        $default    = ct_ultimate_gdpr_get_value( $field_name, $this->get_default_options() );
+        $value      = $this->get_option( $field_name, $default );
+
+        printf(
+            "<textarea class='ct-ultimate-gdpr-field' id='%s' name='%s' rows='5' cols='100'>%s</textarea>",
+            $admin->get_field_name( __FUNCTION__ ),
+            $admin->get_field_name_prefixed( $field_name ),
+            $value
+        );
+
+	}
+
 	/**
 	 *
 	 */
@@ -784,9 +811,10 @@ class CT_Ultimate_GDPR_Controller_Unsubscribe extends CT_Ultimate_GDPR_Controlle
 		
 		return apply_filters( "ct_ultimate_gdpr_controller_{$this->get_id()}_default_options", array(
 			'unsubscribe_notify_email' => get_bloginfo( 'admin_email' ),
-			'unsubscribe_mail_title'   => sprintf( esc_html__( "[Ultimate GDPR] Unsubscribe notice from %s", 'ct-ultimate-gdpr' ), get_bloginfo( 'name' ) ),
-			'unsubscribe_mail_content' => sprintf( esc_html__( "Your have been unsubscribed", 'ct-ultimate-gdpr' ) ),
-		) );
+            'unsubscribe_mail_title'   => sprintf(esc_html__("[Ultimate GDPR & CCPA] Unsubscribe notice from %s", 'ct-ultimate-gdpr'), get_bloginfo('name')),
+            'unsubscribe_mail_content' => sprintf(esc_html__("Your have been unsubscribed", 'ct-ultimate-gdpr')),
+            'unsubscribe_subheader'    => '',
+        ));
 		
 	}
 	

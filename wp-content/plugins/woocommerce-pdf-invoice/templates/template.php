@@ -73,20 +73,20 @@
     <tr>
 	   	<td valign="top"><?php echo apply_filters( 'pdf_template_payment_method_text', __( 'Payment Method :', 'woocommerce-pdf-invoice' ) ); ?></td>
        	<td valign="top">[[PDFINVOICEPAYMENTMETHOD]]</td>
-    	<td valign="top"><?php echo apply_filters( 'pdf_template_shipping_method_text', __( 'Shipping Method :', 'woocommerce-pdf-invoice' ) ); ?></td>
+    	<td valign="top">[[PDFINVOICE_SHIPMETHOD_HEADING]]</td>
         <td valign="top">[[PDFSHIPPINGMETHOD]]</td>
     </tr>
     
     <tr>   
     	<td valign="top" colspan="2">
-    	<h3><?php echo apply_filters( 'pdf_template_billing_details_text', __( 'Billing Details', 'woocommerce-pdf-invoice' ) ); ?></h3>
+    	<h3>[[PDFINVOICE_BILLINGDETAILS_HEADING]]</h3>
 		[[PDFBILLINGADDRESS]]<br />
         [[PDFBILLINGTEL]]<br />
         [[PDFBILLINGEMAIL]]
         [[PDFBILLINGVATNUMBER]]
     	</td>
     	<td valign="top" colspan="2">
-    	<h3><?php echo apply_filters( 'pdf_template_shipping_details_text', __( 'Shipping Details', 'woocommerce-pdf-invoice' ) ); ?></h3>
+    	<h3>[[PDFINVOICE_SHIPPINGDETAILS_HEADING]]</h3>
 		[[PDFSHIPPINGADDRESS]]
     	</td>
     </tr>

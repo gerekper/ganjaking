@@ -209,15 +209,20 @@ class CT_Ultimate_GDPR_Controller_Terms extends CT_Ultimate_GDPR_Controller_Abst
 
 		if ( is_user_logged_in() ) {
 
-			if ( current_user_can( 'administrator' ) && ! $this->get_option( 'terms_require_administrator' ) ) {
-				return false;
-			}
+            if ( current_user_can( 'administrator' ) && ! $this->get_option( 'terms_require_administrator' ) ) {
 
-			if ( ! $this->get_option( 'terms_require_users' ) ) {
-				return false;
-			}
+                return false;
 
-		} else {
+            }else{
+
+                if( !current_user_can( 'administrator' ) && ! $this->get_option( 'terms_require_users' )){
+                    return false;
+                }
+
+            }
+
+
+        } else {
 
 			if ( ! $this->get_option( 'terms_require_guests' ) ) {
 				return false;

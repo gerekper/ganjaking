@@ -49,7 +49,7 @@ class CT_Ultimate_GDPR_Shortcode_Privacy_Center {
 		$contact_url   = get_permalink( ct_ultimate_gdpr_get_value( 'contact_page', $atts, 0 ) );
 		$policy_url    = get_permalink( CT_Ultimate_GDPR::instance()->get_admin_controller()->get_option_value( 'policy_target_page', 0, CT_Ultimate_GDPR_Controller_Policy::ID, 'page' ) );
 		$terms_url     = get_permalink( CT_Ultimate_GDPR::instance()->get_admin_controller()->get_option_value( 'terms_target_page', 0, CT_Ultimate_GDPR_Controller_Terms::ID, 'page' ) );
-
+		$age_enabled   = CT_Ultimate_GDPR::instance()->get_admin_controller()->get_option_value( 'age_enabled', false, CT_Ultimate_GDPR_Controller_Age::ID);
 		$icon_color    = ct_ultimate_gdpr_get_value( 'icon_color', $atts, '' );
 
 		foreach ( get_defined_vars() as $key => $val ) {

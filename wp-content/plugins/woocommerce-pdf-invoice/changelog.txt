@@ -1,4 +1,19 @@
 *** WooCommerce PDF Invoice Changelog ***
+2020.07.30 - version 4.7.1
+ * Filter to show coupon codes in order totals pdf_invoice_display_coupons
+ * Additional logging
+ * Fix Vat Number filter
+ * Fix Fatal error: Uncaught Error: Class 'WC_pdf_functions' 
+
+2020.07.04 - version 4.7.0
+ * Remove shipping address for virtual orders
+ * Move bulk action "Create and Email Invoices" to scheduler to avoid issues when trying to invoice multiple orders.
+ * Add option to create and email invoices for past orders - uses scheduler.
+ * Add invoice number meta to order search.
+ * use wp_upload_dir instead of ABSPATH for logo.
+ * Fix settings check for download link on Thank you page.
+ * Additional messages for PDF Invoice actions in edit order.
+
 2020.05.29 - version 4.6.7
  * Fix 'WC_pdf_admin_functions' does not have a method 'restrict_manage_post_types'
 

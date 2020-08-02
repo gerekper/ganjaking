@@ -1,12 +1,12 @@
-# Copyright (C) 2018 Ultimate GDPR
-# This file is distributed under the same license as the Ultimate GDPR package.
+# Copyright (C) 2018 Ultimate GDPR & CCPA
+# This file is distributed under the same license as the Ultimate GDPR & CCPA package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Ultimate GDPR 1.6.4\n"
+"Project-Id-Version: Ultimate GDPR & CCPA\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/ct-ultimate-gdpr\n"
 "POT-Creation-Date: 2019-03-26T15:39:02+00:00\n"
 "PO-Revision-Date: 2019-03-26 17:00+0000\n"
-"Last-Translator: Create IT <m.stepnowska@createit.pl>\n"
+"Last-Translator: Create IT\n"
 "Language-Team: Polish\n"
 "Language: pl-PL\n"
 "MIME-Version: 1.0\n"
@@ -32,8 +32,8 @@ msgstr ""
 #: includes/views/admin/admin-terms.php:22 
 #: includes/controller/controller-admin.php:508 
 #: includes/controller/controller-admin.php:509
-msgid "Ultimate GDPR"
-msgstr "Ultimate GDPR"
+msgid "Ultimate GDPR & CCPA"
+msgstr "Ultimate GDPR & CCPA"
 
 #. Description of the plugin/theme
 msgid ""
@@ -260,8 +260,8 @@ msgid "Collects user data"
 msgstr "Zbiera dane użytkownika"
 
 #: includes/views/admin/admin-plugins.php:44
-msgid "Compatible with Ultimate GDPR"
-msgstr "Kompatybilne z Ultimate GDPR"
+msgid "Compatible with Ultimate GDPR & CCPA"
+msgstr "Kompatybilne z Ultimate GDPR & CCPA"
 
 #: includes/views/admin/admin-plugins.php:94 
 #: includes/views/admin/admin-plugins.php:112 
@@ -379,7 +379,7 @@ msgid ""
 "This plugin will create a form where users can request access to or deletion "
 "of their personal data, stored on your website. It is also possible to:"
 msgstr ""
-"Wtyczka Ultimate GDPR Compliance Toolkit for WordPress stworzy, m.in. "
+"Wtyczka Ultimate GDPR & CCPA Compliance Toolkit for WordPress stworzy, m.in. "
 "formularze, za pośrednictwem których użytkownicy będą mogli prosić o dostęp, "
 "usunięcie lub edycję swoich danych osobowych, przechowywanych na Twojej "
 "stronie internetowej. Możliwe jest również:"
@@ -1207,7 +1207,7 @@ msgstr ""
 
 #: includes/service/service-google-analytics.php:73
 msgid ""
-"Please note that even when enabled, Ultimate GDPR will still block Google "
+"Please note that even when enabled, Ultimate GDPR & CCPA will still block Google "
 "Analytics without user consent. If you would like to track anonymously users "
 "without accepting cookies, please <a href='%s' target='_blank'>read more "
 "here</a>."
@@ -1646,8 +1646,8 @@ msgid "Recaptcha error!"
 msgstr "Błąd w polu recaptcha"
 
 #: includes/controller/controller-data-access.php:189
-msgid "[Ultimate GDPR] New Data Access request"
-msgstr "[Ultimate GDPR] Nowe żądanie dostępu do danych"
+msgid "[Ultimate GDPR & CCPA] New Data Access request"
+msgstr "[Ultimate GDPR & CCPA] Nowe żądanie dostępu do danych"
 
 #: includes/controller/controller-data-access.php:191
 msgid "There is a new data access request from email %s. See details at %s"
@@ -1703,9 +1703,9 @@ msgid "Mail content"
 msgstr "Treść wiadomości"
 
 #: includes/controller/controller-data-access.php:649
-msgid "[Ultimate GDPR] Data request results from %s"
+msgid "[Ultimate GDPR & CCPA] Data request results from %s"
 msgstr ""
-"[Ultimate GDPR] Odpowiedź na żądanie udostępnienia informacji o "
+"[Ultimate GDPR & CCPA] Odpowiedź na żądanie udostępnienia informacji o "
 "przechowywanych danych od %s"
 
 #: includes/controller/controller-data-access.php:650
@@ -2652,8 +2652,8 @@ msgid "Your request was successfully confirmed."
 msgstr "Twoje żądanie zostało pomyślnie potwierdzone."
 
 #: includes/controller/controller-rectification.php:142
-msgid "[Ultimate GDPR] New Data Rectification request from %s"
-msgstr "[Ultimate GDPR] Nowa prośba o sprostowanie danych z% s"
+msgid "[Ultimate GDPR & CCPA] New Data Rectification request from %s"
+msgstr "[Ultimate GDPR & CCPA] Nowa prośba o sprostowanie danych z% s"
 
 #: includes/controller/controller-rectification.php:150
 msgid ""
@@ -2671,8 +2671,8 @@ msgstr ""
 "skontaktuj się z administratorem."
 
 #: includes/controller/controller-rectification.php:213
-msgid "[Ultimate GDPR] Please confirm your data rectification request from %s"
-msgstr "[Ultimate GDPR] Potwierdź prośbę o poprawienie danych z %s"
+msgid "[Ultimate GDPR & CCPA] Please confirm your data rectification request from %s"
+msgstr "[Ultimate GDPR & CCPA] Potwierdź prośbę o poprawienie danych z %s"
 
 #: includes/controller/controller-rectification.php:527
 msgid "Data Rectification settings"
@@ -2698,16 +2698,16 @@ msgstr "Treść wiadomości"
 #: includes/controller/controller-forgotten.php:719 
 #: includes/controller/controller-unsubscribe.php:653
 msgid ""
-"Set custom URL to the page containing Ultimate GDPR shortcode as the email "
+"Set custom URL to the page containing Ultimate GDPR & CCPA shortcode as the email "
 "confirmation target page (or leave empty for autodetect)"
 msgstr ""
-"Ustaw niestandardowy URL na stronę zawierającą krótki kod Ultimate GDPR jako "
+"Ustaw niestandardowy URL na stronę zawierającą krótki kod Ultimate GDPR & CCPA jako "
 "stronę docelową potwierdzenia adresu e-mail (lub pozostaw puste dla "
 "automatycznego wykrycia)"
 
 #: includes/controller/controller-rectification.php:647
-msgid "[Ultimate GDPR] Data rectification notice from %s"
-msgstr "[Ultimate GDPR] Powiadomienie o sprostowaniu danych z %s"
+msgid "[Ultimate GDPR & CCPA] Data rectification notice from %s"
+msgstr "[Ultimate GDPR & CCPA] Powiadomienie o sprostowaniu danych z %s"
 
 #: includes/controller/controller-rectification.php:648
 msgid "Your data has been rectified"
@@ -2947,8 +2947,8 @@ msgid "Collect user emails from services"
 msgstr "Zapisz e-maile użytkowników korzystających z usługi"
 
 #: includes/controller/controller-breach.php:223
-msgid "[Ultimate GDPR] Data breach information from %s"
-msgstr "[Ultimate GDPR] Informacja o naruszeniu bezpieczeństwa danych na %s"
+msgid "[Ultimate GDPR & CCPA] Data breach information from %s"
+msgstr "[Ultimate GDPR & CCPA] Informacja o naruszeniu bezpieczeństwa danych na %s"
 
 #: includes/controller/controller-breach.php:226
 msgid "There was a data breach on our page..."
@@ -3033,8 +3033,8 @@ msgstr "Strona Polityki Prywatności WordPressa"
 
 #: includes/controller/controller-forgotten.php:110 
 #: includes/controller/controller-forgotten.php:345
-msgid "[Ultimate GDPR] New Right To Be Forgotten request from %s"
-msgstr "[Ultimate GDPR] Nowe żądanie usunięcia danych od %s"
+msgid "[Ultimate GDPR & CCPA] New Right To Be Forgotten request from %s"
+msgstr "[Ultimate GDPR & CCPA] Nowe żądanie usunięcia danych od %s"
 
 #: includes/controller/controller-forgotten.php:129 
 #: includes/controller/controller-forgotten.php:353
@@ -3044,17 +3044,17 @@ msgstr ""
 "Przesłano nowe żądanie usunięcia danych z adresu %s. Sprawdź szczegóły na %s"
 
 #: includes/controller/controller-forgotten.php:259
-msgid "[Ultimate GDPR] Please confirm request to be forgotten from %s"
-msgstr "[Ultimate GDPR] Zatwierdź formularz żądania usunięcia danych %s"
+msgid "[Ultimate GDPR & CCPA] Please confirm request to be forgotten from %s"
+msgstr "[Ultimate GDPR & CCPA] Zatwierdź formularz żądania usunięcia danych %s"
 
 #: includes/controller/controller-forgotten.php:513
-msgid "[Ultimate GDPR] Emails were sent to the following users: %s"
+msgid "[Ultimate GDPR & CCPA] Emails were sent to the following users: %s"
 msgstr ""
-"[Ultimate GDPR] Wiadomości zostały wysłane do następujących użytkowników: %s"
+"[Ultimate GDPR & CCPA] Wiadomości zostały wysłane do następujących użytkowników: %s"
 
 #: includes/controller/controller-forgotten.php:551
-msgid "[Ultimate GDPR] The following emails were removed from list: %s"
-msgstr "[Ultimate GDPR] Następujące adresy email zostały usunięte z listy: %s"
+msgid "[Ultimate GDPR & CCPA] The following emails were removed from list: %s"
+msgstr "[Ultimate GDPR & CCPA] Następujące adresy email zostały usunięte z listy: %s"
 
 #: includes/controller/controller-forgotten.php:584 
 #: includes/controller/controller-unsubscribe.php:487
@@ -3066,8 +3066,8 @@ msgid "There was an error forgetting %s service: %s"
 msgstr "Nastąpił problem z usunięciem danych z %s usługi: %s"
 
 #: includes/controller/controller-forgotten.php:629
-msgid "[Ultimate GDPR] Services data were removed"
-msgstr "[Ultimate GDPR] Informacje zapisane przez wtyczki zostały usunięte"
+msgid "[Ultimate GDPR & CCPA] Services data were removed"
+msgstr "[Ultimate GDPR & CCPA] Informacje zapisane przez wtyczki zostały usunięte"
 
 #. ID
 #: includes/controller/controller-forgotten.php:645
@@ -3132,8 +3132,8 @@ msgstr "Formularz z zakładkami"
 
 #: includes/controller/controller-forgotten.php:911 
 #: includes/controller/controller-forgotten.php:912
-msgid "[Ultimate GDPR] Your data has been forgotten"
-msgstr "[Ultimate GDPR] Twoje dane zostały usunięte"
+msgid "[Ultimate GDPR & CCPA] Your data has been forgotten"
+msgstr "[Ultimate GDPR & CCPA] Twoje dane zostały usunięte"
 
 #: includes/controller/controller-unsubscribe.php:143
 msgid "There is a new Unsubscribe request from email %s. See details at %s"
@@ -3143,16 +3143,16 @@ msgstr ""
 
 #: includes/controller/controller-unsubscribe.php:232
 msgid ""
-"[Ultimate GDPR] Please confirm request to be unsubscribed from %s newsletters"
-msgstr "[Ultimate GDPR] Dowiedz się więcej o biuletynie %s"
+"[Ultimate GDPR & CCPA] Please confirm request to be unsubscribed from %s newsletters"
+msgstr "[Ultimate GDPR & CCPA] Dowiedz się więcej o biuletynie %s"
 
 #: includes/controller/controller-unsubscribe.php:507
 msgid "There was an error unsubscribing %s from %s service: %s"
 msgstr "Wystapił problem z anulowaniem subskrypcji %s z %s usługi: %s"
 
 #: includes/controller/controller-unsubscribe.php:533
-msgid "[Ultimate GDPR] Unsubscription finished!"
-msgstr "[Ultimate GDPR] Finita la cancellazione!"
+msgid "[Ultimate GDPR & CCPA] Unsubscription finished!"
+msgstr "[Ultimate GDPR & CCPA] Finita la cancellazione!"
 
 #. ID
 #: includes/controller/controller-unsubscribe.php:595
@@ -3180,8 +3180,8 @@ msgstr ""
 "confermato la loro e-mail"
 
 #: includes/controller/controller-unsubscribe.php:787
-msgid "[Ultimate GDPR] Unsubscribe notice from %s"
-msgstr "[Ultimate GDPR] Informacja o anulowaniu subskrypcji od %s"
+msgid "[Ultimate GDPR & CCPA] Unsubscribe notice from %s"
+msgstr "[Ultimate GDPR & CCPA] Informacja o anulowaniu subskrypcji od %s"
 
 #: includes/controller/controller-unsubscribe.php:788
 msgid "Your have been unsubscribed"

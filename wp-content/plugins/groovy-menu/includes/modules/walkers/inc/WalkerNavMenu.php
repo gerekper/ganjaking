@@ -443,13 +443,24 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 
 		if ( $post_id ) {
 
+			$wp_builders = GroovyMenuUtils::check_wp_builders();
+
+			$is_woocommerce_page = false;
+			if (
+				GroovyMenuUtils::is_shop_and_category_woocommerce_page() ||
+				GroovyMenuUtils::is_additional_woocommerce_page() ||
+				GroovyMenuUtils::is_product_woocommerce_page()
+			) {
+				$is_woocommerce_page = true;
+			}
+
 			// prevent conflict with Divi theme builder.
-			if ( 'divi_builder' === GroovyMenuUtils::check_wp_builders() ) {
+			if ( 'divi_builder' === $wp_builders ) {
 				return '[ ' . __( 'Divi Builder Conflict Prevention', 'groovy-menu' ) . ' ]';
 			}
 
 			// prevent conflict with Avada theme / Fusion builder.
-			if ( 'fusion_builder' === GroovyMenuUtils::check_wp_builders() ) {
+			if ( 'fusion_builder' === $wp_builders ) {
 				return '[ ' . __( 'Fusion Builder Conflict Prevention', 'groovy-menu' ) . ' ]';
 			}
 
@@ -472,8 +483,8 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 			$wpml_gm_menu_block_id = apply_filters( 'wpml_object_id', $post_id, 'gm_menu_block', true );
 
 
-			// prevent conflict with Divi theme builder.
-			if ( 'on' === get_post_meta( $wpml_gm_menu_block_id, '_et_pb_use_builder', true ) ) {
+			// prevent conflict with Divi theme builder. But not at the Woocommerce pages.
+			if ( 'on' === get_post_meta( $wpml_gm_menu_block_id, '_et_pb_use_builder', true ) && ! $is_woocommerce_page ) {
 				$post = null;
 			} else {
 				global $post;
