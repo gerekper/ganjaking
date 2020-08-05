@@ -5,6 +5,8 @@
  * @package WPSEO\Premium|Classes
  */
 
+use Yoast\WP\SEO\Actions\Prominent_Words\Content_Action;
+
 /**
  * The metabox for premium.
  */
@@ -125,27 +127,20 @@ class WPSEO_Premium_Metabox implements WPSEO_WordPress_Integration {
 		$insights_enabled         = WPSEO_Options::get( 'enable_metabox_insights', false );
 		$link_suggestions_enabled = WPSEO_Options::get( 'enable_link_suggestions', false );
 
-		$language_support = new WPSEO_Premium_Prominent_Words_Language_Support();
-
-		if ( ! $language_support->is_language_supported( WPSEO_Language_Utils::get_language( get_locale() ) ) ) {
-			$insights_enabled         = false;
-			$link_suggestions_enabled = false;
-		}
-
 		$post = $this->get_post();
 
-		$post_type_support = new WPSEO_Premium_Prominent_Words_Support();
-		if ( ! $post_type_support->is_post_type_supported( get_post_type( $post ) ) ) {
+		$prominent_words_support = new WPSEO_Premium_Prominent_Words_Support();
+		if ( ! $prominent_words_support->is_post_type_supported( $post->post_type ) ) {
 			$insights_enabled = false;
 		}
 
 		return [
 			'insightsEnabled'          => ( $insights_enabled ) ? 'enabled' : 'disabled',
-			'postID'                   => $this->get_post_ID(),
+			'currentObjectId'          => $this->get_post_ID(),
+			'currentObjectType'        => 'post',
 			'linkSuggestionsEnabled'   => ( $link_suggestions_enabled ) ? 'enabled' : 'disabled',
-			'linkSuggestionsAvailable' => $this->link_suggestions->is_available( $post->post_type ),
-			'linkSuggestionsUnindexed' => $this->link_suggestions->is_site_unindexed() && WPSEO_Capability_Utils::current_user_can( 'wpseo_manage_options' ),
-			'linkSuggestions'          => $this->link_suggestions->get_js_data(),
+			'linkSuggestionsAvailable' => $prominent_words_support->is_post_type_supported( $post->post_type ),
+			'linkSuggestionsUnindexed' => ! $this->is_prominent_words_indexing_completed() && WPSEO_Capability_Utils::current_user_can( 'wpseo_manage_options' ),
 		];
 	}
 
@@ -155,12 +150,35 @@ class WPSEO_Premium_Metabox implements WPSEO_WordPress_Integration {
 	 * @return array The config.
 	 */
 	protected function get_term_metabox_config() {
+		$term = null;
+		if ( isset( $GLOBALS['tag_ID'], $GLOBALS['taxonomy'] ) ) {
+			$term = get_term( $GLOBALS['tag_ID'], $GLOBALS['taxonomy'] );
+		}
+
+		if ( $term === null || is_wp_error( $term ) ) {
+			return [
+				'insightsEnabled'          => 'disabled',
+				'linkSuggestionsEnabled'   => 'disabled',
+				'linkSuggestionsAvailable' => false,
+				'linkSuggestionsUnindexed' => false,
+			];
+		}
+
+		$link_suggestions_enabled = WPSEO_Options::get( 'enable_link_suggestions', false );
+		$insights_enabled         = WPSEO_Options::get( 'enable_metabox_insights', false );
+
+		$prominent_words_support = new WPSEO_Premium_Prominent_Words_Support();
+		if ( ! $prominent_words_support->is_taxonomy_supported( $term->taxonomy ) ) {
+			$insights_enabled = false;
+		}
+
 		return [
-			'insightsEnabled'          => 'disabled',
-			'linkSuggestionsEnabled'   => 'disabled',
-			'linkSuggestionsAvailable' => false,
-			'linkSuggestionsUnindexed' => false,
-			'linkSuggestions'          => false,
+			'insightsEnabled'          => ( $insights_enabled ) ? 'enabled' : 'disabled',
+			'currentObjectId'          => $term->term_id,
+			'currentObjectType'        => 'term',
+			'linkSuggestionsEnabled'   => ( $link_suggestions_enabled ) ? 'enabled' : 'disabled',
+			'linkSuggestionsAvailable' => $prominent_words_support->is_taxonomy_supported( $term->taxonomy ),
+			'linkSuggestionsUnindexed' => ! $this->is_prominent_words_indexing_completed() && WPSEO_Capability_Utils::current_user_can( 'wpseo_manage_options' ),
 		];
 	}
 
@@ -197,6 +215,10 @@ class WPSEO_Premium_Metabox implements WPSEO_WordPress_Integration {
 	 * @return int The post ID.
 	 */
 	protected function get_post_ID() {
+		if ( ! isset( $GLOBALS['post_ID'] ) ) {
+			return 0;
+		}
+
 		return $GLOBALS['post_ID'];
 	}
 
@@ -317,5 +339,22 @@ class WPSEO_Premium_Metabox implements WPSEO_WordPress_Integration {
 	 */
 	public function register_assets() {
 		_deprecated_function( 'WPSEO_Premium_Metabox::register_assets', '9.4' );
+	}
+
+	/**
+	 * Returns whether or not we need to index more posts for correct link suggestion functionality
+	 *
+	 * @return bool Whether or not we need to index more posts.
+	 */
+	protected function is_prominent_words_indexing_completed() {
+		$is_indexing_completed = YoastSEO()->helpers->options->get( 'prominent_words_indexation_completed' );
+		if ( $is_indexing_completed === null ) {
+			$post_data             = YoastSEO()->classes->get( Content_Action::class );
+			$is_indexing_completed = $post_data->get_total_unindexed() === 0;
+
+			YoastSEO()->helpers->options->set( 'prominent_words_indexation_completed', $is_indexing_completed );
+		}
+
+		return $is_indexing_completed;
 	}
 }

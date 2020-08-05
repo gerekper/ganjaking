@@ -96,6 +96,7 @@ class WPSEO_Option_MS extends WPSEO_Option {
 			"{$allow_prefix}enable_headless_rest_endpoints" => true,
 			"{$allow_prefix}enable_metabox_insights"        => true,
 			"{$allow_prefix}enable_link_suggestions"        => true,
+			"{$allow_prefix}tracking"                       => true,
 		];
 
 		if ( is_multisite() ) {

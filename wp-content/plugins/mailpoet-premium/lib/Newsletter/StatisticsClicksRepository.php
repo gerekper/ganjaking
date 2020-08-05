@@ -24,7 +24,7 @@ class StatisticsClicksRepository extends Repository {
   public function getClickedLinks(NewsletterEntity $newsletter) {
     $query = $this->doctrineRepository
       ->createQueryBuilder('clicks')
-      ->addSelect('COUNT(DISTINCT clicks.subscriberId) as cnt')
+      ->select('COUNT(DISTINCT clicks.subscriberId) as cnt')
       ->join('clicks.link', 'links')
       ->addSelect('links.url as url')
       ->where('clicks.newsletter = :newsletter')
@@ -45,7 +45,7 @@ class StatisticsClicksRepository extends Repository {
   public function getClickedLinksForFilter(NewsletterEntity $newsletter) {
     $query = $this->doctrineRepository
       ->createQueryBuilder('clicks')
-      ->addSelect('COUNT(DISTINCT clicks.subscriberId) as cnt')
+      ->select('COUNT(DISTINCT clicks.subscriberId) as cnt')
       ->join('clicks.link', 'links')
       ->addSelect('links.url as url')
       ->addSelect('links.id as link_id')

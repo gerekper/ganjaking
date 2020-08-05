@@ -2,7 +2,7 @@
 Contributors: Grooni
 Requires at least: 4.9.7
 Tested up to: 5.4.2
-Stable tag: 2.2.8
+Stable tag: 2.2.8.1
 License: Themeforest Split Licence
 License URI: -
 Tags: customizable, responsive, animation, flexible, translation ready, drop down, dropdown, dropdown menu, easy, mega dropdown menu, mega menu, megamenu, navigation, options, presets, shortcodes, widgetized, widgets
@@ -60,6 +60,9 @@ Source: https://select2.github.io/
 == Changelog ==
 
 Visit [Changelog](https://grooni.com/docs/groovy-menu/changelog/) from our [Knowledge Base](https://grooni.com/docs/groovy-menu/)
+
+= 2.2.8.1 =
+* Fix: Improved visibility of content sizes in the menu block for JavaScript calculations. Rarely is there such a need for complex content in menu blocks.
 
 = 2.2.8 =
 * Fix: Increased priority of CSS rules for links in menu items. It is prevents color overwriting when Groovy Menu is integrated using the Divi builder.

@@ -188,7 +188,14 @@ class WPSEO_Addon_Manager {
 	 * @return bool True when the subscription is valid.
 	 */
 	public function has_valid_subscription( $slug ) {
-		return true;
+		$subscription = $this->get_subscription( $slug );
+
+		// An non-existing subscription is never valid.
+		if ( $subscription === false ) {
+			return false;
+		}
+
+		return ! $this->has_subscription_expired( $subscription );
 	}
 
 	/**
@@ -238,7 +245,7 @@ class WPSEO_Addon_Manager {
 	 * @return bool Has the plugin expired.
 	 */
 	protected function has_subscription_expired( $subscription ) {
-		return false;
+		return ( strtotime( $subscription->expiry_date ) - time() ) < 0;
 	}
 
 	/**

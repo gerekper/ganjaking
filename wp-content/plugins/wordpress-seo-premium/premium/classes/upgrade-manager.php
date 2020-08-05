@@ -5,6 +5,8 @@
  * @package WPSEO\Premium\Classes
  */
 
+use Yoast\WP\SEO\Integrations\Admin\Prominent_Words_Notification;
+
 /**
  * Class WPSEO_Upgrade_Manager
  */
@@ -81,12 +83,12 @@ class WPSEO_Upgrade_Manager {
 			add_action( 'init', [ $this, 'upgrade_11' ], 12 );
 		}
 
-		if ( version_compare( $version_number, '12.8', '<' ) ) {
-			add_action( 'init', [ 'WPSEO_Premium_Prominent_Words_Recalculation_Notifier', 'upgrade_12_8' ], 12 );
-		}
-
 		if ( version_compare( $version_number, '13.0-RC0', '<' ) ) {
 			add_action( 'init', [ 'WPSEO_Redirect_Upgrade', 'upgrade_13_0' ], 12 );
+		}
+
+		if ( version_compare( $version_number, '14.7-RC0', '<' ) ) {
+			add_action( 'init', [ $this, 'upgrade_14_7' ], 12 );
 		}
 	}
 
@@ -162,6 +164,21 @@ class WPSEO_Upgrade_Manager {
 			add_action( 'wp', [ 'WPSEO_Redirect_Upgrade', 'upgrade_3_1' ], 12 );
 			add_action( 'admin_head', [ 'WPSEO_Redirect_Upgrade', 'upgrade_3_1' ], 12 );
 		}
+	}
+
+	/**
+	 * Triggers the notice to calculate internal linking suggestions if applicable.
+	 *
+	 * @return void
+	 */
+	public function upgrade_14_7() {
+		/**
+		 * The variable represents an instance of Prominent_Words_Notification.
+		 *
+		 * @var Prominent_Words_Notification $prominent_words_notification
+		 */
+		$prominent_words_notification = YoastSEO()->classes->get( Prominent_Words_Notification::class );
+		$prominent_words_notification->manage_notification();
 	}
 
 	/**

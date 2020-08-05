@@ -82,6 +82,22 @@ abstract class GFFeedAddOn extends GFAddOn {
 
 		parent::init();
 
+		if ( ! class_exists( 'Rocketgenius\Gravity_Forms\Settings' ) ) {
+			require_once( GFCommon::get_base_path() . '/includes/settings/class-settings.php' );
+		}
+
+		// Initialize Settings framework.
+		if ( $this->is_feed_edit_page() ) {
+
+			$this->feed_settings_init();
+
+			// Process save callback.
+			if ( $this->get_settings_renderer()->is_save_postback() ) {
+				$this->get_settings_renderer()->process_postback();
+			}
+
+		}
+
 		add_filter( 'gform_entry_post_save', array( $this, 'maybe_process_feed' ), 10, 2 );
 		add_action( 'gform_after_delete_form', array( $this, 'delete_feeds' ) );
 
@@ -1088,6 +1104,19 @@ abstract class GFFeedAddOn extends GFAddOn {
 		}
 	}
 
+	/**
+	 * Determine if currently on the feed edit page for Add-On.
+	 *
+	 * @since 2.5
+	 *
+	 * @return bool
+	 */
+	public function is_feed_edit_page() {
+
+		return ( $this->is_detail_page() || $this->_multiple_feeds === false ) && rgget( 'subview' ) === $this->get_slug();
+
+	}
+
 	public function is_feed_list_page() {
 		return ! isset( $_GET['fid'] );
 	}
@@ -1108,35 +1137,121 @@ abstract class GFFeedAddOn extends GFAddOn {
 		return sprintf( esc_html__( '%s Feeds', 'gravityforms' ), $this->get_short_title() );
 	}
 
+	/**
+	 * Initialize feed settings page.
+	 * Creates new instance of Settings framework.
+	 *
+	 * @since 2.5
+	 */
+	public function feed_settings_init() {
+
+		// Get current form.
+		$form = $this->get_current_form();
+		$form = gf_apply_filters( array( 'gform_admin_pre_render', $form['id'] ), $form );
+
+		// Get current feed ID, feed object.
+		$feed_id      = $this->_multiple_feeds ? $this->get_current_feed_id() : $this->get_default_feed_id( $form['id'] );
+		$current_feed = $feed_id ? $this->get_feed( $feed_id ) : array();
+
+		// Initialize new settings renderer.
+		$renderer = new Rocketgenius\Gravity_Forms\Settings(
+			array(
+				'capability'     => $this->_capabilities_form_settings,
+				'initial_values' => rgar( $current_feed, 'meta' ),
+				'save_callback'  => function( $values ) use ( $feed_id ) {
+
+					// Adjust conditional logic object.
+					if ( rgars( $values, 'feed_condition_conditional_logic_object/actionType' ) ) {
+						$values['feed_condition_conditional_logic_object'] = array( 'conditionalLogic' => $values['feed_condition_conditional_logic_object'] );
+					}
+
+					// Save settings.
+					$this->_current_feed_id = $this->save_feed_settings( $feed_id, rgget( 'id' ), $values );
+
+					// If feed IDs do not match, redirect.
+					if ( $feed_id !== $this->_current_feed_id && $this->_multiple_feeds ) {
+						wp_safe_redirect( add_query_arg( array( 'fid' => $this->_current_feed_id ) ) );
+					}
+
+				},
+				'before_fields'  => function() use ( $form ) {
+					return sprintf( '
+						<input type="hidden" name="gf_feed_id" value="%d" />
+						<script type="text/javascript">var form = %s;</script>',
+						(int) $this->get_current_feed_id(),
+						wp_json_encode( $form )
+					);
+				},
+			)
+		);
+
+		// Save renderer to instance.
+		$this->set_settings_renderer( $renderer );
+
+		// Set fields.
+		$sections = $this->get_feed_settings_fields();
+		$sections = $this->prepare_settings_sections( $sections, 'feed_settings' );
+		$this->get_settings_renderer()->set_fields( $sections );
+
+		// Set validation message on redirect.
+		$this->get_settings_renderer()->set_postback_message_callback( function( $message ) use ( $renderer ) {
+
+			// Get referrer.
+			$referrer = rgar( $_SERVER, 'HTTP_REFERER' );
+
+			// If referrer not provided, return.
+			if ( ! $referrer ) {
+				return $message;
+			}
+
+			// Parse URL, get feed ID.
+			$query_args = array();
+			$referrer = wp_parse_url( $referrer );
+			parse_str( rgar( $referrer, 'query' ), $query_args );
+
+			if ( rgar( $query_args, 'fid' ) == '0' && empty( $_POST ) ) {
+				return $renderer->get_save_success_message();
+			}
+
+			return $message;
+
+		} );
+
+	}
+
+	/**
+	 * Render feed edit page.
+	 *
+	 * @since Unknown
+	 *
+	 * @param array $form    Current Form object.
+	 * @param int   $feed_id Current feed ID.
+	 */
 	public function feed_edit_page( $form, $feed_id ) {
 
-		$title = '<h3><span>' . $this->feed_settings_title() . '</span></h3>';
+		// Prepare page title.
+		$title = sprintf( '<h3><span>%s</span></h3>', $this->feed_settings_title() );
 
+		// If feed creation is disabled, display configuration message.
 		if ( ! $this->can_create_feed() ) {
-			echo $title . '<div>' . $this->configure_addon_message() . '</div>';
-
+			printf( '%s<div>%s</div>', $title, $this->configure_addon_message() );
 			return;
 		}
 
-		// Save feed if appropriate
-		$feed_id = $this->maybe_save_feed_settings( $feed_id, $form['id'] );
+		// Output required scripts.
+		printf( '<script type="text/javascript">%s</script>', GFFormSettings::output_field_scripts( false ) );
 
-		$this->_current_feed_id = $feed_id; // So that current feed functions work when creating a new feed
+		// If not initialized, initialize Settings framework.
+		if ( ! $this->get_settings_renderer() ) {
+			$this->feed_settings_init();
+		}
 
-		?>
-		<script type="text/javascript">
-			<?php GFFormSettings::output_field_scripts() ?>
-		</script>
-		<?php
-
-		echo $title;
-
-		$feed = $this->get_feed( $feed_id );
-		$this->set_settings( rgar( $feed, 'meta' ) );
-
-		GFCommon::display_admin_message();
-
-		$this->render_settings( $this->get_feed_settings_fields( $form ) );
+		// Render Settings framework or error message.
+		if ( $this->get_settings_renderer() ) {
+			$this->get_settings_renderer()->render();
+		} else {
+			printf( '%s<p>%s</p>', $title, esc_html__( 'Unable to render feed settings.', 'gravityforms' ) );
+		}
 
 	}
 
@@ -1169,23 +1284,30 @@ abstract class GFFeedAddOn extends GFAddOn {
 
 		?>
 
-		<h3><span><?php echo $this->feed_list_title() ?></span></h3>
-		<form id="gform-settings" action="" method="post">
-			<?php
-			$feed_list = $this->get_feed_table( $form );
-			$feed_list->prepare_items();
-			$feed_list->display();
-			?>
+		<div class="gform-settings-panel">
+			<header class="gform-settings-panel__header">
+				<h4 class="gform-settings-panel__title"><span><?php echo $this->feed_list_title() ?></span></h4>
+			</header>
 
-			<!--Needed to save state after bulk operations-->
-			<input type="hidden" value="gf_edit_forms" name="page">
-			<input type="hidden" value="settings" name="view">
-			<input type="hidden" value="<?php echo esc_attr( $this->_slug ); ?>" name="subview">
-			<input type="hidden" value="<?php echo esc_attr( rgar( $form, 'id' ) ); ?>" name="id">
-			<input id="single_action" type="hidden" value="" name="single_action">
-			<input id="single_action_argument" type="hidden" value="" name="single_action_argument">
-			<?php wp_nonce_field( 'feed_list', 'feed_list' ) ?>
-		</form>
+			<div class="gform-settings-panel__content">
+				<form id="gform-settings" action="" method="post">
+					<?php
+					$feed_list = $this->get_feed_table( $form );
+					$feed_list->prepare_items();
+					$feed_list->display();
+					?>
+
+					<!--Needed to save state after bulk operations-->
+					<input type="hidden" value="gf_edit_forms" name="page">
+					<input type="hidden" value="settings" name="view">
+					<input type="hidden" value="<?php echo esc_attr( $this->_slug ); ?>" name="subview">
+					<input type="hidden" value="<?php echo esc_attr( rgar( $form, 'id' ) ); ?>" name="id">
+					<input id="single_action" type="hidden" value="" name="single_action">
+					<input id="single_action_argument" type="hidden" value="" name="single_action_argument">
+					<?php wp_nonce_field( 'feed_list', 'feed_list' ) ?>
+				</form>
+			</div>
+		</div>
 
 		<script type="text/javascript">
 			<?php
@@ -1227,14 +1349,7 @@ abstract class GFFeedAddOn extends GFAddOn {
 	}
 
 	public function feed_list_title() {
-		if ( ! $this->can_create_feed() ) {
-			return $this->form_settings_title();
-		}
-
-		$url = add_query_arg( array( 'fid' => '0' ) );
-		$url = esc_url( $url );
-
-		return $this->form_settings_title() . " <a class='add-new-h2' href='{$url}'>" . esc_html__( 'Add New', 'gravityforms' ) . '</a>';
+		return $this->form_settings_title();
 	}
 
 	public function maybe_save_feed_settings( $feed_id, $form_id ) {
@@ -1361,6 +1476,10 @@ abstract class GFFeedAddOn extends GFAddOn {
 	public function add_default_feed_settings_fields_props( $fields ) {
 
 		foreach ( $fields as &$section ) {
+			if ( ! rgar( $section, 'fields' ) ) {
+				continue;
+			}
+
 			foreach ( $section['fields'] as &$field ) {
 				switch ( $field['type'] ) {
 
@@ -1579,6 +1698,7 @@ abstract class GFFeedAddOn extends GFAddOn {
 		$conditional_logic = $this->get_feed_condition_conditional_logic();
 		$hidden_field = array(
 			'name'  => 'feed_condition_conditional_logic_object',
+			'type'  => 'hidden',
 			'value' => $conditional_logic,
 		);
 		return $hidden_field;
@@ -2086,6 +2206,10 @@ class GFAddOnFeedsTable extends WP_List_Table {
 	private $_columns;
 	private $_bulk_actions;
 	private $_action_links;
+
+	/**
+	 * @var GFFeedAddOn
+	 */
 	private $_addon_class;
 
 	private $_column_value_callback = array();
@@ -2224,6 +2348,26 @@ class GFAddOnFeedsTable extends WP_List_Table {
 
 		// Close cell.
 		echo '</th>';
+
+	}
+	/**
+	 * Extra controls to be displayed between bulk actions and pagination
+	 *
+	 * @since 2.5
+	 *
+	 * @param string $which
+	 */
+	protected function extra_tablenav( $which ) {
+
+		if ( $which !== 'top' || ! $this->_addon_class->can_create_feed() ) {
+			return;
+		}
+
+		printf(
+			'<div class="alignright"><a href="%s" class="button">%s</a></div>',
+			esc_url( add_query_arg( array( 'fid' => 0 ) ) ),
+			esc_html__( 'Add New', 'gravityforms' )
+		);
 
 	}
 

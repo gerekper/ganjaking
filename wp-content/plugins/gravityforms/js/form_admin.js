@@ -121,8 +121,19 @@ function CreateConditionalLogic(objectType, obj){
     else
         objText = gf_vars.thisFormButton;
 
+    // Some elements are shown/hidden, and some elements are enabled/disabled.
+    var showText;
+    var hideText;
+    if( obj['type'] == "text" ) {
+        showText = gf_vars.enable;
+        hideText = gf_vars.disable;
+    } else {
+        showText = gf_vars.show;
+        hideText = gf_vars.hide;
+    }
+
     var descPieces = {};
-    descPieces.actionType = "<select id='" + objectType + "_action_type' onchange='SetConditionalProperty(\"" + objectType + "\", \"actionType\", jQuery(this).val());'><option value='show' " + showSelected + ">" + gf_vars.show + "</option><option value='hide' " + hideSelected + ">" + gf_vars.hide + "</option></select>";
+    descPieces.actionType = "<select id='" + objectType + "_action_type' onchange='SetConditionalProperty(\"" + objectType + "\", \"actionType\", jQuery(this).val());'><option value='show' " + showSelected + ">" + showText + "</option><option value='hide' " + hideSelected + ">" + hideText + "</option></select>";
     descPieces.objectDescription = objText;
     descPieces.logicType = "<select id='" + objectType + "_logic_type' onchange='SetConditionalProperty(\"" + objectType + "\", \"logicType\", jQuery(this).val());'><option value='all' " + allSelected + ">" + gf_vars.all + "</option><option value='any' " + anySelected + ">" + gf_vars.any + "</option></select>";
     descPieces.ofTheFollowingMatch = gf_vars.ofTheFollowingMatch;
@@ -138,9 +149,9 @@ function CreateConditionalLogic(objectType, obj){
         str += GetRuleFields(objectType, i, rule.fieldId);
         str += GetRuleOperators(objectType, i, rule.fieldId, rule.operator);
         str += GetRuleValues(objectType, i, rule.fieldId, rule.value);
-        str += "<a class='add_field_choice' title='add another rule' onclick=\"InsertRule('" + objectType + "', " + (i+1) + ");\" onkeypress=\"InsertRule('" + objectType + "', " + (i+1) + ");\" ><i class='gficon-add'></i></a>";
+        str += "<button type='button' class='add_field_choice' title='add another rule' onclick=\"InsertRule('" + objectType + "', " + (i+1) + ");\" onkeypress=\"InsertRule('" + objectType + "', " + (i+1) + ");\" ></button>";
         if(obj.conditionalLogic.rules.length > 1 )
-            str += "<a class='delete_field_choice' title='remove this rule' onclick=\"DeleteRule('" + objectType + "', " + i + ");\" onkeypress=\"DeleteRule('" + objectType + "', " + i + ");\" ><i class='gficon-subtract'></i></a></li>";
+            str += "<button type='button' class='delete_field_choice' title='remove this rule' onclick=\"DeleteRule('" + objectType + "', " + i + ");\" onkeypress=\"DeleteRule('" + objectType + "', " + i + ");\" ></button></li>";
 
         str += "</div>";
     }
@@ -149,6 +160,11 @@ function CreateConditionalLogic(objectType, obj){
 
     //initializing placeholder script
     Placeholders.enable();
+
+    jQuery( '#' + objectType + '_conditional_logic', document ).parents( 'form' ).on( 'submit', function( e ) {
+        jQuery( '#' + objectType + '_conditional_logic_object' ).val( JSON.stringify( GetConditionalObject( objectType ).conditionalLogic ) );
+    } );
+
 }
 
 function GetRuleOperators( objectType, i, fieldId, selectedOperator ) {
@@ -1048,6 +1064,10 @@ var gfMergeTagsObj = function( form, element ) {
 
 		self.mergeTagIcon.find( '.tooltip-merge-tag' ).tooltip( {
 			show:    { delay:1250 },
+            position: {
+                my: 'center bottom',
+                at: 'center-3 top-10'
+            },
 			content: function () { return jQuery( this ).prop( 'title' ); }
 		} );
 
@@ -1612,10 +1632,6 @@ var FeedConditionObj = function( args ) {
             ToggleConditionalLogic( true, "feed_condition" );
         });
 
-        jQuery('input#feed_condition_conditional_logic').parents('form').on('submit', function(){
-            jQuery('input#feed_condition_conditional_logic_object').val( JSON.stringify( fcobj.logicObject ) );
-        });
-
     };
 
     this.init();
@@ -1663,6 +1679,36 @@ function makeArray( object ) {
 function isSet( $var ) {
     return typeof $var != 'undefined';
 }
+
+/**
+ * Initialize form title tooltip.
+ */
+jQuery( document ).ready( function() {
+
+    var $formTitle = jQuery( '.gform-form-toolbar__form-title span' );
+
+    // If form title is not present, exit.
+    if ( ! $formTitle ) {
+        return;
+    }
+
+    // Clone form title.
+    var $clone = $formTitle.clone().css( { display: 'inline', width: 'auto', visibility: 'hidden' } ).appendTo( $formTitle );
+
+    // If cloned title is wider, initialize tooltip.
+    if ( $clone.width() > $formTitle.width() ) {
+        jQuery( '.gform-form-toolbar__form-title span' ).tooltip( {
+            position:     {
+                my: 'left center',
+                at: 'right+6 center'
+            },
+            tooltipClass: 'arrow-left'
+        } );
+    }
+
+    $clone.remove();
+
+} );
 
 /**
  * The entity mappings used by the escaping helper functions.

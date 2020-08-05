@@ -30,10 +30,6 @@ html, body, fieldset, form, label, legend {
     font-family: inherit;
     vertical-align: baseline;
 }
-ul {
-    margin: 0;
-    padding: 0;
-}
 body {
     font-size: 62.5%;
     line-height: 1.5;

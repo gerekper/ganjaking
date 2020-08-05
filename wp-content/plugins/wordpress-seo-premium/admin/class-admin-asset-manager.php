@@ -8,7 +8,7 @@
 /**
  * This class registers all the necessary styles and scripts.
  *
- * Also has methods for the enqueing of scripts and styles.
+ * Also has methods for the enqueuing of scripts and styles.
  * It automatically adds a prefix to the handle.
  */
 class WPSEO_Admin_Asset_Manager {
@@ -278,6 +278,7 @@ class WPSEO_Admin_Asset_Manager {
 					'wp-annotations',
 					'wp-api',
 					'wp-api-fetch',
+					'wp-blocks',
 					'wp-components',
 					'wp-compose',
 					'wp-data',
@@ -346,7 +347,6 @@ class WPSEO_Admin_Asset_Manager {
 					self::PREFIX . 'select2',
 				],
 				'version' => '4.0.3',
-				'suffix'  => '',
 			],
 			[
 				'name' => 'configuration-wizard',

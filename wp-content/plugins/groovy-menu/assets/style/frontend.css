@@ -3619,16 +3619,16 @@ NAVBAR GENERAL STYLES
   align-items: center; }
 
 /* bugfix: For sub-submenus that climb out of the right side of the screen and, on some WP Themes, they call the horizontal scroll of the browser when opening the first level submenu. */
-.gm-navbar .gm-navbar-nav > .gm-dropdown:not(.gm-opened-before) .gm-dropdown-menu-wrapper {
+.gm-navbar.gm-navbar-dropdown-opened .gm-navbar-nav > .gm-dropdown:not(.gm-opened-before) .gm-dropdown-menu-wrapper {
   display: none; }
 
-.gm-navbar .gm-navbar-nav > .gm-dropdown:hover .gm-dropdown-menu-wrapper {
+.gm-navbar.gm-navbar-dropdown-opened .gm-navbar-nav > .gm-dropdown:hover .gm-dropdown-menu-wrapper {
   display: block; }
 
-.gm-navbar .gm-navbar-nav > .gm-dropdown .gm-dropdown-menu .gm-dropdown-submenu:not(.gm-opened-before) .gm-dropdown-menu-wrapper {
+.gm-navbar.gm-navbar-dropdown-opened .gm-navbar-nav > .gm-dropdown .gm-dropdown-menu .gm-dropdown-submenu:not(.gm-opened-before) .gm-dropdown-menu-wrapper {
   display: none; }
 
-.gm-navbar .gm-navbar-nav > .gm-dropdown .gm-dropdown-menu .gm-dropdown-submenu:hover > .gm-dropdown-menu-wrapper {
+.gm-navbar.gm-navbar-dropdown-opened .gm-navbar-nav > .gm-dropdown .gm-dropdown-menu .gm-dropdown-submenu:hover > .gm-dropdown-menu-wrapper {
   display: block; }
 
 .gm-dropdown-with-scrollbar .gm-dropdown-menu .ps__rail-y {

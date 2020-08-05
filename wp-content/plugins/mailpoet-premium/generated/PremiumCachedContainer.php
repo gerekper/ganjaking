@@ -82,11 +82,9 @@ class PremiumCachedContainer extends Container
         ];
         $this->privates = [
             'MailPoet\\Premium\\Config\\Hooks' => true,
-            'MailPoet\\Premium\\Newsletter\\StatisticsClicksRepository' => true,
             'MailPoet\\Premium\\Newsletter\\StatisticsOpensRepository' => true,
             'MailPoet\\Premium\\Newsletter\\StatisticsUnsubscribesRepository' => true,
             'MailPoet\\Premium\\Newsletter\\Stats\\PurchasedProducts' => true,
-            'MailPoet\\Premium\\Newsletter\\Stats\\SubscriberEngagement' => true,
         ];
 
         $this->aliases = [];
@@ -98,11 +96,9 @@ class PremiumCachedContainer extends Container
             'MailPoetVendor\\Psr\\Container\\ContainerInterface' => true,
             'MailPoetVendor\\Symfony\\Component\\DependencyInjection\\ContainerInterface' => true,
             'MailPoet\\Premium\\Config\\Hooks' => true,
-            'MailPoet\\Premium\\Newsletter\\StatisticsClicksRepository' => true,
             'MailPoet\\Premium\\Newsletter\\StatisticsOpensRepository' => true,
             'MailPoet\\Premium\\Newsletter\\StatisticsUnsubscribesRepository' => true,
             'MailPoet\\Premium\\Newsletter\\Stats\\PurchasedProducts' => true,
-            'MailPoet\\Premium\\Newsletter\\Stats\\SubscriberEngagement' => true,
         ];
     }
 
@@ -254,6 +250,26 @@ class PremiumCachedContainer extends Container
     }
 
     /**
+     * Gets the public 'MailPoet\Premium\Newsletter\StatisticsClicksRepository' shared autowired service.
+     *
+     * @return \MailPoet\Premium\Newsletter\StatisticsClicksRepository
+     */
+    protected function getStatisticsClicksRepositoryService()
+    {
+        return $this->services['MailPoet\\Premium\\Newsletter\\StatisticsClicksRepository'] = new \MailPoet\Premium\Newsletter\StatisticsClicksRepository(${($_ = isset($this->services['MailPoetVendor\\Doctrine\\ORM\\EntityManager']) ? $this->services['MailPoetVendor\\Doctrine\\ORM\\EntityManager'] : $this->getEntityManagerService()) && false ?: '_'});
+    }
+
+    /**
+     * Gets the public 'MailPoet\Premium\Newsletter\Stats\SubscriberEngagement' shared autowired service.
+     *
+     * @return \MailPoet\Premium\Newsletter\Stats\SubscriberEngagement
+     */
+    protected function getSubscriberEngagementService()
+    {
+        return $this->services['MailPoet\\Premium\\Newsletter\\Stats\\SubscriberEngagement'] = new \MailPoet\Premium\Newsletter\Stats\SubscriberEngagement(${($_ = isset($this->services['MailPoet\\Listing\\Handler']) ? $this->services['MailPoet\\Listing\\Handler'] : $this->getHandlerService()) && false ?: '_'}, ${($_ = isset($this->services['MailPoetVendor\\Doctrine\\ORM\\EntityManager']) ? $this->services['MailPoetVendor\\Doctrine\\ORM\\EntityManager'] : $this->getEntityManagerService()) && false ?: '_'}, ${($_ = isset($this->services['MailPoet\\Premium\\Newsletter\\StatisticsClicksRepository']) ? $this->services['MailPoet\\Premium\\Newsletter\\StatisticsClicksRepository'] : $this->getStatisticsClicksRepositoryService()) && false ?: '_'}, ${($_ = isset($this->services['MailPoet\\Premium\\Newsletter\\StatisticsOpensRepository']) ? $this->services['MailPoet\\Premium\\Newsletter\\StatisticsOpensRepository'] : $this->getStatisticsOpensRepositoryService()) && false ?: '_'}, ${($_ = isset($this->services['MailPoet\\Premium\\Newsletter\\StatisticsUnsubscribesRepository']) ? $this->services['MailPoet\\Premium\\Newsletter\\StatisticsUnsubscribesRepository'] : $this->getStatisticsUnsubscribesRepositoryService()) && false ?: '_'}, ${($_ = isset($this->services['MailPoet\\Cron\\Workers\\StatsNotifications\\NewsletterLinkRepository']) ? $this->services['MailPoet\\Cron\\Workers\\StatsNotifications\\NewsletterLinkRepository'] : $this->getNewsletterLinkRepositoryService()) && false ?: '_'}, ${($_ = isset($this->services['MailPoet\\Newsletter\\NewslettersRepository']) ? $this->services['MailPoet\\Newsletter\\NewslettersRepository'] : $this->getNewslettersRepositoryService()) && false ?: '_'});
+    }
+
+    /**
      * Gets the public 'MailPoet\Statistics\StatisticsWooCommercePurchasesRepository' shared service.
      *
      * @return \MailPoet\Statistics\StatisticsWooCommercePurchasesRepository
@@ -294,16 +310,6 @@ class PremiumCachedContainer extends Container
     }
 
     /**
-     * Gets the private 'MailPoet\Premium\Newsletter\StatisticsClicksRepository' shared autowired service.
-     *
-     * @return \MailPoet\Premium\Newsletter\StatisticsClicksRepository
-     */
-    protected function getStatisticsClicksRepositoryService()
-    {
-        return $this->services['MailPoet\\Premium\\Newsletter\\StatisticsClicksRepository'] = new \MailPoet\Premium\Newsletter\StatisticsClicksRepository(${($_ = isset($this->services['MailPoetVendor\\Doctrine\\ORM\\EntityManager']) ? $this->services['MailPoetVendor\\Doctrine\\ORM\\EntityManager'] : $this->getEntityManagerService()) && false ?: '_'});
-    }
-
-    /**
      * Gets the private 'MailPoet\Premium\Newsletter\StatisticsOpensRepository' shared autowired service.
      *
      * @return \MailPoet\Premium\Newsletter\StatisticsOpensRepository
@@ -331,16 +337,6 @@ class PremiumCachedContainer extends Container
     protected function getPurchasedProductsService()
     {
         return $this->services['MailPoet\\Premium\\Newsletter\\Stats\\PurchasedProducts'] = new \MailPoet\Premium\Newsletter\Stats\PurchasedProducts(${($_ = isset($this->services['MailPoet\\WooCommerce\\Helper']) ? $this->services['MailPoet\\WooCommerce\\Helper'] : $this->getHelperService()) && false ?: '_'}, ${($_ = isset($this->services['MailPoet\\Statistics\\StatisticsWooCommercePurchasesRepository']) ? $this->services['MailPoet\\Statistics\\StatisticsWooCommercePurchasesRepository'] : $this->getStatisticsWooCommercePurchasesRepositoryService()) && false ?: '_'}, ${($_ = isset($this->services['MailPoet\\Newsletter\\NewslettersRepository']) ? $this->services['MailPoet\\Newsletter\\NewslettersRepository'] : $this->getNewslettersRepositoryService()) && false ?: '_'}, ${($_ = isset($this->services['MailPoet\\WP\\Functions']) ? $this->services['MailPoet\\WP\\Functions'] : $this->getFunctionsService()) && false ?: '_'});
-    }
-
-    /**
-     * Gets the private 'MailPoet\Premium\Newsletter\Stats\SubscriberEngagement' shared autowired service.
-     *
-     * @return \MailPoet\Premium\Newsletter\Stats\SubscriberEngagement
-     */
-    protected function getSubscriberEngagementService()
-    {
-        return $this->services['MailPoet\\Premium\\Newsletter\\Stats\\SubscriberEngagement'] = new \MailPoet\Premium\Newsletter\Stats\SubscriberEngagement(${($_ = isset($this->services['MailPoet\\Listing\\Handler']) ? $this->services['MailPoet\\Listing\\Handler'] : $this->getHandlerService()) && false ?: '_'}, ${($_ = isset($this->services['MailPoetVendor\\Doctrine\\ORM\\EntityManager']) ? $this->services['MailPoetVendor\\Doctrine\\ORM\\EntityManager'] : $this->getEntityManagerService()) && false ?: '_'}, ${($_ = isset($this->services['MailPoet\\Premium\\Newsletter\\StatisticsClicksRepository']) ? $this->services['MailPoet\\Premium\\Newsletter\\StatisticsClicksRepository'] : $this->getStatisticsClicksRepositoryService()) && false ?: '_'}, ${($_ = isset($this->services['MailPoet\\Premium\\Newsletter\\StatisticsOpensRepository']) ? $this->services['MailPoet\\Premium\\Newsletter\\StatisticsOpensRepository'] : $this->getStatisticsOpensRepositoryService()) && false ?: '_'}, ${($_ = isset($this->services['MailPoet\\Premium\\Newsletter\\StatisticsUnsubscribesRepository']) ? $this->services['MailPoet\\Premium\\Newsletter\\StatisticsUnsubscribesRepository'] : $this->getStatisticsUnsubscribesRepositoryService()) && false ?: '_'}, ${($_ = isset($this->services['MailPoet\\Cron\\Workers\\StatsNotifications\\NewsletterLinkRepository']) ? $this->services['MailPoet\\Cron\\Workers\\StatsNotifications\\NewsletterLinkRepository'] : $this->getNewsletterLinkRepositoryService()) && false ?: '_'}, ${($_ = isset($this->services['MailPoet\\Newsletter\\NewslettersRepository']) ? $this->services['MailPoet\\Newsletter\\NewslettersRepository'] : $this->getNewslettersRepositoryService()) && false ?: '_'});
     }
 
     public function getParameter($name)

@@ -106,6 +106,8 @@ class GFEntryList {
 			 */
 			do_action( 'gform_post_entry_list', $form_id );
 		}
+
+		GFForms::admin_footer();
 	}
 
 	/**
@@ -259,45 +261,29 @@ class GFEntryList {
 		}
 
 		$form = GFFormsModel::get_form_meta( $form_id );
-
 		$table = new GF_Entry_List_Table( array( 'form_id' => $form_id, 'form' => $form ) );
-		$table->prepare_items();
-		$table->output_styles();
 		$table->output_scripts();
-
-		wp_print_styles( array( 'thickbox' ) );
-
-		echo GFCommon::get_remote_message();
-
+		wp_print_styles( array( 'thickbox', 'gform_settings' ) );
+		GFForms::admin_header();
+		$table->prepare_items();
 		?>
-
-		<div class="wrap <?php echo GFCommon::get_browser_class() ?>">
-
-			<?php
-				GFCommon::form_page_title( $form );
-				GFCommon::display_admin_message();
-				GFCommon::display_dismissible_message();
-			?>
-
-			<?php
-			GFForms::top_toolbar();
-				?>
-
-				<div id="entry_search_container">
-					<div id="entry_filters" style=""></div>
-					<a style="" class="button" id="entry_search_button"
-					   href="javascript:Search('<?php echo esc_js( $table->get_orderby() ); ?>', '<?php echo esc_js( $table->get_order() ) ?>', <?php echo absint( $form_id ); ?>, jQuery('.gform-filter-value').val(), '<?php echo esc_js( $table->get_filter() ) ?>', jQuery('.gform-filter-field').val(), jQuery('.gform-filter-operator').val());"><?php esc_html_e( 'Search', 'gravityforms' ) ?></a>
-
-				</div>
-
-			<form id="entry_list_form" method="post">
+			<form id="entry_list_form" method="post" class="gform-settings-panel__content">
 				<?php
 				$table->views();
+                ?>
+                <div id="entry_search_container" >
+                    <div id="entry_filters" ></div>
+                    <a style="" class="button" id="entry_search_button"
+                       href="javascript:Search('<?php echo esc_js( $table->get_orderby() ); ?>', '<?php echo esc_js( $table->get_order() ) ?>', <?php echo absint( $form_id ); ?>, jQuery('.gform-filter-value').val(), '<?php echo esc_js( $table->get_filter() ) ?>', jQuery('.gform-filter-field').val(), jQuery('.gform-filter-operator').val());"><?php esc_html_e( 'Search', 'gravityforms' ) ?></a>
+
+                </div>
+                <?php
 				$table->display();
 				?>
 			</form>
 		</div>
 		<?php
+
 	}
 
 	public static function get_icon_url( $path ) {
@@ -832,11 +818,11 @@ final class GF_Entry_List_Table extends WP_List_Table {
 			'gf_page'   => 'select_columns',
 			'id'        => absint( $form_id ),
 			'TB_iframe' => 'true',
-			'height'    => 365,
-			'width'     => 600,
+			'height'    => 465,
+			'width'     => 620,
 		), admin_url() );
 
-		$table_columns['column_selector'] = '<a aria-label="' . esc_attr__( 'click to select columns to display', 'gravityforms' ) . '" href="' . esc_url( $column_selector_url ) . '" class="thickbox entries_edit_icon"><i aria-hidden="true" class="fa fa-cog" title="' . esc_attr__( 'click to select columns to display', 'gravityforms' ) . '"></i></a>';
+		$table_columns['column_selector'] = '<a title="<div class=\'tb-title\'><div class=\'tb-title__logo\'></div><div class=\'tb-title__text\'><div class=\'tb-title__main\'>' . esc_attr__( 'Select Entry Table Columns', 'gravityforms' ) . '</div><div class=\'tb-title__sub\'>' . esc_attr( 'Drag & drop to order and select which columns are displayed in the entries table.', 'gravityforms' ) . '</div></div></div>" aria-label="' . esc_attr__( 'click to select columns to display', 'gravityforms' ) . '" href="' . esc_url( $column_selector_url ) . '" class="thickbox entries_edit_icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><rect x="0" fill="none" width="20" height="20"/><g><path fill="currentColor" d="M18 12h-2.18c-.17.7-.44 1.35-.81 1.93l1.54 1.54-2.1 2.1-1.54-1.54c-.58.36-1.23.63-1.91.79V19H8v-2.18c-.68-.16-1.33-.43-1.91-.79l-1.54 1.54-2.12-2.12 1.54-1.54c-.36-.58-.63-1.23-.79-1.91H1V9.03h2.17c.16-.7.44-1.35.8-1.94L2.43 5.55l2.1-2.1 1.54 1.54c.58-.37 1.24-.64 1.93-.81V2h3v2.18c.68.16 1.33.43 1.91.79l1.54-1.54 2.12 2.12-1.54 1.54c.36.59.64 1.24.8 1.94H18V12zm-8.5 1.5c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3z"/></g></svg></a>';
 
 		/**
 		 * Allow the columns to be displayed in the entry list table to be overridden.
@@ -902,7 +888,7 @@ final class GF_Entry_List_Table extends WP_List_Table {
 		echo '<th scope="row" class="manage-column column-is_starred">';
 		if ( $this->filter !== 'trash' ) {
 			?>
-			<img id="star_image_<?php echo esc_attr( $entry['id'] ) ?>" src="<?php echo GFCommon::get_base_url() ?>/images/star<?php echo intval( $entry['is_starred'] ) ?>.png" onclick="ToggleStar(this, '<?php echo esc_js( $entry['id'] ); ?>','<?php echo esc_js( $this->filter ); ?>');" />
+			<img id="star_image_<?php echo esc_attr( $entry['id'] ) ?>" src="<?php echo GFCommon::get_base_url() ?>/images/star<?php echo intval( $entry['is_starred'] ) ?>.svg" onclick="ToggleStar(this, '<?php echo esc_js( $entry['id'] ); ?>','<?php echo esc_js( $this->filter ); ?>');" />
 			<?php
 		}
 		echo '</th>';
@@ -1401,7 +1387,7 @@ final class GF_Entry_List_Table extends WP_List_Table {
 
 			$entry_count = count( $entries ) > 1 ? sprintf( esc_html__( '%d entries', 'gravityforms' ), count( $entries ) ) : esc_html__( '1 entry', 'gravityforms' );
 
-			$message_class = 'updated';
+			$message_class = 'success';
 
 			switch ( $bulk_action ) {
 				case 'delete':
@@ -1478,7 +1464,7 @@ final class GF_Entry_List_Table extends WP_List_Table {
 		}
 
 		if ( ! empty( $message ) ) {
-			echo '<div id="message" class="' . $message_class . ' notice is-dismissible"><p>' . $message . '</p></div>';
+			echo '<div id="message" class="alert ' . $message_class . '"><p>' . $message . '</p></div>';
 		};
 	}
 
@@ -1569,11 +1555,11 @@ final class GF_Entry_List_Table extends WP_List_Table {
 			}
 
 			function ToggleStar(img, lead_id, filter) {
-				var is_starred = img.src.indexOf("star1.png") >= 0;
+				var is_starred = img.src.indexOf("star1.svg") >= 0;
 				if (is_starred)
-					img.src = img.src.replace("star1.png", "star0.png");
+					img.src = img.src.replace("star1.svg", "star0.svg");
 				else
-					img.src = img.src.replace("star0.png", "star1.png");
+					img.src = img.src.replace("star0.svg", "star1.svg");
 
 				jQuery("#entry_row_" + lead_id).toggleClass("entry_starred");
 				//if viewing the starred entries, hide the row and adjust the paging counts
@@ -1751,7 +1737,7 @@ final class GF_Entry_List_Table extends WP_List_Table {
 						} else {
 							var message = <?php echo json_encode( __( 'Notifications for %s were resent successfully.', 'gravityforms' ) ); ?>;
 							var c = leadIds == 0 ? gformVars.countAllEntries : leadIds.length;
-							displayMessage(message.replace('%s', c + ' ' + getPlural(c, <?php echo json_encode( __( 'entry', 'gravityforms' ) ); ?>, <?php echo json_encode( __( 'entries', 'gravityforms' ) ); ?>)), "updated", "#entry_list_form");
+							displayMessage(message.replace('%s', c + ' ' + getPlural(c, <?php echo json_encode( __( 'entry', 'gravityforms' ) ); ?>, <?php echo json_encode( __( 'entries', 'gravityforms' ) ); ?>)), "success", "#entry_list_form");
 							closeModal(true);
 						}
 
@@ -1813,7 +1799,7 @@ final class GF_Entry_List_Table extends WP_List_Table {
 
 				hideMessage(container, true);
 
-				var messageBox = jQuery('<div class="message ' + messageClass + '" style="display:none;"><p>' + message + '</p></div>');
+				var messageBox = jQuery('<div class="alert message ' + messageClass + '" style="display:none;"><p>' + message + '</p></div>');
 				jQuery(messageBox).prependTo(container).slideDown();
 
 				if (messageClass == 'updated')

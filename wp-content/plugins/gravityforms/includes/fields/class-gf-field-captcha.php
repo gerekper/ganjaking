@@ -13,6 +13,30 @@ class GF_Field_CAPTCHA extends GF_Field {
 		return esc_attr__( 'CAPTCHA', 'gravityforms' );
 	}
 
+	/**
+	 * Returns the field's form editor description.
+	 *
+	 * @since 2.5
+	 *
+	 * @return string
+	 */
+	public function get_form_editor_field_description() {
+		return esc_attr__( 'Adds a captcha field to your form to help protect your website from spam and bot abuse.', 'gravityforms' );
+	}
+
+	/**
+	 * Returns the field's form editor icon.
+	 *
+	 * This could be an icon url or a dashicons class.
+	 *
+	 * @since 2.5
+	 *
+	 * @return string
+	 */
+	public function get_form_editor_field_icon() {
+		return 'dashicons-shield-alt';
+	}
+
 	function get_form_editor_field_settings() {
 		return array(
 			'captcha_type_setting',
@@ -202,8 +226,8 @@ class GF_Field_CAPTCHA extends GF_Field {
 					// script is queued for the footer with the language property specified
 					wp_enqueue_script( 'gform_recaptcha', 'https://www.google.com/recaptcha/api.js?hl=' . $language . '&render=explicit', array(), false, true );
 
-					add_action( 'wp_footer', array( $this, 'ensure_recaptcha_js' ), 21 );
-					add_action( 'gform_preview_footer', array( $this, 'ensure_recaptcha_js' ) );
+					add_action( 'wp_footer', array( $this, 'ensure_recaptcha_js' ), 99 ); // @todo Discuss priority... orig 21, script 30
+					add_action( 'gform_preview_footer', array( $this, 'ensure_recaptcha_js' ), 99 ); // @todo
 
 					$stoken = '';
 
@@ -437,7 +461,7 @@ class GF_Field_CAPTCHA extends GF_Field {
 
 		//encrypt as 128
 		$cypher = defined( 'MCRYPT_RIJNDAEL_128' ) ? MCRYPT_RIJNDAEL_128 : false;
-		$encrypted = GFCommon::encrypt( $padded, $secret_key, $cypher );
+		$encrypted = GFCommon::openssl_encrypt( $padded, $secret_key, $cypher );
 
 		$token = str_replace( array( '+', '/', '=' ), array( '-', '_', '' ), $encrypted );
 		GFCommon::log_debug( ' token being used is: ' . $token );

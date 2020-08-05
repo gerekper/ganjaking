@@ -203,7 +203,7 @@ class ParameterBag implements \YoastSEO_Vendor\Symfony\Component\DependencyInjec
             }
             $resolved = $this->get($key);
             if (!\is_string($resolved) && !\is_numeric($resolved)) {
-                throw new \YoastSEO_Vendor\Symfony\Component\DependencyInjection\Exception\RuntimeException(\sprintf('A string value must be composed of strings and/or numbers, but found parameter "%s" of type %s inside string value "%s".', $key, \gettype($resolved), $value));
+                throw new \YoastSEO_Vendor\Symfony\Component\DependencyInjection\Exception\RuntimeException(\sprintf('A string value must be composed of strings and/or numbers, but found parameter "%s" of type "%s" inside string value "%s".', $key, \gettype($resolved), $value));
             }
             $resolved = (string) $resolved;
             $resolving[$lcKey] = \true;

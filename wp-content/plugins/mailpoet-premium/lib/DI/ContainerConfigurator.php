@@ -55,8 +55,8 @@ class ContainerConfigurator implements IContainerConfigurator {
       ->setFactory([__CLASS__, 'createRenderer']);
     // Stats
     $container->autowire(\MailPoet\Premium\Newsletter\Stats\PurchasedProducts::class);
-    $container->autowire(\MailPoet\Premium\Newsletter\Stats\SubscriberEngagement::class);
-    $container->autowire(\MailPoet\Premium\Newsletter\StatisticsClicksRepository::class);
+    $container->autowire(\MailPoet\Premium\Newsletter\Stats\SubscriberEngagement::class)->setPublic(true);
+    $container->autowire(\MailPoet\Premium\Newsletter\StatisticsClicksRepository::class)->setPublic(true);
     $container->autowire(\MailPoet\Premium\Newsletter\StatisticsOpensRepository::class);
     $container->autowire(\MailPoet\Premium\Newsletter\StatisticsUnsubscribesRepository::class);
     return $container;

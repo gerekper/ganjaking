@@ -140,6 +140,16 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 					'lodash',
 				],
 			],
+			[
+				'name'         => 'yoast-premium-prominent-words-indexation',
+				'path'         => 'assets/js/dist/',
+				'filename'     => 'yoast-premium-prominent-words-indexation-' . $version . WPSEO_CSSJS_SUFFIX . '.js',
+				'dependencies' => [
+					WPSEO_Admin_Asset_Manager::PREFIX . 'analysis',
+					WPSEO_Admin_Asset_Manager::PREFIX . 'indexation',
+					'yoast-seo-premium-commons',
+				],
+			],
 		];
 	}
 

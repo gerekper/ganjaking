@@ -135,13 +135,13 @@ $generated_i18n_strings = array(
 	// Reference: js/src/components/WordPressUserSelectorOnboardingWizard.js:53
 	__( 'You can edit the details shown in meta data, like the social profiles, the name and the description of this user on their %1$s profile page.', 'wordpress-seo' ),
 
-	// Reference: js/src/components/WordPressUserSelectorSearchAppearance.js:117
-	__( 'Name:', 'wordpress-seo' ),
+	// Reference: js/src/components/WordPressUserSelectorSearchAppearance.js:116
+	__( 'Name', 'wordpress-seo' ),
 
 	// Reference: js/src/components/WordPressUserSelectorSearchAppearance.js:69
-	__( 'Error: Please select a user below to make your site\'s meta data complete.', 'wordpress-seo' ),
+	__( 'Please select a user below to make your site\'s meta data complete.', 'wordpress-seo' ),
 
-	// Reference: js/src/components/WordPressUserSelectorSearchAppearance.js:86
+	// Reference: js/src/components/WordPressUserSelectorSearchAppearance.js:85
 	__( 'You have selected the user %1$s as the person this site represents. Their user profile information will now be used in search results. %2$sUpdate their profile to make sure the information is correct.%3$s', 'wordpress-seo' ),
 
 	// Reference: js/src/components/contentAnalysis/KeywordInput.js:41
@@ -250,13 +250,13 @@ $generated_i18n_strings = array(
 	// Reference: js/src/help-scout-beacon.js:208
 	__( 'When you click OK we will open our HelpScout beacon where you can find answers to your questions. This beacon will load our support data and also potentially set cookies.', 'wordpress-seo' ),
 
-	// Reference: js/src/initializers/edit.js:217
+	// Reference: js/src/initializers/edit.js:216
 	__( 'Yoast SEO', 'wordpress-seo' ),
 
-	// Reference: js/src/initializers/edit.js:85
+	// Reference: js/src/initializers/edit.js:81
 	__( 'Marking links with nofollow/sponsored has been disabled for WordPress installs < 5.4.', 'wordpress-seo' ),
 
-	// Reference: js/src/initializers/edit.js:88
+	// Reference: js/src/initializers/edit.js:84
 	__( 'Please upgrade your WordPress version or install the Gutenberg plugin to get this %1$s feature.', 'wordpress-seo' ),
 
 	// Reference: js/src/inline-links/edit-link.js:106
@@ -289,8 +289,8 @@ $generated_i18n_strings = array(
 	// Reference: js/src/inline-links/inline.js:224
 	__( 'Open in new tab', 'wordpress-seo' ),
 
-	// Reference: js/src/inline-links/utils.js:101
-	__( '%s (opens in a new tab)', 'wordpress-seo' ),
+	// Reference: js/src/structured-data-blocks/faq/block.js:21
+	__( 'Yoast FAQ', 'wordpress-seo' ),
 
 	// Reference: js/src/structured-data-blocks/faq/block.js:22
 	__( 'List your Frequently Asked Questions in an SEO-friendly way. You can only use one FAQ block per post.', 'wordpress-seo' ),
@@ -304,6 +304,14 @@ $generated_i18n_strings = array(
 	// Reference: js/src/structured-data-blocks/faq/block.js:28
 	// Reference: js/src/structured-data-blocks/how-to/block.js:56
 	__( 'Schema', 'wordpress-seo' ),
+
+	// Reference: js/src/structured-data-blocks/faq/block.js:29
+	// Reference: js/src/structured-data-blocks/how-to/block.js:57
+	__( 'SEO', 'wordpress-seo' ),
+
+	// Reference: js/src/structured-data-blocks/faq/block.js:30
+	// Reference: js/src/structured-data-blocks/how-to/block.js:58
+	__( 'Structured Data', 'wordpress-seo' ),
 
 	// Reference: js/src/structured-data-blocks/faq/components/FAQ.js:158
 	__( 'New question added', 'wordpress-seo' ),
@@ -332,6 +340,9 @@ $generated_i18n_strings = array(
 	// Reference: js/src/structured-data-blocks/faq/components/Question.js:55
 	// Reference: js/src/structured-data-blocks/how-to/components/HowToStep.js:178
 	__( 'Add image', 'wordpress-seo' ),
+
+	// Reference: js/src/structured-data-blocks/how-to/block.js:49
+	__( 'Yoast How-to', 'wordpress-seo' ),
 
 	// Reference: js/src/structured-data-blocks/how-to/block.js:50
 	__( 'Create a How-to guide in an SEO-friendly way. You can only use one How-to block per post.', 'wordpress-seo' ),

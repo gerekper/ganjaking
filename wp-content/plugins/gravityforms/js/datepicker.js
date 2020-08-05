@@ -43,7 +43,7 @@ function gformInitSingleDatepicker( $element ) {
 		optionsObj.dateFormat = 'yy.mm.dd';
 	}
 
-	if ($element.hasClass('datepicker_with_icon')) {
+	if ($element.hasClass('gdatepicker_with_icon')) {
 		optionsObj.showOn = 'both';
 		optionsObj.buttonImage = $element.parent().siblings("[id^='gforms_calendar_icon_input']").val();
 		optionsObj.buttonImageOnly = true;

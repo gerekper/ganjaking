@@ -33,7 +33,7 @@ class EnvPlaceholderParameterBag extends \YoastSEO_Vendor\Symfony\Component\Depe
                 }
             }
             if (!\preg_match('/^(?:\\w++:)*+\\w++$/', $env)) {
-                throw new \YoastSEO_Vendor\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Invalid %s name: only "word" characters are allowed.', $name));
+                throw new \YoastSEO_Vendor\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Invalid "%s" name: only "word" characters are allowed.', $name));
             }
             if ($this->has($name)) {
                 $defaultValue = parent::get($name);
@@ -101,7 +101,7 @@ class EnvPlaceholderParameterBag extends \YoastSEO_Vendor\Symfony\Component\Depe
             if (\is_numeric($default = $this->parameters[$name])) {
                 $this->parameters[$name] = (string) $default;
             } elseif (null !== $default && !\is_scalar($default)) {
-                throw new \YoastSEO_Vendor\Symfony\Component\DependencyInjection\Exception\RuntimeException(\sprintf('The default value of env parameter "%s" must be scalar or null, %s given.', $env, \gettype($default)));
+                throw new \YoastSEO_Vendor\Symfony\Component\DependencyInjection\Exception\RuntimeException(\sprintf('The default value of env parameter "%s" must be scalar or null, "%s" given.', $env, \gettype($default)));
             }
         }
     }
