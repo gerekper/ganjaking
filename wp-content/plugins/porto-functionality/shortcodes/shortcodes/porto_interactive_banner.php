@@ -33,7 +33,7 @@ function porto_load_interactive_banner_shortcode() {
 			'name'                    => __( 'Porto Banner', 'porto-functionality' ),
 			'base'                    => 'porto_interactive_banner',
 			'class'                   => 'porto_interactive_banner',
-			'icon'                    => 'porto4_vc_interactive_banner',
+			'icon'                    => 'far fa-address-card',
 			'category'                => __( 'Porto', 'porto-functionality' ),
 			'description'             => __( 'Displays the interactive banner image with Information', 'porto-functionality' ),
 			'as_parent'               => array( 'only' => 'porto_interactive_banner_layer' ),

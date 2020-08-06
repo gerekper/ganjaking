@@ -44,7 +44,7 @@ function porto_load_page_header_shortcode() {
 			'name'     => sprintf( __( '%s Page Header', 'porto-functionality' ), 'Porto' ),
 			'base'     => 'porto_page_header',
 			'category' => __( 'Porto', 'porto-functionality' ),
-			'icon'     => 'porto4_vc_page_header',
+			'icon'     => 'fas fa-link',
 			'controls' => 'full',
 			'params'   => array(
 				array(

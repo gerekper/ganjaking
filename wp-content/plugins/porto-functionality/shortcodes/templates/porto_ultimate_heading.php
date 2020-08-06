@@ -222,7 +222,10 @@ if ( ! function_exists( 'porto_ultimate_heading_spacer' ) ) {
 		if ( ! isset( $main_heading_attrs_escaped ) ) {
 			$main_heading_attrs_escaped = '';
 		}
-		$output .= '<div class="porto-u-main-heading"><' . esc_html( $heading_tag ) . $main_heading_attrs_escaped . ' style="' . esc_attr( $main_heading_style_inline ) . '">' . wp_kses_post( $main_heading ) . '</' . esc_html( $heading_tag ) . '></div>';
+		if ( $main_heading_style_inline ) {
+			$main_heading_attrs_escaped .= ' style="' . esc_attr( $main_heading_style_inline ) . '"';
+		}
+		$output .= '<div class="porto-u-main-heading"><' . esc_html( $heading_tag ) . $main_heading_attrs_escaped . '>' . wp_kses_post( $main_heading ) . '</' . esc_html( $heading_tag ) . '></div>';
 	}
 	if ( 'middle' == $spacer_position && 'no_spacer' != $spacer ) {
 		$output .= porto_ultimate_heading_spacer( $wrapper_class, $wrapper_style, $icon_inline );

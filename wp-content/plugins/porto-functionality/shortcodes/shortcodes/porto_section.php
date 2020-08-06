@@ -105,7 +105,7 @@ function porto_load_section_shortcode() {
 			'name'            => 'Porto ' . __( 'Section', 'porto-functionality' ),
 			'base'            => 'porto_section',
 			'category'        => __( 'Porto', 'porto-functionality' ),
-			'icon'            => 'porto_vc_section',
+			'icon'            => 'far fa-file',
 			'as_parent'       => array( 'except' => 'porto_section' ),
 			'content_element' => true,
 			'controls'        => 'full',

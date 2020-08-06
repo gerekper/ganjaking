@@ -22,7 +22,7 @@ function porto_load_info_list_item_shortcode() {
 			'name'                    => __( 'Porto Info List Item', 'porto-functionality' ),
 			'base'                    => 'porto_info_list_item',
 			'class'                   => 'porto_info_list_item',
-			'icon'                    => 'porto4_vc_info_list_item',
+			'icon'                    => 'fas fa-tasks',
 			'category'                => __( 'Porto', 'porto-functionality' ),
 			'as_child'                => array( 'only' => 'porto_info_list' ),
 			'content_element'         => true,

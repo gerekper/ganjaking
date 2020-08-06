@@ -121,11 +121,11 @@ switch ( $category_layout ) {
 
 			$output             .= '<div>';
 				$output         .= '<div class="portfolio-item">';
-					$output     .= '<a href="' . get_term_link( $cat_id ) . '" class="text-decoration-none">';
+					$output     .= '<a href="' . esc_url( get_term_link( $cat_id ) ) . '" class="text-decoration-none">';
 						$output .= '<span class="thumb-info ' . $classes . '"><span class="thumb-info-wrapper m-none">';
 
 			if ( $cat_img_url ) {
-				$output .= '<div class="background-image" style="background-image: url(' . $cat_img_url . ')"></div>';
+				$output .= '<div class="background-image" style="background-image: url(' . esc_url( $cat_img_url ) . ')"></div>';
 			}
 
 			if ( ! $info_view ) { // Basic
@@ -226,6 +226,22 @@ switch ( $category_layout ) {
 			$output .= '</div>';
 
 		break;
+	default:
+		$output .= '<ul class="portfolio-cat-list list list-unstyled' . ( $el_class ? ' ' .esc_attr( trim( $el_class ) ) : '' ) . '">';
+
+		$term_id = false;
+		if ( is_archive() ) {
+			$term = get_queried_object();
+			if ( $term && isset( $term->term_id ) ) {
+				$term_id = $term->term_id;
+			}
+		}
+		foreach ( $cats as $cat ) {
+			$output .= '<li class="portfolio-item' . ( $term_id && $term_id === $cat->term_id ? ' active' : '' ) . '">';
+			$output .= '<a href="' . esc_url( get_term_link( $cat->term_id ) ) . '"><h5 class="portfolio-item-title">' . esc_html( $cat->name ) . '</h5></a>';
+			$output .= '</li>';
+		}
+		$output .= '</ul>';
 
 }
 

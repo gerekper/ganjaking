@@ -23,7 +23,7 @@ function porto_load_recent_portfolios_shortcode() {
 			'name'     => 'Porto ' . __( 'Recent Portfolios', 'porto-functionality' ),
 			'base'     => 'porto_recent_portfolios',
 			'category' => __( 'Porto', 'porto-functionality' ),
-			'icon'     => 'porto_vc_recent_portfolios',
+			'icon'     => 'far fa-images',
 			'params'   => array(
 				array(
 					'type'        => 'textfield',
@@ -112,7 +112,7 @@ function porto_load_recent_portfolios_shortcode() {
 					'admin_label' => true,
 				),
 				array(
-					'type'       => 'textfield',
+					'type'        => 'textfield',
 					'heading'     => __( 'Portfolio IDs', 'porto-functionality' ),
 					'description' => __( 'comma separated list of portfolio ids', 'porto-functionality' ),
 					'param_name'  => 'post_in',
@@ -165,7 +165,7 @@ function porto_load_recent_portfolios_shortcode() {
 					'param_name' => 'nav_pos',
 					'value'      => array(
 						__( 'Middle', 'porto-functionality' ) => '',
-						__( 'Top', 'porto-functionality' )    => 'show-nav-title',
+						__( 'Top', 'porto-functionality' ) => 'show-nav-title',
 						__( 'Bottom', 'porto-functionality' ) => 'nav-bottom',
 					),
 					'dependency' => array(

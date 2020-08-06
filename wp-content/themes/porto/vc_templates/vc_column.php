@@ -55,7 +55,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @var $this WPBakeryShortCode_VC_Column
  */
 $parallax_speed_bg = $parallax_speed_video = $parallax = $parallax_image = $video_bg = $video_bg_url = $video_bg_parallax = '';
-
+$el_id  = '';
 $output = '';
 $atts   = vc_map_get_attributes( $this->getShortcode(), $atts );
 extract( $atts );
@@ -304,6 +304,9 @@ if ( $animation_type ) {
 	if ( $animation_duration && 1000 != $animation_duration ) {
 		$wrapper_attributes[] = 'data-appear-animation-duration="' . esc_attr( $animation_duration ) . '"';
 	}
+}
+if ( ! empty( $el_id ) ) {
+	$wrapper_attributes[] = 'id="' . esc_attr( $el_id ) . '"';
 }
 
 $output .= '<div ' . implode( ' ', $wrapper_attributes ) . '>';

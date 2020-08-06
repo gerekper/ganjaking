@@ -1,9 +1,0 @@
-2020-07-06T23:49:08+00:00 CRITICAL Uncaught Error: Class 'WeDevs\PM_Pro\User\Models\User' not found in /home/gerekper/web/ganjaking.asia/public_html/wp-content/plugins/wedevs-project-manager-business/core/Notifications/Emails/Daily_Digest.php:75
-Stack trace:
-#0 /home/gerekper/web/ganjaking.asia/public_html/wp-includes/class-wp-hook.php(287): WeDevs\PM_Pro\Core\Notifications\Emails\Daily_Digest->daily_digest()
-#1 /home/gerekper/web/ganjaking.asia/public_html/wp-includes/class-wp-hook.php(311): WP_Hook->apply_filters()
-#2 /home/gerekper/web/ganjaking.asia/public_html/wp-includes/plugin.php(544): WP_Hook->do_action()
-#3 /home/gerekper/web/ganjaking.asia/public_html/wp-cron.php(138): do_action_ref_array()
-#4 {main}
-  thrown in /home/gerekper/web/ganjaking.asia/public_html/wp-content/plugins/wedevs-project-manager-business/core/Notifications/Emails/Daily_Digest.php on line 75
-

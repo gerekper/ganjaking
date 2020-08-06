@@ -23,7 +23,7 @@ function porto_load_feature_box_shortcode() {
 			'name'            => 'Porto ' . __( 'Feature Box', 'porto-functionality' ),
 			'base'            => 'porto_feature_box',
 			'category'        => __( 'Porto', 'porto-functionality' ),
-			'icon'            => 'porto_vc_feature_box',
+			'icon'            => 'far fa-check-circle',
 			'as_parent'       => array( 'except' => 'porto_feature_box' ),
 			'content_element' => true,
 			'controls'        => 'full',

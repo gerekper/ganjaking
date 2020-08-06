@@ -736,7 +736,7 @@ class PortoCustomProduct {
 			array(
 				'name'     => __( 'Product Image', 'porto-functionality' ),
 				'base'     => 'porto_single_product_image',
-				'icon'     => 'porto_vc_woocommerce',
+				'icon'     => 'fas fa-cart-arrow-down',
 				'category' => __( 'Product Page', 'porto-functionality' ),
 				'params'   => array(
 					array(
@@ -761,7 +761,7 @@ class PortoCustomProduct {
 			array(
 				'name'     => __( 'Product Title', 'porto-functionality' ),
 				'base'     => 'porto_single_product_title',
-				'icon'     => 'porto_vc_woocommerce',
+				'icon'     => 'fas fa-cart-arrow-down',
 				'category' => __( 'Product Page', 'porto-functionality' ),
 				'params'   => array(
 					array(
@@ -803,7 +803,7 @@ class PortoCustomProduct {
 			array(
 				'name'                    => __( 'Product Description', 'porto-functionality' ),
 				'base'                    => 'porto_single_product_description',
-				'icon'                    => 'porto_vc_woocommerce',
+				'icon'                    => 'fas fa-cart-arrow-down',
 				'category'                => __( 'Product Page', 'porto-functionality' ),
 				'show_settings_on_create' => false,
 			)
@@ -812,7 +812,7 @@ class PortoCustomProduct {
 			array(
 				'name'                    => __( 'Product Rating', 'porto-functionality' ),
 				'base'                    => 'porto_single_product_rating',
-				'icon'                    => 'porto_vc_woocommerce',
+				'icon'                    => 'fas fa-cart-arrow-down',
 				'category'                => __( 'Product Page', 'porto-functionality' ),
 				'show_settings_on_create' => false,
 			)
@@ -821,7 +821,7 @@ class PortoCustomProduct {
 			array(
 				'name'     => __( 'Product Hooks', 'porto-functionality' ),
 				'base'     => 'porto_single_product_actions',
-				'icon'     => 'porto_vc_woocommerce',
+				'icon'     => 'fas fa-cart-arrow-down',
 				'category' => __( 'Product Page', 'porto-functionality' ),
 				'params'   => array(
 					array(
@@ -845,7 +845,7 @@ class PortoCustomProduct {
 			array(
 				'name'                    => __( 'Product Price', 'porto-functionality' ),
 				'base'                    => 'porto_single_product_price',
-				'icon'                    => 'porto_vc_woocommerce',
+				'icon'                    => 'fas fa-cart-arrow-down',
 				'category'                => __( 'Product Page', 'porto-functionality' ),
 				'show_settings_on_create' => false,
 				'params'                  => array(
@@ -887,7 +887,7 @@ class PortoCustomProduct {
 			array(
 				'name'                    => __( 'Product Excerpt', 'porto-functionality' ),
 				'base'                    => 'porto_single_product_excerpt',
-				'icon'                    => 'porto_vc_woocommerce',
+				'icon'                    => 'fas fa-cart-arrow-down',
 				'category'                => __( 'Product Page', 'porto-functionality' ),
 				'show_settings_on_create' => false,
 			)
@@ -896,7 +896,7 @@ class PortoCustomProduct {
 			array(
 				'name'                    => __( 'Product Add To Cart', 'porto-functionality' ),
 				'base'                    => 'porto_single_product_add_to_cart',
-				'icon'                    => 'porto_vc_woocommerce',
+				'icon'                    => 'fas fa-cart-arrow-down',
 				'category'                => __( 'Product Page', 'porto-functionality' ),
 				'show_settings_on_create' => false,
 			)
@@ -905,7 +905,7 @@ class PortoCustomProduct {
 			array(
 				'name'                    => __( 'Product Meta', 'porto-functionality' ),
 				'base'                    => 'porto_single_product_meta',
-				'icon'                    => 'porto_vc_woocommerce',
+				'icon'                    => 'fas fa-cart-arrow-down',
 				'category'                => __( 'Product Page', 'porto-functionality' ),
 				'show_settings_on_create' => false,
 			)
@@ -914,7 +914,7 @@ class PortoCustomProduct {
 			array(
 				'name'     => __( 'Product Tabs', 'porto-functionality' ),
 				'base'     => 'porto_single_product_tabs',
-				'icon'     => 'porto_vc_woocommerce',
+				'icon'     => 'fas fa-cart-arrow-down',
 				'category' => __( 'Product Page', 'porto-functionality' ),
 				'params'   => array(
 					array(
@@ -934,7 +934,7 @@ class PortoCustomProduct {
 			array(
 				'name'                    => __( 'Upsells', 'porto-functionality' ),
 				'base'                    => 'porto_single_product_upsell',
-				'icon'                    => 'porto_vc_woocommerce',
+				'icon'                    => 'fas fa-cart-arrow-down',
 				'category'                => __( 'Product Page', 'porto-functionality' ),
 				'show_settings_on_create' => false,
 				'params'                  => $products_args,
@@ -944,7 +944,7 @@ class PortoCustomProduct {
 			array(
 				'name'                    => __( 'Related Products', 'porto-functionality' ),
 				'base'                    => 'porto_single_product_related',
-				'icon'                    => 'porto_vc_woocommerce',
+				'icon'                    => 'fas fa-cart-arrow-down',
 				'category'                => __( 'Product Page', 'porto-functionality' ),
 				'show_settings_on_create' => false,
 				'params'                  => $products_args,
@@ -954,7 +954,7 @@ class PortoCustomProduct {
 			array(
 				'name'                    => __( 'Prev and Next Navigation', 'porto-functionality' ),
 				'base'                    => 'porto_single_product_next_prev_nav',
-				'icon'                    => 'porto_vc_woocommerce',
+				'icon'                    => 'fas fa-cart-arrow-down',
 				'category'                => __( 'Product Page', 'porto-functionality' ),
 				'show_settings_on_create' => false,
 			)

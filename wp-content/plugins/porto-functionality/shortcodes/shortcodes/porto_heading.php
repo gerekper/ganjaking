@@ -51,7 +51,7 @@ function porto_shortcode_heading( $atts, $content = null ) {
 		}
 		$style_inline .= 'line-height:' . $atts['line_height'] . ';';
 	}
-	if ( $atts['letter_spacing'] ) {
+	if ( $atts['letter_spacing'] || '0' === $atts['letter_spacing'] ) {
 		$style_inline .= 'letter-spacing:' . $atts['letter_spacing'] . ';';
 	}
 	if ( $atts['color'] ) {

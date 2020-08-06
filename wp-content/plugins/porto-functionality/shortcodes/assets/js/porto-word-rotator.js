@@ -20,15 +20,18 @@ jQuery(document).ready(function($){
 		//clip effect 
 		revealDuration = 600,
 		revealAnimationDelay = 1500;
-	
-	initHeadline();	
 
-	function initHeadline() {
+	initHeadline($('body'));
+
+	$(document.body).on('porto_init_fancytext', function(e, $obj) {
+		initHeadline( $obj );
+	});
+
+	function initHeadline($wrap) {
 		//insert <i> element for each letter of a changing word
-		singleLetters($('.word-rotator.letters .word-rotator-items').find('b'));
+		singleLetters($wrap.find('.word-rotator.letters .word-rotator-items').find('b'));
 		//initialise headline animation
-		animateHeadline($('.word-rotator'));
-
+		animateHeadline($wrap.find('.word-rotator'));
 
 	}
 

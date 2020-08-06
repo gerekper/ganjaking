@@ -19,7 +19,7 @@ function porto_load_testimonial_shortcode() {
 			'name'     => 'Porto ' . __( 'Testimonial', 'porto-functionality' ),
 			'base'     => 'porto_testimonial',
 			'category' => __( 'Porto', 'porto-functionality' ),
-			'icon'     => 'porto_vc_testimonial',
+			'icon'     => 'far fa-comments',
 			'params'   => array(
 				array(
 					'type'       => 'textfield',

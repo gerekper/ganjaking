@@ -24,7 +24,7 @@ function porto_load_icon_shortcode() {
 		array(
 			'name'        => __( 'Porto Icon', 'porto-functionality' ),
 			'base'        => 'porto_icon',
-			'icon'        => 'porto4_vc_icon',
+			'icon'        => 'fas fa-check',
 			'category'    => __( 'Porto', 'porto-functionality' ),
 			'description' => __( 'Add a custom icon.', 'porto-functionality' ),
 			'params'      => array(

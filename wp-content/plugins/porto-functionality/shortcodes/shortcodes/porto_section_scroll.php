@@ -20,7 +20,7 @@ function porto_load_section_scroll_shortcode() {
 			'name'     => 'Porto ' . __( 'Section Scroll', 'porto-functionality' ),
 			'base'     => 'porto_section_scroll',
 			'category' => __( 'Porto', 'porto-functionality' ),
-			'icon'     => 'porto4_vc_section_scroll',
+			'icon'     => 'fas fa-arrows-alt-v',
 			'params'   => array(
 				array(
 					'type'       => 'checkbox',

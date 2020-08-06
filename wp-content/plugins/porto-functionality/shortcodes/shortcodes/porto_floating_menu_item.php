@@ -23,7 +23,7 @@ function porto_load_floating_menu_item_shortcode() {
 			'name'     => __( 'Floating Menu Item', 'porto-functionality' ),
 			'base'     => 'porto_floating_menu_item',
 			'category' => __( 'Porto', 'porto-functionality' ),
-			'icon'     => 'porto_vc_floating_menu',
+			'icon'     => 'fas fa-ellipsis-v',
 			'as_child' => array( 'only' => 'porto_floating_menu_container' ),
 			'params'   => array(
 				array(

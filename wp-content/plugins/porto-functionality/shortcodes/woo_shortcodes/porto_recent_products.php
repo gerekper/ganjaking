@@ -26,7 +26,7 @@ function porto_load_recent_products_shortcode() {
 		array(
 			'name'        => 'Porto ' . __( 'Recent products', 'js_composer' ),
 			'base'        => 'porto_recent_products',
-			'icon'        => 'porto_vc_woocommerce',
+			'icon'        => 'fas fa-cart-arrow-down',
 			'category'    => __( 'WooCommerce', 'js_composer' ),
 			'description' => __( 'Show recent products', 'porto-functionality' ),
 			'params'      => array_merge(

@@ -18,6 +18,9 @@
 			'floating_horizontal' => '',
 			'floating_duration'   => '',
 			'className'           => '',
+			'animation_type'      => '',
+			'animation_duration'  => 1000,
+			'animation_delay'     => 0,
 		),
 		$settings
 	);
@@ -55,7 +58,19 @@
 		if ( $settings['align'] ) {
 			echo '<div class="porto-button text-' . esc_attr( $settings['align'] ) . '">';
 		}
-		echo '<a class="' . esc_attr( $btn_classes ) . '" href="' . esc_url( $url ) . '"' . ( isset( $settings['link']['is_external'] ) && $settings['link']['is_external'] ? ' target="_blank"' : '' ) . porto_shortcode_add_floating_options( $settings ) . '>';
+
+		$attrs = '';
+		if ( ! empty( $settings['animation_type'] ) ) {
+			$attrs .= ' data-appear-animation="' . esc_attr( $settings['animation_type'] ) . '"';
+			if ( ! empty( $settings['animation_delay'] ) ) {
+				$attrs .= ' data-appear-animation-delay="' . absint( $settings['animation_delay'] ) . '"';
+			}
+			if ( ! empty( $settings['animation_duration'] ) && 1000 !== (int) $settings['animation_duration'] ) {
+				$attrs .= ' data-appear-animation-duration="' . absint( $settings['animation_duration'] ) . '"';
+			}
+		}
+
+		echo '<a class="' . esc_attr( $btn_classes ) . '" href="' . esc_url( $url ) . '"' . ( isset( $settings['link']['is_external'] ) && $settings['link']['is_external'] ? ' target="_blank"' : '' ) . porto_shortcode_add_floating_options( $settings ) . $attrs . '>';
 		if ( 'left' == $settings['icon_pos'] ) {
 			echo porto_filter_output( $btn_icon_html_escaped );
 		}

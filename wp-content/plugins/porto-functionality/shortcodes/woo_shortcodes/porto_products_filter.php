@@ -31,7 +31,7 @@ function porto_load_shortcode_products_filter() {
 		array(
 			'name'        => 'Porto ' . __( 'Products filter', 'porto-functionality' ),
 			'base'        => 'porto_products_filter',
-			'icon'        => 'porto_vc_woocommerce',
+			'icon'        => 'fas fa-cart-arrow-down',
 			'category'    => __( 'WooCommerce', 'porto-functionality' ),
 			'description' => __( 'Display a list of select boxes to filter products by category, price or attributes.', 'porto-functionality' ),
 			'params'      => array(

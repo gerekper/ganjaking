@@ -297,7 +297,7 @@ if ( $posts->have_posts() ) {
 
 			$grid_height_number = trim( preg_replace( '/[^0-9]/', '', $grid_height ) );
 			$unit               = trim( str_replace( $grid_height_number, '', $grid_height ) );
-			porto_creative_grid_style( $porto_grid_layout, $grid_height_number, $wrapper_id, $spacing ? $spacing : false, true, $unit, 'article.portfolio' );
+			porto_creative_grid_style( $porto_grid_layout, $grid_height_number, $wrapper_id, $spacing || 0 === $spacing || '0' === $spacing ? $spacing : false, true, $unit, 'article.portfolio' );
 
 			$container_attrs .= 'data-plugin-masonry data-plugin-options="' . esc_attr( json_encode( array( 'itemSelector' => '.portfolio', 'animationEngine' => 'best-available', 'masonry' => array( 'columnWidth' => '.grid-col-sizer' ) ) ) ) . '"';
 		}

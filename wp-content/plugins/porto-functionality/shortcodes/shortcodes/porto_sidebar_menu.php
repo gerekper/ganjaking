@@ -31,7 +31,7 @@ function porto_load_sidebar_menu_shortcode() {
 			'name'         => __( 'Sidebar Menu', 'porto-functionality' ),
 			'base'         => 'porto_sidebar_menu',
 			'class'        => 'porto_sidebar_menu',
-			'icon'         => 'porto4_vc_sidebar_menu',
+			'icon'         => 'far fa-list-alt',
 			'category'     => __( 'Porto', 'porto-functionality' ),
 			'description'  => __( 'Add a sidebar menu to the page.', 'porto-functionality' ),
 			'is_container' => false,

@@ -349,7 +349,7 @@
 						if ($el.find('.product-col').get(0)) {
 							portoCalcSliderButtonsPosition($slider_wrapper, $el.find('.product-col').css('padding-left'));
 						}
-						$el.find('.porto-lazyload:not(.lazy-load-loaded)').trigger('appear');
+						//$el.find('.porto-lazyload:not(.lazy-load-loaded)').trigger('appear');
 					},
 					onInitialized: function() {
 						if ($el.find('.product-col').get(0)) {
@@ -1198,7 +1198,8 @@
 					if ($count.length) {
 						var count = $('.woocommerce-viewing select.count').val();
 						if (count != $count.find('option:not([disabled]):first').val()) {
-							href += '&count=' + count;
+							//href += '&count=' + count;
+							href = porto_update_url_param(href, 'count', count);
 						}
 					}
 
@@ -1284,10 +1285,10 @@
 		$('.skeleton-loading').on('skeleton-loaded', function() {
 			var $this = $(this);
 			if (skeletonLoadingTrigger) {
-				clearTimeout(skeletonLoadingTrigger);
+				theme.deleteTimeout(skeletonLoadingTrigger);
 			}
 			porto_woocommerce_variations_init($this);
-			skeletonLoadingTrigger = setTimeout(function() {
+			skeletonLoadingTrigger = theme.requestTimeout(function() {
 				porto_woocommerce_init();
 				refreshPriceSlider();
 				if ($('body').hasClass('single-product')) {
@@ -1490,7 +1491,7 @@
 								});
 								self.selectVerticalSliderThumb(null, $thumbs_vertical_slider, 0);
 								if ($thumbs_vertical_slider.find('.porto-lazyload').length) {
-									setTimeout(function() {
+									theme.requestTimeout(function() {
 										$thumbs_vertical_slider.find('.slick-cloned .porto-lazyload:not(.lazy-load-loaded)').each(function() {
 											$(this).attr('src', $(this).data('oi')).removeAttr('data-oi').addClass('lazy-load-loaded');
 										});
@@ -1590,6 +1591,9 @@
 											if (typeof elevateZoom != 'undefined') {
 												elevateZoom.startZoom();
 												elevateZoom.swaptheimage(smallImage, src);
+											} else if ($.fn.elevateZoom) {
+												zoomConfig.zoomContainer = $this.parent();
+												$this.elevateZoom(zoomConfig);
 											}
 										});
 									}
@@ -1755,7 +1759,7 @@
 								autoSize: true,
 								autoWidth: true,
 								afterShow: function(flag) {
-									setTimeout(function() {
+									theme.requestTimeout(function() {
 										if (typeof flag == 'undefined' || flag) {
 											porto_woocommerce_init();
 										}
@@ -1770,7 +1774,7 @@
 									}, 200);
 								},
 								onUpdate: function() {
-									setTimeout(function() {
+									theme.requestTimeout(function() {
 										if (js_porto_vars.use_skeleton_screen.indexOf('quickview') == -1 || !js_porto_vars.quickview_skeleton) {
 											porto_woocommerce_init();
 										}
@@ -2073,7 +2077,7 @@
 								}
 							});
 
-							if (typeof links != 'undefined') {
+							if (theme.product_image_popup && typeof links != 'undefined') {
 								links[0].src = o_href;
 								links[0].title = o_title;
 							}
@@ -2145,7 +2149,7 @@
 							$shop_single_image.attr( 'alt', variation_title );
 							$shop_single_image.attr( 'href', variation_link );
 							$shop_thumb_image.attr( 'src', variation_thumb );
-							if (typeof links != 'undefined') {
+							if (theme.product_image_popup && typeof links != 'undefined') {
 								links[0].src = variation_link;
 								links[0].title = variation_title;
 							}
@@ -2155,7 +2159,7 @@
 							$shop_single_image.attr( 'alt', imagetitle );
 							$shop_single_image.attr( 'href', imagehref );
 							$shop_thumb_image.attr( 'src', thumbimage );
-							if (typeof links != 'undefined') {
+							if (theme.product_image_popup && typeof links != 'undefined') {
 								links[0].src = imagehref;
 								links[0].title = imagetitle;
 							}
@@ -2172,7 +2176,7 @@
 					$( document ).on( 'found_variation reset_image', '.variations_form', function(event, variation) {
 						if ($(this).closest('.fancybox-inner').length && $.fancybox) {
 							$(window).unbind('resize.fb', $.fancybox.update);
-							setTimeout(function() {
+							theme.requestTimeout(function() {
 								$(window).bind('resize.fb', $.fancybox.update);
 							}, 60);
 						}
@@ -2383,7 +2387,7 @@
 						}
 					}
 				}
-				setTimeout(function() {
+				theme.requestTimeout(function() {
 					$(window).trigger('scroll');
 				}, 300);
 				
@@ -2401,7 +2405,7 @@
 					var $obj = $('#main .porto-products-filter-body [data-plugin-sticky].manual'),
 						pluginOptions = $obj.data('plugin-options');
 					$obj.removeClass('manual').themeSticky(pluginOptions);
-					setTimeout(function() {
+					theme.requestTimeout(function() {
 						$(window).trigger('scroll');
 					}, 100);
 				}, 500);
@@ -2454,13 +2458,17 @@
 				var $this = $(this), $form = $this.closest('.porto-products').find('.pagination-form');
 				$(this).parent().siblings().removeClass('current');
 				$(this).parent().addClass('current');
-				if (typeof $this.data('sort_id') != 'undefined' ) {
+				if (typeof $this.data('sort_id') != 'undefined') {
 					$form.find('input[name="orderby"]').val($this.data('sort_id'));
 					$form.find('input[name="category"]').val('');
 				}
-				if (typeof $this.data('cat_id') != 'undefined' ) {
+				if (typeof $this.data('cat_id') != 'undefined') {
 					$form.find('input[name="orderby"]').val($form.find('input[name="original_orderby"]').val());
-					$form.find('input[name="category"]').val($this.data('cat_id'));
+					if ($this.data('cat_id')) {
+						$form.find('input[name="category"]').val($this.data('cat_id'));
+					} else {
+						$form.find('input[name="category"]').val('');
+					}
 				}
 				var data = $form.serialize() + '&product-page=1&action=porto_woocommerce_shortcodes_products&nonce=' + js_porto_vars.porto_nonce;
 				$this.closest('.porto-products').find('ul.products').trigger('porto_update_products', [data, '']);
@@ -2535,7 +2543,7 @@
 
 						if ($this.hasClass('owl-carousel')) {
 							$this.trigger('destroy.owl.carousel');
-							setTimeout(function() {
+							theme.requestTimeout(function() {
 								var pluginOptions = $this.data('plugin-options'), opts;
 								if (pluginOptions)
 									opts = pluginOptions;
@@ -2622,6 +2630,48 @@
 					$('.single-product form .single_add_to_cart_button').trigger('click');
 				});
 				$('.single-product .entry-summary .quantity').clone().prependTo('.single-product .sticky-product .add-to-cart');
+			}
+
+			// sticky filter on mobile
+			if (1 === $('.shop-loop-before').length && $('.mobile-sidebar').length) {
+				var init_filter_sticky = function() {
+					var $obj = $('.shop-loop-before');
+					if (!$obj.prev('.filter-placeholder').length) {
+						$('<div class="filter-placeholder m-0"></div>').insertBefore($obj);
+					}
+					var $ph = $obj.prev('.filter-placeholder'),
+						scrollTop = $(window).scrollTop(),
+						offset = theme.adminBarHeight() + theme.StickyHeader.sticky_height;
+					if ($('html.filter-sidebar-opened').length) {
+						$ph.css('height', '');
+						return;
+					}
+					if ($ph.offset().top <= scrollTop + offset) {
+						$ph.css('height', $obj.outerHeight() + parseInt($obj.css('margin-bottom')));
+						$obj.addClass('sticky').css('top', offset);
+					} else {
+						$ph.css('height', '');
+						$obj.removeClass('sticky');
+					}
+				};
+				if ($(window).width() < 992 - theme.getScrollbarWidth()) {
+					$(window).off('scroll', init_filter_sticky).on('scroll', init_filter_sticky);
+					init_filter_sticky();
+				}
+				var request_timer = null;
+				$(window).on('resize', function() {
+					if (request_timer) {
+						theme.deleteTimeout(request_timer);
+					}
+					if ($(window).width() < 992 - theme.getScrollbarWidth()) {
+						request_timer = theme.requestTimeout(function() {
+							$(window).off('scroll', init_filter_sticky).on('scroll', init_filter_sticky).trigger('scroll');
+						}, 100);
+					} else {
+						$('.shop-loop-before').removeClass('sticky').prev('.filter-placeholder').css('height', '');
+						$(window).off('scroll', init_filter_sticky);
+					}
+				});
 			}
 		});
 
@@ -2750,6 +2800,29 @@
 			} else {
 				porto_pre_order.init();
 			}
+		}
+
+		// refresh yith wishlist
+		if ($('#header .my-wishlist .wishlist-count').length) {
+			$(document.body).on('added_to_wishlist removed_from_wishlist added_to_cart', function(e) {
+				var $obj = $('#header .my-wishlist .wishlist-count');
+				if ($obj.text()) {
+					$.ajax({
+						type: 'POST',
+						dataType: 'json',
+						url: theme.ajax_url,
+						data: {
+							action: 'porto_refresh_wishlist_count',
+							nonce: js_porto_vars.porto_nonce,
+						},
+						success: function(response) {
+							if (response || 0 === response) {
+								$obj.text(Number(response));
+							}
+						}
+					});
+				}
+			});
 		}
 	})( window.theme, jQuery );
 

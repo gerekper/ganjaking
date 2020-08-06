@@ -23,7 +23,7 @@ function porto_load_container_shortcode() {
 			'name'         => 'Porto ' . __( 'Container', 'porto-functionality' ),
 			'base'         => 'porto_container',
 			'category'     => __( 'Porto', 'porto-functionality' ),
-			'icon'         => 'porto_vc_container',
+			'icon'         => 'fas fa-arrows-alt-h',
 			'is_container' => true,
 			'js_view'      => 'VcColumnView',
 			'params'       => array(

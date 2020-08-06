@@ -23,7 +23,7 @@ function porto_load_animation_shortcode() {
 			'name'            => 'Porto ' . __( 'Animation', 'porto-functionality' ),
 			'base'            => 'porto_animation',
 			'category'        => __( 'Porto', 'porto-functionality' ),
-			'icon'            => 'porto_vc_animation',
+			'icon'            => 'fas fa-asterisk',
 			'as_parent'       => array( 'except' => 'porto_animation' ),
 			'content_element' => true,
 			'controls'        => 'full',

@@ -20,7 +20,7 @@ function porto_load_preview_image_shortcode() {
 			'name'     => 'Porto ' . __( 'Preview Image', 'porto-functionality' ),
 			'base'     => 'porto_preview_image',
 			'category' => __( 'Porto', 'porto-functionality' ),
-			'icon'     => 'porto_vc_preview_image',
+			'icon'     => 'fas fa-camera',
 			'params'   => array(
 				array(
 					'type'        => 'vc_link',

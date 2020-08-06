@@ -64,7 +64,11 @@ $id         = 'map_' . uniqid();
 $wrap_id    = 'wrap_' . $id;
 $map_type   = strtoupper( $map_type );
 $width      = ( substr( $width, -1 ) != '%' && substr( $width, -2 ) != 'px' ? $width . 'px' : $width );
-$map_height = ( substr( $height, -1 ) != '%' && substr( $height, -2 ) != 'px' ? $height . 'px' : $height );
+if ( $height ) {
+	$map_height = ( substr( $height, -1 ) != '%' && substr( $height, -2 ) != 'px' ? $height . 'px' : $height );
+} else {
+	$map_height = '';
+}
 
 $margin_css = '';
 if ( 'none' != $top_margin ) {

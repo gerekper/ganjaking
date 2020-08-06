@@ -56,7 +56,7 @@ function porto_load_google_map_shortcode() {
 			'class'                   => 'porto_google_map',
 			'controls'                => 'full',
 			'show_settings_on_create' => true,
-			'icon'                    => 'porto4_vc_google_map',
+			'icon'                    => 'far fa-map',
 			'description'             => __( 'Display Google Maps to indicate your location.', 'porto-functionality' ),
 			'category'                => __( 'Porto', 'porto-functionality' ),
 			'params'                  => array(

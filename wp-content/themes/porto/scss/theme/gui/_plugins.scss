@@ -48,3 +48,8 @@ ul[class^="wsp-"] li a:before,
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
+
+/* fix Bootstrap tooltip on magnific popup */
+.lightbox-opened .tooltip {
+    z-index: 9045
+}

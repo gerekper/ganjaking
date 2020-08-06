@@ -825,7 +825,7 @@ function porto_scripts() {
 			'zoom_lens_border'          => esc_js( $porto_settings['zoom-lens-border'] ),
 			'zoom_border_color'         => esc_js( $porto_settings['zoom-border-color'] ),
 			'zoom_border'               => esc_js( 'inner' == $porto_settings['zoom-type'] ? 0 : $porto_settings['zoom-border'] ),
-			'screen_lg'                 => esc_js( $porto_settings['container-width'] + $porto_settings['grid-gutter-width'] ),
+			'screen_lg'                 => esc_js( (int) $porto_settings['container-width'] + $porto_settings['grid-gutter-width'] ),
 			/* translators: %url%: Magnific Popup Counter Error Url */
 			'mfp_counter'               => esc_js( __( '%curr% of %total%', 'porto' ) ),
 			/* translators: %url%: Magnific Popup Ajax Error Url */
@@ -943,14 +943,14 @@ function porto_get_image_id( $image_url ) {
 // gravityform notifications
 add_filter( 'gform_validation_message', 'porto_gform_validation_message', 10, 2 );
 function porto_gform_validation_message( $message, $form ) {
-	return '<div class="alert alert-danger br-normal"><strong>' . strip_tags( $message ) . '</strong></div>';
+	return '<div class="alert alert-danger br-normal">' . porto_strip_script_tags( $message ) . '</div>';
 }
 add_filter( 'gform_confirmation', 'porto_gform_confirmation', 10, 4 );
 function porto_gform_confirmation( $confirmation, $form, $entry, $ajax ) {
 	if ( is_array( $confirmation ) ) {
 		return $confirmation;
 	}
-	return '<div class="alert alert-success br-normal">' . strip_tags( $confirmation, '<script>' ) . '</div>';
+	return '<div class="alert alert-success br-normal">' . $confirmation . '</div>';
 }
 
 // Fix for PHP Fatal error:  Call to undefined function YIT_Pointers() in \plugins\yith-woocommerce-wishlist\includes\class.yith-wcwl-admin-init.php

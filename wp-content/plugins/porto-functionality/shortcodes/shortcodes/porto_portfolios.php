@@ -22,7 +22,7 @@ function porto_load_portfolios_shortcode() {
 			'name'     => 'Porto ' . __( 'Portfolios', 'porto-functionality' ),
 			'base'     => 'porto_portfolios',
 			'category' => __( 'Porto', 'porto-functionality' ),
-			'icon'     => 'porto_vc_portfolios',
+			'icon'     => 'fas fa-desktop',
 			'params'   => array(
 				array(
 					'type'        => 'textfield',

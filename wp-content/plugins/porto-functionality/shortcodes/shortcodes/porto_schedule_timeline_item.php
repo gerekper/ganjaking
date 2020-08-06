@@ -23,7 +23,7 @@ function porto_load_schedule_timeline_item_shortcode() {
 			'name'     => __( 'Schedule Timeline Item', 'porto-functionality' ),
 			'base'     => 'porto_schedule_timeline_item',
 			'category' => __( 'Porto', 'porto-functionality' ),
-			'icon'     => 'porto_vc_schedule_timeline',
+			'icon'     => 'far fa-calendar',
 			'as_child' => array( 'only' => 'porto_schedule_timeline_container' ),
 			'params'   => array(
 				array(

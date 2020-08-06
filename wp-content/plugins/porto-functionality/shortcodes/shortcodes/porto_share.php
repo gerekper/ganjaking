@@ -22,7 +22,7 @@ function porto_load_share_shortcode() {
 			'name'                    => __( 'Porto Share', 'porto-functionality' ),
 			'base'                    => 'porto_share',
 			'class'                   => 'porto_share',
-			'icon'                    => 'porto4_vc_share',
+			'icon'                    => 'fas fa-share-alt',
 			'category'                => __( 'Porto', 'porto-functionality' ),
 			'description'             => __( 'Display share links', 'porto-functionality' ),
 			'show_settings_on_create' => false,

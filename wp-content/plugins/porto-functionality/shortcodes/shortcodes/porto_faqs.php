@@ -23,7 +23,7 @@ function porto_load_faqs_shortcode() {
 			'name'     => 'Porto ' . __( 'FAQs', 'porto-functionality' ),
 			'base'     => 'porto_faqs',
 			'category' => __( 'Porto', 'porto-functionality' ),
-			'icon'     => 'porto_vc_faqs',
+			'icon'     => 'fas fa-question-circle',
 			'params'   => array(
 				array(
 					'type'        => 'textfield',

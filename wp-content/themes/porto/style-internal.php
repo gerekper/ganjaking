@@ -193,7 +193,7 @@ endif;
 <?php elseif ( 6 === (int) $page_header_type ) : ?>
 	.page-top ul.breadcrumb > li.home { display: inline-block; }
 	.page-top ul.breadcrumb > li.home a { position: relative; width: 14px; text-indent: -9999px; }
-	.page-top ul.breadcrumb > li.home a:after { content: "\e883"; font-family: 'porto'; position: absolute; <?php echo porto_filter_output( $left ); ?>: 0; top: 0; text-indent: 0; }
+	.page-top ul.breadcrumb > li.home a:after { content: "\e883"; font-family: 'porto'; float: <?php echo porto_filter_output( $left ); ?>; text-indent: 0; }
 <?php endif; ?>
 <?php if ( class_exists( 'Woocommerce' ) && ( 1 === (int) $page_header_type || 2 === (int) $page_header_type ) ) : ?>
 	body.single-product .page-top .breadcrumbs-wrap { padding-<?php echo porto_filter_output( $right ); ?>: 55px; }
@@ -1264,7 +1264,7 @@ if ( 'woocommerce' === $post_layout && ( ! class_exists( 'Woocommerce' ) || ! is
 	article.post-woocommerce .post-image,
 	article.post-woocommerce .post-date { margin-<?php echo porto_filter_output( $left ); ?>: -90px; }
 	article.post-woocommerce .post-date { width: 60px; }
-	article.post-woocommerce .post-date .day { font-size: 28px; color: #222529; font-weight: 400; border: 1px solid #e3e3e3; border-bottom: none; }
+	article.post-woocommerce .post-date .day { font-size: 1.75rem; color: #222529; font-weight: 400; border: 1px solid #e3e3e3; border-bottom: none; }
 	body article.post-woocommerce .post-date .day { color: #222529; background: none; }
 	article.post-woocommerce .post-date .month { font-size: 14px; text-transform: uppercase; }
 	article.post-woocommerce .post-meta { display: inline-block; margin-bottom: 6px; }
@@ -1358,15 +1358,10 @@ global $porto_shop_filter_layout;
 if ( $porto_shop_filter_layout ) :
 	if ( 'horizontal' === $porto_shop_filter_layout || 'horizontal2' === $porto_shop_filter_layout ) {
 		?>
-		.woocommerce-result-count { margin-bottom: 0; float: <?php echo porto_filter_output( $right ); ?>; margin-top: 6px; font-size: 12px; color: #7a7d82; margin-<?php echo porto_filter_output( $left ); ?>: 10px; line-height: 24px; }
+		.woocommerce-result-count { font-size: 12px; color: #7a7d82; line-height: 2; -webkit-order: 2; order: 2; }
 		.shop-loop-before { background: <?php echo ! $is_dark ? '#f4f4f4' : 'rgba(255, 255, 255, .02)'; ?>; padding: 12px 12px 2px; margin-bottom: 20px; }
-		.shop-loop-before .woocommerce-ordering,
-		.shop-loop-before .woocommerce-pagination > *,
-		.shop-loop-before .gridlist-toggle { margin-bottom: 10px; }
-		.shop-loop-before .gridlist-toggle { margin-top: 5px; }
-		.shop-loop-before .woocommerce-ordering { margin-<?php echo porto_filter_output( $right ); ?>: 0; }
-		.shop-loop-before .woocommerce-ordering select, .shop-loop-before .woocommerce-viewing select { border: none; }
-		@media (max-width: 575px) {
+		a.porto-product-filters-toggle, .shop-loop-before .woocommerce-ordering select, .shop-loop-before .woocommerce-viewing select { border: none; }
+		@media (max-width: 767px) {
 			.shop-loop-before .woocommerce-result-count { display: none; }
 			.shop-loop-before .woocommerce-ordering select { width: 140px; }
 		}
@@ -1374,21 +1369,21 @@ if ( $porto_shop_filter_layout ) :
 	}
 	if ( 'horizontal' === $porto_shop_filter_layout ) {
 		?>
+		@media (min-width: 992px) {
 		.porto-product-filters-toggle { display: -webkit-flex; display: -ms-flexbox; display: flex; -webkit-align-items: center; -ms-flex-align: center; align-items: center; position: relative; padding: 14px; background: #f4f4f4; margin-bottom: 20px; }
-		.shop-loop-before .porto-product-filters-toggle { float: <?php echo porto_filter_output( $left ); ?>; height: 34px; margin-<?php echo porto_filter_output( $right ); ?>: 10px; padding: 0; background: none; margin-bottom: 0; }
-		.porto-product-filters-toggle a { position: relative; width: 46px; height: 26px; background: #e6e6e6; border-radius: 13px; transition: all .3s linear; margin-<?php echo porto_filter_output( $left ); ?>: 8px; }
-		.porto-product-filters-toggle a:before { content: ''; position: absolute; left: 0; width: 42px; height: 22px; background-color: #fff; border-radius: 11px; -webkit-transform: translate3d(2px, 2px, 0) scale3d(1, 1, 1); -ms-transform: translate3d(2px, 2px, 0) scale3d(1, 1, 1); transform: translate3d(2px, 2px, 0) scale3d(1, 1, 1); transition: all .3s linear; }
-		.porto-product-filters-toggle a:after { content: ''; position: absolute; left: 0; width: 22px; height: 22px; background-color: #fff; border-radius: 11px; box-shadow: 0 2px 2px rgba(0, 0, 0, 0.24); -webkit-transform: translate3d(2px, 2px, 0); -ms-transform: translate3d(2px, 2px, 0); transform: translate3d(2px, 2px, 0); transition: all .2s ease-in-out; }
+			.shop-loop-before .porto-product-filters-toggle { padding: 0; background: none; margin-bottom: 10px; }
+			.porto-product-filters-toggle a { position: relative; width: 46px; height: 26px; background: #e6e6e6; border-radius: 13px; transition: .3s linear; margin-<?php echo porto_filter_output( $left ); ?>: 8px; }
+			.porto-product-filters-toggle a:before { content: ''; position: absolute; left: 0; width: 42px; height: 22px; background-color: #fff; border-radius: 11px; -webkit-transform: translate3d(2px, 2px, 0) scale3d(1, 1, 1); -ms-transform: translate3d(2px, 2px, 0) scale3d(1, 1, 1); transform: translate3d(2px, 2px, 0) scale3d(1, 1, 1); transition: .3s linear; }
+			.porto-product-filters-toggle a:after { content: ''; position: absolute; left: 0; width: 22px; height: 22px; background-color: #fff; border-radius: 11px; box-shadow: 0 2px 2px rgba(0, 0, 0, 0.24); -webkit-transform: translate3d(2px, 2px, 0); -ms-transform: translate3d(2px, 2px, 0); transform: translate3d(2px, 2px, 0); transition: .2s ease-in-out; }
 		.porto-product-filters-toggle a:active:after { width: 28px; -webkit-transform: translate3d(2px, 2px, 0); -ms-transform: translate3d(2px, 2px, 0); transform: translate3d(2px, 2px, 0); }
 		.porto-product-filters-toggle.opened a:active:after { -webkit-transform: translate3d(16px, 2px, 0); -ms-transform: translate3d(16px, 2px, 0); transform: translate3d(16px, 2px, 0); }
 		.porto-product-filters-toggle.opened a { background-color: <?php echo porto_filter_output( $skin_color_escaped ); ?>; }
 		.porto-product-filters-toggle.opened a:before { -webkit-transform: translate3d(18px, 2px, 0) scale3d(0, 0, 0); -ms-transform: translate3d(18px, 2px, 0) scale3d(0, 0, 0); transform: translate3d(18px, 2px, 0) scale3d(0, 0, 0); }
 		.porto-product-filters-toggle.opened a:after { -webkit-transform: translate3d(22px, 2px, 0); -ms-transform: translate3d(22px, 2px, 0); transform: translate3d(22px, 2px, 0); }
 		.porto-product-filters-toggle a:hover { text-decoration: none; }
-		@media (min-width: 992px) {
-			.shop-loop-before { text-align: <?php echo porto_filter_output( $right ); ?>; padding-left: 20px; padding-right: 20px; }
-			.porto-product-filters-toggle + .woocommerce-ordering { display: inline-block; float: none; margin-<?php echo porto_filter_output( $right ); ?>: 20px; }
-			.woocommerce-result-count { margin-<?php echo porto_filter_output( $left ); ?>: 20px; }
+
+			.shop-loop-before { padding-left: 20px; padding-right: 20px; }
+			.woocommerce-result-count { margin-<?php echo porto_filter_output( $left ); ?>: 10px; }
 			.main-content-wrap { overflow: hidden; }
 			.main-content-wrap .sidebar { transition: left .3s linear, right .3s linear, visibility .3s linear, z-index .3s linear; visibility: hidden; z-index: -1; }
 			.main-content-wrap .left-sidebar { <?php echo porto_filter_output( $left ); ?>: -25%; }
@@ -1423,6 +1418,7 @@ if ( $porto_shop_filter_layout ) :
 		<?php
 	} elseif ( 'horizontal2' === $porto_shop_filter_layout ) {
 		?>
+		.porto-product-filters.style2 { margin-bottom: 0 }
 		.porto_widget_price_filter .widget-title { position: relative; }
 		.porto_widget_price_filter .widget-title .toggle { display: inline-block; width: 1.8571em; height: 1.8571em; line-height: 1.7572em; position: absolute; <?php echo porto_filter_output( $right ); ?>: -7px; top: 50%; margin-top: -0.9em; padding: 0; cursor: pointer; font-family: "porto"; text-align: center; transition: all 0.25s; color: #222529; font-size: 17px; }
 		.porto_widget_price_filter { font-weight: 500; }
@@ -1451,13 +1447,12 @@ if ( $porto_shop_filter_layout ) :
 		<?php endif; ?>
 		.widget_product_categories ul li .toggle:before { content: '\f105' !important; font-weight: 900; font-family: 'Font Awesome 5 Free' !important; }
 
-		.gridlist-toggle { margin-<?php echo porto_filter_output( $left ); ?>: 6px; }
 		.woocommerce-ordering label { display: none; }
-		.woocommerce-ordering select { margin-<?php echo porto_filter_output( $left ); ?>: 0; text-transform: uppercase; }
-		.porto-product-filters { float: <?php echo porto_filter_output( $left ); ?>; }
+		.woocommerce-ordering select { text-transform: uppercase; }
 		.porto-product-filters .widget-title { font-family: inherit; }
 		.porto-product-filters .widget-title .toggle { display: none; }
 		.porto-product-filters .widget { display: block; max-width: none; width: auto; flex: none; padding: 0; background: <?php echo ! $is_dark ? '#fff url("' . PORTO_URI . '/images/select-bg.svg")' : esc_html( $color_dark_3 ) . ' url("' . PORTO_URI . '/images/select-bg-light.svg")'; ?> no-repeat; background-position: <?php echo porto_filter_output( $rtl ? '4' : '96' ); ?>% -13px; background-size: 26px 60px; margin-bottom: 10px; margin-top: 0; margin-<?php echo porto_filter_output( $right ); ?>: 10px; position: relative; font-size: .9286em; color: <?php echo ! $is_dark ? '#777' : '#999'; ?> }
+		.porto-product-filters .widget:last-child { margin-<?php echo porto_filter_output( $right ); ?>: 0 }
 		.porto-product-filters-body { display: -webkit-inline-flex; display: -ms-inline-flexbox; display: inline-flex; vertical-align: middle; }
 		@media (min-width: 992px) {
 			.porto-product-filters .widget-title { background: none; font-size: inherit !important; border-bottom: none; padding: 0; color: inherit !important; font-weight: 400; cursor: default; height: 34px; line-height: 34px; padding: 0 10px; width: 150px; color: inherit; margin-bottom: 0; transition: none; }
@@ -1475,7 +1470,6 @@ if ( $porto_shop_filter_layout ) :
 	if ( 'horizontal' === $porto_shop_filter_layout || 'horizontal2' === $porto_shop_filter_layout ) {
 		?>
 		@media (max-width: 991px) {
-			.porto-product-filters-toggle { display: none; }
 			.porto-product-filters .sidebar-toggle { margin-top: 50px; }
 			.porto-product-filters.mobile-sidebar { position: fixed; }
 			.porto-product-filters .widget { float: none; margin-right: 0; background: none; margin-bottom: 20px; width: 100%; }
@@ -1488,6 +1482,7 @@ if ( $porto_shop_filter_layout ) :
 		}
 		html.filter-sidebar-opened body > * { z-index: 0; }
 		html.filter-sidebar-opened .porto-product-filters { z-index: 9001; transition: transform 0.3s ease-in-out; -webkit-transform: translate(0px); transform: translate(0px); }
+		html.filter-sidebar-opened .page-wrapper { <?php echo porto_filter_output( $left ); ?>: 260px }
 		html.filter-sidebar-opened .porto-product-filters .sidebar-toggle i:before { content: '\f00d'; }
 		html.sidebar-opened body .porto-product-filters .sidebar-toggle i:before { content: '\f1de'; }
 		<?php

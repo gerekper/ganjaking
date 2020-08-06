@@ -28,7 +28,7 @@ function porto_load_block_shortcode() {
 			'name'     => 'Porto ' . __( 'Block', 'porto-functionality' ),
 			'base'     => 'porto_block',
 			'category' => __( 'Porto', 'porto-functionality' ),
-			'icon'     => 'porto_vc_block',
+			'icon'     => 'dashicons dashicons-tagcloud',
 			'params'   => array(
 				array(
 					'type'       => 'label',

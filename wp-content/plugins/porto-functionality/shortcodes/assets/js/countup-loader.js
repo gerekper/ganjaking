@@ -31,7 +31,7 @@ if (typeof portoInitStatCounter == 'undefined') {
                     grouping = true;
                 }
                 var settings = {
-                    useEasing : true,
+                    useEasing : false,
                     useGrouping : grouping,
                     separator : sep,
                     decimal : dec

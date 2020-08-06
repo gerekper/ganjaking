@@ -306,6 +306,11 @@ jQuery(document).ready(function($) {
 					$obj.themeParallax({speed: speed});
 				}
 
+				var $column_wrap = $obj.children('.elementor-column-wrap');
+				if (typeof $column_wrap.attr('data-appear-animation') != 'undefined') {
+					$column_wrap.themeAnimate();
+				}
+
 				var $widget_wrap = $obj.find('> .elementor-column-wrap > .elementor-widget-wrap');
 				if (typeof $widget_wrap.attr('data-plugin-float-element') != 'undefined') {
 					var opts = $widget_wrap.data('plugin-options');
@@ -318,6 +323,18 @@ jQuery(document).ready(function($) {
 				}
 			});
 		}
+
+		elementorFrontend.hooks.addAction('frontend/element_ready/porto_fancytext.default', function($obj) {
+			$(document.body).trigger('porto_init_fancytext', [$obj]);
+		});
+		elementorFrontend.hooks.addAction('frontend/element_ready/porto_countdown.default', function($obj) {
+			if ($obj.find('.porto_countdown-div').length) {
+				let cdate = new Date(), sdate = cdate.getTime() + parseFloat( porto_elementor_vars.gmt_offset ) * 3600 * 1000;
+				sdate = new Date( sdate ).toISOString().replace(/(.*)(20[0-9]{2}-[0-9]{2}-[0-9]{2})T([0-9]{2}:[0-9]{2}:[0-9]{2})(.*)/, '$2 $3');
+				$obj.find('.porto_countdown-div').data('time-now', sdate.replace(/-/g, '/') );
+			}
+			$(document.body).trigger('porto_init_countdown', [$obj]);
+		});
 
 		if (typeof porto_woocommerce_init == 'function') {
 			var porto_woocommerce_widgets = ['porto_products.default', 'porto_product_categories.default', 'porto_cp_related.default' ];

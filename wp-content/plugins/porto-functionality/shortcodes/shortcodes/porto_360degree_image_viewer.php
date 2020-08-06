@@ -24,7 +24,7 @@ function porto_load_360degree_image_viewer_shortcode() {
 		array(
 			'name'        => __( 'Porto 360 Degree Image Viewer', 'porto-functionality' ),
 			'base'        => 'porto_360degree_image_viewer',
-			'icon'        => 'porto4_vc_360degree_image_viewer',
+			'icon'        => 'fas fa-dice-d20',
 			'category'    => __( 'Porto', 'porto-functionality' ),
 			'description' => __( 'Add 360 degree image viewer.', 'porto-functionality' ),
 			'params'      => array(

@@ -35,7 +35,7 @@ function porto_load_info_box_shortcode() {
 		array(
 			'name'                    => __( 'Porto Info Box', 'porto-functionality' ),
 			'base'                    => 'porto_info_box',
-			'icon'                    => 'porto4_vc_info_box',
+			'icon'                    => 'fas fa-archive',
 			'class'                   => 'porto_info_box',
 			'category'                => __( 'Porto', 'porto-functionality' ),
 			'description'             => __( 'Adds icon box with custom font icon', 'porto-functionality' ),

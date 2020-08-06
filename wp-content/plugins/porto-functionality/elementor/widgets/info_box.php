@@ -86,6 +86,17 @@ class Porto_Elementor_Info_Box_Widget extends \Elementor\Widget_Base {
 		);
 
 		$this->add_control(
+			'icon_img_url',
+			array(
+				'type'      => Controls_Manager::TEXT,
+				'label'     => __( 'External Image Url', 'porto-functionality' ),
+				'condition' => array(
+					'icon_type' => array( 'custom' ),
+				),
+			)
+		);
+
+		$this->add_control(
 			'img_width',
 			array(
 				'type'        => Controls_Manager::SLIDER,
@@ -147,6 +158,7 @@ class Porto_Elementor_Info_Box_Widget extends \Elementor\Widget_Base {
 				),
 				'selectors' => array(
 					'{{WRAPPER}} .porto-icon' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .porto-icon svg' => 'fill: {{VALUE}};',
 				),
 			)
 		);
@@ -648,16 +660,28 @@ class Porto_Elementor_Info_Box_Widget extends \Elementor\Widget_Base {
 		$atts = $this->get_settings_for_display();
 
 		if ( isset( $atts['icon_cl'] ) && isset( $atts['icon_cl']['value'] ) ) {
-			$atts['icon'] = $atts['icon_cl']['value'];
+			if ( isset( $atts['icon_cl']['library'] ) && isset( $atts['icon_cl']['value']['id'] ) ) {
+				$atts['icon_type'] = $atts['icon_cl']['library'];
+				$atts['icon'] = $atts['icon_cl']['value']['id'];
+			} else {
+				$atts['icon'] = $atts['icon_cl']['value'];
+			}
 		}
 
-		$atts['img_width']           = '';
 		$atts['icon_size']           = '';
 		$atts['icon_border_size']    = '';
 		$atts['icon_border_radius']  = '';
 		$atts['icon_border_spacing'] = '';
-		if ( is_array( $atts['icon_img'] ) && isset( $atts['icon_img']['id'] ) ) {
-			$atts['icon_img'] = (int) $atts['icon_img']['id'];
+		if ( is_array( $atts['icon_img'] ) && ! empty( $atts['icon_img']['id'] ) ) {
+			$atts['img_width'] = '';
+			$atts['icon_img']  = (int) $atts['icon_img']['id'];
+		} elseif ( ! empty( $atts['icon_img_url'] ) && ( empty( $atts['icon_img'] ) || empty( $atts['icon_img']['id'] ) ) ) {
+			$atts['icon_img'] = $atts['icon_img_url'];
+			if ( isset( $atts['img_width'] ) && is_array( $atts['img_width'] ) ) {
+				$atts['img_width'] = $atts['img_width']['size'];
+			}
+		} else {
+			$atts['img_width'] = '';
 		}
 
 		if ( $template = porto_shortcode_template( 'porto_info_box' ) ) {
@@ -679,6 +703,9 @@ class Porto_Elementor_Info_Box_Widget extends \Elementor\Widget_Base {
 	protected function _content_template() {
 		?>
 		<#
+			if ( settings.icon_img_url && ! settings.icon_img.url ) {
+				settings.icon_img.url = settings.icon_img_url;
+			}
 			view.addRenderAttribute( 'wrapper', 'class', 'porto-sicon-box' );
 			if ( 'top' == settings.pos && 'center' != settings.h_align ) {
 				view.addRenderAttribute( 'wrapper', 'class', 'text-' + settings.h_align );
@@ -694,7 +721,7 @@ class Porto_Elementor_Info_Box_Widget extends \Elementor\Widget_Base {
 				view.addRenderAttribute( 'icon-wrapper', 'class', 'porto-sicon-' + settings.pos );
 			}
 
-			var box_html = '<div class="porto-just-icon-wrapper">';
+			var box_html = '';
 			if ( 'custom' == settings.icon_type ) {
 				view.addRenderAttribute( 'porto-sicon-img', 'class', 'porto-sicon-img' );
 				if ( 'circle' == settings.icon_style ) {
@@ -720,10 +747,12 @@ class Porto_Elementor_Info_Box_Widget extends \Elementor\Widget_Base {
 				box_html += '<i class="' + settings.icon_cl.value + '"></i>';
 				box_html += '</div>';
 			}
-			box_html += '</div>';
+			if ( box_html ) {
+				box_html = '<div class="porto-just-icon-wrapper">' + box_html + '</div>';
+			}
 
-			if ( settings.link ) {
-				view.addRenderAttribute( 'link', 'href', settings.link );
+			if ( settings.link && settings.link.url ) {
+				view.addRenderAttribute( 'link', 'href', settings.link.url );
 				if ( 'more' == settings.read_more ) {
 					view.addRenderAttribute( 'link', 'class', 'porto-sicon-read' );
 				} else {
@@ -771,7 +800,7 @@ class Porto_Elementor_Info_Box_Widget extends \Elementor\Widget_Base {
 					<# if ( settings.link && 'more' == settings.read_more ) { #>
 						<a {{{ view.getRenderAttributeString( 'link' ) }}}>
 						{{{ settings.read_text }}}
-						&nbsp;&raquo;
+						<span>&nbsp;&raquo;</span>
 						</a>
 					<# } #>
 					</div>
@@ -806,13 +835,13 @@ class Porto_Elementor_Info_Box_Widget extends \Elementor\Widget_Base {
 					</div>
 				<# } #>
 
-				<# if ( settings.content ) { #>
+				<# if ( settings.content || ( settings.link && 'more' == settings.read_more && settings.read_text ) ) { #>
 					<div class="porto-sicon-description" {{{ view.getRenderAttributeString( 'content' ) }}}>
 					{{{ settings.content }}}
 					<# if ( settings.link && 'more' == settings.read_more ) { #>
 						<a {{{ view.getRenderAttributeString( 'link' ) }}}>
 						{{{ settings.read_text }}}
-						&nbsp;&raquo;
+						<span>&nbsp;&raquo;</span>
 						</a>
 					<# } #>
 					</div>

@@ -24,7 +24,7 @@ function porto_load_best_selling_products_shortcode() {
 		array(
 			'name'        => 'Porto ' . __( 'Best Selling Products', 'js_composer' ),
 			'base'        => 'porto_best_selling_products',
-			'icon'        => 'porto_vc_woocommerce',
+			'icon'        => 'fas fa-cart-arrow-down',
 			'category'    => __( 'WooCommerce', 'js_composer' ),
 			'description' => __( 'Show best selling products on sale', 'porto-functionality' ),
 			'params'      => array_merge(

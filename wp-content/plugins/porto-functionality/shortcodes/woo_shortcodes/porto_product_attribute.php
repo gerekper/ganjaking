@@ -34,7 +34,7 @@ function porto_load_product_attribute_shortcode() {
 		array(
 			'name'        => 'Porto ' . __( 'Product Attribute', 'js_composer' ),
 			'base'        => 'porto_product_attribute',
-			'icon'        => 'porto_vc_woocommerce',
+			'icon'        => 'fas fa-cart-arrow-down',
 			'category'    => __( 'WooCommerce', 'js_composer' ),
 			'description' => __( 'Show products with an attribute shortcode', 'porto-functionality' ),
 			'params'      => array_merge(

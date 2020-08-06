@@ -307,9 +307,9 @@ class Porto_Elementor_Pricing_Table_Widget extends \Elementor\Widget_Base {
 		if ( $template = porto_shortcode_template( 'porto_price_box' ) ) {
 			$this->add_inline_editing_attributes( 'title' );
 			$this->add_inline_editing_attributes( 'desc' );
+			$this->add_render_attribute( 'desc', 'class', 'desc' );
 			$title_attrs_escaped = ' ' . $this->get_render_attribute_string( 'title' );
 			$desc_attrs_escaped  = ' ' . $this->get_render_attribute_string( 'desc' );
-			$this->add_render_attribute( 'desc', 'class', 'desc' );
 
 			$classes = 'pricing-table';
 			if ( ! isset( $atts['border'] ) || ! $atts['border'] ) {

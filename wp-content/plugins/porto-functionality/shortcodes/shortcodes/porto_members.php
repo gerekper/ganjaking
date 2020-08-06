@@ -23,7 +23,7 @@ function porto_load_members_shortcode() {
 			'name'     => 'Porto ' . __( 'Members', 'porto-functionality' ),
 			'base'     => 'porto_members',
 			'category' => __( 'Porto', 'porto-functionality' ),
-			'icon'     => 'porto_vc_members',
+			'icon'     => 'far fa-user',
 			'params'   => array(
 				array(
 					'type'        => 'textfield',

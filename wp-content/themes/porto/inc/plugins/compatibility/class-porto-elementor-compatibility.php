@@ -82,7 +82,7 @@ class Porto_Elementor_Compatibility {
 			$changed = true;
 		}
 
-		if ( ! empty( $porto_settings['grid-gutter-width'] ) && get_option( 'elementor_space_between_widgets', '20' ) != $porto_settings['grid-gutter-width'] ) {
+		if ( false === get_option( 'elementor_space_between_widgets', false ) && ! empty( $porto_settings['grid-gutter-width'] ) && get_option( 'elementor_space_between_widgets', '20' ) != $porto_settings['grid-gutter-width'] ) {
 			update_option( 'elementor_space_between_widgets', (int) $porto_settings['grid-gutter-width'] );
 			$changed = true;
 		}

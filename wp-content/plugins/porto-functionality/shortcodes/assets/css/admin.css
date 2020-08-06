@@ -6,7 +6,6 @@
 }
 
 /* Porto Visual Composer Elements */
-[class*="porto4_vc_"],
 .mce-i-porto,
 .block-editor-block-icon:empty {
 	background: url(../images/shortcodes.png) no-repeat center center !important;

@@ -23,7 +23,7 @@ function porto_load_lightbox_container_shortcode() {
 			'name'         => 'Porto ' . __( 'Lightbox Container', 'porto-functionality' ),
 			'base'         => 'porto_lightbox_container',
 			'category'     => __( 'Porto', 'porto-functionality' ),
-			'icon'         => 'porto_vc_lightbox',
+			'icon'         => 'fas fa-external-link-alt',
 			'is_container' => true,
 			'js_view'      => 'VcColumnView',
 			'params'       => array(

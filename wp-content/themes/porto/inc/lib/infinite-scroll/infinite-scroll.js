@@ -140,7 +140,7 @@
                 if ($().isotope) {
                     if ($this.data('isotope')) {
                         $this.isotope('appended', $posts);
-                        setTimeout(function() {
+                        theme.requestTimeout(function() {
                             $this.isotope('layout');
                         }, 50);
                     }
@@ -190,7 +190,7 @@
                     if ($().isotope) {
                         if ($this.data('isotope')) {
                             $this.isotope('appended', $posts);
-                            setTimeout(function() {
+                            theme.requestTimeout(function() {
                                 $this.isotope('layout');
                             }, 50);
                         }
@@ -212,7 +212,7 @@
                 if ($().isotope) {
                     if ($this.data('isotope')) {
                         $this.isotope('appended', $posts);
-                        setTimeout(function() {
+                        theme.requestTimeout(function() {
                             $this.isotope('layout');
                         }, 50);
                     }

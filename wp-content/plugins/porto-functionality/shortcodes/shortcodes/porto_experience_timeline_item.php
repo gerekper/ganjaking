@@ -20,7 +20,7 @@ function porto_load_experience_timeline_item_shortcode() {
 			'name'     => __( 'Experience Timeline Item', 'porto-functionality' ),
 			'base'     => 'porto_experience_timeline_item',
 			'category' => __( 'Porto', 'porto-functionality' ),
-			'icon'     => 'porto_vc_experience_timeline',
+			'icon'     => 'fas fa-list-ul',
 			'as_child' => array( 'only' => 'porto_experience_timeline_container' ),
 			'params'   => array(
 				array(

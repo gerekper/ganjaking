@@ -38,7 +38,7 @@ function porto_load_carousel_shortcode() {
 			'name'            => 'Porto ' . __( 'Carousel', 'porto-functionality' ),
 			'base'            => 'porto_carousel',
 			'category'        => __( 'Porto', 'porto-functionality' ),
-			'icon'            => 'porto_vc_carousel',
+			'icon'            => 'fas fa-ellipsis-h',
 			'as_parent'       => array( 'except' => 'porto_carousel' ),
 			'content_element' => true,
 			'controls'        => 'full',

@@ -33,7 +33,7 @@ function porto_load_product_categories_shortcode() {
 		array(
 			'name'        => 'Porto ' . __( 'Product Categories', 'js_composer' ),
 			'base'        => 'porto_product_categories',
-			'icon'        => 'porto_vc_woocommerce',
+			'icon'        => 'fas fa-shopping-basket',
 			'category'    => __( 'WooCommerce', 'js_composer' ),
 			'description' => __( 'Display product categories loop', 'porto-functionality' ),
 			'params'      => array_merge(

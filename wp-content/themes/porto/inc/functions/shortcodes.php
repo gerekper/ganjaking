@@ -3396,3 +3396,58 @@ if ( ! function_exists( 'porto_image_resize' ) ) :
 		return false;
 	}
 endif;
+
+if ( is_admin() ) :
+	add_action( 'vc_after_init', 'porto_update_vc_shortcodes_settings', 20 );
+
+	if ( ! function_exists( 'porto_update_vc_shortcodes_settings' ) ) :
+
+		/**
+		 * Update WPBakery elements' icon settings
+		 */
+		function porto_update_vc_shortcodes_settings() {
+			global $pagenow;
+			if ( ( vc_user_access()->part( 'backend_editor' )->can()->get() && ( 'post-new.php' == $pagenow || 'post.php' == $pagenow ) ) || vc_is_inline() ) {
+				add_filter(
+					'vc_add_element_box_buttons',
+					function( $output ) {
+						return preg_replace( '/(<i class="vc_general vc_element-icon[^>]*><\/i>)/', '$1$1', $output );
+					},
+					20
+				);
+
+				// WordPress elements
+				vc_map_update( 'vc_wp_search', 'icon', 'fab fa-wordpress' );
+				vc_map_update( 'vc_wp_meta', 'icon', 'fab fa-wordpress' );
+				vc_map_update( 'vc_wp_recentcomments', 'icon', 'fab fa-wordpress' );
+				vc_map_update( 'vc_wp_calendar', 'icon', 'fab fa-wordpress' );
+				vc_map_update( 'vc_wp_pages', 'icon', 'fab fa-wordpress' );
+				vc_map_update( 'vc_wp_tagcloud', 'icon', 'fab fa-wordpress' );
+				vc_map_update( 'vc_wp_custommenu', 'icon', 'fab fa-wordpress' );
+				vc_map_update( 'vc_wp_text', 'icon', 'fab fa-wordpress' );
+				vc_map_update( 'vc_wp_posts', 'icon', 'fab fa-wordpress' );
+				vc_map_update( 'vc_wp_categories', 'icon', 'fab fa-wordpress' );
+				vc_map_update( 'vc_wp_archives', 'icon', 'fab fa-wordpress' );
+				vc_map_update( 'vc_wp_rss', 'icon', 'fab fa-wordpress' );
+
+				// WPBakery elements
+				vc_map_update( 'vc_row', 'icon', 'fas fa-align-justify' );
+				vc_map_update( 'vc_custom_heading', 'icon', 'fas fa-heading' );
+				vc_map_update( 'vc_message', 'icon', 'fas fa-exclamation-triangle' );
+				vc_map_update( 'contact-form-7', 'icon', 'far fa-envelope' );
+				vc_map_update( 'vc_column_text', 'icon', 'fas fa-font' );
+				vc_map_update( 'vc_gutenberg', 'icon', 'fab fa-google' );
+
+
+				// WPBakery elements updated in Porto
+				vc_map_update( 'vc_tabs', 'icon', 'fas fa-columns' );
+				vc_map_update( 'vc_accordion', 'icon', 'fas fa-bars' );
+				vc_map_update( 'vc_tour', 'icon', 'fas fa-indent' );
+				vc_map_update( 'vc_btn', 'icon', 'fas fa-minus' );
+				vc_map_update( 'vc_separator', 'icon', 'fas fa-align-center' );
+				vc_map_update( 'vc_progress_bar', 'icon', 'far fa-chart-bar' );
+				vc_map_update( 'vc_pie', 'icon', 'fas fa-chart-pie' );
+			}
+		}
+	endif;
+endif;

@@ -858,6 +858,14 @@ if ( ! function_exists( 'porto_check_using_elementor_style' ) ) :
 			return false;
 		}
 
+		if ( get_theme_mod( 'elementor_edited', false ) ) {
+			return true;
+		}
+
+		if ( is_home() && get_theme_mod( 'elementor_blog_edited', false ) ) {
+			return true;
+		}
+
 		$elementor_sidebars = get_theme_mod( 'elementor_sidebars', array() );
 		if ( ! empty( $elementor_sidebars ) ) {
 			global $porto_layout, $porto_sidebar, $porto_sidebar2;

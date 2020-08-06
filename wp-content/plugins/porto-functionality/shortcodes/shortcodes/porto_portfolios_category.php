@@ -19,7 +19,7 @@ function porto_load_portfolios_category_shortcode() {
 			'name'     => 'Porto ' . __( 'Portfolios Categories', 'porto-functionality' ),
 			'base'     => 'porto_portfolios_category',
 			'category' => __( 'Porto', 'porto-functionality' ),
-			'icon'     => 'porto_vc_portfolios',
+			'icon'     => 'far fa-folder-open',
 			'params'   => array(
 				array(
 					'type'        => 'textfield',
@@ -35,6 +35,7 @@ function porto_load_portfolios_category_shortcode() {
 					'value'       => array(
 						'Strip'    => 'stripes',
 						'Parallax' => 'parallax',
+						__( 'Simple List', 'porto-functionality' ) => 'list',
 					),
 					'admin_label' => true,
 				),
@@ -47,6 +48,10 @@ function porto_load_portfolios_category_shortcode() {
 						__( 'Basic', 'porto-functionality' ) => '',
 						__( 'Bottom Info', 'porto-functionality' ) => 'bottom-info',
 						__( 'Bottom Info Dark', 'porto-functionality' ) => 'bottom-info-dark',
+					),
+					'dependency' => array(
+						'element' => 'category_layout',
+						'value'   => array( 'stripes', 'parallax' ),
 					),
 				),
 				array(
@@ -72,6 +77,10 @@ function porto_load_portfolios_category_shortcode() {
 					'value'      => array(
 						__( 'Show', 'porto-functionality' ) => 'show',
 						__( 'Hide', 'porto-functionality' ) => 'hide',
+					),
+					'dependency' => array(
+						'element' => 'category_layout',
+						'value'   => array( 'stripes', 'parallax' ),
 					),
 				),
 				array(

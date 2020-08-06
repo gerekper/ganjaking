@@ -46,7 +46,11 @@ wp_enqueue_script( 'porto_shortcodes_countdown_loader_js' );
 $count_frmt    = $labels = $countdown_design_style = '';
 $labels        = $string_years2 . ',' . $string_months2 . ',' . $string_weeks2 . ',' . $string_days2 . ',' . $string_hours2 . ',' . $string_minutes2 . ',' . $string_seconds2;
 $labels2       = $string_years . ',' . $string_months . ',' . $string_weeks . ',' . $string_days . ',' . $string_hours . ',' . $string_minutes . ',' . $string_seconds;
-$countdown_opt = explode( ',', $countdown_opts );
+if ( $countdown_opts && ! is_array( $countdown_opts ) ) {
+	$countdown_opt = explode( ',', $countdown_opts );
+} else {
+	$countdown_opt = $countdown_opts;
+}
 if ( is_array( $countdown_opt ) ) {
 	foreach ( $countdown_opt as $opt ) {
 		if ( 'syear' == $opt ) {
@@ -144,6 +148,9 @@ $output .= '</style>';
 $output .= '<div class="porto_countdown ' . esc_attr( $countdown_design_style ) . ' ' . esc_attr( $el_class ) . ' ' . esc_attr( $count_style ) . '">';
 
 if ( $datetime ) {
+	if ( ! isset( $content ) ) {
+		$content = '';
+	}
 	if ( ! $content && is_array( $countdown_opt ) ) {
 		$inttime  = strtotime( $datetime );
 		$now      = strtotime( 'now' );
@@ -162,8 +169,8 @@ if ( $datetime ) {
 			}
 			if ( in_array( 'sweek', $countdown_opt ) ) {
 				$weeks = ( date( 'Y', $inttime ) - date( 'Y' ) ) * 12 + date( 'W', $inttime ) - date( 'W' );
-				if ( $months < 0 ) {
-					$months += 12;
+				if ( $weeks < 0 ) {
+					$weeks += 52;
 				}
 				$inttime = $now + $difftime % ( 24 * 3600 * 7 );
 			}
@@ -172,14 +179,22 @@ if ( $datetime ) {
 				$inttime = $now + $difftime % ( 24 * 3600 );
 			}
 			if ( in_array( 'shr', $countdown_opt ) ) {
-				$hours   = (int) ( ( $inttime - $now ) / 3600 );
+				if ( in_array( 'smin', $countdown_opt ) || in_array( 'ssec', $countdown_opt ) ) {
+					$hours   = floor( ( $inttime - $now ) / 3600 );
+				} else {
+					$hours   = round( ( $inttime - $now ) / 3600 );
+				}
 				$inttime = $now + $difftime % 3600;
 				if ( $hours < 10 ) {
 					$hours = '0' . $hours;
 				}
 			}
 			if ( in_array( 'smin', $countdown_opt ) ) {
-				$minutes = (int) ( ( $inttime - $now ) / 60 );
+				if ( in_array( 'ssec', $countdown_opt ) ) {
+					$minutes = floor( ( $inttime - $now ) / 60 );
+				} else {
+					$minutes = round( ( $inttime - $now ) / 60 );
+				}
 				$inttime = $now + $difftime % 60;
 				if ( $minutes < 10 ) {
 					$minutes = '0' . $minutes;

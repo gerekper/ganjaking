@@ -26,7 +26,7 @@ function porto_load_featured_products_shortcode() {
 		array(
 			'name'        => 'Porto ' . __( 'Featured products', 'js_composer' ),
 			'base'        => 'porto_featured_products',
-			'icon'        => 'porto_vc_woocommerce',
+			'icon'        => 'fas fa-cart-arrow-down',
 			'category'    => __( 'WooCommerce', 'js_composer' ),
 			'description' => __( 'Display products set as "featured"', 'porto-functionality' ),
 			'params'      => array_merge(

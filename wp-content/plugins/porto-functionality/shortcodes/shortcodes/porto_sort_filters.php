@@ -23,7 +23,7 @@ function porto_load_sort_filters_shortcode() {
 			'name'            => 'Porto ' . __( 'Sort Filters', 'porto-functionality' ),
 			'base'            => 'porto_sort_filters',
 			'category'        => __( 'Porto', 'porto-functionality' ),
-			'icon'            => 'porto_vc_sort_filters',
+			'icon'            => 'fas fa-filter',
 			'as_parent'       => array( 'only' => 'porto_sort_filter' ),
 			'content_element' => true,
 			'controls'        => 'full',

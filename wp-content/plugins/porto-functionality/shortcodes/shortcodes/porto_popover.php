@@ -23,7 +23,7 @@ function porto_load_popover_shortcode() {
 			'name'     => 'Porto ' . __( 'Popover', 'porto-functionality' ),
 			'base'     => 'porto_popover',
 			'category' => __( 'Porto', 'porto-functionality' ),
-			'icon'     => 'porto_vc_popover',
+			'icon'     => 'porto-sc Simple-Line-Icons-share-alt',
 			'params'   => array(
 				array(
 					'type'       => 'textfield',

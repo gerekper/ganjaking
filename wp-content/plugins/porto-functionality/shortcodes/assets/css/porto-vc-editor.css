@@ -1,7 +1,7 @@
 /* VC Editors */
 .vc_navbar { background: #32373c; min-height: 3rem }
 #wpb_visual_composer .vc_navbar { border-bottom: none }
-.vc_ui-panel-header-container { background: #32373c }
+.vc_ui-panel-header-container { background: #32373c; padding: 12px 18px; border-radius: 4px 4px 0 0 }
 .vc_navbar .vc_navbar-brand { display: none }
 .vc_navbar .vc_navbar-nav > li { height: 3rem; border-right: 1px solid #3f444a }
 .vc_navbar .vc_navbar-nav > .vc_pull-right { border-right: none; border-left: 1px solid #3f444a }
@@ -37,6 +37,34 @@
 .composer-switch a.wpb_switch-to-composer:hover, .composer-switch a:visited.wpb_switch-to-composer:hover,
 .composer-switch a.wpb_switch-to-front-composer:hover, .composer-switch a:visited.wpb_switch-to-front-composer:hover { background: #00a3df }
 
+.vc_ui-panel-window-inner { background: none }
+.vc_ui-panel-header-header > .vc_ui-panel-header-actions { margin-bottom: 12px }
+.vc_ui-panel-header .vc_ui-panel-header-heading { font-size: .8125rem; font-weight: 700; text-transform: uppercase; letter-spacing: -.05em; margin: 0 1rem 12px 2px; line-height: 1.5; padding: 7px 0; }
+#vc_ui-panel-add-element .vc_ui-panel-header .vc_ui-panel-header-heading { margin-left: 1rem; }
+.vc_ui-search-box { width: 17.5rem }
+.vc_ui-search-box input[type=search] { height: 38px; border-radius: 20px; font-weight: 300; box-shadow: none; padding: 8px 32px 8px 16px; }
+.vc_ui-search-box .vc_ui-search-box-input label { left: auto; right: 10px; font-size: 18px; line-height: 26px; color: #777; }
+.vc_ui-panel-header .vc_ui-panel-header-content { background-color: #08c; margin-left: -18px; margin-right: -18px; padding-left: 4px; padding-right: 4px }
+#vc_ui-panel-add-element .vc_ui-panel-header .vc_ui-panel-header-content { padding-left: 18px; padding-right: 18px; }
+.vc_general.vc_ui-tabs-line .vc_ui-tabs-line-trigger { font-size: .8125rem; font-weight: 600; letter-spacing: -.05em; line-height: 1rem; padding: 1rem; border-radius: 0 }
+.vc_general.vc_ui-tabs-line>.vc_active>.vc_ui-tabs-line-trigger { color: #fff; background: none; }
+.vc_general.vc_ui-tabs-line>li { position: relative; }
+.vc_general.vc_ui-tabs-line>.vc_active:after { content: ''; border-bottom: 8px solid #fff; border-left: 10px solid transparent; border-right: 10px solid transparent; position: absolute; bottom: -1px; left: 50%; margin-left: -10px; }
+.vc_ui-panel-header .vc_ui-control-button .vc-composer-icon { font-size: 18px; line-height: 30px }
+#vc_ui-panel-add-element .vc_ui-panel-content-container { background-color: #f7f7f7 }
+.vc_add-element-container .wpb-elements-list { padding: 32px 17px 0; }
+.vc_add-element-container .wpb-content-layouts { display: flex; flex-wrap: wrap; padding: 0; }
+.vc_add-element-container .wpb-content-layouts li { background: none; padding: 0 10px 1px; margin-bottom: 30px; float: none; height: auto; border: none; }
+.vc_add-element-container .wpb-content-layouts li .vc_el-container { display: block; background: #fff linear-gradient(135deg, #0088cc 0%, #383f48 100%); position: relative; box-shadow: 0 1px 0 0 rgba(0, 0, 0, .1); height: 100%; }
+.vc_add-element-container .wpb-content-layouts li .vc_el-container:before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: #fff; transition: cubic-bezier(0.39, 0.66, 0.42, 0.99) all .2s; }
+.vc_add-element-container .wpb-content-layouts li:hover .vc_el-container:before { top: 8px; left: 8px; right: 8px; bottom: 8px; }
+.vc_add-element-container .wpb-content-layouts a { display: block; position: relative; text-align: center; padding: 22px 12px; font-size: 11.2px; font-weight: 700; text-transform: uppercase; letter-spacing: -.05em; color: #222529; overflow: hidden; }
+.vc_add-element-container .wpb-content-layouts a > * { display: block; }
+.vc_element-icon.fas, .vc_element-icon.fab, .vc_element-icon.far, .vc_element-icon.fa, .vc_element-icon.dashicons, .vc_element-icon.porto-sc { background: none; text-align: center; line-height: 32px; color: #08c; font-size: 1.25rem }
+.vc_add-element-container .vc_element-icon { position: static; margin: 0 auto 1rem; font-size: 2rem; color: #08c }
+.vc_add-element-container .vc_element-icon + .vc_element-icon { position: absolute; font-size: 4rem; width: 4rem; height: 4rem; line-height: 1; margin: 0; opacity: .08; top: -18px; right: -18px; left: auto; color: #777; background-position: center; background-size: 3rem; filter: grayscale(1); }
+.vc_add-element-container .wpb-content-layouts a .vc_element-description { text-transform: none }
+
 @media (max-width: 575px) {
 	.vc_navbar .vc_navbar-btn { padding-left: 1rem; padding-right: 1rem }
 	.vc_navbar .vc_navbar-btn:after, #vc_button-update:after, .vc_navbar .vc_save-backend .vc_control-save:after { content: none }
@@ -67,5 +95,4 @@
 .rtl .vc_add-element-container .wpb-content-layouts a { padding: 2px 50px 2px 4px }
 .rtl .vc_general.vc_ui-tabs-line > li { float: right }
 .rtl .vc_ui-panel-header .vc_ui-panel-header-controls { float: left; margin: 2px 12px 0 0 }
-.rtl .vc_ui-panel-header .vc_ui-panel-header-heading { margin-right: 0; margin-left: 1em }
 .rtl.vc_editor #wpcontent { margin-right: 0 !important; padding-right: 0 !important }

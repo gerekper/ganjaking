@@ -32,7 +32,7 @@ function porto_load_recent_posts_shortcode() {
 			'name'     => 'Porto ' . __( 'Recent Posts', 'porto-functionality' ),
 			'base'     => 'porto_recent_posts',
 			'category' => __( 'Porto', 'porto-functionality' ),
-			'icon'     => 'porto_vc_recent_posts',
+			'icon'     => 'porto-sc Simple-Line-Icons-docs',
 			'params'   => array(
 				array(
 					'type'        => 'textfield',

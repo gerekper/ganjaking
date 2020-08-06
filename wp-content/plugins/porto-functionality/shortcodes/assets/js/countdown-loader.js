@@ -23,8 +23,6 @@ jQuery(document).ready(function($) {
             var ticked = function (a){
                 var count_amount = $(this).find('.porto_countdown-amount'),
                     count_period = $(this).find('.porto_countdown-period'),
-                    tick_color          = $(this).data('tick-col'),
-                    tick_p_size         = $(this).data('tick-p-size'),
                     tick_fontfamily     = $(this).data('tick-font-family'),
                     count_amount_css    = '',
                     count_amount_font   = '',

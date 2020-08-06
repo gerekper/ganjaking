@@ -33,7 +33,7 @@ function porto_load_stat_counter_shortcode() {
 			'name'        => __( 'Porto Counter', 'porto-functionality' ),
 			'base'        => 'porto_stat_counter',
 			'class'       => 'porto_stat_counter',
-			'icon'        => 'porto4_vc_stat_counter',
+			'icon'        => 'fas fa-sort-numeric-down',
 			'category'    => __( 'Porto', 'porto-functionality' ),
 			'description' => __( 'Your milestones, achievements, etc.', 'porto-functionality' ),
 			'params'      => array(

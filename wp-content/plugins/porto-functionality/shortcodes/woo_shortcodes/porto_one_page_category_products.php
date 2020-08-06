@@ -22,7 +22,7 @@ function porto_load_one_page_category_products_shortcode() {
 		array(
 			'name'        => 'Porto ' . __( 'One Page Category', 'js_composer' ),
 			'base'        => 'porto_one_page_category_products',
-			'icon'        => 'porto_vc_woocommerce',
+			'icon'        => 'fas fa-cart-arrow-down',
 			'category'    => __( 'WooCommerce', 'js_composer' ),
 			'description' => __( 'Display one page navigation of product categories and products by category.', 'porto-functionality' ),
 			'params'      => array_merge(

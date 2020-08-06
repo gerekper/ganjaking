@@ -1031,6 +1031,14 @@ if ( ! class_exists( 'Porto_Theme_Setup_Wizard' ) ) {
 				<h1 class="screen-reader-text"><?php esc_html_e( 'Setup Wizard', 'porto' ); ?></h1>
 			</div>
 			<div class="porto-setup-wizard wrap">
+				<h2 class="porto-admin-nav">
+					<a href="<?php echo esc_url( admin_url( 'admin.php?page=porto' ) ); ?>"><?php esc_html_e( 'Welcome', 'porto' ); ?></a>
+					<a href="<?php echo esc_url( admin_url( 'admin.php?page=porto' ) ); ?>"><?php esc_html_e( 'Theme License', 'porto' ); ?></a>
+					<a href="<?php echo esc_url( admin_url( 'admin.php?page=porto-changelog' ) ); ?>"><?php esc_html_e( 'Change Log', 'porto' ); ?></a>
+					<a href="<?php echo esc_url( admin_url( 'themes.php?page=porto_settings' ) ); ?>"><?php esc_html_e( 'Theme Options', 'porto' ); ?></a>
+					<a href="#" class="active nolink"><?php esc_html_e( 'Setup Wizard', 'porto' ); ?></a>
+					<a href="<?php echo esc_url( admin_url( 'admin.php?page=porto-speed-optimize-wizard' ) ); ?>"><?php esc_html_e( 'Speed Optimize Wizard', 'porto' ); ?></a>
+				</h2>
 				<header class="porto-setup-wizard-header d-flex justify-between">
 					<div class="header-left">
 						<h2><?php esc_html_e( 'Setup Wizard', 'porto' ); ?></h2>

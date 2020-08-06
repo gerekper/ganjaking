@@ -710,7 +710,7 @@ jQuery(function($) {
                 if (typeof demo_filter != 'undefined') {
                     loaddata.demo_filter = demo_filter;
                 }
-                if ($(document.body).hasClass('elementor-editor-active')) {
+                if ($(document.body).hasClass('elementor-editor-active') && $('#elementor-preview').length) {
                     loaddata.type = 'e'; // Elementor
                 } else {
                     loaddata.type = 'v'; // Visual Composer
@@ -1569,6 +1569,9 @@ jQuery(function($) {
                             var $this = $(this),
                                 found = true,
                                 text = $this.find('.redux_field_th').text().toLowerCase();
+                            if ($this.find('.description.field-desc').length) {
+                                text += ' ' + $this.find('.description.field-desc').text().toLowerCase();
+                            }
                             if ( ! text ) {
                                 return false;
                             }

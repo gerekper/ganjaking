@@ -33,7 +33,7 @@ class Porto_Elementor_Portfolio_Widget extends \Elementor\Widget_Base {
 
 	public function get_script_depends() {
 		if ( ( isset( $_REQUEST['action'] ) && 'elementor' == $_REQUEST['action'] ) || isset( $_REQUEST['elementor-preview'] ) ) {
-			return array( 'porto-elementor-widgets-js' );
+			return array( 'isotope', 'porto-elementor-widgets-js' );
 		} else {
 			return array();
 		}
@@ -482,11 +482,15 @@ class Porto_Elementor_Portfolio_Widget extends \Elementor\Widget_Base {
 		$atts = $this->get_settings_for_display();
 
 		if ( $template = porto_shortcode_template( 'porto_portfolios' ) ) {
-			if ( ! empty( $atts['spacing']['size'] ) ) {
+			if ( isset( $atts['spacing']['size'] ) ) {
 				$atts['spacing'] = $atts['spacing']['size'];
+			} else {
+				unset( $atts['spacing'] );
 			}
 			if ( ! empty( $atts['number']['size'] ) ) {
 				$atts['number'] = $atts['number']['size'];
+			} else {
+				unset( $atts['number'] );
 			}
 			include $template;
 		}

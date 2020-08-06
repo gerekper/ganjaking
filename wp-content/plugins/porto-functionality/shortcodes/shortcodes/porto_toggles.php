@@ -23,7 +23,7 @@ function porto_load_toggles_shortcode() {
 			'name'            => 'Porto ' . __( 'Toggles', 'porto-functionality' ),
 			'base'            => 'porto_toggles',
 			'category'        => __( 'Porto', 'porto-functionality' ),
-			'icon'            => 'porto_vc_toggles',
+			'icon'            => 'fas fa-indent',
 			'as_parent'       => array( 'only' => 'vc_toggle' ),
 			'content_element' => true,
 			'controls'        => 'full',

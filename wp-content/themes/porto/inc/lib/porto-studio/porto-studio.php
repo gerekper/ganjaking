@@ -65,13 +65,13 @@ if ( ! class_exists( 'Porto_Studio' ) ) :
 			add_action( 'wp_ajax_nopriv_porto_studio_save', array( $this, 'update_custom_meta_fields_in_fronteditor' ) );
 
 			if ( 'post.php' == $GLOBALS['pagenow'] || 'post-new.php' == $GLOBALS['pagenow'] ) {
-				if ( defined( 'WPB_VC_VERSION' ) ) {
+				if ( defined( 'WPB_VC_VERSION' ) && ! porto_is_elementor_preview() ) {
 					add_filter( 'vc_nav_controls', array( $this, 'add_studio_control' ) );
 					add_filter( 'vc_nav_front_controls', array( $this, 'add_studio_control' ) );
 					add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ), 1001 );
 					add_action( 'admin_footer', array( $this, 'get_page_content' ) );
 				}
-				if ( defined( 'ELEMENTOR_VERSION' ) ) {
+				if ( porto_is_elementor_preview() ) {
 					add_action( 'elementor/editor/footer', array( $this, 'elementor_get_page_content' ) );
 					add_action(
 						'elementor/editor/after_enqueue_styles',

@@ -25,7 +25,7 @@ function porto_load_ultimate_carousel_shortcode() {
 		array(
 			'name'                    => __( 'Porto Advanced Carousel', 'porto-functionality' ),
 			'base'                    => 'porto_ultimate_carousel',
-			'icon'                    => 'porto4_vc_ultimate_carousel',
+			'icon'                    => 'fas fa-fast-forward',
 			'class'                   => 'porto_ultimate_carousel',
 			'as_parent'               => array( 'except' => 'porto_ultimate_carousel' ),
 			'content_element'         => true,

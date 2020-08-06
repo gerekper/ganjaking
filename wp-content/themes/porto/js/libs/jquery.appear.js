@@ -108,8 +108,13 @@
         },
         //check the queue asynchronously
         run: function() {
-            if ($.fn.appear.timeout) clearTimeout($.fn.appear.timeout);
-            $.fn.appear.timeout = setTimeout($.fn.appear.checkAll, 20);
+            if (typeof theme != 'undefined' && theme.requestTimeout) {
+                if ($.fn.appear.timeout) theme.deleteTimeout($.fn.appear.timeout);
+                $.fn.appear.timeout = theme.requestTimeout($.fn.appear.checkAll, 20);
+            } else {
+                if ($.fn.appear.timeout) clearTimeout($.fn.appear.timeout);
+                $.fn.appear.timeout = setTimeout($.fn.appear.checkAll, 20);
+            }
         }
     });
 

@@ -20,7 +20,7 @@ function porto_load_floating_menu_container_shortcode() {
 			'name'                    => 'Porto ' . __( 'Floating Menu Container', 'porto-functionality' ),
 			'base'                    => 'porto_floating_menu_container',
 			'category'                => __( 'Porto', 'porto-functionality' ),
-			'icon'                    => 'porto_vc_floating_menu',
+			'icon'                    => 'fas fa-ellipsis-v',
 			'as_parent'               => array( 'only' => 'porto_floating_menu_item' ),
 			'content_element'         => true,
 			'show_settings_on_create' => false,

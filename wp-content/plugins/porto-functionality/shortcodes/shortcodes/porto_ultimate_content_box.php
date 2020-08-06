@@ -24,7 +24,7 @@ function porto_load_ultimate_content_box_shortcode() {
 		array(
 			'name'                    => __( 'Porto Ultimate Content Box', 'porto-functionality' ),
 			'base'                    => 'porto_ultimate_content_box',
-			'icon'                    => 'porto4_vc_ultimate_content_box',
+			'icon'                    => 'far fa-object-group',
 			'class'                   => 'porto_ultimate_content_box',
 			'as_parent'               => array( 'except' => 'porto_ultimate_content_box' ),
 			'controls'                => 'full',

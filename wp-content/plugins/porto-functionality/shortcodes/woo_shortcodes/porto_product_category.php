@@ -26,7 +26,7 @@ function porto_load_product_category_shortcode() {
 		array(
 			'name'        => 'Porto ' . __( 'Product category', 'js_composer' ),
 			'base'        => 'porto_product_category',
-			'icon'        => 'porto_vc_woocommerce',
+			'icon'        => 'fas fa-cart-arrow-down',
 			'category'    => __( 'WooCommerce', 'js_composer' ),
 			'description' => __( 'Show multiple products in a category', 'js_composer' ),
 			'params'      => array_merge(

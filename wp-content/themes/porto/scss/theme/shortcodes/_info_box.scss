@@ -193,10 +193,10 @@ html {
 }
 /* effects */
 .porto-sicon-box {
-    &.style_2:hover .porto-icon {
+    &.style_2:hover .porto-icon, &.style_2:hover .img-icon {
         transform: scale(1.15, 1.15);
     }
-    &.style_3:hover .porto-icon {
+    &.style_3:hover .porto-icon, &.style_3:hover .img-icon {
         transform: translateY(-4px);
     }
 

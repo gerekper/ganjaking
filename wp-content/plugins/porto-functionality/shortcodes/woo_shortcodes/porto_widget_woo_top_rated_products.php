@@ -23,7 +23,7 @@ function porto_load_widget_woo_top_rated_products_shortcode() {
 		array(
 			'name'        => 'Porto ' . __( 'Top Rated Products', 'porto-functionality' ) . ' ' . __( 'Widget', 'porto-functionality' ),
 			'base'        => 'porto_widget_woo_top_rated_products',
-			'icon'        => 'porto_vc_woocommerce',
+			'icon'        => 'fas fa-cart-arrow-down',
 			'category'    => __( 'WooCommerce Widgets', 'porto-functionality' ),
 			'class'       => 'wpb_vc_wp_widget',
 			'description' => __( 'Display a list of your top rated products on your site.', 'woocommerce' ),

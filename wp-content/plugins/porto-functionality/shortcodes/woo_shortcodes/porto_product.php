@@ -22,7 +22,7 @@ function porto_load_product_shortcode() {
 		array(
 			'name'        => 'Porto ' . __( 'Product', 'js_composer' ),
 			'base'        => 'porto_product',
-			'icon'        => 'porto_vc_woocommerce',
+			'icon'        => 'fas fa-cart-arrow-down',
 			'category'    => __( 'WooCommerce', 'js_composer' ),
 			'description' => __( 'Show a single product by ID or SKU', 'porto-functionality' ),
 			'params'      => array(

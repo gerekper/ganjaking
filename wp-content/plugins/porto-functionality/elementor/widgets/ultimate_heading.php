@@ -73,6 +73,7 @@ class Porto_Elementor_Ultimate_Heading_Widget extends \Elementor\Widget_Base {
 					'h4' => __( 'H4', 'porto-functionality' ),
 					'h5' => __( 'H5', 'porto-functionality' ),
 					'h6' => __( 'H6', 'porto-functionality' ),
+					'div' => __( 'div', 'porto-functionality' ),
 				),
 				'default'     => 'h2',
 				'description' => __( 'Default is H2', 'porto-functionality' ),

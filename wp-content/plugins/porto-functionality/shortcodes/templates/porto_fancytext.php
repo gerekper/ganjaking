@@ -19,7 +19,7 @@ extract(
 			'strings_font_size'         => '',
 			'sufpref_color'             => '',
 			'strings_line_height'       => '',
-			'ticker_wait_time'          => '2500',
+			'ticker_wait_time'          => 2500,
 			'ticker_hover_pause'        => '',
 			'ticker_background'         => '',
 			'fancytext_color'           => '',

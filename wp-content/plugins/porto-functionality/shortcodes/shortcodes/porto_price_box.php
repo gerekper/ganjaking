@@ -23,7 +23,7 @@ function porto_load_price_box_shortcode() {
 			'name'     => 'Porto ' . __( 'Price Box', 'porto-functionality' ),
 			'base'     => 'porto_price_box',
 			'category' => __( 'Porto', 'porto-functionality' ),
-			'icon'     => 'porto_vc_price_box',
+			'icon'     => 'fas fa-dollar-sign',
 			'as_child' => array( 'only' => 'porto_price_boxes' ),
 			'params'   => array(
 				array(

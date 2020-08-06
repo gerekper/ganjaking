@@ -23,7 +23,7 @@ function porto_load_concept_shortcode() {
 			'name'     => 'Porto ' . __( 'Concept', 'porto-functionality' ),
 			'base'     => 'porto_concept',
 			'category' => __( 'Porto', 'porto-functionality' ),
-			'icon'     => 'porto_vc_concept',
+			'icon'     => 'fas fa-smog',
 			'params'   => array(
 				array(
 					'type'       => 'label',

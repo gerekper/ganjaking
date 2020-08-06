@@ -34,7 +34,7 @@ function porto_load_products_shortcode() {
 		array(
 			'name'        => 'Porto ' . __( 'Products', 'js_composer' ),
 			'base'        => 'porto_products',
-			'icon'        => 'porto_vc_woocommerce',
+			'icon'        => 'fas fa-cart-arrow-down',
 			'category'    => __( 'WooCommerce', 'js_composer' ),
 			'description' => __( 'Show multiple products by ID or SKU.', 'js_composer' ),
 			'params'      => array_merge(

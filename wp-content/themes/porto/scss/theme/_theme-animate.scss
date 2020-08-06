@@ -169,7 +169,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 @keyframes fadeInLeft {
 	0% {
 		opacity: 0;
-		transform: translateX(-30px);
+		transform: translateX(-40px);
 	}
 
 	100% {
@@ -185,7 +185,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 @keyframes fadeInRight {
 	0% {
 		opacity: 0;
-		transform: translateX(30px);
+		transform: translateX(40px);
 	}
 
 	100% {
@@ -663,7 +663,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 @keyframes slideInLeft {
 	0% {
-		transform: translateX(-100%);
+		transform: translateX(-101%);
 		visibility: visible
 	}
 	100% {

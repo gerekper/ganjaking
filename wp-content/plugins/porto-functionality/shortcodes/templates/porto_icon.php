@@ -83,7 +83,9 @@ if ( 'custom' == $icon_type ) {
 	$img = '';
 	$alt = '';
 	if ( $icon_img ) {
-		$attachment = wp_get_attachment_image_src( $icon_img, 'full' );
+		if ( is_numeric( $icon_img ) ) {
+			$attachment = wp_get_attachment_image_src( (int) $icon_img, 'full' );
+		}
 		if ( isset( $attachment ) && is_array( $attachment ) ) {
 			$img = $attachment[0];
 		} else {
@@ -172,7 +174,19 @@ if ( 'custom' == $icon_type ) {
 	}
 	if ( $icon ) {
 		$output .= $link_prefix . '<div class="porto-icon ' . esc_attr( $icon_style ) . ( $elx_class ? ' ' . esc_attr( $elx_class ) : '' ) . '"' . $css_trans . ' style="' . esc_attr( $style ) . '">';
-		$output .= '<i class="' . esc_attr( $icon ) . '"></i>';
+		if ( defined( 'ELEMENTOR_VERSION' ) && 'svg' === $icon_type ) {
+			ob_start();
+			\ELEMENTOR\Icons_Manager::render_icon(
+				array(
+					'library' => 'svg',
+					'value'   => array( 'id' => absint( $icon ) ),
+				),
+				array( 'aria-hidden' => 'true' )
+			);
+			$output .= ob_get_clean();
+		} else {
+			$output .= '<i class="' . esc_attr( $icon ) . '"></i>';
+		}
 		$output .= '</div>' . $link_sufix;
 	}
 }

@@ -23,7 +23,7 @@ function porto_load_tooltip_shortcode() {
 			'name'     => 'Porto ' . __( 'Tooltip', 'porto-functionality' ),
 			'base'     => 'porto_tooltip',
 			'category' => __( 'Porto', 'porto-functionality' ),
-			'icon'     => 'porto_vc_tooltip',
+			'icon'     => 'far fa-comment-dots',
 			'params'   => array(
 				array(
 					'type'       => 'textfield',

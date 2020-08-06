@@ -23,7 +23,7 @@ function porto_load_history_shortcode() {
 			'name'     => 'Porto ' . __( 'History', 'porto-functionality' ),
 			'base'     => 'porto_history',
 			'category' => __( 'Porto', 'porto-functionality' ),
-			'icon'     => 'porto_vc_history',
+			'icon'     => 'fas fa-history',
 			'params'   => array(
 				array(
 					'type'        => 'textfield',

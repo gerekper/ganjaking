@@ -21,7 +21,7 @@ function porto_load_modal_shortcode() {
 		array(
 			'name'                    => __( 'Porto Modal Box', 'porto-functionality' ),
 			'base'                    => 'porto_modal',
-			'icon'                    => 'porto4_vc_modal',
+			'icon'                    => 'far fa-window-restore',
 			'class'                   => 'porto_modal',
 			'category'                => __( 'Porto', 'porto-functionality' ),
 			'description'             => __( 'Adds bootstrap modal box in your content', 'porto-functionality' ),

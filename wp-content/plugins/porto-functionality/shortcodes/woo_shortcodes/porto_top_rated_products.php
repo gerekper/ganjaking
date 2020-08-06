@@ -26,7 +26,7 @@ function porto_load_top_rated_products_shortcode() {
 		array(
 			'name'        => 'Porto ' . __( 'Top Rated products', 'js_composer' ),
 			'base'        => 'porto_top_rated_products',
-			'icon'        => 'porto_vc_woocommerce',
+			'icon'        => 'fas fa-cart-arrow-down',
 			'category'    => __( 'WooCommerce', 'js_composer' ),
 			'description' => __( 'Show top rated products', 'porto-functionality' ),
 			'params'      => array_merge(

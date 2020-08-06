@@ -46,7 +46,7 @@ function porto_load_blog_shortcode() {
 			'name'     => 'Porto ' . __( 'Blog', 'porto-functionality' ),
 			'base'     => 'porto_blog',
 			'category' => __( 'Porto', 'porto-functionality' ),
-			'icon'     => 'porto_vc_blog',
+			'icon'     => 'far fa-calendar-alt',
 			'params'   => array_merge(
 				array(
 					array(

@@ -16,7 +16,7 @@ function porto_load_events_shortcode() {
 			'name'     => 'Porto ' . __( 'Events', 'porto-functionality' ),
 			'base'     => 'porto_events',
 			'category' => __( 'Porto', 'porto-functionality' ),
-			'icon'     => 'porto_vc_blockquote',
+			'icon'     => 'porto-sc Simple-Line-Icons-event',
 			'params'   => array(
 				array(
 					'type'       => 'dropdown',

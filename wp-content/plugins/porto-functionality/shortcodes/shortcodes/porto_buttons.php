@@ -25,7 +25,7 @@ function porto_load_buttons_shortcode() {
 		array(
 			'name'            => __( 'Porto Advanced Button', 'porto-functionality' ),
 			'base'            => 'porto_buttons',
-			'icon'            => 'porto4_vc_buttons',
+			'icon'            => 'fas fa-minus',
 			'class'           => 'porto_buttons',
 			'content_element' => true,
 			'controls'        => 'full',

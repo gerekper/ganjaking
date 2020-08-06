@@ -387,6 +387,9 @@
 .porto-view-switcher img, .wpml-ls-menu-item .wpml-ls-flag {
     max-width: 18px
 }
+.porto-view-switcher .flag {
+    margin-#{$right}: .25rem
+}
 #header {
     .welcome-msg {
         display: inline-block;

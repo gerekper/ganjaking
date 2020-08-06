@@ -5190,6 +5190,31 @@ function _makeConsumableArray(arr) {
 					options: [{ label: __('Left'), value: 'left' }, { label: __('Right'), value: 'right' }],
 					onChange: ( value ) => { props.setAttributes( { icon_pos: value } ); },
 				} ),
+				el( TextControl, {
+					label: __('Animation Type'),
+					value: attrs.animation_type,
+					onChange: ( value ) => { props.setAttributes( { animation_type: value } ); },
+				} ),
+				el(
+					'p',
+					{},
+					__('Please check this url to see animation types. '),
+					el(
+						'a',
+						{ href: 'https://www.portotheme.com/wordpress/porto/shortcodes/animations/', target: '_blank' },
+						'https://www.portotheme.com/wordpress/porto/shortcodes/animations/'
+					),
+				),
+				el( TextControl, {
+					label: __('Animation Delay'),
+					value: attrs.animation_delay,
+					onChange: ( value ) => { props.setAttributes( { animation_delay: value } ); },
+				} ),
+				el( TextControl, {
+					label: __('Animation Duration'),
+					value: attrs.animation_duration,
+					onChange: ( value ) => { props.setAttributes( { animation_duration: value } ); },
+				} ),
 			);
 
 			let style_inline = {};
@@ -5278,7 +5303,10 @@ function _makeConsumableArray(arr) {
 			},
 			align: {
 				type: 'string',
-			}
+			},
+			animation_type: { type: 'string' },
+			animation_duration: { type: 'int' },
+			animation_delay: { type: 'int' }
 		},
 		edit: PortoButton,
 		save: function() {

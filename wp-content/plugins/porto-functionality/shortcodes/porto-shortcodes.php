@@ -336,7 +336,7 @@ class PortoShortcodesClass {
 		add_action(
 			'vc_frontend_editor_render',
 			function() {
-				wp_enqueue_style( 'porto-vc-editor-fonts', '//fonts.googleapis.com/css?family=Poppins%3A400%2C500%2C600' );
+				wp_enqueue_style( 'porto-vc-editor-fonts', '//fonts.googleapis.com/css?family=Poppins%3A300%2C400%2C500%2C600%2C700' );
 				wp_enqueue_style( 'porto-vc-editor', PORTO_SHORTCODES_URL . 'assets/css/porto-vc-editor.css', false, PORTO_SHORTCODES_VERSION );
 			}
 		);

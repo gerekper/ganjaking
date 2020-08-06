@@ -115,8 +115,10 @@ switch ( $dots_icon_type ) {
 		break;
 }
 
-$desing_style = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, vc_shortcode_custom_css_class( $css_ad_caraousel, ' ' ), 'porto_ultimate_carousel', $atts );
-$desing_style = esc_attr( $desing_style );
+if ( defined( 'VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG' ) ) {
+	$desing_style = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, vc_shortcode_custom_css_class( $css_ad_caraousel, ' ' ), 'porto_ultimate_carousel', $atts );
+	$desing_style = esc_attr( $desing_style );
+}
 if ( 'single' == $slide_to_scroll ) {
 	$slide_to_scroll = 1;
 } else {

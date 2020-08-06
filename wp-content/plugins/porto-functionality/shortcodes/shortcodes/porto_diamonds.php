@@ -23,7 +23,7 @@ function porto_load_diamonds_shortcode() {
 			'name'     => 'Porto ' . __( 'Diamonds', 'porto-functionality' ),
 			'base'     => 'porto_diamonds',
 			'category' => __( 'Porto', 'porto-functionality' ),
-			'icon'     => 'porto_vc_diamonds',
+			'icon'     => 'far fa-gem',
 			'params'   => array(
 				array(
 					'type'       => 'checkbox',

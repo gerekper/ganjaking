@@ -25,6 +25,9 @@ if ( ! class_exists( 'Porto_Elementor_Init' ) ) :
 			'pricing_table',
 			'recent_portfolios',
 			'circular_bar',
+			'events',
+			'fancytext',
+			'countdown',
 		);
 
 		private $woo_widgets = array(
@@ -153,8 +156,80 @@ if ( ! class_exists( 'Porto_Elementor_Init' ) ) :
 						if ( ! defined( 'ELEMENTOR_VERSION' ) ) {
 							return;
 						}
-						if ( ! isset( $changed['product-content_bottom'] ) && ! isset( $changed['product-tab-block'] ) && ! isset( $changed['product-single-content-layout'] ) && ! isset( $changed['product-single-content-builder'] ) ) {
+
+						$html_blocks   = array( 'top', 'banner', 'content-top', 'content-inner-top', 'content-inner-bottom', 'content-bottom', 'bottom' );
+						$block_changed = false;
+						foreach ( $html_blocks as $b ) {
+							if ( isset( $changed[ 'html-' . $b ] ) ) {
+								$block_changed = true;
+								break;
+							}
+						}
+
+						$blog_blocks        = array( 'blog-content_top', 'blog-content_inner_top', 'blog-content_inner_bottom', 'blog-content_bottom' );
+						$blog_block_changed = false;
+						foreach ( $blog_blocks as $b ) {
+							if ( isset( $changed[ $b ] ) ) {
+								$blog_block_changed = true;
+								break;
+							}
+						}
+
+						if ( ! $block_changed && ! $blog_block_changed && ! isset( $changed['product-content_bottom'] ) && ! isset( $changed['product-tab-block'] ) && ! isset( $changed['product-single-content-layout'] ) && ! isset( $changed['product-single-content-builder'] ) ) {
 							return;
+						}
+
+						if ( $block_changed ) {
+							$elementor_edited = false;
+							$block_slugs      = array();
+							foreach ( $html_blocks as $b ) {
+								if ( ! empty( $options[ 'html-' . $b ] ) && preg_match( '/\[porto_block\s[^]]*(id|name)="([^"]*)"/', $options[ 'html-' . $b ], $matches ) && isset( $matches[2] ) && $matches[2] ) {
+									$block_slugs[] = trim( $matches[2] );
+								}
+							}
+
+							if ( ! empty( $block_slugs ) ) {
+								global $wpdb;
+								foreach ( $block_slugs as $s ) {
+									$where   = is_numeric( $s ) ? 'ID' : 'post_name';
+									$post_id = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_type = 'block' AND $where = %s", sanitize_text_field( $s ) ) );
+									if ( $post_id && get_post_meta( $post_id, '_elementor_edit_mode', true ) && get_post_meta( $post_id, '_elementor_data', true ) ) {
+										$elementor_edited = true;
+										break;
+									}
+								}
+							}
+
+							set_theme_mod( 'elementor_edited', $elementor_edited );
+						}
+
+						if ( $blog_block_changed ) {
+							$elementor_edited = false;
+							$block_slugs      = array();
+							foreach ( $blog_blocks as $b ) {
+								if ( ! empty( $options[ $b ] ) ) {
+									$arr = explode( ',', $options[ $b ] );
+									foreach ( $arr as $a ) {
+										$a = trim( $a );
+										if ( $a && ! in_array( $a, $block_slugs ) ) {
+											$block_slugs[] = $a;
+										}
+									}
+								}
+							}
+
+							if ( ! empty( $block_slugs ) ) {
+								global $wpdb;
+								foreach ( $block_slugs as $s ) {
+									$where   = is_numeric( $s ) ? 'ID' : 'post_name';
+									$post_id = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_type = 'block' AND $where = %s", sanitize_text_field( $s ) ) );
+									if ( $post_id && get_post_meta( $post_id, '_elementor_edit_mode', true ) && get_post_meta( $post_id, '_elementor_data', true ) ) {
+										$elementor_edited = true;
+										break;
+									}
+								}
+							}
+							set_theme_mod( 'elementor_blog_edited', $elementor_edited );
 						}
 
 						$types = get_theme_mod( 'elementor_blocks_post_types', array() );
@@ -460,7 +535,15 @@ if ( ! class_exists( 'Porto_Elementor_Init' ) ) :
 			$blocks_fields = array( 'content_top', 'content_inner_top', 'content_inner_bottom', 'content_bottom', 'product_custom_block' );
 			foreach ( $blocks_fields as $field ) {
 				if ( ! empty( $_POST[ $field ] ) ) {
-					$block_slugs[] = trim( $_POST[ $field ] );
+					$arr = explode( ',', $_POST[ $field ] );
+					if ( ! empty( $arr ) ) {
+						foreach ( $arr as $a ) {
+							$a = trim( $a );
+							if ( $a ) {
+								$block_slugs[] = $a;
+							}
+						}
+					}
 				}
 			}
 
@@ -544,6 +627,7 @@ if ( ! class_exists( 'Porto_Elementor_Init' ) ) :
 					'porto_elementor_vars',
 					array(
 						'creative_layouts' => $creative_layouts,
+						'gmt_offset'       => get_option( 'gmt_offset' ),
 					)
 				);
 			}

@@ -33,7 +33,7 @@ function porto_load_single_icon_shortcode() {
 			'name'                    => __( 'Icon Item', 'porto-functionality' ),
 			'base'                    => 'porto_single_icon',
 			'class'                   => 'porto_simple_icon',
-			'icon'                    => 'porto4_vc_simple_icon',
+			'icon'                    => 'fas fa-check',
 			'category'                => __( 'Porto', 'porto-functionality' ),
 			'description'             => __( 'Add a set of multiple icons and give some custom style.', 'porto-functionality' ),
 			'as_child'                => array( 'only' => 'porto_icons' ),

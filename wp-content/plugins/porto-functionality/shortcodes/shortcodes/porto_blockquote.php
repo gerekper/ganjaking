@@ -23,7 +23,7 @@ function porto_load_blockquote_shortcode() {
 			'name'     => 'Porto ' . __( 'Blockquote', 'porto-functionality' ),
 			'base'     => 'porto_blockquote',
 			'category' => __( 'Porto', 'porto-functionality' ),
-			'icon'     => 'porto_vc_blockquote',
+			'icon'     => 'fas fa-quote-left',
 			'params'   => array(
 				array(
 					'type'        => 'textarea_html',

@@ -1,5 +1,5 @@
 <?php
-global $porto_settings, $porto_layout, $porto_sidebar, $porto_sidebar2, $porto_shop_filter_layout;
+global $porto_settings, $porto_layout, $porto_sidebar, $porto_sidebar2, $porto_mobile_toggle;
 wp_reset_postdata();
 $content_bottom       = porto_get_meta_value( 'content_bottom' );
 $content_inner_bottom = porto_get_meta_value( 'content_inner_bottom' );
@@ -40,12 +40,13 @@ $sticky_sidebar = porto_meta_sticky_sidebar();
 
 $skeleton_lazyload = apply_filters( 'porto_skeleton_lazyload', ! empty( $porto_settings['skeleton_lazyload'] ), 'sidebar' );
 if ( in_array( $porto_layout, porto_options_sidebars() ) ) :
+	global $porto_shop_filter_layout;
 	?>
 	<div class="col-lg-3 sidebar <?php echo 'porto-' . $porto_sidebar; ?> <?php echo str_replace( 'both-', 'left-', str_replace( 'wide-', '', $porto_layout ) ); ?><?php echo ! $mobile_sidebar ? '' : ' mobile-sidebar'; ?>"><!-- main sidebar -->
 		<?php if ( $sticky_sidebar ) : ?>
 		<div data-plugin-sticky data-plugin-options="<?php echo esc_attr( '{"autoInit": true, "minWidth": 992, "containerSelector": ".main-content-wrap","autoFit":true, "paddingOffsetBottom": 10}' ); ?>">
 		<?php endif; ?>
-		<?php if ( $mobile_sidebar ) : ?>
+		<?php if ( $mobile_sidebar && ( ! isset( $porto_mobile_toggle ) || false !== $porto_mobile_toggle ) ) : ?>
 		<div class="sidebar-toggle"><i class="fa"></i></div>
 		<?php endif; ?>
 		<div class="sidebar-content<?php echo ! $skeleton_lazyload ? '' : ' skeleton-loading'; ?>">

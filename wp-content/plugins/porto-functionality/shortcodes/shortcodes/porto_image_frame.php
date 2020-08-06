@@ -23,7 +23,7 @@ function porto_load_image_frame_shortcode() {
 			'name'     => 'Porto ' . __( 'Image Frame', 'porto-functionality' ),
 			'base'     => 'porto_image_frame',
 			'category' => __( 'Porto', 'porto-functionality' ),
-			'icon'     => 'porto_vc_image_frame',
+			'icon'     => 'far fa-image',
 			'params'   => array(
 				array(
 					'type'       => 'dropdown',

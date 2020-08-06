@@ -25,7 +25,7 @@ function porto_load_countdown_shortcode() {
 			'name'        => __( 'Porto Countdown', 'porto-functionality' ),
 			'base'        => 'porto_countdown',
 			'class'       => 'porto_countdown',
-			'icon'        => 'porto4_vc_countdown',
+			'icon'        => 'far fa-clock',
 			'category'    => __( 'Porto', 'porto-functionality' ),
 			'description' => __( 'Countdown Timer.', 'porto-functionality' ),
 			'params'      => array(

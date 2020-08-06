@@ -176,7 +176,7 @@ class Porto_Elementor_Section extends Elementor\Element_Section {
 				if ( 'banner' == $settings['as_param'] ) {
 					if ( ! empty( $settings['banner_image'] ) && ! empty( $settings['banner_image']['id'] ) ) {
 						$attr    = array( 'class' => 'porto-ibanner-img' );
-						$img_src = wp_get_attachment_image_src( $settings['banner_image']['id'], 'full' );
+						$img_src = wp_get_attachment_image_src( $settings['banner_image']['id'], ! empty( $settings['banner_image_size'] ) ? $settings['banner_image_size'] : 'full' );
 						// Generate 'srcset' and 'sizes'
 						$image_meta          = wp_get_attachment_metadata( $settings['banner_image']['id'] );
 						$settings_min_height = false;
@@ -203,8 +203,8 @@ class Porto_Elementor_Section extends Elementor\Element_Section {
 								}
 							}
 						}
-						$srcset = wp_get_attachment_image_srcset( $settings['banner_image']['id'], 'full', $image_meta );
-						$sizes  = wp_get_attachment_image_sizes( $settings['banner_image']['id'], 'full', $image_meta );
+						$srcset = wp_get_attachment_image_srcset( $settings['banner_image']['id'], ! empty( $settings['banner_image_size'] ) ? $settings['banner_image_size'] : 'full', $image_meta );
+						$sizes  = wp_get_attachment_image_sizes( $settings['banner_image']['id'], ! empty( $settings['banner_image_size'] ) ? $settings['banner_image_size'] : 'full', $image_meta );
 						if ( $srcset && $sizes ) {
 							$attr['srcset'] = $srcset;
 							$attr['sizes']  = $sizes;
@@ -564,6 +564,18 @@ function porto_elementor_section_custom_control( $self, $args ) {
 			'label'       => __( 'Banner Image', 'porto-functionality' ),
 			'description' => __( 'Upload the image for this banner', 'porto-functionality' ),
 			'condition'   => array(
+				'as_param' => 'banner',
+			),
+		)
+	);
+
+	$self->add_group_control(
+		\Elementor\Group_Control_Image_Size::get_type(),
+		array(
+			'name'      => 'banner_image', // Usage: `{name}_size` and `{name}_custom_dimension`, in this case `image_size` and `image_custom_dimension`.
+			'default'   => 'full',
+			'separator' => 'none',
+			'condition' => array(
 				'as_param' => 'banner',
 			),
 		)
@@ -1189,6 +1201,47 @@ function porto_elementor_column_custom_control( $self, $args ) {
 	);
 
 	$self->add_control(
+		'css_anim_type',
+		array(
+			'label'     => __( 'CSS Animation', 'porto-functionality' ),
+			'type'      => Controls_Manager::ANIMATION,
+			'condition' => array(
+				'as_banner_layer' => 'yes',
+			),
+		)
+	);
+
+	$self->add_control(
+		'css_anim_delay',
+		array(
+			'label'     => __( 'CSS Animation Delay (ms)', 'porto-functionality' ),
+			'type'      => Controls_Manager::NUMBER,
+			'step'      => 50,
+			'min'       => 0,
+			'max'       => 8000,
+			'condition' => array(
+				'as_banner_layer' => 'yes',
+				'css_anim_type!'  => '',
+			),
+		)
+	);
+
+	$self->add_control(
+		'css_anim_duration',
+		array(
+			'label'     => __( 'CSS Animation Duration (ms)', 'porto-functionality' ),
+			'type'      => Controls_Manager::NUMBER,
+			'step'      => 100,
+			'min'       => 100,
+			'max'       => 4000,
+			'condition' => array(
+				'as_banner_layer' => 'yes',
+				'css_anim_type!'  => '',
+			),
+		)
+	);
+
+	$self->add_control(
 		'porto_el_cls',
 		array(
 			'label'     => __( 'Extra Class', 'porto-functionality' ),
@@ -1339,9 +1392,18 @@ function porto_elementor_print_section_template( $content, $self ) {
 				extra_after_html += '<div class="grid-col-sizer"></div>';
 			}
 		} else if ('banner' == settings.as_param) {
+			var image = {
+					id: settings.banner_image.id,
+					url: settings.banner_image.url,
+					size: settings.banner_image_size,
+					dimension: settings.banner_image_custom_dimension,
+					model: view.getEditModel()
+				},
+				image_url = elementor.imagesManager.getImageUrl( image );
+
 			settings.gap = 'no';
-			if ( settings.banner_image.url ) {
-				extra_before_html += '<img class="porto-ibanner-img" src="' + settings.banner_image.url + '" />';
+			if ( image_url ) {
+				extra_before_html += '<img class="porto-ibanner-img" src="' + image_url + '" />';
 			}
 
 			if ('yes' == settings.add_container) {
@@ -1400,6 +1462,16 @@ function porto_elementor_print_column_template( $content, $self ) {
 
 			if (extra_style) {
 				extra_style = ' style="' + extra_style + '"';
+			}
+
+			if ( settings.css_anim_type ) {
+				extra_style += ' data-appear-animation="' + settings.css_anim_type + '"';
+				if ( settings.css_anim_type ) {
+					extra_style += ' data-appear-animation-delay="' + Number( settings.css_anim_delay ) + '"';
+				}
+				if ( settings.css_anim_duration ) {
+					extra_style += ' data-appear-animation-duration="' + Number( settings.css_anim_duration ) + '"';
+				}
 			}
 		} else if ( 'grid_item' == settings.as_banner_layer && settings.width1 ) {
 			extra_style += ' data-width=' + JSON.stringify( settings.width1 );
@@ -1557,6 +1629,16 @@ function porto_elementor_column_add_custom_attrs( $self ) {
 		$self->add_render_attribute( '_inner_wrapper', 'class', $extra_class );
 		if ( $extra_style ) {
 			$self->add_render_attribute( '_inner_wrapper', 'style', $extra_style );
+		}
+
+		if ( isset( $settings['css_anim_type'] ) && $settings['css_anim_type'] ) {
+			$self->add_render_attribute( '_inner_wrapper', 'data-appear-animation', esc_attr( $settings['css_anim_type'] ) );
+			if ( ! empty( $settings['css_anim_delay'] ) ) {
+				$self->add_render_attribute( '_inner_wrapper', 'data-appear-animation-delay', absint( $settings['css_anim_delay'] ) );
+			}
+			if ( ! empty( $settings['css_anim_duration'] ) ) {
+				$self->add_render_attribute( '_inner_wrapper', 'data-appear-animation-duration', absint( $settings['css_anim_duration'] ) );
+			}
 		}
 	} if ( 'carousel' == $settings['as_banner_layer'] ) {
 		$items        = 0 < intval( $settings['items']['size'] ) ? $settings['items']['size'] : 1;

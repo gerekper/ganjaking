@@ -58,10 +58,10 @@ p { margin: 0 0 1.25rem; line-height: 1.8 }
 .porto-setup-wizard-header .version { display: block; text-align: right; color: #cbe0f1; font-size: .75rem; font-weight: 500; margin-top: -1em; line-height: 1; letter-spacing: -.1em }
 
 /* Steps */
-.porto-setup-steps { background-color: #32373c; margin: 0; list-style: none; display: flex; overflow: hidden; flex-wrap: wrap }
-.porto-setup-steps a { display: block; color: #999; font-size: .8125rem; font-weight: 700; text-decoration: none; text-transform: uppercase; transition: color .25s; letter-spacing: -.05em; padding: 1.25rem 1.875rem; position: relative; }
-.porto-setup-steps a:before { content: ''; position: absolute; right: 0; top: 0; bottom: 50%; border: 1px solid #272a2e; transform: skew(30deg); }
-.porto-setup-steps a:after { content: ''; position: absolute; right: 0; top: 50%; bottom: 0; border: 1px solid #272a2e; transform: skew(-30deg); }
+.porto-setup-steps { background-color: #08c; border-top: 1px solid rgba(255, 255, 255, .1); margin: 0; list-style: none; display: flex; overflow: hidden; flex-wrap: wrap }
+.porto-setup-steps a { display: block; color: rgba(255, 255, 255, .4); font-size: .8125rem; font-weight: 700; text-decoration: none; text-transform: uppercase; transition: color .25s; letter-spacing: -.05em; padding: 1.25rem 1.875rem; position: relative; }
+.porto-setup-steps a:before { content: ''; position: absolute; right: 0; top: 0; bottom: 50%; border: 1px solid rgba(255, 255, 255, .15); transform: skew(30deg); }
+.porto-setup-steps a:after { content: ''; position: absolute; right: 0; top: 50%; bottom: 0; border: 1px solid rgba(255, 255, 255, .15); transform: skew(-30deg); }
 .porto-setup-steps li:last-child a:before, .porto-setup-steps li:last-child a:after { content: none }
 .porto-setup-steps li { margin-bottom: 0 }
 .porto-setup-steps a:not(.nolink):hover, .porto-setup-steps .active a { color: #fff; }

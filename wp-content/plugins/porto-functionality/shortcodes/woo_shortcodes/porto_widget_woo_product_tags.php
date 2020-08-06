@@ -23,7 +23,7 @@ function porto_load_widget_woo_product_tags_shortcode() {
 		array(
 			'name'        => 'Porto ' . __( 'Product Tags', 'porto-functionality' ) . ' ' . __( 'Widget', 'porto-functionality' ),
 			'base'        => 'porto_widget_woo_product_tags',
-			'icon'        => 'porto_vc_woocommerce',
+			'icon'        => 'fas fa-cart-arrow-down',
 			'category'    => __( 'WooCommerce Widgets', 'porto-functionality' ),
 			'class'       => 'wpb_vc_wp_widget',
 			'description' => __( 'Your most used product tags in cloud format.', 'woocommerce' ),

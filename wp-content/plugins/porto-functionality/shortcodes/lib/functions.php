@@ -5011,7 +5011,7 @@ if ( ! function_exists( 'porto_creative_grid_style' ) ) :
 			echo esc_html( $selector ) . ' ' . $item_selector . ' { flex: 0 0 100%; width: 100%; }';
 		echo '}';
 		if ( false !== $spacing && '' !== $spacing ) {
-			echo esc_html( $selector ) . ' .grid-creative { margin-left: -' . ( (int) $spacing / 2 ) . 'px; margin-right: -' . ( (int) $spacing / 2 ) . 'px; }';
+			echo esc_html( $selector ) . ' .grid-creative { margin-left: -' . ( (int) $spacing / 2 ) . 'px; margin-right: -' . ( (int) $spacing / 2 ) . 'px; width: calc(100% + ' . intval( $spacing ) . esc_html( $unit ) . ') }';
 			echo esc_html( $selector ) . ' ' . $item_selector . ' { padding: 0 ' . ( (int) $spacing / 2 ) . 'px ' . ( (int) $spacing ) . 'px; }';
 		}
 		if ( $include_style ) {

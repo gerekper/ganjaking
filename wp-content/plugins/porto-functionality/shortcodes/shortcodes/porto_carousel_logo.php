@@ -22,7 +22,7 @@ function porto_load_carousel_logo_shortcode() {
 			'name'     => __( 'Porto Carousel Logo', 'porto-functionality' ),
 			'base'     => 'porto_carousel_logo',
 			'class'    => 'porto_carousel_logo',
-			'icon'     => 'porto4_vc_carousel_logo',
+			'icon'     => 'far fa-circle',
 			'category' => __( 'Porto', 'porto-functionality' ),
 			'params'   => array(
 				array(

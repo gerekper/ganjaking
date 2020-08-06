@@ -25,7 +25,7 @@ function porto_load_fancytext_shortcode() {
 			'name'        => __( 'Porto Fancy Text', 'porto-functionality' ),
 			'base'        => 'porto_fancytext',
 			'class'       => 'porto_fancytext',
-			'icon'        => 'porto4_vc_fancytext',
+			'icon'        => 'fas fa-recycle',
 			'category'    => __( 'Porto', 'porto-functionality' ),
 			'description' => __( 'Fancy lines with animation effects.', 'porto-functionality' ),
 			'params'      => array(

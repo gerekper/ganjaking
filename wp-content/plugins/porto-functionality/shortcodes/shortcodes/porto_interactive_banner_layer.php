@@ -35,7 +35,7 @@ function porto_load_interactive_banner_layer_shortcode() {
 		array(
 			'name'                    => __( 'Porto Banner Layer', 'porto-functionality' ),
 			'base'                    => 'porto_interactive_banner_layer',
-			'icon'                    => 'porto4_vc_interactive_banner_layer',
+			'icon'                    => 'far fa-address-card',
 			'category'                => __( 'Porto', 'porto-functionality' ),
 			'as_child'                => array( 'only' => 'porto_interactive_banner' ),
 			'as_parent'               => array( 'except' => 'porto_interactive_banner,porto_interactive_banner_layer' ),
