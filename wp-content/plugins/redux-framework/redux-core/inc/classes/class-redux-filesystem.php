@@ -94,6 +94,8 @@ if ( ! class_exists( 'Redux_Filesystem', false ) ) {
 		 */
 		public function __construct( $force_no_fs = false ) {
 
+			// This little number fixes some issues with certain filesystem setups.
+
 			if ( ! function_exists( 'request_filesystem_credentials' ) ) {
 				require_once ABSPATH . '/wp-admin/includes/template.php';
 				require_once ABSPATH . '/wp-includes/pluggable.php';

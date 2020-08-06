@@ -10,7 +10,7 @@
  * Description:     Build better sites in WordPress fast
  * Author:          Redux.io + Dovy Paukstys
  * Author URI:      http://redux.io
- * Version:         4.0.7
+ * Version:         4.1.13
  * Text Domain:     redux-framework
  * License:         GPLv3 or later
  * License URI:     http://www.gnu.org/licenses/gpl-3.0.txt
@@ -38,4 +38,8 @@ register_deactivation_hook( __FILE__, array( 'Redux_Framework_Plugin', 'deactiva
 
 // Get plugin instance.
 Redux_Framework_Plugin::instance();
-require_once plugin_dir_path( __FILE__ ) . 'redux-templates/redux-templates.php';
+
+if ( ! defined( 'REDUXTEMPLATES_VERSION' ) ) {
+	require_once plugin_dir_path( __FILE__ ) . 'redux-templates/redux-templates.php';
+}
+

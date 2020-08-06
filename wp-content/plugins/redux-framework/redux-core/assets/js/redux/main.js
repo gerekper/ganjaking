@@ -107,7 +107,7 @@
 	$.redux.getOptName = function( el ) {
 		var metabox;
 		var li;
-		var optName = $( el ).data( 'opt-name' );
+		var optName = $( el ).parents( '.redux-wrap-div' ).data( 'opt-name' );
 
 		// Backwards compatibility block for metaboxes
 		if ( undefined === optName ) {
@@ -133,7 +133,9 @@
 				optName = $( '.redux-ajax-security' ).data( 'opt-name' );
 			}
 		}
-
+		if ( undefined === optName ) {
+			optName = $( el ).find( '.redux-form-wrapper' ).data( 'opt-name' );
+		}
 		return optName;
 	};
 })( jQuery );

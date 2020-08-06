@@ -540,8 +540,7 @@ if ( ! class_exists( 'Redux_Typography', false ) ) {
 						class="span2 redux-typography redux-typography-size mini typography-input ' . esc_attr( $this->field['class'] ) . '" 
 						title="' . esc_html__( 'Font Size', 'redux-framework' ) . '" 
 						placeholder="' . esc_html__( 'Size', 'redux-framework' ) . '" 
-						id="' . esc_attr( $this->field['id'] ) . '-size" 
-						name="' . esc_attr( $this->field['name'] . $this->field['name_suffix'] ) . '[font-size]" 
+						id="' . esc_attr( $this->field['id'] ) . '-size"  
 						value="' . esc_attr( str_replace( $unit, '', $this->value['font-size'] ) ) . '" 
 						data-value="' . esc_attr( str_replace( $unit, '', $this->value['font-size'] ) ) . '">';
 				echo '<span class="add-on">' . esc_html( $unit ) . '</span>';
@@ -681,16 +680,10 @@ if ( ! class_exists( 'Redux_Typography', false ) ) {
 								'subset'     => array( $this->value['subsets'] ),
 							);
 
-							if ( ( ! empty( Redux_Core::$server['HTTPS'] ) && 'off' !== Redux_Core::$server['HTTPS'] || 443 === Redux_Core::$server['SERVER_PORT'] ) ) {
-								$protocol = 'https:';
-							} else {
-								$protocol = 'http:';
-							}
-
 							wp_deregister_style( 'redux-typography-preview' );
 							wp_dequeue_style( 'redux-typography-preview' );
 
-							wp_enqueue_style( 'redux-typography-preview', $protocol . $this->make_google_web_font_link( $this->typography_preview ), array(), Redux_Core::$version, 'all' );
+							wp_enqueue_style( 'redux-typography-preview', $this->make_google_web_font_link( $this->typography_preview ), array(), Redux_Core::$version, 'all' );
 						}
 
 						$style = 'display: block; font-family: ' . esc_attr( $this->value['font-family'] ) . '; font-weight: ' . esc_attr( $this->value['font-weight'] ) . ';';
@@ -708,9 +701,9 @@ if ( ! class_exists( 'Redux_Typography', false ) ) {
 					$nonce = wp_create_nonce( 'redux_update_google_fonts' );
 
 					echo '<div data-nonce="' . esc_attr( $nonce ) . '" class="redux-update-google-fonts update-message notice inline notice-warning notice-alt">';
-					echo '<p>' . esc_html__( 'Your Google Fonts are out of date.', 'redux-framework' );
+					echo '<p>' . esc_html__( 'Your Google Fonts are out of date. In order to update them you must register for Redux to enable updates.', 'redux-framework' );
 					if ( ! Redux_Functions_Ex::activated() ) {
-						echo '&nbsp;<a href="#" class="update-google-fonts" data-action="activate" aria-label="' . esc_attr__( 'Activate', 'redux-framework' ) . '">' . esc_html__( 'Activate', 'redux-framework' ) . '</a> ' . esc_html__( 'to enable font updates', 'redux-framework' ) . '.';
+						echo '&nbsp;<a href="#" class="update-google-fonts" data-action="activate" aria-label="' . esc_attr__( 'Register', 'redux-framework' ) . '">' . esc_html__( 'Register', 'redux-framework' ) . '</a> ' . esc_html__( 'to enable font updates', 'redux-framework' ) . '.';
 						echo ' (<a class="redux-insights-data-we-collect-typography" href="#" style="white-space: nowrap;">' . esc_html__( 'learn more', 'redux-framework' ) . '</a>)';
 						// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 						echo '<small class="description" style="display:none;"><br />' . Redux_Connection_Banner::tos_blurb( 'google_fonts' ) . ' </small>';
@@ -837,7 +830,7 @@ if ( ! class_exists( 'Redux_Typography', false ) ) {
 				$link .= '&subset=' . implode( ',', $subsets );
 			}
 
-			return '//fonts.googleapis.com/css?family=' . $link;
+			return 'https://fonts.googleapis.com/css?family=' . $link;
 		}
 
 		/**
@@ -1011,6 +1004,10 @@ if ( ! class_exists( 'Redux_Typography', false ) ) {
 			$font = $this->value;
 
 			if ( '' !== $style ) {
+				if ( ! empty( $field['output'] ) && ! is_array( $field['output'] ) ) {
+					$field['output'] = array( $field['output'] );
+				}
+
 				if ( ! empty( $this->field['output'] ) && is_array( $this->field['output'] ) ) {
 					$keys                     = implode( ',', $this->field['output'] );
 					$this->parent->outputCSS .= $keys . '{' . $style . '}';
@@ -1036,6 +1033,10 @@ if ( ! class_exists( 'Redux_Typography', false ) ) {
 						$this->parent->outputCSS .= rtrim( $key_string, ',' ) . '{opacity: 0;}';
 						$this->parent->outputCSS .= rtrim( $key_string_ie, ',' ) . '{visibility: hidden;}';
 					}
+				}
+
+				if ( ! empty( $field['compiler'] ) && ! is_array( $field['compiler'] ) ) {
+					$field['compiler'] = array( $field['compiler'] );
 				}
 
 				if ( ! empty( $this->field['compiler'] ) && is_array( $this->field['compiler'] ) ) {

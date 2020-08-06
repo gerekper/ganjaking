@@ -209,9 +209,7 @@ if ( ! class_exists( 'Redux_Output', false ) ) {
 					</script>
 					<?php
 				} elseif ( ! $core->args['disable_google_fonts_link'] ) {
-					$protocol = ( ! empty( Redux_Core::$server['HTTPS'] ) && 'off' !== Redux_Core::$server['HTTPS'] || 443 === Redux_Core::$server['SERVER_PORT'] ) ? 'https:' : 'http:';
-
-					wp_enqueue_style( 'redux-google-fonts-' . $core->args['opt_name'], $protocol . $typography->make_google_web_font_link( $core->typography ), array(), $version, 'all' );
+					wp_enqueue_style( 'redux-google-fonts-' . $core->args['opt_name'], $typography->make_google_web_font_link( $core->typography ), array(), $version, 'all' );
 				}
 			}
 		}
@@ -303,7 +301,7 @@ if ( ! class_exists( 'Redux_Output', false ) ) {
 			// phpcs:ignore WordPress.NamingConventions.ValidVariableName
 			if ( ! empty( $core->outputCSS ) && ( true === $core->args['output_tag'] || ( isset( $_POST['customized'] ) && isset( $_POST['nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'preview-customize_' . wp_get_theme()->get_stylesheet() ) ) ) ) {
 				// phpcs:ignore WordPress.NamingConventions.ValidVariableName, WordPress.Security.EscapeOutput
-				echo '<style type="text/css" id="' . esc_attr( $core->args['opt_name'] ) . '-dynamic-css" title="dynamic-css" class="redux-options-output">' . $core->outputCSS . '</style>';
+				echo '<style type="text/css" id="' . esc_attr( $core->args['opt_name'] ) . '-dynamic-css" title="dynamic-css" class="redux-options-output">' . html_entity_decode( $core->outputCSS ) . '</style>';
 			}
 		}
 
@@ -335,7 +333,7 @@ if ( ! class_exists( 'Redux_Output', false ) ) {
 					} elseif ( is_array( $field['required'][0] ) ) {
 						foreach ( $field['required'] as $required ) {
 							if ( ! is_array( $required[0] ) && 3 === count( $required ) ) {
-								$parent_value = $GLOBALS[ $core->args['global_variable'] ][ $required[0] ];
+								$parent_value = isset( $GLOBALS[ $core->args['global_variable'] ][ $required[0] ] ) ? $GLOBALS[ $core->args['global_variable'] ][ $required[0] ] : '';
 								$check_value  = $required[2];
 								$operation    = $required[1];
 								$return       = $core->required_class->compare_value_dependencies( $parent_value, $check_value, $operation );

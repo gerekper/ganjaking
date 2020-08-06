@@ -1,137 +1,232 @@
-=== Redux Framework ===
+=== Gutenberg Blocks Library & Framework – Redux ===
 Contributors: dovyp, redux
-Donate link: http://paypal.me/reduxframework
-Tags: admin, admin interface, options, theme options, plugin options, options framework, settings, web fonts, google fonts
+Donate link: https://paypal.me/ReduxFramework
+Tags: gutenberg, blocks, gutenberg blocks, editor, block, page builder, block editor, block library, editor, templates, library
 Requires at least: 4.0
 Requires PHP: 5.3
 Tested up to: 5.5
-Stable tag: 4.0.7
-License: GPLv3 or later
-License URI: http://www.gnu.org/licenses/gpl-3.0.html
+Stable tag: 4.1.13
+License: GPL-2.0+
+License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
-Redux is a simple, truly extensible and fully responsive options framework for WordPress themes and plugins.
+Supercharge the Gutenberg editor with our ever-growing library of block-based templates!
 
 == Description ==
+<strong>Redux - Quickly create full pages in WordPress’ Gutenberg</strong>
 
-Redux is a simple, truly extensible and fully responsive options framework for WordPress themes and plugins. Built on the WordPress Settings API, Redux supports a multitude of field types as well as: custom error handling, custom fields & validation types, and import/export functionality.
+Supercharge the Gutenberg editor with our ever-growing library of WordPress Blocks and templates. Discover what's possible and implement any design on your website in virtually no time at all.
 
-But what does Redux actually DO? We don't believe that theme and plugin
-developers should have to reinvent the wheel every time they start work on a
-project. Redux is designed to simplify the development cycle by providing a
-streamlined, extensible framework for developers to build on. Through a
-simple, well-documented config file, third-party developers can build out an
-options panel limited only by their own imagination in a fraction of the time
-it would take to build from the ground up!
+Worried that our templates may not work with your theme? We've got you covered. With our custom <em>page templates</em> option you can override any theme. Missing a plugin a template needs? No worries, we’ll even help you install what you need, all from the Gutenberg editor.
 
-= Online Demo =
-Don't take our word for it, check out our online demo and try Redux without installing a thing!
-[**http://demo.redux.io/**](http://demo.redux.io/)
+Don’t waste hours trying to recreate a template you love. With a click of a button it is own website where you can start customizing it for your needs.
 
-= Use the Redux Builder to Get Started =
-Want to use Redux, but not sure what to do? Use our [builder](http://build.redux.io/)! It will allow you to make
-a custom theme based on [_s](http://underscores.me), [TGM](http://tgmpluginactivation.com), and [Redux](http://redux.io), and any Redux arguments you want to set.
-Don't want to make your own theme? Then output a custom admin folder that you can place
-in a theme or plugin. Oh and did we mention it's free? Try it today at:
-[**http://build.redux.io/**](http://build.redux.io/)
+<h4>♥️ What the Plugin does?</h4>
+<ul>
+    <li><strong>Browse 1,000+</strong> templates from your Gutenberg Editor that you can add to your site immediately.</li>
+    <li><strong>Preview</strong> each Gutenberg block based template in the customizer preview.</li>
+    <li><strong>Filter</strong> between the dependencies you want, and find exactly what you're looking for.</li>
+    <li><strong>See instantly</strong> which Gutenberg templates you have everything for, or may need to install some dependencies.</li>
+    <li><strong>Automated install</strong> of anything you may need to install any template.</li>
+    <li><strong>Block Patterns library</strong> support built in.</li>
+    <li>Make the Reusable Blocks visible in our library modal window. 😉</li>
+    <li>The most trusted option framework in the industry.</li>
+    <li>Developer friendly: clean code, inline documentation</li>
+</ul>
 
+<h4>🚀 TYPICAL USE CASE OF THIS PLUGIN</h4>
+You are building a **big site** with **lots of pages** and you just want it to look amazing. With Redux you can begin making pages with a variety of "starter blocks," or templates.
 
-= Docs & Support =
-We have extremely extensive docs. Please visit [http://docs.redux.io/](http://docs.redux.io/) If that doesn’t solve your concern, you should search [the issue tracker on Github](https://github.com/reduxframework/redux-framework/issues). If you can't locate any topics that pertain to your particular issue, [post a new issue](https://github.com/reduxframework/redux-framework/issues/new) for it. Before you submit an issue, please read [our contributing requirements](https://github.com/redux-framework/redux-framework/blob/master/CONTRIBUTING.md). We build off of the dev version and push to WordPress.org when all is confirmed stable and ready for release.
+You can browse through the categories, as well as collections of like-styled pages. When you find something you like, Redux makes sure you have everything you need. If a dependency (or required plugin) is missing, you are notified and can install the missing dependency. Worried that our templates may not work with your theme? No problem! With our custom `page templates` options you can transform any site into exactly what you want it to be no matter what them you are using.
 
+Don’t waste hours trying to recreate a design you love. With a click of a button, you have it on your own site and you can begin customizing your "starter block" for your needs.
 
-= Redux Framework Needs Your Support =
-It is hard to continue development and support for this free plugin without contributions from users like you. If you enjoy using Redux Framework, and find it useful, please consider [making a donation](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=MMFMHWUPKHKPW). Your donation will help encourage and support the plugin's continued development and better user support.
+<h4>🎉 Supported Page Builders</h4>
+Currently Redux supports only the <a href="https://wordpress.org/plugins/gutenberg/"><strong>Gutenberg / Block Editor of WordPress 5.0+</strong></a>.
 
-= Fields Types =
+<h4>🎨 Supported Themes</h4>
+Though Redux will work with any theme that uses Gutenberg, we have done extra work to ensure complete compatibility with these themes.
 
-* Background
-* Border
-* Button Set
-* Checkbox / Multi-Check
-* Color (WordPress Native)
-* Color Gradient
-* Color RGBA
-* Date
-* Dimensions (Height/Width)
-* Divide (Divider)
-* Editor (WordPress Native)
-* Gallery (WordPress Native)
-* Image Select (Patterns/Presets)
-* Import/Export
-* Info (Header/Notice)
-* Link Color
-* Media (WordPress Native)
-* Multi-Text
-* Password
-* Radio (w/ WordPress Data)
-* Raw (HTML/PHP/MarkDown)
-* Section (Indent and Group Fields)
-* Select (Select/Multi-Select w/ Select2 & WordPress Data)
-* Select Image
-* Slider (Drag a Handle)
-* Slides (Multiple Images, Titles, and Descriptions)
-* Sortable (Drag/Drop Checkbox/Input Fields)
-* Sorter (Drag/Drop Manager - Works great for content blocks)
-* Spacing (Margin/Padding/Absolute)
-* Spinner
-* Switch
-* Text
-* Textarea
-* Typography
- * The most advanced typography module complete with preview, Google fonts, and auto-css output!
+<ul>
+<li><a href="https://wordpress.org/themes/astra/"><strong>Astra Theme</strong></a> with <strong>Astra Pro</strong> Add-On Plugin – <strong>Custom Layouts</strong> (for Layouts, Headers, Footers, Hooks)</li>
+<li><a href="https://wordpress.org/themes/generatepress/"><strong>GeneratePress Theme</strong></a> with <strong>GP Premium</strong> Add-On Plugin – <strong>Elements</strong> (for Layouts, Headers, Hooks)</li>
+<li><a href="https://wordpress.org/themes/oceanwp/"><strong>OceanWP Theme</strong></a> with <a href="https://wordpress.org/plugins/ocean-extra/"><strong>Ocean Extra</strong></a> free Add-On Plugin – <strong>My Library</strong> (for Layouts, Hooks etc.)</li>
+<li><strong>Kava Pro Theme/ CrocoBlock Service</strong> with JetThemeCore Plugin – <strong>My Library</strong> (for Layouts, Pages, Headers, Footers, Single, Archive)</li>
+<li><strong>Genesis Framework</strong> with Genesis Child Themes — via <strong>Blox Lite</strong> and <strong>Blox</strong> (Pro) Plugins – <strong>Global Content Blocks</strong> (for Sections, Hooks)</li>
+<li><strong>Page Builder Framework</strong> with <strong>WPBF Premium</strong> Add-On Plugin – <strong>Custom Section</strong> (for Sections, Layouts, Hooks etc.)</li>
+<li><strong>Customify</strong> with <strong>Customify Pro</strong> Add-On Plugin – <strong>Hooks</strong> (for Layouts, Sections, Hooks etc.)</li>
+<li><strong>Suki</strong> with <strong>Suki Pro</strong> Add-On Plugin – <strong>Custom Blocks</strong> (for Layouts, Sections, Hooks etc.)</li>
+<li><strong>Neve</strong> with <strong>Neve Pro</strong> Add-On Plugin – <strong>Custom Layouts</strong> (for Layouts, Sections, Hooks etc.)</li>
+<li><strong>Woostify</strong> with <strong>Woostify Pro</strong> Add-On Plugin – <strong>Header Footer Builder</strong> (for Elementor theming areas – Headers/ Footers)</li>
+<li><strong>Avada Theme</strong> with Avada Fusion Builder – <strong>Library</strong> (for Templates, Pages, Layouts, Columns, Rows)</li>
+<li><strong>Divi Theme</strong> with Divi Builder – <strong>Library</strong> (for Templates etc.)</li>
+<li><strong>Extra Theme</strong> with Divi Builder – <strong>Library</strong> (for Templates etc.) – <strong>Category Templates</strong> (for Layouts, Templates etc.)</li>
+</ul>
 
-= Additional Features =
+<h4>📦 Supported Gutenberg-Specific Plugins (Block Editor)</h4>
+<ul>
+<li><a href="https://wordpress.org/plugins/gutenberg/"><strong>Gutenberg</strong></a> Plugin – <strong>Gutenberg</strong> (Bleeding-Edge development in Gutenberg and Gutenberg Blocks)</li>
+<li><a href="https://wordpress.org/plugins/acf-blocks/"><strong>ACF Blocks Suite</strong></a> Plugin – <strong>Blocks</strong> (Fields for Gutenberg Blocks)</li>
+<li><a href="https://wordpress.org/plugins/advanced-gutenberg-blocks/"><strong>Advanced Gutenberg Blocks</strong></a> Plugin – <strong>Blocks</strong> (Blocks and Tools for Gutenberg Blocks)</li>
+<li><a href="https://wordpress.org/plugins/atomic-blocks/"><strong>Atomic Blocks – Gutenberg Blocks Collection</strong></a> Plugin – <strong>Blocks</strong> (Blocks for Gutenberg Blocks)</li>
+<li><a href="https://wordpress.org/plugins/block-options/"><strong>Gutenberg Page Building Toolkit – EditorsKit</strong></a> Plugin – <strong>Blocks</strong> (Templates &amp; Fields for Gutenberg Blocks)</li>
+<li><a href="https://wordpress.org/plugins/block-slider/"><strong>WordPress Slider Plugin – Block Slider</strong></a> Plugin – <strong>Blocks</strong> (Blocks for Gutenberg Blocks)</li>
+<li><a href="https://wordpress.org/plugins/coblocks/"><strong>Page Builder Gutenberg Blocks – CoBlocks</strong></a> Plugin – <strong>Blocks</strong> (Blocks for Gutenberg Blocks)</li>
+<li><a href="https://wordpress.org/plugins/editorskit/"><strong>Gutenberg Page Building Toolkit – EditorsKit</strong></a> Plugin – <strong>Blocks</strong> (Blocks tools to supercharge the Gutenberg editor)</li>
+<li><a href="https://wordpress.org/plugins/editorplus/"><strong>Gutenberg Page Builder Toolkit – EditorPlus</strong></a> Plugin – <strong>EditorPlus</strong> (Toolkit and blocks for Gutenberg Blocks)</li>
+<li><a href="https://wordpress.org/plugins/forms-gutenberg/"><strong>WordPress Form Builder Plugin – Gutenberg Forms</strong></a> Plugin – <strong>Blocks</strong> (Blocks &amp; Forms for Gutenberg Blocks)</li>
+<li><a href="https://wordpress.org/plugins/getwid/"><strong>Getwid – Gutenberg Blocks</strong></a> Plugin – <strong>Blocks</strong> (Templates &amp; Blocks for Gutenberg Blocks)</li>
+<li><a href="https://wordpress.org/plugins/gutentor/"><strong>Gutenberg Blocks – Gutentor Page Builder for Gutenberg Editor</strong></a> Plugin – <strong>Blocks</strong> (Gutenberg Blocks)</li>
+<li><a href="https://wordpress.org/plugins/kadence-blocks/"><strong>Kadence Blocks – Gutenberg Page Builder Toolkit</strong></a> Plugin – <strong>Blocks</strong> (Blocks for Gutenberg Blocks)</li>
+<li><a href="https://wordpress.org/plugins/kioken-blocks/"><strong>Page Builder Gutenberg Blocks – Kioken Blocks</strong></a> Plugin – <strong>Blocks &amp; Templates</strong> (Blocks for Gutenberg Blocks)</li>
+<li><a href="https://wordpress.org/plugins/otter-blocks/"><strong>Gutenberg Blocks and Template Library by Otter</strong></a> Plugin – <strong>Blocks &amp; Templates</strong> (Blocks and Templates for Gutenberg Blocks)</li>
+<li><a href="https://wordpress.org/plugins/qubely/"><strong>Gutenberg Blocks and Page Builder – Qubely</strong></a> Plugin – <strong>Blocks &amp; Templates</strong> (Templates &amp; Blocks for Gutenberg Blocks)</li>
+<li><a href="https://wordpress.org/plugins/qodeblock/"><strong>Gutenberg Blocks Collection – qodeblock</strong></a> Plugin – <strong>Blocks</strong> (Blocks for Gutenberg Blocks)</li>
+<li><a href="https://wordpress.org/plugins/stackable-ultimate-gutenberg-blocks/"><strong>Stackable – Page Builder Gutenberg Blocks</strong></a> Plugin – <strong>Blocks &amp; Templates</strong> (Templates &amp; Blocks for Gutenberg Blocks)</li>
+<li><a href="https://wordpress.org/plugins/ultimate-blocks/"><strong>Ultimate Blocks – Gutenberg Blocks Plugin</strong></a> Plugin – <strong>Blocks</strong> (Blocks for Gutenberg Blocks)</li>
+<li><a href="https://wordpress.org/plugins/ultimate-addons-for-gutenberg/"><strong>Gutenberg Blocks – Ultimate Addons for Gutenberg</strong></a> Plugin – <strong>Blocks</strong> (Blocks for Gutenberg Blocks)</li>
+</ul>
 
-* Field Validation
-* MANY translations. (See below)
-* Full value escaping.
-* Required - Link visibility from parent fields. Set this to affect the visibility of the field on the parent's value. Fully nested with multiple required parents possible.
-* Output CSS Automatically - Redux generates CSS and the appropriate Google Fonts stylesheets for you on select fields. You need only specify the CSS selector to apply the CSS to (limited to certain fields).
-* Compiler integration! A custom hook runs when any fields with the argument `compile => true` are changed.
-* Oh, and did we mention a fully integrated Google Webfonts setup that will make you so happy you'll want to cry?
+<h4>☀️ Supported Gutenberg-Specific Services / Websites</h4>
+<ul>
+<li><a href="https://gutenberghub.com/"><strong>GutenbergHub.com</strong></a> – <strong>GutenbergHub</strong> GutenbergHub is a one-stop resource for you need to work with Gutenberg WordPress editor.</li>
+<li><a href="https://shareablock.com/"><strong>ShareABlock</strong></a> by EditorsKit – <strong>ShareABlock</strong> Community submitted free block designs and templates for Gutenberg</li>
+</ul>
 
-= Get Involved =
-Redux is an ever-changing, living system. Want to stay up to date or
-contribute? Subscribe to one of our mailing lists or join us on [Facebook](https://facebook.com/reduxframework) or [Twitter](https://twitter.com/reduxframework) or [Github](https://github.com/ReduxFramework/ReduxFramework)!
+<h4>👍 BE A CONTRIBUTOR</h4>
+If you want to translate, <a href="https://translate.wordpress.org/projects/wp-plugins/starterblocks">go to the Translation Portal at translate.wordpress.org</a>.
 
-NOTE: Redux is not intended to be used on its own. It requires a config file
-provided by a third-party theme or plugin developer to actual do anything
-cool!
+You can also contribute code-wise via our <a href="https://github.com/starterblocks/starterblocks/">GitHub Repository</a> – and see where you can help. Be sure to use our develop branch to submit pull requests.
 
-## Privacy Policy
-Redux Framework uses [Appsero](https://appsero.com) SDK to collect some telemetry data upon user's confirmation. This helps us to troubleshoot problems faster & make product improvements.
+<h4>📝 Documentation and Support</h4>
+<ul>
+<li>For more information about features, FAQs and documentation, check out our website at <a href="https://starterblocks.io/" rel="nofollow ugc">Redux</a>.</li>
+<li>If you have any more questions, visit our support on the <a href="https://wordpress.org/support/plugin/starterblocks">Plugin's Forum</a>.</li>
+</ul>
 
-Appsero SDK **does not gather any data by default.** The SDK only starts gathering basic telemetry data **when a user allows it via the admin notice**. We collect the data to ensure a great user experience for all our users.
+<h4>⚡ Like the Redux Plugin?</h4>
+<ul>
+<li>Follow us on <a href="https://www.facebook.com/reduxframework" rel="nofollow ugc">Facebook 💬</a></li>
+<li><strong>Rate us 5 ⭐ stars</strong> on <a href="https://wordpress.org/support/plugin/redux-framework/reviews/?filter=5/#new-post">WordPress.org</a></li>
+<li><a href="https://github.com/sponsors/dovy/" rel="nofollow ugc"><strong>Become a Sponsor</strong> 💜</a> and support ongoing development, maintenance and support of this plugin</li>
+<li>Follow us on Twitter 🐦: <a href="https://twitter.com/reduxframework" rel="nofollow ugc">@ReduxFramework</a> and <a href="https://twitter.com/dovyp" rel="nofollow ugc">@DovyP</a></li>
+</ul>
 
-Integrating Appsero SDK **DOES NOT IMMEDIATELY** start gathering data, **without confirmation from users in any case.**
+<h4>🔐 Privacy</h4>
+Redux does not interact with end users on your website. Our templates will continue to work even if Redux is uninstalled. If a product is using Redux the option panel will cease to function without Redux.
 
-Learn more about how [Appsero collects and uses this data](https://appsero.com/privacy-policy/).
+Redux utilizes [AppSero](https://appsero.com/) for account management as well as to enable our premium offerings. You can find their privacy policy here: [https://appsero.com/privacy-policy/](https://appsero.com/privacy-policy/). Activation of Redux is not necessary, but additional features such as Google Font Updates and increased access to the template library will be limited.
+
+The Redux plugin uses a custom API to fetch our content library and our Gutenberg templates. To improve the service and stability we store logs which may or may not contain the following:
+<ul>
+<li>browser type</li>
+<li>referring site</li>
+<li>date and time of request</li>
+<li>template ID requested</li>
+<li>date of cached version of the given API request</li>
+<li>supported block plugins installed (slug only, no versions)</li>
+<li>version of Redux installed</li>
+<li>Redux API keys</li>
+</ul>
+
+API requests are only made when a user clicks on the Library button, launches the Redux Challenge, or opts into Google Font updates.
+
+For more details on our privacy policy: [https://redux.io/privacy](https://redux.io/privacy)
+For more details on on our terms and conditions: [https://redux.io/terms](https://redux.io/terms)
 
 == Installation ==
+1. Upload the entire plugin folder to the `/wp-content/plugins/` directory.
+2. Activate the plugin through the 'Plugins' menu in WordPress.
 
-= For Complete Documentation and Examples =
-Visit: [http://docs.redux.io/](http://docs.redux.io/)
+Once Installed and Activated you will be invited to Activate your Redux account. This is entirely voluntary and can easily be dismissed.
 
-== Frequently Asked Questions ==
-
-= Why doesn't this plugin do anything? =
-
-Redux is an options framework... in other words, it's not designed to do anything on its own! You can however activate a demo mode to see how it works.
-
-= How can I learn more about Redux? =
-
-Visit our website at [http://redux.io/](http://redux.io/)
-
-= You don't have much content in this FAQ section =
-That's because the real FAQ section is on our site! Please visit [http://docs.redux.io/faq/](http://docs.redux.io/faq/)
+If you want, you can use the [Gutenberg](https://wordpress.org/plugins/gutenberg/) plugin to get bleeding-edge experiments by the Gutenberg team.
 
 == Screenshots ==
 
-1. This is the demo mode of Redux Framework. Activate it and you will find a fully-functional admin panel that you can play with. On the Plugins page, beneath the description and an activated Redux Framework, you will find a Demo Mode link. Click that link to activate or deactivate the sample-config file Redux ships with.  Don't take our word for it, check out our online demo and try Redux without installing a thing! [**http://demo.redux.io/wp-admin/**](http://demo.redux.io/wp-admin/)
+1. With Redux you have access to hundreds of sections to help you create any type of page.
+2. Take the Redux challenge to learn your way around the Redux Templates Library.
+3. See instantly what required plugins each template requires on hover.
+4. Preview each template instantly in your own website.
+5. Template Kits give you full site templates, all grouped by a given style.
+6. Within each template kit you can see the full page template types.
 
 == Changelog ==
 
-= 4.0.6 =
+= 4.1.13 =
+* Fixed: Major typography bug affecting saving in the panel as well as third-party extensions.
+* Fixed: Customizer issue with some external extensions.
+* Added: Removed `FS_METHOD` define completely.
+* Release date: Aug 5, 2020
+
+= 4.1.12 =
+* Fixed: Direct calls to ReduxFramework were causing unexpected errors.
+* Fixed: JS error on .replace because opt_name wasn't found.
+* Added: `FS_METHOD` define location, had to move lower in the stack.
+* Release date: Aug 5, 2020
+
+= 4.1.11 =
+* Fixed: Templates JS not loading and conflicting with other plugins. Need to namespace or something.
+* Added: `FS_METHOD` define method for environments where it is not properly defined.
+* Release date: Aug 4, 2020
+
+= 4.1.10 =
+* Fixed: Minified templates directory now loads.
+* Added: Shadow files from old repo to stop errors from previously included third-party developer includes.
+* Release date: Aug 4, 2020
+
+= 4.1.9 =
+* Fixed: Compatibility issue when developers made custom panel templates. The opt_name wasn't fetched and thus saving broke.
+* Release date: Aug 1, 2020
+
+= 4.1.8 =
+* Fixed: Map files are now all present.
+* Fixed: Path fix for how developers called the typography file directory.
+* Release date: Aug 1, 2020
+
+= 4.1.7 =
+* Fixed: Issue with sortable in text mode not properly passing the name attribute and thus not saving properly.
+* Fixed: Compatibility with old extension names to not crash other plugins.
+* Release date: July 31, 2020
+
+= 4.1.6 =
+* Fixed: Issue with customizer double loading the PHP classes and causing an exception.
+* Fixed: Chanced a class name as to not conflict with a 6+ year old version of Redux.
+* Release date: July 30, 2020
+
+= 4.1.5 =
+* Fixed: Google fonts not working when old configs used string vs an array for output.
+* Release date: July 30, 2020
+
+= 4.1.4 =
+* Fixed: Google fonts loading over non-secure breaks fonts. Forced all SSL for Google fonts.  :)
+* Release date: July 30, 2020
+
+= 4.1.3 =
+* Fixed: Issue where theme devs tried to bypass the framework. Literally I made an empty file to fix their coding. :P
+* Release date: July 29, 2020
+
+= 4.1.2 =
+* Fixed: Don't try to set empty defaults when none are present.
+* Fixed: Issue where the WP Data argument was misused.
+* Release date: July 29, 2020
+
+= 4.1.1 =
+* Fixed: CSS decode when esc_attr replaces the HTML characters and CSS outputs are set with >'s.
+* Release date: July 29, 2020
+
+= 4.1.0 =
+* Fixed: Compatibility with certain themes using the deprecated $_is_plugin variable.
+* Release date: July 29, 2020
+
+= 4.0.9 =
+* Fixed: Complete compatibility fix for older Redux extensions.
+* Release date: July 28, 2020
+
+= 4.0.8 =
+* Fixed: Initial library load was failing on some server setups.
+* Release date: July 28, 2020
+
+= 4.0.7 =
 * Fixed: Race condition for PHP include for Redux_Typography causing blank white screens.
 * Release date: July 28, 2020
 
@@ -143,11 +238,28 @@ That's because the real FAQ section is on our site! Please visit [http://docs.re
 = 4.0.4 =
 * Release date: July 24, 2020
 
-== Attribution ==
+== Frequently Asked Questions ==
 
-Redux is was originally based off the following frameworks:
+= Who should use the Redux Block Library for Gutenberg? =
 
-* [NHP](https://github.com/leemason/NHP-Theme-Options-Framework)
-* [SMOF](https://github.com/syamilmj/Options-Framework "Slightly Modified Options Framework")
+The Redux Block Library for Gutenberg is a complete package of unique and creative templates that will help you build beautiful pages and posts on a website. It is of value for everyone and for all who love Gutenberg.
 
-It has now a completely different code base. If you like what you see, realize this is a labor of love. Please [donate to the Redux Framework](http://paypal.me/reduxframework) if you are able.
+= What are the requirements to use the Redux Library for Gutenberg? =
+
+You only need to have the latest version of WordPress on your website, to begin with. Redux is for Gutenberg is basically an addon for the default WordPress block editor. Therefore, the latest WordPress installation along with a theme should be enough, to begin with.
+
+= What themes does Redux Library for Gutenberg work with? =
+
+Redux is built to work wonderfully with all themes.
+
+= Can I use Redux for Gutenberg even while having another Page Builder? =
+
+The basic need or requirement for Redux for Gutenberg is the latest WordPress version. Should you need help, you can <a href="https://starterblocks.io/support/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme" target="_blank" rel="">get in touch with us.</a>
+
+= Can I use Redux for Gutenberg on client websites? =
+
+Yes! You can certainly use Redux on yours as well as your client's websites.
+
+= Will Redux slow down my website? =
+
+Absolutely not! The Redux Library for Gutenberg plugin is built with ease and performance in mind. Its module architecture and the clean code keep it extremely fast. Every performance issue that seems to be coming from Redux is actually the integration code of third-party developers. If you're having issues let us know and we'll try to help you out.

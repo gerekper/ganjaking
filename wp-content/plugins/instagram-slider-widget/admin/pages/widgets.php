@@ -27,7 +27,7 @@ class WIS_WidgetsPage extends WIS_Page {
 	 * Mainly used to navigate between pages.
 	 *
 	 * @since 1.0.0
-	 * @see   FactoryPages428_AdminPage
+	 * @see   FactoryPages429_AdminPage
 	 *
 	 * @var string
 	 */

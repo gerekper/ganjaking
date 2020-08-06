@@ -4,7 +4,7 @@
  *
  * @author        Webcraftic <wordpress.webraftic@gmail.com>
  * @copyright (c) 02.12.2018, Webcraftic
- * @see           Wbcr_FactoryPages428_AdminPage
+ * @see           Wbcr_FactoryPages429_AdminPage
  *
  * @version       1.0.0
  */
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class WIS_Page extends Wbcr_FactoryPages428_AdminPage {
+class WIS_Page extends Wbcr_FactoryPages429_AdminPage {
 
 	/**
 	 * Name of the template to get content of. It will be based on plugins /admin/views/ dir.

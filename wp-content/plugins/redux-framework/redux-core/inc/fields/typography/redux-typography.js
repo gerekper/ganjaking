@@ -48,6 +48,8 @@
 						// Init each typography field.
 						$( this ).find( '.redux-typography-container' ).each(
 							function() {
+								var el     = $( this );
+								var parent = el;
 								var key;
 								var obj;
 								var prop;
@@ -61,7 +63,6 @@
 								var data             = [{ id: 'none', text: 'none' }];
 								var thisID           = $( this ).find( '.redux-typography-family' ).parents( '.redux-container-typography:first' ).data( 'id' );
 								var usingGoogleFonts = $( '#' + thisID + ' .redux-typography-google' ).val();
-								var parent           = $( '#' + thisID ).parent();
 
 								// Set up data array.
 								var buildData = [];
@@ -70,7 +71,17 @@
 								// User included fonts?
 								var isUserFonts = $( '#' + thisID + ' .redux-typography-font-family' ).data( 'user-fonts' );
 
-								if ( ! parent.hasClass( 'redux-field-init' ) ) {
+								if ( ! el.hasClass( 'redux-field-container' ) ) {
+									parent = el.parents( '.redux-field-container:first' );
+								}
+
+								if ( parent.is( ':hidden' ) ) {
+									return;
+								}
+
+								if ( parent.hasClass( 'redux-field-init' ) ) {
+									parent.removeClass( 'redux-field-init' );
+								} else {
 									return;
 								}
 
@@ -86,18 +97,18 @@
 								usingGoogleFonts = usingGoogleFonts ? 1 : 0;
 
 								// If custom fonts, push onto array.
-								if ( undefined !== redux.optName.customfonts ) {
-									buildData.push( redux.optName.customfonts );
+								if ( undefined !== redux.customfonts ) {
+									buildData.push( redux.customfonts );
 								}
 
 								// If typekit fonts, push onto array.
-								if ( undefined !== redux.optName.typekitfonts ) {
-									buildData.push( redux.optName.typekitfonts );
+								if ( undefined !== redux.typekitfonts ) {
+									buildData.push( redux.typekitfonts );
 								}
 
 								// If standard fonts, push onto array.
-								if ( undefined !== redux.optName.stdfonts && 0 === isUserFonts ) {
-									buildData.push( redux.optName.stdfonts );
+								if ( undefined !== redux.stdfonts && 0 === isUserFonts ) {
+									buildData.push( redux.stdfonts );
 								}
 
 								// If user fonts, pull from localize and push into array.
@@ -132,8 +143,8 @@
 								}
 
 								// If googfonts on and had data, push into array.
-								if ( 1 === usingGoogleFonts || true === usingGoogleFonts && undefined !== redux.optName.googlefonts ) {
-									buildData.push( redux.optName.googlefonts );
+								if ( 1 === usingGoogleFonts || true === usingGoogleFonts && undefined !== redux.googlefonts ) {
+									buildData.push( redux.googlefonts );
 								}
 
 								// Output data to drop down.
@@ -526,17 +537,17 @@
 			}
 
 			// Something went wrong trying to read google fonts, so turn google off.
-			if ( undefined === redux.optName.fonts.google ) {
+			if ( undefined === redux.fonts.google ) {
 				google = false;
 			}
 
 			// Get font details.
-			if ( true === google && ( family in redux.optName.fonts.google ) ) {
-				details = redux.optName.fonts.google[family];
+			if ( true === google && ( family in redux.fonts.google ) ) {
+				details = redux.fonts.google[family];
 			} else {
-				if ( undefined !== redux.optName.fonts.typekit && ( family in redux.optName.fonts.typekit ) ) {
+				if ( undefined !== redux.fonts.typekit && ( family in redux.fonts.typekit ) ) {
 					typekit = true;
-					details = redux.optName.fonts.typekit[family];
+					details = redux.fonts.typekit[family];
 				} else {
 					details = {
 						'400': 'Normal 400',

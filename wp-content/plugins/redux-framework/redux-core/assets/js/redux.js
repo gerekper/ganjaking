@@ -11,7 +11,7 @@
 
 		var overlay           = $( document.getElementById( 'redux_ajax_overlay' ) );
 		var $notification_bar = $( document.getElementById( 'redux_notification_bar' ) );
-		var $parent           = $( button ).parents( '.redux-form-wrapper' );
+		var $parent           = $( button ).parents( '.redux-wrap-div' ).find( 'form' ).first();
 
 		overlay.fadeIn();
 
@@ -679,7 +679,7 @@ function colorNameToHex( colour ) {
 	$.redux.getOptName = function( el ) {
 		var metabox;
 		var li;
-		var optName = $( el ).data( 'opt-name' );
+		var optName = $( el ).parents( '.redux-wrap-div' ).data( 'opt-name' );
 
 		// Backwards compatibility block for metaboxes
 		if ( undefined === optName ) {
@@ -705,7 +705,9 @@ function colorNameToHex( colour ) {
 				optName = $( '.redux-ajax-security' ).data( 'opt-name' );
 			}
 		}
-
+		if ( undefined === optName ) {
+			optName = $( el ).find( '.redux-form-wrapper' ).data( 'opt-name' );
+		}
 		return optName;
 	};
 })( jQuery );

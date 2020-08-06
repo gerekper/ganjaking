@@ -1,11 +1,11 @@
 <?php
 
-namespace WBCR\Factory_428;
+namespace WBCR\Factory_429;
 
-use Wbcr_Factory428_Plugin;
+use Wbcr_Factory429_Plugin;
 
 // Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ) {
+if( !defined('ABSPATH') ) {
 	exit;
 }
 
@@ -27,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Notices {
 
 	/**
-	 * @var Wbcr_Factory428_Plugin
+	 * @var Wbcr_Factory429_Plugin
 	 */
 	protected $plugin;
 	/**
@@ -58,22 +58,23 @@ class Notices {
 	/**
 	 * Инициализируем уведомлений сразу после загрузки модуля уведомлений
 	 *
-	 * @param Wbcr_Factory428_Plugin $plugin
+	 * @param Wbcr_Factory429_Plugin $plugin
 	 */
-	public function __construct( $plugin ) {
+	public function __construct($plugin)
+	{
 		//default notices
 		//---
 
-		$this->plugin            = $plugin;
-		$this->dissmised_notices = $this->plugin->getPopulateOption( 'factory_dismissed_notices', [] );
+		$this->plugin = $plugin;
+		$this->dissmised_notices = $this->plugin->getPopulateOption('factory_dismissed_notices', []);
 
-		add_action( 'current_screen', [ $this, 'currentScreenAction' ] );
+		add_action('current_screen', [$this, 'currentScreenAction']);
 
-		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
-			add_action( 'wp_ajax_' . $this->plugin->getPluginName() . '_dismiss_notice', [
+		if( defined('DOING_AJAX') && DOING_AJAX ) {
+			add_action('wp_ajax_' . $this->plugin->getPluginName() . '_dismiss_notice', [
 				$this,
 				'dismiss_notice'
-			] );
+			]);
 		}
 	}
 
@@ -82,51 +83,37 @@ class Notices {
 	 * Уведомления собираются через фильтр wbcr_factory_admin_notices, если в массиве уведомлений,
 	 * хотя бы одно, соответствует условиям в параметре $notice['where'], то метод печает вспомогательные скрипты и уведомления.
 	 */
-	public function currentScreenAction() {
+	public function currentScreenAction()
+	{
 		/**
-		 * @since 2.1.2 - является устаревшим
+		 * @since 2.1.2 - Добавлен, модуль factory_notices_000 был удален. Поэтому в этому хуке мы заменили префикс на factory_429
 		 */
-		$this->notices = wbcr_factory_428_apply_filters_deprecated( 'wbcr_factory_notices_000_list', [
-			$this->notices,
-			$this->plugin->getPluginName(),
-		], '2.1.2', 'wbcr/factory/admin_notices' );
+		$this->notices = apply_filters('wbcr/factory/admin_notices', $this->notices, $this->plugin->getPluginName());
 
-		/**
-		 * @since 2.1.2 - Добавлен, модуль factory_notices_000 был удален. Поэтому в этому хуке мы заменили префикс на factory_428
-		 */
-		$this->notices = apply_filters( 'wbcr/factory/admin_notices', $this->notices, $this->plugin->getPluginName() );
-
-		if ( count( $this->notices ) == 0 ) {
+		if( count($this->notices) == 0 ) {
 			return;
 		}
 
 		$screen = get_current_screen();
 
 		$has_notices = false;
-		foreach ( (array) $this->notices as $notice ) {
-			if ( ! isset( $notice['id'] ) ) {
+		foreach((array)$this->notices as $notice) {
+			if( !isset($notice['id']) ) {
 				continue;
 			}
 
-			$where = ! isset( $notice['where'] ) || empty( $notice['where'] ) ? $this->default_where : $notice['where'];
+			$where = !isset($notice['where']) || empty($notice['where']) ? $this->default_where : $notice['where'];
 
-			if ( in_array( $screen->base, $where ) && ! $this->is_dissmissed( $notice['id'] ) ) {
+			if( in_array($screen->base, $where) && !$this->is_dissmissed($notice['id']) ) {
 				$has_notices = true;
 				break;
 			};
 		}
 
-		if ( $has_notices ) {
-			add_action( 'admin_footer', [ $this, 'print_js_code' ] );
+		if( $has_notices ) {
+			add_action('admin_footer', [$this, 'print_js_code']);
 
-			if ( $this->plugin->isNetworkActive() ) {
-				if ( current_user_can( 'manage_network' ) ) {
-					add_action( 'network_admin_notices', [ $this, 'show_notices' ] );
-					add_action( 'admin_notices', [ $this, 'show_notices' ] );
-				}
-			} else {
-				add_action( 'admin_notices', [ $this, 'show_notices' ] );
-			}
+			$this->show_notices();
 		}
 	}
 
@@ -135,27 +122,41 @@ class Notices {
 	 * Уведомления показываются только на определенных страницах через параметр $notice['where'],
 	 * если уведомление ранее было скрыто или не соотвествует правилам $notice['where'], оно не будет показано!
 	 */
-	public function show_notices() {
-		if ( count( $this->notices ) == 0 ) {
+	public function show_notices()
+	{
+		if( count($this->notices) == 0 ) {
 			return;
 		}
 
-		if ( ! current_user_can( 'activate_plugins' ) || ! current_user_can( 'edit_plugins' ) || ! current_user_can( 'install_plugins' ) ) {
+		if( !current_user_can('activate_plugins') || !current_user_can('edit_plugins') || !current_user_can('install_plugins') ) {
 			return;
 		}
 
 		$screen = get_current_screen();
 
-		foreach ( $this->notices as $notice ) {
+		foreach($this->notices as $notice) {
 
-			if ( ! isset( $notice['id'] ) ) {
+			if( !isset($notice['id']) ) {
 				continue;
 			}
 
-			$where = ! isset( $notice['where'] ) || empty( $notice['where'] ) ? $this->default_where : $notice['where'];
+			$where = !isset($notice['where']) || empty($notice['where']) ? $this->default_where : $notice['where'];
 
-			if ( in_array( $screen->base, $where ) && ! $this->is_dissmissed( $notice['id'] ) ) {
-				$this->show_notice( $notice );
+			if( in_array($screen->base, $where) && !$this->is_dissmissed($notice['id']) ) {
+				if( $this->plugin->isNetworkActive() ) {
+					if( current_user_can('manage_network') ) {
+						add_action('network_admin_notices', function () use ($notice) {
+							$this->show_notice($notice);
+						});
+						add_action('admin_notices', function () use ($notice) {
+							$this->show_notice($notice);
+						});
+					}
+				} else {
+					add_action('admin_notices', function () use ($notice) {
+						$this->show_notice($notice);
+					});
+				}
 			};
 		}
 	}
@@ -163,7 +164,7 @@ class Notices {
 	/**
 	 * Показывает уведомление, по переданным параметрам
 	 *
-	 * @param array $data   - Параметры уведомления
+	 * @param array $data - Параметры уведомления
 	 *                      $data['id']    - Индентификатор уведомления
 	 *                      $data['type'] - Тип уведомления (error, warning, success)
 	 *                      $notice['where'] - На каких страницах показывать уведомление ('plugins', 'dashboard', 'edit')
@@ -173,36 +174,37 @@ class Notices {
 	 *                      Пример time() + 3600 (1ч), уведомление будет скрыто на 1 час.
 	 *                      $data['classes'] - Произвольный классы для контейнера уведомления.
 	 */
-	public function show_notice( $data ) {
-		$settings = wp_parse_args( $data, [
-			'id'              => null,
-			'text'            => null,
-			'type'            => 'error',
-			'dismissible'     => false,
+	public function show_notice($data)
+	{
+		$settings = wp_parse_args($data, [
+			'id' => null,
+			'text' => null,
+			'type' => 'error',
+			'dismissible' => false,
 			'dismiss_expires' => 0,
-			'classes'         => []
-		] );
+			'classes' => []
+		]);
 
-		if ( empty( $settings['id'] ) || empty( $settings['text'] ) ) {
+		if( empty($settings['id']) || empty($settings['text']) ) {
 			return;
 		}
 
-		$plugin_name = str_replace( '_', '-', $this->plugin->getPluginName() );
+		$plugin_name = str_replace('_', '-', $this->plugin->getPluginName());
 
-		$classes = array_merge( [
+		$classes = array_merge([
 			'notice',
 			'notice-' . $settings['type'],
 			$plugin_name . '-factory-notice'
-		], $settings['classes'] );
+		], $settings['classes']);
 
-		if ( $settings['dismissible'] ) {
+		if( $settings['dismissible'] ) {
 			$classes[] = 'is-dismissible';
 			$classes[] = $plugin_name . '-factory-notice-dismiss';
 		}
 		?>
-        <div data-name="wbcr_factory_notice_<?php echo esc_attr( $data['id'] ) ?>" data-expires="<?= esc_attr( $settings['dismiss_expires'] ) ?>" data-nonce="<?php echo wp_create_nonce( $this->plugin->getPluginName() . '_factory_dismiss_notice' ); ?>" class="<?php echo esc_attr( implode( ' ', $classes ) ) ?>">
+		<div data-name="wbcr_factory_notice_<?php echo esc_attr($data['id']) ?>" data-expires="<?= esc_attr($settings['dismiss_expires']) ?>" data-nonce="<?php echo wp_create_nonce($this->plugin->getPluginName() . '_factory_dismiss_notice'); ?>" class="<?php echo esc_attr(implode(' ', $classes)) ?>">
 			<?= $data['text'] ?>
-        </div>
+		</div>
 		<?php
 	}
 
@@ -210,37 +212,38 @@ class Notices {
 	 * Когда пользователь нажимает кнопку закрыть уведомление,
 	 * отправляется ajax запрос с вызовом текущего метода
 	 */
-	public function dismiss_notice() {
-		if ( ! current_user_can( 'activate_plugins' ) || ! current_user_can( 'edit_plugins' ) || ! current_user_can( 'install_plugins' ) ) {
-			wp_die( - 1, 403 );
+	public function dismiss_notice()
+	{
+		if( !current_user_can('activate_plugins') || !current_user_can('edit_plugins') || !current_user_can('install_plugins') ) {
+			wp_die(-1, 403);
 		}
 
-		check_admin_referer( $this->plugin->getPluginName() . '_factory_dismiss_notice', 'nonce' );
+		check_admin_referer($this->plugin->getPluginName() . '_factory_dismiss_notice', 'nonce');
 
 		// Имя уведомления (идентификатор)
-		$name = $this->plugin->request->post( 'name', null, true );
+		$name = $this->plugin->request->post('name', null, true);
 
 		// Время в Unix timestamp, по истечению, которого уведомление снова будет показано
 		// Если передан 0, то уведомление будет скрыто навсегда
-		$expires = $this->plugin->request->post( 'expires', 0, 'intval' );
+		$expires = $this->plugin->request->post('expires', 0, 'intval');
 
-		if ( empty( $name ) ) {
-			wp_send_json_error( [ 'error_message' => 'You must pass the notification "Name"! Action was rejected.' ] );
+		if( empty($name) ) {
+			wp_send_json_error(['error_message' => 'You must pass the notification "Name"! Action was rejected.']);
 		}
 
-		$notices = $this->plugin->getPopulateOption( "factory_dismissed_notices", [] );
+		$notices = $this->plugin->getPopulateOption("factory_dismissed_notices", []);
 
-		if ( ! empty( $notices ) ) {
-			foreach ( (array) $notices as $notice_id => $notice_expires ) {
-				if ( $notice_expires !== 0 && $notice_expires < time() ) {
-					unset( $notices[ $notice_id ] );
+		if( !empty($notices) ) {
+			foreach((array)$notices as $notice_id => $notice_expires) {
+				if( $notice_expires !== 0 && $notice_expires < time() ) {
+					unset($notices[$notice_id]);
 				}
 			}
 		}
 
-		$notices[ $name ] = $expires;
+		$notices[$name] = $expires;
 
-		$this->plugin->updatePopulateOption( 'factory_dismissed_notices', $notices );
+		$this->plugin->updatePopulateOption('factory_dismissed_notices', $notices);
 
 		wp_send_json_success();
 	}
@@ -250,11 +253,12 @@ class Notices {
 	 * Печает в подвале страницы код, для взаимодействия с сервером через ajax,
 	 * код используется при нажатии на кнопку закрыть уведомление.             *
 	 */
-	public function print_js_code() {
-		$plugin_name = str_replace( '_', '-', $this->plugin->getPluginName() );
+	public function print_js_code()
+	{
+		$plugin_name = str_replace('_', '-', $this->plugin->getPluginName());
 
 		?>
-        <script type="text/javascript">
+		<script type="text/javascript">
 			jQuery(function($) {
 
 				$(document).on('click', '.<?php echo $plugin_name; ?>-factory-notice-dismiss .notice-dismiss', function() {
@@ -267,7 +271,7 @@ class Notices {
 				});
 
 			});
-        </script>
+		</script>
 		<?php
 	}
 
@@ -275,13 +279,14 @@ class Notices {
 	/**
 	 * Проверяет скрыто уведоление или нет
 	 *
-	 * @param string $notice_id   - имя уведомления
+	 * @param string $notice_id - имя уведомления
 	 *
 	 * @return bool
 	 */
-	protected function is_dissmissed( $notice_id ) {
-		if ( ! empty( $this->dissmised_notices ) && isset( $this->dissmised_notices[ 'wbcr_factory_notice_' . $notice_id ] ) ) {
-			$expires = (int) $this->dissmised_notices[ 'wbcr_factory_notice_' . $notice_id ];
+	protected function is_dissmissed($notice_id)
+	{
+		if( !empty($this->dissmised_notices) && isset($this->dissmised_notices['wbcr_factory_notice_' . $notice_id]) ) {
+			$expires = (int)$this->dissmised_notices['wbcr_factory_notice_' . $notice_id];
 
 			return $expires === 0 || $expires > time();
 		}

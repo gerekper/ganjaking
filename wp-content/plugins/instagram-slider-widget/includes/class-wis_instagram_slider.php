@@ -208,6 +208,8 @@ class WIS_InstagramSlider extends WP_Widget {
 		$instance['gutter']               = isset( $new_instance['gutter'] ) ? $new_instance['gutter'] : null;
 		$instance['masonry_image_width']  = isset( $new_instance['masonry_image_width'] ) ? $new_instance['masonry_image_width'] : 200;
 		$instance['slick_slides_to_show'] = isset( $new_instance['slick_slides_to_show'] ) ? $new_instance['slick_slides_to_show'] : 3;
+        $instance['enable_control_buttons'] = isset( $new_instance['enable_control_buttons'] ) ? $new_instance['enable_control_buttons'] : 0;
+        $instance['enable_ad'] = isset( $new_instance['enable_ad'] ) ? $new_instance['enable_ad'] : 0;
 		$instance['slick_slides_padding'] = isset( $new_instance['slick_slides_padding'] ) ? $new_instance['slick_slides_padding'] : 0;
 		$instance['show_feed_header']     = isset( $new_instance['show_feed_header'] ) ? $new_instance['show_feed_header'] : 0;
 		$instance['highlight_offset']     = isset( $new_instance['highlight_offset'] ) ? $new_instance['highlight_offset'] : 1;
@@ -271,6 +273,8 @@ class WIS_InstagramSlider extends WP_Widget {
 			'gutter'               => 0,
 			'masonry_image_width'  => 200,
 			'slick_slides_to_show' => 3,
+            'enable_control_buttons' => 0,
+            'enable_ad' => 0,
 			'slick_slides_padding' => 0,
 			'show_feed_header'     => 1,
 			'highlight_offset'     => 1,
@@ -485,6 +489,14 @@ class WIS_InstagramSlider extends WP_Widget {
             <p class="slick_settings <?php if ( 'slick_slider' != $instance['template'] ) {
 				echo 'hidden';
 			} ?>">
+                <strong><?php _e( 'Enable control buttons:', 'instagram-slider-widget' ); ?></strong>
+                <label class="switch" for="<?php echo $this->get_field_id( 'enable_control_buttons' ); ?>">
+                    <input class="widefat" id="<?php echo $this->get_field_id( 'enable_control_buttons' ); ?>"
+                           name="<?php echo $this->get_field_name( 'enable_control_buttons' ); ?>" type="checkbox"
+                           value="1" <?php checked( '1', $instance['enable_control_buttons'] ); ?> />
+                    <span class="slider round"></span>
+                </label>
+                <br>
                 <label for="<?php echo $this->get_field_id( 'slick_slides_to_show' ); ?>"><strong><?php _e( 'Pictures per slide:', 'instagram-slider-widget' ); ?></strong>
                     <input class="small-text" id="<?php echo $this->get_field_id( 'slick_slides_to_show' ); ?>"
                            name="<?php echo $this->get_field_name( 'slick_slides_to_show' ); ?>"
@@ -499,6 +511,7 @@ class WIS_InstagramSlider extends WP_Widget {
                            value="1" <?php checked( '1', $instance['slick_slides_padding'] ); ?> />
                     <span class="slider round"></span>
                 </label>
+                <br>
             </p>
             <p class="highlight_settings <?php if ( 'highlight' != $instance['template'] ) {
 				echo 'hidden';
@@ -575,6 +588,14 @@ class WIS_InstagramSlider extends WP_Widget {
                            value="<?php echo $instance['caption_words']; ?>"/>
                 </label>
             </p>
+            <br>
+            <strong><?php _e( 'Enable author\'s ad:', 'instagram-slider-widget' ); ?></strong>
+            <label class="switch" for="<?php echo $this->get_field_id( 'enable_ad' ); ?>">
+                <input class="widefat" id="<?php echo $this->get_field_id( 'enable_ad' ); ?>"
+                       name="<?php echo $this->get_field_name( 'enable_ad' ); ?>" type="checkbox"
+                       value="1" <?php checked( '1', $instance['enable_ad'] ); ?> />
+                <span class="slider round"></span>
+            </label>
             <p>
                 <label for="<?php echo $this->get_field_id( 'orderby' ); ?>"><strong><?php _e( 'Order by', 'instagram-slider-widget' ); ?></strong>
                     <select class="widefat" name="<?php echo $this->get_field_name( 'orderby' ); ?>"
@@ -764,7 +785,9 @@ class WIS_InstagramSlider extends WP_Widget {
 		$gutter               = isset( $args['gutter'] ) ? $args['gutter'] : 0;
 		$masonry_image_width  = isset( $args['masonry_image_width'] ) ? $args['masonry_image_width'] : 200;
 		$slick_slides_to_show = isset( $args['slick_slides_to_show'] ) ? $args['slick_slides_to_show'] : 3;
-		$slick_slides_padding = isset( $args['slick_slides_padding'] ) ? $args['slick_slides_padding'] : 0;
+        $enable_control_buttons = isset( $args['enable_control_buttons'] ) ? $args['enable_control_buttons'] : 0;
+        $enable_ad = isset( $args['enable_ad'] ) ? $args['enable_ad'] : 0;
+        $slick_slides_padding = isset( $args['slick_slides_padding'] ) ? $args['slick_slides_padding'] : 0;
 		$show_feed_header     = isset( $args['show_feed_header'] ) ? $args['show_feed_header'] : 0;
 		$highlight_offset     = isset( $args['highlight_offset'] ) ? $args['highlight_offset'] : 1;
 		$highlight_pattern    = isset( $args['highlight_pattern'] ) ? $args['highlight_pattern'] : 6;
@@ -806,7 +829,9 @@ class WIS_InstagramSlider extends WP_Widget {
 			'no_pin'               => $no_pin,
 			'caption_words'        => $caption_words,
 			'masonry_image_width'  => $masonry_image_width,
-			'slick_slides_padding' => $slick_slides_padding,
+            'enable_control_buttons' => $enable_control_buttons,
+            'enable_ad' => $enable_ad,
+            'slick_slides_padding' => $slick_slides_padding,
 			'slick_slides_to_show' => $slick_slides_to_show,
 			'highlight_offset'     => $highlight_offset,
 			'highlight_pattern'    => $highlight_pattern,
@@ -830,7 +855,13 @@ class WIS_InstagramSlider extends WP_Widget {
 			}
 			if ( $template == 'slick_slider' || $template == 'masonry' || $template == 'highlight' ) {
 				//return $this->pro_display_images($args);
-				return apply_filters( 'wis/pro/display_images', "", $args, $this );
+                if(defined('WISP_PLUGIN_ACTIVE') && WISP_PLUGIN_ACTIVE == true){
+                    return apply_filters( 'wis/pro/display_images', "", $args, $this );
+                } else {
+                    $images_div_class = 'pllexislider pllexislider-normal instaslider-nr-' . $widget_id;
+                    $slider_script    = "<script type='text/javascript'>" . "\n" . "	jQuery(document).ready(function($) {" . "\n" . "		$('.instaslider-nr-{$widget_id}').pllexislider({" . "\n" . "			animation: '{$animation}'," . "\n" . "			slideshowSpeed: {$slidespeed}," . "\n" . "			directionNav: {$direction_nav}," . "\n" . "			controlNav: {$control_nav}," . "\n" . "			prevText: ''," . "\n" . "			nextText: ''," . "\n" . "		});" . "\n" . "	});" . "\n" . "</script>" . "\n";
+                    $template = 'slider';
+                }
 			} else {
 				$images_div_class = 'pllexislider pllexislider-overlay instaslider-nr-' . $widget_id;
 				$slider_script    = "<script type='text/javascript'>" . "\n" . "	jQuery(document).ready(function($) {" . "\n" . "		$('.instaslider-nr-{$widget_id}').pllexislider({" . "\n" . "			animation: '{$animation}'," . "\n" . "			slideshowSpeed: {$slidespeed}," . "\n" . "			directionNav: {$direction_nav}," . "\n" . "			controlNav: {$control_nav}," . "\n" . "			prevText: ''," . "\n" . "			nextText: ''," . "\n" . "			start: function(slider){" . "\n" . "				slider.hover(" . "\n" . "					function () {" . "\n" . "						slider.find('.pllex-control-nav, .pllex-direction-nav').stop(true,true).fadeIn();" . "\n" . "						slider.find('.jr-insta-datacontainer').fadeIn();" . "\n" . "					}," . "\n" . "					function () {" . "\n" . "						slider.find('.pllex-control-nav, .pllex-direction-nav').stop(true,true).fadeOut();" . "\n" . "						slider.find('.jr-insta-datacontainer').fadeOut();" . "\n" . "					}" . "\n" . "				);" . "\n" . "			}" . "\n" . "		});" . "\n" . "	});" . "\n" . "</script>" . "\n";
@@ -1079,10 +1110,18 @@ class WIS_InstagramSlider extends WP_Widget {
 					$output .= $this->get_template( $template, $template_args );
 				}
 
-				$output .= "</ul>\n</div>";
+				$output .= "</ul>";
 			}
 		}
 
+        $output .= "</div>";
+        if ($enable_ad) {
+            $output .= '
+                <div class="wis-template-ad" style="font-size: 1.3rem !important; margin-top: 2%; text-align: center; color: rgba(22,22,22,0.72) !important;" >
+                    <a target="_blank" style="color: rgba(22,22,22,0.72) !important; text-decoration: none" href="https://wordpress.org/plugins/instagram-slider-widget/" ><h3 style="font-size: 1.3rem !important;"> Powered by Social Slider Widget </h3 ></a >
+                </div >
+                ';
+        }
 		return $output;
 
 	}
@@ -1144,11 +1183,11 @@ class WIS_InstagramSlider extends WP_Widget {
 		$nopin   = ( 1 == $args['no_pin'] ) ? 'nopin="nopin"' : '';
 
 		$clean_image_url = WIS_PLUGIN_URL . "/assets/image.png";
-		$image_src       = "<img src='{$clean_image_url}' $nopin class='{$type}' style='opacity: 0;'>";
+        $image_src       = "<img alt='" . $caption . "' src='{$clean_image_url}' $nopin class='{$type}' style='opacity: 0;'>";
 		$image_output    = $image_src;
 
 		if ( $link_to ) {
-			$image_output = "<a href='$link_to' target='_blank'";
+			$image_output = "<a href='$link_to' target='_blank' rel='nofollow'";
 
 			if ( ! empty( $args['link_rel'] ) ) {
 				$image_output .= " rel={$args['link_rel']}";
@@ -1438,7 +1477,7 @@ class WIS_InstagramSlider extends WP_Widget {
 					if ( 200 == wp_remote_retrieve_response_code( $response ) ) {
 						$media   = json_decode( wp_remote_retrieve_body( $response ), true );
 						$results = $media['data'];
-						//$results = apply_filters('wis/images/count', $results, $media, $nr_images);
+						$results = apply_filters('wis/images/count', $results, $media, $nr_images, true);
 						$next_max_id = null;
 						if ( ! empty( $media['pagination'] ) ) {
 							$next_max_id = $media['pagination']['next_max_id'];
@@ -1468,7 +1507,7 @@ class WIS_InstagramSlider extends WP_Widget {
 					if ( 200 == wp_remote_retrieve_response_code( $response ) ) {
 						$media   = json_decode( wp_remote_retrieve_body( $response ), true );
 						$results = $media['media']['data'];
-						//$results = apply_filters('wis/images/count', $results, $media, $nr_images);
+						$results = apply_filters('wis/images/count', $results, $media, $nr_images, false);
 						if ( ! is_array( $results ) || ! count( $results ) ) {
 							return [ 'error' => __( 'There are no publications in this account yet', 'instagram-slider-widget' ) ];
 						}

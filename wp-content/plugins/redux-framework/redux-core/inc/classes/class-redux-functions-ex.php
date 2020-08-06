@@ -114,7 +114,7 @@ if ( ! class_exists( 'Redux_Functions_Ex', false ) ) {
 					Redux_Core::$callers[ $opt_name ] = array();
 				}
 
-				if ( strpos( $caller, 'class-redux-' ) !== false ) {
+				if ( strpos( $caller, 'class-redux-' ) !== false || strpos( $caller, 'redux-core/framework.php' ) ) {
 					return;
 				}
 
@@ -271,7 +271,7 @@ if ( ! class_exists( 'Redux_Functions_Ex', false ) ) {
 		 * @return object - Extended field class.
 		 */
 		public static function extension_compatibility( $parent, $path, $ext_class, $new_class_name, $name ) {
-			$upload_dir = ReduxFramework::$_upload_dir . '/compatibility/';
+			$upload_dir = ReduxFramework::$_upload_dir . '/extension_compatibility/';
 			if ( ! file_exists( $upload_dir . $ext_class . '.php' ) ) {
 				if ( ! is_dir( $upload_dir ) ) {
 					$parent->filesystem->mkdir( $upload_dir );
@@ -294,7 +294,7 @@ if ( ! class_exists( 'Redux_Functions_Ex', false ) ) {
 						'    }' . PHP_EOL .
 						'    // fake "extends Redux_Extension_Abstract\" using magic function' . PHP_EOL .
 						'    public function __call( $method, $args ) {' . PHP_EOL .
-						'        $this->c->$method( $args[0] );' . PHP_EOL .
+						'        return call_user_func_array( array( $this->c, $method ), $args );' . PHP_EOL .
 						'    }' . PHP_EOL .
 						'}' . PHP_EOL;
 					$template   = str_replace( '{{ext_class}}', $new_class_name, $class_file );

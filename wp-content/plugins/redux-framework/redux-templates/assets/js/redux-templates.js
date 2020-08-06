@@ -404,7 +404,7 @@ exports.push([module.i, ".redux-css-editor {\n  border: 1px solid #e2e4e7;\n  ma
 
 exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, "#redux-templatesImportCollectionBtn {\n  vertical-align: middle;\n  display: inline-flex;\n  align-items: center;\n  text-decoration: none;\n  border: 1px solid #bababa;\n  border-radius: 3px;\n  white-space: nowrap;\n  color: #555d66;\n  font-size: 13px;\n  margin: 0 15px 0 15px;\n  padding: 9px 12px;\n  background: transparent;\n  cursor: pointer;\n  -webkit-appearance: none;\n  transition: 400ms; }\n  #redux-templatesImportCollectionBtn svg {\n    height: 16px;\n    width: 16px;\n    margin-right: 8px; }\n    #redux-templatesImportCollectionBtn svg * {\n      stroke: #555d66;\n      fill: #555d66;\n      stroke-width: 0; }\n  #redux-templatesImportCollectionBtn:hover, #redux-templatesImportCollectionBtn:focus, #redux-templatesImportCollectionBtn:active {\n    text-decoration: none;\n    border: 1px solid #191e23;\n    color: #191e23; }\n    #redux-templatesImportCollectionBtn:hover svg *, #redux-templatesImportCollectionBtn:focus svg *, #redux-templatesImportCollectionBtn:active svg * {\n      stroke: #191e23 !important;\n      fill: #191e23 !important;\n      stroke-width: 0; }\n\n.redux-templates-editor-btn {\n  background: none;\n  border: 0;\n  color: inherit;\n  font: inherit;\n  line-height: normal;\n  overflow: visible;\n  padding: 0;\n  -webkit-appearance: button;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none; }\n  .redux-templates-editor-btn::-moz-focus-inner {\n    border: 0;\n    padding: 0; }\n\n.d-flex {\n  display: flex; }\n\n.justify-content-center {\n  justify-content: center; }\n\n.qubely-import-layout-btn-container,\n#qubelyImportLayoutBtn,\n.gutentor-export-button,\n#getwid-layout-insert-button,\n.kb-toolbar-insert-layout,\n.edit-post-header .gutentor-import-button,\n.ab-toolbar-insert-layout {\n  display: none !important; }\n\n.redux-css-editor {\n  border: 1px solid #e2e4e7;\n  margin-bottom: 20px; }\n\n.redux-css-editor-help {\n  background: #f7f7f7;\n  padding: 20px; }\n", ""]);
+exports.push([module.i, "#redux-templatesImportCollectionBtn {\n  vertical-align: middle;\n  display: inline-flex;\n  align-items: center;\n  text-decoration: none;\n  border: 1px solid #bababa;\n  border-radius: 3px;\n  white-space: nowrap;\n  color: #555d66;\n  font-size: 13px;\n  margin: 0 15px 0 15px;\n  padding: 9px 12px;\n  background: transparent;\n  cursor: pointer;\n  -webkit-appearance: none;\n  transition: 400ms; }\n  #redux-templatesImportCollectionBtn svg {\n    height: 16px;\n    width: 16px;\n    margin-right: 8px; }\n    #redux-templatesImportCollectionBtn svg * {\n      stroke: #555d66;\n      fill: #555d66;\n      stroke-width: 0; }\n  #redux-templatesImportCollectionBtn:hover, #redux-templatesImportCollectionBtn:focus, #redux-templatesImportCollectionBtn:active {\n    text-decoration: none;\n    border: 1px solid #191e23;\n    color: #191e23; }\n    #redux-templatesImportCollectionBtn:hover svg *, #redux-templatesImportCollectionBtn:focus svg *, #redux-templatesImportCollectionBtn:active svg * {\n      stroke: #191e23 !important;\n      fill: #191e23 !important;\n      stroke-width: 0; }\n\n.redux-templates-editor-btn {\n  background: none;\n  border: 0;\n  color: inherit;\n  font: inherit;\n  line-height: normal;\n  overflow: visible;\n  padding: 0;\n  -webkit-appearance: button;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none; }\n  .redux-templates-editor-btn::-moz-focus-inner {\n    border: 0;\n    padding: 0; }\n\n.d-flex {\n  display: flex; }\n\n.justify-content-center {\n  justify-content: center; }\n\n.redux-css-editor {\n  border: 1px solid #e2e4e7;\n  margin-bottom: 20px; }\n\n.redux-css-editor-help {\n  background: #f7f7f7;\n  padding: 20px; }\n", ""]);
 
 
 
@@ -7219,7 +7219,7 @@ function ReduxTemplatesActivateBox({
     className: "redux-templates-modal-body"
   }, wp.element.createElement("div", {
     className: "section-box premium-box"
-  }, wp.element.createElement("h3", null, __('Activation Required', redux_templates.i18n)), wp.element.createElement("p", null, __('To continue using our library, you must activate Redux.', redux_templates.i18n)), wp.element.createElement("ul", null, wp.element.createElement("li", null, wp.element.createElement("strong", null, __('Unlimited', redux_templates.i18n)), " ", __('use of our free templates.', redux_templates.i18n)), wp.element.createElement("li", null, wp.element.createElement("strong", null, __('Updates', redux_templates.i18n)), " ", __('to the library.', redux_templates.i18n)), wp.element.createElement("li", null, wp.element.createElement("strong", null, __('Google Fonts', redux_templates.i18n)), " ", __('manual updates.', redux_templates.i18n)), wp.element.createElement("li", null, wp.element.createElement("strong", null, __('And so much more!', redux_templates.i18n)))), wp.element.createElement("p", null, wp.element.createElement("button", {
+  }, wp.element.createElement("h3", null, __('Registration Required to Import Templates', redux_templates.i18n)), wp.element.createElement("p", null, __(' Register now to import templates from the Redux template library in a single click.', redux_templates.i18n)), wp.element.createElement("ul", null, wp.element.createElement("li", null, wp.element.createElement("strong", null, __('Unlimited', redux_templates.i18n)), " ", __('use of our free templates.', redux_templates.i18n)), wp.element.createElement("li", null, wp.element.createElement("strong", null, __('Updates', redux_templates.i18n)), " ", __('to the library.', redux_templates.i18n)), wp.element.createElement("li", null, wp.element.createElement("strong", null, __('Google Fonts', redux_templates.i18n)), " ", __('manual updates.', redux_templates.i18n))), wp.element.createElement("p", null, wp.element.createElement("button", {
     className: "button button-primary",
     disabled: activating,
     onClick: () => onActivateRedux()
@@ -7228,13 +7228,13 @@ function ReduxTemplatesActivateBox({
     style: {
       marginRight: '5px'
     }
-  }), wp.element.createElement("span", null, __('Activate Redux for Free', redux_templates.i18n)))), wp.element.createElement("p", {
+  }), wp.element.createElement("span", null, __('Register for Free', redux_templates.i18n)))), wp.element.createElement("p", {
     style: {
       fontSize: '1.1em'
     }
   }, wp.element.createElement("small", null, wp.element.createElement("em", {
     dangerouslySetInnerHTML: {
-      __html: redux_templates.tos.replace('to our', 'to our<br />')
+      __html: redux_templates.tos
     }
   })))));
 }
@@ -12165,6 +12165,7 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case 'SET_LIBRARY':
+      if (!action.library.dependencies) return state;
       redux_templates.supported_plugins = action.library.plugins;
       const dependencies = Object(_helper__WEBPACK_IMPORTED_MODULE_0__["getDefaultDependencies"])(Object.keys(action.library.dependencies));
       const parsedSection = Object(_helper__WEBPACK_IMPORTED_MODULE_0__["parseSectionData"])(action.library.sections);

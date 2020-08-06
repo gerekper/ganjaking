@@ -1,9 +1,9 @@
 <?php
 
-namespace WBCR\Factory_Adverts_108;
+namespace WBCR\Factory_Adverts_109;
 
 // Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ) {
+if( !defined('ABSPATH') ) {
 	exit;
 }
 
@@ -65,7 +65,7 @@ class Creative_Motion_API {
 	 *
 	 * @author Alexander Kovalev <alex.kovalevv@gmail.com>
 	 * @since  1.0.1
-	 * @var \Wbcr_Factory428_Plugin
+	 * @var \Wbcr_Factory429_Plugin
 	 */
 	private $plugin;
 
@@ -75,32 +75,34 @@ class Creative_Motion_API {
 	 *
 	 * Variable initialization.
 	 *
+	 * @param \Wbcr_Factory429_Plugin $plugin_name
 	 * @since 1.0.0 Added
 	 *
-	 * @param \Wbcr_Factory428_Plugin $plugin_name
 	 */
-	public function __construct( \Wbcr_Factory428_Plugin $plugin ) {
+	public function __construct(\Wbcr_Factory429_Plugin $plugin)
+	{
 		$this->plugin = $plugin;
 	}
 
 	/**
 	 * Get adverts content.
 	 *
-	 * @author Alexander Kovalev <alex.kovalevv@gmail.com>
-	 * @since  1.0.1
-	 *
 	 * @param $position
 	 *
 	 * @return string|\WP_Error
+	 * @author Alexander Kovalev <alex.kovalevv@gmail.com>
+	 * @since  1.0.1
+	 *
 	 */
-	public function get_content( $position ) {
-		$data = $this->get_cache( $position );
+	public function get_content($position)
+	{
+		$data = $this->get_cache($position);
 
-		if ( is_wp_error( $data ) ) {
+		if( is_wp_error($data) ) {
 			return $data;
 		}
 
-		return strip_tags( $data['content'], '<b>,<a>,<i>,<strong>,<img>,<ul>,<ol>,<li>' );
+		return strip_tags($data['content'], '<b>,<a>,<i>,<strong>,<img>,<ul>,<ol>,<li>');
 	}
 
 	/**
@@ -108,47 +110,52 @@ class Creative_Motion_API {
 	 *
 	 * If data in the cache, not empty and not expired, then get data from cache. Or get data from server.
 	 *
-	 * @author Alexander Kovalev <alex.kovalevv@gmail.com>
-	 *
-	 * @since  1.0.1 Полностью переписан, с перехватом api ошибок
-	 * @since  1.0.0 Added
-	 *
 	 * @return mixed array(
 	 *  'plugin'  => 'wbcr_insert_php',
 	 *  'content' => '<p></p>',
 	 *  'expires' => 1563542199,
 	 * );
+	 * @since  1.0.1 Полностью переписан, с перехватом api ошибок
+	 * @since  1.0.0 Added
+	 *
+	 * @author Alexander Kovalev <alex.kovalevv@gmail.com>
+	 *
 	 */
-	private function get_cache( $position ) {
+	private function get_cache($position)
+	{
 
-		if ( defined( 'FACTORY_ADVERTS_DEBUG' ) && FACTORY_ADVERTS_DEBUG ) {
-			return $this->do_api_request( $position );
+		if( defined('FACTORY_ADVERTS_DEBUG') && FACTORY_ADVERTS_DEBUG ) {
+			return $this->do_api_request($position);
 		}
 
-		$key = $this->plugin->getPrefix() . md5( $position . 'adverts_transient_' );
+		$key = $this->plugin->getPrefix() . md5($position . 'adverts_transient_');
 
-		$cached = get_transient( $key );
+		if( 'ru_RU' === get_locale() ) {
+			$key .= 'ru_';
+		}
 
-		if ( $cached !== false ) {
-			if ( isset( $cached['error_code'] ) && isset( $cached['error'] ) ) {
-				return new \WP_Error( $cached['error_code'], $cached['error'] );
+		$cached = get_transient($key);
+
+		if( $cached !== false ) {
+			if( isset($cached['error_code']) && isset($cached['error']) ) {
+				return new \WP_Error($cached['error_code'], $cached['error']);
 			}
-			
+
 			return $cached;
 		}
 
-		$data = $this->do_api_request( $position );
+		$data = $this->do_api_request($position);
 
-		if ( is_wp_error( $data ) ) {
-			set_transient( $key, [
-				'error'      => $data->get_error_message(),
+		if( is_wp_error($data) ) {
+			set_transient($key, [
+				'error' => $data->get_error_message(),
 				'error_code' => $data->get_error_code()
-			], self::SERVER_UNAVAILABLE_INTERVAL * HOUR_IN_SECONDS );
+			], self::SERVER_UNAVAILABLE_INTERVAL * HOUR_IN_SECONDS);
 
 			return $data;
 		}
-		
-		set_transient( $key, $data, self::DEFAULT_REQUESTS_INTERVAL * HOUR_IN_SECONDS );
+
+		set_transient($key, $data, self::DEFAULT_REQUESTS_INTERVAL * HOUR_IN_SECONDS);
 
 		return $data;
 	}
@@ -159,39 +166,52 @@ class Creative_Motion_API {
 	 * In some case on the server (Apache) in the .htaccess must be set
 	 * RewriteRule ^wp-json/(.*)[?](.*) /?rest_route=/$1&$2 [L]
 	 *
-	 * @since 1.0.1 Добавлен перехват ошибок, рефакторинг кода.
-	 * @since 1.0.0 Added
-	 *
 	 * @return mixed array(
 	 *  'plugin'  => 'wbcr_insert_php',
 	 *  'content' => '<p></p>',
 	 *  'expires' => 1563542199,
 	 * );
+	 * @since 1.0.0 Added
+	 *
+	 * @since 1.0.1 Добавлен перехват ошибок, рефакторинг кода.
 	 */
-	private function do_api_request( $position ) {
+	private function do_api_request($position)
+	{
 		$default_result = [
 			'content' => '',
 			'expires' => self::DEFAULT_REQUESTS_INTERVAL * HOUR_IN_SECONDS,
 		];
 
-		$url = untrailingslashit( self::SERVER_URL ) . '/wp-json' . self::REST_ROUTE;
-		$url = add_query_arg( [ 'plugin' => $this->plugin->getPluginName(), 'position' => $position ], $url );
+		$url = untrailingslashit(self::SERVER_URL) . '/wp-json' . self::REST_ROUTE;
 
-		$response = wp_remote_get( $url );
+		$ads_ID = $this->plugin->getPluginName();
 
-		$code = wp_remote_retrieve_response_code( $response );
-		$body = wp_remote_retrieve_body( $response );
+		if( 'ru_RU' === get_locale() ) {
+			$ads_ID .= '-ru';
+		}
 
-		$data = @json_decode( $body, true );
+		$url = add_query_arg([
+			'plugin' => $ads_ID,
+			'position' => $position,
+			'plugin_title' => $this->plugin->getPluginTitle(),
+			'lang' => get_locale()
+		], $url);
 
-		if ( is_wp_error( $response ) ) {
+		$response = wp_remote_get($url);
+
+		$code = wp_remote_retrieve_response_code($response);
+		$body = wp_remote_retrieve_body($response);
+
+		$data = @json_decode($body, true);
+
+		if( is_wp_error($response) ) {
 			return $response;
 		}
 
-		if ( 200 !== $code ) {
-			return new \WP_Error( 'http_request_error', 'Failed request to the remote server. Code: ' . $code );
+		if( 200 !== $code ) {
+			return new \WP_Error('http_request_error', 'Failed request to the remote server. Code: ' . $code);
 		}
 
-		return wp_parse_args( $data, $default_result );
+		return wp_parse_args($data, $default_result);
 	}
 }

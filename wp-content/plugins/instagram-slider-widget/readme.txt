@@ -103,6 +103,12 @@ If you don't use an account in the widget, go to the plugin settings and add an 
 10. Highlight
 
 == Changelog ==
+= 1.7.11 =
+* Added 'alt', 'rel' HTML attributes to images
+* Minor bug fixes
+* Fixed issue with disabled premium widget (PRO)
+* Added new setting to 'Slick slider' (PRO)
+
 = 1.7.9 =
 * Fix a problem with a long page load with a widget (Mandatory update!)
 

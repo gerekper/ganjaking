@@ -183,7 +183,7 @@ if ( ! class_exists( 'Redux_Core', false ) ) {
 			Redux_Functions_Ex::generator();
 
 			if ( ! class_exists( 'ReduxAppsero\Client' ) ) {
-				require_once __DIR__ . '/appsero/Client.php';
+				require_once Redux_Path::get_path( '/appsero/Client.php' );
 			}
 
 			if ( defined( 'REDUX_PLUGIN_FILE' ) ) {
@@ -298,6 +298,7 @@ if ( ! class_exists( 'Redux_Core', false ) ) {
 			}
 
 			require_once dirname( __FILE__ ) . '/inc/classes/class-redux-path.php';
+			require_once dirname( __FILE__ ) . '/inc/classes/class-redux-extension-abstract.php';
 
 			spl_autoload_register( array( $this, 'register_classes' ) );
 			Redux_Functions_Ex::register_class_path( 'Redux', dirname( __FILE__ ) );
@@ -360,7 +361,7 @@ if ( ! class_exists( 'Redux_Core', false ) ) {
 					return;
 				}
 
-				if ( class_exists( 'Redux_Framework_Plugin' ) ) {
+				if ( class_exists( 'Redux_Framework_Plugin' ) && ! class_exists( 'Redux_User_Feedback' ) ) {
 					require_once Redux_Path::get_path( '/inc/classes/class-redux-user-feedback.php' );
 				}
 

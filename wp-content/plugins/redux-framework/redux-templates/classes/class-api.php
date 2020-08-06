@@ -221,8 +221,9 @@ class Api {
 			$filesystem->mkdir( dirname( $path ) );
 		}
 
-		$last_modified = $this->get_cache_time( $path );
-		$use_cache     = true;
+		$last_modified = file_exists( $path ) ? $this->get_cache_time( $path ) : false;
+
+		$use_cache = true;
 		if ( isset( $parameters['no_cache'] ) ) {
 			$use_cache = false;
 		}
@@ -236,8 +237,9 @@ class Api {
 		if ( $cache_only ) {
 			$use_cache = true;
 		}
+
 		$data = array();
-		if ( $use_cache ) {
+		if ( file_exists( $path ) && $use_cache ) {
 			// phpcs:ignore WordPress.PHP.NoSilencedErrors
 			$data = @json_decode( $filesystem->get_contents( $path ), true );
 		}
@@ -327,12 +329,13 @@ class Api {
 		$config    = array(
 			'path' => 'library/',
 		);
-		$test_path = dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'library.json';
+		$test_path = dirname( __FILE__ ) . '/library.json';
 
 		if ( file_exists( $test_path ) ) {
 			$data = json_decode( ReduxTemplates\Init::get_local_file_contents( $test_path ), true );
 		} else {
-			$data = $this->api_cache_fetch( $parameters, $config, 'library.json' );
+			$parameters['no_cache'] = 1;
+			$data                   = $this->api_cache_fetch( $parameters, $config, 'library.json' );
 		}
 
 		if ( isset( $data['plugins'] ) ) {
@@ -612,13 +615,13 @@ class Api {
 			if ( \Redux_Functions_Ex::activated() ) {
 				$response['left'] = 999;
 			} else {
-				$count = get_user_meta( $parameters['uid'], '_redux_templates_count', true );
+				$count = get_user_meta( $parameters['uid'], '_redux_templates_counts', true );
 				if ( false === $count ) {
 					$count = ReduxTemplates\Init::$default_left;
 				}
 				$count = intval( $count ) - 1;
 				if ( intval( $count ) < 0 ) {
-					update_user_meta( $parameters['uid'], '_redux_templates_count', 0 );
+					update_user_meta( $parameters['uid'], '_redux_templates_counts', 0 );
 					wp_send_json_error(
 						array(
 							'message' => 'Please activate Redux',
@@ -626,7 +629,7 @@ class Api {
 						)
 					);
 				} else {
-					update_user_meta( $parameters['uid'], '_redux_templates_count', $count );
+					update_user_meta( $parameters['uid'], '_redux_templates_counts', $count );
 				}
 				$response['left'] = $count;
 			}
@@ -650,10 +653,10 @@ class Api {
 			if ( \Redux_Functions_Ex::activated() ) {
 				$response['left'] = 999;
 			} else {
-				$count = get_user_meta( get_current_user_id(), '_redux_templates_count', true );
+				$count = get_user_meta( get_current_user_id(), '_redux_templates_counts', true );
 				if ( false === $count ) {
 					$count = Init::$default_left;
-					update_user_meta( get_current_user_id(), '_redux_templates_count', $count );
+					update_user_meta( get_current_user_id(), '_redux_templates_counts', $count );
 				}
 				$response = array(
 					'left' => $count,
