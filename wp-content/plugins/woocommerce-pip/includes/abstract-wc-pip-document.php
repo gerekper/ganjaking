@@ -883,7 +883,7 @@ abstract class WC_PIP_Document {
 
 		if ( is_string( $chosen_fields )  ) {
 
-			// at the moment the invoice only has one optional field, the SKY, which is toggled by a checkbox
+			// at the moment the invoice only has one optional field, the SKU, which is toggled by a checkbox
 			if ( 'invoice' === $this->type ) {
 				$this->chosen_fields = 'yes' === $chosen_fields ? [ 'sku' ] : [];
 				// in other documents, if only one field is stored, this may be a string, but we want to output an array of strings

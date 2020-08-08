@@ -3,7 +3,7 @@
  * Coupon Email Content
  *
  * @author      StoreApps
- * @version     1.0.1
+ * @version     1.0.2
  * @package     woocommerce-smart-coupons/templates/plain/
  */
 
@@ -128,4 +128,3 @@ if ( ! empty( $from ) ) {
 	echo ( ! empty( $store_credit_label['singular'] ) ? sprintf( esc_html__( 'You got this %s', 'woocommerce-smart-coupons' ), esc_html( strtolower( $store_credit_label['singular'] ) ) ) : esc_html__( 'You got this gift card', 'woocommerce-smart-coupons' ) ) . ' ' . esc_html( $from ) . esc_html( $sender );
 	echo "\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n";
 }
-do_action( 'woocommerce_email_footer' );

@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.0
+ * @version     1.0.1
  * @package     WooCommerce Smart Coupons
  */
 
@@ -42,6 +42,36 @@ if ( ! class_exists( 'WC_SC_Act_Deact' ) ) {
 		public static function process_activation() {
 
 			global $wpdb, $blog_id;
+
+			$is_migrate_site_options = get_site_option( 'wc_sc_migrate_site_options', 'yes' );
+
+			if ( 'yes' === $is_migrate_site_options ) {
+				// phpcs:disable
+				$default_options  = array(
+					'all_tasks_count_woo_sc',                                   // => '',.
+					'bulk_coupon_action_woo_sc',                                // => '',.
+					'current_time_woo_sc',                                      // => '',.
+					'remaining_tasks_count_woo_sc',                             // => '',.
+					'smart_coupons_combine_emails',                             // => 'no',.
+					'smart_coupons_is_send_email',                              // => 'yes',.
+					'start_time_woo_sc',                                        // => '',.
+					'wc_sc_auto_apply_coupon_ids',                              // => maybe_serialize( array() ),.
+					'wc_sc_is_show_terms_notice',                               // => 'yes',.
+					'wc_sc_terms_page_id',                                      // => '',.
+					'woocommerce_wc_sc_combined_email_coupon_settings',         // => maybe_serialize( array() ),.
+					'woocommerce_wc_sc_email_coupon_settings',                  // => maybe_serialize( array() ),.
+					'woo_sc_action_data',                                       // => '',.
+					'woo_sc_generate_coupon_posted_data',                       // => '',.
+				);
+				// phpcs:enable
+				$existing_options = array();
+				foreach ( $default_options as $option_name ) {
+					$site_option = get_site_option( $option_name );
+					if ( ! empty( $site_option ) ) {
+						$existing_options[ $option_name ] = $site_option;
+					}
+				}
+			}
 
 			if ( is_multisite() ) {
 				$blog_ids = $wpdb->get_col( "SELECT blog_id FROM {$wpdb->blogs}", 0 ); // WPCS: cache ok, db call ok.
@@ -83,8 +113,61 @@ if ( ! class_exists( 'WC_SC_Act_Deact' ) ) {
 						update_post_meta( $tax_post_id, 'apply_before_tax', 'no' );
 					}
 
+					if ( 'yes' === $is_migrate_site_options ) {
+						$results = $wpdb->get_results( // phpcs:ignore
+							$wpdb->prepare(
+								"SELECT option_id,
+										option_name,
+										option_value
+									FROM {$wpdb->prefix}options
+									WHERE option_name IN (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+								'smart_coupons_is_send_email',
+								'smart_coupons_combine_emails',
+								'woocommerce_wc_sc_combined_email_coupon_settings',
+								'woocommerce_wc_sc_email_coupon_settings',
+								'wc_sc_is_show_terms_notice',
+								'wc_sc_terms_page_id',
+								'woo_sc_generate_coupon_posted_data',
+								'start_time_woo_sc',
+								'current_time_woo_sc',
+								'all_tasks_count_woo_sc',
+								'remaining_tasks_count_woo_sc',
+								'bulk_coupon_action_woo_sc',
+								'woo_sc_action_data',
+								'wc_sc_auto_apply_coupon_ids'
+							),
+							ARRAY_A
+						);
+						if ( ! empty( $results ) ) {
+							foreach ( $results as $result ) {
+								$option_value = ( ! empty( $existing_options[ $result['option_name'] ] ) ) ? $existing_options[ $result['option_name'] ] : '';
+								if ( ! empty( $option_value ) ) {
+									if ( is_array( $option_value ) ) {
+										$option_value = maybe_serialize( $option_value );
+									}
+									$wpdb->query( // phpcs:ignore
+										$wpdb->prepare(
+											"INSERT INTO {$wpdb->prefix}options (option_id, option_name, option_value, autoload)
+												VALUES (%d,%s,%s,%s)
+												ON DUPLICATE KEY UPDATE option_value = %s",
+											$result['option_id'],
+											$result['option_name'],
+											$option_value,
+											'no',
+											$option_value
+										)
+									);
+								}
+							}
+						}
+					}
+
 					$wpdb = clone $wpdb_obj; // phpcs:ignore
 				}
+			}
+
+			if ( 'yes' === $is_migrate_site_options ) {
+				update_site_option( 'wc_sc_migrate_site_options', 'no' );
 			}
 
 		}

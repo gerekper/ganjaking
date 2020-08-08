@@ -37,7 +37,7 @@ class WCS_ATT_Product_Prices {
 	 */
 	private static function add_hooks() {
 
-		WCS_ATT_Product_Price_Filters::add();
+		add_action( 'plugins_loaded', array( 'WCS_ATT_Product_Price_Filters', 'add' ), 99 );
 	}
 
 	/*

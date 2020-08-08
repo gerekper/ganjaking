@@ -41,39 +41,46 @@ class WC_CSV_Import_Suite_Order_Processor {
 
 
 	/**
-	 * Constructs and initializes the processor
+	 * Constructs and initializes the processor.
 	 *
 	 * @since 3.3.0
 	 */
 	public function __construct() {
+
 		$this->importer = wc_csv_import_suite()->get_importers_instance()->get_importer( 'woocommerce_order_csv' );
 
-		// provide some base custom order number functionality, while allowing 3rd party plugins with custom
-		// order number functionality to unhook this and provide their own logic
-		add_action( 'woocommerce_set_order_number', array( $this, 'woocommerce_set_order_number' ), 10, 3 );
+		// provide some base custom order number functionality, while allowing 3rd party plugins with custom order number functionality to unhook this and provide their own logic
+		add_action( 'woocommerce_set_order_number', [ $this, 'woocommerce_set_order_number' ], 10, 3 );
 	}
 
 
 	/**
-	 * Processes an order
+	 * Processes an order.
 	 *
 	 * @since 3.3.0
-	 * @param mixed $data Parsed order data, ready for processing, compatible with
-	 *                    wc_create_order/wc_update_order
-	 * @param array $options Optional. Options
-	 * @param array $raw_headers Optional. Raw headers
+	 *
+	 * @param array $data parsed order data, ready for processing, compatible with {@see wc_create_order()} or {@see wc_update_order()}
+	 * @param array $options options (optional)
+	 * @param array $raw_headers raw headers (optional)
 	 * @return int|null
 	 */
-	public function process_order( $data, $options = array(), $raw_headers = array() ) {
+	public function process_order( $data, $options = [], $raw_headers = [] ) {
 
 		// default options
-		$options = wp_parse_args( $options, array(
+		$options = (array) wp_parse_args( $options, [
 			'recalculate_totals' => false,
 			'merge'              => false,
-		) );
+		] );
 
-		$merging = $options['merge'] && isset( $data['id'] ) && $data['id'];
-		$dry_run = $options['dry_run'];
+		$merging      = $options['merge'] && isset( $data['id'] ) && $data['id'];
+		$dry_run      = isset( $options['dry_run'] ) ? $options['dry_run'] : false;
+		$reduce_stock = isset( $options['reduce_product_stock'] ) && wc_string_to_bool( $options['reduce_product_stock'] );
+		$order_id     = null;
+
+		// handles completed orders stock reduction
+		add_filter( 'woocommerce_payment_complete_reduce_order_stock', [ $this, 'maybe_reduce_stock_level' ], 999, 2 );
+		// enforces a user preference from import setting, reducing or prevent reducing the stock for completed orders
+		add_filter( 'wc_csv_import_suite_reduce_order_stock_level', $reduce_stock ? '__return_true' : '__return_false' );
 
 		wc_csv_import_suite()->log( __( '> Processing order', 'woocommerce-csv-import-suite' ) );
 
@@ -115,7 +122,9 @@ class WC_CSV_Import_Suite_Order_Processor {
 
 			// import failed
 			if ( ! $dry_run && is_wp_error( $order_id ) ) {
+
 				$this->importer->add_import_result( 'failed', $order_id->get_error_message() );
+
 				return null;
 			}
 
@@ -128,13 +137,14 @@ class WC_CSV_Import_Suite_Order_Processor {
 				wc_transaction_query( 'commit' );
 			}
 
-		} catch ( WC_CSV_Import_Suite_Import_Exception $e ) {
+		} catch ( \WC_CSV_Import_Suite_Import_Exception $e ) {
 
 			if ( ! $dry_run ) {
 				wc_transaction_query( 'rollback' );
 			}
 
 			$this->importer->add_import_result( 'failed', $e->getMessage() );
+
 			return null;
 		}
 
@@ -339,7 +349,7 @@ class WC_CSV_Import_Suite_Order_Processor {
 			}
 
 			// update order status - note that this is done _after_ updating order data, so that we have a chance to
-			// grant download permissions before WC automatically sets download permissions as alrady granted when
+			// grant download permissions before WC automatically sets download permissions as already granted when
 			// moving the order to processing or completed status
 			if ( ! empty( $data['status'] ) ) {
 				$order->update_status( $data['status'], isset( $data['status_note'] ) ? $data['status_note'] : '' );
@@ -1008,11 +1018,19 @@ class WC_CSV_Import_Suite_Order_Processor {
 	 */
 	private function get_product_for_item( $item ) {
 
+		$product = null;
+
 		if ( isset( $item['product_id'] ) && $item['product_id'] ) {
 
 			$product = wc_get_product( $item['product_id'] );
 
-		} else {
+			// if the parent does not exist, this may be an orphaned variation
+			if ( $product && $product->is_type( 'variation' ) && ! wc_get_product( $product->get_parent_id() ) ) {
+				 $product = null;
+			}
+		}
+
+		if ( ! $product ) {
 
 			$product           = new \WC_Product( null );
 			$product_name      = isset( $item['name'] ) ? $item['name'] : __( 'Unknown product', 'woocommerce-csv-import-suite' );
@@ -1124,6 +1142,55 @@ class WC_CSV_Import_Suite_Order_Processor {
 		// will be even cleaner on the backend
 		update_post_meta( $order->get_id(), apply_filters( 'woocommerce_order_number_meta_name', '_order_number' ), $order_number );
 		update_post_meta( $order->get_id(), apply_filters( 'woocommerce_order_number_formatted_meta_name', '_order_number_formatted' ), $order_number_formatted );
+	}
+
+
+	/**
+	 * Handles stock level reduction for imported orders.
+	 *
+	 * @see \WC_CSV_Import_Suite_Order_Processor::process_order()
+	 * @internal
+	 *
+	 * @since 3.8.8
+	 *
+	 * @param bool $reduce_stock whether to reduce stock for the items in order
+	 * @param int $order_id order ID
+	 * @return bool
+	 */
+	public function maybe_reduce_stock_level( $reduce_stock, $order_id ) {
+
+		/**
+		 * Filters whether stock should be reduced for imported order.
+		 *
+		 * @since 3.8.8
+		 *
+		 * @param bool $reduce_stock whether stock should be reduced for the imported order
+		 * @param int $order_id the order ID
+		 */
+		$reduce_stock = (bool) apply_filters( 'wc_csv_import_suite_reduce_order_stock_level', $reduce_stock, $order_id );
+
+		// additional sanity checks for rare instances where the order is undetermined, or the item such as a variation is orphaned
+		if ( $reduce_stock ) {
+
+			$order = wc_get_order( $order_id );
+
+			if ( ! $order ) {
+
+				$reduce_stock = false;
+
+			} else {
+
+				foreach ( $order->get_items() as $item ) {
+
+					if ( ! $item instanceof \WC_Order_Item_Product || ! $item->get_product() ) {
+						$reduce_stock = false;
+						break;
+					}
+				}
+			}
+		}
+
+		return $reduce_stock;
 	}
 
 

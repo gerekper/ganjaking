@@ -33,13 +33,11 @@ $__gf_tooltips = array(
 	'form_schedule_form'                          => '<h6>' . __( 'Schedule Form', 'gravityforms' ) . '</h6>' . __( 'Schedule a time period the form is active.', 'gravityforms' ),
 	'form_honeypot'                               => '<h6>' . __( 'Enable Anti-spam honeypot', 'gravityforms' ) . '</h6>' . __( 'Enables the honeypot spam protection technique, which is an alternative to the reCAPTCHA field.', 'gravityforms' ),
 	'form_animation'                              => '<h6>' . __( 'Enable Animation', 'gravityforms' ) . '</h6>' . __( 'Check this option to enable a sliding animation when displaying/hiding conditional logic fields.', 'gravityforms' ),
-	'form_legacy_markup'                          => '<h6>' . __( 'Legacy Markup', 'gravityforms' ) . '</h6>' . __( 'Check this option to enable Gravity Forms\' legacy markup. This will hinder the accessibility of your form.', 'gravityforms' ),
 	'form_title'                                  => '<h6>' . __( 'Form Title', 'gravityforms' ) . '</h6>' . __( 'Enter the title of your form.', 'gravityforms' ),
 	'form_description'                            => '<h6>' . __( 'Form Description', 'gravityforms' ) . '</h6>' . __( 'Enter a description for your form. This may be used for user instructions.', 'gravityforms' ),
-	'form_label_placement'                        => '<h6>' . __( 'Form Label Placement', 'gravityforms' ) . '</h6>' . __( 'Select the default label placement.  Labels can be top aligned above a field, left aligned to the left of a field, or right aligned to the right of a field. This is a global label placement setting.', 'gravityforms' ),
+	'form_label_placement'                        => '<h6>' . __( 'Form Label Placement', 'gravityforms' ) . '</h6>' . __( 'Select the default label placement.  Labels can be top aligned above a field, left aligned to the left of a field, or right aligned to the right of a field. This is a global label placement setting', 'gravityforms' ),
 	'form_description_placement'                  => '<h6>' . __( 'Description Placement', 'gravityforms' ) . '</h6>' . __( 'Select the default description placement.  Descriptions can be placed above the field inputs or below the field inputs. This setting can be overridden in the appearance settings for each field.', 'gravityforms' ),
 	'form_sub_label_placement'                    => '<h6>' . __( 'Sub-Label Placement', 'gravityforms' ) . '</h6>' . __( 'Select the default sub-label placement.  Sub-labels can be placed above the field inputs or below the field inputs. This setting can be overridden in the appearance settings for each field.', 'gravityforms' ),
-	'form_required_indicator'                     => '<h6>' . __( 'Required Indicator', 'gravityforms' ) . '</h6>' . __( 'Select how you would like to indicate required fields.  You can choose either the default text or asterisk, or enter your own custom text.  If legacy markup is not enabled and you choose an asterisk, a legend will appear at the top of the form to explain the asterisk to users.' ),
 	'form_button_text'                            => '<h6>' . __( 'Form Button Text', 'gravityforms' ) . '</h6>' . __( 'Enter the text you would like to appear on the form submit button.', 'gravityforms' ),
 	'form_button_image'                           => '<h6>' . __( 'Form Button Image', 'gravityforms' ) . '</h6>' . __( 'Enter the path to an image you would like to use as the form submit button.', 'gravityforms' ),
 	'form_css_class'                              => '<h6>' . __( 'Form CSS Class Name', 'gravityforms' ) . '</h6>' . __( 'Enter the CSS class name you would like to use in order to override the default styles for this form.', 'gravityforms' ),
@@ -107,7 +105,6 @@ $__gf_tooltips = array(
 	'form_field_copy_values_option_label'         => '<h6>' . __( 'Option Label', 'gravityforms' ) . '</h6>' . __( 'Enter the label to be displayed next to the check box. For example, &quot;same as shipping address&quot;.', 'gravityforms' ),
 	'form_field_copy_values_option_field'         => '<h6>' . __( 'Source Field', 'gravityforms' ) . '</h6>' . __( 'Select the field to be used as the source for the values for this field.', 'gravityforms' ),
 	'form_field_copy_values_option_default'       => '<h6>' . __( 'Activated by Default', 'gravityforms' ) . '</h6>' . __( 'Select this setting to display the option as activated by default when the form first loads.', 'gravityforms' ),
-	'form_field_autocomplete'                     => '<h6>' . __( 'Autocomplete Attribute', 'gravityforms' ) . '</h6>' . sprintf( __( 'Select this setting to let browsers help a user fill in a field with autocomplete.  You can enter a single autocomplete attribute or multiple attributes separated with a space.  Learn more about autocomplete in the %s accsesibility documentation %s.', 'gravityforms' ), '<a href="https://docs.gravityforms.com/accessibility-for-developers/#autocomplete">', '</a>' ),
 	'form_field_validation_message'               => '<h6>' . __( 'Validation Message', 'gravityforms' ) . '</h6>' . __( 'If you would like to override the default error validation for a field, enter it here.  This message will be displayed if there is an error with this field when the user submits the form.', 'gravityforms' ),
 	'form_field_recaptcha_language'               => '<h6>' . __( 'reCAPTCHA Language', 'gravityforms' ) . '</h6>' . __( 'Select the language you would like to use for the reCAPTCHA display from the available options.', 'gravityforms' ),
 	'form_field_css_class'                        => '<h6>' . __( 'CSS Class Name', 'gravityforms' ) . '</h6>' . __( 'Enter the CSS class name you would like to use in order to override the default styles for this field.', 'gravityforms' ),
@@ -179,7 +176,6 @@ $__gf_tooltips = array(
 	'personal_data_prevent_ip'                    => '<h6>' . __( 'IP Address', 'gravityforms' ) . '</h6>' . __( 'Check this box if you would like to prevent the IP address from being stored during form submission.', 'gravityforms' ),
 	'personal_data_retention_policy'              => '<h6>' . __( 'Retention Policy', 'gravityforms' ) . '</h6>' . __( 'Use these settings to keep entries only as long as they are needed. Trash or delete entries automatically older than the specified number of days. The minimum number of days allowed is one. This is to ensure that all entry processing is complete before deleting/trashing. The number of days setting is a minimum, not an exact period of time. The trashing/deleting occurs during the daily cron task so some entries may appear to remain up to a day longer than expected.', 'gravityforms' ),
     'form_field_password_visibility_enable'       => '<h6>' . __( 'Password Visibility Toggle', 'gravityforms' ) . '</h6>' . __( 'Check this box to add a toggle allowing the user to see the password they are entering in.', 'gravityforms' ),
-	'validation_summary'                          => '<h6>' . __( 'Enable to show a summary that lists validation errors on top of the form.', 'gravityforms' ) . '</h6>',
 );
 
 /**
@@ -209,19 +205,13 @@ function gform_tooltip( $name, $css_class = '', $return = false ) {
 
 	$tooltip_text  = $parameter_is_key ? rgar( $__gf_tooltips, $name ) : $name;
 	$tooltip_class = isset( $__gf_tooltips[ $name ] ) ? "tooltip_{$name}" : '';
+	$tooltip_class = esc_attr( $tooltip_class );
 
 	if ( empty( $tooltip_text ) ) {
 		return '';
 	}
 
-	$tooltip = sprintf(
-		'<a href="#" onclick="return false;" onkeypress="return false;" class="gf_tooltip %s" %s title="%s">
-			<svg width="4" height="8" fill="#242748" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M0 1.214C.224.926.504.704.842.545A2.57 2.57 0 011.947.308c.265 0 .518.04.757.12.24.08.456.196.648.35.192.153.344.352.455.597.112.244.168.52.168.827 0 .185-.023.362-.07.53a1.782 1.782 0 01-.2.465 3.224 3.224 0 01-.27.376 4.733 4.733 0 01-.323.345c-.054.052-.133.124-.235.219a8.5 8.5 0 00-.235.223c-.054.054-.114.12-.18.196a.98.98 0 00-.146.218.55.55 0 00-.053.209l-.024.432h-.973L1.26 4.92c0-.067.004-.132.012-.195a.845.845 0 01.048-.189l.062-.165a.797.797 0 01.096-.168 7.16 7.16 0 00.103-.149c.023-.033.064-.085.125-.156a5.956 5.956 0 01.266-.29l.137-.141c.204-.218.36-.417.467-.597.108-.18.161-.383.161-.607 0-.272-.081-.483-.244-.635-.164-.152-.376-.228-.638-.228-.192 0-.382.051-.57.153a1.309 1.309 0 00-.466.422L0 1.214zm1.031 5.75c0-.202.073-.375.218-.518a.725.725 0 01.53-.216c.201 0 .375.072.52.216a.702.702 0 01.218.517.695.695 0 01-.218.516.718.718 0 01-.52.213.73.73 0 01-.53-.213.695.695 0 01-.218-.516z"/></svg>
-		</a>',
-		esc_attr( $css_class ),
-		esc_attr( $tooltip_class ),
-		esc_attr( $tooltip_text )
-	);
+	$tooltip = "<a href='#' onclick='return false;' onkeypress='return false;' class='gf_tooltip " . esc_attr( $css_class ) . " {$tooltip_class}' title='" . esc_attr( $tooltip_text ) . "'><i class='fa fa-question-circle'></i></a>";
 
 	if ( $return ) {
 		return $tooltip;

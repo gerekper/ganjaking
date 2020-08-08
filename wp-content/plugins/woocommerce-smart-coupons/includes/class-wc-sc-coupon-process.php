@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.1.5
+ * @version     1.1.6
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -1083,61 +1083,27 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 			}
 
 			if ( 'yes' === $is_send_email && ( count( $receivers_detail ) + $receiver_count ) > 0 ) {
-				$this->acknowledge_gift_certificate_sender( $receivers_detail, $gift_certificate_receiver_name, $email, $gift_certificate_sender_email, ( count( $receivers_detail ) ) );
+				WC()->mailer();
+
+				$action_args = apply_filters(
+					'wc_sc_acknowledgement_email_notification_args',
+					array(
+						'email'            => $gift_certificate_sender_email,
+						'order_id'         => $order_id,
+						'receivers_detail' => $receivers_detail,
+						'receiver_name'    => $gift_certificate_receiver_name,
+						'receiver_count'   => count( $receivers_detail ),
+					)
+				);
+
+				// Trigger email notification.
+				do_action( 'wc_sc_acknowledgement_email_notification', $action_args );
 			}
 
 			if ( 'add' === $operation ) {
 				delete_post_meta( $order_id, 'temp_gift_card_receivers_emails' );
 			}
 			unset( $smart_coupon_codes );
-		}
-
-		/**
-		 * Function to acknowledge sender of gift credit
-		 *
-		 * @param array  $receivers_detail Receiver's details.
-		 * @param string $gift_certificate_receiver_name  Receiver's name.
-		 * @param mixed  $email Email address.
-		 * @param string $gift_certificate_sender_email Sender email.
-		 * @param int    $receiver_count Receiver count.
-		 */
-		public function acknowledge_gift_certificate_sender( $receivers_detail = array(), $gift_certificate_receiver_name = '', $email = '', $gift_certificate_sender_email = '', $receiver_count = '' ) {
-			global $store_credit_label;
-
-			if ( empty( $receiver_count ) ) {
-				return;
-			}
-
-			ob_start();
-
-			/* translators: %s: singular name for store credit */
-			$subject = ! empty( $store_credit_label['singular'] ) ? sprintf( esc_html__( '%s sent successfully', 'woocommerce-smart-coupons' ), esc_html( ucwords( $store_credit_label['singular'] ) ) ) : __( 'Gift Card sent successfully!', 'woocommerce-smart-coupons' );
-
-			do_action( 'woocommerce_email_header', $subject, $gift_certificate_sender_email );
-
-			if ( ! empty( $store_credit_label['singular'] ) && ! empty( $store_credit_label['plural'] ) ) {
-				/* translators: 1. Receiver's count 2. Singular/Plural label for store credit(s) 3. Receiver name 4. Receiver details */
-				echo esc_html( sprintf( __( 'You have successfully sent %1$d %2$s to %3$s (%4$s)', 'woocommerce-smart-coupons' ), $receiver_count, ucwords( _n( $store_credit_label['singular'], $store_credit_label['plural'], count( $receivers_detail ) ) ), $gift_certificate_receiver_name, implode( ', ', array_unique( $receivers_detail ) ) ) ); // phpcs:ignore
-			} else {
-				/* translators: 1. Receiver's count 2. Gift Card/s 3. Receiver name 4. Receiver details */
-				echo esc_html( sprintf( __( 'You have successfully sent %1$d %2$s to %3$s (%4$s)', 'woocommerce-smart-coupons' ), $receiver_count, _n( 'Gift Card', 'Gift Cards', count( $receivers_detail ), 'woocommerce-smart-coupons' ), $gift_certificate_receiver_name, implode( ', ', array_unique( $receivers_detail ) ) ) );
-			}
-
-			do_action( 'woocommerce_email_footer', $gift_certificate_sender_email );
-
-			$message = ob_get_clean();
-
-			if ( ! class_exists( 'WC_Email' ) ) {
-				include_once dirname( WC_PLUGIN_FILE ) . '/includes/emails/class-wc-email.php';
-			}
-
-			$mailer      = new WC_Email();
-			$mailer->id  = 'wc_sc_ack_coupon_sender';
-			$headers     = $mailer->get_headers();
-			$attachments = $mailer->get_attachments();
-
-			wc_mail( $gift_certificate_sender_email, $subject, $message, $headers, $attachments );
-
 		}
 
 		/**

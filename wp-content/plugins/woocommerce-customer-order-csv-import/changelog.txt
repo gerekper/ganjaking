@@ -1,5 +1,10 @@
 *** Customer/Order/Coupon CSV Import Suite Changelog ***
 
+2020.08.05 - version 3.8.8
+ * Tweak - Offer an import option to avoid reducing stock for imported orders
+ * Fix - Do not reduce stock for imported orders that may contain unknown items that do not match catalog products
+ * Fix - Check for orphaned variations when importing orders with line items pointing to variable products that have no identifiable parent
+
 2020.05.29 - version 3.8.7
  * Fix - Correctly import order paid dates when specified in the order's imported meta data
 

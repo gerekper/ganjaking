@@ -1,5 +1,15 @@
 *** WooCommerce All Products For Subscriptions ***
 
+2020.08.05 - version 3.1.16
+* Tweak - Introduced 'wcsatt_cart_subscription_schemes' filter.
+* Fix - 'You can only switch to a subscription product' notice when attempting to switch to a new variation.
+
+2020.07.14 - version 3.1.15
+* Fix - Incorrect next payment date matching of synchronized Subscription plans in some time zones.
+* Fix - Restore compatibility with Name Your Price 3+.
+* Tweak - Minimize meta function calls in Composite Product pages.
+* Tweak - Consider if customer is tax exempt when formatting cart item display prices.
+
 2020.06.24 - version 3.1.14
 * Feature - Restore chosen subscription plan when clicking cart item title.
 

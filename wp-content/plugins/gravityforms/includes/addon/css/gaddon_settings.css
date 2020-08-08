@@ -148,7 +148,6 @@ table.settings-field-map-table tbody td {
 	-webkit-transition: none;
 	-o-transition: color 0 ease-in;
 	transition: none;
-	z-index: 99;
 }
 
 .gaddon-setting-select-custom-container .select-custom-reset:hover { background-position-x: -10px; }

@@ -354,14 +354,7 @@ function gf_do_action(action, targetId, useAnimation, defaultValues, isInit, cal
 
 		if(useAnimation && !isInit){
 			if($target.length > 0){
-				$target.find(':input:hidden:not(.gf-default-disabled)').removeAttr( 'disabled' );
-				if ( $target.is( 'input[type="submit"]' ) || $target.hasClass( 'gform_next_button' ) ) {
-					$target.removeAttr( 'disabled' );
-					if ( '1' == gf_legacy.is_legacy ) {
-						// for legacy markup, remove screen reader class.
-						$target.removeClass( 'screen-reader-text' );
-					}
-				}
+				$target.find(':input:hidden:not(.gf-default-disabled)').prop( 'disabled', false );
 				$target.slideDown(callback);
 			} else if(callback){
 				callback();
@@ -375,18 +368,8 @@ function gf_do_action(action, targetId, useAnimation, defaultValues, isInit, cal
 			if ( display == '' || display == 'none' ){
 				display = 'list-item';
 			}
-			$target.find(':input:hidden:not(.gf-default-disabled)').removeAttr( 'disabled' );
-
-			// Handle conditional submit and next buttons.
-			if ( $target.is( 'input[type="submit"]' ) || $target.hasClass( 'gform_next_button' ) ) {
-				$target.removeAttr( 'disabled' );
-				if ( '1' == gf_legacy.is_legacy ) {
-					// for legacy markup, remove screen reader class.
-					$target.removeClass( 'screen-reader-text' );
-				}
-			} else {
-				$target.css( 'display', display );
-			}
+			$target.find(':input:hidden:not(.gf-default-disabled)').prop( 'disabled', false );
+			$target.css('display', display);
 
 			if(callback){
 				callback();
@@ -417,30 +400,14 @@ function gf_do_action(action, targetId, useAnimation, defaultValues, isInit, cal
 		}
 
 		if(useAnimation && !isInit){
-			if( $target.is( 'input[type="submit"]' ) || $target.hasClass( 'gform_next_button' ) ) {
-				$target.attr( 'disabled', 'disabled' );
-				if ( '1' === gf_legacy.is_legacy ) {
-					// for legacy markup, let screen readers read the button.
-					$target.addClass( 'screen-reader-text' );
-				}
-			} else if ( $target.length > 0 && $target.is( ":visible" ) ) {
-				$target.slideUp( callback );
-			} else if ( callback ) {
+			if($target.length > 0 && $target.is(":visible")) {
+				$target.slideUp(callback);
+			} else if(callback) {
 				callback();
 			}
 		} else{
-
-			// Handle conditional submit and next buttons.
-			if ( $target.is( 'input[type="submit"]' ) || $target.hasClass( 'gform_next_button' ) ) {
-				$target.attr( 'disabled', 'disabled' );
-				if ( '1' === gf_legacy.is_legacy ) {
-					// for legacy markup, let screen readers read the button.
-					$target.addClass( 'screen-reader-text' );
-				}
-			} else {
-				$target.css( 'display', 'none' );
-			}
-			$target.find(':input:hidden:not(.gf-default-disabled)').attr( 'disabled', 'disabled' );
+			$target.hide();
+			$target.find(':input:hidden:not(.gf-default-disabled)').prop( 'disabled', true );
 			if(callback){
 				callback();
 			}

@@ -21,34 +21,12 @@ if (! class_exists('Redux')) {
 
     $theme = wp_get_theme(); // For use with some settings. Not necessary.
 
-    // Pages cache
-    $transient_name = 'wordpress_gdpr_pages';
-    $wordpress_gdpr_pages = get_transient( $transient_name );
-
-    if ( false === $wordpress_gdpr_pages ) { 
-
-        $tmp = array();
-        $pages = get_posts( array(
-            'post_type' => 'page',
-            'numberposts' => -1,
-            'suppress_filters' => true,
-        ) );
-
-        foreach ($pages as $page) {
-            $tmp[$page->ID] = $page->post_title;
-        }
-
-        $wordpress_gdpr_pages = $tmp;
-
-        set_transient( $transient_name, $wordpress_gdpr_pages, WEEK_IN_SECONDS);
-    }
-
     $args = array(
         'opt_name' => 'wordpress_gdpr_options',
         'use_cdn' => true,
         'dev_mode' => false,
         'display_name' => __('WordPress GDPR', 'wordpress-gdpr'),
-        'display_version' => '1.9.3',
+        'display_version' => '1.9.4',
         'page_title' => __('WordPress GDPR', 'wordpress-gdpr'),
         'update_notice' => true,
         'intro_text' => '',
@@ -263,7 +241,8 @@ if (! class_exists('Redux')) {
                 'type'     => 'select',
                 'title'    => __('Exclude Pages', 'wordpress-gdpr'),
                 'subtitle' => __('Popup will not show in these pages:', 'wordpress-gdpr'),
-                'options'  => $wordpress_gdpr_pages,
+                // 'options'  => $wordpress_gdpr_pages,
+                'ajax'     => true,
                 'multi'    => true,
                 'required' => array('popupEnable','equals','1'),
             ), 
@@ -540,7 +519,8 @@ if (! class_exists('Redux')) {
                 'type'     => 'select',
                 'title'    => __('Privacy Settings Page', 'wordpress-gdpr'),
                 'subtitle' => __('Set the page you created with the shortcode above here. Trigger and Privacy center will link there.', 'wordpress-gdpr'),
-                'options'  => $wordpress_gdpr_pages,
+                // 'options'  => $wordpress_gdpr_pages,
+                'ajax'     => true,
                 'required' => array('privacySettingsUseShortcode','equals','1'),
             ),  
             array(
@@ -647,7 +627,8 @@ if (! class_exists('Redux')) {
                 'type'     => 'select',
                 'title'    => __('Privacy Center Page', 'wordpress-gdpr'),
                 'subtitle' => __('Shortcode: [wordpress_gdpr_privacy_center] This will be the page, where the privacy center will be shown.', 'wordpress-gdpr'),
-                'options'  => $wordpress_gdpr_pages,
+                // 'options'  => $wordpress_gdpr_pages,
+                'ajax'     => true,
                 'required' => array('privacyCenterEnable','equals','1'),
             ),         
         )
@@ -702,7 +683,8 @@ if (! class_exists('Redux')) {
                 'type'     => 'select',
                 'title'    => __('Contact DPO Page', 'wordpress-gdpr'),
                 'subtitle' => __('Shortcode: [wordpress_gdpr_contact_dpo]', 'wordpress-gdpr'),
-                'options'  => $wordpress_gdpr_pages,
+                // 'options'  => $wordpress_gdpr_pages,
+                'ajax'     => true,
                 'required' => array('contactDPOEnable','equals','1'),
             ),
             array(
@@ -749,7 +731,8 @@ if (! class_exists('Redux')) {
                 'type'     => 'select',
                 'title'    => __('Cookie Policy Page', 'wordpress-gdpr'),
                 'subtitle' => __('Add your Cookie Policy here.', 'wordpress-gdpr'),
-                'options'  => $wordpress_gdpr_pages,
+                // 'options'  => $wordpress_gdpr_pages,
+                'ajax'     => true,
                 'required' => array('cookiePolicyEnable','equals','1'),
             ),         
         )
@@ -825,7 +808,8 @@ if (! class_exists('Redux')) {
                 'type'     => 'select',
                 'title'    => __('Data Rectification Page', 'wordpress-gdpr'),
                 'subtitle' => __('Shortcode: [wordpress_gdpr_data_rectification]', 'wordpress-gdpr'),
-                'options'  => $wordpress_gdpr_pages,
+                // 'options'  => $wordpress_gdpr_pages,
+                'ajax'     => true,
                 'required' => array('dataRectificationEnable','equals','1'),
             ),
             array(
@@ -906,7 +890,8 @@ if (! class_exists('Redux')) {
                 'type'     => 'select',
                 'title'    => __('Disclaimer Page', 'wordpress-gdpr'),
                 'subtitle' => __('Set your Disclaimer Page here.', 'wordpress-gdpr'),
-                'options' => $wordpress_gdpr_pages,
+                // 'options' => $wordpress_gdpr_pages,
+                'ajax'     => true,
                 'required' => array('disclaimerEnable','equals','1'),
             ),
         )
@@ -929,7 +914,8 @@ if (! class_exists('Redux')) {
                 'type'     => 'select',
                 'title'    => __('DMCA Page', 'wordpress-gdpr'),
                 'subtitle' => __('Place your DMCA Contact form on this page.', 'wordpress-gdpr'),
-                'options'  => $wordpress_gdpr_pages,
+                // 'options'  => $wordpress_gdpr_pages,
+                'ajax'     => true,
                 'required' => array('DMCAEnable','equals','1'),
             ),
         )
@@ -953,7 +939,8 @@ if (! class_exists('Redux')) {
                 'type'     => 'select',
                 'title'    => __('Forget Me Page', 'wordpress-gdpr'),
                 'subtitle' => __('Shortcode: [wordpress_gdpr_forget_me]', 'wordpress-gdpr'),
-                'options'  => $wordpress_gdpr_pages,
+                // 'options'  => $wordpress_gdpr_pages,
+                'ajax'     => true,
                 'required' => array('forgetMeEnable','equals','1'),
             ),
             array(
@@ -1034,7 +1021,8 @@ if (! class_exists('Redux')) {
                 'type'     => 'select',
                 'title'    => __('Imprint Page', 'wordpress-gdpr'),
                 'subtitle' => __('Add your Imprint here.', 'wordpress-gdpr'),
-                'options'  => $wordpress_gdpr_pages,
+                // 'options'  => $wordpress_gdpr_pages,
+                'ajax'     => true,
                 'required' => array('imprintEnable','equals','1'),
             ),         
         )
@@ -1069,7 +1057,8 @@ if (! class_exists('Redux')) {
                 'type'     => 'select',
                 'title'    => __('Comments Privacy Policy Page', 'wordpress-gdpr'),
                 'subtitle' => __('Assign your privacy policy page here. You could also use a custom one for Comments', 'wordpress-gdpr'),
-                'options'  => $wordpress_gdpr_pages,
+                // 'options'  => $wordpress_gdpr_pages,
+                'ajax'     => true,
                 'required' => array('integrationsComments','equals','1'),
             ),
             array(
@@ -1124,7 +1113,8 @@ if (! class_exists('Redux')) {
                 'type'     => 'select',
                 'title'    => __('WooCommerce Privacy Policy Page', 'wordpress-gdpr'),
                 'subtitle' => __('Assign your privacy policy page here. You could also use a custom one for WooCommerce', 'wordpress-gdpr'),
-                'options'  => $wordpress_gdpr_pages,
+                // 'options'  => $wordpress_gdpr_pages,
+                'ajax'     => true,
                 'required' => array('integrationsWooCommerce','equals','1'),
             ),
             array(
@@ -1147,7 +1137,8 @@ if (! class_exists('Redux')) {
                 'type'     => 'select',
                 'title'    => __('BuddyPress Privacy Policy Page', 'wordpress-gdpr'),
                 'subtitle' => __('Assign your privacy policy page here. You could also use a custom one for BuddyPress', 'wordpress-gdpr'),
-                'options'  => $wordpress_gdpr_pages,
+                // 'options'  => $wordpress_gdpr_pages,
+                'ajax'     => true,
                 'required' => array('integrationsBuddyPress','equals','1'),
             ),
             array(
@@ -1260,7 +1251,8 @@ if (! class_exists('Redux')) {
                 'type'     => 'select',
                 'title'    => __('Mailster Privacy Policy Page', 'wordpress-gdpr'),
                 'subtitle' => __('Assign your privacy policy page here. You could also use a custom one for Mailster', 'wordpress-gdpr'),
-                'options'  => $wordpress_gdpr_pages,
+                // 'options'  => $wordpress_gdpr_pages,
+                'ajax'     => true,
                 'required' => array('integrationsMailsterCheckbox','equals','1'),
             ),
             array(
@@ -1291,7 +1283,8 @@ if (! class_exists('Redux')) {
                 'type'     => 'select',
                 'title'    => __('Media Credits Page', 'wordpress-gdpr'),
                 'subtitle' => __('Place your Media Credits there.', 'wordpress-gdpr'),
-                'options'  => $wordpress_gdpr_pages,
+                // 'options'  => $wordpress_gdpr_pages,
+                'ajax'     => true,
                 'required' => array('mediaCreditsEnable','equals','1'),
             ),
         )
@@ -1314,7 +1307,8 @@ if (! class_exists('Redux')) {
                 'type'     => 'select',
                 'title'    => __('Privacy Policy Page', 'wordpress-gdpr'),
                 'subtitle' => __('Add your privacy policy to this page!', 'wordpress-gdpr'),
-                'options'  => $wordpress_gdpr_pages,
+                // 'options'  => $wordpress_gdpr_pages,
+                'ajax'     => true,
                 'required' => array('privacyPolicyEnable','equals','1'),
             ),
             array(
@@ -1418,7 +1412,8 @@ if (! class_exists('Redux')) {
                 'type'     => 'select',
                 'title'    => __('Request Data Archive Page', 'wordpress-gdpr'),
                 'subtitle' => __('Shortcode: [wordpress_gdpr_request_data]', 'wordpress-gdpr'),
-                'options'  => $wordpress_gdpr_pages,
+                // 'options'  => $wordpress_gdpr_pages,
+                'ajax'     => true,
                 'required' => array('requestDataEnable','equals','1'),
             ),
             array(
@@ -1661,7 +1656,8 @@ if (! class_exists('Redux')) {
                 'type'     => 'select',
                 'title'    => __('Terms & Conditions Page', 'wordpress-gdpr'),
                 'subtitle' => __('Place your Terms & Conditions Page here:', 'wordpress-gdpr'),
-                'options'  => $wordpress_gdpr_pages,
+                // 'options'  => $wordpress_gdpr_pages,
+                'ajax'     => true,
                 'required' => array('termsConditionsEnable','equals','1'),
             ),
             array(
@@ -1699,7 +1695,8 @@ if (! class_exists('Redux')) {
                 'type'     => 'select',
                 'title'    => __('Unsubscribe Page', 'wordpress-gdpr'),
                 'subtitle' => __('Add your unsubscribe Form here! For <a target="_blank" href="https://kb.mailchimp.com/lists/signup-forms/find-the-unsubscribe-link-for-your-list">Mailchimp see here how to setup a Mailchimp Unsuscribe form</a>. This can be embedded via iFrame.', 'wordpress-gdpr'),
-                'options'  => $wordpress_gdpr_pages,
+                // 'options'  => $wordpress_gdpr_pages,
+                'ajax'     => true,
                 'required' => array('unsubscribeEnable','equals','1'),
             ),         
         )

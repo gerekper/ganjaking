@@ -58,7 +58,7 @@ class GF_API_Keys_Table extends WP_List_Table {
 		$nonce_url = wp_nonce_url( '?page=gf_settings&subview=gravityformswebapi', 'gf_revoke_key' );
 
 		$actions = array(
-			'edit' => '<a href="javascript:editKey( ' . $item['key_id'] . ' );">' . esc_html__( 'Edit', 'gravityforms' ) . '</a>',
+			'edit' => '<a href="' . $this->get_edit_url( $item['key_id'] ) . '">' . esc_html__( 'Edit', 'gravityforms' ) . '</a>',
 			'delete' => sprintf( '<a data-wp-lists="delete:the-list:key_row_%d::status=delete&action=delete_key&key=%d" onclick="%s" href="%s" class="submitdelete">Revoke</a>', absint( $item['key_id'] ), absint( $item['key_id'] ), $confirm, $nonce_url ),
 		);
 
@@ -84,7 +84,7 @@ class GF_API_Keys_Table extends WP_List_Table {
 	}
 
 	function no_items() {
-		echo '<div style="padding:10px;">' . sprintf( esc_html__( 'You don\'t have any API keys. Let\'s go %1$screate one%2$s!', 'gravityforms' ), '<a href="javascript:editKey( 0 );">', '</a>' ) . '</div>';
+		echo '<div style="padding:10px;">' . sprintf( esc_html__( 'You don\'t have any API keys. Let\'s go %1$screate one%2$s!', 'gravityforms' ), '<a href="' . $this->get_edit_url( 0 ) . '">', '</a>' ) . '</div>';
 	}
 
 
@@ -116,7 +116,7 @@ class GF_API_Keys_Table extends WP_List_Table {
 
 		</table>
 		<div>
-			<a class="button" id="add_setting_button" href="javascript:editKey( 0 );">Add Key</a>
+			<a class="button-secondary gfbutton gaddon-setting" id="add_setting_button" href="<?php echo $this->get_edit_url( 0 )?>">Add Key</a>
 		</div>
 		<?php
 

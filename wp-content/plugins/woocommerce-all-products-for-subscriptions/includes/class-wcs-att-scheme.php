@@ -392,15 +392,15 @@ class WCS_ATT_Scheme implements ArrayAccess {
 		$match = wp_parse_args( $args, $default );
 
 		// The subscription must have an upcoming renewal.
-		if ( $match[ 'payment_date' ] && ! $subscription->get_time( 'next_payment' ) ) {
+		if ( $match[ 'payment_date' ] && ! $subscription->get_time( 'next_payment', '' ) ) {
 			return false;
 		}
 
 		// The scheme length must match the remaining subscription renewals.
 		if ( $match[ 'upcoming_renewals' ] && $this->get_length() ) {
 
-			$subscription_next_payment = $subscription->get_time( 'next_payment' );
-			$subscription_end          = $subscription->get_time( 'end' );
+			$subscription_next_payment = $subscription->get_time( 'next_payment', '' );
+			$subscription_end          = $subscription->get_time( 'end', '' );
 
 			// If the scheme has a length but the subscription is endless, dump it.
 			if ( ! $subscription_end ) {
@@ -418,7 +418,7 @@ class WCS_ATT_Scheme implements ArrayAccess {
 		if ( $match[ 'payment_date' ] && $this->is_synced() ) {
 
 			$scheme_sync_day           = $this->get_sync_date();
-			$subscription_next_payment = $subscription->get_time( 'next_payment' );
+			$subscription_next_payment = $subscription->get_time( 'next_payment', '' );
 
 			if ( 'week' === $period && $scheme_sync_day !== intval( date( 'N', $subscription_next_payment ) ) ) {
 				return false;

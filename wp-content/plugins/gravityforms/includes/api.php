@@ -331,7 +331,7 @@ class GFAPI {
 			$value = sprintf( "'%s'", $value );
 		}
 		$in_str_arr = array_fill( 0, count( $form_ids ), '%d' );
-		$in_str     = implode( ',', $in_str_arr );
+		$in_str     = join( ',', $in_str_arr );
 		$result     = $wpdb->query(
 			$wpdb->prepare(
 				"
@@ -451,9 +451,6 @@ class GFAPI {
 
 		// Updating object's id property.
 		$form_meta['id'] = $form_id;
-
-		// Adding markup version. Increment this when we make breaking changes to form markup.
-		$form_meta['markupVersion'] = 2;
 
 		// Add default confirmation if form has no confirmations.
 		if ( ! isset( $form_meta['confirmations'] ) || empty( $form_meta['confirmations'] ) ) {

@@ -1276,12 +1276,12 @@ class GFFormsModel {
 				'adminLabel'        => '', 'allowsPrepopulate' => '', 'defaultValue' => '', 'description' => '', 'content' => '', 'cssClass' => '',
 				'errorMessage'      => '', 'id' => '', 'inputName' => '', 'isRequired' => '', 'label' => '', 'noDuplicates' => '',
 				'size'              => '', 'type' => '', 'postCustomFieldName' => '', 'displayAllCategories' => '', 'displayCaption' => '', 'displayDescription' => '',
-				'displayTitle'      => '', 'displayAlt' => '', 'inputType' => '', 'rangeMin' => '', 'rangeMax' => '', 'calendarIconType' => '',
+				'displayTitle'      => '', 'inputType' => '', 'rangeMin' => '', 'rangeMax' => '', 'calendarIconType' => '',
 				'calendarIconUrl'   => '', 'dateType' => '', 'dateFormat' => '', 'phoneFormat' => '', 'addressType' => '', 'defaultCountry' => '', 'defaultProvince' => '',
 				'defaultState'      => '', 'hideAddress2' => '', 'hideCountry' => '', 'hideState' => '', 'inputs' => '', 'nameFormat' => '', 'allowedExtensions' => '',
 				'captchaType'       => '', 'pageNumber' => '', 'captchaTheme' => '', 'simpleCaptchaSize' => '', 'simpleCaptchaFontColor' => '', 'simpleCaptchaBackgroundColor' => '',
 				'failed_validation' => '', 'productField' => '', 'enablePasswordInput' => '', 'maxLength' => '', 'enablePrice' => '', 'basePrice' => '',
-				'visibility'        => 'visible',
+				'visibility'        => 'visible'
 			);
 
 			foreach ( $form['fields'] as &$field ) {
@@ -2701,7 +2701,7 @@ class GFFormsModel {
 
 				// Add additional error message if any.
 				if ( ! empty( $error_info ) ) {
-					$note_args['text'] .=  ' ' . $error_info;
+					$note_args['text'] .= PHP_EOL . $error_info;
 				}
 			}
 		}
@@ -3230,12 +3230,11 @@ class GFFormsModel {
 					$file_path = self::get_file_upload_path( $form['id'], $file_info['uploaded_filename'] );
 					$url       = $file_path['url'];
 
-					$image_alt         = isset( $_POST[ "{$input_name}_2" ] ) ? strip_tags( $_POST[ "{$input_name}_2" ] ) : '';
 					$image_title       = isset( $_POST[ "{$input_name}_1" ] ) ? strip_tags( $_POST[ "{$input_name}_1" ] ) : '';
 					$image_caption     = isset( $_POST[ "{$input_name}_4" ] ) ? strip_tags( $_POST[ "{$input_name}_4" ] ) : '';
 					$image_description = isset( $_POST[ "{$input_name}_7" ] ) ? strip_tags( $_POST[ "{$input_name}_7" ] ) : '';
 
-					$value = ! empty( $url ) ? $url . '|:|' . $image_title . '|:|' . $image_caption . '|:|' . $image_description . '|:|' . $image_alt : '';
+					$value = ! empty( $url ) ? $url . '|:|' . $image_title . '|:|' . $image_caption . '|:|' . $image_description : '';
 				}
 				break;
 
@@ -4287,9 +4286,8 @@ class GFFormsModel {
 					$title       = count( $ary ) > 1 ? $ary[1] : '';
 					$caption     = count( $ary ) > 2 ? $ary[2] : '';
 					$description = count( $ary ) > 3 ? $ary[3] : '';
-					$alt         = count( $ary ) > 4 ? $ary[4] : '';
 
-					array_push( $images, array( 'field_id' => $field->id, 'url' => $url, 'title' => $title, 'description' => $description, 'caption' => $caption, 'alt' => $alt ) );
+					array_push( $images, array( 'field_id' => $field->id, 'url' => $url, 'title' => $title, 'description' => $description, 'caption' => $caption ) );
 					break;
 			}
 		}
@@ -4677,9 +4675,6 @@ class GFFormsModel {
 					// Save media id for post body/title template variable replacement (below).
 					$post_images[ $image['field_id'] ] = $media_id;
 					$lead[ $image['field_id'] ] .= "|:|$media_id";
-
-					// Update the alt text.
-					update_post_meta( $media_id, '_wp_attachment_image_alt', $image['alt'] );
 
 					// Setting the featured image.
 					$field = RGFormsModel::get_field( $form, $image['field_id'] );
@@ -5841,7 +5836,7 @@ class GFFormsModel {
 			return null;
 		}
 
-		$field_id = $field instanceof GF_Field ? $field->id : rgar( $field, 'id' );
+		$field_id = $field instanceof GF_Field ? $field->id : $field['id'];
 
 		$value = array();
 
@@ -6395,41 +6390,6 @@ class GFFormsModel {
 	}
 
 	/**
-	 * Get the text that tells the user that the field is required.
-	 *
-	 * @since 2.5
-	 *
-	 * @param $form_id
-	 *
-	 * @return string HTML required indicator.
-	 */
-	public static function get_required_indicator( $form_id ) {
-		$meta = self::get_form_meta( $form_id );
-		$required_indicator = rgar( $meta, 'requiredIndicator' );
-
-		switch( $required_indicator ) {
-			case 'text':
-				$indicator       = esc_html__( '(Required)', 'gravityforms' );
-				$indicator_class = 'gfield_required_text';
-				break;
-			case 'asterisk':
-				$indicator       = '*';
-				$indicator_class = 'gfield_required_asterisk';
-				break;
-			case 'custom':
-				$indicator       = rgar( $meta, 'customRequiredIndicator' ) ? $meta['customRequiredIndicator'] : esc_html__( '(Required)', 'gravityforms' );
-				$indicator_class = 'gfield_required_custom';
-				break;
-			default:
-				$indicator       = GFCommon::is_legacy_markup_enabled( $form_id ) ? '*' : esc_html__( '(Required)', 'gravityforms' );
-				$indicator_class = GFCommon::is_legacy_markup_enabled( $form_id ) ? 'gfield_required_asterisk' : 'gfield_required_text';
-				break;
-		}
-
-		return '<span class="gfield_required ' . $indicator_class . '">' . $indicator . '</span>';
-	}
-
-	/**
 	 * @param GF_Field $field
 	 * @param          $id
 	 *
@@ -6653,7 +6613,7 @@ class GFFormsModel {
 					'name'        => __( 'Save and Continue Confirmation', 'gravityforms' ),
 					'isDefault'   => true,
 					'type'        => 'message',
-					'message'     => __( '<h2>Link to continue editing later</h2><p role="alert">Please use the following link to return and complete this form from any computer.</p><p class="resume_form_link_wrapper"> {save_link} </p><p> Note: This link will expire after 30 days.<br />Enter your email address if you would like to receive the link via email.</p></p> {save_email_input}</p>', 'gravityforms' ),
+					'message'     => __( '<p>Please use the following link to return and complete this form from any computer.</p><p class="resume_form_link_wrapper"> {save_link} </p><p> Note: This link will expire after 30 days.<br />Enter your email address if you would like to receive the link via email.</p></p> {save_email_input}</p>', 'gravityforms' ),
 					'url'         => '',
 					'pageId'      => '',
 					'queryString' => '',
@@ -6666,7 +6626,7 @@ class GFFormsModel {
 					'name'        => __( 'Save and Continue Email Sent Confirmation', 'gravityforms' ),
 					'isDefault'   => true,
 					'type'        => 'message',
-					'message'     => __( '<h2 class="saved_message_success">Success!</h2><p>The link was sent to the following email address: <span class="saved_message_email">{save_email}</span></p>', 'gravityforms' ),
+					'message'     => __( '<span class="saved_message_success">Success!</span>The link was sent to the following email address: <span class="saved_message_email">{save_email}</span>', 'gravityforms' ),
 					'url'         => '',
 					'pageId'      => '',
 					'queryString' => '',
@@ -6721,45 +6681,6 @@ class GFFormsModel {
 		self::$_confirmations[ $key ] = $confirmations;
 
 		return self::$_confirmations[ $key ];
-	}
-
-	/**
-	 * Delete a form confirmation by ID.
-	 *
-	 * @since  2.5
-	 *
-	 * @param string    $confirmation_id The confirmation to be deleted.
-	 * @param int|array $form_id         The form ID or Form Object form the confirmation being deleted.
-	 *
-	 * @return false|int The result of the database operation.
-	 */
-	public static function delete_form_confirmation( $confirmation_id, $form_id ) {
-
-		// If no Form ID or object was provided, exit.
-		if ( ! $form_id ) {
-			return false;
-		}
-
-		// Get Form object if only ID was provided.
-		$form = ! is_array( $form_id ) ? self::get_form_meta( $form_id ) : $form_id;
-
-		/**
-		 * Fires right before a confirmation is deleted.
-		 *
-		 * @since 1.9
-		 *
-		 * @param int   $form ['confirmations'][$confirmation_id] The ID of the confirmation being deleted.
-		 * @param array $form The Form object.
-		 */
-		do_action( 'gform_pre_confirmation_deleted', $form['confirmations'][ $confirmation_id ], $form );
-
-		unset( $form['confirmations'][ $confirmation_id ] );
-
-		// Clear form cache so next retrieval of form meta will reflect deleted confirmation.
-		self::flush_current_forms();
-
-		return self::save_form_confirmations( $form['id'], $form['confirmations'] );
-
 	}
 
 	/**

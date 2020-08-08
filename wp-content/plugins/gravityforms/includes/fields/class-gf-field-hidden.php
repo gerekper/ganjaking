@@ -13,30 +13,6 @@ class GF_Field_Hidden extends GF_Field {
 		return esc_attr__( 'Hidden', 'gravityforms' );
 	}
 
-	/**
-	 * Returns the field's form editor description.
-	 *
-	 * @since 2.5
-	 *
-	 * @return string
-	 */
-	public function get_form_editor_field_description() {
-		return esc_attr__( 'Stores information that should not be visible to the user but can be processed and saved with the user submission.', 'gravityforms' );
-	}
-
-	/**
-	 * Returns the field's form editor icon.
-	 *
-	 * This could be an icon url or a dashicons class.
-	 *
-	 * @since 2.5
-	 *
-	 * @return string
-	 */
-	public function get_form_editor_field_icon() {
-		return 'dashicons-hidden';
-	}
-
 	public function is_conditional_logic_supported(){
 		return true;
 	}

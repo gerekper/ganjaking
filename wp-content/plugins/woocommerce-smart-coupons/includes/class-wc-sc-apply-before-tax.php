@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.0.2
+ * @version     1.0.3
  * @package     WooCommerce Smart Coupons
  */
 
@@ -224,7 +224,7 @@ if ( ! class_exists( 'WC_SC_Apply_Before_Tax' ) ) {
 
 			$prices_include_tax = wc_prices_include_tax();
 			// Get global setting for whether store credit discount is inclusive of tax or not.
-			$sc_include_tax = get_site_option( 'woocommerce_smart_coupon_include_tax', 'no' );
+			$sc_include_tax = get_option( 'woocommerce_smart_coupon_include_tax', 'no' );
 
 			// If prices are inclusive of tax and discount amount is also inclusive of tax then add item tax in subtotal to handle discount calculation correctly.
 			if ( true === $prices_include_tax && 'yes' === $sc_include_tax ) {
@@ -385,7 +385,7 @@ if ( ! class_exists( 'WC_SC_Apply_Before_Tax' ) ) {
 					if ( 'smart_coupon' === $discount_type ) {
 						$prices_include_tax = ( 'incl' === get_option( 'woocommerce_tax_display_cart' ) ) ? true : false;
 						if ( true === $prices_include_tax ) {
-							$sc_include_tax = get_site_option( 'woocommerce_smart_coupon_include_tax', 'no' );
+							$sc_include_tax = get_option( 'woocommerce_smart_coupon_include_tax', 'no' );
 							if ( 'no' === $sc_include_tax ) {
 								if ( ! empty( $discounts ) ) {
 									foreach ( $discounts as $item_key => $discount ) {
@@ -426,7 +426,7 @@ if ( ! class_exists( 'WC_SC_Apply_Before_Tax' ) ) {
 								if ( true === $prices_include_tax ) {
 									$apply_before_tax = get_option( 'woocommerce_smart_coupon_apply_before_tax', 'no' );
 									if ( 'yes' === $apply_before_tax ) {
-										$_sc_include_tax = get_site_option( 'woocommerce_smart_coupon_include_tax', 'no' );
+										$_sc_include_tax = get_option( 'woocommerce_smart_coupon_include_tax', 'no' );
 										if ( 'no' === $_sc_include_tax ) {
 											$sc_total_credit_used[ $coupon_code ] += $coupon_discount_tax_totals[ $coupon_code ];
 										}

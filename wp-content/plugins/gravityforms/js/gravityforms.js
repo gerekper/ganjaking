@@ -5,18 +5,8 @@ if( typeof jQuery.fn.prop === 'undefined' ) {
 }
 
 jQuery(document).ready(function(){
-
-	// Announce validation errors.
-	if ( jQuery('.gform_validation_errors').length ) {
-		jQuery('#gf_form_focus').focus();
-		setTimeout( function() {
-		  wp.a11y.speak( jQuery('.gform_validation_errors > h2').text() );
-		}, 1000);
-	}
-
     //Formatting free form currency fields to currency
     jQuery(document).bind('gform_post_render', gformBindFormatPricingFields);
-
 });
 
 function gformBindFormatPricingFields(){
@@ -477,13 +467,8 @@ function gformGetProductQuantity(formId, productFieldId) {
     }
 
     var quantity,
-        quantityInput = jQuery( '#ginput_quantity_' + formId + '_' + productFieldId ),
+        quantityInput = jQuery('#ginput_quantity_' + formId + '_' + productFieldId),
         numberFormat;
-
-    // New input ID starts from 2.5, for the single product and calculation fields.
-    if ( ! quantityInput.length ) {
-        quantityInput = jQuery( '#input_' + formId + '_' + productFieldId + '_1' );
-    }
 
     if (gformIsHidden(quantityInput)) {
         return 0;
@@ -781,40 +766,19 @@ function gformToggleShowPassword( fieldId ) {
 //------ CHECKBOX FIELD ------
 //----------------------------
 
-function gformToggleCheckboxes( toggleElement ) {
+function gformToggleCheckboxes( toggleCheckbox ) {
 
-	var checked,
-        $toggleElement = jQuery( toggleElement ),
-        legacy         = $toggleElement.is( 'input[type="checkbox"]' ),
-        $toggle        = legacy ? $toggleElement.parent() : $toggleElement.prev(),
-	    $toggleLabel   = $toggle.find( 'label' ),
-	    $checkboxes    = $toggle.parent().find( '.gchoice:not( .gchoice_select_all )' ),
-	    formId         = gf_get_form_id_by_html_id( $toggle.parents( '.gfield' ).attr( 'id' ) ),
-	    calcObj        = rgars( window, 'gf_global/gfcalc/' + formId );
+	var $toggle      = jQuery( toggleCheckbox ).parent(),
+	    $toggleLabel = $toggle.find( 'label' ),
+	    $checkboxes  = $toggle.parent().find( 'li:not( .gchoice_select_all )' ),
+	    formId       = gf_get_form_id_by_html_id( $toggle.parents( '.gfield' ).attr( 'id' ) ),
+	    calcObj      = rgars( window, 'gf_global/gfcalc/' + formId );
 
-    // Determine checked state.
-    if ( legacy ) {
-
-        checked = toggleElement.checked;
-
-    } else {
-
-        // Get checked data.
-        var checkedData = $toggleElement.data( 'checked' );
-
-        if ( typeof checkedData === 'boolean' ) {
-            checked = !checkedData;
-        } else {
-            checked = !( parseInt( checkedData ) === 1 )
-        }
-
-    }
-
-    // Set checkboxes state.
+	// Set checkboxes state.
 	$checkboxes.each( function() {
 
 		// Set checkbox checked state.
-		jQuery( 'input[type="checkbox"]', this ).prop( 'checked', checked ).trigger( 'change' );
+		jQuery( 'input[type="checkbox"]', this ).prop( 'checked', toggleCheckbox.checked ).trigger( 'change' );
 
 		// Execute onclick event.
 		if ( typeof jQuery( 'input[type="checkbox"]', this )[0].onclick === 'function' ) {
@@ -823,20 +787,12 @@ function gformToggleCheckboxes( toggleElement ) {
 
 	} );
 
-	// Change toggle label, checked state.
-    if ( legacy ) {
-
-        $toggleLabel.html( checked ? $toggleLabel.data( 'label-deselect' ) : $toggleLabel.data( 'label-select' ) );
-
-    } else {
-
-        $toggleElement.html( checked ? $toggleElement.data( 'label-deselect' ) : $toggleElement.data( 'label-select' ) );
-        $toggleElement.data( 'checked', checked );
-
-    }
-
-    // Announce change.
-    wp.a11y.speak( checked ? gf_field_checkbox.strings.selected : gf_field_checkbox.strings.deselected );
+	// Change toggle label.
+	if ( toggleCheckbox.checked ) {
+		$toggleLabel.html( $toggleLabel.data( 'label-deselect' ) );
+	} else {
+		$toggleLabel.html( $toggleLabel.data( 'label-select' ) );
+	}
 
 	if ( calcObj ) {
 		calcObj.runCalcs( formId, calcObj.formulaFields );
@@ -844,20 +800,6 @@ function gformToggleCheckboxes( toggleElement ) {
 
 }
 
-//----------------------------
-//------ RADIO FIELD ------
-//----------------------------
-
-function gformToggleRadioOther( radioElement ) {
-
-    // Get Other input element.
-    var $other = radioElement.parentElement.parentElement.parentElement.lastChild.querySelector( 'input[type="text"]' );
-
-    if ( $other ) {
-        $other.disabled = radioElement.value !== 'gf_other_choice';
-    }
-
-}
 
 //----------------------------
 //------ LIST FIELD ----------
@@ -888,11 +830,8 @@ function gformAddListItem( addButton, max ) {
 
     gformToggleIcons( $container, max );
     gformAdjustClasses( $container );
-    gformAdjustRowAttributes( $container );
 
     gform.doAction( 'gform_list_post_item_add', $clone, $container );
-
-    wp.a11y.speak( window.gf_global.strings.newRowAdded );
 
 }
 
@@ -909,8 +848,6 @@ function gformDeleteListItem( deleteButton, max ) {
 
     gform.doAction( 'gform_list_post_item_delete', $container );
 
-    wp.a11y.speak( window.gf_global.strings.rowRemoved );
-
 }
 
 function gformAdjustClasses( $container ) {
@@ -923,24 +860,6 @@ function gformAdjustClasses( $container ) {
             oddEvenClass = ( i + 1 ) % 2 == 0 ? 'gfield_list_row_even' : 'gfield_list_row_odd';
 
         $group.removeClass( 'gfield_list_row_odd gfield_list_row_even' ).addClass( oddEvenClass );
-
-    } );
-
-}
-
-function gformAdjustRowAttributes( $container ) {
-
-    if( $container.parents( '.gform_wrapper' ).hasClass( 'gform_legacy_markup_wrapper' ) ) {
-        return;
-    }
-
-    $container.find( '.gfield_list_group' ).each( function( i ) {
-
-        var $input = jQuery( this ).find( 'input, select, textarea' );
-        $input.attr( 'aria-label', $input.data( 'aria-label-template' ).format( i + 1 ) );
-
-        var $remove = jQuery( this ).find( '.delete_list_item' );
-        $remove.attr( 'aria-label', $remove.data( 'aria-label-template' ).format( i + 1 ) );
 
     } );
 
@@ -1348,15 +1267,8 @@ var GFMergeTag = function() {
 
 		if ( input.length === 1 ) {
 			if ( ( input.is('select') || input.prop('type') === 'radio' || input.prop('type') === 'checkbox' ) && modifier === '' ) {
-
-				if ( input.is( 'select' ) ) {
-					val = input.find( 'option:selected' );
-				} else if ( input.prop( 'type' ) === 'radio' && input.parent().hasClass( 'gchoice_button' ) ) {
-					val = input.parent().siblings( '.gchoice_label' ).find( 'label' ).clone();
-				} else {
-					val = input.next('label').clone();
-				}
-				val.find('span').remove();
+				val = ( input.is('select') ) ? input.find('option:selected') : input.next('label').clone();
+                val.find('span').remove();
 
 				if ( val.length === 1 ) {
 					val = val.text();
@@ -1588,13 +1500,6 @@ var GFCalc = function(formId, formulaFields){
         if(field.hasClass('gfield_price')) {
             jQuery('#input_' + formId + '_' + formulaField.field_id).text(result);
             formulaInput.val(result).trigger('change');
-
-            // Announce the price change of the product only if there's no Total field.
-            if ( jQuery( '.gfield_label_product' ).length && ! jQuery( '.ginput_total' ).length ) {
-                result = jQuery( 'label[ for=input_' + formId + '_' + formulaField.field_id + '_1 ]' ).find( '.gfield_label_product' ).text() + ' ' + result;
-                wp.a11y.speak( result );
-            }
-
             gformCalculateTotalPrice(formId);
         } else {
             formulaInput.val(result).trigger('change');
@@ -1966,8 +1871,6 @@ function gformValidateFileSize( field, max_file_size ) {
 
 		// Set validation message.
 		validation_element.text(file.name + " - " + gform_gravityforms.strings.file_exceeds_limit);
-		// Announce error.
-		wp.a11y.speak( file.name + " - " + gform_gravityforms.strings.file_exceeds_limit );
 
     } else {
 
@@ -2058,13 +1961,9 @@ function gformValidateFileSize( field, max_file_size ) {
             button.prop("disabled", disabled);
         };
 
-		function addMessage( messagesID, message) {
-			$( "#" + messagesID ).prepend( "<li>" + htmlEncode( message ) + "</li>" );
-			// Announce errors.
-			setTimeout(function () {
-				wp.a11y.speak( $( "#" + messagesID ).text() );
-			}, 1000 );
-		}
+        function addMessage(messagesID, message){
+            $("#" + messagesID).prepend("<li>" + htmlEncode(message) + "</li>");
+        }
 
 	    function removeMessage(messagesID, message) {
 		    $("#" + messagesID + " li:contains('" + message + "')").remove();
@@ -2217,20 +2116,15 @@ function gformValidateFileSize( field, max_file_size ) {
             var html = '<strong>' + htmlEncode(file.name) + '</strong>';
             var formId = up.settings.multipart_params.form_id;
             var fieldId = up.settings.multipart_params.field_id;
-
-            if ( typeof gf_legacy !== 'undefined' && gf_legacy.is_legacy ) {
-                html = "<img "
-                    + "class='gform_delete' "
-                    + "src='" + imagesUrl + "/delete.png' "
-                    + "onclick='gformDeleteUploadedFile(" + formId + "," + fieldId + ", this);' "
-                    + "onkeypress='gformDeleteUploadedFile(" + formId + "," + fieldId + ", this);' "
-                    + "alt='" + strings.delete_file + "' "
-                    + "title='" + strings.delete_file
-                    + "' /> "
-                    + html;
-            } else {
-                html = "<button class='gform_delete_file' onclick='gformDeleteUploadedFile(" + formId + "," + fieldId + ", this);'><span class='dashicons dashicons-trash' aria-hidden='true'></span><span class='screen-reader-text'>" + strings.delete_file + ': ' + file.name + "</span></button> " + html;
-            }
+            html = "<img "
+                + "class='gform_delete' "
+                + "src='" + imagesUrl + "/delete.png' "
+                + "onclick='gformDeleteUploadedFile(" + formId + "," + fieldId + ", this);' "
+                + "onkeypress='gformDeleteUploadedFile(" + formId + "," + fieldId + ", this);' "
+                + "alt='"+ strings.delete_file + "' "
+                + "title='" + strings.delete_file
+                + "' /> "
+                + html;
 
             html = gform.applyFilters( 'gform_file_upload_markup', html, file, up, strings, imagesUrl );
 
@@ -2499,13 +2393,8 @@ jQuery( document ).on( 'submit.gravityforms', '.gform_wrapper form', function( e
 		submitButton = formWrapper.find( '#gform_submit_button_' + formID );
 	}
 
-	if ( isSave ) {
-		wp.a11y.speak( window.gf_global.strings.formSaved );
-	}
-
 	var isButtonHidden = ! submitButton.is(':visible'),
-        isButtonDisabled = submitButton.is( ':disabled' ),
-		abortSubmission = ! isSave && ( isSubmit || isNextSubmit ) && ( isButtonHidden || isButtonDisabled );
+		abortSubmission = ! isSave && ( isSubmit || isNextSubmit ) && isButtonHidden;
 
 	// If we are not saving or returning to an earlier page and the next/submit button is hidden abort the submission.
 	if ( abortSubmission ) {

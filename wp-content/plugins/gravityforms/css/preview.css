@@ -34,16 +34,16 @@ body {
 	font-family: "lucida sans", "lucida grande", lucida , arial, sans-serif;
 	font-size: 16px;
 	padding: 0 0 20px 0;
-	background-color: #f1f1f1;
+	background-color: #F1F1F1;
 }
 
 div#preview_hdr {
 	margin: 0;
-	color: #fff;
+	color: #FFF;
 	font-family: "Open Sans",sans-serif;
 	padding: 10px 20px 8px 0;
 	font-size: 16px;
-	background-color: #0074a2;
+	background-color: #0074A2;
 	display:block !important;
 }
 
@@ -66,7 +66,7 @@ div#preview_hdr span.toggle_helpers {
 	text-align: right;
 	margin-top: 2px;
 	font-family: "lucida sans", "lucida grande", lucida , sans-serif;
-	color: #d;
+	color: #FFF;
 	font-weight: normal;
 	letter-spacing: normal;
 	font-size: 12px;
@@ -121,14 +121,14 @@ div#preview_note i.hidenotice {
 
 div#preview_form_container {
 	padding: 20px 20px 32px 20px;
-	background-color: #fff;
-	border: 1px solid #fff;
-	border-bottom: 4px solid #d3d3d3;
+	background-color: #FFF;
+	border: 1px solid #FFF;
+	border-bottom: 4px solid #D3D3D3;
 }
 
 div#preview_form_container.showgrid {
-	border: 1px solid #e6e6e6;
-	border-bottom: 4px solid #d3d3d3;
+	border: 1px solid #E6E6E6;
+	border-bottom: 4px solid #D3D3D3;
 	background-image:url(../images/preview_grid.gif);
 	background-position: 20px 0;
 	position: relative;
@@ -263,39 +263,18 @@ div#preview_form_container.showgrid {
 .gform_footer input.button,
 .gform_footer input[type=button],
 .gform_page_footer input.button,
-.gform_page_footer input[type=button],
-.form_saved_message_emailform input[type=submit] {
+.gform_page_footer input[type=button] {
 	border: none;
     font-size: 1em;
     text-decoration: none;
     color: #FFF;
-    background-color: #1E7AC4;
+    background-color: #3498db;
+    box-shadow: inset 0px 1px 0px #73b0d8, 0px 4px 0px #2980b9;
+    text-shadow: 0px 1px 1px rgba(255,255,255,0.3);
     position: relative;
     padding: 12px 24px;
-    border-radius: 6px;
+    border-radius: 4px;
     -webkit-appearance: none !important;
-}
-
-.gform_save_link.button {
-	background-color: #fff;
-	color: #6B7280;
-	font-size: 1em;
-	text-decoration: none;
-	position: relative;
-	padding: 12px 24px;
-	border-radius: 6px;
-	-webkit-appearance: none !important;
-}
-
-.gform_footer input.button:disabled,
-.gform_page_footer input.button:disabled {
-	opacity: .6;
-}
-
-.gform_legacy_markup_wrapper .gform_footer input.button:disabled,
-.gform_page_footer input.button:disabled {
-	height: 0;
-	padding: 0;
 }
 
 .gform_wrapper.gf_browser_ie .gform_footer input.button,
@@ -308,8 +287,7 @@ div#preview_form_container.showgrid {
 .gform_footer input.button:hover,
 .gform_footer input[type=button]:hover,
 .gform_page_footer input.button:hover,
-.gform_page_footer input[type=button]:hover,
-.form_saved_message_emailform input[type=submit]:hover {
+.gform_page_footer input[type=button]:hover {
     color: #FFF;
     background-color: #4ba7e5;
 }

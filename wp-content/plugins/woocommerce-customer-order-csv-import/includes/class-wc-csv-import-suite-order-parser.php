@@ -115,6 +115,7 @@ class WC_CSV_Import_Suite_Order_Parser {
 			'recalculate_totals'                  => false,
 			'insert_non_matching'                 => false,
 			'allow_unknown_products'              => false,
+			'reduce_product_stock'                => true,
 			'use_addresses_from_customer_profile' => false,
 		) );
 

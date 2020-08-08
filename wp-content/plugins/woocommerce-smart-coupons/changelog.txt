@@ -1,7 +1,17 @@
 *** WooCommerce Smart Coupons Changelog ***
 
+2020.08.05 - version 4.7.8
+* New: Tested upto WooCommerce 4.3.1
+* New: Template for purchasing credit of any amount (on single product page)
+* New: Template for acknowledgement email that is sent to the purchaser of the coupon
+* Fix: Bulk generate or import process not working in multisite sometimes
+* Fix: Store credit is unable to apply discount when the price on the store is exclusive of tax [WooCommerce AvaTax]
+* Update: An option to ignore notice 'Coupon was used in another transaction, and coupon usage limit is reached'
+* Update: POT file
+
 2020.07.10 - version 4.7.7
 * New: Tested upto WooCommerce 4.3.0
+* Fix: Database errors related to duplicate option entry 'sc_display_custom_credit_'
 * Update: Feature to stop a running bulk generate/import coupon process
 * Update: Feature to auto-stop a running process when the bulk generate/import process gets stuck
 * Update: 2 additional attributes 'is_email' & 'is_clickable' for shortcode 'smart_coupons'

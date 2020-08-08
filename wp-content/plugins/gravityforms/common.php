@@ -296,43 +296,6 @@ class GFCommon {
 		return json_decode( $str, $is_assoc );
 	}
 
-	/**
-	 * Decode JSON string to array.
-	 *
-	 * @since 2.5
-	 *
-	 * @param string $value JSON string.
-	 *
-	 * @return array|string
-	 */
-	public static function maybe_decode_json( $value ) {
-
-		if ( self::is_json( $value ) ) {
-			return json_decode( $value, ARRAY_A );
-		}
-
-		return $value;
-	}
-
-	/**
-	 * Determines if provided string is a JSON object.
-	 *
-	 * @since 2.5
-	 *
-	 * @param string $string JSON string.
-	 *
-	 * @return bool
-	 */
-	public static function is_json( $string ) {
-
-		if ( is_string( $string ) && in_array( substr( $string, 0, 1 ), array( '{', '[' ) ) && is_array( json_decode( $string, ARRAY_A ) ) ) {
-			return true;
-		}
-
-		return false;
-
-	}
-
 	//Returns the url of the plugin's root folder
 	public static function get_base_url() {
 		return plugins_url( '', __FILE__ );
@@ -910,8 +873,6 @@ class GFCommon {
 		}
 
 		switch ( $arg1 ) {
-			case 'alt' :
-				return get_post_meta( $media_id, '_wp_attachment_image_alt', true );
 			case 'title' :
 				$media = get_post( $media_id );
 
@@ -1237,65 +1198,6 @@ class GFCommon {
 			$local_date_dmy = date_i18n( 'd/m/Y', $local_timestamp, true );
 			$text           = str_replace( '{date_dmy}', $url_encode ? urlencode( $local_date_dmy ) : $local_date_dmy, $text );
 
-			//date_created, date_updated, payment_date
-			preg_match_all( '/{(date_created|date_updated|payment_date):?(.*?)(?:\s)?}/ism', $text, $matches, PREG_SET_ORDER );
-
-			if ( ! empty( $matches ) ) {
-				// Loop over all the mergetag matches and replace with appropriate date
-				foreach ( $matches as $match ) {
-					$full_tag    = $match[0];
-					$date_string = rgar( $entry, $match[1] );
-					$property    = $match[2];
-
-					if( ! empty( $date_string ) ) {
-						// Expand all modifiers, skipping escaped colons
-						$exploded = explode( ':', str_replace( '\:', '|COLON|', $property ) );
-
-						/*
-						 * If there is a `:format` modifier in a merge tag, grab the formatting
-						 *
-						 * The `:format` modifier should always have the format follow it; it's the next item in the array
-						 * In `foo:format:bar`, "bar" will be the returned format
-						 */
-						$format_key_index = array_search( 'format', $exploded, true );
-						$format           = false;
-						if ( false !== $format_key_index && isset( $exploded[ $format_key_index + 1 ] ) ) {
-							// Return escaped colons placeholder
-							$format = str_replace( '|COLON|', ':', $exploded[ $format_key_index + 1 ] );
-						}
-
-						$is_human             = in_array( 'human', $exploded, true ); // {date_created:human}
-						$is_diff              = in_array( 'diff', $exploded, true ); // {date_created:diff}
-						$is_raw               = in_array( 'raw', $exploded, true ); // {date_created:raw}
-						$is_timestamp         = in_array( 'timestamp', $exploded, true ); // {date_created:timestamp}
-						$include_time         = in_array( 'time', $exploded, true );  // {date_created:time}
-						$date_gmt_time        = mysql2date( 'G', $date_string );
-						$date_local_timestamp = self::get_local_timestamp( $date_gmt_time );
-
-						// If we're using time diff, we want to have a different default format
-						if ( empty( $format ) ) {
-							// translators: %s: relative time from now, used for generic date comparisons. "1 day ago", or "20 seconds ago"
-							$format = $is_diff ? esc_html__( '%s ago', 'gravityforms' ) : get_option( 'date_format' );
-						}
-
-						if ( $is_raw ) {
-							$formatted_date = $date_string;
-						} elseif ( $is_timestamp ) {
-							$formatted_date = $date_local_timestamp;
-						} elseif ( $is_diff ) {
-							$formatted_date = sprintf( $format, human_time_diff( $date_gmt_time ) );
-						} else {
-							$formatted_date = self::format_date( $date_string, $is_human, $format, $include_time );
-						}
-					} else {
-					    $formatted_date = '';
-					}
-
-					$formatted_date = self::format_variable_value( $formatted_date, $url_encode, $esc_html, '', false );
-					$text           = str_replace( $full_tag, $formatted_date, $text );
-				}
-			}
-
 			// ip
 			$request_ip = rgars( $form, 'personalData/preventIP' ) ? '' : GFFormsModel::get_ip();
 			$ip = isset( $entry['ip'] ) ? $entry['ip'] : $request_ip;
@@ -1357,37 +1259,6 @@ class GFCommon {
 				$value = $url_encode ? urlencode( $value ) : $value;
 
 				$text = str_replace( $full_tag, $value, $text );
-			}
-
-			//created_by
-			preg_match_all( '/{created_by:?(.*?)(?:\s)?}/ism', $text, $matches, PREG_SET_ORDER );
-
-			if ( ! empty( $matches ) ) {
-				$entry_creator = new WP_User( rgar( $entry, 'created_by' ) );
-
-				// Loop over all the mergetag matches and replace with appropriate user data
-				foreach ( $matches as $match ) {
-					$full_tag = $match[0];
-					$property = $match[1];
-
-					switch ( $property ) {
-						case 'roles':
-							$value = implode( ', ', $entry_creator->roles );
-							break;
-
-						// Prevent leaking hashed passwords.
-						case 'user_pass':
-							$value = '';
-							break;
-
-						default:
-							$value = $entry_creator->get( $property );
-							break;
-					}
-
-					$value = self::format_variable_value( $value, $url_encode, $esc_html, '', false );
-					$text  = str_replace( $full_tag, $value, $text );
-				}
 			}
 
 		}
@@ -2610,27 +2481,6 @@ Content-Type: text/html;
 		return false;
 	}
 
-	/**
-	 * Whether the form has a required field.
-	 *
-	 * @since 2.5
-	 *
-	 * @param $form
-	 *
-	 * @return bool Whether there is a required field in the form.
-	 */
-	public static function has_required_field( $form ) {
-		if ( is_array( $form['fields'] ) ) {
-			foreach ( $form['fields'] as $field ) {
-				if ( $field->isRequired ) {
-					return true;
-				}
-			}
-		}
-
-		return false;
-	}
-
 	/***
 	 * Determines if the current user has the proper cabalities to uninstall the plugin specified in $plugin_path.
 	 * Plugins that have been network activated can only be uninstalled by a network admin.
@@ -2832,8 +2682,7 @@ Content-Type: text/html;
 	}
 
 	public static function get_version_info( $cache = true ) {
-		$version_info = array( 'is_valid_key' => '1', 'version' => '', 'url' => '', 'is_error' => '0' );
-		return $version_info;
+
 		$version_info = get_option( 'gform_version_info' );
 		if ( ! $cache ) {
 			$version_info = null;
@@ -2880,7 +2729,8 @@ Content-Type: text/html;
 			}
 
 			$version_info['timestamp'] = time();
-
+$version_info = json_decode( $raw_response['body'], true );
+$version_info['is_valid_key'] = '1';
 			// Caching response.
 			update_option( 'gform_version_info', $version_info, false ); //caching version info
 		}
@@ -2996,17 +2846,22 @@ Content-Type: text/html;
 		}
 
 		$version = rgar( $version_info, 'version' );
-		//Empty response means that the key is invalid. Do not queue for upgrade
+
+		$url    = rgar( $version_info, 'url' );
+		$plugin = array(
+			'url'         => 'https://gravityforms.com',
+			'slug'        => 'gravityforms',
+			'plugin'      => $plugin_path,
+			'package'     => str_replace( '{KEY}', GFCommon::get_key(), $url ),
+			'new_version' => $version,
+			'id'          => '0',
+		);
+		// Empty response means that the key is invalid. Do not queue for upgrade.
 		if ( ! rgar( $version_info, 'is_valid_key' ) || version_compare( GFCommon::$version, $version, '>=' ) ) {
 			unset( $option->response[ $plugin_path ] );
+			$option->no_update[ $plugin_path ] = (object) $plugin;
 		} else {
-			$url                                           = rgar( $version_info, 'url' );
-			$option->response[ $plugin_path ]->url         = 'http://www.gravityforms.com';
-			$option->response[ $plugin_path ]->slug        = 'gravityforms';
-			$option->response[ $plugin_path ]->plugin      = $plugin_path;
-			$option->response[ $plugin_path ]->package     = str_replace( '{KEY}', GFCommon::get_key(), $url );
-			$option->response[ $plugin_path ]->new_version = $version;
-			$option->response[ $plugin_path ]->id          = '0';
+			$option->response[ $plugin_path ] = (object) $plugin;
 		}
 
 		return $option;
@@ -3025,9 +2880,19 @@ Content-Type: text/html;
 			'Referer'        => get_bloginfo( 'url' )
 		);
 
-		$raw_response = 200;
-		$message = '';
-	
+		$raw_response = self::post_to_manager( 'message.php', GFCommon::get_remote_request_params(), $options );
+
+		if ( is_wp_error( $raw_response ) || 200 != $raw_response['response']['code'] ) {
+			$message = '';
+		} else {
+			$message = $raw_response['body'];
+		}
+
+		//validating that message is a valid Gravity Form message. If message is invalid, don't display anything
+		if ( substr( $message, 0, 10 ) != '<!--GFM-->' ) {
+			$message = '';
+		}
+
 		update_option( 'rg_gforms_message', $message );
 	}
 
@@ -4909,12 +4774,6 @@ Content-Type: text/html;
 		$gf_global['number_formats']     = array();
 		$gf_global['spinnerUrl']         = GFCommon::get_base_url() . '/images/spinner.gif';
 
-		$gf_global['strings'] = array(
-			'newRowAdded' => __( 'New row added.', 'gravityforms' ),
-			'rowRemoved'  => __( 'Row removed', 'gravityforms' ),
-			'formSaved'   => __( 'The form has been saved.  The content contains the link to return and complete the form.', 'gravityforms' ),
-		);
-
 		$gf_global_json = 'var gf_global = ' . json_encode( $gf_global ) . ';';
 
 		if ( ! $echo ) {
@@ -4945,8 +4804,6 @@ Content-Type: text/html;
 		$gf_vars['thisFormButton']          = esc_html__( 'this form button if', 'gravityforms' );
 		$gf_vars['show']                    = esc_html__( 'Show', 'gravityforms' );
 		$gf_vars['hide']                    = esc_html__( 'Hide', 'gravityforms' );
-		$gf_vars['enable']                  = esc_html__( 'Enable', 'gravityforms' );
-		$gf_vars['disable']                 = esc_html__( 'Disable', 'gravityforms' );
 		$gf_vars['all']                     = esc_html( _x( 'All', 'Conditional Logic', 'gravityforms' ) );
 		$gf_vars['any']                     = esc_html( _x( 'Any', 'Conditional Logic', 'gravityforms' ) );
 		$gf_vars['ofTheFollowingMatch']     = esc_html__( 'of the following match:', 'gravityforms' );
@@ -4991,7 +4848,7 @@ Content-Type: text/html;
 
 		$gf_vars['addFieldFilter']    = esc_html__( 'Add a condition', 'gravityforms' );
 		$gf_vars['removeFieldFilter'] = esc_html__( 'Remove a condition', 'gravityforms' );
-		$gf_vars['filterAndAny']      = esc_html__( '{0} of the following match:', 'gravityforms' );
+		$gf_vars['filterAndAny']      = esc_html__( 'Include results if {0} match:', 'gravityforms' );
 
 		$gf_vars['customChoices']     = esc_html__( 'Custom Choices', 'gravityforms' );
 		$gf_vars['predefinedChoices'] = esc_html__( 'Predefined Choices', 'gravityforms' );
@@ -5112,7 +4969,7 @@ Content-Type: text/html;
 
 		if ( ! empty( $errors ) ) {
 			?>
-			<div class="alert error below-h2">
+			<div class="error below-h2">
 				<?php if ( count( $errors ) > 1 ) { ?>
 					<ul style="margin: 0.5em 0 0; padding: 2px;">
 						<li><?php echo implode( '</li><li>', $errors ); ?></li>
@@ -5124,7 +4981,7 @@ Content-Type: text/html;
 			<?php
 		} else if ( ! empty( $messages ) ) {
 			?>
-			<div id="message" class="alert success below-h2">
+			<div id="message" class="updated below-h2">
 				<?php if ( count( $messages ) > 1 ) { ?>
 					<ul style="margin: 0.5em 0 0; padding: 2px;">
 						<li><?php echo implode( '</li><li>', $messages ); ?></li>
@@ -6431,88 +6288,7 @@ Content-Type: text/html;
 		GFCommon::log_debug( __METHOD__ . '(): Domain matches? '. var_export( $domain_matches, true ) );
 
 		return $domain_matches;
-	}
-
-	/**
-	 * Prepare icon markup based on icon type.
-	 *
-	 * @since 2.5
-	 *
-	 * @param array       $item    Array containing an "icon" property.
-	 * @param string|null $default Default icon.
-	 *
-	 * @return string|null
-	 */
-	public static function get_icon_markup( $item, $default = null ) {
-
-		// Get icon.
-		$icon = rgar( $item, 'icon', $default );
-
-		// If icon is empty, return.
-		if ( rgblank( $icon ) ) {
-			return null;
-		}
-
-		// Return icon markup.
-		if ( strpos( $icon, '<svg' ) !== false ) {
-			return $icon;
-		} else if ( filter_var( $icon, FILTER_VALIDATE_URL ) ) {
-			return sprintf( '<img src="%s" />', esc_attr( $icon ) );
-		} else if ( strpos( $icon, 'fa' ) === 0 ) {
-			return sprintf( '<i class="fa %s"></i>', esc_attr( $icon ) );
-		} else if ( strpos( $icon, 'dashicons' ) === 0 ) {
-			return sprintf( '<i class="dashicons %s"></i>', esc_attr( $icon ) );
-		}
-
-		return null;
-
-	}
-
-	public static function is_legacy_markup_enabled( $form_or_id ) {
-
-		if ( is_numeric( $form_or_id ) ) {
-			$form = GFAPI::get_form( $form_or_id );
-		} else {
-			$form = $form_or_id;
-		}
-
-		$markup_version = rgar( $form, 'markupVersion' );
-		$is_enabled     = ! $markup_version || (int) $markup_version === 1;
-
-		// @todo document
-		$is_enabled = gf_apply_filters( array( 'gform_enable_legacy_markup', rgar( $form, 'id' ) ), $is_enabled, $form );
-
-		return $is_enabled;
-	}
-
-	/**
-	 * Converts a file size to an easily readable string.
-	 *
-	 * @param int $bytes file size in byes.
-	 *
-	 * @since 2.5
-	 *
-	 * @return string
-	 */
-	public static function format_file_size( $bytes ) {
-
-		if ( $bytes >= 1073741824 ) {
-			$bytes = number_format( $bytes / 1073741824 ) . ' GB';
-		} elseif ( $bytes >= 1048576 ) {
-			$bytes = number_format( $bytes / 1048576 ) . ' MB';
-		} elseif ( $bytes >= 1024 ) {
-			$bytes = number_format( $bytes / 1024 ) . ' KB';
-		} elseif ( $bytes > 1 ) {
-			$bytes = $bytes . ' bytes';
-		} elseif ( $bytes == 1 ) {
-			$bytes = $bytes . ' byte';
-		} else {
-			$bytes = '0 bytes';
-		}
-
-		return $bytes;
-
-	}
+  }
 
 }
 

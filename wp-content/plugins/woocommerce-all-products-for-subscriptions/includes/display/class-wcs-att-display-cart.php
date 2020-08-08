@@ -16,9 +16,15 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Cart template modifications.
  *
  * @class    WCS_ATT_Display_Cart
- * @version  3.1.2
+ * @version  3.1.15
  */
 class WCS_ATT_Display_Cart {
+
+	/**
+	 * Runtime cache.
+	 * @var bool
+	 */
+	private static $display_prices_incl_tax;
 
 	/**
 	 * Initialize.
@@ -37,6 +43,28 @@ class WCS_ATT_Display_Cart {
 
 		// Use radio buttons to mark a cart item as a one-time sale or as a subscription.
 		add_filter( 'woocommerce_cart_item_price', array( __CLASS__, 'show_cart_item_subscription_options' ), 1000, 3 );
+	}
+
+	/*
+	|--------------------------------------------------------------------------
+	| Functions
+	|--------------------------------------------------------------------------
+	*/
+
+	/**
+	 * Back-compat wrapper for 'WC_Cart::display_price_including_tax'.
+	 *
+	 * @since  3.1.15
+	 *
+	 * @return string
+	 */
+	public static function display_prices_including_tax() {
+
+		if ( is_null( self::$display_prices_incl_tax ) ) {
+			self::$display_prices_incl_tax = WCS_ATT_Core_Compatibility::is_wc_version_gte( '3.3' ) ? WC()->cart->display_prices_including_tax() : ( 'incl' === get_option( 'woocommerce_tax_display_cart' ) );
+		}
+
+		return self::$display_prices_incl_tax;
 	}
 
 	/*

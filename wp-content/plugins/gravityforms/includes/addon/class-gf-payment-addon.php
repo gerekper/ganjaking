@@ -2786,37 +2786,49 @@ abstract class GFPaymentAddOn extends GFFeedAddOn {
 
 	public function results_markup( $html, $data, $form, $fields ) {
 
-		$html = '<div class="gform-results wide">' ;
-		$boxes = array(
-			'today'     => esc_html__( 'Today', 'gravityforms' ),
-			'yesterday' => esc_html__( 'Yesterday', 'gravityforms' ),
-			'last30'    => esc_html__( 'Last 30 Days', 'gravityforms' ),
-			'total'     => esc_html__( 'Total', 'gravityforms' )
-		);
+		$html = "<table width='100%' id='gaddon-results-summary'>
+                    <tr>
+                        <td class='gaddon-results-summary-label'>" . esc_html__( 'Today', 'gravityforms' ) . "</td>
+                        <td class='gaddon-results-summary-label'>" . esc_html__( 'Yesterday', 'gravityforms' ) . "</td>
+                        <td class='gaddon-results-summary-label'>" . esc_html__( 'Last 30 Days', 'gravityforms' ) . "</td>
+                        <td class='gaddon-results-summary-label'>" . esc_html__( 'Total', 'gravityforms' ) . "</td>
+                    </tr>
+                    <tr>
+                        <td class='gaddon-results-summary-data'>
+                            <div class='gaddon-results-summary-data-box'>
+                                <div class='gaddon-results-summary-primary'>{$data['summary']['today']['revenue']}</div>
+                                <div class='gaddon-results-summary-secondary'>{$data['summary']['today']['subscriptions']} " . esc_html__( 'subscriptions', 'gravityforms' ) . "</div>
+                                <div class='gaddon-results-summary-secondary'>{$data['summary']['today']['orders']} " . esc_html__( 'orders', 'gravityforms' ) . "</div>
+                            </div>
+                        </td>
+                        <td class='gaddon-results-summary-data'>
+                            <div class='gaddon-results-summary-data-box'>
+                                <div class='gaddon-results-summary-primary'>{$data['summary']['yesterday']['revenue']}</div>
+                                <div class='gaddon-results-summary-secondary'>{$data['summary']['yesterday']['subscriptions']} " . esc_html__( 'subscriptions', 'gravityforms' ) . "</div>
+                                <div class='gaddon-results-summary-secondary'>{$data['summary']['yesterday']['orders']} " . esc_html__( 'orders', 'gravityforms' ) . "</div>
+                            </div>
+                        </td>
 
-			foreach ( $boxes as $key => $label ){
-				$html .= '
-				<div class="gform-result-box">
-					<div class="gform-result-box__primary">
-						<div class="box-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-								<path d="M8 7V3V7ZM16 7V3V7ZM7 11H17H7ZM5 21H19C19.5304 21 20.0391 20.7893 20.4142 20.4142C20.7893 20.0391 21 19.5304 21 19V7C21 6.46957 20.7893 5.96086 20.4142 5.58579C20.0391 5.21071 19.5304 5 19 5H5C4.46957 5 3.96086 5.21071 3.58579 5.58579C3.21071 5.96086 3 6.46957 3 7V19C3 19.5304 3.21071 20.0391 3.58579 20.4142C3.96086 20.7893 4.46957 21 5 21Z" stroke="#F15A2B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-							</svg></div>
-						<div class="box-data">
-							<div class="box-label">'.$label.'</div>
-							<div class="box-number">'.$data['summary'][$key]['revenue'].'</div>
-						</div>
-					</div>
-					<div class="gform-result-box__secondary">
-						<div class="box-orders">'.$data['summary'][$key]['orders'].' '. esc_html__( 'orders', 'gravityforms' ) .'</div>
-						<div class="box-subscriptions">'.$data['summary'][$key]['subscriptions'].' '.esc_html__( 'subscriptions', 'gravityforms' ) .'</div>
-					</div>
-				</div>';
-			}
-		$html .= '</div>';
+                        <td class='gaddon-results-summary-data'>
+                            <div class='gaddon-results-summary-data-box'>
+                                <div class='gaddon-results-summary-primary'>{$data['summary']['last30']['revenue']}</div>
+                                <div class='gaddon-results-summary-secondary'>{$data['summary']['last30']['subscriptions']} " . esc_html__( 'subscriptions', 'gravityforms' ) . "</div>
+                                <div class='gaddon-results-summary-secondary'>{$data['summary']['last30']['orders']} " . esc_html__( 'orders', 'gravityforms' ) . "</div>
+                            </div>
+                        </td>
+                        <td class='gaddon-results-summary-data'>
+                            <div class='gaddon-results-summary-data-box'>
+                                <div class='gaddon-results-summary-primary'>{$data['summary']['total']['revenue']}</div>
+                                <div class='gaddon-results-summary-secondary'>{$data['summary']['total']['subscriptions']} " . esc_html__( 'subscriptions', 'gravityforms' ) . "</div>
+                                <div class='gaddon-results-summary-secondary'>{$data['summary']['total']['orders']} " . esc_html__( 'orders', 'gravityforms' ) . '</div>
+                            </div>
+                        </td>
 
+                    </tr>
+                 </table>';
 
 		if ( $data['row_count'] == '0' ) {
-			$html .= "<div class='alert info' style='padding:20px; margin-top:40px;'>" . esc_html__( "There aren't any transactions that match your criteria.", 'gravityforms' ) . '</div>';
+			$html .= "<div class='updated' style='padding:20px; margin-top:40px;'>" . esc_html__( "There aren't any transactions that match your criteria.", 'gravityforms' ) . '</div>';
 		} else {
 			$chart_data = $this->get_chart_data( $data );
 			$html .= $this->get_sales_chart( $chart_data );
@@ -2864,7 +2876,7 @@ abstract class GFPaymentAddOn extends GFFeedAddOn {
 		$chart_options = array(
 			'series' => array(
 				'0' => array(
-					'color'           => '#F15A29',
+					'color'           => '#66CCFF',
 					'visibleInLegend' => 'false',
 				),
 			),
@@ -3277,32 +3289,29 @@ abstract class GFPaymentAddOn extends GFFeedAddOn {
 		);
 
 		$payment_methods = $this->get_payment_methods( $form_id );
-		if ( ! empty( $payment_methods ) ) {
-			$payment_method_markup = "
+
+		$payment_method_markup = "
                 <div>
                     <select id='gaddon-sales-group' name='payment_method'>
                         <option value=''>" . esc_html__( _x( 'Any', 'regarding a payment method', 'gravityforms' ) ) . '</option>';
 
-			foreach ( $payment_methods as $payment_method ) {
-				$payment_method_markup .= "<option value='" . esc_attr( $payment_method ) . "' " . selected( $payment_method, rgget( 'payment_method' ), false ) . '>' . $payment_method . '</option>';
-			}
-			$payment_method_markup .= '
+		foreach ( $payment_methods as $payment_method ) {
+			$payment_method_markup .= "<option value='" . esc_attr( $payment_method ) . "' " . selected( $payment_method, rgget( 'payment_method' ), false ) . '>' . $payment_method . '</option>';
+		}
+		$payment_method_markup .= '
                     </select>
                  </div>';
 
-			$payment_method_filter = array(
-				'payment_method' => array(
-					'label'   => esc_html__( 'Payment Method', 'gravityforms' ),
-					'tooltip' => '',
-					'markup'  => $payment_method_markup,
-				),
-			);
+		$payment_method_filter = array(
+			'payment_method' => array(
+				'label'   => esc_html__( 'Payment Method', 'gravityforms' ),
+				'tooltip' => '',
+				'markup'  => $payment_method_markup
+			)
+		);
 
-			$filter_ui = array_merge( $payment_method_filter, $filter_ui );
 
-		}
-
-		$filter_ui = array_merge( $view_filter, $filter_ui );
+		$filter_ui = array_merge( $view_filter, $payment_method_filter, $filter_ui );
 
 		return $filter_ui;
 
@@ -3819,17 +3828,6 @@ class GFPaymentStatsTable extends WP_List_Table {
 				'screen'   => 'gaddon_sales',
 			)
 		);
-	}
-
-	/**
-	 * Get a list of CSS classes for the WP_List_Table table tag.
-	 *
-	 * @since 3.1.0
-	 *
-	 * @return string[] Array of CSS classes for the table tag.
-	 */
-	protected function get_table_classes() {
-		return array( $this->_args['plural'] );
 	}
 
 	function prepare_items() {

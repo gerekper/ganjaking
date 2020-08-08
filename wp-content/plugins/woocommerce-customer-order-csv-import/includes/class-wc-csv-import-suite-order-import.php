@@ -356,6 +356,22 @@ class WC_CSV_Import_Suite_Order_Import extends \WC_CSV_Import_Suite_Importer {
 			</td>
 		</tr>
 
+		<?php if ( 'yes' === get_option( 'woocommerce_manage_stock', 'yes' ) ) : ?>
+
+			<tr>
+				<th scope="row">
+					<?php esc_html_e( 'Reduce product stock', 'woocommerce-csv-import-suite' ); ?>
+				</th>
+				<td>
+					<label>
+						<input type="checkbox" value="1" name="options[reduce_product_stock]" id="wc-csv-import-suite-reduce-product-stock" checked="checked" />
+						<?php esc_html_e( 'When enabled, the import will reduce product stock for products associated with paid orders.', 'woocommerce-csv-import-suite' ); ?>
+					</label>
+				</td>
+			</tr>
+
+		<?php endif; ?>
+
 		<tr>
 			<th scope="row">
 				<?php esc_html_e( 'Re-calculate taxes & totals', 'woocommerce-csv-import-suite' ); ?>
@@ -517,18 +533,19 @@ class WC_CSV_Import_Suite_Order_Import extends \WC_CSV_Import_Suite_Importer {
 
 
 	/**
-	 * Processes an order
+	 * Processes an order.
 	 *
 	 * @see \WC_CSV_Import_Suite_Order_Processor::process_order()
 	 *
 	 * @since 3.0.0
-	 * @param mixed $data Parsed order data, ready for processing, compatible with
-	 *                    wc_create_order/wc_update_order
-	 * @param array $options Optional. Options
-	 * @param array $raw_headers Optional. Raw headers
+	 *
+	 * @param array $data parsed order data, ready for processing, compatible with {@see wc_create_order()} or {@see wc_update_order()}
+	 * @param array $options options (optional)
+	 * @param array $raw_headers raw headers (optional)
 	 * @return int|null
 	 */
-	protected function process_item( $data, $options = array(), $raw_headers = array() ) {
+	protected function process_item( $data, $options = [], $raw_headers = [] ) {
+
 		return $this->get_processor()->process_order( $data, $options, $raw_headers );
 	}
 
@@ -610,23 +627,32 @@ class WC_CSV_Import_Suite_Order_Import extends \WC_CSV_Import_Suite_Importer {
 
 
 	/**
-	 * Check if a given post ID is a valid product post type
+	 * Checks if a given post ID is a valid product post type.
 	 *
 	 * @since 3.0.0
-	 * @param int $product_id
+	 *
+	 * @param int $product_id the product ID
 	 * @return bool
 	 */
 	public function is_valid_product( $product_id ) {
 
 		/**
-		 * Filter valid product post types
+		 * Filters valid product post types.
 		 *
 		 * @since 3.0.0
-		 * @param array $valid_types Array fo valid post type names
+		 *
+		 * @param string[] $valid_types array fo valid post type names
 		 */
-		$valid_product_post_types = apply_filters( 'wc_csv_import_suite_valid_product_post_types', array( 'product', 'product_variation' ) );
+		$valid_product_post_types = (array) apply_filters( 'wc_csv_import_suite_valid_product_post_types', [ 'product', 'product_variation' ] );
 
-		return in_array( get_post_type( $product_id ), $valid_product_post_types );
+		$post_type = get_post_type( $product_id );
+		$is_valid  = in_array( $post_type, $valid_product_post_types, true );
+
+		if ( $is_valid && 'product_variation' === $post_type ) {
+			$is_valid = (bool) wp_get_post_parent_id( $product_id );
+		}
+
+		return $is_valid;
 	}
 
 

@@ -25,7 +25,6 @@ class GF_Field_Address extends GF_Field {
 			'description_setting',
 			'visibility_setting',
 			'css_class_setting',
-			'autocomplete_setting',
 		);
 	}
 
@@ -35,61 +34,6 @@ class GF_Field_Address extends GF_Field {
 
 	public function get_form_editor_field_title() {
 		return esc_attr__( 'Address', 'gravityforms' );
-	}
-
-	/**
-	 * Returns the field's form editor description.
-	 *
-	 * @since 2.5
-	 *
-	 * @return string
-	 */
-	public function get_form_editor_field_description() {
-		return esc_attr__( 'Allows users to enter a physical address.', 'gravityforms' );
-	}
-
-	/**
-	 * Returns the field's form editor icon.
-	 *
-	 * This could be an icon url or a dashicons class.
-	 *
-	 * @since 2.5
-	 *
-	 * @return string
-	 */
-	public function get_form_editor_field_icon() {
-		return 'dashicons-location';
-    }
-
-	/**
-	 * Defines the IDs of required inputs.
-	 *
-	 * @since 2.5
-	 *
-	 * @return string[]
-	 */
-	public function get_required_inputs_ids() {
-		return array( '1', '3', '4', '5', '6' );
-	}
-
-
-	/**
-	 * Returns the HTML tag for the field container.
-	 *
-	 * @since 2.5
-	 *
-	 * @param array $form The current Form object.
-	 *
-	 * @return string
-	 */
-	public function get_field_container_tag( $form ) {
-
-		if ( GFCommon::is_legacy_markup_enabled( $form ) ) {
-			return parent::get_field_container_tag( $form );
-		}
-
-		return 'fieldset';
-
 	}
 
 	function validate( $value, $form ) {
@@ -140,7 +84,7 @@ class GF_Field_Address extends GF_Field {
 
 		$disabled_text      = $is_form_editor ? "disabled='disabled'" : '';
 		$class_suffix       = $is_entry_detail ? '_admin' : '';
-
+		$required_attribute = $this->isRequired ? 'aria-required="true"' : '';
 
 		$form_sub_label_placement  = rgar( $form, 'subLabelPlacement' );
 		$field_sub_label_placement = $this->subLabelPlacement;
@@ -217,34 +161,19 @@ class GF_Field_Address extends GF_Field {
 		$address_country_sub_label = rgar( $address_country_field_input, 'customLabel' ) != '' ? $address_country_field_input['customLabel'] : esc_html__( 'Country', 'gravityforms' );
 		$address_country_sub_label = gf_apply_filters( array( 'gform_address_country', $form_id, $this->id ), $address_country_sub_label, $form_id );
 
-		// Autocomplete attributes.
-		$address_street_autocomplete  = $this->enableAutocomplete ? $this->get_input_autocomplete_attribute( $address_street_field_input ) : '';
-		$address_street2_autocomplete = $this->enableAutocomplete ? $this->get_input_autocomplete_attribute( $address_street2_field_input ) : '';
-		$address_city_autocomplete    = $this->enableAutocomplete ? $this->get_input_autocomplete_attribute( $address_city_field_input ) : '';
-		$address_zip_autocomplete     = $this->enableAutocomplete ? $this->get_input_autocomplete_attribute( $address_zip_field_input ) : '';
-		$address_country_autocomplete = $this->enableAutocomplete ? $this->get_input_autocomplete_attribute( $address_country_field_input ) : '';
-
-		// Aria attributes.
-		$street_aria_attributes  = $this->get_aria_attributes( $value, '1' );
-		$street2_aria_attributes = $this->get_aria_attributes( $value, '2' );
-		$city_aria_attributes    = $this->get_aria_attributes( $value, '3' );
-		$zip_aria_attributes     = $this->get_aria_attributes( $value, '5' );
-		$country_aria_attributes = $this->get_aria_attributes( $value, '6' );
-
 		// Address field.
 		$street_address = '';
 		$tabindex       = $this->get_tabindex();
 		$style          = ( $is_admin && rgar( $address_street_field_input, 'isHidden' ) ) ? "style='display:none;'" : '';
-
 		if ( $is_admin || ! rgar( $address_street_field_input, 'isHidden' ) ) {
 			if ( $is_sub_label_above ) {
-				$street_address = " <span class='ginput_full{$class_suffix} address_line_1 ginput_address_line_1' id='{$field_id}_1_container' {$style}>
+				$street_address = " <span class='ginput_full{$class_suffix} address_line_1' id='{$field_id}_1_container' {$style}>
                                         <label for='{$field_id}_1' id='{$field_id}_1_label' {$sub_label_class_attribute}>{$address_street_sub_label}</label>
-                                        <input type='text' name='input_{$id}.1' id='{$field_id}_1' value='{$street_value}' {$tabindex} {$disabled_text} {$street_placeholder_attribute} {$street_aria_attributes} {$address_street_autocomplete}/>
-                                   </span>";
+                                        <input type='text' name='input_{$id}.1' id='{$field_id}_1' value='{$street_value}' {$tabindex} {$disabled_text} {$street_placeholder_attribute} {$required_attribute}/>
+                                    </span>";
 			} else {
-				$street_address = " <span class='ginput_full{$class_suffix} address_line_1 ginput_address_line_1' id='{$field_id}_1_container' {$style}>
-                                        <input type='text' name='input_{$id}.1' id='{$field_id}_1' value='{$street_value}' {$tabindex} {$disabled_text} {$street_placeholder_attribute} {$street_aria_attributes} {$address_street_autocomplete}/>
+				$street_address = " <span class='ginput_full{$class_suffix} address_line_1' id='{$field_id}_1_container' {$style}>
+                                        <input type='text' name='input_{$id}.1' id='{$field_id}_1' value='{$street_value}' {$tabindex} {$disabled_text} {$street_placeholder_attribute} {$required_attribute}/>
                                         <label for='{$field_id}_1' id='{$field_id}_1_label' {$sub_label_class_attribute}>{$address_street_sub_label}</label>
                                     </span>";
 			}
@@ -256,13 +185,13 @@ class GF_Field_Address extends GF_Field {
 		if ( $is_admin || ( ! $this->hideAddress2 && ! rgar( $address_street2_field_input, 'isHidden' ) ) ) {
 			$tabindex = $this->get_tabindex();
 			if ( $is_sub_label_above ) {
-				$street_address2 = "<span class='ginput_full{$class_suffix} address_line_2 ginput_address_line_2' id='{$field_id}_2_container' {$style}>
+				$street_address2 = "<span class='ginput_full{$class_suffix} address_line_2' id='{$field_id}_2_container' {$style}>
                                         <label for='{$field_id}_2' id='{$field_id}_2_label' {$sub_label_class_attribute}>{$address_street2_sub_label}</label>
-                                        <input type='text' name='input_{$id}.2' id='{$field_id}_2' value='{$street2_value}' {$tabindex} {$disabled_text} {$street2_placeholder_attribute} {$address_street2_autocomplete} {$street2_aria_attributes}/>
+                                        <input type='text' name='input_{$id}.2' id='{$field_id}_2' value='{$street2_value}' {$tabindex} {$disabled_text} {$street2_placeholder_attribute}/>
                                     </span>";
 			} else {
-				$street_address2 = "<span class='ginput_full{$class_suffix} address_line_2 ginput_address_line_2' id='{$field_id}_2_container' {$style}>
-                                        <input type='text' name='input_{$id}.2' id='{$field_id}_2' value='{$street2_value}' {$tabindex} {$disabled_text} {$street2_placeholder_attribute} {$address_street2_autocomplete} {$street2_aria_attributes}/>
+				$street_address2 = "<span class='ginput_full{$class_suffix} address_line_2' id='{$field_id}_2_container' {$style}>
+                                        <input type='text' name='input_{$id}.2' id='{$field_id}_2' value='{$street2_value}' {$tabindex} {$disabled_text} {$street2_placeholder_attribute}/>
                                         <label for='{$field_id}_2' id='{$field_id}_2_label' {$sub_label_class_attribute}>{$address_street2_sub_label}</label>
                                     </span>";
 			}
@@ -275,13 +204,13 @@ class GF_Field_Address extends GF_Field {
 			$style    = ( $is_admin && rgar( $address_zip_field_input, 'isHidden' ) ) ? "style='display:none;'" : '';
 			if ( $is_admin || ! rgar( $address_zip_field_input, 'isHidden' ) ) {
 				if ( $is_sub_label_above ) {
-					$zip = "<span class='ginput_{$zip_location}{$class_suffix} address_zip ginput_address_zip' id='{$field_id}_5_container' {$style}>
+					$zip = "<span class='ginput_{$zip_location}{$class_suffix} address_zip' id='{$field_id}_5_container' {$style}>
                                     <label for='{$field_id}_5' id='{$field_id}_5_label' {$sub_label_class_attribute}>{$address_zip_sub_label}</label>
-                                    <input type='text' name='input_{$id}.5' id='{$field_id}_5' value='{$zip_value}' {$tabindex} {$disabled_text} {$zip_placeholder_attribute} {$zip_aria_attributes} {$address_zip_autocomplete}/>
+                                    <input type='text' name='input_{$id}.5' id='{$field_id}_5' value='{$zip_value}' {$tabindex} {$disabled_text} {$zip_placeholder_attribute} {$required_attribute}/>
                                 </span>";
 				} else {
-					$zip = "<span class='ginput_{$zip_location}{$class_suffix} address_zip ginput_address_zip' id='{$field_id}_5_container' {$style}>
-                                    <input type='text' name='input_{$id}.5' id='{$field_id}_5' value='{$zip_value}' {$tabindex} {$disabled_text} {$zip_placeholder_attribute} {$zip_aria_attributes} {$address_zip_autocomplete}/>
+					$zip = "<span class='ginput_{$zip_location}{$class_suffix} address_zip' id='{$field_id}_5_container' {$style}>
+                                    <input type='text' name='input_{$id}.5' id='{$field_id}_5' value='{$zip_value}' {$tabindex} {$disabled_text} {$zip_placeholder_attribute} {$required_attribute}/>
                                     <label for='{$field_id}_5' id='{$field_id}_5_label' {$sub_label_class_attribute}>{$address_zip_sub_label}</label>
                                 </span>";
 				}
@@ -293,13 +222,13 @@ class GF_Field_Address extends GF_Field {
 			$style    = ( $is_admin && rgar( $address_city_field_input, 'isHidden' ) ) ? "style='display:none;'" : '';
 			if ( $is_admin || ! rgar( $address_city_field_input, 'isHidden' ) ) {
 				if ( $is_sub_label_above ) {
-					$city = "<span class='ginput_{$city_location}{$class_suffix} address_city ginput_address_city' id='{$field_id}_3_container' {$style}>
+					$city = "<span class='ginput_{$city_location}{$class_suffix} address_city' id='{$field_id}_3_container' {$style}>
                                     <label for='{$field_id}_3' id='{$field_id}_3_label' {$sub_label_class_attribute}>{$address_city_sub_label}</label>
-                                    <input type='text' name='input_{$id}.3' id='{$field_id}_3' value='{$city_value}' {$tabindex} {$disabled_text} {$city_placeholder_attribute} {$city_aria_attributes} {$address_city_autocomplete}/>
+                                    <input type='text' name='input_{$id}.3' id='{$field_id}_3' value='{$city_value}' {$tabindex} {$disabled_text} {$city_placeholder_attribute} {$required_attribute}/>
                                  </span>";
 				} else {
-					$city = "<span class='ginput_{$city_location}{$class_suffix} address_city ginput_address_city' id='{$field_id}_3_container' {$style}>
-                                    <input type='text' name='input_{$id}.3' id='{$field_id}_3' value='{$city_value}' {$tabindex} {$disabled_text} {$city_placeholder_attribute} {$city_aria_attributes} {$address_city_autocomplete}/>
+					$city = "<span class='ginput_{$city_location}{$class_suffix} address_city' id='{$field_id}_3_container' {$style}>
+                                    <input type='text' name='input_{$id}.3' id='{$field_id}_3' value='{$city_value}' {$tabindex} {$disabled_text} {$city_placeholder_attribute} {$required_attribute}/>
                                     <label for='{$field_id}_3' id='{$field_id}_3_label' {$sub_label_class_attribute}>{$address_city_sub_label}</label>
                                  </span>";
 				}
@@ -308,17 +237,16 @@ class GF_Field_Address extends GF_Field {
 			// State field.
 			$style = ( $is_admin && ( $this->hideState || rgar( $address_state_field_input, 'isHidden' ) ) ) ? "style='display:none;'" : ''; // support for $this->hideState legacy property
 			if ( $is_admin || ( ! $this->hideState && ! rgar( $address_state_field_input, 'isHidden' ) ) ) {
-				$aria_attributes = $this->get_aria_attributes( $value, '4' );
-				$state_field = $this->get_state_field( $id, $field_id, $state_value, $disabled_text, $form_id, $aria_attributes );
+				$state_field = $this->get_state_field( $id, $field_id, $state_value, $disabled_text, $form_id );
 				if ( $is_sub_label_above ) {
-					$state = "<span class='ginput_{$state_location}{$class_suffix} address_state ginput_address_state' id='{$field_id}_4_container' {$style}>
+					$state = "<span class='ginput_{$state_location}{$class_suffix} address_state' id='{$field_id}_4_container' {$style}>
                                            <label for='{$field_id}_4' id='{$field_id}_4_label' {$sub_label_class_attribute}>{$address_state_sub_label}</label>
                                            $state_field
                                       </span>";
 				} else {
-					$state = "<span class='ginput_{$state_location}{$class_suffix} address_state ginput_address_state' id='{$field_id}_4_container' {$style}>
+					$state = "<span class='ginput_{$state_location}{$class_suffix} address_state' id='{$field_id}_4_container' {$style}>
                                            $state_field
-                                           <label for='{$field_id}_4' id='{$field_id}_4_label' {$sub_label_class_attribute}>{$address_state_sub_label} </label>
+                                           <label for='{$field_id}_4' id='{$field_id}_4_label' {$sub_label_class_attribute}>{$address_state_sub_label}</label>
                                       </span>";
 				}
 			} else {
@@ -332,13 +260,13 @@ class GF_Field_Address extends GF_Field {
 			$style    = ( $is_admin && rgar( $address_city_field_input, 'isHidden' ) ) ? "style='display:none;'" : '';
 			if ( $is_admin || ! rgar( $address_city_field_input, 'isHidden' ) ) {
 				if ( $is_sub_label_above ) {
-					$city = "<span class='ginput_{$city_location}{$class_suffix} address_city ginput_address_city' id='{$field_id}_3_container' {$style}>
+					$city = "<span class='ginput_{$city_location}{$class_suffix} address_city' id='{$field_id}_3_container' {$style}>
                                     <label for='{$field_id}_3' id='{$field_id}_3_label' {$sub_label_class_attribute}>{$address_city_sub_label}</label>
-                                    <input type='text' name='input_{$id}.3' id='{$field_id}_3' value='{$city_value}' {$tabindex} {$disabled_text} {$city_placeholder_attribute} {$city_aria_attributes} {$address_city_autocomplete}/>
+                                    <input type='text' name='input_{$id}.3' id='{$field_id}_3' value='{$city_value}' {$tabindex} {$disabled_text} {$city_placeholder_attribute} {$required_attribute}/>
                                  </span>";
 				} else {
-					$city = "<span class='ginput_{$city_location}{$class_suffix} address_city ginput_address_city' id='{$field_id}_3_container' {$style}>
-                                    <input type='text' name='input_{$id}.3' id='{$field_id}_3' value='{$city_value}' {$tabindex} {$disabled_text} {$city_placeholder_attribute} {$city_aria_attributes} {$address_city_autocomplete}/>
+					$city = "<span class='ginput_{$city_location}{$class_suffix} address_city' id='{$field_id}_3_container' {$style}>
+                                    <input type='text' name='input_{$id}.3' id='{$field_id}_3' value='{$city_value}' {$tabindex} {$disabled_text} {$city_placeholder_attribute} {$required_attribute}/>
                                     <label for='{$field_id}_3' id='{$field_id}_3_label' {$sub_label_class_attribute}>{$address_city_sub_label}</label>
                                  </span>";
 				}
@@ -347,15 +275,14 @@ class GF_Field_Address extends GF_Field {
 			// State field.
 			$style = ( $is_admin && ( $this->hideState || rgar( $address_state_field_input, 'isHidden' ) ) ) ? "style='display:none;'" : ''; // support for $this->hideState legacy property
 			if ( $is_admin || ( ! $this->hideState && ! rgar( $address_state_field_input, 'isHidden' ) ) ) {
-				$aria_attributes = $this->get_aria_attributes( $value, '4' );
-				$state_field = $this->get_state_field( $id, $field_id, $state_value, $disabled_text, $form_id, $aria_attributes );
+				$state_field = $this->get_state_field( $id, $field_id, $state_value, $disabled_text, $form_id );
 				if ( $is_sub_label_above ) {
-					$state = "<span class='ginput_{$state_location}{$class_suffix} address_state ginput_address_state' id='{$field_id}_4_container' {$style}>
+					$state = "<span class='ginput_{$state_location}{$class_suffix} address_state' id='{$field_id}_4_container' {$style}>
                                         <label for='{$field_id}_4' id='{$field_id}_4_label' {$sub_label_class_attribute}>$address_state_sub_label</label>
                                         $state_field
                                       </span>";
 				} else {
-					$state = "<span class='ginput_{$state_location}{$class_suffix} address_state ginput_address_state' id='{$field_id}_4_container' {$style}>
+					$state = "<span class='ginput_{$state_location}{$class_suffix} address_state' id='{$field_id}_4_container' {$style}>
                                         $state_field
                                         <label for='{$field_id}_4' id='{$field_id}_4_label' {$sub_label_class_attribute}>$address_state_sub_label</label>
                                       </span>";
@@ -370,13 +297,13 @@ class GF_Field_Address extends GF_Field {
 			$style    = ( $is_admin && rgar( $address_zip_field_input, 'isHidden' ) ) ? "style='display:none;'" : '';
 			if ( $is_admin || ! rgar( $address_zip_field_input, 'isHidden' ) ) {
 				if ( $is_sub_label_above ) {
-					$zip = "<span class='ginput_{$zip_location}{$class_suffix} address_zip ginput_address_zip' id='{$field_id}_5_container' {$style}>
+					$zip = "<span class='ginput_{$zip_location}{$class_suffix} address_zip' id='{$field_id}_5_container' {$style}>
                                     <label for='{$field_id}_5' id='{$field_id}_5_label' {$sub_label_class_attribute}>{$address_zip_sub_label}</label>
-                                    <input type='text' name='input_{$id}.5' id='{$field_id}_5' value='{$zip_value}' {$tabindex} {$disabled_text} {$zip_placeholder_attribute} {$zip_aria_attributes}/>
+                                    <input type='text' name='input_{$id}.5' id='{$field_id}_5' value='{$zip_value}' {$tabindex} {$disabled_text} {$zip_placeholder_attribute} {$required_attribute}/>
                                 </span>";
 				} else {
-					$zip = "<span class='ginput_{$zip_location}{$class_suffix} address_zip ginput_address_zip' id='{$field_id}_5_container' {$style}>
-                                    <input type='text' name='input_{$id}.5' id='{$field_id}_5' value='{$zip_value}' {$tabindex} {$disabled_text} {$zip_placeholder_attribute} {$zip_aria_attributes} {$address_zip_autocomplete}/>
+					$zip = "<span class='ginput_{$zip_location}{$class_suffix} address_zip' id='{$field_id}_5_container' {$style}>
+                                    <input type='text' name='input_{$id}.5' id='{$field_id}_5' value='{$zip_value}' {$tabindex} {$disabled_text} {$zip_placeholder_attribute} {$required_attribute}/>
                                     <label for='{$field_id}_5' id='{$field_id}_5_label' {$sub_label_class_attribute}>{$address_zip_sub_label}</label>
                                 </span>";
 				}
@@ -387,13 +314,13 @@ class GF_Field_Address extends GF_Field {
 			$style    = $hide_country ? "style='display:none;'" : '';
 			$tabindex = $this->get_tabindex();
 			if ( $is_sub_label_above ) {
-				$country = "<span class='ginput_{$country_location}{$class_suffix} address_country ginput_address_country' id='{$field_id}_6_container' {$style}>
+				$country = "<span class='ginput_{$country_location}{$class_suffix} address_country' id='{$field_id}_6_container' {$style}>
                                         <label for='{$field_id}_6' id='{$field_id}_6_label' {$sub_label_class_attribute}>{$address_country_sub_label}</label>
-                                        <select name='input_{$id}.6' id='{$field_id}_6' {$tabindex} {$disabled_text} {$country_aria_attributes} {$address_country_autocomplete}>{$country_list}</select>
+                                        <select name='input_{$id}.6' id='{$field_id}_6' {$tabindex} {$disabled_text} {$required_attribute}>{$country_list}</select>
                                     </span>";
 			} else {
-				$country = "<span class='ginput_{$country_location}{$class_suffix} address_country ginput_address_country' id='{$field_id}_6_container' {$style}>
-                                        <select name='input_{$id}.6' id='{$field_id}_6' {$tabindex} {$disabled_text} {$country_aria_attributes} {$address_country_autocomplete}>{$country_list}</select>
+				$country = "<span class='ginput_{$country_location}{$class_suffix} address_country' id='{$field_id}_6_container' {$style}>
+                                        <select name='input_{$id}.6' id='{$field_id}_6' {$tabindex} {$disabled_text} {$required_attribute}>{$country_list}</select>
                                         <label for='{$field_id}_6' id='{$field_id}_6_label' {$sub_label_class_attribute}>{$address_country_sub_label}</label>
                                     </span>";
 			}
@@ -426,6 +353,10 @@ class GF_Field_Address extends GF_Field {
                         {$inputs}
                     <div class='gf_clear gf_clear_complex'></div>
                 </div>";
+	}
+
+	public function get_field_label_class(){
+		return 'gfield_label gfield_label_before_complex';
 	}
 
 	public function get_css_class() {
@@ -516,26 +447,13 @@ class GF_Field_Address extends GF_Field {
 		return apply_filters( 'gform_default_address_type_' . $form_id, $default_address_type, $form_id );
 	}
 
-	/**
-	 * Generates state field markup.
-	 *
-	 * @since unknown
-	 * @since 2.5                       added new params $$aria_attributes.
-	 *
-	 * @param integer $id               Input id.
-	 * @param integer $field_id         Field id.
-	 * @param string  $state_value      State value.
-	 * @param string  $disabled_text    Disabled attribute.
-	 * @param integer $form_id          Current form id being processed.
-	 * @param string  $aria_attributes  Aria attributes values.
-	 *
-	 * @return string
-	 */
-	public function get_state_field( $id, $field_id, $state_value, $disabled_text, $form_id, $aria_attributes = '' ) {
+	public function get_state_field( $id, $field_id, $state_value, $disabled_text, $form_id ) {
 
 		$is_entry_detail = $this->is_entry_detail();
 		$is_form_editor  = $this->is_form_editor();
 		$is_admin        = $is_entry_detail || $is_form_editor;
+
+		$required_attribute     = $this->isRequired ? 'aria-required="true"' : '';
 
 		$state_dropdown_class = $state_text_class = $state_style = $text_style = $state_field_id = '';
 
@@ -563,16 +481,15 @@ class GF_Field_Address extends GF_Field {
 			$state_field_id = "id='" . $field_id . "_4'";
 		}
 
-		$tabindex           = $this->get_tabindex();
-		$state_input        = GFFormsModel::get_input( $this, $this->id . '.4' );
-		$state_placeholder  = GFCommon::get_input_placeholder_value( $state_input );
-		$state_autocomplete = $this->enableAutocomplete ? $this->get_input_autocomplete_attribute( $state_input ) : '';
-		$states             = empty( $address_types[ $address_type ]['states'] ) ? array() : $address_types[ $address_type ]['states'];
-		$state_dropdown     = sprintf( "<select name='input_%d.4' %s {$tabindex} %s {$state_dropdown_class} {$state_style} {$aria_attributes} {$state_autocomplete}>%s</select>", $id, $state_field_id, $disabled_text, $this->get_state_dropdown( $states, $state_value, $state_placeholder ) );
+		$tabindex         = $this->get_tabindex();
+		$state_input      = GFFormsModel::get_input( $this, $this->id . '.4' );
+		$sate_placeholder = GFCommon::get_input_placeholder_value( $state_input );
+		$states           = empty( $address_types[ $address_type ]['states'] ) ? array() : $address_types[ $address_type ]['states'];
+		$state_dropdown   = sprintf( "<select name='input_%d.4' %s {$tabindex} %s {$state_dropdown_class} {$state_style} {$required_attribute}>%s</select>", $id, $state_field_id, $disabled_text, $this->get_state_dropdown( $states, $state_value, $sate_placeholder ) );
 
 		$tabindex                    = $this->get_tabindex();
 		$state_placeholder_attribute = GFCommon::get_input_placeholder_attribute( $state_input );
-		$state_text                  = sprintf( "<input type='text' name='input_%d.4' %s value='%s' {$tabindex} %s {$state_text_class} {$text_style} {$state_placeholder_attribute} {$aria_attributes} {$state_autocomplete}/>", $id, $state_field_id, $state_value, $disabled_text );
+		$state_text                  = sprintf( "<input type='text' name='input_%d.4' %s value='%s' {$tabindex} %s {$state_text_class} {$text_style} {$state_placeholder_attribute} {$required_attribute}/>", $id, $state_field_id, $state_value, $disabled_text );
 
 		if ( $is_admin && rgget('view') != 'entry' ) {
 			return $state_dropdown . $state_text;

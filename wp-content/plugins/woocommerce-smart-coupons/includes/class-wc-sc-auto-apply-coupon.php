@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       4.6.0
- * @version     1.0.1
+ * @version     1.0.2
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -159,7 +159,7 @@ if ( ! class_exists( 'WC_SC_Auto_Apply_Coupon' ) ) {
 			}
 
 			// Get list of ids of coupons to auto apply.
-			$auto_apply_coupon_ids = get_site_option( 'wc_sc_auto_apply_coupon_ids', array() );
+			$auto_apply_coupon_ids = get_option( 'wc_sc_auto_apply_coupon_ids', array() );
 			if ( isset( $_POST['wc_sc_auto_apply_coupon'] ) ) { // phpcs:ignore
 				$auto_apply_coupon = wc_clean( wp_unslash( $_POST['wc_sc_auto_apply_coupon'] ) ); // phpcs:ignore
 				update_post_meta( $post_id, 'wc_sc_auto_apply_coupon', $auto_apply_coupon );
@@ -174,7 +174,7 @@ if ( ! class_exists( 'WC_SC_Auto_Apply_Coupon' ) ) {
 					$auto_apply_coupon_ids = array_diff( $auto_apply_coupon_ids, array( $post_id ) );
 				}
 			}
-			update_site_option( 'wc_sc_auto_apply_coupon_ids', $auto_apply_coupon_ids );
+			update_option( 'wc_sc_auto_apply_coupon_ids', $auto_apply_coupon_ids );
 		}
 
 		/**
@@ -229,11 +229,11 @@ if ( ! class_exists( 'WC_SC_Auto_Apply_Coupon' ) ) {
 			if ( ! empty( $args['meta_key'] ) && 'wc_sc_auto_apply_coupon' === $args['meta_key'] ) {
 				$auto_apply_coupon = $meta_value;
 				if ( 'yes' === $auto_apply_coupon ) {
-					$auto_apply_coupon_ids = get_site_option( 'wc_sc_auto_apply_coupon_ids', array() );
+					$auto_apply_coupon_ids = get_option( 'wc_sc_auto_apply_coupon_ids', array() );
 					$coupon_id             = ( isset( $args['post']['post_id'] ) ) ? $args['post']['post_id'] : 0;
 					if ( ! empty( $coupon_id ) && ! in_array( $coupon_id, $auto_apply_coupon_ids, true ) ) {
 						$auto_apply_coupon_ids[] = $args['post']['post_id'];
-						update_site_option( 'wc_sc_auto_apply_coupon_ids', $auto_apply_coupon_ids );
+						update_option( 'wc_sc_auto_apply_coupon_ids', $auto_apply_coupon_ids );
 					}
 				}
 			}
@@ -265,7 +265,7 @@ if ( ! class_exists( 'WC_SC_Auto_Apply_Coupon' ) ) {
 
 			$cart = ( is_object( WC() ) && isset( WC()->cart ) ) ? WC()->cart : null;
 			if ( is_object( $cart ) && is_callable( array( $cart, 'is_empty' ) ) && ! $cart->is_empty() ) {
-				$auto_apply_coupon_ids = get_site_option( 'wc_sc_auto_apply_coupon_ids', array() );
+				$auto_apply_coupon_ids = get_option( 'wc_sc_auto_apply_coupon_ids', array() );
 				if ( ! empty( $auto_apply_coupon_ids ) && is_array( $auto_apply_coupon_ids ) ) {
 					$valid_coupon_counter = 0;
 					foreach ( $auto_apply_coupon_ids as $apply_coupon_id ) {

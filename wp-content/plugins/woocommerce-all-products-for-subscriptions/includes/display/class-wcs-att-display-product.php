@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Single-product template modifications.
  *
  * @class    WCS_ATT_Display_Product
- * @version  3.1.0
+ * @version  3.1.16
  */
 class WCS_ATT_Display_Product {
 
@@ -46,7 +46,7 @@ class WCS_ATT_Display_Product {
 		add_filter( 'woocommerce_product_supports', array( __CLASS__, 'supports_ajax_add_to_cart' ), 10, 3 );
 
 		// Replace plain variation price html with subscription options template.
-		add_filter( 'woocommerce_available_variation', array( __CLASS__, 'add_subscription_options_to_variation_data' ), 0, 3 );
+		add_filter( 'woocommerce_available_variation', array( __CLASS__, 'add_subscription_options_to_variation_data' ), 1, 3 );
 
 		// Add product page class if a product has subscription plans.
 		add_filter( 'woocommerce_post_class', array( __CLASS__, 'add_product_class' ), 10, 2 );
@@ -243,7 +243,7 @@ class WCS_ATT_Display_Product {
 
 			$wrapper_classes[] = 'wcsatt-options-wrapper-' . $layout;
 			$wrapper_classes[] = 'wcsatt-options-wrapper-' . $prompt_type;
-			$wrapper_classes[] = 'grouped' === $layout || count( $options ) === 1 ? 'closed' : 'open';
+			$wrapper_classes[] = count( $options ) === 1 || ( '0' === $default_subscription_scheme_option_value && 'grouped' === $layout ) ? 'closed' : 'open';
 			$wrapper_classes[] = $product->is_type( 'variation' ) && ! self::modify_variation_data_price_html( $parent_product ) ? 'wcsatt-options-wrapper--variation' : '';
 
 			if ( in_array( $prompt_type, array( 'radio', 'checkbox' ) ) ) {

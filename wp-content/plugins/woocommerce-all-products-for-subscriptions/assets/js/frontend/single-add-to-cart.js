@@ -312,7 +312,7 @@
 
 			// True if the schemes wrapper is visible.
 			schemes_visible: function() {
-				return this.$el_options.is( ':visible' );
+				return this.$el_content.hasClass( 'open' );
 			},
 
 			// Switches form button text to "Sign up now" when choosing a subscription plan.
@@ -376,6 +376,14 @@
 
 					if ( this.has_dropdown() ) {
 
+						// Initialize open/closed state.
+						if ( ! this.schemes_visible() ) {
+							this.$el_options.hide();
+						} else {
+							this.$el_options.show();
+						}
+
+						// Initialize prompt + dropdown selection state.
 						if ( this.model.get_active_scheme_key() ) {
 
 							if ( ! this.schemes_visible() ) {
@@ -387,6 +395,8 @@
 							} else if ( this.has_prompt( 'radio' ) ) {
 								this.$el_prompt.find( '.wcsatt-options-prompt-action-input[value="yes"]' ).prop( 'checked', true );
 							}
+
+							this.$el_dropdown.val( this.model.get_active_scheme_key() );
 
 						} else if ( ! this.model.get_active_scheme_key() ) {
 

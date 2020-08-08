@@ -18,8 +18,13 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
+// PHP 5.6+ required
+if ( PHP_VERSION_ID < 50600 ) {
+	return;
+}
+
 // only proceed if some other plugin hasn't already loaded this version
-if ( ! function_exists( 'sv_wc_jilt_promotions_initialize_1_0_1' ) ) {
+if ( ! function_exists( 'sv_wc_jilt_promotions_initialize_1_0_2' ) ) {
 
 	// load the versions handler unless already loaded
 	if ( ! class_exists( '\SkyVerge\WooCommerce\Jilt_Promotions\Versions' ) ) {
@@ -29,17 +34,17 @@ if ( ! function_exists( 'sv_wc_jilt_promotions_initialize_1_0_1' ) ) {
 		add_action( 'plugins_loaded', [ \SkyVerge\WooCommerce\Jilt_Promotions\Versions::class, 'initialize_latest_version' ], 99, 0 );
 	}
 
-	// register v1.0.1
-	\SkyVerge\WooCommerce\Jilt_Promotions\Versions::register( '1.0.1', 'sv_wc_jilt_promotions_initialize_1_0_1' );
+	// register v1.0.2
+	\SkyVerge\WooCommerce\Jilt_Promotions\Versions::register( '1.0.2', 'sv_wc_jilt_promotions_initialize_1_0_2' );
 
 	/**
-	 * Initializes the Jilt Promotions package v1.0.1.
+	 * Initializes the Jilt Promotions package v1.0.2.
 	 *
 	 * This function should not be called directly.
 	 *
-	 * @since 1.0.1
+	 * @since 1.0.2
 	 */
-	function sv_wc_jilt_promotions_initialize_1_0_1() {
+	function sv_wc_jilt_promotions_initialize_1_0_2() {
 
 		require_once( 'src/Package.php' );
 

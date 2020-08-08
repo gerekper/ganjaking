@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.0.1
+ * @version     1.0.2
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -130,7 +130,7 @@ if ( ! class_exists( 'WC_SC_Order_Fields' ) ) {
 							if ( true === $prices_include_tax ) {
 								$apply_before_tax = get_option( 'woocommerce_smart_coupon_apply_before_tax', 'no' );
 								if ( 'yes' === $apply_before_tax ) {
-									$_sc_include_tax = get_site_option( 'woocommerce_smart_coupon_include_tax', 'no' );
+									$_sc_include_tax = get_option( 'woocommerce_smart_coupon_include_tax', 'no' );
 									if ( 'no' === $_sc_include_tax ) {
 										$total_credit_used += $item['discount_amount_tax'];
 									}

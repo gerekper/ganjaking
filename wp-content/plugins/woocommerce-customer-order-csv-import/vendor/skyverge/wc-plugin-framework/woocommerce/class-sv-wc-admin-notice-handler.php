@@ -45,7 +45,7 @@ class SV_WC_Admin_Notice_Handler {
 	private $plugin;
 
 	/** @var array associative array of id to notice text */
-	private $admin_notices = array();
+	private $admin_notices = '';
 
 	/** @var boolean static member to enforce a single rendering of the admin notice placeholder element */
 	static private $admin_notice_placeholder_rendered = false;

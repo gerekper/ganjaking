@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.1.5
+ * @version     1.1.6
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -335,11 +335,17 @@ if ( ! class_exists( 'WC_SC_Admin_Pages' ) ) {
 				?>
 				<script type="text/javascript">
 					jQuery(function(){
+						let is_marketing = '<?php echo esc_js( ( $this->is_wc_gte_44() ) ? 'yes' : 'no' ); ?>';
 						// Highlight Coupons menu when visiting Bulk Generate/Import Coupons/Send Store Credit tab.
 						jQuery(document).on('ready', function(){
-							var element = jQuery('li#toplevel_page_woocommerce ul li').find('a[href="edit.php?post_type=shop_coupon"]');
-							element.addClass('current');
-							element.parent().addClass('current');
+							let sa_wc_menu_selector           = 'toplevel_page_woocommerce';
+							let sa_wc_marketing_menu_selector = 'toplevel_page_woocommerce-marketing';
+							let element = jQuery('li#' + sa_wc_menu_selector);
+							if ( 'yes' === is_marketing ) {
+								element = jQuery('li#' + sa_wc_marketing_menu_selector);
+							}
+							element.find('ul li a[href="edit.php?post_type=shop_coupon"]').addClass('current');
+							element.find('ul li a[href="edit.php?post_type=shop_coupon"]').parent().addClass('current');
 						});
 						// Show notification about coupon CSV export
 						jQuery(window).load(function(){
@@ -509,14 +515,22 @@ if ( ! class_exists( 'WC_SC_Admin_Pages' ) ) {
 		 * Function to add submenu page for Coupon CSV Import
 		 */
 		public function woocommerce_coupon_admin_menu() {
-			add_submenu_page( 'woocommerce', __( 'Smart Coupon', 'woocommerce-smart-coupons' ), __( 'Smart Coupon', 'woocommerce-smart-coupons' ), 'manage_woocommerce', 'wc-smart-coupons', array( $this, 'admin_page' ) );
+			if ( $this->is_wc_gte_44() ) {
+				add_submenu_page( 'woocommerce-marketing', __( 'Smart Coupon', 'woocommerce-smart-coupons' ), __( 'Smart Coupon', 'woocommerce-smart-coupons' ), 'manage_woocommerce', 'wc-smart-coupons', array( $this, 'admin_page' ) );
+			} else {
+				add_submenu_page( 'woocommerce', __( 'Smart Coupon', 'woocommerce-smart-coupons' ), __( 'Smart Coupon', 'woocommerce-smart-coupons' ), 'manage_woocommerce', 'wc-smart-coupons', array( $this, 'admin_page' ) );
+			}
 		}
 
 		/**
 		 * Function to remove submenu link for Smart Coupons
 		 */
 		public function woocommerce_coupon_admin_head() {
-			remove_submenu_page( 'woocommerce', 'wc-smart-coupons' );
+			if ( $this->is_wc_gte_44() ) {
+				remove_submenu_page( 'woocommerce-marketing', 'wc-smart-coupons' );
+			} else {
+				remove_submenu_page( 'woocommerce', 'wc-smart-coupons' );
+			}
 		}
 
 		/**
@@ -1396,11 +1410,7 @@ if ( ! class_exists( 'WC_SC_Admin_Pages' ) ) {
 			global $store_credit_label;
 			$get_page = ( ! empty( $_GET['page'] ) ) ? wc_clean( wp_unslash( $_GET['page'] ) ) : ''; // phpcs:ignore
 			if ( 'wc-smart-coupons' === $get_page ) {
-				$breadcrumbs   = array();
-				$breadcrumbs[] = array(
-					'edit.php?post_type=shop_coupon',
-					__( 'Coupons', 'woocommerce-smart-coupons' ),
-				);
+				$breadcrumbs = $this->get_default_breadcrumbs();
 				$get_tab = ( ! empty( $_GET['tab'] ) ) ? wc_clean( wp_unslash( $_GET['tab'] ) ) : ''; // phpcs:ignore
 				switch ( $get_tab ) {
 					case 'import-smart-coupons':
@@ -1415,6 +1425,30 @@ if ( ! class_exists( 'WC_SC_Admin_Pages' ) ) {
 						break;
 				}
 			}
+			return $breadcrumbs;
+		}
+
+		/**
+		 * Default breadcrums
+		 *
+		 * @return array
+		 */
+		public function get_default_breadcrumbs() {
+			$breadcrumbs   = array();
+			$breadcrumbs[] = array(
+				'admin.php?page=wc-admin',
+				__( 'WooCommerce', 'woocommerce-smart-coupons' ),
+			);
+			if ( $this->is_wc_gte_44() ) { // To make sure that the WooCommerce is 4.4 or greater.
+				$breadcrumbs[] = array(
+					'admin.php?page=wc-admin&path=/marketing',
+					__( 'Marketing', 'woocommerce-smart-coupons' ),
+				);
+			}
+			$breadcrumbs[] = array(
+				'edit.php?post_type=shop_coupon',
+				__( 'Coupons', 'woocommerce-smart-coupons' ),
+			);
 			return $breadcrumbs;
 		}
 

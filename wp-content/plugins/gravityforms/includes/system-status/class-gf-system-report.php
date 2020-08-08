@@ -49,9 +49,9 @@ class GF_System_Report {
 		wp_print_styles( array( 'thickbox' ) );
 
 		?>
-		<div class="alert info">
-			<?php _e( 'The following is a system report containing useful technical information for troubleshooting issues. If you need further help after viewing the report, click on the "Copy System Report" button below to copy the report and paste it in your message to support.', 'gravityforms' ); ?>
-            <a href="#"  onclick="function (e) { e.preventDefault() }" id="gf_copy_report" data-clipboard-target="#gf_system_report"><?php _e( 'Copy System Report', 'gravityforms' ); ?> <i aria-hidden="true" class="dashicons dashicons-arrow-right-alt" ></i></a>
+		<div class="updated gform_system_report_alert inline">
+			<p><?php _e( 'The following is a system report containing useful technical information for troubleshooting issues. If you need further help after viewing the report, click on the "Copy System Report" button below to copy the report and paste it in your message to support.', 'gravityforms' ); ?></p>
+			<p class="inline"><a href="#" class="button-primary" id="gf_copy_report" data-clipboard-target="#gf_system_report"><?php _e( 'Copy System Report', 'gravityforms' ); ?></a></p>
 
 			<div class="gf_copy_message inline" id="gf_copy_error_message">
 				<p><span class="dashicons dashicons-yes"></span><?php esc_html_e( 'Report generated!', 'gravityforms' ); echo ' <b>Press Ctrl+C to copy it.</b>'; ?></p>
@@ -61,7 +61,6 @@ class GF_System_Report {
 				<p><span class="dashicons dashicons-yes"></span><?php esc_html_e( 'Report Copied!', 'gravityforms' ) ?></p>
 			</div>
 
-
 			<textarea id="gf_system_report" readonly="readonly" ><?php echo esc_html( $system_report_text ) ?></textarea>
 		</div>
 		<script type="text/javascript">
@@ -69,6 +68,7 @@ class GF_System_Report {
 
 				clipboard = new Clipboard('#gf_copy_report');
 				clipboard.on('success', function(e) {
+					console.log('here');
 					setTimeout( function(){ jQuery('#gf_copy_success').attr( 'style', 'display:inline-block !important;' )}, 300 );
 					setTimeout( function(){ jQuery('#gf_copy_success').attr( 'style', 'display:none !important;' ) }, 5000 );
 					e.clearSelection();
@@ -137,7 +137,7 @@ class GF_System_Report {
 				}
 
 				// Open section table.
-				echo '<table cellpadding="0" cellspacing="0" class="gform_system_report wp-list-table fixed striped feeds">';
+				echo '<table class="gform_system_report wp-list-table widefat fixed striped feeds">';
 
 				// Add table header.
 				echo '<thead><tr><th colspan="2">' . rgar( $table, 'title' ) . '</th></tr></thead>';
@@ -170,6 +170,10 @@ class GF_System_Report {
 				echo '</tbody></table><br />';
 
 			}
+
+			// Add horizontal divider.
+			echo $i !== count( $sections ) - 1 ? '<div class="hr-divider"></div>' : '';
+
 		}
 
 		// Close form.

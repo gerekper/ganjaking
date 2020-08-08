@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Compatibility with Product Bundles and Composite Products.
  *
  * @class    WCS_ATT_Integration_PB_CP
- * @version  3.1.13
+ * @version  3.1.15
  */
 class WCS_ATT_Integration_PB_CP {
 
@@ -578,10 +578,10 @@ class WCS_ATT_Integration_PB_CP {
 	 */
 	private static function calculate_container_item_subtotal( $cart_item, $scheme_key, $tax = '' ) {
 
-		$product          = $cart_item[ 'data' ];
-		$tax_display_cart = '' === $tax ? get_option( 'woocommerce_tax_display_cart' ) : $tax;
+		$product                 = $cart_item[ 'data' ];
+		$display_prices_incl_tax = '' === $tax ? WCS_ATT_Display_Cart::display_prices_including_tax() : ( 'incl' === $tax );
 
-		if ( 'excl' === $tax_display_cart ) {
+		if ( ! $display_prices_incl_tax ) {
 			$subtotal = wc_get_price_excluding_tax( $product, array( 'price' => WCS_ATT_Product_Prices::get_price( $product, $scheme_key ) ) );
 		} else {
 			$subtotal = wc_get_price_including_tax( $product, array( 'price' => WCS_ATT_Product_Prices::get_price( $product, $scheme_key ) ) );
@@ -596,7 +596,7 @@ class WCS_ATT_Integration_PB_CP {
 
 				$child_qty = ceil( $child_item[ 'quantity' ] / $cart_item[ 'quantity' ] );
 
-				if ( 'excl' === $tax_display_cart ) {
+				if ( ! $display_prices_incl_tax ) {
 					$subtotal += wc_get_price_excluding_tax( $child_item[ 'data' ], array( 'price' => WCS_ATT_Product_Prices::get_price( $child_item[ 'data' ], $scheme_key ), 'qty' => $child_qty ) );
 				} else {
 					$subtotal += wc_get_price_including_tax( $child_item[ 'data' ], array( 'price' => WCS_ATT_Product_Prices::get_price( $child_item[ 'data' ], $scheme_key ), 'qty' => $child_qty ) );
@@ -797,7 +797,10 @@ class WCS_ATT_Integration_PB_CP {
 		}
 
 		// Copy "Force Subscription" state.
-		WCS_ATT_Product_Schemes::set_forced_subscription_scheme( $bundled_product, $scheme_to_set ? WCS_ATT_Product_Schemes::has_forced_subscription_scheme( $container_product ) : false );
+		$bundled_product_has_forced_scheme = $scheme_to_set ? WCS_ATT_Product_Schemes::has_forced_subscription_scheme( $container_product ) : false;
+		if ( $bundled_product_has_forced_scheme !== WCS_ATT_Product_Schemes::has_forced_subscription_scheme( $bundled_product ) ) {
+			WCS_ATT_Product_Schemes::set_forced_subscription_scheme( $bundled_product, $bundled_product_has_forced_scheme );
+		}
 	}
 
 	/**
@@ -1751,6 +1754,11 @@ class WCS_ATT_Integration_PB_CP {
 
 			if ( ! empty( $components ) ) {
 				foreach ( $components as $component ) {
+
+					if ( WCS_ATT_Product::get_instance_id( $product ) === WCS_ATT_Product::get_instance_id( $component->get_composite() ) ) {
+						continue;
+					}
+
 					WCS_ATT_Product_Schemes::set_subscription_scheme( $component->get_composite(), WCS_ATT_Product_Schemes::get_subscription_scheme( $product ) );
 				}
 			}

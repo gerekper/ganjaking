@@ -223,7 +223,7 @@
 				<?php
 
 				$chosen_fields = get_option( 'wc_pip_invoice_show_optional_fields', [ 'sku' ] );
-				$show_sku      = 'sku' === $chosen_fields || ( is_array( $chosen_fields ) && in_array( 'sku', $chosen_fields, true ) );
+				$show_sku      = 'yes' === $chosen_fields || ( is_array( $chosen_fields ) && in_array( 'sku', $chosen_fields, true ) );
 				$colspan       = $show_sku ? '3' : '2';
 
 				?>

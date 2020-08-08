@@ -37,30 +37,6 @@ class GF_Field_List extends GF_Field {
 	}
 
 	/**
-	 * Returns the field's form editor description.
-	 *
-	 * @since 2.5
-	 *
-	 * @return string
-	 */
-	public function get_form_editor_field_description() {
-		return esc_attr__( 'Allows the user to add/remove additional rows of information per field.', 'gravityforms' );
-	}
-
-	/**
-	 * Returns the field's form editor icon.
-	 *
-	 * This could be an icon url or a dashicons class.
-	 *
-	 * @since 2.5
-	 *
-	 * @return string
-	 */
-	public function get_form_editor_field_icon() {
-		return 'dashicons-list-view';
-	}
-
-	/**
 	 * Defines the field settings available in the form editor.
 	 *
 	 * @since  Unknown
@@ -117,25 +93,6 @@ class GF_Field_List extends GF_Field {
 	private static $_style_block_printed = false;
 
 	/**
-	 * Returns the HTML tag for the field container.
-	 *
-	 * @since 2.5
-	 *
-	 * @param array $form The current Form object.
-	 *
-	 * @return string
-	 */
-	public function get_field_container_tag( $form ) {
-
-		if ( GFCommon::is_legacy_markup_enabled( $form ) ) {
-			return parent::get_field_container_tag( $form );
-		}
-
-		return 'fieldset';
-
-	}
-
-	/**
 	 * Builds the field input HTML markup.
 	 *
 	 * @since  Unknown
@@ -148,130 +105,6 @@ class GF_Field_List extends GF_Field {
 	 * @return string The List field HTML markup.
 	 */
 	public function get_field_input( $form, $value = '', $entry = null ) {
-
-		if( GFCommon::is_legacy_markup_enabled( $form ) ) {
-			return $this->get_legacy_field_input( $form, $value, $entry );
-		}
-
-		$form_id        = $form['id'];
-		$is_form_editor = $this->is_form_editor();
-
-		if ( ! empty( $value ) ) {
-			$value = maybe_unserialize( $value );
-		}
-
-		if ( is_array( $value ) ) {
-			if ( ! is_array( $value[0] ) ) {
-				$value = $this->create_list_array( $value );
-			}
-		} else {
-			$value = array( array() );
-		}
-
-		$has_columns = is_array( $this->choices );
-		$columns     = $has_columns ? $this->choices : array( array() );
-
-		$list = '';
-
-		$list .= "<div class='ginput_container ginput_container_list ginput_list'>" .
-			"<div class='gfield_list gfield_list_container'>";
-
-		if ( $has_columns ) {
-
-			$list .= '<div class="gfield_list_header">';
-			foreach ( $columns as $column ) {
-				// a11y: scope="col"
-				$list .= '<div class="gfield_header_item">' . esc_html( $column['text'] ) . '</div>';
-			}
-
-			if ( $this->maxRows != 1 ) {
-				// Using td instead of th because empty th tags break a11y.
-				$list .= '<div class="gfield_header_item">&nbsp;</div>';
-			}
-
-			$list .= '</div>';
-		}
-
-		$delete_display      = count( $value ) == 1 ? 'style="visibility:hidden;"' : '';
-		$maxRow              = intval( $this->maxRows );
-		$disabled_icon_class = ! empty( $maxRow ) && count( $value ) >= $maxRow ? 'gfield_icon_disabled' : '';
-
-		$add_icon    = ! empty( $this->addIconUrl ) ? $this->addIconUrl : GFCommon::get_base_url() . '/images/list-add.svg';
-		$delete_icon = ! empty( $this->deleteIconUrl ) ? $this->deleteIconUrl : GFCommon::get_base_url() . '/images/list-remove.svg';
-
-		$add_events    = $is_form_editor ? '' : "onclick='gformAddListItem(this, {$maxRow})'";
-		$delete_events = $is_form_editor ? '' : "onclick='gformDeleteListItem(this, {$maxRow})'";
-
-		$list .= '<div class="gfield_list_groups">';
-		$rownum = 1;
-		foreach ( $value as $item ) {
-
-			$odd_even = ( $rownum % 2 ) == 0 ? 'even' : 'odd';
-
-			$list .= "<div class='gfield_list_row_{$odd_even} gfield_list_group'>";
-			$colnum = 1;
-			foreach ( $columns as $column ) {
-				$data_label = '';
-
-				// Getting value. Taking into account columns being added/removed from form meta.
-				if ( is_array( $item ) ) {
-					if ( $has_columns ) {
-						$val = rgar( $item, $column['text'] );
-						$data_label = "data-label='" . esc_attr( $column['text'] ) . "'";
-					} else {
-						$vals = array_values( $item );
-						$val  = rgar( $vals, 0 );
-					}
-				} else {
-					$val = $colnum == 1 ? $item : '';
-				}
-
-				$list .= "<div class='gfield_list_group_item gfield_list_cell gfield_list_{$this->id}_cell{$colnum}' {$data_label}>" . $this->get_list_input( $has_columns, $column, $val, $form_id, $rownum ) . '</div>';
-				$colnum ++;
-			}
-
-			if ( $this->maxRows != 1 ) {
-
-				$aria_label_template = __( 'Remove row {0}', 'gravityforms' );
-
-				$disabled = $is_form_editor ? 'disabled=\'disabled\'' : '';
-
-				$list .= "<div class='gfield_list_icons'>";
-				$list .= "   <button type=\"button\" {$disabled} class='add_list_item {$disabled_icon_class}' aria-label='" . esc_attr__( 'Add another row', 'gravityforms' ) . "' {$add_events}>Add</button>" .
-				         "   <button type=\"button\" {$disabled} class='delete_list_item' aria-label='" . esc_attr( str_replace( '{0}', $rownum, $aria_label_template ) ) . "' data-aria-label-template='{$aria_label_template}' {$delete_events} {$delete_display}>Remove</button>";
-				$list .= '</div>';
-
-			}
-
-			$list .= '</div>';
-
-			if ( ! empty( $maxRow ) && $rownum >= $maxRow ) {
-				break;
-			}
-
-			$rownum ++;
-		}
-
-		$list .= '</div>';
-		$list .= '</div></div>';
-
-		return $list;
-
-	}
-
-	/**
-	 * Builds the field input HTML markup.
-	 *
-	 * @since  Unknown
-	 * @access public
-	 *
-	 * @param array      $form  The Form Object.
-	 * @param string     $value The field value. Defaults to empty string.
-	 * @param null|array $entry The Entry Object. Defaults to null.
-	 *
-	 * @return string The List field HTML markup.
-	 */
-	public function get_legacy_field_input( $form, $value = '', $entry = null ) {
 
 		$form_id        = $form['id'];
 		$is_form_editor = $this->is_form_editor();
@@ -351,8 +184,8 @@ class GF_Field_List extends GF_Field {
 		} else {
 			$list .=
 				'<colgroup>' .
-				"<col id='gfield_list_{$this->id}_col1' class='gfield_list_col_odd' />" .
-				"<col id='gfield_list_{$this->id}_col2' class='gfield_list_col_even' />" .
+					"<col id='gfield_list_{$this->id}_col1' class='gfield_list_col_odd' />" .
+					"<col id='gfield_list_{$this->id}_col2' class='gfield_list_col_even' />" .
 				'</colgroup>';
 		}
 
@@ -390,7 +223,7 @@ class GF_Field_List extends GF_Field {
 					$val = $colnum == 1 ? $item : '';
 				}
 
-				$list .= "<td class='gfield_list_cell gfield_list_{$this->id}_cell{$colnum}' {$data_label}>" . $this->get_list_input( $has_columns, $column, $val, $form_id, null ) . '</td>';
+				$list .= "<td class='gfield_list_cell gfield_list_{$this->id}_cell{$colnum}' {$data_label}>" . $this->get_list_input( $has_columns, $column, $val, $form_id ) . '</td>';
 				$colnum ++;
 			}
 
@@ -400,7 +233,7 @@ class GF_Field_List extends GF_Field {
 
 				$list .= "<td class='gfield_list_icons'>";
 				$list .= "   <a href='javascript:void(0);' class='add_list_item {$disabled_icon_class}' aria-label='" . esc_attr__( 'Add another row', 'gravityforms' ) . "' {$add_events}><img src='{$add_icon}' alt='' title='" . esc_attr__( 'Add a new row', 'gravityforms' ) . "' /></a>" .
-					"   <a href='javascript:void(0);' class='delete_list_item' aria-label='" . esc_attr__( 'Remove this row', 'gravityforms' ) . "' {$delete_events} {$delete_display}><img src='{$delete_icon}' alt='' title='" . esc_attr__( 'Remove this row', 'gravityforms' ) . "' /></a>";
+				         "   <a href='javascript:void(0);' class='delete_list_item' aria-label='" . esc_attr__( 'Remove this row', 'gravityforms' ) . "' {$delete_events} {$delete_display}><img src='{$delete_icon}' alt='' title='" . esc_attr__( 'Remove this row', 'gravityforms' ) . "' /></a>";
 				$list .= '</td>';
 
 			}
@@ -431,17 +264,13 @@ class GF_Field_List extends GF_Field {
 	 * @param array  $column      The column details.
 	 * @param string $value       The existing value of the input.
 	 * @param int    $form_id     The form ID.
-	 * @param int    $row         The row number to which the input belongs.
 	 *
 	 * @return string The input HTML markup.
 	 */
-	public function get_list_input( $has_columns, $column, $value, $form_id, $row ) {
+	public function get_list_input( $has_columns, $column, $value, $form_id ) {
 
 		$tabindex = $this->get_tabindex();
 		$disabled = $this->is_form_editor() ? 'disabled' : '';
-		$required_attribute    = $this->isRequired ? 'aria-required="true"' : '';
-		$invalid_attribute     = $this->failed_validation ? "aria-invalid='true'" : "aria-invalid='false'";
-		$aria_describedby      = $this->get_aria_describedby();
 
 		$column_index = 1;
 		if ( $has_columns && is_array( $this->choices ) ) {
@@ -449,6 +278,7 @@ class GF_Field_List extends GF_Field {
 				if ( $choice['text'] == $column['text'] ) {
 					break;
 				}
+
 				$column_index ++;
 			}
 		}
@@ -456,8 +286,7 @@ class GF_Field_List extends GF_Field {
 
 		$column_text = rgar( $column, 'text' );
 
-		$aria_label_template = isset( $column['text'] ) ? $column_text : $this->label;
-		$aria_label_template .= ", Row {0}";
+		$aria_label = isset( $column['text'] ) ? $column_text : $this->label;
 
 		/**
 		 * Filters the column input.
@@ -479,7 +308,7 @@ class GF_Field_List extends GF_Field {
 		switch ( $input_info['type'] ) {
 
 			case 'select' :
-				$input = "<select name='input_{$this->id}[]' {$tabindex} {$disabled} {$invalid_attribute} {$required_attribute} {$aria_describedby} aria-label='" . esc_attr( str_replace( '{0}', $row, $aria_label_template ) ) . "' data-aria-label-template='" . esc_attr( $aria_label_template ) . "'>";
+				$input = "<select name='input_{$this->id}[]' {$tabindex} {$disabled} >";
 				if ( ! is_array( $input_info['choices'] ) ) {
 					$input_info['choices'] = array_map( 'trim', explode( ',', $input_info['choices'] ) );
 				}
@@ -504,7 +333,7 @@ class GF_Field_List extends GF_Field {
 
 			default :
 				// a11y: inputs without a label must have the aria-label attribute set.
-				$input = "<input {$invalid_attribute} {$required_attribute} {$aria_describedby} aria-label='" . esc_attr( str_replace( '{0}', $row, $aria_label_template ) ) . "' data-aria-label-template='" . esc_attr( $aria_label_template ) . "' type='text' name='input_{$this->id}[]' value='" . esc_attr( $value ) . "' {$tabindex} {$disabled} />";
+				$input = "<input aria-label='" . esc_attr( $aria_label ) . "' type='text' name='input_{$this->id}[]' value='" . esc_attr( $value ) . "' {$tabindex} {$disabled}/>";
 				break;
 		}
 
@@ -529,23 +358,20 @@ class GF_Field_List extends GF_Field {
 	}
 
 	/**
-	 * Get field label class.
+	 * Gets the CSS class to be used in the field label.
 	 *
-	 * @since unknown
-	 * @since 2.5     Added `screen-reader-text` if the label hasn't been set; added `gfield_label_before_complex` if it has choices.
+	 * @since  Unknown
+	 * @access public
 	 *
-	 * @return string
+	 * @used-by GF_Field::get_field_content()
+	 *
+	 * @return string String containing the CSS class names.
 	 */
-	public function get_field_label_class() {
-		$class = 'gfield_label';
+	public function get_field_label_class(){
 
-		// Added `screen-reader-text` if the label hasn't been set.
-		$class .= ( rgblank( $this->label ) ) ? ' screen-reader-text' : '';
+		$has_columns = is_array( $this->choices );
 
-		// Added `gfield_label_before_complex` if it has choices.
-		$class .= is_array( $this->choices ) ? ' gfield_label_before_complex' : '';
-
-		return $class;
+		return $has_columns ? 'gfield_label gfield_label_before_complex' : 'gfield_label';
 	}
 
 	/**

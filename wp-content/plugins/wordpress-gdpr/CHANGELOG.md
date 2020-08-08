@@ -1,5 +1,11 @@
 # Changelog
 ======
+1.9.4
+======
+- NEW:	Performance increase in admin panel through AJAX loading
+		!! MAKE SURE YOU ARE ON LATEST VERSION OF REDUX FRAMEWORK !!
+
+======
 1.9.3
 ======
 - NEW:	WPML suppress filters

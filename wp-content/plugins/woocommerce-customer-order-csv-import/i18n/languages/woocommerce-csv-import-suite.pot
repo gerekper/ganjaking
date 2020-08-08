@@ -3,10 +3,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WooCommerce Customer/Order/Coupon CSV Import Suite "
-"3.8.7\n"
+"3.8.8\n"
 "Report-Msgid-Bugs-To: "
 "https://woocommerce.com/my-account/marketplace-ticket-form/\n"
-"POT-Creation-Date: 2020-05-29 11:08:31+00:00\n"
+"POT-Creation-Date: 2020-08-05 08:55:08+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -602,14 +602,14 @@ msgstr ""
 
 #: includes/class-wc-csv-import-suite-coupon-import.php:210
 #: includes/class-wc-csv-import-suite-customer-import.php:242
-#: includes/class-wc-csv-import-suite-order-parser.php:126
+#: includes/class-wc-csv-import-suite-order-parser.php:127
 #. translators: Placeholders: %s - row number
 msgid "> Row %s - preparing for merge."
 msgstr ""
 
 #: includes/class-wc-csv-import-suite-coupon-import.php:210
 #: includes/class-wc-csv-import-suite-customer-import.php:242
-#: includes/class-wc-csv-import-suite-order-parser.php:126
+#: includes/class-wc-csv-import-suite-order-parser.php:127
 msgid "> Row %s - preparing for import."
 msgstr ""
 
@@ -655,7 +655,7 @@ msgid "Unknown product category: %s."
 msgstr ""
 
 #: includes/class-wc-csv-import-suite-coupon-import.php:359
-#: includes/class-wc-csv-import-suite-order-parser.php:579
+#: includes/class-wc-csv-import-suite-order-parser.php:580
 #. translators: Placeholders: %s - email address
 msgid "Invalid email: %s."
 msgstr ""
@@ -882,7 +882,7 @@ msgid ""
 msgstr ""
 
 #: includes/class-wc-csv-import-suite-customer-import.php:207
-#: includes/class-wc-csv-import-suite-order-import.php:385
+#: includes/class-wc-csv-import-suite-order-import.php:401
 msgid "Send emails"
 msgstr ""
 
@@ -925,7 +925,7 @@ msgid "> > Skipped. Cannot find customer with id %s. Importing instead."
 msgstr ""
 
 #: includes/class-wc-csv-import-suite-customer-import.php:493
-#: includes/class-wc-csv-import-suite-order-parser.php:461
+#: includes/class-wc-csv-import-suite-order-parser.php:462
 msgid "Cannot find customer with id %s."
 msgstr ""
 
@@ -1297,70 +1297,80 @@ msgid ""
 "linked to any product, so this is not necessarily recommended."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-import.php:361
+#: includes/class-wc-csv-import-suite-order-import.php:363
+msgid "Reduce product stock"
+msgstr ""
+
+#: includes/class-wc-csv-import-suite-order-import.php:368
+msgid ""
+"When enabled, the import will reduce product stock for products associated "
+"with paid orders."
+msgstr ""
+
+#: includes/class-wc-csv-import-suite-order-import.php:377
 msgid "Re-calculate taxes & totals"
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-import.php:366
+#: includes/class-wc-csv-import-suite-order-import.php:382
 msgid ""
 "Re-calculate taxes and totals after importing the order. This may result in "
 "different tax and order totals than in the CSV file."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-import.php:373
+#: includes/class-wc-csv-import-suite-order-import.php:389
 msgid "Use addresses from customer profile"
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-import.php:378
+#: includes/class-wc-csv-import-suite-order-import.php:394
 msgid ""
 "Use addresses from the customer profile if no address columns are present "
 "in the CSV file."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-import.php:390
+#: includes/class-wc-csv-import-suite-order-import.php:406
 msgid ""
 "Send relevant order emails to customers and store managers. This includes "
 "new order emails as well as emails triggered by order status changes when "
 "merging/updating orders"
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-import.php:683
+#: includes/class-wc-csv-import-suite-order-import.php:709
 msgid "The maximum stack depth has been exceeded."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-import.php:687
+#: includes/class-wc-csv-import-suite-order-import.php:713
 msgid "Invalid or malformed JSON."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-import.php:691
+#: includes/class-wc-csv-import-suite-order-import.php:717
 msgid "Control character error, possibly incorrectly encoded."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-import.php:695
+#: includes/class-wc-csv-import-suite-order-import.php:721
 msgid "Syntax error, malformed JSON."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-import.php:700
+#: includes/class-wc-csv-import-suite-order-import.php:726
 msgid "Malformed UTF-8 characters, possibly incorrectly encoded."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-import.php:705
+#: includes/class-wc-csv-import-suite-order-import.php:731
 msgid "One or more recursive references in the value to be encoded."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-import.php:710
+#: includes/class-wc-csv-import-suite-order-import.php:736
 msgid "One or more NAN or INF values in the value to be encoded."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-import.php:714
+#: includes/class-wc-csv-import-suite-order-import.php:740
 msgid "A value of a type that cannot be encoded was given."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-import.php:718
+#: includes/class-wc-csv-import-suite-order-import.php:744
 msgid "Unknown JSON error occured."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-import.php:753
+#: includes/class-wc-csv-import-suite-order-import.php:779
 msgid "Invalid date format %s."
 msgstr ""
 
@@ -1482,146 +1492,146 @@ msgstr ""
 msgid "Cannot determine a unique match for order item"
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-parser.php:196
+#: includes/class-wc-csv-import-suite-order-parser.php:197
 msgid "Cannot import order without line items"
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-parser.php:270
+#: includes/class-wc-csv-import-suite-order-parser.php:271
 msgid "Skipped. Invalid or unsupported currency %s."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-parser.php:326
+#: includes/class-wc-csv-import-suite-order-parser.php:327
 msgid "Order number field must be an integer: %s."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-parser.php:330
+#: includes/class-wc-csv-import-suite-order-parser.php:331
 msgid ""
 "Formatted order number provided but no numerical order number, see the "
 "documentation for further details."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-parser.php:361
+#: includes/class-wc-csv-import-suite-order-parser.php:362
 msgid "> > Cannot merge without id or order number. Importing instead."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-parser.php:380
+#: includes/class-wc-csv-import-suite-order-parser.php:381
 msgid "> > Skipped. Cannot find order with formatted number %s. Importing instead."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-parser.php:383
+#: includes/class-wc-csv-import-suite-order-parser.php:384
 msgid "Cannot find order with formatted number %s."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-parser.php:388
+#: includes/class-wc-csv-import-suite-order-parser.php:389
 msgid "> > Cannot find order with formatted number %s."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-parser.php:392
+#: includes/class-wc-csv-import-suite-order-parser.php:393
 msgid "> > Found order with formatted number %s."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-parser.php:404
+#: includes/class-wc-csv-import-suite-order-parser.php:405
 msgid "> > Skipped. Cannot find order with id %s. Importing instead."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-parser.php:407
+#: includes/class-wc-csv-import-suite-order-parser.php:408
 msgid "Cannot find order with id %s."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-parser.php:411
+#: includes/class-wc-csv-import-suite-order-parser.php:412
 msgid "> > Found order with ID %s."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-parser.php:423
+#: includes/class-wc-csv-import-suite-order-parser.php:424
 msgid "Order %s already exists."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-parser.php:531
+#: includes/class-wc-csv-import-suite-order-parser.php:532
 #. translators: Placeholders: %1$s - order status, %2$s - available order
 #. statuses
 msgid "Unknown order status %1$s (%2$s)."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-processor.php:78
+#: includes/class-wc-csv-import-suite-order-processor.php:85
 msgid "> Processing order"
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-processor.php:96
+#: includes/class-wc-csv-import-suite-order-processor.php:103
 msgid "> Merging order %s."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-processor.php:105
+#: includes/class-wc-csv-import-suite-order-processor.php:112
 msgid "> Inserting order %s"
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-processor.php:147
+#: includes/class-wc-csv-import-suite-order-processor.php:157
 msgid "> Finished merging order %s."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-processor.php:150
+#: includes/class-wc-csv-import-suite-order-processor.php:160
 msgid "> Finished importing order %s."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-processor.php:199
+#: includes/class-wc-csv-import-suite-order-processor.php:209
 #. translators: Placeholders: %1$s - order identifier, %2$s - error message
 msgid "Failed to insert order %1$s: %2$s;"
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-processor.php:216
-#: includes/class-wc-csv-import-suite-order-processor.php:327
+#: includes/class-wc-csv-import-suite-order-processor.php:226
+#: includes/class-wc-csv-import-suite-order-processor.php:337
 msgid "Original order #%s"
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-processor.php:291
+#: includes/class-wc-csv-import-suite-order-processor.php:301
 #. translators: Placeholders: %1$s - order identifier, %2$s - error message(s)
 msgid "Failed to update order %1$s: %2$s;"
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-processor.php:677
+#: includes/class-wc-csv-import-suite-order-processor.php:687
 msgid "> > Warning: cannot add order item \"%s\"."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-processor.php:692
+#: includes/class-wc-csv-import-suite-order-processor.php:702
 msgid "> > Warning: cannot add shipping method \"%s\"."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-processor.php:706
+#: includes/class-wc-csv-import-suite-order-processor.php:716
 msgid "> > Warning: cannot add tax \"%s\"."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-processor.php:726
+#: includes/class-wc-csv-import-suite-order-processor.php:736
 msgid "> > Warning: cannot add coupon \"%s\"."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-processor.php:771
+#: includes/class-wc-csv-import-suite-order-processor.php:781
 msgid "> > Warning: cannot add fee \"%s\"."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-processor.php:814
+#: includes/class-wc-csv-import-suite-order-processor.php:824
 msgid "> > Warning: order item %d does not exist."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-processor.php:837
+#: includes/class-wc-csv-import-suite-order-processor.php:847
 msgid "> > Warning: cannot update order item %d."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-processor.php:847
+#: includes/class-wc-csv-import-suite-order-processor.php:857
 msgid "> > Warning: cannot update shipping method \"%s\"."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-processor.php:856
+#: includes/class-wc-csv-import-suite-order-processor.php:866
 msgid "> > Warning: cannot update tax \"%s\"."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-processor.php:876
+#: includes/class-wc-csv-import-suite-order-processor.php:886
 msgid "> > Warning: cannot merge coupon \"%s\"."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-processor.php:901
+#: includes/class-wc-csv-import-suite-order-processor.php:911
 msgid "> > Warning: cannot merge fee \"%s\"."
 msgstr ""
 
-#: includes/class-wc-csv-import-suite-order-processor.php:1018
+#: includes/class-wc-csv-import-suite-order-processor.php:1036
 msgid "Unknown product"
 msgstr ""
 

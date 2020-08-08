@@ -39,30 +39,6 @@ class GF_Field_Phone extends GF_Field {
 	}
 
 	/**
-	 * Returns the field's form editor description.
-	 *
-	 * @since 2.5
-	 *
-	 * @return string
-	 */
-	public function get_form_editor_field_description() {
-		return esc_attr__( 'Allows users to enter a phone number.', 'gravityforms' );
-	}
-
-	/**
-	 * Returns the field's form editor icon.
-	 *
-	 * This could be an icon url or a dashicons class.
-	 *
-	 * @since 2.5
-	 *
-	 * @return string
-	 */
-	public function get_form_editor_field_icon() {
-		return 'dashicons-smartphone';
-	}
-
-	/**
 	 * Defines the field settings available within the field editor.
 	 *
 	 * @since  Unknown
@@ -87,7 +63,6 @@ class GF_Field_Phone extends GF_Field {
 			'description_setting',
 			'phone_format_setting',
 			'css_class_setting',
-			'autocomplete_setting',
 		);
 	}
 
@@ -182,16 +157,15 @@ class GF_Field_Phone extends GF_Field {
 			}
 		}
 
-		$html_input_type        = RGFormsModel::is_html5_enabled() ? 'tel' : 'text';
-		$placeholder_attribute  = $this->get_field_placeholder_attribute();
-		$required_attribute     = $this->isRequired ? 'aria-required="true"' : '';
-		$invalid_attribute      = $this->failed_validation ? 'aria-invalid="true"' : 'aria-invalid="false"';
-		$aria_describedby       = $this->get_aria_describedby();
-		$autocomplete_attribute = $this->enableAutocomplete ? $this->get_field_autocomplete_attribute() : '';
+		$html_input_type       = RGFormsModel::is_html5_enabled() ? 'tel' : 'text';
+		$placeholder_attribute = $this->get_field_placeholder_attribute();
+		$required_attribute    = $this->isRequired ? 'aria-required="true"' : '';
+		$invalid_attribute     = $this->failed_validation ? 'aria-invalid="true"' : 'aria-invalid="false"';
+		$aria_describedby      = $this->get_aria_describedby();
 
 		$tabindex = $this->get_tabindex();
 
-		return sprintf( "<div class='ginput_container ginput_container_phone'><input name='input_%d' id='%s' type='{$html_input_type}' value='%s' class='%s' {$tabindex} {$placeholder_attribute} {$required_attribute} {$invalid_attribute} {$aria_describedby} {$autocomplete_attribute} %s/>{$instruction_div}</div>", $id, $field_id, esc_attr( $value ), esc_attr( $class ), $disabled_text );
+		return sprintf( "<div class='ginput_container ginput_container_phone'><input name='input_%d' id='%s' type='{$html_input_type}' value='%s' class='%s' {$tabindex} {$placeholder_attribute} {$required_attribute} {$invalid_attribute} {$aria_describedby} %s/>{$instruction_div}</div>", $id, $field_id, esc_attr( $value ), esc_attr( $class ), $disabled_text );
 
 	}
 

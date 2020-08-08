@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.1.5
+ * @version     1.1.6
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -194,8 +194,73 @@ if ( ! class_exists( 'WC_SC_Purchase_Credit' ) ) {
 				/* translators: %s: singular name for store credit */
 				$smart_coupon_store_gift_page_text = ( ! empty( $smart_coupon_store_gift_page_text ) ) ? $smart_coupon_store_gift_page_text . ' ' : ( ! empty( $store_credit_label['singular'] ) ? sprintf( __( 'Purchase %s worth', 'woocommerce-smart-coupons' ), ucwords( $store_credit_label['singular'] ) ) : __( 'Purchase credit worth', 'woocommerce-smart-coupons' ) ) . ' ';
 
-				include apply_filters( 'woocommerce_call_for_credit_form_template', 'templates/call-for-credit-form.php' );
+				$custom_classes = array(
+					'container' => '',
+					'row'       => '',
+					'label'     => '',
+					'input'     => '',
+					'error'     => '',
+				);
 
+				$custom_classes = apply_filters( 'wc_sc_call_for_credit_template_custom_classes', $custom_classes );
+
+				$currency_symbol = get_woocommerce_currency_symbol();
+
+				$input = array(
+					'type'         => 'number',
+					'autocomplete' => 'off',
+					'autofocus'    => 'autofocus',
+					'height'       => '',
+					'max'          => '',
+					'maxlength'    => '',
+					'min'          => '1',
+					'minlength'    => '',
+					'name'         => '',
+					'pattern'      => '',
+					'placeholder'  => '',
+					'required'     => 'required',
+					'size'         => '',
+					'step'         => 'any',
+					'width'        => '',
+				);
+
+				$input = apply_filters( 'wc_sc_call_for_credit_template_input', $input, array( 'source' => $this ) );
+
+				$input = array_filter( $input );
+
+				$input['id']    = 'credit_called';
+				$input['name']  = $input['id'];
+				$input['value'] = '';
+
+				$allowed_html = wp_kses_allowed_html( 'post' );
+
+				$allowed_html['input'] = array(
+					'aria-describedby' => true,
+					'aria-details'     => true,
+					'aria-label'       => true,
+					'aria-labelledby'  => true,
+					'aria-hidden'      => true,
+				);
+				$input_element         = '<input ';
+				foreach ( $input as $attribute => $value ) {
+					$input_element                      .= $attribute . '="' . esc_attr( $value ) . '" ';
+					$allowed_html['input'][ $attribute ] = true;
+				}
+				$input_element .= ' />';
+
+				if ( function_exists( 'wc_get_template' ) ) {
+					$args = array(
+						'custom_classes'  => $custom_classes,
+						'currency_symbol' => $currency_symbol,
+						'smart_coupon_store_gift_page_text' => $smart_coupon_store_gift_page_text,
+						'allowed_html'    => $allowed_html,
+						'input'           => $input,
+						'input_element'   => $input_element,
+					);
+					wc_get_template( 'call-for-credit-form.php', $args, '', plugin_dir_path( WC_SC_PLUGIN_FILE ) . 'templates/' );
+				} else {
+					include apply_filters( 'woocommerce_call_for_credit_form_template', 'templates/call-for-credit-form.php' );
+				}
 			}
 		}
 

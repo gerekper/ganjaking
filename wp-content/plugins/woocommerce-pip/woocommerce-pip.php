@@ -5,7 +5,7 @@
  * Description: Customize and print invoices and packing lists for WooCommerce orders from the WordPress admin
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com/
- * Version: 3.8.6
+ * Version: 3.8.7
  * Text Domain: woocommerce-pip
  * Domain Path: /i18n/languages/
  *
@@ -22,7 +22,7 @@
  *
  * Woo: 18666:465de1126817cdfb42d97ebca7eea717
  * WC requires at least: 3.0.9
- * WC tested up to: 4.2.0
+ * WC tested up to: 4.3.1
  */
 
 defined( 'ABSPATH' ) or exit;

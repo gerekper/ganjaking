@@ -63,27 +63,29 @@ class GFSelectColumns {
 
 			<style type="text/css">
 				body {
-					color: #444;
-					background: #fff;
-					font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-					font-size: 13px;
-					line-height: 1.4em;
+					font-family: "Lucida Grande", Verdana, Arial, sans-serif;
 				}
 
 				#sortable_available, #sortable_selected {
 					list-style-type: none;
 					margin: 0;
 					padding: 2px;
-					height: 350px;
-					border: 1px solid #9092B2;
-					border-radius: 5px;
+					height: 250px;
+					border: 1px solid #eaeaea;
+					-moz-border-radius: 4px;
+					-webkit-border-radius: 4px;
+					-khtml-border-radius: 4px;
+					border-radius: 4px;
+					background-color: #FFF;
 					overflow: auto;
 				}
 				#sortable_available li, #sortable_selected li {
 					margin: 0 2px 2px 2px;
 					padding: 2px;
 					width: 96%;
+					border: 1px solid white;
 					cursor: pointer;
+					font-size: 13px;
 				}
 
 				.field_hover {
@@ -91,79 +93,61 @@ class GFSelectColumns {
 				}
 
 				.placeholder {
-					background-color: #F6F9FC;
+					background-color: #FFF0A5;
 					height: 20px;
 				}
 
 				.gcolumn_wrapper {
 					height: 290px;
-					padding: 0 36px;
-					display: flex;
-					justify-content: space-between;
+					padding: 0 20px;
 				}
 
 				.gcolumn_container_left, .gcolumn_container_right {
-					width: 250px;
+					width: 46%;
+				}
+
+				.gcolumn_container_left {
+					float: left;
+				}
+
+				.gcolumn_container_right {
+					float: right;
 				}
 
 				.gform_select_column_heading {
+					font-weight: bold;
 					padding-bottom: 7px;
-					font-size: 1.125rem;
+					font-size: 13px;
 				}
 
 				.column-arrow-mid {
-					height: 100%;
-					display: flex;
-					align-items: center;
-					justify-content: center;
+					float: left;
+					width: 45px;
+					height: 250px;
+					background-image: url(<?php echo GFCommon::get_base_url(); ?>/images/arrow-rightleft.png);
+					background-repeat: no-repeat;
+					background-position: center center;
+					margin-top: 26px;
+				}
+
+				.panel-instructions {
+					border-bottom: 1px solid #dfdfdf;
+					color: #555;
+					font-size: 11px;
+					padding: 10px 20px;
+					margin-bottom: 6px
 				}
 
 				div.panel-buttons {
-					padding: 20px 32px;
-					position: absolute;
-					bottom: 0;
-					left: 0;
-					right: 0;
-					border-top: 1px solid #E2E8F0;
-					background: #F6F9FC;
+					margin-top: 8px;
+					padding: 0 20px;
 				}
 
-				div.panel-buttons .button,
-				div.panel-buttons .button-primary {
-					font-size: .875rem;
-					font-weight: 600;
-					line-height: 2.15384615;
-					min-height: 30px;
-					margin: 0;
-					cursor: pointer;
-					border-width: 1px;
-					border-style: solid;
-					-webkit-appearance: none;
-					white-space: nowrap;
-					box-sizing: border-box;
-					color: #3E7DA6;
-					border-color: #3E7DA6;
-					background: #fff;
-					border-radius: .3125rem;
-					padding: .125rem 1.125rem;
-					transition: all .3s ease;
+				div.panel-buttons {
+					*margin-top: 0px
 				}
 
-				div.panel-buttons .button-primary {
-					background: #3E7DA6;
-					border-color: #3E7DA6;
-					color: #fff;
-				}
-
-				div.panel-buttons .button:hover,
-				div.panel-buttons .button-primary:hover {
-					box-shadow: 0 4px 6px rgba( 28, 31, 63, 0.0837013 );
-					transform: translate( 0, -2px );
-				}
-
-
-
-
+				/* ie specific */
 			</style>
 
 			<script type="text/javascript">
@@ -210,6 +194,7 @@ class GFSelectColumns {
 		$form = self::get_selectable_entry_meta( $form );
 		$form = GFFormsModel::convert_field_objects( $form );
 		?>
+		<div class="panel-instructions"><?php esc_html_e( 'Drag & drop to order and select which columns are displayed in the entries table.', 'gravityforms' ) ?></div>
 		<div class="gcolumn_wrapper">
 			<div class="gcolumn_container_left">
 				<div class="gform_select_column_heading"><?php esc_html_e( 'Active Columns', 'gravityforms' ); ?></div>
@@ -224,9 +209,7 @@ class GFSelectColumns {
 				</ul>
 			</div>
 
-			<div class="column-arrow-mid">
-				<svg width="47" height="22" fill="none" xmlns="http://www.w3.org/2000/svg"><g filter="url(#filter0_d)"><path fill-rule="evenodd" clip-rule="evenodd" d="M36 17a8 8 0 100-16 8 8 0 000 16z" fill="#fff"/><path d="M36 17.5a8.5 8.5 0 100-17 8.5 8.5 0 000 17z" stroke="#9092B2"/></g><path fill-rule="evenodd" clip-rule="evenodd" d="M36.606 11.52a.5.5 0 010-.707l1.48-1.48H32.5a.5.5 0 110-1h5.586l-1.48-1.48a.5.5 0 11.707-.707L40 8.833l-2.687 2.687a.5.5 0 01-.707 0z" fill="#3E7DA6"/><g filter="url(#filter1_d)"><path fill-rule="evenodd" clip-rule="evenodd" d="M11 17a8 8 0 100-16 8 8 0 000 16z" fill="#fff"/><path d="M11 17.5a8.5 8.5 0 100-17 8.5 8.5 0 000 17z" stroke="#9092B2"/></g><path fill-rule="evenodd" clip-rule="evenodd" d="M10.394 6.146a.5.5 0 010 .707l-1.48 1.48H14.5a.5.5 0 110 1H8.914l1.48 1.48a.5.5 0 11-.707.707L7 8.833l2.687-2.687a.5.5 0 01.707 0z" fill="#3E7DA6"/><defs><filter id="filter0_d" x="25" y="0" width="22" height="22" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/><feOffset dy="2"/><feGaussianBlur stdDeviation="1"/><feColorMatrix values="0 0 0 0 0.227451 0 0 0 0 0.227451 0 0 0 0 0.341176 0 0 0 0.0596411 0"/><feBlend in2="BackgroundImageFix" result="effect1_dropShadow"/><feBlend in="SourceGraphic" in2="effect1_dropShadow" result="shape"/></filter><filter id="filter1_d" x="0" y="0" width="22" height="22" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/><feOffset dy="2"/><feGaussianBlur stdDeviation="1"/><feColorMatrix values="0 0 0 0 0.227451 0 0 0 0 0.227451 0 0 0 0 0.341176 0 0 0 0.0596411 0"/><feBlend in2="BackgroundImageFix" result="effect1_dropShadow"/><feBlend in="SourceGraphic" in2="effect1_dropShadow" result="shape"/></filter></defs></svg>
-			</div>
+			<div class="column-arrow-mid"></div>
 
 			<div class="gcolumn_container_right" id="available_column">
 				<div class="gform_select_column_heading"> <?php esc_html_e( 'Inactive Columns', 'gravityforms' ); ?></div>

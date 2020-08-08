@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <div class="wcsatt-options-wrapper <?php echo esc_attr( implode( ' ', $wrapper_classes ) ); ?>" data-sign_up_text="<?php echo esc_attr( $sign_up_text ); ?>" <?php echo $hide_wrapper ? 'style="display:none;"' : ''; ?>>
 	<div class="wcsatt-options-product-prompt <?php echo esc_attr( implode( ' ', $prompt_classes ) ); ?>" data-prompt_type="<?php echo esc_attr( $prompt_type ); ?>"><?php echo $prompt; ?></div>
-	<div class="wcsatt-options-product-wrapper" <?php echo 'grouped' === $layout ? 'style="display:none;"' : '' ?>><?php
+	<div class="wcsatt-options-product-wrapper" <?php echo in_array( 'closed', $wrapper_classes ) ? 'style="display:none;"' : '' ?>><?php
 
 		if ( $display_dropdown ) {
 

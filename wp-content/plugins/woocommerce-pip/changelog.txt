@@ -1,5 +1,8 @@
 *** WooCommerce Print Invoices/Packing Lists Changelog ***
 
+2020.08.03 - version 3.8.7
+ * Fix - Display the sample SKU column in invoice previews when enabled
+
 2020.06.04 - version 3.8.6
  * Fix - Fix fatal error when printing pick list grouped by category containing order(s) with deleted product(s)
 

@@ -43,24 +43,10 @@ function Choice(text, value, price){
     this.price = price ? price : "";
 }
 
-/**
- * Create a form Input object.
- *
- * @since unknown
- * @since 2.5
- *
- * @param {string|int} id                      The input ID.
- * @param {string}     label                   The input label.
- * @param {string}     [autocompleteAttribute] The autocomplete attribute value.
- */
-function Input( id, label, autocompleteAttribute ) {
+function Input(id, label){
     this.id = id;
     this.label = label;
     this.name = "";
-
-    if ( typeof autocompleteAttribute !== "undefined" ) {
-        this.autocompleteAttribute = autocompleteAttribute;
-    }
 }
 
 function ConditionalLogic(){

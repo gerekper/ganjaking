@@ -210,7 +210,7 @@ google.load('visualization', '1', {packages: ['corechart']});
 google.setOnLoadCallback(gresults.drawCharts);
 
 
-jQuery(document).ready(function () {
+jQuery( window ).on( 'load', function () {
 
     if (jQuery("#gresults-results").length > 0) {
 
@@ -230,10 +230,6 @@ jQuery(document).ready(function () {
 
 
         jQuery("#gresults-results-filter-date-start, #gresults-results-filter-date-end").datepicker({dateFormat: 'yy-mm-dd', changeMonth: true, changeYear: true});
-
-        jQuery('.ui-datepicker-trigger').on('click', function() {
-            jQuery(this).parent().find('input').datepicker( 'show' );
-        });
 
         jQuery("#gresults-results-filter-form").submit(function (e) {
             gresults.getResults();

@@ -350,4 +350,4 @@ class WCS_ATT_Integrations {
 	}
 }
 
-WCS_ATT_Integrations::init();
+add_action( 'plugins_loaded', array( 'WCS_ATT_Integrations', 'init' ), 99 );

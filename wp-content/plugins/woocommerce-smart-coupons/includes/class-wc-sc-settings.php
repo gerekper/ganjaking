@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.1.6
+ * @version     1.1.7
  * @package     woocommerce-smart-coupons/includes/
  */
 
@@ -671,19 +671,19 @@ if ( ! class_exists( 'WC_SC_Settings' ) ) {
 			woocommerce_update_options( $sc_settings );
 
 			// Update WC Email settings when SC admin settings are updated.
-			$is_send_email  = get_site_option( 'smart_coupons_is_send_email', 'yes' );
-			$combine_emails = get_site_option( 'smart_coupons_combine_emails', 'no' );
+			$is_send_email  = get_option( 'smart_coupons_is_send_email', 'yes' );
+			$combine_emails = get_option( 'smart_coupons_combine_emails', 'no' );
 
-			$email_settings = get_site_option( 'woocommerce_wc_sc_email_coupon_settings', array() );
+			$email_settings = get_option( 'woocommerce_wc_sc_email_coupon_settings', array() );
 			if ( is_array( $email_settings ) ) {
 				$email_settings['enabled'] = $is_send_email;
-				update_site_option( 'woocommerce_wc_sc_email_coupon_settings', $email_settings );
+				update_option( 'woocommerce_wc_sc_email_coupon_settings', $email_settings );
 			}
 
-			$combine_email_settings = get_site_option( 'woocommerce_wc_sc_combined_email_coupon_settings', array() );
+			$combine_email_settings = get_option( 'woocommerce_wc_sc_combined_email_coupon_settings', array() );
 			if ( is_array( $combine_email_settings ) ) {
 				$combine_email_settings['enabled'] = $combine_emails;
-				update_site_option( 'woocommerce_wc_sc_combined_email_coupon_settings', $combine_email_settings );
+				update_option( 'woocommerce_wc_sc_combined_email_coupon_settings', $combine_email_settings );
 			}
 		}
 
