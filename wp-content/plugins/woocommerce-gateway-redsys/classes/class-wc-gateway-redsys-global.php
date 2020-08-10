@@ -574,4 +574,40 @@ class WC_Gateway_Redsys_Global {
 		$order_total_sign = number_format( $total, 2, '', '' );
 		return $order_total_sign;
 	}
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
+	function product_description( $order, $gateway ) {
+		if ( ! $this->is_redsys_order( $order->get_id() ) ) {
+			return;
+		}
+		foreach ( $order->get_items() as $item_id => $item ) {
+			$product_id .= $item->get_product_id() . ', ';
+			$name       .= $item->get_name() . ', ';
+			$sku        .= get_post_meta( $item->get_product_id(), '_sku', true) . ', ';
+		}
+		// Can be order, id, name or sku
+		$description_type = $this->get_redsys_option( 'descripredsys', $gateway );
+		
+		if ( 'id' === $description_type ) {
+			$description = $product_id;
+		} elseif ( 'name' === $description_type ) {
+			$description = $name;
+		} elseif ( 'sku' === $description_type ) {
+			$description = $sku;
+		} else {
+			$description = __( 'Order', 'woocommerce-redsys' ) . ' ' . $order->get_order_number();
+		}
+		return $description;
+	}
+	/**
+	* Copyright: (C) 2013 - 2020 José Conti
+	*/
+	function get_psd2_arg( $order, $gateway ) {
+		if ( 'yes' === $this->get_redsys_option( 'psd2', $gateway ) ) {
+			return $arg;
+		} else {
+			return '';
+		}
+	}
 }

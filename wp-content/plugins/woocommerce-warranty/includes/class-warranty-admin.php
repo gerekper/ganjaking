@@ -226,7 +226,9 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 					jQuery(document).ready(function($) {
 						$( '.wc-metaboxes-wrapper' ).on( 'click' , '.wc-metabox h3' , function( event ) {
 							$( 'select.variable-warranty-type' ).change();
-							$( '.variable-warranty-type' ).closest( '.woocommerce_variation' ).removeClass( 'variation-needs-update' );
+							if( event.target === event.currentTarget){ 
+      							$( '.variable-warranty-type' ).closest( '.woocommerce_variation' ).removeClass( 'variation-needs-update' );
+							}
 						});
 
 						$("#variable_product_options").on("change", ".warranty_default_checkbox", function() {

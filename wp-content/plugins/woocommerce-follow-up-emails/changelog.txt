@@ -1,5 +1,9 @@
 *** WooCommerce Follow-Up Emails ***
 
+2020-08-06 - version 4.9.4
+* Add - Debug logging for the email queue.
+* Fix - Save all meta data when updating an email.
+
 2020-07-01 - version 4.9.3
 * Update - Convert select2 fields to use version loaded by WooCommerce.
 

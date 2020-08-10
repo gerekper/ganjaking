@@ -485,8 +485,10 @@ class FUE_Admin_Actions {
 			}
 		}
 
-		if ( isset( $data['log_level'] ) ) {
-			update_option( 'fue_log_level', $data['log_level'] );
+		if ( isset( $data['fue_logging'] ) && 1 == $data['fue_logging'] ) {
+			update_option( 'fue_logging', 1 );
+		} else {
+			update_option( 'fue_logging', 0 );
 		}
 	}
 

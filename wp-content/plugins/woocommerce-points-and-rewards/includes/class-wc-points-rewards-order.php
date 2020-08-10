@@ -117,6 +117,8 @@ class WC_Points_Rewards_Order {
 	 * product purchase multiplied by the quantity being ordered
 	 *
 	 * @since 1.0
+	 * @param WC_Order $order
+	 * @return int
 	 */
 	private function get_points_earned_for_purchase( $order ) {
 
@@ -124,7 +126,11 @@ class WC_Points_Rewards_Order {
 
 		foreach ( $order->get_items() as $item_key => $item ) {
 
-			$product = $order->get_product_from_item( $item );
+			if ( version_compare( WC_VERSION, '4.4.0', '>=' ) ) {
+				$product = $item->get_product();
+			} else {
+				$product = $order->get_product_from_item( $item );
+			}
 
 			if ( ! is_object( $product ) ) {
 				continue;

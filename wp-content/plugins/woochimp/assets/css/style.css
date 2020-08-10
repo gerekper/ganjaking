@@ -1,0 +1,617 @@
+/**
+ * WooChimp Plugin Styles
+ */
+
+.woochimp-tabs-container,
+.woochimp-container {
+    min-width: 870px;
+}
+
+.woochimp-tabs-container {
+    border-bottom: 1px solid #ccc;
+    margin-right: 20px;
+}
+
+.woochimp-tabs-container .nav-tab {
+    font-size: 14px;
+}
+
+.woochimp .woochimp-left {
+    width: 850px;
+    float: left;
+    border: 1px solid #dfdfdf;
+    border-top: none;
+    background-color: #fcfcfc;
+}
+
+.woochimp .woochimp-right {
+    width: 350px;
+    float: left;
+    border: 1px solid #dfdfdf;
+    border-top: none;
+    background-color: #fcfcfc;
+    margin-left: 10px;
+}
+
+.woochimp .woochimp-left h2,
+.woochimp .woochimp-right h2,
+.woochimp .woochimp-left h3,
+.woochimp .woochimp-right h3 {
+    padding: 10px 0 10px 15px;
+    border-top: 1px solid #dfdfdf;
+    border-bottom: 1px solid #dfdfdf;
+    background-color: #f9f9f9;
+    margin: 0;
+}
+
+.woochimp .woochimp-left .form-table tbody tr th {
+    width: 260px;
+}
+
+#woochimp_list_groups_list .form-table tbody tr th {
+    width: 200px;
+}
+
+.woocommerce .woochimp-left table.form-table,
+.woocommerce .woochimp-right table.form-table,
+.woochimp .woochimp-left table.form-table,
+.woochimp .woochimp-right table.form-table {
+    margin: 10px 20px;
+    width: 810px;
+}
+
+.woocommerce .woochimp #woochimp_list_groups_list table.form-table,
+.woochimp #woochimp_list_groups_list table.form-table {
+    width: 708px;
+}
+
+.woochimp .woochimp-left .submit,
+.woochimp .woochimp-right .submit {
+    border-top: 1px solid #dfdfdf;
+    padding: 15px 0 10px 15px;
+    margin-top: 0;
+}
+
+.woochimp-test-result-details {
+    border-top: 1px solid #dfdfdf;
+    padding: 15px 0 13px 15px;
+    margin: 0;
+}
+
+.woochimp .woochimp-right .form-table th {
+    width: 70px;
+    min-width: 70px;
+}
+
+input[type="text"].woochimp-field,
+select.woochimp-field {
+    width: 100%;
+}
+
+.woochimp .woochimp-right .form-table input,
+.woochimp .woochimp-right .form-table select,
+.woochimp .woochimp-right .form-table textarea {
+    width: 210px;
+}
+
+.woochimp-textarea {
+    width: 100%;
+    height: 100px;
+}
+
+.woochimp .woochimp-right-info {
+    width: 300px;
+    padding: 0 0 10px 20px;
+    float: left;
+    display: block;
+}
+
+.woochimp-status {
+    padding: 15px 0px 10px 25px;
+    min-height: 50px;
+}
+.woochimp .woochimp_loading_status {
+    margin: 1em 0;
+}
+
+.woochimp_tip {
+    position: relative;
+    float: right;
+    text-align: center;
+    width: 15px;
+    height: 15px;
+    color: #555;
+}
+
+.woochimp-usage {
+    padding: 15px 0px 10px 25px;
+}
+
+.woochimp-usage ul {
+    list-style: circle;
+}
+
+.woochimp-usage li {
+    margin-left: 30px;
+}
+
+.woochimp-list-groups {
+    padding: 15px 25px;
+}
+
+#woochimp_list_groups_list {
+    max-width: 800px;
+}
+
+.woochimp_list_groups_handle {
+    height: 16px;
+    margin-bottom: 0;
+}
+
+.woochimp_list_groups_title {
+    float: left;
+}
+
+.woochimp_list_groups_remove {
+    float: right;
+    color: #a8a8a8;
+}
+.woochimp_list_groups_remove:hover {
+    color: red;
+}
+
+.woochimp_custom_value_input {
+    width: 99%;
+}
+
+#woochimp_add_set {
+    float: right;
+    margin-top: 15px;
+}
+
+#woochimp_add_field {
+    margin: 10px 0;
+}
+
+.woochimp_list_groups_section {
+    margin: 10px 0;
+    font-size: 1.17em;
+    font-weight: bold;
+    padding-bottom: 3px;
+    border-bottom: 1px solid #dfdfdf;
+}
+
+.woochimp_fields_table_container {
+    margin: 10px;
+}
+#woochimp_fields_table {
+    width: 100%;
+}
+
+.ui-accordion .ui-accordion-content {
+    overflow: visible;
+}
+
+.woochimp-fields {
+    padding: 15px 25px;
+}
+
+.woochimp-fields ul {
+    list-style: circle;
+}
+
+.woochimp-fields li {
+    margin-left: 30px;
+}
+
+.woochimp-fields table,
+.woochimp-fields thead,
+.woochimp-fields tbody,
+.woochimp-fields tr,
+.woochimp-fields th,
+.woochimp-fields td {
+    padding: 0;
+    margin: 0;
+    text-align: left;
+}
+
+.woochimp-fields th,
+.woochimp-fields td {
+    padding: 5px;
+}
+
+.woochimp_remove_field {
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    font-size: 13px;
+    color: #a8a8a8;
+    float: right;
+}
+.woochimp_remove_field:hover {
+    color: red;
+    cursor: pointer;
+}
+.woochimp_remove_field i {
+    line-height: 25px;
+    vertical-align: middle;
+}
+
+.woochimp_field_name_column {
+    width: 48%;
+}
+.woochimp_mailchimp_tag_column {
+    width: 48%;
+}
+.woochimp_remove_column {
+    width: 4%;
+}
+.woochimp_name_input,
+.woochimp_name_select {
+    width: 100%;
+}
+.woochimp_fields_table_container table {
+    width: 100%;
+}
+
+.icon32-woochimp {
+    background-image: url(../img/woochimp.png) !important;
+    background-size: 32px 32px;
+    background-position: 4px -1px !important;
+    margin: 0 10px 0 0;
+}
+
+.woochimp-ok {
+    background: url(../img/good.png)  center right no-repeat;
+    background-size: 16px 16px;
+    line-height: 16px;
+    padding-right: 16px;
+    margin-right: 15px;
+}
+
+.woochimp-error {
+    background: url(../img/bad.png)  center right no-repeat;
+    background-size: 16px 16px;
+    line-height: 16px;
+    padding-right: 16px;
+    margin-right: 15px;
+}
+
+.woochimp-code {
+    font-weight: bold;
+    margin: 10px;
+    padding: 20px;
+    width: 220px;
+    text-align: center;
+    border: 1px solid #dfdfdf;
+    background-color: #ffffff;
+    font-size: 15px;
+}
+
+.woochimp_checkout_checkbox label {
+    display: inline-block;
+}
+
+.woochimp-account-info td {
+    padding: 5px 20px 5px 0;
+}
+
+/* Woochimp Log Link */
+
+#woochimp_log_link {
+    width: 100%;
+    display: inline;
+    margin-left: 20px;
+    font-size: 90%;
+}
+
+.woochimp-tip,
+.woochimp-checkout-tip {
+    position: relative;
+    float: right;
+    text-align: center;
+    width: 15px;
+    height: 15px;
+}
+
+li.search-choice {
+    background-color: #ffffff !important;
+    background: 0 !important;
+}
+
+.woochimp_loading {
+    margin: 0px;
+    padding: 0px;
+}
+
+.woochimp_loading_checkout {
+    margin: 20px 0 20px 25px;
+}
+
+.woochimp_loading_icon {
+    background: url(../img/progress.gif)  center left no-repeat;
+    background-size: 16px 16px;
+    line-height: 16px;
+    padding-right: 16px;
+    margin-right: 10px;
+}
+
+.woochimp_shortcode_loading {
+    background: url(../img/progress.gif)  center center no-repeat;
+    background-size: 16px 16px;
+    line-height: 16px;
+    padding-right: 16px;
+    width: 100px;
+    height: 50px;
+    display: none;
+}
+
+#woochimp_shortcode_error {
+    color: red;
+    display: none;
+}
+
+#woochimp_shortcode_success {
+    color: green;
+    display: none;
+}
+
+.woochimp_widget_loading {
+    background: url(../img/progress.gif)  center center no-repeat;
+    background-size: 16px 16px;
+    line-height: 16px;
+    padding-right: 16px;
+    width: 100px;
+    height: 50px;
+    display: none;
+}
+
+#woochimp_widget_error {
+    color: red;
+    display: none;
+}
+
+#woochimp_widget_success {
+    color: green;
+    display: none;
+}
+
+#tiptip_holder {
+	display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 99999;
+}
+
+#tiptip_holder.tip_top {
+	padding-bottom: 5px;
+}
+
+#tiptip_holder.tip_bottom {
+	padding-top: 5px;
+}
+
+#tiptip_holder.tip_right {
+	padding-left: 5px;
+}
+
+#tiptip_holder.tip_left {
+	padding-right: 5px;
+}
+
+#tiptip_content {
+	font-size: 11px;
+	color: #fff;
+	text-shadow: 0 0 2px #000;
+	padding: 4px 8px;
+	border: 1px solid rgba(255,255,255,0.25);
+	background-color: rgb(25,25,25);
+	background-color: rgba(25,25,25,0.92);
+	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(transparent), to(#000));
+	border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	box-shadow: 0 0 3px #555;
+	-webkit-box-shadow: 0 0 3px #555;
+	-moz-box-shadow: 0 0 3px #555;
+}
+
+#tiptip_arrow, #tiptip_arrow_inner {
+	position: absolute;
+	border-color: transparent;
+	border-style: solid;
+	border-width: 6px;
+	height: 0;
+	width: 0;
+}
+
+#tiptip_holder.tip_top #tiptip_arrow {
+	border-top-color: #fff;
+	border-top-color: rgba(255,255,255,0.35);
+}
+
+#tiptip_holder.tip_bottom #tiptip_arrow {
+	border-bottom-color: #fff;
+	border-bottom-color: rgba(255,255,255,0.35);
+}
+
+#tiptip_holder.tip_right #tiptip_arrow {
+	border-right-color: #fff;
+	border-right-color: rgba(255,255,255,0.35);
+}
+
+#tiptip_holder.tip_left #tiptip_arrow {
+	border-left-color: #fff;
+	border-left-color: rgba(255,255,255,0.35);
+}
+
+#tiptip_holder.tip_top #tiptip_arrow_inner {
+	margin-top: -7px;
+	margin-left: -6px;
+	border-top-color: rgb(25,25,25);
+	border-top-color: rgba(25,25,25,0.92);
+}
+
+#tiptip_holder.tip_bottom #tiptip_arrow_inner {
+	margin-top: -5px;
+	margin-left: -6px;
+	border-bottom-color: rgb(25,25,25);
+	border-bottom-color: rgba(25,25,25,0.92);
+}
+
+#tiptip_holder.tip_right #tiptip_arrow_inner {
+	margin-top: -6px;
+	margin-left: -5px;
+	border-right-color: rgb(25,25,25);
+	border-right-color: rgba(25,25,25,0.92);
+}
+
+#tiptip_holder.tip_left #tiptip_arrow_inner {
+	margin-top: -6px;
+	margin-left: -7px;
+	border-left-color: rgb(25,25,25);
+	border-left-color: rgba(25,25,25,0.92);
+}
+
+.select2-search__field, .select2-search--inline {
+        box-shadow: none !important;
+        margin: 0;
+}
+
+/* Webkit Hacks  */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+	#tiptip_content {
+		padding: 4px 8px 5px 8px;
+		background-color: rgba(45,45,45,0.88);
+	}
+	#tiptip_holder.tip_bottom #tiptip_arrow_inner {
+		border-bottom-color: rgba(45,45,45,0.88);
+	}
+	#tiptip_holder.tip_top #tiptip_arrow_inner {
+		border-top-color: rgba(20,20,20,0.92);
+	}
+}
+
+/* Reset all styles */
+.woochimp-reset,
+.woochimp-reset div,
+.woochimp-reset span,
+.woochimp-reset h1,
+.woochimp-reset h2,
+.woochimp-reset h3,
+.woochimp-reset h4,
+.woochimp-reset h5,
+.woochimp-reset h6,
+.woochimp-reset p,
+.woochimp-reset a,
+.woochimp-reset img,
+.woochimp-reset fieldset,
+.woochimp-reset form,
+.woochimp-reset label,
+.woochimp-reset legend,
+.woochimp-reset table,
+.woochimp-reset caption,
+.woochimp-reset tbody,
+.woochimp-reset tfoot,
+.woochimp-reset thead,
+.woochimp-reset tr,
+.woochimp-reset th,
+.woochimp-reset td,
+.woochimp-reset button,
+.woochimp-reset button:hover,
+.woochimp-reset button:active,
+.woochimp-reset button:focus {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font: inherit;
+    font-size: 100%;
+    font-weight: normal;
+    color: #000;
+    background: 0;
+    vertical-align: baseline;
+}
+
+.woochimp-reset table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border-bottom: 0;
+    border: 0;
+}
+
+.woochimp-reset ol,
+.woochimp-reset ul {
+    list-style: none;
+}
+
+.woochimp-reset caption,
+.woochimp-reset th {
+    text-align: left;
+}
+
+.woochimp-reset input,
+.woochimp-reset label {
+    display: block;
+}
+
+.woochimp-reset button,
+.woochimp-reset input,
+.woochimp-reset textarea,
+.woochimp-reset select {
+    margin: 0;
+    padding: 0;
+    max-width: 100%;
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+    font-family:"Times New Roman", Times, serif;
+    font-size: 100%;
+    outline: 0;
+    color: #000;
+}
+
+.woochimp-reset input:focus,
+.woochimp-reset textarea:focus {
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+    outline: 0;
+}
+
+.woochimp-reset button,
+.woochimp-reset input {
+    line-height: normal;
+}
+
+.woochimp-reset th,
+.woochimp-reset tr,
+.woochimp-reset td {
+  border-top: 0;
+  border-bottom: 0;
+  border: 0 !important;
+}
+
+.woochimp .woochimp_list_groups_handle {
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    background: #f7f7f7;
+}
+.woochimp .woochimp_list_groups_content {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    padding: 10px 20px;
+    background: 0;
+    background-color: #ffffff;
+    border: 1px solid #a8a8a8;
+    border-top: 0;
+}
+
+.wrap h2.woochimp-tabs-container {
+    margin-bottom: 15px;
+}
+div.woochimp-container {
+    margin-top: 15px;
+}

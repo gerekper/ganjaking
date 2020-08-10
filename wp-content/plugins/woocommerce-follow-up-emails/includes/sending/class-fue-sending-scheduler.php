@@ -58,9 +58,14 @@ class FUE_Sending_Scheduler {
 				$status = Follow_Up_Emails::instance()->mailer->send_queue_item( $queue_item );
 
 				if ( is_wp_error( $status ) ) {
-					$queue_item->add_note( $status->get_error_message() );
+					$error = $status->get_error_message();
+					$queue_item->add_note( $error );
+					/* translators: %d Email ID. */
+					fue_debug_log( sprintf( __( 'Failed to send email %d', 'follow_up_emails' ), $item_id ), $error );
 				} else {
-					$queue_item->add_note( __('Email sent successfully', 'follow_up_email') );
+					$message = __( 'Email sent successfully', 'follow_up_email' );
+					$queue_item->add_note( $message );
+					fue_debug_log( $message, $item_id );
 				}
 			}
 
@@ -83,9 +88,14 @@ class FUE_Sending_Scheduler {
 				$status = Follow_Up_Emails::instance()->mailer->send_queue_item( $queue_item );
 
 				if ( is_wp_error( $status ) ) {
-					$queue_item->add_note( $status->get_error_message() );
+					$error = $status->get_error_message();
+					$queue_item->add_note( $error );
+						/* translators: %d Email ID. */
+					fue_debug_log( sprintf( __( 'Failed to send email %d', 'follow_up_emails' ), $item_id ), $error );
 				} else {
-					$queue_item->add_note( __('Email sent successfully', 'follow_up_email') );
+					$message = __( 'Email sent successfully', 'follow_up_email' );
+					$queue_item->add_note( $message );
+					fue_debug_log( $message, $item_id );
 				}
 			}
 
@@ -502,6 +512,8 @@ class FUE_Sending_Scheduler {
 
 			as_schedule_single_action( $send_on_gmt, 'sfn_followup_emails', $param, 'fue' );
 
+			fue_debug_log( __( 'Rescheduled daily summary email', 'follow_up_emails' ), date( 'Y-m-d H:i:s', $send_on_gmt ) );
+
 			$item->send_on = $next_send;
 			$item->save();
 		}
@@ -577,6 +589,8 @@ class FUE_Sending_Scheduler {
 
 		as_schedule_single_action( $send_on_gmt, 'sfn_followup_emails', $param, 'fue' );
 
+		/* translators: %d Queue ID. */
+		fue_debug_log( sprintf( __( 'Rescheduling queue item %d', 'follow_up_emails' ), $queue_item->id ), date( 'Y-m-d H:i:s', $send_on_gmt ) );
 	}
 
 	/**
@@ -823,6 +837,8 @@ class FUE_Sending_Scheduler {
 			$item_id
 		) );
 
+		fue_debug_log( __( 'Deleted email from queue', 'follow_up_emails' ), $item_id );
+
 		return true;
 	}
 
@@ -836,24 +852,24 @@ class FUE_Sending_Scheduler {
 	 */
 	public static function queue_email( $values, FUE_Email $email = null, $schedule_event = true ) {
 		$defaults = array(
-			'user_id'       => '',
-			'user_email'    => '',
-			'is_cart'       => 0,
-			'email_id'      => 0,
-			'meta'          => ''
+			'user_id'    => '',
+			'user_email' => '',
+			'is_cart'    => 0,
+			'email_id'   => 0,
+			'meta'       => '',
 		);
 
 		$values = wp_parse_args( $values, $defaults );
 
 		if ( empty( $values['send_on'] ) ) {
-			$values['send_on']  = $email->get_send_timestamp();
+			$values['send_on'] = $email->get_send_timestamp();
 		}
 
-		if ( !is_null( $email ) ) {
+		if ( ! is_null( $email ) ) {
 			$values['email_id'] = $email->id;
 		}
 
-		if ( empty( $values['user_id'] ) && !empty( $values['order_id'] ) ) {
+		if ( empty( $values['user_id'] ) && ! empty( $values['order_id'] ) ) {
 			$order = WC_FUE_Compatibility::wc_get_order( $values['order_id'] );
 
 			if ( $order ) {
@@ -861,6 +877,7 @@ class FUE_Sending_Scheduler {
 			}
 		}
 
+		fue_debug_log( __( 'Queued email', 'follow_up_emails' ), $values );
 		return Follow_Up_Emails::instance()->scheduler->insert_email_order( $values, $schedule_event );
 
 	}
@@ -933,24 +950,28 @@ class FUE_Sending_Scheduler {
 			}
 		}
 
-		$email          = new FUE_Email( $item->email_id );
-		$email_meta     = $email->meta;
-		$adjust_date    = false;
+		$email       = new FUE_Email( $item->email_id );
+		$email_meta  = $email->meta;
+		$adjust_date = false;
 
 		// do not queue if email is missing the subject or the message
 		if ( empty( $email->message ) && empty( $data['message'] ) ) {
-			return new WP_Error( 'fue_insert_email_order', __('Cannot schedule an email with a missing message', 'follow_up_emails') );
+			$error = __( 'Cannot schedule an email with a missing message', 'follow_up_emails' );
+			fue_debug_log( $error, $data );
+			return new WP_Error( 'fue_insert_email_order', $error );
 		}
 
 		$passed_conditions = $this->filter_conditions( $item );
 
 		if ( is_wp_error( $passed_conditions ) ) {
-			return new WP_Error( 'fue_insert_email_order', $passed_conditions->get_error_message() );
+			$error = $passed_conditions->get_error_message();
+			fue_debug_log( $error );
+			return new WP_Error( 'fue_insert_email_order', $error );
 		}
 
-		if ( !empty($email_meta) ) {
+		if ( ! empty( $email_meta ) ) {
 
-			if ( isset($email_meta['adjust_date']) && $email_meta['adjust_date'] == 'yes' ) {
+			if ( isset( $email_meta['adjust_date'] ) && $email_meta['adjust_date'] == 'yes' ) {
 				$adjust_date = true;
 			}
 
@@ -966,8 +987,11 @@ class FUE_Sending_Scheduler {
 				) );
 
 				if ( $count_sent > 0 ) {
-					// do not send more of the same emails to this user
-					return new WP_Error( 'fue_insert_email_order', sprintf( __('One-time email has already been sent to %s', 'follow_up_emails'), $item->user_email ) );
+					// Do not send more of the same emails to this user.
+					// translators: %s User email.
+					$error = sprintf( __( 'One-time email has already been sent to %s', 'follow_up_emails' ), $item->user_email );
+					fue_debug_log( $error );
+					return new WP_Error( 'fue_insert_email_order', $error );
 				}
 			}
 		}
@@ -1000,11 +1024,13 @@ class FUE_Sending_Scheduler {
 				}
 
 				$message = sprintf(
-					__('Similar queue item found (#%d). Adjusting schedule to send on %s', 'follow_up_emails'),
+					/* translators: %1$d Similar item ID, %2$s New date to send item. */
+					__( 'Similar queue item found (#%1$d). Adjusting schedule to send on %2$s', 'follow_up_emails' ),
 					$similar_item->id,
-					date( get_option('date_format') .' '. get_option('time_format'), $item->send_on )
+					date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $item->send_on )
 				);
 				$similar_item->add_note( $message );
+				fue_debug_log( $message );
 
 				return $similar_item->id;
 			}
@@ -1013,12 +1039,13 @@ class FUE_Sending_Scheduler {
 		$queue_id = $item->save();
 
 		$message = sprintf(
-			__('The email "%s" has been added to the queue (Queue ID #%d)', 'follow_up_emails'),
+			/* translators: %1$s Email name %2$d Queue ID. */
+			__( 'The email "%1$s" has been added to the queue (Queue ID #%2$d)', 'follow_up_emails' ),
 			$email->name,
 			$queue_id
 		);
 		$item->add_note( $message );
-
+		fue_debug_log( $message );
 
 		if ( $schedule_event ) {
 			$this->schedule_email( $queue_id, $item->send_on );
@@ -1063,11 +1090,12 @@ class FUE_Sending_Scheduler {
 		$item = new FUE_Sending_Queue_Item( $queue_id );
 
 		$message = sprintf(
-			__('Email is scheduled to be sent on %s', 'follow_up_emails'),
+			/* translators: %s Send date. */
+			__( 'Email is scheduled to be sent on %s', 'follow_up_emails' ),
 			date( 'Y-m-d H:i:s', $local_timestamp )
 		);
 		$item->add_note( $message );
-
+		fue_debug_log( $message, $queue_id );
 	}
 
 	/**
@@ -1083,7 +1111,9 @@ class FUE_Sending_Scheduler {
 		$item = new FUE_Sending_Queue_Item( $queue_id );
 
 		if ( $item->exists() ) {
-			$item->add_note( __('Email has been removed from the scheduler', 'follow_up_emails') );
+			$message = __( 'Email has been removed from the scheduler', 'follow_up_emails' );
+			$item->add_note( $message );
+			fue_debug_log( $message, $queue_id );
 		}
 	}
 

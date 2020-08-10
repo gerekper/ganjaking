@@ -1,0 +1,92 @@
+::placeholder {
+  font-size: 23px;
+}
+
+::-webkit-scrollbar {
+  width           : 0px;
+  height          : 8px;
+  background-color: transparent;
+}
+
+#login_error,
+#loginform,
+.login .message,
+.login .success {
+  box-shadow: none !important;
+}
+
+.user-pass-wrap {
+  margin-top: 10px;
+}
+
+label[for=user_email],
+label[for=user_login],
+label[for=user_pass] {
+  display: none;
+}
+
+.login form {
+  margin-top: 40px;
+  border    : 0;
+}
+
+.login #login_error,
+.login .message,
+.login .success {
+  padding      : 12px;
+  margin-top   : 50px;
+  text-align   : center;
+}
+
+#login input:focus {
+  outline           : none !important;
+  border-color      : inherit;
+  -webkit-box-shadow: none;
+  box-shadow        : none;
+  outline-width     : 0!important;
+}
+
+.forgetmenot {
+  margin-top: 10px;
+}
+
+#backtoblog,
+#nav {
+  text-align: center;
+}
+
+#backtoblog {
+  display: none;
+}
+
+.login .privacy-policy-page-link {
+  margin-top: 10px;
+}
+
+.login #nav {
+  margin-top: 17px;
+}
+
+.interim-login.login {
+  overflow  : auto;
+  background: #f1f1f1 !important;
+}
+
+.interim-login #login {
+  padding-top: 15px;
+  max-height : unset !important;
+  overflow   : hidden;
+  background : #f1f1f1 !important;
+  color      : #353535;
+  float      : none;
+  width      : auto;
+}
+
+.interim-login #login,
+.interim-login #login .message,
+.interim-login #login_error,
+.interim-login #loginform,
+.interim-login .success {
+  background: #f1f1f1 !important;
+
+}

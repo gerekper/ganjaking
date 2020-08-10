@@ -1,5 +1,11 @@
 *** Redsys Gateway Change Log ***
 
+2020.08.06 - version 9.4.0
+
+* NEW: Now you can select what to show in Redsys Description
+* NEW: Added a very big Notice Warning when other Redsys plugin is in use.
+* Declared compatibility with WooCommerce 4.4
+
 2020.07.24 - version 9.3.0
 
 * Added new languages

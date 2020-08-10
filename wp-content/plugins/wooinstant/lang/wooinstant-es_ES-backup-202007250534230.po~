@@ -1,0 +1,269 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WooInstant - WooCommerce Instant / One Page Checkout\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-07-09 09:23+0000\n"
+"PO-Revision-Date: 2020-07-25 05:32+0000\n"
+"Last-Translator: \n"
+"Language-Team: Spanish (Spain)\n"
+"Language: es_ES\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.4.0; wp-5.4.2"
+
+#: wooinstant.php:237
+msgid "Wooinstant requires WooCommerce to be activated "
+msgstr ""
+"Wooinstant requiere que WooCommerce esté activado\n"
+
+#: wooinstant.php:287
+msgid "Settings"
+msgstr "Configuraciones"
+
+#: inc/wi-options-init.php:25
+msgid "WooInstant Settings"
+msgstr "Configuración instantánea"
+
+#: inc/wi-options-init.php:33
+msgid "WooInstant"
+msgstr "WooInstant"
+
+#: inc/wi-options-init.php:34
+msgid "WooInstant - WooCommerce Instant / One Page Checkout Settings"
+msgstr ""
+"Configuración de pago instantáneo / de una página WooInstant - WooCommerce"
+
+#: inc/wi-options-init.php:149
+msgid "General"
+msgstr "General"
+
+#: inc/wi-options-init.php:150
+msgid "General Options"
+msgstr "Opciones generales"
+
+#: inc/wi-options-init.php:156
+msgid "Active WooInstant"
+msgstr ""
+
+#: inc/wi-options-init.php:162
+msgid "Show On Cart Page"
+msgstr "Mostrar en la página del carrito"
+
+#: inc/wi-options-init.php:164 inc/wi-options-init.php:174
+#: inc/wi-options-init.php:185 inc/wi-options-init.php:196
+#: inc/wi-options-init.php:229
+msgid "Yes"
+msgstr "si"
+
+#: inc/wi-options-init.php:165 inc/wi-options-init.php:175
+#: inc/wi-options-init.php:186 inc/wi-options-init.php:197
+#: inc/wi-options-init.php:230
+msgid "No"
+msgstr "No"
+
+#: inc/wi-options-init.php:172
+msgid "Show On Checkout Page"
+msgstr "Mostrar en la página de pago"
+
+#: inc/wi-options-init.php:182
+msgid "Disable Quick View"
+msgstr "Desactivar vista rápida"
+
+#: inc/wi-options-init.php:183
+msgid ""
+"You can disable it if you already have quick view function in your theme"
+msgstr ""
+"Puede deshabilitarlo si ya tiene una función de vista rápida en su tema"
+
+#: inc/wi-options-init.php:193
+msgid "Disable Ajax Add to Cart"
+msgstr "Desactivar Ajax Añadir al carrito"
+
+#: inc/wi-options-init.php:194
+msgid ""
+"You can disable it if you already have ajax add to cart function in your "
+"theme"
+msgstr ""
+"Puede deshabilitarlo si ya tiene la función de agregar al carrito ajax en su "
+"tema"
+
+#: inc/wi-options-init.php:204
+msgid "Drawer Window Type"
+msgstr "Tipo de ventana de cajón"
+
+#: inc/wi-options-init.php:205
+msgid "Choose how the window will looks like"
+msgstr ""
+
+#: inc/wi-options-init.php:207
+msgid "Multi Step"
+msgstr "Paso múltiple"
+
+#: inc/wi-options-init.php:208
+msgid "Single Step"
+msgstr "Un solo paso"
+
+#: inc/wi-options-init.php:215
+msgid "Choose Active Window"
+msgstr ""
+
+#: inc/wi-options-init.php:216
+msgid "Actived window will open first when wooinstant open"
+msgstr ""
+
+#: inc/wi-options-init.php:218
+msgid "Cart"
+msgstr ""
+
+#: inc/wi-options-init.php:219
+msgid "Checkout"
+msgstr ""
+
+#: inc/wi-options-init.php:227
+msgid "Hide Close Button?"
+msgstr "¿Ocultar botón de cierre?"
+
+#: inc/wi-options-init.php:237
+msgid "Design"
+msgstr "Diseño"
+
+#: inc/wi-options-init.php:238
+msgid "Design Options"
+msgstr "Opciones de diseño"
+
+#: inc/wi-options-init.php:244
+msgid "Choose Cart Drawer Direction"
+msgstr ""
+
+#: inc/wi-options-init.php:246
+msgid "Right to Left"
+msgstr "De derecha a izquierda"
+
+#: inc/wi-options-init.php:247
+msgid "Left to Right"
+msgstr "De izquierda a derecha"
+
+#: inc/wi-options-init.php:256
+msgid "Panel Background"
+msgstr "Fondo del panel"
+
+#: inc/wi-options-init.php:257
+msgid "WooInstant Cart Panel Background Color"
+msgstr "Color de fondo del panel del carro WooInstant"
+
+#: inc/wi-options-init.php:264
+msgid "Cart Toggler Background"
+msgstr ""
+
+#: inc/wi-options-init.php:265
+msgid "WooInstant Cart Panel Toggler Background Color"
+msgstr "WooInstant Cart Panel Toggler Color de fondo"
+
+#: inc/wi-options-init.php:272
+msgid "Choose Icon or Custom Image"
+msgstr ""
+
+#: inc/wi-options-init.php:274
+msgid "Default Icon"
+msgstr "Ícono predeterminado"
+
+#: inc/wi-options-init.php:275
+msgid "Custom Image"
+msgstr "Imagen personalizada"
+
+#: inc/wi-options-init.php:282
+msgid "Cart icon"
+msgstr ""
+
+#: inc/wi-options-init.php:283
+msgid "Upload your cart icon. Recommended size of an icon is 30x30px"
+msgstr ""
+"Sube el ícono de tu carrito. El tamaño recomendado de un ícono es 30x30px"
+
+#: inc/wi-options-init.php:284
+msgid "Upload image/icon"
+msgstr "Subir imagen / icono"
+
+#: inc/wi-options-init.php:290
+msgid "Cart Toggler Color"
+msgstr ""
+
+#: inc/wi-options-init.php:291
+msgid "WooInstant Cart Panel Toggler Text/Icon Color"
+msgstr "WooInstant Cart Panel Toggler Texto / Color de icono"
+
+#: inc/wi-options-init.php:299
+msgid "Cart Toggler Hover Color"
+msgstr ""
+
+#: inc/wi-options-init.php:300
+msgid "Default is: Theme Default"
+msgstr "El valor predeterminado es: Tema predeterminado"
+
+#: inc/wi-options-init.php:301
+msgid "WooInstant Cart Panel Toggler Text/Icon Hover Color"
+msgstr "WooInstant Cart Panel Toggler Texto / icono Color de desplazamiento"
+
+#: inc/wi-options-init.php:309
+msgid "Quick View Background"
+msgstr "Vista rápida de fondo"
+
+#: inc/wi-options-init.php:310
+msgid "WooInstant Quick View Panel Background Color"
+msgstr "Color de fondo del panel Vista rápida de WooInstant"
+
+#: inc/wi-options-init.php:317
+msgid "Panel Z-index"
+msgstr ""
+"Panel Z-index\n"
+
+#: inc/wi-options-init.php:318
+msgid ""
+"Control WooInstant z-index from this option. More about <a target=\"_blank\" "
+"href=\"https://css-tricks.com/almanac/properties/z/z-index/\">z-index</a>"
+msgstr ""
+"Controle WooInstant z-index desde esta opción. Más sobre <a "
+"target=\"_blank\" href=\"https://css-tricks.com/almanac/properties/z/z-"
+"index/\">z-index</a>"
+
+#: inc/wi-options-init.php:327
+msgid "Custom CSS"
+msgstr "CSS personalizado"
+
+#: inc/wi-options-init.php:328
+msgid "If you want to make extra CSS then you can do it from here"
+msgstr "Si quieres hacer CSS extra, entonces puedes hacerlo desde aquí"
+
+#: inc/wooinstant-layout.php:56
+msgid "Close"
+msgstr ""
+
+#. Name of the plugin
+msgid "WooInstant - WooCommerce Instant / One Page Checkout"
+msgstr "'WooInstant - WooCommerce' Instantáneo / pago de una página"
+
+#. Description of the plugin
+msgid ""
+"Are you tired of multi-step checkout process of WooCommerce? WooInstant is "
+"your solution. Install WooInstant and your multi-step checkout process will "
+"convert to One Page Checkout. Now, all your customer have to do is \"Add to "
+"Cart\", a popup will appear with the cart view. Your customer can then "
+"checkout and order from that single window!. No Page Reload whatsoever!"
+msgstr ""
+
+#. URI of the plugin
+msgid "https://psdtowpservice.com/wooinstant"
+msgstr ""
+"https://psdtowpservice.com/wooinstant\n"
+
+#. Author of the plugin
+msgid "BootPeople"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://psdtowpservice.com"
+msgstr ""
+"https://psdtowpservice.com\n"

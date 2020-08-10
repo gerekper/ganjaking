@@ -45,7 +45,7 @@ jQuery(document).ready(function($) {
             "category_id":  '',
             "meta[storewide_type]": $("#storewide_type").val(),
             "meta[include_variations]": $("#include_variations").is(":checked") ? 'yes' : '',
-            'nonce': 'undefined' !== typeof $( this ).data( 'nonce' ) ? $( this ).data( 'nonce' ) : $( '#update_email_template_nonce' ).val()
+            'nonce': 'undefined' !== typeof $( this ).data( 'nonce' ) ? $( this ).data( 'nonce' ) : $( this ).closest( '#fue-email-details' ).find( '#_wpnonce' ).val()
         };
         $.post( ajaxurl, args, function( resp ) {
             email_data = resp.email;

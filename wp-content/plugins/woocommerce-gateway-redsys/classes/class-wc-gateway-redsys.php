@@ -90,6 +90,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		$this->buttoncheckout       = $this->get_option( 'buttoncheckout' );
 		$this->butonbgcolor         = $this->get_option( 'butonbgcolor' );
 		$this->butontextcolor       = $this->get_option( 'butontextcolor' );
+		$this->descripredsys        = $this->get_option( 'descripredsys' );
 		$this->log                  = new WC_Logger();
 		$this->supports             = array(
 			'products',
@@ -394,6 +395,18 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				'type'        => 'text',
 				'description' => __( 'Terminal number provided by your bank.', 'woocommerce-redsys' ),
 				'desc_tip'    => true,
+			),
+			'descripredsys'        => array(
+				'title'       => __( 'Redsys description', 'woocommerce-redsys' ),
+				'type'        => 'select',
+				'description' => __( 'Chose what to show in Redsys as description.', 'woocommerce-redsys' ),
+				'default'     => 'order',
+				'options'     => array(
+					'order' => __( 'Order ID', 'woocommerce-redsys' ),
+					'id'    => __( 'List of products ID', 'woocommerce-redsys' ),
+					'name'  => __( 'List of products name', 'woocommerce-redsys' ),
+					'sku'   => __( 'List of products SKU', 'woocommerce-redsys' ),
+				),
 			),
 			'useterminal2'         => array(
 				'title'       => __( 'Activate Second Terminal', 'woocommerce-redsys' ),
@@ -807,7 +820,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		$secretsha256        = $this->get_redsys_sha256( $user_id );
 		$customer            = $this->customer;
 		$url_ok              = add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) );
-		$product_description = __( 'Order', 'woocommerce-redsys' ) . ' ' . $order->get_order_number();
+		$product_description = WCRed()->product_description( $order, 'redsys' );
 		$merchant_name       = $this->commercename;
 
 		$redsys_options = array(
@@ -1125,7 +1138,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		$secretsha256        = $this->get_redsys_sha256( $user_id );
 		$customer            = $this->customer;
 		$url_ok              = add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) );
-		$product_description = __( 'Order', 'woocommerce-redsys' ) . ' ' . $order->get_order_number();
+		$product_description = WCRed()->product_description( $order, 'redsys' );
 		$merchant_name       = $this->commercename;
 
 		$redsys_options = array(
@@ -1576,7 +1589,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		$secretsha256        = $this->get_redsys_sha256( $user_id );
 		$customer            = $this->customer;
 		$url_ok              = add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) );
-		$product_description = __( 'Order', 'woocommerce-redsys' ) . ' ' . $order->get_order_number();
+		$product_description = WCRed()->product_description( $order, 'redsys' );
 		$merchant_name       = $this->commercename;
 
 		$redsys_options = array(
@@ -1900,7 +1913,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			$secretsha256        = $this->get_redsys_sha256( $user_id );
 			$customer            = $this->customer;
 			$url_ok              = add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) );
-			$product_description = __( 'Order', 'woocommerce-redsys' ) . ' ' . $order->get_order_number();
+			$product_description = WCRed()->product_description( $order, 'redsys' );
 			$merchant_name       = $this->commercename;
 
 			$redsys_options = array(
@@ -3077,7 +3090,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		$miObj->setParameter( 'DS_MERCHANT_URLOK', add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ) );
 		$miObj->setParameter( 'DS_MERCHANT_URLKO', $order->get_cancel_order_url() );
 		$miObj->setParameter( 'DS_MERCHANT_CONSUMERLANGUAGE', '001' );
-		$miObj->setParameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', __( 'Order', 'woocommerce-redsys' ) . ' ' . $order->get_order_number() );
+		$miObj->setParameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', WCRed()->product_description( $order, $this->id ) );
 		$miObj->setParameter( 'DS_MERCHANT_TITULAR', $merchan_name . ' ' . $merchant_lastnme );
 		$miObj->setParameter( 'DS_MERCHANT_MERCHANTNAME', $this->commercename );
 
@@ -3097,7 +3110,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			$this->log->add( 'redsys', __( 'DS_MERCHANT_URLOK : ', 'woocommerce-redsys' ) . add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ) );
 			$this->log->add( 'redsys', __( 'DS_MERCHANT_URLKO : ', 'woocommerce-redsys' ) . $order->get_cancel_order_url() );
 			$this->log->add( 'redsys', __( 'DS_MERCHANT_CONSUMERLANGUAGE : 001', 'woocommerce-redsys' ) );
-			$this->log->add( 'redsys', __( 'DS_MERCHANT_PRODUCTDESCRIPTION : ', 'woocommerce-redsys' ) . __( 'Order', 'woocommerce-redsys' ) . ' ' . $order->get_order_number() );
+			$this->log->add( 'redsys', __( 'DS_MERCHANT_PRODUCTDESCRIPTION : ', 'woocommerce-redsys' ) . WCRed()->product_description( $order, $this->id ) );
 			$this->log->add( 'redsys', __( 'DS_MERCHANT_MERCHANTNAME : ', 'woocommerce-redsys' ) . $this->commercename );
 			$this->log->add( 'redsys', __( 'DS_MERCHANT_AUTHORISATIONCODE : ', 'woocommerce-redsys' ) . $autorization_code );
 			$this->log->add( 'redsys', __( 'Ds_Merchant_TransactionDate : ', 'woocommerce-redsys' ) . $autorization_date );
@@ -3216,7 +3229,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		$miObj->setParameter( 'DS_MERCHANT_URLOK', add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ) );
 		$miObj->setParameter( 'DS_MERCHANT_URLKO', $order->get_cancel_order_url() );
 		$miObj->setParameter( 'DS_MERCHANT_CONSUMERLANGUAGE', '001' );
-		$miObj->setParameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', __( 'Order', 'woocommerce-redsys' ) . ' ' . $order->get_order_number() );
+		$miObj->setParameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', WCRed()->product_description( $order, $this->id ) );
 		$miObj->setParameter( 'DS_MERCHANT_MERCHANTNAME', $this->commercename );
 		$miObj->setParameter( 'DS_MERCHANT_TITULAR', $merchan_name . ' ' . $merchant_lastnme );
 
@@ -3232,7 +3245,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			$this->log->add( 'redsys', __( 'DS_MERCHANT_URLOK : ', 'woocommerce-redsys' ) . add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ) );
 			$this->log->add( 'redsys', __( 'DS_MERCHANT_URLKO : ', 'woocommerce-redsys' ) . $order->get_cancel_order_url() );
 			$this->log->add( 'redsys', __( 'DS_MERCHANT_CONSUMERLANGUAGE : 001', 'woocommerce-redsys' ) );
-			$this->log->add( 'redsys', __( 'DS_MERCHANT_PRODUCTDESCRIPTION : ', 'woocommerce-redsys' ) . __( 'Order', 'woocommerce-redsys' ) . ' ' . $order->get_order_number() );
+			$this->log->add( 'redsys', __( 'DS_MERCHANT_PRODUCTDESCRIPTION : ', 'woocommerce-redsys' ) . WCRed()->product_description( $order, $this->id ) );
 			$this->log->add( 'redsys', __( 'DS_MERCHANT_MERCHANTNAME : ', 'woocommerce-redsys' ) . $this->commercename );
 			$this->log->add( 'redsys', __( 'DS_MERCHANT_AUTHORISATIONCODE : ', 'woocommerce-redsys' ) . $autorization_code );
 			$this->log->add( 'redsys', __( 'Ds_Merchant_TransactionDate : ', 'woocommerce-redsys' ) . $autorization_date );
@@ -3328,7 +3341,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		$miObj->setParameter( 'DS_MERCHANT_URLOK', add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ) );
 		$miObj->setParameter( 'DS_MERCHANT_URLKO', $order->get_cancel_order_url() );
 		$miObj->setParameter( 'DS_MERCHANT_CONSUMERLANGUAGE', '001' );
-		$miObj->setParameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', __( 'Order', 'woocommerce-redsys' ) . ' ' . $order->get_order_number() );
+		$miObj->setParameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', WCRed()->product_description( $order, $this->id ) );
 		$miObj->setParameter( 'DS_MERCHANT_TITULAR', $merchan_name . ' ' . $merchant_lastnme );
 		$miObj->setParameter( 'DS_MERCHANT_MERCHANTNAME', $this->commercename );
 		if ( ! empty( $this->merchantgroup ) ) {
@@ -3349,7 +3362,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			$this->log->add( 'redsys', __( 'DS_MERCHANT_URLOK : ', 'woocommerce-redsys' ) . add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ) );
 			$this->log->add( 'redsys', __( 'DS_MERCHANT_URLKO : ', 'woocommerce-redsys' ) . $order->get_cancel_order_url() );
 			$this->log->add( 'redsys', __( 'DS_MERCHANT_CONSUMERLANGUAGE : 001', 'woocommerce-redsys' ) );
-			$this->log->add( 'redsys', __( 'DS_MERCHANT_PRODUCTDESCRIPTION : ', 'woocommerce-redsys' ) . __( 'Order', 'woocommerce-redsys' ) . ' ' . $order->get_order_number() );
+			$this->log->add( 'redsys', __( 'DS_MERCHANT_PRODUCTDESCRIPTION : ', 'woocommerce-redsys' ) . WCRed()->product_description( $order, $this->id ) );
 			$this->log->add( 'redsys', __( 'DS_MERCHANT_MERCHANTNAME : ', 'woocommerce-redsys' ) . $this->commercename );
 			$this->log->add( 'redsys', __( 'DS_MERCHANT_AUTHORISATIONCODE : ', 'woocommerce-redsys' ) . $autorization_code );
 			$this->log->add( 'redsys', __( 'Ds_Merchant_TransactionDate : ', 'woocommerce-redsys' ) . $autorization_date );
@@ -3829,7 +3842,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 						$secretsha256        = $class_redsys->get_redsys_sha256( $user_id );
 						$customer            = $class_redsys->customer;
 						$url_ok              = add_query_arg( 'utm_nooverride', '1', $class_redsys->get_return_url( $order ) );
-						$product_description = __( 'Order', 'woocommerce-redsys' ) . ' ' . $order->get_order_number();
+						$product_description = WCRed()->product_description( $order, 'redsys' );
 						$merchant_name       = $class_redsys->commercename;
 
 						$redsys_options = array(

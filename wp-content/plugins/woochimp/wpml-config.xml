@@ -1,0 +1,15 @@
+<wpml-config>
+    <admin-texts>
+        <key name="woochimp_options">
+            <key name="woochimp_text_checkout" />
+            <key name="woochimp_text_checkout_subscribed" />
+            <key name="woochimp_label_subscribe_widget" />
+            <key name="woochimp_label_subscribe_shortcode" />
+            <key name="woochimp_label_button" />
+            <key name="woochimp_label_email" />
+            <key name="woochimp_label_error" />
+            <key name="woochimp_label_already_subscribed" />
+            <key name="woochimp_label_success" />
+        </key>
+    </admin-texts>
+</wpml-config>

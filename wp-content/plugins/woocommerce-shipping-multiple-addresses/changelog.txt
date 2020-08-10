@@ -1,5 +1,8 @@
 *** Ship to Multiple Addresses Changelog ***
 
+2020-08-06 - version 3.6.21
+* Fix - Remove unused code causing undefined variable notice.
+
 2020-07-07 - version 3.6.20
 * Fix - Switch to using selectWoo fields and escape output.
 

@@ -270,12 +270,15 @@ class WC_Product_Vendors_Webhook_Handler {
 	 * @param string $request_body
 	 */
 	public function process_webhook( $request_body = null ) {
+		WC_Product_Vendors_Logger::log( 'Received webhook from PayPal. ');		
 		if ( null === $request_body ) {
+			WC_Product_Vendors_Logger::log( 'PayPal Masspay Payout error: received empty response. ');		
 			status_header( 400 );
 			exit;
 		}
 
 		$notification = json_decode( $request_body );
+		WC_Product_Vendors_Logger::log( 'Received message: ' . print_r ( $notification, true ) );	
 
 		if ( 'PAYMENT.PAYOUTSBATCH.DENIED' === $notification->event_type ) {
 			WC_Product_Vendors_Logger::log( 'PayPal Masspay Batch Payouts Denied: ' . $notification->summary );

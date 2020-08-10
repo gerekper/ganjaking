@@ -1,4 +1,10 @@
-== Changelog ==
+*** WooCommerce One Page Checkout Changelog ***
+
+2020-08-06 - version 1.7.8
+* Fix - Prevent 'url_to_postid' usage on admin pages to allow better compatibility with WPML.
+
+2020-06-10 - version 1.7.7
+* Fix   - Do not show 'Checkout Page' next to product on wp-admin.
 
 2020-05-12 - version 1.7.6
 * Fix   - Remove selected class from inputs when removing from cart.

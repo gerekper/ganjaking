@@ -114,6 +114,7 @@ class WC_Product_Vendors_PayPal_MassPay implements WC_Product_Vendors_Vendor_Pay
 				}' ) );
 
 			$payouts->setSenderBatchHeader( $senderBatchHeader )->addItem( $senderItem );
+			WC_Product_Vendors_Logger::log( 'Sending payout to ' . $senderItem->getReceiver() . '. Payout amount: ' . $senderItem->getAmount() );				
 		}
 
 		$results = json_decode( $payouts->create( null, $this->apiContext ) );

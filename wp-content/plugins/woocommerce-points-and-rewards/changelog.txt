@@ -1,5 +1,8 @@
 *** WooCommerce Points and Rewards Changelog ***
 
+2020-08-06 - version 1.6.35
+* Tweak - Remove use of deprecated WC_Abstract_Legacy_Order::get_product_from_item() for WC 4.4 and up.
+
 2020-07-07 - version 1.6.34
 * Fix - Escape output for selectWoo fields.
 * Fix - Fix integration with automated taxes plugins.

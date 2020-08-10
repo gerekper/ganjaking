@@ -461,11 +461,15 @@ function fue_clone_email($email_id, $new_name) {
 		// set the usage count to 0
 		update_post_meta( $new_id, '_usage_count', 0 );
 
-		do_action('fue_email_cloned', $new_id, $email_id);
-
+		do_action( 'fue_email_cloned', $new_id, $email_id );
+		/* translators: %1$d Current email ID, %2$d New email ID. */
+		fue_debug_log( sprintf( __( 'Cloned email from ID %1$d to ID %2$d', 'follow_up_emails' ), $email_id, $new_id ) );
 		return $new_id;
 	} else {
-		return new WP_Error( sprintf(__('Email (%d) could not be found', 'follow_up_emails'), $email_id) );
+		/* translators: %d : Email ID. */
+		$error = sprintf( __( 'Clone email (%d) could not be found', 'follow_up_emails' ), $email_id );
+		fue_debug_log( $error );
+		return new WP_Error( $error );
 	}
 
 }
@@ -606,19 +610,24 @@ function fue_exclude_email_address( $email_address, $email_id = 0, $order_id = 0
 	) );
 
 	if ( $count > 0 ) {
-		return new WP_Error( 'fue_email_excluded', __('This email has already been removed', 'follow_up_emails') );
+		$error = __( 'This email has already been removed from the list of exclusions', 'follow_up_emails' );
+		fue_debug_log( $error, $email_address );
+		return new WP_Error( 'fue_email_excluded', $error );
 	}
 
-	$wpdb->insert(
-		$wpdb->prefix .'followup_email_excludes',
-		array(
-			'email_id'      => $email_id,
-			'order_id'      => $order_id,
-			'email_name'    => $email_name,
-			'email'         => $email_address,
-			'date_added'    => current_time( 'mysql' )
-		)
+	$data = array(
+		'email_id'   => $email_id,
+		'order_id'   => $order_id,
+		'email_name' => $email_name,
+		'email'      => $email_address,
+		'date_added' => current_time( 'mysql' ),
 	);
+
+	if ( $wpdb->insert( $wpdb->prefix . 'followup_email_excludes', $data ) ) {
+		fue_debug_log( __( 'Added email to list of excluded addresses', 'follow_up_emails' ), $data );
+	} else {
+		fue_debug_log( __( 'Unable to add email to list of excluded addresses', 'follow_up_emails' ), $data );
+	}
 
 	return $wpdb->insert_id;
 }
@@ -673,16 +682,20 @@ function fue_is_email_excluded( $email_address, $email_id = 0, $order_id = 0 ) {
 function fue_add_user_opt_out( $user_id, $order_id = null ) {
 	if ( is_null( $order_id ) ) {
 		update_user_meta( $user_id, 'fue_opted_out', true );
+		/* translators: %d User ID. */
+		fue_debug_log( sprintf( __( 'Added opt out for user %d', 'follow_up_emails' ), $user_id ) );
 	} else {
 		$opt_out_orders = get_user_meta( $user_id, 'fue_opted_out_orders', true );
 
-		if ( !$opt_out_orders ) {
+		if ( ! $opt_out_orders ) {
 			$opt_out_orders = array();
 		}
 
 		$opt_out_orders[ $order_id ] = current_time( 'mysql', true );
 
 		update_user_meta( $user_id, 'fue_opted_out_orders', $opt_out_orders );
+		/* translators: %1$d Order ID, %2$d User ID. */
+		fue_debug_log( sprintf( __( 'Added opt out for order %1$d user %2$d', 'follow_up_emails' ), $order_id, $user_id ), $opt_out_orders );
 	}
 }
 
@@ -694,16 +707,20 @@ function fue_add_user_opt_out( $user_id, $order_id = null ) {
 function fue_remove_user_opt_out( $user_id, $order_id = null ) {
 	if ( is_null( $order_id ) ) {
 		update_user_meta( $user_id, 'fue_opted_out', false );
+		/* translators: %d User ID. */
+		fue_debug_log( sprintf( __( 'Removed opt out for user %d', 'follow_up_emails' ), $user_id ) );
 	} else {
 		$opt_out_orders = get_user_meta( $user_id, 'fue_opted_out_orders', true );
 
-		if ( !$opt_out_orders ) {
+		if ( ! $opt_out_orders ) {
 			$opt_out_orders = array();
 		}
 
 		unset( $opt_out_orders[ $order_id ] );
 
 		update_user_meta( $user_id, 'fue_opted_out_orders', $opt_out_orders );
+		/* translators: %1$d Order ID, %2$d User ID. */
+		fue_debug_log( sprintf( __( 'Removed opt out for order %1$d user %2$d', 'follow_up_emails' ), $order_id, $user_id ), $opt_out_orders );
 	}
 }
 
@@ -744,40 +761,43 @@ function fue_insert_coupon( $args = array() ) {
 	global $wpdb;
 
 	$defaults = array(
-		'coupon_name'   => '',
-		'coupon_prefix' => '',
-		'coupon_type'   => '',
-		'amount'        => 0.0,
-		'individual'    => 0,
-		'before_tax'    => 0,
-		'exclude_sale_items'    => 0,
-		'free_shipping' => 0,
-		'minimum_amount'=> '',
-		'maximum_amount'=> '',
-		'usage_limit'   => '',
-		'usage_limit_per_user'   => '',
-		'expiry_value'  => '',
-		'expiry_type'   => ''
+		'coupon_name'          => '',
+		'coupon_prefix'        => '',
+		'coupon_type'          => '',
+		'amount'               => 0.0,
+		'individual'           => 0,
+		'before_tax'           => 0,
+		'exclude_sale_items'   => 0,
+		'free_shipping'        => 0,
+		'minimum_amount'       => '',
+		'maximum_amount'       => '',
+		'usage_limit'          => '',
+		'usage_limit_per_user' => '',
+		'expiry_value'         => '',
+		'expiry_type'          => '',
 	);
 
-	$args   = wp_parse_args( $args, $defaults );
+	$args = wp_parse_args( $args, $defaults );
 
 	if ( isset( $args['id'] ) ) {
-		// updating
+		// Updating.
 		$coupon_id = $args['id'];
-
 		unset( $args['id'] );
 
-		$wpdb->update(
-			$wpdb->prefix .'followup_coupons',
-			$args,
-			array( 'id' => $coupon_id )
-		);
+		if ( $wpdb->update( $wpdb->prefix . 'followup_coupons', $args, array( 'id' => $coupon_id ) ) ) {
+			fue_debug_log( __( 'Updated coupon', 'follow_up_emails' ), $args );
+		} else {
+			fue_debug_log( __( 'Failed to update coupon', 'follow_up_emails' ), $args );
+		}
 	} else {
-		// new coupon
-		$wpdb->insert( $wpdb->prefix .'followup_coupons', $args );
-
-		$coupon_id = $wpdb->insert_id;
+		// New coupon.
+		if ( $wpdb->insert( $wpdb->prefix . 'followup_coupons', $args ) ) {
+			fue_debug_log( __( 'Added a new coupon', 'follow_up_emails' ), $args );
+			$coupon_id = $wpdb->insert_id;
+		} else {
+			fue_debug_log( __( 'Failed to add new coupon', 'follow_up_emails' ), $args );
+			$coupon_id = 0;
+		}
 	}
 
 	return $coupon_id;
@@ -794,8 +814,10 @@ function fue_create_coupon( $args ) {
  * @return int|WP_Error
  */
 function fue_update_coupon( $args ) {
-	if ( !isset( $args['id'] ) || empty( $args['id'] ) ) {
-		return new WP_Error( 'update_email', __('Cannot update coupon without the ID', 'follow_up_email') );
+	if ( empty( $args['id'] ) ) {
+		$error = __( 'Can not update coupon without the ID', 'follow_up_email' );
+		fue_debug_log( $error, $args );
+		return new WP_Error( 'update_email', $error );
 	}
 
 	return fue_insert_coupon( $args );
@@ -807,7 +829,9 @@ function fue_update_coupon( $args ) {
  */
 function fue_delete_coupon( $coupon_id ) {
 	$wpdb = Follow_Up_Emails::instance()->wpdb;
-	$wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->prefix}followup_coupons WHERE id = %d", $coupon_id));
+	$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}followup_coupons WHERE id = %d", $coupon_id ) );
+	/* translators: %d Coupon ID. */
+	fue_debug_log( sprintf( __( 'Deleted coupon with ID %d', 'follow_up_emails' ), $coupon_id ) );
 }
 
 /**
@@ -1134,17 +1158,19 @@ function fue_add_customer_note( $customer_id, $note, $author_id = null ) {
 		$author_id = get_current_user_id();
 	}
 
-	$now = current_time( 'mysql' );
-
-	$wpdb->insert(
-		$wpdb->prefix .'followup_customer_notes',
-		array(
-			'followup_customer_id'  => $customer_id,
-			'note'                  => $note,
-			'author_id'             => $author_id,
-			'date_added'            => $now
-		)
+	$now  = current_time( 'mysql' );
+	$data = array(
+		'followup_customer_id' => $customer_id,
+		'note'                 => $note,
+		'author_id'            => $author_id,
+		'date_added'           => $now,
 	);
+
+	if ( $wpdb->insert( $wpdb->prefix . 'followup_customer_notes', $data ) ) {
+		fue_debug_log( __( 'Added customer note', 'follow_up_emails' ), $data );
+	} else {
+		fue_debug_log( __( 'Failed to add customer note', 'follow_up_emails' ), $data );
+	}
 
 	return $wpdb->insert_id;
 }
@@ -1739,4 +1765,28 @@ function fue_replacement_url_var( $replacement ) {
 
 		return str_replace( $values, $replacement, $text );
 	};
+}
+
+/**
+ * Log debug messages (using the WooCommerce logging class).
+ *
+ * @since 4.9.4
+ *
+ * @param string $message Text to log.
+ * @param mixed  $data    Additional data to log as JSON.
+ */
+function fue_debug_log( $message, $data = null ) {
+	if ( ! function_exists( 'wc_get_logger' ) ) {
+		return;
+	}
+
+	$logging = get_option( 'fue_logging', null );
+
+	if ( $logging ) {
+		if ( ! is_null( $data ) ) {
+			$message .= ' ' . wp_json_encode( $data, JSON_PRETTY_PRINT );
+		}
+		$logger = wc_get_logger();
+		$logger->debug( $message, array( 'source' => 'fue' ) );
+	}
 }

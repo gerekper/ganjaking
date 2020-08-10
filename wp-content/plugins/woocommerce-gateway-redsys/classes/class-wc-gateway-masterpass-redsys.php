@@ -63,6 +63,7 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 		$this->buttoncheckout     = $this->get_option( 'buttoncheckout' );
 		$this->butonbgcolor       = $this->get_option( 'butonbgcolor' );
 		$this->butontextcolor     = $this->get_option( 'butontextcolor' );
+		$this->descripredsys      = $this->get_option( 'descripredsys' );
 		$this->log                = new WC_Logger();
 
 		// Actions
@@ -198,6 +199,18 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 				'type'        => 'text',
 				'description' => __( 'Terminal number provided by your bank.', 'woocommerce-redsys' ),
 				'desc_tip'    => true,
+			),
+			'descripredsys'        => array(
+				'title'       => __( 'Redsys description', 'woocommerce-redsys' ),
+				'type'        => 'select',
+				'description' => __( 'Chose what to show in Redsys as description.', 'woocommerce-redsys' ),
+				'default'     => 'order',
+				'options'     => array(
+					'order' => __( 'Order ID', 'woocommerce-redsys' ),
+					'id'    => __( 'List of products ID', 'woocommerce-redsys' ),
+					'name'  => __( 'List of products name', 'woocommerce-redsys' ),
+					'sku'   => __( 'List of products SKU', 'woocommerce-redsys' ),
+				),
 			),
 			'secretsha256'       => array(
 				'title'       => __( 'Encryption secret passphrase SHA-256', 'woocommerce-redsys' ),

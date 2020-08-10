@@ -1,0 +1,267 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WooInstant - WooCommerce Instant / One Page Checkout\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-07-09 09:23+0000\n"
+"PO-Revision-Date: 2020-07-25 07:08+0000\n"
+"Last-Translator: \n"
+"Language-Team: Russian\n"
+"Language: ru_RU\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10 >= 2 && "
+"n%10<=4 &&(n%100<10||n%100 >= 20)? 1 : 2);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.4.0; wp-5.4.2"
+
+#: wooinstant.php:237
+msgid "Wooinstant requires WooCommerce to be activated "
+msgstr ""
+
+#: wooinstant.php:287
+msgid "Settings"
+msgstr ""
+
+#: inc/wi-options-init.php:25
+msgid "WooInstant Settings"
+msgstr ""
+
+#: inc/wi-options-init.php:33
+msgid "WooInstant"
+msgstr ""
+
+#: inc/wi-options-init.php:34
+msgid "WooInstant - WooCommerce Instant / One Page Checkout Settings"
+msgstr ""
+
+#: inc/wi-options-init.php:149
+msgid "General"
+msgstr ""
+
+#: inc/wi-options-init.php:150
+msgid "General Options"
+msgstr ""
+
+#: inc/wi-options-init.php:156
+msgid "Active WooInstant"
+msgstr "Активный WooInstant"
+
+#: inc/wi-options-init.php:162
+msgid "Show On Cart Page"
+msgstr ""
+
+#: inc/wi-options-init.php:164 inc/wi-options-init.php:174
+#: inc/wi-options-init.php:185 inc/wi-options-init.php:196
+#: inc/wi-options-init.php:229
+msgid "Yes"
+msgstr ""
+
+#: inc/wi-options-init.php:165 inc/wi-options-init.php:175
+#: inc/wi-options-init.php:186 inc/wi-options-init.php:197
+#: inc/wi-options-init.php:230
+msgid "No"
+msgstr ""
+
+#: inc/wi-options-init.php:172
+msgid "Show On Checkout Page"
+msgstr ""
+
+#: inc/wi-options-init.php:182
+msgid "Disable Quick View"
+msgstr ""
+
+#: inc/wi-options-init.php:183
+msgid ""
+"You can disable it if you already have quick view function in your theme"
+msgstr ""
+
+#: inc/wi-options-init.php:193
+msgid "Disable Ajax Add to Cart"
+msgstr ""
+
+#: inc/wi-options-init.php:194
+msgid ""
+"You can disable it if you already have ajax add to cart function in your "
+"theme"
+msgstr ""
+
+#: inc/wi-options-init.php:204
+msgid "Drawer Window Type"
+msgstr ""
+
+#: inc/wi-options-init.php:205
+msgid "Choose how the window will looks like"
+msgstr "Выберите, как будет выглядеть окно"
+
+#: inc/wi-options-init.php:207
+msgid "Multi Step"
+msgstr ""
+
+#: inc/wi-options-init.php:208
+msgid "Single Step"
+msgstr ""
+
+#: inc/wi-options-init.php:215
+msgid "Choose Active Window"
+msgstr "Выберите Активное окно"
+
+#: inc/wi-options-init.php:216
+msgid "Actived window will open first when wooinstant open"
+msgstr "Активное окно откроется первым при открытии wooinstant"
+
+#: inc/wi-options-init.php:218
+msgid "Cart"
+msgstr "телега"
+
+#: inc/wi-options-init.php:219
+msgid "Checkout"
+msgstr "Проверять, выписываться"
+
+#: inc/wi-options-init.php:227
+msgid "Hide Close Button?"
+msgstr ""
+
+#: inc/wi-options-init.php:237
+msgid "Design"
+msgstr ""
+
+#: inc/wi-options-init.php:238
+msgid "Design Options"
+msgstr ""
+
+#: inc/wi-options-init.php:244
+msgid "Choose Cart Drawer Direction"
+msgstr "Выберите направление корзины"
+
+#: inc/wi-options-init.php:246
+msgid "Right to Left"
+msgstr ""
+
+#: inc/wi-options-init.php:247
+msgid "Left to Right"
+msgstr ""
+
+#: inc/wi-options-init.php:256
+msgid "Panel Background"
+msgstr ""
+
+#: inc/wi-options-init.php:257
+msgid "WooInstant Cart Panel Background Color"
+msgstr ""
+
+#: inc/wi-options-init.php:264
+msgid "Cart Toggler Background"
+msgstr "Корзина Toggler Фон"
+
+#: inc/wi-options-init.php:265
+msgid "WooInstant Cart Panel Toggler Background Color"
+msgstr ""
+
+#: inc/wi-options-init.php:272
+msgid "Choose Icon or Custom Image"
+msgstr "Выберите значок или пользовательское изображение"
+
+#: inc/wi-options-init.php:274
+msgid "Default Icon"
+msgstr "Значок по умолчанию"
+
+#: inc/wi-options-init.php:275
+msgid "Custom Image"
+msgstr "Пользовательское изображение"
+
+#: inc/wi-options-init.php:282
+msgid "Cart icon"
+msgstr "Значок корзины"
+
+#: inc/wi-options-init.php:283
+msgid "Upload your cart icon. Recommended size of an icon is 30x30px"
+msgstr ""
+
+#: inc/wi-options-init.php:284
+msgid "Upload image/icon"
+msgstr ""
+
+#: inc/wi-options-init.php:290
+msgid "Cart Toggler Color"
+msgstr "Корзина Toggler Фон"
+
+#: inc/wi-options-init.php:291
+msgid "WooInstant Cart Panel Toggler Text/Icon Color"
+msgstr ""
+
+#: inc/wi-options-init.php:299
+msgid "Cart Toggler Hover Color"
+msgstr "Корзина Toggler Hover Color"
+
+#: inc/wi-options-init.php:300
+msgid "Default is: Theme Default"
+msgstr ""
+
+#: inc/wi-options-init.php:301
+msgid "WooInstant Cart Panel Toggler Text/Icon Hover Color"
+msgstr ""
+
+#: inc/wi-options-init.php:309
+msgid "Quick View Background"
+msgstr ""
+
+#: inc/wi-options-init.php:310
+msgid "WooInstant Quick View Panel Background Color"
+msgstr ""
+
+#: inc/wi-options-init.php:317
+msgid "Panel Z-index"
+msgstr ""
+
+#: inc/wi-options-init.php:318
+msgid ""
+"Control WooInstant z-index from this option. More about <a target=\"_blank\" "
+"href=\"https://css-tricks.com/almanac/properties/z/z-index/\">z-index</a>"
+msgstr ""
+"Управляйте WooInstant z-index из этой опции. Больше о <a target=\"_blank\" "
+"href=\"https://css-tricks.com/almanac/properties/z/z-index/\">z-index</a>"
+
+#: inc/wi-options-init.php:327
+msgid "Custom CSS"
+msgstr "Пользовательские CSS"
+
+#: inc/wi-options-init.php:328
+msgid "If you want to make extra CSS then you can do it from here"
+msgstr ""
+
+#: inc/wooinstant-layout.php:56
+msgid "Close"
+msgstr "близко"
+
+#. Name of the plugin
+msgid "WooInstant - WooCommerce Instant / One Page Checkout"
+msgstr ""
+
+#. Description of the plugin
+msgid ""
+"Are you tired of multi-step checkout process of WooCommerce? WooInstant is "
+"your solution. Install WooInstant and your multi-step checkout process will "
+"convert to One Page Checkout. Now, all your customer have to do is \"Add to "
+"Cart\", a popup will appear with the cart view. Your customer can then "
+"checkout and order from that single window!. No Page Reload whatsoever!"
+msgstr ""
+"Вы устали от многоэтапного оформления заказа в WooCommerce? WooInstant это "
+"ваше решение. Установите WooInstant, и процесс многоэтапного оформления "
+"заказа превратится в Одностраничный заказ. Теперь все, что нужно сделать "
+"вашему клиенту - это «Добавить в корзину», появится всплывающее окно с "
+"представлением корзины. Ваш клиент может оформить заказ и сделать заказ из "
+"этого единственного окна! Нет страницы Обновить вообще!"
+
+#. URI of the plugin
+msgid "https://psdtowpservice.com/wooinstant"
+msgstr ""
+
+#. Author of the plugin
+msgid "BootPeople"
+msgstr ""
+"BootPeople\n"
+
+#. Author URI of the plugin
+msgid "https://psdtowpservice.com"
+msgstr ""

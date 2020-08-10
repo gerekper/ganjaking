@@ -114,19 +114,14 @@
 
 	<hr/>
 
-	<h3><?php esc_html_e( 'Debugging', 'follow_up_emails' ); ?></h3>
-
-	<?php $log_level = get_option( 'fue_log_level', 0 ); ?>
+	<h3><?php esc_html_e( 'Debug logging', 'follow_up_emails' ); ?></h3>
 	<p>
-		<label for="log_level"><?php esc_html_e( 'Log to file', 'follow_up_emails' ); ?></label>
-		<br />
-		<select id="log_level" name="log_level">
-			<option value="0" <?php selected( $log_level, 0 ); ?>><?php esc_html_e( 'None', 'follow_up_emails' ); ?></option>
-			<option value="1" <?php selected( $log_level, 1 ); ?>><?php esc_html_e( 'Error', 'follow_up_emails' ); ?></option>
-			<option value="2" <?php selected( $log_level, 2 ); ?>><?php esc_html_e( 'Info', 'follow_up_emails' ); ?></option>
-			<option value="4" <?php selected( $log_level, 4 ); ?>><?php esc_html_e( 'Debug', 'follow_up_emails' ); ?></option>
-			<option value="8" <?php selected( $log_level, 8 ); ?>><?php esc_html_e( 'All', 'follow_up_emails' ); ?></option>
-		</select>
+		<?php $logging = get_option( 'fue_logging', null ); ?>
+		<input type="checkbox" name="fue_logging" id="fue_logging" value="1" <?php checked( 1, $logging ); ?> />
+		<label for="fue_logging"><?php esc_html_e( 'Enable logging (requires WooCommerce).', 'follow_up_emails' ); ?></label>
+		<a href="<?php echo esc_url( add_query_arg( array( 'page' => 'wc-status', 'tab' => 'logs' ), 'admin.php' ) ); ?>"><?php esc_html_e( 'View logs', 'follow_up_emails' ); ?></a>
+		<br/>
+		<strong><?php esc_html_e( 'Note: this may log personal information. We recommend using this for debugging purposes only and deleting the logs when finished.', 'follow_up_emails' ); ?></strong>
 	</p>
 
 	<?php do_action( 'fue_settings_tools' ); ?>

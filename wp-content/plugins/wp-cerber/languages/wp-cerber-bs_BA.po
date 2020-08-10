@@ -1,0 +1,2474 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: POEditor.com\n"
+"Project-Id-Version: WP Cerber Security\n"
+"Language: sr\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: ../settings.php:77
+msgid "Limit login attempts"
+msgstr "Ograniči broj neispravnih logovanja"
+
+#: ../settings.php:78
+msgid "Attempts"
+msgstr "Pokušaji"
+
+#: ../settings.php:79
+msgid "Lockout duration"
+msgstr "Trajanje blokade"
+
+#: ../settings.php:79 ../settings.php:105
+msgid "minutes"
+msgstr "Minuti"
+
+#: ../settings.php:80
+msgid "Aggressive lockout"
+msgstr "Agresivno zaključavanje"
+
+#: ../settings.php:83
+msgid "Site connection"
+msgstr "Konekcija sajta"
+
+#: ../settings.php:85
+msgid "Proactive security rules"
+msgstr "Proaktivna pravila bezbednosti"
+
+#: ../settings.php:86
+msgid "Block subnet"
+msgstr "Blokiraj subnet"
+
+#: ../settings.php:89
+msgid "Request wp-login.php"
+msgstr "Zahtevaj wp-login.php"
+
+#: ../settings.php:89
+msgid "Immediately block IP after any request to wp-login.php"
+msgstr "Odmah blokiraj IP nakon wp-login.php request-a "
+
+#: ../settings.php:92
+msgid "Custom login page"
+msgstr "Prilagođena stranica za logovanje"
+
+#: ../settings.php:93
+msgid "Custom login URL"
+msgstr "Prilagođeni URL za logovanje"
+
+#: ../settings.php:99
+msgid "must not overlap with the existing pages or posts slug"
+msgstr "Ne sme da se poklapa sa postojećim stranicama ili post slug-ovima"
+
+#: ../settings.php:101
+msgid "Disable wp-login.php"
+msgstr "Onemogući wp-login.php"
+
+#: ../settings.php:101
+msgid "Block direct access to wp-login.php and return HTTP 404 Not Found Error"
+msgstr "Blokiraj direktne pristupe prema wp-login.php i vrati HTTP 404 Not Found Error"
+
+#: ../dashboard.php:1320 ../settings.php:103
+msgid "Citadel mode"
+msgstr "Citadel mod"
+
+#: ../settings.php:104
+msgid "Threshold"
+msgstr "Prag"
+
+#: ../settings.php:105 ../cerber-scanner.php:3823
+msgid "Duration"
+msgstr "Trajanje"
+
+#: ../cerber-load.php:4310 ../settings.php:82 ../settings.php:106 ../settings.php:
+#: 631
+msgid "Notifications"
+msgstr "Notifikacije"
+
+#: ../settings.php:106
+msgid "Send notification to admin email"
+msgstr "Pošalji notifikaciju Admin-u putem mail-a"
+
+#: ../cerber-load.php:4307 ../settings.php:628 ../cerber-tools.php:91 ../cerber-
+#: tools.php:100 ../cerber-tools.php:187
+msgid "Access Lists"
+msgstr "Access lista (pristup)"
+
+#: ../dashboard.php:1354 ../dashboard.php:1829 ../cerber-load.php:4015 ..
+#: /settings.php:108 ../settings.php:625
+msgid "Activity"
+msgstr "Aktivnost"
+
+#: ../settings.php:626
+msgid "Lockouts"
+msgstr "Zaključavanja"
+
+#: ../settings.php:748 ../settings.php:870
+msgid "%s allowed retries in %s minutes"
+msgstr "%s dozvoljenih pokušaja %s u minuta"
+
+#: ../settings.php:770 ../settings.php:892
+msgid "Enable after %s failed login attempts in last %s minutes"
+msgstr "Omogući nakon %s neuspelih pokušaja logovanja u poslednjih %s minuta"
+
+#: ../dashboard.php:134 ../dashboard.php:736 ../dashboard.php:3241 ../cerber-load.
+#: php:4024
+msgid "IP"
+msgstr "IP"
+
+#: ../dashboard.php:568 ../dashboard.php:739 ../dashboard.php:3239
+msgid "Date"
+msgstr "Datum"
+
+#: ../dashboard.php:568 ../dashboard.php:741 ../dashboard.php:3244
+msgid "Local User"
+msgstr "Lokalni korisnik (local user)"
+
+#: ../dashboard.php:568 ../dashboard.php:742 ../cerber-load.php:4032
+msgid "Username used"
+msgstr "Korisničko ime"
+
+#: ../dashboard.php:153
+msgid "Showing last %d records from %d"
+msgstr "Prikaži poslednjih %d zapisa od %d"
+
+#: ../common.php:836
+msgid "Logged in"
+msgstr "Prijavljen"
+
+#: ../common.php:837
+msgid "Logged out"
+msgstr "Odjavljen"
+
+#: ../common.php:838
+msgid "Login failed"
+msgstr "Prijavljivanje neuspelo"
+
+#: ../common.php:841
+msgid "IP blocked"
+msgstr "IP blokiran"
+
+#: ../common.php:842
+msgid "Subnet blocked"
+msgstr "Subnet blokiran"
+
+#: ../common.php:844
+msgid "Citadel activated!"
+msgstr "Citadel aktiviran!"
+
+#: ../dashboard.php:716 ../dashboard.php:944 ../dashboard.php:3071 ../common.php:
+#: 890
+msgid "Locked out"
+msgstr "Zaključano"
+
+#: ../common.php:891
+msgid "IP blacklisted"
+msgstr "Crna lista IP adresa"
+
+#: ../common.php:859
+msgid "Password changed"
+msgstr "Šifra promenjena"
+
+#: ../dashboard.php:127 ../dashboard.php:207
+msgid "Remove"
+msgstr "Ukloni"
+
+#: ../dashboard.php:437
+msgid "Lockout for %s was removed"
+msgstr "Zaključavanje za %s je uklonjeno"
+
+#: ../dashboard.php:179 ../dashboard.php:711 ../dashboard.php:938 ../dashboard.
+#: php:1318 ../dashboard.php:3066 ../cerber-load.php:4295 ../settings.php:594
+msgid "White IP Access List"
+msgstr "Bela lista IP adresa"
+
+#: ../dashboard.php:181 ../dashboard.php:712 ../dashboard.php:941 ../dashboard.
+#: php:1319 ../dashboard.php:3067
+msgid "Black IP Access List"
+msgstr "Crna lista IP adresa"
+
+#: ../dashboard.php:213
+msgid "List is empty"
+msgstr "Lista je prazna"
+
+#: ../dashboard.php:250
+msgid "Address %s was added to White IP Access List"
+msgstr "Adresa %s je dodata na belu listu IP adresa"
+
+#: ../dashboard.php:264
+msgid "Address %s was added to Black IP Access List"
+msgstr "Adresa %s je dodata na crnu listu IP adresa"
+
+#: ../cerber-load.php:3446
+msgid "Citadel mode is activated after %d failed login attempts in %d minutes."
+msgstr "Citadel mod je aktiviran nakon %d neuspelih pokušaja u %d minuta"
+
+#: ../dashboard.php:1990 ../dashboard.php:2400
+msgid "View Activity"
+msgstr "View aktivnost"
+
+#: ../dashboard.php:2910 ../cerber-tools.php:90 ../cerber-tools.php:99 ../cerber-
+#: scanner.php:76
+msgid "Settings"
+msgstr "Podešavanja"
+
+#: ../dashboard.php:1181
+msgid "Last login"
+msgstr "Poslednje prijavljivanje"
+
+#: ../dashboard.php:1214 ../dashboard.php:1301 ../common.php:1025
+msgid "Never"
+msgstr "Nikad"
+
+#: ../dashboard.php:1875 ../cerber-tools.php:591 ../cerber-scanner.php:5517 ..
+#: /cerber-scanner.php:5659
+msgid "Are you sure?"
+msgstr "Da li ste sigurni?"
+
+#: ../dashboard.php:1632 ../settings.php:83
+msgid "My site is behind a reverse proxy"
+msgstr "Moj sajt je iza reverse proxy"
+
+#: ../settings.php:87
+msgid "Non-existent users"
+msgstr "Nepostojeći korisnik"
+
+#: ../settings.php:87
+msgid "Immediately block IP when attempting to login with a non-existent username"
+msgstr "Odmah blokiraj IP kada pokušava da se prijavi sa nepostojećim korisničkim imenom"
+
+#: ../settings.php:580
+msgid "Make your protection smarter!"
+msgstr "Učni tvoju zaštitu pametnijom!"
+
+#: ../settings.php:584
+msgid "Please enable Permalinks to use this feature. Set Permalink Settings to something other than Default."
+msgstr "Omogući Permalinks da bi koristio ovu opciju. Promeni Permalinks podešavanja u nešto što nije default"
+
+#: ../cerber-load.php:4305 ../settings.php:627
+msgid "Main Settings"
+msgstr "Osnovna podešavanja"
+
+#: ../dashboard.php:3700
+msgid "Help"
+msgstr "Pomoć"
+
+#: ../settings.php:758 ../settings.php:880
+msgid "Increase lockout duration to %s hours after %s lockouts in the last %s hours"
+msgstr "Povećaj trajanje zaključavanja na %s sati nakon %s  zaključavanja u poslednjih %s  sati"
+
+#: ../cerber-load.php:370
+msgid "You are not allowed to log in. Ask your administrator for assistance."
+msgstr "Nije Vam dozvoljeno da se prijavite. Pitajte administratora za pomoć"
+
+#: ../cerber-load.php:396
+msgid "You have only one attempt remaining."
+msgid_plural "You have %d attempts remaining."
+msgstr[0] "Preostao Vam je samo jedan pokušaj"
+msgstr[1] "Preostalo Vam je %d pokušaja"
+msgstr[2] "Preostali su Vam %d pokušaji."
+
+#: ../dashboard.php:764
+msgid "No activity has been logged."
+msgstr "Bez logged aktivnosti"
+
+#: ../dashboard.php:137
+msgid "Expires"
+msgstr "Ističe"
+
+#: ../dashboard.php:159
+msgid "No lockouts at the moment. The sky is clear."
+msgstr "Bez zaključavanja trenutno. Nebo je čisto."
+
+#: ../dashboard.php:179
+msgid "These IPs will never be locked out"
+msgstr "Ove IP adrese neće nikada biti zaključane"
+
+#: ../dashboard.php:188
+msgid "Your IP"
+msgstr "Vaša IP adresa"
+
+#: ../cerber-load.php:3447
+msgid "Last failed attempt was at %s from IP %s with user login: %s."
+msgstr "Poslednji neuspešni pokušaj je bio u %s sa IP adrese %s  od korisnika: %s"
+
+#: ../cerber-load.php:4273
+msgid "Can't activate WP Cerber due to a database error."
+msgstr "WP Cerber ne može da se aktivira zbog grešek u data bazi."
+
+#: ../settings.php:765 ../settings.php:887
+msgid "Notify admin if the number of active lockouts above"
+msgstr "Obavesti admina ako je broj aktivnih zaključavanja jednak broju iznad"
+
+#: ../settings.php:109 ../settings.php:191 ../settings.php:369 ../settings.php:440
+msgid "days"
+msgstr "dana"
+
+#: ../dashboard.php:1271
+msgid "Cerber Quick View"
+msgstr "Cerber brzi pregled"
+
+#: ../dashboard.php:155
+msgid "Hint"
+msgstr "Savet"
+
+#: ../dashboard.php:155
+msgid "To view activity, click on the IP"
+msgstr "Da pregledate aktivnost, kliknite na IP"
+
+#: ../settings.php:86
+msgid "Always block entire subnet Class C of intruders IP"
+msgstr "Uvek blokiraj kompletan subnet Class C sa intruderove IP adrese"
+
+#: ../settings.php:106 ../settings.php:767 ../settings.php:889
+msgid "Click to send test"
+msgstr "Klikni da pošalješ test"
+
+#: ../settings.php:1052 ../settings.php:1053
+msgid "Attention! You have changed the login URL! The new login URL is"
+msgstr "Pažnja! Promenili ste URL za prijavljivanje! Novi URL je"
+
+#: ../dashboard.php:1180
+msgid "Comments"
+msgstr "Komentari"
+
+#: ../common.php:1210
+msgid "Update to version %s of WP Cerber"
+msgstr "Ažuriraj na verziju %s WP Cerber-a"
+
+#: ../cerber-load.php:3448 ../cerber-load.php:4056
+msgid "View activity in dashboard"
+msgstr "Vidi aktivnost u kontrolnoj tabli"
+
+#: ../cerber-load.php:3477
+msgid "Number of active lockouts"
+msgstr "Broj aktivnih zaključavanja"
+
+#: ../cerber-load.php:3481
+msgid "View lockouts in dashboard"
+msgstr "Vidi zaključavanja u kontrolnoj tabli"
+
+#: ../cerber-load.php:3569
+msgid "This message was sent by"
+msgstr "Ova poruka je poslata od"
+
+#: ../dashboard.php:69 ../cerber-tools.php:50
+msgid "Tools"
+msgstr "Alati"
+
+#: ../cerber-tools.php:87
+msgid "Export settings to the file"
+msgstr "Izvezi podešavanja u fajl"
+
+#: ../cerber-tools.php:88
+msgid "When you click the button below you will get a configuration file, which you can upload on another site."
+msgstr "Kada kliknete dugme ispod dobićete konfiguracioni fajl, koji treba da popnete na drugi veb-sajt"
+
+#: ../cerber-tools.php:89
+msgid "What do you want to export?"
+msgstr "Šta želite da izvezete?"
+
+#: ../cerber-tools.php:92
+msgid "Download file"
+msgstr "Preuzmi fajl"
+
+#: ../cerber-tools.php:94
+msgid "Import settings from the file"
+msgstr "Uvezi podešavanja iz fajla"
+
+#: ../cerber-tools.php:95
+msgid "When you click the button below, file will be uploaded and all existing settings will be overridden."
+msgstr "Kada kliknete dugme ispod, fajl će biti uploadovan i sva postojeća podešavanja će biti prerezana "
+
+#: ../cerber-tools.php:96
+msgid "Select file to import."
+msgstr "Odaberite fajl za uvoz"
+
+#: ../cerber-tools.php:96 ../cerber-scanner.php:4023
+msgid "Maximum upload file size: %s."
+msgstr "Maksimalna veličina fajla za upload: %s."
+
+#: ../cerber-tools.php:99
+msgid "What do you want to import?"
+msgstr "Šta želite da uvezete?"
+
+#: ../cerber-tools.php:101 ../cerber-scanner.php:4026
+msgid "Upload file"
+msgstr "Uvezite fajl"
+
+#: ../cerber-tools.php:150
+msgid "No file was uploaded or file is corrupted"
+msgstr "Fajl nije popet ili je kompromitovan"
+
+#: ../cerber-tools.php:187
+msgid "Error while updating"
+msgstr "Greška pri ažuriranju"
+
+#: ../cerber-tools.php:193
+msgid "Settings has imported successfully from"
+msgstr "Podešavanja su uspešno uvezena iz"
+
+#: ../cerber-tools.php:200
+msgid "Error while parsing file"
+msgstr "Greška pri raščlanjivanju"
+
+#: ../dashboard.php:135 ../dashboard.php:737
+msgid "Hostname"
+msgstr "Ime hosta"
+
+#: ../dashboard.php:403
+msgid "unknown"
+msgstr "Nepoznato"
+
+#: ../settings.php:109 ../settings.php:365
+msgid "Keep records for"
+msgstr "Čuvaj informacije za"
+
+#: ../dashboard.php:1305 ../dashboard.php:1327
+msgid "active"
+msgstr "Aktivno"
+
+#: ../dashboard.php:1305
+msgid "deactivate"
+msgstr "Deaktiviraj"
+
+#: ../dashboard.php:1307
+msgid "not active"
+msgstr "Neaktivno"
+
+#: ../dashboard.php:1308 ../dashboard.php:1322
+msgid "disabled"
+msgstr "Isključeno"
+
+#: ../dashboard.php:1313
+msgid "failed attempts"
+msgstr "Neuspeli pokušaji"
+
+#: ../dashboard.php:1313 ../dashboard.php:1314
+msgid "in 24 hours"
+msgstr "U 24 sata"
+
+#: ../dashboard.php:1313 ../dashboard.php:1314
+msgid "view all"
+msgstr "Vidi sve"
+
+#: ../dashboard.php:1314
+msgid "lockouts"
+msgstr "Zaključavanja"
+
+#: ../dashboard.php:1316
+msgid "Lockouts at the moment"
+msgstr "Zaključavanja u ovom trenutku"
+
+#: ../dashboard.php:1317
+msgid "Last lockout"
+msgstr "Poslednje zaključavanje"
+
+#: ../dashboard.php:1318 ../dashboard.php:1319 ../dashboard.php:2152
+msgid "entry"
+msgid_plural "entries"
+msgstr[0] "Unos"
+msgstr[1] "Unosa"
+msgstr[2] "Unosi"
+
+#: ../dashboard.php:1870
+msgid "Confused about some settings?"
+msgstr "Da li ste zbunjeni u vezi nekih podešavanja?"
+
+#: ../dashboard.php:1871
+msgid "You can easily load default recommended settings using button below"
+msgstr "Možete lako da učitate standardna default podešavanja pomoću dugmeta ispod"
+
+#: ../dashboard.php:1873
+msgid "Load default settings"
+msgstr "Učitajte standardna default podešavanja"
+
+#: ../dashboard.php:1881
+msgid "doesn't affect Custom login URL and Access Lists"
+msgstr "Ne utiče na custom prilagođeni URL za prijavljivanje i Access listu"
+
+#: ../common.php:1203 ../settings.php:236
+msgid "New version is available"
+msgstr "Nova verzija je dostupna"
+
+#: ../cerber-load.php:3420
+msgid "WP Cerber notify"
+msgstr "WP Cerber obaveštenje"
+
+#: ../cerber-load.php:3444
+msgid "Citadel mode is activated"
+msgstr "Citadel mod je aktiviran"
+
+#: ../cerber-load.php:3516
+msgid "New Custom login URL"
+msgstr "Nova prilagođena URL adresa za prijavljivanje"
+
+#: ../cerber-load.php:4260
+msgid "The WP Cerber requires PHP %s or higher. You are running"
+msgstr "WP Cerber zahteva minimum PHP %s ili novije izdanje. Vi koristite"
+
+#: ../cerber-load.php:4264
+msgid "The WP Cerber requires WordPress %s or higher. You are running"
+msgstr "WP Cerber zahteva WordPress verziju %s ili noviju verziju. Vi koristite"
+
+#: ../settings.php:112
+msgid "Use file"
+msgstr "Koristite file"
+
+#: ../settings.php:112
+msgid "Write failed login attempts to the file"
+msgstr "Upiši neuspele pokušaje prijavljivanja u fajl"
+
+#: ../dashboard.php:1989
+msgid "Deactivate"
+msgstr "Deaktiviraj"
+
+#: ../dashboard.php:138 ../cerber-load.php:3479
+msgid "Reason"
+msgstr "Razlog"
+
+#: ../dashboard.php:218
+msgid "Add IP to the list"
+msgstr "Dodaj IP adresu na listu"
+
+#: ../dashboard.php:1001
+msgid "Add IP to the Black List"
+msgstr "Dodaj IP adresu na crnu listu"
+
+#: ../common.php:928
+msgid "Attempt to access"
+msgstr "Pokušaj prijavljivanja"
+
+#: ../common.php:927
+msgid "Limit on login attempts is reached"
+msgstr "Limit pokušaja prijavljivanja postignut"
+
+#: ../common.php:867 ../common.php:929
+msgid "Attempt to log in with non-existent username"
+msgstr "Pokušaj prijavljivanja sa nepostojećim korisničkim imenom"
+
+#: ../cerber-load.php:3478
+msgid "Last lockout was added: %s for IP %s"
+msgstr "Poslednje zaključavanje je dodato: %s za IP %s"
+
+#: ../cerber-load.php:4309 ../settings.php:629
+msgid "Hardening"
+msgstr "Osnaživanje"
+
+#: ../dashboard.php:978
+msgid "Abuse email:"
+msgstr "Zlonamerni email:"
+
+#: ../settings.php:223 ../settings.php:264 ../settings.php:502
+msgid "Email Address"
+msgstr "Emai adresa"
+
+#: ../settings.php:232
+msgid "if empty, the admin email %s will be used"
+msgstr "Ako ostavite prazno, admin email %s će biti korišćen"
+
+#: ../settings.php:115
+msgid "Drill down IP"
+msgstr "Drill down IP"
+
+#: ../settings.php:115
+msgid "Retrieve extra WHOIS information for IP"
+msgstr "Povuci dodatne WHOIS informacije za IP"
+
+#: ../settings.php:123
+msgid "Hardening WordPress"
+msgstr "Obezbeđivanje WordPress-a"
+
+#: ../settings.php:124
+msgid "Stop user enumeration"
+msgstr "Zaustavi enumeraciju"
+
+#: ../settings.php:132
+msgid "Disable XML-RPC"
+msgstr "Isključi XML-RPC"
+
+#: ../settings.php:132
+msgid "Block access to the XML-RPC server (including Pingbacks and Trackbacks)"
+msgstr "Blokiraj pristup XML-RPC serveru (uključujući Pingbacks i Trackbacks)"
+
+#: ../settings.php:133
+msgid "Disable feeds"
+msgstr "Isključi feed"
+
+#: ../settings.php:133
+msgid "Block access to the RSS, Atom and RDF feeds"
+msgstr "Blokiraj pristup RSS-u, Atom i RDF feed-u"
+
+#: ../settings.php:134
+msgid "Disable REST API"
+msgstr "Isključi REST API"
+
+#: ../settings.php:594
+msgid "These settings do not affect hosts from the "
+msgstr "Ova podešavanja ne utiču na host sa"
+
+#: ../settings.php:1138 ../settings.php:1150 ../settings.php:1273
+msgid "<strong>ERROR</strong>: please enter a valid email address."
+msgstr "<strong>ERROR</strong>: molimo Vas unesite validnu email adresu."
+
+#: ../cerber-load.php:3509 ../cerber-load.php:4294
+msgid "WP Cerber is now active and has started protecting your site"
+msgstr "WP Cerber je aktivan i sada štiti Vaš veb-sajt"
+
+#: ../dashboard.php:139 ../cerber-scanner.php:5541 ../cerber-scanner.php:5672
+msgid "Action"
+msgstr "Akcija"
+
+#: ../dashboard.php:181
+msgid "Nobody can log in or register from these IPs"
+msgstr "Niko sa ovih IP adresa ne može da se prijavi ili registruje"
+
+#: ../dashboard.php:244 ../dashboard.php:256
+msgid "Incorrect IP address or IP range"
+msgstr "Netačna IP adresa ili IP domet"
+
+#: ../dashboard.php:453 ../dashboard.php:2005
+msgid "Settings saved"
+msgstr "Podešavanja snimljena"
+
+#: ../dashboard.php:982
+msgid "Network:"
+msgstr "Mreža:"
+
+#: ../dashboard.php:996
+msgid "Add network to the Black List"
+msgstr "Dodaj mrežu na crnu listu"
+
+#: ../dashboard.php:1988
+msgid "Attention! Citadel mode is now active. Nobody is able to log in."
+msgstr "Pažnja! Cital mod je sada aktivan. Niko ne može da se prijavi."
+
+#: ../dashboard.php:361 ../dashboard.php:2996 ../whois.php:223 ../whois.php:254 ..
+#: /common.php:926 ../common.php:1294
+msgid "Unknown"
+msgstr "Nepoznato"
+
+#. Author of the plugin
+#: 
+msgid "Gregory"
+msgstr "Gregori"
+
+#: ../common.php:210 ../common.php:273 ../common.php:278 ../common.php:283 ..
+#: /cerber-load.php:679 ../cerber-load.php:691 ../cerber-load.php:698 ../cerber-
+#: load.php:975 ../cerber-load.php:1197 ../cerber-load.php:1203 ../cerber-load.
+#: php:1208 ../cerber-load.php:1213 ../cerber-load.php:1219 ../cerber-load.php:
+#: 1226 ../cerber-load.php:1328 ../cerber-load.php:1465 ../settings.php:1031 ..
+#: /settings.php:1114
+msgid "ERROR:"
+msgstr "Greška:"
+
+#: ../cerber-load.php:708
+msgid "Human verification failed. Please click the square box in the reCAPTCHA block below."
+msgstr "Ljudska verifikacija nije uspela. Molimo Vas kliknite na kockicu u reCAPTCHA poljud ispod."
+
+#: ../cerber-load.php:987
+msgid "<strong>ERROR</strong>: The password you entered for the username %s is incorrect."
+msgstr "<strong>Greška</strong>: Šifra koju ste uneli za korisničko ime %s je netačna."
+
+#: ../cerber-load.php:1214
+msgid "Username is not allowed. Please choose another one."
+msgstr "Korisničko ime nije dozvoljeno. Molimo Vas odaberite drugo."
+
+#: ../cerber-load.php:3472
+msgid "unspecified"
+msgstr "Nedefinisano."
+
+#: ../cerber-load.php:3475
+msgid "Number of lockouts is increasing"
+msgstr "Broj zaključavanja raste"
+
+#: ../cerber-load.php:3480
+msgid "View activity for this IP"
+msgstr "Pogledaj aktivnost ove IP adrese"
+
+#: ../cerber-load.php:3484 ../cerber-load.php:3486
+msgid "A new version of WP Cerber is available to install"
+msgstr "Nova verzija WP Cerbera je dostupna za instalaciju"
+
+#: ../cerber-load.php:3485
+msgid "Hi!"
+msgstr "Zdravo!"
+
+#: ../cerber-load.php:3488 ../cerber-load.php:3499
+msgid "Website"
+msgstr "Vebsajt"
+
+#: ../cerber-load.php:3491 ../cerber-load.php:3492
+msgid "The WP Cerber security plugin has been deactivated"
+msgstr "WP Cerber Security plugin je isključen"
+
+#: ../cerber-load.php:3494
+msgid "Not logged in"
+msgstr "Not logged in"
+
+#: ../cerber-load.php:3500
+msgid "By user"
+msgstr "Od strane korisnika"
+
+#: ../cerber-load.php:3501
+msgid "From IP address"
+msgstr "Od strane IP adrese"
+
+#: ../cerber-load.php:3504
+msgid "From country"
+msgstr "Iz zemlje"
+
+#: ../cerber-load.php:3508
+msgid "The WP Cerber security plugin is now active"
+msgstr "WP Cerber Security plugin je sada aktivan"
+
+#: ../cerber-load.php:4295
+msgid "Your IP address is added to the"
+msgstr "Vaša IP adresa je dodata"
+
+#: ../cerber-load.php:4311
+msgid "Import settings"
+msgstr "Podešavanja uvoza"
+
+#: ../settings.php:235
+msgid "Notification limit"
+msgstr "Limit notifikacija"
+
+#: ../settings.php:235
+msgid "notification letters allowed per hour (0 means unlimited)"
+msgstr "Notifikacije dozvoljene po jednom satu (0 znači neograničeno)"
+
+#: ../settings.php:152
+msgid "User related settings"
+msgstr "Podešavanja vezana za korisnika"
+
+#: ../settings.php:156
+msgid "Prohibited usernames"
+msgstr "Zabranjena korisnička imena"
+
+#: ../settings.php:162
+msgid "Usernames from this list are not allowed to log in or register. Any IP address, have tried to use any of these usernames, will be immediately blocked. Use comma to separate logins."
+msgstr "Korisnička imena sa liste nisu dozvoljena za prijavljivanje ili registraciju. Nijedna IP adresa, koja ih koristi, neće moći da se prijavi i biće blokirana. Koristite zarez da odvojite logins."
+
+#: ../settings.php:164
+msgid "User session expire"
+msgstr "Istek sesije korisnika"
+
+#: ../settings.php:164
+msgid "in minutes (leave empty to use default WP value)"
+msgstr "U minutima (ostavite prazno da koristite standardnu WP vrednost)"
+
+#: ../settings.php:197
+msgid "reCAPTCHA settings"
+msgstr "reCAPTCHA podešavanja"
+
+#: ../settings.php:198
+msgid "Site key"
+msgstr "Ključ sajta"
+
+#: ../settings.php:199
+msgid "Secret key"
+msgstr "Tajni ključ"
+
+#: ../settings.php:202
+msgid "Enable reCAPTCHA for WordPress registration form"
+msgstr "Omogući reCAPTCHA za WordPress formu registracije"
+
+#: ../settings.php:205
+msgid "Lost password form"
+msgstr "Forma za izgubljenu lozinku"
+
+#: ../settings.php:208
+msgid "Login form"
+msgstr "Forma prijavljivanja"
+
+#: ../settings.php:208
+msgid "Enable reCAPTCHA for WordPress login form"
+msgstr "Omogući reCAPTCHA za WordPress formu prijavljivanja"
+
+#: ../settings.php:597
+msgid "Before you can start using reCAPTCHA, you have to obtain Site key and Secret key on the Google website"
+msgstr "Pre nego što počnete da koristite reCAPTCHA, morate da dobijete Ključ za sajt i Tajni ključ na Google vebsajtu"
+
+#: ../cerber-lab.php:750 ../settings.php:598 ../settings.php:601
+msgid "Know more"
+msgstr "Saznajte više"
+
+#: ../settings.php:630
+msgid "Users"
+msgstr "Korisnici"
+
+#: ../common.php:834
+msgid "User created"
+msgstr "Kreirani korisnici"
+
+#: ../dashboard.php:1822 ../common.php:835
+msgid "User registered"
+msgstr "Registrovani korisnici"
+
+#: ../common.php:862
+msgid "reCAPTCHA verification failed"
+msgstr "reCAPTCHA verifikacija neuspela"
+
+#: ../common.php:863
+msgid "reCAPTCHA settings are incorrect"
+msgstr "reCAPTCHA podešavanja nisu ispravna"
+
+#: ../common.php:866
+msgid "Attempt to access prohibited URL"
+msgstr "Pokušaj pristupa zabranjenim URL adresama"
+
+#: ../common.php:868 ../common.php:930
+msgid "Attempt to log in with prohibited username"
+msgstr "Pokušaj prijavljivanja zabranjenim korisničkim imenom"
+
+#: ../settings.php:110
+msgid "Cerber Lab connection"
+msgstr "Povezivanje sa Cerber Lab"
+
+#: ../settings.php:110
+msgid "Send malicious IP addresses to the Cerber Lab"
+msgstr "Slanje malicioznih IP adresa Cerber Lab-u"
+
+#: ../settings.php:111
+msgid "Cerber Lab protocol"
+msgstr "Cerber Lab protokol"
+
+#: ../settings.php:174 ../settings.php:202
+msgid "Registration form"
+msgstr "Registraciona forma"
+
+#: ../settings.php:203
+msgid "Enable reCAPTCHA for WooCommerce registration form"
+msgstr "Omogući reCAPTCHA za WooCommerce registracionu formu"
+
+#: ../settings.php:205
+msgid "Enable reCAPTCHA for WordPress lost password form"
+msgstr "Omogući reCAPTCHA za WordPress formu za izgubljenu šifru"
+
+#: ../settings.php:206
+msgid "Enable reCAPTCHA for WooCommerce lost password form"
+msgstr "Omogući reCAPTCHA za WooCommerce formu za izgubljenu šifru"
+
+#: ../settings.php:209
+msgid "Enable reCAPTCHA for WooCommerce login form"
+msgstr "Omogući reCAPTCHA za WooCommerce login formu"
+
+#: ../common.php:864
+msgid "Request to the Google reCAPTCHA service failed"
+msgstr "Zahtev za Google reCAPTCHA servis nije uspeo"
+
+#: ../dashboard.php:1814 ../dashboard.php:1844
+msgid "View all"
+msgstr "Pogledaj sve"
+
+#: ../dashboard.php:1845
+msgid "Recently locked out IP addresses"
+msgstr "Nedavno otključane IP adrese"
+
+#: ../cerber-lab.php:748
+msgid "OK, nail them all"
+msgstr "U redu, utiči na sve"
+
+#: ../cerber-lab.php:749
+msgid "NO, maybe later"
+msgstr "Ne, možda kasnije"
+
+#: ../dashboard.php:54 ../dashboard.php:1353 ../dashboard.php:2174 ../settings.
+#: php:624
+msgid "Dashboard"
+msgstr "Kontrolna tabla"
+
+#: ../cerber-lab.php:746
+msgid "Want to make WP Cerber even more powerful?"
+msgstr "Da li želite da još više ojačate WP Cerber?"
+
+#: ../cerber-lab.php:747
+msgid "Allow WP Cerber to send locked out malicious IP addresses to Cerber Lab. This helps the plugin team to develop new algorithms for WP Cerber that will defend WordPress against new threats and botnets that are appearing  everyday. You can disable the sending in the plugin settings at any time."
+msgstr "Dozvoli WP Cerber da šalje podatke o malicioznim IP adresama Cerber Lab-u. To pomaže plugin timu da razvije nove algoritme za WP Cerber koji brane WordPress od novih napada i botneta koji se svakodnevno pojavljuju. Možete da obustavite ovu opciju u podešavanjima kad god želite."
+
+#: ../dashboard.php:568
+msgid "IP address"
+msgstr "IP adresa"
+
+#: ../dashboard.php:568
+msgid "User login"
+msgstr "Prijavljivanje korisnika"
+
+#: ../dashboard.php:568
+msgid "User ID"
+msgstr "Korisnički ID"
+
+#: ../dashboard.php:760
+msgid "Export"
+msgstr "Izvoz"
+
+#: ../dashboard.php:782
+msgid "Search for IP or username"
+msgstr "Pretraga IP-ija ili korisničkog imena"
+
+#: ../dashboard.php:782
+msgid "Filter"
+msgstr "Filter"
+
+#: ../dashboard.php:54
+msgid "Cerber Dashboard"
+msgstr "Cerber Kontrolna tabla"
+
+#: ../dashboard.php:69
+msgid "Cerber tools"
+msgstr "Cerber alati"
+
+#: ../dashboard.php:2072
+msgid "Subscribe"
+msgstr "Prijava"
+
+#: ../dashboard.php:2073 ../cerber-tools.php:284
+msgid "Unsubscribe"
+msgstr "Odjava"
+
+#: ../dashboard.php:2101
+msgid "You've subscribed"
+msgstr "Prijavili ste se"
+
+#: ../dashboard.php:2104
+msgid "You've unsubscribed"
+msgstr "Odjavili ste se"
+
+#: ../cerber-load.php:3520 ../cerber-load.php:3521
+msgid "A new activity has been recorded"
+msgstr "Nova aktivnost je snimljena"
+
+#: ../cerber-load.php:4028
+msgid "User"
+msgstr "Korisnik"
+
+#: ../cerber-load.php:4036
+msgid "Search string"
+msgstr "Pretraga stringa"
+
+#: ../cerber-load.php:4057
+msgid "To unsubscribe click here"
+msgstr "Da se odjavite kliknite ovde"
+
+#: ../settings.php:114
+msgid "Preferences"
+msgstr "Preference"
+
+#: ../settings.php:116
+msgid "Date format"
+msgstr "Format datuma"
+
+#: ../settings.php:116
+msgid "if empty, the default format %s will be used"
+msgstr "Ako je prazno, koristiće se standardni format %s"
+
+#: ../settings.php:241
+msgid "Push notifications"
+msgstr "Notifikacije"
+
+#: ../settings.php:220
+msgid "Email notifications"
+msgstr "Email notifikacije"
+
+#: ../settings.php:227 ../settings.php:269 ../settings.php:333 ../settings.php:506
+msgid "Use comma to specify multiple values"
+msgstr "Koristite zarez da odvojite više vrednosti"
+
+#: ../settings.php:249
+msgid "All connected devices"
+msgstr "Svi povezani uređaji"
+
+#: ../settings.php:252
+msgid "No devices found"
+msgstr "Uređaji nisu pronađeni"
+
+#: ../settings.php:256
+msgid "Not available"
+msgstr "Nije dostupno"
+
+#: ../common.php:860
+msgid "Password reset requested"
+msgstr "Obavezna promena lozinke"
+
+#: ../common.php:931
+msgid "Limit on failed reCAPTCHA verifications is reached"
+msgstr "Postignut je predviđeni limit na broj pokukšaja reCAPTCHA verifikacije"
+
+#: ../common.php:1020
+msgid "%s ago"
+msgstr "%s ranije"
+
+#: ../settings.php:81
+msgid "Apply limit login rules to IP addresses in the White IP Access List"
+msgstr "Primeni ograničenje broja pokušaja prijavljivanja na IP adrese sa bele liste"
+
+#: ../settings.php:90
+msgid "Display 404 page"
+msgstr "Prikaži 404 stranicu"
+
+#: ../settings.php:200
+msgid "Invisible reCAPTCHA"
+msgstr "Nevidljivi reCAPTCHA"
+
+#: ../settings.php:200
+msgid "Enable invisible reCAPTCHA"
+msgstr "Omogući nevidljivi reCAPTCHA"
+
+#: ../settings.php:200
+msgid "(do not enable it unless you get and enter the Site and Secret keys for the invisible version)"
+msgstr "(ne omogućuj ukoliko ne dobiješ i uneseš Sajt i Tajni ključ za nevidljivu verziju)"
+
+#: ../settings.php:211
+msgid "Enable reCAPTCHA for WordPress comment form"
+msgstr "Omogući reCAPTCHA za WordPress comment formu"
+
+#: ../settings.php:212
+msgid "Disable reCAPTCHA for logged in users"
+msgstr "Onemogući reCAPTCHA za logovane korisnike"
+
+#: ../settings.php:214
+msgid "Limit attempts"
+msgstr "Ograniči pokušaje"
+
+#: ../settings.php:214
+msgid "Lock out IP address for %s minutes after %s failed attempts within %s minutes"
+msgstr "Zaključaj IP adrese na %s minuta nakon %s neuspelih pokušaja u %s minuta"
+
+#: ../settings.php:591
+msgid "In the Citadel mode nobody is able to log in except IPs from the White IP Access List. Active user sessions will not be affected."
+msgstr "U Citadel režimu nikome nije dozvoljeno da se prijavi osim IP-ijevima sa bele liste. Prijavljeni korisnici neće biti izbačeni ili blokirani."
+
+#: ../dashboard.php:568 ../dashboard.php:740
+msgid "Event"
+msgstr "Događaj"
+
+#: ../common.php:153
+msgid "Spam comments denied"
+msgstr "Spem komentar odbijen"
+
+#: ../common.php:155
+msgid "Malicious IP addresses detected"
+msgstr "Maliciozna IP adresa otkrivena."
+
+#: ../common.php:156
+msgid "Lockouts occurred"
+msgstr "Urađeno zaključavanje"
+
+#: ../dashboard.php:1823
+msgid "All suspicious activity"
+msgstr "Sve sumnjive aktivnosti"
+
+#: ../cerber-load.php:1198 ../cerber-load.php:1204 ../cerber-load.php:1220 ..
+#: /cerber-load.php:1227
+msgid "You are not allowed to register."
+msgstr "Nije Vam dozvoljeno da se registrujete."
+
+#: ../common.php:845
+msgid "Spam comment denied"
+msgstr "Odbijen komentar koji spada u spem"
+
+#: ../common.php:870
+msgid "Attempt to log in denied"
+msgstr "Pokušaj logovanja odbijen"
+
+#: ../common.php:871
+msgid "Attempt to register denied"
+msgstr "Pokušaj registracije odbijen"
+
+#: ../common.php:150
+msgid "Malicious activities mitigated"
+msgstr "Umanjena maliciozna aktivnost"
+
+#: ../dashboard.php:68
+msgid "Cerber antispam settings"
+msgstr "Cerber anti-spem podešavanja"
+
+#: ../dashboard.php:68 ../cerber-load.php:4308 ../settings.php:211
+msgid "Antispam"
+msgstr "Antispem"
+
+#: ../settings.php:172
+msgid "Cerber antispam engine"
+msgstr "Cerber antispem engine"
+
+#: ../settings.php:173
+msgid "Comment form"
+msgstr "Forma komentara"
+
+#: ../settings.php:173
+msgid "Protect comment form with bot detection engine"
+msgstr "Zaštiti formu komentara enginom za otkrivanje bota"
+
+#: ../settings.php:174
+msgid "Protect registration form with bot detection engine"
+msgstr "Zaštiti registracionu formu enginom za otkrivanje bota"
+
+#: ../cerber-tools.php:39
+msgid "Export & Import"
+msgstr "Izvezi i uvezi"
+
+#: ../cerber-tools.php:40
+msgid "Diagnostic"
+msgstr "Dijagnoza"
+
+#: ../cerber-tools.php:41
+msgid "License"
+msgstr "Licenca"
+
+#: ../dashboard.php:3642
+msgid "Antispam and bot detection settings"
+msgstr "Podešavanj protiv spema i botova"
+
+#: ../cerber-load.php:1465
+msgid "Sorry, human verification failed."
+msgstr "IZVINITE, ljudska verifikacija nije uspela."
+
+#: ../common.php:932
+msgid "Bot activity is detected"
+msgstr "Otkrivena aktivnost bota"
+
+#: ../settings.php:189
+msgid "Comment processing"
+msgstr "Procesuiranje komentara"
+
+#: ../settings.php:190
+msgid "If a spam comment detected"
+msgstr "Ako je spem komentara otkriven"
+
+#: ../settings.php:191
+msgid "Trash spam comments"
+msgstr "Baci spem komentare u kantu"
+
+#: ../settings.php:191
+msgid "Move spam comments to trash after"
+msgstr "Kasnije baci spem komentare u kantu"
+
+#: ../common.php:846
+msgid "Spam form submission denied"
+msgstr "Odbijena forma slanja spem komentara"
+
+#: ../settings.php:175
+msgid "Other forms"
+msgstr "Druge forme"
+
+#: ../settings.php:175
+msgid "Protect all forms on the website with bot detection engine"
+msgstr "Zaštiti sve forme sajta sa engine za otkrivanje bota"
+
+#: ../settings.php:177
+msgid "Adjust antispam engine"
+msgstr "Prilagodi antispem engine"
+
+#: ../settings.php:178
+msgid "Safe mode"
+msgstr "Siguran režim"
+
+#: ../settings.php:178
+msgid "Use less restrictive policies (allow AJAX)"
+msgstr "Koristi manje restriktivnu politiku (allow AJAX)"
+
+#: ../dashboard.php:3272 ../settings.php:179
+msgid "Logged in users"
+msgstr "Ulogovani korisnici"
+
+#: ../settings.php:179
+msgid "Disable bot detection engine for logged in users"
+msgstr "Onemogući engine za otkrivanje botova za logovane korisnike"
+
+#: ../dashboard.php:136 ../dashboard.php:738
+msgid "Country"
+msgstr "Zemlja"
+
+#: ../dashboard.php:771
+msgid "All events"
+msgstr "Svi događaji"
+
+#: ../dashboard.php:60
+msgid "Cerber Security Rules"
+msgstr "Cerber Security pravila"
+
+#: ../dashboard.php:60 ../dashboard.php:2580
+msgid "Security Rules"
+msgstr "Pravila bezbednosti"
+
+#: ../dashboard.php:1182
+msgid "Failed login attempts"
+msgstr "Neuspeli pokušaji prijave"
+
+#: ../dashboard.php:1088 ../dashboard.php:1183
+msgid "Registered"
+msgstr "Prijavljeni"
+
+#: ../dashboard.php:1253
+msgid "You"
+msgstr "Vi"
+
+#: ../common.php:154
+msgid "Spam form submissions denied"
+msgstr "Odbijena forma slanja spema"
+
+#: ../dashboard.php:1882 ../cerber-load.php:3511 ../cerber-load.php:4297
+msgid "Getting Started Guide"
+msgstr "Vodič za početnike"
+
+#: ../dashboard.php:2572
+msgid "Countries"
+msgstr "Zemlje"
+
+#: ../dashboard.php:2641
+msgid "Permitted for one country"
+msgid_plural "Permitted for %d countries"
+msgstr[0] "Dozvoljeno za jednu zemlju"
+msgstr[1] "Dozvoljeno za %d  zemlje"
+msgstr[2] "Dozvoljeno za %d  zemalja"
+
+#: ../dashboard.php:2652
+msgid "No rule"
+msgstr "Bez pravila"
+
+#: ../dashboard.php:2864
+msgid "Security rules have been updated"
+msgstr "Pravila bezbednosti su ažurirana"
+
+#. URI of the plugin
+#: 
+msgid "https://wpcerber.com"
+msgstr "https://wpcerber.com"
+
+#: ../common.php:847
+msgid "Form submission denied"
+msgstr "Odbijeno slanje forme"
+
+#: ../common.php:848
+msgid "Comment denied"
+msgstr "Komentar odbijen"
+
+#: ../common.php:876
+msgid "Request to REST API denied"
+msgstr "Zahtev za REST API odbijen"
+
+#: ../common.php:877
+msgid "XML-RPC request denied"
+msgstr "Zahtev za XML-RPC odbijen"
+
+#: ../common.php:888
+msgid "Bot detected"
+msgstr "Pronađen bot"
+
+#: ../common.php:889
+msgid "Citadel mode is active"
+msgstr "Citadel mod je aktivan"
+
+#: ../common.php:893
+msgid "Malicious activity detected"
+msgstr "Otkrivena maliciozna aktivnost"
+
+#: ../common.php:894
+msgid "Blocked by country rule"
+msgstr "Blokiran na osnovu pravila za zemlje"
+
+#: ../common.php:895
+msgid "Limit reached"
+msgstr "Postignut limit"
+
+#: ../common.php:896
+msgid "Multiple suspicious activities"
+msgstr "Više sumnjivih aktivnosti"
+
+#: ../common.php:933
+msgid "Multiple suspicious activities were detected"
+msgstr "Otkriveno više sumnjivih aktivnosti"
+
+#: ../settings.php:124
+msgid "Block access to user pages like /?author=n and user data via REST API"
+msgstr "Blokiraj pristup stranicama korisnika kao  /?author=n i podataka putem REST API"
+
+#: ../settings.php:134
+msgid "Block access to the WordPress REST API except the following"
+msgstr "Blokiraj pristup WordPress REST API osim"
+
+#: ../settings.php:135
+msgid "Allow REST API for logged in users"
+msgstr "Dozvoli REST API za logovane korisnike"
+
+#: ../settings.php:142
+msgid "Specify REST API namespaces to be allowed if REST API is disabled. One string per line."
+msgstr "Definiši kome je odobren REST API ukoliko je isključen za sve ostale. Jedan string po liniji."
+
+#: ../settings.php:154
+msgid "Registration limit"
+msgstr "Limit prijavljivanja"
+
+#: ../settings.php:165
+msgid "Sort users in dashboard"
+msgstr "Sortiraj korisnike u kontrolnoj tabli"
+
+#: ../settings.php:165
+msgid "by date of registration"
+msgstr "po datumu registracije"
+
+#: ../settings.php:180
+msgid "Query whitelist"
+msgstr "Query bela lista"
+
+#: ../settings.php:753 ../settings.php:875
+msgid "%s allowed registrations in %s minutes from one IP"
+msgstr "%s dozvoljenih registracija u %s minuta od jednog IP-ija"
+
+#: ../dashboard.php:2708
+msgid "Start typing here to find a country"
+msgstr "Počnite da kucate da pronađete zemlju"
+
+#: ../dashboard.php:2791
+msgid "Click on a country name to add it to the list of selected countries"
+msgstr "Kliknite na naziv zemlje da je dodate na listu odabranih zemalja"
+
+#: ../dashboard.php:2815
+msgid "Submit forms"
+msgstr "Pošaljite formu"
+
+#: ../dashboard.php:2816
+msgid "Post comments"
+msgstr "Komentari posta"
+
+#: ../dashboard.php:2817
+msgid "Log in to the website"
+msgstr "Prijavite se"
+
+#: ../dashboard.php:2818
+msgid "Register on the website"
+msgstr "Registrujte se"
+
+#: ../dashboard.php:2819
+msgid "Use XML-RPC"
+msgstr "Koristite XML-RPC"
+
+#: ../dashboard.php:2820
+msgid "Use REST API"
+msgstr "Koristite REST API"
+
+#: ../settings.php:190
+msgid "Deny it completely"
+msgstr "Zabranite sve"
+
+#: ../settings.php:190
+msgid "Mark it as spam"
+msgstr "Označite kao spam"
+
+#: ../dashboard.php:1808
+msgid "in the last 24 hours"
+msgstr "U poslednjih 24 časa"
+
+#: ../dashboard.php:2175
+msgid "Main settings"
+msgstr "Glavna podešavanja"
+
+#: ../settings.php:261
+msgid "Weekly reports"
+msgstr "Nedeljni izveštaji"
+
+#: ../settings.php:989
+msgid "Sunday"
+msgstr "Nedelja"
+
+#: ../settings.php:990
+msgid "Monday"
+msgstr "Ponedeljak"
+
+#: ../settings.php:991
+msgid "Tuesday"
+msgstr "Utorak"
+
+#: ../settings.php:992
+msgid "Wednesday"
+msgstr "Sreda"
+
+#: ../settings.php:993
+msgid "Thursday"
+msgstr "Četvrtak"
+
+#: ../settings.php:994
+msgid "Friday"
+msgstr "Petak"
+
+#: ../settings.php:995
+msgid "Saturday"
+msgstr "Subota"
+
+#: ../settings.php:1054 ../settings.php:1055
+msgid "If you use a caching plugin, you have to add your new login URL to the list of pages not to cache."
+msgstr "Ukoliko koristite plugin za keširanje, morate da dodate Vaš novi URL za prijavljivanje na listu koja se ne kešira"
+
+#: ../cerber-load.php:3526
+msgid "Weekly report"
+msgstr "Nedeljni izveštaj"
+
+#: ../cerber-load.php:3529 ../cerber-load.php:3539
+msgid "To change reporting settings visit"
+msgstr "Da promenite pravila izveštavanja posetite"
+
+#: ../cerber-load.php:3562
+msgid "Your login page:"
+msgstr "Vaša stranica za prijavljivanje:"
+
+#: ../cerber-load.php:3566
+msgid "Your license is valid until"
+msgstr "Vaša licenca važi do"
+
+#: ../cerber-load.php:3672
+msgid "Activity details"
+msgstr "Detalji aktivnosti"
+
+#: ../settings.php:1021
+msgid "Click to send now"
+msgstr "Kliknite da pošaljete odmah"
+
+#: ../cerber-load.php:833
+msgid "> > > Translator of WP Cerber? To get the PRO license for free, drop your contacts here: https://wpcerber.com/contact/"
+msgstr "> > > Prevodilac WP Cerber-a? Da dobijete besplatnu PRO licencu, ostavite Vaš kontakt ovde:  https://wpcerber.com/contact/"
+
+#: ../dashboard.php:428
+msgid "Email has been sent to"
+msgstr "Email je poslat na"
+
+#: ../dashboard.php:431
+msgid "Unable to send email to"
+msgstr "Nije moguće poslati mail na"
+
+#: ../dashboard.php:2644
+msgid "Not permitted for one country"
+msgid_plural "Not permitted for %d countries"
+msgstr[0] "Nije dozvoljenu za jednu zemlju"
+msgstr[1] "Nije dozvoljeno za %d zemlje"
+msgstr[2] "Nije dozvoljeno za %d zemalja"
+
+#: ../dashboard.php:2795
+msgctxt "to is a marker of infinitive, e.g. \"to use it\""
+msgid "Selected countries are permitted to %s, other countries are not permitted to"
+msgstr "Odabranim zemljama je dozvoljeno da %s, drugim zemljama nije dozvoljeno da"
+
+#: ../dashboard.php:2798
+msgctxt "to is a marker of infinitive, e.g. \"to use it\""
+msgid "Selected countries are not permitted to %s, other countries are permitted to"
+msgstr "Odaberi zemlje kojima nije dozvoljeno da %s, drugim zemljama je dozvoljeno da"
+
+#: ../cerber-load.php:3660
+msgid "Weekly Report"
+msgstr "Nedeljni izveštaj"
+
+#: ../settings.php:90
+msgid "Use 404 template from the active theme"
+msgstr "Koristi 404 template aktivne teme"
+
+#: ../settings.php:90
+msgid "Display simple 404 page"
+msgstr "Prikaži 404 stranicu"
+
+#: ../settings.php:186
+msgid "Enter a part of query string or query path to exclude a request from inspection by the engine. One item per line."
+msgstr "Unesi deo query stringa ili query putanje da isključiš zahtev iz inspekcije od strane engina. Jedan unos po liniji."
+
+#: ../settings.php:274 ../settings.php:511
+msgid "if empty, email from notification settings will be used"
+msgstr "Ako ostavite prazno, koristiće se email iz podešavanja za notifikacije."
+
+#: ../settings.php:262
+msgid "Enable reporting"
+msgstr "Omogući izveštavanje"
+
+#: ../cerber-load.php:3590
+msgid "Your last sign-in was %s from %s"
+msgstr "Vaše poslednje prijavljivanje je bilo %s od %s"
+
+#: ../cerber-load.php:3686
+msgid "Attempts to log in with non-existent username"
+msgstr "Pokušaji prijavljivanje nepostojećim korisničkim imenom"
+
+#: ../dashboard.php:217
+msgid "IP address, IPv4 address range or subnet"
+msgstr "IP adresa, IPv4 domet adrese ili subnet"
+
+#: ../dashboard.php:219
+msgid "Optional comment for this entry"
+msgstr "Opcioni komentar za ovaj unos"
+
+#: ../dashboard.php:260
+msgid "You cannot add your IP address or network"
+msgstr "Ne možete da dodate Vašu IP adresu ili mrežu"
+
+#: ../settings.php:162
+msgid "To specify a REGEX pattern wrap a pattern in two forward slashes."
+msgstr "Da definišete REGEX šemu označite šemu u dve kose crte"
+
+#: ../dashboard.php:56
+msgid "Cerber Traffic Inspector"
+msgstr "Cerber inspektor saobraćaja"
+
+#: ../dashboard.php:56 ../dashboard.php:1323 ../dashboard.php:2918
+msgid "Traffic Inspector"
+msgstr "Inspektor saobraćaja"
+
+#: ../dashboard.php:1355
+msgid "Traffic"
+msgstr "Saobraćaj"
+
+#: ../dashboard.php:3240
+msgid "Request"
+msgstr "Zahtev"
+
+#: ../dashboard.php:3242
+msgid "Host Info"
+msgstr "Informacije o hostu"
+
+#: ../dashboard.php:3243
+msgid "User Agent"
+msgstr "User agent"
+
+#: ../dashboard.php:3268
+msgid "All requests"
+msgstr "Svi zahtevi"
+
+#: ../dashboard.php:3273
+msgid "Not logged in visitors"
+msgstr "Nije prijavljen u visitors"
+
+#: ../dashboard.php:3276
+msgid "Form submissions"
+msgstr "Slanje forme"
+
+#: ../dashboard.php:3278
+msgid "Page Not Found"
+msgstr "Stranica nije pronađena"
+
+#: ../dashboard.php:3285
+msgid "Longer than"
+msgstr "Duže od"
+
+#: ../dashboard.php:3301
+msgid "Refresh"
+msgstr "Osvežite"
+
+#: ../common.php:116
+msgid "Check for requests"
+msgstr "Proverite zahteve"
+
+#: ../common.php:1229
+msgid "Not specified"
+msgstr "Nije definisano"
+
+#: ../settings.php:304
+msgid "Logging mode"
+msgstr "Režim prijavljivanja"
+
+#: ../settings.php:310
+msgid "Logging disabled"
+msgstr "Prijavljivanje onemogućeno"
+
+#: ../settings.php:311
+msgid "Smart"
+msgstr "Pametan"
+
+#: ../settings.php:312
+msgid "All traffic"
+msgstr "Sav saobraćaj"
+
+#: ../settings.php:316
+msgid "Ignore crawlers"
+msgstr "Ignoriši paukove koji indeksiraju"
+
+#: ../settings.php:326
+msgid "Mask these form fields"
+msgstr "Maskiraj ova polja u formi"
+
+#: ../settings.php:362
+msgid "milliseconds"
+msgstr "milisekunde"
+
+#: ../settings.php:282
+msgid "Inspection"
+msgstr "Inspekcija"
+
+#: ../settings.php:283
+msgid "Enable traffic inspection"
+msgstr "Omogući inspekciju saobraćaja"
+
+#: ../settings.php:303
+msgid "Logging"
+msgstr "Prijavljivanje"
+
+#: ../settings.php:321
+msgid "Save request fields"
+msgstr "Snimi request polja"
+
+#: ../settings.php:357
+msgid "Page generation time threshold"
+msgstr "Vremenski prag generacije stranice"
+
+#: ../dashboard.php:3260
+msgid "No requests have been logged."
+msgstr "Nije bilo zahteva logovanja"
+
+#: ../dashboard.php:1322
+msgid "enabled"
+msgstr "omogućeno"
+
+#: ../dashboard.php:1327
+msgid "no connection"
+msgstr "nema konekcije"
+
+#: ../dashboard.php:3597
+msgid "Advanced search"
+msgstr "Napredna pretraga"
+
+#: ../dashboard.php:1078
+msgid "Last seen"
+msgstr "Poslednje viđeno"
+
+#: ../common.php:872 ../common.php:934
+msgid "Probing for vulnerable PHP code"
+msgstr "Probijanje zlonamernog PHP koda"
+
+#: ../dashboard.php:3555
+msgid "Any"
+msgstr "Bilo koji"
+
+#: ../cerber-load.php:3308
+msgid "We're sorry, you are not allowed to proceed"
+msgstr "Žao nam je, nije Vam dozvoljeno da nastavite"
+
+#: ../settings.php:294
+msgid "Request whitelist"
+msgstr "Zahtevaj belu listu"
+
+#: ../settings.php:300
+msgid "Enter a request URI to exclude the request from inspection. One item per line."
+msgstr "Unesite URI zahteva da ga isključite iz inspekcije. Jedan unos po liniji."
+
+#: ../settings.php:338
+msgid "Save request headers"
+msgstr "Snimi request hedere"
+
+#: ../settings.php:344
+msgid "Save $_SERVER"
+msgstr "Snimite $_SERVER"
+
+#: ../settings.php:350
+msgid "Save request cookies"
+msgstr "Snimite request kolačiće"
+
+#: ../settings.php:125
+msgid "Protect admin scripts"
+msgstr "Zaštitite admin skripte"
+
+#: ../settings.php:125
+msgid "Block unauthorized access to load-scripts.php and load-styles.php"
+msgstr "Blokirajte neautorizovane pristupe za load-skrcipts.php i load-styles.php"
+
+#: ../common.php:1915
+msgid "Unable to create the directory"
+msgstr "Nije moguće kreirati direktorijum"
+
+#: ../common.php:1920
+msgid "Destination folder access denied"
+msgstr "Pristup odbijen za destinacioni folder"
+
+#: ../common.php:1923
+msgid "File not found"
+msgstr "Fajl nije pronađen"
+
+#: ../common.php:1926
+msgid "Unable to copy the file"
+msgstr "Nije moguće kopirati fajl"
+
+#: ../common.php:1932
+msgid "Unable to delete the file"
+msgstr "Nije moguće obrisati fajl"
+
+#: ../settings.php:74
+msgid "Plugin initialization"
+msgstr "Inicijalizacija plugina"
+
+#: ../settings.php:75
+msgid "Load security engine"
+msgstr "Pokreni bezbednosnu mašinu"
+
+#: ../settings.php:75
+msgid "Legacy mode"
+msgstr "Lagacy režim"
+
+#: ../settings.php:75
+msgid "Standard mode"
+msgstr "Standardni režim"
+
+#: ../settings.php:1032
+msgid "Plugin initialization mode has not been changed"
+msgstr "Režim inicijalizacije plugina nije promenjen"
+
+#. Description of the plugin
+#: 
+msgid "This is a standard boot module for WP Cerber Security & Antispam plugin. It was installed when you set the plugin initialization mode to Standard. Know more: <a href=\"https://wpcerber.com\">wpcerber.com</a>."
+msgstr "Ovo je standardni modul rada za WP Cerber Security  & Antispam plugin. Instaliran je kada ste inicijalizovali plugin mode na standardni. Za više informacija posetite: <a href=\"https://wpcerber.com\">wpcerber.com</a>."
+
+#: ../common.php:874
+msgid "File upload denied"
+msgstr "Odbijen upload fajla"
+
+#: ../settings.php:98
+msgid "Custom login URL may contain only letters, numbers, dashes and underscores"
+msgstr "Adresa URL-a za prijavljivanje može da sadrži samo slova, brojeve, crtice i donje crtice"
+
+#: ../settings.php:186 ../settings.php:300
+msgid "To specify a REGEX pattern, enclose a whole line in two braces."
+msgstr "Da definišete REGEX šemu, stavite sve u dve zagrade"
+
+#: ../settings.php:587
+msgid "Be careful about enabling these options."
+msgstr "Budite oprezni pri omogućavanju ovih opcija"
+
+#: ../settings.php:587
+msgid "If you forget your Custom login URL, you will be unable to log in."
+msgstr "Ukoliko zaboravite Vaš promenjen URL za prijavljivanje, nećete biti u mogućnosti da se prijavite."
+
+#: ../dashboard.php:64 ../cerber-scanner.php:89
+msgid "Site Integrity"
+msgstr "Integritet veb-sajta"
+
+#: ../dashboard.php:1340 ../dashboard.php:1342 ../cerber-scanner.php:1416
+msgid "Disabled"
+msgstr "Onemogućeno"
+
+#: ../dashboard.php:1341 ../cerber-scanner.php:874
+msgid "Quick Scan"
+msgstr "Brzi skener"
+
+#: ../dashboard.php:1343 ../cerber-scanner.php:874
+msgid "Full Scan"
+msgstr "Kompletan skener"
+
+#. Name of the plugin
+#: 
+msgid "WP Cerber Security, Antispam & Malware Scan"
+msgstr "WP Cerber Security, Antispam & Malware Scan"
+
+#: ../common.php:897
+msgid "Denied"
+msgstr "Odbijeno"
+
+#: ../settings.php:81 ../settings.php:289
+msgid "Use White IP Access List"
+msgstr "Koristi Belu listu IP adresa za pristup"
+
+#: ../settings.php:88
+msgid "Disable dashboard redirection"
+msgstr "Onemogući redirekciju kontrolne table"
+
+#: ../settings.php:88
+msgid "Disable automatic redirection to the login page when /wp-admin/ is requested by an unauthorized request"
+msgstr "Onemogući auto redirekciju ka stranici za prijavljivanje kada je /wp-admi/ zatražen od neautorizovanog lica"
+
+#: ../settings.php:378
+msgid "Scanner settings"
+msgstr "Podešavanja skenera"
+
+#: ../settings.php:379
+msgid "Custom signatures"
+msgstr "Custom potpisi"
+
+#: ../settings.php:385
+msgid "Specify custom PHP code signatures. One item per line. To specify a REGEX pattern, enclose a whole line in two braces."
+msgstr "Specifikujte Vaš PHP kod potpis. Jedan unos po liniji. Da specifikujete REGEX šemu, zatvorite liniju u zagrade."
+
+#: ../settings.php:387
+msgid "Unwanted file extensions"
+msgstr "Neželjene fajl ekstenzije"
+
+#: ../settings.php:393
+msgid "Specify file extensions to search for. Full scan only. Use comma to separate items."
+msgstr "Definišite fajl ekstenzije za pretragu. Važi samo za kompletno skeniranje. Odvajajte unose zarezom."
+
+#: ../settings.php:395
+msgid "Directories to exclude"
+msgstr "Direktorijumi koji se isključuju."
+
+#: ../settings.php:401
+msgid "Specify directories to exclude from scanning. Use absolute paths. One item per line."
+msgstr "Navedite direktorijume da se isključe od skeniranja. Koristite apsolutne putanje. Jedan unos po liniji."
+
+#: ../settings.php:416
+msgid "Scan temporary directory"
+msgstr "Skenirajte privremeni direktorijum"
+
+#: ../settings.php:423
+msgid "Scan session directory"
+msgstr "Skenirajte direktorijum sesija"
+
+#: ../settings.php:435
+msgid "Delete quarantined files after"
+msgstr "Obrišite fajlove u karantinu nakon"
+
+#: ../settings.php:450
+msgid "Launch Quick Scan"
+msgstr "Pokrenite brzo skeniranje"
+
+#: ../cerber-scanner.php:1417
+msgid "Every hour"
+msgstr "Svakog sata"
+
+#: ../cerber-scanner.php:1418
+msgid "Every 3 hours"
+msgstr "Na svaka tri sata"
+
+#: ../cerber-scanner.php:1419
+msgid "Every 6 hours"
+msgstr "Na svakih šest sati"
+
+#: ../settings.php:457
+msgid "Launch Full Scan"
+msgstr "Pokreni komopletno skeniranje"
+
+#: ../settings.php:467 ../settings.php:527
+msgid "Low severity"
+msgstr "Mala jačina"
+
+#: ../settings.php:467 ../settings.php:527
+msgid "Medium severity"
+msgstr "Srednja jačina"
+
+#: ../settings.php:467 ../settings.php:527
+msgid "High severity"
+msgstr "Velika jačina"
+
+#: ../settings.php:468
+msgid "Report an issue if any of the following is true"
+msgstr "Prijavi problem ako je nešto od sledećeg istinito"
+
+#: ../settings.php:476
+msgid "Send email report"
+msgstr "Pošalji email izveštaj"
+
+#: ../settings.php:482
+msgid "After every scan"
+msgstr "Nakon svakog skena"
+
+#: ../settings.php:483
+msgid "If any changes in scan results occurred"
+msgstr "Ako su se pojavile promene u izveštaju prilikom skeniranja"
+
+#: ../settings.php:488
+msgid "Include file sizes"
+msgstr "Uključi veličine fajlova"
+
+#: ../settings.php:495
+msgid "Include scan errors"
+msgstr "Uključi greške prilikom skeniranja"
+
+#: ../cerber-load.php:4306 ../cerber-scanner.php:75
+msgid "Security Scanner"
+msgstr "Skener bezbednosti"
+
+#: ../cerber-scanner.php:77
+msgid "Scheduling"
+msgstr "Planiranje"
+
+#: ../cerber-scanner.php:142
+msgid "Currently a scheduled scan in progress. Please wait until it is finished."
+msgstr "Trenutno traje planirani skener. Molimo Vas sačekajte da se završi."
+
+#: ../cerber-scanner.php:146
+msgid "Previous scan started %s has not been completed. Continue scanning?"
+msgstr "Prethodno skeniranje je počelo %s i nije završeno. Nastaviti skeniranje?"
+
+#: ../cerber-scanner.php:155
+msgid "It seems this website has never been scanned. To start scanning click the button below."
+msgstr "Izgleda da veb-sajt nikada nije skeniran. Da započnete kliknite na dugme ispod."
+
+#: ../cerber-scanner.php:158
+msgid "Start Quick Scan"
+msgstr "Započnite brzo skeniranje"
+
+#: ../cerber-scanner.php:159
+msgid "Start Full Scan"
+msgstr "Započnite kompletno skeniranje"
+
+#: ../cerber-scanner.php:160
+msgid "Stop Scanning"
+msgstr "Zaustavite skeniranje"
+
+#: ../cerber-scanner.php:161
+msgid "Continue Scanning"
+msgstr "Nastavite skeniranje"
+
+#: ../cerber-scanner.php:191
+msgid "Delete"
+msgstr "Obrišite"
+
+#: ../cerber-scanner.php:1366
+msgid "Verified"
+msgstr "Verifikovano"
+
+#: ../cerber-scanner.php:1373
+msgid "Integrity data not found"
+msgstr "Nisu pronađene integrity data"
+
+#: ../cerber-scanner.php:1374
+msgid "Unable to check the integrity of the plugin due to a network error"
+msgstr "Nemoguće utvrditi integritet plugina zbog greške na mreži"
+
+#: ../cerber-scanner.php:1375
+msgid "Unable to check the integrity of WordPress files due to a network error"
+msgstr "Nemoguće utvrditi integritet WordPress fajlova zbog greške na mreži"
+
+#: ../cerber-scanner.php:1376
+msgid "Unable to check the integrity of the theme due to a network error"
+msgstr "Nemoguće utvrditi integritet teme zbog greške na mreži"
+
+#: ../cerber-scanner.php:1379
+msgid "Local file doesn't exist"
+msgstr "Lokalni fajl ne postoji"
+
+#: ../cerber-scanner.php:1381
+msgid "Unable to process file"
+msgstr "Nemoguće procesuirati fajl"
+
+#: ../cerber-scanner.php:1382 ../cerber-scanner.php:4914
+msgid "Unable to open file"
+msgstr "Nemoguće otvoriti fajl"
+
+#: ../cerber-scanner.php:1384
+msgid "Checksum mismatch"
+msgstr "Checksum neslaganje"
+
+#: ../cerber-scanner.php:1387
+msgid "Suspicious code found"
+msgstr "Pronađen sumnjivi kod"
+
+#: ../cerber-scanner.php:1389
+msgid "Unattended suspicious file"
+msgstr "Nezapažen sumnjivi fajl"
+
+#: ../cerber-scanner.php:1390
+msgid "Executable code found"
+msgstr "Pronađen kod koji može da se izvrši"
+
+#: ../cerber-scanner.php:1394
+msgid "Unwanted file extension"
+msgstr "Neželjena fajl ekstenzija"
+
+#: ../cerber-scanner.php:1396
+msgid "Content has been modified"
+msgstr "Sadržaj je promenjen"
+
+#: ../cerber-scanner.php:1397
+msgid "New file"
+msgstr "Novi fajl"
+
+#: ../cerber-scanner.php:2487
+msgid "Custom signature found"
+msgstr "Specifičan potpis pronađen"
+
+#: ../cerber-scanner.php:3730
+msgid "Scanning folders for files"
+msgstr "Skeniranje foldera za fajlove"
+
+#: ../cerber-scanner.php:3734
+msgid "Parsing the list of files"
+msgstr "Raščlanjivanje liste fajlova"
+
+#: ../cerber-scanner.php:3735
+msgid "Checking for new and modified files"
+msgstr "Proveravanje novih i promenjenih fajlova"
+
+#: ../cerber-scanner.php:3736
+msgid "Verifying the integrity of WordPress"
+msgstr "Provera integriteta WordPressa"
+
+#: ../cerber-scanner.php:3737
+msgid "Verifying the integrity of the plugins"
+msgstr "Provera integriteta pluginova"
+
+#: ../cerber-scanner.php:3738
+msgid "Verifying the integrity of the themes"
+msgstr "Provera integriteta teme"
+
+#: ../cerber-scanner.php:3739
+msgid "Searching for malicious code"
+msgstr "Pretraga malcioznog koda"
+
+#: ../cerber-scanner.php:3740
+msgid "Finalizing the scan"
+msgstr "Finaliziranje skena"
+
+#: ../cerber-scanner.php:3864 ../cerber-scanner.php:3934
+msgid "Files to scan"
+msgstr "Fajlovi za skeniranje"
+
+#: ../cerber-scanner.php:3871 ../cerber-scanner.php:3942
+msgid "Critical issues"
+msgstr "Kritične tačke"
+
+#: ../cerber-scanner.php:3871 ../cerber-scanner.php:3946 ../cerber-scanner.php:5104
+msgid "Issues total"
+msgstr "Ukupno stavki"
+
+#: ../cerber-scanner.php:4309
+msgid "The directory is not writable"
+msgstr "Direktorijum onemogućen za pisanje"
+
+#: ../cerber-scanner.php:4327
+msgid "Unable to create WP CERBER directory"
+msgstr "Nemoguće kreirati WP CERBER direktorijum"
+
+#: ../cerber-scanner.php:4533
+msgid "File access error. Possibly scan results are outdated. Please run Quick or Full Scan."
+msgstr "Greška prilikom pristupa fajlu. Mogući neažurni rezultati skena. Molimo Vas da pokrenete brzi ili kompletan sken."
+
+#: ../cerber-scanner.php:5213
+msgid "To view full report visit"
+msgstr "Da vidite kompletan izveštaj posetite"
+
+#: ../cerber-load.php:3536
+msgid "Scanner Report"
+msgstr "Izveštaj skenera"
+
+#: ../settings.php:403
+msgid "Monitor new files"
+msgstr "Pratite nove fajlove"
+
+#: ../settings.php:410
+msgid "Monitor modified files"
+msgstr "Pratite modifikovane fajlove"
+
+#: ../settings.php:484
+msgid "If new issues found"
+msgstr "Ukoliko se pronađu novi problemi"
+
+#: ../settings.php:1279
+msgid "The schedule has been updated"
+msgstr "Raspored je ažuriran"
+
+#: ../cerber-scanner.php:1393 ../cerber-scanner.php:2667
+msgid "Suspicious directives found"
+msgstr "Sumnjive direktive pronađene"
+
+#: ../cerber-scanner.php:2665
+msgid "Suspicious code instruction found"
+msgstr "Sumnjive instrukcije koda pronađene"
+
+#: ../cerber-scanner.php:2666
+msgid "Suspicious code signatures found"
+msgstr "Sumnjivi potpisi koda pronađeni"
+
+#: ../cerber-scanner.php:2669
+msgid "To solve this issue you have to reinstall %s or update it to the latest version."
+msgstr "Da rešite ovaj problem morate da reinstalirate %s ili ga ažurirate na poslednju verziju."
+
+#: ../cerber-scanner.php:2670
+msgid "Please upload a reference ZIP archive"
+msgstr "Molimo Vas da upload-ujete reference ZIP arhivu"
+
+#: ../cerber-scanner.php:2671
+msgid "Resolve issue"
+msgstr "Rešavanje problema"
+
+#: ../cerber-scanner.php:4020
+msgid "We have not found any integrity data to verify"
+msgstr "Nismo pronašli podatke sa integritetom za potvrdu"
+
+#: ../cerber-scanner.php:4022
+msgid "You have to upload a ZIP archive from which you've installed it. This enables the security scanner to verify the integrity of the code and detect malware."
+msgstr "Morate da omogućite ZIP arhivu sa koje ste izvršili instalaciju. Ovo omogućuje bezbednosti skener da verifikuje integritet koda i detektuje malver."
+
+#: ../cerber-scanner.php:5060
+msgid "Full Scan Report"
+msgstr "Izveštaj kompletnog skenera"
+
+#: ../cerber-scanner.php:5060
+msgid "Quick Scan Report"
+msgstr "Izveštaj brzog skenera"
+
+#: ../cerber-scanner.php:5073
+msgid "Files scanned"
+msgstr "Skenirani fajlovi"
+
+#: ../dashboard.php:206 ../dashboard.php:951 ../dashboard.php:982 ../dashboard.
+#: php:1094
+msgid "Check for activities"
+msgstr "Proverite aktivnosti"
+
+#: ../dashboard.php:1057
+msgid "Activated"
+msgstr "Aktivirano"
+
+#: ../common.php:879
+msgid "Malicious request denied"
+msgstr "Maliciozni zahtev odbijen"
+
+#: ../common.php:883
+msgid "User activated"
+msgstr "Korisnik aktiviran"
+
+#: ../common.php:898
+msgid "Suspicious number of fields"
+msgstr "Sumnjivi broj polja"
+
+#: ../common.php:899
+msgid "Suspicious number of nested values"
+msgstr "Sumnjivi broj ugrađenih vrednosti"
+
+#: ../common.php:900 ../common.php:935
+msgid "Malicious code detected"
+msgstr "Maliciozni kod aktiviran"
+
+#: ../common.php:936
+msgid "Attempt to upload a file with malicious code"
+msgstr "Pokušaj uploada malicioznog koda"
+
+#: ../common.php:1105
+msgid "Bytes"
+msgstr "Bajtovi"
+
+#: ../cerber-scanner.php:1372
+msgid "Vulnerability found"
+msgstr "Pronađena slabost"
+
+#: ../cerber-scanner.php:1377
+msgid "Unable to check the integrity due to a DB error"
+msgstr "Nemogućnost uvrđivanja integriteta zbog greške data baze"
+
+#: ../cerber-scanner.php:3731
+msgid "Scanning the upload folder for files"
+msgstr "Skeniranje fajlova upload foldera"
+
+#: ../cerber-scanner.php:3732
+msgid "Scanning the temp folder for files"
+msgstr "Skeniranje fajlova privremenog foldera"
+
+#: ../cerber-scanner.php:3733
+msgid "Scanning the session folder for files"
+msgstr "Skeniranje fajlova foldera sesija"
+
+#: ../settings.php:449
+msgid "Automated recurring scan schedule"
+msgstr "Raspored skeniranja sa automatskim ponavljanjem"
+
+#: ../settings.php:465
+msgid "Scan results reporting"
+msgstr "Izveštavanje o rezultatima skeniranja"
+
+#: ../dashboard.php:3270
+msgid "Suspicious activity"
+msgstr "Sumnjiva aktivnost"
+
+#: ../dashboard.php:3271
+msgid "Errors"
+msgstr "Greške"
+
+#: ../dashboard.php:3633
+msgid "Antispam engine"
+msgstr "Antispam engine"
+
+#. Description of the plugin
+#: 
+msgid "Defends WordPress against hacker attacks, spam, trojans, and viruses. Malware scanner and integrity checker. Hardening WordPress with a set of comprehensive security algorithms. Spam protection with a sophisticated bot detection engine and reCAPTCHA. Tracks user and intruder activity with powerful email, mobile and desktop notifications."
+msgstr "Brani WordPress od hakerskih napada, spema, trojanaca, i virusa. Sadrži malver skener i proveru integriteta. Osnažuje WordPress setom složenih sigurnosnih algoritama. Štiti od spema sofisticiranim sistemom protiv botova i reCAPTCHA. Prati korisničku aktivnost i aktivnost napadača pomoću moćnih mail, mobilnih i desktop notifikacija."
+
+#: ../cerber-load.php:377
+msgid "You have exceeded the number of allowed login attempts. Please try again in %d minutes."
+msgstr "Premašili ste broj dozvoljenih login pokušaja. Pokušajte ponovo za $d minuta."
+
+#: ../common.php:1020
+msgctxt "preposition of a period of time like: in 6 hours"
+msgid "in %s"
+msgstr "U %s"
+
+#: ../settings.php:1005
+msgctxt "preposition of time like: at 11:00"
+msgid "at"
+msgstr "u"
+
+#: ../cerber-scanner.php:80
+msgid "Quarantine"
+msgstr "Karantin"
+
+#: ../cerber-scanner.php:3815
+msgid "Started"
+msgstr "Počelo"
+
+#: ../cerber-scanner.php:3819
+msgid "Finished"
+msgstr "Završilo se"
+
+#: ../cerber-scanner.php:3827
+msgid "Performance"
+msgstr "Performanse"
+
+#: ../cerber-scanner.php:3839
+msgid "Vulnerabilities"
+msgstr "Ranjivost"
+
+#: ../cerber-scanner.php:3843
+msgid "New files"
+msgstr "Novi fajlovi"
+
+#: ../cerber-scanner.php:3847
+msgid "Changed files"
+msgstr "Promenjeni fajlovi"
+
+#: ../cerber-scanner.php:3851
+msgid "Unwanted extensions"
+msgstr "Neželjene ekstenzije"
+
+#: ../settings.php:521 ../cerber-scanner.php:3855
+msgid "Unattended files"
+msgstr "Fajlovi bez nadzora"
+
+#: ../cerber-scanner.php:3864 ../cerber-scanner.php:5536
+msgid "Scanned"
+msgstr "Skenirani"
+
+#: ../cerber-scanner.php:5446
+msgid "There are no files in the quarantine at the moment."
+msgstr "Trenutno nema fajlova u karantinu."
+
+#: ../cerber-scanner.php:5529
+msgid "Restore"
+msgstr "Restore"
+
+#: ../cerber-scanner.php:5524
+msgid "Delete permanently"
+msgstr "Obriši trajno"
+
+#: ../cerber-scanner.php:5537
+msgid "Moved to quarantine"
+msgstr "Pomeri u karantin"
+
+#: ../cerber-scanner.php:5538
+msgid "Automatic deletion"
+msgstr "Automatsko brisanje"
+
+#: ../cerber-scanner.php:5539
+msgid "Size"
+msgstr "Veličina"
+
+#: ../cerber-scanner.php:5540 ../cerber-scanner.php:5671
+msgid "File"
+msgstr "Fajl"
+
+#: ../cerber-scanner.php:5608
+msgid "The file has been deleted permanently."
+msgstr "Fajl je trajno obrisan."
+
+#: ../cerber-scanner.php:5617
+msgid "The file has been restored to its original location."
+msgstr "Fajl je vraćen na originalnu lokaciju."
+
+#: ../dashboard.php:1356
+msgid "Integrity"
+msgstr "Integritet"
+
+#: ../common.php:873
+msgid "Attempt to upload malicious file denied"
+msgstr "Pokušaj uploada malicioznog fajla odbijen"
+
+#: ../cerber-news.php:209
+msgid "Awesome!"
+msgstr "Odlično!"
+
+#: ../settings.php:519
+msgid "Automatic cleanup of malware and suspicious files"
+msgstr "Automatsko čišćenje malvera i sumnjivih fajlova"
+
+#: ../settings.php:528
+msgid "Files in the uploads folder"
+msgstr "Fajlovi u upload folderu"
+
+#: ../settings.php:535
+msgid "Files with unwanted extensions"
+msgstr "Fajlovi sa neželjenih ekstenzijama"
+
+#: ../settings.php:542
+msgid "Exclusions"
+msgstr "Isključivanje"
+
+#: ../settings.php:543
+msgid "Files in the temporary directory"
+msgstr "Fajlovi u privremenom direktorijumu"
+
+#: ../settings.php:549
+msgid "Files in the sessions directory"
+msgstr "Fajlovi u direktorijumu sesije"
+
+#: ../settings.php:555
+msgid "Files in these directories"
+msgstr "Fajlovi u ovim direktorijumima"
+
+#: ../settings.php:561
+msgid "Use absolute paths. One item per line."
+msgstr "Koristite apsolutne putanje. Jedan unos po liniji."
+
+#: ../settings.php:563
+msgid "Files with these extensions"
+msgstr "Fajlovi sa ovim ekstenzijama"
+
+#: ../settings.php:569
+msgid "Use comma to separate items."
+msgstr "Koristite zarez da odvojite stavke."
+
+#: ../cerber-scanner.php:78
+msgid "Cleaning up"
+msgstr "Čišćenje"
+
+#: ../cerber-scanner.php:1388
+msgid "Malicious code found"
+msgstr "Maliciozni kod pronađen"
+
+#: ../cerber-scanner.php:2662
+msgid "This file contains executable code and may contain obfuscated malware. If this file is a part of a theme or a plugin, it must be located in the theme or the plugin folder. No exception, no excuses."
+msgstr "Ovaj fajl sadrži kod koji može da se izvrši i koji može da sadrži malver. Ako je fajl deo tema ili plugina, mora biti lociran u folderu teme ili plugina. Bez izuzetaka."
+
+#: ../cerber-scanner.php:2663
+msgid "The scanner recognizes this file as \"ownerless\" or \"not bundled\" because it does not belong to any known part of the website and should not be here."
+msgstr "Skener je prepoznao ovaj fajl kao fajl bez vlasništva odnosno fajl koji nije deo nečega drugog jer ne pripada nijednom drugog delu veb-sajta i zbog toga ne bi trebalo da bude prisutan."
+
+#: ../cerber-scanner.php:2664
+msgid "It may remain after upgrading to a newer version of %s. It also may be a piece of obfuscated malware. In a rare case it might be a part of a custom-made (bespoke) plugin or theme."
+msgstr "Možda je ostalo nakon ažuriranja na novu verziju %s. Takođe može biti deo malvera. U retkim slučajevima može biti deo custom razvijenog plugina ili teme."
+
+#: ../cerber-scanner.php:2668
+msgid "The contents of the file have been changed and do not match what exists in the official WordPress repository or a reference file you have uploaded earlier. The file may have been altered by malware, infected by a virus or has been tampered with."
+msgstr "Sadržaj fajla se promenio i ne podudara se sa onim što piše u zvaničnom WordPress repozitorijumu ili referentnom fajlu koji ste popeli ranije. Fajl je možda inficiran ili sadrži malver."
+
+#: ../cerber-scanner.php:5154
+msgid "Deleted"
+msgstr "Obrisano"
+
+#: ../cerber-scanner.php:5201
+msgid "Automatically moved to quarantine"
+msgstr "Automatski pomereno u karantin"
+
+#: ../common.php:901
+msgid "Suspicious SQL code detected"
+msgstr "Sumnjivi SQL kod otkriven"
+
+#: ../dashboard.php:1337
+msgctxt "Example: Last malware scan: 23 Jan 2018"
+msgid "Last malware scan"
+msgstr "Poslednji malver sken"
+
+#: ../dashboard.php:2909
+msgid "Live Traffic"
+msgstr "Saobraćaj uživo"
+
+#: ../settings.php:117
+msgid "Use English for admin interface"
+msgstr "Koristi engleski za admin panel"
+
+#: ../cerber-tools.php:42
+msgid "Log"
+msgstr "Log"
+
+#: ../settings.php:429
+msgid "Enable diagnostic log"
+msgstr "Omogući dijagnostik log"
+
+#: ../settings.php:128
+msgid "Disable PHP in uploads"
+msgstr "Isključi PHP u uploadu"
+
+#: ../settings.php:128
+msgid "Disable execution of PHP scripts in the WordPress media folder"
+msgstr "Onemogući izvršavanje PHP skripti u WordPress media folderu"
+
+#: ../settings.php:130
+msgid "Disable PHP error displaying"
+msgstr "Onemogući PHP error prikaz"
+
+#: ../cerber-scanner.php:79
+msgid "Ignore List"
+msgstr "Ignore lista"
+
+#: ../cerber-scanner.php:194
+msgid "Ignore"
+msgstr "Ignoriši"
+
+#: ../cerber-scanner.php:5639
+msgid "Apply"
+msgstr "Primeni"
+
+#: ../cerber-scanner.php:5670
+msgid "Added"
+msgstr "Dodato"
+
+#: ../cerber-scanner.php:5640 ../cerber-scanner.php:5665
+msgid "Remove from the list"
+msgstr "Pomeri sa liste"
+
+#: ../cerber-scanner.php:5641
+msgid "User Insights"
+msgstr "Uvid u korisnike"
+
+#: ../cerber-scanner.php:5642
+msgid "Traffic Insights"
+msgstr "Uvid u saobraćaj"
+
+#: ../cerber-scanner.php:5643
+msgid "Activity Insights"
+msgstr "Uvid u aktivnost"
+
+#: ../dashboard.php:2279
+msgid "Are you sure you want to delete selected files?"
+msgstr "Da li ste sigurni da želite da obrišete označene fajlove?"
+
+#: ../dashboard.php:2280
+msgid "These files have been moved to the quarantine"
+msgstr "Ovi fajlovi su pomereni u karantin"
+
+#: ../dashboard.php:2283
+msgid "Do you want to add selected files to the ignore list?"
+msgstr "Da li želite da dodate označete fajlove na ingor listu?"
+
+#: ../dashboard.php:2284
+msgid "These files have been added to the ignore list"
+msgstr "Ovi fajlovi su dodati na ignor listu"
+
+#: ../dashboard.php:2286
+msgid "Some errors occurred"
+msgstr "Pojavile su se greške"
+
+#: ../dashboard.php:2287
+msgid "All files have been processed"
+msgstr "Svi fajlovi su procesuirani"
+
+#: ../dashboard.php:2444
+msgid "These features are available in a professional version of the plugin."
+msgstr "Ove opcije su dostupne u profesionalnoj verziji plugina."
+
+#: ../dashboard.php:2445
+msgid "Know more about all advantages at"
+msgstr "Saznajte više o svim prednostima na"
+
+#: ../common.php:902
+msgid "Suspicious JavaScript code detected"
+msgstr "Sumnjiv JavaScript kod otkriven"
+
+#: ../settings.php:1282
+msgid "Unable to update the schedule"
+msgstr "Nije moguće ažurirati raspored"
+
+#: ../cerber-scanner.php:5554
+msgid "All scans"
+msgstr "Svi skenovi"
+
+#: ../cerber-scanner.php:5645
+msgid "The list is empty."
+msgstr "Lista je prazna"
+
+#: ../cerber-scanner.php:5507
+msgid "No files match the specified filter."
+msgstr "Nema fajlova koji se podudaraju sa filterom"
+
+#: ../cerber-scanner.php:5507
+msgid "Click here to see the full list of files"
+msgstr "Kliknite ovde da vidite listu svih fajlova"
+

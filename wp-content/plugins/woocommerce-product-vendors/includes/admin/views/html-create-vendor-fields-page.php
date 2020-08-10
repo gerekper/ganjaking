@@ -49,7 +49,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<div class="form-field term-email">
 		<label for="wcpv-vendor-email"><?php esc_html_e( 'Vendor Email(required)', 'woocommerce-product-vendors' ); ?></label>
-		<input type="email" name="vendor_data[email]" value="" required aria-required="true" />
+		<input type="email" multiple name="vendor_data[email]" value="" required aria-required="true" />
 
 		<p><?php esc_html_e( 'All notifications will be sent to this email address, including new orders and customer inquiries. Add multiple email addresses by separating them with a comma.', 'woocommerce-product-vendors' ); ?></p>
 	</div>

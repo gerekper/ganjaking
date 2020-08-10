@@ -1,0 +1,817 @@
+/* ============================================ */
+/* theme-console.css                            */
+/*                                              */
+/* Specific modifications for CONSOLE THEME     */
+/*                                              */
+/*  Contents:                                   */
+/*                                              */
+/*  GENERAL                                     */
+/*  WP                                          */
+/*  THEME                                       */
+/*  CONTENT                                     */
+/*  DASHBOARD                                   */
+/*  LISTS                                       */
+/*  COMMENTS                                    */
+/*  PRODUCTS                                    */
+/*  REPORTS                                     */
+/*  SETTINGS                                    */
+/*  RESPONSIVE                                  */
+/*                                              */
+/* ============================================ */
+
+/* ============================================ */
+/* GENERAL                                      */
+/* ============================================ */
+:root {
+  --content-background: #f5f5f5;
+  --header-background : #fff;
+  --header-icons      : #353535;
+  --primary-buttons   : red;
+  --content-borders-1 : #e8e8e8;
+
+}
+
+::-webkit-scrollbar {
+  background-color: rgb(255, 255, 255);
+}
+
+#asterisk-theme .table td {
+  border-top: 1px solid #dedddd !important;
+}
+
+#inbrowser,
+#slider,
+.energyplus-engine,
+.energyplus-header-top-container,
+body:not(.energyplus-engine) {
+  background: var(--content-background) !important;
+}
+
+/* ============================================ */
+/* WP                                       */
+/* ============================================ */
+
+body:not(.energyplus-engine) #wpbody {
+  width       : 90%;
+  padding-top : 65px;
+  padding-left: 0;
+}
+
+body:not(.woocommerce_page_wc-admin) #woocommerce-embedded-root {
+  height: 0 !important;
+}
+
+.wrap {
+  margin: 10px 0 0 2px;
+}
+
+.woocommerce-layout__primary {
+  margin-top: 20px !important;
+}
+
+.woocommerce-embed-page .wrap {
+  margin-top : -30px !important;
+  padding-top: 20px !important;
+
+}
+
+/* POSTS */
+
+.block-editor__container {
+  position: relative;
+}
+
+.auto-fold .edit-post-header {
+  left: 0;
+  top : 51px;
+}
+
+body.auto-fold .edit-post-layout__content {
+  margin-left: 0;
+}
+
+.edit-post-sidebar {
+  top: 107px;
+}
+
+.branch-5-4.auto-fold .block-editor-editor-skeleton {
+  left: 0;
+  top : 50px;
+}
+
+/* ============================================ */
+/* THEME                                       */
+/* ============================================ */
+
+.__A__HeaderIn_Div {
+  height       : 70px;
+  position     : absolute;
+  width        : 100%;
+  border-bottom: 1px solid #d8d8d8;
+  top          : 0;
+}
+
+#inbrowser,
+#inbrowser--loading {
+  background: #f5f5f5 !important;
+}
+
+#wpwrap,
+body,
+html {
+  background: var(--content-background) !important;
+}
+
+#energyplus-theme {
+  font-size  : 12px;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+#energyplus-header {
+  width        : 100%;
+  height       : 50px;
+  background   : var(--header-background);
+  position     : fixed;
+  border-bottom: 1px solid var(--content-borders-1);
+  top          : 0;
+  left         : 0;
+  z-index      : 999;
+  display      : flex;
+}
+
+#energyplus-header #trig2 {
+  display: none;
+}
+
+#energyplus-header .energyplus-logo {
+  height        : 100%;
+  padding-left  : 20px;
+  padding-right : 20px;
+  position      : relative;
+  display       : inline-block;
+  vertical-align: top;
+  float         : left;
+
+}
+
+#energyplus-header .energyplus-logo a {
+  color      : #000;
+  font-weight: 600;
+}
+
+#energyplus-header .energyplus-logo img {
+  height: 30px;
+  width : auto;
+
+}
+
+#energyplus-header .__A__EnergyPlus_Menu_C {
+
+  float      : left;
+  border-left: 1px solid var(--header-top);
+  xmax-width : 85vw;
+  width      : 100%;
+}
+
+#energyplus-header .energyplus-menu {
+  border-left: 1px solid var(--header-top);
+}
+
+#energyplus-header .energyplus-menu ul li {
+  display        : inline-block;
+  vertical-align : top;
+  margin-left    : 30px;
+  line-height    : 50px;
+  position       : relative;
+  padding-left   : 10px;
+  padding-right  : 10px;
+  color          : var(--header-text);
+  float          : left;
+  text-decoration: none;
+  font-size      : 12px;
+  text-transform : uppercase;
+  margin-bottom  : 0;
+}
+
+#energyplus-header .energyplus-menu ul li a {
+  color: var(--header-text);
+}
+
+#energyplus-header .energyplus-menu ul li .dashicons-before {
+  display: none;
+}
+
+#energyplus-header .energyplus-menu ul li ul li {
+  padding-left : 0 !important;
+  padding-right: 30px !important;
+}
+
+#energyplus-header .energyplus-menu ul li ul li a {
+  color      : var(--header-text);
+  line-height: 30px;
+  white-space: nowrap;
+}
+
+#energyplus-header .energyplus-menu--selected a {
+  font-weight: 600;
+}
+
+#energyplus-header .__A__My {
+  border-left: 1px solid var(--header-top);
+  padding    : 10px 20px;
+  height     : 100%;
+
+}
+
+#energyplus-header .__A__My a {
+  color          : var(--header-text);
+  text-decoration: none;
+}
+
+#energyplus-header .__A__My img {
+  width        : 30px;
+  height       : 30px;
+  padding-right: 5px;
+}
+
+#energyplus-header .__A__My_Name nav ul > li {
+  margin-left : 10px;
+  margin-right: 10px;
+}
+
+#energyplus-header .__A__My_Name nav ul li ul {
+  padding-bottom: 10px;
+}
+
+#energyplus-header .__A__My_Name nav ul li ul li {
+  padding: 10px 10px 0 10px !important;
+}
+
+#energyplus-header .__A__My .dashicons-search {
+  font-size: 17px;
+}
+
+#overflow.energyplus-more-double {
+  width: 600px;
+  right: -117px;
+  left : unset;
+}
+
+#overflow.energyplus-more-double li {
+  width: 44%;
+  float: left !important;
+}
+
+#overflow.energyplus-more-double li ul {
+  position   : absolute;
+  top        : 0;
+  left       : 30%;
+  line-height: 31px;
+}
+
+#overflow.energyplus-more-double li ul li a {
+  color: #fff !important;
+}
+
+#__A__Mobile_Menu_Icon {
+  width : 28px;
+  height: 28px;
+  fill  : #aaa;
+  margin: 0;
+}
+
+/* Content */
+.energyplus-content {
+  position  : relative;
+  margin-top: 49px;
+}
+
+/* ============================================ */
+/* CONTENT                                      */
+/* ============================================ */
+
+.energyplus-content {
+  min-height: auto;
+}
+
+.__A__LeftMenu {
+  margin-top   : 20px;
+  margin-bottom: 20px;
+}
+
+.__A__MainMenu,
+.__A__MainMenu ul {
+  width   : 100%;
+  overflow: hidden;
+}
+
+.__A__MainMenu ul ul {
+  left      : -10px;
+  background: var(--header-background);
+}
+
+.__A__MainMenu .__A__Menu_Badge {
+  position: absolute;
+  top     : 35%;
+  right   : -9px;
+}
+
+.energyplus-title--menu {
+  height       : 61px;
+  margin-top   : 49px;
+  padding-left : 0;
+  border-bottom: 1px solid var(--content-borders-1);
+}
+
+.energyplus-title--menu .energyplus-gp {
+  width        : 90%;
+  margin       : 0 auto;
+  padding-left : 0;
+  padding-right: 0;
+}
+
+.energyplus-admin-orders .energyplus-title--menu .energyplus-gp {
+  padding-left: 15px;
+}
+
+.__A__GP {
+  width : 90%;
+  margin: 0 auto;
+}
+
+.__A__GP_Top {
+  margin-top: 40px;
+}
+
+.__A__Button1.__A__Selected,
+.energyplus-title--menu .__A__Button1:hover {
+  color      : #353535 !important;
+  background : transparent !important;
+  font-weight: 600;
+}
+
+.__A__Searching {
+  width : 90%;
+  margin: 0 auto;
+}
+
+.__A__Searching .__A__Search_Input {
+  border: 1px solid #f1f1f1;
+}
+
+.energyplus-search-1--overlay {
+  z-index: 1000;
+}
+
+.energyplus-search-1--overlay #energyplus-search-1--wrapper {
+  margin-top: 52px;
+}
+
+.energyplus-search-1--overlay .energyplus-search-1--close {
+  top: 24px;
+}
+
+.energyplus-title.inbrowser {
+  position     : relative;
+  width        : 100%;
+  text-align   : left;
+  left         : 0;
+  margin-bottom: 60px;
+  top          : 20px;
+}
+
+.energyplus-title {
+  position  : absolute;
+  z-index   : 99;
+  right     : 15%;
+  text-align: right;
+  width     : auto;
+  top       : 15px;
+}
+
+.energyplus-title--buttons a {
+  font-size: 10px;
+}
+
+.energyplus-title--buttons .btn-danger {
+  background    : transparent;
+  border-color  : transparent;
+  color         : var(--primary-buttons);
+  font-size     : 11px;
+  text-transform: uppercase;
+  padding-top   : 0.6em;
+}
+
+#energyplus-frame {
+  padding-top: 51px !important;
+  height     : calc(100vh - 5px) !important;
+}
+
+.__A__Frame_Inline #energyplus-frame {
+  width      : 100%;
+  padding-top: 0 !important;
+  height     : calc(100vh - 146px) !important;
+}
+
+/* ============================================ */
+/* DASHBOARD                                    */
+/* ==============<============================== */
+
+.grid {
+  margin-top: 70px;
+}
+
+.__A__Segment_dashboard .energyplus-title--buttons {
+  position: absolute;
+  width   : 200px;
+  right   : -80px;
+  top     : -25px;
+}
+
+.__A__DisplayNotifications {
+  font-size : 12px !important;
+  color     : #000;
+  background: transparent;
+}
+
+.__A__DisplayNotifications.badge-danger {
+  color: #fff !important;
+}
+
+/* ============================================ */
+/* LISTS                                       */
+/* ============================================ */
+
+.__A__List_M1 .__A__Item {
+  margin-bottom: 0;
+  border-radius: 0;
+  background   : #ffffff !important;
+  border       : 0 !important;
+  border       : 1px solid #f1f1f1 !important;
+  /*border-radius: 15px;*/
+}
+
+.__A__List_M1 .__A__Item:not(.collapsed) {
+  z-index   : 100;
+  background: #ffffff !important;
+}
+
+.energyplus-list-m2 table {
+  background: #fff;
+  border    : 1px solid #e4e4e4;
+}
+
+/* ============================================ */
+/* COMMENTS                                       */
+/* ============================================ */
+
+.__A__Segment_comments .energyplus-title--buttons {
+  display: none;
+}
+
+/* ============================================ */
+/* REPORTS                                       */
+/* ============================================ */
+.__A__Segment_reports #energyplus-frame {
+  padding-top: 0 !important;
+  margin-top : -20px;
+  height     : calc(100vh - 133px) !important;
+}
+
+#energyplus-reports .__A__Reports_Range {
+  z-index: 100;
+  padding: 30px;
+}
+
+/* ============================================ */
+/* SETTINGS                                       */
+/* ============================================ */
+
+.energyplus-settings {
+  padding-left: 15px;
+}
+
+.energyplus-settings .__A__Item {
+  padding-left : 0;
+  padding-right: 0;
+}
+
+#energyplus-settings-woocommerce iframe {
+  margin-top: -75px !important;
+  width     : 100vw !important;
+  height    : calc(100vh - 75px) !important;
+}
+
+.__A__Desktop_Control_Close {
+  left: 19px !important;
+}
+
+.__A__Desktop_Control_Minimize {
+  left: 38px !important;
+}
+
+/* ============================================ */
+/* RTL                                   */
+/* ============================================ */
+
+.rtl .energyplus-title {
+  right: inherit;
+  left : 15%;
+
+}
+
+.rtl #energyplus-header .energyplus-menu ul li {
+  float: right;
+}
+
+.rtl .__A__Segment_dashboard .energyplus-title--buttons {
+  right: inherit;
+  top  : -25px;
+}
+
+.rtl .energyplus-title.inbrowser {
+  top          : -100px;
+  margin-bottom: 120px;
+}
+/* ============================================ */
+/* RESPONSIVE                                   */
+/* ============================================ */
+
+@media screen and (max-width : 820px) {
+  #wpwrap,
+  body,
+  html {
+    background: #efefef !important;
+  }
+
+  body:not(.energyplus-engine) #wpbody {
+    width: 100%;
+  }
+
+  .__A__Adjust {
+    display: none;
+  }
+
+  .__A__DisplayNotifications {
+    font-size: 16px !important;
+  }
+
+  .grid.__A__GP {
+    margin-top: 50px !important;
+  }
+
+  #wpbody {
+    padding-top: 46px;
+  }
+
+  .energyplus-title.inbrowser {
+    margin-top: 40px !important;
+  }
+
+  #energyplus-header {
+    background-color: #efefef;
+    border-bottom   : 1px solid #dedddd;
+  }
+
+  #energyplus-header .__A__MainMenu,
+  #energyplus-header .energyplus-logo {
+    opacity: 0 !important;
+  }
+
+  #energyplus-header .__A__My {
+    border-left: 0;
+  }
+
+  #energyplus-header .__A__My a {
+    color: #000;
+  }
+
+  .energyplus-menu {
+    display: none;
+  }
+
+  #energyplus-header .energyplus-menu {
+    border-left: 0 solid var(--content-borders-1);
+  }
+
+  #trig2 {
+    display : block !important;
+    position: fixed;
+    left    : 16px;
+    top     : 11px;
+    z-index : 999;
+    color   : #353535;
+  }
+
+  .energyplus-title {
+    position      : absolute;
+    z-index       : 999;
+    right         : 1%;
+    text-align    : right;
+    width         : 100%;
+    top           : 213px;
+    height        : auto;
+    padding-bottom: 8px;
+    margin-bottom : 0;
+    border-bottom : 0 solid #dedede;
+  }
+
+  .energyplus-title--menu {
+    border-bottom: 1px solid #dedddd;
+  }
+
+  .energyplus-title--buttons {
+    position: absolute;
+    left   : 20%;
+    top     : -110px;
+  }
+
+  .__A__Segment_dashboard .energyplus-title--buttons {
+    position: absolute;
+    width   : 200px;
+    right   : 22px;
+    top     : -90px;
+
+  }
+
+  .__A__LeftMenu {
+    background: #efefef;
+  }
+
+  .energyplus-search-1--overlay .energyplus-search-1--close {
+    top: 18px;
+  }
+
+  /* Content */
+
+  .energyplus-content {
+    margin-top: 22px;
+  }
+
+  .energyplus-title--menu {
+    padding-left: -10px !important;
+    margin-top  : -13px;
+    border-top  : 0;
+  }
+
+  #energyplus-frame {
+    margin-top: -30px !important;
+  }
+
+  /* Dashboard */
+
+  .__A__Segment_reports #energyplus-frame {
+    margin-top: 0 !important;
+  }
+
+  #energyplus-dashboard-wc-admin {
+    margin-top: 40px;
+  }
+
+  /* Notifications */
+
+  .notification-bar li > div {
+    display: inherit;
+  }
+
+  /* Lists */
+
+  .__A__List_M1 .__A__Item {
+    background   : transparent !important;
+    border       : 0 !important;
+    border-bottom: 1px solid var(--content-borders-1) !important;
+  }
+
+  /* Orders */
+
+  #energyplus-orders-1 {
+    margin-top: -10px;
+  }
+
+  /* Products */
+
+  #energyplus-categories {
+    margin-top: 70px;
+  }
+
+  /* Customers */
+
+
+  /* Coupons */
+
+  #energyplus-coupons-1 {
+    padding-top: 60px;
+  }
+
+  /* Reports */
+  #energyplus-reports .__A__Reports_Range {
+    padding: 30px 0 0;
+  }
+
+  /* Settings */
+  #energyplus-settings-woocommerce iframe {
+    margin-top: -75px !important;
+  }
+
+  /* rtl */
+
+  .rtl #energyplus-header {
+    direction: ltr;
+  }
+
+  .rtl .__A__Segment_dashboard .energyplus-title--buttons {
+    right: inherit;
+    top  : -96px;
+  }
+
+  .rtl .energyplus-title--buttons {
+    left      : -40px !important;
+    text-align: left !important;
+    top       : 26px;
+  }
+}
+
+@media screen and (max-width : 567px) {
+  .energyplus-title--menu {
+    margin-bottom: 24px;
+  }
+
+  #energyplus-frame {
+    margin-top: -60px !important;
+  }
+
+  #energyplus-settings-woocommerce iframe {
+    margin-top: -145px !important;
+  }
+
+}
+
+@media (min-width: 667px) and (max-width: 1000px) {
+  .energyplus-title--menux {
+    margin-top : 49px !important;
+    margin-left: -20px !important;
+
+  }
+}
+
+@media (min-width: 567px) and (max-width: 820px) {
+  .__A__Segment_dashboard .energyplus-title--buttons {
+    position: absolute;
+    width   : 200px;
+    right   : 0;
+    top     : -202px;
+  }
+
+  .energyplus-title--buttons {
+    top: -166px;
+  }
+}
+
+@media (min-width: 820px) {
+  .energyplus-admin-orders .energyplus-title--menu {
+
+  }
+
+  .energyplus-admin-orders .__A__Scroll {
+    width: 80%;
+    overflow-x     : auto;
+    white-space    : nowrap;
+    scroll-behavior: smooth;
+    overflow-y     : hidden;
+  }
+
+
+  .energyplus-admin-orders  .energyplus-title--menu ul {
+    display: flex;
+  }
+
+  .energyplus-admin-orders  .energyplus-title {
+
+    right: 5%;
+  }
+
+  .energyplus-admin-products  .__A__Li_Search .btn-group,
+  .energyplus-admin-orders  .__A__Li_Search .btn-group {
+    display: none;
+  }
+
+  ::-webkit-scrollbar {
+    width  : 0;
+    display: none !important;
+  }
+
+
+.energyplus-theme-console.energyplus-admin-products .__A__Li_Search > .btn-group {
+display: inline-block;
+}
+
+.energyplus-theme-console.energyplus-admin-products .energyplus-title {
+right: 20%;
+}
+
+.energyplus-theme-console.energyplus-admin-products .__A__OrderBy {
+margin-top: 0px;
+}
+
+
+}

@@ -10,18 +10,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 /*
 * Copyright: (C) 2013 - 2020 José Conti
 */
-function redsys_woocommerce_gateway_redsys_init_check() {
+function redsys_oficial_woocommerce_gateway_redsys_init_check() {
 	$class   = 'error';
-	$message = '<span class="dashicons dashicons-dismiss"></span>' . ' ' . __( 'WARNING: Please, deactivate my WooCommerce Redsys Gateway Light version before activate WooCommerce Gateway Redsys (by Jos&eacute; Conti & WooCommerce.com).', 'woocommerce-redsys' );
-	echo '<div class="' . esc_attr( $class ) . '"> <p>' . esc_html( $message ) . '</p></div>';
+	$message = __( 'WARNING: Please, deactivate any Redsys, InSite or Bizum plugins other than WooCommerce Redsys Gateway by Jose Conti (WooCommerce.com) or you will have problems with WooCommerce Redsys Gateway in Payment methods.', 'woocommerce-redsys' );
+	echo '<div class="' . esc_attr( $class ) . '" style="background-color: #c0392b; color: white; border-left-color: white;"> <p style="font-size: 20px;">' . esc_html( $message ) . '</p></div>';
 }
 
 /*
 * Copyright: (C) 2013 - 2020 José Conti
 */
 function redsys_admin_notice_lite_version() {
-	if ( is_plugin_active( 'woo-redsys-gateway-light/woocommerce-redsys.php' ) ) {
-		add_action( 'admin_notices', 'redsys_woocommerce_gateway_redsys_init_check' );
+	if ( is_plugin_active( 'woo-redsys-gateway-light/woocommerce-redsys.php' )|| is_plugin_active( 'redsys/wc-redsys.php' ) || is_plugin_active( 'redsysoficial/wc-redsys.php' ) || is_plugin_active( 'bizum/class-wc-bizum.php' ) ) {
+		add_action( 'admin_notices', 'redsys_oficial_woocommerce_gateway_redsys_init_check' );
 	}
 }
 add_action( 'admin_init', 'redsys_admin_notice_lite_version', 0 );

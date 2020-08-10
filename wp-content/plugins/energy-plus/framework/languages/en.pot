@@ -1,0 +1,2298 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2020-08-05 09:32+0300\n"
+"PO-Revision-Date: 2019-12-17 14:48+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2\n"
+"X-Poedit-Basepath: ../..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-KeywordsList: _e;esc_html__;esc_html_e;esc_attr__;esc_attr_e;__\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: energy-plus.php:98
+#, php-format
+msgid ""
+"<h1>Energy+ is deactivated</h1><br><br><a href=\"%s\">Return to Wordpress "
+"Admin</a>"
+msgstr ""
+
+#: energy-plus.php:106
+#, php-format
+msgid ""
+"<h1>Energy+ Safe Mode</h1><br>If Energy+ is not working properly and causes "
+"errors on your site, you can temporarily deactivate Energy+.<br><br><a href="
+"\"%s\">Deactivate Energy+ now</a>"
+msgstr ""
+
+#: framework/controller/energyplus-admin.php:163
+#: framework/libs/reactors/tweaks/views/settings.php:127
+#: framework/view/shared/dashboard/dashboard-wc-admin.php:10
+#: framework/view/shared/dashboard/dashboard-wc-admin.php:12
+#: framework/view/shared/dashboard/dashboard.php:10
+#: framework/view/shared/dashboard/dashboard.php:12
+msgid "Dashboard"
+msgstr ""
+
+#: framework/controller/energyplus-admin.php:164
+#: framework/libs/reactors/energizer/energizer.php:60
+#: framework/libs/reactors/tweaks/views/settings.php:128
+#: framework/libs/reactors/tweaks/views/settings.php:151
+#: framework/view/shared/customers/detail.php:138
+#: framework/view/shared/customers/list-1.php:43
+#: framework/view/shared/customers/list-98.php:22
+#: framework/view/shared/orders/list-1.php:11
+#: framework/view/shared/orders/list-2.php:11
+#: framework/view/shared/orders/list-95.php:10
+#: framework/view/shared/orders/list-98.php:9
+#: framework/view/shared/reports/nav.php:14
+#: framework/view/shared/reports/overview.php:116
+msgid "Orders"
+msgstr ""
+
+#: framework/controller/energyplus-admin.php:165
+#: framework/libs/reactors/energizer/energizer.php:64
+#: framework/libs/reactors/tweaks/views/settings.php:129
+#: framework/libs/reactors/tweaks/views/settings.php:155
+#: framework/view/shared/orders/list-1.php:85
+#: framework/view/shared/orders/list-2.php:44
+#: framework/view/shared/orders/list-98.php:49
+#: framework/view/shared/products/attributes.php:8
+#: framework/view/shared/products/list-1.php:10
+#: framework/view/shared/products/list-95.php:9
+#: framework/view/shared/products/list-98.php:8
+#: framework/view/shared/products/nav.php:10
+msgid "Products"
+msgstr ""
+
+#: framework/controller/energyplus-admin.php:166
+#: framework/libs/reactors/tweaks/views/settings.php:131
+#: framework/libs/reactors/tweaks/views/settings.php:163
+#: framework/view/shared/customers/list-1.php:10
+#: framework/view/shared/customers/list-95.php:9
+#: framework/view/shared/customers/list-98.php:7
+msgid "Customers"
+msgstr ""
+
+#: framework/controller/energyplus-admin.php:167
+#: framework/libs/reactors/tweaks/views/settings.php:130
+#: framework/view/shared/reports/overview.php:9
+#: framework/view/shared/reports/woocommerce.php:9
+msgid "Reports"
+msgstr ""
+
+#: framework/controller/energyplus-admin.php:168
+#: framework/libs/reactors/energizer/energizer.php:62
+#: framework/libs/reactors/tweaks/views/settings.php:132
+#: framework/libs/reactors/tweaks/views/settings.php:159
+#: framework/view/shared/coupons/list-1.php:10
+#: framework/view/shared/coupons/list-95.php:8
+#: framework/view/shared/coupons/stats.php:8
+#: framework/view/shared/reports/overview.php:122
+msgid "Coupons"
+msgstr ""
+
+#: framework/controller/energyplus-admin.php:169
+#: framework/controller/energyplus-admin.php:183
+#: framework/controller/energyplus-settings.php:148
+#: framework/controller/energyplus-settings.php:378
+#: framework/view/shared/reactors/list.php:9
+msgid "Reactors"
+msgstr ""
+
+#: framework/controller/energyplus-admin.php:170
+#: framework/libs/reactors/energizer/energizer.php:58
+#: framework/libs/reactors/tweaks/views/settings.php:167
+#: framework/view/shared/comments/list-1.php:20
+#: framework/view/shared/comments/list-95.php:19
+msgid "Comments"
+msgstr ""
+
+#: framework/controller/energyplus-admin.php:179
+#: framework/libs/reactors/energizer/views/settings.php:47
+#: framework/libs/widgets/links.php:132
+#: framework/view/shared/reactors/list.php:38
+#: framework/view/shared/reactors/list.php:46
+#: framework/view/shared/settings/general.php:8
+#: framework/view/shared/settings/panels.php:8
+#: framework/view/shared/settings/woocommerce.php:8
+#: framework/view/themes/one-shadow/header.php:45
+#: framework/view/themes/one/header.php:45
+msgid "Settings"
+msgstr ""
+
+#: framework/controller/energyplus-admin.php:410
+#: framework/controller/energyplus-ajax.php:39
+msgid "Failed on security check"
+msgstr ""
+
+#: framework/controller/energyplus-admin.php:418
+#: framework/controller/energyplus-admin.php:429
+#: framework/controller/energyplus-settings.php:138
+msgid "Restricted Area."
+msgstr ""
+
+#: framework/controller/energyplus-admin.php:539
+msgid "Please wait"
+msgstr ""
+
+#: framework/controller/energyplus-admin.php:539
+msgid "Done"
+msgstr ""
+
+#: framework/controller/energyplus-comments.php:31
+#: framework/view/shared/comments/list-1.php:119
+#: framework/view/shared/comments/list-1.php:150
+msgid "Approve"
+msgstr ""
+
+#: framework/controller/energyplus-comments.php:32
+#: framework/view/shared/comments/list-1.php:80
+msgid "APPROVED"
+msgstr ""
+
+#: framework/controller/energyplus-comments.php:33
+#: framework/view/shared/comments/list-1.php:116
+#: framework/view/shared/comments/list-1.php:142
+msgid "Unapprove"
+msgstr ""
+
+#: framework/controller/energyplus-comments.php:34
+#: framework/view/shared/comments/list-1.php:80
+msgid "UNAPPROVED"
+msgstr ""
+
+#: framework/controller/energyplus-comments.php:321
+msgid "Comment has been approved"
+msgstr ""
+
+#: framework/controller/energyplus-comments.php:327
+msgid "Comment has been unapproved"
+msgstr ""
+
+#: framework/controller/energyplus-comments.php:333
+#: framework/controller/energyplus-comments.php:345
+#: framework/controller/energyplus-comments.php:351
+msgid "Comment has been restored"
+msgstr ""
+
+#: framework/controller/energyplus-comments.php:363
+msgid "Comment has been deleted forever"
+msgstr ""
+
+#: framework/controller/energyplus-comments.php:368
+msgid "Comment deleted"
+msgstr ""
+
+#: framework/controller/energyplus-comments.php:370
+msgid "Comment can not be deleted"
+msgstr ""
+
+#: framework/controller/energyplus-customers.php:336
+#: framework/view/shared/customers/detail.php:109
+msgid "Select a state"
+msgstr ""
+
+#: framework/controller/energyplus-customers.php:357
+msgid "Last Orders"
+msgstr ""
+
+#: framework/controller/energyplus-events.php:94
+#: framework/controller/energyplus-events.php:109
+#: framework/view/shared/orders/list-1.php:10
+#: framework/view/shared/orders/list-95.php:9
+msgid "New order"
+msgstr ""
+
+#: framework/controller/energyplus-events.php:134
+#: framework/controller/energyplus-events.php:147
+#, php-format
+msgid "%s has commented to %s"
+msgstr ""
+
+#: framework/controller/energyplus-events.php:146
+msgid "New comment"
+msgstr ""
+
+#: framework/controller/energyplus-events.php:169
+#, php-format
+msgid "%s &mdash; Coupon usage limit has been reached"
+msgstr ""
+
+#: framework/controller/energyplus-events.php:204
+#, php-format
+msgid "%s - Out of stock"
+msgstr ""
+
+#: framework/controller/energyplus-events.php:205
+#: framework/view/shared/products/list-1.php:70
+msgid "Out of stock"
+msgstr ""
+
+#: framework/controller/energyplus-events.php:207
+#, php-format
+msgid "%s - Low stock"
+msgstr ""
+
+#: framework/controller/energyplus-events.php:208
+msgid "Low stock"
+msgstr ""
+
+#: framework/controller/energyplus-events.php:227
+#, php-format
+msgid "Low stock for %s - %d"
+msgstr ""
+
+#: framework/controller/energyplus-helpers.php:246
+msgid "Today"
+msgstr ""
+
+#: framework/controller/energyplus-helpers.php:250
+msgid "Yesterday"
+msgstr ""
+
+#: framework/controller/energyplus-helpers.php:254
+msgid "This Week"
+msgstr ""
+
+#: framework/controller/energyplus-helpers.php:258
+msgid "Last Week"
+msgstr ""
+
+#: framework/controller/energyplus-helpers.php:262
+msgid "This Month"
+msgstr ""
+
+#: framework/controller/energyplus-helpers.php:269
+msgid "Year "
+msgstr ""
+
+#: framework/controller/energyplus-orders.php:280
+msgid "Order is not exists"
+msgstr ""
+
+#: framework/controller/energyplus-orders.php:292
+msgid "Order can not be restore"
+msgstr ""
+
+#: framework/controller/energyplus-orders.php:294
+msgid "Order has been restored"
+msgstr ""
+
+#: framework/controller/energyplus-products.php:582
+#: framework/view/shared/products/list-1.php:122
+#: framework/view/shared/products/list-1.php:128
+#: framework/view/shared/products/list-98.php:31
+#: framework/view/shared/products/list-98.php:37
+msgid "Out Of Stock"
+msgstr ""
+
+#: framework/controller/energyplus-products.php:589
+#: framework/controller/energyplus-products.php:599
+#: framework/view/shared/comments/nav.php:15
+msgid "Deleted"
+msgstr ""
+
+#: framework/controller/energyplus-products.php:591
+#: framework/controller/energyplus-products.php:601
+#, php-format
+msgid "Product #%d can not be deleted"
+msgstr ""
+
+#: framework/controller/energyplus-products.php:609
+msgid "Restored"
+msgstr ""
+
+#: framework/controller/energyplus-products.php:611
+#, php-format
+msgid "Product #%d can not be restored"
+msgstr ""
+
+#: framework/controller/energyplus-reactors.php:32
+#: framework/libs/reactors/announcements/views/edit.php:10
+msgid "Announcements"
+msgstr ""
+
+#: framework/controller/energyplus-reactors.php:33
+msgid "Announcements for Admins and Shop Managers."
+msgstr ""
+
+#: framework/controller/energyplus-reactors.php:34
+msgid ""
+"Announcements for Admins and Shop Managers. It has no effect on frontend."
+msgstr ""
+
+#: framework/controller/energyplus-reactors.php:37
+#: framework/controller/energyplus-reactors.php:48
+#: framework/controller/energyplus-reactors.php:59
+msgid "NEW"
+msgstr ""
+
+#: framework/controller/energyplus-reactors.php:43
+msgid "Energizer"
+msgstr ""
+
+#: framework/controller/energyplus-reactors.php:44
+msgid "Apply E+ styles to important WP / WC pages"
+msgstr ""
+
+#: framework/controller/energyplus-reactors.php:45
+msgid ""
+"This reactor adapts some important WordPress and WooCommerce pages to the E+ "
+"style. <br><br> <strong>Important Note:</strong> You need to enable "
+"<u>Settings > Full Mode</u> to use this reactor."
+msgstr ""
+
+#: framework/controller/energyplus-reactors.php:54
+msgid "Login Page"
+msgstr ""
+
+#: framework/controller/energyplus-reactors.php:55
+msgid "Customize WordPress Login page of your store"
+msgstr ""
+
+#: framework/controller/energyplus-reactors.php:56
+msgid ""
+"This reactor adapts your WP Login page to the E+ style. <br><br> "
+"<strong>Important Note:</strong> If you are already using an other WP Login "
+"Page Customizer plugin, <u>do not activate</u> this reactor!"
+msgstr ""
+
+#: framework/controller/energyplus-reactors.php:65
+msgid "Tweaks"
+msgstr ""
+
+#: framework/controller/energyplus-reactors.php:66
+msgid "Allows you to set up some additional features for Energy+"
+msgstr ""
+
+#: framework/controller/energyplus-reactors.php:67
+msgid ""
+"Allows you to set up some additional features for Energy+ <br> <br>For "
+"example; you can adjust the size of the detail screen opened from the right, "
+"select which statuses will appear in the Orders panel, etc."
+msgstr ""
+
+#: framework/controller/energyplus-reactors.php:76
+msgid "App Helper"
+msgstr ""
+
+#: framework/controller/energyplus-reactors.php:77
+#: framework/controller/energyplus-reactors.php:78
+msgid "Helps you create a desktop app to manage your store"
+msgstr ""
+
+#: framework/controller/energyplus-reactors.php:281
+msgid "Can not connect to activation server, please try again later"
+msgstr ""
+
+#: framework/controller/energyplus-reactors.php:289
+msgid ""
+"Can not retrive a valid response from activation server, please try again "
+"later"
+msgstr ""
+
+#: framework/controller/energyplus-reports.php:110
+msgid "This Year's Sales"
+msgstr ""
+
+#: framework/controller/energyplus-reports.php:112
+msgid "Last Year's Sales"
+msgstr ""
+
+#: framework/controller/energyplus-reports.php:114
+#: framework/controller/energyplus-reports.php:126
+#: framework/controller/energyplus-reports.php:139
+#: framework/controller/energyplus-reports.php:153
+msgid "Average Sales"
+msgstr ""
+
+#: framework/controller/energyplus-reports.php:124
+msgid "This Month's Sales"
+msgstr ""
+
+#: framework/controller/energyplus-reports.php:125
+msgid "Last Month's Sales"
+msgstr ""
+
+#: framework/controller/energyplus-reports.php:137
+msgid "This Week's Sales"
+msgstr ""
+
+#: framework/controller/energyplus-reports.php:138
+msgid "Last Week's Sales"
+msgstr ""
+
+#: framework/controller/energyplus-reports.php:149
+msgid "Today's Sales"
+msgstr ""
+
+#: framework/controller/energyplus-reports.php:151
+msgid "Yesterday's Sales"
+msgstr ""
+
+#: framework/controller/energyplus-settings.php:391
+msgid "Not a valid URL"
+msgstr ""
+
+#: framework/controller/energyplus-settings.php:435
+msgid "Reactors can not be disabled and only seen by Admins"
+msgstr ""
+
+#: framework/controller/energyplus-widgets.php:29
+msgid "Online Users"
+msgstr ""
+
+#: framework/controller/energyplus-widgets.php:29
+msgid "Count of online users on your store"
+msgstr ""
+
+#: framework/controller/energyplus-widgets.php:30
+#: framework/view/shared/reports/overview.php:115
+#: framework/view/shared/widgets/hourly.php:9
+msgid "Visitors"
+msgstr ""
+
+#: framework/controller/energyplus-widgets.php:30
+msgid "Hourly/Daily/Monthly visitors count"
+msgstr ""
+
+#: framework/controller/energyplus-widgets.php:31
+#: framework/view/shared/dashboard/dashboard-wc-admin.php:10
+#: framework/view/shared/dashboard/dashboard.php:10
+#: framework/view/shared/reports/nav.php:10
+msgid "Overview"
+msgstr ""
+
+#: framework/controller/energyplus-widgets.php:31
+msgid "Display info about sales, customers etc."
+msgstr ""
+
+#: framework/controller/energyplus-widgets.php:32
+#: framework/view/shared/widgets/productviews.php:7
+msgid "Product Views"
+msgstr ""
+
+#: framework/controller/energyplus-widgets.php:32
+msgid "Which products viewed today?"
+msgstr ""
+
+#: framework/controller/energyplus-widgets.php:33
+#: framework/view/shared/widgets/lastactivity.php:10
+msgid "Last Activities"
+msgstr ""
+
+#: framework/controller/energyplus-widgets.php:33
+msgid "Live info about your visitors activities"
+msgstr ""
+
+#: framework/controller/energyplus-widgets.php:34
+msgid "Funnel Graph"
+msgstr ""
+
+#: framework/controller/energyplus-widgets.php:34
+msgid "Graph of conversions on your store"
+msgstr ""
+
+#: framework/controller/energyplus-widgets.php:35
+#: framework/view/shared/widgets/links-setup.php:10
+msgid "Shortcuts"
+msgstr ""
+
+#: framework/controller/energyplus-widgets.php:35
+msgid "Create custom shortcuts"
+msgstr ""
+
+#: framework/libs/core/energyplus-activator.php:32
+msgid "WooCommerce must be enabled before activate the Energy+."
+msgstr ""
+
+#: framework/libs/core/energyplus-activator.php:100
+msgid "Welcome to E+"
+msgstr ""
+
+#: framework/libs/core/energyplus-activator.php:101
+#, php-format
+msgid ""
+"<strong>E+ is an innovative way to manage your WooCommerce store.</"
+"strong><br><br>We hope you will enjoy using it. If you need assistance, "
+"please visit <a target=\"_blank\" href=\"//en.er.gy/docs/plus?v=%s"
+"\">documentation page</a>."
+msgstr ""
+
+#: framework/libs/reactors/announcements/views/edit.php:16
+#: framework/libs/reactors/energizer/views/settings.php:16
+#: framework/view/shared/widgets/links-setup.php:16
+msgid "Settings have been saved"
+msgstr ""
+
+#: framework/libs/reactors/announcements/views/edit.php:24
+#: framework/view/shared/settings/panels.php:213
+#: framework/view/shared/widgets/links-setup.php:83
+msgid "Title"
+msgstr ""
+
+#: framework/libs/reactors/announcements/views/edit.php:36
+msgid "Content"
+msgstr ""
+
+#: framework/libs/reactors/announcements/views/edit.php:58
+#: framework/libs/reactors/announcements/views/list.php:28
+#: framework/view/shared/widgets/links-setup.php:30
+#: framework/view/shared/widgets/links-setup.php:108
+msgid "Icon"
+msgstr ""
+
+#: framework/libs/reactors/announcements/views/edit.php:82
+#: framework/view/shared/settings/panels.php:50
+#: framework/view/shared/widgets/links-setup.php:110
+msgid "Change icon"
+msgstr ""
+
+#: framework/libs/reactors/announcements/views/edit.php:90
+#: framework/libs/reactors/energizer/views/settings.php:78
+#: framework/libs/reactors/login/views/settings.php:190
+#: framework/libs/reactors/tweaks/views/settings.php:247
+#: framework/view/shared/customers/detail.php:55
+#: framework/view/shared/products/list-1.php:169
+#: framework/view/shared/products/list-1.php:175
+#: framework/view/shared/settings/panels.php:219
+#: framework/view/shared/widgets/links-setup.php:187
+msgid "Save"
+msgstr ""
+
+#: framework/libs/reactors/announcements/views/edit.php:92
+msgid "Cancel"
+msgstr ""
+
+#: framework/libs/reactors/announcements/views/list.php:19
+#: framework/view/shared/comments/list-1.php:48
+#: framework/view/shared/coupons/list-1.php:23
+#: framework/view/shared/customers/list-1.php:25
+#: framework/view/shared/customers/list-98.php:45
+#: framework/view/shared/orders/list-1.php:30
+#: framework/view/shared/orders/list-2.php:31
+#: framework/view/shared/products/attributes.php:14
+#: framework/view/shared/products/categories.php:15
+#: framework/view/shared/products/list-1.php:58
+msgid "No records found"
+msgstr ""
+
+#: framework/libs/reactors/announcements/views/list.php:31
+#: framework/view/shared/orders/list-1.php:79
+#: framework/view/shared/orders/list-2.php:43
+#: framework/view/shared/orders/list-98.php:43
+msgid "Details"
+msgstr ""
+
+#: framework/libs/reactors/announcements/views/list.php:35
+#: framework/view/shared/products/nav.php:25
+#: framework/view/shared/products/nav.php:45
+#: framework/view/shared/reports/overview.php:114
+msgid "Date"
+msgstr ""
+
+#: framework/libs/reactors/announcements/views/list.php:39
+msgid "BY"
+msgstr ""
+
+#: framework/libs/reactors/announcements/views/list.php:53
+#: framework/view/shared/comments/list-1.php:144
+#: framework/view/shared/comments/list-1.php:152
+#: framework/view/shared/coupons/list-1.php:88
+#: framework/view/shared/customers/detail.php:54
+#: framework/view/shared/products/attributes.php:38
+msgid "Edit"
+msgstr ""
+
+#: framework/libs/reactors/announcements/views/list.php:56
+#: framework/view/shared/products/attributes.php:39
+msgid "Are you sure to delete?"
+msgstr ""
+
+#: framework/libs/reactors/announcements/views/list.php:56
+#: framework/libs/reactors/tweaks/views/settings.php:61
+#: framework/view/shared/comments/list-1.php:146
+#: framework/view/shared/comments/list-1.php:154
+#: framework/view/shared/coupons/list-1.php:89
+#: framework/view/shared/customers/list-1.php:61
+#: framework/view/shared/customers/list-98.php:34
+#: framework/view/shared/orders/list-1.php:211
+#: framework/view/shared/products/attributes.php:39
+#: framework/view/shared/products/list-1.php:50
+#: framework/view/shared/products/list-1.php:193
+msgid "Delete"
+msgstr ""
+
+#: framework/libs/reactors/announcements/views/list.php:69
+msgid "Create a new announcement"
+msgstr ""
+
+#: framework/libs/reactors/energizer/energizer.php:54
+msgid "Posts"
+msgstr ""
+
+#: framework/libs/reactors/energizer/energizer.php:55
+msgid "Pages"
+msgstr ""
+
+#: framework/libs/reactors/energizer/energizer.php:56
+msgid "Media"
+msgstr ""
+
+#: framework/libs/reactors/energizer/energizer.php:57
+msgid "Edit Attachment"
+msgstr ""
+
+#: framework/libs/reactors/energizer/energizer.php:59
+msgid "Comment > Edit"
+msgstr ""
+
+#: framework/libs/reactors/energizer/energizer.php:61
+msgid "Orders > Edit"
+msgstr ""
+
+#: framework/libs/reactors/energizer/energizer.php:63
+msgid "Coupons > Edit"
+msgstr ""
+
+#: framework/libs/reactors/energizer/energizer.php:65
+msgid "Products > Edit"
+msgstr ""
+
+#: framework/libs/reactors/energizer/energizer.php:66
+#: framework/view/shared/settings/general.php:101
+msgid "Themes"
+msgstr ""
+
+#: framework/libs/reactors/energizer/energizer.php:67
+msgid "Theme Editor"
+msgstr ""
+
+#: framework/libs/reactors/energizer/energizer.php:68
+msgid "Theme Install"
+msgstr ""
+
+#: framework/libs/reactors/energizer/energizer.php:69
+msgid "Appearance > Widgets"
+msgstr ""
+
+#: framework/libs/reactors/energizer/energizer.php:70
+#: framework/view/shared/widgets/links-setup.php:115
+msgid "Users"
+msgstr ""
+
+#: framework/libs/reactors/energizer/energizer.php:71
+msgid "Users > Add New"
+msgstr ""
+
+#: framework/libs/reactors/energizer/energizer.php:72
+msgid "Users > Profile"
+msgstr ""
+
+#: framework/libs/reactors/energizer/energizer.php:73
+msgid "Nav Menus"
+msgstr ""
+
+#: framework/libs/reactors/energizer/energizer.php:74
+msgid "Plugins"
+msgstr ""
+
+#: framework/libs/reactors/energizer/energizer.php:75
+msgid "Plugins > Add New"
+msgstr ""
+
+#: framework/libs/reactors/energizer/energizer.php:76
+msgid "Plugins > Editor"
+msgstr ""
+
+#: framework/libs/reactors/energizer/energizer.php:77
+msgid "WooCommerce > Settings"
+msgstr ""
+
+#: framework/libs/reactors/energizer/energizer.php:78
+msgid "WooCommerce > Reports"
+msgstr ""
+
+#: framework/libs/reactors/energizer/energizer.php:79
+msgid "WooCommerce > Status"
+msgstr ""
+
+#: framework/libs/reactors/energizer/energizer.php:80
+msgid "Options > General"
+msgstr ""
+
+#: framework/libs/reactors/energizer/energizer.php:81
+msgid "Options > Writing "
+msgstr ""
+
+#: framework/libs/reactors/energizer/energizer.php:82
+msgid "Options > Reading "
+msgstr ""
+
+#: framework/libs/reactors/energizer/energizer.php:83
+msgid "Options > Discussion "
+msgstr ""
+
+#: framework/libs/reactors/energizer/energizer.php:84
+msgid "Options > Media"
+msgstr ""
+
+#: framework/libs/reactors/energizer/energizer.php:85
+msgid "Options > Permalink"
+msgstr ""
+
+#: framework/libs/reactors/energizer/energizer.php:86
+msgid "Options > Privacy"
+msgstr ""
+
+#: framework/libs/reactors/energizer/energizer.php:87
+msgid "Tools"
+msgstr ""
+
+#: framework/libs/reactors/energizer/energizer.php:88
+msgid "Tools > Import"
+msgstr ""
+
+#: framework/libs/reactors/energizer/energizer.php:89
+msgid "Tools > Export"
+msgstr ""
+
+#: framework/libs/reactors/energizer/energizer.php:90
+msgid "Tools > Export Personal Data"
+msgstr ""
+
+#: framework/libs/reactors/energizer/energizer.php:91
+msgid "Tools > Erase Personal Data"
+msgstr ""
+
+#: framework/libs/reactors/energizer/energizer.php:92
+msgid "Tools > Action Scheduler"
+msgstr ""
+
+#: framework/libs/reactors/energizer/views/settings.php:24
+msgid "Screens"
+msgstr ""
+
+#: framework/libs/reactors/energizer/views/settings.php:39
+msgid ""
+"If you have compatibility problems, please turn off Energizer for that page"
+msgstr ""
+
+#: framework/libs/reactors/energizer/views/settings.php:55
+msgid "Add shadows to tables"
+msgstr ""
+
+#: framework/libs/reactors/energizer/views/settings.php:60
+msgid "Remove table row background colors"
+msgstr ""
+
+#: framework/libs/reactors/energizer/views/settings.php:65
+msgid "Show item actions when click like E+ (EXPERIMENTAL)"
+msgstr ""
+
+#: framework/libs/reactors/login/login.php:248
+msgid "Username"
+msgstr ""
+
+#: framework/libs/reactors/login/login.php:249
+msgid "Password"
+msgstr ""
+
+#: framework/libs/reactors/login/login.php:250
+msgid "Email"
+msgstr ""
+
+#: framework/libs/reactors/login/views/settings.php:16
+#: framework/libs/reactors/tweaks/views/settings.php:16
+msgid "Settings are saved"
+msgstr ""
+
+#: framework/libs/reactors/login/views/settings.php:24
+msgid "Position"
+msgstr ""
+
+#: framework/libs/reactors/login/views/settings.php:32
+msgid "Left"
+msgstr ""
+
+#: framework/libs/reactors/login/views/settings.php:39
+msgid "Left (2)"
+msgstr ""
+
+#: framework/libs/reactors/login/views/settings.php:46
+msgid "Center"
+msgstr ""
+
+#: framework/libs/reactors/login/views/settings.php:53
+msgid "Right"
+msgstr ""
+
+#: framework/libs/reactors/login/views/settings.php:60
+msgid "Right (2)"
+msgstr ""
+
+#: framework/libs/reactors/login/views/settings.php:72
+#: framework/view/shared/settings/general.php:17
+msgid "Logo"
+msgstr ""
+
+#: framework/libs/reactors/login/views/settings.php:88
+#: framework/libs/reactors/login/views/settings.php:121
+msgid "Remove image"
+msgstr ""
+
+#: framework/libs/reactors/login/views/settings.php:91
+#: framework/libs/reactors/login/views/settings.php:124
+#: framework/libs/reactors/login/views/settings.php:204
+msgid "Set image"
+msgstr ""
+
+#: framework/libs/reactors/login/views/settings.php:105
+msgid "Background Image"
+msgstr ""
+
+#: framework/libs/reactors/login/views/settings.php:138
+#: framework/view/shared/settings/general.php:135
+msgid "Colors"
+msgstr ""
+
+#: framework/libs/reactors/login/views/settings.php:144
+msgid "Box background"
+msgstr ""
+
+#: framework/libs/reactors/login/views/settings.php:154
+msgid "Text color"
+msgstr ""
+
+#: framework/libs/reactors/login/views/settings.php:165
+msgid "Button background"
+msgstr ""
+
+#: framework/libs/reactors/login/views/settings.php:175
+msgid "Button text color"
+msgstr ""
+
+#: framework/libs/reactors/tweaks/views/settings.php:24
+msgid "Detail window width"
+msgstr ""
+
+#: framework/libs/reactors/tweaks/views/settings.php:28
+msgid "1090"
+msgstr ""
+
+#: framework/libs/reactors/tweaks/views/settings.php:34
+msgid ""
+"Adjust the width of the detail window that opens from the right. It can be "
+"px or % value. (Example: 1090px or 90%)"
+msgstr ""
+
+#: framework/libs/reactors/tweaks/views/settings.php:42
+msgid "Order statuses"
+msgstr ""
+
+#: framework/libs/reactors/tweaks/views/settings.php:82
+#: framework/libs/reactors/tweaks/views/settings.php:98
+#: framework/view/shared/settings/panels.php:52
+msgid "Move"
+msgstr ""
+
+#: framework/libs/reactors/tweaks/views/settings.php:111
+msgid ""
+"Select which statuses will be shown when an order is clicked. You can show/"
+"hide or sort them."
+msgstr ""
+
+#: framework/libs/reactors/tweaks/views/settings.php:119
+#: framework/view/shared/widgets/lastactivity.php:55
+msgid "Homepage"
+msgstr ""
+
+#: framework/libs/reactors/tweaks/views/settings.php:135
+msgid "What will be the landing page"
+msgstr ""
+
+#: framework/libs/reactors/tweaks/views/settings.php:146
+msgid "Items"
+msgstr ""
+
+#: framework/libs/reactors/tweaks/views/settings.php:151
+#: framework/libs/reactors/tweaks/views/settings.php:155
+#: framework/libs/reactors/tweaks/views/settings.php:159
+#: framework/libs/reactors/tweaks/views/settings.php:163
+#: framework/libs/reactors/tweaks/views/settings.php:167
+msgid "10"
+msgstr ""
+
+#: framework/libs/reactors/tweaks/views/settings.php:175
+msgid "How many items will be shown per page"
+msgstr ""
+
+#: framework/libs/reactors/tweaks/views/settings.php:183
+msgid "Appearance"
+msgstr ""
+
+#: framework/libs/reactors/tweaks/views/settings.php:191
+msgid "Show \"WooCommerce Settings\" tab in Settings for Shop Managers"
+msgstr ""
+
+#: framework/libs/reactors/tweaks/views/settings.php:197
+msgid "Show menu item titles at bottom of icons"
+msgstr ""
+
+#: framework/libs/reactors/tweaks/views/settings.php:203
+msgid "Show Screen Options for non-Energy pages"
+msgstr ""
+
+#: framework/libs/reactors/tweaks/views/settings.php:208
+msgid "Show WP Adminbar when press A key from keyboard"
+msgstr ""
+
+#: framework/libs/reactors/tweaks/views/settings.php:221
+#: framework/libs/reactors/tweaks/views/settings.php:225
+msgid "Font"
+msgstr ""
+
+#: framework/libs/reactors/tweaks/views/settings.php:228
+msgid "Change your Energy+ font."
+msgstr ""
+
+#: framework/libs/reactors/tweaks/views/settings.php:229
+msgid "Go to Google Fonts >"
+msgstr ""
+
+#: framework/libs/widgets/funnel.php:70 framework/libs/widgets/hourly.php:144
+#: framework/libs/widgets/lastactivity.php:297
+#: framework/libs/widgets/links.php:114
+#: framework/libs/widgets/onlineusers.php:86
+#: framework/libs/widgets/overview.php:140
+#: framework/libs/widgets/productviews.php:60
+msgid "Dimensions"
+msgstr ""
+
+#: framework/libs/widgets/lastactivity.php:274
+#: framework/libs/widgets/lastactivity.php:278
+msgid "Visitor"
+msgstr ""
+
+#: framework/libs/widgets/links.php:86
+msgid "Untitled"
+msgstr ""
+
+#: framework/libs/widgets/onlineusers.php:53
+msgid "Congratulations! A new record..."
+msgstr ""
+
+#: framework/libs/widgets/onlineusers.php:54
+#, php-format
+msgid ""
+"<h2 class=\"__A__Widget_onlineusers_Notice\">%d → %d</h2><br>There are %d "
+"people on your site right now and this is a new record. Your last record was "
+"%d"
+msgstr ""
+
+#: framework/libs/widgets/overview.php:43
+#: framework/libs/widgets/overview.php:159
+#: framework/view/shared/widgets/lastactivity.php:14
+msgid "Online"
+msgstr ""
+
+#: framework/libs/widgets/overview.php:44
+#: framework/libs/widgets/overview.php:160
+msgid "Today - Visitors"
+msgstr ""
+
+#: framework/libs/widgets/overview.php:45
+#: framework/libs/widgets/overview.php:161
+msgid "Today - Orders"
+msgstr ""
+
+#: framework/libs/widgets/overview.php:46
+#: framework/libs/widgets/overview.php:162
+msgid "Orders in progress"
+msgstr ""
+
+#: framework/libs/widgets/overview.php:48
+#: framework/libs/widgets/overview.php:164
+msgid "Today - Sales"
+msgstr ""
+
+#: framework/libs/widgets/overview.php:49
+#: framework/libs/widgets/overview.php:165
+msgid "Week - Sales"
+msgstr ""
+
+#: framework/libs/widgets/overview.php:50
+#: framework/libs/widgets/overview.php:166
+msgid "Month - Sales"
+msgstr ""
+
+#: framework/libs/widgets/overview.php:157
+msgid "Show"
+msgstr ""
+
+#: framework/view/shared/comments/list-1.php:17
+#: framework/view/shared/comments/list-95.php:16
+#, php-format
+msgid "You have %1$s average in %2$s reviews"
+msgstr ""
+
+#: framework/view/shared/comments/list-1.php:29
+msgid "Search in comments..."
+msgstr ""
+
+#: framework/view/shared/comments/list-1.php:38
+msgid "Restore comments"
+msgstr ""
+
+#: framework/view/shared/comments/list-1.php:38
+#: framework/view/shared/orders/list-1.php:39
+#: framework/view/shared/orders/list-1.php:221
+#: framework/view/shared/orders/list-2.php:62
+#: framework/view/shared/products/list-1.php:45
+#: framework/view/shared/products/list-1.php:186
+msgid "Delete forever"
+msgstr ""
+
+#: framework/view/shared/comments/list-1.php:40
+msgid "Approve selected comments"
+msgstr ""
+
+#: framework/view/shared/comments/list-1.php:40
+msgid "Unapprove selected comments"
+msgstr ""
+
+#: framework/view/shared/comments/list-1.php:40
+msgid "Delete them"
+msgstr ""
+
+#: framework/view/shared/comments/list-1.php:42
+#: framework/view/shared/orders/list-1.php:46
+#: framework/view/shared/products/list-1.php:53
+msgid "Select All"
+msgstr ""
+
+#: framework/view/shared/comments/list-1.php:85
+#, php-format
+msgid "This is a reply to <a href=\"%1$s\" class=\"trig\"></a> Comment #%2$s"
+msgstr ""
+
+#: framework/view/shared/comments/list-1.php:97
+msgid "You replied it &mdash; See"
+msgstr ""
+
+#: framework/view/shared/comments/list-1.php:102
+msgid "Replied by"
+msgstr ""
+
+#: framework/view/shared/comments/list-1.php:104
+msgid "Edit this reply"
+msgstr ""
+
+#: framework/view/shared/comments/list-1.php:105
+msgid "Delete this reply forever"
+msgstr ""
+
+#: framework/view/shared/comments/list-1.php:132
+msgid "Restore"
+msgstr ""
+
+#: framework/view/shared/comments/list-1.php:133
+#: framework/view/shared/comments/list-1.php:138
+#: framework/view/shared/coupons/list-1.php:92
+msgid "Delete Forever"
+msgstr ""
+
+#: framework/view/shared/comments/list-1.php:137
+msgid "Not Spam"
+msgstr ""
+
+#: framework/view/shared/comments/list-1.php:143
+#: framework/view/shared/comments/list-1.php:151
+#: framework/view/shared/comments/reply.php:10
+msgid "Reply"
+msgstr ""
+
+#: framework/view/shared/comments/list-1.php:145
+#: framework/view/shared/comments/list-1.php:153
+#: framework/view/shared/comments/nav.php:14
+msgid "Spam"
+msgstr ""
+
+#: framework/view/shared/comments/list-95.php:25
+msgid "Search in comments.."
+msgstr ""
+
+#: framework/view/shared/comments/nav.php:11
+#: framework/view/shared/customers/nav.php:10
+#: framework/view/shared/products/list-1.php:216
+#: framework/view/shared/widgets/lastactivity.php:15
+msgid "All"
+msgstr ""
+
+#: framework/view/shared/comments/nav.php:12
+msgid "Pending"
+msgstr ""
+
+#: framework/view/shared/comments/nav.php:13
+msgid "Approved"
+msgstr ""
+
+#: framework/view/shared/comments/nav.php:20
+#: framework/view/shared/core/footer.php:30
+#: framework/view/shared/coupons/nav.php:17
+#: framework/view/shared/customers/nav.php:27
+#: framework/view/shared/orders/nav.php:25
+#: framework/view/shared/products/nav.php:29
+msgid "Search"
+msgstr ""
+
+#: framework/view/shared/comments/reply.php:25
+msgid "Your Reply"
+msgstr ""
+
+#: framework/view/shared/comments/reply.php:31
+msgid "Submit reply"
+msgstr ""
+
+#: framework/view/shared/comments/reply.php:33
+msgid "Approve comment and submit reply"
+msgstr ""
+
+#: framework/view/shared/core/footer.php:33
+#: framework/view/themes/one-shadow/header.php:52
+#: framework/view/themes/one/header.php:52
+msgid "Logout"
+msgstr ""
+
+#: framework/view/shared/core/footer.php:41
+#: framework/view/shared/settings/general.php:271
+msgid "Notifications"
+msgstr ""
+
+#: framework/view/shared/core/footer.php:83
+msgid "Searching..."
+msgstr ""
+
+#: framework/view/shared/core/footer.php:92
+msgid "Nothing found"
+msgstr ""
+
+#: framework/view/shared/core/notifications.php:12
+#, php-format
+msgid "%s ago"
+msgstr ""
+
+#: framework/view/shared/core/notifications.php:36
+#: framework/view/shared/coupons/stats.php:96
+msgid "View Order"
+msgstr ""
+
+#: framework/view/shared/core/notifications.php:64
+msgid "View Comment"
+msgstr ""
+
+#: framework/view/shared/core/notifications.php:80
+#, php-format
+msgid ""
+"Coupon <span class=\"badge badge-pill badge-black text-uppercase\">%s</span> "
+"usage limit (%s) has been reached"
+msgstr ""
+
+#: framework/view/shared/core/notifications.php:86
+msgid "View Coupon"
+msgstr ""
+
+#: framework/view/shared/core/notifications.php:116
+#, php-format
+msgid "Low stock for %s."
+msgstr ""
+
+#: framework/view/shared/core/notifications.php:124
+msgid "Edit Product"
+msgstr ""
+
+#: framework/view/shared/core/notifications.php:177
+msgid "No notification"
+msgstr ""
+
+#: framework/view/shared/core/pagination.php:25
+msgid "«"
+msgstr ""
+
+#: framework/view/shared/core/pagination.php:26
+msgid "»"
+msgstr ""
+
+#: framework/view/shared/coupons/list-1.php:10
+#: framework/view/shared/coupons/list-95.php:8
+#: framework/view/shared/coupons/stats.php:8
+msgid " &nbsp;+ &nbsp; New coupon &nbsp;"
+msgstr ""
+
+#: framework/view/shared/coupons/list-1.php:16
+msgid "Search in coupons..."
+msgstr ""
+
+#: framework/view/shared/coupons/list-1.php:39
+#, php-format
+msgid "%s %s"
+msgstr ""
+
+#: framework/view/shared/coupons/list-1.php:52
+msgid "For specific products"
+msgstr ""
+
+#: framework/view/shared/coupons/list-1.php:66
+#: framework/view/shared/coupons/stats.php:19
+msgid "TIMES USED"
+msgstr ""
+
+#: framework/view/shared/coupons/list-1.php:67
+#: framework/view/shared/coupons/stats.php:20
+msgid "TOTAL DISCOUNT"
+msgstr ""
+
+#: framework/view/shared/coupons/list-1.php:68
+msgid "TOTAL SPENT"
+msgstr ""
+
+#: framework/view/shared/coupons/list-1.php:74
+msgid "This coupon has expired"
+msgstr ""
+
+#: framework/view/shared/coupons/list-1.php:87
+msgid "Usage Stats"
+msgstr ""
+
+#: framework/view/shared/coupons/list-1.php:91
+msgid "Restore Coupon"
+msgstr ""
+
+#: framework/view/shared/coupons/list-95.php:14
+msgid "Search in coupons.."
+msgstr ""
+
+#: framework/view/shared/coupons/nav.php:10
+msgid "Active"
+msgstr ""
+
+#: framework/view/shared/coupons/nav.php:11
+msgid "Inactive"
+msgstr ""
+
+#: framework/view/shared/coupons/nav.php:12
+msgid "Archived"
+msgstr ""
+
+#: framework/view/shared/coupons/stats.php:18
+#, php-format
+msgid "Created at %s"
+msgstr ""
+
+#: framework/view/shared/coupons/stats.php:21
+msgid "TOTAL REVENUE"
+msgstr ""
+
+#: framework/view/shared/coupons/stats.php:26
+msgid "DISCOUNT PERCENT"
+msgstr ""
+
+#: framework/view/shared/coupons/stats.php:89
+msgid "DISCOUNT"
+msgstr ""
+
+#: framework/view/shared/coupons/stats.php:93
+msgid "TOTAL"
+msgstr ""
+
+#: framework/view/shared/customers/detail.php:15
+#: framework/view/shared/customers/detail.php:74
+#: framework/view/shared/orders/list-1.php:182
+#: framework/view/shared/orders/list-1.php:195
+#: framework/view/shared/orders/list-98.php:144
+#: framework/view/shared/orders/list-98.php:157
+msgid "E-Mail"
+msgstr ""
+
+#: framework/view/shared/customers/detail.php:20
+msgid "Last Order"
+msgstr ""
+
+#: framework/view/shared/customers/detail.php:29
+msgid "Order Counts"
+msgstr ""
+
+#: framework/view/shared/customers/detail.php:34
+msgid "Total Spent"
+msgstr ""
+
+#: framework/view/shared/customers/detail.php:39
+msgid "Join Date"
+msgstr ""
+
+#: framework/view/shared/customers/detail.php:43
+msgid "Last Seen"
+msgstr ""
+
+#: framework/view/shared/customers/detail.php:53
+#: framework/view/shared/orders/list-1.php:180
+#: framework/view/shared/orders/list-98.php:142
+msgid "Billing Address"
+msgstr ""
+
+#: framework/view/shared/customers/detail.php:61
+msgid "First Name"
+msgstr ""
+
+#: framework/view/shared/customers/detail.php:65
+msgid "Last name"
+msgstr ""
+
+#: framework/view/shared/customers/detail.php:69
+msgid "Company"
+msgstr ""
+
+#: framework/view/shared/customers/detail.php:78
+#: framework/view/shared/customers/list-1.php:42
+#: framework/view/shared/customers/list-98.php:21
+msgid "Phone"
+msgstr ""
+
+#: framework/view/shared/customers/detail.php:86
+msgid "Country"
+msgstr ""
+
+#: framework/view/shared/customers/detail.php:93
+msgid "Select a Country"
+msgstr ""
+
+#: framework/view/shared/customers/detail.php:101
+msgid "State"
+msgstr ""
+
+#: framework/view/shared/customers/detail.php:117
+#: framework/view/shared/customers/detail.php:121
+msgid "Address"
+msgstr ""
+
+#: framework/view/shared/customers/detail.php:125
+msgid "City"
+msgstr ""
+
+#: framework/view/shared/customers/detail.php:129
+msgid "Post Code"
+msgstr ""
+
+#: framework/view/shared/customers/list-1.php:10
+#: framework/view/shared/customers/list-95.php:9
+msgid " &nbsp;+ &nbsp; New customer &nbsp;"
+msgstr ""
+
+#: framework/view/shared/customers/list-1.php:17
+msgid "Search in customers..."
+msgstr ""
+
+#: framework/view/shared/customers/list-1.php:41
+#: framework/view/shared/customers/list-98.php:20
+msgid "E-mail"
+msgstr ""
+
+#: framework/view/shared/customers/list-1.php:43
+#: framework/view/shared/customers/list-98.php:22
+msgid "ORDERS"
+msgstr ""
+
+#: framework/view/shared/customers/list-1.php:44
+#: framework/view/shared/customers/list-98.php:23
+msgid "Spent"
+msgstr ""
+
+#: framework/view/shared/customers/list-1.php:57
+#: framework/view/shared/orders/list-1.php:229
+#: framework/view/shared/orders/list-98.php:177
+msgid "View customer"
+msgstr ""
+
+#: framework/view/shared/customers/list-1.php:58
+msgid "Edit customer"
+msgstr ""
+
+#: framework/view/shared/customers/list-1.php:60
+#: framework/view/shared/customers/list-98.php:33
+msgid "Send e-mail"
+msgstr ""
+
+#: framework/view/shared/customers/list-95.php:16
+msgid "Search in customers.."
+msgstr ""
+
+#: framework/view/shared/customers/list-98.php:32
+msgid "View Customer"
+msgstr ""
+
+#: framework/view/shared/dashboard/dashboard-wc-admin.php:10
+#: framework/view/shared/dashboard/dashboard.php:10
+msgid "Charts"
+msgstr ""
+
+#: framework/view/shared/dashboard/dashboard.php:43
+msgid "Width"
+msgstr ""
+
+#: framework/view/shared/dashboard/dashboard.php:56
+msgid "Height"
+msgstr ""
+
+#: framework/view/shared/dashboard/dashboard.php:132
+msgid "Add or remove widgets"
+msgstr ""
+
+#: framework/view/shared/dashboard/widget-list.php:10
+msgid "Widgets"
+msgstr ""
+
+#: framework/view/shared/dashboard/widget-list.php:15
+msgid "Current widgets in your dashboard"
+msgstr ""
+
+#: framework/view/shared/dashboard/widget-list.php:26
+#: framework/view/shared/settings/panels.php:179
+msgid "Remove"
+msgstr ""
+
+#: framework/view/shared/dashboard/widget-list.php:35
+msgid "You can add them to your dashboard"
+msgstr ""
+
+#: framework/view/shared/dashboard/widget-list.php:48
+msgid "Add to dashboard"
+msgstr ""
+
+#: framework/view/shared/orders/list-1.php:19
+#: framework/view/shared/orders/list-95.php:17
+msgid "Search in orders.."
+msgstr ""
+
+#: framework/view/shared/orders/list-1.php:38
+#: framework/view/shared/orders/list-2.php:61
+msgid "Restore orders"
+msgstr ""
+
+#: framework/view/shared/orders/list-1.php:44
+#: framework/view/shared/orders/list-2.php:67
+msgid "Move to trash"
+msgstr ""
+
+#: framework/view/shared/orders/list-1.php:59
+#: framework/view/shared/orders/list-98.php:23
+msgid "Order No: "
+msgstr ""
+
+#: framework/view/shared/orders/list-1.php:80
+#: framework/view/shared/orders/list-98.php:44
+msgid "Order No"
+msgstr ""
+
+#: framework/view/shared/orders/list-1.php:90
+#: framework/view/shared/orders/list-2.php:111
+#: framework/view/shared/orders/list-98.php:54
+#, php-format
+msgid "Note: %s"
+msgstr ""
+
+#: framework/view/shared/orders/list-1.php:184
+#: framework/view/shared/orders/list-1.php:199
+#: framework/view/shared/orders/list-98.php:146
+#: framework/view/shared/orders/list-98.php:161
+msgid "Telephone"
+msgstr ""
+
+#: framework/view/shared/orders/list-1.php:192
+#: framework/view/shared/orders/list-98.php:154
+msgid "Shipping Address"
+msgstr ""
+
+#: framework/view/shared/orders/list-1.php:210
+msgid "Change to..."
+msgstr ""
+
+#: framework/view/shared/orders/list-1.php:220
+#: framework/view/shared/orders/list-2.php:104
+#: framework/view/shared/orders/list-2.php:124
+msgid "Restore order"
+msgstr ""
+
+#: framework/view/shared/orders/list-1.php:225
+#: framework/view/shared/orders/list-98.php:173
+msgid "View order details"
+msgstr ""
+
+#: framework/view/shared/orders/list-1.php:231
+#: framework/view/shared/orders/list-98.php:179
+msgid "E-mail to customer"
+msgstr ""
+
+#: framework/view/shared/orders/list-2.php:20
+msgid "Search in orders..."
+msgstr ""
+
+#: framework/view/shared/orders/list-2.php:40
+msgid "No"
+msgstr ""
+
+#: framework/view/shared/orders/list-2.php:41
+msgid "Status"
+msgstr ""
+
+#: framework/view/shared/orders/list-2.php:42
+msgid "Customer"
+msgstr ""
+
+#: framework/view/shared/orders/list-2.php:45
+msgid "Total"
+msgstr ""
+
+#: framework/view/shared/orders/list-2.php:64
+msgid "Change status to &mdash; Processing"
+msgstr ""
+
+#: framework/view/shared/orders/list-2.php:65
+msgid "Change status to &mdash; On-Hold"
+msgstr ""
+
+#: framework/view/shared/orders/list-2.php:66
+msgid "Change status to &mdash; Completed"
+msgstr ""
+
+#: framework/view/shared/orders/list-2.php:105
+#: framework/view/shared/orders/list-2.php:128
+msgid "Delete order forever"
+msgstr ""
+
+#: framework/view/shared/orders/list-2.php:133
+#: framework/view/shared/products/categories.php:34
+msgid "View"
+msgstr ""
+
+#: framework/view/shared/orders/nav.php:11
+msgid "All Orders"
+msgstr ""
+
+#: framework/view/shared/orders/nav.php:19
+#: framework/view/shared/products/list-1.php:72
+#: framework/view/shared/products/list-1.php:222
+msgid "Trash"
+msgstr ""
+
+#: framework/view/shared/products/attributes.php:8
+msgid "New attribute"
+msgstr ""
+
+#: framework/view/shared/products/attributes.php:20
+#: framework/view/shared/products/nav.php:22
+#: framework/view/shared/products/nav.php:42
+msgid "Name"
+msgstr ""
+
+#: framework/view/shared/products/attributes.php:21
+msgid "Terms"
+msgstr ""
+
+#: framework/view/shared/products/attributes.php:37
+msgid "Configure"
+msgstr ""
+
+#: framework/view/shared/products/bulk-price.php:10
+msgid "Change prices"
+msgstr ""
+
+#: framework/view/shared/products/bulk-price.php:21
+msgid "I want to increase the prices"
+msgstr ""
+
+#: framework/view/shared/products/bulk-price.php:36
+#: framework/view/shared/products/bulk-price.php:70
+msgid "Percent"
+msgstr ""
+
+#: framework/view/shared/products/bulk-price.php:41
+#: framework/view/shared/products/bulk-price.php:75
+msgid "AND"
+msgstr ""
+
+#: framework/view/shared/products/bulk-price.php:49
+#: framework/view/shared/products/bulk-price.php:83
+msgid "Fixed"
+msgstr ""
+
+#: framework/view/shared/products/bulk-price.php:59
+msgid "I want to decrease the prices"
+msgstr ""
+
+#: framework/view/shared/products/bulk-price.php:96
+msgid "Apply new prices"
+msgstr ""
+
+#: framework/view/shared/products/bulk-price.php:107
+msgid "Preview"
+msgstr ""
+
+#: framework/view/shared/products/bulk-price.php:114
+msgid "Product"
+msgstr ""
+
+#: framework/view/shared/products/bulk-price.php:117
+msgid "New Regular Price"
+msgstr ""
+
+#: framework/view/shared/products/bulk-price.php:120
+msgid "New Sale Price"
+msgstr ""
+
+#: framework/view/shared/products/bulk-price.php:123
+msgid "Old Price"
+msgstr ""
+
+#: framework/view/shared/products/bulk-price.php:126
+msgid "New Price"
+msgstr ""
+
+#: framework/view/shared/products/bulk-price.php:161
+msgid "Because of this is a variable product you can't change price"
+msgstr ""
+
+#: framework/view/shared/products/categories.php:8
+#: framework/view/shared/products/nav.php:11
+msgid "Categories"
+msgstr ""
+
+#: framework/view/shared/products/categories.php:8
+msgid "New category"
+msgstr ""
+
+#: framework/view/shared/products/categories.php:20
+msgid "Drag and drop to re-order categories"
+msgstr ""
+
+#: framework/view/shared/products/list-1.php:10
+#: framework/view/shared/products/list-95.php:9
+msgid "New product"
+msgstr ""
+
+#: framework/view/shared/products/list-1.php:17
+#: framework/view/shared/products/list-1.php:32
+msgid "Search in products..."
+msgstr ""
+
+#: framework/view/shared/products/list-1.php:20
+#: framework/view/shared/products/list-1.php:22
+msgid "All Categories"
+msgstr ""
+
+#: framework/view/shared/products/list-1.php:44
+msgid "Restore products"
+msgstr ""
+
+#: framework/view/shared/products/list-1.php:47
+msgid "Change Prices"
+msgstr ""
+
+#: framework/view/shared/products/list-1.php:48
+msgid "Set to &mdash; Out of stock"
+msgstr ""
+
+#: framework/view/shared/products/list-1.php:49
+msgid "Set to &mdash; In stock"
+msgstr ""
+
+#: framework/view/shared/products/list-1.php:68
+msgid "Critical Stock"
+msgstr ""
+
+#: framework/view/shared/products/list-1.php:74
+#: framework/view/shared/products/list-1.php:219
+#: framework/view/shared/reports/overview.php:117
+msgid "Sales"
+msgstr ""
+
+#: framework/view/shared/products/list-1.php:77
+msgid "Trashed Products"
+msgstr ""
+
+#: framework/view/shared/products/list-1.php:79
+msgid "Private Products"
+msgstr ""
+
+#: framework/view/shared/products/list-1.php:81
+msgid "Draft Products"
+msgstr ""
+
+#: framework/view/shared/products/list-1.php:83
+msgid "All Products"
+msgstr ""
+
+#: framework/view/shared/products/list-1.php:160
+msgid "This is a variable product, so you can not edit it directly"
+msgstr ""
+
+#: framework/view/shared/products/list-1.php:164
+#: framework/view/shared/products/nav.php:23
+#: framework/view/shared/products/nav.php:43
+msgid "Price"
+msgstr ""
+
+#: framework/view/shared/products/list-1.php:167
+msgid "Regular Price"
+msgstr ""
+
+#: framework/view/shared/products/list-1.php:168
+msgid "Sale Price"
+msgstr ""
+
+#: framework/view/shared/products/list-1.php:174
+msgid "Stock"
+msgstr ""
+
+#: framework/view/shared/products/list-1.php:176
+#: framework/view/shared/products/list-98.php:44
+msgid "Unlimited"
+msgstr ""
+
+#: framework/view/shared/products/list-1.php:177
+#: framework/view/shared/products/list-1.php:218
+#: framework/view/shared/products/list-98.php:45
+msgid "Out of Stocks"
+msgstr ""
+
+#: framework/view/shared/products/list-1.php:185
+msgid "Restore product"
+msgstr ""
+
+#: framework/view/shared/products/list-1.php:189
+#: framework/view/shared/products/list-98.php:61
+msgid "Edit product"
+msgstr ""
+
+#: framework/view/shared/products/list-1.php:191
+msgid "View product page"
+msgstr ""
+
+#: framework/view/shared/products/list-1.php:217
+msgid "Critical Stocks"
+msgstr ""
+
+#: framework/view/shared/products/list-1.php:220
+msgid "Private"
+msgstr ""
+
+#: framework/view/shared/products/list-1.php:221
+msgid "Draft"
+msgstr ""
+
+#: framework/view/shared/products/list-95.php:16
+msgid "Search in products.."
+msgstr ""
+
+#: framework/view/shared/products/nav.php:12
+msgid "Attributes"
+msgstr ""
+
+#: framework/view/shared/products/nav.php:24
+#: framework/view/shared/products/nav.php:44
+msgid "SKU"
+msgstr ""
+
+#: framework/view/shared/reactors/list.php:40
+#: framework/view/shared/reactors/list.php:48
+#: framework/view/shared/reactors/needs.php:97
+msgid "Activate"
+msgstr ""
+
+#: framework/view/shared/reactors/nav.php:10
+#, php-format
+msgid "All %d"
+msgstr ""
+
+#: framework/view/shared/reactors/nav.php:11
+#, php-format
+msgid "Active %d"
+msgstr ""
+
+#: framework/view/shared/reactors/nav.php:12
+#, php-format
+msgid "Inactive %d"
+msgstr ""
+
+#: framework/view/shared/reactors/needs.php:17
+msgid "Just a moment..."
+msgstr ""
+
+#: framework/view/shared/reactors/needs.php:19
+msgid "Energy+ is not activated"
+msgstr ""
+
+#: framework/view/shared/reactors/needs.php:20
+msgid "It's a good time to complete your activation!"
+msgstr ""
+
+#: framework/view/shared/reactors/needs.php:26
+msgid "Activate now"
+msgstr ""
+
+#: framework/view/shared/reactors/needs.php:31
+msgid "Not now"
+msgstr ""
+
+#: framework/view/shared/reactors/needs.php:46
+msgid "Energy+ activation"
+msgstr ""
+
+#: framework/view/shared/reactors/needs.php:48
+msgid ""
+"We will send your Site URL and Purchase Code to Energy+ Activation Servers "
+"to complete process."
+msgstr ""
+
+#: framework/view/shared/reactors/needs.php:54
+msgid "Your site adress"
+msgstr ""
+
+#: framework/view/shared/reactors/needs.php:65
+msgid "Purchase Code"
+msgstr ""
+
+#: framework/view/shared/reactors/needs.php:72
+msgid "How to find my purchase code?"
+msgstr ""
+
+#: framework/view/shared/reports/import.php:14
+msgid "Import Tool"
+msgstr ""
+
+#: framework/view/shared/reports/import.php:15
+msgid "This tool allows you to export your past reports to Energy+."
+msgstr ""
+
+#: framework/view/shared/reports/import.php:17
+msgid ""
+"Please start it when your store is least busy since it will run many queries "
+"in the background."
+msgstr ""
+
+#: framework/view/shared/reports/import.php:19
+msgid "Please do not close this window during import."
+msgstr ""
+
+#: framework/view/shared/reports/import.php:28
+msgid "Start import"
+msgstr ""
+
+#: framework/view/shared/reports/nav.php:13
+msgid "Revenue"
+msgstr ""
+
+#: framework/view/shared/reports/nav.php:15
+msgid "products"
+msgstr ""
+
+#: framework/view/shared/reports/nav.php:16
+msgid "categories"
+msgstr ""
+
+#: framework/view/shared/reports/nav.php:17
+msgid "coupons"
+msgstr ""
+
+#: framework/view/shared/reports/nav.php:18
+msgid "taxes"
+msgstr ""
+
+#: framework/view/shared/reports/nav.php:19
+msgid "downloads"
+msgstr ""
+
+#: framework/view/shared/reports/nav.php:20
+msgid "stock"
+msgstr ""
+
+#: framework/view/shared/reports/nav.php:21
+msgid "customers"
+msgstr ""
+
+#: framework/view/shared/reports/nav.php:23
+msgid "Woocommerce Reports"
+msgstr ""
+
+#: framework/view/shared/reports/overview.php:19
+#: framework/view/shared/settings/general.php:185
+#: framework/view/shared/widgets/hourly.php:14
+msgid "Daily"
+msgstr ""
+
+#: framework/view/shared/reports/overview.php:20
+#: framework/view/shared/settings/general.php:196
+msgid "Weekly"
+msgstr ""
+
+#: framework/view/shared/reports/overview.php:21
+#: framework/view/shared/settings/general.php:207
+#: framework/view/shared/widgets/hourly.php:15
+msgid "Monthly"
+msgstr ""
+
+#: framework/view/shared/reports/overview.php:22
+#: framework/view/shared/settings/general.php:218
+msgid "Yearly"
+msgstr ""
+
+#: framework/view/shared/reports/overview.php:118
+msgid "Net Sal."
+msgstr ""
+
+#: framework/view/shared/reports/overview.php:119
+msgid "Shipping"
+msgstr ""
+
+#: framework/view/shared/reports/overview.php:120
+msgid "Taxes"
+msgstr ""
+
+#: framework/view/shared/reports/overview.php:121
+msgid "Refunds"
+msgstr ""
+
+#: framework/view/shared/reports/overview.php:123
+#: framework/view/shared/settings/general.php:179
+msgid "Goals"
+msgstr ""
+
+#: framework/view/shared/reports/overview.php:163
+msgid "Conversions"
+msgstr ""
+
+#: framework/view/shared/reports/overview.php:321
+#: framework/view/shared/reports/overview.php:457
+#: framework/view/shared/widgets/funnel.php:19
+msgid "Home Page"
+msgstr ""
+
+#: framework/view/shared/reports/overview.php:321
+#: framework/view/shared/reports/overview.php:457
+#: framework/view/shared/widgets/funnel.php:19
+msgid "Product Page"
+msgstr ""
+
+#: framework/view/shared/reports/overview.php:321
+#: framework/view/shared/reports/overview.php:457
+#: framework/view/shared/widgets/funnel.php:19
+msgid "Add to Cart"
+msgstr ""
+
+#: framework/view/shared/reports/overview.php:321
+#: framework/view/shared/reports/overview.php:457
+#: framework/view/shared/widgets/funnel.php:19
+#: framework/view/shared/widgets/lastactivity.php:53
+msgid "Checkout"
+msgstr ""
+
+#: framework/view/shared/reports/overview.php:321
+#: framework/view/shared/reports/overview.php:457
+#: framework/view/shared/widgets/funnel.php:19
+msgid "Buy"
+msgstr ""
+
+#: framework/view/shared/settings/general.php:34
+#: framework/view/shared/settings/general.php:37
+msgid "Set your logo"
+msgstr ""
+
+#: framework/view/shared/settings/general.php:45
+msgid "Sometimes we need your logo to use in the Energy+"
+msgstr ""
+
+#: framework/view/shared/settings/general.php:53
+msgid "Full Mode"
+msgstr ""
+
+#: framework/view/shared/settings/general.php:61
+#: framework/view/shared/settings/panels.php:37
+msgid "Admins"
+msgstr ""
+
+#: framework/view/shared/settings/general.php:67
+#: framework/view/shared/settings/panels.php:44
+msgid "Shop Managers"
+msgstr ""
+
+#: framework/view/shared/settings/general.php:70
+msgid ""
+"If you do not enable full mode, they can use both Energy+ and classic WP "
+"Admin"
+msgstr ""
+
+#: framework/view/shared/settings/general.php:79
+msgid "Auto start"
+msgstr ""
+
+#: framework/view/shared/settings/general.php:88
+msgid "Starts Energy+ automatically when full mode is disabled"
+msgstr ""
+
+#: framework/view/shared/settings/general.php:114
+msgid ""
+"Select your theme for Energy+ Admin Panel. This will not affect your website "
+"theme."
+msgstr ""
+
+#: framework/view/shared/settings/general.php:123
+msgid "Allow other shop managers to choose their own themes."
+msgstr ""
+
+#: framework/view/shared/settings/general.php:152
+#: framework/view/shared/settings/nav.php:11
+msgid "Menu"
+msgstr ""
+
+#: framework/view/shared/settings/general.php:153
+msgid "Icons"
+msgstr ""
+
+#: framework/view/shared/settings/general.php:154
+msgid "Menu Hover"
+msgstr ""
+
+#: framework/view/shared/settings/general.php:155
+msgid "Buttons"
+msgstr ""
+
+#: framework/view/shared/settings/general.php:167
+msgid "Save custom colors"
+msgstr ""
+
+#: framework/view/shared/settings/general.php:191
+#: framework/view/shared/settings/general.php:202
+#: framework/view/shared/settings/general.php:213
+#: framework/view/shared/settings/general.php:224
+#: framework/view/shared/settings/general.php:246
+msgid "N/A"
+msgstr ""
+
+#: framework/view/shared/settings/general.php:228
+msgid "Set your goals. Changes do not affect past statistics."
+msgstr ""
+
+#: framework/view/shared/settings/general.php:240
+msgid "Notification Check Time"
+msgstr ""
+
+#: framework/view/shared/settings/general.php:248
+msgid "seconds"
+msgstr ""
+
+#: framework/view/shared/settings/general.php:253
+msgid ""
+"Enter the number of seconds to check the notifications. If you enter a "
+"number less than 10, widgets and notifications are only checked when "
+"navigating through the panel."
+msgstr ""
+
+#: framework/view/shared/settings/general.php:264
+msgid "Title & Badge Count"
+msgstr ""
+
+#: framework/view/shared/settings/general.php:276
+msgid "Online users"
+msgstr ""
+
+#: framework/view/shared/settings/general.php:281
+msgid "Today's visitors"
+msgstr ""
+
+#: framework/view/shared/settings/general.php:286
+msgid "Today's sales"
+msgstr ""
+
+#: framework/view/shared/settings/general.php:291
+#, php-format
+msgid ""
+"The number in your browser title & desktop app badge (Mac only). For "
+"example; (3) %s"
+msgstr ""
+
+#: framework/view/shared/settings/general.php:302
+msgid "Tracker"
+msgstr ""
+
+#: framework/view/shared/settings/general.php:311
+msgid ""
+"Track users for stats like online users, product views etc. If you have "
+"performance issues, you should disable it."
+msgstr ""
+
+#: framework/view/shared/settings/nav.php:10
+msgid "General"
+msgstr ""
+
+#: framework/view/shared/settings/nav.php:12
+msgid "WooCommerce"
+msgstr ""
+
+#: framework/view/shared/settings/panels.php:61
+#: framework/view/shared/settings/panels.php:85
+#: framework/view/shared/settings/panels.php:109
+#: framework/view/shared/settings/panels.php:132
+#: framework/view/shared/settings/panels.php:156
+msgid "How will it look?"
+msgstr ""
+
+#: framework/view/shared/settings/panels.php:175
+#, php-format
+msgid "This is submenu of Energy+ -- %s"
+msgstr ""
+
+#: framework/view/shared/settings/panels.php:191
+msgid "New Menu"
+msgstr ""
+
+#: framework/view/shared/settings/panels.php:198
+msgid "In Admin Panel"
+msgstr ""
+
+#: framework/view/shared/settings/panels.php:201
+msgid "In New Tab"
+msgstr ""
+
+#: framework/view/shared/settings/panels.php:216
+#: framework/view/shared/widgets/links-setup.php:90
+msgid "URL"
+msgstr ""
+
+#: framework/view/shared/settings/panels.php:222
+msgid ""
+"You can add a new link to your panel. If you want to add this link to an "
+"another menu, then select a parent panel from \"---\" section"
+msgstr ""
+
+#: framework/view/shared/settings/panels.php:234
+msgid "Reset menu"
+msgstr ""
+
+#: framework/view/shared/widgets/hourly.php:13
+msgid "Hourly"
+msgstr ""
+
+#: framework/view/shared/widgets/lastactivity.php:22
+msgid "No visitors online"
+msgstr ""
+
+#: framework/view/shared/widgets/lastactivity.php:48
+#, php-format
+msgid "%s (%s) has been added to cart"
+msgstr ""
+
+#: framework/view/shared/widgets/lastactivity.php:51
+#, php-format
+msgid "%s (%s) has been removed from cart"
+msgstr ""
+
+#: framework/view/shared/widgets/lastactivity.php:57
+msgid "Search:"
+msgstr ""
+
+#: framework/view/shared/widgets/links-setup.php:24
+msgid "Style"
+msgstr ""
+
+#: framework/view/shared/widgets/links-setup.php:29
+msgid "Text"
+msgstr ""
+
+#: framework/view/shared/widgets/links-setup.php:31
+msgid "Icon + Text"
+msgstr ""
+
+#: framework/view/shared/widgets/links-setup.php:41
+msgid "Items per line"
+msgstr ""
+
+#: framework/view/shared/widgets/links-setup.php:54
+msgid "Menu items"
+msgstr ""
+
+#: framework/view/shared/widgets/links-setup.php:66
+msgid "Delete this"
+msgstr ""
+
+#: framework/view/shared/widgets/links-setup.php:97
+msgid "Open"
+msgstr ""
+
+#: framework/view/shared/widgets/links-setup.php:100
+msgid "in right panel"
+msgstr ""
+
+#: framework/view/shared/widgets/links-setup.php:101
+msgid "in blank tab"
+msgstr ""
+
+#: framework/view/shared/widgets/links-setup.php:102
+msgid "in same page"
+msgstr ""
+
+#: framework/view/shared/widgets/links-setup.php:149
+msgid "Background Color"
+msgstr ""
+
+#: framework/view/shared/widgets/links-setup.php:160
+msgid "Text Color"
+msgstr ""
+
+#: framework/view/shared/widgets/links-setup.php:180
+msgid "Add new menu item"
+msgstr ""
+
+#: framework/view/shared/widgets/links.php:16
+msgid "Create a shortcut"
+msgstr ""
+
+#: framework/view/shared/widgets/online-users.php:7
+msgid "Online Visitors"
+msgstr ""
+
+#: framework/view/shared/widgets/productviews.php:10
+msgid "No products viewed today"
+msgstr ""
+
+#: framework/view/shared/widgets/productviews.php:21
+msgid "CATEGORY"
+msgstr ""
+
+#: framework/view/themes/console/header.php:47
+#: framework/view/themes/one-shadow/header.php:49
+#: framework/view/themes/one/header.php:49
+msgid "View Store"
+msgstr ""
+
+#: framework/view/themes/one-shadow/header.php:66
+#: framework/view/themes/one/header.php:72
+msgid "Search for orders, customers, products..."
+msgstr ""
+
+#~ msgid "Kayıt bulunamadı"
+#~ msgstr "There is no records"
+
+#~ msgid "Sayfa"
+#~ msgstr "Page"
+
+#~ msgid "Ziyaretçi"
+#~ msgstr "Author"
+
+#~ msgid "Yorum"
+#~ msgstr "Comment"

@@ -1,0 +1,19 @@
+/**
+ * RightPress Live Product Price Update Styles
+ */
+
+.rightpress_live_product_price {
+    margin: 1.5em 0;
+    overflow: hidden;
+}
+.rightpress_live_product_price dt {
+    display: inline-block;
+    font-size: 1.25em;
+}
+.rightpress_live_product_price dd {
+    display: inline-block;
+    float: right;
+}
+.rightpress_live_product_price dd .price {
+    display: block;
+}

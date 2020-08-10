@@ -7,10 +7,10 @@
  * Text Domain: wcopc
  * Domain Path: languages
  * Plugin URI:  https://woocommerce.com/products/woocommerce-one-page-checkout/
- * Version: 1.7.6
- *
+ * Version: 1.7.8
+ * Tested up to: 5.5
  * WC requires at least: 2.5
- * WC tested up to: 4.1
+ * WC tested up to: 4.2
  * Woo: 527886:c9ba8f8352cd71b5508af5161268619a
  *
  * This program is free software: you can redistribute it and/or modify
@@ -56,7 +56,7 @@ if ( ! is_woocommerce_active() || version_compare( get_option( 'woocommerce_db_v
 	return;
 }
 
-define( 'WC_ONE_PAGE_CHECKOUT_VERSION', '1.7.6' ); // WRCS: DEFINED_VERSION.
+define( 'WC_ONE_PAGE_CHECKOUT_VERSION', '1.7.8' ); // WRCS: DEFINED_VERSION.
 
 /**
  * Load the text domain to make the plugin's strings available for localisation.
@@ -83,8 +83,8 @@ add_action( 'plugins_loaded', 'wcopc_load_plugin_textdomain' );
  */
 function is_wcopc_checkout( $post_id = null ) {
 
-	// If no post_id specified try getting the post_id
-	if ( empty( $post_id ) ) {
+	// If no post_id specified try getting the post_id from the URL (excluding admin pages).
+	if ( empty( $post_id ) && ! is_admin() ) {
 		global $post;
 
 		if ( is_object( $post ) ) {
@@ -1314,8 +1314,7 @@ class PP_One_Page_Checkout {
 	 */
 	public static function ensure_shortcode_page_id_is_set( $posts, $query ) {
 
-		// Return straight away if there are no posts or if its a secondary query
-		if ( empty( $posts ) || ! $query->is_main_query() ) {
+		if ( empty( $posts ) || ! $query->is_main_query() || is_admin() ) {
 			return $posts;
 		}
 

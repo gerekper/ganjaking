@@ -4,12 +4,12 @@
 * Plugin Name: WooCommerce Servired/RedSys Spain Gateway
 * Plugin URI: https://woocommerce.com/products/redsys-gateway/
 * Description: Extends WooCommerce with RedSys gateway.
-* Version: 9.3.0
+* Version: 9.4.0
 * Author: José Conti
 * Author URI: https://www.joseconti.com/
 * Tested up to: 5.4
 * WC requires at least: 3.0
-* WC tested up to: 4.3
+* WC tested up to: 4.4
 * Woo: 187871:50392593e834002d8bee386333d1ed3c
 * Text Domain: woocommerce-redsys
 * Domain Path: /languages/
@@ -19,7 +19,7 @@
 **/
 
 if ( ! defined( 'REDSYS_VERSION' ) ) {
-	define( 'REDSYS_VERSION', '9.3.0' );
+	define( 'REDSYS_VERSION', '9.4.0' );
 }
 
 if ( ! defined( 'REDSYS_PLUGIN_URL' ) ) {
@@ -31,7 +31,7 @@ if ( ! defined( 'REDSYS_PLUGIN_PATH' ) ) {
 }
 
 if ( ! defined( 'REDSYS_POST_UPDATE_URL' ) ) {
-	define( 'REDSYS_POST_UPDATE_URL', 'https://redsys.joseconti.com/2020/07/24/woocommerce-redsys-gateway-11-1-x/' );
+	define( 'REDSYS_POST_UPDATE_URL', 'https://redsys.joseconti.com/2020/08/06/woocommerce-redsys-gateway-11-2-x/' );
 }
 
 if ( ! defined( 'REDSYS_POST_PSD2_URL' ) ) {
@@ -83,20 +83,28 @@ require_once REDSYS_PLUGIN_CLASS_PATH . 'class-redsys-card-images.php';
 if ( ! class_exists( 'RedsysAPI' ) ) {
 	if ( version_compare( PHP_VERSION, '7.0.0', '<' ) ) {
 		require_once REDSYS_PLUGIN_API_REDSYS_PATH . 'apiRedsys5.php';
+		define( 'REDSYS_API_LOADED', 'yes' );
 	} else {
 		require_once REDSYS_PLUGIN_API_REDSYS_PATH. 'apiRedsys7.php';
+		define( 'REDSYS_API_LOADED', 'yes' );
 	}
 }
 
 if ( ! class_exists( 'RedsysAPIWs' ) ) {
 	if ( version_compare( PHP_VERSION, '7.0.0', '<' ) ) {
 		require_once REDSYS_PLUGIN_API_REDSYS_PATH . 'apiRedsysWs5.php';
+		define( 'REDSYS_API_LOADED_WS', 'yes' );
 	} else {
 		require_once REDSYS_PLUGIN_API_REDSYS_PATH. 'apiRedsysWs7.php';
+		define( 'REDSYS_API_LOADED_WS', 'yes' );
 	}
 }
 
 require_once REDSYS_PLUGIN_API_REDSYS_PATH . 'initRedsysApi.php';
+
+if ( defined( 'REDSYS_WOOCOMMERCE_VERSION' ) ) {
+	return;
+}
 
 add_action( 'plugins_loaded', 'woocommerce_gateway_redsys_premium_init', 0 );
 

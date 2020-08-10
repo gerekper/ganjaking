@@ -1,0 +1,42 @@
+#ui_page_overlay {
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.6);
+    z-index: 2;
+}
+
+.uis_page_loader {
+    border: 8px solid #52aad1;
+    border-top: 8px solid #0073aa;
+    opacity: 0.9;
+
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    -webkit-animation: spin 1.5s linear infinite; /* Safari */
+    animation: spin 1.5s linear infinite;
+
+    /*position: absolute;
+    top: 30%;
+    left: 35%;*/
+    margin: 100px auto;
+
+    color: white;
+    transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+}
+/* Safari */
+@-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

@@ -61,6 +61,7 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 		$this->buttoncheckout = $this->get_option( 'buttoncheckout' );
 		$this->butonbgcolor   = $this->get_option( 'butonbgcolor' );
 		$this->butontextcolor = $this->get_option( 'butontextcolor' );
+		$this->descripredsys  = $this->get_option( 'descripredsys' );
 		$this->log            = new WC_Logger();
 		// Actions.
 		add_action( 'valid_redsysbank_standard_ipn_request', array( $this, 'successful_request' ) );
@@ -201,6 +202,18 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 				'description' => __( 'Terminal number provided by your bank.', 'woocommerce-redsys' ),
 				'desc_tip'    => true,
 			),
+			'descripredsys'        => array(
+				'title'       => __( 'Redsys description', 'woocommerce-redsys' ),
+				'type'        => 'select',
+				'description' => __( 'Chose what to show in Redsys as description.', 'woocommerce-redsys' ),
+				'default'     => 'order',
+				'options'     => array(
+					'order' => __( 'Order ID', 'woocommerce-redsys' ),
+					'id'    => __( 'List of products ID', 'woocommerce-redsys' ),
+					'name'  => __( 'List of products name', 'woocommerce-redsys' ),
+					'sku'   => __( 'List of products SKU', 'woocommerce-redsys' ),
+				),
+			),
 			'not_use_https'  => array(
 				'title'       => __( 'HTTPS SNI Compatibility', 'woocommerce-redsys' ),
 				'type'        => 'checkbox',
@@ -303,7 +316,7 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 		$miobj->setParameter( 'DS_MERCHANT_URLOK', add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ) );
 		$miobj->setParameter( 'DS_MERCHANT_URLKO', $returnfromredsys );
 		$miobj->setParameter( 'DS_MERCHANT_CONSUMERLANGUAGE', $gatewaylanguage );
-		$miobj->setParameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', __( 'Order', 'woocommerce-redsys' ) . ' ' . $order->get_order_number() );
+		$miobj->setParameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', WCRed()->product_description( $order, $this->id ) );
 		$miobj->setParameter( 'DS_MERCHANT_MERCHANTNAME', $this->commercename );
 		$miobj->setParameter( 'DS_MERCHANT_PAYMETHODS', 'R' );
 		$version = 'HMAC_SHA256_V1';
@@ -329,7 +342,7 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 			$this->log->add( 'redsysbanktransfer', 'DS_MERCHANT_URLOK: ' . add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ) );
 			$this->log->add( 'redsysbanktransfer', 'DS_MERCHANT_URLKO: ' . $returnfromredsys );
 			$this->log->add( 'redsysbanktransfer', 'DS_MERCHANT_CONSUMERLANGUAGE: ' . $gatewaylanguage );
-			$this->log->add( 'redsysbanktransfer', 'DS_MERCHANT_PRODUCTDESCRIPTION: ' . __( 'Order', 'woocommerce-redsys' ) . ' ' . $order->get_order_number() );
+			$this->log->add( 'redsysbanktransfer', 'DS_MERCHANT_PRODUCTDESCRIPTION: ' . WCRed()->product_description( $order, $this->id ) );
 			$this->log->add( 'redsysbanktransfer', 'DS_MERCHANT_PAYMETHODS: R' );
 		}
 		$redsys_args = apply_filters( 'woocommerce_redsys_args', $redsys_args );

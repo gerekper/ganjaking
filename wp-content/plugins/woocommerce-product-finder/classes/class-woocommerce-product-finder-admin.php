@@ -10,13 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class WooCommerce_Product_Finder_Admin {
 
 	public static function init() {
-		global $woocommerce;
-
-		if ( version_compare( $woocommerce->version, '2.1-beta-1', '>=' ) ) {
-			add_filter( 'woocommerce_product_settings', array( 'WooCommerce_Product_Finder_Admin', 'settings' ) );
-		} else {
-			add_filter( 'woocommerce_catalog_settings', array( 'WooCommerce_Product_Finder_Admin', 'settings' ) );
-		}
+		add_filter( 'woocommerce_product_settings', array( 'WooCommerce_Product_Finder_Admin', 'settings' ) );
 	}
 
 	public static function settings( $settings ) {
@@ -100,4 +94,4 @@ class WooCommerce_Product_Finder_Admin {
 
 }
 
-add_action( 'plugins_loaded', array( 'WooCommerce_Product_Finder_Admin', 'init' ) );
+WooCommerce_Product_Finder_Admin::init();

@@ -1,5 +1,8 @@
 *** Product Finder Changelog ***
 
+2020-08-05 - version 1.2.14
+* Fix - Cannot find Product finder options in Settings.
+
 2020-06-10 - version 1.2.13
 * Tweak - WC 4.2 compatibility.
 

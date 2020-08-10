@@ -96,7 +96,7 @@ jQuery( function( $ ) {
             "category_id": $("#category_id").val(),
             "meta[storewide_type]": $("#storewide_type").val(),
             "meta[include_variations]": $("#include_variations").is(":checked") ? 'yes' : '',
-            'nonce': 'undefined' !== typeof $( this ).data( 'nonce' ) ? $( this ).data( 'nonce' ) : $( this ).parents( '#fue-email-details' ).find( '#_wpnonce' ).val()
+            'nonce': 'undefined' !== typeof $( this ).data( 'nonce' ) ? $( this ).data( 'nonce' ) : $( this ).closest( '#fue-email-details' ).find( '#_wpnonce' ).val()
         };
         $.post(ajaxurl, args, function (resp) {
             email_data = resp.email;

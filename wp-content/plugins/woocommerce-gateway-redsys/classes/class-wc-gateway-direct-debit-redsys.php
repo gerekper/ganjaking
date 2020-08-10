@@ -54,6 +54,7 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 		$this->buttoncheckout       = $this->get_option( 'buttoncheckout' );
 		$this->butonbgcolor         = $this->get_option( 'butonbgcolor' );
 		$this->butontextcolor       = $this->get_option( 'butontextcolor' );
+		$this->descripredsys        = $this->get_option( 'descripredsys' );
 		$this->log                  = new WC_Logger();
 		$this->supports             = array(
 			'products',
@@ -205,6 +206,18 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 				'type'        => 'text',
 				'description' => __( 'Terminal number provided by your bank.', 'woocommerce-redsys' ),
 				'desc_tip'    => true,
+			),
+			'descripredsys'        => array(
+				'title'       => __( 'Redsys description', 'woocommerce-redsys' ),
+				'type'        => 'select',
+				'description' => __( 'Chose what to show in Redsys as description.', 'woocommerce-redsys' ),
+				'default'     => 'order',
+				'options'     => array(
+					'order' => __( 'Order ID', 'woocommerce-redsys' ),
+					'id'    => __( 'List of products ID', 'woocommerce-redsys' ),
+					'name'  => __( 'List of products name', 'woocommerce-redsys' ),
+					'sku'   => __( 'List of products SKU', 'woocommerce-redsys' ),
+				),
 			),
 			'not_use_https'    => array(
 				'title'       => __( 'HTTPS SNI Compatibility', 'woocommerce-redsys' ),
@@ -517,7 +530,7 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 		$miobj->setParameter( 'DS_MERCHANT_URLOK', add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ) );
 		$miobj->setParameter( 'DS_MERCHANT_URLKO', $returnfromredsys );
 		$miobj->setParameter( 'DS_MERCHANT_CONSUMERLANGUAGE', $gatewaylanguage );
-		$miobj->setParameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', __( 'Order', 'woo-redsys-gateway-light' ) . ' ' . $order->get_order_number() );
+		$miobj->setParameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', WCRed()->product_description( $order, 'directdebitredsys' ) );
 		$miobj->setParameter( 'DS_MERCHANT_MERCHANTNAME', $this->commercename );
 		$miobj->setParameter( 'DS_MERCHANT_PAYMETHODS', 'D' );
 		
@@ -546,7 +559,7 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 			$this->log->add( 'directdebitredsys', 'DS_MERCHANT_URLOK: ' . add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ) );
 			$this->log->add( 'directdebitredsys', 'DS_MERCHANT_URLKO: ' . $returnfromredsys );
 			$this->log->add( 'directdebitredsys', 'DS_MERCHANT_CONSUMERLANGUAGE: ' . $gatewaylanguage );
-			$this->log->add( 'directdebitredsys', 'DS_MERCHANT_PRODUCTDESCRIPTION: ' . __( 'Order', 'woo-redsys-gateway-light' ) . ' ' . $order->get_order_number() );
+			$this->log->add( 'directdebitredsys', 'DS_MERCHANT_PRODUCTDESCRIPTION: ' . WCRed()->product_description( $order, 'directdebitredsys' ) );
 			$this->log->add( 'directdebitredsys', 'DS_MERCHANT_PAYMETHODS: D' );
 		}
 		$redsys_args = apply_filters( 'woocommerce_redsys_args', $redsys_args );
@@ -1148,7 +1161,7 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 		$miObj->setParameter( 'DS_MERCHANT_URLOK', add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ) );
 		$miObj->setParameter( 'DS_MERCHANT_URLKO', $order->get_cancel_order_url() );
 		$miObj->setParameter( 'DS_MERCHANT_CONSUMERLANGUAGE', '001' );
-		$miObj->setParameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', __( 'Order', 'woocommerce-redsys' ) . ' ' . $order->get_order_number() );
+		$miObj->setParameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', WCRed()->product_description( $order, 'directdebitredsys' ) );
 		$miObj->setParameter( 'DS_MERCHANT_MERCHANTNAME', $this->commercename );
 
 		if ( 'yes' === $this->debug ) {
@@ -1167,7 +1180,7 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 			$this->log->add( 'directdebitredsys', __( 'DS_MERCHANT_URLOK : ', 'woocommerce-redsys' ) . add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ) );
 			$this->log->add( 'directdebitredsys', __( 'DS_MERCHANT_URLKO : ', 'woocommerce-redsys' ) . $order->get_cancel_order_url() );
 			$this->log->add( 'directdebitredsys', __( 'DS_MERCHANT_CONSUMERLANGUAGE : 001', 'woocommerce-redsys' ) );
-			$this->log->add( 'directdebitredsys', __( 'DS_MERCHANT_PRODUCTDESCRIPTION : ', 'woocommerce-redsys' ) . __( 'Order', 'woocommerce-redsys' ) . ' ' . $order->get_order_number() );
+			$this->log->add( 'directdebitredsys', __( 'DS_MERCHANT_PRODUCTDESCRIPTION : ', 'woocommerce-redsys' ) . WCRed()->product_description( $order, 'directdebitredsys' ) );
 			$this->log->add( 'directdebitredsys', __( 'DS_MERCHANT_MERCHANTNAME : ', 'woocommerce-redsys' ) . $this->commercename );
 			$this->log->add( 'directdebitredsys', __( 'DS_MERCHANT_AUTHORISATIONCODE : ', 'woocommerce-redsys' ) . $autorization_code );
 			$this->log->add( 'directdebitredsys', __( 'Ds_Merchant_TransactionDate : ', 'woocommerce-redsys' ) . $autorization_date );

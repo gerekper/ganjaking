@@ -83,32 +83,44 @@ class FUE_Sending_Mailer {
 
 			if ( isset( $queue_item->meta['daily_summary'] ) ) {
 				if ( 'no' == get_option( 'fue_enable_daily_summary' ) ) {
-					return new WP_Error( 'fue_queue_error', __('Queue item deleted because daily summary is not enabled', 'follow_up_emails') );
+					$error = __( 'Queue item deleted because daily summary is not enabled', 'follow_up_emails' );
+					fue_debug_log( $error, $queue_item->id );
+					return new WP_Error( 'fue_queue_error', $error );
 				}
 
-				$last_send  = get_option( 'fue_daily_summary_last_send', 0 );
-				$now        = current_time( 'timestamp', true );
+				$last_send = get_option( 'fue_daily_summary_last_send', 0 );
+				$now       = current_time( 'timestamp', true );
 
-				if ( ($now - $last_send) < 86000 ) {
-					return new WP_Error( 'fue_queue_error', __('Queue item deleted because the daily summary is attempting to send too early', 'follow_up_emails') );
+				if ( ( $now - $last_send ) < 86000 ) {
+					$error = __( 'Queue item deleted because the daily summary is attempting to send too early', 'follow_up_emails' );
+					fue_debug_log( $error, $queue_item->id );
+					return new WP_Error( 'fue_queue_error', $error );
 				}
 
 				return $this->send_adhoc_email( $queue_item );
 
 				update_option( 'fue_daily_summary_last_send', $now );
 			} elseif ( isset( $queue_item->meta['adhoc'] ) || isset( $queue_item->meta['subscription_notification'] ) ) {
+				if ( isset( $queue_item->meta['adhoc'] ) ) {
+					fue_debug_log( __( 'Sending adhoc email', 'follow_up_emails' ), $queue_item->id );
+				} else {
+					fue_debug_log( __( 'Sending subscription notification email', 'follow_up_emails' ), $queue_item->id );
+				}
 				return $this->send_adhoc_email( $queue_item );
 			} else {
 				// invalid queue item. delete!
 				Follow_Up_Emails::instance()->scheduler->delete_item( $queue_item->id );
-				return new WP_Error( 'fue_queue_error', __('Queue item deleted because no email was assigned to it', 'follow_up_emails') );
+				$error = __( 'Queue item deleted because no email was assigned to it', 'follow_up_emails' );
+				fue_debug_log( $error, $queue_item->id );
+				return new WP_Error( 'fue_queue_error', $error );
 			}
-
 		}
 
 		// only process unsent email orders
 		if ( $queue_item->is_sent != 0 ) {
-			return new WP_Error( 'fue_queue_error', __('Queue item has already been sent', 'follow_up_emails') );
+			$error = __( 'Queue item has already been sent', 'follow_up_emails' );
+			fue_debug_log( $error, $queue_item->id );
+			return new WP_Error( 'fue_queue_error', $error );
 		}
 
 		$email = new FUE_Email( $queue_item->email_id );
@@ -119,7 +131,9 @@ class FUE_Sending_Mailer {
 			!in_array( $email->status, array( FUE_Email::STATUS_ACTIVE, FUE_Email::STATUS_INACTIVE ) ) &&
 			$email->type != 'manual'
 		) {
-			return new WP_Error( 'fue_queue_error', __('Could not send email because it is not active', 'follow_up_emails') );
+			$error = __( 'Could not send email because it is not active', 'follow_up_emails' );
+			fue_debug_log( $error, $queue_item->id );
+			return new WP_Error( 'fue_queue_error', $error );
 		}
 
 		// make sure we are not sending too early
@@ -133,35 +147,44 @@ class FUE_Sending_Mailer {
 				as_unschedule_action( 'sfn_followup_emails', $param, 'fue' );
 				as_schedule_single_action( $queue_item->send_on, 'sfn_followup_emails', $param, 'fue' );
 
-				$format = wc_date_format() .' '. wc_time_format();
-				$date1 = date_i18n( $format, $current_time );
-				$date2 = date_i18n( $format, $queue_item->send_on );
-				return new WP_Error( 'fue_queue_error', sprintf( __('Email tried to send too early. Scheduled on %s but attempted to send on %s', 'follow_up_emails'), $date2, $date1 ) );
+				$format = wc_date_format() . ' ' . wc_time_format();
+				$date1  = date_i18n( $format, $current_time );
+				$date2  = date_i18n( $format, $queue_item->send_on );
+
+				/* translators: %1$s Scheduled time, %2$s Sending time. */
+				$error = sprintf( __( 'Email tried to send too early. Scheduled on %1$s but attempted to send on %2$s', 'follow_up_emails' ), $date2, $date1 );
+				fue_debug_log( $error, $queue_item->id );
+				return new WP_Error( 'fue_queue_error', $error );
 			}
 		}
 
 		// set local variables
-		$this->email    = $email;
-		$this->queue    = $queue_item;
+		$this->email = $email;
+		$this->queue = $queue_item;
 
 		// email cannot be active and have an empty message
-		if ( empty($email->message) && empty($queue_item->meta['message']) ) {
+		if ( empty( $email->message ) && empty( $queue_item->meta['message'] ) ) {
 			// set the status to inactive
 			$email->update_status( FUE_Email::STATUS_INACTIVE );
-			return new WP_Error( 'fue_queue_error', __('Cannot send emails without a message. Email has been deactivated', 'follow_up_emails') );
+			$error = __( 'Cannot send emails without a message. Email has been deactivated', 'follow_up_emails' );
+			fue_debug_log( $error, $queue_item->email_id );
+			return new WP_Error( 'fue_queue_error', $error );
 		}
 
 		// test for email conditions prior to sending
-		$passed_conditions = apply_filters('fue_queue_item_filter_conditions_before_sending', true, $queue_item );
+		$passed_conditions = apply_filters( 'fue_queue_item_filter_conditions_before_sending', true, $queue_item );
 
 		if ( is_wp_error( $passed_conditions ) ) {
+			fue_debug_log( $passed_conditions->get_error_message(), $queue_item->id );
 			return new WP_Error( 'fue_send_queue_item', $passed_conditions->get_error_message() );
 		}
 
 		// if the queue item is cron locked, reschedule to avoid duplicate emails being sent
 		if ( FUE_Sending_Scheduler::is_queue_item_locked( $queue_item ) ) {
 			FUE_Sending_Scheduler::reschedule_queue_item( $queue_item );
-			return new WP_Error( 'fue_queue_notice', __('This email is locked due to a previous attempt in sending the email. Sending has been rescheduled to avoid duplicate emails.', 'follow_up_emails') );
+			$error = __( 'This email is locked due to a previous attempt in sending the email. Sending has been rescheduled to avoid duplicate emails.', 'follow_up_emails' );
+			fue_debug_log( $error, $queue_item->id );
+			return new WP_Error( 'fue_queue_notice', $error );
 		}
 
 		// place a cron lock to prevent duplicates
@@ -174,7 +197,9 @@ class FUE_Sending_Mailer {
 		if ( $queue_item->user_id > 0 && $queue_item->order_id == 0 && fue_user_opted_out( $queue_item->user_id ) ) {
 
 			Follow_Up_Emails::instance()->scheduler->delete_item( $queue_item->id );
-			return new WP_Error( 'fue_queue_notice', __('The customer opted out of recieving non-order related emails. Email has been deleted.', 'follow_up_emails'));
+			$error = __( 'The customer opted out of recieving non-order related emails. Email has been deleted.', 'follow_up_emails' );
+			fue_debug_log( $error, $queue_item->id );
+			return new WP_Error( 'fue_queue_notice', $error );
 
 		}
 
@@ -186,7 +211,9 @@ class FUE_Sending_Mailer {
 
 			do_action( 'fue_email_excluded', $email_data['email_to'], $queue_item->id );
 			Follow_Up_Emails::instance()->scheduler->delete_item( $queue_item->id );
-			return new WP_Error( 'fue_queue_notice', __('The customer is on the "Exclude Emails" list. Email deleted.', 'follow_up_emails') );
+			$error = __( 'The customer is on the exclude emails list. Email deleted.', 'follow_up_emails' );
+			fue_debug_log( $error, $queue_item->id );
+			return new WP_Error( 'fue_queue_notice', $error );
 
 		}
 
@@ -195,25 +222,27 @@ class FUE_Sending_Mailer {
 
 		if ( $skip ) {
 			FUE_Sending_Scheduler::remove_queue_item_lock( $queue_item );
-			return new WP_Error( 'fue_queue_notice', __('An add-on has marked this email to be skipped.', 'follow_up_emails') );
+			$error = __( 'An add-on has marked this email to be skipped.', 'follow_up_emails' );
+			fue_debug_log( $error, $queue_item->id );
+			return new WP_Error( 'fue_queue_notice', $error );
 		}
 
-		$email_data['subject']  = apply_filters('fue_email_subject', $email_data['subject'], $email, $queue_item);
-		$email_data['message']  = apply_filters('fue_email_message', $email_data['message'], $email, $queue_item);
+		$email_data['subject'] = apply_filters( 'fue_email_subject', $email_data['subject'], $email, $queue_item );
+		$email_data['message'] = apply_filters( 'fue_email_message', $email_data['message'], $email, $queue_item );
 
 		$email_data = $this->process_variable_replacements( $email_data );
 
 		// hook to variable replacement
-		$email_data['subject']  = apply_filters( 'fue_send_email_subject', $email_data['subject'], $queue_item );
-		$email_data['message']  = apply_filters( 'fue_send_email_message', $email_data['message'], $queue_item );
+		$email_data['subject'] = apply_filters( 'fue_send_email_subject', $email_data['subject'], $queue_item );
+		$email_data['message'] = apply_filters( 'fue_send_email_message', $email_data['message'], $queue_item );
 
 		// look for store_url with path
 		$link_meta = array(
-			'email_order_id'    => $queue_item->id,
-			'email_id'          => $email->id,
-			'user_id'           => $email_data['user_id'],
-			'user_email'        => $email_data['email_to'],
-			'codes'             => self::get_tracking_codes( $queue_item, $email )
+			'email_order_id' => $queue_item->id,
+			'email_id'       => $email->id,
+			'user_id'        => $email_data['user_id'],
+			'user_email'     => $email_data['email_to'],
+			'codes'          => self::get_tracking_codes( $queue_item, $email ),
 		);
 		fue_set_link_meta( $link_meta );
 
@@ -273,6 +302,7 @@ class FUE_Sending_Mailer {
 		// return if an error occured
 		if ( is_wp_error( $sent ) ) {
 			FUE_Sending_Scheduler::remove_queue_item_lock( $queue_item );
+			fue_debug_log( $sent->get_error_message(), $queue_item->id );
 			return $sent;
 		}
 
@@ -448,6 +478,7 @@ class FUE_Sending_Mailer {
 		self::mail( $email_data['email_to'], $email_data['subject'], $email_data['message'], $headers );
 
 		do_action( 'fue_after_test_email_sent', $email_data['subject'], $email_data['message'] );
+		fue_debug_log( __( 'Sent test email', 'follow_up_emails' ), $email_data );
 
 		die("OK");
 	}
@@ -1202,7 +1233,7 @@ class FUE_Sending_Mailer {
 		);
 
 		FUE_Reports::email_log_array( $log );
-
+		fue_debug_log( __( 'Sent email', 'follow_up_emails' ), $log );
 	}
 
 	/**

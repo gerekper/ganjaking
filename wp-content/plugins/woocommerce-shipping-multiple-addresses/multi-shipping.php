@@ -310,16 +310,6 @@ function woocommerce_multi_shipping_init() {
 			if ( WC_MS_Compatibility::is_wc_version_gte( '2.3' ) ) {
 				$product_ids = array_filter( array_map( 'absint', $settings['excluded_products'] ) );
 
-				foreach ( $product_ids as $product_id ) {
-					$product = wc_get_product( $product_id );
-
-					if ( $product->exists() ) {
-						$json_ids[ $product_id ] = wp_kses_post( $product->get_formatted_name() );
-					}
-				}
-				$json_ids_data = wp_json_encode( $json_ids );
-				$json_ids_data = function_exists( 'wc_esc_json' ) ? wc_esc_json( $json_ids_data ) : _wp_specialchars( $json_ids_data, ENT_QUOTES, 'UTF-8', true );
-
 				$html .= '<tr valign="top">' . "\n";
 				$html .= '<th scope="row" class="titledesc">';
 				$html .= '<label for="' . esc_attr( $this->plugin_id . $this->id . '_' . $key ) . '">' . wp_kses_post( $data['title'] ) . '</label>';

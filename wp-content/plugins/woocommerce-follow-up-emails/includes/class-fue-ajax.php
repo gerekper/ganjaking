@@ -189,6 +189,8 @@ class FUE_AJAX {
 		}
 
 		Follow_Up_Emails::instance()->mailer->send_test_email( $email_data, $email );
+		/* translators: %d Email ID. */
+		fue_debug_log( sprintf( __( 'Sent test email for ID %d', 'follow_up_emails' ), $id ), $email_data );
 
 		ob_end_clean();
 
@@ -593,13 +595,17 @@ class FUE_AJAX {
 		if ($status == FUE_Email::STATUS_INACTIVE || $status == FUE_Email::STATUS_ARCHIVED) {
 			// activate
 			$email->update_status( FUE_Email::STATUS_ACTIVE );
-			$resp['new_status'] = __('Active', 'follow_up_emails');
-			$resp['new_action'] = __('Deactivate', 'follow_up_emails');
+			/* translators: %d Email ID. */
+			fue_debug_log( __( 'Activated email', 'follow_up_emails' ), $id );
+			$resp['new_status'] = __( 'Active', 'follow_up_emails' );
+			$resp['new_action'] = __( 'Deactivate', 'follow_up_emails' );
 		} else {
 			// deactivate
 			$email->update_status( FUE_Email::STATUS_INACTIVE );
-			$resp['new_status'] = __('Inactive', 'follow_up_emails');
-			$resp['new_action'] = __('Activate', 'follow_up_emails');
+			/* translators: %d Email ID. */
+			fue_debug_log( __( 'Deactivated email', 'follow_up_emails' ), $id );
+			$resp['new_status'] = __( 'Inactive', 'follow_up_emails' );
+			$resp['new_action'] = __( 'Activate', 'follow_up_emails' );
 		}
 
 		/*
@@ -739,6 +745,8 @@ class FUE_AJAX {
 		$wpdb   = Follow_Up_Emails::instance()->wpdb;
 
 		$wpdb->delete( $wpdb->prefix .'followup_customer_notes', array( 'id' => $note_id ) );
+		/* translators: %d Note ID. */
+		fue_debug_log( __( 'Deleted customer note', 'follow_up_emails' ), $note_id );
 
 		wp_die( 1 );
 	}
@@ -810,6 +818,7 @@ class FUE_AJAX {
 			'message'           => $message
 		);
 		$item->save();
+		fue_debug_log( __( 'Saved reminder', 'follow_up_emails' ), $item->meta );
 		$scheduler->schedule_email( $item->id, strtotime( $date ) );
 
 		$pre = '';
@@ -1056,8 +1065,8 @@ class FUE_AJAX {
 				}
 			}
 
-			if ( isset( $_POST['meta'] ) ) {
-				$args['meta'] = sanitize_text_field( wp_unslash( $_POST['meta'] ) );
+			if ( isset( $_POST['meta'] ) && is_array( $_POST['meta'] ) ) {
+				$args['meta'] = wc_clean( array_map( 'wp_unslash', $_POST['meta'] ) );
 			}
 
 			if ( isset( $_POST['template'] ) ) {
