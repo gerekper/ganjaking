@@ -38,19 +38,22 @@ class Enqueue_Scripts {
 
     public static function localize_data() {
         return [
-            'ajaxurl'           => admin_url( 'admin-ajax.php' ),
-            'nonce'             => wp_create_nonce( 'pm_pro_nonce' ),
-            'base_url'          => home_url(),
-            'dir_url'           => pm_pro_config('define.url'),
-            'module_path'       => pm_pro_config('define.module_path'),
-            'base_path'         => pm_pro_config('define.path'),
-            'manage_capability' => pm_get_setting( 'managing_capability' ),
-            'pm_logo'           => pm_pro_get_logo(),
-            'locale'            => pm_pro_get_locale(),
-            'wperp'             => class_exists('WeDevs_ERP'),
-            'active_modules'    => pm_pro_get_active_modules(),
-            'pages'             => get_pages(),
-            'page'              => get_option( 'pm_pages' )
+            'ajaxurl'            => admin_url( 'admin-ajax.php' ),
+            'nonce'              => wp_create_nonce( 'pm_pro_nonce' ),
+            'base_url'           => home_url(),
+            'api_base_url'       => esc_url_raw( get_rest_url() ),
+            'api_namespace'      => pm_api_namespace(),
+            'permalinkStructure' => get_option( 'permalink_structure' ),
+            'dir_url'            => pm_pro_config('define.url'),
+            'module_path'        => pm_pro_config('define.module_path'),
+            'base_path'          => pm_pro_config('define.path'),
+            'manage_capability'  => pm_get_setting( 'managing_capability' ),
+            'pm_logo'            => pm_pro_get_logo(),
+            'locale'             => pm_pro_get_locale(),
+            'wperp'              => class_exists('WeDevs_ERP'),
+            'active_modules'     => pm_pro_get_active_modules(),
+            'pages'              => get_pages(),
+            'page'               => get_option( 'pm_pages' )
         ];
     }
 }

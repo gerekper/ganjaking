@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: YITH WooCommerce Wishlist\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/init\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2020-05-07 16:23+0200\n"
+"PO-Revision-Date: 2020-06-08 18:50+0200\n"
 "Last-Translator: Valentyn Zubenko <valentyn.zubenko@gmail.com>\n"
 "Language-Team: Your Inspiration Themes <plugins@yithemes.com>\n"
 "Language: uk_UA\n"
@@ -95,7 +95,7 @@ msgstr ""
 #: ../includes/class.yith-wcwl-frontend.php:645,
 #: ../includes/class.yith-wcwl-shortcode.php:237,
 #: ../plugin-options/wishlist_page-options.php:237,
-#: ../templates/wishlist-view-footer-mobile.php:43,
+#: ../templates/wishlist-view-footer-mobile.php:44,
 #: ../templates/wishlist-view-footer.php:44
 msgid "Add to cart"
 msgstr ""
@@ -1512,39 +1512,35 @@ msgstr ""
 msgid "this wishlist link and share it anywhere)"
 msgstr ""
 
-#: ../templates/wishlist-view-footer-mobile.php:41,
+#: ../templates/wishlist-view-footer-mobile.php:42,
 #: ../templates/wishlist-view-footer.php:42
 msgid "Apply this action to all the selected items:"
 msgstr ""
 
-#: ../templates/wishlist-view-footer-mobile.php:46,
+#: ../templates/wishlist-view-footer-mobile.php:47,
 #: ../templates/wishlist-view-footer.php:47
 msgid "Remove from wishlist"
 msgstr ""
 
 #. translators: 1. Wishlist formatted name.
-#: ../templates/wishlist-view-footer-mobile.php:59,
+#: ../templates/wishlist-view-footer-mobile.php:60,
 #: ../templates/wishlist-view-footer.php:63
 msgid "Move to %s"
 msgstr ""
 
-#: ../templates/wishlist-view-footer-mobile.php:63,
+#: ../templates/wishlist-view-footer-mobile.php:64,
 #: ../templates/wishlist-view-footer.php:69
 msgid "Apply"
 msgstr ""
 
-#: ../templates/wishlist-view-footer-mobile.php:71,
+#: ../templates/wishlist-view-footer-mobile.php:72,
 #: ../templates/wishlist-view-footer.php:77
 msgid "Update"
 msgstr ""
 
-#: ../templates/wishlist-view-footer-mobile.php:77,
+#: ../templates/wishlist-view-footer-mobile.php:78,
 #: ../templates/wishlist-view-footer.php:99
 msgid "Add all to cart"
-msgstr ""
-
-#: ../templates/wishlist-view-footer-mobile.php:87
-msgid "Ask for an estimate"
 msgstr ""
 
 #: ../templates/wishlist-view-header.php:41
@@ -1559,48 +1555,48 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: ../templates/wishlist-view-mobile.php:122
+#: ../templates/wishlist-view-mobile.php:126
 msgid "Added on:"
 msgstr ""
 
-#: ../templates/wishlist-view-mobile.php:133
+#: ../templates/wishlist-view-mobile.php:137
 msgid "Price:"
 msgstr ""
 
-#: ../templates/wishlist-view-mobile.php:160
+#: ../templates/wishlist-view-mobile.php:164
 msgid "Quantity:"
 msgstr ""
 
-#: ../templates/wishlist-view-mobile.php:175
+#: ../templates/wishlist-view-mobile.php:179
 msgid "Stock:"
 msgstr ""
 
-#: ../templates/wishlist-view-mobile.php:178,
+#: ../templates/wishlist-view-mobile.php:182,
 #: ../templates/wishlist-view.php:224
 msgid "Out of stock"
 msgstr ""
 
-#: ../templates/wishlist-view-mobile.php:178,
+#: ../templates/wishlist-view-mobile.php:182,
 #: ../templates/wishlist-view.php:224
 msgid "In Stock"
 msgstr "в наявності"
 
-#: ../templates/wishlist-view-mobile.php:197,
+#: ../templates/wishlist-view-mobile.php:201,
 #: ../templates/wishlist-view.php:257
 msgid "Move"
 msgstr ""
 
-#: ../templates/wishlist-view-mobile.php:216,
+#: ../templates/wishlist-view-mobile.php:220,
 #: ../templates/wishlist-view.php:277
 msgid "Move to another list &rsaquo;"
 msgstr ""
 
-#: ../templates/wishlist-view-mobile.php:224,
+#: ../templates/wishlist-view-mobile.php:228,
 #: ../templates/wishlist-view.php:155, ../templates/wishlist-view.php:287
 msgid "Remove this product"
 msgstr ""
 
-#: ../templates/wishlist-view-mobile.php:234,
+#: ../templates/wishlist-view-mobile.php:238,
 #: ../templates/wishlist-view.php:307
 msgid "No products added to the wishlist"
 msgstr ""

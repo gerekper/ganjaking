@@ -74,6 +74,7 @@ class CreateRecurrentTasks {
         $run_on = Carbon::parse($formatted_rd->recurrence[ $formatted_rd->unit[ $task['recurrent'] ] ]);
         $last_run = Carbon::parse( $formatted_rd->recurrence['last_run'] );
         $duration = $formatted_rd->recurrence['duration'];
+        //$this->task_duplicate( $task, $task->task_lists->first()->id, $task->project_id, $duration);
         switch ( $task['recurrent'] ) {
             case "1":
                 $weekstart = $run_on;
@@ -153,7 +154,7 @@ class CreateRecurrentTasks {
             $task_data ['start_at'] = Carbon::now();
         }
 
-        $task_data ['recurrent'] = 9;
+        $task_data ['recurrent'] = 0;
         $newTask = $this->replicate( $task, $task_data );
 
 

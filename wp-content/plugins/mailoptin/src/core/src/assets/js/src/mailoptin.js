@@ -296,6 +296,38 @@ define(['jquery', 'js.cookie', 'mailoptin_globals', 'pikaday', 'moModal', 'moExi
             },
 
             /**
+             * Determine if optin should display or not.
+             *
+             * @param {object} optin_config
+             *
+             * @returns {boolean}
+             */
+            split_test_cookie_test: function (optin_config) {
+
+                if (optin_config.is_split_test === true) {
+
+                    var flag = true,
+                        self = mailoptin_optin,
+                        optin_campaign_id = optin_config.optin_campaign_id;
+
+                    if (optin_campaign_id in optin_config.split_test_variants) {
+
+                        $.each(optin_config.split_test_variants, function (index, variant_config) {
+
+                            if (self.is_optin_visible(variant_config) === false) {
+                                flag = false;
+                                return false; // break the loop
+                            }
+                        });
+
+                        return flag;
+                    }
+                }
+
+                return true;
+            },
+
+            /**
              * Handle display/showing of optin form.
              *
              * @param {object} optin_js_config for lightbox, this is modal_options.  others is optin_js_config
@@ -339,6 +371,8 @@ define(['jquery', 'js.cookie', 'mailoptin_globals', 'pikaday', 'moModal', 'moExi
                 if (optin_config.click_launch_status === true && skip_display_checks === false) return;
 
                 if (self.is_optin_visible(optin_config) === false) return;
+
+                if (self.split_test_cookie_test(optin_config) === false) return;
 
                 if (self.is_after_x_page_views_active(optin_config)) {
                     var x_page_views_condition = optin_config.x_page_views_condition;
@@ -560,6 +594,8 @@ define(['jquery', 'js.cookie', 'mailoptin_globals', 'pikaday', 'moModal', 'moExi
                 // do cookie checking if we are not in customizer mode and not test mode is active.
                 if ($.MailOptin.is_customize_preview === false && optin_config.test_mode === false && skip_display_checks !== true) {
                     if (self.is_optin_visible(optin_config) === false) return;
+
+                    if (self.split_test_cookie_test(optin_config) === false) return;
                 }
 
                 if (optin_type !== undefined && optin_type === 'lightbox') {
@@ -1202,8 +1238,7 @@ define(['jquery', 'js.cookie', 'mailoptin_globals', 'pikaday', 'moModal', 'moExi
             initOptinForms: function () {
 
                 $(".moOptinForm").each(function (index, element) {
-                    var optin_container = $(element);
-                    optin_container.mailoptin();
+                    $(element).mailoptin();
                 });
 
                 // click launch trigger

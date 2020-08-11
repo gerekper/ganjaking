@@ -5,6 +5,7 @@ namespace MailOptin\Core\Admin\SettingsPage;
 use MailOptin\Core\AjaxHandler;
 use MailOptin\Core\Repositories\OptinCampaignMeta;
 use MailOptin\Core\Repositories\OptinCampaignsRepository;
+use MailOptin\Core\Repositories\OptinCampaignStat;
 
 class SplitTestOptinCampaign
 {
@@ -18,8 +19,8 @@ class SplitTestOptinCampaign
     public function __construct($parent_optin_id, $name, $note)
     {
         $this->parent_optin_id = $parent_optin_id;
-        $this->name = $name;
-        $this->note = $note;
+        $this->name            = $name;
+        $this->note            = $note;
     }
 
     /**
@@ -44,11 +45,14 @@ class SplitTestOptinCampaign
 
         $all_optin_campaign_settings = OptinCampaignsRepository::get_settings();
         // append new template settings to existing settings.
-        $all_optin_campaign_settings[$optin_campaign_id] = OptinCampaignsRepository::get_settings_by_id($this->parent_optin_id);
+        $all_optin_campaign_settings[$optin_campaign_id]                    = OptinCampaignsRepository::get_settings_by_id($this->parent_optin_id);
         $all_optin_campaign_settings[$optin_campaign_id]['split_test_note'] = $this->note;
-        $all_optin_campaign_settings[$optin_campaign_id]['activate_optin'] = true;
+        $all_optin_campaign_settings[$optin_campaign_id]['activate_optin']  = true;
         // save to DB
         OptinCampaignsRepository::updateSettings($all_optin_campaign_settings);
+
+        //reset stats
+        (new OptinCampaignStat($optin_campaign_id))->reset_stat();
 
         return $optin_campaign_id;
     }

@@ -15,9 +15,10 @@ jQuery( document ).ready( function( $ ){
             cart_redirect_after_add = ( typeof( wc_add_to_cart_params ) !== 'undefined' && wc_add_to_cart_params !== null ) ? wc_add_to_cart_params.cart_redirect_after_add : '';
 
         t.on( 'click', '.add_to_wishlist', function( ev ) {
-            var t = $( this),
+            var t = $(this),
                 product_id = t.attr( 'data-product-id' ),
                 el_wrap = $( '.add-to-wishlist-' + product_id ),
+                filtered_data = null,
                 data = {
                     add_to_wishlist: product_id,
                     product_type: t.data( 'product-type' ),
@@ -25,6 +26,11 @@ jQuery( document ).ready( function( $ ){
                     action: yith_wcwl_l10n.actions.add_to_wishlist_action,
                     fragments: retrieve_fragments( product_id )
                 };
+
+            // allow third party code to filter data
+            if( filtered_data = $(document).triggerHandler( 'yith_wcwl_add_to_wishlist_data', [ t, data ] ) ) {
+                data = filtered_data;
+            }
 
             ev.preventDefault();
 
@@ -432,8 +438,6 @@ jQuery( document ).ready( function( $ ){
                 t.attr( 'data-original-product-id', product_id );
                 t.attr( 'data-product-id', variation_id );
 
-                console.log(t, t.attr('data-product-id'));
-
                 if( container.length ) {
                     options = container.data( 'fragment-options' );
 
@@ -834,6 +838,7 @@ jQuery( document ).ready( function( $ ){
 
             t.sortable( {
                 items: '[data-row-id]',
+                scroll: true,
                 helper: function( e, ui ){
                     ui.children().each(function() {
                         $(this).width($(this).width());
@@ -842,7 +847,8 @@ jQuery( document ).ready( function( $ ){
                 },
                 update: function(){
                     var row = t.find('[data-row-id]'),
-                        positions = [];
+                        positions = [],
+                        i = 0;
 
                     if( ! row.length ){
                         return;
@@ -854,6 +860,8 @@ jQuery( document ).ready( function( $ ){
 
                     row.each( function(){
                         var t = $(this);
+
+                        t.find( 'input[name*="[position]"]' ).val(i++);
 
                         positions.push( t.data('row-id') );
                     } );

@@ -87,7 +87,7 @@ class Connect extends AbstractMailjetConnect implements ConnectionInterface
 
                     $data = get_option('mo_mailjet_double_optin_bucket', []);
                     unset($data[$key]);
-                    update_option('mo_mailjet_double_optin_bucket', $data);
+                    update_option('mo_mailjet_double_optin_bucket', $data, false);
 
                     $message = apply_filters('mo_mailjet_confirmed_message', esc_html__('Your subscription has been confirmed.', 'mailoptin'));
 

@@ -239,7 +239,7 @@ class Custom_Settings_Page_Api
             }
         }
 
-        do_action('wp_cspa_persist_settings', $sanitized_data, $this->option_name);
+        do_action('wp_cspa_persist_settings', $sanitized_data, $this->option_name, $this);
 
         if ( ! apply_filters('wp_cspa_disable_default_persistence', false)) {
 

@@ -31,8 +31,9 @@ class WP_Leadbank_Mail_BG_Process extends WP_Mail_BG_Process
 
         $email_campaign_id = $user_data['email_campaign_id'];
         $campaign_log_id   = $user_data['campaign_log_id'];
-        $content_html      = $user_data['content_html'];
-        $content_text      = $user_data['content_text'];
+
+        $content_html = CampaignLogRepository::instance()->retrieveContentHtml($campaign_log_id);
+        $content_text = CampaignLogRepository::instance()->retrieveContentText($campaign_log_id);
 
         $search = ['{{unsubscribe}}', '{{webversion}}'];
 

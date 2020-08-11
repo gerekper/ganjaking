@@ -11,12 +11,12 @@ use WeDevs\PM_Pro\Modules\invoice\src\Models\Invoice;
 use WeDevs\PM_Pro\Modules\invoice\src\Transformers\Invoice_Transformer;
 
 class Payment extends Abstract_Permission {
-    
+
     public function check() {
         $postdata   = $this->request->get_params();
         $project_id = absint( $this->request->get_param('project_id') );
         $invoice_id = absint( $this->request->get_param('invoice_id') );
-        
+
         return self::payment_validation($project_id, $invoice_id, $postdata);
     }
 
@@ -25,15 +25,15 @@ class Payment extends Abstract_Permission {
         $invoice = Invoice::where( 'project_id', $project_id )
             ->where( 'id', $invoice_id )->first();
 
-        $invoice = new Item( $invoice, new Invoice_Transformer );
-        $invoice = pm_get_response( $invoice, [] );
-        $invoice_total = pm_pro_invoice_get_invoice_total($invoice['data']['entryTasks'], $invoice['data']['entryNames'], $invoice['data']['discount']);
-        
-        $partial_amount = isset( $invoice['data']['partial_amount'] ) ? floatval($invoice['data']['partial_amount']) : 0;
+        $partial = empty( $invoice['partial'] ) ? false : true;
 
-        $paid_amount = pm_pro_invoice_get_total_paid( $invoice['data']['payments']['data'] );
-        $due_amount  = pm_pro_invoice_get_total_due( $invoice['data'] );
-        $symbol = pm_pro_get_invoice_currencey_symbol();
+        $invoice        = new Item( $invoice, new Invoice_Transformer );
+        $invoice        = pm_get_response( $invoice, [] );
+        $invoice_total  = pm_pro_invoice_get_invoice_total($invoice['data']['entryTasks'], $invoice['data']['entryNames'], $invoice['data']['discount']);
+        $partial_amount = isset( $invoice['data']['partial_amount'] ) ? floatval($invoice['data']['partial_amount']) : 0;
+        $paid_amount    = pm_pro_invoice_get_total_paid( $invoice['data']['payments']['data'] );
+        $due_amount     = pm_pro_invoice_get_total_due( $invoice['data'] );
+        $symbol         = pm_pro_get_invoice_currencey_symbol();
 
         $amount         = round( $amount, 4 );
         $due_amount     = round( $due_amount, 4 );
@@ -41,35 +41,34 @@ class Payment extends Abstract_Permission {
         $partial_amount = round( $partial_amount, 4 );
         $paid_amount    = round( $paid_amount, 4 );
 
-
         if ( $amount <= 0 ) {
             return new \WP_Error( 'partial_payment', __( "Please insert your payment amount", "pm" ) );
         }
 
         if ( $due_amount < $amount ) {
             return new \WP_Error( 'partial_payment', __( "Payment amount should be less than or equal due amount ({$symbol}{$due_amount})", "pm" ) );
-        } 
+        }
 
         if( intval( $invoice['data']['partial'] ) ) {
-            if ( 
+            if (
                 $due_amount >= $partial_amount
                     &&
-                $amount < $partial_amount 
+                $amount < $partial_amount
             ) {
                 return new \WP_Error( 'partial_payment', __( "Payment amount should be greater than or equal to partial amount ({$symbol}{$partial_amount})", "pm" ) );
             } else if (
                 $due_amount < $partial_amount
                     &&
-                $amount < $due_amount 
+                $amount < $due_amount
             ) {
                 return new \WP_Error( 'partial_payment', __( "Payment amount should be equal to due amount ({$symbol}{$due_amount})", "pm" ) );
             }
         } else {
-            if ( $amount != $invoice_total ) {
+            if ( $amount != $due_amount ) {
                 return new \WP_Error( 'partial_payment', __( "Payment amount should equeal due amount ({$symbol}{$due_amount})", "pm" ) );
             }
         }
-        
+
         return true;
     }
 }

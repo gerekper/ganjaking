@@ -406,7 +406,7 @@ if( ! class_exists( 'YITH_WCWL_Shortcode' ) ) {
 				if ( ! $no_interactions && $enable_share && ( $share_facebook_enabled || $share_twitter_enabled || $share_pinterest_enabled || $share_email_enabled || $share_whatsapp_enabled || $share_url_enabled ) ) {
 					$share_title = apply_filters( 'yith_wcwl_socials_share_title', __( 'Share on:', 'yith-woocommerce-wishlist' ) );
 					$share_link_url = apply_filters( 'yith_wcwl_shortcode_share_link_url', $wishlist->get_url(), $wishlist );
-					$share_links_title = apply_filters( 'plugin_text', urlencode( get_option( 'yith_wcwl_socials_title' ) ) );
+					$share_link_title = apply_filters( 'plugin_text', urlencode( get_option( 'yith_wcwl_socials_title' ) ) );
 					$share_summary = urlencode( str_replace( '%wishlist_url%', $share_link_url, get_option( 'yith_wcwl_socials_text' ) ) );
 
 					$share_atts = array(
@@ -418,7 +418,7 @@ if( ! class_exists( 'YITH_WCWL_Shortcode' ) ) {
 						'share_url_enabled' => $share_url_enabled,
 						'share_title' => $share_title,
 						'share_link_url' => $share_link_url,
-						'share_link_title' => $share_links_title,
+						'share_link_title' => $share_link_title,
 					);
 
 					if ( $share_facebook_enabled ) {
@@ -688,8 +688,8 @@ if( ! class_exists( 'YITH_WCWL_Shortcode' ) ) {
 
 			// set fragment options.
 			$atts['fragment_options'] = YITH_WCWL_Frontend()->format_fragment_options( $atts, 'add_to_wishlist' );
-			$atts['icon'] = $icon_html;
-			$atts['heading_icon'] = $heading_icon_html;
+			$atts['icon'] = apply_filters( 'yith_wcwl_add_to_wishlist_icon_html', $icon_html, $atts );
+			$atts['heading_icon'] = apply_filters( 'yith_wcwl_add_to_wishlist_heading_icon_html', $heading_icon_html, $atts );
 
 			$template = yith_wcwl_get_template( 'add-to-wishlist.php', $atts, true );
 

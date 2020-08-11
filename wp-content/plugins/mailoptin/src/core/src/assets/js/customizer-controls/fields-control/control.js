@@ -288,6 +288,11 @@
                     old_data[index][field_name] = field_value;
                 }
 
+                // we are doing this to ensure even when fields are sorted, their cid never changes.
+                if (typeof parent.attr('data-field-old-cid') !== "undefined") {
+                    old_data[index]['cid'] = parent.attr('data-field-old-cid');
+                }
+
                 // remove null and empty from array elements.
                 old_data = _.without(old_data, null, '');
 
@@ -295,14 +300,28 @@
             };
 
             var save_all_widget_changes = function () {
+                var old_index, data_store,
+                    cache = $('.mo-fields-widget.mo-custom-field');
+                data_store = (data_store = $('.mo-fields-save-field').val()) !== "" ? JSON.parse(data_store) : [];
+
                 // reorder data-field-index attributes
-                $('.mo-fields-widget.mo-custom-field').each(function (index) {
+                cache.each(function (index) {
+
+                    old_index = $(this).attr('data-field-index');
+
                     $(this).attr('data-field-index', index);
+
+                    if (typeof data_store[old_index] !== 'undefined' && typeof data_store[old_index]['cid'] !== 'undefined') {
+                        $(this).attr('data-field-old-cid', data_store[old_index]['cid']);
+                    }
                 });
 
                 $('.mo-fields-widget.mo-custom-field select, .mo-fields-widget.mo-custom-field input, .mo-fields-widget.mo-custom-field textarea').each(function () {
                     save_change(this);
                 });
+
+                cache.removeAttr('data-field-old-cid');
+
             };
 
             var save_on_change = function () {

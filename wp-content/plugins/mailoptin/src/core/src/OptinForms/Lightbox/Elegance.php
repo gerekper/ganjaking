@@ -466,6 +466,7 @@ html div#$optin_uuid div#$optin_css_id.moEleganceModal .moElegance_note {
 
 html div#$optin_uuid div#$optin_css_id.moEleganceModal input.moEleganceModal_input_fields,
 html div#$optin_uuid div#$optin_css_id.moEleganceModal input.mo-optin-form-custom-field.text-field,
+html div#$optin_uuid div#$optin_css_id.moEleganceModal input.mo-optin-form-custom-field.password-field,
 html div#$optin_uuid div#$optin_css_id.moEleganceModal input.mo-optin-form-custom-field.date-field,
 html div#$optin_uuid div#$optin_css_id.moEleganceModal select.mo-optin-form-custom-field,
 html div#$optin_uuid div#$optin_css_id.moEleganceModal textarea.mo-optin-form-custom-field.textarea-field {

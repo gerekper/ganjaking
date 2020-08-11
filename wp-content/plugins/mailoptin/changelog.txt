@@ -1,5 +1,27 @@
 ﻿== Changelog ==
 
+= 1.2.30.0 =
+* Added Infusionsoft integration.
+* Added WordPress user registration integration.
+* Added a new panel to clearly show embed shortcode, widget and block.
+* Fixed multiple undefined index PHP errors.
+* Improved optin conversion counter accuracy.
+* Added missing Ninja Forms ESP integrations.
+
+= 1.2.29.4 =
+* Added SendFox integration.
+* Added alert to check if title is filled when creating optin and automations.
+* Fixed bug where optin stats weren't reset when AB test variants are created.
+* Fixed bug where a list ID that is zero stopped optin from adding subscribers.
+* Fixed bug where IP address might return ::1.
+* Increased limit of mailjet contact properties fetched.
+
+= 1.2.29.3 =
+* Fixed bug where Zoho Campaigns wasn't working for non-us data-centers.
+* Fixed bug where sending emails to large subscribers was failing.
+* Improved compatibility with jQuery 3.x.
+* Show a prompt before deleting any item.
+
 = 1.2.29.2 =
 * Fixed screen option pagination saving bug caused by WP 5.4.2.
 * Further DB Query solidification.

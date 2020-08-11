@@ -16,6 +16,17 @@ class WP_Mail_BG_Process extends WP_Background_Process
     protected $action = 'mo_wp_mail_bg_process';
 
     /**
+     * Initiate new background process.
+     */
+    public function __construct()
+    {
+        // Uses unique prefix per blog so each blog has separate queue.
+        $this->prefix = 'wp_' . get_current_blog_id();
+
+        parent::__construct();
+    }
+
+    /**
      * HTML email content type.
      *
      * @return string
@@ -103,8 +114,9 @@ class WP_Mail_BG_Process extends WP_Background_Process
         $username          = $user_data->user_login;
         $email_campaign_id = $user_data->email_campaign_id;
         $campaign_log_id   = $user_data->campaign_log_id;
-        $content_html      = $user_data->content_html;
-        $content_text      = $user_data->content_text;
+
+        $content_html = CampaignLogRepository::instance()->retrieveContentHtml($campaign_log_id);
+        $content_text = CampaignLogRepository::instance()->retrieveContentText($campaign_log_id);
 
         $search = ['{{unsubscribe}}', '{{webversion}}'];
 
@@ -139,4 +151,42 @@ class WP_Mail_BG_Process extends WP_Background_Process
         return false;
     }
 
+    /**
+     * Save queue
+     *
+     * @return $this
+     */
+    public function mo_save($campaign_log_id, $email_campaign_id)
+    {
+        $key = $this->generate_key();
+
+        if ( ! empty($this->data)) {
+            $update = update_site_option($key, $this->data);
+
+            if ( ! $update) {
+                AbstractConnect::save_campaign_error_log(
+                    'Unable to save WP Mail BG process',
+                    $campaign_log_id,
+                    $email_campaign_id
+                );
+            }
+        }
+
+        return $this;
+    }
+
+    public function mo_dispatch($campaign_log_id, $email_campaign_id)
+    {
+        $dispatched = parent::dispatch();
+
+        if (is_wp_error($dispatched)) {
+            AbstractConnect::save_campaign_error_log(
+                sprintf('Unable to dispatch WP Mail BG: %s', $dispatched->get_error_message()),
+                $campaign_log_id,
+                $email_campaign_id
+            );
+        }
+
+        return $dispatched;
+    }
 }

@@ -144,6 +144,7 @@ class CustomizerSettings extends AbstractCustomizer
         );
 
         foreach ($settings_args as $id => $args) {
+            $args['autoload'] = false;
             $this->wp_customize->add_setting($this->option_prefix . '[' . $id . ']', $args);
         }
     }
@@ -159,6 +160,7 @@ class CustomizerSettings extends AbstractCustomizer
         );
 
         foreach ($settings_args as $id => $args) {
+            $args['autoload'] = false;
             $this->wp_customize->add_setting($this->option_prefix . '[' . $id . ']', $args);
         }
     }
@@ -321,6 +323,7 @@ class CustomizerSettings extends AbstractCustomizer
         }
 
         foreach ($email_campaign_settings_args as $id => $args) {
+            $args['autoload'] = false;
             $this->wp_customize->add_setting(new EC_Customizer_Setting(
                     $this->wp_customize,
                     $this->option_prefix . '[' . $id . ']',
@@ -351,6 +354,7 @@ class CustomizerSettings extends AbstractCustomizer
         );
 
         foreach ($page_settings_args as $id => $args) {
+            $args['autoload'] = false;
             $this->wp_customize->add_setting($this->option_prefix . '[' . $id . ']', $args);
         }
     }
@@ -404,6 +408,7 @@ class CustomizerSettings extends AbstractCustomizer
         );
 
         foreach ($header_settings_args as $id => $args) {
+            $args['autoload'] = false;
             $this->wp_customize->add_setting($this->option_prefix . '[' . $id . ']', $args);
         }
     }
@@ -524,6 +529,7 @@ class CustomizerSettings extends AbstractCustomizer
         );
 
         foreach ($content_settings_args as $id => $args) {
+            $args['autoload'] = false;
             $this->wp_customize->add_setting($this->option_prefix . '[' . $id . ']', $args);
         }
     }
@@ -587,6 +593,7 @@ class CustomizerSettings extends AbstractCustomizer
         ));
 
         foreach ($footer_settings_args as $id => $args) {
+            $args['autoload'] = false;
             $this->wp_customize->add_setting($this->option_prefix . '[' . $id . ']', $args);
         }
     }

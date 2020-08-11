@@ -212,7 +212,7 @@ function get_ip_address()
     // Fix potential CSV returned from $_SERVER variables
     $ip_array = array_map('trim', explode(',', $ip));
 
-    return $ip_array[0];
+    return $ip_array[0] != '::1' ? $ip_array[0] : '';
 }
 
 /**
@@ -355,4 +355,40 @@ function moVar($bucket, $key, $default = false, $empty = false)
     }
 
     return isset($bucket[$key]) ? $bucket[$key] : $default;
+}
+
+function mo_test_admin_email()
+{
+    return apply_filters('mailoptin_email_campaign_test_admin_email', get_option('admin_email'));
+}
+
+function is_valid_data($value)
+{
+    return is_boolean($value) || is_int($value) || ! empty($value);
+}
+
+function is_boolean($maybe_bool)
+{
+    if (is_bool($maybe_bool)) {
+        return true;
+    }
+
+    if (is_string($maybe_bool)) {
+        $maybe_bool = strtolower($maybe_bool);
+
+        $valid_boolean_values = array(
+            'false',
+            'true',
+            '0',
+            '1',
+        );
+
+        return in_array($maybe_bool, $valid_boolean_values, true);
+    }
+
+    if (is_int($maybe_bool)) {
+        return in_array($maybe_bool, array(0, 1), true);
+    }
+
+    return false;
 }

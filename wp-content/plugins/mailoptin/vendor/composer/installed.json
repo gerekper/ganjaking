@@ -1,43 +1,5 @@
 [
     {
-        "name": "a5hleyrich/wp-background-processing",
-        "version": "1.0.1",
-        "version_normalized": "1.0.1.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/A5hleyRich/wp-background-processing.git",
-            "reference": "1f070aab5058dbaf45d5435a343033ddd8a641b1"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/A5hleyRich/wp-background-processing/zipball/1f070aab5058dbaf45d5435a343033ddd8a641b1",
-            "reference": "1f070aab5058dbaf45d5435a343033ddd8a641b1",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.2"
-        },
-        "time": "2018-02-12T09:24:05+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "classmap": [
-                "classes/"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "GPL-2.0-only"
-        ],
-        "authors": [
-            {
-                "name": "Ashley Rich",
-                "email": "hello@ashleyrich.com"
-            }
-        ],
-        "description": "WP Background Processing can be used to fire off non-blocking asynchronous requests or as a background processing tool, allowing you to queue tasks."
-    },
-    {
         "name": "barryvdh/composer-cleanup-plugin",
         "version": "dev-master",
         "version_normalized": "9999999-dev",
@@ -255,6 +217,47 @@
         ]
     },
     {
+        "name": "deliciousbrains/wp-background-processing",
+        "version": "1.0.2",
+        "version_normalized": "1.0.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/deliciousbrains/wp-background-processing.git",
+            "reference": "2cbee1abd1b49e1133cd8f611df4d4fc5a8b9800"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/deliciousbrains/wp-background-processing/zipball/2cbee1abd1b49e1133cd8f611df4d4fc5a8b9800",
+            "reference": "2cbee1abd1b49e1133cd8f611df4d4fc5a8b9800",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.2"
+        },
+        "suggest": {
+            "coenjacobs/mozart": "Easily wrap this library with your own prefix, to prevent collisions when multiple plugins use this library"
+        },
+        "time": "2020-07-31T07:00:11+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "classmap": [
+                "classes/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "GPL-2.0-or-later"
+        ],
+        "authors": [
+            {
+                "name": "Delicious Brains",
+                "email": "nom@deliciousbrains.com"
+            }
+        ],
+        "description": "WP Background Processing can be used to fire off non-blocking asynchronous requests or as a background processing tool, allowing you to queue tasks."
+    },
+    {
         "name": "drewm/drip",
         "version": "v0.7",
         "version_normalized": "0.7.0.0",
@@ -420,11 +423,11 @@
     },
     {
         "name": "mailoptin/authifly",
-        "version": "0.2.1592823128",
-        "version_normalized": "0.2.1592823128.0",
+        "version": "0.2.1596979583",
+        "version_normalized": "0.2.1596979583.0",
         "dist": {
             "type": "zip",
-            "url": "https://php.fury.io/uDXRvLf8b2ywvgcokC7z/mailoptin/~/up/ver_ULpHH/mailoptinauthifly-0-2-1592823128.zip"
+            "url": "https://php.fury.io/uDXRvLf8b2ywvgcokC7z/mailoptin/~/up/ver_1Sluao/mailoptinauthifly-0-2-1596979583.zip"
         },
         "require": {
             "composer/installers": "~1.0",
@@ -447,7 +450,8 @@
                 "VerticalResponse.php",
                 "Facebook.php",
                 "Hubspot.php",
-                "Zoho.php"
+                "Zoho.php",
+                "Infusionsoft.php"
             ]
         },
         "license": [
@@ -465,15 +469,15 @@
     },
     {
         "name": "mailoptin/connections",
-        "version": "0.2.1592823175",
-        "version_normalized": "0.2.1592823175.0",
+        "version": "0.2.1596979683",
+        "version_normalized": "0.2.1596979683.0",
         "dist": {
             "type": "zip",
-            "url": "https://php.fury.io/uDXRvLf8b2ywvgcokC7z/mailoptin/~/up/ver_1UqnZU/mailoptinconnections-0-2-1592823175.zip"
+            "url": "https://php.fury.io/uDXRvLf8b2ywvgcokC7z/mailoptin/~/up/ver_E9WkW/mailoptinconnections-0-2-1596979683.zip"
         },
         "require": {
-            "a5hleyrich/wp-background-processing": "^1.0",
             "composer/installers": "~1.0",
+            "deliciousbrains/wp-background-processing": "^1.0",
             "drewm/drip": "^0.7.0",
             "thinkshout/mailchimp-api-php": "^1.0"
         },
@@ -499,9 +503,12 @@
                 "MailOptin\\SendyConnect\\": "SendyConnect/",
                 "MailOptin\\MailerliteConnect\\": "MailerliteConnect/",
                 "MailOptin\\HubspotConnect\\": "HubspotConnect/",
+                "MailOptin\\InfusionsoftConnect\\": "InfusionsoftConnect/",
                 "MailOptin\\MailsterConnect\\": "MailsterConnect/",
                 "MailOptin\\DripConnect\\": "DripConnect/",
                 "MailOptin\\SendlaneConnect\\": "SendlaneConnect/",
+                "MailOptin\\SendFoxConnect\\": "SendFoxConnect/",
+                "MailOptin\\WordPressUserRegistrationConnect\\": "WordPressUserRegistrationConnect/",
                 "MailOptin\\EmmaConnect\\": "EmmaConnect/",
                 "MailOptin\\ConvertKitConnect\\": "ConvertKitConnect/",
                 "MailOptin\\ConvertFoxConnect\\": "ConvertFoxConnect/",
@@ -531,17 +538,17 @@
     },
     {
         "name": "mailoptin/core",
-        "version": "0.1.0-alpha.1593074576",
-        "version_normalized": "0.1.0.0-alpha1593074576",
+        "version": "0.1.0-alpha.1596979661",
+        "version_normalized": "0.1.0.0-alpha1596979661",
         "source": {
             "type": "git",
             "url": "https://github.com/mailoptin/core.git",
-            "reference": "2d5c3df2948985b1dbc9926c899d673374df3788"
+            "reference": "9f438c21e13cf3ce92bb288d8a55ba0caeb0e50a"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/mailoptin/core/zipball/2d5c3df2948985b1dbc9926c899d673374df3788",
-            "reference": "2d5c3df2948985b1dbc9926c899d673374df3788",
+            "url": "https://api.github.com/repos/mailoptin/core/zipball/9f438c21e13cf3ce92bb288d8a55ba0caeb0e50a",
+            "reference": "9f438c21e13cf3ce92bb288d8a55ba0caeb0e50a",
             "shasum": ""
         },
         "require": {
@@ -553,7 +560,7 @@
             "pelago/emogrifier": "^1.0",
             "soundasleep/html2text": "~0.5"
         },
-        "time": "2020-06-25T08:31:54+00:00",
+        "time": "2020-08-09T13:24:36+00:00",
         "type": "wordpress-plugin",
         "installation-source": "dist",
         "autoload": {
@@ -757,17 +764,17 @@
     },
     {
         "name": "symfony/polyfill-mbstring",
-        "version": "v1.17.1",
-        "version_normalized": "1.17.1.0",
+        "version": "v1.18.1",
+        "version_normalized": "1.18.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/polyfill-mbstring.git",
-            "reference": "7110338d81ce1cbc3e273136e4574663627037a7"
+            "reference": "a6977d63bf9a0ad4c65cd352709e230876f9904a"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/7110338d81ce1cbc3e273136e4574663627037a7",
-            "reference": "7110338d81ce1cbc3e273136e4574663627037a7",
+            "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/a6977d63bf9a0ad4c65cd352709e230876f9904a",
+            "reference": "a6977d63bf9a0ad4c65cd352709e230876f9904a",
             "shasum": ""
         },
         "require": {
@@ -776,11 +783,11 @@
         "suggest": {
             "ext-mbstring": "For best performance"
         },
-        "time": "2020-06-06T08:46:27+00:00",
+        "time": "2020-07-14T12:35:20+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "1.17-dev"
+                "dev-master": "1.18-dev"
             },
             "thanks": {
                 "name": "symfony/polyfill",
@@ -836,17 +843,17 @@
     },
     {
         "name": "symfony/translation",
-        "version": "v3.4.42",
-        "version_normalized": "3.4.42.0",
+        "version": "v3.4.43",
+        "version_normalized": "3.4.43.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/translation.git",
-            "reference": "b0cd62ef0ff7ec31b67d78d7fc818e2bda4e844f"
+            "reference": "600b84224bf482441cd4d0026eba78755d2e2b34"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/translation/zipball/b0cd62ef0ff7ec31b67d78d7fc818e2bda4e844f",
-            "reference": "b0cd62ef0ff7ec31b67d78d7fc818e2bda4e844f",
+            "url": "https://api.github.com/repos/symfony/translation/zipball/600b84224bf482441cd4d0026eba78755d2e2b34",
+            "reference": "600b84224bf482441cd4d0026eba78755d2e2b34",
             "shasum": ""
         },
         "require": {
@@ -873,7 +880,7 @@
             "symfony/config": "",
             "symfony/yaml": ""
         },
-        "time": "2020-05-30T18:58:05+00:00",
+        "time": "2020-07-16T09:41:49+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {

@@ -15,6 +15,7 @@ return array(
     'fc19d1e11a215510b36443cddffb0e3a' => $baseDir . '/src/authifly/Facebook.php',
     '05e51710b89762d293904981fb194070' => $baseDir . '/src/authifly/Hubspot.php',
     '945bc6c2039077c40509b034aa7ea74d' => $baseDir . '/src/authifly/Zoho.php',
+    'b9633de6476ae361f00d00fa732467f2' => $baseDir . '/src/authifly/Infusionsoft.php',
     '1d70241e5fa15180bf0b547b18160633' => $baseDir . '/src/core/src/Functions/custom-settings-api.php',
     '541054f7d83801e360f0f9cfeb6e7da9' => $baseDir . '/src/core/src/Functions/functions.php',
     '1064428a5c96d5b26937d911d5bd0e95' => $baseDir . '/src/core/src/Functions/php-html-css-js-minifier.php',

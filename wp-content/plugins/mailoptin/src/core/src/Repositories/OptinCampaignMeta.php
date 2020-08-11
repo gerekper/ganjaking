@@ -80,4 +80,25 @@ class OptinCampaignMeta
             )
         );
     }
+
+    /**
+     * Getmeta value by optin campaign ID and meta key.
+     *
+     * @param string $meta_key
+     * @param int $optin_campaign_id
+     */
+    public static function get_meta_value_by_optin_campaign_id($meta_key, $optin_campaign_id)
+    {
+        global $wpdb;
+
+        $table = $wpdb->prefix . 'mo_optin_campaignmeta';
+
+        return $wpdb->get_col(
+            $wpdb->prepare(
+                "SELECT meta_value FROM $table WHERE meta_key = %s AND optin_campaign_id = %s",
+                $meta_key,
+                $optin_campaign_id
+            )
+        );
+    }
 }

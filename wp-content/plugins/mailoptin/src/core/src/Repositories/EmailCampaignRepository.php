@@ -229,7 +229,7 @@ class EmailCampaignRepository extends AbstractRepository
      * @param string $settings_name
      * @param string $default
      *
-     * @return string
+     * @return mixed
      */
     public static function get_customizer_value($email_campaign_id, $settings_name, $default = '')
     {
@@ -384,7 +384,7 @@ class EmailCampaignRepository extends AbstractRepository
      */
     public static function updateSettings($campaignSettings)
     {
-        return update_option(MO_EMAIL_CAMPAIGNS_WP_OPTION_NAME, $campaignSettings);
+        return update_option(MO_EMAIL_CAMPAIGNS_WP_OPTION_NAME, $campaignSettings, false);
     }
 
     /**

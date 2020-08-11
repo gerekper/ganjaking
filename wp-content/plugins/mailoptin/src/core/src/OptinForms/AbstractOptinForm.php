@@ -8,7 +8,7 @@ use MailOptin\Core\Admin\Customizer\OptinForm\Customizer;
 use MailOptin\Core\Admin\Customizer\OptinForm\CustomizerSettings;
 use MailOptin\Core\PluginSettings\Settings;
 use MailOptin\Core\RegisterScripts;
-use MailOptin\Core\Repositories\OptinCampaignsRepository;
+use MailOptin\Core\Repositories\OptinCampaignsRepository as OCR;
 use function MailOptin\Core\moVar;
 
 abstract class AbstractOptinForm extends AbstractCustomizer implements OptinFormInterface
@@ -41,9 +41,9 @@ abstract class AbstractOptinForm extends AbstractCustomizer implements OptinForm
     {
         // isn't included in if condition below because it is reused by front end optin output.
         $this->optin_campaign_id    = $optin_campaign_id;
-        $this->optin_campaign_uuid  = OptinCampaignsRepository::get_optin_campaign_uuid($optin_campaign_id);
-        $this->optin_campaign_type  = OptinCampaignsRepository::get_optin_campaign_type($optin_campaign_id);
-        $this->optin_campaign_class = OptinCampaignsRepository::get_optin_campaign_class($optin_campaign_id);
+        $this->optin_campaign_uuid  = OCR::get_optin_campaign_uuid($optin_campaign_id);
+        $this->optin_campaign_type  = OCR::get_optin_campaign_type($optin_campaign_id);
+        $this->optin_campaign_class = OCR::get_optin_campaign_class($optin_campaign_id);
         $this->optin_css_id         = "{$this->optin_campaign_uuid}_{$this->optin_campaign_type}";
 
         if ( ! empty($_REQUEST['mailoptin_optin_campaign_id'])) {
@@ -209,7 +209,7 @@ abstract class AbstractOptinForm extends AbstractCustomizer implements OptinForm
      */
     public function optin_form_customizer_javascript()
     {
-        $optin_form_name = OptinCampaignsRepository::get_optin_campaign_name($this->optin_campaign_id);
+        $optin_form_name = OCR::get_optin_campaign_name($this->optin_campaign_id);
         $optin_form_name = preg_replace('/\s+/', '-', $optin_form_name);
 
         wp_enqueue_script(
@@ -242,7 +242,7 @@ abstract class AbstractOptinForm extends AbstractCustomizer implements OptinForm
     {
         $default = isset($this->customizer_defaults[$optin_form_setting]) ? $this->customizer_defaults[$optin_form_setting] : $default;
 
-        return OptinCampaignsRepository::get_customizer_value($this->optin_campaign_id, $optin_form_setting, $default);
+        return OCR::get_customizer_value($this->optin_campaign_id, $optin_form_setting, $default);
     }
 
     /**
@@ -272,7 +272,7 @@ abstract class AbstractOptinForm extends AbstractCustomizer implements OptinForm
         $body_padding_top = in_array($this->optin_campaign_type, ['bar']) ? 0 : '10%';
         ob_start();
 
-        printf('<title>%s</title>', OptinCampaignsRepository::get_optin_campaign_name($this->optin_campaign_id));
+        printf('<title>%s</title>', OCR::get_optin_campaign_name($this->optin_campaign_id));
         wp_head();
 
         echo "<body style='background: #f3f3f3 !important;padding-top:$body_padding_top;'>";
@@ -366,15 +366,15 @@ abstract class AbstractOptinForm extends AbstractCustomizer implements OptinForm
     {
         ob_start();
 
-        $fields = OptinCampaignsRepository::form_custom_fields($this->optin_campaign_id);
+        $fields       = OCR::form_custom_fields($this->optin_campaign_id);
+        $optin_css_id = $this->optin_css_id;
+        $uuid         = $this->optin_campaign_uuid;
 
         if (is_array($fields) && ! empty($fields)) {
 
             foreach ($fields as $field) {
                 $custom_field_id = $field['cid'];
                 $color           = moVar($field, 'color', '', true);
-                $uuid            = $this->optin_campaign_uuid;
-                $optin_css_id    = $this->optin_css_id;
 
                 if (empty($color)) continue;
                 ?>
@@ -442,7 +442,7 @@ abstract class AbstractOptinForm extends AbstractCustomizer implements OptinForm
             $global_css .= file_get_contents(MAILOPTIN_ASSETS_DIR . 'css/animate.min.css');
         }
 
-        if (OptinCampaignsRepository::has_custom_field_type($this->optin_campaign_id, 'date')) {
+        if (OCR::has_custom_field_type($this->optin_campaign_id, 'date')) {
             $global_css .= file_get_contents(MAILOPTIN_ASSETS_DIR . 'css/pikaday.min.css');
         }
 
@@ -460,6 +460,8 @@ abstract class AbstractOptinForm extends AbstractCustomizer implements OptinForm
             $global_css .= "div#$optin_campaign_uuid.mo-optin-form-bar-top {top: 0;position: absolute;}";
             $global_css .= "div#$optin_campaign_uuid.mo-optin-form-bar-bottom {bottom: 0;position: fixed;}";
             $global_css .= "div#$optin_campaign_uuid.mo-optin-form-bar-sticky {position: fixed;}";
+            $global_css .= "div#$optin_campaign_uuid.mo-optin-form-bar-top .mo-optin-form-wrapper {box-shadow: 0 1px 3px 2px rgba(0,0,0,.15);}";
+            $global_css .= "div#$optin_campaign_uuid.mo-optin-form-bar-bottom .mo-optin-form-wrapper {box-shadow: 0 -1px 3px 2px rgba(0,0,0,.15);}";
             $global_css .= '.admin-bar .mo-optin-form-bar-top {top: 32px !important;}';
             $global_css .= '@media screen and (max-width: 782px) { .admin-bar .mo-optin-form-bar-top { top: 46px !important; } }';
             $global_css .= '@media screen and (max-width: 600px) { .admin-bar .mo-optin-form-bar-top.mo-optin-form-bar-sticky { top: 0 !important; } }';
@@ -521,19 +523,19 @@ abstract class AbstractOptinForm extends AbstractCustomizer implements OptinForm
         }
 
         if ($this->optin_campaign_type == 'slidein') {
-            $global_css .= "html div#$optin_campaign_uuid.moOptinForm.mo-optin-form-slidein {max-width:{$form_width}px !important}";
-            $global_css .= "html div#$optin_campaign_uuid div#$optin_css_id.mo-optin-form-wrapper {max-width:{$form_width}px !important}";
+            $global_css .= "html div#$optin_campaign_uuid.moOptinForm.mo-optin-form-slidein {max-width:{$form_width}px !important;}";
+            $global_css .= "html div#$optin_campaign_uuid div#$optin_css_id.mo-optin-form-wrapper {max-width:{$form_width}px !important;box-shadow:0 5px 35px rgba(0,0,0,.17);}";
 
             $global_css .= "div#$optin_campaign_uuid.mo-slidein-bottom_right {right: 10px;}";
             $global_css .= "div#$optin_campaign_uuid.mo-slidein-bottom_left {left: 10px;}";
             $global_css .= "
             /* make slide-in optin form full width and full height on mobile/small screens */
             @media only screen and (max-width: 575px) {
-                html div#$optin_campaign_uuid.mo-optin-form-slidein div#$optin_css_id.mo-optin-form-wrapper {
+                html div#$optin_campaign_uuid.moOptinForm.mo-optin-form-slidein div#$optin_css_id.mo-optin-form-wrapper {
                     max-width: 100% !important;
                 }
     
-                html div#$optin_campaign_uuid.mo-optin-form-slidein {
+                html div#$optin_campaign_uuid.moOptinForm.mo-optin-form-slidein {
                     max-width: 100% !important;
                     bottom: 0 !important;
                     left: 0 !important;
@@ -735,7 +737,7 @@ abstract class AbstractOptinForm extends AbstractCustomizer implements OptinForm
 
     public function is_device_targeting_active()
     {
-        return ( ! is_customize_preview() && OptinCampaignsRepository::has_device_targeting_active($this->optin_campaign_id));
+        return ( ! is_customize_preview() && OCR::has_device_targeting_active($this->optin_campaign_id));
     }
 
     /**
@@ -815,7 +817,8 @@ abstract class AbstractOptinForm extends AbstractCustomizer implements OptinForm
 
         // set optin to display:none when schedule is active then allow mailoptinjs to decide whether to show it or not.
         $is_hidden_style = '';
-        if ( ! OptinCampaignsRepository::user_has_successful_optin($optin_campaign_uuid) &&
+
+        if ( ! OCR::user_has_successful_optin($optin_campaign_uuid) &&
              (
                  $this->is_schedule_display_rule_active() ||
                  $this->is_adblock_rule_active() ||
@@ -823,7 +826,8 @@ abstract class AbstractOptinForm extends AbstractCustomizer implements OptinForm
                  $this->is_newvsreturn_rule_active() ||
                  $this->is_referral_detection_rule_active() ||
                  $this->is_device_targeting_active() ||
-                 $this->is_x_page_views_rule_active()
+                 $this->is_x_page_views_rule_active() ||
+                 OCR::is_split_test_optin($this->optin_campaign_id)
              )
         ) {
             $is_hidden_style = 'display: none';
@@ -878,7 +882,7 @@ abstract class AbstractOptinForm extends AbstractCustomizer implements OptinForm
 
         // Bypass cache if this optin form has successfully received opt-in from visitor and 'state after conversion' is not set to still display optin form.
         // so success message overlay will be shown instead of opt-in form.
-        if (OptinCampaignsRepository::user_has_successful_optin($this->optin_campaign_uuid)) {
+        if (OCR::user_has_successful_optin($this->optin_campaign_uuid)) {
 
             // if state after conversion is set to 'optin form hidden', return nothing.
             if ($this->state_after_conversion() == 'optin_form_hidden') return '';
@@ -957,7 +961,7 @@ abstract class AbstractOptinForm extends AbstractCustomizer implements OptinForm
     {
         $headline_font = apply_filters('mo_get_optin_form_headline_font',
             self::_remove_web_safe_font(
-                OptinCampaignsRepository::get_merged_customizer_value($this->optin_campaign_id, 'headline_font')
+                OCR::get_merged_customizer_value($this->optin_campaign_id, 'headline_font')
             ),
             'headline_font',
             $this->optin_campaign_id
@@ -965,7 +969,7 @@ abstract class AbstractOptinForm extends AbstractCustomizer implements OptinForm
 
         $description_font = apply_filters('mo_get_optin_form_description_font',
             self::_remove_web_safe_font(
-                OptinCampaignsRepository::get_merged_customizer_value($this->optin_campaign_id, 'description_font')
+                OCR::get_merged_customizer_value($this->optin_campaign_id, 'description_font')
             ),
             'description_font',
             $this->optin_campaign_id
@@ -974,7 +978,7 @@ abstract class AbstractOptinForm extends AbstractCustomizer implements OptinForm
         $name_field_font = apply_filters('mo_get_optin_form_name_field_font',
             self::_remove_system_font(
                 self::_remove_web_safe_font(
-                    OptinCampaignsRepository::get_merged_customizer_value($this->optin_campaign_id, 'name_field_font')
+                    OCR::get_merged_customizer_value($this->optin_campaign_id, 'name_field_font')
                 )
             ),
             'note_font',
@@ -984,7 +988,7 @@ abstract class AbstractOptinForm extends AbstractCustomizer implements OptinForm
         $email_field_font = apply_filters('mo_get_optin_form_email_field_font',
             self::_remove_system_font(
                 self::_remove_web_safe_font(
-                    OptinCampaignsRepository::get_merged_customizer_value($this->optin_campaign_id, 'email_field_font')
+                    OCR::get_merged_customizer_value($this->optin_campaign_id, 'email_field_font')
                 )
             ),
             'note_font',
@@ -993,7 +997,7 @@ abstract class AbstractOptinForm extends AbstractCustomizer implements OptinForm
 
         $note_font = apply_filters('mo_get_optin_form_note_font',
             self::_remove_web_safe_font(
-                OptinCampaignsRepository::get_merged_customizer_value($this->optin_campaign_id, 'note_font')
+                OCR::get_merged_customizer_value($this->optin_campaign_id, 'note_font')
             ),
             'note_font',
             $this->optin_campaign_id
@@ -1001,7 +1005,7 @@ abstract class AbstractOptinForm extends AbstractCustomizer implements OptinForm
 
         $submit_button_font = apply_filters('mo_get_optin_form_submit_button_font',
             self::_remove_web_safe_font(
-                OptinCampaignsRepository::get_merged_customizer_value($this->optin_campaign_id, 'submit_button_font')
+                OCR::get_merged_customizer_value($this->optin_campaign_id, 'submit_button_font')
             ),
             'submit_button_font',
             $this->optin_campaign_id
@@ -1009,7 +1013,7 @@ abstract class AbstractOptinForm extends AbstractCustomizer implements OptinForm
 
         $cta_button_font = apply_filters('mo_get_optin_form_cta_button_font',
             self::_remove_web_safe_font(
-                OptinCampaignsRepository::get_merged_customizer_value($this->optin_campaign_id, 'cta_button_font')
+                OCR::get_merged_customizer_value($this->optin_campaign_id, 'cta_button_font')
             ),
             'cta_button_font',
             $this->optin_campaign_id
@@ -1041,12 +1045,12 @@ abstract class AbstractOptinForm extends AbstractCustomizer implements OptinForm
             $webfont[] = "'$submit_button_font'";
         }
 
-        if (OptinCampaignsRepository::is_cta_button_active($this->optin_campaign_id)
+        if (OCR::is_cta_button_active($this->optin_campaign_id)
             && ! empty($cta_button_font) && $cta_button_font != 'inherit') {
             $webfont[] = "'$cta_button_font'";
         }
 
-        $custom_fields_fonts = array_filter(@wp_list_pluck(OptinCampaignsRepository::form_custom_fields($this->optin_campaign_id), 'font'));
+        $custom_fields_fonts = array_filter(@wp_list_pluck(OCR::form_custom_fields($this->optin_campaign_id), 'font'));
 
         if (is_array($custom_fields_fonts) && ! empty($custom_fields_fonts)) {
             foreach ($custom_fields_fonts as $font) {
@@ -1115,8 +1119,8 @@ abstract class AbstractOptinForm extends AbstractCustomizer implements OptinForm
         $data                        = array();
         $data['optin_uuid']          = $this->optin_campaign_uuid;
         $data['optin_campaign_id']   = $optin_campaign_id;
-        $data['optin_campaign_name'] = OptinCampaignsRepository::get_optin_campaign_name($optin_campaign_id);
-        $data['optin_type']          = OptinCampaignsRepository::get_optin_campaign_type($optin_campaign_id);
+        $data['optin_campaign_name'] = OCR::get_optin_campaign_name($optin_campaign_id);
+        $data['optin_type']          = OCR::get_optin_campaign_type($optin_campaign_id);
         $data['post_id']             = $post_id = is_singular() || is_front_page() ? get_queried_object_id() : 0;
         // must be of integer type for js-cookie to work.
         // am not using empty() because if cookie is set to 0, it returns true i.e 0 is empty.
@@ -1127,6 +1131,25 @@ abstract class AbstractOptinForm extends AbstractCustomizer implements OptinForm
         $data['global_success_cookie'] = $global_success_cookie != '' ? absint($global_success_cookie) : 0;
         $data['success_message']       = do_shortcode($this->get_customizer_value('success_message'));
         $data['name_field_required']   = $this->get_customizer_value('name_field_required');
+
+        $is_split_test_optin = OCR::is_split_test_optin($optin_campaign_id);
+
+        $data['is_split_test'] = $is_split_test_optin;
+
+        if ($is_split_test_optin) {
+            $parent_id    = ! OCR::is_split_test_parent($optin_campaign_id) ? OCR::get_split_parent_id($optin_campaign_id) : $optin_campaign_id;
+            $all_variants = array_merge([$parent_id], OCR::get_split_test_variant_ids($parent_id));
+
+            $data['split_test_variants'] = array_reduce($all_variants, function ($carry, $variant_id) use ($data) {
+                $carry[$variant_id] = [
+                    'global_success_cookie' => $data['global_success_cookie'],
+                    'global_cookie'         => $data['global_cookie'],
+                    'optin_uuid'            => OCR::get_optin_campaign_uuid($variant_id),
+                ];
+
+                return $carry;
+            }, []);
+        }
 
         $custom_fields = $this->get_customizer_value('fields');
 
@@ -1189,7 +1212,7 @@ abstract class AbstractOptinForm extends AbstractCustomizer implements OptinForm
             $data['success_js_script'] = $success_js_script;
         }
 
-        $data['test_mode'] = OptinCampaignsRepository::is_test_mode($optin_campaign_id);
+        $data['test_mode'] = OCR::is_test_mode($optin_campaign_id);
         $icon_close_config = $this->optin_campaign_type == 'lightbox' ? apply_filters('mo_optin_campaign_icon_close', true, $this->optin_campaign_class, $this->optin_campaign_type) : false;
 
         // if close button is set to be hidden, return false for $icon_close_config.

@@ -1066,6 +1066,11 @@ abstract class AbstractOptinTheme extends AbstractOptinForm
                             $html  .= "<input $data_attr id=\"$id\" class=\"$class\" style=\"display:none\" type=\"hidden\" value=\"$value\" name=\"$field_id\">";
                             $html  .= $atts['tag_end'];
                             break;
+                        case 'password':
+                            $html .= $atts['tag_start'];
+                            $html .= "<input $data_attr id=\"$id\" class=\"$class\" style=\"$style\" type=\"password\" placeholder=\"$placeholder\" name=\"$field_id\">";
+                            $html .= $atts['tag_end'];
+                            break;
                         case 'textarea':
                             $html .= $atts['tag_start'];
                             $html .= "<textarea $data_attr id=\"$id\" class=\"$class\" style=\"$style\" placeholder=\"$placeholder\" name=\"$field_id\"></textarea>";

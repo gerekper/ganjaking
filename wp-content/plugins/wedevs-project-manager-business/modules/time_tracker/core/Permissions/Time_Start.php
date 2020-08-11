@@ -33,22 +33,20 @@ class Time_Start extends Abstract_Permission {
             }
         }
 
-    	/*if ( ! pm_pro_is_user_can_start_time( $user_id ) ) {
-    		return new \WP_Error( 'time_status', __( "Please at first stop your time tracker from others task", "pm" ) );
-    	}*/
+        // $is_current_user_has_running_time = pm_pro_is_user_can_start_time( $user_id );
 
-        $is_current_user_has_running_time = pm_pro_is_user_can_start_time( $user_id );
-        if ( array_key_exists('status' ,$is_current_user_has_running_time) ) {
-            if(! $is_current_user_has_running_time['status']) {
-                $task = $is_current_user_has_running_time['response'];
-                $current_time = $is_current_user_has_running_time['current_time'];
-                $wp_err = new \WP_Error( 'time_status', __(
-                    "You are already tracking time for <b>[" . $task->title . "]</b></br>" .
-                    "<a href='javascript:void(0)' task='". json_encode($task) ."' time='". json_encode($current_time) ."' onclick='stop_watch(this)'><b>Click here</b></a>  to stop the running task and continue with the new one." .
-                    "</b>", "pm" ) );
-                return $wp_err ;
-            }
-        }
+        // if ( array_key_exists('status' ,$is_current_user_has_running_time) ) {
+        //     if(! $is_current_user_has_running_time['status']) {
+
+        //         $task = $is_current_user_has_running_time['response'];
+        //         $current_time = $is_current_user_has_running_time['current_time'];
+        //         $wp_err = new \WP_Error( 'time_status', __(
+        //             "You are already tracking time for <b>[" . $task->title . "]</b></br>" .
+        //             "<a href='javascript:void(0)' task='". json_encode($task) ."' time='". json_encode($current_time) ."' onclick='stop_watch(this)'><b>Click here</b></a>  to stop the running task and continue with the new one." .
+        //             "</b>", "pm" ) );
+        //         return $wp_err ;
+        //     }
+        // }
 
         return true;
     }

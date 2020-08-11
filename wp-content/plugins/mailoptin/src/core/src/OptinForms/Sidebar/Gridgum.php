@@ -617,6 +617,7 @@ html div#$optin_uuid div#$optin_css_id.gridgum_container .gridgum_body-inner .gr
 html div#$optin_uuid div#$optin_css_id.gridgum_container .gridgum_body-form input.gridgum_input_field, 
 html div#$optin_uuid div#$optin_css_id.gridgum_container input.mo-optin-form-custom-field.date-field, 
 html div#$optin_uuid div#$optin_css_id.gridgum_container input.mo-optin-form-custom-field.text-field,
+html div#$optin_uuid div#$optin_css_id.gridgum_container input.mo-optin-form-custom-field.password-field,
 html div#$optin_uuid div#$optin_css_id.gridgum_container select.mo-optin-form-custom-field,
 html div#$optin_uuid div#$optin_css_id.gridgum_container textarea.mo-optin-form-custom-field.textarea-field {
          width: 100%;

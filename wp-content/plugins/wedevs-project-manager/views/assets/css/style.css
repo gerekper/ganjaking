@@ -230,7 +230,6 @@ a:active {
   font-size: 12px;
   line-height: 100%;
   color: #555555;
-  background: #ffffff;
   vertical-align: middle;
   border: 1px solid #DDDDDD;
   -webkit-box-shadow: none;
@@ -3505,7 +3504,7 @@ a.pm-icon-tick.grey {
   margin-right: 0px;
   font-size: 13px;
   float: right;
-  word-break: break-all;
+  word-break: break-word;
   hyphens: auto;
 }
 .pm .pm-activity-list li.pm-row .pm-activity-body .pm-col-8,

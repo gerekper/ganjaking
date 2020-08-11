@@ -94,8 +94,9 @@ if ( !class_exists( 'YIT_Plugin_Panel_WooCommerce' ) ) {
                 add_action( 'yith_plugin_fw_get_field_after', array( $this, 'add_yith_ui' ) );
                 add_action( 'yith_plugin_fw_before_woocommerce_panel', array( $this, 'add_plugin_banner' ), 10, 1 );
                 add_action( 'admin_action_yith_plugin_fw_save_toggle_element', array( $this, 'save_toggle_element_options' ) );
+	            add_filter( 'woocommerce_admin_settings_sanitize_option', array( $this, 'sanitize_onoff_value' ), 20, 3 );
 
-                add_action( 'admin_enqueue_scripts', array( $this, 'init_wp_with_tabs' ), 11 );
+	            add_action( 'admin_enqueue_scripts', array( $this, 'init_wp_with_tabs' ), 11 );
 				add_action( 'admin_init', array( $this, 'maybe_redirect_to_proper_wp_page' ) );
 
                 // init actions once to prevent multiple actions
@@ -302,20 +303,13 @@ if ( !class_exists( 'YIT_Plugin_Panel_WooCommerce' ) ) {
 
                 $yit_options = $this->get_main_array_options();
                 $option_key  = $this->get_current_option_key();
-
-                foreach ( $yit_options as $key => $options_list ){
-                	foreach ( $options_list as $value ){
-                		if( ! empty( $value['yith-type'] ) && 'toggle-element-fixed' == $value['yith-type'] && isset( $value['save_single_options'] ) && true === $value['save_single_options'] ){
-			                $yit_options[ $key ] = array_merge( $yit_options[ $key ] , $value['elements'] );
-		                }
-	                }
-                }
+	            $yit_options = $this->check_for_save_single_option( $yit_options );
 
                 if ( version_compare( WC()->version, '2.4.0', '>=' ) ) {
                     if ( !empty( $yit_options[ $option_key ] ) ) {
                         foreach ( $yit_options[ $option_key ] as $option ) {
                             if ( isset( $option[ 'id' ] ) && isset( $_POST[ $option[ 'id' ] ] ) && isset( $option[ 'type' ] ) && !in_array( $option[ 'type' ], self::$wc_type ) ) {
-                                $_POST[ $option[ 'id' ] ] = maybe_serialize( $_POST[ $option[ 'id' ] ] );
+                            	$_POST[ $option[ 'id' ] ] = maybe_serialize( $_POST[ $option[ 'id' ] ] );
                             }
                         }
                     }
@@ -347,6 +341,8 @@ if ( !class_exists( 'YIT_Plugin_Panel_WooCommerce' ) ) {
 
                 $yit_options = $this->get_main_array_options();
                 $option_key  = $this->get_current_option_key();
+	            $yit_options = $this->check_for_save_single_option( $yit_options );
+
                 foreach ( $yit_options[ $option_key ] as $id => $option ) {
                     if ( isset( $option[ 'yith-type' ] ) && $option[ 'yith-type' ] == 'multi-colorpicker' && !empty( $option[ 'colorpickers' ] ) ) {
                         $default = [];
@@ -500,8 +496,8 @@ if ( !class_exists( 'YIT_Plugin_Panel_WooCommerce' ) ) {
          * @since  2.0
          */
         public function maybe_unserialize_panel_data( $value, $option, $raw_value ) {
-            if ( !version_compare( WC()->version, '2.4.0', '>=' ) || !isset( $option[ 'type' ] ) || in_array( $option[ 'type' ], self::$wc_type ) ) {
-                return $value;
+            if ( ! version_compare( WC()->version, '2.4.0', '>=' ) || !isset( $option[ 'type' ] ) || in_array( $option[ 'type' ], self::$wc_type ) ) {
+            	return $value;
             }
 
             $yit_options = $this->get_main_array_options();
@@ -696,5 +692,47 @@ if ( !class_exists( 'YIT_Plugin_Panel_WooCommerce' ) ) {
 
             parent::print_tabs_nav( $args );
         }
+
+	    /**
+	     * Sanitize OnOff Option
+	     *
+	     * @param $value     mixed  Option value
+	     * @param $option    mixed  Option settings array
+	     * @param $raw_value string Raw option value
+	     * @return mixed Filtered return value
+	     * @author Andrea Grillo <andrea.grillo@yithemes.com>
+	     * @since  3.0.0
+	     */
+	    public static function sanitize_onoff_value( $value, $option, $raw_value ) {
+		    if ( isset( $option[ 'type' ] ) && in_array( $option[ 'type' ], array( 'checkbox', 'onoff' ) ) ) {
+			    $value = yith_plugin_fw_is_true( $raw_value ) ? 'yes' : 'no';
+
+			    if ( !empty( $option[ 'yith-sanitize-callback' ] ) && is_callable( $option[ 'yith-sanitize-callback' ] ) ) {
+				    $value = call_user_func( $option[ 'yith-sanitize-callback' ], $value );
+			    }
+		    }
+
+		    return $value;
+	    }
+
+	    /**
+	     * Check if need to save the toggle element to a single options instead of an array
+	     *
+	     * @param $yit_options mixed|array Original options array
+	     *
+	     * @return mixed|array New options array
+	     * @author Andrea Grillo <andrea.grillo@yithemes.com>
+	     * @since  3.0.0
+	     */
+	    public function check_for_save_single_option( $yit_options ){
+		    foreach ( $yit_options as $key => $options_list ){
+			    foreach ( $options_list as $value ){
+				    if( ! empty( $value['yith-type'] ) && 'toggle-element-fixed' == $value['yith-type'] && isset( $value['save_single_options'] ) && true === $value['save_single_options'] ){
+					    $yit_options[ $key ] = array_merge( $yit_options[ $key ] , $value['elements'] );
+				    }
+			    }
+		    }
+		    return $yit_options;
+	    }
     }
 }

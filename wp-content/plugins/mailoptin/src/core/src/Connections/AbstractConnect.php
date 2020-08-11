@@ -8,6 +8,7 @@ use MailOptin\Core\EmailCampaigns\TemplateTrait;
 use MailOptin\Core\Repositories\AbstractCampaignLogMeta;
 use MailOptin\Core\Repositories\EmailCampaignRepository;
 use MailOptin\Core\Repositories\OptinCampaignsRepository;
+use function MailOptin\Core\is_valid_data;
 
 abstract class AbstractConnect
 {
@@ -46,10 +47,10 @@ abstract class AbstractConnect
         $optin_campaign_id = isset($this->extras['optin_campaign_id']) ? absint($this->extras['optin_campaign_id']) : '';
         $defaults          = (new AbstractCustomizer($optin_campaign_id))->customizer_defaults['integrations'];
 
-        $data   = $this->is_valid_data($default) ? $default : @$defaults[$data_key];
+        $data   = is_valid_data($default) ? $default : @$defaults[$data_key];
         $bucket = is_array($integration_data) && ! empty($integration_data) ? $integration_data : @$this->extras['integration_data'];
 
-        if (isset($bucket[$data_key]) && $this->is_valid_data($bucket[$data_key])) {
+        if (isset($bucket[$data_key]) && is_valid_data($bucket[$data_key])) {
             $data = $bucket[$data_key];
         }
 
@@ -77,40 +78,9 @@ abstract class AbstractConnect
         return \MailOptin\Core\array_flatten($custom_field_mappings);
     }
 
-    public static function is_boolean($maybe_bool)
-    {
-        if (is_bool($maybe_bool)) {
-            return true;
-        }
-
-        if (is_string($maybe_bool)) {
-            $maybe_bool = strtolower($maybe_bool);
-
-            $valid_boolean_values = array(
-                'false',
-                'true',
-                '0',
-                '1',
-            );
-
-            return in_array($maybe_bool, $valid_boolean_values, true);
-        }
-
-        if (is_int($maybe_bool)) {
-            return in_array($maybe_bool, array(0, 1), true);
-        }
-
-        return false;
-    }
-
-    public function is_valid_data($value)
-    {
-        return $this->data_filter($value);
-    }
-
     public function data_filter($value)
     {
-        return self::is_boolean($value) || is_int($value) || ! empty($value);
+        return \MailOptin\Core\is_boolean($value) || is_int($value) || ! empty($value);
     }
 
     /**

@@ -1545,4 +1545,86 @@ class CustomizerControls
         do_action('mailoptin_after_user_filter_controls_addition');
 
     }
+
+    /**
+     * Add optin shortcode / template tag control to customizer.
+     */
+    public function embed_shortcode_control()
+    {
+        // hide this if optin type is not either sidebar or inpost.
+        if ( ! in_array($this->customizerClassInstance->optin_campaign_type, ['sidebar', 'inpost'])) return;
+
+        $control_args = apply_filters(
+            "mo_optin_form_customizer_embed_controls",
+            array(
+                'embed_notice'       => array( // only supported by sidebar/widegt optin types.
+                    'type'        => 'hidden',
+                    'section'     => $this->customizerClassInstance->embed_section_id,
+                    'settings'    => $this->option_prefix . '[embed_notice]',
+                    'description' => esc_html__('In-post optins are automatically added before or after your post/page content. Only use the embed feature if you want to show your optin in a specific area of your site.', 'mailoptin'),
+                    'priority'    => 5
+                ),
+                'widget_embed'       => array( // only supported by sidebar/widegt optin types.
+                    'type'        => 'hidden',
+                    'label'       => __('Widget', 'mailoptin'),
+                    'section'     => $this->customizerClassInstance->embed_section_id,
+                    'settings'    => $this->option_prefix . '[widget_embed]',
+                    'description' => sprintf(
+                        esc_html__('Use the MailOptin widget to embed optin to your website sidebar and other widget area. %sLearn more%s', 'mailoptin'),
+                        '<a target="_blank" href="https://mailoptin.io/article/create-sidebar-widget-optin-forms-wordpress/">', '</a>'
+                    ),
+                    'priority'    => 10
+                ),
+                'shortcode_embed'    => array(
+                    'type'        => 'text',
+                    'input_attrs' => ['readonly' => 'readonly', 'class' => 'mo-click-select'],
+                    'label'       => __('Shortcode', 'mailoptin'),
+                    'section'     => $this->customizerClassInstance->embed_section_id,
+                    'settings'    => $this->option_prefix . '[shortcode_embed]',
+                    'description' => __('Use the shortcode below to embed this opt-in form anywhere in your WordPress posts or pages. All page, query string and user targeting rules are ignored when you use shortcode.', 'mailoptin'),
+                    'priority'    => 20
+                ),
+                'template_tag_embed' => array(
+                    'type'        => 'text',
+                    'input_attrs' => ['readonly' => 'readonly', 'class' => 'mo-click-select'],
+                    'label'       => __('Template Tag', 'mailoptin'),
+                    'section'     => $this->customizerClassInstance->embed_section_id,
+                    'settings'    => $this->option_prefix . '[template_tag_embed]',
+                    'description' => __('Use the template tag below to embed this opt-in form anywhere in your theme. All page, query string and user targeting rules are ignored when you use shortcode.', 'mailoptin'),
+                    'priority'    => 30
+                ),
+                'block_embed'        => array(
+                    'type'        => 'hidden',
+                    'label'       => __('Editor Block', 'mailoptin'),
+                    'section'     => $this->customizerClassInstance->embed_section_id,
+                    'settings'    => $this->option_prefix . '[block_embed]',
+                    'description' => esc_html__('You can also use the MailOptin block in the new WordPress block editor to embed your optins. All page, query string and user targeting rules are ignored when you use MailOptin\'s block.', 'mailoptin'),
+                    'priority'    => 40
+                )
+            ),
+            $this->wp_customize,
+            $this->option_prefix,
+            $this->customizerClassInstance
+        );
+
+        if ($this->customizerClassInstance->optin_campaign_type == 'inpost') {
+            unset($control_args['widget_embed']);
+        }
+
+        if ($this->customizerClassInstance->optin_campaign_type == 'sidebar') {
+            unset($control_args['embed_notice']);
+        }
+
+        do_action('mailoptin_before_embed_controls_addition');
+
+        foreach ($control_args as $id => $args) {
+            if (is_object($args)) {
+                $this->wp_customize->add_control($args);
+            } else {
+                $this->wp_customize->add_control($this->option_prefix . '[' . $id . ']', $args);
+            }
+        }
+
+        do_action('mailoptin_after_embed_controls_addition');
+    }
 }

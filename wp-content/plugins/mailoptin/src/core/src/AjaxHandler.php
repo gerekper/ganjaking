@@ -174,7 +174,7 @@ class AjaxHandler
             return;
         }
 
-        $admin_email       = apply_filters('mailoptin_email_campaign_test_admin_email', get_option('admin_email'));
+        $admin_email       = mo_test_admin_email();
         $email_campaign_id = absint($_REQUEST['email_campaign_id']);
         $campaign_subject  = Misc::parse_email_subject(EmailCampaignRepository::get_customizer_value($email_campaign_id, 'email_campaign_subject'));
 
@@ -295,7 +295,6 @@ class AjaxHandler
      */
     public function create_optin_split_test()
     {
-
         if ( ! current_user_has_privilege()) {
             return;
         }
@@ -802,16 +801,21 @@ class AjaxHandler
             'referrer'            => $conversion_data->referrer,
         ];
 
+        $conversionRepoResponse = false;
+
         // lite should also store leads in leadbank albeit locked.
         if ( ! defined('MAILOPTIN_DETACH_LIBSODIUM') || (class_exists('MailOptin\Libsodium\LeadBank\LeadBank') && ! LeadBank::is_leadbank_disabled())) {
             // capture optin lead / conversion
-            OptinConversionsRepository::add($lead_data);
+            $conversionRepoResponse = OptinConversionsRepository::add($lead_data);
         }
 
         // kick-in if only lead bank should be used
         if ($lead_bank_only === true) {
-            // record optin campaign conversion.
-            self::track_conversion($optin_campaign_id, $lead_data);
+
+            if ($conversionRepoResponse) {
+                // record optin campaign conversion.
+                self::track_conversion($optin_campaign_id, $lead_data);
+            }
 
             return AbstractConnect::ajax_success();
         }
@@ -931,7 +935,7 @@ class AjaxHandler
 
         $no_email_provider_or_list_error = self::no_email_provider_or_list_error();
 
-        if (empty($connection_service) || empty($connection_email_list)) {
+        if ( ! is_valid_data($connection_service) || ! is_valid_data($connection_email_list)) {
             AbstractConnect::send_optin_error_email($optin_campaign_id, $no_email_provider_or_list_error);
 
             return AbstractConnect::ajax_failure($no_email_provider_or_list_error);
@@ -1144,10 +1148,11 @@ class AjaxHandler
             $response .= "<select id=\"$key\" class=\"mo-optin-custom-field-select\" name=\"$key\">";
             $response .= '<option value="">' . __('Select...', 'mailoptin') . '</option>';
             foreach ($custom_fields as $custom_field) {
+                $db_val   = isset($custom_field_mappings[$integration_index][$key]) ? $custom_field_mappings[$integration_index][$key] : '';
                 $response .= sprintf(
                     '<option value="%s" %s>%s</option>',
                     $custom_field['cid'],
-                    selected($custom_field_mappings[$integration_index][$key], $custom_field['cid'], false),
+                    selected($db_val, $custom_field['cid'], false),
                     $custom_field['placeholder']
                 );
             }

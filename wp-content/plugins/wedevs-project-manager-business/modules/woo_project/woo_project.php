@@ -138,11 +138,11 @@ class Woo_Project {
     public static function notice ( ) {
 
         if ( !self::$pm_pro ) {
-            echo sprintf( __('<div class="error"><p><strong>WP Project Manager</strong> is not installed or inactive. Please install/activate the plugin for Project Manager - BuddyPress add-on to work.</p> If you do not have the pro version, <strong><a href="%s">you can use the free version</a>.</strong></div>'), get_site_url() . '/wp-admin/plugin-install.php?tab=search&s=wp+project+manager' );
+            printf( __('<div class="error"><p><strong>WP Project Manager</strong> is not installed or inactive. Please install/activate the plugin for Project Manager - BuddyPress add-on to work.</p> If you do not have the pro version, <strong><a href="%s">you can use the free version</a>.</strong></div>', 'pm-pro'), get_site_url() . '/wp-admin/plugin-install.php?tab=search&s=wp+project+manager' );
         }
 
         if ( !self::$woocommerce ) {
-            echo sprintf( __('<div class="error"><p><strong>Woocommerce</strong> is not installed or inactive. Please <strong><a href="%s">install Woocommerce</a></strong> for Project Manager - Woo Project add on to work.</p></div>'), get_site_url() . '/wp-admin/plugin-install.php?tab=search&type=term&s=woocommerce' );
+            printf( __('<div class="error"><p><strong>Woocommerce</strong> is not installed or inactive. Please <strong><a href="%s">install Woocommerce</a></strong> for Project Manager - Woo Project add on to work.</p></div>', 'pm-pro'), get_site_url() . '/wp-admin/plugin-install.php?tab=search&type=term&s=woocommerce' );
         }
 
     }

@@ -2,12 +2,11 @@
 
 namespace MailOptin\MailPoetConnect;
 
-use MailOptin\Core\Admin\Customizer\CustomControls\WP_Customize_Custom_Content;
-use MailOptin\Core\Admin\Customizer\CustomControls\WP_Customize_Toggle_Control;
 use MailOptin\Core\Admin\Customizer\OptinForm\Customizer;
+use MailOptin\Core\Connections\AbstractConnect;
 use MailOptin\Core\Connections\ConnectionInterface;
 
-class Connect extends AbstractMailPoetConnect implements ConnectionInterface
+class Connect extends AbstractConnect implements ConnectionInterface
 {
     /**
      * @var string key of connection service. its important all connection name ends with "Connect"
@@ -16,8 +15,6 @@ class Connect extends AbstractMailPoetConnect implements ConnectionInterface
 
     public function __construct()
     {
-        ConnectSettingsPage::get_instance();
-
         add_filter('mailoptin_registered_connections', array($this, 'register_connection'));
 
         add_filter('mo_optin_form_integrations_default', array($this, 'integration_customizer_settings'));
@@ -34,6 +31,11 @@ class Connect extends AbstractMailPoetConnect implements ConnectionInterface
         ];
     }
 
+    public static function is_connected()
+    {
+        return class_exists('\MailPoet\API\API');
+    }
+
     /**
      * Register MailPoet Connection.
      *
@@ -43,7 +45,7 @@ class Connect extends AbstractMailPoetConnect implements ConnectionInterface
      */
     public function register_connection($connections)
     {
-        if (AbstractMailPoetConnect::is_connected()) {
+        if (self::is_connected()) {
             $connections[self::$connectionName] = __('MailPoet', 'mailoptin');
         }
 
@@ -71,7 +73,7 @@ class Connect extends AbstractMailPoetConnect implements ConnectionInterface
             // an array with list id as key and name as value.
             $lists_array = array();
 
-            if (class_exists('\MailPoet\API\API')) {
+            if (self::is_connected()) {
                 $response = \MailPoet\API\API::MP('v1')->getLists();
 
                 if (is_array($response) && ! empty($response)) {

@@ -1,1 +1,608 @@
-!function(e){var t={};function n(s){if(t[s])return t[s].exports;var r=t[s]={i:s,l:!1,exports:{}};return e[s].call(r.exports,r,r.exports,n),r.l=!0,r.exports}n.m=e,n.c=t,n.d=function(e,t,s){n.o(e,t)||Object.defineProperty(e,t,{configurable:!1,enumerable:!0,get:s})},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,"a",t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p="",n(n.s=488)}({0:function(e,t){e.exports=function(e,t,n,s,r,a){var i,o=e=e||{},c=typeof e.default;"object"!==c&&"function"!==c||(i=e,o=e.default);var u,l="function"==typeof o?o.options:o;if(t&&(l.render=t.render,l.staticRenderFns=t.staticRenderFns,l._compiled=!0),n&&(l.functional=!0),r&&(l._scopeId=r),a?(u=function(e){(e=e||this.$vnode&&this.$vnode.ssrContext||this.parent&&this.parent.$vnode&&this.parent.$vnode.ssrContext)||"undefined"==typeof __VUE_SSR_CONTEXT__||(e=__VUE_SSR_CONTEXT__),s&&s.call(this,e),e&&e._registeredComponents&&e._registeredComponents.add(a)},l._ssrRegister=u):s&&(u=s),u){var d=l.functional,p=d?l.render:l.beforeCreate;d?(l._injectStyles=u,l.render=function(e,t){return u.call(t),p(e,t)}):l.beforeCreate=p?[].concat(p,u):[u]}return{esModule:i,exports:o,options:l}}},18:function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.default={methods:{}}},19:function(e,t,n){"use strict";var s=n(18),r=n.n(s);t.a={mixins:[r.a],data:function(){return{loading:!1,license:"",email:"",status:{},message:"",error:""}},created:function(){this.fetchLicense()},computed:{isActivated:function(){return void 0!==this.status.activated&&this.status.activated}},methods:{fetchLicense:function(){var e=this,t={data:{},url:e.base_url+"/pm-pro/v2/license/check",success:function(t){t=t.data,e.license=t.license.key,e.email=t.license.email,e.status=t.status||{},e.message=t.message,pm.NProgress.done()},complete:function(){e.loading=!0}};e.httpRequest(t)},deleteLicense:function(e,t){var n=this;if(confirm(__("License will delete permanently","pm-pro"))){n.loading=!0,jQuery(e).addClass("updating-message");var s={data:{},type:"POST",url:n.base_url+"/pm-pro/v2/license/delete",success:function(){n.license="",n.email=""},error:function(e){alert(e)},complete:function(){location.reload()}};n.httpRequest(s)}},activate:function(e){if(""!==this.license&&""!==this.email){var t=this;t.error="",jQuery(e).addClass("updating-message");var n={data:{email:t.email,key:t.license},type:"post",url:t.base_url+"/pm-pro/v2/license/activation",success:function(e){(e=e.data).data.activated?location.reload():(t.status=e.data,t.error=e.data.error)},error:function(e){alert(e)},complete:function(){jQuery(e).removeClass("updating-message")}};t.httpRequest(n)}else alert(__("Please provide your email and license key","pm-pro"))}}}},44:function(e,t,n){"use strict";var s=a(n(18)),r=a(n(45));function a(e){return e&&e.__esModule?e:{default:e}}weDevsPmProRegisterModule("update","update"),PmProMixin.update=s.default,weDevsPMRegisterChildrenRoute("project_root",[{path:"/license",component:r.default,name:"license"}])},45:function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var s=n(19),r=n(46),a=n(0)(s.a,r.a,!1,null,null,null);t.default=a.exports},46:function(e,t,n){"use strict";var s={render:function(){var e=this,t=e.$createElement,n=e._self._c||t;return e.loading?n("div",[e.error?n("div",{staticClass:"updated error"},[n("p",[e._v(e._s(e.error))])]):e._e(),e._v(" "),n("h2",[e._v(e._s(e.__("License Activation","pm-pro")))]),e._v(" "),e.isActivated?n("div",{staticClass:"weforms-license activated"},[n("div",{staticClass:"updated"},[n("p",[e._v(e._s(e.message))])]),e._v(" "),n("button",{staticClass:"button",on:{click:function(t){return e.deleteLicense(t.target)}}},[e._v(e._s(e.__("Deactive License","pm-pro")))])]):n("table",{staticClass:"form-table"},[n("tr",[n("th",[e._v(e._s(e.__("E-mail Address","pm-pro")))]),e._v(" "),n("td",[n("input",{directives:[{name:"model",rawName:"v-model",value:e.email,expression:"email"}],staticClass:"regular-text",attrs:{type:"email",name:"email",required:""},domProps:{value:e.email},on:{input:function(t){t.target.composing||(e.email=t.target.value)}}}),e._v(" "),n("p",{staticClass:"description"},[e._v(e._s(e.__("Enter your purchase Email address","pm-pro")))])])]),e._v(" "),n("tr",[n("th",[e._v(e._s(e.__("License Key","pm-pro")))]),e._v(" "),n("td",[n("input",{directives:[{name:"model",rawName:"v-model",value:e.license,expression:"license"}],staticClass:"regular-text",attrs:{type:"text",name:"license_key"},domProps:{value:e.license},on:{input:function(t){t.target.composing||(e.license=t.target.value)}}}),e._v(" "),n("p",{staticClass:"description"},[e._v(e._s(e.__("Enter your license key","pm-pro")))])])]),e._v(" "),n("tr",[n("th",[e._v(" ")]),e._v(" "),n("td",[n("button",{staticClass:"button button-primary",on:{click:function(t){return e.activate(t.target)}}},[e._v(e._s(e.__("Save & Activate","pm-pro")))])])])])]):e._e()},staticRenderFns:[]};t.a=s},488:function(e,t,n){"use strict";n(44)}});
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 488);
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ 0:
+/***/ (function(module, exports) {
+
+/* globals __VUE_SSR_CONTEXT__ */
+
+// IMPORTANT: Do NOT use ES2015 features in this file.
+// This module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle.
+
+module.exports = function normalizeComponent (
+  rawScriptExports,
+  compiledTemplate,
+  functionalTemplate,
+  injectStyles,
+  scopeId,
+  moduleIdentifier /* server only */
+) {
+  var esModule
+  var scriptExports = rawScriptExports = rawScriptExports || {}
+
+  // ES6 modules interop
+  var type = typeof rawScriptExports.default
+  if (type === 'object' || type === 'function') {
+    esModule = rawScriptExports
+    scriptExports = rawScriptExports.default
+  }
+
+  // Vue.extend constructor export interop
+  var options = typeof scriptExports === 'function'
+    ? scriptExports.options
+    : scriptExports
+
+  // render functions
+  if (compiledTemplate) {
+    options.render = compiledTemplate.render
+    options.staticRenderFns = compiledTemplate.staticRenderFns
+    options._compiled = true
+  }
+
+  // functional template
+  if (functionalTemplate) {
+    options.functional = true
+  }
+
+  // scopedId
+  if (scopeId) {
+    options._scopeId = scopeId
+  }
+
+  var hook
+  if (moduleIdentifier) { // server build
+    hook = function (context) {
+      // 2.3 injection
+      context =
+        context || // cached call
+        (this.$vnode && this.$vnode.ssrContext) || // stateful
+        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
+      // 2.2 with runInNewContext: true
+      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+        context = __VUE_SSR_CONTEXT__
+      }
+      // inject component styles
+      if (injectStyles) {
+        injectStyles.call(this, context)
+      }
+      // register component module identifier for async chunk inferrence
+      if (context && context._registeredComponents) {
+        context._registeredComponents.add(moduleIdentifier)
+      }
+    }
+    // used by ssr in case component is cached and beforeCreate
+    // never gets called
+    options._ssrRegister = hook
+  } else if (injectStyles) {
+    hook = injectStyles
+  }
+
+  if (hook) {
+    var functional = options.functional
+    var existing = functional
+      ? options.render
+      : options.beforeCreate
+
+    if (!functional) {
+      // inject component registration as beforeCreate hook
+      options.beforeCreate = existing
+        ? [].concat(existing, hook)
+        : [hook]
+    } else {
+      // for template-only hot-reload because in that case the render fn doesn't
+      // go through the normalizer
+      options._injectStyles = hook
+      // register for functioal component in vue file
+      options.render = function renderWithStyleInjection (h, context) {
+        hook.call(context)
+        return existing(h, context)
+      }
+    }
+  }
+
+  return {
+    esModule: esModule,
+    exports: scriptExports,
+    options: options
+  }
+}
+
+
+/***/ }),
+
+/***/ 18:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = {
+	methods: {}
+};
+
+/***/ }),
+
+/***/ 19:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixin__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixin___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__mixin__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    mixins: [__WEBPACK_IMPORTED_MODULE_0__mixin___default.a],
+
+    data: function data() {
+        return {
+            loading: false,
+            license: '',
+            email: '',
+            status: {},
+            message: '',
+            error: ''
+        };
+    },
+
+    created: function created() {
+        this.fetchLicense();
+    },
+
+    computed: {
+
+        isActivated: function isActivated() {
+            return this.status.activated !== undefined ? this.status.activated : false;
+        }
+    },
+
+    methods: {
+
+        fetchLicense: function fetchLicense() {
+            var self = this;
+
+            //self.loading = true;
+
+            var request = {
+                data: {},
+                url: self.base_url + '/pm-pro/v2/license/check',
+                success: function success(response) {
+                    response = response.data;
+                    self.license = response.license.key;
+                    self.email = response.license.email;
+                    self.status = response.status || {};
+                    self.message = response.message;
+                    pm.NProgress.done();
+                },
+
+                complete: function complete() {
+                    self.loading = true;
+                }
+            };
+
+            self.httpRequest(request);
+        },
+
+        deleteLicense: function deleteLicense(target, nonce) {
+            var self = this;
+
+            if (!confirm(__('License will delete permanently', 'pm-pro'))) {
+                return;
+            }
+
+            self.loading = true;
+            jQuery(target).addClass('updating-message');
+
+            var request = {
+                data: {},
+                type: 'POST',
+                url: self.base_url + '/pm-pro/v2/license/delete',
+                success: function success() {
+                    self.license = '';
+                    self.email = '';
+                    //self.status  = {};
+                    //self.message = '';
+                },
+
+                error: function error(_error) {
+                    alert(_error);
+                },
+
+                complete: function complete() {
+                    //self.loading = false;
+                    //jQuery(target).removeClass('updating-message');
+                    location.reload();
+                }
+            };
+
+            self.httpRequest(request);
+        },
+
+        activate: function activate(target) {
+            if ('' === this.license || '' === this.email) {
+                alert(__('Please provide your email and license key', 'pm-pro'));
+                return;
+            }
+
+            var self = this;
+            self.error = '';
+
+            jQuery(target).addClass('updating-message');
+
+            var request = {
+                data: {
+                    email: self.email,
+                    key: self.license
+                },
+                type: 'post',
+                url: self.base_url + '/pm-pro/v2/license/activation',
+                success: function success(response) {
+                    response = response.data;
+                    if (response.data.activated) {
+                        //self.status  = response.data;
+                        //self.message = response.message;
+                        location.reload();
+                    } else {
+                        self.status = response.data;
+                        self.error = response.data.error;
+                    }
+                },
+
+                error: function error(_error2) {
+                    alert(_error2);
+                },
+
+                complete: function complete() {
+                    jQuery(target).removeClass('updating-message');
+                }
+            };
+
+            self.httpRequest(request);
+        }
+    }
+});
+
+/***/ }),
+
+/***/ 44:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _mixin = __webpack_require__(18);
+
+var _mixin2 = _interopRequireDefault(_mixin);
+
+var _update = __webpack_require__(45);
+
+var _update2 = _interopRequireDefault(_update);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+weDevsPmProRegisterModule('update', 'update');
+
+PmProMixin.update = _mixin2.default;
+
+weDevsPMRegisterChildrenRoute('project_root', [{
+    path: '/license',
+    component: _update2.default,
+    name: 'license'
+}]);
+
+/***/ }),
+
+/***/ 45:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_update_vue__ = __webpack_require__(19);
+/* empty harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_82b498a4_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_update_vue__ = __webpack_require__(46);
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+
+
+/* template */
+
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_update_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_82b498a4_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_update_vue__["a" /* default */],
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "views/assets/src/components/update/update.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-82b498a4", Component.options)
+  } else {
+    hotAPI.reload("data-v-82b498a4", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+/* harmony default export */ __webpack_exports__["default"] = (Component.exports);
+
+
+/***/ }),
+
+/***/ 46:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm.loading
+    ? _c("div", [
+        _vm.error
+          ? _c("div", { staticClass: "updated error" }, [
+              _c("p", [_vm._v(_vm._s(_vm.error))])
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _c("h2", [_vm._v(_vm._s(_vm.__("License Activation", "pm-pro")))]),
+        _vm._v(" "),
+        !_vm.isActivated
+          ? _c("table", { staticClass: "form-table" }, [
+              _c("tr", [
+                _c("th", [_vm._v(_vm._s(_vm.__("E-mail Address", "pm-pro")))]),
+                _vm._v(" "),
+                _c("td", [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.email,
+                        expression: "email"
+                      }
+                    ],
+                    staticClass: "regular-text",
+                    attrs: { type: "email", name: "email", required: "" },
+                    domProps: { value: _vm.email },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.email = $event.target.value
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "description" }, [
+                    _vm._v(
+                      _vm._s(
+                        _vm.__("Enter your purchase Email address", "pm-pro")
+                      )
+                    )
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("th", [_vm._v(_vm._s(_vm.__("License Key", "pm-pro")))]),
+                _vm._v(" "),
+                _c("td", [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.license,
+                        expression: "license"
+                      }
+                    ],
+                    staticClass: "regular-text",
+                    attrs: { type: "text", name: "license_key" },
+                    domProps: { value: _vm.license },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.license = $event.target.value
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "description" }, [
+                    _vm._v(_vm._s(_vm.__("Enter your license key", "pm-pro")))
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("th", [_vm._v(" ")]),
+                _vm._v(" "),
+                _c("td", [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "button button-primary",
+                      on: {
+                        click: function($event) {
+                          return _vm.activate($event.target)
+                        }
+                      }
+                    },
+                    [_vm._v(_vm._s(_vm.__("Save & Activate", "pm-pro")))]
+                  )
+                ])
+              ])
+            ])
+          : _c("div", { staticClass: "weforms-license activated" }, [
+              _c("div", { staticClass: "updated" }, [
+                _c("p", [_vm._v(_vm._s(_vm.message))])
+              ]),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "button",
+                  on: {
+                    click: function($event) {
+                      return _vm.deleteLicense($event.target)
+                    }
+                  }
+                },
+                [_vm._v(_vm._s(_vm.__("Deactive License", "pm-pro")))]
+              )
+            ])
+      ])
+    : _vm._e()
+}
+var staticRenderFns = []
+render._withStripped = true
+var esExports = { render: render, staticRenderFns: staticRenderFns }
+/* harmony default export */ __webpack_exports__["a"] = (esExports);
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-82b498a4", esExports)
+  }
+}
+
+/***/ }),
+
+/***/ 488:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+__webpack_require__(44);
+
+/***/ })
+
+/******/ });

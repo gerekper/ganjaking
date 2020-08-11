@@ -78,7 +78,26 @@ class Time_Tracker_Controller {
 
     public function store( WP_REST_Request $request ) {
         $task_id    = $request->get_param( 'task_id' );
-        $data       = [
+        $user_id   = get_current_user_id();
+
+        $can_run_time = pm_pro_is_user_can_start_time( $user_id );
+
+        if ( array_key_exists( 'status', $can_run_time ) ) {
+            if( ! $can_run_time['status'] ) {
+                $stop_task_id = $can_run_time['response']['id'];
+                $sotp_task = pm_get_task( ['id' => $stop_task_id] );
+                $stop_list_id = $sotp_task['data']['task_list_id'];
+                $stop_project_id = $sotp_task['data']['project_id'];
+
+                $this->stop_time([
+                    'task_id'    => $stop_task_id,
+                    'list_id'    => $stop_list_id,
+                    'project_id' => $stop_project_id
+                ]);
+            }
+        }
+
+        $data  = [
             'user_id'    => get_current_user_id(),
             'project_id' => $request->get_param( 'project_id' ),
             'list_id'    => $request->get_param( 'list_id' ),
@@ -143,12 +162,11 @@ class Time_Tracker_Controller {
         return $this->get_response( $resource, $message );
     }
 
-    public function update( WP_REST_Request $request ) {
-        $task_id    = $request->get_param( 'task_id' );
-        $list_id    = $request->get_param( 'list_id' );
-        $project_id = $request->get_param( 'project_id' );
+    public function stop_time( $params ) {
+        $task_id    = $params['task_id'];
+        $list_id    = $params['list_id'];
+        $project_id = $params['project_id'];
         $user_id    = get_current_user_id();
-
 
         $time = Time_Tracker::where( 'user_id', $user_id )
             ->where( 'task_id', $task_id )
@@ -176,6 +194,20 @@ class Time_Tracker_Controller {
         $total_time = $this->get_total_time( $task_id );
 
         $resource->setMetaValue( 'total_time', $total_time );
+
+        return $resource;
+    }
+
+    public function update( WP_REST_Request $request ) {
+        $task_id    = $request->get_param( 'task_id' );
+        $list_id    = $request->get_param( 'list_id' );
+        $project_id = $request->get_param( 'project_id' );
+
+        $resource = $this->stop_time([
+            'task_id'    => $task_id,
+            'list_id'    => $list_id,
+            'project_id' => $project_id
+        ]);
 
         $message = [
             'message' => 'Your traking time was stop successfully'

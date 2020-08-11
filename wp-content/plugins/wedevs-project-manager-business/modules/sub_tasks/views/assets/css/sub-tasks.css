@@ -281,6 +281,3 @@ ul.cpmst-complete-status .cpm-todo-wrap .cpmst-todo-action, ul.cpm-todo-complete
 .singleSubtask .pm-todo-form .multiselect  .multiselect__tags{
     border-radius: 0px;
 }
-.singleSubtask {
-    margin-bottom: 15px;
-}

@@ -1,1 +1,1 @@
-jQuery(function(n){void 0===n.fn.on&&(n.fn.on=function(o,t,e,i){return"function"==typeof t?n(this.context).live(o,t):n(t).live(o,e,i),this}),n(".wysija-footer pre").hide(),n(document).on("click",".wysija-footer .expandquer h2",function(){n(this).nextAll().toggle()})});
+jQuery(function(i){i.fn.on===undefined&&(i.fn.on=function(n,e,t,o){return"function"==typeof e?i(this.context).live(n,e):i(e).live(n,t,o),this}),i(".wysija-footer pre").hide(),i(document).on("click",".wysija-footer .expandquer h2",function(){i(this).nextAll().toggle()})});

@@ -120,7 +120,7 @@
         });
     };
 
-    $(document).on('ready', function () {
+    $(function () {
         if (mailoptin_newsletter_is_code_your_own === true) {
             var css = '<style type="text/css">#customize-preview > iframe {top: 75px; height: calc(100% - 75px);}</style>';
             css += '<style id="customize-preview-iframe-hide" type="text/css">#customize-preview iframe {display:none;}</style>';

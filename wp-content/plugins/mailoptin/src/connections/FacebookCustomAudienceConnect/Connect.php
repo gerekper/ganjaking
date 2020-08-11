@@ -78,25 +78,28 @@ class Connect extends AbstractFacebookCustomAudienceConnect implements Connectio
 
     public function admin_notices()
     {
-        $message = '';
-        if (isset($_GET['fbca']) && $_GET['fbca'] == 'true') {
-            $message = esc_html__('New Facebook custom audience successfully created', 'mailoptin');
+        if (self::is_connected()) {
+
+            $message = '';
+            if (isset($_GET['fbca']) && $_GET['fbca'] == 'true') {
+                $message = esc_html__('New Facebook custom audience successfully created', 'mailoptin');
+            }
+
+            if (get_option('mo_fbca_access_token_expired_status', 'false') == 'true') {
+                $message = sprintf(
+                    esc_html__('Facebook app access token for custom audience has expired. %sLearn how to generate a new one%s', 'mailoptin'),
+                    '<a target="_blank" href="https://mailoptin.io/article/connect-mailoptin-facebook-custom-audience/#generateAccessToken">', '</a>'
+                );
+            }
+
+            if (empty($message)) return;
+
+            echo '<div id="message" class="updated notice is-dismissible">';
+            echo '<p>';
+            echo $message;
+            echo '</p>';
+            echo '</div>';
         }
-
-        if (get_option('mo_fbca_access_token_expired_status', 'false') == 'true') {
-            $message = sprintf(
-                esc_html__('Facebook app access token for custom audience has expired. %sLearn how to generate a new one%s', 'mailoptin'),
-                '<a target="_blank" href="https://mailoptin.io/article/connect-mailoptin-facebook-custom-audience/#generateAccessToken">', '</a>'
-            );
-        }
-
-        if(empty($message)) return;
-
-        echo '<div id="message" class="updated notice is-dismissible">';
-        echo '<p>';
-        echo $message;
-        echo '</p>';
-        echo '</div>';
     }
 
     /**

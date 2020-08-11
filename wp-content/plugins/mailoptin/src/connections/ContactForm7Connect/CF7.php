@@ -29,6 +29,7 @@ class CF7
 
     /**
      * @param \WPCF7_ContactForm $contact_form
+     * @param mixed $result
      */
     public function process_form($contact_form, $result)
     {

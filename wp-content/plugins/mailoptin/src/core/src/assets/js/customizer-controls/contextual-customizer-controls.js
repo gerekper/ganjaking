@@ -140,10 +140,6 @@
                         api.section('mo_wp_page_filter_display_rule_section').active(!is_displayed());
                     }
 
-                    if (typeof api.section('mo_wp_shortcode_template_tag_display_rule_section') !== 'undefined') {
-                        api.section('mo_wp_shortcode_template_tag_display_rule_section').active(!is_displayed());
-                    }
-
                     if (typeof api.section('mo_wp_adblock_display_rule_section') !== 'undefined') {
                         api.section('mo_wp_adblock_display_rule_section').active(!is_displayed());
                     }

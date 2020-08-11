@@ -48,22 +48,39 @@ class Calendar_Controller {
         $boards_id  = wp_list_pluck( $get_boards, 'id' );
         $boards_id  = implode( ',', $boards_id );
 
-        if ( ! empty( $project_ids ) ) {
-            $project_ids = implode( ',', $project_ids );
-            $where_projec_ids = " AND pj.id IN ($project_ids)";
+        //Before
+        // if ( ! empty( $project_ids ) ) {
+        //     $project_ids = implode( ',', $project_ids );
+        //     $where_projec_ids = " AND pj.id IN ($project_ids)";
+        // } else {
+        //     $where_projec_ids = '';
+        // }
+
+        if ( empty( $project_id ) ) {
+            $where_projec_ids = "";
         } else {
-            $where_projec_ids = '';
+            $where_projec_ids = "AND pj.id IN ($project_id)";
         }
 
-        if ( ! empty( $users ) && is_array( $users ) ) {
-            $users = implode( ',', $users );
-            $where_users = " AND asin.assigned_to IN ($users)";
-        } else if ( ! empty( $users ) && !is_array( $users ) ) {
-            $users = [$users];
-            $users = implode( ',', $users );
-            $where_users = " AND asin.assigned_to IN ($users)";
+        //Before
+        // if ( ! empty( $users ) && is_array( $users ) ) {
+        //     $users = implode( ',', $users );
+        //     $where_users = " AND asin.assigned_to IN ($users)";
+        // } else if ( ! empty( $users ) && !is_array( $users ) ) {
+        //     $users = [$users];
+        //     $users = implode( ',', $users );
+        //     $where_users = " AND asin.assigned_to IN ($users)";
+        // } else {
+        //     $users = get_current_user_id();
+        //     $where_users = " AND asin.assigned_to IN ($users)";
+        // }
+
+        if ( empty( $users ) ) {
+            $where_users = '';
         } else {
-            $users = get_current_user_id();
+            $users = pm_get_prepare_data( $users );
+            $users = implode( ',', $users );
+
             $where_users = " AND asin.assigned_to IN ($users)";
         }
 

@@ -89,11 +89,19 @@ class OptinCampaignsRepository extends AbstractRepository
             );
         }
 
-        if ( ! empty($parent_optin_id)) {
-            return true;
-        }
+        return ! empty($parent_optin_id);
+    }
 
-        return false;
+    /**
+     * Check if optin campaign is a split test whether parent or variant.
+     *
+     * @param int $optin_campaign_id
+     *
+     * @return bool
+     */
+    public static function is_split_test_optin($optin_campaign_id)
+    {
+        return self::is_split_test_parent($optin_campaign_id) || self::get_split_parent_id($optin_campaign_id);
     }
 
     /**
@@ -105,16 +113,24 @@ class OptinCampaignsRepository extends AbstractRepository
      */
     public static function is_split_test_parent($parent_optin_id)
     {
-        $cache_key = 'is_split_test_parent_' . $parent_optin_id;
+        $response = OptinCampaignMeta::get_optin_id_by_meta_key_value('split_test_parent', $parent_optin_id);
 
-        if ( ! is_customize_preview() && isset(self::$cache[$cache_key])) {
-            $response = self::$cache[$cache_key];
-        } else {
-            $response = self::$cache[$cache_key] = OptinCampaignMeta::get_optin_id_by_meta_key_value('split_test_parent', $parent_optin_id);
-        }
+        return ! empty($response);
+    }
 
-        if ( ! empty($response)) {
-            return true;
+    /**
+     * Check if optin campaign is a parent split test. That is, does it has variants?
+     *
+     * @param int $parent_optin_id
+     *
+     * @return int
+     */
+    public static function get_split_parent_id($variant_id)
+    {
+        $response = OptinCampaignMeta::get_meta_value_by_optin_campaign_id('split_test_parent', $variant_id);
+
+        if (is_array($response) && ! empty($response)) {
+            return absint($response[0]);
         }
 
         return false;
@@ -133,7 +149,7 @@ class OptinCampaignsRepository extends AbstractRepository
             return self::$cache[$cache_key];
         }
 
-        return self::$cache[$cache_key] = OptinCampaignMeta::get_optin_id_by_meta_key_value('split_test_parent', $parent_optin_id);
+        return self::$cache[$cache_key] = array_map('absint', OptinCampaignMeta::get_optin_id_by_meta_key_value('split_test_parent', $parent_optin_id));
     }
 
     /**
@@ -168,6 +184,7 @@ class OptinCampaignsRepository extends AbstractRepository
             // Merge the main optin with the split tests,
             // shuffle the array, and set the optin to the first item in the array.
             $variant_ids[] = $optin_campaign_id;
+
             shuffle($variant_ids);
             $optin_campaign_id = $variant_ids[0];
         }
@@ -233,9 +250,7 @@ class OptinCampaignsRepository extends AbstractRepository
     public static function get_optin_campaign_uuid($optin_campaign_id)
     {
         $table = parent::campaigns_table();
-        /**
-         * @todo consider adding wp_cache_* for unchanging values to probably all database query methods to speed things up.
-         */
+
         $cache_key = "campaign_uuid_$optin_campaign_id";
 
         if (wp_cache_get($cache_key) !== false) {
@@ -632,7 +647,7 @@ class OptinCampaignsRepository extends AbstractRepository
      */
     public static function updateSettings($campaignSettings)
     {
-        return update_option(MO_OPTIN_CAMPAIGN_WP_OPTION_NAME, $campaignSettings);
+        return update_option(MO_OPTIN_CAMPAIGN_WP_OPTION_NAME, $campaignSettings, false);
     }
 
     /**

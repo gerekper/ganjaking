@@ -1155,435 +1155,435 @@ return array(
 		'path'    => $vendorDir . '/composer/installers/src/Composer/Installers/MicroweberInstaller.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\Payments\\PaymentResult' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/Payments/PaymentResult.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\Payments\\PaymentMethodTypeInterface' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/Payments/PaymentMethodTypeInterface.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\Payments\\PaymentMethodRegistry' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/Payments/PaymentMethodRegistry.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\Payments\\Integrations\\AbstractPaymentMethodType' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/Payments/Integrations/AbstractPaymentMethodType.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\Payments\\Integrations\\Cheque' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/Payments/Integrations/Cheque.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\Payments\\Integrations\\BankTransfer' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/Payments/Integrations/BankTransfer.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\Payments\\Integrations\\CashOnDelivery' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/Payments/Integrations/CashOnDelivery.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\Payments\\Integrations\\Stripe' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/Payments/Integrations/Stripe.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\Payments\\Integrations\\PayPal' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/Payments/Integrations/PayPal.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\Payments\\PaymentContext' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/Payments/PaymentContext.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\Payments\\Api' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/Payments/Api.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\Package' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/Package.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\Library' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/Library.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\RestApi' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/RestApi.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\Utils\\BlocksWpQuery' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/Utils/BlocksWpQuery.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\Registry\\Container' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/Registry/Container.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\Registry\\SharedType' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/Registry/SharedType.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\Registry\\FactoryType' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/Registry/FactoryType.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\Registry\\AbstractDependencyType' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/Registry/AbstractDependencyType.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\BlockTypes\\FeaturedProduct' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/BlockTypes/FeaturedProduct.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\BlockTypes\\ActiveFilters' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/BlockTypes/ActiveFilters.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\BlockTypes\\HandpickedProducts' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/BlockTypes/HandpickedProducts.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\BlockTypes\\ReviewsByProduct' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/BlockTypes/ReviewsByProduct.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\BlockTypes\\ProductSearch' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/BlockTypes/ProductSearch.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\BlockTypes\\Cart' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/BlockTypes/Cart.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\BlockTypes\\AtomicBlock' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/BlockTypes/AtomicBlock.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\BlockTypes\\ProductOnSale' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/BlockTypes/ProductOnSale.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\BlockTypes\\ProductTopRated' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/BlockTypes/ProductTopRated.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\BlockTypes\\SingleProduct' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/BlockTypes/SingleProduct.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\BlockTypes\\ProductNew' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/BlockTypes/ProductNew.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\BlockTypes\\Checkout' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/BlockTypes/Checkout.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\BlockTypes\\ProductCategories' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/BlockTypes/ProductCategories.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\BlockTypes\\ProductTag' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/BlockTypes/ProductTag.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\BlockTypes\\AllReviews' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/BlockTypes/AllReviews.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\BlockTypes\\AbstractProductGrid' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/BlockTypes/AbstractProductGrid.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\BlockTypes\\AbstractBlock' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/BlockTypes/AbstractBlock.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\BlockTypes\\AttributeFilter' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/BlockTypes/AttributeFilter.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\BlockTypes\\AbstractDynamicBlock' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/BlockTypes/AbstractDynamicBlock.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\BlockTypes\\ReviewsByCategory' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/BlockTypes/ReviewsByCategory.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\BlockTypes\\ProductsByAttribute' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/BlockTypes/ProductsByAttribute.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\BlockTypes\\ProductBestSellers' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/BlockTypes/ProductBestSellers.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\BlockTypes\\ProductCategory' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/BlockTypes/ProductCategory.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\BlockTypes\\FeaturedCategory' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/BlockTypes/FeaturedCategory.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\BlockTypes\\PriceFilter' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/BlockTypes/PriceFilter.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\BlockTypes\\AllProducts' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/BlockTypes/AllProducts.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\Installer' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/Installer.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\StoreApi\\RoutesController' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/StoreApi/RoutesController.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\StoreApi\\SchemaController' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/StoreApi/SchemaController.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\StoreApi\\Schemas\\CartShippingRateSchema' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/StoreApi/Schemas/CartShippingRateSchema.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\StoreApi\\Schemas\\CartItemSchema' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/StoreApi/Schemas/CartItemSchema.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\StoreApi\\Schemas\\CartSchema' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/StoreApi/Schemas/CartSchema.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\StoreApi\\Schemas\\AbstractSchema' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/StoreApi/Schemas/AbstractSchema.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\StoreApi\\Schemas\\CartCouponSchema' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/StoreApi/Schemas/CartCouponSchema.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\StoreApi\\Schemas\\ProductAttributeSchema' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/StoreApi/Schemas/ProductAttributeSchema.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\StoreApi\\Schemas\\ErrorSchema' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/StoreApi/Schemas/ErrorSchema.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\StoreApi\\Schemas\\BillingAddressSchema' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/StoreApi/Schemas/BillingAddressSchema.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\StoreApi\\Schemas\\TermSchema' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/StoreApi/Schemas/TermSchema.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\StoreApi\\Schemas\\ProductCategorySchema' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/StoreApi/Schemas/ProductCategorySchema.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\StoreApi\\Schemas\\OrderCouponSchema' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/StoreApi/Schemas/OrderCouponSchema.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\StoreApi\\Schemas\\ProductCollectionDataSchema' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/StoreApi/Schemas/ProductCollectionDataSchema.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\StoreApi\\Schemas\\ProductSchema' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/StoreApi/Schemas/ProductSchema.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\StoreApi\\Schemas\\ShippingAddressSchema' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/StoreApi/Schemas/ShippingAddressSchema.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\StoreApi\\Schemas\\CheckoutSchema' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/StoreApi/Schemas/CheckoutSchema.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\StoreApi\\Schemas\\ImageAttachmentSchema' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/StoreApi/Schemas/ImageAttachmentSchema.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\StoreApi\\Schemas\\ProductReviewSchema' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/StoreApi/Schemas/ProductReviewSchema.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\StoreApi\\Utilities\\NoticeHandler' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/StoreApi/Utilities/NoticeHandler.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\StoreApi\\Utilities\\Pagination' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/StoreApi/Utilities/Pagination.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\StoreApi\\Utilities\\ProductQuery' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/StoreApi/Utilities/ProductQuery.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\StoreApi\\Utilities\\OrderController' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/StoreApi/Utilities/OrderController.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\StoreApi\\Utilities\\ReserveStock' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/StoreApi/Utilities/ReserveStock.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\StoreApi\\Utilities\\ReserveStockException' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/StoreApi/Utilities/ReserveStockException.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\StoreApi\\Utilities\\ProductQueryFilters' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/StoreApi/Utilities/ProductFiltering.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\StoreApi\\Utilities\\CartController' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/StoreApi/Utilities/CartController.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\StoreApi\\Routes\\RouteException' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/StoreApi/Routes/RouteException.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\StoreApi\\Routes\\ProductReviews' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/StoreApi/Routes/ProductReviews.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\StoreApi\\Routes\\CartApplyCoupon' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/StoreApi/Routes/CartApplyCoupon.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\StoreApi\\Routes\\CartCouponsByCode' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/StoreApi/Routes/CartCouponsByCode.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\StoreApi\\Routes\\Cart' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/StoreApi/Routes/Cart.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\StoreApi\\Routes\\CartUpdateItem' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/StoreApi/Routes/CartUpdateItem.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\StoreApi\\Routes\\ProductCategoriesById' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/StoreApi/Routes/ProductCategoriesById.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\StoreApi\\Routes\\ProductCollectionData' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/StoreApi/Routes/ProductCollectionData.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\StoreApi\\Routes\\CartItemsByKey' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/StoreApi/Routes/CartItemsByKey.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\StoreApi\\Routes\\AbstractCartRoute' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/StoreApi/Routes/AbstractCartRoute.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\StoreApi\\Routes\\AbstractTermsRoute' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/StoreApi/Routes/AbstractTermsRoute.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\StoreApi\\Routes\\Checkout' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/StoreApi/Routes/Checkout.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\StoreApi\\Routes\\ProductCategories' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/StoreApi/Routes/ProductCategories.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\StoreApi\\Routes\\ProductAttributes' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/StoreApi/Routes/ProductAttributes.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\StoreApi\\Routes\\CartItems' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/StoreApi/Routes/CartItems.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\StoreApi\\Routes\\CartAddItem' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/StoreApi/Routes/CartAddItem.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\StoreApi\\Routes\\CartSelectShippingRate' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/StoreApi/Routes/CartSelectShippingRate.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\StoreApi\\Routes\\AbstractRoute' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/StoreApi/Routes/AbstractRoute.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\StoreApi\\Routes\\CartRemoveCoupon' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/StoreApi/Routes/CartRemoveCoupon.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\StoreApi\\Routes\\ProductAttributesById' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/StoreApi/Routes/ProductAttributesById.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\StoreApi\\Routes\\RouteInterface' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/StoreApi/Routes/RouteInterface.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\StoreApi\\Routes\\ProductsById' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/StoreApi/Routes/ProductsById.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\StoreApi\\Routes\\Products' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/StoreApi/Routes/Products.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\StoreApi\\Routes\\CartUpdateShipping' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/StoreApi/Routes/CartUpdateShipping.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\StoreApi\\Routes\\CartRemoveItem' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/StoreApi/Routes/CartRemoveItem.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\StoreApi\\Routes\\ProductTags' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/StoreApi/Routes/ProductTags.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\StoreApi\\Routes\\CartCoupons' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/StoreApi/Routes/CartCoupons.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\StoreApi\\Routes\\ProductAttributeTerms' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/StoreApi/Routes/ProductAttributeTerms.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\Assets\\BackCompatAssetDataRegistry' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/Assets/BackCompatAssetDataRegistry.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\Assets\\AssetDataRegistry' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/Assets/AssetDataRegistry.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\Assets\\Api' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/Assets/Api.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\Domain\\Package' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/Domain/Package.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\Domain\\Bootstrap' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/Domain/Bootstrap.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\Domain\\Services\\DraftOrders' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/Domain/Services/DraftOrders.php'
 	),
 	'Automattic\\WooCommerce\\Blocks\\Assets' => array(
-		'version' => 'dev-fix/2872-draft-orders-behind-feature-flag',
+		'version' => 'dev-fix/payment-gateways-correct-order',
 		'path'    => $baseDir . '/src/Assets.php'
 	),
 	'Automattic\\Jetpack\\Autoloader\\AutoloadGenerator' => array(

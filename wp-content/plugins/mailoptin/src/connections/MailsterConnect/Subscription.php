@@ -2,7 +2,9 @@
 
 namespace MailOptin\MailsterConnect;
 
-class Subscription extends AbstractMailsterConnect
+use MailOptin\Core\Connections\AbstractConnect;
+
+class Subscription extends AbstractConnect
 {
     public $email;
     public $name;

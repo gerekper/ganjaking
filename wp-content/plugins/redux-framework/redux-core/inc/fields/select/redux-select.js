@@ -7,9 +7,7 @@
 	redux.field_objects.select = redux.field_objects.select || {};
 
 	redux.field_objects.select.init = function( selector ) {
-		if ( ! selector ) {
-			selector = $( document ).find( '.redux-container-select:visible' );
-		}
+		selector = $.redux.getSelector( selector, 'select' );
 
 		$( selector ).each(
 			function() {
@@ -37,6 +35,7 @@
 						var nonce;
 						var wpdata;
 						var min;
+						var data_args;
 
 						if ( $( this ).hasClass( 'font-icons' ) ) {
 							default_params = $.extend(
@@ -53,9 +52,13 @@
 						}
 						if ( $( this ).data( 'ajax' ) ) {
 							action = $( this ).data( 'action' );
-							nonce  = $( this ).data( 'nonce' );
+							nonce = $( this ).data( 'nonce' );
 							wpdata = $( this ).data( 'wp-data' );
-							min    = $( this ).data( 'min-input-length' );
+							min = $( this ).data( 'min-input-length' );
+							data_args = {};
+							if ( $( this ).data( 'args' ) ) {
+								data_args = JSON.stringify( $( this ).data( 'args' ) );
+							}
 
 							if ( 'true' === min ) {
 								min = 1;
@@ -73,7 +76,8 @@
 											data: wpdata,
 											q: params.term,
 											page: params.page || 1,
-											action: action
+											action: action,
+											data_args: data_args
 										};
 									},
 									processResults: function( data, params ) {

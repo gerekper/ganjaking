@@ -34,6 +34,12 @@ class Subscription extends AbstractMailjetConnect
         return ob_get_clean();
     }
 
+    /**
+     * @param $email
+     *
+     * @return bool
+     * @throws \Exception
+     */
     public function validate_sender_email($email)
     {
         $response = $this->mailjet_instance()->make_request('sender', ['Email' => $email], 'get');
@@ -180,7 +186,7 @@ class Subscription extends AbstractMailjetConnect
                 $lead_data['optin_campaign_id'] = $this->extras['optin_campaign_id'];
                 $data[$key]                     = $lead_data;
 
-                update_option('mo_mailjet_double_optin_bucket', $data);
+                update_option('mo_mailjet_double_optin_bucket', $data, false);
 
                 return parent::ajax_success();
             }

@@ -62,28 +62,19 @@ class WeDevs_Updater {
     **/
     public function manage_license() {
 
-       
-
-       
             $license_option     = strtolower( str_replace( '-', '_', $_REQUEST['license_product_slug'] ) ) . '_license';
             $license_status_key = 'B5E0B5F8DD8689E6ACA49DD6E6E1A930';
 
            
 
-            update_option( $license_option, array('email' => 'nullmaster@babiato.org', 'key' => 'B5E0B5F8DD8689E6ACA49DD6E6E1A930') );
+            update_option( $license_option, array('email' => 'noreply@gpl.com', 'key' => 'B5E0B5F8DD8689E6ACA49DD6E6E1A930') );
             delete_transient( $license_option );
 
             $license_status = 'valid';
 
-            
+                wp_send_json_success( $license_status );
 
-               wp_send_json_success( $license_status );
-
-            
-        
-
-       
-    }
+            }
 
     /**
     * Delete license
@@ -94,13 +85,9 @@ class WeDevs_Updater {
     **/
     public function delete_license() {
 
-      
             return;
-        
+        }
 
-       
-        
-    }
 
     /**
      * Check if the current server is localhost
@@ -165,9 +152,7 @@ class WeDevs_Updater {
      * @return void
      */
     function license_enter_notice() {
-       
             return;
-       
         ?>
         <div class="error">
             <p><?php printf( __( 'Please <a href="%s">enter</a> your <strong>%s</strong> plugin license key to get regular update and support.', 'pm-pro' ), admin_url( 'admin.php?page=pm_projects#/license' ), $this->name ); ?></p>
@@ -181,9 +166,7 @@ class WeDevs_Updater {
      * @return void
      */
     function license_check_notice() {
-       
             return;
-        
 
         $error = __( ' Error: Please activate your license', 'pm-pro' );
 
@@ -199,7 +182,6 @@ class WeDevs_Updater {
                 set_transient( $this->option, $status, $duration );
             }
 
-          
 
                 // notice if validity expires
                 if ( isset( $status->update ) ) {
@@ -212,7 +194,6 @@ class WeDevs_Updater {
                     }
                 }
                 return;
-           
 
             // may be the request didn't completed
             if ( !isset( $status->error )) {
@@ -236,14 +217,13 @@ class WeDevs_Updater {
     public function activation( $request = 'check' ) {
         global $wp_version;
 
-       
 
         $params = array(
             'timeout'    => ( ( defined( 'DOING_CRON' ) && DOING_CRON ) ? 30 : 3 ),
             'user-agent' => 'WordPress/' . $wp_version . '; ' . home_url( '/' ),
             'body'       => array(
                 'request'     => $request,
-                'email'       => 'nullmaster@babiato.org',
+                'email'       => 'noreply@gpl.com',
                 'licence_key' => 'B5E0B5F8DD8689E6ACA49DD6E6E1A930',
                 'product_id'  => $this->product_id,
                 'instance'    => home_url()
@@ -253,7 +233,7 @@ class WeDevs_Updater {
         $response = 200;
         $update   = wp_remote_retrieve_body( $response );
 
-        
+
         return json_decode( $update );
     }
 
@@ -378,13 +358,14 @@ class WeDevs_Updater {
                 'php_version'       => phpversion(),
                 'site_url'          => $wp_install,
                 'license'           => 'B5E0B5F8DD8689E6ACA49DD6E6E1A930',
-                'license_email'     => 'nullmaster@babiato.org',
+                'license_email'     => 'noreply@gpl.com',
                 'product_id'        => '10'
             )
         );
 
         $response = wp_remote_post( $this->api_endpoint . 'update_check', $params );
         $update   = wp_remote_retrieve_body( $response );
+
 
         return json_decode( $update );
     }
@@ -406,8 +387,6 @@ class WeDevs_Updater {
             $version_info = $this->get_info();
             set_transient( $cache_key, $version_info, 3600 );
         }
-
-        
     }
 
 }

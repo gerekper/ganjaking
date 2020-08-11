@@ -199,7 +199,7 @@ class Campaign_Log_List extends \WP_List_Table
 
         $actions = [
             'delete' => sprintf(
-                '<a href="%s">%s</a>',
+                '<a class="mo-delete-prompt" href="%s">%s</a>',
                 $delete_href, __('Delete', 'mailoptin')
             ),
         ];

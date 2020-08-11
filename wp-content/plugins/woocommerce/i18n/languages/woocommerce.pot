@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the WooCommerce plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce 4.3.1\n"
+"Project-Id-Version: WooCommerce 4.3.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-07-21T10:45:30+00:00\n"
+"POT-Creation-Date: 2020-08-10T14:36:35+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: woocommerce\n"
@@ -21105,7 +21105,7 @@ msgstr ""
 #: includes/legacy/api/v3/class-wc-api-orders.php:1828
 #: includes/legacy/api/v3/class-wc-api-products.php:3049
 #: includes/legacy/api/v3/class-wc-api-taxes.php:465
-#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-controller.php:113
+#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-controller.php:142
 msgid "Unable to accept more than %s items for this request."
 msgstr ""
 
@@ -24375,10 +24375,10 @@ msgstr ""
 #: packages/woocommerce-admin/src/API/Reports/Taxes/Stats/Controller.php:312
 #: packages/woocommerce-admin/src/API/Reports/Variations/Controller.php:261
 #: packages/woocommerce-blocks/src/StoreApi/Routes/AbstractTermsRoute.php:31
-#: packages/woocommerce-blocks/src/StoreApi/Routes/ProductReviews.php:163
-#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:114
+#: packages/woocommerce-blocks/src/StoreApi/Routes/ProductReviews.php:164
+#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:115
 #: packages/woocommerce-rest-api/src/Controllers/Version1/class-wc-rest-taxes-v1-controller.php:658
-#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-crud-controller.php:512
+#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-crud-controller.php:514
 msgid "Current page of the collection."
 msgstr ""
 
@@ -24400,7 +24400,7 @@ msgstr ""
 #: packages/woocommerce-admin/src/API/Reports/Taxes/Stats/Controller.php:320
 #: packages/woocommerce-admin/src/API/Reports/Variations/Controller.php:269
 #: packages/woocommerce-rest-api/src/Controllers/Version1/class-wc-rest-taxes-v1-controller.php:666
-#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-crud-controller.php:520
+#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-crud-controller.php:522
 msgid "Maximum number of items to be returned in result set."
 msgstr ""
 
@@ -24420,7 +24420,7 @@ msgstr ""
 #: packages/woocommerce-admin/src/API/Reports/Taxes/Stats/Controller.php:329
 #: packages/woocommerce-admin/src/API/Reports/Variations/Controller.php:278
 #: packages/woocommerce-rest-api/src/Controllers/Version1/class-wc-rest-webhooks-v1-controller.php:699
-#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-crud-controller.php:535
+#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-crud-controller.php:537
 #: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-posts-controller.php:624
 #: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-product-reviews-controller.php:929
 msgid "Limit response to resources published after a given ISO8601 compliant date."
@@ -24442,7 +24442,7 @@ msgstr ""
 #: packages/woocommerce-admin/src/API/Reports/Taxes/Stats/Controller.php:335
 #: packages/woocommerce-admin/src/API/Reports/Variations/Controller.php:284
 #: packages/woocommerce-rest-api/src/Controllers/Version1/class-wc-rest-webhooks-v1-controller.php:705
-#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-crud-controller.php:541
+#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-crud-controller.php:543
 #: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-posts-controller.php:630
 msgid "Limit response to resources published before a given ISO8601 compliant date."
 msgstr ""
@@ -24566,12 +24566,12 @@ msgstr ""
 #: packages/woocommerce-admin/src/API/Reports/Taxes/Controller.php:263
 #: packages/woocommerce-admin/src/API/Reports/Taxes/Stats/Controller.php:341
 #: packages/woocommerce-admin/src/API/Reports/Variations/Controller.php:290
-#: packages/woocommerce-blocks/src/StoreApi/Routes/ProductReviews.php:189
-#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:194
+#: packages/woocommerce-blocks/src/StoreApi/Routes/ProductReviews.php:190
+#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:195
 #: packages/woocommerce-rest-api/src/Controllers/Version1/class-wc-rest-customers-v1-controller.php:890
 #: packages/woocommerce-rest-api/src/Controllers/Version1/class-wc-rest-taxes-v1-controller.php:682
 #: packages/woocommerce-rest-api/src/Controllers/Version1/class-wc-rest-webhooks-v1-controller.php:735
-#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-crud-controller.php:571
+#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-crud-controller.php:573
 #: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-posts-controller.php:660
 #: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-product-reviews-controller.php:959
 #: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-terms-controller.php:730
@@ -24594,12 +24594,12 @@ msgstr ""
 #: packages/woocommerce-admin/src/API/Reports/Taxes/Controller.php:270
 #: packages/woocommerce-admin/src/API/Reports/Taxes/Stats/Controller.php:348
 #: packages/woocommerce-admin/src/API/Reports/Variations/Controller.php:297
-#: packages/woocommerce-blocks/src/StoreApi/Routes/ProductReviews.php:197
-#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:202
+#: packages/woocommerce-blocks/src/StoreApi/Routes/ProductReviews.php:198
+#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:203
 #: packages/woocommerce-rest-api/src/Controllers/Version1/class-wc-rest-customers-v1-controller.php:898
 #: packages/woocommerce-rest-api/src/Controllers/Version1/class-wc-rest-taxes-v1-controller.php:690
 #: packages/woocommerce-rest-api/src/Controllers/Version1/class-wc-rest-webhooks-v1-controller.php:742
-#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-crud-controller.php:578
+#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-crud-controller.php:580
 #: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-posts-controller.php:667
 #: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-product-reviews-controller.php:968
 msgid "Sort collection by object attribute."
@@ -26173,8 +26173,8 @@ msgstr ""
 #. translators: %s: Class method name.
 #: packages/woocommerce-admin/src/API/Reports/Query.php:24
 #: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-crud-controller.php:43
-#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-crud-controller.php:114
-#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-crud-controller.php:127
+#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-crud-controller.php:116
+#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-crud-controller.php:129
 msgid "Method '%s' not implemented. Must be overridden in subclass."
 msgstr ""
 
@@ -26250,10 +26250,10 @@ msgstr ""
 
 #: packages/woocommerce-admin/src/API/Reports/Stock/Controller.php:447
 #: packages/woocommerce-blocks/src/StoreApi/Routes/AbstractTermsRoute.php:56
-#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:167
+#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:168
 #: packages/woocommerce-rest-api/src/Controllers/Version1/class-wc-rest-customers-v1-controller.php:865
 #: packages/woocommerce-rest-api/src/Controllers/Version1/class-wc-rest-webhooks-v1-controller.php:711
-#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-crud-controller.php:547
+#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-crud-controller.php:549
 #: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-posts-controller.php:636
 #: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-product-reviews-controller.php:939
 #: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-terms-controller.php:704
@@ -26262,21 +26262,21 @@ msgstr ""
 
 #: packages/woocommerce-admin/src/API/Reports/Stock/Controller.php:456
 #: packages/woocommerce-blocks/src/StoreApi/Routes/AbstractTermsRoute.php:66
-#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:177
+#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:178
 #: packages/woocommerce-rest-api/src/Controllers/Version1/class-wc-rest-webhooks-v1-controller.php:720
-#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-crud-controller.php:556
+#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-crud-controller.php:558
 #: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-posts-controller.php:645
 #: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-terms-controller.php:713
 msgid "Limit result set to specific ids."
 msgstr ""
 
 #: packages/woocommerce-admin/src/API/Reports/Stock/Controller.php:465
-#: packages/woocommerce-blocks/src/StoreApi/Routes/ProductReviews.php:182
-#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:187
+#: packages/woocommerce-blocks/src/StoreApi/Routes/ProductReviews.php:183
+#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:188
 #: packages/woocommerce-rest-api/src/Controllers/Version1/class-wc-rest-customers-v1-controller.php:883
 #: packages/woocommerce-rest-api/src/Controllers/Version1/class-wc-rest-taxes-v1-controller.php:675
 #: packages/woocommerce-rest-api/src/Controllers/Version1/class-wc-rest-webhooks-v1-controller.php:729
-#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-crud-controller.php:565
+#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-crud-controller.php:567
 #: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-posts-controller.php:654
 #: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-product-reviews-controller.php:955
 #: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-terms-controller.php:723
@@ -26284,15 +26284,15 @@ msgid "Offset the result set by a specific number of items."
 msgstr ""
 
 #: packages/woocommerce-admin/src/API/Reports/Stock/Controller.php:493
-#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:222
-#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-crud-controller.php:593
+#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:223
+#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-crud-controller.php:595
 #: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-posts-controller.php:684
 msgid "Limit result set to those of particular parent IDs."
 msgstr ""
 
 #: packages/woocommerce-admin/src/API/Reports/Stock/Controller.php:502
-#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:232
-#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-crud-controller.php:602
+#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:233
+#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-crud-controller.php:604
 #: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-posts-controller.php:693
 msgid "Limit result set to all items except those of a particular parent ID."
 msgstr ""
@@ -27211,14 +27211,14 @@ msgid "Scope under which the request is made; determines fields present in respo
 msgstr ""
 
 #: packages/woocommerce-blocks/src/StoreApi/Routes/AbstractTermsRoute.php:40
-#: packages/woocommerce-blocks/src/StoreApi/Routes/ProductReviews.php:172
-#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:123
+#: packages/woocommerce-blocks/src/StoreApi/Routes/ProductReviews.php:173
+#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:124
 msgid "Maximum number of items to be returned in result set. Defaults to no limit if left blank."
 msgstr ""
 
 #: packages/woocommerce-blocks/src/StoreApi/Routes/AbstractTermsRoute.php:49
-#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:133
-#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-crud-controller.php:529
+#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:134
+#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-crud-controller.php:531
 msgid "Limit results to those matching a string."
 msgstr ""
 
@@ -27234,50 +27234,50 @@ msgstr ""
 msgid "If true, empty terms will not be returned."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/CartAddItem.php:39
+#: packages/woocommerce-blocks/src/StoreApi/Routes/CartAddItem.php:40
 #: packages/woocommerce-blocks/src/StoreApi/Schemas/CartItemSchema.php:55
 msgid "The cart item product or variation ID."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/CartAddItem.php:47
+#: packages/woocommerce-blocks/src/StoreApi/Routes/CartAddItem.php:48
 #: packages/woocommerce-blocks/src/StoreApi/Schemas/CartItemSchema.php:61
 msgid "Quantity of this item in the cart."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/CartAddItem.php:55
+#: packages/woocommerce-blocks/src/StoreApi/Routes/CartAddItem.php:56
 #: packages/woocommerce-blocks/src/StoreApi/Schemas/CartItemSchema.php:132
 msgid "Chosen attributes (for variations)."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/CartAddItem.php:62
+#: packages/woocommerce-blocks/src/StoreApi/Routes/CartAddItem.php:63
 #: packages/woocommerce-blocks/src/StoreApi/Schemas/CartItemSchema.php:140
 msgid "Variation attribute name."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/CartAddItem.php:67
+#: packages/woocommerce-blocks/src/StoreApi/Routes/CartAddItem.php:68
 #: packages/woocommerce-blocks/src/StoreApi/Schemas/CartItemSchema.php:146
 msgid "Variation attribute value."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/CartAddItem.php:90
-#: packages/woocommerce-blocks/src/StoreApi/Routes/CartItems.php:87
+#: packages/woocommerce-blocks/src/StoreApi/Routes/CartAddItem.php:91
+#: packages/woocommerce-blocks/src/StoreApi/Routes/CartItems.php:90
 msgid "Cannot create an existing cart item."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/CartApplyCoupon.php:39
+#: packages/woocommerce-blocks/src/StoreApi/Routes/CartApplyCoupon.php:40
 #: packages/woocommerce-blocks/src/StoreApi/Routes/CartCouponsByCode.php:37
-#: packages/woocommerce-blocks/src/StoreApi/Routes/CartRemoveCoupon.php:39
+#: packages/woocommerce-blocks/src/StoreApi/Routes/CartRemoveCoupon.php:40
 msgid "Unique identifier for the coupon within the cart."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/CartApplyCoupon.php:57
-#: packages/woocommerce-blocks/src/StoreApi/Routes/CartCoupons.php:89
-#: packages/woocommerce-blocks/src/StoreApi/Routes/CartRemoveCoupon.php:57
+#: packages/woocommerce-blocks/src/StoreApi/Routes/CartApplyCoupon.php:58
+#: packages/woocommerce-blocks/src/StoreApi/Routes/CartCoupons.php:92
+#: packages/woocommerce-blocks/src/StoreApi/Routes/CartRemoveCoupon.php:58
 msgid "Coupons are disabled."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/CartCouponsByCode.php:67
-#: packages/woocommerce-blocks/src/StoreApi/Routes/CartCouponsByCode.php:84
+#: packages/woocommerce-blocks/src/StoreApi/Routes/CartCouponsByCode.php:69
+#: packages/woocommerce-blocks/src/StoreApi/Routes/CartCouponsByCode.php:86
 msgid "Coupon does not exist in the cart."
 msgstr ""
 
@@ -27287,38 +27287,38 @@ msgstr ""
 msgid "Unique identifier for the item within the cart."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/CartItemsByKey.php:73
-#: packages/woocommerce-blocks/src/StoreApi/Routes/CartItemsByKey.php:113
+#: packages/woocommerce-blocks/src/StoreApi/Routes/CartItemsByKey.php:76
+#: packages/woocommerce-blocks/src/StoreApi/Routes/CartItemsByKey.php:116
 #: packages/woocommerce-blocks/src/StoreApi/Utilities/CartController.php:119
 msgid "Cart item does not exist."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/CartRemoveCoupon.php:66
+#: packages/woocommerce-blocks/src/StoreApi/Routes/CartRemoveCoupon.php:67
 msgid "Invalid coupon code."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/CartRemoveCoupon.php:70
+#: packages/woocommerce-blocks/src/StoreApi/Routes/CartRemoveCoupon.php:71
 msgid "Coupon cannot be removed because it is not already applied to the cart."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/CartRemoveItem.php:39
+#: packages/woocommerce-blocks/src/StoreApi/Routes/CartRemoveItem.php:40
 msgid "Unique identifier (key) for the cart item."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/CartRemoveItem.php:61
+#: packages/woocommerce-blocks/src/StoreApi/Routes/CartRemoveItem.php:62
 msgid "Cart item no longer exists or is invalid."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/CartSelectShippingRate.php:39
+#: packages/woocommerce-blocks/src/StoreApi/Routes/CartSelectShippingRate.php:40
 msgid "The ID of the package being shipped."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/CartSelectShippingRate.php:44
+#: packages/woocommerce-blocks/src/StoreApi/Routes/CartSelectShippingRate.php:45
 msgid "The chosen rate ID for the package."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/CartSelectShippingRate.php:63
-#: packages/woocommerce-blocks/src/StoreApi/Routes/CartUpdateShipping.php:120
+#: packages/woocommerce-blocks/src/StoreApi/Routes/CartSelectShippingRate.php:64
+#: packages/woocommerce-blocks/src/StoreApi/Routes/CartUpdateShipping.php:121
 #: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-shipping-zones-controller-base.php:61
 #: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-shipping-zones-controller-base.php:79
 #: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-shipping-zones-controller-base.php:97
@@ -27326,103 +27326,103 @@ msgstr ""
 msgid "Shipping is disabled."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/CartSelectShippingRate.php:67
+#: packages/woocommerce-blocks/src/StoreApi/Routes/CartSelectShippingRate.php:68
 msgid "Invalid Package ID."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/CartUpdateItem.php:39
+#: packages/woocommerce-blocks/src/StoreApi/Routes/CartUpdateItem.php:40
 msgid "Unique identifier (key) for the cart item to update."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/CartUpdateItem.php:43
+#: packages/woocommerce-blocks/src/StoreApi/Routes/CartUpdateItem.php:44
 msgid "New quantity of the item in the cart."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/CartUpdateShipping.php:48
+#: packages/woocommerce-blocks/src/StoreApi/Routes/CartUpdateShipping.php:49
 #: packages/woocommerce-rest-api/src/Controllers/Version1/class-wc-rest-customers-v1-controller.php:656
 #: packages/woocommerce-rest-api/src/Controllers/Version2/class-wc-rest-customers-v2-controller.php:160
 #: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-customers-controller.php:115
 msgid "Customer first name."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/CartUpdateShipping.php:56
+#: packages/woocommerce-blocks/src/StoreApi/Routes/CartUpdateShipping.php:57
 #: packages/woocommerce-rest-api/src/Controllers/Version1/class-wc-rest-customers-v1-controller.php:664
 #: packages/woocommerce-rest-api/src/Controllers/Version2/class-wc-rest-customers-v2-controller.php:168
 #: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-customers-controller.php:123
 msgid "Customer last name."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/CartUpdateShipping.php:64
+#: packages/woocommerce-blocks/src/StoreApi/Routes/CartUpdateShipping.php:65
 #: packages/woocommerce-blocks/src/StoreApi/Schemas/CartShippingRateSchema.php:51
 msgid "First line of the address being shipped to."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/CartUpdateShipping.php:71
+#: packages/woocommerce-blocks/src/StoreApi/Routes/CartUpdateShipping.php:72
 #: packages/woocommerce-blocks/src/StoreApi/Schemas/CartShippingRateSchema.php:57
 msgid "Second line of the address being shipped to."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/CartUpdateShipping.php:78
+#: packages/woocommerce-blocks/src/StoreApi/Routes/CartUpdateShipping.php:79
 #: packages/woocommerce-blocks/src/StoreApi/Schemas/CartShippingRateSchema.php:63
 msgid "City of the address being shipped to."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/CartUpdateShipping.php:85
+#: packages/woocommerce-blocks/src/StoreApi/Routes/CartUpdateShipping.php:86
 #: packages/woocommerce-blocks/src/StoreApi/Schemas/CartShippingRateSchema.php:69
 msgid "ISO code, or name, for the state, province, or district of the address being shipped to."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/CartUpdateShipping.php:92
+#: packages/woocommerce-blocks/src/StoreApi/Routes/CartUpdateShipping.php:93
 #: packages/woocommerce-blocks/src/StoreApi/Schemas/CartShippingRateSchema.php:75
 msgid "Zip or Postcode of the address being shipped to."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/CartUpdateShipping.php:99
+#: packages/woocommerce-blocks/src/StoreApi/Routes/CartUpdateShipping.php:100
 #: packages/woocommerce-blocks/src/StoreApi/Schemas/CartShippingRateSchema.php:81
 msgid "ISO code for the country of the address being shipped to."
 msgstr ""
 
 #. translators: 1: valid country codes
-#: packages/woocommerce-blocks/src/StoreApi/Routes/CartUpdateShipping.php:163
+#: packages/woocommerce-blocks/src/StoreApi/Routes/CartUpdateShipping.php:164
 msgid "No destination country code was given. Please provide one of the following: %s"
 msgstr ""
 
 #. translators: 1: valid country codes
-#: packages/woocommerce-blocks/src/StoreApi/Routes/CartUpdateShipping.php:181
+#: packages/woocommerce-blocks/src/StoreApi/Routes/CartUpdateShipping.php:182
 msgid "Destination country code is not valid. Please enter one of the following: %s"
 msgstr ""
 
 #. translators: 1: valid states
-#: packages/woocommerce-blocks/src/StoreApi/Routes/CartUpdateShipping.php:208
+#: packages/woocommerce-blocks/src/StoreApi/Routes/CartUpdateShipping.php:209
 msgid "Destination state is not valid. Please enter one of the following: %s"
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/Checkout.php:77
+#: packages/woocommerce-blocks/src/StoreApi/Routes/Checkout.php:80
 msgid "Data to pass through to the payment method when processing payment."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/Checkout.php:153
+#: packages/woocommerce-blocks/src/StoreApi/Routes/Checkout.php:156
 msgid "This session has no orders pending payment."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/Checkout.php:402
+#: packages/woocommerce-blocks/src/StoreApi/Routes/Checkout.php:405
 msgid "Invalid payment result received from payment method."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/Checkout.php:427
+#: packages/woocommerce-blocks/src/StoreApi/Routes/Checkout.php:430
 msgid "No payment method provided."
 msgstr ""
 
 #. Translators: %s list of gateway ids.
-#: packages/woocommerce-blocks/src/StoreApi/Routes/Checkout.php:437
+#: packages/woocommerce-blocks/src/StoreApi/Routes/Checkout.php:440
 msgid "Invalid payment method provided. Please provide one of the following: %s"
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/Checkout.php:463
+#: packages/woocommerce-blocks/src/StoreApi/Routes/Checkout.php:466
 msgid "This payment gateway is not available."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/ProductAttributesById.php:65
+#: packages/woocommerce-blocks/src/StoreApi/Routes/ProductAttributesById.php:66
 msgid "Invalid attribute ID."
 msgstr ""
 
@@ -27430,142 +27430,142 @@ msgstr ""
 msgid "Unique identifier for the attribute."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/ProductAttributeTerms.php:59
+#: packages/woocommerce-blocks/src/StoreApi/Routes/ProductAttributeTerms.php:60
 msgid "Attribute does not exist."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/ProductCategoriesById.php:65
+#: packages/woocommerce-blocks/src/StoreApi/Routes/ProductCategoriesById.php:66
 msgid "Invalid category ID."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/ProductCollectionData.php:151
+#: packages/woocommerce-blocks/src/StoreApi/Routes/ProductCollectionData.php:152
 msgid "If true, calculates the minimum and maximum product prices for the collection."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/ProductCollectionData.php:157
+#: packages/woocommerce-blocks/src/StoreApi/Routes/ProductCollectionData.php:158
 msgid "If requested, calculates attribute term counts for products in the collection."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/ProductCollectionData.php:163
+#: packages/woocommerce-blocks/src/StoreApi/Routes/ProductCollectionData.php:164
 msgid "Taxonomy name."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/ProductCollectionData.php:169
+#: packages/woocommerce-blocks/src/StoreApi/Routes/ProductCollectionData.php:170
 msgid "Query type being performed which may affect counts. Valid values include \"and\" and \"or\"."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/ProductCollectionData.php:181
+#: packages/woocommerce-blocks/src/StoreApi/Routes/ProductCollectionData.php:182
 msgid "If true, calculates rating counts for products in the collection."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/ProductReviews.php:211
+#: packages/woocommerce-blocks/src/StoreApi/Routes/ProductReviews.php:212
 msgid "Limit result set to reviews from specific category IDs."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/ProductReviews.php:218
+#: packages/woocommerce-blocks/src/StoreApi/Routes/ProductReviews.php:219
 msgid "Limit result set to reviews from specific product IDs."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:140
+#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:141
 msgid "Limit response to resources created after a given ISO8601 compliant date."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:147
+#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:148
 msgid "Limit response to resources created before a given ISO8601 compliant date."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:154
+#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:155
 msgid "When limiting response using after/before, which date column to compare against."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:242
+#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:243
 #: packages/woocommerce-rest-api/src/Controllers/Version1/class-wc-rest-products-v1-controller.php:2596
 #: packages/woocommerce-rest-api/src/Controllers/Version2/class-wc-rest-products-v2-controller.php:2123
 msgid "Limit result set to products assigned a specific type."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:250
+#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:251
 #: packages/woocommerce-rest-api/src/Controllers/Version2/class-wc-rest-products-v2-controller.php:2130
 msgid "Limit result set to products with specific SKU(s). Use commas to separate."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:257
+#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:258
 #: packages/woocommerce-rest-api/src/Controllers/Version2/class-wc-rest-products-v2-controller.php:2136
 msgid "Limit result set to featured products."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:264
+#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:265
 #: packages/woocommerce-rest-api/src/Controllers/Version1/class-wc-rest-products-v1-controller.php:2603
 #: packages/woocommerce-rest-api/src/Controllers/Version2/class-wc-rest-products-v2-controller.php:2142
 msgid "Limit result set to products assigned a specific category ID."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:271
+#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:272
 msgid "Operator to compare product category terms."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:280
+#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:281
 #: packages/woocommerce-rest-api/src/Controllers/Version1/class-wc-rest-products-v1-controller.php:2609
 #: packages/woocommerce-rest-api/src/Controllers/Version2/class-wc-rest-products-v2-controller.php:2148
 msgid "Limit result set to products assigned a specific tag ID."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:287
+#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:288
 msgid "Operator to compare product tags."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:296
+#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:297
 #: packages/woocommerce-rest-api/src/Controllers/Version2/class-wc-rest-products-v2-controller.php:2189
 msgid "Limit result set to products on sale."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:303
+#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:304
 msgid "Limit result set to products based on a minimum price, provided using the smallest unit of the currency."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:310
+#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:311
 msgid "Limit result set to products based on a maximum price, provided using the smallest unit of the currency."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:317
+#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:318
 #: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-product-variations-controller.php:851
 #: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-products-controller.php:1313
 msgid "Limit result set to products with specified stock status."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:325
+#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:326
 msgid "Limit result set to products with selected global attributes."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:331
+#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:332
 msgid "Attribute taxonomy name."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:336
+#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:337
 msgid "List of attribute term IDs."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:344
+#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:345
 msgid "List of attribute slug(s). If a term ID is provided, this will be ignored."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:352
+#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:353
 msgid "Operator to compare product attribute terms."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:362
+#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:363
 msgid "The logical relationship between attributes when filtering across multiple at once."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:371
+#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:372
 msgid "Determines if hidden or visible catalog products are shown."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:379
+#: packages/woocommerce-blocks/src/StoreApi/Routes/Products.php:380
 msgid "Limit result set to products with a certain average rating."
 msgstr ""
 
-#: packages/woocommerce-blocks/src/StoreApi/Routes/ProductsById.php:65
+#: packages/woocommerce-blocks/src/StoreApi/Routes/ProductsById.php:66
 #: packages/woocommerce-rest-api/src/Controllers/Version1/class-wc-rest-product-reviews-v1-controller.php:209
 #: packages/woocommerce-rest-api/src/Controllers/Version1/class-wc-rest-product-reviews-v1-controller.php:234
 #: packages/woocommerce-rest-api/src/Controllers/Version1/class-wc-rest-product-reviews-v1-controller.php:260
@@ -28415,7 +28415,7 @@ msgstr ""
 #: packages/woocommerce-rest-api/src/Controllers/Version1/class-wc-rest-orders-v1-controller.php:828
 #: packages/woocommerce-rest-api/src/Controllers/Version1/class-wc-rest-products-v1-controller.php:739
 #: packages/woocommerce-rest-api/src/Controllers/Version1/class-wc-rest-webhooks-v1-controller.php:318
-#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-crud-controller.php:188
+#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-crud-controller.php:190
 #: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-order-notes-controller.php:73
 #: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-posts-controller.php:175
 msgid "Cannot create existing %s."
@@ -28946,7 +28946,7 @@ msgstr ""
 #: packages/woocommerce-rest-api/src/Controllers/Version1/class-wc-rest-webhooks-v1-controller.php:470
 #: packages/woocommerce-rest-api/src/Controllers/Version2/class-wc-rest-product-variations-v2-controller.php:555
 #: packages/woocommerce-rest-api/src/Controllers/Version2/class-wc-rest-products-v2-controller.php:1454
-#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-crud-controller.php:466
+#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-crud-controller.php:468
 #: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-posts-controller.php:467
 msgid "The %s cannot be deleted."
 msgstr ""
@@ -29606,7 +29606,7 @@ msgstr ""
 #: packages/woocommerce-rest-api/src/Controllers/Version1/class-wc-rest-products-v1-controller.php:1656
 #: packages/woocommerce-rest-api/src/Controllers/Version2/class-wc-rest-product-variations-v2-controller.php:512
 #: packages/woocommerce-rest-api/src/Controllers/Version2/class-wc-rest-products-v2-controller.php:1387
-#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-crud-controller.php:435
+#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-crud-controller.php:437
 #: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-posts-controller.php:438
 msgid "Sorry, you are not allowed to delete %s."
 msgstr ""
@@ -29615,7 +29615,7 @@ msgstr ""
 #: packages/woocommerce-rest-api/src/Controllers/Version1/class-wc-rest-products-v1-controller.php:1688
 #: packages/woocommerce-rest-api/src/Controllers/Version2/class-wc-rest-product-variations-v2-controller.php:530
 #: packages/woocommerce-rest-api/src/Controllers/Version2/class-wc-rest-products-v2-controller.php:1425
-#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-crud-controller.php:449
+#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-crud-controller.php:451
 #: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-posts-controller.php:451
 msgid "The %s does not support trashing."
 msgstr ""
@@ -29624,7 +29624,7 @@ msgstr ""
 #: packages/woocommerce-rest-api/src/Controllers/Version1/class-wc-rest-products-v1-controller.php:1694
 #: packages/woocommerce-rest-api/src/Controllers/Version2/class-wc-rest-product-variations-v2-controller.php:541
 #: packages/woocommerce-rest-api/src/Controllers/Version2/class-wc-rest-products-v2-controller.php:1438
-#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-crud-controller.php:456
+#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-crud-controller.php:458
 #: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-posts-controller.php:457
 msgid "The %s has already been deleted."
 msgstr ""
@@ -30387,9 +30387,9 @@ msgstr ""
 #: packages/woocommerce-rest-api/src/Controllers/Version1/class-wc-rest-webhooks-v1-controller.php:461
 #: packages/woocommerce-rest-api/src/Controllers/Version2/class-wc-rest-product-variations-v2-controller.php:491
 #: packages/woocommerce-rest-api/src/Controllers/Version2/class-wc-rest-products-v2-controller.php:1354
-#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-crud-controller.php:140
-#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-crud-controller.php:235
-#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-crud-controller.php:418
+#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-crud-controller.php:142
+#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-crud-controller.php:237
+#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-crud-controller.php:420
 #: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-posts-controller.php:153
 msgid "Invalid ID."
 msgstr ""
@@ -30602,10 +30602,10 @@ msgstr ""
 
 #: packages/woocommerce-rest-api/src/Controllers/Version2/class-wc-rest-payment-gateways-v2-controller.php:187
 #: packages/woocommerce-rest-api/src/Controllers/Version2/class-wc-rest-shipping-zone-methods-v2-controller.php:314
-#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-controller.php:262
-#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-controller.php:280
-#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-controller.php:303
-#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-controller.php:346
+#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-controller.php:291
+#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-controller.php:309
+#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-controller.php:332
+#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-controller.php:375
 msgid "An invalid setting value was passed."
 msgstr ""
 
@@ -30678,10 +30678,10 @@ msgid "A human readable description for the setting used in interfaces."
 msgstr ""
 
 #: packages/woocommerce-rest-api/src/Controllers/Version2/class-wc-rest-payment-gateways-v2-controller.php:418
-#: packages/woocommerce-rest-api/src/Controllers/Version2/class-wc-rest-setting-options-v2-controller.php:561
+#: packages/woocommerce-rest-api/src/Controllers/Version2/class-wc-rest-setting-options-v2-controller.php:567
 #: packages/woocommerce-rest-api/src/Controllers/Version2/class-wc-rest-shipping-zone-methods-v2-controller.php:505
 #: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-payment-gateways-controller.php:190
-#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-setting-options-controller.php:230
+#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-setting-options-controller.php:236
 msgid "Type of setting."
 msgstr ""
 
@@ -30694,26 +30694,26 @@ msgid "Setting value."
 msgstr ""
 
 #: packages/woocommerce-rest-api/src/Controllers/Version2/class-wc-rest-payment-gateways-v2-controller.php:430
-#: packages/woocommerce-rest-api/src/Controllers/Version2/class-wc-rest-setting-options-v2-controller.php:537
+#: packages/woocommerce-rest-api/src/Controllers/Version2/class-wc-rest-setting-options-v2-controller.php:540
 #: packages/woocommerce-rest-api/src/Controllers/Version2/class-wc-rest-shipping-zone-methods-v2-controller.php:517
 #: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-payment-gateways-controller.php:202
-#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-setting-options-controller.php:206
+#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-setting-options-controller.php:209
 msgid "Default value for the setting."
 msgstr ""
 
 #: packages/woocommerce-rest-api/src/Controllers/Version2/class-wc-rest-payment-gateways-v2-controller.php:436
-#: packages/woocommerce-rest-api/src/Controllers/Version2/class-wc-rest-setting-options-v2-controller.php:543
+#: packages/woocommerce-rest-api/src/Controllers/Version2/class-wc-rest-setting-options-v2-controller.php:549
 #: packages/woocommerce-rest-api/src/Controllers/Version2/class-wc-rest-shipping-zone-methods-v2-controller.php:523
 #: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-payment-gateways-controller.php:208
-#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-setting-options-controller.php:212
+#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-setting-options-controller.php:218
 msgid "Additional help text shown to the user about the setting."
 msgstr ""
 
 #: packages/woocommerce-rest-api/src/Controllers/Version2/class-wc-rest-payment-gateways-v2-controller.php:442
-#: packages/woocommerce-rest-api/src/Controllers/Version2/class-wc-rest-setting-options-v2-controller.php:552
+#: packages/woocommerce-rest-api/src/Controllers/Version2/class-wc-rest-setting-options-v2-controller.php:558
 #: packages/woocommerce-rest-api/src/Controllers/Version2/class-wc-rest-shipping-zone-methods-v2-controller.php:529
 #: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-payment-gateways-controller.php:214
-#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-setting-options-controller.php:221
+#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-setting-options-controller.php:227
 msgid "Placeholder text to be displayed in text inputs."
 msgstr ""
 
@@ -30835,8 +30835,8 @@ msgstr ""
 msgid "Invalid setting."
 msgstr ""
 
-#: packages/woocommerce-rest-api/src/Controllers/Version2/class-wc-rest-setting-options-v2-controller.php:571
-#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-setting-options-controller.php:240
+#: packages/woocommerce-rest-api/src/Controllers/Version2/class-wc-rest-setting-options-v2-controller.php:577
+#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-setting-options-controller.php:246
 msgid "Array of options (key value pairs) for inputs such as select, multiselect, and radio buttons."
 msgstr ""
 
@@ -31526,15 +31526,15 @@ msgstr ""
 msgid "The date the webhook was last modified, as GMT."
 msgstr ""
 
-#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-controller.php:406
+#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-controller.php:435
 msgid "List of created resources."
 msgstr ""
 
-#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-controller.php:414
+#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-controller.php:443
 msgid "List of updated resources."
 msgstr ""
 
-#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-controller.php:422
+#: packages/woocommerce-rest-api/src/Controllers/Version3/class-wc-rest-controller.php:451
 msgid "List of delete resources."
 msgstr ""
 

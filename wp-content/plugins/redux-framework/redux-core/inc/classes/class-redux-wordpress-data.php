@@ -63,10 +63,11 @@ if ( ! class_exists( 'Redux_WordPress_Data', false ) ) {
 		 * @param bool       $type Type.
 		 * @param array      $args Args.
 		 * @param string|int $current_value Current value.
+		 * @param bool       $ajax Tells if this is a AJAX call.
 		 *
 		 * @return array|mixed|string
 		 */
-		public function get( $type = false, $args = array(), $current_value = '' ) {
+		public function get( $type = false, $args = array(), $current_value = '', $ajax = false ) {
 			$opt_name = $this->opt_name;
 
 			/**
@@ -103,7 +104,7 @@ if ( ! class_exists( 'Redux_WordPress_Data', false ) ) {
 					case 'categories':
 					case 'category':
 						$this->maybe_translate( $current_value, 'category' );
-						$terms = get_categories( array( 'object_ids' => $current_value ) );
+						$terms = get_terms( array( 'include' => $current_value ) );
 						if ( ! empty( $terms ) ) {
 							foreach ( $terms as $term ) {
 								$current_data[ $term->term_id ] = $term->name;
@@ -162,7 +163,13 @@ if ( ! class_exists( 'Redux_WordPress_Data', false ) ) {
 						if ( ! is_array( $current_value ) ) {
 							$current_value = array( $current_value );
 						}
-						$posts = get_posts( array( 'post__in' => $current_value ) );
+						// Add post_type any to get all posts IDs.
+						$posts = get_posts(
+							array(
+								'post__in'  => $current_value,
+								'post_type' => 'any',
+							)
+						);
 						if ( ! empty( $posts ) ) {
 							foreach ( $posts as $post ) {
 								$current_data[ $post->ID ] = $post->post_title;
@@ -199,9 +206,19 @@ if ( ! class_exists( 'Redux_WordPress_Data', false ) ) {
 
 							$current_data[ $k ] = $v;
 						}
-
 						break;
 				}
+			}
+
+			// If ajax is enabled AND empty, then get current set products only avoid query to get too many posts.
+			if ( $ajax && ! wp_doing_ajax() ) {
+				// Dummy is needed otherwise empty.
+				if ( empty( $current_data ) ) {
+					$current_data = array(
+						'dummy' => '',
+					);
+				}
+				return $current_data;
 			}
 
 			// phpcs:ignore Squiz.PHP.CommentedOutCode
@@ -399,7 +416,6 @@ if ( ! class_exists( 'Redux_WordPress_Data', false ) ) {
 						case 'capabilities':
 						case 'capability':
 							global $wp_roles;
-
 							foreach ( $wp_roles->roles as $role ) {
 								foreach ( $role['capabilities'] as $key => $cap ) {
 									$data[ $key ] = ucwords( str_replace( '_', ' ', $key ) );

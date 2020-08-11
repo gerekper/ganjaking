@@ -26,7 +26,6 @@ function mailoptin_mo_uninstall_function()
         delete_option(MAILOPTIN_CONNECTIONS_DB_OPTION_NAME);
         delete_option(MAILOPTIN_SETTINGS_DB_OPTION_NAME);
         delete_option(MO_OPTIN_CAMPAIGN_WP_OPTION_NAME);
-        delete_option(MO_OPTIN_TEMPLATE_WP_OPTION_NAME);
 
         delete_option('mo_wp_user_unsubscribers');
         delete_option('mo_mailjet_double_optin_bucket');

@@ -45,12 +45,17 @@ class Hubspot extends OAuth2
     {
         parent::initialize();
 
+        $refresh_token = $this->getStoredData('refresh_token');
+
+        if (empty($refresh_token)) {
+            $refresh_token = $this->config->get('refresh_token');
+        }
+
         $this->tokenRefreshParameters = [
             'grant_type'    => 'refresh_token',
-            'refresh_token' => $this->getStoredData('refresh_token'),
+            'refresh_token' => $refresh_token,
             'client_id'     => $this->clientId,
             'client_secret' => $this->clientSecret,
-            'redirect_uri'  => $this->callback,
         ];
 
         /** Hubspot explicitly require access token to be set as Bearer.  */

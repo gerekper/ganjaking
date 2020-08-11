@@ -5,7 +5,19 @@
  */
 defined( 'WYSIJA' ) || die( 'Restricted access' );
 
-require_once ABSPATH . WPINC . '/class-phpmailer.php';
+if (!class_exists('PHPMailer')) {
+  if (is_readable(ABSPATH . WPINC . '/PHPMailer/PHPMailer.php')) {
+    // WordPress 5.5+
+    require_once ABSPATH . WPINC . '/PHPMailer/PHPMailer.php';
+    require_once ABSPATH . WPINC . '/PHPMailer/Exception.php';
+    class_alias('\PHPMailer\PHPMailer\PHPMailer', 'PHPMailer');
+    class_alias('\PHPMailer\PHPMailer\Exception', 'phpmailerException');
+  } else {
+    // WordPress < 5.5
+    require_once ABSPATH . WPINC . '/class-phpmailer.php';
+  }
+}
+
 require_once dirname(__FILE__) . '/blacklist.php';
 
 class WYSIJA_help_mailer extends PHPMailer {
@@ -175,7 +187,6 @@ class WYSIJA_help_mailer extends PHPMailer {
 				break;
 		}//endswitch
 
-		$this->PluginDir =  dirname(__FILE__).DS;
 		$this->CharSet = strtolower($this->config->getValue('advanced_charset'));
 		if(empty($this->CharSet)){
 			$this->CharSet = 'utf-8';

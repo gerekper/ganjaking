@@ -147,11 +147,11 @@ class PM_BuddyPress {
     static function notice() {
 
         if ( !self::$pm ) {
-            echo sprintf( __('<div class="error"><p><strong>WP Project Manager</strong> is not installed or inactive. Please install/activate the plugin for Project Manager - BuddyPress add-on to work.</p> If you do not have the pro version, <strong><a href="%s">you can use the free version</a>.</strong></div>'), get_site_url() . '/wp-admin/plugin-install.php?tab=search&s=wp+project+manager' );
+            printf( __('<div class="error"><p><strong>WP Project Manager</strong> is not installed or inactive. Please install/activate the plugin for Project Manager - BuddyPress add-on to work.</p> If you do not have the pro version, <strong><a href="%s">you can use the free version</a>.</strong></div>', 'pm-pro'), get_site_url() . '/wp-admin/plugin-install.php?tab=search&s=wp+project+manager' );
         }
 
         if ( !self::$buddypress ) {
-            echo sprintf( __('<div class="error"><p><strong>BuddyPress</strong> is missing. Please <strong><a href="%s">install BuddyPress</a></strong> for Project Manager - BuddyPress add-on to work.</p></div>'), get_site_url() . '/wp-admin/plugin-install.php?tab=search&type=term&s=buddypress' );
+            printf( __('<div class="error"><p><strong>BuddyPress</strong> is missing. Please <strong><a href="%s">install BuddyPress</a></strong> for Project Manager - BuddyPress add-on to work.</p></div>', 'pm-pro'), get_site_url() . '/wp-admin/plugin-install.php?tab=search&type=term&s=buddypress' );
         }
     }
 

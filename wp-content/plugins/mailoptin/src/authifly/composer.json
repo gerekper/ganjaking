@@ -30,7 +30,8 @@
       "VerticalResponse.php",
       "Facebook.php",
       "Hubspot.php",
-      "Zoho.php"
+      "Zoho.php",
+      "Infusionsoft.php"
     ]
   }
 }

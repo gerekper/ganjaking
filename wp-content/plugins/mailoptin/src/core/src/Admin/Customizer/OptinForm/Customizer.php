@@ -49,6 +49,8 @@ class Customizer
     /** @var string ID of optin form integration customizer section. */
     public $success_section_id = 'mo_success_section';
 
+    public $embed_section_id = 'mo_embed_section';
+
     /** @var string panel ID of display rules. */
     public $display_rules_panel_id = 'mo_display_rules_panel_section';
 
@@ -492,7 +494,8 @@ class Customizer
                 $this->query_filter_display_rule_section_id,
                 $this->user_targeting_display_rule_section_id,
                 $this->schedule_display_rule_section_id,
-                $this->success_section_id
+                $this->success_section_id,
+                $this->embed_section_id
             )
         );
 
@@ -771,6 +774,14 @@ class Customizer
 
         $this->display_rules_sections($wp_customize);
 
+        if ( ! apply_filters('mo_optin_customizer_disable_embed_section', false)) {
+            $wp_customize->add_section($this->embed_section_id, array(
+                    'title'    => __('Embed & Shortcode', 'mailoptin'),
+                    'priority' => 999999999,
+                )
+            );
+        }
+
         do_action('mo_optin_after_display_rules_customizer_section', $wp_customize, $this);
     }
 
@@ -833,6 +844,7 @@ class Customizer
         $instance->integration_settings();
         $instance->after_conversion_settings();
         $instance->display_rules_settings();
+        $instance->embed_settings();
 
         do_action('mo_optin_customizer_settings', $wp_customize, $option_prefix, $this);
     }
@@ -859,6 +871,7 @@ class Customizer
         $instance->page_filter_display_rule_controls();
         $instance->query_filter_display_rule_controls();
         $instance->user_filter_display_rule_controls();
+        $instance->embed_shortcode_control();
 
         do_action('mo_optin_after_customizer_controls', $instance, $wp_customize, $option_prefix, $this, $optin_class_instance);
     }

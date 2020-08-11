@@ -128,6 +128,7 @@ class Subscription extends AbstractMailChimpConnect
     public function subscribe()
     {
         try {
+
             $name_split = self::get_first_last_names($this->name);
 
             $optin_status = $this->is_double_optin() ? 'pending' : 'subscribed';

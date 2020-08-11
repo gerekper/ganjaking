@@ -120,7 +120,7 @@ class Connect extends AbstractKlaviyoConnect implements ConnectionInterface
                 '$image'        => __('Photo URL', 'mailoptin'),
             ];
 
-            return $merge_fields_array;
+            return apply_filters('mo_connections_klaviyo_custom_fields', $merge_fields_array);
 
         } catch (\Exception $e) {
             self::save_optin_error_log($e->getMessage(), 'klaviyo');

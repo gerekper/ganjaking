@@ -6,7 +6,7 @@ namespace WeDevs\PM_Pro\Core\Notifications\Emails;
 */
 
 use WeDevs\PM\Core\Notifications\Email;
-use WeDevs\PM_Pro\User\Models\User;
+use WeDevs\PM\User\Models\User;
 use WeDevs\PM\User\Models\User_Role;
 
 class Daily_Digest extends Email {

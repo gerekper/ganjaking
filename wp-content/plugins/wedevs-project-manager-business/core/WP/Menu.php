@@ -22,12 +22,12 @@ class Menu {
 		global $submenu;
 
         $has_manage_capability = pm_has_manage_capability();
-		$submenu['pm_projects']['calendar'] = [ __( 'Calendar', 'pm' ), self::$capability, 'admin.php?page=pm_projects#/calendar' ];
+		$submenu['pm_projects']['calendar'] = [ __( 'Calendar', 'pm-pro' ), self::$capability, 'admin.php?page=pm_projects#/calendar' ];
 
         if ( $has_manage_capability ) {
-            $submenu['pm_projects'][] = [ __( 'Progress', 'pm' ), self::$capability, 'admin.php?page=pm_projects#/progress' ];
-            $submenu['pm_projects']['reports'] = [ __( 'Reports', 'pm' ), self::$capability, 'admin.php?page=pm_projects#/reports' ];
-            $submenu['pm_projects'][] = [ __( 'Modules', 'pm' ), self::$capability, 'admin.php?page=pm_projects#/modules' ];
+            $submenu['pm_projects'][] = [ __( 'Progress', 'pm-pro' ), self::$capability, 'admin.php?page=pm_projects#/progress' ];
+            $submenu['pm_projects']['reports'] = [ __( 'Reports', 'pm-pro' ), self::$capability, 'admin.php?page=pm_projects#/reports' ];
+            $submenu['pm_projects'][] = [ __( 'Modules', 'pm-pro' ), self::$capability, 'admin.php?page=pm_projects#/modules' ];
         }
 
 		add_action( 'admin_print_styles-' . $home, array( 'WeDevs\\PM_Pro\\Core\WP\\Menu', 'scripts' ) );
@@ -41,7 +41,7 @@ class Menu {
 	}
 
     public function create_frontend_menu($wp_admin_bar) {
-        global $wp_admin_bar, $wpdb;
+        global $wp_admin_bar;
 
         /* Check that the admin bar is showing and user has permission... */
         if ( !is_admin_bar_showing() ) {
@@ -51,12 +51,18 @@ class Menu {
         /* Add the main siteadmin menu item */
         global $wp_admin_bar;
 
+        if ( get_option( 'permalink_structure' ) ) {
+            $href = home_url( 'pm' );
+        } else {
+            $href = home_url( '?' . pm_register_query_var() . '=' . pm_frontend_slug() );
+        }
+
         $wp_admin_bar->add_menu(
             [
                 'parent' => 'site-name',
                 'title'  => __('PM Frontend', 'pm-pro'),
                 'id'     => 'pm-pro-frontend-menu',
-                'href'   => home_url('pm'),
+                'href'   => $href,
                 'meta'   => array('target' => '_blank')
             ]
         );

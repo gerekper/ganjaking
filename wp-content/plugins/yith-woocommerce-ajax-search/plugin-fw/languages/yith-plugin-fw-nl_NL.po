@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YITH Plugin Starter 1.0.0 Plugin FW\n"
 "Report-Msgid-Bugs-To: YITH <plugins@yithemes.com>\n"
-"POT-Creation-Date: 2020-04-23 06:38:32+00:00\n"
+"POT-Creation-Date: 2020-08-07 14:15:08+00:00\n"
 "PO-Revision-Date: 2020-04-06 15:05+0200\n"
 "Last-Translator: \n"
 "Language-Team: Your Inspiration Themes <info@yithemes.com>\n"
@@ -21,6 +21,33 @@ msgstr ""
 "X-Poedit-Basepath: ..\n"
 "X-Textdomain-Support: yes\n"
 "X-Poedit-SearchPath-0: .\n"
+
+#: lib/yit-assets.php:102
+msgid "Clear"
+msgstr ""
+
+#: lib/yit-assets.php:103
+msgid "Clear color"
+msgstr ""
+
+#: lib/yit-assets.php:104
+#, fuzzy
+msgid "Default"
+msgstr "Instellen als standaard"
+
+#: lib/yit-assets.php:105
+#, fuzzy
+msgid "Select default color"
+msgstr "Instellen als standaard"
+
+#: lib/yit-assets.php:106
+#, fuzzy
+msgid "Select Color"
+msgstr "Selecteer alles"
+
+#: lib/yit-assets.php:107
+msgid "Color value"
+msgstr ""
 
 #: lib/yit-cpt-unlimited.php:462 lib/yit-cpt-unlimited.php:576
 #: lib/yit-cpt-unlimited.php:721 lib/yit-cpt-unlimited.php:1636
@@ -206,7 +233,7 @@ msgstr "Voeg %s toe vanaf afbeeldingen"
 msgid "Upload multiple files"
 msgstr "Upload meerdere bestanden"
 
-#: lib/yit-plugin-panel-wc.php:399
+#: lib/yit-plugin-panel-wc.php:426
 msgid "The changes you have made will be lost if you leave this page."
 msgstr "Als je deze pagina verlaat zullen alle wijzigingen verloren gaan."
 
@@ -214,84 +241,84 @@ msgstr "Als je deze pagina verlaat zullen alle wijzigingen verloren gaan."
 msgid "Plugin Settings"
 msgstr "Plugin instellingen"
 
-#: lib/yit-plugin-panel.php:455 lib/yit-plugin-panel.php:458
+#: lib/yit-plugin-panel.php:454 lib/yit-plugin-panel.php:457
 msgid "How to install premium version"
 msgstr "Hoe installeer ik de premium versie"
 
-#: lib/yit-plugin-panel.php:603 lib/yit-plugin-subpanel.php:151
+#: lib/yit-plugin-panel.php:617 lib/yit-plugin-subpanel.php:151
 #: templates/panel/woocommerce/woocommerce-form.php:14
 msgid "Save Changes"
 msgstr "Wijzigingen opslaan"
 
-#: lib/yit-plugin-panel.php:606 lib/yit-plugin-subpanel.php:154
+#: lib/yit-plugin-panel.php:621 lib/yit-plugin-subpanel.php:154
 #: templates/panel/woocommerce/woocommerce-form.php:17
 msgid ""
 "If you continue with this action, you will reset all options in this page."
 msgstr "Als u deze actie voortzet, zult u alle opties op deze pagina resetten."
 
-#: lib/yit-plugin-panel.php:608 lib/yit-plugin-subpanel.php:156
+#: lib/yit-plugin-panel.php:624 lib/yit-plugin-subpanel.php:156
 msgid "Reset to default"
 msgstr "Resetten naar standaard"
 
-#: lib/yit-plugin-panel.php:609 lib/yit-plugin-subpanel.php:157
+#: lib/yit-plugin-panel.php:625 lib/yit-plugin-subpanel.php:157
 #: templates/panel/woocommerce/woocommerce-form.php:21
 msgid "Are you sure?"
 msgstr "Weet u het zeker?"
 
-#: lib/yit-plugin-panel.php:807
+#: lib/yit-plugin-panel.php:823
 msgid ""
 "The element you have entered already exists. Please, enter another name."
 msgstr "Het element dat u hebt ingevoerd bestaat al. Voer een andere naam in."
 
-#: lib/yit-plugin-panel.php:808
+#: lib/yit-plugin-panel.php:824
 msgid "Settings saved"
 msgstr "Instellingen opgeslagen"
 
-#: lib/yit-plugin-panel.php:809
+#: lib/yit-plugin-panel.php:825
 msgid "Settings reset"
 msgstr "Instellingen resetten"
 
-#: lib/yit-plugin-panel.php:810
+#: lib/yit-plugin-panel.php:826
 msgid "Element deleted correctly."
 msgstr "Element succesvol verwijderd."
 
-#: lib/yit-plugin-panel.php:811 lib/yit-plugin-panel.php:812
+#: lib/yit-plugin-panel.php:827 lib/yit-plugin-panel.php:828
 msgid "Element updated correctly."
 msgstr "Element juist bijgewerkt."
 
-#: lib/yit-plugin-panel.php:813
+#: lib/yit-plugin-panel.php:829
 msgid "Database imported correctly."
 msgstr "Database juist geïmporteerd."
 
-#: lib/yit-plugin-panel.php:814
+#: lib/yit-plugin-panel.php:830
 msgid "An error has occurred during import. Please try again."
 msgstr "Er is een fout opgetreden tijdens importeren. Probeer opnieuw."
 
-#: lib/yit-plugin-panel.php:815
+#: lib/yit-plugin-panel.php:831
 msgid "The added file is not valid."
 msgstr "Het toegevoegde bestand is ongeldig."
 
-#: lib/yit-plugin-panel.php:816
+#: lib/yit-plugin-panel.php:832
 msgid "Sorry, import is disabled."
 msgstr "Sorry, importeren is uitgeschakeld."
 
-#: lib/yit-plugin-panel.php:817
+#: lib/yit-plugin-panel.php:833
 msgid "Sorting successful."
 msgstr "Sorteren succesvol."
 
-#: lib/yit-plugin-panel.php:1265
+#: lib/yit-plugin-panel.php:1281
 msgid "We need your support"
 msgstr "We hebben uw hulp nodig"
 
-#: lib/yit-plugin-panel.php:1266
+#: lib/yit-plugin-panel.php:1282
 msgid "to keep updating and improving the plugin. Please,"
 msgstr "om de plugin te blijven updaten en verbeteren. A.u.b.,"
 
-#: lib/yit-plugin-panel.php:1268
+#: lib/yit-plugin-panel.php:1284
 msgid "help us by leaving a five-star rating"
 msgstr "help ons door een vijf-sterenbeoordeling achter te laten"
 
-#: lib/yit-plugin-panel.php:1269
+#: lib/yit-plugin-panel.php:1285
 msgid ":) Thanks!"
 msgstr ":) Bedankt!"
 
@@ -362,81 +389,177 @@ msgstr ""
 "Er is een fout opgetreden, wat waarschijnlijk betekend dat de feed uit te "
 "lucht is. Probeer het later opnieuw."
 
-#: lib/yith-system-status.php:105
+#: lib/yith-system-status.php:111
 msgid "WordPress Version"
 msgstr "WordPress Versie"
 
-#: lib/yith-system-status.php:106
+#: lib/yith-system-status.php:112
 msgid "WooCommerce Version"
 msgstr "WooCommerce Versie"
 
-#: lib/yith-system-status.php:107
+#: lib/yith-system-status.php:113
 msgid "Available Memory"
 msgstr "Beschikbaar geheugen"
 
-#: lib/yith-system-status.php:108
+#: lib/yith-system-status.php:114
 msgid "PHP Version"
 msgstr "PHP Versie"
 
-#: lib/yith-system-status.php:109
+#: lib/yith-system-status.php:115
 msgid "TLS Version"
 msgstr "TLS Versie"
 
-#: lib/yith-system-status.php:110
+#: lib/yith-system-status.php:116
 msgid "WordPress Cron"
 msgstr "WordPress Cron"
 
-#: lib/yith-system-status.php:111
+#: lib/yith-system-status.php:117
 msgid "SimpleXML"
 msgstr "SimpleXML"
 
-#: lib/yith-system-status.php:112
+#: lib/yith-system-status.php:118
 msgid "MultiByte String"
 msgstr "MultiByte String"
 
-#: lib/yith-system-status.php:113
+#: lib/yith-system-status.php:119
 msgid "ImageMagick Version"
 msgstr "ImageMagick Versie"
 
-#: lib/yith-system-status.php:114
+#: lib/yith-system-status.php:120
 msgid "GD Library"
 msgstr "GD Library"
 
-#: lib/yith-system-status.php:115
+#: lib/yith-system-status.php:121
 msgid "Iconv Module"
 msgstr "Iconv Module"
 
-#: lib/yith-system-status.php:116
+#: lib/yith-system-status.php:122
 msgid "OPCache Save Comments"
 msgstr "OPCache Save Comments"
 
-#: lib/yith-system-status.php:117
+#: lib/yith-system-status.php:123
 msgid "URL FOpen"
 msgstr "URL FOpen"
 
-#: lib/yith-system-status.php:135 lib/yith-system-status.php:136
+#: lib/yith-system-status.php:141 lib/yith-system-status.php:142
 msgid "System Status"
 msgstr "Systeem Status"
 
-#: lib/yith-system-status.php:179
+#: lib/yith-system-status.php:184
 msgid "YITH Plugins"
 msgstr "YITH Plugins"
 
-#: lib/yith-system-status.php:180
+#: lib/yith-system-status.php:192
 msgid "WooCommerce"
 msgstr "WooCommerce"
 
-#: lib/yith-system-status.php:297
+#: lib/yith-system-status.php:330
 msgid "Warning!"
 msgstr "Waarschuwing!"
 
-#: lib/yith-system-status.php:298
+#. translators: %1$s open link tag, %2$s open link tag
+#: lib/yith-system-status.php:334
+#, fuzzy
 msgid ""
-"The system check has detected some compatibility issues on your "
-"installation. %sClick here%s to know more"
+"The system check has detected some compatibility issues on your installation."
+"%1$sClick here%2$s to know more"
 msgstr ""
 "Het systeem heeft enkele compatibiliteitsproblemen gevonden op uw "
 "installatie. %sKlik hier%s om meer te weten te komen"
+
+#: lib/yith-system-status.php:473
+msgid "Enabled"
+msgstr "Ingeschakeld"
+
+#: lib/yith-system-status.php:473
+msgid "Disabled"
+msgstr "Uitgeschakeld"
+
+#: lib/yith-system-status.php:478
+msgid "N/A"
+msgstr "N.V.T"
+
+#. translators: %1$s plugin name, %2$s requirement name
+#: lib/yith-system-status.php:506
+#, fuzzy
+msgid "%1$s needs %2$s enabled"
+msgstr "%s heeft nodig %s ingeschakeld"
+
+#. translators: %1$s plugin name, %2$s required memory amount
+#: lib/yith-system-status.php:509
+#, fuzzy
+msgid "%1$s needs at least %2$s of available memory"
+msgstr "%s heeft ten minste %s beschikbaar geheugen nodig"
+
+#. translators: %1$s plugin name, %2$s version number
+#: lib/yith-system-status.php:512
+#, fuzzy
+msgid "%1$s needs at least %2$s version"
+msgstr "%s heeft minstens %s versie nodig"
+
+#: lib/yith-system-status.php:537
+msgid ""
+"Update it to the latest version in order to benefit of all new features and "
+"security updates."
+msgstr ""
+"Bijwerken naar de nieuwste versie om te profiteren van alle nieuwe functies "
+"en beveiligingsupdates."
+
+#: lib/yith-system-status.php:541 lib/yith-system-status.php:547
+msgid "Contact your hosting company in order to update it."
+msgstr "Neem contact op met uw hostingmaatschappij om het bij te werken."
+
+#: lib/yith-system-status.php:545
+#, fuzzy
+msgid "Contact your hosting company in order to install it."
+msgstr "Neem contact op met uw hostingmaatschappij om dit in te schakelen."
+
+#. translators: %1$s code, %2$s file name
+#: lib/yith-system-status.php:552
+#, fuzzy
+msgid "Remove %1$s from %2$s file"
+msgstr "Verwijder %s uit %s bestand"
+
+#: lib/yith-system-status.php:560
+msgid "Contact your hosting company in order to enable it."
+msgstr "Neem contact op met uw hostingmaatschappij om dit in te schakelen."
+
+#. translators: %1$s opening link tag, %2$s closing link tag
+#: lib/yith-system-status.php:564 lib/yith-system-status.php:588
+#, fuzzy
+msgid ""
+"Read more %1$shere%2$s or contact your hosting company in order to increase "
+"it."
+msgstr ""
+"Lees %s hier%s meer, of neem contact op met uw hostingmaatschappij om het te "
+"verhogen."
+
+#. translators: %s recommended memory amount
+#: lib/yith-system-status.php:585
+msgid ""
+"For optimal functioning of our plugins, we suggest setting at least %s of "
+"available memory"
+msgstr ""
+"Voor het optimaal functioneren van de plugins, adviseren wij minstens %s "
+"beschikbaar geheugen te hebben"
+
+#. translators: %1$s TLS label, %2$s cURL label
+#: lib/yith-system-status.php:593
+#, fuzzy
+msgid ""
+"The system check cannot determine which %1$s version is installed because "
+"%2$s module is disabled. Ask your hosting company to enable it."
+msgstr ""
+"We kunnen niet bepalen welke <b>TLS</b> versie is geïnstalleerd omdat de "
+"<b>cURL</b> module is uitgeschakeld. Vraag uw hostingmaatschappij om het in "
+"te schakelen."
+
+#. translators: %1$s TLS label
+#: lib/yith-system-status.php:596
+msgid ""
+"The system check cannot determine which %1$s version is installed due to a "
+"connection issue between your site and our server."
+msgstr ""
 
 #: templates/fields/ajax-customers.php:57
 msgid "Search Customers"
@@ -568,108 +691,54 @@ msgstr "(Default: <i %s></i> )"
 msgid "Reset Defaults"
 msgstr "Herstellen naar standaard"
 
-#: templates/sysinfo/system-information-panel.php:30
+#: templates/sysinfo/system-information-panel.php:39
 msgid "YITH System Information"
 msgstr "YITH System Informatie"
 
-#: templates/sysinfo/system-information-panel.php:38
-msgid "Site URL"
-msgstr "Site URL"
-
-#: templates/sysinfo/system-information-panel.php:46
-msgid "Output IP Address"
-msgstr "Output IP Address"
-
-#: templates/sysinfo/system-information-panel.php:76
-msgid "Enabled"
-msgstr "Ingeschakeld"
-
-#: templates/sysinfo/system-information-panel.php:76
-msgid "Disabled"
-msgstr "Uitgeschakeld"
-
-#: templates/sysinfo/system-information-panel.php:82
-msgid "N/A"
-msgstr "N.V.T"
-
-#: templates/sysinfo/system-information-panel.php:96
-msgid "%s needs %s enabled"
-msgstr "%s heeft nodig %s ingeschakeld"
-
-#: templates/sysinfo/system-information-panel.php:98
-msgid "%s needs at least %s of available memory"
-msgstr "%s heeft ten minste %s beschikbaar geheugen nodig"
-
-#: templates/sysinfo/system-information-panel.php:100
-#: templates/sysinfo/system-information-panel.php:149
-msgid ""
-"For optimal functioning of our plugins, we suggest setting at least %s of "
-"available memory"
+#: templates/sysinfo/system-information-panel.php:50
+msgid "WP debug.log file"
 msgstr ""
-"Voor het optimaal functioneren van de plugins, adviseren wij minstens %s "
-"beschikbaar geheugen te hebben"
 
-#: templates/sysinfo/system-information-panel.php:102
-#: templates/sysinfo/system-information-panel.php:137
-#: templates/sysinfo/system-information-panel.php:151
-msgid ""
-"Read more %s here%s or contact your hosting company in order to increase it."
+#: templates/sysinfo/system-information-panel.php:54
+msgid "PHP error_log file"
 msgstr ""
-"Lees %s hier%s meer, of neem contact op met uw hostingmaatschappij om het te "
-"verhogen."
 
-#: templates/sysinfo/system-information-panel.php:105
-msgid "%s needs at least %s version"
-msgstr "%s heeft minstens %s versie nodig"
-
-#: templates/sysinfo/system-information-panel.php:116
-msgid ""
-"Update it to the latest version in order to benefit of all new features and "
-"security updates."
-msgstr ""
-"Bijwerken naar de nieuwste versie om te profiteren van alle nieuwe functies "
-"en beveiligingsupdates."
-
-#: templates/sysinfo/system-information-panel.php:122
-msgid "Contact your hosting company in order to update it."
-msgstr "Neem contact op met uw hostingmaatschappij om het bij te werken."
-
-#: templates/sysinfo/system-information-panel.php:126
-msgid "Remove %s from %s file"
-msgstr "Verwijder %s uit %s bestand"
-
-#: templates/sysinfo/system-information-panel.php:134
-msgid "Contact your hosting company in order to enable it."
-msgstr "Neem contact op met uw hostingmaatschappij om dit in te schakelen."
-
-#: templates/sysinfo/system-information-panel.php:157
-msgid ""
-"We cannot determine which <b>TLS</b> version is installed because <b>cURL</"
-"b> module is disabled. Ask your hosting company to enable it."
-msgstr ""
-"We kunnen niet bepalen welke <b>TLS</b> versie is geïnstalleerd omdat de "
-"<b>cURL</b> module is uitgeschakeld. Vraag uw hostingmaatschappij om het in "
-"te schakelen."
-
-#: templates/sysinfo/system-information-panel.php:160
-msgid ""
-"<b>ImageMagick</b> module is not installed. Ask your hosting company to "
-"install it."
-msgstr ""
-"<b>ImageMagick</b> module is niet geïnstalleerd. Vraag uw "
-"hositngmaatschappij om het te installeren."
-
-#: templates/sysinfo/system-information-panel.php:172
-msgid "Show full PHPInfo"
-msgstr "Toon volledige PHPInfo"
-
-#: templates/sysinfo/system-information-panel.php:176
+#: templates/sysinfo/system-information-panel.php:59
+#: templates/sysinfo/system-information-panel.php:83
 msgid "Back to System panel"
 msgstr "Terug naar systeempaneel"
 
-#: templates/sysinfo/system-information-panel.php:193
+#: templates/sysinfo/system-information-panel.php:96
 msgid "Back to top"
 msgstr "Terug naar boven"
+
+#: templates/sysinfo/system-information-panel.php:104
+msgid "Site URL"
+msgstr "Site URL"
+
+#: templates/sysinfo/system-information-panel.php:112
+msgid "Output IP Address"
+msgstr "Output IP Address"
+
+#: templates/sysinfo/system-information-panel.php:120
+msgid "Defined WP_CACHE"
+msgstr ""
+
+#: templates/sysinfo/system-information-panel.php:123
+msgid "Yes"
+msgstr ""
+
+#: templates/sysinfo/system-information-panel.php:123
+msgid "No"
+msgstr ""
+
+#: templates/sysinfo/system-information-panel.php:159
+msgid "Show full PHPInfo"
+msgstr "Toon volledige PHPInfo"
+
+#: templates/sysinfo/system-information-panel.php:167
+msgid "Show log files"
+msgstr ""
 
 #: yit-plugin.php:194
 msgid "License"
@@ -812,6 +881,13 @@ msgstr "Premium Versie"
 msgctxt "Action links"
 msgid "Settings"
 msgstr "Instellingen"
+
+#~ msgid ""
+#~ "<b>ImageMagick</b> module is not installed. Ask your hosting company to "
+#~ "install it."
+#~ msgstr ""
+#~ "<b>ImageMagick</b> module is niet geïnstalleerd. Vraag uw "
+#~ "hositngmaatschappij om het te installeren."
 
 #~ msgctxt "ON/OFF button: use MAX 3 characters!"
 #~ msgid "ON"
@@ -1146,9 +1222,6 @@ msgstr "Instellingen"
 
 #~ msgid "Renew license"
 #~ msgstr "Licentie vernieuwen"
-
-#~ msgid "Select All"
-#~ msgstr "Selecteer alles"
 
 #~ msgid "Deselect All"
 #~ msgstr "Selectie ongedaan maken"

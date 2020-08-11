@@ -570,9 +570,9 @@ function colorNameToHex( colour ) {
 	};
 })( jQuery );
 
-/* global redux */
+/* global redux, document */
 
-( function( $ ) {
+(function( $ ) {
 	'use strict';
 
 	$.redux = $.redux || {};
@@ -593,17 +593,17 @@ function colorNameToHex( colour ) {
 					return;
 				}
 
-				win      = $( window );
+				win = $( window );
 				viewport = {
 					top: win.scrollTop()
 				};
 
-				viewport.right  = viewport.left + win.width();
+				viewport.right = viewport.left + win.width();
 				viewport.bottom = viewport.top + win.height();
 
 				bounds = this.offset();
 
-				bounds.right  = bounds.left + this.outerWidth();
+				bounds.right = bounds.left + this.outerWidth();
 				bounds.bottom = bounds.top + this.outerHeight();
 
 				return ( ! ( viewport.right < bounds.left || viewport.left > bounds.right || viewport.bottom < bounds.top || viewport.top > bounds.bottom ) );
@@ -612,7 +612,7 @@ function colorNameToHex( colour ) {
 			$( 'fieldset.redux-container-divide' ).css( 'display', 'none' );
 
 			// Weed out multiple instances of duplicate Redux instance.
-			if ( $( 'body' ).hasClass( 'wp-customizer' ) ) {
+			if ( redux.customizer ) {
 				$( '.wp-full-overlay-sidebar' ).addClass( 'redux-container' );
 			}
 
@@ -620,9 +620,8 @@ function colorNameToHex( colour ) {
 				function() {
 					opt_name = $.redux.getOptName( this );
 
-					if ( $.inArray( opt_name, tempArr ) === - 1 ) {
+					if ( $.inArray( opt_name, tempArr ) === -1 ) {
 						tempArr.push( opt_name );
-						redux.optName = window['redux_' + opt_name.replace( '-', '_' )];
 						$.redux.checkRequired( $( this ) );
 						$.redux.initEvents( $( this ) );
 					}
@@ -633,7 +632,6 @@ function colorNameToHex( colour ) {
 				'click',
 				function() {
 					opt_name = $.redux.getOptName( this );
-					redux.optName = window['redux_' + opt_name.replace( '-', '_' )];
 				}
 			);
 
@@ -679,27 +677,31 @@ function colorNameToHex( colour ) {
 	$.redux.getOptName = function( el ) {
 		var metabox;
 		var li;
-		var optName = $( el ).parents( '.redux-wrap-div' ).data( 'opt-name' );
+		var optName;
+		var item = $( el );
 
-		// Backwards compatibility block for metaboxes
+		if ( redux.customizer ) {
+			optName = item.find( '.redux-customizer-opt-name' ).data( 'opt-name' );
+		} else {
+			optName = $( el ).parents( '.redux-wrap-div' ).data( 'opt-name' );
+		}
+
+		// Compatibility for metaboxes
 		if ( undefined === optName ) {
 			metabox = $( el ).parents( '.postbox' );
 			if ( 0 === metabox.length ) {
 				metabox = $( el ).parents( '.redux-metabox' );
 			}
-			if ( $( 'body' ).hasClass( 'wp-customizer' ) ) {
-				li = $( '.panel-meta.customize-info.redux-panel.accordion-section' );
-				optName = li.data( 'opt-name' );
-			} else if ( 0 !== metabox.length ) {
+			if ( 0 !== metabox.length ) {
 				optName = metabox.attr( 'id' ).replace( 'redux-', '' ).split( '-metabox-' )[0];
 				if ( undefined === optName ) {
 					optName = metabox.attr( 'class' )
-						.replace( 'redux-metabox', '' )
-						.replace( 'postbox', '' )
-						.replace( 'redux-', '' )
-						.replace( 'hide', '' )
-						.replace( 'closed', '' )
-						.trim();
+					.replace( 'redux-metabox', '' )
+					.replace( 'postbox', '' )
+					.replace( 'redux-', '' )
+					.replace( 'hide', '' )
+					.replace( 'closed', '' )
+					.trim();
 				}
 			} else {
 				optName = $( '.redux-ajax-security' ).data( 'opt-name' );
@@ -708,7 +710,26 @@ function colorNameToHex( colour ) {
 		if ( undefined === optName ) {
 			optName = $( el ).find( '.redux-form-wrapper' ).data( 'opt-name' );
 		}
+
+		if ( undefined !== optName ) {
+			if ( undefined !== optName ) {
+				redux.optName = window['redux_' + optName.replace( /\-/g, '_' )];
+			}
+		}
+
 		return optName;
+	};
+
+	$.redux.getSelector = function( selector, fieldType ) {
+		if ( ! selector ) {
+			selector = '.redux-container-' + fieldType + ':visible';
+			if ( redux.customizer ) {
+				selector = $( document ).find( '.control-section-redux.open' ).find( selector );
+			} else {
+				selector = $( document ).find( '.redux-group-tab:visible' ).find( selector );
+			}
+		}
+		return selector;
 	};
 })( jQuery );
 
@@ -1152,12 +1173,11 @@ function redux_change( variable ) {
 
 		rContainer = $( variable ).parents( '.redux-container:first' );
 
-		if ( $( 'body' ).hasClass( 'wp-customizer' ) ) {
-			opt_name = $( '.panel-meta.customize-info.redux-panel.accordion-section' ).data( 'opt-name' );
+		if ( redux.customizer ) {
+			opt_name = $( '.redux-customizer-opt-name' ).data( 'opt-name' );
 		} else {
 			opt_name = $.redux.getOptName( rContainer );
 		}
-		redux.optName = window['redux_' + opt_name.replace( '-', '_' )];
 
 		$( 'body' ).trigger( 'check_dependencies', variable );
 
@@ -1898,11 +1918,7 @@ function redux_hook( object, functionName, callback, before ) {
 				el    = link.parents( '.redux-container:first' );
 				relid = link.data( 'rel' ); // The group ID of interest.
 				oldid = el.find( '.redux-group-tab-link-li.active:first .redux-group-tab-link-a' ).data( 'rel' );
-
 				opt_name = $.redux.getOptName( el );
-
-				// Change over redux object to correct opt_name.
-				redux.optName = window['redux_' + opt_name.replace( '-', '_' )];
 
 				if ( oldid === relid ) {
 					return;

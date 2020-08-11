@@ -48,10 +48,10 @@ class Rewrite {
      * @return void
      */
     function add_rewrite_rules() {
-        $dashboard_slug = $this->get_frontend_slug();
-        $var            = pm_register_query_var();
+        $dashboard_slug = pm_frontend_slug();
+        $query_var      = pm_register_query_var();
 
-        add_rewrite_rule( '^' . $dashboard_slug . '/?$', "index.php?{$var}=true", 'top' );
+        add_rewrite_rule( '^' . $dashboard_slug . '/?$', "index.php?{$query_var}={$dashboard_slug}", 'top' );
     }
 
     /**
@@ -75,7 +75,7 @@ class Rewrite {
     public function rewrite_templates() {
 
 
-        if ( 'true' == get_query_var( pm_register_query_var() ) ) {
+        if ( pm_frontend_slug() == get_query_var( pm_register_query_var() ) ) {
 
             //check if user is logged in otherwise redirect to login page
             if ( ! is_user_logged_in() ) {

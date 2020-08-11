@@ -648,7 +648,7 @@ if ( ! function_exists( 'yith_wcwl_is_mobile' ) ) {
 	function yith_wcwl_is_mobile() {
 		global $yith_wcwl_is_mobile;
 
-		return wp_is_mobile() || $yith_wcwl_is_mobile;
+		return apply_filters( 'yith_wcwl_is_wishlist_responsive', true ) && ( wp_is_mobile() || $yith_wcwl_is_mobile );
 	}
 }
 

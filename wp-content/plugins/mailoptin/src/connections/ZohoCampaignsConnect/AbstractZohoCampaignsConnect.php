@@ -49,6 +49,27 @@ class AbstractZohoCampaignsConnect extends AbstractConnect
         return ! empty($db_options['zohocampaigns_access_token']);
     }
 
+    public function parse_location($location)
+    {
+        if ($location == 'us') {
+            $location = 'com';
+        }
+
+        if ($location == 'eu') {
+            $location = 'eu';
+        }
+
+        if ($location == 'au') {
+            $location = 'com.au';
+        }
+
+        if ($location == 'cn') {
+            $location = 'com.cn';
+        }
+
+        return $location;
+    }
+
     /**
      * Return instance of ConstantContact class.
      *
@@ -79,6 +100,8 @@ class AbstractZohoCampaignsConnect extends AbstractConnect
                 'zoho.api_domain'      => $this->api_domain,
                 'zoho.accounts_server' => $this->accounts_server,
             ]));
+
+        $instance->apiBaseUrl = sprintf('https://campaigns.zoho.%s/api/v1.1/', $this->parse_location($this->location));
 
         if ($instance->hasAccessTokenExpired()) {
 
@@ -123,6 +146,8 @@ class AbstractZohoCampaignsConnect extends AbstractConnect
                         'zoho.api_domain'      => $this->api_domain,
                         'zoho.accounts_server' => $this->accounts_server,
                     ]));
+
+                $instance->apiBaseUrl = sprintf('https://campaigns.zoho.%s/api/v1.1/', $this->parse_location($result['data']['location']));
 
             } catch (\Exception $e) {
                 throw new \Exception($e->getMessage());

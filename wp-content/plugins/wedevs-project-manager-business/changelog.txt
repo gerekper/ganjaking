@@ -1,3 +1,14 @@
+= v2.5.0 - Jul 17, 2020 =
+
+* **Update** Navigate to the calendar menu but showing no task for all projects and users.
+* **Update** Is now working for all permalink.
+* **Update** license update notification for co-worker
+* **Update** Task time tracker, privacy, estimation, label, and recurring UI/UX are updated for a single task.
+* **Fix** Invoice pdf download from the front-end page is not working
+* **Fix** Invoice payment is asking for a minimum amount when there is no minimum amount set.
+* **Fix** Daily digest mail is not delivered every day.
+* **Fix** Logo is not updating from settings.
+
 = v2.4.3 - Apr 30, 2020 =
 
 * **New** Filter for kanban default board, 'pm_kanban_default_boards'.

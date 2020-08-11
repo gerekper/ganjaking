@@ -2,10 +2,9 @@
 
 namespace MailOptin\MailPoetConnect;
 
-use MailOptin\Core\Repositories\OptinCampaignsRepository as OCR;
-use function MailOptin\Core\strtotime_utc;
+use MailOptin\Core\Connections\AbstractConnect;
 
-class Subscription extends AbstractMailPoetConnect
+class Subscription extends AbstractConnect
 {
     public $email;
     public $name;

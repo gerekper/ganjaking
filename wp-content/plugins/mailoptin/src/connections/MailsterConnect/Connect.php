@@ -3,9 +3,10 @@
 namespace MailOptin\MailsterConnect;
 
 use MailOptin\Core\Admin\Customizer\OptinForm\Customizer;
+use MailOptin\Core\Connections\AbstractConnect;
 use MailOptin\Core\Connections\ConnectionInterface;
 
-class Connect extends AbstractMailsterConnect implements ConnectionInterface
+class Connect extends AbstractConnect implements ConnectionInterface
 {
     /**
      * @var string key of connection service. its important all connection name ends with "Connect"
@@ -14,8 +15,6 @@ class Connect extends AbstractMailsterConnect implements ConnectionInterface
 
     public function __construct()
     {
-        ConnectSettingsPage::get_instance();
-
         add_filter('mailoptin_registered_connections', array($this, 'register_connection'));
 
         add_filter('mo_optin_form_integrations_default', array($this, 'integration_customizer_settings'));
@@ -33,6 +32,16 @@ class Connect extends AbstractMailsterConnect implements ConnectionInterface
     }
 
     /**
+     * Is Mailster successfully connected to?
+     *
+     * @return bool
+     */
+    public static function is_connected()
+    {
+        return function_exists('mailster');
+    }
+
+    /**
      * Register Mailster Connection.
      *
      * @param array $connections
@@ -41,7 +50,7 @@ class Connect extends AbstractMailsterConnect implements ConnectionInterface
      */
     public function register_connection($connections)
     {
-        if (AbstractMailsterConnect::is_connected()) {
+        if (self::is_connected()) {
             $connections[self::$connectionName] = __('Mailster', 'mailoptin');
         }
 

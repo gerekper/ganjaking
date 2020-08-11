@@ -1,5 +1,5 @@
 (function ($) {
-    $(document).on('ready', function () {
+    $(function () {
         $('.mo-tooltipster').tooltipster({
             theme: 'tooltipster-borderless'
         });

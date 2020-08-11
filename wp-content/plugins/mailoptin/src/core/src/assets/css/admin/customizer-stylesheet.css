@@ -76,6 +76,14 @@ strong.panel-title.site-title:hover {
     color: #999;
 }
 
+span[id*=embed_notice].customize-control-description {
+    margin: 0 -12px;
+    background: #fff;
+    padding: 10px;
+    color: #555d66 !important;
+    border-left: 4px solid #D54E21;
+}
+
 span.description {
     margin-bottom: 10px;
     font-style: normal;

@@ -92,7 +92,7 @@
         });
     };
 
-    $(document).on('ready', function () {
+    $(function () {
         var css = '<style id="customize-preview-iframe-hide" type="text/css">#customize-preview iframe {display:none;}</style>';
         $(document.head).append(css);
     });

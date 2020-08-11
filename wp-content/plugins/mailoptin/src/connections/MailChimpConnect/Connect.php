@@ -202,6 +202,7 @@ class Connect extends AbstractMailChimpConnect implements ConnectionInterface
 
         } catch (\Exception $e) {
             self::save_optin_error_log($e->getMessage(), 'mailchimp');
+            return [];
         }
     }
 

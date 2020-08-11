@@ -375,7 +375,7 @@ function pm_pro_get_hour_to_minute( $time ) {
 
     if ( $pos === false ) {
         if( absint( $time ) ) {
-            return absint($time) * 60;
+            return absint($time);
         }
 
         return 0;

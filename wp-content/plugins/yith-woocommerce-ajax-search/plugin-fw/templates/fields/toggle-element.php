@@ -44,6 +44,11 @@ if ( empty( $values ) && !$show_add_button && $elements ) {
 
 ?>
 <div class="yith-toggle_wrapper <?php echo $class_wrapper ?>" id="<?php echo $id ?>" data-nonce="<?php echo $ajax_nonce; ?>">
+	<?php
+		if( !empty( $label ) ):
+	?>
+		<label for="<?php esc_attr_e($id);?>"><?php echo esc_html( $label );?></label>
+	<?php endif;?>
     <?php
 
     if ( $show_add_button ):

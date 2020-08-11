@@ -75,13 +75,16 @@ function save_task_recurrence_data( $task, $request ) {
     if ( !isset( $request['recurrence_data'] ) ){
         return ;
     }
+    //pmpr($request['recurrence_data']);
     $meta = Meta::firstOrCreate([
         'entity_id'   => $task->id,
         'entity_type' => 'task',
         'meta_key'    => 'recurrence',
         'project_id'  => $request['project_id'],
     ]);
-    $meta->meta_value  = serialize($request['recurrence_data']);
+
+    $meta->meta_value  = serialize( $request['recurrence_data'] );
+
     if( $meta->save() ) {
         return $meta;
     }

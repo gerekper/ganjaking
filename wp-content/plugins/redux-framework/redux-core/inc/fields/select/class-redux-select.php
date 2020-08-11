@@ -60,7 +60,12 @@ if ( ! class_exists( 'Redux_Select', false ) ) {
 					}
 				}
 
-				$this->field['options'] = $this->parent->wordpress_data->get( $this->field['data'], $this->field['args'], $this->value );
+				// First one get with AJAX.
+				$ajax = false;
+				if ( isset( $this->field['ajax'] ) && $this->field['ajax'] ) {
+					$ajax = true;
+				}
+				$this->field['options'] = $this->parent->wordpress_data->get( $this->field['data'], $this->field['args'], $this->value, $ajax );
 			}
 
 			if ( ! empty( $this->field['data'] ) && ( 'elusive-icons' === $this->field['data'] || 'elusive-icon' === $this->field['data'] || 'elusive' === $this->field['data'] ) ) {
@@ -94,8 +99,11 @@ if ( ! class_exists( 'Redux_Select', false ) ) {
 					$this->select2_config['ajax']             = true;
 					$this->select2_config['min-input-length'] = isset( $this->field['min_input_length'] ) ? $this->field['min_input_length'] : 1;
 					$this->select2_config['action']           = "redux_{$this->parent->args['opt_name']}_select2";
-					$this->select2_config['nonce']            = wp_create_nonce( "redux_{$this->parent->args['opt_name']}_select2" );
-					$this->select2_config['wp-data']          = $this->field['data'];
+					if ( isset( $this->field['args'] ) ) {
+						$this->select2_config['args'] = wp_json_encode( $this->field['args'] );
+					}
+					$this->select2_config['nonce']   = wp_create_nonce( "redux_{$this->parent->args['opt_name']}_select2" );
+					$this->select2_config['wp-data'] = $this->field['data'];
 				}
 
 				if ( isset( $this->field['select2'] ) ) {

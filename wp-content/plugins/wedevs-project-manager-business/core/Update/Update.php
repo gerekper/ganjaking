@@ -66,9 +66,8 @@ class Update extends \WeDevs_Updater {
 
                 update_option( $self->license_status, 'valid' );
             }
-        
+        }
 
-    }
 
     /**
      * Prompts the user to add license key if it's not already filled out
@@ -76,16 +75,14 @@ class Update extends \WeDevs_Updater {
      * @return void
      */
     function license_enter_notice() {
-       
             return;
-       
+            ?>
+            <div class="error">
+                <p><?php printf( __( 'Please <a href="%s">enter</a> your <strong>%s</strong> plugin license key to get the pro features, regular update and support.', 'pm-pro' ), admin_url( 'admin.php?page=pm_projects#/license' ), $this->name ); ?></p>
+            </div>
+            <?php
+        }
 
-        ?>
-        <div class="error">
-            <p><?php printf( __( 'Please <a href="%s">enter</a> your <strong>%s</strong> plugin license key to get the pro features, regular update and support.', 'pm-pro' ), admin_url( 'admin.php?page=pm_projects#/license' ), $this->name ); ?></p>
-        </div>
-        <?php
-    }
 
     /**
      * Check activation every 12 hours to the server
@@ -93,25 +90,20 @@ class Update extends \WeDevs_Updater {
      * @return void
      */
     function license_check_notice() {
-       
-            return;
-       
 
-        $error = sprintf( __( ' Error: Please activate your <a href="%s">license</a>', 'pm-pro' ), admin_url( 'admin.php?page=pm_projects#/license' ) );
+            return;
+
+            $error = sprintf( __( ' Error: Please activate your <a href="%s">license</a>', 'pm-pro' ), admin_url( 'admin.php?page=pm_projects#/license' ) );
 
         $license_status = get_option( $this->license_status );
 
-        
 
             $status = get_transient( $this->option );
-           
-            
 
                 // notice if validity expires
                 if ( isset( $status->update ) ) {
                     $update = strtotime( $status->update );
 
-                   
                         $current = date( 'Y-m-d', time() );
                         $expire = date( 'Y-m-d', '2030-01-01' );
 
@@ -120,11 +112,8 @@ class Update extends \WeDevs_Updater {
                         $diff = date_diff( $current, $expire );
                         $logo = pm_config('frontend.assets_url') . '/images/pm-logo.png';
 
-                        
-                    
-                }
+                                }
                 return;
-            
 
             // may be the request didn't completed
            
@@ -149,11 +138,9 @@ class Update extends \WeDevs_Updater {
     public function admin_menu( $hook ) {
         global $submenu;
 
-       
-    }
+        }
 
     public function scripts() {
-      
     }
 
     /**
@@ -184,11 +171,11 @@ class Update extends \WeDevs_Updater {
             'status'  => 'valid',
             'message' => 'success'
         );
-        
+
             $update = strtotime( $data['status']->update );
             $expired = false;
+
             $data['message'] = sprintf( __( 'Your license %s (%s).', 'pm-pro' ), sprintf( $string, human_time_diff( '01 jan, 2030', time() ) ), date( 'F j, Y', '01 jan, 2030' ) );
-       
 
         wp_send_json_success( $data );
     }
@@ -201,10 +188,8 @@ class Update extends \WeDevs_Updater {
 
         $license_status = 'valid';
 
-       
         $update = strtotime( $license_status->update );
 
-        
 
         return true;
     }

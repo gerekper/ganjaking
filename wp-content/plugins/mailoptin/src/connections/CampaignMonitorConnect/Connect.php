@@ -67,26 +67,6 @@ class Connect extends AbstractCampaignMonitorConnect implements ConnectionInterf
     }
 
     /**
-     * Replace view webversion link with that of campaign monitor html tag.
-     *
-     * @return string
-     */
-    public function campaign_monitor_webversion_tag()
-    {
-        return '<webversion>[mo_header_web_version_link_label]</webversion>';
-    }
-
-    /**
-     * Replace unsubscribe link with that of campaign monitor html tag.
-     *
-     * @return string
-     */
-    public function campaign_monitor_unsubscribe_tag()
-    {
-        return '<unsubscribe>[mo_footer_unsubscribe_link_label]</unsubscribe>';
-    }
-
-    /**
      * Fulfill interface contract.
      *
      * {@inheritdoc}
@@ -115,7 +95,7 @@ class Connect extends AbstractCampaignMonitorConnect implements ConnectionInterf
             $content     = preg_replace($pattern, $replacement, $content);
         }
 
-        // search and replace this if this oeration is for text content.
+        // search and replace this if this operation is for text content.
         return $this->replace_footer_placeholder_tags($content);
     }
 

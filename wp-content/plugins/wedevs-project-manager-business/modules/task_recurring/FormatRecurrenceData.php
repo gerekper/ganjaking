@@ -21,12 +21,13 @@ class FormatRecurrenceData {
     public $recurrence;
 
 
-    public function __construct($recurrent_data) {
-        $this->type = $recurrent_data['recurrent'];
-        $this->meta_id = $recurrent_data['meta_id'];
+    public function __construct( $recurrent_data ) {
+        $this->type       = $recurrent_data['recurrent'];
+        $this->meta_id    = $recurrent_data['meta_id'];
         $this->recurrence = $recurrent_data['recurrence'];
-        $this->weekdays = $recurrent_data['recurrence']['weekdays'];
-        $this->startFrom = $recurrent_data['created_at']->toDateString();
+        $this->weekdays   = $recurrent_data['recurrence']['weekdays'];
+        $this->startFrom  = $recurrent_data['created_at']->toDateString();
+
         $this->update_unit_type();
 
         if($this->recurrence['formatted'] == '0') {

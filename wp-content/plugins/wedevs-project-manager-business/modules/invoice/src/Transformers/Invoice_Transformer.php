@@ -17,15 +17,25 @@ class Invoice_Transformer extends TransformerAbstract {
     use Resource_Editors;
 
     protected $defaultIncludes = [
-        'payments', 'project'
+         'project'
     ];
 
     protected $availableIncludes = [
-        
+
     ];
 
+    protected $payments = [ 'data' => [] ];
+    protected $invoice_total = 0;
+    protected $paid_amount = 0;
+    protected $due_amount = 0;
+
     public function transform( Invoice $item ) {
-        
+
+        $this->get_payments( $item )
+            ->get_invoice_total( $item )
+            ->get_paid_amount( $item )
+            ->get_due_amount( $item );
+
         return [
             'id'             => $item->id,
             'project_id'     => $item->project_id,
@@ -41,8 +51,39 @@ class Invoice_Transformer extends TransformerAbstract {
             'client_notes'   => $item->client_note,
             'entryTasks'     => $this->filter_items( maybe_unserialize( $item->items ), 'task' ),
             'entryNames'     => $this->filter_items( maybe_unserialize( $item->items ), 'name' ),
-            'client_address' => $this->get_client_address( $item->client_id )
+            'client_address' => $this->get_client_address( $item->client_id ),
+            'payments'       => $this->payments,
+            'invoice_total'  => $this->invoice_total,
+            'paid_amount'    => $this->paid_amount,
+            'due_amount'     => $this->due_amount
         ];
+    }
+
+    private function get_payments( $item ) {
+        $invoice_meta = $item->metas()->get();
+        $payments = $this->collection( $invoice_meta, new Invoice_Meta_Transformer );
+        $this->payments = pm_get_response( $payments );
+
+        return $this;
+    }
+
+    private function get_paid_amount( $item ) {
+        $this->paid_amount = round( pm_pro_invoice_get_total_paid( $this->payments['data'] ), 2 );
+
+        return $this;
+    }
+
+    private function get_invoice_total( $item ) {
+        $meta = maybe_unserialize( $item->items );
+        $this->invoice_total = round( pm_pro_invoice_get_invoice_total( $meta['entryTasks'], $meta['entryNames'], $item->discount ), 2 );
+
+        return $this;
+    }
+
+    private function get_due_amount( $item ) {
+        $this->due_amount = round( ( $this->invoice_total - $this->paid_amount ), 2 );
+
+        return $this;
     }
 
     public function includePayments( Invoice $item ) {
@@ -64,8 +105,8 @@ class Invoice_Transformer extends TransformerAbstract {
     public function filter_items( $items, $type ) {
         if ( $type == 'task' ) {
             return empty( $items['entryTasks'] ) ? [] : $items['entryTasks'];
-        }  
+        }
 
-        return empty( $items['entryNames'] ) ? [] : $items['entryNames']; 
+        return empty( $items['entryNames'] ) ? [] : $items['entryNames'];
     }
 }

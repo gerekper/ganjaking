@@ -44,7 +44,6 @@ define('MAILOPTIN_CONNECTIONS_DB_OPTION_NAME', 'mailoptin_connections');
 define('MAILOPTIN_SETTINGS_DB_OPTION_NAME', 'mailoptin_settings');
 
 define('MO_OPTIN_CAMPAIGN_WP_OPTION_NAME', 'mo_optin_campaign');
-define('MO_OPTIN_TEMPLATE_WP_OPTION_NAME', 'mailoptin_email_templates');
 define('MO_EMAIL_CAMPAIGNS_WP_OPTION_NAME', 'mo_email_campaigns');
 
 define('MAILOPTIN_SRC', wp_normalize_path(dirname(__FILE__) . '/'));

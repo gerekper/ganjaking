@@ -6,7 +6,7 @@ class Init
 {
     public static function select2_tag_connections()
     {
-        return ['GetResponseConnect', 'OntraportConnect', 'ConvertKitConnect'];
+        return ['GetResponseConnect', 'OntraportConnect', 'ConvertKitConnect', 'InfusionsoftConnect'];
     }
 
     public static function text_tag_connections()
@@ -25,12 +25,15 @@ class Init
         \MailOptin\SendyConnect\Connect::get_instance();
         \MailOptin\DripConnect\Connect::get_instance();
         \MailOptin\SendlaneConnect\Connect::get_instance();
+        \MailOptin\SendFoxConnect\Connect::get_instance();
+        \MailOptin\WordPressUserRegistrationConnect\Connect::get_instance();
         \MailOptin\EmmaConnect\Connect::get_instance();
         \MailOptin\OntraportConnect\Connect::get_instance();
         \MailOptin\ConvertKitConnect\Connect::get_instance();
         \MailOptin\ActiveCampaignConnect\Connect::get_instance();
         \MailOptin\CtctConnect\Connect::get_instance();
         \MailOptin\HubspotConnect\Connect::get_instance();
+        \MailOptin\InfusionsoftConnect\Connect::get_instance();
         \MailOptin\MailerliteConnect\Connect::get_instance();
         \MailOptin\EmailOctopusConnect\Connect::get_instance();
         \MailOptin\GEMConnect\Connect::get_instance();

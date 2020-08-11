@@ -9,7 +9,7 @@ use MailOptin\Core\Repositories\StateRepository;
 
 class Connect
 {
-    public $state_version = 1;
+    public $state_version = MAILOPTIN_VERSION_NUMBER;
 
     public function __construct()
     {

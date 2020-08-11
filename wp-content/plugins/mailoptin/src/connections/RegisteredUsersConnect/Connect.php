@@ -130,11 +130,9 @@ class Connect extends AbstractConnect implements ConnectionInterface
         $users_data = get_users($args);
 
         // campaign log and email campaign IDs to each $users_data
-        $users_data = array_reduce($users_data, function ($carry, $user_data) use ($email_campaign_id, $campaign_log_id, $content_html, $content_text) {
+        $users_data = array_reduce($users_data, function ($carry, $user_data) use ($email_campaign_id, $campaign_log_id) {
             $user_data->email_campaign_id = $email_campaign_id;
             $user_data->campaign_log_id   = $campaign_log_id;
-            $user_data->content_html      = $content_html;
-            $user_data->content_text      = $content_text;
             $carry[]                      = $user_data;
 
             return $carry;
@@ -144,7 +142,8 @@ class Connect extends AbstractConnect implements ConnectionInterface
             $this->bg_process_instance->push_to_queue($user_data);
         }
 
-        $this->bg_process_instance->save()->dispatch();
+        $this->bg_process_instance->mo_save($campaign_log_id, $email_campaign_id)
+                                  ->mo_dispatch($campaign_log_id, $email_campaign_id);
 
         return ['success' => true];
     }
@@ -169,7 +168,7 @@ class Connect extends AbstractConnect implements ConnectionInterface
         $contacts   = get_option('mo_wp_user_unsubscribers', []);
         $contacts[] = $email;
 
-        update_option('mo_wp_user_unsubscribers', $contacts);
+        update_option('mo_wp_user_unsubscribers', $contacts, false);
 
         if (apply_filters('mo_email_unsubscribe_delete_lead', false)) {
             $emails = OptinConversionsRepository::get_conversions_by_email(base64_decode($email));

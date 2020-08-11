@@ -23,7 +23,6 @@ if ( ! class_exists( 'Redux_AJAX_Select2', false ) ) {
 		 */
 		public function __construct( $parent ) {
 			parent::__construct( $parent );
-
 			// phpcs:ignore WordPress.NamingConventions.ValidHookName
 			add_action( "wp_ajax_redux_{$parent->args['opt_name']}_select2", array( $this, 'ajax' ) );
 		}
@@ -43,27 +42,43 @@ if ( ! class_exists( 'Redux_AJAX_Select2', false ) ) {
 					wp_send_json_error( esc_html__( 'Invalid user capability.  Please reload the page and try again.', 'redux-framework' ) );
 				}
 
-				$return = array();
-
 				if ( isset( $_REQUEST['data'] ) ) {
-					$return = $core->wordpress_data->get( sanitize_text_field( wp_unslash( $_REQUEST['data'] ) ) );
+
+					$args = isset( $_REQUEST['data_args'] ) ? json_decode( sanitize_text_field( wp_unslash( $_REQUEST['data_args'] ) ), true ) : array();
+					$args = wp_parse_args( $args, array() );
+
+					$return = $core->wordpress_data->get( sanitize_text_field( wp_unslash( $_REQUEST['data'] ) ), $args );
 
 					if ( is_array( $return ) && ! empty( $_REQUEST['action'] ) ) {
 						if ( isset( $_REQUEST['q'] ) ) {
 							$criteria = sanitize_text_field( wp_unslash( $_REQUEST['q'] ) );
 
-							$search_arr = preg_grep( "/^{$criteria}(\w+)/i", array_values( $return ) );
+							$keys   = array_keys( $return );
+							$values = array_values( $return );
 
 							$to_json = array();
 
-							foreach ( $search_arr as $id => $val ) {
-								$to_json[] = array(
-									'id'   => $id,
-									'text' => $val,
-								);
+							// Search all the values.
+							$search_values = preg_grep( '~' . $criteria . '~i', $values );
+							if ( ! empty( $search_values ) ) {
+								foreach ( $search_values as $id => $val ) {
+									$to_json[ $keys[ $id ] ] = array(
+										'id'   => $keys[ $id ],
+										'text' => $val . ' [' . $keys[ $id ] . ']',
+									);
+								}
 							}
-
-							wp_send_json_success( $to_json );
+							// Search all the keys.
+							$search_keys = preg_grep( '~' . $criteria . '~i', $keys );
+							if ( ! empty( $search_keys ) ) {
+								foreach ( $search_keys as $id => $val ) {
+									$to_json[ $val ] = array(
+										'id'   => $val,
+										'text' => $values[ $id ] . ' [' . $val . ']',
+									);
+								}
+							}
+							wp_send_json_success( array_values( $to_json ) );
 						}
 					}
 				}

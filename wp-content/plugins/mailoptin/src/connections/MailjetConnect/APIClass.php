@@ -90,7 +90,7 @@ class APIClass
      */
     public function get_custom_fields()
     {
-        $fields = $this->make_request('contactmetadata', [], 'get');
+        $fields = $this->make_request('contactmetadata', ['Limit' => 1000], 'get');
 
         return wp_list_pluck($fields->Data, 'Name', 'Name');
     }

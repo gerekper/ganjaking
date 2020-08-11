@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitc482bf307e7ca92686d6a8cefe30f610
+class ComposerStaticInit63955b66a27e8f06858be59fe37d1400
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -16,6 +16,7 @@ class ComposerStaticInitc482bf307e7ca92686d6a8cefe30f610
         'fc19d1e11a215510b36443cddffb0e3a' => __DIR__ . '/../..' . '/src/authifly/Facebook.php',
         '05e51710b89762d293904981fb194070' => __DIR__ . '/../..' . '/src/authifly/Hubspot.php',
         '945bc6c2039077c40509b034aa7ea74d' => __DIR__ . '/../..' . '/src/authifly/Zoho.php',
+        'b9633de6476ae361f00d00fa732467f2' => __DIR__ . '/../..' . '/src/authifly/Infusionsoft.php',
         '1d70241e5fa15180bf0b547b18160633' => __DIR__ . '/../..' . '/src/core/src/Functions/custom-settings-api.php',
         '541054f7d83801e360f0f9cfeb6e7da9' => __DIR__ . '/../..' . '/src/core/src/Functions/functions.php',
         '1064428a5c96d5b26937d911d5bd0e95' => __DIR__ . '/../..' . '/src/core/src/Functions/php-html-css-js-minifier.php',
@@ -37,6 +38,7 @@ class ComposerStaticInitc482bf307e7ca92686d6a8cefe30f610
             'Mailchimp\\' => 10,
             'MailOptin\\ZohoCampaignsConnect\\' => 31,
             'MailOptin\\ZohoCRMConnect\\' => 25,
+            'MailOptin\\WordPressUserRegistrationConnect\\' => 43,
             'MailOptin\\WPMLConnect\\' => 22,
             'MailOptin\\WPFormsConnect\\' => 25,
             'MailOptin\\VerticalResponseConnect\\' => 34,
@@ -44,6 +46,7 @@ class ComposerStaticInitc482bf307e7ca92686d6a8cefe30f610
             'MailOptin\\SendlaneConnect\\' => 26,
             'MailOptin\\SendinblueConnect\\' => 28,
             'MailOptin\\SendGridConnect\\' => 26,
+            'MailOptin\\SendFoxConnect\\' => 25,
             'MailOptin\\RegisteredUsersConnect\\' => 33,
             'MailOptin\\PolylangConnect\\' => 26,
             'MailOptin\\OntraportConnect\\' => 27,
@@ -56,6 +59,7 @@ class ComposerStaticInitc482bf307e7ca92686d6a8cefe30f610
             'MailOptin\\MailChimpConnect\\' => 27,
             'MailOptin\\LeadBankConnect\\' => 26,
             'MailOptin\\KlaviyoConnect\\' => 25,
+            'MailOptin\\InfusionsoftConnect\\' => 30,
             'MailOptin\\HubspotConnect\\' => 25,
             'MailOptin\\GravityFormsConnect\\' => 30,
             'MailOptin\\GetResponseConnect\\' => 29,
@@ -130,6 +134,10 @@ class ComposerStaticInitc482bf307e7ca92686d6a8cefe30f610
         array (
             0 => __DIR__ . '/../..' . '/src/connections/ZohoCRMConnect',
         ),
+        'MailOptin\\WordPressUserRegistrationConnect\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/connections/WordPressUserRegistrationConnect',
+        ),
         'MailOptin\\WPMLConnect\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src/connections/WPMLConnect',
@@ -157,6 +165,10 @@ class ComposerStaticInitc482bf307e7ca92686d6a8cefe30f610
         'MailOptin\\SendGridConnect\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src/connections/SendGridConnect',
+        ),
+        'MailOptin\\SendFoxConnect\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/connections/SendFoxConnect',
         ),
         'MailOptin\\RegisteredUsersConnect\\' => 
         array (
@@ -205,6 +217,10 @@ class ComposerStaticInitc482bf307e7ca92686d6a8cefe30f610
         'MailOptin\\KlaviyoConnect\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src/connections/KlaviyoConnect',
+        ),
+        'MailOptin\\InfusionsoftConnect\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/connections/InfusionsoftConnect',
         ),
         'MailOptin\\HubspotConnect\\' => 
         array (
@@ -731,6 +747,11 @@ class ComposerStaticInitc482bf307e7ca92686d6a8cefe30f610
         'MailOptin\\HubspotConnect\\Connect' => __DIR__ . '/../..' . '/src/connections/HubspotConnect/Connect.php',
         'MailOptin\\HubspotConnect\\ConnectSettingsPage' => __DIR__ . '/../..' . '/src/connections/HubspotConnect/ConnectSettingsPage.php',
         'MailOptin\\HubspotConnect\\Subscription' => __DIR__ . '/../..' . '/src/connections/HubspotConnect/Subscription.php',
+        'MailOptin\\InfusionsoftConnect\\AbstractInfusionsoftConnect' => __DIR__ . '/../..' . '/src/connections/InfusionsoftConnect/AbstractInfusionsoftConnect.php',
+        'MailOptin\\InfusionsoftConnect\\Connect' => __DIR__ . '/../..' . '/src/connections/InfusionsoftConnect/Connect.php',
+        'MailOptin\\InfusionsoftConnect\\ConnectSettingsPage' => __DIR__ . '/../..' . '/src/connections/InfusionsoftConnect/ConnectSettingsPage.php',
+        'MailOptin\\InfusionsoftConnect\\SendCampaign' => __DIR__ . '/../..' . '/src/connections/InfusionsoftConnect/SendCampaign.php',
+        'MailOptin\\InfusionsoftConnect\\Subscription' => __DIR__ . '/../..' . '/src/connections/InfusionsoftConnect/Subscription.php',
         'MailOptin\\KlaviyoConnect\\APIClass' => __DIR__ . '/../..' . '/src/connections/KlaviyoConnect/APIClass.php',
         'MailOptin\\KlaviyoConnect\\AbstractKlaviyoConnect' => __DIR__ . '/../..' . '/src/connections/KlaviyoConnect/AbstractKlaviyoConnect.php',
         'MailOptin\\KlaviyoConnect\\Connect' => __DIR__ . '/../..' . '/src/connections/KlaviyoConnect/Connect.php',
@@ -744,9 +765,7 @@ class ComposerStaticInitc482bf307e7ca92686d6a8cefe30f610
         'MailOptin\\MailChimpConnect\\ConnectSettingsPage' => __DIR__ . '/../..' . '/src/connections/MailChimpConnect/ConnectSettingsPage.php',
         'MailOptin\\MailChimpConnect\\SendCampaign' => __DIR__ . '/../..' . '/src/connections/MailChimpConnect/SendCampaign.php',
         'MailOptin\\MailChimpConnect\\Subscription' => __DIR__ . '/../..' . '/src/connections/MailChimpConnect/Subscription.php',
-        'MailOptin\\MailPoetConnect\\AbstractMailPoetConnect' => __DIR__ . '/../..' . '/src/connections/MailPoetConnect/AbstractMailPoetConnect.php',
         'MailOptin\\MailPoetConnect\\Connect' => __DIR__ . '/../..' . '/src/connections/MailPoetConnect/Connect.php',
-        'MailOptin\\MailPoetConnect\\ConnectSettingsPage' => __DIR__ . '/../..' . '/src/connections/MailPoetConnect/ConnectSettingsPage.php',
         'MailOptin\\MailPoetConnect\\Subscription' => __DIR__ . '/../..' . '/src/connections/MailPoetConnect/Subscription.php',
         'MailOptin\\MailerliteConnect\\APIClass\\Api\\Campaigns' => __DIR__ . '/../..' . '/src/connections/MailerliteConnect/APIClass/Api/Campaigns.php',
         'MailOptin\\MailerliteConnect\\APIClass\\Api\\Fields' => __DIR__ . '/../..' . '/src/connections/MailerliteConnect/APIClass/Api/Fields.php',
@@ -771,9 +790,7 @@ class ComposerStaticInitc482bf307e7ca92686d6a8cefe30f610
         'MailOptin\\MailjetConnect\\ConnectSettingsPage' => __DIR__ . '/../..' . '/src/connections/MailjetConnect/ConnectSettingsPage.php',
         'MailOptin\\MailjetConnect\\SendCampaign' => __DIR__ . '/../..' . '/src/connections/MailjetConnect/SendCampaign.php',
         'MailOptin\\MailjetConnect\\Subscription' => __DIR__ . '/../..' . '/src/connections/MailjetConnect/Subscription.php',
-        'MailOptin\\MailsterConnect\\AbstractMailsterConnect' => __DIR__ . '/../..' . '/src/connections/MailsterConnect/AbstractMailsterConnect.php',
         'MailOptin\\MailsterConnect\\Connect' => __DIR__ . '/../..' . '/src/connections/MailsterConnect/Connect.php',
-        'MailOptin\\MailsterConnect\\ConnectSettingsPage' => __DIR__ . '/../..' . '/src/connections/MailsterConnect/ConnectSettingsPage.php',
         'MailOptin\\MailsterConnect\\Subscription' => __DIR__ . '/../..' . '/src/connections/MailsterConnect/Subscription.php',
         'MailOptin\\MoosendConnect\\APIClass' => __DIR__ . '/../..' . '/src/connections/MoosendConnect/APIClass.php',
         'MailOptin\\MoosendConnect\\AbstractMoosendConnect' => __DIR__ . '/../..' . '/src/connections/MoosendConnect/AbstractMoosendConnect.php',
@@ -794,6 +811,7 @@ class ComposerStaticInitc482bf307e7ca92686d6a8cefe30f610
         'MailOptin\\NinjaFormsConnect\\Integrations\\FacebookCustomAudienceConnect' => __DIR__ . '/../..' . '/src/connections/NinjaFormsConnect/Integrations/FacebookCustomAudienceConnect.php',
         'MailOptin\\NinjaFormsConnect\\Integrations\\GetResponseConnect' => __DIR__ . '/../..' . '/src/connections/NinjaFormsConnect/Integrations/GetResponseConnect.php',
         'MailOptin\\NinjaFormsConnect\\Integrations\\HubspotConnect' => __DIR__ . '/../..' . '/src/connections/NinjaFormsConnect/Integrations/HubspotConnect.php',
+        'MailOptin\\NinjaFormsConnect\\Integrations\\InfusionsoftConnect' => __DIR__ . '/../..' . '/src/connections/NinjaFormsConnect/Integrations/InfusionsoftConnect.php',
         'MailOptin\\NinjaFormsConnect\\Integrations\\KlaviyoConnect' => __DIR__ . '/../..' . '/src/connections/NinjaFormsConnect/Integrations/KlaviyoConnect.php',
         'MailOptin\\NinjaFormsConnect\\Integrations\\MailChimpConnect' => __DIR__ . '/../..' . '/src/connections/NinjaFormsConnect/Integrations/MailChimpConnect.php',
         'MailOptin\\NinjaFormsConnect\\Integrations\\MailPoetConnect' => __DIR__ . '/../..' . '/src/connections/NinjaFormsConnect/Integrations/MailPoetConnect.php',
@@ -802,11 +820,13 @@ class ComposerStaticInitc482bf307e7ca92686d6a8cefe30f610
         'MailOptin\\NinjaFormsConnect\\Integrations\\MoNinjaConnect' => __DIR__ . '/../..' . '/src/connections/NinjaFormsConnect/MoNinjaConnect.php',
         'MailOptin\\NinjaFormsConnect\\Integrations\\MoosendConnect' => __DIR__ . '/../..' . '/src/connections/NinjaFormsConnect/Integrations/MoosendConnect.php',
         'MailOptin\\NinjaFormsConnect\\Integrations\\OntraportConnect' => __DIR__ . '/../..' . '/src/connections/NinjaFormsConnect/Integrations/OntraportConnect.php',
+        'MailOptin\\NinjaFormsConnect\\Integrations\\SendFoxConnect' => __DIR__ . '/../..' . '/src/connections/NinjaFormsConnect/Integrations/SendFoxConnect.php',
         'MailOptin\\NinjaFormsConnect\\Integrations\\SendGridConnect' => __DIR__ . '/../..' . '/src/connections/NinjaFormsConnect/Integrations/SendGridConnect.php',
         'MailOptin\\NinjaFormsConnect\\Integrations\\SendinblueConnect' => __DIR__ . '/../..' . '/src/connections/NinjaFormsConnect/Integrations/SendinblueConnect.php',
         'MailOptin\\NinjaFormsConnect\\Integrations\\SendlaneConnect' => __DIR__ . '/../..' . '/src/connections/NinjaFormsConnect/Integrations/SendlaneConnect.php',
         'MailOptin\\NinjaFormsConnect\\Integrations\\SendyConnect' => __DIR__ . '/../..' . '/src/connections/NinjaFormsConnect/Integrations/SendyConnect.php',
         'MailOptin\\NinjaFormsConnect\\Integrations\\VerticalResponseConnect' => __DIR__ . '/../..' . '/src/connections/NinjaFormsConnect/Integrations/VerticalResponseConnect.php',
+        'MailOptin\\NinjaFormsConnect\\Integrations\\WordPressUserRegistrationConnect' => __DIR__ . '/../..' . '/src/connections/NinjaFormsConnect/Integrations/WordPressUserRegistrationConnect.php',
         'MailOptin\\NinjaFormsConnect\\Integrations\\ZohoCRMConnect' => __DIR__ . '/../..' . '/src/connections/NinjaFormsConnect/Integrations/ZohoCRMConnect.php',
         'MailOptin\\NinjaFormsConnect\\Integrations\\ZohoCampaignsConnect' => __DIR__ . '/../..' . '/src/connections/NinjaFormsConnect/Integrations/ZohoCampaignsConnect.php',
         'MailOptin\\OntraportConnect\\APIClass' => __DIR__ . '/../..' . '/src/connections/OntraportConnect/APIClass.php',
@@ -816,6 +836,11 @@ class ComposerStaticInitc482bf307e7ca92686d6a8cefe30f610
         'MailOptin\\OntraportConnect\\Subscription' => __DIR__ . '/../..' . '/src/connections/OntraportConnect/Subscription.php',
         'MailOptin\\RegisteredUsersConnect\\Connect' => __DIR__ . '/../..' . '/src/connections/RegisteredUsersConnect/Connect.php',
         'MailOptin\\RegisteredUsersConnect\\WP_Mail_BG_Process' => __DIR__ . '/../..' . '/src/connections/RegisteredUsersConnect/WP_Mail_BG_Process.php',
+        'MailOptin\\SendFoxConnect\\APIClass' => __DIR__ . '/../..' . '/src/connections/SendFoxConnect/APIClass.php',
+        'MailOptin\\SendFoxConnect\\AbstractSendFoxConnect' => __DIR__ . '/../..' . '/src/connections/SendFoxConnect/AbstractSendFoxConnect.php',
+        'MailOptin\\SendFoxConnect\\Connect' => __DIR__ . '/../..' . '/src/connections/SendFoxConnect/Connect.php',
+        'MailOptin\\SendFoxConnect\\ConnectSettingsPage' => __DIR__ . '/../..' . '/src/connections/SendFoxConnect/ConnectSettingsPage.php',
+        'MailOptin\\SendFoxConnect\\Subscription' => __DIR__ . '/../..' . '/src/connections/SendFoxConnect/Subscription.php',
         'MailOptin\\SendGridConnect\\APIClass' => __DIR__ . '/../..' . '/src/connections/SendGridConnect/APIClass.php',
         'MailOptin\\SendGridConnect\\AbstractSendGridConnect' => __DIR__ . '/../..' . '/src/connections/SendGridConnect/AbstractSendGridConnect.php',
         'MailOptin\\SendGridConnect\\Connect' => __DIR__ . '/../..' . '/src/connections/SendGridConnect/Connect.php',
@@ -846,6 +871,8 @@ class ComposerStaticInitc482bf307e7ca92686d6a8cefe30f610
         'MailOptin\\VerticalResponseConnect\\Subscription' => __DIR__ . '/../..' . '/src/connections/VerticalResponseConnect/Subscription.php',
         'MailOptin\\WPFormsConnect\\Connect' => __DIR__ . '/../..' . '/src/connections/WPFormsConnect/Connect.php',
         'MailOptin\\WPFormsConnect\\MailOptin' => __DIR__ . '/../..' . '/src/connections/WPFormsConnect/MailOptin.php',
+        'MailOptin\\WordPressUserRegistrationConnect\\Connect' => __DIR__ . '/../..' . '/src/connections/WordPressUserRegistrationConnect/Connect.php',
+        'MailOptin\\WordPressUserRegistrationConnect\\Subscription' => __DIR__ . '/../..' . '/src/connections/WordPressUserRegistrationConnect/Subscription.php',
         'MailOptin\\ZohoCRMConnect\\AbstractZohoCRMConnect' => __DIR__ . '/../..' . '/src/connections/ZohoCRMConnect/AbstractZohoCRMConnect.php',
         'MailOptin\\ZohoCRMConnect\\Connect' => __DIR__ . '/../..' . '/src/connections/ZohoCRMConnect/Connect.php',
         'MailOptin\\ZohoCRMConnect\\ConnectSettingsPage' => __DIR__ . '/../..' . '/src/connections/ZohoCRMConnect/ConnectSettingsPage.php',
@@ -941,18 +968,18 @@ class ComposerStaticInitc482bf307e7ca92686d6a8cefe30f610
         'UpdateHelper\\NotUpdateInterfaceInstanceException' => __DIR__ . '/..' . '/kylekatarnls/update-helper/src/UpdateHelper/NotUpdateInterfaceInstanceException.php',
         'UpdateHelper\\UpdateHelper' => __DIR__ . '/..' . '/kylekatarnls/update-helper/src/UpdateHelper/UpdateHelper.php',
         'UpdateHelper\\UpdateHelperInterface' => __DIR__ . '/..' . '/kylekatarnls/update-helper/src/UpdateHelper/UpdateHelperInterface.php',
-        'WP_Async_Request' => __DIR__ . '/..' . '/a5hleyrich/wp-background-processing/classes/wp-async-request.php',
-        'WP_Background_Process' => __DIR__ . '/..' . '/a5hleyrich/wp-background-processing/classes/wp-background-process.php',
+        'WP_Async_Request' => __DIR__ . '/..' . '/deliciousbrains/wp-background-processing/classes/wp-async-request.php',
+        'WP_Background_Process' => __DIR__ . '/..' . '/deliciousbrains/wp-background-processing/classes/wp-background-process.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitc482bf307e7ca92686d6a8cefe30f610::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitc482bf307e7ca92686d6a8cefe30f610::$prefixDirsPsr4;
-            $loader->fallbackDirsPsr4 = ComposerStaticInitc482bf307e7ca92686d6a8cefe30f610::$fallbackDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitc482bf307e7ca92686d6a8cefe30f610::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitc482bf307e7ca92686d6a8cefe30f610::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit63955b66a27e8f06858be59fe37d1400::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit63955b66a27e8f06858be59fe37d1400::$prefixDirsPsr4;
+            $loader->fallbackDirsPsr4 = ComposerStaticInit63955b66a27e8f06858be59fe37d1400::$fallbackDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit63955b66a27e8f06858be59fe37d1400::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit63955b66a27e8f06858be59fe37d1400::$classMap;
 
         }, null, ClassLoader::class);
     }

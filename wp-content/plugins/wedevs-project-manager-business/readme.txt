@@ -3,7 +3,7 @@ Contributors: tareq1988, wedevs, asaquzzaman, wpasikur
 Donate Link: https://tareq.co/donate/
 Tags: project, manager, project manager, project management, todo, todo list, task, basecamp, milestone, message, file, comment, client, team, tracking, planning, lists, reporting, project management plugin for wordpress, project manager, project manager plugin for wordpress, wordpress project management
 Requires at least: 4.0
-Tested up to: 5.4
+Tested up to: 5.4.2
 Requires PHP: 5.6
 Stable tag: trunk
 License: GPLv2 or later
@@ -120,6 +120,17 @@ A. Found any bugs? Please create an [issue](https://github.com/tareq1988/wp-proj
 13. Project Settings -> Email Settings Tab
 
 == Changelog ==
+
+= v2.5.0 - Jul 17, 2020 =
+
+* **Update** Navigate to the calendar menu but showing no task for all projects and users.
+* **Update** Is now working for all permalink.
+* **Update** license update notification for co-worker
+* **Update** Task time tracker, privacy, estimation, label, and recurring UI/UX are updated for a single task.
+* **Fix** Invoice pdf download from the front-end page is not working
+* **Fix** Invoice payment is asking for a minimum amount when there is no minimum amount set.
+* **Fix** Daily digest mail is not delivered every day.
+* **Fix** Logo is not updating from settings.
 
 = v2.4.3 - Apr 30, 2020 =
 

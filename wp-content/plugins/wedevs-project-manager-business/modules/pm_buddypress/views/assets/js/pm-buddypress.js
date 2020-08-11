@@ -1,1 +1,112 @@
-!function(e){var r={};function t(n){if(r[n])return r[n].exports;var o=r[n]={i:n,l:!1,exports:{}};return e[n].call(o.exports,o,o.exports,t),o.l=!0,o.exports}t.m=e,t.c=r,t.d=function(e,r,n){t.o(e,r)||Object.defineProperty(e,r,{configurable:!1,enumerable:!0,get:n})},t.n=function(e){var r=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(r,"a",r),r},t.o=function(e,r){return Object.prototype.hasOwnProperty.call(e,r)},t.p="",t(t.s=0)}([function(e,r,t){"use strict";!function(e){e&&e.__esModule}(t(1));t.p=PM_Pro_Vars.dir_url+"modules/pm_buddypress/views/assets/js/"},function(e,r,t){"use strict";weDevsPmProAddonRegisterModule("pmbp","pm_buddypress"),pm_add_filter("before_project_save",function(e){return"undefined"!=typeof PM_BP_Vars&&(e.data.group_id=PM_BP_Vars.group_id),e},1),pm_add_filter("before_get_project",function(e){return"undefined"!=typeof PM_BP_Vars&&(e.group_id=PM_BP_Vars.group_id),e},1),pm_add_filter("before_project_duplicate",function(e){return"undefined"!=typeof PM_BP_Vars&&(e.bp_group_id=PM_BP_Vars.group_id),e},1)}]);
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _router = __webpack_require__(1);
+
+var _router2 = _interopRequireDefault(_router);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+__webpack_require__.p = PM_Pro_Vars.dir_url + 'modules/pm_buddypress/views/assets/js/';
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+weDevsPmProAddonRegisterModule('pmbp', 'pm_buddypress');
+
+pm_add_filter('before_project_save', function (args) {
+  if (typeof PM_BP_Vars !== 'undefined') {
+    args.data.group_id = PM_BP_Vars.group_id;
+  }
+  return args;
+}, 1);
+
+pm_add_filter('before_get_project', function (condition) {
+  if (typeof PM_BP_Vars !== 'undefined') {
+    condition.group_id = PM_BP_Vars.group_id;
+  }
+  return condition;
+}, 1);
+
+pm_add_filter('before_project_duplicate', function (args) {
+  if (typeof PM_BP_Vars !== 'undefined') {
+    args.bp_group_id = PM_BP_Vars.group_id;
+  }
+  return args;
+}, 1);
+
+/***/ })
+/******/ ]);

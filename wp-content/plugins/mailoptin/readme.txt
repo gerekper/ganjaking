@@ -1,53 +1,50 @@
-﻿=== Popup, Optin Form, Email Newsletters for Mailchimp, AWeber, HubSpot - MailOptin ===
+﻿=== Popup, Forms, Optin & Email Newsletters for Mailchimp, AWeber, HubSpot - MailOptin ===
 Contributors: properfraction, Collizo4sky
 Donate link: https://mailoptin.io/pricing/
-Tags: popup, form, newsletter, zoho, mailchimp, aweber, constant contact, campaignmonitor, campaign monitor, convertkit, forms, contact form, wpforms, wpform, cf7, contact form 7, ninja forms, gravity forms, activecampaign, drip, sendy, hubspot, mailerlite, sendinblue, klaviyo, mailjet, ontraport, constantcontact, verticalresponse, vertical response, zoho, sendgrid, zoho crm, zoho campaigns, moosend, godaddy, getgist, sendlane, myemma, mailster, getresponse, autoresponder, wpml, woocommerce, lightbox, crm, modal, emailoctopus, pop up, email, exit intent, ninja form
+Tags: popup, form, newsletter, zoho, mailchimp, aweber, constant contact, campaignmonitor, campaign monitor, convertkit, forms, infusionsoft, contact form, wpforms, wpform, cf7, contact form 7, ninja forms, gravity forms, activecampaign, drip, sendy, hubspot, mailerlite, sendinblue, klaviyo, mailjet, ontraport, constantcontact, vertical response, zoho, sendgrid, zoho crm, zoho campaigns, moosend, godaddy, getgist, sendlane, myemma, mailster, getresponse, sendfox, autoresponder, wpml, woocommerce, lightbox, modal, emailoctopus, pop up, email, exit intent, user registration, ninja form
 Requires at least: 4.6
 Requires PHP: 5.6
-Tested up to: 5.4
-Stable tag: 1.2.29.2
+Tested up to: 5.5
+Stable tag: 1.2.30.0
 License: GPL-2.0+
 
-Use form to convert visitors into email subscribers & keep them engaged with newsletters. Mailchimp, AWeber, ActiveCampaign, ConvertKit, Campaign Monitor, Constant Contact, CRM etc.
+Convert visitors into email subscribers, register new users & keep them engaged with newsletters. Mailchimp, AWeber, ActiveCampaign, ConvertKit, Campaign Monitor, Constant Contact, CRM etc.
 
 == Description ==
 
-= Popup, Form, Email Newsletter WordPress Plugin =
+= Popup, Form, User Registration, Email Newsletter WordPress Plugin =
 
-MailOptin is a form, lead generation, autoresponder and email newsletter plugin that will grow and engage your email list.
+MailOptin is a form builder, lead generation, user registration form and email newsletter plugin.
 
-It displays targeted messages and "calls to action" across your website with popups (a.k.a lightbox or modal), before/after post subscription form, notification bar, slide in (or scroll box), sidebar / widget optin forms as well as send automated / event-triggered newsletters such as automatic new post notification.
+It displays signup forms, targeted messages and "calls to action" across your website with popups (lightbox or modal), before & after post subscription form, notification bar, slide in (or scroll box), sidebar widget as well as send event-triggered newsletters such as automatic new post notification.
 
 [youtube https://www.youtube.com/watch?v=kBKDaPEHoeE]
 
-MailOptin comes with an easy to use template and form builder that allows you to create beautiful optin forms and email newsletters that are optimized for the highest of conversions.
+MailOptin comes with an easy to use template and form builder that allows you to create beautiful signup forms, optin forms and email newsletters that are optimized for the highest of conversions.
 
 *Most opt-in / list-building / email subscription / newsletter software and plugins are typically very expensive, buggy, hard to use and customize to one's heart content. With MailOptin, none of this is the case.*
 
-All our forms are GDPR compliant.
+Our forms are GDPR compliant.
 
 > <strong>MailOptin Premium</strong><br />
-> This is the lite version of the [MailOptin Premium](https://mailoptin.io/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) plugin that comes with all the conversion features you will ever need including optin form types such as bottom/top bars( a.k.a notification or floating bar) and slide-ins; optin triggers such as exit intent, time on site, pageviews, scroll trigger; periodic email digests, advance targeting and analytics, ton of templates and more. <a href="https://mailoptin.io/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion" rel="friend" title="MailOptin">Click here to purchase the best WordPress subscribe form & email newsletter plugin.</a>
-
+> This is the lite version of the [MailOptin Premium](https://mailoptin.io/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) plugin that comes with all essential features to build your email list. <a href="https://mailoptin.io/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion" rel="friend" title="MailOptin">Click here to purchase the best WordPress subscribe form & email newsletter plugin.</a>
 
 #### Take Test Drive
 
-> * [See Demos](https://mailoptin.io/demos/) and see completely how MailOptin works.
 > * [Create a demo sandbox](https://demo.mailoptin.io) to see how MailOptin works first hand as well as the admin backend.
 
 = Easy Integration with All Email Marketing Services =
 
-MailOptin works out of the box with all popular email marketing software providers and CRM including:
+MailOptin works with all popular email marketing software providers and CRM including Mailchimp, AWeber, Constant Contact, Campaign Monitor, Sendy, Mailerlite, MailPoet, ConvertKit, ActiveCampaign, Infusionsoft by Keap, Drip, Sendinblue, EmailOctopus, HubSpot, Ontraport CRM, Mailjet, Klaviyo, Sendlane, Mailster, Moosend, Gist, VerticalResponse, Zoho CRM, Zoho Campaigns, Emma, SendFox, SendGrid Email Marketing, GoDaddy Email Marketing, GetResponse, GetResponse360.
 
-Mailchimp, AWeber, Constant Contact, Campaign Monitor, Sendy, Mailerlite, MailPoet, ConvertKit, ActiveCampaign, Drip, Sendinblue, EmailOctopus, HubSpot, Ontraport CRM, Mailjet, Klaviyo, Sendlane, Mailster, Moosend, Gist, VerticalResponse, Zoho CRM, Zoho Campaigns, Emma, SendGrid Email Marketing, GoDaddy Email Marketing, GetResponse, GetResponse360.
-
-[MailOptin premium](https://mailoptin.io/pricing?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) allows you to build hyper segmented list and increase email automation possibilities with its deep integration with Mailchimp groups & interests and lead tagging available in AWeber, Drip, ConvertKit, ActiveCampaign etc.
+[MailOptin premium](https://mailoptin.io/pricing?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) allows you to build hyper segmented list and increase email automation possibilities with its lead tagging feature and deep integration with Mailchimp groups & interests.
 
 = Intuitive Form & Template Builder =
 
-You don't have to be a designer or hire one to build high converting lead optin forms. Our powerful drag & drop builder allows you to create pretty and conversion optimized forms and email newsletter templates.
+You don't have to be a designer or hire one to build high converting optin forms. Our powerful drag & drop builder allows you to create conversion optimized forms and email newsletter templates.
 
 = Integration with Form Plugins =
+
 MailOptin integrates with [Gravity Forms](https://mailoptin.io/article/gravity-forms-mailchimp-aweber-more/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion), [Contact Form 7](https://mailoptin.io/article/contact-form-7-mailchimp-aweber-more/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion), [Ninja Forms](https://mailoptin.io/article/ninja-forms-mailchimp-aweber-more/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion), [WPForms](https://mailoptin.io/article/wpforms-email-marketing-crm/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) and [Elementor forms](https://mailoptin.io/article/elementor-form-integration/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) so you can capture and save leads to your email marketing software and CRMs.
 
 ### Features of MailOptin Lite
@@ -60,7 +57,11 @@ MailOptin integrates with [Gravity Forms](https://mailoptin.io/article/gravity-f
 * **Calls to Action** – Display targeted messages to your website visitors with a call-to-action button included urging them to perform an action.
 * **Spam Protection** – MailOptin utilizes smart Honeypot method to stop spam contact form submissions. Additionally, there is reCAPTCHA protection available in the [premium version](https://mailoptin.io/pricing?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion).
 * **After Conversion Actions** – such as immediately close opt-in form after converstion, close form and reload page or redirect to a custom URL. Additionally, [premium version](https://mailoptin.io/pricing?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) allows you to trigger a JavaScript code as well as pass lead data to redirect URL.
-* **Page Level Targeting** – lets you to display optin or email signup forms in specific posts and pages of your WordPress site.
+* **Page-level Targeting** – lets you to display optin or email signup forms in specific posts and pages of your WordPress site.
+
+= User Registration Forms =
+
+MailOptin integrates with WordPress user system so you can [create custom registration forms](https://mailoptin.io/article/create-wordpress-user-registration-form/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) that can be embedded, a popup, slide-in, notification bar etc.
 
 = Email Newsletters =
 
@@ -73,14 +74,14 @@ MailOptin integrates with [Gravity Forms](https://mailoptin.io/article/gravity-f
 ### Features of MailOptin Premium
 
 = Automated/Event-triggered Newsletters =
+
 MailOptin integrates WordPress with all major email marketing providers to send automatic newsletter and event triggered emails. This can be very useful if your email marketing service provider lack such.
 
-For example; **Sendy** is a newsletter application without an integration with WordPress to send *new publish post notifications* to email list. MailOptin bridges this gap and deliver your post content immediately they are published.
+For example, **Sendy** is a newsletter application without an integration with WordPress to send *new publish post notifications* to email list. MailOptin bridges this gap and deliver your post content immediately they are published.
 
 Use MailOptin today to deliver new post notification and email digest newsletters to your email list at Mailchimp, Constant Contact, Campaign Monitor, Klaviyo, ActiveCampaign and more.
 
-
-= A/B Testing: Take the guesswork out of your lead generation strategy =
+= A/B Testing: Take out the guesswork =
 
 Marketers are constantly using trial and error to guess what will be most effective — but they shouldn't have to. A/B content testing lets you see what optin camapign will be most effective before you share it with your larger audience. No more guesswork.
 
@@ -113,7 +114,6 @@ The [Device Targeting](https://mailoptin.io/device-targeting-wordpress/?utm_sour
 * **Custom Fields** Add extra fields to your optin form to capture additional data from subscribers.
 * **Optin Campaign Schedule:** Allows you to specify a start and end date when an optin campaign is scheduled for display.
 * **Advance Analytics:** Get important metrics to improve your lead-generation strategy and make data-driven decisions to increase your revenue.
-* **Branding Removal:** Option to remove the MailOptin branding present on every optin form and email templates.
 * **Custom CSS:** An advance customization feature that allows you to customize your optin campaigns with your own CSS styles.
 * **Display Effect:** 30+ built-in CSS3 animation effects to capture your visitor’s attention and bring awareness to your optin forms.
 * **MailOptin Leads:** It stores your leads within MailOptin as well as important data about your subscribers that normally can’t be passed to your ESP such as the referrer, time of conversion and where it occurred.
@@ -171,19 +171,12 @@ Yes, MailOptin has full translation and localization support via the mailoptin t
 
 == Changelog ==
 
-= 1.2.29.2 =
-* Fixed screen option pagination saving bug caused by WP 5.4.2.
-* Further DB Query solidification.
-
-= 1.2.29.1 =
-* Fixed fatal error in cases where controls were missing when opening the customizer.
-* Fixed bug where clicking save changes button doesn't save field mapping data.
-* Added filter to disable admin notice ads.
-* More improvements to themes compatibility.
-
-= 1.2.29.0 =
-* Added email list selection support. Visitors and users can now select lists to subscribe to (premium).
-* Fixed error causing builder not to change state after saving.
-* Fixed issue where specifying google font for custom fields wasn't working.
+= 1.2.30.0 =
+* Added Infusionsoft integration.
+* Added WordPress user registration integration.
+* Added a new panel to clearly show embed shortcode, widget and block.
+* Fixed multiple undefined index PHP errors.
+* Improved optin conversion counter accuracy.
+* Added missing Ninja Forms ESP integrations.
 
 See the [changelog file](https://plugins.svn.wordpress.org/mailoptin/trunk/changelog.txt) for full change log information.

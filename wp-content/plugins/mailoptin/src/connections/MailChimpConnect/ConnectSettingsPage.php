@@ -54,7 +54,7 @@ class ConnectSettingsPage
                     'label'       => __('Mailchimp Segment'),
                     'section'     => $customizerClassInstance->campaign_settings_section_id,
                     'settings'    => $option_prefix . '[MailChimpConnect_groups]',
-                    'description' => __('Select Mailchimp segment to send to. Leave empty to send to all list subscribers.', 'mailoptin'),
+                    'description' => __('Select a list tag or segment to send to. Leave empty to send to all list subscribers.', 'mailoptin'),
                     'choices'     => $segments,
                     'priority'    => 199
                 )

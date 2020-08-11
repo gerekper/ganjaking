@@ -108,7 +108,21 @@ class Connections extends AbstractSettingsPage
     {
         $boxes = [
             [
-                'title'   => esc_html__('Form Plugins Integration'),
+                'title'   => esc_html__('Elite WordPress Integrations'),
+                'content' => sprintf(__('MailOptin also integrates with the following WordPress features and plugins.
+                <p><a href="%s" target="_blank">WordPress user registration</a></p>
+                <p><a href="%s" target="_blank">MailPoet email marketing plugin</a></p>
+                <p><a href="%s" target="_blank">Mailster email marketing plugin</a></p>
+                <p><a href="%s" target="_blank">Polylang, WPML & Weglot for multilingual support</a></p>
+                '),
+                    'https://mailoptin.io/article/create-wordpress-user-registration-form/?utm_source=wp_dashboard&utm_medium=integration_metabox&utm_campaign=wp_user_registration',
+                    'https://mailoptin.io/article/create-mailpoet-opt-in-forms-wordpress/?utm_source=wp_dashboard&utm_medium=integration_metabox&utm_campaign=wp_user_registration',
+                    'https://mailoptin.io/article/create-mailster-optin-forms-wordpress/?utm_source=wp_dashboard&utm_medium=integration_metabox&utm_campaign=wp_user_registration',
+                    'https://mailoptin.io/article/create-multilingual-optin-campaigns/?utm_source=wp_dashboard&utm_medium=integration_metabox&utm_campaign=multilingual'
+                )
+            ],
+            [
+                'title'   => esc_html__('Integration with Form Plugins'),
                 'content' => sprintf(__('MailOptin integrates with popular WordPress form plugins to help save all contacts and subscribers from your forms submissions to your email marketing software and CRM.
                 <p><a href="%s" target="_blank">Gravity Forms integration</a></p>
                 <p><a href="%s" target="_blank">Contact Form 7 integration</a></p>
@@ -124,15 +138,6 @@ class Connections extends AbstractSettingsPage
 
                 )
             ],
-            [
-                'title'   => esc_html__('Other Plugins Integration'),
-                'content' => sprintf(__('MailOptin also integrates with the following plugins.
-                <p><a href="%s" target="_blank">Polylang, WPML & Weglot for multilingual support</a></p>
-                '),
-                    'https://mailoptin.io/article/create-multilingual-optin-campaigns/?utm_source=wp_dashboard&utm_medium=integration_metabox&utm_campaign=gravity_forms'
-
-                )
-            ]
         ];
 
         foreach ($boxes as $box) :

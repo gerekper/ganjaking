@@ -28,9 +28,8 @@
         $('#mo-create-fb-custom-audience').click(function (e) {
             e.preventDefault();
             $.fancybox.open({
-                href: '#mo-create-fb-custom-audience-modal',
-                type: 'inline',
-                padding: 0
+                src: '#mo-create-fb-custom-audience-modal',
+                type: 'inline'
             });
         });
 
