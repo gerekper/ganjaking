@@ -1,0 +1,1443 @@
+/**
+* All of the CSS for your admin-specific functionality should be
+* included in this file.
+*/
+
+.fixed .column-notification_status {
+    width: 10%;
+}
+
+/* BetterDocs FLEX */
+.betterdocs-flex {
+    display: flex;
+}
+
+.betterdocs-align-items-center {
+    align-items: center;
+}
+
+.betterdocs-builder-hidden {
+    display: none !important;
+}
+
+.betterdocs-metatab-menu {
+    background: #fff;
+    padding: 30px;
+}
+
+.betterdocs-metatab-menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.betterdocs-metatab-menu ul li,
+.betterdocs-builder-tab-menu ul li {
+    display: inline-block;
+    margin: 0;
+    position: relative;
+    padding: 15px 25px 15px 40px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    background-color: #edeff0;
+}
+
+.betterdocs-metatab-menu ul li:after,
+.betterdocs-metatab-menu ul li:before {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    content: '';
+    height: 0;
+    width: 0;
+    border: 25px solid transparent;
+    border-right-width: 0;
+    border-left-width: 20px;
+}
+
+.betterdocs-metatab-menu ul li:after {
+    z-index: 1;
+    -webkit-transform: translateX(3px);
+    -moz-transform: translateX(3px);
+    -ms-transform: translateX(3px);
+    -o-transform: translateX(3px);
+    transform: translateX(3px);
+    border-left-color: #fff;
+    margin: 0;
+}
+
+.betterdocs-metatab-menu ul li:before {
+    z-index: 2;
+    border-left-color: #edeff0;
+    border-top-width: 25px;
+    border-bottom-width: 25px;
+}
+
+.betterdocs-metatab-menu ul li:first-child.betterdocs-has-icon {
+    padding-left: 25px;
+}
+
+.betterdocs-metatab-menu ul li.betterdocs-has-icon>.betterdocs-menu-icon {
+    margin-right: 10px;
+}
+
+.betterdocs-metatab-menu ul li>span {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.betterdocs-metatab-menu ul li img {
+    display: block;
+}
+
+.betterdocs-metatab-menu ul li.active,
+.betterdocs-metatab-menu ul li.betterdocs-complete {
+    background-color: #73d16f;
+    color: #fff;
+}
+
+.betterdocs-metatab-menu ul li.active>.betterdocs-menu-icon,
+.betterdocs-metatab-menu ul li.betterdocs-complete>.betterdocs-menu-icon {
+    filter: invert(1);
+}
+
+.betterdocs-metatab-menu ul li.active:before,
+.betterdocs-metatab-menu ul li.betterdocs-complete:before {
+    border-left-color: #73d16f;
+}
+
+/* CONTENT CSS */
+
+.betterdocs-meta-contents {
+    background: #fff;
+}
+
+.betterdocs-metatab-inner-wrapper {
+    display: none;
+}
+
+@keyframes nxloadunload {
+    10% {
+        opacity: 0.7;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.betterdocs-preloader {
+    text-align: center;
+    padding: 40px 50px 50px;
+}
+
+.betterdocs-builder-content-wrapper .betterdocs-preloader {
+    padding: 0;
+}
+
+.betterdocs-preloader img {
+    width: 200px;
+    animation-duration: 1s;
+    animation-name: nxloadunload;
+    animation-iteration-count: infinite;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-name: nxloadunload;
+    -webkit-animation-iteration-count: infinite;
+}
+
+.betterdocs-metatab-content {
+    display: none;
+    padding: 0px 30px;
+    overflow: hidden;
+}
+
+.betterdocs-metatab-content.active {
+    display: block;
+}
+
+.betterdocs-meta-next {
+    float: right;
+}
+
+.betterdocs-meta-section {
+    margin-bottom: 20px;
+    border: 1px solid #f7f7f7;
+    padding-bottom: 20px;
+}
+
+#betterdocs_metabox_wrapper .betterdocs-metatab-content h2.betterdocs-meta-section-title {
+    display: block;
+    color: #516378;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    padding-bottom: 0px;
+    background: #f8fafb;
+    padding: 14px;
+    letter-spacing: 2px;
+    font-weight: 700;
+}
+
+h2.betterdocs-meta-section-title .betterdocs-section-reset {
+    float: right;
+}
+
+.betterdocs-group-clone,
+.betterdocs-group-remove {
+    text-decoration: none;
+    color: #333;
+}
+
+.betterdocs-group-clone>span,
+.betterdocs-group-remove>span {
+    font-size: 18px;
+}
+
+.betterdocs-group-clone>span {
+    color: #73d16f;
+}
+
+.betterdocs-group-remove>span {
+    color: #dc4f4b;
+}
+
+.betterdocs-section-reset>span {
+    color: #dc4f4b;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.betterdocs-section-reset>span:hover {
+    color: #EF4144;
+}
+
+.betterdocs-group-field-add {
+    background-color: #5F7EFF;
+    color: #fff;
+    border: none;
+    box-shadow: 0 3px 6px rgba(95, 126, 255, .5);
+    text-shadow: none;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.betterdocs-group-field-add:hover {
+    box-shadow: 0 3px 6px rgba(95, 126, 255, .8);
+}
+
+.betterdocs-group-field-add>span {
+    line-height: 23px;
+}
+
+/* Add this attribute to the element that needs a tooltip */
+[data-tooltip] {
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
+}
+
+/* Hide the tooltip content by default */
+[data-tooltip]:before,
+[data-tooltip]:after {
+    visibility: hidden;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Position tooltip above the element */
+[data-tooltip]::before {
+    position: absolute;
+    bottom: 150%;
+    left: calc(50% - 38px);
+    margin-bottom: 5px;
+    padding: 8px;
+    min-width: 60px;
+    border-radius: 3px;
+    background-color: #333;
+    color: #fff;
+    content: attr(data-tooltip);
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.2;
+    z-index: 9999;
+}
+
+/* Triangle hack to make tooltip look like a speech bubble */
+[data-tooltip]:after {
+    position: absolute;
+    bottom: 150%;
+    left: 50%;
+    margin-left: -5px;
+    width: 0;
+    border-top: 5px solid #000;
+    border-top: 5px solid hsla(0, 0%, 20%, 0.9);
+    border-right: 5px solid transparent;
+    border-left: 5px solid transparent;
+    content: " ";
+    font-size: 0;
+    line-height: 0;
+}
+
+/* Show tooltip content on hover */
+[data-tooltip]:hover:before,
+[data-tooltip]:hover:after {
+    visibility: visible;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+    filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+}
+
+.betterdocs-info-message-wrapper {
+    padding: 0;
+}
+
+.betterdocs-info-message {
+    font-size: 16px;
+    padding: 15px;
+    border-left: 2px solid #e61811;
+    background-color: #ffdcdc;
+    color: #403E3C;
+}
+
+/*
+Form Input CSS
+*/
+.betterdocs-meta-section table {
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 30px;
+}
+
+.betterdocs-meta-section table tr {
+    vertical-align: top;
+}
+
+.betterdocs-meta-section tr[id^="betterdocs-meta-has_no"] {
+    display: none;
+}
+
+/* easy fix */
+#betterdocs-meta-conversion_from {
+    display: none;
+}
+
+.betterdocs-meta-section table tr th {
+    width: 25%;
+    text-align: left;
+    padding: 15px 15px 15px 0px;
+}
+
+.betterdocs-meta-section table tr td {
+    width: 75%;
+    text-align: left;
+    padding: 15px;
+}
+
+.betterdocs-meta-field,
+.betterdocs-media-url {
+    padding: 10px;
+    border: 1px solid #f7f7f7;
+    background-color: #f7f7f7 !important;
+    border-radius: 0px;
+    width: 400px;
+}
+
+.template-items {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.template-items>* {
+    flex: 1;
+}
+
+.betterdocs-meta-template .betterdocs-meta-template-editable {
+    padding: 10px;
+    line-height: 25px;
+    border: 2px solid #ececec;
+    background: #f2f2f2;
+    font-size: 14px;
+}
+
+input[type="text"].betterdocs-meta-field,
+input[type="text"].betterdocs-settings-field,
+input[type="number"].betterdocs-meta-field,
+input[type="number"].betterdocs-settings-field,
+.betterdocs-countdown-input>input[type="number"] {
+    background-color: #f2f2f2;
+    box-shadow: none;
+    border: 1px solid rgba(0,0,0, .05);
+    transition: border linear 0.2s, box-shadow linear 0.2s;
+}
+
+input[type="text"].betterdocs-meta-field:focus,
+input[type="text"].betterdocs-settings-field:focus,
+input[type="number"].betterdocs-meta-field:focus,
+input[type="number"].betterdocs-settings-field:focus,
+.betterdocs-countdown-input>input[type="number"]:focus {
+    border-color: #73d16f !important;
+}
+
+input[type="number"].betterdocs-meta-field {
+    height: auto;
+}
+
+input.betterdocs-meta-field:focus,
+select.betterdocs-meta-field:focus,
+input.betterdocs-media-url:focus {
+    outline: none;
+    box-shadow: none;
+    border-color: #f2f2f2;
+}
+
+select.betterdocs-meta-field {
+    height: 40px;
+}
+
+textarea.betterdocs-meta-field {
+    height: 150px;
+}
+
+input.betterdocs-template-field {
+    margin: 0;
+    border: 0px;
+}
+
+.betterdocs-opt-alert {
+    position: relative;
+}
+
+.betterdocs-opt-alert:before {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    content: "";
+    z-index: 9999;
+}
+
+.adv-btn-right {
+    text-align: right;
+}
+
+label.betterdocs-adv-checkbox-label {
+    background: #fff;
+    color: #73d16f;
+    padding: 8px 15px;
+    display: inline-block;
+    border-radius: 0;
+    letter-spacing: 1px;
+    border: 1px solid #73d16f;
+    transition: all .3s;
+}
+
+label.betterdocs-adv-checkbox-label:hover {
+    color: #fff;
+    border: 1px solid #73d16f;
+}
+
+.betterdocs-adv-checkbox-wrap #betterdocs_meta_advance_edit,
+.betterdocs-adv-checkbox-wrap>input {
+    visibility: hidden;
+    width: 0;
+    height: 0;
+    position: absolute;
+}
+
+.betterdocs-meta-section table tr.betterdocs-adv_checkbox td {
+    padding: 15px 0px;
+}
+
+.betterdocs-adv-checkbox-wrap>input:checked+label.betterdocs-adv-checkbox-label,
+.betterdocs-adv-checkbox-wrap #betterdocs_meta_advance_edit:checked+label.betterdocs-adv-checkbox-label {
+    background-color: #73d16f;
+    color: #fff;
+}
+
+/* Group Field */
+
+.betterdocs-group-row td.betterdocs-control {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.betterdocs-group-field-wrapper .betterdocs-group-field {
+    border: 1px solid #f2f2f2;
+    margin-bottom: 15px;
+}
+
+.betterdocs-group-field-wrapper .betterdocs-group-field:last-child {
+    margin-bottom: 0;
+}
+
+.betterdocs-group-field-wrapper .betterdocs-group-field>h4 {
+    margin: 0;
+    position: relative;
+    padding: 15px;
+    color: #333;
+    cursor: pointer;
+    font-size: 14px;
+    background-color: #f8fafb;
+}
+
+.betterdocs-group-field-wrapper .betterdocs-group-field>h4>div {
+    position: absolute;
+    right: 0;
+    height: 100%;
+    padding: 15px;
+    top: 0;
+}
+
+.betterdocs-group-field-wrapper .betterdocs-group-field>div.betterdocs-group-inner {
+    display: none;
+    padding: 30px 15px 0;
+    background-color: #FFFFFF;
+}
+
+.betterdocs-group-field-wrapper .betterdocs-group-field.open>div.betterdocs-group-inner {
+    display: block;
+}
+
+/* Media Fiels */
+.betterdocs-media-field-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.betterdocs-thumb-container {
+    display: none;
+}
+
+.betterdocs-thumb-container.betterdocs-has-thumb {
+    display: block;
+    width: 100px;
+    height: 100px;
+    margin-right: 10px;
+    overflow: hidden;
+}
+
+.betterdocs-thumb-container.betterdocs-has-thumb>img {
+    height: 100px;
+}
+
+.betterdocs-media-content > input {
+    display: block;
+    padding: 10px;
+    width: 250px;
+    border: 1px solid rgba(0,0,0, .15);
+}
+
+.betterdocs-media-button {
+    padding: 10px;
+    font-weight: 700;
+    border: 1px solid #f2f2f2;
+    margin-left: 10px;
+}
+
+.betterdocs-media-button.betterdocs-media-remove-button {
+    color: red;
+    margin-left: 0;
+    margin-top: 10px;
+}
+
+/* Custom select2 styles */
+
+.betterdocs-control-wrapper .select2-container--default .select2-selection.select2-selection--single {
+    background-color: #fff;
+    border-color: #ABB9D6;
+    height: 40px;
+    border-radius: 0;
+}
+
+.betterdocs-control-wrapper .select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #333;
+    font-size: 15px;
+    line-height: 40px;
+}
+
+.betterdocs-control-wrapper .select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 36px;
+}
+
+/* BetterDocs Settings Page CSS */
+.betterdocs-settings-wrap {
+    padding: 15px;
+}
+
+.betterdocs-settings-header {
+    height: auto;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    -webkit-display: flex;
+    display: flex;
+    -webkit-justify-content: flex-end;
+    justify-content: flex-end;
+    -webkit-align-items: center;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 10px 5px;
+}
+
+.betterdocs-settings-header .betterdocs-header-full {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.betterdocs-settings-header .betterdocs-admin-logo-inline {
+    box-shadow: 1px 0 0 0 rgba(0, 0, 0, 0.1);
+    padding: 15px 10px 10px 13px;
+    margin-right: 10px;
+}
+
+.betterdocs-settings-header .betterdocs-admin-logo-inline>svg {
+    width: 31.5px;
+    height: 32px;
+}
+
+.betterdocs-settings-header .betterdocs-header-full img {
+    width: 35px;
+    margin-right: 10px;
+}
+
+.betterdocs-settings-header .betterdocs-header-full .title {
+    font-size: 22px;
+    color: #444;
+    font-weight: 600;
+    margin: 0px;
+    line-height: 35px;
+}
+
+.betterdocs-settings-header .betterdocs-header-right {
+    text-align: right;
+}
+
+.betterdocs-settings-header .betterdocs-header-full,
+.betterdocs-settings-header .betterdocs-header-right {
+    flex: 1 1 auto;
+}
+
+.betterdocs-settings-menu ul li {
+    display: inline-block;
+    margin-bottom: 0;
+}
+
+.betterdocs-settings-menu ul li a {
+    padding: 15px 20px;
+    background-color: #f8fafb;
+    color: #516378;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    border-top: 2px solid #f8fafb;
+    display: block;
+}
+
+.betterdocs-settings-menu ul li a:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.betterdocs-settings-menu ul li.active a {
+    background-color: #fff;
+    border-top: 2px solid #17c9a2;
+}
+
+.betterdocs-settings-tab {
+    background: #fff;
+    margin-top: 5px;
+    padding: 15px 25px;
+    border-top: none;
+    position: relative;
+    display: none;
+}
+
+.betterdocs-settings-tab.active {
+    display: block;
+}
+
+.betterdocs-settings-button {
+    margin: 30px 15px 0 0;
+}
+
+.betterdocs-settings-section>table {
+    border-spacing: 0px 10px;
+}
+
+.betterdocs-settings-section table {
+    width: 100%;
+}
+
+.betterdocs-settings-section input.betterdocs-settings-field[type="text"] {
+    width: 82%;
+    max-width: 300px;
+    padding: 8px 10px;
+}
+.betterdocs-settings-section.betterdocs-instant_answer_tab input.betterdocs-settings-field[type="text"] {
+    max-width: 500px;
+}
+
+span.wp-picker-input-wrap {
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.betterdocs-settings-section input.betterdocs-settings-field.betterdocs-colorpicker-field[type="text"],
+.betterdocs-settings-section input.betterdocs-settings-field.betterdocs-colorpicker-field[type="text"]:focus {
+    width: 95px;
+    height: 28px;
+    margin: 0 5px;
+    border-color: #0071a1 !important;
+    font-size: 13px;
+    line-height: 2;
+}
+.betterdocs-settings-section label {
+    font-size: 14px;
+}
+.betterdocs-settings-section tr th {
+    padding: 10px 15px;
+    width: 25%;
+    text-align: left;
+    vertical-align: top;
+}
+#betterdocs_cross_domain_settings th, #betterdocs_cross_domain_settings td {
+    display: block;
+}
+#betterdocs-settings-general_settings tr th, #betterdocs-settings-analytics tr th, #betterdocs-settings-layout_inner_tab.betterdocs-settings-section tr th, #betterdocs-settings-shortcodes_settings.betterdocs-settings-section tr th {
+    width: 280px;
+}
+
+.betterdocs-settings-section tr td {
+    padding: 5px 15px;
+}
+
+.betterdocs-settings-section .betterdocs-section-inner-tab-content tr td {
+    padding: 10px 15px;
+}
+
+.betterdocs-settings-section tr td.betterdocs-card {
+    width: 100%;
+}
+.betterdocs-card-content {
+    display: flex;
+    flex-flow: column wrap;
+    max-width: 350px;
+}
+.betterdocs-card-content img {
+    width: 100%;
+    display: block;
+}
+.betterdocs-card-content p {
+    font-size: 14px;
+    color: #fff;
+    padding: 20px 10px 0;
+}
+.betterdocs-card-content p.betterdocs-customize-button {
+    background-color: #fff;
+    color: #26d396;
+    padding: 12px;
+    text-align: center;
+    border-radius: 3px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 4px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.betterdocs-card-content p.betterdocs-customize-button:hover {
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 6px;
+}
+.betterdocs-settings-section tr td.betterdocs-card a{
+    display: inline-block;
+    padding: 50px 30px;
+    font-size: 18px;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #26d396;
+    text-decoration: none;
+}
+
+.betterdocs-field.type-text .betterdocs-label label{
+    line-height: 41px;
+}
+
+.betterdocs-field .betterdocs-control-wrapper p{
+    margin: 5px 0;
+}
+
+.betterdocs-field .betterdocs-field-help{
+    padding: 8px 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #f2f2f2;
+    border-radius: 4px;
+    width: 80%;
+}
+
+.betterdocs-title h3{
+    margin: .5em 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 16px;
+}
+
+.betterdocs-html-description {
+    margin-left: -15px;
+}
+
+.betterdocs-settings-field,
+input.betterdocs-settings-field {
+    padding: 7px;
+    border: 1px solid rgb(204, 204, 204);
+    background-color: rgb(255, 255, 255);
+}
+
+select.betterdocs-settings-field.select2-hidden-accessible + span {
+    min-width: 150px;
+}
+
+input.betterdocs-settings-field[type="number"]{
+    height: auto;
+}
+
+input.betterdocs-settings-field[type="checkbox"] {
+    padding: 14px !important;
+    border: 1px solid #9b9d9d;
+    background-color: #fff;
+    box-shadow: none !important;
+    border-radius: 2px;
+}
+
+.betterdocs-control input[type="checkbox"]:checked {
+    background-color: #36d692;
+    border-color: #36d692;
+}
+
+.betterdocs-control input[type="checkbox"]:checked::before {
+    content: '';
+    margin: -4px 0 0 -7px;
+    background-image: url(../img/check-mark.svg); 
+    background-repeat: no-repeat;
+    width: 14px;
+}
+.betterdocs-left-right-settings {
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+
+.betterdocs-settings-left {
+    max-width: 80em;
+    height: auto;
+    flex: 1 1 70%;
+}
+
+.betterdocs-settings-right {
+    flex: 1 1 30%;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.betterdocs-sidebar {
+    background-color: #fff;
+    width: 100%;
+    padding: 50px 20px;
+    margin-top: 34px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.betterdocs-sidebar-block {
+    margin: 1em auto;
+}
+
+.betterdocs-sidebar-block .betterdocs-admin-sidebar-logo {
+    max-width: 200px;
+    display: block;
+    margin: 25px auto;
+}
+
+.betterdocs-sidebar-block .betterdocs-admin-sidebar-logo>img,
+.betterdocs-sidebar-block .betterdocs-admin-sidebar-logo>svg {
+    width: 100%;
+    display: block;
+    margin: 10px auto;
+}
+
+.betterdocs-admin-sidebar-cta a {
+    font-size: 1em;
+    color: rgba(35, 40, 45, 0.45);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: .065em;
+    text-align: center;
+    margin: 20px auto;
+    display: block;
+    border: 1px solid rgba(35, 40, 45, 0.185);
+    border-radius: 4px;
+    padding: 15px;
+    width: 200px;
+    outline: none;
+    box-shadow: none;
+    transition: all .3s;
+}
+
+.betterdocs-admin-sidebar-cta a:hover {
+    color: #23282d;
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.715);
+}
+
+@media only screen and (max-width: 767px) {
+    .betterdocs-left-right-settings {
+        flex-flow: row wrap;
+        flex-direction: column;
+    }
+
+    .betterdocs-settings-right {
+        padding: 0;
+    }
+
+}
+
+/* ADMIN */
+/**
+* All of the CSS for your public-facing functionality should be
+* included in this file.
+*/
+
+a.betterdocs-link {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    outline: none;
+}
+
+.betterdocs-inner {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    padding: 15px;
+    background: #fff;
+    box-shadow: 0 0 30px 0 rgba(0, 0, 0, .1);
+    max-width: 400px;
+}
+
+.betterdocs-flex-reverse.betterdocs-inner {
+    flex-direction: row-reverse;
+}
+
+.betterdocs-has-close-btn.betterdocs-inner {
+    padding-right: 30px !important;
+}
+
+span.betterdocs-close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    z-index: 999;
+    cursor: pointer;
+    width: 8px;
+    height: 8px;
+}
+
+span.betterdocs-close>svg {
+    fill: #000000;
+    position: absolute;
+}
+
+#betterdocs-meta-supported_heading_tag .betterdocs-control-wrapper {
+    display: flex;
+}
+
+#betterdocs-meta-supported_heading_tag .betterdocs-control-wrapper label {
+    margin-right: 15px;
+}
+
+/*
+Notification Image CSS
+*/
+.betterdocs-image {
+    width: 60px;
+    height: 60px;
+    overflow: hidden;
+    float: left;
+    margin-right: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.betterdocs-img-right .betterdocs-image {
+    margin-left: 15px;
+    margin-right: 0px;
+}
+
+.betterdocs-image img.betterdocs-img-square {
+    border-radius: 0px !important;
+}
+
+.betterdocs-image img.betterdocs-img-circle,
+.betterdocs-image>img {
+    border-radius: 50% !important;
+}
+
+.betterdocs-image img.betterdocs-img-rounded {
+    border-radius: 5px !important;
+}
+
+.betterdocs-image>img {
+    width: 100%;
+}
+
+/*
+Notification Content CSS
+*/
+.betterdocs-inner.betterdocs-img-right .betterdocs-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.betterdocs-inner.betterdocs-img-right .betterdocs-content .betterdocs-branding {
+    position: static;
+    margin-left: 0px;
+    padding: 5px 0px 0px
+}
+
+.betterdocs-content {
+    float: left;
+}
+
+.betterdocs-content>span {
+    display: block;
+}
+
+.betterdocs-first-row {
+    font-size: 12px;
+    line-height: 1.2;
+}
+
+.betterdocs-second-row {
+    margin: 5px 0;
+    font-size: 14px;
+    font-weight: bolder;
+    line-height: 1.5;
+}
+
+.betterdocs-third-row {
+    font-size: 11px;
+    line-height: 1;
+}
+
+/* Datepicker CSS */
+/* Date Picker Default Styles */
+.ui-datepicker {
+    padding: 0;
+    margin: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    background-color: #fff;
+    border: 1px solid #dfdfdf;
+    border-top: none;
+    -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.075);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.075);
+    min-width: 17em;
+    width: auto;
+    z-index: 1000 !important;
+}
+
+body.wp-admin:not(.rtl) .ui-datepicker {
+    margin-left: -1px;
+}
+
+body.wp-admin.rtl .ui-datepicker {
+    margin-right: -1px;
+}
+
+.ui-datepicker * {
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+}
+
+.ui-datepicker table {
+    font-size: 13px;
+    margin: 0;
+    border: none;
+    border-collapse: collapse;
+}
+
+.ui-datepicker .ui-widget-header,
+.ui-datepicker .ui-datepicker-header {
+    background-image: none;
+    border: none;
+    color: #fff;
+    font-weight: normal;
+}
+
+.ui-datepicker .ui-datepicker-header .ui-state-hover {
+    background: transparent;
+    border-color: transparent;
+    cursor: pointer;
+}
+
+.ui-datepicker .ui-datepicker-title {
+    margin: 0;
+    padding: 10px 0;
+    color: #fff;
+    font-size: 14px;
+    line-height: 14px;
+    text-align: center;
+}
+
+.ui-datepicker .ui-datepicker-prev,
+.ui-datepicker .ui-datepicker-next {
+    position: relative;
+    top: 0;
+    height: 34px;
+    width: 34px;
+}
+
+.ui-datepicker .ui-state-hover.ui-datepicker-prev,
+.ui-datepicker .ui-state-hover.ui-datepicker-next {
+    border: none;
+}
+
+.ui-datepicker .ui-datepicker-prev,
+.ui-datepicker .ui-datepicker-prev-hover {
+    left: 0;
+}
+
+.ui-datepicker .ui-datepicker-next,
+.ui-datepicker .ui-datepicker-next-hover {
+    right: 0;
+}
+
+.ui-datepicker .ui-datepicker-next span,
+.ui-datepicker .ui-datepicker-prev span {
+    display: none;
+}
+
+.ui-datepicker .ui-datepicker-prev {
+    float: left;
+}
+
+.ui-datepicker .ui-datepicker-next {
+    float: right;
+}
+
+.ui-datepicker .ui-datepicker-prev:before,
+.ui-datepicker .ui-datepicker-next:before {
+    font: normal 20px/34px 'dashicons';
+    padding-left: 7px;
+    color: #fff;
+    speak: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    width: 34px;
+    height: 34px;
+}
+
+.ui-datepicker .ui-datepicker-prev:before {
+    content: '\f341';
+}
+
+.ui-datepicker .ui-datepicker-next:before {
+    content: '\f345';
+}
+
+.ui-datepicker .ui-datepicker-prev-hover:before,
+.ui-datepicker .ui-datepicker-next-hover:before {
+    opacity: 0.7;
+}
+
+.ui-datepicker select.ui-datepicker-month,
+.ui-datepicker select.ui-datepicker-year {
+    width: 33%;
+}
+
+.ui-datepicker thead {
+    color: #fff;
+    font-weight: 600;
+}
+
+.ui-datepicker th {
+    padding: 10px;
+}
+
+.ui-datepicker td {
+    padding: 0;
+    border: 1px solid #f4f4f4;
+}
+
+.ui-datepicker td.ui-datepicker-other-month {
+    border: transparent;
+}
+
+.ui-datepicker tr:first-of-type td {
+    border-top: 1px solid #f0f0f0;
+}
+
+.ui-datepicker td.ui-datepicker-week-end {
+    background-color: #f4f4f4;
+    border: 1px solid #f0f0f0;
+}
+
+.ui-datepicker td.ui-datepicker-today {
+    background-color: #f0f0c0;
+}
+
+.ui-datepicker td.ui-datepicker-current-day {
+    background: #bbdd88;
+}
+
+.ui-datepicker td .ui-state-default {
+    background: transparent;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    width: auto;
+    display: block;
+    padding: 5px 10px;
+    font-weight: normal;
+    color: #444;
+}
+
+.ui-datepicker td.ui-state-disabled .ui-state-default {
+    opacity: 0.5;
+}
+
+/* Default Color Scheme */
+.ui-datepicker .ui-widget-header,
+.ui-datepicker .ui-datepicker-header {
+    background: #73d16f;
+}
+
+.ui-datepicker thead {
+    background: #32373c;
+}
+
+.ui-datepicker td .ui-state-hover {
+    background: #5f56f0;
+    color: #fff;
+}
+
+/* Settings Button */
+
+.betterdocs-settings-button {
+    margin: 30px 15px 0 0;
+}
+.quick-builder-submit-btn, .betterdocs-meta-next, .betterdocs-settings-button {
+    background-color: rgb(102, 72, 254);
+    background-image: -webkit-linear-gradient(-169deg, #15c7a4 0%, #37de89 100%);
+    color: rgb(255, 255, 255);
+    letter-spacing: 1px;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 4px;
+    border-width: 0px;
+    border-style: initial;
+    border-color: initial;
+    border-image: initial;
+    padding: 13px 25px;
+    border-radius: 3px;
+    margin: 30px 0px;
+    transition: all 0.3s ease 0s;
+}
+.betterdocs-meta-next:hover, .betterdocs-settings-button:hover {
+    background-color: #73d16f;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 4px;
+}
+
+.betterdocs-meta-multi_checkbox .betterdocs-control-wrapper label{
+    margin-bottom: 10px;
+    font-weight: bold;
+    display: inline-block;
+}
+.betterdocs-meta-multi_checkbox .betterdocs-control-wrapper label input{
+    margin-right: 5px;
+}
+
+.betterdocs-settings {
+    flex: 1;
+}
+
+.betterdocs-settings-content {
+    display: flex;
+}
+
+.betterdocs-settings-form-wrapper {
+    flex: 6;
+}
+
+.betterdocs-settings-right {
+    flex: 3;
+    background: #fff;
+    margin: 6px 0px 0px 10px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .07);
+}
+
+.betterdocs-settings-form-wrapper {
+    margin-top: 5px;
+    background-color: #fff;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .07);
+}
+
+
+#betterdocs-go_license_tab .betterdocs-settings-right {
+    display: block;
+    box-shadow: none;
+}
+
+#betterdocs-go_license_tab .betterdocs-settings-right,
+#betterdocs-go_license_tab .betterdocs-sidebar {
+    margin: 0px;
+}
+
+#betterdocs-go_license_tab .betterdocs-sidebar {
+    width: auto;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+}
+
+#betterdocs-go_license_tab .betterdocs-sidebar .betterdocs-sidebar-block.betterdocs-license-block {
+    order: 1;
+}
+
+#betterdocs-go_license_tab .betterdocs-sidebar .betterdocs-sidebar-block {
+    margin: 1em 0;
+    order: 2;
+    flex: 1;
+}
+
+
+.betterdocs-settings-documentation {
+    margin-top: 10px;
+    background: #fff;
+    padding: 30px 30px;
+}
+
+.betterdocs-settings-row {
+    display: flex;
+    margin-left: -15px;
+    margin-right: -15px;
+}
+
+
+.betterdocs-admin-block {
+    flex-basis: 25%;
+    padding: 25px;
+    box-shadow: 0 0 20px 0px #f2f2f2;
+    margin-left: 15px;
+    margin-right: 15px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+header.betterdocs-admin-block-header {
+    display: flex;
+    align-items: center;
+}
+
+.betterdocs-admin-block-header-icon {
+    width: 35px;
+}
+
+h4.betterdocs-admin-title {
+    margin: 0 15px;
+    font-size: 17px;
+}
+
+.betterdocs-admin-block-content {
+    flex: 1;
+}
+
+.betterdocs-admin-block-content > a.betterdocs-button {
+    background-color: #fff;
+    color: #15c7a4;
+    border: 1px solid #15c7a4;
+    font-size: 12px;
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 15px;
+}
+.betterdocs-admin-block-content > a:hover {
+    background-image: -webkit-linear-gradient(-169deg, #31da8d 0%, #1ecd9d 100%);
+    color: #fff;
+}
+.betterdocs-save-now {
+    background-color: #e74c3c;
+}
+.betterdocs-section-inner-tab {
+    display: flex;
+    border: 1px solid rgb(235, 235, 235);
+} 
+.betterdocs-section-inner-tab > ul {
+    width: 20%;
+    list-style: none;
+    margin: 0px;
+    background-color: #eff1f3;
+}
+.betterdocs-section-inner-tab > ul > li {
+    padding: 14px;
+    cursor: pointer;
+    background-color: #eff1f3;
+    margin-bottom: 0;
+    color: #707070;
+    position: relative;
+}
+.betterdocs-section-inner-tab > ul > li:hover,
+.betterdocs-section-inner-tab > ul > li.betterdocs-active {
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0px 12px 25px 0px rgba(0, 9, 78, 0.1);
+    color: #252525;
+}
+.betterdocs-section-inner-tab > ul > li:hover:before,
+.betterdocs-section-inner-tab > ul > li.betterdocs-active:before {
+    content: "";
+    background-color: rgb(54, 214, 146);
+    position: absolute;
+    width: 3px;
+    height: 100%;
+    left: 0;
+    top: 0;
+}    
+.betterdocs-section-inner-tab > div.betterdocs-section-inner-tab-contents {
+    flex: 1;
+    padding: 20px;
+    margin-left: 30px;
+}
+
+.betterdocs-section-inner-tab  div.betterdocs-section-inner-tab-content {
+    display: none;
+}
+
+.betterdocs-section-inner-tab  div.betterdocs-section-inner-tab-content.betterdocs-active {
+    display: block;
+}
+
+.select2-container--default .select2-search--inline .select2-search__field {
+    padding-left: 10px;
+    padding-right: 10px;
+}
