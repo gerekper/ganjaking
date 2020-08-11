@@ -1,4 +1,5 @@
-.tc-extra-product-options, .tc-totals-form {
+.tc-extra-product-options,
+.tc-totals-form {
 	direction: rtl;
 	unicode-bidi: embed;
 }
@@ -35,7 +36,8 @@
 }
 
 .tm-extra-product-options .tc-cell,
-.tc-cell, .tm-extra-product-options .cpfclear,
+.tc-cell,
+.tm-extra-product-options .cpfclear,
 .tm-extra-product-options .tm-extra-product-options-container,
 .tm-extra-product-options .tmcp-ul-wrap,
 .tm-collapse,
@@ -47,9 +49,10 @@
 	padding: 1em 0 0 0.25em;
 }
 
-.tm-extra-product-options .tm-epo-datepicker, .tm-extra-product-options .tm-epo-timepicker {
-    margin: 0 0 0 -2.5em  !important;
-    max-width: 100% !important;
+.tm-extra-product-options .tm-epo-datepicker,
+.tm-extra-product-options .tm-epo-timepicker {
+	margin: 0 0 0 -2.5em !important;
+	max-width: 100% !important;
 	padding-left: 2.5em !important;
-    padding-right: 1em !important;
+	padding-right: 1em !important;
 }

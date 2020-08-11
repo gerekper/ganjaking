@@ -41,6 +41,9 @@ class THEMECOMPLETE_EPO_Display {
 	private $discount = '';
 	private $discount_type = '';
 
+	// Flag to blocking option display
+	public $block_epo = FALSE;
+
 	/**
 	 * The single instance of the class
 	 *
@@ -182,10 +185,10 @@ class THEMECOMPLETE_EPO_Display {
 		if ( isset( $element['max_chars'] ) && $element['max_chars'] !== '' && $element['max_chars'] !== FALSE ) {
 			$rules['maxlength'] = absint( $element['max_chars'] );
 		}
-		if ( isset( $element['min'] ) && $element['min'] !== '' ) {
+		if ( isset( $element['min'] ) && $element['min'] !== '' && ($element['validation1'] === 'number' || $element['validation1'] === 'digits') ) {
 			$rules['min'] = floatval( $element['min'] );
 		}
-		if ( isset( $element['max'] ) && $element['max'] !== '' ) {
+		if ( isset( $element['max'] ) && $element['max'] !== '' && ($element['validation1'] === 'number' || $element['validation1'] === 'digits') ) {
 			$rules['max'] = floatval( $element['max'] );
 		}
 		if ( ! empty( $element['validation1'] ) ) {
@@ -462,6 +465,10 @@ class THEMECOMPLETE_EPO_Display {
 	 */
 	public function frontend_display( $product_id = 0, $form_prefix = "", $dummy_prefix = FALSE ) {
 
+		if ($this->block_epo){
+			return;
+		}
+
 		global $product, $woocommerce;
 		if ( ! property_exists( $woocommerce, 'product_factory' )
 		     || $woocommerce->product_factory === NULL
@@ -524,6 +531,10 @@ class THEMECOMPLETE_EPO_Display {
 	 * @param bool   $dummy_prefix
 	 */
 	public function tm_epo_fields( $product_id = 0, $form_prefix = "", $is_from_shortcode = FALSE, $dummy_prefix = FALSE ) {
+
+		if ($this->block_epo){
+			return;
+		}
 
 		global $woocommerce;
 
@@ -1003,6 +1014,9 @@ class THEMECOMPLETE_EPO_Display {
 						$args['sections_class'] .= ' tm-hidden';
 					}
 				}
+				if ( $args['style'] !== "" ) {
+					$args['title_position'] = "";
+				}
 				wc_get_template(
 					'tm-builder-section-start.php',
 					$args,
@@ -1145,7 +1159,7 @@ class THEMECOMPLETE_EPO_Display {
 						), $element, $element_counter, $form_prefix );
 
 						if ( $element['type'] === "product" ) {
-							$args['extra_class']       = "cpf-type-product-" . $element['layout_mode'];
+							$args['extra_class']       = "cpf-type-product-" . $element['layout_mode'] . " cpf-type-product-mode-" . $element['mode'];
 							$args['element_data_attr'] = array(
 								"data-product-layout-mode" => $element['layout_mode'],
 								"data-quantity-min"        => $element['quantity_min'],
@@ -1153,6 +1167,11 @@ class THEMECOMPLETE_EPO_Display {
 								"data-priced-individually" => $element['priced_individually'],
 								"data-discount"            => $element['discount'],
 								"data-discount-type"       => $element['discount_type'],
+								"data-show-image"          => isset($element['show_image'])?$element['show_image']:"",
+								"data-show-title"          => isset($element['show_title'])?$element['show_title']:"",
+								"data-show-price"          => isset($element['show_price'])?$element['show_price']:"",
+								"data-show-description"    => isset($element['show_description'])?$element['show_description']:"",
+								"data-show-meta"           => isset($element['show_meta'])?$element['show_meta']:"",
 							);
 							if ($element['mode'] !== "product"){
 								if ($element['layout_mode'] === "radio" || $element['layout_mode'] === "thumbnail"){
@@ -2170,6 +2189,10 @@ class THEMECOMPLETE_EPO_Display {
 	 */
 	public function tm_epo_totals( $product_id = 0, $form_prefix = "", $is_from_shortcode = FALSE ) {
 
+		if ($this->block_epo){
+			return;
+		}
+
 		global $product, $woocommerce;
 
 		if ( ! property_exists( $woocommerce, 'product_factory' )
@@ -2521,6 +2544,8 @@ class THEMECOMPLETE_EPO_Display {
 							? 1
 							: ( ! empty( THEMECOMPLETE_EPO()->tm_meta_cpf['price_override'] ) ? 1 : 0 ) ),
 					'form_prefix'              => $form_prefix_id,
+					'tc_form_prefix_name'      => (THEMECOMPLETE_EPO()->is_associated)?'tc_form_prefix_assoc['.$form_prefix_id.']':'tc_form_prefix',
+					'tc_form_prefix_class'     => (THEMECOMPLETE_EPO()->is_associated)?'tc_form_prefix_assoc':'tc_form_prefix',
 					'type'                     => themecomplete_get_product_type( $product ),
 					'price'                    => ( is_object( $product ) ? apply_filters( 'woocommerce_tm_final_price', $price['price'], $product ) : '' ),
 					'regular_price'            => ( is_object( $product ) ? apply_filters( 'woocommerce_tm_final_price', $regular_price['price'], $product ) : '' ),

@@ -81,7 +81,7 @@ class THEMECOMPLETE_EPO_FIELDS {
 		$price_per_currencies = isset( $this->element['price_per_currencies'] ) ? $this->element['price_per_currencies'] : array();
 		$price_per_currency   = array();
 		$current_currency     = themecomplete_get_woocommerce_currency();
-
+ 
 		foreach ( $price_per_currencies as $currency => $price_rule ) {
 			$copy_element                         = $this->element;
 			$copy_element['price_rules_original'] = $copy_element['price_rules'];

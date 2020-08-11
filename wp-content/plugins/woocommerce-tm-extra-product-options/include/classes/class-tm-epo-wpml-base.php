@@ -1098,7 +1098,7 @@ class THEMECOMPLETE_EPO_WPML_base {
 	 */
 	public function get_wpml_translation_by_id( $current_product_id = 0, $override = FALSE ) {
 		$wpml_translation_by_id = array();
-		if ( $this->is_wpml && ( $override || THEMECOMPLETE_EPO()->tm_epo_wpml_order_translate == "yes" ) ) {
+		if ( $this->is_wpml && ( $override || THEMECOMPLETE_EPO()->tm_epo_wpml_order_translate == "yes" ) ) {			
 			$this_land_epos = THEMECOMPLETE_EPO()->get_product_tm_epos( $current_product_id );
 			if ( isset( $this_land_epos['global'] ) && is_array( $this_land_epos['global'] ) ) {
 				foreach ( $this_land_epos['global'] as $priority => $priorities ) {

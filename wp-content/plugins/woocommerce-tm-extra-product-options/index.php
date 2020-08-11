@@ -1,3 +1,3 @@
 <?php
-// Direct access security
+// Direct access security.
 die();

@@ -104,7 +104,7 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 	 */
 	public function admin_footer() {
 		wp_register_script( 'themecomplete-footer-admin-js', FALSE, array(), FALSE, TRUE );
-		wp_localize_script( 'themecomplete-footer-admin-js', 'TMEPOOPTIONSJS', $this->jsbuilder );
+		wp_localize_script( 'themecomplete-footer-admin-js', 'TMEPOOPTIONSJS', wp_json_encode($this->jsbuilder) );
 		wp_enqueue_script( 'themecomplete-footer-admin-js' );
 	}
 
@@ -1091,7 +1091,44 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 
 			"time" => $this->add_element(
 				"time",
-				array( "enabled", "required", "price_type6", "price", "sale_price", "fee", "hide_amount", "text_before_price", "text_after_price", "quantity", "time_format", "custom_time_format",
+				array( "enabled", "required", "price_type6", "price", "sale_price", "fee", "hide_amount", "text_before_price", "text_after_price", "quantity", 
+				       $this->add_setting_button_type(
+					       "time",
+					       array(
+								"message0x0_class" => "tm-epo-switch-wrapper",
+						       	"type"             => "radio",
+     						    "tags"             => array( "class" => "time-button-type", "id" => "builder_time_button_type", "name" => "tm_meta[tmfbuilder][time_button_type][]" ),
+								"default" => "custom",
+								"options" => array(
+									array( "text" => esc_html__( 'System style', 'woocommerce-tm-extra-product-options' ), "value" => "system" ),
+									array( "text" => esc_html__( 'Custom style', 'woocommerce-tm-extra-product-options' ), "value" => "custom" ),
+								),
+								"label"   => esc_html__( 'Time picker style', 'woocommerce-tm-extra-product-options' ),
+					       )
+				       ),
+						$this->add_setting_time_format(
+					       "time",
+					       array(
+					       	"required"    => array(
+						       ".time-button-type" => array(
+							       "operator" => "is",
+							       "value"    => "custom",
+						       ),
+					       )
+					       )
+				       ),
+						$this->add_setting_custom_time_format(
+					       "time",
+					       array(
+					       	"required"    => array(
+						       ".time-button-type" => array(
+							       "operator" => "is",
+							       "value"    => "custom",
+						       ),
+					       )
+					       )
+				       ),
+
 				       array(
 					       "id"          => "time_min_time",
 					       "wpmldisable" => 1,
@@ -1100,6 +1137,12 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 					       "tags"        => array( "class" => "t", "id" => "builder_time_min_time", "name" => "tm_meta[tmfbuilder][time_min_time][]", "value" => "" ),
 					       "label"       => esc_html__( 'Minimum selectable time', 'woocommerce-tm-extra-product-options' ),
 					       "desc"        => esc_html__( 'Enter the time the following format: 8:00 am', 'woocommerce-tm-extra-product-options' ),
+					       "required"    => array(
+						       ".time-button-type" => array(
+							       "operator" => "is",
+							       "value"    => "custom",
+						       ),
+					       ),
 				       ),
 				       array(
 					       "id"          => "time_max_time",
@@ -1109,6 +1152,12 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 					       "tags"        => array( "class" => "t", "id" => "builder_time_max_time", "name" => "tm_meta[tmfbuilder][time_max_time][]", "value" => "" ),
 					       "label"       => esc_html__( 'Maximum selectable time', 'woocommerce-tm-extra-product-options' ),
 					       "desc"        => esc_html__( 'Enter the time the following format: 8:00 am', 'woocommerce-tm-extra-product-options' ),
+					       "required"    => array(
+						       ".time-button-type" => array(
+							       "operator" => "is",
+							       "value"    => "custom",
+						       ),
+					       ),
 				       ),
 				       array(
 					       "id"          => "time_theme",
@@ -1122,6 +1171,12 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 					       ),
 					       "label"       => esc_html__( "Theme", 'woocommerce-tm-extra-product-options' ),
 					       "desc"        => esc_html__( "Select the theme for the timepicker.", 'woocommerce-tm-extra-product-options' ),
+					       "required"    => array(
+						       ".time-button-type" => array(
+							       "operator" => "is",
+							       "value"    => "custom",
+						       ),
+					       ),
 				       ),
 				       array(
 					       "id"          => "time_theme_size",
@@ -1136,6 +1191,12 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 					       ),
 					       "label"       => esc_html__( "Size", 'woocommerce-tm-extra-product-options' ),
 					       "desc"        => esc_html__( "Select the size of the timepicker.", 'woocommerce-tm-extra-product-options' ),
+					       "required"    => array(
+						       ".time-button-type" => array(
+							       "operator" => "is",
+							       "value"    => "custom",
+						       ),
+					       ),
 				       ),
 				       array(
 					       "id"          => "time_theme_position",
@@ -1150,6 +1211,12 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 					       ),
 					       "label"       => esc_html__( "Position", 'woocommerce-tm-extra-product-options' ),
 					       "desc"        => esc_html__( "Select the position of the timepicker.", 'woocommerce-tm-extra-product-options' ),
+					       "required"    => array(
+						       ".time-button-type" => array(
+							       "operator" => "is",
+							       "value"    => "custom",
+						       ),
+					       ),
 				       ),
 				       array(
 					       "id"               => "time_tranlation_custom",
@@ -1159,6 +1226,12 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 					       "nowrap_end"       => 1,
 					       "noclear"          => 1,
 					       "message0x0_class" => "justify-content-flex-end",
+					       "required"    => array(
+						       ".time-button-type" => array(
+							       "operator" => "is",
+							       "value"    => "custom",
+						       ),
+					       ),
 				       ),
 				       array(
 					       "id"                   => "time_tranlation_hour",
@@ -1170,6 +1243,12 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 					       "prepend_element_html" => '<span class="prepend_span">' . esc_html__( 'Hour', 'woocommerce-tm-extra-product-options' ) . '</span> ',
 					       "nowrap_start"         => 1,
 					       "nowrap_end"           => 1,
+					       "required"    => array(
+						       ".time-button-type" => array(
+							       "operator" => "is",
+							       "value"    => "custom",
+						       ),
+					       ),
 				       ),
 				       array(
 					       "id"                   => "time_tranlation_minute",
@@ -1181,6 +1260,12 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 					       "label"                => "",
 					       "desc"                 => "",
 					       "prepend_element_html" => '<span class="prepend_span">' . esc_html__( 'Minute', 'woocommerce-tm-extra-product-options' ) . '</span> ',
+				       		"required"    => array(
+						       ".time-button-type" => array(
+							       "operator" => "is",
+							       "value"    => "custom",
+						       ),
+					       ),
 				       ),
 				       array(
 					       "id"                   => "time_tranlation_second",
@@ -1191,6 +1276,12 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 					       "desc"                 => "",
 					       "prepend_element_html" => '<span class="prepend_span">' . esc_html__( 'Second', 'woocommerce-tm-extra-product-options' ) . '</span> ',
 					       "nowrap_start"         => 1,
+					       "required"    => array(
+						       ".time-button-type" => array(
+							       "operator" => "is",
+							       "value"    => "custom",
+						       ),
+					       ),
 				       ),
 				)
 			),
@@ -1210,10 +1301,12 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 				array( "variations_disabled", "variations_options" )
 			),
 			"product"    => $this->add_element(
-				"product",
+			"product",
+				array("_tabs" =>
+				array("general_options" =>
 				array( "enabled", "required", "hide_amount", 
 
-				       array(
+					  array(
 					       "id"               => "product_mode",
 					       "wpmldisable"      => 1,
 					       "default"          => "products",
@@ -1287,7 +1380,7 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 					       "type"        => "select",
 					       "tags"        => array(
 						       "data-placeholder" => esc_attr( 'Choose a value', 'woocommerce-tm-extra-product-options' ),
-						       "class"            => "enhanced-dropdown product-orderby",
+						       "class"            => "fullwidth",
 						       "id"               => "builder_product_orderby",
 						       "name"             => "tm_meta[tmfbuilder][product_orderby][]"
 					       ),
@@ -1374,7 +1467,6 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 					       ),
 				       ),
 
-
 						$this->add_setting_items_per_row(
 					       "product",
 					       array(
@@ -1383,6 +1475,10 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 								".product-layout-mode" => array(
 									"operator" => "is",
 									"value"    => "thumbnail"
+								),
+								".product-mode" => array(
+									"operator" => "isnot",
+									"value"    => "product"
 								)				
 							)
 				       	),
@@ -1487,13 +1583,71 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 						),
 
 				),
+				"advanced_options" =>
+				array(
+					array(
+					       "id"          => "product_show_image",
+					       "wpmldisable" => 1,
+					       "default"     => "1",
+					       "type"        => "checkbox",
+					       "tags"        => array( "value" => "1", "id" => "builder_product_show_image", "name" => "tm_meta[tmfbuilder][product_show_image][]" ),
+					       "label"       => esc_html__( 'Show image', 'woocommerce-tm-extra-product-options' ),
+					       "desc"        => esc_html__( 'Enable to show the image of the associated product.', 'woocommerce-tm-extra-product-options' ),
+				       ),
+					array(
+					       "id"          => "product_show_title",
+					       "wpmldisable" => 1,
+					       "default"     => "1",
+					       "type"        => "checkbox",
+					       "tags"        => array( "value" => "1", "id" => "builder_product_show_title", "name" => "tm_meta[tmfbuilder][product_show_title][]" ),
+					       "label"       => esc_html__( 'Show title', 'woocommerce-tm-extra-product-options' ),
+					       "desc"        => esc_html__( 'Enable to show the title of the associated product.', 'woocommerce-tm-extra-product-options' ),
+				       ),
+					array(
+					       "id"          => "product_show_price",
+					       "wpmldisable" => 1,
+					       "default"     => "1",
+					       "type"        => "checkbox",
+					       "tags"        => array( "value" => "1", "id" => "builder_product_show_price", "name" => "tm_meta[tmfbuilder][product_show_price][]" ),
+					       "label"       => esc_html__( 'Show price', 'woocommerce-tm-extra-product-options' ),
+					       "desc"        => esc_html__( 'Enable to show the price of the associated product.', 'woocommerce-tm-extra-product-options' ),
+				       ),
+					array(
+					       "id"          => "product_show_description",
+					       "wpmldisable" => 1,
+					       "default"     => "1",
+					       "type"        => "checkbox",
+					       "tags"        => array( "value" => "1", "id" => "builder_product_show_description", "name" => "tm_meta[tmfbuilder][product_show_description][]" ),
+					       "label"       => esc_html__( 'Show description', 'woocommerce-tm-extra-product-options' ),
+					       "desc"        => esc_html__( 'Enable to show the description of the associated product.', 'woocommerce-tm-extra-product-options' ),
+				       ),
+					array(
+					       "id"          => "product_show_meta",
+					       "wpmldisable" => 1,
+					       "default"     => "1",
+					       "type"        => "checkbox",
+					       "tags"        => array( "value" => "1", "id" => "builder_product_show_meta", "name" => "tm_meta[tmfbuilder][product_show_meta][]" ),
+					       "label"       => esc_html__( 'Show meta', 'woocommerce-tm-extra-product-options' ),
+					       "desc"        => esc_html__( 'Enable to show the meta of the associated product.', 'woocommerce-tm-extra-product-options' ),
+				       ),
+				),
+				),
+				),
 				FALSE,
 				array(
 					"label_options"        => 1,
 					"general_options"      => 1,
+					"advanced_options"     => 1,
 					"conditional_logic"    => 1,
 					"css_settings"         => 0,
 					"woocommerce_settings" => 0,
+				),
+				array(
+					"advanced_options" => array(
+						"name" => esc_html__( "Advanced options", 'woocommerce-tm-extra-product-options' ),
+						"icon" => "tcfa tcfa-cog",
+						"slug" => "tma-tab-advanced",
+					)
 				)
 			),
 
@@ -2117,8 +2271,8 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 	 *
 	 * @since 1.0
 	 */
-	public final function add_setting_time_format( $name = "" ) {
-		return array(
+	public final function add_setting_time_format( $name = "", $args = array() ) {
+		$time_format = array(
 			"id"      => $name . "_time_format",
 			"default" => "0",
 			"type"    => "select",
@@ -2152,6 +2306,10 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			),
 			"label"   => esc_html__( "Time format", 'woocommerce-tm-extra-product-options' ),
 		);
+
+		$time_format = array_merge( $time_format, $args );
+
+		return $time_format;
 	}
 
 	/**
@@ -2159,8 +2317,8 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 	 *
 	 * @since 1.0
 	 */
-	public final function add_setting_custom_time_format( $name = "" ) {
-		return array(
+	public final function add_setting_custom_time_format( $name = "", $args = array() ) {
+		$custom_time_format = array(
 			"id"          => $name . "_custom_time_format",
 			"wpmldisable" => 1,
 			"default"     => "",
@@ -2169,6 +2327,9 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			"label"       => esc_html__( 'Custom Time format', 'woocommerce-tm-extra-product-options' ),
 			"desc"        => esc_html__( 'This will override the time format above.', 'woocommerce-tm-extra-product-options' ),
 		);
+		$custom_time_format = array_merge( $custom_time_format, $args );
+
+		return $custom_time_format;
 	}
 
 	/**
@@ -2594,9 +2755,10 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 	 *
 	 * @since 1.0
 	 */
-	public final function add_setting_button_type( $name = "" ) {
-		return array(
+	public final function add_setting_button_type( $name = "", $args = array() ) {
+		$button_type = array(
 			"id"      => $name . "_button_type",
+			"wpmldisable" => 1,
 			"default" => "",
 			"type"    => "select",
 			"tags"    => array( "id" => "builder_" . $name . "_button_type", "name" => "tm_meta[tmfbuilder][" . $name . "_button_type][]" ),
@@ -2606,6 +2768,10 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			),
 			"label"   => esc_html__( 'Upload button style', 'woocommerce-tm-extra-product-options' ),
 		);
+
+		$button_type = array_merge( $button_type, $args );
+
+		return $button_type;
 	}
 
 	/**
@@ -2983,94 +3149,100 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 	 *
 	 * @since 1.0
 	 */
-	public final function add_element( $name = "", $settings = array(), $is_addon = FALSE, $tabs_override = array() ) {
+	public final function add_element( $name = "", $settings_array = array(), $is_addon = FALSE, $tabs_override = array(), $header_names = array() ) {
 
-		$settings              = apply_filters( 'tc_element_settings_override', $settings, $name );
-		$tabs_override         = apply_filters( 'tc_element_tabs_override', $tabs_override, $name, $settings, $is_addon );
+		$settings_array        = apply_filters( 'tc_element_settings_override', $settings_array, $name );
+		$tabs_override         = apply_filters( 'tc_element_tabs_override', $tabs_override, $name, $settings_array, $is_addon );
 		$options               = array();
 		$additional_currencies = THEMECOMPLETE_EPO_HELPER()->get_additional_currencies();
 
-		foreach ( $settings as $key => $value ) {
-			if ( is_array( $value ) && count( $value ) > 2 ) {
-				if ( isset( $value["id"] ) ) {
-					$this->default_attributes[] = $value["id"];
-					if ( $is_addon ) {
-						$value["id"] = $this->remove_prefix( $value["id"], $name . "_" );
+		if (!isset($settings_array["_tabs"])){
+			$tabs_array = array("general_options" => $settings_array);
+		} else {
+			$tabs_array = $settings_array["_tabs"];
+		}
+		$tabs = array();
+		foreach ( $tabs_array as $tab => $settings ) {
+			$tabs[] = $tab;
+			foreach ( $settings as $key => $value ) {
+				if ( is_array( $value ) && count( $value ) > 2 ) {
+					if ( isset( $value["id"] ) ) {
+						$this->default_attributes[] = $value["id"];
+						if ( $is_addon ) {
+							$value["id"] = $this->remove_prefix( $value["id"], $name . "_" );
 
-						$this->addons_attributes[] = $value["id"];
+							$this->addons_attributes[] = $value["id"];
 
-						$value["id"] = $name . "_" . $value["id"];
+							$value["id"] = $name . "_" . $value["id"];
 
-						if ( ! isset( $value["tags"] ) ) {
-							$value["tags"] = array();
+							if ( ! isset( $value["tags"] ) ) {
+								$value["tags"] = array();
+							}
+							$value["tags"] = array_merge( $value["tags"], array(
+									"id"    => "builder_" . $value["id"],
+									"name"  => "tm_meta[tmfbuilder][" . $value["id"] . "][]",
+									"value" => "",
+								)
+							);
 						}
-						$value["tags"] = array_merge( $value["tags"], array(
-								"id"    => "builder_" . $value["id"],
-								"name"  => "tm_meta[tmfbuilder][" . $value["id"] . "][]",
-								"value" => "",
-							)
-						);
-					}
 
-				}
-				$options[] = $value;
-			} else {
-				$args = FALSE;
-				
-				if ( is_array( $value ) && count( $value ) == 1 && isset( $value['_multiple_values'] ) ) {
-					
-					foreach ( $value['_multiple_values'] as $mkey => $mvalue ) {
-						$r = $this->_add_element_helper( $name, $value, $mvalue, $additional_currencies, $is_addon );
-						foreach ( $r as $rkey => $rvalue ) {
-							$options[] = $rvalue;
-						}
 					}
-
+					$options[$tab][] = $value;
 				} else {
-
-					if ( is_array( $value ) && count( $value ) == 2 ) {
-						$args  = $value[1];
-						$value = $value[0];
-					}
-
-					$method = apply_filters( 'wc_epo_add_element_method', "add_setting_" . $value, $key, $value, $name, $settings, $is_addon, $tabs_override );
-
-					$class_to_use = apply_filters( 'wc_epo_add_element_class', $this, $key, $value, $name, $settings, $is_addon, $tabs_override );
-
-					if ( is_callable( array( $class_to_use, $method ) ) ) {
-						if ( $args ) {
-							$_value = $class_to_use->$method( $name, $args );
-						} else {
-							$_value = $class_to_use->$method( $name );
+					$args = FALSE;
+					
+					if ( is_array( $value ) && count( $value ) == 1 && isset( $value['_multiple_values'] ) ) {
+						
+						foreach ( $value['_multiple_values'] as $mkey => $mvalue ) {
+							$r = $this->_add_element_helper( $name, $value, $mvalue, $additional_currencies, $is_addon );
+							foreach ( $r as $rkey => $rvalue ) {
+								$options[$tab][] = $rvalue;
+							}
 						}
 
-						if ( isset( $_value['_multiple_values'] ) ) {
-							foreach ( $_value['_multiple_values'] as $mkey => $mvalue ) {
-								$r = $this->_add_element_helper( $name, $value, $mvalue, $additional_currencies, $is_addon );
+					} else {
+
+						if ( is_array( $value ) && count( $value ) == 2 ) {
+							$args  = $value[1];
+							$value = $value[0];
+						}
+
+						$method = apply_filters( 'wc_epo_add_element_method', "add_setting_" . $value, $key, $value, $name, $settings, $is_addon, $tabs_override );
+
+						$class_to_use = apply_filters( 'wc_epo_add_element_class', $this, $key, $value, $name, $settings, $is_addon, $tabs_override );
+
+						if ( is_callable( array( $class_to_use, $method ) ) ) {
+							if ( $args ) {
+								$_value = $class_to_use->$method( $name, $args );
+							} else {
+								$_value = $class_to_use->$method( $name );
+							}
+
+							if ( isset( $_value['_multiple_values'] ) ) {
+								foreach ( $_value['_multiple_values'] as $mkey => $mvalue ) {
+									$r = $this->_add_element_helper( $name, $value, $mvalue, $additional_currencies, $is_addon );
+									foreach ( $r as $rkey => $rvalue ) {
+										$options[$tab][] = $rvalue;
+									}
+								}
+							} else {
+								$r = $this->_add_element_helper( $name, $value, $_value, $additional_currencies, $is_addon );
 								foreach ( $r as $rkey => $rvalue ) {
-									$options[] = $rvalue;
+									$options[$tab][] = $rvalue;
 								}
 							}
-						} else {
-							$r = $this->_add_element_helper( $name, $value, $_value, $additional_currencies, $is_addon );
-							foreach ( $r as $rkey => $rvalue ) {
-								$options[] = $rvalue;
-							}
+
 						}
 
 					}
 
 				}
-
 			}
 		}
 
 		if ( ! empty( $tabs_override ) ) {
 			if ( ! isset( $tabs_override["label_options"] ) ) {
 				$tabs_override["label_options"] = 0;
-			}
-			if ( ! isset( $tabs_override["general_options"] ) ) {
-				$tabs_override["general_options"] = 0;
 			}
 			if ( ! isset( $tabs_override["conditional_logic"] ) ) {
 				$tabs_override["conditional_logic"] = 0;
@@ -3081,12 +3253,56 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			if ( ! isset( $tabs_override["woocommerce_settings"] ) ) {
 				$tabs_override["woocommerce_settings"] = 0;
 			}
+			foreach ($tabs as $tab) {
+				if ( ! isset( $tabs_override[$tab] ) ) {
+					$tabs_override[$tab] = 0;
+				}
+			}
 		} else {
 			$tabs_override["label_options"]        = 1;
-			$tabs_override["general_options"]      = 1;
 			$tabs_override["conditional_logic"]    = 1;
 			$tabs_override["css_settings"]         = 1;
 			$tabs_override["woocommerce_settings"] = 1;
+			foreach ($tabs as $tab) {
+				$tabs_override[$tab] = 1;
+			}
+		}
+
+		$counter = 1;
+		$options_array = array();
+		$header_array = array();
+		foreach ($options as $tab => $option) {
+			
+			if (! empty( $tabs_override[$tab] )){
+				$counter ++;
+				$options_array =array_merge(
+					$options_array,
+					// add $tab options
+					$this->_prepend_div( $name . $counter ),
+					apply_filters( 'wc_epo_admin_element_general_options', $option ),
+					$this->_append_div( $name . $counter ),
+
+				);
+				if ($tab === "general_options"){
+					$header_name = esc_html__( "General options", 'woocommerce-tm-extra-product-options' );
+					$header_icon = "tcfa tcfa-cog";
+					$header_slug = "tma-tab-general";
+				}
+				elseif ( isset($header_names[$tab])){
+					$header_name = isset($header_names[$tab]['name'])?$header_names[$tab]['name']:esc_html__( "General Settings", 'woocommerce-tm-extra-product-options' );
+					$header_icon = isset($header_names[$tab]['icon'])?$header_names[$tab]['icon']:"tcfa tcfa-cog";
+					$header_slug = isset($header_names[$tab]['slug'])?$header_names[$tab]['slug']." tma-tab-extra":"tma-tab-general tma-tab-extra";
+				}
+				$header_array =array_merge(
+					$header_array,
+					// add $tab options
+					$this->_prepend_tab( $name . $counter, 
+						array( $header_icon, $header_name ), "closed", $header_slug 
+					),
+
+				);
+			}
+			
 		}
 
 		return array_merge(
@@ -3094,11 +3310,11 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 
 			// add headers
 			$this->_prepend_div( $name, "tm-tab-headers" ),
-			! empty( $tabs_override["label_options"] ) ? $this->_prepend_tab( $name . "1", array( "tcfa tcfa-tag", esc_html__( "Label options", 'woocommerce-tm-extra-product-options' ) ), "closed", "tma-tab-label" ) : array(),
-			! empty( $tabs_override["general_options"] ) ? $this->_prepend_tab( $name . "2", array( "tcfa tcfa-cog", esc_html__( "General options", 'woocommerce-tm-extra-product-options' ) ), "open", "tma-tab-general" ) : array(),
-			! empty( $tabs_override["conditional_logic"] ) ? $this->_prepend_tab( $name . "3", array( "tcfa tcfa-lightbulb", esc_html__( "Conditional Logic", 'woocommerce-tm-extra-product-options' ) ), "closed", "tma-tab-logic" ) : array(),
-			! empty( $tabs_override["css_settings"] ) ? $this->_prepend_tab( $name . "4", array( "tcfa tcfa-file-alt", esc_html__( "CSS settings", 'woocommerce-tm-extra-product-options' ) ), "closed", "tma-tab-css" ) : array(),
-			! empty( $tabs_override["woocommerce_settings"] ) ? $this->_prepend_tab( $name . "5", array( "tcfa tcfa-shopping-bag", esc_html__( "WooCommerce settings", 'woocommerce-tm-extra-product-options' ) ), "closed", "tma-tab-woocommerce" ) : array(),
+			! empty( $tabs_override["label_options"] ) ? $this->_prepend_tab( $name . "1", array( "tcfa tcfa-tag", esc_html__( "Label options", 'woocommerce-tm-extra-product-options' ) ), "open", "tma-tab-label" ) : array(),
+			$header_array,
+			! empty( $tabs_override["conditional_logic"] ) ? $this->_prepend_tab( $name . ($counter+1), array( "tcfa tcfa-lightbulb", esc_html__( "Conditional Logic", 'woocommerce-tm-extra-product-options' ) ), "closed", "tma-tab-logic" ) : array(),
+			! empty( $tabs_override["css_settings"] ) ? $this->_prepend_tab( $name . ($counter+2), array( "tcfa tcfa-file-alt", esc_html__( "CSS settings", 'woocommerce-tm-extra-product-options' ) ), "closed", "tma-tab-css" ) : array(),
+			! empty( $tabs_override["woocommerce_settings"] ) ? $this->_prepend_tab( $name . ($counter+3), array( "tcfa tcfa-shopping-bag", esc_html__( "WooCommerce settings", 'woocommerce-tm-extra-product-options' ) ), "closed", "tma-tab-woocommerce" ) : array(),
 			$this->_append_div( $name ),
 
 			// add Label options
@@ -3107,18 +3323,16 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			! empty( $tabs_override["label_options"] ) ? $this->_get_divider_array( $name . "_divider", 0 ) : array(),
 			! empty( $tabs_override["label_options"] ) ? $this->_append_div( $name . "1" ) : array(),
 
-			// add General options
-			! empty( $tabs_override["general_options"] ) ? $this->_prepend_div( $name . "2" ) : array(),
-			! empty( $tabs_override["general_options"] ) ? apply_filters( 'wc_epo_admin_element_general_options', $options ) : array(),
-			! empty( $tabs_override["general_options"] ) ? $this->_append_div( $name . "2" ) : array(),
+			// add options
+			$options_array,
 
 			// add Contitional logic
-			$name !== "variations" && ! empty( $tabs_override["conditional_logic"] ) ? $this->_prepend_div( $name . "3" ) : array(),
+			$name !== "variations" && ! empty( $tabs_override["conditional_logic"] ) ? $this->_prepend_div( $name . ($counter+1) ) : array(),
 			$name !== "variations" && ! empty( $tabs_override["conditional_logic"] ) ? $this->_prepend_logic( $name ) : array(),
-			$name !== "variations" && ! empty( $tabs_override["conditional_logic"] ) ? $this->_append_div( $name . "3" ) : array(),
+			$name !== "variations" && ! empty( $tabs_override["conditional_logic"] ) ? $this->_append_div( $name . ($counter+1) ) : array(),
 
 			// add CSS settings
-			$name !== "variations" && ! empty( $tabs_override["css_settings"] ) ? $this->_prepend_div( $name . "4" ) : array(),
+			$name !== "variations" && ! empty( $tabs_override["css_settings"] ) ? $this->_prepend_div( $name . ($counter+2) ) : array(),
 			$name !== "variations" && ! empty( $tabs_override["css_settings"] ) ? apply_filters( 'wc_epo_admin_element_css_settings', array(
 				array(
 					"id"      => $name . "_class",
@@ -3137,10 +3351,10 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 					"desc"    => esc_html__( 'Enter an id for the container of the element.', 'woocommerce-tm-extra-product-options' ),
 				),
 			) ) : array(),
-			! empty( $tabs_override["css_settings"] ) ? $this->_append_div( $name . "4" ) : array(),
+			! empty( $tabs_override["css_settings"] ) ? $this->_append_div( $name . ($counter+2) ) : array(),
 
 			// add WooCommerce settings
-			$name !== "variations" && ! empty( $tabs_override["woocommerce_settings"] ) ? $this->_prepend_div( $name . "5" ) : array(),
+			$name !== "variations" && ! empty( $tabs_override["woocommerce_settings"] ) ? $this->_prepend_div( $name . ($counter+3) ) : array(),
 			$name !== "variations" && ! empty( $tabs_override["woocommerce_settings"] ) ? apply_filters( 'wc_epo_admin_element_woocommerce_settings', array(
 				array(
 					"id"          => $name . "_include_tax_for_fee_price_type",
@@ -3261,7 +3475,7 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 					"desc"        => esc_html__( 'Choose whether to hide the element value in the floating totals box or not.', 'woocommerce-tm-extra-product-options' ),
 				),
 			) ) : array(),
-			! empty( $tabs_override["woocommerce_settings"] ) ? $this->_append_div( $name . "5" ) : array(),
+			! empty( $tabs_override["woocommerce_settings"] ) ? $this->_append_div( $name . ($counter+2) ) : array(),
 
 			$this->_append_div( "" )
 		);
@@ -3472,13 +3686,13 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 						array( "text" => esc_html__( "Disable", 'woocommerce-tm-extra-product-options' ), "value" => "disable" ),
 					),
 					"label"       => esc_html__( "Label position", 'woocommerce-tm-extra-product-options' ),
-					"desc"        => "",
-					"required"    => array(
+					"desc"        => "",					
+					"required"    => ($type === "section")?array(
 						".sections_style" => array(
 							"operator" => "is",
 							"value"    => ""
 						)
-					),
+					):array(),
 				),
 				array(
 					"id"          => $id . "_title_color",

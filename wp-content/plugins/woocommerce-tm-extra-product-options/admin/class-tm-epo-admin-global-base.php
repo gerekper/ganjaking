@@ -2174,7 +2174,7 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_base {
 		}
 		wp_enqueue_style( 'themecomplete-pagination', $this->plugin_url . '/assets/css/admin/tcpagination' . $ext . '.css', FALSE, THEMECOMPLETE_EPO_VERSION, 'screen' );
 		wp_enqueue_style( 'toastr', $this->plugin_url . '/assets/css/admin/toastr' . $ext . '.css', FALSE, '2.1.4', 'screen' );
-		wp_enqueue_style( 'spectrum', $this->plugin_url . '/assets/css/spectrum' . $ext . '.css', FALSE, '1.3.3', 'screen' );
+		wp_enqueue_style( 'spectrum', $this->plugin_url . '/assets/css/spectrum' . $ext . '.css', FALSE, '2.0', 'screen' );
 
 		// The version of the fontawesome is customized
 		wp_enqueue_style( 'themecomplete-fontawesome', $this->plugin_url . '/assets/css/fontawesome' . $ext . '.css', FALSE, '5.12', 'screen' );
@@ -2214,7 +2214,7 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_base {
 
 		add_action( 'admin_footer', array( $this, 'script_templates' ) );
 
-		wp_register_script( 'spectrum', $this->plugin_url . '/assets/js/spectrum' . $ext . '.js', '', "1.3.3" );
+		wp_register_script( 'spectrum', $this->plugin_url . '/assets/js/spectrum' . $ext . '.js', '', "2.0" );
 
 		wp_register_script( 'themecomplete-api', $this->plugin_url . '/assets/js/tm-api' . $ext . '.js', '', THEMECOMPLETE_EPO_VERSION );
 

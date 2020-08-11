@@ -771,7 +771,7 @@ final class THEMECOMPLETE_EPO_SETTINGS_base {
 				'title'   => esc_html__( 'Disable sending the options upon saving the order', 'woocommerce-tm-extra-product-options' ),
 				'desc'    => esc_html__( 'Enable this if you are getting a 500 error when trying to complete the order in the checkout.', 'woocommerce-tm-extra-product-options' ),
 				'id'      => 'tm_epo_disable_sending_options_in_order',
-				'default' => 'yes',
+				'default' => 'no',
 				'type'    => 'checkbox',
 			),
 			array(

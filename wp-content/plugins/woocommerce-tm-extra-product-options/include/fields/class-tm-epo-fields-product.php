@@ -324,8 +324,8 @@ class THEMECOMPLETE_EPO_FIELDS_product extends THEMECOMPLETE_EPO_FIELDS {
 		$mode                = isset( $element['mode'] ) ? $element['mode'] : "";
 		$uniqid              = isset( $element['uniqid'] ) ? $element['uniqid'] : "";
 		$priced_individually = isset( $element['priced_individually'] ) ? $element['priced_individually'] : "";
-		$order = isset( $element['order'] ) ? $element['order'] : "";
-		$orderby = isset( $element['orderby'] ) ? $element['orderby'] : "";
+		$order               = isset( $element['order'] ) ? $element['order'] : "";
+		$orderby             = isset( $element['orderby'] ) ? $element['orderby'] : "";
 
 		if ($mode === "product"){
 			$layout_mode = "hidden";
@@ -602,9 +602,14 @@ class THEMECOMPLETE_EPO_FIELDS_product extends THEMECOMPLETE_EPO_FIELDS {
 		}
 
 		return array(
-			'labelclass_start' => $labelclass_start,
-			'labelclass'       => $labelclass,
-			'labelclass_end'   => $labelclass_end,
+			'labelclass_start'                  => $labelclass_start,
+			'labelclass'                        => $labelclass,
+			'labelclass_end'                    => $labelclass_end,
+			'show_title'                        => isset( $element['show_title'] ) ? $element['show_title'] : "",
+			'show_price'                        => isset( $element['show_price'] ) ? $element['show_price'] : "",
+			'show_description'                  => isset( $element['show_description'] ) ? $element['show_description'] : "",
+			'show_meta'                         => isset( $element['show_meta'] ) ? $element['show_meta'] : "",
+			'show_image'                        => isset( $element['show_image'] ) ? $element['show_image'] : "",
 			'required'                          => isset( $element['required'] ) ? $element['required'] : "",
 			'hide_amount'                       => isset( $element['hide_amount'] ) ? " " . $element['hide_amount'] : "",
 			'mode'                              => isset( $element['mode'] ) ? $element['mode'] : "",

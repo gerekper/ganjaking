@@ -95,6 +95,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 
 	// Current free text replacement 
 	public $current_free_text = '';
+	public $assoc_current_free_text = '';
 
 	// Flag to check if we are in the product shortcode
 	public $is_in_product_shortcode;
@@ -838,7 +839,16 @@ final class THEMECOMPLETE_Extra_Product_Options {
 		}
 
 		$this->current_free_text = esc_attr__( 'Free!', 'woocommerce' );
+		$this->assoc_current_free_text = $this->current_free_text;
+		if ( $this->tm_epo_replacement_free_price_text ) {
+			$this->assoc_current_free_text = $this->tm_epo_replacement_free_price_text;
+		}
+		if ( $this->tm_epo_remove_free_price_label == 'yes' ){
+			$this->assoc_current_free_text = '';
+		}
+
 		if ( $this->tm_epo_remove_free_price_label == 'yes' && $this->tm_epo_include_possible_option_pricing == "no" ) {
+		
 			if ( $post || $this->postid_pre ) {
 
 				if ( $post ) {
@@ -4667,12 +4677,18 @@ final class THEMECOMPLETE_Extra_Product_Options {
 
 													foreach ( THEMECOMPLETE_EPO_HELPER()->get_currencies() as $currency ) {
 														$mt_prefix                    = THEMECOMPLETE_EPO_HELPER()->get_currency_price_prefix( $currency );
-														$_current_currency_price      = isset( $builder[ 'multiple_' . $current_element . '_options_price' . $mt_prefix ][ $current_counter ] )
+														
+														$_current_currency_price      = isset( $current_builder[ 'multiple_' . $current_element . '_options_price' . $mt_prefix ][ $current_counter ] )
+															? $current_builder[ 'multiple_' . $current_element . '_options_price' . $mt_prefix ][ $current_counter ]
+															: (isset( $builder[ 'multiple_' . $current_element . '_options_price' . $mt_prefix ][ $current_counter ] )
 															? $builder[ 'multiple_' . $current_element . '_options_price' . $mt_prefix ][ $current_counter ]
-															: '';
-														$_current_currency_sale_price = isset( $builder[ 'multiple_' . $current_element . '_options_sale_price' . $mt_prefix ][ $current_counter ] )
+															: '');
+
+														$_current_currency_sale_price = isset( $current_builder[ 'multiple_' . $current_element . '_options_sale_price' . $mt_prefix ][ $current_counter ] )
+															? $current_builder[ 'multiple_' . $current_element . '_options_sale_price' . $mt_prefix ][ $current_counter ]
+															: (isset( $builder[ 'multiple_' . $current_element . '_options_sale_price' . $mt_prefix ][ $current_counter ] )
 															? $builder[ 'multiple_' . $current_element . '_options_sale_price' . $mt_prefix ][ $current_counter ]
-															: '';
+															: '');
 
 														$_current_currency_price = THEMECOMPLETE_EPO_HELPER()->merge_price_array( $_current_currency_price, $_current_currency_sale_price );
 
@@ -5276,10 +5292,16 @@ final class THEMECOMPLETE_Extra_Product_Options {
 													'order'                  => $this->get_builder_element( $_prefix . 'order', $builder, $current_builder, $current_counter, "", $wpml_element_fields, $current_element, "", $element_uniqueid ),
 													'orderby'                => $this->get_builder_element( $_prefix . 'orderby', $builder, $current_builder, $current_counter, "", $wpml_element_fields, $current_element, "", $element_uniqueid ),
 
-													'shipped_individually' => $this->get_builder_element( $_prefix . 'shipped_individually', $builder, $current_builder, $current_counter, "", $wpml_element_fields, $current_element, "", $element_uniqueid ),
-													'maintain_weight'      => $this->get_builder_element( $_prefix . 'maintain_weight', $builder, $current_builder, $current_counter, "", $wpml_element_fields, $current_element, "", $element_uniqueid ),
-													'discount'             => $this->get_builder_element( $_prefix . 'discount', $builder, $current_builder, $current_counter, "", $wpml_element_fields, $current_element, "", $element_uniqueid ),
-													'discount_type'        => $this->get_builder_element( $_prefix . 'discount_type', $builder, $current_builder, $current_counter, "", $wpml_element_fields, $current_element, "", $element_uniqueid ),
+													'shipped_individually'   => $this->get_builder_element( $_prefix . 'shipped_individually', $builder, $current_builder, $current_counter, "", $wpml_element_fields, $current_element, "", $element_uniqueid ),
+													'maintain_weight'        => $this->get_builder_element( $_prefix . 'maintain_weight', $builder, $current_builder, $current_counter, "", $wpml_element_fields, $current_element, "", $element_uniqueid ),
+													'discount'               => $this->get_builder_element( $_prefix . 'discount', $builder, $current_builder, $current_counter, "", $wpml_element_fields, $current_element, "", $element_uniqueid ),
+													'discount_type'          => $this->get_builder_element( $_prefix . 'discount_type', $builder, $current_builder, $current_counter, "", $wpml_element_fields, $current_element, "", $element_uniqueid ),
+
+													'show_title'             => $this->get_builder_element( $_prefix . 'show_title', $builder, $current_builder, $current_counter, "", $wpml_element_fields, $current_element, "", $element_uniqueid ),
+													'show_price'             => $this->get_builder_element( $_prefix . 'show_price', $builder, $current_builder, $current_counter, "", $wpml_element_fields, $current_element, "", $element_uniqueid ),
+													'show_description'       => $this->get_builder_element( $_prefix . 'show_description', $builder, $current_builder, $current_counter, "", $wpml_element_fields, $current_element, "", $element_uniqueid ),
+													'show_meta'              => $this->get_builder_element( $_prefix . 'show_meta', $builder, $current_builder, $current_counter, "", $wpml_element_fields, $current_element, "", $element_uniqueid ),
+													'show_image'             => $this->get_builder_element( $_prefix . 'show_image', $builder, $current_builder, $current_counter, "", $wpml_element_fields, $current_element, "", $element_uniqueid ),
 
 													'validation1' => $this->get_builder_element( $_prefix . 'validation1', $builder, $current_builder, $current_counter, "", $wpml_element_fields, $current_element, "", $element_uniqueid ),
 												) );

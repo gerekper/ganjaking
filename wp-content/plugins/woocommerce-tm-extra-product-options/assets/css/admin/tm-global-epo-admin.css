@@ -2558,6 +2558,9 @@ label:hover .tm-epo-style.tc {
 	min-width: 10%;
 	width: 50% !important;
 }
+.tm_wrapper .message2x2 select.fullwidth + .select2-container {
+	width: 80% !important;
+}
 
 .tm_wrapper .message2x2 .wc-product-search + .select2-container,
 .tm_wrapper .message2x2 .wc-category-search + .select2-container,
@@ -4111,6 +4114,7 @@ li.tc-var-field {
 	-moz-box-shadow: none;
 	box-shadow: none;
 	background: #fff;
+	z-index: 999999 !important;
 }
 
 .wp-admin .select2-container--open .select2-dropdown.tc-dropdown .select2-search--dropdown {

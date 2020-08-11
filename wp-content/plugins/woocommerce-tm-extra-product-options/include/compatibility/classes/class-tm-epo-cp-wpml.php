@@ -164,7 +164,6 @@ final class THEMECOMPLETE_EPO_CP_WPML {
 						}
 					}
 				} elseif ( isset( $epo['mode'] ) && $epo['mode'] == 'builder' ) {
-
 					if ( isset( $wpml_translation_by_id[ $epo['section'] ] ) ) {
 						$cart['tmcartepo'][ $k ]['section_label'] = $wpml_translation_by_id[ $epo['section'] ];
 						if ( ! empty( $epo['multiple'] ) && ! empty( $epo['key'] ) ) {

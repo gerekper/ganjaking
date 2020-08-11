@@ -245,7 +245,7 @@ class THEMECOMPLETE_EPO_Scripts {
 				$css_array['spectrum'] = array(
 					'src'     => THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/css/spectrum' . $ext . '.css',
 					'deps'    => FALSE,
-					'version' => '1.8',
+					'version' => '2.0',
 					'media'   => 'screen',
 				);
 			}
@@ -418,7 +418,7 @@ class THEMECOMPLETE_EPO_Scripts {
 			if ( $is_composite || ! is_product() || ( in_array( "product", THEMECOMPLETE_EPO()->current_option_features ) ) || in_array( "color", THEMECOMPLETE_EPO()->current_option_features ) ) {
 				$dependencies[]        = 'spectrum';
 				$this->defered_files[] = THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/spectrum' . $ext . '.js';
-				wp_register_script( 'spectrum', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/spectrum' . $ext . '.js', array( 'jquery' ), "1.8", TRUE );
+				wp_register_script( 'spectrum', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/spectrum' . $ext . '.js', array( 'jquery' ), "2.0", TRUE );
 			}
 
 			if ( $is_composite || ! is_product() || ( in_array( "product", THEMECOMPLETE_EPO()->current_option_features ) ) || ( in_array( "date", THEMECOMPLETE_EPO()->current_option_features ) || in_array( "time", THEMECOMPLETE_EPO()->current_option_features ) ) ) {
@@ -574,6 +574,7 @@ class THEMECOMPLETE_EPO_Scripts {
 			'tm_epo_upload_popup' => THEMECOMPLETE_EPO()->tm_epo_upload_popup,
 
 			'current_free_text' => esc_html( THEMECOMPLETE_EPO()->current_free_text ),
+			'assoc_current_free_text' => esc_html( THEMECOMPLETE_EPO()->assoc_current_free_text ),
 
 			'cart_total' => floatval( WC()->cart->get_cart_contents_total() ),
 

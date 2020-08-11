@@ -43,8 +43,10 @@ class THEMECOMPLETE_EPO_Associated_Products {
 
 		// Modify cart 
 		add_filter( 'woocommerce_add_cart_item', array( $this, 'woocommerce_add_cart_item' ), 11, 1 );
+		// Modify option prices for discounts 
+		add_filter( 'associated_tmcp_static_prices', array( $this, 'associated_tmcp_static_prices' ), 10, 2 );
 		// Load cart data on every page load
-		add_filter( 'woocommerce_get_cart_item_from_session', array( $this, 'woocommerce_get_cart_item_from_session' ), 9999, 3 );
+		add_filter( 'woocommerce_get_cart_item_from_session', array( $this, 'woocommerce_get_cart_item_from_session' ), 9998, 3 );
 		// Add associated products (from elements) to the cart.
 		add_action( 'woocommerce_add_to_cart', array( $this, 'associated_woocommerce_add_to_cart' ), 8, 6 );
 		// Remove associated products when the parent gets removed.
@@ -141,6 +143,12 @@ class THEMECOMPLETE_EPO_Associated_Products {
 			$product_list                      = array();
 			$product_list_available_variations = array();
 
+			$show_image                        = isset( $_POST['show_image'] ) ? $_POST['show_image'] : '';
+			$show_title                        = isset( $_POST['show_title'] ) ? $_POST['show_title'] : '';
+			$show_price                        = isset( $_POST['show_price'] ) ? $_POST['show_price'] : '';
+			$show_description                  = isset( $_POST['show_description'] ) ? $_POST['show_description'] : '';
+			$show_meta                         = isset( $_POST['show_meta'] ) ? $_POST['show_meta'] : '';
+
 			if ( ! empty( $product ) && is_object( $product ) ) {
 
 				$type                 = themecomplete_get_product_type( $product );
@@ -199,7 +207,12 @@ class THEMECOMPLETE_EPO_Associated_Products {
 					"product_id"                        => $product_id,
 					"product_list"                      => $product_list,
 					"product_list_available_variations" => $product_list_available_variations,
-				);
+					"show_image"                        => $show_image,
+					"show_title"                        => $show_title,
+					"show_price"                        => $show_price,
+					"show_description"                  => $show_description,
+					"show_meta"                         => $show_meta,
+				); 
 				ob_start();
 				wc_get_template(
 					'products/template-container-ajax.php',
@@ -218,6 +231,27 @@ class THEMECOMPLETE_EPO_Associated_Products {
 		die();
 
 	}
+
+	/**
+	 * Modify option prices for discounts 
+	 *
+	 * @since 5.0.12.4
+	 */
+	public function associated_tmcp_static_prices( $tmcp_static_prices = "", $cart_item ) {
+
+		if ( isset( $cart_item['associated_parent'] ) && ! empty( $cart_item['associated_parent'] ) ) {
+
+			if ( $cart_item['associated_discount'] ) {
+
+				$tmcp_static_prices = $this->get_discounted_price( $tmcp_static_prices, $cart_item['associated_discount'], $cart_item['associated_discount_type']);
+
+			}				
+
+		}
+
+		return $tmcp_static_prices;		
+
+	}	
 
 	/**
 	 * Apply discount to the option price

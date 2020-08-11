@@ -8,6 +8,9 @@
  * @version 4.9
  */
 
+ // phpcs:disable Squiz.Commenting
+ // phpcs:disable WordPress.PHP.YodaConditions.NotYoda
+
 defined( 'ABSPATH' ) || exit;
 
 final class Themecomplete_Extra_Product_Options_Setup {
@@ -17,7 +20,7 @@ final class Themecomplete_Extra_Product_Options_Setup {
 	 *
 	 * @since 4.8
 	 */
-	protected static $_instance = NULL;
+	protected static $instance = null;
 
 	/**
 	 * Main Extra Product Options Instance
@@ -29,11 +32,11 @@ final class Themecomplete_Extra_Product_Options_Setup {
 	 * @return Themecomplete_Extra_Product_Options_Setup - Main instance
 	 */
 	public static function instance() {
-		if ( is_null( self::$_instance ) ) {
-			self::$_instance = new self();
+		if ( is_null( self::$instance ) ) {
+			self::$instance = new self();
 		}
 
-		return self::$_instance;
+		return self::$instance;
 	}
 
 	/**
@@ -113,22 +116,25 @@ final class Themecomplete_Extra_Product_Options_Setup {
 	 */
 	private function define_constants() {
 
-		$version = get_file_data( THEMECOMPLETE_EPO_PLUGIN_FILE, array(
-			'version'     => 'Version',
-			'wp_required' => 'Requires at least',
-			'wc_required' => 'WC requires at least',
-		) );
+		$version = get_file_data(
+			THEMECOMPLETE_EPO_PLUGIN_FILE,
+			array(
+				'version'     => 'Version',
+				'wp_required' => 'Requires at least',
+				'wc_required' => 'WC requires at least',
+			)
+		);
 
 		$this->define( 'THEMECOMPLETE_EPO_ABSPATH', dirname( THEMECOMPLETE_EPO_PLUGIN_FILE ) . '/' );
 		$this->define( 'THEMECOMPLETE_EPO_VERSION', $version['version'] );
 		$this->define( 'THEMECOMPLETE_EPO_WP_VERSION', $version['wp_required'] );
 		$this->define( 'THEMECOMPLETE_EPO_WC_VERSION', $version['wc_required'] );
 		$this->define( 'THEMECOMPLETE_EPO_PLUGIN_ID', '7908619' );
-		$this->define( 'THEMECOMPLETE_EPO_LOCAL_POST_TYPE', "tm_product_cp" );
-		$this->define( 'THEMECOMPLETE_EPO_GLOBAL_POST_TYPE', "tm_global_cp" );
-		$this->define( 'THEMECOMPLETE_EPO_GLOBAL_POST_TYPE_PAGE_HOOK', "tm-global-epo" );
-		$this->define( 'THEMECOMPLETE_EPO_WPML_LANG_META', "tm_meta_lang" );
-		$this->define( 'THEMECOMPLETE_EPO_WPML_PARENT_POSTID', "tm_meta_parent_post_id" );
+		$this->define( 'THEMECOMPLETE_EPO_LOCAL_POST_TYPE', 'tm_product_cp' );
+		$this->define( 'THEMECOMPLETE_EPO_GLOBAL_POST_TYPE', 'tm_global_cp' );
+		$this->define( 'THEMECOMPLETE_EPO_GLOBAL_POST_TYPE_PAGE_HOOK', 'tm-global-epo' );
+		$this->define( 'THEMECOMPLETE_EPO_WPML_LANG_META', 'tm_meta_lang' );
+		$this->define( 'THEMECOMPLETE_EPO_WPML_PARENT_POSTID', 'tm_meta_parent_post_id' );
 		$this->define( 'THEMECOMPLETE_EPO_PLUGIN_PATH', untrailingslashit( plugin_dir_path( THEMECOMPLETE_EPO_PLUGIN_FILE ) ) );
 		$this->define( 'THEMECOMPLETE_EPO_TEMPLATE_PATH', THEMECOMPLETE_EPO_PLUGIN_PATH . '/templates/' );
 		$this->define( 'THEMECOMPLETE_EPO_PLUGIN_URL', untrailingslashit( plugins_url( '/', THEMECOMPLETE_EPO_PLUGIN_FILE ) ) );
@@ -136,7 +142,7 @@ final class Themecomplete_Extra_Product_Options_Setup {
 		$this->define( 'THEMECOMPLETE_EPO_ADMIN_SETTINGS_ID', 'tm_extra_product_options' );
 		$this->define( 'THEMECOMPLETE_EPO_DIRECTORY', dirname( plugin_basename( THEMECOMPLETE_EPO_PLUGIN_FILE ) ) );
 		$this->define( 'THEMECOMPLETE_EPO_PLUGIN_SLUG', THEMECOMPLETE_EPO_DIRECTORY . '/' . basename( THEMECOMPLETE_EPO_PLUGIN_FILE ) );
-		$this->define( 'THEMECOMPLETE_EPO_FILE_SLUG', basename( THEMECOMPLETE_EPO_PLUGIN_FILE, ".php" ) );
+		$this->define( 'THEMECOMPLETE_EPO_FILE_SLUG', basename( THEMECOMPLETE_EPO_PLUGIN_FILE, '.php' ) );
 		$this->define( 'THEMECOMPLETE_SUPPORTED_ECO_VERSION', '1.7' );
 
 	}
@@ -154,7 +160,7 @@ final class Themecomplete_Extra_Product_Options_Setup {
 		// Functions
 		include_once THEMECOMPLETE_EPO_PLUGIN_PATH . '/include/functions/epo-functions.php';
 
-		// Plugin compatibility functions 
+		// Plugin compatibility functions
 		require_once THEMECOMPLETE_EPO_PLUGIN_PATH . '/include/functions/compatibility-functions.php';
 
 	}
@@ -173,37 +179,37 @@ final class Themecomplete_Extra_Product_Options_Setup {
 			return;
 		}
 
-		// Initialize updater 
+		// Initialize updater
 		THEMECOMPLETE_EPO_LICENSE();
 		THEMECOMPLETE_EPO_UPDATER();
 
-		// Load missing WooCommere functions if any 
+		// Load missing WooCommere functions if any
 		add_action( 'plugins_loaded', array( $this, 'wc_functions' ), 10 );
 
-		// Load plugin textdomain 
+		// Load plugin textdomain
 		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ), 10 );
 
-		// Register post types 
+		// Register post types
 		add_action( 'init', array( 'THEMECOMPLETE_EPO_POST_TYPES', 'register' ) );
 
-		// Load admin interface 
+		// Load admin interface
 		if ( $this->is_request( 'admin' ) ) {
 
-			// Add settings page 
+			// Add settings page
 			add_filter( 'woocommerce_get_settings_pages', array( $this, 'wc_admin_settings_page' ) );
 
-			// woocommerce_bundle_rate_shipping chosen fix by removing 
+			// woocommerce_bundle_rate_shipping chosen fix by removing
 			add_action( 'admin_enqueue_scripts', array( $this, 'fix_woocommerce_bundle_rate_shipping_scripts' ), 99 );
 
-			// Globals Admin Interface 
+			// Globals Admin Interface
 			THEMECOMPLETE_EPO_ADMIN_GLOBAL();
 
-			// Admin Interface 
+			// Admin Interface
 			THEMECOMPLETE_EPO_ADMIN();
 
 		} else {
 
-			// Add shortcodes 
+			// Add shortcodes
 			add_action( 'init', array( 'THEMECOMPLETE_EPO_Shortcodes', 'add' ) );
 
 		}
@@ -211,7 +217,7 @@ final class Themecomplete_Extra_Product_Options_Setup {
 		// Add widgets
 		add_action( 'widgets_init', array( 'THEMECOMPLETE_EPO_Widgets', 'register' ) );
 
-		// Main plugin interface 
+		// Main plugin interface
 		THEMECOMPLETE_EPO();
 
 	}
@@ -234,7 +240,7 @@ final class Themecomplete_Extra_Product_Options_Setup {
 
 		$domain     = THEMECOMPLETE_EPO_DIRECTORY;
 		$locale     = apply_filters( 'plugin_locale', get_locale(), $domain );
-		$global_mo  = trailingslashit( WP_LANG_DIR ) . 'plugins' . '/' . $domain . '-' . $locale . '.mo';
+		$global_mo  = trailingslashit( WP_LANG_DIR ) . 'plugins/' . $domain . '-' . $locale . '.mo';
 		$global_mo2 = trailingslashit( WP_LANG_DIR ) . 'plugins/' . $domain . '/' . $domain . '-' . $locale . '.mo';
 
 		if ( file_exists( $global_mo ) ) {
@@ -245,15 +251,13 @@ final class Themecomplete_Extra_Product_Options_Setup {
 			load_textdomain( $domain, $global_mo2 );
 		} else {
 			// wp-content/plugins/plugin-name/languages/plugin-name-$locale.mo
-			load_plugin_textdomain( 'woocommerce-tm-extra-product-options', FALSE, $domain . '/languages/' );
+			load_plugin_textdomain( 'woocommerce-tm-extra-product-options', false, $domain . '/languages/' );
 		}
 
 	}
 
 	/**
 	 * Admin Settings Page
-	 *
-	 * @param $settings
 	 *
 	 * @return array
 	 * @since 4.8
@@ -267,7 +271,6 @@ final class Themecomplete_Extra_Product_Options_Setup {
 			if ( $_setting instanceof WC_Settings_Page ) {
 				$settings[] = $_setting;
 			}
-
 		}
 
 		return $settings;
@@ -275,12 +278,13 @@ final class Themecomplete_Extra_Product_Options_Setup {
 	}
 
 	/**
-	 * woocommerce_bundle_rate_shipping select chosen js fix by removing
+	 * Fix woocommerce_bundle_rate_shipping select chosen js conflict by removing
 	 *
 	 * @since 4.8
 	 */
 	public function fix_woocommerce_bundle_rate_shipping_scripts() {
-		if ( ! ( isset( $_GET['page'] ) && isset( $_GET['tab'] ) && $_GET['page'] == 'wc-settings' && $_GET['tab'] == 'shipping' ) ) {
+		// phpcs:ignore
+		if ( ! ( isset( $_GET['page'] ) && isset( $_GET['tab'] ) && $_GET['page'] === 'wc-settings' && $_GET['tab'] === 'shipping' ) ) {
 			wp_dequeue_script( 'woocommerce_bundle_rate_shipping_admin_js' );
 		}
 	}

@@ -19,7 +19,7 @@ defined( 'ABSPATH' ) || exit;
      data-epo-id="<?php echo esc_attr( $epo_internal_counter ); ?>" data-product-id="<?php echo esc_attr( $product_id ); ?>">
     <input type="hidden" value="<?php echo esc_attr( $price ); ?>" name="cpf_product_price<?php echo esc_attr( $form_prefix ); ?>"
            class="cpf-product-price"/>
-    <input type="hidden" value="<?php echo esc_attr( $form_prefix ); ?>" name="tc_form_prefix" class="tc_form_prefix"/>
+    <input type="hidden" value="<?php echo esc_attr( $form_prefix ); ?>" name="<?php echo esc_attr( $tc_form_prefix_name ); ?>" class="<?php echo esc_attr( $tc_form_prefix_class ); ?>"/>
     <?php do_action( "wc_epo_totals_form", $product_id ); ?>
     <div id="tm-epo-totals<?php echo esc_attr( $form_prefix ); ?>"
          class="tc-epo-totals tm-product-id-<?php echo esc_attr( $product_id ); ?> tm-epo-totals tm-custom-prices-total<?php echo esc_attr( $hidden ); ?> <?php echo esc_attr( $classcart ); ?>"

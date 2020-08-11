@@ -10,7 +10,7 @@
  *
  * @author  themeComplete
  * @package WooCommerce Extra Product Options/Templates
- * @version 5.0
+ * @version 5.0.12.4
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -19,7 +19,7 @@ defined( 'ABSPATH' ) || exit;
 	<?php include( THEMECOMPLETE_EPO_TEMPLATE_PATH . '_quantity_start.php' ); ?>
     <label for="<?php echo esc_attr( $id ); ?>" class="tm-epo-field-label tm-epo-timepicker-label-container">
         <input type="<?php echo esc_attr( $input_type ); ?>"
-               class="<?php echo esc_attr( $fieldtype ); ?> tm-epo-field tmcp-time tm-epo-timepicker"
+               class="<?php echo esc_attr( $fieldtype ); ?> tm-epo-field tmcp-time<?php echo esc_attr( $button_style ); ?>"
                data-mask="<?php echo esc_attr( $time_mask ); ?>"
                data-mask-placeholder="<?php echo esc_attr( $time_placeholder ); ?>"
                data-min-time="<?php echo esc_attr( $min_time ); ?>"

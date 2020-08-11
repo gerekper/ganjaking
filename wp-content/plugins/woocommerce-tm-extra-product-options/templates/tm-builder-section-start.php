@@ -50,6 +50,7 @@ if ( $sections_type == "slider" ) {
 
 	$icon    = FALSE;
 	$toggler = '';
+
 	if ( $style == "box" ) {
 		echo '<div class="tm-box">';
 	}

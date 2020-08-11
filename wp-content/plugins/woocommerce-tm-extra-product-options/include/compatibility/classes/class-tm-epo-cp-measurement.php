@@ -193,6 +193,10 @@ final class THEMECOMPLETE_EPO_CP_measurement {
 	 */
 	public function wc_epo_option_price_correction( $price = "", $cart_item = "" ) {
 
+		if ( isset( $cart_item['pricing_item_meta_data'] ) && !empty( $cart_item['pricing_item_meta_data']['_measurement_needed'] ) ) {
+			$price = $price/$cart_item['pricing_item_meta_data']['_measurement_needed'];
+		}
+
 		if ( isset( THEMECOMPLETE_EPO()->tm_epo_measurement_calculate_mode ) && THEMECOMPLETE_EPO()->tm_epo_measurement_calculate_mode == 'yes' ) {
 
 			if ( is_array( $cart_item ) && isset( $cart_item['pricing_item_meta_data'] ) && ! empty( $cart_item['pricing_item_meta_data']['_measurement_needed'] ) ) {
@@ -211,8 +215,8 @@ final class THEMECOMPLETE_EPO_CP_measurement {
 	 */
 	public function wc_epo_add_cart_item_original_price( $price = "", $cart_item = "" ) {
 
-		if ( isset( $cart_item['pricing_item_meta_data'] ) && isset( $cart_item['pricing_item_meta_data']['_price'] ) ) {
-			$price = $cart_item['pricing_item_meta_data']['_price'];
+		if ( isset( $cart_item['pricing_item_meta_data'] ) && isset( $cart_item['pricing_item_meta_data']['_price'] ) && !empty( $cart_item['pricing_item_meta_data']['_measurement_needed'] ) ) {
+			$price = $cart_item['pricing_item_meta_data']['_price']/$cart_item['pricing_item_meta_data']['_measurement_needed'];
 		}
 
 		return $price;

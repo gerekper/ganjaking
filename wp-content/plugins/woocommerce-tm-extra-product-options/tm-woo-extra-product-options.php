@@ -6,7 +6,7 @@
  * Author: themeComplete
  * Author URI: https://themecomplete.com/
  *
- * Version: 5.0.12.3
+ * Version: 5.0.12.4
  *
  * Requires at least: 4.4
  * Tested up to: 5.4
@@ -26,19 +26,13 @@ if ( ! defined( 'THEMECOMPLETE_EPO_PLUGIN_FILE' ) ) {
 	define( 'THEMECOMPLETE_EPO_PLUGIN_FILE', __FILE__ );
 }
 
-// Check if another plugin is overwriting our classes
+// Check if another plugin is overwriting our classes.
 if ( class_exists( 'Themecomplete_Extra_Product_Options_Setup' ) ) {
 	return;
 }
 
 // Include the main Extra_Product_Options Setup class.
-include_once dirname( __FILE__ ) . '/include/class-extra-product-options-setup.php';
-
-update_option( 'tm_epo_envato_username', 'nullmaster' );
-update_option( 'tm_epo_envato_apikey', 'nullmasterinbabiato' );
-update_option( 'tm_epo_envato_purchasecode', 'nullmasterinbabiato' );
-update_option( 'tm_license_activation_key', 'nullmasterinbabiato' );
-delete_site_transient( 'update_plugins' );
+require_once dirname( __FILE__ ) . '/include/class-extra-product-options-setup.php';
 
 /**
  * Main instance of Extra Product Options.
@@ -50,5 +44,5 @@ function THEMECOMPLETE_EXTRA_PRODUCT_OPTIONS_SETUP() {
 	return Themecomplete_Extra_Product_Options_Setup::instance();
 }
 
-// Setup the plugin
+// Setup the plugin.
 THEMECOMPLETE_EXTRA_PRODUCT_OPTIONS_SETUP();

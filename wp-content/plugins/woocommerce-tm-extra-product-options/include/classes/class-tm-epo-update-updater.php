@@ -226,7 +226,6 @@ final class THEMECOMPLETE_EPO_UPDATE_Manager {
 		add_filter( 'pre_set_site_transient_update_plugins', array( $this, 'tm_update_plugins' ) );
 		add_filter( 'plugins_api', array( $this, 'tm_plugins_api' ), 10, 3 );
 		add_action( 'in_plugin_update_message-' . $this->plugin_slug, array( $this, 'tm_update_message' ) );
-		add_action( 'after_plugin_row_' . $plugin_id, array( $this, 'register_message_pre' ), 10, 3 );
 
 	}
 
@@ -315,31 +314,6 @@ final class THEMECOMPLETE_EPO_UPDATE_Manager {
 		$plugins = get_plugins();
 		if ( ! THEMECOMPLETE_EPO_LICENSE()->check_license() ) {
 			echo '<br /><a href="' . esc_url( $this->url ) . '">' . esc_html__( 'Download new version from CodeCanyon', 'woocommerce-tm-extra-product-options' ) . '</a>' . ' ' . esc_html__( 'or register the plugin to receive automatic updates.', 'woocommerce-tm-extra-product-options' );
-		}
-	}
-
-	/**
-	 * Print register message
-	 *
-	 * @since 5.0
-	 */
-	public function register_message_pre( $plugin_file, $plugin_data, $plugin_status ) {
-		if ( ! THEMECOMPLETE_EPO_LICENSE()->check_license() ) {
-			$wp_list_table = _get_list_table( 'WP_Plugins_List_Table' );
-			$slug          = dirname( $plugin_file );
-			if ( is_network_admin() ) {
-				$active_class = is_plugin_active_for_network( $plugin_file ) ? ' active' : '';
-			} else {
-				$active_class = is_plugin_active( $plugin_file ) ? ' active' : '';
-			}
-
-			?>
-        <tr class="plugin-update-tr<?php echo $active_class; ?>" id="<?php echo $slug; ?>-update" data-plugin="<?php echo $plugin_file; ?>">
-        <td colspan="<?php echo $wp_list_table->get_column_count(); ?>" class="plugin-update colspanchange">
-                <div class="update-message notice inline notice-warning notice-alt">
-			<?php
-			echo '<p>' . sprintf( esc_html__( '%s WooCommerce TM Extra Product Options to receive %s', 'woocommerce-tm-extra-product-options' ), '<a href="' . esc_url( admin_url( 'admin.php?page=wc-settings&selected_tab=tmsettings8-tab&tab=' . THEMECOMPLETE_EPO_ADMIN_SETTINGS_ID ) ) . '" aria-label="' . esc_attr__( 'Activate', 'woocommerce-tm-extra-product-options' ) . '">' . esc_html__( 'Activate', 'woocommerce-tm-extra-product-options' ) . '</a>', '<a href="' . esc_url( 'https://epo.themecomplete.com/benefits/' ) . '" target="_blank" aria-label="' . esc_attr__( 'Premium Benefits', 'woocommerce-tm-extra-product-options' ) . '">' . esc_html__( 'Premium Benefits (e.g. Auto Updates)', 'woocommerce-tm-extra-product-options' ) . '</a>' ) . '</p>';
-			echo '</div></tr>';
 		}
 	}
 
