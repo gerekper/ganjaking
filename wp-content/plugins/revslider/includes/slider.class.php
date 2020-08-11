@@ -2145,7 +2145,7 @@ class RevSliderSlider extends RevSliderFunctions {
 		if($max_posts < 0) $max_posts *= -1;
 		
 		$posts = apply_filters('revslider_pre_mod_stream_data', $posts, $sourcetype, $this->id);
-		$posts = (is_string($posts)) ? array() : $posts;
+		$posts = (is_string($posts) || is_bool($posts)) ? array() : $posts;
 		
 		while(count($posts) > $max_posts || count($posts) > $max_allowed){
 			array_pop($posts);
@@ -2259,7 +2259,7 @@ class RevSliderSlider extends RevSliderFunctions {
 	 * get the Slider Overview Structure
 	 * @since: 6.0
 	 */
-	public function get_overview_data($slider = false){
+	public function get_overview_data($slider = false, $slides = false){
 		//if we are pre 6.0.0, we have to create the data from the old data instead of the new format!
 		
 		$favorite	= new RevSliderFavorite();
@@ -2267,7 +2267,7 @@ class RevSliderSlider extends RevSliderFunctions {
 		$post60		= (version_compare($slider->get_setting('version', '1.0.0'), '6.0.0', '<')) ? false : true;
 		$id			= 0;
 		$slide_ids	= array();
-		$slides		= $slider->get_slides();
+		$slides		= ($slides !== false) ? $slides :  $slider->get_slides();
 		$type		= ($post60) ? $slider->get_type() : $this->get_type_pre60();
 		$image		= '';
 		$sid		= $slider->get_id();

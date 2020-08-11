@@ -433,6 +433,10 @@ class CT_Ultimate_GDPR_Controller_Age extends CT_Ultimate_GDPR_Controller_Abstra
     private function should_display_on_page($page_id)
     {
 
+        if(empty($this->get_option('age_display_all')) && empty($this->get_option('age_enabled'))){
+          return false;
+        }
+
         if ($this->get_option('age_display_all')) {
             return true;
         }

@@ -129,7 +129,7 @@ class RevSliderWooCommerce extends RevSliderFunctions {
 			'meta_num__regular_price'	=> __('Regular Price', 'revslider'),
 			'meta_num__sale_price'		=> __('Sale Price', 'revslider'),
 			'meta_num_total_sales'		=> __('Number Of Sales', 'revslider'),
-			'meta__featured'			=> __('Featured Products', 'revslider'),
+			//'meta__featured'			=> __('Featured Products', 'revslider'),
 			'meta__sku'					=> __('SKU', 'revslider'),
 			'meta_num_stock'			=> __('Stock Quantity', 'revslider')
 		);

@@ -1104,7 +1104,7 @@ i.emptyspace20 { display: inline-block; width: 20px; }
 
 
 
-#rb_tlw .select2RS-container .select2RS-selection {padding: 0px 10px;border-radius: 4px;}
+#rb_tlw .select2RS-container .select2RS-selection {padding: 0px 10px;border-radius: 4px; box-sizing: border-box; display: inline-block}
 #rb_tlw .select2RS-selection.select2RS-selection--multiple { padding: 0px; }
 #rb_tlw .select2RS-container {min-width: 100px;margin-right: 5px; margin-bottom: 10px;}
 #rb_tlw .select2RS-container .select2RS-search.select2RS-search--inline {  height: 20px; line-height: 20px; margin: 0px; }
@@ -4014,7 +4014,7 @@ oneshort .input_presets { right: 0px !important; left:auto !important; }
 
 ._lc_type_group ._lc_extra_bg { top: 0px; left: 0px; }
 
-._lc_extra_bg {width: 100%;height: 100%; }
+._lc_extra_bg {/*width: 100%;height: 100%; */}
 ._lc_type_video ._lc_loop_,
 ._lc_type_video ._lc_mask_,
 ._lc_type_video ._lc_iw_,

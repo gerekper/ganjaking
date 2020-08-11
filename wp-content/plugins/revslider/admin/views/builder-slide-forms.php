@@ -218,10 +218,11 @@ if ($wpml->wpml_exists()) {
 							<option value="none"><?php _e('Disable', 'revslider');?></option>
 							<option value="loop"><?php _e('Slider Timer paused', 'revslider');?></option>
 							<option value="loopandnoslidestop"><?php _e('Slider Timer keep going', 'revslider');?></option>
-						</select><span class="linebreak"></span>-->
+						</select><span class="linebreak"></span>-->						
 						<longoption><i class="material-icons">open_with</i><label_a><?php _e('Force Cover Mode', 'revslider');?></label_a><input type="checkbox"  id="sl_vid_force_cover" class="slideinput easyinit" data-r="bg.video.forceCover" data-showhide="#slide_dotted_overlay" data-showhidedep="true"/></longoption>
 						<longoption><i class="material-icons">pause</i><label_a ><?php _e('Pause Timer during Play', 'revslider');?></label_a><input type="checkbox" class="easyinit slideinput" data-r="bg.video.pausetimer"></longoption>
 						<longoption><i class="material-icons">loop</i><label_a ><?php _e('Loop Media', 'revslider');?></label_a><input type="checkbox" class="easyinit slideinput" id="sl_vid_loop_me" data-change="#sl_vid_nextslide" data-changeto="false" data-changewhennot="false" data-r="bg.video.loop"></longoption>										
+						<longoption><i class="material-icons">query_builder</i><label_a><?php _e('Start after Slide Transition', 'revslider');?></label_a><input type="checkbox"  id="sl_vid_after_slide_trans" class="slideinput easyinit" data-r="bg.video.startAfterTransition"/></longoption>
 						<longoption><i class="material-icons">skip_next</i><label_a><?php _e('Next Slide at End', 'revslider');?></label_a><input type="checkbox"  id="sl_vid_nextslide" data-change="#sl_vid_loop_me" data-changeto="false" data-changewhennot="false" class="slideinput easyinit" data-r="bg.video.nextSlideAtEnd" /></longoption>
 						<longoption><i class="material-icons">fast_rewind</i><label_a><?php _e('Rewind at Start', 'revslider');?></label_a><input type="checkbox"  id="sl_vid_forceRewind" class="slideinput easyinit" data-r="bg.video.forceRewind" /></longoption>
 						<div style="display:none !important"><longoption><i class="material-icons">volume_mute</i><label_a><?php _e('Mute at Start', 'revslider');?></label_a><input type="checkbox"  id="sl_vid_mute" class="slideinput easyinit" data-r="bg.video.mute" /></longoption></div>

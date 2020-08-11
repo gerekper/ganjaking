@@ -1948,7 +1948,7 @@ class RevSliderOutput extends RevSliderFunctions {
 			case 'streamvimeo':
 			case 'streamvimeoboth':
 				$vid = (in_array($video_type, array('streamvimeo', 'streamvimeoboth'), true)) ? $this->slide->get_param(array('bg', 'vimeo'), '') : $vid;
-				$vid = ($this->get_val($layer, array('media', 'videoFromStream'), false) === true) ? $this->slide->get_param(array('bg', 'youtube'), '') : $vid;
+				$vid = ($this->get_val($layer, array('media', 'videoFromStream'), false) === true) ? $this->slide->get_param(array('bg', 'vimeo'), '') : $vid;
 				
 				return (empty($vid)) ?  false : true;
 			break;
@@ -4912,16 +4912,20 @@ rs-module .material-icons {
 	
 	/**
 	 * get layer toggle data
+	 * @change 6.2.16:
+	 *	- added idle -> whiteSpace setting
+	 *	- added moved do_shortcode() to a later step
 	 **/
 	public function get_toggle_data(){
 		$layer			 = $this->get_layer();
 		$toggle			 = array();
+		$type			 = $this->get_val($layer, array('type', 'text'));
 		$text_toggle	 = $this->get_val($layer, array('toggle', 'text'));
 		$toggle['allow'] = $this->get_val($layer, array('toggle', 'set'), false);
 		$toggle['inverse_content'] = $this->get_val($layer, array('toggle', 'inverse'), false);
 		$toggle['html']	 = '';
 		
-		if(!in_array($this->get_val($layer, 'type', 'text'), array('shape', 'svg', 'image'), true)){
+		if(!in_array($type, array('shape', 'svg', 'image'), true)){
 			if(function_exists('qtrans_useCurrentLanguageIfNotFoundUseDefaultLanguage')){ //use qTranslate
 				$text_toggle = qtrans_useCurrentLanguageIfNotFoundUseDefaultLanguage($text_toggle);
 			}elseif(function_exists('ppqtrans_useCurrentLanguageIfNotFoundUseDefaultLanguage')){ //use qTranslate plus
@@ -4930,7 +4934,7 @@ rs-module .material-icons {
 				$text_toggle = qtranxf_useCurrentLanguageIfNotFoundUseDefaultLanguage($text_toggle);
 			}
 			
-			$toggle['html'] = do_shortcode(stripslashes($text_toggle));
+			$toggle['html'] = $text_toggle;
 		}
 		
 		global $fa_icon_var, $fa_var, $pe_7s_var;
@@ -4940,6 +4944,20 @@ rs-module .material-icons {
 				$$font_var = true;
 			}
 		}
+		
+		//Replace Placeholders
+		$toggle['html'] = $this->set_placeholders($toggle['html']);
+		
+		if($this->adv_resp_sizes == true){
+			$ws = $this->normalize_device_settings($this->get_val($layer, array('idle', 'whiteSpace')), $this->enabled_sizes, 'html-array', array('nowrap'));
+		}else{
+			$ws	= $this->get_biggest_device_setting($this->get_val($layer, array('idle', 'whiteSpace'), 'nowrap'), $this->enabled_sizes);
+		}
+		
+		//replace new lines with <br />
+		$toggle['html'] = (strpos($ws, 'content') !== false || strpos($ws, 'full') !== false) ? nl2br($toggle['html']) : $toggle['html'];
+		//do shortcodes here, so that nl2br is not done within the shortcode content
+		$toggle['html'] = (!in_array($type, array('image', 'svg', 'column', 'shape'), true)) ? do_shortcode(stripslashes($toggle['html'])) : $toggle['html'];
 		
 		return $toggle;
 	}
@@ -5389,6 +5407,7 @@ rs-module .material-icons {
 		if($loop === 'loop') $vpt = true;
 
 		$nsae	= $slide->get_param(array('bg', 'video', 'nextSlideAtEnd'), false);
+		$sat	= $slide->get_param(array('bg', 'video', 'startAfterTransition'), false);
 		$vsa	= $slide->get_param(array('bg', 'video', 'startAt'), '');
 		$vea	= $slide->get_param(array('bg', 'video', 'endAt'), '');
 		
@@ -5397,6 +5416,7 @@ rs-module .material-icons {
 		if(!in_array($vea, array('', '-1', -1), true)) $data['video']['end'] = $vea;
 		if(!in_array($ratio, array('', '16:9'), true)) $data['video']['ar'] = $ratio;
 		if($nsae === false) $data['video']['nse'] = 'false';
+		if($sat === true) $data['video']['sat'] = 'true';
 		if($slide->get_param(array('bg', 'video', 'forceRewind'), true) === false)
 			$data['video']['rwd'] = false;
 		
@@ -6615,7 +6635,7 @@ rs-module .material-icons {
 		$html .= RS_T6.'tpj;'."\n";
 		$html .= RS_T5.'jQuery(function() {'."\n";
 		$html .= RS_T6.'tpj = jQuery;'."\n";
-		$html .= RS_T6.'revapi'. $sid.' = tpj("#'. $html_id .'")'."\n";
+		$html .= RS_T6.'revapi'. $sid.' = tpj("#'. $html_id .'");'."\n";
 		$html .= ($this->slider->get_param(array('troubleshooting', 'jsNoConflict'), true) === true) ? RS_T6.'tpj.noConflict();'."\n" : ''; 
 		$html .= RS_T6.'if(revapi'. $sid.'==undefined || revapi'. $sid.'.revolution == undefined){'."\n";
 		$html .= RS_T7.'revslider_showDoubleJqueryError("'.$html_id.'");'."\n";
@@ -6728,7 +6748,7 @@ rs-module .material-icons {
 			case '2':
 				if(!is_admin()){
 					$html .= RS_T4.'<script>'."\n";
-					$html .= RS_T5."var htmlDivCss = ' #".$this->get_html_id()."_wrapper rs-loader.spinner".$spinner."{ background-color: ". $color ." !important; } '"."\n";
+					$html .= RS_T5."var htmlDivCss = ' #".$this->get_html_id()."_wrapper rs-loader.spinner".$spinner."{ background-color: ". $color ." !important; } ';"."\n";
 					$html .= RS_T5."var htmlDiv = document.getElementById('rs-plugin-settings-inline-css');"."\n";
 					$html .= RS_T5."if(htmlDiv) {"."\n";
 					$html .= RS_T6."htmlDiv.innerHTML = htmlDiv.innerHTML + htmlDivCss;"."\n";

@@ -1,4 +1,52 @@
 <div class="slider-revolution-update-list">	
+	<h3 class="version-number">Version 6.2.18 (11th August 2020)</h3>	
+	<div class="bugfix"><strong style="font-weight:700">Changes</strong></div>
+	<ul>
+		<li>Wordpress Version 5.5 Gutenberg compatibility added</li>		
+	</ul>
+	<div class="bugfix"><strong style="font-weight:700">Bugfixes</strong></div>
+	<ul>
+		<li>Copy/Paste shapes in editor with % based sizes may failed. This issue has been fixed now</li>	
+		<li>Group, row and column layers can only have JavaScript based actions. The "a" tag option is removed now for these layer types</li>
+		<li>Fixed rows and layer alignment issue in RTL mode</li>
+		<li>Fixed overall calculation issues on layers in RTL mode</li>
+		<li>Fixed layer repositioning on refocus bug when the 'respect ratio' option is turned on</li>
+		<li>Backend rows/columns background style with padding and margin may not show the same result as in frontend. This styling issue has been fixed now</li>
+		<li>Fixed resize issue for auto layout slider</li>
+		<li>Fixed scrollbar issue for windows where on resizing scrollbar disappears/reappears</li>
+		<li>Fixed custom navigation skin CSS metas, where no new metas can be added if at first start a meta was not existing</li>
+		<li>Fixed static layer failing display in IE11</li>
+		<li>Fixed issue where 3D transformed layers jump due to changed perspective</li>
+		<li>Font Family drop down in the navigation editor for custom meta placeholders has been fixed</li>
+		<li>Bubbledmorph: Fixed a bug where bubblemorphs disappear on desktop. Version 2.1.5 Required</li>
+		<li>Fixed calculation of layer positions during browser resizing</li>
+		<li>Fixed iOS Zoom calculation issues</li>
+		<li>Video resizing issue after orientation change fixed on mobile devices</li>
+		<li>Instagram and other social stream video sources and their image covers was not showing in some kind of odd situations. This issue has been fixed now</li>
+		<li>Fixed HTML5 flickering issues on slide change and loop</li>
+		<li>Slider optimization overview delivered undefined values</li>		
+	</ul>
+
+	<h3 class="version-number">Version 6.2.17 (17th July 2020)</h3>
+	<div class="bugfix"><strong style="font-weight:700">New Features</strong></div>
+	<ul>
+		<li>Added new option: Start Background Video after the slide transition finished to avoid issues where the bg videos first few seconds were missing if the transition animated only the poster image</li>
+	</ul>
+	<div class="bugfix"><strong style="font-weight:700">Bugfixes</strong></div>
+	<ul>
+		<li>added two missing ; into JavaScript parts in output.class.php</li>
+		<li>Fixed Kenburns effects initial load issue where the background was getting a wrong height</li>
+		<li>Fixed the background video flash effect at the first start of the video</li>
+		<li>Added support for slider exported on Safari where after re-compressing, the slider wasn't getting imported properly</li>
+		<li>Bubbledmorph: Fixed converted sizes order (mobile was getting the wrong size)</li>
+		<li>Throttled scroll event listener to improve performance</li>
+		<li>Fixed a bug where modules could not be initialised if they opened delayed via a custom scripts or were loaded per ajax not using internal functions.</li>
+		<li>Fixed Toggled Text styling issues, where the whitespace settings were not written onto the toggled content, but only on idle content</li>
+		<li>Fixed instagram, taking the videos even if the slide is set to transparent</li>
+		<li>Changed HTML5 video in animation to avoid flickering when the poster and video crossfades</li>
+		<li>Fixed slide based align issues in default WordPress themes where the parent container size calculation may not deliver the right dimensions</li>
+		<li>Fixed optimizer JavaScript error if it was called from the Module Overview page and AddOns are in use but not loaded yet</li>
+	</ul>
 	<h3 class="version-number">Version 6.2.15 (26th June 2020)</h3>
 	<div class="bugfix"><strong style="font-weight:700">New Features</strong></div>
 	<ul>

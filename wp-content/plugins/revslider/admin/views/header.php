@@ -49,7 +49,7 @@ if(version_compare(RS_REVISION, $rs_show_updated, '>')){
 	
 	RVS.LIB.ADDONS			= RVS.LIB.ADDONS === undefined ? {} : RVS.LIB.ADDONS;	
 	RVS.LIB.ADDONS			= jQuery.extend(true,RVS.LIB.ADDONS,<?php echo (!empty($rs_addons)) ? 'jQuery.parseJSON('.$rsaf->json_encode_client_side($rs_addons).')' : '{}'; ?>);	
-	RVS.LIB.OBJ 			= {types: jQuery.parseJSON(<?php echo $rsaf->json_encode_client_side($rsa); ?>)};
+	RVS.LIB.OBJ 			= {types: <?php echo (empty($rsa)) ? '{}' : 'jQuery.parseJSON('. $rsaf->json_encode_client_side($rsa).')'; ?>};
 	RVS.LIB.SLIDERS			= <?php echo json_encode(RevSliderSlider::get_sliders_short_list()); ?>;
 	RVS.LIB.COLOR_PRESETS	= <?php echo (!empty($rs_color_picker_presets)) ? 'jQuery.parseJSON('. $rsaf->json_encode_client_side($rs_color_picker_presets) .')' : '{}'; ?>;
 

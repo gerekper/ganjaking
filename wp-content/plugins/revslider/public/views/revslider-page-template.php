@@ -26,6 +26,7 @@ $page_bg = ($page_bg == '' || $page_bg == 'transparent') ? 'transparent' : $page
 	</head>
 
 	<body <?php body_class(); ?>>
+		<?php do_action('rs_page_template_pre_content'); ?>
 		<div>
 			<?php
 			// Start the loop.
@@ -42,6 +43,7 @@ $page_bg = ($page_bg == '' || $page_bg == 'transparent') ? 'transparent' : $page
 			endwhile;
 			?>
 		</div>
+		<?php do_action('rs_page_template_post_content'); ?>
 		<?php wp_footer(); ?>
 		
 	</body>

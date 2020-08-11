@@ -214,10 +214,22 @@ class RevSliderSliderImport extends RevSliderSlider {
 	 **/
 	public function set_slider_data_raw(){
 		global $wp_filesystem;
-		
 		$this->slider_raw_data = ($wp_filesystem->exists($this->download_path.'slider_export.txt')) ? $wp_filesystem->get_contents($this->download_path.'slider_export.txt') : '';
 		if($this->slider_raw_data == ''){
-			$this->throw_error(__('slider_export.txt does not exist!', 'revslider'));
+			$dirs = scandir($this->download_path);
+			if(!empty($dirs)){
+				foreach($dirs as $dir){				
+					if($dir !== '.' && $dir !== '..' && is_dir($this->download_path . $dir)){
+						$dir = $this->download_path . $dir . '/';
+						$this->slider_raw_data = ($wp_filesystem->exists($dir.'slider_export.txt')) ? $wp_filesystem->get_contents($dir.'slider_export.txt') : '';
+						if($this->slider_raw_data != '') {
+							$this->download_path = $dir;
+							break;
+						}
+					}
+				}
+			}
+			if($this->slider_raw_data == '') $this->throw_error(__('slider_export.txt does not exist!', 'revslider'));
 		}
 	}
 	

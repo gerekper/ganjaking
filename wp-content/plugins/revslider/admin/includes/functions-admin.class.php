@@ -177,6 +177,7 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 	 **/
 	public function get_slider_overview(){
 		$rs_slider	= new RevSliderSlider();
+		$rs_slide	= new RevSliderSlide();
 		$sliders	= $rs_slider->get_sliders(false);
 
 		$rs_folder	= new RevSliderFolder();
@@ -184,11 +185,28 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 		
 		$sliders 	= array_merge($sliders, $folders);
 		$data		= array();
-		
 		if(!empty($sliders)){
+			$slider_list = array();
 			foreach($sliders as $slider){
+				$slider_list[] = $slider->get_id();
+			}
+			
+			$slides_raw = $rs_slide->get_all_slides_raw($slider_list);
+			
+			foreach($sliders as $slider){
+				$slides = array();
+				$sid = $slider->get_id();
+				foreach($slides_raw as $s => $r){
+					if($r->get_slider_id() !== $sid) continue;
+					
+					$slides[] = $r;
+					unset($slides_raw[$s]);
+				}
+				
+				$slides = (empty($slides)) ? false : $slides;
+				
 				$slider->init_layer = false;
-				$data[] = $slider->get_overview_data();
+				$data[] = $slider->get_overview_data(false, $slides);
 			}
 		}
 		

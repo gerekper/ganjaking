@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Ultimate GDPR & CCPA
  * Description: Complete General Data Protection Regulation compliance toolkit plugin for WordPress.
- * Version: 2.1
+ * Version: 2.2
  * Author URI: https://www.createit.pl
  * Author: CreateIT
  */
@@ -69,7 +69,6 @@ class CT_Ultimate_GDPR {
 		$this->logger = new CT_Ultimate_GDPR_Model_Logger();
 
 		add_action( 'init', array( $this, 'init' ) );
-        add_action( 'wp_head', array( $this, 'inline_font_styles' ), 7 );
 		add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts_action' ) );
 		add_action( 'wp', array( $this, 'controller_actions' ) );
 		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
@@ -226,19 +225,13 @@ class CT_Ultimate_GDPR {
 		new CT_Ultimate_GDPR_Shortcode_Protection();
 	}
 
-    /**
-     * Inline font styles to page head
-     */
-    public function inline_font_styles() {
-        echo "<style>" . file_get_contents( ct_ultimate_gdpr_url( '/assets/css/fonts/fonts.css' ) ) . "</style>";
-    }
-
 	/**
 	 * Add scripts
 	 */
 	public function wp_enqueue_scripts_action() {
 		wp_enqueue_style( 'ct-ultimate-gdpr', ct_ultimate_gdpr_url( '/assets/css/style.min.css' ), array(), ct_ultimate_gdpr_get_plugin_version() );
 		wp_enqueue_style( 'ct-ultimate-gdpr-font-awesome', ct_ultimate_gdpr_url( '/assets/css/fonts/font-awesome/css/font-awesome.min.css' ) );
+    wp_enqueue_style( 'ct-ultimate-gdpr-custom-fonts', ct_ultimate_gdpr_url( '/assets/css/fonts/fonts.css' ) );
 	}
 
 	/**

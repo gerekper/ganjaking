@@ -2,15 +2,15 @@
 # This file is distributed under the same license as the Ultimate GDPR & CCPA plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Ultimate GDPR & CCPA 2.1\n"
+"Project-Id-Version: Ultimate GDPR & CCPA 2.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ct-ultimate-gdpr\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-07-28T18:19:16+02:00\n"
-"PO-Revision-Date: 2020-07-28T18:19:16+02:00\n"
+"POT-Creation-Date: 2020-08-10T09:16:31+02:00\n"
+"PO-Revision-Date: 2020-08-10T09:16:31+02:00\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: ct-ultimate-gdpr\n"
 
@@ -115,325 +115,325 @@ msgstr ""
 msgid "OK!"
 msgstr ""
 
-#: includes/controller/controller-age.php:514
-#: includes/controller/controller-age.php:515
+#: includes/controller/controller-age.php:518
+#: includes/controller/controller-age.php:519
 #: includes/views/shortcode/shortcode-myaccount.php:45
 msgid "Age Verification"
 msgstr ""
 
-#: includes/controller/controller-age.php:540
+#: includes/controller/controller-age.php:544
 msgid "Popup content"
 msgstr ""
 
-#: includes/controller/controller-age.php:547
-#: includes/controller/controller-age.php:554
+#: includes/controller/controller-age.php:551
+#: includes/controller/controller-age.php:558
 #: includes/controller/controller-cookie.php:1299
 msgid "Options"
 msgstr ""
 
-#: includes/controller/controller-age.php:563
+#: includes/controller/controller-age.php:567
 msgid "Epiration time"
 msgstr ""
 
-#: includes/controller/controller-age.php:570
+#: includes/controller/controller-age.php:574
 msgid "Position of the age popup"
 msgstr ""
 
-#: includes/controller/controller-age.php:577
+#: includes/controller/controller-age.php:581
 #: includes/controller/controller-cookie.php:1323
 msgid "Buttons styles"
 msgstr ""
 
-#: includes/controller/controller-age.php:584
+#: includes/controller/controller-age.php:588
 msgid "Popup box"
 msgstr ""
 
-#: includes/controller/controller-age.php:591
-#: includes/controller/controller-age.php:831
+#: includes/controller/controller-age.php:595
+#: includes/controller/controller-age.php:835
 #: includes/controller/controller-cookie.php:1358
 #: includes/controller/controller-cookie.php:1721
 msgid "Custom style CSS"
 msgstr ""
 
-#: includes/controller/controller-age.php:602
+#: includes/controller/controller-age.php:606
 msgid "Popup title"
 msgstr ""
 
-#: includes/controller/controller-age.php:610
+#: includes/controller/controller-age.php:614
 msgid "Age popup content"
 msgstr ""
 
-#: includes/controller/controller-age.php:618
+#: includes/controller/controller-age.php:622
 msgid "Popup 'Submit' button label"
 msgstr ""
 
-#: includes/controller/controller-age.php:627
+#: includes/controller/controller-age.php:631
 #: includes/controller/controller-cookie.php:1498
 msgid "Block user agents (eg. bots) containing the following texts (comma separated)"
 msgstr ""
 
-#: includes/controller/controller-age.php:635
+#: includes/controller/controller-age.php:639
 msgid "Lower age limit to enter the website"
 msgstr ""
 
-#: includes/controller/controller-age.php:643
+#: includes/controller/controller-age.php:647
 msgid "Lower age limit to provide personal data"
 msgstr ""
 
-#: includes/controller/controller-age.php:651
+#: includes/controller/controller-age.php:655
 msgid "Default age select placeholder"
 msgstr ""
 
-#: includes/controller/controller-age.php:659
+#: includes/controller/controller-age.php:663
 msgid "Enter age value to assume if age not yet entered"
 msgstr ""
 
-#: includes/controller/controller-age.php:668
+#: includes/controller/controller-age.php:672
 msgid "Enable Age Verification"
 msgstr ""
 
-#: includes/controller/controller-age.php:676
+#: includes/controller/controller-age.php:680
 msgid "Display the popup on all pages"
 msgstr ""
 
-#: includes/controller/controller-age.php:684
+#: includes/controller/controller-age.php:688
 msgid "Check if user is from California"
 msgstr ""
 
-#: includes/controller/controller-age.php:692
+#: includes/controller/controller-age.php:696
 msgid "Select page where to display the popup"
 msgstr ""
 
-#: includes/controller/controller-age.php:700
+#: includes/controller/controller-age.php:704
 msgid "Select 'my account' page (one to redirect to when user is underage, eg. show link on registration form)"
 msgstr ""
 
-#: includes/controller/controller-age.php:710
+#: includes/controller/controller-age.php:714
 msgid "Set age verification expire time [s]"
 msgstr ""
 
-#: includes/controller/controller-age.php:721
+#: includes/controller/controller-age.php:725
 #: includes/controller/controller-cookie.php:1561
 msgid "Button shape"
 msgstr ""
 
-#: includes/controller/controller-age.php:730
+#: includes/controller/controller-age.php:734
 #: includes/controller/controller-cookie.php:1589
 msgid "Button background color"
 msgstr ""
 
-#: includes/controller/controller-age.php:739
+#: includes/controller/controller-age.php:743
 #: includes/controller/controller-cookie.php:1579
 msgid "Button text color"
 msgstr ""
 
-#: includes/controller/controller-age.php:749
+#: includes/controller/controller-age.php:753
 #: includes/controller/controller-cookie.php:1640
 msgid "Position  (bottom, top and full page layout)"
 msgstr ""
 
-#: includes/controller/controller-age.php:757
+#: includes/controller/controller-age.php:761
 #: includes/controller/controller-cookie.php:1648
 msgid "Distance from border [px]"
 msgstr ""
 
-#: includes/controller/controller-age.php:767
+#: includes/controller/controller-age.php:771
 #: includes/controller/controller-cookie.php:1659
 msgid "Box style"
 msgstr ""
 
-#: includes/controller/controller-age.php:775
+#: includes/controller/controller-age.php:779
 #: includes/controller/controller-cookie.php:1667
 msgid "Box shape"
 msgstr ""
 
-#: includes/controller/controller-age.php:783
+#: includes/controller/controller-age.php:787
 #: includes/controller/controller-cookie.php:1675
 msgid "Background color"
 msgstr ""
 
-#: includes/controller/controller-age.php:791
+#: includes/controller/controller-age.php:795
 #: includes/controller/controller-cookie.php:1683
 msgid "Background image"
 msgstr ""
 
-#: includes/controller/controller-age.php:800
+#: includes/controller/controller-age.php:804
 #: includes/controller/controller-cookie.php:1626
 msgid "Active Tab"
 msgstr ""
 
-#: includes/controller/controller-age.php:811
+#: includes/controller/controller-age.php:815
 #: includes/controller/controller-cookie.php:1691
 msgid "Text color"
 msgstr ""
 
-#: includes/controller/controller-age.php:821
+#: includes/controller/controller-age.php:825
 #: includes/controller/controller-cookie.php:1701
 msgid "Protection shortcode label"
 msgstr ""
 
-#: includes/controller/controller-age.php:950
+#: includes/controller/controller-age.php:954
 #: includes/controller/controller-cookie.php:2464
 msgid "Update"
 msgstr ""
 
-#: includes/controller/controller-age.php:951
+#: includes/controller/controller-age.php:955
 #: includes/controller/controller-cookie.php:2465
 msgid "Remove"
 msgstr ""
 
-#: includes/controller/controller-age.php:969
+#: includes/controller/controller-age.php:973
 msgid "Red Velvet"
 msgstr ""
 
-#: includes/controller/controller-age.php:970
+#: includes/controller/controller-age.php:974
 msgid "Thin Mint"
 msgstr ""
 
-#: includes/controller/controller-age.php:971
+#: includes/controller/controller-age.php:975
 msgid "Mint Chocolate"
 msgstr ""
 
-#: includes/controller/controller-age.php:972
+#: includes/controller/controller-age.php:976
 msgid "Classic createIT"
 msgstr ""
 
-#: includes/controller/controller-age.php:973
+#: includes/controller/controller-age.php:977
 msgid "Blueberry with Orange"
 msgstr ""
 
-#: includes/controller/controller-age.php:974
+#: includes/controller/controller-age.php:978
 msgid "Blue Velvet"
 msgstr ""
 
-#: includes/controller/controller-age.php:975
+#: includes/controller/controller-age.php:979
 msgid "Chocolate Matcha"
 msgstr ""
 
-#: includes/controller/controller-age.php:976
+#: includes/controller/controller-age.php:980
 #: includes/controller/controller-cookie.php:2483
 msgid "Classic Dark"
 msgstr ""
 
-#: includes/controller/controller-age.php:977
+#: includes/controller/controller-age.php:981
 #: includes/controller/controller-cookie.php:2484
 msgid "Classic Light"
 msgstr ""
 
-#: includes/controller/controller-age.php:978
+#: includes/controller/controller-age.php:982
 msgid "Oreo"
 msgstr ""
 
-#: includes/controller/controller-age.php:979
+#: includes/controller/controller-age.php:983
 msgid "Blue Shortbread"
 msgstr ""
 
-#: includes/controller/controller-age.php:980
+#: includes/controller/controller-age.php:984
 msgid "Light Mint"
 msgstr ""
 
-#: includes/controller/controller-age.php:981
+#: includes/controller/controller-age.php:985
 msgid "Blue Cupcake"
 msgstr ""
 
-#: includes/controller/controller-age.php:982
+#: includes/controller/controller-age.php:986
 msgid "Matcha"
 msgstr ""
 
-#: includes/controller/controller-age.php:983
+#: includes/controller/controller-age.php:987
 msgid "Mint"
 msgstr ""
 
-#: includes/controller/controller-age.php:984
+#: includes/controller/controller-age.php:988
 msgid "None"
 msgstr ""
 
-#: includes/controller/controller-age.php:1014
-#: includes/controller/controller-age.php:1077
+#: includes/controller/controller-age.php:1018
+#: includes/controller/controller-age.php:1081
 #: includes/controller/controller-cookie.php:2545
 #: includes/controller/controller-cookie.php:2606
 #: includes/controller/controller-cookie.php:3593
 msgid "Squared"
 msgstr ""
 
-#: includes/controller/controller-age.php:1015
-#: includes/controller/controller-age.php:1078
+#: includes/controller/controller-age.php:1019
+#: includes/controller/controller-age.php:1082
 #: includes/controller/controller-cookie.php:2544
 #: includes/controller/controller-cookie.php:2605
 #: includes/controller/controller-cookie.php:3592
 msgid "Rounded"
 msgstr ""
 
-#: includes/controller/controller-age.php:1046
+#: includes/controller/controller-age.php:1050
 #: includes/controller/controller-cookie.php:2575
 #: includes/controller/controller-cookie.php:3433
 msgid "Text Only"
 msgstr ""
 
-#: includes/controller/controller-age.php:1047
+#: includes/controller/controller-age.php:1051
 #: includes/controller/controller-cookie.php:2576
 #: includes/controller/controller-cookie.php:3435
 msgid "Icon and Text"
 msgstr ""
 
-#: includes/controller/controller-age.php:1151
+#: includes/controller/controller-age.php:1155
 #: includes/controller/controller-cookie.php:2676
 msgid "Normal"
 msgstr ""
 
-#: includes/controller/controller-age.php:1152
+#: includes/controller/controller-age.php:1156
 #: includes/controller/controller-cookie.php:2677
 msgid "Large"
 msgstr ""
 
-#: includes/controller/controller-age.php:1387
+#: includes/controller/controller-age.php:1391
 #: includes/controller/controller-cookie.php:3381
 msgid "Bottom left"
 msgstr ""
 
-#: includes/controller/controller-age.php:1388
+#: includes/controller/controller-age.php:1392
 #: includes/controller/controller-cookie.php:3382
 msgid "Bottom right"
 msgstr ""
 
-#: includes/controller/controller-age.php:1389
+#: includes/controller/controller-age.php:1393
 #: includes/controller/controller-cookie.php:3383
 msgid "Bottom panel"
 msgstr ""
 
-#: includes/controller/controller-age.php:1390
+#: includes/controller/controller-age.php:1394
 #: includes/controller/controller-cookie.php:3384
 msgid "Top left"
 msgstr ""
 
-#: includes/controller/controller-age.php:1391
+#: includes/controller/controller-age.php:1395
 #: includes/controller/controller-cookie.php:3385
 msgid "Top right"
 msgstr ""
 
-#: includes/controller/controller-age.php:1392
+#: includes/controller/controller-age.php:1396
 #: includes/controller/controller-cookie.php:3386
 msgid "Top panel"
 msgstr ""
 
-#: includes/controller/controller-age.php:1393
+#: includes/controller/controller-age.php:1397
 #: includes/controller/controller-cookie.php:3387
 msgid "Full page layout"
 msgstr ""
 
-#: includes/controller/controller-age.php:1457
-#: includes/controller/controller-age.php:1499
+#: includes/controller/controller-age.php:1461
+#: includes/controller/controller-age.php:1503
 #: includes/controller/controller-cookie.php:3353
 msgid "Front page"
 msgstr ""
 
-#: includes/controller/controller-age.php:1460
-#: includes/controller/controller-age.php:1502
+#: includes/controller/controller-age.php:1464
+#: includes/controller/controller-age.php:1506
 #: includes/controller/controller-cookie.php:3356
 msgid "Posts page"
 msgstr ""
 
-#: includes/controller/controller-age.php:1532
+#: includes/controller/controller-age.php:1536
 #: includes/views/shortcode/shortcode-myaccount.php:109
 #: includes/views/shortcode/shortcode-myaccount.php:149
 #: includes/views/shortcode/shortcode-myaccount.php:222
@@ -442,14 +442,14 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
-#: includes/controller/controller-age.php:1549
+#: includes/controller/controller-age.php:1553
 #: includes/controller/controller-cookie.php:3757
 #: includes/views/cookie-group-popup.php:321
 #: includes/views/cookie-group-popup.php:365
 msgid "Trigger"
 msgstr ""
 
-#: includes/controller/controller-age.php:1554
+#: includes/controller/controller-age.php:1558
 #: includes/controller/controller-cookie.php:3762
 #: includes/views/cookie-group-popup.php:595
 #: includes/views/cookie-group-popup.php:640
@@ -459,106 +459,106 @@ msgstr ""
 msgid "This website will:"
 msgstr ""
 
-#: includes/controller/controller-age.php:1555
+#: includes/controller/controller-age.php:1559
 #: includes/controller/controller-cookie.php:3763
 msgid "This website won't:"
 msgstr ""
 
-#: includes/controller/controller-age.php:1556
+#: includes/controller/controller-age.php:1560
 #: includes/controller/controller-cookie.php:3764
 #: includes/views/cookie-group-popup.php:772
 msgid "Save & Close"
 msgstr ""
 
-#: includes/controller/controller-age.php:1557
+#: includes/controller/controller-age.php:1561
 #: includes/controller/controller-cookie.php:3765
 #: includes/model/model-group.php:77
 #: includes/model/model-group.php:133
 msgid "Block all"
 msgstr ""
 
-#: includes/controller/controller-age.php:1558
+#: includes/controller/controller-age.php:1562
 #: includes/controller/controller-cookie.php:3766
 msgid "Essentials"
 msgstr ""
 
-#: includes/controller/controller-age.php:1559
+#: includes/controller/controller-age.php:1563
 #: includes/controller/controller-cookie.php:3767
 #: includes/model/model-group.php:59
 #: includes/model/model-group.php:130
 msgid "Functionality"
 msgstr ""
 
-#: includes/controller/controller-age.php:1560
+#: includes/controller/controller-age.php:1564
 #: includes/controller/controller-cookie.php:3768
 #: includes/model/model-group.php:65
 #: includes/model/model-group.php:131
 msgid "Analytics"
 msgstr ""
 
-#: includes/controller/controller-age.php:1561
+#: includes/controller/controller-age.php:1565
 #: includes/controller/controller-cookie.php:3769
 #: includes/model/model-group.php:71
 #: includes/model/model-group.php:132
 msgid "Advertising"
 msgstr ""
 
-#: includes/controller/controller-age.php:1562
+#: includes/controller/controller-age.php:1566
 #: includes/controller/controller-cookie.php:3770
 msgid "Essential: Remember your cookie permission setting; Essential: Allow session cookies; Essential: Gather information you input into a contact forms, newsletter and other forms across all pages; Essential: Keep track of what you input in a shopping cart; Essential: Authenticate that you are logged into your user account; Essential: Remember language version you selected;"
 msgstr ""
 
-#: includes/controller/controller-age.php:1564
+#: includes/controller/controller-age.php:1568
 #: includes/controller/controller-cookie.php:3771
 msgid "Remember your login details; Functionality: Remember social media settings; Functionality: Remember selected region and country; Analytics: Keep track of your visited pages and interaction taken; Analytics: Keep track about your location and region based on your IP number; Analytics: Keep track of the time spent on each page; Analytics: Increase the data quality of the statistics functions; Advertising: Tailor information and advertising to your interests based on e.g. the content you have visited before. (Currently we do not use targeting or targeting cookies.; Advertising: Gather personally identifiable information such as name and location;"
 msgstr ""
 
-#: includes/controller/controller-age.php:1566
+#: includes/controller/controller-age.php:1570
 #: includes/controller/controller-cookie.php:3772
 msgid "Essential: Remember your cookie permission setting; Essential: Allow session cookies; Essential: Gather information you input into a contact forms, newsletter and other forms across all pages; Essential: Keep track of what you input in a shopping cart; Essential: Authenticate that you are logged into your user account; Essential: Remember language version you selected; Functionality: Remember social media settings; Functionality: Remember selected region and country;"
 msgstr ""
 
-#: includes/controller/controller-age.php:1568
+#: includes/controller/controller-age.php:1572
 #: includes/controller/controller-cookie.php:3773
 msgid "Remember your login details; Analytics: Keep track of your visited pages and interaction taken; Analytics: Keep track about your location and region based on your IP number; Analytics: Keep track of the time spent on each page; Analytics: Increase the data quality of the statistics functions; Advertising: Tailor information and advertising to your interests based on e.g. the content you have visited before. (Currently we do not use targeting or targeting cookies.; Advertising: Gather personally identifiable information such as name and location;"
 msgstr ""
 
-#: includes/controller/controller-age.php:1570
+#: includes/controller/controller-age.php:1574
 #: includes/controller/controller-cookie.php:3774
 msgid "Essential: Remember your cookie permission setting; Essential: Allow session cookies; Essential: Gather information you input into a contact forms, newsletter and other forms across all pages; Essential: Keep track of what you input in a shopping cart; Essential: Authenticate that you are logged into your user account; Essential: Remember language version you selected; Functionality: Remember social media settingsl Functionality: Remember selected region and country; Analytics: Keep track of your visited pages and interaction taken; Analytics: Keep track about your location and region based on your IP number; Analytics: Keep track of the time spent on each page; Analytics: Increase the data quality of the statistics functions;"
 msgstr ""
 
-#: includes/controller/controller-age.php:1572
+#: includes/controller/controller-age.php:1576
 #: includes/controller/controller-cookie.php:3775
 msgid "Remember your login details; Advertising: Use information for tailored advertising with third parties; Advertising: Allow you to connect to social sites; Advertising: Identify device you are using; Advertising: Gather personally identifiable information such as name and location"
 msgstr ""
 
-#: includes/controller/controller-age.php:1574
+#: includes/controller/controller-age.php:1578
 #: includes/controller/controller-cookie.php:3776
 msgid "Essential: Remember your cookie permission setting; Essential: Allow session cookies; Essential: Gather information you input into a contact forms, newsletter and other forms across all pages; Essential: Keep track of what you input in a shopping cart; Essential: Authenticate that you are logged into your user account; Essential: Remember language version you selected; Functionality: Remember social media settingsl Functionality: Remember selected region and country; Analytics: Keep track of your visited pages and interaction taken; Analytics: Keep track about your location and region based on your IP number; Analytics: Keep track of the time spent on each page; Analytics: Increase the data quality of the statistics functions; Advertising: Use information for tailored advertising with third parties; Advertising: Allow you to connect to social sitesl Advertising: Identify device you are using; Advertising: Gather personally identifiable information such as name and location"
 msgstr ""
 
-#: includes/controller/controller-age.php:1576
+#: includes/controller/controller-age.php:1580
 #: includes/controller/controller-cookie.php:3777
 msgid "Remember your login details"
 msgstr ""
 
-#: includes/controller/controller-age.php:1580
+#: includes/controller/controller-age.php:1584
 #: includes/controller/controller-cookie.php:3781
 msgid "This content requires cookies"
 msgstr ""
 
-#: includes/controller/controller-age.php:1581
+#: includes/controller/controller-age.php:1585
 #: includes/controller/controller-cookie.php:3782
 msgid "Removal of your data will not limit in any way the system functionalities"
 msgstr ""
 
-#: includes/controller/controller-age.php:1587
+#: includes/controller/controller-age.php:1591
 #: includes/views/shortcode/shortcode-privacy-center.php:64
 msgid "Age verification"
 msgstr ""
 
-#: includes/controller/controller-age.php:1588
+#: includes/controller/controller-age.php:1592
 msgid "Enter your date of birth"
 msgstr ""
 
