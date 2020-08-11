@@ -42,3 +42,10 @@ Stack trace:
 #2 /home/gerekper/web/ganjaking.asia/public_html/wp-content/plugins/wedevs-project-manager/vendor/illuminate/database/Eloquent/Relations/Concerns/InteractsWithPivotTable.php(364): Illuminate\Database\Query\Builder->delete()
 #3 /home/gerekper/web/ganjaking.asia/public_html/wp-co in /home/gerekper/web/ganjaking.asia/public_html/wp-content/plugins/wedevs-project-manager/vendor/tareq1988/wp-eloquent/src/Eloquent/Database.php on line 293
 
+2020-08-11T22:42:11+00:00 CRITICAL Uncaught Exception: Percona-XtraDB-Cluster prohibits use of DML command on a table (gerekper_ganja.wp_pm_category_project) without an explicit primary key with pxc_strict_mode = ENFORCING or MASTER in /home/gerekper/web/ganjaking.asia/public_html/wp-content/plugins/wedevs-project-manager/vendor/tareq1988/wp-eloquent/src/Eloquent/Database.php:293
+Stack trace:
+#0 /home/gerekper/web/ganjaking.asia/public_html/wp-content/plugins/wedevs-project-manager/vendor/tareq1988/wp-eloquent/src/Eloquent/Database.php(260): WeDevs\ORM\Eloquent\Database->affectingStatement()
+#1 /home/gerekper/web/ganjaking.asia/public_html/wp-content/plugins/wedevs-project-manager/vendor/illuminate/database/Query/Builder.php(2225): WeDevs\ORM\Eloquent\Database->delete()
+#2 /home/gerekper/web/ganjaking.asia/public_html/wp-content/plugins/wedevs-project-manager/vendor/illuminate/database/Eloquent/Relations/Concerns/InteractsWithPivotTable.php(364): Illuminate\Database\Query\Builder->delete()
+#3 /home/gerekper/web/ganjaking.asia/public_html/wp-co in /home/gerekper/web/ganjaking.asia/public_html/wp-content/plugins/wedevs-project-manager/vendor/tareq1988/wp-eloquent/src/Eloquent/Database.php on line 293
+
