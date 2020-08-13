@@ -102,7 +102,7 @@ if ( ! class_exists( 'Ultimate_Google_Font_Manager' ) ) {
 			wp_register_script( 'ultimate-google-fonts-script', UAVC_URL . 'admin/js/google-fonts-admin.js', array( 'jquery' ), ULTIMATE_VERSION, false );
 			wp_enqueue_script( 'ultimate-google-fonts-script' );
 			wp_localize_script(
-				'jquery',
+				'ultimate-google-fonts-script',
 				'uavc',
 				array(
 					'google_font_nonce'   => wp_create_nonce( 'uavc-google-font-nonce' ),

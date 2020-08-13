@@ -6,10 +6,10 @@
  * Author: themeComplete
  * Author URI: https://themecomplete.com/
  *
- * Version: 5.0.12.4
+ * Version: 5.0.12.7
  *
  * Requires at least: 4.4
- * Tested up to: 5.4
+ * Tested up to: 5.6
  *
  * WC requires at least: 3.0
  * WC tested up to: 4.4

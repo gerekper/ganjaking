@@ -1301,7 +1301,7 @@
 			/**
 			 * [get_pdf_template_invoice_order_details description]
 			 *
-			 * identifier : column width : column title
+			 * identifier : column width : column title : alignment :
 			 *
 			 * ORDERDETAILS 
 			 * 	quantity:5:Qty:left:, 
@@ -1377,6 +1377,9 @@
 								        break;
 								    case "tax":
 								        $return .= wc_price( $item['total_tax'] / $item['qty'], array( 'currency' => $order_currency ) );
+								        break;
+								    case "totaltax":
+								        $return .= wc_price( $item['total_tax'], array( 'currency' => $order_currency ) );
 								        break;
 								    case "priceinc":
 								        $return .= wc_price( ( $item['total'] + $item['total_tax'] ) / $item['qty'], array( 'currency' => $order_currency ) );

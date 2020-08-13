@@ -778,7 +778,7 @@ class Warranty_Settings {
                 }
             });
 
-            $(".btn-add-addon").live("click", function(e) {
+            $(".btn-add-addon").on("click", function(e) {
                 e.preventDefault();
 
                 var id = $(this).parents("tr.inline-edit-row").eq(0).data("id");
@@ -817,7 +817,7 @@ class Warranty_Settings {
         $js = "
             var file_frame;
 
-            jQuery('.warranty-logo-upload').live('click', function( event ){
+            jQuery('.warranty-logo-upload').on('click', function( event ){
                 event.preventDefault();
                 var btn = this;
 

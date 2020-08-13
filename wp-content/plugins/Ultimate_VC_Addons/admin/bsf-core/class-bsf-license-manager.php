@@ -143,21 +143,9 @@ if ( ! class_exists( 'BSF_License_Manager' ) ) {
 				$path,
 				array(
 					'body'    => $data,
-					'timeout' => '10',
+					'timeout' => '15',
 				)
 			);
-
-			// Try to make a second request to unsecure URL.
-			if ( is_wp_error( $response ) && wp_remote_retrieve_response_code( $response ) !== 200 ) {
-				$path     = bsf_get_api_url( true ) . '?referer=deactivate-' . $product_id;
-				$response = wp_remote_post(
-					$path,
-					array(
-						'body'    => $data,
-						'timeout' => '8',
-					)
-				);
-			}
 
 			if ( ! is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) === 200 ) {
 				$result = json_decode( wp_remote_retrieve_body( $response ), true );
@@ -247,21 +235,9 @@ if ( ! class_exists( 'BSF_License_Manager' ) ) {
 				$path,
 				array(
 					'body'    => $data,
-					'timeout' => '10',
+					'timeout' => '15',
 				)
 			);
-
-			// Try to make a second request to unsecure URL.
-			if ( is_wp_error( $response ) && wp_remote_retrieve_response_code( $response ) !== 200 ) {
-				$path     = bsf_get_api_url( true ) . '?referer=activate-' . $product_id;
-				$response = wp_remote_post(
-					$path,
-					array(
-						'body'    => $data,
-						'timeout' => '8',
-					)
-				);
-			}
 
 			if ( ! is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) === 200 ) {
 				$result = json_decode( wp_remote_retrieve_body( $response ), true );

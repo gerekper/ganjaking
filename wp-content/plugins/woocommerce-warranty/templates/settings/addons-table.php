@@ -56,7 +56,7 @@
                     $(this).parents("tr").find(".addons-tbody").append(t);
                 });
 
-                $(".warranty_addon_remove").live("click", function(e) {
+                $(".warranty_addon_remove").on("click", function(e) {
                     e.preventDefault();
 
                     $(this).parents("tr").eq(0).remove();

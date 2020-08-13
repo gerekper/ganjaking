@@ -158,7 +158,7 @@ function wcs_create_subscription( $args = array() ) {
 	$subscription_data['post_author']   = 1;
 	$subscription_data['post_password'] = uniqid( 'order_' );
 	// translators: Order date parsed by strftime
-	$post_title_date = strftime( _x( '%b %d, %Y @ %I:%M %p', 'Used in subscription post title. "Subscription renewal order - <this>"', 'woocommerce-subscriptions' ) );
+	$post_title_date = strftime( _x( '%b %d, %Y @ %I:%M %p', 'Used in subscription post title. "Subscription renewal order - <this>"', 'woocommerce-subscriptions' ) ); // phpcs:ignore WordPress.WP.I18n.UnorderedPlaceholdersText
 	// translators: placeholder is order date parsed by strftime
 	$subscription_data['post_title']    = sprintf( _x( 'Subscription &ndash; %s', 'The post title for the new subscription', 'woocommerce-subscriptions' ), $post_title_date );
 	$subscription_data['post_date_gmt'] = $args['date_created'];
@@ -891,4 +891,28 @@ function wcs_get_total_line_item_product_quantity( $order, $product, $product_ma
 	}
 
 	return $quantity;
+}
+
+/**
+ * Determines if a site can be considered large for the purposes of performance.
+ *
+ * Sites are considered large if they have more than 3000 subscriptions or more than 25000 orders.
+ *
+ * @since 3.0.7
+ * @return bool True for large sites, otherwise false.
+ */
+function wcs_is_large_site() {
+	$is_large_site = get_option( 'wcs_is_large_site' );
+
+	// If an option has been set previously, convert it to a bool.
+	if ( false !== $is_large_site ) {
+		$is_large_site = wc_string_to_bool( $is_large_site );
+	} elseif ( array_sum( (array) wp_count_posts( 'shop_subscription' ) ) > 3000 || array_sum( (array) wp_count_posts( 'shop_order' ) ) > 25000 ) {
+		$is_large_site = true;
+		update_option( 'wcs_is_large_site', wc_bool_to_string( $is_large_site ), false );
+	} else {
+		$is_large_site = false;
+	}
+
+	return apply_filters( 'wcs_is_large_site', $is_large_site );
 }

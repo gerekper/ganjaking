@@ -799,12 +799,15 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 				$price_to_display       = THEMECOMPLETE_EPO_CART()->get_price_for_cart( $price, $cart_item, "", NULL, 0, 1 );
 				$float_price_to_display = floatval( $price );
 			} else {
-				$price                  = $cart_item['data']->get_price();
+				$price                  = $cart_item['data']->get_price( 'edit' );
 				$price                  = $price - $cart_item['tm_epo_options_prices'];
 				$price_to_display       = THEMECOMPLETE_EPO_CART()->get_price_for_cart( $price, $cart_item, "", NULL, 0, 1 );
 				$float_price_to_display = floatval( $price );
 			}
 		} else {
+			if ( ! isset( $cart_item['tm_epo_product_price_with_options'] ) ){
+				return $item_price;
+			}
 			$original_price_to_display       = THEMECOMPLETE_EPO_CART()->get_price_for_cart( $cart_item['tm_epo_product_price_with_options'], $cart_item, "", NULL, 0, 1 );
 			$float_original_price_to_display = floatval( $cart_item['tm_epo_product_price_with_options'] );
 		}
@@ -817,7 +820,7 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 			return $item_price;
 		}
 
-		$item_price = '<span class="tc-epo-cart-price"><del>' . $original_price_to_display . '</del> <ins>' . $price_to_display . '</ins></span>';
+		$item_price = '<span class="tc-epo-cart-price"><del>' . themecomplete_price( $float_original_price_to_display ) . '</del> <ins>' . themecomplete_price( $float_price_to_display ) . '</ins></span>';
 
 		return $item_price;
 	}

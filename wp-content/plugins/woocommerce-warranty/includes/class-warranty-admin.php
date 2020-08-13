@@ -288,7 +288,7 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 							$("#variable_warranty_addons_"+ loop).append( variable_tmpl.replace(/_loop_/g, loop) );
 						});
 
-						$(".warranty_addon_remove_variable").live("click", function(e) {
+						$(".warranty_addon_remove_variable").on("click", function(e) {
 							e.preventDefault();
 
 							$(this).parents("tr").eq(0).remove();
@@ -398,7 +398,7 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 					$("#warranty_addons").append(tmpl);
 				});
 
-				$(".warranty_addon_remove").live("click", function(e) {
+				$(".warranty_addon_remove").on("click", function(e) {
 					e.preventDefault();
 
 					$(this).parents("tr").remove();
@@ -516,7 +516,7 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 					$("#variable_warranty_addons_'. $loop .'").append(tmpl_'. $loop.');
 				});
 
-				$(".warranty_addon_remove_variable_'. $loop .'").live("click", function(e) {
+				$(".warranty_addon_remove_variable_'. $loop .'").on("click", function(e) {
 					e.preventDefault();
 
 					$(this).parents("tr").eq(0).remove();

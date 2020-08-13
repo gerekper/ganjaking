@@ -39,7 +39,7 @@ $api = 'revapi'; // . $slider_id;
 
 <!-- THE LIST OF TAXONOMIES AND CATEGORIES -->
 <script>
-	RVS.LIB.POST_TYPES_CAT = jQuery.parseJSON(<?php echo $json_tax_with_cats; ?>);
+	RVS.LIB.POST_TYPES_CAT = JSON.parse(<?php echo $json_tax_with_cats; ?>);
 </script>
 
 <!-- UNDERLAYS FOR MODALS -->

@@ -686,18 +686,20 @@ class THEMECOMPLETE_EPO_Cart {
 			$cart_item['tm_epo_product_price_with_options'] = $cart_item['data']->get_price();
 
 		} else {
-			$post_data = $cart_item['tmpost_data'];
-			if ( isset( $cart_item['tm_epo_options_static_prices'] ) ) {
-				$post_data['tm_epo_options_static_prices'] = $cart_item['tm_epo_options_static_prices'];
-			}
-			// todo:check for a better alternative
-			if ( ! isset( $post_data['cpf_product_price'] ) ) {
-				$post_data['cpf_product_price'] = $cart_item['tm_epo_product_original_price'];
-			}
-			$post_data['cpf_product_price'] = apply_filters( 'wc_epo_add_cart_item_original_price', $post_data['cpf_product_price'], $cart_item );
+			if ( ! empty( $cart_item['tmpost_data'] ) && themecomplete_get_product_type( $cart_item['data'] ) !== "composite" ) {
+				$post_data = $cart_item['tmpost_data'];
+				if ( isset( $cart_item['tm_epo_options_static_prices'] ) ) {
+					$post_data['tm_epo_options_static_prices'] = $cart_item['tm_epo_options_static_prices'];
+				}
+				// todo:check for a better alternative
+				if ( ! isset( $post_data['cpf_product_price'] ) ) {
+					$post_data['cpf_product_price'] = $cart_item['tm_epo_product_original_price'];
+				}
+				$post_data['cpf_product_price'] = apply_filters( 'wc_epo_add_cart_item_original_price', $post_data['cpf_product_price'], $cart_item );
 
-			$post_data['quantity'] = $cart_item['quantity'];
-			$cart_item = $this->repopulatecart( $cart_item, $cart_item['product_id'], $post_data );
+				$post_data['quantity'] = $cart_item['quantity'];
+				$cart_item = $this->repopulatecart( $cart_item, $cart_item['product_id'], $post_data );
+			}
 		}
 
 		$associated_products_price = 0;
@@ -1097,6 +1099,7 @@ class THEMECOMPLETE_EPO_Cart {
 						}
 						$display_value      = ! empty( $data['display'] ) ? $data['display'] : $data['value'];
 						$display_value_only = $display_value;
+						$display_other_value_only = '';
 
 						if ( $section['type'] === 'checkbox' && THEMECOMPLETE_EPO()->tm_epo_cart_field_display == 'normal' ) {
 							if ( THEMECOMPLETE_EPO()->tm_epo_hide_options_prices_in_cart == "normal" ) {
@@ -1136,9 +1139,11 @@ class THEMECOMPLETE_EPO_Cart {
 								$format_price = '';
 							}
 							$quantity_string       = ( $data['quantity'] > 1 ) ? ' &times; ' . $data['quantity'] : '';
-							$display_value         = '<span class="cpf-img-on-cart"><img alt="' . esc_attr( strip_tags( $section['label'] ) ) . '" class="attachment-shop_thumbnail wp-post-image epo-option-image" src="' .
-							                         apply_filters( "tm_image_url", $data['images'] ) . '" />' . $display_value;
-							$display_value_only    = $display_value;
+							$display_other_value_only = '<span class="cpf-img-on-cart"><img alt="' . esc_attr( strip_tags( $section['label'] ) ) . '" class="attachment-shop_thumbnail wp-post-image epo-option-image" src="' .
+													apply_filters( "tm_image_url", $data['images'] ) . '" />';
+							$display_value         = $display_other_value_only . $display_value;
+							$display_value_only    = $display_value . '</span>';
+							$display_other_value_only = $display_other_value_only . '</span>';
 							$display_value         = $display_value . '<span class="tc-price-in-cart">' . $format_price . '</span></span>  <span class="tc-quantity-in-cart">' . $quantity_string . '</span>';
 							$quantity_string_shown = TRUE;
 						} elseif ( ! empty( $data['color'] ) && THEMECOMPLETE_EPO()->tm_epo_show_image_replacement == "yes" ) {
@@ -1157,8 +1162,10 @@ class THEMECOMPLETE_EPO_Cart {
 								$format_price = '';
 							}
 							$quantity_string       = ( $data['quantity'] > 1 ) ? ' &times; ' . $data['quantity'] : '';
-							$display_value         = '<span class="cpf-colors-on-cart"><span class="cpf-color-on-cart backgroundcolor' . esc_attr( sanitize_hex_color_no_hash( $data['color'] ) ) . '"></span> ' . $display_value;
-							$display_value_only    = $display_value;
+							$display_other_value_only = '<span class="cpf-colors-on-cart"><span class="cpf-color-on-cart backgroundcolor' . esc_attr( sanitize_hex_color_no_hash( $data['color'] ) ) . '"></span> ';
+							$display_value         = $display_other_value_only . $display_value;
+							$display_value_only    = $display_value . '</span>';
+							$display_other_value_only = $display_other_value_only . '</span>';
 							$display_value         = $display_value . '<span class="tc-price-in-cart">' . $format_price . '</span></span> <span class="tc-quantity-in-cart">' . $quantity_string . '</span>';
 							$quantity_string_shown = TRUE;
 							THEMECOMPLETE_EPO_DISPLAY()->add_inline_style( '.backgroundcolor' . esc_attr( sanitize_hex_color_no_hash( $data['color'] ) ) . '{background-color:' . esc_attr( sanitize_hex_color( $data['color'] ) ) . ';}' );
@@ -1180,19 +1187,21 @@ class THEMECOMPLETE_EPO_Cart {
 							$prev_unit_quantity = $data['quantity'];
 
 						}
+
 						if ( THEMECOMPLETE_EPO()->tm_epo_show_hide_uploaded_file_url_cart == "no" && THEMECOMPLETE_EPO()->tm_epo_show_upload_image_replacement == "yes" && $section['type'] == "upload" ) {
 							$check = wp_check_filetype( $data['value'] );
 							if ( ! empty( $check['ext'] ) ) {
 								$image_exts = array( 'jpg', 'jpeg', 'jpe', 'gif', 'png' );
 								if ( in_array( $check['ext'], $image_exts ) ) {
-									$display_value      = '<span class="cpf-img-on-cart"><img alt="' . esc_attr( strip_tags( $section['label'] ) ) . '" class="attachment-shop_thumbnail wp-post-image epo-option-image epo-upload-image" src="' .
-									                      apply_filters( "tm_image_url", $data['value'] ) . '" /><span>';
+									$display_other_value_only = '<span class="cpf-img-on-cart"><img alt="' . esc_attr( strip_tags( $section['label'] ) ) . '" class="attachment-shop_thumbnail wp-post-image epo-option-image epo-upload-image" src="' .
+									                      apply_filters( "tm_image_url", $data['value'] ) . '" /></span>';
+									$display_value = $display_other_value_only;									
 									$display_value_only = $display_value;
 								}
 							}
 						}
 						$value[]      = $display_value;
-						$value_only[] = $display_value_only. '</span>';
+						$value_only[] = $display_value_only;
 
 						// Unique values
 						$display_value  = ! empty( $data['display'] ) ? $data['display'] : $data['value'];
@@ -1215,9 +1224,9 @@ class THEMECOMPLETE_EPO_Cart {
 							foreach ( $display_value_array as $d => $dv ) {
 								$display_value .= '<span class="cpf-data-on-cart">' . $dv . '</span>';
 							}
-							$display_value .= $display_value_only . '</span>' . ' <span class="tc-price-in-cart">' . $format_price . '</span> <span class="tc-quantity-in-cart">' . $quantity_string . '</span>';
+							$display_value .= $display_other_value_only . ' <span class="tc-price-in-cart">' . $format_price . '</span> <span class="tc-quantity-in-cart">' . $quantity_string . '</span>';
 						} else {
-							$display_value = $display_value_only . '</span>' . '<span class="cpf-data-on-cart">' . $display_value . ' <span class="tc-price-in-cart">' . $format_price . '</span> <span class="tc-quantity-in-cart">' . $quantity_string . '</span></span>';
+							$display_value = $display_other_value_only . '<span class="cpf-data-on-cart">' . $display_value . ' <span class="tc-price-in-cart">' . $format_price . '</span> <span class="tc-quantity-in-cart">' . $quantity_string . '</span></span>';
 						}
 						$value_unique[] = $display_value;
 					}

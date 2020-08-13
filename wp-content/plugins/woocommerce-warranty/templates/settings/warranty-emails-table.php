@@ -304,7 +304,7 @@
             $('body').trigger('wc-enhanced-select-init');
         });
 
-        $(".delete-row").live("click", function(e) {
+        $(".delete-row").on("click", function(e) {
             e.preventDefault();
 
             $(this).parents("tr").remove();

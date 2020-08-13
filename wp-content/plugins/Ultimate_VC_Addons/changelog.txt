@@ -1,3 +1,10 @@
+3.19.6 - 12 Aug 2020
+- Improvement: Compatibility to WordPress 5.5.
+- Fix: Google Fonts are not loading into the Google Font Manager tab for WordPress 5.5.
+- Fix: Upload the custom icon support is not working for WordPress 5.5.
+- Fix: Save button functionality is not working for the elements with the WordPress 5.5.
+- Fix: Switch buttons of the Element Tab and Debug Tab are not working with the WordPress 5.5.
+
 3.19.5 - 16 June 2020
 - New: Users can now share non-personal usage data to help us test and develop better products. ( <a href="https://store.brainstormforce.com/usage-tracking/?utm_source=changelog&utm_medium=changelog&utm_campaign=usage_tracking" target="_blank" rel="noopener">Know More</a> )
 ﻿- Fix: Fixed the flip-box background overlapping issue into firefox.

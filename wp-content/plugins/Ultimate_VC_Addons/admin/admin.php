@@ -262,7 +262,7 @@ if ( ! class_exists( 'Ultimate_Admin_Area' ) ) {
 				}
 
 				$bsf_dev_mode = bsf_get_option( 'dev_mode' );
-
+				wp_enqueue_script( 'jquery-migrate' );
 				wp_register_style( 'ultimate-admin-style', UAVC_URL . 'admin/css/style.css', null, ULTIMATE_VERSION );
 
 				wp_register_style( 'ultimate-chosen-style', UAVC_URL . 'admin/vc_extend/css/chosen.css', null, ULTIMATE_VERSION );
@@ -280,8 +280,11 @@ if ( ! class_exists( 'Ultimate_Admin_Area' ) ) {
 				}
 			}
 
+			wp_register_script( 'aio-admin-media', UAVC_URL . 'admin/js/admin-media.js', array( 'jquery' ), ULTIMATE_VERSION, false );
+			wp_enqueue_script( 'aio-admin-media' );
+
 			wp_localize_script(
-				'jquery',
+				'aio-admin-media',
 				'uavc',
 				array(
 					'add_zipped_font'        => wp_create_nonce( 'smile-add-zipped-fonts-nonce' ),

@@ -48,12 +48,12 @@ if(version_compare(RS_REVISION, $rs_show_updated, '>')){
 	window.RVS = window.RVS === undefined ? {F:{}, C:{}, ENV:{}, LIB:{}, V:{}, S:{}, DOC:jQuery(document), WIN:jQuery(window)} : window.RVS;
 	
 	RVS.LIB.ADDONS			= RVS.LIB.ADDONS === undefined ? {} : RVS.LIB.ADDONS;	
-	RVS.LIB.ADDONS			= jQuery.extend(true,RVS.LIB.ADDONS,<?php echo (!empty($rs_addons)) ? 'jQuery.parseJSON('.$rsaf->json_encode_client_side($rs_addons).')' : '{}'; ?>);	
-	RVS.LIB.OBJ 			= {types: <?php echo (empty($rsa)) ? '{}' : 'jQuery.parseJSON('. $rsaf->json_encode_client_side($rsa).')'; ?>};
+	RVS.LIB.ADDONS			= jQuery.extend(true,RVS.LIB.ADDONS,<?php echo (!empty($rs_addons)) ? 'JSON.parse('.$rsaf->json_encode_client_side($rs_addons).')' : '{}'; ?>);	
+	RVS.LIB.OBJ 			= {types: <?php echo (empty($rsa)) ? '{}' : 'JSON.parse('. $rsaf->json_encode_client_side($rsa).')'; ?>};
 	RVS.LIB.SLIDERS			= <?php echo json_encode(RevSliderSlider::get_sliders_short_list()); ?>;
-	RVS.LIB.COLOR_PRESETS	= <?php echo (!empty($rs_color_picker_presets)) ? 'jQuery.parseJSON('. $rsaf->json_encode_client_side($rs_color_picker_presets) .')' : '{}'; ?>;
+	RVS.LIB.COLOR_PRESETS	= <?php echo (!empty($rs_color_picker_presets)) ? 'JSON.parse('. $rsaf->json_encode_client_side($rs_color_picker_presets) .')' : '{}'; ?>;
 
-	RVS.ENV.addOns_to_update = <?php echo (!empty($rs_addon_update)) ? 'jQuery.parseJSON('.$rsaf->json_encode_client_side($rs_addon_update).')' : '{}'; ?>;
+	RVS.ENV.addOns_to_update = <?php echo (!empty($rs_addon_update)) ? 'JSON.parse('.$rsaf->json_encode_client_side($rs_addon_update).')' : '{}'; ?>;
 	RVS.ENV.activated		= '<?php echo (get_option('revslider-valid', 'false')) == 'true' ? 'true' : 'false'; ?>';
 	RVS.ENV.activated		= RVS.ENV.activated == 'true' || RVS.ENV.activated == true ? true : false;
 	RVS.ENV.nonce			= '<?php echo wp_create_nonce('revslider_actions'); ?>';
@@ -67,7 +67,7 @@ if(version_compare(RS_REVISION, $rs_show_updated, '>')){
 	RVS.ENV.updated			= <?php echo (version_compare(RS_REVISION, $rs_show_updated, '>')) ? 'true' : 'false'; ?>;
 	RVS.ENV.latest_version	= '<?php echo get_option('revslider-latest-version', RS_REVISION); ?>';	
 	RVS.ENV.php_version		= '<?php echo phpversion(); ?>';
-	RVS.ENV.output_compress	= <?php echo (!empty($rs_compression)) ? 'jQuery.parseJSON('. $rsaf->json_encode_client_side($rs_compression) .')' : '[]'; ?>;
+	RVS.ENV.output_compress	= <?php echo (!empty($rs_compression)) ? 'JSON.parse('. $rsaf->json_encode_client_side($rs_compression) .')' : '[]'; ?>;
 	RVS.ENV.placeholder		= {
 		date_format:		'<?php echo $rs_wp_date_format; ?>',
 		time_format:		'<?php echo $rs_wp_time_format; ?>',
@@ -95,10 +95,10 @@ if(version_compare(RS_REVISION, $rs_show_updated, '>')){
 		?>date:				'<?php echo date($rs_wp_date_format); ?>',
 		date_modified:		'<?php echo date($rs_wp_date_format); ?>'
 	};
-	RVS.ENV.glb_slizes		= jQuery.parseJSON(<?php echo $rsaf->json_encode_client_side($rs_global_sizes); ?>);
-	RVS.ENV.img_sizes		= jQuery.parseJSON(<?php echo $rsaf->json_encode_client_side($rs_added_image_sizes); ?>);
+	RVS.ENV.glb_slizes		= JSON.parse(<?php echo $rsaf->json_encode_client_side($rs_global_sizes); ?>);
+	RVS.ENV.img_sizes		= JSON.parse(<?php echo $rsaf->json_encode_client_side($rs_added_image_sizes); ?>);
 	RVS.ENV.create_img_meta	= <?php echo (!empty($rs_image_meta_todo)) ? 'true' : 'false'; ?>;
-	RVS.ENV.notices			= <?php echo (!empty($rs_notices)) ? 'jQuery.parseJSON('. $rsaf->json_encode_client_side($rs_notices) .')' : '[]'; ?>;
+	RVS.ENV.notices			= <?php echo (!empty($rs_notices)) ? 'JSON.parse('. $rsaf->json_encode_client_side($rs_notices) .')' : '[]'; ?>;
 	RVS.ENV.selling			= <?php echo ($rsaf->get_addition('selling') === true) ? 'true' : 'false'; ?>;
 	RVS.ENV.newAddonsAmount = '<?php echo $rs_new_addon_counter; ?>';
 	RVS.ENV.newTemplatesAmount = '<?php echo $rs_new_temp_counter; ?>';
@@ -110,9 +110,12 @@ if(version_compare(RS_REVISION, $rs_show_updated, '>')){
 	
 	if(RS_DO_SILENT_SLIDER_UPDATE === true){
 		//push request to update slider for slider until finished
-		jQuery(document).ready(function(){
+		if (document.readyState === "loading") 
+			window.addEventListener('DOMContentLoaded',function(){
+				rs_do_silent_update();
+			});
+		else
 			rs_do_silent_update();
-		});
 	}
 	
 	function rs_do_silent_update(){

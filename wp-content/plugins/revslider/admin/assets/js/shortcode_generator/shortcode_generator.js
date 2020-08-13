@@ -254,7 +254,10 @@ RVS.SC = RVS.SC === undefined ? {} : RVS.SC;
 	};
 
 	// INITIALISE PROCESSES
-	jQuery(document).ready(function() {	RVS.SC.init();	});
+	if (document.readyState === "loading") 
+		window.addEventListener('DOMContentLoaded',function() {	RVS.SC.init();	});
+	else
+		RVS.SC.init();
 		
 	function updateInherits(novisual) {
 		if (RVS==undefined || RVS.SC.BLOCK==undefined || RVS.SC.BLOCK.offset===undefined) return;

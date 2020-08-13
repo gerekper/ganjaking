@@ -55,6 +55,7 @@ require_once 'auto-update/admin-functions.php';
 require_once 'auto-update/updater.php';
 require_once 'class-bsf-update-manager.php';
 require_once 'class-bsf-license-manager.php';
+require_once 'classes/class-bsf-extension-installer.php';
 
 require_once 'classes/class-bsf-core-update.php';
 
@@ -365,19 +366,6 @@ if ( ! function_exists( 'init_bsf_core' ) ) {
 
 add_action( 'admin_init', 'init_bsf_core' );
 
-if ( is_multisite() ) {
-	$brainstrom_products = ( get_option( 'brainstrom_products' ) ) ? get_option( 'brainstrom_products' ) : array();
-	if ( ! empty( $brainstrom_products ) ) {
-		$bsf_product_themes = ( isset( $brainstrom_products['themes'] ) ) ? $brainstrom_products['themes'] : array();
-		if ( ! empty( $bsf_product_themes ) ) {
-			foreach ( $bsf_product_themes as $theme_id => $theme ) {
-				global $bsf_theme_template;
-				$template           = $theme['template'];
-				$bsf_theme_template = $template;
-			}
-		}
-	}
-}
 // assets.
 add_action( 'admin_enqueue_scripts', 'register_bsf_core_admin_styles', 1 );
 if ( ! function_exists( 'register_bsf_core_admin_styles' ) ) {
@@ -773,24 +761,16 @@ if ( ! function_exists( 'bsf_set_options' ) ) {
 		if ( isset( $_GET['force-check-update'] ) || isset( $_GET['force-check'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
 			global $pagenow;
+			global $ultimate_referer;
 
 			if ( 'update-core.php' === $pagenow && '1' === $_GET['force-check'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-
-				global $ultimate_referer;
 				$ultimate_referer = 'on-force-check-update-update-core';
-				bsf_check_product_update();
-				set_transient( 'bsf_check_product_updates', true, 2 * DAY_IN_SECONDS );
-				update_option( 'bsf_local_transient', current_time( 'timestamp' ) );
-
 			} else {
-
-				global $ultimate_referer;
 				$ultimate_referer = 'on-force-check-update';
-				bsf_check_product_update();
-				set_transient( 'bsf_check_product_updates', true, 2 * DAY_IN_SECONDS );
-				update_option( 'bsf_local_transient', current_time( 'timestamp' ) );
-
 			}
+
+			bsf_check_product_update();
+			update_option( 'bsf_last_update_check', current_time( 'timestamp' ) );
 		}
 
 		// Skip Author registration.
@@ -834,7 +814,6 @@ if ( ! function_exists( 'bsf_set_options' ) ) {
 		$skip_brainstorm_menu_products = apply_filters( 'bsf_skip_braisntorm_menu', $default_skip_brainstorm_menu );
 		$ids                           = array();
 		$skip_brainstorm_menu          = get_site_option( 'bsf_skip_braisntorm_menu', false );
-		$brainstorm_products           = bsf_get_brainstorm_products( true );
 		foreach ( $brainstorm_products as $key => $product ) {
 
 			if ( isset( $product['id'] ) && ! in_array( $product['id'], $skip_brainstorm_menu_products, true ) ) {
@@ -863,7 +842,6 @@ if ( ! function_exists( 'bsf_set_options' ) ) {
 			$ultimate_referer = 'on-refresh-bundled-products';
 			delete_option( 'brainstrom_bundled_products' );
 			get_bundled_plugins();
-			update_option( 'bsf_local_transient_bundled', current_time( 'timestamp' ) );
 
 			$redirect = isset( $_GET['redirect'] ) ? esc_url_raw( urldecode( esc_attr( $_GET['redirect'] ) ) ) : '';
 

@@ -63,8 +63,9 @@ class WC_REST_Subscriptions_Controller extends WC_REST_Orders_Controller {
 
 		register_rest_route( $this->namespace, '/' . $this->rest_base . '/statuses', array(
 			array(
-				'methods'  => WP_REST_Server::READABLE,
-				'callback' => array( $this, 'get_statuses' ),
+				'methods'             => WP_REST_Server::READABLE,
+				'callback'            => array( $this, 'get_statuses' ),
+				'permission_callback' => '__return_true',
 			),
 			'schema' => array( $this, 'get_public_item_schema' ),
 		) );
@@ -237,6 +238,7 @@ class WC_REST_Subscriptions_Controller extends WC_REST_Orders_Controller {
 		$subscription = wcs_create_subscription( $args );
 
 		if ( is_wp_error( $subscription ) ) {
+			// translators: placeholder is an error message.
 			throw new WC_REST_Exception( 'woocommerce_rest_cannot_create_subscription', sprintf( __( 'Cannot create subscription: %s.', 'woocommerce-subscriptions' ), implode( ', ', $subscription->get_error_messages() ) ), 400 );
 		}
 
@@ -281,6 +283,7 @@ class WC_REST_Subscriptions_Controller extends WC_REST_Orders_Controller {
 				$subscription->update_dates( $dates_to_update );
 			}
 		} catch ( Exception $e ) {
+			// translators: placeholder is an error message.
 			throw new WC_REST_Exception( 'woocommerce_rest_cannot_update_subscription_dates', sprintf( __( 'Updating subscription dates errored with message: %s', 'woocommerce-subscriptions' ), $e->getMessage() ), 400 );
 		}
 	}

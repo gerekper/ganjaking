@@ -1,4 +1,8 @@
 *** WooCommerce PDF Invoice Changelog ***
+2020.08.11 - version 4.7.2
+ * Fix compatibility with order export plugin.
+ * Add invoice details to XML order export plugin.
+
 2020.07.30 - version 4.7.1
  * Filter to show coupon codes in order totals pdf_invoice_display_coupons
  * Additional logging

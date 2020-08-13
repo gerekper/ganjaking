@@ -8,9 +8,6 @@
  * @version 4.9
  */
 
- // phpcs:disable Squiz.Commenting
- // phpcs:disable WordPress.PHP.YodaConditions.NotYoda
-
 defined( 'ABSPATH' ) || exit;
 
 final class Themecomplete_Extra_Product_Options_Setup {

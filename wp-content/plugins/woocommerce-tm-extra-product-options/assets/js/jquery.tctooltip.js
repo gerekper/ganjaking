@@ -8,7 +8,7 @@
  *
  * Copyright (c) 2019 themeComplete http://themecomplete.com
  */
-( function( $ ) {
+( function( window, $ ) {
 	'use strict';
 
 	var ToolTip = function( dom, options ) {
@@ -23,6 +23,12 @@
 
 		return false;
 	};
+
+	var TMEPOJS;
+
+	$( document ).ready( function() {
+		TMEPOJS = window.TMEPOJS || { tm_epo_global_tooltip_max_width: '340px' };
+	} );
 
 	ToolTip.prototype = {
 		constructor: ToolTip,
@@ -78,11 +84,18 @@
 
 				tooltip.find( 'aside' ).hide();
 
-				// 50: average scrollbar width. Needed to avoid flickering width issues on mobile.
-				if ( $( window ).width() <= tooltip.outerWidth() * 1.2 ) {
-					tooltip.css( 'max-width', $( window ).width() / 1.2 );
+				if ( TMEPOJS.tm_epo_global_tooltip_max_width === '' ) {
+					// 50: average scrollbar width. Needed to avoid flickering width issues on mobile.
+					if ( $( window ).width() <= tooltip.outerWidth() * 1.2 ) {
+						tooltip.css( 'max-width', ( $( window ).width() / 1.2 ) + 'px' );
+					} else {
+						tooltip.css( 'max-width', '340px' );
+					}
 				} else {
-					tooltip.css( 'max-width', 340 );
+					if ( TMEPOJS.tm_epo_global_tooltip_max_width.isNumeric() ) {
+						TMEPOJS.tm_epo_global_tooltip_max_width = TMEPOJS.tm_epo_global_tooltip_max_width + 'px';
+					}
+					tooltip.css( 'max-width', TMEPOJS.tm_epo_global_tooltip_max_width );
 				}
 
 				tooltip.find( 'aside' ).show();
@@ -374,4 +387,4 @@
 
 		return data;
 	};
-}( window.jQuery ) );
+}( window, window.jQuery ) );

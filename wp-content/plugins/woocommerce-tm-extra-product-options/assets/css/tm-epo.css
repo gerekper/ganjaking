@@ -1981,6 +1981,7 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 .tm-extra-product-options ul.tmcp-ul-wrap.tm-extra-product-options-radio li.tmcp-field-wrap label input[type='radio']:checked ~ .tc-label,
 .tm-extra-product-options ul.tmcp-ul-wrap.tm-extra-product-options-checkbox li.tmcp-field-wrap label input[type='checkbox']:checked ~ .tc-label {
 	font-weight: bold;
+	background: none !important;
 }
 
 .tc-extra-product-options .tmcp-field-wrap label,
@@ -3801,19 +3802,23 @@ html .tc-extra-product-options .tc-hidden.tc-cell,
 }
 
 .tm-epo-style:after {
-	background: transparent none repeat scroll 0 0;
-	font-family: tc-fontawesome;
-	font-weight: 900;
-	height: 1em;
-	left: 50%;
-	margin-left: -0.5em;
-	margin-top: -0.5em;
-	opacity: 0;
-	position: absolute;
-	text-align: center;
-	top: 50%;
-	width: 1em;
-	line-height: 1em;
+    background: transparent none repeat scroll 0 0;
+    font-family: tc-fontawesome !important;
+    font-weight: 900;
+    height: 1em !important;
+    left: 50%;
+    margin-left: -0.5em;
+    margin-top: -0.5em;
+    opacity: 0;
+    position: absolute !important;
+    display: inline-block !important;
+    text-align: center !important;
+    top: 50% !important;
+    width: 1em !important;
+    color: inherit !important;
+    font-size: inherit !important;
+    bottom: auto !important;
+    line-height: 1em !important;
 }
 
 .tm-epo-style-wrapper.round2,

@@ -1167,11 +1167,11 @@ class THEMECOMPLETE_EPO_Display {
 								"data-priced-individually" => $element['priced_individually'],
 								"data-discount"            => $element['discount'],
 								"data-discount-type"       => $element['discount_type'],
-								"data-show-image"          => isset($element['show_image'])?$element['show_image']:"",
-								"data-show-title"          => isset($element['show_title'])?$element['show_title']:"",
-								"data-show-price"          => isset($element['show_price'])?$element['show_price']:"",
-								"data-show-description"    => isset($element['show_description'])?$element['show_description']:"",
-								"data-show-meta"           => isset($element['show_meta'])?$element['show_meta']:"",
+								"data-show-image"          => isset($element['show_image'])?$element['show_image']:"1",
+								"data-show-title"          => isset($element['show_title'])?$element['show_title']:"1",
+								"data-show-price"          => isset($element['show_price'])?$element['show_price']:"1",
+								"data-show-description"    => isset($element['show_description'])?$element['show_description']:"1",
+								"data-show-meta"           => isset($element['show_meta'])?$element['show_meta']:"1",
 							);
 							if ($element['mode'] !== "product"){
 								if ($element['layout_mode'] === "radio" || $element['layout_mode'] === "thumbnail"){

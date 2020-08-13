@@ -42,6 +42,8 @@ if ( ! class_exists( 'BSF_Update_Manager' ) ) {
 			add_action( 'load-plugins.php', array( $this, 'bsf_update_display_license_link' ) );
 
 			add_filter( 'upgrader_pre_download', array( $this, 'modify_download_package_message' ), 20, 3 );
+
+			add_action( 'bsf_get_plugin_information', array( $this, 'plugin_information' ) );
 		}
 
 		/**
@@ -400,11 +402,11 @@ if ( ! class_exists( 'BSF_Update_Manager' ) ) {
 		 * Force check BSF Product updates.
 		 */
 		public function maybe_force_check_bsf_product_updates() {
-			if ( true === bsf_time_since_last_versioncheck( 2, 'bsf_local_transient' ) ) {
+			if ( true === bsf_time_since_last_versioncheck( 2, 'bsf_last_update_check' ) ) {
 				global $ultimate_referer;
 				$ultimate_referer = 'on-transient-delete-2-hours';
 				bsf_check_product_update();
-				update_option( 'bsf_local_transient', (string) current_time( 'timestamp' ) );
+				update_option( 'bsf_last_update_check', (string) current_time( 'timestamp' ) );
 			}
 		}
 
@@ -645,6 +647,41 @@ if ( ! class_exists( 'BSF_Update_Manager' ) ) {
 
 			// We are not changing teh return parameter.
 			return $reply;
+		}
+
+		/**
+		 * Install Pluigns Filter
+		 *
+		 * Add brainstorm bundle products in plugin installer list though filter.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param  array $brainstrom_products   Brainstorm Products.
+		 * @return array                        Brainstorm Products merged with Brainstorm Bundle Products.
+		 */
+		public function plugin_information( $brainstrom_products = array() ) {
+
+			$main_products = (array) get_option( 'brainstrom_bundled_products', array() );
+
+			foreach ( $main_products as $single_product_key => $single_product ) {
+				foreach ( $single_product as $bundle_product_key => $bundle_product ) {
+
+					if ( is_object( $bundle_product ) ) {
+						$type = $bundle_product->type;
+						$slug = $bundle_product->slug;
+					} else {
+						$type = $bundle_product['type'];
+						$slug = $bundle_product['slug'];
+					}
+
+					// Add bundled plugin in installer list.
+					if ( 'plugin' === $type ) {
+						$brainstrom_products['plugins'][ $slug ] = (array) $bundle_product;
+					}
+				}
+			}
+
+			return $brainstrom_products;
 		}
 
 	} // class BSF_Update_Manager

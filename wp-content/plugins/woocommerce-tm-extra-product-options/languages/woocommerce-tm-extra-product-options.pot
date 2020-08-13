@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TM WooCommerce Extra Product Options\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-11 12:00+0300\n"
+"POT-Creation-Date: 2020-08-11 17:32+0300\n"
 "PO-Revision-Date: 2015-06-16 06:19+0200\n"
 "Last-Translator: themecomplete <themecomplete@gmail.com>\n"
 "Language-Team: themecomplete <themecomplete@gmail.com>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 2.3.1\n"
+"X-Generator: Poedit 2.4.1\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,"
 "_nc:4c,1,2;_x:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_ex:1,2c;esc_attr__;esc_attr_e;"
@@ -104,23 +104,23 @@ msgstr ""
 
 #: admin/class-tm-epo-admin-base.php:1186 admin/views/html-tm-epo-admin.php:125
 #: admin/views/html-tm-epo-admin.php:135 admin/views/html-tm-epo-admin.php:192
-#: admin/views/html-tm-epo-admin.php:202 include/classes/class-tm-epo-builder-base.php:1463
-#: include/classes/class-tm-epo-builder-base.php:1804
-#: include/classes/class-tm-epo-builder-base.php:1846
-#: include/classes/class-tm-epo-builder-base.php:1933
-#: include/classes/class-tm-epo-builder-base.php:1961
-#: include/classes/class-tm-epo-builder-base.php:1989
-#: include/classes/class-tm-epo-builder-base.php:5888
+#: admin/views/html-tm-epo-admin.php:202 include/classes/class-tm-epo-builder-base.php:2268
+#: include/classes/class-tm-epo-builder-base.php:2774
+#: include/classes/class-tm-epo-builder-base.php:2868
+#: include/classes/class-tm-epo-builder-base.php:3028
+#: include/classes/class-tm-epo-builder-base.php:3069
+#: include/classes/class-tm-epo-builder-base.php:3110
+#: include/classes/class-tm-epo-builder-base.php:7894
 msgid "Fixed amount"
 msgstr ""
 
 #: admin/class-tm-epo-admin-base.php:1187 admin/views/html-tm-epo-admin.php:126
-#: admin/views/html-tm-epo-admin.php:136 include/classes/class-tm-epo-builder-base.php:1805
-#: include/classes/class-tm-epo-builder-base.php:1849
-#: include/classes/class-tm-epo-builder-base.php:1934
-#: include/classes/class-tm-epo-builder-base.php:1962
-#: include/classes/class-tm-epo-builder-base.php:1993
-#: include/classes/class-tm-epo-builder-base.php:5889
+#: admin/views/html-tm-epo-admin.php:136 include/classes/class-tm-epo-builder-base.php:2776
+#: include/classes/class-tm-epo-builder-base.php:2875
+#: include/classes/class-tm-epo-builder-base.php:3030
+#: include/classes/class-tm-epo-builder-base.php:3071
+#: include/classes/class-tm-epo-builder-base.php:3121
+#: include/classes/class-tm-epo-builder-base.php:7896
 msgid "Percent of the original price"
 msgstr ""
 
@@ -160,38 +160,38 @@ msgstr ""
 msgid "Invalid CSV file."
 msgstr ""
 
-#: admin/class-tm-epo-admin-csv.php:220 include/classes/class-tm-epo-cart.php:2005
+#: admin/class-tm-epo-admin-csv.php:220 include/classes/class-tm-epo-cart.php:2068
 msgid "The uploaded file exceeds the upload_max_filesize directive in php.ini."
 msgstr ""
 
-#: admin/class-tm-epo-admin-csv.php:221 include/classes/class-tm-epo-cart.php:2006
+#: admin/class-tm-epo-admin-csv.php:221 include/classes/class-tm-epo-cart.php:2069
 msgid ""
 "The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML "
 "form."
 msgstr ""
 
-#: admin/class-tm-epo-admin-csv.php:222 include/classes/class-tm-epo-cart.php:2007
+#: admin/class-tm-epo-admin-csv.php:222 include/classes/class-tm-epo-cart.php:2070
 msgid "The uploaded file was only partially uploaded."
 msgstr ""
 
-#: admin/class-tm-epo-admin-csv.php:223 include/classes/class-tm-epo-cart.php:2008
+#: admin/class-tm-epo-admin-csv.php:223 include/classes/class-tm-epo-cart.php:2071
 msgid "No file was uploaded."
 msgstr ""
 
-#: admin/class-tm-epo-admin-csv.php:225 include/classes/class-tm-epo-cart.php:2010
+#: admin/class-tm-epo-admin-csv.php:225 include/classes/class-tm-epo-cart.php:2073
 msgid "Missing a temporary folder."
 msgstr ""
 
-#: admin/class-tm-epo-admin-csv.php:226 include/classes/class-tm-epo-cart.php:2011
+#: admin/class-tm-epo-admin-csv.php:226 include/classes/class-tm-epo-cart.php:2074
 msgid "Failed to write file to disk."
 msgstr ""
 
-#: admin/class-tm-epo-admin-csv.php:227 include/classes/class-tm-epo-cart.php:2012
+#: admin/class-tm-epo-admin-csv.php:227 include/classes/class-tm-epo-cart.php:2075
 msgid "File upload stopped by extension."
 msgstr ""
 
-#: admin/class-tm-epo-admin-csv.php:237 include/classes/class-tm-epo-cart.php:2040
-#: include/classes/class-tm-epo-cart.php:2050
+#: admin/class-tm-epo-admin-csv.php:237 include/classes/class-tm-epo-cart.php:2103
+#: include/classes/class-tm-epo-cart.php:2113
 msgid "Sorry, this file type is not permitted for security reasons."
 msgstr ""
 
@@ -207,7 +207,7 @@ msgstr ""
 msgid "Invalid import method used."
 msgstr ""
 
-#: admin/class-tm-epo-admin-csv.php:417 include/class-tm-extra-product-options.php:789
+#: admin/class-tm-epo-admin-csv.php:417 include/class-tm-extra-product-options.php:790
 #, php-format
 msgid "Trying to upload files larger than %s is not allowed!"
 msgstr ""
@@ -277,7 +277,7 @@ msgid "Global Options"
 msgstr ""
 
 #: admin/class-tm-epo-admin-global-base.php:840
-#: include/classes/class-tm-epo-builder-base.php:1298
+#: include/classes/class-tm-epo-builder-base.php:2044
 msgid "Title"
 msgstr ""
 
@@ -292,14 +292,14 @@ msgstr ""
 
 #: admin/class-tm-epo-admin-global-base.php:852
 #: admin/class-tm-epo-admin-global-base.php:942
-#: include/classes/class-tm-epo-builder-base.php:1226
+#: include/classes/class-tm-epo-builder-base.php:1960
 msgid "Categories"
 msgstr ""
 
 #: admin/class-tm-epo-admin-global-base.php:853
 #: admin/class-tm-epo-admin-global-base.php:932
 #: admin/class-tm-epo-admin-global-base.php:1088
-#: include/classes/class-tm-epo-builder-base.php:1224
+#: include/classes/class-tm-epo-builder-base.php:1952
 msgid "Products"
 msgstr ""
 
@@ -326,7 +326,7 @@ msgstr ""
 
 #: admin/class-tm-epo-admin-global-base.php:1004
 #: admin/class-tm-epo-admin-global-base.php:1033
-#: include/classes/class-tm-epo-builder-base.php:3565
+#: include/classes/class-tm-epo-builder-base.php:5278
 msgid "None"
 msgstr ""
 
@@ -345,7 +345,7 @@ msgid "Exclude Products"
 msgstr ""
 
 #: admin/class-tm-epo-admin-global-base.php:1097
-#: include/classes/class-tm-epo-builder-base.php:6329
+#: include/classes/class-tm-epo-builder-base.php:8419
 msgid "Description"
 msgstr ""
 
@@ -389,10 +389,10 @@ msgstr ""
 #: admin/class-tm-epo-admin-global-base.php:1394
 #: admin/class-tm-epo-admin-global-base.php:1434
 #: admin/class-tm-epo-admin-global-base.php:2303
-#: include/classes/class-tm-epo-builder-base.php:4027
-#: include/classes/class-tm-epo-builder-base.php:4056
-#: include/classes/class-tm-epo-builder-base.php:4074
-#: include/classes/class-tm-epo-builder-base.php:4089
+#: include/classes/class-tm-epo-builder-base.php:5783
+#: include/classes/class-tm-epo-builder-base.php:5812
+#: include/classes/class-tm-epo-builder-base.php:5830
+#: include/classes/class-tm-epo-builder-base.php:5845
 msgid "Add element"
 msgstr ""
 
@@ -615,38 +615,38 @@ msgid "Are you sure you want to clone this item?"
 msgstr ""
 
 #: admin/class-tm-epo-admin-global-base.php:2279
-#: include/classes/class-tm-epo-builder-base.php:1564
-#: include/classes/class-tm-epo-builder-base.php:2222
-#: include/classes/class-tm-epo-builder-base.php:2281
-#: include/classes/class-tm-epo-builder-base.php:2305
-#: include/classes/class-tm-epo-builder-base.php:2397
-#: include/classes/class-tm-epo-builder-base.php:3153
-#: include/classes/class-tm-epo-builder-base.php:3189
-#: include/classes/class-tm-epo-builder-base.php:3203
-#: include/classes/class-tm-epo-builder-base.php:3217
-#: include/classes/class-tm-epo-builder-base.php:3231
-#: include/classes/class-tm-epo-builder-base.php:3245
-#: include/classes/class-tm-epo-builder-base.php:3258
+#: include/classes/class-tm-epo-builder-base.php:2462
+#: include/classes/class-tm-epo-builder-base.php:3466
+#: include/classes/class-tm-epo-builder-base.php:3532
+#: include/classes/class-tm-epo-builder-base.php:3566
+#: include/classes/class-tm-epo-builder-base.php:3708
+#: include/classes/class-tm-epo-builder-base.php:4677
+#: include/classes/class-tm-epo-builder-base.php:4722
+#: include/classes/class-tm-epo-builder-base.php:4745
+#: include/classes/class-tm-epo-builder-base.php:4768
+#: include/classes/class-tm-epo-builder-base.php:4791
+#: include/classes/class-tm-epo-builder-base.php:4814
+#: include/classes/class-tm-epo-builder-base.php:4833
 #: include/classes/class-tm-epo-settings-base.php:1138
 msgid "Yes"
 msgstr ""
 
 #: admin/class-tm-epo-admin-global-base.php:2280
-#: include/classes/class-tm-epo-builder-base.php:1563
-#: include/classes/class-tm-epo-builder-base.php:2221
-#: include/classes/class-tm-epo-builder-base.php:2280
-#: include/classes/class-tm-epo-builder-base.php:2304
-#: include/classes/class-tm-epo-builder-base.php:2345
-#: include/classes/class-tm-epo-builder-base.php:2368
-#: include/classes/class-tm-epo-builder-base.php:2396
-#: include/classes/class-tm-epo-builder-base.php:3154
-#: include/classes/class-tm-epo-builder-base.php:3188
-#: include/classes/class-tm-epo-builder-base.php:3201
-#: include/classes/class-tm-epo-builder-base.php:3216
-#: include/classes/class-tm-epo-builder-base.php:3229
-#: include/classes/class-tm-epo-builder-base.php:3244
-#: include/classes/class-tm-epo-builder-base.php:3257
-#: include/classes/class-tm-epo-builder-base.php:5343
+#: include/classes/class-tm-epo-builder-base.php:2461
+#: include/classes/class-tm-epo-builder-base.php:3465
+#: include/classes/class-tm-epo-builder-base.php:3531
+#: include/classes/class-tm-epo-builder-base.php:3565
+#: include/classes/class-tm-epo-builder-base.php:3621
+#: include/classes/class-tm-epo-builder-base.php:3654
+#: include/classes/class-tm-epo-builder-base.php:3707
+#: include/classes/class-tm-epo-builder-base.php:4680
+#: include/classes/class-tm-epo-builder-base.php:4720
+#: include/classes/class-tm-epo-builder-base.php:4739
+#: include/classes/class-tm-epo-builder-base.php:4766
+#: include/classes/class-tm-epo-builder-base.php:4785
+#: include/classes/class-tm-epo-builder-base.php:4812
+#: include/classes/class-tm-epo-builder-base.php:4831
+#: include/classes/class-tm-epo-builder-base.php:7281
 #: include/classes/class-tm-epo-settings-base.php:1137
 msgid "No"
 msgstr ""
@@ -747,7 +747,7 @@ msgid "The form isn't being applied to any products"
 msgstr ""
 
 #: admin/class-tm-epo-admin-global-base.php:2310
-#: include/classes/class-tm-epo-builder-base.php:3678
+#: include/classes/class-tm-epo-builder-base.php:5416
 msgid "(No title)"
 msgstr ""
 
@@ -849,9 +849,9 @@ msgstr ""
 msgid "Type:"
 msgstr ""
 
-#: admin/views/html-tm-epo-admin.php:68 include/classes/class-tm-epo-builder-base.php:293
-#: include/classes/class-tm-epo-builder-base.php:1364
-#: include/classes/class-tm-epo-builder-base.php:5182
+#: admin/views/html-tm-epo-admin.php:68 include/classes/class-tm-epo-builder-base.php:441
+#: include/classes/class-tm-epo-builder-base.php:2142
+#: include/classes/class-tm-epo-builder-base.php:7042
 msgid "Radio buttons"
 msgstr ""
 
@@ -867,20 +867,20 @@ msgstr ""
 msgid "Settings:"
 msgstr ""
 
-#: admin/views/html-tm-epo-admin.php:77 include/classes/class-tm-epo-builder-base.php:2645
+#: admin/views/html-tm-epo-admin.php:77 include/classes/class-tm-epo-builder-base.php:4036
 msgid "Hide price"
 msgstr ""
 
-#: admin/views/html-tm-epo-admin.php:80 include/classes/class-tm-epo-builder-base.php:1698
+#: admin/views/html-tm-epo-admin.php:80 include/classes/class-tm-epo-builder-base.php:2641
 msgid "Required"
 msgstr ""
 
-#: admin/views/html-tm-epo-admin.php:83 include/classes/class-tm-epo-builder-base.php:1715
-#: include/classes/class-tm-epo-builder-base.php:6333
+#: admin/views/html-tm-epo-admin.php:83 include/classes/class-tm-epo-builder-base.php:2663
+#: include/classes/class-tm-epo-builder-base.php:8423
 msgid "Enabled"
 msgstr ""
 
-#: admin/views/html-tm-epo-admin.php:90 include/classes/class-tm-epo-builder-base.php:2553
+#: admin/views/html-tm-epo-admin.php:90 include/classes/class-tm-epo-builder-base.php:3907
 msgid "Limit selection"
 msgstr ""
 
@@ -956,7 +956,7 @@ msgid "Option"
 msgstr ""
 
 #: admin/views/html-tm-epo-order-item-header.php:26
-#: include/classes/class-tm-epo-builder-base.php:5973
+#: include/classes/class-tm-epo-builder-base.php:8015
 #: include/classes/class-tm-epo-scripts.php:475
 msgid "Value"
 msgstr ""
@@ -973,7 +973,7 @@ msgid "Qty"
 msgstr ""
 
 #: admin/views/html-tm-epo-order-item-header.php:41
-#: include/classes/class-tm-epo-cart.php:1385
+#: include/classes/class-tm-epo-cart.php:1448
 msgid "Total"
 msgstr ""
 
@@ -1011,11 +1011,11 @@ msgstr ""
 msgid "Builder"
 msgstr ""
 
-#: admin/views/html-tm-global-epo.php:47 include/classes/class-tm-epo-builder-base.php:701
-#: include/classes/class-tm-epo-builder-base.php:1021
-#: include/classes/class-tm-epo-builder-base.php:1147
+#: admin/views/html-tm-global-epo.php:47 include/classes/class-tm-epo-builder-base.php:911
+#: include/classes/class-tm-epo-builder-base.php:1505
+#: include/classes/class-tm-epo-builder-base.php:1780
 #: include/classes/class-tm-epo-settings-base.php:284
-#: include/classes/class-tm-epo-settings-base.php:1324
+#: include/classes/class-tm-epo-settings-base.php:1333
 msgid "Normal"
 msgstr ""
 
@@ -1122,15 +1122,16 @@ msgstr ""
 msgid "Disable but change product prices"
 msgstr ""
 
-#: admin/views/html-tm-global-epo.php:206 include/classes/class-tm-epo-builder-base.php:841
-#: include/classes/class-tm-epo-builder-base.php:2665
-#: include/classes/class-tm-epo-builder-base.php:3472
-#: include/classes/class-tm-epo-builder-base.php:5206
+#: admin/views/html-tm-global-epo.php:206
+#: include/classes/class-tm-epo-builder-base.php:1127
+#: include/classes/class-tm-epo-builder-base.php:4062
+#: include/classes/class-tm-epo-builder-base.php:5131
+#: include/classes/class-tm-epo-builder-base.php:7088
 #: include/classes/class-tm-epo-settings-base.php:193
 #: include/classes/class-tm-epo-settings-base.php:381
 #: include/classes/class-tm-epo-settings-base.php:442
 #: include/classes/class-tm-epo-settings-base.php:1018
-#: include/classes/class-tm-epo-settings-base.php:1251
+#: include/classes/class-tm-epo-settings-base.php:1260
 #: include/compatibility/classes/class-tm-epo-cp-bookings.php:196
 #: include/compatibility/classes/class-tm-epo-cp-bookings.php:211
 #: include/compatibility/classes/class-tm-epo-cp-dpd.php:616
@@ -1158,1848 +1159,1902 @@ msgid ""
 "priority over the enabled roles one."
 msgstr ""
 
-#: include/class-extra-product-options-setup.php:45
+#: include/class-extra-product-options-setup.php:48
 msgid "Cloning is forbidden."
 msgstr ""
 
-#: include/class-extra-product-options-setup.php:54
+#: include/class-extra-product-options-setup.php:57
 msgid "Unserializing instances of this class is forbidden."
 msgstr ""
 
-#: include/class-tm-extra-product-options.php:840
-#: include/class-tm-extra-product-options.php:1326
+#: include/class-tm-extra-product-options.php:841
+#: include/class-tm-extra-product-options.php:1336
 msgid "Free!"
 msgstr ""
 
-#: include/class-tm-extra-product-options.php:1346
-#: include/class-tm-extra-product-options.php:1352
-#: include/class-tm-extra-product-options.php:1366
+#: include/class-tm-extra-product-options.php:1356
+#: include/class-tm-extra-product-options.php:1362
+#: include/class-tm-extra-product-options.php:1376
 #, php-format
 msgctxt "Price range: from-to"
 msgid "%1$s&ndash;%2$s"
 msgstr ""
 
-#: include/class-tm-extra-product-options.php:1929
+#: include/class-tm-extra-product-options.php:1939
 msgid "Select options"
 msgstr ""
 
-#: include/class-tm-extra-product-options.php:1933
+#: include/class-tm-extra-product-options.php:1943
 msgid "Add to cart"
 msgstr ""
 
-#: include/classes/class-tm-epo-associated-products.php:407
+#: include/classes/class-tm-epo-associated-products.php:441
 #, php-format
 msgid "The quantity of &quot;%s&quot; cannot be lower than %d."
 msgstr ""
 
-#: include/classes/class-tm-epo-associated-products.php:413
+#: include/classes/class-tm-epo-associated-products.php:447
 #, php-format
 msgid "The quantity of &quot;%s&quot; cannot be higher than %d."
 msgstr ""
 
-#: include/classes/class-tm-epo-associated-products.php:419
+#: include/classes/class-tm-epo-associated-products.php:453
 #, php-format
 msgid "The quantity of &quot;%s&quot; must be entered in multiples of %d."
 msgstr ""
 
-#: include/classes/class-tm-epo-associated-products.php:921
+#: include/classes/class-tm-epo-associated-products.php:955
 #, php-format
 msgid "%s removed along with all of its associated products!"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:143
+#: include/classes/class-tm-epo-builder-base.php:291
 msgid "Heading"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:158
-#: include/classes/class-tm-epo-builder-base.php:3550
+#: include/classes/class-tm-epo-builder-base.php:306
+#: include/classes/class-tm-epo-builder-base.php:5257
 msgid "Divider"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:173
-#: include/classes/class-tm-epo-builder-base.php:1299
+#: include/classes/class-tm-epo-builder-base.php:321
+#: include/classes/class-tm-epo-builder-base.php:2048
 msgid "Date"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:188
+#: include/classes/class-tm-epo-builder-base.php:336
 msgid "Time"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:203
+#: include/classes/class-tm-epo-builder-base.php:351
 msgid "Range picker"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:218
+#: include/classes/class-tm-epo-builder-base.php:366
 msgid "Color picker"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:233
+#: include/classes/class-tm-epo-builder-base.php:381
 msgid "Text Area"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:248
+#: include/classes/class-tm-epo-builder-base.php:396
 msgid "Text Field"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:263
+#: include/classes/class-tm-epo-builder-base.php:411
 msgid "Upload"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:278
+#: include/classes/class-tm-epo-builder-base.php:426
 msgid "Select Box"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:308
+#: include/classes/class-tm-epo-builder-base.php:456
 msgid "Checkboxes"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:323
+#: include/classes/class-tm-epo-builder-base.php:471
 msgid "Variations"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:340
+#: include/classes/class-tm-epo-builder-base.php:488
 msgid "Product"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:612
+#: include/classes/class-tm-epo-builder-base.php:762
 msgid "Title options"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:613
-#: include/classes/class-tm-epo-builder-base.php:762
-#: include/classes/class-tm-epo-builder-base.php:796
-#: include/classes/class-tm-epo-builder-base.php:3098
+#: include/classes/class-tm-epo-builder-base.php:767
+#: include/classes/class-tm-epo-builder-base.php:995
+#: include/classes/class-tm-epo-builder-base.php:1034
+#: include/classes/class-tm-epo-builder-base.php:4570
 msgid "General options"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:614
-#: include/classes/class-tm-epo-builder-base.php:763
-#: include/classes/class-tm-epo-builder-base.php:797
-#: include/classes/class-tm-epo-builder-base.php:3099
+#: include/classes/class-tm-epo-builder-base.php:771
+#: include/classes/class-tm-epo-builder-base.php:996
+#: include/classes/class-tm-epo-builder-base.php:1035
+#: include/classes/class-tm-epo-builder-base.php:4601
 msgid "Conditional Logic"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:671
+#: include/classes/class-tm-epo-builder-base.php:850
 msgid "Normal (clear)"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:672
+#: include/classes/class-tm-epo-builder-base.php:854
 msgid "Box"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:673
+#: include/classes/class-tm-epo-builder-base.php:858
 msgid "Expand and Collapse (start opened)"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:674
+#: include/classes/class-tm-epo-builder-base.php:863
 msgid "Expand and Collapse (start closed)"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:675
+#: include/classes/class-tm-epo-builder-base.php:868
 msgid "Accordion"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:677
+#: include/classes/class-tm-epo-builder-base.php:873
 msgid "Section style"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:678
+#: include/classes/class-tm-epo-builder-base.php:874
 msgid "Select this section's display style."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:688
+#: include/classes/class-tm-epo-builder-base.php:888
 msgid "Before Local Options"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:689
+#: include/classes/class-tm-epo-builder-base.php:892
 msgid "After Local Options"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:691
+#: include/classes/class-tm-epo-builder-base.php:896
 msgid "Section placement"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:692
+#: include/classes/class-tm-epo-builder-base.php:897
 msgid "Select where this section will appear compare to local Options."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:702
+#: include/classes/class-tm-epo-builder-base.php:915
 msgid "Pop up"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:703
+#: include/classes/class-tm-epo-builder-base.php:919
 msgid "Slider (wizard)"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:705
+#: include/classes/class-tm-epo-builder-base.php:924
 msgid "Section type"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:706
+#: include/classes/class-tm-epo-builder-base.php:925
 msgid "Select this section's display type."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:714
+#: include/classes/class-tm-epo-builder-base.php:938
 msgid "Section class name"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:715
+#: include/classes/class-tm-epo-builder-base.php:939
 msgid "Enter an extra class name to add to this section"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:740
+#: include/classes/class-tm-epo-builder-base.php:973
 msgid "Section Conditional Logic"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:741
+#: include/classes/class-tm-epo-builder-base.php:974
 msgid "Enable conditional logic for showing or hiding this section."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:764
-#: include/classes/class-tm-epo-builder-base.php:798
-#: include/classes/class-tm-epo-builder-base.php:3100
+#: include/classes/class-tm-epo-builder-base.php:997
+#: include/classes/class-tm-epo-builder-base.php:1036
+#: include/classes/class-tm-epo-builder-base.php:4605
 msgid "CSS settings"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:783
-#: include/classes/class-tm-epo-builder-base.php:903
-#: include/classes/class-tm-epo-builder-base.php:3128
+#: include/classes/class-tm-epo-builder-base.php:1021
+#: include/classes/class-tm-epo-builder-base.php:1227
+#: include/classes/class-tm-epo-builder-base.php:4640
 msgid "Element class name"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:784
-#: include/classes/class-tm-epo-builder-base.php:904
-#: include/classes/class-tm-epo-builder-base.php:3129
+#: include/classes/class-tm-epo-builder-base.php:1022
+#: include/classes/class-tm-epo-builder-base.php:1228
+#: include/classes/class-tm-epo-builder-base.php:4641
 msgid "Enter an extra class name to add to this element"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:810
-#: include/classes/class-tm-epo-builder-base.php:3428
-#: include/classes/class-tm-epo-builder-base.php:3440
+#: include/classes/class-tm-epo-builder-base.php:1052
+#: include/classes/class-tm-epo-builder-base.php:5012
+#: include/classes/class-tm-epo-builder-base.php:5054
 msgid "H1"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:811
-#: include/classes/class-tm-epo-builder-base.php:3429
-#: include/classes/class-tm-epo-builder-base.php:3441
+#: include/classes/class-tm-epo-builder-base.php:1056
+#: include/classes/class-tm-epo-builder-base.php:5016
+#: include/classes/class-tm-epo-builder-base.php:5058
 msgid "H2"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:812
-#: include/classes/class-tm-epo-builder-base.php:3430
-#: include/classes/class-tm-epo-builder-base.php:3442
+#: include/classes/class-tm-epo-builder-base.php:1060
+#: include/classes/class-tm-epo-builder-base.php:5020
+#: include/classes/class-tm-epo-builder-base.php:5062
 msgid "H3"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:813
-#: include/classes/class-tm-epo-builder-base.php:3431
-#: include/classes/class-tm-epo-builder-base.php:3443
+#: include/classes/class-tm-epo-builder-base.php:1064
+#: include/classes/class-tm-epo-builder-base.php:5024
+#: include/classes/class-tm-epo-builder-base.php:5066
 msgid "H4"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:814
-#: include/classes/class-tm-epo-builder-base.php:3432
-#: include/classes/class-tm-epo-builder-base.php:3444
+#: include/classes/class-tm-epo-builder-base.php:1068
+#: include/classes/class-tm-epo-builder-base.php:5028
+#: include/classes/class-tm-epo-builder-base.php:5070
 msgid "H5"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:815
-#: include/classes/class-tm-epo-builder-base.php:3433
-#: include/classes/class-tm-epo-builder-base.php:3445
+#: include/classes/class-tm-epo-builder-base.php:1072
+#: include/classes/class-tm-epo-builder-base.php:5032
+#: include/classes/class-tm-epo-builder-base.php:5074
 msgid "H6"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:816
-#: include/classes/class-tm-epo-builder-base.php:3434
-#: include/classes/class-tm-epo-builder-base.php:3446
+#: include/classes/class-tm-epo-builder-base.php:1076
+#: include/classes/class-tm-epo-builder-base.php:5036
+#: include/classes/class-tm-epo-builder-base.php:5078
 msgid "p"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:817
-#: include/classes/class-tm-epo-builder-base.php:3435
-#: include/classes/class-tm-epo-builder-base.php:3447
+#: include/classes/class-tm-epo-builder-base.php:1080
+#: include/classes/class-tm-epo-builder-base.php:5040
+#: include/classes/class-tm-epo-builder-base.php:5082
 msgid "div"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:818
-#: include/classes/class-tm-epo-builder-base.php:3436
-#: include/classes/class-tm-epo-builder-base.php:3448
+#: include/classes/class-tm-epo-builder-base.php:1084
+#: include/classes/class-tm-epo-builder-base.php:5044
+#: include/classes/class-tm-epo-builder-base.php:5086
 msgid "span"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:820
+#: include/classes/class-tm-epo-builder-base.php:1088
 msgid "Header type"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:828
+#: include/classes/class-tm-epo-builder-base.php:1101
 msgid "Header title"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:838
-#: include/classes/class-tm-epo-builder-base.php:879
-#: include/classes/class-tm-epo-builder-base.php:3469
-#: include/classes/class-tm-epo-builder-base.php:3507
+#: include/classes/class-tm-epo-builder-base.php:1115
+#: include/classes/class-tm-epo-builder-base.php:1184
+#: include/classes/class-tm-epo-builder-base.php:5119
+#: include/classes/class-tm-epo-builder-base.php:5188
 msgid "Above field"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:839
-#: include/classes/class-tm-epo-builder-base.php:3470
+#: include/classes/class-tm-epo-builder-base.php:1119
+#: include/classes/class-tm-epo-builder-base.php:5123
 msgid "Left of the field"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:840
-#: include/classes/class-tm-epo-builder-base.php:3471
+#: include/classes/class-tm-epo-builder-base.php:1123
+#: include/classes/class-tm-epo-builder-base.php:5127
 msgid "Right of the field"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:843
+#: include/classes/class-tm-epo-builder-base.php:1131
 msgid "Header position"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:852
+#: include/classes/class-tm-epo-builder-base.php:1145
 msgid "Header color"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:853
-#: include/classes/class-tm-epo-builder-base.php:870
-#: include/classes/class-tm-epo-builder-base.php:3490
-#: include/classes/class-tm-epo-builder-base.php:3523
+#: include/classes/class-tm-epo-builder-base.php:1146
+#: include/classes/class-tm-epo-builder-base.php:1171
+#: include/classes/class-tm-epo-builder-base.php:5164
+#: include/classes/class-tm-epo-builder-base.php:5223
 msgid "Leave empty for default value"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:860
+#: include/classes/class-tm-epo-builder-base.php:1156
 msgid "Content"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:869
+#: include/classes/class-tm-epo-builder-base.php:1170
 msgid "Content color"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:880
-#: include/classes/class-tm-epo-builder-base.php:3508
+#: include/classes/class-tm-epo-builder-base.php:1188
+#: include/classes/class-tm-epo-builder-base.php:5192
 msgid "Below field"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:881
-#: include/classes/class-tm-epo-builder-base.php:1607
-#: include/classes/class-tm-epo-builder-base.php:3509
-#: include/classes/class-tm-epo-builder-base.php:5360
+#: include/classes/class-tm-epo-builder-base.php:1192
+#: include/classes/class-tm-epo-builder-base.php:2513
+#: include/classes/class-tm-epo-builder-base.php:5196
+#: include/classes/class-tm-epo-builder-base.php:7315
 msgid "Tooltip"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:882
-#: include/classes/class-tm-epo-builder-base.php:3510
+#: include/classes/class-tm-epo-builder-base.php:1196
+#: include/classes/class-tm-epo-builder-base.php:5200
 msgid "Icon tooltip left"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:883
-#: include/classes/class-tm-epo-builder-base.php:3511
+#: include/classes/class-tm-epo-builder-base.php:1200
+#: include/classes/class-tm-epo-builder-base.php:5204
 msgid "Icon tooltip right"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:885
+#: include/classes/class-tm-epo-builder-base.php:1204
 msgid "Content position"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:924
+#: include/classes/class-tm-epo-builder-base.php:1296
 msgid "This will count as an empty value in case the element is required."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:950
-#: include/classes/class-tm-epo-builder-base.php:2796
-#: include/classes/class-tm-epo-builder-base.php:2812
+#: include/classes/class-tm-epo-builder-base.php:1389
+#: include/classes/class-tm-epo-builder-base.php:4241
+#: include/classes/class-tm-epo-builder-base.php:4262
 msgid "Default value"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:951
+#: include/classes/class-tm-epo-builder-base.php:1390
 msgid ""
 "Enter a value to be applied to the field automatically according to your selected date "
 "format. (Two digits for day, two digits for month and four digits for year)."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:959
+#: include/classes/class-tm-epo-builder-base.php:1403
 msgid "Minimum selectable date"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:960
-#: include/classes/class-tm-epo-builder-base.php:969
+#: include/classes/class-tm-epo-builder-base.php:1404
+#: include/classes/class-tm-epo-builder-base.php:1418
 msgid "A number of days from today."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:968
+#: include/classes/class-tm-epo-builder-base.php:1417
 msgid "Maximum selectable date"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:976
+#: include/classes/class-tm-epo-builder-base.php:1430
 msgid "Disabled dates"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:977
+#: include/classes/class-tm-epo-builder-base.php:1431
 msgid ""
 "Comma separated dates according to your selected date format. (Two digits for day, two "
 "digits for month and four digits for year)"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:984
+#: include/classes/class-tm-epo-builder-base.php:1443
 msgid "Enabled dates"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:985
+#: include/classes/class-tm-epo-builder-base.php:1444
 msgid ""
 "Comma separated dates according to your selected date format. (Two digits for day, two "
 "digits for month and four digits for year). Please note that this will override any "
 "other setting!"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:994
-#: include/classes/class-tm-epo-builder-base.php:1120
-#: include/classes/class-tm-epo-settings-base.php:1295
+#: include/classes/class-tm-epo-builder-base.php:1457
+#: include/classes/class-tm-epo-builder-base.php:1720
+#: include/classes/class-tm-epo-settings-base.php:1304
 msgid "Epo White"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:995
-#: include/classes/class-tm-epo-builder-base.php:1121
-#: include/classes/class-tm-epo-settings-base.php:1296
+#: include/classes/class-tm-epo-builder-base.php:1461
+#: include/classes/class-tm-epo-builder-base.php:1724
+#: include/classes/class-tm-epo-settings-base.php:1305
 msgid "Epo Black"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:997
-#: include/classes/class-tm-epo-builder-base.php:1123
+#: include/classes/class-tm-epo-builder-base.php:1465
+#: include/classes/class-tm-epo-builder-base.php:1728
 msgid "Theme"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:998
-#: include/classes/class-tm-epo-settings-base.php:1287
+#: include/classes/class-tm-epo-builder-base.php:1466
+#: include/classes/class-tm-epo-settings-base.php:1296
 msgid "Select the theme for the datepicker."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1007
-#: include/classes/class-tm-epo-builder-base.php:1133
-#: include/classes/class-tm-epo-settings-base.php:1309
+#: include/classes/class-tm-epo-builder-base.php:1479
+#: include/classes/class-tm-epo-builder-base.php:1748
+#: include/classes/class-tm-epo-settings-base.php:1318
 msgid "Small"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1008
-#: include/classes/class-tm-epo-builder-base.php:1134
-#: include/classes/class-tm-epo-settings-base.php:1310
+#: include/classes/class-tm-epo-builder-base.php:1483
+#: include/classes/class-tm-epo-builder-base.php:1752
+#: include/classes/class-tm-epo-settings-base.php:1319
 msgid "Medium"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1009
-#: include/classes/class-tm-epo-builder-base.php:1135
-#: include/classes/class-tm-epo-settings-base.php:1311
+#: include/classes/class-tm-epo-builder-base.php:1487
+#: include/classes/class-tm-epo-builder-base.php:1756
+#: include/classes/class-tm-epo-settings-base.php:1320
 msgid "Large"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1011
-#: include/classes/class-tm-epo-builder-base.php:1137
+#: include/classes/class-tm-epo-builder-base.php:1491
+#: include/classes/class-tm-epo-builder-base.php:1760
 #: include/classes/class-tm-epo-helper-base.php:1536
 msgid "Size"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1012
-#: include/classes/class-tm-epo-settings-base.php:1301
+#: include/classes/class-tm-epo-builder-base.php:1492
+#: include/classes/class-tm-epo-settings-base.php:1310
 msgid "Select the size of the datepicker."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1022
-#: include/classes/class-tm-epo-builder-base.php:1148
-#: include/classes/class-tm-epo-settings-base.php:1325
+#: include/classes/class-tm-epo-builder-base.php:1509
+#: include/classes/class-tm-epo-builder-base.php:1784
+#: include/classes/class-tm-epo-settings-base.php:1334
 msgid "Top of screen"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1023
-#: include/classes/class-tm-epo-builder-base.php:1149
-#: include/classes/class-tm-epo-settings-base.php:1326
+#: include/classes/class-tm-epo-builder-base.php:1513
+#: include/classes/class-tm-epo-builder-base.php:1788
+#: include/classes/class-tm-epo-settings-base.php:1335
 msgid "Bottom of screen"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1025
-#: include/classes/class-tm-epo-builder-base.php:1151
+#: include/classes/class-tm-epo-builder-base.php:1517
+#: include/classes/class-tm-epo-builder-base.php:1792
 msgid "Position"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1026
-#: include/classes/class-tm-epo-settings-base.php:1316
+#: include/classes/class-tm-epo-builder-base.php:1518
+#: include/classes/class-tm-epo-settings-base.php:1325
 msgid "Select the position of the datepicker."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1034
+#: include/classes/class-tm-epo-builder-base.php:1531
 msgid "Disable weekdays"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1035
+#: include/classes/class-tm-epo-builder-base.php:1532
 msgid "This allows you to disable all selected weekdays."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1044
+#: include/classes/class-tm-epo-builder-base.php:1546
 msgid "Disable months"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1045
+#: include/classes/class-tm-epo-builder-base.php:1547
 msgid "This allows you to disable all selected months."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1051
-#: include/classes/class-tm-epo-builder-base.php:1157
+#: include/classes/class-tm-epo-builder-base.php:1553
+#: include/classes/class-tm-epo-builder-base.php:1804
 #: include/classes/class-tm-epo-wpml-base.php:1052
 msgid "Translations"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1064
+#: include/classes/class-tm-epo-builder-base.php:1571
 #: include/fields/class-tm-epo-fields-date.php:148
 msgid "Day"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1077
+#: include/classes/class-tm-epo-builder-base.php:1589
 #: include/fields/class-tm-epo-fields-date.php:157
 msgid "Month"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1086
+#: include/classes/class-tm-epo-builder-base.php:1603
 #: include/fields/class-tm-epo-fields-date.php:168
 msgid "Year"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1101
+#: include/classes/class-tm-epo-builder-base.php:1635
+msgid "System style"
+msgstr ""
+
+#: include/classes/class-tm-epo-builder-base.php:1639
+msgid "Custom style"
+msgstr ""
+
+#: include/classes/class-tm-epo-builder-base.php:1643
+msgid "Time picker style"
+msgstr ""
+
+#: include/classes/class-tm-epo-builder-base.php:1680
 msgid "Minimum selectable time"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1102
-#: include/classes/class-tm-epo-builder-base.php:1111
+#: include/classes/class-tm-epo-builder-base.php:1681
+#: include/classes/class-tm-epo-builder-base.php:1701
 msgid "Enter the time the following format: 8:00 am"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1110
+#: include/classes/class-tm-epo-builder-base.php:1700
 msgid "Maximum selectable time"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1124
+#: include/classes/class-tm-epo-builder-base.php:1729
 msgid "Select the theme for the timepicker."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1138
+#: include/classes/class-tm-epo-builder-base.php:1761
 msgid "Select the size of the timepicker."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1152
+#: include/classes/class-tm-epo-builder-base.php:1793
 msgid "Select the position of the timepicker."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1170
-#: include/classes/class-tm-epo-scripts.php:551
+#: include/classes/class-tm-epo-builder-base.php:1828
+#: include/classes/class-tm-epo-scripts.php:552
 msgid "Hour"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1183
-#: include/classes/class-tm-epo-scripts.php:552
+#: include/classes/class-tm-epo-builder-base.php:1852
+#: include/classes/class-tm-epo-scripts.php:553
 msgid "Minute"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1192
-#: include/classes/class-tm-epo-scripts.php:553
+#: include/classes/class-tm-epo-builder-base.php:1872
+#: include/classes/class-tm-epo-scripts.php:554
 msgid "Second"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1225
+#: include/classes/class-tm-epo-builder-base.php:1956
 msgid "Single Product"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1228
+#: include/classes/class-tm-epo-builder-base.php:1964
 msgid "Select mode"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1229
+#: include/classes/class-tm-epo-builder-base.php:1965
 msgid "Whether to include specific products or categories."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1247
+#: include/classes/class-tm-epo-builder-base.php:1983
 msgid "Select categories"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1248
+#: include/classes/class-tm-epo-builder-base.php:1984
 msgid "Add categories to include all their associated products."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1273
+#: include/classes/class-tm-epo-builder-base.php:2009
 msgid "Select products"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1274
+#: include/classes/class-tm-epo-builder-base.php:2010
 msgid "Add the products individually."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1295
-#: include/classes/class-tm-epo-builder-base.php:5969
-#: include/classes/class-tm-epo-builder-base.php:6173
+#: include/classes/class-tm-epo-builder-base.php:2032
+#: include/classes/class-tm-epo-builder-base.php:8011
+#: include/classes/class-tm-epo-builder-base.php:8251
 #: include/classes/class-tm-epo-settings-base.php:1048
 msgid "Default"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1296
+#: include/classes/class-tm-epo-builder-base.php:2036
 msgid "Base price"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1297
+#: include/classes/class-tm-epo-builder-base.php:2040
 msgid "ID"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1300
+#: include/classes/class-tm-epo-builder-base.php:2052
 msgid "Name"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1301
+#: include/classes/class-tm-epo-builder-base.php:2056
 msgid "Menu Order"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1302
+#: include/classes/class-tm-epo-builder-base.php:2060
 msgid "Random"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1304
+#: include/classes/class-tm-epo-builder-base.php:2064
 msgid "Order by"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1305
+#: include/classes/class-tm-epo-builder-base.php:2065
 msgid "Select the parameter which the products will be sorted by."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1322
+#: include/classes/class-tm-epo-builder-base.php:2087
 msgid "Ascending"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1323
+#: include/classes/class-tm-epo-builder-base.php:2091
 msgid "Descending"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1325
+#: include/classes/class-tm-epo-builder-base.php:2095
 #: include/classes/class-tm-epo-settings-base.php:81
 msgid "Order"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1326
+#: include/classes/class-tm-epo-builder-base.php:2096
 msgid "Select the sorting order of the products."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1351
+#: include/classes/class-tm-epo-builder-base.php:2121
 msgid "Default product"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1352
+#: include/classes/class-tm-epo-builder-base.php:2122
 msgid "Select the product that will be pre-selected."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1363
+#: include/classes/class-tm-epo-builder-base.php:2138
 msgid "Dropdown"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1365
+#: include/classes/class-tm-epo-builder-base.php:2146
 msgid "Thumbnails"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1367
+#: include/classes/class-tm-epo-builder-base.php:2150
 msgid "Layout mode"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1368
+#: include/classes/class-tm-epo-builder-base.php:2151
 msgid "Select how the products will be presented."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1392
+#: include/classes/class-tm-epo-builder-base.php:2178
 msgid "Dropdown Placeholder"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1393
+#: include/classes/class-tm-epo-builder-base.php:2179
 msgid "Enter the placeholder for the dropdown."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1408
+#: include/classes/class-tm-epo-builder-base.php:2194
 msgid "Minimum quantity"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1417
+#: include/classes/class-tm-epo-builder-base.php:2203
 msgid "Maximum quantity"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1427
+#: include/classes/class-tm-epo-builder-base.php:2217
 msgid "Shipped individually"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1428
+#: include/classes/class-tm-epo-builder-base.php:2218
 msgid "If this is enabled the included product is not shipped with the main product."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1436
+#: include/classes/class-tm-epo-builder-base.php:2230
 msgid "Maintain weight"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1437
+#: include/classes/class-tm-epo-builder-base.php:2231
 msgid "If this is enabled the included product will add its weight to the main product."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1451
+#: include/classes/class-tm-epo-builder-base.php:2249
 msgid "Priced individually"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1452
+#: include/classes/class-tm-epo-builder-base.php:2250
 msgid "If this is enabled the included product will maintain its own price."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1462
+#: include/classes/class-tm-epo-builder-base.php:2264
 msgid "Percentage"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1465
+#: include/classes/class-tm-epo-builder-base.php:2272
 msgid "Discount type"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1466
+#: include/classes/class-tm-epo-builder-base.php:2273
 msgid ""
 "Select the discount type. The discount applies to the final product price. If the "
 "product has extra options then the discount applies to the amount after the options have "
 "been added to the product price."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1479
+#: include/classes/class-tm-epo-builder-base.php:2291
 msgid "Discount"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1480
+#: include/classes/class-tm-epo-builder-base.php:2292
 msgid "Enter the discount amount."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1566
+#: include/classes/class-tm-epo-builder-base.php:2314
+#: include/classes/class-tm-epo-builder-base.php:3668
+msgid "Show image"
+msgstr ""
+
+#: include/classes/class-tm-epo-builder-base.php:2315
+msgid "Enable to show the image of the associated product."
+msgstr ""
+
+#: include/classes/class-tm-epo-builder-base.php:2327
+msgid "Show title"
+msgstr ""
+
+#: include/classes/class-tm-epo-builder-base.php:2328
+msgid "Enable to show the title of the associated product."
+msgstr ""
+
+#: include/classes/class-tm-epo-builder-base.php:2340
+msgid "Show price"
+msgstr ""
+
+#: include/classes/class-tm-epo-builder-base.php:2341
+msgid "Enable to show the price of the associated product."
+msgstr ""
+
+#: include/classes/class-tm-epo-builder-base.php:2353
+#: include/classes/class-tm-epo-builder-base.php:3660
+msgid "Show description"
+msgstr ""
+
+#: include/classes/class-tm-epo-builder-base.php:2354
+msgid "Enable to show the description of the associated product."
+msgstr ""
+
+#: include/classes/class-tm-epo-builder-base.php:2366
+msgid "Show meta"
+msgstr ""
+
+#: include/classes/class-tm-epo-builder-base.php:2367
+msgid "Enable to show the meta of the associated product."
+msgstr ""
+
+#: include/classes/class-tm-epo-builder-base.php:2383
+msgid "Advanced options"
+msgstr ""
+
+#: include/classes/class-tm-epo-builder-base.php:2464
 msgid "Enable points display?"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1567
+#: include/classes/class-tm-epo-builder-base.php:2465
 msgid "This allows you to generate points along the range picker."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1583
+#: include/classes/class-tm-epo-builder-base.php:2486
 msgid "Number of points"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1584
+#: include/classes/class-tm-epo-builder-base.php:2487
 msgid "Enter the number of values for the points display."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1608
+#: include/classes/class-tm-epo-builder-base.php:2514
 msgid "Left side"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1609
+#: include/classes/class-tm-epo-builder-base.php:2516
 msgid "Right side"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1610
+#: include/classes/class-tm-epo-builder-base.php:2520
 msgid "Tooltip and Left side"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1611
+#: include/classes/class-tm-epo-builder-base.php:2524
 msgid "Tooltip and Right side"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1613
+#: include/classes/class-tm-epo-builder-base.php:2528
 msgid "Show value on"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1614
+#: include/classes/class-tm-epo-builder-base.php:2529
 msgid "Select how to show the value of the range picker."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1652
+#: include/classes/class-tm-epo-builder-base.php:2572
 msgid "Step value"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1653
+#: include/classes/class-tm-epo-builder-base.php:2573
 msgid "Enter the step for the handle."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1670
+#: include/classes/class-tm-epo-builder-base.php:2594
 msgid "No validation"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1671
+#: include/classes/class-tm-epo-builder-base.php:2595
 msgid "Email"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1672
+#: include/classes/class-tm-epo-builder-base.php:2596
 msgid "Url"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1673
+#: include/classes/class-tm-epo-builder-base.php:2597
 msgid "Number"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1674
+#: include/classes/class-tm-epo-builder-base.php:2598
 msgid "Digits"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1675
+#: include/classes/class-tm-epo-builder-base.php:2600
 msgid "Letters only"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1676
+#: include/classes/class-tm-epo-builder-base.php:2604
 msgid "Letters or Space only"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1677
+#: include/classes/class-tm-epo-builder-base.php:2608
 msgid "Alphanumeric"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1678
+#: include/classes/class-tm-epo-builder-base.php:2612
 msgid "Alphanumeric Unicode"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1679
+#: include/classes/class-tm-epo-builder-base.php:2616
 msgid "Alphanumeric Unicode or Space"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1681
+#: include/classes/class-tm-epo-builder-base.php:2620
 msgid "Validate as"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1682
+#: include/classes/class-tm-epo-builder-base.php:2621
 msgid "Choose whether the field will be validated against the choosen method."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1699
+#: include/classes/class-tm-epo-builder-base.php:2642
 msgid "Choose whether the user must fill out this field or not."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1716
+#: include/classes/class-tm-epo-builder-base.php:2664
 msgid "Choose whether the option is enabled or not."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1731
-#: include/classes/class-tm-epo-builder-base.php:5974
-#: include/classes/class-tm-epo-cart.php:1383 include/classes/class-tm-epo-scripts.php:477
+#: include/classes/class-tm-epo-builder-base.php:2685
+#: include/classes/class-tm-epo-builder-base.php:8016
+#: include/classes/class-tm-epo-cart.php:1446 include/classes/class-tm-epo-scripts.php:477
 #: include/classes/class-tm-epo-settings-base.php:268
 msgid "Price"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1732
+#: include/classes/class-tm-epo-builder-base.php:2686
 msgid "Enter the price for this field or leave it blank for no price."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1753
+#: include/classes/class-tm-epo-builder-base.php:2713
 msgid "Sale Price"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1754
+#: include/classes/class-tm-epo-builder-base.php:2714
 msgid "Enter the sale price for this field or leave it blankto use the default price."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1775
+#: include/classes/class-tm-epo-builder-base.php:2740
 msgid "Text after Price"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1776
+#: include/classes/class-tm-epo-builder-base.php:2741
 msgid ""
 "Enter a text to display after the price for this field or leave it blank for no text."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1791
+#: include/classes/class-tm-epo-builder-base.php:2761
 msgid "Text before Price"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1792
+#: include/classes/class-tm-epo-builder-base.php:2762
 msgid ""
 "Enter a text to display before the price for this field or leave it blank for no text."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1806
-#: include/classes/class-tm-epo-builder-base.php:1850
-#: include/classes/class-tm-epo-builder-base.php:1935
-#: include/classes/class-tm-epo-builder-base.php:1963
-#: include/classes/class-tm-epo-builder-base.php:1994
-#: include/classes/class-tm-epo-builder-base.php:5890
+#: include/classes/class-tm-epo-builder-base.php:2780
+#: include/classes/class-tm-epo-builder-base.php:2879
+#: include/classes/class-tm-epo-builder-base.php:3034
+#: include/classes/class-tm-epo-builder-base.php:3075
+#: include/classes/class-tm-epo-builder-base.php:3125
+#: include/classes/class-tm-epo-builder-base.php:7900
 msgid "Percent of the original price + options"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1807
-#: include/classes/class-tm-epo-builder-base.php:1851
+#: include/classes/class-tm-epo-builder-base.php:2784
+#: include/classes/class-tm-epo-builder-base.php:2883
 msgid "Price per word"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1808
-#: include/classes/class-tm-epo-builder-base.php:1852
+#: include/classes/class-tm-epo-builder-base.php:2788
+#: include/classes/class-tm-epo-builder-base.php:2887
 msgid "Percent of the original price per word"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1809
-#: include/classes/class-tm-epo-builder-base.php:1853
+#: include/classes/class-tm-epo-builder-base.php:2792
+#: include/classes/class-tm-epo-builder-base.php:2891
 msgid "Price per word (no n-th char)"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1810
-#: include/classes/class-tm-epo-builder-base.php:1854
+#: include/classes/class-tm-epo-builder-base.php:2796
+#: include/classes/class-tm-epo-builder-base.php:2895
 msgid "Percent of the original price per word (no n-th char)"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1811
-#: include/classes/class-tm-epo-builder-base.php:1855
+#: include/classes/class-tm-epo-builder-base.php:2800
+#: include/classes/class-tm-epo-builder-base.php:2899
 msgid "Price per char"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1812
-#: include/classes/class-tm-epo-builder-base.php:1856
+#: include/classes/class-tm-epo-builder-base.php:2804
+#: include/classes/class-tm-epo-builder-base.php:2903
 msgid "Percent of the original price per char"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1813
-#: include/classes/class-tm-epo-builder-base.php:1857
+#: include/classes/class-tm-epo-builder-base.php:2808
+#: include/classes/class-tm-epo-builder-base.php:2907
 msgid "Price per char (no first char)"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1814
-#: include/classes/class-tm-epo-builder-base.php:1858
+#: include/classes/class-tm-epo-builder-base.php:2812
+#: include/classes/class-tm-epo-builder-base.php:2911
 msgid "Price per char (no n-th char)"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1815
-#: include/classes/class-tm-epo-builder-base.php:1859
+#: include/classes/class-tm-epo-builder-base.php:2816
+#: include/classes/class-tm-epo-builder-base.php:2915
 msgid "Price per char (no n-th char and no spaces)"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1816
-#: include/classes/class-tm-epo-builder-base.php:1860
+#: include/classes/class-tm-epo-builder-base.php:2820
+#: include/classes/class-tm-epo-builder-base.php:2919
 msgid "Percent of the original price per char (no first char)"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1817
-#: include/classes/class-tm-epo-builder-base.php:1861
+#: include/classes/class-tm-epo-builder-base.php:2824
+#: include/classes/class-tm-epo-builder-base.php:2923
 msgid "Percent of the original price per char (no n-th char)"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1818
-#: include/classes/class-tm-epo-builder-base.php:1862
+#: include/classes/class-tm-epo-builder-base.php:2828
+#: include/classes/class-tm-epo-builder-base.php:2927
 msgid "Percent of the original price per char (no n-th char and no spaces)"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1819
-#: include/classes/class-tm-epo-builder-base.php:1863
+#: include/classes/class-tm-epo-builder-base.php:2832
+#: include/classes/class-tm-epo-builder-base.php:2931
 msgid "Price per char (no spaces)"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1820
+#: include/classes/class-tm-epo-builder-base.php:2835
 msgid "Price per row"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1821
-#: include/classes/class-tm-epo-builder-base.php:1864
-#: include/classes/class-tm-epo-builder-base.php:1936
-#: include/classes/class-tm-epo-builder-base.php:1964
-#: include/classes/class-tm-epo-builder-base.php:1995
-#: include/classes/class-tm-epo-builder-base.php:5891
+#: include/classes/class-tm-epo-builder-base.php:2836
+#: include/classes/class-tm-epo-builder-base.php:2934
+#: include/classes/class-tm-epo-builder-base.php:3037
+#: include/classes/class-tm-epo-builder-base.php:3078
+#: include/classes/class-tm-epo-builder-base.php:3128
+#: include/classes/class-tm-epo-builder-base.php:7904
 msgid "Math formula"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1822
-#: include/classes/class-tm-epo-builder-base.php:1865
-#: include/classes/class-tm-epo-builder-base.php:1937
-#: include/classes/class-tm-epo-builder-base.php:1965
-#: include/classes/class-tm-epo-builder-base.php:1996
-#: include/classes/class-tm-epo-builder-base.php:5892
+#: include/classes/class-tm-epo-builder-base.php:2838
+#: include/classes/class-tm-epo-builder-base.php:2936
+#: include/classes/class-tm-epo-builder-base.php:3039
+#: include/classes/class-tm-epo-builder-base.php:3080
+#: include/classes/class-tm-epo-builder-base.php:3130
+#: include/classes/class-tm-epo-builder-base.php:7908
 msgid "Fixed amount + options"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1834
-#: include/classes/class-tm-epo-builder-base.php:1877
-#: include/classes/class-tm-epo-builder-base.php:1949
-#: include/classes/class-tm-epo-builder-base.php:1977
-#: include/classes/class-tm-epo-builder-base.php:2008
+#: include/classes/class-tm-epo-builder-base.php:2856
+#: include/classes/class-tm-epo-builder-base.php:2954
+#: include/classes/class-tm-epo-builder-base.php:3057
+#: include/classes/class-tm-epo-builder-base.php:3098
+#: include/classes/class-tm-epo-builder-base.php:3148
 msgid "Price type"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1847
-#: include/classes/class-tm-epo-cart.php:1384
+#: include/classes/class-tm-epo-builder-base.php:2869
+#: include/classes/class-tm-epo-cart.php:1447
 msgid "Quantity"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1848
-#: include/classes/class-tm-epo-builder-base.php:1991
+#: include/classes/class-tm-epo-builder-base.php:2871
+#: include/classes/class-tm-epo-builder-base.php:3113
 msgid "Current value"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1893
-#: include/classes/class-tm-epo-builder-base.php:6323
+#: include/classes/class-tm-epo-builder-base.php:2975
+#: include/classes/class-tm-epo-builder-base.php:8413
 msgid "Set to Fee"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1894
+#: include/classes/class-tm-epo-builder-base.php:2976
 msgid "Attach the price to the order making it independent of the product quantity."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1914
+#: include/classes/class-tm-epo-builder-base.php:3002
 msgid "Free chars"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1915
+#: include/classes/class-tm-epo-builder-base.php:3003
 msgid "Enter the number of free chars."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1990
+#: include/classes/class-tm-epo-builder-base.php:3111
 msgid "Step * price"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:1992
+#: include/classes/class-tm-epo-builder-base.php:3117
 msgid "Price per Interval"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2025
+#: include/classes/class-tm-epo-builder-base.php:3171
 msgid "Min value"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2026
+#: include/classes/class-tm-epo-builder-base.php:3172
 msgid "Enter the minimum value."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2061
+#: include/classes/class-tm-epo-builder-base.php:3213
 msgid "Max value"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2062
+#: include/classes/class-tm-epo-builder-base.php:3214
 msgid "Enter the maximum value."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2096
+#: include/classes/class-tm-epo-builder-base.php:3252
 msgid "Day / Month / Year"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2097
+#: include/classes/class-tm-epo-builder-base.php:3256
 msgid "Month / Day / Year"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2098
+#: include/classes/class-tm-epo-builder-base.php:3260
 msgid "Day . Month . Year"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2099
+#: include/classes/class-tm-epo-builder-base.php:3264
 msgid "Month . Day . Year"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2100
+#: include/classes/class-tm-epo-builder-base.php:3268
 msgid "Day - Month - Year"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2101
+#: include/classes/class-tm-epo-builder-base.php:3272
 msgid "Month - Day - Year"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2103
+#: include/classes/class-tm-epo-builder-base.php:3277
 msgid "Year / Month / Day"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2104
+#: include/classes/class-tm-epo-builder-base.php:3281
 msgid "Year / Day / Month"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2105
+#: include/classes/class-tm-epo-builder-base.php:3285
 msgid "Year . Month . Day"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2106
+#: include/classes/class-tm-epo-builder-base.php:3289
 msgid "Year . Day . Month"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2107
+#: include/classes/class-tm-epo-builder-base.php:3293
 msgid "Year - Month - Day"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2108
+#: include/classes/class-tm-epo-builder-base.php:3297
 msgid "Year - Day - Month"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2111
+#: include/classes/class-tm-epo-builder-base.php:3302
 msgid "Date format"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2127
+#: include/classes/class-tm-epo-builder-base.php:3321
 msgid "HH:mm"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2128
+#: include/classes/class-tm-epo-builder-base.php:3322
 msgid "HH:m"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2129
+#: include/classes/class-tm-epo-builder-base.php:3323
 msgid "H:mm"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2130
+#: include/classes/class-tm-epo-builder-base.php:3324
 msgid "H:m"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2131
+#: include/classes/class-tm-epo-builder-base.php:3326
 msgid "HH:mm:ss"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2132
+#: include/classes/class-tm-epo-builder-base.php:3330
 msgid "HH:m:ss"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2133
+#: include/classes/class-tm-epo-builder-base.php:3334
 msgid "H:mm:ss"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2134
+#: include/classes/class-tm-epo-builder-base.php:3337
 msgid "H:m:ss"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2135
+#: include/classes/class-tm-epo-builder-base.php:3339
 msgid "HH:mm:s"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2136
+#: include/classes/class-tm-epo-builder-base.php:3342
 msgid "HH:m:s"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2137
+#: include/classes/class-tm-epo-builder-base.php:3343
 msgid "H:mm:s"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2138
+#: include/classes/class-tm-epo-builder-base.php:3344
 msgid "H:m:s"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2140
+#: include/classes/class-tm-epo-builder-base.php:3346
 msgid "hh:mm"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2141
+#: include/classes/class-tm-epo-builder-base.php:3347
 msgid "hh:m"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2142
+#: include/classes/class-tm-epo-builder-base.php:3348
 msgid "h:mm"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2143
+#: include/classes/class-tm-epo-builder-base.php:3349
 msgid "h:m"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2144
+#: include/classes/class-tm-epo-builder-base.php:3351
 msgid "hh:mm:ss"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2145
+#: include/classes/class-tm-epo-builder-base.php:3355
 msgid "hh:m:ss"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2146
+#: include/classes/class-tm-epo-builder-base.php:3359
 msgid "h:mm:ss"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2147
+#: include/classes/class-tm-epo-builder-base.php:3362
 msgid "h:m:ss"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2148
+#: include/classes/class-tm-epo-builder-base.php:3364
 msgid "hh:mm:s"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2149
+#: include/classes/class-tm-epo-builder-base.php:3367
 msgid "hh:m:s"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2150
+#: include/classes/class-tm-epo-builder-base.php:3368
 msgid "h:mm:s"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2151
+#: include/classes/class-tm-epo-builder-base.php:3369
 msgid "h:m:s"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2153
+#: include/classes/class-tm-epo-builder-base.php:3371
 msgid "Time format"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2169
+#: include/classes/class-tm-epo-builder-base.php:3396
 msgid "Custom Time format"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2170
+#: include/classes/class-tm-epo-builder-base.php:3397
 msgid "This will override the time format above."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2186
+#: include/classes/class-tm-epo-builder-base.php:3421
 msgid "Start year"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2187
+#: include/classes/class-tm-epo-builder-base.php:3422
 msgid "Enter starting year."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2203
+#: include/classes/class-tm-epo-builder-base.php:3443
 msgid "End year"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2204
+#: include/classes/class-tm-epo-builder-base.php:3444
 msgid "Enter ending year."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2224
+#: include/classes/class-tm-epo-builder-base.php:3468
 msgid "Use URL replacements"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2225
+#: include/classes/class-tm-epo-builder-base.php:3469
 msgid "Choose whether to redirect to a URL if the option is click."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2243
+#: include/classes/class-tm-epo-builder-base.php:3490
 msgid "Populate options"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2244
+#: include/classes/class-tm-epo-builder-base.php:3491
 msgid "Double click the radio button to remove its selected attribute."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2261
+#: include/classes/class-tm-epo-builder-base.php:3508
 msgid "Variation options"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2282
-#: include/classes/class-tm-epo-builder-base.php:2306
+#: include/classes/class-tm-epo-builder-base.php:3534
+#: include/classes/class-tm-epo-builder-base.php:3568
 msgid "Start of the label"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2283
-#: include/classes/class-tm-epo-builder-base.php:2307
+#: include/classes/class-tm-epo-builder-base.php:3538
+#: include/classes/class-tm-epo-builder-base.php:3572
 msgid "End of the label"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2285
+#: include/classes/class-tm-epo-builder-base.php:3542
 msgid "Use image replacements"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2286
+#: include/classes/class-tm-epo-builder-base.php:3543
 msgid "Choose whether to use images in place of the element choices."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2309
+#: include/classes/class-tm-epo-builder-base.php:3576
 msgid "Use color replacements"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2310
+#: include/classes/class-tm-epo-builder-base.php:3577
 msgid "Choose whether to use a color swatch in place of the element choices."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2327
+#: include/classes/class-tm-epo-builder-base.php:3599
 msgid "Use image lightbox"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2328
+#: include/classes/class-tm-epo-builder-base.php:3600
 msgid "Choose whether to enable the lightbox on the thumbnail."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2346
-#: include/classes/class-tm-epo-builder-base.php:5344
+#: include/classes/class-tm-epo-builder-base.php:3623
+#: include/classes/class-tm-epo-builder-base.php:7283
 msgid "Use the image replacements"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2347
-#: include/classes/class-tm-epo-builder-base.php:5345
+#: include/classes/class-tm-epo-builder-base.php:3627
+#: include/classes/class-tm-epo-builder-base.php:7287
 msgid "Use custom image"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2349
-#: include/classes/class-tm-epo-builder-base.php:5347
+#: include/classes/class-tm-epo-builder-base.php:3631
+#: include/classes/class-tm-epo-builder-base.php:7291
 msgid "Changes product image"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2350
-#: include/classes/class-tm-epo-builder-base.php:5348
+#: include/classes/class-tm-epo-builder-base.php:3632
+#: include/classes/class-tm-epo-builder-base.php:7292
 msgid "Choose whether to change the product image."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2369
+#: include/classes/class-tm-epo-builder-base.php:3656
 msgid "Show label"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2370
-msgid "Show description"
-msgstr ""
-
-#: include/classes/class-tm-epo-builder-base.php:2371
+#: include/classes/class-tm-epo-builder-base.php:3664
 msgid "Show label and description"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2372
-msgid "Show image"
-msgstr ""
-
-#: include/classes/class-tm-epo-builder-base.php:2373
+#: include/classes/class-tm-epo-builder-base.php:3672
 msgid "Show image and label"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2374
+#: include/classes/class-tm-epo-builder-base.php:3676
 msgid "Show image and description"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2375
+#: include/classes/class-tm-epo-builder-base.php:3680
 msgid "Show image, label and description"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2378
+#: include/classes/class-tm-epo-builder-base.php:3685
 msgid "Enable Swatch mode"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2379
+#: include/classes/class-tm-epo-builder-base.php:3686
 msgid "Swatch mode will show a tooltip over the choice."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2399
+#: include/classes/class-tm-epo-builder-base.php:3710
 msgid "Enable clear options button"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2400
+#: include/classes/class-tm-epo-builder-base.php:3711
 msgid "This will add a button to clear the selected option."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2411
+#: include/classes/class-tm-epo-builder-base.php:3722
 msgid "Show responsive values"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2430
-#: include/classes/class-tm-epo-builder-base.php:5227
+#: include/classes/class-tm-epo-builder-base.php:3746
+#: include/classes/class-tm-epo-builder-base.php:7119
 msgid "Items per row (Desktops and laptops)"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2431
-#: include/classes/class-tm-epo-builder-base.php:2442
-#: include/classes/class-tm-epo-builder-base.php:2453
-#: include/classes/class-tm-epo-builder-base.php:2464
-#: include/classes/class-tm-epo-builder-base.php:2475
-#: include/classes/class-tm-epo-builder-base.php:2486
-#: include/classes/class-tm-epo-builder-base.php:2497
-#: include/classes/class-tm-epo-builder-base.php:2508
-#: include/classes/class-tm-epo-builder-base.php:2519
-#: include/classes/class-tm-epo-builder-base.php:5228
-#: include/classes/class-tm-epo-builder-base.php:5240
-#: include/classes/class-tm-epo-builder-base.php:5251
-#: include/classes/class-tm-epo-builder-base.php:5262
-#: include/classes/class-tm-epo-builder-base.php:5273
-#: include/classes/class-tm-epo-builder-base.php:5284
-#: include/classes/class-tm-epo-builder-base.php:5295
-#: include/classes/class-tm-epo-builder-base.php:5306
-#: include/classes/class-tm-epo-builder-base.php:5317
+#: include/classes/class-tm-epo-builder-base.php:3747
+#: include/classes/class-tm-epo-builder-base.php:3762
+#: include/classes/class-tm-epo-builder-base.php:3777
+#: include/classes/class-tm-epo-builder-base.php:3792
+#: include/classes/class-tm-epo-builder-base.php:3807
+#: include/classes/class-tm-epo-builder-base.php:3822
+#: include/classes/class-tm-epo-builder-base.php:3837
+#: include/classes/class-tm-epo-builder-base.php:3852
+#: include/classes/class-tm-epo-builder-base.php:3867
+#: include/classes/class-tm-epo-builder-base.php:7120
+#: include/classes/class-tm-epo-builder-base.php:7136
+#: include/classes/class-tm-epo-builder-base.php:7151
+#: include/classes/class-tm-epo-builder-base.php:7166
+#: include/classes/class-tm-epo-builder-base.php:7181
+#: include/classes/class-tm-epo-builder-base.php:7196
+#: include/classes/class-tm-epo-builder-base.php:7211
+#: include/classes/class-tm-epo-builder-base.php:7226
+#: include/classes/class-tm-epo-builder-base.php:7241
 msgid ""
 "Use this field to make a grid display. Enter how many items per row for the grid or "
 "leave blank for normal display."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2441
-#: include/classes/class-tm-epo-builder-base.php:5239
+#: include/classes/class-tm-epo-builder-base.php:3761
+#: include/classes/class-tm-epo-builder-base.php:7135
 msgid "Items per row (Tablets landscape)"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2452
-#: include/classes/class-tm-epo-builder-base.php:5250
+#: include/classes/class-tm-epo-builder-base.php:3776
+#: include/classes/class-tm-epo-builder-base.php:7150
 msgid "Items per row (Tablets portrait)"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2463
-#: include/classes/class-tm-epo-builder-base.php:5261
+#: include/classes/class-tm-epo-builder-base.php:3791
+#: include/classes/class-tm-epo-builder-base.php:7165
 msgid "Items per row (Smartphones)"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2474
-#: include/classes/class-tm-epo-builder-base.php:5272
+#: include/classes/class-tm-epo-builder-base.php:3806
+#: include/classes/class-tm-epo-builder-base.php:7180
 msgid "Items per row (iPhone 5)"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2485
-#: include/classes/class-tm-epo-builder-base.php:5283
+#: include/classes/class-tm-epo-builder-base.php:3821
+#: include/classes/class-tm-epo-builder-base.php:7195
 msgid "Items per row (iPhone 6)"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2496
-#: include/classes/class-tm-epo-builder-base.php:5294
+#: include/classes/class-tm-epo-builder-base.php:3836
+#: include/classes/class-tm-epo-builder-base.php:7210
 msgid "Items per row (iPhone 6 +)"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2507
-#: include/classes/class-tm-epo-builder-base.php:5305
+#: include/classes/class-tm-epo-builder-base.php:3851
+#: include/classes/class-tm-epo-builder-base.php:7225
 msgid "Items per row (Samnsung Galaxy)"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2518
-#: include/classes/class-tm-epo-builder-base.php:5316
+#: include/classes/class-tm-epo-builder-base.php:3866
+#: include/classes/class-tm-epo-builder-base.php:7240
 msgid "Items per row (Galaxy Tablets landscape)"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2554
+#: include/classes/class-tm-epo-builder-base.php:3908
 msgid ""
 "Enter a number above 0 to limit the checkbox selection or leave blank for default "
 "behaviour."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2570
+#: include/classes/class-tm-epo-builder-base.php:3929
 msgid "Exact selection"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2571
+#: include/classes/class-tm-epo-builder-base.php:3930
 msgid ""
 "Enter a number above 0 to have the user select the exact number of checkboxes or leave "
 "blank for default behaviour."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2587
+#: include/classes/class-tm-epo-builder-base.php:3951
 msgid "Minimum selection"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2588
+#: include/classes/class-tm-epo-builder-base.php:3952
 msgid ""
 "Enter a number above 0 to have the user select at least that number of checkboxes or "
 "leave blank for default behaviour."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2604
+#: include/classes/class-tm-epo-builder-base.php:3973
 msgid "Normal browser button"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2605
+#: include/classes/class-tm-epo-builder-base.php:3977
 msgid "Styled button"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2607
+#: include/classes/class-tm-epo-builder-base.php:3981
 msgid "Upload button style"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2624
+#: include/classes/class-tm-epo-builder-base.php:4005
 msgid "Date field"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2625
+#: include/classes/class-tm-epo-builder-base.php:4007
 msgid "Date picker"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2626
+#: include/classes/class-tm-epo-builder-base.php:4011
 msgid "Date field and picker"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2628
+#: include/classes/class-tm-epo-builder-base.php:4015
 msgid "Date picker style"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2646
+#: include/classes/class-tm-epo-builder-base.php:4037
 msgid "Choose whether to hide the price or not."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2666
+#: include/classes/class-tm-epo-builder-base.php:4066
 msgid "Right"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2667
+#: include/classes/class-tm-epo-builder-base.php:4070
 msgid "Left"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2668
+#: include/classes/class-tm-epo-builder-base.php:4074
 msgid "Top"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2669
+#: include/classes/class-tm-epo-builder-base.php:4078
 msgid "Bottom"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2671
+#: include/classes/class-tm-epo-builder-base.php:4082
 msgid "Quantity selector"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2672
+#: include/classes/class-tm-epo-builder-base.php:4083
 msgid "This will show a quantity selector for this option."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2676
+#: include/classes/class-tm-epo-builder-base.php:4087
 msgid "Quantity min value"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2688
+#: include/classes/class-tm-epo-builder-base.php:4099
 msgid "Quantity max value"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2705
+#: include/classes/class-tm-epo-builder-base.php:4123
 msgid "Quantity step"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2706
+#: include/classes/class-tm-epo-builder-base.php:4124
 msgid "Enter the quantity step."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2720
+#: include/classes/class-tm-epo-builder-base.php:4143
 msgid "Quantity Default value"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2722
+#: include/classes/class-tm-epo-builder-base.php:4145
 msgid "Enter a value to be applied to the Quantity field automatically."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2746
+#: include/classes/class-tm-epo-builder-base.php:4174
 msgid "Placeholder"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2763
+#: include/classes/class-tm-epo-builder-base.php:4197
 msgid "Minimum characters"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2764
-#: include/classes/class-tm-epo-settings-base.php:1331
-#: include/classes/class-tm-epo-settings-base.php:1339
+#: include/classes/class-tm-epo-builder-base.php:4198
+#: include/classes/class-tm-epo-settings-base.php:1340
+#: include/classes/class-tm-epo-settings-base.php:1348
 msgid "Enter a value for the minimum characters the user must enter."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2780
+#: include/classes/class-tm-epo-builder-base.php:4220
 msgid "Maximum characters"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2781
+#: include/classes/class-tm-epo-builder-base.php:4221
 msgid "Enter a value to limit the maximum characters the user can enter."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2797
-#: include/classes/class-tm-epo-builder-base.php:2813
+#: include/classes/class-tm-epo-builder-base.php:4242
+#: include/classes/class-tm-epo-builder-base.php:4263
 msgid "Enter a value to be applied to the field automatically."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2836
+#: include/classes/class-tm-epo-builder-base.php:4286
 msgid "Sunday"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2838
+#: include/classes/class-tm-epo-builder-base.php:4288
 msgid "Monday"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2840
+#: include/classes/class-tm-epo-builder-base.php:4290
 msgid "Tuesday"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2842
+#: include/classes/class-tm-epo-builder-base.php:4292
 msgid "Wednesday"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2844
+#: include/classes/class-tm-epo-builder-base.php:4294
 msgid "Thursday"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2846
+#: include/classes/class-tm-epo-builder-base.php:4296
 msgid "Friday"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2848
+#: include/classes/class-tm-epo-builder-base.php:4298
 msgid "Saturday"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2876
+#: include/classes/class-tm-epo-builder-base.php:4326
 msgid "January "
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2878
+#: include/classes/class-tm-epo-builder-base.php:4328
 msgid "February"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2880
+#: include/classes/class-tm-epo-builder-base.php:4330
 msgid "March"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2882
+#: include/classes/class-tm-epo-builder-base.php:4332
 msgid "April"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2884
+#: include/classes/class-tm-epo-builder-base.php:4334
 msgid "May"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2886
+#: include/classes/class-tm-epo-builder-base.php:4336
 msgid "June"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2888
+#: include/classes/class-tm-epo-builder-base.php:4338
 msgid "July"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2890
+#: include/classes/class-tm-epo-builder-base.php:4340
 msgid "August"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2892
+#: include/classes/class-tm-epo-builder-base.php:4342
 msgid "September"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2894
+#: include/classes/class-tm-epo-builder-base.php:4344
 msgid "October"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2896
+#: include/classes/class-tm-epo-builder-base.php:4346
 msgid "November"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2898
+#: include/classes/class-tm-epo-builder-base.php:4348
 msgid "December"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2941
+#: include/classes/class-tm-epo-builder-base.php:4391
 #, php-format
 msgid "Leave it blank to calculate it automatically from the %s price"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:2959
+#: include/classes/class-tm-epo-builder-base.php:4409
 #, php-format
 msgid "Leave it blank to calculate it automatically from the %s sale price"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:3097
+#: include/classes/class-tm-epo-builder-base.php:4574
+msgid "General Settings"
+msgstr ""
+
+#: include/classes/class-tm-epo-builder-base.php:4596
 msgid "Label options"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:3101
+#: include/classes/class-tm-epo-builder-base.php:4609
 msgid "WooCommerce settings"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:3136
+#: include/classes/class-tm-epo-builder-base.php:4653
 msgid "Element container id"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:3137
+#: include/classes/class-tm-epo-builder-base.php:4654
 msgid "Enter an id for the container of the element."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:3152
+#: include/classes/class-tm-epo-builder-base.php:4673
 msgid "Inherit product setting"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:3156
+#: include/classes/class-tm-epo-builder-base.php:4682
 msgid "Include tax for Fee price type"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:3157
+#: include/classes/class-tm-epo-builder-base.php:4683
 msgid "Choose whether to include tax for Fee price type on this element."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:3172
+#: include/classes/class-tm-epo-builder-base.php:4701
 msgid "Tax class for Fee price type"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:3173
+#: include/classes/class-tm-epo-builder-base.php:4702
 msgid "Choose the tax class for Fee price type on this element."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:3191
+#: include/classes/class-tm-epo-builder-base.php:4726
 msgid "Hide element label in cart"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:3192
+#: include/classes/class-tm-epo-builder-base.php:4727
 msgid "Choose whether to hide the element label in the cart or not."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:3202
-#: include/classes/class-tm-epo-builder-base.php:3230
+#: include/classes/class-tm-epo-builder-base.php:4741
+#: include/classes/class-tm-epo-builder-base.php:4787
 msgid "No, but hide price"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:3204
-#: include/classes/class-tm-epo-builder-base.php:3232
+#: include/classes/class-tm-epo-builder-base.php:4749
+#: include/classes/class-tm-epo-builder-base.php:4795
 msgid "Yes, but show price"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:3206
+#: include/classes/class-tm-epo-builder-base.php:4753
 msgid "Hide element value in cart"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:3207
+#: include/classes/class-tm-epo-builder-base.php:4754
 msgid "Choose whether to hide the element value in the cart or not."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:3219
+#: include/classes/class-tm-epo-builder-base.php:4772
 msgid "Hide element label in order"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:3220
+#: include/classes/class-tm-epo-builder-base.php:4773
 msgid "Choose whether to hide the element label in the order or not."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:3234
+#: include/classes/class-tm-epo-builder-base.php:4799
 msgid "Hide element value in order"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:3235
+#: include/classes/class-tm-epo-builder-base.php:4800
 msgid "Choose whether to hide the element value in the order or not."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:3247
+#: include/classes/class-tm-epo-builder-base.php:4818
 msgid "Hide element label in floating totals box."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:3248
+#: include/classes/class-tm-epo-builder-base.php:4819
 msgid "Choose whether to hide the element label in the floating totals box or not."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:3260
+#: include/classes/class-tm-epo-builder-base.php:4837
 msgid "Hide element value in floating totals box"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:3261
+#: include/classes/class-tm-epo-builder-base.php:4838
 msgid "Choose whether to hide the element value in the floating totals box or not."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:3392
+#: include/classes/class-tm-epo-builder-base.php:4972
 #: include/classes/class-tm-epo-settings-base.php:635
 #: include/classes/class-tm-epo-settings-base.php:662
 #: include/classes/class-tm-epo-settings-base.php:676
 msgid "Show"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:3393
-#: include/classes/class-tm-epo-builder-base.php:5357
+#: include/classes/class-tm-epo-builder-base.php:4973
+#: include/classes/class-tm-epo-builder-base.php:7305
 #: include/classes/class-tm-epo-settings-base.php:634
 #: include/classes/class-tm-epo-settings-base.php:663
 #: include/classes/class-tm-epo-settings-base.php:677
 msgid "Hide"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:3395
+#: include/classes/class-tm-epo-builder-base.php:4975
 msgid "this field if"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:3397
+#: include/classes/class-tm-epo-builder-base.php:4977
 msgid "all"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:3398
+#: include/classes/class-tm-epo-builder-base.php:4978
 msgid "any"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:3400
+#: include/classes/class-tm-epo-builder-base.php:4980
 msgid "of these rules match"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:3437
+#: include/classes/class-tm-epo-builder-base.php:5048
 msgid "label"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:3450
+#: include/classes/class-tm-epo-builder-base.php:5090
 msgid "Label type"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:3459
-#: include/classes/class-tm-epo-builder-base.php:5970
+#: include/classes/class-tm-epo-builder-base.php:5104
+#: include/classes/class-tm-epo-builder-base.php:8012
 #: include/classes/class-tm-epo-scripts.php:474
 msgid "Label"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:3474
+#: include/classes/class-tm-epo-builder-base.php:5135
 msgid "Label position"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:3489
+#: include/classes/class-tm-epo-builder-base.php:5163
 msgid "Label color"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:3497
+#: include/classes/class-tm-epo-builder-base.php:5174
 msgid "Subtitle"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:3513
+#: include/classes/class-tm-epo-builder-base.php:5208
 msgid "Subtitle position"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:3522
+#: include/classes/class-tm-epo-builder-base.php:5222
 msgid "Subtitle color"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:3549
+#: include/classes/class-tm-epo-builder-base.php:5253
 msgid "Horizontal rule"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:3551
+#: include/classes/class-tm-epo-builder-base.php:5261
 msgid "Padding"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:3553
+#: include/classes/class-tm-epo-builder-base.php:5265
 msgid "Divider type"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:3604
+#: include/classes/class-tm-epo-builder-base.php:5332
 msgid "Element Conditional Logic"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:3605
+#: include/classes/class-tm-epo-builder-base.php:5333
 msgid "Enable conditional logic for showing or hiding this element."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:3946
-#: include/classes/class-tm-epo-builder-base.php:3987
+#: include/classes/class-tm-epo-builder-base.php:5701
+#: include/classes/class-tm-epo-builder-base.php:5743
 msgid "Section"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:5103
+#: include/classes/class-tm-epo-builder-base.php:6955
 msgid "Inherit product tax class"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:5104
+#: include/classes/class-tm-epo-builder-base.php:6956
 msgid "Standard"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:5131
-#: include/classes/class-tm-epo-builder-base.php:5591
-#: include/classes/class-tm-epo-builder-base.php:5809
+#: include/classes/class-tm-epo-builder-base.php:6983
+#: include/classes/class-tm-epo-builder-base.php:7572
+#: include/classes/class-tm-epo-builder-base.php:7790
 msgid "Choose the image to use in place of the radio button."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:5131
-#: include/classes/class-tm-epo-builder-base.php:5145
+#: include/classes/class-tm-epo-builder-base.php:6983
+#: include/classes/class-tm-epo-builder-base.php:6997
 msgid "Remove the image."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:5145
-#: include/classes/class-tm-epo-builder-base.php:5668
-#: include/classes/class-tm-epo-builder-base.php:5670
-#: include/classes/class-tm-epo-builder-base.php:5815
-#: include/classes/class-tm-epo-builder-base.php:5820
+#: include/classes/class-tm-epo-builder-base.php:6997
+#: include/classes/class-tm-epo-builder-base.php:7649
+#: include/classes/class-tm-epo-builder-base.php:7651
+#: include/classes/class-tm-epo-builder-base.php:7796
+#: include/classes/class-tm-epo-builder-base.php:7801
 msgid "Choose the image to replace the product image with."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:5181
+#: include/classes/class-tm-epo-builder-base.php:7038
 msgid "Select boxes"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:5183
+#: include/classes/class-tm-epo-builder-base.php:7046
 msgid "Radio buttons and image at start of the label"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:5184
+#: include/classes/class-tm-epo-builder-base.php:7050
 msgid "Radio buttons and image at end of the label"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:5185
+#: include/classes/class-tm-epo-builder-base.php:7054
 msgid "Image swatches"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:5186
+#: include/classes/class-tm-epo-builder-base.php:7058
 msgid "Color swatches"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:5188
+#: include/classes/class-tm-epo-builder-base.php:7062
 msgid "Display as"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:5189
+#: include/classes/class-tm-epo-builder-base.php:7063
 msgid "Select the display type of this attribute."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:5196
+#: include/classes/class-tm-epo-builder-base.php:7075
 msgid "Attribute Label"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:5197
+#: include/classes/class-tm-epo-builder-base.php:7076
 msgid "Leave blank to use the original attribute label."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:5207
+#: include/classes/class-tm-epo-builder-base.php:7089
 #: include/classes/class-tm-epo-settings-base.php:443
 #: include/classes/class-tm-epo-settings-base.php:1019
-#: include/classes/class-tm-epo-settings-base.php:1250
+#: include/classes/class-tm-epo-settings-base.php:1259
 #: include/compatibility/classes/class-tm-epo-cp-bookings.php:197
 #: include/compatibility/classes/class-tm-epo-cp-bookings.php:212
 #: include/compatibility/classes/class-tm-epo-cp-dpd.php:617
@@ -3009,199 +3064,199 @@ msgstr ""
 msgid "Enable"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:5209
+#: include/classes/class-tm-epo-builder-base.php:7091
 msgid "Show reset button"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:5210
+#: include/classes/class-tm-epo-builder-base.php:7092
 msgid "Enables the display of a reset button for this attribute."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:5217
+#: include/classes/class-tm-epo-builder-base.php:7104
 msgid "Attribute element class name"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:5218
+#: include/classes/class-tm-epo-builder-base.php:7105
 msgid "Enter an extra class name to add to this attribute element"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:5325
+#: include/classes/class-tm-epo-builder-base.php:7254
 msgid "Width"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:5326
+#: include/classes/class-tm-epo-builder-base.php:7255
 msgid "Enter the width of the displayed item or leave blank for auto width."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:5334
+#: include/classes/class-tm-epo-builder-base.php:7268
 msgid "Height"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:5335
+#: include/classes/class-tm-epo-builder-base.php:7269
 msgid "Enter the height of the displayed item or leave blank for auto height."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:5358
+#: include/classes/class-tm-epo-builder-base.php:7307
 msgid "Show bottom"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:5359
+#: include/classes/class-tm-epo-builder-base.php:7311
 msgid "Show inside"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:5362
+#: include/classes/class-tm-epo-builder-base.php:7319
 msgid "Show attribute name"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:5363
+#: include/classes/class-tm-epo-builder-base.php:7320
 msgid "Choose whether to show or hide the attribute name."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:5374
+#: include/classes/class-tm-epo-builder-base.php:7336
 msgid "Color"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:5375
+#: include/classes/class-tm-epo-builder-base.php:7337
 msgid "Select the color to use."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:5383
+#: include/classes/class-tm-epo-builder-base.php:7349
 msgid "Image replacement"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:5384
+#: include/classes/class-tm-epo-builder-base.php:7350
 msgid "Select an image for this term."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:5394
+#: include/classes/class-tm-epo-builder-base.php:7364
 msgid "Product Image replacement"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:5395
+#: include/classes/class-tm-epo-builder-base.php:7365
 msgid "Select the image to replace the product image with."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:5423
+#: include/classes/class-tm-epo-builder-base.php:7393
 msgid "No saved variations found."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:5593
-#: include/classes/class-tm-epo-builder-base.php:5812
+#: include/classes/class-tm-epo-builder-base.php:7574
+#: include/classes/class-tm-epo-builder-base.php:7793
 msgid "Choose the image to use in place of the checkbox."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:5630
-#: include/classes/class-tm-epo-builder-base.php:5810
+#: include/classes/class-tm-epo-builder-base.php:7611
+#: include/classes/class-tm-epo-builder-base.php:7791
 msgid "Choose the image to use in place of the radio button when it is checked."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:5632
-#: include/classes/class-tm-epo-builder-base.php:5813
+#: include/classes/class-tm-epo-builder-base.php:7613
+#: include/classes/class-tm-epo-builder-base.php:7794
 msgid "Choose the image to use in place of the checkbox when it is checked."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:5705
-#: include/classes/class-tm-epo-builder-base.php:5707
-#: include/classes/class-tm-epo-builder-base.php:5816
-#: include/classes/class-tm-epo-builder-base.php:5821
+#: include/classes/class-tm-epo-builder-base.php:7686
+#: include/classes/class-tm-epo-builder-base.php:7688
+#: include/classes/class-tm-epo-builder-base.php:7797
+#: include/classes/class-tm-epo-builder-base.php:7802
 msgid "Choose the image for the lightbox."
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:5969
-#: include/classes/class-tm-epo-builder-base.php:6173
+#: include/classes/class-tm-epo-builder-base.php:8011
+#: include/classes/class-tm-epo-builder-base.php:8251
 msgid "Checked"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:5971
+#: include/classes/class-tm-epo-builder-base.php:8013
 msgid "Images"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:5975
+#: include/classes/class-tm-epo-builder-base.php:8017
 msgid "Delete all options"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:6261
-#: include/classes/class-tm-epo-builder-base.php:6288
-#: include/classes/class-tm-epo-builder-base.php:6299
+#: include/classes/class-tm-epo-builder-base.php:8345
+#: include/classes/class-tm-epo-builder-base.php:8375
+#: include/classes/class-tm-epo-builder-base.php:8389
 msgid "Sale"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:6298
+#: include/classes/class-tm-epo-builder-base.php:8388
 msgid "Regular"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:6372
+#: include/classes/class-tm-epo-builder-base.php:8462
 msgid "URL"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:6384
+#: include/classes/class-tm-epo-builder-base.php:8474
 msgid "Add item"
 msgstr ""
 
-#: include/classes/class-tm-epo-builder-base.php:6385
+#: include/classes/class-tm-epo-builder-base.php:8475
 msgid "Mass add"
 msgstr ""
 
-#: include/classes/class-tm-epo-cart.php:652
+#: include/classes/class-tm-epo-cart.php:710
 msgid "You cannot add negative priced products to the cart."
 msgstr ""
 
-#: include/classes/class-tm-epo-cart.php:659
+#: include/classes/class-tm-epo-cart.php:717
 msgid "You cannot add zero priced products to the cart."
 msgstr ""
 
-#: include/classes/class-tm-epo-cart.php:1401 include/classes/class-tm-epo-scripts.php:471
+#: include/classes/class-tm-epo-cart.php:1464 include/classes/class-tm-epo-scripts.php:471
 #: templates/tm-builder-section-start.php:40
 msgid "Additional options"
 msgstr ""
 
-#: include/classes/class-tm-epo-cart.php:2119 include/classes/class-tm-epo-cart.php:2222
+#: include/classes/class-tm-epo-cart.php:2182 include/classes/class-tm-epo-cart.php:2285
 #, php-format
 msgid "\"%s\" is a required field."
 msgstr ""
 
-#: include/classes/class-tm-epo-cart.php:2335
+#: include/classes/class-tm-epo-cart.php:2398
 #, php-format
 msgid ""
 "%1$s has been removed from your cart because it has since been modified. You can add it "
 "back to your cart %2$s."
 msgstr ""
 
-#: include/classes/class-tm-epo-cart.php:2335
+#: include/classes/class-tm-epo-cart.php:2398
 msgid "here"
 msgstr ""
 
-#: include/classes/class-tm-epo-cart.php:2429 include/classes/class-tm-epo-cart.php:2447
+#: include/classes/class-tm-epo-cart.php:2492 include/classes/class-tm-epo-cart.php:2510
 #: include/classes/class-tm-epo-scripts.php:462
 msgid "Extra fee"
 msgstr ""
 
-#: include/classes/class-tm-epo-cart.php:2551
+#: include/classes/class-tm-epo-cart.php:2614
 msgid "Empty cart"
 msgstr ""
 
-#: include/classes/class-tm-epo-cart.php:2893
+#: include/classes/class-tm-epo-cart.php:2956
 msgid "Edit options"
 msgstr ""
 
-#: include/classes/class-tm-epo-cart.php:2920
+#: include/classes/class-tm-epo-cart.php:2983
 msgid "Update cart"
 msgstr ""
 
-#: include/classes/class-tm-epo-cart.php:3005
+#: include/classes/class-tm-epo-cart.php:3068
 #, php-format
 msgctxt "Item name in quotes"
 msgid "&ldquo;%s&rdquo;"
 msgstr ""
 
-#: include/classes/class-tm-epo-cart.php:3010
+#: include/classes/class-tm-epo-cart.php:3073
 #, php-format
 msgid "%s has been updated."
 msgid_plural "%s have been updated."
 msgstr[0] ""
 msgstr[1] ""
 
-#: include/classes/class-tm-epo-cart.php:3014
+#: include/classes/class-tm-epo-cart.php:3077
 msgid "View cart"
 msgstr ""
 
@@ -3366,103 +3421,103 @@ msgstr ""
 msgid "Your files are being uploaded"
 msgstr ""
 
-#: include/classes/class-tm-epo-scripts.php:514
+#: include/classes/class-tm-epo-scripts.php:515
 msgid "This field is required."
 msgstr ""
 
-#: include/classes/class-tm-epo-scripts.php:515
+#: include/classes/class-tm-epo-scripts.php:516
 msgid "Please enter a valid email address."
 msgstr ""
 
-#: include/classes/class-tm-epo-scripts.php:516
+#: include/classes/class-tm-epo-scripts.php:517
 msgid "Please enter a valid URL."
 msgstr ""
 
-#: include/classes/class-tm-epo-scripts.php:517
+#: include/classes/class-tm-epo-scripts.php:518
 msgid "Please enter a valid number."
 msgstr ""
 
-#: include/classes/class-tm-epo-scripts.php:518
+#: include/classes/class-tm-epo-scripts.php:519
 msgid "Please enter only digits."
 msgstr ""
 
-#: include/classes/class-tm-epo-scripts.php:519
+#: include/classes/class-tm-epo-scripts.php:520
 msgid "Please enter a value less than or equal to {0}."
 msgstr ""
 
-#: include/classes/class-tm-epo-scripts.php:520
+#: include/classes/class-tm-epo-scripts.php:521
 msgid "Please enter a value greater than or equal to {0}."
 msgstr ""
 
-#: include/classes/class-tm-epo-scripts.php:521
+#: include/classes/class-tm-epo-scripts.php:522
 msgid "Please enter no more than {0} character."
 msgstr ""
 
-#: include/classes/class-tm-epo-scripts.php:522
+#: include/classes/class-tm-epo-scripts.php:523
 msgid "Please enter no more than {0} characters."
 msgstr ""
 
-#: include/classes/class-tm-epo-scripts.php:523
+#: include/classes/class-tm-epo-scripts.php:524
 msgid "Please enter at least {0} character."
 msgstr ""
 
-#: include/classes/class-tm-epo-scripts.php:524
+#: include/classes/class-tm-epo-scripts.php:525
 msgid "Please enter at least {0} characters."
 msgstr ""
 
-#: include/classes/class-tm-epo-scripts.php:525
+#: include/classes/class-tm-epo-scripts.php:526
 msgid "Please select up to {0} choice."
 msgstr ""
 
-#: include/classes/class-tm-epo-scripts.php:526
+#: include/classes/class-tm-epo-scripts.php:527
 msgid "Please select up to {0} choices."
 msgstr ""
 
-#: include/classes/class-tm-epo-scripts.php:527
+#: include/classes/class-tm-epo-scripts.php:528
 msgid "Please select exactly {0} choice."
 msgstr ""
 
-#: include/classes/class-tm-epo-scripts.php:528
+#: include/classes/class-tm-epo-scripts.php:529
 msgid "Please select exactly {0} choices."
 msgstr ""
 
-#: include/classes/class-tm-epo-scripts.php:529
+#: include/classes/class-tm-epo-scripts.php:530
 msgid "Please select at least {0} choice."
 msgstr ""
 
-#: include/classes/class-tm-epo-scripts.php:530
+#: include/classes/class-tm-epo-scripts.php:531
 msgid "Please select at least {0} choices."
 msgstr ""
 
-#: include/classes/class-tm-epo-scripts.php:531
+#: include/classes/class-tm-epo-scripts.php:532
 msgid "Please enter a multiple of {0}."
 msgstr ""
 
-#: include/classes/class-tm-epo-scripts.php:532
+#: include/classes/class-tm-epo-scripts.php:533
 msgid "Please enter only letters."
 msgstr ""
 
-#: include/classes/class-tm-epo-scripts.php:533
+#: include/classes/class-tm-epo-scripts.php:534
 msgid "Please enter only letters or spaces."
 msgstr ""
 
-#: include/classes/class-tm-epo-scripts.php:534
+#: include/classes/class-tm-epo-scripts.php:535
 msgid "Please enter only letters, numbers or underscores."
 msgstr ""
 
-#: include/classes/class-tm-epo-scripts.php:535
+#: include/classes/class-tm-epo-scripts.php:536
 msgid "Please enter only unicode letters and numbers."
 msgstr ""
 
-#: include/classes/class-tm-epo-scripts.php:536
+#: include/classes/class-tm-epo-scripts.php:537
 msgid "Please enter only unicode letters, numbers or spaces."
 msgstr ""
 
-#: include/classes/class-tm-epo-scripts.php:548
+#: include/classes/class-tm-epo-scripts.php:549
 msgid "Done"
 msgstr ""
 
-#: include/classes/class-tm-epo-scripts.php:549
+#: include/classes/class-tm-epo-scripts.php:550
 msgid "Today"
 msgstr ""
 
@@ -4558,319 +4613,327 @@ msgid "timezone"
 msgstr ""
 
 #: include/classes/class-tm-epo-settings-base.php:1214
-msgid "Image mode"
+msgid "Tooltip max width"
 msgstr ""
 
 #: include/classes/class-tm-epo-settings-base.php:1215
-msgid "Set the image mode that will be used for various image related functionality."
-msgstr ""
-
-#: include/classes/class-tm-epo-settings-base.php:1222
-msgid "Absolute URL"
+msgid "Set the max width of the tooltip that appears on the elements."
 msgstr ""
 
 #: include/classes/class-tm-epo-settings-base.php:1223
+msgid "Image mode"
+msgstr ""
+
+#: include/classes/class-tm-epo-settings-base.php:1224
+msgid "Set the image mode that will be used for various image related functionality."
+msgstr ""
+
+#: include/classes/class-tm-epo-settings-base.php:1231
+msgid "Absolute URL"
+msgstr ""
+
+#: include/classes/class-tm-epo-settings-base.php:1232
 msgid "Relative URL"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1228
+#: include/classes/class-tm-epo-settings-base.php:1237
 msgid "Error label placement"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1229
+#: include/classes/class-tm-epo-settings-base.php:1238
 msgid "Set the placement for the validation error notification label"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1236
+#: include/classes/class-tm-epo-settings-base.php:1245
 msgid "After the element"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1237
+#: include/classes/class-tm-epo-settings-base.php:1246
 msgid "Before the element"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1241
+#: include/classes/class-tm-epo-settings-base.php:1250
 msgid "Radio button undo button"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1242
+#: include/classes/class-tm-epo-settings-base.php:1251
 msgid "Globally override the undo button for radio buttons"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1249
-#: include/classes/class-tm-epo-settings-base.php:1294
-#: include/classes/class-tm-epo-settings-base.php:1308
-#: include/classes/class-tm-epo-settings-base.php:1323
+#: include/classes/class-tm-epo-settings-base.php:1258
+#: include/classes/class-tm-epo-settings-base.php:1303
+#: include/classes/class-tm-epo-settings-base.php:1317
+#: include/classes/class-tm-epo-settings-base.php:1332
 msgid "Use field value"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1256
+#: include/classes/class-tm-epo-settings-base.php:1265
 msgid "Required state indicator"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1257
+#: include/classes/class-tm-epo-settings-base.php:1266
 msgid "Enter a string to indicate the required state of a field."
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1264
+#: include/classes/class-tm-epo-settings-base.php:1273
 msgid "Required state indicator position"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1265
+#: include/classes/class-tm-epo-settings-base.php:1274
 msgid "Select the placement of the Required state indicator"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1272
+#: include/classes/class-tm-epo-settings-base.php:1281
 msgid "Left of the label"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1273
+#: include/classes/class-tm-epo-settings-base.php:1282
 msgid "Right of the label"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1278
+#: include/classes/class-tm-epo-settings-base.php:1287
 msgid "Include tax string suffix on totals box"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1279
+#: include/classes/class-tm-epo-settings-base.php:1288
 msgid "Enable this to add the WooCommerce tax suffix on the totals box"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1286
+#: include/classes/class-tm-epo-settings-base.php:1295
 msgid "Datepicker theme"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1300
+#: include/classes/class-tm-epo-settings-base.php:1309
 msgid "Datepicker size"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1315
+#: include/classes/class-tm-epo-settings-base.php:1324
 msgid "Datepicker position"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1330
+#: include/classes/class-tm-epo-settings-base.php:1339
 msgid "Minimum characters for text-field and text-areas"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1338
+#: include/classes/class-tm-epo-settings-base.php:1347
 msgid "Maximum characters for text-field and text-areas"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1346
+#: include/classes/class-tm-epo-settings-base.php:1355
 msgid "Upload element inline Image preview"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1347
+#: include/classes/class-tm-epo-settings-base.php:1356
 msgid "Enable inline preview of the image that will be uploaded."
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1354
+#: include/classes/class-tm-epo-settings-base.php:1363
 msgid "Scroll to the product element upon selection"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1355
+#: include/classes/class-tm-epo-settings-base.php:1364
 msgid "Enable to scroll the viewport to the product element."
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1362
+#: include/classes/class-tm-epo-settings-base.php:1371
 msgid "Product element scroll offset"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1363
+#: include/classes/class-tm-epo-settings-base.php:1372
 msgid ""
 "Enter a value for the scroll offset then selecting a choice for the product element."
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1370
+#: include/classes/class-tm-epo-settings-base.php:1379
 msgid "jQuery selector for main product image"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1371
+#: include/classes/class-tm-epo-settings-base.php:1380
 msgid "This is used to change the product image."
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1378
+#: include/classes/class-tm-epo-settings-base.php:1387
 msgid "Product image replacement mode"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1379
+#: include/classes/class-tm-epo-settings-base.php:1388
 msgid "Self mode replaces the actual image and Inline appends new image elements"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1386
+#: include/classes/class-tm-epo-settings-base.php:1395
 msgid "Self mode"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1387
+#: include/classes/class-tm-epo-settings-base.php:1396
 msgid "Inline mode"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1391
+#: include/classes/class-tm-epo-settings-base.php:1400
 msgid "Move out of stock message"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1392
+#: include/classes/class-tm-epo-settings-base.php:1401
 msgid ""
 "This is moves the out of stok message when styled variations are used just below them."
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1399
+#: include/classes/class-tm-epo-settings-base.php:1408
 msgid "Use internal variation price"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1400
+#: include/classes/class-tm-epo-settings-base.php:1409
 msgid ""
 "Use this if your variable products have a lot of options to improve performance. Note "
 "that this may cause issues with discount or currency plugins."
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1408
+#: include/classes/class-tm-epo-settings-base.php:1417
 msgid "Hide override settings on products"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1409
+#: include/classes/class-tm-epo-settings-base.php:1418
 msgid "Enable this to hide the settings tab on the product edit screen"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1416
+#: include/classes/class-tm-epo-settings-base.php:1425
 msgid "Hide Builder mode on products"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1417
+#: include/classes/class-tm-epo-settings-base.php:1426
 msgid "Enable this to hide the builder tab on the product edit screen"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1424
+#: include/classes/class-tm-epo-settings-base.php:1433
 msgid "Hide Normal mode on products"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1425
+#: include/classes/class-tm-epo-settings-base.php:1434
 msgid "Enable this to hide the normal tab on the product edit screen"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1489
+#: include/classes/class-tm-epo-settings-base.php:1498
 msgid "Username"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1490
+#: include/classes/class-tm-epo-settings-base.php:1499
 msgid "Your Envato username."
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1497
+#: include/classes/class-tm-epo-settings-base.php:1506
 msgid "Envato Personal Token"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1498
+#: include/classes/class-tm-epo-settings-base.php:1507
 msgid "Your Envato Personal Token."
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1499
+#: include/classes/class-tm-epo-settings-base.php:1508
 #, php-format
 msgid "You can generate an Envato Personal Token by %s"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1499
+#: include/classes/class-tm-epo-settings-base.php:1508
 msgid "clicking this link"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1506
+#: include/classes/class-tm-epo-settings-base.php:1515
 msgid "Purchase code"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1507
+#: include/classes/class-tm-epo-settings-base.php:1516
 #, php-format
 msgid "To find out how to access your purchase code you can %s"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1507
+#: include/classes/class-tm-epo-settings-base.php:1516
 msgid "click this link"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1510
+#: include/classes/class-tm-epo-settings-base.php:1519
 msgid "Deactivate License"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1511
+#: include/classes/class-tm-epo-settings-base.php:1520
 msgid "Activate License"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1516
+#: include/classes/class-tm-epo-settings-base.php:1525
 msgid "License activated."
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1526
+#: include/classes/class-tm-epo-settings-base.php:1535
 msgid "Consent"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1527
+#: include/classes/class-tm-epo-settings-base.php:1536
 msgid "I agree that the license data will be transmitted to the license server."
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1547
+#: include/classes/class-tm-epo-settings-base.php:1556
 msgid "Use allowed file types from WordPress"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1549
+#: include/classes/class-tm-epo-settings-base.php:1558
 msgid "files"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1566
+#: include/classes/class-tm-epo-settings-base.php:1575
 msgid "Enable File manager"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1577
+#: include/classes/class-tm-epo-settings-base.php:1586
 msgid "Upload folder"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1578
+#: include/classes/class-tm-epo-settings-base.php:1587
 msgid "Changing this will only affect future uploads."
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1584
+#: include/classes/class-tm-epo-settings-base.php:1593
 msgid "Enable pop-up message on uploads"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1585
+#: include/classes/class-tm-epo-settings-base.php:1594
 msgid "Enables a pop-up when uploads are made."
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1591
+#: include/classes/class-tm-epo-settings-base.php:1600
 msgid "Allowed file types"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1592
+#: include/classes/class-tm-epo-settings-base.php:1601
 msgid "Select which file types the user will be allowed to upload."
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1600
+#: include/classes/class-tm-epo-settings-base.php:1609
 msgid "Select file types"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1604
+#: include/classes/class-tm-epo-settings-base.php:1613
 msgid "Custom types"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1605
+#: include/classes/class-tm-epo-settings-base.php:1614
 msgid "Select custom file types the user will be allowed to upload separated by commas."
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1613
+#: include/classes/class-tm-epo-settings-base.php:1622
 msgid "File manager"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1635
+#: include/classes/class-tm-epo-settings-base.php:1644
 msgid "CSS code"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1636
+#: include/classes/class-tm-epo-settings-base.php:1645
 msgid "Only enter pure CSS code without and style tags"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1643
+#: include/classes/class-tm-epo-settings-base.php:1652
 msgid "JavaScript code"
 msgstr ""
 
-#: include/classes/class-tm-epo-settings-base.php:1644
+#: include/classes/class-tm-epo-settings-base.php:1653
 msgid "Only enter pure JavaScript code without and script tags"
 msgstr ""
 
@@ -4989,29 +5052,12 @@ msgstr ""
 msgid "Error on unzipping package"
 msgstr ""
 
-#: include/classes/class-tm-epo-update-updater.php:317
+#: include/classes/class-tm-epo-update-updater.php:316
 msgid "Download new version from CodeCanyon"
 msgstr ""
 
-#: include/classes/class-tm-epo-update-updater.php:317
+#: include/classes/class-tm-epo-update-updater.php:316
 msgid "or register the plugin to receive automatic updates."
-msgstr ""
-
-#: include/classes/class-tm-epo-update-updater.php:341
-#, php-format
-msgid "%s WooCommerce TM Extra Product Options to receive %s"
-msgstr ""
-
-#: include/classes/class-tm-epo-update-updater.php:341
-msgid "Activate"
-msgstr ""
-
-#: include/classes/class-tm-epo-update-updater.php:341
-msgid "Premium Benefits"
-msgstr ""
-
-#: include/classes/class-tm-epo-update-updater.php:341
-msgid "Premium Benefits (e.g. Auto Updates)"
 msgstr ""
 
 #: include/classes/class-tm-epo-wpml-base.php:827
@@ -5220,7 +5266,7 @@ msgstr ""
 #: include/fields/class-tm-epo-fields-select.php:247
 #: include/fields/class-tm-epo-fields-textarea.php:64
 #: include/fields/class-tm-epo-fields-textfield.php:73
-#: include/fields/class-tm-epo-fields-time.php:97
+#: include/fields/class-tm-epo-fields-time.php:105
 #, php-format
 msgid "The quantity for \"%s\" must be greater than %s"
 msgstr ""
@@ -5340,11 +5386,11 @@ msgstr ""
 msgid "Awaiting product image"
 msgstr ""
 
-#: templates/products/template-item.php:32
+#: templates/products/template-item.php:39
 msgid "SKU:"
 msgstr ""
 
-#: templates/products/template-item.php:32
+#: templates/products/template-item.php:39
 msgid "N/A"
 msgstr ""
 

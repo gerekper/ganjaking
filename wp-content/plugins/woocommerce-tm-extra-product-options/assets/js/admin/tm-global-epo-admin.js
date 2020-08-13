@@ -2336,6 +2336,7 @@
 				_clone.find( '.tm-default-radio,.tm-default-checkbox' ).removeAttr( 'checked' ).prop( 'checked', false ).val( _last.length );
 
 				$.tmEPOAdmin.builder_clone_elements_after_events( _clone );
+
 				panels_wrap.append( _clone );
 				_clone.find( '.tm_option_enabled' ).prop( 'checked', true ).val( '1' ).trigger( 'changechoice' );
 
@@ -4591,6 +4592,10 @@
 							var val = '';
 							var check = true;
 
+							if ( ! content.find( selector ).length ) {
+								return check;
+							}
+
 							if ( $this.is( ':checkbox' ) ) {
 								if ( $this.is( ':checked' ) ) {
 									val = $this.val();
@@ -5447,7 +5452,9 @@
 
 			options_wrap
 				.filter( function( index ) {
-					return ( index >= perpage * ( page - 1 ) ) && ( perpage * ( page - 1 ) >= index );
+					//return ( index >= perpage * ( page - 1 ) ) && ( perpage * ( page - 1 ) >= index );
+
+					return ( ( index >= ( perpage * ( page - 1 ) ) ) && ( ( ( perpage * page ) - 1 ) >= index ) );
 				} )
 				.removeClass( 'tm-hidden' );
 		},

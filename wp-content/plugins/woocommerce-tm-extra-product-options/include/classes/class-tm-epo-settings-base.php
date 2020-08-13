@@ -1211,6 +1211,15 @@ final class THEMECOMPLETE_EPO_SETTINGS_base {
 			),
 
 			array(
+				'title'   => esc_html__( 'Tooltip max width', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Set the max width of the tooltip that appears on the elements.', 'woocommerce-tm-extra-product-options' ),
+				'id'      => 'tm_epo_global_tooltip_max_width',
+				'class'   => 'tcglobal4',
+				'default' => '340px',
+				'type'    => 'text',
+			),
+
+			array(
 				'title'   => esc_html__( 'Image mode', 'woocommerce-tm-extra-product-options' ),
 				'desc'    => esc_html__( 'Set the image mode that will be used for various image related functionality.', 'woocommerce-tm-extra-product-options' ),
 				'id'      => 'tm_epo_global_image_mode',

@@ -3,7 +3,7 @@
 Plugin Name: WooCommerce PDF Invoices
 Plugin URI: https://woocommerce.com/products/pdf-invoices/
 Description: Attach a PDF Invoice to the completed order email and allow invoices to be downloaded from customer's My Account page. 
-Version: 4.7.1
+Version: 4.7.2
 Author: Andrew Benbow
 Author URI: http://www.chromeorange.co.uk
 WC requires at least: 3.0.0
@@ -43,7 +43,7 @@ Woo: 228318:7495e3f13cc0fa3ee07304691d12555c
     /**
      * Defines
      */
-    define( 'PDFVERSION' , '4.7.1' );
+    define( 'PDFVERSION' , '4.7.2' );
     define( 'PDFLANGUAGE', 'woocommerce-pdf-invoice' );
     define( 'PDFSETTINGS' , admin_url( 'admin.php?page=woocommerce_pdf' ) );
     define( 'PDFSUPPORTURL' , 'http://support.woothemes.com/' );
@@ -114,9 +114,11 @@ Woo: 228318:7495e3f13cc0fa3ee07304691d12555c
 
             add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this,'plugin_links' ) );
 
-            // Support for Order / Customer CSV Export Suite
-            add_filter( 'wc_customer_order_csv_export_order_headers', array( $this, 'add_pdf_invoice_to_csv_export_column_headers' ) );
-            add_filter( 'wc_customer_order_csv_export_order_row', array( $this, 'add_pdf_invoice_to_csv_export_column_data' ), 10, 3 );
+            // Support for Order / Customer CSV/XML Export plugin
+            add_filter( 'wc_customer_order_export_csv_order_headers', array( $this, 'add_pdf_invoice_to_csv_export_column_headers' ) );
+            add_filter( 'wc_customer_order_export_csv_order_row', array( $this, 'add_pdf_invoice_to_csv_export_column_data' ), 10, 3 );
+            add_filter( 'wc_customer_order_export_xml_order_data', array( $this, 'add_pdf_invoice_to_xml_export_column_data' ), 10, 3 );
+
 
         }
 
@@ -265,6 +267,8 @@ order allow,deny
          */
         public function add_pdf_invoice_to_csv_export_column_data( $order_data, $order, $csv_generator ) {
 
+            $settings = get_option( 'woocommerce_pdf_invoice_settings' );
+
             $order_id = $order->get_id();
 
             if( !class_exists('WC_send_pdf') ){
@@ -275,7 +279,9 @@ order allow,deny
             $new_order_data   = array();
 
             $nvoice_num       = esc_html( get_post_meta( $order_id, '_invoice_number_display', true ) );
-            $invoice_date     = esc_html( WC_send_pdf::get_woocommerce_pdf_date( $order_id,'completed' ) );
+
+            // ( $order_id, $usedate, $sendsomething = false, $display_date = 'invoice', $date_format )
+            $invoice_date     = esc_html( WC_send_pdf::get_woocommerce_pdf_date( $order_id,'completed', true, 'invoice', $settings['pdf_date_format']  ) );
 
             $pdf_data = array(
                     'invoice_num'   => $nvoice_num,
@@ -302,6 +308,40 @@ order allow,deny
             } else {
                 $new_order_data = array_merge( $order_data, $pdf_data );
             }
+
+            return $new_order_data;
+        }
+
+        /**
+         * [add_pdf_invoice_to_xml_export_column_data description]
+         * @param [type] $order_data [description]
+         * @param [type] $order      [description]
+         * @param [type] $this       [description]
+         */
+        public function add_pdf_invoice_to_xml_export_column_data( $order_data, $order, $xml ) {
+
+            $settings = get_option( 'woocommerce_pdf_invoice_settings' );
+
+            $order_id = $order->get_id();
+
+            if( !class_exists('WC_send_pdf') ){
+                include( 'classes/class-pdf-send-pdf-class.php' );
+            }
+
+            $one_row_per_item = false;
+            $new_order_data   = array();
+
+            $nvoice_num       = esc_html( get_post_meta( $order_id, '_invoice_number_display', true ) );
+
+            // ( $order_id, $usedate, $sendsomething = false, $display_date = 'invoice', $date_format )
+            $invoice_date     = esc_html( WC_send_pdf::get_woocommerce_pdf_date( $order_id,'completed', true, 'invoice', $settings['pdf_date_format']  ) );
+
+            $pdf_data = array(
+                    'invoice_num'   => $nvoice_num,
+                    'invoice_date'  => $invoice_date,
+            );
+
+            $new_order_data = array_merge( $order_data, $pdf_data );
 
             return $new_order_data;
         }

@@ -5297,11 +5297,11 @@ final class THEMECOMPLETE_Extra_Product_Options {
 													'discount'               => $this->get_builder_element( $_prefix . 'discount', $builder, $current_builder, $current_counter, "", $wpml_element_fields, $current_element, "", $element_uniqueid ),
 													'discount_type'          => $this->get_builder_element( $_prefix . 'discount_type', $builder, $current_builder, $current_counter, "", $wpml_element_fields, $current_element, "", $element_uniqueid ),
 
-													'show_title'             => $this->get_builder_element( $_prefix . 'show_title', $builder, $current_builder, $current_counter, "", $wpml_element_fields, $current_element, "", $element_uniqueid ),
-													'show_price'             => $this->get_builder_element( $_prefix . 'show_price', $builder, $current_builder, $current_counter, "", $wpml_element_fields, $current_element, "", $element_uniqueid ),
-													'show_description'       => $this->get_builder_element( $_prefix . 'show_description', $builder, $current_builder, $current_counter, "", $wpml_element_fields, $current_element, "", $element_uniqueid ),
-													'show_meta'              => $this->get_builder_element( $_prefix . 'show_meta', $builder, $current_builder, $current_counter, "", $wpml_element_fields, $current_element, "", $element_uniqueid ),
-													'show_image'             => $this->get_builder_element( $_prefix . 'show_image', $builder, $current_builder, $current_counter, "", $wpml_element_fields, $current_element, "", $element_uniqueid ),
+													'show_title'             => $this->get_builder_element( $_prefix . 'show_title', $builder, $current_builder, $current_counter, "1", $wpml_element_fields, $current_element, "", $element_uniqueid ),
+													'show_price'             => $this->get_builder_element( $_prefix . 'show_price', $builder, $current_builder, $current_counter, "1", $wpml_element_fields, $current_element, "", $element_uniqueid ),
+													'show_description'       => $this->get_builder_element( $_prefix . 'show_description', $builder, $current_builder, $current_counter, "1", $wpml_element_fields, $current_element, "", $element_uniqueid ),
+													'show_meta'              => $this->get_builder_element( $_prefix . 'show_meta', $builder, $current_builder, $current_counter, "1", $wpml_element_fields, $current_element, "", $element_uniqueid ),
+													'show_image'             => $this->get_builder_element( $_prefix . 'show_image', $builder, $current_builder, $current_counter, "1", $wpml_element_fields, $current_element, "", $element_uniqueid ),
 
 													'validation1' => $this->get_builder_element( $_prefix . 'validation1', $builder, $current_builder, $current_counter, "", $wpml_element_fields, $current_element, "", $element_uniqueid ),
 												) );

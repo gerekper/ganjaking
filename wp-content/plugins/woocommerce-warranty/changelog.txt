@@ -1,5 +1,9 @@
 *** Warranty Requests Changelog ***
 
+2020-08-11 - version 1.9.18
+* Fix   - Deprecate usage of jQuery .live() method.
+* Tweak - WP 5.5 compatibility.
+
 2020-08-06 - version 1.9.17
 * Fix - Can't save variation changes in Firefox when extension is active
 

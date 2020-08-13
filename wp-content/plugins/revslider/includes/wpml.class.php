@@ -215,7 +215,7 @@ class RevSliderWpml extends RevSliderFunctions {
 			);
 		}
 		echo '<script type="text/javascript">';
-		echo 'var RS_WPML_LANGS = jQuery.parseJSON(\''.json_encode($use_langs).'\');';
+		echo 'var RS_WPML_LANGS = JSON.parse(\''.json_encode($use_langs).'\');';
 		echo '</script>';
 	}
 }

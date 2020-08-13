@@ -4299,9 +4299,10 @@
 				},
 				on_true: function() {
 					var upload_fields = this_epo_container.data( 'num_uploads' );
-
+					var thisPopup;
+					var ajaxSuccessFunc;
 					if ( upload_fields && Object.keys( upload_fields ).length ) {
-						$.tcFloatBox( {
+						thisPopup = $.tcFloatBox( {
 							fps: 1,
 							ismodal: true,
 							refresh: 'fixed',
@@ -4314,6 +4315,11 @@
 								message: TMEPOJS.i18n_uploading_message
 							} )
 						} );
+						ajaxSuccessFunc = function() {
+							thisPopup.destroy();
+							jDocument.off('ajaxSuccess', ajaxSuccessFunc);
+						};
+						jDocument.on('ajaxSuccess', ajaxSuccessFunc);
 					}
 
 					return true;
@@ -6377,6 +6383,7 @@
 					var subField;
 					var subFieldName;
 					var subRule;
+					var productField
 
 					tmcpulwrap = $( tmcpulwrap );
 					has_rules = tmcpulwrap.data( 'tm-validation' );
@@ -6406,10 +6413,11 @@
 							if ( 'required' in has_rules ) {
 								subField = tmcpulwrap.find( '.product-variation-id' );
 								subFieldName = subField.first().attr( 'name' );
+								productField = tmcpulwrap.find( ".tc-epo-field-product" ).first();
 								subRule = {
 									required: function() {
-										if ( field_is_active( field, true ) && field.is( 'select' ) ) {
-											if ( field.children( ':selected' ).attr( 'data-type' ) === 'variable' ) {
+										if ( productField.is( 'select' ) && field_is_active( productField, true ) ) {
+											if ( productField.children( ':selected' ).attr( 'data-type' ) === 'variable' ) {
 												return true;
 											}
 										}
@@ -6463,8 +6471,14 @@
 					}
 				},
 				submitHandler: function() {
+					var ajaxSuccessFunc;
 					if ( ! epoObject.is_quickview ) {
 						main_product.find( tcAPI.addToCartButtonSelector ).first().addClass( 'disabled' );
+						ajaxSuccessFunc = function() {
+							main_product.find( tcAPI.addToCartButtonSelector ).first().removeClass( 'disabled' );
+							jDocument.off('ajaxSuccess', ajaxSuccessFunc);
+						};
+						jDocument.on('ajaxSuccess', ajaxSuccessFunc);
 					}
 					return apply_submit_events( epoObject );
 				}
@@ -8953,7 +8967,7 @@
 	}
 
 	function detect_variation_swatches_interval( epoObject ) {
-		var $id = requestAnimationFrame( function(){
+		var $id = requestAnimationFrame( function() {
 			detect_variation_swatches_interval( epoObject );
 		} );
 		var obj = epoObject.variations_form;
@@ -9637,7 +9651,7 @@
 						key === 'jet_popup_get_content' ||
 						key === 'wp_food' ||
 						key === 'woodmart_quick_shop' ||
-						key === 'fwoodmart_quick_view' ||
+						key === 'woodmart_quick_view' ||
 						key === 'lightboxpro' ||
 						key === 'jckqv_quick_view' ||
 						key === 'yith_quick_view_plugin' ||

@@ -509,6 +509,7 @@ class THEMECOMPLETE_EPO_Scripts {
 			"tm_epo_animation_delay"                      => THEMECOMPLETE_EPO()->tm_epo_animation_delay,
 			"tm_epo_start_animation_delay"                => THEMECOMPLETE_EPO()->tm_epo_start_animation_delay,
 			"tm_epo_global_error_label_placement"         => THEMECOMPLETE_EPO()->tm_epo_global_error_label_placement,
+			"tm_epo_global_tooltip_max_width"             => THEMECOMPLETE_EPO()->tm_epo_global_tooltip_max_width,
 
 			"tm_epo_global_validator_messages" => array(
 				"required"                 => ( ! empty( THEMECOMPLETE_EPO()->tm_epo_this_field_is_required_text ) ) ? esc_html( THEMECOMPLETE_EPO()->tm_epo_this_field_is_required_text ) : esc_html__( "This field is required.", 'woocommerce-tm-extra-product-options' ),

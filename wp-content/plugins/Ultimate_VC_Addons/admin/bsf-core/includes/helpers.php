@@ -51,12 +51,12 @@ function bsf_time_since_last_versioncheck( $hours_completed, $option ) {
 	$seconds = $hours_completed * HOUR_IN_SECONDS;
 	$status  = false;
 
-	$bsf_local_transient = (int) get_option( $option, false );
+	$last_update_timestamp = (int) get_option( $option, false );
 
-	if ( false !== $bsf_local_transient ) {
+	if ( false !== $last_update_timestamp ) {
 
 		// Find seconds passed since the last timestamp update (i.e. last request made).
-		$elapsed_seconds = (int) current_time( 'timestamp' ) - $bsf_local_transient;
+		$elapsed_seconds = (int) current_time( 'timestamp' ) - $last_update_timestamp;
 
 		// IF time is more than the required seconds allow a new HTTP request.
 		if ( $elapsed_seconds > $seconds ) {

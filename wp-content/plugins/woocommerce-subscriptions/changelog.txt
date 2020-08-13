@@ -1,5 +1,18 @@
 *** WooCommerce Subscriptions Changelog ***
 
+2020-08-11 - version 3.0.7
+* Fix: Prevent possible errors caused by inaccessible get_current_screen() function. PR#3678
+* Fix: Decouple single_add_to_cart_text() from add_to_cart_text() and remove double and incorrect filtering. PR#3705
+* Fix: Account for the pre-paid term when canceling a subscription which is on-hold without a required payment. PR#3726
+* Fix: [WC4.4] Replace uses of `get_product_from_item()` with `$item->get_product()`. PR#3769
+* Fix: [WC4.4] Deprecate use of the WC_Cart::tax_display_cart. PR#3741
+* Fix: [WC4.4] Update WC_Product_Variable_Subscription::get_available_variations() function signature. PR#3761
+* Fix: [WC4.0] Use the WC version appropriate hook to override the text explaining uneditable subscriptions. PR#3678
+* Fix: [WP5.5] Add permission callback for the REST statuses endpoint. PR#3765
+* Fix: [WP5.5] Remove the post box header from edit subscription meta boxes #3771
+* Performance: Validate product type changes on large sites to avoid running queries on edit product page loads. PR#3699
+* Tweak: [WC Code Standards] Fixes for i18n-related issues. PR#3757
+
 2020-07-29 - version 3.0.6
 * Tweak: Add placeholder explanation for the upcoming recurring report. PR#3655
 * Tweak: Add a link to QuickForget.com in the IPN error notice. PR#3744

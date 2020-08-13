@@ -57,6 +57,7 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 				$object['objects']['tags'] = $library->get_objects_categories('1');
 				asort($object['objects']['tags']);
 			}
+			$object = apply_filters('revslider_get_full_library_refresh', $object, $include, $tmp_slide_uid, $refresh_from_server, $get_static_slide, $this);
 		}
 		
 		if(in_array('moduletemplates', $include) || in_array('all', $include)){
@@ -111,6 +112,7 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 			if(!isset($object['wpvideos'])) $object['wpvideos'] = array();
 			$object['wpvideos']['items'] = $library->load_wp_objects('video', $after);
 		}*/
+		$object = apply_filters('revslider_get_full_library', $object, $include, $tmp_slide_uid, $refresh_from_server, $get_static_slide, $this);
 		
 		return $object;
 	}
@@ -157,7 +159,7 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 		asort($svg_cat);
 		asort($font_cat);
 		
-		return array(
+		$tags = array(
 			'moduletemplates' => array('tags' => $t_cat),
 			'modules'	=> array('tags' => $slider_cat),
 			'svgs'		=> array('tags' => $svg_cat),
@@ -169,6 +171,7 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 			'wpimages'	=> array('tags' => $wpi),
 			'wpvideos'	=> array('tags' => $wpv)*/
 		);
+		return apply_filters('revslider_get_short_library', $tags, $library, $this);
 	}
 	
 	

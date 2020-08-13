@@ -5,10 +5,10 @@
  * Description: Sell products and services with recurring payments in your WooCommerce Store.
  * Author: WooCommerce
  * Author URI: https://woocommerce.com/
- * Version: 3.0.6
+ * Version: 3.0.7
  *
  * WC requires at least: 3.0.9
- * WC tested up to: 4.2
+ * WC tested up to: 4.4
  * Woo: 27147:6115e6d7e297b623a169fdcf5728b224
  *
  * Copyright 2019 WooCommerce
@@ -119,7 +119,7 @@ class WC_Subscriptions {
 
 	public static $plugin_file = __FILE__;
 
-	public static $version = '3.0.6';
+	public static $version = '3.0.7';
 
 	public static $wc_minimum_supported_version = '3.0';
 
@@ -324,9 +324,9 @@ class WC_Subscriptions {
 		} else {
 			$not_found_text = '<p>' . __( 'Subscriptions will appear here for you to view and manage once purchased by a customer.', 'woocommerce-subscriptions' ) . '</p>';
 			// translators: placeholders are opening and closing link tags
-			$not_found_text .= '<p>' . sprintf( __( '%sLearn more about managing subscriptions &raquo;%s', 'woocommerce-subscriptions' ), '<a href="http://docs.woocommerce.com/document/subscriptions/store-manager-guide/#section-3" target="_blank">', '</a>' ) . '</p>';
+			$not_found_text .= '<p>' . sprintf( __( '%1$sLearn more about managing subscriptions &raquo;%2$s', 'woocommerce-subscriptions' ), '<a href="http://docs.woocommerce.com/document/subscriptions/store-manager-guide/#section-3" target="_blank">', '</a>' ) . '</p>';
 			// translators: placeholders are opening and closing link tags
-			$not_found_text .= '<p>' . sprintf( __( '%sAdd a subscription product &raquo;%s', 'woocommerce-subscriptions' ), '<a href="' . esc_url( WC_Subscriptions_Admin::add_subscription_url() ) . '">', '</a>' ) . '</p>';
+			$not_found_text .= '<p>' . sprintf( __( '%1$sAdd a subscription product &raquo;%2$s', 'woocommerce-subscriptions' ), '<a href="' . esc_url( WC_Subscriptions_Admin::add_subscription_url() ) . '">', '</a>' ) . '</p>';
 		}
 
 		return apply_filters( 'woocommerce_subscriptions_not_found_label', $not_found_text );
@@ -340,9 +340,13 @@ class WC_Subscriptions {
 		$subscription_statuses = wcs_get_subscription_statuses();
 
 		$registered_statuses = apply_filters( 'woocommerce_subscriptions_registered_statuses', array(
+			// translators: placeholder is a post count.
 			'wc-active'         => _nx_noop( 'Active <span class="count">(%s)</span>', 'Active <span class="count">(%s)</span>', 'post status label including post count', 'woocommerce-subscriptions' ),
+			// translators: placeholder is a post count.
 			'wc-switched'       => _nx_noop( 'Switched <span class="count">(%s)</span>', 'Switched <span class="count">(%s)</span>', 'post status label including post count', 'woocommerce-subscriptions' ),
+			// translators: placeholder is a post count.
 			'wc-expired'        => _nx_noop( 'Expired <span class="count">(%s)</span>', 'Expired <span class="count">(%s)</span>', 'post status label including post count', 'woocommerce-subscriptions' ),
+			// translators: placeholder is a post count.
 			'wc-pending-cancel' => _nx_noop( 'Pending Cancellation <span class="count">(%s)</span>', 'Pending Cancellation <span class="count">(%s)</span>', 'post status label including post count', 'woocommerce-subscriptions' ),
 		) );
 
@@ -847,6 +851,7 @@ class WC_Subscriptions {
 		if ( class_exists( 'WCS_Early_Renewal' ) ) {
 			$notice = new WCS_Admin_Notice( 'error' );
 
+			// translators: 1-2: opening/closing <b> tags, 3: Subscriptions version.
 			$notice->set_simple_content( sprintf( __( '%1$sWarning!%2$s We can see the %1$sWooCommerce Subscriptions Early Renewal%2$s plugin is active. Version %3$s of %1$sWooCommerce Subscriptions%2$s comes with that plugin\'s functionality packaged into the core plugin. Please deactivate WooCommerce Subscriptions Early Renewal to avoid any conflicts.', 'woocommerce-subscriptions' ), '<b>', '</b>', self::$version ) );
 			$notice->set_actions( array(
 				array(
@@ -1222,7 +1227,7 @@ class WC_Subscriptions {
 
 		$update_notice = '<div class="wc_plugin_upgrade_notice">';
 		// translators: placeholders are opening and closing tags. Leads to docs on version 2
-		$update_notice .= sprintf( __( 'Warning! Version 2.0 is a major update to the WooCommerce Subscriptions extension. Before updating, please create a backup, update all WooCommerce extensions and test all plugins, custom code and payment gateways with version 2.0 on a staging site. %sLearn more about the changes in version 2.0 &raquo;%s', 'woocommerce-subscriptions' ), '<a href="http://docs.woocommerce.com/document/subscriptions/version-2/">', '</a>' );
+		$update_notice .= sprintf( __( 'Warning! Version 2.0 is a major update to the WooCommerce Subscriptions extension. Before updating, please create a backup, update all WooCommerce extensions and test all plugins, custom code and payment gateways with version 2.0 on a staging site. %1$sLearn more about the changes in version 2.0 &raquo;%2$s', 'woocommerce-subscriptions' ), '<a href="http://docs.woocommerce.com/document/subscriptions/version-2/">', '</a>' );
 		$update_notice .= '</div> ';
 
 		echo wp_kses_post( $update_notice );
@@ -1237,8 +1242,10 @@ class WC_Subscriptions {
 		if ( version_compare( get_option( WC_Subscriptions_Admin::$option_prefix . '_active_version', '0' ), self::$version, '>' ) ) {
 
 			echo '<div class="update-nag">';
+			// translators: placeholder is Subscriptions version number.
 			echo sprintf( esc_html__( 'Warning! You are running version %s of WooCommerce Subscriptions plugin code but your database has been upgraded to Subscriptions version 2.0. This will cause major problems on your store.', 'woocommerce-subscriptions' ), esc_html( self::$version ) ) . '<br />';
-			echo sprintf( esc_html__( 'Please upgrade the WooCommerce Subscriptions plugin to version 2.0 or newer immediately. If you need assistance, after upgrading to Subscriptions v2.0, please %sopen a support ticket%s.', 'woocommerce-subscriptions' ), '<a href="https://woocommerce.com/my-account/marketplace-ticket-form/">', '</a>' );
+			// translators: opening/closing <a> tags - linked to ticket form.
+			echo sprintf( esc_html__( 'Please upgrade the WooCommerce Subscriptions plugin to version 2.0 or newer immediately. If you need assistance, after upgrading to Subscriptions v2.0, please %1$sopen a support ticket%2$s.', 'woocommerce-subscriptions' ), '<a href="https://woocommerce.com/my-account/marketplace-ticket-form/">', '</a>' );
 			echo '</div> ';
 
 		}

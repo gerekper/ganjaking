@@ -333,8 +333,7 @@ require_once(RS_PLUGIN_PATH . 'admin/views/modals-copyright.php');
 
 
 <script>
-	jQuery(document).ready(function() {
-
+	function rs_builder_inits() {
 		RVS.LIB.LAYERANIMS = {customLTIn:{},customLTOut:{}};
 
 <?php
@@ -370,7 +369,7 @@ if(isset($animationsRaw['out'])){ ?>
 									}
 
 		//Init Navigation Presets
-		RVS.F.migrateNavigation(jQuery.parseJSON(<?php echo $rs_f->json_encode_client_side($arr_navigations); ?>));
+		RVS.F.migrateNavigation(JSON.parse(<?php echo $rs_f->json_encode_client_side($arr_navigations); ?>));
 
 
 
@@ -380,17 +379,22 @@ if(isset($animationsRaw['out'])){ ?>
 		<?php }?>
 
 		if (!RVS.V.ignoreAutoStart) RVS.F.loadSlider({id:"<?php echo $slide_id; ?>", alias: "<?php echo $slide_alias; ?>"});
-
-	});
+	}
+	if (document.readyState === "loading")
+		window.addEventListener('DOMContentLoaded',function() {
+			rs_builder_inits();		
+		});
+	else
+		rs_builder_inits();
 	
-		<?php
-		
-		/* temp */
-		// delete_option('revslider_hide_tooltips', true);
-		
-		$showToolTips = get_option('revslider_hide_tooltips');
-		$showToolTips = empty($hideToolTips) ? 'true' : 'false';
-		?>
-		var revSliderToolTips = <?php echo $showToolTips; ?>;
+	<?php
+	
+	/* temp */
+	// delete_option('revslider_hide_tooltips', true);
+	
+	$showToolTips = get_option('revslider_hide_tooltips');
+	$showToolTips = empty($hideToolTips) ? 'true' : 'false';
+	?>
+	var revSliderToolTips = <?php echo $showToolTips; ?>;
 
 </script>

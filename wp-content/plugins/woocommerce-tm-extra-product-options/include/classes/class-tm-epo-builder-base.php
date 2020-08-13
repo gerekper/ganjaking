@@ -6,6 +6,8 @@
  * @version 4.9
  */
 
+ // phpcs: disable Squiz.Strings.DoubleQuoteUsage.NotRequired
+
 defined( 'ABSPATH' ) || exit;
 
 final class THEMECOMPLETE_EPO_BUILDER_base {
@@ -15,7 +17,7 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 	 *
 	 * @since 1.0
 	 */
-	protected static $_instance = NULL;
+	protected static $_instance = null;
 
 	public $elements_namespace = 'TM Extra Product Options';
 
@@ -41,7 +43,7 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 
 	public $jsbuilder = array();
 
-	public $noecho = FALSE;
+	public $noecho = false;
 	public $wpml_section_fields;
 	public $wpml_element_fields;
 
@@ -77,8 +79,156 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 		add_action( 'admin_footer', array( $this, 'admin_footer' ), 9 );
 		add_action( 'admin_init', array( $this, 'admin_init' ), 9 );
 
-		$this->wpml_section_fields = array("section_header_title", "section_header_subtitle", "sections_uniqid", "sections_class", "sections_clogic", "sections_logic");
-		$this->wpml_element_fields = array("divider_uniqid", "divider_clogic", "divider_logic", "divider_class", "header_title", "header_subtitle", "header_uniqid", "header_clogic", "header_logic", "header_class", "textarea_header_title", "textarea_header_subtitle", "textarea_text_before_price", "textarea_text_after_price", "textarea_quantity_default_value", "textarea_placeholder", "textarea_default_value", "textarea_uniqid", "textarea_clogic", "textarea_logic", "textarea_class", "textarea_container_id", "textfield_header_title", "textfield_header_subtitle", "textfield_text_before_price", "textfield_text_after_price", "textfield_quantity_default_value", "textfield_placeholder", "textfield_default_value", "textfield_uniqid", "textfield_clogic", "textfield_logic", "textfield_class", "textfield_container_id", "selectbox_header_title", "selectbox_header_subtitle", "selectbox_text_before_price", "selectbox_text_after_price", "selectbox_quantity_default_value", "selectbox_placeholder", "selectbox_options", "selectbox_uniqid", "selectbox_clogic", "selectbox_logic", "selectbox_class", "selectbox_container_id", "radiobuttons_header_title", "radiobuttons_header_subtitle", "radiobuttons_text_before_price", "radiobuttons_text_after_price", "radiobuttons_quantity_default_value", "radiobuttons_options", "radiobuttons_uniqid", "radiobuttons_clogic", "radiobuttons_logic", "radiobuttons_class", "radiobuttons_container_id", "checkboxes_header_title", "checkboxes_header_subtitle", "checkboxes_text_before_price", "checkboxes_text_after_price", "checkboxes_quantity_default_value", "checkboxes_options", "checkboxes_uniqid", "checkboxes_clogic", "checkboxes_logic", "checkboxes_class", "checkboxes_container_id", "upload_header_title", "upload_header_subtitle", "upload_text_before_price", "upload_text_after_price", "upload_button_type", "upload_uniqid", "upload_clogic", "upload_logic", "upload_class", "upload_container_id", "date_header_title", "date_header_subtitle", "date_text_before_price", "date_text_after_price", "date_quantity_default_value", "date_format", "date_default_value", "date_disabled_dates", "date_enabled_only_dates", "date_tranlation_day", "date_tranlation_month", "date_tranlation_year", "date_uniqid", "date_clogic", "date_logic", "date_class", "date_container_id", "time_header_title", "time_header_subtitle", "time_text_before_price", "time_text_after_price", "time_quantity_default_value", "time_time_format", "time_tranlation_hour", "time_tranlation_minute", "time_tranlation_second", "time_uniqid", "time_clogic", "time_logic", "time_class", "time_container_id", "range_header_title", "range_header_subtitle", "range_text_before_price", "range_text_after_price", "range_quantity_default_value", "range_default_value", "range_uniqid", "range_clogic", "range_logic", "range_class", "range_container_id", "color_header_title", "color_header_subtitle", "color_text_before_price", "color_text_after_price", "color_quantity_default_value", "color_default_value", "color_uniqid", "color_clogic", "color_logic", "color_class", "color_container_id", "variations_header_title", "variations_header_subtitle", "variations_options", "product_header_title", "product_header_subtitle", "product_placeholder", "product_uniqid", "product_clogic", "product_logic");
+		$this->wpml_section_fields = array(
+			"section_header_title",
+			"section_header_subtitle",
+			"sections_uniqid",
+			"sections_class",
+			"sections_clogic",
+			"sections_logic",
+		);
+		$this->wpml_element_fields = array(
+			"divider_uniqid",
+			"divider_clogic",
+			"divider_logic",
+			"divider_class",
+			"header_title",
+			"header_subtitle",
+			"header_uniqid",
+			"header_clogic",
+			"header_logic",
+			"header_class",
+			"textarea_header_title",
+			"textarea_header_subtitle",
+			"textarea_text_before_price",
+			"textarea_text_after_price",
+			"textarea_quantity_default_value",
+			"textarea_placeholder",
+			"textarea_default_value",
+			"textarea_uniqid",
+			"textarea_clogic",
+			"textarea_logic",
+			"textarea_class",
+			"textarea_container_id",
+			"textfield_header_title",
+			"textfield_header_subtitle",
+			"textfield_text_before_price",
+			"textfield_text_after_price",
+			"textfield_quantity_default_value",
+			"textfield_placeholder",
+			"textfield_default_value",
+			"textfield_uniqid",
+			"textfield_clogic",
+			"textfield_logic",
+			"textfield_class",
+			"textfield_container_id",
+			"selectbox_header_title",
+			"selectbox_header_subtitle",
+			"selectbox_text_before_price",
+			"selectbox_text_after_price",
+			"selectbox_quantity_default_value",
+			"selectbox_placeholder",
+			"selectbox_options",
+			"selectbox_uniqid",
+			"selectbox_clogic",
+			"selectbox_logic",
+			"selectbox_class",
+			"selectbox_container_id",
+			"radiobuttons_header_title",
+			"radiobuttons_header_subtitle",
+			"radiobuttons_text_before_price",
+			"radiobuttons_text_after_price",
+			"radiobuttons_quantity_default_value",
+			"radiobuttons_options",
+			"radiobuttons_uniqid",
+			"radiobuttons_clogic",
+			"radiobuttons_logic",
+			"radiobuttons_class",
+			"radiobuttons_container_id",
+			"checkboxes_header_title",
+			"checkboxes_header_subtitle",
+			"checkboxes_text_before_price",
+			"checkboxes_text_after_price",
+			"checkboxes_quantity_default_value",
+			"checkboxes_options",
+			"checkboxes_uniqid",
+			"checkboxes_clogic",
+			"checkboxes_logic",
+			"checkboxes_class",
+			"checkboxes_container_id",
+			"upload_header_title",
+			"upload_header_subtitle",
+			"upload_text_before_price",
+			"upload_text_after_price",
+			"upload_button_type",
+			"upload_uniqid",
+			"upload_clogic",
+			"upload_logic",
+			"upload_class",
+			"upload_container_id",
+			"date_header_title",
+			"date_header_subtitle",
+			"date_text_before_price",
+			"date_text_after_price",
+			"date_quantity_default_value",
+			"date_format",
+			"date_default_value",
+			"date_disabled_dates",
+			"date_enabled_only_dates",
+			"date_tranlation_day",
+			"date_tranlation_month",
+			"date_tranlation_year",
+			"date_uniqid",
+			"date_clogic",
+			"date_logic",
+			"date_class",
+			"date_container_id",
+			"time_header_title",
+			"time_header_subtitle",
+			"time_text_before_price",
+			"time_text_after_price",
+			"time_quantity_default_value",
+			"time_time_format",
+			"time_tranlation_hour",
+			"time_tranlation_minute",
+			"time_tranlation_second",
+			"time_uniqid",
+			"time_clogic",
+			"time_logic",
+			"time_class",
+			"time_container_id",
+			"range_header_title",
+			"range_header_subtitle",
+			"range_text_before_price",
+			"range_text_after_price",
+			"range_quantity_default_value",
+			"range_default_value",
+			"range_uniqid",
+			"range_clogic",
+			"range_logic",
+			"range_class",
+			"range_container_id",
+			"color_header_title",
+			"color_header_subtitle",
+			"color_text_before_price",
+			"color_text_after_price",
+			"color_quantity_default_value",
+			"color_default_value",
+			"color_uniqid",
+			"color_clogic",
+			"color_logic",
+			"color_class",
+			"color_container_id",
+			"variations_header_title",
+			"variations_header_subtitle",
+			"variations_options",
+			"product_header_title",
+			"product_header_subtitle",
+			"product_placeholder",
+			"product_uniqid",
+			"product_clogic",
+			"product_logic",
+		);
 
 	}
 
@@ -103,8 +253,8 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 	 * @since 4.9.12
 	 */
 	public function admin_footer() {
-		wp_register_script( 'themecomplete-footer-admin-js', FALSE, array(), FALSE, TRUE );
-		wp_localize_script( 'themecomplete-footer-admin-js', 'TMEPOOPTIONSJS', wp_json_encode($this->jsbuilder) );
+		wp_register_script( 'themecomplete-footer-admin-js', false, array(), false, true );
+		wp_localize_script( 'themecomplete-footer-admin-js', 'TMEPOOPTIONSJS', wp_json_encode( $this->jsbuilder ) );
 		wp_enqueue_script( 'themecomplete-footer-admin-js' );
 	}
 
@@ -138,7 +288,7 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 
 		$this->all_elements = apply_filters( 'wc_epo_builder_element_settings', array(
 				"header"       => array(
-					"_is_addon"        => FALSE,
+					"_is_addon"        => false,
 					"namespace"        => $this->elements_namespace,
 					"name"             => esc_html__( "Heading", 'woocommerce-tm-extra-product-options' ),
 					"description"      => "",
@@ -150,10 +300,10 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 					"post_name_prefix" => "header",
 					"fee_type"         => "",
 					"tags"             => "content",
-					"show_on_backend"  => TRUE
+					"show_on_backend"  => true,
 				),
 				"divider"      => array(
-					"_is_addon"        => FALSE,
+					"_is_addon"        => false,
 					"namespace"        => $this->elements_namespace,
 					"name"             => esc_html__( "Divider", 'woocommerce-tm-extra-product-options' ),
 					"description"      => "",
@@ -165,10 +315,10 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 					"post_name_prefix" => "divider",
 					"fee_type"         => "",
 					"tags"             => "content",
-					"show_on_backend"  => TRUE
+					"show_on_backend"  => true,
 				),
 				"date"         => array(
-					"_is_addon"        => FALSE,
+					"_is_addon"        => false,
 					"namespace"        => $this->elements_namespace,
 					"name"             => esc_html__( "Date", 'woocommerce-tm-extra-product-options' ),
 					"description"      => "",
@@ -180,10 +330,10 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 					"post_name_prefix" => "date",
 					"fee_type"         => "single",
 					"tags"             => "price content",
-					"show_on_backend"  => TRUE
+					"show_on_backend"  => true,
 				),
 				"time"         => array(
-					"_is_addon"        => FALSE,
+					"_is_addon"        => false,
 					"namespace"        => $this->elements_namespace,
 					"name"             => esc_html__( "Time", 'woocommerce-tm-extra-product-options' ),
 					"description"      => "",
@@ -195,10 +345,10 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 					"post_name_prefix" => "time",
 					"fee_type"         => "single",
 					"tags"             => "price content",
-					"show_on_backend"  => TRUE
+					"show_on_backend"  => true,
 				),
 				"range"        => array(
-					"_is_addon"        => FALSE,
+					"_is_addon"        => false,
 					"namespace"        => $this->elements_namespace,
 					"name"             => esc_html__( "Range picker", 'woocommerce-tm-extra-product-options' ),
 					"description"      => "",
@@ -210,10 +360,10 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 					"post_name_prefix" => "range",
 					"fee_type"         => "single",
 					"tags"             => "price content",
-					"show_on_backend"  => TRUE
+					"show_on_backend"  => true,
 				),
 				"color"        => array(
-					"_is_addon"        => FALSE,
+					"_is_addon"        => false,
 					"namespace"        => $this->elements_namespace,
 					"name"             => esc_html__( "Color picker", 'woocommerce-tm-extra-product-options' ),
 					"description"      => "",
@@ -225,10 +375,10 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 					"post_name_prefix" => "color",
 					"fee_type"         => "single",
 					"tags"             => "price content",
-					"show_on_backend"  => TRUE
+					"show_on_backend"  => true,
 				),
 				"textarea"     => array(
-					"_is_addon"        => FALSE,
+					"_is_addon"        => false,
 					"namespace"        => $this->elements_namespace,
 					"name"             => esc_html__( "Text Area", 'woocommerce-tm-extra-product-options' ),
 					"description"      => "",
@@ -240,10 +390,10 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 					"post_name_prefix" => "textarea",
 					"fee_type"         => "single",
 					"tags"             => "price content",
-					"show_on_backend"  => TRUE
+					"show_on_backend"  => true,
 				),
 				"textfield"    => array(
-					"_is_addon"        => FALSE,
+					"_is_addon"        => false,
 					"namespace"        => $this->elements_namespace,
 					"name"             => esc_html__( "Text Field", 'woocommerce-tm-extra-product-options' ),
 					"description"      => "",
@@ -255,10 +405,10 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 					"post_name_prefix" => "textfield",
 					"fee_type"         => "single",
 					"tags"             => "price content",
-					"show_on_backend"  => TRUE
+					"show_on_backend"  => true,
 				),
 				"upload"       => array(
-					"_is_addon"        => FALSE,
+					"_is_addon"        => false,
 					"namespace"        => $this->elements_namespace,
 					"name"             => esc_html__( "Upload", 'woocommerce-tm-extra-product-options' ),
 					"description"      => "",
@@ -270,10 +420,10 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 					"post_name_prefix" => "upload",
 					"fee_type"         => "single",
 					"tags"             => "price content",
-					"show_on_backend"  => TRUE
+					"show_on_backend"  => true,
 				),
 				"selectbox"    => array(
-					"_is_addon"        => FALSE,
+					"_is_addon"        => false,
 					"namespace"        => $this->elements_namespace,
 					"name"             => esc_html__( "Select Box", 'woocommerce-tm-extra-product-options' ),
 					"description"      => "",
@@ -285,10 +435,10 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 					"post_name_prefix" => "select",
 					"fee_type"         => "multiple",
 					"tags"             => "price content",
-					"show_on_backend"  => TRUE
+					"show_on_backend"  => true,
 				),
 				"radiobuttons" => array(
-					"_is_addon"        => FALSE,
+					"_is_addon"        => false,
 					"namespace"        => $this->elements_namespace,
 					"name"             => esc_html__( "Radio buttons", 'woocommerce-tm-extra-product-options' ),
 					"description"      => "",
@@ -300,10 +450,10 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 					"post_name_prefix" => "radio",
 					"fee_type"         => "multiple",
 					"tags"             => "price content",
-					"show_on_backend"  => TRUE
+					"show_on_backend"  => true,
 				),
 				"checkboxes"   => array(
-					"_is_addon"        => FALSE,
+					"_is_addon"        => false,
 					"namespace"        => $this->elements_namespace,
 					"name"             => esc_html__( "Checkboxes", 'woocommerce-tm-extra-product-options' ),
 					"description"      => "",
@@ -315,10 +465,10 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 					"post_name_prefix" => "checkbox",
 					"fee_type"         => "multiple",
 					"tags"             => "price content",
-					"show_on_backend"  => TRUE
+					"show_on_backend"  => true,
 				),
 				"variations"   => array(
-					"_is_addon"        => FALSE,
+					"_is_addon"        => false,
 					"namespace"        => $this->elements_namespace,
 					"name"             => esc_html__( "Variations", 'woocommerce-tm-extra-product-options' ),
 					"description"      => "",
@@ -329,13 +479,13 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 					"type"             => "multiplesingle",
 					"post_name_prefix" => "variations",
 					"fee_type"         => "",
-					"one_time_field"   => TRUE,
-					"no_selection"     => TRUE,
+					"one_time_field"   => true,
+					"no_selection"     => true,
 					"tags"             => "",
-					"show_on_backend"  => FALSE
+					"show_on_backend"  => false,
 				),
 				"product"      => array(
-					"_is_addon"        => FALSE,
+					"_is_addon"        => false,
 					"namespace"        => $this->elements_namespace,
 					"name"             => esc_html__( "Product", 'woocommerce-tm-extra-product-options' ),
 					"description"      => "",
@@ -347,7 +497,7 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 					"post_name_prefix" => "product",
 					"fee_type"         => "",
 					"tags"             => "price content product",
-					"show_on_backend"  => TRUE
+					"show_on_backend"  => true,
 				),
 			)
 		);
@@ -376,7 +526,7 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 		$options = apply_filters( 'wc_epo_set_elements_options', $args["options"], $args );
 
 		if ( ! empty( $element ) && is_array( $options ) ) {
-			$options["_is_addon"] = TRUE;
+			$options["_is_addon"] = true;
 
 			if ( ! isset( $args["namespace"] ) ) {
 				$options["namespace"] = "EPD addon " . $element;
@@ -417,7 +567,7 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 
 			$options["tags"] = $options["name"];
 
-			$options["show_on_backend"] = TRUE;
+			$options["show_on_backend"] = true;
 
 			$this->all_elements = array_merge( array( $element => $options ), $this->all_elements );
 		}
@@ -459,18 +609,18 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 	 * @since 1.0
 	 */
 	public final function register_addon( $args = array() ) {
-		if ( isset( $args["namespace"] ) 
-			&& isset( $args["name"] ) 
-			&& isset( $args["options"] ) 
-			&& isset( $args["settings"] ) ) {
+		if ( isset( $args["namespace"] )
+		     && isset( $args["name"] )
+		     && isset( $args["options"] )
+		     && isset( $args["settings"] ) ) {
 			$this->elements_array_addons = array_merge(
 				array(
-					$args["name"] => $this->add_element( 
-						$args["name"], 
-						$args["settings"], TRUE, 
+					$args["name"] => $this->add_element(
+						$args["name"],
+						$args["settings"], true,
 						isset( $args["tabs_override"] ) ? $args["tabs_override"] : array() ),
-				), $this->elements_array_addons );		
-					
+				), $this->elements_array_addons );
+
 			$this->set_elements( $args );
 
 			$this->addons_array[] = $args["name"];
@@ -609,9 +759,19 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			$this->_prepend_div( "", "tm-tabs" ),
 
 			$this->_prepend_div( "section", "tm-tab-headers" ),
-			$this->_prepend_tab( "section0", array( "tcfa tcfa-heading", esc_html__( "Title options" ), 'woocommerce-tm-extra-product-options' ), "", "tma-tab-title" ),
-			$this->_prepend_tab( "section1", array( "tcfa tcfa-cog", esc_html__( "General options", 'woocommerce-tm-extra-product-options' ) ), "open", "tma-tab-general" ),
-			$this->_prepend_tab( "section2", array( "tcfa tcfa-lightbulb", esc_html__( "Conditional Logic", 'woocommerce-tm-extra-product-options' ) ), "", "tma-tab-logic" ),
+			$this->_prepend_tab( "section0", array(
+				"tcfa tcfa-heading",
+				esc_html__( "Title options" ),
+				'woocommerce-tm-extra-product-options',
+			), "", "tma-tab-title" ),
+			$this->_prepend_tab( "section1", array(
+				"tcfa tcfa-cog",
+				esc_html__( "General options", 'woocommerce-tm-extra-product-options' ),
+			), "open", "tma-tab-general" ),
+			$this->_prepend_tab( "section2", array(
+				"tcfa tcfa-lightbulb",
+				esc_html__( "Conditional Logic", 'woocommerce-tm-extra-product-options' ),
+			), "", "tma-tab-logic" ),
 			$this->_append_div( "section" ),
 
 			$this->_prepend_div( "section0" ),
@@ -628,7 +788,11 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 						"default"     => 0,
 						"nodiv"       => 1,
 						"type"        => "hidden",
-						"tags"        => array( "class" => "tm_builder_sections", "name" => "tm_meta[tmfbuilder][sections][]", "value" => 0 ),
+						"tags"        => array(
+							"class" => "tm_builder_sections",
+							"name"  => "tm_meta[tmfbuilder][sections][]",
+							"value" => 0,
+						),
 						"label"       => "",
 						"desc"        => "",
 					),
@@ -638,7 +802,11 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 						"default"     => "",
 						"nodiv"       => 1,
 						"type"        => "hidden",
-						"tags"        => array( "class" => "tm_builder_section_slides", "name" => "tm_meta[tmfbuilder][sections_slides][]", "value" => 0 ),
+						"tags"        => array(
+							"class" => "tm_builder_section_slides",
+							"name"  => "tm_meta[tmfbuilder][sections_slides][]",
+							"value" => 0,
+						),
 						"label"       => "",
 						"desc"        => "",
 					),
@@ -648,7 +816,11 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 						"default"     => "w100",
 						"nodiv"       => 1,
 						"type"        => "hidden",
-						"tags"        => array( "class" => "tm_builder_sections_size", "name" => "tm_meta[tmfbuilder][sections_size][]", "value" => "w100" ),
+						"tags"        => array(
+							"class" => "tm_builder_sections_size",
+							"name"  => "tm_meta[tmfbuilder][sections_size][]",
+							"value" => "w100",
+						),
 						"label"       => "",
 						"desc"        => "",
 					),
@@ -657,7 +829,11 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 						"default" => "",
 						"nodiv"   => 1,
 						"type"    => "hidden",
-						"tags"    => array( "class" => "tm-builder-sections-uniqid", "name" => "tm_meta[tmfbuilder][sections_uniqid][]", "value" => "" ),
+						"tags"    => array(
+							"class" => "tm-builder-sections-uniqid",
+							"name"  => "tm_meta[tmfbuilder][sections_uniqid][]",
+							"value" => "",
+						),
 						"label"   => "",
 						"desc"    => "",
 					),
@@ -666,13 +842,35 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 						"wpmldisable" => 1,
 						"default"     => "",
 						"type"        => "select",
-						"tags"        => array( "class" => "sections_style", "id" => "tm_sections_style", "name" => "tm_meta[tmfbuilder][sections_style][]" ),
+						"tags"        => array(
+							"class" => "sections_style",
+							"id"    => "tm_sections_style",
+							"name"  => "tm_meta[tmfbuilder][sections_style][]",
+						),
 						"options"     => array(
-							array( "text" => esc_html__( "Normal (clear)", 'woocommerce-tm-extra-product-options' ), "value" => "" ),
-							array( "text" => esc_html__( "Box", 'woocommerce-tm-extra-product-options' ), "value" => "box" ),
-							array( "text" => esc_html__( "Expand and Collapse (start opened)", 'woocommerce-tm-extra-product-options' ), "value" => "collapse", "class" => "builder_hide_for_variation-reset" ),
-							array( "text" => esc_html__( "Expand and Collapse (start closed)", 'woocommerce-tm-extra-product-options' ), "value" => "collapseclosed", "class" => "builder_hide_for_variation-reset" ),
-							array( "text" => esc_html__( "Accordion", 'woocommerce-tm-extra-product-options' ), "value" => "accordion", "class" => "builder_hide_for_variation-reset" ),
+							array(
+								"text"  => esc_html__( "Normal (clear)", 'woocommerce-tm-extra-product-options' ),
+								"value" => "",
+							),
+							array(
+								"text"  => esc_html__( "Box", 'woocommerce-tm-extra-product-options' ),
+								"value" => "box",
+							),
+							array(
+								"text"  => esc_html__( "Expand and Collapse (start opened)", 'woocommerce-tm-extra-product-options' ),
+								"value" => "collapse",
+								"class" => "builder_hide_for_variation-reset",
+							),
+							array(
+								"text"  => esc_html__( "Expand and Collapse (start closed)", 'woocommerce-tm-extra-product-options' ),
+								"value" => "collapseclosed",
+								"class" => "builder_hide_for_variation-reset",
+							),
+							array(
+								"text"  => esc_html__( "Accordion", 'woocommerce-tm-extra-product-options' ),
+								"value" => "accordion",
+								"class" => "builder_hide_for_variation-reset",
+							),
 						),
 						"label"       => esc_html__( "Section style", 'woocommerce-tm-extra-product-options' ),
 						"desc"        => esc_html__( "Select this section's display style.", 'woocommerce-tm-extra-product-options' ),
@@ -683,10 +881,19 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 						"wpmldisable"      => 1,
 						"default"          => "before",
 						"type"             => "select",
-						"tags"             => array( "id" => "sections_placement", "name" => "tm_meta[tmfbuilder][sections_placement][]" ),
+						"tags"             => array(
+							"id"   => "sections_placement",
+							"name" => "tm_meta[tmfbuilder][sections_placement][]",
+						),
 						"options"          => array(
-							array( "text" => esc_html__( "Before Local Options", 'woocommerce-tm-extra-product-options' ), "value" => "before" ),
-							array( "text" => esc_html__( "After Local Options", 'woocommerce-tm-extra-product-options' ), "value" => "after" ),
+							array(
+								"text"  => esc_html__( "Before Local Options", 'woocommerce-tm-extra-product-options' ),
+								"value" => "before",
+							),
+							array(
+								"text"  => esc_html__( "After Local Options", 'woocommerce-tm-extra-product-options' ),
+								"value" => "after",
+							),
 						),
 						"label"            => esc_html__( "Section placement", 'woocommerce-tm-extra-product-options' ),
 						"desc"             => esc_html__( "Select where this section will appear compare to local Options.", 'woocommerce-tm-extra-product-options' ),
@@ -696,11 +903,25 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 						"wpmldisable" => 1,
 						"default"     => "",
 						"type"        => "select",
-						"tags"        => array( "class" => "sections_type", "id" => "sections_type", "name" => "tm_meta[tmfbuilder][sections_type][]" ),
+						"tags"        => array(
+							"class" => "sections_type",
+							"id"    => "sections_type",
+							"name"  => "tm_meta[tmfbuilder][sections_type][]",
+						),
 						"options"     => array(
-							array( "text" => esc_html__( "Normal", 'woocommerce-tm-extra-product-options' ), "value" => "" ),
-							array( "text" => esc_html__( "Pop up", 'woocommerce-tm-extra-product-options' ), "value" => "popup" ),
-							array( "text" => esc_html__( "Slider (wizard)", 'woocommerce-tm-extra-product-options' ), "value" => "slider", "class" => "builder-remove-for-variations" ),
+							array(
+								"text"  => esc_html__( "Normal", 'woocommerce-tm-extra-product-options' ),
+								"value" => "",
+							),
+							array(
+								"text"  => esc_html__( "Pop up", 'woocommerce-tm-extra-product-options' ),
+								"value" => "popup",
+							),
+							array(
+								"text"  => esc_html__( "Slider (wizard)", 'woocommerce-tm-extra-product-options' ),
+								"value" => "slider",
+								"class" => "builder-remove-for-variations",
+							),
 						),
 						"label"       => esc_html__( "Section type", 'woocommerce-tm-extra-product-options' ),
 						"desc"        => esc_html__( "Select this section's display type.", 'woocommerce-tm-extra-product-options' ),
@@ -710,7 +931,12 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 						"id"      => "sections_class",
 						"default" => "",
 						"type"    => "text",
-						"tags"    => array( "class" => "t", "id" => "sections_class", "name" => "tm_meta[tmfbuilder][sections_class][]", "value" => "" ),
+						"tags"    => array(
+							"class" => "t",
+							"id"    => "sections_class",
+							"name"  => "tm_meta[tmfbuilder][sections_class][]",
+							"value" => "",
+						),
 						"label"   => esc_html__( 'Section class name', 'woocommerce-tm-extra-product-options' ),
 						"desc"    => esc_html__( 'Enter an extra class name to add to this section', 'woocommerce-tm-extra-product-options' ),
 					),
@@ -726,7 +952,11 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 					"default" => "",
 					"nodiv"   => 1,
 					"type"    => "hidden",
-					"tags"    => array( "class" => "tm-builder-clogic", "name" => "tm_meta[tmfbuilder][sections_clogic][]", "value" => "" ),
+					"tags"    => array(
+						"class" => "tm-builder-clogic",
+						"name"  => "tm_meta[tmfbuilder][sections_clogic][]",
+						"value" => "",
+					),
 					"label"   => "",
 					"desc"    => "",
 				),
@@ -735,7 +965,12 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 					"default"   => "",
 					"leftclass" => "align-self-start",
 					"type"      => "checkbox",
-					"tags"      => array( "class" => "activate-sections-logic", "id" => "sections_logic", "name" => "tm_meta[tmfbuilder][sections_logic][]", "value" => "1" ),
+					"tags"      => array(
+						"class" => "activate-sections-logic",
+						"id"    => "sections_logic",
+						"name"  => "tm_meta[tmfbuilder][sections_logic][]",
+						"value" => "1",
+					),
 					"extra"     => array( array( $this, "builder_showlogic" ), array() ),
 					"label"     => esc_html__( "Section Conditional Logic", 'woocommerce-tm-extra-product-options' ),
 					"desc"      => esc_html__( "Enable conditional logic for showing or hiding this section.", 'woocommerce-tm-extra-product-options' ),
@@ -779,7 +1014,12 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 						"id"      => "divider_class",
 						"default" => "",
 						"type"    => "text",
-						"tags"    => array( "class" => "t", "id" => "builder_divider_class", "name" => "tm_meta[tmfbuilder][divider_class][]", "value" => "" ),
+						"tags"    => array(
+							"class" => "t",
+							"id"    => "builder_divider_class",
+							"name"  => "tm_meta[tmfbuilder][divider_class][]",
+							"value" => "",
+						),
 						"label"   => esc_html__( 'Element class name', 'woocommerce-tm-extra-product-options' ),
 						"desc"    => esc_html__( 'Enter an extra class name to add to this element', 'woocommerce-tm-extra-product-options' ),
 					),
@@ -805,17 +1045,47 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 						"wpmldisable" => 1,
 						"default"     => "3",
 						"type"        => "select",
-						"tags"        => array( "id" => "builder_header_size", "name" => "tm_meta[tmfbuilder][header_size][]" ),
+						"tags"        => array(
+							"id"   => "builder_header_size",
+							"name" => "tm_meta[tmfbuilder][header_size][]",
+						),
 						"options"     => array(
-							array( "text" => esc_html__( "H1", 'woocommerce-tm-extra-product-options' ), "value" => "1" ),
-							array( "text" => esc_html__( "H2", 'woocommerce-tm-extra-product-options' ), "value" => "2" ),
-							array( "text" => esc_html__( "H3", 'woocommerce-tm-extra-product-options' ), "value" => "3" ),
-							array( "text" => esc_html__( "H4", 'woocommerce-tm-extra-product-options' ), "value" => "4" ),
-							array( "text" => esc_html__( "H5", 'woocommerce-tm-extra-product-options' ), "value" => "5" ),
-							array( "text" => esc_html__( "H6", 'woocommerce-tm-extra-product-options' ), "value" => "6" ),
-							array( "text" => esc_html__( "p", 'woocommerce-tm-extra-product-options' ), "value" => "7" ),
-							array( "text" => esc_html__( "div", 'woocommerce-tm-extra-product-options' ), "value" => "8" ),
-							array( "text" => esc_html__( "span", 'woocommerce-tm-extra-product-options' ), "value" => "9" ),
+							array(
+								"text"  => esc_html__( "H1", 'woocommerce-tm-extra-product-options' ),
+								"value" => "1",
+							),
+							array(
+								"text"  => esc_html__( "H2", 'woocommerce-tm-extra-product-options' ),
+								"value" => "2",
+							),
+							array(
+								"text"  => esc_html__( "H3", 'woocommerce-tm-extra-product-options' ),
+								"value" => "3",
+							),
+							array(
+								"text"  => esc_html__( "H4", 'woocommerce-tm-extra-product-options' ),
+								"value" => "4",
+							),
+							array(
+								"text"  => esc_html__( "H5", 'woocommerce-tm-extra-product-options' ),
+								"value" => "5",
+							),
+							array(
+								"text"  => esc_html__( "H6", 'woocommerce-tm-extra-product-options' ),
+								"value" => "6",
+							),
+							array(
+								"text"  => esc_html__( "p", 'woocommerce-tm-extra-product-options' ),
+								"value" => "7",
+							),
+							array(
+								"text"  => esc_html__( "div", 'woocommerce-tm-extra-product-options' ),
+								"value" => "8",
+							),
+							array(
+								"text"  => esc_html__( "span", 'woocommerce-tm-extra-product-options' ),
+								"value" => "9",
+							),
 						),
 						"label"       => esc_html__( "Header type", 'woocommerce-tm-extra-product-options' ),
 						"desc"        => "",
@@ -824,7 +1094,12 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 						"id"      => "header_title",
 						"default" => "",
 						"type"    => "text",
-						"tags"    => array( "class" => "t tm-header-title", "id" => "builder_header_title", "name" => "tm_meta[tmfbuilder][header_title][]", "value" => "" ),
+						"tags"    => array(
+							"class" => "t tm-header-title",
+							"id"    => "builder_header_title",
+							"name"  => "tm_meta[tmfbuilder][header_title][]",
+							"value" => "",
+						),
 						"label"   => esc_html__( 'Header title', 'woocommerce-tm-extra-product-options' ),
 						"desc"    => "",
 					),
@@ -833,12 +1108,27 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 						"wpmldisable" => 1,
 						"default"     => "",
 						"type"        => "select",
-						"tags"        => array( "id" => "builder_header_title_position", "name" => "tm_meta[tmfbuilder][header_title_position][]" ),
+						"tags"        => array(
+							"id"   => "builder_header_title_position",
+							"name" => "tm_meta[tmfbuilder][header_title_position][]",
+						),
 						"options"     => array(
-							array( "text" => esc_html__( "Above field", 'woocommerce-tm-extra-product-options' ), "value" => "" ),
-							array( "text" => esc_html__( "Left of the field", 'woocommerce-tm-extra-product-options' ), "value" => "left" ),
-							array( "text" => esc_html__( "Right of the field", 'woocommerce-tm-extra-product-options' ), "value" => "right" ),
-							array( "text" => esc_html__( "Disable", 'woocommerce-tm-extra-product-options' ), "value" => "disable" ),
+							array(
+								"text"  => esc_html__( "Above field", 'woocommerce-tm-extra-product-options' ),
+								"value" => "",
+							),
+							array(
+								"text"  => esc_html__( "Left of the field", 'woocommerce-tm-extra-product-options' ),
+								"value" => "left",
+							),
+							array(
+								"text"  => esc_html__( "Right of the field", 'woocommerce-tm-extra-product-options' ),
+								"value" => "right",
+							),
+							array(
+								"text"  => esc_html__( "Disable", 'woocommerce-tm-extra-product-options' ),
+								"value" => "disable",
+							),
 						),
 						"label"       => esc_html__( "Header position", 'woocommerce-tm-extra-product-options' ),
 						"desc"        => "",
@@ -848,7 +1138,12 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 						"wpmldisable" => 1,
 						"default"     => "",
 						"type"        => "text",
-						"tags"        => array( "class" => "tm-color-picker", "id" => "builder_header_title_color", "name" => "tm_meta[tmfbuilder][header_title_color][]", "value" => "" ),
+						"tags"        => array(
+							"class" => "tm-color-picker",
+							"id"    => "builder_header_title_color",
+							"name"  => "tm_meta[tmfbuilder][header_title_color][]",
+							"value" => "",
+						),
 						"label"       => esc_html__( 'Header color', 'woocommerce-tm-extra-product-options' ),
 						"desc"        => esc_html__( 'Leave empty for default value', 'woocommerce-tm-extra-product-options' ),
 					),
@@ -856,7 +1151,10 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 						"id"      => "header_subtitle",
 						"default" => "",
 						"type"    => "textarea",
-						"tags"    => array( "id" => "builder_header_subtitle", "name" => "tm_meta[tmfbuilder][header_subtitle][]" ),
+						"tags"    => array(
+							"id"   => "builder_header_subtitle",
+							"name" => "tm_meta[tmfbuilder][header_subtitle][]",
+						),
 						"label"   => esc_html__( "Content", 'woocommerce-tm-extra-product-options' ),
 						"desc"    => "",
 					),
@@ -865,7 +1163,12 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 						"wpmldisable" => 1,
 						"default"     => "",
 						"type"        => "text",
-						"tags"        => array( "class" => "tm-color-picker", "id" => "builder_header_subtitle_color", "name" => "tm_meta[tmfbuilder][header_subtitle_color][]", "value" => "" ),
+						"tags"        => array(
+							"class" => "tm-color-picker",
+							"id"    => "builder_header_subtitle_color",
+							"name"  => "tm_meta[tmfbuilder][header_subtitle_color][]",
+							"value" => "",
+						),
 						"label"       => esc_html__( 'Content color', 'woocommerce-tm-extra-product-options' ),
 						"desc"        => esc_html__( 'Leave empty for default value', 'woocommerce-tm-extra-product-options' ),
 					),
@@ -874,13 +1177,31 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 						"wpmldisable" => 1,
 						"default"     => "",
 						"type"        => "select",
-						"tags"        => array( "id" => "builder_header_subtitle_position", "name" => "tm_meta[tmfbuilder][header_subtitle_position][]" ),
+						"tags"        => array(
+							"id"   => "builder_header_subtitle_position",
+							"name" => "tm_meta[tmfbuilder][header_subtitle_position][]",
+						),
 						"options"     => array(
-							array( "text" => esc_html__( "Above field", 'woocommerce-tm-extra-product-options' ), "value" => "" ),
-							array( "text" => esc_html__( "Below field", 'woocommerce-tm-extra-product-options' ), "value" => "below" ),
-							array( "text" => esc_html__( "Tooltip", 'woocommerce-tm-extra-product-options' ), "value" => "tooltip" ),
-							array( "text" => esc_html__( "Icon tooltip left", 'woocommerce-tm-extra-product-options' ), "value" => "icontooltipleft" ),
-							array( "text" => esc_html__( "Icon tooltip right", 'woocommerce-tm-extra-product-options' ), "value" => "icontooltipright" ),
+							array(
+								"text"  => esc_html__( "Above field", 'woocommerce-tm-extra-product-options' ),
+								"value" => "",
+							),
+							array(
+								"text"  => esc_html__( "Below field", 'woocommerce-tm-extra-product-options' ),
+								"value" => "below",
+							),
+							array(
+								"text"  => esc_html__( "Tooltip", 'woocommerce-tm-extra-product-options' ),
+								"value" => "tooltip",
+							),
+							array(
+								"text"  => esc_html__( "Icon tooltip left", 'woocommerce-tm-extra-product-options' ),
+								"value" => "icontooltipleft",
+							),
+							array(
+								"text"  => esc_html__( "Icon tooltip right", 'woocommerce-tm-extra-product-options' ),
+								"value" => "icontooltipright",
+							),
 						),
 						"label"       => esc_html__( "Content position", 'woocommerce-tm-extra-product-options' ),
 						"desc"        => "",
@@ -899,7 +1220,12 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 						"id"      => "header_class",
 						"default" => "",
 						"type"    => "text",
-						"tags"    => array( "class" => "t", "id" => "builder_header_class", "name" => "tm_meta[tmfbuilder][header_class][]", "value" => "" ),
+						"tags"    => array(
+							"class" => "t",
+							"id"    => "builder_header_class",
+							"name"  => "tm_meta[tmfbuilder][header_class][]",
+							"value" => "",
+						),
 						"label"   => esc_html__( 'Element class name', 'woocommerce-tm-extra-product-options' ),
 						"desc"    => esc_html__( 'Enter an extra class name to add to this element', 'woocommerce-tm-extra-product-options' ),
 					),
@@ -911,389 +1237,690 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 
 			"textarea" => $this->add_element(
 				"textarea",
-				array( "enabled", "required", "price_type", "freechars", "price", "sale_price", "fee", "hide_amount", "text_before_price", "text_after_price", "quantity", "placeholder", "min_chars", "max_chars", "default_value_multiple", "validation1" )
+				array(
+					"enabled",
+					"required",
+					"price_type",
+					"freechars",
+					"price",
+					"sale_price",
+					"fee",
+					"hide_amount",
+					"text_before_price",
+					"text_after_price",
+					"quantity",
+					"placeholder",
+					"min_chars",
+					"max_chars",
+					"default_value_multiple",
+					"validation1",
+				)
 			),
 
 			"textfield" => $this->add_element(
 				"textfield",
-				array( "enabled", "required", "price_type2", "freechars", "price", "sale_price", "fee", "hide_amount", "text_before_price", "text_after_price", "quantity", "placeholder", "min_chars", "max_chars", "default_value", "min", "max", "validation1" )
+				array(
+					"enabled",
+					"required",
+					"price_type2",
+					"freechars",
+					"price",
+					"sale_price",
+					"fee",
+					"hide_amount",
+					"text_before_price",
+					"text_after_price",
+					"quantity",
+					"placeholder",
+					"min_chars",
+					"max_chars",
+					"default_value",
+					"min",
+					"max",
+					"validation1",
+				)
 			),
 
 			"selectbox" => $this->add_element(
 				"selectbox",
-				array( "enabled", "required", "fee", "hide_amount", "text_before_price", "text_after_price", "quantity", "use_url", "changes_product_image", array( "placeholder", array( "desc" => esc_html__( 'This will count as an empty value in case the element is required.', 'woocommerce-tm-extra-product-options' ) ) ), "options" )
+				array(
+					"enabled",
+					"required",
+					"fee",
+					"hide_amount",
+					"text_before_price",
+					"text_after_price",
+					"quantity",
+					"use_url",
+					"changes_product_image",
+					array(
+						"placeholder",
+						array( "desc" => esc_html__( 'This will count as an empty value in case the element is required.', 'woocommerce-tm-extra-product-options' ) ),
+					),
+					"options",
+				)
 			),
 
 			"radiobuttons" => $this->add_element(
 				"radiobuttons",
-				array( "enabled", "required", "fee", "hide_amount", "text_before_price", "text_after_price", "quantity", "use_url", "use_images", "use_lightbox", "swatchmode", "use_colors", "changes_product_image", "items_per_row", "clear_options", "options" )
+				array(
+					"enabled",
+					"required",
+					"fee",
+					"hide_amount",
+					"text_before_price",
+					"text_after_price",
+					"quantity",
+					"use_url",
+					"use_images",
+					"use_lightbox",
+					"swatchmode",
+					"use_colors",
+					"changes_product_image",
+					"items_per_row",
+					"clear_options",
+					"options",
+				)
 			),
 
 			"checkboxes" => $this->add_element(
 				"checkboxes",
-				array( "enabled", "required", "hide_amount", "text_before_price", "text_after_price", "quantity", "limit_choices", "exactlimit_choices", "minimumlimit_choices", "use_images", "use_lightbox", "swatchmode", "use_colors", "changes_product_image", "items_per_row", "options" )
+				array(
+					"enabled",
+					"required",
+					"hide_amount",
+					"text_before_price",
+					"text_after_price",
+					"quantity",
+					"limit_choices",
+					"exactlimit_choices",
+					"minimumlimit_choices",
+					"use_images",
+					"use_lightbox",
+					"swatchmode",
+					"use_colors",
+					"changes_product_image",
+					"items_per_row",
+					"options",
+				)
 			),
 
 			"upload" => $this->add_element(
 				"upload",
-				array( "enabled", "required", "price_type5", "price", "sale_price", "fee", "hide_amount", "text_before_price", "text_after_price", "button_type" )
+				array(
+					"enabled",
+					"required",
+					"price_type5",
+					"price",
+					"sale_price",
+					"fee",
+					"hide_amount",
+					"text_before_price",
+					"text_after_price",
+					"button_type",
+				)
 			),
 
 			"date" => $this->add_element(
 				"date",
-				array( "enabled", "required", "price_type6", "price", "sale_price", "fee", "hide_amount", "text_before_price", "text_after_price", "quantity", "button_type2", "date_format", "start_year", "end_year",
-				       array(
-					       "id"      => "date_default_value",
-					       "default" => "",
-					       "type"    => "text",
-					       "tags"    => array( "class" => "t", "id" => "builder_date_default_value", "name" => "tm_meta[tmfbuilder][date_default_value][]", "value" => "" ),
-					       "label"   => esc_html__( 'Default value', 'woocommerce-tm-extra-product-options' ),
-					       "desc"    => esc_html__( 'Enter a value to be applied to the field automatically according to your selected date format. (Two digits for day, two digits for month and four digits for year).', 'woocommerce-tm-extra-product-options' ),
-				       ),
-				       array(
-					       "id"          => "date_min_date",
-					       "wpmldisable" => 1,
-					       "default"     => "",
-					       "type"        => "text",
-					       "tags"        => array( "class" => "t", "id" => "builder_date_min_date", "name" => "tm_meta[tmfbuilder][date_min_date][]", "value" => "" ),
-					       "label"       => esc_html__( 'Minimum selectable date', 'woocommerce-tm-extra-product-options' ),
-					       "desc"        => esc_html__( 'A number of days from today.', 'woocommerce-tm-extra-product-options' ),
-				       ),
-				       array(
-					       "id"          => "date_max_date",
-					       "wpmldisable" => 1,
-					       "default"     => "",
-					       "type"        => "text",
-					       "tags"        => array( "class" => "t", "id" => "builder_date_max_date", "name" => "tm_meta[tmfbuilder][date_max_date][]", "value" => "" ),
-					       "label"       => esc_html__( 'Maximum selectable date', 'woocommerce-tm-extra-product-options' ),
-					       "desc"        => esc_html__( 'A number of days from today.', 'woocommerce-tm-extra-product-options' ),
-				       ),
-				       array(
-					       "id"      => "date_disabled_dates",
-					       "default" => "",
-					       "type"    => "text",
-					       "tags"    => array( "class" => "t", "id" => "builder_date_disabled_dates", "name" => "tm_meta[tmfbuilder][date_disabled_dates][]", "value" => "" ),
-					       "label"   => esc_html__( 'Disabled dates', 'woocommerce-tm-extra-product-options' ),
-					       "desc"    => esc_html__( 'Comma separated dates according to your selected date format. (Two digits for day, two digits for month and four digits for year)', 'woocommerce-tm-extra-product-options' ),
-				       ),
-				       array(
-					       "id"      => "date_enabled_only_dates",
-					       "default" => "",
-					       "type"    => "text",
-					       "tags"    => array( "class" => "t", "id" => "builder_date_enabled_only_dates", "name" => "tm_meta[tmfbuilder][date_enabled_only_dates][]", "value" => "" ),
-					       "label"   => esc_html__( 'Enabled dates', 'woocommerce-tm-extra-product-options' ),
-					       "desc"    => esc_html__( 'Comma separated dates according to your selected date format. (Two digits for day, two digits for month and four digits for year). Please note that this will override any other setting!', 'woocommerce-tm-extra-product-options' ),
-				       ),
-				       array(
-					       "id"          => "date_theme",
-					       "wpmldisable" => 1,
-					       "default"     => "epo",
-					       "type"        => "select",
-					       "tags"        => array( "id" => "builder_date_theme", "name" => "tm_meta[tmfbuilder][date_theme][]" ),
-					       "options"     => array(
-						       array( "text" => esc_html__( "Epo White", 'woocommerce-tm-extra-product-options' ), "value" => "epo" ),
-						       array( "text" => esc_html__( "Epo Black", 'woocommerce-tm-extra-product-options' ), "value" => "epo-black" ),
-					       ),
-					       "label"       => esc_html__( "Theme", 'woocommerce-tm-extra-product-options' ),
-					       "desc"        => esc_html__( "Select the theme for the datepicker.", 'woocommerce-tm-extra-product-options' ),
-				       ),
-				       array(
-					       "id"          => "date_theme_size",
-					       "wpmldisable" => 1,
-					       "default"     => "medium",
-					       "type"        => "select",
-					       "tags"        => array( "id" => "builder_date_theme_size", "name" => "tm_meta[tmfbuilder][date_theme_size][]" ),
-					       "options"     => array(
-						       array( "text" => esc_html__( "Small", 'woocommerce-tm-extra-product-options' ), "value" => "small" ),
-						       array( "text" => esc_html__( "Medium", 'woocommerce-tm-extra-product-options' ), "value" => "medium" ),
-						       array( "text" => esc_html__( "Large", 'woocommerce-tm-extra-product-options' ), "value" => "large" ),
-					       ),
-					       "label"       => esc_html__( "Size", 'woocommerce-tm-extra-product-options' ),
-					       "desc"        => esc_html__( "Select the size of the datepicker.", 'woocommerce-tm-extra-product-options' ),
-				       ),
-				       array(
-					       "id"          => "date_theme_position",
-					       "wpmldisable" => 1,
-					       "default"     => "normal",
-					       "type"        => "select",
-					       "tags"        => array( "id" => "builder_date_theme_position", "name" => "tm_meta[tmfbuilder][date_theme_position][]" ),
-					       "options"     => array(
-						       array( "text" => esc_html__( "Normal", 'woocommerce-tm-extra-product-options' ), "value" => "normal" ),
-						       array( "text" => esc_html__( "Top of screen", 'woocommerce-tm-extra-product-options' ), "value" => "top" ),
-						       array( "text" => esc_html__( "Bottom of screen", 'woocommerce-tm-extra-product-options' ), "value" => "bottom" ),
-					       ),
-					       "label"       => esc_html__( "Position", 'woocommerce-tm-extra-product-options' ),
-					       "desc"        => esc_html__( "Select the position of the datepicker.", 'woocommerce-tm-extra-product-options' ),
-				       ),
-				       array(
-					       "id"          => "date_disabled_weekdays",
-					       "wpmldisable" => 1,
-					       "default"     => "",
-					       "type"        => "hidden",
-					       "tags"        => array( "class" => "tm-weekdays", "id" => "builder_date_disabled_weekdays", "name" => "tm_meta[tmfbuilder][date_disabled_weekdays][]", "value" => "" ),
-					       "label"       => esc_html__( "Disable weekdays", 'woocommerce-tm-extra-product-options' ),
-					       "desc"        => esc_html__( "This allows you to disable all selected weekdays.", 'woocommerce-tm-extra-product-options' ),
-					       "extra"       => array( array( $this, "get_weekdays" ), array() ),
-				       ),
-				       array(
-					       "id"          => "date_disabled_months",
-					       "wpmldisable" => 1,
-					       "default"     => "",
-					       "type"        => "hidden",
-					       "tags"        => array( "class" => "tm-months", "id" => "builder_date_disabled_months", "name" => "tm_meta[tmfbuilder][date_disabled_months][]", "value" => "" ),
-					       "label"       => esc_html__( "Disable months", 'woocommerce-tm-extra-product-options' ),
-					       "desc"        => esc_html__( "This allows you to disable all selected months.", 'woocommerce-tm-extra-product-options' ),
-					       "extra"       => array( array( $this, "get_months" ), array() ),
-				       ),
-				       array(
-					       "id"               => "date_tranlation_custom",
-					       "type"             => "custom",
-					       "label"            => esc_html__( 'Translations', 'woocommerce-tm-extra-product-options' ),
-					       "desc"             => "",
-					       "nowrap_end"       => 1,
-					       "noclear"          => 1,
-					       "message0x0_class" => "justify-content-flex-end",
-				       ),
-				       array(
-					       "id"                   => "date_tranlation_day",
-					       "default"              => "",
-					       "type"                 => "text",
-					       "tags"                 => array( "class" => "t", "id" => "builder_date_tranlation_day", "name" => "tm_meta[tmfbuilder][date_tranlation_day][]", "value" => "" ),
-					       "label"                => "",
-					       "desc"                 => "",
-					       "prepend_element_html" => '<span class="prepend_span">' . esc_html__( 'Day', 'woocommerce-tm-extra-product-options' ) . '</span> ',
-					       "nowrap_start"         => 1,
-					       "nowrap_end"           => 1,
-				       ),
-				       array(
-					       "id"                   => "date_tranlation_month",
-					       "default"              => "",
-					       "type"                 => "text",
-					       "nowrap_start"         => 1,
-					       "nowrap_end"           => 1,
-					       "tags"                 => array( "class" => "t", "id" => "builder_date_tranlation_month", "name" => "tm_meta[tmfbuilder][date_tranlation_month][]", "value" => "" ),
-					       "label"                => "",
-					       "desc"                 => "",
-					       "prepend_element_html" => '<span class="prepend_span">' . esc_html__( 'Month', 'woocommerce-tm-extra-product-options' ) . '</span> ',
-				       ),
-				       array(
-					       "id"                   => "date_tranlation_year",
-					       "default"              => "",
-					       "type"                 => "text",
-					       "tags"                 => array( "class" => "t", "id" => "builder_date_tranlation_year", "name" => "tm_meta[tmfbuilder][date_tranlation_year][]", "value" => "" ),
-					       "label"                => "",
-					       "desc"                 => "",
-					       "prepend_element_html" => '<span class="prepend_span">' . esc_html__( 'Year', 'woocommerce-tm-extra-product-options' ) . '</span> ',
-					       "nowrap_start"         => 1,
-				       ),
+				array(
+					"enabled",
+					"required",
+					"price_type6",
+					"price",
+					"sale_price",
+					"fee",
+					"hide_amount",
+					"text_before_price",
+					"text_after_price",
+					"quantity",
+					"button_type2",
+					"date_format",
+					"start_year",
+					"end_year",
+					array(
+						"id"      => "date_default_value",
+						"default" => "",
+						"type"    => "text",
+						"tags"    => array(
+							"class" => "t",
+							"id"    => "builder_date_default_value",
+							"name"  => "tm_meta[tmfbuilder][date_default_value][]",
+							"value" => "",
+						),
+						"label"   => esc_html__( 'Default value', 'woocommerce-tm-extra-product-options' ),
+						"desc"    => esc_html__( 'Enter a value to be applied to the field automatically according to your selected date format. (Two digits for day, two digits for month and four digits for year).', 'woocommerce-tm-extra-product-options' ),
+					),
+					array(
+						"id"          => "date_min_date",
+						"wpmldisable" => 1,
+						"default"     => "",
+						"type"        => "text",
+						"tags"        => array(
+							"class" => "t",
+							"id"    => "builder_date_min_date",
+							"name"  => "tm_meta[tmfbuilder][date_min_date][]",
+							"value" => "",
+						),
+						"label"       => esc_html__( 'Minimum selectable date', 'woocommerce-tm-extra-product-options' ),
+						"desc"        => esc_html__( 'A number of days from today.', 'woocommerce-tm-extra-product-options' ),
+					),
+					array(
+						"id"          => "date_max_date",
+						"wpmldisable" => 1,
+						"default"     => "",
+						"type"        => "text",
+						"tags"        => array(
+							"class" => "t",
+							"id"    => "builder_date_max_date",
+							"name"  => "tm_meta[tmfbuilder][date_max_date][]",
+							"value" => "",
+						),
+						"label"       => esc_html__( 'Maximum selectable date', 'woocommerce-tm-extra-product-options' ),
+						"desc"        => esc_html__( 'A number of days from today.', 'woocommerce-tm-extra-product-options' ),
+					),
+					array(
+						"id"      => "date_disabled_dates",
+						"default" => "",
+						"type"    => "text",
+						"tags"    => array(
+							"class" => "t",
+							"id"    => "builder_date_disabled_dates",
+							"name"  => "tm_meta[tmfbuilder][date_disabled_dates][]",
+							"value" => "",
+						),
+						"label"   => esc_html__( 'Disabled dates', 'woocommerce-tm-extra-product-options' ),
+						"desc"    => esc_html__( 'Comma separated dates according to your selected date format. (Two digits for day, two digits for month and four digits for year)', 'woocommerce-tm-extra-product-options' ),
+					),
+					array(
+						"id"      => "date_enabled_only_dates",
+						"default" => "",
+						"type"    => "text",
+						"tags"    => array(
+							"class" => "t",
+							"id"    => "builder_date_enabled_only_dates",
+							"name"  => "tm_meta[tmfbuilder][date_enabled_only_dates][]",
+							"value" => "",
+						),
+						"label"   => esc_html__( 'Enabled dates', 'woocommerce-tm-extra-product-options' ),
+						"desc"    => esc_html__( 'Comma separated dates according to your selected date format. (Two digits for day, two digits for month and four digits for year). Please note that this will override any other setting!', 'woocommerce-tm-extra-product-options' ),
+					),
+					array(
+						"id"          => "date_theme",
+						"wpmldisable" => 1,
+						"default"     => "epo",
+						"type"        => "select",
+						"tags"        => array(
+							"id"   => "builder_date_theme",
+							"name" => "tm_meta[tmfbuilder][date_theme][]",
+						),
+						"options"     => array(
+							array(
+								"text"  => esc_html__( "Epo White", 'woocommerce-tm-extra-product-options' ),
+								"value" => "epo",
+							),
+							array(
+								"text"  => esc_html__( "Epo Black", 'woocommerce-tm-extra-product-options' ),
+								"value" => "epo-black",
+							),
+						),
+						"label"       => esc_html__( "Theme", 'woocommerce-tm-extra-product-options' ),
+						"desc"        => esc_html__( "Select the theme for the datepicker.", 'woocommerce-tm-extra-product-options' ),
+					),
+					array(
+						"id"          => "date_theme_size",
+						"wpmldisable" => 1,
+						"default"     => "medium",
+						"type"        => "select",
+						"tags"        => array(
+							"id"   => "builder_date_theme_size",
+							"name" => "tm_meta[tmfbuilder][date_theme_size][]",
+						),
+						"options"     => array(
+							array(
+								"text"  => esc_html__( "Small", 'woocommerce-tm-extra-product-options' ),
+								"value" => "small",
+							),
+							array(
+								"text"  => esc_html__( "Medium", 'woocommerce-tm-extra-product-options' ),
+								"value" => "medium",
+							),
+							array(
+								"text"  => esc_html__( "Large", 'woocommerce-tm-extra-product-options' ),
+								"value" => "large",
+							),
+						),
+						"label"       => esc_html__( "Size", 'woocommerce-tm-extra-product-options' ),
+						"desc"        => esc_html__( "Select the size of the datepicker.", 'woocommerce-tm-extra-product-options' ),
+					),
+					array(
+						"id"          => "date_theme_position",
+						"wpmldisable" => 1,
+						"default"     => "normal",
+						"type"        => "select",
+						"tags"        => array(
+							"id"   => "builder_date_theme_position",
+							"name" => "tm_meta[tmfbuilder][date_theme_position][]",
+						),
+						"options"     => array(
+							array(
+								"text"  => esc_html__( "Normal", 'woocommerce-tm-extra-product-options' ),
+								"value" => "normal",
+							),
+							array(
+								"text"  => esc_html__( "Top of screen", 'woocommerce-tm-extra-product-options' ),
+								"value" => "top",
+							),
+							array(
+								"text"  => esc_html__( "Bottom of screen", 'woocommerce-tm-extra-product-options' ),
+								"value" => "bottom",
+							),
+						),
+						"label"       => esc_html__( "Position", 'woocommerce-tm-extra-product-options' ),
+						"desc"        => esc_html__( "Select the position of the datepicker.", 'woocommerce-tm-extra-product-options' ),
+					),
+					array(
+						"id"          => "date_disabled_weekdays",
+						"wpmldisable" => 1,
+						"default"     => "",
+						"type"        => "hidden",
+						"tags"        => array(
+							"class" => "tm-weekdays",
+							"id"    => "builder_date_disabled_weekdays",
+							"name"  => "tm_meta[tmfbuilder][date_disabled_weekdays][]",
+							"value" => "",
+						),
+						"label"       => esc_html__( "Disable weekdays", 'woocommerce-tm-extra-product-options' ),
+						"desc"        => esc_html__( "This allows you to disable all selected weekdays.", 'woocommerce-tm-extra-product-options' ),
+						"extra"       => array( array( $this, "get_weekdays" ), array() ),
+					),
+					array(
+						"id"          => "date_disabled_months",
+						"wpmldisable" => 1,
+						"default"     => "",
+						"type"        => "hidden",
+						"tags"        => array(
+							"class" => "tm-months",
+							"id"    => "builder_date_disabled_months",
+							"name"  => "tm_meta[tmfbuilder][date_disabled_months][]",
+							"value" => "",
+						),
+						"label"       => esc_html__( "Disable months", 'woocommerce-tm-extra-product-options' ),
+						"desc"        => esc_html__( "This allows you to disable all selected months.", 'woocommerce-tm-extra-product-options' ),
+						"extra"       => array( array( $this, "get_months" ), array() ),
+					),
+					array(
+						"id"               => "date_tranlation_custom",
+						"type"             => "custom",
+						"label"            => esc_html__( 'Translations', 'woocommerce-tm-extra-product-options' ),
+						"desc"             => "",
+						"nowrap_end"       => 1,
+						"noclear"          => 1,
+						"message0x0_class" => "justify-content-flex-end",
+					),
+					array(
+						"id"                   => "date_tranlation_day",
+						"default"              => "",
+						"type"                 => "text",
+						"tags"                 => array(
+							"class" => "t",
+							"id"    => "builder_date_tranlation_day",
+							"name"  => "tm_meta[tmfbuilder][date_tranlation_day][]",
+							"value" => "",
+						),
+						"label"                => "",
+						"desc"                 => "",
+						"prepend_element_html" => '<span class="prepend_span">' . esc_html__( 'Day', 'woocommerce-tm-extra-product-options' ) . '</span> ',
+						"nowrap_start"         => 1,
+						"nowrap_end"           => 1,
+					),
+					array(
+						"id"                   => "date_tranlation_month",
+						"default"              => "",
+						"type"                 => "text",
+						"nowrap_start"         => 1,
+						"nowrap_end"           => 1,
+						"tags"                 => array(
+							"class" => "t",
+							"id"    => "builder_date_tranlation_month",
+							"name"  => "tm_meta[tmfbuilder][date_tranlation_month][]",
+							"value" => "",
+						),
+						"label"                => "",
+						"desc"                 => "",
+						"prepend_element_html" => '<span class="prepend_span">' . esc_html__( 'Month', 'woocommerce-tm-extra-product-options' ) . '</span> ',
+					),
+					array(
+						"id"                   => "date_tranlation_year",
+						"default"              => "",
+						"type"                 => "text",
+						"tags"                 => array(
+							"class" => "t",
+							"id"    => "builder_date_tranlation_year",
+							"name"  => "tm_meta[tmfbuilder][date_tranlation_year][]",
+							"value" => "",
+						),
+						"label"                => "",
+						"desc"                 => "",
+						"prepend_element_html" => '<span class="prepend_span">' . esc_html__( 'Year', 'woocommerce-tm-extra-product-options' ) . '</span> ',
+						"nowrap_start"         => 1,
+					),
 				)
 			),
 
 			"time" => $this->add_element(
 				"time",
-				array( "enabled", "required", "price_type6", "price", "sale_price", "fee", "hide_amount", "text_before_price", "text_after_price", "quantity", 
-				       $this->add_setting_button_type(
-					       "time",
-					       array(
-								"message0x0_class" => "tm-epo-switch-wrapper",
-						       	"type"             => "radio",
-     						    "tags"             => array( "class" => "time-button-type", "id" => "builder_time_button_type", "name" => "tm_meta[tmfbuilder][time_button_type][]" ),
-								"default" => "custom",
-								"options" => array(
-									array( "text" => esc_html__( 'System style', 'woocommerce-tm-extra-product-options' ), "value" => "system" ),
-									array( "text" => esc_html__( 'Custom style', 'woocommerce-tm-extra-product-options' ), "value" => "custom" ),
+				array(
+					"enabled",
+					"required",
+					"price_type6",
+					"price",
+					"sale_price",
+					"fee",
+					"hide_amount",
+					"text_before_price",
+					"text_after_price",
+					"quantity",
+					$this->add_setting_button_type(
+						"time",
+						array(
+							"message0x0_class" => "tm-epo-switch-wrapper",
+							"type"             => "radio",
+							"tags"             => array(
+								"class" => "time-button-type",
+								"id"    => "builder_time_button_type",
+								"name"  => "tm_meta[tmfbuilder][time_button_type][]",
+							),
+							"default"          => "custom",
+							"options"          => array(
+								array(
+									"text"  => esc_html__( 'System style', 'woocommerce-tm-extra-product-options' ),
+									"value" => "system",
 								),
-								"label"   => esc_html__( 'Time picker style', 'woocommerce-tm-extra-product-options' ),
-					       )
-				       ),
-						$this->add_setting_time_format(
-					       "time",
-					       array(
-					       	"required"    => array(
-						       ".time-button-type" => array(
-							       "operator" => "is",
-							       "value"    => "custom",
-						       ),
-					       )
-					       )
-				       ),
-						$this->add_setting_custom_time_format(
-					       "time",
-					       array(
-					       	"required"    => array(
-						       ".time-button-type" => array(
-							       "operator" => "is",
-							       "value"    => "custom",
-						       ),
-					       )
-					       )
-				       ),
+								array(
+									"text"  => esc_html__( 'Custom style', 'woocommerce-tm-extra-product-options' ),
+									"value" => "custom",
+								),
+							),
+							"label"            => esc_html__( 'Time picker style', 'woocommerce-tm-extra-product-options' ),
+						)
+					),
+					$this->add_setting_time_format(
+						"time",
+						array(
+							"required" => array(
+								".time-button-type" => array(
+									"operator" => "is",
+									"value"    => "custom",
+								),
+							),
+						)
+					),
+					$this->add_setting_custom_time_format(
+						"time",
+						array(
+							"required" => array(
+								".time-button-type" => array(
+									"operator" => "is",
+									"value"    => "custom",
+								),
+							),
+						)
+					),
 
-				       array(
-					       "id"          => "time_min_time",
-					       "wpmldisable" => 1,
-					       "default"     => "",
-					       "type"        => "text",
-					       "tags"        => array( "class" => "t", "id" => "builder_time_min_time", "name" => "tm_meta[tmfbuilder][time_min_time][]", "value" => "" ),
-					       "label"       => esc_html__( 'Minimum selectable time', 'woocommerce-tm-extra-product-options' ),
-					       "desc"        => esc_html__( 'Enter the time the following format: 8:00 am', 'woocommerce-tm-extra-product-options' ),
-					       "required"    => array(
-						       ".time-button-type" => array(
-							       "operator" => "is",
-							       "value"    => "custom",
-						       ),
-					       ),
-				       ),
-				       array(
-					       "id"          => "time_max_time",
-					       "wpmldisable" => 1,
-					       "default"     => "",
-					       "type"        => "text",
-					       "tags"        => array( "class" => "t", "id" => "builder_time_max_time", "name" => "tm_meta[tmfbuilder][time_max_time][]", "value" => "" ),
-					       "label"       => esc_html__( 'Maximum selectable time', 'woocommerce-tm-extra-product-options' ),
-					       "desc"        => esc_html__( 'Enter the time the following format: 8:00 am', 'woocommerce-tm-extra-product-options' ),
-					       "required"    => array(
-						       ".time-button-type" => array(
-							       "operator" => "is",
-							       "value"    => "custom",
-						       ),
-					       ),
-				       ),
-				       array(
-					       "id"          => "time_theme",
-					       "wpmldisable" => 1,
-					       "default"     => "epo",
-					       "type"        => "select",
-					       "tags"        => array( "id" => "builder_time_theme", "name" => "tm_meta[tmfbuilder][time_theme][]" ),
-					       "options"     => array(
-						       array( "text" => esc_html__( "Epo White", 'woocommerce-tm-extra-product-options' ), "value" => "epo" ),
-						       array( "text" => esc_html__( "Epo Black", 'woocommerce-tm-extra-product-options' ), "value" => "epo-black" ),
-					       ),
-					       "label"       => esc_html__( "Theme", 'woocommerce-tm-extra-product-options' ),
-					       "desc"        => esc_html__( "Select the theme for the timepicker.", 'woocommerce-tm-extra-product-options' ),
-					       "required"    => array(
-						       ".time-button-type" => array(
-							       "operator" => "is",
-							       "value"    => "custom",
-						       ),
-					       ),
-				       ),
-				       array(
-					       "id"          => "time_theme_size",
-					       "wpmldisable" => 1,
-					       "default"     => "medium",
-					       "type"        => "select",
-					       "tags"        => array( "id" => "builder_time_theme_size", "name" => "tm_meta[tmfbuilder][time_theme_size][]" ),
-					       "options"     => array(
-						       array( "text" => esc_html__( "Small", 'woocommerce-tm-extra-product-options' ), "value" => "small" ),
-						       array( "text" => esc_html__( "Medium", 'woocommerce-tm-extra-product-options' ), "value" => "medium" ),
-						       array( "text" => esc_html__( "Large", 'woocommerce-tm-extra-product-options' ), "value" => "large" ),
-					       ),
-					       "label"       => esc_html__( "Size", 'woocommerce-tm-extra-product-options' ),
-					       "desc"        => esc_html__( "Select the size of the timepicker.", 'woocommerce-tm-extra-product-options' ),
-					       "required"    => array(
-						       ".time-button-type" => array(
-							       "operator" => "is",
-							       "value"    => "custom",
-						       ),
-					       ),
-				       ),
-				       array(
-					       "id"          => "time_theme_position",
-					       "wpmldisable" => 1,
-					       "default"     => "normal",
-					       "type"        => "select",
-					       "tags"        => array( "id" => "builder_time_theme_position", "name" => "tm_meta[tmfbuilder][time_theme_position][]" ),
-					       "options"     => array(
-						       array( "text" => esc_html__( "Normal", 'woocommerce-tm-extra-product-options' ), "value" => "normal" ),
-						       array( "text" => esc_html__( "Top of screen", 'woocommerce-tm-extra-product-options' ), "value" => "top" ),
-						       array( "text" => esc_html__( "Bottom of screen", 'woocommerce-tm-extra-product-options' ), "value" => "bottom" ),
-					       ),
-					       "label"       => esc_html__( "Position", 'woocommerce-tm-extra-product-options' ),
-					       "desc"        => esc_html__( "Select the position of the timepicker.", 'woocommerce-tm-extra-product-options' ),
-					       "required"    => array(
-						       ".time-button-type" => array(
-							       "operator" => "is",
-							       "value"    => "custom",
-						       ),
-					       ),
-				       ),
-				       array(
-					       "id"               => "time_tranlation_custom",
-					       "type"             => "custom",
-					       "label"            => esc_html__( 'Translations', 'woocommerce-tm-extra-product-options' ),
-					       "desc"             => "",
-					       "nowrap_end"       => 1,
-					       "noclear"          => 1,
-					       "message0x0_class" => "justify-content-flex-end",
-					       "required"    => array(
-						       ".time-button-type" => array(
-							       "operator" => "is",
-							       "value"    => "custom",
-						       ),
-					       ),
-				       ),
-				       array(
-					       "id"                   => "time_tranlation_hour",
-					       "default"              => "",
-					       "type"                 => "text",
-					       "tags"                 => array( "class" => "t", "id" => "builder_time_tranlation_hour", "name" => "tm_meta[tmfbuilder][time_tranlation_hour][]", "value" => "" ),
-					       "label"                => "",
-					       "desc"                 => "",
-					       "prepend_element_html" => '<span class="prepend_span">' . esc_html__( 'Hour', 'woocommerce-tm-extra-product-options' ) . '</span> ',
-					       "nowrap_start"         => 1,
-					       "nowrap_end"           => 1,
-					       "required"    => array(
-						       ".time-button-type" => array(
-							       "operator" => "is",
-							       "value"    => "custom",
-						       ),
-					       ),
-				       ),
-				       array(
-					       "id"                   => "time_tranlation_minute",
-					       "default"              => "",
-					       "type"                 => "text",
-					       "nowrap_start"         => 1,
-					       "nowrap_end"           => 1,
-					       "tags"                 => array( "class" => "t", "id" => "builder_time_tranlation_month", "name" => "tm_meta[tmfbuilder][time_tranlation_minute][]", "value" => "" ),
-					       "label"                => "",
-					       "desc"                 => "",
-					       "prepend_element_html" => '<span class="prepend_span">' . esc_html__( 'Minute', 'woocommerce-tm-extra-product-options' ) . '</span> ',
-				       		"required"    => array(
-						       ".time-button-type" => array(
-							       "operator" => "is",
-							       "value"    => "custom",
-						       ),
-					       ),
-				       ),
-				       array(
-					       "id"                   => "time_tranlation_second",
-					       "default"              => "",
-					       "type"                 => "text",
-					       "tags"                 => array( "class" => "t", "id" => "builder_time_tranlation_second", "name" => "tm_meta[tmfbuilder][time_tranlation_second][]", "value" => "" ),
-					       "label"                => "",
-					       "desc"                 => "",
-					       "prepend_element_html" => '<span class="prepend_span">' . esc_html__( 'Second', 'woocommerce-tm-extra-product-options' ) . '</span> ',
-					       "nowrap_start"         => 1,
-					       "required"    => array(
-						       ".time-button-type" => array(
-							       "operator" => "is",
-							       "value"    => "custom",
-						       ),
-					       ),
-				       ),
+					array(
+						"id"          => "time_min_time",
+						"wpmldisable" => 1,
+						"default"     => "",
+						"type"        => "text",
+						"tags"        => array(
+							"class" => "t",
+							"id"    => "builder_time_min_time",
+							"name"  => "tm_meta[tmfbuilder][time_min_time][]",
+							"value" => "",
+						),
+						"label"       => esc_html__( 'Minimum selectable time', 'woocommerce-tm-extra-product-options' ),
+						"desc"        => esc_html__( 'Enter the time the following format: 8:00 am', 'woocommerce-tm-extra-product-options' ),
+						"required"    => array(
+							".time-button-type" => array(
+								"operator" => "is",
+								"value"    => "custom",
+							),
+						),
+					),
+					array(
+						"id"          => "time_max_time",
+						"wpmldisable" => 1,
+						"default"     => "",
+						"type"        => "text",
+						"tags"        => array(
+							"class" => "t",
+							"id"    => "builder_time_max_time",
+							"name"  => "tm_meta[tmfbuilder][time_max_time][]",
+							"value" => "",
+						),
+						"label"       => esc_html__( 'Maximum selectable time', 'woocommerce-tm-extra-product-options' ),
+						"desc"        => esc_html__( 'Enter the time the following format: 8:00 am', 'woocommerce-tm-extra-product-options' ),
+						"required"    => array(
+							".time-button-type" => array(
+								"operator" => "is",
+								"value"    => "custom",
+							),
+						),
+					),
+					array(
+						"id"          => "time_theme",
+						"wpmldisable" => 1,
+						"default"     => "epo",
+						"type"        => "select",
+						"tags"        => array(
+							"id"   => "builder_time_theme",
+							"name" => "tm_meta[tmfbuilder][time_theme][]",
+						),
+						"options"     => array(
+							array(
+								"text"  => esc_html__( "Epo White", 'woocommerce-tm-extra-product-options' ),
+								"value" => "epo",
+							),
+							array(
+								"text"  => esc_html__( "Epo Black", 'woocommerce-tm-extra-product-options' ),
+								"value" => "epo-black",
+							),
+						),
+						"label"       => esc_html__( "Theme", 'woocommerce-tm-extra-product-options' ),
+						"desc"        => esc_html__( "Select the theme for the timepicker.", 'woocommerce-tm-extra-product-options' ),
+						"required"    => array(
+							".time-button-type" => array(
+								"operator" => "is",
+								"value"    => "custom",
+							),
+						),
+					),
+					array(
+						"id"          => "time_theme_size",
+						"wpmldisable" => 1,
+						"default"     => "medium",
+						"type"        => "select",
+						"tags"        => array(
+							"id"   => "builder_time_theme_size",
+							"name" => "tm_meta[tmfbuilder][time_theme_size][]",
+						),
+						"options"     => array(
+							array(
+								"text"  => esc_html__( "Small", 'woocommerce-tm-extra-product-options' ),
+								"value" => "small",
+							),
+							array(
+								"text"  => esc_html__( "Medium", 'woocommerce-tm-extra-product-options' ),
+								"value" => "medium",
+							),
+							array(
+								"text"  => esc_html__( "Large", 'woocommerce-tm-extra-product-options' ),
+								"value" => "large",
+							),
+						),
+						"label"       => esc_html__( "Size", 'woocommerce-tm-extra-product-options' ),
+						"desc"        => esc_html__( "Select the size of the timepicker.", 'woocommerce-tm-extra-product-options' ),
+						"required"    => array(
+							".time-button-type" => array(
+								"operator" => "is",
+								"value"    => "custom",
+							),
+						),
+					),
+					array(
+						"id"          => "time_theme_position",
+						"wpmldisable" => 1,
+						"default"     => "normal",
+						"type"        => "select",
+						"tags"        => array(
+							"id"   => "builder_time_theme_position",
+							"name" => "tm_meta[tmfbuilder][time_theme_position][]",
+						),
+						"options"     => array(
+							array(
+								"text"  => esc_html__( "Normal", 'woocommerce-tm-extra-product-options' ),
+								"value" => "normal",
+							),
+							array(
+								"text"  => esc_html__( "Top of screen", 'woocommerce-tm-extra-product-options' ),
+								"value" => "top",
+							),
+							array(
+								"text"  => esc_html__( "Bottom of screen", 'woocommerce-tm-extra-product-options' ),
+								"value" => "bottom",
+							),
+						),
+						"label"       => esc_html__( "Position", 'woocommerce-tm-extra-product-options' ),
+						"desc"        => esc_html__( "Select the position of the timepicker.", 'woocommerce-tm-extra-product-options' ),
+						"required"    => array(
+							".time-button-type" => array(
+								"operator" => "is",
+								"value"    => "custom",
+							),
+						),
+					),
+					array(
+						"id"               => "time_tranlation_custom",
+						"type"             => "custom",
+						"label"            => esc_html__( 'Translations', 'woocommerce-tm-extra-product-options' ),
+						"desc"             => "",
+						"nowrap_end"       => 1,
+						"noclear"          => 1,
+						"message0x0_class" => "justify-content-flex-end",
+						"required"         => array(
+							".time-button-type" => array(
+								"operator" => "is",
+								"value"    => "custom",
+							),
+						),
+					),
+					array(
+						"id"                   => "time_tranlation_hour",
+						"default"              => "",
+						"type"                 => "text",
+						"tags"                 => array(
+							"class" => "t",
+							"id"    => "builder_time_tranlation_hour",
+							"name"  => "tm_meta[tmfbuilder][time_tranlation_hour][]",
+							"value" => "",
+						),
+						"label"                => "",
+						"desc"                 => "",
+						"prepend_element_html" => '<span class="prepend_span">' . esc_html__( 'Hour', 'woocommerce-tm-extra-product-options' ) . '</span> ',
+						"nowrap_start"         => 1,
+						"nowrap_end"           => 1,
+						"required"             => array(
+							".time-button-type" => array(
+								"operator" => "is",
+								"value"    => "custom",
+							),
+						),
+					),
+					array(
+						"id"                   => "time_tranlation_minute",
+						"default"              => "",
+						"type"                 => "text",
+						"nowrap_start"         => 1,
+						"nowrap_end"           => 1,
+						"tags"                 => array(
+							"class" => "t",
+							"id"    => "builder_time_tranlation_month",
+							"name"  => "tm_meta[tmfbuilder][time_tranlation_minute][]",
+							"value" => "",
+						),
+						"label"                => "",
+						"desc"                 => "",
+						"prepend_element_html" => '<span class="prepend_span">' . esc_html__( 'Minute', 'woocommerce-tm-extra-product-options' ) . '</span> ',
+						"required"             => array(
+							".time-button-type" => array(
+								"operator" => "is",
+								"value"    => "custom",
+							),
+						),
+					),
+					array(
+						"id"                   => "time_tranlation_second",
+						"default"              => "",
+						"type"                 => "text",
+						"tags"                 => array(
+							"class" => "t",
+							"id"    => "builder_time_tranlation_second",
+							"name"  => "tm_meta[tmfbuilder][time_tranlation_second][]",
+							"value" => "",
+						),
+						"label"                => "",
+						"desc"                 => "",
+						"prepend_element_html" => '<span class="prepend_span">' . esc_html__( 'Second', 'woocommerce-tm-extra-product-options' ) . '</span> ',
+						"nowrap_start"         => 1,
+						"required"             => array(
+							".time-button-type" => array(
+								"operator" => "is",
+								"value"    => "custom",
+							),
+						),
+					),
 				)
 			),
 
 			"range" => $this->add_element(
 				"range",
-				array( "enabled", "required", "price_type7", "price", "sale_price", "fee", "hide_amount", "text_before_price", "text_after_price", "quantity", "rangemin", "rangemax", "rangestep", "show_picker_value", "pips", "noofpips", "default_value" )
+				array(
+					"enabled",
+					"required",
+					"price_type7",
+					"price",
+					"sale_price",
+					"fee",
+					"hide_amount",
+					"text_before_price",
+					"text_after_price",
+					"quantity",
+					"rangemin",
+					"rangemax",
+					"rangestep",
+					"show_picker_value",
+					"pips",
+					"noofpips",
+					"default_value",
+				)
 			),
 
 			"color" => $this->add_element(
 				"color",
-				array( "enabled", "required", "price_type6", "price", "sale_price", "fee", "hide_amount", "text_before_price", "text_after_price", "quantity", "default_value" )
+				array(
+					"enabled",
+					"required",
+					"price_type6",
+					"price",
+					"sale_price",
+					"fee",
+					"hide_amount",
+					"text_before_price",
+					"text_after_price",
+					"quantity",
+					"default_value",
+				)
 			),
 
 			"variations" => $this->add_element(
@@ -1301,339 +1928,450 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 				array( "variations_disabled", "variations_options" )
 			),
 			"product"    => $this->add_element(
-			"product",
-				array("_tabs" =>
-				array("general_options" =>
-				array( "enabled", "required", "hide_amount", 
-
-					  array(
-					       "id"               => "product_mode",
-					       "wpmldisable"      => 1,
-					       "default"          => "products",
-					       "message0x0_class" => "tm-epo-switch-wrapper",
-					       "type"             => "radio",
-					       "tags"             => array( "class" => "product-mode", "id" => "builder_product_mode", "name" => "tm_meta[tmfbuilder][product_mode][]" ),
-					       "options"          => array(
-						       array( "text" => esc_html__( "Products", 'woocommerce-tm-extra-product-options' ), "value" => "products" ),
-						       array( "text" => esc_html__( "Single Product", 'woocommerce-tm-extra-product-options' ), "value" => "product" ),
-						       array( "text" => esc_html__( "Categories", 'woocommerce-tm-extra-product-options' ), "value" => "categories" ),
-					       ),
-					       "label"            => esc_html__( "Select mode", 'woocommerce-tm-extra-product-options' ),
-					       "desc"             => esc_html__( "Whether to include specific products or categories.", 'woocommerce-tm-extra-product-options' ),
-				       ),
-
-				       array(
-					       "id"          => "product_categoryids",
-					       "wpmldisable" => 1,
-					       "default"     => "",
-					       "type"        => "select",
-					       "multiple"    => "multiple",
-					       "fill"        => "category",
-					       "tags"        => array(
-						       "data-placeholder" => esc_attr( 'Search for a category ...', 'woocommerce-tm-extra-product-options' ),
-						       "data-action"      => "woocommerce_json_search_categories",
-						       "class"            => "wc-category-search product-categories-selector",
-						       "id"               => "builder_product_categoryids",
-						       "name"             => "tm_meta[tmfbuilder][product_categoryids][]"
-					       ),
-					       "options"     => $this->fetch_product_categories_array(),
-					       "label"       => esc_html__( "Select categories", 'woocommerce-tm-extra-product-options' ),
-					       "desc"        => esc_html__( "Add categories to include all their associated products.", 'woocommerce-tm-extra-product-options' ),
-					       "required"    => array(
-						       ".product-mode" => array(
-							       "operator" => "is",
-							       "value"    => "categories",
-						       ),
-					       ),
-				       ),
-
-				       array(
-					       "id"          => "product_productids",
-					       "wpmldisable" => 1,
-					       "default"     => "",
-					       "type"        => "select",
-					       "multiple"    => "multiple",
-					       "fill"        => "product",
-					       "tags"        => array(
-						       "data-placeholder" => esc_attr( 'Search for a product ...', 'woocommerce-tm-extra-product-options' ),
-						       "data-action"      => "woocommerce_json_search_products_and_variations",
-						       "data-sortable"    => "true",
-						       "class"            => "wc-product-search product-products-selector",
-						       "id"               => "builder_product_productids",
-						       "name"             => "tm_meta[tmfbuilder][product_productids][]"
-					       ),
-					       "options"     => array(),
-					       "label"       => esc_html__( "Select products", 'woocommerce-tm-extra-product-options' ),
-					       "desc"        => esc_html__( "Add the products individually.", 'woocommerce-tm-extra-product-options' ),
-					       "required"    => array(
-						       ".product-mode" => array(
-							       "operator" => "is",
-							       "value"    => array("products", "product"),
-						       ),
-					       ),
-				       ),
-
-				       array(
-					       "id"          => "product_orderby",
-					       "wpmldisable" => 1,
-					       "default"     => "ID",
-					       "type"        => "select",
-					       "tags"        => array(
-						       "data-placeholder" => esc_attr( 'Choose a value', 'woocommerce-tm-extra-product-options' ),
-						       "class"            => "fullwidth",
-						       "id"               => "builder_product_orderby",
-						       "name"             => "tm_meta[tmfbuilder][product_orderby][]"
-					       ),
-					       "options"          => array(
-						       array( "text" => esc_html__( "Default", 'woocommerce-tm-extra-product-options' ), "value" => "none" ),
-						       array( "text" => esc_html__( "Base price", 'woocommerce-tm-extra-product-options' ), "value" => "baseprice" ),
-						       array( "text" => esc_html__( "ID", 'woocommerce-tm-extra-product-options' ), "value" => "ID" ),
-						       array( "text" => esc_html__( "Title", 'woocommerce-tm-extra-product-options' ), "value" => "title" ),
-						       array( "text" => esc_html__( "Date", 'woocommerce-tm-extra-product-options' ), "value" => "date" ),
-						       array( "text" => esc_html__( "Name", 'woocommerce-tm-extra-product-options' ), "value" => "name" ),
-						       array( "text" => esc_html__( "Menu Order", 'woocommerce-tm-extra-product-options' ), "value" => "menu_order" ),
-						       array( "text" => esc_html__( "Random", 'woocommerce-tm-extra-product-options' ), "value" => "rand" ),
-					       ),
-					       "label"       => esc_html__( "Order by", 'woocommerce-tm-extra-product-options' ),
-					       "desc"        => esc_html__( "Select the parameter which the products will be sorted by.", 'woocommerce-tm-extra-product-options' ),
-					       "required"    => array(
-						       ".product-mode" => array(
-							       "operator" => "isnot",
-							       "value"    => "product",
-						       ),
-					       ),
-				       ),
-
-				       array(
-					       "id"               => "product_order",
-					       "wpmldisable"      => 1,
-					       "default"          => "asc",
-					       "message0x0_class" => "tm-epo-switch-wrapper",
-					       "type"             => "radio",
-					       "tags"             => array( "class" => "product-order", "id" => "builder_product_order", "name" => "tm_meta[tmfbuilder][product_order][]" ),
-					       "options"          => array(
-						       array( "text" => esc_html__( "Ascending", 'woocommerce-tm-extra-product-options' ), "value" => "asc" ),
-						       array( "text" => esc_html__( "Descending", 'woocommerce-tm-extra-product-options' ), "value" => "desc" ),
-					       ),
-					       "label"            => esc_html__( "Order", 'woocommerce-tm-extra-product-options' ),
-					       "desc"             => esc_html__( "Select the sorting order of the products.", 'woocommerce-tm-extra-product-options' ),
-					       "required"    => array(
-						       ".product-mode" => array(
-							       "operator" => "isnot",
-							       "value"    => "product",
-						       ),
-						       ".product-orderby" => array(
-							       "operator" => "isnot",
-							       "value"    => "none",
-						       ),
-					       ),
-				       ),
-
-				       array(
-					       "id"          => "product_default_value",
-					       "wpmldisable" => 1,
-					       "default"     => "",
-					       "type"        => "select",
-					       "tags"        => array(
-						       "data-placeholder" => esc_attr( 'Select a product', 'woocommerce-tm-extra-product-options' ),
-						       "class"            => "wc-product-search product-default-value-search",
-						       "id"               => "builder_product_productids",
-						       "name"             => "tm_meta[tmfbuilder][product_default_value][]"
-					       ),
-					       "options"     => array(),
-					       "label"       => esc_html__( "Default product", 'woocommerce-tm-extra-product-options' ),
-					       "desc"        => esc_html__( "Select the product that will be pre-selected.", 'woocommerce-tm-extra-product-options' ),
-				       ),
-
-				       array(
-					       "id"               => "product_layout_mode",
-					       "wpmldisable"      => 1,
-					       "default"          => "dropdown",
-					       "message0x0_class" => "tm-epo-switch-wrapper",
-					       "type"             => "radio",
-					       "tags"             => array( "class" => "product-layout-mode", "id" => "builder_product_layout_mode", "name" => "tm_meta[tmfbuilder][product_layout_mode][]" ),
-					       "options"          => array(
-						       array( "text" => esc_html__( "Dropdown", 'woocommerce-tm-extra-product-options' ), "value" => "dropdown" ),
-						       array( "text" => esc_html__( "Radio buttons", 'woocommerce-tm-extra-product-options' ), "value" => "radio" ),
-						       array( "text" => esc_html__( "Thumbnails", 'woocommerce-tm-extra-product-options' ), "value" => "thumbnail" ),
-					       ),
-					       "label"            => esc_html__( "Layout mode", 'woocommerce-tm-extra-product-options' ),
-					       "desc"             => esc_html__( "Select how the products will be presented.", 'woocommerce-tm-extra-product-options' ),
-					       "required"    => array(
-						       ".product-mode" => array(
-							       "operator" => "isnot",
-							       "value"    => "product",
-						       ),
-					       ),
-				       ),
-
-						$this->add_setting_items_per_row(
-					       "product",
-					       array(
-					       ),
-					       array(
-								".product-layout-mode" => array(
-									"operator" => "is",
-									"value"    => "thumbnail"
-								),
-								".product-mode" => array(
-									"operator" => "isnot",
-									"value"    => "product"
-								)				
-							)
-				       	),
-
-				       array( "placeholder",
-				              array(
-					              "label"    => esc_html__( 'Dropdown Placeholder', 'woocommerce-tm-extra-product-options' ),
-					              "desc"     => esc_html__( 'Enter the placeholder for the dropdown.', 'woocommerce-tm-extra-product-options' ),
-					              "required" => array(
-						              ".product-layout-mode" => array(
-							              "operator" => "is",
-							              "value"    => "dropdown",
-						              ),
-					              ),
-				              )
-				       ),
-
-				       $this->add_setting_min(
-					       "product_quantity",
-					       array(
-					       	   "extra_tags" => array("min"=>0),
-						       "default" => "",
-						       "label"   => esc_html__( 'Minimum quantity', 'woocommerce-tm-extra-product-options' )
-					       ),
-					       FALSE
-				       ),
-				       $this->add_setting_max(
-					       "product_quantity",
-					       array(
-					       	   "extra_tags" => array("min"=>0),
-						       "default" => "",
-						       "label"   => esc_html__( 'Maximum quantity', 'woocommerce-tm-extra-product-options' )
-					       ),
-					       FALSE
-				       ),
-				       array(
-					       "id"          => "product_shipped_individually",
-					       "wpmldisable" => 1,
-					       "default"     => "",
-					       "type"        => "checkbox",
-					       "tags"        => array( "value" => "1", "id" => "builder_product_shipped_individually", "name" => "tm_meta[tmfbuilder][product_shipped_individually][]" ),
-					       "label"       => esc_html__( 'Shipped individually', 'woocommerce-tm-extra-product-options' ),
-					       "desc"        => esc_html__( 'If this is enabled the included product is not shipped with the main product.', 'woocommerce-tm-extra-product-options' ),
-				       ),
-				       array(
-					       "id"          => "product_maintain_weight",
-					       "wpmldisable" => 1,
-					       "default"     => "",
-					       "type"        => "checkbox",
-					       "tags"        => array( "value" => "1", "id" => "builder_product_maintain_weight", "name" => "tm_meta[tmfbuilder][product_maintain_weight][]" ),
-					       "label"       => esc_html__( 'Maintain weight', 'woocommerce-tm-extra-product-options' ),
-					       "desc"        => esc_html__( 'If this is enabled the included product will add its weight to the main product.', 'woocommerce-tm-extra-product-options' ),
-					       "required"    => array(
-						       "#builder_product_shipped_individually" => array(
-							       "operator" => "isnot",
-							       "value"    => "1",
-						       ),
-					       ),
-				       ),
-				       array(
-					       "id"          => "product_priced_individually",
-					       "wpmldisable" => 1,
-					       "default"     => "",
-					       "type"        => "checkbox",
-					       "tags"        => array( "value" => "1", "id" => "builder_product_priced_individually", "name" => "tm_meta[tmfbuilder][product_priced_individually][]" ),
-					       "label"       => esc_html__( 'Priced individually', 'woocommerce-tm-extra-product-options' ),
-					       "desc"        => esc_html__( 'If this is enabled the included product will maintain its own price.', 'woocommerce-tm-extra-product-options' ),
-				       ),
-				       array(
-					       "id"               => "product_discount_type",
-					       "wpmldisable"      => 1,
-					       "default"          => "percent",
-					       "message0x0_class" => "tm-epo-switch-wrapper",
-					       "type"             => "radio",
-					       "tags"             => array( "id" => "builder_product_discount_type", "name" => "tm_meta[tmfbuilder][product_discount_type][]" ),
-					       "options"          => array(
-						       array( "text" => esc_html__( "Percentage", 'woocommerce-tm-extra-product-options' ), "value" => "percent" ),
-						       array( "text" => esc_html__( "Fixed amount", 'woocommerce-tm-extra-product-options' ), "value" => "fixed" ),
-					       ),
-					       "label"            => esc_html__( "Discount type", 'woocommerce-tm-extra-product-options' ),
-					       "desc"             => esc_html__( "Select the discount type. The discount applies to the final product price. If the product has extra options then the discount applies to the amount after the options have been added to the product price.", 'woocommerce-tm-extra-product-options' ),
-					       "required"    => array(
-						       "#builder_product_priced_individually" => array(
-							       "operator" => "is",
-							       "value"    => "1",
-						       ),
-					       ),
-				       ),
-				       array(
-							"id"          => "product_discount",
-							"default"     => "",
-							"type"        => "text",
-							"tags"        => array( "class" => "t", "id" => "builder_product_discount", "name" => "tm_meta[tmfbuilder][product_discount][]", "value" => "" ),
-							"label"       => esc_html__( 'Discount', 'woocommerce-tm-extra-product-options' ),
-							"desc"        => esc_html__( 'Enter the discount amount.', 'woocommerce-tm-extra-product-options' ),
-							"required"    => array(
-						       "#builder_product_priced_individually" => array(
-							       "operator" => "is",
-							       "value"    => "1",
-						       ),
-					       ),
-						),
-
-				),
-				"advanced_options" =>
+				"product",
 				array(
-					array(
-					       "id"          => "product_show_image",
-					       "wpmldisable" => 1,
-					       "default"     => "1",
-					       "type"        => "checkbox",
-					       "tags"        => array( "value" => "1", "id" => "builder_product_show_image", "name" => "tm_meta[tmfbuilder][product_show_image][]" ),
-					       "label"       => esc_html__( 'Show image', 'woocommerce-tm-extra-product-options' ),
-					       "desc"        => esc_html__( 'Enable to show the image of the associated product.', 'woocommerce-tm-extra-product-options' ),
-				       ),
-					array(
-					       "id"          => "product_show_title",
-					       "wpmldisable" => 1,
-					       "default"     => "1",
-					       "type"        => "checkbox",
-					       "tags"        => array( "value" => "1", "id" => "builder_product_show_title", "name" => "tm_meta[tmfbuilder][product_show_title][]" ),
-					       "label"       => esc_html__( 'Show title', 'woocommerce-tm-extra-product-options' ),
-					       "desc"        => esc_html__( 'Enable to show the title of the associated product.', 'woocommerce-tm-extra-product-options' ),
-				       ),
-					array(
-					       "id"          => "product_show_price",
-					       "wpmldisable" => 1,
-					       "default"     => "1",
-					       "type"        => "checkbox",
-					       "tags"        => array( "value" => "1", "id" => "builder_product_show_price", "name" => "tm_meta[tmfbuilder][product_show_price][]" ),
-					       "label"       => esc_html__( 'Show price', 'woocommerce-tm-extra-product-options' ),
-					       "desc"        => esc_html__( 'Enable to show the price of the associated product.', 'woocommerce-tm-extra-product-options' ),
-				       ),
-					array(
-					       "id"          => "product_show_description",
-					       "wpmldisable" => 1,
-					       "default"     => "1",
-					       "type"        => "checkbox",
-					       "tags"        => array( "value" => "1", "id" => "builder_product_show_description", "name" => "tm_meta[tmfbuilder][product_show_description][]" ),
-					       "label"       => esc_html__( 'Show description', 'woocommerce-tm-extra-product-options' ),
-					       "desc"        => esc_html__( 'Enable to show the description of the associated product.', 'woocommerce-tm-extra-product-options' ),
-				       ),
-					array(
-					       "id"          => "product_show_meta",
-					       "wpmldisable" => 1,
-					       "default"     => "1",
-					       "type"        => "checkbox",
-					       "tags"        => array( "value" => "1", "id" => "builder_product_show_meta", "name" => "tm_meta[tmfbuilder][product_show_meta][]" ),
-					       "label"       => esc_html__( 'Show meta', 'woocommerce-tm-extra-product-options' ),
-					       "desc"        => esc_html__( 'Enable to show the meta of the associated product.', 'woocommerce-tm-extra-product-options' ),
-				       ),
+					"_tabs" =>
+						array(
+							"general_options"  =>
+								array(
+									"enabled",
+									"required",
+									"hide_amount",
+
+									array(
+										"id"               => "product_mode",
+										"wpmldisable"      => 1,
+										"default"          => "products",
+										"message0x0_class" => "tm-epo-switch-wrapper",
+										"type"             => "radio",
+										"tags"             => array(
+											"class" => "product-mode",
+											"id"    => "builder_product_mode",
+											"name"  => "tm_meta[tmfbuilder][product_mode][]",
+										),
+										"options"          => array(
+											array(
+												"text"  => esc_html__( "Products", 'woocommerce-tm-extra-product-options' ),
+												"value" => "products",
+											),
+											array(
+												"text"  => esc_html__( "Single Product", 'woocommerce-tm-extra-product-options' ),
+												"value" => "product",
+											),
+											array(
+												"text"  => esc_html__( "Categories", 'woocommerce-tm-extra-product-options' ),
+												"value" => "categories",
+											),
+										),
+										"label"            => esc_html__( "Select mode", 'woocommerce-tm-extra-product-options' ),
+										"desc"             => esc_html__( "Whether to include specific products or categories.", 'woocommerce-tm-extra-product-options' ),
+									),
+
+									array(
+										"id"          => "product_categoryids",
+										"wpmldisable" => 1,
+										"default"     => "",
+										"type"        => "select",
+										"multiple"    => "multiple",
+										"fill"        => "category",
+										"tags"        => array(
+											"data-placeholder" => esc_attr( 'Search for a category ...', 'woocommerce-tm-extra-product-options' ),
+											"data-action"      => "woocommerce_json_search_categories",
+											"class"            => "wc-category-search product-categories-selector",
+											"id"               => "builder_product_categoryids",
+											"name"             => "tm_meta[tmfbuilder][product_categoryids][]",
+										),
+										"options"     => $this->fetch_product_categories_array(),
+										"label"       => esc_html__( "Select categories", 'woocommerce-tm-extra-product-options' ),
+										"desc"        => esc_html__( "Add categories to include all their associated products.", 'woocommerce-tm-extra-product-options' ),
+										"required"    => array(
+											".product-mode" => array(
+												"operator" => "is",
+												"value"    => "categories",
+											),
+										),
+									),
+
+									array(
+										"id"          => "product_productids",
+										"wpmldisable" => 1,
+										"default"     => "",
+										"type"        => "select",
+										"multiple"    => "multiple",
+										"fill"        => "product",
+										"tags"        => array(
+											"data-placeholder" => esc_attr( 'Search for a product ...', 'woocommerce-tm-extra-product-options' ),
+											"data-action"      => "woocommerce_json_search_products_and_variations",
+											"data-sortable"    => "true",
+											"class"            => "wc-product-search product-products-selector",
+											"id"               => "builder_product_productids",
+											"name"             => "tm_meta[tmfbuilder][product_productids][]",
+										),
+										"options"     => array(),
+										"label"       => esc_html__( "Select products", 'woocommerce-tm-extra-product-options' ),
+										"desc"        => esc_html__( "Add the products individually.", 'woocommerce-tm-extra-product-options' ),
+										"required"    => array(
+											".product-mode" => array(
+												"operator" => "is",
+												"value"    => array( "products", "product" ),
+											),
+										),
+									),
+
+									array(
+										"id"          => "product_orderby",
+										"wpmldisable" => 1,
+										"default"     => "ID",
+										"type"        => "select",
+										"tags"        => array(
+											"data-placeholder" => esc_attr( 'Choose a value', 'woocommerce-tm-extra-product-options' ),
+											"class"            => "fullwidth",
+											"id"               => "builder_product_orderby",
+											"name"             => "tm_meta[tmfbuilder][product_orderby][]",
+										),
+										"options"     => array(
+											array(
+												"text"  => esc_html__( "Default", 'woocommerce-tm-extra-product-options' ),
+												"value" => "none",
+											),
+											array(
+												"text"  => esc_html__( "Base price", 'woocommerce-tm-extra-product-options' ),
+												"value" => "baseprice",
+											),
+											array(
+												"text"  => esc_html__( "ID", 'woocommerce-tm-extra-product-options' ),
+												"value" => "ID",
+											),
+											array(
+												"text"  => esc_html__( "Title", 'woocommerce-tm-extra-product-options' ),
+												"value" => "title",
+											),
+											array(
+												"text"  => esc_html__( "Date", 'woocommerce-tm-extra-product-options' ),
+												"value" => "date",
+											),
+											array(
+												"text"  => esc_html__( "Name", 'woocommerce-tm-extra-product-options' ),
+												"value" => "name",
+											),
+											array(
+												"text"  => esc_html__( "Menu Order", 'woocommerce-tm-extra-product-options' ),
+												"value" => "menu_order",
+											),
+											array(
+												"text"  => esc_html__( "Random", 'woocommerce-tm-extra-product-options' ),
+												"value" => "rand",
+											),
+										),
+										"label"       => esc_html__( "Order by", 'woocommerce-tm-extra-product-options' ),
+										"desc"        => esc_html__( "Select the parameter which the products will be sorted by.", 'woocommerce-tm-extra-product-options' ),
+										"required"    => array(
+											".product-mode" => array(
+												"operator" => "isnot",
+												"value"    => "product",
+											),
+										),
+									),
+
+									array(
+										"id"               => "product_order",
+										"wpmldisable"      => 1,
+										"default"          => "asc",
+										"message0x0_class" => "tm-epo-switch-wrapper",
+										"type"             => "radio",
+										"tags"             => array(
+											"class" => "product-order",
+											"id"    => "builder_product_order",
+											"name"  => "tm_meta[tmfbuilder][product_order][]",
+										),
+										"options"          => array(
+											array(
+												"text"  => esc_html__( "Ascending", 'woocommerce-tm-extra-product-options' ),
+												"value" => "asc",
+											),
+											array(
+												"text"  => esc_html__( "Descending", 'woocommerce-tm-extra-product-options' ),
+												"value" => "desc",
+											),
+										),
+										"label"            => esc_html__( "Order", 'woocommerce-tm-extra-product-options' ),
+										"desc"             => esc_html__( "Select the sorting order of the products.", 'woocommerce-tm-extra-product-options' ),
+										"required"         => array(
+											".product-mode"    => array(
+												"operator" => "isnot",
+												"value"    => "product",
+											),
+											".product-orderby" => array(
+												"operator" => "isnot",
+												"value"    => "none",
+											),
+										),
+									),
+
+									array(
+										"id"          => "product_default_value",
+										"wpmldisable" => 1,
+										"default"     => "",
+										"type"        => "select",
+										"tags"        => array(
+											"data-placeholder" => esc_attr( 'Select a product', 'woocommerce-tm-extra-product-options' ),
+											"class"            => "wc-product-search product-default-value-search",
+											"id"               => "builder_product_productids",
+											"name"             => "tm_meta[tmfbuilder][product_default_value][]",
+										),
+										"options"     => array(),
+										"label"       => esc_html__( "Default product", 'woocommerce-tm-extra-product-options' ),
+										"desc"        => esc_html__( "Select the product that will be pre-selected.", 'woocommerce-tm-extra-product-options' ),
+									),
+
+									array(
+										"id"               => "product_layout_mode",
+										"wpmldisable"      => 1,
+										"default"          => "dropdown",
+										"message0x0_class" => "tm-epo-switch-wrapper",
+										"type"             => "radio",
+										"tags"             => array(
+											"class" => "product-layout-mode",
+											"id"    => "builder_product_layout_mode",
+											"name"  => "tm_meta[tmfbuilder][product_layout_mode][]",
+										),
+										"options"          => array(
+											array(
+												"text"  => esc_html__( "Dropdown", 'woocommerce-tm-extra-product-options' ),
+												"value" => "dropdown",
+											),
+											array(
+												"text"  => esc_html__( "Radio buttons", 'woocommerce-tm-extra-product-options' ),
+												"value" => "radio",
+											),
+											array(
+												"text"  => esc_html__( "Thumbnails", 'woocommerce-tm-extra-product-options' ),
+												"value" => "thumbnail",
+											),
+										),
+										"label"            => esc_html__( "Layout mode", 'woocommerce-tm-extra-product-options' ),
+										"desc"             => esc_html__( "Select how the products will be presented.", 'woocommerce-tm-extra-product-options' ),
+										"required"         => array(
+											".product-mode" => array(
+												"operator" => "isnot",
+												"value"    => "product",
+											),
+										),
+									),
+
+									$this->add_setting_items_per_row(
+										"product",
+										array(),
+										array(
+											".product-layout-mode" => array(
+												"operator" => "is",
+												"value"    => "thumbnail",
+											),
+											".product-mode"        => array(
+												"operator" => "isnot",
+												"value"    => "product",
+											),
+										)
+									),
+
+									array(
+										"placeholder",
+										array(
+											"label"    => esc_html__( 'Dropdown Placeholder', 'woocommerce-tm-extra-product-options' ),
+											"desc"     => esc_html__( 'Enter the placeholder for the dropdown.', 'woocommerce-tm-extra-product-options' ),
+											"required" => array(
+												".product-layout-mode" => array(
+													"operator" => "is",
+													"value"    => "dropdown",
+												),
+											),
+										),
+									),
+
+									$this->add_setting_min(
+										"product_quantity",
+										array(
+											"extra_tags" => array( "min" => 0 ),
+											"default"    => "",
+											"label"      => esc_html__( 'Minimum quantity', 'woocommerce-tm-extra-product-options' ),
+										),
+										false
+									),
+									$this->add_setting_max(
+										"product_quantity",
+										array(
+											"extra_tags" => array( "min" => 0 ),
+											"default"    => "",
+											"label"      => esc_html__( 'Maximum quantity', 'woocommerce-tm-extra-product-options' ),
+										),
+										false
+									),
+									array(
+										"id"          => "product_shipped_individually",
+										"wpmldisable" => 1,
+										"default"     => "",
+										"type"        => "checkbox",
+										"tags"        => array(
+											"value" => "1",
+											"id"    => "builder_product_shipped_individually",
+											"name"  => "tm_meta[tmfbuilder][product_shipped_individually][]",
+										),
+										"label"       => esc_html__( 'Shipped individually', 'woocommerce-tm-extra-product-options' ),
+										"desc"        => esc_html__( 'If this is enabled the included product is not shipped with the main product.', 'woocommerce-tm-extra-product-options' ),
+									),
+									array(
+										"id"          => "product_maintain_weight",
+										"wpmldisable" => 1,
+										"default"     => "",
+										"type"        => "checkbox",
+										"tags"        => array(
+											"value" => "1",
+											"id"    => "builder_product_maintain_weight",
+											"name"  => "tm_meta[tmfbuilder][product_maintain_weight][]",
+										),
+										"label"       => esc_html__( 'Maintain weight', 'woocommerce-tm-extra-product-options' ),
+										"desc"        => esc_html__( 'If this is enabled the included product will add its weight to the main product.', 'woocommerce-tm-extra-product-options' ),
+										"required"    => array(
+											"#builder_product_shipped_individually" => array(
+												"operator" => "isnot",
+												"value"    => "1",
+											),
+										),
+									),
+									array(
+										"id"          => "product_priced_individually",
+										"wpmldisable" => 1,
+										"default"     => "",
+										"type"        => "checkbox",
+										"tags"        => array(
+											"value" => "1",
+											"id"    => "builder_product_priced_individually",
+											"name"  => "tm_meta[tmfbuilder][product_priced_individually][]",
+										),
+										"label"       => esc_html__( 'Priced individually', 'woocommerce-tm-extra-product-options' ),
+										"desc"        => esc_html__( 'If this is enabled the included product will maintain its own price.', 'woocommerce-tm-extra-product-options' ),
+									),
+									array(
+										"id"               => "product_discount_type",
+										"wpmldisable"      => 1,
+										"default"          => "percent",
+										"message0x0_class" => "tm-epo-switch-wrapper",
+										"type"             => "radio",
+										"tags"             => array(
+											"id"   => "builder_product_discount_type",
+											"name" => "tm_meta[tmfbuilder][product_discount_type][]",
+										),
+										"options"          => array(
+											array(
+												"text"  => esc_html__( "Percentage", 'woocommerce-tm-extra-product-options' ),
+												"value" => "percent",
+											),
+											array(
+												"text"  => esc_html__( "Fixed amount", 'woocommerce-tm-extra-product-options' ),
+												"value" => "fixed",
+											),
+										),
+										"label"            => esc_html__( "Discount type", 'woocommerce-tm-extra-product-options' ),
+										"desc"             => esc_html__( "Select the discount type. The discount applies to the final product price. If the product has extra options then the discount applies to the amount after the options have been added to the product price.", 'woocommerce-tm-extra-product-options' ),
+										"required"         => array(
+											"#builder_product_priced_individually" => array(
+												"operator" => "is",
+												"value"    => "1",
+											),
+										),
+									),
+									array(
+										"id"       => "product_discount",
+										"default"  => "",
+										"type"     => "text",
+										"tags"     => array(
+											"class" => "t",
+											"id"    => "builder_product_discount",
+											"name"  => "tm_meta[tmfbuilder][product_discount][]",
+											"value" => "",
+										),
+										"label"    => esc_html__( 'Discount', 'woocommerce-tm-extra-product-options' ),
+										"desc"     => esc_html__( 'Enter the discount amount.', 'woocommerce-tm-extra-product-options' ),
+										"required" => array(
+											"#builder_product_priced_individually" => array(
+												"operator" => "is",
+												"value"    => "1",
+											),
+										),
+									),
+
+								),
+							"advanced_options" =>
+								array(
+									array(
+										"id"          => "product_show_image",
+										"wpmldisable" => 1,
+										"default"     => "1",
+										"type"        => "checkbox",
+										"tags"        => array(
+											"value" => "1",
+											"id"    => "builder_product_show_image",
+											"name"  => "tm_meta[tmfbuilder][product_show_image][]",
+										),
+										"label"       => esc_html__( 'Show image', 'woocommerce-tm-extra-product-options' ),
+										"desc"        => esc_html__( 'Enable to show the image of the associated product.', 'woocommerce-tm-extra-product-options' ),
+									),
+									array(
+										"id"          => "product_show_title",
+										"wpmldisable" => 1,
+										"default"     => "1",
+										"type"        => "checkbox",
+										"tags"        => array(
+											"value" => "1",
+											"id"    => "builder_product_show_title",
+											"name"  => "tm_meta[tmfbuilder][product_show_title][]",
+										),
+										"label"       => esc_html__( 'Show title', 'woocommerce-tm-extra-product-options' ),
+										"desc"        => esc_html__( 'Enable to show the title of the associated product.', 'woocommerce-tm-extra-product-options' ),
+									),
+									array(
+										"id"          => "product_show_price",
+										"wpmldisable" => 1,
+										"default"     => "1",
+										"type"        => "checkbox",
+										"tags"        => array(
+											"value" => "1",
+											"id"    => "builder_product_show_price",
+											"name"  => "tm_meta[tmfbuilder][product_show_price][]",
+										),
+										"label"       => esc_html__( 'Show price', 'woocommerce-tm-extra-product-options' ),
+										"desc"        => esc_html__( 'Enable to show the price of the associated product.', 'woocommerce-tm-extra-product-options' ),
+									),
+									array(
+										"id"          => "product_show_description",
+										"wpmldisable" => 1,
+										"default"     => "1",
+										"type"        => "checkbox",
+										"tags"        => array(
+											"value" => "1",
+											"id"    => "builder_product_show_description",
+											"name"  => "tm_meta[tmfbuilder][product_show_description][]",
+										),
+										"label"       => esc_html__( 'Show description', 'woocommerce-tm-extra-product-options' ),
+										"desc"        => esc_html__( 'Enable to show the description of the associated product.', 'woocommerce-tm-extra-product-options' ),
+									),
+									array(
+										"id"          => "product_show_meta",
+										"wpmldisable" => 1,
+										"default"     => "1",
+										"type"        => "checkbox",
+										"tags"        => array(
+											"value" => "1",
+											"id"    => "builder_product_show_meta",
+											"name"  => "tm_meta[tmfbuilder][product_show_meta][]",
+										),
+										"label"       => esc_html__( 'Show meta', 'woocommerce-tm-extra-product-options' ),
+										"desc"        => esc_html__( 'Enable to show the meta of the associated product.', 'woocommerce-tm-extra-product-options' ),
+									),
+								),
+						),
 				),
-				),
-				),
-				FALSE,
+				false,
 				array(
 					"label_options"        => 1,
 					"general_options"      => 1,
@@ -1647,15 +2385,15 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 						"name" => esc_html__( "Advanced options", 'woocommerce-tm-extra-product-options' ),
 						"icon" => "tcfa tcfa-cog",
 						"slug" => "tma-tab-advanced",
-					)
+					),
 				)
 			),
 
 		);
 
 		$this->elements_array = array_merge(
-				$this->elements_array, 
-				$this->elements_array_addons );	
+			$this->elements_array,
+			$this->elements_array_addons );
 
 		$this->elements_array = apply_filters( 'wc_epo_builder_after_element_array', $this->elements_array );
 
@@ -1675,7 +2413,7 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 		foreach ( $product_categories as $product_category ) {
 			$list[] = array(
 				"text"  => $product_category->name,
-				"value" => $product_category->term_id
+				"value" => $product_category->term_id,
 			);
 		}
 
@@ -1695,7 +2433,12 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			"nodiv"       => 1,
 			"default"     => "5",
 			"type"        => "hidden",
-			"tags"        => array( "class" => "tm-variations-disabled", "id" => "builder_" . $name . "_disabled", "name" => "tm_meta[tmfbuilder][" . $name . "_disabled]", "value" => "" ),
+			"tags"        => array(
+				"class" => "tm-variations-disabled",
+				"id"    => "builder_" . $name . "_disabled",
+				"name"  => "tm_meta[tmfbuilder][" . $name . "_disabled]",
+				"value" => "",
+			),
 			"label"       => "",
 			"desc"        => "",
 		);
@@ -1712,7 +2455,10 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			"wpmldisable" => 1,
 			"default"     => "",
 			"type"        => "select",
-			"tags"        => array( "id" => "builder_" . $name . "_pips", "name" => "tm_meta[tmfbuilder][" . $name . "_pips][]" ),
+			"tags"        => array(
+				"id"   => "builder_" . $name . "_pips",
+				"name" => "tm_meta[tmfbuilder][" . $name . "_pips][]",
+			),
 			"options"     => array(
 				array( "text" => esc_html__( "No", 'woocommerce-tm-extra-product-options' ), "value" => "" ),
 				array( "text" => esc_html__( "Yes", 'woocommerce-tm-extra-product-options' ), "value" => "yes" ),
@@ -1733,14 +2479,19 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			"wpmldisable" => 1,
 			"default"     => "10",
 			"type"        => "number",
-			"tags"        => array( "class" => "n", "id" => "builder_" . $name . "_noofpips", "name" => "tm_meta[tmfbuilder][" . $name . "_noofpips][]", "value" => "" ),
+			"tags"        => array(
+				"class" => "n",
+				"id"    => "builder_" . $name . "_noofpips",
+				"name"  => "tm_meta[tmfbuilder][" . $name . "_noofpips][]",
+				"value" => "",
+			),
 			"label"       => esc_html__( 'Number of points', 'woocommerce-tm-extra-product-options' ),
 			"desc"        => esc_html__( 'Enter the number of values for the points display.', 'woocommerce-tm-extra-product-options' ),
 			"required"    => array(
 				"#builder_range_pips" => array(
 					"operator" => "is",
-					"value"    => "yes"
-				)
+					"value"    => "yes",
+				),
 			),
 		);
 	}
@@ -1756,13 +2507,25 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			"wpmldisable" => 1,
 			"default"     => "",
 			"type"        => "select",
-			"tags"        => array( "id" => "builder_" . $name . "_show_picker_value", "name" => "tm_meta[tmfbuilder][" . $name . "_show_picker_value][]" ),
+			"tags"        => array(
+				"id"   => "builder_" . $name . "_show_picker_value",
+				"name" => "tm_meta[tmfbuilder][" . $name . "_show_picker_value][]",
+			),
 			"options"     => array(
 				array( "text" => esc_html__( "Tooltip", 'woocommerce-tm-extra-product-options' ), "value" => "" ),
 				array( "text" => esc_html__( "Left side", 'woocommerce-tm-extra-product-options' ), "value" => "left" ),
-				array( "text" => esc_html__( "Right side", 'woocommerce-tm-extra-product-options' ), "value" => "right" ),
-				array( "text" => esc_html__( "Tooltip and Left side", 'woocommerce-tm-extra-product-options' ), "value" => "tleft" ),
-				array( "text" => esc_html__( "Tooltip and Right side", 'woocommerce-tm-extra-product-options' ), "value" => "tright" ),
+				array(
+					"text"  => esc_html__( "Right side", 'woocommerce-tm-extra-product-options' ),
+					"value" => "right",
+				),
+				array(
+					"text"  => esc_html__( "Tooltip and Left side", 'woocommerce-tm-extra-product-options' ),
+					"value" => "tleft",
+				),
+				array(
+					"text"  => esc_html__( "Tooltip and Right side", 'woocommerce-tm-extra-product-options' ),
+					"value" => "tright",
+				),
 			),
 			"label"       => esc_html__( "Show value on", 'woocommerce-tm-extra-product-options' ),
 			"desc"        => esc_html__( "Select how to show the value of the range picker.", 'woocommerce-tm-extra-product-options' ),
@@ -1776,7 +2539,7 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 	 */
 	public final function add_setting_rangemin( $name = "" ) {
 
-		return $this->add_setting_min( $name, array(), FALSE );
+		return $this->add_setting_min( $name, array(), false );
 
 	}
 
@@ -1787,7 +2550,7 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 	 */
 	public final function add_setting_rangemax( $name = "" ) {
 
-		return $this->add_setting_max( $name, array(), FALSE );
+		return $this->add_setting_max( $name, array(), false );
 
 	}
 
@@ -1802,7 +2565,12 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			"wpmldisable" => 1,
 			"default"     => "1",
 			"type"        => "text",
-			"tags"        => array( "class" => "n", "id" => "builder_" . $name . "_step", "name" => "tm_meta[tmfbuilder][" . $name . "_step][]", "value" => "" ),
+			"tags"        => array(
+				"class" => "n",
+				"id"    => "builder_" . $name . "_step",
+				"name"  => "tm_meta[tmfbuilder][" . $name . "_step][]",
+				"value" => "",
+			),
 			"label"       => esc_html__( 'Step value', 'woocommerce-tm-extra-product-options' ),
 			"desc"        => esc_html__( 'Enter the step for the handle.', 'woocommerce-tm-extra-product-options' ),
 		);
@@ -1819,18 +2587,37 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			"wpmldisable" => 1,
 			"default"     => "",
 			"type"        => "select",
-			"tags"        => array( "class" => "tc-validateas", "id" => "builder_" . $name . "_validation1", "name" => "tm_meta[tmfbuilder][" . $name . "_validation1][]" ),
+			"tags"        => array(
+				"class" => "tc-validateas",
+				"id"    => "builder_" . $name . "_validation1",
+				"name"  => "tm_meta[tmfbuilder][" . $name . "_validation1][]",
+			),
 			"options"     => array(
 				array( "text" => esc_html__( 'No validation', 'woocommerce-tm-extra-product-options' ), "value" => '' ),
 				array( "text" => esc_html__( 'Email', 'woocommerce-tm-extra-product-options' ), "value" => 'email' ),
 				array( "text" => esc_html__( 'Url', 'woocommerce-tm-extra-product-options' ), "value" => 'url' ),
 				array( "text" => esc_html__( 'Number', 'woocommerce-tm-extra-product-options' ), "value" => 'number' ),
 				array( "text" => esc_html__( 'Digits', 'woocommerce-tm-extra-product-options' ), "value" => 'digits' ),
-				array( "text" => esc_html__( 'Letters only', 'woocommerce-tm-extra-product-options' ), "value" => 'lettersonly' ),
-				array( "text" => esc_html__( 'Letters or Space only', 'woocommerce-tm-extra-product-options' ), "value" => 'lettersspaceonly' ),
-				array( "text" => esc_html__( 'Alphanumeric', 'woocommerce-tm-extra-product-options' ), "value" => 'alphanumeric' ),
-				array( "text" => esc_html__( 'Alphanumeric Unicode', 'woocommerce-tm-extra-product-options' ), "value" => 'alphanumericunicode' ),
-				array( "text" => esc_html__( 'Alphanumeric Unicode or Space', 'woocommerce-tm-extra-product-options' ), "value" => 'alphanumericunicodespace' ),
+				array(
+					"text"  => esc_html__( 'Letters only', 'woocommerce-tm-extra-product-options' ),
+					"value" => 'lettersonly',
+				),
+				array(
+					"text"  => esc_html__( 'Letters or Space only', 'woocommerce-tm-extra-product-options' ),
+					"value" => 'lettersspaceonly',
+				),
+				array(
+					"text"  => esc_html__( 'Alphanumeric', 'woocommerce-tm-extra-product-options' ),
+					"value" => 'alphanumeric',
+				),
+				array(
+					"text"  => esc_html__( 'Alphanumeric Unicode', 'woocommerce-tm-extra-product-options' ),
+					"value" => 'alphanumericunicode',
+				),
+				array(
+					"text"  => esc_html__( 'Alphanumeric Unicode or Space', 'woocommerce-tm-extra-product-options' ),
+					"value" => 'alphanumericunicodespace',
+				),
 			),
 			"label"       => esc_html__( 'Validate as', 'woocommerce-tm-extra-product-options' ),
 			"desc"        => esc_html__( 'Choose whether the field will be validated against the choosen method.', 'woocommerce-tm-extra-product-options' ),
@@ -1848,7 +2635,11 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			"wpmldisable" => 1,
 			"default"     => "",
 			"type"        => "checkbox",
-			"tags"        => array( "value" => "1", "id" => "builder_" . $name . "_required", "name" => "tm_meta[tmfbuilder][" . $name . "_required][]" ),
+			"tags"        => array(
+				"value" => "1",
+				"id"    => "builder_" . $name . "_required",
+				"name"  => "tm_meta[tmfbuilder][" . $name . "_required][]",
+			),
 			"label"       => esc_html__( 'Required', 'woocommerce-tm-extra-product-options' ),
 			"desc"        => esc_html__( 'Choose whether the user must fill out this field or not.', 'woocommerce-tm-extra-product-options' ),
 		);
@@ -1865,7 +2656,12 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			"wpmldisable" => 1,
 			"default"     => "1",
 			"type"        => "checkbox",
-			"tags"        => array( "value" => "1", "class" => "is_enabled", "id" => "builder_" . $name . "_required", "name" => "tm_meta[tmfbuilder][" . $name . "_enabled][]" ),
+			"tags"        => array(
+				"value" => "1",
+				"class" => "is_enabled",
+				"id"    => "builder_" . $name . "_required",
+				"name"  => "tm_meta[tmfbuilder][" . $name . "_enabled][]",
+			),
 			"label"       => esc_html__( 'Enabled', 'woocommerce-tm-extra-product-options' ),
 			"desc"        => esc_html__( 'Choose whether the option is enabled or not.', 'woocommerce-tm-extra-product-options' ),
 		);
@@ -1878,17 +2674,23 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 	 */
 	public final function add_setting_price( $name = "" ) {
 		return array(
-			"id"          => $name . "_price",
-			"default"     => "",
-			"type"        => "text",
-			"tags"        => array( "class" => "t tc-element-setting-price", "id" => "builder_" . $name . "_price", "name" => "tm_meta[tmfbuilder][" . $name . "_price][]", "value" => "", "step" => "any" ),
-			"label"       => esc_html__( 'Price', 'woocommerce-tm-extra-product-options' ),
-			"desc"        => esc_html__( 'Enter the price for this field or leave it blank for no price.', 'woocommerce-tm-extra-product-options' ),
-			"required"    => array(
+			"id"       => $name . "_price",
+			"default"  => "",
+			"type"     => "text",
+			"tags"     => array(
+				"class" => "t tc-element-setting-price",
+				"id"    => "builder_" . $name . "_price",
+				"name"  => "tm_meta[tmfbuilder][" . $name . "_price][]",
+				"value" => "",
+				"step"  => "any",
+			),
+			"label"    => esc_html__( 'Price', 'woocommerce-tm-extra-product-options' ),
+			"desc"     => esc_html__( 'Enter the price for this field or leave it blank for no price.', 'woocommerce-tm-extra-product-options' ),
+			"required" => array(
 				".tm-pricetype-selector" => array(
 					"operator" => "isnot",
-					"value"    => "currentstep"
-				)
+					"value"    => "currentstep",
+				),
 			),
 		);
 	}
@@ -1900,17 +2702,23 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 	 */
 	public final function add_setting_sale_price( $name = "" ) {
 		return array(
-			"id"          => $name . "_sale_price",
-			"default"     => "",
-			"type"        => "text",
-			"tags"        => array( "class" => "t tc-element-setting-sale-price", "id" => "builder_" . $name . "_sale_price", "name" => "tm_meta[tmfbuilder][" . $name . "_sale_price][]", "value" => "", "step" => "any" ),
-			"label"       => esc_html__( 'Sale Price', 'woocommerce-tm-extra-product-options' ),
-			"desc"        => esc_html__( 'Enter the sale price for this field or leave it blankto use the default price.', 'woocommerce-tm-extra-product-options' ),
-			"required"    => array(
+			"id"       => $name . "_sale_price",
+			"default"  => "",
+			"type"     => "text",
+			"tags"     => array(
+				"class" => "t tc-element-setting-sale-price",
+				"id"    => "builder_" . $name . "_sale_price",
+				"name"  => "tm_meta[tmfbuilder][" . $name . "_sale_price][]",
+				"value" => "",
+				"step"  => "any",
+			),
+			"label"    => esc_html__( 'Sale Price', 'woocommerce-tm-extra-product-options' ),
+			"desc"     => esc_html__( 'Enter the sale price for this field or leave it blankto use the default price.', 'woocommerce-tm-extra-product-options' ),
+			"required" => array(
 				".tm-pricetype-selector" => array(
 					"operator" => "isnot",
-					"value"    => "currentstep"
-				)
+					"value"    => "currentstep",
+				),
 			),
 		);
 	}
@@ -1925,7 +2733,12 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			"id"      => $name . "_text_after_price",
 			"default" => "",
 			"type"    => "text",
-			"tags"    => array( "class" => "t", "id" => "builder_" . $name . "_text_after_price", "name" => "tm_meta[tmfbuilder][" . $name . "_text_after_price][]", "value" => "" ),
+			"tags"    => array(
+				"class" => "t",
+				"id"    => "builder_" . $name . "_text_after_price",
+				"name"  => "tm_meta[tmfbuilder][" . $name . "_text_after_price][]",
+				"value" => "",
+			),
 			"label"   => esc_html__( 'Text after Price', 'woocommerce-tm-extra-product-options' ),
 			"desc"    => esc_html__( 'Enter a text to display after the price for this field or leave it blank for no text.', 'woocommerce-tm-extra-product-options' ),
 		);
@@ -1941,7 +2754,12 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			"id"      => $name . "_text_before_price",
 			"default" => "",
 			"type"    => "text",
-			"tags"    => array( "class" => "t", "id" => "builder_" . $name . "_text_before_price", "name" => "tm_meta[tmfbuilder][" . $name . "_text_before_price][]", "value" => "" ),
+			"tags"    => array(
+				"class" => "t",
+				"id"    => "builder_" . $name . "_text_before_price",
+				"name"  => "tm_meta[tmfbuilder][" . $name . "_text_before_price][]",
+				"value" => "",
+			),
 			"label"   => esc_html__( 'Text before Price', 'woocommerce-tm-extra-product-options' ),
 			"desc"    => esc_html__( 'Enter a text to display before the price for this field or leave it blank for no text.', 'woocommerce-tm-extra-product-options' ),
 		);
@@ -1956,24 +2774,72 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 
 		$options = array(
 			array( "text" => esc_html__( 'Fixed amount', 'woocommerce-tm-extra-product-options' ), "value" => "" ),
-			array( "text" => esc_html__( 'Percent of the original price', 'woocommerce-tm-extra-product-options' ), "value" => "percent" ),
-			array( "text" => esc_html__( 'Percent of the original price + options', 'woocommerce-tm-extra-product-options' ), "value" => "percentcurrenttotal" ),
-			array( "text" => esc_html__( 'Price per word', 'woocommerce-tm-extra-product-options' ), "value" => "word" ),
-			array( "text" => esc_html__( "Percent of the original price per word", 'woocommerce-tm-extra-product-options' ), "value" => "wordpercent" ),
-			array( "text" => esc_html__( 'Price per word (no n-th char)', 'woocommerce-tm-extra-product-options' ), "value" => "wordnon" ),
-			array( "text" => esc_html__( "Percent of the original price per word (no n-th char)", 'woocommerce-tm-extra-product-options' ), "value" => "wordpercentnon" ),
-			array( "text" => esc_html__( 'Price per char', 'woocommerce-tm-extra-product-options' ), "value" => "char" ),
-			array( "text" => esc_html__( "Percent of the original price per char", 'woocommerce-tm-extra-product-options' ), "value" => "charpercent" ),
-			array( "text" => esc_html__( 'Price per char (no first char)', 'woocommerce-tm-extra-product-options' ), "value" => "charnofirst" ),
-			array( "text" => esc_html__( 'Price per char (no n-th char)', 'woocommerce-tm-extra-product-options' ), "value" => "charnon" ),
-			array( "text" => esc_html__( 'Price per char (no n-th char and no spaces)', 'woocommerce-tm-extra-product-options' ), "value" => "charnonnospaces" ),
-			array( "text" => esc_html__( "Percent of the original price per char (no first char)", 'woocommerce-tm-extra-product-options' ), "value" => "charpercentnofirst" ),
-			array( "text" => esc_html__( "Percent of the original price per char (no n-th char)", 'woocommerce-tm-extra-product-options' ), "value" => "charpercentnon" ),
-			array( "text" => esc_html__( "Percent of the original price per char (no n-th char and no spaces)", 'woocommerce-tm-extra-product-options' ), "value" => "charpercentnonnospaces" ),
-			array( "text" => esc_html__( 'Price per char (no spaces)', 'woocommerce-tm-extra-product-options' ), "value" => "charnospaces" ),
+			array(
+				"text"  => esc_html__( 'Percent of the original price', 'woocommerce-tm-extra-product-options' ),
+				"value" => "percent",
+			),
+			array(
+				"text"  => esc_html__( 'Percent of the original price + options', 'woocommerce-tm-extra-product-options' ),
+				"value" => "percentcurrenttotal",
+			),
+			array(
+				"text"  => esc_html__( 'Price per word', 'woocommerce-tm-extra-product-options' ),
+				"value" => "word",
+			),
+			array(
+				"text"  => esc_html__( "Percent of the original price per word", 'woocommerce-tm-extra-product-options' ),
+				"value" => "wordpercent",
+			),
+			array(
+				"text"  => esc_html__( 'Price per word (no n-th char)', 'woocommerce-tm-extra-product-options' ),
+				"value" => "wordnon",
+			),
+			array(
+				"text"  => esc_html__( "Percent of the original price per word (no n-th char)", 'woocommerce-tm-extra-product-options' ),
+				"value" => "wordpercentnon",
+			),
+			array(
+				"text"  => esc_html__( 'Price per char', 'woocommerce-tm-extra-product-options' ),
+				"value" => "char",
+			),
+			array(
+				"text"  => esc_html__( "Percent of the original price per char", 'woocommerce-tm-extra-product-options' ),
+				"value" => "charpercent",
+			),
+			array(
+				"text"  => esc_html__( 'Price per char (no first char)', 'woocommerce-tm-extra-product-options' ),
+				"value" => "charnofirst",
+			),
+			array(
+				"text"  => esc_html__( 'Price per char (no n-th char)', 'woocommerce-tm-extra-product-options' ),
+				"value" => "charnon",
+			),
+			array(
+				"text"  => esc_html__( 'Price per char (no n-th char and no spaces)', 'woocommerce-tm-extra-product-options' ),
+				"value" => "charnonnospaces",
+			),
+			array(
+				"text"  => esc_html__( "Percent of the original price per char (no first char)", 'woocommerce-tm-extra-product-options' ),
+				"value" => "charpercentnofirst",
+			),
+			array(
+				"text"  => esc_html__( "Percent of the original price per char (no n-th char)", 'woocommerce-tm-extra-product-options' ),
+				"value" => "charpercentnon",
+			),
+			array(
+				"text"  => esc_html__( "Percent of the original price per char (no n-th char and no spaces)", 'woocommerce-tm-extra-product-options' ),
+				"value" => "charpercentnonnospaces",
+			),
+			array(
+				"text"  => esc_html__( 'Price per char (no spaces)', 'woocommerce-tm-extra-product-options' ),
+				"value" => "charnospaces",
+			),
 			array( "text" => esc_html__( 'Price per row', 'woocommerce-tm-extra-product-options' ), "value" => "row" ),
 			array( "text" => esc_html__( 'Math formula', 'woocommerce-tm-extra-product-options' ), "value" => "math" ),
-			array( "text" => esc_html__( 'Fixed amount + options', 'woocommerce-tm-extra-product-options' ), "value" => "fixedcurrenttotal" ),
+			array(
+				"text"  => esc_html__( 'Fixed amount + options', 'woocommerce-tm-extra-product-options' ),
+				"value" => "fixedcurrenttotal",
+			),
 		);
 
 		$options = apply_filters( 'wc_epo_add_setting_price_type', $options, $name );
@@ -1983,7 +2849,11 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			"wpmldisable" => 1,
 			"default"     => "",
 			"type"        => "select",
-			"tags"        => array( "class" => "tm-pricetype-selector", "id" => "builder_" . $name . "_price_type", "name" => "tm_meta[tmfbuilder][" . $name . "_price_type][]" ),
+			"tags"        => array(
+				"class" => "tm-pricetype-selector",
+				"id"    => "builder_" . $name . "_price_type",
+				"name"  => "tm_meta[tmfbuilder][" . $name . "_price_type][]",
+			),
 			"options"     => $options,
 			"label"       => esc_html__( 'Price type', 'woocommerce-tm-extra-product-options' ),
 		);
@@ -1999,24 +2869,75 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 		$options = array(
 			array( "text" => esc_html__( "Fixed amount", 'woocommerce-tm-extra-product-options' ), "value" => "" ),
 			array( "text" => esc_html__( "Quantity", 'woocommerce-tm-extra-product-options' ), "value" => "step" ),
-			array( "text" => esc_html__( "Current value", 'woocommerce-tm-extra-product-options' ), "value" => "currentstep" ),
-			array( "text" => esc_html__( "Percent of the original price", 'woocommerce-tm-extra-product-options' ), "value" => "percent" ),
-			array( "text" => esc_html__( "Percent of the original price + options", 'woocommerce-tm-extra-product-options' ), "value" => "percentcurrenttotal" ),
-			array( "text" => esc_html__( 'Price per word', 'woocommerce-tm-extra-product-options' ), "value" => "word" ),
-			array( "text" => esc_html__( "Percent of the original price per word", 'woocommerce-tm-extra-product-options' ), "value" => "wordpercent" ),
-			array( "text" => esc_html__( 'Price per word (no n-th char)', 'woocommerce-tm-extra-product-options' ), "value" => "wordnon" ),
-			array( "text" => esc_html__( "Percent of the original price per word (no n-th char)", 'woocommerce-tm-extra-product-options' ), "value" => "wordpercentnon" ),
-			array( "text" => esc_html__( "Price per char", 'woocommerce-tm-extra-product-options' ), "value" => "char" ),
-			array( "text" => esc_html__( "Percent of the original price per char", 'woocommerce-tm-extra-product-options' ), "value" => "charpercent" ),
-			array( "text" => esc_html__( 'Price per char (no first char)', 'woocommerce-tm-extra-product-options' ), "value" => "charnofirst" ),
-			array( "text" => esc_html__( 'Price per char (no n-th char)', 'woocommerce-tm-extra-product-options' ), "value" => "charnon" ),
-			array( "text" => esc_html__( 'Price per char (no n-th char and no spaces)', 'woocommerce-tm-extra-product-options' ), "value" => "charnonnospaces" ),
-			array( "text" => esc_html__( "Percent of the original price per char (no first char)", 'woocommerce-tm-extra-product-options' ), "value" => "charpercentnofirst" ),
-			array( "text" => esc_html__( "Percent of the original price per char (no n-th char)", 'woocommerce-tm-extra-product-options' ), "value" => "charpercentnon" ),
-			array( "text" => esc_html__( "Percent of the original price per char (no n-th char and no spaces)", 'woocommerce-tm-extra-product-options' ), "value" => "charpercentnonnospaces" ),
-			array( "text" => esc_html__( 'Price per char (no spaces)', 'woocommerce-tm-extra-product-options' ), "value" => "charnospaces" ),
+			array(
+				"text"  => esc_html__( "Current value", 'woocommerce-tm-extra-product-options' ),
+				"value" => "currentstep",
+			),
+			array(
+				"text"  => esc_html__( "Percent of the original price", 'woocommerce-tm-extra-product-options' ),
+				"value" => "percent",
+			),
+			array(
+				"text"  => esc_html__( "Percent of the original price + options", 'woocommerce-tm-extra-product-options' ),
+				"value" => "percentcurrenttotal",
+			),
+			array(
+				"text"  => esc_html__( 'Price per word', 'woocommerce-tm-extra-product-options' ),
+				"value" => "word",
+			),
+			array(
+				"text"  => esc_html__( "Percent of the original price per word", 'woocommerce-tm-extra-product-options' ),
+				"value" => "wordpercent",
+			),
+			array(
+				"text"  => esc_html__( 'Price per word (no n-th char)', 'woocommerce-tm-extra-product-options' ),
+				"value" => "wordnon",
+			),
+			array(
+				"text"  => esc_html__( "Percent of the original price per word (no n-th char)", 'woocommerce-tm-extra-product-options' ),
+				"value" => "wordpercentnon",
+			),
+			array(
+				"text"  => esc_html__( "Price per char", 'woocommerce-tm-extra-product-options' ),
+				"value" => "char",
+			),
+			array(
+				"text"  => esc_html__( "Percent of the original price per char", 'woocommerce-tm-extra-product-options' ),
+				"value" => "charpercent",
+			),
+			array(
+				"text"  => esc_html__( 'Price per char (no first char)', 'woocommerce-tm-extra-product-options' ),
+				"value" => "charnofirst",
+			),
+			array(
+				"text"  => esc_html__( 'Price per char (no n-th char)', 'woocommerce-tm-extra-product-options' ),
+				"value" => "charnon",
+			),
+			array(
+				"text"  => esc_html__( 'Price per char (no n-th char and no spaces)', 'woocommerce-tm-extra-product-options' ),
+				"value" => "charnonnospaces",
+			),
+			array(
+				"text"  => esc_html__( "Percent of the original price per char (no first char)", 'woocommerce-tm-extra-product-options' ),
+				"value" => "charpercentnofirst",
+			),
+			array(
+				"text"  => esc_html__( "Percent of the original price per char (no n-th char)", 'woocommerce-tm-extra-product-options' ),
+				"value" => "charpercentnon",
+			),
+			array(
+				"text"  => esc_html__( "Percent of the original price per char (no n-th char and no spaces)", 'woocommerce-tm-extra-product-options' ),
+				"value" => "charpercentnonnospaces",
+			),
+			array(
+				"text"  => esc_html__( 'Price per char (no spaces)', 'woocommerce-tm-extra-product-options' ),
+				"value" => "charnospaces",
+			),
 			array( "text" => esc_html__( 'Math formula', 'woocommerce-tm-extra-product-options' ), "value" => "math" ),
-			array( "text" => esc_html__( 'Fixed amount + options', 'woocommerce-tm-extra-product-options' ), "value" => "fixedcurrenttotal" ),
+			array(
+				"text"  => esc_html__( 'Fixed amount + options', 'woocommerce-tm-extra-product-options' ),
+				"value" => "fixedcurrenttotal",
+			),
 		);
 
 		$options = apply_filters( 'wc_epo_add_setting_price_type', $options, $name );
@@ -2026,7 +2947,11 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			"wpmldisable" => 1,
 			"default"     => "",
 			"type"        => "select",
-			"tags"        => array( "class" => "tm-pricetype-selector", "id" => "builder_" . $name . "_price_type", "name" => "tm_meta[tmfbuilder][" . $name . "_price_type][]" ),
+			"tags"        => array(
+				"class" => "tm-pricetype-selector",
+				"id"    => "builder_" . $name . "_price_type",
+				"name"  => "tm_meta[tmfbuilder][" . $name . "_price_type][]",
+			),
 			"options"     => $options,
 			"label"       => esc_html__( 'Price type', 'woocommerce-tm-extra-product-options' ),
 		);
@@ -2043,7 +2968,12 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			"wpmldisable" => 1,
 			"default"     => "",
 			"type"        => "checkbox",
-			"tags"        => array( "class" => "c tc-element-setting-fee", "id" => "builder_" . $name . "_fee", "name" => "tm_meta[tmfbuilder][" . $name . "_fee][]", "value" => "1" ),
+			"tags"        => array(
+				"class" => "c tc-element-setting-fee",
+				"id"    => "builder_" . $name . "_fee",
+				"name"  => "tm_meta[tmfbuilder][" . $name . "_fee][]",
+				"value" => "1",
+			),
 			"label"       => esc_html__( 'Set to Fee', 'woocommerce-tm-extra-product-options' ),
 			"desc"        => esc_html__( 'Attach the price to the order making it independent of the product quantity.', 'woocommerce-tm-extra-product-options' ),
 		), $args );
@@ -2064,14 +2994,27 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			"wpmldisable" => 1,
 			"default"     => "",
 			"type"        => "number",
-			"tags"        => array( "class" => "n", "id" => "builder_" . $name . "_freechars", "name" => "tm_meta[tmfbuilder][" . $name . "_freechars][]", "value" => "", "step" => "1" ),
+			"tags"        => array(
+				"class" => "n",
+				"id"    => "builder_" . $name . "_freechars",
+				"name"  => "tm_meta[tmfbuilder][" . $name . "_freechars][]",
+				"value" => "",
+				"step"  => "1",
+			),
 			"label"       => esc_html__( 'Free chars', 'woocommerce-tm-extra-product-options' ),
 			"desc"        => esc_html__( 'Enter the number of free chars.', 'woocommerce-tm-extra-product-options' ),
 			"required"    => array(
 				".tm-pricetype-selector" => array(
 					"operator" => "is",
-					"value"    => array( "wordnon", "wordpercentnon", "charnon", "charnonnospaces", "charpercentnon", "charpercentnonnospaces" )
-				)
+					"value"    => array(
+						"wordnon",
+						"wordpercentnon",
+						"charnon",
+						"charnonnospaces",
+						"charpercentnon",
+						"charpercentnonnospaces",
+					),
+				),
 			),
 		), $args );
 	}
@@ -2085,10 +3028,19 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 
 		$options = array(
 			array( "text" => esc_html__( "Fixed amount", 'woocommerce-tm-extra-product-options' ), "value" => "" ),
-			array( "text" => esc_html__( "Percent of the original price", 'woocommerce-tm-extra-product-options' ), "value" => "percent" ),
-			array( "text" => esc_html__( "Percent of the original price + options", 'woocommerce-tm-extra-product-options' ), "value" => "percentcurrenttotal" ),
+			array(
+				"text"  => esc_html__( "Percent of the original price", 'woocommerce-tm-extra-product-options' ),
+				"value" => "percent",
+			),
+			array(
+				"text"  => esc_html__( "Percent of the original price + options", 'woocommerce-tm-extra-product-options' ),
+				"value" => "percentcurrenttotal",
+			),
 			array( "text" => esc_html__( 'Math formula', 'woocommerce-tm-extra-product-options' ), "value" => "math" ),
-			array( "text" => esc_html__( 'Fixed amount + options', 'woocommerce-tm-extra-product-options' ), "value" => "fixedcurrenttotal" ),
+			array(
+				"text"  => esc_html__( 'Fixed amount + options', 'woocommerce-tm-extra-product-options' ),
+				"value" => "fixedcurrenttotal",
+			),
 		);
 
 		$options = apply_filters( 'wc_epo_add_setting_price_type', $options, $name );
@@ -2098,7 +3050,11 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			"wpmldisable" => 1,
 			"default"     => "",
 			"type"        => "select",
-			"tags"        => array( "class" => "tm-pricetype-selector", "id" => "builder_" . $name . "_price_type", "name" => "tm_meta[tmfbuilder][" . $name . "_price_type][]" ),
+			"tags"        => array(
+				"class" => "tm-pricetype-selector",
+				"id"    => "builder_" . $name . "_price_type",
+				"name"  => "tm_meta[tmfbuilder][" . $name . "_price_type][]",
+			),
 			"options"     => $options,
 			"label"       => esc_html__( 'Price type', 'woocommerce-tm-extra-product-options' ),
 		);
@@ -2113,10 +3069,19 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 
 		$options = array(
 			array( "text" => esc_html__( "Fixed amount", 'woocommerce-tm-extra-product-options' ), "value" => "" ),
-			array( "text" => esc_html__( "Percent of the original price", 'woocommerce-tm-extra-product-options' ), "value" => "percent" ),
-			array( "text" => esc_html__( "Percent of the original price + options", 'woocommerce-tm-extra-product-options' ), "value" => "percentcurrenttotal" ),
+			array(
+				"text"  => esc_html__( "Percent of the original price", 'woocommerce-tm-extra-product-options' ),
+				"value" => "percent",
+			),
+			array(
+				"text"  => esc_html__( "Percent of the original price + options", 'woocommerce-tm-extra-product-options' ),
+				"value" => "percentcurrenttotal",
+			),
 			array( "text" => esc_html__( 'Math formula', 'woocommerce-tm-extra-product-options' ), "value" => "math" ),
-			array( "text" => esc_html__( 'Fixed amount + options', 'woocommerce-tm-extra-product-options' ), "value" => "fixedcurrenttotal" ),
+			array(
+				"text"  => esc_html__( 'Fixed amount + options', 'woocommerce-tm-extra-product-options' ),
+				"value" => "fixedcurrenttotal",
+			),
 		);
 
 		$options = apply_filters( 'wc_epo_add_setting_price_type', $options, $name );
@@ -2126,7 +3091,11 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			"wpmldisable" => 1,
 			"default"     => "",
 			"type"        => "select",
-			"tags"        => array( "class" => "tm-pricetype-selector", "id" => "builder_" . $name . "_price_type", "name" => "tm_meta[tmfbuilder][" . $name . "_price_type][]" ),
+			"tags"        => array(
+				"class" => "tm-pricetype-selector",
+				"id"    => "builder_" . $name . "_price_type",
+				"name"  => "tm_meta[tmfbuilder][" . $name . "_price_type][]",
+			),
 			"options"     => $options,
 			"label"       => esc_html__( 'Price type', 'woocommerce-tm-extra-product-options' ),
 		);
@@ -2142,12 +3111,27 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 		$options = array(
 			array( "text" => esc_html__( "Fixed amount", 'woocommerce-tm-extra-product-options' ), "value" => "" ),
 			array( "text" => esc_html__( "Step * price", 'woocommerce-tm-extra-product-options' ), "value" => "step" ),
-			array( "text" => esc_html__( "Current value", 'woocommerce-tm-extra-product-options' ), "value" => "currentstep" ),
-			array( "text" => esc_html__( "Price per Interval", 'woocommerce-tm-extra-product-options' ), "value" => "intervalstep" ),
-			array( "text" => esc_html__( "Percent of the original price", 'woocommerce-tm-extra-product-options' ), "value" => "percent" ),
-			array( "text" => esc_html__( "Percent of the original price + options", 'woocommerce-tm-extra-product-options' ), "value" => "percentcurrenttotal" ),
+			array(
+				"text"  => esc_html__( "Current value", 'woocommerce-tm-extra-product-options' ),
+				"value" => "currentstep",
+			),
+			array(
+				"text"  => esc_html__( "Price per Interval", 'woocommerce-tm-extra-product-options' ),
+				"value" => "intervalstep",
+			),
+			array(
+				"text"  => esc_html__( "Percent of the original price", 'woocommerce-tm-extra-product-options' ),
+				"value" => "percent",
+			),
+			array(
+				"text"  => esc_html__( "Percent of the original price + options", 'woocommerce-tm-extra-product-options' ),
+				"value" => "percentcurrenttotal",
+			),
 			array( "text" => esc_html__( 'Math formula', 'woocommerce-tm-extra-product-options' ), "value" => "math" ),
-			array( "text" => esc_html__( 'Fixed amount + options', 'woocommerce-tm-extra-product-options' ), "value" => "fixedcurrenttotal" ),
+			array(
+				"text"  => esc_html__( 'Fixed amount + options', 'woocommerce-tm-extra-product-options' ),
+				"value" => "fixedcurrenttotal",
+			),
 		);
 
 		$options = apply_filters( 'wc_epo_add_setting_price_type', $options, $name );
@@ -2157,7 +3141,11 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			"wpmldisable" => 1,
 			"default"     => "",
 			"type"        => "select",
-			"tags"        => array( "class" => "tm-pricetype-selector", "id" => "builder_" . $name . "_price_type", "name" => "tm_meta[tmfbuilder][" . $name . "_price_type][]" ),
+			"tags"        => array(
+				"class" => "tm-pricetype-selector",
+				"id"    => "builder_" . $name . "_price_type",
+				"name"  => "tm_meta[tmfbuilder][" . $name . "_price_type][]",
+			),
 			"options"     => $options,
 			"label"       => esc_html__( 'Price type', 'woocommerce-tm-extra-product-options' ),
 		);
@@ -2168,30 +3156,36 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 	 *
 	 * @since 1.0
 	 */
-	public final function add_setting_min( $name = "", $args = array(), $required = TRUE ) {
+	public final function add_setting_min( $name = "", $args = array(), $required = true ) {
 		$min = array_merge( array(
 			"id"          => $name . "_min",
 			"wpmldisable" => 1,
 			"default"     => "",
 			"type"        => "number",
 			"extra_tags"  => array(),
-			"tags"        => array( "class" => "n", "id" => "builder_" . $name . "_min", "name" => "tm_meta[tmfbuilder][" . $name . "_min][]", "value" => "", "step" => "any" ),
+			"tags"        => array(
+				"class" => "n",
+				"id"    => "builder_" . $name . "_min",
+				"name"  => "tm_meta[tmfbuilder][" . $name . "_min][]",
+				"value" => "",
+				"step"  => "any",
+			),
 			"label"       => esc_html__( 'Min value', 'woocommerce-tm-extra-product-options' ),
 			"desc"        => esc_html__( 'Enter the minimum value.', 'woocommerce-tm-extra-product-options' ),
 		), $args );
 
-		$min["tags"] = array_merge($min["tags"], $min["extra_tags"]);
+		$min["tags"] = array_merge( $min["tags"], $min["extra_tags"] );
 
 		if ( $required ) {
 			$min["required"] = array(
 				".tm-pricetype-selector" => array(
 					"operator" => "is",
-					"value"    => array( "step", "currentstep" )
+					"value"    => array( "step", "currentstep" ),
 				),
 				".tc-validateas"         => array(
 					"operator" => "is",
-					"value"    => array( "number", "digits" )
-				)
+					"value"    => array( "number", "digits" ),
+				),
 			);
 		}
 
@@ -2204,30 +3198,36 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 	 *
 	 * @since 1.0
 	 */
-	public final function add_setting_max( $name = "", $args = array(), $required = TRUE ) {
+	public final function add_setting_max( $name = "", $args = array(), $required = true ) {
 		$max = array_merge( array(
 			"id"          => $name . "_max",
 			"wpmldisable" => 1,
 			"default"     => "",
 			"type"        => "number",
 			"extra_tags"  => array(),
-			"tags"        => array( "class" => "n", "id" => "builder_" . $name . "_max", "name" => "tm_meta[tmfbuilder][" . $name . "_max][]", "value" => "", "step" => "any" ),
+			"tags"        => array(
+				"class" => "n",
+				"id"    => "builder_" . $name . "_max",
+				"name"  => "tm_meta[tmfbuilder][" . $name . "_max][]",
+				"value" => "",
+				"step"  => "any",
+			),
 			"label"       => esc_html__( 'Max value', 'woocommerce-tm-extra-product-options' ),
 			"desc"        => esc_html__( 'Enter the maximum value.', 'woocommerce-tm-extra-product-options' ),
 		), $args );
 
-		$max["tags"] = array_merge($max["tags"], $max["extra_tags"]);
+		$max["tags"] = array_merge( $max["tags"], $max["extra_tags"] );
 
 		if ( $required ) {
 			$max["required"] = array(
 				".tm-pricetype-selector" => array(
 					"operator" => "is",
-					"value"    => array( "step", "currentstep" )
+					"value"    => array( "step", "currentstep" ),
 				),
 				".tc-validateas"         => array(
 					"operator" => "is",
-					"value"    => array( "number", "digits" )
-				)
+					"value"    => array( "number", "digits" ),
+				),
 			);
 		}
 
@@ -2245,21 +3245,60 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			"id"      => $name . "_format",
 			"default" => "0",
 			"type"    => "select",
-			"tags"    => array( "id" => "builder_" . $name . "_format", "name" => "tm_meta[tmfbuilder][" . $name . "_format][]" ),
+			"tags"    => array(
+				"id"   => "builder_" . $name . "_format",
+				"name" => "tm_meta[tmfbuilder][" . $name . "_format][]",
+			),
 			"options" => array(
-				array( "text" => esc_html__( "Day / Month / Year", 'woocommerce-tm-extra-product-options' ), "value" => "0" ),
-				array( "text" => esc_html__( "Month / Day / Year", 'woocommerce-tm-extra-product-options' ), "value" => "1" ),
-				array( "text" => esc_html__( "Day . Month . Year", 'woocommerce-tm-extra-product-options' ), "value" => "2" ),
-				array( "text" => esc_html__( "Month . Day . Year", 'woocommerce-tm-extra-product-options' ), "value" => "3" ),
-				array( "text" => esc_html__( "Day - Month - Year", 'woocommerce-tm-extra-product-options' ), "value" => "4" ),
-				array( "text" => esc_html__( "Month - Day - Year", 'woocommerce-tm-extra-product-options' ), "value" => "5" ),
+				array(
+					"text"  => esc_html__( "Day / Month / Year", 'woocommerce-tm-extra-product-options' ),
+					"value" => "0",
+				),
+				array(
+					"text"  => esc_html__( "Month / Day / Year", 'woocommerce-tm-extra-product-options' ),
+					"value" => "1",
+				),
+				array(
+					"text"  => esc_html__( "Day . Month . Year", 'woocommerce-tm-extra-product-options' ),
+					"value" => "2",
+				),
+				array(
+					"text"  => esc_html__( "Month . Day . Year", 'woocommerce-tm-extra-product-options' ),
+					"value" => "3",
+				),
+				array(
+					"text"  => esc_html__( "Day - Month - Year", 'woocommerce-tm-extra-product-options' ),
+					"value" => "4",
+				),
+				array(
+					"text"  => esc_html__( "Month - Day - Year", 'woocommerce-tm-extra-product-options' ),
+					"value" => "5",
+				),
 
-				array( "text" => esc_html__( "Year / Month / Day", 'woocommerce-tm-extra-product-options' ), "value" => "6" ),
-				array( "text" => esc_html__( "Year / Day / Month", 'woocommerce-tm-extra-product-options' ), "value" => "7" ),
-				array( "text" => esc_html__( "Year . Month . Day", 'woocommerce-tm-extra-product-options' ), "value" => "8" ),
-				array( "text" => esc_html__( "Year . Day . Month", 'woocommerce-tm-extra-product-options' ), "value" => "9" ),
-				array( "text" => esc_html__( "Year - Month - Day", 'woocommerce-tm-extra-product-options' ), "value" => "10" ),
-				array( "text" => esc_html__( "Year - Day - Month", 'woocommerce-tm-extra-product-options' ), "value" => "11" ),
+				array(
+					"text"  => esc_html__( "Year / Month / Day", 'woocommerce-tm-extra-product-options' ),
+					"value" => "6",
+				),
+				array(
+					"text"  => esc_html__( "Year / Day / Month", 'woocommerce-tm-extra-product-options' ),
+					"value" => "7",
+				),
+				array(
+					"text"  => esc_html__( "Year . Month . Day", 'woocommerce-tm-extra-product-options' ),
+					"value" => "8",
+				),
+				array(
+					"text"  => esc_html__( "Year . Day . Month", 'woocommerce-tm-extra-product-options' ),
+					"value" => "9",
+				),
+				array(
+					"text"  => esc_html__( "Year - Month - Day", 'woocommerce-tm-extra-product-options' ),
+					"value" => "10",
+				),
+				array(
+					"text"  => esc_html__( "Year - Day - Month", 'woocommerce-tm-extra-product-options' ),
+					"value" => "11",
+				),
 
 			),
 			"label"   => esc_html__( "Date format", 'woocommerce-tm-extra-product-options' ),
@@ -2276,17 +3315,32 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			"id"      => $name . "_time_format",
 			"default" => "0",
 			"type"    => "select",
-			"tags"    => array( "id" => "builder_" . $name . "_format", "name" => "tm_meta[tmfbuilder][" . $name . "_time_format][]" ),
+			"tags"    => array(
+				"id"   => "builder_" . $name . "_format",
+				"name" => "tm_meta[tmfbuilder][" . $name . "_time_format][]",
+			),
 			"options" => array(
 				array( "text" => esc_html__( "HH:mm", 'woocommerce-tm-extra-product-options' ), "value" => "HH:mm" ),
 				array( "text" => esc_html__( "HH:m", 'woocommerce-tm-extra-product-options' ), "value" => "HH:m" ),
 				array( "text" => esc_html__( "H:mm", 'woocommerce-tm-extra-product-options' ), "value" => "H:mm" ),
 				array( "text" => esc_html__( "H:m", 'woocommerce-tm-extra-product-options' ), "value" => "H:m" ),
-				array( "text" => esc_html__( "HH:mm:ss", 'woocommerce-tm-extra-product-options' ), "value" => "HH:mm:ss" ),
-				array( "text" => esc_html__( "HH:m:ss", 'woocommerce-tm-extra-product-options' ), "value" => "HH:m:ss" ),
-				array( "text" => esc_html__( "H:mm:ss", 'woocommerce-tm-extra-product-options' ), "value" => "H:mm:ss" ),
+				array(
+					"text"  => esc_html__( "HH:mm:ss", 'woocommerce-tm-extra-product-options' ),
+					"value" => "HH:mm:ss",
+				),
+				array(
+					"text"  => esc_html__( "HH:m:ss", 'woocommerce-tm-extra-product-options' ),
+					"value" => "HH:m:ss",
+				),
+				array(
+					"text"  => esc_html__( "H:mm:ss", 'woocommerce-tm-extra-product-options' ),
+					"value" => "H:mm:ss",
+				),
 				array( "text" => esc_html__( "H:m:ss", 'woocommerce-tm-extra-product-options' ), "value" => "H:m:ss" ),
-				array( "text" => esc_html__( "HH:mm:s", 'woocommerce-tm-extra-product-options' ), "value" => "HH:mm:s" ),
+				array(
+					"text"  => esc_html__( "HH:mm:s", 'woocommerce-tm-extra-product-options' ),
+					"value" => "HH:mm:s",
+				),
 				array( "text" => esc_html__( "HH:m:s", 'woocommerce-tm-extra-product-options' ), "value" => "HH:m:s" ),
 				array( "text" => esc_html__( "H:mm:s", 'woocommerce-tm-extra-product-options' ), "value" => "H:mm:s" ),
 				array( "text" => esc_html__( "H:m:s", 'woocommerce-tm-extra-product-options' ), "value" => "H:m:s" ),
@@ -2295,11 +3349,23 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 				array( "text" => esc_html__( "hh:m", 'woocommerce-tm-extra-product-options' ), "value" => "hh:m" ),
 				array( "text" => esc_html__( "h:mm", 'woocommerce-tm-extra-product-options' ), "value" => "h:mm" ),
 				array( "text" => esc_html__( "h:m", 'woocommerce-tm-extra-product-options' ), "value" => "h:m" ),
-				array( "text" => esc_html__( "hh:mm:ss", 'woocommerce-tm-extra-product-options' ), "value" => "hh:mm:ss" ),
-				array( "text" => esc_html__( "hh:m:ss", 'woocommerce-tm-extra-product-options' ), "value" => "hh:m:ss" ),
-				array( "text" => esc_html__( "h:mm:ss", 'woocommerce-tm-extra-product-options' ), "value" => "h:mm:ss" ),
+				array(
+					"text"  => esc_html__( "hh:mm:ss", 'woocommerce-tm-extra-product-options' ),
+					"value" => "hh:mm:ss",
+				),
+				array(
+					"text"  => esc_html__( "hh:m:ss", 'woocommerce-tm-extra-product-options' ),
+					"value" => "hh:m:ss",
+				),
+				array(
+					"text"  => esc_html__( "h:mm:ss", 'woocommerce-tm-extra-product-options' ),
+					"value" => "h:mm:ss",
+				),
 				array( "text" => esc_html__( "h:m:ss", 'woocommerce-tm-extra-product-options' ), "value" => "h:m:ss" ),
-				array( "text" => esc_html__( "hh:mm:s", 'woocommerce-tm-extra-product-options' ), "value" => "hh:mm:s" ),
+				array(
+					"text"  => esc_html__( "hh:mm:s", 'woocommerce-tm-extra-product-options' ),
+					"value" => "hh:mm:s",
+				),
 				array( "text" => esc_html__( "hh:m:s", 'woocommerce-tm-extra-product-options' ), "value" => "hh:m:s" ),
 				array( "text" => esc_html__( "h:mm:s", 'woocommerce-tm-extra-product-options' ), "value" => "h:mm:s" ),
 				array( "text" => esc_html__( "h:m:s", 'woocommerce-tm-extra-product-options' ), "value" => "h:m:s" ),
@@ -2323,7 +3389,12 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			"wpmldisable" => 1,
 			"default"     => "",
 			"type"        => "text",
-			"tags"        => array( "class" => "t", "id" => "builder_" . $name . "_custom_time_format", "name" => "tm_meta[tmfbuilder][" . $name . "_custom_time_format][]", "value" => "" ),
+			"tags"        => array(
+				"class" => "t",
+				"id"    => "builder_" . $name . "_custom_time_format",
+				"name"  => "tm_meta[tmfbuilder][" . $name . "_custom_time_format][]",
+				"value" => "",
+			),
 			"label"       => esc_html__( 'Custom Time format', 'woocommerce-tm-extra-product-options' ),
 			"desc"        => esc_html__( 'This will override the time format above.', 'woocommerce-tm-extra-product-options' ),
 		);
@@ -2343,7 +3414,12 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			"wpmldisable" => 1,
 			"default"     => "1900",
 			"type"        => "number",
-			"tags"        => array( "class" => "n", "id" => "builder_" . $name . "_start_year", "name" => "tm_meta[tmfbuilder][" . $name . "_start_year][]", "value" => "" ),
+			"tags"        => array(
+				"class" => "n",
+				"id"    => "builder_" . $name . "_start_year",
+				"name"  => "tm_meta[tmfbuilder][" . $name . "_start_year][]",
+				"value" => "",
+			),
 			"label"       => esc_html__( 'Start year', 'woocommerce-tm-extra-product-options' ),
 			"desc"        => esc_html__( 'Enter starting year.', 'woocommerce-tm-extra-product-options' ),
 		);
@@ -2360,7 +3436,12 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			"wpmldisable" => 1,
 			"default"     => ( date( "Y" ) + 10 ),
 			"type"        => "number",
-			"tags"        => array( "class" => "n", "id" => "builder_" . $name . "_end_year", "name" => "tm_meta[tmfbuilder][" . $name . "_end_year][]", "value" => "" ),
+			"tags"        => array(
+				"class" => "n",
+				"id"    => "builder_" . $name . "_end_year",
+				"name"  => "tm_meta[tmfbuilder][" . $name . "_end_year][]",
+				"value" => "",
+			),
 			"label"       => esc_html__( 'End year', 'woocommerce-tm-extra-product-options' ),
 			"desc"        => esc_html__( 'Enter ending year.', 'woocommerce-tm-extra-product-options' ),
 		);
@@ -2377,7 +3458,11 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			"wpmldisable" => 1,
 			"default"     => "",
 			"type"        => "select",
-			"tags"        => array( "class" => "use_url", "id" => "builder_" . $name . "_use_url", "name" => "tm_meta[tmfbuilder][" . $name . "_use_url][]" ),
+			"tags"        => array(
+				"class" => "use_url",
+				"id"    => "builder_" . $name . "_use_url",
+				"name"  => "tm_meta[tmfbuilder][" . $name . "_use_url][]",
+			),
 			"options"     => array(
 				array( "text" => esc_html__( 'No', 'woocommerce-tm-extra-product-options' ), "value" => "" ),
 				array( "text" => esc_html__( 'Yes', 'woocommerce-tm-extra-product-options' ), "value" => "url" ),
@@ -2400,7 +3485,10 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			"type"       => "custom_multiple",
 			"leftclass"  => "onerow",
 			"rightclass" => "onerow",
-			"html"       => array( array( $this, "builder_sub_options" ), array( array( "name" => 'multiple_' . $name . '_options' ) ) ),
+			"html"       => array(
+				array( $this, "builder_sub_options" ),
+				array( array( "name" => 'multiple_' . $name . '_options' ) ),
+			),
 			"label"      => esc_html__( 'Populate options', 'woocommerce-tm-extra-product-options' ),
 			"desc"       => ( $name == 'checkboxes' ) ? '' : esc_html__( 'Double click the radio button to remove its selected attribute.', 'woocommerce-tm-extra-product-options' ),
 		);
@@ -2436,12 +3524,22 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			"wpmldisable"      => 1,
 			"default"          => "",
 			"type"             => "select",
-			"tags"             => array( "class" => "use_images", "id" => "builder_" . $name . "_use_images", "name" => "tm_meta[tmfbuilder][" . $name . "_use_images][]" ),
+			"tags"             => array(
+				"class" => "use_images",
+				"id"    => "builder_" . $name . "_use_images",
+				"name"  => "tm_meta[tmfbuilder][" . $name . "_use_images][]",
+			),
 			"options"          => array(
 				array( "text" => esc_html__( 'No', 'woocommerce-tm-extra-product-options' ), "value" => "" ),
 				array( "text" => esc_html__( 'Yes', 'woocommerce-tm-extra-product-options' ), "value" => "images" ),
-				array( "text" => esc_html__( 'Start of the label', 'woocommerce-tm-extra-product-options' ), "value" => "start" ),
-				array( "text" => esc_html__( 'End of the label', 'woocommerce-tm-extra-product-options' ), "value" => "end" ),
+				array(
+					"text"  => esc_html__( 'Start of the label', 'woocommerce-tm-extra-product-options' ),
+					"value" => "start",
+				),
+				array(
+					"text"  => esc_html__( 'End of the label', 'woocommerce-tm-extra-product-options' ),
+					"value" => "end",
+				),
 			),
 			"label"            => esc_html__( 'Use image replacements', 'woocommerce-tm-extra-product-options' ),
 			"desc"             => esc_html__( 'Choose whether to use images in place of the element choices.', 'woocommerce-tm-extra-product-options' ),
@@ -2460,12 +3558,22 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			"wpmldisable"      => 1,
 			"default"          => "",
 			"type"             => "select",
-			"tags"             => array( "class" => "use_colors", "id" => "builder_" . $name . "_use_colors", "name" => "tm_meta[tmfbuilder][" . $name . "_use_colors][]" ),
+			"tags"             => array(
+				"class" => "use_colors",
+				"id"    => "builder_" . $name . "_use_colors",
+				"name"  => "tm_meta[tmfbuilder][" . $name . "_use_colors][]",
+			),
 			"options"          => array(
 				array( "text" => esc_html__( 'No', 'woocommerce-tm-extra-product-options' ), "value" => "" ),
 				array( "text" => esc_html__( 'Yes', 'woocommerce-tm-extra-product-options' ), "value" => "color" ),
-				array( "text" => esc_html__( 'Start of the label', 'woocommerce-tm-extra-product-options' ), "value" => "start" ),
-				array( "text" => esc_html__( 'End of the label', 'woocommerce-tm-extra-product-options' ), "value" => "end" ),
+				array(
+					"text"  => esc_html__( 'Start of the label', 'woocommerce-tm-extra-product-options' ),
+					"value" => "start",
+				),
+				array(
+					"text"  => esc_html__( 'End of the label', 'woocommerce-tm-extra-product-options' ),
+					"value" => "end",
+				),
 			),
 			"label"            => esc_html__( 'Use color replacements', 'woocommerce-tm-extra-product-options' ),
 			"desc"             => esc_html__( 'Choose whether to use a color swatch in place of the element choices.', 'woocommerce-tm-extra-product-options' ),
@@ -2484,7 +3592,12 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			"wpmldisable"      => 1,
 			"default"          => "",
 			"type"             => "checkbox",
-			"tags"             => array( "value" => "lightbox", "class" => "use_lightbox tm-use-lightbox", "id" => "builder_" . $name . "_use_lightbox", "name" => "tm_meta[tmfbuilder][" . $name . "_use_lightbox][]" ),
+			"tags"             => array(
+				"value" => "lightbox",
+				"class" => "use_lightbox tm-use-lightbox",
+				"id"    => "builder_" . $name . "_use_lightbox",
+				"name"  => "tm_meta[tmfbuilder][" . $name . "_use_lightbox][]",
+			),
 			"label"            => esc_html__( 'Use image lightbox', 'woocommerce-tm-extra-product-options' ),
 			"desc"             => esc_html__( 'Choose whether to enable the lightbox on the thumbnail.', 'woocommerce-tm-extra-product-options' ),
 		);
@@ -2501,11 +3614,21 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			"wpmldisable" => 1,
 			"default"     => "",
 			"type"        => "select",
-			"tags"        => array( "class" => "use_images tm-changes-product-image", "id" => "builder_" . $name . "_changes_product_image", "name" => "tm_meta[tmfbuilder][" . $name . "_changes_product_image][]" ),
+			"tags"        => array(
+				"class" => "use_images tm-changes-product-image",
+				"id"    => "builder_" . $name . "_changes_product_image",
+				"name"  => "tm_meta[tmfbuilder][" . $name . "_changes_product_image][]",
+			),
 			"options"     => array(
 				array( "text" => esc_html__( 'No', 'woocommerce-tm-extra-product-options' ), "value" => "" ),
-				array( "text" => esc_html__( 'Use the image replacements', 'woocommerce-tm-extra-product-options' ), "value" => "images" ),
-				array( "text" => esc_html__( 'Use custom image', 'woocommerce-tm-extra-product-options' ), "value" => "custom" ),
+				array(
+					"text"  => esc_html__( 'Use the image replacements', 'woocommerce-tm-extra-product-options' ),
+					"value" => "images",
+				),
+				array(
+					"text"  => esc_html__( 'Use custom image', 'woocommerce-tm-extra-product-options' ),
+					"value" => "custom",
+				),
 			),
 			"label"       => esc_html__( 'Changes product image', 'woocommerce-tm-extra-product-options' ),
 			"desc"        => esc_html__( 'Choose whether to change the product image.', 'woocommerce-tm-extra-product-options' ),
@@ -2524,16 +3647,41 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			"wpmldisable"      => 1,
 			"default"          => "",
 			"type"             => "select",
-			"tags"             => array( "class" => "swatchmode", "id" => "builder_" . $name . "_swatchmode", "name" => "tm_meta[tmfbuilder][" . $name . "_swatchmode][]" ),
+			"tags"             => array(
+				"class" => "swatchmode",
+				"id"    => "builder_" . $name . "_swatchmode",
+				"name"  => "tm_meta[tmfbuilder][" . $name . "_swatchmode][]",
+			),
 			"options"          => apply_filters( "wc_epo_add_setting_swatchmode", array(
 					array( "text" => esc_html__( 'No', 'woocommerce-tm-extra-product-options' ), "value" => "" ),
-					array( "text" => esc_html__( 'Show label', 'woocommerce-tm-extra-product-options' ), "value" => "swatch" ),
-					array( "text" => esc_html__( 'Show description', 'woocommerce-tm-extra-product-options' ), "value" => "swatch_desc" ),
-					array( "text" => esc_html__( 'Show label and description', 'woocommerce-tm-extra-product-options' ), "value" => "swatch_lbl_desc" ),
-					array( "text" => esc_html__( 'Show image', 'woocommerce-tm-extra-product-options' ), "value" => "swatch_img" ),
-					array( "text" => esc_html__( 'Show image and label', 'woocommerce-tm-extra-product-options' ), "value" => "swatch_img_lbl" ),
-					array( "text" => esc_html__( 'Show image and description', 'woocommerce-tm-extra-product-options' ), "value" => "swatch_img_desc" ),
-					array( "text" => esc_html__( 'Show image, label and description', 'woocommerce-tm-extra-product-options' ), "value" => "swatch_img_lbl_desc" ),
+					array(
+						"text"  => esc_html__( 'Show label', 'woocommerce-tm-extra-product-options' ),
+						"value" => "swatch",
+					),
+					array(
+						"text"  => esc_html__( 'Show description', 'woocommerce-tm-extra-product-options' ),
+						"value" => "swatch_desc",
+					),
+					array(
+						"text"  => esc_html__( 'Show label and description', 'woocommerce-tm-extra-product-options' ),
+						"value" => "swatch_lbl_desc",
+					),
+					array(
+						"text"  => esc_html__( 'Show image', 'woocommerce-tm-extra-product-options' ),
+						"value" => "swatch_img",
+					),
+					array(
+						"text"  => esc_html__( 'Show image and label', 'woocommerce-tm-extra-product-options' ),
+						"value" => "swatch_img_lbl",
+					),
+					array(
+						"text"  => esc_html__( 'Show image and description', 'woocommerce-tm-extra-product-options' ),
+						"value" => "swatch_img_desc",
+					),
+					array(
+						"text"  => esc_html__( 'Show image, label and description', 'woocommerce-tm-extra-product-options' ),
+						"value" => "swatch_img_lbl_desc",
+					),
 				)
 			),
 			"label"            => esc_html__( 'Enable Swatch mode', 'woocommerce-tm-extra-product-options' ),
@@ -2552,7 +3700,11 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			"wpmldisable" => 1,
 			"default"     => "",
 			"type"        => "select",
-			"tags"        => array( "class" => "clear_options", "id" => "builder_" . $name . "_clear_options", "name" => "tm_meta[tmfbuilder][" . $name . "_clear_options][]" ),
+			"tags"        => array(
+				"class" => "clear_options",
+				"id"    => "builder_" . $name . "_clear_options",
+				"name"  => "tm_meta[tmfbuilder][" . $name . "_clear_options][]",
+			),
 			"options"     => array(
 				array( "text" => esc_html__( 'No', 'woocommerce-tm-extra-product-options' ), "value" => "" ),
 				array( "text" => esc_html__( 'Yes', 'woocommerce-tm-extra-product-options' ), "value" => "clear" ),
@@ -2578,109 +3730,147 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 	 *
 	 * @since 1.0
 	 */
-	public final function add_setting_items_per_row( $name = "", $args = array(), $required = FALSE ) {
+	public final function add_setting_items_per_row( $name = "", $args = array(), $required = false ) {
 
-		$per_row = array( '_multiple_values' => array(
-			array(
-				"id"          => $name . "_items_per_row",
-				"wpmldisable" => 1,
-				"default"     => "",
-				"type"        => "number",
-				"extra"       => array( array( $this, "add_setting_items_per_row_helper" ), array() ),
-				"tags"        => array( "class" => "n", "id" => "builder_" . $name . "_items_per_row", "name" => "tm_meta[tmfbuilder][" . $name . "_items_per_row][]" ),
-				"label"       => esc_html__( 'Items per row (Desktops and laptops)', 'woocommerce-tm-extra-product-options' ),
-				"desc"        => esc_html__( 'Use this field to make a grid display. Enter how many items per row for the grid or leave blank for normal display.', 'woocommerce-tm-extra-product-options' ),
-			),
-			//@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
-			array(
-				"id"               => $name . "_items_per_row_tablets",
-				"message0x0_class" => "builder_responsive_div",
-				"wpmldisable"      => 1,
-				"default"          => "",
-				"type"             => "number",
-				"tags"             => array( "class" => "n", "id" => "builder_" . $name . "_items_per_row_tablets", "name" => "tm_meta[tmfbuilder][" . $name . "_items_per_row_tablets][]" ),
-				"label"            => esc_html__( 'Items per row (Tablets landscape)', 'woocommerce-tm-extra-product-options' ),
-				"desc"             => esc_html__( 'Use this field to make a grid display. Enter how many items per row for the grid or leave blank for normal display.', 'woocommerce-tm-extra-product-options' ),
-			),
-			//@media only screen and (min-device-width : 481px) and (max-device-width : 767px) {
-			array(
-				"id"               => $name . "_items_per_row_tablets_small",
-				"message0x0_class" => "builder_responsive_div",
-				"wpmldisable"      => 1,
-				"default"          => "",
-				"type"             => "number",
-				"tags"             => array( "class" => "n", "id" => "builder_" . $name . "_items_per_row_tablets_small", "name" => "tm_meta[tmfbuilder][" . $name . "_items_per_row_tablets_small][]" ),
-				"label"            => esc_html__( 'Items per row (Tablets portrait)', 'woocommerce-tm-extra-product-options' ),
-				"desc"             => esc_html__( 'Use this field to make a grid display. Enter how many items per row for the grid or leave blank for normal display.', 'woocommerce-tm-extra-product-options' ),
-			),
-			//@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
-			array(
-				"id"               => $name . "_items_per_row_smartphones",
-				"message0x0_class" => "builder_responsive_div",
-				"wpmldisable"      => 1,
-				"default"          => "",
-				"type"             => "number",
-				"tags"             => array( "class" => "n", "id" => "builder_" . $name . "_items_per_row_smartphones", "name" => "tm_meta[tmfbuilder][" . $name . "_items_per_row_smartphones][]" ),
-				"label"            => esc_html__( 'Items per row (Smartphones)', 'woocommerce-tm-extra-product-options' ),
-				"desc"             => esc_html__( 'Use this field to make a grid display. Enter how many items per row for the grid or leave blank for normal display.', 'woocommerce-tm-extra-product-options' ),
-			),
-			//@media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (-webkit-min-device-pixel-ratio: 2) {
-			array(
-				"id"               => $name . "_items_per_row_iphone5",
-				"message0x0_class" => "builder_responsive_div",
-				"wpmldisable"      => 1,
-				"default"          => "",
-				"type"             => "number",
-				"tags"             => array( "class" => "n", "id" => "builder_" . $name . "_items_per_row_iphone5", "name" => "tm_meta[tmfbuilder][" . $name . "_items_per_row_iphone5][]" ),
-				"label"            => esc_html__( 'Items per row (iPhone 5)', 'woocommerce-tm-extra-product-options' ),
-				"desc"             => esc_html__( 'Use this field to make a grid display. Enter how many items per row for the grid or leave blank for normal display.', 'woocommerce-tm-extra-product-options' ),
-			),
-			//@media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
-			array(
-				"id"               => $name . "_items_per_row_iphone6",
-				"message0x0_class" => "builder_responsive_div",
-				"wpmldisable"      => 1,
-				"default"          => "",
-				"type"             => "number",
-				"tags"             => array( "class" => "n", "id" => "builder_" . $name . "_items_per_row_iphone6", "name" => "tm_meta[tmfbuilder][" . $name . "_items_per_row_iphone6][]" ),
-				"label"            => esc_html__( 'Items per row (iPhone 6)', 'woocommerce-tm-extra-product-options' ),
-				"desc"             => esc_html__( 'Use this field to make a grid display. Enter how many items per row for the grid or leave blank for normal display.', 'woocommerce-tm-extra-product-options' ),
-			),
-			//@media only screen and (min-device-width: 414px) and (max-device-width: 736px) and (-webkit-min-device-pixel-ratio: 2) {
-			array(
-				"id"               => $name . "_items_per_row_iphone6_plus",
-				"message0x0_class" => "builder_responsive_div",
-				"wpmldisable"      => 1,
-				"default"          => "",
-				"type"             => "number",
-				"tags"             => array( "class" => "n", "id" => "builder_" . $name . "_items_per_row_iphone6_plus", "name" => "tm_meta[tmfbuilder][" . $name . "_items_per_row_iphone6_plus][]" ),
-				"label"            => esc_html__( 'Items per row (iPhone 6 +)', 'woocommerce-tm-extra-product-options' ),
-				"desc"             => esc_html__( 'Use this field to make a grid display. Enter how many items per row for the grid or leave blank for normal display.', 'woocommerce-tm-extra-product-options' ),
-			),
-			//@media only screen and (device-width: 320px) and (device-height: 640px) and (-webkit-min-device-pixel-ratio: 2) {
-			array(
-				"id"               => $name . "_items_per_row_samsung_galaxy",
-				"message0x0_class" => "builder_responsive_div",
-				"wpmldisable"      => 1,
-				"default"          => "",
-				"type"             => "number",
-				"tags"             => array( "class" => "n", "id" => "builder_" . $name . "_items_per_row_samsung_galaxy", "name" => "tm_meta[tmfbuilder][" . $name . "_items_per_row_samsung_galaxy][]" ),
-				"label"            => esc_html__( 'Items per row (Samnsung Galaxy)', 'woocommerce-tm-extra-product-options' ),
-				"desc"             => esc_html__( 'Use this field to make a grid display. Enter how many items per row for the grid or leave blank for normal display.', 'woocommerce-tm-extra-product-options' ),
-			),
-			//@media only screen and (min-device-width : 800px) and (max-device-width : 1280px) {
-			array(
-				"id"               => $name . "_items_per_row_tablets_galaxy",
-				"message0x0_class" => "builder_responsive_div",
-				"wpmldisable"      => 1,
-				"default"          => "",
-				"type"             => "number",
-				"tags"             => array( "class" => "n", "id" => "builder_" . $name . "_items_per_row_tablets_galaxy", "name" => "tm_meta[tmfbuilder][" . $name . "_items_per_row_tablets_galaxy][]" ),
-				"label"            => esc_html__( 'Items per row (Galaxy Tablets landscape)', 'woocommerce-tm-extra-product-options' ),
-				"desc"             => esc_html__( 'Use this field to make a grid display. Enter how many items per row for the grid or leave blank for normal display.', 'woocommerce-tm-extra-product-options' ),
-			),
+		$per_row = array(
+			'_multiple_values' => array(
+				array(
+					"id"          => $name . "_items_per_row",
+					"wpmldisable" => 1,
+					"default"     => "",
+					"type"        => "number",
+					"extra"       => array( array( $this, "add_setting_items_per_row_helper" ), array() ),
+					"tags"        => array(
+						"class" => "n",
+						"id"    => "builder_" . $name . "_items_per_row",
+						"name"  => "tm_meta[tmfbuilder][" . $name . "_items_per_row][]",
+					),
+					"label"       => esc_html__( 'Items per row (Desktops and laptops)', 'woocommerce-tm-extra-product-options' ),
+					"desc"        => esc_html__( 'Use this field to make a grid display. Enter how many items per row for the grid or leave blank for normal display.', 'woocommerce-tm-extra-product-options' ),
+				),
+				//@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
+				array(
+					"id"               => $name . "_items_per_row_tablets",
+					"message0x0_class" => "builder_responsive_div",
+					"wpmldisable"      => 1,
+					"default"          => "",
+					"type"             => "number",
+					"tags"             => array(
+						"class" => "n",
+						"id"    => "builder_" . $name . "_items_per_row_tablets",
+						"name"  => "tm_meta[tmfbuilder][" . $name . "_items_per_row_tablets][]",
+					),
+					"label"            => esc_html__( 'Items per row (Tablets landscape)', 'woocommerce-tm-extra-product-options' ),
+					"desc"             => esc_html__( 'Use this field to make a grid display. Enter how many items per row for the grid or leave blank for normal display.', 'woocommerce-tm-extra-product-options' ),
+				),
+				//@media only screen and (min-device-width : 481px) and (max-device-width : 767px) {
+				array(
+					"id"               => $name . "_items_per_row_tablets_small",
+					"message0x0_class" => "builder_responsive_div",
+					"wpmldisable"      => 1,
+					"default"          => "",
+					"type"             => "number",
+					"tags"             => array(
+						"class" => "n",
+						"id"    => "builder_" . $name . "_items_per_row_tablets_small",
+						"name"  => "tm_meta[tmfbuilder][" . $name . "_items_per_row_tablets_small][]",
+					),
+					"label"            => esc_html__( 'Items per row (Tablets portrait)', 'woocommerce-tm-extra-product-options' ),
+					"desc"             => esc_html__( 'Use this field to make a grid display. Enter how many items per row for the grid or leave blank for normal display.', 'woocommerce-tm-extra-product-options' ),
+				),
+				//@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+				array(
+					"id"               => $name . "_items_per_row_smartphones",
+					"message0x0_class" => "builder_responsive_div",
+					"wpmldisable"      => 1,
+					"default"          => "",
+					"type"             => "number",
+					"tags"             => array(
+						"class" => "n",
+						"id"    => "builder_" . $name . "_items_per_row_smartphones",
+						"name"  => "tm_meta[tmfbuilder][" . $name . "_items_per_row_smartphones][]",
+					),
+					"label"            => esc_html__( 'Items per row (Smartphones)', 'woocommerce-tm-extra-product-options' ),
+					"desc"             => esc_html__( 'Use this field to make a grid display. Enter how many items per row for the grid or leave blank for normal display.', 'woocommerce-tm-extra-product-options' ),
+				),
+				//@media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (-webkit-min-device-pixel-ratio: 2) {
+				array(
+					"id"               => $name . "_items_per_row_iphone5",
+					"message0x0_class" => "builder_responsive_div",
+					"wpmldisable"      => 1,
+					"default"          => "",
+					"type"             => "number",
+					"tags"             => array(
+						"class" => "n",
+						"id"    => "builder_" . $name . "_items_per_row_iphone5",
+						"name"  => "tm_meta[tmfbuilder][" . $name . "_items_per_row_iphone5][]",
+					),
+					"label"            => esc_html__( 'Items per row (iPhone 5)', 'woocommerce-tm-extra-product-options' ),
+					"desc"             => esc_html__( 'Use this field to make a grid display. Enter how many items per row for the grid or leave blank for normal display.', 'woocommerce-tm-extra-product-options' ),
+				),
+				//@media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
+				array(
+					"id"               => $name . "_items_per_row_iphone6",
+					"message0x0_class" => "builder_responsive_div",
+					"wpmldisable"      => 1,
+					"default"          => "",
+					"type"             => "number",
+					"tags"             => array(
+						"class" => "n",
+						"id"    => "builder_" . $name . "_items_per_row_iphone6",
+						"name"  => "tm_meta[tmfbuilder][" . $name . "_items_per_row_iphone6][]",
+					),
+					"label"            => esc_html__( 'Items per row (iPhone 6)', 'woocommerce-tm-extra-product-options' ),
+					"desc"             => esc_html__( 'Use this field to make a grid display. Enter how many items per row for the grid or leave blank for normal display.', 'woocommerce-tm-extra-product-options' ),
+				),
+				//@media only screen and (min-device-width: 414px) and (max-device-width: 736px) and (-webkit-min-device-pixel-ratio: 2) {
+				array(
+					"id"               => $name . "_items_per_row_iphone6_plus",
+					"message0x0_class" => "builder_responsive_div",
+					"wpmldisable"      => 1,
+					"default"          => "",
+					"type"             => "number",
+					"tags"             => array(
+						"class" => "n",
+						"id"    => "builder_" . $name . "_items_per_row_iphone6_plus",
+						"name"  => "tm_meta[tmfbuilder][" . $name . "_items_per_row_iphone6_plus][]",
+					),
+					"label"            => esc_html__( 'Items per row (iPhone 6 +)', 'woocommerce-tm-extra-product-options' ),
+					"desc"             => esc_html__( 'Use this field to make a grid display. Enter how many items per row for the grid or leave blank for normal display.', 'woocommerce-tm-extra-product-options' ),
+				),
+				//@media only screen and (device-width: 320px) and (device-height: 640px) and (-webkit-min-device-pixel-ratio: 2) {
+				array(
+					"id"               => $name . "_items_per_row_samsung_galaxy",
+					"message0x0_class" => "builder_responsive_div",
+					"wpmldisable"      => 1,
+					"default"          => "",
+					"type"             => "number",
+					"tags"             => array(
+						"class" => "n",
+						"id"    => "builder_" . $name . "_items_per_row_samsung_galaxy",
+						"name"  => "tm_meta[tmfbuilder][" . $name . "_items_per_row_samsung_galaxy][]",
+					),
+					"label"            => esc_html__( 'Items per row (Samnsung Galaxy)', 'woocommerce-tm-extra-product-options' ),
+					"desc"             => esc_html__( 'Use this field to make a grid display. Enter how many items per row for the grid or leave blank for normal display.', 'woocommerce-tm-extra-product-options' ),
+				),
+				//@media only screen and (min-device-width : 800px) and (max-device-width : 1280px) {
+				array(
+					"id"               => $name . "_items_per_row_tablets_galaxy",
+					"message0x0_class" => "builder_responsive_div",
+					"wpmldisable"      => 1,
+					"default"          => "",
+					"type"             => "number",
+					"tags"             => array(
+						"class" => "n",
+						"id"    => "builder_" . $name . "_items_per_row_tablets_galaxy",
+						"name"  => "tm_meta[tmfbuilder][" . $name . "_items_per_row_tablets_galaxy][]",
+					),
+					"label"            => esc_html__( 'Items per row (Galaxy Tablets landscape)', 'woocommerce-tm-extra-product-options' ),
+					"desc"             => esc_html__( 'Use this field to make a grid display. Enter how many items per row for the grid or leave blank for normal display.', 'woocommerce-tm-extra-product-options' ),
+				),
 
-		) );
+			),
+		);
 
 		$per_row = array_merge( $per_row, $args );
 
@@ -2696,7 +3886,7 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			$per_row["_multiple_values"][8]["required"] = $required;
 		}
 
-		return $per_row;		
+		return $per_row;
 	}
 
 	/**
@@ -2710,7 +3900,12 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			"wpmldisable" => 1,
 			"default"     => "",
 			"type"        => "number",
-			"tags"        => array( "class" => "n", "id" => "builder_" . $name . "_limit_choices", "name" => "tm_meta[tmfbuilder][" . $name . "_limit_choices][]", "min" => 0 ),
+			"tags"        => array(
+				"class" => "n",
+				"id"    => "builder_" . $name . "_limit_choices",
+				"name"  => "tm_meta[tmfbuilder][" . $name . "_limit_choices][]",
+				"min"   => 0,
+			),
 			"label"       => esc_html__( 'Limit selection', 'woocommerce-tm-extra-product-options' ),
 			"desc"        => esc_html__( 'Enter a number above 0 to limit the checkbox selection or leave blank for default behaviour.', 'woocommerce-tm-extra-product-options' ),
 		);
@@ -2727,7 +3922,12 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			"wpmldisable" => 1,
 			"default"     => "",
 			"type"        => "number",
-			"tags"        => array( "class" => "n", "id" => "builder_" . $name . "_exactlimit_choices", "name" => "tm_meta[tmfbuilder][" . $name . "_exactlimit_choices][]", "min" => 0 ),
+			"tags"        => array(
+				"class" => "n",
+				"id"    => "builder_" . $name . "_exactlimit_choices",
+				"name"  => "tm_meta[tmfbuilder][" . $name . "_exactlimit_choices][]",
+				"min"   => 0,
+			),
 			"label"       => esc_html__( 'Exact selection', 'woocommerce-tm-extra-product-options' ),
 			"desc"        => esc_html__( 'Enter a number above 0 to have the user select the exact number of checkboxes or leave blank for default behaviour.', 'woocommerce-tm-extra-product-options' ),
 		);
@@ -2744,7 +3944,12 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			"wpmldisable" => 1,
 			"default"     => "",
 			"type"        => "number",
-			"tags"        => array( "class" => "n", "id" => "builder_" . $name . "_minimumlimit_choices", "name" => "tm_meta[tmfbuilder][" . $name . "_minimumlimit_choices][]", "min" => 0 ),
+			"tags"        => array(
+				"class" => "n",
+				"id"    => "builder_" . $name . "_minimumlimit_choices",
+				"name"  => "tm_meta[tmfbuilder][" . $name . "_minimumlimit_choices][]",
+				"min"   => 0,
+			),
 			"label"       => esc_html__( 'Minimum selection', 'woocommerce-tm-extra-product-options' ),
 			"desc"        => esc_html__( 'Enter a number above 0 to have the user select at least that number of checkboxes or leave blank for default behaviour.', 'woocommerce-tm-extra-product-options' ),
 		);
@@ -2757,16 +3962,25 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 	 */
 	public final function add_setting_button_type( $name = "", $args = array() ) {
 		$button_type = array(
-			"id"      => $name . "_button_type",
+			"id"          => $name . "_button_type",
 			"wpmldisable" => 1,
-			"default" => "",
-			"type"    => "select",
-			"tags"    => array( "id" => "builder_" . $name . "_button_type", "name" => "tm_meta[tmfbuilder][" . $name . "_button_type][]" ),
-			"options" => array(
-				array( "text" => esc_html__( 'Normal browser button', 'woocommerce-tm-extra-product-options' ), "value" => "" ),
-				array( "text" => esc_html__( 'Styled button', 'woocommerce-tm-extra-product-options' ), "value" => "button" ),
+			"default"     => "",
+			"type"        => "select",
+			"tags"        => array(
+				"id"   => "builder_" . $name . "_button_type",
+				"name" => "tm_meta[tmfbuilder][" . $name . "_button_type][]",
 			),
-			"label"   => esc_html__( 'Upload button style', 'woocommerce-tm-extra-product-options' ),
+			"options"     => array(
+				array(
+					"text"  => esc_html__( 'Normal browser button', 'woocommerce-tm-extra-product-options' ),
+					"value" => "",
+				),
+				array(
+					"text"  => esc_html__( 'Styled button', 'woocommerce-tm-extra-product-options' ),
+					"value" => "button",
+				),
+			),
+			"label"       => esc_html__( 'Upload button style', 'woocommerce-tm-extra-product-options' ),
 		);
 
 		$button_type = array_merge( $button_type, $args );
@@ -2785,11 +3999,20 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			"wpmldisable" => 1,
 			"default"     => "picker",
 			"type"        => "select",
-			"tags"        => array( "id" => "builder_" . $name . "_button_type", "name" => "tm_meta[tmfbuilder][" . $name . "_button_type][]" ),
+			"tags"        => array(
+				"id"   => "builder_" . $name . "_button_type",
+				"name" => "tm_meta[tmfbuilder][" . $name . "_button_type][]",
+			),
 			"options"     => array(
 				array( "text" => esc_html__( "Date field", 'woocommerce-tm-extra-product-options' ), "value" => "" ),
-				array( "text" => esc_html__( "Date picker", 'woocommerce-tm-extra-product-options' ), "value" => "picker" ),
-				array( "text" => esc_html__( "Date field and picker", 'woocommerce-tm-extra-product-options' ), "value" => "fieldpicker" ),
+				array(
+					"text"  => esc_html__( "Date picker", 'woocommerce-tm-extra-product-options' ),
+					"value" => "picker",
+				),
+				array(
+					"text"  => esc_html__( "Date field and picker", 'woocommerce-tm-extra-product-options' ),
+					"value" => "fieldpicker",
+				),
 			),
 			"label"       => esc_html__( "Date picker style", 'woocommerce-tm-extra-product-options' ),
 		);
@@ -2807,7 +4030,11 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			"wpmldisable"      => 1,
 			"default"          => "",
 			"type"             => "checkbox",
-			"tags"             => array( "value" => "hidden", "id" => "builder_" . $name . "_hide_amount", "name" => "tm_meta[tmfbuilder][" . $name . "_hide_amount][]" ),
+			"tags"             => array(
+				"value" => "hidden",
+				"id"    => "builder_" . $name . "_hide_amount",
+				"name"  => "tm_meta[tmfbuilder][" . $name . "_hide_amount][]",
+			),
 			"label"            => esc_html__( 'Hide price', 'woocommerce-tm-extra-product-options' ),
 			"desc"             => esc_html__( 'Choose whether to hide the price or not.', 'woocommerce-tm-extra-product-options' ),
 		);
@@ -2819,82 +4046,114 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 	 * @since 1.0
 	 */
 	public final function add_setting_quantity( $name = "" ) {
-		return array( '_multiple_values' => array(
-			array(
-				"id"               => $name . "_quantity",
-				"message0x0_class" => "builder_" . $name . "_quantity_div",
-				"wpmldisable"      => 1,
-				"default"          => "",
-				"type"             => "select",
-				"tags"             => array( "id" => "builder_" . $name . "_quantity", "class" => "tm-qty-selector", "name" => "tm_meta[tmfbuilder][" . $name . "_quantity][]" ),
-				"options"          => array(
-					array( "text" => esc_html__( 'Disable', 'woocommerce-tm-extra-product-options' ), "value" => "" ),
-					array( "text" => esc_html__( 'Right', 'woocommerce-tm-extra-product-options' ), "value" => "right" ),
-					array( "text" => esc_html__( 'Left', 'woocommerce-tm-extra-product-options' ), "value" => "left" ),
-					array( "text" => esc_html__( 'Top', 'woocommerce-tm-extra-product-options' ), "value" => "top" ),
-					array( "text" => esc_html__( 'Bottom', 'woocommerce-tm-extra-product-options' ), "value" => "bottom" ),
+		return array(
+			'_multiple_values' => array(
+				array(
+					"id"               => $name . "_quantity",
+					"message0x0_class" => "builder_" . $name . "_quantity_div",
+					"wpmldisable"      => 1,
+					"default"          => "",
+					"type"             => "select",
+					"tags"             => array(
+						"id"    => "builder_" . $name . "_quantity",
+						"class" => "tm-qty-selector",
+						"name"  => "tm_meta[tmfbuilder][" . $name . "_quantity][]",
+					),
+					"options"          => array(
+						array(
+							"text"  => esc_html__( 'Disable', 'woocommerce-tm-extra-product-options' ),
+							"value" => "",
+						),
+						array(
+							"text"  => esc_html__( 'Right', 'woocommerce-tm-extra-product-options' ),
+							"value" => "right",
+						),
+						array(
+							"text"  => esc_html__( 'Left', 'woocommerce-tm-extra-product-options' ),
+							"value" => "left",
+						),
+						array(
+							"text"  => esc_html__( 'Top', 'woocommerce-tm-extra-product-options' ),
+							"value" => "top",
+						),
+						array(
+							"text"  => esc_html__( 'Bottom', 'woocommerce-tm-extra-product-options' ),
+							"value" => "bottom",
+						),
+					),
+					"label"            => esc_html__( 'Quantity selector', 'woocommerce-tm-extra-product-options' ),
+					"desc"             => esc_html__( 'This will show a quantity selector for this option.', 'woocommerce-tm-extra-product-options' ),
 				),
-				"label"            => esc_html__( 'Quantity selector', 'woocommerce-tm-extra-product-options' ),
-				"desc"             => esc_html__( 'This will show a quantity selector for this option.', 'woocommerce-tm-extra-product-options' ),
-			),
-			$this->add_setting_min( $name . "_quantity",
+				$this->add_setting_min( $name . "_quantity",
+					array(
+						"label"            => esc_html__( 'Quantity min value', 'woocommerce-tm-extra-product-options' ),
+						"message0x0_class" => "tm-qty-min",
+						"required"         => array(
+							".tm-qty-selector" => array(
+								"operator" => "isnot",
+								"value"    => "",
+							),
+						),
+					), false
+				),
+				$this->add_setting_max( $name . "_quantity",
+					array(
+						"label"            => esc_html__( 'Quantity max value', 'woocommerce-tm-extra-product-options' ),
+						"message0x0_class" => "tm-qty-max",
+						"required"         => array(
+							".tm-qty-selector" => array(
+								"operator" => "isnot",
+								"value"    => "",
+							),
+						),
+					), false
+				),
 				array(
-					"label"            => esc_html__( 'Quantity min value', 'woocommerce-tm-extra-product-options' ),
-					"message0x0_class" => "tm-qty-min",
+					"id"               => $name . "_quantity_step",
+					"message0x0_class" => "tm-qty-step",
+					"wpmldisable"      => 1,
+					"default"          => "",
+					"type"             => "number",
+					"tags"             => array(
+						"class" => "n",
+						"id"    => "builder_" . $name . "_min",
+						"name"  => "tm_meta[tmfbuilder][" . $name . "_quantity_step][]",
+						"value" => "",
+						"step"  => "any",
+						"min"   => 0,
+					),
+					"label"            => esc_html__( 'Quantity step', 'woocommerce-tm-extra-product-options' ),
+					"desc"             => esc_html__( 'Enter the quantity step.', 'woocommerce-tm-extra-product-options' ),
 					"required"         => array(
 						".tm-qty-selector" => array(
 							"operator" => "isnot",
 							"value"    => "",
-						)
+						),
 					),
-				), FALSE
-			),
-			$this->add_setting_max( $name . "_quantity",
-				array(
-					"label"            => esc_html__( 'Quantity max value', 'woocommerce-tm-extra-product-options' ),
-					"message0x0_class" => "tm-qty-max",
-					"required"         => array(
-						".tm-qty-selector" => array(
-							"operator" => "isnot",
-							"value"    => "",
-						)
-					),
-				), FALSE
-			),
-			array(
-				"id"               => $name . "_quantity_step",
-				"message0x0_class" => "tm-qty-step",
-				"wpmldisable"      => 1,
-				"default"          => "",
-				"type"             => "number",
-				"tags"             => array( "class" => "n", "id" => "builder_" . $name . "_min", "name" => "tm_meta[tmfbuilder][" . $name . "_quantity_step][]", "value" => "", "step" => "any", "min" => 0 ),
-				"label"            => esc_html__( 'Quantity step', 'woocommerce-tm-extra-product-options' ),
-				"desc"             => esc_html__( 'Enter the quantity step.', 'woocommerce-tm-extra-product-options' ),
-				"required"         => array(
-					".tm-qty-selector" => array(
-						"operator" => "isnot",
-						"value"    => "",
+				),
+
+
+				$this->add_setting_default_value( $name . "_quantity",
+					array(
+						"type"             => "number",
+						"tags"             => array(
+							"class" => "n",
+							"id"    => "builder_" . $name . "_quantity" . "_default_value",
+							"name"  => "tm_meta[tmfbuilder][" . $name . "_quantity" . "_default_value][]",
+							"value" => "",
+						),
+						"label"            => esc_html__( 'Quantity Default value', 'woocommerce-tm-extra-product-options' ),
+						"message0x0_class" => "tm-qty-default",
+						"desc"             => esc_html__( 'Enter a value to be applied to the Quantity field automatically.', 'woocommerce-tm-extra-product-options' ),
+						"required"         => array(
+							".tm-qty-selector" => array(
+								"operator" => "isnot",
+								"value"    => "",
+							),
+						),
 					)
 				),
 			),
-
-
-			$this->add_setting_default_value( $name . "_quantity",
-				array(
-					"type"             => "number",
-					"tags"             => array( "class" => "n", "id" => "builder_" . $name . "_quantity" . "_default_value", "name" => "tm_meta[tmfbuilder][" . $name . "_quantity" . "_default_value][]", "value" => "" ),
-					"label"            => esc_html__( 'Quantity Default value', 'woocommerce-tm-extra-product-options' ),
-					"message0x0_class" => "tm-qty-default",
-					"desc"             => esc_html__( 'Enter a value to be applied to the Quantity field automatically.', 'woocommerce-tm-extra-product-options' ),
-					"required"         => array(
-						".tm-qty-selector" => array(
-							"operator" => "isnot",
-							"value"    => "",
-						)
-					),
-				)
-			),
-		)
 		);
 	}
 
@@ -2908,7 +4167,12 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			"id"      => $name . "_placeholder",
 			"default" => "",
 			"type"    => "text",
-			"tags"    => array( "class" => "t", "id" => "builder_" . $name . "_placeholder", "name" => "tm_meta[tmfbuilder][" . $name . "_placeholder][]", "value" => "" ),
+			"tags"    => array(
+				"class" => "t",
+				"id"    => "builder_" . $name . "_placeholder",
+				"name"  => "tm_meta[tmfbuilder][" . $name . "_placeholder][]",
+				"value" => "",
+			),
 			"label"   => esc_html__( 'Placeholder', 'woocommerce-tm-extra-product-options' ),
 			"desc"    => "",
 		), $args );
@@ -2925,7 +4189,13 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			"wpmldisable" => 1,
 			"default"     => "",
 			"type"        => "number",
-			"tags"        => array( "class" => "n", "id" => "builder_" . $name . "_min_chars", "name" => "tm_meta[tmfbuilder][" . $name . "_min_chars][]", "value" => "", "min" => 0 ),
+			"tags"        => array(
+				"class" => "n",
+				"id"    => "builder_" . $name . "_min_chars",
+				"name"  => "tm_meta[tmfbuilder][" . $name . "_min_chars][]",
+				"value" => "",
+				"min"   => 0,
+			),
 			"label"       => esc_html__( 'Minimum characters', 'woocommerce-tm-extra-product-options' ),
 			"desc"        => esc_html__( 'Enter a value for the minimum characters the user must enter.', 'woocommerce-tm-extra-product-options' ),
 		);
@@ -2942,7 +4212,13 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			"wpmldisable" => 1,
 			"default"     => "",
 			"type"        => "number",
-			"tags"        => array( "class" => "n", "id" => "builder_" . $name . "_max_chars", "name" => "tm_meta[tmfbuilder][" . $name . "_max_chars][]", "value" => "", "min" => 0 ),
+			"tags"        => array(
+				"class" => "n",
+				"id"    => "builder_" . $name . "_max_chars",
+				"name"  => "tm_meta[tmfbuilder][" . $name . "_max_chars][]",
+				"value" => "",
+				"min"   => 0,
+			),
 			"label"       => esc_html__( 'Maximum characters', 'woocommerce-tm-extra-product-options' ),
 			"desc"        => esc_html__( 'Enter a value to limit the maximum characters the user can enter.', 'woocommerce-tm-extra-product-options' ),
 		);
@@ -2958,7 +4234,12 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			"id"      => $name . "_default_value",
 			"default" => "",
 			"type"    => "text",
-			"tags"    => array( "class" => "t", "id" => "builder_" . $name . "_default_value", "name" => "tm_meta[tmfbuilder][" . $name . "_default_value][]", "value" => "" ),
+			"tags"    => array(
+				"class" => "t",
+				"id"    => "builder_" . $name . "_default_value",
+				"name"  => "tm_meta[tmfbuilder][" . $name . "_default_value][]",
+				"value" => "",
+			),
 			"label"   => esc_html__( 'Default value', 'woocommerce-tm-extra-product-options' ),
 			"desc"    => esc_html__( 'Enter a value to be applied to the field automatically.', 'woocommerce-tm-extra-product-options' ),
 		), $args );
@@ -2974,7 +4255,12 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			"id"      => $name . "_default_value",
 			"default" => "",
 			"type"    => "textarea",
-			"tags"    => array( "class" => "t tm-no-editor", "id" => "builder_" . $name . "_default_value", "name" => "tm_meta[tmfbuilder][" . $name . "_default_value][]", "value" => "" ),
+			"tags"    => array(
+				"class" => "t tm-no-editor",
+				"id"    => "builder_" . $name . "_default_value",
+				"name"  => "tm_meta[tmfbuilder][" . $name . "_default_value][]",
+				"value" => "",
+			),
 			"label"   => esc_html__( 'Default value', 'woocommerce-tm-extra-product-options' ),
 			"desc"    => esc_html__( 'Enter a value to be applied to the field automatically.', 'woocommerce-tm-extra-product-options' ),
 		);
@@ -3090,7 +4376,7 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 	 * @since  1.0
 	 * @access private
 	 */
-	private function _add_element_helper( $name = "", $value = "", $_value = array(), $additional_currencies = FALSE, $is_addon = FALSE ) {
+	private function _add_element_helper( $name = "", $value = "", $_value = array(), $additional_currencies = false, $is_addon = false ) {
 
 		$return = array();
 
@@ -3149,15 +4435,15 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 	 *
 	 * @since 1.0
 	 */
-	public final function add_element( $name = "", $settings_array = array(), $is_addon = FALSE, $tabs_override = array(), $header_names = array() ) {
+	public final function add_element( $name = "", $settings_array = array(), $is_addon = false, $tabs_override = array(), $header_names = array() ) {
 
 		$settings_array        = apply_filters( 'tc_element_settings_override', $settings_array, $name );
 		$tabs_override         = apply_filters( 'tc_element_tabs_override', $tabs_override, $name, $settings_array, $is_addon );
 		$options               = array();
 		$additional_currencies = THEMECOMPLETE_EPO_HELPER()->get_additional_currencies();
 
-		if (!isset($settings_array["_tabs"])){
-			$tabs_array = array("general_options" => $settings_array);
+		if ( ! isset( $settings_array["_tabs"] ) ) {
+			$tabs_array = array( "general_options" => $settings_array );
 		} else {
 			$tabs_array = $settings_array["_tabs"];
 		}
@@ -3187,16 +4473,16 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 						}
 
 					}
-					$options[$tab][] = $value;
+					$options[ $tab ][] = $value;
 				} else {
-					$args = FALSE;
-					
+					$args = false;
+
 					if ( is_array( $value ) && count( $value ) == 1 && isset( $value['_multiple_values'] ) ) {
-						
+
 						foreach ( $value['_multiple_values'] as $mkey => $mvalue ) {
 							$r = $this->_add_element_helper( $name, $value, $mvalue, $additional_currencies, $is_addon );
 							foreach ( $r as $rkey => $rvalue ) {
-								$options[$tab][] = $rvalue;
+								$options[ $tab ][] = $rvalue;
 							}
 						}
 
@@ -3222,13 +4508,13 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 								foreach ( $_value['_multiple_values'] as $mkey => $mvalue ) {
 									$r = $this->_add_element_helper( $name, $value, $mvalue, $additional_currencies, $is_addon );
 									foreach ( $r as $rkey => $rvalue ) {
-										$options[$tab][] = $rvalue;
+										$options[ $tab ][] = $rvalue;
 									}
 								}
 							} else {
 								$r = $this->_add_element_helper( $name, $value, $_value, $additional_currencies, $is_addon );
 								foreach ( $r as $rkey => $rvalue ) {
-									$options[$tab][] = $rvalue;
+									$options[ $tab ][] = $rvalue;
 								}
 							}
 
@@ -3253,9 +4539,9 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			if ( ! isset( $tabs_override["woocommerce_settings"] ) ) {
 				$tabs_override["woocommerce_settings"] = 0;
 			}
-			foreach ($tabs as $tab) {
-				if ( ! isset( $tabs_override[$tab] ) ) {
-					$tabs_override[$tab] = 0;
+			foreach ( $tabs as $tab ) {
+				if ( ! isset( $tabs_override[ $tab ] ) ) {
+					$tabs_override[ $tab ] = 0;
 				}
 			}
 		} else {
@@ -3263,46 +4549,43 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			$tabs_override["conditional_logic"]    = 1;
 			$tabs_override["css_settings"]         = 1;
 			$tabs_override["woocommerce_settings"] = 1;
-			foreach ($tabs as $tab) {
-				$tabs_override[$tab] = 1;
+			foreach ( $tabs as $tab ) {
+				$tabs_override[ $tab ] = 1;
 			}
 		}
 
-		$counter = 1;
+		$counter       = 1;
 		$options_array = array();
-		$header_array = array();
-		foreach ($options as $tab => $option) {
-			
-			if (! empty( $tabs_override[$tab] )){
+		$header_array  = array();
+		foreach ( $options as $tab => $option ) {
+
+			if ( ! empty( $tabs_override[ $tab ] ) ) {
 				$counter ++;
-				$options_array =array_merge(
+				$options_array = array_merge(
 					$options_array,
 					// add $tab options
 					$this->_prepend_div( $name . $counter ),
 					apply_filters( 'wc_epo_admin_element_general_options', $option ),
-					$this->_append_div( $name . $counter ),
-
+					$this->_append_div( $name . $counter )
 				);
-				if ($tab === "general_options"){
+				if ( $tab === "general_options" ) {
 					$header_name = esc_html__( "General options", 'woocommerce-tm-extra-product-options' );
 					$header_icon = "tcfa tcfa-cog";
 					$header_slug = "tma-tab-general";
+				} elseif ( isset( $header_names[ $tab ] ) ) {
+					$header_name = isset( $header_names[ $tab ]['name'] ) ? $header_names[ $tab ]['name'] : esc_html__( "General Settings", 'woocommerce-tm-extra-product-options' );
+					$header_icon = isset( $header_names[ $tab ]['icon'] ) ? $header_names[ $tab ]['icon'] : "tcfa tcfa-cog";
+					$header_slug = isset( $header_names[ $tab ]['slug'] ) ? $header_names[ $tab ]['slug'] . " tma-tab-extra" : "tma-tab-general tma-tab-extra";
 				}
-				elseif ( isset($header_names[$tab])){
-					$header_name = isset($header_names[$tab]['name'])?$header_names[$tab]['name']:esc_html__( "General Settings", 'woocommerce-tm-extra-product-options' );
-					$header_icon = isset($header_names[$tab]['icon'])?$header_names[$tab]['icon']:"tcfa tcfa-cog";
-					$header_slug = isset($header_names[$tab]['slug'])?$header_names[$tab]['slug']." tma-tab-extra":"tma-tab-general tma-tab-extra";
-				}
-				$header_array =array_merge(
+				$header_array = array_merge(
 					$header_array,
 					// add $tab options
-					$this->_prepend_tab( $name . $counter, 
-						array( $header_icon, $header_name ), "closed", $header_slug 
-					),
-
+					$this->_prepend_tab( $name . $counter,
+						array( $header_icon, $header_name ), "closed", $header_slug
+					)
 				);
 			}
-			
+
 		}
 
 		return array_merge(
@@ -3310,11 +4593,23 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 
 			// add headers
 			$this->_prepend_div( $name, "tm-tab-headers" ),
-			! empty( $tabs_override["label_options"] ) ? $this->_prepend_tab( $name . "1", array( "tcfa tcfa-tag", esc_html__( "Label options", 'woocommerce-tm-extra-product-options' ) ), "open", "tma-tab-label" ) : array(),
+			! empty( $tabs_override["label_options"] ) ? $this->_prepend_tab( $name . "1", array(
+				"tcfa tcfa-tag",
+				esc_html__( "Label options", 'woocommerce-tm-extra-product-options' ),
+			), "open", "tma-tab-label" ) : array(),
 			$header_array,
-			! empty( $tabs_override["conditional_logic"] ) ? $this->_prepend_tab( $name . ($counter+1), array( "tcfa tcfa-lightbulb", esc_html__( "Conditional Logic", 'woocommerce-tm-extra-product-options' ) ), "closed", "tma-tab-logic" ) : array(),
-			! empty( $tabs_override["css_settings"] ) ? $this->_prepend_tab( $name . ($counter+2), array( "tcfa tcfa-file-alt", esc_html__( "CSS settings", 'woocommerce-tm-extra-product-options' ) ), "closed", "tma-tab-css" ) : array(),
-			! empty( $tabs_override["woocommerce_settings"] ) ? $this->_prepend_tab( $name . ($counter+3), array( "tcfa tcfa-shopping-bag", esc_html__( "WooCommerce settings", 'woocommerce-tm-extra-product-options' ) ), "closed", "tma-tab-woocommerce" ) : array(),
+			! empty( $tabs_override["conditional_logic"] ) ? $this->_prepend_tab( $name . ( $counter + 1 ), array(
+				"tcfa tcfa-lightbulb",
+				esc_html__( "Conditional Logic", 'woocommerce-tm-extra-product-options' ),
+			), "closed", "tma-tab-logic" ) : array(),
+			! empty( $tabs_override["css_settings"] ) ? $this->_prepend_tab( $name . ( $counter + 2 ), array(
+				"tcfa tcfa-file-alt",
+				esc_html__( "CSS settings", 'woocommerce-tm-extra-product-options' ),
+			), "closed", "tma-tab-css" ) : array(),
+			! empty( $tabs_override["woocommerce_settings"] ) ? $this->_prepend_tab( $name . ( $counter + 3 ), array(
+				"tcfa tcfa-shopping-bag",
+				esc_html__( "WooCommerce settings", 'woocommerce-tm-extra-product-options' ),
+			), "closed", "tma-tab-woocommerce" ) : array(),
 			$this->_append_div( $name ),
 
 			// add Label options
@@ -3327,18 +4622,23 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			$options_array,
 
 			// add Contitional logic
-			$name !== "variations" && ! empty( $tabs_override["conditional_logic"] ) ? $this->_prepend_div( $name . ($counter+1) ) : array(),
+			$name !== "variations" && ! empty( $tabs_override["conditional_logic"] ) ? $this->_prepend_div( $name . ( $counter + 1 ) ) : array(),
 			$name !== "variations" && ! empty( $tabs_override["conditional_logic"] ) ? $this->_prepend_logic( $name ) : array(),
-			$name !== "variations" && ! empty( $tabs_override["conditional_logic"] ) ? $this->_append_div( $name . ($counter+1) ) : array(),
+			$name !== "variations" && ! empty( $tabs_override["conditional_logic"] ) ? $this->_append_div( $name . ( $counter + 1 ) ) : array(),
 
 			// add CSS settings
-			$name !== "variations" && ! empty( $tabs_override["css_settings"] ) ? $this->_prepend_div( $name . ($counter+2) ) : array(),
+			$name !== "variations" && ! empty( $tabs_override["css_settings"] ) ? $this->_prepend_div( $name . ( $counter + 2 ) ) : array(),
 			$name !== "variations" && ! empty( $tabs_override["css_settings"] ) ? apply_filters( 'wc_epo_admin_element_css_settings', array(
 				array(
 					"id"      => $name . "_class",
 					"default" => "",
 					"type"    => "text",
-					"tags"    => array( "class" => "t", "id" => "builder_" . $name . "_class", "name" => "tm_meta[tmfbuilder][" . $name . "_class][]", "value" => "" ),
+					"tags"    => array(
+						"class" => "t",
+						"id"    => "builder_" . $name . "_class",
+						"name"  => "tm_meta[tmfbuilder][" . $name . "_class][]",
+						"value" => "",
+					),
 					"label"   => esc_html__( 'Element class name', 'woocommerce-tm-extra-product-options' ),
 					"desc"    => esc_html__( 'Enter an extra class name to add to this element', 'woocommerce-tm-extra-product-options' ),
 				),
@@ -3346,25 +4646,39 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 					"id"      => $name . "_container_id",
 					"default" => "",
 					"type"    => "text",
-					"tags"    => array( "class" => "t", "id" => "builder_" . $name . "_container_id", "name" => "tm_meta[tmfbuilder][" . $name . "_container_id][]", "value" => "" ),
+					"tags"    => array(
+						"class" => "t",
+						"id"    => "builder_" . $name . "_container_id",
+						"name"  => "tm_meta[tmfbuilder][" . $name . "_container_id][]",
+						"value" => "",
+					),
 					"label"   => esc_html__( 'Element container id', 'woocommerce-tm-extra-product-options' ),
 					"desc"    => esc_html__( 'Enter an id for the container of the element.', 'woocommerce-tm-extra-product-options' ),
 				),
 			) ) : array(),
-			! empty( $tabs_override["css_settings"] ) ? $this->_append_div( $name . ($counter+2) ) : array(),
+			! empty( $tabs_override["css_settings"] ) ? $this->_append_div( $name . ( $counter + 2 ) ) : array(),
 
 			// add WooCommerce settings
-			$name !== "variations" && ! empty( $tabs_override["woocommerce_settings"] ) ? $this->_prepend_div( $name . ($counter+3) ) : array(),
+			$name !== "variations" && ! empty( $tabs_override["woocommerce_settings"] ) ? $this->_prepend_div( $name . ( $counter + 3 ) ) : array(),
 			$name !== "variations" && ! empty( $tabs_override["woocommerce_settings"] ) ? apply_filters( 'wc_epo_admin_element_woocommerce_settings', array(
 				array(
 					"id"          => $name . "_include_tax_for_fee_price_type",
 					"wpmldisable" => 1,
 					"default"     => "",
 					"type"        => "select",
-					"tags"        => array( "id" => "builder_" . $name . "_include_tax_for_fee_price_type", "name" => "tm_meta[tmfbuilder][" . $name . "_include_tax_for_fee_price_type][]" ),
+					"tags"        => array(
+						"id"   => "builder_" . $name . "_include_tax_for_fee_price_type",
+						"name" => "tm_meta[tmfbuilder][" . $name . "_include_tax_for_fee_price_type][]",
+					),
 					"options"     => array(
-						array( "text" => esc_html__( 'Inherit product setting', 'woocommerce-tm-extra-product-options' ), "value" => "" ),
-						array( "text" => esc_html__( 'Yes', 'woocommerce-tm-extra-product-options' ), "value" => "yes" ),
+						array(
+							"text"  => esc_html__( 'Inherit product setting', 'woocommerce-tm-extra-product-options' ),
+							"value" => "",
+						),
+						array(
+							"text"  => esc_html__( 'Yes', 'woocommerce-tm-extra-product-options' ),
+							"value" => "yes",
+						),
 						array( "text" => esc_html__( 'No', 'woocommerce-tm-extra-product-options' ), "value" => "no" ),
 					),
 					"label"       => esc_html__( 'Include tax for Fee price type', 'woocommerce-tm-extra-product-options' ),
@@ -3381,7 +4695,10 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 					"wpmldisable" => 1,
 					"default"     => "",
 					"type"        => "select",
-					"tags"        => array( "id" => "builder_" . $name . "_tax_class_for_fee_price_type", "name" => "tm_meta[tmfbuilder][" . $name . "_tax_class_for_fee_price_type][]" ),
+					"tags"        => array(
+						"id"   => "builder_" . $name . "_tax_class_for_fee_price_type",
+						"name" => "tm_meta[tmfbuilder][" . $name . "_tax_class_for_fee_price_type][]",
+					),
 					"options"     => $this->get_tax_classes(),
 					"label"       => esc_html__( 'Tax class for Fee price type', 'woocommerce-tm-extra-product-options' ),
 					"desc"        => esc_html__( 'Choose the tax class for Fee price type on this element.', 'woocommerce-tm-extra-product-options' ),
@@ -3397,10 +4714,16 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 					"wpmldisable" => 1,
 					"default"     => "",
 					"type"        => "select",
-					"tags"        => array( "id" => "builder_" . $name . "_hide_element_label_in_cart", "name" => "tm_meta[tmfbuilder][" . $name . "_hide_element_label_in_cart][]" ),
+					"tags"        => array(
+						"id"   => "builder_" . $name . "_hide_element_label_in_cart",
+						"name" => "tm_meta[tmfbuilder][" . $name . "_hide_element_label_in_cart][]",
+					),
 					"options"     => array(
 						array( "text" => esc_html__( 'No', 'woocommerce-tm-extra-product-options' ), "value" => "" ),
-						array( "text" => esc_html__( 'Yes', 'woocommerce-tm-extra-product-options' ), "value" => "hidden" ),
+						array(
+							"text"  => esc_html__( 'Yes', 'woocommerce-tm-extra-product-options' ),
+							"value" => "hidden",
+						),
 					),
 					"label"       => esc_html__( 'Hide element label in cart', 'woocommerce-tm-extra-product-options' ),
 					"desc"        => esc_html__( 'Choose whether to hide the element label in the cart or not.', 'woocommerce-tm-extra-product-options' ),
@@ -3410,12 +4733,24 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 					"wpmldisable" => 1,
 					"default"     => "",
 					"type"        => "select",
-					"tags"        => array( "id" => "builder_" . $name . "_hide_element_value_in_cart", "name" => "tm_meta[tmfbuilder][" . $name . "_hide_element_value_in_cart][]" ),
+					"tags"        => array(
+						"id"   => "builder_" . $name . "_hide_element_value_in_cart",
+						"name" => "tm_meta[tmfbuilder][" . $name . "_hide_element_value_in_cart][]",
+					),
 					"options"     => array(
 						array( "text" => esc_html__( 'No', 'woocommerce-tm-extra-product-options' ), "value" => "" ),
-						array( "text" => esc_html__( 'No, but hide price', 'woocommerce-tm-extra-product-options' ), "value" => "noprice" ),
-						array( "text" => esc_html__( 'Yes', 'woocommerce-tm-extra-product-options' ), "value" => "hidden" ),
-						array( "text" => esc_html__( 'Yes, but show price', 'woocommerce-tm-extra-product-options' ), "value" => "price" ),
+						array(
+							"text"  => esc_html__( 'No, but hide price', 'woocommerce-tm-extra-product-options' ),
+							"value" => "noprice",
+						),
+						array(
+							"text"  => esc_html__( 'Yes', 'woocommerce-tm-extra-product-options' ),
+							"value" => "hidden",
+						),
+						array(
+							"text"  => esc_html__( 'Yes, but show price', 'woocommerce-tm-extra-product-options' ),
+							"value" => "price",
+						),
 					),
 					"label"       => esc_html__( 'Hide element value in cart', 'woocommerce-tm-extra-product-options' ),
 					"desc"        => esc_html__( 'Choose whether to hide the element value in the cart or not.', 'woocommerce-tm-extra-product-options' ),
@@ -3425,10 +4760,16 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 					"wpmldisable" => 1,
 					"default"     => "",
 					"type"        => "select",
-					"tags"        => array( "id" => "builder_" . $name . "_hide_element_label_in_order", "name" => "tm_meta[tmfbuilder][" . $name . "_hide_element_label_in_order][]" ),
+					"tags"        => array(
+						"id"   => "builder_" . $name . "_hide_element_label_in_order",
+						"name" => "tm_meta[tmfbuilder][" . $name . "_hide_element_label_in_order][]",
+					),
 					"options"     => array(
 						array( "text" => esc_html__( 'No', 'woocommerce-tm-extra-product-options' ), "value" => "" ),
-						array( "text" => esc_html__( 'Yes', 'woocommerce-tm-extra-product-options' ), "value" => "hidden" ),
+						array(
+							"text"  => esc_html__( 'Yes', 'woocommerce-tm-extra-product-options' ),
+							"value" => "hidden",
+						),
 					),
 					"label"       => esc_html__( 'Hide element label in order', 'woocommerce-tm-extra-product-options' ),
 					"desc"        => esc_html__( 'Choose whether to hide the element label in the order or not.', 'woocommerce-tm-extra-product-options' ),
@@ -3438,12 +4779,24 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 					"wpmldisable" => 1,
 					"default"     => "",
 					"type"        => "select",
-					"tags"        => array( "id" => "builder_" . $name . "_hide_element_value_in_order", "name" => "tm_meta[tmfbuilder][" . $name . "_hide_element_value_in_order][]" ),
+					"tags"        => array(
+						"id"   => "builder_" . $name . "_hide_element_value_in_order",
+						"name" => "tm_meta[tmfbuilder][" . $name . "_hide_element_value_in_order][]",
+					),
 					"options"     => array(
 						array( "text" => esc_html__( 'No', 'woocommerce-tm-extra-product-options' ), "value" => "" ),
-						array( "text" => esc_html__( 'No, but hide price', 'woocommerce-tm-extra-product-options' ), "value" => "noprice" ),
-						array( "text" => esc_html__( 'Yes', 'woocommerce-tm-extra-product-options' ), "value" => "hidden" ),
-						array( "text" => esc_html__( 'Yes, but show price', 'woocommerce-tm-extra-product-options' ), "value" => "price" ),
+						array(
+							"text"  => esc_html__( 'No, but hide price', 'woocommerce-tm-extra-product-options' ),
+							"value" => "noprice",
+						),
+						array(
+							"text"  => esc_html__( 'Yes', 'woocommerce-tm-extra-product-options' ),
+							"value" => "hidden",
+						),
+						array(
+							"text"  => esc_html__( 'Yes, but show price', 'woocommerce-tm-extra-product-options' ),
+							"value" => "price",
+						),
 					),
 					"label"       => esc_html__( 'Hide element value in order', 'woocommerce-tm-extra-product-options' ),
 					"desc"        => esc_html__( 'Choose whether to hide the element value in the order or not.', 'woocommerce-tm-extra-product-options' ),
@@ -3453,10 +4806,16 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 					"wpmldisable" => 1,
 					"default"     => "",
 					"type"        => "select",
-					"tags"        => array( "id" => "builder_" . $name . "_hide_element_label_in_floatbox", "name" => "tm_meta[tmfbuilder][" . $name . "_hide_element_label_in_floatbox][]" ),
+					"tags"        => array(
+						"id"   => "builder_" . $name . "_hide_element_label_in_floatbox",
+						"name" => "tm_meta[tmfbuilder][" . $name . "_hide_element_label_in_floatbox][]",
+					),
 					"options"     => array(
 						array( "text" => esc_html__( 'No', 'woocommerce-tm-extra-product-options' ), "value" => "" ),
-						array( "text" => esc_html__( 'Yes', 'woocommerce-tm-extra-product-options' ), "value" => "hidden" ),
+						array(
+							"text"  => esc_html__( 'Yes', 'woocommerce-tm-extra-product-options' ),
+							"value" => "hidden",
+						),
 					),
 					"label"       => esc_html__( 'Hide element label in floating totals box.', 'woocommerce-tm-extra-product-options' ),
 					"desc"        => esc_html__( 'Choose whether to hide the element label in the floating totals box or not.', 'woocommerce-tm-extra-product-options' ),
@@ -3466,16 +4825,22 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 					"wpmldisable" => 1,
 					"default"     => "",
 					"type"        => "select",
-					"tags"        => array( "id" => "builder_" . $name . "_hide_element_value_in_floatbox", "name" => "tm_meta[tmfbuilder][" . $name . "_hide_element_value_in_floatbox][]" ),
+					"tags"        => array(
+						"id"   => "builder_" . $name . "_hide_element_value_in_floatbox",
+						"name" => "tm_meta[tmfbuilder][" . $name . "_hide_element_value_in_floatbox][]",
+					),
 					"options"     => array(
 						array( "text" => esc_html__( 'No', 'woocommerce-tm-extra-product-options' ), "value" => "" ),
-						array( "text" => esc_html__( 'Yes', 'woocommerce-tm-extra-product-options' ), "value" => "hidden" ),
+						array(
+							"text"  => esc_html__( 'Yes', 'woocommerce-tm-extra-product-options' ),
+							"value" => "hidden",
+						),
 					),
 					"label"       => esc_html__( 'Hide element value in floating totals box', 'woocommerce-tm-extra-product-options' ),
 					"desc"        => esc_html__( 'Choose whether to hide the element value in the floating totals box or not.', 'woocommerce-tm-extra-product-options' ),
 				),
 			) ) : array(),
-			! empty( $tabs_override["woocommerce_settings"] ) ? $this->_append_div( $name . ($counter+2) ) : array(),
+			! empty( $tabs_override["woocommerce_settings"] ) ? $this->_append_div( $name . ( $counter + 2 ) ) : array(),
 
 			$this->_append_div( "" )
 		);
@@ -3518,15 +4883,16 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			$boxclass = " " . $boxclass;
 		}
 
-		return array( array(
-			              "id"      => $id . "_custom_tabstart",
-			              "default" => "",
-			              "type"    => "custom",
-			              "nodiv"   => 1,
-			              "html"    => array( array( $this, "_prepend_tab_callback" ), array( $id, $label, $closed, $boxclass ) ),
-			              "label"   => "",
-			              "desc"    => "",
-		              )
+		return array(
+			array(
+				"id"      => $id . "_custom_tabstart",
+				"default" => "",
+				"type"    => "custom",
+				"nodiv"   => 1,
+				"html"    => array( array( $this, "_prepend_tab_callback" ), array( $id, $label, $closed, $boxclass ) ),
+				"label"   => "",
+				"desc"    => "",
+			),
 		);
 	}
 
@@ -3551,15 +4917,16 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			$id .= "-tab";
 		}
 
-		return array( array(
-			              "id"      => $id . "_custom_divstart",
-			              "default" => "",
-			              "type"    => "custom",
-			              "nodiv"   => 1,
-			              "html"    => array( array( $this, "_prepend_div_callback" ), array( $id, $tmtab ) ),
-			              "label"   => "",
-			              "desc"    => "",
-		              )
+		return array(
+			array(
+				"id"      => $id . "_custom_divstart",
+				"default" => "",
+				"type"    => "custom",
+				"nodiv"   => 1,
+				"html"    => array( array( $this, "_prepend_div_callback" ), array( $id, $tmtab ) ),
+				"label"   => "",
+				"desc"    => "",
+			),
 		);
 	}
 
@@ -3580,15 +4947,16 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 	 * @access private
 	 */
 	private function _append_div( $id = "" ) {
-		return array( array(
-			              "id"      => $id . "_custom_divend",
-			              "default" => "",
-			              "type"    => "custom",
-			              "nodiv"   => 1,
-			              "html"    => array( array( $this, "_append_div_callback" ), array() ),
-			              "label"   => "",
-			              "desc"    => "",
-		              )
+		return array(
+			array(
+				"id"      => $id . "_custom_divend",
+				"default" => "",
+				"type"    => "custom",
+				"nodiv"   => 1,
+				"html"    => array( array( $this, "_append_div_callback" ), array() ),
+				"label"   => "",
+				"desc"    => "",
+			),
 		);
 	}
 
@@ -3635,31 +5003,91 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 					"wpmldisable" => 1,
 					"default"     => ( $id == "section_header" ) ? "3" : "10",
 					"type"        => "select",
-					"tags"        => array( "id" => "builder_" . $id . "_size", "name" => "tm_meta[tmfbuilder][" . $id . "_size][]" ),
+					"tags"        => array(
+						"id"   => "builder_" . $id . "_size",
+						"name" => "tm_meta[tmfbuilder][" . $id . "_size][]",
+					),
 					"options"     =>
 						( $id != "section_header" ) ?
 							array(
-								array( "text" => esc_html__( "H1", 'woocommerce-tm-extra-product-options' ), "value" => "1" ),
-								array( "text" => esc_html__( "H2", 'woocommerce-tm-extra-product-options' ), "value" => "2" ),
-								array( "text" => esc_html__( "H3", 'woocommerce-tm-extra-product-options' ), "value" => "3" ),
-								array( "text" => esc_html__( "H4", 'woocommerce-tm-extra-product-options' ), "value" => "4" ),
-								array( "text" => esc_html__( "H5", 'woocommerce-tm-extra-product-options' ), "value" => "5" ),
-								array( "text" => esc_html__( "H6", 'woocommerce-tm-extra-product-options' ), "value" => "6" ),
-								array( "text" => esc_html__( "p", 'woocommerce-tm-extra-product-options' ), "value" => "7" ),
-								array( "text" => esc_html__( "div", 'woocommerce-tm-extra-product-options' ), "value" => "8" ),
-								array( "text" => esc_html__( "span", 'woocommerce-tm-extra-product-options' ), "value" => "9" ),
-								array( "text" => esc_html__( "label", 'woocommerce-tm-extra-product-options' ), "value" => "10" ),
+								array(
+									"text"  => esc_html__( "H1", 'woocommerce-tm-extra-product-options' ),
+									"value" => "1",
+								),
+								array(
+									"text"  => esc_html__( "H2", 'woocommerce-tm-extra-product-options' ),
+									"value" => "2",
+								),
+								array(
+									"text"  => esc_html__( "H3", 'woocommerce-tm-extra-product-options' ),
+									"value" => "3",
+								),
+								array(
+									"text"  => esc_html__( "H4", 'woocommerce-tm-extra-product-options' ),
+									"value" => "4",
+								),
+								array(
+									"text"  => esc_html__( "H5", 'woocommerce-tm-extra-product-options' ),
+									"value" => "5",
+								),
+								array(
+									"text"  => esc_html__( "H6", 'woocommerce-tm-extra-product-options' ),
+									"value" => "6",
+								),
+								array(
+									"text"  => esc_html__( "p", 'woocommerce-tm-extra-product-options' ),
+									"value" => "7",
+								),
+								array(
+									"text"  => esc_html__( "div", 'woocommerce-tm-extra-product-options' ),
+									"value" => "8",
+								),
+								array(
+									"text"  => esc_html__( "span", 'woocommerce-tm-extra-product-options' ),
+									"value" => "9",
+								),
+								array(
+									"text"  => esc_html__( "label", 'woocommerce-tm-extra-product-options' ),
+									"value" => "10",
+								),
 							) :
 							array(
-								array( "text" => esc_html__( "H1", 'woocommerce-tm-extra-product-options' ), "value" => "1" ),
-								array( "text" => esc_html__( "H2", 'woocommerce-tm-extra-product-options' ), "value" => "2" ),
-								array( "text" => esc_html__( "H3", 'woocommerce-tm-extra-product-options' ), "value" => "3" ),
-								array( "text" => esc_html__( "H4", 'woocommerce-tm-extra-product-options' ), "value" => "4" ),
-								array( "text" => esc_html__( "H5", 'woocommerce-tm-extra-product-options' ), "value" => "5" ),
-								array( "text" => esc_html__( "H6", 'woocommerce-tm-extra-product-options' ), "value" => "6" ),
-								array( "text" => esc_html__( "p", 'woocommerce-tm-extra-product-options' ), "value" => "7" ),
-								array( "text" => esc_html__( "div", 'woocommerce-tm-extra-product-options' ), "value" => "8" ),
-								array( "text" => esc_html__( "span", 'woocommerce-tm-extra-product-options' ), "value" => "9" ),
+								array(
+									"text"  => esc_html__( "H1", 'woocommerce-tm-extra-product-options' ),
+									"value" => "1",
+								),
+								array(
+									"text"  => esc_html__( "H2", 'woocommerce-tm-extra-product-options' ),
+									"value" => "2",
+								),
+								array(
+									"text"  => esc_html__( "H3", 'woocommerce-tm-extra-product-options' ),
+									"value" => "3",
+								),
+								array(
+									"text"  => esc_html__( "H4", 'woocommerce-tm-extra-product-options' ),
+									"value" => "4",
+								),
+								array(
+									"text"  => esc_html__( "H5", 'woocommerce-tm-extra-product-options' ),
+									"value" => "5",
+								),
+								array(
+									"text"  => esc_html__( "H6", 'woocommerce-tm-extra-product-options' ),
+									"value" => "6",
+								),
+								array(
+									"text"  => esc_html__( "p", 'woocommerce-tm-extra-product-options' ),
+									"value" => "7",
+								),
+								array(
+									"text"  => esc_html__( "div", 'woocommerce-tm-extra-product-options' ),
+									"value" => "8",
+								),
+								array(
+									"text"  => esc_html__( "span", 'woocommerce-tm-extra-product-options' ),
+									"value" => "9",
+								),
 							),
 					"label"       => esc_html__( "Label type", 'woocommerce-tm-extra-product-options' ),
 					"desc"        => "",
@@ -3668,8 +5096,13 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 					"id"               => $id . "_title",
 					"default"          => "",
 					"type"             => "text",
-					"message0x0_class" => ($type === "element" && $name === "variations" )?"builder_hide_for_variation":"",
-					"tags"             => array( "class" => "t tm-header-title", "id" => "builder_" . $id . "_title", "name" => "tm_meta[tmfbuilder][" . $id . "_title][]", "value" => "" ),
+					"message0x0_class" => ( $type === "element" && $name === "variations" ) ? "builder_hide_for_variation" : "",
+					"tags"             => array(
+						"class" => "t tm-header-title",
+						"id"    => "builder_" . $id . "_title",
+						"name"  => "tm_meta[tmfbuilder][" . $id . "_title][]",
+						"value" => "",
+					),
 					"label"            => esc_html__( 'Label', 'woocommerce-tm-extra-product-options' ),
 					"desc"             => "",
 				),
@@ -3678,28 +5111,57 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 					"wpmldisable" => 1,
 					"default"     => "",
 					"type"        => "select",
-					"tags"        => array( "class" => "tc-label-position", "id" => "builder_" . $id . "_title_position", "name" => "tm_meta[tmfbuilder][" . $id . "_title_position][]" ),
+					"tags"        => array(
+						"class" => "tc-label-position",
+						"id"    => "builder_" . $id . "_title_position",
+						"name"  => "tm_meta[tmfbuilder][" . $id . "_title_position][]",
+					),
 					"options"     => array(
-						array( "text" => esc_html__( "Above field", 'woocommerce-tm-extra-product-options' ), "value" => "" ),
-						array( "text" => esc_html__( "Left of the field", 'woocommerce-tm-extra-product-options' ), "value" => "left" ),
-						array( "text" => esc_html__( "Right of the field", 'woocommerce-tm-extra-product-options' ), "value" => "right" ),
-						array( "text" => esc_html__( "Disable", 'woocommerce-tm-extra-product-options' ), "value" => "disable" ),
+						array(
+							"text"  => esc_html__( "Above field", 'woocommerce-tm-extra-product-options' ),
+							"value" => "",
+						),
+						array(
+							"text"  => esc_html__( "Left of the field", 'woocommerce-tm-extra-product-options' ),
+							"value" => "left",
+						),
+						array(
+							"text"  => esc_html__( "Right of the field", 'woocommerce-tm-extra-product-options' ),
+							"value" => "right",
+						),
+						array(
+							"text"  => esc_html__( "Disable", 'woocommerce-tm-extra-product-options' ),
+							"value" => "disable",
+						),
 					),
 					"label"       => esc_html__( "Label position", 'woocommerce-tm-extra-product-options' ),
-					"desc"        => "",					
-					"required"    => ($type === "section")?array(
+					"desc"        => "",
+					"required"    => ( $type === "section" ) ? array(
 						".sections_style" => array(
 							"operator" => "is",
-							"value"    => ""
-						)
-					):array(),
+							"value"    => "",
+						),
+					) : array(),
 				),
 				array(
 					"id"          => $id . "_title_color",
 					"wpmldisable" => 1,
 					"default"     => "",
 					"type"        => "text",
-					"tags"        => array( "data-show-input" => "true", "data-show-initial" => "true", "data-allow-empty" => "true", "data-show-alpha" => "false", "data-show-palette" => "false", "data-clickout-fires-change" => "true", "data-show-buttons" => "false", "data-preferred-format" => "hex", "class" => "tm-color-picker", "id" => "builder_" . $id . "_title_color", "name" => "tm_meta[tmfbuilder][" . $id . "_title_color][]", "value" => "" ),
+					"tags"        => array(
+						"data-show-input"            => "true",
+						"data-show-initial"          => "true",
+						"data-allow-empty"           => "true",
+						"data-show-alpha"            => "false",
+						"data-show-palette"          => "false",
+						"data-clickout-fires-change" => "true",
+						"data-show-buttons"          => "false",
+						"data-preferred-format"      => "hex",
+						"class"                      => "tm-color-picker",
+						"id"                         => "builder_" . $id . "_title_color",
+						"name"                       => "tm_meta[tmfbuilder][" . $id . "_title_color][]",
+						"value"                      => "",
+					),
 					"label"       => esc_html__( 'Label color', 'woocommerce-tm-extra-product-options' ),
 					"desc"        => esc_html__( 'Leave empty for default value', 'woocommerce-tm-extra-product-options' ),
 				),
@@ -3707,7 +5169,10 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 					"id"      => $id . "_subtitle",
 					"default" => "",
 					"type"    => "textarea",
-					"tags"    => array( "id" => "builder_" . $id . "_subtitle", "name" => "tm_meta[tmfbuilder][" . $id . "_subtitle][]" ),
+					"tags"    => array(
+						"id"   => "builder_" . $id . "_subtitle",
+						"name" => "tm_meta[tmfbuilder][" . $id . "_subtitle][]",
+					),
 					"label"   => esc_html__( "Subtitle", 'woocommerce-tm-extra-product-options' ),
 					"desc"    => "",
 				),
@@ -3716,13 +5181,31 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 					"wpmldisable" => 1,
 					"default"     => "",
 					"type"        => "select",
-					"tags"        => array( "id" => "builder_" . $id . "_subtitle_position", "name" => "tm_meta[tmfbuilder][" . $id . "_subtitle_position][]" ),
+					"tags"        => array(
+						"id"   => "builder_" . $id . "_subtitle_position",
+						"name" => "tm_meta[tmfbuilder][" . $id . "_subtitle_position][]",
+					),
 					"options"     => array(
-						array( "text" => esc_html__( "Above field", 'woocommerce-tm-extra-product-options' ), "value" => "" ),
-						array( "text" => esc_html__( "Below field", 'woocommerce-tm-extra-product-options' ), "value" => "below" ),
-						array( "text" => esc_html__( "Tooltip", 'woocommerce-tm-extra-product-options' ), "value" => "tooltip" ),
-						array( "text" => esc_html__( "Icon tooltip left", 'woocommerce-tm-extra-product-options' ), "value" => "icontooltipleft" ),
-						array( "text" => esc_html__( "Icon tooltip right", 'woocommerce-tm-extra-product-options' ), "value" => "icontooltipright" ),
+						array(
+							"text"  => esc_html__( "Above field", 'woocommerce-tm-extra-product-options' ),
+							"value" => "",
+						),
+						array(
+							"text"  => esc_html__( "Below field", 'woocommerce-tm-extra-product-options' ),
+							"value" => "below",
+						),
+						array(
+							"text"  => esc_html__( "Tooltip", 'woocommerce-tm-extra-product-options' ),
+							"value" => "tooltip",
+						),
+						array(
+							"text"  => esc_html__( "Icon tooltip left", 'woocommerce-tm-extra-product-options' ),
+							"value" => "icontooltipleft",
+						),
+						array(
+							"text"  => esc_html__( "Icon tooltip right", 'woocommerce-tm-extra-product-options' ),
+							"value" => "icontooltipright",
+						),
 					),
 					"label"       => esc_html__( "Subtitle position", 'woocommerce-tm-extra-product-options' ),
 					"desc"        => "",
@@ -3732,7 +5215,12 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 					"wpmldisable" => 1,
 					"default"     => "",
 					"type"        => "text",
-					"tags"        => array( "class" => "tm-color-picker", "id" => "builder_" . $id . "_subtitle_color", "name" => "tm_meta[tmfbuilder][" . $id . "_subtitle_color][]", "value" => "" ),
+					"tags"        => array(
+						"class" => "tm-color-picker",
+						"id"    => "builder_" . $id . "_subtitle_color",
+						"name"  => "tm_meta[tmfbuilder][" . $id . "_subtitle_color][]",
+						"value" => "",
+					),
 					"label"       => esc_html__( 'Subtitle color', 'woocommerce-tm-extra-product-options' ),
 					"desc"        => esc_html__( 'Leave empty for default value', 'woocommerce-tm-extra-product-options' ),
 				),
@@ -3758,25 +5246,40 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 				"message0x0_class" => "builder_hide_for_variation",
 				"default"          => "hr",
 				"type"             => "select",
-				"tags"             => array( "id" => "builder_" . $id . "_type", "name" => "tm_meta[tmfbuilder][" . $id . "_type][]" ),
+				"tags"             => array(
+					"id"   => "builder_" . $id . "_type",
+					"name" => "tm_meta[tmfbuilder][" . $id . "_type][]",
+				),
 				"options"          => array(
-					array( "text" => esc_html__( "Horizontal rule", 'woocommerce-tm-extra-product-options' ), "value" => "hr" ),
-					array( "text" => esc_html__( "Divider", 'woocommerce-tm-extra-product-options' ), "value" => "divider" ),
-					array( "text" => esc_html__( "Padding", 'woocommerce-tm-extra-product-options' ), "value" => "padding" ),
+					array(
+						"text"  => esc_html__( "Horizontal rule", 'woocommerce-tm-extra-product-options' ),
+						"value" => "hr",
+					),
+					array(
+						"text"  => esc_html__( "Divider", 'woocommerce-tm-extra-product-options' ),
+						"value" => "divider",
+					),
+					array(
+						"text"  => esc_html__( "Padding", 'woocommerce-tm-extra-product-options' ),
+						"value" => "padding",
+					),
 				),
 				"label"            => esc_html__( "Divider type", 'woocommerce-tm-extra-product-options' ),
 				"desc"             => "",
 				"required"         => array(
 					".tc-label-position" => array(
 						"operator" => "is",
-						"value"    => array( "", "disable" )
-					)
+						"value"    => array( "", "disable" ),
+					),
 				),
 			),
 		);
 		if ( empty( $noempty ) ) {
 			$_divider[0]["default"] = "none";
-			array_push( $_divider[0]["options"], array( "text" => esc_html__( "None", 'woocommerce-tm-extra-product-options' ), "value" => "none" ) );
+			array_push( $_divider[0]["options"], array(
+				"text"  => esc_html__( "None", 'woocommerce-tm-extra-product-options' ),
+				"value" => "none",
+			) );
 		}
 
 		return $_divider;
@@ -3795,7 +5298,11 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 				"default" => "",
 				"nodiv"   => 1,
 				"type"    => "hidden",
-				"tags"    => array( "class" => "tm-builder-element-uniqid", "name" => "tm_meta[tmfbuilder][" . $id . "_uniqid][]", "value" => "" ),
+				"tags"    => array(
+					"class" => "tm-builder-element-uniqid",
+					"name"  => "tm_meta[tmfbuilder][" . $id . "_uniqid][]",
+					"value" => "",
+				),
 				"label"   => "",
 				"desc"    => "",
 			),
@@ -3804,7 +5311,11 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 				"default" => "",
 				"nodiv"   => 1,
 				"type"    => "hidden",
-				"tags"    => array( "class" => "tm-builder-clogic", "name" => "tm_meta[tmfbuilder][" . $id . "_clogic][]", "value" => "" ),
+				"tags"    => array(
+					"class" => "tm-builder-clogic",
+					"name"  => "tm_meta[tmfbuilder][" . $id . "_clogic][]",
+					"value" => "",
+				),
 				"label"   => "",
 				"desc"    => "",
 			),
@@ -3813,7 +5324,12 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 				"default"   => "",
 				"leftclass" => "align-self-start",
 				"type"      => "checkbox",
-				"tags"      => array( "class" => "c activate-element-logic", "id" => "builder_" . $id . "_logic", "name" => "tm_meta[tmfbuilder][" . $id . "_logic][]", "value" => "1" ),
+				"tags"      => array(
+					"class" => "c activate-element-logic",
+					"id"    => "builder_" . $id . "_logic",
+					"name"  => "tm_meta[tmfbuilder][" . $id . "_logic][]",
+					"value" => "1",
+				),
 				"extra"     => array( array( $this, "builder_showlogic" ), array() ),
 				"label"     => esc_html__( "Element Conditional Logic", 'woocommerce-tm-extra-product-options' ),
 				"desc"      => esc_html__( "Enable conditional logic for showing or hiding this element.", 'woocommerce-tm-extra-product-options' ),
@@ -3845,25 +5361,32 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			?><div class="bitem element-<?php echo esc_attr( $args["element"] );
 			echo esc_attr( $is_enabled ); ?> <?php echo esc_attr( $args["width"] ); ?>">
 			<?php if ( ! empty( $args['is_template'] ) ) { ?>
-                <input class="builder_element_type" name="tm_meta[tmfbuilder][element_type][]" type="hidden" value="<?php echo esc_attr( $args["element"] ); ?>"/>
-                <input class="div_size" name="tm_meta[tmfbuilder][div_size][]" type="hidden" value="<?php echo esc_attr( $args["width"] ); ?>"/>
+                <input class="builder_element_type" name="tm_meta[tmfbuilder][element_type][]" type="hidden"
+                       value="<?php echo esc_attr( $args["element"] ); ?>"/>
+                <input class="div_size" name="tm_meta[tmfbuilder][div_size][]" type="hidden"
+                       value="<?php echo esc_attr( $args["width"] ); ?>"/>
 			<?php } ?>
             <div class="hstc2">
             <div class="bitem-inner">
                 <ul class="bitem-settings">
-                    <li class="bitem-setting size" title="<?php echo esc_attr( "Size", "woocommerce-tm-extra-product-options" ); ?>">
+                    <li class="bitem-setting size"
+                        title="<?php echo esc_attr( "Size", "woocommerce-tm-extra-product-options" ); ?>">
                         <span><?php echo esc_html( $args["width_display"] ); ?></span>
                     </li>
-                    <li class="bitem-setting minus" title="<?php echo esc_attr( "Reduce Width", "woocommerce-tm-extra-product-options" ); ?>">
+                    <li class="bitem-setting minus"
+                        title="<?php echo esc_attr( "Reduce Width", "woocommerce-tm-extra-product-options" ); ?>">
                         <i class="tmicon tcfa tcfa-minus"></i>
                     </li>
-                    <li class="bitem-setting plus" title="<?php echo esc_attr( "Increase Width", "woocommerce-tm-extra-product-options" ); ?>">
+                    <li class="bitem-setting plus"
+                        title="<?php echo esc_attr( "Increase Width", "woocommerce-tm-extra-product-options" ); ?>">
                         <i class="tmicon tcfa tcfa-plus"></i>
                     </li>
-                    <li class="bitem-setting edit" title="<?php echo esc_attr( "Edit Element", "woocommerce-tm-extra-product-options" ); ?>">
+                    <li class="bitem-setting edit"
+                        title="<?php echo esc_attr( "Edit Element", "woocommerce-tm-extra-product-options" ); ?>">
                         <i class="tmicon tcfa tcfa-edit"></i>
                     </li>
-                    <li class="bitem-setting clone" title="<?php echo esc_attr( "Duplicate Element", "woocommerce-tm-extra-product-options" ); ?>">
+                    <li class="bitem-setting clone"
+                        title="<?php echo esc_attr( "Duplicate Element", "woocommerce-tm-extra-product-options" ); ?>">
                         <i class="tmicon tcfa tcfa-copy"></i>
                     </li>
                 </ul>
@@ -3882,9 +5405,12 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
                         <div class="tm-element-label"><?php echo esc_html( $args["label"] ); ?></div>
                         <div class="tm-internal-label"><?php echo esc_html( $args["internal_name"] ); ?></div>
                     </div>
-                    <div class="tm-for-bitem tm-label-desc-edit tm-hidden" data-element="<?php echo esc_attr( $args["element"] ); ?>">
+                    <div class="tm-for-bitem tm-label-desc-edit tm-hidden"
+                         data-element="<?php echo esc_attr( $args["element"] ); ?>">
 						<?php if ( ! empty( $args['is_template'] ) ) { ?>
-                            <input type="text" value="<?php echo esc_attr( $args["internal_name"] ); ?>" name="tm_meta[tmfbuilder][<?php echo esc_attr( $args["element"] ); ?>_internal_name][]" class="t tm-internal-name">
+                            <input type="text" value="<?php echo esc_attr( $args["internal_name"] ); ?>"
+                                   name="tm_meta[tmfbuilder][<?php echo esc_attr( $args["element"] ); ?>_internal_name][]"
+                                   class="t tm-internal-name">
 						<?php } ?>
                     </div>
                     <div class="tm-label"><?php
@@ -3948,24 +5474,24 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 									if ( is_array( $value["html"] ) ) {
 										$method                     = $value["html"][0];
 										$methodargs                 = $value["html"][1];
-										$methodargs[0]["return_js"] = TRUE;
+										$methodargs[0]["return_js"] = true;
 
 										$returned_js = call_user_func_array( $method, $methodargs );
 
 										if ( is_array( $returned_js ) ) {
 											$temp_array = array( "id" => "multiple", "multiple" => array() );
 											foreach ( $returned_js as $js_value ) {
-												$js_value = $this->remove_for_js( $js_value );
+												$js_value                 = $this->remove_for_js( $js_value );
 												$temp_array["multiple"][] = $js_value;
 												if ( $value["id"] === "variations_options" ) {
 													foreach ( $js_value as $js_value_array ) {
-														$js_value_array = $this->remove_for_js( $js_value_array );
-														$js_value_array["id"] = $value["id"];
+														$js_value_array                                             = $this->remove_for_js( $js_value_array );
+														$js_value_array["id"]                                       = $value["id"];
 														$this->jsbuilder[ $pointer ]["fields"][ $fields_pointer ][] = $js_value_array;
 													}
 												}
 											}
-											$this->jsbuilder[ $pointer ]["fields"][ $fields_pointer ][] = $temp_array;											
+											$this->jsbuilder[ $pointer ]["fields"][ $fields_pointer ][] = $temp_array;
 										}
 									}
 								}
@@ -3974,11 +5500,11 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 									if ( $value['fill'] === "product" ) {
 										$product_ids = isset( $value['default'] ) ? $value['default'] : array();
 										if ( ! is_array( $product_ids ) ) {
-											if ($product_ids){
-												$product_ids = array($product_ids);
+											if ( $product_ids ) {
+												$product_ids = array( $product_ids );
 											} else {
 												$product_ids = array();
-											}											
+											}
 										}
 										if ( ! isset( $value['options'] ) || ! is_array( $value['options'] ) ) {
 											$value['options'] = array();
@@ -3986,7 +5512,10 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 										foreach ( $product_ids as $product_id ) {
 											$product = wc_get_product( $product_id );
 											if ( is_object( $product ) ) {
-												$value['options'][] = array( "text" => wp_kses_post( $product->get_formatted_name() ), "value" => $product_id );
+												$value['options'][] = array(
+													"text"  => wp_kses_post( $product->get_formatted_name() ),
+													"value" => $product_id,
+												);
 											}
 										}
 									} elseif ( $value['fill'] === "category" ) {
@@ -3999,9 +5528,12 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 										}
 										foreach ( $category_ids as $category_id ) {
 											$current_category_id = wc_clean( wp_unslash( $category_id ) );
-											$current_category    = $current_category_id ? get_term_by( 'id', $current_category_id, 'product_cat' ) : FALSE;
+											$current_category    = $current_category_id ? get_term_by( 'id', $current_category_id, 'product_cat' ) : false;
 											if ( is_object( $current_category ) ) {
-												$value['options'][] = array( "text" => wp_kses_post( $current_category->name ), "value" => $current_category_id );
+												$value['options'][] = array(
+													"text"  => wp_kses_post( $current_category->name ),
+													"value" => $current_category_id,
+												);
 											}
 										}
 									}
@@ -4035,7 +5567,10 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 								foreach ( $product_ids as $product_id ) {
 									$product = wc_get_product( $product_id );
 									if ( is_object( $product ) ) {
-										$value['options'][] = array( "text" => wp_kses_post( $product->get_formatted_name() ), "value" => $product_id );
+										$value['options'][] = array(
+											"text"  => wp_kses_post( $product->get_formatted_name() ),
+											"value" => $product_id,
+										);
 									}
 								}
 							} elseif ( $value['fill'] === "category" ) {
@@ -4048,9 +5583,12 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 									}
 									foreach ( $category_ids as $category_id ) {
 										$current_category_id = wc_clean( wp_unslash( $category_id ) );
-										$current_category    = $current_category_id ? get_term_by( 'id', $current_category_id, 'product_cat' ) : FALSE;
+										$current_category    = $current_category_id ? get_term_by( 'id', $current_category_id, 'product_cat' ) : false;
 										if ( is_object( $current_category ) ) {
-											$value['options'][] = array( "text" => wp_kses_post( $current_category->name ), "value" => $current_category_id );
+											$value['options'][] = array(
+												"text"  => wp_kses_post( $current_category->name ),
+												"value" => $current_category_id,
+											);
 										}
 									}
 								}
@@ -4082,9 +5620,9 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 		$args = shortcode_atts( array(
 			'section_fields'           => '',
 			'size'                     => '',
-			'wpml_is_original_product' => TRUE,
-			'sections_internal_name'   => FALSE,
-			'is_template'              => FALSE,
+			'wpml_is_original_product' => true,
+			'sections_internal_name'   => false,
+			'is_template'              => false,
 		), $args );
 
 		$section_fields           = $args['section_fields'];
@@ -4129,22 +5667,27 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			?></div>
             <div class="section-inner">
                 <ul class="section-settings">
-                    <li class="section-setting size" title="<?php echo esc_attr( "Size", "woocommerce-tm-extra-product-options" ); ?>">
+                    <li class="section-setting size"
+                        title="<?php echo esc_attr( "Size", "woocommerce-tm-extra-product-options" ); ?>">
                         <span><?php echo esc_html( $size ); ?></span>
                     </li>
 					<?php if ( $wpml_is_original_product ) { ?>
-                        <li class="section-setting minus" title="<?php echo esc_attr( "Reduce Width", "woocommerce-tm-extra-product-options" ); ?>">
+                        <li class="section-setting minus"
+                            title="<?php echo esc_attr( "Reduce Width", "woocommerce-tm-extra-product-options" ); ?>">
                             <i class="tmicon tcfa tcfa-minus"></i>
                         </li>
-                        <li class="section-setting plus" title="<?php echo esc_attr( "Increase Width", "woocommerce-tm-extra-product-options" ); ?>">
+                        <li class="section-setting plus"
+                            title="<?php echo esc_attr( "Increase Width", "woocommerce-tm-extra-product-options" ); ?>">
                             <i class="tmicon tcfa tcfa-plus"></i>
                         </li>
 					<?php } ?>
-                    <li class="section-setting edit" title="<?php echo esc_attr( "Edit Section", "woocommerce-tm-extra-product-options" ); ?>">
+                    <li class="section-setting edit"
+                        title="<?php echo esc_attr( "Edit Section", "woocommerce-tm-extra-product-options" ); ?>">
                         <i class="tmicon tcfa tcfa-edit"></i>
                     </li>
 					<?php if ( $wpml_is_original_product ) { ?>
-                        <li class="bitem-setting clone" title="<?php echo esc_attr( "Duplicate Section", "woocommerce-tm-extra-product-options" ); ?>">
+                        <li class="bitem-setting clone"
+                            title="<?php echo esc_attr( "Duplicate Section", "woocommerce-tm-extra-product-options" ); ?>">
                             <i class="tmicon tcfa tcfa-copy"></i>
                         </li>
 					<?php } ?>
@@ -4162,7 +5705,8 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
                 </div>
                 <div class='tm-for-section tm-label-desc-edit tm-hidden'>
 					<?php if ( ! empty( $args['is_template'] ) ) { ?>
-                        <input type="text" value="<?php echo esc_attr( $sections_internal_name ); ?>" name="tm_meta[tmfbuilder][sections_internal_name][]" class="t tm-internal-name">
+                        <input type="text" value="<?php echo esc_attr( $sections_internal_name ); ?>"
+                               name="tm_meta[tmfbuilder][sections_internal_name][]" class="t tm-internal-name">
 					<?php } ?>
                 </div>
             </div>
@@ -4184,9 +5728,9 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			'section_size'             => '',
 			'sections_slides'          => '',
 			'elements'                 => '',
-			'wpml_is_original_product' => TRUE,
-			'sections_internal_name'   => FALSE,
-			'is_template'              => FALSE,
+			'wpml_is_original_product' => true,
+			'sections_internal_name'   => false,
+			'is_template'              => false,
 		), $args );
 
 		$section_fields           = $args["section_fields"];
@@ -4197,7 +5741,7 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 		$wpml_is_original_product = $args["wpml_is_original_product"];
 		$sections_internal_name   = $args["sections_internal_name"];
 
-		if ( $sections_internal_name === FALSE ) {
+		if ( $sections_internal_name === false ) {
 			$sections_internal_name = esc_html__( "Section", 'woocommerce-tm-extra-product-options' );
 		}
 
@@ -4315,7 +5859,7 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 	 * @since  1.0.0
 	 * @access public
 	 */
-	public function template_section_elements( $wpml_is_original_product = TRUE ) {
+	public function template_section_elements( $wpml_is_original_product = true ) {
 
 		$this->section_template( array(
 			'section_fields'           => $this->_section_elements,
@@ -4324,8 +5868,8 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			'sections_slides'          => '',
 			'elements'                 => '',
 			'wpml_is_original_product' => $wpml_is_original_product,
-			'sections_internal_name'   => FALSE,
-			'is_template'              => TRUE,
+			'sections_internal_name'   => false,
+			'is_template'              => true,
 		) );
 
 	}
@@ -4362,7 +5906,7 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 					'desc'          => '&nbsp;',
 					'icon'          => $settings["icon"],
 					'is_enabled'    => "1",
-					'is_template'   => TRUE,
+					'is_template'   => true,
 				) );
 
 			}
@@ -4394,7 +5938,7 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 		if ( is_array( $val ) ) {
 			return array_map( array( $this, '_tm_false_array_values' ), $val );
 		} else {
-			return FALSE;
+			return false;
 		}
 	}
 
@@ -4404,11 +5948,11 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 	 * @since  5.0
 	 * @access public
 	 */
-	public function get_current_jsbuilder( $post_id = 0, $current_post_id = 0, $wpml_is_original_product = TRUE ) {
-		$this->noecho    = TRUE;
+	public function get_current_jsbuilder( $post_id = 0, $current_post_id = 0, $wpml_is_original_product = true ) {
+		$this->noecho    = true;
 		$this->jsbuilder = array();
 		$this->print_saved_elements( $post_id, $current_post_id, $wpml_is_original_product );
-		$this->noecho = FALSE;
+		$this->noecho = false;
 
 		return $this->jsbuilder;
 	}
@@ -4420,7 +5964,7 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 	 * @since  5.0
 	 * @access public
 	 */
-	public function ajax_print_saved_elements( $post_id = 0, $current_post_id = 0, $wpml_is_original_product = TRUE ) {
+	public function ajax_print_saved_elements( $post_id = 0, $current_post_id = 0, $wpml_is_original_product = true ) {
 		$this->admin_init();
 		$this->print_saved_elements( $post_id, $current_post_id, $wpml_is_original_product );
 	}
@@ -4431,10 +5975,10 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 	 * @since  1.0.0
 	 * @access public
 	 */
-	public function print_saved_elements( $post_id = 0, $current_post_id = 0, $wpml_is_original_product = TRUE ) {
+	public function print_saved_elements( $post_id = 0, $current_post_id = 0, $wpml_is_original_product = true ) {
 
-		$builder         = themecomplete_get_post_meta( $post_id, 'tm_meta', TRUE );
-		$current_builder = themecomplete_get_post_meta( $current_post_id, 'tm_meta_wpml', TRUE );
+		$builder         = themecomplete_get_post_meta( $post_id, 'tm_meta', true );
+		$current_builder = themecomplete_get_post_meta( $current_post_id, 'tm_meta_wpml', true );
 
 		if ( ! $current_builder ) {
 			$current_builder = array();
@@ -4482,7 +6026,7 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			}
 
 			if ( ! is_array( $_sections_internal_name ) ) {
-				$_sections_internal_name = array_fill( 0, count( $_sections ), FALSE );
+				$_sections_internal_name = array_fill( 0, count( $_sections ), false );
 			}
 
 			$_helper_counter = 0;
@@ -4499,16 +6043,16 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 				$section_fields = array();
 				foreach ( $this->_section_elements as $_sk => $_sv ) {
 					$transition_counter = $_s;
-					$section_use_wpml   = FALSE;
+					$section_use_wpml   = false;
 					if ( isset( $current_builder["sections_uniqid"] )
 					     && isset( $builder["sections_uniqid"] )
 					     && isset( $builder["sections_uniqid"][ $_s ] )
 					) {
 						// get index of element id in internal array
 						$get_current_builder_uniqid_index = array_search( $builder["sections_uniqid"][ $_s ], $current_builder["sections_uniqid"] );
-						if ( $get_current_builder_uniqid_index !== NULL && $get_current_builder_uniqid_index !== FALSE ) {
+						if ( $get_current_builder_uniqid_index !== null && $get_current_builder_uniqid_index !== false ) {
 							$transition_counter = $get_current_builder_uniqid_index;
-							$section_use_wpml   = TRUE;
+							$section_use_wpml   = true;
 						}
 					}
 					if ( isset( $builder[ $_sv['id'] ] ) && isset( $builder[ $_sv['id'] ][ $_s ] ) ) {
@@ -4586,7 +6130,7 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 							$element_desc = "&nbsp;";
 							foreach ( $_temp_option as $key => $value ) {
 								$transition_counter = $_counter[ $_elements[ $k0 ] ];
-								$use_wpml           = FALSE;
+								$use_wpml           = false;
 
 								if ( isset( $value['id'] ) ) {
 									$_vid = $value['id'];
@@ -4594,14 +6138,14 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 									if ( ! isset( $t[ $_vid ] ) ) {
 										$t[ $_vid ] = isset( $builder[ $value['id'] ] )
 											? $builder[ $value['id'] ]
-											: NULL;
-										if ( $t[ $_vid ] !== NULL ) {
+											: null;
+										if ( $t[ $_vid ] !== null ) {
 											if ( $post_id != $current_post_id && ! empty( $value['wpmldisable'] ) ) {
 												$value['disabled'] = 1;
 											}
 
 										}
-									} elseif ( $t[ $_vid ] !== NULL ) {
+									} elseif ( $t[ $_vid ] !== null ) {
 										if ( $post_id != $current_post_id && ! empty( $value['wpmldisable'] ) ) {
 											$value['disabled'] = 1;
 										}
@@ -4612,12 +6156,12 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 									) {
 										// get index of element id in internal array
 										$get_current_builder_uniqid_index = array_search( $builder[ $_elements[ $k0 ] . "_uniqid" ][ $_counter[ $_elements[ $k0 ] ] ], $current_builder[ $_elements[ $k0 ] . "_uniqid" ] );
-										if ( $get_current_builder_uniqid_index !== NULL && $get_current_builder_uniqid_index !== FALSE ) {
+										if ( $get_current_builder_uniqid_index !== null && $get_current_builder_uniqid_index !== false ) {
 											$transition_counter = $get_current_builder_uniqid_index;
-											$use_wpml           = TRUE;
+											$use_wpml           = true;
 										}
 									}
-									if ( $t[ $_vid ] !== NULL
+									if ( $t[ $_vid ] !== null
 									     && is_array( $t[ $_vid ] )
 									     && count( $t[ $_vid ] ) > 0
 									     && isset( $value['default'] )
@@ -4636,7 +6180,7 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 										}
 									}
 
-									if ( $t[ $_vid ] !== NULL
+									if ( $t[ $_vid ] !== null
 									     && is_string( $t[ $_vid ] )
 									     && isset( $value['default'] )
 									) {
@@ -4725,20 +6269,22 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 										) {
 											$value['html'] = array(
 												array( $this, "builder_sub_variations_options" ),
-												array( array(
-													       "meta"       => isset( $current_builder[ $value['id'] ] ) ? $current_builder[ $value['id'] ] : NULL,
-													       "product_id" => $current_post_id
-												       )
-												)
+												array(
+													array(
+														"meta"       => isset( $current_builder[ $value['id'] ] ) ? $current_builder[ $value['id'] ] : null,
+														"product_id" => $current_post_id,
+													),
+												),
 											);
 										} else {
 											$value['html'] = array(
 												array( $this, "builder_sub_variations_options" ),
-												array( array(
-													       "meta"       => isset( $builder[ $value['id'] ] ) ? $builder[ $value['id'] ] : NULL,
-													       "product_id" => $current_post_id
-												       )
-												)
+												array(
+													array(
+														"meta"       => isset( $builder[ $value['id'] ] ) ? $builder[ $value['id'] ] : null,
+														"product_id" => $current_post_id,
+													),
+												),
 											);
 										}
 
@@ -4749,91 +6295,91 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 									) {
 
 
-										// holds the default checked values (cannot be cached in $t[$_vid]) 
-										$_default_value = isset( $builder[ 'multiple_' . $value['id'] . '_default_value' ] ) ? $builder[ 'multiple_' . $value['id'] . '_default_value' ] : NULL;
+										// holds the default checked values (cannot be cached in $t[$_vid])
+										$_default_value = isset( $builder[ 'multiple_' . $value['id'] . '_default_value' ] ) ? $builder[ 'multiple_' . $value['id'] . '_default_value' ] : null;
 
 										if ( is_null( $t[ $_vid ] ) ) {
 											// needed for WPML
 											$_titles_base = isset( $builder[ 'multiple_' . $value['id'] . '_title' ] )
 												? $builder[ 'multiple_' . $value['id'] . '_title' ]
-												: NULL;
+												: null;
 											$_titles      = isset( $builder[ 'multiple_' . $value['id'] . '_title' ] )
 												? isset( $current_builder[ 'multiple_' . $value['id'] . '_title' ] )
 													? $current_builder[ 'multiple_' . $value['id'] . '_title' ]
 													: $builder[ 'multiple_' . $value['id'] . '_title' ]
-												: NULL;
+												: null;
 
 											$_values_base = isset( $builder[ 'multiple_' . $value['id'] . '_value' ] )
 												? $builder[ 'multiple_' . $value['id'] . '_value' ]
-												: NULL;
+												: null;
 											$_values      = isset( $builder[ 'multiple_' . $value['id'] . '_value' ] )
 												? isset( $current_builder[ 'multiple_' . $value['id'] . '_value' ] )
 													? $current_builder[ 'multiple_' . $value['id'] . '_value' ]
 													: $builder[ 'multiple_' . $value['id'] . '_value' ]
-												: NULL;
+												: null;
 
 											$_prices_base = isset( $builder[ 'multiple_' . $value['id'] . '_price' ] )
 												? $builder[ 'multiple_' . $value['id'] . '_price' ]
-												: NULL;
+												: null;
 											$_prices      = isset( $builder[ 'multiple_' . $value['id'] . '_price' ] )
 												? isset( $current_builder[ 'multiple_' . $value['id'] . '_price' ] )
 													? $current_builder[ 'multiple_' . $value['id'] . '_price' ]
 													: $builder[ 'multiple_' . $value['id'] . '_price' ]
-												: NULL;
+												: null;
 
 											$_images_base = isset( $builder[ 'multiple_' . $value['id'] . '_image' ] )
 												? $builder[ 'multiple_' . $value['id'] . '_image' ]
-												: NULL;
+												: null;
 											$_images      = isset( $builder[ 'multiple_' . $value['id'] . '_image' ] )
 												? isset( $current_builder[ 'multiple_' . $value['id'] . '_image' ] )
 													? $current_builder[ 'multiple_' . $value['id'] . '_image' ]
 													: $builder[ 'multiple_' . $value['id'] . '_image' ]
-												: NULL;
+												: null;
 
 											$_imagesc_base = isset( $builder[ 'multiple_' . $value['id'] . '_imagec' ] )
 												? $builder[ 'multiple_' . $value['id'] . '_imagec' ]
-												: NULL;
+												: null;
 											$_imagesc      = isset( $builder[ 'multiple_' . $value['id'] . '_imagec' ] )
 												? isset( $current_builder[ 'multiple_' . $value['id'] . '_imagec' ] )
 													? $current_builder[ 'multiple_' . $value['id'] . '_imagec' ]
 													: $builder[ 'multiple_' . $value['id'] . '_imagec' ]
-												: NULL;
+												: null;
 
 											$_imagesp_base = isset( $builder[ 'multiple_' . $value['id'] . '_imagep' ] )
 												? $builder[ 'multiple_' . $value['id'] . '_imagep' ]
-												: NULL;
+												: null;
 											$_imagesp      = isset( $builder[ 'multiple_' . $value['id'] . '_imagep' ] )
 												? isset( $current_builder[ 'multiple_' . $value['id'] . '_imagep' ] )
 													? $current_builder[ 'multiple_' . $value['id'] . '_imagep' ]
 													: $builder[ 'multiple_' . $value['id'] . '_imagep' ]
-												: NULL;
+												: null;
 
 											$_imagesl_base = isset( $builder[ 'multiple_' . $value['id'] . '_imagel' ] )
 												? $builder[ 'multiple_' . $value['id'] . '_imagel' ]
-												: NULL;
+												: null;
 											$_imagesl      = isset( $builder[ 'multiple_' . $value['id'] . '_imagel' ] )
 												? isset( $current_builder[ 'multiple_' . $value['id'] . '_imagel' ] )
 													? $current_builder[ 'multiple_' . $value['id'] . '_imagel' ]
 													: $builder[ 'multiple_' . $value['id'] . '_imagel' ]
-												: NULL;
+												: null;
 
 											$_prices_type_base = isset( $builder[ 'multiple_' . $value['id'] . '_price_type' ] )
 												? $builder[ 'multiple_' . $value['id'] . '_price_type' ]
-												: NULL;
+												: null;
 											$_prices_type      = isset( $builder[ 'multiple_' . $value['id'] . '_price_type' ] )
 												? isset( $current_builder[ 'multiple_' . $value['id'] . '_price_type' ] )
 													? $current_builder[ 'multiple_' . $value['id'] . '_price_type' ]
 													: $builder[ 'multiple_' . $value['id'] . '_price_type' ]
-												: NULL;
+												: null;
 
 											$_sale_prices_base = isset( $builder[ 'multiple_' . $value['id'] . '_sale_price' ] )
 												? $builder[ 'multiple_' . $value['id'] . '_sale_price' ]
-												: NULL;
+												: null;
 											$_sale_prices      = isset( $builder[ 'multiple_' . $value['id'] . '_sale_price' ] )
 												? isset( $current_builder[ 'multiple_' . $value['id'] . '_sale_price' ] )
 													? $current_builder[ 'multiple_' . $value['id'] . '_sale_price' ]
 													: $builder[ 'multiple_' . $value['id'] . '_sale_price' ]
-												: NULL;
+												: null;
 
 											$c_prices_base      = array();
 											$c_prices           = array();
@@ -4844,67 +6390,67 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 													$mt_prefix                       = THEMECOMPLETE_EPO_HELPER()->get_currency_price_prefix( $currency );
 													$c_prices_base[ $currency ]      = isset( $builder[ 'multiple_' . $value['id'] . '_price' . $mt_prefix ] )
 														? $builder[ 'multiple_' . $value['id'] . '_price' . $mt_prefix ]
-														: NULL;
+														: null;
 													$c_prices[ $currency ]           = isset( $builder[ 'multiple_' . $value['id'] . '_price' . $mt_prefix ] )
 														? isset( $current_builder[ 'multiple_' . $value['id'] . '_price' . $mt_prefix ] )
 															? $current_builder[ 'multiple_' . $value['id'] . '_price' . $mt_prefix ]
 															: $builder[ 'multiple_' . $value['id'] . '_price' . $mt_prefix ]
-														: NULL;
+														: null;
 													$c_sale_prices_base[ $currency ] = isset( $builder[ 'multiple_' . $value['id'] . '_sale_price' . $mt_prefix ] )
 														? $builder[ 'multiple_' . $value['id'] . '_sale_price' . $mt_prefix ]
-														: NULL;
+														: null;
 													$c_sale_prices[ $currency ]      = isset( $builder[ 'multiple_' . $value['id'] . '_sale_price' . $mt_prefix ] )
 														? isset( $current_builder[ 'multiple_' . $value['id'] . '_sale_price' . $mt_prefix ] )
 															? $current_builder[ 'multiple_' . $value['id'] . '_sale_price' . $mt_prefix ]
 															: $builder[ 'multiple_' . $value['id'] . '_sale_price' . $mt_prefix ]
-														: NULL;
+														: null;
 												}
 											}
 
 											$_url_base = isset( $builder[ 'multiple_' . $value['id'] . '_url' ] )
 												? $builder[ 'multiple_' . $value['id'] . '_url' ]
-												: NULL;
+												: null;
 											$_url      = isset( $builder[ 'multiple_' . $value['id'] . '_url' ] )
 												? isset( $current_builder[ 'multiple_' . $value['id'] . '_url' ] )
 													? $current_builder[ 'multiple_' . $value['id'] . '_url' ]
 													: $builder[ 'multiple_' . $value['id'] . '_url' ]
-												: NULL;
+												: null;
 
 											$_description_base = isset( $builder[ 'multiple_' . $value['id'] . '_description' ] )
 												? $builder[ 'multiple_' . $value['id'] . '_description' ]
-												: NULL;
+												: null;
 											$_description      = isset( $builder[ 'multiple_' . $value['id'] . '_description' ] )
 												? isset( $current_builder[ 'multiple_' . $value['id'] . '_description' ] )
 													? $current_builder[ 'multiple_' . $value['id'] . '_description' ]
 													: $builder[ 'multiple_' . $value['id'] . '_description' ]
-												: NULL;
+												: null;
 
 											$_enabled_base = isset( $builder[ 'multiple_' . $value['id'] . '_enabled' ] )
 												? $builder[ 'multiple_' . $value['id'] . '_enabled' ]
-												: NULL;
+												: null;
 											$_enabled      = isset( $builder[ 'multiple_' . $value['id'] . '_enabled' ] )
 												? isset( $current_builder[ 'multiple_' . $value['id'] . '_enabled' ] )
 													? $current_builder[ 'multiple_' . $value['id'] . '_enabled' ]
 													: $builder[ 'multiple_' . $value['id'] . '_enabled' ]
-												: NULL;
+												: null;
 
 											$_color_base = isset( $builder[ 'multiple_' . $value['id'] . '_color' ] )
 												? $builder[ 'multiple_' . $value['id'] . '_color' ]
-												: NULL;
+												: null;
 											$_color      = isset( $builder[ 'multiple_' . $value['id'] . '_color' ] )
 												? isset( $current_builder[ 'multiple_' . $value['id'] . '_color' ] )
 													? $current_builder[ 'multiple_' . $value['id'] . '_color' ]
 													: $builder[ 'multiple_' . $value['id'] . '_color' ]
-												: NULL;
+												: null;
 
 											$_fee_base = isset( $builder[ 'multiple_' . $value['id'] . '_fee' ] )
 												? $builder[ 'multiple_' . $value['id'] . '_fee' ]
-												: NULL;
+												: null;
 											$_fee      = isset( $builder[ 'multiple_' . $value['id'] . '_fee' ] )
 												? isset( $current_builder[ 'multiple_' . $value['id'] . '_fee' ] )
 													? $current_builder[ 'multiple_' . $value['id'] . '_fee' ]
 													: $builder[ 'multiple_' . $value['id'] . '_fee' ]
-												: NULL;
+												: null;
 
 											$_extra_options = $this->extra_multiple_options;
 
@@ -4916,12 +6462,12 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 													$_extra_name   = $__name["name"];
 													$_extra_base[] = isset( $builder[ 'multiple_' . $value['id'] . '_' . $_extra_name ] )
 														? $builder[ 'multiple_' . $value['id'] . '_' . $_extra_name ]
-														: NULL;
+														: null;
 													$_extra[]      = isset( $builder[ 'multiple_' . $value['id'] . '_' . $_extra_name ] )
 														? isset( $current_builder[ 'multiple_' . $value['id'] . '_' . $_extra_name ] )
 															? $current_builder[ 'multiple_' . $value['id'] . '_' . $_extra_name ]
 															: $builder[ 'multiple_' . $value['id'] . '_' . $_extra_name ]
-														: NULL;
+														: null;
 													$_extra_keys[] = $__key;
 												}
 											}
@@ -4940,7 +6486,10 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 													$_prices = $_prices_base;
 												}
 												if ( is_null( $_sale_prices_base ) ) {
-													$_sale_prices_base = array_map( array( $this, '_tm_clear_array_values' ), $_titles_base );
+													$_sale_prices_base = array_map( array(
+														$this,
+														'_tm_clear_array_values',
+													), $_titles_base );
 												}
 
 												if ( is_null( $_sale_prices ) ) {
@@ -4960,67 +6509,97 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 												}
 
 												if ( is_null( $_images_base ) ) {
-													$_images_base = array_map( array( $this, '_tm_clear_array_values' ), $_titles_base );
+													$_images_base = array_map( array(
+														$this,
+														'_tm_clear_array_values',
+													), $_titles_base );
 												}
 												if ( is_null( $_images ) ) {
 													$_images = $_images_base;
 												}
 
 												if ( is_null( $_imagesc_base ) ) {
-													$_imagesp_base = array_map( array( $this, '_tm_clear_array_values' ), $_titles_base );
+													$_imagesp_base = array_map( array(
+														$this,
+														'_tm_clear_array_values',
+													), $_titles_base );
 												}
 												if ( is_null( $_imagesc ) ) {
 													$_imagesc = $_imagesc_base;
 												}
 
 												if ( is_null( $_imagesp_base ) ) {
-													$_imagesp_base = array_map( array( $this, '_tm_clear_array_values' ), $_titles_base );
+													$_imagesp_base = array_map( array(
+														$this,
+														'_tm_clear_array_values',
+													), $_titles_base );
 												}
 												if ( is_null( $_imagesp ) ) {
 													$_imagesp = $_imagesp_base;
 												}
 
 												if ( is_null( $_imagesl_base ) ) {
-													$_imagesl_base = array_map( array( $this, '_tm_clear_array_values' ), $_titles_base );
+													$_imagesl_base = array_map( array(
+														$this,
+														'_tm_clear_array_values',
+													), $_titles_base );
 												}
 												if ( is_null( $_imagesl ) ) {
 													$_imagesl = $_imagesl_base;
 												}
 
 												if ( is_null( $_prices_type_base ) ) {
-													$_prices_type_base = array_map( array( $this, '_tm_clear_array_values' ), $_prices_base );
+													$_prices_type_base = array_map( array(
+														$this,
+														'_tm_clear_array_values',
+													), $_prices_base );
 												}
 												if ( is_null( $_prices_type ) ) {
 													$_prices_type = $_prices_type_base;
 												}
 
 												if ( is_null( $_url_base ) ) {
-													$_url_base = array_map( array( $this, '_tm_clear_array_values' ), $_titles_base );
+													$_url_base = array_map( array(
+														$this,
+														'_tm_clear_array_values',
+													), $_titles_base );
 												}
 												if ( is_null( $_url ) ) {
 													$_url = $_url_base;
 												}
 												if ( is_null( $_description_base ) ) {
-													$_description_base = array_map( array( $this, '_tm_clear_array_values' ), $_titles_base );
+													$_description_base = array_map( array(
+														$this,
+														'_tm_clear_array_values',
+													), $_titles_base );
 												}
 												if ( is_null( $_description ) ) {
 													$_description = $_description_base;
 												}
 												if ( is_null( $_enabled_base ) ) {
-													$_enabled_base = array_map( array( $this, '_tm_false_array_values' ), $_titles_base );
+													$_enabled_base = array_map( array(
+														$this,
+														'_tm_false_array_values',
+													), $_titles_base );
 												}
 												if ( is_null( $_enabled ) ) {
 													$_enabled = $_enabled_base;
 												}
 												if ( is_null( $_color_base ) ) {
-													$_color_base = array_map( array( $this, '_tm_clear_array_values' ), $_titles_base );
+													$_color_base = array_map( array(
+														$this,
+														'_tm_clear_array_values',
+													), $_titles_base );
 												}
 												if ( is_null( $_color ) ) {
 													$_color = $_color_base;
 												}
 
 												if ( is_null( $_fee_base ) ) {
-													$_fee_base = array_map( array( $this, '_tm_clear_array_values' ), $_titles_base );
+													$_fee_base = array_map( array(
+														$this,
+														'_tm_clear_array_values',
+													), $_titles_base );
 												}
 												if ( is_null( $_fee ) ) {
 													$_fee = $_fee_base;
@@ -5028,18 +6607,24 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 
 												foreach ( $_extra_base as $_extra_base_key => $_extra_base_value ) {
 													if ( is_null( $_extra_base[ $_extra_base_key ] ) ) {
-														$_extra_base[ $_extra_base_key ] = array_map( array( $this, '_tm_clear_array_values' ), $_titles_base );
+														$_extra_base[ $_extra_base_key ] = array_map( array(
+															$this,
+															'_tm_clear_array_values',
+														), $_titles_base );
 													}
 												}
 												foreach ( $_extra as $_extra_key => $_extra_value ) {
 													if ( is_null( $_extra_base[ $_extra_key ] ) ) {
-														$_extra_base[ $_extra_key ] = array_map( array( $this, '_tm_clear_array_values' ), $_titles_base );
+														$_extra_base[ $_extra_key ] = array_map( array(
+															$this,
+															'_tm_clear_array_values',
+														), $_titles_base );
 													}
 												}
 
 												foreach ( $_titles_base as $option_key => $option_value ) {
 
-													$use_original_builder = FALSE;
+													$use_original_builder = false;
 													$_option_key          = $option_key;
 													if ( isset( $current_builder[ $_elements[ $k0 ] . "_uniqid" ] )
 													     && isset( $builder[ $_elements[ $k0 ] . "_uniqid" ] )
@@ -5047,10 +6632,10 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 													) {
 														// get index of element id in internal array
 														$get_current_builder_uniqid_index = array_search( $builder[ $_elements[ $k0 ] . "_uniqid" ][ $option_key ], $current_builder[ $_elements[ $k0 ] . "_uniqid" ] );
-														if ( $get_current_builder_uniqid_index !== NULL && $get_current_builder_uniqid_index !== FALSE ) {
+														if ( $get_current_builder_uniqid_index !== null && $get_current_builder_uniqid_index !== false ) {
 															$_option_key = $get_current_builder_uniqid_index;
 														} else {
-															$use_original_builder = TRUE;
+															$use_original_builder = true;
 														}
 													}
 
@@ -5059,73 +6644,127 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 													}
 
 													if ( ! isset( $_imagesc[ $_option_key ] ) ) {
-														$_imagesc[ $_option_key ] = array_map( array( $this, '_tm_clear_array_values' ), $_titles_base[ $_option_key ] );
+														$_imagesc[ $_option_key ] = array_map( array(
+															$this,
+															'_tm_clear_array_values',
+														), $_titles_base[ $_option_key ] );
 													}
 													if ( ! isset( $_imagesc_base[ $_option_key ] ) ) {
-														$_imagesc_base[ $_option_key ] = array_map( array( $this, '_tm_clear_array_values' ), $_titles_base[ $_option_key ] );
+														$_imagesc_base[ $_option_key ] = array_map( array(
+															$this,
+															'_tm_clear_array_values',
+														), $_titles_base[ $_option_key ] );
 													}
 
 													if ( ! isset( $_imagesp[ $_option_key ] ) ) {
-														$_imagesp[ $_option_key ] = array_map( array( $this, '_tm_clear_array_values' ), $_titles_base[ $_option_key ] );
+														$_imagesp[ $_option_key ] = array_map( array(
+															$this,
+															'_tm_clear_array_values',
+														), $_titles_base[ $_option_key ] );
 													}
 													if ( ! isset( $_imagesp_base[ $_option_key ] ) ) {
-														$_imagesp_base[ $_option_key ] = array_map( array( $this, '_tm_clear_array_values' ), $_titles_base[ $_option_key ] );
+														$_imagesp_base[ $_option_key ] = array_map( array(
+															$this,
+															'_tm_clear_array_values',
+														), $_titles_base[ $_option_key ] );
 													}
 
 													if ( ! isset( $_imagesl[ $_option_key ] ) ) {
-														$_imagesl[ $_option_key ] = array_map( array( $this, '_tm_clear_array_values' ), $_titles_base[ $_option_key ] );
+														$_imagesl[ $_option_key ] = array_map( array(
+															$this,
+															'_tm_clear_array_values',
+														), $_titles_base[ $_option_key ] );
 													}
 													if ( ! isset( $_imagesl_base[ $_option_key ] ) ) {
-														$_imagesl_base[ $_option_key ] = array_map( array( $this, '_tm_clear_array_values' ), $_titles_base[ $_option_key ] );
+														$_imagesl_base[ $_option_key ] = array_map( array(
+															$this,
+															'_tm_clear_array_values',
+														), $_titles_base[ $_option_key ] );
 													}
 
 													if ( ! isset( $_sale_prices_base[ $_option_key ] ) ) {
-														$_sale_prices_base[ $_option_key ] = array_map( array( $this, '_tm_clear_array_values' ), $_titles_base[ $_option_key ] );
+														$_sale_prices_base[ $_option_key ] = array_map( array(
+															$this,
+															'_tm_clear_array_values',
+														), $_titles_base[ $_option_key ] );
 													}
 
 													if ( ! isset( $_sale_prices[ $_option_key ] ) ) {
-														$_sale_prices[ $_option_key ] = array_map( array( $this, '_tm_clear_array_values' ), $_titles_base[ $_option_key ] );
+														$_sale_prices[ $_option_key ] = array_map( array(
+															$this,
+															'_tm_clear_array_values',
+														), $_titles_base[ $_option_key ] );
 													}
 
 													if ( ! isset( $_description_base[ $_option_key ] ) ) {
-														$_description_base[ $_option_key ] = array_map( array( $this, '_tm_clear_array_values' ), $_titles_base[ $_option_key ] );
+														$_description_base[ $_option_key ] = array_map( array(
+															$this,
+															'_tm_clear_array_values',
+														), $_titles_base[ $_option_key ] );
 													}
 
 													if ( ! isset( $_description[ $_option_key ] ) ) {
-														$_description[ $_option_key ] = array_map( array( $this, '_tm_clear_array_values' ), $_titles_base[ $_option_key ] );
+														$_description[ $_option_key ] = array_map( array(
+															$this,
+															'_tm_clear_array_values',
+														), $_titles_base[ $_option_key ] );
 													}
 
 													if ( ! isset( $_enabled_base[ $_option_key ] ) ) {
-														$_enabled_base[ $_option_key ] = array_map( array( $this, '_tm_false_array_values' ), $_titles_base[ $_option_key ] );
+														$_enabled_base[ $_option_key ] = array_map( array(
+															$this,
+															'_tm_false_array_values',
+														), $_titles_base[ $_option_key ] );
 													}
 
 													if ( ! isset( $_enabled[ $_option_key ] ) ) {
-														$_enabled[ $_option_key ] = array_map( array( $this, '_tm_false_array_values' ), $_titles_base[ $_option_key ] );
+														$_enabled[ $_option_key ] = array_map( array(
+															$this,
+															'_tm_false_array_values',
+														), $_titles_base[ $_option_key ] );
 													}
 
 													if ( ! isset( $_color[ $_option_key ] ) ) {
-														$_color[ $_option_key ] = array_map( array( $this, '_tm_clear_array_values' ), $_titles_base[ $_option_key ] );
+														$_color[ $_option_key ] = array_map( array(
+															$this,
+															'_tm_clear_array_values',
+														), $_titles_base[ $_option_key ] );
 													}
 													if ( ! isset( $_color_base[ $_option_key ] ) ) {
-														$_color_base[ $_option_key ] = array_map( array( $this, '_tm_clear_array_values' ), $_titles_base[ $_option_key ] );
+														$_color_base[ $_option_key ] = array_map( array(
+															$this,
+															'_tm_clear_array_values',
+														), $_titles_base[ $_option_key ] );
 													}
 
 													if ( ! isset( $_fee_base[ $_option_key ] ) ) {
-														$_fee_base[ $_option_key ] = array_map( array( $this, '_tm_clear_array_values' ), $_titles_base[ $_option_key ] );
+														$_fee_base[ $_option_key ] = array_map( array(
+															$this,
+															'_tm_clear_array_values',
+														), $_titles_base[ $_option_key ] );
 													}
 
 													if ( ! isset( $_fee[ $_option_key ] ) ) {
-														$_fee[ $_option_key ] = array_map( array( $this, '_tm_clear_array_values' ), $_titles_base[ $_option_key ] );
+														$_fee[ $_option_key ] = array_map( array(
+															$this,
+															'_tm_clear_array_values',
+														), $_titles_base[ $_option_key ] );
 													}
 
 													foreach ( $_extra_base as $_extra_base_key => $_extra_base_value ) {
 														if ( ! isset( $_extra_base[ $_extra_base_key ][ $_option_key ] ) ) {
-															$_extra_base[ $_extra_base_key ][ $_option_key ] = array_map( array( $this, '_tm_clear_array_values' ), $_titles_base[ $_option_key ] );
+															$_extra_base[ $_extra_base_key ][ $_option_key ] = array_map( array(
+																$this,
+																'_tm_clear_array_values',
+															), $_titles_base[ $_option_key ] );
 														}
 													}
 													foreach ( $_extra as $_extra_key => $_extra_value ) {
 														if ( ! isset( $_extra[ $_extra_key ][ $_option_key ] ) ) {
-															$_extra[ $_extra_key ][ $_option_key ] = array_map( array( $this, '_tm_clear_array_values' ), $_titles_base[ $_option_key ] );
+															$_extra[ $_extra_key ][ $_option_key ] = array_map( array(
+																$this,
+																'_tm_clear_array_values',
+															), $_titles_base[ $_option_key ] );
 														}
 													}
 
@@ -5245,13 +6884,14 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 
 											$value['html'] = array(
 												array( $this, "builder_sub_options" ),
-												array( array(
-													       'options'       => $t[ $_vid ][ $_counter[ $_elements[ $k0 ] ] ],
-													       'name'          => 'multiple_' . $value['id'],
-													       'counter'       => $_counter[ $_elements[ $k0 ] ],
-													       'default_value' => $_default_value
-												       )
-												)
+												array(
+													array(
+														'options'       => $t[ $_vid ][ $_counter[ $_elements[ $k0 ] ] ],
+														'name'          => 'multiple_' . $value['id'],
+														'counter'       => $_counter[ $_elements[ $k0 ] ],
+														'default_value' => $_default_value,
+													),
+												),
 											);
 
 										}
@@ -5372,7 +7012,7 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 		$args = shortcode_atts( array(
 			'meta'       => array(),
 			'product_id' => 0,
-			'return_js'  => FALSE,
+			'return_js'  => false,
 		), $args );
 
 		$meta       = $args['meta'];
@@ -5390,14 +7030,36 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 				"id"      => "variations_display_as",
 				"default" => "select",
 				"type"    => "select",
-				"tags"    => array( "class" => "variations-display-as", "id" => "builder_%id%", "name" => "tm_meta[tmfbuilder][variations_options][%attribute_id%][%id%]" ),
+				"tags"    => array(
+					"class" => "variations-display-as",
+					"id"    => "builder_%id%",
+					"name"  => "tm_meta[tmfbuilder][variations_options][%attribute_id%][%id%]",
+				),
 				"options" => array(
-					array( "text" => esc_html__( "Select boxes", 'woocommerce-tm-extra-product-options' ), "value" => "select" ),
-					array( "text" => esc_html__( "Radio buttons", 'woocommerce-tm-extra-product-options' ), "value" => "radio" ),
-					array( "text" => esc_html__( "Radio buttons and image at start of the label", 'woocommerce-tm-extra-product-options' ), "value" => "radiostart" ),
-					array( "text" => esc_html__( "Radio buttons and image at end of the label", 'woocommerce-tm-extra-product-options' ), "value" => "radioend" ),
-					array( "text" => esc_html__( "Image swatches", 'woocommerce-tm-extra-product-options' ), "value" => "image" ),
-					array( "text" => esc_html__( "Color swatches", 'woocommerce-tm-extra-product-options' ), "value" => "color" ),
+					array(
+						"text"  => esc_html__( "Select boxes", 'woocommerce-tm-extra-product-options' ),
+						"value" => "select",
+					),
+					array(
+						"text"  => esc_html__( "Radio buttons", 'woocommerce-tm-extra-product-options' ),
+						"value" => "radio",
+					),
+					array(
+						"text"  => esc_html__( "Radio buttons and image at start of the label", 'woocommerce-tm-extra-product-options' ),
+						"value" => "radiostart",
+					),
+					array(
+						"text"  => esc_html__( "Radio buttons and image at end of the label", 'woocommerce-tm-extra-product-options' ),
+						"value" => "radioend",
+					),
+					array(
+						"text"  => esc_html__( "Image swatches", 'woocommerce-tm-extra-product-options' ),
+						"value" => "image",
+					),
+					array(
+						"text"  => esc_html__( "Color swatches", 'woocommerce-tm-extra-product-options' ),
+						"value" => "color",
+					),
 				),
 				"label"   => esc_html__( "Display as", 'woocommerce-tm-extra-product-options' ),
 				"desc"    => esc_html__( "Select the display type of this attribute.", 'woocommerce-tm-extra-product-options' ),
@@ -5406,7 +7068,12 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 				"id"      => "variations_label",
 				"default" => "",
 				"type"    => "text",
-				"tags"    => array( "class" => "t", "id" => "builder_%id%", "name" => "tm_meta[tmfbuilder][variations_options][%attribute_id%][%id%]", "value" => "" ),
+				"tags"    => array(
+					"class" => "t",
+					"id"    => "builder_%id%",
+					"name"  => "tm_meta[tmfbuilder][variations_options][%attribute_id%][%id%]",
+					"value" => "",
+				),
 				"label"   => esc_html__( 'Attribute Label', 'woocommerce-tm-extra-product-options' ),
 				"desc"    => esc_html__( 'Leave blank to use the original attribute label.', 'woocommerce-tm-extra-product-options' ),
 			),
@@ -5415,7 +7082,10 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 				"message0x0_class" => "tma-hide-for-select-box",
 				"default"          => "",
 				"type"             => "select",
-				"tags"             => array( "id" => "builder_%id%", "name" => "tm_meta[tmfbuilder][variations_options][%attribute_id%][%id%]" ),
+				"tags"             => array(
+					"id"   => "builder_%id%",
+					"name" => "tm_meta[tmfbuilder][variations_options][%attribute_id%][%id%]",
+				),
 				"options"          => array(
 					array( "text" => esc_html__( "Disable", 'woocommerce-tm-extra-product-options' ), "value" => "" ),
 					array( "text" => esc_html__( "Enable", 'woocommerce-tm-extra-product-options' ), "value" => "yes" ),
@@ -5427,7 +7097,12 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 				"id"      => "variations_class",
 				"default" => "",
 				"type"    => "text",
-				"tags"    => array( "class" => "t", "id" => "builder_%id%", "name" => "tm_meta[tmfbuilder][variations_options][%attribute_id%][%id%]", "value" => "" ),
+				"tags"    => array(
+					"class" => "t",
+					"id"    => "builder_%id%",
+					"name"  => "tm_meta[tmfbuilder][variations_options][%attribute_id%][%id%]",
+					"value" => "",
+				),
 				"label"   => esc_html__( 'Attribute element class name', 'woocommerce-tm-extra-product-options' ),
 				"desc"    => esc_html__( 'Enter an extra class name to add to this attribute element', 'woocommerce-tm-extra-product-options' ),
 			),
@@ -5437,7 +7112,12 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 				"default"          => "",
 				"type"             => "number",
 				"extra"            => array( array( $this, "add_setting_items_per_row_helper" ), array() ),
-				"tags"             => array( "class" => "n", "id" => "builder_%id%", "name" => "tm_meta[tmfbuilder][variations_options][%attribute_id%][%id%]", "value" => "" ),
+				"tags"             => array(
+					"class" => "n",
+					"id"    => "builder_%id%",
+					"name"  => "tm_meta[tmfbuilder][variations_options][%attribute_id%][%id%]",
+					"value" => "",
+				),
 				"label"            => esc_html__( 'Items per row (Desktops and laptops)', 'woocommerce-tm-extra-product-options' ),
 				"desc"             => esc_html__( 'Use this field to make a grid display. Enter how many items per row for the grid or leave blank for normal display.', 'woocommerce-tm-extra-product-options' ),
 			),
@@ -5449,7 +7129,11 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 				"wpmldisable"      => 1,
 				"default"          => "",
 				"type"             => "number",
-				"tags"             => array( "class" => "n", "id" => "builder_%id%", "name" => "tm_meta[tmfbuilder][variations_options][%attribute_id%][%id%]" ),
+				"tags"             => array(
+					"class" => "n",
+					"id"    => "builder_%id%",
+					"name"  => "tm_meta[tmfbuilder][variations_options][%attribute_id%][%id%]",
+				),
 				"label"            => esc_html__( 'Items per row (Tablets landscape)', 'woocommerce-tm-extra-product-options' ),
 				"desc"             => esc_html__( 'Use this field to make a grid display. Enter how many items per row for the grid or leave blank for normal display.', 'woocommerce-tm-extra-product-options' ),
 			),
@@ -5460,7 +7144,11 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 				"wpmldisable"      => 1,
 				"default"          => "",
 				"type"             => "number",
-				"tags"             => array( "class" => "n", "id" => "builder_%id%", "name" => "tm_meta[tmfbuilder][variations_options][%attribute_id%][%id%]" ),
+				"tags"             => array(
+					"class" => "n",
+					"id"    => "builder_%id%",
+					"name"  => "tm_meta[tmfbuilder][variations_options][%attribute_id%][%id%]",
+				),
 				"label"            => esc_html__( 'Items per row (Tablets portrait)', 'woocommerce-tm-extra-product-options' ),
 				"desc"             => esc_html__( 'Use this field to make a grid display. Enter how many items per row for the grid or leave blank for normal display.', 'woocommerce-tm-extra-product-options' ),
 			),
@@ -5471,7 +7159,11 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 				"wpmldisable"      => 1,
 				"default"          => "",
 				"type"             => "number",
-				"tags"             => array( "class" => "n", "id" => "builder_%id%", "name" => "tm_meta[tmfbuilder][variations_options][%attribute_id%][%id%]" ),
+				"tags"             => array(
+					"class" => "n",
+					"id"    => "builder_%id%",
+					"name"  => "tm_meta[tmfbuilder][variations_options][%attribute_id%][%id%]",
+				),
 				"label"            => esc_html__( 'Items per row (Smartphones)', 'woocommerce-tm-extra-product-options' ),
 				"desc"             => esc_html__( 'Use this field to make a grid display. Enter how many items per row for the grid or leave blank for normal display.', 'woocommerce-tm-extra-product-options' ),
 			),
@@ -5482,7 +7174,11 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 				"wpmldisable"      => 1,
 				"default"          => "",
 				"type"             => "number",
-				"tags"             => array( "class" => "n", "id" => "builder_%id%", "name" => "tm_meta[tmfbuilder][variations_options][%attribute_id%][%id%]" ),
+				"tags"             => array(
+					"class" => "n",
+					"id"    => "builder_%id%",
+					"name"  => "tm_meta[tmfbuilder][variations_options][%attribute_id%][%id%]",
+				),
 				"label"            => esc_html__( 'Items per row (iPhone 5)', 'woocommerce-tm-extra-product-options' ),
 				"desc"             => esc_html__( 'Use this field to make a grid display. Enter how many items per row for the grid or leave blank for normal display.', 'woocommerce-tm-extra-product-options' ),
 			),
@@ -5493,7 +7189,11 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 				"wpmldisable"      => 1,
 				"default"          => "",
 				"type"             => "number",
-				"tags"             => array( "class" => "n", "id" => "builder_%id%", "name" => "tm_meta[tmfbuilder][variations_options][%attribute_id%][%id%]" ),
+				"tags"             => array(
+					"class" => "n",
+					"id"    => "builder_%id%",
+					"name"  => "tm_meta[tmfbuilder][variations_options][%attribute_id%][%id%]",
+				),
 				"label"            => esc_html__( 'Items per row (iPhone 6)', 'woocommerce-tm-extra-product-options' ),
 				"desc"             => esc_html__( 'Use this field to make a grid display. Enter how many items per row for the grid or leave blank for normal display.', 'woocommerce-tm-extra-product-options' ),
 			),
@@ -5504,7 +7204,11 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 				"wpmldisable"      => 1,
 				"default"          => "",
 				"type"             => "number",
-				"tags"             => array( "class" => "n", "id" => "builder_%id%", "name" => "tm_meta[tmfbuilder][variations_options][%attribute_id%][%id%]" ),
+				"tags"             => array(
+					"class" => "n",
+					"id"    => "builder_%id%",
+					"name"  => "tm_meta[tmfbuilder][variations_options][%attribute_id%][%id%]",
+				),
 				"label"            => esc_html__( 'Items per row (iPhone 6 +)', 'woocommerce-tm-extra-product-options' ),
 				"desc"             => esc_html__( 'Use this field to make a grid display. Enter how many items per row for the grid or leave blank for normal display.', 'woocommerce-tm-extra-product-options' ),
 			),
@@ -5515,7 +7219,11 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 				"wpmldisable"      => 1,
 				"default"          => "",
 				"type"             => "number",
-				"tags"             => array( "class" => "n", "id" => "builder_%id%", "name" => "tm_meta[tmfbuilder][variations_options][%attribute_id%][%id%]" ),
+				"tags"             => array(
+					"class" => "n",
+					"id"    => "builder_%id%",
+					"name"  => "tm_meta[tmfbuilder][variations_options][%attribute_id%][%id%]",
+				),
 				"label"            => esc_html__( 'Items per row (Samnsung Galaxy)', 'woocommerce-tm-extra-product-options' ),
 				"desc"             => esc_html__( 'Use this field to make a grid display. Enter how many items per row for the grid or leave blank for normal display.', 'woocommerce-tm-extra-product-options' ),
 			),
@@ -5526,7 +7234,11 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 				"wpmldisable"      => 1,
 				"default"          => "",
 				"type"             => "number",
-				"tags"             => array( "class" => "n", "id" => "builder_%id%", "name" => "tm_meta[tmfbuilder][variations_options][%attribute_id%][%id%]" ),
+				"tags"             => array(
+					"class" => "n",
+					"id"    => "builder_%id%",
+					"name"  => "tm_meta[tmfbuilder][variations_options][%attribute_id%][%id%]",
+				),
 				"label"            => esc_html__( 'Items per row (Galaxy Tablets landscape)', 'woocommerce-tm-extra-product-options' ),
 				"desc"             => esc_html__( 'Use this field to make a grid display. Enter how many items per row for the grid or leave blank for normal display.', 'woocommerce-tm-extra-product-options' ),
 			),
@@ -5535,7 +7247,12 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 				"message0x0_class" => "tma-show-for-swatches tma-hide-for-select-box",
 				"default"          => "",
 				"type"             => "text",
-				"tags"             => array( "class" => "t", "id" => "builder_%id%", "name" => "tm_meta[tmfbuilder][variations_options][%attribute_id%][%id%]", "value" => "" ),
+				"tags"             => array(
+					"class" => "t",
+					"id"    => "builder_%id%",
+					"name"  => "tm_meta[tmfbuilder][variations_options][%attribute_id%][%id%]",
+					"value" => "",
+				),
 				"label"            => esc_html__( 'Width', 'woocommerce-tm-extra-product-options' ),
 				"desc"             => esc_html__( 'Enter the width of the displayed item or leave blank for auto width.', 'woocommerce-tm-extra-product-options' ),
 			),
@@ -5544,7 +7261,12 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 				"message0x0_class" => "tma-show-for-swatches tma-hide-for-select-box",
 				"default"          => "",
 				"type"             => "text",
-				"tags"             => array( "class" => "t", "id" => "builder_%id%", "name" => "tm_meta[tmfbuilder][variations_options][%attribute_id%][%id%]", "value" => "" ),
+				"tags"             => array(
+					"class" => "t",
+					"id"    => "builder_%id%",
+					"name"  => "tm_meta[tmfbuilder][variations_options][%attribute_id%][%id%]",
+					"value" => "",
+				),
 				"label"            => esc_html__( 'Height', 'woocommerce-tm-extra-product-options' ),
 				"desc"             => esc_html__( 'Enter the height of the displayed item or leave blank for auto height.', 'woocommerce-tm-extra-product-options' ),
 			),
@@ -5552,11 +7274,21 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 				"id"      => "variations_changes_product_image",
 				"default" => "",
 				"type"    => "select",
-				"tags"    => array( "class" => "tm-changes-product-image", "id" => "builder_%id%", "name" => "tm_meta[tmfbuilder][variations_options][%attribute_id%][%id%]" ),
+				"tags"    => array(
+					"class" => "tm-changes-product-image",
+					"id"    => "builder_%id%",
+					"name"  => "tm_meta[tmfbuilder][variations_options][%attribute_id%][%id%]",
+				),
 				"options" => array(
 					array( "text" => esc_html__( 'No', 'woocommerce-tm-extra-product-options' ), "value" => "" ),
-					array( "text" => esc_html__( 'Use the image replacements', 'woocommerce-tm-extra-product-options' ), "value" => "images" ),
-					array( "text" => esc_html__( 'Use custom image', 'woocommerce-tm-extra-product-options' ), "value" => "custom" ),
+					array(
+						"text"  => esc_html__( 'Use the image replacements', 'woocommerce-tm-extra-product-options' ),
+						"value" => "images",
+					),
+					array(
+						"text"  => esc_html__( 'Use custom image', 'woocommerce-tm-extra-product-options' ),
+						"value" => "custom",
+					),
 				),
 				"label"   => esc_html__( 'Changes product image', 'woocommerce-tm-extra-product-options' ),
 				"desc"    => esc_html__( 'Choose whether to change the product image.', 'woocommerce-tm-extra-product-options' ),
@@ -5566,12 +7298,25 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 				"message0x0_class" => "tma-show-for-swatches",
 				"default"          => "hide",
 				"type"             => "select",
-				"tags"             => array( "class" => "variations-show-name", "id" => "builder_%id%", "name" => "tm_meta[tmfbuilder][variations_options][%attribute_id%][%id%]" ),
+				"tags"             => array(
+					"class" => "variations-show-name",
+					"id"    => "builder_%id%",
+					"name"  => "tm_meta[tmfbuilder][variations_options][%attribute_id%][%id%]",
+				),
 				"options"          => array(
 					array( "text" => esc_html__( 'Hide', 'woocommerce-tm-extra-product-options' ), "value" => "hide" ),
-					array( "text" => esc_html__( 'Show bottom', 'woocommerce-tm-extra-product-options' ), "value" => "bottom" ),
-					array( "text" => esc_html__( 'Show inside', 'woocommerce-tm-extra-product-options' ), "value" => "inside" ),
-					array( "text" => esc_html__( 'Tooltip', 'woocommerce-tm-extra-product-options' ), "value" => "tooltip" ),
+					array(
+						"text"  => esc_html__( 'Show bottom', 'woocommerce-tm-extra-product-options' ),
+						"value" => "bottom",
+					),
+					array(
+						"text"  => esc_html__( 'Show inside', 'woocommerce-tm-extra-product-options' ),
+						"value" => "inside",
+					),
+					array(
+						"text"  => esc_html__( 'Tooltip', 'woocommerce-tm-extra-product-options' ),
+						"value" => "tooltip",
+					),
 				),
 				"label"            => esc_html__( 'Show attribute name', 'woocommerce-tm-extra-product-options' ),
 				"desc"             => esc_html__( 'Choose whether to show or hide the attribute name.', 'woocommerce-tm-extra-product-options' ),
@@ -5584,7 +7329,12 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 				"message0x0_class" => "tma-term-color",
 				"default"          => "",
 				"type"             => "text",
-				"tags"             => array( "class" => "tm-color-picker", "id" => "builder_%id%", "name" => "tm_meta[tmfbuilder][variations_options][%attribute_id%][[%id%]][%term_id%]", "value" => "" ),
+				"tags"             => array(
+					"class" => "tm-color-picker",
+					"id"    => "builder_%id%",
+					"name"  => "tm_meta[tmfbuilder][variations_options][%attribute_id%][[%id%]][%term_id%]",
+					"value" => "",
+				),
 				"label"            => esc_html__( 'Color', 'woocommerce-tm-extra-product-options' ),
 				"desc"             => esc_html__( 'Select the color to use.', 'woocommerce-tm-extra-product-options' ),
 			),
@@ -5593,7 +7343,11 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 				"message0x0_class" => "tma-term-image",
 				"default"          => "",
 				"type"             => "hidden",
-				"tags"             => array( "class" => "n tm_option_image" . $class, "id" => "builder_%id%", "name" => "tm_meta[tmfbuilder][variations_options][%attribute_id%][[%id%]][%term_id%]" ),
+				"tags"             => array(
+					"class" => "n tm_option_image" . $class,
+					"id"    => "builder_%id%",
+					"name"  => "tm_meta[tmfbuilder][variations_options][%attribute_id%][[%id%]][%term_id%]",
+				),
 				"label"            => esc_html__( 'Image replacement', 'woocommerce-tm-extra-product-options' ),
 				"desc"             => esc_html__( 'Select an image for this term.', 'woocommerce-tm-extra-product-options' ),
 				"extra"            => array( array( $this, "settings_term_variations_image_helper" ), array() ),
@@ -5604,7 +7358,11 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 				"message0x0_class" => "tma-term-custom-image",
 				"default"          => "",
 				"type"             => "hidden",
-				"tags"             => array( "class" => "n tm_option_image tm_option_imagep" . $class, "id" => "builder_%id%", "name" => "tm_meta[tmfbuilder][variations_options][%attribute_id%][[%id%]][%term_id%]" ),
+				"tags"             => array(
+					"class" => "n tm_option_image tm_option_imagep" . $class,
+					"id"    => "builder_%id%",
+					"name"  => "tm_meta[tmfbuilder][variations_options][%attribute_id%][[%id%]][%term_id%]",
+				),
 				"label"            => esc_html__( 'Product Image replacement', 'woocommerce-tm-extra-product-options' ),
 				"desc"             => esc_html__( 'Select the image to replace the product image with.', 'woocommerce-tm-extra-product-options' ),
 				"extra"            => array( array( $this, "settings_term_variations_imagep_helper" ), array() ),
@@ -5676,13 +7434,18 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 						$args    = array();
 						switch ( $orderby ) {
 							case 'name' :
-								$args = array( 'orderby' => 'name', 'hide_empty' => FALSE, 'menu_order' => FALSE );
+								$args = array( 'orderby' => 'name', 'hide_empty' => false, 'menu_order' => false );
 								break;
 							case 'id' :
-								$args = array( 'orderby' => 'id', 'order' => 'ASC', 'menu_order' => FALSE, 'hide_empty' => FALSE );
+								$args = array(
+									'orderby'    => 'id',
+									'order'      => 'ASC',
+									'menu_order' => false,
+									'hide_empty' => false,
+								);
 								break;
 							case 'menu_order' :
-								$args = array( 'menu_order' => 'ASC', 'hide_empty' => FALSE );
+								$args = array( 'menu_order' => 'ASC', 'hide_empty' => false );
 								break;
 						}
 						$terms = get_terms( $taxonomy_name, $args );
@@ -5719,7 +7482,10 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 								) {
 									$setting["default"] = $meta[ $attribute_id ][ $setting["id"] ][ $term_id ];
 									if ( isset( $setting["extra"] ) && isset( $setting["method"] ) ) {
-										$setting["extra"] = array( array( $this, $setting["method"] ), array( $meta[ $attribute_id ][ $setting["id"] ][ $term_id ] ) );
+										$setting["extra"] = array(
+											array( $this, $setting["method"] ),
+											array( $meta[ $attribute_id ][ $setting["id"] ][ $term_id ] ),
+										);
 									}
 								}
 								if ( empty( $return_js ) ) {
@@ -5761,7 +7527,10 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 							) {
 								$setting["default"] = $meta[ $attribute_id ][ $setting["id"] ][ $option ];
 								if ( isset( $setting["extra"] ) && isset( $setting["method"] ) ) {
-									$setting["extra"] = array( array( $this, $setting["method"] ), array( $meta[ $attribute_id ][ $setting["id"] ][ $option ] ) );
+									$setting["extra"] = array(
+										array( $this, $setting["method"] ),
+										array( $meta[ $attribute_id ][ $setting["id"] ][ $option ] ),
+									);
 
 								}
 							}
@@ -5817,11 +7586,11 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 	 * @since  4.8.5
 	 * @access public
 	 */
-	public function builder_sub_options_image_helper( $name = "", $image = FALSE ) {
+	public function builder_sub_options_image_helper( $name = "", $image = false ) {
 
 		$this->get_builder_sub_options_upload_helper( $name );
 
-		if ( $image !== FALSE ) {
+		if ( $image !== false ) {
 			if ( $image === "" ) {
 				$image = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
 			}
@@ -5856,11 +7625,11 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 	 * @since  4.8.5
 	 * @access public
 	 */
-	public function builder_sub_options_imagec_helper( $name = "", $image = FALSE ) {
+	public function builder_sub_options_imagec_helper( $name = "", $image = false ) {
 
 		$this->get_builder_sub_options_uploadc_helper( $name );
 
-		if ( $image !== FALSE ) {
+		if ( $image !== false ) {
 			if ( $image === "" ) {
 				$image = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
 			}
@@ -5880,7 +7649,7 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 
 		if ( $name == "multiple_radiobuttons_options" || $name == "multiple_checkboxes_options" ) {
 			echo '&nbsp;<span data-tm-tooltip-html="' . esc_attr( esc_html__( "Choose the image to replace the product image with.", 'woocommerce-tm-extra-product-options' ) ) . '" class="tm_upload_button tm_upload_buttonp cp_button tm-tooltip"><i class="tcfa tcfa-upload"></i></span>';
-		} else if ( $name == "multiple_selectbox_options" ) {
+		} elseif ( $name == "multiple_selectbox_options" ) {
 			echo '&nbsp;<span data-tm-tooltip-html="' . esc_attr( esc_html__( "Choose the image to replace the product image with.", 'woocommerce-tm-extra-product-options' ) ) . '" class="tm_upload_button tm_upload_buttonp cp_button tm-tooltip"><i class="tcfa tcfa-upload"></i></span>';
 		}
 
@@ -5893,11 +7662,11 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 	 * @since  4.8.5
 	 * @access public
 	 */
-	public function builder_sub_options_imagep_helper( $name = "", $image = FALSE ) {
+	public function builder_sub_options_imagep_helper( $name = "", $image = false ) {
 
 		$this->get_builder_sub_options_uploadp_helper( $name );
 
-		if ( $image !== FALSE ) {
+		if ( $image !== false ) {
 			if ( $image === "" ) {
 				$image = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
 			}
@@ -5917,7 +7686,7 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 
 		if ( $name == "multiple_radiobuttons_options" || $name == "multiple_checkboxes_options" ) {
 			echo '&nbsp;<span data-tm-tooltip-html="' . esc_attr( esc_html__( "Choose the image for the lightbox.", 'woocommerce-tm-extra-product-options' ) ) . '" class="tm_upload_button tm_upload_buttonl cp_button tm-tooltip"><i class="tcfa tcfa-upload"></i></span>';
-		} else if ( $name == "multiple_selectbox_options" ) {
+		} elseif ( $name == "multiple_selectbox_options" ) {
 			echo '&nbsp;<span data-tm-tooltip-html="' . esc_attr( esc_html__( "Choose the image for the lightbox.", 'woocommerce-tm-extra-product-options' ) ) . '" class="tm_upload_button tm_upload_buttonl cp_button tm-tooltip"><i class="tcfa tcfa-upload"></i></span>';
 		}
 
@@ -5930,11 +7699,11 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 	 * @since  4.8.5
 	 * @access public
 	 */
-	public function builder_sub_options_imagel_helper( $name = "", $image = FALSE ) {
+	public function builder_sub_options_imagel_helper( $name = "", $image = false ) {
 
 		$this->get_builder_sub_options_uploadl_helper( $name );
 
-		if ( $image !== FALSE ) {
+		if ( $image !== false ) {
 			if ( $image === "" ) {
 				$image = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
 			}
@@ -5954,7 +7723,7 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 		unset( $array['extra'] );
 
 		if ( isset( $array['type'] ) && $array['type'] === 'checkbox' ) {
-			$array['checked'] = checked( ( $array["default"] == $array["tags"]["value"] ), TRUE, FALSE ) !== '';
+			$array['checked'] = checked( ( $array["default"] == $array["tags"]["value"] ), true, false ) !== '';
 		}
 
 		return $array;
@@ -5972,9 +7741,9 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 		$args = shortcode_atts( array(
 			'options'       => array(),
 			'name'          => 'multiple_selectbox_options',
-			'counter'       => NULL,
-			'default_value' => NULL,
-			'return_js'     => FALSE,
+			'counter'       => null,
+			'default_value' => null,
+			'return_js'     => false,
 		), $args );
 
 		$options       = $args['options'];
@@ -5996,7 +7765,7 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 
 		if ( ! $options ) {
 			$options = array(
-				"title"       => array( FALSE ),
+				"title"       => array( false ),
 				"value"       => array(),
 				"price"       => array(),
 				"sale_price"  => array(),
@@ -6041,7 +7810,12 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			"default" => "",
 			"type"    => "text",
 			"nodiv"   => 1,
-			"tags"    => array( "class" => "t tm_option_title", "id" => $name . "_title", "name" => $name . "_title", "value" => "" ),
+			"tags"    => array(
+				"class" => "t tm_option_title",
+				"id"    => $name . "_title",
+				"name"  => $name . "_title",
+				"value" => "",
+			),
 		);
 		$o["value"]       = array(
 			"id"      => $name . "_value",
@@ -6062,14 +7836,22 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			"default" => "",
 			"type"    => "text",
 			"nodiv"   => 1,
-			"tags"    => array( "class" => "t tm_option_sale_price", "id" => $name . "_price", "name" => $name . "_price" ),
+			"tags"    => array(
+				"class" => "t tm_option_sale_price",
+				"id"    => $name . "_price",
+				"name"  => $name . "_price",
+			),
 		);
 		$o["image"]       = array(
 			"id"      => $name . "_image",
 			"default" => "",
 			"type"    => "hidden",
 			"nodiv"   => 1,
-			"tags"    => array( "class" => "t tm_option_image tc-option-image" . $class, "id" => $name . "_image", "name" => $name . "_image" ),
+			"tags"    => array(
+				"class" => "t tm_option_image tc-option-image" . $class,
+				"id"    => $name . "_image",
+				"name"  => $name . "_image",
+			),
 			"extra"   => array( array( $this, "builder_sub_options_image_helper" ), array( $name ) ),
 			"method"  => "builder_sub_options_image_helper",
 		);
@@ -6078,21 +7860,33 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			"default" => "",
 			"type"    => "hidden",
 			"nodiv"   => 1,
-			"tags"    => array( "class" => "t tm_option_image tm_option_imagec tc-option-imagec" . $class, "id" => $name . "_imagec", "name" => $name . "_imagec" ),
+			"tags"    => array(
+				"class" => "t tm_option_image tm_option_imagec tc-option-imagec" . $class,
+				"id"    => $name . "_imagec",
+				"name"  => $name . "_imagec",
+			),
 		);
 		$o["imagep"]      = array(
 			"id"      => $name . "_imagep",
 			"default" => "",
 			"type"    => "hidden",
 			"nodiv"   => 1,
-			"tags"    => array( "class" => "t tm_option_image tm_option_imagep tc-option-imagep" . $class, "id" => $name . "_imagep", "name" => $name . "_imagep" ),
+			"tags"    => array(
+				"class" => "t tm_option_image tm_option_imagep tc-option-imagep" . $class,
+				"id"    => $name . "_imagep",
+				"name"  => $name . "_imagep",
+			),
 		);
 		$o["imagel"]      = array(
 			"id"      => $name . "_imagel",
 			"default" => "",
 			"type"    => "hidden",
 			"nodiv"   => 1,
-			"tags"    => array( "class" => "t tm_option_image tm_option_imagel tc-option-imagel" . $class, "id" => $name . "_imagel", "name" => $name . "_imagel" ),
+			"tags"    => array(
+				"class" => "t tm_option_image tm_option_imagel tc-option-imagel" . $class,
+				"id"    => $name . "_imagel",
+				"name"  => $name . "_imagel",
+			),
 		);
 		$o["price_type"]  = array(
 			"id"      => $name . "_price_type",
@@ -6100,41 +7894,77 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			"type"    => "select",
 			"options" => array(
 				array( "text" => esc_html__( "Fixed amount", 'woocommerce-tm-extra-product-options' ), "value" => "" ),
-				array( "text" => esc_html__( "Percent of the original price", 'woocommerce-tm-extra-product-options' ), "value" => "percent" ),
-				array( "text" => esc_html__( "Percent of the original price + options", 'woocommerce-tm-extra-product-options' ), "value" => "percentcurrenttotal" ),
-				array( "text" => esc_html__( "Math formula", 'woocommerce-tm-extra-product-options' ), "value" => "math" ),
-				array( "text" => esc_html__( 'Fixed amount + options', 'woocommerce-tm-extra-product-options' ), "value" => "fixedcurrenttotal" ),
+				array(
+					"text"  => esc_html__( "Percent of the original price", 'woocommerce-tm-extra-product-options' ),
+					"value" => "percent",
+				),
+				array(
+					"text"  => esc_html__( "Percent of the original price + options", 'woocommerce-tm-extra-product-options' ),
+					"value" => "percentcurrenttotal",
+				),
+				array(
+					"text"  => esc_html__( "Math formula", 'woocommerce-tm-extra-product-options' ),
+					"value" => "math",
+				),
+				array(
+					"text"  => esc_html__( 'Fixed amount + options', 'woocommerce-tm-extra-product-options' ),
+					"value" => "fixedcurrenttotal",
+				),
 			),
 			"nodiv"   => 1,
-			"tags"    => array( "class" => "t tm_option_price_type " . $name, "id" => $name . "_price_type", "name" => $name . "_price_type" ),
+			"tags"    => array(
+				"class" => "t tm_option_price_type " . $name,
+				"id"    => $name . "_price_type",
+				"name"  => $name . "_price_type",
+			),
 		);
 		$o["url"]         = array(
 			"id"      => $name . "_url",
 			"default" => "",
 			"type"    => "text",
 			"nodiv"   => 1,
-			"tags"    => array( "class" => "t tm_option_url", "id" => $name . "_url", "name" => $name . "_url", "value" => "" ),
+			"tags"    => array(
+				"class" => "t tm_option_url",
+				"id"    => $name . "_url",
+				"name"  => $name . "_url",
+				"value" => "",
+			),
 		);
 		$o["description"] = array(
 			"id"      => $name . "_description",
 			"default" => "",
 			"type"    => "text",
 			"nodiv"   => 1,
-			"tags"    => array( "class" => "t tm_option_description", "id" => $name . "_description", "name" => $name . "_description", "value" => "" ),
+			"tags"    => array(
+				"class" => "t tm_option_description",
+				"id"    => $name . "_description",
+				"name"  => $name . "_description",
+				"value" => "",
+			),
 		);
 		$o["enabled"]     = array(
 			"id"      => $name . "_enabled",
 			"default" => "1",
 			"type"    => "checkbox",
 			"nodiv"   => 1,
-			"tags"    => array( "class" => "c tm_option_enabled " . $name, "id" => $name . "_enabled", "name" => $name . "_enabled", "value" => "1" ),
+			"tags"    => array(
+				"class" => "c tm_option_enabled " . $name,
+				"id"    => $name . "_enabled",
+				"name"  => $name . "_enabled",
+				"value" => "1",
+			),
 		);
 		$o["color"]       = array(
 			"id"      => $name . "_color",
 			"default" => "",
 			"type"    => "text",
 			"nodiv"   => 1,
-			"tags"    => array( "class" => "tm-color-picker", "id" => $name . "_color", "name" => $name . "_color", "value" => "" ),
+			"tags"    => array(
+				"class" => "tm-color-picker",
+				"id"    => $name . "_color",
+				"name"  => $name . "_color",
+				"value" => "",
+			),
 		);
 		$o["fee"]         = array(
 			"id"      => $name . "_fee",
@@ -6218,7 +8048,7 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			}
 			$show_counter ++;
 
-			if ( $options["title"][ $ar ] === FALSE ) {
+			if ( $options["title"][ $ar ] === false ) {
 				$options["title"][ $ar ] = $original_o["title"]["default"];
 			}
 			if ( ! isset( $options["value"][ $ar ] ) ) {
@@ -6253,7 +8083,7 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 			}
 
 			// backwards compatibility
-			if ( ! isset( $options["enabled"][ $ar ] ) || $options["enabled"][ $ar ] === FALSE ) {
+			if ( ! isset( $options["enabled"][ $ar ] ) || $options["enabled"][ $ar ] === false ) {
 				$options["enabled"][ $ar ] = $original_o["enabled"]["default"];
 			}
 			if ( $options["enabled"][ $ar ] === "0" || $options["enabled"][ $ar ] === "" ) {
@@ -6295,31 +8125,58 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 
 			$o["sale_price"]["default"]      = themecomplete_convert_local_numbers( $options["sale_price"][ $ar ] );//sale_price
 			$o["sale_price"]["tags"]["name"] = "tm_meta[tmfbuilder][" . $name . "_sale_price][" . ( is_null( $counter ) ? 0 : $counter ) . "][]";
-			$o["sale_price"]["tags"]["id"]   = str_replace( array( "[", "]" ), "", $o["sale_price"]["tags"]["name"] ) . "_" . $ar;
+			$o["sale_price"]["tags"]["id"]   = str_replace( array(
+					"[",
+					"]",
+				), "", $o["sale_price"]["tags"]["name"] ) . "_" . $ar;
 
 			$o["image"]["default"]      = $options["image"][ $ar ];//image
 			$o["image"]["tags"]["name"] = "tm_meta[tmfbuilder][" . $name . "_image][" . ( is_null( $counter ) ? 0 : $counter ) . "][]";
 			$o["image"]["tags"]["id"]   = str_replace( array( "[", "]" ), "", $o["image"]["tags"]["name"] ) . "_" . $ar;
-			$o["image"]["extra"]        = array( array( $this, "builder_sub_options_image_helper" ), array( $name, $options["image"][ $ar ] ) );
+			$o["image"]["extra"]        = array(
+				array( $this, "builder_sub_options_image_helper" ),
+				array( $name, $options["image"][ $ar ] ),
+			);
 
 			$o["imagec"]["default"]      = $options["imagec"][ $ar ];//imagec
 			$o["imagec"]["tags"]["name"] = "tm_meta[tmfbuilder][" . $name . "_imagec][" . ( is_null( $counter ) ? 0 : $counter ) . "][]";
-			$o["imagec"]["tags"]["id"]   = str_replace( array( "[", "]" ), "", $o["imagec"]["tags"]["name"] ) . "_" . $ar;
-			$o["imagec"]["extra"]        = array( array( $this, "builder_sub_options_imagec_helper" ), array( $name, $options["imagec"][ $ar ] ) );
+			$o["imagec"]["tags"]["id"]   = str_replace( array(
+					"[",
+					"]",
+				), "", $o["imagec"]["tags"]["name"] ) . "_" . $ar;
+			$o["imagec"]["extra"]        = array(
+				array( $this, "builder_sub_options_imagec_helper" ),
+				array( $name, $options["imagec"][ $ar ] ),
+			);
 
 			$o["imagep"]["default"]      = $options["imagep"][ $ar ];//imagep
 			$o["imagep"]["tags"]["name"] = "tm_meta[tmfbuilder][" . $name . "_imagep][" . ( is_null( $counter ) ? 0 : $counter ) . "][]";
-			$o["imagep"]["tags"]["id"]   = str_replace( array( "[", "]" ), "", $o["imagep"]["tags"]["name"] ) . "_" . $ar;
-			$o["imagep"]["extra"]        = array( array( $this, "builder_sub_options_imagep_helper" ), array( $name, $options["imagep"][ $ar ] ) );
+			$o["imagep"]["tags"]["id"]   = str_replace( array(
+					"[",
+					"]",
+				), "", $o["imagep"]["tags"]["name"] ) . "_" . $ar;
+			$o["imagep"]["extra"]        = array(
+				array( $this, "builder_sub_options_imagep_helper" ),
+				array( $name, $options["imagep"][ $ar ] ),
+			);
 
 			$o["imagel"]["default"]      = $options["imagel"][ $ar ];//imagel
 			$o["imagel"]["tags"]["name"] = "tm_meta[tmfbuilder][" . $name . "_imagel][" . ( is_null( $counter ) ? 0 : $counter ) . "][]";
-			$o["imagel"]["tags"]["id"]   = str_replace( array( "[", "]" ), "", $o["imagel"]["tags"]["name"] ) . "_" . $ar;
-			$o["imagel"]["extra"]        = array( array( $this, "builder_sub_options_imagel_helper" ), array( $name, $options["imagel"][ $ar ] ) );
+			$o["imagel"]["tags"]["id"]   = str_replace( array(
+					"[",
+					"]",
+				), "", $o["imagel"]["tags"]["name"] ) . "_" . $ar;
+			$o["imagel"]["extra"]        = array(
+				array( $this, "builder_sub_options_imagel_helper" ),
+				array( $name, $options["imagel"][ $ar ] ),
+			);
 
 			$o["price_type"]["default"]      = $options["price_type"][ $ar ];//price type
 			$o["price_type"]["tags"]["name"] = "tm_meta[tmfbuilder][" . $name . "_price_type][" . ( is_null( $counter ) ? 0 : $counter ) . "][]";
-			$o["price_type"]["tags"]["id"]   = str_replace( array( "[", "]" ), "", $o["price_type"]["tags"]["name"] ) . "_" . $ar;
+			$o["price_type"]["tags"]["id"]   = str_replace( array(
+					"[",
+					"]",
+				), "", $o["price_type"]["tags"]["name"] ) . "_" . $ar;
 
 			$o["url"]["default"]      = $options["url"][ $ar ];//url
 			$o["url"]["tags"]["name"] = "tm_meta[tmfbuilder][" . $name . "_url][" . ( is_null( $counter ) ? 0 : $counter ) . "][]";
@@ -6327,11 +8184,17 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 
 			$o["description"]["default"]      = $options["description"][ $ar ];//description
 			$o["description"]["tags"]["name"] = "tm_meta[tmfbuilder][" . $name . "_description][" . ( is_null( $counter ) ? 0 : $counter ) . "][]";
-			$o["description"]["tags"]["id"]   = str_replace( array( "[", "]" ), "", $o["description"]["tags"]["name"] ) . "_" . $ar;
+			$o["description"]["tags"]["id"]   = str_replace( array(
+					"[",
+					"]",
+				), "", $o["description"]["tags"]["name"] ) . "_" . $ar;
 
 			$o["enabled"]["default"]      = $options["enabled"][ $ar ];//enabled
 			$o["enabled"]["tags"]["name"] = "tm_meta[tmfbuilder][" . $name . "_enabled][" . ( is_null( $counter ) ? 0 : $counter ) . "][]";
-			$o["enabled"]["tags"]["id"]   = str_replace( array( "[", "]" ), "", $o["enabled"]["tags"]["name"] ) . "_" . $ar;
+			$o["enabled"]["tags"]["id"]   = str_replace( array(
+					"[",
+					"]",
+				), "", $o["enabled"]["tags"]["name"] ) . "_" . $ar;
 
 			$o["color"]["default"]      = $options["color"][ $ar ];//color
 			$o["color"]["tags"]["name"] = "tm_meta[tmfbuilder][" . $name . "_color][" . ( is_null( $counter ) ? 0 : $counter ) . "][]";
@@ -6346,7 +8209,10 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 					$_extra_name                       = $__name["name"];
 					$o[ $_extra_name ]["default"]      = $options[ $_extra_name ][ $ar ];
 					$o[ $_extra_name ]["tags"]["name"] = "tm_meta[tmfbuilder][" . $name . "_" . $_extra_name . "][" . ( is_null( $counter ) ? 0 : $counter ) . "][]";
-					$o[ $_extra_name ]["tags"]["id"]   = str_replace( array( "[", "]" ), "", $o[ $_extra_name ]["tags"]["name"] ) . "_" . $ar;
+					$o[ $_extra_name ]["tags"]["id"]   = str_replace( array(
+							"[",
+							"]",
+						), "", $o[ $_extra_name ]["tags"]["name"] ) . "_" . $ar;
 					if ( isset( $o[ $_extra_name ]["admin_class"] ) ) {
 						$o[ $_extra_name ]["admin_class"] = "tc-extra-option " . $o[ $_extra_name ]["admin_class"];
 					} else {
@@ -6396,7 +8262,7 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 						? ""
 						: ( isset( $default_value[ $counter ] )
 							? is_array( $default_value[ $counter ] ) && in_array( (string) $d_counter, $default_value[ $counter ] )
-							: "" ) ), TRUE, 1 );
+							: "" ) ), true, 1 );
 					echo '>';
 				} else {
 					$js_object[ $d_counter ][] = array(
@@ -6408,7 +8274,10 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 								? is_array( $default_value[ $counter ] ) && in_array( (string) $d_counter, $default_value[ $counter ] )
 								: "" ) ),
 						"type"    => "checkbox",
-						"tags"    => array( "name" => "tm_meta[tmfbuilder][" . $name . "_default_value][" . ( is_null( $counter ) ? 0 : $counter ) . "][]", "class" => "tm-default-checkbox" )
+						"tags"    => array(
+							"name"  => "tm_meta[tmfbuilder][" . $name . "_default_value][" . ( is_null( $counter ) ? 0 : $counter ) . "][]",
+							"class" => "tm-default-checkbox",
+						),
 					);
 				}
 			} else {
@@ -6433,7 +8302,10 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 								? (string) $default_value[ $counter ] === (string) $d_counter
 								: "" ) ),
 						"type"    => "radio",
-						"tags"    => array( "name" => "tm_meta[tmfbuilder][" . $name . "_default_value][" . ( is_null( $counter ) ? 0 : $counter ) . "]", "class" => "tm-default-checkbox" )
+						"tags"    => array(
+							"name"  => "tm_meta[tmfbuilder][" . $name . "_default_value][" . ( is_null( $counter ) ? 0 : $counter ) . "]",
+							"class" => "tm-default-checkbox",
+						),
 					);
 				}
 			}
@@ -6449,7 +8321,7 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 				THEMECOMPLETE_EPO_HTML()->tm_make_field( $o["imagel"], 1 );
 				if ( $name !== "multiple_selectbox_options" ) {
 					THEMECOMPLETE_EPO_HTML()->tm_make_field( $o["color"], 1 );
-				};
+				}
 				echo "</div>";
 
 				echo "<div class='tc-cell tc-col-0 tm_cell_value'>";
@@ -6488,7 +8360,10 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 
 					$copy_value["html_before_field"] = '<span class="tm-choice-currency">' . $currency . '</span>';
 					$copy_value["tags"]["name"]      = "tm_meta[tmfbuilder][" . $name . "_price" . $mt_prefix . "][" . ( is_null( $counter ) ? 0 : $counter ) . "][]";
-					$copy_value["tags"]["id"]        = str_replace( array( "[", "]" ), "", $copy_value["tags"]["name"] ) . "_" . $ar;
+					$copy_value["tags"]["id"]        = str_replace( array(
+							"[",
+							"]",
+						), "", $copy_value["tags"]["name"] ) . "_" . $ar;
 					if ( empty( $return_js ) ) {
 						THEMECOMPLETE_EPO_HTML()->tm_make_field( $copy_value, 1 );
 					} else {
@@ -6501,7 +8376,10 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 
 					$copy_value["html_before_field"] = '<span class="tm-choice-currency">' . $currency . '</span>' . '<span class="tm-choice-sale">' . esc_html__( "Sale", 'woocommerce-tm-extra-product-options' ) . '</span>';
 					$copy_value["tags"]["name"]      = "tm_meta[tmfbuilder][" . $name . "_sale_price" . $mt_prefix . "][" . ( is_null( $counter ) ? 0 : $counter ) . "][]";
-					$copy_value["tags"]["id"]        = str_replace( array( "[", "]" ), "", $copy_value["tags"]["name"] ) . "_" . $ar;
+					$copy_value["tags"]["id"]        = str_replace( array(
+							"[",
+							"]",
+						), "", $copy_value["tags"]["name"] ) . "_" . $ar;
 					if ( empty( $return_js ) ) {
 						THEMECOMPLETE_EPO_HTML()->tm_make_field( $copy_value, 1 );
 					} else {
@@ -6534,7 +8412,7 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 				echo "</div>";
 
 				if ( $name === "multiple_checkboxes_options" ) {
-					echo "<div class='".apply_filters("wc_epo_builder_element_multiple_checkboxes_options_class", "tc-cell tc-col-12 tm_cell_fee", $o)."'><span class='tm-inline-label bsbb'>" . esc_html__( "Set to Fee", 'woocommerce-tm-extra-product-options' ) . "</span>";
+					echo "<div class='" . apply_filters( "wc_epo_builder_element_multiple_checkboxes_options_class", "tc-cell tc-col-12 tm_cell_fee", $o ) . "'><span class='tm-inline-label bsbb'>" . esc_html__( "Set to Fee", 'woocommerce-tm-extra-product-options' ) . "</span>";
 					THEMECOMPLETE_EPO_HTML()->tm_make_field( $o["fee"], 1 );
 					echo "</div>";
 
@@ -6558,7 +8436,7 @@ final class THEMECOMPLETE_EPO_BUILDER_base {
 						"tags"    => array(
 							"name"  => "tm_meta[tmfbuilder][" . $name . "_fee][" . ( is_null( $counter ) ? 0 : $counter ) . "][]",
 							"value" => $o["fee"]["tags"]["value"],
-						)
+						),
 					);
 
 					$js_object = apply_filters( "wc_epo_builder_element_multiple_checkboxes_options_js_object", $js_object, $d_counter, $o, $name, $counter );

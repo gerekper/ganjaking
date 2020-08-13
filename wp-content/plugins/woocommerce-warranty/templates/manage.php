@@ -665,7 +665,7 @@ $products = new WP_Query(array(
                 $(this).change();
             });
 
-            $(".btn-add-warranty").live("click", function(e) {
+            $(".btn-add-warranty").on("click", function(e) {
                 e.preventDefault();
 
                 var id = $(this).parents("tr").eq(0).data("id");
@@ -674,7 +674,7 @@ $products = new WP_Query(array(
                 $(this).parents("tr").find(".addons-tbody").append(t);
             });
 
-            $(".warranty_addon_remove").live("click", function(e) {
+            $(".warranty_addon_remove").on("click", function(e) {
                 e.preventDefault();
 
                 $(this).parents("tr").eq(0).remove();
