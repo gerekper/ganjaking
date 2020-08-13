@@ -1,1 +1,0 @@
-jQuery(function($){var slider=$('.yith-wcbsl-bestsellers-slider');slider.yith_fl_slider()})
