@@ -10,7 +10,7 @@ use function MailOptin\Core\moVar;
 
 class InfusionsoftConnect extends \NF_Abstracts_ActionNewsletter
 {
-    public $connection_name = 'Keap / Infusionsoft';
+    public $connection_name = 'Infusionsoft (Keap)';
 
     public $connection = 'InfusionsoftConnect';
 

@@ -52,7 +52,7 @@ if ( $bg_type ) {
 			break;
 		case 'bg_image':
 			if ( $bg_img ) {
-				$img    = wp_get_attachment_image_src( $bg_img, 'full' );
+				$img = wp_get_attachment_image_src( $bg_img, 'full' );
 				global $porto_settings_optimize;
 				if ( isset( $porto_settings_optimize['lazyload'] ) && $porto_settings_optimize['lazyload'] ) {
 					$data_attr .= ' data-original="' . esc_url( $img[0] ) . '"';
@@ -69,19 +69,19 @@ if ( $bg_type ) {
 	}
 }
 
+$uid        = 'porto_ucb_' . rand( 1000, 9999 );
+$data_attr .= ' id="' . $uid . '"';
 
-/*  box shadow  */
-if ( $box_shadow ) {
-	$data = porto_get_box_shadow( $box_shadow, 'css' );
-	if ( strpos( $data, 'none' ) !== false || strpos( $data, ':;' ) !== false ) {
-		$style .= 'box-shadow: none;';
-	} else {
-		$style .= $data;
-	}
-}
-
-/*  box shadow on hover */
+/*  box shadow */
 if ( $hover_box_shadow ) {
+	if ( $box_shadow ) {
+		$data = porto_get_box_shadow( $box_shadow, 'css' );
+		if ( strpos( $data, 'none' ) !== false || strpos( $data, ':;' ) !== false ) {
+			$data = 'box-shadow: none;';
+		}
+		$hover .= '#' . $uid . '{will-change: box-shadow;' . esc_attr( $data ) . '}';
+	}
+
 	$data = porto_get_box_shadow( $hover_box_shadow, 'data' );
 	if ( $data ) {
 		if ( strpos( $data, 'none' ) !== false || strpos( $data, ':;' ) !== false ) {
@@ -92,8 +92,14 @@ if ( $hover_box_shadow ) {
 				$data = porto_get_box_shadow( $box_shadow, 'data' );
 			}
 		}
-
-		$hover .= ' data-hover_box_shadow="' . esc_attr( $data ) . '" ';
+		$hover .= '#' . $uid . ':hover{box-shadow:' . esc_attr( $data ) . '}';
+	}
+} else if ( $box_shadow ) {
+	$data = porto_get_box_shadow( $box_shadow, 'css' );
+	if ( strpos( $data, 'none' ) !== false || strpos( $data, ':;' ) !== false ) {
+		$style .= 'box-shadow: none;';
+	} else {
+		$style .= $data;
 	}
 }
 
@@ -161,10 +167,13 @@ if ( $animation_type ) {
 }
 
 $output = '<div class="porto-ultimate-content-box-container ' . esc_attr( $el_class ) . '"' . $wrapper_attributes . '>';
+if ( $hover ) {
+	$output .= '<style>' . $hover . '</style>';
+}
 if ( $link ) {
 	$output .= '<a class="porto-ultimate-content-box-anchor' . ( $link_class ? ' ' . esc_attr( $link_class ) : '' ) . '" href="' . esc_url( $url ) . '" ' . $link_title . ' ' . $target . ' ' . $rel . '>';
 }
-	$output .= '<div class="' . esc_attr( $box_class ) . '" style="' . esc_attr( $style ) . '"' . $hover . $data_attr . '>';
+	$output .= '<div class="' . esc_attr( $box_class ) . '" style="' . esc_attr( $style ) . '"' . $data_attr . '>';
 	$output .= do_shortcode( $content );
 	$output .= '</div>';
 if ( $link ) {

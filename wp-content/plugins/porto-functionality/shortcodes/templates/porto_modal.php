@@ -41,9 +41,6 @@ extract(
 );
 $html = $style = $modal_class = $modal_data_class = $uniq = $overlay_bg = $header_style = '';
 
-$modal_uid = 'porto-modal-wrap-' . rand( 0000, 9999 );
-
-
 $overlay_bg_opacity = ( $overlay_bg_opacity / 100 );
 $overlay_bg         = '';
 if ( $overlay_bg_color ) {
@@ -56,19 +53,12 @@ if ( $overlay_bg_color ) {
 	$overlay_bg = 'background-color:' . $overlay_bg . ';';
 }
 
-$uniq = uniqid( '', true );
-$uniq = str_replace( '.', '-', $uniq );
-
 if ( $overlay_bg ) {
 	$porto_modal_inline_style  = '';
 	$porto_modal_inline_style .= '<style>';
 	$porto_modal_inline_style .= '.mfp-bg.mfp-fade { ' . $overlay_bg . ' }';
 	$porto_modal_inline_style .= '</style>';
-	$html                     .= '<script>
-		(function($){
-			$("head").append("' . $porto_modal_inline_style . '");
-		})(jQuery);
-		</script>';
+	$html                     .= $porto_modal_inline_style;
 }
 
 $html .= '<div class="porto-modal-input-wrapper ' . esc_attr( $init_extra_class ) . '">';
@@ -77,6 +67,9 @@ if ( 'youtube' == $modal_contain || 'vimeo' == $modal_contain ) {
 	$trigger_id   = $atts[ $modal_contain . '_url' ];
 	$content_type = 'iframe';
 } else {
+	$uniq = uniqid( '', true );
+	$uniq = str_replace( '.', '-', $uniq );
+
 	$trigger_id   = 'porto-modal-' . $uniq;
 	$content_type = 'inline';
 }

@@ -48,7 +48,9 @@ a.nolink {
 }
 
 [data-plugin-sticky] {
+    position: relative;
     z-index: 8;
+    will-change: position, top, bottom, left;
 }
 
 .z-index-1 {

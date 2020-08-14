@@ -420,5 +420,10 @@
             }
         });
 
+        $('#porto_settings-show-icon-menus-mobile label').on('click', function(e) {
+            if( $('#customize-preview').width() != 320 ) {
+                $('#customize-footer-actions .preview-mobile').trigger('click');
+            }
+        });
     });
 })( wp.customize, wp, jQuery );

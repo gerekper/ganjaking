@@ -72,7 +72,7 @@ class Connect extends AbstractGetResponseConnect implements ConnectionInterface
 
                 self::save_optin_error_log(json_encode($result), 'getresponse');
 
-                return ['' => esc_html__('Select...', 'mailoptin')];
+                return [];
             }
 
             return $tag_array;
@@ -80,7 +80,7 @@ class Connect extends AbstractGetResponseConnect implements ConnectionInterface
         } catch (\Exception $e) {
             self::save_optin_error_log($e->getCode() . ': ' . $e->getMessage(), 'getresponse');
 
-            return parent::ajax_failure(__('There was an error saving your contact. Please try again.', 'mailoptin'));
+            return [];
         }
     }
 

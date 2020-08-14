@@ -379,6 +379,11 @@ function porto_woocommerce_header_add_to_cart_fragment( $fragments ) {
 		/* translators: %s: Cart items */
 		$fragments['#mini-cart .cart-items-text'] = '<span class="cart-items-text">' . sprintf( _n( '%d item', '%d items', $_cart_qty, 'porto' ), $_cart_qty ) . '</span>';
 	}
+
+	global $porto_settings;
+	if ( ! empty( $porto_settings['show-icon-menus-mobile'] ) ) {
+		$fragments['.porto-sticky-navbar .cart-items'] = $fragments['#mini-cart .cart-items'];
+	}
 	return $fragments;
 }
 // remove update notice
@@ -1669,7 +1674,7 @@ function porto_woocommerce_output_horizontal_filter() {
 		echo '<span class="porto-product-filters-toggle d-none d-lg-flex' . $class . '"><span>' . esc_html__( 'Filters:', 'porto' ) . '</span><a href="#">&nbsp;</a></span>';
 	} elseif ( isset( $porto_shop_filter_layout ) && 'horizontal2' === $porto_shop_filter_layout ) {
 		echo '<div class="porto-product-filters style2 mobile-sidebar">';
-				echo '<div class="porto-product-filters-body">';
+			echo '<div class="porto-product-filters-body">';
 				dynamic_sidebar( 'woo-category-filter-sidebar' );
 			echo '</div>';
 		echo '</div>';
@@ -1689,7 +1694,7 @@ function porto_woocommerce_output_horizontal_filter() {
 function porto_woocommerce_sale_product_period() {
 	global $product, $porto_woocommerce_loop;
 	if ( ( ! isset( $porto_woocommerce_loop['widget'] ) || ! $porto_woocommerce_loop['widget'] ) && $product->is_on_sale() ) {
-		$is_single = ( porto_is_product() && is_single( $product->get_id() ) ) || ( porto_is_ajax() && isset( $_REQUEST['action'] ) && 'porto_product_quickview' == $_REQUEST['action'] );
+		$is_single = ( porto_is_product() && is_single( $product->get_id() ) && ! isset( $GLOBALS['porto_woocommerce_loop'] ) ) || ( porto_is_ajax() && isset( $_REQUEST['action'] ) && 'porto_product_quickview' == $_REQUEST['action'] );
 
 		$extra_class = '';
 		if ( $product->is_type( 'variable' ) ) {

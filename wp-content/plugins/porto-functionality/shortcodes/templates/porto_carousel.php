@@ -4,6 +4,7 @@ extract(
 	shortcode_atts(
 		array(
 			'stage_padding'        => 40,
+			'show_items_padding'   => '',
 			'margin'               => 10,
 			'autoplay'             => false,
 			'autoplay_timeout'     => 5000,
@@ -54,7 +55,7 @@ if ( $className ) {
 	}
 }
 
-if ( $stage_padding ) {
+if ( $stage_padding && empty( $show_items_padding ) ) {
 	$el_class .= ' stage-margin';
 }
 

@@ -269,9 +269,10 @@ class Porto_Elementor_Products_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'show_sort',
 			array(
-				'type'    => Controls_Manager::SELECT2,
-				'label'   => __( 'Show Sort by', 'porto-functionality' ),
-				'options' => array(
+				'type'     => Controls_Manager::SELECT2,
+				'label'    => __( 'Show Sort by', 'porto-functionality' ),
+				'options'  => array(
+					'all'     => __( 'All', 'porto-functionality' ),
 					'popular' => __( 'Popular', 'porto-functionality' ),
 					'date'    => __( 'Date', 'porto-functionality' ),
 					'rating'  => __( 'Rating', 'porto-functionality' ),
@@ -318,6 +319,19 @@ class Porto_Elementor_Products_Widget extends \Elementor\Widget_Base {
 			array(
 				'type'  => Controls_Manager::SWITCHER,
 				'label' => __( 'Show category filter', 'porto-functionality' ),
+			)
+		);
+
+		$this->add_control(
+			'filter_style',
+			array(
+				'type'        => Controls_Manager::SELECT,
+				'label'       => __( 'Filter Style', 'js_composer' ),
+				'options'     => array(
+					''           => __( 'Vertical', 'porto-functionality' ),
+					'horizontal' => __( 'Horizontal', 'porto-functionality' ),
+				),
+				'description' => __( 'This field is used only when using "sort by" or "category filter".', 'porto-functionality' ),
 			)
 		);
 

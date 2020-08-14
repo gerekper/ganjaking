@@ -264,6 +264,7 @@
                     $(this).data('text', $(this).text());
                     $(this).text(porto_infinite_scroll.loader_text);
                     e.data.scroll();
+					$(this).blur();
                 }
             }
         }

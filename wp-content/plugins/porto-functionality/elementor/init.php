@@ -28,6 +28,7 @@ if ( ! class_exists( 'Porto_Elementor_Init' ) ) :
 			'events',
 			'fancytext',
 			'countdown',
+			'faqs',
 		);
 
 		private $woo_widgets = array(

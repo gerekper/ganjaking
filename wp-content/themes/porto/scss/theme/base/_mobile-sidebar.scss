@@ -105,7 +105,8 @@
             }
         }
         .page-wrapper {
-            #{$left}: 260px
+            #{$left}: 260px;
+	    overflow: visible
         }
     }
 }

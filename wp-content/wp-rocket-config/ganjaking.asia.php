@@ -31,6 +31,4 @@ $rocket_cache_ignored_parameters = array(
   '_ga' => 1,
 );
 $rocket_cache_mandatory_cookies = '';
-$rocket_cache_dynamic_cookies = array(
-  0 => 'woocommerce_current_currency',
-);
+$rocket_cache_dynamic_cookies = array();

@@ -793,7 +793,7 @@ if ( ! class_exists( 'porto_top_navwalker' ) ) {
 			$indent = str_repeat( "\t", $depth );
 
 			if ( 0 == $depth ) {
-				$out_div = '<div class="popup"><div class="inner" style="' . esc_attr( $args->popup_style ) . '">';
+				$out_div = '<div class="popup"' . ( empty( $args->popup_max_width ) ? '' : ' data-popup-mw="' . intval( $args->popup_max_width ) . '"' ) . '><div class="inner" style="' . esc_attr( $args->popup_style ) . '">';
 			} else {
 				$out_div = '';
 			}
@@ -855,6 +855,7 @@ if ( ! class_exists( 'porto_top_navwalker' ) ) {
 			$cols        = 1;
 
 			if ( 0 == $depth ) {
+				unset( $args->popup_max_width );
 				if ( 'wide' == $item->popup_type ) {
 					$menu_type = ' wide';
 					if ( '' == $item->popup_cols ) {
@@ -869,6 +870,10 @@ if ( ! class_exists( 'porto_top_navwalker' ) ) {
 					$popup_max_width = $item->popup_max_width ? ';max-width:' . (int) $item->popup_max_width . 'px;' : '';
 
 					$popup_style = str_replace( '"', '\'', $item->popup_style . $popup_bg_image . $popup_bg_pos . $popup_bg_repeat . $popup_bg_size . $popup_max_width );
+
+					if ( $item->popup_max_width ) {
+						$args->popup_max_width = $item->popup_max_width;
+					}
 				} else {
 					$menu_type = ' narrow';
 				}
@@ -987,7 +992,7 @@ if ( ! class_exists( 'porto_sidebar_navwalker' ) ) {
 			$indent  = str_repeat( "\t", $depth );
 			$out_div = '';
 			if ( 0 == $depth ) {
-				$out_div = '<div class="popup"><div class="inner" style="' . esc_attr( $args->popup_style ) . '">';
+				$out_div = '<div class="popup"' . ( empty( $args->popup_max_width ) ? '' : ' data-popup-mw="' . intval( $args->popup_max_width ) . '"' ) . '><div class="inner" style="' . esc_attr( $args->popup_style ) . '">';
 			} else {
 				$out_div = '';
 			}
@@ -1042,6 +1047,7 @@ if ( ! class_exists( 'porto_sidebar_navwalker' ) ) {
 			$cols        = 1;
 
 			if ( 0 == $depth ) {
+				unset( $args->popup_max_width );
 				if ( 'wide' == $item->popup_type ) {
 					$menu_type = ' wide';
 					if ( '' == $item->popup_cols ) {
@@ -1056,6 +1062,9 @@ if ( ! class_exists( 'porto_sidebar_navwalker' ) ) {
 					$popup_max_width = $item->popup_max_width ? ';max-width:' . (int) $item->popup_max_width . 'px;' : '';
 
 					$popup_style = str_replace( '"', '\'', $item->popup_style . $popup_bg_image . $popup_bg_pos . $popup_bg_repeat . $popup_bg_size . $popup_max_width );
+					if ( $item->popup_max_width ) {
+						$args->popup_max_width = $item->popup_max_width;
+					}
 				} else {
 					$menu_type = ' narrow';
 				}

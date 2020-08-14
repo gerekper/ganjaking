@@ -198,9 +198,33 @@ if ( '#' !== $link ) {
 $heading_tag = 'h2';
 
 $opacity_attr = '';
+
+
 if ( $image_opacity != $image_opacity_on_hover ) {
-	$opacity_attr .= ' data-opacity="' . esc_attr( $image_opacity ) . '" data-hover-opacity="' . esc_attr( $image_opacity_on_hover ) . '"';
+	$internal_styles .= '#' . $interactive_banner_id . ' .porto-ibanner-img {';
+	$internal_styles .= 'opacity:' . esc_attr( $image_opacity ) . ';';
+	$internal_styles .= '}';
 }
+
+if ( $image_opacity != $image_opacity_on_hover ) {
+	$internal_styles .= '#' . $interactive_banner_id . ':hover .porto-ibanner-img {';
+	$internal_styles .= 'opacity:' . esc_attr( $image_opacity_on_hover ) . ';';
+	$internal_styles .= '}';
+}
+if ( 'boxshadow' == $banner_style && $box_shadow ) {
+	$data = porto_get_box_shadow( $box_shadow, 'data' );
+	if ( $data ) {
+		if ( strpos( $data, 'none' ) !== false || strpos( $data, ':;' ) !== false ) {
+			$data = 'none';
+		}
+		if ( strpos( $data, 'inherit' ) !== false ) {
+			$data = 'inherit';
+		}
+		$internal_styles .= '#' . $interactive_banner_id . ':hover{box-shadow:' . esc_attr( $data ) . ';}';
+	}
+}
+
+
 if ( $animation_type ) {
 	$opacity_attr .= ' data-appear-animation="' . esc_attr( $animation_type ) . '"';
 	if ( $animation_delay ) {
@@ -213,18 +237,7 @@ if ( $animation_type ) {
 
 if ( $banner_style ) {
 	$classes .= ' porto-ibe-' . $banner_style;
-	if ( 'boxshadow' == $banner_style && $box_shadow ) {
-		$data = porto_get_box_shadow( $box_shadow, 'data' );
-		if ( $data ) {
-			if ( strpos( $data, 'none' ) !== false || strpos( $data, ':;' ) !== false ) {
-				$data = 'none';
-			}
-			if ( strpos( $data, 'inherit' ) !== false ) {
-				$data = 'inherit';
-			}
-			$opacity_attr .= ' data-hover_box_shadow="' . esc_attr( $data ) . '" ';
-		}
-	} elseif ( 'overlay' == $banner_style && $overlay_color && $overlay_opacity ) {
+	if ( 'overlay' == $banner_style && $overlay_color && $overlay_opacity ) {
 		$internal_styles .= '#' . esc_html( $interactive_banner_id ) . ':hover:before { background-color: ' . esc_html( $overlay_color ) . '; opacity: ' . esc_html( $overlay_opacity ) . ' }';
 	}
 }

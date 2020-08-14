@@ -25,6 +25,7 @@ extract(
 			'show_sales_title'   => '',
 			'show_rating_title'  => '',
 			'category_filter'    => '',
+			'filter_style'       => '',
 
 			'orderby'            => '',
 			'order'              => '',
@@ -89,7 +90,7 @@ if ( is_array( $overlay_bg_opacity ) && isset( $overlay_bg_opacity['size'] ) ) {
 
 $wrapper_id = 'porto-products-' . rand( 1000, 9999 );
 
-$output = '<div id="' . $wrapper_id . '" class="porto-products wpb_content_element' . ( ! empty( $show_sort ) || $category_filter ? ' show-category' : '' ) . ( $pagination_style ? ' archive-products' : '' ) . ( $title_border_style ? ' title-' . esc_attr( $title_border_style ) : '' ) . ' ' . esc_attr( trim( $el_class ) ) . '"';
+$output = '<div id="' . $wrapper_id . '" class="porto-products wpb_content_element' . ( ! empty( $show_sort ) || $category_filter ? ' show-category filter-' . ( $filter_style ? esc_attr( $filter_style ) : 'vertical' ) : '' ) . ( $pagination_style ? ' archive-products' : '' ) . ( $title_border_style ? ' title-' . esc_attr( $title_border_style ) : '' ) . ' ' . esc_attr( trim( $el_class ) ) . '"';
 if ( $animation_type ) {
 	$output .= ' data-appear-animation="' . esc_attr( $animation_type ) . '"';
 	if ( $animation_delay ) {
@@ -153,6 +154,9 @@ if ( ! empty( $show_sort ) || $category_filter ) {
 	if ( ! empty( $show_sort ) ) {
 		if ( ! is_array( $show_sort ) ) {
 			$show_sort = explode( ',', trim( $show_sort ) );
+		}
+		if ( in_array( 'all', $show_sort ) ) {
+			$category_html .= '<li class="current"><a href="javascript:void(0)" data-cat_id="">' . esc_html__( 'All', 'porto-functionality' ) . '</a></li>';
 		}
 		if ( in_array( 'popular', $show_sort ) ) {
 			$filter_title = $show_sales_title ? $show_sales_title : __( 'Best Seller', 'porto-functionality' );

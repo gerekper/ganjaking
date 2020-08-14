@@ -1,4 +1,8 @@
-﻿== Changelog ==
+== Changelog ==
+
+= 1.2.30.1 =
+* Fixed issue where fetching tags via ajax wasn’t working.
+* Renamed Infusionsoft label.
 
 = 1.2.30.0 =
 * Added Infusionsoft integration.

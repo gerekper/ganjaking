@@ -45,7 +45,7 @@ class Connect extends AbstractInfusionsoftConnect implements ConnectionInterface
      */
     public function register_connection($connections)
     {
-        $connections[self::$connectionName] = __('Keap / Infusionsoft', 'mailoptin');
+        $connections[self::$connectionName] = __('Infusionsoft (Keap)', 'mailoptin');
 
         return $connections;
     }
@@ -101,7 +101,7 @@ class Connect extends AbstractInfusionsoftConnect implements ConnectionInterface
      */
     public function get_tags()
     {
-        if (defined('DOING_AJAX') || ! self::is_connected()) return [];
+        if ( ! self::is_connected()) return [];
 
         try {
 
@@ -110,7 +110,7 @@ class Connect extends AbstractInfusionsoftConnect implements ConnectionInterface
         } catch (\Exception $e) {
             self::save_optin_error_log($e->getMessage(), 'infusionsoft');
 
-            return ['' => esc_html__('Select...', 'mailoptin')];
+            return [];
         }
     }
 
@@ -119,8 +119,6 @@ class Connect extends AbstractInfusionsoftConnect implements ConnectionInterface
      */
     public function users()
     {
-        if (defined('DOING_AJAX')) return;
-
         if ( ! self::is_connected()) return [];
 
         try {

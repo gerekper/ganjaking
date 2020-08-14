@@ -73,35 +73,42 @@
                 scrollableFlag = false,
                 touchDirection = '',
                 touchstartY = 0,
-                touchendY = 0;
+                touchendY = 0,
+                checkTimer;
 
-            $(window).on('touchstart', function(event) {
-                touchstartY = event.changedTouches && event.changedTouches.length ? event.changedTouches[0].screenY : event.originalEvent.touches[0].screenY;
-            });
-
-            var wheelEvent = 'onwheel' in document ? 'wheel' : document.onmousewheel !== undefined ? 'mousewheel' : 'DOMMouseScroll';
-            if( $(window).width() < 992 || 'ontouchstart' in window || navigator.msMaxTouchPoints ) {
+            var wheelEvent;
+            if ('ontouchstart' in window || navigator.msMaxTouchPoints) {
+                document.addEventListener('touchstart', function(event) {
+                    touchstartY = event.changedTouches && event.changedTouches.length ? event.changedTouches[0].screenY : event.touches[0].screenY;
+                });
                 wheelEvent = 'onwheel' in document ? 'wheel touchend' : document.onmousewheel !== undefined ? 'mousewheel touchend' : 'DOMMouseScroll touchend';
+            } else {
+                wheelEvent = 'onwheel' in document ? 'wheel pointerup' : document.onmousewheel !== undefined ? 'mousewheel pointerup' : 'DOMMouseScroll pointerup';
+                document.addEventListener('pointerdown', function(e) {
+                    if ('touch' == e.pointerType) {
+                        touchstartY = e.screenY;
+                    }
+                });
             }
-
-            $(window).on(wheelEvent, function(e){
+            var process_scroll = function(e) {
                 if ($('.porto-popup-menu.opened').length) {
                     return;
                 }
+                var wheelDirection = e.wheelDelta == undefined ? e.deltaY > 0 : e.wheelDelta < 0;
+                if ( e.type && ( 'touchend' == e.type || 'pointerup' == e.type ) ) {
+                    if ('touchend' == e.type) {
+                        touchendY = event.changedTouches && event.changedTouches.length ? event.changedTouches[0].screenY : event.touches[0].screenY;;
+                    } else if (('touch' == e.pointerType) && e.screenY) {
+                        touchendY = e.screenY;
+                    } else {
+                        return;
+                    }
 
-                var wheelDirection = e.originalEvent.wheelDelta == undefined ? e.originalEvent.deltaY > 0 : e.originalEvent.wheelDelta < 0;
-                if( e.type && 'touchend' == e.type ) {
-                    touchendY = event.changedTouches && event.changedTouches.length ? event.changedTouches[0].screenY : event.originalEvent.touches[0].screenY;;
-
-                    if( touchendY <= touchstartY ) {
+                    if( touchendY <= touchstartY - 20 ) {
                         touchDirection = 'up';
-                    }
-
-                    if( touchendY >= touchstartY ) {
+                    } else if( touchendY >= touchstartY + 20 ) {
                         touchDirection = 'down';
-                    }
-
-                    if( touchendY == touchstartY ) {
+                    } else {
                         return;
                     }
                 }
@@ -109,24 +116,26 @@
                 var $currentSection = $('.section-wrapper').eq( self.getCurrentIndex() ).find('.section-scroll'),
                     $nextSection = self.getNextSection(wheelDirection, touchDirection);
 
-                if( $(window).width() < 992 ) {
-                    setTimeout(function(){
+                //if ( $(window).width() < 992 && ( 'ontouchstart' in window || navigator.msMaxTouchPoints ) ) {
+                    if ( checkTimer ) {
+                        clearTimeout( checkTimer );
+                    }
+                    checkTimer = setTimeout(function(){
                         if( $('.section-wrapper').eq( self.getCurrentIndex() ).find('.section-scroll').hasClass('section-scroll-scrollable') ) {
                             $('html').removeClass('overflow-hidden');
                         } else {
                             $('html').addClass('overflow-hidden');
                         }
                     }, 1200);
-                }
+                //}
 
                 // For non full height sections
                 if( $currentSection.hasClass('section-scroll-scrollable') ) {
                     
                     if( !flag && !scrollableFlag ) {
 
-                        // Scroll Direction
                         if(wheelDirection || touchDirection == 'up') {
-                            if( ( $(window).scrollTop() + $(window).height() ) >= $nextSection.offset().top ) {
+                            if($nextSection.length && ( $(window).scrollTop() + $(window).height() ) >= $nextSection.offset().top ) {
                                 flag = true;
                                 setTimeout(function(){
                                     setTimeout(function(){
@@ -150,7 +159,7 @@
                                 });
                             }
 
-                            if( $(window).width() > 991 ) {
+                            if( !$('html').hasClass('touch') ) {
                                 for( var i = 1; i < 100; i++ ) {
                                     $('body, html').scrollTop( $(window).scrollTop() + 1 );
 
@@ -188,7 +197,7 @@
                                 });
                             }
 
-                            if( $(window).width() > 991 ) {
+                            if( !$('html').hasClass('touch') ) {
                                 for( var i = 1; i < 100; i++ ) {
                                     $('body, html').scrollTop( $(window).scrollTop() - 1 );
 
@@ -216,7 +225,7 @@
 
                     if(wheelDirection || touchDirection == 'up') {
                         if( self.getCurrentIndex() == ( $('.section-wrapper').length - 1 )  ) {
-                            return false;
+                            return;//return false;
                         }
 
                         // Change Section Active Class
@@ -229,7 +238,7 @@
                         }, 150);
                     } else {
                         if( self.getCurrentIndex() == 0  ) {
-                            return false;
+                            return;//return false;
                         }
 
                         // Change Section Active Class
@@ -300,10 +309,11 @@
                     flag = true;
 
                 }
+            };
 
-                return;
+            wheelEvent.split(' ').forEach(function(eventName) {
+                document.addEventListener(eventName, process_scroll);
             });
-
             // Dots Navigation
             if( this.options.dotsNav ) {
                 self.dotsNavigation();
@@ -355,6 +365,11 @@
                 } else {
                     $(this).addClass('section-scroll-scrollable');
                 }
+            });
+
+            // Set the section wrapper height
+            $('.section-wrapper').each(function(){
+                $(this).height( $(this).find('.section-scroll').outerHeight() );
             });
 
             return this;

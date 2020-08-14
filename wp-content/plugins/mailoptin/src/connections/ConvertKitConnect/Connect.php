@@ -52,8 +52,6 @@ class Connect extends AbstractConvertKitConnect implements ConnectionInterface
      */
     public function sequences()
     {
-        if (defined('DOING_AJAX')) return;
-
         if ( ! self::is_connected()) return;
 
         try {
@@ -98,7 +96,7 @@ class Connect extends AbstractConvertKitConnect implements ConnectionInterface
     {
         if ( ! self::is_connected()) return;
 
-        $default = ['' => esc_html__('Select...', 'mailoptin')];
+        $default = [];
 
         try {
 

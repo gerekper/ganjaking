@@ -1130,6 +1130,10 @@
         overflow-y: auto;
         overflow-x: hidden;
         margin: 0;
+        -webkit-overflow-scrolling: touch;
+        &::-webkit-scrollbar {
+            width: 6px;
+        }
 
         &.scroll-scrolly_visible {
             li {

@@ -153,12 +153,12 @@ function porto_load_shortcodes() {
 			),
 			'group'      => $animation_group,
 		);
-		$floating_duration = array(
+		$floating_duration   = array(
 			'type'        => 'textfield',
 			'heading'     => __( 'Transition Duration', 'porto' ),
 			'param_name'  => 'floating_duration',
 			'description' => __( 'numerical value (unit: milliseconds)', 'porto' ),
-			'dependency' => array(
+			'dependency'  => array(
 				'element' => 'animation_type',
 				'value'   => array( '' ),
 			),
@@ -2438,19 +2438,19 @@ function porto_load_shortcodes() {
 		vc_add_param(
 			'vc_btn',
 			array(
-				'type'        => 'textfield',
-				'heading'     => __( 'Button Left / Right Padding', 'porto-functionality' ),
-				'param_name'  => 'btn_px',
-				'group'       => $section_group,
+				'type'       => 'textfield',
+				'heading'    => __( 'Button Left / Right Padding', 'porto-functionality' ),
+				'param_name' => 'btn_px',
+				'group'      => $section_group,
 			)
 		);
 		vc_add_param(
 			'vc_btn',
 			array(
-				'type'        => 'textfield',
-				'heading'     => __( 'Button Top / Bottom Padding', 'porto-functionality' ),
-				'param_name'  => 'btn_py',
-				'group'       => $section_group,
+				'type'       => 'textfield',
+				'heading'    => __( 'Button Top / Bottom Padding', 'porto-functionality' ),
+				'param_name' => 'btn_py',
+				'group'      => $section_group,
 			)
 		);
 		vc_add_param(

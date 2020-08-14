@@ -239,6 +239,7 @@
         z-index: 111;
         min-width: 100%;
         line-height: 20px;
+        will-change: transform, top;
 
         ul.sub-menu {
             position: relative;

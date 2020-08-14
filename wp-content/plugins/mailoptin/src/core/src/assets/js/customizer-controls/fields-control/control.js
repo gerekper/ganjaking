@@ -26,6 +26,15 @@
                         }
                     };
 
+                    var maybeHideCountryOptionsField = function () {
+                        var field_type = $(field).find('.mo-optin-fields-field').val();
+                        if(field_type === 'country') {
+                            $(field).find(".country_field_options.mo-fields-block").show();
+                        } else {
+                            $(field).find(".country_field_options.mo-fields-block").hide();
+                        }
+                    }
+
                     var maybeHideListSubscriptionFields = function () {
                         var field_type = $(field).find('.mo-optin-fields-field').val();
                         if (field_type === 'list_subscription') {
@@ -98,6 +107,7 @@
                     };
 
                     maybeHideOptionsField();
+                    maybeHideCountryOptionsField();
                     maybeHideRecaptchaField();
                     maybeHideHiddenValueField();
                     maybeHideListSubscriptionFields();
@@ -107,6 +117,7 @@
                         .off('change.mo_field')
                         .on('change.mo_field', function () {
                             maybeHideOptionsField();
+                            maybeHideCountryOptionsField();
                             maybeHideRecaptchaField();
                             maybeHideHiddenValueField();
                             maybeHideListSubscriptionFields();

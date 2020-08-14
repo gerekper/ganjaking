@@ -3975,10 +3975,6 @@
 				className: 'porto-ibanner' + (attrs.banner_style ? ' porto-ibanner-effect-' + attrs.banner_style : '') + (attrs.className ? ' ' + attrs.className : ''),
 				style: banner_style_inline,
 			};
-			if (attrs.image_opacity != attrs.image_opacity_on_hover && attrs.image_opacity != 1.0) {
-				wrapperAttrs['data-opacity'] = attrs.image_opacity;
-				wrapperAttrs['data-hover-opacity'] = attrs.image_opacity_on_hover;
-			}
 			var renderControls = el(
 				'div',
 				wrapperAttrs,

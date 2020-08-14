@@ -302,8 +302,8 @@ if ( ! class_exists( 'Porto_Speed_Optimize_Wizard' ) ) {
 		public function porto_speed_optimize_wizard_shortcodes() {
 			global $porto_settings_optimize;
 			?>
-			<h2><?php esc_html_e( 'Optimize Visual Composer & Shortcodes', 'porto' ); ?></h2>
-			<p class="lead"><?php esc_html_e( 'This will help you to optimize visual composer and shortcodes css files by removing unused shortcodes\' style', 'porto' ); ?></p>
+			<h2><?php esc_html_e( 'Optimize WPBakery & Shortcodes', 'porto' ); ?></h2>
+			<p class="lead"><?php esc_html_e( 'This will help you to optimize WPBakery and Porto shortcodes css files by removing unused shortcodes\' style', 'porto' ); ?></p>
 			<?php
 			if ( isset( $_POST['porto_speed_optimize_compile_shortcodes'] ) && ! $_POST['porto_speed_optimize_compile_shortcodes'] ) {
 				echo '<div class="notice-error notice-alt"><p>' . esc_html__( 'Failed Shortcodes CSS compilation!', 'porto' ) . '</p></div>';

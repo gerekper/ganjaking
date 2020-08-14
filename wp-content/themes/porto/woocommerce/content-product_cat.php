@@ -80,7 +80,7 @@ if ( ! $porto_products_cols_lg ) {
 }
 
 $view_type = isset( $porto_woocommerce_loop['category-view'] ) ? $porto_woocommerce_loop['category-view'] : ( '2' == $porto_settings['cat-view-type'] ? 'category-pos-outside' : '' );
-if ( isset( $porto_woocommerce_loop['product_categories_media_type'] ) ) {
+if ( isset( $porto_woocommerce_loop['product_categories_media_type'] ) && 'icon' == $porto_woocommerce_loop['product_categories_media_type'] ) {
 	$category_icon = get_metadata( $category->taxonomy, $category->term_id, 'category_icon', true );
 } else {
 	$category_icon = false;
@@ -115,7 +115,7 @@ if ( isset( $porto_woocommerce_loop['product_categories_show_sub_cats'] ) && $po
 			<?php if ( $category_icon ) : ?>
 				<?php do_action( 'porto_woocommerce_before_subcategory_title', $category ); ?>
 				<i class="<?php echo esc_attr( $category_icon ); ?>"></i>
-			<?php else : ?>
+			<?php elseif ( ! isset( $porto_woocommerce_loop['product_categories_media_type'] ) || 'none' != $porto_woocommerce_loop['product_categories_media_type'] ) : ?>
 				<span class="thumb-info-wrapper<?php echo ! $view_type ? '' : ' tf-none'; ?>">
 					<?php
 					/**

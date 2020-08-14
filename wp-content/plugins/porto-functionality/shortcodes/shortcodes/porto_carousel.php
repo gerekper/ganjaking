@@ -52,6 +52,15 @@ function porto_load_carousel_shortcode() {
 					'value'      => 40,
 				),
 				array(
+					'type'       => 'checkbox',
+					'heading'    => __( 'Show items in stage padding', 'porto-functionality' ),
+					'param_name' => 'show_items_padding',
+					'dependency' => array(
+						'element'   => 'stage_padding',
+						'not_empty' => true,
+					),
+				),
+				array(
 					'type'       => 'textfield',
 					'heading'    => __( 'Item Margin', 'porto-functionality' ),
 					'param_name' => 'margin',

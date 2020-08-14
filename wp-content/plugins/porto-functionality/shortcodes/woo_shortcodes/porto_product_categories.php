@@ -213,6 +213,7 @@ function porto_load_product_categories_shortcode() {
 						'value'       => array(
 							__( 'Image', 'porto-functionality' ) => '',
 							__( 'Icon', 'porto-functionality' )  => 'icon',
+							__( 'None', 'porto-functionality' )  => 'none',
 						),
 						'std'         => '',
 					),

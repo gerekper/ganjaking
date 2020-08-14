@@ -167,6 +167,7 @@ function porto_load_featured_products_shortcode() {
 						'heading'    => __( 'Show Sort by', 'porto-functionality' ),
 						'param_name' => 'show_sort',
 						'value'      => array(
+							__( 'All', 'porto-functionality' ) => 'all',
 							__( 'Popular', 'porto-functionality' ) => 'popular',
 							__( 'Date', 'porto-functionality' ) => 'date',
 							__( 'Rating', 'porto-functionality' ) => 'rating',
@@ -205,6 +206,16 @@ function porto_load_featured_products_shortcode() {
 						'param_name'  => 'category_filter',
 						'std'         => '',
 						'admin_label' => true,
+					),
+					array(
+						'type'        => 'dropdown',
+						'heading'     => __( 'Filter Style', 'js_composer' ),
+						'param_name'  => 'filter_style',
+						'value'       => array(
+							__( 'Vertical', 'porto-functionality' )   => '',
+							__( 'Horizontal', 'porto-functionality' ) => 'horizontal',
+						),
+						'description' => __( 'This field is used only when using "sort by" or "category filter".', 'porto-functionality' ),
 					),
 					array(
 						'type'        => 'dropdown',

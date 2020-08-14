@@ -31,6 +31,7 @@ class APIClass
      * @param $endpoint
      * @param array $args
      * @param string $method
+     *
      * @return array
      * @throws \Exception
      */
@@ -43,7 +44,7 @@ class APIClass
         switch ($method) {
             case 'post':
                 $wp_args['headers'] = ["Content-Type" => "application/json"];
-                $wp_args['body'] = json_encode($args);
+                $wp_args['body']    = json_encode($args);
                 break;
             case 'get':
                 $url = add_query_arg($args, $url);
@@ -56,7 +57,7 @@ class APIClass
             throw new \Exception($response->get_error_message());
         }
 
-        $response_body = json_decode(wp_remote_retrieve_body($response));
+        $response_body      = json_decode(wp_remote_retrieve_body($response));
         $response_http_code = wp_remote_retrieve_response_code($response);
 
 
@@ -102,9 +103,7 @@ class APIClass
      */
     public function get_tags()
     {
-        $response = $this->make_request('tags');
-
-        return $response;
+        return $this->make_request('tags');
     }
 
     /**
@@ -115,33 +114,34 @@ class APIClass
      * @param array $sequences
      * @param array $tags
      * @param array $custom_fields
+     *
      * @return array
      * @throws \Exception
      */
     public function add_subscriber($form_id, $email, $first_name, $last_name, $sequences = [], $tags = [], $custom_fields = [])
     {
         $payload = [
-            'email' => $email,
+            'email'      => $email,
             'first_name' => $first_name,
         ];
 
         $payload = array_filter($payload, function ($value) {
-            return !empty($value);
+            return ! empty($value);
         });
 
-        if (!empty($last_name)) {
+        if ( ! empty($last_name)) {
             $payload['fields'] = ['last_name' => $last_name];
         }
 
-        if (!empty($sequences)) {
+        if ( ! empty($sequences)) {
             $payload['courses'] = implode(',', $sequences);
         }
 
-        if (!empty($tags)) {
+        if ( ! empty($tags)) {
             $payload['tags'] = implode(',', $tags);
         }
 
-        if (!empty($custom_fields)) {
+        if ( ! empty($custom_fields)) {
             $payload['fields'] = $custom_fields;
         }
 

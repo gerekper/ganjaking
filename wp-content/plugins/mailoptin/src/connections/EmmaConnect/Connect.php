@@ -37,8 +37,6 @@ class Connect extends AbstractEmmaConnect implements ConnectionInterface
 
     public function get_signup_forms()
     {
-        if (defined('DOING_AJAX')) return;
-
         if ( ! self::is_connected()) return;
 
         try {

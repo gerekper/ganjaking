@@ -96,7 +96,7 @@ class Connect extends AbstractOntraportConnect implements ConnectionInterface
         } catch (\Exception $e) {
             self::save_optin_error_log($e->getMessage(), 'ontraport');
 
-            return ['' => esc_html__('Select...', 'mailoptin')];
+            return [];
         }
     }
 

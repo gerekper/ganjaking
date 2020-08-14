@@ -223,25 +223,25 @@
         margin: side-values(0 10px 10px 0);
     }
     &.sticky {
-        position: fixed;
+        position: fixed !important;
         z-index: 999;
-        left: 0;
+        #{$left}: 0;
         width: 100%;
         padding-top: 10px;
         border-bottom: 1px solid #e7e7e7;
-        transition: left .3s;
+        transition: $left .3s;
     }
 }
 
 .filter-sidebar-opened .shop-loop-before.sticky {
-    position: static;
+    position: static !important;
     z-index: auto;
 }
 
 .sidebar-opened,
 .panel-opened {
     .shop-loop-before.sticky {
-        left: 260px;
+        #{$left}: 260px;
     }
 }
 

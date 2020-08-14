@@ -109,7 +109,9 @@ $wrapper        = porto_get_wrapper_type();
 				<?php endif; ?>
 
 			</div>
-
+			<?php
+				get_template_part( 'footer/sticky-bottom' );
+			?>
 		<?php else : ?>
 
 			</div><!-- end main -->

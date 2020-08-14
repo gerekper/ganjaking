@@ -303,6 +303,7 @@ class Porto_Elementor_Product_Categories_Widget extends \Elementor\Widget_Base {
 				'options'     => array(
 					''     => __( 'Image', 'porto-functionality' ),
 					'icon' => __( 'Icon', 'porto-functionality' ),
+					'none' => __( 'None', 'porto-functionality' ),
 				),
 				'default'     => '',
 			)

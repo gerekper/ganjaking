@@ -99,7 +99,7 @@ if ( is_customize_preview() && porto_get_wrapper_type() != 'boxed' && 'boxed' ==
 				foreach ( $header_columns as $column ) {
 					$elements = isset( $header_elements[ $row . '_' . $column ] ) ? $header_elements[ $row . '_' . $column ] : '';
 					if ( strpos( $elements, '"main-menu"' ) !== false || strpos( $elements, '"main-toggle-menu"' ) !== false ) {
-						$main_menu_wrap = ' main-menu-wrap';
+						$main_menu_wrap             = ' main-menu-wrap';
 						$GLOBALS['porto_menu_wrap'] = true;
 						break;
 					}

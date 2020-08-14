@@ -47,7 +47,7 @@ if ( in_array( $porto_layout, porto_options_sidebars() ) ) :
 		<div data-plugin-sticky data-plugin-options="<?php echo esc_attr( '{"autoInit": true, "minWidth": 992, "containerSelector": ".main-content-wrap","autoFit":true, "paddingOffsetBottom": 10}' ); ?>">
 		<?php endif; ?>
 		<?php if ( $mobile_sidebar && ( ! isset( $porto_mobile_toggle ) || false !== $porto_mobile_toggle ) ) : ?>
-		<div class="sidebar-toggle"><i class="fa"></i></div>
+			<div class="sidebar-toggle"><i class="fa"></i></div>
 		<?php endif; ?>
 		<div class="sidebar-content<?php echo ! $skeleton_lazyload ? '' : ' skeleton-loading'; ?>">
 			<?php

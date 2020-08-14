@@ -112,15 +112,17 @@
     transform: scale(1.08, 1.08);
 }
 .porto-ibe-fadein {
-    .porto-ibanner-desc {
+    .porto-ibanner-desc, .porto-ibanner-layer {
         opacity: 0;
     }
-    &:hover .porto-ibanner-desc {
-        opacity: 1;
+    &:hover {
+        .porto-ibanner-desc, .porto-ibanner-layer {
+            opacity: 1;
+        }
     }
 }
-.porto-ibe-fadeout {
-    &:hover .porto-ibanner-desc {
+.porto-ibe-fadeout:hover {
+    .porto-ibanner-desc, .porto-ibanner-layer {
         opacity: 0;
     }
 }

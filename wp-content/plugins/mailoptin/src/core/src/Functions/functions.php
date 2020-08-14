@@ -150,9 +150,10 @@ function current_url_with_query_string()
 /**
  * Return array of countries. Typically for consumption by select dropdown.
  *
+ * @param $country_type
  * @return array
  */
-function countries_array()
+function countries_array($country_type = 'alpha-2')
 {
     return apply_filters('mailoptin_countries_array', include(dirname(__FILE__) . '/countries.php'));
 }

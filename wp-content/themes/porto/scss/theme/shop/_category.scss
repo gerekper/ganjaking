@@ -297,7 +297,7 @@ ul {
     }
 
     &.pcols-lg-1 {
-        li.product-col { max-width: none; flex: 0 0 100%; }
+        li.product-col { max-width: 100%; flex: 0 0 100%; }
     }
 }
 
@@ -1402,7 +1402,14 @@ ul.products.list {
     }
 }
 
-.porto-products.show-category {
+.porto-products {
+    .product-categories {
+        list-style: none;
+        padding-left: 0;
+    }
+}
+
+.porto-products.filter-vertical {
     @include display-flex;
     -webkit-flex-wrap: wrap; -ms-flex-wrap: wrap; flex-wrap: wrap;
     /*@media (max-width: 767px) {
@@ -1414,6 +1421,7 @@ ul.products.list {
         &, + div {
             -webkit-flex: 0 0 100%;
             flex: 0 0 100%;
+            max-width: 100%;
         }
         @media (min-width: 768px) {
             max-width: 16.6666%;
@@ -1432,8 +1440,6 @@ ul.products.list {
         }
     }
     .product-categories {
-        list-style: none;
-        padding-left: 0;
         @media (max-width: 767px) {
             li { display: inline-block; margin-#{$right}: 20px; }
         }
@@ -1455,6 +1461,15 @@ ul.products.list {
         }
         .current a:before {
             content: "\f87b";
+        }
+    }
+}
+
+.porto-products.filter-horizontal {
+    .product-categories {
+        li {
+            display: inline-block;
+            margin-#{$right}: 2rem;
         }
     }
 }

@@ -12,6 +12,7 @@
 	"rich-snippets": true,
 	"show-content-type-skin":true,
 	"show-category-skin":true,
+	"show-icon-menus-mobile": {},
 	"logo":{
 		"url": "<?php echo PORTO_URI; ?>/images/logo/logo_black.png"
 	},

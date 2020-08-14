@@ -99,6 +99,9 @@ class Porto_Elementor_Section extends Elementor\Element_Section {
 			if ( isset( $settings['center'] ) && 'yes' == $settings['center'] ) {
 				$extra_options['center'] = true;
 			}
+			if ( ! empty( $settings['stage_padding'] ) ) {
+				$extra_options['stagePadding'] = (int) $settings['stage_padding'];
+			}
 
 			$extra_class   = ' ' . implode( ' ', $extra_class );
 			$extra_options = ' data-plugin-options="' . esc_attr( json_encode( $extra_options ) ) . '"';
@@ -355,6 +358,20 @@ function porto_elementor_section_custom_control( $self, $args ) {
 				'carousel' => __( 'Carousel', 'porto-functionality' ),
 				'banner'   => __( 'Banner', 'porto-functionality' ),
 				'creative' => __( 'Creative Grid', 'porto-functionality' ),
+			),
+		)
+	);
+
+	$self->add_control(
+		'stage_padding',
+		array(
+			'label'     => __( 'Stage Padding (px)', 'porto-functionality' ),
+			'type'      => Controls_Manager::NUMBER,
+			'min'       => 0,
+			'max'       => 100,
+			'step'      => 1,
+			'condition' => array(
+				'as_param' => 'carousel',
 			),
 		)
 	);
@@ -808,6 +825,20 @@ function porto_elementor_column_custom_control( $self, $args ) {
 	);
 
 	/* start carousel controls */
+	$self->add_control(
+		'stage_padding',
+		array(
+			'label'     => __( 'Stage Padding (px)', 'porto-functionality' ),
+			'type'      => Controls_Manager::NUMBER,
+			'min'       => 0,
+			'max'       => 100,
+			'step'      => 1,
+			'condition' => array(
+				'as_param' => 'carousel',
+			),
+		)
+	);
+
 	$self->add_responsive_control(
 		'items',
 		array(
@@ -829,7 +860,7 @@ function porto_elementor_column_custom_control( $self, $args ) {
 	$self->add_control(
 		'item_margin',
 		array(
-			'label'       => __( 'Item Margin(px)', 'porto-functionality' ),
+			'label'       => __( 'Item Margin (px)', 'porto-functionality' ),
 			'type'        => Controls_Manager::NUMBER,
 			'default'     => 0,
 			'min'         => '0',
@@ -1356,6 +1387,9 @@ function porto_elementor_print_section_template( $content, $self ) {
 				} else {
 					extra_options["responsive"][elementorFrontend.config.breakpoints['lg']] = Math.max(Number( settings.items.size ), 1);
 				}
+				if (settings.stage_padding) {
+					extra_options["stagePadding"] = Number(settings.stage_padding);
+				}
 
 				if ('yes' == settings.autoplay) {
 					extra_options['autoplay']           = true;
@@ -1543,6 +1577,10 @@ function porto_elementor_print_column_template( $content, $self ) {
 			if ( 'yes' == settings.center ) {
 				extra_options['center'] = true;
 			}
+			if (settings.stage_padding) {
+				extra_options["stagePadding"] = Number(settings.stage_padding);
+			}
+
 			extra_attr += ' data-plugin-options=' + JSON.stringify( extra_options );
 		}
 		if (settings.parallax_speed.size) {
@@ -1720,6 +1758,9 @@ function porto_elementor_column_add_custom_attrs( $self ) {
 		}
 		if ( isset( $settings['center'] ) && 'yes' == $settings['center'] ) {
 			$extra_options['center'] = true;
+		}
+		if ( ! empty( $settings['stage_padding'] ) ) {
+			$extra_options['stagePadding'] = (int) $settings['stage_padding'];
 		}
 
 		if ( isset( $settings['porto_el_cls'] ) && $settings['porto_el_cls'] ) {

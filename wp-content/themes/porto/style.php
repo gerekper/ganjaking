@@ -651,6 +651,7 @@ ul.products,
 	}
 <?php endif; ?>
 #mini-cart .cart-items-text { font-size: <?php echo ! $b['body-font']['font-size'] ? '14px' : esc_html( $b['body-font']['font-size'] ); ?> }
+#mini-cart .cart_list::-webkit-scrollbar-thumb { border-radius: 3px; background: <?php echo porto_if_light( 'rgba(204, 204, 204, 0.5)', '#39404c' ); ?>;<?php echo porto_if_dark( 'border-color: transparent', '' ); ?> }
 
 /* main menu style for shop header and classic headers */
 <?php if ( ( (int) $header_type >= 1 && (int) $header_type <= 9 ) || 18 == $header_type || 19 == $header_type || ( 'side' == $header_type && class_exists( 'Woocommerce' ) ) ) : ?>
@@ -5516,6 +5517,7 @@ article.post .post-date .sticky,
 	<?php if ( (int) $b['grid-gutter-width'] > $max_spacing_mobile ) : ?>
 		@media (max-width: 480px) {
 			.shop-loop-before.sticky { padding-<?php echo porto_filter_output( $left ); ?>: <?php echo (int) $max_spacing_mobile; ?>px; padding-<?php echo porto_filter_output( $right ); ?>: <?php echo (int) $max_spacing_mobile - 10; ?>
+			}
 		}
 	<?php endif; ?>
 
@@ -6155,3 +6157,33 @@ article.post .post-date .sticky,
 	}
 }
 .btn.btn-block { display: block; padding-left: 0; padding-right: 0 }
+
+/*---------------- Sticky Icon Bar ---------------- */
+<?php if ( ! empty( $porto_settings['show-icon-menus-mobile'] ) ) : ?>
+	.porto-sticky-navbar:not(.fixed) { display: none }
+	.porto-sticky-navbar > div { text-align: center; padding: 10px 0 5px;}
+	.porto-sticky-navbar .sticky-icon + .sticky-icon { border-<?php echo porto_filter_output( $left ); ?>: 1px solid <?php echo porto_if_dark( '#333', '#f1f1f1' ); ?>; }
+	.porto-sticky-navbar a, .porto-sticky-navbar .label { color: <?php echo porto_if_dark( '#fff', '#222529' ); ?>; }
+	.porto-sticky-navbar i { font-size: 27px; display: block; line-height: 27px; margin-bottom: 4px }
+	.porto-sticky-navbar .porto-icon-bars { font-size: 22px; }
+	.porto-sticky-navbar .label { display: block; font-family: <?php echo sanitize_text_field( $b['h4-font']['font-family'] ); ?>, sans-serif; text-transform: uppercase; font-size: 9px; letter-spacing: -.5px; font-weight: 600; }
+	.porto-sticky-navbar .cart-icon { display: inline-block; position: relative; }
+	.porto-sticky-navbar .cart-items { display: inline-block; position: absolute; width: 15px; height: 15px; top: -1px; right: -6px; background-color: #ed5348; color: #fff; line-height: 15px; font-size: 9px; font-weight: 600; text-align: center; border-radius: 8px; box-shadow: -1px 1px 2px 0 rgba(0,0,0,0.3); overflow: hidden; }
+	@media (max-width: 575px) {
+		.porto-sticky-navbar.fixed { 
+			display: flex;
+			position: fixed;
+			bottom: 0;
+			<?php echo porto_filter_output( $left ); ?>: 0;
+			width: 100%;
+			background-color: <?php echo porto_if_dark( $color_dark_1, '#fff' ); ?>; 
+			border-top: 1px solid <?php echo porto_if_dark( '#333', '#e7e7e7' ); ?>;
+			z-index: 1040;
+			animation: .3s linear menuFadeInUp;
+			transition: <?php echo porto_filter_output( $left ); ?> .3s;
+		}
+		.sidebar-opened .porto-sticky-navbar.fixed, .panel-opened .porto-sticky-navbar.fixed {
+			<?php echo porto_filter_output( $left ); ?>: 260px;
+		}
+	}
+<?php endif; ?>

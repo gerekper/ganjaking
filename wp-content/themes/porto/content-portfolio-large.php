@@ -84,15 +84,15 @@ if ( 'without-icon' == $porto_settings['post-title-style'] ) {
 									$lightbox_options['gallery']['enabled'] = true;
 									$lightbox_options                       = json_encode( $lightbox_options );
 								}
-								$options           = array();
-								$options['items']  = 1;
-								$options['margin'] = 10;
-								$options['nav']    = true;
-								$options['dots']   = false;
-								$options['loop']   = false;
+								$options                = array();
+								$options['items']       = 1;
+								$options['margin']      = 10;
+								$options['nav']         = true;
+								$options['dots']        = false;
+								$options['loop']        = false;
 								$options['autoplay']    = false;
 								$options['themeConfig'] = true;
-								$options           = json_encode( $options );
+								$options                = json_encode( $options );
 								?>
 								<div class="thumb-gallery<?php echo ! $lightbox ? '' : ' lightbox'; ?>"<?php echo ! $lightbox ? '' : 'data-plugin-options="' . esc_attr( $lightbox_options ) . '"'; ?>>
 									<div class="porto-carousel thumb-gallery-detail owl-carousel show-nav-hover" data-plugin-options="<?php echo esc_attr( $options ); ?>">

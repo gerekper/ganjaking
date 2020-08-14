@@ -149,11 +149,59 @@ function porto_load_product_category_shortcode() {
 						'value'      => porto_sh_commons( 'products_column_width' ),
 					),
 					array(
+						'type'       => 'checkbox',
+						'heading'    => __( 'Show Sort by', 'porto-functionality' ),
+						'param_name' => 'show_sort',
+						'value'      => array(
+							__( 'All', 'porto-functionality' ) => 'all',
+							__( 'Popular', 'porto-functionality' ) => 'popular',
+							__( 'Date', 'porto-functionality' ) => 'date',
+							__( 'Rating', 'porto-functionality' ) => 'rating',
+						),
+					),
+					array(
+						'type'       => 'textfield',
+						'heading'    => __( 'Title for "Sort by Popular"', 'woocommerce' ),
+						'param_name' => 'show_sales_title',
+						'dependency' => array(
+							'element' => 'show_sort',
+							'value'   => 'popular',
+						),
+					),
+					array(
+						'type'       => 'textfield',
+						'heading'    => __( 'Title for "Sort by Date"', 'woocommerce' ),
+						'param_name' => 'show_new_title',
+						'dependency' => array(
+							'element' => 'show_sort',
+							'value'   => 'date',
+						),
+					),
+					array(
+						'type'       => 'textfield',
+						'heading'    => __( 'Title for "Sort by Rating"', 'woocommerce' ),
+						'param_name' => 'show_rating_title',
+						'dependency' => array(
+							'element' => 'show_sort',
+							'value'   => 'rating',
+						),
+					),
+					array(
 						'type'        => 'checkbox',
 						'heading'     => __( 'Show sub category filter', 'porto-functionality' ),
 						'param_name'  => 'category_filter',
 						'std'         => 'no',
 						'admin_label' => true,
+					),
+					array(
+						'type'        => 'dropdown',
+						'heading'     => __( 'Filter Style', 'js_composer' ),
+						'param_name'  => 'filter_style',
+						'value'       => array(
+							__( 'Vertical', 'porto-functionality' )   => '',
+							__( 'Horizontal', 'porto-functionality' ) => 'horizontal',
+						),
+						'description' => __( 'This field is used only when using "sort by" or "category filter".', 'porto-functionality' ),
 					),
 					array(
 						'type'        => 'dropdown',

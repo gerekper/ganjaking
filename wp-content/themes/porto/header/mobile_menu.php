@@ -17,7 +17,7 @@ if ( 'overlay' == $porto_settings['menu-type'] ) {
 	}
 }
 
-$is_preset   = porto_header_type_is_preset();
+$is_preset = porto_header_type_is_preset();
 ?>
 
 <div id="nav-panel">

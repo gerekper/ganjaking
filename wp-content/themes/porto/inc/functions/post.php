@@ -290,7 +290,7 @@ if ( ! function_exists( 'porto_comment' ) ) :
 							)
 						);
 						?>
-								</span>
+						</span>
 					</span>
 				</span>
 				<div>
