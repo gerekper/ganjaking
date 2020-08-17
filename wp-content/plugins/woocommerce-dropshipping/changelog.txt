@@ -1,5 +1,18 @@
 *** WooCommerce AliExpress Dropshipping Changelog ***
 
+
+2020.08.13 -Version 2.5
+
+PLUGINS-524 - Fixed the issues - Hide product price from the buyer, If product type Affiliates.
+PLUGINS-519 - Added Feature - Added option ["Hide Shipping Price in supplier email"].
+PLUGINS-257 - Added Feature - Added option ["Show Total Price in supplier email"].
+PLUGINS-338 - Added Feature - Added feature to support multisite network.
+PLUGINS-431 - Added Feature - Added Separate email template for "complete order" status.
+PLUGINS-493 - Fixed Bug - Show order date beside order number
+PLUGINS-494 - Fixed Bug - Show user phone number to supplier
+PLUGINS-484 - Added Feature - Added Price Calculator
+PLUGINS-302 - Added Feature - Disable Aliexpress Support Settings
+
 2020.06.24 -Version 2.4
 
 PLUGINS-427 - Checkbox label name changed in the plugin settings.
@@ -15,13 +28,13 @@ PLUGINS-429 - Fixed Bug - Added storename on CSV
 
 2020.05.14 -Version 2.3
 
-* Fixed - Products edit on "quick edit" removes "All custom fields value[Like- Product URL, Store Name, Store URL, Store Price Range, Currency]". 
+* Fixed - Products edit on "quick edit" removes "All custom fields value[Like- Product URL, Store Name, Store URL, Store Price Range, Currency]".
 * Added new feature- Added the option [Allow "Read notification email" to be send to merchant, as soon as dropshipper open the order notification email].
 * Added the option in dropshipping setting[Customer Note into the Dropshipper packing slip].
 
 2020.05.11 -Version 2.2
 
-* Fixed "The Link is showing in the mail which is good – but is also showing in the PDF which is bad. 
+* Fixed "The Link is showing in the mail which is good – but is also showing in the PDF which is bad.
 * Added field "Description - Type of Package" for both “variable” as well as “simple” products. Whatever website admin will specify in this field for each product, it will be displayed as a new column in the pdf packing slip for each product.
 * Added the option in dropshipping setting [Need to show "Cost of Goods" instead of actual "Selling Price" of products, in PDF packing slip].
 * Added new feature- Adding in shipping cost and tax fields along with subtotal for the customer to the customer packing slip
@@ -38,7 +51,7 @@ PLUGINS-429 - Fixed Bug - Added storename on CSV
 * Fixed - Filter return nothing when tracking number inserted in dropshipper email notification.
 * New Feature - I have added “Cost of Goods for Supplier” feature and now merchant can hide total product selling price for supllier, and only send "Cost of Goods for Supplier" price in supplier mail notification and PDF attachement as well as send in CSV.
 * Fixed - Adress issues in Supplier email notification & PDF. Now Address format supported based on selected country.
-* New Feature  - Added Email tracking feature(email open or not). If Supplier open order email first time then notification mail will send  to the Admin. 
+* New Feature  - Added Email tracking feature(email open or not). If Supplier open order email first time then notification mail will send  to the Admin.
 * Fixed Address issue in supplier mail notification and PDf file and fixed Warning messages.
 * Fixed Undefined Index errors:[Undefined index: orderid]
 
@@ -76,13 +89,13 @@ PLUGINS-429 - Fixed Bug - Added storename on CSV
 2019.10.17 -version 1.2.20
 * Added custom comment field in dropshipping settings as well as in the email notification
 * Added a checkbox in the plugin settings using which website admin can hide the supplier name from the Orders page on the frontend
-* Added a feature using which only that shipment will be marked as complete for which the supplier clicked on the corresponding link from the notification email (and not the complete order). 
+* Added a feature using which only that shipment will be marked as complete for which the supplier clicked on the corresponding link from the notification email (and not the complete order).
 * After this release, for the already existing orders in all the websites, the corresponding "Mark as complete" links will no more work from notification emails (because earlier they were marking the order itself as complete and this was a bug).
 * For all the new orders that will be placed, the "Mark as complete" link will work as desired.
 * After this release, the order will be marked as complete only if all the suppliers asociated with the order, has marked their shipment as complete.
 
 2019.09.24 -version 1.2.19
-* Show country name in shipping address in the attachments. 
+* Show country name in shipping address in the attachments.
 * Color scheme option - The dropshipping emails now uses the color scheme options of woocommerce.
 * Option to hide the supplier name on confirmation email.
 * New setting 'Send email to supplier with login details' checkbox in backend dropshipping settings area
@@ -102,7 +115,7 @@ PLUGINS-429 - Fixed Bug - Added storename on CSV
 
 2019.07.08 -version 1.2.17-beta
 * When Add supplier auto create user with dropshipper role and recieve login detail through email.
-* Dropshipper login with detail and check order list. 
+* Dropshipper login with detail and check order list.
 * Dropshipper mark order complete from order list section.
 * Dropshipper print packing slip from supplier area.
 * Dropshipper Add Order Shipping info like date,Shipping Company,notes etc.
@@ -139,7 +152,7 @@ PLUGINS-429 - Fixed Bug - Added storename on CSV
 * Fixed - Product Variation not showing in PDF and Email.
 * Order Completion email for supplier option from backend.
 * Send "mark order complete" URL link in PDF and Email.
-* Fixed - Corrupted pdf issue in webmail. 
+* Fixed - Corrupted pdf issue in webmail.
 
 2019.04.17 -version 1.2.11
 * fixed - customer recieve csv file in mail if disable csv option from backend.
@@ -152,7 +165,7 @@ PLUGINS-429 - Fixed Bug - Added storename on CSV
 
 
 2019.03.29 - version 1.2.9
-* Add Supplier on Order Listing page in admin	
+* Add Supplier on Order Listing page in admin
 * Add Supplier on Order Detail page in admin
 * Add Bulk Assign product supplier for product
 * Billing User Email In PDF and Email.
@@ -170,7 +183,7 @@ PLUGINS-429 - Fixed Bug - Added storename on CSV
 * Update supplier email to include CSV attachment.
 
 2019.02.15 - version 1.2.6
-* Update supplier email to support Outlook and various email clients.  
+* Update supplier email to support Outlook and various email clients.
 * Packing slip updated to include HTML and Text versions.
 
 2019.02.06 - version 1.2.5

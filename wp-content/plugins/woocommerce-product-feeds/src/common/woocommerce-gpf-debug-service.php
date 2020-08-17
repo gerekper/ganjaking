@@ -55,8 +55,10 @@ class WoocommerceGpfDebugService {
 	 * Grab a WC_Logger instance.
 	 */
 	public function get_logger() {
-		$this->wc_logger = wc_get_logger();
-		$this->ready     = true;
+		if ( is_callable( 'wc_get_logger' ) ) {
+			$this->wc_logger = wc_get_logger();
+			$this->ready     = true;
+		}
 	}
 
 	/**

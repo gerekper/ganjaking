@@ -105,14 +105,11 @@ class WooCommerce_Product_Search_Filter_Widget extends WP_Widget {
 
 		WooCommerce_Product_Search_Filter::load_resources();
 
-		$cache = wp_cache_get( self::$cache_id, self::$cache_group );
+		$cache = wps_cache_get( self::$cache_id, self::$cache_group );
 		if ( ! is_array( $cache ) ) {
 			$cache = array();
 		}
-		if ( isset( $cache[$args['widget_id']] ) ) {
-			echo $cache[$args['widget_id']]; 
-			return;
-		}
+
 
 		$before_title  = isset( $args['before_title'] ) ? $args['before_title'] : '';
 		$after_title   = isset( $args['after_title'] ) ? $args['after_title'] : '';
@@ -135,7 +132,7 @@ class WooCommerce_Product_Search_Filter_Widget extends WP_Widget {
 		echo $output; 
 
 		$cache[$args['widget_id']] = $output;
-		wp_cache_set( self::$cache_id, $cache, self::$cache_group );
+		wps_cache_set( self::$cache_id, $cache, self::$cache_group );
 	}
 
 	/**
@@ -203,6 +200,7 @@ class WooCommerce_Product_Search_Filter_Widget extends WP_Widget {
 		$settings['update_address_bar']    = !empty( $new_instance['update_address_bar'] ) ? 'yes' : 'no';
 		$settings['update_document_title'] = !empty( $new_instance['update_document_title'] ) ? 'yes' : 'no';
 		$settings['use_shop_url']          = !empty( $new_instance['use_shop_url'] ) ? 'yes' : 'no';
+		$settings['unpage_url']            = !empty( $new_instance['unpage_url'] ) ? 'yes' : 'no';
 
 		$containers = array(
 			'breadcrumb_container'      => '.woocommerce-breadcrumb',
@@ -501,6 +499,20 @@ class WooCommerce_Product_Search_Filter_Widget extends WP_Widget {
 		echo '</label>';
 		echo '</p>';
 
+		$unpage_url = isset( $instance['unpage_url'] ) ? $instance['unpage_url'] : 'yes';
+		echo '<p>';
+		echo sprintf( '<label title="%s">', esc_attr( __( 'Go to page one of results when filters are applied.', 'woocommerce-product-search' ) ) );
+		printf(
+			'<input type="checkbox" id="%s" name="%s" %s />',
+			esc_attr( $this->get_field_id( 'unpage_url' ) ),
+			esc_attr( $this->get_field_name( 'unpage_url' ) ),
+			$unpage_url == 'yes' ? ' checked="checked" ' : ''
+		);
+		echo ' ';
+		echo esc_html( __( 'Page One', 'woocommerce-product-search' ) );
+		echo '</label>';
+		echo '</p>';
+
 		if ( defined( 'ICL_LANGUAGE_CODE' ) ) {
 			echo '<h4>';
 			esc_html_e( 'WPML', 'woocommerce-product-search' );
@@ -694,6 +706,7 @@ class WooCommerce_Product_Search_Filter_Widget extends WP_Widget {
 			'update_address_bar' => true,
 			'update_document_title' => false,
 			'use_shop_url' => false,
+			'unpage_url' => true,
 			'wpml' => false,
 			'show_heading' => false,
 			'heading' => '',

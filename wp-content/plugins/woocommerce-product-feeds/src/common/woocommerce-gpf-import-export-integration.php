@@ -26,7 +26,7 @@ class WoocommerceGpfImportExportIntegration {
 		// Export filters.
 		add_filter( 'woocommerce_product_export_column_names', array( $this, 'add_columns' ) );
 		add_filter( 'woocommerce_product_export_product_default_columns', array( $this, 'add_columns' ) );
-		$this->attach_render_hooks();
+		add_action( 'plugins_loaded', [ $this, 'attach_render_hooks' ], 11 );
 		// Import filters.
 		add_filter( 'woocommerce_csv_product_import_mapping_options', array( $this, 'add_columns' ) );
 		add_filter( 'woocommerce_csv_product_import_mapping_default_columns', array( $this, 'add_default_mapping_columns' ) );
@@ -48,7 +48,8 @@ class WoocommerceGpfImportExportIntegration {
 	/**
 	 * Attach all necessary hooks for rendering fields during export.
 	 */
-	private function attach_render_hooks() {
+	public function attach_render_hooks() {
+
 		$fields = $this->generate_column_list();
 		foreach ( array_keys( $fields ) as $key ) {
 			add_filter( 'woocommerce_product_export_product_column_' . $key, array( $this, "render_column_$key" ), 10, 2 );

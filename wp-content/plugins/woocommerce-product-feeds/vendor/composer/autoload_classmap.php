@@ -22,6 +22,7 @@ return array(
     'WoocommerceGpfCacheInvalidator' => $baseDir . '/src/cache/woocommerce-gpf-cache-invalidator.php',
     'WoocommerceGpfCacheStatus' => $baseDir . '/src/cache/woocommerce-gpf-cache-status.php',
     'WoocommerceGpfClearAllJob' => $baseDir . '/src/cache/woocommerce-gpf-cache-clear-all-job.php',
+    'WoocommerceGpfClearProductJob' => $baseDir . '/src/cache/woocommerce-gpf-cache-clear-product-job.php',
     'WoocommerceGpfCommon' => $baseDir . '/src/gpf/woocommerce-gpf-common.php',
     'WoocommerceGpfDebugService' => $baseDir . '/src/common/woocommerce-gpf-debug-service.php',
     'WoocommerceGpfFeed' => $baseDir . '/src/gpf/woocommerce-gpf-feed.php',

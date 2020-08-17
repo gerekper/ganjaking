@@ -10,11 +10,18 @@
 
 	var wcAccountFundsCheckout = {
 		init: function() {
-			$( '#order_review' ).on( 'change', 'input[name=payment_method]', function() {
-				if ( $( '#payment_method_accountfunds' ).length ) {
-					$( 'body' ).trigger( 'update_checkout' );
-				}
-			});
+			$( '#order_review' )
+				.on( 'change', 'input[name=payment_method]', function() {
+					if ( $( '#payment_method_accountfunds' ).length ) {
+						$( 'body' ).trigger( 'update_checkout' );
+					}
+				})
+				.on( 'change', '#apply_account_funds', function( event ) {
+					if ( event.target.checked ) {
+						$( 'body' ).trigger( 'update_checkout' );
+					}
+				})
+			;
 		}
 	};
 

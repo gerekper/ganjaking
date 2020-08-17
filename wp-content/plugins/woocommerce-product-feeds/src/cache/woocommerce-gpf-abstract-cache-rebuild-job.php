@@ -123,8 +123,13 @@ abstract class WoocommerceGpfAbstractCacheRebuildJob {
 	 */
 	protected function rebuild_item( $product_id ) {
 		// Load the settings.
-		$settings            = get_option( 'woocommerce_gpf_config', array() );
+		$settings = get_option( 'woocommerce_gpf_config', array() );
+
 		$woocommerce_product = wc_get_product( $product_id );
+		if ( ! $woocommerce_product ) {
+			// It is not a product. We are done.
+			return;
+		}
 
 		/**
 		 * Handle rebuild for non-product feed types.

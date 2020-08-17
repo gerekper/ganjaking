@@ -21,13 +21,12 @@ class WC_Account_Funds_Order_Manager {
 		add_action( 'woocommerce_order_status_completed', array( $this, 'maybe_remove_funds' ) );
 		add_action( 'woocommerce_order_status_cancelled', array( $this, 'maybe_restore_funds' ) );
 		add_action( 'woocommerce_order_status_completed', array( $this, 'maybe_increase_funds' ) );
-		add_filter( 'woocommerce_get_order_item_totals', array( $this, 'woocommerce_get_order_item_totals' ), 10, 2 );
-		add_filter( version_compare( WC_VERSION, '3.0', '<' ) ? 'woocommerce_order_amount_total' : 'woocommerce_order_get_total', array( 'WC_Account_Funds_Order_Manager', 'adjust_total_to_include_funds' ), 10, 2 );
+		add_filter( 'woocommerce_get_order_item_totals', array( $this, 'get_order_item_totals' ), 10, 2 );
 		add_action( 'woocommerce_checkout_create_order_line_item', array( $this, 'add_order_item_meta' ), 10, 3 );
 		add_filter( 'woocommerce_order_item_product', array( $this, 'order_item_product' ), 10, 2 );
 		add_action( 'woocommerce_order_refunded', array( $this, 'maybe_remove_topup_funds' ), 10, 2 );
 
-		add_action( 'woocommerce_admin_order_totals_after_total', array( $this, 'add_funds_used_after_order_total' ) );
+		add_action( 'woocommerce_admin_order_totals_after_tax', array( $this, 'admin_order_account_funds' ) );
 		add_action( 'woocommerce_order_after_calculate_totals', array( $this, 'remove_funds_from_recalculation' ), 10, 2 );
 	}
 
@@ -216,15 +215,32 @@ class WC_Account_Funds_Order_Manager {
 	}
 
 	/**
-	 * Order total display
+	 * Moves Funds used row above the order total row in order details
+	 *
+	 * @version 2.3.0
+	 *
+	 * @param array    $rows  Set of items for order details.
+	 * @param WC_Order $order Order object.
+	 * @return array
 	 */
-	public function woocommerce_get_order_item_totals( $rows, $order ) {
-		if ( $_funds_used = get_post_meta( version_compare( WC_VERSION, '3.0', '<' ) ? $order->id : $order->get_id(), '_funds_used', true ) ) {
-			$rows['funds_used'] = array(
-				'label' => __( 'Funds Used:', 'woocommerce-account-funds' ),
-				'value'	=> wc_price( $_funds_used )
+	public function get_order_item_totals( $rows, $order ) {
+		$order_id   = version_compare( WC_VERSION, '3.0', '<' ) ? $order->id : $order->get_id();
+		$funds_used = get_post_meta( $order_id, '_funds_used', true );
+
+		if ( $funds_used ) {
+			$index = array_search( 'order_total', array_keys( $rows ) );
+			$rows  = array_merge(
+				array_slice( $rows, 0, $index ),
+				array(
+					'funds_used' => array(
+						'label' => __( 'Funds Used:', 'woocommerce-account-funds' ),
+						'value' => '-' . wc_price( $funds_used ),
+					),
+				),
+				array_slice( $rows, $index )
 			);
 		}
+
 		return $rows;
 	}
 
@@ -346,15 +362,39 @@ class WC_Account_Funds_Order_Manager {
 	}
 
 	/**
+	 * Outputs the funds used in the edit-order screen.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @param int $order_id The order ID.
+	 */
+	public function admin_order_account_funds( $order_id ) {
+		$funds_used = floatval( get_post_meta( $order_id, '_funds_used', true ) );
+
+		if ( 0 >= $funds_used ) {
+			return;
+		}
+		?>
+		<tr>
+			<td class="label"><?php _e( 'Funds Used', 'woocommerce-account-funds' ); ?>:</td>
+			<td width="1%"></td>
+			<td class="total"><?php echo '-' . wc_price( $funds_used ); ?></td>
+		</tr>
+		<?php
+	}
+
+	/**
 	 * Add rows in edit order screen to display 'Funds Used' and 'Order Total
 	 * after Funds Used'.
 	 *
 	 * @since 2.1.7
-	 * @version 2.1.7
+	 * @deprecated 2.3.0
 	 *
 	 * @param int $order_id Order ID.
 	 */
 	public function add_funds_used_after_order_total( $order_id ) {
+		_deprecated_function( __FUNCTION__, '2.3.0' );
+
 		$funds_used = floatval( get_post_meta( $order_id, '_funds_used', true ) );
 		if ( $funds_used <= 0 ) {
 			return;

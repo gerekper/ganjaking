@@ -18,6 +18,14 @@ class WoocommerceGpfCacheInvalidator {
 	private $parent_map;
 
 	/**
+	 * Keep track of post types when posts are deleted so we can cache clean
+	 * appropriately.
+	 *
+	 * @var array
+	 */
+	private $product_delete_map;
+
+	/**
 	 * Constructor.
 	 *
 	 * Hook all the events we are interested in.
@@ -30,11 +38,11 @@ class WoocommerceGpfCacheInvalidator {
 	}
 
 	public function initialise() {
-		// Initialise the parent map.
-		$this->parent_map = array();
+		// Initialise the parent & delete map.
+		$this->parent_map         = [];
+		$this->product_delete_map = [];
 
-		// When a product is added / updated, rebuild the cache for that
-		// product.
+		// When a product is added / updated, rebuild the cache for that product.
 		add_action( 'woocommerce_new_product', array( $this, 'save_product' ), 90 );
 		add_action( 'woocommerce_update_product', array( $this, 'save_product' ), 90 );
 
@@ -42,8 +50,10 @@ class WoocommerceGpfCacheInvalidator {
 		add_action( 'woocommerce_process_product_meta', array( $this, 'save_product' ), 90, 2 );
 
 		// When a product is trashed / removed drop its cache.
-		add_action( 'trashed_post', array( $this, 'save_product' ), 90 );
-		add_action( 'deleted_post', array( $this, 'save_product' ), 90 );
+		add_action( 'wp_trash_post', array( $this, 'pre_delete_product' ), 90 );
+		add_action( 'delete_post', array( $this, 'pre_delete_product' ), 90 );
+		add_action( 'trashed_post', array( $this, 'clear_product' ), 90 );
+		add_action( 'deleted_post', array( $this, 'clear_product' ), 90 );
 
 		// When a product is restored from the trash, build its cache.
 		add_action( 'untrashed_post', array( $this, 'save_product' ), 90 );
@@ -54,8 +64,8 @@ class WoocommerceGpfCacheInvalidator {
 		add_action( 'woocommerce_update_product_variation', array( $this, 'save_variation' ), 90 );
 
 		// When a variant is removed, rebuild the cache for the parent product.
-		add_action( 'wp_trash_post', array( $this, 'pre_delete_post' ), 90 );
-		add_action( 'delete_post', array( $this, 'pre_delete_post' ), 90 );
+		add_action( 'wp_trash_post', array( $this, 'pre_delete_variation' ), 90 );
+		add_action( 'delete_post', array( $this, 'pre_delete_variation' ), 90 );
 		add_action( 'woocommerce_delete_product_variation', array( $this, 'remove_variation' ), 90 );
 		add_action( 'woocommerce_trash_product_variation', array( $this, 'remove_variation' ), 90 );
 
@@ -72,20 +82,50 @@ class WoocommerceGpfCacheInvalidator {
 	/**
 	 * Handle saving of a product.
 	 *
-	 * @param  int  $product_id  The product ID of the product being saved.
+	 * @param int $product_id The product ID of the product being saved.
 	 *
 	 * @return void
 	 */
 	public function save_product( $product_id ) {
+		// Do nothing if the post is not a "product".
+		$post = get_post( $product_id );
+		if ( $post && 'product' !== $post->post_type ) {
+			return;
+		}
+		// Schedule a rebuild.
 		$this->rebuild_product( $product_id );
 	}
 
+	/**
+	 * Clear out entries from the cache without triggering a rebuild for relevant post types.
+	 *
+	 * @param $product_id
+	 */
+	public function clear_product( $product_id ) {
+		if ( isset( $this->product_delete_map[ $product_id ] ) ) {
+			$this->cache->clear_product( $product_id );
+		}
+	}
 
 	/**
-	 * Make a note of the post parent if there is one prior to deleting a
-	 * variant.
+	 * Make a note of the post type so we can know whether we need to do
+	 * anything when the product is actually trashed / deleted.
+	 *
+	 * @param $product_id
 	 */
-	public function pre_delete_post( $post_id ) {
+	public function pre_delete_product( $product_id ) {
+		$post = get_post( $product_id );
+		if ( ! $post || 'product' !== $post->post_type ) {
+			return;
+		}
+		$this->product_delete_map[ $product_id ] = $post->post_type;
+	}
+
+	/**
+	 * Make a note of the post parent if there is one prior to trashing / deleting
+	 * a variant.
+	 */
+	public function pre_delete_variation( $post_id ) {
 		$post = get_post( $post_id );
 		if ( ! $post ||
 			 'product_variation' !== $post->post_type ||
@@ -101,7 +141,7 @@ class WoocommerceGpfCacheInvalidator {
 	 * Triggers a rebuild of the main product since the minimum cache unit is
 	 * the parent product, not individual variations.
 	 *
-	 * @param  int $product_id  The main product ID.
+	 * @param int $product_id The main product ID.
 	 *
 	 * @return void
 	 */
@@ -119,8 +159,8 @@ class WoocommerceGpfCacheInvalidator {
 	 * Triggers a rebuild of the main product since the minimum cache unit is
 	 * the parent product, not individual variations.
 	 *
-	 * @param  int $product_id  The main product ID.
-	 * @param  int $idx         The index of the variation being updated.
+	 * @param int $product_id The main product ID.
+	 * @param int $idx The index of the variation being updated.
 	 *
 	 * @return void
 	 */
@@ -133,7 +173,7 @@ class WoocommerceGpfCacheInvalidator {
 	/**
 	 * Rebuild the cache for a product.
 	 *
-	 * @param  int $product_id  The product ID of the product to rebuild.
+	 * @param int $product_id The product ID of the product to rebuild.
 	 *
 	 * @return void
 	 */
@@ -144,11 +184,15 @@ class WoocommerceGpfCacheInvalidator {
 	/**
 	 * Rebuild the cache for all products attached to a term.
 	 *
-	 * @param  int $term_id  The term ID to refresh.
+	 * @param int $term_id The term ID to refresh.
 	 *
 	 * @return void
 	 */
 	public function rebuild_term( $term_id, $tt_id, $taxonomy ) {
+		if ( ! $this->is_product_taxonomy( $taxonomy ) ) {
+			// Invalid, or non-product taxonomy. Ignore it.
+			return;
+		}
 		$this->cache->flush_term( $term_id, $tt_id, $taxonomy );
 	}
 
@@ -162,6 +206,10 @@ class WoocommerceGpfCacheInvalidator {
 	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
 	public function rebuild_term_objects( $term, $tt_id, $taxonomy, $deleted_term, $object_ids ) {
+		if ( ! $this->is_product_taxonomy( $taxonomy ) ) {
+			// Invalid, or non-product taxonomy. Ignore it.
+			return;
+		}
 		$this->cache->flush_objects( $object_ids );
 	}
 
@@ -172,5 +220,28 @@ class WoocommerceGpfCacheInvalidator {
 	 */
 	public function rebuild_all() {
 		$this->cache->flush_all();
+	}
+
+	/**
+	 * @param $taxonomy
+	 *
+	 * @return bool
+	 */
+	private function is_product_taxonomy( $taxonomy ) {
+		$taxonomy_definition = get_taxonomy( $taxonomy );
+		if ( ! $taxonomy_definition ) {
+			// Invalid taxonomy passed. Not product related..
+			return false;
+		}
+		if ( ! is_array( $taxonomy_definition->object_type ) ) {
+			// No product types, associated.
+			return false;
+		}
+		if ( in_array( 'product', $taxonomy_definition->object_type, true ) ) {
+			// Is a product taxonomy
+			return true;
+		}
+		// Not a product taxonomy.
+		return false;
 	}
 }

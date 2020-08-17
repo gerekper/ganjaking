@@ -360,8 +360,11 @@ class RevSliderOutput extends RevSliderFunctions {
 	 * get the HTML ID
 	 * @before: RevSliderOutput::getSliderHtmlID
 	 */
-	public function get_html_id(){
-		return apply_filters('revslider_get_html_id', $this->html_id, $this);
+	public function get_html_id($raw = true){
+		$html_id = $this->html_id;
+		$html_id = (!$raw) ? preg_replace("/[^a-zA-Z0-9]/", "", $html_id) : $html_id;
+		
+		return apply_filters('revslider_get_html_id', $html_id, $this, $raw);
 	}
 	
 	/**
@@ -6625,6 +6628,7 @@ rs-module .material-icons {
 		$layout = $this->slider->get_param('layouttype');
 		$sid	= $this->slider->get_id();
 		$html_id = $this->get_html_id();
+		$html_id_trimmed = $this->get_html_id(false);
 		$fw = ($layout == 'fullwidth') ? 'on' : 'off';
 		$fw = ($layout == 'fullscreen') ? 'off' : $fw;
 		$fs = ($layout == 'fullscreen') ? 'on' : 'off';		
@@ -6633,7 +6637,7 @@ rs-module .material-icons {
 		$html .= RS_T5.$this->get_html_js_start_size($fw, $fs)."\n";
 		$html .= RS_T5.'var	revapi'. $sid .','."\n";
 		$html .= RS_T6.'tpj;'."\n";
-		$html .= RS_T5.'function revinit_'.$sid .'() {'."\n"; 
+		$html .= RS_T5.'function revinit_'.$html_id_trimmed .'() {'."\n"; 
 		$html .= RS_T5.'jQuery(function() {'."\n";
 		$html .= RS_T6.'tpj = jQuery;'."\n";
 		$html .= RS_T6.'revapi'. $sid.' = tpj("#'. $html_id .'");'."\n";
@@ -6653,6 +6657,8 @@ rs-module .material-icons {
 	 **/
 	public function js_get_base_post(){
 		$sid = $this->slider->get_id();
+		$html_id = $this->get_html_id();
+		$html_id_trimmed = $this->get_html_id(false);
 		$html = '';
 		ob_start();
 		do_action('revslider_fe_javascript_option_output', $this->slider);
@@ -6679,7 +6685,7 @@ rs-module .material-icons {
 		$html .= "\n";
 		$html .= RS_T5.'});'."\n";
 		$html .= RS_T5.'} // End of RevInitScript'."\n";
-		$html .= RS_T4.'if (document.readyState === "loading") window.addEventListener(\'DOMContentLoaded\',function() {	revinit_'.$sid .'();}); else revinit_'.$sid .'();'."\n";
+		$html .= RS_T4.'if (document.readyState === "loading") window.addEventListener(\'DOMContentLoaded\',function() { revinit_'.$html_id_trimmed .'();}); else revinit_'.$html_id_trimmed .'();'."\n";
 		$html .= RS_T4.'</script>'."\n";
 		
 		return $html;

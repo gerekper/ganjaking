@@ -1,5 +1,9 @@
 *** Currency Converter Changelog ***
 
+2020-08-14 - version 1.6.23
+* Fix   - Replace deprecated jQuery methods.
+* Tweak - WordPress 5.5 compatibility.
+
 2020-07-07 - version 1.6.22
 * Fix - Wrong conversion for amounts with multiple thousands separators.
 

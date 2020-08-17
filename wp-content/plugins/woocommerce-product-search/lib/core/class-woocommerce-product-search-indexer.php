@@ -158,6 +158,206 @@ class WooCommerce_Product_Search_Indexer {
 	}
 
 	/**
+	 * Product terms to process.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @return int[]
+	 */
+	public function get_processable_term_ids() {
+		global $wpdb;
+		$term_ids = array();
+		if ( WooCommerce_Product_Search_Controller::table_exists( 'object_term' ) ) {
+			$product_taxonomies = self::get_applicable_product_taxonomies();
+			if ( count( $product_taxonomies ) > 0 ) {
+				$object_term_table = WooCommerce_Product_Search_Controller::get_tablename( 'object_term' );
+				$query = "SELECT term_id FROM $wpdb->term_taxonomy WHERE taxonomy IN ( '" . implode( "','", esc_sql( $product_taxonomies ) ) . "' ) AND term_id NOT IN (SELECT DISTINCT term_id FROM $object_term_table WHERE object_id = 0)";
+				$term_ids = $wpdb->get_col( $query );
+				if ( is_array( $term_ids ) ) {
+					$term_ids = array_map( 'intval', array_unique( $term_ids ) );
+				}
+			}
+		}
+		return $term_ids;
+	}
+
+	/**
+	 * Product taxonomies.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @return string[]
+	 */
+	public static function get_applicable_product_taxonomies() {
+		$product_taxonomies = array( 'product_cat', 'product_tag' );
+		$product_taxonomies = array_merge( $product_taxonomies, wc_get_attribute_taxonomy_names() );
+
+		$product_taxonomies = array_unique( $product_taxonomies );
+		return $product_taxonomies;
+	}
+
+	/**
+	 * Preprocess terms for indexing.
+	 *
+	 * @since 3.0.0
+	 */
+	public function preprocess_terms() {
+
+		global $wpdb;
+		if ( WooCommerce_Product_Search_Controller::table_exists( 'object_term' ) ) {
+			$object_term_table = WooCommerce_Product_Search_Controller::get_tablename( 'object_term' );
+			$term_ids = $this->get_processable_term_ids();
+			if ( count( $term_ids ) > 0 ) {
+				$max = WooCommerce_Product_Search_Controller::get_max_allowed_packet();
+
+				$tuples = array();
+				$values = array();
+				foreach ( $term_ids as $term_id ) {
+
+					$size = strlen(
+						"INSERT INTO $object_term_table " .
+						"( object_id, term_id, modified ) " .
+						"VALUES " . implode( ',', $tuples ) . implode( ' ', $values )
+					);
+					if ( $size > 0.9 * $max ) {
+						break;
+					}
+
+					$tuples[] = '( 0, %d, %s )';
+					$values[] = intval( $term_id );
+					$values[] = gmdate( 'Y-m-d H:i:s' );
+				}
+				$wpdb->query( $wpdb->prepare(
+					"INSERT INTO $object_term_table " .
+					"( object_id, term_id, modified ) " .
+					"VALUES " . implode( ',', $tuples ),
+					$values
+				) );
+			}
+		}
+	}
+
+	/**
+	 * Process term weights.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param int[] $term_ids process all if not provided, otherwise those and their children
+	 * @param string $taxonomy ignored
+	 */
+	public function process_term_weights( $term_ids = null, $taxonomy = null ) {
+		global $wpdb;
+
+		$taxonomy = 'product_cat';
+		$terms = array();
+		if ( is_taxonomy_hierarchical( $taxonomy ) ) {
+			$query =
+				"SELECT tt.term_id AS term_id, tt.parent AS parent, tm.meta_value AS weight " .
+				"FROM $wpdb->term_taxonomy tt " .
+				"LEFT JOIN $wpdb->termmeta tm " .
+				"ON tm.term_id = tt.term_id AND tm.meta_key = '_search_weight' " .
+				"WHERE taxonomy = %s ";
+			if ( $term_ids !== null && is_array( $term_ids ) && count( $term_ids ) > 0 ) {
+				$term_ids = array_unique( array_map( 'intval', $term_ids ) );
+				$the_term_ids = $term_ids;
+				foreach ( $term_ids as $term_id ) {
+
+					$parent_term_ids = get_ancestors( $term_id, $taxonomy, 'taxonomy' );
+					if ( is_array( $parent_term_ids ) ) {
+						$parent_term_ids = array_map( 'intval', $parent_term_ids );
+						$the_term_ids = array_merge( $the_term_ids, $parent_term_ids );
+					}
+
+					$child_term_ids = get_term_children( $term_id, $taxonomy );
+					if ( is_array( $child_term_ids ) ) {
+						$child_term_ids = array_map( 'intval', $child_term_ids );
+						$the_term_ids = array_merge( $the_term_ids, $child_term_ids );
+					}
+				}
+				$term_ids = array_unique( array_map( 'intval', $the_term_ids ) );
+				$query .= 'AND tt.term_id IN ( ' . implode( ',', $term_ids ) . ' ) ';
+			} else {
+
+				delete_metadata( 'term', null, '_search_weight_sum', null, true );
+			}
+
+			$entries = $wpdb->get_results( $wpdb->prepare(
+				$query,
+				$taxonomy
+			) );
+
+			if ( is_array( $entries ) ) {
+
+				foreach ( $entries as $entry ) {
+					$term_id = intval( $entry->term_id );
+					$parent_id = null;
+					$weight = 0;
+					if ( !empty( $entry->parent ) ) {
+						$parent = intval( $entry->parent );
+						if ( $parent > 0 ) {
+							$parent_id = $parent;
+						}
+					}
+					if ( !empty( $entry->weight ) ) {
+						$weight = intval( $entry->weight );
+					}
+					$terms[$term_id] = array(
+						'parent_id' => $parent_id,
+						'weight' => $weight,
+						'weight_sum' => $weight,
+						'children' => array()
+					);
+				}
+
+				foreach ( $terms as $term_id => $term ) {
+					if ( isset( $term['parent_id'] ) && $term['parent_id'] !== null ) {
+						$terms[$term['parent_id']]['children'][] = $term_id;
+					}
+				}
+
+				foreach ( $terms as $term_id => $term ) {
+					if ( isset( $term['weight'] ) && $term['weight'] !== 0 ) {
+						foreach ( $term['children'] as $child_id ) {
+							$terms[$child_id]['weight_sum'] += $term['weight'];
+						}
+					}
+				}
+
+				foreach ( $terms as $term_id => $term ) {
+					if ( isset( $term['weight_sum'] ) && $term['weight_sum'] !== 0 ) {
+						update_term_meta( $term_id, '_search_weight_sum', $term['weight_sum'] );
+					} else {
+						delete_term_meta( $term_id, '_search_weight_sum' );
+					}
+				}
+			}
+		}
+	}
+
+	/**
+	 * Counts terms not yet processed.
+	 *
+	 * @return int unprocessed terms
+	 */
+	public function get_processable_terms_count() {
+
+		global $wpdb;
+		$count = 0;
+		if ( WooCommerce_Product_Search_Controller::table_exists( 'object_term' ) ) {
+			$product_taxonomies = self::get_applicable_product_taxonomies();
+			if ( count( $product_taxonomies ) > 0 ) {
+				$object_term_table = WooCommerce_Product_Search_Controller::get_tablename( 'object_term' );
+				$query = "SELECT COUNT(*) FROM $wpdb->term_taxonomy WHERE taxonomy IN ( '" . implode( "','", esc_sql( $product_taxonomies ) ) . "' ) AND term_id NOT IN (SELECT DISTINCT term_id FROM $object_term_table )";
+				$count = $wpdb->get_var( $query );
+				if ( $count !== null ) {
+					$count = intval( $count );
+				}
+			}
+		}
+		return $count;
+	}
+
+	/**
 	 * Counts products not yet processed.
 	 *
 	 * @return int unprocessed products
@@ -169,12 +369,19 @@ class WooCommerce_Product_Search_Indexer {
 		$key_table         = WooCommerce_Product_Search_Controller::get_tablename( 'key' );
 		$index_table       = WooCommerce_Product_Search_Controller::get_tablename( 'index' );
 		$object_type_table = WooCommerce_Product_Search_Controller::get_tablename( 'object_type' );
+		$object_term_table = WooCommerce_Product_Search_Controller::get_tablename( 'object_term' ); 
 
 		if (
-			( $wpdb->get_var( "SHOW TABLES LIKE '$key_table'" ) === $key_table ) &&
-			( $wpdb->get_var( "SHOW TABLES LIKE '$index_table'" ) === $index_table ) &&
-			( $wpdb->get_var( "SHOW TABLES LIKE '$object_type_table'" ) === $object_type_table )
+			WooCommerce_Product_Search_Controller::table_exists( 'key' ) &&
+			WooCommerce_Product_Search_Controller::table_exists( 'index' ) &&
+			WooCommerce_Product_Search_Controller::table_exists( 'object_type' )
 		) {
+
+			$object_term_query = '';
+			if ( WooCommerce_Product_Search_Controller::table_exists( 'object_term' ) ) {
+
+				$object_term_query = "OR ID NOT IN (SELECT object_id FROM $object_term_table WHERE term_id = 0) ";
+			}
 
 			$object_types = array( 'product', 'product_variation' );
 			foreach ( $object_types as $object_type ) {
@@ -187,7 +394,10 @@ class WooCommerce_Product_Search_Indexer {
 					"WHERE " .
 					"post_type = %s " .
 					"AND post_status IN ( 'publish', 'pending', 'draft', 'private' ) " .
-					"AND ID NOT IN (SELECT object_id FROM $index_table WHERE object_type_id = %d)",
+					"AND ( " .
+					"ID NOT IN (SELECT object_id FROM $index_table WHERE object_type_id = %d) " .
+					$object_term_query . 
+					" ) ",
 					$object_type,
 					intval( $object_type_id )
 				) );
@@ -196,6 +406,7 @@ class WooCommerce_Product_Search_Indexer {
 				}
 			}
 		}
+
 		return $result;
 	}
 
@@ -206,6 +417,7 @@ class WooCommerce_Product_Search_Indexer {
 		$key_table         = WooCommerce_Product_Search_Controller::get_tablename( 'key' );
 		$index_table       = WooCommerce_Product_Search_Controller::get_tablename( 'index' );
 		$object_type_table = WooCommerce_Product_Search_Controller::get_tablename( 'object_type' );
+		$object_term_table = WooCommerce_Product_Search_Controller::get_tablename( 'object_term' ); 
 
 		$options = get_option( 'woocommerce-product-search', null );
 
@@ -232,10 +444,16 @@ class WooCommerce_Product_Search_Indexer {
 		}
 
 		if (
-			( $wpdb->get_var( "SHOW TABLES LIKE '$key_table'" ) === $key_table ) &&
-			( $wpdb->get_var( "SHOW TABLES LIKE '$index_table'" ) === $index_table ) &&
-			( $wpdb->get_var( "SHOW TABLES LIKE '$object_type_table'" ) === $object_type_table )
+			WooCommerce_Product_Search_Controller::table_exists( 'key' ) &&
+			WooCommerce_Product_Search_Controller::table_exists( 'index' ) &&
+			WooCommerce_Product_Search_Controller::table_exists( 'object_type' )
 		) {
+
+			$object_term_query = '';
+			if ( WooCommerce_Product_Search_Controller::table_exists( 'object_term' ) ) {
+
+				$object_term_query = "OR ID NOT IN (SELECT object_id FROM $object_term_table WHERE term_id = 0) ";
+			}
 
 			$object_types = array( 'product', 'product_variation' );
 			foreach ( $object_types as $object_type ) {
@@ -247,7 +465,10 @@ class WooCommerce_Product_Search_Indexer {
 					"SELECT ID FROM $wpdb->posts WHERE " .
 					"post_type = %s " .
 					"AND post_status IN ( 'publish', 'pending', 'draft', 'private' ) " .
-					"AND ID NOT IN (SELECT object_id FROM $index_table WHERE object_type_id = %d) ".
+					"AND ( " .
+					"ID NOT IN (SELECT object_id FROM $index_table WHERE object_type_id = %d) " .
+					$object_term_query . 
+					" ) " .
 					"ORDER BY $index_order_by $index_order_dir " .
 					"LIMIT %d",
 					$object_type,
@@ -256,9 +477,14 @@ class WooCommerce_Product_Search_Indexer {
 				) );
 				if ( is_array( $_post_ids ) && count( $_post_ids ) > 0 ) {
 					$post_ids = array_merge( $post_ids, $_post_ids );
+					$post_ids = array_unique( $post_ids );
+					if ( count( $post_ids ) > $this->limit ) {
+						$post_ids = array_slice( $post_ids, 0, $this->limit );
+					}
 				}
 			}
 		}
+
 		return $post_ids;
 	}
 
@@ -297,6 +523,7 @@ class WooCommerce_Product_Search_Indexer {
 		if ( $this->check_memory_limit ) {
 			$bytes = memory_get_peak_usage( true );
 			$memory_limit = ini_get( 'memory_limit' );
+			$matches = null;
 			preg_match( '/([0-9]+)(.)/', $memory_limit, $matches );
 			if ( isset( $matches[2] ) ) {
 				$exp = array( 'K' => 1, 'M' => 2, 'G' => 3, 'T' => 4, 'P' => 5, 'E' => 6 );
@@ -337,10 +564,12 @@ class WooCommerce_Product_Search_Indexer {
 			}
 		}
 
+		$this->preprocess_terms();
+
 		$post_ids = self::get_processable_ids();
 		$n = count( $post_ids );
 
-		$first = is_array( $post_ids ) ? $post_ids[0] : '-';
+		$first = is_array( $post_ids ) && isset( $post_ids[0] ) ? $post_ids[0] : '-'; 
 		$last  = is_array( $post_ids ) && ( $n > 0 ) ? $post_ids[$n - 1] : '-';
 		wps_log_info( sprintf( 'The indexer has found %d entries to process, %s - %s.', $n, $first, $last ) );
 
@@ -434,11 +663,54 @@ class WooCommerce_Product_Search_Indexer {
 		$this->delete_unused_keys();
 	}
 
+	/**
+	 * Process the terms in the index.
+	 *
+	 * @param int|int[]|null $term_ids process term_id or term_ids, null triggers processing for all (default)
+	 */
+	public function process_terms( $term_ids = null ) {
+
+		global $wpdb;
+		if ( WooCommerce_Product_Search_Controller::table_exists( 'object_term' ) ) {
+			$object_term_table = WooCommerce_Product_Search_Controller::get_tablename( 'object_term' );
+
+			if ( !is_array( $term_ids ) ) {
+				if ( is_numeric( $term_ids ) ) {
+					$term_ids = array( $term_ids );
+				} else {
+
+					$term_ids = array( -1 );
+				}
+			}
+			$query = null;
+			if ( $term_ids !== null && count( $term_ids ) > 0 ) {
+				$term_ids = array_unique( array_map( 'intval', $term_ids ) );
+				$query =
+					"DELETE FROM $object_term_table WHERE " .
+					'term_id = 0 AND ' .
+					'object_id IN ( ' .
+					'SELECT object_id FROM ( ' . 
+					"SELECT DISTINCT object_id FROM $object_term_table WHERE term_id IN ( " . implode( ',', $term_ids ) . ' ) ' .
+					' ) tmp ' .
+					' ) ';
+
+			} else {
+				$query = "DELETE FROM $object_term_table WHERE term_id = 0";
+			}
+			if ( $query !== null ) {
+				$wpdb->query( $query );
+			}
+		}
+	}
+
 	public function index( $post_id ) {
+
 
 		wps_log_info( 'Indexing ' . $post_id );
 
 		global $wpdb;
+
+		$this->preprocess_terms();
 
 		if ( $this->raw ) {
 			$product = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $wpdb->posts WHERE ID = %d", intval( $post_id ) ) );
@@ -453,9 +725,10 @@ class WooCommerce_Product_Search_Indexer {
 				$object_type = 'product_variation';
 			}
 
-			$key_table         = WooCommerce_Product_Search_Controller::get_tablename( 'key' );
+			$key_table         = WooCommerce_Product_Search_Controller::get_tablename( 'key' ); 
 			$index_table       = WooCommerce_Product_Search_Controller::get_tablename( 'index' );
 			$object_type_table = WooCommerce_Product_Search_Controller::get_tablename( 'object_type' );
+			$object_term_table = WooCommerce_Product_Search_Controller::get_tablename( 'object_term' ); 
 
 			$this->delete_indexes( $post_id, $object_type );
 
@@ -530,13 +803,44 @@ class WooCommerce_Product_Search_Indexer {
 						'tag'          => $this->filter( wc_get_product_tag_list( $post_id, ' ' ), 'tag', $post_id ),
 						'category'     => $this->filter( wc_get_product_category_list( $post_id, ' ' ), 'category', $post_id )
 					);
+
 					$attribute_taxonomies = wc_get_attribute_taxonomies();
 					if ( !empty( $attribute_taxonomies ) ) {
 						foreach ( $attribute_taxonomies as $attribute ) {
-							$term_list = get_the_term_list( $post_id, 'pa_' . $attribute->attribute_name, '', ' ', '' );
-							if ( !empty( $term_list ) && is_string( $term_list ) ) { 
-								$attribute_names[] = $attribute->attribute_name;
-								$context_columns[$attribute->attribute_name] = $this->filter( $term_list, $attribute->attribute_name, $post_id );
+
+							$index_attribute = true; 
+
+							if ( $product->is_type( 'variable' ) ) { 
+
+								/**
+								 * @var WC_Product_Attribute $attribute_object
+								 */
+								$attribute_object = null;
+								$attribute_objects = $product->get_attributes();
+
+								if ( is_array( $attribute_objects ) ) {
+									if ( isset( $attribute_objects[ $attribute->attribute_name ] ) ) {
+										$attribute_object = $attribute_objects[ $attribute->attribute_name ];
+									} elseif ( isset( $attribute_objects[ 'pa_' . $attribute->attribute_name ] ) ) {
+										$attribute_object = $attribute_objects[ 'pa_' . $attribute->attribute_name ];
+									}
+								}
+
+								if ( $attribute_object !== null ) {
+									if ( is_object( $attribute_object ) && method_exists( $attribute_object, 'get_variation' ) ) {
+										if ( $attribute_object->get_variation() ) {
+											$index_attribute = false;
+										}
+									}
+								}
+							}
+
+							if ( $index_attribute ) {
+								$term_list = get_the_term_list( $post_id, 'pa_' . $attribute->attribute_name, '', ' ', '' );
+								if ( !empty( $term_list ) && is_string( $term_list ) ) { 
+									$attribute_names[] = $attribute->attribute_name;
+									$context_columns[$attribute->attribute_name] = $this->filter( $term_list, $attribute->attribute_name, $post_id );
+								}
 							}
 						}
 					}
@@ -612,53 +916,202 @@ class WooCommerce_Product_Search_Indexer {
 				gmdate( 'Y-m-d H:i:s' )
 			) );
 
+			if ( WooCommerce_Product_Search_Controller::table_exists( 'object_term' ) ) {
+
+				$object_term_table = WooCommerce_Product_Search_Controller::get_tablename( 'object_term' );
+
+				$product_id   = $product->get_id();
+				$type         = $product->get_type();
+				$category_ids = $product->get_category_ids();
+				$tag_ids      = $product->get_tag_ids();
+
+				$attributes   = $product->get_attributes();
+
+				$attribute_term_ids = array();
+
+				$taxonomy_inherited = array();
+
+				$parent_product = null;
+				$parent_product_id = null;
+
+				if ( $product->is_type( 'variation' ) ) {
+
+					$parent_product_id = $product->get_parent_id();
+					if ( $parent_product_id ) {
+						$parent_product = wc_get_product( $parent_product_id );
+						if ( ! ( $parent_product instanceof WC_Product ) ) {
+							$parent_product = null;
+							$parent_product_id = null;
+						} else {
+
+							$category_ids = array_merge( $category_ids, $parent_product->get_category_ids() );
+							$tag_ids = array_merge( $tag_ids, $parent_product->get_tag_ids() );
+						}
+					}
+
+					foreach ( $attributes as $taxonomy => $attribute ) {
+
+						if ( $parent_product !== null ) {
+							$parent_attributes = $parent_product->get_attributes();
+							foreach ( $parent_attributes as $parent_taxonomy => $wc_product_attribute ) {
+								if ( is_string( $parent_taxonomy ) && ( $wc_product_attribute instanceof WC_Product_Attribute ) ) {
+									if ( !$wc_product_attribute->get_variation() ) {
+										$attribute_term_ids = array_merge( $attribute_term_ids, wc_get_product_term_ids( $parent_product_id, $parent_taxonomy ) );
+									}
+								}
+							}
+						}
+
+						if ( is_string( $taxonomy ) && is_string( $attribute ) ) {
+							$term = get_term_by( 'slug', $attribute, $taxonomy );
+							if ( $term ) {
+								$attribute_term_ids[] = $term->term_id;
+							}
+						}
+					}
+
+				} else if ( $product->is_type( 'variable' ) ) {
+
+					$taxonomy_inherited[] = 'product_cat';
+					$taxonomy_inherited[] = 'product_tag';
+
+					foreach ( $attributes as $taxonomy => $wc_product_attribute ) {
+						if ( is_string( $taxonomy ) && ( $wc_product_attribute instanceof WC_Product_Attribute ) ) {
+
+							$attribute_term_ids = array_merge( $attribute_term_ids, wc_get_product_term_ids( $product_id, $taxonomy ) );
+
+							if ( !$wc_product_attribute->get_variation() ) {
+								$taxonomy_inherited[] = $taxonomy;
+							}
+						}
+					}
+
+				} else {
+
+					foreach ( $attributes as $taxonomy => $wc_product_attribute ) {
+						if ( is_string( $taxonomy ) && ( $wc_product_attribute instanceof WC_Product_Attribute ) ) {
+							$attribute_term_ids = array_merge( $attribute_term_ids, wc_get_product_term_ids( $product_id, $taxonomy ) );
+						}
+					}
+
+				}
+
+				$fields = array( 'object_id', 'parent_object_id', 'term_id', 'parent_term_id', 'object_type', 'taxonomy', 'inherit', 'modified' );
+				$term_ids = array_merge( $category_ids, $tag_ids, $attribute_term_ids );
+
+				foreach ( $term_ids as $term_id ) {
+					$term = get_term( $term_id );
+					if ( $term instanceof WP_Term ) {
+						$parent_term_id = $term->parent;
+						if ( is_numeric( $parent_term_id ) ) {
+							$parent_term_id = intval( $parent_term_id );
+							if ( $parent_term_id === 0 ) {
+								$parent_term_id = null;
+							}
+						} else {
+							$parent_term_id = null;
+						}
+						$placeholders = array(
+							'%d', 
+							$parent_product_id !== null ? '%d' : 'NULL', 
+							'%d', 
+							$parent_term_id !== null ? '%d' : 'NULL', 
+							'%s', 
+							'%s', 
+							'%d', 
+							'%s' 
+						);
+						$values = array();
+						$values[] = intval( $product_id ); 
+						if ( $parent_product_id !== null ) {
+							$values[] = intval( $parent_product_id ); 
+						}
+						$values[] = intval( $term_id ); 
+						if ( $parent_term_id !== null ) {
+							$values[] = intval( $parent_term_id ); 
+						}
+						$values[] = $type;
+						$values[] = $term->taxonomy;
+						$values[] = in_array( $term->taxonomy, $taxonomy_inherited ) ? 1 : 0;
+						$values[] = gmdate( 'Y-m-d H:i:s' );
+						$query = "INSERT INTO $object_term_table ";
+						$query .= ' ( ' . implode( ',', $fields ) . ' ) ';
+						$query .= 'VALUES ( ' . implode( ',', $placeholders ) . ' ) ';
+						$query = $wpdb->prepare( $query, $values );
+						$wpdb->query( $query );
+					}
+				}
+
+				if ( $parent_product_id === null ) {
+					$wpdb->query( $wpdb->prepare(
+						"INSERT INTO $object_term_table " .
+						"( object_id, term_id, object_type, modified ) " .
+						"VALUES ( %d, 0, %s, %s )",
+						intval( $product_id ),
+						$type,
+						gmdate( 'Y-m-d H:i:s' )
+					) );
+				} else {
+					$wpdb->query( $wpdb->prepare(
+						"INSERT INTO $object_term_table " .
+						"( object_id, parent_object_id, term_id, object_type, modified ) " .
+						"VALUES ( %d, %d, 0, %s, %s )",
+						intval( $product_id ),
+						intval( $parent_product_id ),
+						$type,
+						gmdate( 'Y-m-d H:i:s' )
+					) );
+				}
+
+			}
 		}
 	}
 
 	public function get_object_type_id( $object_type = null, $context = null, $context_table = null, $context_column = null, $context_key = null ) {
 
 		global $wpdb;
-		$columns = array(
-			'object_type' => $object_type,
-			'context' => $context,
-			'context_table' => $context_table,
-			'context_column' => $context_column,
-			'context_key' => $context_key
-		);
-		$cache_key = self::get_cache_key( $columns );
-		$object_type_id = wp_cache_get( $cache_key, self::CACHE_GROUP );
-		if ( $object_type_id === false ) {
-			$where = array();
-			$values = array();
-			foreach( $columns as $key => $value ) {
-				if ( $value !== null ) {
-					$where[] = "$key = %s";
-					$values[] = $value;
-				} else {
-					$where[] = "$key IS NULL";
-				}
-			}
-			$where = ' WHERE ' . implode( ' AND ', $where );
+
+		$object_type_id = null;
+
+		$object_types = wp_cache_get( 'object_types', self::CACHE_GROUP );
+		if ( $object_types === false ) {
 			$object_type_table = WooCommerce_Product_Search_Controller::get_tablename( 'object_type' );
-			if ( count( $values ) > 0 ) {
-				$query = $wpdb->prepare( "SELECT object_type_id FROM $object_type_table " . $where, $values );
-			} else {
-				$query = "SELECT object_type_id FROM $object_type_table " . $where;
+			$query = "SELECT * FROM $object_type_table";
+			$rows = $wpdb->get_results( $query );
+			if ( is_array( $rows ) ) {
+				foreach ( $rows as $row ) {
+					$hash = md5( implode( ',', array(
+						'object_type'    => $row->object_type,
+						'context'        => $row->context,
+						'context_table'  => $row->context_table,
+						'context_column' => $row->context_column,
+						'context_key'    => $row->context_key
+					) ) );
+					$object_types[$hash] = $row->object_type_id;
+				}
+
+				$cached = wp_cache_set( 'object_types', $object_types, self::CACHE_GROUP );
 			}
-			$object_type_id = $wpdb->get_var( $query );
-			if ( $object_type_id !== null ) {
-				$object_type_id = intval( $object_type_id );
-			}
-			$cached = wp_cache_set( $cache_key, $object_type_id, self::CACHE_GROUP );
+		}
+		$hash = md5( implode( ',', array(
+			'object_type'    => $object_type,
+			'context'        => $context,
+			'context_table'  => $context_table,
+			'context_column' => $context_column,
+			'context_key'    => $context_key
+		) ) );
+		if ( isset( $object_types[$hash] ) ) {
+			$object_type_id = $object_types[$hash];
 		}
 		return $object_type_id;
 	}
+
 
 	private function get_or_add_object_type( $object_type = null, $context = null, $context_table = null, $context_column = null, $context_key = null ) {
 
 		global $wpdb;
 		$object_type_table = WooCommerce_Product_Search_Controller::get_tablename( 'object_type' );
-		if ( $wpdb->get_var( "SHOW TABLES LIKE '$object_type_table'" ) === $object_type_table ) {
+		if ( WooCommerce_Product_Search_Controller::table_exists( 'object_type' ) ) {
 			$object_type = array(
 				'object_type'    => $object_type,
 				'context'        => $context,
@@ -699,6 +1152,8 @@ class WooCommerce_Product_Search_Indexer {
 						wps_log_error( 'Failed to execute database query: ' . $query );
 					} else {
 						$object_type_id = $wpdb->get_var( "SELECT LAST_INSERT_ID()" );
+
+						$deleted = wp_cache_delete( 'object_types', self::CACHE_GROUP );
 					}
 				}
 			}
@@ -747,6 +1202,14 @@ class WooCommerce_Product_Search_Indexer {
 				intval( $object_id )
 			) );
 
+		}
+
+		$object_term_table = WooCommerce_Product_Search_Controller::get_tablename( 'object_term' );
+		if ( WooCommerce_Product_Search_Controller::table_exists( 'object_term' ) ) {
+			$wpdb->query( $wpdb->prepare(
+				"DELETE FROM $object_term_table WHERE object_id = %d",
+				intval( $object_id )
+			) );
 		}
 	}
 

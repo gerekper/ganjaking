@@ -80,7 +80,7 @@ class WooCommerce_Product_Search_Service {
 	const CATEGORY_LIMIT           = 'category_limit';
 	const DEFAULT_CATEGORY_LIMIT   = 5;
 
-	const CACHE_LIFETIME              = 300; 
+	const CACHE_LIFETIME              = 900; 
 	const POST_CACHE_GROUP            = 'ixwpsp';
 	const POST_FILTERED_CACHE_GROUP   = 'ixwpspf';
 	const TERM_CACHE_GROUP            = 'ixwpst';
@@ -88,11 +88,20 @@ class WooCommerce_Product_Search_Service {
 	const TERM_COUNTS_CACHE_GROUP     = 'ixwpstcs';
 	const GET_TERMS_WHERE_CACHE_GROUP = 'ixwpsgtw';
 	const GET_TERMS_POSTS_CACHE_GROUP = 'ixwpsgtp';
+	const OBJECT_TERM_CACHE_GROUP     = 'ixwpsot'; 
+	const POST_STAR_CACHE_GROUP       = 'ixwpspstar'; 
+	const CONSISTENT_POST_CACHE_GROUP = 'ixwpscp'; 
+	const MIN_MAX_PRICE_CACHE_GROUP   = 'ixwpsmmp'; 
 
 	const TERMS_CLAUSES_PRIORITY = 99999;
 	const PARSE_REQUEST_PRIORITY = 99999;
 
 	const IXWPST_CACHE_GROUP = 'ixwps_service_ixwpst';
+
+	const OBJECT_TERM_LIMIT = 100;
+
+	const NAUGHT = -1;
+	const NONE = array( self::NAUGHT );
 
 	private static $maybe_record_hit = true;
 
@@ -403,7 +412,6 @@ class WooCommerce_Product_Search_Service {
 	 */
 	public static function wps_pre_get_posts( $wp_query ) {
 
-
 		self::process_query( $wp_query );
 
 	}
@@ -435,7 +443,7 @@ class WooCommerce_Product_Search_Service {
 	 */
 	private static function process_query( $wp_query ) {
 
-		global $wps_process_query_vars, $wps_process_query;
+		global $wpdb, $wps_process_query_vars, $wps_process_query;
 
 		if ( isset( $wps_process_query ) && !$wps_process_query ) {
 			return;
@@ -462,6 +470,8 @@ class WooCommerce_Product_Search_Service {
 		if ( !$process_query ) {
 			return;
 		}
+
+		$post_ids = null;
 
 		if (
 			$wp_query->is_search() || 
@@ -505,11 +515,17 @@ class WooCommerce_Product_Search_Service {
 					}
 				}
 
-				$post_ids = self::get_post_ids_for_request();
+				$post_ids = self::get_post_ids_for_request( array( 'variations' => true ) );
 
-				if ( !empty( $post_ids ) ) {
+				if ( is_array( $post_ids ) && count( $post_ids ) === 0 ) {
+					$post_ids = null;
+				}
+
+				if ( is_array( $post_ids ) && ( count( $post_ids ) > 0 ) ) { 
+
+					self::make_consistent_post_ids( $post_ids, array( 'limit' => WooCommerce_Product_Search_Controller::get_object_limit() ) );
 					$wp_query->set( 'post__in', $post_ids );
-				} else {
+				} else if ( $post_ids !== null ) { 
 
 					if (
 						$s !== null && $use_engine ||
@@ -526,7 +542,7 @@ class WooCommerce_Product_Search_Service {
 							( isset( $_REQUEST['ixwpse'] ) && !empty( $_REQUEST['rating'] ) ) 
 						) {
 
-							$wp_query->set( 'post__in', array( 0 ) );
+							$wp_query->set( 'post__in', self::NONE );
 						}
 					}
 				}
@@ -543,48 +559,203 @@ class WooCommerce_Product_Search_Service {
 
 		}
 
-		$ixwpst = self::get_ixwpst( $wp_query );
-		if ( !empty( $ixwpst ) ) {
-			$tax_query = $wp_query->get( 'tax_query' );
-			if ( empty( $tax_query ) ) {
-				$tax_query = array();
-			}
+		if ( $post_ids === null || is_array( $post_ids ) && count( $post_ids ) > 0 ) {
 
-			$terms = array();
-			foreach ( $ixwpst as $index => $term_ids ) { 
+			$ixwpst = self::get_ixwpst( $wp_query );
+			if ( !empty( $ixwpst ) ) {
 
-				if ( !is_array( $term_ids ) ) {
-					$term_ids = array( $term_ids );
+				$limit = apply_filters( 'woocommerce_product_search_process_query_object_term_limit', self::OBJECT_TERM_LIMIT );
+				if ( is_numeric( $limit ) ) {
+					$limit = intval( $limit );
+				} else {
+					$limit = self::OBJECT_TERM_LIMIT;
 				}
-				foreach ( $term_ids as $term_id ) {
-					$term_id = intval( $term_id );
-					$term = get_term( $term_id );
-					if ( ( $term !== null ) && !( $term instanceof WP_Error) ) {
-						$terms[$term->taxonomy][] = $term->term_id;
+				$limit = max( 1, $limit );
 
+				$object_term_table = WooCommerce_Product_Search_Controller::get_tablename( 'object_term' );
+
+					$request_term_ids = array();
+
+					$term_ids_by_taxonomy = array();
+					foreach ( $ixwpst as $index => $term_ids ) {
+						if ( count( $request_term_ids ) >= $limit ) {
+							break;
+						}
+
+						if ( !is_array( $term_ids ) ) {
+							$term_ids = array( $term_ids );
+						}
+						$term_ids = array_map( 'intval', $term_ids );
+						$term_ids = array_unique( $term_ids );
+
+						foreach ( $term_ids as $term_id ) {
+							if ( count( $request_term_ids ) >= $limit ) {
+								break;
+							}
+							if ( $term_id > 0 ) {
+
+								$term = get_term( $term_id );
+								if ( ( $term !== null ) && !( $term instanceof WP_Error) ) {
+									$request_term_ids[] = $term_id;
+									$term_ids_by_taxonomy[$term->taxonomy][] = $term_id;
+									if ( is_taxonomy_hierarchical( $term->taxonomy ) ) {
+										$child_term_ids = get_term_children( $term_id, $term->taxonomy );
+										if ( is_array( $child_term_ids ) ) {
+											$child_term_ids = array_map( 'intval', $child_term_ids );
+											$child_term_ids = array_unique( $child_term_ids );
+											if ( count( $child_term_ids ) + count( $request_term_ids ) > $limit ) {
+												$child_max = max( 0, $limit - count( $request_term_ids ) );
+												$child_term_ids = array_slice( $child_term_ids, 0, $child_max );
+											}
+											$request_term_ids = array_merge( $request_term_ids, $child_term_ids );
+											$term_ids_by_taxonomy[$term->taxonomy] = array_merge( $term_ids_by_taxonomy[$term->taxonomy], $child_term_ids );
+										}
+									}
+								}
+							}
+						}
 					}
-				}
-			}
 
-			foreach ( $terms as $taxonomy => $term_ids ) {
-				$tax_query[] = array(
-					'taxonomy' => $taxonomy,
-					'field'    => 'term_id',
-					'terms'    => $term_ids,
-					'operator' => 'IN'
-				);
-			}
-			if ( count( $tax_query ) > 0 ) {
+					if ( count( $request_term_ids ) > 0 ) {
 
-				if ( count( $tax_query ) > 1 ) {
-					$tax_query['relation'] = 'AND';
-				}
-				$wp_query->set( 'tax_query', $tax_query );
-			}
+						$cache_key = self::get_cache_key( array(
+							'term_ids'  => json_encode( $term_ids ),
+							'ixwpst'    => json_encode( $ixwpst ),
+							'is_ixwpst' => self::is_ixwpst() ? 'yes' : 'no'
+						) );
+						$terms_post_ids = wps_cache_get( $cache_key, self::OBJECT_TERM_CACHE_GROUP );
+						if ( $terms_post_ids === false ) {
+
+							$query = "SELECT DISTINCT object_id FROM $object_term_table ";
+
+							$parts = array();
+							foreach ( $term_ids_by_taxonomy as $taxonomy => $term_ids ) {
+
+								$term_ids = array_map( 'intval', $term_ids );
+								$term_ids = array_unique( $term_ids );
+
+								$parts[] =
+									'object_id IN ( ' .
+									"SELECT DISTINCT IF ( object_type IN ( 'variation', 'subscription_variation' ), parent_object_id, object_id ) AS object_id FROM $object_term_table " .
+									'WHERE ' .
+									'term_id IN ( ' . implode( ',', array_map( 'intval', $term_ids ) ) . ' ) ' .
+									'UNION ' .
+									"SELECT DISTINCT object_id FROM $object_term_table " .
+									'WHERE ' .
+									"object_type IN ( 'variation', 'subscription_variation'  )" .
+									'AND ' .
+									'term_id IN ( ' . implode( ',', array_map( 'intval', $term_ids ) ) . ' ) ' .
+									') ';
+							}
+							if ( count( $parts ) > 0 ) {
+								$parts = implode( ' AND ', $parts ); 
+								$query .= "WHERE " . $parts;
+							}
+
+							$terms_post_ids = $wpdb->get_col( $query );
+							if ( is_array( $terms_post_ids ) ) {
+								$terms_post_ids = array_map( 'intval', $terms_post_ids );
+							}
+
+							$cached = wps_cache_set( $cache_key, $terms_post_ids, self::OBJECT_TERM_CACHE_GROUP, self::get_cache_lifetime() );
+						}
+
+						if ( count( $terms_post_ids ) > 0 ) {
+							if ( $post_ids !== null ) {
+								$post_ids = array_intersect( $post_ids, $terms_post_ids );
+								if ( count( $post_ids ) === 0 ) {
+									$post_ids = self::NONE; 
+								}
+							} else {
+								$post_ids = $terms_post_ids;
+							}
+
+							self::make_consistent_post_ids( $post_ids, array( 'limit' => WooCommerce_Product_Search_Controller::get_object_limit() ) );
+							$wp_query->set( 'post__in', $post_ids );
+						} else {
+
+							$wp_query->set( 'post__in', self::NONE );
+						}
+					} else {
+
+						$wp_query->set( 'post__in', self::NONE );
+					}
+
+			} 
 		}
 
 		$wps_process_query_vars = $wp_query->query_vars;
 
+	}
+
+	/**
+	 * Revises post_ids for consistency.
+	 *
+	 * @param &$post_ids array
+	 * @param $params array
+	 */
+	public static function make_consistent_post_ids( &$post_ids, $params = null ) {
+
+
+		global $wpdb;
+
+		$limit = null;
+		if ( isset( $params['limit'] ) ) {
+			$limit = intval( $params['limit'] );
+			if ( $limit <= 0 ) {
+				$limit = null;
+			}
+		}
+
+		if ( is_array( $post_ids ) && count( $post_ids ) > 0 ) {
+			$post_ids = array_map( 'intval', $post_ids );
+
+			$cache_key = self::get_cache_key( $post_ids );
+			$cached_post_ids = wps_cache_get( $cache_key, self::CONSISTENT_POST_CACHE_GROUP );
+			if ( $cached_post_ids !== false ) {
+				$post_ids = $cached_post_ids;
+			} else {
+				$object_term_table = WooCommerce_Product_Search_Controller::get_tablename( 'object_term' );
+				$query =
+					"SELECT object_id FROM $object_term_table WHERE " .
+					"object_type NOT IN ('variable', 'variable-subscription') AND object_id IN ( " . implode( ',', $post_ids ) . " ) " . 
+					"UNION " .
+					"SELECT DISTINCT parent_object_id FROM $object_term_table WHERE " .
+					"object_type IN ( 'variation', 'subscription_variation' ) AND object_id IN ( " . implode( ',', $post_ids ) . " ) AND parent_object_id IN ( " . implode( ',', $post_ids ) . " ) "; 
+				if ( $limit !== null ) {
+					$query .= ' LIMIT ' . intval( $limit );
+				}
+				$post_ids = $wpdb->get_col( $query );
+				$post_ids = array_map( 'intval', $post_ids );
+				if ( count( $post_ids ) === 0 ) {
+					$post_ids = self::NONE;
+				}
+				$cached = wps_cache_set( $cache_key, $post_ids, self::CONSISTENT_POST_CACHE_GROUP, self::get_cache_lifetime() );
+			}
+		}
+	}
+
+	/**
+	 * @since 3.0.0
+	 *
+	 * @return boolean
+	 */
+	public static function is_ixwpst() {
+		$result = false;
+		$ixwpst = self::get_request_ixwpst();
+		if ( is_array( $ixwpst ) && count( $ixwpst ) > 0 ) {
+			$result = true;
+		}
+		return $result;
+	}
+
+	/**
+	 * @since 3.0.0
+	 *
+	 * @return array
+	 */
+	public static function get_request_ixwpst() {
+		return isset( $_REQUEST['ixwpst'] ) && is_array( $_REQUEST['ixwpst'] ) ? $_REQUEST['ixwpst'] : array();
 	}
 
 	/**
@@ -596,10 +767,10 @@ class WooCommerce_Product_Search_Service {
 	 */
 	private static function get_ixwpst( $wp_query ) {
 
-		$ixwpst = isset( $_REQUEST['ixwpst'] ) && is_array( $_REQUEST['ixwpst'] ) ? $_REQUEST['ixwpst'] : array();
+		$ixwpst = self::get_request_ixwpst();
 
 		$cache_key = md5( json_encode( $wp_query ) . json_encode( $ixwpst ) );
-		$cached = wp_cache_get( $cache_key, self::IXWPST_CACHE_GROUP );
+		$cached = wps_cache_get( $cache_key, self::IXWPST_CACHE_GROUP );
 		if ( $cached !== false ) {
 			return $cached;
 		}
@@ -661,7 +832,7 @@ class WooCommerce_Product_Search_Service {
 				}
 			}
 			if ( !$process_query ) {
-				$cached = wp_cache_set( $cache_key, $ixwpst, self::IXWPST_CACHE_GROUP );
+				$cached = wps_cache_set( $cache_key, $ixwpst, self::IXWPST_CACHE_GROUP );
 				return $ixwpst;
 			}
 
@@ -827,7 +998,7 @@ class WooCommerce_Product_Search_Service {
 			if ( count( $post_ids ) > 0 ) {
 
 				$cache_key = self::get_cache_key( $post_ids );
-				$posts = wp_cache_get( $cache_key, self::GET_TERMS_POSTS_CACHE_GROUP );
+				$posts = wps_cache_get( $cache_key, self::GET_TERMS_POSTS_CACHE_GROUP );
 				if ( $posts === false ) {
 
 					$query_args = array(
@@ -850,12 +1021,12 @@ class WooCommerce_Product_Search_Service {
 					if ( $had_pre_get_posts ) { add_action( 'pre_get_posts', array( __CLASS__, 'wps_pre_get_posts' ) ); }
 					if ( $had_get_terms_args ) { add_filter( 'get_terms_args', array( __CLASS__, 'get_terms_args' ), 10, 2 ); }
 					if ( $had_get_terms ) { add_filter( 'get_terms', array( __CLASS__, 'get_terms' ), 10, 4 ); }
-					$cached = wp_cache_set( $cache_key, $posts, self::GET_TERMS_POSTS_CACHE_GROUP, self::get_cache_lifetime() );
+					$cached = wps_cache_set( $cache_key, $posts, self::GET_TERMS_POSTS_CACHE_GROUP, self::get_cache_lifetime() );
 				}
 				if ( is_array( $posts ) && count( $posts ) > 0 ) {
 					$post_ids = $posts;
 				} else {
-					$post_ids = array( -1 );
+					$post_ids = self::NONE;
 				}
 			}
 		}
@@ -890,24 +1061,27 @@ class WooCommerce_Product_Search_Service {
 			}
 		}
 
+
+		$object_term_table = WooCommerce_Product_Search_Controller::get_tablename( 'object_term' );
+
 		$where = array(
-			"tt.taxonomy IN ('" . implode( "','", esc_sql( $product_taxonomies ) ) . "') "
+			"ot.taxonomy IN ('" . implode( "','", esc_sql( $product_taxonomies ) ) . "') "
 		);
 		if ( isset( $args['include'] ) ) {
 			if ( is_array( $args['include'] ) && count( $args['include'] ) > 0 ) {
-				$where[] = 'tt.term_id IN (' . implode( ',', array_map( 'intval', $args['include'] ) ) . ') '; 
+				$where[] = 'ot.term_id IN (' . implode( ',', array_map( 'intval', $args['include'] ) ) . ') '; 
 			}
 		}
 		if ( isset( $args['exclude'] ) ) {
 			if ( is_array( $args['exclude'] ) && count( $args['exclude'] ) > 0 ) {
-				$where[] = 'tt.term_id NOT IN (' . implode( ',', array_map( 'intval', $args['exclude'] ) ) . ') '; 
+				$where[] = 'ot.term_id NOT IN (' . implode( ',', array_map( 'intval', $args['exclude'] ) ) . ') '; 
 			}
 		}
 
-		if ( $post_ids === null ) {
+		if ( $post_ids === null || is_array( $post_ids ) && count( $post_ids ) === 0 ) { 
 
 			$cache_key = self::get_cache_key( array( '*' ) );
-			$posts = wp_cache_get( $cache_key, self::GET_TERMS_POSTS_CACHE_GROUP );
+			$posts = wps_cache_get( $cache_key, self::GET_TERMS_POSTS_CACHE_GROUP );
 			if ( $posts === false ) {
 
 				$query_args = array(
@@ -928,45 +1102,45 @@ class WooCommerce_Product_Search_Service {
 				if ( $had_pre_get_posts ) { add_action( 'pre_get_posts', array( __CLASS__, 'wps_pre_get_posts' ) ); }
 				if ( $had_get_terms_args ) { add_filter( 'get_terms_args', array( __CLASS__, 'get_terms_args' ), 10, 2 ); }
 				if ( $had_get_terms ) { add_filter( 'get_terms', array( __CLASS__, 'get_terms' ), 10, 4 ); }
-				$cached = wp_cache_set( $cache_key, $posts, self::GET_TERMS_POSTS_CACHE_GROUP, self::get_cache_lifetime() );
+				$cached = wps_cache_set( $cache_key, $posts, self::GET_TERMS_POSTS_CACHE_GROUP, self::get_cache_lifetime() );
 			}
 			if ( is_array( $posts ) && count( $posts ) > 0 ) {
 				$post_ids = $posts;
 			} else {
-				$post_ids = array( -1 );
+				$post_ids = self::NONE;
 			}
 		}
 
 		if ( $post_ids !== null && is_array( $post_ids ) && count( $post_ids ) > 0 ) {
 
 			$hide_empty = !isset( $args['hide_empty'] ) || $args['hide_empty'];
-			if ( $hide_empty ) {
-				$where[] = "tr.object_id IN (" . implode( ',', array_map( 'intval', $post_ids ) ) . ") ";
+			if ( true || $hide_empty ) {
+
+				$where[] = "ot.term_id IN ( SELECT DISTINCT term_id FROM $object_term_table WHERE object_id IN (" . implode( ',', esc_sql( $post_ids ) ) . ") )";
+
 			}
 		}
 
 		if ( $taxonomy_term_ids !== null && is_array( $taxonomy_term_ids ) && count( $taxonomy_term_ids ) > 0 ) {
 			foreach ( $taxonomy_term_ids as $taxonomy => $term_ids ) {
 				if ( count( $term_ids ) > 0 ) {
+
+					$part =
+						'ot.object_id IN ( ' .
+						"SELECT IF ( object_type IN ( 'variation', 'subscription_variation' ), parent_object_id, object_id ) AS object_id FROM $object_term_table " .
+						'WHERE ' .
+						'term_id IN ( ' . implode( ',', array_map( 'intval', $term_ids ) ) . ' ) ' .
+						') ';
 					if ( in_array( $taxonomy, $multiple_taxonomies ) ) {
 
 						$where[] =
-							" ( " .
-							"tt.taxonomy = '" . esc_sql( $taxonomy ) . "' OR " .
-							"tr.object_id IN (" .
-							"SELECT tr2.object_id FROM $wpdb->term_relationships tr2 " .
-							"LEFT JOIN $wpdb->term_taxonomy tt2 ON tr2.term_taxonomy_id = tt2.term_taxonomy_id " .
-							"WHERE tt2.term_id IN (" . implode( ',', array_map( 'intval', $term_ids ) ) . ") " .
-							") " . 
-							" ) ";
+							' ( ' .
+							"ot.taxonomy = '" . esc_sql( $taxonomy ) . "' OR " .
+							$part .
+							' ) ';
 					} else {
 
-						$where[] =
-							"tr.object_id IN (" .
-							"SELECT tr2.object_id FROM $wpdb->term_relationships tr2 " .
-							"LEFT JOIN $wpdb->term_taxonomy tt2 ON tr2.term_taxonomy_id = tt2.term_taxonomy_id " .
-							"WHERE tt2.term_id IN (" . implode( ',', array_map( 'intval', $term_ids ) ) . ") " .
-							") ";
+						$where[] = $part;
 					}
 				}
 			}
@@ -978,22 +1152,25 @@ class WooCommerce_Product_Search_Service {
 				}
 				if ( key_exists( $taxonomy, $taxonomy_term_ids ) ) {
 					if ( count( $taxonomy_term_ids[$taxonomy] ) > 0 ) {
-						$where[] = " tt.term_id IN (" . implode( ',', array_map( 'intval', $taxonomy_term_ids[$taxonomy] ) ) . ") "; 
+						$where[] = " ot.term_id IN (" . implode( ',', array_map( 'intval', $taxonomy_term_ids[$taxonomy] ) ) . ") "; 
 					}
 				}
 			}
 		}
 
 		$cache_key = self::get_cache_key( $where );
-		$allowed_term_ids = wp_cache_get( $cache_key, self::GET_TERMS_WHERE_CACHE_GROUP );
+		$allowed_term_ids = wps_cache_get( $cache_key, self::GET_TERMS_WHERE_CACHE_GROUP );
 		if ( $allowed_term_ids === false ) {
 
+
 			$query =
-				"SELECT /*! STRAIGHT_JOIN */ DISTINCT tt.term_id FROM $wpdb->term_taxonomy tt " .
-				"LEFT JOIN $wpdb->term_relationships tr ON tr.term_taxonomy_id = tt.term_taxonomy_id " .
-				"WHERE " . implode( ' AND ', $where );
+				"SELECT DISTINCT ot.term_id FROM $object_term_table ot ";
+			if ( count( $where ) > 0 ) {
+				$query .= "WHERE " . implode( ' AND ', $where );
+			}
+
 			$allowed_term_ids = $wpdb->get_col( $query );
-			$cached = wp_cache_set( $cache_key, $allowed_term_ids, self::GET_TERMS_WHERE_CACHE_GROUP, self::get_cache_lifetime() );
+			$cached = wps_cache_set( $cache_key, $allowed_term_ids, self::GET_TERMS_WHERE_CACHE_GROUP, self::get_cache_lifetime() );
 		}
 		if ( is_array( $allowed_term_ids ) && count( $allowed_term_ids ) > 0 ) {
 
@@ -1092,7 +1269,7 @@ class WooCommerce_Product_Search_Service {
 
 			$args['include'] = array_map( 'intval', $allowed_term_ids );
 		} else {
-			$args['include'] = array( -1 );
+			$args['include'] = self::NONE;
 		}
 
 
@@ -1223,9 +1400,11 @@ class WooCommerce_Product_Search_Service {
 	/**
 	 * Provide results
 	 *
+	 * @param $params array
+	 *
 	 * @return array
 	 */
-	public static function get_post_ids_for_request() {
+	public static function get_post_ids_for_request( $params = null ) {
 
 
 		global $wpdb, $wps_doing_ajax, $wps_wc_query_price_filter_post_clauses;
@@ -1239,8 +1418,20 @@ class WooCommerce_Product_Search_Service {
 		$attributes  = isset( $_REQUEST[self::ATTRIBUTES] ) ? intval( $_REQUEST[self::ATTRIBUTES] ) > 0 : self::DEFAULT_ATTRIBUTES;
 		$variations  = isset( $_REQUEST[self::VARIATIONS] ) ? intval( $_REQUEST[self::VARIATIONS] ) > 0 : self::DEFAULT_VARIATIONS;
 
-		$min_price   = isset( $_REQUEST[self::MIN_PRICE] ) ? self::to_float( $_REQUEST[self::MIN_PRICE] ) : null;
-		$max_price   = isset( $_REQUEST[self::MAX_PRICE] ) ? self::to_float( $_REQUEST[self::MAX_PRICE] ) : null;
+		if ( isset( $params['variations'] ) ) {
+			$variations = $params['variations'];
+		}
+
+		$limit = null;
+		if ( isset( $params['limit'] ) ) {
+			$limit = intval( $params['limit'] );
+			if ( $limit < 0 ) {
+				$limit = 0;
+			}
+		}
+
+		$min_price = isset( $_REQUEST[self::MIN_PRICE] ) ? self::to_float( $_REQUEST[self::MIN_PRICE] ) : null;
+		$max_price = isset( $_REQUEST[self::MAX_PRICE] ) ? self::to_float( $_REQUEST[self::MAX_PRICE] ) : null;
 
 		if ( $min_price !== null && $min_price <= 0 ) {
 			$min_price = null;
@@ -1307,9 +1498,16 @@ class WooCommerce_Product_Search_Service {
 			'rating'       => $rating 
 		) );
 
-		$post_ids = wp_cache_get( $cache_key, self::POST_CACHE_GROUP );
+		$post_ids = wps_cache_get( $cache_key, self::POST_CACHE_GROUP );
 		if ( $post_ids !== false ) {
-			self::maybe_record_hit( $record_search_query, count( $post_ids ) );
+
+			$count = count( $post_ids );
+			if ( $count === 1 ) {
+				if ( in_array( self::NAUGHT, $post_ids ) ) {
+					$count = 0;
+				}
+			}
+			self::maybe_record_hit( $record_search_query, $count );
 			return $post_ids;
 		}
 
@@ -1423,9 +1621,11 @@ class WooCommerce_Product_Search_Service {
 				if ( $min_price !== null && $max_price === null ) {
 					$conj[] = sprintf( " ID IN ( SELECT product_id FROM {$wpdb->wc_product_meta_lookup} wc_product_meta_lookup WHERE min_price >= %s %s ) ", floatval( $min_price ), $price_union );
 				} else if ( $min_price === null && $max_price !== null ) {
-					$conj[] = sprintf( " ID IN ( SELECT product_id FROM {$wpdb->wc_product_meta_lookup} wc_product_meta_lookup WHERE max_price <= %s %s ) ", floatval( $max_price ), $price_union );
+
+					$conj[] = sprintf( " ID IN ( SELECT product_id FROM {$wpdb->wc_product_meta_lookup} wc_product_meta_lookup WHERE min_price <= %s %s ) ", floatval( $max_price ), $price_union );
 				} else {
-					$conj[] = sprintf( " ID IN ( SELECT product_id FROM {$wpdb->wc_product_meta_lookup} wc_product_meta_lookup WHERE min_price >= %s AND max_price <= %s %s ) ", floatval( $min_price ), floatval( $max_price ), $price_union );
+
+					$conj[] = sprintf( " ID IN ( SELECT product_id FROM {$wpdb->wc_product_meta_lookup} wc_product_meta_lookup WHERE min_price >= %s AND min_price <= %s %s ) ", floatval( $min_price ), floatval( $max_price ), $price_union );
 				}
 
 				$wps_wc_query_price_filter_post_clauses = has_filter( 'posts_clauses', array( WC()->query, 'price_filter_post_clauses' ) );
@@ -1447,15 +1647,25 @@ class WooCommerce_Product_Search_Service {
 
 		if ( $on_sale ) {
 			$on_sale_ids = wc_get_product_ids_on_sale();
-			if ( is_array( $on_sale_ids ) && count( $on_sale_ids ) > 0 ) {
-				$conj[] = sprintf( " ID IN ( " . implode( ',', array_map( 'intval', $on_sale_ids ) ) . " ) " );
+			if ( is_array( $on_sale_ids ) ) {
+				if ( count( $on_sale_ids ) > 0 ) {
+					$conj[] = sprintf( " ID IN ( " . implode( ',', array_map( 'intval', $on_sale_ids ) ) . " ) " );
+				} else {
+
+					$conj[] = ' ID = ' . esc_sql( self::NAUGHT ) ;
+				}
 			}
 		}
 
 		if ( $rating !== null ) {
 			if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '3.6.0' ) >= 0 ) {
 				$conj[] = sprintf(
-					" ID IN ( SELECT product_id FROM {$wpdb->wc_product_meta_lookup} wc_product_meta_lookup WHERE wc_product_meta_lookup.average_rating >= %s ) ",
+					" ID IN ( " .
+						"SELECT product_id FROM {$wpdb->wc_product_meta_lookup} wc_product_meta_lookup WHERE wc_product_meta_lookup.average_rating >= %s " .
+						"UNION " . 
+						"SELECT ID AS product_id FROM {$wpdb->posts} WHERE post_type = 'product_variation' AND post_parent IN ( SELECT product_id FROM {$wpdb->wc_product_meta_lookup} wc_product_meta_lookup WHERE wc_product_meta_lookup.average_rating >= %s ) " .
+					") ",
+					esc_sql( floor( $rating ) - 0.5 ),
 					esc_sql( floor( $rating ) - 0.5 )
 				);
 			} else {
@@ -1505,11 +1715,20 @@ class WooCommerce_Product_Search_Service {
 				}
 				$query = sprintf( "SELECT /*! STRAIGHT_JOIN */ ID FROM $wpdb->posts posts %s WHERE %s AND %s", $join, $where, $conditions );
 
+				if ( $limit === null ) {
+					$object_limit = WooCommerce_Product_Search_Controller::get_object_limit();
+				} else {
+					$object_limit = $limit;
+				}
+				if ( $object_limit > 0 ) {
+					$query .= ' LIMIT ' . intval( $object_limit );
+				}
+
 				if ( $log_query_times ) {
 					$start = function_exists( 'microtime' ) ? microtime( true ) : time();
 				}
 
-				$results = $wpdb->get_results( $query );
+				$results = $wpdb->get_col( $query ); 
 
 				if ( $log_query_times ) {
 					$time = ( function_exists( 'microtime' ) ? microtime( true ) : time() ) - $start;
@@ -1533,17 +1752,27 @@ class WooCommerce_Product_Search_Service {
 					);
 				}
 				if ( !empty( $results ) && is_array( $results ) ) {
-					foreach ( $results as $result ) {
-						$include[] = intval( $result->ID );
+					if ( count( $results ) > 0 ) {
+						$include = array_map( 'intval', $results ); 
+					} else {
+						$include = self::NONE;
 					}
+				} else {
+					$include = self::NONE;
 				}
 				unset( $results );
 			}
 		}
 
-		$cached = wp_cache_set( $cache_key, $include, self::POST_CACHE_GROUP, self::get_cache_lifetime() );
+		$cached = wps_cache_set( $cache_key, $include, self::POST_CACHE_GROUP, self::get_cache_lifetime() );
 
-		self::maybe_record_hit( $record_search_query, count( $include ) );
+		$count = count( $include );
+		if ( $count === 1 ) {
+			if ( in_array( self::NAUGHT, $include ) ) {
+				$count = 0;
+			}
+		}
+		self::maybe_record_hit( $record_search_query, $count );
 
 		return $include;
 	}
@@ -1551,12 +1780,18 @@ class WooCommerce_Product_Search_Service {
 	/**
 	 * Provide eligible post IDs after filtering.
 	 *
+	 * @param $params array
+	 *
 	 * @return null|array of post IDs
 	 */
-	public static function get_post_ids_for_request_filtered() {
+	public static function get_post_ids_for_request_filtered( $params = null ) {
 
 
 		global $wps_doing_ajax;
+
+		$all = true;
+
+		$variations = isset( $params['variations'] ) && $params['variations'] === true;
 
 		$post_ids = null;
 		if (
@@ -1569,16 +1804,16 @@ class WooCommerce_Product_Search_Service {
 				$_REQUEST[self::SEARCH_QUERY] = isset( $_REQUEST['ixwpss'] ) ? $_REQUEST['ixwpss'] : '';
 			}
 
-			$post_ids = self::get_post_ids_for_request();
+			$post_ids = self::get_post_ids_for_request( $params );
 			if ( count( $post_ids ) > 0 ) {
 
 				$cache_key = self::get_cache_key( $post_ids );
-				$posts = wp_cache_get( $cache_key, self::POST_FILTERED_CACHE_GROUP );
+				$posts = wps_cache_get( $cache_key, self::POST_FILTERED_CACHE_GROUP );
 				if ( $posts === false ) {
 
 					$query_args = array(
 						'fields'           => 'ids',
-						'post_type'        => 'product',
+						'post_type'        => !$variations ? 'product' : array( 'product', 'product_variation' ),
 						'post_status'      => self::get_post_status(),
 						'post__in'         => $post_ids,
 						'include'          => $post_ids,
@@ -1596,25 +1831,25 @@ class WooCommerce_Product_Search_Service {
 					if ( $had_pre_get_posts ) { add_action( 'pre_get_posts', array( __CLASS__, 'wps_pre_get_posts' ) ); }
 					if ( $had_get_terms_args ) { add_filter( 'get_terms_args', array( __CLASS__, 'get_terms_args' ), 10, 2 ); }
 					if ( $had_get_terms ) { add_filter( 'get_terms', array( __CLASS__, 'get_terms' ), 10, 4 ); }
-					$cached = wp_cache_set( $cache_key, $posts, self::POST_FILTERED_CACHE_GROUP, self::get_cache_lifetime() );
+					$cached = wps_cache_set( $cache_key, $posts, self::POST_FILTERED_CACHE_GROUP, self::get_cache_lifetime() );
 				}
 				if ( is_array( $posts ) && count( $posts ) > 0 ) {
 					$post_ids = array_map( 'intval', $posts );
 				} else {
-					$post_ids = array( -1 );
+					$post_ids = self::NONE;
 				}
-			} else {
-
-				$post_ids = array( -1 );
+				$all = false;
 			}
-		} else {
+
+		}
+		if ( $all ) {
 
 			$cache_key = self::get_cache_key( array( '*' ) );
-			$posts = wp_cache_get( $cache_key, self::POST_FILTERED_CACHE_GROUP );
+			$posts = wps_cache_get( $cache_key, self::POST_FILTERED_CACHE_GROUP );
 			if ( $posts === false ) {
 				$query_args = array(
 					'fields'           => 'ids',
-					'post_type'        => 'product',
+					'post_type'        => !$variations ? 'product' : array( 'product', 'product_variation' ),
 					'post_status'      => self::get_post_status(),
 					'posts_per_page'   => -1,
 					'numberposts'      => -1,
@@ -1646,12 +1881,12 @@ class WooCommerce_Product_Search_Service {
 				if ( $had_pre_get_posts ) { add_action( 'pre_get_posts', array( __CLASS__, 'wps_pre_get_posts' ) ); }
 				if ( $had_get_terms_args ) { add_filter( 'get_terms_args', array( __CLASS__, 'get_terms_args' ), 10, 2 ); }
 				if ( $had_get_terms ) { add_filter( 'get_terms', array( __CLASS__, 'get_terms' ), 10, 4 ); }
-				$cached = wp_cache_set( $cache_key, $posts, self::POST_FILTERED_CACHE_GROUP, self::get_cache_lifetime() );
+				$cached = wps_cache_set( $cache_key, $posts, self::POST_FILTERED_CACHE_GROUP, self::get_cache_lifetime() );
 			}
 			if ( is_array( $posts ) && count( $posts ) > 0 ) {
 				$post_ids = array_map( 'intval', $posts );
 			} else {
-				$post_ids = array( -1 );
+				$post_ids = self::NONE;
 			}
 		}
 		return $post_ids;
@@ -1671,7 +1906,7 @@ class WooCommerce_Product_Search_Service {
 	 * Record a first hit during the request.
 	 *
 	 * @param $search_query string the query string
-	 * @param $count int numner of results found for the query string
+	 * @param $count int number of results found for the query string
 	 *
 	 * @return int hit_id if it was recorded (null otherwise, also when it was previously recorded)
 	 */
@@ -1690,8 +1925,8 @@ class WooCommerce_Product_Search_Service {
 	/**
 	 * Min-max adjustment
 	 *
-	 * @param float $min_price
-	 * @param float $max_price
+	 * @param $min_price float
+	 * @param $max_price float
 	 */
 	public static function min_max_price_adjust( &$min_price, &$max_price ) {
 
@@ -1731,8 +1966,8 @@ class WooCommerce_Product_Search_Service {
 	/**
 	 * Min-max adjustment for display.
 	 *
-	 * @param float $min_price
-	 * @param float $max_price
+	 * @param $min_price float
+	 * @param $max_price float
 	 */
 	public static function min_max_price_adjust_for_display( &$min_price, &$max_price ) {
 
@@ -1857,52 +2092,67 @@ class WooCommerce_Product_Search_Service {
 				unset( $wps_process_query_vars['post__in'] );
 			}
 
-			$query_vars = $wps_process_query_vars;
-			$query_vars['posts_per_page'] = -1;
-			$query_vars['fields'] = 'ids';
-			$query_vars['orderby'] = 'none'; 
-			$q = new WP_Query( $query_vars );
-			$products = $q->get_posts();
-			if ( count( $products ) > 0 ) {
+			$cache_key = self::get_cache_key( array( json_encode( $wps_process_query_vars ) ) );
+			$cached_min_max = wps_cache_get( $cache_key, self::MIN_MAX_PRICE_CACHE_GROUP );
+			if ( $cached_min_max !== false ) {
+				$min_max = $cached_min_max;
+			} else {
+				$query_vars = $wps_process_query_vars;
+				$query_vars['posts_per_page'] = -1;
+				$query_vars['fields'] = 'ids';
+				$query_vars['orderby'] = 'none'; 
 
-				if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '3.6.0' ) >= 0 ) {
-					$query =
-						"SELECT MIN( 0 + wc_product_meta_lookup.min_price ) AS min_price, MAX( 0 + wc_product_meta_lookup.max_price ) AS max_price " .
-						"FROM {$wpdb->wc_product_meta_lookup} wc_product_meta_lookup " .
-						"WHERE wc_product_meta_lookup.product_id IN (" . implode( ',', array_map( 'intval', $products ) ) . ") ";
-				} else {
+				$q = new WP_Query();
+				$products = $q->query( $query_vars );
+				if ( count( $products ) > 0 ) {
 
-					$query =
-						"SELECT MIN( 0 + price_meta.meta_value ) AS min_price, MAX( 0 + price_meta.meta_value ) AS max_price " .
-						"FROM $wpdb->postmeta AS price_meta " .
-						"WHERE price_meta.post_id IN (" . implode( ',', array_map( 'intval', $products ) ) . ") " .
-						"AND price_meta.meta_key IN ('" . implode( "','", array_map( 'esc_sql', apply_filters( 'woocommerce_price_filter_meta_keys', array( '_price' ) ) ) ) . "') " .
-						"AND price_meta.meta_value > ''";
-				}
-				if ( $min_max_row = $wpdb->get_row( $query, ARRAY_A ) ) {
+					if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '3.6.0' ) >= 0 ) {
+						$query =
+							"SELECT MIN( 0 + wc_product_meta_lookup.min_price ) AS min_price, MAX( 0 + wc_product_meta_lookup.max_price ) AS max_price " .
+							"FROM {$wpdb->wc_product_meta_lookup} wc_product_meta_lookup " .
+							"WHERE wc_product_meta_lookup.product_id IN (" . implode( ',', array_map( 'intval', $products ) ) . ") ";
+					} else {
 
-					$min_max['min_price'] = isset( $min_max_row['min_price'] ) ? intval( floor( $min_max_row['min_price'] ) ) : 0;
-					$min_max['max_price'] = isset( $min_max_row['max_price'] ) ? intval( ceil( $min_max_row['max_price'] ) ) : '';
+						$query =
+							"SELECT MIN( 0 + price_meta.meta_value ) AS min_price, MAX( 0 + price_meta.meta_value ) AS max_price " .
+							"FROM $wpdb->postmeta AS price_meta " .
+							"WHERE price_meta.post_id IN (" . implode( ',', array_map( 'intval', $products ) ) . ") " .
+							"AND price_meta.meta_key IN ('" . implode( "','", array_map( 'esc_sql', apply_filters( 'woocommerce_price_filter_meta_keys', array( '_price' ) ) ) ) . "') " .
+							"AND price_meta.meta_value > ''";
+					}
 
-					global $woocommerce_wpml;
-					if (
-						isset( $woocommerce_wpml ) &&
-						class_exists( 'woocommerce_wpml' ) &&
-						( $woocommerce_wpml instanceof woocommerce_wpml )
-					) {
-						$multi_currency = $woocommerce_wpml->get_multi_currency();
+					$min_max_row_cache_key = 'min_max_row_' . md5( $query );
+					$min_max_row = wps_cache_get( $min_max_row_cache_key, self::MIN_MAX_PRICE_CACHE_GROUP );
+					if ( $min_max_row === false ) {
+						$min_max_row = $wpdb->get_row( $query, ARRAY_A );
+						wps_cache_set( $min_max_row_cache_key, $min_max_row, self::MIN_MAX_PRICE_CACHE_GROUP, self::get_cache_lifetime() );
+					}
+
+					if ( $min_max_row ) {
+
+						$min_max['min_price'] = isset( $min_max_row['min_price'] ) ? intval( floor( $min_max_row['min_price'] ) ) : 0;
+						$min_max['max_price'] = isset( $min_max_row['max_price'] ) ? intval( ceil( $min_max_row['max_price'] ) ) : '';
+
+						global $woocommerce_wpml;
 						if (
-							!empty( $multi_currency->prices ) &&
-							class_exists( 'WCML_Multi_Currency_Prices' ) &&
-							( $multi_currency->prices instanceof WCML_Multi_Currency_Prices )
+							isset( $woocommerce_wpml ) &&
+							class_exists( 'woocommerce_wpml' ) &&
+							( $woocommerce_wpml instanceof woocommerce_wpml )
 						) {
-							if ( method_exists( $multi_currency, 'get_client_currency' ) ) {
-							$currency = $multi_currency->get_client_currency();
-							if ( function_exists( 'wcml_get_woocommerce_currency_option' ) ) {
-									if ( $currency !== wcml_get_woocommerce_currency_option() ) {
-										if ( method_exists( $multi_currency->prices, 'convert_price_amount' ) ) {
-											$min_max['min_price'] = isset( $min_max_row['min_price'] ) ? intval( floor( $multi_currency->prices->convert_price_amount( $min_max_row['min_price'], $currency ) ) ) : 0;
-											$min_max['max_price'] = isset( $min_max_row['max_price'] ) ? intval( ceil( $multi_currency->prices->convert_price_amount( $min_max_row['max_price'], $currency ) ) ) : '';
+							$multi_currency = $woocommerce_wpml->get_multi_currency();
+							if (
+								!empty( $multi_currency->prices ) &&
+								class_exists( 'WCML_Multi_Currency_Prices' ) &&
+								( $multi_currency->prices instanceof WCML_Multi_Currency_Prices )
+							) {
+								if ( method_exists( $multi_currency, 'get_client_currency' ) ) {
+								$currency = $multi_currency->get_client_currency();
+								if ( function_exists( 'wcml_get_woocommerce_currency_option' ) ) {
+										if ( $currency !== wcml_get_woocommerce_currency_option() ) {
+											if ( method_exists( $multi_currency->prices, 'convert_price_amount' ) ) {
+												$min_max['min_price'] = isset( $min_max_row['min_price'] ) ? intval( floor( $multi_currency->prices->convert_price_amount( $min_max_row['min_price'], $currency ) ) ) : 0;
+												$min_max['max_price'] = isset( $min_max_row['max_price'] ) ? intval( ceil( $multi_currency->prices->convert_price_amount( $min_max_row['max_price'], $currency ) ) ) : '';
+											}
 										}
 									}
 								}
@@ -1910,6 +2160,8 @@ class WooCommerce_Product_Search_Service {
 						}
 					}
 				}
+
+				$cached = wps_cache_set( $cache_key, $min_max, self::MIN_MAX_PRICE_CACHE_GROUP, self::get_cache_lifetime() );
 			}
 
 			if ( $meta_query_price_filter !== null ) {
@@ -1934,6 +2186,24 @@ class WooCommerce_Product_Search_Service {
 			}
 		}
 
+		$_min_max = apply_filters( 'woocommerce_product_search_get_min_max_price', $min_max );
+		if ( is_array( $_min_max ) ) {
+			foreach ( $_min_max as $key => $value ) {
+				switch ( $key ) {
+					case 'min_price' :
+					case 'max_price' :
+						if ( is_numeric( $value ) ) {
+							if ( floatval( $value ) === floatval( intval( $value ) ) ) {
+								$value = intval( $value );
+							} else {
+								$value = floatval( $value );
+							}
+							$min_max[$key] = $value;
+						}
+					break;
+				}
+			}
+		}
 		return $min_max;
 	}
 
@@ -1991,7 +2261,7 @@ class WooCommerce_Product_Search_Service {
 
 		$cache_key = self::get_cache_key( $post_ids );
 
-		$terms = wp_cache_get( $cache_key, self::TERM_CACHE_GROUP );
+		$terms = wps_cache_get( $cache_key, self::TERM_CACHE_GROUP );
 		if ( $terms !== false ) {
 			return $terms;
 		}
@@ -1999,15 +2269,14 @@ class WooCommerce_Product_Search_Service {
 		$terms = array();
 
 		if ( count( $post_ids ) > 0 ) {
+
+			$object_term_table = WooCommerce_Product_Search_Controller::get_tablename( 'object_term' );
 			$cat_query =
-				'SELECT t.* ' .
-				"FROM $wpdb->terms t " .
-				"LEFT JOIN $wpdb->term_taxonomy tt ON t.term_id = tt.term_id " .
-				"LEFT JOIN $wpdb->term_relationships tr ON tt.term_taxonomy_id = tr.term_taxonomy_id " .
-				"LEFT JOIN $wpdb->posts p ON p.ID = tr.object_id " .
-				"WHERE  tt.taxonomy = 'product_cat' AND " .
-				'tr.object_id IN (' . implode( ',', array_map( 'intval', $post_ids ) ) . ') ' .
-				'GROUP BY t.term_id'; 
+				"SELECT t.* FROM $wpdb->terms t WHERE t.term_id IN ( " .
+				"SELECT term_id FROM $object_term_table WHERE " .
+				"taxonomy = 'product_cat' " .
+				'AND object_id IN ( ' . implode( ',', array_map( 'intval', $post_ids ) ) . ' ) ' .
+				' ) ';
 
 			if ( $categories = $wpdb->get_results( $cat_query ) ) {
 				if ( is_array( $categories ) ) {
@@ -2016,7 +2285,7 @@ class WooCommerce_Product_Search_Service {
 			}
 		}
 
-		$cached = wp_cache_set( $cache_key, $terms, self::TERM_CACHE_GROUP, self::get_cache_lifetime() );
+		$cached = wps_cache_set( $cache_key, $terms, self::TERM_CACHE_GROUP, self::get_cache_lifetime() );
 
 		return $terms;
 	}
@@ -2037,7 +2306,7 @@ class WooCommerce_Product_Search_Service {
 
 		$cache_key = self::get_cache_key( $post_ids );
 
-		$terms = wp_cache_get( $cache_key, self::TERM_COUNT_CACHE_GROUP );
+		$terms = wps_cache_get( $cache_key, self::TERM_COUNT_CACHE_GROUP );
 		if ( $terms !== false ) {
 			return $terms;
 		}
@@ -2065,7 +2334,7 @@ class WooCommerce_Product_Search_Service {
 			}
 		}
 
-		$cached = wp_cache_set( $cache_key, $terms, self::TERM_COUNT_CACHE_GROUP, self::get_cache_lifetime() );
+		$cached = wps_cache_set( $cache_key, $terms, self::TERM_COUNT_CACHE_GROUP, self::get_cache_lifetime() );
 
 		return $terms;
 	}
@@ -2120,16 +2389,26 @@ class WooCommerce_Product_Search_Service {
 			)
 		);
 
-		$counts = wp_cache_get( $cache_key, self::TERM_COUNTS_CACHE_GROUP );
+		$counts = wps_cache_get( $cache_key, self::TERM_COUNTS_CACHE_GROUP );
 		if ( $counts !== false ) {
 			return $counts;
 		}
+
 		$counts = array();
 
-		$count_where = array( "tt.taxonomy = '" . esc_sql( $taxonomy ) . "'" );
-		$post_ids = self::get_post_ids_for_request_filtered();
+		$object_term_table = WooCommerce_Product_Search_Controller::get_tablename( 'object_term' );
+
+		$where = array();
+
+		$where[] ="taxonomy = '" . esc_sql( $taxonomy ) . "'";
+
+		$where[] = "( object_type NOT IN ('variable', 'variable-subscription' ) )";
+
+		$post_ids = self::get_post_ids_for_request_filtered( array( 'variations' => true ) );
+
+
 		if ( $post_ids !== null && is_array( $post_ids ) && count( $post_ids ) > 0 ) {
-			$count_where[] = ' tr.object_id IN (' . implode( ',', array_map( 'intval', $post_ids ) ) . ') ';
+			$where[] = 'object_id IN (' . implode( ',', array_map( 'intval', $post_ids ) ) . ')';
 		}
 
 		if ( !empty( $ixwpst ) ) {
@@ -2153,12 +2432,12 @@ class WooCommerce_Product_Search_Service {
 					$child_term_ids = get_term_children( $term_id, $term_taxonomy );
 					if ( $child_term_ids ) {
 						foreach ( $child_term_ids as $child_term_id ) {
-							$terms[$term->taxonomy][] = $child_term_id;
+							$terms[$term_taxonomy][] = $child_term_id;
 						}
 					}
 				}
-				if ( count( $terms[$term->taxonomy] ) > 0 ) {
-					$terms[$term->taxonomy] = array_unique( $terms[$term->taxonomy] );
+				if ( count( $terms[$term_taxonomy] ) > 0 ) {
+					$terms[$term_taxonomy] = array_unique( $terms[$term_taxonomy] );
 				}
 			}
 
@@ -2166,24 +2445,22 @@ class WooCommerce_Product_Search_Service {
 
 			foreach ( $terms as $term_taxonomy => $term_ids ) {
 				if ( count( $term_ids ) > 0 ) {
-
-					$count_where[] =
-						'tr.object_id IN (' .
-						"SELECT tr.object_id FROM $wpdb->term_relationships tr " . 
-						"LEFT JOIN $wpdb->term_taxonomy tt ON tr.term_taxonomy_id = tt.term_taxonomy_id " .
-						'WHERE tt.term_id IN (' .implode( ',', array_map( 'intval', $term_ids ) ) . ')' .
+					$where[] =
+						'object_id IN (' .
+						"SELECT object_id FROM $object_term_table WHERE term_id IN (" . implode( ',', array_map( 'intval', $term_ids ) ) . ')' .
 						')';
 				}
 			}
 		}
 
 		$count_query =
-			'SELECT /*! STRAIGHT_JOIN */ tt.term_id, tt.parent, COUNT(DISTINCT tr.object_id) AS count ' .
-			"FROM $wpdb->term_taxonomy tt " .
-			"LEFT JOIN $wpdb->term_relationships tr ON tt.term_taxonomy_id = tr.term_taxonomy_id " .
-			'WHERE ' .
-			implode( ' AND ', $count_where ) . ' ' .
-			'GROUP BY tt.term_id'; 
+			"SELECT term_id, parent_term_id, COUNT(DISTINCT object_id) as count FROM " .
+			'(' .
+			"SELECT term_id, parent_term_id, IF( object_type IN ('variation','subscription_variation'), parent_object_id, object_id ) AS object_id FROM $object_term_table " .
+			( count( $where ) > 0 ? ' WHERE ' . implode( ' AND ', $where ) : '' ) .
+			') tmp ' .
+			'GROUP BY term_id, parent_term_id';
+
 		if ( $results = $wpdb->get_results( $count_query ) ) {
 			if ( is_array( $results ) ) {
 
@@ -2232,7 +2509,8 @@ class WooCommerce_Product_Search_Service {
 
 			}
 		}
-		$cached = wp_cache_set( $cache_key, $counts, self::TERM_COUNTS_CACHE_GROUP, self::get_cache_lifetime() );
+		$cached = wps_cache_set( $cache_key, $counts, self::TERM_COUNTS_CACHE_GROUP, self::get_cache_lifetime() );
+
 		return $counts;
 	}
 
@@ -2584,7 +2862,7 @@ class WooCommerce_Product_Search_Service {
 	 *
 	 * @return int
 	 */
-	private static function get_cache_lifetime() {
+	public static function get_cache_lifetime() {
 		$l = intval( apply_filters( 'woocommerce_product_search_cache_lifetime', self::CACHE_LIFETIME ) );
 		return $l;
 	}

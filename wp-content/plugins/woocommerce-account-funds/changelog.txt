@@ -1,5 +1,12 @@
 *** WooCommerce Account Funds ***
 
+2020-08-05 - version 2.3.0
+* Tweak - Add "Funds used" before order total.
+* Tweak - Checkout improvements.
+* Tweak - UI improvements on order details (admin view).
+* Update - Tested compatibility with WC 4.3.
+* Dev - Deprecated function WC_Account_Funds_Cart_Manager::can_apply_funds.
+
 2020-06-09 - version 2.2.1
 * Tweak - Tested compatibility with WC 4.2.
 

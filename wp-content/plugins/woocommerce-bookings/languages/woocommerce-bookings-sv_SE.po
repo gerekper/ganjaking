@@ -7,8 +7,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-07-01T11:12:09+00:00\n"
-"PO-Revision-Date: 2020-06-12 09:30:38+0000\n"
+"POT-Creation-Date: 2020-08-13T17:30:34+02:00\n"
+"PO-Revision-Date: 2020-08-08 10:26:58+0000\n"
 "Language: sv_SE\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: GlotPress/2.4.0-alpha\n"
@@ -310,7 +310,7 @@ msgstr ""
 
 #: templates/booking-form/date-picker.php:68
 msgid "End"
-msgstr ""
+msgstr "Slut"
 
 #: templates/booking-form/date-picker.php:62
 #: templates/booking-form/date-picker.php:87
@@ -1285,7 +1285,7 @@ msgstr ""
 #: includes/class-wc-bookings-google-calendar-connection.php:949
 #: includes/class-wc-bookings-google-calendar-connection.php:968
 msgid "Google Calendar"
-msgstr ""
+msgstr "Google Kalender"
 
 #: includes/class-wc-bookings-google-calendar-connection.php:259
 msgid "Settings saved."
@@ -1319,7 +1319,7 @@ msgstr ""
 #. translators: %s: documentation link
 #: includes/class-wc-booking-privacy.php:39
 msgid "By using this extension, you may be storing personal data or sharing data with an external service. <a href=\"%s\" target=\"_blank\">Learn more about how this works, including what you may want to include in your privacy policy.</a>"
-msgstr ""
+msgstr "Genom att använda denna utökning kan det hända att du lagrar personuppgifter eller delar data med en extern tjänst. <a href=\"%s\" target=\"_blank\">Lär dig mer om hur detta fungerar, inklusive vad du kanske vill inkludera i din integritetspolicy.</a>"
 
 #: includes/class-wc-booking-privacy.php:11
 #: includes/class-wc-booking-privacy.php:12
@@ -1336,7 +1336,7 @@ msgstr "Kommande bokningar"
 
 #: includes/class-wc-booking-order-manager.php:275
 msgid "Today's Bookings"
-msgstr ""
+msgstr "Dagens bokningar"
 
 #: includes/class-wc-booking-order-manager.php:202
 msgid "All bookings start and end times except where stated differently are displayed in the following timezone: "
@@ -1385,7 +1385,7 @@ msgstr "En bokning för %s har tagits bort från din varukorg på grund av inakt
 
 #: includes/booking-form/class-wc-booking-form.php:622
 msgid "End time"
-msgstr ""
+msgstr "Sluttid"
 
 #: includes/booking-form/class-wc-booking-form.php:620
 msgid "Ends"
@@ -1395,23 +1395,23 @@ msgstr ""
 #: includes/booking-form/class-wc-booking-form.php:591
 msgid "%d Hour"
 msgid_plural "%d Hours"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d timme"
+msgstr[1] "%d timmar"
 
 #. translators: %d: booking duration in minutes
 #: includes/booking-form/class-wc-booking-form.php:587
 msgid "%d Minute"
 msgid_plural "%d Minutes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d minut"
+msgstr[1] "%d minuter"
 
 #. translators: 1: quantity available
 #: includes/booking-form/class-wc-booking-form.php:506
 #: includes/booking-form/class-wc-booking-form.php:664
 msgid "%d left"
 msgid_plural "%d left"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d kvar"
+msgstr[1] "%d kvar"
 
 #: includes/booking-form/class-wc-booking-form.php:478
 msgid "Start time"
@@ -1623,7 +1623,7 @@ msgstr ""
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:415
 msgid "Pricing rules."
-msgstr ""
+msgstr "Prisregler."
 
 #: includes/api/class-wc-bookings-rest-products-controller.php:410
 msgid "Min persons which can be booked per booking."
@@ -3231,7 +3231,7 @@ msgstr "Hela dagen"
 
 #: includes/admin/class-wc-bookings-ajax.php:303
 msgid "Cheatin&#8217; huh?"
-msgstr ""
+msgstr "Fuskar du, va?"
 
 #: includes/admin/class-wc-bookings-ajax.php:286
 msgid "No blocks available."

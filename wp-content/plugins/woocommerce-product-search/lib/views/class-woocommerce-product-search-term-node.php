@@ -107,12 +107,19 @@ class WooCommerce_Product_Search_Term_Node {
 
 		if ( $terms === null ) {
 
+			$term_counts = WooCommerce_Product_Search_Service::get_term_counts( $taxonomy );
 			$this->terms = array();
 			$_terms = get_terms( array( 'taxonomy' => $taxonomy, 'include' => $term_ids ) );
 			if ( is_array( $_terms ) ) {
 				foreach ( $_terms as $term ) {
-					$this->terms[$term->term_id] = $term;
 
+					if ( isset( $term_counts[$term->term_id] ) ) {
+						$term->count = $term_counts[$term->term_id];
+					} else {
+
+						$term->count = 0;
+					}
+					$this->terms[$term->term_id] = $term;
 				}
 			}
 			unset( $_terms );
@@ -204,7 +211,7 @@ class WooCommerce_Product_Search_Term_Node {
 
 					if ( $bubble_down && ( $bubble_down_levels === null || $bubble_down_levels >= 0 ) ) {
 
-						$all_children = wp_cache_get( 'all-children', self::CACHE_GROUP );
+						$all_children = wps_cache_get( 'all-children', self::CACHE_GROUP );
 						if ( $all_children === false ) {
 							$all_children = array();
 							global $wpdb;
@@ -217,7 +224,7 @@ class WooCommerce_Product_Search_Term_Node {
 									$all_children[intval( $term_taxonomy->parent )][] = intval( $term_taxonomy->term_id );
 								}
 							}
-							wp_cache_set( 'all-children', $all_children, self::CACHE_GROUP );
+							wps_cache_set( 'all-children', $all_children, self::CACHE_GROUP );
 						}
 						if ( isset( $all_children[$term->term_id] ) ) {
 							$children = $all_children[$term->term_id];

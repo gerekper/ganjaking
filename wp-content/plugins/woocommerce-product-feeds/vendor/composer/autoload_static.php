@@ -47,6 +47,7 @@ class ComposerStaticInitf19a4c147da2b1d9947bf879b279f91b
         'WoocommerceGpfCacheInvalidator' => __DIR__ . '/../..' . '/src/cache/woocommerce-gpf-cache-invalidator.php',
         'WoocommerceGpfCacheStatus' => __DIR__ . '/../..' . '/src/cache/woocommerce-gpf-cache-status.php',
         'WoocommerceGpfClearAllJob' => __DIR__ . '/../..' . '/src/cache/woocommerce-gpf-cache-clear-all-job.php',
+        'WoocommerceGpfClearProductJob' => __DIR__ . '/../..' . '/src/cache/woocommerce-gpf-cache-clear-product-job.php',
         'WoocommerceGpfCommon' => __DIR__ . '/../..' . '/src/gpf/woocommerce-gpf-common.php',
         'WoocommerceGpfDebugService' => __DIR__ . '/../..' . '/src/common/woocommerce-gpf-debug-service.php',
         'WoocommerceGpfFeed' => __DIR__ . '/../..' . '/src/gpf/woocommerce-gpf-feed.php',

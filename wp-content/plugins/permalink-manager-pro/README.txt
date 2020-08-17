@@ -6,8 +6,8 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: permalinks, custom permalinks, url editor, permalinks, woocommerce permalinks
 Requires at least: 4.4.0
 Requires PHP: 5.4
-Tested up to: 5.4.2
-Stable tag: 2.2.8.8
+Tested up to: 5.5.0
+Stable tag: 2.2.8.9
 
 Permalink Manager Pro allows to easily change full URL addresses of posts, pages, custom post types, terms and WooCommerce links. You can also set different permalink formats per language or bulk change the URLs.
 
@@ -103,8 +103,17 @@ It is because Permalink Manager overwrites one of the core Wordpress functionali
 
 == Changelog ==
 
-= 2.2.8.8 =
+= 2.2.8.8/2.2.8.9 =
 * Hotfix for 'redirect_canonical' function (causing a redirect loop)
+* The custom canonical permalink set with Yoast SEO is now no longer overwriten
+* The custom permalinks are no longer saved if the post/term has no title
+* Hotfix for Gutenberg related JS errors
+* Hotfix for Groundhogg plugin
+* Hotfix for "Customize" admin bar menu link
+* Hotfix for WPML's language switcher on posts page
+* Hotfixes for WP 5.5 - blog/posts page + draft template is now loaded correctly
+* Trailing slash redirect code adjustments
+* Added support for GeoDirectory plugin
 
 = 2.2.8.7 =
 * Improved breadcrumbs hook (better compatibility with WPML/Polylang)

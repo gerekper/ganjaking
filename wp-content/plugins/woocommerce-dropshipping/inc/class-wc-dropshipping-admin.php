@@ -8,6 +8,8 @@ class WC_Dropshipping_Admin
 
 	public $csv = null;
 
+	public $ali_prod_filter = null;
+
 	public function __construct()
 	{
 		require_once('class-wc-dropshipping-product.php');
@@ -25,6 +27,8 @@ class WC_Dropshipping_Admin
 		add_action('admin_enqueue_scripts', array($this, 'my_admin_scripts'));
 
 		// admin dropship supplier
+
+		$this->ali_prod_filter = new Ali_Product_Filter();
 
 		add_action('create_dropship_supplier', array($this, 'create_term'), 5, 3);
 
@@ -94,7 +98,7 @@ class WC_Dropshipping_Admin
 	{
 		update_option('cbe_hideoption', 'yes'); //here
 
-	} 
+	}
 
 	// ajax function for generate api key callback function
 
@@ -574,8 +578,9 @@ class WC_Dropshipping_Admin
 	public function my_remove_menu_pages()
 	{
 		global $user_ID;
+		$user = wp_get_current_user();
+		if ( in_array( 'dropshipper', (array) $user->roles ) ) {
 
-		if (current_user_can('dropshipper')) {
 			remove_menu_page('edit-comments.php');
 
 			remove_menu_page('index.php');
@@ -590,7 +595,7 @@ class WC_Dropshipping_Admin
 
 			remove_menu_page('elementor'); // Elementor
 
-			remove_menu_page('Posts.php');
+			//remove_menu_page('Posts.php');
 
 			remove_menu_page('tools.php'); // Tools
 
@@ -625,7 +630,9 @@ class WC_Dropshipping_Admin
 	{
 		global $user_ID;
 
-		if (current_user_can('dropshipper')) {
+		$user = wp_get_current_user();
+		if ( in_array( 'dropshipper', (array) $user->roles ) ) {
+
 			$page_title = 'Order Lists';
 
 			$menu_title = 'Order List';
@@ -683,7 +690,10 @@ class WC_Dropshipping_Admin
 				$email = @$_POST['order_email_addresses'];
 
 				/*$password = wp_generate_password();*/
-																								
+				
+				$the_user = get_user_by('email', $email);
+				$user_id = @$the_user->ID;
+				
 				update_user_meta($user_id, 'supplier_id', $term_id);
 
 				if (!empty($username) && !empty($email) && !$user_id && email_exists($email) == false) {
@@ -781,8 +791,12 @@ class WC_Dropshipping_Admin
 
 
 
-	public function delete_term($term_id)
+	public function delete_term($term_id, $taxonomy = '')
 	{
+		if ($taxonomy != 'dropship_supplier' && !taxonomy_is_product_attribute($taxonomy)) return;
+
+		$meta_name = taxonomy_is_product_attribute($taxonomy) ? 'order_' . esc_attr($taxonomy) : 'order';
+		
 		$term_id = (int)$term_id;
 
 		update_term_meta($term_id, $meta_name, 0);
@@ -915,6 +929,18 @@ class WC_Dropshipping_Admin
 				$options['from_email'] = '';
 			}
 
+			if (isset($_POST['hide_shipping_price'])) {
+				$options['hide_shipping_price'] = '1';
+			} else {
+				$options['hide_shipping_price'] = '0';
+			}
+			
+			if (isset($_POST['total_price'])) {
+				$options['total_price'] = '1';
+			} else {
+				$options['total_price'] = '0';
+			}
+			
 			if (isset($_POST['product_price'])) {
 				$options['product_price'] = '1';
 			} else {
@@ -993,6 +1019,29 @@ class WC_Dropshipping_Admin
 				$options['customer_note'] = '0';
 			}
 
+			// Aliexpress Settings get POST
+			if (isset($_POST['ali_cbe_enable_name'])) {
+				$options['ali_cbe_enable_name'] = '1';
+			} else {
+				$options['ali_cbe_enable_name'] = '0';
+			}
+
+			if (isset($_POST['ali_cbe_price_rate_name'])) {
+				$options['ali_cbe_price_rate_name'] = $_POST['ali_cbe_price_rate_name'];
+			} else {
+				$options['ali_cbe_price_rate'] = '';
+			}
+
+			if (isset($_POST['ali_cbe_price_rate_value_name'])) {
+				if($options['ali_cbe_price_rate_value_name'] < 1 || !is_numeric($options['ali_cbe_price_rate_value_name'])){
+					$options['ali_cbe_price_rate_value_name'] = 0;
+				}else{
+					$options['ali_cbe_price_rate_value_name'] = $_POST['ali_cbe_price_rate_value_name'];
+				}
+			} else {
+				$options['ali_cbe_price_rate_value_name'] = 0;
+			}
+
 			update_option('wc_dropship_manager', $options);
 		}
 	}
@@ -1067,6 +1116,18 @@ class WC_Dropshipping_Admin
 			$from_email = $options['from_email'];
 		} else {
 			$from_email = '';
+		}
+		
+		if (isset($options['hide_shipping_price'])) {
+			$hide_shipping_price = $options['hide_shipping_price'];
+		} else {
+			$hide_shipping_price = '';
+		}
+
+		if (isset($options['total_price'])) {
+			$total_price = $options['total_price'];
+		} else {
+			$total_price = '';
 		}
 
 		if (isset($options['product_price'])) {
@@ -1171,6 +1232,29 @@ class WC_Dropshipping_Admin
 			$customer_note = '';
 		}
 
+		// Aliexpress Settings for setting variable creation
+		if (isset($options['ali_cbe_enable_name'])) {
+			$ali_cbe_enable_setting = $options['ali_cbe_enable_name'];
+		} else {
+			$ali_cbe_enable_setting = '';
+		}
+
+		if (isset($options['ali_cbe_price_rate_name'])) {
+			if ($options['ali_cbe_price_rate_name'] == 'ali_cbe_price_rate_percent_offset') {
+				$ali_cbe_price_rate_selected_1 = 'selected';
+				$ali_cbe_price_rate_selected_2 = '';
+			} else {
+				$ali_cbe_price_rate_selected_1 = '';
+				$ali_cbe_price_rate_selected_2 = 'selected';
+			}
+		}
+
+		// if (isset($options['ali_cbe_price_rate_value_name'])) {
+		// 	$ali_cbe_price_rate_value_setting = $options['ali_cbe_price_rate_value_name'];
+		// } else {
+		// 	$ali_cbe_price_rate_value_setting = '';
+		// }
+
 		// For Checked Checkbox
 
 		if ($csvcheck == '1') {
@@ -1226,6 +1310,19 @@ class WC_Dropshipping_Admin
 		} else {
 			$cc_mail = ' ';
 		}
+
+		if ($hide_shipping_price == '1') {
+			$hide_shipping_price = ' checked="checked" ';
+		} else {
+			$hide_shipping_price = ' ';
+		}
+
+		if ($total_price == '1') {
+			$total_price = ' checked="checked" ';
+		} else {
+			$total_price = ' ';
+		}
+
 
 		if ($product_price == '1') {
 			$price_product = ' checked="checked" ';
@@ -1329,45 +1426,43 @@ class WC_Dropshipping_Admin
 			$customer_note = ' ';
 		}
 
+
+		// Aliexpress Settings for checkbox value
+		if ($ali_cbe_enable_setting == '1') {
+			$ali_cbe_enable_checkbox = ' checked="checked" ';
+		} else {
+			$ali_cbe_enable_checkbox = ' ';
+		}
+
+		if($options['ali_cbe_price_rate_value_name'] < 1 || !is_numeric($options['ali_cbe_price_rate_value_name'])){
+			$options['ali_cbe_price_rate_value_name'] = 0;
+		}
+
 		$woocommerce_url = plugins_url() . '/woocommerce/';
 
+		echo '<h3>Aliexpress CBE Settings</h3>';
 		echo '<table>
-
-
-
 				<tr>
-
-
-
-				 	<td><h3>Generate aliexpress key: </h3></td>
-
-
-
+					<td><h4>Enable Aliexpress Support:</h4></td>
 					<td>
-
-
-
 						<span>
-
-
-
-						<button type="button" id="generate_ali_key" class="button-primary">Generate AliExpress Key</button>
-
-
-
+						<td><input name="ali_cbe_enable_name" type="checkbox" ' . $ali_cbe_enable_checkbox . ' /></td>
 						</span>
-
-
-
 					<td>
-
-
-
 				</tr>
-
-
-
 			</table>';
+		if (isset($ali_cbe_enable_setting)){
+			if ($ali_cbe_enable_setting == '1'){
+				echo '<table>
+						<tr>
+						 	<td><h4>Generate aliexpress key: </h4></td>
+							<td>
+								<span>
+								<button type="button" id="generate_ali_key" class="button-primary">Generate AliExpress Key</button>
+								</span>
+							<td>
+						</tr>
+					</table>';
 
 		echo '<table>
 
@@ -1387,6 +1482,35 @@ class WC_Dropshipping_Admin
 
 			</table>';
 
+
+		echo '<table>
+				<tr>
+					<td><h4>Markup Method:</h4></td>
+					<td>
+						<span>
+							<td>
+								<select name="ali_cbe_price_rate_name">
+	  							<option value="ali_cbe_price_rate_percent_offset" '. $ali_cbe_price_rate_selected_1 .'>Percent Offset</option>
+	  							<option value="ali_cbe_fixed_price_offset"'. $ali_cbe_price_rate_selected_2 .'>Fixed Price Offset</option>
+								</select>
+							</td>
+						</span>
+					<td>
+				</tr>
+			</table>';
+
+			echo '<table>
+					<tr>
+						<td><h4>Markup Value:</h4></td>
+						<td>
+							<span>
+							<td><input name="ali_cbe_price_rate_value_name" value="' . @$options['ali_cbe_price_rate_value_name'] . '" size="5" /></td>
+							</span>
+						<td>
+					</tr>
+				</table>';
+		}
+	}
 		echo '<h3>Email Notifications</h3>
 
 
@@ -1829,7 +1953,7 @@ class WC_Dropshipping_Admin
 
 
 
-               		<b>NOTE:</b> 
+               		<b>NOTE:</b>
 
 
 
@@ -1849,7 +1973,7 @@ class WC_Dropshipping_Admin
 
 
 
-	            <tr>					
+	            <tr>
 
 
 
@@ -2093,6 +2217,22 @@ class WC_Dropshipping_Admin
 
 
 
+			</table>';
+
+		echo '<p></p>
+			<table>
+				<tr>
+					<td><label for="total_price">Show Total Price in supplier email:</label></td>
+					<td><input name="total_price" type="checkbox" ' . $total_price . ' /></td>
+				</tr>
+			</table>';
+
+		echo '<p></p>
+			<table>
+				<tr>
+					<td><label for="hide_shipping_price">Hide Shipping Price in supplier email:</label></td>
+					<td><input name="hide_shipping_price" type="checkbox" ' . $hide_shipping_price . ' /></td>
+				</tr>
 			</table>';
 
 		echo '<p></p>
@@ -2392,7 +2532,7 @@ class WC_Dropshipping_Admin
 					<td><label for="order_complete_link">Allow suppliers to mark their orders as shipped by clicking a link on the email, without logging in:</label></td>
 
 					<td><input name="order_complete_link" type="checkbox" ' . $link_complete_order . ' /></td>
-				
+
 				</tr>
 
 			</table>';
@@ -2413,7 +2553,7 @@ class WC_Dropshipping_Admin
 		echo '<p></p>
 			<table>
 				<tr>
-					<td><label for="cnf_mail">Sent "Read notification email" to merchant 
+					<td><label for="cnf_mail">Sent "Read notification email" to merchant
 					<img class="help_tip" data-tip="Allow [Read notification email] to be sent to the merchant, as soon as dropshipper open the order notification email." style="margin: 0 0 0 0px;" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16">: </label></td>
 
 					<td><input name="cnf_mail" type="checkbox" ' . $cnf_mail . ' /></td>
@@ -2574,4 +2714,3 @@ class WC_Dropshipping_Admin
 		</div>';
 	}
 }
-

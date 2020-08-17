@@ -69,6 +69,7 @@ class WoocommerceGpfCache {
 		// Instantiate worker queues.
 		$job_types = [
 			'WoocommerceGpfClearAllJob',
+			'WoocommerceGpfClearProductJob',
 			'WoocommerceGpfRebuildSimpleJob',
 			'WoocommerceGpfRebuildComplexJob',
 			'WoocommerceGpfRebuildProductJob',
@@ -217,6 +218,29 @@ class WoocommerceGpfCache {
 		}
 	}
 
+	public function clear_product( $post_id ) {
+		if ( ! $this->cache_enabled ) {
+			return;
+		}
+		$pending = as_get_scheduled_actions(
+			[
+				'hook'   => 'woocommerce_product_feeds_cache_clear_product',
+				'args'   => [ $post_id ],
+				'status' => \ActionScheduler_Store::STATUS_PENDING,
+			]
+		);
+		if ( empty( $pending ) ) {
+			as_schedule_single_action(
+				null,
+				'woocommerce_product_feeds_cache_clear_product',
+				[
+					$post_id,
+				],
+				'woocommerce-product-feeds'
+			);
+		}
+	}
+
 	/**
 	 * Drop objects from the cache, and request a rebuild for them.
 	 *
@@ -291,6 +315,7 @@ class WoocommerceGpfCache {
 		}
 		// Clear the job queues to abort any in-progress rebuild, then trigger a clear and rebuild.
 		self::$jobs['WoocommerceGpfClearAllJob']->cancel_all();
+		self::$jobs['WoocommerceGpfClearProductJob']->cancel_all();
 		self::$jobs['WoocommerceGpfRebuildSimpleJob']->cancel_all();
 		self::$jobs['WoocommerceGpfRebuildComplexJob']->cancel_all();
 		self::$jobs['WoocommerceGpfRebuildProductJob']->cancel_all();

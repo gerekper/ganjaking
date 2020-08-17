@@ -30,7 +30,7 @@ class WooCommerce_Product_Search_Admin_Notice {
 
 	/**
 	 * Time mark.
-	 * 
+	 *
 	 * @var string
 	 */
 	const INIT_TIME = 'woocommerce-product-search-init-time';
@@ -72,7 +72,7 @@ class WooCommerce_Product_Search_Admin_Notice {
 
 	/**
 	 * The number of seconds in seven days, since init date to show the notice.
-	 * 
+	 *
 	 * @var int
 	 */
 	const SHOW_LAPSE = 604800;
@@ -90,6 +90,13 @@ class WooCommerce_Product_Search_Admin_Notice {
 	 * @var int
 	 */
 	const REMIND_NOTICE_LAPSE = 259200;
+
+	/**
+	 * Used to confirm initiating the update process.
+	 *
+	 * @var string
+	 */
+	const CONFIRM_UPDATE = 'woocommerce-product-search-confirm-update';
 
 	/**
 	 * Adds actions.
@@ -151,6 +158,14 @@ class WooCommerce_Product_Search_Admin_Notice {
 						}
 					}
 				}
+			}
+
+			if ( !empty( $_GET[self::CONFIRM_UPDATE] ) && isset( $_GET['wps_notice'] ) && wp_verify_nonce( $_GET['wps_notice'], 'confirm' ) ) {
+				WooCommerce_Product_Search::schedule_db_update();
+			}
+
+			if ( WooCommerce_Product_Search::needs_db_update() && !WooCommerce_Product_Search::is_db_update_scheduled() ) {
+				add_action( 'admin_notices', array( __CLASS__, 'update_notice' ), 0 );
 			}
 		}
 	}
@@ -471,6 +486,57 @@ class WooCommerce_Product_Search_Admin_Notice {
 		);
 		$output .= '</p>';
 		$output .= '</div>';
+
+		echo $output;
+	}
+
+	public static function update_notice() {
+		$current_url = ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+		$confirm_url = wp_nonce_url( add_query_arg( self::CONFIRM_UPDATE, true, $current_url ), 'confirm', 'wps_notice' );
+
+		$output = '';
+
+		$output .= '<style type="text/css">';
+		$output .= 'div.wps-update {';
+		$output .= sprintf( 'background: url(%s) #fff no-repeat 8px 8px;', WOO_PS_PLUGIN_URL . '/images/woocommerce-product-search.png' );
+		$output .= 'padding-left: 76px ! important;';
+		$output .= 'background-size: 64px 64px;';
+		$output .= 'border-color: #7f54b3 !important;';
+		$output .= 'padding-bottom: 1em;';
+		$output .= '}';
+		$output .= '.wps-update-warning {';
+		$output .= 'float: right;';
+		$output .= 'font-size: 32px;';
+		$output .= 'background-color: #ffcc00;';
+		$output .= 'padding: 8px;';
+		$output .= 'border-radius: 8px;';
+		$output .= 'position: relative;';
+		$output .= 'top: 4px;';
+		$output .= 'right: 4px;';
+		$output .= 'margin: 4px;';
+		$output .= '}';
+		$output .= '</style>';
+
+		$output .= '<div class="updated wps-update">';
+		$output .= '<span class="wps-update-warning">&#9888;</span>';
+		$output .= '<h2>';
+		$output .= __( 'WooCommerce Product Search requires a Database Update &hellip;', 'woocommerce-product-search' );
+		$output .= '</h2>';
+		$output .= '<p>';
+		$output .= __( 'The database update will run in the background and may take a while.', 'woocommerce-product-search' );
+		$output .= ' ';
+		$output .= __( 'During this process, product searches and filters may produce fewer or no results until the process is completed.', 'woocommerce-product-search' );
+		$output .= ' ';
+		$output .= __( 'We recommend to run the update during low traffic hours.', 'woocommerce-product-search' );
+		$output .= '</p>';
+		$output .= '<p>';
+		$output .= sprintf(
+			'<a class="button button-primary" href="%s">%s</a>',
+			esc_url( $confirm_url ),
+			__( 'Update', 'woocommerce-product-search' )
+		);
+		$output .= '</p>';
+		$output .= '</div>'; 
 
 		echo $output;
 	}

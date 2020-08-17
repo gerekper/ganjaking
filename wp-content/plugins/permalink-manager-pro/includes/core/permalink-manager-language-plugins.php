@@ -19,6 +19,10 @@ class Permalink_Manager_Language_Plugins extends Permalink_Manager_Class {
 				add_filter('permalink_manager_detected_post_id', array($this, 'fix_language_mismatch'), 9, 3);
 				add_filter('permalink_manager_detected_term_id', array($this, 'fix_language_mismatch'), 9, 3);
 			}
+			// Fix posts page
+			else {
+				add_filter('permalink_manager_filter_query', array($this, 'fix_posts_page'), 5, 5);
+			}
 
 			// URI Editor
 			add_filter('permalink_manager_uri_editor_extra_info', array($this, 'language_column_uri_editor'), 9, 3);
@@ -96,7 +100,10 @@ class Permalink_Manager_Language_Plugins extends Permalink_Manager_Class {
 	 * WPML/Polylang/TranslatePress filters
 	 */
 	public static function get_language_code($element) {
-		global $TRP_LANGUAGE, $translate_press_settings;
+		global $TRP_LANGUAGE, $translate_press_settings, $icl_adjust_id_url_filter_off;
+
+		// Disable WPML adjust ID filter
+		$icl_adjust_id_url_filter_off = true;
 
 		// Fallback
 		if(is_string($element) && strpos($element, 'tax-') !== false) {
@@ -124,6 +131,9 @@ class Permalink_Manager_Language_Plugins extends Permalink_Manager_Class {
 
 			$lang_code = apply_filters('wpml_element_language_code', null, array('element_id' => $element_id, 'element_type' => $element_type));
 		}
+
+		// Enable WPML adjust ID filter
+		$icl_adjust_id_url_filter_off = false;
 
 		// Use default language if nothing detected
 		return ($lang_code) ? $lang_code : self::get_default_language();
@@ -224,6 +234,24 @@ class Permalink_Manager_Language_Plugins extends Permalink_Manager_Class {
 		}
 
 		return $item_id;
+	}
+
+	/**
+	 * 5C. Fix for WPML (language switcher on blog page)
+	 */
+	function fix_posts_page($query, $old_query, $uri_parts, $pm_query, $content_type) {
+		if(empty($pm_query['id']) || !is_numeric($pm_query['id'])) {
+			return $query;
+		}
+
+		$blog_page_id = apply_filters('wpml_object_id', get_option('page_for_posts'), 'page');
+		$element_id = apply_filters('wpml_object_id', $pm_query['id'], 'page');
+
+		if(!empty($blog_page_id) && !empty($blog_page_id) && ($blog_page_id == $element_id) && !isset($query['page'])) {
+			$query['page'] = '';
+		}
+
+		return $query;
 	}
 
 	function detect_uri_language($uri_parts, $request_url, $endpoints) {

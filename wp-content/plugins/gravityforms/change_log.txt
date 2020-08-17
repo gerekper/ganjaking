@@ -1,3 +1,7 @@
+### 2.4.20.1
+- API: Updated REST API for WordPress 5.5.
+
+
 ### 2.4.20 | 2020-08-06
 - Added support for WordPress 5.5.
 - Updated background updates to be compatible with automatic updates in WordPress 5.5.

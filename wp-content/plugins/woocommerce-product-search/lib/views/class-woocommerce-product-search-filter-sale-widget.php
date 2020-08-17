@@ -114,14 +114,11 @@ class WooCommerce_Product_Search_Filter_Sale_Widget extends WP_Widget {
 
 		WooCommerce_Product_Search_Filter_Sale::load_resources();
 
-		$cache = wp_cache_get( self::$cache_id, self::$cache_group );
+		$cache = wps_cache_get( self::$cache_id, self::$cache_group );
 		if ( ! is_array( $cache ) ) {
 			$cache = array();
 		}
-		if ( isset( $cache[$args['widget_id']] ) ) {
-			echo $cache[$args['widget_id']]; 
-			return;
-		}
+
 
 		$before_title  = isset( $args['before_title'] ) ? $args['before_title'] : '';
 		$after_title   = isset( $args['after_title'] ) ? $args['after_title'] : '';
@@ -142,7 +139,7 @@ class WooCommerce_Product_Search_Filter_Sale_Widget extends WP_Widget {
 		echo $output; 
 
 		$cache[$args['widget_id']] = $output;
-		wp_cache_set( self::$cache_id, $cache, self::$cache_group );
+		wps_cache_set( self::$cache_id, $cache, self::$cache_group );
 	}
 
 	/**

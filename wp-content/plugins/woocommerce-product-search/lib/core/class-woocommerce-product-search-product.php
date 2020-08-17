@@ -227,10 +227,21 @@ class WooCommerce_Product_Search_Product {
 
 			$join .= " LEFT JOIN $wpdb->postmeta search_weight ON ($wpdb->posts.ID = search_weight.post_id AND search_weight.meta_key = '_search_weight') ";
 
-			if ( ( get_option( 'db_version' ) >= self::WP_TERMMETA_DB_VERSION ) && defined( 'WC_VERSION' ) && ( version_compare( WC_VERSION, '2.6.0' ) >= 0 ) ) {
-				$join .= " LEFT JOIN (SELECT max(wt.meta_value) weight, tr.object_id object_id FROM {$wpdb->prefix}termmeta wt LEFT JOIN $wpdb->term_taxonomy tt ON wt.term_id = tt.term_id LEFT JOIN $wpdb->term_relationships tr ON tt.term_taxonomy_id = tr.term_taxonomy_id WHERE wt.meta_key = '_search_weight' AND tt.taxonomy = 'product_cat' GROUP BY tr.object_id) cat_max_weight ON $wpdb->posts.ID = cat_max_weight.object_id ";
+			if ( WooCommerce_Product_Search_Controller::table_exists( 'object_term' ) ) {
+				$object_term_table = WooCommerce_Product_Search_Controller::get_tablename( 'object_term' );
+				$join .=
+					" LEFT JOIN ( ".
+						"SELECT max(wt.meta_value) weight, ot.object_id object_id FROM {$wpdb->prefix}termmeta wt " .
+						"LEFT JOIN $object_term_table ot ON wt.term_id = ot.term_id AND ot.taxonomy = 'product_cat' " .
+						"WHERE wt.meta_key = '_search_weight_sum' " .
+						"GROUP BY ot.object_id " .
+					") cat_max_weight ON $wpdb->posts.ID = cat_max_weight.object_id ";
 			} else {
-				$join .= " LEFT JOIN (SELECT max(wt.meta_value) weight, tr.object_id object_id FROM {$wpdb->prefix}woocommerce_termmeta wt LEFT JOIN $wpdb->term_taxonomy tt ON wt.woocommerce_term_id = tt.term_id LEFT JOIN $wpdb->term_relationships tr ON tt.term_taxonomy_id = tr.term_taxonomy_id WHERE wt.meta_key = '_search_weight' AND tt.taxonomy = 'product_cat' GROUP BY tr.object_id) cat_max_weight ON $wpdb->posts.ID = cat_max_weight.object_id ";
+				if ( ( get_option( 'db_version' ) >= self::WP_TERMMETA_DB_VERSION ) && defined( 'WC_VERSION' ) && ( version_compare( WC_VERSION, '2.6.0' ) >= 0 ) ) {
+					$join .= " LEFT JOIN (SELECT max(wt.meta_value) weight, tr.object_id object_id FROM {$wpdb->prefix}termmeta wt LEFT JOIN $wpdb->term_taxonomy tt ON wt.term_id = tt.term_id LEFT JOIN $wpdb->term_relationships tr ON tt.term_taxonomy_id = tr.term_taxonomy_id WHERE wt.meta_key = '_search_weight' AND tt.taxonomy = 'product_cat' GROUP BY tr.object_id) cat_max_weight ON $wpdb->posts.ID = cat_max_weight.object_id ";
+				} else {
+					$join .= " LEFT JOIN (SELECT max(wt.meta_value) weight, tr.object_id object_id FROM {$wpdb->prefix}woocommerce_termmeta wt LEFT JOIN $wpdb->term_taxonomy tt ON wt.woocommerce_term_id = tt.term_id LEFT JOIN $wpdb->term_relationships tr ON tt.term_taxonomy_id = tr.term_taxonomy_id WHERE wt.meta_key = '_search_weight' AND tt.taxonomy = 'product_cat' GROUP BY tr.object_id) cat_max_weight ON $wpdb->posts.ID = cat_max_weight.object_id ";
+				}
 			}
 
 		}

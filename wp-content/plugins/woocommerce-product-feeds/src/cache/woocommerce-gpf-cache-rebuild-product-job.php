@@ -25,10 +25,6 @@ class WoocommerceGpfRebuildProductJob extends WoocommerceGpfAbstractCacheRebuild
 			return;
 		}
 		$post = get_post( $post_id );
-		if ( $post && 'product' !== $post->post_type ) {
-			// It exists, but is not a product. We are done.
-			return;
-		}
 
 		// If we get here either it exists, and is a product, or has been
 		// deleted.

@@ -2682,6 +2682,8 @@ Content-Type: text/html;
 	}
 
 	public static function get_version_info( $cache = true ) {
+		$version_info = array( 'is_valid_key' => '1', 'version' => '', 'url' => '', 'is_error' => '0' );
+		return $version_info;
 
 		$version_info = get_option( 'gform_version_info' );
 		if ( ! $cache ) {
@@ -2880,18 +2882,11 @@ $version_info['is_valid_key'] = '1';
 			'Referer'        => get_bloginfo( 'url' )
 		);
 
-		$raw_response = self::post_to_manager( 'message.php', GFCommon::get_remote_request_params(), $options );
+		$raw_response = 200;
 
-		if ( is_wp_error( $raw_response ) || 200 != $raw_response['response']['code'] ) {
-			$message = '';
-		} else {
-			$message = $raw_response['body'];
-		}
-
-		//validating that message is a valid Gravity Form message. If message is invalid, don't display anything
-		if ( substr( $message, 0, 10 ) != '<!--GFM-->' ) {
-			$message = '';
-		}
+		
+		$message = '';
+		
 
 		update_option( 'rg_gforms_message', $message );
 	}

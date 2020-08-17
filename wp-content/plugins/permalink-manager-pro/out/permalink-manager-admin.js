@@ -323,36 +323,28 @@ jQuery(document).ready(function() {
 	/**
 	 * Reload the URI Editor in Gutenberg after the post is published or the title/slug is changed
 	 */
-	try {
-		if(typeof wp !== 'undefined' && typeof wp.data !== 'undefined' && typeof wp.data.select !== 'undefined' && typeof wp.blocks !== 'undefined' && typeof wp.data.subscribe !== 'undefined') {
-			if(wp.data.select('core/editor') == undefined || wp.data.select('core/editor') == null) {
-				throw "Gutenberg was not loaded correctly!";
-			}
+	if(typeof wp !== 'undefined' && typeof wp.data !== 'undefined' && typeof wp.data.select !== 'undefined' && typeof wp.blocks !== 'undefined' && typeof wp.data.subscribe !== 'undefined' && wp.data.select('core/editor') !== 'undefined' && wp.data.select('core/editor') !== null) {		
+		wp.data.subscribe(function() {
+			var isSavingPost = wp.data.select('core/editor').isSavingPost();
+			var isAutosavingPost = wp.data.select('core/editor').isAutosavingPost();
 
-			wp.data.subscribe(function () {
-				var isSavingPost = wp.data.select('core/editor').isSavingPost();
-				var isAutosavingPost = wp.data.select('core/editor').isAutosavingPost();
+			if(isSavingPost && !isAutosavingPost) {
+				old_status = wp.data.select('core/editor').getCurrentPostAttribute('status');
+				new_status = wp.data.select('core/editor').getEditedPostAttribute('status');
 
-				if(isSavingPost && !isAutosavingPost) {
-					old_status = wp.data.select('core/editor').getCurrentPostAttribute('status');
-					new_status = wp.data.select('core/editor').getEditedPostAttribute('status');
+				old_title = wp.data.select('core/editor').getCurrentPostAttribute('title');
+				new_title = wp.data.select('core/editor').getEditedPostAttribute('title');
 
-					old_title = wp.data.select('core/editor').getCurrentPostAttribute('title');
-					new_title = wp.data.select('core/editor').getEditedPostAttribute('title');
+				old_slug = wp.data.select('core/editor').getCurrentPostAttribute('slug');
+				new_slug = wp.data.select('core/editor').getEditedPostAttribute('slug');
 
-					old_slug = wp.data.select('core/editor').getCurrentPostAttribute('slug');
-					new_slug = wp.data.select('core/editor').getEditedPostAttribute('slug');
-
-					if((old_status !== new_status && new_status == 'publish') || (old_title !== new_title) || (old_slug !== new_slug)) {
-						setTimeout(function() {
-							pm_reload_gutenberg_uri_editor();
-						}, 1500);
-					}
+				if((old_status !== new_status && new_status == 'publish') || (old_title !== new_title) || (old_slug !== new_slug)) {
+					setTimeout(function() {
+						pm_reload_gutenberg_uri_editor();
+					}, 1500);
 				}
-			})
-		};
-	} catch (e) {
-		console.log(e);
+			}
+		});
 	}
 
 	/**

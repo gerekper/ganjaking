@@ -734,8 +734,8 @@ class Permalink_Manager_URI_Functions_Post extends Permalink_Manager_Class {
 		// Ignore menu items
 		if($post_object->post_type == 'nav_menu_item') { return $post_id; }
 
-		// Ignore auto-drafts & removed posts
-		if(in_array($post_object->post_status, array('auto-draft', 'trash')) || (!empty($post_object->post_name) && $post_object->post_name == 'auto-draft')) { return $post_id; }
+		// Ignore auto-drafts, removed posts and posts without title
+		if(in_array($post_object->post_status, array('auto-draft', 'trash')) || empty($post->post_title) || (!empty($post_object->post_name) && $post_object->post_name == 'auto-draft')) { return $post_id; }
 
 		$native_uri = self::get_default_post_uri($post_id, true);
 		$new_uri = self::get_default_post_uri($post_id);
@@ -782,8 +782,8 @@ class Permalink_Manager_URI_Functions_Post extends Permalink_Manager_Class {
 		// Hotfix for menu items
 		if($post->post_type == 'nav_menu_item') { return $post_id; }
 
-		// Ignore auto-drafts & removed posts
-		if(in_array($post->post_status, array('auto-draft', 'trash'))) { return $post_id; }
+		// Ignore auto-drafts, removed posts and posts without title
+		if(in_array($post->post_status, array('auto-draft', 'trash')) || empty($post->post_title)) { return $post_id; }
 
 		// Get auto-update URI setting (if empty use global setting)
 		if(!empty($_POST["auto_update_uri"])) {

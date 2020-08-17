@@ -48,8 +48,6 @@ class WooCommerce_Product_Search_Admin_Product {
 
 				add_action( 'product_cat_add_form_fields', array( __CLASS__, 'product_cat_add_form_fields' ) );
 				add_action( 'product_cat_edit_form_fields', array( __CLASS__, 'product_cat_edit_form_fields' ), 10, 2 );
-				add_action( 'created_term', array( __CLASS__, 'created_term' ), 10, 3 );
-				add_action( 'edit_term', array( __CLASS__, 'edit_term' ), 10, 3 );
 				add_filter( 'manage_edit-product_cat_columns', array( __CLASS__, 'product_cat_columns' ) );
 				add_filter( 'manage_product_cat_custom_column', array( __CLASS__, 'product_cat_column' ), 10, 3 );
 			}
@@ -57,6 +55,16 @@ class WooCommerce_Product_Search_Admin_Product {
 			add_action( 'save_post', array( __CLASS__, 'save_post' ), 10000, 3 );
 
 			add_action( 'deleted_post', array( __CLASS__, 'deleted_post' ), 10000 );
+
+			add_action( 'created_term', array( __CLASS__, 'created_term' ), 10, 3 );
+
+			add_action( 'edited_term', array( __CLASS__, 'edited_term' ), 10, 3 );
+
+			add_action( 'delete_term', array( __CLASS__, 'delete_term' ), 10000, 5 ); 
+
+			add_action( 'edited_term_taxonomies', array( __CLASS__, 'edited_term_taxonomies' ) );
+
+			add_action( 'deleted_term_relationships', array( __CLASS__, 'deleted_term_relationships' ), 10000, 3 ); 
 		}
 	}
 
@@ -102,6 +110,20 @@ class WooCommerce_Product_Search_Admin_Product {
 			$indexer->purge( $post_id );
 			unset( $indexer );
 		}
+	}
+
+	/**
+	 * Triggered on removal of object-term relationship.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param int $object_id object ID for which the object-term relationship has been deleted
+	 * @param array $tt_ids term taxonomy IDs
+	 * @param string $taxonomy taxonomy slug
+	 */
+	public static function deleted_term_relationships( $object_id, $tt_ids, $taxonomy ) {
+
+		self::deleted_post( $object_id );
 	}
 
 	/**
@@ -238,6 +260,14 @@ class WooCommerce_Product_Search_Admin_Product {
 		echo '</th>';
 		echo '<td>';
 		printf( '<input type="text" name="_search_weight" placeholder="%s" value="%s" />', esc_attr( __( 'unspecified', 'woocommerce-product-search' ) ), esc_attr( $search_weight ) );
+		$search_weight_sum = get_term_meta( $term->term_id, '_search_weight_sum', true );
+		if ( !empty( $search_weight_sum ) ) {
+			if ( intval( $search_weight_sum ) !== intval( $search_weight ) ) {
+				echo '<p class="description">';
+				printf( '&#931; = %d', intval( $search_weight_sum ) );
+				echo '</p>';
+			}
+		}
 		echo '</td>';
 		echo '</tr>';
 	}
@@ -250,22 +280,100 @@ class WooCommerce_Product_Search_Admin_Product {
 	 * @param string $taxonomy the term's taxonomy
 	 */
 	public static function created_term( $term_id, $term_taxonomy_id, $taxonomy ) {
-		self::edit_term( $term_id, $term_taxonomy_id, $taxonomy );
+		self::edited_term( $term_id, $term_taxonomy_id, $taxonomy );
 	}
 
 	/**
 	 * Update a term's search weight.
 	 *
+	 * @since 3.0.0
+	 *
 	 * @param int $term_id the term ID
 	 * @param int $term_taxonomy_id the relating ID
 	 * @param string $taxonomy the term's taxonomy
 	 */
-	public static function edit_term( $term_id, $term_taxonomy_id, $taxonomy ) {
-		$search_weight = isset( $_POST['_search_weight'] ) ? trim( $_POST['_search_weight'] ) : '';
-		if ( strlen( $search_weight ) > 0 ) {
-			update_term_meta( $term_id, '_search_weight', intval( $search_weight ) );
-		} else {
-			delete_term_meta( $term_id, '_search_weight' );
+	public static function edited_term( $term_id, $term_taxonomy_id, $taxonomy ) {
+
+		$product_taxonomies = WooCommerce_Product_Search_Indexer::get_applicable_product_taxonomies();
+		if ( in_array( $taxonomy, $product_taxonomies ) ) {
+			$indexer = new WooCommerce_Product_Search_Indexer();
+			$options = get_option( 'woocommerce-product-search', array() );
+			$use_weights = isset( $options[ WooCommerce_Product_Search::USE_WEIGHTS ] ) ? $options[ WooCommerce_Product_Search::USE_WEIGHTS ] : WooCommerce_Product_Search::USE_WEIGHTS_DEFAULT;
+			if ( $use_weights ) {
+				$search_weight = isset( $_POST['_search_weight'] ) ? trim( $_POST['_search_weight'] ) : '';
+				if ( strlen( $search_weight ) > 0 ) {
+					update_term_meta( $term_id, '_search_weight', intval( $search_weight ) );
+				} else {
+					delete_term_meta( $term_id, '_search_weight' );
+				}
+
+				$indexer->process_term_weights( array( $term_id ) );
+			}
+
+			$indexer->preprocess_terms();
+
+			$indexer->process_terms( $term_id );
+		}
+	}
+
+	/**
+	 * Triggered on removal of term.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param int $term term ID
+	 * @param int $tt_id term taxonomy ID
+	 * @param string $taxonomy taxonomy slug
+	 * @param WP_Term|array|WP_Error|null $deleted_term deleted term
+	 * @param array $object_ids term object IDs
+	 */
+	public static function delete_term( $term, $tt_id, $taxonomy, $deleted_term, $object_ids ) {
+
+		$product_taxonomies = WooCommerce_Product_Search_Indexer::get_applicable_product_taxonomies();
+		if ( in_array( $taxonomy, $product_taxonomies ) ) {
+			$indexer = new WooCommerce_Product_Search_Indexer();
+			$indexer->process_terms( intval( $term ) );
+
+			if ( $taxonomy === 'product_cat' ) {
+				$indexer->process_term_weights();
+			}
+		}
+	}
+
+	/**
+	 * Updated related terms.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param array $edit_tt_ids
+	 */
+	public static function edited_term_taxonomies( $edit_tt_ids ) {
+
+		global $wpdb;
+		if ( is_array( $edit_tt_ids ) && count( $edit_tt_ids ) > 0 ) {
+
+			$taxonomies = WooCommerce_Product_Search_Indexer::get_applicable_product_taxonomies();
+			if ( count( $taxonomies ) > 0 ) {
+				$edit_tt_ids = array_map( 'intval', $edit_tt_ids );
+				$query =
+					"SELECT DISTINCT term_id FROM $wpdb->term_taxonomy " .
+					'WHERE term_taxonomy_id IN ( ' . implode( ',', $edit_tt_ids ) . ' ) ' .
+					'AND ' .
+					"taxonomy IN ( '" . implode( "','", esc_sql( $taxonomies ) ) . "' ) ";
+				$term_ids = $wpdb->get_col( $query );
+				if ( count( $term_ids ) > 0 ) {
+					$term_ids = array_unique( array_map( 'intval', $term_ids ) );
+					$indexer = new WooCommerce_Product_Search_Indexer();
+					$options = get_option( 'woocommerce-product-search', array() );
+					$use_weights = isset( $options[ WooCommerce_Product_Search::USE_WEIGHTS ] ) ? $options[ WooCommerce_Product_Search::USE_WEIGHTS ] : WooCommerce_Product_Search::USE_WEIGHTS_DEFAULT;
+					if ( $use_weights ) {
+
+						$indexer->process_term_weights( $term_ids );
+					}
+
+					$indexer->process_terms( $term_ids );
+				}
+			}
 		}
 	}
 
@@ -295,7 +403,18 @@ class WooCommerce_Product_Search_Admin_Product {
 	public static function product_cat_column( $columns, $column, $term_id ) {
 		if ( $column == 'search_weight' ) {
 			$search_weight = get_term_meta( $term_id, '_search_weight', true );
-			$columns .= $search_weight;
+			if ( !empty( $search_weight ) ) {
+				$search_weight = intval( $search_weight );
+				$columns .= $search_weight;
+			}
+
+			$search_weight_sum = get_term_meta( $term_id, '_search_weight_sum', true );
+			if ( !empty( $search_weight_sum ) ) {
+				$search_weight_sum = intval( $search_weight_sum );
+				if ( $search_weight_sum !== $search_weight ) {
+					$columns .= sprintf( ' [&#931; = %d]', $search_weight_sum );
+				}
+			}
 		}
 		return $columns;
 	}

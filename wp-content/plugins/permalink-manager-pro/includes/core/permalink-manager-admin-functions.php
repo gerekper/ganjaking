@@ -11,7 +11,7 @@ class Permalink_Manager_Admin_Functions extends Permalink_Manager_Class {
 	public function __construct() {
 		add_action( 'admin_menu', array($this, 'add_menu_page') );
 		add_action( 'admin_init', array($this, 'init') );
-		add_action( 'admin_bar_menu',  array($this, 'fix_customize_url'), 10);
+		add_action( 'admin_bar_menu',  array($this, 'fix_customize_url'), 41);
 
 		add_action( 'admin_notices', array($this, 'display_plugin_notices'));
 		add_action( 'admin_notices', array($this, 'display_global_notices'));
@@ -38,6 +38,7 @@ class Permalink_Manager_Admin_Functions extends Permalink_Manager_Class {
 	 */
 	public function fix_customize_url($wp_admin_bar) {
 		$object = get_queried_object();
+		
 		$customize = $wp_admin_bar->get_node('customize');
 
 		if(empty($customize->href)) { return; }
@@ -1002,30 +1003,19 @@ class Permalink_Manager_Admin_Functions extends Permalink_Manager_Class {
 	 * Check if Permalink Manager Pro is active
 	 */
 	public static function is_pro_active($return_text = false) {
-		if(defined('PERMALINK_MANAGER_PRO') && PERMALINK_MANAGER_PRO == true) {
-			$is_pro = true;
-		} else {
-			$is_pro = false;
-		}
+		
+		$is_pro = true;
+		
 
-		// Check if license is active
-		if(class_exists('Permalink_Manager_Pro_Functions')) {
-			$exp_date = Permalink_Manager_Pro_Functions::get_expiration_date(true);
-
-			$is_pro = ($exp_date > 0) ? false : true;
-		} else {
-			$is_pro = false;
-		}
+		
 
 		return $is_pro;
 	}
 
 	static function pro_text($text_only = false) {
-		if(class_exists('Permalink_Manager_Pro_Functions')) {
-			$text = Permalink_Manager_Pro_Functions::get_expiration_date(false, true);
-		} else {
-			$text = sprintf(__('This functionality is available only in <a href="%s" target="_blank">Permalink Manager Pro</a>.', 'permalink-manager'), PERMALINK_MANAGER_WEBSITE);
-		}
+		
+		$text = Permalink_Manager_Pro_Functions::get_expiration_date(false, true);
+		
 
 		return ($text_only) ? $text : sprintf("<div class=\"alert info\"> %s</div>", wpautop($text, 'alert', false));
 	}

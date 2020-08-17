@@ -1,5 +1,9 @@
 *** Checkout Field Editor Changelog ***
 
+2020-08-13 - version 1.5.36
+* Fix   - Replace deprecated jQuery methods.
+* Tweak - WordPress 5.5 compatibility.
+
 2020-07-01 - version 1.5.35
 * Fix - Custom placeholder not showing for billing address 2.
 

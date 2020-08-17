@@ -49,6 +49,43 @@ class WooCommerce_Product_Search_Controller {
 	const MAX_USER_AGENT_LENGTH = 255;
 
 	/**
+	 * @var integer default max_allowed_packet with MySQL 5.7
+	 */
+	const MYSQL_57_MAX_ALLOWED_PACKET_DEFAULT = 4194304;
+
+	/**
+	 * @var integer minimum max_allowed_packet with MySQL 5.7
+	 */
+	const MYSQL_57_MAX_ALLOWED_PACKET_MIN = 1024;
+
+	/**
+	 * @var integer seconds in a day
+	 */
+	const SECONDS_PER_DAY = 86400;
+
+	/**
+	 * @var integer reduces the object limit proportionally
+	 */
+	const OBJECT_LIMIT_FACTOR = 4;
+
+	/**
+	 * @var integer minimum object limit for AUTO mode
+	 */
+	const MIN_OBJECT_LIMIT = 1000;
+
+	/**
+	 * @var string controller's cache group
+	 */
+	const CACHE_GROUP = 'ixwpsctrl';
+
+	/**
+	 * Existing tables.
+	 *
+	 * @var array
+	 */
+	private static $tables = null;
+
+	/**
 	 * Returns the name of the requested table appropriately prefixed.
 	 *
 	 * @param string $name unprefixed name of the table
@@ -58,6 +95,124 @@ class WooCommerce_Product_Search_Controller {
 	public static function get_tablename( $name ) {
 		global $wpdb;
 		return $wpdb->prefix . 'wps_' . $name;
+	}
+
+	/**
+	 * Whether the table exists.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param string $name
+	 *
+	 * @return boolean
+	 */
+	public static function table_exists( $name ) {
+
+		global $wpdb;
+		$exists = false;
+		if ( self::$tables === null ) {
+			self::$tables = get_option( 'woocommerce_product_search_plugin_tables', array() );
+		}
+		if ( in_array( $name, self::$tables ) ) {
+			$exists = true;
+		} else {
+			$table = self::get_tablename( $name );
+			$exists = $wpdb->get_var( "SHOW TABLES LIKE '$table'" ) === $table;
+			if ( $exists ) {
+				self::$tables[] = $name;
+				update_option( 'woocommerce_product_search_plugin_tables', self::$tables );
+			}
+		}
+		return $exists;
+	}
+
+	/**
+	 * Obtain the value of max_allowed_packet.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @return int value
+	 */
+	public static function get_max_allowed_packet() {
+
+		global $wpdb;
+		$value = null;
+		$query = "SHOW variables LIKE 'max_allowed_packet'";
+		$results = $wpdb->get_results( $query );
+		if ( is_array( $results ) ) {
+			$variable = array_shift( $results );
+			if ( isset( $variable->Value ) ) {
+				$value = intval( $variable->Value );
+			}
+		}
+
+		if ( $value === null ) {
+			$value = self::MYSQL_57_MAX_ALLOWED_PACKET_DEFAULT;
+		}
+
+		if ( $value < self::MYSQL_57_MAX_ALLOWED_PACKET_MIN ) {
+			$value = self::MYSQL_57_MAX_ALLOWED_PACKET_MIN;
+		}
+		return $value;
+	}
+
+	/**
+	 * Returns the object limit.
+	 *
+	 * @return int object limit, 0 for unlimited
+	 */
+	public static function get_object_limit() {
+
+		global $wpdb;
+		$limit = 0;
+		$wps_object_limit = strtoupper( trim( WPS_OBJECT_LIMIT ) );
+		if ( $wps_object_limit === 'AUTO' || $wps_object_limit === 'AUTOREPORT' ) {
+
+			$factor = self::OBJECT_LIMIT_FACTOR;
+			if ( defined( 'WPS_OBJECT_LIMIT_FACTOR' ) && is_numeric( WPS_OBJECT_LIMIT_FACTOR ) ) {
+				$factor = intval( WPS_OBJECT_LIMIT_FACTOR );
+				if ( $factor <= 0 ) {
+					$factor = self::OBJECT_LIMIT_FACTOR;
+				}
+			}
+
+			$limit = wp_cache_get( 'object_limit', self::CACHE_GROUP );
+			if ( $limit === false ) {
+				$max_allowed_packet = self::get_max_allowed_packet();
+				$max_id_size = $wpdb->get_var( "SELECT LENGTH(MAX(ID)) FROM $wpdb->posts" );
+				if ( $max_id_size !== null ) {
+					$max_id_size = intval( $max_id_size );
+					if ( $max_id_size <= 0 ) {
+						$max_id_size = null;
+					}
+				}
+				if ( $max_id_size === null ) {
+					$max_id_size = floor( strlen( '' . PHP_INT_MAX ) / 1.62 );
+				}
+
+				$limit = floor( $max_allowed_packet / ( $factor * $max_id_size ) );
+				if ( $limit < self::MIN_OBJECT_LIMIT ) {
+					if ( $factor > self::OBJECT_LIMIT_FACTOR ) {
+						$limit = min( self::MIN_OBJECT_LIMIT, floor( $max_allowed_packet / ( self::MIN_OBJECT_LIMIT * $max_id_size ) ) );
+					}
+				}
+				if ( $wps_object_limit === 'AUTOREPORT' ) {
+					wps_log_info( sprintf( 'Object limit established at %d.', $limit ) );
+				}
+
+				$cached = wp_cache_set( 'object_limit', $limit, self::CACHE_GROUP, self::SECONDS_PER_DAY );
+			}
+		} else {
+			if ( is_numeric( WPS_OBJECT_LIMIT ) ) {
+				$limit = intval( WPS_OBJECT_LIMIT );
+				if ( $limit < 0 ) {
+					$limit = 0;
+				}
+			} else {
+				$limit = 0;
+			}
+		}
+		return $limit;
 	}
 
 	/**
@@ -72,6 +227,8 @@ class WooCommerce_Product_Search_Controller {
 
 	/**
 	 * Create tables and initial data. Starts the index worker.
+	 *
+	 * @return boolean true if all went well
 	 */
 	public static function setup() {
 		global $wpdb;
@@ -135,6 +292,30 @@ class WooCommerce_Product_Search_Controller {
 				INDEX          context_table (context_table(10)),
 				INDEX          context_column (context_column(10)),
 				INDEX          context_key (context_key(10))
+			) $charset_collate;";
+		}
+
+		$object_term_table = self::get_tablename( 'object_term' );
+		$tables[] = $object_term_table;
+		if ( $wpdb->get_var( "SHOW TABLES LIKE '$object_term_table'" ) != $object_term_table ) {
+			$queries[] =
+				"CREATE TABLE $object_term_table (
+				object_term_id   BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+				object_id        BIGINT(20) UNSIGNED NOT NULL,
+				parent_object_id BIGINT(20) UNSIGNED DEFAULT NULL,
+				term_id          BIGINT(20) UNSIGNED NOT NULL,
+				parent_term_id   BIGINT(20) UNSIGNED DEFAULT NULL,
+				object_type      VARCHAR(100) DEFAULT NULL,
+				taxonomy         VARCHAR(100) DEFAULT NULL,
+				inherit          TINYINT DEFAULT NULL,
+				modified         DATETIME DEFAULT NULL,
+				PRIMARY KEY      (object_term_id),
+				INDEX            object_id (object_id),
+				INDEX            parent_object_id (parent_object_id),
+				INDEX            term_id (term_id),
+				INDEX            parent_term_id (parent_term_id),
+				INDEX            object_type (object_type(10)),
+				INDEX            taxonomy (taxonomy(10))
 			) $charset_collate;";
 		}
 
@@ -374,9 +555,18 @@ class WooCommerce_Product_Search_Controller {
 		if (
 			( $wpdb->get_var( "SHOW TABLES LIKE '$key_table'" ) === $key_table ) &&
 			( $wpdb->get_var( "SHOW TABLES LIKE '$index_table'" ) === $index_table ) &&
-			( $wpdb->get_var( "SHOW TABLES LIKE '$object_type_table'" ) === $object_type_table )
+			( $wpdb->get_var( "SHOW TABLES LIKE '$object_type_table'" ) === $object_type_table ) &&
+			( $wpdb->get_var( "SHOW TABLES LIKE '$object_term_table'" ) === $object_term_table ) 
 		) {
 			WooCommerce_Product_Search_Worker::start();
+
+		}
+
+		$indexer = new WooCommerce_Product_Search_Indexer();
+		$indexer->process_term_weights();
+
+		if ( $result ) {
+			update_option( 'woocommerce_product_search_db_version', WOO_PS_PLUGIN_VERSION, false );
 		}
 
 		return $result;
@@ -491,6 +681,79 @@ class WooCommerce_Product_Search_Controller {
 	}
 
 	/**
+	 * Database update.
+	 *
+	 * @since 3.0.0
+	 */
+	public static function update_db() {
+
+		global $wpdb;
+
+		$success = true;
+
+		if ( !self::table_exists( 'object_term' ) ) {
+			$charset_collate = '';
+			if ( ! empty( $wpdb->charset ) ) {
+				$charset_collate = "DEFAULT CHARACTER SET $wpdb->charset";
+			}
+			if ( ! empty( $wpdb->collate ) ) {
+				$charset_collate .= " COLLATE $wpdb->collate";
+			}
+
+			$object_term_table = self::get_tablename( 'object_term' );
+			if ( $wpdb->get_var( "SHOW TABLES LIKE '$object_term_table'" ) != $object_term_table ) {
+
+				$query =
+					"CREATE TABLE $object_term_table (
+					object_term_id   BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+					object_id        BIGINT(20) UNSIGNED NOT NULL,
+					parent_object_id BIGINT(20) UNSIGNED DEFAULT NULL,
+					term_id          BIGINT(20) UNSIGNED NOT NULL,
+					parent_term_id   BIGINT(20) UNSIGNED DEFAULT NULL,
+					object_type      VARCHAR(100) DEFAULT NULL,
+					taxonomy         VARCHAR(100) DEFAULT NULL,
+					inherit          TINYINT DEFAULT NULL,
+					modified         DATETIME DEFAULT NULL,
+					PRIMARY KEY      (object_term_id),
+					INDEX            object_id (object_id),
+					INDEX            parent_object_id (parent_object_id),
+					INDEX            term_id (term_id),
+					INDEX            parent_term_id (parent_term_id),
+					INDEX            object_type (object_type(10)),
+					INDEX            taxonomy (taxonomy(10))
+				) $charset_collate;";
+
+				if ( $wpdb->query( $query ) === false ) {
+					wps_log_error( 'Failed to execute database query: ' . $query );
+				}
+			}
+
+			if ( self::table_exists( 'object_term' ) ) {
+
+				if ( !WooCommerce_Product_Search_Worker::get_status() ) {
+					WooCommerce_Product_Search_Worker::start();
+				}
+
+				$indexer = new WooCommerce_Product_Search_Indexer();
+				$indexer->process_term_weights();
+				$indexer->preprocess_terms(); 
+				$indexer->process_terms(); 
+				WooCommerce_Product_Search_Worker::work(); 
+			} else {
+				$success = false;
+				wps_log_error( sprintf( 'The table %s is missing.', $object_term_table ) );
+			}
+		}
+
+		if ( $success ) {
+			update_option( 'woocommerce_product_search_db_version', WOO_PS_PLUGIN_VERSION, false );
+			wps_log_info( 'Database updated.' );
+		} else {
+			wps_log_error( "Failed to update the database." );
+		}
+	}
+
+	/**
 	 * Remove all tables related to the index.
 	 */
 	public static function cleanup_index() {
@@ -498,6 +761,7 @@ class WooCommerce_Product_Search_Controller {
 		$wpdb->query( 'DROP TABLE IF EXISTS ' . self::get_tablename( 'key' ) );
 		$wpdb->query( 'DROP TABLE IF EXISTS ' . self::get_tablename( 'index' ) );
 		$wpdb->query( 'DROP TABLE IF EXISTS ' . self::get_tablename( 'object_type' ) );
+		$wpdb->query( 'DROP TABLE IF EXISTS ' . self::get_tablename( 'object_term' ) ); 
 	}
 
 	/**

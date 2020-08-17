@@ -164,6 +164,7 @@ class WC_Dropshipping_Product {
 		if( !isset( $_POST['tax_input']['dropship_supplier'] ) ) return; 
 
 		$supplier_name = $_POST['tax_input']['dropship_supplier'];
+		if( empty($supplier_name ) ) return;
 		$term = get_term_by('slug', $supplier_name, 'dropship_supplier'); 
 		$name = $term->name; 
 

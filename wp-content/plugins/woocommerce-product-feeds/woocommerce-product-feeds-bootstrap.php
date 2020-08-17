@@ -116,6 +116,15 @@ $woocommerce_gpf_di['WoocommerceGpfClearAllJob'] = function ( $c ) {
 	);
 };
 
+$woocommerce_gpf_di['WoocommerceGpfClearProductJob'] = function ( $c ) {
+	return new WoocommerceGpfClearProductJob(
+		$c['WoocommerceGpfCommon'],
+		$c['WoocommerceGpfCache'],
+		$c['WoocommerceGpfDebugService'],
+		$c
+	);
+};
+
 $woocommerce_gpf_di['WoocommerceGpfRebuildSimpleJob'] = function ( $c ) {
 	return new WoocommerceGpfRebuildSimpleJob(
 		$c['WoocommerceGpfCommon'],

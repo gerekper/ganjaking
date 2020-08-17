@@ -149,12 +149,32 @@ class WC_Dropshipping_Orders {
 
 	public function get_order_product_info($item,$product) {
 
-
-		global  $woocommerce;
+		global $woocommerce;
 		$info = array();
+		$shipping_total = 0;
+		$shipping_tax = 0;
+
 		$info['sku'] = $product->get_sku();
+
+		$order = wc_get_order($item['order_id']);
+		$order_data = $order->get_data();
+
+		$shipping_total = $order_data['shipping_total'];
+		$shipping_tax = $order_data['shipping_tax'];
+
+		$info['get_shipping_total'] = number_format( $shipping_total + $shipping_tax, 2 );
+		
         $info['qty'] = $item['qty'];
+
+        $subtotal_tax = $item['subtotal_tax'];
+
+        $info['subtotal_tax'] = number_format( $subtotal_tax, 2 );
+        
+        $total = $item['total'];
+
+        $info['total'] = number_format( $total, 2 );
 		$info['name'] = $item['name'];
+
 		$product = wc_get_product( $product->get_id() );
 		$product_get = wc_get_product( $item->get_product_id() );
 		$thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id() ) );
@@ -195,11 +215,14 @@ class WC_Dropshipping_Orders {
 
 		if(empty($costofgoods))
 		{
-			$info['price'] = '<span class="currency">'. $currency_symbol .'</span>'. $item->get_subtotal();
+			$product_subtotal = $item->get_subtotal();
+			$product_subtotal = number_format( $product_subtotal, 2 );
+			$info['price'] = '<span class="currency">'. $currency_symbol .'</span>'. $product_subtotal;
 		}
 		else
 		{
 			$totalprice = $costofgoods*$item['qty'];
+			$totalprice = number_format( $totalprice, 2 );
 			$info['price'] = '<span class="currency">'. $currency_symbol .'</span>'. $totalprice;
 		}
 
@@ -266,7 +289,7 @@ class WC_Dropshipping_Orders {
 		// gather some of the basic order info
 		$order_info = array();
 		/*$order_info['id'] = $order->get_order_number();*/
-		$order_info['get_shipping_total'] = $order->get_shipping_total();
+		
 		$order_info['id'] = $order->get_id();
 		$order_info['number'] = $order->get_order_number();
 		$order_info['options'] = get_option( 'wc_dropship_manager' );
@@ -274,6 +297,7 @@ class WC_Dropshipping_Orders {
 		$order_info['billing_info'] = $this->get_order_billing_info($order);
 		$order_info['order'] = $order;
 		$order_info['customer_note'] = $order->get_customer_note();
+		
 		// for each item determine what products go to what suppliers.
 		// Build product/supplier lists so we can send send out our order emails
 		$order_info['suppliers'] = array();
@@ -550,7 +574,17 @@ class WC_Dropshipping_Orders {
 	// get HTML packingslip
 	public function get_packingslip_html($order_info,$supplier_info,$callfrom = false) {
 		$html = '';
-		$filename = 'packingslip.html';
+		$dropship_data = get_option( 'wc_dropship_manager' );
+		$complete_email = $dropship_data['complete_email'];
+		$order = wc_get_order($order_info['id']);
+		if($order->get_status() == 'completed') {
+			if($complete_email == '1' ) {
+			
+				$filename = 'complete.html';
+			}
+		} else {
+			$filename = 'packingslip.html';	
+		}
 
 		/* if($callfrom === true){
 			$filename = 'packingslip.html';
@@ -592,7 +626,20 @@ class WC_Dropshipping_Orders {
 	// get HTML packingslip
 	public function get_packingslip_text($order_info,$supplier_info) {
 		$html = '';
-		$filename = 'packingslip_text.html';
+		$dropship_data = get_option( 'wc_dropship_manager' );
+		$complete_email = $dropship_data['complete_email'];
+		$order = wc_get_order($order_info['id']);
+
+		if($order->get_status() == 'completed') {
+
+			if($complete_email == '1' ) {
+			
+				$filename = 'complete.html';
+			}
+		} else {
+			$filename = 'packingslip_text.html';	
+		}
+
 		if (file_exists(get_stylesheet_directory().'/woocommerce-dropshipping/'.$supplier_info['slug'].'_'.$filename))
 		{
 			/* 	User can create a custom supplier packingslip PDF by creating a "woocommerce-dropshipping" directory
@@ -693,10 +740,15 @@ class WC_Dropshipping_Orders {
 
 			$textPlain = $this->get_packingslip_text($order_info,$supplier_info);
 			$text = $this->get_packingslip_html($order_info,$supplier_info, false);
-			$text = $options['email_order_note'] . $text;
+			if($order->get_status() != 'completed') {
+
+				$text = $options['email_order_note'] . $text;
+			}
+			
 			$html = apply_filters('wc_dropship_manager_send_order_email_html',$text);
 
 		 	if ($order->get_status() == 'completed') {
+		 		
 		  		$hdrs['Subject'] = 'Order #'.$order_info['number'].' is completed ';
 			}else {
 				$hdrs['Subject'] = 'New Order #'.$order_info['number'].' From '.$from_name;
@@ -707,18 +759,25 @@ class WC_Dropshipping_Orders {
 			}else {
 				$hdrs['Subject'] = 'New Order #'.$order_info['id'].' From '.$from_name;
 			}*/
-			if($cnf_mail == '1') {
+			$message = '';
+			if ($order->get_status() != 'completed') {
+				
+				if($cnf_mail == '1') {
 
-				$message = '<img width="1" height="1" src="'.plugin_dir_url(__FILE__ ).'mail-track.php?orderid='.$order_info['id'].'&suppid='.$supplier_info['id'] . '&from='.$supplier_info['order_email_addresses'] .'&sup_name='.$supplier_info['name'] . '&random_value='.rand().'">';
+					$message .= '<img width="1" height="1" src="'.plugin_dir_url(__FILE__ ).'mail-track.php?orderid='.$order_info['id'].'&suppid='.$supplier_info['id'] . '&from='.$supplier_info['order_email_addresses'] .'&sup_name='.$supplier_info['name'] . '&random_value='.rand().'">';
+				}
 			}
 
 			$message .= '<div style="background-color: '.( !empty(trim(get_option('woocommerce_email_background_color'))) ? get_option('woocommerce_email_background_color') : '#ccc' ).';">'.$html.'</div>';
 
-			if($complete_url == '1') {
+			if($order->get_status() != 'completed') {
 
-				$message .= '<table cellpadding="8" cellspacing="0" style="width:100%;" >
-		    	<tr><td style="text-align: center;">To mark this order as shipped please click the following link:<br/>'.get_home_url().'/wp-admin/admin-ajax.php?action=woocommerce_dropshippers_mark_as_shipped&orderid='.$order_info["id"].'&supplierid='.$supplier_info["id"].'</td></tr></table>';
-		    }
+				if($complete_url == '1') {
+
+					$message .= '<table cellpadding="8" cellspacing="0" style="width:100%;" >
+			    	<tr><td style="text-align: center;">To mark this order as shipped please click the following link:<br/>'.get_home_url().'/wp-admin/admin-ajax.php?action=woocommerce_dropshippers_mark_as_shipped&orderid='.$order_info["id"].'&supplierid='.$supplier_info["id"].'</td></tr></table>';
+			    }
+			}
 
 			$headers  = "From: ".wp_specialchars_decode($from_name)." <".$from_email.">\r\n";
 			if($cc_email == '0'){
@@ -726,7 +785,12 @@ class WC_Dropshipping_Orders {
 			}
 
 
-			wp_mail($hdrs['To'], $hdrs['Subject'], $message, $headers, $attachments) ;
+			if($order->get_status() == 'completed') {
+				
+				wp_mail($hdrs['To'], $hdrs['Subject'], $message, $headers);
+			} else {
+				wp_mail($hdrs['To'], $hdrs['Subject'], $message, $headers, $attachments);
+			}
 		}
 		else
 		{
@@ -755,7 +819,9 @@ class WC_Dropshipping_Orders {
 			}
 
 			$order_status = $order->get_status();
+
 			if ($order_status == 'completed') {
+
 				$hdrs['Subject'] = 'Order #'.$order_info['id'].' is completed ';
 			}else {
 				$hdrs['Subject'] = 'New Order #'.$order_info['id'].' From '.$from_name;
@@ -781,7 +847,12 @@ class WC_Dropshipping_Orders {
 			}
 			$textPlain = $this->get_packingslip_text($order_info,$supplier_info);
 			$text = $this->get_packingslip_html($order_info,$supplier_info,false);
-			$text = $options['email_order_note'] . $text;
+
+			if ($order_status != 'completed') {
+
+				$text = $options['email_order_note'] . $text;
+			}
+
 			$html = apply_filters('wc_dropship_manager_send_order_email_html',$text);
 			$message = "This is a multi-part message in MIME format.\n\n";
 			$message .=  "--{$mime_boundary_mixed}\n";
@@ -832,22 +903,29 @@ class WC_Dropshipping_Orders {
 			$fullinfo = $options['full_information'];
 			//$bill = $order_info['options']['billing_phone'];
 			//$message .= "--{$mime_boundary_mixed}\n";
-			if($fullinfo == '1'){
+			if($order_status != 'completed') {
 
-	        $message .= "--{$mime_boundary_mixed}\n".
-	        			"Content-Type: application/pdf; name=".$attachment_name."\n" .
-			          "Content-Transfer-Encoding: base64"."\r\n" .
-					  "Content-Disposition: attachment; filename=\"".$attachment_name."\""."\r\n"."\r\n".
-			          $encoded_attachment. "\r\n";
-	      	}
+				if($fullinfo == '1'){
 
-			if($csv_inmail == '1') {
-			$message .= "--{$mime_boundary_mixed}\n".
-						"Content-Type: application/octet-stream; name=\"".$csv_name."\""."\r\n" .
-			          "Content-Transfer-Encoding: base64"."\r\n" .
-					  "Content-Disposition: attachment; filename=\"".$csv_name."\""."\r\n"."\r\n".
-			          $encoded_attachment_csv. "\r\n";
+		        $message .= "--{$mime_boundary_mixed}\n".
+		        			"Content-Type: application/pdf; name=".$attachment_name."\n" .
+				          "Content-Transfer-Encoding: base64"."\r\n" .
+						  "Content-Disposition: attachment; filename=\"".$attachment_name."\""."\r\n"."\r\n".
+				          $encoded_attachment. "\r\n";
+		      	}
+		    }
+
+		    if($order_status != 'completed') {
+
+				if($csv_inmail == '1') {
+					$message .= "--{$mime_boundary_mixed}\n".
+							"Content-Type: application/octet-stream; name=\"".$csv_name."\""."\r\n" .
+				          "Content-Transfer-Encoding: base64"."\r\n" .
+						  "Content-Disposition: attachment; filename=\"".$csv_name."\""."\r\n"."\r\n".
+				          $encoded_attachment_csv. "\r\n";
+				}
 			}
+
 			$message .= "--{$mime_boundary_mixed}--";			// Must have 2 hyphens at the end
 
 			//wp_mail($hdrs['To'], $hdrs['Subject'] , $email_message_html, $headers);

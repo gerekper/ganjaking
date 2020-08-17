@@ -1,5 +1,10 @@
 *** WooCommerce Google Product Feed Changelog ***
 
+2020.08.12 - version 9.0.2
+* Change: Be more conservative about the number of background jobs raised when feed item caching is enabled
+* Fix: Fix issue where exported columns could be blank
+* Fix: Avoid error if wc_get_logger is unavailable
+
 2020.07.30 - version 9.0.1
 * Fix: Fix issue where "Hide product from feed" didn't save correctly
 

@@ -1,7 +1,7 @@
 jQuery(document).ready(function($) {
 	var money             = fx.noConflict();
 	var current_currency  = wc_currency_converter_params.current_currency;
-	var currency_codes    = jQuery.parseJSON( wc_currency_converter_params.currencies );
+	var currency_codes    = JSON.parse( wc_currency_converter_params.currencies );
 	var currency_position = wc_currency_converter_params.currency_pos;
 	var currency_decimals = wc_currency_converter_params.num_decimals;
 	var remove_zeros      = wc_currency_converter_params.trim_zeros;
@@ -96,7 +96,6 @@ jQuery(document).ready(function($) {
 				}
 
 			} else {
-
 				jQuery(this).html( price + " " + to_currency );
 
 			}
@@ -233,7 +232,7 @@ jQuery(document).ready(function($) {
 
 			jQuery('body').trigger('currency_converter_reset');
 
-			if ( jQuery( '.price_slider' ).size() > 0 ) {
+			if ( jQuery( '.price_slider' ).length ) {
 				jQuery('body').trigger('price_slider_slide', [jQuery(".price_slider").slider("values", 0), jQuery(".price_slider").slider("values", 1)]);
 			}
 

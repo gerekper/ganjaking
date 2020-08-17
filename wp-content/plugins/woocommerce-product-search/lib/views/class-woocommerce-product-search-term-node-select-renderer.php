@@ -186,6 +186,9 @@ class WooCommerce_Product_Search_Term_Node_Select_Renderer {
 					if ( apply_filters( 'woocommerce_product_search_term_walker_apply_get_term_count', true, $term ) ) {
 						if ( isset( $this->term_counts[$term->term_id] ) ) {
 							$object_count = $this->term_counts[$term->term_id];
+						} else {
+
+							$object_count = 0;
 						}
 					}
 					$option_label .= apply_filters( 'woocommerce_product_search_term_node_select_render_count' , ' (' . intval( $object_count ) . ')', $term, $depth, $object_count );

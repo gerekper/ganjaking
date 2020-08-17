@@ -59,6 +59,8 @@ class WooCommerce_Product_Search_Filter {
 
 	private static $filters = 0;
 
+	const CACHE_GROUP = 'ixwps_filter';
+
 	/**
 	 * Adds shortcodes.
 	 */
@@ -139,6 +141,8 @@ class WooCommerce_Product_Search_Filter {
 
 				'use_shop_url'              => 'no',
 
+				'unpage_url'                => 'yes',
+
 				'breadcrumb_container'      => '.woocommerce-breadcrumb',
 				'products_header_container' => '.woocommerce-products-header',
 				'products_container'        => '.products',
@@ -208,6 +212,7 @@ class WooCommerce_Product_Search_Filter {
 					case 'update_address_bar' :
 					case 'update_document_title' :
 					case 'use_shop_url' :
+					case 'unpage_url' :
 						$value = strtolower( $value );
 						$value = $value == 'true' || $value == 'yes' || $value == '1';
 						break;
@@ -406,6 +411,9 @@ class WooCommerce_Product_Search_Filter {
 		if ( isset( $params['use_shop_url'] ) && $params['use_shop_url'] ) {
 			$js_args[] = sprintf( 'href:"%s"', esc_attr( $href ) );
 		}
+		if ( isset( $params['unpage_url'] ) ) {
+			$js_args[] = 'unpage_url:' . ( $params['unpage_url'] ? 'true' : 'false' );
+		}
 		$js_args = '{' . implode( ',', $js_args ) . '}';
 
 		$output .= '<script type="text/javascript">';
@@ -597,7 +605,7 @@ class WooCommerce_Product_Search_Filter {
 		} else {
 
 			
-			$output .= esc_html( sprintf( _nx( 'Showing the single result', 'Showing %1$d&ndash;%2$d of %3$d results', $total, 'with first and last result', 'woocommerce' ), $first, $last, $total ) );
+			$output .= esc_html( sprintf( _nx( 'Showing the single result', 'Showing %1$d&ndash;%2$d of %3$d results', $total, 'with first and last result', 'woocommerce-product-search' ), $first, $last, $total ) );
 
 		}
 		$output .= '</p>';
@@ -662,7 +670,19 @@ class WooCommerce_Product_Search_Filter {
 	public static function pagination() {
 
 
-		global $wps_products;
+		global $wp_query, $wps_products, $wps_products_paged;
+
+		$paged = max( 1, intval( $wp_query->get( 'paged', 1 ) ) );
+		if ( isset( $wp_query->query['paged'] ) ) {
+			$query_paged = max( 1, intval( $wp_query->query['paged'] ) );
+			if ( $query_paged !== $paged ) {
+				$paged = $query_paged;
+			}
+		}
+
+		if ( ( $paged > $wps_products->max_num_pages ) && isset( $wps_products_paged ) ) {
+			$paged = $wps_products_paged;
+		}
 
 		$output = '';
 
@@ -675,8 +695,8 @@ class WooCommerce_Product_Search_Filter {
 						'base'      => esc_url_raw( str_replace( 999999999, '%#%', remove_query_arg( 'add-to-cart', get_pagenum_link( 999999999, false ) ) ) ),
 						'format'    => '',
 						'add_args'  => false,
-						'current'   => max( 1, get_query_var( 'paged' ) ),
-						'total'     => $wps_products->max_num_pages,
+						'current'   => $paged,
+						'total'     => intval( $wps_products->max_num_pages ),
 						'prev_text' => '&larr;',
 						'next_text' => '&rarr;',
 						'type'      => 'list',
@@ -860,7 +880,7 @@ class WooCommerce_Product_Search_Filter {
 	public static function product_loop( $query_args, $atts, $loop_name ) {
 
 
-		global $woocommerce_loop, $wps_products;
+		global $woocommerce_loop, $wps_products, $wps_products_paged;
 
 		if ( isset( $_GET['orderby'] ) ) {
 			$query_args['orderby'] = '';
@@ -885,7 +905,12 @@ class WooCommerce_Product_Search_Filter {
 		$woocommerce_loop['name']    = $loop_name;
 		$query_args                  = apply_filters( 'woocommerce_product_search_filter_shortcode_products_query', $query_args, $atts, $loop_name );
 
-		$products = new WP_Query( $query_args );
+		$cache_key = md5( json_encode( $query_args ) );
+		$products = wps_cache_get( $cache_key, self::CACHE_GROUP );
+		if ( $products === false ) {
+			$products = new WP_Query( $query_args );
+			wps_cache_set( $cache_key, $products, self::CACHE_GROUP, WooCommerce_Product_Search_Service::get_cache_lifetime() );
+		}
 
 		if (
 			!$products->have_posts() &&
@@ -904,7 +929,14 @@ class WooCommerce_Product_Search_Filter {
 			$unpage_url = remove_query_arg( 'paged', $unpage_url );
 			if ( $url !== $unpage_url ) {
 				unset( $query_args['paged'] );
-				$products = new WP_Query( $query_args );
+				$wps_products_paged = 1;
+
+				$cache_key = md5( json_encode( $query_args ) );
+				$products = wps_cache_get( $cache_key, self::CACHE_GROUP );
+				if ( $products === false ) {
+					$products = new WP_Query( $query_args );
+					wps_cache_set( $cache_key, $products, self::CACHE_GROUP, WooCommerce_Product_Search_Service::get_cache_lifetime() );
+				}
 			}
 		}
 

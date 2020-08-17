@@ -30,7 +30,7 @@ class WooCommerce_Product_Search_Worker {
 
 	const INDEX_WORKER_STATUS          = 'index-worker-status';
 	const INDEX_WORKER_STATUS_DEFAULT  = false;
-	const START_DELTA                  = 1;
+	const START_DELTA                  = 20; 
 	const WORK_CYCLE                   = 'work-cycle';
 	const WORK_CYCLE_DEFAULT           = 60;
 	const IDLE_CYCLE                   = 'idle-cycle';
@@ -117,7 +117,8 @@ class WooCommerce_Product_Search_Worker {
 					date( 'Y-m-d H:i:s', $next ) )
 				);
 				if ( $scheduled === false ) {
-					wps_log_error( 'Worker could not schedule next work cycle.' );
+
+					wps_log_warning( 'Worker could not schedule next work cycle.' );
 				}
 			}
 		}
@@ -137,8 +138,8 @@ class WooCommerce_Product_Search_Worker {
 	 */
 	public static function work() {
 
-
 		$indexer = new WooCommerce_Product_Search_Indexer();
+
 		$c = $indexer->get_processable_count();
 		if ( $c > 0 ) {
 			$indexer->work();

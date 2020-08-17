@@ -113,6 +113,9 @@ class WooCommerce_Product_Search {
 	 * Put hooks in place and activate.
 	 */
 	public static function init() {
+
+		global $wp_query;
+
 		register_activation_hook( WOO_PS_FILE, array( __CLASS__, 'activate' ) );
 		register_deactivation_hook( WOO_PS_FILE, array( __CLASS__, 'deactivate' ) );
 		add_action( 'admin_notices', array( __CLASS__, 'admin_notices' ) );
@@ -123,10 +126,15 @@ class WooCommerce_Product_Search {
 		add_action( 'delete_blog', array( __CLASS__, 'delete_blog' ), 10, 2 );
 		require_once WOO_PS_VIEWS_LIB . '/class-woocommerce-product-search-log.php';
 		if ( self::check_dependencies() ) {
+			require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-cache.php';
 			require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-controller.php';
 			require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-indexer.php';
 			require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-worker.php';
-			require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-service.php';
+			if ( WooCommerce_Product_Search_Controller::table_exists( 'object_term' ) ) {
+				require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-service.php';
+			} else {
+				require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-service-v2.php';
+			}
 			require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-hit.php';
 			require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-utility.php';
 		}
@@ -138,9 +146,13 @@ class WooCommerce_Product_Search {
 			if ( $filter_process_dom ) {
 				add_filter( 'wp_print_scripts', array( __CLASS__, 'wp_print_scripts' ), PHP_INT_MAX );
 				add_filter( 'wp_print_styles', array( __CLASS__, 'wp_print_styles' ), PHP_INT_MAX );
-				add_action( 'wp_loaded', array( __CLASS__, 'wp_loaded' ), 0 );
-				add_action( 'shutdown', array( __CLASS__, 'shutdown' ), PHP_INT_MAX );
+
 			}
+
+			add_action( 'wp_loaded', array( __CLASS__, 'wp_loaded' ), 0 );
+			self::cleanup_shutdown();
+
+			add_action( 'shutdown', array( __CLASS__, 'shutdown' ), PHP_INT_MIN );
 
 			$_SERVER['REQUEST_URI'] = preg_replace( '/(\?|&)(ixmbd(=[^&\?])|ixmbd=|ixmbd)/i', '', $_SERVER['REQUEST_URI'] );
 
@@ -149,6 +161,8 @@ class WooCommerce_Product_Search {
 			unset( $_POST['ixmbd'] );
 
 			add_action( 'template_redirect', array( __CLASS__, 'template_redirect' ) );
+
+			add_filter( 'redirect_canonical', '__return_false' );
 		}
 
 		if (
@@ -162,9 +176,14 @@ class WooCommerce_Product_Search {
 			)
 		) {
 			add_action( 'template_redirect', array( __CLASS__, 'template_redirect' ) );
+
+			add_filter( 'query_vars', array( __CLASS__, 'query_vars' ), PHP_INT_MAX );
+
 		}
 
+		add_action( 'woocommerce_product_search_update_db', array( __CLASS__, 'update_db' ) );
 	}
+
 
 	/**
 	 * Fires the woocommerce_product_search_signal_filter_response action.
@@ -207,6 +226,44 @@ class WooCommerce_Product_Search {
 		$wps_wp_loaded = function_exists( 'microtime' ) ? microtime( true ) : time();
 	}
 
+	/**
+	 * Stabilize query_vars during filter requests to avoid conflicts and interference.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param array $query_vars
+	 *
+	 * @return array
+	 */
+	public static function query_vars( $query_vars ) {
+
+		return array_diff(
+			$query_vars,
+			array(
+				WooCommerce_Product_Search_Service::TITLE,
+				WooCommerce_Product_Search_Service::EXCERPT,
+				WooCommerce_Product_Search_Service::CONTENT,
+				WooCommerce_Product_Search_Service::CATEGORIES,
+				WooCommerce_Product_Search_Service::TAGS,
+				WooCommerce_Product_Search_Service::SKU,
+				WooCommerce_Product_Search_Service::ATTRIBUTES,
+				WooCommerce_Product_Search_Service::VARIATIONS,
+				WooCommerce_Product_Search_Service::MIN_PRICE,
+				WooCommerce_Product_Search_Service::MAX_PRICE,
+				WooCommerce_Product_Search_Service::ON_SALE,
+				WooCommerce_Product_Search_Service::RATING,
+
+				'ixwpss',
+				'ixwpst',
+				'ixwpsf',
+				'ixwpsp',
+				'ixwpse',
+				'ixmbd'
+			)
+		);
+
+	}
+
 	public static function shutdown() {
 
 		global $wps_wp_loaded, $wps_dom_processing;
@@ -231,6 +288,25 @@ class WooCommerce_Product_Search {
 				$wp_loaded_to_shutdown, 
 				( $wp_loaded_to_shutdown > 0 ? round( 100 * $t / $wp_loaded_to_shutdown, 2 ) : '~' ) 
 			) );
+		}
+
+		self::cleanup_shutdown();
+	}
+
+	/**
+	 * @since 3.0.0
+	 */
+	private static function cleanup_shutdown() {
+
+		if ( apply_filters( 'woocommerce_product_search_shutdown_remove_all_actions', true ) ) {
+			$add_filter_shutdown = false;
+			if ( has_action( 'shutdown', array( 'WooCommerce_Product_Search_Filter', 'shutdown' ) ) ) {
+				$add_filter_shutdown = true;
+			}
+			remove_all_actions( 'shutdown' );
+			if ( $add_filter_shutdown ) {
+				add_action( 'shutdown', array( 'WooCommerce_Product_Search_Filter', 'shutdown' ) );
+			}
 		}
 	}
 
@@ -495,6 +571,55 @@ class WooCommerce_Product_Search {
 	}
 
 	/**
+	 * Whether the database needs to be updated.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @return boolean
+	 */
+	public static function needs_db_update() {
+		if ( did_action( 'init' ) < 1 ) {
+			return false;
+		}
+		$db_version = get_option( 'woocommerce_product_search_db_version', '0' );
+		return version_compare( $db_version, WOO_PS_PLUGIN_VERSION ) < 0;
+	}
+
+	/**
+	 * Schedule a database update.
+	 *
+	 * @since 3.0.0
+	 */
+	public static function schedule_db_update() {
+		$scheduled = wp_schedule_single_event( time() + 20, 'woocommerce_product_search_update_db' );
+		if ( $scheduled ) {
+			wps_log_info( 'A database update has been scheduled.' );
+		} else {
+			wps_log_error( 'Failed to schedule a database update.' );
+		}
+	}
+
+	/**
+	 * Whether a database update is scheduled.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @return boolean
+	 */
+	public static function is_db_update_scheduled() {
+		return wp_next_scheduled( 'woocommerce_product_search_update_db' ) !== false;
+	}
+
+	/**
+	 * Update the database.
+	 *
+	 * @since 3.0.0
+	 */
+	public static function update_db() {
+		WooCommerce_Product_Search_Controller::update_db();
+	}
+
+	/**
 	 * Runs the setup procedures.
 	 */
 	private static function setup() {
@@ -540,7 +665,9 @@ class WooCommerce_Product_Search {
 			self::cleanup_metas();
 			WooCommerce_Product_Search_Controller::cleanup( true );
 			self::cleanup_v1_indexes();
+			delete_option( 'woocommerce_product_search_plugin_tables' );
 			delete_option( 'woocommerce_product_search_plugin_version' );
+			delete_option( 'woocommerce_product_search_db_version' );
 			delete_option( 'woocommerce-product-search' );
 		}
 	}
@@ -566,7 +693,7 @@ class WooCommerce_Product_Search {
 		if ( function_exists( 'delete_term_meta' ) ) { 
 
 			$wpdb->query(
-				"DELETE FROM $wpdb->termmeta WHERE meta_key = '_search_weight' AND term_id IN ( SELECT term_id FROM $wpdb->term_taxonomy WHERE taxonomy = 'product_cat' )"
+				"DELETE FROM $wpdb->termmeta WHERE meta_key IN ( '_search_weight', '_search_weight_sum' ) AND term_id IN ( SELECT term_id FROM $wpdb->term_taxonomy WHERE taxonomy = 'product_cat' )"
 			);
 		} else {
 			delete_metadata( 'woocommerce_term', null, '_search_weight', '', true );

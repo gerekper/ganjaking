@@ -21,9 +21,8 @@ class WC_Account_Funds_Cart_Manager {
 		$this->partial_payment = get_option( 'account_funds_partial_payment', 'no' );
 		$this->give_discount = get_option( 'account_funds_give_discount', 'no' );
 
+		add_action( 'woocommerce_checkout_update_order_review', array( $this, 'update_order_review' ) );
 		add_action( 'wp', array( $this, 'maybe_use_funds' ) );
-		add_action( 'woocommerce_before_cart', array( $this, 'output_use_funds_notice' ), 6 );
-		add_action( 'woocommerce_before_checkout_form', array( $this, 'output_use_funds_notice' ), 6 );
 
 		add_filter( 'woocommerce_calculated_total', array( $this, 'calculated_total' ) );
 		add_action( 'woocommerce_cart_loaded_from_session', array( $this, 'calculate_totals' ), 99 );
@@ -35,6 +34,35 @@ class WC_Account_Funds_Cart_Manager {
 		add_filter( 'woocommerce_coupon_get_discount_amount', array( $this, 'get_discount_amount' ), 10, 5 );
 
 		add_filter( 'woocommerce_paypal_args', array( $this, 'filter_paypal_line_item_names' ), 10, 2 );
+		add_filter( 'woocommerce_cart_needs_payment', array( $this, 'cart_needs_payment' ) );
+		add_filter( 'woocommerce_available_payment_gateways', array( $this, 'available_payment_gateways' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+	}
+
+	/**
+	 * Checks if the customer can use funds.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @return bool
+	 */
+	private static function can_use_funds() {
+		$funds = WC_Account_Funds::get_account_funds( get_current_user_id(), false );
+
+		$use_funds = ( $funds > 0 && ( WC()->cart->total <= $funds || 'yes' === get_option( 'account_funds_partial_payment' ) ) );
+
+		if ( self::cart_contains_deposit() || self::cart_contains_subscription() || ! is_user_logged_in() ) {
+			$use_funds = false;
+		}
+
+		/**
+		 * Filters if the customer can use funds.
+		 *
+		 * @since 2.3.0
+		 *
+		 * @param bool $use_funds Whether the customer can use funds.
+		 */
+		return apply_filters( 'wc_account_funds_can_use_funds', $use_funds );
 	}
 
 	/**
@@ -48,27 +76,22 @@ class WC_Account_Funds_Cart_Manager {
 
 	/**
 	 * Can the user actually apply funds to this cart?
+	 *
+	 * @deprecated 2.3.0
+	 *
 	 * @return bool
 	 */
 	public static function can_apply_funds() {
-		$can_apply = 'yes' === get_option( 'account_funds_partial_payment' );
+		wc_deprecated_function( __FUNCTION__, '2.3.0', 'wc_account_funds_can_use_funds filter (see ' . __CLASS__ . '::can_use_funds()' );
 
-		if ( self::cart_contains_deposit() || self::cart_contains_subscription() || ! is_user_logged_in() ) {
-			$can_apply = false;
-		}
-
-		if ( ! WC_Account_Funds::get_account_funds( get_current_user_id(), false ) ) {
-			$can_apply = false;
-		}
-
-		return $can_apply;
+		return self::can_use_funds();
 	}
 
 	/**
 	 * Using funds right now?
 	 */
 	public static function using_funds() {
-		return ! is_null( WC()->session ) && WC()->session->get( 'use-account-funds' ) && self::can_apply_funds();
+		return ! is_null( WC()->session ) && WC()->session->get( 'use-account-funds' ) && self::can_use_funds();
 	}
 
 	/**
@@ -80,14 +103,35 @@ class WC_Account_Funds_Cart_Manager {
 	}
 
 	/**
+	 * Processes the updated order review.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @param string $post_data Posted data.
+	 */
+	public function update_order_review( $post_data ) {
+		parse_str( $post_data, $data );
+
+		$data = wc_clean( wp_unslash( $data ) );
+
+		if ( ! empty( $data['apply_account_funds'] ) && self::can_use_funds() ) {
+			WC()->session->set( 'use-account-funds', true );
+		}
+
+		if ( self::using_funds() ) {
+			$this->apply_discount();
+		}
+	}
+
+	/**
 	 * Use funds
 	 */
 	public function maybe_use_funds() {
-		if ( 'no' === $this->partial_payment ) {
+		if ( ! self::can_use_funds() ) {
 			return;
 		}
 
-		if ( ! empty( $_POST['wc_account_funds_apply'] ) && self::can_apply_funds() ) {
+		if ( ! empty( $_POST['wc_account_funds_apply'] ) && self::can_use_funds() ) {
 			WC()->session->set( 'use-account-funds', true );
 		}
 
@@ -108,7 +152,7 @@ class WC_Account_Funds_Cart_Manager {
 	 */
 	public function apply_discount() {
 		// bail if the discount has already been applied
-		if ( ! WC()->cart || 'no' === get_option( 'account_funds_give_discount' ) || WC()->cart->has_discount( self::get_discount_code() ) || ( ! self::can_apply_funds() && ! self::account_funds_gateway_chosen() ) ) {
+		if ( ! WC()->cart || 'no' === get_option( 'account_funds_give_discount' ) || WC()->cart->has_discount( self::get_discount_code() ) || ( ! self::can_use_funds() && ! self::account_funds_gateway_chosen() ) ) {
 			return;
 		}
 		WC()->cart->add_discount( self::generate_discount_code() );
@@ -116,9 +160,13 @@ class WC_Account_Funds_Cart_Manager {
 
 	/**
 	 * Show a notice to apply points towards your purchase
+	 *
+	 * @deprecated 2.3.0
 	 */
 	public function output_use_funds_notice() {
-		if ( 'no' === $this->partial_payment || self::using_funds() || ! self::can_apply_funds() ) {
+		_deprecated_function( __FUNCTION__, '2.3.0' );
+
+		if ( ! self::can_use_funds() || self::using_funds() ) {
 			return;
 		}
 
@@ -127,7 +175,7 @@ class WC_Account_Funds_Cart_Manager {
 		$message .= '<input type="submit" class="button wc-account-funds-apply-button" name="wc_account_funds_apply" value="' . __( 'Use Account Funds', 'woocommerce-account-funds' ) . '" />';
 		$message .= sprintf( __( 'You have <strong>%s</strong> worth of funds on your account.', 'woocommerce-account-funds' ), WC_Account_Funds::get_account_funds() );
 		if ( 'yes' === get_option( 'account_funds_give_discount' ) ) {
-			$message .= '<br/><em>' . sprintf( __( 'Use your account funds and get a %sdiscount on your order.', 'woocommerce-account-funds' ), $this->display_discount_amount() ) . '</em>';
+			$message .= '<br/><em>' . sprintf( __( 'Use your account funds and get a %s discount on your order.', 'woocommerce-account-funds' ), $this->display_discount_amount() ) . '</em>';
 		}
 		$message .= '</form>';
 		$message .= '</div>';
@@ -183,6 +231,34 @@ class WC_Account_Funds_Cart_Manager {
 				</tr>
 				<?php
 			}
+		} elseif ( self::can_use_funds() ) {
+			$funds = min( WC()->cart->total, WC_Account_Funds::get_account_funds( null, false ) );
+
+			if ( 'yes' === $this->give_discount ) {
+				$discount_amount = get_option( 'account_funds_discount_amount' );
+
+				$label  = sprintf(
+					/* translators: 1: funds available 2: discount */
+					__( 'Use <strong>%1$s</strong> from your funds and get a %2$s discount.', 'woocommerce-account-funds' ),
+					wc_price( $funds ),
+					( 'fixed' === get_option( 'account_funds_discount_type' ) ? wc_price( $discount_amount ) : $discount_amount . '%' )
+				);
+			} else {
+				$label = sprintf(
+					/* translators: %s: funds available */
+					__( 'Use <strong>%s</strong> from your funds.', 'woocommerce-account-funds' ),
+					wc_price( $funds )
+				);
+			}
+			?>
+			<tr class="account-funds">
+				<th><?php esc_html_e( 'Account funds', 'woocommerce-account-funds' ); ?></th>
+				<td>
+					<input id="apply_account_funds" name="apply_account_funds" type="checkbox" value="1" />
+					<label for="apply_account_funds"><?php echo wp_kses_post( $label ); ?></label>
+				</td>
+			</tr>
+			<?php
 		}
 	}
 
@@ -448,6 +524,69 @@ class WC_Account_Funds_Cart_Manager {
 		}
 
 		return $item_indexes;
+	}
+
+	/**
+	 * Filters whether the cart needs payment.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @param bool $needs_payment Whether the cart needs payment.
+	 * @return bool
+	 */
+	public function cart_needs_payment( $needs_payment ) {
+		// The whole cart is paid with funds.
+		if ( ! $needs_payment && self::using_funds() ) {
+			$needs_payment = true;
+		}
+
+		return $needs_payment;
+	}
+
+	/**
+	 * Calculates remaining balance after of funds were applied
+	 *
+	 * @since 2.3.0
+	 *
+	 * @return float
+	 */
+	public static function get_remaining_balance() {
+		return WC_Account_Funds::get_account_funds( get_current_user_id(), false ) - WC()->session->get( 'used-account-funds', 0 );
+	}
+
+	/**
+	 * Filters the available payment gateways.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @param array $gateways The available gateways.
+	 * @return array
+	 */
+	public function available_payment_gateways( $gateways ) {
+		if ( isset( $gateways['accountfunds'] ) && self::using_funds() ) {
+			$account_funds_gateway = $gateways['accountfunds'];
+
+			$gateways = array( 'accountfunds' => $account_funds_gateway );
+		} else {
+			unset( $gateways['accountfunds'] );
+		}
+
+		return $gateways;
+	}
+
+	/**
+	 * Enqueues the scripts.
+	 *
+	 * @since 2.3.0
+	 */
+	public function enqueue_scripts() {
+		if ( ! is_cart() ) {
+			return;
+		}
+
+		$suffix = wc_account_funds_get_scripts_suffix();
+
+		wp_enqueue_script( 'wc-account-funds-cart', WC_ACCOUNT_FUNDS_URL . "assets/js/frontend/cart{$suffix}.js", array( 'jquery' ), WC_ACCOUNT_FUNDS_VERSION, true );
 	}
 }
 

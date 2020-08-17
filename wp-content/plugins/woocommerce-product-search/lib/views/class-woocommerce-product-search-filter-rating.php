@@ -55,6 +55,18 @@ class WooCommerce_Product_Search_Filter_Rating {
 	 */
 	const MAX_RATING = 5;
 
+	/**
+	 * Ratings filter cache group.
+	 *
+	 * @var string
+	 */
+	const CACHE_GROUP = 'ixwpse_rating';
+
+	/**
+	 * @var integer seconds in a day
+	 */
+	const SECONDS_PER_DAY = 86400;
+
 	private static $instances = 0;
 
 	/**
@@ -354,14 +366,22 @@ class WooCommerce_Product_Search_Filter_Rating {
 
 		global $wpdb;
 		$result = false;
-		if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '3.6.0' ) >= 0 ) {
-			$query = "SELECT product_id FROM {$wpdb->wc_product_meta_lookup} wc_product_meta_lookup WHERE wc_product_meta_lookup.average_rating >= 1.0 LIMIT 1";
+
+		$cached = wp_cache_get( 'has_ratings', self::CACHE_GROUP );
+		if ( $cached !== false ) {
+			$result = json_decode( $cached );
 		} else {
-			$query = "SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = '_wc_average_rating' AND meta_value >= 1.0 LIMIT 1";
-		}
-		$post_ids = $wpdb->get_col( $query );
-		if ( is_array( $post_ids ) && count( $post_ids ) > 0 ) {
-			$result = true;
+			if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '3.6.0' ) >= 0 ) {
+				$query = "SELECT product_id FROM {$wpdb->wc_product_meta_lookup} wc_product_meta_lookup WHERE wc_product_meta_lookup.average_rating >= 1.0 LIMIT 1";
+			} else {
+				$query = "SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = '_wc_average_rating' AND meta_value >= 1.0 LIMIT 1";
+			}
+			$post_ids = $wpdb->get_col( $query );
+			if ( is_array( $post_ids ) && count( $post_ids ) > 0 ) {
+				$result = true;
+			}
+
+			$cached = wp_cache_set( 'has_ratings', json_encode( $result ), self::CACHE_GROUP, self::SECONDS_PER_DAY );
 		}
 		return $result;
 	}

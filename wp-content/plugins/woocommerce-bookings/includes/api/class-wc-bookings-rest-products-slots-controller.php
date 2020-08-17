@@ -37,6 +37,7 @@ class WC_Bookings_REST_Products_Slots_Controller extends WC_REST_Controller {
 				array(
 					'methods'             => WP_REST_Server::READABLE,
 					'callback'            => array( $this, 'get_items' ),
+					'permission_callback' => '__return_true',
 				),
 			)
 		);
@@ -196,10 +197,20 @@ class WC_Bookings_REST_Products_Slots_Controller extends WC_REST_Controller {
 				$resources = array_intersect( $resources, $resource_ids );
 			}
 
+			// Get slots for days before and after, which accounts for timezone differences.
+			$start_date = strtotime( '-1 day', $min_date );
+			$end_date   = strtotime( '+1 day', $max_date );
+
 			foreach ( $resources as $resource_id ) {
-				$blocks           = $bookable_product->get_blocks_in_range( $min_date, $max_date, array(), $resource_id, array(), $get_past_times );
-				$available_blocks = $bookable_product->get_time_slots( $blocks, $resource_id, $min_date, $max_date, true );
+				$blocks           = $bookable_product->get_blocks_in_range( $start_date, $end_date, array(), $resource_id, array(), $get_past_times );
+				$available_blocks = $bookable_product->get_time_slots( $blocks, $resource_id, $start_date, $end_date, true );
 				foreach ( $available_blocks as $timestamp => $data ) {
+
+					// Filter blocks outside of timerange.
+					if ( $timestamp < $min_date || $timestamp >= $max_date ) {
+						continue;
+					}
+
 					unset( $data['resources'] );
 					if ( ! $hide_unavailable || 1 <= $data['available'] ) {
 						$availability[] = array(

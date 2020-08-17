@@ -36,8 +36,7 @@ class WC_Gateway_Account_Funds extends WC_Payment_Gateway {
 		// Load the settings.
 		$this->init_settings();
 
-		$this->title        = $this->settings['title'];
-		$wcaf_settings      = get_option( 'wcaf_settings' );
+		$this->title = $this->settings['title'];
 
 		$description = sprintf( __( "Available balance: %s", 'woocommerce-account-funds'), WC_Account_Funds::get_account_funds() );
 
@@ -59,27 +58,45 @@ class WC_Gateway_Account_Funds extends WC_Payment_Gateway {
 	}
 
 	/**
+	 * Gets the gateway's description.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @return string
+	 */
+	public function get_description() {
+		if ( is_checkout() && WC_Account_Funds_Cart_Manager::using_funds() ) {
+			$this->description = sprintf(
+				__( "Remaining balance: %s", 'woocommerce-account-funds'),
+				wc_price( WC_Account_Funds_Cart_Manager::get_remaining_balance() )
+			);
+		}
+
+		return parent::get_description();
+	}
+
+	/**
 	 * Check if the gateway is available for use
 	 *
 	 * @return bool
 	 */
 	public function is_available() {
-		$is_available = ( 'yes' === $this->enabled );
+		if ( ! parent::is_available() ) {
+			return false;
+		}
 
 		if ( WC()->cart ) {
-			$available_funds = WC_Account_Funds::get_account_funds( null, false );
-			$cart_total      = $this->get_order_total();
+			if ( WC_Account_Funds_Cart_Manager::cart_contains_deposit() ) {
+				return false;
+			}
 
-			if (
-				$available_funds < $cart_total ||
-				WC_Account_Funds_Cart_Manager::cart_contains_deposit() ||
-				WC_Account_Funds_Cart_Manager::using_funds()
-			) {
-				$is_available = false;
+			// There are no enough funds to pay for the whole order.
+			if ( WC_Account_Funds_Cart_Manager::using_funds() && $this->get_order_total() > 0 ) {
+				return false;
 			}
 		}
 
-		return $is_available;
+		return true;
 	}
 
 	/**
@@ -103,36 +120,38 @@ class WC_Gateway_Account_Funds extends WC_Payment_Gateway {
 	}
 
 	/**
-	 * Process a payment
+	 * Process Payment.
+	 *
+	 * @param int $order_id Order ID.
+	 * @return array
 	 */
 	public function process_payment( $order_id ) {
-		$order  = wc_get_order( $order_id );
-
 		if ( ! is_user_logged_in() ) {
 			wc_add_notice( __( 'Payment error:', 'woocommerce-account-funds' ) . ' ' . __( 'You must be logged in to use this payment method', 'woocommerce-account-funds' ), 'error' );
-			return;
+			return array();
 		}
 
+		$order           = wc_get_order( $order_id );
 		$available_funds = WC_Account_Funds::get_account_funds( $order->get_user_id(), false, $order_id );
+		$funds_used      = WC()->session->get( 'used-account-funds', 0 );
 
-		if ( $available_funds < $order->get_total() ) {
+		if ( $order->get_total() > 0 || $available_funds < $funds_used ) {
 			wc_add_notice( __( 'Payment error:', 'woocommerce-account-funds' ) . ' ' . __( 'Insufficient account balance', 'woocommerce-account-funds' ), 'error' );
-			return;
+			return array();
 		}
 
-		// deduct amount from account funds
-		WC_Account_Funds::remove_funds( $order->get_user_id(), $order->get_total() );
-		update_post_meta( $order_id, '_funds_used', $order->get_total() );
+		// Update account funds.
+		WC_Account_Funds::remove_funds( $order->get_user_id(), $funds_used );
+		update_post_meta( $order_id, '_funds_used', $funds_used );
 		update_post_meta( $order_id, '_funds_removed', 1 );
-		$order->set_total( 0 );
 
-		// Payment complete
+		// Payment complete.
 		$order->payment_complete();
 
-		// Remove cart
+		// Remove cart.
 		WC()->cart->empty_cart();
 
-		// Return thankyou redirect
+		// Return thankyou redirect.
 		return array(
 			'result'    => 'success',
 			'redirect'  => $this->get_return_url( $order )

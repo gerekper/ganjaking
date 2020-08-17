@@ -25,6 +25,7 @@
             "./src/cache/woocommerce-gpf-abstract-cache-rebuild-job.php",
             "./src/cache/woocommerce-gpf-abstract-cache-rebuild-batch-job.php",
             "./src/cache/woocommerce-gpf-cache-clear-all-job.php",
+            "./src/cache/woocommerce-gpf-cache-clear-product-job.php",
             "./src/cache/woocommerce-gpf-cache-invalidator.php",
             "./src/cache/woocommerce-gpf-cache-rebuild-complex-job.php",
             "./src/cache/woocommerce-gpf-cache-rebuild-product-job.php",

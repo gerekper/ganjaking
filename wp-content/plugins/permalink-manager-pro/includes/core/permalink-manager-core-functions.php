@@ -254,6 +254,7 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 					$query[$query_parameter] = $term->slug;
 				} else {
 					$broken_uri = true;
+					$query = $old_query;
 				}
 			}
 			/**
@@ -284,7 +285,7 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 					// Fix for hierarchical CPT & pages
 					if(!(empty($post_to_load->ancestors)) && !empty($post_type_object->hierarchical)) {
 						foreach ($post_to_load->ancestors as $parent) {
-							$parent = get_post( $parent );
+							$parent = get_post($parent);
 							if($parent && $parent->post_name) {
 								$final_uri = $parent->post_name . '/' . $final_uri;
 							}
@@ -294,7 +295,12 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 					// Alter query parameters + support drafts URLs
 					if($post_to_load->post_status == 'draft' || empty($final_uri)) {
 						if(is_user_logged_in()) {
-							$query['p'] = $element_id;
+							if($post_type == 'page') {
+								$query['page_id'] = $element_id;
+							} else {
+								$query['p'] = $element_id;
+							}
+
 							$query['preview'] = true;
 							$query['post_type'] = $post_type;
 						} else if($post_to_load->post_status == 'draft') {
@@ -322,6 +328,7 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 					}
 				} else {
 					$broken_uri = true;
+					$query = $old_query;
 				}
 			}
 
@@ -383,14 +390,6 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 						$query[$endpoint] = sanitize_text_field($endpoint_value);
 					}
 				}
-			}
-
-			/**
-			 * 5C. Fix for WPML (language switcher on blog page)
-			 */
-			$blog_page_id = get_option('page_for_posts');
-			if(is_numeric($element_id) && !empty($blog_page_id) && ($blog_page_id == $element_id) && !isset($query['page'])) {
-				$query['page'] = 1;
 			}
 
 			/**
@@ -472,7 +471,7 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 			$current_page = (empty($wp_query->query_vars['page']) && !empty($wp_query->query_vars['paged'])) ? $wp_query->query_vars['paged'] : $current_page;
 
 			// 2B. Count post pages
-			$num_pages = substr_count(strtolower($post->post_content), '<!--nextpage-->') + 1;
+			$num_pages = (is_home() || is_archive()) ? $wp_query->max_num_pages : substr_count(strtolower($post->post_content), '<!--nextpage-->') + 1;
 
 			$is_404 = ($current_page > 1 && ($current_page > $num_pages)) ? true : false;
 		}
@@ -534,7 +533,6 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 
 		// Do not use custom redirects on author pages, search & front page
     if(!is_author() && !is_front_page() && !is_home() && !is_feed() && !is_search() && empty($_GET['s'])) {
-
 			// Unset 404 if custom URI is detected
 			if(isset($pm_query['id'])) {
 				$wp_query->is_404 = false;
@@ -645,33 +643,7 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 			}
 
 			/**
-			 * 2. Check trailing slashes (ignore links with query parameters)
-			 */
-			if($trailing_slashes_mode && $trailing_slashes_redirect && empty($correct_permalink) && empty($_SERVER['QUERY_STRING']) && !empty($_SERVER['REQUEST_URI'])) {
-				// Check if $old_uri ends with slash or not
-				$ends_with_slash = (substr($old_uri, -1) == "/") ? true : false;
-				$trailing_slashes_mode = (preg_match("/.*\.([a-zA-Z]{3,4})\/?$/", $old_uri) && $trailing_slashes_mode == 1) ? 2 : $trailing_slashes_mode;
-
-				// Ignore empty URIs
-				if($old_uri != "/") {
-					// Remove the trailing slashes (and add them again if needed below)
-					$old_uri = trim($old_uri, "/");
-
-					// 2A. Force trailing slashes
-					if($trailing_slashes_mode == 1 && $ends_with_slash == false) {
-						$correct_permalink = "{$home_url}/{$old_uri}/";
-					}
-					// 2B. Remove trailing slashes
-					else if($trailing_slashes_mode == 2 && $ends_with_slash == true) {
-						$correct_permalink = "{$home_url}/{$old_uri}";
-					}
-				}
-
-				$redirect_type = (!empty($correct_permalink)) ? 'slash_redirect' : '-';
-			}
-
-			/**
-			 * 3. Check if URL contains duplicated slashes
+			 * 2. Check if URL contains duplicated slashes
 			 */
 			if(!empty($old_uri) && ($old_uri != '/') && preg_match('/\/{2,}/', $old_uri)) {
 				$new_uri = ltrim(preg_replace('/([^:])([\/]+)/', '$1/', $old_uri), "/");
@@ -679,7 +651,7 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 			}
 
 			/**
-			 * 4. Prevent redirect loop
+			 * 3. Prevent redirect loop
 			 */
 			if(!empty($correct_permalink) && is_string($correct_permalink) && !empty($wp->request) && !empty($redirect_type) && $redirect_type !== 'slash_redirect') {
 				$current_uri = trim($wp->request, "/");
@@ -689,7 +661,7 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 			}
 
 			/**
-			 * 5. Add endpoints to redirect URL
+			 * 4. Add endpoints to redirect URL
 			 */
 			if(!empty($correct_permalink) && $endpoint_redirect && ($redirect_type !== 'slash_redirect') && (!empty($pm_query['endpoint_value']) || !empty($pm_query['endpoint']))) {
 				$endpoint_value = $pm_query['endpoint_value'];
@@ -704,6 +676,32 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 			}
 		} else {
 			$queried_object = '-';
+		}
+
+		/**
+		 * 5. Check trailing slashes (ignore links with query parameters)
+		 */
+		if($trailing_slashes_mode && $trailing_slashes_redirect && empty($correct_permalink) && empty($_SERVER['QUERY_STRING']) && !empty($_SERVER['REQUEST_URI'])) {
+			// Check if $old_uri ends with slash or not
+			$ends_with_slash = (substr($old_uri, -1) == "/") ? true : false;
+			$trailing_slashes_mode = (preg_match("/.*\.([a-zA-Z]{3,4})\/?$/", $old_uri) && $trailing_slashes_mode == 1) ? 2 : $trailing_slashes_mode;
+
+			// Ignore empty URIs
+			if($old_uri != "/") {
+				// Remove the trailing slashes (and add them again if needed below)
+				$old_uri = trim($old_uri, "/");
+
+				// 2A. Force trailing slashes
+				if($trailing_slashes_mode == 1 && $ends_with_slash == false) {
+					$correct_permalink = "{$home_url}/{$old_uri}/";
+				}
+				// 2B. Remove trailing slashes
+				else if($trailing_slashes_mode == 2 && $ends_with_slash == true) {
+					$correct_permalink = "{$home_url}/{$old_uri}";
+				}
+			}
+
+			$redirect_type = (!empty($correct_permalink)) ? 'slash_redirect' : '-';
 		}
 
 		/**
@@ -786,7 +784,13 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 		}
 
 		if(!empty($wp->query_vars['do_not_redirect'])) {
+			// RankMath
+			remove_action('template_redirect', 'do_redirection', 11);
+			remove_action('wp', 'do_redirection', 11);
+
+			// SEOPress
 			remove_action('template_redirect', 'seopress_category_redirect', 1);
+
 			remove_action('template_redirect', 'wp_old_slug_redirect');
 			remove_action('template_redirect', 'redirect_canonical');
 			add_filter('wpml_is_redirected', '__return_false', 99, 2);

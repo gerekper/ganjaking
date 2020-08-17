@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Dropshipping
  * Plugin URI: http://woocommerce.com/products/woocommerce-dropshipping/
  * Description: Handle dropshipping from your WooCommerce. Create a packing slip, and notify the vendor when an order is paid. Import inventory updates via CSV from your vendors.
- * Version: 2.4
+ * Version: 2.5
  * Author: WooCommerce
  * Author URI: http://woocommerce.com/
  * Developer: OPMC
@@ -41,11 +41,11 @@ woothemes_queue_update( plugin_basename( __FILE__ ), '403b956c6bd33bb70b089df260
  * Dropshipping allow_url_fopen Missing Notice
  */
 if (!ini_get('allow_url_fopen') == 1)
-{	
+{
 
 
 	add_action( 'admin_notices', 'wcbd_allow_url_fopen' );
-				
+
 }
 if ( ! function_exists( 'wcbd_allow_url_fopen' ) ) {
 
@@ -97,6 +97,7 @@ final class WC_Dropshipping {
 		require_once( 'ali-api/woocommerce_aliexpress.php' );
 		require_once( 'ali-api/class-wc-dropshipping-product-extra-fields.php' );
 		$this->fields = new WC_Dropshipping_Product_Extra_Fields();
+		require_once( 'ali-api/ali-inc/aliprodfilter.inc.php' );
 		register_activation_hook(__FILE__, array( $this, 'activate' ) );
 		register_deactivation_hook( __FILE__, array( $this, 'uninstall' ) );
 		add_action( 'init', array( $this,'init_supplier_taxonomy' ), 0 );

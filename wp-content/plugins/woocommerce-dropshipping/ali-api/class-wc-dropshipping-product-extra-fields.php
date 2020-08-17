@@ -33,6 +33,12 @@ class WC_Dropshipping_Product_Extra_Fields {
         add_action( 'woocommerce_product_options_general_product_data',array($this,'woocommerce_product_custom_fields_description' )); 
         add_action( 'woocommerce_process_product_meta', array($this,'woocommerce_product_custom_fields_description_save' ));
 
+        // Hide External Products Only Prices
+		add_filter( 'woocommerce_variable_sale_price_html', array($this, 'woocommerce_remove_prices'), 10, 2 );
+		add_filter( 'woocommerce_variable_price_html', array($this, 'woocommerce_remove_prices'), 10, 2 );
+		add_filter( 'woocommerce_get_price_html', array($this, 'woocommerce_remove_prices'), 10, 2 );
+	
+
         //end
 
 		//add_action('woocommerce_process_product_meta', array($this,'save_supplier_field') );
@@ -125,6 +131,14 @@ class WC_Dropshipping_Product_Extra_Fields {
 	} */
 
 
+	/**
+	* Adding a Field for Amazon_Product_ID 
+	**/
+	function woocommerce_remove_prices( $price, $product ) {
+    	if( $product->is_type( 'external' ))
+        	$price = '';
+    		return $price;
+	}
 
 	/**
 	* Adding a Field for Amazon_Product_ID 

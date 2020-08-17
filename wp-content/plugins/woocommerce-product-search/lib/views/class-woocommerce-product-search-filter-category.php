@@ -650,7 +650,7 @@ class WooCommerce_Product_Search_Filter_Category {
 		if ( $params['show_parent_navigation'] ) {
 			foreach ( $parent_term_urls as $parent_term_id => $parent_term_url ) {
 				if ( $parent_term = get_term( $parent_term_id, $taxonomy ) ) {
-					if ( ( $parent !== null ) && !( $parent instanceof WP_Error) ) {
+					if ( ( $parent_term !== null ) && !( $parent_term instanceof WP_Error) ) {
 						$parent_terms_output .= sprintf(
 							( $params['style'] !== 'select' && $params['style'] !== 'dropdown' ) ?
 								'<li data-term="%s" class="cat-item-parent nav-back product-search-%s-filter-item"><a href="%s">%s</a></li>' :

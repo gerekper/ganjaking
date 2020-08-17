@@ -453,8 +453,9 @@ class Permalink_Manager_Helper_Functions extends Permalink_Manager_Class {
 		// Trim slashes & whitespaces
 		$clean = trim($str, " /");
 
-		// Remove accents
+		// Remove accents & entities
 		$clean = (empty($permalink_manager_options['general']['keep_accents'])) ? remove_accents($clean) : $clean;
+		$clean = str_replace(array('&lt', '&gt', '&amp'), '', $clean);
 
 		$percent_sign = ($keep_percent_sign) ? "\%" : "";
 		//$sanitize_regex = apply_filters("permalink_manager_sanitize_regex", "/[^\p{Thai}\p{Greek}\p{Hebrew}\p{Arabic}\p{Cyrillic}a-zA-Z0-9{$percent_sign}\/_\.|+, -]/u", $percent_sign);

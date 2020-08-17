@@ -54,12 +54,25 @@ var ix_dropdown_thumbnails = [],
 			}
 		}
 
+		if ( typeof args.unpage_url === 'undefined' || args.unpage_url !== false ) {
+			var unpage_regex = new RegExp( '\\/page\\/[0-9]+', 'gi' );
+			var unpage_href = href.replace( unpage_regex, '' );
+			unpage_href = ixwpsf.updateQueryArg( 'paged', '', unpage_href );
+			href = unpage_href;
+		}
+
 		var reset_href = null;
 		if (
 			typeof args.reset !== 'undefined' && args.reset &&
 			typeof args.reset_url !== 'undefined'
 		) {
 			reset_href = decodeURI( args.reset_url );
+
+			if ( typeof args.unpage_url === 'undefined' || args.unpage_url !== false ) {
+				var unpage_regex = new RegExp( '\\/page\\/[0-9]+', 'gi' );
+				reset_href = reset_href.replace( unpage_regex, '' );
+				reset_href = ixwpsf.updateQueryArg( 'paged', '', reset_href );
+			}
 		}
 
 		if ( typeof args.term !== 'undefined' ) {
@@ -1220,6 +1233,14 @@ var ix_dropdown_thumbnails = [],
 
 				if ( $( this ).is( 'a.rating-filter-option' ) ) {
 					rating = $( this ).data( 'rating' );
+				} else {
+
+					if ( !$( this ).is( 'a.rating-filter-clear' ) ) {
+						var rating_anchors = $( '.product-search-filter-rating a.rating-selected' );
+						if ( rating_anchors.length > 0 ) {
+							rating = rating_anchors.first().data( 'rating' );
+						}
+					}
 				}
 			}
 

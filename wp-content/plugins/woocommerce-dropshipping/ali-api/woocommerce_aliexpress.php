@@ -2,20 +2,20 @@
 	add_action('pre_get_posts','aliexpress_status_filter_to_shop_order_page'); // Filter related aliexpress orders
 	add_action('restrict_manage_posts','aliexpress_status_filter_to_shop_order_posts_administration');
 	add_filter('manage_edit-shop_order_columns', 'custom_woo_columns_function'); // Extra column title
-	add_action('manage_shop_order_posts_custom_column', 'custom_woo_admin_value', 2); // Extra column value	
+	add_action('manage_shop_order_posts_custom_column', 'custom_woo_admin_value', 2); // Extra column value
 	add_action( 'add_meta_boxes', 'place_order_automatically_meta_boxes' ); // Add Meta Box for place order Auto..
 	add_action('wp_ajax_get_order_data','get_order_data');	// Ajax callback for getting AliExpress Product URL.
 	add_action('wp_ajax_nopriv_get_order_data','get_order_data');	// Ajax callback for getting AliExpress Product URL.
 	add_action( 'add_meta_boxes', 'select_custom_order_status' ); //Select custome order status
 	add_action('save_post', 'status_save_metabox');  //save custome order status
 	add_action( 'admin_footer', 'insert_hidden_fields_for_check_cbe' ); // Checked CBE exist or not
-	
+
 	add_action( 'import_ali_product_in_woo', 'get_sku_in_woo' ); // Call SKU Function.
 	add_action( 'rest_api_init', 'import_ali_product_in_woo_callback' );
 	function import_ali_product_in_woo_callback() {
-	    register_rest_route( 
-	    	'woo-aliexpress/v1', 
-	    	'product', 
+	    register_rest_route(
+	    	'woo-aliexpress/v1',
+	    	'product',
     		array(
                 'methods' => WP_REST_Server::CREATABLE,
                 'callback' => 'import_ali_product_in_woo',
@@ -26,9 +26,9 @@
 
 	add_action( 'rest_api_init', 'get_list_of_product_category_from_woo_callback' );
 	function get_list_of_product_category_from_woo_callback() {
-	    register_rest_route( 
-	    	'woo-aliexpress/v1', 
-	    	'products-categories', 
+	    register_rest_route(
+	    	'woo-aliexpress/v1',
+	    	'products-categories',
     		array(
                 'methods' => WP_REST_Server::READABLE,
                 'callback' => 'get_product_category_from_woo',
@@ -39,9 +39,9 @@
 
 	add_action( 'rest_api_init', 'create_product_category_in_woo_callback' );
 	function create_product_category_in_woo_callback() {
-	    register_rest_route( 
-	    	'woo-aliexpress/v1', 
-	    	'create-categories', 
+	    register_rest_route(
+	    	'woo-aliexpress/v1',
+	    	'create-categories',
     		array(
                 'methods' => WP_REST_Server::CREATABLE,
                 'callback' => 'create_product_category_in_woo',
@@ -52,9 +52,9 @@
 
 	add_action( 'rest_api_init', 'get_order_details_from_woo_callback' );
 	function get_order_details_from_woo_callback() {
-	    register_rest_route( 
-	    	'woo-aliexpress/v1', 
-	    	'order-details', 
+	    register_rest_route(
+	    	'woo-aliexpress/v1',
+	    	'order-details',
     		array(
                 'methods' => WP_REST_Server::CREATABLE,
                 'callback' => 'get_order_detail_by_id',
@@ -65,9 +65,9 @@
 
 	add_action( 'rest_api_init', 'authentication_with_CBE_and_woo_callback' );
 	function authentication_with_CBE_and_woo_callback() {
-	    register_rest_route( 
-	    	'woo-aliexpress/v1', 
-	    	'woo-authentication', 
+	    register_rest_route(
+	    	'woo-aliexpress/v1',
+	    	'woo-authentication',
     		array(
                 'methods' => WP_REST_Server::CREATABLE,
                 'callback' => 'woo_authentication',
@@ -79,53 +79,53 @@
 	add_action( 'update_ali_product_in_woo', 'get_sku_in_woo' ); // Call SKU Function
 	add_action( 'rest_api_init', 'update_ali_product_in_woo_callback' );
 	function update_ali_product_in_woo_callback() {
-	    register_rest_route( 
-	    	'woo-aliexpress/v1', 
-	    	'update-product', 
+	    register_rest_route(
+	    	'woo-aliexpress/v1',
+	    	'update-product',
     		array(
                 'methods' => WP_REST_Server::CREATABLE,
                 'callback' => 'update_ali_product_in_woo',
             )
         );
-	}	
+	}
 	// http://localhost/mywpsite/wp-json/woo-aliexpress/v1/update-product
 
 	add_action( 'rest_api_init', 'get_merchant_store_currency_code_in_woo_callback' );
 	function get_merchant_store_currency_code_in_woo_callback() {
-	    register_rest_route( 
-	    	'woo-aliexpress/v1', 
-	    	'store-currency-code', 
+	    register_rest_route(
+	    	'woo-aliexpress/v1',
+	    	'store-currency-code',
     		array(
                 'methods' => WP_REST_Server::READABLE,
                 'callback' => 'get_merchant_store_currency_code_in_woo',
             )
         );
-	}	
+	}
 	// http://localhost/mywpsite/wp-json/woo-aliexpress/v1/store-currency-code
 
 	add_action( 'get_product_sku_from_woo', 'get_sku_in_woo' ); // Call SKU Function
 	add_action( 'rest_api_init', 'get_product_sku_from_woo_callback' );
 	function get_product_sku_from_woo_callback() {
-	    register_rest_route( 
-	    	'woo-aliexpress/v1', 
-	    	'product-sku', 
+	    register_rest_route(
+	    	'woo-aliexpress/v1',
+	    	'product-sku',
 			array(
 	            'methods' => WP_REST_Server::CREATABLE,
 	            'callback' => 'get_product_sku_from_woo',
 	        )
 	    );
-	}	
+	}
 	// http://localhost/mywpsite/wp-json/woo-aliexpress/v1/product-sku
 
 	add_action( 'rest_api_init', 'get_order_status_from_woo_callback' );
 
 	function get_order_status_from_woo_callback() {
 
-	    register_rest_route( 
+	    register_rest_route(
 
-	    	'woo-aliexpress/v1', 
+	    	'woo-aliexpress/v1',
 
-	    	'order-status', 
+	    	'order-status',
 
     		array(
 
@@ -138,14 +138,71 @@
 	// http://localhost/mywpsite/wp-json/woo-aliexpress/v1/order-status
 
 
+	// -----------------------------------------------------------------------------------
+	// ------------------------------ Start Ali CBE --------------------------------------
+	// -----------------------------------------------------------------------------------
+
+
+		add_action( 'rest_api_init', 'ali_cbe_price_rate' );
+		function ali_cbe_price_rate() {
+		    register_rest_route(
+		    	'woo-aliexpress/v1',
+		    	'price-rate',
+	    		array(
+	                'methods' => WP_REST_Server::READABLE,
+	                'callback' => 'getPriceRate',
+	            )
+	        );
+		}
+		// /wp-json/woo-aliexpress/v1/price-rate
+
+		if (!function_exists('getPriceRate')) {
+
+			function getPriceRate() {
+				$options = get_option( 'wc_dropship_manager' );
+				$ali_cbe_price_rate_type = $options['ali_cbe_price_rate_name'];
+				$ali_cbe_price_rate_value = $options['ali_cbe_price_rate_value_name'];
+				if($options['ali_cbe_enable_name'] == '0'){
+					$ali_cbe_price_rate_value = 0;
+				}
+				$ali_cbe_get_option =  array(
+					"price_rate_type" => $ali_cbe_price_rate_type,
+				  "price_rate_value" => $ali_cbe_price_rate_value
+				);
+
+				if (!empty($ali_cbe_get_option)){
+					$response = array(
+						"code" => 'success',
+						"message" => 'Success on getting price rate',
+						"options" => array(
+								'price_rate' => $ali_cbe_get_option
+							),
+						"data" => array(
+							"status" => 200
+						)
+					);
+				}else{
+					return new WP_Error( 'fail', esc_html__( 'Setting for price rate is not set', 'my-text-domain' ), array( 'status' => 400 ) );
+				}
+
+			  return $response;
+
+			}	// function getPriceRate()
+
+		}
+
+
+	// -----------------------------------------------------------------------------------
+	// ------------------------------ End Ali CBE ----------------------------------------
+	// -----------------------------------------------------------------------------------
 
 	function import_ali_product_in_woo(WP_REST_Request $request) {
-		
+
 		// Following should be used whenever we want to return error:
 		//return new WP_Error( 'fail', esc_html__( 'The id parameter is required.', 'my-text-domain' ), array( 'status' => 400 ) );
-		
-		//include_once('globals.php');			
-		
+
+		//include_once('globals.php');
+
 		$inputParams = $request->get_json_params();
 		//return $inputParams;
 
@@ -160,34 +217,34 @@
 
         if( empty($inputParams['sku']) ){
          	return new WP_Error( 'fail', esc_html__( 'The SKU parameter is required!', 'my-text-domain' ), array( 'status' => 400 ) );
-        }  
+        }
 
         if( empty($inputParams['price']) || !is_numeric($inputParams['price']) || $inputParams['price']<0 ){
          	return new WP_Error( 'fail', esc_html__( 'The Price parameter is required and must be a valid non-negative numeric value!', 'my-text-domain' ), array( 'status' => 400 ) );
-        } 
+        }
 
         if( empty($inputParams['regular_price']) || !is_numeric($inputParams['regular_price']) || $inputParams['regular_price']<0 ){
          	return new WP_Error( 'fail', esc_html__( 'The Regular Price parameter is required and must be a valid non-negative numeric value!', 'my-text-domain' ), array( 'status' => 400 ) );
-        } 
+        }
 
         if( !empty($inputParams['sale_price']) && (!is_numeric($inputParams['sale_price']) || $inputParams['sale_price']<0) ){
          	return new WP_Error( 'fail', esc_html__( 'The Sale Price parameter must be a valid non-negative numeric value!', 'my-text-domain' ), array( 'status' => 400 ) );
-        }         
+        }
 
         /* if(!isset($inputParams['description'])){
          	return new WP_Error( 'fail', esc_html__( 'The Description parameter is required!', 'my-text-domain' ), array( 'status' => 400 ) );
-        } 
+        }
 
         if(!isset($inputParams['short_description'])){
          	return new WP_Error( 'fail', esc_html__( 'The Short Description parameter is required!', 'my-text-domain' ), array( 'status' => 400 ) );
-        } */ 		
-         
+        } */
+
         if( isset($inputParams['categories']) ){
-			
+
 			if( !is_array($inputParams['categories']) || empty($inputParams['categories']) ){
 				return new WP_Error( 'fail', esc_html__( 'Please specify a valid category array format!', 'my-text-domain' ), array( 'status' => 400 ) );
 			}
-			
+
 			$categoryFlag = false;
 
 	    	foreach ($inputParams['categories'] as $value) {
@@ -201,15 +258,15 @@
 	    	if($categoryFlag){
 	    		return new WP_Error( 'fail', esc_html__( 'Please specify a valid category array format. Categories array must contain a valid numeric id parameter!', 'my-text-domain' ), array( 'status' => 400 ) );
 	    	}
-			
-        }		
-         
+
+        }
+
         if( isset($inputParams['images']) ){
-			
+
 			if( !is_array($inputParams['images']) || empty($inputParams['images']) ){
 				return new WP_Error( 'fail', esc_html__( 'Please specify valid URLs to images in array format!', 'my-text-domain' ), array( 'status' => 400 ) );
 			}
-			
+
 			$imagesFlag = false;
 
 	    	foreach ($inputParams['images'] as $value){
@@ -217,7 +274,7 @@
 	    		if( !is_array($value) || empty($value) || count($value) > 1 || !isset($value['src']) ){
 	    			$imagesFlag = true;
 	    		}
-				
+
 				$exts = array('jpg', 'gif', 'png', 'jpeg');
 	    		if( !( filter_var($value['src'], FILTER_VALIDATE_URL) && in_array(strtolower(pathinfo($value['src'], PATHINFO_EXTENSION)), $exts) ) )
 	    		{
@@ -229,7 +286,7 @@
 	    	if($imagesFlag){
 	    		return new WP_Error( 'fail', esc_html__( 'Please specify valid URLs to images in array format. Images array must contain a valid image URL in src. Image type can be one of these: (jpg, gif, png, jpeg).', 'my-text-domain' ), array( 'status' => 400 ) );
 	    	}
-			
+
         }
 
         if( empty($inputParams['manage_stock']) || !is_bool($inputParams['manage_stock']) ){
@@ -243,9 +300,9 @@
         if( !empty($inputParams['weight']) && (!is_numeric($inputParams['weight']) || $inputParams['weight']<0) ){
          	return new WP_Error( 'fail', esc_html__( 'The Weight parameter must be a valid non-negative numeric value!', 'my-text-domain' ), array( 'status' => 400 ) );
         }
-        
+
         if( isset($inputParams['dimensions']) ){   // Remove Required validation
-			
+
 			if( !is_array($inputParams['dimensions']) || empty($inputParams['dimensions'])){
 				//if( && is_array($inputParams['dimensions'])){
 				return new WP_Error( 'fail', esc_html__( 'Please specify a valid list of Dimensions in array format. Dimensions array must contain a valid numeric length, width, and height parameters!', 'my-text-domain' ), array( 'status' => 400 ) );
@@ -271,15 +328,15 @@
 				if((!empty($inputParams['dimensions']['height']) && !is_numeric($inputParams['dimensions']['height'])) ||(!empty($inputParams['dimensions']['height']) &&  $inputParams['dimensions']['height']<=0 )){
 					return new WP_Error( 'fail', esc_html__( 'Please specify a valid non-negative numeric height parameter within Dimensions array!', 'my-text-domain' ), array( 'status' => 400 ) );
 				}
-			}	
+			}
         }
-         
+
         if( isset($inputParams['tags']) ){
-			
+
 			if( !is_array($inputParams['tags']) || empty($inputParams['tags']) ){
 				return new WP_Error( 'fail', esc_html__( 'Please specify a valid list of Tags in array format. Tags array must contain a valid numeric id parameter!', 'my-text-domain' ), array( 'status' => 400 ) );
 			}
-			
+
 			$tagsFlag = false;
 
 	    	foreach ($inputParams['tags'] as $value) {
@@ -293,7 +350,7 @@
 	    	if($tagsFlag){
 	    		return new WP_Error( 'fail', esc_html__( 'Please specify a valid list of Tagsin array format. Tags array must contain a valid numeric id parameter!', 'my-text-domain' ), array( 'status' => 400 ) );
 	    	}
-			
+
         }
         if($inputParams['type'] == 'variable' ) {
 
@@ -337,9 +394,9 @@
         if( empty($inputParams['ali_store_price_range']) ){
          	return new WP_Error( 'fail', esc_html__( 'Please enter AliExpress Store Price Range for this product!', 'my-text-domain' ), array( 'status' => 400 ) );
         }
-		
+
 		/**********PRODUCT VALIDATIONS ENDS HERE***/
-				
+
 		$title 				= $inputParams['title'];
 		$type 				= $inputParams['type'];
 		$sku 				= $inputParams['sku'];
@@ -352,9 +409,10 @@
 		$images 			= $inputParams['images'];
 		$manage_stock 		= $inputParams['manage_stock'];
 		$stock_quantity 	= $inputParams['stock_quantity'];
-		$weight 			= $inputParams['weight'];
-		$dimensions 		= $inputParams['dimensions'];
 		$tags 				= $inputParams['tags'];
+		(isset($inputParams['weight'])) ? $weight	= $inputParams['weight'] : $weight = '';
+		(isset($inputParams['dimensions'])) ? $dimensions	= $inputParams['dimensions'] : $dimensions = '';
+		(isset($inputParams['is_ali_prod'])) ? $is_ali_prod	= $inputParams['is_ali_prod'] : $is_ali_prod = '';
 
 		//Getting product attributes
         $product_attributes = $inputParams['attributes'];
@@ -366,11 +424,11 @@
         $ali_store_name 	= $inputParams['ali_store_name'];
         $ali_store_price_range 	= $inputParams['ali_store_price_range'];
         $ali_currency 		= $inputParams['ali_currency'];
-        
+
         /*
 	        $arrayLength = count($product_attributes);  // get attr option value
 			for ($i = 0; $i < $arrayLength; $i++) {
-			    foreach($product_attributes[$i] as $get_option) {   
+			    foreach($product_attributes[$i] as $get_option) {
 			    }
 			}
 		*/
@@ -382,7 +440,7 @@
 		if(!empty($product_id)) { /** if product already exits **/
 
 			$response = new WP_Error( 'fail', esc_html__( 'Product already exists. Please select another product.', 'my-text-domain' ), array( 'status' => 400 ) );
-		
+
 		} else {
 
 			$inputs_new = [
@@ -404,9 +462,10 @@
 				'attributes' 	=> $product_attributes,
 				'tags' 			=> $tags,
 				'default_attributes' => $default_attributes,
-				'variations' 	=> $variations
+				'variations' 	=> $variations,
+				'is_ali_product' => $is_ali_prod
 			];
-			
+
 			$woorequest = new WP_REST_Request( 'POST' );
 			$woorequest->set_body_params( $inputs_new );
 			$products_controller = new WC_REST_Products_Controller;
@@ -415,7 +474,7 @@
 			//return $res;
 
 			// The created product must have variations
-		    
+
 		    if ( !isset( $res['variations'] ) ){
 		        $res['variations'] = array();
 		    }
@@ -439,7 +498,7 @@
 		            $res['variations'][] = $new_variation->data;
 		        }
 		    }
-			
+
 		    // Add aditional fields
 			$product_id = $res['id'];
 			update_post_meta($product_id,'number_of_orders',$number_of_orders);
@@ -448,7 +507,8 @@
 			update_post_meta($product_id,'ali_store_name',$ali_store_name);
 			update_post_meta($product_id,'ali_store_price_range',$ali_store_price_range);
 			update_post_meta($product_id,'ali_currency',$ali_currency);
-			
+			update_post_meta($product_id,'_is_ali_product',$is_ali_prod);
+
 			/* $product = [
 				'id' => '26',
 				'product_id' => '26'
@@ -457,13 +517,13 @@
 			$woorequest->set_body_params( $product );
 			$products_controller = new WC_REST_Products_Controller;
 			$response = $products_controller->get_item( $woorequest ); */
-			
+
 			/* $fp = fopen("000AA.txt","a");
 			fwrite($fp, print_r($response,1));
 			fclose($fp); */
-			
+
 			if(isset($response->status) && $response->status <= 201) {
-			
+
 				// Following should be used whenever we want to return success:
 				$response = array(
 					"code" => 'success',
@@ -472,21 +532,21 @@
 						"status" => 200
 					)
 				);
-			
+
 			} else {
 				$response = new WP_Error( 'fail', esc_html__( 'Oops! Something went wrong. Please try again!', 'my-text-domain' ), array( 'status' => 400 ) );
 			}
 		}
-	    
+
 	    return $response;
-	    		
+
 		//return rest_ensure_response($response);
-		
+
 	} // function import_ali_product_in_woo()
 	// http://mytestsite.com/wp-json/woo-aliexpress/v1/product
-	
-	
-	
+
+
+
 
 	if (!function_exists('get_product_category_from_woo')) {
 
@@ -513,7 +573,7 @@
 
 
 			if(!empty($cat_list)) {
-			
+
 				// Following should be used whenever we want to return success:
 				$response = array(
 					"code" => 'success',
@@ -523,18 +583,18 @@
 					),
 					"content" => $cat_list
 				);
-			
+
 			} else {
 				$response = new WP_Error( 'fail', esc_html__( 'No categories found!', 'my-text-domain' ), array( 'status' => 400 ) );
 			}
-		    
+
 		    return $response;
-			
+
 		}	// function product_category_from_woo()
-		
+
 	}
 	//http://testprey.avitinfotech.com/wp-json/woo-aliexpress/v1/products-categories
-	
+
 
 
 	if (!function_exists('create_product_category_in_woo')) {
@@ -548,14 +608,14 @@
             if(!isset($inputcat['name']) || empty($inputcat['name'])){
          		return new WP_Error( 'fail', esc_html__( 'The Name parameter is required!', 'my-text-domain' ), array( 'status' => 400 ) );
             }
-            
+
             if(!isset($inputcat['description'])){
          		return new WP_Error( 'fail', esc_html__( 'The Description parameter is required!', 'my-text-domain' ), array( 'status' => 400 ) );
             }
 
             if(!isset($inputcat['category_parent']) || !is_numeric($inputcat['category_parent']) ){
          		return new WP_Error( 'fail', esc_html__( 'The Category Parent parameter is required and must be numeric value!', 'my-text-domain' ), array( 'status' => 400 ) );
-            }   
+            }
 			/*************PRODUCT CATEGORIES VALIDATIONS ENDS HERE*************/
 			$get_featured_cats = array(
 				'taxonomy'     => 'product_cat',
@@ -565,7 +625,7 @@
 
 			$all_categories = get_categories( $get_featured_cats );
 			//return $all_categories;
-			
+
 			foreach ($all_categories as $cat) {
 
 				$cat_id[] =  $cat->term_id;
@@ -575,17 +635,17 @@
 			$name 				= $inputcat['name'];
 			$description 		= $inputcat['description'];
 			$category_parent 	= $inputcat['category_parent'];
-			
+
 			$attr = array(
 			    'description' => $description, // optional
-			    'parent' => $category_parent // optional  
+			    'parent' => $category_parent // optional
 			);
 
 			if(in_array($category_parent, $cat_id)) {
 
 				if(isset($name) && !empty($name)) {
 					$response = wp_insert_term( $name, 'product_cat', $attr );
-					
+
 						// Following should be used whenever we want to return success:
 					$response = array(
 						"code" => 'success',
@@ -594,14 +654,14 @@
 							"status" => 200
 						)
 					);
-						
+
 				} else {
 					$response = new WP_Error( 'fail', esc_html__( 'Name parameter required.', 'my-text-domain' ), array( 'status' => 400 ) );
 				}
 			} else if(isset($name) && !empty($name)) {
 
 					$response = wp_insert_term( $name, 'product_cat', $attr );
-					
+
 					// Following should be used whenever we want to return success:
 					$response = array(
 						"code" => 'success',
@@ -610,30 +670,30 @@
 							"status" => 200
 						)
 					);
-						
+
 			} else {
 
 				$response = new WP_Error( 'fail', esc_html__( 'Given parent categories id does not exist in product categories list.', 'my-text-domain' ), array( 'status' => 400 ) );
 			}
 
 			return $response;
-			
+
 		}	// function create_product_category_in_woo()
 	}
 	// http://testprey.avitinfotech.com/wp-json/woo-aliexpress/v1/create-categories
-	
-	
+
+
 
 	if (!function_exists('get_order_detail_by_id')) {
 		//to get full order details
 	    function get_order_detail_by_id(WP_REST_Request $request) {
-			
+
 	        $inputParams = $request->get_json_params();
-            
+
 			/*************ORDER VALIDATIONS STARTS HERE*******************/
             if(!isset($inputParams['id']) || !is_integer($inputParams['id'])|| empty($inputParams['id'])){
          		return new WP_Error( 'fail', esc_html__( 'The Id parameter is required and must be a number!', 'my-text-domain' ), array( 'status' => 400 ) );
-            } 
+            }
             /**************ORDER VALIDATIONS ENDS HERE*************/
 
 			$order_id = $inputParams['id'];
@@ -706,7 +766,7 @@
 	                //$get_variation_id = $product->get_variation_id();
 	                // return $get_variation_id;
 	            }
-	           
+
 	            $order_data['line_items'][] = array(
 	                'id' => $item_id,
 	                'total' => wc_format_decimal($order->get_line_total($item, false, false), $dp),
@@ -720,7 +780,7 @@
 	                'attributes' => $product->get_attributes(),
 	            );
 
-				
+
 	        }
 	        /*
 	        // getting shipping
@@ -734,7 +794,7 @@
 	        }*/
 
 	        if (!empty($order)) {
-	            
+
 	            // Following should be used whenever we want to return success:
 				$response = array(
 					"code" => 'success',
@@ -745,11 +805,11 @@
 					"content" => $order_data
 				);
 	        }
-	        
+
 	    	return $response;
-			
+
 	    } // function get_order_detail_by_id()
-		
+
 	}
 	// http://mytestsite.com/wp-json/woo-aliexpress/v1/order-details
 
@@ -759,15 +819,15 @@
 
 			$inputauth = $request->get_json_params();
 			/*************AUTHENTICATION VALIDATIONS STARTS HERE*************/
-			
+
             if(!isset($inputauth['woo_url']) || empty($inputauth['woo_url'])){
          		return new WP_Error( 'fail', esc_html__( 'The woo url parameter is required!', 'my-text-domain' ), array( 'status' => 400 ) );
             }
-            
+
             if(!isset($inputauth['woo_api_key']) || empty($inputauth['woo_api_key'])){
          		return new WP_Error( 'fail', esc_html__( 'The woo API key  parameter is required!', 'my-text-domain' ), array( 'status' => 400 ) );
             }
-  
+
 			/*************AUTHENTICATION VALIDATIONS ENDS HERE*************/
 			/**************************************************************/
 			/*************SITE URL VALIDATIONS START HERE******************/
@@ -791,10 +851,10 @@
 
 			$url = filter_var($woo_url, FILTER_SANITIZE_URL);
 			// Validate url
-			if(filter_var($url, FILTER_VALIDATE_URL) !== false) {			
+			if(filter_var($url, FILTER_VALIDATE_URL) !== false) {
 
 				$auth = array(
-				    'woo_url' => $url, 
+				    'woo_url' => $url,
 				    'woo_api_key' => $woo_api_key
 				);
 
@@ -816,10 +876,10 @@
 					$woo_key = generate_aliexpress_key($domain);
 					//return $woo_key;
 					$woo_api_key = $auth['woo_api_key'];
-				
+
 					if($woo_api_key == $woo_key ){
 						//$response = $auth;
-						
+
 						// Following should be used whenever we want to return success:
 						$response = array(
 							"code" => 'success',
@@ -828,11 +888,11 @@
 								"status" => 200
 							)
 						);
-							
+
 					} else {
 
 						$response = new WP_Error( 'fail', esc_html__( 'API Key Mismatch!!', 'my-text-domain' ), array( 'status' => 400 ) );
-					} 
+					}
 				} else {
 
 						$response = new WP_Error( 'fail', esc_html__( 'URL mismatch.', 'my-text-domain' ), array( 'status' => 400 ) );
@@ -841,11 +901,11 @@
 			} else {
 
 				$response = new WP_Error( 'fail', esc_html__( 'Oops! Something went wrong. Please try again!', 'my-text-domain' ), array( 'status' => 400 ) );
-			} 
+			}
 			return $response;
-			
+
 		}	// function woo_authentication()
-		
+
 	}
 	// http://mytestsite.com/wp-json/woo-aliexpress/v1/woo-authentication
 
@@ -860,14 +920,14 @@
         	return $product_id;
     	} else {
     		return '';
-    	}    
+    	}
 	} // get_sku_in_woo
 
 
 	// For update products
 
 	function update_ali_product_in_woo(WP_REST_Request $request) {
-			
+
 		$inputParams = $request->get_json_params();
 		//return $inputParams;
 
@@ -882,34 +942,34 @@
 
         if( empty($inputParams['sku']) ){
          	return new WP_Error( 'fail', esc_html__( 'The SKU parameter is required!', 'my-text-domain' ), array( 'status' => 400 ) );
-        }  
+        }
 
         if( empty($inputParams['price']) || !is_numeric($inputParams['price']) || $inputParams['price']<0 ){
          	return new WP_Error( 'fail', esc_html__( 'The Price parameter is required and must be a valid non-negative numeric value!', 'my-text-domain' ), array( 'status' => 400 ) );
-        } 
+        }
 
         if( empty($inputParams['regular_price']) || !is_numeric($inputParams['regular_price']) || $inputParams['regular_price']<0 ){
          	return new WP_Error( 'fail', esc_html__( 'The Regular Price parameter is required and must be a valid non-negative numeric value!', 'my-text-domain' ), array( 'status' => 400 ) );
-        } 
+        }
 
         if( !empty($inputParams['sale_price']) && (!is_numeric($inputParams['sale_price']) || $inputParams['sale_price']<0) ){
          	return new WP_Error( 'fail', esc_html__( 'The Sale Price parameter must be a valid non-negative numeric value!', 'my-text-domain' ), array( 'status' => 400 ) );
-        }         
+        }
 
         /* if(!isset($inputParams['description'])){
          	return new WP_Error( 'fail', esc_html__( 'The Description parameter is required!', 'my-text-domain' ), array( 'status' => 400 ) );
-        } 
+        }
 
         if(!isset($inputParams['short_description'])){
          	return new WP_Error( 'fail', esc_html__( 'The Short Description parameter is required!', 'my-text-domain' ), array( 'status' => 400 ) );
-        } */ 		
-         
+        } */
+
         if( isset($inputParams['categories']) ){
-			
+
 			if( !is_array($inputParams['categories']) || empty($inputParams['categories']) ){
 				return new WP_Error( 'fail', esc_html__( 'Please specify a list of valid categories in array format!', 'my-text-domain' ), array( 'status' => 400 ) );
 			}
-			
+
 			$categoryFlag = false;
 
 	    	foreach ($inputParams['categories'] as $value) {
@@ -923,15 +983,15 @@
 	    	if($categoryFlag){
 	    		return new WP_Error( 'fail', esc_html__( 'Please specify a list of valid categories in array format. Categories array must contain a valid numeric id parameter!', 'my-text-domain' ), array( 'status' => 400 ) );
 	    	}
-			
-        }		
-         
+
+        }
+
         if( isset($inputParams['images']) ){
-			
+
 			if( !is_array($inputParams['images']) || empty($inputParams['images']) ){
 				return new WP_Error( 'fail', esc_html__( 'Please specify a list of valid images URLs in array format!', 'my-text-domain' ), array( 'status' => 400 ) );
 			}
-			
+
 			$imagesFlag = false;
 
 	    	foreach ($inputParams['images'] as $value){
@@ -939,7 +999,7 @@
 	    		if( !is_array($value) || empty($value) || count($value) > 1 || !isset($value['src']) ){
 	    			$imagesFlag = true;
 	    		}
-				
+
 				$exts = array('jpg', 'gif', 'png', 'jpeg');
 	    		if( !( filter_var($value['src'], FILTER_VALIDATE_URL) && in_array(strtolower(pathinfo($value['src'], PATHINFO_EXTENSION)), $exts) ) )
 	    		{
@@ -951,7 +1011,7 @@
 	    	if($imagesFlag){
 	    		return new WP_Error( 'fail', esc_html__( 'Please specify a list of valid image URLs in array format. Images array must contain a valid image URL in src. Image type can be one of these: (jpg, gif, png, jpeg).', 'my-text-domain' ), array( 'status' => 400 ) );
 	    	}
-			
+
         }
 
         if( empty($inputParams['manage_stock']) || !is_bool($inputParams['manage_stock']) ){
@@ -965,9 +1025,9 @@
         if( !empty($inputParams['weight']) && (!is_numeric($inputParams['weight']) || $inputParams['weight']<0) ){
          	return new WP_Error( 'fail', esc_html__( 'The Weight parameter must be a valid non-negative numeric value!', 'my-text-domain' ), array( 'status' => 400 ) );
         }
-        
+
         if( isset($inputParams['dimensions']) ){   // Remove Required validation
-			
+
 			if( !is_array($inputParams['dimensions']) || empty($inputParams['dimensions'])){
 				//if( && is_array($inputParams['dimensions'])){
 				return new WP_Error( 'fail', esc_html__( 'Please specify a valid list of Dimensions in array format. Dimensions array must contain a valid numeric length, width, and height parameters!', 'my-text-domain' ), array( 'status' => 400 ) );
@@ -993,15 +1053,15 @@
 				if((!empty($inputParams['dimensions']['height']) && !is_numeric($inputParams['dimensions']['height'])) ||(!empty($inputParams['dimensions']['height']) &&  $inputParams['dimensions']['height']<=0 )){
 					return new WP_Error( 'fail', esc_html__( 'Please specify a valid non-negative numeric height parameter within Dimensions array!', 'my-text-domain' ), array( 'status' => 400 ) );
 				}
-			}	
+			}
         }
-         
+
         if( isset($inputParams['tags']) ){
-			
+
 			if( !is_array($inputParams['tags']) || empty($inputParams['tags']) ){
 				return new WP_Error( 'fail', esc_html__( 'Please specify a valid list of Tags in array format. Tags array must contain a valid numeric id parameter!', 'my-text-domain' ), array( 'status' => 400 ) );
 			}
-			
+
 			$tagsFlag = false;
 
 	    	foreach ($inputParams['tags'] as $value) {
@@ -1015,7 +1075,7 @@
 	    	if($tagsFlag){
 	    		return new WP_Error( 'fail', esc_html__( 'Please specify a valid list of Tags array format. Tags array must contain a valid numeric id parameter!', 'my-text-domain' ), array( 'status' => 400 ) );
 	    	}
-			
+
         }
         if($inputParams['type'] == 'variable' ) {
 
@@ -1059,9 +1119,9 @@
         if( empty($inputParams['ali_store_price_range']) ){
          	return new WP_Error( 'fail', esc_html__( 'Please enter AliExpress Store Price Range for this product!', 'my-text-domain' ), array( 'status' => 400 ) );
         }
-		
+
 		/**********PRODUCT VALIDATIONS ENDS HERE***/
-				
+
 		$title 				= $inputParams['title'];
 		$type 				= $inputParams['type'];
 		$sku 				= $inputParams['sku'];
@@ -1074,9 +1134,10 @@
 		$images 			= $inputParams['images'];
 		$manage_stock 		= $inputParams['manage_stock'];
 		$stock_quantity 	= $inputParams['stock_quantity'];
-		$weight 			= $inputParams['weight'];
-		$dimensions 		= $inputParams['dimensions'];
 		$tags 				= $inputParams['tags'];
+		(isset($inputParams['weight'])) ? $weight	= $inputParams['weight'] : $weight = '';
+		(isset($inputParams['dimensions'])) ? $dimensions	= $inputParams['dimensions'] : $dimensions = '';
+		(isset($inputParams['is_ali_prod'])) ? $is_ali_prod	= $inputParams['is_ali_prod'] : $is_ali_prod = '';
 
 		//Getting product attributes
         $product_attributes = $inputParams['attributes'];
@@ -1088,7 +1149,7 @@
         $ali_store_name 	= $inputParams['ali_store_name'];
         $ali_store_price_range 	= $inputParams['ali_store_price_range'];
         $ali_currency 		= $inputParams['ali_currency'];
-        
+
 
 		/** get product SKU **/
 
@@ -1097,8 +1158,8 @@
 		if(empty($product)) { /** if product already exits **/
 
 			$response = new WP_Error( 'fail', esc_html__( 'Error. Product does not exist in woocommerce store.', 'my-text-domain' ), array( 'status' => 400 ) );
-		
-		} else {   
+
+		} else {
 
 			$inputs_new = [
 				'id'			=> $product->id,
@@ -1119,7 +1180,8 @@
 				'attributes' 	=> $product_attributes,
 				'tags' 			=> $tags,
 				'default_attributes' => $default_attributes,
-				'variations' 	=> $variations
+				'variations' 	=> $variations,
+				'is_ali_product' => $is_ali_prod
 			];
 			//return $inputs_new;
 			$woorequest = new WP_REST_Request( 'POST' );
@@ -1137,7 +1199,7 @@
 		        foreach ( $inputs_new['variations'] as $variation ) {
 
 		            $wp_rest_request = new WP_REST_Request( 'POST' );
-		            
+
 		            $variation_rest = array(
 		                'product_id' 	=> $res['id'],
 		                'regular_price' => $variation['regular_price'],
@@ -1145,11 +1207,11 @@
 		                'manage_stock' 	=> $variation['manage_stock'],
 		                'stock_quantity'=> $variation['stock_quantity'],
 		                'attributes' 	=> $variation['attributes'],
-		                
+
 		            );
 
 		            if(isset($res['variations'][$i]) && !empty($res['variations'][$i]))
-		            {			            
+		            {
 		            	$variation_rest['id'] = $res['variations'][$i];
 		            	$wp_rest_request->set_body_params( $variation_rest );
 		            	$new_variation = $variations_controler->update_item( $wp_rest_request );
@@ -1162,11 +1224,11 @@
 
 		            // $res['variations'][] = $new_variation->data;
 		            $i++;
-		            
+
 		        }
 
 		    }
-			
+
 		    // Add aditional fields
 			$product_id = $res['id'];
 			update_post_meta($product_id,'number_of_orders',$number_of_orders);
@@ -1175,10 +1237,11 @@
 			update_post_meta($product_id,'ali_store_name',$ali_store_name);
 			update_post_meta($product_id,'ali_store_price_range',$ali_store_price_range);
 			update_post_meta($product_id,'ali_currency',$ali_currency);
-			
-			
+			update_post_meta($product_id,'_is_ali_product',$is_ali_prod);
+
+
 			if(isset($response->status) && $response->status <= 201) {
-			
+
 				// Following should be used whenever we want to return success:
 				$response = array(
 					"code" => 'success',
@@ -1187,16 +1250,16 @@
 						"status" => 200
 					)
 				);
-			
+
 			} else {
 				$response = new WP_Error( 'fail', esc_html__( 'Something went wrong. Please try again!', 'my-text-domain' ), array( 'status' => 400 ) );
 			}
-		} 
-	    
+		}
+
 	    return $response;
-	    		
+
 		//return rest_ensure_response($response);
-		
+
 	} // function import_ali_product_in_woo()
 	// http://mytestsite.com/wp-json/woo-aliexpress/v1/update-product
 
@@ -1207,7 +1270,7 @@
 		$store_currency_code = get_woocommerce_currency(); // Get store currency code
 
 		if(!empty($store_currency_code)) {
-			
+
 			// Following should be used whenever we want to return success:
 			$response = array(
 				"code" => 'success',
@@ -1217,13 +1280,13 @@
 				),
 				"content" => $store_currency_code
 			);
-			
+
 		} else {
 			$response = new WP_Error( 'fail', esc_html__( 'Merchant store currency code not found!', 'my-text-domain' ), array( 'status' => 400 ) );
 		}
-		    
+
 		return $response;
-	    
+
 	} // get_merchant_store_currency_code_in_woo
 	// http://mytestsite.com/wp-json/woo-aliexpress/v1/store-currency-code
 
@@ -1232,19 +1295,24 @@
 	/*    CUSTOM META BOX FOR Place Order Automatically    *
 	/*******************************************************/
 	function place_order_automatically_meta_boxes() {
-
-	    add_meta_box(
-	        'woocommerce',
-	        __( 'AliExpress Action' ),
-	        'place_Order_automatically_meta_box_content',
-	        'shop_order',
-	        'side'
-	    );
+		$options = get_option( 'wc_dropship_manager' );
+		$ali_cbe_enable_setting = $options['ali_cbe_enable_name'];
+		if (isset($ali_cbe_enable_setting)){
+			if ($ali_cbe_enable_setting == '1'){
+		    add_meta_box(
+		        'woocommerce',
+		        __( 'AliExpress Action' ),
+		        'place_Order_automatically_meta_box_content',
+		        'shop_order',
+		        'side'
+		    );
+			}
+		}
 	}
 
 
 function place_order_automatically_meta_box_content(){
-	    
+
 	    global $post;
 		setup_postdata( $post );
 		$order_id = get_the_ID();
@@ -1283,7 +1351,7 @@ function place_order_automatically_meta_box_content(){
             $checkurl= get_post_meta($product->get_parent_id(), 'ali_product_url', true);
             if(!empty($checkurl)){
             $url[] =  $checkurl;
-            }	
+            }
 	    }
 
 	    echo json_encode($url);
@@ -1303,14 +1371,20 @@ function place_order_automatically_meta_box_content(){
 
 
 	function select_custom_order_status($post){
-	    add_meta_box('opmc-aliExpress-modal', 'AliExpress Order Status', 'status_of_aliexpress', 'shop_order', 'side');
+		$options = get_option( 'wc_dropship_manager' );
+		$ali_cbe_enable_setting = $options['ali_cbe_enable_name'];
+		if (isset($ali_cbe_enable_setting)){
+			if ($ali_cbe_enable_setting == '1'){
+  			add_meta_box('opmc-aliExpress-modal', 'AliExpress Order Status', 'status_of_aliexpress', 'shop_order', 'side');
+			}
+		}
 	}
 
 
-	function status_save_metabox(){ 
+	function status_save_metabox(){
 	    global $post;
 	    if(isset($_POST["custom_aliexpress_class"])){
-	         //UPDATE: 
+	         //UPDATE:
 	        $meta_element_class = $_POST['custom_aliexpress_class'];
 	        //END OF UPDATE
 
@@ -1344,17 +1418,17 @@ function place_order_automatically_meta_box_content(){
 	    }
 
 	    $count = count($url);
-	    if(!empty($url)) { ?>   
+	    if(!empty($url)) { ?>
 
 		    <select name="custom_aliexpress_class" id="custom_aliexpress_class">
 		    	<option value="Order Pending" <?php selected( $meta_element_class, 'Order Pending' ); ?>>Order Pending</option>
 		      <option value="Order Placed" <?php selected( $meta_element_class, 'Order Placed' ); ?>>Order Placed</option>
-		      
+
 		    </select>
 	    	<?php
 		}
 	}
-	
+
 	/***********/
 	/*  END    *
 	/***********/
@@ -1379,7 +1453,7 @@ function place_order_automatically_meta_box_content(){
 		// Change order of columns (working)
 
 	function custom_woo_admin_value( $column ) {
-   
+
 		global $post;
 	    $zip_value = get_post_meta($post->ID, 'status_of_aliexpress', true);
 	    setup_postdata( $post );
@@ -1405,7 +1479,7 @@ function place_order_automatically_meta_box_content(){
 	    		echo '<mark class="order-status status-refunded tips"><span>'.$zip_value.'</span></mark>';
 	    	}
 
-	    	
+
 	    }
 	}
 
@@ -1419,12 +1493,12 @@ function place_order_automatically_meta_box_content(){
 	/***********************************************************************/
 
 	function aliexpress_status_filter_to_shop_order_posts_administration(){
-	    
+
 	    global $post_type;
 	    if($post_type == 'shop_order'){
 
 		    $values = array(
-		        'Order Placed' => 'Order_Placed', 
+		        'Order Placed' => 'Order_Placed',
 		        'Order Pending'    => 'Order_Pending',
 
 		    );
@@ -1452,7 +1526,7 @@ function place_order_automatically_meta_box_content(){
 
 	function aliexpress_status_filter_to_shop_order_page($query){
 
-		global $post_type, $pagenow; 
+		global $post_type, $pagenow;
 		if($pagenow == 'edit.php' && $post_type == 'shop_order'){
 
 		    if(isset($_GET['aliexpress_status_filter']) && $_GET['aliexpress_status_filter'] != ''){
@@ -1471,7 +1545,7 @@ function place_order_automatically_meta_box_content(){
 		                $subs_typeA = 'Order Pending';
 		                $date_comp = $pending;
 		                break;
-		                  
+
 		            default:
 		                break;
 		        };
@@ -1512,9 +1586,9 @@ function place_order_automatically_meta_box_content(){
 	if (!function_exists('get_product_sku_from_woo')) {
 
 		function get_product_sku_from_woo(WP_REST_Request $request) {
-			
+
 			$inputParams = $request->get_json_params();
-			$sku 		 = $inputParams['sku'];        
+			$sku 		 = $inputParams['sku'];
 		   	/** get product SKU **/
 
 			$product_id = get_sku_in_woo($sku);
@@ -1529,21 +1603,21 @@ function place_order_automatically_meta_box_content(){
 					),
 					"content" => $product_id
 				);
-			
+
 			} else {
 					// Following should be used whenever we want to return success:
 
 				$response = new WP_Error( 'fail', esc_html__( 'Product does not exist in your Woo store. Please add this product to your Woo store.', 'my-text-domain' ), array( 'status' => 400 ) );
 			}
-		    
+
 		    return $response;
-			
+
 		}	// function product_category_from_woo()
-		
+
 	}
 	//http://testprey.avitinfotech.com/wp-json/woo-aliexpress/v1/product-sku
 
-	// Checked CBE Installed or not 
+	// Checked CBE Installed or not
 
 	if (!function_exists('insert_hidden_fields_for_check_cbe')) {
 
@@ -1553,34 +1627,34 @@ function place_order_automatically_meta_box_content(){
 	    	<?php
 
              $options = get_option( 'cbe_hideoption', true );
-			
+
             if(isset($options) && $options == 1){  ?>
 	    	<script>
 	    		setTimeout( function(e){
 
 					var str = jQuery("#check_cbe_exist"). val();
 					if(str == 0){
-						jQuery( "#screen-meta-links" ).after( '<div id="cbe_message" class="notice notice-success is-dismissible" style="margin-top: 3%;"><p>To use WooCommerce Dropshipping with AliExpress, please install the <a href="https://chrome.google.com/webstore/detail/woocommerce-dropshipping/hfhghglengghapddjhheegmmpahpnkpo"> Chrome Browser Extension</a>&nbsp;&nbsp;&nbsp;&nbsp</p>  <button type="button" class="notice-dismiss hidecbe"><span class="screen-reader-text">Dismiss this notice.</span></button></div> ' );	
+						jQuery( "#screen-meta-links" ).after( '<div id="cbe_message" class="notice notice-success is-dismissible" style="margin-top: 3%;"><p>To use WooCommerce Dropshipping with AliExpress, please install the <a href="https://chrome.google.com/webstore/detail/woocommerce-dropshipping/hfhghglengghapddjhheegmmpahpnkpo"> Chrome Browser Extension</a>&nbsp;&nbsp;&nbsp;&nbsp</p>  <button type="button" class="notice-dismiss hidecbe"><span class="screen-reader-text">Dismiss this notice.</span></button></div> ' );
 					}
-		   				 // Do something after 1 second 
+		   				 // Do something after 1 second
 		  			}, 5000 );
 
-	    		
-              
+
+
 					/* function myFunction() {
 					  var x = document.getElementById("cbe_message");
-					  
+
 					    x.style.display = "none";
-					   
+
 					}*/
 
-                 
-				
+
+
 	    	</script>
 
 	    <?php
 	     }
-	     
+
 		}
 	}
 
@@ -1597,38 +1671,38 @@ function place_order_automatically_meta_box_content(){
 
 	    	global $wpdb;
 
-	        $inputParams = $request->get_json_params();
+        $inputParams = $request->get_json_params();
 
-	        $orderid = $inputParams['id'];
-	    	$status  = $inputParams['status'];	       
+        $orderid = $inputParams['id'];
+	    	$status  = $inputParams['status'];
 
 	        if( !empty($inputParams['id']) ) {
 
 	         	//for check order id exist or not.
-	        	$results = $wpdb->get_results( "SELECT * FROM $wpdb->posts WHERE ID = $orderid"); 
+	        	$results = $wpdb->get_results( "SELECT * FROM $wpdb->posts WHERE ID = $orderid");
 
 	         	if( empty($results)) {
 
 	         		return new WP_Error( 'fail', esc_html__( 'The Order Id does not exist!', 'my-text-domain' ), array( 'status' => 400 ) );
 	         	}
-         		
+
         	} else {
 
         		return new WP_Error( 'fail', esc_html__( 'The Order Id parameter is required!', 'my-text-domain' ), array( 'status' => 400 ) );
         	}
-        	
+
         	if(empty($inputParams['status']) || ($inputParams['status'] != 'placed') && ($inputParams['status'] != 'pending') ) {
-        	
+
          		return new WP_Error( 'fail', esc_html__( 'The Order Status parameter is required!', 'my-text-domain' ), array( 'status' => 400 ) );
         	}
 
-	        
+
 	    	//$alistatus = get_post_meta($orderid, 'status_of_aliexpress', true);
 
 	    	if($status == 'placed') {
 
 	    		update_post_meta($orderid, 'status_of_aliexpress', 'Order Placed');
-				
+
 				// Following should be used whenever we want to return success:
 
 				$response = array(
@@ -1660,9 +1734,9 @@ function place_order_automatically_meta_box_content(){
 					)
 				);
 			}
-	    
+
 	    return $response;
-					
+
 	    } // function get_order_status_by_id()
 	}
 	// http://localhost/mywpsite/wp-json/woo-aliexpress/v1/order-status

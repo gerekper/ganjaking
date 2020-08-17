@@ -105,7 +105,7 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 		}
 
 		// 13. bbPress
-		if(class_exists('bbPress')) {
+		if(class_exists('bbPress') && function_exists('bbp_get_edit_slug')) {
 			add_filter('permalink_manager_endpoints', array($this, 'bbpress_endpoints'), 9);
 			add_action('wp', array($this, 'bbpress_detect_endpoints'), 0);
 		}
@@ -114,6 +114,11 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 		if(class_exists('WeDevs_Dokan')) {
 			add_action('wp', array($this, 'dokan_detect_endpoints'), 999);
 			add_filter('permalink_manager_endpoints', array($this,'dokan_endpoints'));
+		}
+
+		// 15. GeoDirectory
+		if(class_exists('GeoDirectory')) {
+			add_filter('permalink_manager_filter_default_post_uri', array($this, 'geodir_custom_fields'), 5, 5 );
 		}
 	}
 
@@ -136,7 +141,7 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 	 * 0. Stop redirect
 	 */
 	public static function stop_redirect() {
-		global $wp_query, $post;
+		global $wp, $wp_query, $post;
 
 		if(!empty($wp_query->query)) {
 			$query_vars = $wp_query->query;
@@ -170,11 +175,19 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 				$wp_query->query_vars['do_not_redirect'] = 1;
 			}
 			// Groundhogg
-			else if(!empty($query_vars['target_url'])) {
-				$wp_query->query_vars['do_not_redirect'] = 1;
+			else if(class_exists('\Groundhogg\Plugin') && function_exists('\Groundhogg\get_managed_page_name')) {
+				$gh_slug = \Groundhogg\get_managed_page_name();
+
+				if(!empty($gh_slug) && !empty($wp->request) && (strpos($wp->request, $gh_slug) === 0)) {
+					$wp_query->query_vars['do_not_redirect'] = 1;
+				}
 			}
 			// MyListing theme
-			else if(!empty($query_vars['explore_tab']) || !empty($query_vars['explore_region'])) {
+			else if(!empty($query_vars['explore_tab']) || !empty($query_vars['explore_region']) || !empty($_POST['submit_job'])) {
+				$wp_query->query_vars['do_not_redirect'] = 1;
+			}
+			// GeoDirectory
+			else if(function_exists('geodir_location_page_id') && !empty($post->ID) && geodir_location_page_id() == $post->ID) {
 				$wp_query->query_vars['do_not_redirect'] = 1;
 			}
 		}
@@ -419,6 +432,9 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 
 			if(!empty($element->ID) && !empty($element->post_type)) {
 				$new_url = get_permalink($element->ID);
+
+				// Do not filter if custom canonical URL is set
+				if(!empty(get_post_meta($element->ID, '_yoast_wpseo_canonical', true))) { return $url; }
 
 				$paged = (get_query_var('page')) ? get_query_var('page') : 1;
 				if($paged > 1) {
@@ -871,7 +887,7 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 	}
 
 	function ml_detect_archives($query) {
-		if(function_exists('mylisting_custom_taxonomies')) {
+		if(function_exists('mylisting_custom_taxonomies') && empty($_POST['submit_job'])) {
 			$explore_page_id = get_option('options_general_explore_listings_page', false);
 			if(empty($explore_page_id)) { return $query; }
 
@@ -930,7 +946,7 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 	}
 
 	function dokan_detect_endpoints() {
-		global $post, $wp_query, $wp;
+		global $post, $wp_query, $wp, $pm_query;
 
 		// Check if Dokan is activated
 		if(!function_exists('dokan_get_option') || is_admin()) { return; }
@@ -945,6 +961,8 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 			// Detect Dokan shortcode
 			if(empty($pm_query['endpoint'])) {
 				$wp->query_vars['page'] = 1;
+			} else if(isset($wp->query_vars['page'])) {
+				unset($wp->query_vars['page']);
 			}
 		}
 
@@ -956,7 +974,53 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 	}
 
 	/**
-	 * 15. Store Locator - CSV Manager
+	 * 15. GeoDirectory
+	 */
+	public function geodir_custom_fields($default_uri, $native_slug, $element, $slug, $native_uri) {
+		global $permalink_manager_uris;
+
+		// Use only for "gd_place" post type & custom permalink
+		if(empty($element->post_type) || $element->post_type !== 'gd_place' || $native_uri || !function_exists('geodir_get_post_info')) { return $default_uri; }
+
+		// Get place info
+		$place_data = geodir_get_post_info($element->ID);
+
+		// A. Category
+		if(strpos($default_uri, '%category%') !== false) {
+			$place_category_terms = wp_get_object_terms($element->ID, 'gd_placecategory');
+			$place_category_term = (!is_wp_error($place_category_terms) && !empty($place_category_terms) && is_object($place_category_terms[0])) ? Permalink_Manager_Helper_Functions::get_lowest_element($place_category_terms[0], $place_category_terms) : "";
+
+			if(!empty($place_category_term)) {
+				$place_category = Permalink_Manager_Helper_Functions::get_term_full_slug($place_category_term, $place_category_term, 2, false);
+				$place_category = Permalink_Manager_Helper_Functions::sanitize_title($place_category, true);
+
+				$default_uri = str_replace('%category%', $place_category, $default_uri);
+			}
+		}
+
+		// B. Country
+		if(strpos($default_uri, '%country%') !== false && !empty($place_data->country)) {
+			$place_country = Permalink_Manager_Helper_Functions::sanitize_title($place_data->country, true);
+			$default_uri = str_replace('%country%', $place_country, $default_uri);
+		}
+
+		// C. Region
+		if(strpos($default_uri, '%region%') !== false && !empty($place_data->region)) {
+			$place_region = Permalink_Manager_Helper_Functions::sanitize_title($place_data->region, true);
+			$default_uri = str_replace('%region%', $place_region, $default_uri);
+		}
+
+		// D. City
+		if(strpos($default_uri, '%city%') !== false && !empty($place_data->city)) {
+			$place_city = Permalink_Manager_Helper_Functions::sanitize_title($place_data->city, true);
+			$default_uri = str_replace('%city%', $place_city, $default_uri);
+		}
+
+		return $default_uri;
+	}
+
+	/**
+	 * 16. Store Locator - CSV Manager
 	 */
 	public function wpsl_regenerate_after_import($meta_id, $post_id, $meta_key, $meta_value) {
 		global $permalink_manager_uris;

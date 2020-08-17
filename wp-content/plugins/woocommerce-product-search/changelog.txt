@@ -1,5 +1,51 @@
 *** WooCommerce Product Search ***
 
+2020.08.12 - version 3.0.0
+* This release includes major improvements aimed at further optimizing our search engine's performance and enhancing its search and filtering features.
+* WordPress 5.5 compatible.
+* WordPress 5.6 (alpha) compatibility tested.
+* WooCommerce 4.3 compatible.
+* Requires at least WordPress 5.0.
+* Requires at least WooCommerce 3.0.
+* Enhanced the search engine's indexing features to optimize term handling.
+* Added the woocommerce_product_search_process_query_object_term_limit filter.
+* Fixed a wrong variable used in category filter when showing parent navigation.
+* Fixed an issue with incorrect term counts, due to the wrong variable used in the term count evaluation for hierarchical taxonomies.
+* Fixed wrong product counts with variable products and product filters (faceted searches), where certain product filter combinations would show more products related to terms than were actually available.
+* Improved search weight handling for product categories so that weights of parent categories are taken into account in their child categories.
+* Improved product indexing to sync to changes in terms from product taxonomies.
+* Improved search engine performance thanks to optimizations related to object type lookups.
+* Added support for role-based performance caching.
+* Added the WPS_ROLES_CACHE constant to control role-based caching.
+* Added the wps_cache_get() API function (allows override).
+* Added support for group-based performance caching with Groups https://wordpress.org/plugins/groups/.
+* Added the WPS_GROUPS_CACHE constant to control group-based caching.
+* Added the wps_cache_set() API function (allows override).
+* Introduced fixed and adaptive object limits for scalability trade-offs on very large product sets, where complete result sets are QoS unfeasonable while incomplete result sets are QoS acceptable.
+* Added the WPS_OBJECT_LIMIT constant that controls fixed or adaptive object limits, integer for fixed limit, 0 for unlimited, 'AUTO' or 'AUTOREPORT' for adaptive limits.
+* Added the WPS_OBJECT_LIMIT_FACTOR constant that controls adaptive object limits.
+* Improved price handling queries performance and avoided duplicate queries.
+* Reduced rating filter footprint reducing generic queries.
+* Fixed issues with on sale and rating filters cancelling each other.
+* Solved and improved resilience to interference from other plugins hooked on the shutdown action, affecting our filter responses.
+* Added the woocommerce_product_search_shutdown_remove_all_actions filter.
+* Solved interference with filter requests from other plugins that hook on the 'query_vars' filter, e.g. WCS adds 'sku' creating a conflict with filter requests for front page shops.
+* Added the woocommerce_product_search_query_vars and woocommerce_product_search_query_vars_intersect filters.
+* Improved the [woocommerce_product_filter_products] shortcode performance by avoiding duplicate queries that can occur when plugins request page content outside main loop.
+* Increased cache lifetime for more dynamic data to 15 minutes.
+* Fixed result count string not translated when products shortcode is used.
+* Solved issues with unrequired product filter request redirects.
+* Fixed pagination link highlight when current page exceeds total page results count.
+* Fixed filter request issues for Shops on Front.
+* Fixed filter request issues for [woocommerce_product_filter_products] on Front.
+* Improved filter request performance and resilience also for unprocessed DOM.
+* Added the woocommerce_product_search_get_min_max_price filter.
+* Changed the reference for price filters to use lower bounds to determine inclusion in results.
+* Added the option to go to page one results on filters applied and made it the default.
+* Reduced indexing start on activation.
+* Disabled problematic widget caching for now, which conflicts with object caching due to their dynamic content.
+* Translations updated.
+
 2020.04.05 - version 2.21.0
 * WooCommerce 4.0 compatibility.
 * WordPress 5.4 compatibility.

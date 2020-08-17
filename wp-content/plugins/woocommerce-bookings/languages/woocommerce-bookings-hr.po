@@ -7,8 +7,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-07-01T11:12:09+00:00\n"
-"PO-Revision-Date: 2020-06-12 09:30:38+0000\n"
+"POT-Creation-Date: 2020-08-13T17:30:34+02:00\n"
+"PO-Revision-Date: 2020-07-22 11:30:52+0000\n"
 "Language: hr\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: GlotPress/2.4.0-alpha\n"
@@ -3035,7 +3035,7 @@ msgstr ""
 
 #: includes/admin/class-wc-bookings-customer-meta-box.php:101
 msgid "Phone:"
-msgstr ""
+msgstr "Telefon:"
 
 #: includes/admin/class-wc-bookings-customer-meta-box.php:94
 msgid "No billing address set."
@@ -3043,7 +3043,7 @@ msgstr "Nije postavljena adresa za naplatu"
 
 #: includes/admin/class-wc-bookings-customer-meta-box.php:93
 msgid "Address:"
-msgstr ""
+msgstr "Adresa:"
 
 #: includes/admin/class-wc-bookings-customer-meta-box.php:76
 #: includes/admin/class-wc-bookings-customer-meta-box.php:97

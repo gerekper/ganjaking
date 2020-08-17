@@ -1,0 +1,1 @@
+!function(e){"use strict";(function(){e(document).on("change","#apply_account_funds",function(c){c.target.checked&&(e(".woocommerce-cart-form").append('<input type="hidden" name="wc_account_funds_apply" value="Use Account Funds" />'),e('.woocommerce-cart-form :input[name="update_cart"]').prop("disabled",!1).attr("aria-disabled",!1).trigger("click"))})})()}(jQuery);

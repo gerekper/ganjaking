@@ -362,6 +362,11 @@ class Permalink_Manager_Actions extends Permalink_Manager_Class {
 			self::fix_uri_duplicates();
 		}
 
+		// 4. Remove items without keys
+		/*if(!empty($permalink_manager_uris[null])) {
+			unset($permalink_manager_uris[null]);
+		}*/
+
 		// Save cleared URIs & Redirects
 		if($removed_uris > 0 || $removed_redirects > 0) {
 			update_option('permalink-manager-uris', array_filter($permalink_manager_uris));

@@ -1685,7 +1685,7 @@ class WooCommerce_Product_Search_Admin {
 				esc_html_e( 'Status', 'woocommerce-product-search' );
 				echo '</h5>';
 
-				$status = $status = WooCommerce_Product_Search_Worker::get_status();
+				$status = WooCommerce_Product_Search_Worker::get_status();
 				$indexer = new WooCommerce_Product_Search_Indexer();
 				$processable = $indexer->get_processable_count();
 				$total       = $indexer->get_total_count();

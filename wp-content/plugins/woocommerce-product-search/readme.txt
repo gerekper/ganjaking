@@ -1,16 +1,16 @@
 === WooCommerce Product Search ===
 Contributors: itthinx
 Tags: search, search engine, product search, woocommerce, ajax, ajax search, display, info, instant, instant search, information, marketing, product, products, product search, promotion, quick, quick search, relevance, search, search relevance, weight, weights
-Requires at least: 4.6
+Requires at least: 5.0
 Requires PHP: 7.0
-Tested up to: 5.4
-Stable tag: 2.21.0
+Tested up to: 5.5
+Stable tag: 3.0.0
 
 The best Search Engine and Search Experience for WooCommerce.
 
 == Description ==
 
-The perfect Search Engine for your [WooCommerce](http://wordpress.org/plugins/woocommerce) store helps your customers to find and buy the right products quickly.
+The perfect Search Engine for your [WooCommerce](https://wordpress.org/plugins/woocommerce/) store helps your customers to find and buy the right products quickly.
 
 == Installation ==
 
@@ -22,7 +22,7 @@ The perfect Search Engine for your [WooCommerce](http://wordpress.org/plugins/wo
 
 = Where is the documentation? =
 
-Please go to the [Documentation](http://docs.woocommerce.com/document/woocommerce-product-search/) page.
+Please go to the [Documentation](https://docs.woocommerce.com/document/woocommerce-product-search/) page.
 
 = I have a question, where do I ask? =
 
@@ -32,7 +32,7 @@ You can also leave a comment at the author's [WooCommerce Product Search](http:/
 
 == Screenshots ==
 
-Please visit the [documentation](http://docs.woocommerce.com/document/woocommerce-product-search/) page.
+Please visit the [documentation](https://docs.woocommerce.com/document/woocommerce-product-search/) page.
 
 == Changelog ==
 
@@ -40,17 +40,14 @@ Please refer to the changelog.txt included in the plugin's root folder.
 
 == Upgrade Notice ==
 
-Version 2.x of the WooCommerce Product Search extension is a major update for WooCommerce 3.x.
+Version 3.x of the WooCommerce Product Search extension is a new major update with exciting improvements.
 
-While maintaining compatibility with WooCommerce 2.6, we recommend to use this extension with WooCommerce 3.x to be able to take advantage of all the latest improvements.
+It includes major improvements aimed at further optimizing our search engine's performance and enhancing its search and filtering features. Also see the changelog.txt for details.
 
-This includes:
+This release requires at least WooCommerce 3.0 and WordPress 5.0.
 
-- a completely new search engine which uses a very fast and automated search index
-- search statistics that can help to fine-tune your shop based on what your customer are looking for
-- live product filters that allow your customers to find the right product quickly
-- a highly improved live search field with automated replacemenet where available
+The system needs to reindex all products in the store with this update. Please note that for stores with a large number of products, this process will take some time and certain filter combinations will produce less results until all products are reindexed.
 
-... and many more improvements.
+Make a full site backup, including your site's files and dabatase before you upgrade.
 
-Also see the changelog.txt for details.
+If you are going to update WooCommerce or WordPress, it is recommendable to also update your theme and extensions, and [review update best practices](https://docs.woocommerce.com/document/how-to-update-your-site) before upgrading.
